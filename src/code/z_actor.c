@@ -1,11 +1,64 @@
+#define INTERNAL_SRC_CODE_Z_ACTOR_C
 #include "global.h"
 #include "vt.h"
+#include "z64global.h"
+#include "sfx.h"
+#include "n64fault.h"
+#include "z64save.h"
+#include "z64item.h"
+#include "z64actor.h"
 
 #include "overlays/actors/ovl_Arms_Hook/z_arms_hook.h"
 #include "overlays/actors/ovl_En_Part/z_en_part.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
 #include "objects/object_bdoor/object_bdoor.h"
+
+#include "quake.h"
+#include "def/code_800430A0.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FC620.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/fault.h"
+#include "def/fault_drawer.h"
+#include "def/graph.h"
+#include "def/lookathil.h"
+#include "def/sinf.h"
+#include "def/sys_math.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/xprintf.h"
+#include "def/z_actor.h"
+#include "def/z_actor_dlftbls.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_camera_data.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_eff_ss_dead.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_horse.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_malloc.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
 
 static CollisionPoly* sCurCeilingPoly;
 static s32 sCurCeilingBgId;
@@ -673,7 +726,7 @@ void TitleCard_InitBossName(GlobalContext* globalCtx, TitleCardContext* titleCtx
 void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s32 x, s32 y,
                              s32 width, s32 height, s32 delay) {
     SceneTableEntry* loadedScene = globalCtx->loadedScene;
-    u32 size = loadedScene->titleFile.vromEnd - loadedScene->titleFile.vromStart;
+    size_t size = POINTER_SUB(loadedScene->titleFile.vromEnd, loadedScene->titleFile.vromStart);
 
     if ((size != 0) && (size <= 0x3000)) {
         DmaMgr_SendRequest1(texture, loadedScene->titleFile.vromStart, size, "../z_actor.c", 2765);
@@ -795,7 +848,7 @@ void Actor_SetScale(Actor* actor, f32 scale) {
 }
 
 void Actor_SetObjectDependency(GlobalContext* globalCtx, Actor* actor) {
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[actor->objBankIndex].segment);
+    gSegments[6] = gObjectTable[actor->objBankIndex].vromStart;
 }
 
 void Actor_Init(Actor* actor, GlobalContext* globalCtx) {
@@ -1958,6 +2011,7 @@ void func_800304DC(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry*
     bzero(actorCtx, sizeof(*actorCtx));
 
     ActorOverlayTable_Init();
+    MtxF* tmp = &globalCtx->billboardMtxF;
     Matrix_MtxFCopy(&globalCtx->billboardMtxF, &gMtxFClear);
     Matrix_MtxFCopy(&globalCtx->viewProjectionMtxF, &gMtxFClear);
 
@@ -2177,8 +2231,8 @@ void Actor_Draw(GlobalContext* globalCtx, Actor* actor) {
     Matrix_Scale(actor->scale.x, actor->scale.y, actor->scale.z, MTXMODE_APPLY);
     Actor_SetObjectDependency(globalCtx, actor);
 
-    gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[actor->objBankIndex].segment);
-    gSPSegment(POLY_XLU_DISP++, 0x06, globalCtx->objectCtx.status[actor->objBankIndex].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[actor->objBankIndex].vromStart);
+    gSPSegment(POLY_XLU_DISP++, 0x06, gObjectTable[actor->objBankIndex].vromStart);
 
     if (actor->colorFilterTimer != 0) {
         Color_RGBA8 color = { 0, 0, 0, 255 };
@@ -2438,18 +2492,6 @@ void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx) {
 }
 
 void func_80031A28(GlobalContext* globalCtx, ActorContext* actorCtx) {
-    Actor* actor;
-    s32 i;
-
-    for (i = 0; i < ARRAY_COUNT(actorCtx->actorLists); i++) {
-        actor = actorCtx->actorLists[i].head;
-        while (actor != NULL) {
-            if (!Object_IsLoaded(&globalCtx->objectCtx, actor->objBankIndex)) {
-                Actor_Kill(actor);
-            }
-            actor = actor->next;
-        }
-    }
 }
 
 u8 sEnemyActorCategories[] = { ACTORCAT_ENEMY, ACTORCAT_BOSS };
@@ -2618,15 +2660,13 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
     ActorInit* actorInit;
     s32 objBankIndex;
     ActorOverlay* overlayEntry;
-    u32 temp;
+    uintptr_t temp;
     char* name;
-    u32 overlaySize;
 
     overlayEntry = &gActorOverlayTable[actorId];
     ASSERT(actorId < ACTOR_ID_MAX, "profile < ACTOR_DLF_MAX", "../z_actor.c", 6883);
 
     name = overlayEntry->name != NULL ? overlayEntry->name : "";
-    overlaySize = (u32)overlayEntry->vramEnd - (u32)overlayEntry->vramStart;
 
     if (HREG(20) != 0) {
         // "Actor class addition [%d:%s]"
@@ -2652,7 +2692,6 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
             }
         } else {
             if (overlayEntry->allocType & ALLOCTYPE_ABSOLUTE) {
-                ASSERT(overlaySize <= AM_FIELD_SIZE, "actor_segsize <= AM_FIELD_SIZE", "../z_actor.c", 6934);
 
                 if (actorCtx->absoluteSpace == NULL) {
                     // "AMF: absolute magic field"
@@ -2662,12 +2701,12 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
                         osSyncPrintf("絶対魔法領域確保 %d バイト確保\n", AM_FIELD_SIZE);
                     }
                 }
-
+                osSyncPrintf("loadedRamAddr = absolute space\n");
                 overlayEntry->loadedRamAddr = actorCtx->absoluteSpace;
             } else if (overlayEntry->allocType & ALLOCTYPE_PERMANENT) {
-                overlayEntry->loadedRamAddr = ZeldaArena_MallocRDebug(overlaySize, name, 0);
+                overlayEntry->loadedRamAddr = 1;
             } else {
-                overlayEntry->loadedRamAddr = ZeldaArena_MallocDebug(overlaySize, name, 0);
+                overlayEntry->loadedRamAddr = 1;
             }
 
             if (overlayEntry->loadedRamAddr == NULL) {
@@ -2682,17 +2721,25 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
             osSyncPrintf(VT_FGCOL(GREEN));
             osSyncPrintf("OVL(a):Seg:%08x-%08x Ram:%08x-%08x Off:%08x %s\n", overlayEntry->vramStart,
                          overlayEntry->vramEnd, overlayEntry->loadedRamAddr,
-                         (u32)overlayEntry->loadedRamAddr + (u32)overlayEntry->vramEnd - (u32)overlayEntry->vramStart,
-                         (u32)overlayEntry->vramStart - (u32)overlayEntry->loadedRamAddr, name);
+                         (uintptr_t)overlayEntry->loadedRamAddr + (uintptr_t)overlayEntry->vramEnd - (uintptr_t)overlayEntry->vramStart,
+                         (uintptr_t)overlayEntry->vramStart - (uintptr_t)overlayEntry->loadedRamAddr, name);
             osSyncPrintf(VT_RST);
 
             overlayEntry->numLoaded = 0;
         }
 
-        actorInit = (void*)(u32)((overlayEntry->initInfo != NULL)
+        if(overlayEntry->initInfo != NULL)
+        {
+            actorInit = overlayEntry->initInfo;
+        }
+        else {
+            actorInit = NULL;
+        }
+
+        /*actorInit = (void*)(u32)((overlayEntry->initInfo != NULL)
                                      ? (void*)((u32)overlayEntry->initInfo -
                                                (s32)((u32)overlayEntry->vramStart - (u32)overlayEntry->loadedRamAddr))
-                                     : NULL);
+                                     : NULL);*/
     }
 
     objBankIndex = Object_GetIndex(&globalCtx->objectCtx, actorInit->objectId);

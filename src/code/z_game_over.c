@@ -1,4 +1,16 @@
+#define INTERNAL_SRC_CODE_Z_GAME_OVER_C
 #include "global.h"
+#include "z64global.h"
+#include "z64save.h"
+#include "z64item.h"
+#include "sequence.h"
+#include "def/code_800A9F30.h"
+#include "def/shrink_window.h"
+#include "def/z_common_data.h"
+#include "def/z_game_over.h"
+#include "def/z_kankyo.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
 
 void GameOver_Init(GlobalContext* globalCtx) {
     globalCtx->gameOverCtx.state = GAMEOVER_INACTIVE;

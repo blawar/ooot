@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_KEKKAI_Z_DEMO_KEKKAI_C
+#include "actor_common.h"
 /**
  * File: z_demo_kekkai.c
  * Overlay: ovl_Demo_Kekkai
@@ -7,6 +9,14 @@
 #include "z_demo_kekkai.h"
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
 #include "scenes/dungeons/ganontika/ganontika_scene.h"
+#include "def/code_800EC960.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

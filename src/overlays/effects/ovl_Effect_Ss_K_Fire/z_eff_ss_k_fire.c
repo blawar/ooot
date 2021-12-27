@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_K_FIRE_Z_EFF_SS_K_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_k_fire.c
  * Overlay: ovl_Effect_Ss_K_Fire
@@ -6,6 +8,9 @@
 
 #include "z_eff_ss_k_fire.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_rcp.h"
 
 #define rAlpha regs[0]
 #define rScroll regs[2]

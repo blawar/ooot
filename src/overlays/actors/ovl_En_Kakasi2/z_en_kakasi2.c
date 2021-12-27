@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_KAKASI2_Z_EN_KAKASI2_C
+#include "actor_common.h"
 /*
  * File: z_en_kakasi2.c
  * Overlay: ovl_En_Kakasi2
@@ -7,6 +9,13 @@
 #include "z_en_kakasi2.h"
 #include "vt.h"
 #include "objects/object_ka/object_ka.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
@@ -213,27 +222,6 @@ void EnKakasi2_Update(Actor* thisx, GlobalContext* globalCtx2) {
         Collider_UpdateCylinder(&this->actor, &this->collider);
         CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &this->collider.base);
         CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &this->collider.base);
-    }
-    if (BREG(0) != 0) {
-        if (BREG(5) != 0) {
-            osSyncPrintf(VT_FGCOL(YELLOW) "☆☆☆☆☆ this->actor.player_distance ☆☆☆☆☆ %f\n" VT_RST,
-                         this->actor.xzDistToPlayer);
-            osSyncPrintf(VT_FGCOL(YELLOW) "☆☆☆☆☆ this->hosei.x ☆☆☆☆☆ %f\n" VT_RST, this->maxSpawnDistance.x);
-            osSyncPrintf("\n\n");
-        }
-        if (this->actor.draw == NULL) {
-            if (this->unk_194 != 0) {
-                if ((this->unk_194 % 2) == 0) {
-                    DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                           this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z,
-                                           1.0f, 1.0f, 1.0f, 70, 70, 70, 255, 4, globalCtx->state.gfxCtx);
-                }
-            } else {
-                DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 0, 255, 255, 255, 4, globalCtx->state.gfxCtx);
-            }
-        }
     }
 }
 

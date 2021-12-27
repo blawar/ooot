@@ -1,5 +1,8 @@
+#define INTERNAL_SRC_CODE_AUDIO_SOUND_PARAMS_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "def/audio_sound_params.h"
 
 SoundParams sEnemyBankParams[] = {
     { 0x18, 0x0 },    { 0x30, 0x0 },    { 0x30, 0x0 },    { 0x38, 0x1 },    { 0x40, 0x1 },    { 0x30, 0x3 },

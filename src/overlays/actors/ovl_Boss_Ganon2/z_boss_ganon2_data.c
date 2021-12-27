@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "z_boss_ganon2.h"
 #include "overlays/actors/ovl_En_Zl3/z_en_zl3.h"
 #include "objects/object_ganon2/object_ganon2.h"

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT17_FUNEN_Z_BG_SPOT17_FUNEN_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot17_funen
  * Overlay: ovl_Bg_Spot17_Funen
@@ -6,6 +8,10 @@
 
 #include "z_bg_spot17_funen.h"
 #include "objects/object_spot17_obj/object_spot17_obj.h"
+#include "def/sys_matrix.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

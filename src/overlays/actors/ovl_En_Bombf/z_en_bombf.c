@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BOMBF_Z_EN_BOMBF_C
+#include "actor_common.h"
 /*
  * File: z_en_bombf.c
  * Overlay: ovl_En_Bombf
@@ -7,6 +9,16 @@
 #include "z_en_bombf.h"
 #include "objects/object_bombf/object_bombf.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
+#include "def/code_800A9F30.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_G_SPLASH_Z_EFF_SS_G_SPLASH_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_g_splash.c
  * Overlay: ovl_Effect_Ss_G_Splash
@@ -6,6 +8,7 @@
 
 #include "z_eff_ss_g_splash.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/z_effect_soft_sprite_old_init.h"
 
 //! @bug the reuse of regs[11] means that EffectSs_DrawGEffect will treat the type as an object bank index
 // this ends up having no effect because the texture provided does not use segment 6

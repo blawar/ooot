@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MIZU_UZU_Z_BG_MIZU_UZU_C
+#include "actor_common.h"
 /*
  * File: z_bg_mizu_uzu.c
  * Overlay: ovl_Bg_Mizu_Uzu
@@ -6,6 +8,10 @@
 
 #include "z_bg_mizu_uzu.h"
 #include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

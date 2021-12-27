@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FHG_FIRE_Z_EN_FHG_FIRE_C
+#include "actor_common.h"
+#include "z_kankyo.h"
 /*
  * File: z_en_fhg_fire.c
  * Overlay: ovl_En_Fhg_Fire
@@ -10,6 +13,20 @@
 #include "overlays/actors/ovl_Boss_Ganondrof/z_boss_ganondrof.h"
 #include "overlays/actors/ovl_En_fHG/z_en_fhg.h"
 #include "overlays/effects/ovl_Effect_Ss_Fhg_Flash/z_eff_ss_fhg_flash.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

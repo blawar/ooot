@@ -1,5 +1,12 @@
+#define INTERNAL_SRC_LIBULTRA_IO_PFSDELETEFILE_C
 #include "ultra64/pfs.h"
 #include "global.h"
+#include "def/contpfs.h"
+#include "def/contramread.h"
+#include "def/contramwrite.h"
+#include "def/pfsdeletefile.h"
+#include "def/pfsfindfile.h"
+#include "def/pfsselectbank.h"
 
 s32 osPfsDeleteFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName) {
     s32 file_no;

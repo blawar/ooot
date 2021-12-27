@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_BLOCKSTOP_Z_OBJ_BLOCKSTOP_C
+#include "actor_common.h"
 /*
  * File: z_obj_blockstop.c
  * Overlay: ovl_Obj_Blockstop
@@ -6,6 +8,9 @@
 
 #include "z_obj_blockstop.h"
 #include "overlays/actors/ovl_Obj_Oshihiki/z_obj_oshihiki.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

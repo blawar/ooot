@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GM_Z_EN_GM_C
+#include "actor_common.h"
 /*
  * File: z_en_gm.c
  * Overlay: ovl_En_Gm
@@ -8,6 +10,17 @@
 #include "objects/object_oF1d_map/object_oF1d_map.h"
 #include "objects/object_gm/object_gm.h"
 #include "vt.h"
+#include "def/code_80097A00.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -105,7 +118,7 @@ void func_80A3D838(EnGm* this, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, this->objGmBankIndex)) {
         this->actor.flags &= ~ACTOR_FLAG_4;
         SkelAnime_InitFlex(globalCtx, &this->skelAnime, &gGoronSkel, NULL, this->jointTable, this->morphTable, 18);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objGmBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objGmBankIndex].vromStart);
         Animation_Change(&this->skelAnime, &object_gm_Anim_0002B8, 1.0f, 0.0f,
                          Animation_GetLastFrame(&object_gm_Anim_0002B8), ANIMMODE_LOOP, 0.0f);
         this->actor.draw = EnGm_Draw;
@@ -271,7 +284,7 @@ void func_80A3DF60(EnGm* this, GlobalContext* globalCtx) {
 }
 
 void func_80A3DFBC(EnGm* this, GlobalContext* globalCtx) {
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objGmBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objGmBankIndex].vromStart);
     this->timer++;
     this->actionFunc(this, globalCtx);
     this->actor.focus.rot.x = this->actor.world.rot.x;

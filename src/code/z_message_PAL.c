@@ -1,7 +1,47 @@
+#define INTERNAL_SRC_CODE_Z_MESSAGE_PAL_C
+#include "z64audio.h"
 #include "global.h"
+#include "segment_symbols.h"
+#include "regs.h"
 #include "message_data_static.h"
 #include "vt.h"
+#include "gfx.h"
+#include "z64message.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "textures/icon_item_static/icon_item_static.h"
+#include "textures/icon_item_24_static/icon_item_24_static.h"
+#include "textures/message_texture_static/message_texture_static.h"
+#include "textures/message_static/message_static.h"
+#include "z_message_PAL_assets.h"
+#include "unk.h"
+#include "z64actor.h"
+#include "z64save.h"
+#include "z64item.h"
+#include "z64global.h"
+#include "sfx.h"
+#include <string.h>
+
+#include "z64message.h"
+#include "sequence.h"
+#include "z64player.h"
+#include "def/code_80069420.h"
+#include "def/code_80097A00.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/gfxprint.h"
+#include "def/graph.h"
+#include "def/xprintf.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kanfont.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
+
+#define MSG_GET_POINTER(a, b) b
+#define MSG_GET_OFFSET(a, b) a
 
 s16 sTextFade = false; // original name: key_off_flag ?
 
@@ -303,8 +343,9 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
                 font->charTexBuf[0] = messageTableEntry->typePos;
                 messageTableEntry++;
                 nextSeg = messageTableEntry->segment;
-                font->msgOffset = foundSeg - seg;
-                font->msgLength = nextSeg - foundSeg;
+                font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
+                //font->msgLength = nextSeg - foundSeg;
+                font->msgLength = strlen(foundSeg);
                 // "Message found!!!"
                 osSyncPrintf(" メッセージが,見つかった！！！ = %x  "
                              "(data=%x) (data0=%x) (data1=%x) (data2=%x) (data3=%x)\n",
@@ -326,7 +367,7 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
                 font->charTexBuf[0] = messageTableEntry->typePos;
                 languageSegmentTable++;
                 nextSeg = *languageSegmentTable;
-                font->msgOffset = foundSeg - seg;
+                font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
                 font->msgLength = nextSeg - foundSeg;
                 // "Message found!!!"
                 osSyncPrintf(" メッセージが,見つかった！！！ = %x  "
@@ -356,7 +397,7 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
         languageSegmentTable++;
         nextSeg = *languageSegmentTable;
     }
-    font->msgOffset = foundSeg - seg;
+    font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
     font->msgLength = nextSeg - foundSeg;
 }
 
@@ -376,7 +417,7 @@ void Message_FindCreditsMessage(GlobalContext* globalCtx, u16 textId) {
             font->charTexBuf[0] = messageTableEntry->typePos;
             messageTableEntry++;
             nextSeg = messageTableEntry->segment;
-            font->msgOffset = foundSeg - seg;
+            font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
             font->msgLength = nextSeg - foundSeg;
             // "Message found!!!"
             osSyncPrintf(" メッセージが,見つかった！！！ = %x  (data=%x) (data0=%x) (data1=%x) (data2=%x) (data3=%x)\n",
@@ -475,12 +516,12 @@ void Message_SetTextColor(MessageContext* msgCtx, u16 colorParameter) {
 
 void Message_DrawTextboxIcon(GlobalContext* globalCtx, Gfx** p, s16 x, s16 y) {
     static s16 sIconPrimColors[][3] = {
-        { 0, 200, 80 },
-        { 50, 255, 130 },
+        { 0, 80, 200 },
+        { 50, 130, 255 },
     };
     static s16 sIconEnvColors[][3] = {
         { 0, 0, 0 },
-        { 0, 255, 130 },
+        { 0, 130, 255 },
     };
     static s16 sIconPrimR = 0;
     static s16 sIconPrimG = 200;
@@ -747,11 +788,11 @@ u16 Message_DrawItemIcon(GlobalContext* globalCtx, u16 itemId, Gfx** p, u16 i) {
     gDPSetPrimColor(gfx++, 0, 0, 255, 255, 255, msgCtx->textColorAlpha);
 
     if (itemId >= ITEM_MEDALLION_FOREST) {
-        gDPLoadTextureBlock(gfx++, (u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE, G_IM_FMT_RGBA, G_IM_SIZ_32b,
+        gDPLoadTextureBlock(gfx++, (uintptr_t)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE, G_IM_FMT_RGBA, G_IM_SIZ_32b,
                             24, 24, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                             G_TX_NOLOD, G_TX_NOLOD);
     } else {
-        gDPLoadTextureBlock(gfx++, (u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE, G_IM_FMT_RGBA, G_IM_SIZ_32b,
+        gDPLoadTextureBlock(gfx++, (uintptr_t)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE, G_IM_FMT_RGBA, G_IM_SIZ_32b,
                             32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                             G_TX_NOLOD, G_TX_NOLOD);
     }
@@ -995,7 +1036,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                                 sTextboxBackgroundBackPrimColors[msgCtx->textboxBackgroundBackColorIdx][2],
                                 msgCtx->textColorAlpha);
 
-                gDPLoadTextureBlock_4b(gfx++, (u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE, G_IM_FMT_I, 96, 48,
+                gDPLoadTextureBlock_4b(gfx++, (uintptr_t)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE, G_IM_FMT_I, 96, 48,
                                        0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                                        G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
                 gSPTextureRectangle(
@@ -1005,7 +1046,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                     (R_TEXTBOX_BG_YPOS + sTextboxBackgroundYOffsets[msgCtx->textboxBackgroundYOffsetIdx] + 48) << 2,
                     G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 
-                gDPLoadTextureBlock_4b(gfx++, (u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE + 0x900, G_IM_FMT_I,
+                gDPLoadTextureBlock_4b(gfx++, (uintptr_t)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE + 0x900, G_IM_FMT_I,
                                        96, 48, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                                        G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
                 gSPTextureRectangle(
@@ -1021,13 +1062,13 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                                 sTextboxBackgroundForePrimColors[msgCtx->textboxBackgroundForeColorIdx][2],
                                 msgCtx->textColorAlpha);
 
-                gDPLoadTextureBlock_4b(gfx++, ((u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE), G_IM_FMT_I, 96,
+                gDPLoadTextureBlock_4b(gfx++, ((uintptr_t)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE), G_IM_FMT_I, 96,
                                        48, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                                        G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
                 gSPTextureRectangle(gfx++, msgCtx->textPosX << 2, R_TEXTBOX_BG_YPOS << 2, (msgCtx->textPosX + 96) << 2,
                                     (R_TEXTBOX_BG_YPOS + 48) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 
-                gDPLoadTextureBlock_4b(gfx++, ((u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE + 0x900),
+                gDPLoadTextureBlock_4b(gfx++, ((uintptr_t)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE + 0x900),
                                        G_IM_FMT_I, 96, 48, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
                                        G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
                 gSPTextureRectangle(gfx++, (msgCtx->textPosX + 96) << 2, R_TEXTBOX_BG_YPOS << 2,
@@ -1149,8 +1190,8 @@ void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y) {
         R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - sIconItem32XOffsets[gSaveContext.language];
         R_TEXTBOX_ICON_YPOS = y + 6;
         R_TEXTBOX_ICON_SIZE = 32;
-        DmaMgr_SendRequest1((u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE,
-                            (u32)_icon_item_staticSegmentRomStart + (itemId * 0x1000), 0x1000, "../z_message_PAL.c",
+        DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE),
+                            icon_item_static_lut[itemId], 0x1000, "../z_message_PAL.c",
                             1473);
         // "Item 32-0"
         osSyncPrintf("アイテム32-0\n");
@@ -1158,8 +1199,8 @@ void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y) {
         R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - sIconItem24XOffsets[gSaveContext.language];
         R_TEXTBOX_ICON_YPOS = y + 10;
         R_TEXTBOX_ICON_SIZE = 24;
-        DmaMgr_SendRequest1((u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE,
-                            (u32)_icon_item_24_staticSegmentRomStart + (itemId - ITEM_MEDALLION_FOREST) * 0x900, 0x900,
+        DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE),
+                            icon_item_24_static_lut[itemId - ITEM_MEDALLION_FOREST], 0x900,
                             "../z_message_PAL.c", 1482);
         // "Item 24"
         osSyncPrintf("アイテム24＝%d (%d) {%d}\n", itemId, itemId - ITEM_KOKIRI_EMERALD, 84);
@@ -1517,13 +1558,12 @@ void Message_Decode(GlobalContext* globalCtx) {
             msgCtx->textboxBackgroundBackColorIdx = font->msgBuf[msgCtx->msgBufPos + 2] & 0xF;
             msgCtx->textboxBackgroundYOffsetIdx = (font->msgBuf[msgCtx->msgBufPos + 3] & 0xF0) >> 4;
             msgCtx->textboxBackgroundUnkArg = font->msgBuf[msgCtx->msgBufPos + 3] & 0xF;
-            DmaMgr_SendRequest1((u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE,
-                                (u32)_message_texture_staticSegmentRomStart + msgCtx->textboxBackgroundIdx * 0x900,
-                                0x900, "../z_message_PAL.c", 1830);
-            DmaMgr_SendRequest1((u32)msgCtx->textboxSegment + MESSAGE_STATIC_TEX_SIZE + 0x900,
-                                (u32)_message_texture_staticSegmentRomStart +
-                                    (msgCtx->textboxBackgroundIdx + 1) * 0x900,
-                                0x900, "../z_message_PAL.c", 1834);
+            DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE),
+                                message_texture_static_lut[msgCtx->textboxBackgroundIdx],
+                                0x900, "../z_message_PAL.c", 1830); // TODO FIX seems out of bounds?  lut only has two elements
+            DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE + 0x900),
+                                message_texture_static_lut[msgCtx->textboxBackgroundIdx + 1],
+                                0x900, "../z_message_PAL.c", 1834); // TODO FIX seems out of bounds?  lut only has two elements
             msgCtx->msgBufPos += 3;
             R_TEXTBOX_BG_YPOS = R_TEXTBOX_Y + 8;
             numLines = 2;
@@ -1618,23 +1658,23 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId) {
     if (sTextIsCredits) {
         Message_FindCreditsMessage(globalCtx, textId);
         msgCtx->msgLength = font->msgLength;
-        DmaMgr_SendRequest1(font->msgBuf, (u32)(_staff_message_data_staticSegmentRomStart + font->msgOffset),
+        DmaMgr_SendRequest1(font->msgBuf, MSG_GET_POINTER(staff_message_data_static, font->msgOffset),
                             font->msgLength, "../z_message_PAL.c", 1954);
     } else {
         if (gSaveContext.language == LANGUAGE_ENG) {
             Message_FindMessage(globalCtx, textId);
             msgCtx->msgLength = font->msgLength;
-            DmaMgr_SendRequest1(font->msgBuf, (u32)(_nes_message_data_staticSegmentRomStart + font->msgOffset),
+            DmaMgr_SendRequest1(font->msgBuf, MSG_GET_POINTER(nes_message_data_static, font->msgOffset),
                                 font->msgLength, "../z_message_PAL.c", 1966);
         } else if (gSaveContext.language == LANGUAGE_GER) {
             Message_FindMessage(globalCtx, textId);
             msgCtx->msgLength = font->msgLength;
-            DmaMgr_SendRequest1(font->msgBuf, (u32)(_ger_message_data_staticSegmentRomStart + font->msgOffset),
+            DmaMgr_SendRequest1(font->msgBuf, MSG_GET_POINTER(ger_message_data_static, font->msgOffset),
                                 font->msgLength, "../z_message_PAL.c", 1978);
         } else {
             Message_FindMessage(globalCtx, textId);
             msgCtx->msgLength = font->msgLength;
-            DmaMgr_SendRequest1(font->msgBuf, (u32)(_fra_message_data_staticSegmentRomStart + font->msgOffset),
+            DmaMgr_SendRequest1(font->msgBuf, MSG_GET_POINTER(fra_message_data_static, font->msgOffset),
                                 font->msgLength, "../z_message_PAL.c", 1990);
         }
     }
@@ -1647,7 +1687,7 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId) {
     if (textBoxType < TEXTBOX_TYPE_NONE_BOTTOM) {
         DmaMgr_SendRequest1(
             msgCtx->textboxSegment,
-            (u32)(_message_staticSegmentRomStart + (messageStaticIndices[textBoxType] * MESSAGE_STATIC_TEX_SIZE)),
+            message_static_lut[messageStaticIndices[textBoxType]],
             MESSAGE_STATIC_TEX_SIZE, "../z_message_PAL.c", 2006);
         if (textBoxType == TEXTBOX_TYPE_BLACK) {
             msgCtx->textboxColorRed = 0;
@@ -1952,12 +1992,12 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p) {
         gOcarinaATex, gOcarinaCDownTex, gOcarinaCRightTex, gOcarinaCLeftTex, gOcarinaCUpTex,
     };
     static s16 sOcarinaNoteAPrimColors[][3] = {
-        { 80, 255, 150 },
+        { 80, 150, 255 },
         { 100, 255, 200 },
     };
     static s16 sOcarinaNoteAEnvColors[][3] = {
         { 10, 10, 10 },
-        { 50, 255, 50 },
+        { 50, 50, 255 },
     };
     static s16 sOcarinaNoteCPrimColors[][3] = {
         { 255, 255, 50 },
@@ -2486,6 +2526,9 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p) {
             case MSGMODE_DISPLAY_SONG_PLAYED:
             case MSGMODE_SONG_DEMONSTRATION:
                 msgCtx->ocarinaStaff = Audio_OcaGetDisplayingStaff();
+#ifndef ENABLE_AUDIO
+                msgCtx->ocarinaStaff->state = 0; // TODO FIX HACK
+#endif
                 if (msgCtx->ocarinaStaff->state == 0) {
                     if (msgCtx->msgMode == MSGMODE_DISPLAY_SONG_PLAYED) {
                         msgCtx->msgMode = MSGMODE_DISPLAY_SONG_PLAYED_TEXT_BEGIN;
@@ -3011,7 +3054,7 @@ void Message_Update(GlobalContext* globalCtx) {
     Input* input = &globalCtx->state.input[0];
     s16 var;
     s16 focusScreenPosX;
-    s16 averageY;
+    s16 averageY = 0;
     s16 playerFocusScreenPosY;
     s16 actorFocusScreenPosY;
 

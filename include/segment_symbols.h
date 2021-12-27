@@ -4,16 +4,16 @@
 #include "z64.h"
 
 #define DECLARE_SEGMENT(name)          \
-    extern u8 _##name##SegmentStart[]; \
-    extern u8 _##name##SegmentEnd[];
+    static u8 _##name##SegmentStart[1]; \
+    static u8 _##name##SegmentEnd[1];
 
 #define DECLARE_ROM_SEGMENT(name)         \
-    extern u8 _##name##SegmentRomStart[]; \
-    extern u8 _##name##SegmentRomEnd[];
+    static u8 _##name##SegmentRomStart[1]; \
+    static u8 _##name##SegmentRomEnd[1];
 
 #define DECLARE_BSS_SEGMENT(name)         \
-    extern u8 _##name##SegmentBssStart[]; \
-    extern u8 _##name##SegmentBssEnd[];
+    static u8 _##name##SegmentBssStart[1]; \
+    static u8 _##name##SegmentBssEnd[1];
 
 #define DECLARE_OVERLAY_SEGMENT(name) \
     DECLARE_SEGMENT(ovl_##name)       \
@@ -29,8 +29,10 @@ DECLARE_ROM_SEGMENT(Audiobank)
 DECLARE_ROM_SEGMENT(Audioseq)
 DECLARE_ROM_SEGMENT(Audiotable)
 
+/*
 DECLARE_SEGMENT(link_animetion)
 DECLARE_ROM_SEGMENT(link_animetion)
+
 
 DECLARE_ROM_SEGMENT(icon_item_static)
 DECLARE_ROM_SEGMENT(icon_item_24_static)
@@ -46,7 +48,8 @@ DECLARE_ROM_SEGMENT(do_action_static)
 DECLARE_ROM_SEGMENT(message_static)
 DECLARE_ROM_SEGMENT(message_texture_static)
 DECLARE_ROM_SEGMENT(nes_font_static)
-
+*/
+/*
 DECLARE_SEGMENT(nes_message_data_static)
 DECLARE_ROM_SEGMENT(nes_message_data_static)
 DECLARE_SEGMENT(ger_message_data_static)
@@ -55,10 +58,12 @@ DECLARE_SEGMENT(fra_message_data_static)
 DECLARE_ROM_SEGMENT(fra_message_data_static)
 DECLARE_SEGMENT(staff_message_data_static)
 DECLARE_ROM_SEGMENT(staff_message_data_static)
-
+*/
+/*
 DECLARE_ROM_SEGMENT(map_grand_static)
 DECLARE_ROM_SEGMENT(map_i_static)
 DECLARE_ROM_SEGMENT(map_48x85_static)
+*/
 
 DECLARE_SEGMENT(code)
 DECLARE_ROM_SEGMENT(code)
@@ -72,6 +77,7 @@ DECLARE_OVERLAY_SEGMENT(kaleido_scope)
 DECLARE_OVERLAY_SEGMENT(player_actor)
 DECLARE_OVERLAY_SEGMENT(map_mark_data)
 
+/*
 DECLARE_ROM_SEGMENT(g_pn_01)
 DECLARE_ROM_SEGMENT(g_pn_02)
 DECLARE_ROM_SEGMENT(g_pn_03)
@@ -129,9 +135,9 @@ DECLARE_ROM_SEGMENT(g_pn_54)
 DECLARE_ROM_SEGMENT(g_pn_55)
 DECLARE_ROM_SEGMENT(g_pn_56)
 DECLARE_ROM_SEGMENT(g_pn_57)
-
+*/
 DECLARE_ROM_SEGMENT(z_select_static)
-DECLARE_ROM_SEGMENT(nintendo_rogo_static)
+/*DECLARE_ROM_SEGMENT(nintendo_rogo_static)
 DECLARE_ROM_SEGMENT(title_static)
 DECLARE_ROM_SEGMENT(parameter_static)
 DECLARE_ROM_SEGMENT(vr_fine0_static)
@@ -200,7 +206,9 @@ DECLARE_ROM_SEGMENT(vr_FCVR_static)
 DECLARE_ROM_SEGMENT(vr_FCVR_pal_static)
 DECLARE_ROM_SEGMENT(elf_message_field)
 DECLARE_ROM_SEGMENT(elf_message_ydan)
+*/
 
+/*
 // SCENES AND ROOMS
 DECLARE_ROM_SEGMENT(ydan_scene)
 DECLARE_ROM_SEGMENT(ydan_room_0)
@@ -822,6 +830,6 @@ DECLARE_ROM_SEGMENT(testroom_room_1)
 DECLARE_ROM_SEGMENT(testroom_room_2)
 DECLARE_ROM_SEGMENT(testroom_room_3)
 DECLARE_ROM_SEGMENT(testroom_room_4)
-
+*/
 
 #endif

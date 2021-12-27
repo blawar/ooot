@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "z_demo_sa.h"
 #include "z64cutscene_commands.h"
 

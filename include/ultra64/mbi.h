@@ -1,5 +1,4 @@
-#ifndef ULTRA64_MBI_H
-#define ULTRA64_MBI_H
+#pragma once
 
 /*
  * Header file for the Media Binary Interface
@@ -40,4 +39,3 @@
 #define SEGMENT_NUMBER(a)   (((u32)(a) << 4) >> 28)
 #define SEGMENT_ADDR(num, off)  (((num) << 24) + (off))
 
-#endif

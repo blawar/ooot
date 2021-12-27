@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_YDAN_HASI_Z_BG_YDAN_HASI_C
+#include "actor_common.h"
 /*
  * File: z_bg_ydan_hasi.c
  * Overlay: ovl_Bg_Ydan_Hasi
@@ -6,6 +8,15 @@
 
 #include "z_bg_ydan_hasi.h"
 #include "objects/object_ydan_objects/object_ydan_objects.h"
+#include "def/code_80043480.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

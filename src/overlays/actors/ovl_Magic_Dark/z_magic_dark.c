@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_MAGIC_DARK_Z_MAGIC_DARK_C
+#include "actor_common.h"
 /*
  * File: z_magic_dark.c
  * Overlay: ovl_Magic_Dark
@@ -6,6 +8,13 @@
 
 #include "z_magic_dark.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 

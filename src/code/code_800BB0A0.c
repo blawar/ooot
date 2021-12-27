@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_CODE_800BB0A0_C
 #include "global.h"
+#include "z64math.h"
+#include "z64cutscene.h"
+#include "def/code_800BB0A0.h"
 
 // The code in this file is very similar to a spline system used in Super Mario 64 for cutscene camera movement
 

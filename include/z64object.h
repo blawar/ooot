@@ -1,7 +1,4 @@
-#ifndef Z64OBJECT_H
-#define Z64OBJECT_H
-
-#define OBJECT_EXCHANGE_BANK_MAX 19
+#pragma once
 
 #define DEFINE_OBJECT(_0, enum) enum,
 #define DEFINE_OBJECT_NULL(_0, enum) enum,
@@ -16,4 +13,15 @@ typedef enum {
 #undef DEFINE_OBJECT_NULL
 #undef DEFINE_OBJECT_UNSET
 
-#endif
+typedef struct {
+    void* spaceStart;
+    void* spaceEnd; // original name: "endSegment"
+    u8 num;         // number of objects in bank
+    u8 unk_09;
+    u8 mainKeepIndex; // "gameplay_keep" index in bank
+    u8 subKeepIndex;  // "gameplay_field_keep" or "gameplay_dangeon_keep" index in bank
+    s16* objectEntry;
+} ObjectContext; // size = 0x518
+
+extern u32 gObjectTableSize;
+extern RomFile gObjectTable[OBJECT_ID_MAX];

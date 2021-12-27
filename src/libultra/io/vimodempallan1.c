@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VIMODEMPALLAN1_C
 #include "global.h"
+#include "ultra64/vi.h"
+#include "def/vimodempallan1.h"
 
 OSViMode osViModeMpalLan1 = {
     0x1E, // type

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_LIGHTBOX_Z_EN_LIGHTBOX_C
+#include "actor_common.h"
 /*
  * File: z_en_lightbox.c
  * Overlay: ovl_En_Lightbox
@@ -6,6 +8,11 @@
 
 #include "z_en_lightbox.h"
 #include "objects/object_lightbox/object_lightbox.h"
+#include "def/code_800F7260.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 

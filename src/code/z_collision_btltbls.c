@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_Z_COLLISION_BTLTBLS_C
 #include "global.h"
+#include "z64actor.h"
+#include "def/z_collision_btltbls.h"
 
 static DamageTable sDamageTablePresets[] = {
     { {

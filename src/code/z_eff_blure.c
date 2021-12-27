@@ -1,5 +1,19 @@
+#define INTERNAL_SRC_CODE_Z_EFF_BLURE_C
 #include "global.h"
+#include "z64animation.h"
+#include "z64bgcheck.h"
+#include "z64effect.h"
+#include "gfx.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FCE80.h"
+#include "def/graph.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect_soft_sprite.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 void EffectBlure_AddVertex(EffectBlure* this, Vec3f* p1, Vec3f* p2) {
     EffectBlureElement* elem;
@@ -362,7 +376,7 @@ void EffectBlure_GetComputedValues(EffectBlure* this, s32 index, f32 ratio, Vec3
             break;
     }
 
-    sp30 = sp30; // Optimized out but seems necessary to match stack usage
+    //sp30 = sp30; // Optimized out but seems necessary to match stack usage
 
     if (this->flags & 0x10) {
         color1->r = color1->g = color1->b = color1->a = 255;

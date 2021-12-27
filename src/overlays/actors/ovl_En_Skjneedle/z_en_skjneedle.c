@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SKJNEEDLE_Z_EN_SKJNEEDLE_C
+#include "actor_common.h"
 /*
  * File: z_en_skjneedle.c
  * Overlay: ovl_En_Skjneedle
@@ -6,6 +8,11 @@
 
 #include "z_en_skjneedle.h"
 #include "objects/object_skj/object_skj.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_9)
 

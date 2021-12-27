@@ -1,6 +1,15 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_IK_Z_DEMO_IK_C
+#include "actor_common.h"
 #include "z_demo_ik.h"
 #include "vt.h"
 #include "objects/object_ik/object_ik.h"
+#include "def/code_800F7260.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 

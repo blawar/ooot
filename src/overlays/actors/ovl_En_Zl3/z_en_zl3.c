@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ZL3_Z_EN_ZL3_C
+#include "actor_common.h"
 /*
  * File: z_en_zl3.c
  * Overlay: ovl_En_Zl3
@@ -11,6 +13,28 @@
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "objects/object_zl2/object_zl2.h"
 #include "objects/object_zl2_anime2/object_zl2_anime2.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_en_item00.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -743,7 +767,7 @@ s32 func_80B54DD4(EnZl3* this) {
 void func_80B54DE0(EnZl3* this, GlobalContext* globalCtx) {
     s32 idx = this->unk_318;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[idx].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[idx].vromStart);
 }
 
 void func_80B54E14(EnZl3* this, AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {

@@ -1,9 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VIGETNEXTFRAMEBUF_C
 #include "global.h"
+#include "def/vigetnextframebuf.h"
 
 void* osViGetNextFramebuffer(void) {
-    u32 prevInt = __osDisableInt();
-    void* buff = __osViNext->buffer;
-
-    __osRestoreInt(prevInt);
-    return buff;
+    return NULL;
 }

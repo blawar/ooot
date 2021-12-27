@@ -1,6 +1,16 @@
+#define INTERNAL_SRC_CODE_Z_FBDEMO_WIPE1_C
 #include "global.h"
-
+#include "z64transition.h"
+#include "z64save.h"
 #include "code/fbdemo_wipe1/z_fbdemo_wipe1.c"
+#include "def/lookat.h"
+#include "def/perspective.h"
+#include "def/rotate.h"
+#include "def/scale.h"
+#include "def/translate.h"
+#include "def/z_common_data.h"
+#include "def/z_fbdemo_wipe1.h"
+#include "def/z_rcp.h"
 
 Gfx sWipeDList[] = {
     gsDPPipeSync(),
@@ -19,7 +29,7 @@ Gfx sWipeDList[] = {
                           G_TX_MIRROR | G_TX_WRAP, 6, 6, 11, 1),
     gsDPSetTextureLUT(G_TT_NONE),
     gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
-    gsSPDisplayList(0x08000000),
+    gsSPDisplayListSEG(SEGMENT_ADDRESS(0x08000000)),
     gsSPVertex(sWipe1Vtx, 25, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 4, 0),
     gsSP2Triangles(5, 6, 7, 0, 6, 8, 9, 0),

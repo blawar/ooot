@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_PADUTILS_C
 #include "global.h"
+#include "padmgr.h"
+#include "def/padutils.h"
 
 void PadUtils_Init(Input* input) {
     bzero(input, sizeof(Input));

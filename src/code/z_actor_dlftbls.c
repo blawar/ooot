@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_Z_ACTOR_DLFTBLS_C
 #include "global.h"
+#include "z64actor.h"
+#include "n64fault.h"
+#include "segment_symbols.h"
 
 // Linker symbol declarations (used in the table below)
 #define DEFINE_ACTOR(name, _1, _2) DECLARE_OVERLAY_SEGMENT(name)
@@ -17,6 +21,10 @@
 #define DEFINE_ACTOR_UNSET(_0)
 
 #include "tables/actor_table.h"
+#include "def/fault.h"
+#include "def/fault_drawer.h"
+#include "def/xprintf.h"
+#include "def/z_actor_dlftbls.h"
 
 #undef DEFINE_ACTOR
 #undef DEFINE_ACTOR_INTERNAL
@@ -24,8 +32,8 @@
 
 // Actor Overlay Table definition
 #define DEFINE_ACTOR(name, _1, allocType) \
-    { (u32)_ovl_##name##SegmentRomStart,  \
-      (u32)_ovl_##name##SegmentRomEnd,    \
+    { (uintptr_t)_ovl_##name##SegmentRomStart,  \
+      (uintptr_t)_ovl_##name##SegmentRomEnd,    \
       _ovl_##name##SegmentStart,          \
       _ovl_##name##SegmentEnd,            \
       NULL,                               \
@@ -75,10 +83,10 @@ void ActorOverlayTable_FaultPrint(void* arg0, void* arg1) {
     FaultDrawer_Printf("No. RamStart- RamEnd cn  Name\n");
 
     for (i = 0, overlayEntry = &gActorOverlayTable[0]; i < gMaxActorId; i++, overlayEntry++) {
-        overlaySize = (u32)overlayEntry->vramEnd - (u32)overlayEntry->vramStart;
+        overlaySize = (uintptr_t)overlayEntry->vramEnd - (uintptr_t)overlayEntry->vramStart;
         if (overlayEntry->loadedRamAddr != NULL) {
             FaultDrawer_Printf("%3d %08x-%08x %3d %s\n", i, overlayEntry->loadedRamAddr,
-                               (u32)overlayEntry->loadedRamAddr + overlaySize, overlayEntry->numLoaded,
+                               (uintptr_t)overlayEntry->loadedRamAddr + overlaySize, overlayEntry->numLoaded,
                                overlayEntry->name != NULL ? overlayEntry->name : "");
         }
     }

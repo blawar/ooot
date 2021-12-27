@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SI_Z_EN_SI_C
+#include "actor_common.h"
 /*
  * File: z_en_si.c
  * Overlay: En_Si
@@ -5,6 +7,14 @@
  */
 
 #include "z_en_si.h"
+#include "def/code_800EC960.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_draw.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_player_lib.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_9)
 

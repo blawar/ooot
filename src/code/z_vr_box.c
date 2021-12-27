@@ -1,6 +1,19 @@
+#define INTERNAL_SRC_CODE_Z_VR_BOX_C
 #include "global.h"
+#include "z64render.h"
 #include "vt.h"
+#include "gfx.h"
+#include "z64global.h"
+#include "z64save.h"
 #include "z64environment.h"
+#include "segment_symbols.h"
+#include "z_vr_box_assets.h"
+#include "z_kankyo.h"
+#include "def/game.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_std_dma.h"
+#include "def/z_vr_box.h"
 
 u32 D_8012AC90[4] = {
     0x00000000,
@@ -31,7 +44,7 @@ s16 D_8012AD40[0x40] = {
     0x19, 0x1A, 0x1E, 0x0A, 0x1A, 0x1B, 0x0B, 0x1E, 0x1B, 0x1C, 0x1F, 0x0B, 0x1C, 0x1D, 0x0F, 0x1F,
 };
 
-u32 D_8012ADC0[6] = {
+static u32 gTextOffsetLUT[6] = {
     0x00000000, 0x00002000, 0x00004000, 0x00006000, 0x00008000, 0x0000C000,
 };
 
@@ -178,7 +191,7 @@ s32 func_800ADBB0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
 
         for (phi_t2_4 = 0, phi_ra = 0; phi_ra < 4; phi_ra++, phi_a2_4 += 0x1F) {
             for (phi_a0_4 = 0, phi_t1 = 0; phi_t1 < 4; phi_t1++, phi_a0_4 += 0x3F, phi_t2_4 += 4) {
-                gDPLoadTextureTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[0] + D_8012AC90[arg8],
+                gDPLoadTextureTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[0], D_8012AC90[arg8]),
                                    G_IM_FMT_CI, G_IM_SIZ_8b, 256, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x3F,
                                    phi_a2_4 + 0x1F, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
                                    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -192,7 +205,7 @@ s32 func_800ADBB0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
 }
 
 s32 func_800AE2C0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
-                  s32 arg8) {
+                  s32 lut_index) {
     s32 i;
     s32 j;
     s32 k;
@@ -211,7 +224,7 @@ s32 func_800AE2C0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
     s32 sp124[5 * 5];
     s32 pad;
 
-    switch (arg8) {
+    switch (lut_index) {
         case 0:
         case 1:
             temp1 = arg4;
@@ -266,7 +279,7 @@ s32 func_800AE2C0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
             }
             break;
     }
-    skyboxCtx->unk_138 = &skyboxCtx->dListBuf[2 * arg8];
+    skyboxCtx->unk_138 = &skyboxCtx->dListBuf[2 * lut_index];
 
     for (i = 0; i < 0x20; i++) {
         index = D_8012ADD8[i];
@@ -285,15 +298,15 @@ s32 func_800AE2C0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
     arg2 += i;
     gSPCullDisplayList(skyboxCtx->unk_138++, 0, 15);
 
-    if ((arg8 == 4) || (arg8 == 5)) {
+    if ((lut_index == 4) || (lut_index == 5)) {
         phi_a2_4 = 0;
         for (phi_t2_4 = 0, phi_ra = 0; phi_ra < 4; phi_ra++, phi_a2_4 += 0x1F) {
             for (phi_a0_4 = 0, phi_t1 = 0; phi_t1 < 4; phi_t1++, phi_a0_4 += 0x1F, phi_t2_4 += 4) {
-                gDPLoadMultiTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[0] + D_8012ADC0[arg8], 0,
+                gDPLoadMultiTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[0], gTextOffsetLUT[lut_index]), 0,
                                  G_TX_RENDERTILE, G_IM_FMT_CI, G_IM_SIZ_8b, 128, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x1F,
                                  phi_a2_4 + 0x1F, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
                                  G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                gDPLoadMultiTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[1] + D_8012ADC0[arg8], 0x80, 1,
+                gDPLoadMultiTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[1], gTextOffsetLUT[lut_index]), 0x80, 1,
                                  G_IM_FMT_CI, G_IM_SIZ_8b, 128, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x1F, phi_a2_4 + 0x1F,
                                  0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
                                  G_TX_NOMASK, G_TX_NOLOD);
@@ -305,11 +318,11 @@ s32 func_800AE2C0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
         phi_a2_4 = 0;
         for (phi_t2_4 = 0, phi_ra = 0; phi_ra < 2; phi_ra++, phi_a2_4 += 0x1F) {
             for (phi_a0_4 = 0, phi_t1 = 0; phi_t1 < 4; phi_t1++, phi_a0_4 += 0x1F, phi_t2_4 += 4) {
-                gDPLoadMultiTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[0] + D_8012ADC0[arg8], 0,
+                gDPLoadMultiTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[0], gTextOffsetLUT[lut_index]), 0,
                                  G_TX_RENDERTILE, G_IM_FMT_CI, G_IM_SIZ_8b, 128, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x1F,
                                  phi_a2_4 + 0x1F, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
                                  G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                gDPLoadMultiTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[1] + D_8012ADC0[arg8], 0x80, 1,
+                gDPLoadMultiTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[1], gTextOffsetLUT[lut_index]), 0x80, 1,
                                  G_IM_FMT_CI, G_IM_SIZ_8b, 128, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x1F, phi_a2_4 + 0x1F,
                                  0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
                                  G_TX_NOMASK, G_TX_NOLOD);
@@ -320,11 +333,11 @@ s32 func_800AE2C0(SkyboxContext* skyboxCtx, Vtx* roomVtx, s32 arg2, s32 arg3, s3
         phi_a2_4 -= 0x1F;
         for (phi_ra = 0; phi_ra < 2; phi_ra++, phi_a2_4 -= 0x1F) {
             for (phi_a0_4 = 0, phi_t1 = 0; phi_t1 < 4; phi_t1++, phi_a0_4 += 0x1F, phi_t2_4 += 4) {
-                gDPLoadMultiTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[0] + D_8012ADC0[arg8], 0,
+                gDPLoadMultiTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[0], gTextOffsetLUT[lut_index]), 0,
                                  G_TX_RENDERTILE, G_IM_FMT_CI, G_IM_SIZ_8b, 128, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x1F,
                                  phi_a2_4 + 0x1F, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
                                  G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                gDPLoadMultiTile(skyboxCtx->unk_138++, (u32)skyboxCtx->staticSegments[1] + D_8012ADC0[arg8], 0x80, 1,
+                gDPLoadMultiTile(skyboxCtx->unk_138++, POINTER_ADD(skyboxCtx->staticSegments[1], gTextOffsetLUT[lut_index]), 0x80, 1,
                                  G_IM_FMT_CI, G_IM_SIZ_8b, 128, 0, phi_a0_4, phi_a2_4, phi_a0_4 + 0x1F, phi_a2_4 + 0x1F,
                                  0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
                                  G_TX_NOMASK, G_TX_NOLOD);
@@ -371,11 +384,11 @@ void func_800AF178(SkyboxContext* skyboxCtx, s32 arg1) {
 }
 
 void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skyboxId) {
-    u32 size;
+    uintptr_t size;
     s16 i;
-    u8 sp41; // imageIdx
-    u8 sp40; // imageIdx2
-    u32 start;
+    u8 skybox1Index;
+    u8 skybox2Index;
+    void* start;
     s32 phi_v1;
 
     switch (skyboxId) {
@@ -390,8 +403,8 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
                 if (gSaveContext.skyboxTime >= D_8011FC1C[phi_v1][i].startTime &&
                     (gSaveContext.skyboxTime < D_8011FC1C[phi_v1][i].endTime ||
                      D_8011FC1C[phi_v1][i].endTime == 0xFFFF)) {
-                    globalCtx->envCtx.skybox1Index = sp41 = D_8011FC1C[phi_v1][i].skybox1Index;
-                    globalCtx->envCtx.skybox2Index = sp40 = D_8011FC1C[phi_v1][i].skybox2Index;
+                    globalCtx->envCtx.skybox1Index = skybox1Index = D_8011FC1C[phi_v1][i].skybox1Index;
+                    globalCtx->envCtx.skybox2Index = skybox2Index = D_8011FC1C[phi_v1][i].skybox2Index;
                     if (D_8011FC1C[phi_v1][i].blend != 0) {
                         globalCtx->envCtx.skyboxBlend =
                             Environment_LerpWeight(D_8011FC1C[phi_v1][i].endTime, D_8011FC1C[phi_v1][i].startTime,
@@ -404,43 +417,45 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
                 }
             }
 
-            size = gSkyboxFiles[sp41].file.vromEnd - gSkyboxFiles[sp41].file.vromStart;
+            size = POINTER_SUB(gSkyboxFiles[skybox1Index].file.vromEnd, gSkyboxFiles[skybox1Index].file.vromStart);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1054);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1055);
 
-            DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], gSkyboxFiles[sp41].file.vromStart, size, "../z_vr_box.c",
+            DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], gSkyboxFiles[skybox1Index].file.vromStart, size, "../z_vr_box.c",
                                 1058);
+            //skyboxCtx->staticSegments[0] = gSkyboxFiles[skybox1Index].file.vromStart;
 
-            size = gSkyboxFiles[sp40].file.vromEnd - gSkyboxFiles[sp40].file.vromStart;
+            size = POINTER_SUB(gSkyboxFiles[skybox2Index].file.vromEnd, gSkyboxFiles[skybox2Index].file.vromStart);
             skyboxCtx->staticSegments[1] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1060);
             ASSERT(skyboxCtx->staticSegments[1] != NULL, "vr_box->vr_box_staticSegment[1] != NULL", "../z_vr_box.c",
                    1061);
 
-            DmaMgr_SendRequest1(skyboxCtx->staticSegments[1], gSkyboxFiles[sp40].file.vromStart, size, "../z_vr_box.c",
+            DmaMgr_SendRequest1(skyboxCtx->staticSegments[1], gSkyboxFiles[skybox2Index].file.vromStart, size, "../z_vr_box.c",
                                 1064);
+            //skyboxCtx->staticSegments[1] = gSkyboxFiles[skybox2Index].file.vromStart;
 
-            if ((sp41 & 1) ^ ((sp41 & 4) >> 2)) {
-                size = gSkyboxFiles[sp41].palette.vromEnd - gSkyboxFiles[sp41].palette.vromStart;
+            if ((skybox1Index & 1) ^ ((skybox1Index & 4) >> 2)) {
+                size = POINTER_SUB(gSkyboxFiles[skybox1Index].palette.vromEnd, gSkyboxFiles[skybox1Index].palette.vromStart);
 
                 skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size * 2, "../z_vr_box.c", 1072);
 
                 ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1073);
 
-                DmaMgr_SendRequest1(skyboxCtx->palettes, gSkyboxFiles[sp41].palette.vromStart, size, "../z_vr_box.c",
+                DmaMgr_SendRequest1(skyboxCtx->palettes, gSkyboxFiles[skybox1Index].palette.vromStart, size, "../z_vr_box.c",
                                     1075);
-                DmaMgr_SendRequest1((u32)skyboxCtx->palettes + size, gSkyboxFiles[sp40].palette.vromStart, size,
+                DmaMgr_SendRequest1(POINTER_ADD(skyboxCtx->palettes, size), gSkyboxFiles[skybox2Index].palette.vromStart, size,
                                     "../z_vr_box.c", 1077);
             } else {
-                size = gSkyboxFiles[sp41].palette.vromEnd - gSkyboxFiles[sp41].palette.vromStart;
+                size = POINTER_SUB(gSkyboxFiles[skybox1Index].palette.vromEnd, gSkyboxFiles[skybox1Index].palette.vromStart);
 
                 skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size * 2, "../z_vr_box.c", 1085);
 
                 ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1086);
 
-                DmaMgr_SendRequest1(skyboxCtx->palettes, gSkyboxFiles[sp40].palette.vromStart, size, "../z_vr_box.c",
+                DmaMgr_SendRequest1(skyboxCtx->palettes, gSkyboxFiles[skybox2Index].palette.vromStart, size, "../z_vr_box.c",
                                     1088);
-                DmaMgr_SendRequest1((u32)skyboxCtx->palettes + size, gSkyboxFiles[sp41].palette.vromStart, size,
+                DmaMgr_SendRequest1(POINTER_ADD(skyboxCtx->palettes, size), gSkyboxFiles[skybox1Index].palette.vromStart, size,
                                     "../z_vr_box.c", 1090);
             }
             break;
@@ -448,16 +463,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_BAZAAR:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_SP1a_staticSegmentRomStart;
-            size = _vr_SP1a_staticSegmentRomEnd - start;
+            start = vr_SP1a_static;
+            size = sizeof(vr_SP1a_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1127);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1128);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1129);
 
-            start = _vr_SP1a_pal_staticSegmentRomStart;
-            size = _vr_SP1a_pal_staticSegmentRomEnd - start;
+            start = vr_SP1a_pal_static;
+            size = sizeof(vr_SP1a_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1132);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1133);
 
@@ -465,8 +480,8 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             skyboxCtx->rot.y = 0.8f;
             break;
         case SKYBOX_OVERCAST_SUNSET:
-            start = _vr_cloud2_staticSegmentRomStart;
-            size = _vr_cloud2_staticSegmentRomEnd - start;
+            start = vr_cloud2_static;
+            size = sizeof(vr_cloud2_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1155);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1156);
@@ -479,27 +494,27 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[1], start, size, "../z_vr_box.c", 1166);
 
-            start = _vr_cloud2_pal_staticSegmentRomStart;
-            size = _vr_cloud2_pal_staticSegmentRomEnd - start;
+            start = vr_cloud2_pal_static;
+            size = sizeof(vr_cloud2_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size * 2, "../z_vr_box.c", 1170);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1171);
 
             DmaMgr_SendRequest1(skyboxCtx->palettes, start, size, "../z_vr_box.c", 1173);
-            DmaMgr_SendRequest1((u32)skyboxCtx->palettes + size, start, size, "../z_vr_box.c", 1175);
+            DmaMgr_SendRequest1(POINTER_ADD(skyboxCtx->palettes, size), start, size, "../z_vr_box.c", 1175);
             break;
         case SKYBOX_MARKET_ADULT:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_RUVR_staticSegmentRomStart;
-            size = _vr_RUVR_staticSegmentRomEnd - start;
+            start = vr_RUVR_static;
+            size = sizeof(vr_RUVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1182);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1183);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1184);
 
-            start = _vr_RUVR_pal_staticSegmentRomStart;
-            size = _vr_RUVR_pal_staticSegmentRomEnd - start;
+            start = vr_RUVR_pal_static;
+            size = sizeof(vr_RUVR_pal_static);
             osSyncPrintf("ＳＩＺＥ = %d\n", size);
 
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1188);
@@ -508,44 +523,44 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             DmaMgr_SendRequest1(skyboxCtx->palettes, start, size, "../z_vr_box.c", 1190);
             break;
         case SKYBOX_CUTSCENE_MAP:
-            start = _vr_holy0_staticSegmentRomStart;
-            size = _vr_holy0_staticSegmentRomEnd - start;
+            start = vr_holy0_static;
+            size = sizeof(vr_holy0_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1196);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1197);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1200);
 
-            start = _vr_holy1_staticSegmentRomStart;
-            size = _vr_holy1_staticSegmentRomEnd - start;
+            start = vr_holy1_static;
+            size = sizeof(vr_holy1_static);
             skyboxCtx->staticSegments[1] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1203);
             ASSERT(skyboxCtx->staticSegments[1] != NULL, "vr_box->vr_box_staticSegment[1] != NULL", "../z_vr_box.c",
                    1204);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[1], start, size, "../z_vr_box.c", 1207);
 
-            start = _vr_holy0_pal_staticSegmentRomStart;
-            size = _vr_holy0_pal_staticSegmentRomEnd - start;
+            start = vr_holy0_pal_static;
+            size = sizeof(vr_holy0_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size * 2, "../z_vr_box.c", 1211);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1212);
 
             DmaMgr_SendRequest1(skyboxCtx->palettes, start, size, "../z_vr_box.c", 1214);
-            DmaMgr_SendRequest1((u32)skyboxCtx->palettes + size, _vr_holy1_pal_staticSegmentRomStart, size,
+            DmaMgr_SendRequest1(POINTER_ADD(skyboxCtx->palettes, size), vr_holy1_pal_static, size,
                                 "../z_vr_box.c", 1216);
             break;
         case SKYBOX_HOUSE_LINK:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_LHVR_staticSegmentRomStart;
-            size = _vr_LHVR_staticSegmentRomEnd - start;
+            start = vr_LHVR_static;
+            size = sizeof(vr_LHVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1226);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1227);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1228);
 
-            start = _vr_LHVR_pal_staticSegmentRomStart;
-            size = _vr_LHVR_pal_staticSegmentRomEnd - start;
+            start = vr_LHVR_pal_static;
+            size = sizeof(vr_LHVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1231);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1232);
 
@@ -554,16 +569,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_MARKET_CHILD_DAY:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_MDVR_staticSegmentRomStart;
-            size = _vr_MDVR_staticSegmentRomEnd - start;
+            start = vr_MDVR_static;
+            size = sizeof(vr_MDVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1257);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1258);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1259);
 
-            start = _vr_MDVR_pal_staticSegmentRomStart;
-            size = _vr_MDVR_pal_staticSegmentRomEnd - start;
+            start = vr_MDVR_pal_static;
+            size = sizeof(vr_MDVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1262);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1263);
 
@@ -572,16 +587,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_MARKET_CHILD_NIGHT:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_MNVR_staticSegmentRomStart;
-            size = _vr_MNVR_staticSegmentRomEnd - start;
+            start = vr_MNVR_static;
+            size = sizeof(vr_MNVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1271);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1272);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1273);
 
-            start = _vr_MNVR_pal_staticSegmentRomStart;
-            size = _vr_MNVR_pal_staticSegmentRomEnd - start;
+            start = vr_MNVR_pal_static;
+            size = sizeof(vr_MNVR_pal_static);
             osSyncPrintf("ＳＩＺＥ = %d\n", size);
 
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1277);
@@ -592,16 +607,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HAPPY_MASK_SHOP:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_FCVR_staticSegmentRomStart;
-            size = _vr_FCVR_staticSegmentRomEnd - start;
+            start = vr_FCVR_static;
+            size = sizeof(vr_FCVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1286);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1287);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1288);
 
-            start = _vr_FCVR_pal_staticSegmentRomStart;
-            size = _vr_FCVR_pal_staticSegmentRomEnd - start;
+            start = vr_FCVR_pal_static;
+            size = sizeof(vr_FCVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1291);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1292);
 
@@ -611,16 +626,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_KNOW_IT_ALL_BROTHERS:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_KHVR_staticSegmentRomStart;
-            size = _vr_KHVR_staticSegmentRomEnd - start;
+            start = vr_KHVR_static;
+            size = sizeof(vr_KHVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1301);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1302);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1303);
 
-            start = _vr_KHVR_pal_staticSegmentRomStart;
-            size = _vr_KHVR_pal_staticSegmentRomEnd - start;
+            start = vr_KHVR_pal_static;
+            size = sizeof(vr_KHVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1306);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1307);
 
@@ -629,16 +644,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_OF_TWINS:
             skyboxCtx->unk_140 = 2;
 
-            start = _vr_K3VR_staticSegmentRomStart;
-            size = _vr_K3VR_staticSegmentRomEnd - start;
+            start = vr_K3VR_static;
+            size = sizeof(vr_K3VR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1331);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1332);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1333);
 
-            start = _vr_K3VR_pal_staticSegmentRomStart;
-            size = _vr_K3VR_pal_staticSegmentRomEnd - start;
+            start = vr_K3VR_pal_static;
+            size = sizeof(vr_K3VR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1336);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1337);
 
@@ -647,16 +662,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_STABLES:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_MLVR_staticSegmentRomStart;
-            size = _vr_MLVR_staticSegmentRomEnd - start;
+            start = vr_MLVR_static;
+            size = sizeof(vr_MLVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1345);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1346);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1347);
 
-            start = _vr_MLVR_pal_staticSegmentRomStart;
-            size = _vr_MLVR_pal_staticSegmentRomEnd - start;
+            start = vr_MLVR_pal_static;
+            size = sizeof(vr_MLVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1350);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1351);
 
@@ -665,16 +680,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_KAKARIKO:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_KKRVR_staticSegmentRomStart;
-            size = _vr_KKRVR_staticSegmentRomEnd - start;
+            start = vr_KKRVR_static;
+            size = sizeof(vr_KKRVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1359);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1360);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1361);
 
-            start = _vr_KKRVR_pal_staticSegmentRomStart;
-            size = _vr_KKRVR_pal_staticSegmentRomEnd - start;
+            start = vr_KKRVR_pal_static;
+            size = sizeof(vr_KKRVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1364);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1365);
 
@@ -683,16 +698,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_KOKIRI_SHOP:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_KSVR_staticSegmentRomStart;
-            size = _vr_KSVR_staticSegmentRomEnd - start;
+            start = vr_KSVR_static;
+            size = sizeof(vr_KSVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1373);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1374);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1375);
 
-            start = _vr_KSVR_pal_staticSegmentRomStart;
-            size = _vr_KSVR_pal_staticSegmentRomEnd - start;
+            start = vr_KSVR_pal_static;
+            size = sizeof(vr_KSVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1378);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1379);
 
@@ -702,16 +717,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_GORON_SHOP:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_GLVR_staticSegmentRomStart;
-            size = _vr_GLVR_staticSegmentRomEnd - start;
+            start = vr_GLVR_static;
+            size = sizeof(vr_GLVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1405);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1406);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1407);
 
-            start = _vr_GLVR_pal_staticSegmentRomStart;
-            size = _vr_GLVR_pal_staticSegmentRomEnd - start;
+            start = vr_GLVR_pal_static;
+            size = sizeof(vr_GLVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1410);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1411);
 
@@ -721,16 +736,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_ZORA_SHOP:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_ZRVR_staticSegmentRomStart;
-            size = _vr_ZRVR_staticSegmentRomEnd - start;
+            start = vr_ZRVR_static;
+            size = sizeof(vr_ZRVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1420);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1421);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1422);
 
-            start = _vr_ZRVR_pal_staticSegmentRomStart;
-            size = _vr_ZRVR_pal_staticSegmentRomEnd - start;
+            start = vr_ZRVR_pal_static;
+            size = sizeof(vr_ZRVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1425);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1426);
 
@@ -740,16 +755,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_POTION_SHOP_KAKARIKO:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_DGVR_staticSegmentRomStart;
-            size = _vr_DGVR_staticSegmentRomEnd - start;
+            start = vr_DGVR_static;
+            size = sizeof(vr_DGVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1451);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1452);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1453);
 
-            start = _vr_DGVR_pal_staticSegmentRomStart;
-            size = _vr_DGVR_pal_staticSegmentRomEnd - start;
+            start = vr_DGVR_pal_static;
+            size = sizeof(vr_DGVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1456);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1457);
 
@@ -759,16 +774,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_POTION_SHOP_MARKET:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_ALVR_staticSegmentRomStart;
-            size = _vr_ALVR_staticSegmentRomEnd - start;
+            start = vr_ALVR_static;
+            size = sizeof(vr_ALVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1466);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1467);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1468);
 
-            start = _vr_ALVR_pal_staticSegmentRomStart;
-            size = _vr_ALVR_pal_staticSegmentRomEnd - start;
+            start = vr_ALVR_pal_static;
+            size = sizeof(vr_ALVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1471);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1472);
 
@@ -778,16 +793,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_BOMBCHU_SHOP:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_NSVR_staticSegmentRomStart;
-            size = _vr_NSVR_staticSegmentRomEnd - start;
+            start = vr_NSVR_static;
+            size = sizeof(vr_NSVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1481);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1482);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1483);
 
-            start = _vr_NSVR_pal_staticSegmentRomStart;
-            size = _vr_NSVR_pal_staticSegmentRomEnd - start;
+            start = vr_NSVR_pal_static;
+            size = sizeof(vr_NSVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1486);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1487);
 
@@ -797,16 +812,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_RICHARD:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_IPVR_staticSegmentRomStart;
-            size = _vr_IPVR_staticSegmentRomEnd - start;
+            start = vr_IPVR_static;
+            size = sizeof(vr_IPVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1512);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1513);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1514);
 
-            start = _vr_IPVR_pal_staticSegmentRomStart;
-            size = _vr_IPVR_pal_staticSegmentRomEnd - start;
+            start = vr_IPVR_pal_static;
+            size = sizeof(vr_IPVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1517);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1518);
 
@@ -815,16 +830,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_IMPA:
             skyboxCtx->unk_140 = 1;
 
-            start = _vr_LBVR_staticSegmentRomStart;
-            size = _vr_LBVR_staticSegmentRomEnd - start;
+            start = vr_LBVR_static;
+            size = sizeof(vr_LBVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1526);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1527);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1528);
 
-            start = _vr_LBVR_pal_staticSegmentRomStart;
-            size = _vr_LBVR_pal_staticSegmentRomEnd - start;
+            start = vr_LBVR_pal_static;
+            size = sizeof(vr_LBVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1531);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1532);
 
@@ -833,16 +848,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_TENT:
             skyboxCtx->unk_140 = 2;
 
-            start = _vr_TTVR_staticSegmentRomStart;
-            size = _vr_TTVR_staticSegmentRomEnd - start;
+            start = vr_TTVR_static;
+            size = sizeof(vr_TTVR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1540);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1541);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1542);
 
-            start = _vr_TTVR_pal_staticSegmentRomStart;
-            size = _vr_TTVR_pal_staticSegmentRomEnd - start;
+            start = vr_TTVR_pal_static;
+            size = sizeof(vr_TTVR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1545);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1546);
 
@@ -851,16 +866,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_MIDO:
             skyboxCtx->unk_140 = 2;
 
-            start = _vr_K4VR_staticSegmentRomStart;
-            size = _vr_K4VR_staticSegmentRomEnd - start;
+            start = vr_K4VR_static;
+            size = sizeof(vr_K4VR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1560);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1561);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1562);
 
-            start = _vr_K4VR_pal_staticSegmentRomStart;
-            size = _vr_K4VR_pal_staticSegmentRomEnd - start;
+            start = vr_K4VR_pal_static;
+            size = sizeof(vr_K4VR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1565);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1566);
 
@@ -869,16 +884,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_SARIA:
             skyboxCtx->unk_140 = 2;
 
-            start = _vr_K5VR_staticSegmentRomStart;
-            size = _vr_K5VR_staticSegmentRomEnd - start;
+            start = vr_K5VR_static;
+            size = sizeof(vr_K5VR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1574);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1575);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1576);
 
-            start = _vr_K5VR_pal_staticSegmentRomStart;
-            size = _vr_K5VR_pal_staticSegmentRomEnd - start;
+            start = vr_K5VR_pal_static;
+            size = sizeof(vr_K5VR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1579);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1580);
 
@@ -887,16 +902,16 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
         case SKYBOX_HOUSE_ALLEY:
             skyboxCtx->unk_140 = 2;
 
-            start = _vr_KR3VR_staticSegmentRomStart;
-            size = _vr_KR3VR_staticSegmentRomEnd - start;
+            start = vr_KR3VR_static;
+            size = sizeof(vr_KR3VR_static);
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1588);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1589);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1590);
 
-            start = _vr_KR3VR_pal_staticSegmentRomStart;
-            size = _vr_KR3VR_pal_staticSegmentRomEnd - start;
+            start = vr_KR3VR_pal_static;
+            size = sizeof(vr_KR3VR_pal_static);
             skyboxCtx->palettes = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1593);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1594);
 

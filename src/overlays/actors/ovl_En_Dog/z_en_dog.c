@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DOG_Z_EN_DOG_C
+#include "actor_common.h"
 /*
  * File: z_en_dog.c
  * Overlay: ovl_En_Dog
@@ -6,6 +8,13 @@
 
 #include "z_en_dog.h"
 #include "objects/object_dog/object_dog.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_path.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

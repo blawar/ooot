@@ -1,5 +1,82 @@
+#define INTERNAL_SRC_CODE_Z_PLAY_C
 #include "global.h"
 #include "vt.h"
+#include "unk.h"
+#include "padmgr.h"
+#include "z64transition.h"
+#include "z_vismono.h"
+#include "n64fault.h"
+#include "z64global.h"
+#include "z64save.h"
+#include "sfx.h"
+#include "audiomgr.h"
+#include "z_fbdemo_circle.h"
+#include "z64player.h"
+#include "sequence.h"
+#include "z64item.h"
+#include "z_opening.h"
+#include "z_scene_table.h"
+#include "z_file_choose.h"
+#include <string.h>
+#include "def/PreRender.h"
+#include "def/TwoHeadArena.h"
+#include "def/code_8006BA00.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/fault.h"
+#include "def/game.h"
+#include "def/gettime.h"
+#include "def/graph.h"
+#include "def/shrink_window.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/system_malloc.h"
+#include "def/z_actor.h"
+#include "def/z_actor_dlftbls.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_camera_data.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_construct.h"
+#include "def/z_demo.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite.h"
+#include "def/z_fbdemo.h"
+#include "def/z_fbdemo_fade.h"
+#include "def/z_frame_advance.h"
+#include "def/z_game_over.h"
+#include "def/z_kaleido_manager.h"
+#include "def/z_kaleido_scope_call.h"
+#include "def/z_kaleido_setup.h"
+#include "def/z_kankyo.h"
+#include "def/z_lights.h"
+#include "def/z_malloc.h"
+#include "def/z_message_PAL.h"
+#include "def/z_msgevent.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
+#include "def/z_room.h"
+#include "def/z_scene.h"
+#include "def/z_scene_table.h"
+#include "def/z_skelanime.h"
+#include "def/z_sram.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
+#include "def/z_vismono.h"
+#include "def/z_vr_box.h"
+#include "def/z_vr_box_draw.h"
+#include "def/zbuffer.h"
+
+void Gameplay_Main(GameState* thisx);
+void Gameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn);
 
 void* D_8012D1F0 = NULL;
 UNK_TYPE D_8012D1F4 = 0; // unused
@@ -185,9 +262,11 @@ void Gameplay_Destroy(GameState* thisx) {
 void Gameplay_Init(GameState* thisx) {
     GlobalContext* globalCtx = (GlobalContext*)thisx;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
-    u32 zAlloc;
-    u32 zAllocAligned;
+#ifndef USE_NATIVE_MALLOC
+    uintptr_t zAlloc;
+    uintptr_t zAllocAligned;
     size_t zAllocSize;
+#endif
     Player* player;
     s32 playerStartCamId;
     s32 i;
@@ -202,7 +281,7 @@ void Gameplay_Init(GameState* thisx) {
     }
 
     SystemArena_Display();
-    GameState_Realloc(&globalCtx->state, 0x1D4790);
+    GameState_Realloc(&globalCtx->state, 0x1D4790 * 0x20); // TODO FIX HACK
     KaleidoManager_Init(globalCtx);
     View_Init(&globalCtx->view, gfxCtx);
     Audio_SetExtraFilter(0);
@@ -357,6 +436,7 @@ void Gameplay_Init(GameState* thisx) {
     D_801614B0.a = 0;
     Flags_UnsetAllEnv(globalCtx);
 
+#ifndef USE_NATIVE_MALLOC
     osSyncPrintf("ZELDA ALLOC SIZE=%x\n", THA_GetSize(&globalCtx->state.tha));
     zAllocSize = THA_GetSize(&globalCtx->state.tha);
     zAlloc = GameState_Alloc(&globalCtx->state, zAllocSize, "../z_play.c", 2918);
@@ -365,6 +445,7 @@ void Gameplay_Init(GameState* thisx) {
     // "Zelda Heap"
     osSyncPrintf("ゼルダヒープ %08x-%08x\n", zAllocAligned,
                  (s32)(zAllocAligned + zAllocSize) - (s32)(zAllocAligned - zAlloc));
+#endif
 
     Fault_AddClient(&D_801614B8, ZeldaArena_Display, NULL, NULL);
     func_800304DC(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);
@@ -402,7 +483,7 @@ void Gameplay_Init(GameState* thisx) {
     if (dREG(95) != 0) {
         D_8012D1F0 = D_801614D0;
         osSyncPrintf("\nkawauso_data=[%x]", D_8012D1F0);
-        DmaMgr_DmaRomToRam(0x03FEB000, (u32)D_8012D1F0, sizeof(D_801614D0));
+        DmaMgr_DmaRomToRam(0x03FEB000, D_8012D1F0, sizeof(D_801614D0));
     }
 }
 
@@ -425,7 +506,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
         osSyncPrintf("object_exchange_rom_address %u\n", gObjectTableSize);
         osSyncPrintf("RomStart RomEnd   Size\n");
         for (i = 0; i < gObjectTableSize; i++) {
-            s32 size = gObjectTable[i].vromEnd - gObjectTable[i].vromStart;
+            s32 size = POINTER_SUB(gObjectTable[i].vromEnd, gObjectTable[i].vromStart);
 
             osSyncPrintf("%08x-%08x %08x(%8.3fKB)\n", gObjectTable[i].vromStart, gObjectTable[i].vromEnd, size,
                          size / 1024.0f);
@@ -438,8 +519,8 @@ void Gameplay_Update(GlobalContext* globalCtx) {
         ActorOverlayTable_LogPrint();
     }
 
-    gSegments[4] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[globalCtx->objectCtx.mainKeepIndex].segment);
-    gSegments[5] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[globalCtx->objectCtx.subKeepIndex].segment);
+    gSegments[4] = VIRTUAL_TO_PHYSICAL(gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart);
+    gSegments[5] = VIRTUAL_TO_PHYSICAL(gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart);
     gSegments[2] = VIRTUAL_TO_PHYSICAL(globalCtx->sceneSegment);
 
     if (FrameAdvance_Update(&globalCtx->frameAdvCtx, &input[1])) {
@@ -1060,21 +1141,21 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
 
     OPEN_DISPS(gfxCtx, "../z_play.c", 3907);
 
-    gSegments[4] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[globalCtx->objectCtx.mainKeepIndex].segment);
-    gSegments[5] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[globalCtx->objectCtx.subKeepIndex].segment);
+    gSegments[4] = VIRTUAL_TO_PHYSICAL(gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart);
+    gSegments[5] = VIRTUAL_TO_PHYSICAL(gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart);
     gSegments[2] = VIRTUAL_TO_PHYSICAL(globalCtx->sceneSegment);
 
     gSPSegment(POLY_OPA_DISP++, 0x00, NULL);
     gSPSegment(POLY_XLU_DISP++, 0x00, NULL);
     gSPSegment(OVERLAY_DISP++, 0x00, NULL);
 
-    gSPSegment(POLY_OPA_DISP++, 0x04, globalCtx->objectCtx.status[globalCtx->objectCtx.mainKeepIndex].segment);
-    gSPSegment(POLY_XLU_DISP++, 0x04, globalCtx->objectCtx.status[globalCtx->objectCtx.mainKeepIndex].segment);
-    gSPSegment(OVERLAY_DISP++, 0x04, globalCtx->objectCtx.status[globalCtx->objectCtx.mainKeepIndex].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x04, gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart);
+    gSPSegment(POLY_XLU_DISP++, 0x04, gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart);
+    gSPSegment(OVERLAY_DISP++, 0x04, gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart);
 
-    gSPSegment(POLY_OPA_DISP++, 0x05, globalCtx->objectCtx.status[globalCtx->objectCtx.subKeepIndex].segment);
-    gSPSegment(POLY_XLU_DISP++, 0x05, globalCtx->objectCtx.status[globalCtx->objectCtx.subKeepIndex].segment);
-    gSPSegment(OVERLAY_DISP++, 0x05, globalCtx->objectCtx.status[globalCtx->objectCtx.subKeepIndex].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x05, gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart);
+    gSPSegment(POLY_XLU_DISP++, 0x05, gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart);
+    gSPSegment(OVERLAY_DISP++, 0x05, gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart);
 
     gSPSegment(POLY_OPA_DISP++, 0x02, globalCtx->sceneSegment);
     gSPSegment(POLY_XLU_DISP++, 0x02, globalCtx->sceneSegment);
@@ -1273,10 +1354,6 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
                     }
                 }
 
-                if ((HREG(80) != 10) || (HREG(93) != 0)) {
-                    DebugDisplay_DrawObjects(globalCtx);
-                }
-
                 if ((R_PAUSE_MENU_MODE == 1) || (gTrnsnUnkState == 1)) {
                     Gfx* sp70 = OVERLAY_DISP;
 
@@ -1322,8 +1399,6 @@ void Gameplay_Main(GameState* thisx) {
     GlobalContext* globalCtx = (GlobalContext*)thisx;
 
     D_8012D1F8 = &globalCtx->state.input[0];
-
-    DebugDisplay_Init();
 
     if (1 && HREG(63)) {
         LOG_NUM("1", 1, "../z_play.c", 4556);
@@ -1433,10 +1508,11 @@ f32 func_800BFCB8(GlobalContext* globalCtx, MtxF* mf, Vec3f* vec) {
 }
 
 void* Gameplay_LoadFile(GlobalContext* globalCtx, RomFile* file) {
+    return file->vromStart;
     u32 size;
     void* allocp;
 
-    size = file->vromEnd - file->vromStart;
+    size = POINTER_SUB(file->vromEnd, file->vromStart);
     allocp = GameState_Alloc(&globalCtx->state, size, "../z_play.c", 4692);
     DmaMgr_SendRequest1(allocp, file->vromStart, size, "../z_play.c", 4694);
 
@@ -1463,7 +1539,9 @@ void Gameplay_InitScene(GlobalContext* globalCtx, s32 spawn) {
     func_80096FD4(globalCtx, &globalCtx->roomCtx.curRoom);
     YREG(15) = 0;
     gSaveContext.worldMapArea = 0;
+
     Scene_ExecuteCommands(globalCtx, globalCtx->sceneSegment);
+
     Gameplay_InitEnvironment(globalCtx, globalCtx->skyboxId);
 }
 
@@ -1475,9 +1553,9 @@ void Gameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn) {
     globalCtx->sceneNum = sceneNum;
     globalCtx->sceneConfig = scene->config;
 
-    osSyncPrintf("\nSCENE SIZE %fK\n", (scene->sceneFile.vromEnd - scene->sceneFile.vromStart) / 1024.0f);
+    osSyncPrintf("\nSCENE SIZE %fK\n", POINTER_SUB(scene->sceneFile.vromEnd, scene->sceneFile.vromStart) / 1024.0f);
 
-    globalCtx->sceneSegment = Gameplay_LoadFile(globalCtx, &scene->sceneFile);
+    globalCtx->sceneSegment = Gameplay_LoadFile(globalCtx, &scene->cmds);
     scene->unk_13 = 0;
     ASSERT(globalCtx->sceneSegment != NULL, "this->sceneSegment != NULL", "../z_play.c", 4960);
 

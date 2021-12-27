@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GS_Z_EN_GS_C
+#include "actor_common.h"
 /*
  * File: z_en_gs.c
  * Overlay: ovl_En_Gs
@@ -8,6 +10,17 @@
 #include "objects/object_gs/object_gs.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800F7260.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 

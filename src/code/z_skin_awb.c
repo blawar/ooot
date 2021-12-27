@@ -1,5 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_SKIN_AWB_C
 #include "global.h"
 #include "overlays/actors/ovl_En_fHG/z_en_fhg.h"
+#include "z64global.h"
+#include "def/sys_matrix.h"
+#include "def/z_malloc.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_awb.h"
+#include "def/z_skin_matrix.h"
 
 void func_800A6460(GlobalContext* globalCtx, PSkinAwb* skin, s32 limbIndex) {
     s32 i;

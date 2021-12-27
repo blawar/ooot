@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_VA_Z_BOSS_VA_C
+#include "actor_common.h"
 /*
  * File: z_boss_va.c
  * Overlay: ovl_Boss_Va
@@ -8,6 +10,24 @@
 #include "objects/object_bv/object_bv.h"
 #include "overlays/actors/ovl_En_Boom/z_en_boom.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_eff_ss_dead.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT02_OBJECTS_Z_BG_SPOT02_OBJECTS_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot02_objects.c
  * Overlay: ovl_Bg_Spot02_Objects
@@ -6,6 +8,17 @@
 
 #include "z_bg_spot02_objects.h"
 #include "objects/object_spot02_objects/object_spot02_objects.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

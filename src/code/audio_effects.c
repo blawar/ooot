@@ -1,5 +1,11 @@
+#define INTERNAL_SRC_CODE_AUDIO_EFFECTS_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "def/audio_data.h"
+#include "def/audio_effects.h"
+#include "def/audio_seqplayer.h"
+#include "def/code_800F7260.h"
 
 void Audio_SequenceChannelProcessSound(SequenceChannel* channel, s32 recalculateVolume, s32 b) {
     f32 channelVolume;

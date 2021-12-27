@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "file_choose.h"
 
 #include "assets/overlays/ovl_File_Choose/ovl_file_choose.c"

@@ -1,6 +1,19 @@
+#define INTERNAL_SRC_CODE_Z_EFF_SHIELD_PARTICLE_C
 #include "global.h"
 #include "vt.h"
+#include "z64animation.h"
+#include "z64effect.h"
+#include "z64camera.h"
+#include "z64global.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_eff_shield_particle.h"
+#include "def/z_effect.h"
+#include "def/z_lights.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
+#include "def/graph.h" // FORCE
 
 static Vtx sVertices[5] = {
     VTX(-32, -32, 0, 0, 1024, 0xFF, 0xFF, 0xFF, 0xFF),

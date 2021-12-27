@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT08_BAKUDANKABE_Z_BG_SPOT08_BAKUDANKABE_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot08_bakudankabe
  * Overlay: ovl_Bg_Spot08_Bakudankabe
@@ -8,6 +10,15 @@
 #include "objects/object_spot08_obj/object_spot08_obj.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "def/code_80043480.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_22
 

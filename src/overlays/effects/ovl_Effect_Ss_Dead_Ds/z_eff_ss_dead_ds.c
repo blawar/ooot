@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_DEAD_DS_Z_EFF_SS_DEAD_DS_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_dead_ds.c
  * Overlay: ovl_Effect_Ss_Dead_Ds
@@ -6,6 +8,9 @@
 
 #include "z_eff_ss_dead_ds.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_bgcheck.h"
+#include "def/z_rcp.h"
 
 #define rScale regs[0]
 #define rTimer regs[1]

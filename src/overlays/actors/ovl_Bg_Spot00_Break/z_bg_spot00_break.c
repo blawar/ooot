@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT00_BREAK_Z_BG_SPOT00_BREAK_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot00_break.c
  * Overlay: ovl_Bg_Spot00_Break
@@ -6,6 +8,11 @@
 
 #include "z_bg_spot00_break.h"
 #include "objects/object_spot00_break/object_spot00_break.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

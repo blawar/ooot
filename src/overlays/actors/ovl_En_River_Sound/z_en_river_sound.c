@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_RIVER_SOUND_Z_EN_RIVER_SOUND_C
+#include "actor_common.h"
 /*
  * File: z_en_river_sound.c
  * Overlay: ovl_En_River_Sound
@@ -5,6 +7,10 @@
  */
 
 #include "z_en_river_sound.h"
+#include "def/code_800EC960.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

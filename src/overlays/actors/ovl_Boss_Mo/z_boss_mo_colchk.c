@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "global.h"
 #include "z_boss_mo.h"
 

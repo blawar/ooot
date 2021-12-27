@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_GANON_Z_BOSS_GANON_C
+#include "actor_common.h"
+#include "z_kankyo.h"
 #include "z_boss_ganon.h"
 #include "overlays/ovl_Boss_Ganon/ovl_Boss_Ganon.h"
 #include "overlays/actors/ovl_En_Ganon_Mant/z_en_ganon_mant.h"
@@ -8,6 +11,32 @@
 #include "assets/objects/object_ganon_anime1/object_ganon_anime1.h"
 #include "assets/objects/object_ganon_anime2/object_ganon_anime2.h"
 #include "assets/scenes/dungeons/ganon_boss/ganon_boss_scene.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/graph.h"
+#include "def/sinf.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -321,7 +350,7 @@ void BossGanon_SetColliderPos(Vec3f* pos, ColliderCylinder* collider) {
 
 void BossGanon_SetAnimationObject(BossGanon* this, GlobalContext* globalCtx, s32 objectId) {
     this->animBankIndex = Object_GetIndex(&globalCtx->objectCtx, objectId);
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animBankIndex].vromStart);
 }
 
 static InitChainEntry sInitChain[] = {
@@ -483,7 +512,7 @@ void BossGanon_SetupIntroCutscene(BossGanon* this, GlobalContext* globalCtx) {
         this->actionFunc = BossGanon_IntroCutscene;
         this->unk_198 = 1;
         this->animBankIndex = animBankIndex;
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[animBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[animBankIndex].vromStart);
         Animation_MorphToLoop(&this->skelAnime, &object_ganon_anime2_Anim_005FFC, 0.0f);
     } else {
         this->actionFunc = BossGanon_SetupIntroCutscene;
@@ -531,7 +560,7 @@ void BossGanon_IntroCutscene(BossGanon* this, GlobalContext* globalCtx) {
     f32 cos;
     Camera* mainCam;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animBankIndex].vromStart);
 
     sCape->backPush = -2.0f;
     sCape->backSwayMagnitude = 0.25f;
@@ -1079,7 +1108,7 @@ void BossGanon_IntroCutscene(BossGanon* this, GlobalContext* globalCtx) {
 
             if (this->csTimer == 50) {
                 gSegments[6] = VIRTUAL_TO_PHYSICAL(
-                    globalCtx->objectCtx.status[Object_GetIndex(&globalCtx->objectCtx, OBJECT_GANON)].segment);
+                    gObjectTable[Object_GetIndex(&globalCtx->objectCtx, OBJECT_GANON)].vromStart);
 
                 if (!(gSaveContext.eventChkInf[7] & 0x100)) {
                     TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
@@ -1169,7 +1198,7 @@ void BossGanon_SetupDeathCutscene(BossGanon* this, GlobalContext* globalCtx) {
         this->csTimer = this->csState = 0;
         this->unk_198 = 1;
         this->animBankIndex = animBankIndex;
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[animBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[animBankIndex].vromStart);
         Animation_MorphToPlayOnce(&this->skelAnime, &object_ganon_anime2_Anim_00EA00, 0.0f);
         this->fwork[GDF_FWORK_1] = Animation_GetLastFrame(&object_ganon_anime2_Anim_00EA00);
         this->unk_508 = 0.0f;
@@ -1182,7 +1211,7 @@ void BossGanon_SetupTowerCutscene(BossGanon* this, GlobalContext* globalCtx) {
 
     if (Object_IsLoaded(&globalCtx->objectCtx, animBankIndex)) {
         this->animBankIndex = animBankIndex;
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[animBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[animBankIndex].vromStart);
         Animation_MorphToPlayOnce(&this->skelAnime, &object_ganon_anime2_Anim_00EA00, 0.0f);
         this->fwork[GDF_FWORK_1] = Animation_GetLastFrame(&object_ganon_anime2_Anim_00EA00);
         this->actionFunc = BossGanon_DeathAndTowerCutscene;
@@ -1224,7 +1253,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* this, GlobalContext* globalCtx) 
     Camera* mainCam;
     Vec3f sp64;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animBankIndex].vromStart);
 
     this->csTimer++;
     SkelAnime_Update(&this->skelAnime);
@@ -2794,7 +2823,7 @@ void BossGanon_Update(Actor* thisx, GlobalContext* globalCtx2) {
     if ((this->actionFunc != BossGanon_IntroCutscene) && (this->actionFunc != BossGanon_DeathAndTowerCutscene)) {
         BossGanon_SetAnimationObject(this, globalCtx, OBJECT_GANON_ANIME1);
     } else {
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animBankIndex].vromStart);
     }
 
     if (this->windowShatterState != GDF_WINDOW_SHATTER_OFF) {

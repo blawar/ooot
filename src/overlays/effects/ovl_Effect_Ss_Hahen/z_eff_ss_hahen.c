@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_HAHEN_Z_EFF_SS_HAHEN_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_hahen.c
  * Overlay: ovl_Effect_Ss_Hahen
@@ -6,6 +8,10 @@
 
 #include "z_eff_ss_hahen.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rPitch regs[0]
 #define rYaw regs[1]
@@ -74,7 +80,7 @@ void EffectSsHahen_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) {
     OPEN_DISPS(gfxCtx, "../z_eff_hahen.c", 208);
 
     if (this->rObjId != -1) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->rObjBankIdx].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->rObjBankIdx].vromStart);
     }
 
     Matrix_Translate(this->pos.x, this->pos.y, this->pos.z, MTXMODE_NEW);
@@ -98,7 +104,7 @@ void EffectSsHahen_DrawGray(GlobalContext* globalCtx, u32 index, EffectSs* this)
     OPEN_DISPS(gfxCtx, "../z_eff_hahen.c", 253);
 
     if (this->rObjId != -1) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->rObjBankIdx].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->rObjBankIdx].vromStart);
     }
 
     Matrix_Translate(this->pos.x, this->pos.y, this->pos.z, MTXMODE_NEW);

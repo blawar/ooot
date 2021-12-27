@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_EXTRA_Z_EFF_SS_EXTRA_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_extra.c
  * Overlay: ovl_Effect_Ss_Extra
@@ -6,6 +8,9 @@
 
 #include "z_eff_ss_extra.h"
 #include "objects/object_yabusame_point/object_yabusame_point.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rObjBankIdx regs[0]
 #define rTimer regs[1]
@@ -33,7 +38,7 @@ u32 EffectSsExtra_Init(GlobalContext* globalCtx, u32 index, EffectSs* this, void
 
     if ((objBankIndex >= 0) && Object_IsLoaded(&globalCtx->objectCtx, objBankIndex)) {
         oldSeg6 = gSegments[6];
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[objBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIndex].vromStart);
         this->pos = initParams->pos;
         this->velocity = initParams->velocity;
         this->accel = initParams->accel;
@@ -61,7 +66,7 @@ static void* sTextures[] = {
 void EffectSsExtra_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) {
     s32 pad;
     f32 scale = this->rScale / 100.0f;
-    void* object = globalCtx->objectCtx.status[this->rObjBankIdx].segment;
+    void* object = gObjectTable[this->rObjBankIdx].vromStart;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 168);
 

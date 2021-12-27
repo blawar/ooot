@@ -1,4 +1,13 @@
+#define INTERNAL_SRC_LIBULTRA_RMON_XPRINTF_C
 #include "global.h"
+#include "ultra64/types.h"
+#include "ultra64/printf.h"
+#include <stdarg.h>
+#include <string.h>
+#include "def/string.h"
+#include "def/xldtob.h"
+#include "def/xlitob.h"
+#include "def/xprintf.h"
 
 #define ATOI(i, a)                           \
     for (i = 0; *a >= '0' && *a <= '9'; a++) \

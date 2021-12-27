@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_VB_BALL_Z_EN_VB_BALL_C
+#include "actor_common.h"
 /*
  * File: z_en_vb_ball.c
  * Overlay: ovl_En_Vb_Ball
@@ -8,6 +10,15 @@
 #include "objects/object_fd/object_fd.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "overlays/actors/ovl_Boss_Fd/z_boss_fd.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

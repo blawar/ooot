@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT01_FUSYA_Z_BG_SPOT01_FUSYA_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot01_fusya.c
  * Overlay: Bg_Spot01_Fusya
@@ -6,6 +8,11 @@
 
 #include "z_bg_spot01_fusya.h"
 #include "objects/object_spot01_objects/object_spot01_objects.h"
+#include "def/code_800EC960.h"
+#include "def/sys_matrix.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

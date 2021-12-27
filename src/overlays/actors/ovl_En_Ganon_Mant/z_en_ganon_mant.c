@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GANON_MANT_Z_EN_GANON_MANT_C
+#include "actor_common.h"
 /*
  * File: z_en_ganon_mant.c
  * Overlay: ovl_En_Ganon_Mant
@@ -6,6 +8,12 @@
 
 #include "z_en_ganon_mant.h"
 #include "overlays/actors/ovl_Boss_Ganon/z_boss_ganon.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

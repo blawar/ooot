@@ -1,4 +1,13 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HOLL_Z_EN_HOLL_C
+#include "actor_common.h"
 #include "z_en_holl.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera_data.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_room.h"
 
 #define FLAGS ACTOR_FLAG_4
 

@@ -1,5 +1,17 @@
+#define INTERNAL_SRC_CODE_Z_EFF_SPARK_C
 #include "global.h"
+#include "z64animation.h"
+#include "z64bgcheck.h"
+#include "z64effect.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "z64global.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_eff_spark.h"
+#include "def/z_effect.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 // original name: "spark"
 void EffectSpark_Init(void* thisx, void* initParamsx) {

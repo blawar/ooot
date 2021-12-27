@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ZL4_Z_EN_ZL4_C
+#include "actor_common.h"
 /*
  * File: z_en_zl4.c
  * Overlay: ovl_En_Zl4
@@ -7,6 +9,20 @@
 #include "z_en_zl4.h"
 #include "objects/object_zl4/object_zl4.h"
 #include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/shrink_window.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 

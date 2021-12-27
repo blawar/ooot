@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_FIRE_TAIL_Z_EFF_SS_FIRE_TAIL_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_fire_tail.c
  * Overlay: ovl_Effect_Ss_Fire_Tail
@@ -6,6 +8,10 @@
 
 #include "z_eff_ss_fire_tail.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define rScale regs[0]
 #define rLifespan regs[1]

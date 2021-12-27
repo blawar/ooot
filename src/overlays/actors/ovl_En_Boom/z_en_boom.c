@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BOOM_Z_EN_BOOM_C
+#include "actor_common.h"
 /*
  * File: z_en_boom.c
  * Overlay: ovl_En_Boom
@@ -6,6 +8,15 @@
 
 #include "z_en_boom.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

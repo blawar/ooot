@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_PO_SISTERS_Z_EN_PO_SISTERS_C
+#include "actor_common.h"
 /*
  * File: z_en_po_sisters.c
  * Overlay: ovl_En_Po_Sisters
@@ -7,6 +9,22 @@
 #include "z_en_po_sisters.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_po_sisters/object_po_sisters.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800EC960.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
@@ -1342,7 +1360,7 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx) {
     u8 phi_s5;
     f32 phi_f20;
     s32 i;
-    u8 spE7;
+    u8 spE7 = 0;
     Color_RGBA8* temp_s1 = &D_80ADD700[this->unk_194];
     Color_RGBA8* temp_s7 = &D_80ADD6F0[this->unk_194];
     s32 pad;

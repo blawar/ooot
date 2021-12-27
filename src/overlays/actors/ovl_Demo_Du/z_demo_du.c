@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_DU_Z_DEMO_DU_C
+#include "actor_common.h"
 #include "z_demo_du.h"
 #include "objects/object_du/object_du.h"
 #include "overlays/actors/ovl_Demo_Effect/z_demo_effect.h"
@@ -17,6 +19,16 @@ void DemoDu_Draw(Actor* thisx, GlobalContext* globalCtx);
 static s32 sUnused = 0;
 
 #include "z_demo_du_cutscene_data.c" EARLY
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 static void* sEyeTextures[] = { gDaruniaEyeOpenTex, gDaruniaEyeOpeningTex, gDaruniaEyeShutTex, gDaruniaEyeClosingTex };
 static void* sMouthTextures[] = { gDaruniaMouthSeriousTex, gDaruniaMouthGrinningTex, gDaruniaMouthOpenTex,

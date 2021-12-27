@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_RR_Z_EN_RR_C
+#include "actor_common.h"
 /*
  * File: z_en_rr.c
  * Overlay: ovl_En_Rr
@@ -7,6 +9,17 @@
 #include "z_en_rr.h"
 #include "objects/object_rr/object_rr.h"
 #include "vt.h"
+#include "def/code_80097A00.h"
+#include "def/code_800A9F30.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_10)
 

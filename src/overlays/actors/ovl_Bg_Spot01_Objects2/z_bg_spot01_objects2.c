@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT01_OBJECTS2_Z_BG_SPOT01_OBJECTS2_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot01_objects2.c
  * Overlay: ovl_Bg_Spot01_Objects2
@@ -7,6 +9,12 @@
 #include "z_bg_spot01_objects2.h"
 #include "objects/object_spot01_matoya/object_spot01_matoya.h"
 #include "objects/object_spot01_matoyab/object_spot01_matoyab.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -94,7 +102,7 @@ void func_808AC2BC(BgSpot01Objects2* this, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, this->objBankIndex)) {
         // "---- Successful bank switching!!"
         osSyncPrintf("-----バンク切り換え成功！！\n");
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndex].vromStart);
 
         this->dyna.actor.objBankIndex = this->objBankIndex;
         DynaPolyActor_Init(&this->dyna, DPM_PLAYER);

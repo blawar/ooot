@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_FIREWALL_Z_BG_HIDAN_FIREWALL_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_firewall.c
  * Overlay: ovl_Bg_Hidan_Firewall
@@ -6,6 +8,11 @@
 
 #include "z_bg_hidan_firewall.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MORI_IDOMIZU_Z_BG_MORI_IDOMIZU_C
+#include "actor_common.h"
 /*
  * File: z_bg_mori_idomizu.c
  * Overlay: ovl_Bg_Mori_Idomizu
@@ -6,6 +8,12 @@
 
 #include "z_bg_mori_idomizu.h"
 #include "objects/object_mori_objects/object_mori_objects.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -169,7 +177,7 @@ void BgMoriIdomizu_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_idomizu.c", 360),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPSegment(POLY_XLU_DISP++, 0x08, globalCtx->objectCtx.status[this->moriTexObjIndex].segment);
+    gSPSegment(POLY_XLU_DISP++, 0x08, gObjectTable[this->moriTexObjIndex].vromStart);
 
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, 128);
 

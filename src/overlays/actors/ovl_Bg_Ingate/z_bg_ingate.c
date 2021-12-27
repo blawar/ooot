@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_INGATE_Z_BG_INGATE_C
+#include "actor_common.h"
 /*
  * File: z_bg_ingate.c
  * Overlay: ovl_Bg_Ingate
@@ -6,6 +8,13 @@
 
 #include "z_bg_ingate.h"
 #include "objects/object_ingate/object_ingate.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

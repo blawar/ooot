@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_FWBIG_Z_BG_HIDAN_FWBIG_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_fwbig.c
  * Overlay: ovl_Bg_Hidan_Fwbig
@@ -8,6 +10,14 @@
 #include "z_bg_hidan_fwbig.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

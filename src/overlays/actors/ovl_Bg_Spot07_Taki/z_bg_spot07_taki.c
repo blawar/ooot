@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT07_TAKI_Z_BG_SPOT07_TAKI_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot07_taki.c
  * Overlay: ovl_Bg_Spot07_Taki
@@ -6,6 +8,11 @@
 
 #include "z_bg_spot07_taki.h"
 #include "objects/object_spot07_object/object_spot07_object.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

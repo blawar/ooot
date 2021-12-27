@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_G_MAGMA2_Z_EFF_SS_G_MAGMA2_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_g_magma2.c
  * Overlay: ovl_Effect_Ss_G_Magma2
@@ -6,6 +8,9 @@
 
 #include "z_eff_ss_g_magma2.h"
 #include "objects/object_kingdodongo/object_kingdodongo.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rPrimColorR regs[0]
 #define rPrimColorG regs[1]
@@ -45,7 +50,7 @@ u32 EffectSsGMagma2_Init(GlobalContext* globalCtx, u32 index, EffectSs* this, vo
         Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
         EffectSsGMagma2InitParams* initParams = (EffectSsGMagma2InitParams*)initParamsx;
 
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[objBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIndex].vromStart);
         this->rObjBankIdx = objBankIndex;
         this->pos = initParams->pos;
         this->velocity = zeroVec;
@@ -78,7 +83,7 @@ void EffectSsGMagma2_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) {
     void* object;
 
     scale = this->rScale / 100.0f;
-    object = globalCtx->objectCtx.status[this->rObjBankIdx].segment;
+    object = gObjectTable[this->rObjBankIdx].vromStart;
 
     OPEN_DISPS(gfxCtx, "../z_eff_ss_g_magma2.c", 261);
 

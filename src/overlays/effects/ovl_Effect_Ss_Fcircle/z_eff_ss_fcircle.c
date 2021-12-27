@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_FCIRCLE_Z_EFF_SS_FCIRCLE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_fcircle.c
  * Overlay: ovl_Effect_Ss_Fcircle
@@ -6,6 +8,9 @@
 
 #include "z_eff_ss_fcircle.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define rUnused regs[3] // probably supposed to be an alpha
 #define rRadius regs[8]

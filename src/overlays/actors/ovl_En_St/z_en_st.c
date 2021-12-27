@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ST_Z_EN_ST_C
+#include "actor_common.h"
 /*
  * File: z_en_st.c
  * Overlay: ovl_En_St
@@ -22,6 +24,19 @@ void EnSt_BounceAround(EnSt* this, GlobalContext* globalCtx);
 void EnSt_FinishBouncing(EnSt* this, GlobalContext* globalCtx);
 
 #include "overlays/ovl_En_St/ovl_En_St.c"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_btltbls.h"
+#include "def/z_collision_check.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 const ActorInit En_St_InitVars = {
     ACTOR_EN_ST,
@@ -547,6 +562,7 @@ s32 EnSt_DecrStunTimer(EnSt* this) {
         return 0;
     }
     this->stunTimer--; //! @bug  no return but v0 ends up being stunTimer before decrement
+    return this->stunTimer + 1;
 }
 
 /**

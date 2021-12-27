@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_JYA_ZURERUKABE_Z_BG_JYA_ZURERUKABE_C
+#include "actor_common.h"
 /*
  * File: z_bg_jya_zurerukabe.c
  * Overlay: ovl_Bg_Jya_Zurerukabe
@@ -7,6 +9,11 @@
 #include "z_bg_jya_zurerukabe.h"
 #include "objects/object_jya_obj/object_jya_obj.h"
 #include "vt.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 

@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VISETMODE_C
 #include "global.h"
+#include "def/vi.h"
+#include "def/visetmode.h"
 
 void osViSetMode(OSViMode* mode) {
     register u32 prevInt = __osDisableInt();

@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_CODE_AUDIO_SEQPLAYER_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "def/audio_data.h"
+#include "def/audio_effects.h"
+#include "def/audio_heap.h"
+#include "def/audio_load.h"
+#include "def/audio_playback.h"
+#include "def/audio_seqplayer.h"
+#include "def/code_800E4FE0.h"
+#include "def/code_800F7260.h"
 
 #define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
 #define PORTAMENTO_MODE(x) ((x).mode & ~0x80)
@@ -625,15 +635,15 @@ s32 AudioSeq_SeqLayerProcessScriptStep4(SequenceLayer* layer, s32 cmd) {
     s32 speed;
     f32 temp_f14;
     f32 temp_f2;
-    Portamento* portamento;
+    Portamento* portamento = NULL;
     f32 freqScale;
     f32 freqScale2;
-    SoundFontSound* sound;
-    Instrument* instrument;
+    SoundFontSound* sound = NULL;
+    Instrument* instrument = NULL;
     Drum* drum;
     s32 pad;
-    SequenceChannel* channel;
-    SequencePlayer* seqPlayer;
+    SequenceChannel* channel = NULL;
+    SequencePlayer* seqPlayer = NULL;
     u8 semitone = cmd;
     u16 sfxId;
     s32 semitone2;

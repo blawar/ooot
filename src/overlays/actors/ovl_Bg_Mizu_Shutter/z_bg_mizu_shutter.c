@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MIZU_SHUTTER_Z_BG_MIZU_SHUTTER_C
+#include "actor_common.h"
 #include "z_bg_mizu_shutter.h"
 #include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800A9F30.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

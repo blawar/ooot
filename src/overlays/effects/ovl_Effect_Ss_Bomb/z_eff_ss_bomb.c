@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_BOMB_Z_EFF_SS_BOMB_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_bomb.c
  * Overlay: ovl_Effect_Ss_Bomb
@@ -6,6 +8,11 @@
 
 #include "z_eff_ss_bomb.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define rScale regs[0]
 #define rTexIdx regs[1]

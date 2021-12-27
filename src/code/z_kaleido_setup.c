@@ -1,4 +1,17 @@
+#define INTERNAL_SRC_CODE_Z_KALEIDO_SETUP_C
 #include "global.h"
+#include "z64save.h"
+#include "padmgr.h"
+#include "kaleido.h"
+#include "z64global.h"
+#include "z64item.h"
+#include "def/code_800EC960.h"
+#include "def/shrink_window.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kaleido_setup.h"
+#include "def/z_play.h"
+#include "def/z_view.h"
 
 s16 sKaleidoSetupKscpPos0[] = { PAUSE_QUEST, PAUSE_EQUIP, PAUSE_ITEM, PAUSE_MAP };
 f32 sKaleidoSetupEyeX0[] = { 0.0f, 64.0f, 0.0f, -64.0f };

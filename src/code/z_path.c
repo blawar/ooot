@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_Z_PATH_C
 #include "global.h"
+#include "z64global.h"
+#include "z64math.h"
+#include "def/code_800FCE80.h"
+#include "def/z_path.h"
 
 Path* Path_GetByIndex(GlobalContext* globalCtx, s16 index, s16 max) {
     Path* path;

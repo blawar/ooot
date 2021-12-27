@@ -1,6 +1,13 @@
+#define INTERNAL_SRC_CODE_CODE_800F9280_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "sequence.h"
 #include "ultra64/abi.h"
+#include "def/code_800E4FE0.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
 
 extern u8 sSeqCmdRdPos;
 extern u8 sSeqCmdWrPos;
@@ -85,7 +92,9 @@ typedef struct {
     u8 unk_0;
     u8 unk_1; // importance?
 } Struct_8016E320;
-extern Struct_8016E320 D_8016E320[][5]; // sorted by unk_1, descending
+
+#define MAX_PLAYERS 4
+Struct_8016E320 D_8016E320[MAX_PLAYERS][5]; // sorted by unk_1, descending
 
 void Audio_ProcessSeqCmd(u32 cmd) {
     s32 pad[2];

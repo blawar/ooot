@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_MIR_RAY_Z_MIR_RAY_C
+#include "actor_common.h"
 /*
  * File: z_mir_ray.c
  * Overlay: ovl_Mir_Ray
@@ -6,6 +8,15 @@
 
 #include "z_mir_ray.h"
 #include "objects/object_mir_ray/object_mir_ray.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

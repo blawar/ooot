@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_G_FIRE_Z_EFF_SS_G_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_g_fire.c
  * Overlay: ovl_Effect_Ss_G_Fire
@@ -6,6 +8,7 @@
 
 #include "z_eff_ss_g_fire.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/z_effect_soft_sprite_old_init.h"
 
 u32 EffectSsGFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* this, void* initParamsx);
 void EffectSsGFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this);

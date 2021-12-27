@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT01_IDOSOKO_Z_BG_SPOT01_IDOSOKO_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot01_idosoko.c
  * Overlay: ovl_Bg_Spot01_Idosoko
@@ -6,6 +8,12 @@
 
 #include "z_bg_spot01_idosoko.h"
 #include "objects/object_spot01_matoya/object_spot01_matoya.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

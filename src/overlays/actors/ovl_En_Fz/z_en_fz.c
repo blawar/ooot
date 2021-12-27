@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FZ_Z_EN_FZ_C
+#include "actor_common.h"
 #include "z_en_fz.h"
 #include "objects/object_fz/object_fz.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
 

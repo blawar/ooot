@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_BOMBIWA_Z_OBJ_BOMBIWA_C
+#include "actor_common.h"
 /*
  * File: z_obj_bombiwa.c
  * Overlay: ovl_Obj_Bombiwa
@@ -7,6 +9,13 @@
 #include "z_obj_bombiwa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "objects/object_bombiwa/object_bombiwa.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

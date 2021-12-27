@@ -3,10 +3,11 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "z64actor.h"
 
 struct ElfMsg;
 
-typedef void (*ElfMsgActionFunc)(struct ElfMsg*, GlobalContext*);
+typedef void (*ElfMsgActionFunc)(struct ElfMsg*, struct GlobalContext*);
 
 typedef struct ElfMsg {
     /* 0x0000 */ Actor actor;

@@ -1,8 +1,26 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_KANKYO_Z_DEMO_KANKYO_C
+#include "actor_common.h"
 #include "z_demo_kankyo.h"
+#include "z_kankyo.h"
 #include "z64cutscene_commands.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_efc_star_field/object_efc_star_field.h"
 #include "objects/object_toki_objects/object_toki_objects.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800BB0A0.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_object_kankyo.h"
+#include "def/z_olib.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -855,7 +873,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
         translateZ = this->unk_150[i].unk_C.z + this->unk_150[i].unk_0.z;
 
         if (this->unk_150[i].unk_22 < 2) {
-            disp = (u32)gEffFlash1DL;
+            disp = gEffFlash1DL;
             if (linkAge != 0) {
                 Matrix_Translate(translateX, translateY, translateZ, MTXMODE_NEW);
             } else {

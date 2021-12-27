@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_PO_RELAY_Z_EN_PO_RELAY_C
+#include "actor_common.h"
 /*
  * File: z_en_po_relay.c
  * Overlay: ovl_En_Po_Relay
@@ -7,6 +9,21 @@
 #include "z_en_po_relay.h"
 #include "overlays/actors/ovl_En_Honotrap/z_en_honotrap.h"
 #include "objects/object_tk/object_tk.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_12 | ACTOR_FLAG_16)
 

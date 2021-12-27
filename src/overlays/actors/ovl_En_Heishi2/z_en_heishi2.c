@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HEISHI2_Z_EN_HEISHI2_C
+#include <z64math.h>
+#include "actor_common.h"
 /*
  * File: z_en_heishi2.c
  * Overlay: ovl_En_Heishi2
@@ -11,6 +14,19 @@
 #include "overlays/actors/ovl_Bg_Gate_Shutter/z_bg_gate_shutter.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "overlays/actors/ovl_Bg_Spot15_Saku/z_bg_spot15_saku.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
@@ -851,12 +867,12 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Put(&this->mtxf_330);
             Matrix_Translate(-570.0f, 0.0f, 0.0f, MTXMODE_APPLY);
             Matrix_RotateZ(DEGTORAD(70.0), MTXMODE_APPLY);
-            mtx = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1820) - 7;
+            mtx = POINTER_SUB(Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1820), 7 * sizeof(float[4][4]));
 
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[linkObjBankIndex].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[linkObjBankIndex].vromStart);
             gSPSegment(POLY_OPA_DISP++, 0x0D, mtx);
             gSPDisplayList(POLY_OPA_DISP++, gLinkChildKeatonMaskDL);
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->actor.objBankIndex].vromStart);
         }
     }
 

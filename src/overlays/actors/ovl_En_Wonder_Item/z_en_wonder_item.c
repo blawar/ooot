@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_WONDER_ITEM_Z_EN_WONDER_ITEM_C
+#include "actor_common.h"
 /*
  * File: z_en_wonder_item.c
  * Overlay: ovl_En_Wonder_Item
@@ -6,6 +8,10 @@
 
 #include "z_en_wonder_item.h"
 #include "vt.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 
@@ -217,11 +223,6 @@ void EnWonderItem_MultitagFree(EnWonderItem* this, GlobalContext* globalCtx) {
                 this->timer = this->timerMod + 81;
                 return;
             }
-            if (BREG(0) != 0) {
-                DebugDisplay_AddObject(sTagPointsFree[i].x, sTagPointsFree[i].y, sTagPointsFree[i].z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 0, 255, 0, 255, 4, globalCtx->state.gfxCtx);
-            }
         }
     }
     if (this->timer == 1) {
@@ -287,10 +288,6 @@ void EnWonderItem_MultitagOrdered(EnWonderItem* this, GlobalContext* globalCtx) 
                     Actor_Kill(&this->actor);
                     return;
                 }
-            } else if (BREG(0) != 0) {
-                DebugDisplay_AddObject(sTagPointsOrdered[i].x, sTagPointsOrdered[i].y, sTagPointsOrdered[i].z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 0, 0, 255, 255, 4, globalCtx->state.gfxCtx);
             }
         }
     }
@@ -353,11 +350,5 @@ void EnWonderItem_Update(Actor* thisx, GlobalContext* globalCtx) {
     colorIndex = this->wonderMode;
     if (this->wonderMode > 12) {
         colorIndex = 0;
-    }
-    if (BREG(0) != 0) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, debugArrowColors[colorIndex], debugArrowColors[colorIndex + 1],
-                               debugArrowColors[colorIndex + 2], 255, 4, globalCtx->state.gfxCtx);
     }
 }

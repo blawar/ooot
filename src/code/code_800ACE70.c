@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_CODE_800ACE70_C
 #include "global.h"
+#include "gfx.h"
+#include "code_800ACE70.h"
+#include "def/code_800ACE70.h"
 
 // Note : This file is related to z_vismono, the original name was probably z_vis<something before "mono"
 // alphabetically>

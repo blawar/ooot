@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_BUBBLE_Z_EFF_SS_BUBBLE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_bubble.c
  * Overlay: ovl_Effect_Ss_Bubble
@@ -6,6 +8,12 @@
 
 #include "z_eff_ss_bubble.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_bgcheck.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define rScale regs[0]
 

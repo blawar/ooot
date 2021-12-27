@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_WOOD02_Z_EN_WOOD02_C
+#include "actor_common.h"
 /*
  * File: z_en_wood02.c
  * Overlay: ovl_En_Wood02
@@ -6,6 +8,16 @@
 
 #include "z_en_wood02.h"
 #include "objects/object_wood02/object_wood02.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS 0
 

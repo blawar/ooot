@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_Z_EFFECT_C
 #include "global.h"
+#include "z64effect.h"
+#include "z64global.h"
+#include "def/z_effect.h"
+#include "def/z_play.h"
 
 EffectContext sEffectContext;
 

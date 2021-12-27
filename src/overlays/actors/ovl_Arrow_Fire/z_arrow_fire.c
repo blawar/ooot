@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ARROW_FIRE_Z_ARROW_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_arrow_fire.c
  * Overlay: ovl_Arrow_Fire
@@ -19,6 +21,12 @@ void ArrowFire_Fly(ArrowFire* this, GlobalContext* globalCtx);
 void ArrowFire_Hit(ArrowFire* this, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Arrow_Fire/ovl_Arrow_Fire.c"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/graph.h" // FORCE
 
 const ActorInit Arrow_Fire_InitVars = {
     ACTOR_ARROW_FIRE,

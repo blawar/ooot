@@ -1,7 +1,29 @@
+#define INTERNAL_SRC_CODE_Z_EN_ITEM00_C
 #include "global.h"
+#include "z64global.h"
+#include "ichain.h"
+#include "z64player.h"
+#include "z64item.h"
+#include "z64save.h"
+#include "sfx.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_draw.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/graph.h" // FORCE
 
 #define FLAGS 0
 
@@ -952,7 +974,7 @@ void EnItem00_Draw(Actor* thisx, GlobalContext* globalCtx) {
             case ITEM00_HEART:
                 if (this->unk_15A < 0) {
                     if (this->unk_15A == -1) {
-                        s8 bankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_GI_HEART);
+                        s32 bankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_GI_HEART);
 
                         if (Object_IsLoaded(&globalCtx->objectCtx, bankIndex)) {
                             this->actor.objBankIndex = bankIndex;

@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_CODE_Z_HORSE_C
 #include "global.h"
 #include "vt.h"
+#include "z64scene.h"
+#include "z64global.h"
+#include "z64save.h"
+#include "z64player.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_horse.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
 
 s32 func_8006CFC0(s32 scene) {
     s32 validScenes[] = { SCENE_SPOT00, SCENE_SPOT06, SCENE_SPOT09, SCENE_SPOT12, SCENE_SPOT20 };

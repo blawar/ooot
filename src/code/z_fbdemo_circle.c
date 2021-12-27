@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_Z_FBDEMO_CIRCLE_C
 #include "global.h"
+#include "gfx.h"
+#include "z64transition.h"
+#include "z64audio.h"
+#include "sfx.h"
 
 // unused
 Gfx sCircleNullDList[] = {
@@ -6,6 +11,14 @@ Gfx sCircleNullDList[] = {
 };
 
 #include "code/fbdemo_circle/z_fbdemo_circle.c"
+#include "def/code_800F7260.h"
+#include "def/lookat.h"
+#include "def/perspective.h"
+#include "def/rotate.h"
+#include "def/scale.h"
+#include "def/translate.h"
+#include "def/z_fbdemo_circle.h"
+#include "def/z_rcp.h"
 
 Gfx sCircleDList[] = {
     gsDPPipeSync(),
@@ -19,7 +32,7 @@ Gfx sCircleDList[] = {
     gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
     gsDPLoadTextureBlock(0x08000000, G_IM_FMT_I, G_IM_SIZ_8b, 16, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_CLAMP, 4, 6, G_TX_NOLOD, G_TX_NOLOD),
-    gsSPDisplayList(0x09000000),
+    gsSPDisplayListSEG(SEGMENT_ADDRESS(0x09000000)),
     gsSPVertex(sCircleWipeVtx, 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 4, 0),
     gsSP2Triangles(3, 5, 6, 0, 5, 7, 8, 0),

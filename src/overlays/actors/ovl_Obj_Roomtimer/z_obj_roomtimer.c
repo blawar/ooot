@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_ROOMTIMER_Z_OBJ_ROOMTIMER_C
+#include "actor_common.h"
 /*
  * File: z_obj_roomtimer.c
  * Overlay: ovl_Obj_Roomtimer
@@ -5,6 +7,12 @@
  */
 
 #include "z_obj_roomtimer.h"
+#include "def/code_800F7260.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
 
 #define FLAGS ACTOR_FLAG_4
 

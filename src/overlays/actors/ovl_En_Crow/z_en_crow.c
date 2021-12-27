@@ -1,5 +1,18 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_CROW_Z_EN_CROW_C
+#include "actor_common.h"
 #include "z_en_crow.h"
 #include "objects/object_crow/object_crow.h"
+#include "def/code_800FD970.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 

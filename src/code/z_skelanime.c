@@ -1,5 +1,28 @@
+#define INTERNAL_SRC_CODE_Z_SKELANIME_C
 #include "global.h"
+#include "segment_symbols.h"
+#include "z64global.h"
+#include "z_skelanime.h"
 #include "vt.h"
+#include "misc/link_animetion/link_animetion.h"
+#include "def/createmesgqueue.h"
+#include "def/graph.h"
+#include "def/recvmesg.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_malloc.h"
+#include "def/z_skelanime.h"
+#include "def/z_std_dma.h"
+
+// TODO FIX THIS HACK
+//DECLARE_SEGMENT(link_animetion)
+
+#define LINK_ANIMATION_OFFSET2(addr, offset)                                                                       \
+    (((uintptr_t)_link_animetionSegmentRomStart) + ((uintptr_t)offset))
+
+#define LINK_ANIMATION_OFFSET(addr, offset)                                                                       \
+    (((uintptr_t)addr) + ((uintptr_t)offset))
+
 
 #define ANIM_INTERP 1
 
@@ -471,13 +494,6 @@ void SkelAnime_GetFrameData(AnimationHeader* animation, s32 frame, s32 limbCount
     s32 i;
 
     for (i = 0; i < limbCount; i++, frameTable++, jointIndices++) {
-        if ((frameTable == NULL) || (jointIndices == NULL) || (dynamicData == NULL) || (staticData == NULL)) {
-            LOG_ADDRESS("out", frameTable, "../z_skelanime.c", 1392);
-            LOG_ADDRESS("ref_tbl", jointIndices, "../z_skelanime.c", 1393);
-            LOG_ADDRESS("frame_tbl", dynamicData, "../z_skelanime.c", 1394);
-            LOG_ADDRESS("tbl", staticData, "../z_skelanime.c", 1395);
-        }
-
         frameTable->x =
             (jointIndices->x >= staticIndexMax) ? dynamicData[jointIndices->x] : staticData[jointIndices->x];
         frameTable->y =
@@ -844,9 +860,10 @@ void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader
 
     if (entry != NULL) {
         LinkAnimationHeader* linkAnimHeader = SEGMENTED_TO_VIRTUAL(animation);
-        u32 ram = frameTable;
+        void* ram = frameTable;
 
         osCreateMesgQueue(&entry->data.load.msgQueue, &entry->data.load.msg, 1);
+ 
         DmaMgr_SendRequest2(&entry->data.load.req, ram,
                             LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame)),
                             sizeof(Vec3s) * limbCount + 2, 0, &entry->data.load.msgQueue, NULL, "../z_skelanime.c",
@@ -1073,8 +1090,8 @@ void SkelAnime_InitLink(GlobalContext* globalCtx, SkelAnime* skelAnime, FlexSkel
     } else {
         ASSERT(limbBufCount == limbCount, "joint_buff_num == joint_num", "../z_skelanime.c", 2369);
 
-        skelAnime->jointTable = (Vec3s*)ALIGN16((u32)jointTable);
-        skelAnime->morphTable = (Vec3s*)ALIGN16((u32)morphTable);
+        skelAnime->jointTable = (Vec3s*)ALIGN16((uintptr_t)jointTable);
+        skelAnime->morphTable = (Vec3s*)ALIGN16((uintptr_t)morphTable);
     }
 
     if ((skelAnime->jointTable == NULL) || (skelAnime->morphTable == NULL)) {
@@ -1311,7 +1328,7 @@ void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, 
 
     AnimationContext_SetLoadFrame(globalCtx, animation1, (s32)frame1, skelAnime->limbCount, skelAnime->jointTable);
 
-    alignedBlendTable = (Vec3s*)ALIGN16((u32)blendTable);
+    alignedBlendTable = (Vec3s*)ALIGN16((uintptr_t)blendTable);
 
     AnimationContext_SetLoadFrame(globalCtx, animation2, (s32)frame2, skelAnime->limbCount, alignedBlendTable);
     AnimationContext_SetInterp(globalCtx, skelAnime->limbCount, skelAnime->jointTable, alignedBlendTable, blendWeight);
@@ -1405,6 +1422,7 @@ s32 SkelAnime_Init(GlobalContext* globalCtx, SkelAnime* skelAnime, SkeletonHeade
     if (animation != NULL) {
         Animation_PlayLoop(skelAnime, animation);
     }
+    return 0;
 }
 
 /**
@@ -1439,6 +1457,7 @@ s32 SkelAnime_InitFlex(GlobalContext* globalCtx, SkelAnime* skelAnime, FlexSkele
     if (animation != NULL) {
         Animation_PlayLoop(skelAnime, animation);
     }
+    return 0;
 }
 
 /**
@@ -1464,6 +1483,8 @@ s32 SkelAnime_InitSkin(GlobalContext* globalCtx, SkelAnime* skelAnime, SkeletonH
     if (animation != NULL) {
         Animation_PlayLoop(skelAnime, animation);
     }
+
+    return 0;
 }
 
 /**

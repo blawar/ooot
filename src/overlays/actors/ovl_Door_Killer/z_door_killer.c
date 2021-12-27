@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_KILLER_Z_DOOR_KILLER_C
+#include "actor_common.h"
 /*
  * File: z_door_killer.c
  * Overlay: ovl_Door_Killer
@@ -10,6 +12,16 @@
 #include "objects/object_mizu_objects/object_mizu_objects.h"
 #include "objects/object_haka_door/object_haka_door.h"
 #include "objects/object_door_killer/object_door_killer.h"
+#include "def/code_8006BA00.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -459,9 +471,9 @@ void DoorKiller_Wait(DoorKiller* this, GlobalContext* globalCtx) {
 void DoorKiller_UpdateTexture(Actor* thisx, GlobalContext* globalCtx) {
     DoorKiller* this = (DoorKiller*)thisx;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->doorObjBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->doorObjBankIndex].vromStart);
     this->texture = SEGMENTED_TO_VIRTUAL(this->texture);
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[thisx->objBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[thisx->objBankIndex].vromStart);
 }
 
 /**

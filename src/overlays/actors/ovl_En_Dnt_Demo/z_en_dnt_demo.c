@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DNT_DEMO_Z_EN_DNT_DEMO_C
+#include "actor_common.h"
+#include "z_debug_display.h"
 /*
  * File: z_en_dnt_demo.c
  * Overlay: ovl_En_Dnt_Demo
@@ -9,6 +12,14 @@
 #include "overlays/actors/ovl_En_Dnt_Jiji/z_en_dnt_jiji.h"
 #include "overlays/actors/ovl_En_Dnt_Nomal/z_en_dnt_nomal.h"
 #include "vt.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_player_lib.h"
 
 #define FLAGS 0
 
@@ -322,17 +333,4 @@ void EnDntDemo_Update(Actor* thisx, GlobalContext* globalCtx) {
         this->unkTimer1--;
     }
     this->actionFunc(this, globalCtx);
-    if (BREG(0)) {
-        if (this->debugArrowTimer != 0) {
-            if (!(this->debugArrowTimer & 1)) {
-                DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 120, 120, 0, 255, 4, globalCtx->state.gfxCtx);
-            }
-        } else {
-            DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                   this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                   1.0f, 1.0f, 255, 255, 255, 255, 4, globalCtx->state.gfxCtx);
-        }
-    }
 }

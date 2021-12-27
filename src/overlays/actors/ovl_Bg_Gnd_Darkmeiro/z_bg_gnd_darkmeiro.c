@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_GND_DARKMEIRO_Z_BG_GND_DARKMEIRO_C
+#include "actor_common.h"
 /*
  * File: z_bg_gnd_darkmeiro.c
  * Overlay: ovl_Bg_Gnd_Darkmeiro
@@ -6,6 +8,11 @@
 
 #include "z_bg_gnd_darkmeiro.h"
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "def/code_800F7260.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

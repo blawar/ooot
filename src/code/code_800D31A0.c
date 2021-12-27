@@ -1,5 +1,9 @@
+#define INTERNAL_SRC_CODE_CODE_800D31A0_C
 #include "global.h"
 #include "vt.h"
+#include "padmgr.h"
+#include "def/code_800D31A0.h"
+#include "def/sleep.h"
 
 u32 gIsCtrlr2Valid = false;
 

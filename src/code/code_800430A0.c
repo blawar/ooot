@@ -1,5 +1,13 @@
+#define INTERNAL_SRC_CODE_CODE_800430A0_C
 #include "global.h"
 #include "vt.h"
+#include "z64actor.h"
+#include "z64bgcheck.h"
+#include "z64player.h"
+#include "def/code_800430A0.h"
+#include "def/code_80043480.h"
+#include "def/z_bgcheck.h"
+#include "def/z_skin_matrix.h"
 
 void func_800430A0(CollisionContext* colCtx, s32 bgId, Actor* actor) {
     MtxF prevTransform;

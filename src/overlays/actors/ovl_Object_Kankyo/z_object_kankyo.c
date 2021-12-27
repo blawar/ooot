@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJECT_KANKYO_Z_OBJECT_KANKYO_C
+#include "actor_common.h"
 /*
  * File: z_object_kankyo.c
  * Overlay: ovl_Object_Kankyo
@@ -8,6 +10,20 @@
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_spot02_objects/object_spot02_objects.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_object_kankyo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 
@@ -33,7 +49,7 @@ void ObjectKankyo_DrawLightning(ObjectKankyo* this, GlobalContext* globalCtx);
 void ObjectKankyo_DrawSunGraveSpark(ObjectKankyo* this, GlobalContext* globalCtx);
 void ObjectKankyo_DrawBeams(ObjectKankyo* this, GlobalContext* globalCtx);
 
-extern Mtx D_01000000;
+Mtx D_01000000;
 
 static void* sEffLightningTextures[] = {
     gEffLightning1Tex, gEffLightning2Tex, gEffLightning3Tex, gEffLightning4Tex,

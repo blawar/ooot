@@ -1,30 +1,21 @@
+#define INTERNAL_SRC_CODE_SYS_CFB_C
 #include "global.h"
+#include "def/sys_cfb.h"
+#include <stdlib.h>
 
-u32 sSysCfbFbPtr[2];
-u32 sSysCfbEnd;
+#define osMemSize 0x800000
+
+uintptr_t sSysCfbFbPtr[2];
+uintptr_t sSysCfbEnd;
+
+static void* cfbBuffer = NULL;
 
 void SysCfb_Init(s32 n64dd) {
-    u32 screenSize;
-    u32 tmpFbEnd;
+    uintptr_t screenSize;
+    uintptr_t tmpFbEnd;
 
-    if (osMemSize >= 0x800000) {
-        // "8MB or more memory is installed"
-        osSyncPrintf("８Ｍバイト以上のメモリが搭載されています\n");
-        tmpFbEnd = 0x8044BE80;
-        if (n64dd == 1) {
-            osSyncPrintf("RAM 8M mode (N64DD対応)\n"); // "RAM 8M mode (N64DD compatible)"
-            sSysCfbEnd = 0x805FB000;
-        } else {
-            // "The margin for this version is %dK bytes"
-            osSyncPrintf("このバージョンのマージンは %dK バイトです\n", (0x4BC00 / 1024));
-            sSysCfbEnd = tmpFbEnd;
-        }
-    } else if (osMemSize >= 0x400000) {
-        osSyncPrintf("RAM4M mode\n");
-        sSysCfbEnd = 0x80400000;
-    } else {
-        LogUtils_HungupThread("../sys_cfb.c", 354);
-    }
+    cfbBuffer = malloc(osMemSize);
+    sSysCfbEnd = POINTER_ADD(cfbBuffer, osMemSize);
 
     screenSize = SCREEN_WIDTH * SCREEN_HEIGHT;
     sSysCfbEnd &= ~0x3F;
@@ -42,13 +33,13 @@ void SysCfb_Reset() {
     sSysCfbEnd = 0;
 }
 
-u32 SysCfb_GetFbPtr(s32 idx) {
+uintptr_t SysCfb_GetFbPtr(s32 idx) {
     if (idx < 2) {
         return sSysCfbFbPtr[idx];
     }
     return 0;
 }
 
-u32 SysCfb_GetFbEnd() {
+uintptr_t SysCfb_GetFbEnd() {
     return sSysCfbEnd;
 }

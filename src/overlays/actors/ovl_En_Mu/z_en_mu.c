@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_MU_Z_EN_MU_C
+#include "actor_common.h"
 /*
  * File: z_en_mu.c
  * Overlay: ovl_En_Mu
@@ -6,6 +8,16 @@
 
 #include "z_en_mu.h"
 #include "objects/object_mu/object_mu.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MIZU_WATER_Z_BG_MIZU_WATER_C
+#include "actor_common.h"
 /*
  * File: z_bg_mizu_water.c
  * Overlay: ovl_Bg_Mizu_Water
@@ -6,6 +8,13 @@
 
 #include "z_bg_mizu_water.h"
 #include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "def/code_800A9F30.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

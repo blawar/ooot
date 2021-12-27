@@ -1,5 +1,18 @@
+#define INTERNAL_SRC_CODE_SPEED_METER_C
 #include "global.h"
 #include "vt.h"
+#include "speedmeter.h"
+#include "gfx.h"
+#include "view.h"
+#include "z64game.h"
+#include "def/TwoHeadArena.h"
+#include "def/irqmgr.h"
+#include "def/logutils.h"
+#include "def/speed_meter.h"
+#include "def/system_malloc.h"
+#include "def/z_malloc.h"
+#include "def/z_view.h"
+#include "def/graph.h" // FORCE
 
 volatile OSTime D_8016A520;
 volatile OSTime D_8016A528;
@@ -15,6 +28,8 @@ volatile OSTime gRSPOtherTotalTime;
 volatile OSTime D_8016A578;
 volatile OSTime gRDPTotalTime;
 SpeedMeterTimeEntry* sSpeedMeterTimeEntryPtr;
+
+extern volatile OSTime gIrqMgrRetraceTime;
 
 SpeedMeterTimeEntry sSpeedMeterTimeEntryArray[] = {
     { &D_8016A520, 0, 0, GPACK_RGBA5551(255, 0, 0, 1) }, { &D_8016A528, 0, 2, GPACK_RGBA5551(255, 255, 0, 1) },

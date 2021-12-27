@@ -1,11 +1,17 @@
+#define INTERNAL_SRC_CODE_Z_VISMONO_C
 #include "global.h"
+#include "gfx.h"
+#include "z_vismono.h"
+#include "def/graph.h"
+#include "def/system_malloc.h"
+#include "def/z_vismono.h"
 
 // (Note: 80 = SCREEN_HEIGHT/3, see VisMono_DrawTexture)
 // This may not have been kept up-to-date with the code, 1+1+1+80*(7+2+2+3)+1+1 makes more sense
 #define DLSIZE (1 + 3 + 1 + 1 + 80 * (7 + 2 + 2 + 3) + 1)
 
 // framebuffer
-extern u16 D_0F000000[];
+static u16 D_0F000000[SCREEN_HEIGHT * SCREEN_WIDTH * 4];
 
 void VisMono_Init(VisMono* this) {
     bzero(this, sizeof(VisMono));
@@ -89,12 +95,6 @@ void VisMono_Draw(VisMono* this, Gfx** gfxp) {
         monoDL = Graph_DlistAlloc(&gfx, DLSIZE * sizeof(Gfx));
         glistpEnd = VisMono_DrawTexture(this, monoDL);
 
-        if (!(glistpEnd <= monoDL + DLSIZE)) {
-            LOG_ADDRESS("glistp_end", glistpEnd, "../z_vismono.c", 257);
-            LOG_ADDRESS("mono_dl", monoDL, "../z_vismono.c", 258);
-            LOG_ADDRESS("mono_dl + (1+3+1+1+80*(7+2+2+3)+1)", monoDL + DLSIZE, "../z_vismono.c", 259);
-            LOG_ADDRESS("(1+3+1+1+80*(7+2+2+3)+1)", DLSIZE, "../z_vismono.c", 260);
-        }
         ASSERT(glistpEnd <= monoDL + DLSIZE, "glistp_end <= mono_dl + DLSIZE", "../z_vismono.c", 262);
     }
 

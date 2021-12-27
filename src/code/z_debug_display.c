@@ -1,5 +1,10 @@
+#define INTERNAL_SRC_CODE_Z_DEBUG_DISPLAY_C
 #include "global.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_debug_display.h"
+#include "def/z_rcp.h"
 
 typedef struct {
     /* 0x00 */ s16 drawType;  // indicates which draw function to use when displaying the object

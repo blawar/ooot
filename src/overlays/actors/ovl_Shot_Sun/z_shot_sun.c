@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_SHOT_SUN_Z_SHOT_SUN_C
+#include "actor_common.h"
 /*
  * File: z_shot_sun.c
  * Overlay: ovl_Shot_Sun
@@ -8,6 +10,15 @@
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "scenes/overworld/spot06/spot06_scene.h"
 #include "vt.h"
+#include "def/sys_math3d.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 

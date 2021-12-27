@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_D_FIRE_Z_EFF_SS_D_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_d_fire.c
  * Overlay: ovl_Effect_Ss_D_Fire
@@ -6,6 +8,10 @@
 
 #include "z_eff_ss_d_fire.h"
 #include "objects/object_dodongo/object_dodongo.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skin_matrix.h"
 
 #define rScale regs[0]
 #define rTexIdx regs[1]
@@ -69,7 +75,7 @@ void EffectSsDFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) {
     Mtx* mtx;
     f32 scale;
 
-    object = globalCtx->objectCtx.status[this->rObjBankIdx].segment;
+    object = gObjectTable[this->rObjBankIdx].vromStart;
 
     OPEN_DISPS(gfxCtx, "../z_eff_ss_d_fire.c", 276);
 

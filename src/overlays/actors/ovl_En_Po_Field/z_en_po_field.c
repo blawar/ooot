@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_PO_FIELD_Z_EN_PO_FIELD_C
+#include "actor_common.h"
 /*
  * File: z_en_po_field.c
  * Overlay: ovl_En_Po_Field
@@ -7,6 +9,20 @@
 #include "z_en_po_field.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_po_field/object_po_field.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_12)
 
@@ -391,6 +407,7 @@ f32 EnPoField_SetFleeSpeed(EnPoField* this, GlobalContext* globalCtx) {
         this->actor.speedXZ = 12.0f;
     }
     this->actor.speedXZ = CLAMP_MIN(this->actor.speedXZ, 12.0f);
+    return this->actor.speedXZ;
 }
 
 void EnPoField_WaitForSpawn(EnPoField* this, GlobalContext* globalCtx) {

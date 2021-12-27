@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_JYA_KANAAMI_Z_BG_JYA_KANAAMI_C
+#include "actor_common.h"
 /*
  * File: z_bg_jya_kanaami.c
  * Overlay: ovl_Bg_Jya_Kanaami
@@ -6,6 +8,13 @@
 
 #include "z_bg_jya_kanaami.h"
 #include "objects/object_jya_obj/object_jya_obj.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_quake.h"
 
 #define FLAGS 0
 

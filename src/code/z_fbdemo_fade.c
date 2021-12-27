@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_CODE_Z_FBDEMO_FADE_C
 #include "global.h"
+#include "gfx.h"
+#include "z64transition.h"
 #include "vt.h"
+#include "regs.h"
+#include "z64game.h"
+#include "z64save.h"
+#include "z_play.h"
+#include "def/z_common_data.h"
+#include "def/z_fbdemo_fade.h"
+#include "def/z_lib.h"
 
 static Gfx sRCPSetupFade[] = {
     gsDPPipeSync(),

@@ -1,5 +1,26 @@
+#define INTERNAL_SRC_CODE_DB_CAMERA_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64global.h"
+#include "gfxprint.h"
+#include "sfx.h"
+#include "z64save.h"
+#include "z_demo.h"
+#include "gfx.h"
+#include "def/code_800BB0A0.h"
+#include "def/code_800F7260.h"
+#include "def/db_camera.h"
+#include "def/debug_malloc.h"
+#include "def/mempak.h"
+#include "def/shrink_window.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_debug.h"
+//#include "def/z_debug_display.h"
+#include "def/z_demo.h"
+#include "def/z_lib.h"
+#include "def/z_olib.h"
+#include "def/z_parameter.h"
 
 static GlobalContext* sGlobalCtx;
 
@@ -316,7 +337,7 @@ s32 func_800B42C0(DbCamera* dbCamera, Camera* cameraPtr) {
 s32 func_800B4370(DbCamera* dbCamera, s16 idx, Camera* cam) {
     CutsceneCameraPoint* lookAt = &dbCamera->sub.lookAt[idx];
     CutsceneCameraPoint* position = &dbCamera->sub.position[idx];
-    VecSph sph;
+    VecSph sph = { 0 };
     Vec3f at;
 
     if (dbCamera->sub.mode != 1) {
@@ -559,7 +580,7 @@ void DbCamera_Update(DbCamera* dbCamera, Camera* cam) {
     static s32 D_8012D110 = 0;
     static s32 D_80161140; // bool
     static s32 D_80161144; // bool
-    Vec3f* sp124;
+    Vec3f* sp124 = NULL;
     f32 temp_f0_5;
     s16 yaw;
     f32 new_var2;
@@ -1384,12 +1405,6 @@ void DbCamera_Update(DbCamera* dbCamera, Camera* cam) {
                 func_8006376C(0x1C, 0x19, 3, D_8012D0D4);
             }
 
-            DebugDisplay_AddObject(dbCamera->at.x, dbCamera->at.y + 1.0f, dbCamera->at.z, 0, 0, 0, 0.02f, 2.0f, 0.02f,
-                                   0xFF, 0xFF, 0x7F, 0x40, 0, cam->globalCtx->view.gfxCtx);
-            DebugDisplay_AddObject(dbCamera->at.x, dbCamera->at.y + 1.0f, dbCamera->at.z, 0, 0, 0, 2.0f, 0.02f, 0.02f,
-                                   0x7F, 0xFF, 0xFF, 0x40, 0, cam->globalCtx->view.gfxCtx);
-            DebugDisplay_AddObject(dbCamera->at.x, dbCamera->at.y + 1.0f, dbCamera->at.z, 0, 0, 0, 0.02f, 0.02f, 2.0f,
-                                   0xFF, 0x7F, 0xFF, 0x40, 0, cam->globalCtx->view.gfxCtx);
             if (dbCamera->sub.unk_08 == 2) {
                 for (i = 0; i < (dbCamera->sub.nPoints - 1); i++) {
                     if (dbCamera->sub.mode != 1) {
@@ -1401,17 +1416,6 @@ void DbCamera_Update(DbCamera* dbCamera, Camera* cam) {
                     }
                     OLib_Vec3fDiffToVecSphGeo(&spFC, &spAC, &spB8);
                     spAA = dbCamera->sub.lookAt[i].cameraRoll * 0xB6;
-                    if (i == dbCamera->sub.unkIdx) {
-                        DebugDisplay_AddObject(spAC.x, spAC.y, spAC.z, spFC.pitch * -1, spFC.yaw, spAA, .5f, .5f, .5f,
-                                               0x7F, 0xFF, 0x7F, 0x80, 5, cam->globalCtx->view.gfxCtx);
-                        DebugDisplay_AddObject(spB8.x, spB8.y, spB8.z, spFC.pitch * -1, spFC.yaw, spAA, 1.5f, 2.0f,
-                                               1.0f, 0x7F, 0xFF, 0x7F, 0x80, 4, cam->globalCtx->view.gfxCtx);
-                    } else {
-                        DebugDisplay_AddObject(spAC.x, spAC.y, spAC.z, spFC.pitch * -1, spFC.yaw, spAA, .5f, .5f, .5f,
-                                               0xFF, 0x7F, 0x7F, 0x80, 5, cam->globalCtx->view.gfxCtx);
-                        DebugDisplay_AddObject(spB8.x, spB8.y, spB8.z, spFC.pitch * -1, spFC.yaw, spAA, 1.5f, 2.0f,
-                                               1.0f, 0xFF, 0x7F, 0x7F, 0x80, 4, cam->globalCtx->view.gfxCtx);
-                    }
                 }
             }
         }
@@ -1465,21 +1469,6 @@ void DbCamera_Update(DbCamera* dbCamera, Camera* cam) {
 
         D_8012D110++;
         D_8012D110 %= 50;
-
-        OLib_Vec3fDiffToVecSphGeo(&spA0, &cam->eye, &cam->at);
-        DebugDisplay_AddObject(dbCamera->at.x, dbCamera->at.y + 1.0f, dbCamera->at.z, 0, 0, 0, 0.02f, 2.0f, 0.02f, 0xFF,
-                               0xFF, 0x7F, 0x2D, 0, cam->globalCtx->view.gfxCtx);
-        DebugDisplay_AddObject(dbCamera->at.x, dbCamera->at.y + 1.0f, dbCamera->at.z, 0, 0, 0, 2.0f, 0.02f, 0.02f, 0x7F,
-                               0xFF, 0xFF, 0x2D, 0, cam->globalCtx->view.gfxCtx);
-        DebugDisplay_AddObject(dbCamera->at.x, dbCamera->at.y + 1.0f, dbCamera->at.z, 0, 0, 0, 0.02f, 0.02f, 2.0f, 0xFF,
-                               0x7F, 0xFF, 0x2D, 0, cam->globalCtx->view.gfxCtx);
-        DebugDisplay_AddObject(cam->eye.x, cam->eye.y, cam->eye.z, spA0.pitch * -1, spA0.yaw, 0, .5f, .5f, .5f, 0xFF,
-                               0x7F, 0x7F, 0x80, 5, cam->globalCtx->view.gfxCtx);
-        DebugDisplay_AddObject(cam->at.x, cam->at.y, cam->at.z, spA0.pitch * -1, spA0.yaw, 0, 1.5f, 2.0f, 1.0f, 0xFF,
-                               0x7F, 0x7F, 0x80, 4, cam->globalCtx->view.gfxCtx);
-        OLib_Vec3fDiffToVecSphGeo(&spA0, &cam->eyeNext, &cam->at);
-        DebugDisplay_AddObject(cam->eyeNext.x, cam->eyeNext.y, cam->eyeNext.z, spA0.pitch * -1, spA0.yaw, 0, .5f, .5f,
-                               .5f, 0xFF, 0xC0, 0x7F, 0x50, 5, cam->globalCtx->view.gfxCtx);
     }
 }
 

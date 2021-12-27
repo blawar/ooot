@@ -1,165 +1,118 @@
+#define INTERNAL_SRC_CODE_Z_SCENE_C
 #include "global.h"
+#include "segment_symbols.h"
 #include "vt.h"
+#include "z64global.h"
+#include "z64scene.h"
+#include "z64scene_asserts.h"
+#include "z_scene_assets.h"
+#include "z64save.h"
+#include "z_kankyo.h"
+#include "z64item.h"
+#include "sfx.h"
+#include "sequence.h"
+#include "def/code_80097A00.h"
+#include "def/code_800F9280.h"
+#include "def/createmesgqueue.h"
+#include "def/game.h"
+#include "def/recvmesg.h"
+#include "def/z_actor.h"
+#include "def/z_actor_dlftbls.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_play.h"
+#include "def/z_scene.h"
+#include "def/z_std_dma.h"
+
+#ifdef ROM_FILE
+#undef ROM_FILE
+#define ROM_FILE(name) \
+    { (uintptr_t) name, (uintptr_t)name + sizeof(name) }
+#endif
+
+static bool (*gSceneCmdHandlers[26])(GlobalContext*, SceneCmd*);
 
 RomFile sNaviMsgFiles[];
 
 s32 Object_Spawn(ObjectContext* objectCtx, s16 objectId) {
-    u32 size;
-
-    objectCtx->status[objectCtx->num].id = objectId;
-    size = gObjectTable[objectId].vromEnd - gObjectTable[objectId].vromStart;
-
-    osSyncPrintf("OBJECT[%d] SIZE %fK SEG=%x\n", objectId, size / 1024.0f, objectCtx->status[objectCtx->num].segment);
-
-    osSyncPrintf("num=%d adrs=%x end=%x\n", objectCtx->num, (s32)objectCtx->status[objectCtx->num].segment + size,
-                 objectCtx->spaceEnd);
-
-    ASSERT(((objectCtx->num < OBJECT_EXCHANGE_BANK_MAX) &&
-            (((s32)objectCtx->status[objectCtx->num].segment + size) < (u32)objectCtx->spaceEnd)),
-           "this->num < OBJECT_EXCHANGE_BANK_MAX && (this->status[this->num].Segment + size) < this->endSegment",
-           "../z_scene.c", 142);
-
-    DmaMgr_SendRequest1(objectCtx->status[objectCtx->num].segment, gObjectTable[objectId].vromStart, size,
-                        "../z_scene.c", 145);
-
-    if (objectCtx->num < OBJECT_EXCHANGE_BANK_MAX - 1) {
-        objectCtx->status[objectCtx->num + 1].segment =
-            (void*)ALIGN16((s32)objectCtx->status[objectCtx->num].segment + size);
-    }
-
     objectCtx->num++;
     objectCtx->unk_09 = objectCtx->num;
 
     return objectCtx->num - 1;
 }
 
-void Object_InitBank(GlobalContext* globalCtx, ObjectContext* objectCtx) {
+s32 Object_GetIndex(ObjectContext* objectCtx, s32 objectId)
+{
+    if(objectId < 0)
+    {
+        return -objectId;
+    }
+    return objectId;
+}
+
+void Object_InitBank(GlobalContext* globalCtx, ObjectContext* objectCtx)
+{
     GlobalContext* globalCtx2 = globalCtx; // Needs to be a new variable to match (possibly a sub struct?)
     u32 spaceSize;
-    s32 i;
 
-    if (globalCtx2->sceneNum == SCENE_SPOT00) {
+    if(globalCtx2->sceneNum == SCENE_SPOT00)
+    {
         spaceSize = 1024000;
-    } else if (globalCtx2->sceneNum == SCENE_GANON_DEMO) {
-        if (gSaveContext.sceneSetupIndex != 4) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_GANON_DEMO)
+    {
+        if(gSaveContext.sceneSetupIndex != 4)
+        {
             spaceSize = 1177600;
-        } else {
+        }
+        else
+        {
             spaceSize = 1024000;
         }
-    } else if (globalCtx2->sceneNum == SCENE_JYASINBOSS) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_JYASINBOSS)
+    {
         spaceSize = 1075200;
-    } else if (globalCtx2->sceneNum == SCENE_KENJYANOMA) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_KENJYANOMA)
+    {
         spaceSize = 1075200;
-    } else if (globalCtx2->sceneNum == SCENE_GANON_BOSS) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_GANON_BOSS)
+    {
         spaceSize = 1075200;
-    } else {
+    }
+    else
+    {
         spaceSize = 1024000;
     }
+    objectCtx->spaceStart = 0;
 
-    objectCtx->num = objectCtx->unk_09 = 0;
-    objectCtx->mainKeepIndex = objectCtx->subKeepIndex = 0;
-
-    for (i = 0; i < OBJECT_EXCHANGE_BANK_MAX; i++) {
-        objectCtx->status[i].id = OBJECT_INVALID;
-    }
-
-    osSyncPrintf(VT_FGCOL(GREEN));
-    // "Object exchange bank data %8.3fKB"
-    osSyncPrintf("オブジェクト入れ替えバンク情報 %8.3fKB\n", spaceSize / 1024.0f);
-    osSyncPrintf(VT_RST);
-
-    objectCtx->spaceStart = objectCtx->status[0].segment =
-        GameState_Alloc(&globalCtx->state, spaceSize, "../z_scene.c", 219);
+    objectCtx->spaceStart = GameState_Alloc(&globalCtx->state, spaceSize, "../z_scene.c", 219);
     objectCtx->spaceEnd = (void*)((s32)objectCtx->spaceStart + spaceSize);
-
-    objectCtx->mainKeepIndex = Object_Spawn(objectCtx, OBJECT_GAMEPLAY_KEEP);
-    gSegments[4] = VIRTUAL_TO_PHYSICAL(objectCtx->status[objectCtx->mainKeepIndex].segment);
 }
 
-void Object_UpdateBank(ObjectContext* objectCtx) {
-    s32 i;
-    ObjectStatus* status = &objectCtx->status[0];
-    RomFile* objectFile;
-    u32 size;
-
-    for (i = 0; i < objectCtx->num; i++) {
-        if (status->id < 0) {
-            if (status->dmaRequest.vromAddr == 0) {
-                osCreateMesgQueue(&status->loadQueue, &status->loadMsg, 1);
-                objectFile = &gObjectTable[-status->id];
-                size = objectFile->vromEnd - objectFile->vromStart;
-                osSyncPrintf("OBJECT EXCHANGE BANK-%2d SIZE %8.3fK SEG=%08x\n", i, size / 1024.0f, status->segment);
-                DmaMgr_SendRequest2(&status->dmaRequest, status->segment, objectFile->vromStart, size, 0,
-                                    &status->loadQueue, NULL, "../z_scene.c", 266);
-            } else if (!osRecvMesg(&status->loadQueue, NULL, OS_MESG_NOBLOCK)) {
-                status->id = -status->id;
-            }
-        }
-        status++;
-    }
-}
-
-s32 Object_GetIndex(ObjectContext* objectCtx, s16 objectId) {
-    s32 i;
-
-    for (i = 0; i < objectCtx->num; i++) {
-        if (ABS(objectCtx->status[i].id) == objectId) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-s32 Object_IsLoaded(ObjectContext* objectCtx, s32 bankIndex) {
-    if (objectCtx->status[bankIndex].id > 0) {
+s32 Object_IsLoaded(ObjectContext* objectCtx, s32 bankIndex)
+{
+    if(bankIndex < 0)
+    {
         return 1;
-    } else {
-        return 0;
     }
+    return 1;
+}
+
+void Object_UpdateBank(ObjectContext* objectCtx)
+{
 }
 
 void func_800981B8(ObjectContext* objectCtx) {
-    s32 i;
-    s32 id;
-    u32 size;
-
-    for (i = 0; i < objectCtx->num; i++) {
-        id = objectCtx->status[i].id;
-        size = gObjectTable[id].vromEnd - gObjectTable[id].vromStart;
-        osSyncPrintf("OBJECT[%d] SIZE %fK SEG=%x\n", objectCtx->status[i].id, size / 1024.0f,
-                     objectCtx->status[i].segment);
-        osSyncPrintf("num=%d adrs=%x end=%x\n", objectCtx->num, (s32)objectCtx->status[i].segment + size,
-                     objectCtx->spaceEnd);
-        DmaMgr_SendRequest1(objectCtx->status[i].segment, gObjectTable[id].vromStart, size, "../z_scene.c", 342);
-    }
-}
-
-void* func_800982FC(ObjectContext* objectCtx, s32 bankIndex, s16 objectId) {
-    ObjectStatus* status = &objectCtx->status[bankIndex];
-    RomFile* objectFile = &gObjectTable[objectId];
-    u32 size;
-    void* nextPtr;
-
-    status->id = -objectId;
-    status->dmaRequest.vromAddr = 0;
-
-    size = objectFile->vromEnd - objectFile->vromStart;
-    osSyncPrintf("OBJECT EXCHANGE NO=%2d BANK=%3d SIZE=%8.3fK\n", bankIndex, objectId, size / 1024.0f);
-
-    nextPtr = (void*)ALIGN16((s32)status->segment + size);
-    if (1) {} // Necessary to match
-
-    ASSERT(nextPtr < objectCtx->spaceEnd, "nextptr < this->endSegment", "../z_scene.c", 381);
-
-    // "Object exchange free size=%08x"
-    osSyncPrintf("オブジェクト入れ替え空きサイズ=%08x\n", (s32)objectCtx->spaceEnd - (s32)nextPtr);
-
-    return nextPtr;
 }
 
 s32 Scene_ExecuteCommands(GlobalContext* globalCtx, SceneCmd* sceneCmd) {
-    u32 cmdCode;
+    u32 cmdCode = 0;
 
     while (true) {
         cmdCode = sceneCmd->base.code;
@@ -171,7 +124,10 @@ s32 Scene_ExecuteCommands(GlobalContext* globalCtx, SceneCmd* sceneCmd) {
         }
 
         if (cmdCode <= 0x19) {
-            gSceneCmdHandlers[cmdCode](globalCtx, sceneCmd);
+            if(!(gSceneCmdHandlers[cmdCode](globalCtx, sceneCmd)))
+            {
+                break;
+            }
         } else {
             osSyncPrintf(VT_FGCOL(RED));
             osSyncPrintf("code の値が異常です\n"); // "code variable is abnormal"
@@ -182,7 +138,7 @@ s32 Scene_ExecuteCommands(GlobalContext* globalCtx, SceneCmd* sceneCmd) {
     return 0;
 }
 
-void func_80098508(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_00_unknown(GlobalContext* globalCtx, const SceneCmd* cmd) {
     ActorEntry* linkEntry = globalCtx->linkActorEntry = (ActorEntry*)SEGMENTED_TO_VIRTUAL(cmd->spawnList.segment) +
                                                         globalCtx->setupEntranceList[globalCtx->curSpawn].spawn;
     s16 linkObjectId;
@@ -193,21 +149,24 @@ void func_80098508(GlobalContext* globalCtx, SceneCmd* cmd) {
 
     gActorOverlayTable[linkEntry->id].initInfo->objectId = linkObjectId;
     Object_Spawn(&globalCtx->objectCtx, linkObjectId);
+    return true;
 }
 
 // Scene Command 0x01: Actor List
-void func_800985DC(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_actor_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->numSetupActors = cmd->actorList.num;
     globalCtx->setupActorList = SEGMENTED_TO_VIRTUAL(cmd->actorList.segment);
+    return true;
 }
 
 // Scene Command 0x02: Unused 02
-void func_80098630(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_02_unused(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->unk_11DFC = SEGMENTED_TO_VIRTUAL(cmd->unused02.segment);
+    return true;
 }
 
 // Scene Command 0x03: Collision Header
-void func_80098674(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_collision_header(GlobalContext* globalCtx, const SceneCmd* cmd) {
     CollisionHeader* colHeader = SEGMENTED_TO_VIRTUAL(cmd->colHeader.segment);
 
     colHeader->vtxList = SEGMENTED_TO_VIRTUAL(colHeader->vtxList);
@@ -217,99 +176,59 @@ void func_80098674(GlobalContext* globalCtx, SceneCmd* cmd) {
     colHeader->waterBoxes = SEGMENTED_TO_VIRTUAL(colHeader->waterBoxes);
 
     BgCheck_Allocate(&globalCtx->colCtx, globalCtx, colHeader);
+    return true;
 }
 
 // Scene Command 0x04: Room List
-void func_800987A4(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_room_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->numRooms = cmd->roomList.num;
     globalCtx->roomList = SEGMENTED_TO_VIRTUAL(cmd->roomList.segment);
+    return true;
 }
 
 // Scene Command 0x06: Entrance List
-void func_800987F8(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_entrance_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->setupEntranceList = SEGMENTED_TO_VIRTUAL(cmd->entranceList.segment);
+    return true;
 }
 
 // Scene Command 0x07: Special Files
-void func_8009883C(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_special_files(GlobalContext* globalCtx, const SceneCmd* cmd) {
     if (cmd->specialFiles.keepObjectId != 0) {
         globalCtx->objectCtx.subKeepIndex = Object_Spawn(&globalCtx->objectCtx, cmd->specialFiles.keepObjectId);
-        gSegments[5] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[globalCtx->objectCtx.subKeepIndex].segment);
+        gSegments[5] = gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart;
     }
 
     if (cmd->specialFiles.cUpElfMsgNum != 0) {
         globalCtx->cUpElfMsgs = Gameplay_LoadFile(globalCtx, &sNaviMsgFiles[cmd->specialFiles.cUpElfMsgNum - 1]);
     }
+    return true;
 }
 
 // Scene Command 0x08: Room Behavior
-void func_80098904(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_room_behavior(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->roomCtx.curRoom.unk_03 = cmd->roomBehavior.gpFlag1;
     globalCtx->roomCtx.curRoom.unk_02 = cmd->roomBehavior.gpFlag2 & 0xFF;
     globalCtx->roomCtx.curRoom.showInvisActors = (cmd->roomBehavior.gpFlag2 >> 8) & 1;
     globalCtx->msgCtx.disableWarpSongs = (cmd->roomBehavior.gpFlag2 >> 0xA) & 1;
+    return true;
 }
 
 // Scene Command 0x0A: Mesh Header
-void func_80098958(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_mesh_header(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->roomCtx.curRoom.mesh = SEGMENTED_TO_VIRTUAL(cmd->mesh.segment);
+    return true;
 }
 
 // Scene Command 0x0B: Object List
-void func_8009899C(GlobalContext* globalCtx, SceneCmd* cmd) {
-    s32 i;
-    s32 j;
-    s32 k;
-    ObjectStatus* status;
-    ObjectStatus* status2;
-    ObjectStatus* firstStatus;
-    s16* objectEntry = SEGMENTED_TO_VIRTUAL(cmd->objectList.segment);
-    void* nextPtr;
-
-    k = 0;
-    i = globalCtx->objectCtx.unk_09;
-    firstStatus = &globalCtx->objectCtx.status[0];
-    status = &globalCtx->objectCtx.status[i];
-
-    while (i < globalCtx->objectCtx.num) {
-        if (status->id != *objectEntry) {
-            status2 = &globalCtx->objectCtx.status[i];
-            for (j = i; j < globalCtx->objectCtx.num; j++) {
-                status2->id = OBJECT_INVALID;
-                status2++;
-            }
-            globalCtx->objectCtx.num = i;
-            func_80031A28(globalCtx, &globalCtx->actorCtx);
-
-            continue;
-        }
-
-        i++;
-        k++;
-        objectEntry++;
-        status++;
-    }
-
-    ASSERT(cmd->objectList.num <= OBJECT_EXCHANGE_BANK_MAX, "scene_info->object_bank.num <= OBJECT_EXCHANGE_BANK_MAX",
-           "../z_scene.c", 705);
-
-    if (1) {}
-
-    while (k < cmd->objectList.num) {
-        nextPtr = func_800982FC(&globalCtx->objectCtx, i, *objectEntry);
-        if (i < OBJECT_EXCHANGE_BANK_MAX - 1) {
-            firstStatus[i + 1].segment = nextPtr;
-        }
-        i++;
-        k++;
-        objectEntry++;
-    }
-
-    globalCtx->objectCtx.num = i;
+bool cmd_object_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
+    globalCtx->objectCtx.objectEntry = SEGMENTED_TO_VIRTUAL(cmd->objectList.segment);
+    globalCtx->objectCtx.num = cmd->objectList.num;
+    return true;
 }
 
 // Scene Command 0x0C: Light List
-void func_80098B74(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_light_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     s32 i;
     LightInfo* lightInfo = SEGMENTED_TO_VIRTUAL(cmd->lightList.segment);
 
@@ -317,44 +236,51 @@ void func_80098B74(GlobalContext* globalCtx, SceneCmd* cmd) {
         LightContext_InsertLight(globalCtx, &globalCtx->lightCtx, lightInfo);
         lightInfo++;
     }
+    return true;
 }
 
 // Scene Command 0x0D: Path List
-void func_80098C24(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_path_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->setupPathList = SEGMENTED_TO_VIRTUAL(cmd->pathList.segment);
+    return true;
 }
 
 // Scene Command 0x0E: Transition Actor List
-void func_80098C68(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_transition_actor_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->transiActorCtx.numActors = cmd->transiActorList.num;
     globalCtx->transiActorCtx.list = SEGMENTED_TO_VIRTUAL(cmd->transiActorList.segment);
+    return true;
 }
 
 void TransitionActor_InitContext(GameState* state, TransitionActorContext* transiActorCtx) {
     transiActorCtx->numActors = 0;
+    return true;
 }
 
 // Scene Command 0x0F: Light Setting List
-void func_80098CC8(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_light_setting_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->envCtx.numLightSettings = cmd->lightSettingList.num;
     globalCtx->envCtx.lightSettingsList = SEGMENTED_TO_VIRTUAL(cmd->lightSettingList.segment);
+    return true;
 }
 
 // Scene Command 0x11: Skybox Settings
-void func_80098D1C(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_skybox_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->skyboxId = cmd->skyboxSettings.skyboxId;
     globalCtx->envCtx.unk_17 = globalCtx->envCtx.unk_18 = cmd->skyboxSettings.unk_05;
     globalCtx->envCtx.indoors = cmd->skyboxSettings.unk_06;
+    return true;
 }
 
 // Scene Command 0x12: Skybox Disables
-void func_80098D5C(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_skybox_disables(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->envCtx.skyboxDisabled = cmd->skyboxDisables.unk_04;
     globalCtx->envCtx.sunMoonDisabled = cmd->skyboxDisables.unk_05;
+    return true;
 }
 
 // Scene Command 0x10: Time Settings
-void func_80098D80(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_time_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     if ((cmd->timeSettings.hour != 0xFF) && (cmd->timeSettings.min != 0xFF)) {
         gSaveContext.skyboxTime = gSaveContext.dayTime =
             ((cmd->timeSettings.hour + (cmd->timeSettings.min / 60.0f)) * 60.0f) / ((f32)(24 * 60) / 0x10000);
@@ -387,10 +313,11 @@ void func_80098D80(GlobalContext* globalCtx, SceneCmd* cmd) {
             gSaveContext.skyboxTime = 0xCAAC;
         }
     }
+    return true;
 }
 
 // Scene Command 0x05: Wind Settings
-void func_80099090(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_wind_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     s8 x = cmd->windSettings.x;
     s8 y = cmd->windSettings.y;
     s8 z = cmd->windSettings.z;
@@ -400,34 +327,39 @@ void func_80099090(GlobalContext* globalCtx, SceneCmd* cmd) {
     globalCtx->envCtx.windDirection.z = z;
 
     globalCtx->envCtx.windSpeed = cmd->windSettings.unk_07;
+    return true;
 }
 
 // Scene Command 0x13: Exit List
-void func_800990F0(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_exit_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->setupExitList = SEGMENTED_TO_VIRTUAL(cmd->exitList.segment);
+    return true;
 }
 
 // Scene Command 0x09: Undefined
-void func_80099134(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_09_unused(GlobalContext* globalCtx, const SceneCmd* cmd) {
+    return true;
 }
 
 // Scene Command 0x15: Sound Settings
-void func_80099140(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_sound_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->sequenceCtx.seqId = cmd->soundSettings.seqId;
     globalCtx->sequenceCtx.natureAmbienceId = cmd->soundSettings.natureAmbienceId;
 
     if (gSaveContext.seqId == (u8)NA_BGM_DISABLED) {
         Audio_QueueSeqCmd(cmd->soundSettings.specId | 0xF0000000);
     }
+    return true;
 }
 
 // Scene Command 0x16: Echo Setting
-void func_8009918C(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_echo_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->roomCtx.curRoom.echo = cmd->echoSettings.echo;
+    return true;
 }
 
 // Scene Command 0x18: Alternate Headers
-void func_800991A0(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_alternate_headers(GlobalContext* globalCtx, const SceneCmd* cmd) {
     s32 pad;
     SceneCmd* altHeader;
 
@@ -442,7 +374,7 @@ void func_800991A0(GlobalContext* globalCtx, SceneCmd* cmd) {
 
         if (altHeader != NULL) {
             Scene_ExecuteCommands(globalCtx, SEGMENTED_TO_VIRTUAL(altHeader));
-            (cmd + 1)->base.code = 0x14;
+            return false;
         } else {
             // "Coughh! There is no specified dataaaaa!"
             osSyncPrintf("\nげぼはっ！ 指定されたデータがないでええっす！");
@@ -456,21 +388,23 @@ void func_800991A0(GlobalContext* globalCtx, SceneCmd* cmd) {
 
                 if (altHeader != NULL) {
                     Scene_ExecuteCommands(globalCtx, SEGMENTED_TO_VIRTUAL(altHeader));
-                    (cmd + 1)->base.code = 0x14;
+                    return false;
                 }
             }
         }
     }
+    return true;
 }
 
 // Scene Command 0x17: Cutscene Data
-void func_8009934C(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_cutscene_data(GlobalContext* globalCtx, const SceneCmd* cmd) {
     osSyncPrintf("\ngame_play->demo_play.data=[%x]", globalCtx->csCtx.segment);
     globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(cmd->cutsceneData.segment);
+    return true;
 }
 
 // Scene Command 0x19: Misc. Settings (Camera & World Map Area)
-void func_800993C0(GlobalContext* globalCtx, SceneCmd* cmd) {
+bool cmd_misc_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     YREG(15) = cmd->miscSettings.cameraMovement;
     gSaveContext.worldMapArea = cmd->miscSettings.area;
 
@@ -488,13 +422,14 @@ void func_800993C0(GlobalContext* globalCtx, SceneCmd* cmd) {
                          gSaveContext.worldMapArea);
         }
     }
+    return true;
 }
 
-void (*gSceneCmdHandlers[])(GlobalContext*, SceneCmd*) = {
-    func_80098508, func_800985DC, func_80098630, func_80098674, func_800987A4, func_80099090, func_800987F8,
-    func_8009883C, func_80098904, func_80099134, func_80098958, func_8009899C, func_80098B74, func_80098C24,
-    func_80098C68, func_80098CC8, func_80098D80, func_80098D1C, func_80098D5C, func_800990F0, NULL,
-    func_80099140, func_8009918C, func_8009934C, func_800991A0, func_800993C0,
+static bool (*gSceneCmdHandlers[])(GlobalContext*, const SceneCmd*) = {
+    cmd_00_unknown, cmd_actor_list, cmd_02_unused, cmd_collision_header, cmd_room_list, cmd_wind_settings, cmd_entrance_list,
+    cmd_special_files, cmd_room_behavior, cmd_09_unused, cmd_mesh_header, cmd_object_list, cmd_light_list, cmd_path_list,
+    cmd_transition_actor_list, cmd_light_setting_list, cmd_time_settings, cmd_skybox_settings, cmd_skybox_disables, cmd_exit_list, NULL,
+    cmd_sound_settings, cmd_echo_settings, cmd_cutscene_data, cmd_alternate_headers, cmd_misc_settings,
 };
 
 RomFile sNaviMsgFiles[] = {

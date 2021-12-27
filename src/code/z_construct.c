@@ -1,4 +1,22 @@
+#define INTERNAL_SRC_CODE_Z_CONSTRUCT_C
 #include "global.h"
+#include "regs.h"
+#include "z64global.h"
+#include "z64save.h"
+#include "z64interface.h"
+#include "segment_symbols.h"
+#include "textures/do_action_static/do_action_static.h"
+#include "textures/icon_item_static/icon_item_static.h"
+#include "textures/parameter_static/parameter_static.h"
+#include "def/game.h"
+#include "def/z_common_data.h"
+#include "def/z_construct.h"
+#include "def/z_kanfont.h"
+#include "def/z_lifemeter.h"
+#include "def/z_map_exp.h"
+#include "def/z_message_PAL.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
 
 void func_80110990(GlobalContext* globalCtx) {
     Map_Destroy(globalCtx);
@@ -6,7 +24,6 @@ void func_80110990(GlobalContext* globalCtx) {
 
 void func_801109B0(GlobalContext* globalCtx) {
     InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
-    u32 parameterSize;
     u16 doActionOffset;
     u8 temp;
 
@@ -20,32 +37,14 @@ void func_801109B0(GlobalContext* globalCtx) {
     interfaceCtx->unk_22E = 0;
     interfaceCtx->unk_230 = 16;
     interfaceCtx->unk_1F4 = 0.0f;
-    interfaceCtx->unk_228 = XREG(95);
     interfaceCtx->minimapAlpha = 0;
     interfaceCtx->unk_260 = 0;
     interfaceCtx->unk_244 = interfaceCtx->aAlpha = interfaceCtx->bAlpha = interfaceCtx->cLeftAlpha =
         interfaceCtx->cDownAlpha = interfaceCtx->cRightAlpha = interfaceCtx->healthAlpha = interfaceCtx->startAlpha =
             interfaceCtx->magicAlpha = 0;
 
-    parameterSize = (u32)_parameter_staticSegmentRomEnd - (u32)_parameter_staticSegmentRomStart;
+    interfaceCtx->parameterSegment = _parameter_staticSegmentRomStart;
 
-    // "Permanent PARAMETER Segment = %x"
-    osSyncPrintf("常駐ＰＡＲＡＭＥＴＥＲセグメント=%x\n", parameterSize);
-
-    interfaceCtx->parameterSegment = GameState_Alloc(&globalCtx->state, parameterSize, "../z_construct.c", 159);
-
-    osSyncPrintf("parameter->parameterSegment=%x\n", interfaceCtx->parameterSegment);
-
-    ASSERT(interfaceCtx->parameterSegment != NULL, "parameter->parameterSegment != NULL", "../z_construct.c", 161);
-    DmaMgr_SendRequest1(interfaceCtx->parameterSegment, (u32)_parameter_staticSegmentRomStart, parameterSize,
-                        "../z_construct.c", 162);
-
-    interfaceCtx->doActionSegment = GameState_Alloc(&globalCtx->state, 0x480, "../z_construct.c", 166);
-
-    osSyncPrintf("ＤＯアクション テクスチャ初期=%x\n", 0x480); // "DO Action Texture Initialization"
-    osSyncPrintf("parameter->do_actionSegment=%x\n", interfaceCtx->doActionSegment);
-
-    ASSERT(interfaceCtx->doActionSegment != NULL, "parameter->do_actionSegment != NULL", "../z_construct.c", 169);
 
     if (gSaveContext.language == LANGUAGE_ENG) {
         doActionOffset = 0;
@@ -55,8 +54,8 @@ void func_801109B0(GlobalContext* globalCtx) {
         doActionOffset = 0x5700;
     }
 
-    DmaMgr_SendRequest1(interfaceCtx->doActionSegment, (u32)_do_action_staticSegmentRomStart + doActionOffset, 0x300,
-                        "../z_construct.c", 174);
+    interfaceCtx->doActionSegment1 = do_action_static_lut[doActionOffset / 0x180];
+    interfaceCtx->doActionSegment2 = do_action_static_lut[(doActionOffset / 0x180) + 1];
 
     if (gSaveContext.language == LANGUAGE_ENG) {
         doActionOffset = 0x480;
@@ -66,47 +65,33 @@ void func_801109B0(GlobalContext* globalCtx) {
         doActionOffset = 0x5B80;
     }
 
-    DmaMgr_SendRequest1(interfaceCtx->doActionSegment + 0x300, (u32)_do_action_staticSegmentRomStart + doActionOffset,
-                        0x180, "../z_construct.c", 178);
-
-    interfaceCtx->iconItemSegment = GameState_Alloc(&globalCtx->state, 0x4000, "../z_construct.c", 190);
-
-    // "Icon Item Texture Initialization = %x"
-    osSyncPrintf("アイコンアイテム テクスチャ初期=%x\n", 0x4000);
-    osSyncPrintf("parameter->icon_itemSegment=%x\n", interfaceCtx->iconItemSegment);
-
-    ASSERT(interfaceCtx->iconItemSegment != NULL, "parameter->icon_itemSegment != NULL", "../z_construct.c", 193);
+    interfaceCtx->doActionSegment3 = do_action_static_lut[doActionOffset / 0x180];
 
     osSyncPrintf("Register_Item[%x, %x, %x, %x]\n", gSaveContext.equips.buttonItems[0],
                  gSaveContext.equips.buttonItems[1], gSaveContext.equips.buttonItems[2],
                  gSaveContext.equips.buttonItems[3]);
 
+    interfaceCtx->iconItemSegment1 = NULL;
+    interfaceCtx->iconItemSegment2 = NULL;
+    interfaceCtx->iconItemSegment3 = NULL;
+    interfaceCtx->iconItemSegment4 = NULL;
+
     if (gSaveContext.equips.buttonItems[0] < 0xF0) {
-        DmaMgr_SendRequest1(interfaceCtx->iconItemSegment,
-                            _icon_item_staticSegmentRomStart + gSaveContext.equips.buttonItems[0] * 0x1000, 0x1000,
-                            "../z_construct.c", 198);
+        interfaceCtx->iconItemSegment1 = icon_item_static_lut[gSaveContext.equips.buttonItems[0]];
     } else if (gSaveContext.equips.buttonItems[0] != 0xFF) {
-        DmaMgr_SendRequest1(interfaceCtx->iconItemSegment,
-                            _icon_item_staticSegmentRomStart + gSaveContext.equips.buttonItems[0] * 0x1000, 0x1000,
-                            "../z_construct.c", 203);
+        interfaceCtx->iconItemSegment1 = icon_item_static_lut[gSaveContext.equips.buttonItems[0]];
     }
 
     if (gSaveContext.equips.buttonItems[1] < 0xF0) {
-        DmaMgr_SendRequest1(interfaceCtx->iconItemSegment + 0x1000,
-                            _icon_item_staticSegmentRomStart + gSaveContext.equips.buttonItems[1] * 0x1000, 0x1000,
-                            "../z_construct.c", 209);
+        interfaceCtx->iconItemSegment2 = icon_item_static_lut[gSaveContext.equips.buttonItems[1]];
     }
 
     if (gSaveContext.equips.buttonItems[2] < 0xF0) {
-        DmaMgr_SendRequest1(interfaceCtx->iconItemSegment + 0x2000,
-                            _icon_item_staticSegmentRomStart + gSaveContext.equips.buttonItems[2] * 0x1000, 0x1000,
-                            "../z_construct.c", 214);
+        interfaceCtx->iconItemSegment3 = icon_item_static_lut[gSaveContext.equips.buttonItems[2]];
     }
 
     if (gSaveContext.equips.buttonItems[3] < 0xF0) {
-        DmaMgr_SendRequest1(interfaceCtx->iconItemSegment + 0x3000,
-                            _icon_item_staticSegmentRomStart + gSaveContext.equips.buttonItems[3] * 0x1000, 0x1000,
-                            "../z_construct.c", 219);
+        interfaceCtx->iconItemSegment4 = icon_item_static_lut[gSaveContext.equips.buttonItems[3]];
     }
 
     osSyncPrintf("ＥＶＥＮＴ＝%d\n", ((void)0, gSaveContext.timer1State));
@@ -144,24 +129,22 @@ void func_801109B0(GlobalContext* globalCtx) {
         osSyncPrintf("タイマー停止！！！！！！！！！！！！！！！！！！！！！  = %d\n", gSaveContext.timer1State);
     }
 
-    osSyncPrintf("ＰＡＲＡＭＥＴＥＲ領域＝%x\n", parameterSize + 0x5300); // "Parameter Area = %x"
-
     HealthMeter_Init(globalCtx);
     Map_Init(globalCtx);
 
     interfaceCtx->unk_23C = interfaceCtx->unk_242 = 0;
 
     R_ITEM_BTN_X(0) = B_BUTTON_X;
-    R_B_BTN_COLOR(0) = 255;
-    R_B_BTN_COLOR(1) = 30;
-    R_B_BTN_COLOR(2) = 30;
+    R_B_BTN_COLOR(0) = 0;
+    R_B_BTN_COLOR(1) = 150;
+    R_B_BTN_COLOR(2) = 0;
     R_ITEM_ICON_X(0) = B_BUTTON_X;
     R_ITEM_AMMO_X(0) = B_BUTTON_X + 2;
     R_A_BTN_X = A_BUTTON_X;
     R_A_ICON_X = A_BUTTON_X;
-    R_A_BTN_COLOR(0) = 0;
-    R_A_BTN_COLOR(1) = 200;
-    R_A_BTN_COLOR(2) = 50;
+    R_A_BTN_COLOR(0) = 90;
+    R_A_BTN_COLOR(1) = 90;
+    R_A_BTN_COLOR(2) = 255;
 }
 
 void Message_Init(GlobalContext* globalCtx) {

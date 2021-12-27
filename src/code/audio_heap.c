@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_CODE_AUDIO_HEAP_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "def/aisetfreq.h"
+#include "def/audio_data.h"
+#include "def/audio_heap.h"
+#include "def/audio_load.h"
+#include "def/audio_playback.h"
+#include "def/audio_seqplayer.h"
+#include "def/code_800E6840.h"
+#include "def/code_800F7260.h"
 
 void AudioHeap_InitSampleCaches(u32 persistentSize, u32 temporarySize);
 SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(u32 size);
@@ -181,7 +191,7 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
 
 void AudioHeap_AllocPoolInit(AudioAllocPool* pool, void* mem, u32 size) {
     pool->cur = pool->start = (u8*)ALIGN16((u32)mem);
-    pool->size = size - ((u32)mem & 0xF);
+    pool->size = size - ((uintptr_t)mem & 0xF);
     pool->count = 0;
 }
 
@@ -207,11 +217,11 @@ void AudioHeap_ResetPool(AudioAllocPool* pool) {
 }
 
 void AudioHeap_PopCache(s32 tableType) {
-    AudioCache* loadedPool;
+    AudioCache* loadedPool = NULL;
     AudioAllocPool* persistentPool;
     AudioPersistentCache* persistent;
     void* entryPtr;
-    u8* table;
+    u8* table = NULL;
 
     switch (tableType) {
         case SEQUENCE_TABLE:
@@ -299,15 +309,15 @@ void AudioHeap_TemporaryCachesInit(AudioPoolSplit3* split) {
 }
 
 void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
-    AudioCache* loadedPool;
-    AudioTemporaryCache* tp;
-    AudioAllocPool* pool;
-    void* mem;
-    void* ret;
+    AudioCache* loadedPool = NULL;
+    AudioTemporaryCache* tp = NULL;
+    AudioAllocPool* pool = NULL;
+    void* mem = NULL;
+    void* ret = NULL;
     u8 firstVal;
     u8 secondVal;
     s32 i;
-    u8* table;
+    u8* table = NULL;
     s32 side;
 
     switch (tableType) {
@@ -502,7 +512,7 @@ void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
                 break;
 
             case 1:
-                tp->entries[1].ptr = (u8*)((u32)(pool->start + pool->size - size) & ~0xF);
+                tp->entries[1].ptr = (u8*)((uintptr_t)(pool->start + pool->size - size) & ~0xF);
                 tp->entries[1].id = id;
                 tp->entries[1].size = size;
                 if (tp->entries[0].id != -1 && tp->entries[1].ptr < pool->cur) {
@@ -569,9 +579,9 @@ void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
 
 void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
     u32 i;
-    AudioCache* loadedPool;
-    AudioTemporaryCache* temporary;
-    AudioPersistentCache* persistent;
+    AudioCache* loadedPool = NULL;
+    AudioTemporaryCache* temporary = NULL;
+    AudioPersistentCache* persistent = NULL;
 
     switch (tableType) {
         case SEQUENCE_TABLE:
@@ -811,7 +821,7 @@ void AudioHeap_Init(void) {
     spec = &gAudioSpecs[gAudioContext.audioResetSpecIdToLoad];
     gAudioContext.sampleDmaCount = 0;
     gAudioContext.audioBufferParameters.frequency = spec->frequency;
-    gAudioContext.audioBufferParameters.aiFrequency = osAiSetFrequency(gAudioContext.audioBufferParameters.frequency);
+    gAudioContext.audioBufferParameters.aiFrequency = 0; // TODO FIX osAiSetFrequency(gAudioContext.audioBufferParameters.frequency);
     gAudioContext.audioBufferParameters.samplesPerFrameTarget =
         ((gAudioContext.audioBufferParameters.frequency / gAudioContext.refreshRate) + 0xF) & 0xFFF0;
     gAudioContext.audioBufferParameters.minAiBufferLength =
@@ -989,9 +999,6 @@ void AudioHeap_Init(void) {
     AudioLoad_InitAsyncLoads();
     gAudioContext.unk_4 = 0x1000;
     AudioLoad_LoadPermanentSamples();
-    intMask = osSetIntMask(1);
-    osWritebackDCacheAll();
-    osSetIntMask(intMask);
 }
 
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
@@ -1021,7 +1028,7 @@ void* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size) {
     gAudioContext.permanentCache[index].size = size;
     //! @bug UB: missing return. "ret" is in v0 at this point, but doing an
     // explicit return uses an additional register.
-    // return ret;
+    return ret;
 }
 
 void* AudioHeap_AllocSampleCache(u32 size, s32 fontId, void* sampleAddr, s8 medium, s32 cache) {

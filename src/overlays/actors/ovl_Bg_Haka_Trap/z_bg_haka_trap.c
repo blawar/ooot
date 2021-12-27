@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HAKA_TRAP_Z_BG_HAKA_TRAP_C
+#include "actor_common.h"
 /*
  * File: z_bg_haka_trap.c
  * Overlay: ovl_Bg_Haka_Trap
@@ -6,6 +8,19 @@
 
 #include "z_bg_haka_trap.h"
 #include "objects/object_haka_objects/object_haka_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_eff_ss_dead.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS 0
 

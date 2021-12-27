@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_TSUBO_Z_OBJ_TSUBO_C
+#include "actor_common.h"
 /*
  * File: z_obj_tsubo.c
  * Overlay: ovl_Obj_Tsubo
@@ -8,6 +10,16 @@
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
 #include "objects/object_tsubo/object_tsubo.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_23)
 

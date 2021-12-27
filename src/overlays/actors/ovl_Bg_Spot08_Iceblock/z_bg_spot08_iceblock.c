@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT08_ICEBLOCK_Z_BG_SPOT08_ICEBLOCK_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot08_iceblock.c
  * Overlay: ovl_Bg_Spot08_Iceblock
@@ -6,6 +8,15 @@
 
 #include "z_bg_spot08_iceblock.h"
 #include "objects/object_spot08_obj/object_spot08_obj.h"
+#include "def/code_80043480.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 
@@ -282,7 +293,7 @@ static InitChainEntry sInitChain[] = {
 
 void BgSpot08Iceblock_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot08Iceblock* this = (BgSpot08Iceblock*)thisx;
-    CollisionHeader* colHeader;
+    CollisionHeader* colHeader = NULL;
 
     // "spot08 ice floe"
     osSyncPrintf("(spot08 流氷)(arg_data 0x%04x)\n", this->dyna.actor.params);
@@ -430,7 +441,7 @@ void BgSpot08Iceblock_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot08Iceblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx* dList;
+    Gfx* dList = NULL;
     BgSpot08Iceblock* this = (BgSpot08Iceblock*)thisx;
 
     switch (this->dyna.actor.params & 0x200) {

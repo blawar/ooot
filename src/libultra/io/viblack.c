@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VIBLACK_C
 #include "global.h"
+#include "def/vi.h"
+#include "def/viblack.h"
 
 // TODO: name magic constants
 void osViBlack(u8 active) {

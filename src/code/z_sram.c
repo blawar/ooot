@@ -1,5 +1,22 @@
+#define INTERNAL_SRC_CODE_Z_SRAM_C
 #include "global.h"
 #include "vt.h"
+#include "z64item.h"
+#include "z64save.h"
+#include "z64scene.h"
+#include "z64audio.h"
+#include "z64global.h"
+#include "z64sram.h"
+#include "z64item.h"
+#include "z_file_choose.h"
+#include "def/code_80069420.h"
+#include "def/code_80097A00.h"
+#include "def/code_800EC960.h"
+#include "def/game.h"
+#include "def/z_common_data.h"
+#include "def/z_parameter.h"
+#include "def/z_sram.h"
+#include "def/z_ss_sram.h"
 
 // these are the main substructs of save context.
 // we are going to hold off on splitting save context until later on,

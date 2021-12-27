@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_OKARINA_TAG_Z_EN_OKARINA_TAG_C
+#include "actor_common.h"
 /*
  * File: z_en_okarina_tag.c
  * Overlay: ovl_En_Okarina_Tag
@@ -8,6 +10,11 @@
 #include "scenes/misc/hakaana_ouke/hakaana_ouke_scene.h"
 #include "scenes/overworld/spot02/spot02_scene.h"
 #include "vt.h"
+#include "def/code_800EC960.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
@@ -317,17 +324,4 @@ void EnOkarinaTag_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnOkarinaTag* this = (EnOkarinaTag*)thisx;
 
     this->actionFunc(this, globalCtx);
-    if (BREG(0) != 0) {
-        if (this->unk_15A != 0) {
-            if (!(this->unk_15A & 1)) {
-                DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 120, 120, 120, 255, 4, globalCtx->state.gfxCtx);
-            }
-        } else {
-            DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                   this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                   1.0f, 1.0f, 255, 0, 0, 255, 4, globalCtx->state.gfxCtx);
-        }
-    }
 }

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_EFFECT_Z_DEMO_EFFECT_C
+#include "actor_common.h"
 #include "z_demo_effect.h"
 #include "vt.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
@@ -9,6 +11,23 @@
 #include "objects/object_triforce_spot/object_triforce_spot.h"
 #include "objects/object_efc_tw/object_efc_tw.h"
 #include "objects/object_gi_jewel/object_gi_jewel.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800EC960.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_draw.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_fcurve_data_skelanime.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -1866,7 +1885,7 @@ void DemoEffect_DrawLightEffect(Actor* thisx, GlobalContext* globalCtx) {
         if (this->light.flicker == 0) {
             this->light.flicker = 1;
         } else {
-            disp = (u32)gEffFlash1DL; // necessary to match, should be able to remove after fake matches are fixed
+            disp = gEffFlash1DL; // necessary to match, should be able to remove after fake matches are fixed
             alpha = &this->light.alpha;
             func_80093D84(globalCtx->state.gfxCtx);
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, this->primXluColor[0], this->primXluColor[1],

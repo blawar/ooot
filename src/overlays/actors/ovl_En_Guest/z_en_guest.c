@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GUEST_Z_EN_GUEST_C
+#include "actor_common.h"
 /*
  * File: z_en_guest.c
  * Overlay: ovl_En_Guest
@@ -8,6 +10,16 @@
 #include "objects/object_os_anime/object_os_anime.h"
 #include "objects/object_boj/object_boj.h"
 #include "vt.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -49,8 +61,6 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(targetArrowOffset, 500, ICHAIN_STOP),
 };
 
-extern FlexSkeletonHeader object_boj_Skel_0000F0;
-
 void EnGuest_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnGuest* this = (EnGuest*)thisx;
 
@@ -84,7 +94,7 @@ void EnGuest_Update(Actor* thisx, GlobalContext* globalCtx) {
 
         SkelAnime_InitFlex(globalCtx, &this->skelAnime, &object_boj_Skel_0000F0, NULL, this->jointTable,
                            this->morphTable, 16);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->osAnimeBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->osAnimeBankIndex].vromStart);
         Animation_Change(&this->skelAnime, &gObjOsAnim_42AC, 1.0f, 0.0f, Animation_GetLastFrame(&gObjOsAnim_42AC),
                          ANIMMODE_LOOP, 0.0f);
 
@@ -162,7 +172,7 @@ void func_80A505CC(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80034F54(globalCtx, this->unk_2CC, this->unk_2EC, 16);
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->osAnimeBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->osAnimeBankIndex].vromStart);
 
     SkelAnime_Update(&this->skelAnime);
     Actor_SetFocus(&this->actor, 60.0f);
@@ -215,9 +225,9 @@ s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 
 void EnGuest_Draw(Actor* thisx, GlobalContext* globalCtx) {
     static void* D_80A50BA4[] = {
-        0x060005FC,
-        0x060006FC,
-        0x060007FC,
+        object_boj_Tex_0005FC,
+        object_boj_Tex_0006FC,
+        object_boj_Tex_0007FC,
     };
     EnGuest* this = (EnGuest*)thisx;
     s32 pad;

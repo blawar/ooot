@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_KAKERA_Z_EFF_SS_KAKERA_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_kakera.c
  * Overlay: ovl_Effect_Ss_Kakera
@@ -5,6 +7,12 @@
  */
 
 #include "z_eff_ss_kakera.h"
+#include "def/code_800FD970.h"
+#include "def/logutils.h"
+#include "def/sys_matrix.h"
+#include "def/z_bgcheck.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rReg0 regs[0]
 #define rGravity regs[1]
@@ -100,9 +108,9 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) {
 
     if (this->rObjId != KAKERA_OBJECT_DEFAULT) {
         if ((((this->rReg4 >> 7) & 1) << 7) == 0x80) {
-            gSPSegment(POLY_XLU_DISP++, 0x06, globalCtx->objectCtx.status[this->rObjBankIdx].segment);
+            gSPSegment(POLY_XLU_DISP++, 0x06, gObjectTable[this->rObjBankIdx].vromStart);
         } else {
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->rObjBankIdx].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->rObjBankIdx].vromStart);
         }
     }
 

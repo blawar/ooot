@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_LIGHT_Z_EN_LIGHT_C
+#include "actor_common.h"
 /*
  * File: z_en_light.c
  * Overlay: ovl_En_Light
@@ -7,6 +9,14 @@
 #include "z_en_light.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_VASE_Z_EN_VASE_C
+#include "actor_common.h"
 /*
  * File: z_en_vase.c
  * Overlay: ovl_En_Vase
@@ -6,6 +8,8 @@
 
 #include "z_en_vase.h"
 #include "objects/object_vase/object_vase.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
 
 #define FLAGS ACTOR_FLAG_4
 

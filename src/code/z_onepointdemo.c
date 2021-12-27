@@ -1,5 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_ONEPOINTDEMO_C
 #include "global.h"
 #include "vt.h"
+#include "z64actor.h"
+#include "sequence.h"
+#include "sfx.h"
+#include "z64player.h"
+#include "z64save.h"
+#include "z_onepointdemo.h"
 #include "overlays/actors/ovl_En_Sw/z_en_sw.h"
 
 static s16 sDisableAttention = false;
@@ -7,6 +14,17 @@ static s16 sUnused = -1;
 static s32 sPrevFrameCs1100 = -4096;
 
 #include "z_onepointdemo_data.c"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_olib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_quake.h"
 
 void OnePointCutscene_AddVecSphToVec3f(Vec3f* dst, Vec3f* src, VecSph* vecSph) {
     Vec3f out;

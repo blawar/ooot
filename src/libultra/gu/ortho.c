@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_GU_ORTHO_C
 #include "global.h"
+#include "def/mtxf2l.h"
+#include "def/ortho.h"
 
 void guOrthoF(f32 mf[4][4], f32 left, f32 right, f32 bottom, f32 top, f32 near, f32 far, f32 scale) {
     s32 i, j;

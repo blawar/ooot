@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_OSSAN_Z_EN_OSSAN_C
+#include "actor_common.h"
 #include "z_en_ossan.h"
 #include "vt.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
@@ -13,6 +15,19 @@
 #include "objects/object_mastergolon/object_mastergolon.h"
 #include "objects/object_masterzoora/object_masterzoora.h"
 #include "objects/object_masterkokirihead/object_masterkokirihead.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -1879,8 +1894,8 @@ void EnOssan_UpdateCursorAnim(EnOssan* this) {
         }
     }
     this->cursorColorR = ColChanMix(0, 0.0f, t);
-    this->cursorColorG = ColChanMix(255, 80.0f, t);
-    this->cursorColorB = ColChanMix(80, 0.0f, t);
+    this->cursorColorG = ColChanMix(80, 0.0f, t);
+    this->cursorColorB = ColChanMix(255, 80.0f, t);
     this->cursorColorA = ColChanMix(255, 0.0f, t);
     this->cursorAnimTween = t;
 }
@@ -1992,7 +2007,7 @@ void EnOssan_InitBazaarShopkeeper(EnOssan* this, GlobalContext* globalCtx) {
 
 void EnOssan_InitKokiriShopkeeper(EnOssan* this, GlobalContext* globalCtx) {
     SkelAnime_InitFlex(globalCtx, &this->skelAnime, &gKm1Skel, NULL, NULL, NULL, 0);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[this->objBankIndex3].segment);
+    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[this->objBankIndex3].vromStart);
     Animation_Change(&this->skelAnime, &object_masterkokiri_Anim_0004A8, 1.0f, 0.0f,
                      Animation_GetLastFrame(&object_masterkokiri_Anim_0004A8), 0, 0.0f);
     this->actor.draw = EnOssan_DrawKokiriShopkeeper;
@@ -2003,7 +2018,7 @@ void EnOssan_InitKokiriShopkeeper(EnOssan* this, GlobalContext* globalCtx) {
 
 void EnOssan_InitGoronShopkeeper(EnOssan* this, GlobalContext* globalCtx) {
     SkelAnime_InitFlex(globalCtx, &this->skelAnime, &gGoronSkel, NULL, NULL, NULL, 0);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[this->objBankIndex3].segment);
+    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[this->objBankIndex3].vromStart);
     Animation_Change(&this->skelAnime, &gGoronShopkeeperAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gGoronShopkeeperAnim),
                      0, 0.0f);
     this->actor.draw = EnOssan_DrawGoronShopkeeper;
@@ -2012,7 +2027,7 @@ void EnOssan_InitGoronShopkeeper(EnOssan* this, GlobalContext* globalCtx) {
 
 void EnOssan_InitZoraShopkeeper(EnOssan* this, GlobalContext* globalCtx) {
     SkelAnime_InitFlex(globalCtx, &this->skelAnime, &gZoraSkel, NULL, NULL, NULL, 0);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[this->objBankIndex3].segment);
+    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[this->objBankIndex3].vromStart);
     Animation_Change(&this->skelAnime, &gZoraShopkeeperAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gZoraShopkeeperAnim),
                      0, 0.0f);
     this->actor.draw = EnOssan_DrawZoraShopkeeper;
@@ -2195,7 +2210,7 @@ void EnOssan_InitActionFunc(EnOssan* this, GlobalContext* globalCtx) {
 }
 
 void EnOssan_Obj3ToSeg6(EnOssan* this, GlobalContext* globalCtx) {
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndex3].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndex3].vromStart);
 }
 
 void EnOssan_MainActionFunc(EnOssan* this, GlobalContext* globalCtx) {
@@ -2362,8 +2377,8 @@ s32 EnOssan_OverrideLimbDrawKokiriShopkeeper(GlobalContext* globalCtx, s32 limbI
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4354);
 
     if (limbIndex == 15) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->objBankIndex2].segment);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndex2].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->objBankIndex2].vromStart);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndex2].vromStart);
         *dList = gKokiriShopkeeperHeadDL;
         gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(sKokiriShopkeeperEyeTextures[this->eyeTextureIdx]));
     }

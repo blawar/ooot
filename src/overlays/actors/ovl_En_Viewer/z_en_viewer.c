@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_VIEWER_Z_EN_VIEWER_C
+#include "actor_common.h"
+#include "z_kankyo.h"
 /*
  * File: z_en_viewer.c
  * Overlay: ovl_En_Viewer
@@ -14,6 +17,21 @@
 #include "objects/object_gndd/object_gndd.h"
 #include "objects/object_ganon/object_ganon.h"
 #include "objects/object_opening_demo1/object_opening_demo1.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_object_kankyo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin.h"
+#include "def/z_skin_awb.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -122,7 +140,7 @@ void EnViewer_InitAnimGanondorfOrZelda(EnViewer* this, GlobalContext* globalCtx,
         SkelAnime_Init(globalCtx, &this->skin.skelAnime, skeletonHeaderSeg, NULL, NULL, NULL, 0);
     }
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animObjBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animObjBankIndex].vromStart);
     if (type == ENVIEWER_TYPE_3_GANONDORF || type == ENVIEWER_TYPE_7_GANONDORF || type == ENVIEWER_TYPE_8_GANONDORF ||
         type == ENVIEWER_TYPE_9_GANONDORF) {
         Animation_PlayLoopSetSpeed(&this->skin.skelAnime, anim, 1.0f);
@@ -133,7 +151,7 @@ void EnViewer_InitAnimGanondorfOrZelda(EnViewer* this, GlobalContext* globalCtx,
 
 void EnViewer_InitAnimImpa(EnViewer* this, GlobalContext* globalCtx, void* skeletonHeaderSeg, AnimationHeader* anim) {
     SkelAnime_InitFlex(globalCtx, &this->skin.skelAnime, skeletonHeaderSeg, NULL, NULL, NULL, 0);
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animObjBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animObjBankIndex].vromStart);
     Animation_PlayLoopSetSpeed(&this->skin.skelAnime, anim, 3.0f);
 }
 
@@ -479,7 +497,7 @@ void EnViewer_UpdateImpl(EnViewer* this, GlobalContext* globalCtx) {
 void EnViewer_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnViewer* this = (EnViewer*)thisx;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->animObjBankIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->animObjBankIndex].vromStart);
     this->actionFunc(this, globalCtx);
 }
 

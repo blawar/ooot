@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "z_en_zl4.h"
 
 static CutsceneCameraAngle sCsCameraAngle[] = {

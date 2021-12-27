@@ -1,5 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_GU_SINS_C
 #include "ultra64.h"
 #include "sintable.c"
+#include "def/sins.h"
 
 s16 sins(u16 x) {
     s16 value;

@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 
 static const Vtx sMarkBossVtx[] = {

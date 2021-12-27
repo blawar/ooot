@@ -1,6 +1,23 @@
+#define INTERNAL_SRC_CODE_Z_COLLISION_CHECK_C
 #include "global.h"
 #include "vt.h"
+#include "z64collision_check.h"
 #include "overlays/effects/ovl_Effect_Ss_HitMark/z_eff_ss_hitmark.h"
+#include "z64global.h"
+#include "z64effect.h"
+#include "sfx.h"
+#include "def/code_800F7260.h"
+#include "def/graph.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_btltbls.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_malloc.h"
+#include "def/z_play.h"
 
 typedef s32 (*ColChkResetFunc)(GlobalContext*, Collider*);
 typedef void (*ColChkBloodFunc)(GlobalContext*, Collider*, Vec3f*);
@@ -1102,7 +1119,7 @@ void Collider_Draw(GlobalContext* globalCtx, Collider* collider) {
         return;
     }
     switch (collider->shape) {
-        case COLSHAPE_JNTSPH:
+        /*case COLSHAPE_JNTSPH:
             jntSph = (ColliderJntSph*)collider;
             for (i = 0; i < jntSph->count; i++) {
                 Math3D_DrawSphere(globalCtx, &jntSph->elements[i].dim.worldSphere);
@@ -1111,7 +1128,7 @@ void Collider_Draw(GlobalContext* globalCtx, Collider* collider) {
         case COLSHAPE_CYLINDER:
             cylinder = (ColliderCylinder*)collider;
             Math3D_DrawCylinder(globalCtx, &cylinder->dim);
-            break;
+            break;*/
         case COLSHAPE_TRIS:
             tris = (ColliderTris*)collider;
             for (i = 0; i < tris->count; i++) {

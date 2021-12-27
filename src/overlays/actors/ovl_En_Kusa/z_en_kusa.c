@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_KUSA_Z_EN_KUSA_C
+#include "actor_common.h"
 /*
  * File: z_en_kusa.c
  * Overlay: ovl_en_kusa
@@ -10,6 +12,16 @@
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "objects/object_kusa/object_kusa.h"
 #include "vt.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_23)
 

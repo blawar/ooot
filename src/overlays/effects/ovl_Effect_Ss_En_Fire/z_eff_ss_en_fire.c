@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_EN_FIRE_Z_EFF_SS_EN_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_en_fire.c
  * Overlay: ovl_Effect_Ss_En_Fire
@@ -6,6 +8,11 @@
 
 #include "z_eff_ss_en_fire.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define rScaleMax regs[0]
 #define rScale regs[1]

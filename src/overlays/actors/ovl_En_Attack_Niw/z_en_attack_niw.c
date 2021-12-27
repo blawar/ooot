@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ATTACK_NIW_Z_EN_ATTACK_NIW_C
+#include "actor_common.h"
 /*
  * File: z_en_attack_niw.c
  * Overlay: ovl_En_Attack_Niw
@@ -7,6 +9,12 @@
 #include "z_en_attack_niw.h"
 #include "objects/object_niw/object_niw.h"
 #include "overlays/actors/ovl_En_Niw/z_en_niw.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 

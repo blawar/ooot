@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_UMAJUMP_Z_BG_UMAJUMP_C
+#include "actor_common.h"
 /*
  * File: z_bg_umajump.c
  * Overlay: ovl_Bg_Umajump
@@ -6,6 +8,11 @@
 
 #include "z_bg_umajump.h"
 #include "objects/object_umajump/object_umajump.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

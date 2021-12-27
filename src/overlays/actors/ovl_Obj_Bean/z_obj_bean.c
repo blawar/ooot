@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_BEAN_Z_OBJ_BEAN_C
+#include "actor_common.h"
 /*
  * File: z_obj_bean.c
  * Overlay: ovl_Obj_Bean
@@ -8,6 +10,20 @@
 #include "objects/object_mamenoki/object_mamenoki.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "vt.h"
+#include "def/code_80043480.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
 
 #define FLAGS ACTOR_FLAG_22
 

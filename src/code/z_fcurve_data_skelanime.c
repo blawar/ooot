@@ -1,4 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_FCURVE_DATA_SKELANIME_C
 #include "global.h"
+#include "z64animation.h"
+#include "z64global.h"
+#include "def/code_8006C510.h"
+#include "def/sys_matrix.h"
+#include "def/z_fcurve_data_skelanime.h"
+#include "def/z_malloc.h"
+#include "def/graph.h" // FORCE
 
 void SkelCurve_Clear(SkelAnimeCurve* skelCurve) {
     skelCurve->limbCount = 0;

@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_Z_FRAME_ADVANCE_C
 #include "global.h"
+#include "z64global.h"
+#include "def/z_frame_advance.h"
+
 
 void FrameAdvance_Init(FrameAdvanceContext* frameAdvCtx) {
     frameAdvCtx->timer = 0;

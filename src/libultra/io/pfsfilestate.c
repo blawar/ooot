@@ -1,5 +1,11 @@
+#define INTERNAL_SRC_LIBULTRA_IO_PFSFILESTATE_C
 #include "ultra64.h"
 #include "global.h"
+#include "def/contpfs.h"
+#include "def/contramread.h"
+#include "def/pfsfilestate.h"
+#include "def/pfsgetstatus.h"
+#include "def/pfsselectbank.h"
 
 s32 osPfsFileState(OSPfs* pfs, s32 fileNo, OSPfsState* state) {
     s32 ret;

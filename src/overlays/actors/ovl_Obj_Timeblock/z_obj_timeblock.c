@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_TIMEBLOCK_Z_OBJ_TIMEBLOCK_C
+#include "actor_common.h"
 /*
  * File: z_obj_timeblock.c
  * Overlay: ovl_Obj_Timeblock
@@ -6,6 +8,14 @@
 
 #include "z_obj_timeblock.h"
 #include "objects/object_timeblock/object_timeblock.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_AROW_TRAP_Z_EN_AROW_TRAP_C
+#include "actor_common.h"
 /*
  * File: z_en_arow_trap.c
  * Overlay: ovl_En_Arow_Trap
@@ -6,6 +8,7 @@
 
 #include "z_en_arow_trap.h"
 #include "overlays/actors/ovl_En_Arrow/z_en_arrow.h"
+#include "def/z_actor.h"
 #define FLAGS ACTOR_FLAG_4
 
 void EnArowTrap_Init(Actor* thisx, GlobalContext* globalCtx);

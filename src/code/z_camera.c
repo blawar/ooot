@@ -1,7 +1,46 @@
+#define INTERNAL_SRC_CODE_Z_CAMERA_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64global.h"
+#include "z64bgcheck.h"
+#include "z64camera.h"
+#include "z64player.h"
+#include "z64actor.h"
+#include "z64save.h"
+#include "sfx.h"
+#include "quake.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
+#include "def/code_800BB0A0.h"
+#include "def/code_800EC960.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/code_80106860.h"
+#include "def/db_camera.h"
+#include "def/shrink_window.h"
+#include "def/sinf.h"
+#include "def/sys_math3d.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_camera_data.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_debug.h"
+#include "def/z_demo.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_malloc.h"
+#include "def/z_olib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_quake.h"
+#include "def/z_view.h"
+
+GlobalContext* D_8015BD7C;
+DbCamera D_8015BD80;
+CollisionPoly* playerFloorPoly;
 
 s16 Camera_ChangeSettingFlags(Camera* camera, s16 setting, s16 flags);
 s32 Camera_ChangeModeFlags(Camera* camera, s16 mode, u8 flags);
@@ -206,7 +245,7 @@ s32 Camera_BGCheckInfo(Camera* camera, Vec3f* from, CamColChk* to) {
     Vec3f fromToNorm;
     f32 floorPolyY;
     CollisionPoly* floorPoly;
-    s32 floorBgId;
+    s32 floorBgId = 0;
     VecSph fromToOffset;
 
     OLib_Vec3fDiffToVecSphGeo(&fromToOffset, from, &to->pos);
@@ -2127,6 +2166,7 @@ s32 Camera_Parallel1(Camera* camera) {
     camera->roll = Camera_LERPCeilS(0, camera->roll, 0.5, 0xA);
     camera->atLERPStepScale = Camera_ClampLERPScale(camera, sp6A ? para1->unk_1C : para1->unk_14);
     //! @bug No return
+    return 0;
 }
 
 s32 Camera_Parallel2(Camera* camera) {
@@ -2146,6 +2186,7 @@ s32 Camera_Parallel3(Camera* camera) {
         camera->unk_14C |= 0x10;
     }
     //! @bug doesn't return
+    return 0;
 }
 
 s32 Camera_Parallel4(Camera* camera) {
@@ -2928,6 +2969,8 @@ s32 Camera_Battle1(Camera* camera) {
                                                                   : 1.0f) *
                                        (fov - ((fov * 0.05f) * distRatio)),
                                    camera->fov, camera->fovUpdateRate, 1.0f);
+
+    return 0;
 }
 
 s32 Camera_Battle2(Camera* camera) {
@@ -3412,8 +3455,7 @@ s32 Camera_KeepOn3(Camera* camera) {
         at->x += (anim->atTarget.x - at->x) / anim->animTimer;
         at->y += (anim->atTarget.y - at->y) / anim->animTimer;
         at->z += (anim->atTarget.z - at->z) / anim->animTimer;
-        // needed to match
-        if (!prevTargetPlayerDist) {}
+
         atToEyeAdj.r = ((anim->eyeToAtTarget.x * anim->animTimer) + atToEyeNextDir.r) + 1.0f;
         atToEyeAdj.yaw = atToEyeNextDir.yaw + (s16)(anim->eyeToAtTarget.y * anim->animTimer);
         atToEyeAdj.pitch = atToEyeNextDir.pitch + (s16)(anim->eyeToAtTarget.z * anim->animTimer);
@@ -3740,6 +3782,8 @@ s32 Camera_KeepOn4(Camera* camera) {
     Camera_BGCheck(camera, at, eye);
     camera->fov = Camera_LERPCeilF(keep4->unk_18, camera->fov, camera->fovUpdateRate, 1.0f);
     camera->roll = Camera_LERPCeilS(0, camera->roll, 0.5f, 0xA);
+
+    return 0;
 }
 
 /**
@@ -6119,6 +6163,8 @@ s32 Camera_Demo7(Camera* camera) {
         camera->animState++;
     }
     //! @bug doesn't return
+
+    return 0;
 }
 
 s32 Camera_Demo8(Camera* camera) {
@@ -6783,7 +6829,7 @@ void Camera_Init(Camera* camera, View* view, CollisionContext* colCtx, GlobalCon
     s16 curUID;
     s16 j;
 
-    func_80106860(camera, 0, sizeof(*camera));
+    z_memset(camera, 0, sizeof(*camera));
     if (sInitRegs) {
         for (i = 0; i < sOREGInitCnt; i++) {
             OREG(i) = sOREGInit[i];
@@ -7176,6 +7222,7 @@ s32 Camera_CheckWater(Camera* camera) {
         Audio_SetExtraFilter(0);
     }
     //! @bug: doesn't always return a value, but sometimes does.
+    return 0;
 }
 
 /**
@@ -7828,6 +7875,7 @@ s32 Camera_ChangeDataIdx(Camera* camera, s32 camDataIdx) {
         }
         return 0x80000000 | camDataIdx;
     }
+    return 0;
 }
 
 Vec3s* Camera_GetInputDir(Vec3s* dst, Camera* camera) {

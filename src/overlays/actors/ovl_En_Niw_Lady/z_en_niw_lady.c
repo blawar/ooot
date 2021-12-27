@@ -1,8 +1,20 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_NIW_LADY_Z_EN_NIW_LADY_C
+#include "actor_common.h"
 #include "z_en_niw_lady.h"
 #include "objects/object_ane/object_ane.h"
 #include "objects/object_os_anime/object_os_anime.h"
 #include "overlays/actors/ovl_En_Niw/z_en_niw.h"
 #include "vt.h"
+#include "def/graph.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -153,9 +165,9 @@ void func_80AB9F24(EnNiwLady* this, GlobalContext* globalCtx) {
 
     if (Object_IsLoaded(&globalCtx->objectCtx, this->objectAneIndex) &&
         Object_IsLoaded(&globalCtx->objectCtx, this->objectOsAnimeIndex)) {
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objectAneIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objectAneIndex].vromStart);
         SkelAnime_InitFlex(globalCtx, &this->skelAnime, &gCuccoLadySkel, NULL, this->jointTable, this->morphTable, 16);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objectOsAnimeIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objectOsAnimeIndex].vromStart);
         this->unk_27E = 1;
         this->actor.gravity = -3.0f;
         Actor_SetScale(&this->actor, 0.01f);
@@ -502,7 +514,7 @@ void EnNiwLady_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (this->unk_276 == 0) {
         Math_SmoothStepToS(&this->unk_254.y, 0, 5, 3000, 0);
     }
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objectOsAnimeIndex].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objectOsAnimeIndex].vromStart);
     if (this->objectOsAnimeIndex >= 0) {
         if (this->unk_27E != 0) {
             if (this->unk_26E != 0) {

@@ -1,4 +1,6 @@
+#define INTERNAL_SRC_CODE_CODE_801068B0_C
 #include "global.h"
+#include "def/code_801068B0.h"
 
 // memmove used in __osMalloc.c
 void* func_801068B0(void* dst, void* src, size_t size) {

@@ -1,3 +1,10 @@
+#define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_SELECT_Z_SELECT_C
+#include "actor_common.h"
+#include "z_select.h"
+#include "z_title.h"
+#include "z_kankyo.h"
+#include "z_player.h"
+#include "gfxprint.h"
 /*
  * File: z_select.c
  * Overlay: ovl_select
@@ -6,8 +13,23 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "segment_symbols.h"
 #include "vt.h"
 #include "alloca.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/game.h"
+#include "def/gfxprint.h"
+#include "def/xprintf.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_rcp.h"
+#include "def/z_select.h"
+#include "def/z_sram.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
+#include "def/z_play.h" // FORCE
 
 void Select_LoadTitle(SelectContext* this) {
     this->state.running = false;
@@ -578,7 +600,7 @@ void Select_PrintAgeSetting(SelectContext* this, GfxPrint* printer, s32 age) {
 }
 
 void Select_PrintCutsceneSetting(SelectContext* this, GfxPrint* printer, u16 csIndex) {
-    char* label;
+    char* label = NULL;
 
     GfxPrint_SetPos(printer, 4, 25);
     GfxPrint_SetColor(printer, 255, 255, 55, 255);
@@ -742,7 +764,7 @@ void Select_Init(GameState* thisx) {
     this->lockDown = 0;
     this->unk_234 = 0;
 
-    size = (u32)_z_select_staticSegmentRomEnd - (u32)_z_select_staticSegmentRomStart;
+    size = POINTER_SUB(_z_select_staticSegmentRomEnd, _z_select_staticSegmentRomStart);
 
     if ((dREG(80) >= 0) && (dREG(80) < this->count)) {
         this->currentScene = dREG(80);

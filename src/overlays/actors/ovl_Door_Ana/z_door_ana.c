@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_ANA_Z_DOOR_ANA_C
+#include "actor_common.h"
 /*
  * File: z_door_ana.c
  * Overlay: ovl_Door_Ana
@@ -6,6 +8,17 @@
 
 #include "z_door_ana.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800F7260.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_25
 

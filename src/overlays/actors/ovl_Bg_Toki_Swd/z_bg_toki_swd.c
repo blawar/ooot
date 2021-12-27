@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_TOKI_SWD_Z_BG_TOKI_SWD_C
+#include "actor_common.h"
 /*
  * File: z_bg_toki_swd.c
  * Overlay: ovl_Bg_Toki_Swd
@@ -6,6 +8,16 @@
 
 #include "z_bg_toki_swd.h"
 #include "objects/object_toki_objects/object_toki_objects.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800F9280.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

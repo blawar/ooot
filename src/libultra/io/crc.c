@@ -1,4 +1,6 @@
+#define INTERNAL_SRC_LIBULTRA_IO_CRC_C
 #include "global.h"
+#include "def/crc.h"
 
 // Valid addr up to 0x7FF
 // It's the address of a block of 0x20 bytes in the mempak

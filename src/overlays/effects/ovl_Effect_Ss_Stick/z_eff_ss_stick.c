@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_STICK_Z_EFF_SS_STICK_C
+#include "actor_common.h"
+extern Gfx gCullBackDList[];
 /*
  * File: z_eff_ss_stick.c
  * Overlay: ovl_Effect_Ss_Stick
@@ -7,6 +10,12 @@
 #include "z_eff_ss_stick.h"
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "def/sys_matrix.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rObjBankIdx regs[0]
 #define rYaw regs[1]
@@ -67,7 +76,7 @@ void EffectSsStick_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_ss_stick.c", 176),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     func_80093D18(gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->rObjBankIdx].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->rObjBankIdx].vromStart);
     gSPSegment(POLY_OPA_DISP++, 0x0C, gCullBackDList);
     gSPDisplayList(POLY_OPA_DISP++, this->gfx);
 

@@ -1,6 +1,8 @@
+#define INTERNAL_SRC_LIBULTRA_GU_COSF_C
 #include "ultra64.h"
 #include "global.h"
-
+#include "def/cosf.h"
+/*
 static const du P[] = {
     { 0x3FF00000, 0x00000000 }, { 0xBFC55554, 0xBC83656D }, { 0x3F8110ED, 0x3804C2A0 },
     { 0xBF29F6FF, 0xEEA56814 }, { 0x3EC5DBDF, 0x0E314BFE },
@@ -56,4 +58,5 @@ f32 cosf(f32 x) {
     }
 
     return zero.f;
-}
+}*/
+

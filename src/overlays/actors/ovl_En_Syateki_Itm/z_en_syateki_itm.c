@@ -1,8 +1,13 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SYATEKI_ITM_Z_EN_SYATEKI_ITM_C
+#include "actor_common.h"
 #include "z_en_syateki_itm.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Syateki_Man/z_en_syateki_man.h"
 #include "overlays/actors/ovl_En_Ex_Ruppy/z_en_ex_ruppy.h"
 #include "overlays/actors/ovl_En_G_Switch/z_en_g_switch.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -342,10 +347,5 @@ void EnSyatekiItm_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
     if (this->unkTimer != 0) {
         this->unkTimer--;
-    }
-    if (BREG(0)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 255, 0, 0, 255, 4, globalCtx->state.gfxCtx);
     }
 }

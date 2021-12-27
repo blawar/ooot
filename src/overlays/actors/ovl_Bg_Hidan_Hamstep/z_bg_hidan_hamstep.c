@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_HAMSTEP_Z_BG_HIDAN_HAMSTEP_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_hamstep.c
  * Overlay: ovl_Bg_Hidan_Hamstep
@@ -6,6 +8,16 @@
 
 #include "z_bg_hidan_hamstep.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800A9F30.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 
@@ -102,7 +114,6 @@ s32 BgHidanHamstep_SpawnChildren(BgHidanHamstep* this, GlobalContext* globalCtx2
     s16 params;
     GlobalContext* globalCtx = globalCtx2;
 
-    pos = pos; // Required to match
     pos.y = this->dyna.actor.home.pos.y - 100.0f;
     sin = Math_SinS(this->dyna.actor.shape.rot.y + 0x8000);
     cos = Math_CosS(this->dyna.actor.shape.rot.y + 0x8000);

@@ -1,4 +1,10 @@
+#define INTERNAL_SRC_LIBULTRA_RMON_XLITOB_C
 #include "global.h"
+#include "ultra64/printf.h"
+#include <stdlib.h>
+#include <math.h>
+#include "def/string.h"
+#include "def/xlitob.h"
 
 #define BUFF_LEN 0x18
 

@@ -1,12 +1,33 @@
+#define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_TITLE_Z_TITLE_C
+#include "actor_common.h"
+#include "z_title.h"
+#include "z_opening.h"
 /*
  * File: z_title.c
  * Overlay: ovl_title
  * Description: Displays the Nintendo Logo
  */
 
+extern u8 gBuildTeam[];
+extern u8 gBuildDate[];
+
 #include "global.h"
+#include "segment_symbols.h"
 #include "alloca.h"
 #include "textures/nintendo_rogo_static/nintendo_rogo_static.h"
+#include "def/code_800D31A0.h"
+#include "def/game.h"
+#include "def/gfxprint.h"
+#include "def/sys_matrix.h"
+#include "def/xprintf.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_rcp.h"
+#include "def/z_sram.h"
+#include "def/z_std_dma.h"
+#include "def/z_title.h"
+#include "def/z_view.h"
 
 void Title_PrintBuildInfo(Gfx** gfxp) {
     Gfx* g;
@@ -33,7 +54,33 @@ void Title_PrintBuildInfo(Gfx** gfxp) {
 // Note: In other rom versions this function also updates unk_1D4, coverAlpha, addAlpha, visibleDuration to calculate
 // the fade-in/fade-out + the duration of the n64 logo animation
 void Title_Calc(TitleContext* this) {
-    this->exit = 1;
+    Input* input = &this->state.input[0];
+
+    if (CHECK_BTN_ALL(input->press.button, BTN_START)) {
+        this->exit = true;
+    }
+
+    if (this->coverAlpha == 0 && this->visibleDuration != 0) {
+        this->visibleDuration--;
+        this->unk_1D4--;
+        if (this->unk_1D4 == 0) {
+            this->unk_1D4 = 0x190;
+        }
+    } else {
+        this->coverAlpha += this->addAlpha;
+
+        if (this->coverAlpha <= 0) {
+            this->coverAlpha = 0;
+            this->addAlpha = 3;
+        } else if (this->coverAlpha >= 0xFF) {
+            this->coverAlpha = 0xFF;
+            this->exit = true;
+        }
+    }
+
+    this->uls = this->ult & 0x7F;
+    this->ult++;
+    //this->exit = true;
 }
 
 void Title_SetupView(TitleContext* this, f32 x, f32 y, f32 z) {
@@ -127,7 +174,7 @@ void Title_Main(GameState* thisx) {
     Title_Calc(this);
     Title_Draw(this);
 
-    if (gIsCtrlr2Valid) {
+    if (gIsCtrlr2Valid || 1) {
         Gfx* gfx = POLY_OPA_DISP;
         s32 pad;
 
@@ -153,13 +200,12 @@ void Title_Destroy(GameState* thisx) {
 }
 
 void Title_Init(GameState* thisx) {
-    u32 size = (u32)_nintendo_rogo_staticSegmentRomEnd - (u32)_nintendo_rogo_staticSegmentRomStart;
+    size_t size = POINTER_SUB(_nintendo_rogo_staticSegmentRomEnd, _nintendo_rogo_staticSegmentRomStart);
     TitleContext* this = (TitleContext*)thisx;
 
-    this->staticSegment = GameState_Alloc(&this->state, size, "../z_title.c", 611);
+    //this->staticSegment = GameState_Alloc(&this->state, size, "../z_title.c", 611);
     osSyncPrintf("z_title.c\n");
-    ASSERT(this->staticSegment != NULL, "this->staticSegment != NULL", "../z_title.c", 614);
-    DmaMgr_SendRequest1(this->staticSegment, (u32)_nintendo_rogo_staticSegmentRomStart, size, "../z_title.c", 615);
+    this->staticSegment = _nintendo_rogo_staticSegmentRomStart;
     R_UPDATE_RATE = 1;
     Matrix_Init(&this->state);
     View_Init(&this->view, this->state.gfxCtx);

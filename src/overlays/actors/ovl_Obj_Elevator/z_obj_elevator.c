@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_ELEVATOR_Z_OBJ_ELEVATOR_C
+#include "actor_common.h"
 /*
  * File: z_obj_elevator.c
  * Overlay: Obj_Elevator
@@ -6,6 +8,11 @@
 
 #include "z_obj_elevator.h"
 #include "objects/object_d_elevator/object_d_elevator.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_YDAN_SP_Z_BG_YDAN_SP_C
+#include "actor_common.h"
 /*
  * File: z_bg_ydan_sp.c
  * Overlay: ovl_Bg_Ydan_Sp
@@ -6,6 +8,19 @@
 
 #include "z_bg_ydan_sp.h"
 #include "objects/object_ydan_objects/object_ydan_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 
@@ -18,8 +33,6 @@ void BgYdanSp_BurnFloorWeb(BgYdanSp* this, GlobalContext* globalCtx);
 void BgYdanSp_FloorWebIdle(BgYdanSp* this, GlobalContext* globalCtx);
 void BgYdanSp_BurnWallWeb(BgYdanSp* this, GlobalContext* globalCtx);
 void BgYdanSp_WallWebIdle(BgYdanSp* this, GlobalContext* globalCtx);
-
-extern CollisionHeader gDTWebWallCol;
 
 typedef enum {
     /* 0 */ WEB_FLOOR,

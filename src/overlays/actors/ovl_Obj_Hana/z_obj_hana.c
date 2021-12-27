@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_HANA_Z_OBJ_HANA_C
+#include "actor_common.h"
 /*
  * File: z_obj_hana.c
  * Overlay: Obj_Hana
@@ -6,6 +8,11 @@
 
 #include "z_obj_hana.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

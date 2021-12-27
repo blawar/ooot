@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FISH_Z_EN_FISH_C
+#include "actor_common.h"
 /*
  * File: z_en_fish.c
  * Overlay: ovl_En_Fish
@@ -7,6 +9,14 @@
 #include "z_en_fish.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "vt.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_AISETFREQ_C
 #include "global.h"
+#include "def/aisetfreq.h"
+#include "def/initialize.h"
 
 s32 osAiSetFrequency(u32 frequency) {
     u8 bitrate;

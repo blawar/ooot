@@ -1,8 +1,21 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SA_Z_EN_SA_C
+#include "actor_common.h"
 #include "z_en_sa.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "objects/object_sa/object_sa.h"
 #include "scenes/overworld/spot04/spot04_scene.h"
 #include "scenes/overworld/spot05/spot05_scene.h"
+#include "def/code_800F7260.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
@@ -596,7 +609,7 @@ void func_80AF683C(EnSa* this, GlobalContext* globalCtx) {
 }
 
 void func_80AF68E4(EnSa* this, GlobalContext* globalCtx) {
-    s16 phi_v0;
+    s16 phi_v0 = 0;
     Vec3f startPos;
     Vec3f endPos;
     Vec3f D_80AF7448 = { 0.0f, 0.0f, 0.0f };

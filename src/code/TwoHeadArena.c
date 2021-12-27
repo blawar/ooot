@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_TWOHEADARENA_C
 #include "global.h"
+#include "gfx.h"
+#include "twoheadarena.h"
+#include <string.h>
+#include "def/TwoHeadArena.h"
 
 void THGA_Ct(TwoHeadGfxArena* thga, Gfx* start, u32 size) {
     THA_Ct((TwoHeadArena*)thga, start, size);
@@ -79,7 +84,7 @@ void* THA_GetTail(TwoHeadArena* tha) {
 void* THA_AllocStart(TwoHeadArena* tha, u32 size) {
     void* start = tha->head;
 
-    tha->head = (u32)tha->head + size;
+    tha->head = POINTER_ADD(tha->head, size);
     return start;
 }
 
@@ -88,7 +93,7 @@ void* THA_AllocStart1(TwoHeadArena* tha) {
 }
 
 void* THA_AllocEnd(TwoHeadArena* tha, u32 size) {
-    u32 mask;
+    uintptr_t mask;
 
     if (size == 8) {
         mask = ~7;
@@ -100,24 +105,28 @@ void* THA_AllocEnd(TwoHeadArena* tha, u32 size) {
         mask = (size >= 0x10) ? ~0xF : 0;
     }
 
-    tha->tail = (((u32)tha->tail & mask) - size) & mask;
+    tha->tail = (((uintptr_t)tha->tail & mask) - size) & mask;
     return tha->tail;
 }
 
 void* THA_AllocEndAlign16(TwoHeadArena* tha, u32 size) {
-    u32 mask = ~0xF;
+    uintptr_t mask = ~0xF;
 
-    tha->tail = (((u32)tha->tail & mask) - size) & (u64)mask;
+    uintptr_t a = (uintptr_t)tha->tail & mask;
+    uintptr_t b = a - size;
+    uintptr_t c = b & mask;
+
+    tha->tail = (((uintptr_t)tha->tail & mask) - size) & (u64)mask;
     return tha->tail;
 }
 
-void* THA_AllocEndAlign(TwoHeadArena* tha, u32 size, u32 mask) {
-    tha->tail = (((u32)tha->tail & mask) - size) & mask;
+void* THA_AllocEndAlign(TwoHeadArena* tha, u32 size, uintptr_t mask) {
+    tha->tail = (((uintptr_t)tha->tail & mask) - size) & mask;
     return tha->tail;
 }
 
 s32 THA_GetSize(TwoHeadArena* tha) {
-    return (u32)tha->tail - (u32)tha->head;
+    return POINTER_SUB(tha->tail, tha->head);
 }
 
 u32 THA_IsCrash(TwoHeadArena* tha) {
@@ -126,7 +135,7 @@ u32 THA_IsCrash(TwoHeadArena* tha) {
 
 void THA_Init(TwoHeadArena* tha) {
     tha->head = tha->bufp;
-    tha->tail = (u32)tha->bufp + tha->size;
+    tha->tail = POINTER_ADD(tha->bufp, tha->size);
 }
 
 void THA_Ct(TwoHeadArena* tha, void* ptr, u32 size) {

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_6K_Z_DEMO_6K_C
+#include "actor_common.h"
 /*
  * File: z_demo_6k.c
  * Overlay: ovl_Demo_6K
@@ -10,6 +12,17 @@
 #include "objects/object_demo_6k/object_demo_6k.h"
 #include "objects/object_gnd_magic/object_gnd_magic.h"
 #include "overlays/actors/ovl_Eff_Dust/z_eff_dust.h"
+#include "def/code_800EC960.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 

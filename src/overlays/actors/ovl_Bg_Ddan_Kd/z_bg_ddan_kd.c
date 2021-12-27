@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_DDAN_KD_Z_BG_DDAN_KD_C
+#include "actor_common.h"
 /*
  * File: z_bg_ddan_kd.c
  * Overlay: ovl_Bg_Ddan_Kd
@@ -6,6 +8,17 @@
 
 #include "z_bg_ddan_kd.h"
 #include "objects/object_ddan_objects/object_ddan_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
 
 #define FLAGS ACTOR_FLAG_4
 

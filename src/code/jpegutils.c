@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_JPEGUTILS_C
 #include "global.h"
+#include "z64jpeg.h"
+#include "def/jpegutils.h"
 
 void JpegUtils_ProcessQuantizationTable(u8* dqt, JpegQuantizationTable* qt, u8 count) {
     u8 i;

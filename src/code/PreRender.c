@@ -1,5 +1,14 @@
+#define INTERNAL_SRC_CODE_PRERENDER_C
 #include "global.h"
 #include "alloca.h"
+#include "z64render.h"
+#include "gfx.h"
+#include "regs.h"
+#include "z64game.h"
+#include <string.h>
+#include "def/PreRender.h"
+#include "def/listalloc.h"
+#include "def/logutils.h"
 
 void PreRender_SetValuesSave(PreRender* this, u32 width, u32 height, void* fbuf, void* zbuf, void* cvg) {
     this->widthSave = width;

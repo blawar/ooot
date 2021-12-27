@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_IK_Z_EN_IK_C
+#include "actor_common.h"
 /*
  * File: z_en_ik.c
  * Overlay: ovl_En_Ik
@@ -8,6 +10,27 @@
 #include "scenes/dungeons/jyasinboss/jyasinboss_scene.h"
 #include "objects/object_ik/object_ik.h"
 #include "vt.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS ACTOR_FLAG_4
 

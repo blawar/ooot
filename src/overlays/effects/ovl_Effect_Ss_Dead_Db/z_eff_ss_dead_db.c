@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_DEAD_DB_Z_EFF_SS_DEAD_DB_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_dead_db.c
  * Overlay: ovl_Effect_Ss_Dead_Db
@@ -6,6 +8,10 @@
 
 #include "z_eff_ss_dead_db.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800F7260.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define rScale regs[0]
 #define rTextIdx regs[1]

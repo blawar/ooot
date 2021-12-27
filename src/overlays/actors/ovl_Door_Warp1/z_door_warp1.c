@@ -1,5 +1,20 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_WARP1_Z_DOOR_WARP1_C
+#include "actor_common.h"
 #include "z_door_warp1.h"
 #include "objects/object_warp1/object_warp1.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

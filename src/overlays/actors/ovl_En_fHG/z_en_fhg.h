@@ -3,10 +3,11 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "z64actor.h"
 
 struct EnfHG;
 
-typedef void (*EnfHGActionFunc)(struct EnfHG*, GlobalContext*);
+typedef void (*EnfHGActionFunc)(struct EnfHG*, struct GlobalContext*);
 
 typedef enum {
     /*  0 */ FHG_NO_SIGNAL,

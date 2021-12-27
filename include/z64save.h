@@ -1,5 +1,4 @@
-#ifndef Z64SAVE_H
-#define Z64SAVE_H
+#pragma once
 
 #include "ultra64.h"
 #include "z64math.h"
@@ -212,4 +211,51 @@ typedef enum {
     /* 3 */ SUNSSONG_SPECIAL // time does not advance, but signals the song was played. used for freezing redeads
 } SunsSongState;
 
-#endif
+#define LINK_IS_ADULT (gSaveContext.linkAge == 0)
+#define LINK_IS_CHILD (gSaveContext.linkAge == 1)
+
+#define YEARS_CHILD 5
+#define YEARS_ADULT 17
+#define LINK_AGE_IN_YEARS (!LINK_IS_ADULT ? YEARS_CHILD : YEARS_ADULT)
+
+#define IS_DAY (gSaveContext.nightFlag == 0)
+#define IS_NIGHT (gSaveContext.nightFlag == 1)
+
+#define SLOT(item) gItemSlots[item]
+#define INV_CONTENT(item) gSaveContext.inventory.items[SLOT(item)]
+#define AMMO(item) gSaveContext.inventory.ammo[SLOT(item)]
+#define BEANS_BOUGHT AMMO(ITEM_BEAN + 1)
+
+#define ALL_EQUIP_VALUE(equip) ((s32)(gSaveContext.inventory.equipment & gEquipMasks[equip]) >> gEquipShifts[equip])
+#define CUR_EQUIP_VALUE(equip) ((s32)(gSaveContext.equips.equipment & gEquipMasks[equip]) >> gEquipShifts[equip])
+#define CHECK_OWNED_EQUIP(equip, value) ((gBitFlags[value] << gEquipShifts[equip]) & gSaveContext.inventory.equipment)
+
+#define CUR_UPG_VALUE(upg) ((s32)(gSaveContext.inventory.upgrades & gUpgradeMasks[upg]) >> gUpgradeShifts[upg])
+#define CAPACITY(upg, value) gUpgradeCapacities[upg][value]
+#define CUR_CAPACITY(upg) CAPACITY(upg, CUR_UPG_VALUE(upg))
+
+#define CHECK_QUEST_ITEM(item) (gBitFlags[item] & gSaveContext.inventory.questItems)
+#define CHECK_DUNGEON_ITEM(item, dungeonIndex) (gSaveContext.inventory.dungeonItems[dungeonIndex] & gBitFlags[item])
+
+#define GET_GS_FLAGS(index) \
+    ((gSaveContext.gsFlags[(index) >> 2] & gGsFlagsMasks[(index) & 3]) >> gGsFlagsShifts[(index) & 3])
+#define SET_GS_FLAGS(index, value) \
+    (gSaveContext.gsFlags[(index) >> 2] |= (value) << gGsFlagsShifts[(index) & 3])
+
+#define HIGH_SCORE(score) (gSaveContext.highScores[score])
+
+#define B_BTN_ITEM ((gSaveContext.buttonStatus[0] == ITEM_NONE)                    \
+                        ? ITEM_NONE                                                \
+                        : (gSaveContext.equips.buttonItems[0] == ITEM_SWORD_KNIFE) \
+                            ? ITEM_SWORD_BGS                                       \
+                            : gSaveContext.equips.buttonItems[0])
+
+#define C_BTN_ITEM(button) ((gSaveContext.buttonStatus[(button) + 1] != BTN_DISABLED) \
+                                ? gSaveContext.equips.buttonItems[(button) + 1]       \
+                                : ITEM_NONE)
+
+extern SaveContext gSaveContext;
+extern u32 gBitFlags[32];
+extern u32 gGsFlagsShifts[4];
+extern u32 gGsFlagsMasks[4];
+

@@ -1,3 +1,7 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_KO_Z_EN_KO_C
+#include "actor_common.h"
+
+#include "z64actor.h"
 /*
  * File: z_en_ko.c
  * Overlay: ovl_En_Ko
@@ -7,7 +11,22 @@
 #include "z_en_ko.h"
 #include "objects/object_fa/object_fa.h"
 #include "objects/object_os_anime/object_os_anime.h"
+#include "objects/object_km1/object_km1.h"
+#include "objects/object_kw1/object_kw1.h"
 #include "vt.h"
+#include "def/code_800F7260.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera_data.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_path.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -63,8 +82,7 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static void* sFaEyes[] = { gFaEyeOpenTex, gFaEyeHalfTex, gFaEyeClosedTex, NULL };
-static void* sKw1Eyes[] = { /* gKw1EyeOpenTex */ 0x06000F4C, /* gKw1EyeHalfTex */ 0x06001A0C,
-                            /* gKw1EyeClosedTex */ 0x06001E0C, NULL };
+static void* sKw1Eyes[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex, NULL };
 
 typedef struct {
     /* 0x0 */ s16 objectId;
@@ -73,8 +91,8 @@ typedef struct {
 } EnKoHead; // size = 0xC
 
 static EnKoHead sHead[] = {
-    { OBJECT_KM1, /* gKm1DL */ 0x06001890, NULL },
-    { OBJECT_KW1, /* object_kw1_DL_002C10 */ 0x06002C10, sKw1Eyes },
+    { OBJECT_KM1, gKm1DL, NULL },
+    { OBJECT_KW1, object_kw1_DL_002C10, sKw1Eyes },
     { OBJECT_FA, gFaDL, sFaEyes },
 };
 
@@ -84,8 +102,8 @@ typedef struct {
 } EnKoSkeleton; // size = 0x8
 
 static EnKoSkeleton sSkeleton[2] = {
-    { OBJECT_KM1, /* gKm1Skel */ 0x060000F0 },
-    { OBJECT_KW1, /* gKw1Skel */ 0x060000F0 },
+    { OBJECT_KM1, &gKm1Skel },
+    { OBJECT_KW1, &gKw1Skel },
 };
 
 static struct_80034EC0_Entry sOsAnimeTable[] = {
@@ -767,6 +785,7 @@ s32 EnKo_ChildStart(EnKo* this, GlobalContext* globalCtx) {
         case ENKO_TYPE_CHILD_FADO:
             return func_80A97E18(this, globalCtx);
     }
+    return 0;
 }
 
 s32 EnKo_ChildStone(EnKo* this, GlobalContext* globalCtx) {
@@ -798,6 +817,7 @@ s32 EnKo_ChildStone(EnKo* this, GlobalContext* globalCtx) {
         case ENKO_TYPE_CHILD_FADO:
             return func_80A97E18(this, globalCtx);
     }
+    return 0;
 }
 
 s32 EnKo_ChildSaria(EnKo* this, GlobalContext* globalCtx) {
@@ -829,6 +849,7 @@ s32 EnKo_ChildSaria(EnKo* this, GlobalContext* globalCtx) {
         case ENKO_TYPE_CHILD_FADO:
             return func_80A97E18(this, globalCtx);
     }
+    return 0;
 }
 
 s32 EnKo_AdultEnemy(EnKo* this, GlobalContext* globalCtx) {
@@ -860,6 +881,7 @@ s32 EnKo_AdultEnemy(EnKo* this, GlobalContext* globalCtx) {
         case ENKO_TYPE_CHILD_FADO:
             return func_80A97E18(this, globalCtx);
     }
+    return 0;
 }
 
 s32 EnKo_AdultSaved(EnKo* this, GlobalContext* globalCtx) {
@@ -891,6 +913,7 @@ s32 EnKo_AdultSaved(EnKo* this, GlobalContext* globalCtx) {
         case ENKO_TYPE_CHILD_FADO:
             return func_80A97E18(this, globalCtx);
     }
+    return 0;
 }
 void func_80A9877C(EnKo* this, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
@@ -1064,13 +1087,14 @@ s32 func_80A98ECC(EnKo* this, GlobalContext* globalCtx) {
         case ENKO_FQS_ADULT_SAVED:
             return EnKo_AdultSaved(this, globalCtx);
     }
+    return 0;
 }
 
 void EnKo_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnKo* this = (EnKo*)thisx;
 
-    if (ENKO_TYPE >= ENKO_TYPE_CHILD_MAX || !EnKo_IsOsAnimeAvailable(this, globalCtx) ||
-        !EnKo_AreObjectsAvailable(this, globalCtx)) {
+    if (ENKO_TYPE >= ENKO_TYPE_CHILD_MAX /*|| !EnKo_IsOsAnimeAvailable(this, globalCtx) ||
+        !EnKo_AreObjectsAvailable(this, globalCtx)*/) {
         Actor_Kill(thisx);
     }
     if (!EnKo_CanSpawn(this, globalCtx)) {
@@ -1088,11 +1112,11 @@ void func_80A99048(EnKo* this, GlobalContext* globalCtx) {
     if (EnKo_IsOsAnimeLoaded(this, globalCtx) && EnKo_AreObjectsLoaded(this, globalCtx)) {
         this->actor.flags &= ~ACTOR_FLAG_4;
         this->actor.objBankIndex = this->legsObjectBankIdx;
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->actor.objBankIndex].vromStart);
         SkelAnime_InitFlex(globalCtx, &this->skelAnime, sSkeleton[sModelInfo[ENKO_TYPE].legsId].flexSkeletonHeader,
                            NULL, this->jointTable, this->morphTable, 16);
         ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 18.0f);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->osAnimeBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->osAnimeBankIndex].vromStart);
         Collider_InitCylinder(globalCtx, &this->collider);
         Collider_SetCylinder(globalCtx, &this->collider, &this->actor, &sCylinderInit);
         CollisionCheck_SetInfo2(&this->actor.colChkInfo, NULL, &sColChkInfoInit);
@@ -1206,7 +1230,7 @@ void EnKo_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     if (this->actionFunc != func_80A99048) {
         if ((s32)this->modelAlpha != 0) {
-            gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->osAnimeBankIndex].segment);
+            gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->osAnimeBankIndex].vromStart);
             SkelAnime_Update(&this->skelAnime);
             func_80A98DB4(this, globalCtx);
             EnKo_Blink(this);
@@ -1239,8 +1263,8 @@ s32 EnKo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     s32 pad;
 
     if (limbIndex == 15) {
-        gSPSegment((*gfx)++, 0x06, globalCtx->objectCtx.status[this->headObjectBankIdx].segment);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->headObjectBankIdx].segment);
+        gSPSegment((*gfx)++, 0x06, gObjectTable[this->headObjectBankIdx].vromStart);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->headObjectBankIdx].vromStart);
 
         headId = sModelInfo[ENKO_TYPE].headId;
         *dList = sHead[headId].dList;
@@ -1248,7 +1272,7 @@ s32 EnKo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
             eyeTexture = sHead[headId].eyeTextures[this->eyeTextureIndex];
             gSPSegment((*gfx)++, 0x0A, SEGMENTED_TO_VIRTUAL(eyeTexture));
         }
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->legsObjectBankIdx].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->legsObjectBankIdx].vromStart);
     }
     if (limbIndex == 8) {
         sp40 = this->unk_1E8.unk_0E;
@@ -1275,8 +1299,8 @@ void EnKo_PostLimbDraw(GlobalContext* globalCtx2, s32 limbIndex, Gfx** dList, Ve
     Vec3f D_80A9A774 = { 0.0f, 0.0f, 0.0f };
 
     if (limbIndex == 7) {
-        gSPSegment((*gfx)++, 0x06, globalCtx->objectCtx.status[this->bodyObjectBankIdx].segment);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->bodyObjectBankIdx].segment);
+        gSPSegment((*gfx)++, 0x06, gObjectTable[this->bodyObjectBankIdx].vromStart);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->bodyObjectBankIdx].vromStart);
     }
     if (limbIndex == 15) {
         Matrix_MultVec3f(&D_80A9A774, &this->actor.focus.pos);

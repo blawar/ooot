@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_AUDIO_DATA_C
 #include "global.h"
+#include "z64audio.h"
+#include "def/audio_data.h"
 
 // clang-format off
 s16 gSawtoothWaveSample[] = {

@@ -1,4 +1,13 @@
+#define INTERNAL_SRC_CODE_Z_DEBUG_C
 #include "global.h"
+#include "z64game.h"
+#include "gfxprint.h"
+#include "def/code_800A9F30.h"
+#include "def/gfxprint.h"
+#include "def/graph.h"
+#include "def/system_malloc.h"
+#include "def/xprintf.h"
+#include "def/z_debug.h"
 
 typedef struct {
     u8 x;

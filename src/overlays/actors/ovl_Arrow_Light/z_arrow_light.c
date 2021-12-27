@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ARROW_LIGHT_Z_ARROW_LIGHT_C
+#include "actor_common.h"
 /*
  * File: z_arrow_light.c
  * Overlay: ovl_Arrow_Light
@@ -20,6 +22,11 @@ void ArrowLight_Fly(ArrowLight* this, GlobalContext* globalCtx);
 void ArrowLight_Hit(ArrowLight* this, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Arrow_Light/ovl_Arrow_Light.c"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 const ActorInit Arrow_Light_InitVars = {
     ACTOR_ARROW_LIGHT,

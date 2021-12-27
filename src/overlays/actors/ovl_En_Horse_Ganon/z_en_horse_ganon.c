@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HORSE_GANON_Z_EN_HORSE_GANON_C
+#include "actor_common.h"
 /*
  * File: z_en_horse_ganon.c
  * Overlay: ovl_En_Horse_Ganon
@@ -6,6 +8,17 @@
 
 #include "z_en_horse_ganon.h"
 #include "objects/object_horse_ganon/object_horse_ganon.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/sys_math3d.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin.h"
+#include "def/z_skin_awb.h"
 
 #define FLAGS ACTOR_FLAG_4
 

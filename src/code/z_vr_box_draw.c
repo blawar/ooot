@@ -1,4 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_VR_BOX_DRAW_C
 #include "global.h"
+#include "z64render.h"
+#include "z64math.h"
+#include "gfx.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_vr_box_draw.h"
 
 Mtx* sSkyboxDrawMatrix;
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BUTTE_Z_EN_BUTTE_C
+#include "actor_common.h"
 /*
  * File: z_en_butte.c
  * Overlay: ovl_En_Butte
@@ -8,6 +10,17 @@
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/sinf.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

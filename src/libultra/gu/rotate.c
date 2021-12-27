@@ -1,4 +1,10 @@
+#define INTERNAL_SRC_LIBULTRA_GU_ROTATE_C
 #include "global.h"
+#include "def/cosf.h"
+#include "def/mtxf2l.h"
+#include "def/normalize.h"
+#include "def/rotate.h"
+#include "def/sinf.h"
 
 void guRotateF(f32 m[4][4], f32 a, f32 x, f32 y, f32 z) {
     static f32 D_80134D10 = M_PI / 180.0f;

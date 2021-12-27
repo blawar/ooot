@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_FHG_FLASH_Z_EFF_SS_FHG_FLASH_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_fhg_flash.c
  * Overlay: ovl_Effect_Ss_Fhg_Flash
@@ -7,6 +9,11 @@
 #include "z_eff_ss_fhg_flash.h"
 #include "overlays/actors/ovl_Boss_Ganondrof/z_boss_ganondrof.h"
 #include "objects/object_fhg/object_fhg.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rAlpha regs[0]
 #define rObjBankIdx regs[2]
@@ -41,7 +48,7 @@ u32 EffectSsFhgFlash_Init(GlobalContext* globalCtx, u32 index, EffectSs* this, v
 
         if ((objBankIdx > -1) && Object_IsLoaded(&globalCtx->objectCtx, objBankIdx)) {
             oldSeg6 = gSegments[6];
-            gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[objBankIdx].segment);
+            gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIdx].vromStart);
             this->rObjBankIdx = objBankIdx;
             this->pos = initParams->pos;
             this->velocity = initParams->velocity;
@@ -91,7 +98,7 @@ void EffectSsFhgFlash_DrawLightBall(GlobalContext* globalCtx, u32 index, EffectS
     void* object;
 
     scale = this->rScale / 100.0f;
-    object = globalCtx->objectCtx.status[this->rObjBankIdx].segment;
+    object = gObjectTable[this->rObjBankIdx].vromStart;
 
     OPEN_DISPS(gfxCtx, "../z_eff_fhg_flash.c", 268);
 

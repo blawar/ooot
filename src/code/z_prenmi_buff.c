@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_Z_PRENMI_BUFF_C
 #include "global.h"
+#include "z_prenmi_buff.h"
+#include "def/gettime.h"
+#include "def/z_prenmi_buff.h"
 
 #define COLD_RESET 0
 #define NMI 1
@@ -6,13 +10,8 @@
 void PreNmiBuff_Init(PreNmiBuff* this) {
     this->resetting = false;
 
-    if (osResetType == COLD_RESET) {
-        this->resetCount = 0;
-        this->duration = 0;
-    } else {
-        this->resetCount++;
-        this->duration += this->resetTime;
-    }
+    this->resetCount = 0;
+    this->duration = 0;
 
     this->resetTime = 0;
 }

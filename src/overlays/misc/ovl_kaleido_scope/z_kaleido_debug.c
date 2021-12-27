@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_DEBUG_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "gfxprint.h"
+#include "def/code_80097A00.h"
+#include "def/gfxprint.h"
+#include "def/graph.h"
+#include "def/xprintf.h"
+#include "def/z_common_data.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 // Positions of each input section in the editor
 static u16 sSectionPositions[][2] = {

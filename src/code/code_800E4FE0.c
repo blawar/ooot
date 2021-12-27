@@ -1,4 +1,20 @@
+#define INTERNAL_SRC_CODE_CODE_800E4FE0_C
 #include "global.h"
+#include "rsp.h"
+#include "z64audio.h"
+#include "ultra64/abi.h"
+#include "def/aigetlen.h"
+#include "def/aisetnextbuf.h"
+#include "def/audio_data.h"
+#include "def/audio_heap.h"
+#include "def/audio_load.h"
+#include "def/audio_playback.h"
+#include "def/audio_seqplayer.h"
+#include "def/audio_synthesis.h"
+#include "def/code_800E4FE0.h"
+#include "def/code_800F7260.h"
+#include "def/createmesgqueue.h"
+#include "def/recvmesg.h"
 
 #define SAMPLES_TO_OVERPRODUCE 0x10
 #define EXTRA_BUFFERED_AI_SAMPLES_TARGET 0x80
@@ -35,8 +51,7 @@ AudioTask* func_800E4FE0(void) {
     return func_800E5000();
 }
 
-extern u64 rspAspMainDataStart[];
-extern u64 rspAspMainDataEnd[];
+extern u64 rspAspMainDataStart[0x5C];
 
 AudioTask* func_800E5000(void) {
     static s32 sMaxAbiCmdCnt = 0x80;
@@ -49,7 +64,7 @@ AudioTask* func_800E5000(void) {
     s16* currAiBuffer;
     OSTask_t* task;
     s32 index;
-    u32 sp4C;
+    u32 sp4C = 0;
     s32 sp48;
     s32 i;
 
@@ -76,7 +91,7 @@ AudioTask* func_800E5000(void) {
 
     if (gAudioContext.resetTimer < 16) {
         if (gAudioContext.aiBufLengths[index] != 0) {
-            osAiSetNextBuffer(gAudioContext.aiBuffers[index], gAudioContext.aiBufLengths[index] * 4);
+            // TODO FIX osAiSetNextBuffer(gAudioContext.aiBuffers[index], gAudioContext.aiBufLengths[index] * 4);
             if (gAudioContext.aiBuffers[index]) {}
             if (gAudioContext.aiBufLengths[index]) {}
         }
@@ -165,7 +180,7 @@ AudioTask* func_800E5000(void) {
 
     gAudioContext.curAbiCmdBuf =
         AudioSynth_Update(gAudioContext.curAbiCmdBuf, &abiCmdCnt, currAiBuffer, gAudioContext.aiBufLengths[index]);
-    gAudioContext.audioRandom = (gAudioContext.audioRandom + gAudioContext.totalTaskCnt) * osGetCount();
+    gAudioContext.audioRandom = (gAudioContext.audioRandom + gAudioContext.totalTaskCnt); // TODO FIX *osGetCount();
     gAudioContext.audioRandom =
         gAudioContext.aiBuffers[index][gAudioContext.totalTaskCnt & 0xFF] + gAudioContext.audioRandom;
     gWaveSamples[8] = (s16*)(((u8*)func_800E4FE0) + (gAudioContext.audioRandom & 0xFFF0));
@@ -179,7 +194,7 @@ AudioTask* func_800E5000(void) {
     task->flags = 0;
     task->ucode_boot = D_801120C0;
     task->ucode_boot_size = 0x1000;
-    task->ucode_data_size = ((rspAspMainDataEnd - rspAspMainDataStart) * sizeof(u64)) - 1;
+    task->ucode_data_size = (sizeof(rspAspMainDataStart) * sizeof(u64)) - 1;
     task->ucode = D_801120C0;
     task->ucode_data = rspAspMainDataStart;
     task->ucode_size = 0x1000;
@@ -187,7 +202,7 @@ AudioTask* func_800E5000(void) {
     task->dram_stack_size = 0;
     task->output_buff = NULL;
     task->output_buff_size = NULL;
-    if (1) {}
+
     task->data_ptr = (u64*)gAudioContext.abiCmdBufs[index];
     task->data_size = abiCmdCnt * sizeof(Acmd);
     task->yield_data_ptr = NULL;
@@ -479,7 +494,7 @@ void Audio_ProcessCmds(u32 msg) {
 }
 
 u32 func_800E5E20(u32* out) {
-    u32 sp1C;
+    u32 sp1C = 0;
 
     if (osRecvMesg(&gAudioContext.externalLoadQueue, (OSMesg*)&sp1C, OS_MESG_NOBLOCK) == -1) {
         *out = 0;
@@ -500,7 +515,7 @@ void func_800E5EA4(s32 arg0, u32* arg1, u32* arg2) {
 
 s32 func_800E5EDC(void) {
     s32 pad;
-    s32 sp18;
+    s32 sp18 = 0;
 
     if (osRecvMesg(gAudioContext.audioResetQueueP, (OSMesg*)&sp18, OS_MESG_NOBLOCK) == -1) {
         return 0;
@@ -512,6 +527,7 @@ s32 func_800E5EDC(void) {
 }
 
 void func_800E5F34(void) {
+    return; // TODO FIX HACK
     // macro?
     // clang-format off
     s32 chk = -1; s32 sp28; do {} while (osRecvMesg(gAudioContext.audioResetQueueP, (OSMesg*)&sp28, OS_MESG_NOBLOCK) != chk);
@@ -810,7 +826,7 @@ s32 func_800E66C0(s32 arg0) {
 u32 Audio_NextRandom(void) {
     static u32 audRand = 0x12345678;
 
-    audRand = ((osGetCount() + 0x1234567) * (audRand + gAudioContext.totalTaskCnt));
+    // TODO FIX audRand = ((osGetCount() + 0x1234567) * (audRand + gAudioContext.totalTaskCnt));
     audRand += gAudioContext.audioRandom;
     return audRand;
 }

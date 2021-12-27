@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_M_FIRE1_Z_EN_M_FIRE1_C
+#include "actor_common.h"
 /*
  * File: z_en_m_fire1.c
  * Overlay: ovl_En_M_Fire1
@@ -5,6 +7,9 @@
  */
 
 #include "z_en_m_fire1.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

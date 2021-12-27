@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_GAMEALLOC_C
 #include "global.h"
+#include "z64game.h"
+#include "def/gamealloc.h"
+#include "def/logutils.h"
+#include "def/system_malloc.h"
 
 void GameAlloc_Log(GameAlloc* this) {
     GameAllocEntry* iter;

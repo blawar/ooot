@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT12_SAKU_Z_BG_SPOT12_SAKU_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot12_saku.c
  * Overlay: ovl_Bg_Spot12_Saku
@@ -6,6 +8,12 @@
 
 #include "z_bg_spot12_saku.h"
 #include "objects/object_spot12_obj/object_spot12_obj.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
 
 #define FLAGS 0
 

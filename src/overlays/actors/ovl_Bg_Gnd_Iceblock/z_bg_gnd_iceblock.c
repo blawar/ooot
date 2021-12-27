@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_GND_ICEBLOCK_Z_BG_GND_ICEBLOCK_C
+#include "actor_common.h"
 /*
  * File: z_bg_gnd_iceblock.c
  * Overlay: ovl_Bg_Gnd_Iceblock
@@ -6,6 +8,14 @@
 
 #include "z_bg_gnd_iceblock.h"
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "def/code_80043480.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

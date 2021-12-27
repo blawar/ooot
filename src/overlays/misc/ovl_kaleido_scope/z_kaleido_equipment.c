@@ -1,6 +1,14 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_EQUIPMENT_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "def/code_80097A00.h"
+#include "def/code_800F7260.h"
+#include "def/z_common_data.h"
+#include "def/z_parameter.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 static u8 sChildUpgrades[] = { UPG_BULLET_BAG, UPG_BOMB_BAG, UPG_STRENGTH, UPG_SCALE };
 static u8 sAdultUpgrades[] = { UPG_QUIVER, UPG_BOMB_BAG, UPG_STRENGTH, UPG_SCALE };
@@ -124,7 +132,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
     u16 pad;
     s16 cursorMoveResult;
     u16 cursorItem;
-    u16 cursorSlot;
+    u16 cursorSlot = 0;
     s16 cursorPoint;
     s16 cursorX;
     s16 cursorY;
@@ -584,7 +592,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
     gSPSegment(POLY_OPA_DISP++, 0x08, pauseCtx->iconItemSegment);
     gSPSegment(POLY_OPA_DISP++, 0x09, pauseCtx->iconItem24Segment);
     gSPSegment(POLY_OPA_DISP++, 0x0A, pauseCtx->nameSegment);
-    gSPSegment(POLY_OPA_DISP++, 0x0B, globalCtx->interfaceCtx.mapSegment);
+    gSPSegment(POLY_OPA_DISP++, 0x0B, globalCtx->interfaceCtx.mapSegment1);
     gSPSegment(POLY_OPA_DISP++, 0x0C, pauseCtx->iconItemAltSegment);
 
     func_800949A8(globalCtx->state.gfxCtx);

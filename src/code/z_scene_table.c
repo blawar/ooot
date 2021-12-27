@@ -1,27 +1,163 @@
+#define INTERNAL_SRC_CODE_Z_SCENE_TABLE_C
 #include "global.h"
+#include "z64scene.h"
+#include "z64actor.h"
+#include "z64bgcheck.h"
+#include "z64save.h"
+#include "z64global.h"
+#include "z64player.h"
+#include "z64item.h"
+#include "z_kankyo.h"
+#include "sfx.h"
+#include "z_scene_table.h"
+
+extern Gfx gEmptyDL[];
+
+
+#include "segment_symbols.h"
 
 #include "scenes/overworld/spot00/spot00_scene.h"
 #include "scenes/overworld/spot00/spot00_room_0.h"
 #include "scenes/overworld/spot01/spot01_scene.h"
+#include "scenes/overworld/spot02/spot02_scene.h"
+#include "scenes/overworld/spot03/spot03_scene.h"
+#include "scenes/overworld/spot04/spot04_scene.h"
+#include "scenes/overworld/spot05/spot05_scene.h"
+#include "scenes/overworld/spot06/spot06_scene.h"
 #include "scenes/overworld/spot07/spot07_scene.h"
+#include "scenes/overworld/spot08/spot08_scene.h"
+#include "scenes/overworld/spot09/spot09_scene.h"
+#include "scenes/overworld/spot10/spot10_scene.h"
+#include "scenes/overworld/spot11/spot11_scene.h"
 #include "scenes/overworld/spot12/spot12_scene.h"
+#include "scenes/overworld/spot13/spot13_scene.h"
+#include "scenes/overworld/spot15/spot15_scene.h"
 #include "scenes/overworld/spot16/spot16_scene.h"
 #include "scenes/overworld/spot16/spot16_room_0.h"
+#include "scenes/overworld/spot17/spot17_scene.h"
 #include "scenes/overworld/spot18/spot18_scene.h"
 #include "scenes/overworld/spot20/spot20_scene.h"
 #include "scenes/overworld/souko/souko_scene.h"
+#include "scenes/overworld/entra/entra_scene.h"
+
+#include "scenes/indoors/takaraya/takaraya_scene.h"
+#include "scenes/indoors/kokiri_home/kokiri_home_scene.h"
+#include "scenes/indoors/kokiri_home3/kokiri_home3_scene.h"
+#include "scenes/indoors/kokiri_home4/kokiri_home4_scene.h"
+#include "scenes/indoors/kokiri_home5/kokiri_home5_scene.h"
+#include "scenes/indoors/kakariko/kakariko_scene.h"
+#include "scenes/indoors/link_home/link_home_scene.h"
+#include "scenes/indoors/impa/impa_scene.h"
+#include "scenes/indoors/malon_stable/malon_stable_scene.h"
+#include "scenes/indoors/labo/labo_scene.h"
+#include "scenes/indoors/hylia_labo/hylia_labo_scene.h"
+#include "scenes/indoors/tent/tent_scene.h"
+#include "scenes/indoors/hut/hut_scene.h"
+#include "scenes/indoors/daiyousei_izumi/daiyousei_izumi_scene.h"
+#include "scenes/indoors/yousei_izumi_tate/yousei_izumi_tate_scene.h"
+#include "scenes/indoors/yousei_izumi_yoko/yousei_izumi_yoko_scene.h"
+#include "scenes/indoors/syatekijyou/syatekijyou_scene.h"
+#include "scenes/indoors/tokinoma/tokinoma_scene.h"
+#include "scenes/indoors/kenjyanoma/kenjyanoma_scene.h"
+#include "scenes/indoors/hairal_niwa/hairal_niwa_scene.h"
+#include "scenes/indoors/hairal_niwa_n/hairal_niwa_n_scene.h"
+#include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
+#include "scenes/indoors/bowling/bowling_scene.h"
+#include "scenes/indoors/mahouya/mahouya_scene.h"
+#include "scenes/indoors/hakasitarelay/hakasitarelay_scene.h"
+#include "scenes/indoors/hairal_niwa2/hairal_niwa2_scene.h"
+
+#include "scenes/misc/entra_n/entra_n_scene.h"
+#include "scenes/misc/enrui/enrui_scene.h"
+#include "scenes/misc/market_alley/market_alley_scene.h"
+#include "scenes/misc/market_alley_n/market_alley_n_scene.h"
+#include "scenes/misc/market_day/market_day_scene.h"
+#include "scenes/misc/market_night/market_night_scene.h"
+#include "scenes/misc/market_ruins/market_ruins_scene.h"
+#include "scenes/misc/shrine/shrine_scene.h"
+#include "scenes/misc/shrine_n/shrine_n_scene.h"
+#include "scenes/misc/shrine_r/shrine_r_scene.h"
+#include "scenes/misc/kakariko3/kakariko3_scene.h"
+#include "scenes/misc/kakusiana/kakusiana_scene.h"
+#include "scenes/misc/hakaana/hakaana_scene.h"
+#include "scenes/misc/hakaana2/hakaana2_scene.h"
+#include "scenes/misc/hakaana_ouke/hakaana_ouke_scene.h"
+#include "scenes/misc/turibori/turibori_scene.h"
+#include "scenes/misc/kinsuta/kinsuta_scene.h"
+#include "scenes/misc/hiral_demo/hiral_demo_scene.h"
 
 #include "scenes/dungeons/men/men_scene.h"
 #include "scenes/dungeons/ddan/ddan_scene.h"
 #include "scenes/dungeons/ydan/ydan_scene.h"
+#include "scenes/dungeons/bdan/bdan_scene.h"
+#include "scenes/dungeons/HIDAN/HIDAN_scene.h"
+#include "scenes/dungeons/ganon/ganon_scene.h"
+
+#include "scenes/shops/shop1/shop1_scene.h"
+#include "scenes/shops/kokiri_shop/kokiri_shop_scene.h"
+#include "scenes/shops/golon/golon_scene.h"
+#include "scenes/shops/zoora/zoora_scene.h"
+#include "scenes/shops/drag/drag_scene.h"
+#include "scenes/shops/alley_shop/alley_shop_scene.h"
+#include "scenes/shops/night_shop/night_shop_scene.h"
+#include "scenes/shops/face_shop/face_shop_scene.h"
+
 #include "scenes/dungeons/Bmori1/Bmori1_scene.h"
 #include "scenes/dungeons/MIZUsin/MIZUsin_scene.h"
 #include "scenes/dungeons/gerudoway/gerudoway_scene.h"
 #include "scenes/dungeons/jyasinzou/jyasinzou_scene.h"
 #include "scenes/indoors/miharigoya/miharigoya_scene.h"
 #include "scenes/dungeons/ice_doukutu/ice_doukutu_scene.h"
+#include "scenes/dungeons/HAKAdan/HAKAdan_scene.h"
+#include "scenes/dungeons/HAKAdanCH/HAKAdanCH_scene.h"
+#include "scenes/dungeons/ganontika/ganontika_scene.h"
+#include "scenes/dungeons/ganon_sonogo/ganon_sonogo_scene.h"
+#include "scenes/dungeons/ganontikasonogo/ganontikasonogo_scene.h"
+#include "scenes/dungeons/ydan_boss/ydan_boss_scene.h"
+#include "scenes/dungeons/ddan_boss/ddan_boss_scene.h"
+#include "scenes/dungeons/bdan_boss/bdan_boss_scene.h"
+#include "scenes/dungeons/moribossroom/moribossroom_scene.h"
+#include "scenes/dungeons/FIRE_bs/FIRE_bs_scene.h"
+#include "scenes/dungeons/MIZUsin_bs/MIZUsin_bs_scene.h"
+#include "scenes/dungeons/jyasinboss/jyasinboss_scene.h"
+#include "scenes/dungeons/HAKAdan_bs/HAKAdan_bs_scene.h"
+#include "scenes/dungeons/ganon_boss/ganon_boss_scene.h"
+#include "scenes/dungeons/ganon_final/ganon_final_scene.h"
+#include "scenes/dungeons/ganon_demo/ganon_demo_scene.h"
+#include "scenes/dungeons/ganon_tou/ganon_tou_scene.h"
+
+#include "scenes/test_levels/test01/test01_scene.h"
+#include "scenes/test_levels/besitu/besitu_scene.h"
+#include "scenes/test_levels/depth_test/depth_test_scene.h"
+#include "scenes/test_levels/syotes/syotes_scene.h"
+#include "scenes/test_levels/syotes2/syotes2_scene.h"
+#include "scenes/test_levels/sutaru/sutaru_scene.h"
+#include "scenes/test_levels/sasatest/sasatest_scene.h"
+#include "scenes/test_levels/testroom/testroom_scene.h"
 
 #include "overlays/actors/ovl_Bg_Dodoago/z_bg_dodoago.h"
+#include "z_scene_table_assets.h"
+#include "def/code_800FD970.h"
+#include "def/coss.h"
+#include "def/graph.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
+#include "def/z_scene_table.h"
+#include "def/z_view.h"
+
+
+
+
+
+
+
 
 #define ENTRANCE(scene, spawn, continueBgm, displayTitleCard, fadeIn, fadeOut)                                     \
     {                                                                                                              \
@@ -812,12 +948,131 @@ EntranceInfo gEntranceTable[] = {
 
 #define TITLED_SCENE(name, title, unk_10, config, unk_12)                                            \
     {                                                                                                \
-        (u32) _##name##SegmentRomStart, (u32)_##name##SegmentRomEnd, (u32)_##title##SegmentRomStart, \
-            (u32)_##title##SegmentRomEnd, unk_10, config, unk_12, 0                                  \
+        (uintptr_t) _##name##SegmentRomStart, (uintptr_t)_##name##SegmentRomEnd, (uintptr_t)title, \
+            (uintptr_t)title + sizeof(title), unk_10, config, unk_12, 0, name##Commands                                  \
+    }
+
+#define TITLED_SCENE2(name, title, unk_10, config, unk_12)                                            \
+    {                                                                                                \
+        (uintptr_t) name, (uintptr_t)name + sizeof(name), (uintptr_t)title, \
+            (uintptr_t)title + sizeof(title), unk_10, config, unk_12, 0, name##Commands                                  \
     }
 
 #define UNTITLED_SCENE(name, unk_10, config, unk_12) \
-    { (u32) _##name##SegmentRomStart, (u32)_##name##SegmentRomEnd, 0, 0, unk_10, config, unk_12, 0 }
+    { (uintptr_t) _##name##SegmentRomStart, (uintptr_t)_##name##SegmentRomEnd, 0, 0, unk_10, config, unk_12, 0, name##Commands }
+
+#define SCENE_EXTERN(name) extern SceneCmd name##Commands[]
+
+SCENE_EXTERN(ydan_scene);
+SCENE_EXTERN(ddan_scene);
+SCENE_EXTERN(bdan_scene);
+SCENE_EXTERN(Bmori1_scene);
+SCENE_EXTERN(HIDAN_scene);
+SCENE_EXTERN(MIZUsin_scene);
+SCENE_EXTERN(jyasinzou_scene);
+SCENE_EXTERN(HAKAdan_scene);
+SCENE_EXTERN(HAKAdanCH_scene);
+SCENE_EXTERN(ice_doukutu_scene);
+SCENE_EXTERN(ganon_scene);
+SCENE_EXTERN(men_scene);
+SCENE_EXTERN(gerudoway_scene);
+SCENE_EXTERN(ganontika_scene);
+SCENE_EXTERN(ganon_sonogo_scene);
+SCENE_EXTERN(ganontikasonogo_scene);
+SCENE_EXTERN(takaraya_scene);
+SCENE_EXTERN(ydan_boss_scene);
+SCENE_EXTERN(ddan_boss_scene);
+SCENE_EXTERN(bdan_boss_scene);
+SCENE_EXTERN(moribossroom_scene);
+SCENE_EXTERN(FIRE_bs_scene);
+SCENE_EXTERN(MIZUsin_bs_scene);
+SCENE_EXTERN(jyasinboss_scene);
+SCENE_EXTERN(HAKAdan_bs_scene);
+SCENE_EXTERN(ganon_boss_scene);
+SCENE_EXTERN(ganon_final_scene);
+SCENE_EXTERN(entra_scene);
+SCENE_EXTERN(entra_n_scene);
+SCENE_EXTERN(enrui_scene);
+SCENE_EXTERN(market_alley_scene);
+SCENE_EXTERN(market_alley_n_scene);
+SCENE_EXTERN(market_day_scene);
+SCENE_EXTERN(market_night_scene);
+SCENE_EXTERN(market_ruins_scene);
+SCENE_EXTERN(shrine_scene);
+SCENE_EXTERN(shrine_n_scene);
+SCENE_EXTERN(shrine_r_scene);
+SCENE_EXTERN(kokiri_home_scene);
+SCENE_EXTERN(kokiri_home3_scene);
+SCENE_EXTERN(kokiri_home4_scene);
+SCENE_EXTERN(kokiri_home5_scene);
+SCENE_EXTERN(kakariko_scene);
+SCENE_EXTERN(kakariko3_scene);
+SCENE_EXTERN(shop1_scene);
+SCENE_EXTERN(kokiri_shop_scene);
+SCENE_EXTERN(golon_scene);
+SCENE_EXTERN(zoora_scene);
+SCENE_EXTERN(drag_scene);
+SCENE_EXTERN(alley_shop_scene);
+SCENE_EXTERN(night_shop_scene);
+SCENE_EXTERN(face_shop_scene);
+SCENE_EXTERN(link_home_scene);
+SCENE_EXTERN(impa_scene);
+SCENE_EXTERN(malon_stable_scene);
+SCENE_EXTERN(labo_scene);
+SCENE_EXTERN(hylia_labo_scene);
+SCENE_EXTERN(tent_scene);
+SCENE_EXTERN(hut_scene);
+SCENE_EXTERN(daiyousei_izumi_scene);
+SCENE_EXTERN(yousei_izumi_tate_scene);
+SCENE_EXTERN(yousei_izumi_yoko_scene);
+SCENE_EXTERN(kakusiana_scene);
+SCENE_EXTERN(hakaana_scene);
+SCENE_EXTERN(hakaana2_scene);
+SCENE_EXTERN(hakaana_ouke_scene);
+SCENE_EXTERN(syatekijyou_scene);
+SCENE_EXTERN(tokinoma_scene);
+SCENE_EXTERN(kenjyanoma_scene);
+SCENE_EXTERN(hairal_niwa_scene);
+SCENE_EXTERN(hairal_niwa_n_scene);
+SCENE_EXTERN(hiral_demo_scene);
+SCENE_EXTERN(hakasitarelay_scene);
+SCENE_EXTERN(turibori_scene);
+SCENE_EXTERN(nakaniwa_scene);
+SCENE_EXTERN(bowling_scene);
+SCENE_EXTERN(souko_scene);
+SCENE_EXTERN(miharigoya_scene);
+SCENE_EXTERN(mahouya_scene);
+SCENE_EXTERN(ganon_demo_scene);
+SCENE_EXTERN(kinsuta_scene);
+SCENE_EXTERN(spot00_scene);
+SCENE_EXTERN(spot01_scene);
+SCENE_EXTERN(spot02_scene);
+SCENE_EXTERN(spot03_scene);
+SCENE_EXTERN(spot04_scene);
+SCENE_EXTERN(spot05_scene);
+SCENE_EXTERN(spot06_scene);
+SCENE_EXTERN(spot07_scene);
+SCENE_EXTERN(spot08_scene);
+SCENE_EXTERN(spot09_scene);
+SCENE_EXTERN(spot10_scene);
+SCENE_EXTERN(spot11_scene);
+SCENE_EXTERN(spot12_scene);
+SCENE_EXTERN(spot13_scene);
+SCENE_EXTERN(spot15_scene);
+SCENE_EXTERN(spot16_scene);
+SCENE_EXTERN(spot17_scene);
+SCENE_EXTERN(spot18_scene);
+SCENE_EXTERN(spot20_scene);
+SCENE_EXTERN(ganon_tou_scene);
+SCENE_EXTERN(test01_scene);
+SCENE_EXTERN(besitu_scene);
+SCENE_EXTERN(depth_test_scene);
+SCENE_EXTERN(syotes_scene);
+SCENE_EXTERN(syotes2_scene);
+SCENE_EXTERN(sutaru_scene);
+SCENE_EXTERN(hairal_niwa2_scene);
+SCENE_EXTERN(sasatest_scene);
+SCENE_EXTERN(testroom_scene);
 
 SceneTableEntry gSceneTable[] = {
     TITLED_SCENE(ydan_scene, g_pn_06, 1, 19, 2),

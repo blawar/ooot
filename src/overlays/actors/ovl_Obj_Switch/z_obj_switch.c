@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_SWITCH_Z_OBJ_SWITCH_C
+#include "actor_common.h"
 /*
  * File: z_obj_switch.c
  * Overlay: ovl_Obj_Switch
@@ -7,6 +9,18 @@
 #include "z_obj_switch.h"
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
 #include "vt.h"
+#include "def/code_80043480.h"
+#include "def/code_800A9F30.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

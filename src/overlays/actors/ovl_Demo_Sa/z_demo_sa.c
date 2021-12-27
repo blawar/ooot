@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_SA_Z_DEMO_SA_C
+#include "actor_common.h"
 /*
  * File: z_demo_sa.c
  * Overlay: Demo_Sa
@@ -10,6 +12,12 @@
 #include "objects/object_sa/object_sa.h"
 
 #include "vt.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 

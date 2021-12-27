@@ -1,5 +1,14 @@
+#define INTERNAL_SRC_CODE_Z_ELF_MESSAGE_C
 #include "global.h"
+#include "z64item.h"
+#include "z64save.h"
+#include "z64global.h"
+#include "z64player.h"
 #include "z64elf_message.h"
+#include "def/code_80097A00.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_elf_message.h"
 
 ElfMessage sChildSariaMsgs[] = {
     ELF_MSG_STRENGTH_UPG(SKIP, 3, false, 0),

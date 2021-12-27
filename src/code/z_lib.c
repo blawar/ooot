@@ -1,4 +1,17 @@
+#define INTERNAL_SRC_CODE_Z_LIB_C
 #include "global.h"
+#include "ichain.h"
+#include "regs.h"
+#include "z64game.h"
+#include "z64math.h"
+#include "z64actor.h"
+#include "z64audio.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/coss.h"
+#include "def/sins.h"
+#include "def/sys_math_atan.h"
+#include "def/z_lib.h"
 
 void Lib_MemSet(u8* dest, size_t size, u8 val) {
     u32 i;

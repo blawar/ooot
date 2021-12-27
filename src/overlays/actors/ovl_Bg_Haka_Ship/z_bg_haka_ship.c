@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HAKA_SHIP_Z_BG_HAKA_SHIP_C
+#include "actor_common.h"
 /*
  * File: z_bg_haka_ship.c
  * Overlay: ovl_Bg_Haka_Ship
@@ -6,6 +8,18 @@
 
 #include "z_bg_haka_ship.h"
 #include "objects/object_haka_objects/object_haka_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800F7260.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

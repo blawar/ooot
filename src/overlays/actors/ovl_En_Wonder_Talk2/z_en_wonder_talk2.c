@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_WONDER_TALK2_Z_EN_WONDER_TALK2_C
+#include "actor_common.h"
 /*
  * File: z_en_wonder_talk2.c
  * Overlay: ovl_En_Wonder_Talk2
@@ -6,6 +8,9 @@
 
 #include "z_en_wonder_talk2.h"
 #include "vt.h"
+#include "def/z_actor.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_27)
 
@@ -274,18 +279,4 @@ void EnWonderTalk2_Update(Actor* thisx, GlobalContext* globalCtx) {
     this->actor.world.pos.y = this->initPos.y;
 
     Actor_SetFocus(&this->actor, this->height);
-
-    if (BREG(0) != 0) {
-        if (this->unk_158 != 0) {
-            if ((this->unk_158 & 1) == 0) {
-                DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 70, 70, 70, 255, 4, globalCtx->state.gfxCtx);
-            }
-        } else {
-            DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                   this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                   1.0f, 1.0f, 0, 0, 255, 255, 4, globalCtx->state.gfxCtx);
-        }
-    }
 }

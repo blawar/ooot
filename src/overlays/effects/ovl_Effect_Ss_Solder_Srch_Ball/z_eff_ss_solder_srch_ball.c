@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_SOLDER_SRCH_BALL_Z_EFF_SS_SOLDER_SRCH_BALL_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_solder_srch_ball.c
  * Overlay: ovl_Effect_Ss_Solder_Srch_Ball
@@ -5,6 +7,7 @@
  */
 
 #include "z_eff_ss_solder_srch_ball.h"
+#include "def/z_bgcheck.h"
 
 #define rUnused regs[1]
 

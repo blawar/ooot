@@ -1,5 +1,22 @@
+#define INTERNAL_SRC_CODE_AUDIO_LOAD_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "segment_symbols.h"
+#include "def/audio_heap.h"
+#include "def/audio_init_params.h"
+#include "def/audio_load.h"
+#include "def/audio_playback.h"
+#include "def/audio_seqplayer.h"
+#include "def/cartrominit.h"
+#include "def/code_800E4FE0.h"
+#include "def/code_800E6840.h"
+#include "def/code_800F7260.h"
+#include "def/createmesgqueue.h"
+#include "def/heaps.h"
+#include "def/recvmesg.h"
+
+extern u32 osTvType;
 
 #define MK_ASYNC_MSG(retData, tableType, id, status) (((retData) << 24) | ((tableType) << 16) | ((id) << 8) | (status))
 #define ASYNC_TBLTYPE(v) ((u8)(v >> 16))
@@ -65,7 +82,7 @@ s32 sAudioLoadPad1[2]; // file padding
 s32 D_8016B780;
 s32 sAudioLoadPad2[4]; // double file padding?
 
-DmaHandler sDmaHandler = osEPiStartDma;
+DmaHandler sDmaHandler = 0;//osEPiStartDma;
 void* sUnusedHandler = NULL;
 
 s32 gAudioContextInitalized = false;
@@ -104,7 +121,7 @@ void AudioLoad_DecreaseSampleDmaTtls(void) {
 
 void* AudioLoad_DmaSampleData(u32 devAddr, u32 size, s32 arg2, u8* dmaIndexRef, s32 medium) {
     s32 pad1;
-    SampleDma* dma;
+    SampleDma* dma = NULL;
     s32 hasDma = false;
     u32 dmaDevAddr;
     u32 pad2;
@@ -339,7 +356,7 @@ void AudioLoad_SetSampleFontLoadStatus(s32 sampleBankId, s32 status) {
     }
 }
 
-void AudioLoad_InitTable(AudioTable* table, u32 romAddr, u16 unkMediumParam) {
+void AudioLoad_InitTable(AudioTable* table, void* romAddr, u16 unkMediumParam) {
     s32 i;
 
     table->unkMediumParam = unkMediumParam;
@@ -347,7 +364,7 @@ void AudioLoad_InitTable(AudioTable* table, u32 romAddr, u16 unkMediumParam) {
 
     for (i = 0; i < table->numEntries; i++) {
         if ((table->entries[i].size != 0) && (table->entries[i].medium == MEDIUM_CART)) {
-            table->entries[i].romAddr += romAddr;
+            table->entries[i].romAddr += (uintptr_t)romAddr;
         }
     }
 }
@@ -355,7 +372,7 @@ void AudioLoad_InitTable(AudioTable* table, u32 romAddr, u16 unkMediumParam) {
 SoundFontData* AudioLoad_SyncLoadSeqFonts(s32 seqId, u32* outDefaultFontId) {
     char pad[0x8];
     s32 index;
-    SoundFontData* font;
+    SoundFontData* font = NULL;
     s32 numFonts;
     s32 fontId;
     s32 i;
@@ -413,6 +430,7 @@ s32 AudioLoad_SyncLoadSample(SoundFontSample* sample, s32 fontId) {
             sample->sampleAddr = sampleAddr;
         }
     }
+    return 0;
 }
 
 s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
@@ -438,6 +456,7 @@ s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
         AudioLoad_SyncLoadSample(drum->sound.sample, fontId);
         return 0;
     }
+    return 0;
 }
 
 void AudioLoad_AsyncLoad(s32 tableType, s32 id, s32 nChunks, s32 retData, OSMesgQueue* retQueue) {
@@ -460,7 +479,7 @@ void AudioLoad_AsyncLoadFont(s32 fontId, s32 arg1, s32 retData, OSMesgQueue* ret
 
 u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts) {
     s32 index;
-
+    return NULL; // TODO FIX
     index = ((u16*)gAudioContext.sequenceFontTable)[seqId];
 
     *outNumFonts = gAudioContext.sequenceFontTable[index++];
@@ -515,7 +534,7 @@ s32 AudioLoad_SyncInitSeqPlayer(s32 playerIdx, s32 seqId, s32 arg2) {
     }
 
     gAudioContext.seqPlayers[playerIdx].skipTicks = 0;
-    AudioLoad_SyncInitSeqPlayerInternal(playerIdx, seqId, arg2);
+    return AudioLoad_SyncInitSeqPlayerInternal(playerIdx, seqId, arg2);
     // Intentionally missing return. Returning the result of the above function
     // call matches but is UB because it too is missing a return, and using the
     // result of a non-void function that has failed to return a value is UB.
@@ -528,7 +547,7 @@ s32 AudioLoad_SyncInitSeqPlayerSkipTicks(s32 playerIdx, s32 seqId, s32 skipTicks
     }
 
     gAudioContext.seqPlayers[playerIdx].skipTicks = skipTicks;
-    AudioLoad_SyncInitSeqPlayerInternal(playerIdx, seqId, 0);
+    return AudioLoad_SyncInitSeqPlayerInternal(playerIdx, seqId, 0);
     // Missing return, see above.
 }
 
@@ -572,6 +591,7 @@ s32 AudioLoad_SyncInitSeqPlayerInternal(s32 playerIdx, s32 seqId, s32 arg2) {
     seqPlayer->playerIdx = playerIdx;
     AudioSeq_SkipForwardSequence(seqPlayer);
     //! @bug missing return (but the return value is not used so it's not UB)
+    return 0;
 }
 
 u8* AudioLoad_SyncLoadSeq(s32 seqId) {
@@ -666,7 +686,7 @@ void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate) {
     s32 pad;
     u32 medium;
     s32 status;
-    u32 romAddr;
+    uintptr_t romAddr;
     s32 cachePolicy;
     void* ret;
     u32 realId;
@@ -1113,7 +1133,7 @@ void AudioLoad_Init(void* heap, u32 heapSize) {
                       ARRAY_COUNT(gAudioContext.externalLoadMesgBuf));
     gAudioContext.curAudioFrameDmaCount = 0;
     gAudioContext.sampleDmaCount = 0;
-    gAudioContext.cartHandle = osCartRomInit();
+    //gAudioContext.cartHandle = osCartRomInit();
 
     if (heap == NULL) {
         gAudioContext.audioHeap = gAudioHeap;
@@ -1383,7 +1403,7 @@ AudioAsyncLoad* AudioLoad_StartAsyncLoadUnkMedium(s32 unkMediumParam, u32 devAdd
 
 AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, void* ramAddr, u32 size, s32 medium, s32 nChunks,
                                          OSMesgQueue* retQueue, s32 retMsg) {
-    AudioAsyncLoad* asyncLoad;
+    AudioAsyncLoad* asyncLoad = NULL;
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gAudioContext.asyncLoads); i++) {
@@ -1424,7 +1444,7 @@ AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, void* ramAddr, u32 size, s
 }
 
 void AudioLoad_ProcessAsyncLoads(s32 resetStatus) {
-    AudioAsyncLoad* asyncLoad;
+    AudioAsyncLoad* asyncLoad = NULL;
     s32 i;
 
     if (gAudioContext.resetTimer == 1) {
@@ -1700,7 +1720,7 @@ void AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, SoundFontData* mem, Rel
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
     SoundFontSample* sample;
     AudioPreloadReq* preload;
-    u32 preloadIndex;
+    u32 preloadIndex = 0;
     u32 key;
     u32 nChunks;
     s32 pad;
@@ -1822,15 +1842,15 @@ void AudioLoad_PreloadSamplesForFont(s32 fontId, s32 async, RelocInfo* relocInfo
     s32 numDrums;
     s32 numInstruments;
     s32 numSfx;
-    Drum* drum;
-    Instrument* instrument;
-    SoundFontSound* sound;
-    AudioPreloadReq* preload;
-    AudioPreloadReq* topPreload;
-    u8* addr;
+    Drum* drum = NULL;
+    Instrument* instrument = NULL;
+    SoundFontSound* sound = NULL;
+    AudioPreloadReq* preload = NULL;
+    AudioPreloadReq* topPreload = NULL;
+    u8* addr = NULL;
     s32 size;
     s32 i;
-    SoundFontSample* sample;
+    SoundFontSample* sample = NULL;
     s32 preloadInProgress;
     s32 nChunks;
 
@@ -2003,7 +2023,7 @@ void AudioLoad_ScriptLoad(s32 tableType, s32 id, s8* isDone) {
 }
 
 void AudioLoad_ProcessScriptLoads(void) {
-    u32 temp;
+    u32 temp = 0;
     u32 sp20;
     s8* isDone;
 

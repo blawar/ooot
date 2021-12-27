@@ -1,8 +1,7 @@
-#ifndef VARIABLES_H
-#define VARIABLES_H
+#pragma once
+/*
 
 #include "z64.h"
-#include "segment_symbols.h"
 
 extern Mtx D_01000000;
 
@@ -112,8 +111,7 @@ extern u8 gBossMarkState;
 extern void* D_8012D1F0;
 extern s32 gScreenWidth;
 extern s32 gScreenHeight;
-extern Mtx gMtxClear;
-extern MtxF gMtxFClear;
+
 extern u32 gIsCtrlr2Valid;
 extern vu32 gIrqMgrResetStatus;
 extern volatile OSTime gIrqMgrRetraceTime;
@@ -139,24 +137,13 @@ extern u8 gChannelsPerBank[4][7];
 extern u8 gUsedChannelsPerBank[4][7];
 extern u8 gMorphaTransposeTable[16];
 extern u8* gFrogsSongPtr;
-extern OcarinaNote* gScarecrowCustomSongPtr;
-extern u8* gScarecrowSpawnSongPtr;
-extern OcarinaSongInfo gOcarinaSongNotes[];
-extern SoundParams* gSoundParams[7];
-extern char D_80133390[];
-extern char D_80133398[];
-extern SoundBankEntry* gSoundBanks[7];
-extern u8 gSfxChannelLayout;
-extern Vec3f D_801333D4;
-extern f32 D_801333E0;
-extern s8 D_801333E8;
-extern u8 D_801333F0;
-extern u8 gAudioSfxSwapOff;
-extern u8 D_80133408;
-extern u8 D_8013340C;
-extern u8 gAudioSpecId;
-extern u8 D_80133418;
-extern AudioSpec gAudioSpecs[18];
+
+
+
+
+
+
+
 extern s32 gOverlayLogSeverity;
 extern s32 gSystemArenaLogSeverity;
 extern u8 __osPfsInodeCacheBank;
@@ -195,7 +182,7 @@ extern Color_RGBA8_u32 D_801614B0;
 extern PreNmiBuff* gAppNmiBufferPtr;
 extern SchedContext gSchedContext;
 extern PadMgr gPadMgr;
-extern u32 gSegments[NUM_SEGMENTS];
+extern uintptr_t gSegments[NUM_SEGMENTS];
 extern volatile OSTime D_8016A520;
 extern volatile OSTime D_8016A528;
 extern volatile OSTime D_8016A530;
@@ -223,7 +210,9 @@ extern AudioContext gAudioContext;
 extern void(*D_801755D0)(void);
 
 extern u32 __osMalloc_FreeBlockTest_Enable;
+#ifndef USE_NATIVE_MALLOC
 extern Arena gSystemArena;
+#endif
 extern OSPifRam __osPifInternalBuff;
 extern u8 __osContLastPoll;
 extern u8 __osMaxControllers;
@@ -238,3 +227,5 @@ extern u8 gAudioHeap[0x38000]; // 0x38000 bytes
 extern u8 gSystemHeap[];
 
 #endif
+
+*/

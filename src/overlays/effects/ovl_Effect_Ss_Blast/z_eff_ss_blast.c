@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_BLAST_Z_EFF_SS_BLAST_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_blast.c
  * Overlay: ovl_Effect_Ss_Blast
@@ -6,6 +8,10 @@
 
 #include "z_eff_ss_blast.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define rPrimColorR regs[0]
 #define rPrimColorG regs[1]

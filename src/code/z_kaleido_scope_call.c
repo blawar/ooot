@@ -1,11 +1,21 @@
+#define INTERNAL_SRC_CODE_Z_KALEIDO_SCOPE_CALL_C
 #include "global.h"
+#include "z64global.h"
+#include "kaleido.h"
 #include "vt.h"
+#include "def/shrink_window.h"
+#include "def/z_kaleido_manager.h"
+#include "def/z_kaleido_scope_call.h"
+#include "def/z_kaleido_setup.h"
 
 void (*sKaleidoScopeUpdateFunc)(GlobalContext* globalCtx);
 void (*sKaleidoScopeDrawFunc)(GlobalContext* globalCtx);
 f32 gBossMarkScale;
 u32 D_8016139C;
 PauseMapMarksData* gLoadedPauseMarkDataTable;
+
+extern KaleidoMgrOverlay gKaleidoMgrOverlayTable[];
+extern KaleidoMgrOverlay* gKaleidoMgrCurOvl;
 
 extern void KaleidoScope_Update(GlobalContext* globalCtx);
 extern void KaleidoScope_Draw(GlobalContext* globalCtx);
@@ -36,11 +46,6 @@ void KaleidoScopeCall_Init(GlobalContext* globalCtx) {
 
     sKaleidoScopeUpdateFunc = KaleidoManager_GetRamAddr(KaleidoScope_Update);
     sKaleidoScopeDrawFunc = KaleidoManager_GetRamAddr(KaleidoScope_Draw);
-
-    LOG_ADDRESS("kaleido_scope_move", KaleidoScope_Update, "../z_kaleido_scope_call.c", 98);
-    LOG_ADDRESS("kaleido_scope_move_func", sKaleidoScopeUpdateFunc, "../z_kaleido_scope_call.c", 99);
-    LOG_ADDRESS("kaleido_scope_draw", KaleidoScope_Draw, "../z_kaleido_scope_call.c", 100);
-    LOG_ADDRESS("kaleido_scope_draw_func", sKaleidoScopeDrawFunc, "../z_kaleido_scope_call.c", 101);
 
     KaleidoSetup_Init(globalCtx);
 }

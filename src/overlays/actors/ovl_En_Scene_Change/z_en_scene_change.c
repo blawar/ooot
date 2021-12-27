@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SCENE_CHANGE_Z_EN_SCENE_CHANGE_C
+#include "actor_common.h"
 /*
  * File: z_en_scene_change.c
  * Overlay: ovl_En_Scene_Change
@@ -5,6 +7,8 @@
  */
 
 #include "z_en_scene_change.h"
+#include "def/graph.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

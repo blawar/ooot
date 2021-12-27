@@ -3,6 +3,8 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "z64actor.h"
+#include "z64global.h"
 
 struct EnSw;
 

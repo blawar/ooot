@@ -1,10 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VIGETCURRFRAMEBUF_C
 #include "global.h"
+#include "def/vigetcurrframebuf.h"
 
 u32* osViGetCurrentFramebuffer(void) {
-    register u32 prevInt = __osDisableInt();
-    u32* var1 = __osViCurr->buffer;
-
-    __osRestoreInt(prevInt);
-
-    return var1;
+    return 0;
 }

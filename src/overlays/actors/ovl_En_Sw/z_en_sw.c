@@ -1,5 +1,23 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SW_Z_EN_SW_C
+#include "actor_common.h"
 #include "z_en_sw.h"
 #include "objects/object_st/object_st.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_btltbls.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
@@ -105,6 +123,7 @@ s32 func_80B0BE20(EnSw* this, CollisionPoly* poly) {
     this->unk_3D8.ww = 1.0f;
     Matrix_MtxFToYXZRotS(&this->unk_3D8, &this->actor.world.rot, 0);
     //! @bug: Does not return.
+    return 0;
 }
 
 CollisionPoly* func_80B0C020(GlobalContext* globalCtx, Vec3f* arg1, Vec3f* arg2, Vec3f* arg3, s32* arg4) {

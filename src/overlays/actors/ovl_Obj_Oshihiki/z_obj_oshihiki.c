@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_OSHIHIKI_Z_OBJ_OSHIHIKI_C
+#include "actor_common.h"
 /*
  * File: z_obj_oshihiki.c
  * Overlay: ovl_Obj_Oshihiki
@@ -7,6 +9,13 @@
 #include "z_obj_oshihiki.h"
 #include "overlays/actors/ovl_Obj_Switch/z_obj_switch.h"
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

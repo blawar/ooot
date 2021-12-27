@@ -532,4 +532,18 @@ typedef enum {
     /* 0x1E */ EXCH_ITEM_MAX
 } ExchangeItemID;
 
+extern s16 gSpoilingItems[3];
+extern s16 gSpoilingItemReverts[3];
+extern u8 gItemSlots[56];
+extern u16 gEquipNegMasks[4];
+
+extern u16 gEquipMasks[4];
+extern u8 gEquipShifts[4];
+extern u32 gUpgradeMasks[8];
+extern u8 gUpgradeShifts[8];
+extern s16 gLinkObjectIds[2];
+extern u16 gUpgradeCapacities[8][4];
+
+extern void* gItemIcons[0x82];
+
 #endif

@@ -3,6 +3,7 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "z64math.h"
 
 typedef struct {
     /* 0x00 */ s32 type;

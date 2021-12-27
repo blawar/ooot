@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ISHI_Z_EN_ISHI_C
+#include "actor_common.h"
 /*
  * File: z_en_ishi.c
  * Overlay: ovl_En_Ishi
@@ -9,6 +11,19 @@
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 
 #include "vt.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_23
 

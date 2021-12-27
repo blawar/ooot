@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MENKURI_EYE_Z_BG_MENKURI_EYE_C
+#include "actor_common.h"
 /*
  * File: z_bg_menkuri_eye.c
  * Overlay: ovl_Bg_Menkuri_Eye
@@ -6,6 +8,11 @@
 
 #include "z_bg_menkuri_eye.h"
 #include "objects/object_menkuri_objects/object_menkuri_objects.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_5
 

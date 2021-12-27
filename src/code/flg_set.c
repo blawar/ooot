@@ -1,4 +1,18 @@
+#define INTERNAL_SRC_CODE_FLG_SET_C
 #include "global.h"
+#include "z64global.h"
+#include "z64save.h"
+#include "def/flg_set.h"
+#include "def/gfxprint.h"
+#include "def/graph.h"
+#include "def/xprintf.h"
+#include "def/z_common_data.h"
+
+typedef struct
+{
+    /* 0x00 */ u16* value;
+    /* 0x04 */ const char* name;
+} FlagSetEntry; // size = 0x08
 
 void FlagSet_Update(GlobalContext* globalCtx) {
     static s32 entryIdx = 0;

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_JYA_COBRA_Z_BG_JYA_COBRA_C
+#include "actor_common.h"
 #include "z_bg_jya_cobra.h"
 #include "overlays/actors/ovl_Bg_Jya_Bigmirror/z_bg_jya_bigmirror.h"
 #include "overlays/actors/ovl_Mir_Ray/z_mir_ray.h"
@@ -17,6 +19,13 @@ void func_808969F8(BgJyaCobra* this, GlobalContext* globalCtx);
 void func_80896ABC(BgJyaCobra* this, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Bg_Jya_Cobra/ovl_Bg_Jya_Cobra.c"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 const ActorInit Bg_Jya_Cobra_InitVars = {
     ACTOR_BG_JYA_COBRA,
@@ -144,7 +153,7 @@ void BgJyaCobra_SpawnRay(BgJyaCobra* this, GlobalContext* globalCtx) {
 void func_80895A70(BgJyaCobra* this) {
     s32 pad;
     BgJyaBigmirror* mirror = (BgJyaBigmirror*)this->dyna.actor.parent;
-    MirRay* mirRay;
+    MirRay* mirRay = NULL;
 
     switch (this->dyna.actor.params & 3) {
         case 0:
@@ -367,7 +376,7 @@ void BgJyaCobra_UpdateShadowFromTop(BgJyaCobra* this) {
         sp58[i] = SQ(i - 31.5f);
     }
 
-    sp40 = temp_s0 = (u8*)ALIGN16((u32)(&this->shadowTexture));
+    sp40 = temp_s0 = (u8*)ALIGN16((uintptr_t)(&this->shadowTexture));
     Lib_MemSet(temp_s0, 0x1000, 0);
 
     for (i = 0; i != 0x40; i++) {

@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VISETSPECIAL_C
 #include "global.h"
+#include "def/vi.h"
+#include "def/visetspecial.h"
 
 void osViSetSpecialFeatures(u32 func) {
     register u32 prevInt = __osDisableInt();

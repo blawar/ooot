@@ -1,7 +1,28 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_TW_Z_BOSS_TW_C
+#include "actor_common.h"
 #include "z_boss_tw.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_tw/object_tw.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

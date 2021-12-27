@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_XC_Z_EN_XC_C
+#include "actor_common.h"
 /*
  * File: z_en_xc.c
  * Overlay: ovl_En_Xc
@@ -13,6 +15,25 @@
 #include "scenes/indoors/tokinoma/tokinoma_scene.h"
 #include "scenes/dungeons/ice_doukutu/ice_doukutu_scene.h"
 #include "vt.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800EC960.h"
+#include "def/graph.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS ACTOR_FLAG_4
 

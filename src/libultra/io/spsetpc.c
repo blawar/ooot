@@ -1,13 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_SPSETPC_C
 #include "global.h"
+#include "def/spsetpc.h"
 
 s32 __osSpSetPc(void* pc) {
-    register u32 spStatus = HW_REG(SP_STATUS_REG, u32);
-
-    if (!(spStatus & SP_STATUS_HALT)) {
-        return -1;
-    } else {
-        HW_REG(SP_PC_REG, void*) = pc;
-    }
-
     return 0;
 }

@@ -1,6 +1,8 @@
 #ifndef ULTRA64_CONTROLLER_H
 #define ULTRA64_CONTROLLER_H
 
+#include "ultra64/types.h"
+
 #include "message.h"
 
 #define SIAccessQueueSize 2
@@ -98,20 +100,20 @@
 
 typedef struct {
     /* 0x00 */ u32 ram[15];
-    /* 0x3C */ u32 status;
+    /* 0x3C */ uintptr_t status;
 } OSPifRam; // size = 0x40
 
 typedef struct {
     /* 0x00 */ u16 type; 
     /* 0x02 */ u8 status;
-    /* 0x03 */ u8 errno;
+    /* 0x03 */ u8 errnum;
 } OSContStatus; // size = 0x04
 
 typedef struct {
     /* 0x00 */ u16 button;
     /* 0x02 */ s8 stick_x;
     /* 0x03 */ s8 stick_y;
-    /* 0x04 */ u8 errno;
+    /* 0x04 */ u8 errnum;
 } OSContPad; // size = 0x06
 
 typedef struct {
@@ -119,7 +121,7 @@ typedef struct {
     /* 0x04 */ u8 databuffer[32];
     /* 0x24 */ u8 addressCrc;
     /* 0x25 */ u8 dataCrc;
-    /* 0x26 */ u8 errno;
+    /* 0x26 */ u8 errnum;
 } OSContRamIo; // size = 0x28
 
 // Original name: __OSContRequesFormat

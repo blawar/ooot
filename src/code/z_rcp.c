@@ -1,4 +1,16 @@
+#define INTERNAL_SRC_CODE_Z_RCP_C
 #include "global.h"
+#include "gfx.h"
+#include "z64global.h"
+#include "z_play.h"
+#include "z_rcp.h"
+#include "def/graph.h"
+#include "def/shrink_window.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/zbuffer.h"
+
+extern s32 gTrnsnUnkState;
 
 Gfx sSetupDL[][6] = {
     {

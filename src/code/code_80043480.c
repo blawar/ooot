@@ -1,4 +1,11 @@
+#define INTERNAL_SRC_CODE_CODE_80043480_C
 #include "global.h"
+#include "z64actor.h"
+#include "z64bgcheck.h"
+#include "z64global.h"
+#include "def/code_80043480.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
 
 void DynaPolyActor_Init(DynaPolyActor* dynaActor, s32 flags) {
     dynaActor->bgId = -1;

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HORSE_Z_EN_HORSE_C
+#include "actor_common.h"
 /**
  * File: z_en_horse.c
  * Overlay: ovl_En_Horse
@@ -9,6 +11,32 @@
 #include "objects/object_horse/object_horse.h"
 #include "objects/object_hni/object_hni.h"
 #include "scenes/overworld/spot09/spot09_scene.h"
+
+#include "hack.h"
+#include "def/assert.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_btltbls.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_horse.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin.h"
+#include "def/z_skin_awb.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -2370,6 +2398,7 @@ void EnHorse_CutsceneUpdate(EnHorse* this, GlobalContext* globalCtx) {
         EnHorse_Freeze(this);
         return;
     }
+
     if (linkCsAction != 0) {
         csFunctionIdx = EnHorse_GetCutsceneFunctionIndex(linkCsAction->action);
         if (csFunctionIdx != 0) {

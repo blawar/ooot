@@ -1,7 +1,14 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BOM_BOWL_PIT_Z_EN_BOM_BOWL_PIT_C
+#include "actor_common.h"
 #include "z_en_bom_bowl_pit.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Bom_Chu/z_en_bom_chu.h"
 #include "overlays/actors/ovl_En_Ex_Item/z_en_ex_item.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
 
 #define FLAGS ACTOR_FLAG_4
 

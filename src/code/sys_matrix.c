@@ -1,12 +1,30 @@
+#define INTERNAL_SRC_CODE_SYS_MATRIX_C
 #include "global.h"
+#include "z64math.h"
+#include "gfx.h"
+#include "z64game.h"
+#include "z64gu.h"
+#include "math.h"
+#include "z64memory.h"
+#include "z64skinmatrix.h"
+#include "def/code_800FCE80.h"
+#include "def/cosf.h"
+#include "def/game.h"
+#include "def/graph.h"
+#include "def/mtxf2l.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_skin_matrix.h"
+
+#define ENDIAN_SWAP_BIT 0
 
 // clang-format off
-Mtx gMtxClear = {
-    65536,     0,     1,     0,
+Mtx gMtxClear = MTX(65536,     0,     1,     0,
         0, 65536,     0,     1,
         0,     0,     0,     0,
-        0,     0,     0,     0,
-};
+        0,     0,     0,     0
+);
 
 MtxF gMtxFClear = {
     1.0f, 0.0f, 0.0f, 0.0f,
@@ -534,68 +552,69 @@ Mtx* Matrix_MtxFToMtx(MtxF* src, Mtx* dest) {
     u16* m2 = (u16*)&dest->m[2][0];
 
     temp = src->xx * 0x10000;
-    m1[0] = (temp >> 0x10);
-    m1[16 + 0] = temp & 0xFFFF;
+    m1[0 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[0 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->yx * 0x10000;
-    m1[1] = (temp >> 0x10);
-    m1[16 + 1] = temp & 0xFFFF;
+    m1[1 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[1 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->zx * 0x10000;
-    m1[2] = (temp >> 0x10);
-    m1[16 + 2] = temp & 0xFFFF;
+    m1[2 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[2 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->wx * 0x10000;
-    m1[3] = (temp >> 0x10);
-    m1[16 + 3] = temp & 0xFFFF;
+    m1[3 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[3 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->xy * 0x10000;
-    m1[4] = (temp >> 0x10);
-    m1[16 + 4] = temp & 0xFFFF;
+    m1[4 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[4 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->yy * 0x10000;
-    m1[5] = (temp >> 0x10);
-    m1[16 + 5] = temp & 0xFFFF;
+    m1[5 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[5 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->zy * 0x10000;
-    m1[6] = (temp >> 0x10);
-    m1[16 + 6] = temp & 0xFFFF;
+    m1[6 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[6 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->wy * 0x10000;
-    m1[7] = (temp >> 0x10);
-    m1[16 + 7] = temp & 0xFFFF;
+    m1[7 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[7 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->xz * 0x10000;
-    m1[8] = (temp >> 0x10);
-    m1[16 + 8] = temp & 0xFFFF;
+    m1[8 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[8 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->yz * 0x10000;
-    m1[9] = (temp >> 0x10);
-    m2[9] = temp & 0xFFFF;
+    m1[9 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[9 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->zz * 0x10000;
-    m1[10] = (temp >> 0x10);
-    m2[10] = temp & 0xFFFF;
+    m1[10 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[10 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->wz * 0x10000;
-    m1[11] = (temp >> 0x10);
-    m2[11] = temp & 0xFFFF;
+    m1[11 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[11 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->xw * 0x10000;
-    m1[12] = (temp >> 0x10);
-    m2[12] = temp & 0xFFFF;
+    m1[12 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[12 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->yw * 0x10000;
-    m1[13] = (temp >> 0x10);
-    m2[13] = temp & 0xFFFF;
+    m1[13 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[13 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->zw * 0x10000;
-    m1[14] = (temp >> 0x10);
-    m2[14] = temp & 0xFFFF;
+    m1[14 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[14 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
 
     temp = src->ww * 0x10000;
-    m1[15] = (temp >> 0x10);
-    m2[15] = temp & 0xFFFF;
+    m1[15 ^ ENDIAN_SWAP_BIT] = (temp >> 0x10);
+    m2[15 ^ ENDIAN_SWAP_BIT] = temp & 0xFFFF;
+
     return dest;
 }
 
@@ -658,22 +677,22 @@ void Matrix_MtxToMtxF(Mtx* src, MtxF* dest) {
     u16* m1 = (u16*)&src->m[0][0];
     u16* m2 = (u16*)&src->m[2][0];
 
-    dest->xx = ((m1[0] << 0x10) | m2[0]) * (1 / 65536.0f);
-    dest->yx = ((m1[1] << 0x10) | m2[1]) * (1 / 65536.0f);
-    dest->zx = ((m1[2] << 0x10) | m2[2]) * (1 / 65536.0f);
-    dest->wx = ((m1[3] << 0x10) | m2[3]) * (1 / 65536.0f);
-    dest->xy = ((m1[4] << 0x10) | m2[4]) * (1 / 65536.0f);
-    dest->yy = ((m1[5] << 0x10) | m2[5]) * (1 / 65536.0f);
-    dest->zy = ((m1[6] << 0x10) | m2[6]) * (1 / 65536.0f);
-    dest->wy = ((m1[7] << 0x10) | m2[7]) * (1 / 65536.0f);
-    dest->xz = ((m1[8] << 0x10) | m2[8]) * (1 / 65536.0f);
-    dest->yz = ((m1[9] << 0x10) | m2[9]) * (1 / 65536.0f);
-    dest->zz = ((m1[10] << 0x10) | m2[10]) * (1 / 65536.0f);
-    dest->wz = ((m1[11] << 0x10) | m2[11]) * (1 / 65536.0f);
-    dest->xw = ((m1[12] << 0x10) | m2[12]) * (1 / 65536.0f);
-    dest->yw = ((m1[13] << 0x10) | m2[13]) * (1 / 65536.0f);
-    dest->zw = ((m1[14] << 0x10) | m2[14]) * (1 / 65536.0f);
-    dest->ww = ((m1[15] << 0x10) | m2[15]) * (1 / 65536.0f);
+    dest->xx = ((m1[0 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[0 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->yx = ((m1[1 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[1 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->zx = ((m1[2 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[2 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->wx = ((m1[3 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[3 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->xy = ((m1[4 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[4 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->yy = ((m1[5 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[5 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->zy = ((m1[6 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[6 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->wy = ((m1[7 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[7 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->xz = ((m1[8 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[8 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->yz = ((m1[9 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[9 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->zz = ((m1[10 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[10 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->wz = ((m1[11 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[11 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->xw = ((m1[12 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[12 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->yw = ((m1[13 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[13 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->zw = ((m1[14 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[14 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
+    dest->ww = ((m1[15 ^ ENDIAN_SWAP_BIT] << 0x10) | m2[15 ^ ENDIAN_SWAP_BIT]) * (1 / 65536.0f);
 }
 
 void Matrix_MultVec3fExt(Vec3f* src, Vec3f* dest, MtxF* mf) {
@@ -943,23 +962,6 @@ void Matrix_RotateAxis(f32 f, Vec3f* vec, u8 mode) {
 }
 
 MtxF* Matrix_CheckFloats(MtxF* mf, char* file, s32 line) {
-    s32 i, j;
-
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
-            if (!(-32768.0f <= mf->mf[i][j]) || !(mf->mf[i][j] < 32768.0f)) {
-                osSyncPrintf("%s %d: [%s] =\n"
-                             "/ %12.6f %12.6f %12.6f %12.6f \\\n"
-                             "| %12.6f %12.6f %12.6f %12.6f |\n"
-                             "| %12.6f %12.6f %12.6f %12.6f |\n"
-                             "\\ %12.6f %12.6f %12.6f %12.6f /\n",
-                             file, line, "mf", mf->xx, mf->xy, mf->xz, mf->xw, mf->yx, mf->yy, mf->yz, mf->yw, mf->zx,
-                             mf->zy, mf->zz, mf->zw, mf->wx, mf->wy, mf->wz, mf->ww);
-                Fault_AddHungupAndCrash(file, line);
-            }
-        }
-    }
-
     return mf;
 }
 

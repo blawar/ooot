@@ -1,5 +1,8 @@
+#define INTERNAL_SRC_LIBULTRA_IO_PFSSELECTBANK_C
 #include "ultra64/pfs.h"
 #include "global.h"
+#include "def/contramwrite.h"
+#include "def/pfsselectbank.h"
 
 s32 __osPfsSelectBank(OSPfs* pfs, u8 bank) {
     u8 temp[BLOCKSIZE];

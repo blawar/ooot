@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BIRD_Z_EN_BIRD_C
+#include "actor_common.h"
 /*
  * File: z_en_bird.c
  * Overlay: ovl_En_Bird
@@ -6,6 +8,10 @@
 
 #include "z_en_bird.h"
 #include "objects/object_bird/object_bird.h"
+#include "def/sinf.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

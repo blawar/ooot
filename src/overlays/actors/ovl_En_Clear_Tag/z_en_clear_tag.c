@@ -1,4 +1,20 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_CLEAR_TAG_Z_EN_CLEAR_TAG_C
+#include "actor_common.h"
+#include "z64bgcheck.h"
 #include "z_en_clear_tag.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_demo.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -279,6 +295,8 @@ void EnClearTag_Init(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 }
+
+#include "hack.h"
 
 /**
  * Calculate a floor tangent.

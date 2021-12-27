@@ -1,5 +1,16 @@
+#define INTERNAL_SRC_CODE_Z_JPEG_C
 #include "global.h"
+#include "z64jpeg.h"
 #include "vt.h"
+#include "def/createmesgqueue.h"
+#include "def/gettime.h"
+#include "def/jpegdecoder.h"
+#include "def/jpegutils.h"
+#include "def/recvmesg.h"
+#include "def/sched.h"
+#include "def/sys_ucode.h"
+#include "def/z_jpeg.h"
+#include "def/z_msgevent.h"
 
 #define MARKER_ESCAPE 0x00
 #define MARKER_SOI 0xD8
@@ -256,8 +267,6 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize) {
     curTime = osGetTime();
     diff = curTime - time;
     time = curTime;
-    // "Wait for synchronization of fifo buffer"
-    osSyncPrintf("*** fifoバッファの同期待ち time = %6.3f ms ***\n", OS_CYCLES_TO_USEC(diff) / 1000.0f);
 
     ctx.workBuf = workBuff;
     Jpeg_ParseMarkers(data, &ctx);
@@ -265,8 +274,6 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize) {
     curTime = osGetTime();
     diff = curTime - time;
     time = curTime;
-    // "Check markers for each segment"
-    osSyncPrintf("*** 各セグメントのマーカーのチェック time = %6.3f ms ***\n", OS_CYCLES_TO_USEC(diff) / 1000.0f);
 
     switch (ctx.dqtCount) {
         case 1:
@@ -289,8 +296,6 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize) {
     curTime = osGetTime();
     diff = curTime - time;
     time = curTime;
-    // "Create quantization table"
-    osSyncPrintf("*** 量子化テーブル作成 time = %6.3f ms ***\n", OS_CYCLES_TO_USEC(diff) / 1000.0f);
 
     switch (ctx.dhtCount) {
         case 1:
@@ -319,8 +324,6 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize) {
     curTime = osGetTime();
     diff = curTime - time;
     time = curTime;
-    // "Huffman table creation"
-    osSyncPrintf("*** ハフマンテーブル作成 time = %6.3f ms ***\n", OS_CYCLES_TO_USEC(diff) / 1000.0f);
 
     decoder.imageData = ctx.imageData;
     decoder.mode = ctx.mode;
@@ -339,7 +342,6 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize) {
             osSyncPrintf(VT_RST);
         } else {
             Jpeg_ScheduleDecoderTask(&ctx);
-            osInvalDCache(&workBuff->data, sizeof(workBuff->data[0]));
 
             for (j = 0; j < ARRAY_COUNT(workBuff->data); j++) {
                 Jpeg_CopyToZbuffer(workBuff->data[j], zbuffer, x, y);
@@ -356,8 +358,6 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize) {
     curTime = osGetTime();
     diff = curTime - time;
     time = curTime;
-    // "Unfold & draw"
-    osSyncPrintf("*** 展開 & 描画 time = %6.3f ms ***\n", OS_CYCLES_TO_USEC(diff) / 1000.0f);
 
     return 0;
 }

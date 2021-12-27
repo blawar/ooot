@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_TOKI_Z_DOOR_TOKI_C
+#include "actor_common.h"
 /*
  * File: z_door_toki.c
  * Overlay: ovl_Door_Toki
@@ -6,6 +8,10 @@
 
 #include "z_door_toki.h"
 #include "objects/object_toki_objects/object_toki_objects.h"
+#include "def/code_80043480.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

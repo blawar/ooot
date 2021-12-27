@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_Z_COMMON_DATA_C
 #include "global.h"
+#include "z64save.h"
+#include "sequence.h"
+#include "def/z_common_data.h"
 
 SaveContext gSaveContext;
 u32 D_8015FA88;

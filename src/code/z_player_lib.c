@@ -1,7 +1,40 @@
+#define INTERNAL_SRC_CODE_Z_PLAYER_LIB_C
 #include "global.h"
+#include "z64player.h"
+#include "z64global.h"
+#include "regs.h"
+#include "z64save.h"
+#include "z64object.h"
+#include "z64item.h"
+#include "z_player.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "def/code_800FCE80.h"
+#include "def/graph.h"
+#include "def/lookat.h"
+#include "def/perspective.h"
+#include "def/recvmesg.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_draw.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
+#include "def/z_std_dma.h"
 
 typedef struct {
     /* 0x00 */ u8 flag;
@@ -645,22 +678,22 @@ u8 sEyeMouthIndexes[][2] = {
     { 7, 2 }, { 0, 2 }, { 3, 0 }, { 4, 0 }, { 2, 2 }, { 1, 1 }, { 0, 2 }, { 0, 0 },
 };
 
-/**
- * Link's eye and mouth textures are placed at the exact same place in adult and child Link's respective object files.
- * This allows the array to only contain the symbols for one file and have it apply to both. This is a problem for
- * shiftability, and changes will need to be made in the code to account for this in a modding scenario. The symbols
- * from adult Link's object are used here.
- */
-void* sEyeTextures[] = {
-    gLinkAdultEyesOpenTex,      gLinkAdultEyesHalfTex,  gLinkAdultEyesClosedfTex, gLinkAdultEyesRollLeftTex,
-    gLinkAdultEyesRollRightTex, gLinkAdultEyesShockTex, gLinkAdultEyesUnk1Tex,    gLinkAdultEyesUnk2Tex,
+void* sEyeTextures[][2] = {
+    { gLinkAdultEyesOpenTex, gLinkChildEyesOpenTex },
+    { gLinkAdultEyesHalfTex, gLinkChildEyesHalfTex },
+    { gLinkAdultEyesClosedfTex, gLinkChildEyesClosedfTex },
+    { gLinkAdultEyesRollLeftTex, gLinkChildEyesRollLeftTex },
+    { gLinkAdultEyesRollRightTex, gLinkChildEyesRollRightTex },
+    { gLinkAdultEyesShockTex, gLinkChildEyesShockTex },
+    { gLinkAdultEyesUnk1Tex, gLinkChildEyesUnk1Tex },
+    { gLinkAdultEyesUnk2Tex, gLinkChildEyesUnk2Tex },
 };
 
-void* sMouthTextures[] = {
-    gLinkAdultMouth1Tex,
-    gLinkAdultMouth2Tex,
-    gLinkAdultMouth3Tex,
-    gLinkAdultMouth4Tex,
+void* sMouthTextures[][2] = {
+    { gLinkAdultMouth1Tex, gLinkChildMouth1Tex },
+    { gLinkAdultMouth2Tex, gLinkChildMouth2Tex },
+    { gLinkAdultMouth3Tex, gLinkChildMouth3Tex },
+    { gLinkAdultMouth4Tex, gLinkChildMouth4Tex },
 };
 
 Color_RGB8 sTunicColors[] = {
@@ -692,13 +725,13 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
         eyeIndex = sEyeMouthIndexes[face][0];
     }
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[eyeIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[eyeIndex][gSaveContext.linkAge]));
 
     if (mouthIndex < 0) {
         mouthIndex = sEyeMouthIndexes[face][1];
     }
 
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthTextures[mouthIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthTextures[mouthIndex][gSaveContext.linkAge]));
 
     color = &sTunicColors[tunic];
     gDPSetEnvColor(POLY_OPA_DISP++, color->r, color->g, color->b, 0);
@@ -1156,7 +1189,7 @@ void Player_DrawHookshotReticle(GlobalContext* globalCtx, Player* this, f32 arg2
 
         gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2587),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPSegment(OVERLAY_DISP++, 0x06, globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+        gSPSegment(OVERLAY_DISP++, 0x06, gObjectTable[this->actor.objBankIndex].vromStart);
         gSPDisplayList(OVERLAY_DISP++, gLinkAdultHookshotReticleDL);
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2592);
@@ -1408,15 +1441,15 @@ u32 func_80091738(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime) {
     u32 size;
     void* ptr;
 
-    size = gObjectTable[OBJECT_GAMEPLAY_KEEP].vromEnd - gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart;
+    size = POINTER_SUB(gObjectTable[OBJECT_GAMEPLAY_KEEP].vromEnd, gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart);
     ptr = segment + 0x3800;
     DmaMgr_SendRequest1(ptr, gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart, size, "../z_player_lib.c", 2982);
 
-    size = gObjectTable[linkObjectId].vromEnd - gObjectTable[linkObjectId].vromStart;
+    size = POINTER_SUB(gObjectTable[linkObjectId].vromEnd, gObjectTable[linkObjectId].vromStart);
     ptr = segment + 0x8800;
     DmaMgr_SendRequest1(ptr, gObjectTable[linkObjectId].vromStart, size, "../z_player_lib.c", 2988);
 
-    ptr = (void*)ALIGN16((u32)ptr + size);
+    ptr = (void*)ALIGN16(POINTER_ADD(ptr, size));
 
     gSegments[4] = VIRTUAL_TO_PHYSICAL(segment + 0x3800);
     gSegments[6] = VIRTUAL_TO_PHYSICAL(segment + 0x8800);

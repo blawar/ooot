@@ -1,6 +1,39 @@
+#define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_FILE_CHOOSE_Z_FILE_CHOOSE_C
+#include "actor_common.h"
+#include "z_kankyo.h"
+#include "z_player.h"
+#include "z_play.h"
+#include "z_file_choose.h"
+#include "z_select.h"
 #include "file_choose.h"
+#include "segment_symbols.h"
 #include "textures/title_static/title_static.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "def/code_80069420.h"
+#include "def/code_80097A00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/game.h"
+#include "def/graph.h"
+#include "def/shrink_window.h"
+#include "def/sys_matrix.h"
+#include "def/z_common_data.h"
+#include "def/z_file_choose.h"
+#include "def/z_kanfont.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_sram.h"
+#include "def/z_ss_sram.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
+#include "def/z_vr_box.h"
+#include "def/z_vr_box_draw.h"
+#include "def/z_play.h" // FORCE
+
+extern u16 gSramSlotOffsets[];
 
 static s16 sUnused = 106;
 
@@ -1859,7 +1892,7 @@ void FileChoose_Destroy(GameState* thisx) {
 
 void FileChoose_Init(GameState* thisx) {
     FileChooseContext* this = (FileChooseContext*)thisx;
-    u32 size = (u32)_title_staticSegmentRomEnd - (u32)_title_staticSegmentRomStart;
+    u32 size = POINTER_SUB(_title_staticSegmentRomEnd, _title_staticSegmentRomStart);
     s32 pad;
 
     SREG(30) = 1;

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_OWL_Z_EN_OWL_C
+#include "actor_common.h"
 /*
  * File: z_en_owl.c
  * Overlay: ovl_En_Owl
@@ -9,6 +11,22 @@
 #include "scenes/overworld/spot06/spot06_scene.h"
 #include "scenes/overworld/spot16/spot16_scene.h"
 #include "vt.h"
+#include "z_kankyo.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 

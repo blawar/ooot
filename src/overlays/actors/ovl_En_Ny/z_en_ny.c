@@ -1,5 +1,17 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_NY_Z_EN_NY_C
+#include "actor_common.h"
 #include "z_en_ny.h"
 #include "objects/object_ny/object_ny.h"
+#include "def/code_800FCE80.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 

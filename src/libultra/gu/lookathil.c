@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_LIBULTRA_GU_LOOKATHIL_C
 #include "global.h"
+#include <math.h>
+#include "ultra64/gbi.h"
+#include "def/lookathil.h"
+#include "def/mtxf2l.h"
 
 #define FTOFRAC8(x) ((s32)MIN(((x) * (128.0f)), 127.0f) & 0xFF)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_RELAY_OBJECTS_Z_BG_RELAY_OBJECTS_C
+#include "actor_common.h"
 /*
  * File: z_bg_relay_objects.c
  * Overlay: ovl_Bg_Relay_Objects
@@ -6,6 +8,17 @@
 
 #include "z_bg_relay_objects.h"
 #include "objects/object_relay_objects/object_relay_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 

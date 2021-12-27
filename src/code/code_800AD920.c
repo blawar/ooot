@@ -1,9 +1,13 @@
+#define INTERNAL_SRC_CODE_CODE_800AD920_C
 #include "global.h"
+#include "z_vismono.h"
+#include "gfx.h"
+#include "def/code_800AD920.h"
 
 // Note : This file is related to z_vismono, the original name was probably z_vis<something after "mono" alphabetically>
 
 // z-buffer
-extern u16 D_0E000000[];
+u16 D_0E000000[0x800000]; // TODO FIX random size set, not sure what this is
 
 // Init
 void func_800AD920(struct_80166500* this) {

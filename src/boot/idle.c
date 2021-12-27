@@ -1,5 +1,23 @@
+#define INTERNAL_SRC_BOOT_IDLE_C
 #include "global.h"
 #include "vt.h"
+#include "sched.h"
+#include "ultra64/vi.h"
+#include "def/game.h"
+#include "def/gettime.h"
+#include "def/heaps.h"
+#include "def/idle.h"
+#include "def/pimgr.h"
+#include "def/setthreadpri.h"
+#include "def/stackcheck.h"
+#include "def/startthread.h"
+#include "def/viblack.h"
+#include "def/vimodefpallan1.h"
+#include "def/vimodempallan1.h"
+#include "def/vimodentsclan1.h"
+#include "def/visetmode.h"
+#include "def/viswapbuf.h"
+#include "def/z_std_dma.h"
 
 OSThread gMainThread;
 u8 sMainStack[0x900];
@@ -23,14 +41,12 @@ void Main_ThreadEntry(void* arg) {
     DmaMgr_Init();
     osSyncPrintf("codeセグメントロード中...");
     time = osGetTime();
-    DmaMgr_SendRequest1(_codeSegmentStart, (u32)_codeSegmentRomStart, _codeSegmentRomEnd - _codeSegmentRomStart,
-                        "../idle.c", 238);
+
     time -= osGetTime();
     osSyncPrintf("\rcodeセグメントロード中...完了\n");
     osSyncPrintf("転送時間 %6.3f\n");
-    bzero(_codeSegmentBssStart, _codeSegmentBssEnd - _codeSegmentBssStart);
     osSyncPrintf("codeセグメントBSSクリア完了\n");
-    Main(arg);
+    //Main(arg);
     osSyncPrintf("mainx 実行終了\n");
 }
 
@@ -41,7 +57,6 @@ void Idle_ThreadEntry(void* arg) {
     osSyncPrintf("MAKEOPTION: %s\n", gBuildMakeOption);
     osSyncPrintf(VT_FGCOL(GREEN));
     osSyncPrintf("ＲＡＭサイズは %d キロバイトです(osMemSize/osGetMemSize)\n", (s32)osMemSize / 1024);
-    osSyncPrintf("_bootSegmentEnd(%08x) 以降のＲＡＭ領域はクリアされました(boot)\n", _bootSegmentEnd);
     osSyncPrintf("Ｚバッファのサイズは %d キロバイトです\n", 0x96);
     osSyncPrintf("ダイナミックバッファのサイズは %d キロバイトです\n", 0x92);
     osSyncPrintf("ＦＩＦＯバッファのサイズは %d キロバイトです\n", 0x60);

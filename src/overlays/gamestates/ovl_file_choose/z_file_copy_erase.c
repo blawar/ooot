@@ -1,4 +1,13 @@
+#define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_FILE_CHOOSE_Z_FILE_COPY_ERASE_C
+#include "actor_common.h"
 #include "file_choose.h"
+#include "z_file_choose.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/z_common_data.h"
+#include "def/z_sram.h"
+
+extern u16 gSramSlotOffsets[];
 
 // when choosing a file to copy or erase, the 6 main menu buttons are placed at these offsets
 static s16 sChooseFileYOffsets[] = { -48, -48, -48, -24, -24, 0 };

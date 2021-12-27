@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ITEM_B_HEART_Z_ITEM_B_HEART_C
+#include "actor_common.h"
 /*
  * File: z_item_b_heart.c
  * Overlay: ovl_Item_B_Heart
@@ -6,6 +8,10 @@
 
 #include "z_item_b_heart.h"
 #include "objects/object_gi_hearts/object_gi_hearts.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

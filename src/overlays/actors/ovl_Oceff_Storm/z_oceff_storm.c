@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OCEFF_STORM_Z_OCEFF_STORM_C
+#include "actor_common.h"
 /*
  * File: z_oceff_storm.c
  * Overlay: ovl_Oceff_Storm
@@ -5,6 +7,12 @@
  */
 
 #include "z_oceff_storm.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 

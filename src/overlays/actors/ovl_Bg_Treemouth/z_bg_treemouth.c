@@ -1,3 +1,10 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_TREEMOUTH_Z_BG_TREEMOUTH_C
+#include "actor_common.h"
+
+extern u16 D_8015FCC0;
+extern u16 D_8015FCC2;
+extern u16 D_8015FCC4;
+
 /*
  * File: z_bg_treemouth.c
  * Overlay: ovl_Bg_Treemouth
@@ -7,6 +14,17 @@
 #include "z_bg_treemouth.h"
 #include "objects/object_spot04_objects/object_spot04_objects.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
+#include "def/code_80043480.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

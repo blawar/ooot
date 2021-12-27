@@ -1,17 +1,19 @@
+#define INTERNAL_SRC_DMADATA_DMADATA_C
 #include "z64dma.h"
 
 // Linker symbol declarations (used in the table below)
 #define DEFINE_DMA_ENTRY(name)            \
-    extern u8 _##name##SegmentRomStart[]; \
-    extern u8 _##name##SegmentRomEnd[];
+    static u8 _##name##SegmentRomStart[1]; \
+    static u8 _##name##SegmentRomEnd[1];
 
 #include "tables/dmadata_table.h"
+#include "def/dmadata.h"
 
 #undef DEFINE_DMA_ENTRY
 
 // dmadata Table definition
 #define DEFINE_DMA_ENTRY(name) \
-    { (u32)_##name##SegmentRomStart, (u32)_##name##SegmentRomEnd, (u32)_##name##SegmentRomStart, 0 },
+    { (uintptr_t)_##name##SegmentRomStart, (uintptr_t)_##name##SegmentRomEnd, (uintptr_t)_##name##SegmentRomStart, 0 },
 
 DmaEntry gDmaDataTable[] = {
 #include "tables/dmadata_table.h"

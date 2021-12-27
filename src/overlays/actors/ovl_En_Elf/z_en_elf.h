@@ -3,12 +3,13 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "z64light.h"
 #include "overlays/actors/ovl_Elf_Msg/z_elf_msg.h"
 
 struct EnElf;
 
-typedef void (*EnElfActionFunc)(struct EnElf*, GlobalContext*);
-typedef void (*EnElfUnkFunc)(struct EnElf*, GlobalContext*);
+typedef void (*EnElfActionFunc)(struct EnElf*, struct GlobalContext*);
+typedef void (*EnElfUnkFunc)(struct EnElf*, struct GlobalContext*);
 
 typedef struct EnElf {
     /* 0x0000 */ Actor actor;

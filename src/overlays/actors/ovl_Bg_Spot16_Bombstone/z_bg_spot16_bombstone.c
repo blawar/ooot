@@ -1,8 +1,22 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT16_BOMBSTONE_Z_BG_SPOT16_BOMBSTONE_C
+#include "actor_common.h"
 #include "z_bg_spot16_bombstone.h"
 #include "objects/object_spot16_obj/object_spot16_obj.h"
 #include "objects/object_bombiwa/object_bombiwa.h"
 #include "overlays/actors/ovl_En_Bombf/z_en_bombf.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -545,7 +559,7 @@ void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_OPA_DISP++, this->dList);
     } else {
         // The boulder is debris
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->bombiwaBankIndex].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->bombiwaBankIndex].vromStart);
         gSPDisplayList(POLY_OPA_DISP++, this->dList);
     }
 

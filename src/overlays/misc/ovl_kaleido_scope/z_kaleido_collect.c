@@ -1,6 +1,14 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_COLLECT_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "textures/icon_item_static/icon_item_static.h"
+#include "hack.h"
+#include "def/code_80097A00.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/z_common_data.h"
+#include "def/z_message_PAL.h"
 
 void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
     static s16 D_8082A070[][4] = {
@@ -66,7 +74,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
     s16 phi_s3;
     s16 sp21A;
     s16 sp218;
-    s16 sp216;
+    s16 sp216 = 0;
     s16 pad1;
     s16 phi_v1;
     s16 pad2;
@@ -495,7 +503,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
                     gDPPipeSync(POLY_OPA_DISP++);
 
                     if (D_8082A124[sp218] == 0) {
-                        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 80, 255, 150, D_8082A150[sp218]);
+                        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 80, 150, 255, D_8082A150[sp218]);
                     } else {
                         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 50, D_8082A150[sp218]);
                     }
@@ -525,7 +533,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
 
                 if (pauseCtx->unk_1E4 == 8) {
                     if (gOcarinaSongNotes[sp224].notesIdx[phi_s3] == 0) {
-                        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 80, 255, 150, 200);
+                        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 80, 150, 255, 200);
                     } else {
                         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 50, 200);
                     }
@@ -580,7 +588,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
                     gDPPipeSync(POLY_OPA_DISP++);
 
                     if (D_8082A124[phi_s3] == 0) {
-                        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 80, 255, 150, D_8082A150[phi_s3]);
+                        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 80, 150, 255, D_8082A150[phi_s3]);
                     } else {
                         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 50, D_8082A150[phi_s3]);
                     }

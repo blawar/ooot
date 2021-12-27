@@ -1,9 +1,34 @@
+#define INTERNAL_SRC_CODE_Z_MAP_EXP_C
 #include "global.h"
+#include "segment_symbols.h"
+#include "z64global.h"
+#include "n64mapdata.h"
+#include "z64player.h"
+#include "z64save.h"
+#include "z64item.h"
+#include "sfx.h"
 #include "vt.h"
+#include "gfx_align.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "textures/map_grand_static/map_grand_static.h"
+#include "textures/map_i_static/map_i_static.h"
+#include "def/code_80097A00.h"
+#include "def/code_800F7260.h"
+#include "def/game.h"
+#include "def/sys_matrix.h"
+#include "def/z_common_data.h"
+#include "def/z_map_data.h"
+#include "def/z_map_exp.h"
+#include "def/z_map_mark.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_std_dma.h"
+#include "def/graph.h" // FORCE
+
 
 MapData* gMapData;
+extern MapData gMapDataTable;
 
 s16 sPlayerInitialPosX = 0;
 s16 sPlayerInitialPosZ = 0;
@@ -130,9 +155,10 @@ void Map_InitData(GlobalContext* globalCtx, s16 room) {
             osSyncPrintf("ＫＫＫ＝%d\n", extendedMapIndex);
             osSyncPrintf(VT_RST);
             sEntranceIconMapIndex = extendedMapIndex;
-            DmaMgr_SendRequest1(interfaceCtx->mapSegment,
-                                (u32)_map_grand_staticSegmentRomStart + gMapData->owMinimapTexOffset[extendedMapIndex],
-                                gMapData->owMinimapTexSize[mapIndex], "../z_map_exp.c", 309);
+
+            interfaceCtx->mapSegment1 = POINTER_ADD(_map_grand_staticSegmentRomStart, gMapData->owMinimapTexOffset[extendedMapIndex]);
+
+            //interfaceCtx->mapSegment = map_grand_static_lut[extendedMapIndex];
             interfaceCtx->unk_258 = mapIndex;
             break;
         case SCENE_YDAN:
@@ -158,10 +184,7 @@ void Map_InitData(GlobalContext* globalCtx, s16 room) {
             osSyncPrintf("デクの樹ダンジョンＭＡＰ テクスチャＤＭＡ(%x) scene_id_offset=%d  VREG(30)=%d\n", room,
                          mapIndex, VREG(30));
             osSyncPrintf(VT_RST);
-            DmaMgr_SendRequest1(globalCtx->interfaceCtx.mapSegment,
-                                (u32)_map_i_staticSegmentRomStart +
-                                    ((gMapData->dgnMinimapTexIndexOffset[mapIndex] + room) * 0xFF0),
-                                0xFF0, "../z_map_exp.c", 346);
+            globalCtx->interfaceCtx.mapSegment1 = map_i_static_lut[gMapData->dgnMinimapTexIndexOffset[mapIndex] + room];
             R_COMPASS_OFFSET_X = gMapData->roomCompassOffsetX[mapIndex][room];
             R_COMPASS_OFFSET_Y = gMapData->roomCompassOffsetY[mapIndex][room];
             Map_SetFloorPalettesData(globalCtx, VREG(30));
@@ -231,11 +254,8 @@ void Map_Init(GlobalContext* globalCtx) {
     interfaceCtx->unk_258 = -1;
     interfaceCtx->unk_25A = -1;
 
-    interfaceCtx->mapSegment = GameState_Alloc(&globalCtx->state, 0x1000, "../z_map_exp.c", 457);
-    // "ＭＡＰ texture initialization scene_data_ID=%d mapSegment=%x"
-    osSyncPrintf("\n\n\nＭＡＰ テクスチャ初期化   scene_data_ID=%d\nmapSegment=%x\n\n", globalCtx->sceneNum,
-                 interfaceCtx->mapSegment, globalCtx);
-    ASSERT(interfaceCtx->mapSegment != NULL, "parameter->mapSegment != NULL", "../z_map_exp.c", 459);
+    interfaceCtx->mapSegment1 = NULL;
+    interfaceCtx->mapSegment2 = NULL;
 
     switch (globalCtx->sceneNum) {
         case SCENE_SPOT00:
@@ -329,7 +349,7 @@ void Minimap_DrawCompassIcons(GlobalContext* globalCtx) {
         tempZ = player->actor.world.pos.z;
         tempX /= R_COMPASS_SCALE_X;
         tempZ /= R_COMPASS_SCALE_Y;
-        Matrix_Translate((R_COMPASS_OFFSET_X + tempX) / 10.0f, (R_COMPASS_OFFSET_Y - tempZ) / 10.0f, 0.0f, MTXMODE_NEW);
+        Matrix_Translate(GFX_ALIGN_RIGHT_F((R_COMPASS_OFFSET_X + tempX) / 10.0f), (R_COMPASS_OFFSET_Y - tempZ) / 10.0f, 0.0f, MTXMODE_NEW);
         Matrix_Scale(0.4f, 0.4f, 0.4f, MTXMODE_APPLY);
         Matrix_RotateX(-1.6f, MTXMODE_APPLY);
         tempX = (0x7FFF - player->actor.shape.rot.y) / 0x400;
@@ -344,7 +364,7 @@ void Minimap_DrawCompassIcons(GlobalContext* globalCtx) {
         tempZ = sPlayerInitialPosZ;
         tempX /= R_COMPASS_SCALE_X;
         tempZ /= R_COMPASS_SCALE_Y;
-        Matrix_Translate((R_COMPASS_OFFSET_X + tempX) / 10.0f, (R_COMPASS_OFFSET_Y - tempZ) / 10.0f, 0.0f, MTXMODE_NEW);
+        Matrix_Translate(GFX_ALIGN_RIGHT_F((R_COMPASS_OFFSET_X + tempX) / 10.0f), (R_COMPASS_OFFSET_Y - tempZ) / 10.0f, 0.0f, MTXMODE_NEW);
         Matrix_Scale(VREG(9) / 100.0f, VREG(9) / 100.0f, VREG(9) / 100.0f, MTXMODE_APPLY);
         Matrix_RotateX(VREG(52) / 10.0f, MTXMODE_APPLY);
         Matrix_RotateY(sPlayerInitialDirection / 10.0f, MTXMODE_APPLY);
@@ -385,12 +405,12 @@ void Minimap_Draw(GlobalContext* globalCtx) {
                     if (CHECK_DUNGEON_ITEM(DUNGEON_MAP, mapIndex)) {
                         gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 100, 255, 255, interfaceCtx->minimapAlpha);
 
-                        gDPLoadTextureBlock_4b(OVERLAY_DISP++, interfaceCtx->mapSegment, G_IM_FMT_I, 96, 85, 0,
+                        gDPLoadTextureBlock_4b(OVERLAY_DISP++, interfaceCtx->mapSegment1, G_IM_FMT_I, 96, 85, 0,
                                                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                                                G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-                        gSPTextureRectangle(OVERLAY_DISP++, R_DGN_MINIMAP_X << 2, R_DGN_MINIMAP_Y << 2,
-                                            (R_DGN_MINIMAP_X + 96) << 2, (R_DGN_MINIMAP_Y + 85) << 2, G_TX_RENDERTILE,
+                        gSPTextureRectangle(OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_DGN_MINIMAP_X) << 2, R_DGN_MINIMAP_Y << 2,
+                                            (GFX_ALIGN_RIGHT(R_DGN_MINIMAP_X) + 96) << 2, (R_DGN_MINIMAP_Y + 85) << 2, G_TX_RENDERTILE,
                                             0, 0, 1 << 10, 1 << 10);
                     }
 
@@ -440,13 +460,13 @@ void Minimap_Draw(GlobalContext* globalCtx) {
                     gDPSetPrimColor(OVERLAY_DISP++, 0, 0, R_MINIMAP_COLOR(0), R_MINIMAP_COLOR(1), R_MINIMAP_COLOR(2),
                                     interfaceCtx->minimapAlpha);
 
-                    gDPLoadTextureBlock_4b(OVERLAY_DISP++, interfaceCtx->mapSegment, G_IM_FMT_IA,
+                    gDPLoadTextureBlock_4b(OVERLAY_DISP++, interfaceCtx->mapSegment1, G_IM_FMT_IA,
                                            gMapData->owMinimapWidth[mapIndex], gMapData->owMinimapHeight[mapIndex], 0,
                                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                                            G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-                    gSPTextureRectangle(OVERLAY_DISP++, R_OW_MINIMAP_X << 2, R_OW_MINIMAP_Y << 2,
-                                        (R_OW_MINIMAP_X + gMapData->owMinimapWidth[mapIndex]) << 2,
+                    gSPTextureRectangle(OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_OW_MINIMAP_X) << 2, R_OW_MINIMAP_Y << 2,
+                                        (GFX_ALIGN_RIGHT(R_OW_MINIMAP_X) + gMapData->owMinimapWidth[mapIndex]) << 2,
                                         (R_OW_MINIMAP_Y + gMapData->owMinimapHeight[mapIndex]) << 2, G_TX_RENDERTILE, 0,
                                         0, 1 << 10, 1 << 10);
 
@@ -462,9 +482,9 @@ void Minimap_Draw(GlobalContext* globalCtx) {
                                                 G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
                             gSPTextureRectangle(OVERLAY_DISP++,
-                                                gMapData->owEntranceIconPosX[sEntranceIconMapIndex] << 2,
+                                                GFX_ALIGN_RIGHT(gMapData->owEntranceIconPosX[sEntranceIconMapIndex]) << 2,
                                                 gMapData->owEntranceIconPosY[sEntranceIconMapIndex] << 2,
-                                                (gMapData->owEntranceIconPosX[sEntranceIconMapIndex] + 8) << 2,
+                                                GFX_ALIGN_RIGHT(gMapData->owEntranceIconPosX[sEntranceIconMapIndex] + 8) << 2,
                                                 (gMapData->owEntranceIconPosY[sEntranceIconMapIndex] + 8) << 2,
                                                 G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
                         }
@@ -475,7 +495,7 @@ void Minimap_Draw(GlobalContext* globalCtx) {
                                             8, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                                             G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-                        gSPTextureRectangle(OVERLAY_DISP++, 1080, 616, 1112, 648, G_TX_RENDERTILE, 0, 0, 1 << 10,
+                        gSPTextureRectangle(OVERLAY_DISP++, GFX_ALIGN_RIGHT(270) << 2, 616, 1112, 648, G_TX_RENDERTILE, 0, 0, 1 << 10,
                                             1 << 10);
                     }
 

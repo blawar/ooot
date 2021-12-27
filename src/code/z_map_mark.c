@@ -1,6 +1,22 @@
+#define INTERNAL_SRC_CODE_Z_MAP_MARK_C
 #include "global.h"
+#include "z64global.h"
+#include "z64save.h"
+#include "n64mapdata.h"
+#include "gfx.h"
+#include "z64map_mark.h"
+#include "segment_symbols.h"
 #include "vt.h"
+#include "gfx_align.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "def/code_800FC620.h"
+#include "def/game.h"
+#include "def/logutils.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_map_exp.h"
+#include "def/z_map_mark.h"
+#include "def/graph.h" // FORCE
 
 typedef struct {
     /* 0x00 */ void* texture;
@@ -16,8 +32,8 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ void* loadedRamAddr; // original name: "allocp"
-    /* 0x04 */ u32 vromStart;
-    /* 0x08 */ u32 vromEnd;
+    /* 0x04 */ void* vromStart;
+    /* 0x08 */ void* vromEnd;
     /* 0x0C */ void* vramStart;
     /* 0x10 */ void* vramEnd;
     /* 0x14 */ void* vramTable;
@@ -44,8 +60,8 @@ static MapMarkInfo sMapMarkInfoTable[] = {
 
 static MapMarkDataOverlay sMapMarkDataOvl = {
     NULL,
-    (u32)_ovl_map_mark_dataSegmentRomStart,
-    (u32)_ovl_map_mark_dataSegmentRomEnd,
+    _ovl_map_mark_dataSegmentRomStart,
+    _ovl_map_mark_dataSegmentRomEnd,
     _ovl_map_mark_dataSegmentStart,
     _ovl_map_mark_dataSegmentEnd,
     gMapMarkDataTable,
@@ -55,7 +71,7 @@ static MapMarkData** sLoadedMarkDataTable;
 
 void MapMark_Init(GlobalContext* globalCtx) {
     MapMarkDataOverlay* overlay = &sMapMarkDataOvl;
-    u32 overlaySize = (u32)overlay->vramEnd - (u32)overlay->vramStart;
+    u32 overlaySize = POINTER_SUB(overlay->vramEnd, overlay->vramStart);
 
     overlay->loadedRamAddr = GameState_Alloc(&globalCtx->state, overlaySize, "../z_map_mark.c", 235);
     LogUtils_CheckNullPointer("dlftbl->allocp", overlay->loadedRamAddr, "../z_map_mark.c", 236);
@@ -63,10 +79,7 @@ void MapMark_Init(GlobalContext* globalCtx) {
     Overlay_Load(overlay->vromStart, overlay->vromEnd, overlay->vramStart, overlay->vramEnd, overlay->loadedRamAddr);
 
     sLoadedMarkDataTable = gMapMarkDataTable;
-    sLoadedMarkDataTable = (void*)(u32)(
-        (overlay->vramTable != NULL)
-            ? (void*)((u32)overlay->vramTable - (s32)((u32)overlay->vramStart - (u32)overlay->loadedRamAddr))
-            : NULL);
+    sLoadedMarkDataTable = overlay->vramTable;
 }
 
 void MapMark_ClearPointers(GlobalContext* globalCtx) {
@@ -117,7 +130,7 @@ void MapMark_DrawForDungeon(GlobalContext* globalCtx) {
                                     markInfo->textureWidth, markInfo->textureHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
                                     G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-                rectLeft = (GREG(94) + markPoint->x + 204) << 2;
+                rectLeft = GFX_ALIGN_RIGHT((GREG(94) + markPoint->x + 204) << 2);
                 rectTop = (GREG(95) + markPoint->y + 140) << 2;
                 gSPTextureRectangle(OVERLAY_DISP++, rectLeft, rectTop, markInfo->rectWidth + rectLeft,
                                     rectTop + markInfo->rectHeight, G_TX_RENDERTILE, 0, 0, markInfo->dsdx,

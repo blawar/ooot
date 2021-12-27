@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_MAGIC_WIND_Z_MAGIC_WIND_C
+#include "actor_common.h"
 /*
  * File: z_magic_wind.c
  * Overlay: ovl_Magic_Wind
@@ -5,6 +7,10 @@
  */
 
 #include "z_magic_wind.h"
+#include "def/z_actor.h"
+#include "def/z_fcurve_data_skelanime.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 

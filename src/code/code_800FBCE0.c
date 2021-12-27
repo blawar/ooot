@@ -1,4 +1,12 @@
+#define INTERNAL_SRC_CODE_CODE_800FBCE0_C
 #include "global.h"
+#include "ultra64/rdp.h"
+#include "ultra64/rsp.h"
+#include "def/code_800FBCE0.h"
+#include "def/dpgetstat.h"
+#include "def/dpsetstat.h"
+#include "def/spgetstat.h"
+#include "def/spsetstat.h"
 
 #define printSpStatus(x, name) \
     if (x & SP_STATUS_##name)  \
@@ -8,8 +16,8 @@
     osSyncPrintf(#name " ")
 
 void func_800FBCE0() {
-    u32 spStatus = __osSpGetStatus();
-    u32 dpStatus = osDpGetStatus();
+    u32 spStatus = 0; // __osSpGetStatus();
+    u32 dpStatus = 0; // osDpGetStatus();
 
     osSyncPrintf("osSpGetStatus=%08x: ", spStatus);
     printSpStatus(spStatus, HALT);
@@ -46,7 +54,7 @@ void func_800FBCE0() {
 
 void func_800FBFD8() {
     func_800FBCE0();
-    osDpSetStatus(DPC_SET_FREEZE | DPC_SET_FLUSH);
-    __osSpSetStatus(SP_SET_HALT | SP_SET_SIG2 | SP_CLR_INTR_BREAK);
+    //osDpSetStatus(DPC_SET_FREEZE | DPC_SET_FLUSH);
+    //__osSpSetStatus(SP_SET_HALT | SP_SET_SIG2 | SP_CLR_INTR_BREAK);
     func_800FBCE0();
 }

@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VIMODENTSCLAN1_C
 #include "global.h"
+#include "ultra64/vi.h"
+#include "def/vimodentsclan1.h"
 
 OSViMode osViModeNtscLan1 = {
     2, // type

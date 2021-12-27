@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_GERUDO_Z_DOOR_GERUDO_C
+#include "actor_common.h"
 /*
  * File: z_door_gerudo.c
  * Overlay: ovl_Door_Gerudo
@@ -6,6 +8,13 @@
 
 #include "z_door_gerudo.h"
 #include "objects/object_door_gerudo/object_door_gerudo.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

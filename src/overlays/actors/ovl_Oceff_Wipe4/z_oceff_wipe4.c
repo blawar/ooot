@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OCEFF_WIPE4_Z_OCEFF_WIPE4_C
+#include "actor_common.h"
 /*
  * File: z_oceff_wipe4.c
  * Overlay: ovl_Oceff_Wipe4
@@ -6,6 +8,12 @@
 
 #include "z_oceff_wipe4.h"
 #include "vt.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 

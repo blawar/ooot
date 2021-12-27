@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_MURE_Z_OBJ_MURE_C
+#include "actor_common.h"
 /*
  * File: z_obj_mure.c
  * Overlay: ovl_Obj_Mure
@@ -5,6 +7,9 @@
  */
 
 #include "z_obj_mure.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

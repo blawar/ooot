@@ -1,4 +1,10 @@
+#define INTERNAL_SRC_CODE_Z_EFF_SS_DEAD_C
 #include "global.h"
+#include "z64global.h"
+#include "def/z_eff_ss_dead.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/graph.h" // FORCE
 
 void func_80026230(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 arg3) {
     f32 cos;

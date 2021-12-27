@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_GJYO_BRIDGE_Z_BG_GJYO_BRIDGE_C
+#include "actor_common.h"
 /*
  * File: z_bg_gjyo_bridge.c
  * Overlay: ovl_Bg_Gjyo_Bridge
@@ -7,6 +9,13 @@
 #include "z_bg_gjyo_bridge.h"
 #include "objects/object_gjyo_objects/object_gjyo_objects.h"
 #include "scenes/dungeons/ganon_tou/ganon_tou_scene.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

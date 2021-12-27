@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_FSLIFT_Z_BG_HIDAN_FSLIFT_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_fslift.c
  * Overlay: ovl_Bg_Hidan_Fslift
@@ -6,6 +8,12 @@
 
 #include "z_bg_hidan_fslift.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 

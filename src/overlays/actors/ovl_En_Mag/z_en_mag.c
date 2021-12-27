@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_MAG_Z_EN_MAG_C
+#include "actor_common.h"
 /*
  * File: z_en_mag.c
  * Overlay: ovl_En_Mag
@@ -6,6 +8,13 @@
 
 #include "z_en_mag.h"
 #include "objects/object_mag/object_mag.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/graph.h"
+#include "def/z_common_data.h"
+#include "def/z_kanfont.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -354,7 +363,7 @@ void EnMag_DrawImageRGBA32(Gfx** gfxp, s16 centerX, s16 centerY, u8* source, u32
     *gfxp = gfx;
 }
 
-void EnMag_DrawCharTexture(Gfx** gfxp, u8* texture, s32 rectLeft, s32 rectTop) {
+void EnMag_DrawCharTexture(Gfx** gfxp, void* texture, s32 rectLeft, s32 rectTop) {
     Gfx* gfx = *gfxp;
 
     YREG(0) = 1024.0f / (YREG(1) / 100.0f);
@@ -392,7 +401,7 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
     u16 rectLeft;
     u16 rectTop;
 
-    gSPSegment(gfx++, 0x06, globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+    gSPSegment(gfx++, 0x06, gObjectTable[this->actor.objBankIndex].vromStart);
 
     func_8009457C(&gfx);
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_ZG_Z_BG_ZG_C
+#include "actor_common.h"
 /*
  * File: z_bg_zg.c
  * Overlay: ovl_Bg_Zg
@@ -7,6 +9,13 @@
 #include "z_bg_zg.h"
 #include "objects/object_zg/object_zg.h"
 #include "vt.h"
+#include "def/code_80043480.h"
+#include "def/code_800F7260.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

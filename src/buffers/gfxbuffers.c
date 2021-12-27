@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_BUFFERS_GFXBUFFERS_C
 #include "z64.h"
+#include "gfx.h"
+#include "def/gfxbuffers.h"
 
 // 0x18000 bytes
 u64 gGfxSPTaskOutputBuffer[0x3000];

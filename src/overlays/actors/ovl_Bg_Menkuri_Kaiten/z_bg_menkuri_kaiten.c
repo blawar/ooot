@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MENKURI_KAITEN_Z_BG_MENKURI_KAITEN_C
+#include "actor_common.h"
 /*
  * File: z_bg_menkuri_kaiten.c
  * Overlay: Bg_Menkuri_Kaiten
@@ -6,6 +8,11 @@
 
 #include "z_bg_menkuri_kaiten.h"
 #include "objects/object_menkuri_objects/object_menkuri_objects.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

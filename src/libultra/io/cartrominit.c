@@ -1,4 +1,11 @@
+#define INTERNAL_SRC_LIBULTRA_IO_CARTROMINIT_C
 #include "global.h"
+#include "regs.h"
+#include "ultra64/rcp.h"
+#include "ultra64/pi.h"
+#include "def/cartrominit.h"
+#include "def/piacs.h"
+#include "def/pimgr.h"
 
 OSPiHandle __CartRomHandle;
 
@@ -53,8 +60,8 @@ OSPiHandle* osCartRomInit(void) {
     HW_REG(PI_BSD_DOM1_PWD_REG, u32) = lastPulse;
 
     prevInt = __osDisableInt();
-    __CartRomHandle.next = __osPiTable;
-    __osPiTable = &__CartRomHandle;
+    //__CartRomHandle.next = __osPiTable;
+    //__osPiTable = &__CartRomHandle;
     __osRestoreInt(prevInt);
     __osPiRelAccess();
 

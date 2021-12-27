@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_END_TITLE_Z_END_TITLE_C
+#include "actor_common.h"
 /*
  * File: z_end_title.c
  * Overlay: ovl_End_Title
@@ -5,6 +7,9 @@
  */
 
 #include "z_end_title.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_title.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

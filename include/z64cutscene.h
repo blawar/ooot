@@ -1,7 +1,7 @@
-#ifndef Z64CUTSCENE_H
-#define Z64CUTSCENE_H
+#pragma once
 
 #include "ultra64.h"
+#include "z64math.h"
 
 typedef struct {
     /* 0x00 */ u16 entrance;       // entrance index upon which the cutscene should trigger
@@ -283,4 +283,28 @@ typedef enum {
     /* 0x77 */ ZELDAS_COURTYARD_RECEIVE_LETTER
 } CutsceneTerminatorDestination;
 
-#endif
+typedef struct {
+    /* 0x00 */ char unk_00[0x4];
+    /* 0x04 */ void* segment;
+    /* 0x08 */ u8 state;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ u16 frames;
+    /* 0x12 */ u16 unk_12;
+    /* 0x14 */ s32 unk_14;
+    /* 0x18 */ u16 unk_18;
+    /* 0x1A */ u8 unk_1A;
+    /* 0x1B */ u8 unk_1B;
+    /* 0x1C */ CutsceneCameraPoint* cameraFocus;
+    /* 0x20 */ CutsceneCameraPoint* cameraPosition;
+    /* 0x24 */ CsCmdActorAction* linkAction;
+    /* 0x28 */ CsCmdActorAction* npcActions[10]; // "npcdemopnt"
+} CutsceneContext;                               // size = 0x50
+
+void func_8006450C(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_80064520(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_80064534(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_80064558(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_800645A0(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cutscene_HandleEntranceTriggers(struct GlobalContext* globalCtx);
+void Cutscene_HandleConditionalTriggers(struct GlobalContext* globalCtx);
+void Cutscene_SetSegment(struct GlobalContext* globalCtx, void* segment);

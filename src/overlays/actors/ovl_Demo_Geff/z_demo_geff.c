@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_GEFF_Z_DEMO_GEFF_C
+#include "actor_common.h"
 /*
  * File: z_demo_geff.c
  * Overlay: Demo_Geff
@@ -7,6 +9,10 @@
 #include "z_demo_geff.h"
 #include "objects/object_geff/object_geff.h"
 #include "vt.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -91,8 +97,8 @@ void func_80977F80(DemoGeff* this, GlobalContext* globalCtx) {
 
     OPEN_DISPS(gfxCtx, "../z_demo_geff.c", 204);
 
-    gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[objBankIndex].segment);
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[objBankIndex].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[objBankIndex].vromStart);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIndex].vromStart);
 
     // Necessary to match
     if (!globalCtx) {}

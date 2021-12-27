@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DOOR_Z_EN_DOOR_C
+#include "actor_common.h"
 /*
  * File: z_en_door.c
  * Overlay: ovl_En_Door
@@ -10,6 +12,15 @@
 #include "objects/object_hidan_objects/object_hidan_objects.h"
 #include "objects/object_mizu_objects/object_mizu_objects.h"
 #include "objects/object_haka_door/object_haka_door.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 

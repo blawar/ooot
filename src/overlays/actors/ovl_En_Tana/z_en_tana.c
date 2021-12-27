@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_TANA_Z_EN_TANA_C
+#include "actor_common.h"
 /*
  * File: z_en_tana.c
  * Overlay: ovl_En_Tana
@@ -6,6 +8,9 @@
 
 #include "z_en_tana.h"
 #include "objects/object_shop_dungen/object_shop_dungen.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 

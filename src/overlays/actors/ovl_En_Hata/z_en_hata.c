@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HATA_Z_EN_HATA_C
+#include "actor_common.h"
 /*
  * File: z_en_hata.c
  * Overlay: ovl_En_Hata
@@ -6,6 +8,14 @@
 
 #include "z_en_hata.h"
 #include "objects/object_hata/object_hata.h"
+#include "def/code_80043480.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

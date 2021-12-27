@@ -1,5 +1,14 @@
+#define INTERNAL_SRC_LIBULTRA_IO_DEVMGR_C
 #include "global.h"
 #include "ultra64/internal.h"
+#include "ultra64/rcp.h"
+#include "def/devmgr.h"
+#include "def/epirawread.h"
+#include "def/epirawwrite.h"
+#include "def/recvmesg.h"
+#include "def/resetglobalintmask.h"
+#include "def/setglobalintmask.h"
+#include "def/yieldthread.h"
 
 void __osDevMgrMain(void* arg) {
     OSIoMesg* ioMesg;
@@ -22,7 +31,7 @@ void __osDevMgrMain(void* arg) {
             block = &transfer->block[transfer->blockNum];
             transfer->sectorNum = -1;
             if (transfer->transferMode != 3) {
-                block->dramAddr = (void*)((u32)block->dramAddr - block->sectorSize);
+                block->dramAddr = (void*)((uintptr_t)block->dramAddr - block->sectorSize);
             }
 
             phi_s2 = ((transfer->transferMode == 2) && (ioMesg->piHandle->transferInfo.cmdType == 0)) ? 1 : 0;

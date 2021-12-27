@@ -1,6 +1,25 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_IN_Z_EN_IN_C
+#include "actor_common.h"
 #include "z_en_in.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
 #include "objects/object_in/object_in.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/shrink_window.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 

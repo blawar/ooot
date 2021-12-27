@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ANUBICE_TAG_Z_EN_ANUBICE_TAG_C
+#include "actor_common.h"
 /*
  * File: z_en_anubice_tag.c
  * Overlay: ovl_En_Anubice_Tag
@@ -6,6 +8,8 @@
 
 #include "z_en_anubice_tag.h"
 #include "vt.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -103,10 +107,4 @@ void EnAnubiceTag_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnAnubiceTag_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnAnubiceTag* this = (EnAnubiceTag*)thisx;
-
-    if (BREG(0) != 0) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 0xFF, 0, 0, 0xFF, 4, globalCtx->state.gfxCtx);
-    }
 }

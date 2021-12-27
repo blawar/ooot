@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HEISHI1_Z_EN_HEISHI1_C
+#include "actor_common.h"
 /*
  * File: z_en_heishi1.c
  * Overlay: ovl_En_Heishi1
@@ -7,6 +9,16 @@
 #include "z_en_heishi1.h"
 #include "objects/object_sd/object_sd.h"
 #include "vt.h"
+#include "def/code_800FCE80.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -491,10 +503,4 @@ void EnHeishi1_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawOpa(globalCtx, this->skelAnime.skeleton, this->skelAnime.jointTable, EnHeishi1_OverrideLimbDraw, NULL,
                       this);
     func_80033C30(&this->actor.world.pos, &matrixScale, 0xFF, globalCtx);
-
-    if ((this->path == BREG(1)) && (BREG(0) != 0)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y + 100.0f, this->actor.world.pos.z,
-                               17000, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f, 1.0f, 255, 0, 0,
-                               255, 4, globalCtx->state.gfxCtx);
-    }
 }

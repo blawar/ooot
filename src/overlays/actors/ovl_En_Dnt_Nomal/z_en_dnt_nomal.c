@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DNT_NOMAL_Z_EN_DNT_NOMAL_C
+#include "actor_common.h"
 /*
  * File: z_en_dnt_nomal
  * Overlay: ovl_En_Dnt_Nomal
@@ -12,6 +14,20 @@
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "objects/object_hintnuts/object_hintnuts.h"
 #include "vt.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -170,7 +186,7 @@ void EnDntNomal_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnDntNomal_WaitForObject(EnDntNomal* this, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, this->objIndex)) {
-        gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[this->objIndex].segment);
+        gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[this->objIndex].vromStart);
         this->actor.objBankIndex = this->objIndex;
         ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
         this->actor.gravity = -2.0f;

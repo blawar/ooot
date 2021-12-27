@@ -1,3 +1,19 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_PLAYER_ACTOR_Z_PLAYER_C
+#include "actor_common.h"
+#include <z64camera.h>
+#include "z_player.h"
+#include "z_scene_table.h"
+#include "hack.h"
+extern u8 gPlayerModelTypes[][5];
+extern FlexSkeletonHeader* gPlayerSkelHeaders[2];
+extern u8 gPlayerModelTypes[][5];
+extern Gfx* D_80125DE8[];
+extern Gfx* D_80125E08[];
+extern Gfx* D_80125E18[];
+extern Gfx* D_80125EF8[];
+extern Gfx gCullBackDList[];
+extern Gfx gCullFrontDList[];
+
 /*
  * File: z_player.c
  * Overlay: ovl_player_actor
@@ -19,6 +35,45 @@
 #include "overlays/effects/ovl_Effect_Ss_Fhg_Flash/z_eff_ss_fhg_flash.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "def/code_80043480.h"
+#include "def/code_80097A00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/createmesgqueue.h"
+#include "def/graph.h"
+#include "def/shrink_window.h"
+#include "def/sys_math3d.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_debug.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lifemeter.h"
+#include "def/z_malloc.h"
+#include "def/z_map_exp.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
+#include "def/z_room.h"
+#include "def/z_scene.h"
+#include "def/z_scene_table.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
+#include "def/z_std_dma.h"
 
 typedef struct {
     /* 0x00 */ u8 itemId;
@@ -1140,12 +1195,14 @@ static LinkAnimationHeader* D_808543D4[] = {
 s32 func_80832210(Player* this) {
     this->actor.speedXZ = 0.0f;
     this->linearVelocity = 0.0f;
+    return 0;
 }
 
 // return type can't be void due to regalloc in func_8083F72C
 s32 func_80832224(Player* this) {
     func_80832210(this);
     this->unk_6AD = 0;
+    return 0;
 }
 
 s32 func_8083224C(GlobalContext* globalCtx) {
@@ -4645,14 +4702,14 @@ void func_8083AE40(Player* this, s16 objectId) {
 
     if (objectId != 0) {
         this->giObjectLoading = true;
-        osCreateMesgQueue(&this->giObjectLoadQueue, &this->giObjectLoadMsg, 1);
+        //osCreateMesgQueue(&this->giObjectLoadQueue, &this->giObjectLoadMsg, 1);
 
-        size = gObjectTable[objectId].vromEnd - gObjectTable[objectId].vromStart;
+        size = POINTER_SUB(gObjectTable[objectId].vromEnd, gObjectTable[objectId].vromStart);
 
         LOG_HEX("size", size, "../z_player.c", 9090);
         ASSERT(size <= 1024 * 8, "size <= 1024 * 8", "../z_player.c", 9091);
 
-        DmaMgr_SendRequest2(&this->giObjectDmaRequest, (u32)this->giObjectSegment, gObjectTable[objectId].vromStart,
+        DmaMgr_SendRequest2(&this->giObjectDmaRequest, this->giObjectSegment, gObjectTable[objectId].vromStart,
                             size, 0, &this->giObjectLoadQueue, NULL, "../z_player.c", 9099);
     }
 }
@@ -5877,7 +5934,7 @@ void func_8083E4C4(GlobalContext* globalCtx, Player* this, GetItemEntry* giEntry
 }
 
 s32 func_8083E5A8(Player* this, GlobalContext* globalCtx) {
-    Actor* interactedActor;
+    Actor* interactedActor = NULL;
 
     if (iREG(67) || (((interactedActor = this->interactRangeActor) != NULL) &&
                      func_8002D53C(globalCtx, &globalCtx->actorCtx.titleCtx))) {
@@ -9072,7 +9129,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
     Player_SetEquipmentData(globalCtx, this);
     this->prevBoots = this->currentBoots;
     Player_InitCommon(this, globalCtx, gPlayerSkelHeaders[((void)0, gSaveContext.linkAge)]);
-    this->giObjectSegment = (void*)(((u32)ZeldaArena_MallocDebug(0x3008, "../z_player.c", 17175) + 8) & ~0xF);
+    this->giObjectSegment = (void*)(((uintptr_t)ZeldaArena_MallocDebug(0x3008, "../z_player.c", 17175) + 8) & ~0xF);
 
     sp50 = gSaveContext.respawnFlag;
 
@@ -9102,7 +9159,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     if ((sp50 == 0) || (sp50 < -1)) {
-        titleFileSize = scene->titleFile.vromEnd - scene->titleFile.vromStart;
+        titleFileSize = POINTER_SUB(scene->titleFile.vromEnd, scene->titleFile.vromStart);
         if ((titleFileSize != 0) && gSaveContext.showTitleCard) {
             if ((gSaveContext.sceneSetupIndex < 4) &&
                 (gEntranceTable[((void)0, gSaveContext.entranceIndex) + ((void)0, gSaveContext.sceneSetupIndex)].field &

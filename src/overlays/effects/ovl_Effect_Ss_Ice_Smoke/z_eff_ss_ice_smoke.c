@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_ICE_SMOKE_Z_EFF_SS_ICE_SMOKE_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_ice_smoke.c
  * Overlay: ovl_Effect_Ss_Ice_Smoke
@@ -6,6 +8,10 @@
 
 #include "z_eff_ss_ice_smoke.h"
 #include "objects/object_fz/object_fz.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define rObjBankIdx regs[0]
 #define rAlpha regs[1]
@@ -30,7 +36,7 @@ u32 EffectSsIceSmoke_Init(GlobalContext* globalCtx, u32 index, EffectSs* this, v
 
     if ((objBankIdx > -1) && Object_IsLoaded(&globalCtx->objectCtx, objBankIdx)) {
         oldSeg6 = gSegments[6];
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[objBankIdx].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIdx].vromStart);
         Math_Vec3f_Copy(&this->pos, &initParams->pos);
         Math_Vec3f_Copy(&this->velocity, &initParams->velocity);
         Math_Vec3f_Copy(&this->accel, &initParams->accel);
@@ -57,7 +63,7 @@ void EffectSsIceSmoke_Draw(GlobalContext* globalCtx, u32 index, EffectSs* this) 
     f32 scale;
     s32 objBankIdx;
 
-    object = globalCtx->objectCtx.status[this->rObjBankIdx].segment;
+    object = gObjectTable[this->rObjBankIdx].vromStart;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_ice_smoke.c", 155);
 

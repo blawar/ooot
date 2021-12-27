@@ -1,5 +1,20 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_M_THUNDER_Z_EN_M_THUNDER_C
+#include "actor_common.h"
 #include "z_en_m_thunder.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

@@ -1,5 +1,25 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BOX_Z_EN_BOX_C
+#include "actor_common.h"
 #include "z_en_box.h"
 #include "objects/object_box/object_box.h"
+#include "def/code_80043480.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS 0
 

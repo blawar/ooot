@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_SHRINK_WINDOW_C
 #include "global.h"
+#include "regs.h"
+#include "z64game.h"
+#include "def/shrink_window.h"
 
 s32 D_8012CED0 = 0;
 

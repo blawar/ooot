@@ -1,4 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_FBDEMO_C
 #include "global.h"
+#include "gfx.h"
+#include "z64transition.h"
+#include "def/mtxf2l.h"
+#include "def/ortho.h"
+#include "def/sleep.h"
+#include "def/system_malloc.h"
+#include "def/z_fbdemo.h"
 
 Gfx D_8012AFB0[] = {
     gsDPPipeSync(),

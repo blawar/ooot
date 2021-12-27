@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HORSE_GAME_CHECK_Z_EN_HORSE_GAME_CHECK_C
+#include "actor_common.h"
 /*
  * File: z_en_horse_game_check.c
  * Overlay: ovl_En_Horse_Game_Check
@@ -6,6 +8,16 @@
 
 #include "z_en_horse_game_check.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/logutils.h"
+#include "def/sys_math3d.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
 
 #define FLAGS ACTOR_FLAG_4
 

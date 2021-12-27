@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MORI_HASHIRA4_Z_BG_MORI_HASHIRA4_C
+#include "actor_common.h"
 /*
  * File: z_bg_mori_hashira4
  * Overlay: ovl_Bg_Mori_Hashira4
@@ -6,6 +8,14 @@
 
 #include "z_bg_mori_hashira4.h"
 #include "objects/object_mori_objects/object_mori_objects.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -164,7 +174,7 @@ void BgMoriHashira4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 339);
     func_80093D18(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, globalCtx->objectCtx.status[this->moriTexObjIndex].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[this->moriTexObjIndex].vromStart);
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 344),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

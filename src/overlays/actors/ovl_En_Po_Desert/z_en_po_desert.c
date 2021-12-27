@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_PO_DESERT_Z_EN_PO_DESERT_C
+#include "actor_common.h"
 /*
  * File: z_en_po_desert.c
  * Overlay: ovl_En_Po_Desert
@@ -6,6 +8,17 @@
 
 #include "z_en_po_desert.h"
 #include "objects/object_po_field/object_po_field.h"
+#include "def/code_800FD970.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_7 | ACTOR_FLAG_12)
 

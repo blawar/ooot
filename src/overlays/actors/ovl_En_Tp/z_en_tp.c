@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_TP_Z_EN_TP_C
+#include "actor_common.h"
 /*
  * File: z_en_tp.c
  * Overlay: ovl_En_Tp
@@ -6,6 +8,16 @@
 
 #include "z_en_tp.h"
 #include "objects/object_tp/object_tp.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_REEBA_Z_EN_REEBA_C
+#include "actor_common.h"
 
 /*
  * File: z_en_reeba.c
@@ -9,6 +11,15 @@
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
 #include "vt.h"
 #include "objects/object_reeba/object_reeba.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
@@ -664,14 +675,4 @@ void EnReeba_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawOpa(globalCtx, this->skelanime.skeleton, this->skelanime.jointTable, NULL, NULL, this);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_reeba.c", 1088);
-
-    if (BREG(0)) {
-        Vec3f debugPos;
-
-        debugPos.x = (Math_SinS(this->actor.world.rot.y) * 30.0f) + this->actor.world.pos.x;
-        debugPos.y = this->actor.world.pos.y + 20.0f;
-        debugPos.z = (Math_CosS(this->actor.world.rot.y) * 30.0f) + this->actor.world.pos.z;
-        DebugDisplay_AddObject(debugPos.x, debugPos.y, debugPos.z, this->actor.world.rot.x, this->actor.world.rot.y,
-                               this->actor.world.rot.z, 1.0f, 1.0f, 1.0f, 255, 0, 0, 255, 4, globalCtx->state.gfxCtx);
-    }
 }

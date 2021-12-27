@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_DY_YOSEIZO_Z_BG_DY_YOSEIZO_C
+#include "actor_common.h"
 /*
  * File: z_bg_dy_yoseizo.c
  * Overlay: ovl_Bg_Dy_Yoseizo
@@ -10,6 +12,17 @@
 #include "overlays/actors/ovl_Demo_Effect/z_demo_effect.h"
 #include "scenes/indoors/yousei_izumi_yoko/yousei_izumi_yoko_scene.h"
 #include "scenes/indoors/daiyousei_izumi/daiyousei_izumi_scene.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 

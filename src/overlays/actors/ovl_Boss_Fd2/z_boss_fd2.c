@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_FD2_Z_BOSS_FD2_C
+#include "actor_common.h"
 /*
  * File: z_boss_fd2.c
  * Overlay: ovl_Boss_Fd2
@@ -9,6 +11,18 @@
 #include "overlays/actors/ovl_Boss_Fd/z_boss_fd.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "vt.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_demo.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

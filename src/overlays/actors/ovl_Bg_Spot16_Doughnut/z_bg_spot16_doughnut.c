@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT16_DOUGHNUT_Z_BG_SPOT16_DOUGHNUT_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot16_doughnut.c
  * Overlay: ovl_Bg_Spot16_Doughnut
@@ -7,6 +9,11 @@
 #include "z_bg_spot16_doughnut.h"
 #include "objects/object_efc_doughnut/object_efc_doughnut.h"
 #include "vt.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

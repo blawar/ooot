@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT00_HANEBASI_Z_BG_SPOT00_HANEBASI_C
+#include "actor_common.h"
+#include "z_kankyo.h"
 /*
  * File: z_bg_spot00_hanebasi.c
  * Overlay: ovl_Bg_Spot00_Hanebasi
@@ -7,6 +10,19 @@
 #include "z_bg_spot00_hanebasi.h"
 #include "objects/object_spot00_objects/object_spot00_objects.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_80043480.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

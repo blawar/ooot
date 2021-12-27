@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_MB_Z_EN_MB_C
+#include "actor_common.h"
 /*
  * File: z_en_mb.c
  * Overlay: ovl_En_Mb
@@ -6,6 +8,17 @@
 
 #include "z_en_mb.h"
 #include "objects/object_mb/object_mb.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 /*
  * This actor can have three behaviors:

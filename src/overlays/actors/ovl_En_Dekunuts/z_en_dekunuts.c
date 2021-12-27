@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DEKUNUTS_Z_EN_DEKUNUTS_C
+#include "actor_common.h"
 /*
  * File: z_en_dekunuts.c
  * Overlay: ovl_En_Dekunuts
@@ -7,6 +9,14 @@
 #include "z_en_dekunuts.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "objects/object_dekunuts/object_dekunuts.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 

@@ -1,7 +1,18 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_EX_RUPPY_Z_EN_EX_RUPPY_C
+#include "actor_common.h"
 #include "z_en_ex_ruppy.h"
 #include "vt.h"
 #include "../ovl_En_Diving_Game/z_en_diving_game.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

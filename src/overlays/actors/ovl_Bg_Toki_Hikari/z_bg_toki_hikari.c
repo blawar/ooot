@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_TOKI_HIKARI_Z_BG_TOKI_HIKARI_C
+#include "actor_common.h"
 /*
  * File: z_bg_toki_hikari.c
  * Overlay: ovl_Toki_Hikari
@@ -6,6 +8,11 @@
 
 #include "z_bg_toki_hikari.h"
 #include "objects/object_toki_objects/object_toki_objects.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_5
 

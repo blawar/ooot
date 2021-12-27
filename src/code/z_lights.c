@@ -1,5 +1,17 @@
+#define INTERNAL_SRC_CODE_Z_LIGHTS_C
 #include "global.h"
+#include "z64animation.h"
+#include "z64light.h"
+#include "gfx.h"
+#include "z64global.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_kankyo.h"
+#include "def/z_lights.h"
+#include "def/z_rcp.h"
+#include "def/zbuffer.h"
 
 #define LIGHTS_BUFFER_SIZE 32
 
@@ -193,6 +205,7 @@ s32 Lights_FreeNode(LightNode* light) {
         light->info = NULL;
         sLightsBuffer.searchIndex = (light - sLightsBuffer.buf) / sizeof(LightNode);
     }
+    return 0;
 }
 
 void LightContext_Init(GlobalContext* globalCtx, LightContext* lightCtx) {

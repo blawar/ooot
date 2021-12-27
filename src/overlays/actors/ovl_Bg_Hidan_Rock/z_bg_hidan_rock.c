@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_ROCK_Z_BG_HIDAN_ROCK_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_rock.c
  * Overlay: ovl_Bg_Hidan_Rock
@@ -6,6 +8,19 @@
 
 #include "z_bg_hidan_rock.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS 0
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HAKA_SGAMI_Z_BG_HAKA_SGAMI_C
+#include "actor_common.h"
 /*
  * File: z_bg_haka_sgami.c
  * Overlay: ovl_Bg_Haka_Sgami
@@ -7,6 +9,14 @@
 #include "z_bg_haka_sgami.h"
 #include "objects/object_haka_objects/object_haka_objects.h"
 #include "objects/object_ice_objects/object_ice_objects.h"
+#include "def/sinf.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect.h"
+#include "def/z_lib.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
 

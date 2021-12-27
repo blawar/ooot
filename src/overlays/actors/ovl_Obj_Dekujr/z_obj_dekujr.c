@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_DEKUJR_Z_OBJ_DEKUJR_C
+#include "actor_common.h"
 /*
  * File: z_obj_dekujr.c
  * Overlay: ovl_Obj_Dekujr
@@ -6,6 +8,11 @@
 
 #include "z_obj_dekujr.h"
 #include "objects/object_dekujr/object_dekujr.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 

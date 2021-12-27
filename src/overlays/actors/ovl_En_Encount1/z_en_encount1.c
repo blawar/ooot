@@ -1,6 +1,13 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ENCOUNT1_Z_EN_ENCOUNT1_C
+#include "z_debug_display.h"
+#include "actor_common.h"
 #include "z_en_encount1.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Tite/z_en_tite.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
@@ -321,18 +328,4 @@ void EnEncount1_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     this->updateFunc(this, globalCtx);
-
-    if (BREG(0) != 0) {
-        if (this->outOfRangeTimer != 0) {
-            if ((this->outOfRangeTimer & 1) == 0) {
-                DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                       this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                       1.0f, 1.0f, 120, 120, 120, 255, 4, globalCtx->state.gfxCtx);
-            }
-        } else {
-            DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                                   this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f,
-                                   1.0f, 1.0f, 255, 0, 255, 255, 4, globalCtx->state.gfxCtx);
-        }
-    }
 }

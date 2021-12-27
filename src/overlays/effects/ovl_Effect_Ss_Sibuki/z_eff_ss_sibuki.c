@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_SIBUKI_Z_EFF_SS_SIBUKI_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_sibuki.c
  * Overlay: ovl_Effect_Ss_Sibuki
@@ -6,6 +8,12 @@
 
 #include "z_eff_ss_sibuki.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define rPrimColorR regs[0]
 #define rPrimColorG regs[1]

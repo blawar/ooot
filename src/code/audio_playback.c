@@ -1,4 +1,13 @@
+#define INTERNAL_SRC_CODE_AUDIO_PLAYBACK_C
 #include "global.h"
+#include "z64audio.h"
+#include "def/audio_data.h"
+#include "def/audio_effects.h"
+#include "def/audio_heap.h"
+#include "def/audio_load.h"
+#include "def/audio_playback.h"
+#include "def/audio_seqplayer.h"
+#include "def/code_800F7260.h"
 
 void Audio_InitNoteSub(Note* note, NoteSubEu* sub, NoteSubAttributes* attrs) {
     f32 volRight, volLeft;
@@ -169,7 +178,7 @@ void Audio_ProcessNotes(void) {
         noteSubEu2 = &gAudioContext.noteSubsEu[gAudioContext.noteSubEuOffset + i];
         playbackState = &note->playbackState;
         if (playbackState->parentLayer != NO_LAYER) {
-            if ((u32)playbackState->parentLayer < 0x7FFFFFFF) {
+            if ((uintptr_t)playbackState->parentLayer < 0x7FFFFFFF) {
                 continue;
             }
 
@@ -349,7 +358,7 @@ Drum* Audio_GetDrum(s32 fontId, s32 drumId) {
         gAudioContext.audioErrorFlags = ((fontId << 8) + drumId) + 0x4000000;
         return NULL;
     }
-    if ((u32)gAudioContext.soundFonts[fontId].drums < 0x80000000) {
+    if ((uintptr_t)gAudioContext.soundFonts[fontId].drums < 0x80000000) {
         return NULL;
     }
     drum = gAudioContext.soundFonts[fontId].drums[drumId];
@@ -378,7 +387,7 @@ SoundFontSound* Audio_GetSfx(s32 fontId, s32 sfxId) {
         return NULL;
     }
 
-    if ((u32)gAudioContext.soundFonts[fontId].soundEffects < 0x80000000) {
+    if ((uintptr_t)gAudioContext.soundFonts[fontId].soundEffects < 0x80000000) {
         return NULL;
     }
 
@@ -612,9 +621,9 @@ void Audio_InitNoteFreeList(void) {
 
 void Audio_NotePoolClear(NotePool* pool) {
     s32 i;
-    AudioListItem* source;
-    AudioListItem* cur;
-    AudioListItem* dest;
+    AudioListItem* source = NULL;
+    AudioListItem* cur = NULL;
+    AudioListItem* dest = NULL;
 
     for (i = 0; i < 4; i++) {
         switch (i) {
@@ -653,9 +662,9 @@ void Audio_NotePoolClear(NotePool* pool) {
 void Audio_NotePoolFill(NotePool* pool, s32 count) {
     s32 i;
     s32 j;
-    Note* note;
-    AudioListItem* source;
-    AudioListItem* dest;
+    Note* note = NULL;
+    AudioListItem* source = NULL;
+    AudioListItem* dest = NULL;
 
     Audio_NotePoolClear(pool);
 

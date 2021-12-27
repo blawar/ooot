@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GIRLA_Z_EN_GIRLA_C
+#include "actor_common.h"
 /*
  * File: z_en_girla.c
  * Overlay: En_GirlA
@@ -6,6 +8,15 @@
 
 #include "z_en_girla.h"
 #include "vt.h"
+#include "def/code_80097A00.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_draw.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 

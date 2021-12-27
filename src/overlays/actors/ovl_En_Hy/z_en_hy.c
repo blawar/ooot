@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HY_Z_EN_HY_C
+#include "actor_common.h"
+
 /*
  * File: z_en_hy.c
  * Overlay: ovl_En_Hy
@@ -14,6 +17,22 @@
 #include "objects/object_cne/object_cne.h"
 #include "objects/object_cob/object_cob.h"
 #include "objects/object_os_anime/object_os_anime.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_path.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -68,10 +87,10 @@ static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 // NULL-terminated arrays of eye textures
 static void* sEyeTexturesAOB[] = { gDogLadyEyeOpenTex, gDogLadyEyeHalfTex, gDogLadyEyeClosedTex, NULL };
-static void* sEyeTexturesAHG7[] = { 0x0600057C, 0x0600067C, 0x0600077C, NULL };
+static void* sEyeTexturesAHG7[] = { object_ahg_Tex_00057C, object_ahg_Tex_00067C, object_ahg_Tex_00077C, NULL };
 static void* sEyeTexturesBBA[] = { object_bba_Tex_0004C8, NULL };
-static void* sEyeTexturesBJI13[] = { 0x060005FC, 0x060009FC, 0x06000DFC, NULL };
-static void* sEyeTexturesBOJ2[] = { 0x060005FC, 0x060006FC, 0x060007FC, NULL };
+static void* sEyeTexturesBJI13[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC, NULL };
+static void* sEyeTexturesBOJ2[] = { object_boj_Tex_0005FC, object_boj_Tex_0006FC, object_boj_Tex_0007FC, NULL };
 static void* sEyeTexturesBOB[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8, NULL };
 
 typedef struct {
@@ -102,18 +121,18 @@ typedef enum {
 static EnHyHeadInfo sHeadInfo[] = {
     /* ENHY_HEAD_AOB */ { OBJECT_AOB, gDogLadyHeadDL, sEyeTexturesAOB },
     /* ENHY_HEAD_BOB */ { OBJECT_BOB, object_bob_DL_003B78, sEyeTexturesBOB },
-    /* ENHY_HEAD_BOJ_2 */ { OBJECT_BOJ, 0x060026F0, sEyeTexturesBOJ2 },
+    /* ENHY_HEAD_BOJ_2 */ { OBJECT_BOJ, object_boj_DL_0026F0, sEyeTexturesBOJ2 },
     /* ENHY_HEAD_BOJ_3 */ { OBJECT_BOJ, object_boj_DL_0052E0, NULL },
     /* ENHY_HEAD_BOJ_4 */ { OBJECT_BOJ, object_boj_DL_005528, NULL },
     /* ENHY_HEAD_BOJ_5 */ { OBJECT_BOJ, object_boj_DL_005738, NULL },
     /* ENHY_HEAD_BOJ_6 */ { OBJECT_BOJ, object_boj_DL_0059B0, NULL },
-    /* ENHY_HEAD_AHG_7 */ { OBJECT_AHG, 0x060030F0, sEyeTexturesAHG7 },
+    /* ENHY_HEAD_AHG_7 */ { OBJECT_AHG, object_ahg_DL_0030F0, sEyeTexturesAHG7 },
     /* ENHY_HEAD_AHG_8 */ { OBJECT_AHG, object_ahg_DL_005508, NULL },
     /* ENHY_HEAD_AHG_9 */ { OBJECT_AHG, object_ahg_DL_005728, NULL },
     /* ENHY_HEAD_BBA */ { OBJECT_BBA, object_bba_DL_002948, sEyeTexturesBBA },
-    /* ENHY_HEAD_CNE_11 */ { OBJECT_CNE, 0x06001300, NULL },
+    /* ENHY_HEAD_CNE_11 */ { OBJECT_CNE, object_cne_DL_001300, NULL },
     /* ENHY_HEAD_CNE_12 */ { OBJECT_CNE, object_cne_DL_002860, NULL },
-    /* ENHY_HEAD_BJI_13 */ { OBJECT_BJI, 0x06002560, sEyeTexturesBJI13 },
+    /* ENHY_HEAD_BJI_13 */ { OBJECT_BJI, object_bji_DL_002560, sEyeTexturesBJI13 },
     /* ENHY_HEAD_BJI_14 */ { OBJECT_BJI, object_bji_DL_003F68, NULL },
     /* ENHY_HEAD_COB */ { OBJECT_COB, object_cob_DL_001300, NULL },
 };
@@ -137,11 +156,11 @@ typedef enum {
 static EnHySkeletonInfo sSkeletonInfo[] = {
     /* ENHY_SKEL_AOB */ { OBJECT_AOB, &gDogLadySkel },
     /* ENHY_SKEL_BOB */ { OBJECT_BOB, &object_bob_Skel_0000F0 },
-    /* ENHY_SKEL_BOJ */ { OBJECT_BOJ, 0x060000F0 },
-    /* ENHY_SKEL_AHG */ { OBJECT_AHG, 0x060000F0 },
+    /* ENHY_SKEL_BOJ */ { OBJECT_BOJ, &object_boj_Skel_0000F0 },
+    /* ENHY_SKEL_AHG */ { OBJECT_AHG, &object_ahg_Skel_0000F0 },
     /* ENHY_SKEL_BBA */ { OBJECT_BBA, &object_bba_Skel_0000F0 },
-    /* ENHY_SKEL_CNE */ { OBJECT_CNE, 0x060000F0 },
-    /* ENHY_SKEL_BJI */ { OBJECT_BJI, 0x060000F0 },
+    /* ENHY_SKEL_CNE */ { OBJECT_CNE, &object_cne_Skel_0000F0 },
+    /* ENHY_SKEL_BJI */ { OBJECT_BJI, &object_bji_Skel_0000F0 },
     /* ENHY_SKEL_COB */ { OBJECT_COB, &object_cob_Skel_0021F8 },
 };
 
@@ -894,12 +913,12 @@ void EnHy_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void EnHy_InitImpl(EnHy* this, GlobalContext* globalCtx) {
     if (EnHy_IsOsAnimeObjectLoaded(this, globalCtx) && EnHy_AreSkelAndHeadObjectsLoaded(this, globalCtx)) {
         this->actor.objBankIndex = this->objBankIndexSkel1;
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->actor.objBankIndex].vromStart);
         SkelAnime_InitFlex(globalCtx, &this->skelAnime,
                            sSkeletonInfo[sModelInfo[this->actor.params & 0x7F].skelInfoIndex1].skeleton, NULL,
                            this->jointTable, this->morphTable, 16);
         ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndexOsAnime].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndexOsAnime].vromStart);
         Collider_InitCylinder(globalCtx, &this->collider);
         Collider_SetCylinder(globalCtx, &this->collider, &this->actor, &sColCylInit);
         EnHy_InitCollider(this);
@@ -1077,7 +1096,7 @@ void EnHy_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnHy* this = (EnHy*)thisx;
 
     if (this->actionFunc != EnHy_InitImpl) {
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndexOsAnime].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndexOsAnime].vromStart);
         SkelAnime_Update(&this->skelAnime);
         EnHy_UpdateEyes(this);
 
@@ -1105,8 +1124,8 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2170);
 
     if (limbIndex == 15) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->objBankIndexHead].segment);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndexHead].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->objBankIndexHead].vromStart);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndexHead].vromStart);
         i = sModelInfo[this->actor.params & 0x7F].headInfoIndex;
         *dList = sHeadInfo[i].headDList;
 
@@ -1115,7 +1134,7 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
             gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(ptr));
         }
 
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndexSkel1].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndexSkel1].vromStart);
     }
 
     if (limbIndex == 15) {
@@ -1150,8 +1169,8 @@ void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2255);
 
     if (limbIndex == 7) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->objBankIndexSkel2].segment);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objBankIndexSkel2].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->objBankIndexSkel2].vromStart);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objBankIndexSkel2].vromStart);
     }
 
     if ((this->actor.params & 0x7F) == ENHY_TYPE_BOJ_3 && limbIndex == 8) {

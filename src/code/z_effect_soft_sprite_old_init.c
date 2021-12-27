@@ -1,4 +1,11 @@
+#define INTERNAL_SRC_CODE_Z_EFFECT_SOFT_SPRITE_OLD_INIT_C
 #include "global.h"
+#include "z64global.h"
+#include "z64effect.h"
+#include "z64math.h"
+#include "sfx.h"
+#include "color.h"
+#include "z64player.h"
 #include "overlays/effects/ovl_Effect_Ss_Dust/z_eff_ss_dust.h"
 #include "overlays/effects/ovl_Effect_Ss_KiraKira/z_eff_ss_kirakira.h"
 #include "overlays/effects/ovl_Effect_Ss_Bomb/z_eff_ss_bomb.h"
@@ -35,6 +42,15 @@
 #include "overlays/effects/ovl_Effect_Ss_Dead_Ds/z_eff_ss_dead_ds.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
 #include "overlays/effects/ovl_Effect_Ss_Ice_Smoke/z_eff_ss_ice_smoke.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_effect_soft_sprite.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
+#include "def/graph.h" // FORCE
 
 static Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
 
@@ -49,7 +65,7 @@ void EffectSs_DrawGEffect(GlobalContext* globalCtx, EffectSs* this, void* textur
     MtxF mfTrans11DA0;
     s32 pad1;
     Mtx* mtx;
-    void* object = globalCtx->objectCtx.status[this->rgObjBankIdx].segment;
+    void* object = gObjectTable[this->rgObjBankIdx].vromStart;
 
     OPEN_DISPS(gfxCtx, "../z_effect_soft_sprite_old_init.c", 196);
 

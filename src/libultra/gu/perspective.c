@@ -1,4 +1,10 @@
+#define INTERNAL_SRC_LIBULTRA_GU_PERSPECTIVE_C
 #include "global.h"
+#include "ultra64/gu.h"
+#include "def/cosf.h"
+#include "def/mtxf2l.h"
+#include "def/perspective.h"
+#include "def/sinf.h"
 
 void guPerspectiveF(f32 mf[4][4], u16* perspNorm, f32 fovy, f32 aspect, f32 near, f32 far, f32 scale) {
     f32 yscale;

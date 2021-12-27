@@ -1,5 +1,6 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VIGETCURRCONTEXT_C
 #include "global.h"
 
-OSViContext* __osViGetCurrentContext(void) {
-    return __osViCurr;
+struct OSViContext* __osViGetCurrentContext(void) {
+    return NULL;
 }

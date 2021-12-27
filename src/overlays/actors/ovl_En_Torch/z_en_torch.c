@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_TORCH_Z_EN_TORCH_C
+#include "actor_common.h"
 /*
  * File: z_en_torch.c
  * Overlay: ovl_En_Torch
@@ -5,6 +7,8 @@
  */
 
 #include "z_en_torch.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
 
 #define FLAGS 0
 

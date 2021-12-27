@@ -1,5 +1,13 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SHOPNUTS_Z_EN_SHOPNUTS_C
+#include "actor_common.h"
 #include "z_en_shopnuts.h"
 #include "objects/object_shopnuts/object_shopnuts.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 

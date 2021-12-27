@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_SEKIZOU_Z_BG_HIDAN_SEKIZOU_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_sekizou.c
  * Overlay: ovl_Bg_Hidan_Sekizou
@@ -6,6 +8,15 @@
 
 #include "z_bg_hidan_sekizou.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "def/code_80043480.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

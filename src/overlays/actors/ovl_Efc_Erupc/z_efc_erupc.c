@@ -1,5 +1,13 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EFC_ERUPC_Z_EFC_ERUPC_C
+#include "actor_common.h"
 #include "z_efc_erupc.h"
 #include "objects/object_efc_erupc/object_efc_erupc.h"
+#include "def/code_800EC960.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

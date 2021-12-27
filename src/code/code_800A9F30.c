@@ -1,4 +1,10 @@
+#define INTERNAL_SRC_CODE_CODE_800A9F30_C
 #include "global.h"
+#include "padmgr.h"
+#include <math.h>
+#include "def/code_800A9F30.h"
+#include "def/code_800D2E30.h"
+#include "def/padmgr.h"
 
 UnkRumbleStruct D_80160FD0;
 

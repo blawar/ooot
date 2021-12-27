@@ -1,7 +1,22 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FR_Z_EN_FR_C
+#include "actor_common.h"
 #include "z_en_fr.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "vt.h"
 #include "objects/object_fr/object_fr.h"
+#include "def/code_800EC960.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
@@ -1025,11 +1040,6 @@ void EnFr_SetIdle(EnFr* this, GlobalContext* globalCtx) {
 void EnFr_UpdateIdle(Actor* thisx, GlobalContext* globalCtx) {
     EnFr* this = (EnFr*)thisx;
 
-    if (BREG(0)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 255, 0, 0, 255, 4, globalCtx->state.gfxCtx);
-    }
     this->jumpCounter++;
     this->actionFunc(this, globalCtx);
 }

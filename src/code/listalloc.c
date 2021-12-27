@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_LISTALLOC_C
 #include "global.h"
+#include "listalloc.h"
+#include "def/listalloc.h"
+#include "def/system_malloc.h"
 
 ListAlloc* ListAlloc_Init(ListAlloc* this) {
     this->prev = NULL;

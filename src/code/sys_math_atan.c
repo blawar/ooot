@@ -1,4 +1,6 @@
+#define INTERNAL_SRC_CODE_SYS_MATH_ATAN_C
 #include "global.h"
+#include "def/sys_math_atan.h"
 
 static u16 sATan2Tbl[] = {
     0x0000, 0x000A, 0x0014, 0x001F, 0x0029, 0x0033, 0x003D, 0x0047, 0x0051, 0x005C, 0x0066, 0x0070, 0x007A, 0x0084,
@@ -78,16 +80,21 @@ static u16 sATan2Tbl[] = {
 };
 
 u16 Math_GetAtan2Tbl(f32 x, f32 y) {
-    s32 tblIdx = ((x / y) * 1024.0f) + 0.5f;
+    s32 tblIdx;
     u16 ret;
 
     if (y == 0.0f) {
         ret = sATan2Tbl[0];
-    } else if (tblIdx >= ARRAY_COUNT(sATan2Tbl)) {
-        ret = sATan2Tbl[0];
     } else {
-        ret = sATan2Tbl[tblIdx];
+        tblIdx = ((x * 1024.0f) / y) + 0.5f;
+
+        if (tblIdx >= ARRAY_COUNT(sATan2Tbl)) {
+            ret = sATan2Tbl[0];
+        } else {
+            ret = sATan2Tbl[tblIdx];
+        }
     }
+
     return ret;
 }
 

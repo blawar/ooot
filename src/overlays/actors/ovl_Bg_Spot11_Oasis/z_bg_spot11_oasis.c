@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT11_OASIS_Z_BG_SPOT11_OASIS_C
+#include "actor_common.h"
 /*
  * File: z_bg_spot11_oasis.c
  * Overlay: ovl_Bg_Spot11_Oasis
@@ -7,6 +9,15 @@
 #include "z_bg_spot11_oasis.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "objects/object_spot11_obj/object_spot11_obj.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

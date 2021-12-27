@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_PROMPT_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
+#include "def/code_800F7260.h"
 
 static s16 D_8082A6E0[] = { 100, 255 };
 

@@ -1,8 +1,19 @@
+#define INTERNAL_SRC_CODE_Z_GAME_DLFTBLS_C
 #include "global.h"
+#include "z64game.h"
+#include "title_setup.h"
+#include "segment_symbols.h"
+#include "z_select.h"
+#include "z_title.h"
+#include "z_player.h"
+#include "z_opening.h"
+#include "z_file_choose.h"
+#include "def/z_game_dlftbls.h"
+#include "def/z_play.h" // FORCE
 
 #define GAMESTATE_OVERLAY(name, init, destroy, size)                                                         \
     {                                                                                                        \
-        NULL, (u32)_ovl_##name##SegmentRomStart, (u32)_ovl_##name##SegmentRomEnd, _ovl_##name##SegmentStart, \
+        NULL, (uintptr_t)_ovl_##name##SegmentRomStart, (uintptr_t)_ovl_##name##SegmentRomEnd, _ovl_##name##SegmentStart, \
             _ovl_##name##SegmentEnd, 0, init, destroy, 0, 0, 0, size                                         \
     }
 #define GAMESTATE_OVERLAY_INTERNAL(init, destroy, size) \

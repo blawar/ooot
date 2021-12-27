@@ -1,4 +1,6 @@
+#define INTERNAL_SRC_CODE_CODE_80069420_C
 #include "global.h"
+#include "def/code_80069420.h"
 
 void* MemCopy(void* dest, void* src, s32 size) {
     u8* destu = (u8*)dest;

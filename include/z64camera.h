@@ -1,8 +1,10 @@
-#ifndef Z64CAMERA_H
-#define Z64CAMERA_H
+#pragma once
 
 #include "ultra64.h"
+#include "ultra64/types.h"
+#include "z64math.h"
 #include "z64cutscene.h"
+#include "z64bgcheck.h"
 
 #define CAM_STAT_CUT        0
 #define CAM_STAT_WAIT       1
@@ -363,7 +365,7 @@ typedef struct {
     /* 0x00 */ f32 initialEyeToAtDist;
     /* 0x04 */ f32 roll;
     /* 0x08 */ f32 yPosOffset;
-    /* 0x0C */ Actor* target;
+    /* 0x0C */ struct Actor* target;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ s16 unk_14; // unused
     /* 0x16 */ s16 initialEyeToAtYaw;
@@ -408,7 +410,7 @@ typedef struct {
     /* 0x00 */ f32 unk_00;
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
-    /* 0x0C */ Actor* unk_0C;
+    /* 0x0C */ struct Actor* unk_0C;
     /* 0x10 */ s16 unk_10;
     /* 0x12 */ s16 unk_12;
     /* 0x14 */ s16 unk_14;
@@ -434,7 +436,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ Vec3f eyeToAtTarget; // esentially a VecSph, but all floats.
-    /* 0x0C */ Actor* target;
+    /* 0x0C */ struct Actor* target;
     /* 0x10 */ Vec3f atTarget;
     /* 0x1C */ s16 animTimer;
 } Keep3Anim; // size = 0x20
@@ -806,7 +808,7 @@ typedef struct {
     /* 0x0 */ s16 animTimer;
 } Special5Anim; // size = 0x4
 
-typedef struct {
+typedef struct Special5 {
     /* 0x00 */ f32 yOffset;
     /* 0x04 */ f32 eyeDist;
     /* 0x08 */ f32 minDistForRot;
@@ -819,16 +821,16 @@ typedef struct {
     /* 0x1C */ Special5Anim anim;
 } Special5; // size = 0x20
 
-typedef struct {
+typedef struct Special7 {
     /* 0x0 */ s16 idx;
 } Special7; // size = 0x4
 
-typedef struct {
+typedef struct Special6Anim {
     /* 0x0 */ f32 initalPlayerY;
     /* 0x4 */ s16 animTimer;
 } Special6Anim; // size = 0x8
 
-typedef struct {
+typedef struct Special6 {
     /* 0x0 */ s16 interfaceFlags;
     /* 0x4 */ Special6Anim anim;
 } Special6; // size = 0xC
@@ -837,7 +839,7 @@ typedef struct {
     /* 0x0 */ s16 targetYaw;
 } Special9Anim; // size = 0x2
 
-typedef struct {
+typedef struct Special9Params {
     /* 0x0 */ f32 yOffset;
     /* 0x4 */ f32 unk_04;
     /* 0x8 */ s16 interfaceFlags;
@@ -845,12 +847,12 @@ typedef struct {
     /* 0xC */ Special9Anim anim;
 } Special9Params; // size = 0x10
 
-typedef struct {
+typedef struct Special9 {
     /* 0x0 */ DoorParams doorParams;
     /* 0xC */ Special9Params params;
 } Special9; // size = 0x1C
 
-typedef struct {
+typedef struct CamColChk {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f norm;
     /* 0x18 */ CollisionPoly* poly;
@@ -858,7 +860,7 @@ typedef struct {
     /* 0x24 */ s32 bgId;
 } CamColChk; // size = 0x28
 
-typedef struct {
+typedef struct Camera {
     /* 0x000 */ char paramData[0x50];
     /* 0x050 */ Vec3f at;
     /* 0x05C */ Vec3f eye;
@@ -925,7 +927,7 @@ typedef struct {
  * Debug Camera
 */
 
-typedef struct {
+typedef struct DbCameraSub {
     /* 0x0000 */ s16 mode;
     /* 0x0002 */ s16 nFrames;
     /* 0x0004 */ s16 nPoints;
@@ -942,7 +944,7 @@ typedef struct {
     /* 0x104A */ Vec3s unk_104A;
 } DbCameraSub; // size = 0x1050
 
-typedef struct {
+typedef struct DbCamera {
     /* 0x00 */ s32 unk_00;
     /* 0x04 */ Vec3f at;
     /* 0x10 */ Vec3f eye;
@@ -965,7 +967,7 @@ typedef struct {
     /* 0x7C */ DbCameraSub sub;
 } DbCamera; // size = 0x10CC
 
-typedef struct {
+typedef struct DbCameraCut {
     /* 0x00 */ char letter;
     /* 0x01 */ u8 unk_01;
     /* 0x02 */ s16 mode;
@@ -975,7 +977,7 @@ typedef struct {
     /* 0x0E */ s16 nPoints;
 } DbCameraCut; // size = 0x10
 
-typedef struct {
+typedef struct DbCameraAnim {
     /* 0x00 */ f32 curFrame;
     /* 0x04 */ f32 unk_04; // frame count?
     /* 0x08 */ s16 keyframe;
@@ -987,4 +989,37 @@ typedef struct {
     /* 0x2C */ f32 fov;
 } DbCameraAnim; // size = 0x30
 
-#endif
+/*
+void Camera_Init(Camera* camera, struct View* view, struct CollisionContext* colCtx, struct GlobalContext* globalCtx);
+void Camera_InitPlayerSettings(Camera* camera, struct Player* player);
+s16 Camera_ChangeStatus(Camera* camera, s16 status);
+Vec3s Camera_Update(Camera* camera);
+void Camera_Finish(Camera* camera);
+s32 Camera_ChangeMode(Camera* camera, s16 mode);
+s32 Camera_CheckValidMode(Camera* camera, s16 mode);
+s32 Camera_ChangeSetting(Camera* camera, s16 setting);
+s32 Camera_ChangeDataIdx(Camera* camera, s32 camDataIdx);
+s16 Camera_GetInputDirYaw(Camera* camera);
+Vec3s* Camera_GetCamDir(Vec3s* dir, Camera* camera);
+s16 Camera_GetCamDirPitch(Camera* camera);
+s16 Camera_GetCamDirYaw(Camera* camera);
+s32 Camera_AddQuake(Camera* camera, s32 arg1, s16 y, s32 countdown);
+s32 Camera_SetParam(Camera* camera, s32 param, void* value);
+s32 func_8005AC48(Camera* camera, s16 arg1);
+s16 func_8005ACFC(Camera* camera, s16 arg1);
+s16 func_8005AD1C(Camera* camera, s16 arg1);
+s32 Camera_ResetAnim(Camera* camera);
+s32 Camera_SetCSParams(Camera* camera, CutsceneCameraPoint* atPoints, CutsceneCameraPoint* eyePoints, struct Player* player,
+    s16 relativeToPlayer);
+s32 Camera_ChangeDoorCam(Camera* camera, struct Actor* doorActor, s16 camDataIdx, f32 arg3, s16 timer1, s16 timer2,
+    s16 timer3);
+s32 Camera_Copy(Camera* dstCamera, Camera* srcCamera);
+Vec3f* Camera_GetSkyboxOffset(Vec3f* dst, Camera* camera);
+void Camera_SetCameraData(Camera* camera, s16 setDataFlags, void* data0, void* data1, s16 data2, s16 data3,
+    UNK_TYPE arg6);
+s32 func_8005B198(void);
+s16 func_8005B1A4(Camera* camera);
+*/
+
+extern s32 gDbgCamEnabled;
+

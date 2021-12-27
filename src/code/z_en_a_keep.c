@@ -1,6 +1,16 @@
+#define INTERNAL_SRC_CODE_Z_EN_A_KEEP_C
 #include "global.h"
 #include "vt.h"
+#include "z64global.h"
+#include "sfx.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/graph.h" // FORCE
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -52,7 +62,7 @@ static ColliderCylinderInit sCylinderInit = {
     { 25, 60, 0, { 0, 0, 0 } },
 };
 
-extern CollisionHeader D_06000730; // gHookshotTargetCol ?
+static CollisionHeader D_06000730; // gHookshotTargetCol ?
 
 static CollisionHeader* sColHeaders[] = {
     &gLargerCubeCol,       // A_OBJ_GRASS_CLUMP, A_OBJ_TREE_STUMP

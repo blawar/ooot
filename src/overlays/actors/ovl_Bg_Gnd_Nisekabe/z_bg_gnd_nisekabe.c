@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_GND_NISEKABE_Z_BG_GND_NISEKABE_C
+#include "actor_common.h"
 /*
  * File: z_bg_gnd_nisekabe.c
  * Overlay: ovl_Bg_Gnd_Nisekabe
@@ -6,6 +8,8 @@
 
 #include "z_bg_gnd_nisekabe.h"
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
 
 #define FLAGS ACTOR_FLAG_4
 

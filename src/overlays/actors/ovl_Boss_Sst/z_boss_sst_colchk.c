@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "z_boss_sst.h"
 
 static ColliderJntSphElementInit sJntSphItemsInitHand[11] = {

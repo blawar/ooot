@@ -1,4 +1,10 @@
+#define INTERNAL_SRC_CODE_Z_MSGEVENT_C
 #include "global.h"
+#include "sched.h"
+#include "def/createmesgqueue.h"
+#include "def/recvmesg.h"
+#include "def/sched.h"
+#include "def/z_msgevent.h"
 
 void MsgEvent_SendNullTask(void) {
     s32 pad[4];

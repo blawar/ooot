@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ELF_MSG2_Z_ELF_MSG2_C
+#include "actor_common.h"
 /*
  * File: z_elf_msg2.c
  * Overlay: ovl_Elf_Msg2
@@ -6,6 +8,10 @@
 
 #include "z_elf_msg2.h"
 #include "vt.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

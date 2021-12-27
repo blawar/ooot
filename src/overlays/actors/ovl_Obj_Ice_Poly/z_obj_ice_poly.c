@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_ICE_POLY_Z_OBJ_ICE_POLY_C
+#include "actor_common.h"
 /*
  * File: z_obj_ice_poly.c
  * Overlay: ovl_Obj_Ice_Poly
@@ -6,6 +8,14 @@
 
 #include "z_obj_ice_poly.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

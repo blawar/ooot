@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HAKA_Z_BG_HAKA_C
+#include "actor_common.h"
 /*
  * File: z_bg_haka.c
  * Overlay: ovl_Bg_Haka
@@ -6,6 +8,15 @@
 
 #include "z_bg_haka.h"
 #include "objects/object_haka/object_haka.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FHG_Z_EN_FHG_C
+#include "actor_common.h"
 /*
  * File: z_en_fhg.c
  * Overlay: ovl_En_fHG
@@ -9,6 +11,17 @@
 #include "overlays/actors/ovl_Door_Shutter/z_door_shutter.h"
 #include "overlays/actors/ovl_Boss_Ganondrof/z_boss_ganondrof.h"
 #include "overlays/actors/ovl_En_Fhg_Fire/z_en_fhg_fire.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin.h"
+#include "def/z_skin_awb.h"
 
 #define FLAGS ACTOR_FLAG_4
 

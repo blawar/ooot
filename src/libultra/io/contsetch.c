@@ -1,5 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_CONTSETCH_C
 #include "ultra64.h"
 #include "global.h"
+#include "def/contsetch.h"
 
 /*
  * s32 osContSetCh(u8 ch)
@@ -7,15 +9,5 @@
  * direct SI devices.
  */
 s32 osContSetCh(u8 ch) {
-    __osSiGetAccess();
-
-    if (ch > MAXCONTROLLERS) {
-        __osMaxControllers = MAXCONTROLLERS;
-    } else {
-        __osMaxControllers = ch;
-    }
-
-    __osContLastPoll = -2;
-    __osSiRelAccess();
     return 0;
 }

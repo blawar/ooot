@@ -1,5 +1,15 @@
+#define INTERNAL_SRC_CODE_Z_QUAKE_C
 #include "global.h"
 #include "vt.h"
+#include "quake.h"
+#include "z64camera.h"
+#include "z64global.h"
+#include <string.h>
+#include "def/code_800FD970.h"
+#include "def/code_80106860.h"
+#include "def/z_lib.h"
+#include "def/z_olib.h"
+#include "def/z_quake.h"
 
 QuakeRequest sQuakeRequest[4];
 s16 D_80126250 = 1;
@@ -152,7 +162,7 @@ QuakeRequest* Quake_AddImpl(Camera* cam, u32 callbackIdx) {
     s16 idx = Quake_GetFreeIndex();
     QuakeRequest* req = &sQuakeRequest[idx];
 
-    func_80106860(req, 0, sizeof(QuakeRequest)); // memset
+    z_memset(req, 0, sizeof(QuakeRequest)); // memset
     req->cam = cam;
     req->camPtrIdx = cam->thisIdx;
     req->callbackIdx = callbackIdx;
@@ -223,6 +233,7 @@ QuakeRequest* Quake_SetValue(s16 idx, s16 valueType, s16 value) {
                 break;
         }
     }
+    return 0;
 }
 
 u32 Quake_SetSpeed(s16 idx, s16 value) {

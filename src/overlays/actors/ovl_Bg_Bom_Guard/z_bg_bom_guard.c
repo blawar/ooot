@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_BOM_GUARD_Z_BG_BOM_GUARD_C
+#include "actor_common.h"
 /*
  * File: z_bg_bom_guard.c
  * Overlay: Bg_Bom_Guard
@@ -8,6 +10,8 @@
 #include "overlays/actors/ovl_En_Bom_Bowl_Man/z_en_bom_bowl_man.h"
 #include "objects/object_bowl/object_bowl.h"
 #include "vt.h"
+#include "def/code_80043480.h"
+#include "def/z_bgcheck.h"
 
 #define FLAGS ACTOR_FLAG_4
 

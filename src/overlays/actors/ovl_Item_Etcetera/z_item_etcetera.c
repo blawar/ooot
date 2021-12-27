@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ITEM_ETCETERA_Z_ITEM_ETCETERA_C
+#include "actor_common.h"
 /*
  * File: z_item_etcetera.c
  * Overlay: ovl_Item_Etcetera
@@ -5,6 +7,12 @@
  */
 
 #include "z_item_etcetera.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_draw.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 

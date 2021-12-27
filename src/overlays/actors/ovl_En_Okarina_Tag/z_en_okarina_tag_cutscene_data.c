@@ -1,3 +1,4 @@
+#include "actor_common.h"
 #include "z_en_okarina_tag.h"
 #include "z64cutscene_commands.h"
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_SHUTTER_Z_DOOR_SHUTTER_C
+#include "actor_common.h"
 /*
  * File: z_door_shutter.c
  * Overlay: ovl_Door_Shutter
@@ -23,6 +25,23 @@
 #include "objects/object_menkuri_objects/object_menkuri_objects.h"
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
 #include "objects/object_ouke_haka/object_ouke_haka.h"
+#include "def/code_80043480.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_play.h"
+#include "def/z_player_lib.h"
+#include "def/z_quake.h"
+#include "def/z_rcp.h"
+#include "def/z_room.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -251,11 +270,11 @@ void DoorShutter_Init(Actor* thisx, GlobalContext* globalCtx2) {
     } else {
         this->dyna.actor.room = -1;
     }
-    if (this->requiredObjBankIndex = objectIndex = Object_GetIndex(&globalCtx->objectCtx, sObjectInfo[phi_a3].objectId),
-        (s8)objectIndex < 0) {
-        Actor_Kill(&this->dyna.actor);
-        return;
-    }
+    //if (this->requiredObjBankIndex = objectIndex = Object_GetIndex(&globalCtx->objectCtx, sObjectInfo[phi_a3].objectId),
+    //   (s8)objectIndex < 0) {
+    //    Actor_Kill(&this->dyna.actor);
+    //    return;
+    //}
     DoorShutter_SetupAction(this, DoorShutter_SetupType);
     this->unk_16B = phi_a3;
     if (this->doorType == SHUTTER_KEY_LOCKED || this->doorType == SHUTTER_BOSS) {

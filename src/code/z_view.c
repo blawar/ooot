@@ -1,5 +1,26 @@
+#define INTERNAL_SRC_CODE_Z_VIEW_C
 #include "global.h"
+#include "ultra64/gbi.h"
+#include "z64render.h"
+#include "view.h"
 #include "vt.h"
+#include "z_play.h"
+#include "regs.h"
+#include "z64game.h"
+#include "z_view.h"
+#include "z64gu.h"
+#include "z64memory.h"
+#include "shrink_window.h"
+#include "def/code_80106860.h"
+#include "def/graph.h"
+#include "def/logutils.h"
+#include "def/lookat.h"
+#include "def/ortho.h"
+#include "def/perspective.h"
+#include "def/shrink_window.h"
+#include "def/sys_matrix.h"
+#include "def/system_malloc.h"
+#include "def/z_view.h"
 
 vu32 D_8012ABF0 = true;
 
@@ -21,7 +42,7 @@ View* View_New(GraphicsContext* gfxCtx) {
     View* view = SystemArena_MallocDebug(sizeof(View), "../z_view.c", 285);
 
     if (view != NULL) {
-        func_80106860(view, 0, sizeof(View)); // memset
+        z_memset(view, 0, sizeof(View)); // memset
         View_Init(view, gfxCtx);
     }
 
@@ -186,6 +207,7 @@ void func_800AA78C(View* view, f32 x, f32 y, f32 z) {
 
 s32 func_800AA7AC(View* view, f32 arg1) {
     view->unk_100 = arg1;
+    return 0;
 }
 
 void func_800AA7B8(View* view) {
@@ -271,7 +293,6 @@ s32 func_800AAA9C(View* view) {
     OPEN_DISPS(gfxCtx, "../z_view.c", 596);
 
     vp = Graph_Alloc(gfxCtx, sizeof(Vp));
-    LogUtils_CheckNullPointer("vp", vp, "../z_view.c", 601);
     View_ViewportToVp(vp, &view->viewport);
     view->vp = *vp;
 
@@ -281,7 +302,6 @@ s32 func_800AAA9C(View* view) {
     gSPViewport(POLY_XLU_DISP++, vp);
 
     projection = Graph_Alloc(gfxCtx, sizeof(Mtx));
-    LogUtils_CheckNullPointer("projection", projection, "../z_view.c", 616);
     view->projectionPtr = projection;
 
     width = view->viewport.rightX - view->viewport.leftX;
@@ -327,7 +347,7 @@ s32 func_800AAA9C(View* view) {
     gSPMatrix(POLY_XLU_DISP++, projection, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
     viewing = Graph_Alloc(gfxCtx, sizeof(Mtx));
-    LogUtils_CheckNullPointer("viewing", viewing, "../z_view.c", 667);
+
     view->viewingPtr = viewing;
 
     if (view->eye.x == view->lookAt.x && view->eye.y == view->lookAt.y && view->eye.z == view->lookAt.z) {

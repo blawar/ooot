@@ -1,5 +1,37 @@
+#define INTERNAL_SRC_CODE_Z_ROOM_C
 #include "global.h"
 #include "vt.h"
+#include "z64global.h"
+#include <z64math.h>
+#include "ultra64/gbi.h"
+#include "ultra64/gs2dex.h"
+#include "z64player.h"
+#include "z64save.h"
+#include "rsp.h"
+#include "def/code_800EC960.h"
+#include "def/createmesgqueue.h"
+#include "def/game.h"
+#include "def/gettime.h"
+#include "def/gfxbuffers.h"
+#include "def/logutils.h"
+#include "def/recvmesg.h"
+#include "def/sys_matrix.h"
+#include "def/sys_ucode.h"
+#include "def/us2dex.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_common_data.h"
+#include "def/z_jpeg.h"
+#include "def/z_map_exp.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_room.h"
+#include "def/z_scene.h"
+#include "def/z_skin_matrix.h"
+#include "def/z_std_dma.h"
+#include "def/zbuffer.h"
+#include "def/graph.h" // FORCE
 
 void func_80095AB4(GlobalContext* globalCtx, Room* room, u32 flags);
 void func_80095D04(GlobalContext* globalCtx, Room* room, u32 flags);
@@ -492,7 +524,7 @@ u32 func_80096FE8(GlobalContext* globalCtx, RoomContext* roomCtx) {
     u32 cumulRoomSize;
 
     for (i = 0; i < globalCtx->numRooms; i++) {
-        roomSize = roomList[i].vromEnd - roomList[i].vromStart;
+        roomSize = POINTER_SUB(roomList[i].vromEnd, roomList[i].vromStart);
         osSyncPrintf("ROOM%d size=%d\n", i, roomSize);
         if (maxRoomSize < roomSize) {
             maxRoomSize = roomSize;
@@ -508,8 +540,8 @@ u32 func_80096FE8(GlobalContext* globalCtx, RoomContext* roomCtx) {
         for (j = 0; j < globalCtx->transiActorCtx.numActors; j++) {
             frontRoom = transitionActor->sides[0].room;
             backRoom = transitionActor->sides[1].room;
-            frontRoomSize = (frontRoom < 0) ? 0 : roomList[frontRoom].vromEnd - roomList[frontRoom].vromStart;
-            backRoomSize = (backRoom < 0) ? 0 : roomList[backRoom].vromEnd - roomList[backRoom].vromStart;
+            frontRoomSize = (frontRoom < 0) ? 0 : POINTER_SUB(roomList[frontRoom].vromEnd, roomList[frontRoom].vromStart);
+            backRoomSize = (backRoom < 0) ? 0 : POINTER_SUB(roomList[backRoom].vromEnd, roomList[backRoom].vromStart);
             cumulRoomSize = (frontRoom != backRoom) ? frontRoomSize + backRoomSize : frontRoomSize;
 
             osSyncPrintf("DOOR%d=<%d> ROOM1=<%d, %d> ROOM2=<%d, %d>\n", j, cumulRoomSize, frontRoom, frontRoomSize,
@@ -521,16 +553,6 @@ u32 func_80096FE8(GlobalContext* globalCtx, RoomContext* roomCtx) {
         }
     }
 
-    osSyncPrintf(VT_FGCOL(YELLOW));
-    // "Room buffer size=%08x(%5.1fK)"
-    osSyncPrintf("部屋バッファサイズ=%08x(%5.1fK)\n", maxRoomSize, maxRoomSize / 1024.0f);
-    roomCtx->bufPtrs[0] = GameState_Alloc(&globalCtx->state, maxRoomSize, "../z_room.c", 946);
-    // "Room buffer initial pointer=%08x"
-    osSyncPrintf("部屋バッファ開始ポインタ=%08x\n", roomCtx->bufPtrs[0]);
-    roomCtx->bufPtrs[1] = (void*)((s32)roomCtx->bufPtrs[0] + maxRoomSize);
-    // "Room buffer end pointer=%08x"
-    osSyncPrintf("部屋バッファ終了ポインタ=%08x\n", roomCtx->bufPtrs[1]);
-    osSyncPrintf(VT_RST);
     roomCtx->unk_30 = 0;
     roomCtx->status = 0;
 
@@ -541,8 +563,9 @@ u32 func_80096FE8(GlobalContext* globalCtx, RoomContext* roomCtx) {
     return maxRoomSize;
 }
 
+
 s32 func_8009728C(GlobalContext* globalCtx, RoomContext* roomCtx, s32 roomNum) {
-    u32 size;
+    size_t size;
 
     if (roomCtx->status == 0) {
         roomCtx->prevRoom = roomCtx->curRoom;
@@ -552,12 +575,13 @@ s32 func_8009728C(GlobalContext* globalCtx, RoomContext* roomCtx, s32 roomNum) {
 
         ASSERT(roomNum < globalCtx->numRooms, "read_room_ID < game_play->room_rom_address.num", "../z_room.c", 1009);
 
-        size = globalCtx->roomList[roomNum].vromEnd - globalCtx->roomList[roomNum].vromStart;
-        roomCtx->unk_34 = (void*)ALIGN16((u32)roomCtx->bufPtrs[roomCtx->unk_30] - ((size + 8) * roomCtx->unk_30 + 7));
+        size = POINTER_SUB(globalCtx->roomList[roomNum].vromEnd, globalCtx->roomList[roomNum].vromStart);
+        /*roomCtx->unk_34 = (void*)ALIGN16((uintptr_t)roomCtx->bufPtrs[roomCtx->unk_30] - ((size + 8) * roomCtx->unk_30 + 7));
 
         osCreateMesgQueue(&roomCtx->loadQueue, &roomCtx->loadMsg, 1);
         DmaMgr_SendRequest2(&roomCtx->dmaRequest, roomCtx->unk_34, globalCtx->roomList[roomNum].vromStart, size, 0,
-                            &roomCtx->loadQueue, NULL, "../z_room.c", 1036);
+                            &roomCtx->loadQueue, NULL, "../z_room.c", 1036);*/
+        roomCtx->unk_34 = globalCtx->roomList[roomNum].vromStart;
         roomCtx->unk_30 ^= 1;
 
         return 1;

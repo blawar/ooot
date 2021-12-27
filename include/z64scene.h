@@ -1,26 +1,18 @@
-#ifndef Z64SCENE_H
-#define Z64SCENE_H
-
+#pragma once
+#include "ultra64/types.h"
 #include "command_macros_base.h"
+#include "z64file.h"
+#include "z64math.h"
+#include "z64dma.h"
 
-typedef struct {
-    /* 0x00 */ u32 vromStart;
-    /* 0x04 */ u32 vromEnd;
-} RomFile; // size = 0x8
+//struct Gfx;
 
-typedef struct {
-    /* 0x00 */ RomFile sceneFile;
-    /* 0x08 */ RomFile titleFile;
-    /* 0x10 */ u8  unk_10;
-    /* 0x11 */ u8  config;
-    /* 0x12 */ u8  unk_12;
-    /* 0x13 */ u8  unk_13;
-} SceneTableEntry; // size = 0x14
+#pragma pack(push, 4)
 
 typedef struct {
     /* 0x00 */ u8  code;
     /* 0x01 */ u8  data1;
-    /* 0x04 */ u32 data2;
+    /* 0x04 */ uintptr_t data2;
 } SCmdBase;
 
 typedef struct {
@@ -72,13 +64,13 @@ typedef struct {
 typedef struct {
     /* 0x00 */ u8  code;
     /* 0x01 */ u8  cUpElfMsgNum;
-    /* 0x04 */ u32 keepObjectId;
+    /* 0x04 */ uintptr_t keepObjectId;
 } SCmdSpecialFiles;
 
 typedef struct {
     /* 0x00 */ u8  code;
     /* 0x01 */ u8  gpFlag1;
-    /* 0x04 */ u32 gpFlag2;
+    /* 0x04 */ uintptr_t gpFlag2;
 } SCmdRoomBehavior;
 
 typedef struct {
@@ -146,7 +138,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ u8  code;
     /* 0x01 */ u8  data1;
-    /* 0x04 */ u32 data2;
+    /* 0x04 */ uintptr_t data2;
 } SCmdEndMarker;
 
 typedef struct {
@@ -185,7 +177,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ u8  code;
     /* 0x01 */ u8  cameraMovement;
-    /* 0x04 */ u32 area;
+    /* 0x04 */ uintptr_t area;
 } SCmdMiscSettings;
 
 typedef struct {
@@ -195,13 +187,13 @@ typedef struct {
 typedef struct {
     MeshHeaderBase base;
     u8 numEntries;
-    Gfx* dListStart;
-    Gfx* dListEnd;
+    struct Gfx* dListStart;
+    struct Gfx* dListEnd;
 } MeshHeader0;
 
 typedef struct {
-    Gfx* opaqueDList;
-    Gfx* translucentDList;
+    struct Gfx* opaqueDList;
+    struct Gfx* translucentDList;
 } MeshEntry0;
 
 typedef struct {
@@ -246,15 +238,15 @@ typedef struct {
 typedef struct {
     s16 playerXMax, playerZMax;
     s16 playerXMin, playerZMin;
-    Gfx* opaqueDList;
-    Gfx* translucentDList;
+    struct Gfx* opaqueDList;
+    struct Gfx* translucentDList;
 } MeshEntry2;
 
 typedef struct {
     MeshHeaderBase base;
     u8 numEntries;
-    Gfx* dListStart;
-    Gfx* dListEnd;
+    struct Gfx* dListStart;
+    struct Gfx* dListEnd;
 } MeshHeader2;
 
 typedef struct {
@@ -270,7 +262,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u8 count; // number of points in the path
-    /* 0x04 */ Vec3s* points; // Segment Address to the array of points
+    /* 0x04 */ struct Vec3s* points; // Segment Address to the array of points
 } Path; // size = 0x8
 
 typedef union {
@@ -528,4 +520,137 @@ typedef enum {
     { SCENE_CMD_ID_MISC_SETTINGS, camMode, CMD_W(worldMapLocation) }
 
 
-#endif
+typedef struct {
+    RomFile sceneFile;
+    RomFile titleFile;
+    u8 unk_10;
+    u8 config;
+    u8 unk_12;
+    u8 unk_13;
+    SceneCmd* cmds;
+} SceneTableEntry; // size = 0x14
+
+#pragma pack(pop)
+
+typedef struct {
+    /* 0x00 */ struct Gfx* opa;
+    /* 0x04 */ struct Gfx* xlu;
+} PolygonDlist; // size = 0x8
+
+typedef struct {
+    /* 0x00 */ u8 type;
+    /* 0x01 */ u8 num; // number of dlist entries
+    /* 0x04 */ void* start;
+    /* 0x08 */ void* end;
+} ZPolygon; // size = 0xC
+
+typedef struct {
+    /* 0x00 */ u8 type;
+    /* 0x01 */ u8 num; // number of dlist entries
+    /* 0x04 */ void* start;
+    /* 0x08 */ void* end;
+} PolygonType0; // size = 0xC
+
+typedef struct {
+    /* 0x00 */ u16 unk_00;
+    /* 0x02 */ u8 id;
+    /* 0x04 */ u32 source;
+    /* 0x08 */ u32 unk_0C;
+    /* 0x0C */ u32 tlut;
+    /* 0x10 */ u16 width;
+    /* 0x12 */ u16 height;
+    /* 0x14 */ u8 fmt;
+    /* 0x15 */ u8 siz;
+    /* 0x16 */ u16 mode0;
+    /* 0x18 */ u16 tlutCount;
+} BgImage; // size = 0x1C
+
+typedef struct {
+    /* 0x00 */ u8 type;
+    /* 0x01 */ u8 format; // 1 = single, 2 = multi
+    /* 0x04 */ struct Gfx* dlist;
+    union {
+        struct {
+            /* 0x08 */ void* source;
+            /* 0x0C */ u32 unk_0C;
+            /* 0x10 */ void* tlut;
+            /* 0x14 */ u16 width;
+            /* 0x16 */ u16 height;
+            /* 0x18 */ u8 fmt;
+            /* 0x19 */ u8 siz;
+            /* 0x1A */ u16 mode0;
+            /* 0x1C */ u16 tlutCount;
+        } single;
+        struct {
+            /* 0x08 */ u8 count;
+            /* 0x0C */ BgImage* list;
+        } multi;
+    };
+} PolygonType1;
+
+typedef struct {
+    /* 0x00 */ Vec3s pos;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ struct Gfx* opa;
+    /* 0x0C */ struct Gfx* xlu;
+} PolygonDlist2; // size = 0x8
+
+typedef struct {
+    /* 0x00 */ u8 type;
+    /* 0x01 */ u8 num; // number of dlist entries
+    /* 0x04 */ void* start;
+    /* 0x08 */ void* end;
+} PolygonType2; // size = 0xC
+
+typedef union {
+    ZPolygon polygon;
+    PolygonType0 polygon0;
+    PolygonType1 polygon1;
+    PolygonType2 polygon2;
+} Mesh; // "Ground Shape"
+
+typedef struct {
+    /* 0x00 */ s8 num;
+    /* 0x01 */ u8 unk_01;
+    /* 0x02 */ u8 unk_02;
+    /* 0x03 */ u8 unk_03;
+    /* 0x04 */ s8 echo;
+    /* 0x05 */ u8 showInvisActors;
+    /* 0x08 */ Mesh* mesh; // original name: "ground_shape"
+    /* 0x0C */ void* segment;
+    /* 0x10 */ char unk_10[0x4];
+} Room; // size = 0x14
+
+typedef struct {
+    /* 0x00 */ Room curRoom;
+    /* 0x14 */ Room prevRoom;
+    /* 0x30 */ u8 unk_30;
+    /* 0x31 */ s8 status;
+    /* 0x34 */ void* unk_34;
+    /* 0x38 */ DmaRequest dmaRequest;
+    /* 0x58 */ OSMesgQueue loadQueue;
+    /* 0x70 */ OSMesg loadMsg;
+    /* 0x74 */ s16 unk_74[2]; // context-specific data used by the current scene draw config
+} RoomContext;                // size = 0x78
+
+typedef struct {
+    struct {
+        s8 room;           // Room to switch to
+        s8 effects;        // How the camera reacts during the transition
+    } /* 0x00 */ sides[2]; // 0 = front, 1 = back
+    /* 0x04 */ s16 id;
+    /* 0x06 */ Vec3s pos;
+    /* 0x0C */ s16 rotY;
+    /* 0x0E */ s16 params;
+} TransitionActorEntry; // size = 0x10
+
+typedef struct {
+    /* 0x00 */ u8 numActors;
+    /* 0x04 */ TransitionActorEntry* list;
+} TransitionActorContext;
+
+typedef struct {
+    /* 0x00 */ u8 spawn;
+    /* 0x01 */ u8 room;
+} EntranceEntry;
+

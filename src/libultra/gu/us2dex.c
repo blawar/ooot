@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_LIBULTRA_GU_US2DEX_C
 #include "global.h"
+#include "ultra64/gbi.h"
+#include "ultra64/gs2dex.h"
+#include "def/us2dex.h"
 
 void guS2DInitBg(uObjBg* bg) {
     u32 size;

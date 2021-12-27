@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT18_OBJ_Z_BG_SPOT18_OBJ_C
+#include "actor_common.h"
 
 /*
  * File: z_bg_spot18_obj.c
@@ -7,6 +9,12 @@
 
 #include "z_bg_spot18_obj.h"
 #include "objects/object_spot18_obj/object_spot18_obj.h"
+#include "def/code_80043480.h"
+#include "def/sys_math3d.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

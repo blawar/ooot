@@ -1,5 +1,10 @@
+#define INTERNAL_SRC_CODE_SYS_MATH3D_C
 #include "global.h"
 #include "vt.h"
+#include "z64math.h"
+#include "math.h"
+#include "def/sys_math3d.h"
+#include "def/z_lib.h"
 
 s32 Math3D_LineVsLineClosestTwoPoints(Vec3f* lineAPointA, Vec3f* lineAPointB, Vec3f* lineBPointA, Vec3f* lineBPointB,
                                       Vec3f* lineAClosestToB, Vec3f* lineBClosestToA);
@@ -2147,8 +2152,8 @@ s32 Math3D_YZInSphere(Sphere16* sphere, f32 y, f32 z) {
     return false;
 }
 
-void Math3D_DrawSphere(GlobalContext* globalCtx, Sphere16* sph) {
+void Math3D_DrawSphere(struct GlobalContext* globalCtx, Sphere16* sph) {
 }
 
-void Math3D_DrawCylinder(GlobalContext* globalCtx, Cylinder16* cyl) {
+void Math3D_DrawCylinder(struct GlobalContext* globalCtx, Cylinder16* cyl) {
 }

@@ -1,5 +1,17 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_LMAP_MARK_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_kaleido_manager.h"
+#include "def/z_kaleido_scope_call.h"
+#include "def/z_lib.h"
+#include "def/z_map_mark.h"
+
+extern u8 gBossMarkState;
+extern f32 gBossMarkScale;
+extern PauseMapMarksData* gLoadedPauseMarkDataTable;
 
 typedef struct {
     /* 0x00 */ void* texture;

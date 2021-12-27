@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_CHANGER_Z_EN_CHANGER_C
+#include "actor_common.h"
 /*
  * File: z_en_changer.c
  * Overlay: ovl_En_Changer
@@ -8,6 +10,8 @@
 #include "vt.h"
 #include "overlays/actors/ovl_Item_Etcetera/z_item_etcetera.h"
 #include "overlays/actors/ovl_En_Ex_Item/z_en_ex_item.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
 
 #define FLAGS 0
 
@@ -290,11 +294,5 @@ void EnChanger_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     if (this->timer != 0) {
         this->timer--;
-    }
-
-    if (BREG(0)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 255, 0, 255, 255, 4, globalCtx->state.gfxCtx);
     }
 }

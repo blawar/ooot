@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GOROIWA_Z_EN_GOROIWA_C
+#include "actor_common.h"
 /*
  * File: z_en_goroiwa.c
  * Overlay: ovl_En_Goroiwa
@@ -9,6 +11,16 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_goroiwa/object_goroiwa.h"
 #include "vt.h"
+#include "def/code_800FD970.h"
+#include "def/sys_math3d.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_quake.h"
 
 #define FLAGS ACTOR_FLAG_4
 

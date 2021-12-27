@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_OKARINA_EFFECT_Z_EN_OKARINA_EFFECT_C
+#include "actor_common.h"
 /*
  * File: z_en_okarina_effect.c
  * Overlay: ovl_En_Okarina_Effect
@@ -6,6 +8,14 @@
 
 #include "z_en_okarina_effect.h"
 #include "vt.h"
+#include "z_kankyo.h"
+#include "def/code_8006C3A0.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F9280.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_play.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
@@ -113,9 +123,4 @@ void EnOkarinaEffect_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnOkarinaEffect* this = (EnOkarinaEffect*)thisx;
 
     this->actionFunc(this, globalCtx);
-    if (BREG(0) != 0) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 0xFF, 0, 0xFF, 0xFF, 4, globalCtx->state.gfxCtx);
-    }
 }

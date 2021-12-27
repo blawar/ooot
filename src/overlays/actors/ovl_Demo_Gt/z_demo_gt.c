@@ -1,8 +1,25 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_GT_Z_DEMO_GT_C
+#include "actor_common.h"
 #include "z_demo_gt.h"
 #include "objects/object_gt/object_gt.h"
 #include "objects/object_geff/object_geff.h"
 #include "vt.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
+#include "def/code_80043480.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800EC960.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

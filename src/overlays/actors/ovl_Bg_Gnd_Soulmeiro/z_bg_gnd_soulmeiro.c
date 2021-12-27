@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_GND_SOULMEIRO_Z_BG_GND_SOULMEIRO_C
+#include "actor_common.h"
 /*
  * File: z_bg_gnd_soulmeiro.c
  * Overlay: ovl_Bg_Gnd_Soulmeiro
@@ -7,6 +9,15 @@
 #include "z_bg_gnd_soulmeiro.h"
 #include "objects/object_demo_kekkai/object_demo_kekkai.h"
 #include "global.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

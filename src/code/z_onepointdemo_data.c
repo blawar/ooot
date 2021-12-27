@@ -1,4 +1,5 @@
 #include "global.h"
+#include "z64camera.h"
 
 static CutsceneCameraPoint D_8012013C[14] = {
     { CS_CMD_CONTINUE, 25, 40, 70.79991f, { -1814, 533, -1297 } },

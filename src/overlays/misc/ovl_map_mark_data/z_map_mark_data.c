@@ -1,4 +1,6 @@
+#include "actor_common.h"
 #include "global.h"
+#include "z64map_mark.h"
 
 static MapMarkData sMapMarkDekuTree[] = {
     // Deku Tree minimap 0

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_KAKASI3_Z_EN_KAKASI3_C
+#include "actor_common.h"
 /*
  * File: z_en_kakasi3.c
  * Overlay: ovl_En_Kakasi3
@@ -7,6 +9,15 @@
 #include "z_en_kakasi3.h"
 #include "vt.h"
 #include "objects/object_ka/object_ka.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 

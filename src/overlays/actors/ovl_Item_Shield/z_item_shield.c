@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ITEM_SHIELD_Z_ITEM_SHIELD_C
+#include "actor_common.h"
 /*
  * File: z_item_shield.c
  * Overlay: ovl_Item_Shield
@@ -7,6 +9,13 @@
 #include "vt.h"
 #include "z_item_shield.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

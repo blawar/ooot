@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DY_EXTRA_Z_EN_DY_EXTRA_C
+#include "actor_common.h"
 /*
  * File: z_en_dy_extra.c
  * Overlay: ovl_En_Dy_Extra
@@ -7,6 +9,10 @@
 #include "z_en_dy_extra.h"
 #include "objects/object_dy_obj/object_dy_obj.h"
 #include "vt.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

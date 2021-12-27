@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_HSBLOCK_Z_OBJ_HSBLOCK_C
+#include "actor_common.h"
 /*
  * File: z_obj_hsblock.c
  * Overlay: ovl_Obj_Hsblock
@@ -6,6 +8,12 @@
 
 #include "z_obj_hsblock.h"
 #include "objects/object_d_hsblock/object_d_hsblock.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS 0
 

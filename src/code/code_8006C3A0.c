@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_CODE_8006C3A0_C
 #include "global.h"
+#include "z64global.h"
+#include "def/code_8006C3A0.h"
 
 void Flags_UnsetAllEnv(GlobalContext* globalCtx) {
     u8 i;

@@ -1,5 +1,11 @@
-#ifndef ULTRA64_TYPES_H
-#define ULTRA64_TYPES_H
+#pragma once
+
+#pragma warning (error: 4715)
+#pragma warning (error: 4716)
+#pragma warning (error: 4013)
+
+#include <stdint.h>
+#include <stdbool.h>
 
 typedef signed char            s8;
 typedef unsigned char          u8;
@@ -23,7 +29,8 @@ typedef float  f32;
 typedef double f64;
 
 
-typedef long int Mtx_t[4][4];
+#ifndef GBI_FLOATS
+typedef s32 Mtx_t[4][4];
 typedef union {
     Mtx_t m;
     struct {
@@ -32,6 +39,11 @@ typedef union {
     };
     long long int forc_structure_alignment;
 } Mtx;
+#else
+typedef struct {
+    float m[4][4];
+} Mtx;
+#endif
 
 typedef float MtxF_t[4][4];
 typedef union {
@@ -44,4 +56,3 @@ typedef union {
     };
 } MtxF;
 
-#endif

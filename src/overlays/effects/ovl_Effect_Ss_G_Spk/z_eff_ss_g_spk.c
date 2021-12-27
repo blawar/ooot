@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_G_SPK_Z_EFF_SS_G_SPK_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_g_spk.c
  * Overlay: ovl_Effect_Ss_G_Spk
@@ -6,6 +8,11 @@
 
 #include "z_eff_ss_g_spk.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define rPrimColorR regs[0]
 #define rPrimColorG regs[1]

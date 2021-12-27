@@ -1,5 +1,19 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SSH_Z_EN_SSH_C
+#include "actor_common.h"
 #include "z_en_ssh.h"
 #include "objects/object_ssh/object_ssh.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_btltbls.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_eff_blure.h"
+#include "def/z_effect.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

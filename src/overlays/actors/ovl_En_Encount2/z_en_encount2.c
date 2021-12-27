@@ -1,7 +1,16 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ENCOUNT2_Z_EN_ENCOUNT2_C
+#include "actor_common.h"
 #include "z_en_encount2.h"
 #include "overlays/actors/ovl_En_Fire_Rock/z_en_fire_rock.h"
 #include "vt.h"
 #include "objects/object_efc_star_field/object_efc_star_field.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_quake.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -350,7 +359,7 @@ void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     if (objBankIndex >= 0) {
         gDPPipeSync(POLY_XLU_DISP++);
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[objBankIndex].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[objBankIndex].vromStart);
 
         for (i = 0; i < ARRAY_COUNT(this->particles); particle++, i++) {
             if (particle->isAlive) {

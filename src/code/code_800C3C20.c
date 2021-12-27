@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_CODE_800C3C20_C
 #include "global.h"
+#include "z64math.h"
+#include "z64audio.h"
+#include "def/code_800C3C20.h"
+#include "def/code_800F7260.h"
 
 u8 D_8012D200[] = {
     0, 1, 2, 3, 4, 5, 6,

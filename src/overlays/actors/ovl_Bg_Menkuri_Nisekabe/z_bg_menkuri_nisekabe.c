@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MENKURI_NISEKABE_Z_BG_MENKURI_NISEKABE_C
+#include "actor_common.h"
 /*
  * File: z_bg_menkuri_nisekabe.c
  * Overlay: ovl_Bg_Menkuri_Nisekabe
@@ -6,6 +8,8 @@
 
 #include "z_bg_menkuri_nisekabe.h"
 #include "objects/object_menkuri_objects/object_menkuri_objects.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
 
 #define FLAGS 0
 

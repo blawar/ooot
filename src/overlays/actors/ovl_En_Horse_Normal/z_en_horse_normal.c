@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HORSE_NORMAL_Z_EN_HORSE_NORMAL_C
+#include "actor_common.h"
 /*
  * File: z_en_horse_normal.c
  * Overlay: ovl_En_Horse_Normal
@@ -7,6 +9,20 @@
 #include "z_en_horse_normal.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_horse_normal/object_horse_normal.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin.h"
+#include "def/z_skin_awb.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS 0
 

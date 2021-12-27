@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MORI_HINERI_Z_BG_MORI_HINERI_C
+#include "actor_common.h"
 /*
  * File: z_bg_mori_hineri.c
  * Overlay: ovl_Bg_Mori_Hineri
@@ -12,6 +14,15 @@
 #include "objects/object_mori_hineri2/object_mori_hineri2.h"
 #include "objects/object_mori_hineri2a/object_mori_hineri2a.h"
 #include "objects/object_mori_tex/object_mori_tex.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -197,7 +208,7 @@ void func_808A3D58(BgMoriHineri* this, GlobalContext* globalCtx) {
 }
 
 void func_808A3E54(BgMoriHineri* this, GlobalContext* globalCtx) {
-    s8 objBankIndex;
+    s32 objBankIndex;
 
     if (globalCtx->activeCamera == sNextCamIdx) {
         if (sNextCamIdx != MAIN_CAM) {
@@ -233,7 +244,7 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 611);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, globalCtx->objectCtx.status[this->moriTexObjIdx].segment);
+    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[this->moriTexObjIdx].vromStart);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 618),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, sDLists[this->dyna.actor.params]);
@@ -255,7 +266,7 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
     }
     if ((this->boxObjIdx > 0) && ((this->boxObjIdx = Object_GetIndex(&globalCtx->objectCtx, OBJECT_BOX)) > 0) &&
         (Object_IsLoaded(&globalCtx->objectCtx, this->boxObjIdx))) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->boxObjIdx].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->boxObjIdx].vromStart);
         gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
         Matrix_Put(&mtx);
         Matrix_Translate(147.0f, -245.0f, -453.0f, MTXMODE_APPLY);

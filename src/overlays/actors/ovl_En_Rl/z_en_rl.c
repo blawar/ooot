@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_RL_Z_EN_RL_C
+#include "actor_common.h"
 /*
  * File: z_en_rl.c
  * Overlay: En_Rl
@@ -7,6 +9,12 @@
 #include "z_en_rl.h"
 #include "vt.h"
 #include "objects/object_rl/object_rl.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 

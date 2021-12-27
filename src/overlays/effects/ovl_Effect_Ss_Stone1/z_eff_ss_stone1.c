@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_STONE1_Z_EFF_SS_STONE1_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_stone1.c
  * Overlay: ovl_Effect_Ss_Stone1
@@ -6,6 +8,9 @@
 
 #include "z_eff_ss_stone1.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
+#include "def/z_skin_matrix.h"
 
 #define rReg0 regs[0]
 

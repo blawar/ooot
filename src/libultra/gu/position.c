@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_LIBULTRA_GU_POSITION_C
 #include "global.h"
+#include "def/cosf.h"
+#include "def/mtxf2l.h"
+#include "def/position.h"
+#include "def/sinf.h"
 
 /**
  * guPositionF

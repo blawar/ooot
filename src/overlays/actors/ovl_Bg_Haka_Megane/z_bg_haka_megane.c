@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HAKA_MEGANE_Z_BG_HAKA_MEGANE_C
+#include "actor_common.h"
 /*
  * File: z_bg_haka_megane.c
  * Overlay: ovl_Bg_Haka_Megane
@@ -7,6 +9,12 @@
 #include "z_bg_haka_megane.h"
 #include "objects/object_hakach_objects/object_hakach_objects.h"
 #include "objects/object_haka_objects/object_haka_objects.h"
+#include "def/code_80043480.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_7)
 

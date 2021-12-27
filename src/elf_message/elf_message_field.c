@@ -1,4 +1,5 @@
 #include "global.h"
+#include "z64item.h"
 #include "z64elf_message.h"
 
 ElfMessage gOverworldNaviMsgs[] = {

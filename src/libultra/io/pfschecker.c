@@ -1,6 +1,12 @@
+#define INTERNAL_SRC_LIBULTRA_IO_PFSCHECKER_C
 #include "ultra64.h"
 #include "global.h"
 #include "ultra64/pfs.h"
+#include "def/contpfs.h"
+#include "def/contramread.h"
+#include "def/contramwrite.h"
+#include "def/pfschecker.h"
+#include "def/pfsselectbank.h"
 
 #define CHECK_IPAGE(p)                                                                                      \
     (((p).ipage >= pfs->inodeStartPage) && ((p).inode_t.bank < pfs->banks) && ((p).inode_t.page >= 0x01) && \

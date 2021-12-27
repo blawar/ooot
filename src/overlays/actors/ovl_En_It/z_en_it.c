@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_IT_Z_EN_IT_C
+#include "actor_common.h"
 /*
  * File: z_en_it.c
  * Overlay: ovl_En_It
@@ -5,6 +7,7 @@
  */
 
 #include "z_en_it.h"
+#include "def/z_collision_check.h"
 
 #define FLAGS 0
 

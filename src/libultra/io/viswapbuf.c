@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VISWAPBUF_C
 #include "global.h"
+#include "def/vi.h"
+#include "def/viswapbuf.h"
 
 void osViSwapBuffer(void* vaddr) {
     u32 prevInt = __osDisableInt();

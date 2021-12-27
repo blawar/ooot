@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_GANON2_Z_BOSS_GANON2_C
+#include "actor_common.h"
 #include "z_boss_ganon2.h"
 #include "overlays/actors/ovl_Demo_Gj/z_demo_gj.h"
 #include "overlays/actors/ovl_En_Zl3/z_en_zl3.h"
@@ -5,6 +7,26 @@
 #include "objects/object_ganon2/object_ganon2.h"
 #include "objects/object_ganon_anime3/object_ganon_anime3.h"
 #include "objects/object_geff/object_geff.h"
+#include "def/code_800A9F30.h"
+#include "def/code_800F7260.h"
+#include "def/code_800F9280.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/graph.h"
+#include "def/sinf.h"
+#include "def/sys_math_atan.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -79,13 +101,13 @@ void BossGanon2_SetObjectSegment(BossGanon2* this, GlobalContext* globalCtx, s32
     s32 pad;
     s32 objectIdx = Object_GetIndex(&globalCtx->objectCtx, objectId);
 
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[objectIdx].segment);
+    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[objectIdx].vromStart);
 
     if (setRSPSegment) {
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 790);
 
-        gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[objectIdx].segment);
-        gSPSegment(POLY_XLU_DISP++, 0x06, globalCtx->objectCtx.status[objectIdx].segment);
+        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[objectIdx].vromStart);
+        gSPSegment(POLY_XLU_DISP++, 0x06, gObjectTable[objectIdx].vromStart);
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 799);
     }
@@ -1033,7 +1055,7 @@ void func_808FFDB0(BossGanon2* this, GlobalContext* globalCtx) {
     s32 objectIdx = Object_GetIndex(&globalCtx->objectCtx, OBJECT_GANON2);
 
     if (Object_IsLoaded(&globalCtx->objectCtx, objectIdx)) {
-        gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[objectIdx].segment);
+        gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[objectIdx].vromStart);
         Animation_MorphToLoop(&this->skelAnime, &object_ganon2_Anim_00FFE4, -10.0f);
         this->actionFunc = func_808FFEBC;
 

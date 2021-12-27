@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FD_Z_EN_FD_C
+#include "actor_common.h"
 /*
  * File: z_en_fd.c
  * Overlay: ovl_En_Fd
@@ -7,6 +9,17 @@
 #include "z_en_fd.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_fw/object_fw.h"
+#include "def/code_800EC960.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_btltbls.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9)
 

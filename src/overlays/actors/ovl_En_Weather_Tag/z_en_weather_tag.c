@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_WEATHER_TAG_Z_EN_WEATHER_TAG_C
+#include "actor_common.h"
+#include "z_kankyo.h"
 /*
  * File: z_en_weather_tag.c
  * Overlay: ovl_En_Weather_Tag
@@ -6,6 +9,10 @@
 
 #include "z_en_weather_tag.h"
 #include "vt.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -324,9 +331,4 @@ void EnWeatherTag_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnWeatherTag* this = (EnWeatherTag*)thisx;
 
     this->actionFunc(this, globalCtx);
-    if (BREG(0) != 0) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 255, 0, 255, 255, 4, globalCtx->state.gfxCtx);
-    }
 }

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_GO_Z_DEMO_GO_C
+#include "actor_common.h"
 /*
  * File: z_demo_go.c
  * Overlay: Demo_Go
@@ -7,6 +9,13 @@
 #include "z_demo_go.h"
 #include "objects/object_oF1d_map/object_oF1d_map.h"
 #include "vt.h"
+#include "def/code_8006BA00.h"
+#include "def/z_actor.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
+#include "def/z_skin_matrix.h"
 
 #define FLAGS ACTOR_FLAG_4
 

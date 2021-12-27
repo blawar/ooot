@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_MAKEKINSUTA_Z_OBJ_MAKEKINSUTA_C
+#include "actor_common.h"
 /*
  * File: z_obj_makekinsuta.c
  * Overlay: ovl_Obj_Makekinsuta
@@ -6,6 +8,7 @@
 
 #include "z_obj_makekinsuta.h"
 #include "vt.h"
+#include "def/z_actor.h"
 
 #define FLAGS ACTOR_FLAG_4
 

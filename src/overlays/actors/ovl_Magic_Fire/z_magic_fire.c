@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_MAGIC_FIRE_Z_MAGIC_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_magic_fire.c
  * Overlay: ovl_Magic_Fire
@@ -5,6 +7,12 @@
  */
 
 #include "z_magic_fire.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 

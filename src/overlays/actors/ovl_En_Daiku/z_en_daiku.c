@@ -1,6 +1,20 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DAIKU_Z_EN_DAIKU_C
+#include "actor_common.h"
 #include "z_en_daiku.h"
 #include "overlays/actors/ovl_En_GeldB/z_en_geldb.h"
 #include "objects/object_daiku/object_daiku.h"
+#include "def/code_800EC960.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 

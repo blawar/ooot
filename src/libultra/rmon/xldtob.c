@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_LIBULTRA_RMON_XLDTOB_C
 #include "global.h"
+#include <stdlib.h>
+#include "ultra64/printf.h"
+#include "def/string.h"
+#include "def/xldtob.h"
 
 #define BUFF_LEN 0x20
 

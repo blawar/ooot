@@ -1,6 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_FBDEMO_TRIFORCE_C
 #include "global.h"
-
+#include "z64transition.h"
 #include "code/fbdemo_triforce/z_fbdemo_triforce.c"
+#include "def/ortho.h"
+#include "def/rotate.h"
+#include "def/scale.h"
+#include "def/translate.h"
+#include "def/z_fbdemo_triforce.h"
 
 void TransitionTriforce_Start(void* thisx) {
     TransitionTriforce* this = (TransitionTriforce*)thisx;

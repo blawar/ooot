@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_GJ_Z_DEMO_GJ_C
+#include "actor_common.h"
 /*
  * File: z_demo_gj.c
  * Overlay: Demo_Gj
@@ -7,6 +9,20 @@
 #include "z_demo_gj.h"
 #include "objects/object_gj/object_gj.h"
 #include "vt.h"
+#include "def/code_80043480.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -231,6 +247,7 @@ s32 DemoGj_FindGanon(DemoGj* this, GlobalContext* globalCtx) {
         return false;
     }
     //! @bug: Missing return value when `this->ganon` is already set.
+    return false;
 }
 
 static InitChainEntry sInitChain[] = {

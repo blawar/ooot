@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_JPEGDECODER_C
 #include "global.h"
+#include "z64jpeg.h"
+#include "def/jpegdecoder.h"
 
 u8* sJpegBitStreamPtr;
 u32 sJpegBitStreamByteIdx;

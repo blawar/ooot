@@ -1,13 +1,10 @@
-#ifndef Z_COLLISION_CHECK_H
-#define Z_COLLISION_CHECK_H
+#pragma once
+#include "z64math.h"
 
 #define COLLISION_CHECK_AT_MAX 50
 #define COLLISION_CHECK_AC_MAX 60
 #define COLLISION_CHECK_OC_MAX 50
 #define COLLISION_CHECK_OC_LINE_MAX 3
-
-// From z64.h
-struct Actor;
 
 typedef struct {
     /* 0x00 */ struct Actor* actor; // Attached actor
@@ -387,4 +384,106 @@ typedef enum {
 #define DMG_RANGED (DMG_ARROW | DMG_HOOKSHOT | DMG_SLINGSHOT)
 #define DMG_DEFAULT ~(DMG_SHIELD | DMG_MIR_RAY)
 
-#endif
+typedef struct {
+    /* 0x000 */ s16 colATCount;
+    /* 0x002 */ u16 sacFlags;
+    /* 0x004 */ Collider* colAT[COLLISION_CHECK_AT_MAX];
+    /* 0x0CC */ s32 colACCount;
+    /* 0x0D0 */ Collider* colAC[COLLISION_CHECK_AC_MAX];
+    /* 0x1C0 */ s32 colOCCount;
+    /* 0x1C4 */ Collider* colOC[COLLISION_CHECK_OC_MAX];
+    /* 0x28C */ s32 colLineCount;
+    /* 0x290 */ OcLine* colLine[COLLISION_CHECK_OC_LINE_MAX];
+} CollisionCheckContext; // size = 0x29C
+
+
+
+void Collider_DrawRedPoly(struct GraphicsContext* gfxCtx, Vec3f* vA, Vec3f* vB, Vec3f* vC);
+void Collider_DrawPoly(struct GraphicsContext* gfxCtx, Vec3f* vA, Vec3f* vB, Vec3f* vC, u8 r, u8 g, u8 b);
+s32 Collider_InitJntSph(struct GlobalContext* globalCtx, ColliderJntSph* collider);
+s32 Collider_FreeJntSph(struct GlobalContext* globalCtx, ColliderJntSph* collider);
+s32 Collider_DestroyJntSph(struct GlobalContext* globalCtx, ColliderJntSph* collider);
+s32 Collider_SetJntSphToActor(struct GlobalContext* globalCtx, ColliderJntSph* dest, ColliderJntSphInitToActor* src);
+s32 Collider_SetJntSphAllocType1(struct GlobalContext* globalCtx, ColliderJntSph* dest, struct Actor* actor,
+    ColliderJntSphInitType1* src);
+s32 Collider_SetJntSphAlloc(struct GlobalContext* globalCtx, ColliderJntSph* dest, struct Actor* actor, ColliderJntSphInit* src);
+s32 Collider_SetJntSph(struct GlobalContext* globalCtx, ColliderJntSph* dest, struct Actor* actor, ColliderJntSphInit* src,
+    ColliderJntSphElement* elements);
+s32 Collider_ResetJntSphAT(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetJntSphAC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetJntSphOC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_InitCylinder(struct GlobalContext* globalCtx, ColliderCylinder* collider);
+s32 Collider_DestroyCylinder(struct GlobalContext* globalCtx, ColliderCylinder* collider);
+s32 Collider_SetCylinderToActor(struct GlobalContext* globalCtx, ColliderCylinder* collider, ColliderCylinderInitToActor* src);
+s32 Collider_SetCylinderType1(struct GlobalContext* globalCtx, ColliderCylinder* collider, struct Actor* actor,
+    ColliderCylinderInitType1* src);
+s32 Collider_SetCylinder(struct GlobalContext* globalCtx, ColliderCylinder* collider, struct Actor* actor, ColliderCylinderInit* src);
+s32 Collider_ResetCylinderAT(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetCylinderAC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetCylinderOC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_InitTris(struct GlobalContext* globalCtx, ColliderTris* tris);
+s32 Collider_FreeTris(struct GlobalContext* globalCtx, ColliderTris* tris);
+s32 Collider_DestroyTris(struct GlobalContext* globalCtx, ColliderTris* tris);
+s32 Collider_SetTrisAllocType1(struct GlobalContext* globalCtx, ColliderTris* dest, struct Actor* actor, ColliderTrisInitType1* src);
+s32 Collider_SetTrisAlloc(struct GlobalContext* globalCtx, ColliderTris* dest, struct Actor* actor, ColliderTrisInit* src);
+s32 Collider_SetTris(struct GlobalContext* globalCtx, ColliderTris* dest, struct Actor* actor, ColliderTrisInit* src,
+    ColliderTrisElement* elements);
+s32 Collider_ResetTrisAT(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetTrisAC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetTrisOC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_InitQuad(struct GlobalContext* globalCtx, ColliderQuad* collider);
+s32 Collider_DestroyQuad(struct GlobalContext* globalCtx, ColliderQuad* collider);
+s32 Collider_SetQuadType1(struct GlobalContext* globalCtx, ColliderQuad* collider, struct Actor* actor, ColliderQuadInitType1* src);
+s32 Collider_SetQuad(struct GlobalContext* globalCtx, ColliderQuad* collider, struct Actor* actor, ColliderQuadInit* src);
+s32 Collider_ResetQuadAT(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetQuadAC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_ResetQuadOC(struct GlobalContext* globalCtx, Collider* collider);
+s32 Collider_InitLine(struct GlobalContext* globalCtx, OcLine* line);
+s32 Collider_DestroyLine(struct GlobalContext* globalCtx, OcLine* line);
+s32 Collider_SetLinePoints(struct GlobalContext* globalCtx, OcLine* ocLine, Vec3f* a, Vec3f* b);
+s32 Collider_SetLine(struct GlobalContext* globalCtx, OcLine* dest, OcLine* src);
+s32 Collider_ResetLineOC(struct GlobalContext* globalCtx, OcLine* line);
+void CollisionCheck_InitContext(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void CollisionCheck_DestroyContext(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void CollisionCheck_ClearContext(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void CollisionCheck_EnableSAC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void CollisionCheck_DisableSAC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void Collider_Draw(struct GlobalContext* globalCtx, Collider* collider);
+void CollisionCheck_DrawCollision(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+s32 CollisionCheck_SetAT(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Collider* collider);
+s32 CollisionCheck_SetAT_SAC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
+s32 CollisionCheck_SetAC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Collider* collider);
+s32 CollisionCheck_SetAC_SAC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
+s32 CollisionCheck_SetOC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Collider* collider);
+s32 CollisionCheck_SetOC_SAC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Collider* collider, s32 index);
+s32 CollisionCheck_SetOCLine(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, OcLine* collider);
+void CollisionCheck_BlueBlood(struct GlobalContext* globalCtx, Collider* collider, Vec3f* v);
+void CollisionCheck_AT(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void CollisionCheck_OC(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+void CollisionCheck_InitInfo(struct CollisionCheckInfo* info);
+void CollisionCheck_ResetDamage(struct CollisionCheckInfo* info);
+void CollisionCheck_SetInfoNoDamageTable(struct CollisionCheckInfo* info, struct CollisionCheckInfoInit* init);
+void CollisionCheck_SetInfo(struct CollisionCheckInfo* info, struct DamageTable* damageTable, struct CollisionCheckInfoInit* init);
+void CollisionCheck_SetInfo2(struct CollisionCheckInfo* info, struct DamageTable* damageTable, struct CollisionCheckInfoInit2* init);
+void CollisionCheck_SetInfoGetDamageTable(struct CollisionCheckInfo* info, s32 index, struct CollisionCheckInfoInit2* init);
+void CollisionCheck_Damage(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx);
+s32 CollisionCheck_LineOCCheckAll(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Vec3f* a, Vec3f* b);
+s32 CollisionCheck_LineOCCheck(struct GlobalContext* globalCtx, CollisionCheckContext* colChkCtx, Vec3f* a, Vec3f* b,
+    struct Actor** exclusions, s32 numExclusions);
+void Collider_UpdateCylinder(struct Actor* actor, ColliderCylinder* collider);
+void Collider_SetCylinderPosition(ColliderCylinder* collider, Vec3s* pos);
+void Collider_SetQuadVertices(ColliderQuad* collider, Vec3f* a, Vec3f* b, Vec3f* c, Vec3f* d);
+void Collider_SetTrisVertices(ColliderTris* collider, s32 index, Vec3f* a, Vec3f* b, Vec3f* c);
+void Collider_SetTrisDim(struct GlobalContext* globalCtx, ColliderTris* collider, s32 index, struct ColliderTrisElementDimInit* init);
+void Collider_UpdateSpheres(s32 limb, ColliderJntSph* collider);
+void CollisionCheck_SpawnRedBlood(struct GlobalContext* globalCtx, Vec3f* v);
+void CollisionCheck_SpawnWaterDroplets(struct GlobalContext* globalCtx, Vec3f* v);
+void CollisionCheck_SpawnShieldParticles(struct GlobalContext* globalCtx, Vec3f* v);
+void CollisionCheck_SpawnShieldParticlesMetal(struct GlobalContext* globalCtx, Vec3f* v);
+void CollisionCheck_SpawnShieldParticlesMetalSound(struct GlobalContext* globalCtx, Vec3f* v, Vec3f* actorPos);
+void CollisionCheck_SpawnShieldParticlesMetal2(struct GlobalContext* globalCtx, Vec3f* v);
+void CollisionCheck_SpawnShieldParticlesWood(struct GlobalContext* globalCtx, Vec3f* b, Vec3f* actorPos);
+s32 CollisionCheck_CylSideVsLineSeg(f32 radius, f32 height, f32 offset, Vec3f* actorPos, Vec3f* itemPos,
+    Vec3f* itemProjPos, Vec3f* out1, Vec3f* out2);
+u8 CollisionCheck_GetSwordDamage(s32 dmgFlags);
+

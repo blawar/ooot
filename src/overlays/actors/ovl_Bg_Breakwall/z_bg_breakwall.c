@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_BREAKWALL_Z_BG_BREAKWALL_C
+#include "actor_common.h"
 /*
  * File: z_bg_breakwall.c
  * Overlay: Bg_Breakwall
@@ -8,6 +10,18 @@
 #include "scenes/dungeons/ddan/ddan_scene.h"
 #include "objects/object_bwall/object_bwall.h"
 #include "objects/object_kingdodongo/object_kingdodongo.h"
+#include "def/code_80043480.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_demo.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -125,7 +139,7 @@ void BgBreakwall_Destroy(Actor* thisx, GlobalContext* globalCtx) {
  */
 Actor* BgBreakwall_SpawnFragments(GlobalContext* globalCtx, BgBreakwall* this, Vec3f* pos, f32 velocity, f32 scaleY,
                                   f32 scaleX, s32 count, f32 accel) {
-    Actor* actor;
+    Actor* actor = NULL;
     Vec3f actorPos;
     s32 k;
     s32 j;

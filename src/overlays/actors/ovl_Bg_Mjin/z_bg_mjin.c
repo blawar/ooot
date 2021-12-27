@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MJIN_Z_BG_MJIN_C
+#include "actor_common.h"
 /*
  * File: z_bg_mjin.c
  * Overlay: ovl_Bg_Mjin
@@ -13,6 +15,13 @@
 #include "objects/object_mjin_flame/object_mjin_flame.h"
 #include "objects/object_mjin_flash/object_mjin_flash.h"
 #include "objects/object_mjin_oka/object_mjin_oka.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -54,7 +63,7 @@ void BgMjin_SetupAction(BgMjin* this, BgMjinActionFunc actionFunc) {
 
 void BgMjin_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgMjin* this = (BgMjin*)thisx;
-    s8 objBankIndex;
+    s32 objBankIndex;
 
     Actor_ProcessInitChain(thisx, sInitChain);
     objBankIndex = Object_GetIndex(&globalCtx->objectCtx, (thisx->params != 0 ? OBJECT_MJIN : OBJECT_MJIN_OKA));
@@ -109,7 +118,7 @@ void BgMjin_Draw(Actor* thisx, GlobalContext* globalCtx) {
         s32 objBankIndex = Object_GetIndex(&globalCtx->objectCtx, sObjectIDs[thisx->params - 1]);
 
         if (objBankIndex >= 0) {
-            gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[objBankIndex].segment);
+            gSegments[6] = gObjectTable[objBankIndex].vromStart;
         }
 
         gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(&D_06000000));

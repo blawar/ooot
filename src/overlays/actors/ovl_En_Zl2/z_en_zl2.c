@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ZL2_Z_EN_ZL2_C
+#include "actor_common.h"
 /*
  * File: z_en_zl2.c
  * Overlay: ovl_En_Zl2
@@ -10,6 +12,20 @@
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "objects/object_zl2/object_zl2.h"
 #include "objects/object_zl2_anime1/object_zl2_anime1.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -561,7 +577,7 @@ void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 void func_80B4FCCC(EnZl2* this, GlobalContext* globalCtx) {
     s32 unk_274 = this->unk_274;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[unk_274].segment);
+    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[unk_274].vromStart);
 }
 
 void func_80B4FD00(EnZl2* this, AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_G_SWITCH_Z_EN_G_SWITCH_C
+#include "actor_common.h"
 /*
  * File: z_en_g_switch.c
  * Overlay: ovl_En_G_Switch
@@ -11,6 +13,18 @@
 #include "overlays/effects/ovl_Effect_Ss_HitMark/z_eff_ss_hitmark.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_tsubo/object_tsubo.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -198,7 +212,7 @@ void EnGSwitch_Break(EnGSwitch* this, GlobalContext* globalCtx) {
 
 void EnGSwitch_WaitForObject(EnGSwitch* this, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, this->objIndex)) {
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[this->objIndex].segment);
+        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[this->objIndex].vromStart);
         this->actor.objBankIndex = this->objIndex;
         this->actor.draw = EnGSwitch_DrawPot;
         this->actionFunc = EnGSwitch_ArcheryPot;
@@ -441,11 +455,6 @@ void EnGSwitch_Update(Actor* thisx, GlobalContext* globalCtx) {
             Collider_UpdateCylinder(&this->actor, &this->collider);
             CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &this->collider.base);
         }
-    }
-    if (BREG(0) && (this->type == ENGSWITCH_SILVER_TRACKER)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 255, 0, 0, 255, 4, globalCtx->state.gfxCtx);
     }
 }
 

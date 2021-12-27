@@ -1,6 +1,22 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_CS_Z_EN_CS_C
+#include "actor_common.h"
 #include "z_en_cs.h"
 #include "objects/object_cs/object_cs.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "def/code_800FCE80.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
@@ -471,10 +487,10 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
             Matrix_Put(&this->spookyMaskMtx);
             mtx = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_cs.c", 1000);
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[childLinkObjectIndex].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[childLinkObjectIndex].vromStart);
             gSPSegment(POLY_OPA_DISP++, 0x0D, mtx - 7);
             gSPDisplayList(POLY_OPA_DISP++, gLinkChildSpookyMaskDL);
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->actor.objBankIndex].vromStart);
         }
     }
 

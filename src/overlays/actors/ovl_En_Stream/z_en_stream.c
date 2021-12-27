@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_STREAM_Z_EN_STREAM_C
+#include "actor_common.h"
 /*
  * File: z_en_stream.c
  * Overlay: ovl_En_Stream
@@ -6,6 +8,11 @@
 
 #include "z_en_stream.h"
 #include "objects/object_stream/object_stream.h"
+#include "def/code_800FCE80.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

@@ -1,6 +1,14 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_TRE_LGT_Z_DEMO_TRE_LGT_C
+#include "actor_common.h"
 #include "z_demo_tre_lgt.h"
 #include "overlays/actors/ovl_En_Box/z_en_box.h"
 #include "objects/object_box/object_box.h"
+#include "def/code_800F7260.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_fcurve_data_skelanime.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -147,6 +155,7 @@ s32 DemoTreLgt_PostLimbDraw(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve,
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_tre_lgt.c", 448);
+    return 0;
 }
 
 void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx) {

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_HIDAN_CURTAIN_Z_BG_HIDAN_CURTAIN_C
+#include "actor_common.h"
 /*
  * File: z_bg_hidan_curtain.c
  * Overlay: ovl_Bg_Hidan_Curtain
@@ -6,6 +8,14 @@
 
 #include "z_bg_hidan_curtain.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

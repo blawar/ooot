@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_STH_Z_EN_STH_C
+#include "actor_common.h"
 /*
  * File: z_en_sth.c
  * Overlay: ovl_En_Sth
@@ -8,6 +10,16 @@
 #include "z_en_sth.h"
 #include "objects/object_ahg/object_ahg.h"
 #include "objects/object_boj/object_boj.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -61,12 +73,12 @@ static s16 sObjectIds[6] = {
 };
 
 static FlexSkeletonHeader* sSkeletons[6] = {
-    /* object_ahg_Skel_0000F0 */ 0x060000F0,
-    /* object_boj_Skel_0000F0 */ 0x060000F0,
-    /* object_boj_Skel_0000F0 */ 0x060000F0,
-    /* object_boj_Skel_0000F0 */ 0x060000F0,
-    /* object_boj_Skel_0000F0 */ 0x060000F0,
-    /* object_boj_Skel_0000F0 */ 0x060000F0,
+    &object_ahg_Skel_0000F0,
+    &object_boj_Skel_0000F0,
+    &object_boj_Skel_0000F0,
+    &object_boj_Skel_0000F0,
+    &object_boj_Skel_0000F0,
+    &object_boj_Skel_0000F0,
 };
 
 static AnimationHeader* sAnimations[6] = {
@@ -154,7 +166,7 @@ void EnSth_SetupAfterObjectLoaded(EnSth* this, GlobalContext* globalCtx) {
     s16* params;
 
     EnSth_SetupShapeColliderUpdate2AndDraw(this, globalCtx);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[this->objectBankIdx].segment);
+    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[this->objectBankIdx].vromStart);
     SkelAnime_InitFlex(globalCtx, &this->skelAnime, sSkeletons[this->actor.params], NULL, this->jointTable,
                        this->morphTable, 16);
     Animation_PlayLoop(&this->skelAnime, sAnimations[this->actor.params]);
@@ -393,7 +405,7 @@ void EnSth_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2133);
 
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[this->objectBankIdx].segment);
+    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[this->objectBankIdx].vromStart);
     func_800943C8(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_OPA_DISP++, 0x08,

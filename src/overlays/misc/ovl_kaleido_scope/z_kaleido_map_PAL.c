@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_MAP_PAL_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"
 #include "textures/icon_item_nes_static/icon_item_nes_static.h"
@@ -6,6 +8,15 @@
 #include "textures/icon_item_field_static/icon_item_field_static.h"
 #include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
 #include "textures/icon_item_nes_static/icon_item_nes_static.h"
+#include "n64mapdata.h"
+#include "rsp.h"
+#include "def/code_80097A00.h"
+#include "def/code_800F7260.h"
+#include "def/sys_ucode.h"
+#include "def/z_common_data.h"
+#include "def/z_map_exp.h"
+#include "def/z_rcp.h"
+#include "def/z_room.h"
 
 void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
     static void* dungeonItemTexs[] = {
@@ -330,12 +341,12 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
 
     gSPVertex(POLY_OPA_DISP++, &pauseCtx->mapPageVtx[60], 8, 0);
 
-    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, interfaceCtx->mapSegment, G_IM_FMT_CI, 48, 85, 0, G_TX_WRAP | G_TX_NOMIRROR,
+    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, interfaceCtx->mapSegment1, G_IM_FMT_CI, 48, 85, 0, G_TX_WRAP | G_TX_NOMIRROR,
                            G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
-    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, interfaceCtx->mapSegment + 0x800, G_IM_FMT_CI, 48, 85, 0,
+    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, interfaceCtx->mapSegment2, G_IM_FMT_CI, 48, 85, 0,
                            G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                            G_TX_NOLOD);
 

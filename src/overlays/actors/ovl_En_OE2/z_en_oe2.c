@@ -1,3 +1,4 @@
+#include "actor_common.h"
 /*
  * File: z_en_oe2.c
  * Overlay: ovl_En_Oe2

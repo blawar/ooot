@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_Z_CHEAP_PROC_C
 #include "global.h"
+#include "def/sys_matrix.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_rcp.h"
 
 void Gfx_DrawDListOpa(GlobalContext* globalCtx, Gfx* dlist) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_cheap_proc.c", 214);

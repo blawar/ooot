@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BILI_Z_EN_BILI_C
+#include "actor_common.h"
 /*
  * File: z_en_bili.c
  * Overlay: ovl_En_Bili
@@ -6,6 +8,19 @@
 
 #include "z_en_bili.h"
 #include "objects/object_bl/object_bl.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/cosf.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_WALL_TUBO_Z_EN_WALL_TUBO_C
+#include "actor_common.h"
 /*
  * File: z_en_wall_tubo.c
  * Overlay: ovl_En_Wall_Tubo
@@ -9,6 +11,10 @@
 #include "overlays/actors/ovl_En_Bom_Chu/z_en_bom_chu.h"
 #include "overlays/actors/ovl_Bg_Bowl_Wall/z_bg_bowl_wall.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
+#include "def/z_actor.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_quake.h"
 
 #define FLAGS ACTOR_FLAG_4
 
@@ -145,10 +151,4 @@ void EnWallTubo_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     this->actionFunc(this, globalCtx);
-
-    if (BREG(0)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 0, 0, 255, 255, 4, globalCtx->state.gfxCtx);
-    }
 }

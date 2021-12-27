@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_LIBULTRA_IO_VISETEVENT_C
 #include "global.h"
+#include "def/vi.h"
+#include "def/visetevent.h"
 
 extern OSViContext* __osViNext;
 

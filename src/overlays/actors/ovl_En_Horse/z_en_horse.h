@@ -3,6 +3,8 @@
 
 #include "ultra64.h"
 #include "global.h"
+#include "z64math.h"
+#include "z64actor.h"
 
 typedef enum {
     /* 0  */ ENHORSE_ACT_FROZEN,
@@ -89,7 +91,7 @@ typedef enum {
     /* 1 */ HORSE_HNI
 } HorseType;
 
-typedef void (*EnHorsePostdrawFunc)(struct EnHorse*, GlobalContext*);
+typedef void (*EnHorsePostdrawFunc)(struct EnHorse*, struct GlobalContext*);
 
 typedef struct EnHorse {
     /* 0x0000 */ Actor actor;

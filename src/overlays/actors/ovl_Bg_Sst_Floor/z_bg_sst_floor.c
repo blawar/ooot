@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SST_FLOOR_Z_BG_SST_FLOOR_C
+#include "actor_common.h"
 /*
  * File: z_bg_sst_floor.c
  * Overlay: ovl_Bg_Sst_Floor
@@ -6,6 +8,14 @@
 
 #include "z_bg_sst_floor.h"
 #include "objects/object_sst/object_sst.h"
+#include "def/code_80043480.h"
+#include "def/sinf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_camera.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

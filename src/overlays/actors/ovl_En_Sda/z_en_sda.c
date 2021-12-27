@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SDA_Z_EN_SDA_C
+#include "actor_common.h"
 /**
  * File: z_en_sda.c
  * Overlay: ovl_En_Sda
@@ -5,6 +7,9 @@
  */
 
 #include "z_en_sda.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

@@ -1,13 +1,12 @@
+#define INTERNAL_SRC_CODE_SLEEP_C
 #include "global.h"
+#include "ultra64/time.h"
+#include "ultra64/convert.h"
+#include "def/createmesgqueue.h"
+#include "def/recvmesg.h"
+#include "def/sleep.h"
 
 void Sleep_Cycles(OSTime cycles) {
-    OSMesgQueue mq;
-    OSMesg msg;
-    OSTimer timer;
-
-    osCreateMesgQueue(&mq, &msg, OS_MESG_BLOCK);
-    osSetTimer(&timer, cycles, 0, &mq, NULL);
-    osRecvMesg(&mq, NULL, OS_MESG_BLOCK);
 }
 
 void Sleep_Nsec(u32 nsec) {

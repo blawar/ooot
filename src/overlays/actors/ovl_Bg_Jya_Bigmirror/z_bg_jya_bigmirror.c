@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_JYA_BIGMIRROR_Z_BG_JYA_BIGMIRROR_C
+#include "actor_common.h"
 /*
  * File: z_bg_jya_bigmirror.c
  * Overlay: ovl_Bg_Jya_Bigmirror
@@ -6,6 +8,11 @@
 
 #include "z_bg_jya_bigmirror.h"
 #include "objects/object_jya_obj/object_jya_obj.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_KZ_Z_EN_KZ_C
+#include "actor_common.h"
 /*
  * File: z_en_kz.c
  * Overlay: ovl_En_Kz
@@ -6,6 +8,19 @@
 
 #include "z_en_kz.h"
 #include "objects/object_kz/object_kz.h"
+#include "def/code_800F7260.h"
+#include "def/code_800FCE80.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 

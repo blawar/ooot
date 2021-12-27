@@ -1,5 +1,10 @@
+#define INTERNAL_SRC_CODE_Z_PRENMI_C
 #include "global.h"
+#include "z_prenmi_buff.h"
 #include "vt.h"
+#include "def/z_prenmi.h"
+#include "def/z_rcp.h"
+#include "def/graph.h" // FORCE
 
 void func_80092320(PreNMIContext* this) {
     this->state.running = false;
@@ -17,7 +22,6 @@ void PreNMI_Update(PreNMIContext* this) {
     }
 
     if (this->timer == 0) {
-        ViConfig_UpdateVi(1);
         func_80092320(this);
         return;
     }

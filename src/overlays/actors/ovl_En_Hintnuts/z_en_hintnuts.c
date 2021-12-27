@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HINTNUTS_Z_EN_HINTNUTS_C
+#include "actor_common.h"
 /*
  * File: z_en_hintnuts.c
  * Overlay: ovl_En_Hintnuts
@@ -6,6 +8,14 @@
 
 #include "z_en_hintnuts.h"
 #include "objects/object_hintnuts/object_hintnuts.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 

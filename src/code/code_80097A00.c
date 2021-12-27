@@ -1,7 +1,17 @@
+#define INTERNAL_SRC_CODE_CODE_80097A00_C
 #include "global.h"
+#include "z64save.h"
+#include "z64item.h"
+#include "z64global.h"
+#include "z64player.h"
+#include "gfx.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "def/code_80097A00.h"
+#include "def/z_common_data.h"
+#include "def/z_player_lib.h"
+
 
 // Bit Flag array in which gBitFlags[n] is literally (1 << n)
 u32 gBitFlags[] = {

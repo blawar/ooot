@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ITEM_INBOX_Z_ITEM_INBOX_C
+#include "actor_common.h"
 /*
  * File: z_item_inbox.c
  * Overlay: ovl_Item_Inbox
@@ -5,6 +7,8 @@
  */
 
 #include "z_item_inbox.h"
+#include "def/z_actor.h"
+#include "def/z_draw.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 

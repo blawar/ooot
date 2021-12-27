@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EFF_DUST_Z_EFF_DUST_C
+#include "actor_common.h"
 /**
  * File z_eff_dust.c
  * Overlay: ovl_Eff_Dust
@@ -6,6 +8,12 @@
 
 #include "z_eff_dust.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/system_malloc.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 

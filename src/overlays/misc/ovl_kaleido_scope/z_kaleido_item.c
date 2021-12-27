@@ -1,5 +1,12 @@
+#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_ITEM_C
+#include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "def/code_80097A00.h"
+#include "def/code_800F7260.h"
+#include "def/z_common_data.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 u8 gAmmoItems[] = {
     ITEM_STICK,   ITEM_NUT,  ITEM_BOMB, ITEM_BOW,  ITEM_NONE, ITEM_NONE, ITEM_SLINGSHOT, ITEM_NONE,
@@ -86,7 +93,7 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx) {
     u16 i;
     u16 j;
     u16 cursorItem;
-    u16 cursorSlot;
+    u16 cursorSlot = 0;
     u16 index;
     s16 cursorPoint;
     s16 cursorX;

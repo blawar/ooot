@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_YABUSAME_MARK_Z_EN_YABUSAME_MARK_C
+#include "actor_common.h"
 /*
  * File: z_en_yabusame_mark.c
  * Overlay: ovl_En_Yabusame_Mark
@@ -6,6 +8,13 @@
 
 #include "z_en_yabusame_mark.h"
 #include "vt.h"
+#include "def/code_800EC960.h"
+#include "def/code_800F7260.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 
@@ -212,9 +221,4 @@ void EnYabusameMark_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     Collider_SetQuadVertices(&this->collider, &this->vertexA, &this->vertexB, &this->vertexC, &this->vertexD);
     CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &this->collider.base);
-    if (BREG(0)) {
-        DebugDisplay_AddObject(this->actor.world.pos.x, this->actor.world.pos.y, this->actor.world.pos.z,
-                               this->actor.world.rot.x, this->actor.world.rot.y, this->actor.world.rot.z, 1.0f, 1.0f,
-                               1.0f, 0, 0xFF, 0, 0xFF, 4, globalCtx->state.gfxCtx);
-    }
 }

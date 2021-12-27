@@ -1,3 +1,6 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OCEFF_SPOT_Z_OCEFF_SPOT_C
+#include "actor_common.h"
+#include "z_kankyo.h"
 /*
  * File: z_oceff_spot.c
  * Overlay: ovl_Oceff_Spot
@@ -6,6 +9,15 @@
 
 #include "z_oceff_spot.h"
 #include "vt.h"
+#include "def/cosf.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_lights.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 

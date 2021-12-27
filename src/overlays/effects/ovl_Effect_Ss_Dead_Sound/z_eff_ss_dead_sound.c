@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_EFFECTS_OVL_EFFECT_SS_DEAD_SOUND_Z_EFF_SS_DEAD_SOUND_C
+#include "actor_common.h"
 /*
  * File: z_eff_ss_dead_sound.c
  * Overlay: ovl_Effect_Ss_Dead_Sound
@@ -5,6 +7,7 @@
  */
 
 #include "z_eff_ss_dead_sound.h"
+#include "def/code_800F7260.h"
 
 #define rSfxId regs[10]
 #define rRepeatMode regs[11] // sound is replayed every update. unused in the original game

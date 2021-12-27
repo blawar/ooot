@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_JYA_GOROIWA_Z_BG_JYA_GOROIWA_C
+#include "actor_common.h"
 /*
  *  File: z_bg_jya_goroiwa.c
  *  Overlay: ovl_Bg_Jya_Goroiwa
@@ -7,6 +9,11 @@
 
 #include "z_bg_jya_goroiwa.h"
 #include "objects/object_goroiwa/object_goroiwa.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_lib.h"
 
 #define FLAGS ACTOR_FLAG_4
 

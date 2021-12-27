@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_OBJ_KIBAKO2_Z_OBJ_KIBAKO2_C
+#include "actor_common.h"
 /*
  * File: z_obj_kibako2.c
  * Overlay: ovl_Obj_Kibako2
@@ -7,6 +9,16 @@
 #include "z_obj_kibako2.h"
 #include "objects/object_kibako2/object_kibako2.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
+#include "def/code_80043480.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_en_item00.h"
+#include "def/z_lib.h"
 
 #define FLAGS 0
 

@@ -1,5 +1,4 @@
-#ifndef COLOR_H
-#define COLOR_H
+#pragma once
 
 typedef struct {
     u8 r, g, b;
@@ -31,4 +30,3 @@ typedef union {
     u16 rgba;
 } Color_RGBA16;
 
-#endif

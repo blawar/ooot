@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_Z_FACE_REACTION_C
 #include "global.h"
+#include "z64player.h"
+#include "z64global.h"
+#include "def/z_face_reaction.h"
+#include "def/z_player_lib.h"
 
 u16 sReactionTextIds[][PLAYER_MASK_MAX] = {
     { 0x0000, 0x7124, 0x7127, 0x7126, 0x7125, 0x7127, 0x7124, 0x7125, 0x7127 },

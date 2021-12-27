@@ -1,5 +1,9 @@
+#define INTERNAL_SRC_BOOT_STACKCHECK_C
 #include "global.h"
 #include "vt.h"
+#include <stdbool.h>
+#include "def/logutils.h"
+#include "def/stackcheck.h"
 
 StackEntry* sStackInfoListStart = NULL;
 StackEntry* sStackInfoListEnd = NULL;
@@ -12,8 +16,8 @@ void StackCheck_Init(StackEntry* entry, void* stackTop, void* stackBottom, u32 i
     if (entry == NULL) {
         sStackInfoListStart = NULL;
     } else {
-        entry->head = (u32)stackTop;
-        entry->tail = (u32)stackBottom;
+        entry->head = (uintptr_t)stackTop;
+        entry->tail = (uintptr_t)stackBottom;
         entry->initValue = initValue;
         entry->minSpace = minSpace;
         entry->name = name;
@@ -40,7 +44,7 @@ void StackCheck_Init(StackEntry* entry, void* stackTop, void* stackBottom, u32 i
 
         if (entry->minSpace != -1) {
             addr = (u32*)entry->head;
-            while ((u32)addr < entry->tail) {
+            while ((uintptr_t)addr < entry->tail) {
                 *addr++ = entry->initValue;
             }
         }
@@ -74,23 +78,23 @@ void StackCheck_Cleanup(StackEntry* entry) {
 
 StackStatus StackCheck_GetState(StackEntry* entry) {
     u32* last;
-    u32 used;
-    u32 free;
+    size_t used;
+    size_t free;
     s32 ret;
 
-    for (last = (u32*)entry->head; (u32)last < entry->tail; last++) {
+    for (last = (u32*)entry->head; (uintptr_t)last < entry->tail; last++) {
         if (entry->initValue != *last) {
             break;
         }
     }
 
-    used = entry->tail - (u32)last;
-    free = (u32)last - entry->head;
+    used = entry->tail - (uintptr_t)last;
+    free = ((uintptr_t)last - entry->head);
 
     if (free == 0) {
         ret = STACK_STATUS_OVERFLOW;
         osSyncPrintf(VT_FGCOL(RED));
-    } else if (free < (u32)entry->minSpace && entry->minSpace != -1) {
+    } else if (free < (uintptr_t)entry->minSpace && entry->minSpace != -1) {
         ret = STACK_STATUS_WARNING;
         osSyncPrintf(VT_FGCOL(YELLOW));
     } else {

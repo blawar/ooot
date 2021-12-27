@@ -1,4 +1,9 @@
+#define INTERNAL_SRC_CODE_CODE_8006BA00_C
 #include "global.h"
+#include "z64global.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800F7260.h"
+#include "def/z_skin_matrix.h"
 
 void func_8006BA00(GlobalContext* globalCtx) {
     SoundSource* sources = &globalCtx->soundSources[0];
@@ -28,9 +33,9 @@ void func_8006BA30(GlobalContext* globalCtx) {
 
 void Audio_PlaySoundAtPosition(GlobalContext* globalCtx, Vec3f* pos, s32 duration, u16 sfxId) {
     s32 countdown;
-    SoundSource* source;
+    SoundSource* source = NULL;
     s32 smallestCountdown = 0xFFFF;
-    SoundSource* backupSource;
+    SoundSource* backupSource = NULL;
     s32 i;
 
     source = &globalCtx->soundSources[0];

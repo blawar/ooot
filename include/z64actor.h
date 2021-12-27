@@ -1,16 +1,23 @@
-#ifndef Z64ACTOR_H
-#define Z64ACTOR_H
+#pragma once
 
 #include "z64dma.h"
 #include "z64animation.h"
 #include "z64math.h"
 #include "z64collision_check.h"
+#include "color.h"
 
 #define ACTOR_NUMBER_MAX 200
 #define INVISIBLE_ACTOR_MAX 20
 #define AM_FIELD_SIZE 0x27A0
 #define MASS_IMMOVABLE 0xFF // Cannot be pushed by OC collisions
 #define MASS_HEAVY 0xFE // Can only be pushed by OC collisions with IMMOVABLE and HEAVY objects.
+
+typedef enum {
+    DPM_UNK = 0,
+    DPM_PLAYER = 1,
+    DPM_ENEMY = 2,
+    DPM_UNK3 = 3
+} DynaPolyMoveFlag;
 
 struct Actor;
 struct GlobalContext;
@@ -22,9 +29,11 @@ typedef u16 (*callback1_800343CC)(struct GlobalContext*, struct Actor*);
 typedef s16 (*callback2_800343CC)(struct GlobalContext*, struct Actor*);
 
 typedef struct {
-    Vec3f pos;
-    Vec3s rot;
-} PosRot; // size = 0x14
+    /* 0x00 */ s16 id;
+    /* 0x02 */ Vec3s pos;
+    /* 0x08 */ Vec3s rot;
+    /* 0x0E */ s16 params;
+} ActorEntry; // size = 0x10
 
 typedef struct {
     /* 0x00 */ s16 id;
@@ -45,8 +54,8 @@ typedef enum {
 } AllocType;
 
 typedef struct {
-    /* 0x00 */ u32 vromStart;
-    /* 0x04 */ u32 vromEnd;
+    /* 0x00 */ uintptr_t vromStart;
+    /* 0x04 */ uintptr_t vromEnd;
     /* 0x08 */ void* vramStart;
     /* 0x0C */ void* vramEnd;
     /* 0x10 */ void* loadedRamAddr; // original name: "allocp"
@@ -136,7 +145,7 @@ typedef struct Actor {
     /* 0x004 */ u32 flags; // Flags used for various purposes
     /* 0x008 */ PosRot home; // Initial position/rotation when spawned. Can be used for other purposes
     /* 0x01C */ s16 params; // Configurable variable set by the actor's spawn data; original name: "args_data"
-    /* 0x01E */ s8 objBankIndex; // Object bank index of the actor's object dependency; original name: "bank"
+    /* 0x01E */ s32 objBankIndex; // Object bank index of the actor's object dependency; original name: "bank"
     /* 0x01F */ s8 targetMode; // Controls how far the actor can be targeted from and how far it can stay locked on
     /* 0x020 */ u16 sfx; // SFX ID to play. Sound plays when value is set, then is cleared the following update cycle
     /* 0x024 */ PosRot world; // Position/rotation in the world
@@ -147,8 +156,8 @@ typedef struct Actor {
     /* 0x068 */ f32 speedXZ; // How fast the actor is traveling along the XZ plane
     /* 0x06C */ f32 gravity; // Acceleration due to gravity. Value is added to Y velocity every frame
     /* 0x070 */ f32 minVelocityY; // Sets the lower bounds cap on velocity along the Y axis
-    /* 0x074 */ CollisionPoly* wallPoly; // Wall polygon the actor is touching
-    /* 0x078 */ CollisionPoly* floorPoly; // Floor polygon directly below the actor
+    /* 0x074 */ struct CollisionPoly* wallPoly; // Wall polygon the actor is touching
+    /* 0x078 */ struct CollisionPoly* floorPoly; // Floor polygon directly below the actor
     /* 0x07C */ u8 wallBgId; // Bg ID of the wall polygon the actor is touching
     /* 0x07D */ u8 floorBgId; // Bg ID of the floor polygon directly below the actor
     /* 0x07E */ s16 wallYaw; // Y rotation of the wall polygon the actor is touching
@@ -356,4 +365,324 @@ typedef enum {
     DOORLOCK_NORMAL_SPIRIT
 } DoorLockType;
 
-#endif
+typedef struct {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ f32 unk_0C; // radius?
+    /* 0x10 */ Color_RGB8 color;
+} TargetContextEntry; // size = 0x14
+
+typedef struct {
+    /* 0x00 */ void* texture;
+    /* 0x04 */ s16 x;
+    /* 0x06 */ s16 y;
+    /* 0x08 */ u8 width;
+    /* 0x09 */ u8 height;
+    /* 0x0A */ u8 durationTimer; // how long the title card appears for before fading
+    /* 0x0B */ u8 delayTimer;    // how long the title card waits to appear
+    /* 0x0C */ s16 alpha;
+    /* 0x0E */ s16 intensity;
+} TitleCardContext; // size = 0x10
+
+typedef struct {
+    /* 0x00 */ Vec3f naviRefPos; // possibly wrong
+    /* 0x0C */ Vec3f targetCenterPos;
+    /* 0x18 */ Color_RGBAf naviInner;
+    /* 0x28 */ Color_RGBAf naviOuter;
+    /* 0x38 */ Actor* arrowPointedActor;
+    /* 0x3C */ Actor* targetedActor;
+    /* 0x40 */ f32 unk_40;
+    /* 0x44 */ f32 unk_44;
+    /* 0x48 */ s16 unk_48;
+    /* 0x4A */ u8 activeCategory;
+    /* 0x4B */ u8 unk_4B;
+    /* 0x4C */ s8 unk_4C;
+    /* 0x4D */ char unk_4D[0x03];
+    /* 0x50 */ TargetContextEntry arr_50[3];
+    /* 0x8C */ Actor* unk_8C;
+    /* 0x90 */ Actor* bgmEnemy; // The nearest enemy to player with the right flags that will trigger NA_BGM_ENEMY
+    /* 0x94 */ Actor* unk_94;
+} TargetContext; // size = 0x98
+
+typedef struct {
+    /* 0x00 */ s32 length;  // number of actors loaded of this category
+    /* 0x04 */ Actor* head; // pointer to head of the linked list of this category (most recent actor added)
+} ActorListEntry;           // size = 0x08
+
+typedef struct {
+    /* 0x0000 */ u8 freezeFlashTimer;
+    /* 0x0001 */ char unk_01[0x01];
+    /* 0x0002 */ u8 unk_02;
+    /* 0x0003 */ u8 unk_03;
+    /* 0x0004 */ char unk_04[0x04];
+    /* 0x0008 */ u8 total; // total number of actors loaded
+    /* 0x0009 */ char unk_09[0x03];
+    /* 0x000C */ ActorListEntry actorLists[12];
+    /* 0x006C */ TargetContext targetCtx;
+    struct {
+        /* 0x0104 */ u32 swch;
+        /* 0x0108 */ u32 tempSwch;
+        /* 0x010C */ u32 unk0;
+        /* 0x0110 */ u32 unk1;
+        /* 0x0114 */ u32 chest;
+        /* 0x0118 */ u32 clear;
+        /* 0x011C */ u32 tempClear;
+        /* 0x0120 */ u32 collect;
+        /* 0x0124 */ u32 tempCollect;
+    } flags;
+    /* 0x0128 */ TitleCardContext titleCtx;
+    /* 0x0138 */ char unk_138[0x04];
+    /* 0x013C */ void* absoluteSpace; // Space used to allocate actor overlays of alloc type 1
+} ActorContext;                       // size = 0x140
+
+typedef struct {
+    /* 0x00 */ s16 unk_00;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ Vec3s unk_08;
+    /* 0x0E */ Vec3s unk_0E;
+    /* 0x14 */ f32 unk_14;
+    /* 0x18 */ Vec3f unk_18;
+    /* 0x24 */ s16 unk_24;
+} struct_80034A14_arg1; // size = 0x28
+
+
+// Some animation related structure
+typedef struct {
+    /* 0x00 */ AnimationHeader* animation;
+    /* 0x04 */ f32 playbackSpeed;
+    /* 0x08 */ f32 startFrame;
+    /* 0x0C */ f32 frameCount;
+    /* 0x10 */ u8 mode;
+    /* 0x14 */ f32 transitionRate;
+} struct_80034EC0_Entry; // size = 0x18
+
+// Another animation related structure
+typedef struct {
+    /* 0x00 */ AnimationHeader* animation;
+    /* 0x04 */ f32 frameCount;
+    /* 0x08 */ u8 mode;
+    /* 0x0C */ f32 transitionRate;
+} struct_D_80AA1678; // size = 0x10
+
+/*
+void ActorShape_Init(ActorShape* shape, f32 yOffset, ActorShadowFunc shadowDraw, f32 shadowScale);
+void ActorShadow_DrawCircle(Actor* actor, struct Lights* lights, struct GlobalContext* globalCtx);
+void ActorShadow_DrawWhiteCircle(Actor* actor, struct Lights* lights, struct GlobalContext* globalCtx);
+void ActorShadow_DrawHorse(Actor* actor, struct Lights* lights, struct GlobalContext* globalCtx);
+void ActorShadow_DrawFeet(Actor* actor, struct Lights* lights, struct GlobalContext* globalCtx);
+void Actor_SetFeetPos(Actor* actor, s32 limbIndex, s32 leftFootIndex, Vec3f* leftFootPos, s32 rightFootIndex,
+    Vec3f* rightFootPos);
+void func_8002BE04(struct GlobalContext* globalCtx, Vec3f* arg1, Vec3f* arg2, f32* arg3);
+void func_8002C124(TargetContext* targetCtx, struct GlobalContext* globalCtx);
+s32 Flags_GetSwitch(struct GlobalContext* globalCtx, s32 flag);
+void Flags_SetSwitch(struct GlobalContext* globalCtx, s32 flag);
+void Flags_UnsetSwitch(struct GlobalContext* globalCtx, s32 flag);
+s32 Flags_GetUnknown(struct GlobalContext* globalCtx, s32 flag);
+void Flags_SetUnknown(struct GlobalContext* globalCtx, s32 flag);
+void Flags_UnsetUnknown(struct GlobalContext* globalCtx, s32 flag);
+s32 Flags_GetTreasure(struct GlobalContext* globalCtx, s32 flag);
+void Flags_SetTreasure(struct GlobalContext* globalCtx, s32 flag);
+s32 Flags_GetClear(struct GlobalContext* globalCtx, s32 flag);
+void Flags_SetClear(struct GlobalContext* globalCtx, s32 flag);
+void Flags_UnsetClear(struct GlobalContext* globalCtx, s32 flag);
+s32 Flags_GetTempClear(struct GlobalContext* globalCtx, s32 flag);
+void Flags_SetTempClear(struct GlobalContext* globalCtx, s32 flag);
+void Flags_UnsetTempClear(struct GlobalContext* globalCtx, s32 flag);
+s32 Flags_GetCollectible(struct GlobalContext* globalCtx, s32 flag);
+void Flags_SetCollectible(struct GlobalContext* globalCtx, s32 flag);
+void TitleCard_InitBossName(struct GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s16 x, s16 y, u8 width,
+    u8 height);
+void TitleCard_InitPlaceName(struct GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s32 x, s32 y,
+    s32 width, s32 height, s32 delay);
+s32 func_8002D53C(struct GlobalContext* globalCtx, TitleCardContext* titleCtx);
+void Actor_Kill(Actor* actor);
+void Actor_SetFocus(Actor* actor, f32 offset);
+void Actor_SetScale(Actor* actor, f32 scale);
+void Actor_SetObjectDependency(struct GlobalContext* globalCtx, Actor* actor);
+void func_8002D7EC(Actor* actor);
+void func_8002D868(Actor* actor);
+void Actor_MoveForward(Actor* actor);
+void func_8002D908(Actor* actor);
+void func_8002D97C(Actor* actor);
+void func_8002D9A4(Actor* actor, f32 arg1);
+s16 Actor_WorldYawTowardActor(Actor* actorA, Actor* actorB);
+s16 Actor_WorldYawTowardPoint(Actor* actor, Vec3f* refPoint);
+f32 Actor_WorldDistXYZToActor(Actor* actorA, Actor* actorB);
+f32 Actor_WorldDistXYZToPoint(Actor* actor, Vec3f* refPoint);
+s16 Actor_WorldPitchTowardActor(Actor* actorA, Actor* actorB);
+s16 Actor_WorldPitchTowardPoint(Actor* actor, Vec3f* refPoint);
+f32 Actor_WorldDistXZToActor(Actor* actorA, Actor* actorB);
+f32 Actor_WorldDistXZToPoint(Actor* actor, Vec3f* refPoint);
+void func_8002DBD0(Actor* actor, Vec3f* result, Vec3f* arg2);
+f32 Actor_HeightDiff(Actor* actorA, Actor* actorB);
+
+f32 func_8002DCE4(struct Player* player);
+s32 func_8002DD6C(struct Player* player);
+s32 func_8002DD78(struct Player* player);
+s32 func_8002DDE4(struct GlobalContext* globalCtx);
+s32 func_8002DDF4(struct GlobalContext* globalCtx);
+void func_8002DE04(struct GlobalContext* globalCtx, Actor* actorA, Actor* actorB);
+void func_8002DE74(struct GlobalContext* globalCtx, struct Player* player);
+void Actor_MountHorse(struct GlobalContext* globalCtx, struct Player* player, Actor* horse);
+s32 func_8002DEEC(struct Player* player);
+void func_8002DF18(struct GlobalContext* globalCtx, struct Player* player);
+s32 func_8002DF38(struct GlobalContext* globalCtx, Actor* actor, u8 csMode);
+s32 func_8002DF54(struct GlobalContext* globalCtx, Actor* actor, u8 arg2);
+void func_8002DF90(DynaPolyActor* dynaActor);
+void func_8002DFA4(DynaPolyActor* dynaActor, f32 arg1, s16 arg2);
+
+s32 Actor_ActorBIsFacingActorA(Actor* actorA, Actor* actorB, s16 angle);
+s32 Actor_IsFacingPlayer(Actor* actor, s16 angle);
+s32 Actor_ActorAIsFacingActorB(Actor* actorA, Actor* actorB, s16 angle);
+s32 Actor_IsFacingAndNearPlayer(Actor* actor, f32 range, s16 angle);
+s32 Actor_ActorAIsFacingAndNearActorB(Actor* actorA, Actor* actorB, f32 range, s16 angle);
+void Actor_UpdateBgCheckInfo(struct GlobalContext* globalCtx, Actor* actor, f32 wallCheckHeight, f32 wallCheckRadius,
+    f32 ceilingCheckHeight, s32 flags);
+Hilite* func_8002EABC(Vec3f* object, Vec3f* eye, Vec3f* lightDir, struct GraphicsContext* gfxCtx);
+Hilite* func_8002EB44(Vec3f* object, Vec3f* eye, Vec3f* lightDir, struct GraphicsContext* gfxCtx);
+void func_8002EBCC(Actor* actor, struct GlobalContext* globalCtx, s32 flag);
+void func_8002ED80(Actor* actor, struct GlobalContext* globalCtx, s32 flag);
+PosRot* Actor_GetFocus(PosRot* arg0, Actor* actor);
+PosRot* Actor_GetWorld(PosRot* arg0, Actor* actor);
+PosRot* Actor_GetWorldPosShapeRot(PosRot* arg0, Actor* actor);
+s32 func_8002F0C8(Actor* actor, struct Player* player, s32 arg2);
+u32 Actor_ProcessTalkRequest(Actor* actor, struct GlobalContext* globalCtx);
+s32 func_8002F1C4(Actor* actor, struct GlobalContext* globalCtx, f32 arg2, f32 arg3, u32 arg4);
+s32 func_8002F298(Actor* actor, struct GlobalContext* globalCtx, f32 arg2, u32 arg3);
+s32 func_8002F2CC(Actor* actor, struct GlobalContext* globalCtx, f32 arg2);
+s32 func_8002F2F4(Actor* actor, struct GlobalContext* globalCtx);
+u32 Actor_TextboxIsClosing(Actor* actor, struct GlobalContext* globalCtx);
+s8 func_8002F368(struct GlobalContext* globalCtx);
+void Actor_GetScreenPos(struct GlobalContext* globalCtx, Actor* actor, s16* x, s16* y);
+u32 Actor_HasParent(Actor* actor, struct GlobalContext* globalCtx);
+s32 func_8002F434(Actor* actor, struct GlobalContext* globalCtx, s32 getItemId, f32 xzRange, f32 yRange);
+void func_8002F554(Actor* actor, struct GlobalContext* globalCtx, s32 getItemId);
+void func_8002F580(Actor* actor, struct GlobalContext* globalCtx);
+u32 Actor_HasNoParent(Actor* actor, struct GlobalContext* globalCtx);
+void func_8002F5C4(Actor* actorA, Actor* actorB, struct GlobalContext* globalCtx);
+void func_8002F5F0(Actor* actor, struct GlobalContext* globalCtx);
+s32 Actor_IsMounted(struct GlobalContext* globalCtx, Actor* horse);
+u32 Actor_SetRideActor(struct GlobalContext* globalCtx, Actor* horse, s32 arg2);
+s32 Actor_NotMounted(struct GlobalContext* globalCtx, Actor* horse);
+void func_8002F698(struct GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4, u32 arg5, u32 arg6);
+void func_8002F6D4(struct GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4, u32 arg5);
+void func_8002F71C(struct GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4);
+void func_8002F758(struct GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4, u32 arg5);
+void func_8002F7A0(struct GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f32 arg4);
+void func_8002F7DC(Actor* actor, u16 sfxId);
+void Audio_PlayActorSound2(Actor* actor, u16 sfxId);
+void func_8002F850(struct GlobalContext* globalCtx, Actor* actor);
+void func_8002F8F0(Actor* actor, u16 sfxId);
+void func_8002F91C(Actor* actor, u16 sfxId);
+void func_8002F948(Actor* actor, u16 sfxId);
+void func_8002F974(Actor* actor, u16 sfxId);
+void func_8002F994(Actor* actor, s32 arg1);
+s32 func_8002F9EC(struct GlobalContext* globalCtx, Actor* actor, struct CollisionPoly* poly, s32 bgId, Vec3f* pos);
+void func_800304B0(struct GlobalContext* globalCtx);
+void func_800304DC(struct GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry* actorEntry);
+void Actor_UpdateAll(struct GlobalContext* globalCtx, ActorContext* actorCtx);
+s32 func_800314D4(struct GlobalContext* globalCtx, Actor* actorB, Vec3f* arg2, f32 arg3);
+void func_800315AC(struct GlobalContext* globalCtx, ActorContext* actorCtx);
+void func_80031A28(struct GlobalContext* globalCtx, ActorContext* actorCtx);
+void func_80031B14(struct GlobalContext* globalCtx, ActorContext* actorCtx);
+void func_80031C3C(ActorContext* actorCtx, struct GlobalContext* globalCtx);
+Actor* Actor_Spawn(ActorContext* actorCtx, struct GlobalContext* globalCtx, s16 actorId, f32 posX, f32 posY, f32 posZ,
+    s16 rotX, s16 rotY, s16 rotZ, s16 params);
+Actor* Actor_SpawnAsChild(ActorContext* actorCtx, Actor* parent, struct GlobalContext* globalCtx, s16 actorId, f32 posX,
+    f32 posY, f32 posZ, s16 rotX, s16 rotY, s16 rotZ, s16 params);
+void Actor_SpawnTransitionActors(struct GlobalContext* globalCtx, ActorContext* actorCtx);
+Actor* Actor_SpawnEntry(ActorContext* actorCtx, ActorEntry* actorEntry, struct GlobalContext* globalCtx);
+Actor* Actor_Delete(ActorContext* actorCtx, Actor* actor, struct GlobalContext* globalCtx);
+Actor* func_80032AF0(struct GlobalContext* globalCtx, ActorContext* actorCtx, Actor** actorPtr, struct Player* player);
+Actor* Actor_Find(ActorContext* actorCtx, s32 actorId, s32 actorCategory);
+void Enemy_StartFinishingBlow(struct GlobalContext* globalCtx, Actor* actor);
+s16 func_80032CB4(s16* arg0, s16 arg1, s16 arg2, s16 arg3);
+void BodyBreak_Alloc(BodyBreak* bodyBreak, s32 count, struct GlobalContext* globalCtx);
+void BodyBreak_SetInfo(BodyBreak* bodyBreak, s32 limbIndex, s32 minLimbIndex, s32 maxLimbIndex, u32 count, Gfx** dList,
+    s16 objectId);
+s32 BodyBreak_SpawnParts(Actor* actor, BodyBreak* bodyBreak, struct GlobalContext* globalCtx, s16 type);
+void Actor_SpawnFloorDustRing(struct GlobalContext* globalCtx, Actor* actor, Vec3f* posXZ, f32 radius, s32 amountMinusOne,
+    f32 randAccelWeight, s16 scale, s16 scaleStep, u8 useLighting);
+void func_80033480(struct GlobalContext* globalCtx, Vec3f* posBase, f32 randRangeDiameter, s32 amountMinusOne, s16 scaleBase,
+    s16 scaleStep, u8 arg6);
+Actor* Actor_GetCollidedExplosive(struct GlobalContext* globalCtx, Collider* collider);
+Actor* func_80033684(struct GlobalContext* globalCtx, Actor* explosiveActor);
+Actor* Actor_GetProjectileActor(struct GlobalContext* globalCtx, Actor* refActor, f32 radius);
+void Actor_ChangeCategory(struct GlobalContext* globalCtx, ActorContext* actorCtx, Actor* actor, u8 actorCategory);
+void Actor_SetTextWithPrefix(struct GlobalContext* globalCtx, Actor* actor, s16 textIdLower);
+s16 Actor_TestFloorInDirection(Actor* actor, struct GlobalContext* globalCtx, f32 distance, s16 angle);
+s32 Actor_IsTargeted(struct GlobalContext* globalCtx, Actor* actor);
+s32 Actor_OtherIsTargeted(struct GlobalContext* globalCtx, Actor* actor);
+f32 func_80033AEC(Vec3f* arg0, Vec3f* arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5);
+void func_80033C30(Vec3f* arg0, Vec3f* arg1, u8 alpha, struct GlobalContext* globalCtx);
+void func_80033DB8(struct GlobalContext* globalCtx, s16 arg1, s16 arg2);
+void func_80033E1C(struct GlobalContext* globalCtx, s16 arg1, s16 arg2, s16 arg3);
+void func_80033E88(Actor* actor, struct GlobalContext* globalCtx, s16 arg2, s16 arg3);
+f32 Rand_ZeroFloat(f32 f);
+f32 Rand_CenteredFloat(f32 f);
+void Actor_DrawDoorLock(struct GlobalContext* globalCtx, s32 arg1, s32 arg2);
+void func_8003424C(struct GlobalContext* globalCtx, Vec3f* arg1);
+void Actor_SetColorFilter(Actor* actor, s16 colorFlag, s16 colorIntensityMax, s16 xluFlag, s16 duration);
+Hilite* func_800342EC(Vec3f* object, struct GlobalContext* globalCtx);
+Hilite* func_8003435C(Vec3f* object, struct GlobalContext* globalCtx);
+s32 func_800343CC(struct GlobalContext* globalCtx, Actor* actor, s16* arg2, f32 interactRange,
+    u16(*unkFunc1)(struct GlobalContext*, Actor*), s16(*unkFunc2)(struct GlobalContext*, Actor*));
+s16 func_800347E8(s16 arg0);
+void func_80034A14(Actor* actor, struct_80034A14_arg1* arg1, s16 arg2, s16 arg3);
+void func_80034BA0(struct GlobalContext* globalCtx, SkelAnime* skelAnime, OverrideLimbDraw overrideLimbDraw,
+    PostLimbDraw postLimbDraw, Actor* actor, s16 alpha);
+void func_80034CC4(struct GlobalContext* globalCtx, SkelAnime* skelAnime, OverrideLimbDraw overrideLimbDraw,
+    PostLimbDraw postLimbDraw, Actor* actor, s16 alpha);
+s16 func_80034DD4(Actor* actor, struct GlobalContext* globalCtx, s16 arg2, f32 arg3);
+void func_80034EC0(SkelAnime* skelAnime, struct_80034EC0_Entry* animations, s32 index);
+void func_80034F54(struct GlobalContext* globalCtx, s16* arg1, s16* arg2, s32 arg3);
+void Actor_Noop(Actor* actor, struct GlobalContext* globalCtx);
+void Gfx_DrawDListOpa(struct GlobalContext* globalCtx, Gfx* dlist);
+void Gfx_DrawDListXlu(struct GlobalContext* globalCtx, Gfx* dlist);
+Actor* Actor_FindNearby(struct GlobalContext* globalCtx, Actor* refActor, s16 actorId, u8 actorCategory, f32 range);
+s32 func_800354B4(struct GlobalContext* globalCtx, Actor* actor, f32 range, s16 arg3, s16 arg4, s16 arg5);
+void func_8003555C(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel);
+void func_800355B8(struct GlobalContext* globalCtx, Vec3f* pos);
+u8 func_800355E4(struct GlobalContext* globalCtx, Collider* collider);
+u8 Actor_ApplyDamage(Actor* actor);
+void Actor_SetDropFlag(Actor* actor, ColliderInfo* colBody, s32 freezeFlag);
+void Actor_SetDropFlagJntSph(Actor* actor, ColliderJntSph* colBody, s32 freezeFlag);
+void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3);
+Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, Vec3s* spawnRot, f32* arg3, s32 timer, s16* unused,
+    struct GlobalContext* globalCtx, s16 params, s32 arg8);
+void func_800359B8(Actor* actor, s16 arg1, Vec3s* arg2);
+s32 Flags_GetEventChkInf(s32 flag);
+void Flags_SetEventChkInf(s32 flag);
+s32 Flags_GetInfTable(s32 flag);
+void Flags_SetInfTable(s32 flag);
+u16 func_80037C30(struct GlobalContext* globalCtx, s16 arg1);
+s32 func_80037D98(struct GlobalContext* globalCtx, Actor* actor, s16 arg2, s32* arg3);
+s32 func_80038290(struct GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, Vec3f arg4);
+void ActorOverlayTable_LogPrint(void);
+void ActorOverlayTable_Init(void);
+void ActorOverlayTable_Cleanup(void);
+// ? func_80038600(?);
+
+
+void func_80043334(struct CollisionContext* colCtx, Actor* actor, s32 bgId);
+s32 func_800433A4(struct CollisionContext* colCtx, s32 bgId, Actor* actor);
+void DynaPolyActor_Init(DynaPolyActor* dynaActor, s32 flags);
+void func_800434A0(DynaPolyActor* dynaActor);
+void func_800434A8(DynaPolyActor* dynaActor);
+void func_800434C8(struct CollisionContext* colCtx, s32 floorBgId);
+void func_80043508(struct CollisionContext* colCtx, s32 floorBgId);
+void func_80043538(DynaPolyActor* dynaActor);
+s32 func_80043548(DynaPolyActor* dynaActor);
+s32 func_8004356C(DynaPolyActor* dynaActor);
+s32 func_80043590(DynaPolyActor* dynaActor);
+s32 func_800435B4(DynaPolyActor* dynaActor);
+s32 func_800435D8(struct GlobalContext* globalCtx, DynaPolyActor* dynaActor, s16 arg2, s16 arg3, s16 arg4);
+*/
+
+s32 func_800343CC(struct GlobalContext* globalCtx, Actor* actor, s16* arg2, f32 interactRange, u16(*unkFunc1)(struct GlobalContext*, Actor*), s16(*unkFunc2)(struct GlobalContext*, Actor*));
+
+extern ActorOverlay gActorOverlayTable[ACTOR_ID_MAX]; // original name: "actor_dlftbls" 801162A0
+extern s32 gMaxActorId; // original name: "MaxProfile"
+extern Gfx D_80116280[];
+

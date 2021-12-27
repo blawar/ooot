@@ -1,4 +1,19 @@
+#define INTERNAL_SRC_CODE_Z_SAMPLE_C
 #include "global.h"
+#include "gfx.h"
+#include "segment_symbols.h"
+#include "textures/title_static/title_static.h"
+#include "z_sample.h"
+#include "padmgr.h"
+#include "z_player.h"
+#include "def/game.h"
+#include "def/graph.h"
+#include "def/position.h"
+#include "def/z_rcp.h"
+#include "def/z_sample.h"
+#include "def/z_std_dma.h"
+#include "def/z_view.h"
+#include "def/z_play.h" // FORCE
 
 void Sample_HandleStateChange(SampleContext* this) {
     if (CHECK_BTN_ALL(this->state.input[0].press.button, BTN_START)) {

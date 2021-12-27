@@ -1,5 +1,45 @@
+#define INTERNAL_SRC_CODE_GRAPH_C
 #include "global.h"
+#include <string.h>
 #include "vt.h"
+#include "ultra64/time.h"
+#include "n64fault.h"
+#include "z64game.h"
+#include "z_opening.h"
+#include "z_player.h"
+#include "z_select.h"
+#include "z_file_choose.h"
+#include "title_setup.h"
+#include "z_title.h"
+#include "gfx.h"
+#include "sched.h"
+#include "z64save.h"
+#include "speedmeter.h"
+#include "z_prenmi_buff.h"
+#include "def/TwoHeadArena.h"
+#include "def/code_800D31A0.h"
+#include "def/code_800EC960.h"
+#include "def/createmesgqueue.h"
+#include "def/fault.h"
+#include "def/game.h"
+#include "def/gettime.h"
+#include "def/gfxbuffers.h"
+#include "def/graph.h"
+#include "def/idle.h"
+#include "def/logutils.h"
+#include "def/sched.h"
+#include "def/speed_meter.h"
+#include "def/sprintf.h"
+#include "def/sys_ucode.h"
+#include "def/system_malloc.h"
+#include "def/z_DLF.h"
+#include "def/z_common_data.h"
+#include "def/z_game_dlftbls.h"
+#include "def/z_prenmi_buff.h"
+#include "def/z_play.h" // FORCE
+
+extern GameStateOverlay gGameStateOverlayTable[6];
+extern PreNmiBuff* gAppNmiBufferPtr;
 
 #define GFXPOOL_HEAD_MAGIC 0x1234
 #define GFXPOOL_TAIL_MAGIC 0x5678
@@ -10,73 +50,15 @@ FaultClient sGraphFaultClient;
 CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
 
-// clang-format off
-UCodeInfo D_8012D230[3] = {
-    { UCODE_F3DZEX, D_80155F50 },
-    { UCODE_UNK, NULL },
-    { UCODE_S2DEX, D_80113070 },
-};
-
-UCodeInfo D_8012D248[3] = {
-    { UCODE_F3DZEX, D_80155F50 },
-    { UCODE_UNK, NULL },
-    { UCODE_S2DEX, D_80113070 },
-};
-// clang-format on
-
-void Graph_FaultClient() {
-    void* nextFb = osViGetNextFramebuffer();
-    void* newFb = ((u32)SysCfb_GetFbPtr(0) != (u32)nextFb) ? SysCfb_GetFbPtr(0) : SysCfb_GetFbPtr(1);
-
-    osViSwapBuffer(newFb);
-    Fault_WaitForInput();
-    osViSwapBuffer(nextFb);
-}
+uintptr_t SysCfb_GetFbPtr(s32 idx);
+bool gfx_start_frame();
+void gfx_end_frame();
+bool isRunning();
 
 void Graph_DisassembleUCode(Gfx* workBuf) {
-    UCodeDisas disassembler;
-
-    if (HREG(80) == 7 && HREG(81) != 0) {
-        UCodeDisas_Init(&disassembler);
-        disassembler.enableLog = HREG(83);
-        UCodeDisas_RegisterUCode(&disassembler, ARRAY_COUNT(D_8012D230), D_8012D230);
-        UCodeDisas_SetCurUCode(&disassembler, D_80155F50);
-        UCodeDisas_Disassemble(&disassembler, workBuf);
-        HREG(93) = disassembler.dlCnt;
-        HREG(84) = disassembler.tri2Cnt * 2 + disassembler.tri1Cnt + (disassembler.quadCnt * 2) + disassembler.lineCnt;
-        HREG(85) = disassembler.vtxCnt;
-        HREG(86) = disassembler.spvtxCnt;
-        HREG(87) = disassembler.tri1Cnt;
-        HREG(88) = disassembler.tri2Cnt;
-        HREG(89) = disassembler.quadCnt;
-        HREG(90) = disassembler.lineCnt;
-        HREG(91) = disassembler.syncErr;
-        HREG(92) = disassembler.loaducodeCnt;
-        if (HREG(82) == 1 || HREG(82) == 2) {
-            osSyncPrintf("vtx_cnt=%d\n", disassembler.vtxCnt);
-            osSyncPrintf("spvtx_cnt=%d\n", disassembler.spvtxCnt);
-            osSyncPrintf("tri1_cnt=%d\n", disassembler.tri1Cnt);
-            osSyncPrintf("tri2_cnt=%d\n", disassembler.tri2Cnt);
-            osSyncPrintf("quad_cnt=%d\n", disassembler.quadCnt);
-            osSyncPrintf("line_cnt=%d\n", disassembler.lineCnt);
-            osSyncPrintf("sync_err=%d\n", disassembler.syncErr);
-            osSyncPrintf("loaducode_cnt=%d\n", disassembler.loaducodeCnt);
-            osSyncPrintf("dl_depth=%d\n", disassembler.dlDepth);
-            osSyncPrintf("dl_cnt=%d\n", disassembler.dlCnt);
-        }
-        UCodeDisas_Destroy(&disassembler);
-    }
 }
 
 void Graph_UCodeFaultClient(Gfx* workBuf) {
-    UCodeDisas disassembler;
-
-    UCodeDisas_Init(&disassembler);
-    disassembler.enableLog = true;
-    UCodeDisas_RegisterUCode(&disassembler, ARRAY_COUNT(D_8012D248), D_8012D248);
-    UCodeDisas_SetCurUCode(&disassembler, D_80155F50);
-    UCodeDisas_Disassemble(&disassembler, workBuf);
-    UCodeDisas_Destroy(&disassembler);
 }
 
 void Graph_InitTHGA(GraphicsContext* gfxCtx) {
@@ -132,15 +114,14 @@ void Graph_Init(GraphicsContext* gfxCtx) {
     gfxCtx->viFeatures = gViConfigFeatures;
     gfxCtx->xScale = gViConfigXScale;
     gfxCtx->yScale = gViConfigYScale;
-    osCreateMesgQueue(&gfxCtx->queue, gfxCtx->msgBuff, ARRAY_COUNT(gfxCtx->msgBuff));
     func_800D31F0();
-    Fault_AddClient(&sGraphFaultClient, Graph_FaultClient, 0, 0);
 }
 
 void Graph_Destroy(GraphicsContext* gfxCtx) {
     func_800D3210();
-    Fault_RemoveClient(&sGraphFaultClient);
 }
+
+void gfx_run(OSTask_t* task, u32 sz);
 
 void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     static Gfx* D_8012D260 = NULL;
@@ -155,32 +136,6 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     s32 pad1;
 
     D_8016A528 = osGetTime() - sGraphSetTaskTime - D_8016A558;
-
-    osSetTimer(&timer, OS_USEC_TO_CYCLES(3000000), 0, &gfxCtx->queue, (OSMesg)666);
-
-    osRecvMesg(&gfxCtx->queue, &msg, OS_MESG_BLOCK);
-    osStopTimer(&timer);
-
-    if (msg == (OSMesg)666) {
-        osSyncPrintf(VT_FGCOL(RED));
-        osSyncPrintf("RCPが帰ってきませんでした。"); // "RCP did not return."
-        osSyncPrintf(VT_RST);
-        LogUtils_LogHexDump((void*)&HW_REG(SP_MEM_ADDR_REG, u32), 0x20);
-        LogUtils_LogHexDump((void*)&DPC_START_REG, 0x20);
-        LogUtils_LogHexDump(gGfxSPTaskYieldBuffer, sizeof(gGfxSPTaskYieldBuffer));
-
-        SREG(6) = -1;
-        if (D_8012D260 != NULL) {
-            HREG(80) = 7;
-            HREG(81) = 1;
-            HREG(83) = 2;
-            D_8012D260 = D_8012D260;
-            Graph_DisassembleUCode(D_8012D260);
-        }
-        Fault_AddHungupAndCrashImpl("RCP is HUNG UP!!", "Oh! MY GOD!!");
-    }
-
-    osRecvMesg(&gfxCtx->queue, &msg, OS_MESG_NOBLOCK);
 
     D_8012D260 = gfxCtx->workBuffer;
     if (gfxCtx->callback != NULL) {
@@ -211,7 +166,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     task->data_ptr = (u64*)gfxCtx->workBuffer;
 
     OPEN_DISPS(gfxCtx, "../graph.c", 828);
-    task->data_size = (u32)WORK_DISP - (u32)gfxCtx->workBuffer;
+    task->data_size = (uintptr_t)WORK_DISP - (uintptr_t)gfxCtx->workBuffer;
     CLOSE_DISPS(gfxCtx, "../graph.c", 830);
 
     { s32 pad2; } // Necessary to match stack usage
@@ -249,6 +204,8 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext);
+
+    gfx_run(task, sizeof(OSTask_t));
 }
 
 void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
@@ -409,14 +366,15 @@ void Graph_ThreadEntry(void* arg0) {
     osSyncPrintf("グラフィックスレッド実行開始\n"); // "Start graphic thread execution"
     Graph_Init(&gfxCtx);
 
-    while (nextOvl) {
+    while (nextOvl && isRunning()) {
         ovl = nextOvl;
         Overlay_LoadGameState(ovl);
 
         size = ovl->instanceSize;
         osSyncPrintf("クラスサイズ＝%dバイト\n", size); // "Class size = %d bytes"
 
-        gameState = SystemArena_MallocDebug(size, "../graph.c", 1196);
+        gameState = SystemArena_MallocDebug(size * 2, "../graph.c", 1196);
+        memset(gameState, 0, size * 2);
 
         if (!gameState) {
             osSyncPrintf("確保失敗\n"); // "Failure to secure"
@@ -426,8 +384,12 @@ void Graph_ThreadEntry(void* arg0) {
         }
         GameState_Init(gameState, ovl->init, &gfxCtx);
 
-        while (GameState_IsRunning(gameState)) {
-            Graph_Update(&gfxCtx, gameState);
+        while (GameState_IsRunning(gameState) && isRunning()) {
+            if(gfx_start_frame())
+            {
+                Graph_Update(&gfxCtx, gameState);
+                gfx_end_frame();
+            }
         }
 
         nextOvl = Graph_GetNextGameState(gameState);
@@ -515,4 +477,9 @@ void* Graph_DlistAlloc(Gfx** gfx, u32 size) {
 
     *gfx = dst;
     return ptr;
+}
+
+u64 frameRateDivisor()
+{
+    return R_UPDATE_RATE;
 }

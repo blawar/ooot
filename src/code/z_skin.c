@@ -1,4 +1,13 @@
+#define INTERNAL_SRC_CODE_Z_SKIN_C
 #include "global.h"
+#include "gfx.h"
+#include "z64animation.h"
+#include "z64global.h"
+#include "def/sys_matrix.h"
+#include "def/z_skin.h"
+#include "def/z_skin_awb.h"
+#include "def/z_skin_matrix.h"
+#include "def/graph.h" // FORCE
 
 MtxF D_801600C0[60];
 char D_80160FC0[0x10];

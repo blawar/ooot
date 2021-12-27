@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_MM_Z_EN_MM_C
+#include "actor_common.h"
 /*
  * File: z_en_mm.c
  * Overlay: ovl_En_Mm
@@ -7,6 +9,21 @@
 #include "z_en_mm.h"
 #include "objects/object_mm/object_mm.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "hack.h"
+#include "def/code_800FCE80.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_face_reaction.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_parameter.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -545,7 +562,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Put(&this->unk_208);
             mtx2 = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_mm.c", 1111);
 
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[linkChildObjBankIndex].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[linkChildObjBankIndex].vromStart);
             gSPSegment(POLY_OPA_DISP++, 0x0B, mtx);
             gSPSegment(POLY_OPA_DISP++, 0x0D, mtx2 - 7);
 
@@ -564,7 +581,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_ToMtx(mtx, "../z_en_mm.c", 1131);
 
             gSPDisplayList(POLY_OPA_DISP++, gLinkChildBunnyHoodDL);
-            gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[this->actor.objBankIndex].segment);
+            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[this->actor.objBankIndex].vromStart);
         }
     }
 

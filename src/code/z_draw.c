@@ -1,4 +1,7 @@
+#define INTERNAL_SRC_CODE_Z_DRAW_C
 #include "global.h"
+#include "z64global.h"
+#include "gfx.h"
 #include "objects/object_gi_key/object_gi_key.h"
 #include "objects/object_gi_jewel/object_gi_jewel.h"
 #include "objects/object_gi_melody/object_gi_melody.h"
@@ -77,6 +80,10 @@
 #include "objects/object_gi_rupy/object_gi_rupy.h"
 #include "objects/object_gi_sword_1/object_gi_sword_1.h"
 #include "objects/object_st/object_st.h"
+#include "def/sys_matrix.h"
+#include "def/z_draw.h"
+#include "def/z_rcp.h"
+#include "def/graph.h" // FORCE
 
 // "Get Item" Model Draw Functions
 void GetItem_DrawMaskOrBombchu(GlobalContext* globalCtx, s16 drawId);

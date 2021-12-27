@@ -1,6 +1,18 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_JYA_BOMBCHUIWA_Z_BG_JYA_BOMBCHUIWA_C
+#include "actor_common.h"
 #include "z_bg_jya_bombchuiwa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "objects/object_jya_obj/object_jya_obj.h"
+#include "def/code_8006BA00.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_rcp.h"
 #define FLAGS ACTOR_FLAG_0
 
 void BgJyaBombchuiwa_Init(Actor* thisx, GlobalContext* globalCtx);

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MIZU_MOVEBG_Z_BG_MIZU_MOVEBG_C
+#include "actor_common.h"
 /*
  * File: z_bg_mizu_movebg.c
  * Overlay: ovl_Bg_Mizu_Movebg
@@ -7,6 +9,12 @@
 #include "z_bg_mizu_movebg.h"
 #include "overlays/actors/ovl_Bg_Mizu_Water/z_bg_mizu_water.h"
 #include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "def/code_80043480.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

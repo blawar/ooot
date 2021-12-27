@@ -1,5 +1,12 @@
+#define INTERNAL_SRC_CODE_Z_SKIN_MATRIX_C
 #include "global.h"
 #include "vt.h"
+#include "z64math.h"
+#include "gfx.h"
+#include "def/graph.h"
+#include "def/sys_matrix.h"
+#include "def/z_lib.h"
+#include "def/z_skin_matrix.h"
 
 // clang-format off
 MtxF sMtxFClear = {

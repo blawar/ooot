@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_ICE_SHUTTER_Z_BG_ICE_SHUTTER_C
+#include "actor_common.h"
 /*
  * File: z_bg_ice_shutter.c
  * Overlay: ovl_Bg_Ice_Shutter
@@ -6,6 +8,13 @@
 
 #include "z_bg_ice_shutter.h"
 #include "objects/object_ice_objects/object_ice_objects.h"
+#include "def/code_80043480.h"
+#include "def/code_8006BA00.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_cheap_proc.h"
+#include "def/z_lib.h"
+#include "def/z_onepointdemo.h"
 
 #define FLAGS ACTOR_FLAG_4
 

@@ -1,5 +1,13 @@
+#define INTERNAL_SRC_CODE_AUDIO_SYNTHESIS_C
 #include "ultra64.h"
 #include "global.h"
+#include "z64audio.h"
+#include "def/audio_data.h"
+#include "def/audio_load.h"
+#include "def/audio_seqplayer.h"
+#include "def/audio_synthesis.h"
+#include "def/code_800E6840.h"
+#include "def/code_800F7260.h"
 
 #define DEFAULT_LEN_1CH 0x1A0
 #define DEFAULT_LEN_2CH 0x340

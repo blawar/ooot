@@ -1,4 +1,8 @@
+#define INTERNAL_SRC_CODE_CODE_800D2E30_C
 #include "global.h"
+#include "padmgr.h"
+#include <string.h>
+#include "def/code_800D2E30.h"
 
 void func_800D2E30(UnkRumbleStruct* arg0) {
     static u8 D_8012DBB0 = 1;

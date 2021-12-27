@@ -1,5 +1,4 @@
-#ifndef REGS_H
-#define REGS_H
+#pragma once
 
 #define REG_GROUPS 29 // number of REG groups, i.e. REG, SREG, OREG, etc.
 #define REG_PAGES 6
@@ -162,4 +161,4 @@
 #define R_OCARINA_NOTES_XPOS_OFFSET VREG(29)
 #define R_OCARINA_NOTES_YPOS_OFFSET VREG(51)
 
-#endif
+

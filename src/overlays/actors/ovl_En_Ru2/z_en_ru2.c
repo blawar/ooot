@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_RU2_Z_EN_RU2_C
+#include "actor_common.h"
 /*
  * File: z_en_ru2.c
  * Overlay: En_Ru2
@@ -8,6 +10,19 @@
 #include "objects/object_ru2/object_ru2.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "vt.h"
+#include "def/code_800EC960.h"
+#include "def/z_actor.h"
+#include "def/z_camera.h"
+#include "def/z_collision_check.h"
+#include "def/z_common_data.h"
+#include "def/z_kankyo.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_onepointdemo.h"
+#include "def/z_parameter.h"
+#include "def/z_play.h"
+#include "def/z_rcp.h"
+#include "def/z_skelanime.h"
 
 #define FLAGS ACTOR_FLAG_4
 

@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_EX_ITEM_Z_EN_EX_ITEM_C
+#include "actor_common.h"
 /*
  * File: z_en_ex_item.c
  * Overlay: ovl_En_Ex_Item
@@ -8,6 +10,14 @@
 #include "overlays/actors/ovl_En_Bom_Bowl_Pit/z_en_bom_bowl_pit.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "vt.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_common_data.h"
+#include "def/z_draw.h"
+#include "def/z_lib.h"
+#include "def/z_message_PAL.h"
+#include "def/z_rcp.h"
+#include "def/z_scene.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -495,7 +505,7 @@ void EnExItem_DrawMagic(EnExItem* this, GlobalContext* globalCtx, s16 magicIndex
 }
 
 void EnExItem_DrawKey(EnExItem* this, GlobalContext* globalCtx, s32 index) {
-    static s32 keySegments[] = { 0x0403F140 };
+    static void* keySegments[] = { gDropKeySmallTex };
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 880);
 

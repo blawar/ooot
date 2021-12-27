@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_ANUBICE_FIRE_Z_EN_ANUBICE_FIRE_C
+#include "actor_common.h"
 /*
  * File: z_en_anubice_fire.c
  * Overlay: ovl_En_Anubice_Fire
@@ -7,6 +9,15 @@
 #include "z_en_anubice_fire.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_anubice/object_anubice.h"
+#include "def/code_800FD970.h"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_bgcheck.h"
+#include "def/z_collision_check.h"
+#include "def/z_effect_soft_sprite_old_init.h"
+#include "def/z_lib.h"
+#include "def/z_player_lib.h"
+#include "def/z_rcp.h"
 
 #define FLAGS ACTOR_FLAG_4
 

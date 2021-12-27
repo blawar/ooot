@@ -1,3 +1,5 @@
+#define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_ARROW_ICE_Z_ARROW_ICE_C
+#include "actor_common.h"
 /*
  * File: z_arrow_ice.c
  * Overlay: ovl_Arrow_Ice
@@ -20,6 +22,11 @@ void ArrowIce_Fly(ArrowIce* this, GlobalContext* globalCtx);
 void ArrowIce_Hit(ArrowIce* this, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Arrow_Ice/ovl_Arrow_Ice.c"
+#include "def/sys_matrix.h"
+#include "def/z_actor.h"
+#include "def/z_lib.h"
+#include "def/z_parameter.h"
+#include "def/z_rcp.h"
 
 const ActorInit Arrow_Ice_InitVars = {
     ACTOR_ARROW_ICE,
