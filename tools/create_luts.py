@@ -80,11 +80,11 @@ for path in files:
 	with open(path, 'r') as f:
 		buffer = clean(f.read())
 		
+	map = []
+	mapFull = []
+	lutMap = []
+		
 	if not skip:
-		map = []
-		mapFull = []
-		lutMap = []
-
 		isAllBytes = True
 		for line in buffer.split('\n'):
 			if not line.startswith('extern '):
