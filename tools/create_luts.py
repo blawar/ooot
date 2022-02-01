@@ -108,15 +108,19 @@ for path in files:
 	result = '#pragma once\n'
 	result += buffer + '\n\n%s\n\n' % magic
 	
-	if mapFull[0][-2:] == '[]':
-		startPtr = '(u8*)%s' % map[0]
-	else:
-		startPtr = '(u8*)&%s' % map[0]
-	
-	if mapFull[-1][-2:] == '[]':
-		endPtr = '(u8*)%s' % map[-1]
-	else:
-		endPtr = '(u8*)&%s' % map[-1]
+	try:
+		if mapFull[0][-2:] == '[]':
+			startPtr = '(u8*)%s' % map[0]
+		else:
+			startPtr = '(u8*)&%s' % map[0]
+		
+		if mapFull[-1][-2:] == '[]':
+			endPtr = '(u8*)%s' % map[-1]
+		else:
+			endPtr = '(u8*)&%s' % map[-1]
+	except:
+		print('skip: ' + str(skip))
+		exit(0)
 		
 	endPtr = '(u8*)&_%sSegmentRomLastSymbol' % name
 	
