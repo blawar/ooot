@@ -45,7 +45,7 @@ for path in Path(os.path.join(basedir, 'assets/')).rglob('*.c'):
 	for k, v in subs.items():
 		buffer = re.sub(k, v, buffer)
 
-	matches = re.findall('^(static )?Gfx\s*([A-Za-z0-9]*)\s*\[\s*([0-9+]*)?\s*\]\s*=\s*{([^}]*)};', buffer, flags = re.I | re.S | re.M)
+	matches = re.findall('^(static )?Gfx\s*([A-Za-z0-9_]*)\s*\[\s*([0-9+]*)?\s*\]\s*=\s*{([^}]*)};', buffer, flags = re.I | re.S | re.M)
 	#print(path)
 	for m in matches:
 		symbol = m[1]
