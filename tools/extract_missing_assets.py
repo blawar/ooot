@@ -527,9 +527,13 @@ segments = {'src\code\z_vr_box_assets.h': [
 
 def writeFile(path, buffer):
 	path = os.path.abspath(os.path.join(basedir, path))
-	with open(path, 'r') as f:
-		if f.read() == buffer:
-			return
+	
+	try:
+		with open(path, 'r') as f:
+			if f.read() == buffer:
+				return
+	except:
+		pass
 			
 	print('writing %s' % path)
 	with open(path, 'w') as f:

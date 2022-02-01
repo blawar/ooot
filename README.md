@@ -46,9 +46,6 @@ Run these commands from the root ooot directory after you have extracted assets 
 ```
 tools\extract_missing_assets.py
 tools\create_luts.py
-tools\add_actor_header.py
-tools\gen_headers.py
-tools\apply_header_refs.py
 ```
 
 You must then open up GLideN64/projects/msvc/GLideN64.sln and build **Debug_mupenplus - Win32**, which should copy GLideN64d.lib, libGLideNHQd.lib, and osald.lib files to externals/Win32/
