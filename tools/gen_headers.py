@@ -275,7 +275,7 @@ for c_file, items in fileMap.items():
 		
 	writeFile(os.path.join(newPath, os.path.basename(c_file)[0:-2] + '_var.h'), buffer)
 '''
-exit(0)
+#exit(0)
 	
 	
 	
