@@ -2,6 +2,8 @@ import os
 import os.path
 from tqdm import tqdm
 
+basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
+
 segments = {'src\code\z_vr_box_assets.h': [
 'vr_SP1a_static',
 'vr_SP1a_pal_static',
@@ -524,6 +526,7 @@ segments = {'src\code\z_vr_box_assets.h': [
 }
 
 def writeFile(path, buffer):
+	path = os.path.abspath(os.path.join(basedir, path))
 	with open(path, 'r') as f:
 		if f.read() == buffer:
 			return
@@ -534,6 +537,8 @@ def writeFile(path, buffer):
 
 def serialize(name):
 	path = os.path.join('baserom', name)
+	path = os.path.abspath(os.path.join(basedir, path))
+
 	with open(path, 'rb') as f:
 		buffer = f.read()
 	lst = []
@@ -545,6 +550,7 @@ def serialize(name):
 	
 def serializeU16(name, doswap = True):
 	path = os.path.join('baserom', name)
+	path = os.path.abspath(os.path.join(basedir, path))
 	lst = []
 	'''
 	with open(path, 'rb') as f:
