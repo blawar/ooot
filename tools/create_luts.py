@@ -60,7 +60,7 @@ for path in Path(dir).rglob('*.h'):
 				files.append(path)
 				break
 	else:
-		files.append(x)
+		files.append(path)
 	
 for path in files:
 	x = str(path).replace('\\', '/')
