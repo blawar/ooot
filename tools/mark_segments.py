@@ -12,7 +12,7 @@ def writeFile(path, buffer):
 				return
 	except:
 		pass
-			
+
 	print('writing %s' % path)
 	with open(path, 'w', encoding="UTF-8") as f:
 		f.write(buffer)
@@ -28,9 +28,9 @@ find assets -iname '*.c' -exec sed -ib 's/gsDPLoadMultiBlock(\(0x[A-Za-z0-9]*\),
 '''
 
 subs = {
-	'(gsSP[A-Za-z]*)\((0x0[0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z])': '\1SEG(SEGMENT_ADDRESS(\2)',
-	'gsDPLoadTextureBlock\((0x[A-Za-z0-9]*),': 'gsDPLoadTextureBlockSEG\(SEGMENT_ADDRESS\(\1),',
-	'gsDPLoadMultiBlock\((0x[A-Za-z0-9]*),': 'gsDPLoadMultiBlockSEG\(SEGMENT_ADDRESS\(\1),'
+	r'(gsSP[A-Za-z]*)\((0x0[0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z])': r'\1SEG(SEGMENT_ADDRESS(\2)',
+	r'gsDPLoadTextureBlock\((0x[A-Za-z0-9]*),': r'gsDPLoadTextureBlockSEG(SEGMENT_ADDRESS(\1),',
+	r'gsDPLoadMultiBlock\((0x[A-Za-z0-9]*),': r'gsDPLoadMultiBlockSEG(SEGMENT_ADDRESS(\1),'
 }
 
 for path in Path(os.path.join(basedir, 'assets/')).rglob('*.c'):
