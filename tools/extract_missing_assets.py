@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
 
-segments = {'src\code\z_vr_box_assets.h': [
+segments = {'src/code/z_vr_box_assets.h': [
 'vr_SP1a_static',
 'vr_SP1a_pal_static',
 'vr_cloud2_static',

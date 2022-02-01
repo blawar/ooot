@@ -46,15 +46,8 @@ Run these commands from the root ooot directory after you have extracted assets 
 ```
 tools\extract_missing_assets.py
 tools\create_luts.py
+tools\mark_segments.py
 ```
-
-then you must run this in linux subsystem (it runs linux commands so you cannot run it in cmd):
-```
-tools\mark_segments.sh
-```
-
-When you compile, you will get some errors about arrays not being large enough.  The previous command inserted some extra Gfx commands but did not adjust
-the array size, you will just need to increase the array size until its large enough until a script is written to do this.
 
 You must then open up GLideN64/projects/msvc/GLideN64.sln and build **Debug_mupenplus - Win32**, which should copy GLideN64d.lib, libGLideNHQd.lib, and osald.lib files to externals/Win32/
 

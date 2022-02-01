@@ -108,7 +108,7 @@ for path in files:
 	result = '#pragma once\n'
 	result += buffer + '\n\n%s\n\n' % magic
 	
-	try:
+	if not skip:
 		if mapFull[0][-2:] == '[]':
 			startPtr = '(u8*)%s' % map[0]
 		else:
@@ -118,9 +118,6 @@ for path in files:
 			endPtr = '(u8*)%s' % map[-1]
 		else:
 			endPtr = '(u8*)&%s' % map[-1]
-	except:
-		print('skip: ' + str(skip))
-		exit(0)
 		
 	endPtr = '(u8*)&_%sSegmentRomLastSymbol' % name
 	
@@ -128,10 +125,11 @@ for path in files:
 		result += 'static void* %s[] = {\n%s\n};\n\n' % (lutVarName, ',\n'.join(lutMap))
 	
 	result += 'extern u8 _%sSegmentRomLastSymbol;\n' % name
-	#result += '#define _%sSegmentStart (%s)\n' % (name, startPtr)
-	#result += '#define _%sSegmentEnd (%s)\n' % (name, endPtr)
-	result += '#define _%sSegmentRomStart (%s)\n' % (name, startPtr)
-	result += '#define _%sSegmentRomEnd (%s)\n' % (name, endPtr)
+	if not skip:
+		#result += '#define _%sSegmentStart (%s)\n' % (name, startPtr)
+		#result += '#define _%sSegmentEnd (%s)\n' % (name, endPtr)
+		result += '#define _%sSegmentRomStart (%s)\n' % (name, startPtr)
+		result += '#define _%sSegmentRomEnd (%s)\n' % (name, endPtr)
 	
 	if skip:
 		with open(c_path, 'r') as f:
