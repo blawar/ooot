@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "players.h"
 #include "../controller/controllers.h"
 
