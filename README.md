@@ -22,7 +22,7 @@ Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
 
 **Note: This repository does not include any of the assets necessary to build the ROM. A prior copy of the game is required to extract the needed assets.**
 
-**Discord:** <https://discord.gg/s4BskkKf>
+**Discord:** <https://discord.com/invite/8tktBEhbZm>
 
 ## Installation
 
@@ -75,7 +75,7 @@ This project is currently maintained by blawar/vertigo and Zel.
 All contributions are welcome. This is a group effort, and even small contributions can make a difference.
 Some tasks also don't require much knowledge to get started.  The best contribution that can be made, is playing the game and reporting bugs by opening a github issue on this repository.  Code contributions, as well as porting changes from the [upstream repo](https://github.com/zeldaret/oot) are greatly appreciated.
 
-Most discussions happen on our [Discord Server](https://discord.gg/s4BskkKf), where you are welcome to ask if you need help getting started, or if you have any questions regarding this project and other decompilation projects.
+Most discussions happen on our [Discord Server](https://discord.com/invite/8tktBEhbZm), where you are welcome to ask if you need help getting started, or if you have any questions regarding this project and other decompilation projects.
 
 ## License
 
