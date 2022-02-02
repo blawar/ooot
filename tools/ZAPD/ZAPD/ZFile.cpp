@@ -802,8 +802,8 @@ void ZFile::GenerateSourceHeaderFiles()
 
 std::string ZFile::GetHeaderInclude() const
 {
-	std::string headers = StringHelper::Sprintf("#include \"%s.h\"\n",
-	                                            (outName.parent_path() / outName.stem()).c_str());
+	std::string p = (outName.parent_path() / outName.stem()).string();
+	std::string headers = StringHelper::Sprintf("#include \"%s.h\"\n", p.c_str());
 
 	return headers;
 }
@@ -837,7 +837,7 @@ std::string ZFile::GetExternalFileHeaderInclude() const
 			}
 
 			externalFilesIncludes +=
-				StringHelper::Sprintf("#include \"%s.h\"\n", outputFolderPath.c_str());
+				StringHelper::Sprintf("#include \"%s.h\"\n", outputFolderPath.string().c_str());
 		}
 	}
 

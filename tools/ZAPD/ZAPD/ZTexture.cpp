@@ -758,10 +758,9 @@ Declaration* ZTexture::DeclareVar(const std::string& prefix,
 	auto filepath = Globals::Instance->outputPath / fs::path(auxOutName).stem();
 
 	if (dWordAligned)
-		incStr =
-			StringHelper::Sprintf("%s.%s.inc.c", filepath.c_str(), GetExternalExtension().c_str());
+		incStr = StringHelper::Sprintf("%s.%s.inc.c", filepath.string().c_str(), GetExternalExtension().c_str());
 	else
-		incStr = StringHelper::Sprintf("%s.u32.%s.inc.c", filepath.c_str(),
+		incStr = StringHelper::Sprintf("%s.u32.%s.inc.c", filepath.string().c_str(),
 		                               GetExternalExtension().c_str());
 
 	if (!Globals::Instance->cfg.texturePool.empty())
@@ -773,10 +772,10 @@ Declaration* ZTexture::DeclareVar(const std::string& prefix,
 		if (poolEntry != Globals::Instance->cfg.texturePool.end())
 		{
 			if (dWordAligned)
-				incStr = StringHelper::Sprintf("%s.%s.inc.c", poolEntry->second.path.c_str(),
+				incStr = StringHelper::Sprintf("%s.%s.inc.c", poolEntry->second.path.string().c_str(),
 				                               GetExternalExtension().c_str());
 			else
-				incStr = StringHelper::Sprintf("%s.u32.%s.inc.c", poolEntry->second.path.c_str(),
+				incStr = StringHelper::Sprintf("%s.u32.%s.inc.c", poolEntry->second.path.string().c_str(),
 				                               GetExternalExtension().c_str());
 		}
 	}

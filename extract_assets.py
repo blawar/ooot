@@ -2,6 +2,26 @@
 
 import argparse, json, os, signal, time
 from multiprocessing import Pool, cpu_count, Event, Manager, ProcessError
+from pathlib import Path
+
+def cleanPath(path):
+    return str(path).replace("\\","/").replace('/', os.sep)
+
+def ensureDirectory(path):
+    try:
+        #p = Path(path)
+        os.makedirs(path)
+        print('creating %s' % path)
+    except:
+        pass
+    
+def ensureFileDirectory(path):
+    try:
+        p = Path(path)
+        os.makedirs(p.parent)
+        print('creating parent %s' % path)
+    except:
+        pass
 
 EXTRACTED_ASSETS_NAMEFILE = ".extracted-assets.json"
 
@@ -15,8 +35,9 @@ def ExtractFile(xmlPath, outputPath, outputSourcePath):
     if globalAbort.is_set():
         # Don't extract if another file wasn't extracted properly.
         return
+    ensureDirectory(outputSourcePath)
 
-    execStr = "tools/ZAPD/ZAPD.out e -eh -i %s -b baserom/ -o %s -osf %s -gsf 1 -rconf tools/ZAPDConfigs/MqDbg/Config.xml" % (xmlPath, outputPath, outputSourcePath)
+    execStr = cleanPath("tools/ZAPD/ZAPD.out") + " e -eh -i %s -b baserom/ -o %s -osf %s -gsf 1 -rconf tools/ZAPDConfigs/MqDbg/Config.xml" % (cleanPath(xmlPath), cleanPath(outputPath), cleanPath(outputSourcePath))
     
     if "overlays" in xmlPath:
         execStr += " --static"
@@ -107,6 +128,7 @@ def main():
         if args.force or extract_text_path is not None or extract_staff_text_path is not None:
             print("Extracting text")
             from tools import msgdis
+            ensureFileDirectory(extract_staff_text_path)
             msgdis.extract_all_text(extract_text_path, extract_staff_text_path)
 
         xmlFiles = []
