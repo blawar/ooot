@@ -3,7 +3,7 @@ from pathlib import Path
 #from tqdm import tqdm
 import re
 
-basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
+basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__.replace('\\', '/'))), '../'))
 
 def writeFile(path, buffer):
 	try:

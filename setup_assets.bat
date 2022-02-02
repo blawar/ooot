@@ -1,5 +1,6 @@
 python3 -m pip install tqdm
 python3 -m pip install pathtools
+python3 -m pip install multiprocessing
 python3 fixbaserom.py
 python3 extract_baserom.py
 python3 extract_assets.py

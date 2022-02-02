@@ -42,14 +42,9 @@ If you have any problems extracting, you should check the more in depth instruct
 
 You must use the ZAPD that is included with this repository, and not the main branch as it is modified.
 
-Run these commands from the root ooot directory after you have extracted assets and build directories:
+Run this command from cmd.exe command prompt:
 ```
-python3 fixbaserom.py
-python3 extract_baserom.py
-python3 extract_assets.py
-python3 tools\extract_missing_assets.py
-python3 tools\create_luts.py
-python3 tools\mark_segments.py
+setup_assets.bat
 ```
 
 You must then open up GLideN64/projects/msvc/GLideN64.sln and build **Debug_mupenplus - Win32**, which should copy GLideN64d.lib, libGLideNHQd.lib, and osald.lib files to externals/Win32/

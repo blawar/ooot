@@ -1,8 +1,9 @@
 import os
 import os.path
 from tqdm import tqdm
+from pathlib import Path
 
-basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
+basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__.replace('\\', '/'))), '../'))
 
 segments = {'src/code/z_vr_box_assets.h': [
 'vr_SP1a_static',
