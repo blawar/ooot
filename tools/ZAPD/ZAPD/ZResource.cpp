@@ -90,7 +90,7 @@ void ZResource::ParseXML(tinyxml2::XMLElement* reader)
 				HANDLE_WARNING_RESOURCE(
 					WarningType::UnknownAttribute, parent, this, rawDataIndex,
 					StringHelper::Sprintf("unexpected '%s' attribute in resource <%s>",
-				                          attrName.c_str(), reader->Name()),
+				                          STR(attrName), reader->Name()),
 					"");
 			}
 			attrs = attrs->Next();
@@ -109,7 +109,7 @@ void ZResource::ParseXML(tinyxml2::XMLElement* reader)
 			{
 				std::string headerMsg =
 					StringHelper::Sprintf("missing required attribute '%s' in resource <%s>",
-				                          attr.first.c_str(), reader->Name());
+				                          STR(attr.first), reader->Name());
 				HANDLE_ERROR_RESOURCE(WarningType::MissingAttribute, parent, this, rawDataIndex,
 				                      headerMsg, "");
 			}
@@ -254,7 +254,7 @@ std::string ZResource::GetBodySourceCode() const
 
 std::string ZResource::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%s%s_%06X", prefix.c_str(), GetSourceTypeName().c_str(),
+	return StringHelper::Sprintf("%s%s_%06X", STR(prefix), GetSourceTypeName().c_str(),
 	                             rawDataIndex);
 }
 

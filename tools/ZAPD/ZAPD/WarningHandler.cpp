@@ -229,7 +229,7 @@ void WarningHandler::ExtractedFilePreamble(const ZFile *parent, const ZResource*
  */
 std::string WarningHandler::ConstructMessage(std::string message, const std::string& header, const std::string& body) {
     message.reserve(message.size() + header.size() + body.size() + 10 * (sizeof(HANG_INDT) - 1));
-    message += StringHelper::Sprintf(HILITE("%s"), header.c_str());
+    message += StringHelper::Sprintf(HILITE("%s"), STR(header));
     message += "\n";
 
     if (body == "") {
@@ -237,7 +237,7 @@ std::string WarningHandler::ConstructMessage(std::string message, const std::str
     }
 
     message += HANG_INDT;
-    for (const char* ptr = body.c_str(); *ptr != '\0'; ptr++) {
+    for (const char* ptr = STR(body); *ptr != '\0'; ptr++) {
         message += *ptr;
         if (*ptr == '\n') {
             message += HANG_INDT;
@@ -262,7 +262,7 @@ void WarningHandler::ErrorType(WarningType warnType, const std::string& header, 
 
     for (const auto& iter: warningStringToInitMap) {
         if (iter.second.type == warnType) {
-            headerMsg += StringHelper::Sprintf(" [%s]", iter.first.c_str());
+            headerMsg += StringHelper::Sprintf(" [%s]", STR(iter.first));
         }
     }
 
@@ -304,7 +304,7 @@ void WarningHandler::WarningTypeAndChooseEscalate(WarningType warnType, const st
 
     for (const auto& iter: warningStringToInitMap) {
         if (iter.second.type == warnType) {
-            headerMsg += StringHelper::Sprintf(" [-W%s]", iter.first.c_str());
+            headerMsg += StringHelper::Sprintf(" [-W%s]", STR(iter.first));
         }
     }
 
@@ -381,12 +381,12 @@ void WarningHandler::PrintHelp() {
             if (warningInfo.defaultLevel == WarningLevel::Warn) {
                 dt += " *";
             }
-            printf(HELP_DT_INDT "%-*s", columnWidth, dt.c_str());
+            printf(HELP_DT_INDT "%-*s", columnWidth, STR(dt));
 
             if (dt.length() + 2 > columnWidth) {
                 printf("\n" HELP_DT_INDT "%-*s", columnWidth, "");
             }
-            printf("%s\n", warningInfo.description.c_str());
+            printf("%s\n", STR(warningInfo.description));
         }
     }
 
@@ -395,12 +395,12 @@ void WarningHandler::PrintHelp() {
         if (warningInfo.defaultLevel > WarningLevel::Warn) {
             dt = "-W";
             dt += key;
-            printf(HELP_DT_INDT "%-*s", columnWidth, dt.c_str());
+            printf(HELP_DT_INDT "%-*s", columnWidth, STR(dt));
 
             if (dt.length() + 2 > columnWidth) {
                 printf("\n" HELP_DT_INDT "%*s", columnWidth, "");
             }
-            printf("%s\n", warningInfo.description.c_str());
+            printf("%s\n", STR(warningInfo.description));
         }
     }
 
@@ -423,7 +423,7 @@ void WarningHandler::PrintWarningsDebugInfo()
         dt = it.second.name;
         dt += ": ";
 
-        printf(HELP_DT_INDT "%-25s", dt.c_str());
+        printf(HELP_DT_INDT "%-25s", STR(dt));
         switch (it.second.level)
         {
         case WarningLevel::Off:

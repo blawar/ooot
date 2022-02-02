@@ -44,7 +44,7 @@ void SetLightList::DeclareReferences(const std::string& prefix)
 		parent->AddDeclarationArray(
 			segmentOffset, DeclarationAlignment::Align4, lights.size() * light.GetRawDataSize(),
 			light.GetSourceTypeName(),
-			StringHelper::Sprintf("%sLightInfo0x%06X", prefix.c_str(), segmentOffset),
+			StringHelper::Sprintf("%sLightInfo0x%06X", STR(prefix), segmentOffset),
 			lights.size(), declarations);
 	}
 }
@@ -53,7 +53,7 @@ std::string SetLightList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "LightInfo", listName);
-	return StringHelper::Sprintf("SCENE_CMD_LIGHT_LIST(%i, %s)", numLights, listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_LIGHT_LIST(%i, %s)", numLights, STR(listName));
 }
 
 std::string SetLightList::GetCommandCName() const

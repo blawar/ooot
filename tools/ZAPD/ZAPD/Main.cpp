@@ -79,7 +79,7 @@ void ErrorHandler(int sig)
 			free(demangled);
 		}
 
-		fprintf(stderr, "%-3zd %s\n", i, functionName.c_str());
+		fprintf(stderr, "%-3zd %s\n", i, STR(functionName));
 	}
 
 	fprintf(stderr, "\n");
@@ -244,7 +244,7 @@ int main(int argc, char* argv[])
 
 	if (fileMode == ZFileMode::Invalid)
 	{
-		printf("Error: Invalid file mode '%s'\n", buildMode.c_str());
+		printf("Error: Invalid file mode '%s'\n", STR(buildMode));
 		return 1;
 	}
 
@@ -285,7 +285,7 @@ int main(int argc, char* argv[])
 				if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_INFO)
 				{
 					printf("Parsing external file from config: '%s'\n",
-					       externalXmlFilePath.c_str());
+					       STR(externalXmlFilePath));
 				}
 
 				parseSuccessful = Parse(externalXmlFilePath, Globals::Instance->baseRomPath,
@@ -339,7 +339,7 @@ bool Parse(const fs::path& xmlFilePath, const fs::path& basePath, const fs::path
 	{
 		// TODO: use XMLDocument::ErrorIDToName to get more specific error messages here
 		HANDLE_ERROR(WarningType::InvalidXML,
-		             StringHelper::Sprintf("invalid XML file: '%s'", xmlFilePath.c_str()), "");
+		             StringHelper::Sprintf("invalid XML file: '%s'", STR(xmlFilePath)), "");
 		return false;
 	}
 
@@ -349,7 +349,7 @@ bool Parse(const fs::path& xmlFilePath, const fs::path& basePath, const fs::path
 	{
 		HANDLE_WARNING(
 			WarningType::InvalidXML,
-			StringHelper::Sprintf("missing Root tag in xml file: '%s'", xmlFilePath.c_str()), "");
+			StringHelper::Sprintf("missing Root tag in xml file: '%s'", STR(xmlFilePath)), "");
 		return false;
 	}
 
@@ -391,7 +391,7 @@ bool Parse(const fs::path& xmlFilePath, const fs::path& basePath, const fs::path
 
 			if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_INFO)
 			{
-				printf("Parsing external file: '%s'\n", externalXmlFilePath.c_str());
+				printf("Parsing external file: '%s'\n", STR(externalXmlFilePath));
 			}
 
 			// Recursion. What can go wrong?
@@ -400,7 +400,7 @@ bool Parse(const fs::path& xmlFilePath, const fs::path& basePath, const fs::path
 		else
 		{
 			std::string errorHeader =
-				StringHelper::Sprintf("when parsing file '%s'", xmlFilePath.c_str());
+				StringHelper::Sprintf("when parsing file '%s'", STR(xmlFilePath));
 			std::string errorBody = StringHelper::Sprintf(
 				"Found a resource outside a File element: '%s'", child->Name());
 			HANDLE_ERROR(WarningType::InvalidXML, errorHeader, errorBody);

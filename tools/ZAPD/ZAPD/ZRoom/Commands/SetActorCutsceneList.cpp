@@ -46,7 +46,7 @@ void SetActorCutsceneList::DeclareReferences(const std::string& prefix)
 
 		parent->AddDeclarationArray(
 			segmentOffset, GetDeclarationAlignment(), cutscenes.size() * 16, typeName,
-			StringHelper::Sprintf("%s%sList_%06X", prefix.c_str(), typeName.c_str(), segmentOffset),
+			StringHelper::Sprintf("%s%sList_%06X", STR(prefix), STR(typeName), segmentOffset),
 			cutscenes.size(), declaration);
 	}
 }
@@ -56,7 +56,7 @@ std::string SetActorCutsceneList::GetBodySourceCode() const
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "ActorCutscene", listName);
 	return StringHelper::Sprintf("SCENE_CMD_ACTOR_CUTSCENE_LIST(%i, %s)", cutscenes.size(),
-	                             listName.c_str());
+	                             STR(listName));
 }
 
 std::string SetActorCutsceneList::GetCommandCName() const

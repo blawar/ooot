@@ -63,7 +63,7 @@ void SetCsCamera::DeclareReferences(const std::string& prefix)
 		parent->AddDeclarationArray(
 			segOffset, DeclarationAlignment::Align4, points.size() * points.at(0).GetRawDataSize(),
 			points.at(0).GetSourceTypeName().c_str(),
-			StringHelper::Sprintf("%sCsCameraPoints_%06X", prefix.c_str(), segOffset),
+			StringHelper::Sprintf("%sCsCameraPoints_%06X", STR(prefix), segOffset),
 			points.size(), declaration);
 	}
 
@@ -80,7 +80,7 @@ void SetCsCamera::DeclareReferences(const std::string& prefix)
 		{
 			declaration +=
 				StringHelper::Sprintf("\t{ %i, %i, &%s[%i] },", entry.type, entry.numPoints,
-			                          camPointsName.c_str(), pointsIndex);
+			                          STR(camPointsName), pointsIndex);
 
 			if (index < cameras.size() - 1)
 				declaration += "\n";
@@ -95,7 +95,7 @@ void SetCsCamera::DeclareReferences(const std::string& prefix)
 		parent->AddDeclarationArray(
 			segmentOffset, DeclarationAlignment::Align4, cameras.size() * entry.GetRawDataSize(),
 			camTypename,
-			StringHelper::Sprintf("%s%s_%06X", prefix.c_str(), camTypename.c_str(), segmentOffset),
+			StringHelper::Sprintf("%s%s_%06X", STR(prefix), STR(camTypename), segmentOffset),
 			cameras.size(), declaration);
 	}
 }
@@ -105,7 +105,7 @@ std::string SetCsCamera::GetBodySourceCode() const
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "CsCameraEntry", listName);
 	return StringHelper::Sprintf("SCENE_CMD_ACTOR_CUTSCENE_CAM_LIST(%i, %s)", cameras.size(),
-	                             listName.c_str());
+	                             STR(listName));
 }
 
 std::string SetCsCamera::GetCommandCName() const

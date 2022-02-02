@@ -46,18 +46,18 @@ void SetMinimapList::DeclareReferences(const std::string& prefix)
 
 		parent->AddDeclarationArray(
 			listSegmentOffset, DeclarationAlignment::Align4, minimaps.size() * 10, "MinimapEntry",
-			StringHelper::Sprintf("%sMinimapEntryList0x%06X", prefix.c_str(), listSegmentOffset),
+			StringHelper::Sprintf("%sMinimapEntryList0x%06X", STR(prefix), listSegmentOffset),
 			minimaps.size(), declaration);
 	}
 
 	{
 		std::string listName;
 		Globals::Instance->GetSegmentedPtrName(listSegmentAddr, parent, "MinimapEntry", listName);
-		std::string declaration = StringHelper::Sprintf("\n\t%s, 0x%08X\n", listName.c_str(), unk4);
+		std::string declaration = StringHelper::Sprintf("\n\t%s, 0x%08X\n", STR(listName), unk4);
 
 		parent->AddDeclaration(
 			segmentOffset, DeclarationAlignment::Align4, 8, "MinimapList",
-			StringHelper::Sprintf("%sMinimapList0x%06X", prefix.c_str(), segmentOffset),
+			StringHelper::Sprintf("%sMinimapList0x%06X", STR(prefix), segmentOffset),
 			declaration);
 	}
 }
@@ -66,7 +66,7 @@ std::string SetMinimapList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "MinimapList", listName);
-	return StringHelper::Sprintf("SCENE_CMD_MINIMAP_INFO(%s)", listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_MINIMAP_INFO(%s)", STR(listName));
 }
 
 std::string SetMinimapList::GetCommandCName() const

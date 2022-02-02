@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
-
+#include "str.h"
 #include "Utils/Directory.h"
 #include "tinyxml2.h"
 

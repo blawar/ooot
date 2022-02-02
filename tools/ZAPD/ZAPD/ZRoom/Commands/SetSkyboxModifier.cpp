@@ -1,5 +1,5 @@
 #include "SetSkyboxModifier.h"
-
+#include "GameConfig.h"
 #include "Utils/StringHelper.h"
 
 SetSkyboxModifier::SetSkyboxModifier(ZFile* nParent) : ZRoomCommand(nParent)
@@ -17,8 +17,8 @@ std::string SetSkyboxModifier::GetBodySourceCode() const
 {
 	std::string sky = StringHelper::BoolStr(disableSky);
 	std::string soonMoon = StringHelper::BoolStr(disableSunMoon);
-	return StringHelper::Sprintf("SCENE_CMD_SKYBOX_DISABLES(%s, %s)", sky.c_str(),
-	                             soonMoon.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_SKYBOX_DISABLES(%s, %s)", STR(sky),
+	                             STR(soonMoon));
 }
 
 std::string SetSkyboxModifier::GetCommandCName() const

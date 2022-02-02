@@ -162,7 +162,7 @@ ZOverlay* ZOverlay::FromBuild(fs::path buildPath, fs::path cfgFolderPath)
 					if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_DEBUG)
 					{
 						printf("Symbol '%s' doesn't exist in current .o file (%s). Searching...\n",
-						       curSymName.c_str(), cfgLines[curReaderId + 1].c_str());
+						       STR(curSymName), cfgLines[curReaderId + 1].c_str());
 					}
 
 					for (size_t readerId = 0; readerId < readers.size(); readerId++)
@@ -258,11 +258,11 @@ std::string ZOverlay::GetSourceOutputCode([[maybe_unused]] const std::string& pr
 
 	output += ".section .ovl\n";
 
-	output += StringHelper::Sprintf("# %sOverlayInfo\n", name.c_str());
-	output += StringHelper::Sprintf(".word _%sSegmentTextSize\n", name.c_str());
-	output += StringHelper::Sprintf(".word _%sSegmentDataSize\n", name.c_str());
-	output += StringHelper::Sprintf(".word _%sSegmentRoDataSize\n", name.c_str());
-	output += StringHelper::Sprintf(".word _%sSegmentBssSize\n", name.c_str());
+	output += StringHelper::Sprintf("# %sOverlayInfo\n", STR(name));
+	output += StringHelper::Sprintf(".word _%sSegmentTextSize\n", STR(name));
+	output += StringHelper::Sprintf(".word _%sSegmentDataSize\n", STR(name));
+	output += StringHelper::Sprintf(".word _%sSegmentRoDataSize\n", STR(name));
+	output += StringHelper::Sprintf(".word _%sSegmentBssSize\n", STR(name));
 	output += "\n";
 
 	output += StringHelper::Sprintf(".word %i # reloc_count\n", entries.size());
@@ -285,7 +285,7 @@ std::string ZOverlay::GetSourceOutputCode([[maybe_unused]] const std::string& pr
 
 	output += "\n";
 	output +=
-		StringHelper::Sprintf(".word 0x%08X # %sOverlayInfoOffset\n", offset + 4, name.c_str());
+		StringHelper::Sprintf(".word 0x%08X # %sOverlayInfoOffset\n", offset + 4, STR(name));
 	return output;
 }
 
@@ -319,7 +319,7 @@ ELFIO::Elf_Half ZOverlay::FindSymbolInSection(const std::string& curSymName,
 	if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_DEBUG)
 	{
 		printf("\t File '%s' section: %s \n", cfgLines[readerId + 1].c_str(),
-		       sectionDataName.c_str());
+		       STR(sectionDataName));
 	}
 #endif
 
@@ -342,8 +342,8 @@ ELFIO::Elf_Half ZOverlay::FindSymbolInSection(const std::string& curSymName,
 		{
 			if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_DEBUG)
 			{
-				printf("\t Symbol '%s' found in '%s' '%s' \n", curSymName.c_str(),
-				       cfgLines[readerId + 1].c_str(), sectionDataName.c_str());
+				printf("\t Symbol '%s' found in '%s' '%s' \n", STR(curSymName),
+				       cfgLines[readerId + 1].c_str(), STR(sectionDataName));
 			}
 			return shndx;
 		}

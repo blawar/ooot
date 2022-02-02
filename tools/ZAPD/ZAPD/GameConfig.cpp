@@ -47,7 +47,7 @@ void GameConfig::ReadTexturePool(const fs::path& texturePoolXmlPath)
 			fs::path texPath = child->Attribute("Path");
 			std::string texName;
 
-			uint32_t crc = strtoul(crcStr.c_str(), nullptr, 16);
+			uint32_t crc = strtoul(STR(crcStr), nullptr, 16);
 
 			texturePool[crc].path = texPath;
 		}
@@ -157,7 +157,7 @@ void GameConfig::ReadConfigFile(const fs::path& argConfigFilePath)
 
 	configFilePath = argConfigFilePath.string();
 	tinyxml2::XMLDocument doc;
-	tinyxml2::XMLError eResult = doc.LoadFile(configFilePath.c_str());
+	tinyxml2::XMLError eResult = doc.LoadFile(STR(configFilePath));
 
 	if (eResult != tinyxml2::XML_SUCCESS)
 	{

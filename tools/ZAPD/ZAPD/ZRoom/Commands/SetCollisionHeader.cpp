@@ -30,7 +30,7 @@ std::string SetCollisionHeader::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "CollisionHeader", listName);
-	return StringHelper::Sprintf("SCENE_CMD_COL_HEADER(%s)", listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_COL_HEADER(%s)", STR(listName));
 }
 
 std::string SetCollisionHeader::GetCommandCName() const

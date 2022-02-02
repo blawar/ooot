@@ -15,7 +15,7 @@ void SetExitList::DeclareReferences([[maybe_unused]] const std::string& prefix)
 	if (segmentOffset != 0)
 	{
 		std::string varName =
-			StringHelper::Sprintf("%sExitList_%06X", prefix.c_str(), segmentOffset);
+			StringHelper::Sprintf("%sExitList_%06X", STR(prefix), segmentOffset);
 		parent->AddDeclarationPlaceholder(segmentOffset, varName);
 	}
 }
@@ -49,7 +49,7 @@ void SetExitList::DeclareReferencesLate([[maybe_unused]] const std::string& pref
 		}
 
 		std::string varName =
-			StringHelper::Sprintf("%sExitList_%06X", prefix.c_str(), segmentOffset);
+			StringHelper::Sprintf("%sExitList_%06X", STR(prefix), segmentOffset);
 		parent->AddDeclarationArray(segmentOffset, DeclarationAlignment::Align4, exits.size() * 2,
 		                            "u16", varName, exits.size(), declaration);
 	}
@@ -59,7 +59,7 @@ std::string SetExitList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "u16", listName);
-	return StringHelper::Sprintf("SCENE_CMD_EXIT_LIST(%s)", listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_EXIT_LIST(%s)", STR(listName));
 }
 
 std::string SetExitList::GetCommandCName() const

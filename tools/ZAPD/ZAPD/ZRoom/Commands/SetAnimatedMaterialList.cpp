@@ -25,7 +25,7 @@ void SetAnimatedMaterialList::ParseRawData()
 
 void SetAnimatedMaterialList::DeclareReferences(const std::string& prefix)
 {
-	textureAnimation.SetName(textureAnimation.GetDefaultName(prefix.c_str()));
+	textureAnimation.SetName(textureAnimation.GetDefaultName(STR(prefix)));
 	textureAnimation.DeclareReferences(prefix);
 	textureAnimation.GetSourceOutputCode(prefix);
 }
@@ -34,7 +34,7 @@ std::string SetAnimatedMaterialList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "AnimatedMaterial", listName);
-	return StringHelper::Sprintf("SCENE_CMD_ANIMATED_MATERIAL_LIST(%s)", listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_ANIMATED_MATERIAL_LIST(%s)", STR(listName));
 }
 
 std::string SetAnimatedMaterialList::GetCommandCName() const

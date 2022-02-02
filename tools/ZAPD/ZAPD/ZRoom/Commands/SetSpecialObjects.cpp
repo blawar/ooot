@@ -20,7 +20,7 @@ std::string SetSpecialObjects::GetBodySourceCode() const
 	std::string objectName = ZNames::GetObjectName(globalObject);
 
 	return StringHelper::Sprintf("SCENE_CMD_SPECIAL_FILES(0x%02X, %s)", elfMessage,
-	                             objectName.c_str());
+	                             STR(objectName));
 }
 
 std::string SetSpecialObjects::GetCommandCName() const

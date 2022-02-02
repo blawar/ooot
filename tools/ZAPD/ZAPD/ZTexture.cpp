@@ -60,14 +60,14 @@ void ZTexture::ParseXML(tinyxml2::XMLElement* reader)
 	if (!StringHelper::HasOnlyDigits(widthXml))
 	{
 		std::string errorHeader = StringHelper::Sprintf(
-			"value of 'Width' attribute has non-decimal digits: '%s'", widthXml.c_str());
+			"value of 'Width' attribute has non-decimal digits: '%s'", STR(widthXml));
 		HANDLE_ERROR_RESOURCE(WarningType::InvalidAttributeValue, parent, this, rawDataIndex,
 		                      errorHeader, "");
 	}
 	if (!StringHelper::HasOnlyDigits(heightXml))
 	{
 		std::string errorHeader = StringHelper::Sprintf(
-			"value of 'Height' attribute has non-decimal digits: '%s'", heightXml.c_str());
+			"value of 'Height' attribute has non-decimal digits: '%s'", STR(heightXml));
 		HANDLE_ERROR_RESOURCE(WarningType::InvalidAttributeValue, parent, this, rawDataIndex,
 		                      errorHeader, "");
 	}
@@ -682,7 +682,7 @@ std::string ZTexture::GetDefaultName(const std::string& prefix) const
 	const char* suffix = "Tex";
 	if (isPalette)
 		suffix = "TLUT";
-	return StringHelper::Sprintf("%s%s_%06X", prefix.c_str(), suffix, rawDataIndex);
+	return StringHelper::Sprintf("%s%s_%06X", STR(prefix), suffix, rawDataIndex);
 }
 
 uint32_t ZTexture::GetWidth() const
@@ -730,8 +730,8 @@ void ZTexture::Save(const fs::path& outFolder)
 		outFileName = outPath / (outName + +"." + GetExternalExtension() + ".png");
 
 #ifdef TEXTURE_DEBUG
-	printf("Saving PNG: %s\n", outFileName.c_str());
-	printf("\t Var name: %s\n", name.c_str());
+	printf("Saving PNG: %s\n", STR(outFileName));
+	printf("\t Var name: %s\n", STR(name));
 	if (tlut != nullptr)
 		printf("\t TLUT name: %s\n", tlut->name.c_str());
 #endif

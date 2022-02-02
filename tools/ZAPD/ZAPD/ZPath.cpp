@@ -164,7 +164,7 @@ void PathwayEntry::DeclareReferences(const std::string& prefix)
 	Declaration* decl = parent->GetDeclaration(pointsOffset);
 	if (decl == nullptr)
 	{
-		pointsName = StringHelper::Sprintf("%sPathwayList_%06X", prefix.c_str(), pointsOffset);
+		pointsName = StringHelper::Sprintf("%sPathwayList_%06X", STR(prefix), pointsOffset);
 		parent->AddDeclarationArray(pointsOffset, points.at(0).GetDeclarationAlignment(),
 		                            points.size() * 6, points.at(0).GetSourceTypeName(), pointsName,
 		                            points.size(), declaration);
@@ -181,9 +181,9 @@ std::string PathwayEntry::GetBodySourceCode() const
 
 	if (Globals::Instance->game == ZGame::MM_RETAIL)
 		declaration +=
-			StringHelper::Sprintf("%i, %i, %i, %s", numPoints, unk1, unk2, listName.c_str());
+			StringHelper::Sprintf("%i, %i, %i, %s", numPoints, unk1, unk2, STR(listName));
 	else
-		declaration += StringHelper::Sprintf("%i, %s", numPoints, listName.c_str());
+		declaration += StringHelper::Sprintf("%i, %s", numPoints, STR(listName));
 
 	return declaration;
 }

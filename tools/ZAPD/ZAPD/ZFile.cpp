@@ -288,7 +288,7 @@ void ZFile::ParseXML(tinyxml2::XMLElement* reader, const std::string& filename)
 		else
 		{
 			std::string errorHeader = StringHelper::Sprintf(
-				"Unknown element found inside a <File> element: %s", nodeName.c_str());
+				"Unknown element found inside a <File> element: %s", STR(nodeName));
 			HANDLE_ERROR_PROCESS(WarningType::InvalidXML, errorHeader, "");
 		}
 	}
@@ -611,7 +611,7 @@ bool ZFile::AddDeclarationChecks(uint32_t address, const std::string& varName)
 		        "\t Tried to declare a variable outside of this file's range. Ignoring...\n"
 		        "\t\t Variable's name: %s\n"
 		        "\t\t Variable's offset: 0x%06X\n",
-		        __PRETTY_FUNCTION__, name.c_str(), varName.c_str(), address);
+		        __PRETTY_FUNCTION__, STR(name), STR(varName), address);
 		return false;
 	}
 
@@ -762,7 +762,7 @@ void ZFile::GenerateSourceFiles()
 	fs::path outPath = GetSourceOutputFolderPath() / outName.stem().concat(".c");
 
 	if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_INFO)
-		printf("Writing C file: %s\n", outPath.c_str());
+		printf("Writing C file: %s\n", STR(outPath));
 
 	OutputFormatter formatter;
 	formatter.Write(sourceOutput);
@@ -795,7 +795,7 @@ void ZFile::GenerateSourceHeaderFiles()
 	fs::path headerFilename = GetSourceOutputFolderPath() / outName.stem().concat(".h");
 
 	if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_INFO)
-		printf("Writing H file: %s\n", headerFilename.c_str());
+		printf("Writing H file: %s\n", STR(headerFilename));
 
 	File::WriteAllText(headerFilename, formatter.GetOutput());
 }
@@ -803,7 +803,7 @@ void ZFile::GenerateSourceHeaderFiles()
 std::string ZFile::GetHeaderInclude() const
 {
 	std::string p = (outName.parent_path() / outName.stem()).string();
-	std::string headers = StringHelper::Sprintf("#include \"%s.h\"\n", p.c_str());
+	std::string headers = StringHelper::Sprintf("#include \"%s.h\"\n", STR(p));
 
 	return headers;
 }
@@ -1033,7 +1033,7 @@ std::string ZFile::ProcessDeclarations()
 
 				auto filepath = outputPath / item.second->varName;
 				File::WriteAllText(
-					StringHelper::Sprintf("%s.%s.inc", filepath.c_str(), extType.c_str()),
+					StringHelper::Sprintf("%s.%s.inc", filepath.string().c_str(), STR(extType)),
 					item.second->text);
 			}
 
@@ -1141,7 +1141,7 @@ std::string ZFile::ProcessTextureIntersections([[maybe_unused]] const std::strin
 					texNextName = nextDecl->varName;
 
 				defines += StringHelper::Sprintf("#define %s ((u32)%s + 0x%06X)\n",
-				                                 texNextName.c_str(), texName.c_str(), offsetDiff);
+				                                 STR(texNextName), STR(texName), offsetDiff);
 
 				delete declarations[nextOffset];
 				declarations.erase(nextOffset);
@@ -1234,7 +1234,7 @@ bool ZFile::HandleUnaccountedAddress(offset_t currentAddress, offset_t lastAddr,
 				"\t Offset '0x%X' is outside of the limits of file '%s', which has a size of "
 				"'0x%X'.\n"
 				"\t Aborting...",
-				xmlFilePath.c_str(), currentAddress, name.c_str(), rawData.size()));
+				xmlFilePath.c_str(), currentAddress, STR(name), rawData.size()));
 		}
 
 		// Handle Align8
@@ -1302,7 +1302,7 @@ bool ZFile::HandleUnaccountedAddress(offset_t currentAddress, offset_t lastAddr,
 
 			Declaration* decl = AddDeclarationArray(
 				unaccountedAddress, DeclarationAlignment::Align4, diff, "u8",
-				StringHelper::Sprintf("%s_%s_%06X", name.c_str(), unaccountedPrefix.c_str(),
+				StringHelper::Sprintf("%s_%s_%06X", STR(name), STR(unaccountedPrefix),
 			                          unaccountedAddress),
 				diff, src);
 

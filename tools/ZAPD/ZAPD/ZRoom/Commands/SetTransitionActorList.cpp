@@ -45,7 +45,7 @@ void SetTransitionActorList::DeclareReferences(const std::string& prefix)
 	parent->AddDeclarationArray(
 		segmentOffset, DeclarationAlignment::Align4, transitionActors.size() * 16,
 		"TransitionActorEntry",
-		StringHelper::Sprintf("%sTransitionActorList_%06X", prefix.c_str(), segmentOffset),
+		StringHelper::Sprintf("%sTransitionActorList_%06X", STR(prefix), segmentOffset),
 		transitionActors.size(), declaration);
 }
 
@@ -54,7 +54,7 @@ std::string SetTransitionActorList::GetBodySourceCode() const
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "TransitionActorEntry", listName);
 	return StringHelper::Sprintf("SCENE_CMD_TRANSITION_ACTOR_LIST(%i, %s)", transitionActors.size(),
-	                             listName.c_str());
+	                             STR(listName));
 }
 
 std::string SetTransitionActorList::GetCommandCName() const
@@ -87,5 +87,5 @@ std::string TransitionActorEntry::GetBodySourceCode() const
 
 	return StringHelper::Sprintf("%i, %i, %i, %i, %s, %i, %i, %i, %i, 0x%04X", frontObjectRoom,
 	                             frontTransitionReaction, backObjectRoom, backTransitionReaction,
-	                             actorStr.c_str(), posX, posY, posZ, rotY, initVar);
+	                             STR(actorStr), posX, posY, posZ, rotY, initVar);
 }

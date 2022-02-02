@@ -43,7 +43,7 @@ void SetMinimapChests::DeclareReferences(const std::string& prefix)
 
 	parent->AddDeclarationArray(
 		segmentOffset, DeclarationAlignment::Align4, chests.size() * 10, "MinimapChest",
-		StringHelper::Sprintf("%sMinimapChests0x%06X", prefix.c_str(), segmentOffset),
+		StringHelper::Sprintf("%sMinimapChests0x%06X", STR(prefix), segmentOffset),
 		chests.size(), declaration);
 }
 
@@ -52,7 +52,7 @@ std::string SetMinimapChests::GetBodySourceCode() const
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "MinimapChest", listName);
 	return StringHelper::Sprintf("SCENE_CMD_MINIMAP_COMPASS_ICON_INFO(0x%02X, %s)", chests.size(),
-	                             listName.c_str());
+	                             STR(listName));
 }
 
 std::string SetMinimapChests::GetCommandCName() const

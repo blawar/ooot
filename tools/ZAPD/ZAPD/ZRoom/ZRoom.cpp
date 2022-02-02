@@ -128,7 +128,7 @@ void ZRoom::ParseXML(tinyxml2::XMLElement* reader)
 		if (hackMode != "syotes_room")
 		{
 			std::string headerError = StringHelper::Sprintf(
-				"invalid value found for 'HackMode' attribute: '%s'", hackMode.c_str());
+				"invalid value found for 'HackMode' attribute: '%s'", STR(hackMode));
 			HANDLE_ERROR_RESOURCE(WarningType::InvalidAttributeValue, parent, this, rawDataIndex,
 			                      headerError, "");
 		}
@@ -303,7 +303,7 @@ Declaration* ZRoom::DeclareVar(const std::string& prefix, const std::string& bod
 	if (auxName == "")
 		auxName = GetDefaultName(prefix);
 	if (zroomType == ZResourceType::Scene || zroomType == ZResourceType::Room)
-		auxName = StringHelper::Sprintf("%sCommands", name.c_str());
+		auxName = StringHelper::Sprintf("%sCommands", STR(name));
 
 	Declaration* decl =
 		parent->AddDeclarationArray(rawDataIndex, GetDeclarationAlignment(), GetRawDataSize(),
@@ -330,7 +330,7 @@ std::string ZRoom::GetBodySourceCode() const
 
 std::string ZRoom::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%sSet_%06X", prefix.c_str(), rawDataIndex);
+	return StringHelper::Sprintf("%sSet_%06X", STR(prefix), rawDataIndex);
 }
 
 /*

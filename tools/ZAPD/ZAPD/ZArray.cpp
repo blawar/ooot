@@ -49,7 +49,7 @@ void ZArray::ParseXML(tinyxml2::XMLElement* reader)
 		if (!res->DoesSupportArray())
 		{
 			std::string errorHeader = StringHelper::Sprintf(
-				"resource <%s> does not support being wrapped in an <Array>", childName.c_str());
+				"resource <%s> does not support being wrapped in an <Array>", STR(childName));
 			HANDLE_ERROR_RESOURCE(WarningType::InvalidXML, parent, this, rawDataIndex, errorHeader,
 			                      "");
 		}
@@ -74,7 +74,7 @@ Declaration* ZArray::DeclareVar(const std::string& prefix, const std::string& bo
 	if (res->IsExternalResource())
 	{
 		auto filepath = Globals::Instance->outputPath / name;
-		std::string includePath = StringHelper::Sprintf("%s.%s.inc", filepath.c_str(),
+		std::string includePath = StringHelper::Sprintf("%s.%s.inc", filepath.string().c_str(),
 		                                                res->GetExternalExtension().c_str());
 		decl = parent->AddDeclarationIncludeArray(rawDataIndex, includePath, GetRawDataSize(),
 		                                          GetSourceTypeName(), name, arrayCnt);

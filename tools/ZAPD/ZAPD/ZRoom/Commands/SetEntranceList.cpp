@@ -16,7 +16,7 @@ void SetEntranceList::DeclareReferences([[maybe_unused]] const std::string& pref
 	if (segmentOffset != 0)
 	{
 		std::string varName =
-			StringHelper::Sprintf("%sEntranceList0x%06X", prefix.c_str(), segmentOffset);
+			StringHelper::Sprintf("%sEntranceList0x%06X", STR(prefix), segmentOffset);
 		parent->AddDeclarationPlaceholder(segmentOffset, varName);
 	}
 }
@@ -53,7 +53,7 @@ void SetEntranceList::DeclareReferencesLate([[maybe_unused]] const std::string& 
 		}
 
 		std::string varName =
-			StringHelper::Sprintf("%sEntranceList0x%06X", prefix.c_str(), segmentOffset);
+			StringHelper::Sprintf("%sEntranceList0x%06X", STR(prefix), segmentOffset);
 		parent->AddDeclarationArray(segmentOffset, DeclarationAlignment::Align4,
 		                            entrances.size() * 2, "EntranceEntry", varName,
 		                            entrances.size(), declaration);
@@ -64,7 +64,7 @@ std::string SetEntranceList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "EntranceEntry", listName);
-	return StringHelper::Sprintf("SCENE_CMD_ENTRANCE_LIST(%s)", listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_ENTRANCE_LIST(%s)", STR(listName));
 }
 
 std::string SetEntranceList::GetCommandCName() const

@@ -4,6 +4,7 @@
 #include "Utils/StringHelper.h"
 #include "WarningHandler.h"
 #include "ZResource.h"
+#include "GameConfig.h"
 
 REGISTER_ZFILENODE(Cutscene, ZCutscene);
 
@@ -522,7 +523,7 @@ std::string CutsceneCommandSetCameraPos::GenerateSourceCode([[maybe_unused]] uin
 		posStr = "CS_CAM_POS";
 	}
 
-	result += StringHelper::Sprintf("%s(%i, %i),\n", listStr.c_str(), startFrame, endFrame);
+	result += StringHelper::Sprintf("%s(%i, %i),\n", STR(listStr), startFrame, endFrame);
 
 	for (size_t i = 0; i < entries.size(); i++)
 	{
@@ -530,7 +531,7 @@ std::string CutsceneCommandSetCameraPos::GenerateSourceCode([[maybe_unused]] uin
 		if (entries[i]->continueFlag != 0)
 			continueMacro = "CS_CMD_STOP";
 		result += StringHelper::Sprintf("        %s(%s, 0x%02X, %i, %ff, %i, %i, %i, 0x%04X),\n",
-		                                posStr.c_str(), continueMacro.c_str(),
+		                                STR(posStr), STR(continueMacro),
 		                                entries[i]->cameraRoll, entries[i]->nextPointFrame,
 		                                entries[i]->viewAngle, entries[i]->posX, entries[i]->posY,
 		                                entries[i]->posZ, entries[i]->unused);
@@ -1049,7 +1050,7 @@ std::string CutsceneCommandActorAction::GenerateSourceCode([[maybe_unused]] uint
 		result += StringHelper::Sprintf(
 			"\t\t%s(0x%04X, %i, %i, 0x%04X, 0x%04X, 0x%04X, %i, %i, %i, %i, %i, %i, %.11ef, "
 			"%.11ef, %.11ef),\n",
-			subCommand.c_str(), entries[i]->action, entries[i]->startFrame, entries[i]->endFrame,
+			STR(subCommand), entries[i]->action, entries[i]->startFrame, entries[i]->endFrame,
 			entries[i]->rotX, entries[i]->rotY, entries[i]->rotZ, entries[i]->startPosX,
 			entries[i]->startPosY, entries[i]->startPosZ, entries[i]->endPosX, entries[i]->endPosY,
 			entries[i]->endPosZ, entries[i]->normalX, entries[i]->normalY, entries[i]->normalZ);

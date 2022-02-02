@@ -3,6 +3,7 @@
 #include "Utils/BitConverter.h"
 #include "Utils/StringHelper.h"
 #include "ZFile.h"
+#include "GameConfig.h"
 
 REGISTER_ZFILENODE(PlayerAnimationData, ZPlayerAnimationData);
 
@@ -77,7 +78,7 @@ std::string ZPlayerAnimationData::GetBodySourceCode() const
 
 std::string ZPlayerAnimationData::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%sPlayerAnimationData_%06X", prefix.c_str(), rawDataIndex);
+	return StringHelper::Sprintf("%sPlayerAnimationData_%06X", STR(prefix), rawDataIndex);
 }
 
 std::string ZPlayerAnimationData::GetSourceTypeName() const

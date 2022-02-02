@@ -114,7 +114,7 @@ Declaration* ZDisplayList::DeclareVar([[maybe_unused]] const std::string& prefix
 
 std::string ZDisplayList::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%sDL_%06X", prefix.c_str(), rawDataIndex);
+	return StringHelper::Sprintf("%sDL_%06X", STR(prefix), rawDataIndex);
 }
 
 void ZDisplayList::ParseF3DZEX(F3DZEXOpcode opcode, uint64_t data, int32_t i,
@@ -199,12 +199,12 @@ void ZDisplayList::ParseF3DZEX(F3DZEXOpcode opcode, uint64_t data, int32_t i,
 		if (ssssssss != 0)
 		{
 			if ((~cccccc & 0xFF000000) != 0)
-				sprintf(line, "gsSPSetGeometryMode(%s),", geoModeStr.c_str());
+				sprintf(line, "gsSPSetGeometryMode(%s),", STR(geoModeStr));
 			else
-				sprintf(line, "gsSPLoadGeometryMode(%s),", geoModeStr.c_str());
+				sprintf(line, "gsSPLoadGeometryMode(%s),", STR(geoModeStr));
 		}
 		else
-			sprintf(line, "gsSPClearGeometryMode(%s),", geoModeStr.c_str());
+			sprintf(line, "gsSPClearGeometryMode(%s),", STR(geoModeStr));
 	}
 	break;
 	case F3DZEXOpcode::G_SETPRIMCOLOR:
@@ -287,7 +287,7 @@ void ZDisplayList::ParseF3DZEX(F3DZEXOpcode opcode, uint64_t data, int32_t i,
 			uint32_t z = (data2 & 0x00000000FFFFFFFF) >> 0;
 
 			// sprintf(line, "gsDPWord(%i, 0),", h);
-			sprintf(line, "gsSPBranchLessZraw(%sDlist0x%06X, 0x%02X, 0x%02X),", prefix.c_str(),
+			sprintf(line, "gsSPBranchLessZraw(%sDlist0x%06X, 0x%02X, 0x%02X),", STR(prefix),
 			        h & 0x00FFFFFF, (a / 5) | (b / 2), z);
 
 			ZDisplayList* nList = new ZDisplayList(parent);
@@ -429,9 +429,9 @@ void ZDisplayList::ParseF3DEX(F3DEXOpcode opcode, uint64_t data, const std::stri
 			geoModeStr += " | G_CLIPPING";
 
 		if (opcode == F3DEXOpcode::G_SETGEOMETRYMODE)
-			sprintf(line, "gsSPSetGeometryMode(%s),", geoModeStr.c_str());
+			sprintf(line, "gsSPSetGeometryMode(%s),", STR(geoModeStr));
 		else
-			sprintf(line, "gsSPClearGeometryMode(%s),", geoModeStr.c_str());
+			sprintf(line, "gsSPClearGeometryMode(%s),", STR(geoModeStr));
 	}
 	break;
 	default:
@@ -626,7 +626,7 @@ int32_t ZDisplayList::OptimizationCheck_LoadTextureBlock(int32_t startIndex, std
 		const char* sizTbl[] = {"G_IM_SIZ_4b", "G_IM_SIZ_8b", "G_IM_SIZ_16b", "G_IM_SIZ_32b"};
 
 		// output += StringHelper::Sprintf("gsDPLoadTextureBlock(%s, %s, %s, %i, %i, %i, %i, %i, %i,
-		// %i, %i, %i),", texStr.c_str(), fmtTbl[fmt], sizTbl[siz].c_str(), width, height,
+		// %i, %i, %i),", STR(texStr), fmtTbl[fmt], sizTbl[siz].c_str(), width, height,
 		// pal, cms, cmt, masks, maskt, shifts, shiftt);
 
 		if (siz == 2 && sizB == 0)
@@ -709,7 +709,7 @@ void ZDisplayList::Opcode_G_DL(uint64_t data, const std::string& prefix, char* l
 		else if (dListDecl != nullptr)
 			sprintf(line, "gsSPBranchList(%s),", dListDecl->varName.c_str());
 		else
-			sprintf(line, "gsSPBranchList(%sDlist0x%06" PRIX64 "),", prefix.c_str(),
+			sprintf(line, "gsSPBranchList(%sDlist0x%06" PRIX64 "),", STR(prefix),
 			        GETSEGOFFSET(data));
 	}
 	else
@@ -719,7 +719,7 @@ void ZDisplayList::Opcode_G_DL(uint64_t data, const std::string& prefix, char* l
 		else if (dListDecl != nullptr)
 			sprintf(line, "gsSPDisplayList(%s),", dListDecl->varName.c_str());
 		else
-			sprintf(line, "gsSPDisplayList(%sDlist0x%06" PRIX64 "),", prefix.c_str(),
+			sprintf(line, "gsSPDisplayList(%sDlist0x%06" PRIX64 "),", STR(prefix),
 			        GETSEGOFFSET(data));
 	}
 
@@ -820,7 +820,7 @@ void ZDisplayList::Opcode_G_MTX(uint64_t data, char* line)
 	if (pp & 0x04)
 		projection = true;
 
-	sprintf(line, "gsSPMatrix(%s, %s | %s | %s),", matrixRef.c_str(),
+	sprintf(line, "gsSPMatrix(%s, %s | %s | %s),", STR(matrixRef),
 	        projection ? "G_MTX_PROJECTION" : "G_MTX_MODELVIEW",
 	        push ? "G_MTX_PUSH" : "G_MTX_NOPUSH", load ? "G_MTX_LOAD" : "G_MTX_MUL");
 }
@@ -959,7 +959,7 @@ void ZDisplayList::Opcode_G_SETTIMG(uint64_t data, const std::string& prefix, ch
 		if (texDecl != nullptr)
 			sprintf(texStr, "%s", texDecl->varName.c_str());
 		else if (data != 0 && Globals::Instance->HasSegment(segmentNumber))
-			sprintf(texStr, "%sTex_%06X", prefix.c_str(), texAddress);
+			sprintf(texStr, "%sTex_%06X", STR(prefix), texAddress);
 		else
 		{
 			sprintf(texStr, "0x%08" PRIX64, data & 0xFFFFFFFF);
@@ -973,7 +973,7 @@ void ZDisplayList::Opcode_G_SETTIMG(uint64_t data, const std::string& prefix, ch
 		std::string texName;
 		Globals::Instance->GetSegmentedPtrName(data, parent, "", texName);
 		sprintf(line, "gsDPSetTextureImage(%s, %s, %i, %s),", fmtTbl[fmt], sizTbl[siz], www + 1,
-		        texName.c_str());
+		        STR(texName));
 	}
 }
 
@@ -1488,7 +1488,7 @@ void ZDisplayList::Opcode_G_SETOTHERMODE_L(uint64_t data, char* line)
 			// mode2Str = StringHelper::Sprintf("0x%08X", mode2);
 		}
 
-		sprintf(line, "gsDPSetRenderMode(%s, %s),", mode1Str.c_str(), mode2Str.c_str());
+		sprintf(line, "gsDPSetRenderMode(%s, %s),", STR(mode1Str), STR(mode2Str));
 	}
 	else
 	{
@@ -1671,7 +1671,7 @@ static int32_t GfxdCallback_Texture(segptr_t seg, int32_t fmt, int32_t siz, int3
 	std::string texName;
 	Globals::Instance->GetSegmentedPtrName(seg, self->parent, "", texName);
 
-	gfxd_puts(texName.c_str());
+	gfxd_puts(STR(texName));
 
 	return 1;
 }
@@ -1695,7 +1695,7 @@ static int32_t GfxdCallback_Palette(uint32_t seg, [[maybe_unused]] int32_t idx, 
 	std::string palName;
 	Globals::Instance->GetSegmentedPtrName(seg, self->parent, "", palName);
 
-	gfxd_puts(palName.c_str());
+	gfxd_puts(STR(palName));
 
 	return 1;
 }
@@ -1720,7 +1720,7 @@ static int32_t GfxdCallback_DisplayList(uint32_t seg)
 		dListName = newDList->GetName();
 	}
 
-	gfxd_puts(dListName.c_str());
+	gfxd_puts(STR(dListName));
 
 	return 1;
 }
@@ -1748,7 +1748,7 @@ static int32_t GfxdCallback_Matrix(uint32_t seg)
 		}
 	}
 
-	gfxd_puts(mtxName.c_str());
+	gfxd_puts(STR(mtxName));
 
 	return 1;
 }
@@ -1866,10 +1866,10 @@ void ZDisplayList::DeclareReferences(const std::string& prefix)
 				if (vtxRes != nullptr)
 					vtxName = vtxRes->GetName();
 				else
-					vtxName = StringHelper::Sprintf("%sVtx_%06X", prefix.c_str(), vtxKeys[i]);
+					vtxName = StringHelper::Sprintf("%sVtx_%06X", STR(prefix), vtxKeys[i]);
 
 				auto filepath = Globals::Instance->outputPath / vtxName;
-				std::string incStr = StringHelper::Sprintf("%s.%s.inc", filepath.c_str(), "vtx");
+				std::string incStr = StringHelper::Sprintf("%s.%s.inc", filepath.string().c_str(), "vtx");
 
 				Declaration* vtxDecl = parent->AddDeclarationIncludeArray(
 					vtxKeys[i], incStr, item.size() * 16, "Vtx", vtxName, item.size());

@@ -36,7 +36,7 @@ std::string SetRoomList::GetBodySourceCode() const
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "RomFile", listName);
 	return StringHelper::Sprintf("SCENE_CMD_ROOM_LIST(%i, %s)", romfile->rooms.size(),
-	                             listName.c_str());
+	                             STR(listName));
 }
 
 std::string SetRoomList::GetCommandCName() const
@@ -82,7 +82,7 @@ Declaration* RomFile::DeclareVar(const std::string& prefix, const std::string& b
 {
 	std::string auxName = name;
 	if (name == "")
-		auxName = StringHelper::Sprintf("%sRoomList0x%06X", prefix.c_str(), rawDataIndex);
+		auxName = StringHelper::Sprintf("%sRoomList0x%06X", STR(prefix), rawDataIndex);
 
 	return parent->AddDeclarationArray(rawDataIndex, DeclarationAlignment::Align4,
 	                                   rooms.size() * rooms.at(0).GetRawDataSize(),
@@ -106,7 +106,7 @@ std::string RomFile::GetBodySourceCode() const
 
 				declaration +=
 					StringHelper::Sprintf("\t{ (u32)_%sSegmentRomStart, (u32)_%sSegmentRomEnd },",
-				                          roomName.c_str(), roomName.c_str());
+				                          STR(roomName), STR(roomName));
 				isFirst = false;
 			}
 		}

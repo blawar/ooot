@@ -6,6 +6,7 @@
 #include <numeric>
 #include <string>
 #include <vector>
+#include "str.h""
 
 class StringHelper
 {

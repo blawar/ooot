@@ -43,7 +43,7 @@ void SetObjectList::DeclareReferences(const std::string& prefix)
 
 		parent->AddDeclarationArray(
 			segmentOffset, DeclarationAlignment::Align4, objects.size() * 2, "s16",
-			StringHelper::Sprintf("%sObjectList_%06X", prefix.c_str(), segmentOffset),
+			StringHelper::Sprintf("%sObjectList_%06X", STR(prefix), segmentOffset),
 			objects.size(), declaration);
 	}
 }
@@ -52,7 +52,7 @@ std::string SetObjectList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "s16", listName);
-	return StringHelper::Sprintf("SCENE_CMD_OBJECT_LIST(%i, %s)", objects.size(), listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_OBJECT_LIST(%i, %s)", objects.size(), STR(listName));
 }
 
 std::string SetObjectList::GetCommandCName() const

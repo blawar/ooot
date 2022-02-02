@@ -79,7 +79,7 @@ std::string SetMesh::GetBodySourceCode() const
 {
 	std::string list;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "", list);
-	return StringHelper::Sprintf("SCENE_CMD_MESH(%s)", list.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_MESH(%s)", STR(list));
 }
 
 std::string SetMesh::GetCommandCName() const
@@ -137,7 +137,7 @@ std::string PolygonDlist::GetBodySourceCode() const
 		bodyStr += StringHelper::Sprintf("{ %6i, %6i, %6i }, %6i, ", x, y, z, unk_06);
 	}
 
-	bodyStr += StringHelper::Sprintf("%s, %s", opaStr.c_str(), xluStr.c_str());
+	bodyStr += StringHelper::Sprintf("%s, %s", STR(opaStr), STR(xluStr));
 
 	return bodyStr;
 }
@@ -295,7 +295,7 @@ std::string BgImage::GetBodySourceCode() const
 
 	std::string backgroundName;
 	Globals::Instance->GetSegmentedPtrName(source, parent, "", backgroundName);
-	bodyStr += StringHelper::Sprintf("%s, ", backgroundName.c_str());
+	bodyStr += StringHelper::Sprintf("%s, ", STR(backgroundName));
 	bodyStr += "\n    ";
 	if (!isSubStruct)
 	{
@@ -495,7 +495,7 @@ std::string PolygonType1::GetBodySourceCode() const
 	std::string dlistStr;
 	Globals::Instance->GetSegmentedPtrName(dlist, parent, "", dlistStr);
 
-	bodyStr += StringHelper::Sprintf("%s, ", dlistStr.c_str());
+	bodyStr += StringHelper::Sprintf("%s, ", STR(dlistStr));
 	bodyStr += "}, \n";
 
 	std::string listStr = "NULL";
@@ -506,7 +506,7 @@ std::string PolygonType1::GetBodySourceCode() const
 		break;
 	case 2:
 		Globals::Instance->GetSegmentedPtrName(list, parent, "BgImage", listStr);
-		bodyStr += StringHelper::Sprintf("    %i, %s, \n", count, listStr.c_str());
+		bodyStr += StringHelper::Sprintf("    %i, %s, \n", count, STR(listStr));
 		break;
 
 	default:
@@ -573,7 +573,7 @@ void PolygonType2::DeclareReferences(const std::string& prefix)
 
 		std::string polyDlistType = polyDLists.at(0).GetSourceTypeName();
 		std::string polyDListName;
-		polyDListName = StringHelper::Sprintf("%s%s_%06X", prefix.c_str(), polyDlistType.c_str(),
+		polyDListName = StringHelper::Sprintf("%s%s_%06X", STR(prefix), STR(polyDlistType),
 		                                      GETSEGOFFSET(start));
 
 		Declaration* decl = parent->AddDeclarationArray(
@@ -595,9 +595,9 @@ std::string PolygonType2::GetBodySourceCode() const
 	Globals::Instance->GetSegmentedPtrName(start, parent, "", listName);
 
 	std::string body = StringHelper::Sprintf("\n    %i, %i,\n", type, polyDLists.size());
-	body += StringHelper::Sprintf("    %s,\n", listName.c_str());
+	body += StringHelper::Sprintf("    %s,\n", STR(listName));
 	body +=
-		StringHelper::Sprintf("    %s + ARRAY_COUNTU(%s)\n", listName.c_str(), listName.c_str());
+		StringHelper::Sprintf("    %s + ARRAY_COUNTU(%s)\n", STR(listName), STR(listName));
 	return body;
 }
 

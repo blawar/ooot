@@ -54,7 +54,7 @@ Declaration* ZBlob::DeclareVar(const std::string& prefix,
 		(Globals::Instance->outputPath / Path::GetFileNameWithoutExtension(GetOutName())).string();
 
 	std::string incStr =
-		StringHelper::Sprintf("%s.%s.inc.c", assetOutDir.c_str(), GetExternalExtension().c_str());
+		StringHelper::Sprintf("%s.%s.inc.c", STR(assetOutDir), GetExternalExtension().c_str());
 
 	return parent->AddDeclarationIncludeArray(rawDataIndex, incStr, GetRawDataSize(),
 	                                          GetSourceTypeName(), auxName, blobData.size());

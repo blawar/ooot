@@ -140,7 +140,7 @@ void ZCollisionHeader::DeclareReferences(const std::string& prefix)
 
 		parent->AddDeclarationArray(
 			waterBoxSegmentOffset, DeclarationAlignment::Align4, 16 * waterBoxes.size(), "WaterBox",
-			StringHelper::Sprintf("%sWaterBoxes", auxName.c_str()), waterBoxes.size(), declaration);
+			StringHelper::Sprintf("%sWaterBoxes", STR(auxName)), waterBoxes.size(), declaration);
 	}
 
 	if (polygons.size() > 0)
@@ -159,7 +159,7 @@ void ZCollisionHeader::DeclareReferences(const std::string& prefix)
 
 		parent->AddDeclarationArray(
 			polySegmentOffset, DeclarationAlignment::Align4, polygons.size() * 16, "CollisionPoly",
-			StringHelper::Sprintf("%sPolygons", auxName.c_str()), polygons.size(), declaration);
+			StringHelper::Sprintf("%sPolygons", STR(auxName)), polygons.size(), declaration);
 	}
 
 	declaration.clear();
@@ -175,7 +175,7 @@ void ZCollisionHeader::DeclareReferences(const std::string& prefix)
 	if (polyTypeDefAddress != 0)
 		parent->AddDeclarationArray(polyTypeDefSegmentOffset, DeclarationAlignment::Align4,
 		                            polygonTypes.size() * 8, "SurfaceType",
-		                            StringHelper::Sprintf("%sSurfaceType", auxName.c_str()),
+		                            StringHelper::Sprintf("%sSurfaceType", STR(auxName)),
 		                            polygonTypes.size(), declaration);
 
 	declaration.clear();
@@ -198,7 +198,7 @@ void ZCollisionHeader::DeclareReferences(const std::string& prefix)
 			parent->AddDeclarationArray(
 				vtxSegmentOffset, first.GetDeclarationAlignment(),
 				vertices.size() * first.GetRawDataSize(), first.GetSourceTypeName(),
-				StringHelper::Sprintf("%sVertices", auxName.c_str()), vertices.size(), declaration);
+				StringHelper::Sprintf("%sVertices", STR(auxName)), vertices.size(), declaration);
 	}
 }
 
@@ -213,30 +213,30 @@ std::string ZCollisionHeader::GetBodySourceCode() const
 
 	std::string vtxName;
 	Globals::Instance->GetSegmentedPtrName(vtxAddress, parent, "Vec3s", vtxName);
-	declaration += StringHelper::Sprintf("\t%i, %s,\n", numVerts, vtxName.c_str());
+	declaration += StringHelper::Sprintf("\t%i, %s,\n", numVerts, STR(vtxName));
 
 	std::string polyName;
 	Globals::Instance->GetSegmentedPtrName(polyAddress, parent, "CollisionPoly", polyName);
-	declaration += StringHelper::Sprintf("\t%i, %s,\n", numPolygons, polyName.c_str());
+	declaration += StringHelper::Sprintf("\t%i, %s,\n", numPolygons, STR(polyName));
 
 	std::string surfaceName;
 	Globals::Instance->GetSegmentedPtrName(polyTypeDefAddress, parent, "SurfaceType", surfaceName);
-	declaration += StringHelper::Sprintf("\t%s,\n", surfaceName.c_str());
+	declaration += StringHelper::Sprintf("\t%s,\n", STR(surfaceName));
 
 	std::string camName;
 	Globals::Instance->GetSegmentedPtrName(camDataAddress, parent, "CamData", camName);
-	declaration += StringHelper::Sprintf("\t%s,\n", camName.c_str());
+	declaration += StringHelper::Sprintf("\t%s,\n", STR(camName));
 
 	std::string waterBoxName;
 	Globals::Instance->GetSegmentedPtrName(waterBoxAddress, parent, "WaterBox", waterBoxName);
-	declaration += StringHelper::Sprintf("\t%i, %s\n", numWaterBoxes, waterBoxName.c_str());
+	declaration += StringHelper::Sprintf("\t%i, %s\n", numWaterBoxes, STR(waterBoxName));
 
 	return declaration;
 }
 
 std::string ZCollisionHeader::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%sCol_%06X", prefix.c_str(), rawDataIndex);
+	return StringHelper::Sprintf("%sCol_%06X", STR(prefix), rawDataIndex);
 }
 
 std::string ZCollisionHeader::GetSourceTypeName() const
@@ -333,7 +333,7 @@ CameraDataList::CameraDataList(ZFile* parent, const std::string& prefix,
 		{
 			int32_t index =
 				((entries[i]->cameraPosDataSeg & 0x00FFFFFF) - cameraPosDataOffset) / 0x6;
-			sprintf(camSegLine, "&%sCamPosData[%i]", prefix.c_str(), index);
+			sprintf(camSegLine, "&%sCamPosData[%i]", STR(prefix), index);
 		}
 		else
 			sprintf(camSegLine, "NULL");
@@ -348,7 +348,7 @@ CameraDataList::CameraDataList(ZFile* parent, const std::string& prefix,
 
 	parent->AddDeclarationArray(
 		rawDataIndex, DeclarationAlignment::Align4, entries.size() * 8, "CamData",
-		StringHelper::Sprintf("%sCamDataList", prefix.c_str(), rawDataIndex), entries.size(),
+		StringHelper::Sprintf("%sCamDataList", STR(prefix), rawDataIndex), entries.size(),
 		declaration);
 
 	uint32_t numDataTotal = (rawDataIndex - cameraPosDataOffset) / 0x6;
@@ -370,7 +370,7 @@ CameraDataList::CameraDataList(ZFile* parent, const std::string& prefix,
 		int32_t cameraPosDataIndex = GETSEGOFFSET(cameraPosDataSeg);
 		uint32_t entrySize = numDataTotal * 0x6;
 		parent->AddDeclarationArray(cameraPosDataIndex, DeclarationAlignment::Align4, entrySize,
-		                            "Vec3s", StringHelper::Sprintf("%sCamPosData", prefix.c_str()),
+		                            "Vec3s", StringHelper::Sprintf("%sCamPosData", STR(prefix)),
 		                            numDataTotal, declaration);
 	}
 }

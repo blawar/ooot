@@ -39,7 +39,7 @@ void ZSkeleton::ParseXML(tinyxml2::XMLElement* reader)
 		HANDLE_ERROR_RESOURCE(
 			WarningType::InvalidAttributeValue, parent, this, rawDataIndex,
 			StringHelper::Sprintf("invalid value '%s' found for 'LimbType' attribute",
-		                          limbTypeXml.c_str()),
+		                          STR(limbTypeXml)),
 			"Defaulting to 'Standard'.");
 	}
 }
@@ -77,7 +77,7 @@ void ZSkeleton::DeclareReferences(const std::string& prefix)
 		uint32_t ptr = Seg2Filespace(limbsArrayAddress, parent->baseAddress);
 		if (!parent->HasDeclaration(ptr))
 		{
-			limbsTable.SetName(StringHelper::Sprintf("%sLimbs", defaultPrefix.c_str()));
+			limbsTable.SetName(StringHelper::Sprintf("%sLimbs", STR(defaultPrefix)));
 			limbsTable.DeclareReferences(prefix);
 			limbsTable.GetSourceOutputCode(prefix);
 		}
@@ -93,10 +93,10 @@ std::string ZSkeleton::GetBodySourceCode() const
 	{
 	case ZSkeletonType::Normal:
 	case ZSkeletonType::Curve:
-		return StringHelper::Sprintf("\n\t%s, %i\n", limbArrayName.c_str(), limbCount);
+		return StringHelper::Sprintf("\n\t%s, %i\n", STR(limbArrayName), limbCount);
 
 	case ZSkeletonType::Flex:
-		return StringHelper::Sprintf("\n\t{ %s, %i }, %i\n", limbArrayName.c_str(), limbCount,
+		return StringHelper::Sprintf("\n\t{ %s, %i }, %i\n", STR(limbArrayName), limbCount,
 		                             dListCount);
 	}
 
@@ -244,7 +244,7 @@ std::string ZLimbTable::GetBodySourceCode() const
 	{
 		std::string limbName;
 		Globals::Instance->GetSegmentedPtrName(limbsAddresses[i], parent, "", limbName);
-		body += StringHelper::Sprintf("\t%s,", limbName.c_str());
+		body += StringHelper::Sprintf("\t%s,", STR(limbName));
 
 		if (i + 1 < count)
 			body += "\n";

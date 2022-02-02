@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os.path
 from pathlib import Path
 import os
@@ -45,8 +47,6 @@ if not zapd:
 '''
 searchdir = os.path.abspath('assets/xml')
 for path in Path(searchdir).rglob('*.xml'):
-	if 'gameplay_keep' not in str(path):
-		continue
 	rel = cleanPath(str(path)[len(searchdir):-4].strip('/').strip('\\'))
 	out = getRelativePath(os.path.abspath(os.path.join('assets/', rel)))
 	ensureDirectory(out)
@@ -103,6 +103,7 @@ for path in Path(searchdir).rglob('*.png'):
 	if not item.isStale():
 		q.put(item)
 
+
 with tqdm.tqdm(total=q.qsize()) as status:
 	if thread_count == 1:
 		pngWorker(q, status)
@@ -126,6 +127,7 @@ with tqdm.tqdm(total=q.qsize()) as status:
 			t.join()
 			i = i + 1
 			info('joined thread %d' % i)
+
 	
 '''
 	rel = cleanPath(str(path)[len(basedir):-4].strip('/').strip('\\'))
@@ -142,7 +144,7 @@ for path in Path(searchdir).rglob('*.jpg'):
 	rel = cleanPath(str(path)[len(basedir):-4].strip('/').strip('\\'))
 	out = getRelativePath(os.path.abspath(os.path.join('build', rel)))
 	ensureDirectory(out)
-	cmd = '%s bren -i %s.jpg -o %s.inc.c' % (zapd, rel, out)
+	cmd = '%s bren -i %s.jpg -o %s.jpg.inc.c' % (zapd, rel, out)
 	info(cmd)
 	os.system(cmd)
 	

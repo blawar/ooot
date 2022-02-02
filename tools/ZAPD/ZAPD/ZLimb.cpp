@@ -231,12 +231,12 @@ std::string ZLimb::GetBodySourceCode() const
 		Globals::Instance->GetSegmentedPtrName(childPtr, parent, "LegacyLimb", childName);
 		Globals::Instance->GetSegmentedPtrName(siblingPtr, parent, "LegacyLimb", siblingName);
 
-		entryStr += StringHelper::Sprintf("%s,\n", dListStr.c_str());
+		entryStr += StringHelper::Sprintf("%s,\n", STR(dListStr));
 		entryStr +=
 			StringHelper::Sprintf("\t{ %ff, %ff, %ff },\n", legTransX, legTransY, legTransZ);
 		entryStr += StringHelper::Sprintf("\t{ 0x%04X, 0x%04X, 0x%04X },\n", rotX, rotY, rotZ);
-		entryStr += StringHelper::Sprintf("\t%s,\n", childName.c_str());
-		entryStr += StringHelper::Sprintf("\t%s\n", siblingName.c_str());
+		entryStr += StringHelper::Sprintf("\t%s,\n", STR(childName));
+		entryStr += StringHelper::Sprintf("\t%s\n", STR(siblingName));
 	}
 	else
 	{
@@ -249,13 +249,13 @@ std::string ZLimb::GetBodySourceCode() const
 		switch (type)
 		{
 		case ZLimbType::Standard:
-			entryStr += StringHelper::Sprintf("\t%s\n", dListStr.c_str());
+			entryStr += StringHelper::Sprintf("\t%s\n", STR(dListStr));
 			break;
 
 		case ZLimbType::LOD:
 		case ZLimbType::Curve:
 			entryStr +=
-				StringHelper::Sprintf("\t{ %s, %s }\n", dListStr.c_str(), dListStr2.c_str());
+				StringHelper::Sprintf("\t{ %s, %s }\n", STR(dListStr), STR(dListStr2));
 			break;
 
 		case ZLimbType::Skin:
@@ -263,7 +263,7 @@ std::string ZLimb::GetBodySourceCode() const
 			std::string skinSegmentStr;
 			Globals::Instance->GetSegmentedPtrName(skinSegment, parent, "", skinSegmentStr);
 			entryStr +=
-				StringHelper::Sprintf("\t0x%02X, %s\n", skinSegmentType, skinSegmentStr.c_str());
+				StringHelper::Sprintf("\t0x%02X, %s\n", skinSegmentType, STR(skinSegmentStr));
 		}
 		break;
 
@@ -280,7 +280,7 @@ std::string ZLimb::GetBodySourceCode() const
 
 std::string ZLimb::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%sLimb_%06X", prefix.c_str(), rawDataIndex);
+	return StringHelper::Sprintf("%sLimb_%06X", STR(prefix), rawDataIndex);
 }
 
 std::string ZLimb::GetSourceTypeName() const
@@ -378,7 +378,7 @@ void ZLimb::DeclareDList(segptr_t dListSegmentedPtr, const std::string& prefix,
 	dlist->ExtractFromBinary(dlistOffset, dlistLength);
 
 	std::string dListStr =
-		StringHelper::Sprintf("%s%sDL_%06X", prefix.c_str(), limbSuffix.c_str(), dlistOffset);
+		StringHelper::Sprintf("%s%sDL_%06X", STR(prefix), STR(limbSuffix), dlistOffset);
 	dlist->SetName(dListStr);
 	dlist->DeclareVar(prefix, "");
 	parent->AddResource(dlist);

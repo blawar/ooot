@@ -166,6 +166,7 @@ python3 ZAPD/genbuildinfo.py</Command>
     <ClCompile Include="OtherStructs\SkinLimbStructs.cpp" />
     <ClCompile Include="OutputFormatter.cpp" />
     <ClCompile Include="Overlays\ZOverlay.cpp" />
+    <ClCompile Include="str.cpp" />
     <ClCompile Include="WarningHandler.cpp" />
     <ClCompile Include="ZArray.cpp" />
     <ClCompile Include="ZBackground.cpp" />

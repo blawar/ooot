@@ -83,7 +83,7 @@ void ZNormalAnimation::ParseRawData()
 
 void ZNormalAnimation::DeclareReferences(const std::string& prefix)
 {
-	std::string defaultPrefix = prefix.c_str();
+	std::string defaultPrefix = STR(prefix);
 	if (name != "")
 		defaultPrefix = name;
 
@@ -106,7 +106,7 @@ void ZNormalAnimation::DeclareReferences(const std::string& prefix)
 
 	parent->AddDeclarationArray(rotationValuesOffset, DeclarationAlignment::Align4,
 	                            rotationValues.size() * 2, "s16",
-	                            StringHelper::Sprintf("%sFrameData", defaultPrefix.c_str()),
+	                            StringHelper::Sprintf("%sFrameData", STR(defaultPrefix)),
 	                            rotationValues.size(), valuesStr);
 
 	for (size_t i = 0; i < rotationIndices.size(); i++)
@@ -120,7 +120,7 @@ void ZNormalAnimation::DeclareReferences(const std::string& prefix)
 
 	parent->AddDeclarationArray(rotationIndicesOffset, DeclarationAlignment::Align4,
 	                            rotationIndices.size() * 6, "JointIndex",
-	                            StringHelper::Sprintf("%sJointIndices", defaultPrefix.c_str()),
+	                            StringHelper::Sprintf("%sJointIndices", STR(defaultPrefix)),
 	                            rotationIndices.size(), indicesStr);
 }
 
@@ -133,8 +133,8 @@ std::string ZNormalAnimation::GetBodySourceCode() const
 	                                       jointIndicesName);
 
 	std::string headerStr =
-		StringHelper::Sprintf("\n\t{ %i }, %s,\n", frameCount, frameDataName.c_str());
-	headerStr += StringHelper::Sprintf("\t%s, %i\n", jointIndicesName.c_str(), limit);
+		StringHelper::Sprintf("\n\t{ %i }, %s,\n", frameCount, STR(frameDataName));
+	headerStr += StringHelper::Sprintf("\t%s, %i\n", STR(jointIndicesName), limit);
 
 	return headerStr;
 }
@@ -169,7 +169,7 @@ std::string ZLinkAnimation::GetBodySourceCode() const
 	std::string segSymbol;
 	Globals::Instance->GetSegmentedPtrName(segmentAddress, parent, "", segSymbol);
 
-	return StringHelper::Sprintf("\n\t{ %i }, %s\n", frameCount, segSymbol.c_str());
+	return StringHelper::Sprintf("\n\t{ %i }, %s\n", frameCount, STR(segSymbol));
 }
 
 /* ZCurveAnimation */
@@ -280,7 +280,7 @@ void ZCurveAnimation::DeclareReferences(const std::string& prefix)
 	{
 		uint32_t refIndexOffset = Seg2Filespace(refIndex, parent->baseAddress);
 		std::string refIndexStr =
-			StringHelper::Sprintf("%sCurveAnime_%s_%06X", prefix.c_str(), "Ref", refIndexOffset);
+			StringHelper::Sprintf("%sCurveAnime_%s_%06X", STR(prefix), "Ref", refIndexOffset);
 
 		std::string entryStr = "    ";
 		uint16_t arrayItemCnt = refIndexArr.size();
@@ -308,7 +308,7 @@ void ZCurveAnimation::DeclareReferences(const std::string& prefix)
 	{
 		uint32_t transformDataOffset = Seg2Filespace(transformData, parent->baseAddress);
 		std::string transformDataStr = StringHelper::Sprintf(
-			"%sCurveAnime_%s_%06X", prefix.c_str(),
+			"%sCurveAnime_%s_%06X", STR(prefix),
 			transformDataArr.at(0).GetSourceTypeName().c_str(), transformDataOffset);
 
 		std::string entryStr;
@@ -339,7 +339,7 @@ void ZCurveAnimation::DeclareReferences(const std::string& prefix)
 	{
 		uint32_t copyValuesOffset = Seg2Filespace(copyValues, parent->baseAddress);
 		std::string copyValuesStr =
-			StringHelper::Sprintf("%sCurveAnime_%s_%06X", prefix.c_str(), "Copy", copyValuesOffset);
+			StringHelper::Sprintf("%sCurveAnime_%s_%06X", STR(prefix), "Copy", copyValuesOffset);
 
 		std::string entryStr = "    ";
 		uint16_t arrayItemCnt = copyValuesArr.size();
@@ -374,8 +374,8 @@ std::string ZCurveAnimation::GetBodySourceCode() const
 	std::string copyValuesStr;
 	Globals::Instance->GetSegmentedPtrName(copyValues, parent, "s16", copyValuesStr);
 
-	return StringHelper::Sprintf("\n\t%s,\n\t%s,\n\t%s,\n\t%i, %i\n", refIndexStr.c_str(),
-	                             transformDataStr.c_str(), copyValuesStr.c_str(), unk_0C, unk_10);
+	return StringHelper::Sprintf("\n\t%s,\n\t%s,\n\t%s,\n\t%i, %i\n", STR(refIndexStr),
+	                             STR(transformDataStr), STR(copyValuesStr), unk_0C, unk_10);
 }
 
 size_t ZCurveAnimation::GetRawDataSize() const
@@ -455,7 +455,7 @@ void ZLegacyAnimation::DeclareReferences(const std::string& prefix)
 					frameDataBody += "\n\t";
 			}
 
-			std::string frameDataName = StringHelper::Sprintf("%sFrameData", varPrefix.c_str());
+			std::string frameDataName = StringHelper::Sprintf("%sFrameData", STR(varPrefix));
 			parent->AddDeclarationArray(frameDataOffset, DeclarationAlignment::Align4,
 			                            frameDataArray.size() * 2, "s16", frameDataName,
 			                            frameDataArray.size(), frameDataBody);
@@ -479,7 +479,7 @@ void ZLegacyAnimation::DeclareReferences(const std::string& prefix)
 					jointKeyBody += "\n";
 			}
 
-			std::string jointKeyName = StringHelper::Sprintf("%sJointKey", varPrefix.c_str());
+			std::string jointKeyName = StringHelper::Sprintf("%sJointKey", STR(varPrefix));
 			parent->AddDeclarationArray(jointKeyOffset, DeclarationAlignment::Align4,
 			                            jointKeyArray.size() * res.GetRawDataSize(),
 			                            res.GetSourceTypeName(), jointKeyName, jointKeyArray.size(),
@@ -498,8 +498,8 @@ std::string ZLegacyAnimation::GetBodySourceCode() const
 	Globals::Instance->GetSegmentedPtrName(jointKey, parent, "JointKey", jointKeyName);
 
 	body += StringHelper::Sprintf("\t%i, %i,\n", frameCount, limbCount);
-	body += StringHelper::Sprintf("\t%s,\n", frameDataName.c_str());
-	body += StringHelper::Sprintf("\t%s\n", jointKeyName.c_str());
+	body += StringHelper::Sprintf("\t%s,\n", STR(frameDataName));
+	body += StringHelper::Sprintf("\t%s\n", STR(jointKeyName));
 
 	return body;
 }

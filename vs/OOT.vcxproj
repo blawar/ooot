@@ -558,99 +558,6 @@
     <ClCompile Include="..\assets\objects\object_zl2_anime2\object_zl2_anime2.c" />
     <ClCompile Include="..\assets\objects\object_zl4\object_zl4.c" />
     <ClCompile Include="..\assets\objects\object_zo\object_zo.c" />
-    <ClCompile Include="..\assets\overlays\ovl_Arrow_Fire\ovl_Arrow_Fire.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Arrow_Ice\ovl_Arrow_Ice.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Arrow_Light\ovl_Arrow_Light.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Bg_Ganon_Otyuka\ovl_Bg_Ganon_Otyuka.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Bg_Jya_Cobra\ovl_Bg_Jya_Cobra.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Boss_Dodongo\ovl_Boss_Dodongo.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Boss_Ganon2\ovl_Boss_Ganon2.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Boss_Sst\ovl_Boss_Sst.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Demo_Shd\ovl_Demo_Shd.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Elf_Msg2\ovl_Elf_Msg2.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Elf_Msg\ovl_Elf_Msg.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_End_Title\ovl_End_Title.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Bili\ovl_En_Bili.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Clear_Tag\ovl_En_Clear_Tag.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Ganon_Mant\ovl_En_Ganon_Mant.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Ganon_Organ\ovl_En_Ganon_Organ.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Holl\ovl_En_Holl.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Kanban\ovl_En_Kanban.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Sda\ovl_En_Sda.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Ssh\ovl_En_Ssh.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_Sth\ovl_En_Sth.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_En_St\ovl_En_St.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Magic_Dark\ovl_Magic_Dark.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Magic_Fire\ovl_Magic_Fire.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Magic_Wind\ovl_Magic_Wind.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Oceff_Spot\ovl_Oceff_Spot.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Oceff_Storm\ovl_Oceff_Storm.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Oceff_Wipe2\ovl_Oceff_Wipe2.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Oceff_Wipe3\ovl_Oceff_Wipe3.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Oceff_Wipe4\ovl_Oceff_Wipe4.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\assets\overlays\ovl_Oceff_Wipe\ovl_Oceff_Wipe.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_0.c" />
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_1.c" />
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_10.c" />
@@ -1636,7 +1543,10 @@
     <ClCompile Include="..\src\overlays\actors\ovl_Bg_Ydan_Sp\z_bg_ydan_sp.c" />
     <ClCompile Include="..\src\overlays\actors\ovl_Bg_Zg\z_bg_zg.c" />
     <ClCompile Include="..\src\overlays\actors\ovl_Boss_Dodongo\z_boss_dodongo.c" />
-    <ClCompile Include="..\src\overlays\actors\ovl_Boss_Dodongo\z_boss_dodongo_data.c" />
+    <ClCompile Include="..\src\overlays\actors\ovl_Boss_Dodongo\z_boss_dodongo_data.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\overlays\actors\ovl_Boss_Fd2\z_boss_fd2.c" />
     <ClCompile Include="..\src\overlays\actors\ovl_Boss_Fd2\z_boss_fd2_colchk.c" />
     <ClCompile Include="..\src\overlays\actors\ovl_Boss_Fd\z_boss_fd.c" />

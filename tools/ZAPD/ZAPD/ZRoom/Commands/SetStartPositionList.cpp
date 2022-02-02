@@ -43,7 +43,7 @@ void SetStartPositionList::DeclareReferences(const std::string& prefix)
 
 		parent->AddDeclarationArray(
 			segmentOffset, DeclarationAlignment::Align4, actors.size() * 16, "ActorEntry",
-			StringHelper::Sprintf("%sStartPositionList0x%06X", prefix.c_str(), segmentOffset),
+			StringHelper::Sprintf("%sStartPositionList0x%06X", STR(prefix), segmentOffset),
 			actors.size(), declaration);
 	}
 }
@@ -52,7 +52,7 @@ std::string SetStartPositionList::GetBodySourceCode() const
 {
 	std::string listName;
 	Globals::Instance->GetSegmentedPtrName(cmdArg2, parent, "ActorEntry", listName);
-	return StringHelper::Sprintf("SCENE_CMD_SPAWN_LIST(%i, %s)", actors.size(), listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_SPAWN_LIST(%i, %s)", actors.size(), STR(listName));
 }
 
 std::string SetStartPositionList::GetCommandCName() const

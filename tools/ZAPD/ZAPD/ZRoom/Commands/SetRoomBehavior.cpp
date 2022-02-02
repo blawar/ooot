@@ -31,12 +31,12 @@ std::string SetRoomBehavior::GetBodySourceCode() const
 		std::string enableLights = StringHelper::BoolStr(enablePosLights);
 		return StringHelper::Sprintf("SCENE_CMD_ROOM_BEHAVIOR(0x%02X, 0x%02X, %i, %i, %s, %i)",
 		                             gameplayFlags, currRoomUnk2, currRoomUnk5, msgCtxUnk,
-		                             enableLights.c_str(), kankyoContextUnkE2);
+		                             STR(enableLights), kankyoContextUnkE2);
 	}
 	std::string showInvisible = StringHelper::BoolStr(showInvisActors);
 	std::string disableWarps = StringHelper::BoolStr(msgCtxUnk);
 	return StringHelper::Sprintf("SCENE_CMD_ROOM_BEHAVIOR(0x%02X, 0x%02X, %s, %s)", gameplayFlags,
-	                             currRoomUnk2, showInvisible.c_str(), disableWarps.c_str());
+	                             currRoomUnk2, STR(showInvisible), STR(disableWarps));
 }
 
 std::string SetRoomBehavior::GetCommandCName() const

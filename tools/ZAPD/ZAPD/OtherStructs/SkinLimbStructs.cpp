@@ -203,9 +203,9 @@ std::string Struct_800A598C::GetBodySourceCode() const
 	Globals::Instance->GetSegmentedPtrName(unk_C, parent, "Struct_800A598C_2", unk_C_Str);
 
 	std::string entryStr = StringHelper::Sprintf("\n\t\tARRAY_COUNTU(%s), ARRAY_COUNTU(%s),\n",
-	                                             unk_8_Str.c_str(), unk_C_Str.c_str());
+	                                             STR(unk_8_Str), STR(unk_C_Str));
 	entryStr +=
-		StringHelper::Sprintf("\t\t%i, %s, %s\n\t", unk_4, unk_8_Str.c_str(), unk_C_Str.c_str());
+		StringHelper::Sprintf("\t\t%i, %s, %s\n\t", unk_4, STR(unk_8_Str), STR(unk_C_Str));
 
 	return entryStr;
 }
@@ -304,7 +304,7 @@ void Struct_800A5E28::DeclareReferences(const std::string& prefix)
 		unk_8_dlist->ExtractFromBinary(unk_8_Offset, dlistLength);
 
 		std::string dListStr =
-			StringHelper::Sprintf("%sSkinLimbDL_%06X", varPrefix.c_str(), unk_8_Offset);
+			StringHelper::Sprintf("%sSkinLimbDL_%06X", STR(varPrefix), unk_8_Offset);
 		unk_8_dlist->SetName(dListStr);
 		unk_8_dlist->DeclareVar(varPrefix, "");
 		unk_8_dlist->DeclareReferences(varPrefix);
@@ -320,8 +320,8 @@ std::string Struct_800A5E28::GetBodySourceCode() const
 	Globals::Instance->GetSegmentedPtrName(unk_8, parent, "Gfx", unk_8_Str);
 
 	std::string entryStr = "\n";
-	entryStr += StringHelper::Sprintf("\t%i, ARRAY_COUNTU(%s),\n", unk_0, unk_4_Str.c_str());
-	entryStr += StringHelper::Sprintf("\t%s, %s\n", unk_4_Str.c_str(), unk_8_Str.c_str());
+	entryStr += StringHelper::Sprintf("\t%i, ARRAY_COUNTU(%s),\n", unk_0, STR(unk_4_Str));
+	entryStr += StringHelper::Sprintf("\t%s, %s\n", STR(unk_4_Str), STR(unk_8_Str));
 
 	return entryStr;
 }

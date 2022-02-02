@@ -3,6 +3,7 @@
 #include "Utils/File.h"
 #include "Utils/StringHelper.h"
 #include "ZFile.h"
+#include "GameConfig.h"
 
 REGISTER_ZFILENODE(String, ZString);
 
@@ -50,7 +51,7 @@ std::string ZString::GetBodySourceCode() const
 
 std::string ZString::GetSourceOutputHeader([[maybe_unused]] const std::string& prefix)
 {
-	return StringHelper::Sprintf("#define %s_macro \"%s\"", name.c_str(), strData.data());
+	return StringHelper::Sprintf("#define %s_macro \"%s\"", STR(name), strData.data());
 }
 
 std::string ZString::GetSourceTypeName() const

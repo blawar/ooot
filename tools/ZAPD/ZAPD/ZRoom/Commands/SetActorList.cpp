@@ -22,7 +22,7 @@ void SetActorList::DeclareReferences(const std::string& prefix)
 	if (numActors != 0 && cmdArg2 != 0)
 	{
 		std::string varName =
-			StringHelper::Sprintf("%sActorList_%06X", prefix.c_str(), segmentOffset);
+			StringHelper::Sprintf("%sActorList_%06X", STR(prefix), segmentOffset);
 		parent->AddDeclarationPlaceholder(segmentOffset, varName);
 	}
 }
@@ -72,7 +72,7 @@ void SetActorList::DeclareReferencesLate(const std::string& prefix)
 
 	const auto& entry = actors.front();
 
-	std::string varName = StringHelper::Sprintf("%sActorList_%06X", prefix.c_str(), segmentOffset);
+	std::string varName = StringHelper::Sprintf("%sActorList_%06X", STR(prefix), segmentOffset);
 	parent->AddDeclarationArray(segmentOffset, DeclarationAlignment::Align4,
 	                            actors.size() * entry.GetRawDataSize(), entry.GetSourceTypeName(),
 	                            varName, GetActorListArraySize(), declaration);
@@ -87,7 +87,7 @@ std::string SetActorList::GetBodySourceCode() const
 		printf("%s: numActors(%i) ~ actors(%li)\n", parent->GetName().c_str(), numActors,
 		       actors.size());
 	}
-	return StringHelper::Sprintf("SCENE_CMD_ACTOR_LIST(%i, %s)", numActors, listName.c_str());
+	return StringHelper::Sprintf("SCENE_CMD_ACTOR_LIST(%i, %s)", numActors, STR(listName));
 }
 
 size_t SetActorList::GetActorListArraySize() const
@@ -141,7 +141,7 @@ std::string ActorSpawnEntry::GetBodySourceCode() const
 
 	std::string actorNameFmt = StringHelper::Sprintf("%%-%zus ", largestActorName + 1);
 	body =
-		StringHelper::Sprintf(actorNameFmt.c_str(), (ZNames::GetActorName(actorNum) + ",").c_str());
+		StringHelper::Sprintf(STR(actorNameFmt), (ZNames::GetActorName(actorNum) + ",").c_str());
 
 	body += StringHelper::Sprintf("{ %6i, %6i, %6i }, ", posX, posY, posZ);
 	if (Globals::Instance->game == ZGame::MM_RETAIL)

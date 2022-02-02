@@ -67,7 +67,7 @@ void ZBackground::CheckValidJpeg(const std::string& filepath)
 		HANDLE_WARNING_PROCESS(
 			WarningType::InvalidJPEG,
 			StringHelper::Sprintf("missing jpeg marker at beginning of file: '%s'",
-		                          filename.c_str()),
+		                          STR(filename)),
 			"The game will skip this jpeg.");
 	}
 	if (data.at(6) != 'J' || data.at(7) != 'F' || data.at(8) != 'I' || data.at(9) != 'F' ||
@@ -128,7 +128,7 @@ Declaration* ZBackground::DeclareVar(const std::string& prefix,
 	auto filepath = Globals::Instance->outputPath / fs::path(auxOutName).stem();
 
 	std::string incStr =
-		StringHelper::Sprintf("%s.%s.inc.c", filepath.c_str(), GetExternalExtension().c_str());
+		StringHelper::Sprintf("%s.%s.inc.c", filepath.string().c_str(), GetExternalExtension().c_str());
 
 	Declaration* decl = parent->AddDeclarationIncludeArray(rawDataIndex, incStr, GetRawDataSize(),
 	                                                       GetSourceTypeName(), auxName, 0);
@@ -173,7 +173,7 @@ std::string ZBackground::GetBodySourceCode() const
 
 std::string ZBackground::GetDefaultName(const std::string& prefix) const
 {
-	return StringHelper::Sprintf("%sBackground_%06X", prefix.c_str(), rawDataIndex);
+	return StringHelper::Sprintf("%sBackground_%06X", STR(prefix), rawDataIndex);
 }
 
 std::string ZBackground::GetSourceTypeName() const
