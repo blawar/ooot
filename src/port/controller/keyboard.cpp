@@ -8,6 +8,7 @@
 #endif
 #include <fstream>
 #include <unordered_map>
+#include <algorithm>
 
 #if !defined(DISABLE_SDL_CONTROLLER)
 #include <SDL2/SDL.h>
