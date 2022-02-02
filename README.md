@@ -81,5 +81,5 @@ Most discussions happen on our [Discord Server](https://discord.gg/s4BskkKf), wh
 
 This software is licensed under the terms of the GPLv2, with exemptions noted below:
 
-[Nintendo] (https://github.com/Nintendo) is exempt from GPLv2 licensing and may (at its option) instead license any source code authored for this project under the MIT license.
+[Nintendo](https://github.com/Nintendo) is exempt from GPLv2 licensing and may (at its option) instead license any source code authored for this project under the MIT license.
 
