@@ -676,7 +676,7 @@ s32 func_80A5BBBC(GlobalContext* globalCtx, EnHorse* this, Vec3f* pos) {
         return false;
     }
     eyeDist = Math3D_Vec3f_DistXYZ(pos, &globalCtx->view.eye);
-    return func_800314D4(globalCtx, &this->actor, &sp24, sp20) || eyeDist < 100.0f;
+    return Actor_IsInUncullZone(globalCtx, &this->actor, &sp24, sp20) || eyeDist < 100.0f;
 }
 
 void EnHorse_IdleAnimSounds(EnHorse* this, GlobalContext* globalCtx) {

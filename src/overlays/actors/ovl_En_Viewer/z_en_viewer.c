@@ -193,7 +193,7 @@ void EnViewer_InitImpl(EnViewer* this, GlobalContext* globalCtx) {
 
     if (!Object_IsLoaded(&globalCtx->objectCtx, skelObjBankIndex) ||
         !Object_IsLoaded(&globalCtx->objectCtx, this->animObjBankIndex)) {
-        this->actor.flags &= ~ACTOR_FLAG_6;
+        this->actor.flags &= ~ACTOR_FLAG_UNCULLED;
         return;
     }
 

@@ -14041,7 +14041,7 @@ void func_80852C50(GlobalContext* globalCtx, Player* this, CsCmdActorAction* arg
     }
 
     if (linkCsAction == NULL) {
-        this->actor.flags &= ~ACTOR_FLAG_6;
+        this->actor.flags &= ~ACTOR_FLAG_UNCULLED;
         return;
     }
 

@@ -2133,7 +2133,7 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
                 actor->yawTowardsPlayer = Actor_WorldYawTowardActor(actor, &player->actor);
                 actor->flags &= ~ACTOR_FLAG_24;
 
-                if ((DECR(actor->freezeTimer) == 0) && (actor->flags & (ACTOR_FLAG_4 | ACTOR_FLAG_6))) {
+                if ((DECR(actor->freezeTimer) == 0) && (actor->flags & (ACTOR_FLAG_4 | ACTOR_FLAG_UNCULLED))) {
                     if (actor == player->unk_664) {
                         actor->isTargeted = true;
                     } else {
@@ -2369,23 +2369,30 @@ void func_8003115C(GlobalContext* globalCtx, s32 numInvisibleActors, Actor** inv
     CLOSE_DISPS(gfxCtx, "../z_actor.c", 6284);
 }
 
-s32 func_800314B0(GlobalContext* globalCtx, Actor* actor) {
-    return func_800314D4(globalCtx, actor, &actor->projectedPos, actor->projectedW);
+//Takes an actor an checks if it is currentely in it's uncull zone
+//Return true if the actor is in the uncull zone otherwise false
+s32 Actor_UncullCheck(GlobalContext* globalCtx, Actor* actor) {
+    return Actor_IsInUncullZone(globalCtx, actor, &actor->projectedPos, actor->projectedW);
 }
 
-s32 func_800314D4(GlobalContext* globalCtx, Actor* actor, Vec3f* arg2, f32 arg3) {
+//Takes a position (projectedPos, projectedW) and check if its in the uncull zone of actor
+//Returns true if the position is in the uncull zone otherwise false
+s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actor, Vec3f* projectedPos, f32 projectedW) {
+#ifdef NO_CULLING
+    return true;
+#else
     f32 var;
 
-    if ((arg2->z > -actor->uncullZoneScale) && (arg2->z < (actor->uncullZoneForward + actor->uncullZoneScale))) {
-        var = (arg3 < 1.0f) ? 1.0f : 1.0f / arg3;
+    if ((projectedPos->z > -actor->uncullZoneScale) && (projectedPos->z < (actor->uncullZoneForward + actor->uncullZoneScale))) {
+        var = (projectedW < 1.0f) ? 1.0f : 1.0f / projectedW;
 
-        if ((((fabsf(arg2->x) - actor->uncullZoneScale) * var) < 1.0f) &&
-            (((arg2->y + actor->uncullZoneDownward) * var) > -1.0f) &&
-            (((arg2->y - actor->uncullZoneScale) * var) < 1.0f)) {
+        if ((((fabsf(projectedPos->x) - actor->uncullZoneScale) * var) < 1.0f) &&
+            (((projectedPos->y + actor->uncullZoneDownward) * var) > -1.0f) &&
+            (((projectedPos->y - actor->uncullZoneScale) * var) < 1.0f)) {
             return true;
         }
     }
-
+#endif
     return false;
 }
 
@@ -2426,17 +2433,17 @@ void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx) {
             }
 
             if ((HREG(64) != 1) || ((HREG(65) != -1) && (HREG(65) != HREG(66))) || (HREG(70) == 0)) {
-                if (func_800314B0(globalCtx, actor)) {
-                    actor->flags |= ACTOR_FLAG_6;
+                if (Actor_UncullCheck(globalCtx, actor)) {
+                    actor->flags |= ACTOR_FLAG_UNCULLED;
                 } else {
-                    actor->flags &= ~ACTOR_FLAG_6;
+                    actor->flags &= ~ACTOR_FLAG_UNCULLED;
                 }
             }
 
             actor->isDrawn = false;
 
             if ((HREG(64) != 1) || ((HREG(65) != -1) && (HREG(65) != HREG(66))) || (HREG(71) == 0)) {
-                if ((actor->init == NULL) && (actor->draw != NULL) && (actor->flags & (ACTOR_FLAG_5 | ACTOR_FLAG_6))) {
+                if ((actor->init == NULL) && (actor->draw != NULL) && (actor->flags & (ACTOR_FLAG_5 | ACTOR_FLAG_UNCULLED))) {
                     if ((actor->flags & ACTOR_FLAG_7) &&
                         ((globalCtx->roomCtx.curRoom.showInvisActors == 0) || (globalCtx->actorCtx.unk_03 != 0) ||
                          (actor->room != globalCtx->roomCtx.curRoom.num))) {
