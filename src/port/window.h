@@ -28,6 +28,8 @@ namespace platform::window
 		virtual void swap_buffers_end()									    = 0;
 		virtual void resize(long width, long height)						= 0;
 
+		void calc_sizes();
+
 		void produce_one_frame()
 		{
 			begin_frame();
@@ -62,6 +64,10 @@ namespace platform::window
 		void run();
 
 		void setTargetFrameRate(size_t rate) { m_targetFrameRate = rate; };
+		float ar() { return m_ar; }
+		float ar_ratio() { return m_ar_ratio; }
+		unsigned int width() { return m_window_width; }
+		unsigned int height() { return m_window_height; }
 
 		protected:
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_nextFrameTime;
@@ -72,6 +78,10 @@ namespace platform::window
 		bool dropped_frame;
 		std::chrono::microseconds m_refreshInterval;
 		size_t m_targetFrameRate;
+		float m_ar_ratio;
+		float m_ar;
+		unsigned int m_window_width;
+		unsigned int m_window_height;
 	};
 
 	std::unique_ptr<Base> create(const char* name, bool fullscreen = false);

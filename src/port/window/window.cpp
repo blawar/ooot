@@ -1,10 +1,19 @@
 #include "../window.h"
 #include <thread>
+extern "C" {
+#include "z64.h"
+}
 
 namespace platform::window
 {
-	Base::Base() : /*m_nextFrameTime(0), m_currentFrameStartTime(0), m_lastFrameTime(0),*/ m_lastFrameDuration(0), m_lastSwapDuration(0), dropped_frame(false), m_refreshInterval(0), m_targetFrameRate(60)
+	Base::Base() : /*m_nextFrameTime(0), m_currentFrameStartTime(0), m_lastFrameTime(0),*/ m_lastFrameDuration(0), m_lastSwapDuration(0), dropped_frame(false), m_refreshInterval(0), m_targetFrameRate(60), m_ar_ratio(1.0f), m_ar(1.0f), m_window_width(1280), m_window_height(720)
 	{
+	}
+
+	void Base::calc_sizes()
+	{
+		m_ar = (float)width() / (float)height();
+		m_ar_ratio = m_ar / ((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
 	}
 
 	bool Base::run_paced_loop()

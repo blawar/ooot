@@ -371,6 +371,15 @@ extern "C" {
 		}
 	}
 
+	float gfx_ar_ratio()
+	{
+		if(gWindow)
+		{
+			return gWindow->ar_ratio();
+		}
+		return 1.0f;
+	}
+
 	void set_fullscreen(bool value)
 	{
 		gWindow->set_fullscreen(value, false);

@@ -192,8 +192,6 @@ namespace platform::window
 	public:
 		SDL_Window* wnd;
 
-		unsigned int window_width = 1280;
-		unsigned int window_height = 720;
 		bool fullscreen_state;
 		void (*on_fullscreen_changed_callback)(bool is_now_fullscreen) = NULL;
 
@@ -213,7 +211,7 @@ namespace platform::window
 #ifdef __SWITCH__
 			wnd = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 #else
-			wnd = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+			wnd = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width(), height(), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 
 			if(start_in_fullscreen)
 			{
@@ -221,7 +219,7 @@ namespace platform::window
 			}
 #endif
 			set_vsync();
-			gfx_resize(window_width, window_height);
+			resize(width(), height());
 		}
 
 		void set_fullscreen(bool on, bool call_callback)
@@ -240,18 +238,18 @@ namespace platform::window
 
 			if(on)
 			{
-				window_width = mode.w;
-				window_height = mode.h;
+				m_window_width = mode.w;
+				m_window_height = mode.h;
 			}
 			else
 			{
-				window_width = DESIRED_SCREEN_WIDTH;
-				window_height = DESIRED_SCREEN_HEIGHT;
+				m_window_width = DESIRED_SCREEN_WIDTH;
+				m_window_height = DESIRED_SCREEN_HEIGHT;
 			}
-			SDL_SetWindowSize(wnd, window_width, window_height);
+			SDL_SetWindowSize(wnd, m_window_width, m_window_height);
 			SDL_SetWindowFullscreen(wnd, on ? SDL_WINDOW_FULLSCREEN : 0);
 
-			gfx_resize(window_width, window_height);
+			gfx_resize(width(), height());
 
 			if(on_fullscreen_changed_callback != NULL && call_callback)
 			{
@@ -285,8 +283,8 @@ namespace platform::window
 
 		void get_dimensions(u32* width, u32* height)
 		{
-			*width = window_width;
-			*height = window_height;
+			*width = m_window_width;
+			*height = m_window_height;
 		}
 
 		int translate_scancode(int scancode)
@@ -311,9 +309,7 @@ namespace platform::window
 					case SDL_WINDOWEVENT:
 						if(event.window.event == SDL_WINDOWEVENT_RESIZED)
 						{
-							window_width = event.window.data1;
-							window_height = event.window.data2;
-							gfx_resize(window_width, window_height);
+							resize(event.window.data1, event.window.data2);
 						}
 						break;
 					case SDL_QUIT:
@@ -335,10 +331,11 @@ namespace platform::window
 		{
 			if(width > 0 && height > 0)
 			{
-				window_width = width;
-				window_height = height;
+				m_window_width = width;
+				m_window_height = height;
 			}
-			gfx_resize(window_width, window_height);
+			calc_sizes();
+			gfx_resize(m_window_width, m_window_height);
 		}
 	};
 

@@ -7,6 +7,7 @@
 #include "z64save.h"
 #include "z64item.h"
 #include "z64actor.h"
+#include "gfx_align.h"
 
 #include "overlays/actors/ovl_Arms_Hook/z_arms_hook.h"
 #include "overlays/actors/ovl_En_Part/z_en_part.h"
@@ -2381,6 +2382,8 @@ s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actor, Vec3f* projecte
 #ifdef NO_CULLING
     return true;
 #else
+    projectedW *= gfx_ar_ratio();
+
     f32 var;
 
     if ((projectedPos->z > -actor->uncullZoneScale) && (projectedPos->z < (actor->uncullZoneForward + actor->uncullZoneScale))) {
