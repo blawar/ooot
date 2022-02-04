@@ -6,7 +6,7 @@ fixbaserom.py
 extract_baserom.py
 extract_assets.py
 
-python tools\convert_assets.py
+tools\convert_assets.py
 
 mkdir build\assets\text
 tools\msgenc.py assets\text\charmap.txt assets\text\message_data.h build\assets\text\message_data.enc.h
