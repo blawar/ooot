@@ -32,6 +32,7 @@ find assets -iname '*.c' -exec sed -ib 's/gsDPLoadMultiBlock(\(0x[A-Za-z0-9]*\),
 subs = {
 	r'(gsSP[A-Za-z]*)\((0x0[0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z][0-9A-Za-z])': r'\1SEG(SEGMENT_ADDRESS(\2)',
 	r'gsDPLoadTextureBlock\((0x[A-Za-z0-9]*),': r'gsDPLoadTextureBlockSEG(SEGMENT_ADDRESS(\1),',
+	r'gsDPLoadTextureBlock_4b\((0x[A-Za-z0-9]*),': r'gsDPLoadTextureBlock_4bSEG(SEGMENT_ADDRESS(\1),',
 	r'gsDPLoadMultiBlock\((0x[A-Za-z0-9]*),': r'gsDPLoadMultiBlockSEG(SEGMENT_ADDRESS(\1),'
 }
 

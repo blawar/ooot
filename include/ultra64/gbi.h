@@ -3837,6 +3837,24 @@ _DW({                                   \
         ((width)-1) << G_TEXTURE_IMAGE_FRAC,            \
         ((height)-1) << G_TEXTURE_IMAGE_FRAC)
 
+#define gsDPLoadTextureBlock_4bSEG(timg, fmt, width, height,       \
+        pal, cms, cmt, masks, maskt, shifts, shiftt)        \
+                                    \
+    gsMarkSegment(),                        \
+    gsDPSetTextureImage(fmt, G_IM_SIZ_16b, 1, timg),        \
+    gsDPSetTile(fmt, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0 , cmt,    \
+        maskt, shiftt, cms, masks, shifts),         \
+    gsDPLoadSync(),                         \
+    gsDPLoadBlock(G_TX_LOADTILE, 0, 0, (((width)*(height)+3)>>2)-1, \
+        CALC_DXT_4b(width)),                    \
+    gsDPPipeSync(),                         \
+    gsDPSetTile(fmt, G_IM_SIZ_4b, ((((width)>>1)+7)>>3), 0,     \
+        G_TX_RENDERTILE, pal, cmt, maskt, shiftt, cms, masks,   \
+        shifts),                        \
+    gsDPSetTileSize(G_TX_RENDERTILE, 0, 0,              \
+        ((width)-1) << G_TEXTURE_IMAGE_FRAC,            \
+        ((height)-1) << G_TEXTURE_IMAGE_FRAC)
+
 #define gsDPLoadTextureBlock_4bS(timg, fmt, width, height,      \
         pal, cms, cmt, masks, maskt, shifts, shiftt)        \
                                     \
