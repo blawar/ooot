@@ -3168,7 +3168,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
             pauseCtx->iconItemAltSegment = _icon_item_gameover_staticSegmentRomStart;
 
             if (gSaveContext.language == LANGUAGE_ENG) {
-                pauseCtx->iconItemLangSegment = pauseCtx->iconItemLangSegment;
+                pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
             } else if (gSaveContext.language == LANGUAGE_GER) {
                 pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
             } else {
