@@ -1231,8 +1231,11 @@ void Message_Decode(GlobalContext* globalCtx) {
     while (true) {
         phi_s1 = temp_s2 = msgCtx->msgBufDecoded[decodedBufPos] = font->msgBuf[msgCtx->msgBufPos];
 
-        if (temp_s2 == MESSAGE_BOX_BREAK || temp_s2 == MESSAGE_TEXTID || temp_s2 == MESSAGE_BOX_BREAK_DELAYED ||
-            temp_s2 == MESSAGE_EVENT || temp_s2 == MESSAGE_END) {
+        if(!temp_s2) {
+            msgCtx->msgMode = MSGMODE_TEXT_DONE;
+            break;
+        } else if (temp_s2 == MESSAGE_BOX_BREAK || temp_s2 == MESSAGE_TEXTID || temp_s2 == MESSAGE_BOX_BREAK_DELAYED ||
+            temp_s2 == MESSAGE_EVENT || temp_s2 == MESSAGE_END || temp_s2 == 0) {
             // Textbox decoding ends with any of the above text control characters
             msgCtx->msgMode = MSGMODE_TEXT_DISPLAYING;
             msgCtx->textDrawPos = 1;
