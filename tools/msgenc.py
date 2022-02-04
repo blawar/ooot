@@ -12,7 +12,7 @@ string_regex = re.compile(r"([\"'`])(?:[\s\S])*?(?:(?<!\\)\1)")
 def read_charmap(path):
     global charmap
 
-    with open(path) as infile:
+    with open(path, encoding='UTF8') as infile:
         charmap = infile.read()
 
     charmap = ast.literal_eval(charmap)

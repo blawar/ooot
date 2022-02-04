@@ -1,19 +1,17 @@
-python3 -m pip install tqdm
-python3 -m pip install pathtools
-python3 -m pip install multiprocessing
-python3 fixbaserom.py
-python3 extract_baserom.py
-python3 extract_assets.py
+@echo off
+python -m pip install tqdm
+python -m pip install pathtools
+python -m pip install multiprocessing
+python fixbaserom.py
+python extract_baserom.py
+python extract_assets.py
 
-python3 tools\convert_assets.py
+python tools\convert_assets.py
 
 mkdir build\assets\text
-python3 tools\msgenc.py assets\text\charmap.txt assets\text\message_data.h build\assets\text\message_data.enc.h
-python3 tools\msgenc.py assets\text\charmap.txt assets\text\message_data_staff.h build\assets\text\message_data_staff.enc.h
+python tools\msgenc.py assets\text\charmap.txt assets\text\message_data.h build\assets\text\message_data.enc.h
+python tools\msgenc.py assets\text\charmap.txt assets\text\message_data_staff.h build\assets\text\message_data_staff.enc.h
 
-python3 tools\extract_missing_assets.py
-python3 tools\create_luts.py
-python3 tools\mark_segments.py
-
-
-
+python tools\extract_missing_assets.py
+python tools\create_luts.py
+python tools\mark_segments.py
