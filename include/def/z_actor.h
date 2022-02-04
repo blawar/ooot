@@ -324,7 +324,7 @@ void func_8002F994(struct Actor* actor, s32 arg1);
 s32 func_8002F9EC(struct GlobalContext* globalCtx, struct Actor* actor, CollisionPoly* poly, s32 bgId, struct Vec3f* pos);
 void func_800304B0(struct GlobalContext* globalCtx);
 void func_800304DC(struct GlobalContext* globalCtx, struct ActorContext* actorCtx, struct ActorEntry* actorEntry);
-s32 func_800314D4(struct GlobalContext* globalCtx, struct Actor* actorB, struct Vec3f* arg2, f32 arg3);
+s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actorB, Vec3f* projectedPos, f32 projectedW);
 void func_800315AC(struct GlobalContext* globalCtx, struct ActorContext* actorCtx);
 void func_80031A28(struct GlobalContext* globalCtx, struct ActorContext* actorCtx);
 void func_80031B14(struct GlobalContext* globalCtx, struct ActorContext* actorCtx);

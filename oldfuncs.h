@@ -375,7 +375,7 @@ s32 func_8002F9EC(GlobalContext* globalCtx, Actor* actor, CollisionPoly* poly, s
 void func_800304B0(GlobalContext* globalCtx);
 void func_800304DC(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry* actorEntry);
 void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx);
-s32 func_800314D4(GlobalContext* globalCtx, Actor* actorB, Vec3f* arg2, f32 arg3);
+s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actorB, Vec3f* projectedPos, f32 projectedW);
 void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031A28(GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031B14(GlobalContext* globalCtx, ActorContext* actorCtx);
