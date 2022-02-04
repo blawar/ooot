@@ -3163,41 +3163,16 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
             pauseCtx->unk_204 = -434.0f;
             Interface_ChangeAlpha(1);
 
-            pauseCtx->iconItemSegment = (void*)(((uintptr_t)globalCtx->objectCtx.spaceStart + 0x30) & ~0x3F);
-            size0 = POINTER_SUB(_icon_item_staticSegmentRomEnd, _icon_item_staticSegmentRomStart);
-            osSyncPrintf("icon_item size0=%x\n", size0);
-            DmaMgr_SendRequest1(pauseCtx->iconItemSegment, _icon_item_staticSegmentRomStart, size0,
-                                "../z_kaleido_scope_PAL.c", 4356);
-
-            pauseCtx->iconItem24Segment = (void*)(((uintptr_t)pauseCtx->iconItemSegment + size0 + 0xF) & ~0xF);
-            size = POINTER_SUB(_icon_item_24_staticSegmentRomEnd, _icon_item_24_staticSegmentRomStart);
-            osSyncPrintf("icon_item24 size=%x\n", size);
-            DmaMgr_SendRequest1(pauseCtx->iconItem24Segment, _icon_item_24_staticSegmentRomStart, size,
-                                "../z_kaleido_scope_PAL.c", 4363);
-
-            pauseCtx->iconItemAltSegment = (void*)(((uintptr_t)pauseCtx->iconItem24Segment + size + 0xF) & ~0xF);
-            size2 = POINTER_SUB(_icon_item_gameover_staticSegmentRomEnd, _icon_item_gameover_staticSegmentRomStart);
-            osSyncPrintf("icon_item_dungeon gameover-size2=%x\n", size2);
-            DmaMgr_SendRequest1(pauseCtx->iconItemAltSegment, _icon_item_gameover_staticSegmentRomStart, size2,
-                                "../z_kaleido_scope_PAL.c", 4370);
-
-            pauseCtx->iconItemLangSegment = (void*)(((uintptr_t)pauseCtx->iconItemAltSegment + size2 + 0xF) & ~0xF);
+            pauseCtx->iconItemSegment = _icon_item_staticSegmentRomStart;
+            pauseCtx->iconItem24Segment = _icon_item_24_staticSegmentRomStart;
+            pauseCtx->iconItemAltSegment = _icon_item_gameover_staticSegmentRomStart;
 
             if (gSaveContext.language == LANGUAGE_ENG) {
-                size = POINTER_SUB(_icon_item_nes_staticSegmentRomEnd, _icon_item_nes_staticSegmentRomStart);
-                osSyncPrintf("icon_item_dungeon dungeon-size=%x\n", size);
-                DmaMgr_SendRequest1(pauseCtx->iconItemLangSegment, _icon_item_nes_staticSegmentRomStart, size,
-                                    "../z_kaleido_scope_PAL.c", 4379);
+                pauseCtx->iconItemLangSegment = pauseCtx->iconItemLangSegment;
             } else if (gSaveContext.language == LANGUAGE_GER) {
-                size = POINTER_SUB(_icon_item_ger_staticSegmentRomEnd, _icon_item_ger_staticSegmentRomStart);
-                osSyncPrintf("icon_item_dungeon dungeon-size=%x\n", size);
-                DmaMgr_SendRequest1(pauseCtx->iconItemLangSegment, _icon_item_ger_staticSegmentRomStart, size,
-                                    "../z_kaleido_scope_PAL.c", 4386);
+                pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
             } else {
-                size = POINTER_SUB(_icon_item_fra_staticSegmentRomEnd, _icon_item_fra_staticSegmentRomStart);
-                osSyncPrintf("icon_item_dungeon dungeon-size=%x\n", size);
-                DmaMgr_SendRequest1(pauseCtx->iconItemLangSegment, _icon_item_fra_staticSegmentRomStart, size,
-                                    "../z_kaleido_scope_PAL.c", 4393);
+                pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
             }
             
 
@@ -3307,7 +3282,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
             osSyncPrintf("kscope->angle_s = %f\n", pauseCtx->unk_204);
             break;
 
-        case 0xE:
+        case 0xE: // GAME OVER - would you like to save?
             if (CHECK_BTN_ALL(input->press.button, BTN_A)) {
                 if (pauseCtx->promptChoice != 0) {
                     pauseCtx->promptChoice = 0;
@@ -3340,7 +3315,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
             }
             break;
 
-        case 0x10:
+        case 0x10: // GAME OVER - Continue Playing?
             if (CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_START)) {
                 if (pauseCtx->promptChoice == 0) {
                     Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &D_801333D4, 4, &D_801333E0, &D_801333E0,
