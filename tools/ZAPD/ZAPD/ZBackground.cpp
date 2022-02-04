@@ -132,7 +132,7 @@ Declaration* ZBackground::DeclareVar(const std::string& prefix,
 
 	Declaration* decl = parent->AddDeclarationIncludeArray(rawDataIndex, incStr, GetRawDataSize(),
 	                                                       GetSourceTypeName(), auxName, 0);
-	decl->arrayItemCntStr = "SCREEN_WIDTH * SCREEN_HEIGHT / 4";
+	decl->arrayItemCntStr = "SCREEN_WIDTH * SCREEN_HEIGHT * 2";
 	decl->forceArrayCnt = true;
 	decl->staticConf = staticConf;
 	return decl;
@@ -158,11 +158,11 @@ std::string ZBackground::GetBodySourceCode() const
 {
 	std::string bodyStr = "    ";
 
-	for (size_t i = 0; i < data.size() / 8; ++i)
+	for (size_t i = 0; i < data.size(); ++i)
 	{
-		bodyStr += StringHelper::Sprintf("0x%016llX, ", BitConverter::ToUInt64BE(data, i * 8));
+		bodyStr += StringHelper::Sprintf("0x%02llX, ", data[i]);
 
-		if (i % 8 == 7)
+		if (i % 32 == 31)
 			bodyStr += "\n    ";
 	}
 
@@ -178,7 +178,7 @@ std::string ZBackground::GetDefaultName(const std::string& prefix) const
 
 std::string ZBackground::GetSourceTypeName() const
 {
-	return "u64";
+	return "u8";
 }
 
 ZResourceType ZBackground::GetResourceType() const

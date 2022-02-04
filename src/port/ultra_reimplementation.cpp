@@ -401,3 +401,37 @@ void osSyncPrintf(const char* fmt, ...) {
 	//OutputDebugStringA(buffer);
 	OutputDebugString(s.c_str());
 }
+
+#include "jpeg_decoder.h"
+#include "color.h"
+#include <memory>
+#include "ultra64/gbi.h"
+
+static_assert(sizeof(Color_RGB8) == 3, "incorrect Color_RGB8 size");
+
+extern "C" {
+	s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize)
+	{
+		auto decoder = std::make_unique<Jpeg::Decoder>((const u8*)data, SCREEN_WIDTH * SCREEN_HEIGHT * 2);
+
+		if(decoder->GetResult() != Jpeg::Decoder::OK)
+		{
+			return 1;
+		}
+
+		Color_RGB8* p = (Color_RGB8*)decoder->GetImage();
+		u64 sz = decoder->GetImageSize() / sizeof(Color_RGB8);
+		u16* out = (u16*)zbuffer;
+
+		for(u64 i = 0; i < sz; i++, p++, out++)
+		{
+			u8 r = p->r / 8;
+			u8 g = p->g / 8;
+			u8 b = p->b / 8;
+			*out = BE16((r << 11) + (g << 6) + (b << 1) + 1);
+			//*out = BE16(1);
+		}
+
+		return 0;
+	}
+}

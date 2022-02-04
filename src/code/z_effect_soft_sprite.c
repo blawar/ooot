@@ -299,7 +299,11 @@ void EffectSs_UpdateAll(GlobalContext* globalCtx) {
 
 void EffectSs_Draw(GlobalContext* globalCtx, s32 index) {
     EffectSs* effectSs = &sEffectSsInfo.table[index];
-
+    EffectSs* effectSs2 = &sEffectSsInfo.table[2];
+    if(effectSs == 0xCCCCCCCC || effectSs->draw == 0x11110110)
+    {
+        return;
+    }
     if (effectSs->draw != NULL) {
         effectSs->draw(globalCtx, index, effectSs);
     }
