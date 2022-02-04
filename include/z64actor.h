@@ -114,7 +114,7 @@ typedef struct {
 #define ACTOR_FLAG_3 (1 << 3)
 #define ACTOR_FLAG_4 (1 << 4)
 #define ACTOR_FLAG_5 (1 << 5)
-#define ACTOR_FLAG_6 (1 << 6)
+#define ACTOR_FLAG_UNCULLED (1 << 6)
 #define ACTOR_FLAG_7 (1 << 7)
 #define ACTOR_FLAG_8 (1 << 8)
 #define ACTOR_FLAG_9 (1 << 9)
@@ -582,7 +582,7 @@ s32 func_8002F9EC(struct GlobalContext* globalCtx, Actor* actor, struct Collisio
 void func_800304B0(struct GlobalContext* globalCtx);
 void func_800304DC(struct GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry* actorEntry);
 void Actor_UpdateAll(struct GlobalContext* globalCtx, ActorContext* actorCtx);
-s32 func_800314D4(struct GlobalContext* globalCtx, Actor* actorB, Vec3f* arg2, f32 arg3);
+s32 Actor_IsInUncullZone(struct GlobalContext* globalCtx, Actor* actorB, Vec3f* arg2, f32 arg3);
 void func_800315AC(struct GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031A28(struct GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031B14(struct GlobalContext* globalCtx, ActorContext* actorCtx);

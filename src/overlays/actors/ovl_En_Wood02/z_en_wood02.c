@@ -323,7 +323,7 @@ void EnWood02_Update(Actor* thisx, GlobalContext* globalCtx2) {
 
     // Despawn extra trees in a group if out of range
     if ((this->spawnType == WOOD_SPAWN_SPAWNED) && (this->actor.parent != NULL)) {
-        if (!(this->actor.flags & ACTOR_FLAG_6)) {
+        if (!(this->actor.flags & ACTOR_FLAG_UNCULLED)) {
             new_var = this->unk_14E[0];
             phi_v0 = 0;
 
