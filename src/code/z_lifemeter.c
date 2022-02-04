@@ -15,6 +15,15 @@
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"
 
+#define DISABLE_BEATING_HEART
+
+static Vtx sBeatingHeartVtx[] = {
+    VTX(-8,  8, 0, 0,   0,   0, 255, 255, 255, 255),
+    VTX( 8,  8, 0, 0, 512,   0, 255, 255, 255, 255),
+    VTX(-8, -8, 0, 0,   0, 512, 255, 255, 255, 255),
+    VTX( 8, -8, 0, 0, 512, 512, 255, 255, 255, 255)
+};
+
 static s16 sHeartsPrimColors[3][3] = {
     { HEARTS_PRIM_R, HEARTS_PRIM_G, HEARTS_PRIM_B },
     { HEARTS_BURN_PRIM_R, HEARTS_BURN_PRIM_G, HEARTS_BURN_PRIM_B },    // unused
@@ -400,7 +409,11 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
                                 G_TX_NOLOD, G_TX_NOLOD);
         }
 
+#ifdef DISABLE_BEATING_HEART
+        if (heartIndex != totalHeartCount) {
+#else
         if (heartIndex != fullHeartCount) {
+#endif
             if ((ddHeartCountMinusOne < 0) || (heartIndex > ddHeartCountMinusOne)) {
                 if (curCombineModeSet != 1) {
                     curCombineModeSet = 1;
