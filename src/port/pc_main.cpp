@@ -318,12 +318,32 @@ void game_init(void* arg) {
 
 #if(defined(_WIN32) || defined(_WIN64)) && defined(_MSC_VER)
 #include <windows.h>
-#include <shellscalingapi.h>
 //#include "engine/script.h"
+
+typedef enum PROCESS_DPI_AWARENESS {
+	PROCESS_DPI_UNAWARE = 0,
+	PROCESS_SYSTEM_DPI_AWARE = 1,
+	PROCESS_PER_MONITOR_DPI_AWARE = 2
+} PROCESS_DPI_AWARENESS;
+
+bool SetDPIAwarness(PROCESS_DPI_AWARENESS Awarness)
+{
+	HRESULT(WINAPI *SetProcessDpiAwareness)(PROCESS_DPI_AWARENESS dpiAwareness) = nullptr;
+	HINSTANCE shcoreLib = LoadLibrary(L"SHCORE.DLL");
+
+	if (shcoreLib)
+	{
+		SetProcessDpiAwareness = (HRESULT(WINAPI*)(PROCESS_DPI_AWARENESS)) GetProcAddress(shcoreLib, "SetProcessDpiAwareness");
+
+		if (SetProcessDpiAwareness)
+			return SetProcessDpiAwareness(Awarness) == S_OK;
+	}
+	return false;
+}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
-	SetProcessDpiAwareness(PROCESS_SYSTEM_DPI_AWARE);
+	SetDPIAwarness(PROCESS_SYSTEM_DPI_AWARE);
 	main_func();
 	return 0;
 }
