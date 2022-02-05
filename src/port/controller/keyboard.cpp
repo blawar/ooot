@@ -97,8 +97,14 @@ namespace sm64::hid
 				m_keyBindings[SDL_SCANCODE_D] = STICK_X_RIGHT;
 				m_keyBindings[SDL_SCANCODE_SPACE] = A_BUTTON;
 				m_keyBindings[SDL_SCANCODE_F] = B_BUTTON;
+        m_keyBindings[SDL_SCANCODE_O] = A_BUTTON;
+        m_keyBindings[SDL_SCANCODE_P] = B_BUTTON;
 				m_keyBindings[SDL_SCANCODE_LSHIFT] = Z_TRIG;
 				m_keyBindings[SDL_SCANCODE_C] = Z_TRIG;
+        m_keyBindings[SDL_SCANCODE_I] = U_JPAD;
+        m_keyBindings[SDL_SCANCODE_J] = L_JPAD;
+        m_keyBindings[SDL_SCANCODE_K] = D_JPAD;
+        m_keyBindings[SDL_SCANCODE_L] = R_JPAD;
 				m_keyBindings[SDL_SCANCODE_UP] = U_CBUTTONS;
 				m_keyBindings[SDL_SCANCODE_LEFT] = L_CBUTTONS;
 				m_keyBindings[SDL_SCANCODE_DOWN] = D_CBUTTONS;
