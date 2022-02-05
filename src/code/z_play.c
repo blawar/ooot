@@ -375,7 +375,9 @@ void Gameplay_Init(GameState* thisx) {
     if ((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT09) &&
         gSaveContext.sceneSetupIndex == 6) {
         osSyncPrintf("エンディングはじまるよー\n"); // "The ending starts"
+#ifdef N64_VERSION
         ((void (*)())0x81000000)();
+#endif
         osSyncPrintf("出戻り？\n"); // "Return?"
     }
 
