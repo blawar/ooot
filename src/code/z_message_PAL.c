@@ -324,6 +324,25 @@ void Message_GrowTextbox(MessageContext* msgCtx) {
     R_TEXTBOX_X = (R_TEXTBOX_X_TARGET + R_TEXTBOX_WIDTH_TARGET) - (R_TEXTBOX_WIDTH / 2);
 }
 
+#if defined(OS_DESKTOP)
+static s32 Message_FindLength(const char *msg) {
+    s32 length = 0;
+    const char *prevChar;
+    while (true) {
+        if( *msg == '\02'){
+            /* Ensure we dont stop on a HIGHSCORE(HS_LARGEST_FISH) */
+            if(*(msg - 1) !=  0x1E) {
+                length++;
+                 break;
+            }
+        }
+        msg++;
+        length++;
+    }
+    return length;
+}
+#endif
+
 void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
     const char* foundSeg;
     const char* nextSeg;
@@ -344,8 +363,7 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
                 messageTableEntry++;
                 nextSeg = messageTableEntry->segment;
                 font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
-                //font->msgLength = nextSeg - foundSeg;
-                font->msgLength = strlen(foundSeg);
+                font->msgLength = Message_FindLength(foundSeg);
                 // "Message found!!!"
                 osSyncPrintf(" メッセージが,見つかった！！！ = %x  "
                              "(data=%x) (data0=%x) (data1=%x) (data2=%x) (data3=%x)\n",
@@ -368,7 +386,7 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
                 languageSegmentTable++;
                 nextSeg = *languageSegmentTable;
                 font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
-                font->msgLength = nextSeg - foundSeg;
+                font->msgLength = Message_FindLength(foundSeg);
                 // "Message found!!!"
                 osSyncPrintf(" メッセージが,見つかった！！！ = %x  "
                              "(data=%x) (data0=%x) (data1=%x) (data2=%x) (data3=%x)\n",
@@ -398,7 +416,7 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId) {
         nextSeg = *languageSegmentTable;
     }
     font->msgOffset = MSG_GET_OFFSET(foundSeg, seg);
-    font->msgLength = nextSeg - foundSeg;
+    font->msgLength = Message_FindLength(foundSeg);
 }
 
 void Message_FindCreditsMessage(GlobalContext* globalCtx, u16 textId) {
@@ -1231,11 +1249,8 @@ void Message_Decode(GlobalContext* globalCtx) {
     while (true) {
         phi_s1 = temp_s2 = msgCtx->msgBufDecoded[decodedBufPos] = font->msgBuf[msgCtx->msgBufPos];
 
-        if(!temp_s2) {
-            msgCtx->msgMode = MSGMODE_TEXT_DONE;
-            break;
-        } else if (temp_s2 == MESSAGE_BOX_BREAK || temp_s2 == MESSAGE_TEXTID || temp_s2 == MESSAGE_BOX_BREAK_DELAYED ||
-            temp_s2 == MESSAGE_EVENT || temp_s2 == MESSAGE_END || temp_s2 == 0) {
+        if (temp_s2 == MESSAGE_BOX_BREAK || temp_s2 == MESSAGE_TEXTID || temp_s2 == MESSAGE_BOX_BREAK_DELAYED ||
+            temp_s2 == MESSAGE_EVENT || temp_s2 == MESSAGE_END) {
             // Textbox decoding ends with any of the above text control characters
             msgCtx->msgMode = MSGMODE_TEXT_DISPLAYING;
             msgCtx->textDrawPos = 1;
