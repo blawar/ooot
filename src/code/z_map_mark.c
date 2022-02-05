@@ -130,7 +130,7 @@ void MapMark_DrawForDungeon(GlobalContext* globalCtx) {
                                     markInfo->textureWidth, markInfo->textureHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
                                     G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-                rectLeft = GFX_ALIGN_RIGHT((GREG(94) + markPoint->x + 204) << 2);
+                rectLeft = ((GREG(94) + GFX_ALIGN_RIGHT(markPoint->x) + 204) << 2);
                 rectTop = (GREG(95) + markPoint->y + 140) << 2;
                 gSPTextureRectangle(OVERLAY_DISP++, rectLeft, rectTop, markInfo->rectWidth + rectLeft,
                                     rectTop + markInfo->rectHeight, G_TX_RENDERTILE, 0, 0, markInfo->dsdx,
