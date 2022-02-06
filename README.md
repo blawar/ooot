@@ -36,20 +36,11 @@ Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
 
 **Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86 Debug build**
 
-To build, first you must use run ``make setup`` and ``make`` in this directory using either linux or WSL to extract the assets into the assets and build directories.
-If you run it on another computer, just copy over the asset and build directories.  The make does not need to succeed, as long as it extracts all assets.
-If you have any problems extracting, you should check the more in depth instructions at https://github.com/zeldaret/oot/blob/master/README.md
-
 You must use the ZAPD that is included with this repository, and not the main branch as it is modified.
 
-Run these commands from the root ooot directory after you have extracted assets and build directories:
+Run this command to extract the assets from the rom (baserom_original.z64 must exist in the directory)
 ```
-python3 fixbaserom.py
-python3 extract_baserom.py
-python3 extract_assets.py
-python3 tools\extract_missing_assets.py
-python3 tools\create_luts.py
-python3 tools\mark_segments.py
+setup_assets.bat
 ```
 
 You must then open up GLideN64/projects/msvc/GLideN64.sln and build **Debug_mupenplus - Win32**, which should copy GLideN64d.lib, libGLideNHQd.lib, and osald.lib files to externals/Win32/
