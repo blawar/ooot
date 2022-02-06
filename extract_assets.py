@@ -74,12 +74,13 @@ def ExtractText(force: bool):
         msgdis.extract_all_text(extract_text_path, extract_staff_text_path)
         print("Finished extracting text")
 
-def ExtractXMLAssets(xmlFiles: list[Path], force: bool, unaccounted: bool):
-    print(f"Start extracting {len(xmlFiles)} assets")
+def ExtractXMLAssets(xmlFiles, force: bool, unaccounted: bool):
+    thread_count = os.cpu_count() or 1
+    print(f"Start extracting {len(xmlFiles)} assets with %d threads" % thread_count)
     success = skipped = failed = 0
     errors = []
     # Multithreading instead of multiprocessing, because of IO heavy operation 
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers = thread_count) as executor:
         for result in executor.map(ExtractFunc, xmlFiles, repeat(force), repeat(unaccounted)):
             # Parsing of results
             status = result[0]
