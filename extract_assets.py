@@ -4,6 +4,7 @@ import argparse, os, shutil, time
 from itertools import repeat
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
+from tqdm import tqdm
 
 def ExtractFile(xmlPath: Path, outputPath: Path, outputSourcePath: Path, unaccounted: bool):
     # Create target folder recursivly, ignore error if it already exists
@@ -81,17 +82,19 @@ def ExtractXMLAssets(xmlFiles, force: bool, unaccounted: bool):
     errors = []
     # Multithreading instead of multiprocessing, because of IO heavy operation 
     with ThreadPoolExecutor(max_workers = thread_count) as executor:
-        for result in executor.map(ExtractFunc, xmlFiles, repeat(force), repeat(unaccounted)):
-            # Parsing of results
-            status = result[0]
-            message = result[1]
-            if status == "success":
-                success += 1
-            elif status == "skipped":
-                skipped += 1
-            else:
-                failed += 1
-                errors.append(message)
+        with tqdm(total=len(xmlFiles)) as progress:
+            for result in executor.map(ExtractFunc, xmlFiles, repeat(force), repeat(unaccounted)):
+                progress.update()
+                # Parsing of results
+                status = result[0]
+                message = result[1]
+                if status == "success":
+                    success += 1
+                elif status == "skipped":
+                    skipped += 1
+                else:
+                    failed += 1
+                    errors.append(message)
 
         print(f"Extracted: {success}, Skipped: {skipped}, Failed: {failed}")
         if errors:
