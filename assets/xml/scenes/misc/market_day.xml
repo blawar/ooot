@@ -1,15 +1,6 @@
 <Root>
     <File Name="market_day_scene" Segment="2">
-		<Array Name="market_day_scenePathwayList_0001C8" Offset="0x01C8" Count="18">
-			<Vector Type="s16" Dimensions="3" />
-		</Array>
-		<Array Name="market_day_scenePathwayList_000234" Offset="0x0234" Count="4">
-			<Vector Type="s16" Dimensions="3" />
-		</Array>
-		<Array Name="market_day_scenePathwayList_00027C" Offset="0x027C" Count="30">
-			<Vector Type="s16" Dimensions="3" />
-		</Array>
-		<Path Name="market_day_scenePathway_000330" Offset="0x0330" NumPaths="4" />
+        <Path Name="market_day_scenePathway_000330" Offset="0x0330" NumPaths="4"/>
         <Scene Name="market_day_scene" Offset="0x0"/>
     </File>
     <File Name="market_day_room_0" Segment="3">
