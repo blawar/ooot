@@ -226,6 +226,16 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
     GameState_ReqPadData(gameState);
     GameState_Update(gameState);
 
+#ifndef N64_VERSION
+    //All dpad buttons pressed on controller 1? (Same as the back button on an xinput controller)
+    if (CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_DUP | BTN_DDOWN | BTN_DLEFT | BTN_DRIGHT))
+    {//Open debug map select
+        gameState->init = Select_Init;
+        gameState->size = sizeof(SelectContext);
+        gameState->running = false;
+    }
+#endif
+
     OPEN_DISPS(gfxCtx, "../graph.c", 987);
 
     gDPNoOpString(WORK_DISP++, "WORK_DISP 終了", 0);
