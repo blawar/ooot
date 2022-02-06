@@ -16,6 +16,10 @@
 #include "def/createmesgqueue.h"
 #include "def/recvmesg.h"
 
+#include "redef_msgqueue.h"
+
+u32 osGetCount(void);
+
 #define SAMPLES_TO_OVERPRODUCE 0x10
 #define EXTRA_BUFFERED_AI_SAMPLES_TARGET 0x80
 
@@ -91,7 +95,7 @@ AudioTask* func_800E5000(void) {
 
     if (gAudioContext.resetTimer < 16) {
         if (gAudioContext.aiBufLengths[index] != 0) {
-            // TODO FIX osAiSetNextBuffer(gAudioContext.aiBuffers[index], gAudioContext.aiBufLengths[index] * 4);
+            osAiSetNextBuffer(gAudioContext.aiBuffers[index], gAudioContext.aiBufLengths[index] * 4);
             if (gAudioContext.aiBuffers[index]) {}
             if (gAudioContext.aiBufLengths[index]) {}
         }
@@ -167,9 +171,6 @@ AudioTask* func_800E5000(void) {
     if (gAudioContext.resetStatus == 0) {
         // msg = 0000RREE R = read pos, E = End Pos
         while (osRecvMesg(gAudioContext.cmdProcQueueP, (OSMesg*)&sp4C, OS_MESG_NOBLOCK) != -1) {
-            if (1) {}
-            if (1) {}
-            if (1) {}
             Audio_ProcessCmds(sp4C);
             j++;
         }
@@ -180,7 +181,7 @@ AudioTask* func_800E5000(void) {
 
     gAudioContext.curAbiCmdBuf =
         AudioSynth_Update(gAudioContext.curAbiCmdBuf, &abiCmdCnt, currAiBuffer, gAudioContext.aiBufLengths[index]);
-    gAudioContext.audioRandom = (gAudioContext.audioRandom + gAudioContext.totalTaskCnt); // TODO FIX *osGetCount();
+    gAudioContext.audioRandom = (gAudioContext.audioRandom + gAudioContext.totalTaskCnt) * osGetCount();
     gAudioContext.audioRandom =
         gAudioContext.aiBuffers[index][gAudioContext.totalTaskCnt & 0xFF] + gAudioContext.audioRandom;
     gWaveSamples[8] = (s16*)(((u8*)func_800E4FE0) + (gAudioContext.audioRandom & 0xFFF0));
@@ -373,8 +374,8 @@ void Audio_InitMesgQueuesInternal(void) {
 void Audio_QueueCmd(u32 opArgs, void** data) {
     AudioCmd* cmd = &gAudioContext.cmdBuf[gAudioContext.cmdWrPos & 0xFF];
 
-    cmd->opArgs = opArgs;
-    cmd->data = *data;
+    cmd->opArgs = opArgs; // BE32(opArgs);
+    cmd->data = (u32)*data; // BE32((u32)*data); // TODO FIX broke in 64 bit
 
     gAudioContext.cmdWrPos++;
 
@@ -527,7 +528,7 @@ s32 func_800E5EDC(void) {
 }
 
 void func_800E5F34(void) {
-    return; // TODO FIX HACK
+    return; // TODO FIX HACK IGNORE
     // macro?
     // clang-format off
     s32 chk = -1; s32 sp28; do {} while (osRecvMesg(gAudioContext.audioResetQueueP, (OSMesg*)&sp28, OS_MESG_NOBLOCK) != chk);
@@ -826,7 +827,7 @@ s32 func_800E66C0(s32 arg0) {
 u32 Audio_NextRandom(void) {
     static u32 audRand = 0x12345678;
 
-    // TODO FIX audRand = ((osGetCount() + 0x1234567) * (audRand + gAudioContext.totalTaskCnt));
+    audRand = ((osGetCount() + 0x1234567) * (audRand + gAudioContext.totalTaskCnt));
     audRand += gAudioContext.audioRandom;
     return audRand;
 }

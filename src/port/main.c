@@ -2,12 +2,16 @@
 #include "ultra64/types.h"
 #include "ultra64/vi.h"
 #include "z64audio.h"
+#include "audiomgr.h"
 #include "z_prenmi_buff.h"
 #include "ultra64/rcp.h"
 #include "ultra64/exception.h"
 #include "def/sys_cfb.h"
 #include "def/code_800FC620.h"
 #include "def/z_debug.h"
+#include "audiomgr.h"
+#include "def/code_800EC960.h"
+#include "def/audioMgr.h"
 
 //f32 qNaN0x3FFFFF;
 f32 qNaN0x10000;
@@ -24,6 +28,8 @@ s32 gScreenHeight = SCREEN_HEIGHT;
 u32 gSystemHeapSize = 0;
 #endif
 
+AudioMgr gAudioMgr;
+
 unk_D_8016E750 D_8016E750[4];
 u8 osAppNmiBuffer[0x40];
 UNK_TYPE D_06000000;
@@ -37,8 +43,6 @@ OSHWIntr __OSGlobalIntMask = OS_IM_ALL;
 u32 osRomBase;
 
 u32 osMemSize = 0x800000;
-
-AudioSpec gAudioSpecs[18];
 
 void (*D_801755D0)(void) = NULL;
 
@@ -169,6 +173,8 @@ int main() {
     R_ENABLE_ARENA_DBG = 0;
 
     //Main_LogSystemHeap();
+
+    AudioMgr_Init(&gAudioMgr, NULL, NULL, 0xA, NULL, NULL);
 
 
     /*StackCheck_Init(&sGraphStackInfo, sGraphStack, sGraphStack + sizeof(sGraphStack), 0, 0x100, "graph");

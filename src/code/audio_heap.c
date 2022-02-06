@@ -10,6 +10,7 @@
 #include "def/audio_seqplayer.h"
 #include "def/code_800E6840.h"
 #include "def/code_800F7260.h"
+#include "def/initialize.h"
 
 void AudioHeap_InitSampleCaches(u32 persistentSize, u32 temporarySize);
 SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(u32 size);
@@ -19,6 +20,7 @@ void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, SoundFontSample* samp
 void AudioHeap_DiscardSampleCaches(void);
 void AudioHeap_DiscardSampleBank(s32 sampleBankId);
 void AudioHeap_DiscardSampleBanks(void);
+
 
 f32 func_800DDE20(f32 arg0) {
     return 256.0f * gAudioContext.audioBufferParameters.unkUpdatesPerFrameScaled / arg0;
@@ -240,6 +242,11 @@ void AudioHeap_PopCache(s32 tableType) {
 
     persistent = &loadedPool->persistent;
     persistentPool = &persistent->pool;
+
+    if(persistent == NULL) // TODO FIX HACK
+    {
+        return;
+    }
 
     if (persistent->numEntries == 0) {
         return;
@@ -821,7 +828,7 @@ void AudioHeap_Init(void) {
     spec = &gAudioSpecs[gAudioContext.audioResetSpecIdToLoad];
     gAudioContext.sampleDmaCount = 0;
     gAudioContext.audioBufferParameters.frequency = spec->frequency;
-    gAudioContext.audioBufferParameters.aiFrequency = 0; // TODO FIX osAiSetFrequency(gAudioContext.audioBufferParameters.frequency);
+    gAudioContext.audioBufferParameters.aiFrequency = osAiSetFrequency(gAudioContext.audioBufferParameters.frequency);
     gAudioContext.audioBufferParameters.samplesPerFrameTarget =
         ((gAudioContext.audioBufferParameters.frequency / gAudioContext.refreshRate) + 0xF) & 0xFFF0;
     gAudioContext.audioBufferParameters.minAiBufferLength =

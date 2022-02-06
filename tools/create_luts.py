@@ -4,6 +4,8 @@ import os.path
 from pathlib import Path
 import sys
 
+basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__.replace('\\', '/'))), '../'))
+
 magic = '// GENERATED'
 includeHeader = '#include "asset_common.h"'
 removeHeaders = ['#include "z64animation.h"', '#include "z64bgcheck.h"', '#include "asset_common.h"']
@@ -70,7 +72,13 @@ for path in files:
 
 	if '/text/' in x:
 		continue
+
+	if '/audio/' in x:
+		continue
 		
+	if len(x.split('/')) <= 2: # skip root assets directory files
+		continue
+
 	if '/overlays/' in x:
 		skip = True
 

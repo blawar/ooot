@@ -2471,9 +2471,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p) {
             case MSGMODE_DISPLAY_SONG_PLAYED:
             case MSGMODE_SONG_DEMONSTRATION:
                 msgCtx->ocarinaStaff = Audio_OcaGetDisplayingStaff();
-#ifndef ENABLE_AUDIO
-                msgCtx->ocarinaStaff->state = 0; // TODO FIX HACK
-#endif
+
                 if (msgCtx->ocarinaStaff->state == 0) {
                     if (msgCtx->msgMode == MSGMODE_DISPLAY_SONG_PLAYED) {
                         msgCtx->msgMode = MSGMODE_DISPLAY_SONG_PLAYED_TEXT_BEGIN;

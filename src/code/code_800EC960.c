@@ -3043,7 +3043,6 @@ void Audio_ClearSariaBgmAtPos(Vec3f* pos) {
  * equally between the two bgm channels. Split based on note priority
  */
 void Audio_SplitBgmChannels(s8 volSplit) {
-    return; // TODO FIX
     u8 volume;
     u8 notePriority;
     u16 channelBits;
@@ -3293,7 +3292,6 @@ void func_800F5C2C(void) {
 }
 
 void Audio_PlayFanfare(u16 seqId) {
-    return; // TODO FIX
     u16 sp26;
     u32 sp20;
     u8* sp1C;

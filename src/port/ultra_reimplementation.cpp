@@ -47,6 +47,13 @@ typedef s32 OSPri;
 #define OS_CLOCK_RATE           62500000LL
 u64 osClockRate = OS_CLOCK_RATE;
 
+extern "C"
+{
+	u32 osGetCount(void);
+	s32 osAiSetNextBuffer(void* buf, u32 size);
+	s32 osAiSetFrequency(u32 frequency);
+}
+
 s32 osPiStartDma(struct OSIoMesg* mb, UNUSED s32 priority, UNUSED s32 direction, uintptr_t devAddr, void* vAddr, size_t nbytes, struct OSMesgQueue* mq)
 {
 	memcpy(vAddr, (const void*)devAddr, nbytes);
@@ -96,30 +103,6 @@ u32 osGetCount(void)
 {
 	static u32 counter;
 	return counter++;
-}
-
-s32 osAiSetFrequency(u32 freq)
-{
-	u32 a1;
-	s32 a2;
-	u32 D_8033491C;
-
-	D_8033491C = 0x02E6D354;
-
-	a1 = D_8033491C / (float)freq + .5f;
-
-	if(a1 < 0x84)
-	{
-		return -1;
-	}
-
-	a2 = (a1 / 66) & 0xff;
-	if(a2 > 16)
-	{
-		a2 = 16;
-	}
-
-	return D_8033491C / (s32)a1;
 }
 
 s32 osEepromProbe(UNUSED OSMesgQueue* mq)
@@ -426,4 +409,69 @@ extern "C" {
 
 		return 0;
 	}
+}
+
+#include "ultra64/rcp.h"
+
+void* gAudioBuffer = nullptr;
+u32 gAudioBufferSize = 0;
+
+s32 osAiSetNextBuffer(void* buf, u32 size)
+{
+	static u8 D_80130500 = false;
+	uintptr_t bufAdjusted = (uintptr_t)buf;
+	s32 status;
+
+	if(D_80130500)
+	{
+		bufAdjusted = (uintptr_t)buf - 0x2000;
+	}
+	if((((uintptr_t)buf + size) & 0x1FFF) == 0)
+	{
+		D_80130500 = true;
+	}
+	else
+	{
+		D_80130500 = false;
+	}
+
+	// Originally a call to __osAiDeviceBusy
+	/*status = HW_REG(AI_STATUS_REG, s32);
+	if(status & AI_STATUS_AI_FULL)
+	{
+		return -1;
+	}*/
+
+	// OS_K0_TO_PHYSICAL replaces osVirtualToPhysical, this replacement
+	// assumes that only KSEG0 addresses are given
+	//HW_REG(AI_DRAM_ADDR_REG, uintptr_t) = bufAdjusted;
+	//HW_REG(AI_LEN_REG, u32) = size;
+	gAudioBuffer = (void*)bufAdjusted;
+	gAudioBufferSize = size;
+	return 0;
+}
+
+extern "C" s32 osViClock;
+
+s32 osAiSetFrequency(u32 frequency)
+{
+	u8 bitrate;
+	f32 dacRateF = ((f32)osViClock / frequency) + 0.5f;
+	u32 dacRate = dacRateF;
+
+	if(dacRate < 132)
+	{
+		return -1;
+	}
+
+	bitrate = (dacRate / 66);
+
+	if(bitrate > 16)
+	{
+		bitrate = 16;
+	}
+
+	//HW_REG(AI_DACRATE_REG, u32) = dacRate - 1;
+	//HW_REG(AI_BITRATE_REG, u32) = bitrate - 1;
+	return osViClock / (s32)dacRate;
 }

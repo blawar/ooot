@@ -1,6 +1,5 @@
 #define WIN32_LEAN_AND_MEAN
 #define ENABLE_OPENGL
-#define DISABLE_AUDIO
 #define USE_GLIDEN64
 #include "window.h"
 
@@ -144,10 +143,12 @@ s8 D_8032C648;
 extern AudioAPI audio_sdl;
 AudioAPI* audio_api = nullptr;
 
+/*
 #ifdef ENABLE_SDL_AUDIO
 #else
 AudioAPI audio_sdl;
 #endif
+*/
 #endif
 
 #ifdef USE_CF3D
@@ -252,6 +253,32 @@ extern "C" {
 	void main_func(void);
 	void hid_init();
 	void hid_update();
+}
+
+extern void* gAudioBuffer;
+extern u32 gAudioBufferSize;
+extern "C" {
+	void AudioMgr_HandleRetraceNULL();
+}
+
+void audio_thread()
+{
+	int samples_left = audio_api->buffered();
+	u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? 544 : 528;
+
+	s16 audio_buffer[544 * 2 * 2];
+	for(int i = 0; i < 2; i++)
+	{
+		create_next_audio_buffer(audio_buffer + i * (num_audio_samples * 2), num_audio_samples);
+	}
+
+	AudioMgr_HandleRetraceNULL();
+
+	if(audio_api /* && !config().game().disableSound()*/)
+	{
+		//audio_api->play((const u8*)audio_buffer, 2 * num_audio_samples * 4);
+		audio_api->play((const u8*)gAudioBuffer, gAudioBufferSize);
+	}
 }
 
 void main_func(void)
@@ -392,6 +419,7 @@ extern "C" {
 			gWindow->setTargetFrameRate(60 / frameRateDivisor());
 			gWindow->end_frame();
 		}
+		audio_thread();
 	}
 
 	float gfx_ar_ratio()

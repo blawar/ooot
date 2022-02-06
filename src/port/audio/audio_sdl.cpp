@@ -1,3 +1,4 @@
+#define ENABLE_SDL_AUDIO
 #if defined(ENABLE_SDL_AUDIO)
 
 #ifdef __MINGW32__

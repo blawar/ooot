@@ -685,7 +685,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
     s32 nTrailingSamplesToIgnore;
     s32 phi_a1_2;
     s32 frameIndex;
-    s32 skipBytes;
+    s32 skipBytes;// = 0; // TODO HACK not sure why this isnt being set
     s32 temp_v1_6;
     void* buf;
     s32 nSamplesToDecode;
@@ -698,10 +698,10 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
     s32 phi_s4;
     s32 nFirstFrameSamplesToIgnore;
     s32 pad2[7];
-    s32 frameSize;
+    s32 frameSize = 0; // TODO HACK not sure why this isnt being set
     s32 nFramesToDecode;
-    s32 skipInitialSamples;
-    s32 sampleDataStart;
+    s32 skipInitialSamples = 16; // TODO HACK not sure why this isnt being set
+    s32 sampleDataStart = 0; // TODO HACK not sure why this isnt being set
     u8* sampleData;
     s32 nParts;
     s32 curPart;
@@ -795,9 +795,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
                             gAudioContext.curLoadedBook = audioFontSample->book->book;
                             break;
                     }
-                    if (1) {}
-                    if (1) {}
-                    if (1) {}
+
                     nEntries = 16 * audioFontSample->book->order * audioFontSample->book->npredictors;
                     aLoadADPCM(cmd++, nEntries, gAudioContext.curLoadedBook);
                 }
@@ -868,6 +866,8 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
                         s5 = samplesLenAdjusted;
                         goto skip;
                     case CODEC_REVERB:
+                        break;
+                    default:
                         break;
                 }
 
