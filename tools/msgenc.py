@@ -36,7 +36,7 @@ if __name__ == "__main__":
     read_charmap(args.charmap)
 
     contents = ""
-    with open(args.input, "r") as infile:
+    with open(args.input, "r", encoding='UTF8') as infile:
         contents = infile.read()
 
     contents = re.sub(string_regex, cvt_str, contents)

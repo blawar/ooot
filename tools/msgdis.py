@@ -391,7 +391,7 @@ def extract_all_text(text_out, staff_text_out):
                 out += "\n#endif"
             out += "\n\n"
 
-        with open(text_out, "w") as outfile:
+        with open(text_out, "w", encoding='UTF8') as outfile:
             outfile.write(out.strip() + "\n")
 
     if staff_text_out is not None:

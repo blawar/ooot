@@ -19,6 +19,8 @@
 extern "C"
 {
 	void set_fullscreen(bool value);
+	u8 Get_Language();
+	void Set_Language(u8 language_id);
 }
 
 #ifdef ENABLE_JSON
@@ -291,6 +293,11 @@ namespace sm64::hid
 				{
 					sm64::config().game().fullscreen() = !sm64::config().game().fullscreen();
 					set_fullscreen(sm64::config().game().fullscreen());
+				}
+
+				if(state[SDL_SCANCODE_F9] && (m_lastKeyState[SDL_SCANCODE_F9] ^ state[SDL_SCANCODE_F9]))
+				{
+					Set_Language(Get_Language()+1);
 				}
 
 				if (state[SDL_SCANCODE_ESCAPE] && (m_lastKeyState[SDL_SCANCODE_ESCAPE] ^ state[SDL_SCANCODE_ESCAPE]))
