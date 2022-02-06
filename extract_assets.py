@@ -1,164 +1,125 @@
 #!/usr/bin/env python3
 
-import argparse, json, os, signal, time
-from multiprocessing import Pool, cpu_count, Event, Manager, ProcessError
+import argparse, os, shutil, time
+from itertools import repeat
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
 
-def cleanPath(path):
-    return str(path).replace("\\","/").replace('/', os.sep)
+def ExtractFile(xmlPath: Path, outputPath: Path, outputSourcePath: Path, unaccounted: bool):
+    # Create target folder recursivly, ignore error if it already exists
+    Path.mkdir(Path(outputSourcePath), parents=True, exist_ok = True)
 
-def ensureDirectory(path):
-    try:
-        #p = Path(path)
-        os.makedirs(path)
-        print('creating %s' % path)
-    except:
-        pass
+    zapd = Path("tools/ZAPD/ZAPD.out")
+    zapdConfig = Path("tools/ZAPDConfigs/MqDbg/Config.xml")
+    execStr = f"{zapd} e -i {xmlPath} -b baserom -o {outputPath} -osf {outputSourcePath} -gsf 1 -rconf {zapdConfig}"
     
-def ensureFileDirectory(path):
-    try:
-        p = Path(path)
-        os.makedirs(p.parent)
-        print('creating parent %s' % path)
-    except:
-        pass
+    # Use error handler only if non-windows environment, because it's not supported in windows
+    if os.name != 'nt':
+        execStr += " -eh"
 
-EXTRACTED_ASSETS_NAMEFILE = ".extracted-assets.json"
-
-
-def SignalHandler(sig, frame):
-    print(f'Signal {sig} received. Aborting...')
-    mainAbort.set()
-    # Don't exit immediately to update the extracted assets file.
-
-def ExtractFile(xmlPath, outputPath, outputSourcePath):
-    if globalAbort.is_set():
-        # Don't extract if another file wasn't extracted properly.
-        return
-    ensureDirectory(outputSourcePath)
-
-    execStr = cleanPath("tools/ZAPD/ZAPD.out") + " e -eh -i %s -b baserom/ -o %s -osf %s -gsf 1 -rconf tools/ZAPDConfigs/MqDbg/Config.xml" % (cleanPath(xmlPath), cleanPath(outputPath), cleanPath(outputSourcePath))
-    
-    if "overlays" in xmlPath:
+    if "overlays" in str(xmlPath):
         execStr += " --static"
-    
-    if globalUnaccounted:
-        execStr += " -wu"
 
-    print(execStr)
+    if unaccounted == True:
+        execStr += " --warn-unaccounted"
+    
+    # print(f"Extracting {xmlPath.stem}")
+    # print(execStr)
+
     exitValue = os.system(execStr)
     if exitValue != 0:
-        globalAbort.set()
-        print("\n")
-        print("Error when extracting from file " + xmlPath, file=os.sys.stderr)
-        print("Aborting...", file=os.sys.stderr)
-        print("\n")
+        return ("failed", f"Error extracting {xmlPath}: {os.sys.stderr}")
+    else:
+        return ("success", f"Successfully extracted {xmlPath}")
 
-def ExtractFunc(fullPath):
-    *pathList, xmlName = fullPath.split(os.sep)
-    objectName = os.path.splitext(xmlName)[0]
 
-    outPath = os.path.join("assets", *pathList[2:], objectName)
-    outSourcePath = outPath
 
-    if fullPath in globalExtractedAssetsTracker:
-        timestamp = globalExtractedAssetsTracker[fullPath]["timestamp"]
-        modificationTime = int(os.path.getmtime(fullPath))
-        if modificationTime < timestamp:
-            # XML has not been modified since last extraction.
-            return
+def ExtractFunc(fullPath: Path, force: bool, unaccounted: bool):
+    # Ensure that file exists. It can happen that files don't exist if paths are manually passed
+    if fullPath.exists() == False:
+        return ("failed", f"File cannot be found: {fullPath}")
 
-    currentTimeStamp = int(time.time())
+    # Remove xml directory and suffix in path to use as output directory
+    # Example: assets/xml/objects/object_example.xml -> assets/objects/object_bdoor
+    parts = list(fullPath.parts)
+    parts.remove('xml')
+    outPath = Path(*parts).with_suffix('')
 
-    ExtractFile(fullPath, outPath, outSourcePath)
+    # If output is more recent than source file: skip extraction
+    # Don't skip if force == True was passed
+    if force == False and outPath.is_dir() and outPath.stat().st_mtime > fullPath.stat().st_mtime:
+        return ("skipped", f"Skipped extraction of {fullPath}")
 
-    if not globalAbort.is_set():
-        # Only update timestamp on succesful extractions
-        if fullPath not in globalExtractedAssetsTracker:
-            globalExtractedAssetsTracker[fullPath] = globalManager.dict()
-        globalExtractedAssetsTracker[fullPath]["timestamp"] = currentTimeStamp
+    # Delete target folder before extraction, ignore errors in case there is no folder to delete
+    shutil.rmtree(outPath, ignore_errors=True)
+    return ExtractFile(fullPath, outPath, outPath, unaccounted)
 
-def initializeWorker(abort, unaccounted: bool, extractedAssetsTracker: dict, manager):
-    global globalAbort
-    global globalUnaccounted
-    global globalExtractedAssetsTracker
-    global globalManager
-    globalAbort = abort
-    globalUnaccounted = unaccounted
-    globalExtractedAssetsTracker = extractedAssetsTracker
-    globalManager = manager
+def ExtractText(force: bool):
+    extract_text_path = Path("assets/text/message_data.h")
+    extract_staff_text_path = Path("assets/text/message_data_staff.h")
+    # Ensure target folder exists
+    Path.mkdir(extract_text_path.parent, parents=True, exist_ok = True)
+
+    # Always extract if force flag was passed
+    # otherwise check if target already exists and skip (by setting it to None) if it does
+    if force == False:
+        if extract_text_path.exists():
+            extract_text_path = None
+        if extract_staff_text_path.exists():
+            extract_staff_text_path = None
+
+    if extract_text_path is not None or extract_staff_text_path is not None:
+        print("Start Extracting text")
+        from tools import msgdis
+        msgdis.extract_all_text(extract_text_path, extract_staff_text_path)
+        print("Finished extracting text")
+
+def ExtractXMLAssets(xmlFiles: list[Path], force: bool, unaccounted: bool):
+    print(f"Start extracting {len(xmlFiles)} assets")
+    success = skipped = failed = 0
+    errors = []
+    # Multithreading instead of multiprocessing, because of IO heavy operation 
+    with ThreadPoolExecutor() as executor:
+        for result in executor.map(ExtractFunc, xmlFiles, repeat(force), repeat(unaccounted)):
+            # Parsing of results
+            status = result[0]
+            message = result[1]
+            if status == "success":
+                success += 1
+            elif status == "skipped":
+                skipped += 1
+            else:
+                failed += 1
+                errors.append(message)
+
+        print(f"Extracted: {success}, Skipped: {skipped}, Failed: {failed}")
+        if errors:
+            print(f"Errors: {errors}")
+
 
 def main():
+    # Command Line Interface
     parser = argparse.ArgumentParser(description="baserom asset extractor")
-    parser.add_argument("-s", "--single", help="asset path relative to assets/, e.g. objects/gameplay_keep")
-    parser.add_argument("-f", "--force", help="Force the extraction of every xml instead of checking the touched ones.", action="store_true")
-    parser.add_argument("-u", "--unaccounted", help="Enables ZAPD unaccounted detector warning system.", action="store_true")
+    parser.add_argument("assets", help="asset path(s) relative to assets/xml/, e.g. objects/gameplay_keep. Passing nothing will extract entire assets/xml/ tree", nargs="*", default=None)
+    parser.add_argument("-f", "--force", help="Force the extraction of every asset instead of only recently modified", action="store_true", default=False)
+    parser.add_argument("-u", "--unaccounted", help="Enables ZAPD unaccounted detector warning system.", action="store_true", default=False)
     args = parser.parse_args()
 
-    global mainAbort
-    mainAbort = Event()
-    manager = Manager()
-    signal.signal(signal.SIGINT, SignalHandler)
-
-    extractedAssetsTracker = manager.dict()
-    if os.path.exists(EXTRACTED_ASSETS_NAMEFILE) and not args.force:
-        with open(EXTRACTED_ASSETS_NAMEFILE, encoding='utf-8') as f:
-            extractedAssetsTracker.update(json.load(f, object_hook=manager.dict))
-
-    asset_path = args.single
-    if asset_path is not None:
-        fullPath = os.path.join("assets", "xml", asset_path + ".xml")
-        if not os.path.exists(fullPath):
-            print(f"Error. File {fullPath} doesn't exists.", file=os.sys.stderr)
-            exit(1)
-
-        initializeWorker(mainAbort, args.unaccounted, extractedAssetsTracker, manager)
-        # Always extract if -s is used.
-        if fullPath in extractedAssetsTracker:
-            del extractedAssetsTracker[fullPath]
-        ExtractFunc(fullPath)
+    # List of xml files for extraction
+    xmlFiles = None
+    if args.assets:
+        # Generate list of Paths by transforming asset inputs into full Path structure
+        # Example: objects/gameplay_keep  -->  assets/xml/objects/gameplay_keep.xml
+        xmlFiles = [Path('assets/xml').joinpath(file).with_suffix('.xml') for file in args.assets]
     else:
-        extract_text_path = "assets/text/message_data.h"
-        if os.path.isfile(extract_text_path):
-            extract_text_path = None
-        extract_staff_text_path = "assets/text/message_data_staff.h"
-        if os.path.isfile(extract_staff_text_path):
-            extract_staff_text_path = None
-        # Only extract text if the header does not already exist, or if --force was passed
-        if args.force or extract_text_path is not None or extract_staff_text_path is not None:
-            print("Extracting text")
-            from tools import msgdis
-            ensureFileDirectory(extract_staff_text_path)
-            msgdis.extract_all_text(extract_text_path, extract_staff_text_path)
+        # Get list of all xml files in assets/xml/ subdirectories recursivly 
+        xmlFiles = sorted(Path('.').glob('assets/xml/**/*.xml'))
 
-        xmlFiles = []
-        for currentPath, _, files in os.walk(os.path.join("assets", "xml")):
-            for file in files:
-                fullPath = os.path.join(currentPath, file)
-                if file.endswith(".xml"):
-                    xmlFiles.append(fullPath)
-
-        try:
-            numCores = cpu_count()
-            print("Extracting assets with " + str(numCores) + " CPU cores.")
-            with Pool(numCores,  initializer=initializeWorker, initargs=(mainAbort, args.unaccounted, extractedAssetsTracker, manager)) as p:
-                p.map(ExtractFunc, xmlFiles)
-        except (ProcessError, TypeError):
-            print("Warning: Multiprocessing exception ocurred.", file=os.sys.stderr)
-            print("Disabling mutliprocessing.", file=os.sys.stderr)
-
-            initializeWorker(mainAbort, args.unaccounted, extractedAssetsTracker, manager)
-            for singlePath in xmlFiles:
-                ExtractFunc(singlePath)
-
-    with open(EXTRACTED_ASSETS_NAMEFILE, 'w', encoding='utf-8') as f:
-        serializableDict = dict()
-        for xml, data in extractedAssetsTracker.items():
-            serializableDict[xml] = dict(data)
-        json.dump(dict(serializableDict), f, ensure_ascii=False, indent=4)
-
-    if mainAbort.is_set():
-        exit(1)
+    start = time.perf_counter()
+    ExtractText(args.force)
+    ExtractXMLAssets(xmlFiles, args.force, args.unaccounted)
+    finish = time.perf_counter()
+    print(f"Finished extracting assets in {round(finish-start, 2)} seconds")
 
 if __name__ == "__main__":
     main()
