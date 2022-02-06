@@ -74,6 +74,7 @@ namespace sm64::hid
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
 				
 
+
 #ifndef __SWITCH__
 				loadKeyBindings();
 #endif
@@ -477,6 +478,10 @@ namespace sm64::hid
 
 					m_state.button &= ~(U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS);//Unpress the c buttons
 				}
+
+				//When the back button is pressed. Mark all dpad button as pressed. Used to open map select
+				if (m_buttonState[SDL_CONTROLLER_BUTTON_BACK])
+					m_state.button |= U_JPAD | D_JPAD | L_JPAD | R_JPAD;
 			}
 
 			protected:
