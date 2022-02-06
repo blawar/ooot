@@ -12,25 +12,25 @@ typedef struct EnKo {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnKoActionFunc actionFunc;
-    /* 0x0194 */ s8 headObjectBankIdx;
-    /* 0x0195 */ s8 bodyObjectBankIdx;
-    /* 0x0196 */ s8 legsObjectBankIdx;
-    /* 0x0197 */ s8 osAnimeBankIndex;
-    /* 0x0198 */ ColliderCylinder collider;
+    /* 0x0194 */ s32 headObjectBankIdx;
+    /* 0x0198 */ s32 bodyObjectBankIdx;
+    /* 0x019C */ s32 legsObjectBankIdx;
+    /* 0x01A0 */ s32 osAnimeBankIndex;
+    /* 0x01A4 */ ColliderCylinder collider;
     /* 0x01E4 */ Path* path;
-    /* 0x01E8 */ struct_80034A14_arg1 unk_1E8;
-    /* 0x0210 */ u8 unk_210; // block trade quest sfx
-    /* 0x0212 */ s16 forestQuestState;
-    /* 0x0214 */ s16 blinkTimer;
-    /* 0x0216 */ s16 eyeTextureIndex;
-    /* 0x0218 */ f32 appearDist;
-    /* 0x021C */ f32 lookDist; // distance to start looking at player
-    /* 0x0220 */ f32 modelAlpha;
-    /* 0x0224 */ Vec3s jointTable[16];
-    /* 0x0284 */ Vec3s morphTable[16];
-    /* 0x02E4 */ s16 unk_2E4[16];
-    /* 0x0304 */ s16 unk_304[16];
-} EnKo; // size = 0x0324
+    /* 0x01F0 */ struct_80034A14_arg1 unk_1E8;
+    /* 0x021C */ u8 unk_210; // block trade quest sfx
+    /* 0x021E */ s16 forestQuestState;
+    /* 0x0220 */ s16 blinkTimer;
+    /* 0x0222 */ s16 eyeTextureIndex;
+    /* 0x0224 */ f32 appearDist;
+    /* 0x0228 */ f32 lookDist; // distance to start looking at player
+    /* 0x022C */ f32 modelAlpha;
+    /* 0x0230 */ Vec3s jointTable[16];
+    /* 0x0290 */ Vec3s morphTable[16];
+    /* 0x02F0 */ s16 unk_2E4[16];
+    /* 0x0310 */ s16 unk_304[16];
+} EnKo; // size = 0x0330
 
 typedef enum {
     ENKO_TYPE_CHILD_0,

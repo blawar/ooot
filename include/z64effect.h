@@ -220,12 +220,12 @@ typedef struct EffectSs {
     /* 0x2C */ Vec3f vec; // usage specific per effect
     /* 0x38 */ void* gfx; // mostly used for display lists, sometimes textures
     /* 0x3C */ struct Actor* actor; // interfacing actor, usually the actor that spawned the effect
-    /* 0x40 */ s16 regs[13]; // specific per effect
-    /* 0x5A */ u16 flags;
-    /* 0x5C */ s16 life; // -1 means this entry is free
-    /* 0x5E */ u8 priority; // Lower value means higher priority
-    /* 0x5F */ u8 type;
-} EffectSs; // size = 0x60
+    /* 0x40 */ s32 regs[13]; // specific per effect
+    /* 0x74 */ u16 flags;
+    /* 0x76 */ s16 life; // -1 means this entry is free
+    /* 0x78 */ u8 priority; // Lower value means higher priority
+    /* 0x79 */ u8 type;
+} EffectSs; // size = 0x7A
 
 typedef struct {
     /* 0x00 */ EffectSs* table; // "data_table"
