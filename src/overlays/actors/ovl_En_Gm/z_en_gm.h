@@ -17,11 +17,11 @@ typedef struct EnGm {
     /* 0x0268 */ EnGmUpdateFunc updateFunc;
     /* 0x026C */ EnGmActionFunc actionFunc;
     /* 0x0270 */ ColliderCylinder collider;
-    /* 0x02BC */ s8 objGmBankIndex;
-    /* 0x02BE */ s16 timer;
-    /* 0x02C0 */ s16 blinkTimer;
-    /* 0x02C2 */ u8 eyeTexIndex;
-    /* 0x02C4 */ Vec3f talkPos;
+    /* 0x02BC */ s32 objGmBankIndex;
+    /* 0x02C0 */ s16 timer;
+    /* 0x02C4 */ s16 blinkTimer;
+    /* 0x02C8 */ u8 eyeTexIndex;
+    /* 0x02CC */ Vec3f talkPos;
 } EnGm; // size = 0x02D0
 
 #endif

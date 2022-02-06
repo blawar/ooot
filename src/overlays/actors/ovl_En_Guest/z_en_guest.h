@@ -20,9 +20,9 @@ typedef struct EnGuest {
     /* 0x02CA */ s16 unk_2CA;
     /* 0x02CC */ s16 unk_2CC[16];
     /* 0x02EC */ s16 unk_2EC[16];
-    /* 0x030C */ s8 osAnimeBankIndex;
-    /* 0x030D */ u8 unk_30D;
-    /* 0x030E */ u8 unk_30E;
-} EnGuest; // size = 0x0310
+    /* 0x030C */ s32 osAnimeBankIndex;
+    /* 0x0300 */ u8 unk_30D;
+    /* 0x0304 */ u8 unk_30E;
+} EnGuest; // size = 0x0308
 
 #endif
