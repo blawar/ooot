@@ -438,8 +438,8 @@ namespace sm64::hid
 
 				if(ltrig > 30 * 256)
 					m_state.button |= Z_TRIG;
-				if(rtrig > 30 * 256)
-					m_state.button |= R_TRIG;
+				//if(rtrig > 30 * 256)
+					//m_state.button |= R_TRIG;
 
 				if (walk)
 				{
@@ -461,6 +461,21 @@ namespace sm64::hid
 				{
 					m_state.r_stick_x = 0;
 					m_state.r_stick_y = 0;
+				}
+
+				//When the right trigger is pressed, interpret the c buttons as the dpad
+				if (rtrig > 30 * 256)
+				{
+					if (m_state.button & U_CBUTTONS)
+						m_state.button |= U_JPAD;
+					if (m_state.button & D_CBUTTONS)
+						m_state.button |= D_JPAD;
+					if (m_state.button & L_CBUTTONS)
+						m_state.button |= L_JPAD;
+					if (m_state.button & R_CBUTTONS)
+						m_state.button |= R_JPAD;
+
+					m_state.button &= ~(U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS);//Unpress the c buttons
 				}
 			}
 
