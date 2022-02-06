@@ -1,7 +1,6 @@
 @echo off
 pip3 install tqdm
 pip3 install pathtools
-pip3 install multiprocessing
 fixbaserom.py
 extract_baserom.py
 extract_assets.py
