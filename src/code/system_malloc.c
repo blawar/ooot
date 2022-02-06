@@ -20,13 +20,13 @@ void SystemArena_CheckPointer(void* ptr, u32 size, const char* name, const char*
     if (ptr == NULL) {
         if (gSystemArenaLogSeverity >= LOG_SEVERITY_ERROR) {
             // "%s: %u bytes %s failed\n"
-            osSyncPrintf("%s: %u バイトの%sに失敗しました\n", name, size, action);
+            osSyncPrintf("%s: %u bytes %s failed\n", name, size, action);
             __osDisplayArena(&gSystemArena);
             return;
         }
     } else if (gSystemArenaLogSeverity >= LOG_SEVERITY_VERBOSE) {
         // "%s: %u bytes %s succeeded\n"
-        osSyncPrintf("%s: %u バイトの%sに成功しました\n", name, size, action);
+        osSyncPrintf("%s: %u bytes %s succeeded\n", name, size, action);
     }
 #endif
 }
@@ -35,7 +35,7 @@ void* SystemArena_Malloc(u32 size) {
 #ifndef USE_NATIVE_MALLOC
     void* ptr = __osMalloc(&gSystemArena, size);
 
-    SystemArena_CheckPointer(ptr, size, "malloc", "確保"); // "Secure"
+    SystemArena_CheckPointer(ptr, size, "malloc", "Secure"); // "Secure"
     return ptr;
 #else
     return malloc(size);
@@ -46,7 +46,7 @@ void* SystemArena_MallocDebug(u32 size, const char* file, s32 line) {
 #ifndef USE_NATIVE_MALLOC
     void* ptr = __osMallocDebug(&gSystemArena, size, file, line);
 
-    SystemArena_CheckPointer(ptr, size, "malloc_DEBUG", "確保"); // "Secure"
+    SystemArena_CheckPointer(ptr, size, "malloc_DEBUG", "Secure"); // "Secure"
     return ptr;
 #else
     return malloc(size);
@@ -57,7 +57,7 @@ void* SystemArena_MallocR(u32 size) {
 #ifndef USE_NATIVE_MALLOC
     void* ptr = __osMallocR(&gSystemArena, size);
 
-    SystemArena_CheckPointer(ptr, size, "malloc_r", "確保"); // "Secure"
+    SystemArena_CheckPointer(ptr, size, "malloc_r", "Secure"); // "Secure"
     return ptr;
 #else
     return malloc(size);
@@ -68,7 +68,7 @@ void* SystemArena_MallocRDebug(u32 size, const char* file, s32 line) {
 #ifndef USE_NATIVE_MALLOC
     void* ptr = __osMallocRDebug(&gSystemArena, size, file, line);
 
-    SystemArena_CheckPointer(ptr, size, "malloc_r_DEBUG", "確保"); // "Secure"
+    SystemArena_CheckPointer(ptr, size, "malloc_r_DEBUG", "Secure"); // "Secure"
     return ptr;
 #else
     return malloc(size);
@@ -78,7 +78,7 @@ void* SystemArena_MallocRDebug(u32 size, const char* file, s32 line) {
 void* SystemArena_Realloc(void* ptr, u32 newSize) {
 #ifndef USE_NATIVE_MALLOC
     ptr = __osRealloc(&gSystemArena, ptr, newSize);
-    SystemArena_CheckPointer(ptr, newSize, "realloc", "再確保"); // "Re-securing"
+    SystemArena_CheckPointer(ptr, newSize, "realloc", "Re-securing"); // "Re-securing"
     return ptr;
 #else
     return realloc(ptr, newSize);
@@ -88,7 +88,7 @@ void* SystemArena_Realloc(void* ptr, u32 newSize) {
 void* SystemArena_ReallocDebug(void* ptr, u32 newSize, const char* file, s32 line) {
 #ifndef USE_NATIVE_MALLOC
     ptr = __osReallocDebug(&gSystemArena, ptr, newSize, file, line);
-    SystemArena_CheckPointer(ptr, newSize, "realloc_DEBUG", "再確保"); // "Re-securing"
+    SystemArena_CheckPointer(ptr, newSize, "realloc_DEBUG", "Re-securing"); // "Re-securing"
     return ptr;
 #else
     return realloc(ptr, newSize);
@@ -125,7 +125,7 @@ void* SystemArena_Calloc(u32 num, u32 size) {
         bzero(ret, n);
     }
 
-    SystemArena_CheckPointer(ret, n, "calloc", "確保");
+    SystemArena_CheckPointer(ret, n, "calloc", "Secure");
     return ret;
 }
 
