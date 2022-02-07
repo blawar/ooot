@@ -53,35 +53,35 @@ void KaleidoScope_DrawDebugEditorText(Gfx** gfxp) {
 
     GfxPrint_SetPos(&printer, 4, 2);
     GfxPrint_SetColor(&printer, 255, 60, 0, 255);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ﾙﾋﾟｰ"); // "Rupee"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Rupee"); // "Rupee"
     GfxPrint_SetPos(&printer, 15, 2);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ﾊｰﾄ"); // "Heart"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Heart"); // "Heart"
     GfxPrint_SetPos(&printer, 26, 3);
     GfxPrint_Printf(&printer, "%s", "/4");
     GfxPrint_SetPos(&printer, 4, 5);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ｱｲﾃﾑ"); // "Item"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Item"); // "Item"
     GfxPrint_SetPos(&printer, 4, 13);
     GfxPrint_Printf(&printer, "%s", "KEY");
     GfxPrint_SetPos(&printer, 4, 15);
-    GfxPrint_Printf(&printer, "%s", GFXP_HIRAGANA "ｿｳﾋﾞ"); // "Equipment"
+    GfxPrint_Printf(&printer, "%s", GFXP_HIRAGANA "Equipment"); // "Equipment"
     GfxPrint_SetPos(&printer, 23, 14);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ｹﾝ"); // "Sword"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Sword"); // "Sword"
     GfxPrint_SetPos(&printer, 23, 15);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ﾀﾃ"); // "Shield"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Shield"); // "Shield"
     GfxPrint_SetPos(&printer, 4, 17);
     GfxPrint_Printf(&printer, "%s", "MAP");
     GfxPrint_SetPos(&printer, 4, 19);
-    GfxPrint_Printf(&printer, "%s", GFXP_HIRAGANA "ﾌｳｲﾝ"); // "Seal"
+    GfxPrint_Printf(&printer, "%s", GFXP_HIRAGANA "Seal"); // "Seal"
     GfxPrint_SetPos(&printer, 20, 19);
-    GfxPrint_Printf(&printer, "%s", GFXP_HIRAGANA "ｾｲﾚｲｾｷ"); // "Spiritual Stone"
+    GfxPrint_Printf(&printer, "%s", GFXP_HIRAGANA "Spiritual Stone"); // "Spiritual Stone"
     GfxPrint_SetPos(&printer, 4, 21);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ｵｶﾘﾅ"); // "Ocarina"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Ocarina"); // "Ocarina"
     GfxPrint_SetPos(&printer, 4, 24);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ｺﾚｸﾄ"); // "Collect"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Collect"); // "Collect"
     GfxPrint_SetPos(&printer, 14, 24);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ｷﾝｽﾀ"); // "Skulltula"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Skulltula"); // "Skulltula"
     GfxPrint_SetPos(&printer, 23, 24);
-    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "ｶｹﾗ"); // "Gold Token"
+    GfxPrint_Printf(&printer, "%s", GFXP_KATAKANA "Gold Token"); // "Gold Token"
     GfxPrint_SetPos(&printer, 28, 24);
     GfxPrint_Printf(&printer, "%s", "/4");
 

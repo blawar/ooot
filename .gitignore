@@ -56,3 +56,5 @@ assets/
 
 # Per-user configuration
 .python-version
+vs/oot.sav
+vs/sm64.log
