@@ -33,146 +33,86 @@
     { (uintptr_t) name, (uintptr_t)name + sizeof(name) }
 #endif
 
-<<<<<<< HEAD
 static bool (*gSceneCmdHandlers[26])(GlobalContext*, SceneCmd*);
-=======
-#define OBJECT_EXCHANGE_BANK_MAX 64 /* This is pretty large, original was only 19 */
-#define OBJECT_INVALID 0
-
-typedef struct ObjectStatus {
-    /* 0x00 */ s16 id;
-    /* 0x02 */ s16 load_state; /* 0x0 Need Load, 0x1 Loaded */
-} ObjectStatus;                // size = 0x04
-
-static ObjectStatus objectStatus[OBJECT_EXCHANGE_BANK_MAX];
-
-static bool (*gSceneCmdHandlers[26])(GlobalContext*, const SceneCmd*);
->>>>>>> 93920ae36... feat: reimplement dma timing offset for loading objects
 
 RomFile sNaviMsgFiles[];
 
 s32 Object_Spawn(ObjectContext* objectCtx, s16 objectId) {
-    objectStatus[objectCtx->num].id = objectId;
-
-    osSyncPrintf("OBJECT[%d] ", objectId);
-    osSyncPrintf("num= %d \n", objectCtx->num);
-
-    ASSERT((objectCtx->num < OBJECT_EXCHANGE_BANK_MAX), "this->num < OBJECT_EXCHANGE_BANK_MAX", "../z_scene.c", 142);
-
     objectCtx->num++;
     objectCtx->unk_09 = objectCtx->num;
 
     return objectCtx->num - 1;
 }
 
-void Object_InitBank(GlobalContext* globalCtx, ObjectContext* objectCtx) {
+s32 Object_GetIndex(ObjectContext* objectCtx, s32 objectId)
+{
+    if(objectId < 0)
+    {
+        return -objectId;
+    }
+    return objectId;
+}
+
+void Object_InitBank(GlobalContext* globalCtx, ObjectContext* objectCtx)
+{
     GlobalContext* globalCtx2 = globalCtx; // Needs to be a new variable to match (possibly a sub struct?)
     u32 spaceSize;
-    s32 i;
 
-    if (globalCtx2->sceneNum == SCENE_SPOT00) {
+    if(globalCtx2->sceneNum == SCENE_SPOT00)
+    {
         spaceSize = 1024000;
-    } else if (globalCtx2->sceneNum == SCENE_GANON_DEMO) {
-        if (gSaveContext.sceneSetupIndex != 4) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_GANON_DEMO)
+    {
+        if(gSaveContext.sceneSetupIndex != 4)
+        {
             spaceSize = 1177600;
-        } else {
+        }
+        else
+        {
             spaceSize = 1024000;
         }
-    } else if (globalCtx2->sceneNum == SCENE_JYASINBOSS) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_JYASINBOSS)
+    {
         spaceSize = 1075200;
-    } else if (globalCtx2->sceneNum == SCENE_KENJYANOMA) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_KENJYANOMA)
+    {
         spaceSize = 1075200;
-    } else if (globalCtx2->sceneNum == SCENE_GANON_BOSS) {
+    }
+    else if(globalCtx2->sceneNum == SCENE_GANON_BOSS)
+    {
         spaceSize = 1075200;
-    } else {
+    }
+    else
+    {
         spaceSize = 1024000;
     }
-
-    objectCtx->num = objectCtx->unk_09 = 0;
-    objectCtx->mainKeepIndex = objectCtx->subKeepIndex = 0;
-
-    for (i = 0; i < OBJECT_EXCHANGE_BANK_MAX; i++) {
-        objectStatus[i].id = OBJECT_INVALID;
-    }
-
-    osSyncPrintf(VT_FGCOL(GREEN));
-    // "Object exchange bank data %8.3fKB"
-    osSyncPrintf("オブジェクト入れ替えバンク情報 %8.3fKB\n", spaceSize / 1024.0f);
-    osSyncPrintf(VT_RST);
+    objectCtx->spaceStart = 0;
 
     objectCtx->spaceStart = GameState_Alloc(&globalCtx->state, spaceSize, "../z_scene.c", 219);
     objectCtx->spaceEnd = (void*)((s32)objectCtx->spaceStart + spaceSize);
-
-    objectCtx->mainKeepIndex = Object_Spawn(objectCtx, OBJECT_GAMEPLAY_KEEP);
 }
 
-void Object_UpdateBank(ObjectContext* objectCtx) {
-    s32 i;
-    ObjectStatus* status = &objectStatus[0];
-
-    for (i = 0; i < objectCtx->num; i++) {
-        if (status->id < 0) {
-            if (status->load_state == 0) {
-                /* osCreateMesgQueue(&status->loadQueue, &status->loadMsg, 1); */
-                status->load_state = 1;
-                /* DmaMgr_SendRequest2(&status->dmaRequest, status->segment, objectFile->vromStart, size, 0,
-                                    &status->loadQueue, NULL, "../z_scene.c", 266); */
-            } else if (status->load_state == 1 /* !osRecvMesg(&status->loadQueue, NULL, OS_MESG_NOBLOCK) */) {
-                status->id = -status->id;
-            }
-        }
-        status++;
+s32 Object_IsLoaded(ObjectContext* objectCtx, s32 bankIndex)
+{
+    if(bankIndex < 0)
+    {
+        return 1;
     }
+    return 1;
 }
 
-s32 Object_GetIndex(ObjectContext* objectCtx, s32 objectId) {
-    s32 i;
-
-    for (i = 0; i < objectCtx->num; i++) {
-        if (abs(objectStatus[i].id) == objectId) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-s32 Object_IsLoaded(ObjectContext* objectCtx, s32 bankIndex) {
-    if (objectStatus[bankIndex].id > 0) {
-        return true;
-    } else {
-        return false;
-    }
+void Object_UpdateBank(ObjectContext* objectCtx)
+{
 }
 
 void func_800981B8(ObjectContext* objectCtx) {
-    s32 i;
-    s32 id;
-    u32 size;
-
-    for (i = 0; i < objectCtx->num; i++) {
-        id = objectStatus[i].id;
-        size = gObjectTable[id].vromEnd - gObjectTable[id].vromStart;
-        osSyncPrintf("OBJECT[%d] SIZE %fK SEG=%x\n", objectStatus[i].id, size / 1024.0f,
-                     0x0);
-        osSyncPrintf("num=%d adrs=%x end=%x\n", objectCtx->num, (s32)size,
-                     objectCtx->spaceEnd);
-        /*DmaMgr_SendRequest1(objectCtx->status[i].segment, gObjectTable[id].vromStart, size, "../z_scene.c", 342);*/
-    }
-}
-
-void* func_800982FC(ObjectContext* objectCtx, s32 bankIndex, s16 objectId) {
-    ObjectStatus* status = &objectStatus[bankIndex];
-    void* nextPtr;
-
-    status->id = -objectId;
-    status->load_state = 0;
-
-    return nextPtr;
 }
 
 s32 Scene_ExecuteCommands(GlobalContext* globalCtx, SceneCmd* sceneCmd) {
-    u32 cmdCode;
+    u32 cmdCode = 0;
 
     while (true) {
         cmdCode = sceneCmd->base.code;
@@ -184,7 +124,8 @@ s32 Scene_ExecuteCommands(GlobalContext* globalCtx, SceneCmd* sceneCmd) {
         }
 
         if (cmdCode <= 0x19) {
-            if (!(gSceneCmdHandlers[cmdCode](globalCtx, sceneCmd))) {
+            if(!(gSceneCmdHandlers[cmdCode](globalCtx, sceneCmd)))
+            {
                 break;
             }
         } else {
@@ -281,50 +222,8 @@ bool cmd_mesh_header(GlobalContext* globalCtx, const SceneCmd* cmd) {
 
 // Scene Command 0x0B: Object List
 bool cmd_object_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
-    s32 i;
-    s32 j;
-    s32 k;
-    ObjectStatus* status;
-    ObjectStatus* status2;
-    ObjectStatus* firstStatus;
-    s16* objectEntry = SEGMENTED_TO_VIRTUAL(cmd->objectList.segment);
-    void* nextPtr;
-
-    k = 0;
-    i = globalCtx->objectCtx.unk_09;
-    firstStatus = &objectStatus[0];
-    status = &objectStatus[i];
-
-    while (i < globalCtx->objectCtx.num) {
-        if (status->id != *objectEntry) {
-            status2 = &objectStatus[i];
-            for (j = i; j < globalCtx->objectCtx.num; j++) {
-                status2->id = OBJECT_INVALID;
-                status2++;
-            }
-            globalCtx->objectCtx.num = i;
-            func_80031A28(globalCtx, &globalCtx->actorCtx);
-
-            continue;
-        }
-
-        i++;
-        k++;
-        objectEntry++;
-        status++;
-    }
-
-    ASSERT(cmd->objectList.num <= OBJECT_EXCHANGE_BANK_MAX, "scene_info->object_bank.num <= OBJECT_EXCHANGE_BANK_MAX",
-           "../z_scene.c", 705);
-
-    while (k < cmd->objectList.num) {
-        nextPtr = func_800982FC(&globalCtx->objectCtx, i, *objectEntry);
-        i++;
-        k++;
-        objectEntry++;
-    }
-
-    globalCtx->objectCtx.num = i;
+    globalCtx->objectCtx.objectEntry = SEGMENTED_TO_VIRTUAL(cmd->objectList.segment);
+    globalCtx->objectCtx.num = cmd->objectList.num;
     return true;
 }
 
@@ -527,15 +426,10 @@ bool cmd_misc_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
 }
 
 static bool (*gSceneCmdHandlers[])(GlobalContext*, const SceneCmd*) = {
-    cmd_00_unknown,         cmd_actor_list,    cmd_02_unused,
-    cmd_collision_header,   cmd_room_list,     cmd_wind_settings,
-    cmd_entrance_list,      cmd_special_files, cmd_room_behavior,
-    cmd_09_unused,          cmd_mesh_header,   cmd_object_list,
-    cmd_light_list,         cmd_path_list,     cmd_transition_actor_list,
-    cmd_light_setting_list, cmd_time_settings, cmd_skybox_settings,
-    cmd_skybox_disables,    cmd_exit_list,     NULL,
-    cmd_sound_settings,     cmd_echo_settings, cmd_cutscene_data,
-    cmd_alternate_headers,  cmd_misc_settings,
+    cmd_00_unknown, cmd_actor_list, cmd_02_unused, cmd_collision_header, cmd_room_list, cmd_wind_settings, cmd_entrance_list,
+    cmd_special_files, cmd_room_behavior, cmd_09_unused, cmd_mesh_header, cmd_object_list, cmd_light_list, cmd_path_list,
+    cmd_transition_actor_list, cmd_light_setting_list, cmd_time_settings, cmd_skybox_settings, cmd_skybox_disables, cmd_exit_list, NULL,
+    cmd_sound_settings, cmd_echo_settings, cmd_cutscene_data, cmd_alternate_headers, cmd_misc_settings,
 };
 
 RomFile sNaviMsgFiles[] = {

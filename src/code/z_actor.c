@@ -2502,18 +2502,6 @@ void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx) {
 }
 
 void func_80031A28(GlobalContext* globalCtx, ActorContext* actorCtx) {
-    Actor* actor;
-    s32 i;
-
-    for (i = 0; i < ARRAY_COUNT(actorCtx->actorLists); i++) {
-        actor = actorCtx->actorLists[i].head;
-        while (actor != NULL) {
-            if (!Object_IsLoaded(&globalCtx->objectCtx, actor->objBankIndex)) {
-                Actor_Kill(actor);
-            }
-            actor = actor->next;
-        }
-    }
 }
 
 u8 sEnemyActorCategories[] = { ACTORCAT_ENEMY, ACTORCAT_BOSS };
@@ -2750,7 +2738,18 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
             overlayEntry->numLoaded = 0;
         }
 
-        actorInit = overlayEntry->initInfo;
+        if(overlayEntry->initInfo != NULL)
+        {
+            actorInit = overlayEntry->initInfo;
+        }
+        else {
+            actorInit = NULL;
+        }
+
+        /*actorInit = (void*)(u32)((overlayEntry->initInfo != NULL)
+                                     ? (void*)((u32)overlayEntry->initInfo -
+                                               (s32)((u32)overlayEntry->vramStart - (u32)overlayEntry->loadedRamAddr))
+                                     : NULL);*/
     }
 
     objBankIndex = Object_GetIndex(&globalCtx->objectCtx, actorInit->objectId);
