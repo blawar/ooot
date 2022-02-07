@@ -1204,7 +1204,7 @@ s32 CollisionCheck_SetAT(GlobalContext* globalCtx, CollisionCheckContext* colChk
     }
     if (colChkCtx->colATCount >= COLLISION_CHECK_AT_MAX) {
         // "Index exceeded and cannot add more"
-        osSyncPrintf("CollisionCheck_setAT():インデックスがオーバーして追加不能\n");
+        osSyncPrintf("CollisionCheck_setAT(): Index exceeded and cannot add more\n");
         return -1;
     }
     if (colChkCtx->sacFlags & 1) {
@@ -1233,14 +1233,14 @@ s32 CollisionCheck_SetAT_SAC(GlobalContext* globalCtx, CollisionCheckContext* co
     if (colChkCtx->sacFlags & 1) {
         if (!(index < colChkCtx->colATCount)) {
             // "You are trying to register a location that is larger than the total number of data."
-            osSyncPrintf("CollisionCheck_setAT_SAC():全データ数より大きいところに登録しようとしている。\n");
+            osSyncPrintf("CollisionCheck_setAT_SAC(): You are trying to register a location that is larger than the total number of data.\n");
             return -1;
         }
         colChkCtx->colAT[index] = collider;
     } else {
         if (!(colChkCtx->colATCount < COLLISION_CHECK_AT_MAX)) {
             // "Index exceeded and cannot add more"
-            osSyncPrintf("CollisionCheck_setAT():インデックスがオーバーして追加不能\n");
+            osSyncPrintf("CollisionCheck_setAT(): Index exceeded and cannot add more\n");
             return -1;
         }
         index = colChkCtx->colATCount;
@@ -1273,7 +1273,7 @@ s32 CollisionCheck_SetAC(GlobalContext* globalCtx, CollisionCheckContext* colChk
     }
     if (colChkCtx->colACCount >= COLLISION_CHECK_AC_MAX) {
         // "Index exceeded and cannot add more"
-        osSyncPrintf("CollisionCheck_setAC():インデックスがオーバして追加不能\n");
+        osSyncPrintf("CollisionCheck_setAC(): Index exceeded and cannot add more\n");
         return -1;
     }
     if (colChkCtx->sacFlags & 1) {
@@ -1302,14 +1302,14 @@ s32 CollisionCheck_SetAC_SAC(GlobalContext* globalCtx, CollisionCheckContext* co
     if (colChkCtx->sacFlags & 1) {
         if (!(index < colChkCtx->colACCount)) {
             // "You are trying to register a location that is larger than the total number of data."
-            osSyncPrintf("CollisionCheck_setAC_SAC():全データ数より大きいところに登録しようとしている。\n");
+            osSyncPrintf("CollisionCheck_setAC_SAC(): You are trying to register a location that is larger than the total number of data.\n");
             return -1;
         }
         colChkCtx->colAC[index] = collider;
     } else {
         if (!(colChkCtx->colACCount < COLLISION_CHECK_AC_MAX)) {
             // "Index exceeded and cannot add more"
-            osSyncPrintf("CollisionCheck_setAC():インデックスがオーバして追加不能\n");
+            osSyncPrintf("CollisionCheck_setAC(): Index exceeded and cannot add more\n");
             return -1;
         }
         index = colChkCtx->colACCount;
@@ -1344,7 +1344,7 @@ s32 CollisionCheck_SetOC(GlobalContext* globalCtx, CollisionCheckContext* colChk
     }
     if (colChkCtx->colOCCount >= COLLISION_CHECK_OC_MAX) {
         // "Index exceeded and cannot add more"
-        osSyncPrintf("CollisionCheck_setOC():インデックスがオーバして追加不能\n");
+        osSyncPrintf("CollisionCheck_setOC(): Index exceeded and cannot add more\n");
         return -1;
     }
     if (colChkCtx->sacFlags & 1) {
@@ -1373,7 +1373,7 @@ s32 CollisionCheck_SetOC_SAC(GlobalContext* globalCtx, CollisionCheckContext* co
     if (colChkCtx->sacFlags & 1) {
         if (!(index < colChkCtx->colOCCount)) {
             // "You are trying to register a location that is larger than the total number of data."
-            osSyncPrintf("CollisionCheck_setOC_SAC():全データ数より大きいところに登録しようとしている。\n");
+            osSyncPrintf("CollisionCheck_setOC_SAC(): You are trying to register a location that is larger than the total number of data.\n");
             return -1;
         }
         //! @bug Should be colOC
@@ -1381,7 +1381,7 @@ s32 CollisionCheck_SetOC_SAC(GlobalContext* globalCtx, CollisionCheckContext* co
     } else {
         if (!(colChkCtx->colOCCount < COLLISION_CHECK_OC_MAX)) {
             // "Index exceeded and cannot add more"
-            osSyncPrintf("CollisionCheck_setOC():インデックスがオーバして追加不能\n");
+            osSyncPrintf("CollisionCheck_setOC(): Index exceeded and cannot add more\n");
             return -1;
         }
         index = colChkCtx->colOCCount;
@@ -1403,7 +1403,7 @@ s32 CollisionCheck_SetOCLine(GlobalContext* globalCtx, CollisionCheckContext* co
     Collider_ResetLineOC(globalCtx, collider);
     if (!(colChkCtx->colLineCount < COLLISION_CHECK_OC_LINE_MAX)) {
         // "Index exceeded and cannot add more"
-        osSyncPrintf("CollisionCheck_setOCLine():インデックスがオーバして追加不能\n");
+        osSyncPrintf("CollisionCheck_setOCLine(): Index exceeded and cannot add more\n");
         return -1;
     }
     index = colChkCtx->colLineCount;
@@ -2917,7 +2917,7 @@ void CollisionCheck_OC(GlobalContext* globalCtx, CollisionCheckContext* colChkCt
             vsFunc = sOCVsFuncs[(*left)->shape][(*right)->shape];
             if (vsFunc == NULL) {
                 // "Not compatible"
-                osSyncPrintf("CollisionCheck_OC():未対応 %d, %d\n", (*left)->shape, (*right)->shape);
+                osSyncPrintf("CollisionCheck_OC(): Not compatible %d, %d\n", (*left)->shape, (*right)->shape);
                 continue;
             }
             vsFunc(globalCtx, colChkCtx, *left, *right);
@@ -3176,7 +3176,7 @@ s32 CollisionCheck_LineOC(GlobalContext* globalCtx, CollisionCheckContext* colCh
         lineCheck = sOCLineCheckFuncs[(*col)->shape];
         if (lineCheck == NULL) {
             // "type %d not supported"
-            osSyncPrintf("CollisionCheck_generalLineOcCheck():未対応 %dタイプ\n", (*col)->shape);
+            osSyncPrintf("CollisionCheck_generalLineOcCheck(): type %d not supported\n", (*col)->shape);
         } else {
             result = lineCheck(globalCtx, colChkCtx, (*col), a, b);
             if (result) {

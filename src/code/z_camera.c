@@ -5588,7 +5588,7 @@ s32 Camera_Demo1(Camera* camera) {
             camera->animState++;
             // "absolute" : "relative"
             osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: spline demo: start %s \n",
-                         camera->globalCtx->state.frames, *relativeToPlayer == 0 ? "絶対" : "相対");
+                         camera->globalCtx->state.frames, *relativeToPlayer == 0 ? "absolute" : "relative");
 
             if (PREG(93)) {
                 Camera_DebugPrintSplineArray("CENTER", 5, csAtPoints);

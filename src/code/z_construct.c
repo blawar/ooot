@@ -94,7 +94,7 @@ void func_801109B0(GlobalContext* globalCtx) {
         interfaceCtx->iconItemSegment4 = icon_item_static_lut[gSaveContext.equips.buttonItems[3]];
     }
 
-    osSyncPrintf("ＥＶＥＮＴ＝%d\n", ((void)0, gSaveContext.timer1State));
+    osSyncPrintf("EVENT=%d\n", ((void)0, gSaveContext.timer1State));
 
     if ((gSaveContext.timer1State == 4) || (gSaveContext.timer1State == 8) || (gSaveContext.timer2State == 4) ||
         (gSaveContext.timer2State == 10)) {
@@ -126,7 +126,7 @@ void func_801109B0(GlobalContext* globalCtx) {
     if ((gSaveContext.timer1State >= 11) && (gSaveContext.timer1State < 16)) {
         gSaveContext.timer1State = 0;
         // "Timer Stop!!!!!!!!!!!!!!!!!!!!!!"
-        osSyncPrintf("タイマー停止！！！！！！！！！！！！！！！！！！！！！  = %d\n", gSaveContext.timer1State);
+        osSyncPrintf("Timer Stop!!!!!!!!!!!!!!!!!!!!!!  = %d\n", gSaveContext.timer1State);
     }
 
     HealthMeter_Init(globalCtx);
@@ -166,7 +166,7 @@ void Message_Init(GlobalContext* globalCtx) {
 
     osSyncPrintf("message->fukidashiSegment=%x\n", msgCtx->textboxSegment);
 
-    osSyncPrintf("吹き出しgame_alloc=%x\n", 0x2200); // "Textbox game_alloc=%x"
+    osSyncPrintf("Textbox game_alloc=%x\n", 0x2200); // "Textbox game_alloc=%x"
     ASSERT(msgCtx->textboxSegment != NULL, "message->fukidashiSegment != NULL", "../z_construct.c", 352);
 
     Font_LoadOrderedFont(&globalCtx->msgCtx.font);
