@@ -27,8 +27,6 @@ def worker(path, type):
     os.system(cmd)
 
 def main():
-    print("Start converting assets")
-
     # Gather all asset paths recursively in their respective lists
     pngs = []
     for path in Path('assets').rglob('*.png'):
@@ -45,6 +43,7 @@ def main():
     # Multithreaded conversion of all assets with progress bar
     # Calls generalized worker by passing type
     thread_count = os.cpu_count() or 1
+    print(f"Start converting {len(pngs) + len(jpgs) + len(bins)} assets with {thread_count} threads")
     with ThreadPoolExecutor(max_workers = thread_count) as executor:
         with tqdm(total = len(pngs) + len(jpgs) + len(bins)) as progress:
             for result in executor.map(worker, pngs, repeat('png')):
