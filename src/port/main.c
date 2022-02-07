@@ -142,7 +142,7 @@ int main() {
 
 
 
-    osSyncPrintf("mainproc 実行開始\n"); // "Start running"
+    osSyncPrintf("mainproc execution start\n"); // "Start running"
     gScreenWidth = SCREEN_WIDTH;
     gScreenHeight = SCREEN_HEIGHT;
     gAppNmiBufferPtr = (PreNmiBuff*)osAppNmiBuffer;
@@ -155,7 +155,7 @@ int main() {
     gSystemHeapSize = 0x20000000; //(fb - sysHeap);
     debugHeapSize = 0x8000000;
     // "System heap initalization"
-    //osSyncPrintf("システムヒープ初期化 %08x-%08x %08x\n", sysHeap, fb, gSystemHeapSize);
+    //osSyncPrintf("System heap initalization %08x-%08x %08x\n", sysHeap, fb, gSystemHeapSize);
     SystemHeap_Init(malloc(gSystemHeapSize), gSystemHeapSize); // initializes the system heap
 
     debugHeap = malloc(debugHeapSize);

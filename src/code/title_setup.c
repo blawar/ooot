@@ -7,7 +7,7 @@
 #include "def/z_common_data.h"
 
 void TitleSetup_InitImpl(GameState* gameState) {
-    osSyncPrintf("ゼルダ共通データ初期化\n"); // "Zelda common data initalization"
+    osSyncPrintf("Zelda common data initalization\n"); // "Zelda common data initalization"
     SaveContext_Init();
     gameState->running = false;
     SET_NEXT_GAMESTATE(gameState, Title_Init, TitleContext);
