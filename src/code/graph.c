@@ -3,6 +3,7 @@
 #include <string.h>
 #include "vt.h"
 #include "ultra64/time.h"
+#include "ultra64/gbi.h"
 #include "n64fault.h"
 #include "z64game.h"
 #include "z_opening.h"
@@ -16,6 +17,7 @@
 #include "z64save.h"
 #include "speedmeter.h"
 #include "z_prenmi_buff.h"
+#include "z_rcp.h"
 #include "def/TwoHeadArena.h"
 #include "def/code_800D31A0.h"
 #include "def/code_800EC960.h"
@@ -24,6 +26,7 @@
 #include "def/game.h"
 #include "def/gettime.h"
 #include "def/gfxbuffers.h"
+#include "def/gfxprint.h"
 #include "def/graph.h"
 #include "def/idle.h"
 #include "def/logutils.h"
@@ -51,14 +54,76 @@ CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
 
 uintptr_t SysCfb_GetFbPtr(s32 idx);
+
 bool gfx_start_frame();
 void gfx_end_frame();
+void gfx_fbe_sync(GraphicsContext* gfxCtx, GameInfo* GameInfo, int FB_index);
+int gfx_fbe_is_enabled();
+void gfx_fbe_enable(int enable);
+
 bool isRunning();
 
 void Graph_DisassembleUCode(Gfx* workBuf) {
 }
 
 void Graph_UCodeFaultClient(Gfx* workBuf) {
+}
+
+void Title_PrintBuildInfo(Gfx** gfxp);
+
+void Graph_DrawText(GraphicsContext* gfxCtx) {
+    OPEN_DISPS(gfxCtx, "../z_graph.c", 494);
+
+    gSPSegment(POLY_OPA_DISP++, 0, NULL);
+
+    //Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
+
+    Gfx* gfx = POLY_OPA_DISP;
+    Gfx** gfxp = &gfx;
+    Gfx* g;
+    GfxPrint* printer;
+
+    g = *gfxp;
+    g = func_8009411C(g);
+    //printer = alloca(sizeof(GfxPrint));
+    printer = malloc(sizeof(GfxPrint));
+    GfxPrint_Init(printer);
+    GfxPrint_Open(printer, g);
+    GfxPrint_SetColor(printer, 255, 155, 255, 255);
+    //GfxPrint_SetPos(printer, 3, 28);
+    GfxPrint_SetPos(printer, 3, 10);
+
+    if (gfx_fbe_is_enabled())
+        GfxPrint_Printf(printer, "Framebuffer emulation: enabled");
+    else
+        GfxPrint_Printf(printer, "Framebuffer emulation: disabled");
+
+    g = GfxPrint_Close(printer);
+    GfxPrint_Destroy(printer);
+    *gfxp = g;
+    POLY_OPA_DISP = gfx;
+
+    CLOSE_DISPS(gfxCtx, "../z_graph.c", 541);
+
+
+    /*OPEN_DISPS(gfxCtx, "../z_select.c", 930);
+
+    gSPSegment(POLY_OPA_DISP++, 0x00, NULL);
+    Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
+    SET_FULLSCREEN_VIEWPORT(&gfxCtx->view);
+    func_800AAA50(&gfxCtx->view, 0xF);
+    func_80094140(gfxCtx);
+
+    printer = alloca(sizeof(GfxPrint));
+    GfxPrint_Init(printer);
+    GfxPrint_Open(printer, POLY_OPA_DISP);
+    Select_PrintMenu(this, printer);
+    Select_PrintAgeSetting(this, printer, ((void)0, gSaveContext.linkAge));
+    Select_PrintCutsceneSetting(this, printer, ((void)0, gSaveContext.cutsceneIndex));
+    POLY_OPA_DISP = GfxPrint_Close(printer);
+    GfxPrint_Destroy(printer);
+
+    CLOSE_DISPS(gfxCtx, "../z_select.c", 966);*/
 }
 
 void Graph_InitTHGA(GraphicsContext* gfxCtx) {
@@ -198,14 +263,16 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     scTask->framebuffer = cfb;
     sGraphCfbInfoIdx = sGraphCfbInfoIdx % ARRAY_COUNT(sGraphCfbInfos);
 
+    gfx_fbe_sync(gfxCtx, gGameInfo, sGraphCfbInfoIdx);//WIP
+
     if (1) {}
 
     gfxCtx->schedMsgQ = &gSchedContext.cmdQ;
 
     osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext);
-
-    gfx_run(task, sizeof(OSTask_t));
+    
+    gfx_run(task, sizeof(OSTask_t));    
 }
 
 void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
@@ -225,6 +292,11 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
 
     GameState_ReqPadData(gameState);
     GameState_Update(gameState);
+
+    //if (gameState->input[0].press.button & BTN_L)//L button pressed?
+    if (gameState->input[0].press.button & BTN_DLEFT)
+        gfx_fbe_enable(!gfx_fbe_is_enabled());//Toggle frame buffer emulation
+    Graph_DrawText(gfxCtx);//Output frame buffer emulation en/disabled
 
 #ifndef N64_VERSION
     //All dpad buttons pressed on controller 1? (Same as the back button on an xinput controller)
