@@ -10,6 +10,7 @@
 
 extern u8 gBuildTeam[];
 extern u8 gBuildDate[];
+extern u8 gBuildTime[];
 
 #include "global.h"
 #include "segment_symbols.h"
@@ -40,12 +41,12 @@ void Title_PrintBuildInfo(Gfx** gfxp) {
     GfxPrint_Open(printer, g);
     GfxPrint_SetColor(printer, 255, 155, 255, 255);
     GfxPrint_SetPos(printer, 9, 21);
-    GfxPrint_Printf(printer, "NOT MARIO CLUB VERSION");
+    GfxPrint_Printf(printer, "");
     GfxPrint_SetColor(printer, 255, 255, 255, 255);
     GfxPrint_SetPos(printer, 7, 23);
     GfxPrint_Printf(printer, "[Creator:%s]", gBuildTeam);
-    GfxPrint_SetPos(printer, 7, 24);
-    GfxPrint_Printf(printer, "[Date:%s]", gBuildDate);
+    GfxPrint_SetPos(printer, 5, 24);
+    GfxPrint_Printf(printer, "[Date:%s Time:%s]", gBuildDate, gBuildTime);
     g = GfxPrint_Close(printer);
     GfxPrint_Destroy(printer);
     *gfxp = g;

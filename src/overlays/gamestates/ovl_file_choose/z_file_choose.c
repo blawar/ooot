@@ -91,9 +91,9 @@ void FileChoose_InitModeUpdate(GameState* thisx) {
         this->menuMode = FS_MENU_MODE_CONFIG;
         this->configMode = CM_FADE_IN_START;
         this->nextTitleLabel = FS_TITLE_OPEN_FILE;
-        osSyncPrintf("Ｓｒａｍ Ｓｔａｒｔ─Ｌｏａｄ  》》》》》  ");
+        osSyncPrintf("SRAM Start-Load >>>>>  ");
         Sram_VerifyAndLoadAllSaves(this, &this->sramCtx);
-        osSyncPrintf("終了！！！\n");
+        osSyncPrintf("Done!!!\n");
     }
 }
 

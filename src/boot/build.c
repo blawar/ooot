@@ -1,3 +1,5 @@
-const char gBuildTeam[] = "zelda@srd022j";
-const char gBuildDate[] = "03-02-21 00:16:31";
+const char gBuildTeam[] = "Open Ocarina Team";
+const char gBuildDate[] = __DATE__;
+const char gBuildTime[] = __TIME__;
+const char gDiscordLink[] = "https://discord.gg/8tktBEhbZm";
 const char gBuildMakeOption[] = "";
