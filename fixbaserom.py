@@ -2,6 +2,27 @@ from os import path
 import sys
 import struct
 import hashlib
+import subprocess
+
+
+def cancel():
+    input("Press Enter To Cancel...")
+    sys.exit(1)
+
+reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
+installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
+
+if 'tqdm' in installed_packages:
+    print(f"tqdm module found.")
+else:
+    print(f"ERROR: 'tqdm' module not found! Stopping process.")
+    cancel()
+    
+if 'pathtools' in installed_packages:
+    print(f"pathtools module found.")
+else:
+    print(f"ERROR: 'pathtools' module not found! Stopping process.")
+    cancel()
 
 
 def get_str_hash(byte_array):
@@ -31,7 +52,7 @@ romFileName = find_baserom_original()
 
 if romFileName is None:
     print("Error: Could not find baserom_original.z64/baserom_original.n64/baserom_original.v64.")
-    sys.exit(1)
+    cancel()
 
 # Read in the original ROM
 print("File '" + romFileName + "' found.")
@@ -86,7 +107,7 @@ if str_hash != "f0b7f35375f9cc8ca1b2d59d78e35405":
         print("The provided baserom is a rom which has been edited with ZeldaEdit and is not suitable for use with decomp. " +
               "Find a new one.")
 
-    sys.exit(1)
+    cancel()
 
 # Write out our new ROM
 print("Writing new ROM 'baserom.z64'.")

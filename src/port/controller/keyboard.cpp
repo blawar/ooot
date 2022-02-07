@@ -111,6 +111,7 @@ namespace sm64::hid
 				m_keyBindings[SDL_SCANCODE_LEFT] = L_CBUTTONS;
 				m_keyBindings[SDL_SCANCODE_DOWN] = D_CBUTTONS;
 				m_keyBindings[SDL_SCANCODE_RIGHT] = R_CBUTTONS;
+				m_keyBindings[SDL_SCANCODE_X] = L_TRIG;
 				m_keyBindings[SDL_SCANCODE_V] = R_TRIG;
 				m_keyBindings[SDL_SCANCODE_RSHIFT] = R_TRIG;
 				m_keyBindings[SDL_SCANCODE_RETURN] = START_BUTTON;
