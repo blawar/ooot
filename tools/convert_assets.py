@@ -9,8 +9,10 @@ from concurrent.futures import ThreadPoolExecutor
 zapd = Path("tools/ZAPD/ZAPD.out")
 
 def worker(path, type):
+    # path without file extension
     rel = path.with_suffix('')
-    out = 'build' / path
+    # path without file extension plus build/ prefix
+    out = 'build' / rel
     cmd = None
     # Use different commands depending on file type
     if type == 'jpg':
@@ -18,9 +20,8 @@ def worker(path, type):
     elif type == 'bin':
         cmd = f"{zapd} bblb -i {rel}.bin -o {out}.bin.inc.c"
     elif type == 'png':
-        out = Path(f"build/{rel}.inc.c")
-        type = Path(rel).suffix[1:]
-        cmd = f"{zapd} btex -tt {type} -i {rel}.png -o {out}"
+        assetType = Path(rel).suffix[1:]
+        cmd = f"{zapd} btex -tt {assetType} -i {rel}.png -o {out}.inc.c"
 
     # Create folder before running of command. Otherwise it silently fails without converting
     Path.mkdir(out.parent, parents=True, exist_ok = True)
