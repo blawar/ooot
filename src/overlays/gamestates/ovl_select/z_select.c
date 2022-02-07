@@ -38,7 +38,7 @@ void Select_LoadTitle(SelectContext* this) {
 
 void Select_LoadGame(SelectContext* this, s32 entranceIndex) {
     osSyncPrintf(VT_FGCOL(BLUE));
-    osSyncPrintf("\n\n\nＦＩＬＥ＿ＮＯ＝%x\n\n\n", gSaveContext.fileNum);
+    osSyncPrintf("\n\n\nFILE_NO=%x\n\n\n", gSaveContext.fileNum);
     osSyncPrintf(VT_RST);
     if (gSaveContext.fileNum == 0xFF) {
         Sram_InitDebugSave();
@@ -554,29 +554,29 @@ void Select_PrintMenu(SelectContext* this, GfxPrint* printer) {
 
 static const char* sLoadingMessages[] = {
     // "Please wait a minute"
-    GFXP_HIRAGANA "ｼﾊﾞﾗｸｵﾏﾁｸﾀﾞｻｲ",
+    "Please wait a minute",
     // "Hold on a sec"
-    GFXP_HIRAGANA "ﾁｮｯﾄ ﾏｯﾃﾈ",
+    "Hold on a sec",
     // "Wait a moment"
-    GFXP_KATAKANA "ｳｪｲﾄ ｱ ﾓｰﾒﾝﾄ",
+    "Wait a moment",
     // "Loading"
-    GFXP_KATAKANA "ﾛｰﾄﾞ" GFXP_HIRAGANA "ﾁｭｳ",
+    "Loading",
     // "Now working"
-    GFXP_HIRAGANA "ﾅｳ ﾜｰｷﾝｸﾞ",
+    "Now working",
     // "Now creating"
-    GFXP_HIRAGANA "ｲﾏ ﾂｸｯﾃﾏｽ",
+    "Now creating",
     // "It's not broken"
-    GFXP_HIRAGANA "ｺｼｮｳｼﾞｬﾅｲﾖ",
+    "It's not broken",
     // "Coffee Break"
-    GFXP_KATAKANA "ｺｰﾋｰ ﾌﾞﾚｲｸ",
+    "Coffee Break",
     // "Please set B side"
-    GFXP_KATAKANA "Bﾒﾝｦｾｯﾄｼﾃｸﾀﾞｻｲ",
+    "Please set B side",
     // "Be patient, now"
-    GFXP_HIRAGANA "ｼﾞｯﾄ" GFXP_KATAKANA "ｶﾞﾏﾝ" GFXP_HIRAGANA "ﾉ" GFXP_KATAKANA "ｺ" GFXP_HIRAGANA "ﾃﾞｱｯﾀ",
+    "Be patient, now",
     // "Please wait just a minute"
-    GFXP_HIRAGANA "ｲﾏｼﾊﾞﾗｸｵﾏﾁｸﾀﾞｻｲ",
+    "Please wait just a minute",
     // "Don't worry, don't worry. Take a break, take a break."
-    GFXP_HIRAGANA "ｱﾜﾃﾅｲｱﾜﾃﾅｲ｡ﾋﾄﾔｽﾐﾋﾄﾔｽﾐ｡",
+    "Don't worry, don't worry. Take a break, take a break.",
 };
 
 void Select_PrintLoadingMessage(SelectContext* this, GfxPrint* printer) {
@@ -589,8 +589,8 @@ void Select_PrintLoadingMessage(SelectContext* this, GfxPrint* printer) {
 }
 
 static const char* sAgeLabels[] = {
-    GFXP_HIRAGANA "17(ﾜｶﾓﾉ)", // "17(young)"
-    GFXP_HIRAGANA "5(ﾜｶｽｷﾞ)", // "5(very young)"
+    "17(Adult)",
+    "5(Young)",
 };
 
 void Select_PrintAgeSetting(SelectContext* this, GfxPrint* printer, s32 age) {
@@ -607,48 +607,43 @@ void Select_PrintCutsceneSetting(SelectContext* this, GfxPrint* printer, u16 csI
 
     switch (csIndex) {
         case 0:
-            label = GFXP_HIRAGANA " ﾖﾙ " GFXP_KATAKANA "ｺﾞﾛﾝ";
-            gSaveContext.dayTime = 0;
+            gSaveContext.dayTime = 0; label = "Day";
             break;
         case 0x8000:
-            // clang-format off
-            gSaveContext.dayTime = 0x8000; label = GFXP_HIRAGANA "ｵﾋﾙ " GFXP_KATAKANA "ｼﾞｬﾗ";
-            // clang-format on
+            gSaveContext.dayTime = 0x8000; label = "Night";
             break;
         case 0xFFF0:
-            // clang-format off
-            gSaveContext.dayTime = 0x8000; label = "ﾃﾞﾓ00";
-            // clang-format on
+            gSaveContext.dayTime = 0x8000; label = "CutSn00";
             break;
         case 0xFFF1:
-            label = "ﾃﾞﾓ01";
+            label = "CutSn01";
             break;
         case 0xFFF2:
-            label = "ﾃﾞﾓ02";
+            label = "CutSn02";
             break;
         case 0xFFF3:
-            label = "ﾃﾞﾓ03";
+            label = "CutSn03";
             break;
         case 0xFFF4:
-            label = "ﾃﾞﾓ04";
+            label = "CutSn04";
             break;
         case 0xFFF5:
-            label = "ﾃﾞﾓ05";
+            label = "CutSn05";
             break;
         case 0xFFF6:
-            label = "ﾃﾞﾓ06";
+            label = "CutSn06";
             break;
         case 0xFFF7:
-            label = "ﾃﾞﾓ07";
+            label = "CutSn07";
             break;
         case 0xFFF8:
-            label = "ﾃﾞﾓ08";
+            label = "CutSn08";
             break;
         case 0xFFF9:
-            label = "ﾃﾞﾓ09";
+            label = "CutSn09";
             break;
         case 0xFFFA:
-            label = "ﾃﾞﾓ0A";
+            label = "CutSn0A";
             break;
     };
 
@@ -731,7 +726,7 @@ void Select_Main(GameState* thisx) {
 void Select_Destroy(GameState* thisx) {
     osSyncPrintf("%c", '\a'); // ASCII BEL character, plays an alert tone
     // "view_cleanup will hang, so it won't be called"
-    osSyncPrintf("*** view_cleanupはハングアップするので、呼ばない ***\n");
+    osSyncPrintf("*** view_cleanup will hang, so it won't be called ***\n");
 }
 
 void Select_Init(GameState* thisx) {

@@ -1506,14 +1506,14 @@ char DbCamera_InitCut(s32 idx, DbCameraSub* sub) {
     sDbCameraCuts[idx].lookAt = DebugArena_MallocDebug(i, "../db_camera.c", 2748);
     if (sDbCameraCuts[idx].lookAt == NULL) {
         // "Debug camera memory allocation failure"
-        osSyncPrintf("%s: %d: デバッグカメラ メモリ確保失敗！！\n", "../db_camera.c", 2751);
+        osSyncPrintf("%s: %d: Debug camera memory allocation failure!!\n", "../db_camera.c", 2751);
         return '?';
     }
 
     sDbCameraCuts[idx].position = DebugArena_MallocDebug(i, "../db_camera.c", 2754);
     if (sDbCameraCuts[idx].position == NULL) {
         // "Debug camera memory allocation failure"
-        osSyncPrintf("%s: %d: デバッグカメラ メモリ確保失敗！！\n", "../db_camera.c", 2757);
+        osSyncPrintf("%s: %d: Debug camera memory allocation failure!!\n", "../db_camera.c", 2757);
         DebugArena_FreeDebug(sDbCameraCuts[idx].lookAt, "../db_camera.c", 2758);
         sDbCameraCuts[idx].lookAt = NULL;
         return '?';
@@ -1591,7 +1591,7 @@ s32 DbCamera_LoadCallback(char* c) {
             sDbCameraCuts[i].lookAt = DebugArena_MallocDebug(ALIGN32(size), "../db_camera.c", 2844);
             if (sDbCameraCuts[i].lookAt == NULL) {
                 // "Debug camera memory allocation failure"
-                osSyncPrintf("%s: %d: デバッグカメラ メモリ確保失敗！！\n", "../db_camera.c", 2847);
+                osSyncPrintf("%s: %d: Debug camera memory allocation failure!!\n", "../db_camera.c", 2847);
                 return false;
             }
             if (!Mempak_Read(2, *c, sDbCameraCuts[i].lookAt, off, ALIGN32(size))) {
@@ -1602,7 +1602,7 @@ s32 DbCamera_LoadCallback(char* c) {
             sDbCameraCuts[i].position = DebugArena_MallocDebug(ALIGN32(size), "../db_camera.c", 2855);
             if (sDbCameraCuts[i].position == NULL) {
                 // "Debug camera memory allocation failure"
-                osSyncPrintf("%s: %d: デバッグカメラ メモリ確保失敗！！\n", "../db_camera.c", 2858);
+                osSyncPrintf("%s: %d: Debug camera memory allocation failure!!\n", "../db_camera.c", 2858);
                 return false;
             }
             if (!Mempak_Read(2, *c, sDbCameraCuts[i].position, off, ALIGN32(size))) {
@@ -1712,9 +1712,9 @@ void DbCamera_PrintAllCuts(Camera* cam) {
     osSyncPrintf("@@@\n@@@\n@@@/* ****** spline point data ** finish! ***** */\n@@@\n");
 }
 
-char D_8012D114[] = GFXP_KATAKANA "ﾌﾚ-ﾑ         ";
-char D_8012D128[] = GFXP_KATAKANA "ﾄ-ﾀﾙ         ";
-char D_8012D13C[] = GFXP_KATAKANA "ｷ-     /   ";
+char D_8012D114[] = "Frame         ";
+char D_8012D128[] = "Total         ";
+char D_8012D13C[] = "Key     /   ";
 
 s32 func_800B91B0(Camera* cam, DbCamera* dbCamera) {
     s32 pointCount;
