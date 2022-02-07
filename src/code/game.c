@@ -361,7 +361,7 @@ void GameState_InitArena(GameState* gameState, size_t size) {
 
     if (arena != NULL) {
         THA_Ct(&gameState->tha, arena, size);
-        osSyncPrintf("Successful Hyral\n"); // "Successful Hyral"
+        osSyncPrintf("Successful Hyrule\n"); // "Successful Hyrule"
     } else {
         THA_Ct(&gameState->tha, NULL, 0);
         osSyncPrintf("Failure to secure Hyrule\n"); // "Failure to secure Hyrule"
@@ -392,14 +392,14 @@ void GameState_Realloc(GameState* gameState, size_t size) {
         size = systemMaxFree - 0x10;
     }
 
-    osSyncPrintf("Hyral reallocate size = %u bytes\n", size); // "Hyral reallocate size = %u bytes"
+    osSyncPrintf("Hyrule reallocate size = %u bytes\n", size); // "Hyrule reallocate size = %u bytes"
     gameArena = GameAlloc_MallocDebug(alloc, size * 2, "../game.c", 1033); // TODO FIX
     if (gameArena != NULL) {
         THA_Ct(&gameState->tha, gameArena, size);
         osSyncPrintf("Successful reacquisition of Hyrule\n"); // "Successful reacquisition of Hyrule"
     } else {
         THA_Ct(&gameState->tha, NULL, 0);
-        osSyncPrintf("Failure to secure Hyral\n"); // "Failure to secure Hyral"
+        osSyncPrintf("Failure to secure Hyrule\n"); // "Failure to secure Hyrule"
         SystemArena_Display();
         Fault_AddHungupAndCrash("../game.c", 1044);
     }
@@ -503,8 +503,8 @@ void* GameState_Alloc(GameState* gameState, size_t size, char* file, s32 line) {
         osSyncPrintf("Hyrule has been destroyed\n");
         ret = NULL;
     } else if ((u32)THA_GetSize(&gameState->tha) < size) {
-        // "Hyral on the verge of extinction does not have %d bytes left (%d bytes until extinction)"
-        osSyncPrintf("Hyral on the verge of extinction does not have %d bytes left (%d bytes until extinction)\n", size,
+        // "Hyrule on the verge of extinction does not have %d bytes left (%d bytes until extinction)"
+        osSyncPrintf("Hyrule on the verge of extinction does not have %d bytes left (%d bytes until extinction)\n", size,
                      THA_GetSize(&gameState->tha));
         ret = NULL;
     } else {

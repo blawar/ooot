@@ -613,37 +613,37 @@ void Select_PrintCutsceneSetting(SelectContext* this, GfxPrint* printer, u16 csI
             gSaveContext.dayTime = 0x8000; label = "Night";
             break;
         case 0xFFF0:
-            gSaveContext.dayTime = 0x8000; label = "CutSn00";
+            gSaveContext.dayTime = 0x8000; label = "Demo00";
             break;
         case 0xFFF1:
-            label = "CutSn01";
+            label = "Demo01";
             break;
         case 0xFFF2:
-            label = "CutSn02";
+            label = "Demo02";
             break;
         case 0xFFF3:
-            label = "CutSn03";
+            label = "Demo03";
             break;
         case 0xFFF4:
-            label = "CutSn04";
+            label = "Demo04";
             break;
         case 0xFFF5:
-            label = "CutSn05";
+            label = "Demo05";
             break;
         case 0xFFF6:
-            label = "CutSn06";
+            label = "Demo06";
             break;
         case 0xFFF7:
-            label = "CutSn07";
+            label = "Demo07";
             break;
         case 0xFFF8:
-            label = "CutSn08";
+            label = "Demo08";
             break;
         case 0xFFF9:
-            label = "CutSn09";
+            label = "Demo09";
             break;
         case 0xFFFA:
-            label = "CutSn0A";
+            label = "Demo0A";
             break;
     };
 
