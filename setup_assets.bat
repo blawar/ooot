@@ -1,7 +1,15 @@
 @echo off
 pip3 install tqdm
 pip3 install pathtools
+
+:: capture exit code 1 errors (missing pip modules, baserom_original missing or incorrect hash)
 fixbaserom.py
+if errorlevel 1 (
+   echo Exit code %errorlevel%. Python process aborted!
+   timeout /t 5
+   exit /b %errorlevel%
+)
+
 extract_baserom.py
 extract_assets.py
 
