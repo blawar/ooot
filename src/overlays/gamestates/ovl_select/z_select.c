@@ -402,15 +402,7 @@ void Select_UpdateMenu(SelectContext* this) {
             gSaveContext.nightFlag = 1;
         }
 
-        // user can change "opt", but it doesn't do anything
         if (CHECK_BTN_ALL(input->press.button, BTN_CUP)) {
-            this->opt--;
-        }
-        if (CHECK_BTN_ALL(input->press.button, BTN_CDOWN)) {
-            this->opt++;
-        }
-
-        if (CHECK_BTN_ALL(input->press.button, BTN_DUP)) {
             if (this->lockUp == true) {
                 this->timerUp = 0;
             }
@@ -422,12 +414,12 @@ void Select_UpdateMenu(SelectContext* this) {
             }
         }
 
-        if (CHECK_BTN_ALL(input->cur.button, BTN_DUP) && this->timerUp == 0) {
+        if (CHECK_BTN_ALL(input->cur.button, BTN_CUP) && this->timerUp == 0) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
             this->verticalInput = R_UPDATE_RATE * 3;
         }
 
-        if (CHECK_BTN_ALL(input->press.button, BTN_DDOWN)) {
+        if (CHECK_BTN_ALL(input->press.button, BTN_CDOWN)) {
             if (this->lockDown == true) {
                 this->timerDown = 0;
             }
@@ -439,17 +431,17 @@ void Select_UpdateMenu(SelectContext* this) {
             }
         }
 
-        if (CHECK_BTN_ALL(input->cur.button, BTN_DDOWN) && (this->timerDown == 0)) {
+        if (CHECK_BTN_ALL(input->cur.button, BTN_CDOWN) && (this->timerDown == 0)) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
             this->verticalInput = -R_UPDATE_RATE * 3;
         }
 
-        if (CHECK_BTN_ALL(input->press.button, BTN_DLEFT) || CHECK_BTN_ALL(input->cur.button, BTN_DLEFT)) {
+        if (CHECK_BTN_ALL(input->press.button, BTN_CLEFT) || CHECK_BTN_ALL(input->cur.button, BTN_CLEFT)) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
             this->verticalInput = R_UPDATE_RATE;
         }
 
-        if (CHECK_BTN_ALL(input->press.button, BTN_DRIGHT) || CHECK_BTN_ALL(input->cur.button, BTN_DRIGHT)) {
+        if (CHECK_BTN_ALL(input->press.button, BTN_CRIGHT) || CHECK_BTN_ALL(input->cur.button, BTN_CRIGHT)) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
             this->verticalInput = -R_UPDATE_RATE;
         }
@@ -546,10 +538,6 @@ void Select_PrintMenu(SelectContext* this, GfxPrint* printer) {
 
         GfxPrint_Printf(printer, "%s", name);
     };
-
-    GfxPrint_SetColor(printer, 155, 55, 150, 255);
-    GfxPrint_SetPos(printer, 20, 26);
-    GfxPrint_Printf(printer, "OPT=%d", this->opt);
 }
 
 static const char* sLoadingMessages[] = {
