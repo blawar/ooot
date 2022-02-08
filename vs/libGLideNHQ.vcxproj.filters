@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TextureFilters.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TextureFilters_2xsai.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TextureFilters_hq2x.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TextureFilters_hq4x.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TextureFilters_xbrz.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxCache.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxDbg.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxFilter.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxFilterExport.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxHiResLoader.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxHiResCache.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxHiResNoCache.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxImage.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxQuantize.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxReSample.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxTexCache.cpp" />
+    <ClCompile Include="..\GLideN64\src\GLideNHQ\TxUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{33102939-F957-4BA3-A93C-F47F30765004}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
