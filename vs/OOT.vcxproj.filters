@@ -109,6 +109,9 @@
     <Filter Include="Source Files\port\window\sdl">
       <UniqueIdentifier>{caa5ea14-c39f-4bd2-85aa-34a787ddddef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\include\ultra64">
+      <UniqueIdentifier>{aa3c9eb9-044a-4f69-8b22-2e99a5ed559c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\overlays\actors\ovl_Oceff_Wipe2\z_oceff_wipe2.c">
@@ -5226,6 +5229,33 @@
     <ClCompile Include="..\src\port\window\window.cpp">
       <Filter>Source Files\port\window</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\boot\viconfig.c">
+      <Filter>Source Files\boot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\boot\idle.c">
+      <Filter>Source Files\boot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\visetyscale.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\viextend.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\visetspecial.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\vi.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\visetxscale.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\viswapcontext.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libultra\io\pimgr.c">
+      <Filter>Source Files\libultra\io</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\segment_symbols.h">
@@ -5374,6 +5404,9 @@
     </ClInclude>
     <ClInclude Include="..\include\asset_common.h">
       <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ultra64\vi.h">
+      <Filter>Header Files\include\ultra64</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

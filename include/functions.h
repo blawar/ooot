@@ -11,9 +11,9 @@ extern "C" {
 #endif
 
 void Main_ThreadEntry(void* arg);
-void Idle_ThreadEntry(void* arg);
+void Idle_ThreadEntry(void* arg);*/
 void ViConfig_UpdateVi(u32 mode);
-void ViConfig_UpdateBlack(void);
+/*void ViConfig_UpdateBlack(void);
 s32 DmaMgr_CompareName(const char* name1, const char* name2);
 s32 DmaMgr_DmaRomToRam(void* rom, void* ram, uintptr_t size);
 s32 DmaMgr_DmaHandler(OSPiHandle* pihandle, OSIoMesg* mb, s32 direction);
@@ -61,9 +61,9 @@ s32 sprintf(char* dst, const char* fmt, ...);
 void __osPiCreateAccessQueue(void);
 void __osPiGetAccess(void);
 void __osPiRelAccess(void);
-void osStopThread(OSThread* thread);
+void osStopThread(OSThread* thread);*/
 void osViExtendVStart(u32 arg0);
-s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flag);
+/*s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flag);
 void __osInitialize_common(void);
 void __osInitialize_autodetect(void);
 void __osExceptionPreamble();
@@ -83,16 +83,16 @@ void osCreateThread(OSThread* thread, OSId id, void (*entry)(void*), void* arg, 
 void __osSetSR(u32);
 u32 __osGetSR();
 void osWritebackDCache(void* vaddr, s32 nbytes);
-void* osViGetNextFramebuffer(void);
+void* osViGetNextFramebuffer(void);*/
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt);
-void __osDevMgrMain(void* arg);
-s32 __osPiRawStartDma(s32 dir, uintptr_t cartAddr, void* dramAddr, size_t size);
+/*void __osDevMgrMain(void* arg);
+s32 __osPiRawStartDma(s32 dir, uintptr_t cartAddr, void* dramAddr, size_t size);*/
 uintptr_t osVirtualToPhysical(void* vaddr);
 void osViBlack(u8 active);
-s32 __osSiRawReadIo(void* devAddr, u32* dst);
-OSId osGetThreadId(OSThread* thread);
+/*s32 __osSiRawReadIo(void* devAddr, u32* dst);
+OSId osGetThreadId(OSThread* thread);*/
 void osViSetMode(OSViMode* mode);
-u32 __osProbeTLB(void*);
+/*u32 __osProbeTLB(void*);
 u32 osGetMemSize(void);
 void osSetEventMesg(OSEvent e, OSMesgQueue* mq, OSMesg msg);
 s32 _Printf(PrintCallback, void* arg, const char* fmt, va_list ap);
@@ -121,12 +121,12 @@ void __osSetCompare(u32);
 void __osResetGlobalIntMask(OSHWIntr mask);
 s32 __osDisableInt(void);
 void __osRestoreInt(s32);
-void __osViInit(void);
+void __osViInit(void);*/
 void __osViSwapContext(void);
-OSMesgQueue* osPiGetCmdQueue(void);
-s32 osEPiReadIo(OSPiHandle* handle, uintptr_t devAddr, u32* data);
+/*OSMesgQueue* osPiGetCmdQueue(void);
+s32 osEPiReadIo(OSPiHandle* handle, uintptr_t devAddr, u32* data);*/
 void osViSetSpecialFeatures(u32 func);
-OSPiHandle* osCartRomInit(void);
+/*OSPiHandle* osCartRomInit(void);
 void __osSetFpcCsr(u32);
 u32 __osGetFpcCsr();
 s32 osEPiWriteIo(OSPiHandle* handle, uintptr_t devAddr, u32 data);
@@ -136,13 +136,13 @@ u32 __osGetCause();
 s32 __osEPiRawWriteIo(OSPiHandle* handle, uintptr_t devAddr, u32 data);
 void _Litob(_Pft* args, u8 type);
 void _Ldtob(_Pft* args, u8 type);
-s32 __osSiRawWriteIo(void* devAddr, u32 val);
+s32 __osSiRawWriteIo(void* devAddr, u32 val);*/
 void osCreateViManager(OSPri pri);
-OSViContext* __osViGetCurrentContext(void);
-void osStartThread(OSThread* thread);
+/*OSViContext* __osViGetCurrentContext(void);
+void osStartThread(OSThread* thread);*/
 void osViSetYScale(f32 scale);
 void osViSetXScale(f32 value);
-void __osSetWatchLo(u32);
+/*void __osSetWatchLo(u32);
 
 EnItem00* Item_DropCollectible(GlobalContext* globalCtx, Vec3f* spawnPos, s16 params);
 EnItem00* Item_DropCollectible2(GlobalContext* globalCtx, Vec3f* spawnPos, s16 params);
@@ -387,9 +387,9 @@ void ViMode_Save(ViMode* viMode);
 void ViMode_Load(ViMode* viMode);
 void ViMode_Init(ViMode* viMode);
 void ViMode_Destroy(ViMode* viMode);
-void ViMode_ConfigureFeatures(ViMode* viMode, s32 viFeatures);
-void ViMode_Update(ViMode* viMode, Input* input);
-void func_800ACE70(struct_801664F0* thiss);
+void ViMode_ConfigureFeatures(ViMode* viMode, s32 viFeatures);*/
+void ViMode_Update(ViMode* viMode, struct Input* input);
+/*void func_800ACE70(struct_801664F0* thiss);
 void func_800ACE90(struct_801664F0* thiss);
 void func_800ACE98(struct_801664F0* thiss, Gfx** gfxp);
 void VisMono_Init(VisMono* thiss);

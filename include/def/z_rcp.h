@@ -48,7 +48,7 @@ void func_80094BC4(GraphicsContext* gfxCtx);
 void func_80094C50(GraphicsContext* gfxCtx);
 void func_80094D28(Gfx** gfxp);
 Gfx* func_80094E78(GraphicsContext* gfxCtx, u32 x, u32 y);
-void func_80095248(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b);
+void Gfx_ClearDisplay(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b);
 void func_80095974(GraphicsContext* gfxCtx);
 #else
 Gfx* Gfx_BranchTexScroll(Gfx** gfxp, u32 x, u32 y, s32 width, s32 height);
@@ -96,6 +96,6 @@ void func_80094BC4(struct GraphicsContext* gfxCtx);
 void func_80094C50(struct GraphicsContext* gfxCtx);
 void func_80094D28(Gfx** gfxp);
 Gfx* func_80094E78(struct GraphicsContext* gfxCtx, u32 x, u32 y);
-void func_80095248(struct GraphicsContext* gfxCtx, u8 r, u8 g, u8 b);
+void Gfx_ClearDisplay(struct GraphicsContext* gfxCtx, u8 r, u8 g, u8 b);
 void func_80095974(struct GraphicsContext* gfxCtx);
 #endif
