@@ -57,7 +57,7 @@ uintptr_t SysCfb_GetFbPtr(s32 idx);
 
 bool gfx_start_frame();
 void gfx_end_frame();
-void gfx_fbe_sync(GraphicsContext* gfxCtx, GameInfo* GameInfo, int FB_index);
+void gfx_fbe_sync(GraphicsContext* gfxCtx, GameInfo* GameInfo);
 int gfx_fbe_is_enabled();
 void gfx_fbe_enable(int enable);
 
@@ -225,7 +225,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     scTask->msgQ = &gfxCtx->queue;
     scTask->msg = NULL;
 
-    gfx_fbe_sync(gfxCtx, gGameInfo, sGraphCfbInfoIdx);//WIP
+    gfx_fbe_sync(gfxCtx, gGameInfo);//Sync with GLidenN64 frame buffer emulation
 
     cfb = &sGraphCfbInfos[sGraphCfbInfoIdx++];
     cfb->fb1 = gfxCtx->curFrameBuffer;
@@ -239,8 +239,6 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     scTask->framebuffer = cfb;
     sGraphCfbInfoIdx = sGraphCfbInfoIdx % ARRAY_COUNT(sGraphCfbInfos);
-
-    gfx_fbe_sync(gfxCtx, gGameInfo, sGraphCfbInfoIdx);//WIP
 
     if (1) {}
 
