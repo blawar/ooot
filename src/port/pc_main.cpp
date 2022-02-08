@@ -296,7 +296,7 @@ void main_func(void)
 	screen_init(&config);
 #elif defined(USE_GLIDEN64)
     gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
-	gfx_fbe_enable(1);//Enable frame buffer emulation
+	//gfx_fbe_enable(0);//Uncomment to disable frame buffer emulation
 #endif
 	gWindow->resize(-1, -1);
 	hid_init();

@@ -83,9 +83,9 @@ void osCreateThread(OSThread* thread, OSId id, void (*entry)(void*), void* arg, 
 void __osSetSR(u32);
 u32 __osGetSR();
 void osWritebackDCache(void* vaddr, s32 nbytes);
-void* osViGetNextFramebuffer(void);*/
+void* osViGetNextFramebuffer(void);
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt);
-/*void __osDevMgrMain(void* arg);
+void __osDevMgrMain(void* arg);
 s32 __osPiRawStartDma(s32 dir, uintptr_t cartAddr, void* dramAddr, size_t size);*/
 uintptr_t osVirtualToPhysical(void* vaddr);
 void osViBlack(u8 active);

@@ -11,8 +11,18 @@ extern "C" {
 //#include "ultra64/time.h"
 //#include "ultra64/pi.h"
 #include "ultra64/vi.h"
+#include "ultra64/rcp.h"
 
-extern OSViContext* __osViNext;
+extern u32 osTvType;
+
+extern OSViMode osViModePalLan1;
+extern OSViMode osViModeMpalLan1;
+extern OSViMode osViModeNtscLan1;
+
+OSViContext vi[2] = { 0 };
+OSViContext* __osViCurr = &vi[0];
+OSViContext* __osViNext = &vi[1];
+
 u32 __additional_scanline = 0;//Needs to be connected to GLideN64
 }
 
@@ -104,13 +114,9 @@ extern "C" {
 	}
 
 	void osViSetMode(UNUSED OSViMode* mode) {
-		//register u32 prevInt = __osDisableInt();
-
 		__osViNext->modep = mode;
 		__osViNext->state = 1;
 		__osViNext->features = __osViNext->modep->comRegs.ctrl;
-
-		//__osRestoreInt(prevInt);
 	}
 }
 
@@ -119,31 +125,158 @@ void osViSetEvent(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED u32 retraceC
 }
 
 extern "C" {
-	void osViBlack(u8 active) {
-		//register u32 prevInt = __osDisableInt();
+	void __osViSwapContext(void) {
+		register OSViMode* viMode;
+		register OSViContext* viNext;
+		u32 origin;
+		u32 hStart;
+		u32 vstart;
+		u32 sp34;
+		u32 field;
+		register u32 s2;
 
+		field = 0;
+		viNext = __osViNext;
+		viMode = viNext->modep;
+		field = HW_REG(VI_V_CURRENT_LINE_REG, u32) & 1;
+		s2 = osVirtualToPhysical(viNext->buffer);
+		origin = (viMode->fldRegs[field].origin) + s2;
+		if (viNext->state & 2) {
+			viNext->x.scale |= viMode->comRegs.xScale & ~0xFFF;
+		}
+		else {
+			viNext->x.scale = viMode->comRegs.xScale;
+		}
+		if (viNext->state & 4) {
+			sp34 = (u32)(viMode->fldRegs[field].yScale & 0xFFF);
+			viNext->y.scale = viNext->y.factor * sp34;
+			viNext->y.scale |= viMode->fldRegs[field].yScale & ~0xFFF;
+		}
+		else {
+			viNext->y.scale = viMode->fldRegs[field].yScale;
+		}
+
+		vstart = (viMode->fldRegs[field].vStart - (__additional_scanline << 0x10)) + __additional_scanline;
+		hStart = viMode->comRegs.hStart;
+
+		if (viNext->state & 0x20) {
+			hStart = 0;
+		}
+		if (viNext->state & 0x40) {
+			viNext->y.scale = 0;
+			origin = osVirtualToPhysical(viNext->buffer);
+		}
+		if (viNext->state & 0x80) {
+			viNext->y.scale = (viNext->y.offset << 0x10) & 0x3FF0000;
+			origin = osVirtualToPhysical(viNext->buffer);
+		}
+		HW_REG(VI_ORIGIN_REG, u32) = origin;
+		HW_REG(VI_WIDTH_REG, u32) = viMode->comRegs.width;
+		HW_REG(VI_BURST_REG, u32) = viMode->comRegs.burst;
+		HW_REG(VI_V_SYNC_REG, u32) = viMode->comRegs.vSync;
+		HW_REG(VI_H_SYNC_REG, u32) = viMode->comRegs.hSync;
+		HW_REG(VI_LEAP_REG, u32) = viMode->comRegs.leap;
+		HW_REG(VI_H_START_REG, u32) = hStart;
+		HW_REG(VI_V_START_REG, u32) = vstart;
+		HW_REG(VI_V_BURST_REG, u32) = viMode->fldRegs[field].vBurst;
+		HW_REG(VI_INTR_REG, u32) = viMode->fldRegs[field].vIntr;
+		HW_REG(VI_X_SCALE_REG, u32) = viNext->x.scale;
+		HW_REG(VI_Y_SCALE_REG, u32) = viNext->y.scale;
+		HW_REG(VI_CONTROL_REG, u32) = viNext->features;
+		__osViNext = __osViCurr;
+		__osViCurr = viNext;
+		*__osViNext = *__osViCurr;
+	}
+
+	void __osViInit(void) {
+		bzero(vi, sizeof(vi));
+		__osViCurr = &vi[0];
+		__osViNext = &vi[1];
+
+		__osViNext->retraceCount = 1;
+		__osViCurr->retraceCount = 1;
+		__osViNext->buffer = (void*)0x80000000;
+		__osViCurr->buffer = (void*)0x80000000;
+
+		if (osTvType == OS_TV_PAL) {
+			__osViNext->modep = &osViModePalLan1;
+		}
+		else if (osTvType == OS_TV_MPAL) {
+			__osViNext->modep = &osViModeMpalLan1;
+		}
+		else {
+			__osViNext->modep = &osViModeNtscLan1;
+		}
+
+		__osViNext->state = 0x20;
+		__osViNext->features = __osViNext->modep->comRegs.ctrl;
+
+
+		HW_REG(VI_CONTROL_REG, u32) = 0;
+		__osViSwapContext();
+	}
+
+	void osViBlack(u8 active) {
 		if (active) {
 			__osViNext->state |= 0x20;
 		}
 		else {
 			__osViNext->state &= ~0x20;
 		}
-		//__osRestoreInt(prevInt);
 	}
-}
 
-void osViSetSpecialFeatures(UNUSED u32 func)
-{
-}
+	void osViExtendVStart(u32 arg0) {
+		__additional_scanline = arg0;
+	}
 
-extern "C" {
+	void osViSetSpecialFeatures(UNUSED u32 func) {
+		if (func & OS_VI_GAMMA_ON) {
+			__osViNext->features |= OS_VI_GAMMA;
+		}
+		if (func & OS_VI_GAMMA_OFF) {
+			__osViNext->features &= ~OS_VI_GAMMA;
+		}
+		if (func & OS_VI_GAMMA_DITHER_ON) {
+			__osViNext->features |= OS_VI_GAMMA_DITHER;
+		}
+		if (func & OS_VI_GAMMA_DITHER_OFF) {
+			__osViNext->features &= ~OS_VI_GAMMA_DITHER;
+		}
+		if (func & OS_VI_DIVOT_ON) {
+			__osViNext->features |= OS_VI_DIVOT;
+		}
+		if (func & OS_VI_DIVOT_OFF) {
+			__osViNext->features &= ~OS_VI_DIVOT;
+		}
+		if (func & OS_VI_DITHER_FILTER_ON) {
+			__osViNext->features |= OS_VI_DITHER_FILTER;
+			__osViNext->features &= ~(OS_VI_UNK200 | OS_VI_UNK100);
+		}
+		if (func & OS_VI_DITHER_FILTER_OFF) {
+			__osViNext->features &= ~OS_VI_DITHER_FILTER;
+			__osViNext->features |= __osViNext->modep->comRegs.ctrl & (OS_VI_UNK200 | OS_VI_UNK100);
+		}
+		__osViNext->state |= 8;
+	}
+
+	void osViSetXScale(f32 value) {
+		register u32 nomValue;
+
+		__osViNext->x.factor = value;
+		__osViNext->state |= 0x2;
+
+		nomValue = __osViNext->modep->comRegs.xScale & 0xFFF;
+		__osViNext->x.scale = (u32)(__osViNext->x.factor * nomValue) & 0xFFF;
+	}
+
+	void osViSetYScale(f32 scale) {
+		__osViNext->y.factor = scale;
+		__osViNext->state |= 4;
+	}
+	
 	void osViSwapBuffer(void* vaddr) {
-		//u32 prevInt = __osDisableInt();
-
 		__osViNext->buffer = vaddr;
 		__osViNext->state |= 0x10; // TODO: figure out what this flag means
-
-		//__osRestoreInt(prevInt);
 	}
 }
 

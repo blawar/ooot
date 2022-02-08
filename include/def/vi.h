@@ -1,5 +1,4 @@
 #pragma once
-#include "ultra64/vi.h"
 
 extern OSViContext* __osViCurr;
 extern OSViContext* __osViNext;

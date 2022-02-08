@@ -15,7 +15,6 @@ extern u8 gBuildTime[];
 #include "global.h"
 #include "segment_symbols.h"
 #include "alloca.h"
-#include "gfxprint.h"
 #include "textures/nintendo_rogo_static/nintendo_rogo_static.h"
 #include "def/code_800D31A0.h"
 #include "def/game.h"

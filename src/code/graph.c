@@ -69,38 +69,6 @@ void Graph_DisassembleUCode(Gfx* workBuf) {
 void Graph_UCodeFaultClient(Gfx* workBuf) {
 }
 
-void Title_PrintBuildInfo(Gfx** gfxp);
-
-void Graph_DrawText(GraphicsContext* gfxCtx) {
-    OPEN_DISPS(gfxCtx, "../z_graph.c", 494);
-
-    gSPSegment(POLY_OPA_DISP++, 0, NULL);
-
-    //Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
-
-    Gfx* gfx = POLY_OPA_DISP;
-    Gfx* g = func_8009411C(gfx);
-
-    //GfxPrint* printer = alloca(sizeof(GfxPrint));
-    GfxPrint* printer = malloc(sizeof(GfxPrint));
-    GfxPrint_Init(printer);
-    GfxPrint_Open(printer, g);
-    GfxPrint_SetColor(printer, 255, 155, 255, 255);
-    //GfxPrint_SetPos(printer, 3, 28);
-    GfxPrint_SetPos(printer, 3, 10);
-
-    /*if (gfx_fbe_is_enabled())
-        GfxPrint_Printf(printer, "Framebuffer emulation: enabled");
-    else
-        GfxPrint_Printf(printer, "Framebuffer emulation: disabled");*/
-
-    g = GfxPrint_Close(printer);
-    GfxPrint_Destroy(printer);
-    POLY_OPA_DISP = g;
-
-    CLOSE_DISPS(gfxCtx, "../z_graph.c", 541);
-}
-
 void Graph_InitTHGA(GraphicsContext* gfxCtx) {
     GfxPool* pool = &gGfxPools[gfxCtx->gfxPoolIdx & 1];
 
@@ -268,10 +236,6 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
     GameState_ReqPadData(gameState);
     GameState_Update(gameState);
 
-    //if (gameState->input[0].press.button & BTN_L)//L button pressed?
-    if (gameState->input[0].press.button & BTN_DLEFT)
-        gfx_fbe_enable(!gfx_fbe_is_enabled());//Toggle frame buffer emulation
-    Graph_DrawText(gfxCtx);//Output frame buffer emulation en/disabled
 
 #ifndef N64_VERSION
     //All dpad buttons pressed on controller 1? (Same as the back button on an xinput controller)
