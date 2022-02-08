@@ -227,13 +227,7 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
             osSyncPrintf(VT_RST);
         }
 
-        /*
-        initInfo = (void*)(uintptr_t)((overlayEntry->initInfo != NULL)
-                                    ? (void*)((uintptr_t)overlayEntry->initInfo -
-                                              (intptr_t)(POINTER_SUB(overlayEntry->vramStart, overlayEntry->loadedRamAddr)))
-                                    : NULL);*/
         initInfo = overlayEntry->initInfo;
-
     }
 
     if (initInfo->init == NULL) {

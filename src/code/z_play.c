@@ -287,7 +287,7 @@ void Gameplay_Init(GameState* thisx) {
     Audio_SetExtraFilter(0);
     Quake_Init();
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < NUM_CAMS; i++) {
         globalCtx->cameraPtrs[i] = NULL;
     }
 
@@ -485,7 +485,8 @@ void Gameplay_Init(GameState* thisx) {
     if (dREG(95) != 0) {
         D_8012D1F0 = D_801614D0;
         osSyncPrintf("\nkawauso_data=[%x]", D_8012D1F0);
-        DmaMgr_DmaRomToRam(0x03FEB000, D_8012D1F0, sizeof(D_801614D0));
+        /* Unsure what this is for, possibly a cutscene. */
+        /* DmaMgr_DmaRomToRam(0x03FEB000, D_8012D1F0, sizeof(D_801614D0)); */
     }
 }
 
@@ -1511,6 +1512,8 @@ f32 func_800BFCB8(GlobalContext* globalCtx, MtxF* mf, Vec3f* vec) {
 
 void* Gameplay_LoadFile(GlobalContext* globalCtx, RomFile* file) {
     return file->vromStart;
+    /* unused because we are always in memory */
+#if 0
     u32 size;
     void* allocp;
 
@@ -1519,6 +1522,7 @@ void* Gameplay_LoadFile(GlobalContext* globalCtx, RomFile* file) {
     DmaMgr_SendRequest1(allocp, file->vromStart, size, "../z_play.c", 4694);
 
     return allocp;
+#endif
 }
 
 void Gameplay_InitEnvironment(GlobalContext* globalCtx, s16 skyboxId) {

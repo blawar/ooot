@@ -1536,7 +1536,9 @@ void FileChoose_LoadGame(GameState* thisx) {
         gSaveContext.equips.buttonItems[0] = ITEM_NONE;
         swordEquipMask = gEquipMasks[EQUIP_SWORD] & gSaveContext.equips.equipment;
         gSaveContext.equips.equipment &= gEquipNegMasks[EQUIP_SWORD];
-        gSaveContext.inventory.equipment ^= (gBitFlags[swordEquipMask - 1] << gEquipShifts[EQUIP_SWORD]);
+        if(swordEquipMask != 0) {
+            gSaveContext.inventory.equipment ^= (gBitFlags[swordEquipMask - 1] << gEquipShifts[EQUIP_SWORD]);
+        }
     }
 }
 
@@ -1894,7 +1896,7 @@ void FileChoose_InitContext(GameState* thisx) {
 
 void FileChoose_Destroy(GameState* thisx) {
 }
-
+#include <stdio.h>
 void FileChoose_Init(GameState* thisx) {
     FileChooseContext* this = (FileChooseContext*)thisx;
     u32 size = POINTER_SUB(_title_staticSegmentRomEnd, _title_staticSegmentRomStart);
@@ -1905,13 +1907,13 @@ void FileChoose_Init(GameState* thisx) {
 
     this->staticSegment = GameState_Alloc(&this->state, size, "../z_file_choose.c", 3392);
     ASSERT(this->staticSegment != NULL, "this->staticSegment != NULL", "../z_file_choose.c", 3393);
-    DmaMgr_SendRequest1(this->staticSegment, (u32)_title_staticSegmentRomStart, size, "../z_file_choose.c", 3394);
+    //DmaMgr_SendRequest1(this->staticSegment, (u32)_title_staticSegmentRomStart, size, "../z_file_choose.c", 3394);
 
-    size = (u32)_parameter_staticSegmentRomEnd - (u32)_parameter_staticSegmentRomStart;
+    size = POINTER_SUB(_parameter_staticSegmentRomEnd, _parameter_staticSegmentRomStart);
     this->parameterSegment = GameState_Alloc(&this->state, size, "../z_file_choose.c", 3398);
     ASSERT(this->parameterSegment != NULL, "this->parameterSegment != NULL", "../z_file_choose.c", 3399);
-    DmaMgr_SendRequest1(this->parameterSegment, (u32)_parameter_staticSegmentRomStart, size, "../z_file_choose.c",
-                        3400);
+    //DmaMgr_SendRequest1(this->parameterSegment, (u32)_parameter_staticSegmentRomStart, size, "../z_file_choose.c",
+    //                    3400);
 
     Matrix_Init(&this->state);
     View_Init(&this->view, this->state.gfxCtx);

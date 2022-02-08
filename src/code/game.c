@@ -508,8 +508,7 @@ void* GameState_Alloc(GameState* gameState, size_t size, char* file, s32 line) {
                      THA_GetSize(&gameState->tha));
         ret = NULL;
     } else {
-        // TODO FIX ABC123 ret = THA_AllocEndAlign16(&gameState->tha, size);
-        ret = THA_AllocEndAlign(&gameState->tha, size, ~0);
+        ret = THA_AllocEndAlign16(&gameState->tha, size);
         if (THA_IsCrash(&gameState->tha)) {
             osSyncPrintf("Hyrule has been destroyed\n"); // "Hyrule has been destroyed"
             ret = NULL;

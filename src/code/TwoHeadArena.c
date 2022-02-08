@@ -112,7 +112,9 @@ void* THA_AllocEnd(TwoHeadArena* tha, u32 size) {
 void* THA_AllocEndAlign16(TwoHeadArena* tha, u32 size) {
     uintptr_t mask = ~0xF;
 
-    uintptr_t a = (uintptr_t)tha->tail & mask;
+    /* AddressSanitizer: global-buffer-overflow on address */
+    size = ALIGN16(size + 15);
+    uintptr_t a = ALIGN16((uintptr_t)tha->tail);
     uintptr_t b = a - size;
     uintptr_t c = b & mask;
 
