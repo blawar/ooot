@@ -79,51 +79,26 @@ void Graph_DrawText(GraphicsContext* gfxCtx) {
     //Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
 
     Gfx* gfx = POLY_OPA_DISP;
-    Gfx** gfxp = &gfx;
-    Gfx* g;
-    GfxPrint* printer;
+    Gfx* g = func_8009411C(gfx);
 
-    g = *gfxp;
-    g = func_8009411C(g);
-    //printer = alloca(sizeof(GfxPrint));
-    printer = malloc(sizeof(GfxPrint));
+    //GfxPrint* printer = alloca(sizeof(GfxPrint));
+    GfxPrint* printer = malloc(sizeof(GfxPrint));
     GfxPrint_Init(printer);
     GfxPrint_Open(printer, g);
     GfxPrint_SetColor(printer, 255, 155, 255, 255);
     //GfxPrint_SetPos(printer, 3, 28);
     GfxPrint_SetPos(printer, 3, 10);
 
-    if (gfx_fbe_is_enabled())
+    /*if (gfx_fbe_is_enabled())
         GfxPrint_Printf(printer, "Framebuffer emulation: enabled");
     else
-        GfxPrint_Printf(printer, "Framebuffer emulation: disabled");
+        GfxPrint_Printf(printer, "Framebuffer emulation: disabled");*/
 
     g = GfxPrint_Close(printer);
     GfxPrint_Destroy(printer);
-    *gfxp = g;
-    POLY_OPA_DISP = gfx;
+    POLY_OPA_DISP = g;
 
     CLOSE_DISPS(gfxCtx, "../z_graph.c", 541);
-
-
-    /*OPEN_DISPS(gfxCtx, "../z_select.c", 930);
-
-    gSPSegment(POLY_OPA_DISP++, 0x00, NULL);
-    Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
-    SET_FULLSCREEN_VIEWPORT(&gfxCtx->view);
-    func_800AAA50(&gfxCtx->view, 0xF);
-    func_80094140(gfxCtx);
-
-    printer = alloca(sizeof(GfxPrint));
-    GfxPrint_Init(printer);
-    GfxPrint_Open(printer, POLY_OPA_DISP);
-    Select_PrintMenu(this, printer);
-    Select_PrintAgeSetting(this, printer, ((void)0, gSaveContext.linkAge));
-    Select_PrintCutsceneSetting(this, printer, ((void)0, gSaveContext.cutsceneIndex));
-    POLY_OPA_DISP = GfxPrint_Close(printer);
-    GfxPrint_Destroy(printer);
-
-    CLOSE_DISPS(gfxCtx, "../z_select.c", 966);*/
 }
 
 void Graph_InitTHGA(GraphicsContext* gfxCtx) {
@@ -241,7 +216,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     scTask->next = NULL;
     scTask->flags = OS_SC_RCP_MASK | OS_SC_SWAPBUFFER | OS_SC_LAST_TASK;
-    if (SREG(33) & 1) {
+    if (SREG(33) & 1) {//SREG(33) is raised by the pause menu and PlayerPreRender (frame buffer effects)
         SREG(33) &= ~1;
         scTask->flags &= ~OS_SC_SWAPBUFFER;
         gfxCtx->fbIdx--;

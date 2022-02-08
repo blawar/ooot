@@ -301,6 +301,8 @@ void GameState_Update(GameState* gameState) {
 
     func_800C4344(gameState);
 
+    SREG(63) = 2;//Hack that is currently used the make the lines below work
+
     if (SREG(63) == 1u) {
         if (SREG(48) < 0) {
             SREG(48) = 0;
@@ -346,13 +348,11 @@ void GameState_Update(GameState* gameState) {
         gfxCtx->viMode = NULL;
     }
 
-    gfxCtx->viMode = &osViModeNtscLan1;//Hack that is currently used, line should be remove, but the code above doesn't work
-
     if (HREG(80) == 0x15) {
         if (HREG(95) != 0x15) {
             HREG(95) = 0x15;
             HREG(81) = 0;
-            //HREG(82) = gViConfigAdditionalScanLines;
+            HREG(82) = gViConfigAdditionalScanLines;
             HREG(83) = 0;
             HREG(84) = 0;
         }
@@ -367,9 +367,9 @@ void GameState_Update(GameState* gameState) {
         if ((HREG(83) != HREG(82)) || HREG(84) != HREG(81)) {
             HREG(83) = HREG(82);
             HREG(84) = HREG(81);
-            //gViConfigAdditionalScanLines = HREG(82);
-            //gViConfigYScale = HREG(81) == 0 ? 240.0f / (gViConfigAdditionalScanLines + 240.0f) : 1.0f;
-            //D_80009430 = 1;
+            gViConfigAdditionalScanLines = HREG(82);
+            gViConfigYScale = HREG(81) == 0 ? 240.0f / (gViConfigAdditionalScanLines + 240.0f) : 1.0f;
+            D_80009430 = 1;
         }
     }
 
