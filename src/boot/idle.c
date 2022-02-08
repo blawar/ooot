@@ -2,8 +2,10 @@
 #include "global.h"
 #include "vt.h"
 #include "sched.h"
+#include "padmgr.h"
 #include "ultra64/vi.h"
-#include "def/game.h"
+#include "ultra64/pi.h"
+//#include "def/game.h"
 #include "def/gettime.h"
 #include "def/heaps.h"
 #include "def/idle.h"
@@ -18,6 +20,9 @@
 #include "def/visetmode.h"
 #include "def/viswapbuf.h"
 #include "def/z_std_dma.h"
+#include "functions.h"
+
+extern u32 osTvType;
 
 OSThread gMainThread;
 u8 sMainStack[0x900];
@@ -51,7 +56,7 @@ void Main_ThreadEntry(void* arg) {
 }
 
 void Idle_ThreadEntry(void* arg) {
-    osSyncPrintf("idle thread (idleproc) execution start\n");
+    /*osSyncPrintf("idle thread (idleproc) execution start\n");
     osSyncPrintf("creator : %s\n", gBuildTeam);
     osSyncPrintf("creation date : %s\n", gBuildDate);
     osSyncPrintf("MAKEOPTION: %s\n", gBuildMakeOption);
@@ -62,7 +67,7 @@ void Idle_ThreadEntry(void* arg) {
     osSyncPrintf("FIFO buffer size is %d kilobytes\n", 0x60);
     osSyncPrintf("YIELD buffer size is %d kilobytes\n", 3);
     osSyncPrintf("audio heap size is %d kilobytes\n", ((s32)gSystemHeap - (s32)gAudioHeap) / 1024);
-    osSyncPrintf(VT_RST);
+    osSyncPrintf(VT_RST);*/
 
     osCreateViManager(OS_PRIORITY_VIMGR);
 
@@ -94,10 +99,10 @@ void Idle_ThreadEntry(void* arg) {
     osViBlack(1);
     osViSwapBuffer(0x803DA80); //! @bug Invalid vram address (probably intended to be 0x803DA800)
     osCreatePiManager(OS_PRIORITY_PIMGR, &gPiMgrCmdQ, sPiMgrCmdBuff, 50);
-    StackCheck_Init(&sMainStackInfo, sMainStack, sMainStack + sizeof(sMainStack), 0, 0x400, "main");
+    /*StackCheck_Init(&sMainStackInfo, sMainStack, sMainStack + sizeof(sMainStack), 0, 0x400, "main");
     osCreateThread(&gMainThread, 3, Main_ThreadEntry, arg, sMainStack + sizeof(sMainStack), Z_PRIORITY_MAIN);
     osStartThread(&gMainThread);
-    osSetThreadPri(NULL, OS_PRIORITY_IDLE);
+    osSetThreadPri(NULL, OS_PRIORITY_IDLE);*/
 
     while (1) {
         ;

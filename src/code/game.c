@@ -7,6 +7,7 @@
 #include "z_vismono.h"
 #include "n64fault.h"
 #include "code_800ACE70.h"
+#include "functions.h"
 #include "ultra64/time.h"
 #include "def/TwoHeadArena.h"
 #include "def/__osMalloc.h"
@@ -38,6 +39,13 @@
 extern u32 gDmaMgrDmaBuffSize;
 extern s32 gSystemArenaLogSeverity;
 extern s32 gZeldaArenaLogSeverity;
+
+extern u32 osTvType;
+
+extern OSViMode osViModeNtscLan1;
+extern OSViMode osViModeMpalLan1;
+extern OSViMode osViModePalLan1;
+extern OSViMode osViModeFpalLan1;
 
 f32 gViConfigXScale;
 f32 gViConfigYScale;
@@ -296,29 +304,49 @@ void GameState_Update(GameState* gameState) {
     if (SREG(63) == 1u) {
         if (SREG(48) < 0) {
             SREG(48) = 0;
-            gfxCtx->viMode = &osViModeNtscLan1;
+            gfxCtx->viMode = &gViConfigMode;
             gfxCtx->viFeatures = gViConfigFeatures;
             gfxCtx->xScale = gViConfigXScale;
             gfxCtx->yScale = gViConfigYScale;
-        } else if (SREG(48) > 0) {
+        }
+        else if (SREG(48) > 0) {
+            ViMode_Update(&sViMode, gameState->input);
             gfxCtx->viMode = &sViMode.customViMode;
             gfxCtx->viFeatures = sViMode.viFeatures;
             gfxCtx->xScale = 1.0f;
             gfxCtx->yScale = 1.0f;
         }
-    } else if (SREG(63) >= 2) {
-        gfxCtx->viMode = &osViModeNtscLan1;
+    }
+    else if (SREG(63) >= 2) {
+        gfxCtx->viMode = &gViConfigMode;
         gfxCtx->viFeatures = gViConfigFeatures;
         gfxCtx->xScale = gViConfigXScale;
         gfxCtx->yScale = gViConfigYScale;
-        if (SREG(63) == 6 || (SREG(63) == 2u /*&& osTvType == OS_TV_NTSC*/)) {
+        if (SREG(63) == 6 || (SREG(63) == 2u && osTvType == OS_TV_NTSC)) {
             gfxCtx->viMode = &osViModeNtscLan1;
             gfxCtx->yScale = 1.0f;
         }
-    } else {
+
+        if (SREG(63) == 5 || (SREG(63) == 2u && osTvType == OS_TV_MPAL)) {
+            gfxCtx->viMode = &osViModeMpalLan1;
+            gfxCtx->yScale = 1.0f;
+        }
+
+        if (SREG(63) == 4 || (SREG(63) == 2u && osTvType == OS_TV_PAL)) {
+            gfxCtx->viMode = &osViModePalLan1;
+            gfxCtx->yScale = 1.0f;
+        }
+
+        if (SREG(63) == 3 || (SREG(63) == 2u && osTvType == OS_TV_PAL)) {
+            gfxCtx->viMode = &osViModeFpalLan1;
+            gfxCtx->yScale = 0.833f;
+        }
+    }
+    else {
         gfxCtx->viMode = NULL;
     }
-    gfxCtx->viMode = &osViModeNtscLan1;
+
+    gfxCtx->viMode = &osViModeNtscLan1;//Hack that is currently used, line should be remove, but the code above doesn't work
 
     if (HREG(80) == 0x15) {
         if (HREG(95) != 0x15) {

@@ -1153,8 +1153,10 @@
     <ClCompile Include="..\src\boot\assert.c" />
     <ClCompile Include="..\src\boot\boot_main.c" />
     <ClCompile Include="..\src\boot\build.c" />
+    <ClCompile Include="..\src\boot\idle.c" />
     <ClCompile Include="..\src\boot\logutils.c" />
     <ClCompile Include="..\src\boot\stackcheck.c" />
+    <ClCompile Include="..\src\boot\viconfig.c" />
     <ClCompile Include="..\src\boot\z_std_dma.c" />
     <ClCompile Include="..\src\buffers\gfxbuffers.c" />
     <ClCompile Include="..\src\buffers\heaps.c" />
@@ -1329,6 +1331,13 @@
     <ClCompile Include="..\src\libultra\gu\sqrtf.c" />
     <ClCompile Include="..\src\libultra\gu\translate.c" />
     <ClCompile Include="..\src\libultra\gu\us2dex.c" />
+    <ClCompile Include="..\src\libultra\io\pimgr.c" />
+    <ClCompile Include="..\src\libultra\io\vi.c" />
+    <ClCompile Include="..\src\libultra\io\viextend.c" />
+    <ClCompile Include="..\src\libultra\io\visetspecial.c" />
+    <ClCompile Include="..\src\libultra\io\visetxscale.c" />
+    <ClCompile Include="..\src\libultra\io\visetyscale.c" />
+    <ClCompile Include="..\src\libultra\io\viswapcontext.c" />
     <ClCompile Include="..\src\libultra\os\afterprenmi.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -1958,6 +1967,7 @@
     <ClInclude Include="..\include\macros.h" />
     <ClInclude Include="..\include\quake.h" />
     <ClInclude Include="..\include\speedmeter.h" />
+    <ClInclude Include="..\include\ultra64\vi.h" />
     <ClInclude Include="..\include\z64actor.h" />
     <ClInclude Include="..\include\z64camera.h" />
     <ClInclude Include="..\include\z64file.h" />

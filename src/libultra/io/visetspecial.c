@@ -4,7 +4,7 @@
 #include "def/visetspecial.h"
 
 void osViSetSpecialFeatures(u32 func) {
-    register u32 prevInt = __osDisableInt();
+    //register u32 prevInt = __osDisableInt();
 
     if (func & OS_VI_GAMMA_ON) {
         __osViNext->features |= OS_VI_GAMMA;
@@ -37,5 +37,5 @@ void osViSetSpecialFeatures(u32 func) {
     }
     __osViNext->state |= 8;
 
-    __osRestoreInt(prevInt);
+    //__osRestoreInt(prevInt);
 }

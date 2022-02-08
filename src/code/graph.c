@@ -250,6 +250,8 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     scTask->msgQ = &gfxCtx->queue;
     scTask->msg = NULL;
 
+    gfx_fbe_sync(gfxCtx, gGameInfo, sGraphCfbInfoIdx);//WIP
+
     cfb = &sGraphCfbInfos[sGraphCfbInfoIdx++];
     cfb->fb1 = gfxCtx->curFrameBuffer;
     cfb->swapBuffer = gfxCtx->curFrameBuffer;

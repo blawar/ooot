@@ -10,7 +10,10 @@ extern "C" {
 //#include "ultra64/exception.h"
 //#include "ultra64/time.h"
 //#include "ultra64/pi.h"
-//#include "ultra64/vi.h"
+#include "ultra64/vi.h"
+
+extern OSViContext* __osViNext;
+u32 __additional_scanline = 0;//Needs to be connected to GLideN64
 }
 
 typedef u32 OSEvent;
@@ -51,28 +54,97 @@ s32 osJamMesg(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED s32 flag)
 	return 0;
 }*/
 
-uintptr_t osVirtualToPhysical(void* addr)
-{
-	return (uintptr_t)addr;
+extern "C" {
+	uintptr_t osVirtualToPhysical(void* addr) {
+		return (uintptr_t)addr;
+	}
+
+	void osCreateViManager(UNUSED OSPri pri)
+	{
+		/*u32 prevInt;
+		OSPri newPri;
+		OSPri currentPri;
+
+		if (!__osViDevMgr.initialized) {
+			__osTimerServicesInit();
+			__additional_scanline = 0;
+			osCreateMesgQueue(&viEventQueue, viEventBuf, 5);
+			viRetraceMsg.hdr.type = OS_MESG_TYPE_VRETRACE;
+			viRetraceMsg.hdr.pri = OS_MESG_PRI_NORMAL;
+			viRetraceMsg.hdr.retQueue = NULL;
+			viCounterMsg.hdr.type = OS_MESG_TYPE_COUNTER;
+			viCounterMsg.hdr.pri = OS_MESG_PRI_NORMAL;
+			viCounterMsg.hdr.retQueue = NULL;
+			osSetEventMesg(OS_EVENT_VI, &viEventQueue, &viRetraceMsg);
+			osSetEventMesg(OS_EVENT_COUNTER, &viEventQueue, &viCounterMsg);
+			newPri = -1;
+			currentPri = osGetThreadPri(NULL);
+			if (currentPri < pri) {
+				newPri = currentPri;
+				osSetThreadPri(NULL, pri);
+			}
+
+			prevInt = __osDisableInt();
+			__osViDevMgr.initialized = true;
+			__osViDevMgr.mgrThread = &viThread;
+			__osViDevMgr.cmdQueue = &viEventQueue;
+			__osViDevMgr.eventQueue = &viEventQueue;
+			__osViDevMgr.acccessQueue = NULL;
+			__osViDevMgr.piDmaCallback = NULL;
+			__osViDevMgr.epiDmaCallback = NULL;
+
+			osCreateThread(&viThread, 0, &viMgrMain, &__osViDevMgr, viThreadStack + sizeof(viThreadStack), pri);
+			__osViInit();
+			osStartThread(&viThread);
+			__osRestoreInt(prevInt);
+			if (newPri != -1) {
+				osSetThreadPri(NULL, newPri);
+			}
+		}*/
+	}
+
+	void osViSetMode(UNUSED OSViMode* mode) {
+		//register u32 prevInt = __osDisableInt();
+
+		__osViNext->modep = mode;
+		__osViNext->state = 1;
+		__osViNext->features = __osViNext->modep->comRegs.ctrl;
+
+		//__osRestoreInt(prevInt);
+	}
 }
 
-void osCreateViManager(UNUSED OSPri pri)
-{
-}
-void osViSetMode(UNUSED struct OSViMode* mode)
-{
-}
 void osViSetEvent(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED u32 retraceCount)
 {
 }
-void osViBlack(UNUSED u8 active)
-{
+
+extern "C" {
+	void osViBlack(u8 active) {
+		//register u32 prevInt = __osDisableInt();
+
+		if (active) {
+			__osViNext->state |= 0x20;
+		}
+		else {
+			__osViNext->state &= ~0x20;
+		}
+		//__osRestoreInt(prevInt);
+	}
 }
+
 void osViSetSpecialFeatures(UNUSED u32 func)
 {
 }
-void osViSwapBuffer(UNUSED void* vaddr)
-{
+
+extern "C" {
+	void osViSwapBuffer(void* vaddr) {
+		//u32 prevInt = __osDisableInt();
+
+		__osViNext->buffer = vaddr;
+		__osViNext->state |= 0x10; // TODO: figure out what this flag means
+
+		//__osRestoreInt(prevInt);
+	}
 }
 
 #ifdef _MSC_VER
