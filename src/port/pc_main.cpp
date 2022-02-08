@@ -284,7 +284,7 @@ void main_func(void)
 	//interface_init();
 
 	gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
-
+	
 #ifdef USE_F3D
 	gfx_init(&gfx_sdl, &gfx_opengl_api, "Zelda OOT PC-Port", 0);
 #elif defined(USE_RDPP)
@@ -304,6 +304,7 @@ void main_func(void)
 	inited = 1;
 
 	Graph_ThreadEntry(0);
+	gfx_shutdown();
 }
 
 void game_loop_one_iteration() {
