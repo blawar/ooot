@@ -978,18 +978,24 @@ s32 func_80090014(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
             *dList = dLists[sDListsLodOffset];
         } else if (limbIndex == PLAYER_LIMB_SHEATH) {
             Gfx** dLists = this->sheathDLists;
+            int dListOffset = 0;
 
             if ((this->sheathType == 18) || (this->sheathType == 19)) {
                 dLists += this->currentShield * 4;
                 if (!LINK_IS_ADULT && (this->currentShield < PLAYER_SHIELD_HYLIAN) &&
                     (gSaveContext.equips.buttonItems[0] != ITEM_SWORD_KOKIRI)) {
                     dLists += 16;
+                    /* Figure out which array we want to truly be in */
+                    if( (uintptr_t)dLists >= (uintptr_t)D_80125D28 + (sizeof(Gfx*)*16) ) {
+                        dListOffset = ((uintptr_t)(dLists) - ((uintptr_t)D_80125D28 + (sizeof(Gfx*)*16))) / sizeof(Gfx *);
+                        dLists = D_80125D68;
+                    }
                 }
             } else if (!LINK_IS_ADULT && ((this->sheathType == 16) || (this->sheathType == 17)) &&
                        (gSaveContext.equips.buttonItems[0] != ITEM_SWORD_KOKIRI)) {
                 dLists = D_80125D68;
             }
-
+            dList = dLists[sDListsLodOffset+dListOffset];
             *dList = dLists[sDListsLodOffset];
         } else if (limbIndex == PLAYER_LIMB_WAIST) {
             *dList = this->waistDLists[sDListsLodOffset];
@@ -1464,6 +1470,8 @@ u8 D_801261F8[] = { 2, 2, 5 };
 
 s32 func_80091880(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* arg) {
     u8* ptr = arg;
+    /* AddressSanitizer: global-buffer-overflow on address ptr[0] = 0 */
+    ptr[0] = MAX(ptr[0], 1);
     u8 modelGroup = D_801261F8[ptr[0] - 1];
     s32 type;
     s32 dListOffset = 0;

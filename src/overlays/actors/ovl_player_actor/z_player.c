@@ -919,6 +919,15 @@ static LinkAnimationHeader* D_80853D7C[][2] = {
     { &gPlayerAnim_003418, &gPlayerAnim_003418 }, { &gPlayerAnim_003428, &gPlayerAnim_003428 }
 };
 
+static LinkAnimationHeader** AnimHeaderLut[] = {
+    D_80853914,D_8085392C,D_80853944,D_8085395C,D_80853974,D_8085398C,D_808539A4,D_808539BC,
+    D_808539D4,D_808539EC,D_80853A04,D_80853A1C,D_80853A34,D_80853A4C,D_80853A64,D_80853A7C,
+    D_80853A94,D_80853AAC,D_80853AC4,D_80853ADC,D_80853AF4,D_80853B0C,D_80853B24,D_80853B3C,
+    D_80853B54,D_80853B6C,D_80853B84,D_80853B9C,D_80853BB4,D_80853BCC,D_80853BE4,D_80853BFC,
+    D_80853C14,D_80853C2C,D_80853C44,D_80853C5C,D_80853C74,D_80853C8C,D_80853CA4,D_80853CBC,
+    D_80853CD4,D_80853CEC,D_80853D04,D_80853D1C,D_80853D34,D_80853D4C,D_80853D7C,
+};
+
 static struct_80832924 D_80853DEC[] = {
     { NA_SE_VO_LI_SNEEZE, -0x2008 },
 };
@@ -1721,16 +1730,15 @@ void func_80833664(GlobalContext* globalCtx, Player* this, s8 actionParam) {
     this->stateFlags1 &= ~0x1000008;
 
     for (i = 0; i < 45; i++) {
-        if (current == *iter) {
+        if (current == AnimHeaderLut[i][this->modelAnimType]) {
             break;
         }
-        iter += 6;
     }
 
     func_8083399C(globalCtx, this, actionParam);
 
     if (i < 45) {
-        this->skelAnime.animation = D_80853914[i * 6 + this->modelAnimType];
+        this->skelAnime.animation = AnimHeaderLut[i][this->modelAnimType];
     }
 }
 
@@ -7095,8 +7103,8 @@ void func_808417FC(Player* this, GlobalContext* globalCtx) {
 
 void func_80841860(GlobalContext* globalCtx, Player* this) {
     f32 frame;
-    LinkAnimationHeader* sp38 = D_80853914[this->modelAnimType + 144];
-    LinkAnimationHeader* sp34 = D_80853914[this->modelAnimType + 150];
+    LinkAnimationHeader* sp38 = D_80853B54[this->modelAnimType];
+    LinkAnimationHeader* sp34 = D_80853B6C[this->modelAnimType];
 
     this->skelAnime.animation = sp38;
 
