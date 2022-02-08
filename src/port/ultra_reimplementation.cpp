@@ -5,6 +5,7 @@
 
 extern "C" {
 #include "global.h"
+#include "vt.h"
 //#include "ultra64/message.h"
 //#include "ultra64/convert.h"
 //#include "ultra64/exception.h"
@@ -14,6 +15,14 @@ extern "C" {
 #include "ultra64/rcp.h"
 
 extern u32 osTvType;
+extern u8 gViConfigAdditionalScanLines;
+extern u32 gViConfigFeatures;
+
+extern f32 gViConfigXScale;
+extern f32 gViConfigYScale;
+extern vu8 gViConfigUseDefault;
+
+extern OSViMode gViConfigMode;
 
 extern OSViMode osViModePalLan1;
 extern OSViMode osViModeMpalLan1;
@@ -118,6 +127,107 @@ extern "C" {
 		__osViNext->state = 1;
 		__osViNext->features = __osViNext->modep->comRegs.ctrl;
 	}
+
+	void osViSetXScale(f32 value) {
+		register u32 nomValue;
+
+		__osViNext->x.factor = value;
+		__osViNext->state |= 0x2;
+
+		nomValue = __osViNext->modep->comRegs.xScale & 0xFFF;
+		__osViNext->x.scale = (u32)(__osViNext->x.factor * nomValue) & 0xFFF;
+	}
+
+	void osViSetYScale(f32 scale) {
+		__osViNext->y.factor = scale;
+		__osViNext->state |= 4;
+	}
+
+	void osViBlack(u8 active) {
+		if (active) {
+			__osViNext->state |= 0x20;
+		}
+		else {
+			__osViNext->state &= ~0x20;
+		}
+	}
+
+	void osViExtendVStart(u32 arg0) {
+		__additional_scanline = arg0;
+	}
+
+	void osViSetSpecialFeatures(UNUSED u32 func) {
+		if (func & OS_VI_GAMMA_ON) {
+			__osViNext->features |= OS_VI_GAMMA;
+		}
+		if (func & OS_VI_GAMMA_OFF) {
+			__osViNext->features &= ~OS_VI_GAMMA;
+		}
+		if (func & OS_VI_GAMMA_DITHER_ON) {
+			__osViNext->features |= OS_VI_GAMMA_DITHER;
+		}
+		if (func & OS_VI_GAMMA_DITHER_OFF) {
+			__osViNext->features &= ~OS_VI_GAMMA_DITHER;
+		}
+		if (func & OS_VI_DIVOT_ON) {
+			__osViNext->features |= OS_VI_DIVOT;
+		}
+		if (func & OS_VI_DIVOT_OFF) {
+			__osViNext->features &= ~OS_VI_DIVOT;
+		}
+		if (func & OS_VI_DITHER_FILTER_ON) {
+			__osViNext->features |= OS_VI_DITHER_FILTER;
+			__osViNext->features &= ~(OS_VI_UNK200 | OS_VI_UNK100);
+		}
+		if (func & OS_VI_DITHER_FILTER_OFF) {
+			__osViNext->features &= ~OS_VI_DITHER_FILTER;
+			__osViNext->features |= __osViNext->modep->comRegs.ctrl & (OS_VI_UNK200 | OS_VI_UNK100);
+		}
+		__osViNext->state |= 8;
+	}
+
+	void ViConfig_UpdateVi(u32 mode) {
+		if (mode != 0) {
+			osSyncPrintf(VT_COL(YELLOW, BLACK) "osViSetYScale1(%f);\n" VT_RST, 1.0f);
+
+			if (osTvType == OS_TV_PAL) {
+				osViSetMode(&osViModePalLan1);
+			}
+
+			osViSetYScale(1.0f);
+		}
+		else {
+			osViSetMode(&gViConfigMode);
+
+			if (gViConfigAdditionalScanLines != 0) {
+				osViExtendVStart(gViConfigAdditionalScanLines);
+			}
+
+			if (gViConfigFeatures != 0) {
+				osViSetSpecialFeatures(gViConfigFeatures);
+			}
+
+			if (gViConfigXScale != 1.0f) {
+				osViSetXScale(gViConfigXScale);
+			}
+
+			if (gViConfigYScale != 1.0f) {
+				osSyncPrintf(VT_COL(YELLOW, BLACK) "osViSetYScale3(%f);\n" VT_RST, gViConfigYScale);
+				osViSetYScale(gViConfigYScale);
+			}
+		}
+
+		gViConfigUseDefault = mode;
+	}
+
+	void ViConfig_UpdateBlack(void) {
+		if (gViConfigUseDefault != 0) {
+			osViBlack(1);
+		}
+		else {
+			osViBlack(0);
+		}
+	}
 }
 
 void osViSetEvent(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED u32 retraceCount)
@@ -214,64 +324,6 @@ extern "C" {
 
 		HW_REG(VI_CONTROL_REG, u32) = 0;
 		__osViSwapContext();
-	}
-
-	void osViBlack(u8 active) {
-		if (active) {
-			__osViNext->state |= 0x20;
-		}
-		else {
-			__osViNext->state &= ~0x20;
-		}
-	}
-
-	void osViExtendVStart(u32 arg0) {
-		__additional_scanline = arg0;
-	}
-
-	void osViSetSpecialFeatures(UNUSED u32 func) {
-		if (func & OS_VI_GAMMA_ON) {
-			__osViNext->features |= OS_VI_GAMMA;
-		}
-		if (func & OS_VI_GAMMA_OFF) {
-			__osViNext->features &= ~OS_VI_GAMMA;
-		}
-		if (func & OS_VI_GAMMA_DITHER_ON) {
-			__osViNext->features |= OS_VI_GAMMA_DITHER;
-		}
-		if (func & OS_VI_GAMMA_DITHER_OFF) {
-			__osViNext->features &= ~OS_VI_GAMMA_DITHER;
-		}
-		if (func & OS_VI_DIVOT_ON) {
-			__osViNext->features |= OS_VI_DIVOT;
-		}
-		if (func & OS_VI_DIVOT_OFF) {
-			__osViNext->features &= ~OS_VI_DIVOT;
-		}
-		if (func & OS_VI_DITHER_FILTER_ON) {
-			__osViNext->features |= OS_VI_DITHER_FILTER;
-			__osViNext->features &= ~(OS_VI_UNK200 | OS_VI_UNK100);
-		}
-		if (func & OS_VI_DITHER_FILTER_OFF) {
-			__osViNext->features &= ~OS_VI_DITHER_FILTER;
-			__osViNext->features |= __osViNext->modep->comRegs.ctrl & (OS_VI_UNK200 | OS_VI_UNK100);
-		}
-		__osViNext->state |= 8;
-	}
-
-	void osViSetXScale(f32 value) {
-		register u32 nomValue;
-
-		__osViNext->x.factor = value;
-		__osViNext->state |= 0x2;
-
-		nomValue = __osViNext->modep->comRegs.xScale & 0xFFF;
-		__osViNext->x.scale = (u32)(__osViNext->x.factor * nomValue) & 0xFFF;
-	}
-
-	void osViSetYScale(f32 scale) {
-		__osViNext->y.factor = scale;
-		__osViNext->state |= 4;
 	}
 	
 	void osViSwapBuffer(void* vaddr) {
