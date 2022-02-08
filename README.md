@@ -43,9 +43,7 @@ Run this command to extract the assets from the rom (baserom_original.z64 must e
 setup.py
 ```
 
-You must then open up GLideN64/projects/msvc/GLideN64.sln and build **Debug_mupenplus - Win32**, which should copy GLideN64d.lib, libGLideNHQd.lib, and osald.lib files to externals/Win32/
-
-Then open vs/OOT.sln, select **Debug - X86** then hit build.
+Open vs/OOT.sln, make sure **Debug - Win32** is selected, then hit build.
 
 Once the build completes, press F5 to start it.
 
