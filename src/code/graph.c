@@ -3,7 +3,6 @@
 #include <string.h>
 #include "vt.h"
 #include "ultra64/time.h"
-#include "ultra64/gbi.h"
 #include "n64fault.h"
 #include "z64game.h"
 #include "z_opening.h"
@@ -17,7 +16,6 @@
 #include "z64save.h"
 #include "speedmeter.h"
 #include "z_prenmi_buff.h"
-#include "z_rcp.h"
 #include "def/TwoHeadArena.h"
 #include "def/code_800D31A0.h"
 #include "def/code_800EC960.h"
@@ -26,7 +24,6 @@
 #include "def/game.h"
 #include "def/gettime.h"
 #include "def/gfxbuffers.h"
-#include "def/gfxprint.h"
 #include "def/graph.h"
 #include "def/idle.h"
 #include "def/logutils.h"
@@ -214,8 +211,8 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext);
-    
-    gfx_run(task, sizeof(OSTask_t));    
+
+    gfx_run(task, sizeof(OSTask_t));
 }
 
 void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {

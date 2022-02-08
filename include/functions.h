@@ -136,9 +136,9 @@ u32 __osGetCause();
 s32 __osEPiRawWriteIo(OSPiHandle* handle, uintptr_t devAddr, u32 data);
 void _Litob(_Pft* args, u8 type);
 void _Ldtob(_Pft* args, u8 type);
-s32 __osSiRawWriteIo(void* devAddr, u32 val);*/
+s32 __osSiRawWriteIo(void* devAddr, u32 val);
 void osCreateViManager(OSPri pri);
-/*OSViContext* __osViGetCurrentContext(void);
+OSViContext* __osViGetCurrentContext(void);
 void osStartThread(OSThread* thread);*/
 void osViSetYScale(f32 scale);
 void osViSetXScale(f32 value);

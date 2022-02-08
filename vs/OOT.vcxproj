@@ -116,7 +116,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLideN64d.lib;opengl32.lib;libGLideNHQd.lib;osald.lib;freetype253MT.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLideN64d.lib;opengl32.lib;libGLideNHQd.lib;osald.lib;freetype253MT.lib;SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,7 +138,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>shcore.lib;GLideN64.lib;libGLideNHQ.lib;osal.lib;freetype253MT.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLideN64.lib;libGLideNHQ.lib;osal.lib;freetype253MT.lib;SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,7 +154,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;shcore.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;glu32.lib;glew32s.lib;libzstd_staticd.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;shcore.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;glu32.lib;glew32s.lib;libzstd_staticd.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -172,7 +174,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;shcore.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;glu32.lib;glew32s.lib;libzstd_staticd.lib;core.lib;output.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;shcore.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;glu32.lib;glew32s.lib;libzstd_staticd.lib;core.lib;output.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -1153,10 +1155,8 @@
     <ClCompile Include="..\src\boot\assert.c" />
     <ClCompile Include="..\src\boot\boot_main.c" />
     <ClCompile Include="..\src\boot\build.c" />
-    <ClCompile Include="..\src\boot\idle.c" />
     <ClCompile Include="..\src\boot\logutils.c" />
     <ClCompile Include="..\src\boot\stackcheck.c" />
-    <ClCompile Include="..\src\boot\viconfig.c" />
     <ClCompile Include="..\src\boot\z_std_dma.c" />
     <ClCompile Include="..\src\buffers\gfxbuffers.c" />
     <ClCompile Include="..\src\buffers\heaps.c" />
@@ -1331,13 +1331,6 @@
     <ClCompile Include="..\src\libultra\gu\sqrtf.c" />
     <ClCompile Include="..\src\libultra\gu\translate.c" />
     <ClCompile Include="..\src\libultra\gu\us2dex.c" />
-    <ClCompile Include="..\src\libultra\io\pimgr.c" />
-    <ClCompile Include="..\src\libultra\io\vi.c" />
-    <ClCompile Include="..\src\libultra\io\viextend.c" />
-    <ClCompile Include="..\src\libultra\io\visetspecial.c" />
-    <ClCompile Include="..\src\libultra\io\visetxscale.c" />
-    <ClCompile Include="..\src\libultra\io\visetyscale.c" />
-    <ClCompile Include="..\src\libultra\io\viswapcontext.c" />
     <ClCompile Include="..\src\libultra\os\afterprenmi.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -1967,7 +1960,6 @@
     <ClInclude Include="..\include\macros.h" />
     <ClInclude Include="..\include\quake.h" />
     <ClInclude Include="..\include\speedmeter.h" />
-    <ClInclude Include="..\include\ultra64\vi.h" />
     <ClInclude Include="..\include\z64actor.h" />
     <ClInclude Include="..\include\z64camera.h" />
     <ClInclude Include="..\include\z64file.h" />
