@@ -11,13 +11,21 @@ u64* SysUcode_GetUCodeBoot(void) {
 }
 
 u64 SysUcode_GetUCodeBootSize(void) {
-    return (u64)&D_800093F0 - (u64)&D_80009320;
+    return sizeof(D_80009320);
 }
 
 u64* SysUcode_GetUCode(void) {
     return D_8012DBA0;
 }
 
+u64 SysUcode_GetUCodeSize(void) {
+    return sizeof(D_80155F50);
+}
+
 u64* SysUcode_GetUCodeData(void) {
     return D_8012DBA4;
+}
+
+u64 SysUcode_GetUCodeDataSize(void) {
+    return sizeof(D_80157580);
 }

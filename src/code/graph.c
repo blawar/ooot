@@ -157,8 +157,8 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     task->ucode_boot_size = SysUcode_GetUCodeBootSize();
     task->ucode = SysUcode_GetUCode();
     task->ucode_data = SysUcode_GetUCodeData();
-    task->ucode_size = 0x1000;
-    task->ucode_data_size = 0x800;
+    task->ucode_size = SysUcode_GetUCodeSize();
+    task->ucode_data_size = SysUcode_GetUCodeDataSize();
     task->dram_stack = (u64*)gGfxSPTaskStack;
     task->dram_stack_size = sizeof(gGfxSPTaskStack);
     task->output_buff = gGfxSPTaskOutputBuffer;
