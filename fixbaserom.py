@@ -9,21 +9,6 @@ def cancel():
     input("Press Enter To Cancel...")
     sys.exit(1)
 
-reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
-installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
-
-if 'tqdm' in installed_packages:
-    print(f"tqdm module found.")
-else:
-    print(f"ERROR: 'tqdm' module not found! Stopping process.")
-    cancel()
-    
-if 'pathtools' in installed_packages:
-    print(f"pathtools module found.")
-else:
-    print(f"ERROR: 'pathtools' module not found! Stopping process.")
-    cancel()
-
 
 def get_str_hash(byte_array):
     return str(hashlib.md5(byte_array).hexdigest())
