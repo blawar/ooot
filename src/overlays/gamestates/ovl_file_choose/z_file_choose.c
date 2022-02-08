@@ -1632,7 +1632,7 @@ void FileChoose_Main(GameState* thisx) {
     gSPSegment(POLY_OPA_DISP++, 0x01, this->staticSegment);
     gSPSegment(POLY_OPA_DISP++, 0x02, this->parameterSegment);
 
-    func_80095248(this->state.gfxCtx, 0, 0, 0);
+    Gfx_ClearDisplay(this->state.gfxCtx, 0, 0, 0);
 
     this->stickRelX = input->rel.stick_x;
     this->stickRelY = input->rel.stick_y;
