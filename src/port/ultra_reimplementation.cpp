@@ -20,20 +20,13 @@ extern OSViMode osViModePalLan1;
 extern OSViMode osViModeMpalLan1;
 extern OSViMode osViModeNtscLan1;
 
-OSViContext vi[2] = { 0 };
-OSViContext* __osViCurr = &vi[0];
-OSViContext* __osViNext = &vi[1];
-
 OSViMode gViConfigMode;
-vu8 gViConfigUseDefault = 1;
 
 s8  D_80009430 = 1;
 u8  gViConfigAdditionalScanLines = 0;
 u32 gViConfigFeatures = OS_VI_DITHER_FILTER_ON | OS_VI_GAMMA_OFF;
 f32 gViConfigXScale = 1.0;
 f32 gViConfigYScale = 1.0;
-
-u32 __additional_scanline = 0;//Needs to be connected to GLideN64
 }
 
 typedef u32 OSEvent;
@@ -73,16 +66,6 @@ s32 osJamMesg(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED s32 flag)
 {
 	return 0;
 }*/
-
-extern "C" {
-	uintptr_t osVirtualToPhysical(void* addr) {
-		return (uintptr_t)addr;
-	}	
-}
-
-void osViSetEvent(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED u32 retraceCount)
-{
-}
 
 #ifdef _MSC_VER
 #include <windows.h>
