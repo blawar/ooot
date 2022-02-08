@@ -40,7 +40,7 @@ You must use the ZAPD that is included with this repository, and not the main br
 
 Run this command to extract the assets from the rom (baserom_original.z64 must exist in the directory)
 ```
-setup_assets.bat
+setup.py
 ```
 
 You must then open up GLideN64/projects/msvc/GLideN64.sln and build **Debug_mupenplus - Win32**, which should copy GLideN64d.lib, libGLideNHQd.lib, and osald.lib files to externals/Win32/
