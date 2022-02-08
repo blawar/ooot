@@ -669,7 +669,7 @@ void FileChoose_UpdateOptionsMenu(GameState* thisx) {
         this->configMode = CM_OPTIONS_TO_MAIN;
         sramCtx->readBuff[0] = gSaveContext.audioSetting;
         sramCtx->readBuff[1] = gSaveContext.zTargetSetting;
-        osSyncPrintf("ＳＡＶＥ");
+        osSyncPrintf("SAVE");
         Sram_WriteSramHeader(sramCtx);
         osSyncPrintf(VT_FGCOL(YELLOW));
         osSyncPrintf("sram->read_buff[2] = J_N = %x\n", sramCtx->readBuff[2]);
@@ -679,7 +679,7 @@ void FileChoose_UpdateOptionsMenu(GameState* thisx) {
         osSyncPrintf("Na_SetSoundOutputMode = %d\n", gSaveContext.audioSetting);
         osSyncPrintf(VT_RST);
         func_800F6700(gSaveContext.audioSetting);
-        osSyncPrintf("終了\n");
+		osSyncPrintf("Done!!!\n");
         return;
     }
 
