@@ -10,6 +10,7 @@ __pycache__/
 CMakeLists.txt
 cmake-build-debug
 venv/
+*.vcxproj.user
 
 # Project-specific ignores
 expected/
@@ -24,6 +25,8 @@ docs/doxygen/
 *.map
 *.dump
 out.txt
+*.log
+*.sav
 
 # Tool artifacts
 tools/mipspro7.2_compiler/
@@ -38,6 +41,7 @@ tools/*dSYM/
 graphs/
 external/
 vs/Debug
+src/code/*_assets.h
 
 # Assets
 *.png
