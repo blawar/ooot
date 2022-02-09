@@ -179,6 +179,13 @@ void* gItemIcons[] = {
     gOcarinaATex,
 };
 
+//Copy of all the icon in grayscale version.
+//The texture here will be generated on runtime via KaleidoScope_GrayOutTextureRGBA32() inKaleidoScope_SetupGrayIcons()
+#ifndef N64_VERSION
+void* gItemIconsGray[0x60][32*32];
+void* gItemIconsCurrent[0x82];
+#endif
+
 // Used to map item IDs to inventory slots
 u8 gItemSlots[] = {
     SLOT_STICK,       SLOT_NUT,          SLOT_BOMB,        SLOT_BOW,         SLOT_ARROW_FIRE,  SLOT_DINS_FIRE,

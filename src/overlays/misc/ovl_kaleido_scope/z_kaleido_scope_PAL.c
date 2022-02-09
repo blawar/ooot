@@ -263,6 +263,22 @@ static u8 D_808321A8[5];
 static PreRender sPlayerPreRender;
 static void* sPreRenderCvg;
 
+#ifndef N64_VERSION
+void KaleidoScope_GrayOutTextureRGBA32(u32* textureIn, u32* textureOut, u16 pixelCount);
+
+void KaleidoScope_SetupGrayIcons() {
+    static_assert(ARRAY_COUNTU(gItemIconsGray) <= ARRAY_COUNTU(gItemIcons),  "gItemIcons can not have more elements than gItemIconsGray");
+    static_assert(ARRAY_COUNTU(gItemIconsGray) >= ARRAY_COUNTU(gItemAgeReqs),"gItemIconsGray needs to be larger than gItemAgeReqs");
+
+    s16 i;
+    for (i = 0; i < ARRAY_COUNTU(gItemIconsGray); i++) {
+        if (gItemAgeReqs[i] != 9) {
+            KaleidoScope_GrayOutTextureRGBA32(SEGMENTED_TO_VIRTUAL(gItemIcons[i]), SEGMENTED_TO_VIRTUAL(gItemIconsGray[i]), 32*32);
+        }
+    }
+}
+#endif
+
 void KaleidoScope_SetupPlayerPreRender(GlobalContext* globalCtx) {
     Gfx* gfx;
     Gfx* gfxRef;
@@ -2331,17 +2347,54 @@ void KaleidoScope_Draw(GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 3254);
 }
 
-void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount) {
-#ifdef N64_VERSION
+#ifndef N64_VERSION
+void KaleidoScope_GrayOutTextureRGBA32(u32* textureIn, u32* textureOut, u16 pixelCount) {
     u32 rgb;
-#else
-    u32 bgr;
-#endif
+    u8  a;
     u16 gray;
     u16 i;
 
+#ifndef LITTLE_ENDIAN
     for (i = 0; i < pixelCount; i++) {
-#ifdef N64_VERSION
+        if ((textureIn[i] & 0xFFFFFF00) != 0) {
+            rgb = textureIn[i] >> 8;
+            gray = ((((rgb & 0xFF0000) >> 16) + ((rgb & 0xFF00) >> 7) + (rgb & 0xFF)) / 7) & 0xFF;
+
+            rgb = gray;
+            rgb <<= 8;
+            rgb |= gray;
+            rgb <<= 8;
+            rgb |= gray;
+
+            textureOut[i] = (rgb << 8) | (textureIn[i] & 0xFF);
+        }
+#else
+    for (i = 0; i < pixelCount; i++) {
+        if ((textureIn[i] & 0x00FFFFFF) != 0) {
+            rgb = textureIn[i] & 0x00FFFFFF;
+            gray = ((((rgb & 0xFF0000) >> 16) + ((rgb & 0xFF00) >> 7) + (rgb & 0xFF)) / 7) & 0xFF;
+
+            rgb = gray;
+            rgb <<= 8;
+            rgb |= gray;
+            rgb <<= 8;
+            rgb |= gray;
+
+            textureOut[i] = (textureIn[i] & 0xFF000000) | rgb;
+        }
+        else
+            textureOut[i] = textureIn[i];
+    }
+#endif
+}
+#else
+void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount) {
+    u32 rgb;
+    u16 gray;
+    u16 i;
+
+#ifndef LITTLE_ENDIAN
+    for (i = 0; i < pixelCount; i++) {
         if ((texture[i] & 0xFFFFFF00) != 0) {
             rgb = texture[i] >> 8;
             gray = ((((rgb & 0xFF0000) >> 16) + ((rgb & 0xFF00) >> 7) + (rgb & 0xFF)) / 7) & 0xFF;
@@ -2355,21 +2408,23 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount) {
             texture[i] = (rgb << 8) | (texture[i] & 0xFF);
         }
 #else
+    for (i = 0; i < pixelCount; i++) {
         if ((texture[i] & 0x00FFFFFF) != 0) {
-            bgr = texture[i] & 0x00FFFFFF;
-            gray = ((((bgr & 0xFF0000) >> 16) + ((bgr & 0xFF00) >> 7) + (bgr & 0xFF)) / 7) & 0xFF;
+            rgb = texture[i] & 0x00FFFFFF;
+            gray = ((((rgb & 0xFF0000) >> 16) + ((rgb & 0xFF00) >> 7) + (rgb & 0xFF)) / 7) & 0xFF;
 
-            bgr = gray;
-            bgr <<= 8;
-            bgr |= gray;
-            bgr <<= 8;
-            bgr |= gray;
+            rgb = gray;
+            rgb <<= 8;
+            rgb |= gray;
+            rgb <<= 8;
+            rgb |= gray;
 
-            texture[i] = 0xFF000000 | bgr;
+            texture[i] = (texture[i] & 0xFF000000) | rgb;
         }
-#endif
     }
+#endif
 }
+#endif
 
 void func_808265BC(GlobalContext* globalCtx) {
     PauseContext* pauseCtx = &globalCtx->pauseCtx;
@@ -2579,12 +2634,25 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
 
 
             gSegments[8] = VIRTUAL_TO_PHYSICAL(pauseCtx->iconItemSegment);
-
+            
+            //On N64 the textures of the icons are manipulated in RAM every time the pause menu opens.
+            //This is fine since they are loaded again from ROM.
+            //On PC these textures are generated in KaleidoScope_SetupGrayIcons()
             for (i = 0; i < ARRAY_COUNTU(gItemAgeReqs); i++) {
+#ifdef N64_VERSION
                 if ((gItemAgeReqs[i] != 9) && (gItemAgeReqs[i] != ((void)0, gSaveContext.linkAge))) {
                     KaleidoScope_GrayOutTextureRGBA32(SEGMENTED_TO_VIRTUAL(gItemIcons[i]), 0x400);
                 }
+#else
+                if ((gItemAgeReqs[i] != 9) && (gItemAgeReqs[i] != ((void)0, gSaveContext.linkAge))) {
+                    gItemIconsCurrent[i] = gItemIconsGray[i];
+                }
+                else {
+                    gItemIconsCurrent[i] = gItemIcons[i];
+                }
+#endif
             }
+
 
             pauseCtx->iconItem24Segment = (void*)(((uintptr_t)pauseCtx->iconItemSegment + size0 + 0xF) & ~0xF);
 
