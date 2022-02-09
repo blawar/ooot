@@ -31,7 +31,7 @@ void Sample_Draw(SampleContext* this) {
     gSPSegment(POLY_OPA_DISP++, 0x00, NULL);
     gSPSegment(POLY_OPA_DISP++, 0x01, this->staticSegment);
 
-    func_80095248(gfxCtx, 0, 0, 0);
+    Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
 
     view->flags = 1 | 2 | 4;
     func_800AAA50(view, 15);

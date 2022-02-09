@@ -5,12 +5,28 @@
 
 extern "C" {
 #include "global.h"
+#include "vt.h"
 //#include "ultra64/message.h"
 //#include "ultra64/convert.h"
 //#include "ultra64/exception.h"
 //#include "ultra64/time.h"
 //#include "ultra64/pi.h"
-//#include "ultra64/vi.h"
+#include "ultra64/vi.h"
+#include "ultra64/rcp.h"
+
+extern u32 osTvType;
+
+extern OSViMode osViModePalLan1;
+extern OSViMode osViModeMpalLan1;
+extern OSViMode osViModeNtscLan1;
+
+OSViMode gViConfigMode;
+
+s8  D_80009430 = 1;
+u8  gViConfigAdditionalScanLines = 0;
+u32 gViConfigFeatures = OS_VI_DITHER_FILTER_ON | OS_VI_GAMMA_OFF;
+f32 gViConfigXScale = 1.0;
+f32 gViConfigYScale = 1.0;
 }
 
 typedef u32 OSEvent;
@@ -50,30 +66,6 @@ s32 osJamMesg(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED s32 flag)
 {
 	return 0;
 }*/
-
-uintptr_t osVirtualToPhysical(void* addr)
-{
-	return (uintptr_t)addr;
-}
-
-void osCreateViManager(UNUSED OSPri pri)
-{
-}
-void osViSetMode(UNUSED struct OSViMode* mode)
-{
-}
-void osViSetEvent(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED u32 retraceCount)
-{
-}
-void osViBlack(UNUSED u8 active)
-{
-}
-void osViSetSpecialFeatures(UNUSED u32 func)
-{
-}
-void osViSwapBuffer(UNUSED void* vaddr)
-{
-}
 
 #ifdef _MSC_VER
 #include <windows.h>

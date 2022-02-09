@@ -387,9 +387,9 @@ void ViMode_Save(ViMode* viMode);
 void ViMode_Load(ViMode* viMode);
 void ViMode_Init(ViMode* viMode);
 void ViMode_Destroy(ViMode* viMode);
-void ViMode_ConfigureFeatures(ViMode* viMode, s32 viFeatures);
+void ViMode_ConfigureFeatures(ViMode* viMode, s32 viFeatures);*/
 void ViMode_Update(ViMode* viMode, Input* input);
-void func_800ACE70(struct_801664F0* thiss);
+/*void func_800ACE70(struct_801664F0* thiss);
 void func_800ACE90(struct_801664F0* thiss);
 void func_800ACE98(struct_801664F0* thiss, Gfx** gfxp);
 void VisMono_Init(VisMono* thiss);

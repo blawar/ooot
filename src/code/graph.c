@@ -51,8 +51,13 @@ CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
 
 uintptr_t SysCfb_GetFbPtr(s32 idx);
+
 bool gfx_start_frame();
 void gfx_end_frame();
+void gfx_fbe_sync(GraphicsContext* gfxCtx, GameInfo* GameInfo);
+int gfx_fbe_is_enabled();
+void gfx_fbe_enable(int enable);
+
 bool isRunning();
 
 void Graph_DisassembleUCode(Gfx* workBuf) {
@@ -176,7 +181,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     scTask->next = NULL;
     scTask->flags = OS_SC_RCP_MASK | OS_SC_SWAPBUFFER | OS_SC_LAST_TASK;
-    if (SREG(33) & 1) {
+    if (SREG(33) & 1) {//SREG(33) is raised by the pause menu and PlayerPreRender (frame buffer effects)
         SREG(33) &= ~1;
         scTask->flags &= ~OS_SC_SWAPBUFFER;
         gfxCtx->fbIdx--;
@@ -184,6 +189,8 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     scTask->msgQ = &gfxCtx->queue;
     scTask->msg = NULL;
+
+    gfx_fbe_sync(gfxCtx, gGameInfo);//Sync with GLidenN64 frame buffer emulation
 
     cfb = &sGraphCfbInfos[sGraphCfbInfoIdx++];
     cfb->fb1 = gfxCtx->curFrameBuffer;

@@ -1164,7 +1164,7 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
     gSPSegment(POLY_XLU_DISP++, 0x02, globalCtx->sceneSegment);
     gSPSegment(OVERLAY_DISP++, 0x02, globalCtx->sceneSegment);
 
-    func_80095248(gfxCtx, 0, 0, 0);
+    Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
 
     if ((HREG(80) != 10) || (HREG(82) != 0)) {
         POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
