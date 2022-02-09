@@ -12,6 +12,7 @@
         <Texture Name="spot00_scene_Tex_02A198" Format="ia8" Width="8" Height="16" Offset="0x2A198"/>
     </File>
     <File Name="spot00_room_0" Segment="3">
+        <DList Name="spot00_room_0DL_012968" Offset="0x012968"/>
         <Room Name="spot00_room_0" Offset="0x0"/>
         <DList Name="spot00_room_0DL_012B20" Offset="0x12B20"/>
     </File>

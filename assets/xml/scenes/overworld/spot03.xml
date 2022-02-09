@@ -6,9 +6,12 @@
         <Scene Name="spot03_scene" Offset="0x0"/>
     </File>
     <File Name="spot03_room_0" Segment="3">
+        <DList Name="spot03_room_0DL_00D168" Offset="0x00D168"/>
+        <DList Name="spot03_room_0DL_009748" Offset="0x009748"/>
         <Room Name="spot03_room_0" Offset="0x0"/>
     </File>
     <File Name="spot03_room_1" Segment="3">
+        <DList Name="spot03_room_1DL_005080" Offset="0x005080"/>
         <DList Name="gSpot03DL_0074E8" Offset="0x74E8"/>
         <Room Name="spot03_room_1" Offset="0x0"/>
     </File>
