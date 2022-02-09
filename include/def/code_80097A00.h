@@ -7,6 +7,10 @@ extern u8 gEquipShifts[4];
 extern u32 gGsFlagsMasks[4];
 extern u32 gGsFlagsShifts[4];
 extern void* gItemIcons[0x82];
+#ifndef N64_VERSION
+extern u8* gItemIconsGray[0x60][32*32];
+extern void* gItemIconsCurrent[0x82];//Points to either the original or the grayscale version
+#endif
 extern u8 gItemSlots[56];
 extern u16 gUpgradeCapacities[8][4];
 extern u32 gUpgradeMasks[8];

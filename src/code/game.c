@@ -47,6 +47,8 @@ extern OSViMode osViModeMpalLan1;
 extern OSViMode osViModePalLan1;
 extern OSViMode osViModeFpalLan1;
 
+void KaleidoScope_SetupGrayIcons();
+
 f32 gViConfigXScale;
 f32 gViConfigYScale;
 u32 gViConfigFeatures;
@@ -456,6 +458,9 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
     endTime = osGetTime();
     // "gamealloc_init processing time %d us"
     osSyncPrintf("gamealloc_init processing time %d us\n", OS_CYCLES_TO_USEC(endTime - startTime));
+
+    //Generate grayscale versions of all icons
+    KaleidoScope_SetupGrayIcons();
 
     startTime = endTime;
     GameState_InitArena(gameState, 0x100000 * 0x30); // TODO FIX HACK
