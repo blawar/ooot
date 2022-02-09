@@ -995,8 +995,7 @@ s32 func_80090014(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
                        (gSaveContext.equips.buttonItems[0] != ITEM_SWORD_KOKIRI)) {
                 dLists = D_80125D68;
             }
-            dList = dLists[sDListsLodOffset+dListOffset];
-            *dList = dLists[sDListsLodOffset];
+            *dList = dLists[sDListsLodOffset+dListOffset];
         } else if (limbIndex == PLAYER_LIMB_WAIST) {
             *dList = this->waistDLists[sDListsLodOffset];
         }
