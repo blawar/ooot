@@ -49,7 +49,7 @@ def build():
     subprocess.check_call([sys.executable, str('extract_baserom.py')])
     subprocess.check_call([sys.executable, str('extract_assets.py')])
     subprocess.check_call([sys.executable, str('tools/convert_assets.py')])
-    Path.mkdir(str('build/assets/text'), parents=True, exist_ok = True)
+    Path.mkdir(Path('build/assets/text'), parents=True, exist_ok = True)
     subprocess.check_call([sys.executable, str('tools/msgenc.py'), str('assets/text/charmap.txt'), str('assets/text/message_data.h'), str('build/assets/text/message_data.enc.h')])
     subprocess.check_call([sys.executable, str('tools/msgenc.py'), str('assets/text/charmap.txt'), str('assets/text/message_data_staff.h'), str('build/assets/text/message_data_staff.enc.h')])
     subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py')])
