@@ -179,11 +179,11 @@ void* gItemIcons[] = {
     gOcarinaATex,
 };
 
-//Copy of all the icon in grayscale version.
-//The texture here will be generated on runtime via KaleidoScope_GrayOutTextureRGBA32() inKaleidoScope_SetupGrayIcons()
+//Copy of all the icons in grayscale version.
+//The textures here will be generated on runtime via KaleidoScope_GrayOutTextureRGBA32() in KaleidoScope_SetupGrayIcons()
 #ifndef N64_VERSION
-void* gItemIconsGray[0x60][32*32];
-void* gItemIconsCurrent[0x82];
+void* gItemIconsGray[86][32*32];
+void* gItemIconsCurrent[86];
 #endif
 
 // Used to map item IDs to inventory slots

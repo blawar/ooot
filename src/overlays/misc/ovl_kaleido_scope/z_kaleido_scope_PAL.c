@@ -267,11 +267,12 @@ static void* sPreRenderCvg;
 void KaleidoScope_GrayOutTextureRGBA32(u32* textureIn, u32* textureOut, u16 pixelCount);
 
 void KaleidoScope_SetupGrayIcons() {
-    static_assert(ARRAY_COUNTU(gItemIconsGray) <= ARRAY_COUNTU(gItemIcons),  "gItemIcons can not have more elements than gItemIconsGray");
-    static_assert(ARRAY_COUNTU(gItemIconsGray) >= ARRAY_COUNTU(gItemAgeReqs),"gItemIconsGray needs to be larger than gItemAgeReqs");
-
+    static_assert(ARRAY_COUNTU(gItemIconsGray) <= ARRAY_COUNTU(gItemIcons),   "gItemIcons can not have more elements than gItemIconsGray");
+    static_assert(ARRAY_COUNTU(gItemIconsGray) <= ARRAY_COUNTU(gItemAgeReqs), "gItemAgeReqs needs to be larger than gItemIconsGray");
+    static_assert(ARRAY_COUNTU(gItemIconsCurrent) == ARRAY_COUNTU(gItemAgeReqs), "gItemIconsCurrent and gItemAgeReqs need to be of the same size");
+    
     s16 i;
-    for (i = 0; i < ARRAY_COUNTU(gItemIconsGray); i++) {
+    for (i = 0; i < ARRAY_COUNTU(gItemAgeReqs); i++) {
         if (gItemAgeReqs[i] != 9) {
             KaleidoScope_GrayOutTextureRGBA32(SEGMENTED_TO_VIRTUAL(gItemIcons[i]), SEGMENTED_TO_VIRTUAL(gItemIconsGray[i]), 32*32);
         }
