@@ -55,7 +55,7 @@ def build():
     subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py')])
     subprocess.check_call([sys.executable, str('tools/create_luts.py')])
     subprocess.check_call([sys.executable, str('tools/mark_segments.py')])
-    subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py')])
+    #subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py')])
 
     print("Finished asset extraction and parsing")
 
