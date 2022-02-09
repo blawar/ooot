@@ -45,16 +45,18 @@ def build():
     print("Starting asset extraction and parsing")
     # sys.executable points to python executable
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'tqdm'])
-    subprocess.check_call([sys.executable, Path('fixbaserom.py')])
-    subprocess.check_call([sys.executable, Path('extract_baserom.py')])
-    subprocess.check_call([sys.executable, Path('extract_assets.py')])
-    subprocess.check_call([sys.executable, Path('tools/convert_assets.py')])
-    Path.mkdir(Path('build/assets/text'), parents=True, exist_ok = True)
-    subprocess.check_call([sys.executable, Path('tools/msgenc.py'), Path('assets/text/charmap.txt'), Path('assets/text/message_data.h'), Path('build/assets/text/message_data.enc.h')])
-    subprocess.check_call([sys.executable, Path('tools/msgenc.py'), Path('assets/text/charmap.txt'), Path('assets/text/message_data_staff.h'), Path('build/assets/text/message_data_staff.enc.h')])
-    subprocess.check_call([sys.executable, Path('tools/extract_missing_assets.py')])
-    subprocess.check_call([sys.executable, Path('tools/create_luts.py')])
-    subprocess.check_call([sys.executable, Path('tools/mark_segments.py')])
+    subprocess.check_call([sys.executable, str('fixbaserom.py')])
+    subprocess.check_call([sys.executable, str('extract_baserom.py')])
+    subprocess.check_call([sys.executable, str('extract_assets.py')])
+    subprocess.check_call([sys.executable, str('tools/convert_assets.py')])
+    Path.mkdir(str('build/assets/text'), parents=True, exist_ok = True)
+    subprocess.check_call([sys.executable, str('tools/msgenc.py'), str('assets/text/charmap.txt'), str('assets/text/message_data.h'), str('build/assets/text/message_data.enc.h')])
+    subprocess.check_call([sys.executable, str('tools/msgenc.py'), str('assets/text/charmap.txt'), str('assets/text/message_data_staff.h'), str('build/assets/text/message_data_staff.enc.h')])
+    subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py')])
+    subprocess.check_call([sys.executable, str('tools/create_luts.py')])
+    subprocess.check_call([sys.executable, str('tools/mark_segments.py')])
+    subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py')])
+
     print("Finished asset extraction and parsing")
 
 def main():
