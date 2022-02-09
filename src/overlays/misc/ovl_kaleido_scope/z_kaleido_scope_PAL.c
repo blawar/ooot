@@ -2332,11 +2332,16 @@ void KaleidoScope_Draw(GlobalContext* globalCtx) {
 }
 
 void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount) {
+#ifdef N64_VERSION
     u32 rgb;
+#else
+    u32 bgr;
+#endif
     u16 gray;
     u16 i;
 
     for (i = 0; i < pixelCount; i++) {
+#ifdef N64_VERSION
         if ((texture[i] & 0xFFFFFF00) != 0) {
             rgb = texture[i] >> 8;
             gray = ((((rgb & 0xFF0000) >> 16) + ((rgb & 0xFF00) >> 7) + (rgb & 0xFF)) / 7) & 0xFF;
@@ -2349,6 +2354,20 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount) {
 
             texture[i] = (rgb << 8) | (texture[i] & 0xFF);
         }
+#else
+        if ((texture[i] & 0x00FFFFFF) != 0) {
+            bgr = texture[i] & 0x00FFFFFF;
+            gray = ((((bgr & 0xFF0000) >> 16) + ((bgr & 0xFF00) >> 7) + (bgr & 0xFF)) / 7) & 0xFF;
+
+            bgr = gray;
+            bgr <<= 8;
+            bgr |= gray;
+            bgr <<= 8;
+            bgr |= gray;
+
+            texture[i] = 0xFF000000 | bgr;
+        }
+#endif
     }
 }
 
