@@ -16,10 +16,12 @@
         <Room Name="gerudoway_room_1" Offset="0x0"/>
     </File>
      <File Name="gerudoway_room_2" Segment="3">
+        <DList Name="gerudoway_room_2DL_003E28" Offset="0x003E28"/>
         <DList Name="gerudoway_room_2DL_002268" Offset="0x002268"/>
         <Room Name="gerudoway_room_2" Offset="0x0"/>
     </File>
      <File Name="gerudoway_room_3" Segment="3">
+        <DList Name="gerudoway_room_3DL_00B2E8" Offset="0x00B2E8"/>
         <DList Name="gerudoway_room_3DL_006E50" Offset="0x006E50"/>
         <Room Name="gerudoway_room_3" Offset="0x0"/>
     </File>

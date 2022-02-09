@@ -5,6 +5,7 @@
         <Scene Name="souko_scene" Offset="0x0"/>
     </File>
     <File Name="souko_room_0" Segment="3">
+        <DList Name="souko_room_0DL_009528" Offset="0x009528"/>
         <DList Name="souko_room_0DL_0054A0" Offset="0x0054A0"/>
         <Room Name="souko_room_0" Offset="0x0"/>
     </File>

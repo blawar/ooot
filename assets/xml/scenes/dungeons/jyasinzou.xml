@@ -41,6 +41,7 @@
         <Room Name="jyasinzou_room_7" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_8" Segment="3">
+        <DList Name="jyasinzou_room_8DL_008098" Offset="0x008098"/>
         <DList Name="jyasinzou_room_8DL_003A08" Offset="0x003A08"/>
         <Room Name="jyasinzou_room_8" Offset="0x0"/>
     </File>
