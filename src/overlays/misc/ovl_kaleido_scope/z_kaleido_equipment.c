@@ -560,7 +560,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
             } else if (CUR_UPG_VALUE(sAdultUpgrades[i]) != 0) {
                 KaleidoScope_DrawQuadTextureRGBA32(
                     globalCtx->state.gfxCtx,
-                    gItemIcons[sAdultUpgradeItemBases[i] + CUR_UPG_VALUE(sAdultUpgrades[i]) - 1], 32, 32, 0);
+                    gItemIconsCurrent[sAdultUpgradeItemBases[i] + CUR_UPG_VALUE(sAdultUpgrades[i]) - 1], 32, 32, 0);
             }
         }
 
