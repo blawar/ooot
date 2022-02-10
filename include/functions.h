@@ -576,7 +576,7 @@ void SpeedMeter_InitAllocEntry(SpeedMeterAllocEntry* entry, u32 maxval, u32 val,
 void SpeedMeter_DrawAllocEntry(SpeedMeterAllocEntry* thiss, GraphicsContext* gfxCtx);
 void SpeedMeter_DrawAllocEntries(SpeedMeter* meter, GraphicsContext* gfxCtx, GameState* state);
 
-void func_800D2CEC(Mtx* mtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+void Matrix_ScaleTrans(Mtx* mtx, f32 scaleX, f32 scaleY, f32 scaleZ, f32 posX, f32 posY, f32 posZ) ;
 u64* SysUcode_GetUCodeBoot(void);
 u64 SysUcode_GetUCodeBootSize(void);
 u64* SysUcode_GetUCode(void);

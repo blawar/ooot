@@ -32,7 +32,7 @@ void Matrix_TranslateRotateZYX(Vec3f* translation, Vec3s* rotation);
 void Matrix_Transpose(MtxF* mf);
 void func_800D1694(f32 x, f32 y, f32 z, Vec3s* vec);
 void func_800D1FD4(MtxF* mf);
-void func_800D2CEC(Mtx* mtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+void Matrix_ScaleTrans(Mtx* mtx, f32 scaleX, f32 scaleY, f32 scaleZ, f32 posX, f32 posY, f32 posZ);
 #else
 MtxF* Matrix_CheckFloats(MtxF* mf, char* file, s32 line);
 void Matrix_Get(MtxF* dest);
@@ -62,5 +62,5 @@ void Matrix_TranslateRotateZYX(struct Vec3f* translation, struct Vec3s* rotation
 void Matrix_Transpose(MtxF* mf);
 void func_800D1694(f32 x, f32 y, f32 z, struct Vec3s* vec);
 void func_800D1FD4(MtxF* mf);
-void func_800D2CEC(struct Mtx* mtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+void Matrix_ScaleTrans(struct Mtx* mtx, f32 scaleX, f32 scaleY, f32 scaleZ, f32 posX, f32 posY, f32 posZ);
 #endif
