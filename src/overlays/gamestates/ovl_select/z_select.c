@@ -113,7 +113,7 @@ static SceneSelectEntry sScenes[] = {
     // "24: Grave Dive Hole" (Grave (Redead))
     { "24: Graveyard Hole", Select_LoadGame, 0x031C },
     // "25: Grave Dive Hole 2" (Grave (Fairy's Fountain))
-    { "25:  Graveyard Hole", Select_LoadGame, 0x004B },
+    { "25: Graveyard Hole 2", Select_LoadGame, 0x004B },
     // "26: Royal Family's Grave" (Royal Family's Tomb)
     { "26: Royal Familys Tomb", Select_LoadGame, 0x002D },
     // "27: Great Fairy's Fountain" (Great Fairy's Fountain (Upgrades))
@@ -157,7 +157,7 @@ static SceneSelectEntry sScenes[] = {
     // "46: Back Alley House" (Back Alley House (Man in Green))
     { "46: Back Alley House", Select_LoadGame, 0x043B },
     // "47: Kokiri Village - Know-It-All Brothers' House" (Know-It-All Brothers' House)
-    { "47:Know-It-All Brothers House", Select_LoadGame, 0x00C9 },
+    { "47: Know-It-All Brothers House", Select_LoadGame, 0x00C9 },
     // "48: Kokiri Village - Twins' House" (Twins' House)
     { "48: Twins House", Select_LoadGame, 0x009C },
     // "49: Kokiri Village - Mido's House" (Mido's House)
@@ -251,7 +251,7 @@ static SceneSelectEntry sScenes[] = {
     // "93: Ganon's Tower Aftermath 4" (Escaping Ganon's Tower 4)
     { "93: Escaping Ganons Tower 4", Select_LoadGame, 0x03E4 },
     // "94: Ganon's Basement Aftermath" (Escaping Ganon's Castle)
-    { "94: Escaping Ganons Castleﾞ", Select_LoadGame, 0x056C },
+    { "94: Escaping Ganons Castle", Select_LoadGame, 0x056C },
     // "95: Gerudo Passage 1-2" (Thieves' Hideout 1)
     { "95: Thieves Hideout 1", Select_LoadGame, 0x0486 },
     // "96: Gerudo Passage 3-4 9-10" (Thieves' Hideout 2)
