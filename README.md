@@ -1,5 +1,6 @@
 # Open Ocarina - The Master Port
 
+
 ```diff
 - WARNING! -
 
@@ -22,7 +23,12 @@ Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
 
 **Note: This repository does not include any of the assets necessary to build the ROM. A prior copy of the game is required to extract the needed assets.**
 
+**Note: Be sure to use ``git clone --recursive https://github.com/blawar/ooot.git`` when cloning the repo for the submodules.**
+
 **Discord:** <https://discord.com/invite/8tktBEhbZm>
+
+## Contributers
+The current main contributers of this project are [blawar](https://github.com/blawar), [mrneo240](https://github.com/mrneo240), and [DaMarkov](https://github.com/damarkov)
 
 ## Installation
 
@@ -58,8 +64,6 @@ Not currently supported, however a makefile and porting of GLideN64 would allow 
 
 
 ## Contributing
-
-This project is currently maintained by blawar/vertigo and Zel.
 
 All contributions are welcome. This is a group effort, and even small contributions can make a difference.
 Some tasks also don't require much knowledge to get started.  The best contribution that can be made, is playing the game and reporting bugs by opening a github issue on this repository.  Code contributions, as well as porting changes from the [upstream repo](https://github.com/zeldaret/oot) are greatly appreciated.
