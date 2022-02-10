@@ -566,6 +566,7 @@ void EnTk_Rest(EnTk* this, GlobalContext* globalCtx) {
         this->actionFunc = EnTk_Walk;
 
         /*! @bug v1 is uninitialized past this branch */
+        v1 = 0;
     } else {
         v1 = 0;
     }
