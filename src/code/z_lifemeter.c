@@ -447,7 +447,7 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
             {
                 Matrix_Translate(-130.0f + offsetX, 94.5f - offsetY, 0.0f, MTXMODE_NEW);
                 Matrix_Scale(1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize), MTXMODE_APPLY);
-                gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_lifemeter.c", 1337), G_MTX_MODELVIEW | G_MTX_LOAD);
+                gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_lifemeter.c", 1337), G_MTX_MODELVIEW | G_MTX_LOAD);
                 gSPVertex(OVERLAY_DISP++, beatingHeartVtx, 4, 0);
                 gSP1Quadrangle(OVERLAY_DISP++, 0, 2, 3, 1, 0);
             }
