@@ -15,15 +15,6 @@
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"
 
-#define DISABLE_BEATING_HEART
-
-static Vtx sBeatingHeartVtx[] = {
-    VTX(-8,  8, 0, 0,   0,   0, 255, 255, 255, 255),
-    VTX( 8,  8, 0, 0, 512,   0, 255, 255, 255, 255),
-    VTX(-8, -8, 0, 0,   0, 512, 255, 255, 255, 255),
-    VTX( 8, -8, 0, 0, 512, 512, 255, 255, 255, 255)
-};
-
 static s16 sHeartsPrimColors[3][3] = {
     { HEARTS_PRIM_R, HEARTS_PRIM_G, HEARTS_PRIM_B },
     { HEARTS_BURN_PRIM_R, HEARTS_BURN_PRIM_G, HEARTS_BURN_PRIM_B },    // unused
@@ -409,11 +400,7 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
                                 G_TX_NOLOD, G_TX_NOLOD);
         }
 
-#ifdef DISABLE_BEATING_HEART
-        if (heartIndex != totalHeartCount) {
-#else
         if (heartIndex != fullHeartCount) {
-#endif
             if ((ddHeartCountMinusOne < 0) || (heartIndex > ddHeartCountMinusOne)) {
                 if (curCombineModeSet != 1) {
                     curCombineModeSet = 1;
@@ -458,9 +445,11 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
             }
 
             {
+                //Calculate the matrix for the beating heart
+                //The code below is an optimized way of calling Matrix_Translate() and Matrix_Scale()
                 Mtx* matrix = Graph_Alloc(gfxCtx, sizeof(Mtx));
-                func_800D2CEC(matrix, 1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize),
-                              -130.0f + offsetX, 94.5f - offsetY, 0.0f);
+                Matrix_ScaleTrans(matrix, 1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize), 1.0f - (0.32f * beatingHeartPulsingSize),
+                    -130.0f + offsetX, 94.5f - offsetY, 0.0f);
                 gSPMatrix(OVERLAY_DISP++, matrix, G_MTX_MODELVIEW | G_MTX_LOAD);
                 gSPVertex(OVERLAY_DISP++, beatingHeartVtx, 4, 0);
                 gSP1Quadrangle(OVERLAY_DISP++, 0, 2, 3, 1, 0);

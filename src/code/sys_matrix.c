@@ -1095,7 +1095,8 @@ void func_800D2BD0(Mtx* mtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     m2[15] = 0;
 }
 
-void func_800D2CEC(Mtx* mtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+//Sets the scaling and translation part of matrix all other parts of the matrix get set to zero
+void Matrix_ScaleTrans(Mtx* mtx, f32 scaleX, f32 scaleY, f32 scaleZ, f32 posX, f32 posY, f32 posZ) {
     Mtx_t* m = &mtx->m;
     u16* m1 = (u16*)(*m)[0];
     u16* m2 = (u16*)(*m)[2];
@@ -1107,32 +1108,49 @@ void func_800D2CEC(Mtx* mtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     (*m)[2][3] = 0;
     (*m)[0][4] = 0;
 
-    temp = (s32)(arg1 * 65536.0f);
+#ifndef LITTLE_ENDIAN
+    temp = (s32)(scaleX * 65536.0f);
     (*m)[0][0] = temp;
 
     m1[1] = 0;
     (*m)[2][0] = temp << 16;
 
-    temp = (s32)(arg2 * 65536.0f);
+    temp = (s32)(scaleY * 65536.0f);
     (*m)[0][2] = temp >> 16;
     (*m)[2][2] = temp & 0xFFFF;
 
-    temp = (s32)(arg3 * 65536.0f);
+    temp = (s32)(scaleZ * 65536.0f);
     (*m)[1][1] = temp;
     m1[11] = 0;
     (*m)[3][1] = temp << 16;
+#else
+    temp = (s32)(scaleX * 65536.0f);
+    (*m)[0][0] = temp >> 16;
+
+    m1[1] = 0;
+    (*m)[2][0] = temp & 0xFFFF;
+
+    temp = (s32)(scaleY * 65536.0f);
+    (*m)[0][2] = temp & 0xFFFF0000;
+    (*m)[2][2] = (temp & 0xFFFF) << 16;
+
+    temp = (s32)(scaleZ * 65536.0f);
+    (*m)[1][1] = temp >> 16;
+    m1[11] = 0;
+    (*m)[3][1] = temp & 0xFFFF;
+#endif
 
     (*m)[2][4] = 0;
 
-    temp = (s32)(arg4 * 65536.0f);
+    temp = (s32)(posX * 65536.0f);
     m1[12] = (temp >> 16) & 0xFFFF;
     m2[12] = temp & 0xFFFF;
 
-    temp = (s32)(arg5 * 65536.0f);
+    temp = (s32)(posY * 65536.0f);
     m1[13] = (temp >> 16) & 0xFFFF;
     m2[13] = temp & 0xFFFF;
 
-    temp = (s32)(arg6 * 65536.0f);
+    temp = (s32)(posZ * 65536.0f);
     m1[14] = (temp >> 16) & 0xFFFF;
     m1[15] = 1;
     (*m)[3][3] = temp << 16;
