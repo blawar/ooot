@@ -155,7 +155,7 @@ s32 DemoTreLgt_PostLimbDraw(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve,
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_tre_lgt.c", 448);
-    return 0;
+    return 1;
 }
 
 void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx) {
