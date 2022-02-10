@@ -75,6 +75,8 @@
 #include "def/z_vr_box_draw.h"
 #include "def/zbuffer.h"
 
+void gfx_force_43(bool enable);//From GlideN64
+
 void Gameplay_Main(GameState* thisx);
 void Gameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn);
 
@@ -455,6 +457,11 @@ void Gameplay_Init(GameState* thisx) {
     while (!func_800973FC(globalCtx, &globalCtx->roomCtx)) {
         ; // Empty Loop
     }
+
+    //Check if the room in our scene has a prerendered backgrounds
+    Room* currentRoom = &globalCtx->roomCtx.curRoom;
+    PolygonType1* polygon1 = &currentRoom->mesh->polygon1;
+    gfx_force_43(polygon1->format == 1);//Switch GLideN64 to 4:3 if necessary
 
     player = GET_PLAYER(globalCtx);
     Camera_InitPlayerSettings(&globalCtx->mainCamera, player);
