@@ -183,7 +183,7 @@ copy /Y "$(OutDir)$(TargetName).*" "$(PJ64PluginsDirWTL_x64)")</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_mupenplus' Or '$(Configuration)'=='Release_mupenplus'">
     <ClCompile>
-      <PreprocessorDefinitions>NATIVE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NATIVE;NO_LOAD_PROGRESS_DISPLAY;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
       <Message>Copy result to plugins folder</Message>
