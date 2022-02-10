@@ -313,7 +313,7 @@ namespace sm64::hid
 				//When F5 is pressed. Mark all dpad button as pressed. Used to open map select
 				if (state[SDL_SCANCODE_F5] && (m_lastKeyState[SDL_SCANCODE_F5] ^ state[SDL_SCANCODE_F5]))
 				{
-						m_state.button |= U_JPAD | D_JPAD | L_JPAD | R_JPAD;
+					m_state.button |= U_JPAD | D_JPAD | L_JPAD | R_JPAD;
 				}
 
 				if (hid::isTasPlaying())
