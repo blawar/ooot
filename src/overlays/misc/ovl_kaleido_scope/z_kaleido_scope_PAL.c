@@ -160,6 +160,8 @@ static void* sSaveTexs[] = {
     sSaveFRATexs,
 };
 
+void KaleidoScope_UpdateCursorSize(GlobalContext* globalCtx);
+
 s16 D_8082AAEC[] = {
     32, 112, 32, 48, 32, 32, 32, 48, 32, 64, 32, 48, 48, 48, 48, 64, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 80, 64,
 };
@@ -477,6 +479,8 @@ void KaleidoScope_HandlePageToggles(PauseContext* pauseCtx, Input* input) {
 void KaleidoScope_DrawCursor(GlobalContext* globalCtx, u16 pageIndex) {
     PauseContext* pauseCtx = &globalCtx->pauseCtx;
     u16 temp;
+
+    KaleidoScope_UpdateCursorSize(globalCtx);
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 955);
 
@@ -1887,8 +1891,6 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
     pauseCtx->questPageVtx = Graph_Alloc(gfxCtx, 60 * sizeof(Vtx));
     func_80823A0C(globalCtx, pauseCtx->questPageVtx, 3, 0);
 
-    pauseCtx->cursorVtx = Graph_Alloc(gfxCtx, 20 * sizeof(Vtx));
-
     for (phi_t2 = 0; phi_t2 < 20; phi_t2++) {
         pauseCtx->cursorVtx[phi_t2].v.ob[0] = pauseCtx->cursorVtx[phi_t2].v.ob[1] =
             pauseCtx->cursorVtx[phi_t2].v.ob[2] = 0;
@@ -2592,10 +2594,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
         if ((!pauseCtx->unk_1E4 || (pauseCtx->unk_1E4 == 8)) && (pauseCtx->state == 6)) {
             pauseCtx->stickRelX = input->rel.stick_x;
             pauseCtx->stickRelY = input->rel.stick_y;
-            KaleidoScope_UpdateCursorSize(globalCtx);
             KaleidoScope_HandlePageToggles(pauseCtx, input);
-        } else if ((pauseCtx->pageIndex == PAUSE_QUEST) && ((pauseCtx->unk_1E4 < 3) || (pauseCtx->unk_1E4 == 5))) {
-            KaleidoScope_UpdateCursorSize(globalCtx);
         }
 
         if (pauseCtx->state == 6) {
