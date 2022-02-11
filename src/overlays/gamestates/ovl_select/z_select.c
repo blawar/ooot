@@ -595,10 +595,10 @@ void Select_PrintCutsceneSetting(SelectContext* this, GfxPrint* printer, u16 csI
 
     switch (csIndex) {
         case 0:
-            gSaveContext.dayTime = 0; label = "Day";
+            gSaveContext.dayTime = 0; label = "Night";
             break;
         case 0x8000:
-            gSaveContext.dayTime = 0x8000; label = "Night";
+            gSaveContext.dayTime = 0x8000; label = "Day";
             break;
         case 0xFFF0:
             gSaveContext.dayTime = 0x8000; label = "Demo00";
