@@ -54,7 +54,7 @@ def build():
     subprocess.check_call([sys.executable, str('tools/msgenc.py'), str('assets/text/charmap.txt'), str('assets/text/message_data_staff.h'), str('build/assets/text/message_data_staff.enc.h')])
     subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py')])
     subprocess.check_call([sys.executable, str('tools/create_luts.py')])
-    subprocess.check_call([sys.executable, str('tools/mark_segments.py')])
+    #subprocess.check_call([sys.executable, str('tools/mark_segments.py')])
     #subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py')])
 
     print("Finished asset extraction and parsing")

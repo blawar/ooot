@@ -190,10 +190,6 @@ int main(int argc, char* argv[])
 #if !defined(_MSC_VER) && !defined(__CYGWIN__)
 			signal(SIGSEGV, ErrorHandler);
 			signal(SIGABRT, ErrorHandler);
-#else
-			HANDLE_WARNING(WarningType::Always,
-			               "tried to set error handler, but this ZAPD build lacks support for one",
-			               "");
 #endif
 		}
 		else if (arg == "-v")  // Verbose

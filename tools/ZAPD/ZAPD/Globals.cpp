@@ -159,7 +159,7 @@ bool Globals::GetSegmentedPtrName(segptr_t segAddress, ZFile* currentFile,
 		return true;
 	}
 
-	declName = StringHelper::Sprintf("0x%08X", segAddress);
+	declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 	return false;
 }
 
@@ -196,7 +196,7 @@ bool Globals::GetSegmentedArrayIndexedName(segptr_t segAddress, size_t elementSi
 		}
 	}
 
-	declName = StringHelper::Sprintf("0x%08X", segAddress);
+	declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 	return false;
 }
 

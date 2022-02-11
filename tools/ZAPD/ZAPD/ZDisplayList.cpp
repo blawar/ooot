@@ -705,7 +705,7 @@ void ZDisplayList::Opcode_G_DL(uint64_t data, const std::string& prefix, char* l
 	if (pp != 0)
 	{
 		if (!Globals::Instance->HasSegment(segNum))
-			sprintf(line, "gsSPBranchList(0x%08" PRIX64 "),", data & 0xFFFFFFFF);
+			sprintf(line, "gsSPBranchList(SEGMENT_ADDRESS(0x%08)" PRIX64 "),", data & 0xFFFFFFFF);
 		else if (dListDecl != nullptr)
 			sprintf(line, "gsSPBranchList(%s),", dListDecl->varName.c_str());
 		else
@@ -715,7 +715,7 @@ void ZDisplayList::Opcode_G_DL(uint64_t data, const std::string& prefix, char* l
 	else
 	{
 		if (!Globals::Instance->HasSegment(segNum))
-			sprintf(line, "gsSPDisplayList(0x%08" PRIX64 "),", data & 0xFFFFFFFF);
+			sprintf(line, "gsSPDisplayList(SEGMENT_ADDRESS(0x%08)" PRIX64 "),", data & 0xFFFFFFFF);
 		else if (dListDecl != nullptr)
 			sprintf(line, "gsSPDisplayList(%s),", dListDecl->varName.c_str());
 		else
@@ -728,9 +728,9 @@ void ZDisplayList::Opcode_G_DL(uint64_t data, const std::string& prefix, char* l
 	if (!Globals::Instance->HasSegment(segNum))
 	{
 		if (pp != 0)
-			sprintf(line, "gsSPBranchList(0x%08" PRIX64 "),", data & 0xFFFFFFFF);
+			sprintf(line, "gsSPBranchList(SEGMENT_ADDRESS(0x%08)" PRIX64 "),", data & 0xFFFFFFFF);
 		else
-			sprintf(line, "gsSPDisplayList(0x%08" PRIX64 "),", data & 0xFFFFFFFF);
+			sprintf(line, "gsSPDisplayList(SEGMENT_ADDRESS(0x%08)" PRIX64 "),", data & 0xFFFFFFFF);
 	}
 	else
 	{
@@ -807,7 +807,7 @@ void ZDisplayList::Opcode_G_MTX(uint64_t data, char* line)
 	if (Globals::Instance->cfg.symbolMap.find(mm) != Globals::Instance->cfg.symbolMap.end())
 		matrixRef = StringHelper::Sprintf("&%s", Globals::Instance->cfg.symbolMap[mm].c_str());
 	else
-		matrixRef = StringHelper::Sprintf("0x%08X", mm);
+		matrixRef = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", mm);
 
 	pp ^= 0x01;
 
@@ -851,7 +851,7 @@ void ZDisplayList::Opcode_G_VTX(uint64_t data, char* line)
 		segptr_t segmented = data & 0xFFFFFFFF;
 		references.push_back(segmented);
 		parent->AddDeclaration(segmented, DeclarationAlignment::Align8, 16, "Vtx",
-		                       StringHelper::Sprintf("0x%08X", segmented), "");
+		                       StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segmented), "");
 		return;
 	}
 	references.push_back(data);
@@ -962,7 +962,7 @@ void ZDisplayList::Opcode_G_SETTIMG(uint64_t data, const std::string& prefix, ch
 			sprintf(texStr, "%sTex_%06X", STR(prefix), texAddress);
 		else
 		{
-			sprintf(texStr, "0x%08" PRIX64, data & 0xFFFFFFFF);
+			sprintf(texStr, "SEGMENT_ADDRESS(0x%08)" PRIX64, data & 0xFFFFFFFF);
 		}
 
 		sprintf(line, "gsDPSetTextureImage(%s, %s, %i, %s),", fmtTbl[fmt], sizTbl[siz], www + 1,

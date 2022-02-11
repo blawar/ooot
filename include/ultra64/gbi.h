@@ -3,7 +3,7 @@
 
 #include "porting_defs.h"
 
-#define SEGMENT_ADDRESS(addr) (addr)
+#define SEGMENT_ADDRESS(addr) ((uintptr_t)addr | 1)
 
 //#pragma pack(1)
 

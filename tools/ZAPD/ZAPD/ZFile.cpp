@@ -631,7 +631,7 @@ bool ZFile::GetDeclarationPtrName(segptr_t segAddress, const std::string& expect
 	Declaration* decl = GetDeclaration(offset);
 	if (GETSEGNUM(segAddress) != segment || decl == nullptr)
 	{
-		declName = StringHelper::Sprintf("0x%08X", segAddress);
+		declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 		return false;
 	}
 
@@ -639,7 +639,7 @@ bool ZFile::GetDeclarationPtrName(segptr_t segAddress, const std::string& expect
 	{
 		if (expectedType != decl->varType && "static " + expectedType != decl->varType)
 		{
-			declName = StringHelper::Sprintf("0x%08X", segAddress);
+			declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 			return false;
 		}
 	}
@@ -665,7 +665,7 @@ bool ZFile::GetDeclarationArrayIndexedName(segptr_t segAddress, size_t elementSi
 	Declaration* decl = GetDeclarationRanged(address);
 	if (GETSEGNUM(segAddress) != segment || decl == nullptr || !decl->isArray)
 	{
-		declName = StringHelper::Sprintf("0x%08X", segAddress);
+		declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 		return false;
 	}
 
@@ -673,7 +673,7 @@ bool ZFile::GetDeclarationArrayIndexedName(segptr_t segAddress, size_t elementSi
 	{
 		if (expectedType != decl->varType && "static " + expectedType != decl->varType)
 		{
-			declName = StringHelper::Sprintf("0x%08X", segAddress);
+			declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 			return false;
 		}
 	}
@@ -686,7 +686,7 @@ bool ZFile::GetDeclarationArrayIndexedName(segptr_t segAddress, size_t elementSi
 
 	if ((address - decl->address) % elementSize != 0 || !(address < decl->address + decl->size))
 	{
-		declName = StringHelper::Sprintf("0x%08X", segAddress);
+		declName = StringHelper::Sprintf("SEGMENT_ADDRESS(0x%08X)", segAddress);
 		return false;
 	}
 
