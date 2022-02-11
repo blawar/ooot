@@ -28,6 +28,7 @@ out.txt
 *.log
 *.sav
 
+
 # Tool artifacts
 tools/mipspro7.2_compiler/
 tools/overlayhelpers/batchdisasm/output/*
@@ -41,6 +42,7 @@ tools/*dSYM/
 graphs/
 external/
 vs/Debug
+vs/build
 src/code/*_assets.h
 
 # Assets
