@@ -101,7 +101,6 @@ static void* sEyesTextures[] = {
 
 void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnPoRelay* this = (EnPoRelay*)thisx;
-    s32 temp;
 
     Actor_ProcessInitChain(&this->actor, sInitChain);
     ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 42.0f);
