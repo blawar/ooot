@@ -503,11 +503,20 @@ u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts) {
 
     index = ((u16*)gAudioContext.sequenceFontTable)[seqId];
 
-    *outNumFonts = gAudioContext.sequenceFontTable[index++];
+#ifdef LITTLE_ENDIAN
+    *outNumFonts = gAudioContext.sequenceFontTable[index+1];
     if (*outNumFonts == 0) {
         return NULL;
     }
-    return &gAudioContext.sequenceFontTable[index];
+    return &gAudioContext.sequenceFontTable[index+0];
+#else
+    * outNumFonts = gAudioContext.sequenceFontTable[index + 0];
+    if(*outNumFonts == 0)
+    {
+        return NULL;
+    }
+    return &gAudioContext.sequenceFontTable[index + 1];
+#endif
 }
 
 void AudioLoad_DiscardSeqFonts(s32 seqId) {
