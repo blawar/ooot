@@ -461,7 +461,7 @@ void Gameplay_Init(GameState* thisx) {
     //Check if the room in our scene has a prerendered backgrounds
     Room* currentRoom = &globalCtx->roomCtx.curRoom;
     PolygonType1* polygon1 = &currentRoom->mesh->polygon1;
-    gfx_force_43(polygon1->format == 1 || polygon1->format == 2);//Switch GLideN64 to 4:3 if necessary//Switch GLideN64 to 4:3 if necessary
+    // TODO FIX RE-ENABLE gfx_force_43(polygon1->format == 1 || polygon1->format == 2);//Switch GLideN64 to 4:3 if necessary//Switch GLideN64 to 4:3 if necessary
 
     player = GET_PLAYER(globalCtx);
     Camera_InitPlayerSettings(&globalCtx->mainCamera, player);
