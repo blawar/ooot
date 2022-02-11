@@ -82,8 +82,6 @@ static ColliderCylinderInit sCylinderInit = {
     { 30, 52, 0, { 0, 0, 0 } },
 };
 
-static s32 D_80AD8D24 = 0;
-
 static InitChainEntry sInitChain[] = {
     ICHAIN_S8(naviEnemyId, 0x4F, ICHAIN_CONTINUE),
     ICHAIN_F32(targetArrowOffset, 1500, ICHAIN_STOP),
@@ -103,7 +101,6 @@ static void* sEyesTextures[] = {
 
 void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnPoRelay* this = (EnPoRelay*)thisx;
-    s32 temp;
 
     Actor_ProcessInitChain(&this->actor, sInitChain);
     ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 42.0f);
@@ -115,15 +112,11 @@ void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
     Lights_PointNoGlowSetInfo(&this->lightInfo, this->actor.home.pos.x, this->actor.home.pos.y, this->actor.home.pos.z,
                               255, 255, 255, 200);
     this->lightColor.a = 255;
-    temp = 1;
-    if (D_80AD8D24 != 0) {
-        Actor_Kill(&this->actor);
-    } else {
-        D_80AD8D24 = temp;
-        Actor_SetTextWithPrefix(globalCtx, &this->actor, 65);
-        this->textId = this->actor.textId;
-        EnPoRelay_SetupIdle(this);
-    }
+    
+    Actor_SetTextWithPrefix(globalCtx, &this->actor, 65);
+    this->textId = this->actor.textId;
+    EnPoRelay_SetupIdle(this);
+
     this->actor.params &= 0x3F;
 }
 
