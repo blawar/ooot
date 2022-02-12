@@ -9,10 +9,10 @@
 
 .balign 16
 
-glabel rspAspMainTextStart
+glabel rspAspMainText
     .incbin "baserom.z64", 0xB89260, 0xFB0
 
-glabel rspS2DEXTextStart
+glabel rspS2DEXText
     .incbin "baserom.z64", 0xB8A210, 0x18C0
 
 glabel rspJpegTextStart

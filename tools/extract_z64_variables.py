@@ -416,12 +416,13 @@ sections = {'assets/rsp.h': [
 		Section('rspF3DZEXData', 0xB89CE0, 0x420, 1),
 		Section('rspS2DEXData', 0xB8A100, 0x390, 1),
 		Section('rspJpegData', 0xB8A490, 0x60),
-		Section('rspAspMainTextStart', 0xB58830, 0xFB0, 8),
-		Section('rspS2DEXTextStart', 0xB5AB70, 0x18C0, 1),
+		Section('rspAspMainText', 0xB58830, 0xFB0, 8),
+		Section('rspS2DEXText', 0xB5AB70, 0x18C0, 1),
 		Section('rspJpegTextStart', 0xB5C430, 0xAF0, 8)
 	],
 	'assets/rsp_boot.h': [
-		Section('rspBootTextStart', 0x9F20, 0xD0, 1),
+		# These have not been adjusted for PAL 1.0 yet! (although they are not used currently anyways...)
+		Section('rspBootText', 0x9F20, 0xD0, 1),
 		Section('D_800093F0', 0x9FF0, 0x20, 1)
 	],
 }

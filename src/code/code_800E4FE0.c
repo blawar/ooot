@@ -193,10 +193,10 @@ AudioTask* func_800E5000(void) {
     task = &gAudioContext.currTask->task.t;
     task->type = M_AUDTASK;
     task->flags = 0;
-    task->ucode_boot = rspAspMainTextStart;
+    task->ucode_boot = rspAspMainText;
     task->ucode_boot_size = 0x1000;
     task->ucode_data_size = (sizeof(rspAspMainData) * sizeof(u64)) - 1;
-    task->ucode = rspAspMainTextStart;
+    task->ucode = rspAspMainText;
     task->ucode_data = rspAspMainData;
     task->ucode_size = 0x1000;
     task->dram_stack = NULL;

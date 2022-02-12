@@ -153,8 +153,6 @@ void ElfMsg2_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-#include "overlays/ovl_Elf_Msg2/ovl_Elf_Msg2.c"
-
 void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx) {
 #if 0
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 355);

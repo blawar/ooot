@@ -7,11 +7,11 @@ u64* D_8012DBA0 = (u64*)&rspF3DZEXText;
 u64* D_8012DBA4 = (u64*)&rspF3DZEXData;
 
 u64* SysUcode_GetUCodeBoot(void) {
-    return &rspBootTextStart;
+    return &rspBootText;
 }
 
 u64 SysUcode_GetUCodeBootSize(void) {
-    return sizeof(rspBootTextStart);
+    return sizeof(rspBootText);
 }
 
 u64* SysUcode_GetUCode(void) {
