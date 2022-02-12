@@ -3,29 +3,29 @@
 #include "sched.h"
 #include "padmgr.h"
 
-typedef struct FaultClient {
+struct FaultClient {
     /* 0x00 */ struct FaultClient* next;
     /* 0x04 */ u32 callback;
     /* 0x08 */ u32 param1;
     /* 0x0C */ u32 param2;
-} FaultClient; // size = 0x10
+}; // size = 0x10
 
-typedef struct FaultAddrConvClient {
+struct FaultAddrConvClient {
     /* 0x00 */ struct FaultAddrConvClient* next;
     /* 0x04 */ u32 callback;
     /* 0x08 */ u32 param;
-} FaultAddrConvClient; // size = 0xC
+}; // size = 0xC
 
-typedef struct {
+struct FaultClientContext {
     /* 0x00 */ u32 (*callback)(u32, u32);
     /* 0x04 */ u32 param0;
     /* 0x08 */ u32 param1;
     /* 0x0C */ u32 ret;
     /* 0x10 */ OSMesgQueue* queue;
     /* 0x14 */ OSMesg msg;
-} FaultClientContext; // size = 0x18
+}; // size = 0x18
 
-typedef struct FaultThreadStruct {
+struct FaultThreadStruct {
     /* 0x000 */ OSThread thread;
     /* 0x1B0 */ u8 unk_1B0[0x600];
     /* 0x7B0 */ OSMesgQueue queue;
@@ -44,9 +44,9 @@ typedef struct FaultThreadStruct {
     /* 0x844 */ void* fb;
     /* 0x848 */ u32 currClientThreadSp;
     /* 0x84C */ u8 unk_84C[4];
-} FaultThreadStruct; // size = 0x850
+}; // size = 0x850
 
-typedef struct {
+struct FaultDrawer {
     /* 0x00 */ u16* fb;
     /* 0x04 */ u16 w;
     /* 0x08 */ u16 h;
@@ -67,4 +67,4 @@ typedef struct {
     /* 0x34 */ u8 escCode; // bool
     /* 0x35 */ u8 osSyncPrintfEnabled;
     /* 0x38 */ void (*inputCallback)();
-} FaultDrawer; // size = 0x3C
+}; // size = 0x3C

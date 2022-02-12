@@ -3,13 +3,13 @@
 #include "ultra64.h"
 #include "z64math.h"
 
-typedef struct {
+struct ItemEquips {
     /* 0x00 */ u8 buttonItems[4];
     /* 0x04 */ u8 cButtonSlots[3];
     /* 0x08 */ u16 equipment;
-} ItemEquips; // size = 0x0A
+}; // size = 0x0A
 
-typedef struct {
+struct Inventory {
     /* 0x00 */ u8 items[24];
     /* 0x18 */ s8 ammo[16];
     /* 0x28 */ u16 equipment;
@@ -19,9 +19,9 @@ typedef struct {
     /* 0x48 */ s8 dungeonKeys[19];
     /* 0x5B */ s8 defenseHearts;
     /* 0x5C */ s16 gsTokens;
-} Inventory; // size = 0x5E
+}; // size = 0x5E
 
-typedef struct {
+struct SavedSceneFlags {
     /* 0x00 */ u32 chest;
     /* 0x04 */ u32 swch;
     /* 0x08 */ u32 clear;
@@ -29,15 +29,15 @@ typedef struct {
     /* 0x10 */ u32 unk;
     /* 0x14 */ u32 rooms;
     /* 0x18 */ u32 floors;
-} SavedSceneFlags; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct {
+struct HorseData {
     /* 0x00 */ s16 scene;
     /* 0x02 */ Vec3s pos;
     /* 0x08 */ s16 angle;
-} HorseData; // size = 0x0A
+}; // size = 0x0A
 
-typedef struct {
+struct RespawnData {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ s16 yaw;
     /* 0x0E */ s16 playerParams;
@@ -46,9 +46,9 @@ typedef struct {
     /* 0x13 */ s8 data;
     /* 0x14 */ u32 tempSwchFlags;
     /* 0x18 */ u32 tempCollectFlags;
-} RespawnData; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct {
+struct FaroresWindData {
     /* 0x00 */ Vec3i pos;
     /* 0x0C */ s32 yaw;
     /* 0x10 */ s32 playerParams;
@@ -57,9 +57,9 @@ typedef struct {
     /* 0x1C */ s32 set;
     /* 0x20 */ s32 tempSwchFlags;
     /* 0x24 */ s32 tempCollectFlags;
-} FaroresWindData; // size = 0x28
+}; // size = 0x28
 
-typedef struct {
+struct SaveContext {
     /* 0x0000 */ s32 entranceIndex; // start of `save` substruct, originally called "memory"
     /* 0x0004 */ s32 linkAge; // 0: Adult; 1: Child
     /* 0x0008 */ s32 cutsceneIndex;
@@ -172,29 +172,29 @@ typedef struct {
     /* 0x1420 */ s16 worldMapArea;
     /* 0x1422 */ s16 sunsSongState; // controls the effects of suns song
     /* 0x1424 */ s16 healthAccumulator;
-} SaveContext; // size = 0x1428
+}; // size = 0x1428
 
-typedef enum {
+enum RespawnMode {
     /* 0x00 */ RESPAWN_MODE_DOWN,   /* Normal Void Outs */
     /* 0x01 */ RESPAWN_MODE_RETURN, /* Grotto Returnpoints */
     /* 0x02 */ RESPAWN_MODE_TOP     /* Farore's Wind */
-} RespawnMode;
+};
 
-typedef enum {
+enum ButtonStatus {
     /* 0x00 */ BTN_ENABLED,
     /* 0xFF */ BTN_DISABLED = 0xFF
-} ButtonStatus;
+};
 
-typedef enum {
+enum ChamberCutsceneNum {
     /* 0x00 */ CHAMBER_CS_FOREST,
     /* 0x01 */ CHAMBER_CS_FIRE,
     /* 0x02 */ CHAMBER_CS_WATER,
     /* 0x03 */ CHAMBER_CS_SPIRIT,
     /* 0x04 */ CHAMBER_CS_SHADOW,
     /* 0x05 */ CHAMBER_CS_LIGHT
-} ChamberCutsceneNum;
+};
 
-typedef enum {
+enum HighScores {
     /* 0x00 */ HS_HBA,          // horseback archery
     /* 0x01 */ HS_POE_POINTS,
     /* 0x02 */ HS_FISHING,
@@ -202,14 +202,14 @@ typedef enum {
     /* 0x04 */ HS_MARATHON,
     /* 0x05 */ HS_UNK_05,
     /* 0x06 */ HS_DAMPE_RACE
-} HighScores;
+};
 
-typedef enum {
+enum SunsSongState {
     /* 0 */ SUNSSONG_INACTIVE,
     /* 1 */ SUNSSONG_START, // the suns ocarina effect signals that the song has finished playing
     /* 2 */ SUNSSONG_SPEED_TIME, // suns was played where time passes, speed up the advancement of time
     /* 3 */ SUNSSONG_SPECIAL // time does not advance, but signals the song was played. used for freezing redeads
-} SunsSongState;
+};
 
 #define LINK_IS_ADULT (gSaveContext.linkAge == 0)
 #define LINK_IS_CHILD (gSaveContext.linkAge == 1)

@@ -12,12 +12,13 @@
 #define MASS_IMMOVABLE 0xFF // Cannot be pushed by OC collisions
 #define MASS_HEAVY 0xFE // Can only be pushed by OC collisions with IMMOVABLE and HEAVY objects.
 
-typedef enum {
+enum DynaPolyMoveFlag
+{
     DPM_UNK = 0,
     DPM_PLAYER = 1,
     DPM_ENEMY = 2,
     DPM_UNK3 = 3
-} DynaPolyMoveFlag;
+};
 
 struct Actor;
 struct GlobalContext;
@@ -28,14 +29,14 @@ typedef void (*ActorShadowFunc)(struct Actor*, struct Lights*, struct GlobalCont
 typedef u16 (*callback1_800343CC)(struct GlobalContext*, struct Actor*);
 typedef s16 (*callback2_800343CC)(struct GlobalContext*, struct Actor*);
 
-typedef struct {
+struct ActorEntry {
     /* 0x00 */ s16 id;
     /* 0x02 */ Vec3s pos;
     /* 0x08 */ Vec3s rot;
     /* 0x0E */ s16 params;
-} ActorEntry; // size = 0x10
+}; // size = 0x10
 
-typedef struct {
+struct ActorInit {
     /* 0x00 */ s16 id;
     /* 0x02 */ u8 category; // Classifies actor and determines when it will update or draw
     /* 0x04 */ u32 flags;
@@ -45,46 +46,48 @@ typedef struct {
     /* 0x14 */ ActorFunc destroy; // Destructor
     /* 0x18 */ ActorFunc update; // Update Function
     /* 0x1C */ ActorFunc draw; // Draw function
-} ActorInit; // size = 0x20
+}; // size = 0x20
 
-typedef enum {
+enum AllocType
+{
     /* 0 */ ALLOCTYPE_NORMAL,
     /* 1 */ ALLOCTYPE_ABSOLUTE,
     /* 2 */ ALLOCTYPE_PERMANENT
-} AllocType;
+};
 
-typedef struct {
-    /* 0x00 */ uintptr_t vromStart;
-    /* 0x04 */ uintptr_t vromEnd;
-    /* 0x08 */ void* vramStart;
-    /* 0x0C */ void* vramEnd;
-    /* 0x10 */ void* loadedRamAddr; // original name: "allocp"
+struct ActorOverlay {
+    /* 0x00 */ Pointer vromStart;
+    /* 0x04 */ Pointer vromEnd;
+    /* 0x08 */ Pointer vramStart;
+    /* 0x0C */ Pointer vramEnd;
+    /* 0x10 */ Pointer loadedRamAddr; // original name: "allocp"
     /* 0x14 */ ActorInit* initInfo;
-    /* 0x18 */ char* name;
+    /* 0x18 */ const char* name;
     /* 0x1C */ u16 allocType;
     /* 0x1E */ s8 numLoaded; // original name: "clients"
-} ActorOverlay; // size = 0x20
+}; // size = 0x20
 
-typedef struct {
+struct DamageTable
+{
     u8 table[32];
-} DamageTable;
+};
 
-typedef struct {
+struct CollisionCheckInfoInit {
     /* 0x00 */ u8 health;
     /* 0x02 */ s16 cylRadius;
     /* 0x04 */ s16 cylHeight;
     /* 0x06 */ u8 mass;
-} CollisionCheckInfoInit;
+};
 
-typedef struct {
+struct CollisionCheckInfoInit2 {
     /* 0x00 */ u8 health;
     /* 0x02 */ s16 cylRadius;
     /* 0x04 */ s16 cylHeight;
     /* 0x06 */ s16 cylYShift;
     /* 0x08 */ u8 mass;
-} CollisionCheckInfoInit2;
+};
 
-typedef struct {
+struct CollisionCheckInfo {
     /* 0x00 */ DamageTable* damageTable;
     /* 0x04 */ Vec3f displacement; // Amount to correct velocity (0x5C) by when colliding into a body
     /* 0x10 */ s16 cylRadius; // Used for various purposes
@@ -96,9 +99,9 @@ typedef struct {
     /* 0x19 */ u8 damageEffect; // Stores what effect should occur when hit by a weapon
     /* 0x1A */ u8 atHitEffect; // Stores what effect should occur when AT connects with an AC
     /* 0x1B */ u8 acHitEffect; // Stores what effect should occur when AC is touched by an AT
-} CollisionCheckInfo; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct {
+struct ActorShape {
     /* 0x00 */ Vec3s rot; // Current actor shape rotation
     /* 0x06 */ s16 face; // Used to index eyebrow/eye/mouth textures. Only used by player
     /* 0x08 */ f32 yOffset; // Model y axis offset. Represents model space units
@@ -107,7 +110,7 @@ typedef struct {
     /* 0x14 */ u8 shadowAlpha; // Default is 255
     /* 0x15 */ u8 feetFloorFlags; // Set if the actor's foot is clipped under the floor. & 1 is right foot, & 2 is left
     /* 0x18 */ Vec3f feetPos[2]; // Update by using `Actor_SetFeetPos` in PostLimbDraw
-} ActorShape; // size = 0x30
+}; // size = 0x30
 
 #define ACTOR_FLAG_0 (1 << 0)
 #define ACTOR_FLAG_2 (1 << 2)
@@ -138,7 +141,7 @@ typedef struct {
 #define ACTOR_FLAG_27 (1 << 27)
 #define ACTOR_FLAG_28 (1 << 28)
 
-typedef struct Actor {
+struct Actor {
     /* 0x000 */ s16 id; // Actor ID
     /* 0x002 */ u8 category; // Actor category. Refer to the corresponding enum for values
     /* 0x003 */ s8 room; // Room number the actor is in. -1 denotes that the actor won't despawn on a room change
@@ -195,12 +198,13 @@ typedef struct Actor {
     /* 0x134 */ ActorFunc draw; // Draw Routine. Called by `Actor_Draw`
     /* 0x138 */ ActorOverlay* overlayEntry; // Pointer to the overlay table entry for this actor
     /* 0x13C */ char dbgPad[0x10]; // Padding that only exists in the debug rom
-} Actor; // size = 0x14C
+}; // size = 0x14C
 
-typedef enum {
+enum ActorFootIndex
+{
     /* 0 */ FOOT_LEFT,
     /* 1 */ FOOT_RIGHT
-} ActorFootIndex;
+};
 
 /*
 BgCheckFlags WIP documentation:
@@ -226,7 +230,7 @@ if neither of the above are set : blue
 0x2000 : translucent, else opaque
 */
 
-typedef struct DynaPolyActor {
+struct DynaPolyActor {
     /* 0x000 */ struct Actor actor;
     /* 0x14C */ s32 bgId;
     /* 0x150 */ f32 unk_150;
@@ -236,22 +240,23 @@ typedef struct DynaPolyActor {
     /* 0x15C */ u32 unk_15C;
     /* 0x160 */ u8 unk_160;
     /* 0x162 */ s16 unk_162;
-} DynaPolyActor; // size = 0x164
+}; // size = 0x164
 
-typedef struct {
+struct BodyBreak {
     /* 0x00 */ MtxF* matrices;
     /* 0x04 */ s16* objectIds;
     /* 0x08 */ s16 count;
     /* 0x0C */ Gfx** dLists;
     /* 0x10 */ s32 val; // used for various purposes: both a status indicator and counter
     /* 0x14 */ s32 prevLimbIndex;
-} BodyBreak;
+};
 
 #define BODYBREAK_OBJECT_DEFAULT -1 // use the same object as the actor
 #define BODYBREAK_STATUS_READY -1
 #define BODYBREAK_STATUS_FINISHED 0
 
-typedef enum {
+enum Item00Type
+{
     /* 0x00 */ ITEM00_RUPEE_GREEN,
     /* 0x01 */ ITEM00_RUPEE_BLUE,
     /* 0x02 */ ITEM00_RUPEE_RED,
@@ -278,13 +283,13 @@ typedef enum {
     /* 0x17 */ ITEM00_TUNIC_ZORA,
     /* 0x18 */ ITEM00_TUNIC_GORON,
     /* 0x19 */ ITEM00_BOMBS_SPECIAL
-} Item00Type;
+};
 
 struct EnItem00;
 
 typedef void (*EnItem00ActionFunc)(struct EnItem00*, struct GlobalContext*);
 
-typedef struct EnItem00 {
+struct EnItem00 {
     /* 0x000 */ Actor actor;
     /* 0x14C */ EnItem00ActionFunc actionFunc;
     /* 0x150 */ s16 collectibleFlag;
@@ -295,10 +300,11 @@ typedef struct EnItem00 {
     /* 0x15A */ s16 unk_15A;
     /* 0x15C */ f32 scale;
     /* 0x160 */ ColliderCylinder collider;
-} EnItem00; // size = 0x1AC
+}; // size = 0x1AC
 
 // Only A_OBJ_SIGNPOST_OBLONG and A_OBJ_SIGNPOST_ARROW are used in room files.
-typedef enum {
+enum AObjType
+{
     /* 0x00 */ A_OBJ_BLOCK_SMALL,
     /* 0x01 */ A_OBJ_BLOCK_LARGE,
     /* 0x02 */ A_OBJ_BLOCK_HUGE,
@@ -312,13 +318,13 @@ typedef enum {
     /* 0x0A */ A_OBJ_SIGNPOST_ARROW,
     /* 0x0B */ A_OBJ_BOULDER_FRAGMENT,
     /* 0x0C */ A_OBJ_MAX
-} AObjType;
+};
 
 struct EnAObj;
 
 typedef void (*EnAObjActionFunc)(struct EnAObj*, struct GlobalContext*);
 
-typedef struct EnAObj {
+struct EnAObj {
     /* 0x000 */ DynaPolyActor dyna;
     /* 0x164 */ EnAObjActionFunc actionFunc;
     /* 0x168 */ s32 rotateWaitTimer;
@@ -329,9 +335,10 @@ typedef struct EnAObj {
     /* 0x174 */ s16 rotSpeedX;
     /* 0x178 */ f32 focusYoffset;
     /* 0x17C */ ColliderCylinder collider;
-} EnAObj; // size = 0x1C8
+}; // size = 0x1C8
 
-typedef enum {
+enum ActorCategory
+{
     /* 0x00 */ ACTORCAT_SWITCH,
     /* 0x01 */ ACTORCAT_BG,
     /* 0x02 */ ACTORCAT_PLAYER,
@@ -344,34 +351,34 @@ typedef enum {
     /* 0x09 */ ACTORCAT_BOSS,
     /* 0x0A */ ACTORCAT_DOOR,
     /* 0x0B */ ACTORCAT_CHEST
-} ActorCategory;
+};
 
 #define DEFINE_ACTOR(_0, enum, _2) enum,
 #define DEFINE_ACTOR_INTERNAL(_0, enum, _2) enum,
 #define DEFINE_ACTOR_UNSET(enum) enum,
 
-typedef enum {
+enum ActorID {
     #include "tables/actor_table.h"
     /* 0x0192 */ ACTOR_ID_MAX // originally "ACTOR_DLF_MAX"
-} ActorID;
+};
 
 #undef DEFINE_ACTOR
 #undef DEFINE_ACTOR_INTERNAL
 #undef DEFINE_ACTOR_UNSET
 
-typedef enum {
+enum DoorLockType {
     DOORLOCK_NORMAL,
     DOORLOCK_BOSS,
     DOORLOCK_NORMAL_SPIRIT
-} DoorLockType;
+};
 
-typedef struct {
+struct TargetContextEntry {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ f32 unk_0C; // radius?
     /* 0x10 */ Color_RGB8 color;
-} TargetContextEntry; // size = 0x14
+}; // size = 0x14
 
-typedef struct {
+struct TitleCardContext {
     /* 0x00 */ void* texture;
     /* 0x04 */ s16 x;
     /* 0x06 */ s16 y;
@@ -381,9 +388,9 @@ typedef struct {
     /* 0x0B */ u8 delayTimer;    // how long the title card waits to appear
     /* 0x0C */ s16 alpha;
     /* 0x0E */ s16 intensity;
-} TitleCardContext; // size = 0x10
+}; // size = 0x10
 
-typedef struct {
+struct TargetContext {
     /* 0x00 */ Vec3f naviRefPos; // possibly wrong
     /* 0x0C */ Vec3f targetCenterPos;
     /* 0x18 */ Color_RGBAf naviInner;
@@ -401,14 +408,15 @@ typedef struct {
     /* 0x8C */ Actor* unk_8C;
     /* 0x90 */ Actor* bgmEnemy; // The nearest enemy to player with the right flags that will trigger NA_BGM_ENEMY
     /* 0x94 */ Actor* unk_94;
-} TargetContext; // size = 0x98
+}; // size = 0x98
 
-typedef struct {
+struct ActorListEntry {
     /* 0x00 */ s32 length;  // number of actors loaded of this category
     /* 0x04 */ Actor* head; // pointer to head of the linked list of this category (most recent actor added)
-} ActorListEntry;           // size = 0x08
+};           // size = 0x08
 
-typedef struct {
+struct ActorContext
+{
     /* 0x0000 */ u8 freezeFlashTimer;
     /* 0x0001 */ char unk_01[0x01];
     /* 0x0002 */ u8 unk_02;
@@ -432,9 +440,9 @@ typedef struct {
     /* 0x0128 */ TitleCardContext titleCtx;
     /* 0x0138 */ char unk_138[0x04];
     /* 0x013C */ void* absoluteSpace; // Space used to allocate actor overlays of alloc type 1
-} ActorContext;                       // size = 0x140
+};                       // size = 0x140
 
-typedef struct {
+struct struct_80034A14_arg1 {
     /* 0x00 */ s16 unk_00;
     /* 0x02 */ s16 unk_02;
     /* 0x04 */ s16 unk_04;
@@ -444,26 +452,26 @@ typedef struct {
     /* 0x14 */ f32 unk_14;
     /* 0x18 */ Vec3f unk_18;
     /* 0x24 */ s16 unk_24;
-} struct_80034A14_arg1; // size = 0x28
+}; // size = 0x28
 
 
 // Some animation related structure
-typedef struct {
+struct struct_80034EC0_Entry {
     /* 0x00 */ AnimationHeader* animation;
     /* 0x04 */ f32 playbackSpeed;
     /* 0x08 */ f32 startFrame;
     /* 0x0C */ f32 frameCount;
     /* 0x10 */ u8 mode;
     /* 0x14 */ f32 transitionRate;
-} struct_80034EC0_Entry; // size = 0x18
+}; // size = 0x18
 
 // Another animation related structure
-typedef struct {
+struct struct_D_80AA1678 {
     /* 0x00 */ AnimationHeader* animation;
     /* 0x04 */ f32 frameCount;
     /* 0x08 */ u8 mode;
     /* 0x0C */ f32 transitionRate;
-} struct_D_80AA1678; // size = 0x10
+}; // size = 0x10
 
 /*
 void ActorShape_Init(ActorShape* shape, f32 yOffset, ActorShadowFunc shadowDraw, f32 shadowScale);

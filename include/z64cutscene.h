@@ -3,85 +3,85 @@
 #include "ultra64.h"
 #include "z64math.h"
 
-typedef struct {
+struct EntranceCutscene {
     /* 0x00 */ u16 entrance;       // entrance index upon which the cutscene should trigger
     /* 0x02 */ u8  ageRestriction; // 0 for adult only, 1 for child only, 2 for both ages
     /* 0x03 */ u8  flag;           // eventChkInf flag bound to the entrance cutscene
     /* 0x04 */ void* segAddr;      // segment offset location of the cutscene
-} EntranceCutscene; // size = 0x8
+}; // size = 0x8
 
-typedef struct {
+struct CutsceneCameraPoint {
     /* 0x00 */ s8    continueFlag;
     /* 0x01 */ s8    cameraRoll;
     /* 0x02 */ u16   nextPointFrame;
     /* 0x04 */ f32   viewAngle; // in degrees
     /* 0x08 */ Vec3s pos;
-} CutsceneCameraPoint; // size = 0x10
+}; // size = 0x10
 
-typedef struct {
+struct CutsceneCameraAngle {
     /* 0x00 */ Vec3f at;
     /* 0x0C */ Vec3f eye;
     /* 0x18 */ s16 roll;
     /* 0x1A */ s16 fov;
-} CutsceneCameraAngle; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct {
+struct CutsceneCameraMove {
     /* 0x0 */ CutsceneCameraPoint* atPoints;
     /* 0x4 */ CutsceneCameraPoint* eyePoints;
     /* 0x8 */ s16 relativeToPlayer;
-} CutsceneCameraMove; // size = 0xC
+}; // size = 0xC
 
-typedef struct {
+struct CsCmdBase {
     /* 0x00 */ u16 base;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
-} CsCmdBase; // size = 0x6
+}; // size = 0x6
 
-typedef struct {
+struct CsCmdEnvLighting {
     /* 0x00 */ u8  unk_00;
     /* 0x01 */ u8  setting;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
-} CsCmdEnvLighting; // size = 0x6
+}; // size = 0x6
 
-typedef struct {
+struct CsCmdMusicChange {
     /* 0x00 */ u8  unk_00;
     /* 0x01 */ u8  sequence;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
-} CsCmdMusicChange; // size = 0x6
+}; // size = 0x6
 
-typedef struct {
+struct CsCmdMusicFade {
     /* 0x00 */ u16 type;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
-} CsCmdMusicFade; // size = 0x6
+}; // size = 0x6
 
-typedef struct {
+struct CsCmdUnknown9 {
     /* 0x00 */ u16 unk_00;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
     /* 0x06 */ u8  unk_06;
     /* 0x07 */ u8  unk_07;
     /* 0x08 */ u8  unk_08;
-} CsCmdUnknown9; // size = 0xA
+}; // size = 0xA
 
-typedef struct {
+struct CsCmdDayTime {
     /* 0x00 */ u16 unk_00;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
     /* 0x06 */ u8  hour;
     /* 0x07 */ u8  minute;
-} CsCmdDayTime; // size = 0x8
+}; // size = 0x8
 
-typedef struct {
+struct CsCmdTextbox {
     /* 0x00 */ u16 base;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
     /* 0x06 */ u16 type;
     /* 0x08 */ u16 textId1;
     /* 0x0A */ u16 textId2;
-} CsCmdTextbox; // size = 0xC
+}; // size = 0xC
 
 typedef struct {
     /* 0x00 */ u16 action; // "dousa"
@@ -96,15 +96,15 @@ typedef struct {
     /* 0x24 */ Vec3i normal;
 } CsCmdActorAction; // size = 0x30
 
-typedef enum {
+enum CutsceneState {
     CS_STATE_IDLE,
     CS_STATE_SKIPPABLE_INIT,
     CS_STATE_SKIPPABLE_EXEC,
     CS_STATE_UNSKIPPABLE_INIT,
     CS_STATE_UNSKIPPABLE_EXEC
-} CutsceneState;
+};
 
-typedef enum {
+enum CutsceneCmd {
     CS_CMD_00 = 0x0000,
     CS_CMD_CAM_EYE = 0x0001,
     CS_CMD_CAM_AT = 0x0002,
@@ -135,7 +135,7 @@ typedef enum {
     CS_CMD_SETTIME = 0x008C,
     CS_CMD_TERMINATOR = 0x03E8,
     CS_CMD_END = 0xFFFF
-} CutsceneCmd;
+};
 
 /**
  * Special type for blocks of cutscene data, asm-processor checks
@@ -160,7 +160,7 @@ typedef union CutsceneData {
 #define CS_CMD_STOP -1
 
 // TODO confirm correctness, clarify names
-typedef enum {
+enum CutsceneTerminatorDestination {
     /* 0x00 */ INVALID_DESTINATION_0,
     /* 0x01 */ CUTSCENE_MAP_GANON_HORSE,
     /* 0x02 */ CUTSCENE_MAP_THREE_GODESSES_POST_DEKU_TREE,
@@ -281,9 +281,9 @@ typedef enum {
     /* 0x75 */ HYRULE_FIELD_SKY,
     /* 0x76 */ GANON_BATTLE_TOWER_COLLAPSE,
     /* 0x77 */ ZELDAS_COURTYARD_RECEIVE_LETTER
-} CutsceneTerminatorDestination;
+};
 
-typedef struct {
+struct CutsceneContext {
     /* 0x00 */ char unk_00[0x4];
     /* 0x04 */ void* segment;
     /* 0x08 */ u8 state;
@@ -298,7 +298,7 @@ typedef struct {
     /* 0x20 */ CutsceneCameraPoint* cameraPosition;
     /* 0x24 */ CsCmdActorAction* linkAction;
     /* 0x28 */ CsCmdActorAction* npcActions[10]; // "npcdemopnt"
-} CutsceneContext;                               // size = 0x50
+};                               // size = 0x50
 
 void func_8006450C(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
 void func_80064520(struct GlobalContext* globalCtx, CutsceneContext* csCtx);

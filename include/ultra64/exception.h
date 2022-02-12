@@ -27,14 +27,10 @@
 typedef u32 OSIntMask;
 typedef u32 OSHWIntr;
 
-typedef struct  {
+struct __osHwInt {
     /* 0x00 */ void* callback;
     /* 0x04 */ void* sp;
-} __osHwInt; // size = 0x08
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+}; // size = 0x08
 
 OSIntMask osSetIntMask(OSIntMask);
 
@@ -45,9 +41,5 @@ void __osSetGlobalIntMask(OSHWIntr mask);
 void __osResetGlobalIntMask(OSHWIntr mask);
 
 extern __osHwInt __osHwIntTable[];
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

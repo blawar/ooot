@@ -14,10 +14,9 @@
 #include <chrono>
 #include <memory>
 
-extern "C"
-{
-	void quit();
-}
+
+void quit();
+
 
 namespace platform::window
 {

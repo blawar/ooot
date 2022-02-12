@@ -6,7 +6,7 @@
 
 struct EnFw;
 
-typedef void (*EnFwActionFunc)(struct EnFw* this, GlobalContext* globalCtx);
+typedef void (*EnFwActionFunc)(struct EnFw* pthis, GlobalContext* globalCtx);
 
 typedef struct {
     /* 0x0000 */ u8 type;

@@ -25,22 +25,22 @@
 #define REGION_NATIVE REGION_EU
 
 
-typedef struct {
+struct SequenceContext {
     /* 0x00 */ u8   seqId;
     /* 0x01 */ u8   natureAmbienceId;
-} SequenceContext; // size = 0x2
+}; // size = 0x2
 
 
 
-typedef struct {
+struct ElfMessage {
     /* 0x00 */ u8 byte0;
     /* 0x01 */ u8 byte1;
     /* 0x02 */ u8 byte2;
     /* 0x03 */ u8 byte3;
-} ElfMessage; // size = 0x4
+}; // size = 0x4
 
 
-typedef struct StackEntry {
+struct StackEntry {
     /* 0x00 */ struct StackEntry* next;
     /* 0x04 */ struct StackEntry* prev;
     /* 0x08 */ uintptr_t head;
@@ -48,22 +48,22 @@ typedef struct StackEntry {
     /* 0x10 */ u32 initValue;
     /* 0x14 */ s32 minSpace;
     /* 0x18 */ const char* name;
-} StackEntry;
+};
 
-typedef enum {
+enum StackStatus {
     STACK_STATUS_OK = 0,
     STACK_STATUS_WARNING = 1,
     STACK_STATUS_OVERFLOW = 2
-} StackStatus;
+};
 
-typedef struct {
+struct ISVDbg {
     /* 0x00 */ u32 magic; // IS64
     /* 0x04 */ u32 get;
     /* 0x08 */ u8 unk_08[0x14-0x08];
     /* 0x14 */ u32 put;
     /* 0x18 */ u8 unk_18[0x20-0x18];
     /* 0x20 */ u8 data[0x10000-0x20];
-} ISVDbg;
+};
 
 typedef struct {
     /* 0x00 */ char name[0x18];
@@ -84,14 +84,14 @@ typedef struct {
 
 
 
-typedef struct OverlayRelocationSection {
+struct OverlayRelocationSection {
     /* 0x00 */ u32 textSize;
     /* 0x04 */ u32 dataSize;
     /* 0x08 */ u32 rodataSize;
     /* 0x0C */ u32 bssSize;
     /* 0x10 */ u32 nRelocations;
     /* 0x14 */ u32 relocations[1];
-} OverlayRelocationSection; // size >= 0x18
+}; // size >= 0x18
 
 #define NUM_SEGMENTS        (16)
 extern uintptr_t gSegments[NUM_SEGMENTS];

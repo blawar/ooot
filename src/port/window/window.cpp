@@ -1,8 +1,6 @@
 #include "../window.h"
 #include <thread>
-extern "C" {
 #include "z64.h"
-}
 
 namespace platform::window
 {

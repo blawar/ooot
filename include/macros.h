@@ -4,9 +4,9 @@
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
 
-#define VIRTUAL_TO_PHYSICAL(addr) ((void*)(addr))
-#define PHYSICAL_TO_VIRTUAL(addr) ((void*)(addr))
-#define SEGMENTED_TO_VIRTUAL(addr) ((void*)(addr))
+#define VIRTUAL_TO_PHYSICAL(addr) (addr)
+#define PHYSICAL_TO_VIRTUAL(addr) (addr)
+#define SEGMENTED_TO_VIRTUAL(addr) (addr)
 
 #define ALIGN16(val) (((val) + 0xF) & ~0xF)
 #define ALIGN32(val) (((val) + 0x1F) & ~0x1F)

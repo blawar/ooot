@@ -1,5 +1,11 @@
 #pragma once
-#ifdef INTERNAL_SRC_CODE_Z_LIB_C
+struct Actor;
+struct InitChainEntry;
+struct Color_RGBA8;
+struct Vec3f;
+struct Vec3s;
+struct Input;
+
 void Actor_ProcessInitChain(Actor* actor, InitChainEntry* initChain);
 void Color_RGBA8_Copy(Color_RGBA8* dst, Color_RGBA8* src);
 void Lib_MemSet(u8* dest, size_t size, u8 val);
@@ -35,40 +41,3 @@ void func_80077D10(f32* arg0, s16* arg1, Input* input);
 void func_80078884(u16 sfxId);
 void func_800788CC(u16 sfxId);
 void func_80078914(Vec3f* arg0, u16 sfxId);
-#else
-void Actor_ProcessInitChain(struct Actor* actor, struct InitChainEntry* initChain);
-void Color_RGBA8_Copy(struct Color_RGBA8* dst, struct Color_RGBA8* src);
-void Lib_MemSet(u8* dest, size_t size, u8 val);
-void Math_ApproachF(f32* pValue, f32 target, f32 fraction, f32 step);
-void Math_ApproachS(s16* pValue, s16 target, s16 scale, s16 step);
-void Math_ApproachZeroF(f32* pValue, f32 fraction, f32 step);
-s32 Math_AsymStepToF(f32* pValue, f32 target, f32 incrStep, f32 decrStep);
-f32 Math_CosS(s16 angle);
-s32 Math_ScaledStepToS(s16* pValue, s16 target, s16 step);
-f32 Math_SinS(s16 angle);
-f32 Math_SmoothStepToDegF(f32* pValue, f32 target, f32 fraction, f32 step, f32 minStep);
-f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, f32 step, f32 minStep);
-s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep);
-s32 Math_StepToAngleS(s16* pValue, s16 target, s16 step);
-s32 Math_StepToF(f32* pValue, f32 target, f32 step);
-s32 Math_StepToS(s16* pValue, s16 target, s16 step);
-s32 Math_StepUntilAngleS(s16* pValue, s16 limit, s16 step);
-s32 Math_StepUntilF(f32* pValue, f32 limit, f32 step);
-s32 Math_StepUntilS(s16* pValue, s16 limit, s16 step);
-void Math_Vec3f_Copy(struct Vec3f* dest, struct Vec3f* src);
-void Math_Vec3f_Diff(struct Vec3f* a, struct Vec3f* b, struct Vec3f* dest);
-f32 Math_Vec3f_DistXYZ(struct Vec3f* a, struct Vec3f* b);
-f32 Math_Vec3f_DistXYZAndStoreDiff(struct Vec3f* a, struct Vec3f* b, struct Vec3f* dest);
-f32 Math_Vec3f_DistXZ(struct Vec3f* a, struct Vec3f* b);
-s16 Math_Vec3f_Pitch(struct Vec3f* a, struct Vec3f* b);
-void Math_Vec3f_Scale(struct Vec3f* vec, f32 scaleF);
-void Math_Vec3f_Sum(struct Vec3f* a, struct Vec3f* b, struct Vec3f* dest);
-s16 Math_Vec3f_Yaw(struct Vec3f* a, struct Vec3f* b);
-void Math_Vec3s_DiffToVec3f(struct Vec3f* dest, struct Vec3s* a, struct Vec3s* b);
-void Math_Vec3s_ToVec3f(struct Vec3f* dest, struct Vec3s* src);
-s16 Rand_S16Offset(s16 base, s16 range);
-void func_80077D10(f32* arg0, s16* arg1, struct Input* input);
-void func_80078884(u16 sfxId);
-void func_800788CC(u16 sfxId);
-void func_80078914(struct Vec3f* arg0, u16 sfxId);
-#endif

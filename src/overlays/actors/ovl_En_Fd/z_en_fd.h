@@ -5,8 +5,9 @@
 #include "global.h"
 
 struct EnFd;
+struct GlobalContext;
 
-typedef void (*EnFdActionFunc)(struct EnFd* this, GlobalContext* globalCtx);
+typedef void (*EnFdActionFunc)(struct EnFd* pthis, GlobalContext* globalCtx);
 
 typedef enum {
     FD_EFFECT_NONE,

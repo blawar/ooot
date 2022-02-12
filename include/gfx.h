@@ -7,26 +7,26 @@
 #include "color.h"
 
 
-typedef struct {
+struct FrameBufferSwap {
     /* 0x0000 */ u16* curBuffer;
     /* 0x0004 */ u16* nextBuffer;
-} FrameBufferSwap;
+};
 
-typedef struct {
+struct TwoHeadArena {
     /* 0x0000 */ u32 size;
     /* 0x0004 */ void* bufp;
     /* 0x0008 */ void* head;
     /* 0x000C */ void* tail;
-} TwoHeadArena; // size = 0x10
+}; // size = 0x10
 
-typedef struct {
+struct TwoHeadGfxArena {
     /* 0x0000 */ u32 size;
     /* 0x0004 */ Gfx* bufp;
     /* 0x0008 */ Gfx* p;
     /* 0x000C */ Gfx* d;
-} TwoHeadGfxArena; // size = 0x10
+}; // size = 0x10
 
-typedef struct GraphicsContext {
+struct GraphicsContext {
     /* 0x0000 */ Gfx* polyOpaBuffer; // Pointer to "Zelda 0"
     /* 0x0004 */ Gfx* polyXluBuffer; // Pointer to "Zelda 1"
     /* 0x0008 */ char unk_008[0x08]; // Unused, could this be pointers to "Zelda 2" / "Zelda 3"
@@ -57,9 +57,9 @@ typedef struct GraphicsContext {
     /* 0x02F4 */ f32 xScale;
     /* 0x02F8 */ f32 yScale;
     /* 0x02FC */ char unk_2FC[0x04];
-} GraphicsContext; // size = 0x300
+}; // size = 0x300
 
-typedef struct {
+struct GfxPool {
     /* 0x00000 */ u16 headMagic; // GFXPOOL_HEAD_MAGIC
     /* 0x00008 */ Gfx polyOpaBuffer[0x17E0];
     /* 0x0BF08 */ Gfx polyXluBuffer[0x800];
@@ -67,10 +67,10 @@ typedef struct {
     /* 0x11F08 */ Gfx workBuffer[0x80];
     /* 0x11308 */ Gfx unusedBuffer[0x20];
     /* 0x12408 */ u16 tailMagic; // GFXPOOL_TAIL_MAGIC
-} GfxPool;                       // size = 0x12410
+};                       // size = 0x12410
 
 
-typedef struct {
+struct GfxPrint {
     /* 0x00 */ PrintCallback callback;
     /* 0x04 */ Gfx* dList;
     /* 0x08 */ u16 posX;
@@ -80,7 +80,7 @@ typedef struct {
     /* 0x0F */ u8 flags;
     /* 0x10 */ Color_RGBA8_u32 color;
     /* 0x14 */ char unk_14[0x1C]; // unused
-} GfxPrint;                       // size = 0x30
+};                       // size = 0x30
 
 /*
 void Graph_InitTHGA(struct GraphicsContext* gfxCtx);

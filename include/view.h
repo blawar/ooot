@@ -3,14 +3,14 @@
 #include "z64math.h"
 #include "ultra64/gbi.h"
 
-typedef struct {
+struct Viewport {
    /* 0x0000 */ s32 topY;    // uly (upper left y)
    /* 0x0004 */ s32 bottomY; // lry (lower right y)
    /* 0x0008 */ s32 leftX;   // ulx (upper left x)
    /* 0x000C */ s32 rightX;  // lrx (lower right x)
-} Viewport; // size = 0x10
+}; // size = 0x10
 
-typedef struct {
+struct View {
     /* 0x0000 */ s32    magic; // string literal "VIEW" / 0x56494557
     /* 0x0004 */ struct GraphicsContext* gfxCtx;
     /* 0x0008 */ Viewport viewport;
@@ -34,4 +34,4 @@ typedef struct {
     /* 0x011C */ u16    normal; // used to normalize the projection matrix
     /* 0x0120 */ s32    flags;
     /* 0x0124 */ s32    unk_124;
-} View; // size = 0x128
+}; // size = 0x128

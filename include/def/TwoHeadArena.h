@@ -1,5 +1,7 @@
 #pragma once
-#ifdef INTERNAL_SRC_CODE_TWOHEADARENA_C
+struct TwoHeadArena;
+struct TwoHeadGfxArena;
+
 void* THA_AllocEnd(TwoHeadArena* tha, u32 size);
 void* THA_AllocEndAlign(TwoHeadArena* tha, u32 size, u32 mask);
 void* THA_AllocEndAlign16(TwoHeadArena* tha, u32 size);
@@ -29,34 +31,3 @@ Gfx* THGA_GetTail(TwoHeadGfxArena* thga);
 void THGA_Init(TwoHeadGfxArena* thga);
 u32 THGA_IsCrash(TwoHeadGfxArena* thga);
 void THGA_SetHead(TwoHeadGfxArena* thga, Gfx* start);
-#else
-void* THA_AllocEnd(struct TwoHeadArena* tha, u32 size);
-void* THA_AllocEndAlign(struct TwoHeadArena* tha, u32 size, u32 mask);
-void* THA_AllocEndAlign16(struct TwoHeadArena* tha, u32 size);
-void* THA_AllocStart(struct TwoHeadArena* tha, u32 size);
-void* THA_AllocStart1(struct TwoHeadArena* tha);
-void THA_Ct(struct TwoHeadArena* tha, void* ptr, u32 size);
-void THA_Dt(struct TwoHeadArena* tha);
-void* THA_GetHead(struct TwoHeadArena* tha);
-s32 THA_GetSize(struct TwoHeadArena* tha);
-void* THA_GetTail(struct TwoHeadArena* tha);
-void THA_Init(struct TwoHeadArena* tha);
-u32 THA_IsCrash(struct TwoHeadArena* tha);
-void THA_SetHead(struct TwoHeadArena* tha, void* start);
-Gfx* THGA_AllocEnd(struct TwoHeadGfxArena* thga, u32 size);
-Gfx* THGA_AllocEnd16(struct TwoHeadGfxArena* thga);
-Gfx* THGA_AllocEnd64(struct TwoHeadGfxArena* thga);
-Gfx* THGA_AllocEndArray16(struct TwoHeadGfxArena* thga, u32 count);
-Gfx* THGA_AllocEndArray64(struct TwoHeadGfxArena* thga, u32 count);
-Gfx* THGA_AllocStart8(struct TwoHeadGfxArena* thga);
-Gfx* THGA_AllocStart8Wrapper(struct TwoHeadGfxArena* thga);
-Gfx* THGA_AllocStartArray8(struct TwoHeadGfxArena* thga, u32 count);
-void THGA_Ct(struct TwoHeadGfxArena* thga, Gfx* start, u32 size);
-void THGA_Dt(struct TwoHeadGfxArena* thga);
-Gfx* THGA_GetHead(struct TwoHeadGfxArena* thga);
-s32 THGA_GetSize(struct TwoHeadGfxArena* thga);
-Gfx* THGA_GetTail(struct TwoHeadGfxArena* thga);
-void THGA_Init(struct TwoHeadGfxArena* thga);
-u32 THGA_IsCrash(struct TwoHeadGfxArena* thga);
-void THGA_SetHead(struct TwoHeadGfxArena* thga, Gfx* start);
-#endif

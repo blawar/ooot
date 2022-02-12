@@ -117,18 +117,18 @@
 #define NA_BGM_NATURE_SFX_RAIN 0x80  // Related to rain
 #define NA_BGM_DISABLED 0xFFFF
 
-typedef enum {
+enum SequencePlayerId {
     /* 0 */ SEQ_PLAYER_BGM_MAIN,
     /* 1 */ SEQ_PLAYER_FANFARE,
     /* 2 */ SEQ_PLAYER_SFX,
     /* 3 */ SEQ_PLAYER_BGM_SUB
-} SequencePlayerId;
+};
 
-typedef enum {
+enum SequenceMode {
     /* 0 */ SEQ_MODE_DEFAULT,
     /* 1 */ SEQ_MODE_ENEMY,
     /* 2 */ SEQ_MODE_STILL, // Not moving or first-person view
     /* 3 */ SEQ_MODE_IGNORE
-} SequenceMode;
+};
 
 #endif

@@ -1,5 +1,13 @@
 #pragma once
-#ifdef INTERNAL_SRC_CODE_AUDIO_PLAYBACK_C
+struct SequenceLayer;
+struct Note;
+struct NotePool;
+struct AudioListItem;
+struct Drum;
+struct Instrument;
+struct SoundFontSound;
+struct NoteSubAttributes;
+
 Note* Audio_AllocNote(SequenceLayer* layer);
 Note* Audio_AllocNoteFromActive(NotePool* pool, SequenceLayer* layer);
 Note* Audio_AllocNoteFromDecaying(NotePool* pool, SequenceLayer* layer);
@@ -31,36 +39,3 @@ void Audio_SeqLayerNoteDecay(SequenceLayer* layer);
 void Audio_SeqLayerNoteRelease(SequenceLayer* layer);
 s32 Audio_SetFontInstrument(s32 instrumentType, s32 fontId, s32 index, void* value);
 void func_800E82C0(Note* note, SequenceLayer* layer);
-#else
-struct Note* Audio_AllocNote(struct SequenceLayer* layer);
-struct Note* Audio_AllocNoteFromActive(struct NotePool* pool, struct SequenceLayer* layer);
-struct Note* Audio_AllocNoteFromDecaying(struct NotePool* pool, struct SequenceLayer* layer);
-struct Note* Audio_AllocNoteFromDisabled(struct NotePool* pool, struct SequenceLayer* layer);
-void Audio_AudioListPushFront(struct AudioListItem* list, struct AudioListItem* item);
-void Audio_AudioListRemove(struct AudioListItem* item);
-s32 Audio_BuildSyntheticWave(struct Note* note, struct SequenceLayer* layer, s32 waveId);
-struct Note* Audio_FindNodeWithPrioLessThan(struct AudioListItem* list, s32 limit);
-struct Drum* Audio_GetDrum(s32 fontId, s32 drumId);
-struct Instrument* Audio_GetInstrumentInner(s32 fontId, s32 instId);
-struct SoundFontSound* Audio_GetSfx(s32 fontId, s32 sfxId);
-void Audio_InitNoteFreeList(void);
-void Audio_InitNoteList(struct AudioListItem* list);
-void Audio_InitNoteLists(struct NotePool* pool);
-void Audio_InitNoteSub(struct Note* note, NoteSubEu* sub, struct NoteSubAttributes* attrs);
-void Audio_InitSyntheticWave(struct Note* note, struct SequenceLayer* layer);
-struct SoundFontSound* Audio_InstrumentGetSound(struct Instrument* instrument, s32 semitone);
-void Audio_NoteDisable(struct Note* note);
-void Audio_NoteInit(struct Note* note);
-void Audio_NoteInitAll(void);
-void Audio_NoteInitForLayer(struct Note* note, struct SequenceLayer* layer);
-void Audio_NotePoolClear(struct NotePool* pool);
-void Audio_NotePoolFill(struct NotePool* pool, s32 count);
-void Audio_NoteReleaseAndTakeOwnership(struct Note* note, struct SequenceLayer* layer);
-void Audio_NoteSetResamplingRate(NoteSubEu* noteSubEu, f32 resamplingRateInput);
-void Audio_ProcessNotes(void);
-void Audio_SeqLayerDecayRelease(struct SequenceLayer* layer, s32 target);
-void Audio_SeqLayerNoteDecay(struct SequenceLayer* layer);
-void Audio_SeqLayerNoteRelease(struct SequenceLayer* layer);
-s32 Audio_SetFontInstrument(s32 instrumentType, s32 fontId, s32 index, void* value);
-void func_800E82C0(struct Note* note, struct SequenceLayer* layer);
-#endif

@@ -27,13 +27,13 @@ typedef u32 OSEvent;
 #define OS_EVENT_THREADSTATUS   13    /* CPU thread status: used by rmon */
 #define OS_EVENT_PRENMI         14    /* Pre NMI interrupt */
 
-typedef struct OSMesgQueue {
+struct OSMesgQueue {
     /* 0x00 */ OSThread* mtqueue;
     /* 0x04 */ OSThread* fullqueue;
     /* 0x08 */ s32 validCount;
     /* 0x0C */ s32 first;
     /* 0x10 */ s32 msgCount;
     /* 0x14 */ OSMesg* msg;
-} OSMesgQueue; // size = 0x18
+}; // size = 0x18
 
 #endif

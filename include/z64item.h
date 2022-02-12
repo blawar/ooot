@@ -1,14 +1,14 @@
 #ifndef Z64ITEM_H
 #define Z64ITEM_H
 
-typedef enum {
+enum EquipmentType {
     /* 0x00 */ EQUIP_SWORD,
     /* 0x01 */ EQUIP_SHIELD,
     /* 0x02 */ EQUIP_TUNIC,
     /* 0x03 */ EQUIP_BOOTS
-} EquipmentType;
+};
 
-typedef enum {
+enum UpgradeType {
     /* 0x00 */ UPG_QUIVER,
     /* 0x01 */ UPG_BOMB_BAG,
     /* 0x02 */ UPG_STRENGTH,
@@ -17,9 +17,9 @@ typedef enum {
     /* 0x05 */ UPG_BULLET_BAG,
     /* 0x06 */ UPG_STICKS,
     /* 0x07 */ UPG_NUTS
-} UpgradeType;
+};
 
-typedef enum {
+enum QuestItem {
     /* 0x00 */ QUEST_MEDALLION_FOREST,
     /* 0x01 */ QUEST_MEDALLION_FIRE,
     /* 0x02 */ QUEST_MEDALLION_WATER,
@@ -45,15 +45,15 @@ typedef enum {
     /* 0x16 */ QUEST_GERUDO_CARD,
     /* 0x17 */ QUEST_SKULL_TOKEN,
     /* 0x18 */ QUEST_HEART_PIECE
-} QuestItem;
+};
 
-typedef enum {
+enum DungeonItem {
     /* 0x00 */ DUNGEON_KEY_BOSS,
     /* 0x01 */ DUNGEON_COMPASS,
     /* 0x02 */ DUNGEON_MAP
-} DungeonItem;
+};
 
-typedef enum {
+enum InventorySlot {
     /* 0x00 */ SLOT_STICK,
     /* 0x01 */ SLOT_NUT,
     /* 0x02 */ SLOT_BOMB,
@@ -79,9 +79,9 @@ typedef enum {
     /* 0x16 */ SLOT_TRADE_ADULT,
     /* 0x17 */ SLOT_TRADE_CHILD,
     /* 0xFF */ SLOT_NONE = 0xFF
-} InventorySlot;
+};
 
-typedef enum {
+enum ItemID {
     /* 0x00 */ ITEM_STICK,
     /* 0x01 */ ITEM_NUT,
     /* 0x02 */ ITEM_BOMB,
@@ -241,13 +241,13 @@ typedef enum {
     /* 0xFC */ ITEM_LAST_USED = 0xFC,
     /* 0xFE */ ITEM_NONE_FE = 0xFE,
     /* 0xFF */ ITEM_NONE = 0xFF
-} ItemID;
+};
 
 #define ITEM_TRADE_CHILD ITEM_WEIRD_EGG
 #define ITEM_TRADE_ADULT ITEM_POCKET_EGG
 
 // Get Item result may vary depending on context (chest/shop/scrub/drop)
-typedef enum {
+enum GetItemID {
     /* 0x00 */ GI_NONE,
     /* 0x01 */ GI_BOMBS_5,
     /* 0x02 */ GI_NUTS_5,
@@ -375,9 +375,9 @@ typedef enum {
     /* 0x7C */ GI_ICE_TRAP, // freezes link when opened from a chest
     /* 0x7D */ GI_TEXT_0, // no model appears over Link, shows text id 0 (pocket egg)
     /* 0x7E */ GI_MAX
-} GetItemID;
+};
 
-typedef enum {
+enum GetItemDrawID {
     /* 0x00 */ GID_BOTTLE,
     /* 0x01 */ GID_KEY_SMALL,
     /* 0x02 */ GID_SONG_MINUET,
@@ -496,9 +496,9 @@ typedef enum {
     /* 0x73 */ GID_SWORD_KOKIRI,
     /* 0x74 */ GID_SKULL_TOKEN_2,
     /* 0x75 */ GID_MAX
-} GetItemDrawID;
+};
 
-typedef enum {
+enum ExchangeItemID {
     /* 0x00 */ EXCH_ITEM_NONE,
     /* 0x01 */ EXCH_ITEM_LETTER_ZELDA,
     /* 0x02 */ EXCH_ITEM_WEIRD_EGG,
@@ -530,7 +530,7 @@ typedef enum {
     /* 0x1C */ EXCH_ITEM_BIG_POE,
     /* 0x1D */ EXCH_ITEM_LETTER_RUTO,
     /* 0x1E */ EXCH_ITEM_MAX
-} ExchangeItemID;
+};
 
 extern s16 gSpoilingItems[3];
 extern s16 gSpoilingItemReverts[3];

@@ -5,7 +5,7 @@ void TransitionCircle_Start(void* thissx);
 void* TransitionCircle_Init(void* thissx);
 void TransitionCircle_Destroy(void* thissx);
 void TransitionCircle_Update(void* thissx, s32 updateRate);
-void TransitionCircle_Draw(void* thissx, struct Gfx** gfxP);
+void TransitionCircle_Draw(void* thissx, Gfx** gfxP);
 s32 TransitionCircle_IsDone(void* thissx);
 void TransitionCircle_SetType(void* thissx, s32 type);
 void TransitionCircle_SetColor(void* thissx, u32 color);

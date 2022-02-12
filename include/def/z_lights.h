@@ -1,5 +1,12 @@
 #pragma once
-#ifdef INTERNAL_SRC_CODE_Z_LIGHTS_C
+struct GlobalContext;
+struct LightContext;
+struct LightInfo;
+struct LightNode;
+struct GraphicsContext;
+struct Lights;
+struct Vec3f;
+
 void LightContext_DestroyList(GlobalContext* globalCtx, LightContext* lightCtx);
 void LightContext_Init(GlobalContext* globalCtx, LightContext* lightCtx);
 void LightContext_InitList(GlobalContext* globalCtx, LightContext* lightCtx);
@@ -20,25 +27,3 @@ void Lights_PointNoGlowSetInfo(LightInfo* info, s16 x, s16 y, s16 z, u8 r, u8 g,
 void Lights_PointSetColorAndRadius(LightInfo* info, u8 r, u8 g, u8 b, s16 radius);
 void Lights_PointSetInfo(LightInfo* info, s16 x, s16 y, s16 z, u8 r, u8 g, u8 b, s16 radius, s32 type);
 void Lights_Reset(Lights* lights, u8 ambentR, u8 ambentG, u8 ambentB);
-#else
-void LightContext_DestroyList(struct GlobalContext* globalCtx, struct LightContext* lightCtx);
-void LightContext_Init(struct GlobalContext* globalCtx, struct LightContext* lightCtx);
-void LightContext_InitList(struct GlobalContext* globalCtx, struct LightContext* lightCtx);
-struct LightNode* LightContext_InsertLight(struct GlobalContext* globalCtx, struct LightContext* lightCtx, struct LightInfo* info);
-struct Lights* LightContext_NewLights(struct LightContext* lightCtx, struct GraphicsContext* gfxCtx);
-void LightContext_RemoveLight(struct GlobalContext* globalCtx, struct LightContext* lightCtx, struct LightNode* node);
-void LightContext_SetAmbientColor(struct LightContext* lightCtx, u8 r, u8 g, u8 b);
-void LightContext_SetFog(struct LightContext* lightCtx, u8 arg1, u8 arg2, u8 arg3, s16 numLights, s16 arg5);
-void Lights_BindAll(struct Lights* lights, struct LightNode* listHead, struct Vec3f* vec);
-void Lights_DirectionalSetInfo(struct LightInfo* info, s8 x, s8 y, s8 z, u8 r, u8 g, u8 b);
-void Lights_Draw(struct Lights* lights, struct GraphicsContext* gfxCtx);
-void Lights_DrawGlow(struct GlobalContext* globalCtx);
-void Lights_GlowCheck(struct GlobalContext* globalCtx);
-struct Lights* Lights_New(struct GraphicsContext* gfxCtx, u8 ambientR, u8 ambientG, u8 ambientB);
-struct Lights* Lights_NewAndDraw(struct GraphicsContext* gfxCtx, u8 ambientR, u8 ambientG, u8 ambientB, u8 numLights, u8 r, u8 g, u8 b, s8 x, s8 y, s8 z);
-void Lights_PointGlowSetInfo(struct LightInfo* info, s16 x, s16 y, s16 z, u8 r, u8 g, u8 b, s16 radius);
-void Lights_PointNoGlowSetInfo(struct LightInfo* info, s16 x, s16 y, s16 z, u8 r, u8 g, u8 b, s16 radius);
-void Lights_PointSetColorAndRadius(struct LightInfo* info, u8 r, u8 g, u8 b, s16 radius);
-void Lights_PointSetInfo(struct LightInfo* info, s16 x, s16 y, s16 z, u8 r, u8 g, u8 b, s16 radius, s32 type);
-void Lights_Reset(struct Lights* lights, u8 ambentR, u8 ambentG, u8 ambentB);
-#endif

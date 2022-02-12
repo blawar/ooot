@@ -41,3 +41,4 @@
 
 #define POINTER_ADD(a, b) ((uintptr_t)a + (uintptr_t)b)
 #define POINTER_SUB(a, b) (MAX((uintptr_t)a, (uintptr_t)b) - MIN((uintptr_t)a, (uintptr_t)b))
+#define POINTER_SUB2(a, b) (MAX((uintptr_t)a.get(), (uintptr_t)b.get()) - MIN((uintptr_t)a.get(), (uintptr_t)b.get()))

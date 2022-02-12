@@ -51,147 +51,148 @@
  * Data Structures.
  */
 
-typedef struct {
+struct Aadpcm {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 gain  : 16;
     u32 addr;
-} Aadpcm;
+};
 
-typedef struct {
+struct Apolef {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 gain  : 16;
     u32 addr;
-} Apolef;
+};
 
-typedef struct {
+struct Aenvelope {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 pad1  : 16;
     u32 addr;
-} Aenvelope;
+};
 
-typedef struct {
+struct Aclearbuff {
     u32 cmd   : 8;
     u32 pad1  : 8;
     u32 dmem  : 16;
     u32 pad2  : 16;
     u32 count : 16;
-} Aclearbuff;
+};
 
-typedef struct {
+struct Ainterleave {
     u32 cmd  : 8;
     u32 pad1 : 8;
     u32 pad2 : 16;
     u32 inL  : 16;
     u32 inR  : 16;
-} Ainterleave;
+};
 
-typedef struct {
+struct Aloadbuff {
     u32 cmd  : 8;
     u32 pad1 : 24;
     u32 addr;
-} Aloadbuff;
+};
 
-typedef struct {
+struct Aenvmixer {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 pad1  : 16;
     u32 addr;
-} Aenvmixer;
+};
 
-typedef struct {
+struct Amixer {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 gain  : 16;
     u32 dmemi : 16;
     u32 dmemo : 16;
-} Amixer;
+};
 
-typedef struct {
+struct Apan {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 dmem2 : 16;
     u32 addr;
-} Apan;
+};
 
-typedef struct {
+struct Aresample {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 pitch : 16;
     u32 addr;
-} Aresample;
+};
 
-typedef struct {
+struct Areverb {
     u32 cmd   : 8;
     u32 flags : 8;
     u32 pad1  : 16;
     u32 addr;
-} Areverb;
+};
 
-typedef struct {
+struct Asavebuff {
     u32 cmd  : 8;
     u32 pad1 : 24;
     u32 addr;
-} Asavebuff;
+};
 
-typedef struct {
+struct Asegment {
     u32 cmd    : 8;
     u32 pad1   : 24;
     u32 pad2   : 2;
     u32 number : 4;
     u32 base   : 24;
-} Asegment;
+};
 
-typedef struct {
+struct Asetbuff {
     u32 cmd     : 8;
     u32 flags   : 8;
     u32 dmemin  : 16;
     u32 dmemout : 16;
     u32 count   : 16;
-} Asetbuff;
+};
 
-typedef struct {
+struct Asetvol {
     u32 cmd     : 8;
     u32 flags   : 8;
     u32 vol     : 16;
     u32 voltgt  : 16;
     u32 volrate : 16;
-} Asetvol;
+};
 
-typedef struct {
+struct Admemmove {
     u32 cmd     : 8;
     u32 pad1    : 8;
     u32 dmemin  : 16;
     u32 dmemout : 16;
     u32 count   : 16;
-} Admemmove;
+};
 
-typedef struct {
+struct Aloadadpcm {
     u32 cmd   : 8;
     u32 pad1  : 8;
     u32 count : 16;
     u32 addr;
-} Aloadadpcm;
+};
 
-typedef struct {
+struct Asetloop {
     u32 cmd  : 8;
     u32 pad1 : 8;
     u32 pad2 : 16;
     u32 addr;
-} Asetloop;
+};
 
 /*
  * Generic Acmd Packet
  */
 
-typedef struct {
+struct Awords {
     uintptr_t w0;
     uintptr_t w1;
-} Awords;
+};
 
-typedef union {
+union Acmd
+{
     Awords      words;
     Aadpcm      adpcm;
     Apolef      polef;
@@ -211,7 +212,7 @@ typedef union {
     Amixer      mixer;
     Asetloop    setloop;
     long long int force_union_align; /* dummy, force alignment */
-} Acmd;
+};
 
 /*
  * ADPCM State

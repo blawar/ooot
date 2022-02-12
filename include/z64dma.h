@@ -3,7 +3,7 @@
 
 #include "ultra64.h"
 
-typedef struct {
+struct DmaRequest {
     /* 0x00 */ void*      vromAddr; // VROM address (source)
     /* 0x04 */ void*    dramAddr; // DRAM address (destination)
     /* 0x08 */ uintptr_t      size;     // File Transfer size
@@ -12,13 +12,13 @@ typedef struct {
     /* 0x14 */ s32      unk_14;
     /* 0x18 */ OSMesgQueue* notifyQueue; // Message queue for the notification message
     /* 0x1C */ OSMesg   notifyMsg;       // Completion notification message
-} DmaRequest; // size = 0x20
+}; // size = 0x20
 
-typedef struct {
+struct DmaEntry {
     /* 0x00 */ void* vromStart;
     /* 0x04 */ void* vromEnd;
     /* 0x08 */ void* romStart;
     /* 0x0C */ void* romEnd;
-} DmaEntry;
+};
 
 #endif

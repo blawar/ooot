@@ -1,14 +1,14 @@
 #ifndef ICHAIN_H
 #define ICHAIN_H
 
-typedef struct {
+struct InitChainEntry {
     u32 cont:   1;
     u32 type:   4;
     u32 offset: 11;
     s32 value:  16;
-} InitChainEntry;
+};
 
-typedef enum {
+enum InitChainType {
     /* 0x0 */ ICHAINTYPE_U8,            // sets byte
     /* 0x1 */ ICHAINTYPE_S8,
     /* 0x2 */ ICHAINTYPE_U16,           // sets short
@@ -20,7 +20,7 @@ typedef enum {
     /* 0x8 */ ICHAINTYPE_VEC3F,         // sets Vec3f members
     /* 0x9 */ ICHAINTYPE_VEC3F_DIV1000, // sets Vec3f members divided by 1000
     /* 0xA */ ICHAINTYPE_VEC3S          // sets Vec3s members
-} InitChainType;
+};
 
 /**
  * ICHAIN macros generate an init chain entry of the following form:

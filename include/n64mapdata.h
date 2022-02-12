@@ -1,7 +1,7 @@
 #pragma once
 #include "ultra64/types.h"
 
-typedef enum {
+enum FloorID {
     /*  1 */ F_8F = 1,
     /*  2 */ F_7F,
     /*  3 */ F_6F,
@@ -18,12 +18,12 @@ typedef enum {
     /* 14 */ F_B6,
     /* 15 */ F_B7,
     /* 16 */ F_B8
-} FloorID;
+};
 
 // All arrays pointed in this struct are indexed by "map indexes"
 // In dungeons, the map index corresponds to the dungeon index (which also indexes keys, items, etc)
 // In overworld areas, the map index corresponds to the overworld area index (spot 00, 01, etc)
-typedef struct {
+struct MapData {
     /* 0x00 */ s16 (*floorTexIndexOffset)[8]; // dungeon texture index offset by floor
     /* 0x04 */ s16* bossFloor;                // floor the boss is on
     /* 0x08 */ s16 (*roomPalette)[32];        // map palette by room
@@ -53,7 +53,7 @@ typedef struct {
     /* 0x64 */ u8 (*switchToRoom)[51];    // room to go to
     /* 0x68 */ u8 (*floorID)[8];
     /* 0x6C */ s16* skullFloorIconY; // dungeon big skull icon Y pos
-} MapData;                           // size = 0x70
+};                           // size = 0x70
 
 void Map_SavePlayerInitialInfo(struct GlobalContext* globalCtx);
 void Map_SetFloorPalettesData(struct GlobalContext* globalCtx, s16 floor);

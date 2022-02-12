@@ -7,19 +7,19 @@
 #define FILL_SCREEN_OPA (1 << 0)
 #define FILL_SCREEN_XLU (1 << 1)
 
-typedef enum {
+enum LightningMode {
     /* 0 */ LIGHTNING_MODE_OFF, // no lightning
     /* 1 */ LIGHTNING_MODE_ON, // request ligtning strikes at random intervals
     /* 2 */ LIGHTNING_MODE_LAST // request one lightning strike before turning off
-} LightningMode;
+};
 
-typedef enum {
+enum LightningStrikeState {
     /* 0 */ LIGHTNING_STRIKE_WAIT, // wait between lightning strikes. request bolts when timer hits 0
     /* 1 */ LIGHTNING_STRIKE_START, // fade in the flash. note: bolts are requested in the previous state
     /* 2 */ LIGHTNING_STRIKE_END // fade out the flash and go back to wait
-} LightningStrikeState;
+};
 
-typedef enum {
+enum SkyboxDmaState {
     /*  0 */ SKYBOX_DMA_INACTIVE,
     /*  1 */ SKYBOX_DMA_FILE1_START,
     /*  2 */ SKYBOX_DMA_FILE1_DONE,
@@ -27,27 +27,27 @@ typedef enum {
     /* 11 */ SKYBOX_DMA_FILE2_START = 11,
     /* 12 */ SKYBOX_DMA_FILE2_DONE,
     /* 13 */ SKYBOX_DMA_PAL2_START
-} SkyboxDmaState;
+};
 
-typedef struct {
+struct LightningStrike {
     /* 0x00 */ u8 state;
     /* 0x01 */ u8 flashRed;
     /* 0x02 */ u8 flashGreen;
     /* 0x03 */ u8 flashBlue;
     /* 0x04 */ u8 flashAlphaTarget;
     /* 0x08 */ f32 delayTimer;
-} LightningStrike; // size = 0xC
+}; // size = 0xC
 
 // describes what skybox files and blending modes to use depending on time of day
-typedef struct {
+struct struct_8011FC1C {
     /* 0x00 */ u16 startTime;
     /* 0x02 */ u16 endTime;
     /* 0x04 */ u8 blend; // if true, blend between.. skyboxes? palettes?
     /* 0x05 */ u8 skybox1Index; // whats the difference between _pal and non _pal files?
     /* 0x06 */ u8 skybox2Index;
-} struct_8011FC1C; // size = 0x8
+}; // size = 0x8
 
-typedef struct {
+struct EnvLightSettings {
     /* 0x00 */ u8 ambientColor[3];
     /* 0x03 */ s8 light1Dir[3];
     /* 0x06 */ u8 light1Color[3];
@@ -56,11 +56,11 @@ typedef struct {
     /* 0x0F */ u8 fogColor[3];
     /* 0x12 */ s16 fogNear;
     /* 0x14 */ s16 fogFar;
-} EnvLightSettings; // size = 0x16
+}; // size = 0x16
 
 // 1.0: 801D8EC4
 // dbg: 80222A44
-typedef struct {
+struct EnvironmentContext {
     /* 0x00 */ char unk_00[0x02];
     /* 0x02 */ u16 timeIncrement; // how many units of time that pass every update
     /* 0x04 */ Vec3f sunPos; // moon position can be found by negating the sun position
@@ -123,7 +123,7 @@ typedef struct {
     /* 0xEE */ u8 unk_EE[4];
     /* 0xF2 */ u8 unk_F2[4];
     /* 0xF6 */ char unk_F6[0x06];
-} EnvironmentContext; // size = 0xFC
+}; // size = 0xFC
 
 u16 Environment_GetPixelDepth(s32 x, s32 y);
 void Environment_GraphCallback(struct GraphicsContext* gfxCtx, void* param);

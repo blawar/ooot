@@ -210,15 +210,15 @@ std::string Declaration::GetStaticForwardDeclarationStr() const
 
 		if (arrayItemCntStr != "")
 		{
-			return StringHelper::Sprintf("static %s %s[%s];\n", STR(varType), STR(varName),
+			return StringHelper::Sprintf("extern %s %s[%s];\n", STR(varType), STR(varName),
 			                             STR(arrayItemCntStr));
 		}
 		else
 		{
-			return StringHelper::Sprintf("static %s %s[%i];\n", STR(varType), STR(varName),
+			return StringHelper::Sprintf("extern %s %s[%i];\n", STR(varType), STR(varName),
 			                             arrayItemCnt);
 		}
 	}
 
-	return StringHelper::Sprintf("static %s %s;\n", STR(varType), STR(varName));
+	return StringHelper::Sprintf("extern %s %s;\n", STR(varType), STR(varName));
 }

@@ -5,7 +5,7 @@
 #include "listalloc.h"
 #include "gfx.h"
 
-typedef enum {
+enum SkyboxId {
     /* 0x00 */ SKYBOX_NONE,
     /* 0x01 */ SKYBOX_NORMAL_SKY,
     /* 0x02 */ SKYBOX_BAZAAR,
@@ -34,21 +34,21 @@ typedef enum {
     /* 0x21 */ SKYBOX_HOUSE_SARIA,
     /* 0x22 */ SKYBOX_HOUSE_ALLEY,
     /* 0x27 */ SKYBOX_UNSET_27 = 39
-} SkyboxId;
+};
 
-typedef struct {
+struct SkyboxContext {
     /* 0x000 */ char unk_00[0x128];
     /* 0x128 */ void* staticSegments[2];
-    /* 0x130 */ u16 (*palettes)[256];
-    /* 0x134 */ Gfx (*dListBuf)[150];
+    /* 0x130 */ u16* palettes; // TODO CHECK u16 (*palettes)[256];
+    /* 0x134 */ Gfx* dListBuf; // TODO CHECK Gfx (*dListBuf)[150];
     /* 0x138 */ Gfx* unk_138;
     /* 0x13C */ Vtx* roomVtx;
     /* 0x140 */ s16 unk_140;
     /* 0x144 */ Vec3f rot;
     /* 0x150 */ char unk_150[0x10];
-} SkyboxContext; // size = 0x160
+}; // size = 0x160
 
-typedef struct {
+struct PreRender {
     /* 0x00 */ s32 width;
     /* 0x04 */ s32 height;
     /* 0x08 */ s32 widthSave;
@@ -68,4 +68,4 @@ typedef struct {
     /* 0x40 */ s32 lry;
     /* 0x44 */ ListAlloc alloc;
     /* 0x4C */ u32 unk_4C;
-} PreRender; // size = 0x50
+}; // size = 0x50

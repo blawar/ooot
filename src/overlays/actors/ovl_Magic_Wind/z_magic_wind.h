@@ -6,7 +6,7 @@
 
 struct MagicWind;
 
-typedef void (*MagicWindFunc)(struct MagicWind* this, GlobalContext* globalCtx);
+typedef void (*MagicWindFunc)(MagicWind* pthis, GlobalContext* globalCtx);
 
 typedef struct MagicWind {
     /* 0x0000 */ Actor actor;

@@ -4,16 +4,16 @@
 #define DEFINE_OBJECT_NULL(_0, enum) enum,
 #define DEFINE_OBJECT_UNSET(enum) enum,
 
-typedef enum {
+enum ObjectID {
     #include "tables/object_table.h"
     /* 0x0192 */ OBJECT_ID_MAX
-} ObjectID;
+};
 
 #undef DEFINE_OBJECT
 #undef DEFINE_OBJECT_NULL
 #undef DEFINE_OBJECT_UNSET
 
-typedef struct {
+struct ObjectContext {
     void* spaceStart;
     void* spaceEnd; // original name: "endSegment"
     u8 num;         // number of objects in bank
@@ -21,7 +21,7 @@ typedef struct {
     u8 mainKeepIndex; // "gameplay_keep" index in bank
     u8 subKeepIndex;  // "gameplay_field_keep" or "gameplay_dangeon_keep" index in bank
     s16* objectEntry;
-} ObjectContext; // size = 0x518
+}; // size = 0x518
 
 extern u32 gObjectTableSize;
 extern RomFile gObjectTable[OBJECT_ID_MAX];

@@ -6,7 +6,7 @@
 #include "z64sram.h"
 
 
-typedef struct {
+struct TitleContext {
     /* 0x0000 */ GameState state;
     /* 0x00A4 */ u8* staticSegment;
     /* 0x00A8 */ View view;
@@ -20,7 +20,7 @@ typedef struct {
     /* 0x01E0 */ char unk_1E0[0x01];
     /* 0x01E1 */ u8 exit;
     /* 0x01E2 */ char unk_1E2[0x06];
-} TitleContext; // size = 0x1E8
+}; // size = 0x1E8
 
 void Title_Init(GameState* thissx);
 void Title_Destroy(GameState* thissx);

@@ -1,12 +1,12 @@
 #pragma once
 
-typedef struct {
+struct Color_RGB8 {
     u8 r, g, b;
-} Color_RGB8;
+};
 
-typedef struct {
+struct Color_RGBA8 {
     u8 r, g, b, a;
-} Color_RGBA8;
+};
 
 // only use when necessary for alignment purposes
 typedef union {
@@ -16,9 +16,9 @@ typedef union {
     u32 rgba;
 } Color_RGBA8_u32;
 
-typedef struct {
+struct Color_RGBAf {
     f32 r, g, b, a;
-} Color_RGBAf;
+};
 
 typedef union {
     struct {

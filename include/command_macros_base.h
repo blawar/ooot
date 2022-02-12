@@ -57,6 +57,6 @@
 #endif
 #endif
 
-#define CMD_PTR(a) (void*)(a)
+#define CMD_PTR(a) (uintptr_t)(a)
 
 #endif

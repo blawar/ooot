@@ -1,5 +1,14 @@
 #pragma once
-#ifdef INTERNAL_SRC_CODE_Z_CAMERA_C
+struct Camera;
+struct Actor;
+struct Vec3s;
+struct Vec3f;
+struct View;
+struct CollisionContext;
+struct GlobalContext;
+struct Player;
+struct CutsceneCameraPoint;
+
 s32 Camera_AddQuake(Camera* camera, s32 arg1, s16 y, s32 countdown);
 s32 Camera_ChangeDataIdx(Camera* camera, s32 camDataIdx);
 s32 Camera_ChangeDoorCam(Camera* camera, Actor* doorActor, s16 camDataIdx, f32 arg3, s16 timer1, s16 timer2, s16 timer3);
@@ -26,31 +35,3 @@ s16 func_8005ACFC(Camera* camera, s16 arg1);
 s16 func_8005AD1C(Camera* camera, s16 arg1);
 s32 func_8005B198(void);
 s16 func_8005B1A4(Camera* camera);
-#else
-s32 Camera_AddQuake(struct Camera* camera, s32 arg1, s16 y, s32 countdown);
-s32 Camera_ChangeDataIdx(struct Camera* camera, s32 camDataIdx);
-s32 Camera_ChangeDoorCam(struct Camera* camera, struct Actor* doorActor, s16 camDataIdx, f32 arg3, s16 timer1, s16 timer2, s16 timer3);
-s32 Camera_ChangeMode(struct Camera* camera, s16 mode);
-s32 Camera_ChangeSetting(struct Camera* camera, s16 setting);
-s16 Camera_ChangeStatus(struct Camera* camera, s16 status);
-s32 Camera_CheckValidMode(struct Camera* camera, s16 mode);
-s32 Camera_Copy(struct Camera* dstCamera, struct Camera* srcCamera);
-void Camera_Finish(struct Camera* camera);
-struct Vec3s* Camera_GetCamDir(struct Vec3s* dir, struct Camera* camera);
-s16 Camera_GetCamDirPitch(struct Camera* camera);
-s16 Camera_GetCamDirYaw(struct Camera* camera);
-s16 Camera_GetInputDirYaw(struct Camera* camera);
-struct Vec3f* Camera_GetSkyboxOffset(struct Vec3f* dst, struct Camera* camera);
-void Camera_Init(struct Camera* camera, struct View* view, struct CollisionContext* colCtx, struct GlobalContext* globalCtx);
-void Camera_InitPlayerSettings(struct Camera* camera, struct Player* player);
-s32 Camera_ResetAnim(struct Camera* camera);
-s32 Camera_SetCSParams(struct Camera* camera, struct CutsceneCameraPoint* atPoints, struct CutsceneCameraPoint* eyePoints, struct Player* player, s16 relativeToPlayer);
-void Camera_SetCameraData(struct Camera* camera, s16 setDataFlags, void* data0, void* data1, s16 data2, s16 data3, UNK_TYPE arg6);
-s32 Camera_SetParam(struct Camera* camera, s32 param, void* value);
-struct Vec3s Camera_Update(struct Camera* camera);
-s32 func_8005AC48(struct Camera* camera, s16 arg1);
-s16 func_8005ACFC(struct Camera* camera, s16 arg1);
-s16 func_8005AD1C(struct Camera* camera, s16 arg1);
-s32 func_8005B198(void);
-s16 func_8005B1A4(struct Camera* camera);
-#endif

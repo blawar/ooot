@@ -7,8 +7,6 @@
 #define _LANGUAGE_C_PLUS_PLUS
 #endif
 
-/*#include "functions.h"
-#include "variables.h"*/
 #include "macros.h"
 
 #include <stdarg.h>

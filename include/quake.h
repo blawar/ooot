@@ -3,13 +3,13 @@
 #include "z64camera.h"
 #include "z64math.h"
 
-typedef struct {
+struct SubQuakeRequest14 {
     /* 0x00 */ s16 unk_00;
     /* 0x02 */ s16 unk_02;
     /* 0x04 */ s16 unk_04;
-} SubQuakeRequest14;
+};
 
-typedef struct {
+struct QuakeRequest {
     /* 0x00 */ s16 randIdx;
     /* 0x02 */ s16 countdownMax;
     /* 0x04 */ Camera* cam;
@@ -23,24 +23,24 @@ typedef struct {
     /* 0x1C */ s16 unk_1C;
     /* 0x1E */ s16 countdown;
     /* 0x20 */ s16 camPtrIdx;
-} QuakeRequest; // size = 0x24
+}; // size = 0x24
 
-typedef struct {
+struct ShakeInfo {
     /* 0x00 */ Vec3f vec1;
     /* 0x0C */ Vec3f vec2;
     /* 0x18 */ s16 rotZ;
     /* 0x1A */ s16 unk_1A;
     /* 0x1C */ s16 zoom;
-} ShakeInfo; // size = 0x1E
+}; // size = 0x1E
 
-typedef struct {
+struct QuakeCamCalc {
     /* 0x00 */ Vec3f atOffset;
     /* 0x0C */ Vec3f eyeOffset;
     /* 0x18 */ s16 rotZ;
     /* 0x1A */ s16 unk_1A;
     /* 0x1C */ s16 zoom;
     /* 0x20 */ f32 unk_20;
-} QuakeCamCalc; // size = 0x24
+}; // size = 0x24
 
 /*
 Vec3f* Quake_AddVec(Vec3f* dst, Vec3f* arg1, VecSph* arg2);

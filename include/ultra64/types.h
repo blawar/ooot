@@ -40,9 +40,9 @@ typedef union {
     long long int forc_structure_alignment;
 } Mtx;
 #else
-typedef struct {
+struct Mtx {
     float m[4][4];
-} Mtx;
+};
 #endif
 
 typedef float MtxF_t[4][4];
@@ -56,3 +56,150 @@ typedef union {
     };
 } MtxF;
 
+class Pointer
+{
+	public:
+	constexpr Pointer() : m_address(0)
+	{
+	}
+
+    constexpr Pointer(uintptr_t address) : m_address(address)
+	{
+	}
+
+	constexpr Pointer(int address) : m_address(address)
+	{
+	}
+
+	constexpr Pointer(const void* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(void* address) : m_address((uintptr_t)address)
+	{
+	}
+
+    constexpr Pointer(const s8* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(s8* address) : m_address((uintptr_t)address)
+	{
+	}
+
+    constexpr Pointer(const u8* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(u8* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(const s16* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(s16* address) : m_address((uintptr_t)address)
+	{
+	}
+
+    constexpr Pointer(const u16* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(u16* address) : m_address((uintptr_t)address)
+	{
+	}
+
+    constexpr Pointer(const s32* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(s32* address) : m_address((uintptr_t)address)
+	{
+	}
+
+    constexpr Pointer(const u32* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer(u32* address) : m_address((uintptr_t)address)
+	{
+	}
+
+	constexpr Pointer operator + (const Pointer& b) const
+	{
+		return Pointer(m_address + b.m_address);
+	}
+
+	constexpr Pointer operator-(const Pointer& b) const
+	{
+		return Pointer(m_address - b.m_address);
+	}
+
+	Pointer& operator+=(const Pointer& b)
+	{
+		m_address += b.m_address;
+		return *this;
+	}
+
+	Pointer& operator+=(const uintptr_t b)
+	{
+		m_address += b;
+		return *this;
+	}
+
+	Pointer& operator-=(const Pointer& b)
+	{
+		m_address -= b.m_address;
+		return *this;
+	}
+
+	Pointer& operator-=(const uintptr_t b)
+	{
+		m_address -= b;
+		return *this;
+	}
+
+	bool operator==(uintptr_t n) const
+	{
+		return n == m_address;
+	}
+
+	bool operator==(int n) const
+	{
+		return n == m_address;
+	}
+
+	bool operator!=(uintptr_t n) const
+	{
+		return n != m_address;
+	}
+
+	bool operator!=(int n) const
+	{
+		return n != m_address;
+	}
+
+	uintptr_t size()
+	{
+		return m_address;
+	}
+
+    uintptr_t get()
+	{
+	    return m_address;
+	}
+
+	void* buffer()
+	{
+		return (void*)m_address;
+	}
+
+	void* c_str()
+	{
+		return (char*)m_address;
+	}
+	private:
+	uintptr_t m_address;
+};

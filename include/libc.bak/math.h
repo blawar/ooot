@@ -19,10 +19,10 @@ typedef union {
     f64 d;
 } du;
 
-typedef union {
+union fu {
     u32 i;
     f32 f;
-} fu;
+};
 
 extern f32 __libm_qnan_f;
 
