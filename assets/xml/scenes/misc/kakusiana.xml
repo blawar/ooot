@@ -3,73 +3,45 @@
         <Scene Name="kakusiana_scene" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_0" Segment="3">
-        <DList Name="kakusiana_room_0DL_006A78" Offset="0x006A78"/>
-        <DList Name="kakusiana_room_0DL_002268" Offset="0x002268"/>
         <Room Name="kakusiana_room_0" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_1" Segment="3">
-        <DList Name="kakusiana_room_1DL_004970" Offset="0x004970"/>
-        <DList Name="kakusiana_room_1DL_0019E0" Offset="0x0019E0"/>
         <Room Name="kakusiana_room_1" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_2" Segment="3">
-        <DList Name="kakusiana_room_2DL_0028A0" Offset="0x0028A0"/>
-        <DList Name="kakusiana_room_2DL_001420" Offset="0x001420"/>
         <Room Name="kakusiana_room_2" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_3" Segment="3">
-        <DList Name="kakusiana_room_3DL_004108" Offset="0x004108"/>
-        <DList Name="kakusiana_room_3DL_0017F0" Offset="0x0017F0"/>
         <Room Name="kakusiana_room_3" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_4" Segment="3">
-        <DList Name="kakusiana_room_4DL_005938" Offset="0x005938"/>
-        <DList Name="kakusiana_room_4DL_002100" Offset="0x002100"/>
         <Room Name="kakusiana_room_4" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_5" Segment="3">
-        <DList Name="kakusiana_room_5DL_003EB8" Offset="0x003EB8"/>
-        <DList Name="kakusiana_room_5DL_001858" Offset="0x001858"/>
         <Room Name="kakusiana_room_5" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_6" Segment="3">
-        <DList Name="kakusiana_room_6DL_005A48" Offset="0x005A48"/>
-        <DList Name="kakusiana_room_6DL_0022A8" Offset="0x0022A8"/>
         <Room Name="kakusiana_room_6" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_7" Segment="3">
-        <DList Name="kakusiana_room_7DL_003FB0" Offset="0x003FB0"/>
-        <DList Name="kakusiana_room_7DL_001D28" Offset="0x001D28"/>
         <Room Name="kakusiana_room_7" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_8" Segment="3">
-        <DList Name="kakusiana_room_8DL_003610" Offset="0x003610"/>
-        <DList Name="kakusiana_room_8DL_001990" Offset="0x001990"/>
         <Room Name="kakusiana_room_8" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_9" Segment="3">
-        <DList Name="kakusiana_room_9DL_005AA8" Offset="0x005AA8"/>
-        <DList Name="kakusiana_room_9DL_002308" Offset="0x002308"/>
         <Room Name="kakusiana_room_9" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_10" Segment="3">
-        <DList Name="kakusiana_room_10DL_005208" Offset="0x005208"/>
-        <DList Name="kakusiana_room_10DL_0017A8" Offset="0x0017A8"/>
         <Room Name="kakusiana_room_10" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_11" Segment="3">
-        <DList Name="kakusiana_room_11DL_008690" Offset="0x008690"/>
-        <DList Name="kakusiana_room_11DL_002810" Offset="0x002810"/>
         <Room Name="kakusiana_room_11" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_12" Segment="3">
-        <DList Name="kakusiana_room_12DL_007E30" Offset="0x007E30"/>
-        <DList Name="kakusiana_room_12DL_001FB8" Offset="0x001FB8"/>
         <Room Name="kakusiana_room_12" Offset="0x0"/>
     </File>
     <File Name="kakusiana_room_13" Segment="3">
-        <DList Name="kakusiana_room_13DL_004EA8" Offset="0x004EA8"/>
-        <DList Name="kakusiana_room_13DL_001918" Offset="0x001918"/>
         <Room Name="kakusiana_room_13" Offset="0x0"/>
     </File>
 </Root>

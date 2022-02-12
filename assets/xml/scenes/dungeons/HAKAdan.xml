@@ -3,98 +3,72 @@
         <Scene Name="HAKAdan_scene" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_0" Segment="3">
-        <DList Name="HAKAdan_room_0DL_00AD38" Offset="0x00AD38"/>
-        <DList Name="HAKAdan_room_0DL_008200" Offset="0x008200"/>
         <Room Name="HAKAdan_room_0" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_1" Segment="3">
-        <DList Name="HAKAdan_room_1DL_0012C8" Offset="0x0012C8"/>
         <Room Name="HAKAdan_room_1" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_2" Segment="3">
-        <DList Name="HAKAdan_room_2DL_006B88" Offset="0x006B88"/>
         <Room Name="HAKAdan_room_2" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_3" Segment="3">
-        <DList Name="HAKAdan_room_3DL_001550" Offset="0x001550"/>
         <Room Name="HAKAdan_room_3" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_4" Segment="3">
-        <DList Name="HAKAdan_room_4DL_001438" Offset="0x001438"/>
         <Room Name="HAKAdan_room_4" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_5" Segment="3">
-        <DList Name="HAKAdan_room_5DL_003C80" Offset="0x003C80"/>
         <Room Name="HAKAdan_room_5" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_6" Segment="3">
-        <DList Name="HAKAdan_room_6DL_004BD0" Offset="0x004BD0"/>
         <Room Name="HAKAdan_room_6" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_7" Segment="3">
-        <DList Name="HAKAdan_room_7DL_0012B8" Offset="0x0012B8"/>
         <Room Name="HAKAdan_room_7" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_8" Segment="3">
-        <DList Name="HAKAdan_room_8DL_003070" Offset="0x003070"/>
         <Room Name="HAKAdan_room_8" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_9" Segment="3">
-        <DList Name="HAKAdan_room_9DL_009030" Offset="0x009030"/>
         <Room Name="HAKAdan_room_9" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_10" Segment="3">
-        <DList Name="HAKAdan_room_10DL_0039B0" Offset="0x0039B0"/>
         <Room Name="HAKAdan_room_10" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_11" Segment="3">
-        <DList Name="HAKAdan_room_11DL_001E28" Offset="0x001E28"/>
         <Room Name="HAKAdan_room_11" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_12" Segment="3">
-        <DList Name="HAKAdan_room_12DL_003320" Offset="0x003320"/>
         <Room Name="HAKAdan_room_12" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_13" Segment="3">
-        <DList Name="HAKAdan_room_13DL_000800" Offset="0x000800"/>
         <Room Name="HAKAdan_room_13" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_14" Segment="3">
-        <DList Name="HAKAdan_room_14DL_0034D8" Offset="0x0034D8"/>
         <Room Name="HAKAdan_room_14" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_15" Segment="3">
-        <DList Name="HAKAdan_room_15DL_005698" Offset="0x005698"/>
         <Room Name="HAKAdan_room_15" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_16" Segment="3">
-        <DList Name="HAKAdan_room_16DL_001918" Offset="0x001918"/>
         <Room Name="HAKAdan_room_16" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_17" Segment="3">
-        <DList Name="HAKAdan_room_17DL_0025C8" Offset="0x0025C8"/>
-        <DList Name="HAKAdan_room_17DL_001220" Offset="0x001220"/>
         <Room Name="HAKAdan_room_17" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_18" Segment="3">
-        <DList Name="HAKAdan_room_18DL_00B8A8" Offset="0x00B8A8"/>
         <Room Name="HAKAdan_room_18" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_19" Segment="3">
-        <DList Name="HAKAdan_room_19DL_001550" Offset="0x001550"/>
         <Room Name="HAKAdan_room_19" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_20" Segment="3">
-        <DList Name="HAKAdan_room_20DL_001620" Offset="0x001620"/>
         <Room Name="HAKAdan_room_20" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_21" Segment="3">
-        <DList Name="HAKAdan_room_21DL_00AD98" Offset="0x00AD98"/>
-        <DList Name="HAKAdan_room_21DL_006DA0" Offset="0x006DA0"/>
         <Room Name="HAKAdan_room_21" Offset="0x0"/>
     </File>
     <File Name="HAKAdan_room_22" Segment="3">
-        <DList Name="HAKAdan_room_22DL_000F98" Offset="0x000F98"/>
         <Room Name="HAKAdan_room_22" Offset="0x0"/>
     </File>
 </Root>

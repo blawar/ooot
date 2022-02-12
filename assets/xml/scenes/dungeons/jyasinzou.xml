@@ -1,134 +1,94 @@
 <Root>
     <File Name="jyasinzou_scene" Segment="2">
-        <Path Name="jyasinzou_scenePathway_00049C" Offset="0x049C" NumPaths="5"/>
-        <Texture Name="gSpiritTempleDayEntranceTex" OutName="day_entrance" Format="ia16" Width="8" Height="128" Offset="0x18920"/>
-        <Texture Name="gSpiritTempleNightEntranceTex" OutName="night_entrance" Format="ia16" Width="8" Height="128" Offset="0x18020"/>
+        <Texture Name="gSpiritTempleDayEntranceTex" OutName="day_entrance" Format="ia16" Width="8" Height="128" Offset="0x18940"/>
+        <Texture Name="gSpiritTempleNightEntranceTex" OutName="night_entrance" Format="ia16" Width="8" Height="128" Offset="0x18040"/>
         <Scene Name="jyasinzou_scene" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_0" Segment="3">
-        <DList Name="jyasinzou_room_0DL_0107C8" Offset="0x0107C8"/>
-        <DList Name="jyasinzou_room_0DL_00A968" Offset="0x00A968"/>
         <Room Name="jyasinzou_room_0" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_1" Segment="3">
-        <DList Name="jyasinzou_room_1DL_004F20" Offset="0x004F20"/>
         <Room Name="jyasinzou_room_1" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_2" Segment="3">
-        <DList Name="jyasinzou_room_2DL_002380" Offset="0x002380"/>
         <Room Name="jyasinzou_room_2" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_3" Segment="3">
-        <DList Name="jyasinzou_room_3DL_001FA0" Offset="0x001FA0"/>
         <Room Name="jyasinzou_room_3" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_4" Segment="3">
-        <DList Name="jyasinzou_room_4DL_007270" Offset="0x007270"/>
-        <DList Name="jyasinzou_room_4DL_003648" Offset="0x003648"/>
         <Room Name="jyasinzou_room_4" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_5" Segment="3">
-        <DList Name="jyasinzou_room_5DL_0167F0" Offset="0x0167F0"/>
-        <DList Name="jyasinzou_room_5DL_00C8F8" Offset="0x00C8F8"/>
         <Room Name="jyasinzou_room_5" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_6" Segment="3">
-        <DList Name="jyasinzou_room_6DL_002BA8" Offset="0x002BA8"/>
         <Room Name="jyasinzou_room_6" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_7" Segment="3">
-        <DList Name="jyasinzou_room_7DL_0028A8" Offset="0x0028A8"/>
         <Room Name="jyasinzou_room_7" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_8" Segment="3">
-        <DList Name="jyasinzou_room_8DL_008098" Offset="0x008098"/>
-        <DList Name="jyasinzou_room_8DL_003A08" Offset="0x003A08"/>
         <Room Name="jyasinzou_room_8" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_9" Segment="3">
-        <DList Name="jyasinzou_room_9DL_002D88" Offset="0x002D88"/>
         <Room Name="jyasinzou_room_9" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_10" Segment="3">
-        <DList Name="jyasinzou_room_10DL_003150" Offset="0x003150"/>
         <Room Name="jyasinzou_room_10" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_11" Segment="3">
-        <DList Name="jyasinzou_room_11DL_001000" Offset="0x001000"/>
-        <DList Name="jyasinzou_room_11DL_000770" Offset="0x000770"/>
         <Room Name="jyasinzou_room_11" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_12" Segment="3">
-        <DList Name="jyasinzou_room_12DL_0010B8" Offset="0x0010B8"/>
         <Room Name="jyasinzou_room_12" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_13" Segment="3">
-        <DList Name="jyasinzou_room_13DL_002890" Offset="0x002890"/>
         <Room Name="jyasinzou_room_13" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_14" Segment="3">
-        <DList Name="jyasinzou_room_14DL_001C68" Offset="0x001C68"/>
         <Room Name="jyasinzou_room_14" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_15" Segment="3">
-        <DList Name="jyasinzou_room_15DL_007C80" Offset="0x007C80"/>
-        <DList Name="jyasinzou_room_15DL_002FB0" Offset="0x002FB0"/>
         <Room Name="jyasinzou_room_15" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_16" Segment="3">
-        <DList Name="jyasinzou_room_16DL_002960" Offset="0x002960"/>
         <Room Name="jyasinzou_room_16" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_17" Segment="3">
-        <DList Name="jyasinzou_room_17DL_005E20" Offset="0x005E20"/>
         <Room Name="jyasinzou_room_17" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_18" Segment="3">
-        <DList Name="jyasinzou_room_18DL_0054C8" Offset="0x0054C8"/>
-        <DList Name="jyasinzou_room_18DL_0020A8" Offset="0x0020A8"/>
         <Room Name="jyasinzou_room_18" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_19" Segment="3">
-        <DList Name="jyasinzou_room_19DL_002D88" Offset="0x002D88"/>
         <Room Name="jyasinzou_room_19" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_20" Segment="3">
-        <DList Name="jyasinzou_room_20DL_003168" Offset="0x003168"/>
         <Room Name="jyasinzou_room_20" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_21" Segment="3">
-        <DList Name="jyasinzou_room_21DL_001640" Offset="0x001640"/>
         <Room Name="jyasinzou_room_21" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_22" Segment="3">
-        <DList Name="jyasinzou_room_22DL_001440" Offset="0x001440"/>
         <Room Name="jyasinzou_room_22" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_23" Segment="3">
-        <DList Name="jyasinzou_room_23DL_009200" Offset="0x009200"/>
-        <DList Name="jyasinzou_room_23DL_0043D0" Offset="0x0043D0"/>
         <Room Name="jyasinzou_room_23" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_24" Segment="3">
-        <DList Name="jyasinzou_room_24DL_0054C0" Offset="0x0054C0"/>
-        <DList Name="jyasinzou_room_24DL_001B10" Offset="0x001B10"/>
         <Room Name="jyasinzou_room_24" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_25" Segment="3">
-        <DList Name="jyasinzou_room_25DL_00B798" Offset="0x00B798"/>
         <Room Name="jyasinzou_room_25" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_26" Segment="3">
-        <DList Name="jyasinzou_room_26DL_00C2E0" Offset="0x00C2E0"/>
-        <DList Name="jyasinzou_room_26DL_006C30" Offset="0x006C30"/>
         <Room Name="jyasinzou_room_26" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_27" Segment="3">
-        <DList Name="jyasinzou_room_27DL_0042C0" Offset="0x0042C0"/>
         <Room Name="jyasinzou_room_27" Offset="0x0"/>
     </File>
     <File Name="jyasinzou_room_28" Segment="3">
-        <DList Name="jyasinzou_room_28DL_0040F8" Offset="0x0040F8"/>
         <Room Name="jyasinzou_room_28" Offset="0x0"/>
     </File>
 </Root>

@@ -3,7 +3,6 @@
         <Scene Name="impa_scene" Offset="0x0"/>
     </File>
     <File Name="impa_room_0" Segment="3">
-        <DList Name="impa_room_0DL_001788" Offset="0x001788"/>
         <Room Name="impa_room_0" Offset="0x0"/>
     </File>
 </Root>

@@ -1,25 +1,20 @@
 <Root>
     <File Name="spot04_scene" Segment="2">
-        <Path Name="spot04_scenePathway_00030C" Offset="0x030C" NumPaths="3"/>
-        <Path Name="spot04_scenePathway_00D728" Offset="0xD728" NumPaths="2"/>
-        <Cutscene Name="gKokiriForestDekuSproutCs" Offset="0xC9D0"/>
-        <Cutscene Name="gSpot04Cs_10E20" Offset="0x10E20"/>
+        <Path Name="gSpot04Path_000314" Offset="0x314"/>
+        <Path Name="gSpot04Path_00031C" Offset="0x31C"/>
+        <Path Name="gSpot04Path_00D730" Offset="0xD760"/>
+        <Cutscene Name="gKokiriForestDekuSproutCs" Offset="0xCA00"/>
+        <Cutscene Name="gSpot04Cs_10E20" Offset="0x10E50"/>
 
         <Scene Name="spot04_scene" Offset="0x0"/>
     </File>
     <File Name="spot04_room_0" Segment="3">
-        <DList Name="spot04_room_0DL_018A60" Offset="0x018A60"/>
-        <DList Name="spot04_room_0DL_00BE80" Offset="0x00BE80"/>
         <Room Name="spot04_room_0" Offset="0x0"/>
     </File>
     <File Name="spot04_room_1" Segment="3">
-        <DList Name="spot04_room_1DL_007B60" Offset="0x007B60"/>
-        <DList Name="spot04_room_1DL_004E88" Offset="0x004E88"/>
         <Room Name="spot04_room_1" Offset="0x0"/>
     </File>
     <File Name="spot04_room_2" Segment="3">
-        <DList Name="gSpot04DL_002BB8" Offset="0x2BB8"/>
-        <DList Name="gSpot04DL_005058" Offset="0x5058"/>
         <Room Name="spot04_room_2" Offset="0x0"/>
     </File>
 </Root>

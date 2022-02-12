@@ -875,9 +875,9 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     }
 
     if (gSaveContext.language == LANGUAGE_GER) {
-        gSPVertex(POLY_OPA_DISP++, D_80811E30, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[16], 32, 0);
     } else {
-        gSPVertex(POLY_OPA_DISP++, D_80811D30, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[0], 32, 0);
     }
 
     gDPPipeSync(POLY_OPA_DISP++);
@@ -895,9 +895,9 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     }
 
     if (gSaveContext.language == LANGUAGE_GER) {
-        gSPVertex(POLY_OPA_DISP++, D_80812130, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[64], 32, 0);
     } else {
-        gSPVertex(POLY_OPA_DISP++, D_80811F30, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[24], 32, 0);
     }
 
     for (i = 0, vtx = 0; i < 4; i++, vtx += 4) {
@@ -948,6 +948,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     }
 
     gDPPipeSync(POLY_OPA_DISP++);
+    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[32], 32, 0);
 
     // check brightness bars
     gDPLoadTextureBlock_4b(POLY_OPA_DISP++, gFileSelBrightnessCheckTex, G_IM_FMT_IA, 96, 16, 0,

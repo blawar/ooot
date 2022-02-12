@@ -1,11 +1,9 @@
 <Root>
     <File Name="spot11_scene" Segment="2">
-        <Cutscene Name="gDesertColossusIntroCs" Offset="0x7990"/>
+        <Cutscene Name="gDesertColossusIntroCs" Offset="0x79A0"/>
         <Scene Name="spot11_scene" Offset="0x0"/>
     </File>
     <File Name="spot11_room_0" Segment="3">
-        <DList Name="spot11_room_0DL_00C7A0" Offset="0x00C7A0"/>
-        <DList Name="spot11_room_0DL_00AC58" Offset="0x00AC58"/>
         <Room Name="spot11_room_0" Offset="0x0"/>
     </File>
 </Root>

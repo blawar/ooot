@@ -259,11 +259,11 @@ textbox_ypos = {
 }
 
 # message entry tables vrom addresses
-nes_message_entry_table_addr = 0x00BC24C0
-ger_message_entry_table_addr = 0x00BC66E8
-fra_message_entry_table_addr = 0x00BC87F8
-staff_message_entry_table_addr = 0x00BCA908
-staff_message_entry_table_addr_end = 0x00BCAA90
+nes_message_entry_table_addr = 0x00B801DC
+ger_message_entry_table_addr = 0x00B84404
+fra_message_entry_table_addr = 0x00B86514
+staff_message_entry_table_addr = 0x00B88624
+staff_message_entry_table_addr_end = 0x00B887AC
 
 nes_message_entry_table = []
 ger_message_entry_table = []

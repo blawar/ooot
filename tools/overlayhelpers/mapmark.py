@@ -5,8 +5,8 @@ import sys
 
 NUM_SCENES = 10
 SIMPLIFY_OUTPUT = True # setting to True reduces the final output by ~9k lines
-MAP_MARK_RAM = 0x80858B70
-gMapMarkDataTable = 0x8085F5E8
+MAP_MARK_RAM = 0x80857380
+gMapMarkDataTable = 0x8085DE6C
 
 DUNGEON_NAMES = [
     ("DekuTree", "Deku Tree"),

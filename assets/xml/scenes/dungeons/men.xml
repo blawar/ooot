@@ -1,53 +1,40 @@
 <Root>
     <File Name="men_scene" Segment="2">
-        <Texture Name="gGTGDayEntranceTex" OutName="day_entrance" Format="ia16" Width="8" Height="128" Offset="0xF8C0"/>
-        <Texture Name="gGTGNightEntranceTex" OutName="night_entrance" Format="ia16" Width="8" Height="128" Offset="0x100C0"/>
+        <Texture Name="gGTGDayEntranceTex" OutName="day_entrance" Format="ia16" Width="8" Height="128" Offset="0xF930"/>
+        <Texture Name="gGTGNightEntranceTex" OutName="night_entrance" Format="ia16" Width="8" Height="128" Offset="0x10130"/>
         <Scene Name="men_scene" Offset="0x0"/>
     </File>
     <File Name="men_room_0" Segment="3">
-        <DList Name="gMenDL_008118" Offset="0x8118"/>
-        <DList Name="gMenDL_00FF78" Offset="0xFF78"/>
         <Room Name="men_room_0" Offset="0x0"/>
     </File>
     <File Name="men_room_1" Segment="3">
-        <DList Name="men_room_1DL_004210" Offset="0x004210"/>
         <Room Name="men_room_1" Offset="0x0"/>
     </File>
     <File Name="men_room_2" Segment="3">
-        <DList Name="men_room_2DL_003C00" Offset="0x003C00"/>
         <Room Name="men_room_2" Offset="0x0"/>
     </File>
     <File Name="men_room_3" Segment="3">
-        <DList Name="men_room_3DL_003830" Offset="0x003830"/>
         <Room Name="men_room_3" Offset="0x0"/>
     </File>
     <File Name="men_room_4" Segment="3">
-        <DList Name="men_room_4DL_0051A0" Offset="0x0051A0"/>
         <Room Name="men_room_4" Offset="0x0"/>
     </File>
     <File Name="men_room_5" Segment="3">
-        <DList Name="men_room_5DL_002400" Offset="0x002400"/>
         <Room Name="men_room_5" Offset="0x0"/>
     </File>
     <File Name="men_room_6" Segment="3">
-        <DList Name="men_room_6DL_003F20" Offset="0x003F20"/>
         <Room Name="men_room_6" Offset="0x0"/>
     </File>
     <File Name="men_room_7" Segment="3">
-        <DList Name="men_room_7DL_003698" Offset="0x003698"/>
         <Room Name="men_room_7" Offset="0x0"/>
     </File>
     <File Name="men_room_8" Segment="3">
-        <DList Name="men_room_8DL_005CE0" Offset="0x005CE0"/>
         <Room Name="men_room_8" Offset="0x0"/>
     </File>
     <File Name="men_room_9" Segment="3">
-        <DList Name="men_room_9DL_003060" Offset="0x003060"/>
-        <DList Name="men_room_9DL_001A80" Offset="0x001A80"/>
         <Room Name="men_room_9" Offset="0x0"/>
     </File>
     <File Name="men_room_10" Segment="3">
-        <DList Name="men_room_10DL_002400" Offset="0x002400"/>
         <Room Name="men_room_10" Offset="0x0"/>
     </File>
 </Root>

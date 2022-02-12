@@ -9,7 +9,7 @@
 
 .balign 16
 
-glabel D_80009320
+glabel rspBootTextStart
     .incbin "baserom.z64", 0x9F20, 0xD0
 
 glabel D_800093F0

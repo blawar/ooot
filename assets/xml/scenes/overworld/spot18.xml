@@ -2,30 +2,22 @@
     <File Name="spot18_scene" Segment="2">
         <Cutscene Name="gGoronCityDaruniaCorrectCs" Offset="0x59E0"/>
         <Cutscene Name="gGoronCityDarunia01Cs" Offset="0x6930"/>
-        <Cutscene Name="gGoronCityDaruniaWrongCs" Offset="0x7DE0"/>
-        <Cutscene Name="gGoronCityIntroCs" Offset="0x8400"/>
-        <Texture Name="gGoronCityNightEntranceTex" OutName="night_entrance" Format="ia8" Width="8" Height="8" Offset="0x8FC8"/>
-        <Texture Name="gGoronCityDayEntranceTex" OutName="day_entrance" Format="ia8" Width="8" Height="8" Offset="0x9808"/>
+        <Cutscene Name="gGoronCityDaruniaWrongCs" Offset="0x7DF4"/>
+        <Cutscene Name="gGoronCityIntroCs" Offset="0x8380"/>
+        <Texture Name="gGoronCityNightEntranceTex" OutName="night_entrance" Format="ia8" Width="8" Height="8" Offset="0x8F48"/>
+        <Texture Name="gGoronCityDayEntranceTex" OutName="day_entrance" Format="ia8" Width="8" Height="8" Offset="0x9788"/>
         <Scene Name="spot18_scene" Offset="0x0"/>
     </File>
     <File Name="spot18_room_0" Segment="3">
-        <DList Name="spot18_room_0DL_00DFB8" Offset="0x00DFB8"/>
-        <DList Name="spot18_room_0DL_004948" Offset="0x004948"/>
         <Room Name="spot18_room_0" Offset="0x0"/>
     </File>
     <File Name="spot18_room_1" Segment="3">
-        <DList Name="spot18_room_1DL_005DE8" Offset="0x005DE8"/>
-        <DList Name="spot18_room_1DL_002830" Offset="0x002830"/>
         <Room Name="spot18_room_1" Offset="0x0"/>
     </File>
     <File Name="spot18_room_2" Segment="3">
-        <DList Name="spot18_room_2DL_00D188" Offset="0x00D188"/>
-        <DList Name="spot18_room_2DL_0047D8" Offset="0x0047D8"/>
         <Room Name="spot18_room_2" Offset="0x0"/>
     </File>
     <File Name="spot18_room_3" Segment="3">
-        <DList Name="spot18_room_3DL_0194B0" Offset="0x0194B0"/>
-        <DList Name="spot18_room_3DL_00B400" Offset="0x00B400"/>
         <Room Name="spot18_room_3" Offset="0x0"/>
     </File>
 </Root>

@@ -1,36 +1,26 @@
 <Root>
     <File Name="HAKAdanCH_scene" Segment="2">
-        <Path Name="HAKAdanCH_scenePathway_000248" Offset="0x0248" NumPaths="2"/>
         <Scene Name="HAKAdanCH_scene" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_0" Segment="3">
-        <DList Name="HAKAdanCH_room_0DL_014AF8" Offset="0x014AF8"/>
-        <DList Name="HAKAdanCH_room_0DL_00D628" Offset="0x00D628"/>
         <Room Name="HAKAdanCH_room_0" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_1" Segment="3">
-        <DList Name="HAKAdanCH_room_1DL_00B120" Offset="0x00B120"/>
-        <DList Name="HAKAdanCH_room_1DL_008D10" Offset="0x008D10"/>
         <Room Name="HAKAdanCH_room_1" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_2" Segment="3">
-        <DList Name="HAKAdanCH_room_2DL_002938" Offset="0x002938"/>
         <Room Name="HAKAdanCH_room_2" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_3" Segment="3">
-        <DList Name="HAKAdanCH_room_3DL_0014A0" Offset="0x0014A0"/>
         <Room Name="HAKAdanCH_room_3" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_4" Segment="3">
-        <DList Name="HAKAdanCH_room_4DL_001478" Offset="0x001478"/>
         <Room Name="HAKAdanCH_room_4" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_5" Segment="3">
-        <DList Name="HAKAdanCH_room_5DL_001160" Offset="0x001160"/>
         <Room Name="HAKAdanCH_room_5" Offset="0x0"/>
     </File>
     <File Name="HAKAdanCH_room_6" Segment="3">
-        <DList Name="HAKAdanCH_room_6DL_000E88" Offset="0x000E88"/>
         <Room Name="HAKAdanCH_room_6" Offset="0x0"/>
     </File>
 </Root>

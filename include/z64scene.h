@@ -396,16 +396,6 @@ typedef enum {
     /* 0x62 */ SCENE_SPOT18,
     /* 0x63 */ SCENE_SPOT20,
     /* 0x64 */ SCENE_GANON_TOU,
-    // Debug only scenes
-    /* 0x65 */ SCENE_TEST01,
-    /* 0x66 */ SCENE_BESITU,
-    /* 0x67 */ SCENE_DEPTH_TEST,
-    /* 0x68 */ SCENE_SYOTES,
-    /* 0x69 */ SCENE_SYOTES2,
-    /* 0x6A */ SCENE_SUTARU,
-    /* 0x6B */ SCENE_HAIRAL_NIWA2,
-    /* 0x6C */ SCENE_SASATEST,
-    /* 0x6D */ SCENE_TESTROOM,
     /* 0x6E */ SCENE_ID_MAX
 } SceneID;
 

@@ -3,7 +3,6 @@
         <Scene Name="market_alley_scene" Offset="0x0"/>
     </File>
     <File Name="market_alley_room_0" Segment="3">
-        <DList Name="market_alley_room_0DL_0756F0" Offset="0x0756F0"/>
         <Room Name="market_alley_room_0" Offset="0x0"/>
     </File>
 </Root>

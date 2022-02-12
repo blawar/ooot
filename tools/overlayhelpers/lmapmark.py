@@ -4,8 +4,8 @@ import struct
 import sys
 
 SIMPLIFY_OUTPUT = True
-OVL_KALEIDO_SCOPE_RAM = 0x80813820
-gPauseMapMarkDataTable = 0x8082B2C0
+OVL_KALEIDO_SCOPE_RAM = 0x80813F90
+gPauseMapMarkDataTable = 0x8082AE30
 
 SCENES = [
     ("Deku Tree", 5),
@@ -59,9 +59,9 @@ def GetIconName(v):
 def GetVtxPointer(v):
     if v == 0:
         return "NULL"
-    if v == 0x80830610:
+    if v == 0x8082F410:
         return "sMarkBossVtx"
-    if v == 0x80830650:
+    if v == 0x8082F450:
         return "sMarkChestVtx"
 
 def IND(n):
