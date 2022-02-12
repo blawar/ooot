@@ -1,4 +1,17 @@
 #pragma once
+struct GlobalContext;
+struct EnvironmentContext;
+struct View;
+struct GraphicsContext;
+struct Vec3f;
+struct LightContext;
+struct PauseContext;
+struct MessageContext;
+struct GameOverContext;
+struct SkyboxContext;
+struct struct_8011FC1C;
+struct LightningStrike;
+struct SkyboxFile;
 
 extern u8 D_8011FB34;
 extern u8 D_8011FB38;
@@ -14,7 +27,6 @@ extern SkyboxFile gSkyboxFiles[];
 extern u16 gTimeIncrement;
 extern u8 gWeatherMode;
 
-#ifdef INTERNAL_SRC_CODE_Z_KANKYO_C
 void Environment_AddLightningBolts(GlobalContext* globalCtx, u8 num);
 void Environment_AdjustLights(GlobalContext* globalCtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 void Environment_ClearBgsDayCount(void);
@@ -52,42 +64,3 @@ void func_80074CE8(GlobalContext* globalCtx, u32 arg1);
 void func_800758AC(GlobalContext* globalCtx);
 void func_80077624(GlobalContext* globalCtx);
 void func_80077684(GlobalContext* globalCtx);
-#else
-void Environment_AddLightningBolts(struct GlobalContext* globalCtx, u8 num);
-void Environment_AdjustLights(struct GlobalContext* globalCtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
-void Environment_ClearBgsDayCount(void);
-void Environment_DisableUnderwaterLights(struct GlobalContext* globalCtx);
-void Environment_DrawCustomLensFlare(struct GlobalContext* globalCtx);
-void Environment_DrawLensFlare(struct GlobalContext* globalCtx, struct EnvironmentContext* envCtx, struct View* view, struct GraphicsContext* gfxCtx, struct Vec3f pos, s32 unused, s16 arg6, f32 arg7, s16 arg8, u8 arg9);
-void Environment_DrawLightning(struct GlobalContext* globalCtx, s32 unused);
-void Environment_DrawRain(struct GlobalContext* globalCtx, struct View* view, struct GraphicsContext* gfxCtx);
-void Environment_DrawSandstorm(struct GlobalContext* globalCtx, u8 sandstormState);
-void Environment_DrawSkyboxFilters(struct GlobalContext* globalCtx);
-void Environment_DrawSunAndMoon(struct GlobalContext* globalCtx);
-void Environment_DrawSunLensFlare(struct GlobalContext* globalCtx, struct EnvironmentContext* envCtx, struct View* view, struct GraphicsContext* gfxCtx, struct Vec3f pos, s32 unused);
-void Environment_EnableUnderwaterLights(struct GlobalContext* globalCtx, s32 waterLightsIndex);
-void Environment_FadeInGameOverLights(struct GlobalContext* globalCtx);
-void Environment_FadeOutGameOverLights(struct GlobalContext* globalCtx);
-void Environment_FillScreen(struct GraphicsContext* gfxCtx, u8 red, u8 green, u8 blue, u8 alpha, u8 drawFlags);
-void Environment_ForcePlaySequence(u16);
-s32 Environment_GetBgsDayCount(void);
-u16 Environment_GetPixelDepth(s32 x, s32 y);
-s32 Environment_GetTotalDays(void);
-void Environment_GraphCallback(struct GraphicsContext* gfxCtx, void* param);
-void Environment_Init(struct GlobalContext* globalCtx, struct EnvironmentContext* envCtx, s32 unused);
-void Environment_InitGameOverLights(struct GlobalContext* globalCtx);
-s32 Environment_IsForcedSequenceDisabled(void);
-f32 Environment_LerpWeight(u16 max, u16 min, u16 val);
-f32 Environment_LerpWeightAccelDecel(u16 endFrame, u16 startFrame, u16 curFrame, u16 accelDuration, u16 decelDuration);
-u8 Environment_SmoothStepToS8(s8* pvalue, s8 target, u8 scale, u8 step, u8 minStep);
-u8 Environment_SmoothStepToU8(u8* pvalue, u8 target, u8 scale, u8 step, u8 minStep);
-void Environment_Update(struct GlobalContext* globalCtx, struct EnvironmentContext* envCtx, struct LightContext* lightCtx, struct PauseContext* pauseCtx, struct MessageContext* msgCtx, struct GameOverContext* gameOverCtx, struct GraphicsContext* gfxCtx);
-void Environment_UpdateLightningStrike(struct GlobalContext* globalCtx);
-void Environment_UpdateSkybox(u8 skyboxId, struct EnvironmentContext* envCtx, struct SkyboxContext* skyboxCtx);
-void Environment_WarpSongLeave(struct GlobalContext* globalCtx);
-s32 func_8006F0A0(s32 arg0);
-void func_80074CE8(struct GlobalContext* globalCtx, u32 arg1);
-void func_800758AC(struct GlobalContext* globalCtx);
-void func_80077624(struct GlobalContext* globalCtx);
-void func_80077684(struct GlobalContext* globalCtx);
-#endif

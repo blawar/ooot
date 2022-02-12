@@ -1,14 +1,14 @@
 #pragma once
 
-typedef struct {
-    /* 0x00 */ void* vromStart;
-    /* 0x04 */ void* vromEnd;
-} RomFile; // size = 0x8
+struct RomFile {
+    /* 0x00 */ Pointer vromStart;
+    /* 0x04 */ Pointer vromEnd;
+}; // size = 0x8
 
-typedef struct {
+struct SkyboxFile {
     /* 0x00 */ RomFile file;
     /* 0x08 */ RomFile palette;
-} SkyboxFile; // size = 0x10
+}; // size = 0x10
 
 #define ROM_FILE(name) \
     { (uintptr_t) name, (uintptr_t)name + sizeof(name) }

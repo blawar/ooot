@@ -3,7 +3,7 @@
 #include "ultra64/types.h"
 #include "view.h"
 
-typedef struct {
+struct KaleidoMgrOverlay {
     /* 0x00 */ void* loadedRamAddr;
     /* 0x04 */ uintptr_t vromStart;
     /* 0x08 */ uintptr_t vromEnd;
@@ -11,28 +11,28 @@ typedef struct {
     /* 0x10 */ void* vramEnd;
     /* 0x14 */ u32 offset; // loadedRamAddr - vramStart
     /* 0x18 */ const char* name;
-} KaleidoMgrOverlay; // size = 0x1C
+}; // size = 0x1C
 
-typedef enum {
+enum KaleidoOverlayType {
     /* 0x00 */ KALEIDO_OVL_KALEIDO_SCOPE,
     /* 0x01 */ KALEIDO_OVL_PLAYER_ACTOR,
     /* 0x02 */ KALEIDO_OVL_MAX
-} KaleidoOverlayType;
+};
 
 #define PAUSE_ITEM_NONE 999
 
 #define PAUSE_CURSOR_PAGE_LEFT 10
 #define PAUSE_CURSOR_PAGE_RIGHT 11
 
-typedef enum {
+enum PauseMenuPage {
     /* 0x00 */ PAUSE_ITEM,
     /* 0x01 */ PAUSE_MAP,
     /* 0x02 */ PAUSE_QUEST,
     /* 0x03 */ PAUSE_EQUIP,
     /* 0x04 */ PAUSE_WORLD_MAP
-} PauseMenuPage;
+};
 
-typedef struct {
+struct PauseContext {
     /* 0x0000 */ View view;
     /* 0x0128 */ u8* iconItemSegment;
     /* 0x012C */ u8* iconItem24Segment;
@@ -103,26 +103,26 @@ typedef struct {
     /* 0x0266 */ u8 worldMapPoints[20]; // 0 = hidden; 1 = displayed; 2 = highlighted
     /* 0x027A */ u8 tradeQuestLocation;
     /* 0x027C */ SkelAnime playerSkelAnime;
-} PauseContext; // size = 0x2C0
+}; // size = 0x2C0
 
 #define PAUSE_MAP_MARK_NONE -1
 #define PAUSE_MAP_MARK_CHEST 0
 #define PAUSE_MAP_MARK_BOSS 1
 
-typedef struct {
+struct PauseMapMarkPoint {
     /* 0x00 */ s16
         chestFlag;       // chest icon is only displayed if this flag is not set for the current room, -1 for no flag
     /* 0x04 */ f32 x, y; // coordinates to place the icon (top-left corner)
-} PauseMapMarkPoint;     // size = 0x0C
+};     // size = 0x0C
 
-typedef struct {
+struct PauseMapMarkData {
     /* 0x00 */ s16 markType; // 0 for the chest icon, 1 for the boss skull icon, -1 for none
     /* 0x04 */ s32 unk_04;
     /* 0x08 */ const Vtx* vtx;
     /* 0x0C */ s32 vtxCount;
     /* 0x10 */ s32 count; // number of icons to display
     /* 0x14 */ PauseMapMarkPoint points[12];
-} PauseMapMarkData; // size = 0xA4
+}; // size = 0xA4
 
 typedef PauseMapMarkData PauseMapMarksData[3];
 

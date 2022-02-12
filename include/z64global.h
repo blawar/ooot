@@ -17,10 +17,10 @@
 #include "z64bgcheck.h"
 #include "z64sram.h"
 
-typedef struct {
+struct FrameAdvanceContext {
     /* 0x00 */ s32 enabled;
     /* 0x04 */ s32 timer;
-} FrameAdvanceContext; // size = 0x8
+}; // size = 0x8
 
 typedef struct {
     union {
@@ -43,7 +43,7 @@ typedef struct {
 } TransitionContext; // size = 0x250
 
 // Global Context (dbg ram start: 80212020)
-typedef struct GlobalContext {
+struct GlobalContext {
     /* 0x00000 */ GameState state;
     /* 0x000A4 */ s16 sceneNum;
     /* 0x000A6 */ u8 sceneConfig;
@@ -122,4 +122,4 @@ typedef struct GlobalContext {
     /* 0x1242B */ u8 unk_1242B;
     /* 0x1242C */ SceneTableEntry* loadedScene;
     /* 0x12430 */ char unk_12430[0xE8];
-} GlobalContext; // size = 0x12518
+}; // size = 0x12518

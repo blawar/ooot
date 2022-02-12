@@ -1,10 +1,6 @@
 #ifndef	GS2DEX_H
 #define	GS2DEX_H
 
-#ifdef _LANGUAGE_C_PLUS_PLUS
-extern "C" {
-#endif
-
 /*===========================================================================*
  *	Macro
  *===========================================================================*/
@@ -91,11 +87,11 @@ typedef	struct	{
 
 } uObjScaleBg_t;	/* 40 bytes */
 
-typedef union {
+union uObjBg {
   uObjBg_t        b;
   uObjScaleBg_t   s;
   long long int   force_structure_alignment;
-} uObjBg;
+};
 
 /*---------------------------------------------------------------------------*
  *	2D Objects
@@ -103,7 +99,7 @@ typedef union {
 #define	G_OBJ_FLAG_FLIPS	1<<0		/* inversion to S-direction */
 #define	G_OBJ_FLAG_FLIPT	1<<4		/* nversion to T-direction */
 
-typedef struct {
+struct uObjSprite_t {
   s16  objX;		/* s10.2 OBJ x-coordinate of upper-left end */
   u16  scaleW;		/* u5.10 Scaling of u5.10 width direction   */
   u16  imageW;		/* u10.5 width of u10.5 texture (length of S-direction) */
@@ -118,38 +114,38 @@ typedef struct {
   u8   imageSiz;	/* size of texel - G_IM_SIZ_* */
   u8   imagePal;	/* pallet number (0-7) */
   u8   imageFlags;	/* The display flag - G_OBJ_FLAG_FLIP* */
-} uObjSprite_t;		/* 24 bytes */
+};		/* 24 bytes */
 
-typedef union {
+union uObjSprite {
   uObjSprite_t      s;
   long long int   force_structure_alignment;
-} uObjSprite;
+};
 
 /*---------------------------------------------------------------------------*
  *	2D Matrix
  *---------------------------------------------------------------------------*/
-typedef struct {
+struct uObjMtx_t {
   s32   A, B, C, D;     /* s15.16 */
   s16   X, Y;           /* s10.2  */
   u16   BaseScaleX;	/* u5.10  */
   u16   BaseScaleY;	/* u5.10  */
-} uObjMtx_t;		/* 24 bytes */
+};		/* 24 bytes */
 
-typedef union {
+union uObjMtx {
   uObjMtx_t	m;
   long long int force_structure_alignment;
-} uObjMtx;
+};
 
-typedef struct {
+struct uObjSubMtx_t {
   s16   X, Y;           /* s10.2  */
   u16   BaseScaleX;	/* u5.10  */
   u16   BaseScaleY;	/* u5.10  */
-} uObjSubMtx_t;		/* 8 bytes */
+};		/* 8 bytes */
 
-typedef union {
+union uObjSubMtx {
   uObjSubMtx_t	m;
   long long int force_structure_alignment;
-} uObjSubMtx;
+};
 
 /*---------------------------------------------------------------------------*
  *	Loading into TMEM
@@ -200,12 +196,12 @@ typedef	struct	{
   u32	mask;		/* STATE mask  */
 } uObjTxtrTLUT_t;		/* 24 bytes */
 
-typedef union {
+union uObjTxtr {
   uObjTxtrBlock_t      block;
   uObjTxtrTile_t       tile;
   uObjTxtrTLUT_t       tlut;
   long long int   force_structure_alignment;
-} uObjTxtr;
+};
 
 /*---------------------------------------------------------------------------*
  *	Loading into TMEM & 2D Objects
@@ -371,9 +367,6 @@ extern	void	guS2DInitBg(uObjBg *);
   extern void	guS2DEmuBgRect1Cyc(Gfx **, uObjBg *);
 #endif
 
-#ifdef _LANGUAGE_C_PLUS_PLUS
-}
-#endif
 #endif /* GS2DEX_H */
 
 /*======== End of gs2dex.h ========*/

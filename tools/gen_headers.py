@@ -9,6 +9,8 @@ import json
 skipWords = ['extern', 'volatile']
 newPath = 'include/def/'
 
+cpp = True
+
 def writeFile(path, buffer):
 	try:
 		with open(path, 'r', encoding="UTF-8") as f:
@@ -58,12 +60,23 @@ for path in Path('include/').rglob('*.h'):
 	if match:
 		for m in match:
 			structs[str(m)] = 1
+			
+			
+	match = re.findall(r'struct\s*\{[^\}]*\}\s*([A-Z0-9_]+)\s*;', buffer, flags = re.I | re.S)
+	
+	if match:
+		for m in match:
+			structs[str(m)] = 1
+			
+	match = re.findall(r'struct\s*([A-Z0-9_]+)\s*\{[^\}]*\}', buffer, flags = re.I | re.S)
+	
+	if match:
+		for m in match:
+			structs[str(m)] = 1
 
 x = list(structs.keys())
 x.sort()
-#print(x)
 saveJson('structs.json', x)
-#exit(0)
 
 with open('oldfuncs.h', 'r') as f:
 	buffer = f.read()
@@ -96,7 +109,7 @@ for line in buffer.split('\n'):
 			b = 'void'
 		args.append(b)
 		
-		if cleanType(b) in structs:
+		if not cpp and cleanType(b) in structs:
 			args2.append('struct ' + b)
 		else:
 			args2.append(b)
@@ -115,7 +128,7 @@ for line in buffer.split('\n'):
 		
 		prototypeNew = '%s(%s)%s' % (left, ', '.join(args2), right)
 		
-		if cleanType(prototypeNew) in structs:
+		if not cpp and cleanType(prototypeNew) in structs:
 			prototypeNew = 'struct ' + prototypeNew
 		
 
@@ -144,7 +157,21 @@ for path in Path('src/').rglob('*.c'):
 		continue
 	paths.append(str(path))
 	
+for path in Path('src/').rglob('*.cpp'):
+	path = str(path)
+	
+	if '/port/' in path.replace('\\', '/'):
+		continue
+	paths.append(str(path))
+	
 for path in Path('assets/').rglob('*.c'):
+	path = str(path)
+	
+	if '/port/' in path.replace('\\', '/'):
+		continue
+	paths.append(str(path))
+	
+for path in Path('assets/').rglob('*.cpp'):
 	path = str(path)
 	
 	if '/port/' in path.replace('\\', '/'):
@@ -267,6 +294,7 @@ for symbol, params in var_symbols.items():
 #print(fileMap)	
 #print(var_symbols)
 
+
 '''
 for c_file, items in fileMap.items():
 	buffer = '#pragma once\n\n'
@@ -293,22 +321,45 @@ for symbol, params in symbols.items():
 			
 		fileMap[f][0].append(params)
 
+saveJson('file_map.json', fileMap)
 refs = {}
 
 def getDefName(name):
 	return 'INTERNAL_' + re.sub('[^A-Za-z0-9]+', '_', name).upper()
 
 for c_file, items in fileMap.items():
-	buffer = '#pragma once'
+	buffer = '#pragma once\n'
 	
-	
-	fileName = os.path.basename(c_file)[0:-2] + '.h'
+	bits = os.path.basename(c_file).split('.')
+	bits[-1] = 'h'
+	fileName = '.'.join(bits)
 	
 	items[0].sort(key=lambda x: x['symbol'])
 	items[1].sort(key=lambda x: x['symbol'])
 	
+	ats = {}
+	
+	for param in items[0]: # functions
+		for at in param["argTypes"]:
+			ats[cleanType(at)] = 1
+		ats[cleanType(param["type"])] = 1
+		
+	for param in items[1]: # variables
+		ats[cleanType(param["type"])] = 1
+		
+	ctsa = ats.keys()
+	sd = []
+	for at in ctsa:
+		ct = at
+		if ct in structs and ct not in ('Mtx'):
+			sd.append('struct %s;' % ct)
+			
+	if len(sd) > 0:
+		buffer += '\n'.join(sd) + '\n'
+
+	
 	if len(items[1]) > 0:
-		buffer += '\n\n'
+		buffer += '\n'
 
 		for param in items[1]:
 			buffer += '%s\n' % param['prototype']
@@ -321,10 +372,12 @@ for c_file, items in fileMap.items():
 
 	
 	if len(items[0]) > 0:
-		buffer += '\n#ifdef ' + getDefName(c_file) + '\n'
+		buffer += '\n'
+		if not cpp:
+			buffer += '#ifdef ' + getDefName(c_file) + '\n'
 		
 		for param in items[0]:
-			buffer += '%s\n' % param['prototypeOrig']
+			buffer += '%s\n' % param['prototypeOrig'].replace('this', 'pthis')
 			
 			for r in param['refs']:
 				if r not in refs:
@@ -332,13 +385,14 @@ for c_file, items in fileMap.items():
 					
 				if fileName not in refs[r]:
 					refs[r].append(fileName)
-					
-		buffer += '#else\n'
-		
-		for param in items[0]:
-			buffer += '%s\n' % param['prototype']
+				
+		if not cpp:
+			buffer += '#else\n'
 			
-		buffer += '#endif\n'
+			for param in items[0]:
+				buffer += '%s\n' % param['prototype']
+				
+			buffer += '#endif\n'
 		
 	writeFile(os.path.join(newPath, fileName), buffer)
 	

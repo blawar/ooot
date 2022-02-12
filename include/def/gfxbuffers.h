@@ -1,4 +1,5 @@
 #pragma once
+struct GfxPool;
 
 extern GfxPool gGfxPools[2];
 extern u64 gGfxSPTaskOutputBuffer[0x3000];

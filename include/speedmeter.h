@@ -2,13 +2,13 @@
 #include "ultra64/types.h"
 #include "ultra64/time.h"
 
-typedef struct {
+struct SpeedMeter {
     /* 0x00 */ char unk_00[0x18];
     /* 0x18 */ s32 unk_18;
     /* 0x1C */ s32 y;
-} SpeedMeter; // size = 0x20
+}; // size = 0x20
 
-typedef struct {
+struct SpeedMeterAllocEntry {
     /* 0x00 */ s32 maxval;
     /* 0x04 */ s32 val;
     /* 0x08 */ u16 backColor;
@@ -17,14 +17,14 @@ typedef struct {
     /* 0x10 */ s32 lrx;
     /* 0x14 */ s32 uly;
     /* 0x18 */ s32 lry;
-} SpeedMeterAllocEntry; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct {
+struct SpeedMeterTimeEntry {
     /* 0x00 */ volatile OSTime* time;
     /* 0x04 */ u8 x;
     /* 0x05 */ u8 y;
     /* 0x06 */ u16 color;
-} SpeedMeterTimeEntry; // size = 0x08
+}; // size = 0x08
 
 extern volatile OSTime D_8016A520;
 extern volatile OSTime D_8016A528;

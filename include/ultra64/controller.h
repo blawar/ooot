@@ -98,34 +98,34 @@
 #define BTN_B           0x4000
 #define BTN_A           0x8000
 
-typedef struct {
+struct OSPifRam {
     /* 0x00 */ u32 ram[15];
     /* 0x3C */ uintptr_t status;
-} OSPifRam; // size = 0x40
+}; // size = 0x40
 
-typedef struct {
+struct OSContStatus {
     /* 0x00 */ u16 type; 
     /* 0x02 */ u8 status;
     /* 0x03 */ u8 errnum;
-} OSContStatus; // size = 0x04
+}; // size = 0x04
 
-typedef struct {
+struct OSContPad {
     /* 0x00 */ u16 button;
     /* 0x02 */ s8 stick_x;
     /* 0x03 */ s8 stick_y;
     /* 0x04 */ u8 errnum;
-} OSContPad; // size = 0x06
+}; // size = 0x06
 
-typedef struct {
+struct OSContRamIo {
     /* 0x00 */ void* address;
     /* 0x04 */ u8 databuffer[32];
     /* 0x24 */ u8 addressCrc;
     /* 0x25 */ u8 dataCrc;
     /* 0x26 */ u8 errnum;
-} OSContRamIo; // size = 0x28
+}; // size = 0x28
 
 // Original name: __OSContRequesFormat
-typedef struct {
+struct __OSContRequestHeader {
     /* 0x00 */ u8 align;
     /* 0x01 */ u8 txsize;
     /* 0x02 */ u8 rxsize;
@@ -134,20 +134,20 @@ typedef struct {
     /* 0x05 */ u8 typel;
     /* 0x06 */ u8 status;
     /* 0x07 */ u8 align1;
-} __OSContRequestHeader; // size = 0x8
+}; // size = 0x8
 
 // Original name: __OSContRequesHeaderFormatShort
-typedef struct {
+struct __OSContRequestHeaderAligned {
     /* 0x00 */ u8 txsize;
     /* 0x01 */ u8 rxsize;
     /* 0x02 */ u8 poll;
     /* 0x03 */ u8 typeh;
     /* 0x04 */ u8 typel;
     /* 0x05 */ u8 status;
-} __OSContRequestHeaderAligned; // size = 0x6
+}; // size = 0x6
 
 // Original Name: __OSContRamReadFormat
-typedef struct {
+struct __OSContRamHeader {
     /* 0x00 */ u8 unk_00;
     /* 0x01 */ u8 txsize;
     /* 0x02 */ u8 rxsize;
@@ -156,10 +156,10 @@ typedef struct {
     /* 0x05 */ u8 lo;
     /* 0x06 */ u8 data[BLOCKSIZE];
     /* 0x26 */ u8 datacrc;
-} __OSContRamHeader; // size = 0x27
+}; // size = 0x27
 
 // Original name: __OSContReadFormat
-typedef struct {
+struct __OSContReadHeader {
     /* 0x00 */ u8 align;
     /* 0x01 */ u8 txsize;
     /* 0x02 */ u8 rxsize;
@@ -167,6 +167,6 @@ typedef struct {
     /* 0x04 */ u16 button;
     /* 0x06 */ s8 joyX;
     /* 0x07 */ s8 joyY;
-} __OSContReadHeader; // size = 0x8
+}; // size = 0x8
 
 #endif

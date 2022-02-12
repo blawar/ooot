@@ -5,7 +5,7 @@
 #include "z64message.h"
 #include "z64render.h"
 
-typedef struct {
+struct FileChooseContext {
     /* 0x00000 */ GameState state;
     /* 0x000A4 */ Vtx* windowVtx;
     /* 0x000A8 */ u8* staticSegment;
@@ -82,7 +82,7 @@ typedef struct {
     /* 0x1CAD2 */ s16 kbdY;
     /* 0x1CAD4 */ s16 newFileNameCharCount;
     /* 0x1CAD6 */ s16 unk_1CAD6[5];
-} FileChooseContext; // size = 0x1CAE0
+}; // size = 0x1CAE0
 
 void FileChoose_Init(GameState* thissx);
 void FileChoose_Destroy(GameState* thissx);

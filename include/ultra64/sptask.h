@@ -28,7 +28,7 @@
 
 #define OS_YIELD_DATA_SIZE 0xC00
 
-typedef struct {
+struct OSTask_t {
     /* 0x00 */ u32 type;
     /* 0x04 */ u32 flags;
 
@@ -52,12 +52,12 @@ typedef struct {
 
     /* 0x38 */ u64* yield_data_ptr;
     /* 0x3C */ u32 yield_data_size;
-} OSTask_t; // size = 0x40
+}; // size = 0x40
 
-typedef union {
+union OSTask {
     OSTask_t t;
     long long int force_structure_alignment;
-} OSTask;
+};
 
 typedef u32 OSYieldResult;
 

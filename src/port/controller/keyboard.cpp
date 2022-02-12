@@ -19,9 +19,9 @@
 extern "C"
 {
 	void set_fullscreen(bool value);
-	u8 Get_Language();
-	void Set_Language(u8 language_id);
 }
+u8 Get_Language();
+void Set_Language(u8 language_id);
 
 #ifdef ENABLE_JSON
 bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath)

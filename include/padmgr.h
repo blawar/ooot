@@ -3,14 +3,14 @@
 #include "ultra64/controller.h"
 #include "ultra64/pfs.h"
 
-typedef struct {
+struct Input {
     /* 0x00 */ OSContPad cur;
     /* 0x06 */ OSContPad prev;
     /* 0x0C */ OSContPad press; // X/Y store delta from last frame
     /* 0x12 */ OSContPad rel;   // X/Y store adjusted
-} Input;                        // size = 0x18
+};                        // size = 0x18
 
-typedef struct PadMgr {
+struct PadMgr {
     /* 0x0000 */ OSContStatus padStatus[4];
     /* 0x0010 */ OSMesg serialMsgBuf[1];
     /* 0x0014 */ OSMesg lockMsgBuf[1];
@@ -35,9 +35,9 @@ typedef struct PadMgr {
     /* 0x045E */ u8 preNMIShutdown;
     /* 0x0460 */ void (*retraceCallback)(struct PadMgr* padmgr, s32 unk464);
     /* 0x0464 */ u32 retraceCallbackValue;
-} PadMgr; // size = 0x468
+}; // size = 0x468
 
-typedef struct {
+struct UnkRumbleStruct {
     /* 0x000 */ u8 rumbleEnable[4];
     /* 0x004 */ u8 unk_04[0x40];
     /* 0x044 */ u8 unk_44[0x40];
@@ -51,7 +51,7 @@ typedef struct {
     /* 0x10B */ u8 unk_10B;
     /* 0x10C */ u8 unk_10C;
     /* 0x10D */ u8 unk_10D;
-} UnkRumbleStruct; // size = 0x10E
+}; // size = 0x10E
 
 extern PadMgr gPadMgr;
 extern u32 gIsCtrlr2Valid;

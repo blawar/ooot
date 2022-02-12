@@ -11,7 +11,7 @@
  *   eeeeeeee nnnnnnnn
  *   size = 0x8
  */
-#define CS_BEGIN_CUTSCENE(totalEntries, endFrame) CMD_W(totalEntries), CMD_W(endFrame)
+#define CS_BEGIN_CUTSCENE(totalEntries, endFrame) (s32)CMD_W(totalEntries), (s32)CMD_W(endFrame)
 
 /**
  * ARGS
@@ -22,7 +22,7 @@
  */
 #define CS_CAM_POS_LIST CS_CAM_EYE_LIST
 #define CS_CAM_EYE_LIST(startFrame, endFrame) \
-    CS_CMD_CAM_EYE, CMD_HH(0x0001, startFrame), CMD_HH(endFrame, 0x0000)
+    CS_CMD_CAM_EYE, (s32)CMD_HH(0x0001, startFrame), (s32)CMD_HH(endFrame, 0x0000)
 
 /**
  * ARGS
@@ -35,7 +35,7 @@
  */
 #define CS_CAM_POS CS_CAM_EYE
 #define CS_CAM_EYE(continueFlag, roll, frame, viewAngle, xPos, yPos, zPos, unused) \
-    CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), CMD_HH(xPos, yPos), CMD_HH(zPos, unused)
+    (s32)CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), (s32)CMD_HH(xPos, yPos), (s32)CMD_HH(zPos, unused)
 
 /**
  * ARGS
@@ -46,7 +46,7 @@
  */
 #define CS_CAM_FOCUS_POINT_LIST CS_CAM_AT_LIST
 #define CS_CAM_AT_LIST(startFrame, endFrame) \
-    CS_CMD_CAM_AT, CMD_HH(0x0001, startFrame), CMD_HH(endFrame, 0x0000)
+    CS_CMD_CAM_AT, (s32)CMD_HH(0x0001, startFrame), (s32)CMD_HH(endFrame, 0x0000)
 
 /**
  * ARGS
@@ -59,7 +59,7 @@
  */
 #define CS_CAM_FOCUS_POINT CS_CAM_AT
 #define CS_CAM_AT(continueFlag, roll, frame, viewAngle, xPos, yPos, zPos, unused) \
-    CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), CMD_HH(xPos, yPos), CMD_HH(zPos, unused)
+    (s32)CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), (s32)CMD_HH(xPos, yPos), (s32)CMD_HH(zPos, unused)
 
 /**
  * ARGS
@@ -68,7 +68,7 @@
  *   00000003 eeeeeeee
  *   size = 0x8
  */
-#define CS_MISC_LIST(entries) CS_CMD_MISC, CMD_W(entries)
+#define CS_MISC_LIST(entries) CS_CMD_MISC, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -79,9 +79,9 @@
  *   size = 0x30
  */
 #define CS_MISC(unk, startFrame, endFrame, unused0, unused1, unused2, unused3, unused4, unused5, unused6, unused7, unused8, unused9, unused10) \
-    CMD_HH(unk, startFrame), CMD_HH(endFrame, unused0), \
-    CMD_W(unused1), CMD_W(unused2), CMD_W(unused3), CMD_W(unused4), CMD_W(unused5), \
-    CMD_W(unused6), CMD_W(unused7), CMD_W(unused8), CMD_W(unused9), CMD_W(unused10)
+    (s32)CMD_HH(unk, startFrame), (s32)CMD_HH(endFrame, unused0), \
+    (s32)CMD_W(unused1), (s32)CMD_W(unused2), (s32)CMD_W(unused3), (s32)CMD_W(unused4), (s32)CMD_W(unused5), \
+    (s32)CMD_W(unused6), (s32)CMD_W(unused7), (s32)CMD_W(unused8), (s32)CMD_W(unused9), (s32)CMD_W(unused10)
 
 /**
  * ARGS
@@ -90,7 +90,7 @@
  *   00000004 eeeeeeee
  *   size = 0x8
  */
-#define CS_LIGHTING_LIST(entries) CS_CMD_SET_LIGHTING, CMD_W(entries)
+#define CS_LIGHTING_LIST(entries) CS_CMD_SET_LIGHTING, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -101,9 +101,9 @@
  *   size = 0x30
  */
 #define CS_LIGHTING(setting, startFrame, endFrame, unused0, unused1, unused2, unused3, unused4, unused5, unused6, unused7) \
-    CMD_HH(setting, startFrame), CMD_HH(endFrame, unused0), \
-    CMD_W(unused1), CMD_W(unused2), CMD_W(unused3), CMD_W(unused4), CMD_W(unused5), \
-    CMD_W(unused6), CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
+    (s32)CMD_HH(setting, startFrame), (s32)CMD_HH(endFrame, unused0), \
+    (s32)CMD_W(unused1), (s32)CMD_W(unused2), (s32)CMD_W(unused3), (s32)CMD_W(unused4), (s32)CMD_W(unused5), \
+    (s32)CMD_W(unused6), (s32)CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
 
 /**
  * ARGS
@@ -115,7 +115,7 @@
  */
 #define CS_CAM_POS_PLAYER_LIST CS_CAM_EYE_REL_TO_PLAYER_LIST
 #define CS_CAM_EYE_REL_TO_PLAYER_LIST(startFrame, endFrame) \
-    CS_CMD_CAM_EYE_REL_TO_PLAYER, CMD_HH(0x0001, startFrame), CMD_HH(endFrame, 0x0000)
+    CS_CMD_CAM_EYE_REL_TO_PLAYER, (s32)CMD_HH(0x0001, startFrame), (s32)CMD_HH(endFrame, 0x0000)
 
 /**
  * ARGS
@@ -128,7 +128,7 @@
  */
 #define CS_CAM_POS_PLAYER CS_CAM_EYE_REL_TO_PLAYER
 #define CS_CAM_EYE_REL_TO_PLAYER(continueFlag, roll, frame, viewAngle, xPos, yPos, zPos, unused) \
-    CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), CMD_HH(xPos, yPos), CMD_HH(zPos, unused)
+    (s32)CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), (s32)CMD_HH(xPos, yPos), (s32)CMD_HH(zPos, unused)
 
 /**
  * ARGS
@@ -140,7 +140,7 @@
  */
 #define CS_CAM_FOCUS_POINT_PLAYER_LIST CS_CAM_AT_REL_TO_PLAYER_LIST
 #define CS_CAM_AT_REL_TO_PLAYER_LIST(startFrame, endFrame) \
-    CS_CMD_CAM_AT_REL_TO_PLAYER, CMD_HH(0x0001, startFrame), CMD_HH(endFrame, 0x0000)
+    CS_CMD_CAM_AT_REL_TO_PLAYER, (s32)CMD_HH(0x0001, startFrame), (s32)CMD_HH(endFrame, 0x0000)
 /**
  * ARGS
  *   s8 continueFlag (c), s8 roll (r), s16 frame (f), f32 viewAngle (a), 
@@ -152,7 +152,7 @@
  */
 #define CS_CAM_FOCUS_POINT_PLAYER CS_CAM_AT_REL_TO_PLAYER
 #define CS_CAM_AT_REL_TO_PLAYER(continueFlag, roll, frame, viewAngle, xPos, yPos, zPos, unused) \
-    CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), CMD_HH(xPos, yPos), CMD_HH(zPos, unused)
+    (s32)CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), (s32)CMD_HH(xPos, yPos), (s32)CMD_HH(zPos, unused)
 
 /**
  * ARGS
@@ -163,7 +163,7 @@
  *   size = 0xC
  */
 #define CS_CMD_07_LIST(unk, startFrame, endFrame, unused) \
-    CS_CMD_07, CMD_HH(unk, startFrame), CMD_HH(endFrame, unused)
+    CS_CMD_07, (s32)CMD_HH(unk, startFrame), (s32)CMD_HH(endFrame, unused)
 
 /**
  * ARGS
@@ -175,7 +175,7 @@
  *   size = 0x10
  */
 #define CS_CMD_07(continueFlag, roll, frame, viewAngle, xPos, yPos, zPos, unused) \
-    CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), CMD_HH(xPos, yPos), CMD_HH(zPos, unused)
+    (s32)CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), (s32)CMD_HH(xPos, yPos), (s32)CMD_HH(zPos, unused)
 
 /**
  * ARGS
@@ -186,7 +186,7 @@
  *   size = 0xC
  */
 #define CS_CMD_08_LIST(unk, startFrame, endFrame, unused) \
-    CS_CMD_08, CMD_HH(unk, startFrame), CMD_HH(endFrame, unused)
+    CS_CMD_08, (s32)CMD_HH(unk, startFrame), (s32)CMD_HH(endFrame, unused)
 
 /**
  * ARGS
@@ -198,7 +198,7 @@
  *   size = 0x10
  */
 #define CS_CMD_08(continueFlag, roll, frame, viewAngle, xPos, yPos, zPos, unused) \
-    CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), CMD_HH(xPos, yPos), CMD_HH(zPos, unused)
+    (s32)CMD_BBH(continueFlag, roll, frame), CMD_F(viewAngle), (s32)CMD_HH(xPos, yPos), (s32)CMD_HH(zPos, unused)
 
 /**
  * ARGS
@@ -207,7 +207,7 @@
  *   00000009 eeeeeeee
  *   size = 0x8
  */
-#define CS_CMD_09_LIST(entries) CS_CMD_09, CMD_W(entries)
+#define CS_CMD_09_LIST(entries) CS_CMD_09, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -218,7 +218,7 @@
  *   size = 0xC
  */
 #define CS_CMD_09(unk, startFrame, endFrame, unk2, unk3, unk4, unused0, unused1) \
-    CMD_HH(unk, startFrame), CMD_HBB(endFrame, unk2, unk3), CMD_BBH(unk4, unused0, unused1)
+    (s32)CMD_HH(unk, startFrame), (s32)CMD_HBB(endFrame, unk2, unk3), (s32)CMD_BBH(unk4, unused0, unused1)
 
 /**
  * ARGS
@@ -227,7 +227,7 @@
  *   cccccccc eeeeeeee
  *   size = 0x8
  */
-#define CS_UNK_DATA_LIST(cmdType, entries) CMD_W(cmdType), CMD_W(entries)
+#define CS_UNK_DATA_LIST(cmdType, entries) (s32)CMD_W(cmdType), (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -238,8 +238,8 @@
  *   size = 0x30
  */
 #define CS_UNK_DATA(unk1, unk2, unk3, unk4, unk5, unk6, unk7, unk8, unk9, unk10, unk11, unk12) \
-    CMD_W(unk1), CMD_W(unk2), CMD_W(unk3), CMD_W(unk4), CMD_W(unk5), CMD_W(unk6), \
-    CMD_W(unk7), CMD_W(unk8), CMD_W(unk9), CMD_W(unk10), CMD_W(unk11), CMD_W(unk12)
+    (s32)CMD_W(unk1), (s32)CMD_W(unk2), (s32)CMD_W(unk3), (s32)CMD_W(unk4), (s32)CMD_W(unk5), (s32)CMD_W(unk6), \
+    (s32)CMD_W(unk7), (s32)CMD_W(unk8), (s32)CMD_W(unk9), (s32)CMD_W(unk10), (s32)CMD_W(unk11), (s32)CMD_W(unk12)
 
 /**
  * ARGS
@@ -248,7 +248,7 @@
  *   cccccccc eeeeeeee
  *   size = 0x8
  */
-#define CS_NPC_ACTION_LIST(cmdType, entries) CMD_W(cmdType), CMD_W(entries)
+#define CS_NPC_ACTION_LIST(cmdType, entries) (s32)CMD_W(cmdType), (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -262,9 +262,9 @@
  *   size = 0x30
  */
 #define CS_NPC_ACTION(npcAction, startFrame, endFrame, rotX, rotY, rotZ, startX, startY, startZ, endX, endY, endZ, normX, normY, normZ) \
-    CMD_HH(npcAction, startFrame), CMD_HH(endFrame, rotX), CMD_HH(rotY, rotZ), \
-    CMD_W(startX), CMD_W(startY), CMD_W(startZ), \
-    CMD_W(endX), CMD_W(endY), CMD_W(endZ), \
+    (s32)(CMD_HH(npcAction, startFrame)), (s32)CMD_HH(endFrame, rotX), (s32)CMD_HH(rotY, rotZ), \
+    (s32)CMD_W(startX), (s32)CMD_W(startY), (s32)CMD_W(startZ), \
+    (s32)CMD_W(endX), (s32)CMD_W(endY), (s32)CMD_W(endZ), \
     CMD_F(normX), CMD_F(normY), CMD_F(normZ)
 
 /**
@@ -274,7 +274,7 @@
  *   cccccccc eeeeeeee
  *   size = 0x8
  */
-#define CS_PLAYER_ACTION_LIST(entries) CS_CMD_SET_PLAYER_ACTION, CMD_W(entries)
+#define CS_PLAYER_ACTION_LIST(entries) CS_CMD_SET_PLAYER_ACTION, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -297,7 +297,7 @@
  *   00000013 eeeeeeee
  *   size = 0x8
  */
-#define CS_TEXT_LIST(entries) CS_CMD_TEXTBOX, CMD_W(entries)
+#define CS_TEXT_LIST(entries) CS_CMD_TEXTBOX, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -308,7 +308,7 @@
  *   size = 0xC
  */
 #define CS_TEXT_DISPLAY_TEXTBOX(messageId, startFrame, endFrame, type, topOptionBranch, bottomOptionBranch) \
-    CMD_HH(messageId, startFrame), CMD_HH(endFrame, type), CMD_HH(topOptionBranch, bottomOptionBranch)
+    (s32)CMD_HH(messageId, startFrame), (s32)CMD_HH(endFrame, type), (s32)CMD_HH(topOptionBranch, bottomOptionBranch)
 
 /**
  * ARGS
@@ -339,7 +339,7 @@
  *   size = 0x10
  */
 #define CS_SCENE_TRANS_FX(transitionType, startFrame, endFrame) \
-    CS_CMD_SCENE_TRANS_FX, 0x00000001, CMD_HH(transitionType, startFrame), CMD_HH(endFrame, endFrame)
+    CS_CMD_SCENE_TRANS_FX, 0x00000001, (s32)CMD_HH(transitionType, startFrame), (s32)CMD_HH(endFrame, endFrame)
 
 /**
  * ARGS
@@ -348,7 +348,7 @@
  *   00000056 eeeeeeee
  *   size = 0x8
  */
-#define CS_PLAY_BGM_LIST(entries) CS_CMD_PLAYBGM, CMD_W(entries)
+#define CS_PLAY_BGM_LIST(entries) CS_CMD_PLAYBGM, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -359,9 +359,9 @@
  *   size = 0x30
  */
 #define CS_PLAY_BGM(sequence, startFrame, endFrame, unused0, unused1, unused2, unused3, unused4, unused5, unused6, unused7) \
-    CMD_HH(sequence, startFrame), CMD_HH(endFrame, unused0), \
-    CMD_W(unused1), CMD_W(unused2), CMD_W(unused3), CMD_W(unused4), CMD_W(unused5), \
-    CMD_W(unused6), CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
+    (s32)CMD_HH(sequence, startFrame), (s32)CMD_HH(endFrame, unused0), \
+    (s32)CMD_W(unused1), (s32)CMD_W(unused2), (s32)CMD_W(unused3), (s32)CMD_W(unused4), (s32)CMD_W(unused5), \
+    (s32)CMD_W(unused6), (s32)CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
 
 /**
  * ARGS
@@ -370,7 +370,7 @@
  *   00000057 eeeeeeee
  *   size = 0x8
  */
-#define CS_STOP_BGM_LIST(entries) CS_CMD_STOPBGM, CMD_W(entries)
+#define CS_STOP_BGM_LIST(entries) CS_CMD_STOPBGM, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -381,9 +381,9 @@
  *   size = 0x30
  */
 #define CS_STOP_BGM(sequence, startFrame, endFrame, unused0, unused1, unused2, unused3, unused4, unused5, unused6, unused7) \
-    CMD_HH(sequence, startFrame), CMD_HH(endFrame, unused0), \
-    CMD_W(unused1), CMD_W(unused2), CMD_W(unused3), CMD_W(unused4), CMD_W(unused5), \
-    CMD_W(unused6), CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
+    (s32)CMD_HH(sequence, startFrame), (s32)CMD_HH(endFrame, unused0), \
+    (s32)CMD_W(unused1), (s32)CMD_W(unused2), (s32)CMD_W(unused3), (s32)CMD_W(unused4), (s32)CMD_W(unused5), \
+    (s32)CMD_W(unused6), (s32)CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
 
 /**
  * ARGS
@@ -392,7 +392,7 @@
  *   0000007C eeeeeeee
  *   size = 0x8
  */
-#define CS_FADE_BGM_LIST(entries) CS_CMD_FADEBGM, CMD_W(entries)
+#define CS_FADE_BGM_LIST(entries) CS_CMD_FADEBGM, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -403,9 +403,9 @@
  *   size = 0x30
  */
 #define CS_FADE_BGM(fadeType, startFrame, endFrame, unused0, unused1, unused2, unused3, unused4, unused5, unused6, unused7) \
-    CMD_HH(fadeType, startFrame), CMD_HH(endFrame, unused0), \
-    CMD_W(unused1), CMD_W(unused2), CMD_W(unused3), CMD_W(unused4), CMD_W(unused5), \
-    CMD_W(unused6), CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
+    (s32)CMD_HH(fadeType, startFrame), (s32)CMD_HH(endFrame, unused0), \
+    (s32)CMD_W(unused1), (s32)CMD_W(unused2), (s32)CMD_W(unused3), (s32)CMD_W(unused4), (s32)CMD_W(unused5), \
+    (s32)CMD_W(unused6), (s32)CMD_W(unused7), 0x00000000, 0x00000000, 0x00000000
 
 /**
  * ARGS
@@ -414,7 +414,7 @@
  *   0000008C eeeeeeee
  *   size = 0x8
  */
-#define CS_TIME_LIST(entries) CS_CMD_SETTIME, CMD_W(entries)
+#define CS_TIME_LIST(entries) CS_CMD_SETTIME, (s32)CMD_W(entries)
 
 /**
  * ARGS
@@ -425,9 +425,9 @@
  *   size = 0xC
  */
 #define CS_TIME(unk, startFrame, endFrame, hour, min, unused) \
-    CMD_HH(unk, startFrame), \
+    (s32)CMD_HH(unk, startFrame), \
     CMD_HBB(endFrame, hour, min), \
-    CMD_W(unused)
+    (s32)CMD_W(unused)
 
 /**
  * ARGS
@@ -438,11 +438,11 @@
  *   size = 0x10
  */
 #define CS_TERMINATOR(dest, startFrame, endFrame) \
-    CS_CMD_TERMINATOR, 0x00000001, CMD_HH(dest, startFrame), CMD_HH(endFrame, endFrame)
+    CS_CMD_TERMINATOR, 0x00000001, (s32)CMD_HH(dest, startFrame), (s32)CMD_HH(endFrame, endFrame)
 
 /**
  * Marks the end of a cutscene
  */
-#define CS_END() 0xFFFFFFFF, 0x00000000
+#define CS_END() (s32)0xFFFFFFFF, (s32)0x00000000
 
 #endif

@@ -1,6 +1,4 @@
 #pragma once
-#ifdef INTERNAL_SRC_LIBULTRA_IO_PIGETCMDQ_C
+struct OSMesgQueue;
+
 OSMesgQueue* osPiGetCmdQueue(void);
-#else
-struct OSMesgQueue* osPiGetCmdQueue(void);
-#endif

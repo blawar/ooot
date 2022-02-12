@@ -15,13 +15,19 @@ dir = 'include/'
 structs = {}
 for path in Path(dir).rglob('*.h'):
 	x = str(path).replace('\\', '/')
-	if 'ultra64' in x:
-		continue
+	#if 'ultra64' in x:
+	#	continue
 	#print(x)
 	with open(x, 'r', encoding="UTF-8") as f:
 		buffer = f.read().replace('\r', '')
 		
-	buffer = re.sub(r'typedef \s*struct\s*(\{[^\}]*\})\s*([A-Z0-9_]+)\s*;', r'struct \2 \1;', buffer, flags = re.I | re.S)
+	buffer = re.sub(r'typedef \s*struct\s*(\{[^\}]*\n\})\s*([A-Z0-9_]+)\s*;', r'struct \2 \1;', buffer, flags = re.I | re.S)
+	buffer = re.sub(r'typedef \s*union\s*(\{[^\}]*\n\})\s*([A-Z0-9_]+)\s*;', r'union \2 \1;', buffer, flags = re.I | re.S)
+	buffer = re.sub(r'typedef \s*enum\s*(\{[^\}]*\n\})\s*([A-Z0-9_]+)\s*;', r'enum \2 \1;', buffer, flags = re.I | re.S)
+	
+	buffer = re.sub(r'typedef \s*struct\s*([A-Za-z0-9_]*)\s*(\{[^\}]*\n\})\s*([A-Z0-9_]+)\s*;', r'struct \3 \2;', buffer, flags = re.I | re.S)
+	
+	buffer = buffer.replace('struct Gfx*', 'Gfx*')
 	
 	match = re.search(r'struct\s+([A-Za-z0-9_]+)[^A-Za-z0-9_]', buffer)
 	
@@ -29,7 +35,7 @@ for path in Path(dir).rglob('*.h'):
 		structs[match.group(1)] = 1
 
 	writeFile(x, buffer)
-	
+exit(0)
 files = []
 for path in Path(dir).rglob('*.h'):
 	x = str(path).replace('\\', '/')
@@ -48,7 +54,6 @@ for path in Path('src').rglob('*.c'):
 	files.append(x)
 	
 for x in files:
-	print('checking ' + x)
 	with open(x, 'r', encoding="UTF-8") as f:
 		buffer = f.read().replace('\r', '')
 		buffer2 = buffer

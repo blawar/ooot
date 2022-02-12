@@ -1,6 +1,4 @@
 #pragma once
-#ifdef INTERNAL_SRC_LIBULTRA_IO_CARTROMINIT_C
+struct OSPiHandle;
+
 OSPiHandle* osCartRomInit(void);
-#else
-struct OSPiHandle* osCartRomInit(void);
-#endif

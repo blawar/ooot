@@ -4,12 +4,12 @@
 #include "ultra64.h"
 #include "color.h"
 
-typedef struct {
+struct TransitionUnkData {
     f32 unk_0;
     f32 unk_4;
-} TransitionUnkData;
+};
 
-typedef struct {
+struct TransitionUnk {
     /* 0x00 */ s32 row;
     /* 0x04 */ s32 col;
     /* 0x08 */ s32 frame;
@@ -21,9 +21,9 @@ typedef struct {
     /* 0x98 */ Mtx unk_98;
     /* 0xD8 */ Gfx* gfx; // "gfxtbl"
     /* 0xDC */ u16* zBuffer;
-} TransitionUnk; // size = 0xE0
+}; // size = 0xE0
 
-typedef struct {
+struct TransitionWipe {
     /* 0x000 */ Color_RGBA8_u32 color;
     /* 0x004 */ Color_RGBA8_u32 envColor;
     /* 0x008 */ u8 direction;
@@ -35,17 +35,17 @@ typedef struct {
     /* 0x018 */ Mtx projection;
     /* 0x058 */ Mtx lookAt;
     /* 0x098 */ Mtx modelView[2][3];
-} TransitionWipe; // size = 0x218
+}; // size = 0x218
 
-typedef struct {
+struct TransitionFade {
     /* 0x000 */ u8 fadeType;
     /* 0x001 */ u8 isDone;
     /* 0x002 */ u8 fadeDirection;
     /* 0x004 */ Color_RGBA8_u32 fadeColor;
     /* 0x008 */ u16 fadeTimer;
-} TransitionFade; // size = 0xC
+}; // size = 0xC
 
-typedef struct {
+struct TransitionCircle {
     /* 0x000 */ Color_RGBA8_u32 color;
     /* 0x004 */ Color_RGBA8_u32 envColor;
     /* 0x008 */ s32 texX;
@@ -62,9 +62,9 @@ typedef struct {
     /* 0x060 */ Mtx lookAt;
     /* 0x0A0 */ void* texture;
     /* 0x0A8 */ Mtx modelView[2][3];
-} TransitionCircle; // size = 0x228;
+}; // size = 0x228;
 
-typedef struct {
+struct TransitionTriforce {
     /* 0x000 */ Color_RGBA8_u32 color;
     /* 0x004 */ f32 transPos;
     /* 0x008 */ f32 step;
@@ -73,6 +73,6 @@ typedef struct {
     /* 0x018 */ Mtx projection;
     /* 0x058 */ s32 frame;
     /* 0x060 */ Mtx modelView[2][3];
-} TransitionTriforce; // size = 0x1E0;
+}; // size = 0x1E0;
 
 #endif

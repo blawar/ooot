@@ -2,18 +2,18 @@
 #include "ultra64/time.h"
 #include "z64game.h"
 
-typedef struct {
+struct PreNmiBuff {
     /* 0x00 */ u32 resetting;
     /* 0x04 */ u32 resetCount;
     /* 0x08 */ OSTime duration;
     /* 0x10 */ OSTime resetTime;
-} PreNmiBuff; // size = 0x18 (actually osAppNmiBuffer is 0x40 bytes large but the rest is unused)
+}; // size = 0x18 (actually osAppNmiBuffer is 0x40 bytes large but the rest is unused)
 
-typedef struct PreNMIContext {
+struct PreNMIContext {
     /* 0x00 */ GameState state;
     /* 0xA4 */ u32 timer;
     /* 0xA8 */ UNK_TYPE4 unk_A8;
-} PreNMIContext; // size = 0xAC
+}; // size = 0xAC
 
 void Audio_PreNMIInternal(void);
 void Audio_PreNMI();

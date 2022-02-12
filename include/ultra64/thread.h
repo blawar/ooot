@@ -30,7 +30,7 @@ typedef union {
     } f;
 } __OSfp; // size = 0x08
 
-typedef struct {
+struct __OSThreadContext {
     /* 0x000 */ u64 at, v0, v1, a0, a1, a2, a3;
     /* 0x038 */ u64 t0, t1, t2, t3, t4, t5, t6, t7;
     /* 0x078 */ u64 s0, s1, s2, s3, s4, s5, s6, s7;
@@ -40,15 +40,15 @@ typedef struct {
     /* 0x10C */ u32 fpcsr;
     /* 0x110 */ __OSfp  fp0,  fp2,  fp4,  fp6,  fp8, fp10, fp12, fp14;
     /* 0x150 */ __OSfp fp16, fp18, fp20, fp22, fp24, fp26, fp28, fp30;
-} __OSThreadContext; // size = 0x190
+}; // size = 0x190
 
-typedef struct {
+struct __OSThreadprofile {
     /* 0x00 */ u32 flag;
     /* 0x04 */ u32 count;
     /* 0x08 */ u64 time;
-} __OSThreadprofile; // size = 0x10
+}; // size = 0x10
 
-typedef struct OSThread {
+struct OSThread {
     /* 0x00 */ struct OSThread* next;
     /* 0x04 */ OSPri priority;
     /* 0x08 */ struct OSThread** queue;
@@ -59,6 +59,6 @@ typedef struct OSThread {
     /* 0x18 */ s32 fp;
     /* 0x1C */ __OSThreadprofile* thprof;
     /* 0x20 */ __OSThreadContext context;
-} OSThread; // size = 0x1B0
+}; // size = 0x1B0
 
 #endif

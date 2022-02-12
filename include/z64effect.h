@@ -14,20 +14,20 @@ struct GlobalContext;
 
 #define TOTAL_EFFECT_COUNT SPARK_COUNT + BLURE_COUNT + SHIELD_PARTICLE_COUNT
 
-typedef struct {
+struct EffectStatus {
     /* 0x00 */ u8 active;
     /* 0x01 */ u8 unk_01;
     /* 0x02 */ u8 unk_02;
-} EffectStatus; // size = 0x03
+}; // size = 0x03
 
-typedef struct {
+struct EffectSparkElement {
     /* 0x00 */ Vec3f velocity;
     /* 0x0C */ Vec3f position;
     /* 0x18 */ Vec3s unkVelocity;
     /* 0x1E */ Vec3s unkPosition;
-} EffectSparkElement; // size = 0x24
+}; // size = 0x24
 
-typedef struct {
+struct EffectSparkInit {
     /* 0x000 */ Vec3s position;
     /* 0x008 */ s32 numElements; // "table_size"; calculated as uDiv * vDiv + 2
     /* 0x00C */ EffectSparkElement elements[32];
@@ -39,9 +39,9 @@ typedef struct {
     /* 0x4AC */ Color_RGBA8 colorEnd[4];
     /* 0x4BC */ s32 timer;
     /* 0x4C0 */ s32 duration;
-} EffectSparkInit; // size = 0x4C4
+}; // size = 0x4C4
 
-typedef struct {
+struct EffectSpark {
     /* 0x000 */ Vec3s position;
     /* 0x008 */ s32 numElements; // "table_size"; calculated as uDiv * vDiv + 2
     /* 0x00C */ EffectSparkElement elements[32];
@@ -53,17 +53,17 @@ typedef struct {
     /* 0x4AC */ Color_RGBA8 colorEnd[4];
     /* 0x4BC */ s32 timer;
     /* 0x4C0 */ s32 duration;
-} EffectSpark; // size = 0x4C4
+}; // size = 0x4C4
 
-typedef struct {
+struct EffectBlureElement {
     /* 0x00 */ s32 state;
     /* 0x04 */ s32 timer;
     /* 0x08 */ Vec3s p1;
     /* 0x0E */ Vec3s p2;
     /* 0x14 */ u16 flags;
-} EffectBlureElement; // size = 0x18
+}; // size = 0x18
 
-typedef struct {
+struct EffectBlureInit1 {
     /* 0x000 */ char unk_00[0x184];
     /* 0x184 */ u8 p1StartColor[4];
     /* 0x188 */ u8 p2StartColor[4];
@@ -72,9 +72,9 @@ typedef struct {
     /* 0x194 */ s32 elemDuration;
     /* 0x198 */ s32 unkFlag;
     /* 0x19C */ s32 calcMode;
-} EffectBlureInit1; // size = 0x1A0
+}; // size = 0x1A0
 
-typedef struct {
+struct EffectBlureInit2 {
     /* 0x00 */ s32 calcMode;
     /* 0x04 */ u16 flags;
     /* 0x06 */ s16 addAngleChange;
@@ -88,9 +88,9 @@ typedef struct {
     /* 0x1B */ u8 mode4Param;
     /* 0x1C */ Color_RGBA8 altPrimColor; // used with drawMode 1
     /* 0x20 */ Color_RGBA8 altEnvColor; // used with drawMode 1
-} EffectBlureInit2; // size = 0x24
+}; // size = 0x24
 
-typedef struct {
+struct EffectBlure {
     /* 0x000 */ EffectBlureElement elements[16];
     /* 0x180 */ s32 calcMode;
     /* 0x184 */ f32 mode4Param;
@@ -107,9 +107,9 @@ typedef struct {
     /* 0x1A1 */ u8 drawMode; // 0: simple; 1: simple with alt colors; 2+: smooth
     /* 0x1A2 */ Color_RGBA8 altPrimColor; // used with drawMode 1
     /* 0x1A6 */ Color_RGBA8 altEnvColor; // used with drawMode 1
-} EffectBlure; // size = 0x1AC
+}; // size = 0x1AC
 
-typedef struct {
+struct EffectShieldParticleElement {
     /* 0x00 */ f32 initialSpeed;
     /* 0x04 */ f32 endXChange;
     /* 0x08 */ f32 endX;
@@ -117,9 +117,9 @@ typedef struct {
     /* 0x10 */ f32 startX;
     /* 0x14 */ s16 yaw;
     /* 0x16 */ s16 pitch;
-} EffectShieldParticleElement; // size = 0x18
+}; // size = 0x18
 
-typedef struct {
+struct EffectShieldParticleInit {
     /* 0x00 */ u8 numElements;
     /* 0x02 */ Vec3s position;
     /* 0x08 */ Color_RGBA8 primColorStart;
@@ -134,9 +134,9 @@ typedef struct {
     /* 0x2C */ u8 duration;
     /* 0x2E */ LightPoint lightPoint;
     /* 0x3C */ s32 lightDecay; // halves light radius every frame when set to 1
-} EffectShieldParticleInit; // size = 0x40
+}; // size = 0x40
 
-typedef struct {
+struct EffectShieldParticle {
     /* 0x000 */ EffectShieldParticleElement elements[16];
     /* 0x180 */ u8 numElements;
     /* 0x182 */ Vec3s position;
@@ -155,7 +155,7 @@ typedef struct {
     /* 0x1B2 */ LightInfo lightInfo;
     /* 0x1C0 */ LightNode* lightNode;
     /* 0x1C4 */ s32 lightDecay; // halves light radius every frame when set to 1
-} EffectShieldParticle; // size = 0x1C8
+}; // size = 0x1C8
 
 typedef struct {
     /* 0x0000 */ struct GlobalContext* globalCtx;
@@ -173,20 +173,20 @@ typedef struct {
     } /* 0x388C */ shieldParticles[SHIELD_PARTICLE_COUNT];
 } EffectContext; // size = 0x3DF0
 
-typedef struct {
+struct EffectInfo {
     /* 0x00 */ u32 size;
     /* 0x04 */ void (*init)(void* effect, void* initParams);
     /* 0x08 */ void (*destroy)(void* effect);
     /* 0x0C */ s32 (*update)(void* effect);
     /* 0x10 */ void (*draw)(void* effect, struct GraphicsContext* gfxCtx);
-} EffectInfo; // size = 0x14
+}; // size = 0x14
 
-typedef enum {
+enum EffectType {
     /* 0x00 */ EFFECT_SPARK,
     /* 0x01 */ EFFECT_BLURE1,
     /* 0x02 */ EFFECT_BLURE2,
     /* 0x03 */ EFFECT_SHIELD_PARTICLE
-} EffectType;
+};
 
 /* Effect Soft Sprites */
 
@@ -196,12 +196,12 @@ typedef u32 (*EffectSsInitFunc)(struct GlobalContext* globalCtx, u32 index, stru
 typedef void (*EffectSsUpdateFunc)(struct GlobalContext* globalCtx, u32 index, struct EffectSs* effectSs);
 typedef void (*EffectSsDrawFunc)(struct GlobalContext* globalCtx, u32 index, struct EffectSs* effectSs);
 
-typedef struct {
+struct EffectSsInit {
     /* 0x00 */ u32 type;
     /* 0x04 */ EffectSsInitFunc init;
-} EffectSsInit; // size = 0x08
+}; // size = 0x08
 
-typedef struct {
+struct EffectSsOverlay {
     /* 0x00 */ uintptr_t vromStart;
     /* 0x04 */ uintptr_t vromEnd;
     /* 0x08 */ void* vramStart;
@@ -209,9 +209,9 @@ typedef struct {
     /* 0x10 */ void* loadedRamAddr;
     /* 0x14 */ EffectSsInit* initInfo;
     /* 0x18 */ u8 unk_18;
-} EffectSsOverlay; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct EffectSs {
+struct EffectSs {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f velocity;
     /* 0x18 */ Vec3f accel;
@@ -225,13 +225,13 @@ typedef struct EffectSs {
     /* 0x76 */ s16 life; // -1 means this entry is free
     /* 0x78 */ u8 priority; // Lower value means higher priority
     /* 0x79 */ u8 type;
-} EffectSs; // size = 0x7A
+}; // size = 0x7A
 
-typedef struct {
+struct EffectSsInfo {
     /* 0x00 */ EffectSs* table; // "data_table"
     /* 0x04 */ s32 searchStartIndex;
     /* 0x08 */ s32 tableSize;
-} EffectSsInfo; // size = 0x0C
+}; // size = 0x0C
 
 /* G Effect Regs */
 
@@ -251,10 +251,10 @@ typedef struct {
 #define DEFINE_EFFECT_SS(_0, enum) enum,
 #define DEFINE_EFFECT_SS_UNSET(enum) enum,
 
-typedef enum {
+enum EffectSsType {
     #include "tables/effect_ss_table.h"
     /* 0x25 */ EFFECT_SS_TYPE_MAX // originally "EFFECT_SS2_TYPE_LAST_LABEL"
-} EffectSsType;
+};
 
 #undef DEFINE_EFFECT_SS
 #undef DEFINE_EFFECT_SS_UNSET

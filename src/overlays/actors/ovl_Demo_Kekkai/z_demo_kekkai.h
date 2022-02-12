@@ -6,9 +6,9 @@
 
 struct DemoKekkai;
 
-typedef void (*DemoKekkaiUpdateFunc)(struct DemoKekkai* this, GlobalContext* globalCtx);
+typedef void (*DemoKekkaiUpdateFunc)(DemoKekkai* pthis, GlobalContext* globalCtx);
 
-typedef struct DemoKekkai {
+struct DemoKekkai {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider1;
     /* 0x0198 */ ColliderCylinder collider2;
@@ -19,9 +19,10 @@ typedef struct DemoKekkai {
     /* 0x01F4 */ u16 timer;
     /* 0x01F6 */ u16 sfxFlag;
     /* 0x01F8 */ DemoKekkaiUpdateFunc updateFunc;
-} DemoKekkai; // size = 0x01FC
+}; // size = 0x01FC
 
-typedef enum {
+enum DemoKekkaiType
+{
     /* 0 */ KEKKAI_TOWER,
     /* 1 */ KEKKAI_WATER,
     /* 2 */ KEKKAI_LIGHT,
@@ -29,6 +30,6 @@ typedef enum {
     /* 4 */ KEKKAI_SHADOW,
     /* 5 */ KEKKAI_SPIRIT,
     /* 6 */ KEKKAI_FOREST
-} DemoKekkaiType;
+};
 
 #endif

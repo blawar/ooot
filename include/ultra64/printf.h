@@ -3,7 +3,8 @@
 
 #include "types.h"
 
-typedef struct {
+struct _Pft
+{
     /* 0x0 */ union {
         /* 0x0 */ s64 ll;
         /* 0x0 */ f64 ld;
@@ -20,7 +21,7 @@ typedef struct {
     /* 0x2C */ u32 nchar;
     /* 0x30 */ u32 flags;
     /* 0x34 */ u8 qual;
-} _Pft; // size = 0x38
+}; // size = 0x38
 
 typedef void* (*PrintCallback)(void*, const char*, u32);
 

@@ -1,4 +1,5 @@
 #pragma once
+struct AdsrEnvelope;
 
 extern s16 D_8012FBA8[];
 extern f32 gBendPitchOneOctaveFrequencies[256];

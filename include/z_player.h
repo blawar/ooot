@@ -40,7 +40,7 @@ s32 Player_GetExplosiveHeld(struct Player* player);
 void Player_DrawGetItem(struct GlobalContext* globalCtx, struct Player* player);
 
 
-struct Gfx* Gameplay_SetFog(struct GlobalContext* globalCtx, struct Gfx* gfx);
+Gfx* Gameplay_SetFog(struct GlobalContext* globalCtx, Gfx* gfx);
 void Gameplay_Destroy(GameState* thissx);
 void Gameplay_Init(GameState* thissx);
 void Gameplay_Main(GameState* thissx);

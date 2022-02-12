@@ -1,5 +1,9 @@
 #pragma once
-#ifdef INTERNAL_SRC_CODE_Z_VIEW_C
+struct View;
+struct Viewport;
+struct GraphicsContext;
+struct Vec3f;
+
 void View_Free(View* view);
 void View_GetScale(View* view, f32* scale);
 void View_GetViewport(View* view, Viewport* viewport);
@@ -28,33 +32,3 @@ s32 func_800AB560(View* view);
 s32 func_800AB944(View* view);
 s32 func_800AB9EC(View* view, s32 arg1, Gfx** p);
 s32 func_800ABE74(f32 eyeX, f32 eyeY, f32 eyeZ);
-#else
-void View_Free(struct View* view);
-void View_GetScale(struct View* view, f32* scale);
-void View_GetViewport(struct View* view, struct Viewport* viewport);
-void View_Init(struct View*, struct GraphicsContext*);
-struct View* View_New(struct GraphicsContext* gfxCtx);
-void View_SetScale(struct View* view, f32 scale);
-void View_SetViewport(struct View* view, struct Viewport* viewport);
-void func_800AA358(struct View* view, struct Vec3f* eye, struct Vec3f* lookAt, struct Vec3f* up);
-void func_800AA3F0(struct View* view, struct Vec3f* eye, struct Vec3f* lookAt, struct Vec3f* up);
-void func_800AA460(struct View* view, f32 fovy, f32 near, f32 far);
-void func_800AA48C(struct View* view, f32* fovy, f32* near, f32* far);
-void func_800AA4A8(struct View* view, f32 fovy, f32 near, f32 far);
-void func_800AA4E0(struct View* view, f32* fovy, f32* near, f32* far);
-void func_800AA76C(struct View* view, f32 arg1, f32 arg2, f32 arg3);
-void func_800AA78C(struct View* view, f32 arg1, f32 arg2, f32 arg3);
-s32 func_800AA7AC(struct View* view, f32 arg1);
-void func_800AA7B8(struct View* view);
-void func_800AA814(struct View* view);
-void func_800AA840(struct View* view, struct Vec3f vec1, struct Vec3f vec2, f32 arg3);
-s32 func_800AA890(struct View* view, struct Mtx* mtx);
-void func_800AAA50(struct View* view, s32 arg1);
-s32 func_800AAA9C(struct View* view);
-s32 func_800AB0A8(struct View* view);
-s32 func_800AB2C4(struct View* view);
-s32 func_800AB560(struct View* view);
-s32 func_800AB944(struct View* view);
-s32 func_800AB9EC(struct View* view, s32 arg1, Gfx** p);
-s32 func_800ABE74(f32 eyeX, f32 eyeY, f32 eyeZ);
-#endif

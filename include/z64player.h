@@ -5,22 +5,22 @@
 
 struct Player;
 
-typedef enum {
+enum PlayerShield {
     /* 0x00 */ PLAYER_SHIELD_NONE,
     /* 0x01 */ PLAYER_SHIELD_DEKU,
     /* 0x02 */ PLAYER_SHIELD_HYLIAN,
     /* 0x03 */ PLAYER_SHIELD_MIRROR,
     /* 0x04 */ PLAYER_SHIELD_MAX
-} PlayerShield;
+};
 
-typedef enum {
+enum PlayerTunic {
     /* 0x00 */ PLAYER_TUNIC_KOKIRI,
     /* 0x01 */ PLAYER_TUNIC_GORON,
     /* 0x02 */ PLAYER_TUNIC_ZORA,
     /* 0x03 */ PLAYER_TUNIC_MAX
-} PlayerTunic;
+};
 
-typedef enum {
+enum PlayerBoots {
     /* 0x00 */ PLAYER_BOOTS_NORMAL,
     /* 0x01 */ PLAYER_BOOTS_IRON,
     /* 0x02 */ PLAYER_BOOTS_HOVER,
@@ -29,17 +29,17 @@ typedef enum {
     /* 0x04 */ PLAYER_BOOTS_IRON_UNDERWATER,
     /* 0x05 */ PLAYER_BOOTS_NORMAL_CHILD,
     /* 0x06 */ PLAYER_BOOTS_MAX
-} PlayerBoots;
+};
 
-typedef enum {
+enum PlayerStrength {
     /* 0x00 */ PLAYER_STR_NONE,
     /* 0x01 */ PLAYER_STR_BRACELET,
     /* 0x02 */ PLAYER_STR_SILVER_G,
     /* 0x03 */ PLAYER_STR_GOLD_G,
     /* 0x04 */ PLAYER_STR_MAX
-} PlayerStrength;
+};
 
-typedef enum {
+enum PlayerMask {
     /* 0x00 */ PLAYER_MASK_NONE,
     /* 0x01 */ PLAYER_MASK_KEATON,
     /* 0x02 */ PLAYER_MASK_SKULL,
@@ -50,9 +50,9 @@ typedef enum {
     /* 0x07 */ PLAYER_MASK_GERUDO,
     /* 0x08 */ PLAYER_MASK_TRUTH,
     /* 0x09 */ PLAYER_MASK_MAX
-} PlayerMask;
+};
 
-typedef enum {
+enum PlayerActionParam {
     /* 0x00 */ PLAYER_AP_NONE,
     /* 0x01 */ PLAYER_AP_LAST_USED,
     /* 0x02 */ PLAYER_AP_FISHING_POLE,
@@ -121,9 +121,9 @@ typedef enum {
     /* 0x41 */ PLAYER_AP_MASK_TRUTH,
     /* 0x42 */ PLAYER_AP_LENS,
     /* 0x43 */ PLAYER_AP_MAX
-} PlayerActionParam;
+};
 
-typedef enum {
+enum PlayerLimb {
     /* 0x00 */ PLAYER_LIMB_NONE,
     /* 0x01 */ PLAYER_LIMB_ROOT,
     /* 0x02 */ PLAYER_LIMB_WAIST,
@@ -147,20 +147,20 @@ typedef enum {
     /* 0x14 */ PLAYER_LIMB_SHEATH,
     /* 0x15 */ PLAYER_LIMB_TORSO,
     /* 0x16 */ PLAYER_LIMB_MAX
-} PlayerLimb;
+};
 
-typedef enum {
+enum PlayerDoorType {
     /* -1 */ PLAYER_DOORTYPE_AJAR = -1,
     /*  0 */ PLAYER_DOORTYPE_NONE,
     /*  1 */ PLAYER_DOORTYPE_HANDLE,
     /*  2 */ PLAYER_DOORTYPE_SLIDING,
     /*  3 */ PLAYER_DOORTYPE_FAKE
-} PlayerDoorType;
+};
 
 
 #define PLAYER_LIMB_BUF_COUNT PLAYER_LIMB_MAX + 2 // 2 extra entries in limb buffers?
 
-typedef struct {
+struct PlayerAgeProperties {
     /* 0x00 */ f32 unk_00;
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
@@ -194,19 +194,19 @@ typedef struct {
     /* 0xBC */ LinkAnimationHeader* unk_BC[2];
     /* 0xC4 */ LinkAnimationHeader* unk_C4[2];
     /* 0xCC */ LinkAnimationHeader* unk_CC[2];
-} PlayerAgeProperties; // size = 0xD4
+}; // size = 0xD4
 
-typedef struct {
+struct WeaponInfo {
     /* 0x00 */ s32 active;
     /* 0x04 */ Vec3f tip;
     /* 0x10 */ Vec3f base;
-} WeaponInfo; // size = 0x1C
+}; // size = 0x1C
 
 typedef void (*PlayerFunc674)(struct Player*, struct GlobalContext*);
 typedef s32 (*PlayerFunc82C)(struct Player*, struct GlobalContext*);
 typedef void (*PlayerFuncA74)(struct GlobalContext*, struct Player*);
 
-typedef struct Player {
+struct Player {
     /* 0x0000 */ Actor      actor;
     /* 0x014C */ s8         currentTunic; // current tunic from `PlayerTunic`
     /* 0x014D */ s8         currentSword; // current sword Item ID
@@ -381,6 +381,6 @@ typedef struct Player {
     /* 0x0A86 */ s8         unk_A86;
     /* 0x0A87 */ u8         unk_A87;
     /* 0x0A88 */ Vec3f      unk_A88; // previous body part 0 position
-} Player; // size = 0xA94
+}; // size = 0xA94
 
 #endif

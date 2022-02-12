@@ -25,7 +25,7 @@
 #define OS_VI_UNK1000       0x1000
 #define OS_VI_UNK2000       0x2000
 
-typedef struct {
+struct OSViCommonRegs {
     /* 0x00 */ u32 ctrl;
     /* 0x04 */ u32 width;
     /* 0x08 */ u32 burst;
@@ -35,29 +35,29 @@ typedef struct {
     /* 0x18 */ u32 hStart;
     /* 0x1C */ u32 xScale;
     /* 0x20 */ u32 vCurrent;
-} OSViCommonRegs; // size = 0x20
+}; // size = 0x20
 
-typedef struct {
+struct OSViFieldRegs {
     /* 0x00 */ u32 origin;
     /* 0x04 */ u32 yScale;
     /* 0x08 */ u32 vStart;
     /* 0x0C */ u32 vBurst;
     /* 0x10 */ u32 vIntr;
-} OSViFieldRegs; // size = 0x14
+}; // size = 0x14
 
-typedef struct {
+struct OSViMode {
     /* 0x00 */ u8 type;
     /* 0x04 */ OSViCommonRegs comRegs;
     /* 0x24 */ OSViFieldRegs fldRegs[2];
-} OSViMode; // size = 0x4C
+}; // size = 0x4C
 
-typedef struct {
+struct __OSViScale {
     /* 0x0 */ f32 factor;
     /* 0x4 */ u16 offset;
     /* 0x8 */ u32 scale;
-} __OSViScale; // size = 0x0C
+}; // size = 0x0C
 
-typedef struct {
+struct OSViContext {
     /* 0x00 */ u16 state;
     /* 0x02 */ u16 retraceCount;
     /* 0x04 */ void* buffer;
@@ -67,7 +67,7 @@ typedef struct {
     /* 0x14 */ OSMesg* msg;
     /* 0x18 */ __OSViScale x;
     /* 0x24 */ __OSViScale y;
-} OSViContext; // size = 0x30
+}; // size = 0x30
 
 #define OS_VI_NTSC_LPN1     0   /* NTSC */
 #define OS_VI_NTSC_LPF1     1

@@ -4,9 +4,10 @@
 #include "ultra64.h"
 #include "global.h"
 
-typedef struct EnFloormas EnFloormas;
+struct EnFloormas;
+struct GlobalContext;
 
-typedef void (*EnFloormasActionFunc)(EnFloormas* this, GlobalContext* globalCtx);
+typedef void (*EnFloormasActionFunc)(EnFloormas* pthis, GlobalContext* globalCtx);
 
 struct EnFloormas{
     /* 0x0000 */ Actor actor;

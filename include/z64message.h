@@ -15,7 +15,7 @@ typedef enum { LANGUAGE_ENG, LANGUAGE_GER, LANGUAGE_FRA, LANGUAGE_MAX } Language
 // TODO get these properties from the textures themselves
 #define MESSAGE_STATIC_TEX_SIZE 0x1000
 
-typedef enum {
+enum MessageMode {
     /* 0x00 */ MSGMODE_NONE,
     /* 0x01 */ MSGMODE_TEXT_START,
     /* 0x02 */ MSGMODE_TEXT_BOX_GROWING,
@@ -73,9 +73,9 @@ typedef enum {
     /* 0x36 */ MSGMODE_TEXT_CLOSING,
     /* 0x37 */ MSGMODE_PAUSED // Causes the message system to do nothing until external code sets a new message mode or
                               // calls a public function
-} MessageMode;
+};
 
-typedef enum {
+enum TextState {
     /*  0 */ TEXT_STATE_NONE,
     /*  1 */ TEXT_STATE_DONE_HAS_NEXT,
     /*  2 */ TEXT_STATE_CLOSING,
@@ -87,11 +87,11 @@ typedef enum {
     /*  8 */ TEXT_STATE_8,
     /*  9 */ TEXT_STATE_9,
     /* 10 */ TEXT_STATE_AWAITING_NEXT
-} TextState;
+};
 
-typedef struct {
-    /* 0x0000 */ u32 msgOffset;
-    /* 0x0004 */ u32 msgLength;
+struct Font {
+    /* 0x0000 */ Pointer msgOffset;
+    /* 0x0004 */ size_t msgLength;
     /* 0x0008 */ u8 charTexBuf[FONT_CHAR_TEX_SIZE * 120];
     /* 0x3C08 */ u8 iconBuf[FONT_CHAR_TEX_SIZE];
     /* 0x3C88 */ u8 fontBuf[FONT_CHAR_TEX_SIZE * 320];
@@ -99,7 +99,7 @@ typedef struct {
         /* 0xDC88 */ char msgBuf[1280];
         /* 0xDC88 */ u16 msgBufWide[640];
     };
-} Font; // size = 0xE188
+}; // size = 0xE188
 
 #define TEXTBOX_ENDTYPE_DEFAULT 0x00
 #define TEXTBOX_ENDTYPE_2_CHOICE 0x10
@@ -109,7 +109,7 @@ typedef struct {
 #define TEXTBOX_ENDTYPE_EVENT 0x50
 #define TEXTBOX_ENDTYPE_FADING 0x60
 
-typedef struct {
+struct MessageContext {
     /* 0x0000 */ View view;
     /* 0x0128 */ Font font;
     /* 0xE2B0 */ void* textboxSegment; // original name: "fukidashiSegment"
@@ -162,9 +162,9 @@ typedef struct {
     /* 0xE40C */ s16 disableWarpSongs; // warp song flag set by scene commands
     /* 0xE40E */ s16 unk_E40E;         // ocarina related
     /* 0xE410 */ u8 lastOcaNoteIdx;
-} MessageContext; // size = 0xE418
+}; // size = 0xE418
 
-typedef enum {
+enum DoAction {
     /* 0x00 */ DO_ACTION_ATTACK,
     /* 0x01 */ DO_ACTION_CHECK,
     /* 0x02 */ DO_ACTION_ENTER,
@@ -196,9 +196,9 @@ typedef enum {
     /* 0x1B */ DO_ACTION_7,
     /* 0x1C */ DO_ACTION_8,
     /* 0x1D */ DO_ACTION_MAX
-} DoAction;
+};
 
-typedef enum {
+enum OcarinaSongId {
     /*  0 */ OCARINA_SONG_MINUET,
     /*  1 */ OCARINA_SONG_BOLERO,
     /*  2 */ OCARINA_SONG_SERENADE,
@@ -216,9 +216,9 @@ typedef enum {
     /* 14 */ OCARINA_SONG_MAX,
     /* 14 */ OCARINA_SONG_SCARECROW_LONG =
         OCARINA_SONG_MAX // anything larger than 13 is considered the long scarecrow's song
-} OcarinaSongId;
+};
 
-typedef enum {
+enum OcarinaSongActionIDs {
     /* 0x00 */ OCARINA_ACTION_UNK_0, // acts like free play but never set
     /* 0x01 */ OCARINA_ACTION_FREE_PLAY,
     /* 0x02 */ OCARINA_ACTION_TEACH_MINUET, // Song demonstrations by teachers
@@ -269,9 +269,9 @@ typedef enum {
     /* 0x2F */ OCARINA_ACTION_FROGS,
     /* 0x30 */ OCARINA_ACTION_CHECK_NOWARP, // Check for any of sarias - storms
     /* 0x31 */ OCARINA_ACTION_CHECK_NOWARP_DONE
-} OcarinaSongActionIDs;
+};
 
-typedef enum {
+enum OcarinaMode {
     /* 0x00 */ OCARINA_MODE_00,
     /* 0x01 */ OCARINA_MODE_01,
     /* 0x02 */ OCARINA_MODE_02,
@@ -288,4 +288,4 @@ typedef enum {
     /* 0x0D */ OCARINA_MODE_0D,
     /* 0x0E */ OCARINA_MODE_0E,
     /* 0x0F */ OCARINA_MODE_0F
-} OcarinaMode;
+};

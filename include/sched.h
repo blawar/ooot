@@ -25,17 +25,17 @@
 #define OS_SC_RCP_MASK 0x0003
 #define OS_SC_TYPE_MASK 0x0007
 
-typedef struct {
+struct OSScMsg {
     /* 0x00 */ s16 type;
     /* 0x02 */ char misc[0x1E];
-} OSScMsg; // size = 0x20
+}; // size = 0x20
 
-typedef struct IrqMgrClient {
+struct IrqMgrClient {
     /* 0x00 */ struct IrqMgrClient* prev;
     /* 0x04 */ OSMesgQueue* queue;
-} IrqMgrClient;
+};
 
-typedef struct {
+struct IrqMgr {
     /* 0x000 */ OSScMsg retraceMsg; // this apparently got moved from OSSched
     /* 0x020 */ OSScMsg prenmiMsg;  // this apparently got moved from OSSched
     /* 0x040 */ OSScMsg nmiMsg;
@@ -47,9 +47,9 @@ typedef struct {
     /* 0x250 */ OSTime resetTime;
     /* 0x258 */ OSTimer timer;
     /* 0x278 */ OSTime retraceTime;
-} IrqMgr; // size = 0x280
+}; // size = 0x280
 
-typedef struct CfbInfo {
+struct CfbInfo {
     /* 0x00 */ u16* fb1;
     /* 0x04 */ u16* swapBuffer;
     /* 0x08 */ struct OSViMode* viMode;
@@ -60,9 +60,9 @@ typedef struct CfbInfo {
     /* 0x13 */ u8 unk_13;
     /* 0x14 */ f32 xScale;
     /* 0x18 */ f32 yScale;
-} CfbInfo; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct OSScTask {
+struct OSScTask {
     /* 0x00 */ struct OSScTask* next;
     /* 0x04 */ u32 state;
     /* 0x08 */ u32 flags;
@@ -70,9 +70,9 @@ typedef struct OSScTask {
     /* 0x10 */ OSTask list;
     /* 0x50 */ OSMesgQueue* msgQ;
     /* 0x54 */ OSMesg msg;
-} OSScTask;
+};
 
-typedef struct {
+struct SchedContext {
     /* 0x0000 */ OSMesgQueue interruptQ;
     /* 0x0018 */ OSMesg intBuf[8];
     /* 0x0038 */ OSMesgQueue cmdQ;
@@ -91,7 +91,7 @@ typedef struct {
     /* 0x0220 */ CfbInfo* pendingSwapBuf2;
     /* 0x0220 */ UNK_TYPE4 unk_24C;
     /* 0x0250 */ IrqMgrClient irqClient;
-} SchedContext; // size = 0x258
+}; // size = 0x258
 
 extern SchedContext gSchedContext;
 

@@ -3,13 +3,13 @@
 #include "sched.h"
 #include "z64math.h"
 
-typedef struct {
+struct SoundSource {
     /* 0x00 */ u16 countdown;
     /* 0x04 */ Vec3f originPos;
     /* 0x10 */ Vec3f relativePos;
-} SoundSource; // size = 0x1C
+}; // size = 0x1C
 
-typedef struct {
+struct AudioMgr {
     /* 0x0000 */ IrqMgr* irqMgr;
     /* 0x0004 */ SchedContext* sched;
     /* 0x0008 */ OSScTask audioTask;
@@ -25,7 +25,7 @@ typedef struct {
     /* 0x00E0 */ OSMesg unk_E0;
     /* 0x00E4 */ char unk_E4[0x04];
     /* 0x00E8 */ OSThread unk_E8;
-} AudioMgr; // size = 0x298
+}; // size = 0x298
 
 extern Vec3f D_801333D4;
 extern f32 D_801333E0;

@@ -2,12 +2,10 @@
 #include "players.h"
 #include "../controller/controllers.h"
 
-extern "C" {
 #include "z64.h";
 #include "padmgr.h"
 
-	extern PadMgr gPadMgr;
-}
+extern PadMgr gPadMgr;
 
 extern "C" {
 void hid_init() {
