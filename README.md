@@ -21,8 +21,8 @@ Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
 32-bit Release works, but is buggy due to optimizations breaking many assumptions.
 ```
 
-**Note: This repository does not include any of the assets necessary to build the ROM. A prior copy of the game is required to extract the needed assets.**
-
+**Note: This repository does not include any of the assets necessary to build the ROM. A prior copy of the game is required to extract the needed assets. The required ROM is The Legend of Zelda: Ocarina of Time PAL 1.0. Currently, the ROM must first be decompressed with a tool like [z64decompress](https://github.com/z64me/z64decompress). Once the ROM is decompressed its md5 checksum should be** ``39a70afa2a7eea1ea306c19e5fd1a8aa``**.**
+ 
 **Note: Be sure to use ``git clone --recursive https://github.com/blawar/ooot.git`` when cloning the repo for the submodules.**
 
 **Discord:** <https://discord.com/invite/8tktBEhbZm>
