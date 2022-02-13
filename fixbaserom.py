@@ -7,6 +7,10 @@ from libyaz0 import decompress
 
 UNCOMPRESSED_SIZE = 0x34D3040
 
+def cancel():
+    input("Press Enter To Cancel...")
+    sys.exit(1)
+
 def as_word(b, off=0):
     return struct.unpack(">I", b[off:off+4])[0]
 
@@ -133,7 +137,7 @@ if path.exists("baserom.z64"):
         fileContent = bytearray(file.read())
         if get_str_hash(fileContent) == correct_str_hash:
             print("Found valid baserom - exiting early")
-            sys.exit(0)
+            cancel()
 
 # Determine if we have a ROM file
 romFileName = ""
@@ -145,7 +149,7 @@ elif path.exists("baserom_original.v64"):
     romFileName = "baserom_original.v64"
 else:
     print("Error: Could not find baserom_original.z64/baserom_original.n64/baserom_original.v64.")
-    sys.exit(1)
+    cancel()
 
 # Read in the original ROM
 print("File '" + romFileName + "' found.")
@@ -190,7 +194,7 @@ str_hash = get_str_hash(bytearray(fileContent))
 if str_hash != correct_str_hash:
     print("Error: Expected a hash of " + correct_str_hash + " but got " + str_hash + ". " +
           "The baserom has probably been tampered, find a new one")
-    sys.exit(1)
+    cancel()
 
 # Write out our new ROM
 print("Writing new ROM 'baserom.z64'.")
