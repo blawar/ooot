@@ -137,7 +137,7 @@ if path.exists("baserom.z64"):
         fileContent = bytearray(file.read())
         if get_str_hash(fileContent) == correct_str_hash:
             print("Found valid baserom - exiting early")
-            cancel()
+            sys.exit(1)
 
 # Determine if we have a ROM file
 romFileName = ""
