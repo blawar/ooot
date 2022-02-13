@@ -49,37 +49,37 @@ void SkyboxDraw_Draw(SkyboxContext* skyboxCtx, GraphicsContext* gfxCtx, s16 skyb
     gDPSetTextureConvert(POLY_OPA_DISP++, G_TC_FILT);
 
     if (skyboxCtx->unk_140) {
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[0]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[1]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[0]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[1]);
 
         gDPPipeSync(POLY_OPA_DISP++);
-        gDPLoadTLUT_pal256(POLY_OPA_DISP++, &skyboxCtx->palettes[1]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[2]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[3]);
+        gDPLoadTLUT_pal256(POLY_OPA_DISP++, skyboxCtx->palettes[1]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[2]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[3]);
 
         if (skyboxId != SKYBOX_BAZAAR) {
             if (skyboxId <= SKYBOX_HOUSE_KAKARIKO || skyboxId > SKYBOX_BOMBCHU_SHOP) {
                 gDPPipeSync(POLY_OPA_DISP++);
-                gDPLoadTLUT_pal256(POLY_OPA_DISP++, &skyboxCtx->palettes[2]);
-                gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[4]);
-                gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[5]);
+                gDPLoadTLUT_pal256(POLY_OPA_DISP++, skyboxCtx->palettes[2]);
+                gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[4]);
+                gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[5]);
 
                 gDPPipeSync(POLY_OPA_DISP++);
                 if (skyboxCtx->unk_140 != 2) {
-                    gDPLoadTLUT_pal256(POLY_OPA_DISP++, &skyboxCtx->palettes[3]);
-                    gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[6]);
-                    gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[7]);
+                    gDPLoadTLUT_pal256(POLY_OPA_DISP++, skyboxCtx->palettes[3]);
+                    gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[6]);
+                    gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[7]);
                 }
             }
         }
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[0]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[2]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[4]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[6]);
-        gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[8]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[0]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[2]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[4]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[6]);
+        gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[8]);
         if (skyboxId == SKYBOX_CUTSCENE_MAP) {
-            gSPDisplayList(POLY_OPA_DISP++, &skyboxCtx->dListBuf[10]);
+            gSPDisplayList(POLY_OPA_DISP++, skyboxCtx->dListBuf[10]);
         }
     }
 
