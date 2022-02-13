@@ -5019,8 +5019,6 @@
     <ClCompile Include="..\assets\scenes\dungeons\gerudoway\gerudoway_room_1.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\indoors\hairal_niwa2\hairal_niwa2_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_11.c">
       <Filter>Source Files\assets\scenes</Filter>
@@ -5029,9 +5027,6 @@
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\indoors\syatekijyou\syatekijyou_scene.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\indoors\hairal_niwa2\hairal_niwa2_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_10.c">
