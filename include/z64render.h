@@ -39,8 +39,8 @@ enum SkyboxId {
 struct SkyboxContext {
     /* 0x000 */ char unk_00[0x128];
     /* 0x128 */ void* staticSegments[2];
-    /* 0x130 */ u16* palettes; // TODO CHECK u16 (*palettes)[256];
-    /* 0x134 */ Gfx* dListBuf; // TODO CHECK Gfx (*dListBuf)[150];
+    /* 0x130 */ u16 (*palettes)[256];
+    /* 0x134 */ Gfx (*dListBuf)[150];
     /* 0x138 */ Gfx* unk_138;
     /* 0x13C */ Vtx* roomVtx;
     /* 0x140 */ s16 unk_140;
