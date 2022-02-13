@@ -65,7 +65,6 @@ extern Gfx gEmptyDL[];
 #include "scenes/indoors/bowling/bowling_scene.h"
 #include "scenes/indoors/mahouya/mahouya_scene.h"
 #include "scenes/indoors/hakasitarelay/hakasitarelay_scene.h"
-#include "scenes/indoors/hairal_niwa2/hairal_niwa2_scene.h"
 
 #include "scenes/misc/entra_n/entra_n_scene.h"
 #include "scenes/misc/enrui/enrui_scene.h"
