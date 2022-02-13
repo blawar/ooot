@@ -8,13 +8,10 @@
         <Cutscene Name="gGraveyardIntroCs" Offset="0x70C0"/>
     </File>
     <File Name="spot02_room_0" Segment="3">
-        <DList Name="spot02_room_0DL_0022E8" Offset="0x0022E8"/>
         <DList Name="gSpot02DL_0026D0" Offset="0x26D0"/>
         <Room Name="spot02_room_0" Offset="0x0"/>
     </File>
     <File Name="spot02_room_1" Segment="3">
-        <DList Name="spot02_room_1DL_01B658" Offset="0x01B658"/>
-        <DList Name="spot02_room_1DL_008E28" Offset="0x008E28"/>
         <Room Name="spot02_room_1" Offset="0x0"/>
     </File>
 </Root>

@@ -87,5 +87,5 @@ s32 JpegDecoder_ProcessMcu(JpegHuffmanTable* hTable0, JpegHuffmanTable* hTable1,
 s32 JpegDecoder_ParseNextSymbol(JpegHuffmanTable* hTable, s16* outCoeff, s8* outZeroCount);
 u16 JpegDecoder_ReadBits(u8 len);
 
-extern u64 gJpegUCode[];
-extern u64 gJpegUCodeData[];
+extern u64 rspJpegTextStart[];
+extern u64 rspJpegData[];

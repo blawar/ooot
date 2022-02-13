@@ -1,114 +1,86 @@
 <Root>
     <File Name="HIDAN_scene" Segment="2">
-        <Path Name="HIDAN_scenePathway_000440" Offset="0x0440" NumPaths="4"/>
         <Scene Name="HIDAN_scene" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_0" Segment="3">
-        <DList Name="HIDAN_room_0DL_004EE0" Offset="0x004EE0"/>
         <Room Name="HIDAN_room_0" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_1" Segment="3">
-        <DList Name="HIDAN_room_1DL_0086F0" Offset="0x0086F0"/>
         <Room Name="HIDAN_room_1" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_2" Segment="3">
-        <DList Name="HIDAN_room_2DL_009600" Offset="0x009600"/>
         <Room Name="HIDAN_room_2" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_3" Segment="3">
-        <DList Name="HIDAN_room_3DL_001AA8" Offset="0x001AA8"/>
         <Room Name="HIDAN_room_3" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_4" Segment="3">
-        <DList Name="HIDAN_room_4DL_0050B0" Offset="0x0050B0"/>
         <Room Name="HIDAN_room_4" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_5" Segment="3">
-        <DList Name="HIDAN_room_5DL_007EA8" Offset="0x007EA8"/>
         <Room Name="HIDAN_room_5" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_6" Segment="3">
-        <DList Name="HIDAN_room_6DL_003970" Offset="0x003970"/>
         <Room Name="HIDAN_room_6" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_7" Segment="3">
-        <DList Name="HIDAN_room_7DL_001C30" Offset="0x001C30"/>
         <Room Name="HIDAN_room_7" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_8" Segment="3">
-        <DList Name="HIDAN_room_8DL_005098" Offset="0x005098"/>
         <Room Name="HIDAN_room_8" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_9" Segment="3">
-        <DList Name="HIDAN_room_9DL_004758" Offset="0x004758"/>
         <Room Name="HIDAN_room_9" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_10" Segment="3">
-        <DList Name="HIDAN_room_10DL_0117B0" Offset="0x0117B0"/>
         <Room Name="HIDAN_room_10" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_11" Segment="3">
-        <DList Name="HIDAN_room_11DL_0027B8" Offset="0x0027B8"/>
         <Room Name="HIDAN_room_11" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_12" Segment="3">
-        <DList Name="HIDAN_room_12DL_001D48" Offset="0x001D48"/>
         <Room Name="HIDAN_room_12" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_13" Segment="3">
-        <DList Name="HIDAN_room_13DL_00A750" Offset="0x00A750"/>
         <Room Name="HIDAN_room_13" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_14" Segment="3">
-        <DList Name="HIDAN_room_14DL_0019E8" Offset="0x0019E8"/>
         <Room Name="HIDAN_room_14" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_15" Segment="3">
-        <DList Name="HIDAN_room_15DL_000D78" Offset="0x000D78"/>
         <Room Name="HIDAN_room_15" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_16" Segment="3">
-        <DList Name="HIDAN_room_16DL_006DB8" Offset="0x006DB8"/>
         <Room Name="HIDAN_room_16" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_17" Segment="3">
-        <DList Name="HIDAN_room_17DL_005158" Offset="0x005158"/>
         <Room Name="HIDAN_room_17" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_18" Segment="3">
-        <DList Name="HIDAN_room_18DL_0027E8" Offset="0x0027E8"/>
         <Room Name="HIDAN_room_18" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_19" Segment="3">
-        <DList Name="HIDAN_room_19DL_002E18" Offset="0x002E18"/>
         <Room Name="HIDAN_room_19" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_20" Segment="3">
-        <DList Name="HIDAN_room_20DL_002CF8" Offset="0x002CF8"/>
         <Room Name="HIDAN_room_20" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_21" Segment="3">
-        <DList Name="HIDAN_room_21DL_004418" Offset="0x004418"/>
         <Room Name="HIDAN_room_21" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_22" Segment="3">
-        <DList Name="HIDAN_room_22DL_002AD8" Offset="0x002AD8"/>
         <Room Name="HIDAN_room_22" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_23" Segment="3">
-        <DList Name="HIDAN_room_23DL_002D08" Offset="0x002D08"/>
         <Room Name="HIDAN_room_23" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_24" Segment="3">
-        <DList Name="HIDAN_room_24DL_003B10" Offset="0x003B10"/>
         <Room Name="HIDAN_room_24" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_25" Segment="3">
-        <DList Name="HIDAN_room_25DL_002AC8" Offset="0x002AC8"/>
         <Room Name="HIDAN_room_25" Offset="0x0"/>
     </File>
     <File Name="HIDAN_room_26" Segment="3">
-        <DList Name="HIDAN_room_26DL_004A40" Offset="0x004A40"/>
         <Room Name="HIDAN_room_26" Offset="0x0"/>
     </File>
 </Root>

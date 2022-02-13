@@ -5,18 +5,12 @@
         <Scene Name="souko_scene" Offset="0x0"/>
     </File>
     <File Name="souko_room_0" Segment="3">
-        <DList Name="souko_room_0DL_009528" Offset="0x009528"/>
-        <DList Name="souko_room_0DL_0054A0" Offset="0x0054A0"/>
         <Room Name="souko_room_0" Offset="0x0"/>
     </File>
     <File Name="souko_room_1" Segment="3">
-        <DList Name="souko_room_1DL_009F08" Offset="0x009F08"/>
-        <DList Name="souko_room_1DL_0050B8" Offset="0x0050B8"/>
         <Room Name="souko_room_1" Offset="0x0"/>
     </File>
     <File Name="souko_room_2" Segment="3">
-        <DList Name="souko_room_2DL_007F60" Offset="0x007F60"/>
-        <DList Name="souko_room_2DL_004EA0" Offset="0x004EA0"/>
         <Room Name="souko_room_2" Offset="0x0"/>
     </File>
 </Root>

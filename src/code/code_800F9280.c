@@ -9,9 +9,13 @@
 #include "def/code_800F7260.h"
 #include "def/code_800F9280.h"
 
-extern u8 sSeqCmdRdPos;
-extern u8 sSeqCmdWrPos;
-extern u8 D_80133410[];
+u8 sSeqCmdWrPos = 0;
+u8 sSeqCmdRdPos = 0;
+u8 D_80133408 = 0;
+u8 D_8013340C = 1;
+u8 D_80133410[] = { 0, 1, 2, 3 };
+u8 gAudioSpecId = 0;
+u8 D_80133418 = 0;
 
 // TODO: clean up these macros. They are similar to ones in code_800EC960.c but without casts.
 #define Audio_StartSeq(playerIdx, fadeTimer, seqId) \

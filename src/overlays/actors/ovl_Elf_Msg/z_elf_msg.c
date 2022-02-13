@@ -169,9 +169,8 @@ void ElfMsg_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-#include "overlays/ovl_Elf_Msg/ovl_Elf_Msg.c"
-
 void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx) {
+#if 0
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg.c", 436);
 
     if (R_NAVI_MSG_REGION_ALPHA == 0) {
@@ -196,4 +195,5 @@ void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg.c", 457);
+#endif
 }

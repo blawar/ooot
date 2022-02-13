@@ -407,32 +407,24 @@ class FontTable(Table):
 		return FontReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, self.dataFile, f = f)
 
 sections = {'assets/rsp.h': [
-		FontTable('gSoundFontTable', 0xBCC270, 0x270, 'baserom/Audiobank'),
-		Section('gSequenceFontTable', 0xBCC4E0, 0x1C0, 2),
-		Table('gSequenceTable', 0xBCC6A0, 0x6F0, 'baserom/Audioseq'),
-		Table('gSampleBankTable', 0xBCCD90, 0x80, 'baserom/Audiotable'),
-		Section('rspAspMainDataStart', 0xBCCE10, 0x2E0),
-		Section('D_80155F50', 0xBCD0F0, 0x1630, 1),
-		Section('D_80157580', 0xBCE720, 0x420, 1),
-		Section('D_801579A0', 0xBCEB40, 0x390, 1),
-		Section('gJpegUCodeData', 0xBCEED0, 0x60),
-		Section('D_801120C0', 0xB89260, 0xFB0, 8),
-		Section('D_80113070', 0xB8A210, 0x18C0, 1),
-		Section('gJpegUCode', 0xB8BAD0, 0xAF0, 8)
+		FontTable('gSoundFontTable', 0xB88E60, 0x270, 'baserom/Audiobank'),
+		Section('gSequenceFontTable', 0xB890D0, 0x1C0, 2),
+		Table('gSequenceTable', 0xB89290, 0x6F0, 'baserom/Audioseq'),
+		Table('gSampleBankTable', 0xB89980, 0x80, 'baserom/Audiotable'),
+		Section('rspAspMainData', 0xB89A00, 0x2E0),
+		Section('rspF3DZEXText', 0xB597E0, 0x1390, 1),
+		Section('rspF3DZEXData', 0xB89CE0, 0x420, 1),
+		Section('rspS2DEXData', 0xB8A100, 0x390, 1),
+		Section('rspJpegData', 0xB8A490, 0x60),
+		Section('rspAspMainText', 0xB58830, 0xFB0, 8),
+		Section('rspS2DEXText', 0xB5AB70, 0x18C0, 1),
+		Section('rspJpegTextStart', 0xB5C430, 0xAF0, 8)
 	],
 	'assets/rsp_boot.h': [
-		Section('D_80009320', 0x9F20, 0xD0, 1),
+		# These have not been adjusted for PAL 1.0 yet! (although they are not used currently anyways...)
+		Section('rspBootText', 0x9F20, 0xD0, 1),
 		Section('D_800093F0', 0x9FF0, 0x20, 1)
 	],
-	'assets/code_800F9280.h': [
-		Section('sSeqCmdWrPos', 0xBAA5A0, 0x4, 1),
-		Section('sSeqCmdRdPos', 0xBAA5A4, 0x4, 1),
-		Section('D_80133408', 0xBAA5A8, 0x1, 1),
-		Section('D_8013340C', 0xBAA5AC, 0x1, 1),
-		Section('D_80133410', 0xBAA5B0, 0x4, 1),
-		Section('gAudioSpecId', 0xBAA5B4, 0x1, 1),
-		Section('D_80133418', 0xBAA5B8, 0x1, 1),
-	]
 }
 
 with open('baserom.z64', 'rb') as z64:

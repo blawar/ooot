@@ -3,7 +3,6 @@
         <Scene Name="tent_scene" Offset="0x0"/>
     </File>
     <File Name="tent_room_0" Segment="3">
-        <DList Name="tent_room_0DL_00DE88" Offset="0x00DE88"/>
         <Room Name="tent_room_0" Offset="0x0"/>
     </File>
 </Root>

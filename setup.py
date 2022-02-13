@@ -45,6 +45,7 @@ def build():
     print("Starting asset extraction and parsing")
     # sys.executable points to python executable
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'tqdm'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'libyaz0'])
     subprocess.check_call([sys.executable, str('fixbaserom.py')])
     subprocess.check_call([sys.executable, str('extract_baserom.py')])
     subprocess.check_call([sys.executable, str('extract_assets.py')])

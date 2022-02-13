@@ -3,14 +3,6 @@
         <Scene Name="shop1_scene" Offset="0x0"/>
     </File>
     <File Name="shop1_room_0" Segment="3">
-        <DList Name="shop1_room_0DL_003408" Offset="0x003408"/>
-        <DList Name="shop1_room_0DL_0034A0" Offset="0x0034A0"/>
-        <DList Name="shop1_room_0DL_003538" Offset="0x003538"/>
-        <DList Name="shop1_room_0DL_0035D0" Offset="0x0035D0"/>
-        <DList Name="shop1_room_0DL_003668" Offset="0x003668"/>
-        <DList Name="shop1_room_0DL_003AE0" Offset="0x003AE0"/>
-        <DList Name="shop1_room_0DL_003F98" Offset="0x003F98"/>
-        <DList Name="shop1_room_0DL_003F60" Offset="0x003F60"/>
         <Room Name="shop1_room_0" Offset="0x0"/>
     </File>
 </Root>

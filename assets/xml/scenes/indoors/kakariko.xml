@@ -3,7 +3,6 @@
         <Scene Name="kakariko_scene" Offset="0x0"/>
     </File>
     <File Name="kakariko_room_0" Segment="3">
-        <DList Name="kakariko_room_0DL_0057B0" Offset="0x0057B0"/>
         <Room Name="kakariko_room_0" Offset="0x0"/>
     </File>
 </Root>

@@ -65,7 +65,6 @@ extern Gfx gEmptyDL[];
 #include "scenes/indoors/bowling/bowling_scene.h"
 #include "scenes/indoors/mahouya/mahouya_scene.h"
 #include "scenes/indoors/hakasitarelay/hakasitarelay_scene.h"
-#include "scenes/indoors/hairal_niwa2/hairal_niwa2_scene.h"
 
 #include "scenes/misc/entra_n/entra_n_scene.h"
 #include "scenes/misc/enrui/enrui_scene.h"
@@ -125,15 +124,6 @@ extern Gfx gEmptyDL[];
 #include "scenes/dungeons/ganon_final/ganon_final_scene.h"
 #include "scenes/dungeons/ganon_demo/ganon_demo_scene.h"
 #include "scenes/dungeons/ganon_tou/ganon_tou_scene.h"
-
-#include "scenes/test_levels/test01/test01_scene.h"
-#include "scenes/test_levels/besitu/besitu_scene.h"
-#include "scenes/test_levels/depth_test/depth_test_scene.h"
-#include "scenes/test_levels/syotes/syotes_scene.h"
-#include "scenes/test_levels/syotes2/syotes2_scene.h"
-#include "scenes/test_levels/sutaru/sutaru_scene.h"
-#include "scenes/test_levels/sasatest/sasatest_scene.h"
-#include "scenes/test_levels/testroom/testroom_scene.h"
 
 #include "overlays/actors/ovl_Bg_Dodoago/z_bg_dodoago.h"
 #include "z_scene_table_assets.h"
@@ -1064,15 +1054,6 @@ SCENE_EXTERN(spot17_scene);
 SCENE_EXTERN(spot18_scene);
 SCENE_EXTERN(spot20_scene);
 SCENE_EXTERN(ganon_tou_scene);
-SCENE_EXTERN(test01_scene);
-SCENE_EXTERN(besitu_scene);
-SCENE_EXTERN(depth_test_scene);
-SCENE_EXTERN(syotes_scene);
-SCENE_EXTERN(syotes2_scene);
-SCENE_EXTERN(sutaru_scene);
-SCENE_EXTERN(hairal_niwa2_scene);
-SCENE_EXTERN(sasatest_scene);
-SCENE_EXTERN(testroom_scene);
 
 SceneTableEntry gSceneTable[] = {
     TITLED_SCENE(ydan_scene, g_pn_06, 1, 19, 2),
@@ -1176,15 +1157,6 @@ SceneTableEntry gSceneTable[] = {
     TITLED_SCENE(spot18_scene, g_pn_41, 0, 16, 0),
     TITLED_SCENE(spot20_scene, g_pn_42, 0, 17, 0),
     TITLED_SCENE(ganon_tou_scene, g_pn_43, 0, 36, 0),
-    UNTITLED_SCENE(test01_scene, 0, 47, 0),
-    UNTITLED_SCENE(besitu_scene, 0, 49, 0),
-    UNTITLED_SCENE(depth_test_scene, 0, 0, 0),
-    UNTITLED_SCENE(syotes_scene, 0, 0, 0),
-    UNTITLED_SCENE(syotes2_scene, 0, 0, 0),
-    UNTITLED_SCENE(sutaru_scene, 0, 0, 0),
-    TITLED_SCENE(hairal_niwa2_scene, g_pn_12, 0, 35, 0),
-    UNTITLED_SCENE(sasatest_scene, 0, 0, 0),
-    UNTITLED_SCENE(testroom_scene, 0, 0, 0),
 };
 
 Gfx sDefaultDisplayList[] = {

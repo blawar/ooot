@@ -3,7 +3,6 @@
         <Scene Name="hut_scene" Offset="0x0"/>
     </File>
     <File Name="hut_room_0" Segment="3">
-        <DList Name="hut_room_0DL_003D88" Offset="0x003D88"/>
         <Room Name="hut_room_0" Offset="0x0"/>
     </File>
 </Root>

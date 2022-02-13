@@ -3,8 +3,6 @@
         <Scene Name="yousei_izumi_tate_scene" Offset="0x0"/>
     </File>
     <File Name="yousei_izumi_tate_room_0" Segment="3">
-        <DList Name="yousei_izumi_tate_room_0DL_0042B8" Offset="0x0042B8"/>
-        <DList Name="yousei_izumi_tate_room_0DL_003988" Offset="0x003988"/>
         <Room Name="yousei_izumi_tate_room_0" Offset="0x0"/>
     </File>
 </Root>

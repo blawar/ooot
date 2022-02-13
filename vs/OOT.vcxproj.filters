@@ -3948,13 +3948,7 @@
     <ClCompile Include="..\assets\scenes\dungeons\jyasinzou\jyasinzou_room_4.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\besitu\besitu_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\ganontika\ganontika_room_16.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\besitu\besitu_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\ganontika\ganontika_room_15.c">
@@ -4563,13 +4557,7 @@
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_6.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\testroom\testroom_room_4.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_5.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\testroom\testroom_room_3.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\misc\hakaana2\hakaana2_room_0.c">
@@ -4584,16 +4572,10 @@
     <ClCompile Include="..\assets\scenes\overworld\spot12\spot12_room_1.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\testroom\testroom_room_2.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_3.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\indoors\kokiri_home4\kokiri_home4_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\testroom\testroom_room_1.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_2.c">
@@ -4605,13 +4587,7 @@
     <ClCompile Include="..\assets\scenes\misc\hakaana2\hakaana2_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\testroom\testroom_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_1.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\testroom\testroom_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\overworld\spot12\spot12_room_0.c">
@@ -4638,13 +4614,7 @@
     <ClCompile Include="..\assets\scenes\misc\hakaana\hakaana_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\test01\test01_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\overworld\spot12\spot12_scene.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\test01\test01_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\Bmori1\Bmori1_room_22.c">
@@ -4686,9 +4656,6 @@
     <ClCompile Include="..\assets\scenes\overworld\souko\souko_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\syotes2\syotes2_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\overworld\spot11\spot11_room_0.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
@@ -4702,9 +4669,6 @@
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\misc\enrui\enrui_scene.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\syotes2\syotes2_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\Bmori1\Bmori1_room_14.c">
@@ -4749,12 +4713,6 @@
     <ClCompile Include="..\assets\scenes\indoors\yousei_izumi_yoko\yousei_izumi_yoko_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\syotes\syotes_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\syotes\syotes_scene.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\misc\turibori\turibori_room_0.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
@@ -4788,13 +4746,7 @@
     <ClCompile Include="..\assets\scenes\dungeons\Bmori1\Bmori1_room_8.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\sutaru\sutaru_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\indoors\impa\impa_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\sutaru\sutaru_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\indoors\impa\impa_scene.c">
@@ -4815,9 +4767,6 @@
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdan\HAKAdan_room_14.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\sasatest\sasatest_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\indoors\hylia_labo\hylia_labo_room_0.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
@@ -4825,9 +4774,6 @@
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdan\HAKAdan_room_13.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\sasatest\sasatest_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\overworld\spot10\spot10_room_7.c">
@@ -4863,16 +4809,10 @@
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdan\HAKAdan_room_10.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\depth_test\depth_test_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\scenes\overworld\spot10\spot10_room_4.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\Bmori1\Bmori1_room_5.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\test_levels\depth_test\depth_test_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\HAKAdan\HAKAdan_room_9.c">
@@ -5079,8 +5019,6 @@
     <ClCompile Include="..\assets\scenes\dungeons\gerudoway\gerudoway_room_1.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\scenes\indoors\hairal_niwa2\hairal_niwa2_room_0.c">
-      <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_11.c">
       <Filter>Source Files\assets\scenes</Filter>
@@ -5089,9 +5027,6 @@
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\indoors\syatekijyou\syatekijyou_scene.c">
-      <Filter>Source Files\assets\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\scenes\indoors\hairal_niwa2\hairal_niwa2_scene.c">
       <Filter>Source Files\assets\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\scenes\dungeons\bdan\bdan_room_10.c">
@@ -5167,9 +5102,6 @@
       <Filter>Source Files\port</Filter>
     </ClCompile>
     <ClCompile Include="..\src\port\rsp_boot.c">
-      <Filter>Source Files\port</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\port\code_800F9280.c">
       <Filter>Source Files\port</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\sys_cfb.c">

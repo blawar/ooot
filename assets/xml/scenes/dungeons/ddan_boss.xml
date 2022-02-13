@@ -3,11 +3,9 @@
         <Scene Name="ddan_boss_scene" Offset="0x0"/>
     </File>
     <File Name="ddan_boss_room_0" Segment="3">
-        <DList Name="ddan_boss_room_0DL_003618" Offset="0x003618"/>
         <Room Name="ddan_boss_room_0" Offset="0x0"/>
     </File>
     <File Name="ddan_boss_room_1" Segment="3">
-        <DList Name="ddan_boss_room_1DL_0021C0" Offset="0x0021C0"/>
         <Texture Name="gDodongosCavernBossLavaFloorTex" OutName="lava_floor" Format="rgba16" Width="64" Height="32" Offset="0x21D8"/>
         <Room Name="ddan_boss_room_1" Offset="0x0"/>
     </File>
