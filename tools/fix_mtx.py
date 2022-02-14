@@ -13,7 +13,7 @@ def fix(path):
 	
 #fix('assets/objects/object_link_child/object_link_child.c')
 PATH = 'assets'
-result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] in ['.c', '.h']]
+result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] in ['.cpp', '.h']]
 for f in result:
 	try:
 		fix(f)

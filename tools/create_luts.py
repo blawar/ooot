@@ -83,7 +83,7 @@ for path in files:
 		skip = True
 
 	name = path.name[0:-2]
-	c_path = str(path)[0:-2] + '.c'
+	c_path = str(path)[0:-2] + '.cpp'
 
 	lutVarName = name + '_lut'
 

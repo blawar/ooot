@@ -759,7 +759,7 @@ void ZFile::GenerateSourceFiles()
 
 	sourceOutput += ProcessDeclarations();
 
-	fs::path outPath = GetSourceOutputFolderPath() / outName.stem().concat(".c");
+	fs::path outPath = GetSourceOutputFolderPath() / outName.stem().concat(".cpp");
 
 	if (Globals::Instance->verbosity >= VerbosityLevel::VERBOSITY_INFO)
 		printf("Writing C file: %s\n", STR(outPath));

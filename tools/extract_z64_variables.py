@@ -386,7 +386,7 @@ class Table(Section):
 				relocs.append(reloc)
 				lst.append('{ .romAddr = 0x%8.8X, .size = 0x%8.8X, .medium = 0x%2.2X, .cachePolicy = %d, .shortData1 = 0x%4.4X, .shortData2 = 0x%4.4X, .shortData3 = 0x%4.4X }' % (address, size, medium, cachePolicy, shortData1, shortData2, shortData3))
 			
-		f.write('AudioTableDef %s = {\n.numEntries = 0x%4.4X, .unkMediumParam = 0x%4.4X, .romAddr = 0x%8.8X, {0}, {\n' % (self.name, numEntries, unkMediumParam, address))
+		f.write('AudioTableDef %s = {\n.numEntries = 0x%4.4X, .unkMediumParam = 0x%4.4X, .romAddr = 0x%8.8X, .pad = {0}, .entries = {\n' % (self.name, numEntries, unkMediumParam, address))
 
 		f.write(',\n'.join(lst))
 			
