@@ -209,13 +209,13 @@ void BgBowlWall_Update(Actor* pthisx, GlobalContext* globalCtx) {
 void BgBowlWall_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
     BgBowlWall* pthis = (BgBowlWall*)pthisx;
-    u32 frames;
+    const auto& frames = globalCtx->state.frames;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 441);
 
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x8,
-               Gfx_TexScroll(globalCtx->state.gfxCtx, 0, -2 * (frames = globalCtx->state.frames), 16, 16));
+               Gfx_TexScroll(globalCtx->state.gfxCtx, 0, (frames * -2).whole(), 16, 16));
     gDPPipeSync(POLY_OPA_DISP++);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 453),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

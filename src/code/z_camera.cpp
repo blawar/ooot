@@ -6041,12 +6041,12 @@ s32 Camera_Demo5(Camera* camera) {
         }
     }
 
-    pad = sDemo5PrevSfxFrame - camera->globalCtx->state.frames;
+    pad = sDemo5PrevSfxFrame - camera->globalCtx->state.frames.whole();
     if ((pad >= 0x33) || (pad < -0x32)) {
         func_80078884((u16)camera->data1);
     }
 
-    sDemo5PrevSfxFrame = camera->globalCtx->state.frames;
+    sDemo5PrevSfxFrame = camera->globalCtx->state.frames.whole();
 
     if (camera->player->stateFlags1 & 0x8000000 && (player->currentBoots != PLAYER_BOOTS_IRON)) {
         // swimming, and not iron boots
@@ -6056,7 +6056,7 @@ s32 Camera_Demo5(Camera* camera) {
     } else {
         sp4A = playerhead.rot.y - playerTargetGeo.yaw;
         if (camera->target->category == ACTORCAT_PLAYER) {
-            pad = camera->globalCtx->state.frames - sDemo5PrevAction12Frame;
+            pad = camera->globalCtx->state.frames.whole() - sDemo5PrevAction12Frame;
             if (player->stateFlags1 & 0x800) {
                 // holding object over head.
                 func_8002DF54(camera->globalCtx, camera->target, 8);
@@ -6070,7 +6070,7 @@ s32 Camera_Demo5(Camera* camera) {
         }
     }
 
-    sDemo5PrevAction12Frame = camera->globalCtx->state.frames;
+    sDemo5PrevAction12Frame = camera->globalCtx->state.frames.whole();
     Camera_ChangeSettingFlags(camera, CAM_SET_CS_C, (4 | 1));
     Camera_Unique9(camera);
     return true;
@@ -7840,7 +7840,7 @@ s16 Camera_ChangeSettingFlags(Camera* camera, s16 setting, s16 flags) {
         Camera_CopyModeValuesToPREG(camera, camera->mode);
     }
 
-    osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: change camera[%d] set %s\n", camera->globalCtx->state.frames,
+    osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: change camera[%d] set %s\n", camera->globalCtx->state.frames.whole(),
                  camera->thisIdx, sCameraSettingNames[camera->setting]);
 
     return setting;

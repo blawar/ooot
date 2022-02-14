@@ -379,6 +379,7 @@ static char buffer[0x10000];
 
 void osSyncPrintf(const char* fmt, ...)
 {
+	return; // temp disable this, because osSyncPrintf is not type safe, and globalCtx->state.frames gets passed to it as an object instead of expected int and it crashes
 	memset(buffer, 0, sizeof(buffer));
 	va_list arg;
 	int done;

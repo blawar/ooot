@@ -866,7 +866,7 @@ void EnViewer_DrawFireEffects(EnViewer* pthis2, GlobalContext* globalCtx) {
         Matrix_Scale(pthis->fireEffects[i].scale, pthis->fireEffects[i].scale, pthis->fireEffects[i].scale, MTXMODE_APPLY);
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0,
-                                    (10 * i - 20 * globalCtx->state.frames) % 512, 32, 128));
+                                    (globalCtx->state.frames * (10 * i - 20)) % 512, 32, 128));
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 170, 255);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 50, 00, 255);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_viewer.c", 2027),

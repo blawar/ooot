@@ -144,16 +144,16 @@ void EnSt_SpawnDust(EnSt* pthis, GlobalContext* globalCtx, s32 dustCnt) {
     Vec3f dustVel = { 0.0f, 0.0f, 0.0f };
     Vec3f dustAccel = { 0.0f, 0.3f, 0.0f };
     Vec3f dustPos;
-    s16 yAngle;
+    Rotation yAngle;
     s32 i;
 
     yAngle = (Rand_ZeroOne() - 0.5f) * 65536.0f;
     dustPos.y = pthis->actor.floorHeight;
-    for (i = dustCnt; i >= 0; i--, yAngle += (s16)(0x10000 * FRAMERATE_SCALER / dustCnt)) {
+    for (i = dustCnt; i >= 0; i--, yAngle += (0x10000 / dustCnt)) {
         dustAccel.x = (Rand_ZeroOne() - 0.5f) * 4.0f;
         dustAccel.z = (Rand_ZeroOne() - 0.5f) * 4.0f;
-        dustPos.x = pthis->actor.world.pos.x + (Math_SinS(yAngle) * 22.0f);
-        dustPos.z = pthis->actor.world.pos.z + (Math_CosS(yAngle) * 22.0f);
+        dustPos.x = pthis->actor.world.pos.x + (Math_SinS(yAngle.toS16()) * 22.0f);
+        dustPos.z = pthis->actor.world.pos.z + (Math_CosS(yAngle.toS16()) * 22.0f);
         func_8002836C(globalCtx, &dustPos, &dustVel, &dustAccel, &primColor, &envColor, 120, 40, 10);
     }
 }
@@ -220,7 +220,7 @@ s32 EnSt_CheckCeilingPos(EnSt* pthis, GlobalContext* globalCtx) {
         return false;
     }
     pthis->unusedPos = pthis->actor.world.pos;
-    pthis->unusedPos.y -= 100.0f;
+    pthis->unusedPos.y -= 100.0f * FRAMERATE_SCALER;
     return true;
 }
 
@@ -351,7 +351,7 @@ s32 EnSt_SetCylinderOC(EnSt* pthis, GlobalContext* globalCtx) {
         cyloffsets[i].z *= pthis->colliderScale;
         Matrix_Push();
         Matrix_Translate(cylPos.x, cylPos.y, cylPos.z, MTXMODE_NEW);
-        Matrix_RotateY((pthis->initalYaw / 32768.0f) * M_PI, MTXMODE_APPLY);
+        Matrix_RotateY((pthis->initalYaw.toFloat() / 32768.0f) * M_PI, MTXMODE_APPLY);
         Matrix_MultVec3f(&cyloffsets[i], &cylPos);
         Matrix_Pop();
         pthis->colCylinder[i + 3].dim.pos.x = cylPos.x;
@@ -625,7 +625,7 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
 
         // calculate the new yaw to or away from the player.
         rot = pthis->actor.shape.rot;
-        yawTarget = (pthis->actionFunc == EnSt_WaitOnGround ? pthis->actor.yawTowardsPlayer : pthis->initalYaw);
+        yawTarget = (pthis->actionFunc == EnSt_WaitOnGround ? pthis->actor.yawTowardsPlayer : pthis->initalYaw.toS16());
         yawDiff = rot.y - (yawTarget ^ yawDir);
         if (ABS(yawDiff) <= 0x4000) {
             Math_SmoothStepToS(&rot.y, yawTarget ^ yawDir, 4, 0x2000, 1);
@@ -748,7 +748,7 @@ void EnSt_Sway(EnSt* pthis) {
 
     if (pthis->swayTimer != 0) {
 
-        pthis->swayAngle += 0xA28 * FRAMERATE_SCALER;
+        pthis->swayAngle += 0xA28;
         DECR(pthis->swayTimer);
 
         if (pthis->swayTimer == 0) {
@@ -756,7 +756,7 @@ void EnSt_Sway(EnSt* pthis) {
         }
 
         swayAmt = pthis->swayTimer.toFloat() * (7.0f / 15.0f);
-        rotAngle = Math_SinS(pthis->swayAngle) * (swayAmt * (65536.0f / 360.0f));
+        rotAngle = Math_SinS(pthis->swayAngle.toS16()) * (swayAmt * (65536.0f / 360.0f));
 
         if (pthis->absPrevSwayAngle >= ABS(rotAngle) && pthis->playSwayFlag == 0) {
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_WAVE);
@@ -977,7 +977,7 @@ void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx) {
 
     Math_SmoothStepToS(&pthis->actor.world.rot.x, 0x3FFC, 4, 0x2710, 1);
     Math_SmoothStepToS(&pthis->actor.world.rot.z, 0, 4, 0x2710, 1);
-    Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->deathYawTarget, 0xA, 0x2710, 1);
+    Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->deathYawTarget.toS16(), 0xA, 0x2710, 1);
 
     pthis->actor.shape.rot = pthis->actor.world.rot;
 

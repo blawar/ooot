@@ -70,7 +70,7 @@ void EffectSsStick_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
         Matrix_RotateZYX(0, pthis->rYaw, 0, MTXMODE_APPLY);
     } else {
         Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
-        Matrix_RotateZYX(0, pthis->rYaw, globalCtx->state.frames * 10000, MTXMODE_APPLY);
+        Matrix_RotateZYX(0, pthis->rYaw, (globalCtx->state.frames * 10000).whole(), MTXMODE_APPLY);
     }
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_ss_stick.c", 176),

@@ -3,6 +3,7 @@
 #include "gfx.h"
 #include "padmgr.h"
 #include "regs.h"
+#include "framerate.h"
 
 struct GameState;
 
@@ -30,7 +31,7 @@ struct GameState {
     /* 0x74 */ TwoHeadArena tha;
     /* 0x84 */ GameAlloc alloc;
     /* 0x98 */ u32 running;
-    /* 0x9C */ u32 frames;
+    /* 0x9C */ Counter frames;
     /* 0xA0 */ u32 unk_A0;
 }; // size = 0xA4
 

@@ -19,6 +19,10 @@
 #include "def/z_rcp.h"
 #include "def/z_skelanime.h"
 
+/*
+* Skultulla
+*/
+
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnSw_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -516,13 +520,13 @@ void func_80B0D3AC(EnSw* pthis, GlobalContext* globalCtx) {
 
     Math_ApproachF(&pthis->actor.scale.x, 0.02f, 0.2f, 0.01f);
     Actor_SetScale(&pthis->actor, pthis->actor.scale.x);
-    pthis->actor.world.pos.x += pthis->unk_364.x * pthis->actor.velocity.y;
-    pthis->actor.world.pos.y += pthis->unk_364.y * pthis->actor.velocity.y;
-    pthis->actor.world.pos.z += pthis->unk_364.z * pthis->actor.velocity.y;
-    pthis->actor.world.pos.x += pthis->unk_37C.x * pthis->actor.speedXZ;
-    pthis->actor.world.pos.y += pthis->unk_37C.y * pthis->actor.speedXZ;
-    pthis->actor.world.pos.z += pthis->unk_37C.z * pthis->actor.speedXZ;
-    pthis->actor.velocity.y += pthis->actor.gravity;
+    pthis->actor.world.pos.x += pthis->unk_364.x * pthis->actor.velocity.y * FRAMERATE_SCALER;
+    pthis->actor.world.pos.y += pthis->unk_364.y * pthis->actor.velocity.y * FRAMERATE_SCALER;
+    pthis->actor.world.pos.z += pthis->unk_364.z * pthis->actor.velocity.y * FRAMERATE_SCALER;
+    pthis->actor.world.pos.x += pthis->unk_37C.x * pthis->actor.speedXZ * FRAMERATE_SCALER;
+    pthis->actor.world.pos.y += pthis->unk_37C.y * pthis->actor.speedXZ * FRAMERATE_SCALER;
+    pthis->actor.world.pos.z += pthis->unk_37C.z * pthis->actor.speedXZ * FRAMERATE_SCALER;
+    pthis->actor.velocity.y += pthis->actor.gravity * FRAMERATE_SCALER;
     pthis->actor.velocity.y = CLAMP_MIN(pthis->actor.velocity.y, pthis->actor.minVelocityY);
 
     if (pthis->actor.velocity.y < 0.0f) {

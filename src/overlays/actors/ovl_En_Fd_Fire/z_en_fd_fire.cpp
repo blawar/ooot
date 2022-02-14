@@ -280,7 +280,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x8,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                globalCtx->state.frames * pthis->tile2Y, 0x20, 0x80));
+                                (globalCtx->state.frames * pthis->tile2Y).whole(), 0x20, 0x80));
     gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, primColors[((pthis->actor.params & 0x8000) >> 0xF)].r,
                     primColors[((pthis->actor.params & 0x8000) >> 0xF)].g,
                     primColors[((pthis->actor.params & 0x8000) >> 0xF)].b,

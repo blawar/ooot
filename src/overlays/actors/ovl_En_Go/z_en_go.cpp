@@ -1083,7 +1083,7 @@ void EnGo_DrawRolling(EnGo* pthis, GlobalContext* globalCtx) {
 
     Matrix_Push();
     func_80093D18(globalCtx->state.gfxCtx);
-    Matrix_RotateZYX((s16)(globalCtx->state.frames * ((s16)pthis->actor.speedXZ * 1400)), 0, pthis->actor.shape.rot.z,
+    Matrix_RotateZYX((s16)(globalCtx->state.frames * ((s16)pthis->actor.speedXZ * 1400)).toS16(), 0, pthis->actor.shape.rot.z,
                      MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_go.c", 2368),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

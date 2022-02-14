@@ -200,7 +200,7 @@ void ArrowIce_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     ArrowIce* pthis = (ArrowIce*)pthisx;
     s32 pad;
     Actor* tranform;
-    u32 stateFrames = globalCtx->state.frames;
+    const auto& stateFrames = globalCtx->state.frames;
     EnArrow* arrow = (EnArrow*)pthis->actor.parent;
 
     if (1) {}

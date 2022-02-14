@@ -218,7 +218,7 @@ void func_80890B8C(BgIceShelter* pthis, GlobalContext* globalCtx, f32 chance, f3
     Vec3f dustVel;
     Vec3f dustAccel;
 
-    frames = (s16)globalCtx->state.frames & 7;
+    frames = globalCtx->state.frames & 7;
 
     for (i = 0; i < 2; i++) {
         if (chance < Rand_ZeroOne()) {
@@ -259,7 +259,7 @@ void func_80890E00(BgIceShelter* pthis, GlobalContext* globalCtx, f32 chance, f3
     Vec3f posOffset;
     s32 i;
 
-    frames = (s16)globalCtx->state.frames & 7;
+    frames = globalCtx->state.frames & 7;
 
     for (i = 0; i < 2; i++) {
         icePos = &pthis->dyna.actor.world.pos;

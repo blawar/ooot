@@ -290,8 +290,8 @@ s32 EnFu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     }
 
     if (limbIndex == FU_LIMB_CHEST_MUSIC_BOX) {
-        rot->y += (Math_SinS((globalCtx->state.frames * (limbIndex * 50 + 0x814))) * 200.0f);
-        rot->z += (Math_CosS((globalCtx->state.frames * (limbIndex * 50 + 0x940))) * 200.0f);
+        rot->y += (Math_SinS((globalCtx->state.frames * (limbIndex * 50 + 0x814)).toS16()) * 200.0f);
+        rot->z += (Math_CosS((globalCtx->state.frames * (limbIndex * 50 + 0x940)).toS16()) * 200.0f);
     }
     return false;
 }

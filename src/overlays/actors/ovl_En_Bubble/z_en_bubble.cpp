@@ -431,9 +431,9 @@ void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_800D1FD4(&globalCtx->billboardMtxF);
 
         Matrix_Scale(pthis->expansionWidth + 1.0f, pthis->expansionHeight + 1.0f, 1.0f, MTXMODE_APPLY);
-        Matrix_RotateZ(((f32)globalCtx->state.frames * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
+        Matrix_RotateZ(((f32)globalCtx->state.frames.toFloat() * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
         Matrix_Scale(pthis->graphicEccentricity + 1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-        Matrix_RotateZ((-(f32)globalCtx->state.frames * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
+        Matrix_RotateZ((-(f32)globalCtx->state.frames.toFloat() * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bubble.c", 1220),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

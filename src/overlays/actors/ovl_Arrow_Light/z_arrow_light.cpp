@@ -197,7 +197,7 @@ void ArrowLight_Update(Actor* pthisx, GlobalContext* globalCtx) {
 void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     ArrowLight* pthis = (ArrowLight*)pthisx;
     s32 pad;
-    u32 stateFrames = globalCtx->state.frames;
+    const auto& stateFrames = globalCtx->state.frames;
     EnArrow* arrow = (EnArrow*)pthis->actor.parent;
     Actor* tranform;
 

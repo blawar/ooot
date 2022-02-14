@@ -199,11 +199,10 @@ void ArrowFire_Update(Actor* pthisx, GlobalContext* globalCtx) {
 void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
     ArrowFire* pthis = (ArrowFire*)pthisx;
     GlobalContext* globalCtx = globalCtx2;
-    u32 stateFrames;
+    const auto& stateFrames	     = globalCtx->state.frames;
     EnArrow* arrow;
     Actor* tranform;
 
-    stateFrames = globalCtx->state.frames;
     arrow = (EnArrow*)pthis->actor.parent;
     if (1) {}
 

@@ -61,7 +61,7 @@ void EffectSsKFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                globalCtx->state.frames * pthis->rScroll, 0x20, 0x80));
+                                (globalCtx->state.frames * pthis->rScroll).whole(), 0x20, 0x80));
 
     if (pthis->rType >= 100) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 0, pthis->rAlpha);

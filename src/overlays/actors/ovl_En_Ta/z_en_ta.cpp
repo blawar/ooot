@@ -399,7 +399,7 @@ void func_80B14754(EnTa* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B14818(EnTa* pthis, GlobalContext* globalCtx) {
-    s32 framesMod12 = (s32)globalCtx->state.frames % 12;
+    s32 framesMod12 = globalCtx->state.frames % 12;
 
     if (framesMod12 == 0 || framesMod12 == 6) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_PL_WALK_GROUND);
@@ -1198,8 +1198,8 @@ s32 EnTa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     } else if ((limbIndex == 8) || (limbIndex == 10) || (limbIndex == 13)) {
         s32 limbIdx50 = limbIndex * 50;
 
-        rot->y += Math_SinS(globalCtx->state.frames * (limbIdx50 + 0x814)) * 200.0f;
-        rot->z += Math_CosS(globalCtx->state.frames * (limbIdx50 + 0x940)) * 200.0f;
+        rot->y += Math_SinS((globalCtx->state.frames * (limbIdx50 + 0x814)).toS16()) * 200.0f;
+        rot->z += Math_CosS((globalCtx->state.frames * (limbIdx50 + 0x940)).toS16()) * 200.0f;
     }
 
     return false;

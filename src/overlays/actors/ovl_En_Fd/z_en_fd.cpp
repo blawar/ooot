@@ -765,10 +765,8 @@ void EnFd_Draw(Actor* thisx, GlobalContext* globalCtx) {
         { 0, 0, 255, 255 },
         { 255, 0, 0, 255 },
     };
-    u32 frames;
+    const auto& frames = globalCtx->state.frames;
     s32 pad;
-
-    frames = globalCtx->state.frames;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fd.c", 1751);
 
@@ -786,7 +784,7 @@ void EnFd_Draw(Actor* thisx, GlobalContext* globalCtx) {
                        envColors[clampedHealth / 8].b, (u8)pthis->fadeAlpha);
         gSPSegment(
             POLY_XLU_DISP++, 0x8,
-            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, 0xFF - (u8)(frames * 6), 8, 0x40));
+            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, 0xFF - (u8)(frames.whole() * 6), 8, 0x40));
         gDPPipeSync(POLY_XLU_DISP++);
         gSPSegment(POLY_XLU_DISP++, 0x9, D_80116280);
 

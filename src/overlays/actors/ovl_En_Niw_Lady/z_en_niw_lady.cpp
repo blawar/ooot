@@ -569,8 +569,8 @@ s32 EnNiwLady_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
     }
     if (pthis->unk_275 != 0) {
         if ((limbIndex == 8) || (limbIndex == 10) || (limbIndex == 13)) {
-            rot->y += (Math_SinS((globalCtx->state.frames * ((limbIndex * 0x32) + 0x814))) * 200.0f);
-            rot->z += (Math_CosS((globalCtx->state.frames * ((limbIndex * 0x32) + 0x940))) * 200.0f);
+            rot->y += (Math_SinS((globalCtx->state.frames * ((limbIndex * 0x32) + 0x814)).toS16()) * 200.0f);
+            rot->z += (Math_CosS((globalCtx->state.frames * ((limbIndex * 0x32) + 0x940)).toS16()) * 200.0f);
         }
     }
     return false;

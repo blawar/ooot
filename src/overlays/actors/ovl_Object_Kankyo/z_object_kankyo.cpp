@@ -576,7 +576,7 @@ void ObjectKankyo_DrawFairies(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
             }
 
             Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
-            Matrix_RotateZ(DEG_TO_RAD(globalCtx->state.frames * 20.0f), MTXMODE_APPLY);
+            Matrix_RotateZ(DEG_TO_RAD((globalCtx->state.frames * 20.0f).toFloat()), MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 913), G_MTX_LOAD);
             gSPDisplayList(POLY_XLU_DISP++, gKokiriDustMoteDL);
         }
@@ -944,9 +944,9 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1586),
                           G_MTX_LOAD);
                 gSPSegment(POLY_XLU_DISP++, 0x08,
-                           Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->state.frames * 5,
-                                            globalCtx->state.frames * 10, 32, 64, 1, globalCtx->state.frames * 5,
-                                            globalCtx->state.frames * 10, 32, 64));
+                           Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->state.frames * 5).whole(),
+                                            (globalCtx->state.frames * 10).whole(), 32, 64, 1, (globalCtx->state.frames * 5).whole(),
+                                            (globalCtx->state.frames * 10).whole(), 32, 64));
                 gSPDisplayList(POLY_XLU_DISP++, gDemoKekkaiDL_005FF0);
             }
         }

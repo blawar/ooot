@@ -333,7 +333,7 @@ void func_80A7C86C(EnInsect* pthis, GlobalContext* globalCtx) {
     s32 pad1;
     s32 pad2;
     s16 pad3;
-    s16 frames;
+    const auto& frames = globalCtx->state.frames;
     s16 yaw;
     s16 sp38 = pthis->actor.xzDistToPlayer < 40.0f;
 
@@ -343,7 +343,6 @@ void func_80A7C86C(EnInsect* pthis, GlobalContext* globalCtx) {
         yaw = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
         Math_ScaledStepToS(&pthis->actor.world.rot.y, yaw, 2000);
     } else if (sp38 != 0) {
-        frames = globalCtx->state.frames;
         yaw = pthis->actor.yawTowardsPlayer + 0x8000;
 
         if (frames & 0x10) {

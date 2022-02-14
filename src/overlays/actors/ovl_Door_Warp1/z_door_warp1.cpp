@@ -911,9 +911,9 @@ void DoorWarp1_DrawPurpleCrystal(DoorWarp1* pthis, GlobalContext* globalCtx) {
     s32 pad[2];
     Vec3f eye;
 
-    eye.x = -(Math_SinS(globalCtx->state.frames * 200) * 120.0f) * 80.0f;
-    eye.y = (Math_CosS(globalCtx->state.frames * 200) * 120.0f) * 80.0f;
-    eye.z = (Math_CosS(globalCtx->state.frames * 200) * 120.0f) * 80.0f;
+    eye.x = -(Math_SinS(globalCtx->state.frames.whole() * 200) * 120.0f) * 80.0f;
+    eye.y = (Math_CosS(globalCtx->state.frames.whole() * 200) * 120.0f) * 80.0f;
+    eye.z = (Math_CosS(globalCtx->state.frames.whole() * 200) * 120.0f) * 80.0f;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2122);
 
@@ -934,7 +934,7 @@ void DoorWarp1_DrawPurpleCrystal(DoorWarp1* pthis, GlobalContext* globalCtx) {
 void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
     s32 pad;
     u32 pad1;
-    u32 spEC = globalCtx->state.frames * 10;
+    u32 spEC = (globalCtx->state.frames * 10).whole();
     f32 spE8 = (pthis->unk_194 >= 1.0f) ? 0.0f : 1.0f - pthis->unk_194;
     f32 spE4 = (pthis->unk_198 >= 1.0f) ? 0.0f : 1.0f - pthis->unk_198;
     f32 xzScale;

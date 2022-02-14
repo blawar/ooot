@@ -119,8 +119,8 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->state.frames * 2, 0, 0x20, 0x40, 1,
-                                globalCtx->state.frames, globalCtx->state.frames * -8, 0x10, 0x10));
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->state.frames * 2).whole(), 0, 0x20, 0x40, 1,
+                                globalCtx->state.frames.whole(), (globalCtx->state.frames * -8).whole(), 0x10, 0x10));
     gDPPipeSync(POLY_XLU_DISP++);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dy_extra.c", 307),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

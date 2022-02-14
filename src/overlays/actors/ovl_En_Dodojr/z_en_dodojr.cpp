@@ -308,8 +308,7 @@ void func_809F6E54(EnDodojr* pthis, GlobalContext* globalCtx) {
 
     if (Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &pos) > 80.0f) {
         angleIndex = (s16)(pthis->actor.home.pos.x + pthis->actor.home.pos.y + pthis->actor.home.pos.z +
-                           globalCtx->state.frames / 30) %
-                     12;
+                           globalCtx->state.frames.whole() / 30) % 12;
         angleIndex = ABS(angleIndex);
         pos.x += 80.0f * sinf(angles[angleIndex]);
         pos.z += 80.0f * cosf(angles[angleIndex]);

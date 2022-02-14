@@ -154,7 +154,7 @@ void ObjDekujr_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    u32 frameCount;
+	const auto& frameCount = globalCtx->state.frames;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_dekujr.c", 370);
 
@@ -165,7 +165,6 @@ void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, object_dekujr_DL_0030D0);
 
-    frameCount = globalCtx->state.frames;
     gSPSegment(
         POLY_XLU_DISP++, 0x08,
         Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frameCount % 128, 0, 32, 32, 1, frameCount % 128, 0, 32, 32));

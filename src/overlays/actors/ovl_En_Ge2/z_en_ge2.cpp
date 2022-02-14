@@ -309,7 +309,7 @@ void EnGe2_KnockedOut(EnGe2* pthis, GlobalContext* globalCtx) {
 
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     if (pthis->stateFlags & GE2_STATE_ANIMCOMPLETE) {
-        effectAngle = (globalCtx->state.frames) * 0x2800;
+        effectAngle = (globalCtx->state.frames * 0x2800).whole();
         effectPos.x = pthis->actor.focus.pos.x + (Math_CosS(effectAngle) * 5.0f);
         effectPos.y = pthis->actor.focus.pos.y + 10.0f;
         effectPos.z = pthis->actor.focus.pos.z + (Math_SinS(effectAngle) * 5.0f);

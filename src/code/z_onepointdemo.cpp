@@ -951,7 +951,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
             func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
             break;
         case 1100: {
-            s32 tempDiff = globalCtx->state.frames - sPrevFrameCs1100;
+            s32 tempDiff = (globalCtx->state.frames.whole() - sPrevFrameCs1100);
 
             if ((tempDiff > 3600) || (tempDiff < -3600)) {
                 csInfo->keyFrames = D_80123074;
@@ -967,7 +967,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
                 csInfo->keyFrameCnt = 3;
             }
             func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
-            sPrevFrameCs1100 = globalCtx->state.frames;
+            sPrevFrameCs1100 = globalCtx->state.frames.whole();
 
         } break;
         case 9806:

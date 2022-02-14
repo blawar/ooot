@@ -369,7 +369,7 @@ typedef Frame<s8> TimerS8;
 
 typedef Frame<s64> Timer;
 typedef Frame<s64> Rotation;
-typedef Frame<u64> Counter;
+typedef Frame<s64> Counter;
 
 template <class T> bool operator<(u16 a, Frame<T> b)
 {

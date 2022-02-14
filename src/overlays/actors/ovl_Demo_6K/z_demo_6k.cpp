@@ -291,7 +291,7 @@ void func_809670AC(Demo6K* pthis, GlobalContext* globalCtx) {
 
 void func_8096712C(Demo6K* pthis, GlobalContext* globalCtx) {
     static u16 D_8096932C[] = { 275, 275, 275, 275, 275, 275 };
-    u32 frames = globalCtx->state.frames;
+    const auto& frames = globalCtx->state.frames;
 
     if (pthis->actor.scale.x < 0.1f) {
         pthis->actor.scale.x += 0.0017f;
@@ -377,7 +377,7 @@ void func_80967410(Demo6K* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809674E0(Demo6K* pthis, GlobalContext* globalCtx) {
-    u32 frames = globalCtx->state.frames;
+    const auto& frames = globalCtx->state.frames;
 
     if (pthis->actor.scale.x < 0.05f) {
         pthis->actor.scale.x += 0.005f;
@@ -434,7 +434,7 @@ void func_809676A4(Demo6K* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8096784C(Demo6K* pthis, GlobalContext* globalCtx) {
-    u32 frames = globalCtx->state.frames;
+    const auto& frames = globalCtx->state.frames;
 
     pthis->timer2++;
 
@@ -697,7 +697,7 @@ void func_8096865C(Actor* thisx, GlobalContext* globalCtx) {
 void func_809688C4(Actor* thisx, GlobalContext* globalCtx2) {
     Demo6K* pthis = (Demo6K*)thisx;
     GlobalContext* globalCtx = globalCtx2;
-    u32 frames = globalCtx->state.frames;
+    const auto& frames = globalCtx->state.frames;
     s32 i;
 
     if ((i = (globalCtx->csCtx.state != CS_STATE_IDLE) && (globalCtx->csCtx.npcActions[1] != NULL)) &&

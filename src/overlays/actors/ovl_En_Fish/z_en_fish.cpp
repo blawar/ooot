@@ -275,7 +275,7 @@ void EnFish_Respawning_SetupFleePlayer(EnFish* pthis) {
 void EnFish_Respawning_FleePlayer(EnFish* pthis, GlobalContext* globalCtx) {
     s32 pad;
     s16 pad2;
-    s16 frames;
+    const auto& frames = globalCtx->state.frames;
     s16 yaw;
     s16 playerClose;
 
@@ -291,7 +291,6 @@ void EnFish_Respawning_FleePlayer(EnFish* pthis, GlobalContext* globalCtx) {
         Math_StepToAngleS(&pthis->actor.world.rot.y, yaw, 2000);
     } else if (playerClose) {
         yaw = pthis->actor.yawTowardsPlayer + 0x8000;
-        frames = globalCtx->state.frames;
 
         if (frames & 0x10) {
             if (frames & 0x20) {
@@ -342,7 +341,7 @@ void EnFish_Respawning_ApproachPlayer(EnFish* pthis, GlobalContext* globalCtx) {
         yaw = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
         Math_StepToAngleS(&pthis->actor.world.rot.y, yaw, 3000);
     } else {
-        if ((s16)globalCtx->state.frames & 0x40) {
+        if (globalCtx->state.frames & 0x40) {
             temp_a0_2 = (pthis->actor.yawTowardsPlayer + 0x9000);
         } else {
             temp_a0_2 = (pthis->actor.yawTowardsPlayer + 0x7000);
@@ -443,12 +442,12 @@ void EnFish_Dropped_SetupFlopOnGround(EnFish* pthis) {
 
 void EnFish_Dropped_FlopOnGround(EnFish* pthis, GlobalContext* globalCtx) {
     s32 pad;
-    s16 frames = globalCtx->state.frames;
+    const auto& frames = globalCtx->state.frames;
     s16 targetXRot;
 
     Math_SmoothStepToF(&pthis->actor.speedXZ, Rand_ZeroOne() * 0.2f, 0.1f, 0.1f, 0.0f);
 
-    targetXRot = (s16)((((frames >> 5) & 2) | ((frames >> 2) & 1)) << 0xB) * 0.3f;
+    targetXRot = (s16)((((frames.whole() >> 5) & 2) | ((frames.whole() >> 2) & 1)) << 0xB) * 0.3f;
 
     if (frames & 4) {
         targetXRot = -targetXRot;
