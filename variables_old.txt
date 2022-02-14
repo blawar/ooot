@@ -155,7 +155,7 @@ extern s32 gSystemArenaLogSeverity;
 extern u8 __osPfsInodeCacheBank;
 extern s32 __osPfsLastChannel;
 extern const s16 D_8014A6C0[];
-extern const AudioContextInitSizes D_8014A6C4;
+extern AudioContextInitSizes D_8014A6C4;
 extern s16 gOcarinaSongItemMap[];
 extern u8 gSoundFontTable[];
 extern u8 gSequenceFontTable[];
