@@ -27,10 +27,10 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 
-void ObjectKankyo_Init(Actor* thisx, GlobalContext* globalCtx);
-void ObjectKankyo_Destroy(Actor* thisx, GlobalContext* globalCtx);
-void ObjectKankyo_Update(Actor* thisx, GlobalContext* globalCtx);
-void ObjectKankyo_Draw(Actor* thisx, GlobalContext* globalCtx);
+void ObjectKankyo_Init(Actor* pthisx, GlobalContext* globalCtx);
+void ObjectKankyo_Destroy(Actor* pthisx, GlobalContext* globalCtx);
+void ObjectKankyo_Update(Actor* pthisx, GlobalContext* globalCtx);
+void ObjectKankyo_Draw(Actor* pthisx, GlobalContext* globalCtx);
 
 void ObjectKankyo_SetupAction(ObjectKankyo* pthis, ObjectKankyoActionFunc func);
 void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx);
@@ -80,8 +80,8 @@ void ObjectKankyo_SetupAction(ObjectKankyo* pthis, ObjectKankyoActionFunc action
     pthis->actionFunc = action;
 }
 
-void ObjectKankyo_Init(Actor* thisx, GlobalContext* globalCtx) {
-    ObjectKankyo* pthis = (ObjectKankyo*)thisx;
+void ObjectKankyo_Init(Actor* pthisx, GlobalContext* globalCtx) {
+    ObjectKankyo* pthis = (ObjectKankyo*)pthisx;
     s32 pad;
     s16 i;
 
@@ -176,8 +176,8 @@ void ObjectKankyo_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void ObjectKankyo_Destroy(Actor* thisx, GlobalContext* globalCtx) {
-    Actor_Kill(thisx);
+void ObjectKankyo_Destroy(Actor* pthisx, GlobalContext* globalCtx) {
+    Actor_Kill(pthisx);
 }
 
 void ObjectKankyo_Snow(ObjectKankyo* pthis, GlobalContext* globalCtx) {
@@ -219,7 +219,9 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
         }
 
         func_800F436C(&sSoundPos, NA_SE_EV_NAVY_FLY - SFX_FLAG, (0.4f * dist) + 0.6f);
-        switch (globalCtx->csCtx.frames) {
+
+        switch(globalCtx->csCtx.frames)
+        {
             case 473:
                 func_800788CC(NA_SE_VO_NA_HELLO_3);
                 break;
@@ -465,14 +467,14 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
     }
 }
 
-void ObjectKankyo_Update(Actor* thisx, GlobalContext* globalCtx) {
-    ObjectKankyo* pthis = (ObjectKankyo*)thisx;
+void ObjectKankyo_Update(Actor* pthisx, GlobalContext* globalCtx) {
+    ObjectKankyo* pthis = (ObjectKankyo*)pthisx;
 
     pthis->actionFunc(pthis, globalCtx);
 }
 
-void ObjectKankyo_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    ObjectKankyo* pthis = (ObjectKankyo*)thisx;
+void ObjectKankyo_Draw(Actor* pthisx, GlobalContext* globalCtx) {
+    ObjectKankyo* pthis = (ObjectKankyo*)pthisx;
 
     switch (pthis->actor.params) {
         case 0:
@@ -847,8 +849,7 @@ void ObjectKankyo_DrawSunGraveSpark(ObjectKankyo* pthis2, GlobalContext* globalC
             end.y = globalCtx->csCtx.npcActions[1]->endPos.y;
             end.z = globalCtx->csCtx.npcActions[1]->endPos.z;
 
-            weight = Environment_LerpWeight(globalCtx->csCtx.npcActions[1]->endFrame,
-                                            globalCtx->csCtx.npcActions[1]->startFrame, globalCtx->csCtx.frames);
+            weight = Environment_LerpWeight(globalCtx->csCtx.npcActions[1]->endFrame, globalCtx->csCtx.npcActions[1]->startFrame, globalCtx->csCtx.frames);
             Matrix_Translate((end.x - start.x) * weight + start.x, (end.y - start.y) * weight + start.y,
                              (end.z - start.z) * weight + start.z, MTXMODE_NEW);
             Matrix_Scale(pthis->effects[0].size, pthis->effects[0].size, pthis->effects[0].size, MTXMODE_APPLY);

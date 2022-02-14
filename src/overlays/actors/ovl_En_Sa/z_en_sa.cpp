@@ -664,7 +664,7 @@ void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx) {
         pthis->actor.velocity = D_80AF7448;
 
         if (globalCtx->csCtx.frames < csAction->endFrame) {
-            temp_f0 = csAction->endFrame - csAction->startFrame;
+            temp_f0 = (csAction->endFrame - csAction->startFrame);
             pthis->actor.velocity.x = (endPos.x - startPos.x) / temp_f0;
             pthis->actor.velocity.y = (endPos.y - startPos.y) / temp_f0;
             gravity = pthis->actor.gravity;

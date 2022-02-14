@@ -2,6 +2,7 @@
 
 #include "ultra64.h"
 #include "z64math.h"
+#include "framerate.h"
 
 struct EntranceCutscene {
     /* 0x00 */ u16 entrance;       // entrance index upon which the cutscene should trigger

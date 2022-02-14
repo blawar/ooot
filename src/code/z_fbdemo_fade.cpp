@@ -2,6 +2,7 @@
 #include "global.h"
 #include "gfx.h"
 #include "z64transition.h"
+#include "framerate.h"
 #include "vt.h"
 #include "regs.h"
 #include "z64game.h"
@@ -62,6 +63,7 @@ void TransitionFade_Update(void* pthisx, s32 updateRate) {
             if (pthis->fadeTimer >= gSaveContext.fadeDuration) {
                 pthis->fadeTimer = gSaveContext.fadeDuration;
                 pthis->isDone = 1;
+
             }
             if (!gSaveContext.fadeDuration) {
                 // "Divide by 0! Zero is included in ZCommonGet fade_speed"

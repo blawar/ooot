@@ -76,7 +76,7 @@ void BgInGate_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80892890(BgInGate* pthis, GlobalContext* globalCtx) {
     s32 phi0;
-    s16 phi1;
+	s16 phi1;
     s16 csFrames;
 
     if (globalCtx->csCtx.frames >= 50) {
@@ -87,7 +87,7 @@ void func_80892890(BgInGate* pthis, GlobalContext* globalCtx) {
         pthis->dyna.actor.shape.rot.y = pthis->dyna.actor.world.rot.y + phi0;
         BgInGate_SetupAction(pthis, BgInGate_DoNothing);
     } else if (globalCtx->csCtx.frames >= 10) {
-        csFrames = globalCtx->csCtx.frames - 10;
+        csFrames = (globalCtx->csCtx.frames - 10);
         csFrames *= 400;
         phi1 = csFrames;
         if (csFrames > 0x4000) {

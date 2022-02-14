@@ -192,8 +192,7 @@ void func_80B3C620(EnXc* pthis, GlobalContext* globalCtx, s32 npcActionIdx) {
     f32 unk;
 
     if (npcAction != NULL) {
-        unk =
-            Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 0, 0);
+	    unk	     = Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 0, 0);
         startX = npcAction->startPos.x;
         startY = npcAction->startPos.y;
         startZ = npcAction->startPos.z;
@@ -438,7 +437,7 @@ void EnXc_SetColossusAppearSFX(EnXc* pthis, GlobalContext* globalCtx) {
         sceneNum = globalCtx->sceneNum;
         if (sceneNum == SCENE_SPOT11) {
             CutsceneContext* csCtx = &globalCtx->csCtx;
-            u16 frameCount = csCtx->frames;
+            const auto& frameCount = csCtx->frames;
             f32 wDest[2];
 
             if (frameCount == 119) {
@@ -478,7 +477,7 @@ void EnXc_SetColossusWindSFX(GlobalContext* globalCtx) {
 
         if (sceneNum == SCENE_SPOT11) {
             CutsceneContext* csCtx = &globalCtx->csCtx;
-            u16 frameCount = csCtx->frames;
+            const auto& frameCount = csCtx->frames;
 
             if ((frameCount >= 120) && (frameCount < 164)) {
                 s32 pad;
@@ -1414,7 +1413,7 @@ void EnXc_LakeHyliaDive(GlobalContext* globalCtx) {
 
 void func_80B3F534(GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
-    u16 frameCount = csCtx->frames;
+    const auto& frameCount = csCtx->frames;
 
     if (frameCount == 310) {
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_DOOR_WARP1, -1044.0f, -1243.0f, 7458.0f, 0, 0, 0,

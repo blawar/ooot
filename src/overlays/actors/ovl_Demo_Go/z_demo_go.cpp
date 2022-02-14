@@ -144,7 +144,7 @@ void func_8097CB0C(DemoGo* pthis, GlobalContext* globalCtx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         npcAction = csCtx->npcActions[func_8097C870(pthis)];
         if (npcAction != NULL) {
-            temp_ret = Environment_LerpWeight(npcAction->endFrame, npcAction->startFrame, csCtx->frames);
+		temp_ret     = Environment_LerpWeight(npcAction->endFrame, npcAction->startFrame, csCtx->frames);
             startPos.x = npcAction->startPos.x;
             startPos.y = npcAction->startPos.y;
             startPos.z = npcAction->startPos.z;

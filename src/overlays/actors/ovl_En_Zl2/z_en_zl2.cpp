@@ -706,8 +706,7 @@ void func_80B500E0(EnZl2* pthis, GlobalContext* globalCtx) {
     f32 someFloat;
 
     if (npcAction != NULL) {
-        someFloat =
-            Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 8, 8);
+	    someFloat  = Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 8, 8);
         startX = npcAction->startPos.x;
         startY = npcAction->startPos.y;
         startZ = npcAction->startPos.z;
@@ -730,8 +729,7 @@ void func_80B501E8(EnZl2* pthis, GlobalContext* globalCtx) {
     CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
 
     if (npcAction != NULL) {
-        pthis->actor.shape.shadowAlpha = pthis->alpha =
-            (1.0f - Environment_LerpWeight(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames)) *
+	    pthis->actor.shape.shadowAlpha = pthis->alpha = (1.0f - Environment_LerpWeight(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames)) *
             255.0f;
         func_80B501C4(pthis, pthis->alpha);
     }
@@ -1473,8 +1471,7 @@ void func_80B51DA4(EnZl2* pthis, GlobalContext* globalCtx) {
     f32 someFloat;
 
     if (npcAction != NULL) {
-        someFloat =
-            Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 0, 8);
+	    someFloat  = Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 0, 8);
         startX = npcAction->startPos.x;
         startY = npcAction->startPos.y;
         startZ = npcAction->startPos.z;
@@ -1484,7 +1481,7 @@ void func_80B51DA4(EnZl2* pthis, GlobalContext* globalCtx) {
         thisPos->x = ((endX - startX) * someFloat) + startX;
         thisPos->y = ((endY - startY) * someFloat) + startY;
         thisPos->z = ((endZ - startZ) * someFloat) + startZ;
-        if (npcAction->endFrame < globalCtx->csCtx.frames) {
+        if (globalCtx->csCtx.frames > npcAction->endFrame) {
             Actor_Kill(&pthis->actor);
         }
     }

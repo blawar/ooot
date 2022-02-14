@@ -7,14 +7,15 @@
  */
 
 #include "z_en_st.h"
+#include "framerate.h"
 #include "objects/object_st/object_st.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-void EnSt_Init(Actor* thisx, GlobalContext* globalCtx);
-void EnSt_Destroy(Actor* thisx, GlobalContext* globalCtx);
-void EnSt_Update(Actor* thisx, GlobalContext* globalCtx);
-void EnSt_Draw(Actor* thisx, GlobalContext* globalCtx);
+void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx);
+void EnSt_Destroy(Actor* pthisx, GlobalContext* globalCtx);
+void EnSt_Update(Actor* pthisx, GlobalContext* globalCtx);
+void EnSt_Draw(Actor* pthisx, GlobalContext* globalCtx);
 void EnSt_ReturnToCeiling(EnSt* pthis, GlobalContext* globalCtx);
 void EnSt_MoveToGround(EnSt* pthis, GlobalContext* globalCtx);
 void EnSt_StartOnCeilingOrGround(EnSt* pthis, GlobalContext* globalCtx);
@@ -148,7 +149,7 @@ void EnSt_SpawnDust(EnSt* pthis, GlobalContext* globalCtx, s32 dustCnt) {
 
     yAngle = (Rand_ZeroOne() - 0.5f) * 65536.0f;
     dustPos.y = pthis->actor.floorHeight;
-    for (i = dustCnt; i >= 0; i--, yAngle += (s16)(0x10000 / dustCnt)) {
+    for (i = dustCnt; i >= 0; i--, yAngle += (s16)(0x10000 * FRAMERATE_SCALER / dustCnt)) {
         dustAccel.x = (Rand_ZeroOne() - 0.5f) * 4.0f;
         dustAccel.z = (Rand_ZeroOne() - 0.5f) * 4.0f;
         dustPos.x = pthis->actor.world.pos.x + (Math_SinS(yAngle) * 22.0f);
@@ -448,7 +449,7 @@ s32 EnSt_CheckHitBackside(EnSt* pthis, GlobalContext* globalCtx) {
         if (pthis->stunTimer == 0) {
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOMA_JR_FREEZE);
             pthis->stunTimer = 120;
-            Actor_SetColorFilter(&pthis->actor, 0, 0xC8, 0, pthis->stunTimer);
+            Actor_SetColorFilter(&pthis->actor, 0, 0xC8, 0, pthis->stunTimer.whole());
         }
         return false;
     }
@@ -457,7 +458,7 @@ s32 EnSt_CheckHitBackside(EnSt* pthis, GlobalContext* globalCtx) {
     pthis->gaveDamageSpinTimer = 1;
     func_80034EC0(&pthis->skelAnime, sAnimations, 3);
     pthis->takeDamageSpinTimer = pthis->skelAnime.animLength;
-    Actor_SetColorFilter(&pthis->actor, 0x4000, 0xC8, 0, pthis->takeDamageSpinTimer);
+    Actor_SetColorFilter(&pthis->actor, 0x4000, 0xC8, 0, pthis->takeDamageSpinTimer.whole());
     if (Actor_ApplyDamage(&pthis->actor)) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_DAMAGE);
         return false;
@@ -557,12 +558,14 @@ s32 EnSt_SetTeethColor(EnSt* pthis, s16 redTarget, s16 greenTarget, s16 blueTarg
     return 1;
 }
 
-s32 EnSt_DecrStunTimer(EnSt* pthis) {
+float EnSt_DecrStunTimer(EnSt* pthis) {
     if (pthis->stunTimer == 0) {
         return 0;
     }
-    pthis->stunTimer--; //! @bug  no return but v0 ends up being stunTimer before decrement
-    return pthis->stunTimer + 1;
+    
+    float r = pthis->stunTimer.toFloat();
+    DECR(pthis->stunTimer);
+    return r;
 }
 
 /**
@@ -574,16 +577,16 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
     u16 yawDir = 0;
     Vec3s rot;
     s16 yawDiff;
-    s16 timer;
+    TimerS16 timer;
     s16 yawTarget;
 
     // Shake towards the end of the stun.
     if (pthis->stunTimer != 0) {
         if (pthis->stunTimer < 30) {
-            if ((pthis->stunTimer % 2) != 0) {
-                pthis->actor.shape.rot.y += 0x800;
+            if (pthis->stunTimer.whole() % 2) {
+                pthis->actor.shape.rot.y += 0x800 * FRAMERATE_SCALER;
             } else {
-                pthis->actor.shape.rot.y -= 0x800;
+                pthis->actor.shape.rot.y -= 0x800 * FRAMERATE_SCALER;
             }
         }
         return;
@@ -593,7 +596,7 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
         // not swaying or dying
         if (pthis->takeDamageSpinTimer != 0 || pthis->gaveDamageSpinTimer != 0) {
             // Skulltula is doing a spinning animation
-            pthis->actor.shape.rot.y += 0x2000;
+            pthis->actor.shape.rot.y += 0x2000 * FRAMERATE_SCALER;
             return;
         }
 
@@ -605,14 +608,14 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
 
         if (pthis->rotAwayTimer != 0) {
             // turn away from the player
-            pthis->rotAwayTimer--;
+            DECR(pthis->rotAwayTimer);
             if (pthis->rotAwayTimer == 0) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_ROLL);
                 pthis->rotTowardsTimer = 30;
             }
         } else if (pthis->rotTowardsTimer != 0) {
             // turn towards the player
-            pthis->rotTowardsTimer--;
+            DECR(pthis->rotTowardsTimer);
             if (pthis->rotTowardsTimer == 0) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_ROLL);
                 pthis->rotAwayTimer = 30;
@@ -627,24 +630,24 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
         if (ABS(yawDiff) <= 0x4000) {
             Math_SmoothStepToS(&rot.y, yawTarget ^ yawDir, 4, 0x2000, 1);
         } else {
-            rot.y += 0x2000;
+            rot.y += 0x2000 * FRAMERATE_SCALER;
         }
 
         pthis->actor.shape.rot = pthis->actor.world.rot = rot;
 
         // Do the shaking animation.
-        if (yawDir == 0 && pthis->rotAwayTimer < 0xA) {
+        if (yawDir == 0 && pthis->rotAwayTimer < 10) {
             timer = pthis->rotAwayTimer;
-        } else if (yawDir == 0x8000 && pthis->rotTowardsTimer < 0xA) {
+        } else if (yawDir == 0x8000 && pthis->rotTowardsTimer < 10) {
             timer = pthis->rotTowardsTimer;
         } else {
             return;
         }
 
         if ((timer % 2) != 0) {
-            pthis->actor.shape.rot.y += 0x800;
+            pthis->actor.shape.rot.y += 0x800 * FRAMERATE_SCALER;
         } else {
-            pthis->actor.shape.rot.y -= 0x800;
+            pthis->actor.shape.rot.y -= 0x800 * FRAMERATE_SCALER;
         }
     }
 }
@@ -694,7 +697,7 @@ s32 EnSt_IsCloseToPlayer(EnSt* pthis, GlobalContext* globalCtx) {
     if (pthis->takeDamageSpinTimer != 0) {
         // skull is spinning from damage.
         return false;
-    } else if (pthis->actor.xzDistToPlayer > 160.0f) {
+    } else if (pthis->actor.xzDistToPlayer > 160) {
         // player is more than 160 xz units from the Skulltula
         return false;
     }
@@ -745,14 +748,14 @@ void EnSt_Sway(EnSt* pthis) {
 
     if (pthis->swayTimer != 0) {
 
-        pthis->swayAngle += 0xA28;
-        pthis->swayTimer--;
+        pthis->swayAngle += 0xA28 * FRAMERATE_SCALER;
+        DECR(pthis->swayTimer);
 
         if (pthis->swayTimer == 0) {
             pthis->swayAngle = 0;
         }
 
-        swayAmt = pthis->swayTimer * (7.0f / 15.0f);
+        swayAmt = pthis->swayTimer.toFloat() * (7.0f / 15.0f);
         rotAngle = Math_SinS(pthis->swayAngle) * (swayAmt * (65536.0f / 360.0f));
 
         if (pthis->absPrevSwayAngle >= ABS(rotAngle) && pthis->playSwayFlag == 0) {
@@ -779,8 +782,8 @@ void EnSt_Sway(EnSt* pthis) {
     }
 }
 
-void EnSt_Init(Actor* thisx, GlobalContext* globalCtx) {
-    EnSt* pthis = (EnSt*)thisx;
+void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx) {
+    EnSt* pthis = (EnSt*)pthisx;
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 14.0f);
@@ -788,7 +791,7 @@ void EnSt_Init(Actor* thisx, GlobalContext* globalCtx) {
     func_80034EC0(&pthis->skelAnime, sAnimations, 0);
     pthis->blureIdx = EnSt_CreateBlureEffect(globalCtx);
     EnSt_InitColliders(pthis, globalCtx);
-    if (thisx->params == 2) {
+    if (pthisx->params == 2) {
         pthis->actor.flags |= ACTOR_FLAG_7;
     }
     if (pthis->actor.params == 1) {
@@ -805,8 +808,8 @@ void EnSt_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnSt_SetupAction(pthis, EnSt_StartOnCeilingOrGround);
 }
 
-void EnSt_Destroy(Actor* thisx, GlobalContext* globalCtx) {
-    EnSt* pthis = (EnSt*)thisx;
+void EnSt_Destroy(Actor* pthisx, GlobalContext* globalCtx) {
+    EnSt* pthis = (EnSt*)pthisx;
     s32 i;
 
     Effect_Delete(globalCtx, pthis->blureIdx);
@@ -831,7 +834,7 @@ void EnSt_WaitOnCeiling(EnSt* pthis, GlobalContext* globalCtx) {
  */
 void EnSt_WaitOnGround(EnSt* pthis, GlobalContext* globalCtx) {
     if (pthis->takeDamageSpinTimer != 0) {
-        pthis->takeDamageSpinTimer--;
+        DECR(pthis->takeDamageSpinTimer);
         if (pthis->takeDamageSpinTimer == 0) {
             func_80034EC0(&pthis->skelAnime, sAnimations, 3);
         }
@@ -870,7 +873,7 @@ void EnSt_LandOnGround(EnSt* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->takeDamageSpinTimer != 0) {
-        pthis->takeDamageSpinTimer--;
+        DECR(pthis->takeDamageSpinTimer);
         if (pthis->takeDamageSpinTimer == 0) {
             func_80034EC0(&pthis->skelAnime, sAnimations, 3);
         }
@@ -893,7 +896,7 @@ void EnSt_LandOnGround(EnSt* pthis, GlobalContext* globalCtx) {
 
 void EnSt_MoveToGround(EnSt* pthis, GlobalContext* globalCtx) {
     if (pthis->takeDamageSpinTimer != 0) {
-        pthis->takeDamageSpinTimer--;
+        DECR(pthis->takeDamageSpinTimer);
         if (pthis->takeDamageSpinTimer == 0) {
             func_80034EC0(&pthis->skelAnime, sAnimations, 5);
         }
@@ -939,10 +942,10 @@ void EnSt_ReturnToCeiling(EnSt* pthis, GlobalContext* globalCtx) {
  * The Skulltula has been killed, bounce around
  */
 void EnSt_BounceAround(EnSt* pthis, GlobalContext* globalCtx) {
-    pthis->actor.colorFilterTimer = pthis->deathTimer;
+    pthis->actor.colorFilterTimer = pthis->deathTimer.whole();
     func_8002D868(&pthis->actor);
-    pthis->actor.world.rot.x += 0x800;
-    pthis->actor.world.rot.z -= 0x800;
+    pthis->actor.world.rot.x += 0x800 * FRAMERATE_SCALER;
+    pthis->actor.world.rot.z -= 0x800 * FRAMERATE_SCALER;
     pthis->actor.shape.rot = pthis->actor.world.rot;
     if (EnSt_IsDoneBouncing(pthis, globalCtx)) {
         pthis->actor.shape.yOffset = 400.0f;
@@ -1007,8 +1010,8 @@ void EnSt_StartOnCeilingOrGround(EnSt* pthis, GlobalContext* globalCtx) {
     }
 }
 
-void EnSt_Update(Actor* thisx, GlobalContext* globalCtx) {
-    EnSt* pthis = (EnSt*)thisx;
+void EnSt_Update(Actor* pthisx, GlobalContext* globalCtx) {
+    EnSt* pthis = (EnSt*)pthisx;
     s32 pad;
     Color_RGBA8 color = { 0, 0, 0, 0 };
 
@@ -1053,8 +1056,8 @@ void EnSt_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP, Vec3f* pos, Vec3s* rot, void* thisx) {
-    EnSt* pthis = (EnSt*)thisx;
+s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP, Vec3f* pos, Vec3s* rot, void* pthisx) {
+    EnSt* pthis = (EnSt*)pthisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_st.c", 2260);
     switch (limbIndex) {
@@ -1077,14 +1080,14 @@ s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP,
     return false;
 }
 
-void EnSt_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP, Vec3s* rot, void* thisx) {
-    EnSt* pthis = (EnSt*)thisx;
+void EnSt_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP, Vec3s* rot, void* pthisx) {
+    EnSt* pthis = (EnSt*)pthisx;
 
     Collider_UpdateSpheres(limbIndex, &pthis->colSph);
 }
 
-void EnSt_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    EnSt* pthis = (EnSt*)thisx;
+void EnSt_Draw(Actor* pthisx, GlobalContext* globalCtx) {
+    EnSt* pthis = (EnSt*)pthisx;
 
     EnSt_CheckBodyStickHit(pthis, globalCtx);
     func_80093D18(globalCtx->state.gfxCtx);

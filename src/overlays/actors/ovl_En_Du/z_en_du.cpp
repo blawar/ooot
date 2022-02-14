@@ -475,7 +475,7 @@ void func_809FE890(EnDu* pthis, GlobalContext* globalCtx) {
         pthis->actor.velocity = velocity;
 
         if (globalCtx->csCtx.frames < csAction->endFrame) {
-            frame = csAction->endFrame - csAction->startFrame;
+            frame = (csAction->endFrame - csAction->startFrame);
 
             pthis->actor.velocity.x = (endPos.x - startPos.x) / frame;
             pthis->actor.velocity.y = (endPos.y - startPos.y) / frame;

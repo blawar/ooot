@@ -4,6 +4,7 @@
 #include "unk.h"
 #include "padmgr.h"
 #include "z64transition.h"
+#include "framerate.h"
 #include "z_vismono.h"
 #include "n64fault.h"
 #include "z64global.h"
@@ -549,7 +550,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     } else {
                         sTrnsnUnk.zBuffer = (u16*)gZBuffer;
                         gTrnsnUnkState = 3;
-                        R_UPDATE_RATE = 1;
+                        framerate_set_profile(PROFILE_UNKNOWN1);
                     }
                     break;
                 case 3:
@@ -687,7 +688,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                             if (gTrnsnUnkState == 3) {
                                 TransitionUnk_Destroy(&sTrnsnUnk);
                                 gTrnsnUnkState = 0;
-                                R_UPDATE_RATE = 3;
+                                framerate_set_profile(PROFILE_GAMEPLAY);
                             }
                         }
                         globalCtx->sceneLoadFlag = 0;
@@ -730,7 +731,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     globalCtx->envCtx.screenFillColor[3] = (1 - D_801614C8 / 20.0f) * 255.0f;
                     if (D_801614C8 >= 20 && 1) {
                         gTrnsnUnkState = 0;
-                        R_UPDATE_RATE = 3;
+                        framerate_set_profile(PROFILE_GAMEPLAY);
                         globalCtx->sceneLoadFlag = 0;
                         globalCtx->transitionMode = 0;
                         globalCtx->envCtx.fillScreen = false;
@@ -763,7 +764,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                         globalCtx->transitionMode = 0;
                     } else {
                         gTrnsnUnkState = 0;
-                        R_UPDATE_RATE = 3;
+                        framerate_set_profile(PROFILE_GAMEPLAY);
                         globalCtx->sceneLoadFlag = 0;
                         globalCtx->transitionMode = 0;
                     }
@@ -793,7 +794,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     if (globalCtx->sceneLoadFlag == -0x14) {
                         if (globalCtx->envCtx.sandstormPrimA < 110) {
                             gTrnsnUnkState = 0;
-                            R_UPDATE_RATE = 3;
+                            framerate_set_profile(PROFILE_GAMEPLAY);
                             globalCtx->sceneLoadFlag = 0;
                             globalCtx->transitionMode = 0;
                         }
@@ -827,7 +828,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     if (globalCtx->sceneLoadFlag == -0x14) {
                         if (globalCtx->envCtx.sandstormPrimA <= 0) {
                             gTrnsnUnkState = 0;
-                            R_UPDATE_RATE = 3;
+                            framerate_set_profile(PROFILE_GAMEPLAY);
                             globalCtx->sceneLoadFlag = 0;
                             globalCtx->transitionMode = 0;
                         }
@@ -849,7 +850,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                         globalCtx->envCtx.screenFillColor[3] = gSaveContext.unk_1410;
                         if (gSaveContext.unk_1410 < 0x65) {
                             gTrnsnUnkState = 0;
-                            R_UPDATE_RATE = 3;
+                            framerate_set_profile(PROFILE_GAMEPLAY);
                             globalCtx->sceneLoadFlag = 0;
                             globalCtx->transitionMode = 0;
                         }

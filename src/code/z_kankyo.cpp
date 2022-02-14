@@ -544,6 +544,16 @@ f32 Environment_LerpWeight(u16 max, u16 min, u16 val) {
     return 1.0f;
 }
 
+f32 Environment_LerpWeight(const Counter max, const Counter min, const Counter val)
+{
+	return Environment_LerpWeight(max.toU16(), min.toU16(), val.toU16());
+}
+
+f32 Environment_LerpWeight(u16 max, u16 min, const Counter val)
+{
+    return Environment_LerpWeight(max, min, val.toU16());
+}
+
 f32 Environment_LerpWeightAccelDecel(u16 endFrame, u16 startFrame, u16 curFrame, u16 accelDuration, u16 decelDuration) {
     f32 endFrameF;
     f32 startFrameF;

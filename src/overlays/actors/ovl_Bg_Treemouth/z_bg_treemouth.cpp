@@ -1,9 +1,6 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_TREEMOUTH_Z_BG_TREEMOUTH_C
 #include "actor_common.h"
-
-extern u16 D_8015FCC0;
-extern u16 D_8015FCC2;
-extern u16 D_8015FCC4;
+#include "def/z_demo.h"
 
 /*
  * File: z_bg_treemouth.c

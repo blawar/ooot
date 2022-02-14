@@ -4,6 +4,7 @@
 #include "z_title.h"
 #include "z_kankyo.h"
 #include "z_player.h"
+#include "framerate.h"
 #include "gfxprint.h"
 #include <malloc.h>
 /*
@@ -411,13 +412,13 @@ void Select_UpdateMenu(SelectContext* pthis) {
                 pthis->timerUp = 20;
                 pthis->lockUp = true;
                 Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-                pthis->verticalInput = R_UPDATE_RATE;
+                pthis->verticalInput = FRAMERATE_RATE_SCALED;
             }
         }
 
         if (CHECK_BTN_ALL(input->cur.button, BTN_CUP) && pthis->timerUp == 0) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-            pthis->verticalInput = R_UPDATE_RATE * 3;
+            pthis->verticalInput = FRAMERATE_RATE_SCALE(R_UPDATE_RATE * 3);
         }
 
         if (CHECK_BTN_ALL(input->press.button, BTN_CDOWN)) {
@@ -428,23 +429,23 @@ void Select_UpdateMenu(SelectContext* pthis) {
                 pthis->timerDown = 20;
                 pthis->lockDown = true;
                 Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-                pthis->verticalInput = -R_UPDATE_RATE;
+                pthis->verticalInput = -FRAMERATE_RATE_SCALED;
             }
         }
 
         if (CHECK_BTN_ALL(input->cur.button, BTN_CDOWN) && (pthis->timerDown == 0)) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-            pthis->verticalInput = -R_UPDATE_RATE * 3;
+            pthis->verticalInput = -FRAMERATE_RATE_SCALE(R_UPDATE_RATE * 3);
         }
 
         if (CHECK_BTN_ALL(input->press.button, BTN_CLEFT) || CHECK_BTN_ALL(input->cur.button, BTN_CLEFT)) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-            pthis->verticalInput = R_UPDATE_RATE;
+            pthis->verticalInput = FRAMERATE_RATE_SCALED;
         }
 
         if (CHECK_BTN_ALL(input->press.button, BTN_CRIGHT) || CHECK_BTN_ALL(input->cur.button, BTN_CRIGHT)) {
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-            pthis->verticalInput = -R_UPDATE_RATE;
+            pthis->verticalInput = -FRAMERATE_RATE_SCALED;
         }
     }
 
@@ -755,7 +756,7 @@ void Select_Init(GameState* thisx) {
         pthis->topDisplayedScene = dREG(81);
         pthis->pageDownIndex = dREG(82);
     }
-    R_UPDATE_RATE = 1;
+    framerate_set_profile(PROFILE_SELECT);
 
     pthis->staticSegment = (u8*)GameState_Alloc(&pthis->state, size, "../z_select.c", 1114);
     DmaMgr_SendRequest1(pthis->staticSegment, _z_select_staticSegmentRomStart, size, "../z_select.c", 1115);

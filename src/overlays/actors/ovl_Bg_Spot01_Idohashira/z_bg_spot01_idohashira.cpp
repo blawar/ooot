@@ -216,8 +216,7 @@ s32 func_808AB29C(BgSpot01Idohashira* pthis, GlobalContext* globalCtx) {
         endZ = npcAction->endPos.z;
         thisPos = &pthis->dyna.actor.world.pos;
         thisPos->x = ((endX - initPos.x) * temp_f0) + initPos.x;
-        thisPos->y =
-            func_808AB1DC(initPos.y, tempY, npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames) +
+        thisPos->y = func_808AB1DC(initPos.y, tempY, npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames) +
             initPos.y;
         thisPos->z = ((endZ - initPos.z) * temp_f0) + initPos.z;
 

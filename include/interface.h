@@ -41,7 +41,7 @@ typedef struct InterfaceContext {
     /* 0x021A */ s16 heartsEnvR[2];
     /* 0x021E */ s16 heartsEnvG[2];
     /* 0x0222 */ s16 heartsEnvB[2];
-    /* 0x022A */ s16 beatingHeartOscillator;
+    /* 0x022A */ TimerS16 beatingHeartOscillator;
     /* 0x022C */ s16 beatingHeartOscillatorDirection;
     /* 0x022E */ s16 unk_22E;
     /* 0x0230 */ s16 unk_230;

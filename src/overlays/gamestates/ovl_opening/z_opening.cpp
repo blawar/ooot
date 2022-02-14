@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_OPENING_Z_OPENING_C
 #include "actor_common.h"
+#include "framerate.h"
 #include "z_opening.h"
 #include "z_player.h"
 /*
@@ -85,7 +86,7 @@ void Opening_Destroy(GameState* thisx) {
 void Opening_Init(GameState* thisx) {
     OpeningContext* pthis = (OpeningContext*)thisx;
 
-    R_UPDATE_RATE = 1;
+    framerate_set_profile(PROFILE_OPENING);
     Matrix_Init(&pthis->state);
     View_Init(&pthis->view, pthis->state.gfxCtx);
     pthis->state.main = Opening_Main;

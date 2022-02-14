@@ -486,8 +486,3 @@ void* Graph_DlistAlloc(Gfx** gfx, u32 size) {
     *gfx = dst;
     return ptr;
 }
-
-u64 frameRateDivisor()
-{
-    return R_UPDATE_RATE;
-}

@@ -117,8 +117,8 @@ void ObjDekujr_ComeUp(ObjDekujr* pthis, GlobalContext* globalCtx) {
             pthis->actor.shape.rot.y = csCmdNPCAction->urot.y;
             pthis->actor.shape.rot.z = csCmdNPCAction->urot.z;
             pthis->actor.velocity = velocity;
-            if (csCmdNPCAction->endFrame >= globalCtx->csCtx.frames) {
-                actionLength = csCmdNPCAction->endFrame - csCmdNPCAction->startFrame;
+            if (globalCtx->csCtx.frames < csCmdNPCAction->endFrame) {
+                actionLength = (csCmdNPCAction->endFrame - csCmdNPCAction->startFrame);
                 pthis->actor.velocity.x = (finalPos.x - initPos.x) / actionLength;
                 gravity = pthis->actor.gravity;
                 pthis->actor.velocity.y = (finalPos.y - initPos.y) / actionLength;

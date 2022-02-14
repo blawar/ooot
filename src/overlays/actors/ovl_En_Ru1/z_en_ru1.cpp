@@ -497,7 +497,7 @@ void func_80AEB7D0(EnRu1* pthis) {
 }
 
 f32 func_80AEB7E0(CsCmdActorAction* csCmdNPCAction, GlobalContext* globalCtx) {
-    s32 csCtxFrames = globalCtx->csCtx.frames;
+    const auto& csCtxFrames = globalCtx->csCtx.frames;
 
     if ((csCtxFrames < csCmdNPCAction->endFrame) && (csCmdNPCAction->endFrame - csCmdNPCAction->startFrame > 0)) {
         return (Math_CosS(((csCtxFrames - csCmdNPCAction->startFrame) /

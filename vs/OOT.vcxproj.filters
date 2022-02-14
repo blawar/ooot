@@ -5217,6 +5217,9 @@
     <ClCompile Include="..\src\port\window\window.cpp">
       <Filter>Source Files\port\window</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\code\framerate.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\segment_symbols.h">

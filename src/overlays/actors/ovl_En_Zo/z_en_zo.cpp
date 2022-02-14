@@ -8,6 +8,7 @@
 
 #include "z_en_zo.h"
 #include "objects/object_zo/object_zo.h"
+#include "framerate.h"
 #include "def/code_800FD970.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
@@ -498,7 +499,7 @@ void EnZo_Blink(EnZo* pthis) {
     if (DECR(pthis->blinkTimer) == 0) {
         pthis->eyeTexture++;
         if (pthis->eyeTexture >= 3) {
-            pthis->blinkTimer = Rand_S16Offset(30, 30);
+            pthis->blinkTimer = (float)Rand_S16Offset(30, 30);
             pthis->eyeTexture = 0;
         }
     }
@@ -665,14 +666,14 @@ void EnZo_TreadWater(EnZo* pthis, GlobalContext* globalCtx) {
     EnZo_SetAnimation(pthis);
 
     Math_ApproachF(&pthis->actor.velocity.y, pthis->actor.yDistToWater < 54.0f ? -0.6f : 0.6f, 0.3f, 0.2f);
-    if (pthis->rippleTimer != 0) {
-        pthis->rippleTimer--;
+    if (pthis->rippleTimer > 0.0f) {
+        DECR(pthis->rippleTimer);
         if ((pthis->rippleTimer == 3) || (pthis->rippleTimer == 6)) {
             EnZo_TreadWaterRipples(pthis, 0.2f, 1.0f, 200);
         }
     } else {
         EnZo_TreadWaterRipples(pthis, 0.2f, 1.0f, 200);
-        pthis->rippleTimer = 12;
+        pthis->rippleTimer = 12.0f;
     }
 
     if (EnZo_PlayerInProximity(pthis, globalCtx) != 0) {

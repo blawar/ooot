@@ -414,7 +414,7 @@ void func_80B4B8B4(EnZl1* pthis, GlobalContext* globalCtx) {
         }
         pthis->actor.velocity = velocity;
         if (globalCtx->csCtx.frames < npcAction->endFrame) {
-            actionLength = npcAction->endFrame - npcAction->startFrame;
+            actionLength = (npcAction->endFrame - npcAction->startFrame);
             pthis->actor.velocity.x = (sp68.x - sp74.x) / actionLength;
             pthis->actor.velocity.y = (sp68.y - sp74.y) / actionLength;
             pthis->actor.velocity.y += pthis->actor.gravity;
@@ -489,7 +489,7 @@ void func_80B4BC78(EnZl1* pthis, GlobalContext* globalCtx) {
         }
         pthis->actor.velocity = velocity;
         if (globalCtx->csCtx.frames < npcAction->endFrame) {
-            actionLength = npcAction->endFrame - npcAction->startFrame;
+            actionLength = (npcAction->endFrame - npcAction->startFrame);
             pthis->actor.velocity.x = (sp64.x - sp70.x) / actionLength;
             pthis->actor.velocity.y = (sp64.y - sp70.y) / actionLength;
             pthis->actor.velocity.y += pthis->actor.gravity;

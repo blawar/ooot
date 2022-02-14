@@ -581,7 +581,7 @@ void EnItem00_Destroy(Actor* pthisx, GlobalContext* globalCtx) {
 void func_8001DFC8(EnItem00* pthis, GlobalContext* globalCtx) {
     if ((pthis->actor.params <= ITEM00_RUPEE_RED) || ((pthis->actor.params == ITEM00_HEART) && (pthis->unk_15A < 0)) ||
         (pthis->actor.params == ITEM00_HEART_PIECE)) {
-        pthis->actor.shape.rot.y += 960;
+        pthis->actor.shape.rot.y += 960 * FRAMERATE_SCALER;
     } else {
         if ((pthis->actor.params >= ITEM00_SHIELD_DEKU) && (pthis->actor.params != ITEM00_BOMBS_SPECIAL)) {
             if (pthis->unk_15A == -1) {

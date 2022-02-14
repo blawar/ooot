@@ -3,6 +3,7 @@
 #include "vt.h"
 #include "z64global.h"
 #include "sfx.h"
+#include "framerate.h"
 #include "n64fault.h"
 #include "z64save.h"
 #include "z64item.h"
@@ -890,7 +891,7 @@ void Actor_Destroy(Actor* actor, GlobalContext* globalCtx) {
 }
 
 void func_8002D7EC(Actor* actor) {
-    f32 speedRate = R_UPDATE_RATE * 0.5f;
+    const f32 speedRate = FRAMERATE_ANIM_SCALER;
 
     actor->world.pos.x += (actor->velocity.x * speedRate) + actor->colChkInfo.displacement.x;
     actor->world.pos.y += (actor->velocity.y * speedRate) + actor->colChkInfo.displacement.y;
@@ -901,7 +902,7 @@ void func_8002D868(Actor* actor) {
     actor->velocity.x = Math_SinS(actor->world.rot.y) * actor->speedXZ;
     actor->velocity.z = Math_CosS(actor->world.rot.y) * actor->speedXZ;
 
-    actor->velocity.y += actor->gravity;
+    actor->velocity.y += actor->gravity * FRAMERATE_SCALER;
     if (actor->velocity.y < actor->minVelocityY) {
         actor->velocity.y = actor->minVelocityY;
     }
@@ -3290,9 +3291,9 @@ Actor* Actor_GetProjectileActor(GlobalContext* globalCtx, Actor* refActor, f32 r
                 (((ArmsHook*)actor)->timer == 0)) {
                 actor = actor->next;
             } else {
-                deltaX = Math_SinS(actor->world.rot.y) * (actor->speedXZ * 10.0f);
-                deltaY = actor->velocity.y + (actor->gravity * 10.0f);
-                deltaZ = Math_CosS(actor->world.rot.y) * (actor->speedXZ * 10.0f);
+                deltaX = Math_SinS(actor->world.rot.y) * (actor->speedXZ * 10.0f * FRAMERATE_SCALER);
+                deltaY = actor->velocity.y + (actor->gravity * 10.0f * FRAMERATE_SCALER);
+                deltaZ = Math_CosS(actor->world.rot.y) * (actor->speedXZ * 10.0f * FRAMERATE_SCALER);
 
                 spA8.x = actor->world.pos.x + deltaX;
                 spA8.y = actor->world.pos.y + deltaY;

@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_TITLE_Z_TITLE_C
 #include "actor_common.h"
+#include "framerate.h"
 #include "z_title.h"
 #include "z_opening.h"
 #include <malloc.h>
@@ -209,7 +210,7 @@ void Title_Init(GameState* thisx) {
     //pthis->staticSegment = GameState_Alloc(&pthis->state, size, "../z_title.c", 611);
     osSyncPrintf("z_title.c\n");
     pthis->staticSegment = _nintendo_rogo_staticSegmentRomStart;
-    R_UPDATE_RATE = 1;
+    framerate_set_profile(PROFILE_TITLE);
     Matrix_Init(&pthis->state);
     View_Init(&pthis->view, pthis->state.gfxCtx);
     pthis->state.main = Title_Main;

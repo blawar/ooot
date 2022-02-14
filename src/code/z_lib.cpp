@@ -6,6 +6,7 @@
 #include "z64math.h"
 #include "z64actor.h"
 #include "z64audio.h"
+#include "framerate.h"
 #include "def/code_800F7260.h"
 #include "def/code_800FD970.h"
 #include "def/coss.h"
@@ -35,7 +36,7 @@ f32 Math_SinS(s16 angle) {
  */
 s32 Math_ScaledStepToS(s16* pValue, s16 target, s16 step) {
     if (step != 0) {
-        f32 updateScale = R_UPDATE_RATE * 0.5f;
+        f32 updateScale = FRAMERATE_ANIM_SCALER;
 
         if ((s16)(*pValue - target) > 0) {
             step = -step;

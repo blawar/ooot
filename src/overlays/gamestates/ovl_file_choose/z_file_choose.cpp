@@ -5,8 +5,8 @@
 #include "z_play.h"
 #include "z_file_choose.h"
 #include "z_select.h"
+#include "framerate.h"
 #include "file_choose.h"
-#include <stdio.h>
 #include "segment_symbols.h"
 #include "textures/title_static/title_static.h"
 #include "textures/parameter_static/parameter_static.h"
@@ -85,8 +85,8 @@ Gfx* FileChoose_QuadTextureIA8(Gfx* gfx, void* texture, s16 width, s16 height, s
     return gfx;
 }
 
-void FileChoose_InitModeUpdate(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_InitModeUpdate(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     if (pthis->menuMode == FS_MENU_MODE_INIT) {
         pthis->menuMode = FS_MENU_MODE_CONFIG;
@@ -98,7 +98,7 @@ void FileChoose_InitModeUpdate(GameState* thisx) {
     }
 }
 
-void FileChoose_InitModeDraw(GameState* thisx) {
+void FileChoose_InitModeDraw(GameState* pthisx) {
 }
 
 /**
@@ -106,8 +106,8 @@ void FileChoose_InitModeDraw(GameState* thisx) {
  * If a file is occupied fade in the name, name box, and connector.
  * Fade in the copy erase and options button according to the window alpha.
  */
-void FileChoose_FadeInMenuElements(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_FadeInMenuElements(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
 
@@ -160,8 +160,8 @@ void FileChoose_SplitNumber(u16 value, s16* hundreds, s16* tens, s16* ones) {
  * Additionally, slide the window from the right to the center of the screen.
  * Update function for `CM_FADE_IN_START`
  */
-void FileChoose_StartFadeIn(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_StartFadeIn(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     FileChoose_FadeInMenuElements(&pthis->state);
     sScreenFillAlpha -= 40;
@@ -179,8 +179,8 @@ void FileChoose_StartFadeIn(GameState* thisx) {
  * Fade in the controls text at the bottom of the screen.
  * Update function for `CM_FADE_IN_END`
  */
-void FileChoose_FinishFadeIn(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_FinishFadeIn(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     pthis->controlsAlpha += VREG(1);
     FileChoose_FadeInMenuElements(&pthis->state);
@@ -201,9 +201,9 @@ void FileChoose_FinishFadeIn(GameState* thisx) {
  * Lastly, set any warning labels if appropriate.
  * Update function for `CM_MAIN_MENU`
  */
-void FileChoose_UpdateMainMenu(GameState* thisx) {
+void FileChoose_UpdateMainMenu(GameState* pthisx) {
     static u8 emptyName[] = { 0x3E, 0x3E, 0x3E, 0x3E, 0x3E, 0x3E, 0x3E, 0x3E };
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
 
@@ -309,7 +309,7 @@ void FileChoose_UpdateMainMenu(GameState* thisx) {
 /**
  * Update function for `CM_UNUSED_31`
  */
-void FileChoose_UnusedCM31(GameState* thisx) {
+void FileChoose_UnusedCM31(GameState* pthisx) {
 }
 
 /**
@@ -318,8 +318,8 @@ void FileChoose_UnusedCM31(GameState* thisx) {
  * Unused in the final game, was possibly used for debugging.
  * Update function for `CM_UNUSED_DELAY`
  */
-void FileChoose_UnusedCMDelay(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_UnusedCMDelay(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     XREG(73) += 2;
 
@@ -333,8 +333,8 @@ void FileChoose_UnusedCMDelay(GameState* thisx) {
  * Rotate the window from the main menu to the name entry menu.
  * Update function for `CM_ROTATE_TO_NAME_ENTRY`
  */
-void FileChoose_RotateToNameEntry(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_RotateToNameEntry(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     pthis->windowRot += VREG(16);
 
@@ -348,8 +348,8 @@ void FileChoose_RotateToNameEntry(GameState* thisx) {
  * Rotate the window from the main menu to the options menu.
  * Update function for `CM_MAIN_TO_OPTIONS`
  */
-void FileChoose_RotateToOptions(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_RotateToOptions(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     pthis->windowRot += VREG(16);
 
@@ -363,8 +363,8 @@ void FileChoose_RotateToOptions(GameState* thisx) {
  * Rotate the window from the options menu to the main menu.
  * Update function for `CM_NAME_ENTRY_TO_MAIN` and `CM_OPTIONS_TO_MAIN`
  */
-void FileChoose_RotateToMain(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_RotateToMain(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     pthis->windowRot += VREG(16);
 
@@ -402,9 +402,9 @@ static void (*gConfigModeUpdateFuncs[])(GameState*) = {
  * Updates the alpha of the cursor to make it pulsate.
  * On the debug rom, pthis function also handles switching languages with controller 3.
  */
-void FileChoose_PulsateCursor(GameState* thisx) {
+void FileChoose_PulsateCursor(GameState* pthisx) {
     static s16 cursorAlphaTargets[] = { 70, 200 };
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     s16 alphaStep;
     SramContext* sramCtx = &pthis->sramCtx;
     Input* debugInput = &pthis->state.input[2];
@@ -471,14 +471,14 @@ void FileChoose_PulsateCursor(GameState* thisx) {
     }
 }
 
-void FileChoose_ConfigModeUpdate(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_ConfigModeUpdate(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     gConfigModeUpdateFuncs[pthis->configMode](&pthis->state);
 }
 
-void FileChoose_SetWindowVtx(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_SetWindowVtx(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     s16 i;
     s16 j;
     s16 x;
@@ -534,8 +534,8 @@ static s16 D_8081283C[] = { 0x0040, 0x0054, 0x0068, 0x0278 };
 static s16 D_80812844[] = { 0x0274, 0x0278 };
 static s16 D_80812848[] = { 0x0274, 0x0278 };
 
-void FileChoose_SetWindowContentVtx(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_SetWindowContentVtx(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     s16 phi_t2;
     s16 phi_t0;
     s16 phi_t5;
@@ -830,8 +830,8 @@ static void* sHeartTextures[] = { gHeartFullTex, gDefenseHeartFullTex };
 static s16 sHeartPrimColors[2][3] = { { 255, 70, 50 }, { 200, 0, 0 } };
 static s16 sHeartEnvColors[2][3] = { { 50, 40, 60 }, { 255, 255, 255 } };
 
-void FileChoose_DrawFileInfo(GameState* thisx, s16 fileIndex, s16 isActive) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_DrawFileInfo(GameState* pthisx, s16 fileIndex, s16 isActive) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     Font* sp54 = &pthis->font;
     s32 heartType;
     s16 i;
@@ -970,8 +970,8 @@ static void* sOptionsButtonTextures[] = {
  * Draw most window contents including buttons, labels, and icons.
  * Does not include anything from the keyboard and settings windows.
  */
-void FileChoose_DrawWindowContents(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_DrawWindowContents(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     s16 fileIndex;
     s16 temp;
     s16 i;
@@ -1146,8 +1146,8 @@ void FileChoose_DrawWindowContents(GameState* thisx) {
     CLOSE_DISPS(pthis->state.gfxCtx, "../z_file_choose.c", 2198);
 }
 
-void FileChoose_ConfigModeDraw(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_ConfigModeDraw(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     f32 eyeX;
     f32 eyeY;
     f32 eyeZ;
@@ -1268,8 +1268,8 @@ void FileChoose_ConfigModeDraw(GameState* thisx) {
  * Fade out the main menu elements to transition to select mode.
  * Update function for `SM_FADE_MAIN_TO_SELECT`
  */
-void FileChoose_FadeMainToSelect(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_FadeMainToSelect(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
 
@@ -1301,9 +1301,9 @@ void FileChoose_FadeMainToSelect(GameState* thisx) {
  * Moves the selected file to the top of the window.
  * Update function for `SM_MOVE_FILE_TO_TOP`
  */
-void FileChoose_MoveSelectedFileToTop(GameState* thisx) {
+void FileChoose_MoveSelectedFileToTop(GameState* pthisx) {
     static s16 fileYOffsets[] = { 0, 16, 32 }; // amount to move by to reach the top of the screen
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     s16 yStep;
 
     yStep = ABS(pthis->buttonYOffsets[pthis->buttonIndex] - fileYOffsets[pthis->buttonIndex]) / pthis->actionTimer;
@@ -1321,8 +1321,8 @@ void FileChoose_MoveSelectedFileToTop(GameState* thisx) {
  * Fade in the file info for the selected file.
  * Update function for `SM_FADE_IN_FILE_INFO`
  */
-void FileChoose_FadeInFileInfo(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_FadeInFileInfo(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     pthis->fileInfoAlpha[pthis->buttonIndex] += 25;
     pthis->nameBoxAlpha[pthis->buttonIndex] -= 50;
@@ -1347,8 +1347,8 @@ void FileChoose_FadeInFileInfo(GameState* thisx) {
  * Update the cursor and handle the option that the player picks for confirming the selected file.
  * Update function for `SM_CONFIRM_FILE`
  */
-void FileChoose_ConfirmFile(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_ConfirmFile(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     Input* input = &pthis->state.input[0];
 
     if (CHECK_BTN_ALL(input->press.button, BTN_START) || (CHECK_BTN_ALL(input->press.button, BTN_A))) {
@@ -1374,8 +1374,8 @@ void FileChoose_ConfirmFile(GameState* thisx) {
  * Fade out the file info for the selected file before returning to the main menu.
  * Update function for `SM_FADE_OUT_FILE_INFO`
  */
-void FileChoose_FadeOutFileInfo(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_FadeOutFileInfo(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     pthis->fileInfoAlpha[pthis->buttonIndex] -= 25;
     pthis->nameBoxAlpha[pthis->buttonIndex] += 25;
@@ -1397,8 +1397,8 @@ void FileChoose_FadeOutFileInfo(GameState* thisx) {
  * Move the selected file back to the slot position then go to config mode for the main menu.
  * Update function for `SM_MOVE_FILE_TO_SLOT`
  */
-void FileChoose_MoveSelectedFileToSlot(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_MoveSelectedFileToSlot(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     SramContext* sramCtx = &pthis->sramCtx;
     s16 yStep;
     s16 i;
@@ -1448,8 +1448,8 @@ void FileChoose_MoveSelectedFileToSlot(GameState* thisx) {
  * Fill the screen with black to fade out.
  * Update function for `SM_FADE_OUT`
  */
-void FileChoose_FadeOut(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_FadeOut(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     sScreenFillAlpha += VREG(10);
 
@@ -1464,8 +1464,8 @@ void FileChoose_FadeOut(GameState* thisx) {
  * Note: On Debug ROM, File 1 will go to Map Select.
  * Update function for `SM_LOAD_GAME`
  */
-void FileChoose_LoadGame(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_LoadGame(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     u16 swordEquipMask;
     s32 pad;
 
@@ -1548,14 +1548,14 @@ static void (*gSelectModeUpdateFuncs[])(GameState*) = {
     FileChoose_FadeOutFileInfo,  FileChoose_MoveSelectedFileToSlot, FileChoose_FadeOut,        FileChoose_LoadGame,
 };
 
-void FileChoose_SelectModeUpdate(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_SelectModeUpdate(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
 
     gSelectModeUpdateFuncs[pthis->selectMode](&pthis->state);
 }
 
-void FileChoose_SelectModeDraw(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_SelectModeDraw(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     f32 eyeX;
     f32 eyeY;
     f32 eyeZ;
@@ -1618,13 +1618,13 @@ static void (*gFileSelectUpdateFuncs[])(GameState*) = {
     FileChoose_SelectModeUpdate,
 };
 
-void FileChoose_Main(GameState* thisx) {
+void FileChoose_Main(GameState* pthisx) {
     static void* controlsTextures[] = {
         gFileSelControlsENGTex,
         gFileSelControlsGERTex,
         gFileSelControlsFRATex,
     };
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     Input* input = &pthis->state.input[0];
 
     OPEN_DISPS(pthis->state.gfxCtx, "../z_file_choose.c", 2898);
@@ -1724,8 +1724,8 @@ void FileChoose_Main(GameState* thisx) {
     CLOSE_DISPS(pthis->state.gfxCtx, "../z_file_choose.c", 3035);
 }
 
-void FileChoose_InitContext(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+void FileChoose_InitContext(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     EnvironmentContext* envCtx = &pthis->envCtx;
     SramContext* sramCtx = &pthis->sramCtx;
 
@@ -1895,15 +1895,15 @@ void FileChoose_InitContext(GameState* thisx) {
     }
 }
 
-void FileChoose_Destroy(GameState* thisx) {
+void FileChoose_Destroy(GameState* pthisx) {
 }
-
-void FileChoose_Init(GameState* thisx) {
-    FileChooseContext* pthis = (FileChooseContext*)thisx;
+#include <stdio.h>
+void FileChoose_Init(GameState* pthisx) {
+    FileChooseContext* pthis = (FileChooseContext*)pthisx;
     u32 size = POINTER_SUB(_title_staticSegmentRomEnd, _title_staticSegmentRomStart);
     s32 pad;
 
-    SREG(30) = 1;
+    framerate_set_profile(PROFILE_FILE_CHOOSE);
     osSyncPrintf("SIZE=%x\n", size);
 
     pthis->staticSegment = (u8*)GameState_Alloc(&pthis->state, size, "../z_file_choose.c", 3392);

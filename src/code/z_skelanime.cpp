@@ -3,6 +3,7 @@
 #include "segment_symbols.h"
 #include "z64global.h"
 #include "z_skelanime.h"
+#include "framerate.h"
 #include "vt.h"
 #include "misc/link_animetion/link_animetion.h"
 #include "def/createmesgqueue.h"
@@ -16,6 +17,8 @@
 
 // TODO FIX THIS HACK
 //DECLARE_SEGMENT(link_animetion)
+
+#define FMV2 (R_UPDATE_RATE * 1.0f / 3.0 /** FRAMERATE_SCALER*/)
 
 #define LINK_ANIMATION_OFFSET2(addr, offset)                                                                       \
     (((uintptr_t)_link_animetionSegmentRomStart) + ((uintptr_t)offset))
@@ -1130,7 +1133,7 @@ s32 LinkAnimation_Update(GlobalContext* globalCtx, SkelAnime* skelAnime) {
  */
 s32 LinkAnimation_Morph(GlobalContext* globalCtx, SkelAnime* skelAnime) {
     f32 prevMorphWeight = skelAnime->morphWeight;
-    f32 updateRate = R_UPDATE_RATE * 0.5f;
+    f32 updateRate = FRAMERATE_ANIM_SCALER;
 
     skelAnime->morphWeight -= skelAnime->morphRate * updateRate;
 
@@ -1151,7 +1154,7 @@ void LinkAnimation_AnimateFrame(GlobalContext* globalCtx, SkelAnime* skelAnime) 
     AnimationContext_SetLoadFrame(globalCtx, (LinkAnimationHeader*)skelAnime->animation, skelAnime->curFrame, skelAnime->limbCount,
                                   skelAnime->jointTable);
     if (skelAnime->morphWeight != 0) {
-        f32 updateRate = R_UPDATE_RATE * 0.5f;
+        f32 updateRate = FRAMERATE_ANIM_SCALER;
 
         skelAnime->morphWeight -= skelAnime->morphRate * updateRate;
         if (skelAnime->morphWeight <= 0.0f) {
@@ -1167,7 +1170,7 @@ void LinkAnimation_AnimateFrame(GlobalContext* globalCtx, SkelAnime* skelAnime) 
  * Advances a Link animation that loops over its full length
  */
 s32 LinkAnimation_Loop(GlobalContext* globalCtx, SkelAnime* skelAnime) {
-    f32 updateRate = R_UPDATE_RATE * 0.5f;
+    f32 updateRate = FRAMERATE_ANIM_SCALER;
 
     skelAnime->curFrame += skelAnime->playSpeed * updateRate;
     if (skelAnime->curFrame < 0.0f) {
@@ -1183,7 +1186,7 @@ s32 LinkAnimation_Loop(GlobalContext* globalCtx, SkelAnime* skelAnime) {
  * Advances a Link animation that stops at endFrame and returns true when it is reached.
  */
 s32 LinkAnimation_Once(GlobalContext* globalCtx, SkelAnime* skelAnime) {
-    f32 updateRate = R_UPDATE_RATE * 0.5f;
+    f32 updateRate = FRAMERATE_ANIM_SCALER;
 
     if (skelAnime->curFrame == skelAnime->endFrame) {
         LinkAnimation_AnimateFrame(globalCtx, skelAnime);
@@ -1389,7 +1392,7 @@ s32 Animation_OnFrameImpl(SkelAnime* skelAnime, f32 frame, f32 updateRate) {
  * Checks if the current Link animation has reached the specified frame
  */
 s32 LinkAnimation_OnFrame(SkelAnime* skelAnime, f32 frame) {
-    f32 updateRate = R_UPDATE_RATE * 0.5f;
+    f32 updateRate = FRAMERATE_ANIM_SCALER;
 
     return Animation_OnFrameImpl(skelAnime, frame, updateRate);
 }
@@ -1508,7 +1511,7 @@ s32 SkelAnime_Update(SkelAnime* skelAnime) {
 static s32 SkelAnime_Morph(GlobalContext* context, SkelAnime* skelAnime)
 {
     f32 prevMorphWeight = skelAnime->morphWeight;
-    f32 updateRate = R_UPDATE_RATE * (1.0f / 3.0f);
+    f32 updateRate = FMV2;
 
     skelAnime->morphWeight -= skelAnime->morphRate * updateRate;
     if (skelAnime->morphWeight <= 0.0f) {
@@ -1530,7 +1533,7 @@ static s32 SkelAnime_MorphTaper(GlobalContext* context, SkelAnime* skelAnime)
     s16 curPhase;
     f32 prevWeight;
     f32 curWeight;
-    f32 updateRate = R_UPDATE_RATE * (1.0f / 3.0f);
+    f32 updateRate = FMV2;
 
     skelAnime->morphWeight -= skelAnime->morphRate * updateRate;
     if (skelAnime->morphWeight <= 0.0f) {
@@ -1574,7 +1577,7 @@ void SkelAnime_AnimateFrame(SkelAnime* skelAnime) {
                                    partialFrame);
     }
     if (skelAnime->morphWeight != 0) {
-        f32 updateRate = R_UPDATE_RATE * (1.0f / 3.0f);
+        f32 updateRate = FMV2;
 
         skelAnime->morphWeight -= skelAnime->morphRate * updateRate;
         if (skelAnime->morphWeight <= 0.0f) {
@@ -1589,9 +1592,8 @@ void SkelAnime_AnimateFrame(SkelAnime* skelAnime) {
 /**
  * Advances an animation that loops over its full length and updates the frame tables
  */
-static s32 SkelAnime_LoopFull(GlobalContext* context, SkelAnime* skelAnime)
-{
-    f32 updateRate = R_UPDATE_RATE * (1.0f / 3.0f);
+static s32 SkelAnime_LoopFull(GlobalContext* context, SkelAnime* skelAnime) {
+    f32 updateRate = FMV2;
 
     skelAnime->curFrame += skelAnime->playSpeed * updateRate;
     if (skelAnime->curFrame < 0.0f) {
@@ -1606,9 +1608,8 @@ static s32 SkelAnime_LoopFull(GlobalContext* context, SkelAnime* skelAnime)
 /**
  * Advances an animation that loops over part of its length and updates the frame tables
  */
-static s32 SkelAnime_LoopPartial(GlobalContext* context, SkelAnime* skelAnime)
-{
-    f32 updateRate = R_UPDATE_RATE * (1.0f / 3.0f);
+static s32 SkelAnime_LoopPartial(GlobalContext* context, SkelAnime* skelAnime) {
+    f32 updateRate = FMV2;
 
     skelAnime->curFrame += skelAnime->playSpeed * updateRate;
     if (skelAnime->curFrame < skelAnime->startFrame) {
@@ -1624,9 +1625,8 @@ static s32 SkelAnime_LoopPartial(GlobalContext* context, SkelAnime* skelAnime)
 /**
  * Advances an animation that stops at endFrame and returns true when it is reached.
  */
-static s32 SkelAnime_Once(GlobalContext* context, SkelAnime* skelAnime)
-{
-    f32 updateRate = R_UPDATE_RATE * (1.0f / 3.0f);
+static s32 SkelAnime_Once(GlobalContext* context, SkelAnime* skelAnime) {
+    f32 updateRate = FMV2;
 
     if (skelAnime->curFrame == skelAnime->endFrame) {
 	    SkelAnime_GetFrameData((AnimationHeader*)skelAnime->animation, (s32)skelAnime->curFrame, skelAnime->limbCount,

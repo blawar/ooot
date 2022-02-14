@@ -349,8 +349,7 @@ void func_8097E744(DemoGt* pthis, GlobalContext* globalCtx, u32 actionIdx) {
     f32 someFloat;
 
     if (npcAction != NULL) {
-        someFloat =
-            Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 8, 0);
+	    someFloat = Environment_LerpWeightAccelDecel(npcAction->endFrame, npcAction->startFrame, globalCtx->csCtx.frames, 8, 0);
         startX = npcAction->startPos.x;
         startY = npcAction->startPos.y;
         startZ = npcAction->startPos.z;
@@ -503,9 +502,8 @@ void func_8097EEA8_Init0(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8097EF00(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
-
-    if (frames == 527) {
+    if(globalCtx->csCtx.frames == 527)
+    {
         func_800F3F3C(13);
     }
 }
@@ -514,7 +512,6 @@ void func_8097EF34(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8097EF40(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
     s32 pad1[3];
     Vec3f dustPos;
     Vec3f velocity = { 0.0f, -16.0f, 0.0f };
@@ -522,7 +519,8 @@ void func_8097EF40(DemoGt* pthis, GlobalContext* globalCtx) {
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     s32 pad;
 
-    if ((kREG(1) == 20) || (frames == 220)) {
+    if((kREG(1) == 20) || (globalCtx->csCtx.frames == 220))
+    {
         dustPos.x = pos->x + 256.0f;
         dustPos.y = pos->y + 679.0f;
         dustPos.z = pos->z + 82.0f;
@@ -542,7 +540,7 @@ void func_8097F0AC(DemoGt* pthis, GlobalContext* globalCtx) {
     Vec3f sp38;
     s16 pad1[3];
     Vec3f sp24;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     s32 pad2;
 
     if ((frames == 140) || (kREG(1) == 19)) {
@@ -723,7 +721,7 @@ void func_8097F96C(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[4];
     Vec3f pos;
     Actor* actor;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (((frames > 1059) && (frames < 1062)) || kREG(1) == 17) {
         pos.x = pthis->dyna.actor.world.pos.x;
@@ -744,7 +742,7 @@ void func_8097F96C(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_8097FA1C(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { -12.0f, -17.0, 5.0 };
     s32 pad1[3];
@@ -766,7 +764,7 @@ void func_8097FAFC(DemoGt* pthis, GlobalContext* globalCtx) {
     static s32 arg7 = 1;
     static s16 life = 3;
     s32 pad[2];
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f pos;
     f32 new_var = -200.0;
 
@@ -787,7 +785,7 @@ void func_8097FAFC(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_8097FC1C(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 5.0f, -16.0f, -16.0f };
     s32 pad1[3];
@@ -803,7 +801,7 @@ void func_8097FC1C(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_8097FCE4(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f vec;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 0x1F7 || kREG(1) == 4) {
         vec.x = pthis->dyna.actor.world.pos.x + 300.0f;
@@ -946,7 +944,7 @@ void func_80980218(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_809802AC(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 0.0f, 0.0f, -10.0f };
     s32 pad1[3];
@@ -962,7 +960,7 @@ void func_809802AC(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_8098036C(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* world = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 5.0f, -3.0f, 0.0f };
     s32 pad1[3];
@@ -978,12 +976,12 @@ void func_8098036C(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_80980430(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    s32 frames = globalCtx->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 5.0f, -3.0f, 0.0f };
     s32 pad1[3];
 
-    if (frames > 709 || kREG(1) == 8) {
+    if(globalCtx->csCtx.frames > 709 || kREG(1) == 8)
+    {
         dustPos.x = pos->x + 760.0f;
         dustPos.y = pos->y - 40.0f;
         dustPos.z = pos->z - 240.0f;
@@ -994,7 +992,7 @@ void func_80980430(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_80980504(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 5.0f, -16.0f, -16.0f };
     s32 pad1[3];
@@ -1010,7 +1008,7 @@ void func_80980504(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_809805D8(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* homePos = &pthis->dyna.actor.home.pos;
     Vec3f velOffset = { 15.0f, -26.0, 0.0f };
     s32 pad1[3];
@@ -1026,7 +1024,7 @@ void func_809805D8(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_809806B8(DemoGt* pthis, GlobalContext* globalContext) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalContext->csCtx.frames;
+    const auto& frames = globalContext->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 5.0f, -16.0f, -16.0f };
     s32 pad1[3];
@@ -1042,7 +1040,7 @@ void func_809806B8(DemoGt* pthis, GlobalContext* globalContext) {
 void func_8098078C(DemoGt* pthis, GlobalContext* globalContext) {
     s32 pad[3];
     Vec3f dustPos;
-    u16 frames = globalContext->csCtx.frames;
+    const auto& frames = globalContext->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
     Vec3f velOffset = { 5.0f, -16.0f, -16.0f };
     s32 pad1[3];
@@ -1058,7 +1056,7 @@ void func_8098078C(DemoGt* pthis, GlobalContext* globalContext) {
 void func_8098085C(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f sp28;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f* pos = &pthis->dyna.actor.world.pos;
 
     if ((frames == 58) || (kREG(1) == 1)) {
@@ -1083,7 +1081,7 @@ void func_809809C0(DemoGt* pthis, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
     DemoGt* pthis2 = pthis;
     s32 gameplayFrames = globalCtx->gameplayFrames;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     Vec3f sp54;
     s16 pad[3];
 
@@ -1105,7 +1103,7 @@ void func_809809C0(DemoGt* pthis, GlobalContext* globalCtx2) {
 void func_80980AD4(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[4];
     Vec3f pos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if ((frames == 477) || (kREG(2) == 1)) {
         pos.x = pthis->dyna.actor.world.pos.x + 790.0f;
@@ -1120,7 +1118,7 @@ void func_80980AD4(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_80980B68(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[4];
     Vec3f pos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if ((frames == 317) || (kREG(3) == 1)) {
         pos.x = pthis->dyna.actor.world.pos.x + 980.0f;
@@ -1134,7 +1132,7 @@ void func_80980B68(DemoGt* pthis, GlobalContext* globalCtx) {
 void func_80980BFC(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[4];
     Vec3f pos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if ((frames == 740) || (kREG(4) == 1)) {
         pos.x = pthis->dyna.actor.world.pos.x + 790.0f;
@@ -1205,7 +1203,7 @@ void func_80980F00_Init5(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80980F58(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 244) {
         func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
@@ -1216,7 +1214,7 @@ void func_80980F8C(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f sp58;
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if ((frames > 259) && (frames < 289)) {
         Vec3f velOfset = { 0.0f, -17.0f, 0.0f };
@@ -1264,7 +1262,7 @@ void DemoGt_Update16(DemoGt* pthis, GlobalContext* globalCtx) {
 void DemoGt_Draw4(DemoGt* pthis, GlobalContext* globalCtx2) {
     GraphicsContext* gfxCtx;
     GlobalContext* globalCtx = globalCtx2;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
     s32 pad;
     s16 sp76;
     f32 sp70;
@@ -1328,7 +1326,7 @@ void func_809813CC_Init6(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80981424(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 789) {
         func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
@@ -1339,7 +1337,7 @@ void func_80981458(DemoGt* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
     Vec3f sp58;
     Vec3f dustPos;
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (((frames > 855) && (frames < 891)) || (kREG(1) == 13)) {
         Vec3f velOffset = { 0.0f, -30.0f, 0.0f };
@@ -1446,7 +1444,7 @@ void func_809818A4_Init7(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809818FC(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 845) {
         func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
@@ -1537,7 +1535,7 @@ void func_80981C94_Init23(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80981CEC(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 183) {
         func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
@@ -1628,7 +1626,7 @@ void func_80982054_Init24(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809820AC(DemoGt* pthis, GlobalContext* globalCtx) {
-    u16 frames = globalCtx->csCtx.frames;
+    const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 154) {
         func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);

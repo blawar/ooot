@@ -12,6 +12,7 @@ static std::unique_ptr<platform::window::Base> gWindow;
 #include "ultra64/vi.h"
 //#include "sched.h"
 #include "gfx.h"
+#include "framerate.h"
 #include "def/graph.h"
 extern OSViMode osViModeNtscLan1;
 
@@ -410,7 +411,7 @@ extern "C" {
 	{
 		if(gWindow)
 		{
-			gWindow->setTargetFrameRate(60 / frameRateDivisor());
+			gWindow->setTargetFrameRate(FRAMERATE_MAX / frameRateDivisor());
 			gWindow->end_frame();
 		}
 		audio_thread();

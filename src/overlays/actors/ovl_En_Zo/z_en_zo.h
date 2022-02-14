@@ -32,9 +32,9 @@ typedef struct EnZo {
     /* 0x0644 */ f32 dialogRadius;
     /* 0x0648 */ f32 alpha;
     /* 0x064C */ s16 unk_64C;
-    /* 0x064E */ s16 rippleTimer;
-    /* 0x0650 */ s16 timeToDive;
-    /* 0x0652 */ s16 blinkTimer;
+    /* 0x064E */ Timer rippleTimer;
+    /* 0x0650 */ Timer timeToDive;
+    /* 0x0652 */ Timer blinkTimer;
     /* 0x0654 */ s16 eyeTexture;
     /* 0x0656 */ s16 unk_656[20];
     /* 0x067E */ s16 unk_67E[20];

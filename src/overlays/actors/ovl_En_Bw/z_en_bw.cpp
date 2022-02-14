@@ -905,8 +905,8 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     if (pthis->iceTimer != 0) {
         thisx->colorFilterTimer++;
         pthis->iceTimer--;
-        if ((pthis->iceTimer & 3) == 0) {
-            iceIndex = pthis->iceTimer >> 2;
+        if ((pthis->iceTimer.whole() & 3) == 0) {
+            iceIndex = pthis->iceTimer.whole() >> 2;
 
             icePos.x = sIceOffsets[iceIndex].x + thisx->world.pos.x;
             icePos.y = sIceOffsets[iceIndex].y + thisx->world.pos.y;

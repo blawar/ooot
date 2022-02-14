@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include <z64camera.h>
 #include "z_player.h"
+#include "framerate.h"
 #include "z_scene_table.h"
 #include "hack.h"
 extern u8 gPlayerModelTypes[][5];
@@ -926,7 +927,7 @@ static LinkAnimationHeader** AnimHeaderLut[] = {
     D_80853B54,D_80853B6C,D_80853B84,D_80853B9C,D_80853BB4,D_80853BCC,D_80853BE4,D_80853BFC,
     D_80853C14,D_80853C2C,D_80853C44,D_80853C5C,D_80853C74,D_80853C8C,D_80853CA4,D_80853CBC,
     D_80853CD4,D_80853CEC,D_80853D04,D_80853D1C,D_80853D34,
-    (LinkAnimationHeader**)D_80853D4C,(LinkAnimationHeader**)D_80853D7C, // are these last two an error?
+    (LinkAnimationHeader**)D_80853D4C,(LinkAnimationHeader**)D_80853D7C, // is this intended?
 };
 
 static struct_80832924 D_80853DEC[] = {
@@ -6586,7 +6587,7 @@ s32 func_8084021C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 }
 
 void func_8084029C(Player* pthis, f32 arg1) {
-    f32 updateScale = R_UPDATE_RATE * 0.5f;
+    f32 updateScale = FRAMERATE_ANIM_SCALER;
 
     arg1 *= updateScale;
     if (arg1 < -7.25) {
@@ -6966,7 +6967,7 @@ void func_80841138(Player* pthis, GlobalContext* globalCtx) {
     f32 temp2;
 
     if (pthis->unk_864 < 1.0f) {
-        temp1 = R_UPDATE_RATE * 0.5f;
+        temp1 = FRAMERATE_ANIM_SCALER;
         func_8084029C(pthis, REG(35) / 1000.0f);
         LinkAnimation_LoadToJoint(globalCtx, &pthis->skelAnime, D_80853BFC[pthis->modelAnimType], pthis->unk_868);
         pthis->unk_864 += 1 * temp1;
@@ -7261,7 +7262,7 @@ void func_80841EE4(Player* pthis, GlobalContext* globalCtx) {
     f32 temp2;
 
     if (pthis->unk_864 < 1.0f) {
-        temp1 = R_UPDATE_RATE * 0.5f;
+        temp1 = FRAMERATE_ANIM_SCALER;
 
         func_8084029C(pthis, REG(35) / 1000.0f);
         LinkAnimation_LoadToJoint(globalCtx, &pthis->skelAnime, D_8085392C[pthis->modelAnimType], pthis->unk_868);
@@ -8591,7 +8592,7 @@ s32 func_80845964(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg
     }
 
     if (arg5 != 2) {
-        f32 sp34 = R_UPDATE_RATE * 0.5f;
+        f32 sp34 = FRAMERATE_ANIM_SCALER;
         f32 selfDistX = arg2->endPos.x - pthis->actor.world.pos.x;
         f32 selfDistZ = arg2->endPos.z - pthis->actor.world.pos.z;
         f32 sp28 = sqrtf(SQ(selfDistX) + SQ(selfDistZ)) / sp34;
@@ -8971,7 +8972,7 @@ static ColliderQuadInit D_808546A0 = {
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
 
-void func_8084663C(Actor* thisx, GlobalContext* globalCtx) {
+void func_8084663C(Actor* pthisx, GlobalContext* globalCtx) {
 }
 
 void func_80846648(GlobalContext* globalCtx, Player* pthis) {
@@ -9108,8 +9109,8 @@ static void (*D_80854738[])(GlobalContext* globalCtx, Player* pthis) = {
 
 static Vec3f D_80854778 = { 0.0f, 50.0f, 0.0f };
 
-void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
-    Player* pthis = (Player*)thisx;
+void Player_Init(Actor* pthisx, GlobalContext* globalCtx2) {
+    Player* pthis = (Player*)pthisx;
     GlobalContext* globalCtx = globalCtx2;
     SceneTableEntry* scene = globalCtx->loadedScene;
     u32 titleFileSize;
@@ -9129,7 +9130,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
     globalCtx->damagePlayer = Player_InflictDamage;
     globalCtx->talkWithPlayer = func_80853148;
 
-    thisx->room = -1;
+    pthisx->room = -1;
     pthis->ageProperties = &sAgeProperties[gSaveContext.linkAge];
     pthis->itemActionParam = pthis->heldItemActionParam = -1;
     pthis->heldItemId = ITEM_NONE;
@@ -9144,7 +9145,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     if (sp50 != 0) {
         if (sp50 == -3) {
-            thisx->params = gSaveContext.respawn[RESPAWN_MODE_RETURN].playerParams;
+            pthisx->params = gSaveContext.respawn[RESPAWN_MODE_RETURN].playerParams;
         } else {
             if ((sp50 == 1) || (sp50 == -1)) {
                 pthis->unk_A86 = -2;
@@ -9154,12 +9155,12 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
                 sp4C = 0;
             } else {
                 sp4C = sp50 - 1;
-                Math_Vec3f_Copy(&thisx->world.pos, &gSaveContext.respawn[sp50 - 1].pos);
-                Math_Vec3f_Copy(&thisx->home.pos, &thisx->world.pos);
-                Math_Vec3f_Copy(&thisx->prevPos, &thisx->world.pos);
-                pthis->fallStartHeight = thisx->world.pos.y;
-                pthis->currentYaw = thisx->shape.rot.y = gSaveContext.respawn[sp4C].yaw;
-                thisx->params = gSaveContext.respawn[sp4C].playerParams;
+                Math_Vec3f_Copy(&pthisx->world.pos, &gSaveContext.respawn[sp50 - 1].pos);
+                Math_Vec3f_Copy(&pthisx->home.pos, &pthisx->world.pos);
+                Math_Vec3f_Copy(&pthisx->prevPos, &pthisx->world.pos);
+                pthis->fallStartHeight = pthisx->world.pos.y;
+                pthis->currentYaw = pthisx->shape.rot.y = gSaveContext.respawn[sp4C].yaw;
+                pthisx->params = gSaveContext.respawn[sp4C].playerParams;
             }
 
             globalCtx->actorCtx.flags.tempSwch = gSaveContext.respawn[sp4C].tempSwchFlags & 0xFFFFFF;
@@ -9183,7 +9184,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     if (func_80845C68(globalCtx, (sp50 == 2) ? 1 : 0) == 0) {
-        gSaveContext.respawn[RESPAWN_MODE_DOWN].playerParams = (thisx->params & 0xFF) | 0xD00;
+        gSaveContext.respawn[RESPAWN_MODE_DOWN].playerParams = (pthisx->params & 0xFF) | 0xD00;
     }
 
     gSaveContext.respawn[RESPAWN_MODE_DOWN].data = 1;
@@ -9192,7 +9193,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
         gSaveContext.infTable[26] |= gBitFlags[globalCtx->sceneNum];
     }
 
-    initMode = (thisx->params & 0xF00) >> 8;
+    initMode = (pthisx->params & 0xF00) >> 8;
     if ((initMode == 5) || (initMode == 6)) {
         if (gSaveContext.cutsceneIndex >= 0xFFF0) {
             initMode = 13;
@@ -9203,7 +9204,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     if (initMode != 0) {
         if ((gSaveContext.gameMode == 0) || (gSaveContext.gameMode == 3)) {
-            pthis->naviActor = Player_SpawnFairy(globalCtx, pthis, &thisx->world.pos, &D_80854778, FAIRY_NAVI);
+            pthis->naviActor = Player_SpawnFairy(globalCtx, pthis, &pthisx->world.pos, &D_80854778, FAIRY_NAVI);
             if (gSaveContext.dogParams != 0) {
                 gSaveContext.dogParams |= 0x8000;
             }
@@ -10320,9 +10321,9 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
 
 static Vec3f D_80854838 = { 0.0f, 0.0f, -30.0f };
 
-void Player_Update(Actor* thisx, GlobalContext* globalCtx) {
+void Player_Update(Actor* pthisx, GlobalContext* globalCtx) {
     static Vec3f sDogSpawnPos;
-    Player* pthis = (Player*)thisx;
+    Player* pthis = (Player*)pthisx;
     s32 dogParams;
     s32 pad;
     Input sp44;
@@ -10458,9 +10459,9 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19328);
 }
 
-void Player_Draw(Actor* thisx, GlobalContext* globalCtx2) {
+void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
-    Player* pthis = (Player*)thisx;
+    Player* pthis = (Player*)pthisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19346);
 
@@ -10552,8 +10553,8 @@ void Player_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19473);
 }
 
-void Player_Destroy(Actor* thisx, GlobalContext* globalCtx) {
-    Player* pthis = (Player*)thisx;
+void Player_Destroy(Actor* pthisx, GlobalContext* globalCtx) {
+    Player* pthis = (Player*)pthisx;
 
     Effect_Delete(globalCtx, pthis->swordEffectIndex);
 
@@ -13007,7 +13008,7 @@ void func_80850AEC(Player* pthis, GlobalContext* globalCtx) {
 
 void func_80850C68(Player* pthis, GlobalContext* globalCtx) {
     if ((pthis->unk_850 != 0) && ((pthis->unk_858 != 0.0f) || (pthis->unk_85C != 0.0f))) {
-        f32 updateScale = R_UPDATE_RATE * 0.5f;
+        f32 updateScale = FRAMERATE_ANIM_SCALER;
 
         pthis->skelAnime.curFrame += pthis->skelAnime.playSpeed * updateScale;
         if (pthis->skelAnime.curFrame >= pthis->skelAnime.animLength) {
@@ -13754,7 +13755,7 @@ void func_808520BC(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
     f32 distX = (arg2->endPos.x - startX);
     f32 distY = (arg2->endPos.y - startY);
     f32 distZ = (arg2->endPos.z - startZ);
-    f32 sp4 = (f32)(globalCtx->csCtx.frames - arg2->startFrame) / (f32)(arg2->endFrame - arg2->startFrame);
+    f32 sp4 = (globalCtx->csCtx.frames - arg2->startFrame) / (f32)(arg2->endFrame - arg2->startFrame);
 
     pthis->actor.world.pos.x = distX * sp4 + startX;
     pthis->actor.world.pos.y = distY * sp4 + startY;

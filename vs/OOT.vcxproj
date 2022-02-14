@@ -1204,6 +1204,7 @@
     <ClCompile Include="..\src\code\fault.cpp" />
     <ClCompile Include="..\src\code\fault_drawer.cpp" />
     <ClCompile Include="..\src\code\flg_set.cpp" />
+    <ClCompile Include="..\src\code\framerate.cpp" />
     <ClCompile Include="..\src\code\game.cpp" />
     <ClCompile Include="..\src\code\gamealloc.cpp" />
     <ClCompile Include="..\src\code\gfxprint.cpp" />

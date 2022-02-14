@@ -190,7 +190,7 @@ static CutsceneCameraPoint sSparklesCameraPoints[] = {
 
 static s16 D_8098CF80;
 static s16 sRainScale;
-static s16 D_8098CF84;
+static TimerS16 D_8098CF84;
 
 void DemoKankyo_SetupAction(DemoKankyo* pthis, DemoKankyoActionFunc actionFunc) {
     pthis->actionFunc = actionFunc;
@@ -400,7 +400,7 @@ void DemoKankyo_SetRockPos(DemoKankyo* pthis, GlobalContext* globalCtx, s32 para
     endPos.x = csAction->endPos.x;
     endPos.y = csAction->endPos.y;
     endPos.z = csAction->endPos.z;
-    temp_f0 = Environment_LerpWeight(csAction->endFrame, csAction->startFrame, globalCtx->csCtx.frames);
+    temp_f0		     = Environment_LerpWeight(csAction->endFrame, csAction->startFrame, globalCtx->csCtx.frames);
     pthis->actor.world.pos.x = ((endPos.x - startPos.x) * temp_f0) + startPos.x;
     pthis->actor.world.pos.y = ((endPos.y - startPos.y) * temp_f0) + startPos.y;
     pthis->actor.world.pos.z = ((endPos.z - startPos.z) * temp_f0) + startPos.z;
@@ -678,7 +678,7 @@ void DemoKankyo_DrawClouds(Actor* thisx, GlobalContext* globalCtx) {
 
     for (i = 0; i < 30; i++) {
         dx = -(Math_SinS(pthis->unk_150[i].unk_20 - 0x8000) * 120.0f) * (30.0f + (i / 30.0f) * 10.0f);
-        dy = Math_CosS(pthis->unk_150[i].unk_20 - 0x8000) * 5.0f + 1200.0f;
+	    dy = Math_CosS(pthis->unk_150[i].unk_20 - 0x8000) * 5.0f + 1200.0f;
         dz = (Math_CosS(pthis->unk_150[i].unk_20 - 0x8000) * 120.0f) * (30.0f + (i / 30.0f) * 10.0f);
 
         Matrix_Translate(globalCtx->view.eye.x + dx, globalCtx->view.eye.y + dy + ((i - 12.0f) * 300.0f),

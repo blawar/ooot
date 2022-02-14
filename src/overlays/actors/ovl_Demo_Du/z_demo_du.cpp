@@ -364,21 +364,21 @@ void DemoDu_CsPlaySfx_LinkSurprised(GlobalContext* globalCtx) {
 }
 
 void DemoDu_CsGoronsRuby_UpdateFaceTextures(DemoDu* pthis, GlobalContext* globalCtx) {
-    u16* frames = &globalCtx->csCtx.frames;
+    auto& frames = globalCtx->csCtx.frames;
 
-    if (*frames < 260) {
+    if (frames < 260) {
         DemoDu_UpdateEyes(pthis);
         DemoDu_SetMouthTexIndex(pthis, 0);
-    } else if (*frames < 335) {
+    } else if (frames < 335) {
         DemoDu_UpdateEyes(pthis);
         DemoDu_SetMouthTexIndex(pthis, 3);
-    } else if (*frames < 365) {
+    } else if (frames < 365) {
         DemoDu_SetEyeTexIndex(pthis, 3);
         DemoDu_SetMouthTexIndex(pthis, 1);
-    } else if (*frames < 395) {
+    } else if (frames < 395) {
         DemoDu_SetEyeTexIndex(pthis, 0);
         DemoDu_SetMouthTexIndex(pthis, 3);
-    } else if (*frames < 410) {
+    } else if (frames < 410) {
         DemoDu_UpdateEyes(pthis);
         DemoDu_SetMouthTexIndex(pthis, 0);
     } else {
@@ -456,7 +456,7 @@ void DemoDu_CsGoronsRuby_DaruniaFalling(DemoDu* pthis, GlobalContext* globalCtx)
         Vec3f* pos = &pthis->actor.world.pos;
 
         if (npcAction != NULL) {
-            f32 traveledPercent = Environment_LerpWeight(npcAction->endFrame, npcAction->startFrame, csCtx->frames);
+		    f32 traveledPercent = Environment_LerpWeight(npcAction->endFrame, npcAction->startFrame, csCtx->frames);
 
             startPos.x = npcAction->startPos.x;
             startPos.y = npcAction->startPos.y;

@@ -10,6 +10,7 @@
 #include "objects/object_bv/object_bv.h"
 #include "overlays/actors/ovl_En_Boom/z_en_boom.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
+#include "framerate.h"
 #include "def/code_800EC960.h"
 #include "def/code_800F7260.h"
 #include "def/code_800F9280.h"
@@ -1961,7 +1962,7 @@ void BossVa_ZapperAttack(BossVa* pthis, GlobalContext* globalCtx) {
         sp7C.y += 10.0f;
         sp8E = 0x3E80;
     } else {
-        sp74 = R_UPDATE_RATE * 0.5f;
+        sp74 = FRAMERATE_ANIM_SCALER;
         sp8E = 0x4650;
 
         boomTarget = boomerang->moveTo;

@@ -3,6 +3,7 @@
 #include "vt.h"
 #include "gfx.h"
 #include "z64global.h"
+#include "framerate.h"
 #include "speedmeter.h"
 #include "z_vismono.h"
 #include "n64fault.h"
@@ -464,7 +465,7 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
 
     startTime = endTime;
     GameState_InitArena(gameState, 0x100000 * 0x30); // TODO FIX HACK
-    R_UPDATE_RATE = 3;
+    framerate_set_profile(PROFILE_GAMEPLAY);
     init(gameState);
 
     endTime = osGetTime();

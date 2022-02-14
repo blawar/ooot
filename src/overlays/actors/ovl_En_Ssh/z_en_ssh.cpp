@@ -301,7 +301,7 @@ void EnSsh_SetColliderScale(EnSsh* pthis, f32 scale, f32 radiusMod) {
 
 s32 EnSsh_Damaged(EnSsh* pthis) {
     if ((pthis->stunTimer == 120) && (pthis->stateFlags & SSH_STATE_STUNNED)) {
-        Actor_SetColorFilter(&pthis->actor, 0, 0xC8, 0, pthis->stunTimer);
+        Actor_SetColorFilter(&pthis->actor, 0, 0xC8, 0, pthis->stunTimer.whole());
     }
     if (DECR(pthis->stunTimer) != 0) {
         Math_SmoothStepToS(&pthis->maxTurnRate, 0x2710, 0xA, 0x3E8, 1);
@@ -324,7 +324,7 @@ void EnSsh_Turn(EnSsh* pthis, GlobalContext* globalCtx) {
         pthis->hitTimer--;
     }
     if (DECR(pthis->spinTimer) != 0) {
-        pthis->actor.world.rot.y += 10000.0f * (pthis->spinTimer / 30.0f);
+	    pthis->actor.world.rot.y += 10000.0f * FRAMERATE_SCALER * (pthis->spinTimer.toFloat() / 30.0f);
     } else if ((pthis->swayTimer == 0) && (pthis->stunTimer == 0)) {
         Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 4, 0x2710, 1);
     }
@@ -337,10 +337,10 @@ void EnSsh_Stunned(EnSsh* pthis, GlobalContext* globalCtx) {
     }
     pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
     if (pthis->stunTimer < 30) {
-        if (pthis->stunTimer & 1) {
-            pthis->actor.shape.rot.y += 0x7D0;
+        if (pthis->stunTimer.whole() & 1) {
+            pthis->actor.shape.rot.y += 0x7D0 * FRAMERATE_SCALER;
         } else {
-            pthis->actor.shape.rot.y -= 0x7D0;
+            pthis->actor.shape.rot.y -= 0x7D0 * FRAMERATE_SCALER;
         }
     }
 }
@@ -421,12 +421,12 @@ void EnSsh_Sway(EnSsh* pthis) {
     s16 swayAngle;
 
     if (pthis->swayTimer != 0) {
-        pthis->swayAngle += 0x640;
+        pthis->swayAngle += 0x640 * FRAMERATE_SCALER;
         pthis->swayTimer--;
         if (pthis->swayTimer == 0) {
             pthis->swayAngle = 0;
         }
-        temp = pthis->swayTimer * (1.0f / 6);
+        temp = pthis->swayTimer.toFloat() * (1.0f / 6.0f);
         swayAngle = temp * (0x10000 / 360.0f) * Math_SinS(pthis->swayAngle);
         temp = pthis->actor.world.pos.y - pthis->ceilingPos.y;
         swayVecBase.x = Math_SinS(swayAngle) * temp;

@@ -2,6 +2,7 @@
 #include "global.h"
 #include "z64interface.h"
 #include "z64global.h"
+#include "framerate.h"
 #include "z64save.h"
 #include "sfx.h"
 #include "gfx_align.h""
@@ -285,7 +286,7 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
     s16 totalHeartCount = gSaveContext.healthCapacity / 0x10;
     s16 fullHeartCount = gSaveContext.health / 0x10;
     s32 pad2;
-    f32 beatingHeartPulsingSize = interfaceCtx->beatingHeartOscillator * 0.1f;
+    f32 beatingHeartPulsingSize = interfaceCtx->beatingHeartOscillator.toFloat() * 0.1f;
     s32 curCombineModeSet = 0;
     u8* curBgImgLoaded = NULL;
     s32 ddHeartCountMinusOne = gSaveContext.inventory.defenseHearts - 1;
@@ -470,7 +471,7 @@ void HealthMeter_UpdateBeatingHeart(GlobalContext* globalCtx) {
     InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
     if (interfaceCtx->beatingHeartOscillatorDirection != 0) {
-        interfaceCtx->beatingHeartOscillator--;
+	    interfaceCtx->beatingHeartOscillator--;
         if (interfaceCtx->beatingHeartOscillator <= 0) {
             interfaceCtx->beatingHeartOscillator = 0;
             interfaceCtx->beatingHeartOscillatorDirection = 0;
@@ -480,9 +481,9 @@ void HealthMeter_UpdateBeatingHeart(GlobalContext* globalCtx) {
             }
         }
     } else {
-        interfaceCtx->beatingHeartOscillator++;
-        if (interfaceCtx->beatingHeartOscillator >= 10) {
-            interfaceCtx->beatingHeartOscillator = 10;
+	    interfaceCtx->beatingHeartOscillator++;
+        if (interfaceCtx->beatingHeartOscillator >= 10.0f) {
+            interfaceCtx->beatingHeartOscillator = 10.0f;
             interfaceCtx->beatingHeartOscillatorDirection = 1;
         }
     }

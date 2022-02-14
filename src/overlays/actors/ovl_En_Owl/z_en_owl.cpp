@@ -776,8 +776,8 @@ void func_80ACB748(EnOwl* pthis, GlobalContext* globalCtx) {
         case 8:
         case 9:
             func_800F436C(&D_80ACD62C, NA_SE_EV_FLYING_AIR - SFX_FLAG, weight * 2.0f);
-            if ((globalCtx->csCtx.frames >= 420) ||
-                ((0xC1 < globalCtx->csCtx.frames && (globalCtx->csCtx.frames <= 280)))) {
+            if ((globalCtx->csCtx.frames >= 420) || ((globalCtx->csCtx.frames > 0xC1 && (globalCtx->csCtx.frames <= 280))))
+	    {
                 func_800F4414(&D_80ACD62C, NA_SE_EN_OWL_FLUTTER, weight * 2.0f);
             }
             if (globalCtx->csCtx.frames == 217) {
@@ -1368,8 +1368,7 @@ void func_80ACD130(EnOwl* pthis, GlobalContext* globalCtx, s32 idx) {
 }
 
 f32 func_80ACD1C4(GlobalContext* globalCtx, s32 idx) {
-    f32 ret = Environment_LerpWeight(globalCtx->csCtx.npcActions[idx]->endFrame,
-                                     globalCtx->csCtx.npcActions[idx]->startFrame, globalCtx->csCtx.frames);
+	f32 ret = Environment_LerpWeight(globalCtx->csCtx.npcActions[idx]->endFrame, globalCtx->csCtx.npcActions[idx]->startFrame, globalCtx->csCtx.frames);
 
     ret = CLAMP_MAX(ret, 1.0f);
     return ret;

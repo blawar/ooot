@@ -131,6 +131,8 @@ void Environment_Init(struct GlobalContext* globalCtx, EnvironmentContext* envCt
 u8 Environment_SmoothStepToU8(u8* pvalue, u8 target, u8 scale, u8 step, u8 minStep);
 u8 Environment_SmoothStepToS8(s8* pvalue, s8 target, u8 scale, u8 step, u8 minStep);
 f32 Environment_LerpWeight(u16 max, u16 min, u16 val);
+f32 Environment_LerpWeight(const Counter max, const Counter min, const Counter val);
+f32 Environment_LerpWeight(u16 max, u16 min, const Counter val);
 f32 Environment_LerpWeightAccelDecel(u16 endFrame, u16 startFrame, u16 curFrame, u16 accelDuration, u16 decelDuration);
 void Environment_UpdateSkybox(u8 skyboxId, EnvironmentContext* envCtx, SkyboxContext* skyboxCtx);
 void Environment_EnableUnderwaterLights(struct GlobalContext* globalCtx, s32 waterLightsIndex);

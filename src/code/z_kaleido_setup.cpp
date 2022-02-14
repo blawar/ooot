@@ -5,6 +5,7 @@
 #include "kaleido.h"
 #include "z64global.h"
 #include "z64item.h"
+#include "framerate.h"
 #include "def/code_800EC960.h"
 #include "def/shrink_window.h"
 #include "def/z_actor.h"
@@ -63,7 +64,7 @@ void KaleidoSetup_Update(GlobalContext* globalCtx) {
 
         if (pauseCtx->state == 1) {
             WREG(2) = -6240;
-            R_UPDATE_RATE = 2;
+            framerate_set_profile(PROFILE_PAUSE);
 
             if (ShrinkWindow_GetVal()) {
                 ShrinkWindow_SetVal(0);

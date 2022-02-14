@@ -2,6 +2,7 @@
 #include "global.h"
 #include "regs.h"
 #include "z64game.h"
+#include "framerate.h"
 #include "def/shrink_window.h"
 
 s32 D_8012CED0 = 0;
@@ -50,10 +51,10 @@ void ShrinkWindow_Destroy(void) {
 void ShrinkWindow_Update(s32 updateRate) {
     s32 off;
 
-    if (updateRate == 3) {
+    if (framerate_get_profile() == PROFILE_GAMEPLAY) {
         off = 10;
     } else {
-        off = 30 / updateRate;
+        off = 30 * FRAMERATE_RATE_SCALER / updateRate;
     }
 
     if (sShrinkWindowCurrentVal < sShrinkWindowVal) {

@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_SCOPE_PAL_C
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
+#include "Framerate.h"
 #include "segment_symbols.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"
@@ -3461,7 +3462,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                 if (interfaceCtx->unk_244 >= 255) {
                     interfaceCtx->unk_244 = 255;
                     pauseCtx->state = 0;
-                    R_UPDATE_RATE = 3;
+                    framerate_set_profile(PROFILE_GAMEPLAY);
                     R_PAUSE_MENU_MODE = 0;
                     func_800981B8(&globalCtx->objectCtx);
                     func_800418D0(&globalCtx->colCtx, globalCtx);
@@ -3517,7 +3518,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
 
         case 0x13:
             pauseCtx->state = 0;
-            R_UPDATE_RATE = 3;
+            framerate_set_profile(PROFILE_GAMEPLAY);
             R_PAUSE_MENU_MODE = 0;
             func_800981B8(&globalCtx->objectCtx);
             func_800418D0(&globalCtx->colCtx, globalCtx);

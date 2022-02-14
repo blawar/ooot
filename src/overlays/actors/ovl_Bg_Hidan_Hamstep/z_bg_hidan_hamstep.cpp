@@ -7,6 +7,7 @@
  */
 
 #include "z_bg_hidan_hamstep.h"
+#include "framerate.h"
 #include "objects/object_hidan_objects/object_hidan_objects.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
@@ -272,7 +273,7 @@ void func_80888694(BgHidanHamstep* pthis, BgHidanHamstep* parent) {
 
 void func_80888734(BgHidanHamstep* pthis) {
     BgHidanHamstep* parent = (BgHidanHamstep*)pthis->dyna.actor.parent;
-    f32 frameDivisor = R_UPDATE_RATE * 0.5f;
+    f32 frameDivisor = FRAMERATE_ANIM_SCALER;
 
     if (parent != NULL) {
         pthis->dyna.actor.velocity.y = parent->dyna.actor.velocity.y;

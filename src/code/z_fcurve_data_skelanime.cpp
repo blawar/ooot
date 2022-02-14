@@ -2,6 +2,7 @@
 #include "global.h"
 #include "z64animation.h"
 #include "z64global.h"
+#include "framerate.h"
 #include "def/code_8006C510.h"
 #include "def/sys_matrix.h"
 #include "def/z_fcurve_data_skelanime.h"
@@ -67,7 +68,7 @@ s32 SkelCurve_Update(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve) {
     transformCopyValues = (u16*)SEGMENTED_TO_VIRTUAL(transformIndex->copyValues);
     transforms = (s16*)skelCurve->transforms;
 
-    skelCurve->animCurFrame += skelCurve->animSpeed * R_UPDATE_RATE * 0.5f;
+    skelCurve->animCurFrame += skelCurve->animSpeed * FRAMERATE_ANIM_SCALER;
 
     if ((skelCurve->animSpeed >= 0.0f && skelCurve->animCurFrame > skelCurve->animFinalFrame) ||
         (skelCurve->animSpeed < 0.0f && skelCurve->animCurFrame < skelCurve->animFinalFrame)) {

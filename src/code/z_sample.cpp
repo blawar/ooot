@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_SAMPLE_C
 #include "global.h"
 #include "gfx.h"
+#include "framerate.h"
 #include "segment_symbols.h"
 #include "textures/title_static/title_static.h"
 #include "z_sample.h"
@@ -103,9 +104,10 @@ void Sample_Init(GameState* pthisx) {
 
     pthis->state.main = Sample_Main;
     pthis->state.destroy = Sample_Destroy;
-    R_UPDATE_RATE = 1;
+    framerate_set_profile(PROFILE_SAMPLE);
     Sample_SetupView(pthis);
     Sample_LoadTitleStatic(pthis);
+
     SREG(37) = 0;
     SREG(38) = 0;
     SREG(39) = 0;

@@ -5,6 +5,7 @@
 #include "z64math.h"
 #include "z64collision_check.h"
 #include "color.h"
+#include "framerate.h"
 
 #define ACTOR_NUMBER_MAX 200
 #define INVISIBLE_ACTOR_MAX 20
