@@ -196,7 +196,7 @@ namespace oot
 			u8 m_padding[0x40 - 9];
 		};
 
-		//static_assert(sizeof(Game) == 0x40, "Game Incorrect Size");
+		static_assert(sizeof(Game) == 0x40, "Game Incorrect Size");
 
 		class Base
 		{
