@@ -166,13 +166,13 @@ typedef struct {
     /* 0x04 */ f32 unk_08;
 } struct_80854578; // size = 0x0C
 
-typedef struct {
+struct struct_80854B18 {
     /* 0x00 */ s8 type;
     /* 0x04 */ union {
         void* ptr;
         void (*func)(GlobalContext*, Player*, CsCmdActorAction*);
     };
-} struct_80854B18; // size = 0x08
+}; // size = 0x08
 
 typedef struct {
     /* 0x00 */ s16 unk_00;
