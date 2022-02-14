@@ -41,6 +41,12 @@ extern OSViMode osViModeNtscLan1;
 #include "xxhash64.h"
 #include "gfxapi.h"
 
+extern "C"
+{
+	void gfx_highres_enable(bool enable);
+	void gfx_switch_to_htc(bool enable);
+}
+
 OSMesg D_80339BEC;
 OSMesgQueue gSIEventMesgQueue;
 
@@ -113,9 +119,38 @@ bool verifyIntegrity()
 void main_func();
 void azi_init();
 
+static bool exists(const char* path)
+{
+	FILE* f;
+
+	if(fopen_s(&f, "THE LEGEND OF ZELDA_HIRESTEXTURES.hts", "r") == 0)
+	{
+		fclose(f);
+		return true;
+	}
+	return false;
+}
+
 void main_func(void)
 {
 	sm64::log("initializing app\n");
+
+	//Check if texture packs exist
+	if(exists("THE LEGEND OF ZELDA_HIRESTEXTURES.hts"))
+	{
+		gfx_switch_to_htc(false);
+		gfx_highres_enable(true);
+	}
+	else if(exists("THE LEGEND OF ZELDA_HIRESTEXTURES.htc"))
+	{
+		gfx_switch_to_htc(true);
+		gfx_highres_enable(false);
+	}
+	else
+	{
+		gfx_switch_to_htc(false);
+		gfx_highres_enable(false);
+	}
 
 #ifndef BUILD_NSO
 	if(!verifyIntegrity())

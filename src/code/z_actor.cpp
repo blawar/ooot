@@ -2389,7 +2389,7 @@ s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actor, Vec3f* projecte
     return false;
 }
 
-void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx) {
+void Draw_Actors(GlobalContext* globalCtx, ActorContext* actorCtx) {
     s32 invisibleActorCounter;
     Actor* invisibleActors[INVISIBLE_ACTOR_MAX];
     ActorListEntry* actorListEntry;
