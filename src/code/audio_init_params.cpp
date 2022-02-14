@@ -13,7 +13,7 @@ const s16 D_8014A6C0[] = {
     0x0030, // gTatumsPerBeat
 };
 
-const AudioContextInitSizes D_8014A6C4 = { 0x37F00, 0xE0E0, 0xBCE0 };
+AudioContextInitSizes D_8014A6C4 = { 0x37F00, 0xE0E0, 0xBCE0 };
 
 ReverbSettings D_80133420[][3] = {
     {

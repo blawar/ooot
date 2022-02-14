@@ -1206,7 +1206,6 @@ extern u8 D_80133418;
 
 
 
-extern const AudioContextInitSizes D_8014A6C4;
 extern s16 gOcarinaSongItemMap[];
 extern AudioTableDef gSoundFontTable;
 extern u16 gSequenceFontTable[];
