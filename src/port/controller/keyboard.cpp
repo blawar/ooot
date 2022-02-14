@@ -292,8 +292,8 @@ namespace sm64::hid
 
 				if (state[SDL_SCANCODE_F10] && (m_lastKeyState[SDL_SCANCODE_F10] ^ state[SDL_SCANCODE_F10]))
 				{
-					sm64::config().game().fullscreen() = !sm64::config().game().fullscreen();
-					set_fullscreen(sm64::config().game().fullscreen());
+					oot::config().game().fullscreen() = !oot::config().game().fullscreen();
+					set_fullscreen(oot::config().game().fullscreen());
 				}
 
 				if(state[SDL_SCANCODE_F9] && (m_lastKeyState[SDL_SCANCODE_F9] ^ state[SDL_SCANCODE_F9]))
@@ -303,10 +303,10 @@ namespace sm64::hid
 
 				if (state[SDL_SCANCODE_ESCAPE] && (m_lastKeyState[SDL_SCANCODE_ESCAPE] ^ state[SDL_SCANCODE_ESCAPE]))
 				{
-					if (sm64::config().game().fullscreen())
+					if (oot::config().game().fullscreen())
 					{
-						sm64::config().game().fullscreen() = false;
-						set_fullscreen(sm64::config().game().fullscreen());
+						oot::config().game().fullscreen() = false;
+						set_fullscreen(oot::config().game().fullscreen());
 					}
 				}
 

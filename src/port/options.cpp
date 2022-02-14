@@ -12,7 +12,7 @@ extern s32 sActSelectorMenuTimer;
 extern s16 gMenuMode;
 extern s8 goTogame;*/
 
-namespace sm64
+namespace oot
 {
 	static Options* g_options = nullptr;
 
@@ -268,29 +268,14 @@ namespace sm64
 			return m_mirror;
 		}
 
+		bool& Game::blindOwl()
+		{
+			return m_blindowl;
+		}
+
 		bool& Game::disableSound()
 		{
 			return m_disableSound;
-		}
-
-		bool Game::noStarExit() const
-		{
-			if (!m_noStarExit)
-			{
-				return false;
-			}
-
-			/*if (activeStageNo == LEVEL_BOWSER_1 || activeStageNo == LEVEL_BOWSER_2 || activeStageNo == LEVEL_BOWSER_3)
-			{
-				return false;
-			}*/
-
-			return true;
-		}
-
-		bool& Game::setNoStarExit()
-		{
-			return m_noStarExit;
 		}
 
 		bool& Game::disableFramePacing()
@@ -341,7 +326,7 @@ namespace sm64
 			g_levelLoaded = 0;
 		}
 
-		Cheats::Cheats() : m_invincible(false), m_moonJump(false), m_unlimitedLives(false), m_superJump(false), m_quadrupleJump(false)
+		Cheats::Cheats() : m_invincible(false), m_moonJump(false)
 		{
 			memset(junk, 0, sizeof(junk));
 		}

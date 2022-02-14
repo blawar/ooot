@@ -2,7 +2,7 @@
 #include <string>
 #include <map>
 
-namespace sm64
+namespace oot
 {
 	namespace options
 	{
@@ -116,18 +116,6 @@ namespace sm64
 			{
 				return m_moonJump;
 			}
-			bool& unlimitedLives()
-			{
-				return m_unlimitedLives;
-			}
-			bool& superJump()
-			{
-				return m_superJump;
-			}
-			bool& quadrupleJump()
-			{
-				return m_quadrupleJump;
-			}
 			float& bowserAimAssist()
 			{
 				return m_bowserAimAssist;
@@ -137,18 +125,15 @@ namespace sm64
 			{
 				return m_speed;
 			}
-
+			
 			protected:
 			bool m_invincible;
 			bool m_moonJump;
-			bool m_unlimitedLives;
-			bool m_superJump;
-			bool m_quadrupleJump;
-			u8 padding[3];
+			u8 padding[2];
 			float m_bowserAimAssist;
 			float m_speed;
 
-			u8 junk[0x40 - (5 + 7 + 4)];
+			u8 junk[0x40 - (2 + 7 + 4)];
 		};
 
 		static_assert(sizeof(Cheats) == 0x40, "Cheats size incorrect");
@@ -191,9 +176,8 @@ namespace sm64
 			bool& fullscreen();
 			const bool mirror() const;
 			bool& setMirror();
+			bool& blindOwl();
 
-			bool noStarExit() const;
-			bool& setNoStarExit();
 			bool& disableFramePacing();
 
 			bool& recordTas();
@@ -205,7 +189,7 @@ namespace sm64
 			bool m_disableSound;
 			bool m_fullscreen;
 			bool m_mirror;
-			bool m_noStarExit;
+			bool m_blindowl;
 			bool m_paceFrames;
 			bool m_recordTas;
 			bool m_forceMouse;
@@ -272,4 +256,4 @@ namespace sm64
 	typedef options::Base Options;
 
 	Options& config();
-} // namespace sm64
+} // namespace oot

@@ -153,7 +153,7 @@ namespace sm64::hid
 		// 0.5x A presses are a good meme
 		buttonDown = m_state.button;
 
-		if(sm64::config().game().mirror())
+		if(oot::config().game().mirror())
 		{
 			rawStickX   = -rawStickX;
 			r_rawStickX = -r_rawStickX;
@@ -234,12 +234,12 @@ namespace sm64::hid
 
 	s64 Controller::mouse_x() const
 	{
-		return m_state.mouse_x * (sm64::config().camera().mousexInvert() ? -1 : 1) * sm64::config().camera().mousexScaler();
+		return m_state.mouse_x * (oot::config().camera().mousexInvert() ? -1 : 1) * oot::config().camera().mousexScaler();
 	}
 
 	s64 Controller::mouse_y() const
 	{
-		return m_state.mouse_y * (sm64::config().camera().mouseyInvert() ? -1 : 1) * sm64::config().camera().mouseyScaler();
+		return m_state.mouse_y * (oot::config().camera().mouseyInvert() ? -1 : 1) * oot::config().camera().mouseyScaler();
 	}
 
 	bool Controller::updateRebind(int input)

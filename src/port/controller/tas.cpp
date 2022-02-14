@@ -24,7 +24,7 @@ namespace sm64::hid
 
 				if(fp != NULL)
 				{
-					fread(&sm64::config(), 1, sizeof(sm64::config()), fp);
+					fread(&oot::config(), 1, sizeof(oot::config()), fp);
 					g_tasPlaying = true;
 				}
 			}
