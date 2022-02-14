@@ -27,6 +27,7 @@
 #include "def/z_play.h"
 #include "def/z_rcp.h"
 #include "def/z_skelanime.h"
+#include <port/options.h>
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -275,6 +276,8 @@ void EnOwl_LookAtLink(EnOwl* pthis, GlobalContext* globalCtx) {
 s32 EnOwl_CheckInitTalk(EnOwl* pthis, GlobalContext* globalCtx, u16 textId, f32 targetDist, u16 flags) {
     s32 timer;
     f32 distCheck;
+
+    if (oot::config().game().blindOwl()) return false;
 
     if (Actor_ProcessTalkRequest(&pthis->actor, globalCtx)) {
         if (pthis->actor.params == 0xFFF) {

@@ -402,7 +402,7 @@ namespace sm64::hid
 					}
 				}
 
-				if(sm64::config().camera().useClassicCamera())
+				if(oot::config().camera().useClassicCamera())
 				{
 					int16_t leftx  = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTX);
 					int16_t lefty  = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTY);

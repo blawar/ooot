@@ -52,7 +52,7 @@ namespace sm64
 
 				m_controller.merge(*controller);
 			}
-			if (m_controllers.size() > 2 && !config().game().forceMouse())
+			if (m_controllers.size() > 2 && !oot::config().game().forceMouse())
 			{
 				m_controller.state().has_mouse = false;
 			}
