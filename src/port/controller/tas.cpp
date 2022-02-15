@@ -2,74 +2,60 @@
 #include <stdio.h>
 #include "../player/players.h"
 #include "../options.h"
+#include "tas.h"
 
 static u64 g_counter = 0;
 static  bool g_tasPlaying = false;
 
-namespace sm64::hid
+extern Players g_players;
+
+
+bool Tas::isTasPlaying()
 {
-	bool isTasPlaying()
+	return g_tasPlaying;
+}
+
+
+
+Tas::Tas() : N64Controller()
+{
+	fp = fopen("cont.tas", "rb");
+
+	if (fp != NULL)
 	{
-		return g_tasPlaying;
+		fread(&oot::config(), 1, sizeof(oot::config()), fp);
+		g_tasPlaying = true;
 	}
+}
 
-	namespace controller
+
+
+Tas::~Tas()
+{
+	if (fp)
+		fclose(fp);
+}
+
+
+
+void Tas::update()
+{
+	if (fp)
 	{
-		class Tas : public Controller
-		{
-			public:
-			Tas() : Controller()
-			{
-				fp = fopen("cont.tas", "rb");
-
-				if(fp != NULL)
-				{
-					fread(&oot::config(), 1, sizeof(oot::config()), fp);
-					g_tasPlaying = true;
-				}
-			}
-
-			virtual ~Tas()
-			{
-				if(fp)
-				{
-					fclose(fp);
-				}
-			}
-
-			void update()
-			{
-				if(fp != NULL)
-				{
-					auto r = fread(&m_state, 1, sizeof(m_state), fp);
-					if (m_state.button)
-					{
-						int x = 0;
-					}
-				}
-			}
-
-			protected:
-				FILE* fp;
-		};
-	} // namespace controller
-
-	Tas::Tas() : Driver()
-	{
+		auto r = fread(&m_state, 1, sizeof(m_state), fp);
+		if (m_state.button)
+			int x = 0;
 	}
+}
 
-	Tas::~Tas()
+
+
+void Tas::scan()
+{
+	if (!size())
 	{
+		auto controller = std::make_shared<Tas>();
+		m_controllers.push_back(controller);
+		g_players.attach(controller, 0);
 	}
-
-	void Tas::scan(class Controllers* controllers)
-	{
-		if(!size())
-		{
-			auto controller = std::make_shared<controller::Tas>();
-			m_controllers.push_back(controller);
-			players().attach(controller, 0);
-		}
-	}
-
-} // namespace sm64::hid
+}

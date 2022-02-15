@@ -11,109 +11,76 @@
 #define TAS_DIR "tas"
 #endif
 
-namespace sm64::hid
+
+N64Controller::State::State()
 {
-	State::State()
-	{
-		mouse_x	      = 0;
-		mouse_y	      = 0;
-		has_mouse     = false;
+	mouse_x	      = 0;
+	mouse_y	      = 0;
+	has_mouse     = false;
 
-		reset();
+	reset();
+}
+
+void N64Controller::State::reset()
+{
+	button	  = 0;
+	stick_x	  = 0;
+	stick_y	  = 0;
+	errnum	  = 0;
+	r_stick_x = 0;
+	r_stick_y = 0;
+	has_mouse = false;
+}
+
+N64Controller::N64Controller(bool isLocal) : rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0),
+	buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0),
+	m_isLocal(isLocal), m_state(), m_motorEnabled(false)
+{
+}
+
+
+void N64Controller::merge(const N64Controller& controller)
+{
+	m_state.button |= controller.m_state.button;
+
+	if (abs(m_state.stick_x) < abs(controller.m_state.stick_x))
+		m_state.stick_x = controller.m_state.stick_x;
+
+	if (abs(m_state.stick_y) < abs(controller.m_state.stick_y))
+		m_state.stick_y = controller.m_state.stick_y;
+
+	if (abs(m_state.r_stick_x) < abs(controller.m_state.r_stick_x))
+		m_state.r_stick_x = controller.m_state.r_stick_x;
+
+	if (abs(m_state.r_stick_y) < abs(controller.m_state.r_stick_y))
+		m_state.r_stick_y = controller.m_state.r_stick_y;
+
+	if (controller.hasMouse())
+	{
+		m_state.mouse_x = controller.m_state.mouse_x;
+		m_state.mouse_y = controller.m_state.mouse_y;
 	}
 
-	void State::reset()
-	{
-		button	  = 0;
-		stick_x	  = 0;
-		stick_y	  = 0;
-		errnum	  = 0;
-		r_stick_x = 0;
-		r_stick_y = 0;
-		has_mouse = false;
-	}
+	m_state.has_mouse |= controller.m_state.has_mouse;
+}
 
-	Controller::Controller(bool isLocal) :
-	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false)
-	{
-	}
 
-	void Controller::SendMotorEvent(short time, short level)
-	{
-	}
 
-	void Controller::SendMotorDecay(short level)
-	{
-	}
+static std::string getTasFileName()
+{
+	std::error_code error;
+	std::filesystem::create_directory(TAS_DIR, error);
 
-	void Controller::ResetMotorPack()
-	{
-	}
+	time_t now = time(0);
+	tm* ltm = localtime(&now);
 
-	void Controller::SendMotorVib(int level)
-	{
-	}
+	if (!ltm)
+		return TAS_DIR"/record.tas";
 
-	void Controller::update()
-	{
-	}
-
-	void Controller::merge(const Controller& controller)
-	{
-		m_state.button |= controller.m_state.button;
-
-		if(abs(m_state.stick_x) < abs(controller.m_state.stick_x))
-		{
-			m_state.stick_x = controller.m_state.stick_x;
-		}
-
-		if(abs(m_state.stick_y) < abs(controller.m_state.stick_y))
-		{
-			m_state.stick_y = controller.m_state.stick_y;
-		}
-
-		if(abs(m_state.r_stick_x) < abs(controller.m_state.r_stick_x))
-		{
-			m_state.r_stick_x = controller.m_state.r_stick_x;
-		}
-
-		if(abs(m_state.r_stick_y) < abs(controller.m_state.r_stick_y))
-		{
-			m_state.r_stick_y = controller.m_state.r_stick_y;
-		}
-
-		if(controller.hasMouse())
-		{
-			m_state.mouse_x = controller.m_state.mouse_x;
-			m_state.mouse_y = controller.m_state.mouse_y;
-		}
-
-		m_state.has_mouse |= controller.m_state.has_mouse;
-	}
-
-	bool Controller::hasMouse() const
-	{
-		return m_state.has_mouse;
-	}
-
-	static std::string getTasFileName()
-	{
-
-		std::error_code error;
-		std::filesystem::create_directory(TAS_DIR, error);
-
-		time_t now = time(0);
-		tm* ltm = localtime(&now);
-
-		if (!ltm)
-		{
-			return TAS_DIR"/record.tas";
-		}
-
-		char buf[64] = { 0 };
-		sprintf(buf, TAS_DIR"/%04d.%02d.%02d-%04d.tas", ltm->tm_year, ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_hour * 60 + ltm->tm_min);
-		return buf;
-	}
+	char buf[64] = { 0 };
+	sprintf(buf, TAS_DIR"/%04d.%02d.%02d-%04d.tas", ltm->tm_year, ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_hour * 60 + ltm->tm_min);
+	return buf;
+}
 
 #ifdef ENABLE_TAS
 	static std::ofstream* g_tas = nullptr;
@@ -131,7 +98,7 @@ namespace sm64::hid
 	}
 #endif
 
-	void Controller::resolveInputs()
+	void N64Controller::resolveInputs()
 	{
 #ifdef ENABLE_TAS
 		if (!hid::isTasPlaying() && config().game().recordTas())
@@ -232,19 +199,17 @@ namespace sm64::hid
 		}
 	}
 
-	s64 Controller::mouse_x() const
+	s64 N64Controller::mouse_x() const
 	{
 		return m_state.mouse_x * (oot::config().camera().mousexInvert() ? -1 : 1) * oot::config().camera().mousexScaler();
 	}
 
-	s64 Controller::mouse_y() const
+	s64 N64Controller::mouse_y() const
 	{
 		return m_state.mouse_y * (oot::config().camera().mouseyInvert() ? -1 : 1) * oot::config().camera().mouseyScaler();
 	}
 
-	bool Controller::updateRebind(int input)
+	/*bool N64Controller::updateRebind(int input)
 	{
 		return false;
-	}
-
-} // namespace sm64::hid
+	}*/

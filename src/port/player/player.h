@@ -4,33 +4,29 @@
 #include <vector>
 #include <memory>
 
-namespace sm64
+
+
+class Player
 {
-	class Player
-	{
-		public:
-		Player();
-		virtual ~Player();
+public:
+	Player() : m_rebindInput(0) {}
+	virtual ~Player() {}
 
-		std::vector<std::shared_ptr<hid::Controller> >& controllers()
-		{
-			return m_controllers;
-		}
-		void attach(const std::shared_ptr<hid::Controller>& controller);
-		void detachControllers();
-		void update();
-		hid::Controller& controller()
-		{
-			return m_controller;
-		}
+	std::vector<std::shared_ptr<N64Controller> >& controllers() {
+		return m_controllers;
+	}
+	void attach(const std::shared_ptr<N64Controller>& controller);
+	void detachControllers() { m_controllers.resize(0); }
+	void update();
+	N64Controller& controller() {
+		return m_controller;
+	}
 
-		void rebind(int input);
-		bool isRebindMode() const;
+	void rebind(int input) { m_rebindInput = input; }
+	bool isRebindMode() const { return m_rebindInput > 0; }
 
-		protected:
-		std::vector<std::shared_ptr<hid::Controller> > m_controllers;
-		hid::Controller m_controller;
-		int m_rebindInput;
-	};
-
-} // namespace sm64
+protected:
+	std::vector<std::shared_ptr<N64Controller> > m_controllers;
+	N64Controller m_controller;
+	int m_rebindInput;
+};
