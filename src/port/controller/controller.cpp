@@ -149,7 +149,9 @@ void N64Controller::resolveInputs()
 
 		if (m_tasFile)//Tas file is open
 		{
-			fwrite(&m_state, sizeof(m_state), 1, m_tasFile);
+			//fwrite(&m_state, sizeof(m_state), 1, m_tasFile);
+			StateCompressed compressed(m_state);//Compress the state
+			compressed.write(m_tasFile);//Write to TAS file
 #ifdef _DEBUG
 			fflush(m_tasFile);//Flush every frame to keep all the data when the game crashes
 #endif
@@ -183,7 +185,12 @@ void N64Controller::resolveInputs()
 		}
 		
 		if (m_tasFile)
-			fread(&m_state, sizeof(m_state), 1, m_tasFile);
+		{
+			//fread(&m_state, sizeof(m_state), 1, m_tasFile);//Uncompressed read
+			StateCompressed compressed;
+			compressed.read(m_tasFile);//Read the compressed state
+			m_state = compressed;//Uncompress
+		}
 	}
 
 	rawStickX     = m_state.stick_x;

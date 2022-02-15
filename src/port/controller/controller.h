@@ -29,6 +29,52 @@ namespace oot
 				bool has_mouse;
 			};
 
+			class StateCompressed
+			{
+			public:
+				StateCompressed() = default;
+				StateCompressed(State state)
+				{
+					m_data.button  = state.button;
+					m_data.stick_x = state.stick_x;
+					m_data.stick_y = state.stick_y;
+
+					//Is there any real data?
+					m_isUsed = m_data.button || m_data.stick_x || m_data.stick_y;
+				}
+
+				operator State ()
+				{
+					State ret;
+					ret.button  = m_data.button;
+					ret.stick_x = m_data.stick_x;
+					ret.stick_y = m_data.stick_y;
+					return ret;
+				}
+
+				void read(FILE* in) {
+					fread(&m_isUsed, sizeof(u8), 1, in);//Read the flag
+
+					if (m_isUsed)//Is there even any input?
+						fread(&m_data, sizeof(InputFrame), 1, in);//Write the full state
+				}
+
+				void write(FILE* out) {
+					fwrite(&m_isUsed, sizeof(u8), 1, out);//Write if there is data
+
+					if (m_isUsed)//Is there even any input?
+						fwrite(&m_data, sizeof(InputFrame), 1, out);//Write the full state
+				}
+
+			private:
+				u8 m_isUsed = 0;//0 when all input is zero
+				struct InputFrame {
+					u16 button = 0x0000;
+					s8 stick_x = 0; /* -80 <= stick_x <= 80 */
+					s8 stick_y = 0; /* -80 <= stick_y <= 80 */
+				} m_data;
+			};
+
 
 			s16 rawStickX;
 			s16 rawStickY;

@@ -291,7 +291,7 @@ void main_func(void)
 #endif
 
 #ifdef _DEBUG//Record TAS to capture bugs and crashes
-	//hid::Tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
+	oot::hid::Tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
 	if (!oot::hid::Tas::isTasPlaying())
 		oot::config().game().recordTas(true);
