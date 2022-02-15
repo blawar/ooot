@@ -3,16 +3,20 @@
 #include "controllers.h"
 
 
-class Tas : public N64Controller, public InputDevice
+
+namespace hid
 {
-public:
-	static bool isTasPlaying();
+	class Tas : public N64Controller, public InputDevice
+	{
+	public:
+		static bool isTasPlaying();
 
-	Tas();
-	virtual ~Tas();
-	void scan() override;
-	void update();
+		Tas();
+		virtual ~Tas();
+		void scan() override;
+		void update();
 
-private:
-	FILE* fp;
-};
+	private:
+		FILE* fp;
+	};
+}

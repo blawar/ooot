@@ -6,13 +6,17 @@
 #include "../options.h"
 
 
-static InputDeviceManager* g_controllers;
+using namespace hid;
 
-InputDeviceManager& controllers()
+static InputDeviceManager* g_deviceManager = nullptr;
+
+
+
+InputDeviceManager& InputDeviceManager::get()
 {
-	if (!g_controllers)
-		g_controllers = new InputDeviceManager();
-	return *g_controllers;
+	if (!g_deviceManager)
+		g_deviceManager = new InputDeviceManager();
+	return *g_deviceManager;
 }
 
 
@@ -26,7 +30,7 @@ N64Controller& InputDevice::controller(const u64 index)
 
 
 
-bool InputDevice::updateRebind(int input)
+bool InputDevice::updateRebind(Button input)
 {
 	bool result = 0;
 	for (auto& controller : m_controllers)
@@ -51,7 +55,7 @@ void InputDevice::update()
 
 
 
-InputDeviceManager::InputDeviceManager() : m_rebindInput(0)
+InputDeviceManager::InputDeviceManager() : m_rebindInput(Button::NONE)
 {
 	m_drivers.push_back(new Joypad());
 
@@ -85,7 +89,7 @@ void InputDeviceManager::update()
 			result |= driver->updateRebind(m_rebindInput);
 
 		if (result)
-			m_rebindInput = 0;
+			m_rebindInput = Button::NONE;
 	}
 	else
 	{

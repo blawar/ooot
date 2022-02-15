@@ -6,57 +6,48 @@
 
 
 
-class SDL
+namespace hid
 {
-public:
-	SDL(SDL_GameController* controller);
-	void scan();
+	class Joypad : public N64Controller, public InputDevice
+	{
+	public:
+		Joypad();
+		virtual ~Joypad();
 
-private:
-	std::vector<std::shared_ptr<N64Controller>> m_controllers;
-};
+		virtual void scan() override;
 
+		void loadKeyBindings();
+		void saveKeyBindings();
 
+		void ResetMotorPack() override;
 
-class Joypad : public N64Controller, public InputDevice
-{
-public:
-	Joypad();
-	virtual ~Joypad();
+		void SendMotorVib(int level) override;
 
-	virtual void scan() override;
+		static inline int8_t convertToByte(int value, int max);
 
-	void loadKeyBindings();
-	void saveKeyBindings();			
+		static inline int8_t invert(const int8_t value);
 
-	void ResetMotorPack() override;
+		inline int8_t stickLeftX();
+		inline int8_t stickLeftY();
+		inline int8_t stickRightX();
+		inline int8_t stickRightY();
 
-	void SendMotorVib(int level) override;
+		bool canRebind(SDL_GameControllerButton button, Button input);
 
-	static inline int8_t convertToByte(int value, int max);
+		bool updateRebind(Button input) override;
 
-	static inline int8_t invert(const int8_t value);
+		void update() override;
 
-	inline int8_t stickLeftX();
-	inline int8_t stickLeftY();
-	inline int8_t stickRightX();
-	inline int8_t stickRightY();
+	private:
+		bool initHaptics();
+		void closeHaptics();
 
-	bool canRebind(SDL_GameControllerButton button, int input);
+		void SendMotorEvent(short time, short level) override;
+		void SendMotorDecay(short level) override {};
 
-	bool updateRebind(int input) override;
-
-	void update() override;
-
-private:
-	bool initHaptics();
-	void closeHaptics();
-
-	void SendMotorEvent(short time, short level) override;
-	void SendMotorDecay(short level) override {};
-
-	SDL_GameController* m_context = nullptr;
-	SDL_Haptic* m_haptic = nullptr;
-	std::unordered_map<SDL_GameControllerButton, int> m_keyBindings;
-	u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
-};
+		SDL_GameController* m_context = nullptr;
+		SDL_Haptic* m_haptic = nullptr;
+		std::unordered_map<SDL_GameControllerButton, Button> m_keyBindings;
+		u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
+	};
+}

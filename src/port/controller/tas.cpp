@@ -5,9 +5,9 @@
 #include "tas.h"
 
 static u64 g_counter = 0;
-static  bool g_tasPlaying = false;
+static bool g_tasPlaying = false;
 
-extern Players g_players;
+using namespace hid;
 
 
 bool Tas::isTasPlaying()
@@ -21,7 +21,7 @@ Tas::Tas() : N64Controller()
 {
 	fp = fopen("cont.tas", "rb");
 
-	if (fp != NULL)
+	if (fp)
 	{
 		fread(&oot::config(), 1, sizeof(oot::config()), fp);
 		g_tasPlaying = true;
@@ -56,6 +56,6 @@ void Tas::scan()
 	{
 		auto controller = std::make_shared<Tas>();
 		m_controllers.push_back(controller);
-		g_players.attach(controller, 0);
+		Players::get().attach(controller, 0);
 	}
 }

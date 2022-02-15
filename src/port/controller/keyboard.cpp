@@ -22,7 +22,8 @@ extern "C"
 	void set_fullscreen(bool value);
 }
 
-extern Players g_players;
+
+using namespace hid;
 
 u8 Get_Language();
 void Set_Language(u8 language_id);
@@ -46,48 +47,48 @@ bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath)
 #endif
 
 
-const char* Keyboard::getInputName(int input)
+const char* Keyboard::getInputName(Button input)
 {
 	switch (input)
 	{
-	case STICK_X_UP: return "STICK_X_UP";
-	case STICK_X_LEFT: return "STICK_X_LEFT";
-	case STICK_X_DOWN: return "STICK_X_DOWN";
-	case STICK_X_RIGHT: return "STICK_X_RIGHT";
-	case A_BUTTON: return "A_BUTTON";
-	case B_BUTTON: return "B_BUTTON";
-	case Z_TRIG: return "Z_TRIG";
-	case U_CBUTTONS: return "U_CBUTTONS";
-	case L_CBUTTONS: return "L_CBUTTONS";
-	case D_CBUTTONS: return "D_CBUTTONS";
-	case R_CBUTTONS: return "R_CBUTTONS";
-	case R_TRIG: return "R_TRIG";
-	case START_BUTTON: return "START_BUTTON";
-	case WALK_BUTTON: return "WALK_BUTTON";
+	case Button::STICK_X_UP: return "STICK_X_UP";
+	case Button::STICK_X_LEFT: return "STICK_X_LEFT";
+	case Button::STICK_X_DOWN: return "STICK_X_DOWN";
+	case Button::STICK_X_RIGHT: return "STICK_X_RIGHT";
+	case Button::A_BUTTON: return "A_BUTTON";
+	case Button::B_BUTTON: return "B_BUTTON";
+	case Button::Z_TRIG: return "Z_TRIG";
+	case Button::U_CBUTTONS: return "U_CBUTTONS";
+	case Button::L_CBUTTONS: return "L_CBUTTONS";
+	case Button::D_CBUTTONS: return "D_CBUTTONS";
+	case Button::R_CBUTTONS: return "R_CBUTTONS";
+	case Button::R_TRIG: return "R_TRIG";
+	case Button::START_BUTTON: return "START_BUTTON";
+	case Button::WALK_BUTTON: return "WALK_BUTTON";
 	}
 return "";
 }
 
 
 
-int Keyboard::getInputValue(const std::string& input)
+Button Keyboard::getInputValue(const std::string& input)
 {
-	if (input == "STICK_X_UP") return STICK_X_UP;
-	if (input == "STICK_X_LEFT") return STICK_X_LEFT;
-	if (input == "STICK_X_DOWN") return STICK_X_DOWN;
-	if (input == "STICK_X_RIGHT") return STICK_X_RIGHT;
-	if (input == "A_BUTTON") return A_BUTTON;
-	if (input == "B_BUTTON") return B_BUTTON;
-	if (input == "Z_TRIG") return Z_TRIG;
-	if (input == "U_CBUTTONS") return U_CBUTTONS;
-	if (input == "L_CBUTTONS") return L_CBUTTONS;
-	if (input == "D_CBUTTONS") return D_CBUTTONS;
-	if (input == "R_CBUTTONS") return R_CBUTTONS;
-	if (input == "R_TRIG") return R_TRIG;
-	if (input == "START_BUTTON") return START_BUTTON;
-	if (input == "WALK_BUTTON") return WALK_BUTTON;
+	if (input == "STICK_X_UP") return Button::STICK_X_UP;
+	if (input == "STICK_X_LEFT") return Button::STICK_X_LEFT;
+	if (input == "STICK_X_DOWN") return Button::STICK_X_DOWN;
+	if (input == "STICK_X_RIGHT") return Button::STICK_X_RIGHT;
+	if (input == "A_BUTTON") return Button::A_BUTTON;
+	if (input == "B_BUTTON") return Button::B_BUTTON;
+	if (input == "Z_TRIG") return Button::Z_TRIG;
+	if (input == "U_CBUTTONS") return Button::U_CBUTTONS;
+	if (input == "L_CBUTTONS") return Button::L_CBUTTONS;
+	if (input == "D_CBUTTONS") return Button::D_CBUTTONS;
+	if (input == "R_CBUTTONS") return Button::R_CBUTTONS;
+	if (input == "R_TRIG") return Button::R_TRIG;
+	if (input == "START_BUTTON") return Button::START_BUTTON;
+	if (input == "WALK_BUTTON") return Button::WALK_BUTTON;
 
-	return 0;
+	return (Button)0;
 }
 
 
@@ -95,28 +96,28 @@ int Keyboard::getInputValue(const std::string& input)
 Keyboard::Keyboard() : N64Controller()
 {
 	memset(m_lastKeyState, 0, sizeof(m_lastKeyState));
-	m_keyBindings[SDL_SCANCODE_W] = STICK_X_UP;
-	m_keyBindings[SDL_SCANCODE_A] = STICK_X_LEFT;
-	m_keyBindings[SDL_SCANCODE_S] = STICK_X_DOWN;
-	m_keyBindings[SDL_SCANCODE_D] = STICK_X_RIGHT;
-	m_keyBindings[SDL_SCANCODE_SPACE] = A_BUTTON;
-	m_keyBindings[SDL_SCANCODE_F] = B_BUTTON;
-    m_keyBindings[SDL_SCANCODE_O] = A_BUTTON;
-    m_keyBindings[SDL_SCANCODE_P] = B_BUTTON;
-	m_keyBindings[SDL_SCANCODE_LSHIFT] = Z_TRIG;
-	m_keyBindings[SDL_SCANCODE_C] = Z_TRIG;
-    m_keyBindings[SDL_SCANCODE_I] = U_JPAD;
-    m_keyBindings[SDL_SCANCODE_J] = L_JPAD;
-    m_keyBindings[SDL_SCANCODE_K] = D_JPAD;
-    m_keyBindings[SDL_SCANCODE_L] = R_JPAD;
-	m_keyBindings[SDL_SCANCODE_UP] = U_CBUTTONS;
-	m_keyBindings[SDL_SCANCODE_LEFT] = L_CBUTTONS;
-	m_keyBindings[SDL_SCANCODE_DOWN] = D_CBUTTONS;
-	m_keyBindings[SDL_SCANCODE_RIGHT] = R_CBUTTONS;
-	m_keyBindings[SDL_SCANCODE_X] = L_TRIG;
-	m_keyBindings[SDL_SCANCODE_V] = R_TRIG;
-	m_keyBindings[SDL_SCANCODE_RSHIFT] = R_TRIG;
-	m_keyBindings[SDL_SCANCODE_RETURN] = START_BUTTON;
+	m_keyBindings[SDL_SCANCODE_W] = Button::STICK_X_UP;
+	m_keyBindings[SDL_SCANCODE_A] = Button::STICK_X_LEFT;
+	m_keyBindings[SDL_SCANCODE_S] = Button::STICK_X_DOWN;
+	m_keyBindings[SDL_SCANCODE_D] = Button::STICK_X_RIGHT;
+	m_keyBindings[SDL_SCANCODE_SPACE] = Button::A_BUTTON;
+	m_keyBindings[SDL_SCANCODE_F] = Button::B_BUTTON;
+    m_keyBindings[SDL_SCANCODE_O] = Button::A_BUTTON;
+    m_keyBindings[SDL_SCANCODE_P] = Button::B_BUTTON;
+	m_keyBindings[SDL_SCANCODE_LSHIFT] = Button::Z_TRIG;
+	m_keyBindings[SDL_SCANCODE_C] = Button::Z_TRIG;
+    m_keyBindings[SDL_SCANCODE_I] = Button::U_JPAD;
+    m_keyBindings[SDL_SCANCODE_J] = Button::L_JPAD;
+    m_keyBindings[SDL_SCANCODE_K] = Button::D_JPAD;
+    m_keyBindings[SDL_SCANCODE_L] = Button::R_JPAD;
+	m_keyBindings[SDL_SCANCODE_UP] = Button::U_CBUTTONS;
+	m_keyBindings[SDL_SCANCODE_LEFT] = Button::L_CBUTTONS;
+	m_keyBindings[SDL_SCANCODE_DOWN] = Button::D_CBUTTONS;
+	m_keyBindings[SDL_SCANCODE_RIGHT] = Button::R_CBUTTONS;
+	m_keyBindings[SDL_SCANCODE_X] = Button::L_TRIG;
+	m_keyBindings[SDL_SCANCODE_V] = Button::R_TRIG;
+	m_keyBindings[SDL_SCANCODE_RSHIFT] = Button::R_TRIG;
+	m_keyBindings[SDL_SCANCODE_RETURN] = Button::START_BUTTON;
 
 #ifndef __SWITCH__
 	loadKeyBindings();
@@ -202,34 +203,34 @@ bool Keyboard::hasMouse() const
 
 
 
-int Keyboard::keyboard_map_scancode(SDL_Scancode scancode)
+Button Keyboard::keyboard_map_scancode(SDL_Scancode scancode)
 {
 	if (m_keyBindings.count(scancode))
 		return m_keyBindings[scancode];
-	return 0;
+	return Button::NONE;
 }
 
 
 
 bool Keyboard::on_key_down(SDL_Scancode scancode)
 {
-	int mapped = keyboard_map_scancode(scancode);
-	keyboard_buttons_down |= mapped;
-	return mapped != 0;
+	Button mapped = keyboard_map_scancode(scancode);
+	keyboard_buttons_down |= (int)mapped;
+	return (int)mapped != 0;
 }
 
 
 
 bool Keyboard::on_key_up(SDL_Scancode scancode)
 {
-	int mapped = keyboard_map_scancode(scancode);
-	keyboard_buttons_down &= ~mapped;
-	return mapped != 0;
+	Button mapped = keyboard_map_scancode(scancode);
+	keyboard_buttons_down &= ~(int)mapped;
+	return (int)mapped != 0;
 }
 
 
 
-bool Keyboard::canRebind(SDL_Scancode scancode, int input)
+bool Keyboard::canRebind(SDL_Scancode scancode, Button input)
 {
 	if (m_keyBindings.count(scancode) == 0)
 		return true;
@@ -248,7 +249,7 @@ bool Keyboard::canRebind(SDL_Scancode scancode, int input)
 
 
 
-bool Keyboard::updateRebind(int input)
+bool Keyboard::updateRebind(Button input)
 {
 	int count = 0;
 	auto state = SDL_GetKeyboardState(&count);
@@ -299,43 +300,37 @@ void Keyboard::update()
 
 	//When F5 is pressed. Mark all dpad button as pressed. Used to open map select
 	if (state[SDL_SCANCODE_F5] && (m_lastKeyState[SDL_SCANCODE_F5] ^ state[SDL_SCANCODE_F5]))
-		m_state.button |= U_JPAD | D_JPAD | L_JPAD | R_JPAD;
+		m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
 
 	if (Tas::isTasPlaying())
 		return;
 
-	for (const auto x : m_keyBindings)
+	for (const auto& [scancode, input] : m_keyBindings)
 	{
-		const auto scancode = x.first;
-		const auto input = x.second;
-
-		if (scancode < count)
+		if (scancode < count && state[scancode])
 		{
-			if (state[scancode])
+			if ((uint32_t)input <= 0xFFFF)
+				m_state.button |= (uint32_t)input;
+			else
 			{
-				if (input > 0xFFFF)
+				switch (input)
 				{
-					switch (input)
-					{
-						case STICK_X_DOWN:
-							m_state.stick_y = -128;
-							break;
-						case STICK_X_UP:
-							m_state.stick_y = 127;
-							break;
-						case STICK_X_LEFT:
-							m_state.stick_x = -128;
-							break;
-						case STICK_X_RIGHT:
-							m_state.stick_x = 127;
-							break;
-						case WALK_BUTTON:
-							walk = true;
-							break;
-						}
-					}
-				else
-					m_state.button |= input;
+					case Button::STICK_X_DOWN:
+						m_state.stick_y = -128;
+						break;
+					case Button::STICK_X_UP:
+						m_state.stick_y = 127;
+						break;
+					case Button::STICK_X_LEFT:
+						m_state.stick_x = -128;
+						break;
+					case Button::STICK_X_RIGHT:
+						m_state.stick_x = 127;
+						break;
+					case Button::WALK_BUTTON:
+						walk = true;
+						break;
+				}			
 			}
 		}
 	}
@@ -348,10 +343,10 @@ void Keyboard::update()
 	enableMouse();
 
 	if (buttons & SDL_BUTTON(SDL_BUTTON_LEFT))
-		m_state.button |= B_BUTTON;
+		m_state.button |= (uint16_t)Button::B_BUTTON;
 
 	if (buttons & SDL_BUTTON(SDL_BUTTON_RIGHT))
-		m_state.button |= A_BUTTON;
+		m_state.button |= (uint16_t)Button::A_BUTTON;
 
 	if (buttons & SDL_BUTTON(SDL_BUTTON_MIDDLE))
 		walk = true;
@@ -384,7 +379,7 @@ void Keyboard::scan()
 		controller->enableMouse();
 #endif
 		m_controllers.push_back(controller);
-		g_players.attach(controller, 0);
+		Players::get().attach(controller, 0);
 	}
 }
 

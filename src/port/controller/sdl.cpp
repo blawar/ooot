@@ -28,10 +28,6 @@
 #define RDEADZONE 0
 #endif
 
-static bool init_ok;
-
-extern Players g_players;
-
 #define INITIAL_PEAK 0x8000
 
 static int g_lstickX_peak = INITIAL_PEAK;
@@ -39,15 +35,11 @@ static int g_lstickY_peak = INITIAL_PEAK;
 static int g_rstickX_peak = INITIAL_PEAK;
 static int g_rstickY_peak = INITIAL_PEAK;
 
-#ifdef DEBUG
-#include <time.h>
-extern struct Object* gMarioObject;
-#endif
-
 #ifdef ENABLE_JSON
 bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
 #endif
 
+using namespace hid;
 
 static bool g_haptics = false;
 
@@ -101,17 +93,17 @@ Joypad::Joypad() : N64Controller()
 
 	m_motorEnabled = initHaptics();
 
-	m_keyBindings[SDL_CONTROLLER_BUTTON_START] = START_BUTTON;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_LEFTSHOULDER] = Z_TRIG;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_RIGHTSHOULDER] = R_TRIG;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_A] = A_BUTTON;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_X] = B_BUTTON;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_B] = A_BUTTON;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_Y] = B_BUTTON;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_CBUTTONS;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
-	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;			
+	m_keyBindings[SDL_CONTROLLER_BUTTON_START] = Button::START_BUTTON;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_LEFTSHOULDER] = Button::Z_TRIG;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_RIGHTSHOULDER] = Button::R_TRIG;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_A] = Button::A_BUTTON;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_X] = Button::B_BUTTON;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_B] = Button::A_BUTTON;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_Y] = Button::B_BUTTON;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = Button::L_CBUTTONS;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = Button::R_CBUTTONS;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = Button::U_CBUTTONS;
+	m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = Button::D_CBUTTONS;
 
 #ifndef __SWITCH__
 	loadKeyBindings();
@@ -124,7 +116,7 @@ void Joypad::scan()
 {
 	auto controller = std::make_shared<Joypad>();
 	m_controllers.push_back(controller);
-	g_players.attach(controller, 0);
+	Players::get().attach(controller, 0);
 }
 
 
@@ -322,7 +314,7 @@ inline int8_t Joypad::stickRightY()
 
 
 
-bool Joypad::canRebind(SDL_GameControllerButton button, int input)
+bool Joypad::canRebind(SDL_GameControllerButton button, Button input)
 {
 	if (m_keyBindings.count(button) == 0)
 		return true;
@@ -330,15 +322,15 @@ bool Joypad::canRebind(SDL_GameControllerButton button, int input)
 	auto replacingInput = m_keyBindings[button];
 	u64 count = 0;
 
-	if (replacingInput != START_BUTTON && replacingInput != A_BUTTON && replacingInput != B_BUTTON)
+	if (replacingInput != Button::START_BUTTON && replacingInput != Button::A_BUTTON && replacingInput != Button::B_BUTTON)
 		return true;
 
 	if (replacingInput == input)
 		return true;
 
-	for (auto i : m_keyBindings)
+	for (auto& [input, button] : m_keyBindings)
 	{
-		if (i.second == replacingInput)
+		if (button == replacingInput)
 			count++;
 	}
 
@@ -349,7 +341,7 @@ bool Joypad::canRebind(SDL_GameControllerButton button, int input)
 
 
 
-bool Joypad::updateRebind(int input)
+bool Joypad::updateRebind(Button input)
 {
 	u8 state[SDL_CONTROLLER_BUTTON_MAX];
 
@@ -397,33 +389,33 @@ void Joypad::update()
 	m_state.r_stick_x = stickRightX();
 	m_state.r_stick_y = stickRightY();
 
-	for (const auto& i : m_keyBindings)
+	for (const auto& [scancode, input] : m_keyBindings)
 	{
-		if (m_buttonState[i.first])
+		if (m_buttonState[scancode])
 		{
-			if (i.second > 0xFFFF)
+			if ((uint32_t)input <= 0xFFFF)
+				m_state.button |= (uint16_t)input;
+			else
 			{
-				switch (i.second)
+				switch (input)
 				{
-				case STICK_X_DOWN:
+				case Button::STICK_X_DOWN:
 					m_state.stick_y = -128;
 					break;
-				case STICK_X_UP:
+				case Button::STICK_X_UP:
 					m_state.stick_y = 127;
 					break;
-				case STICK_X_LEFT:
+				case Button::STICK_X_LEFT:
 					m_state.stick_x = -128;
 					break;
-				case STICK_X_RIGHT:
+				case Button::STICK_X_RIGHT:
 					m_state.stick_x = 127;
 					break;
-				case WALK_BUTTON:
+				case Button::WALK_BUTTON:
 					walk = true;
 					break;
 				}
-			}
-			else
-				m_state.button |= i.second;
+			}				
 		}
 	}
 	
@@ -438,17 +430,17 @@ void Joypad::update()
 		if (abs(righty) > 0x7000)
 		{
 			if (righty > 0)
-				m_state.button |= D_CBUTTONS;
+				m_state.button |= (uint16_t)Button::D_CBUTTONS;
 			else
-				m_state.button |= U_CBUTTONS;
+				m_state.button |= (uint16_t)Button::U_CBUTTONS;
 		}
 
 		if (abs(rightx) > 0x7000)
 		{
 			if (rightx > 1)
-				m_state.button |= R_CBUTTONS;
+				m_state.button |= (uint16_t)Button::R_CBUTTONS;
 			else
-				m_state.button |= L_CBUTTONS;
+				m_state.button |= (uint16_t)Button::L_CBUTTONS;
 		}
 	}
 
@@ -456,9 +448,9 @@ void Joypad::update()
 	int16_t rtrig = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 
 	if (ltrig > 30 * 256)
-		m_state.button |= Z_TRIG;
+		m_state.button |= (uint16_t)Button::Z_TRIG;
 	//if(rtrig > 30 * 256)
-		//m_state.button |= R_TRIG;
+		//m_state.button |= (uint16_t)Button::R_TRIG;
 
 	if (walk)
 	{
@@ -485,20 +477,20 @@ void Joypad::update()
 	//When the right trigger is pressed, interpret the c buttons as the dpad
 	if (rtrig > 30 * 256)
 	{
-		if (m_state.button & U_CBUTTONS)
-			m_state.button |= U_JPAD;
-		if (m_state.button & D_CBUTTONS)
-			m_state.button |= D_JPAD;
-		if (m_state.button & L_CBUTTONS)
-			m_state.button |= L_JPAD;
-		if (m_state.button & R_CBUTTONS)
-			m_state.button |= R_JPAD;
+		if (m_state.button & (uint16_t)Button::U_CBUTTONS)
+			m_state.button |= (uint16_t)Button::U_JPAD;
+		if (m_state.button & (uint16_t)Button::D_CBUTTONS)
+			m_state.button |= (uint16_t)Button::D_JPAD;
+		if (m_state.button & (uint16_t)Button::L_CBUTTONS)
+			m_state.button |= (uint16_t)Button::L_JPAD;
+		if (m_state.button & (uint16_t)Button::R_CBUTTONS)
+			m_state.button |= (uint16_t)Button::R_JPAD;
 
-		m_state.button &= ~(U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS);//Unpress the c buttons
+		m_state.button &= ~((uint16_t)Button::U_CBUTTONS | (uint16_t)Button::D_CBUTTONS | (uint16_t)Button::L_CBUTTONS | (uint16_t)Button::R_CBUTTONS);//Unpress the c buttons
 	}
 
 	//When the back button is pressed. Mark all dpad button as pressed. Used to open map select
 	if (m_buttonState[SDL_CONTROLLER_BUTTON_BACK])
-		m_state.button |= U_JPAD | D_JPAD | L_JPAD | R_JPAD;
+		m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
 }
 #endif

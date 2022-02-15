@@ -11,12 +11,14 @@
 #define TAS_DIR "tas"
 #endif
 
+using namespace hid;
+
 
 N64Controller::State::State()
 {
-	mouse_x	      = 0;
-	mouse_y	      = 0;
-	has_mouse     = false;
+	mouse_x	  = 0;
+	mouse_y	  = 0;
+	has_mouse = false;
 
 	reset();
 }

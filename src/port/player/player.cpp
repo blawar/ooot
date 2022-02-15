@@ -3,6 +3,9 @@
 
 
 
+using namespace hid;
+
+
 void Player::attach(const std::shared_ptr<N64Controller>& controller)
 {
 	m_controllers.push_back(controller);

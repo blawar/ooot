@@ -7,18 +7,42 @@
 
 extern PadMgr gPadMgr;
 
+using namespace hid;
+
 Players g_players;
 
 extern "C" {
 void hid_init() {
-    controllers().scan();
+	InputDeviceManager::get().scan();
 }
 
 void hid_update() {
-	g_players.update();
+	Players::Update();
 }
 }
 
+
+
+Players& Players::get()
+{
+	return g_players;
+}
+
+
+
+void Players::Update()
+{
+	g_players.update();
+}
+
+
+
+const N64Controller* Players::GetController()
+{
+	if (g_players[0].controllers().size() == 0)
+		return nullptr;
+	return g_players[0].controllers()[0].get();
+}
 
 
 
