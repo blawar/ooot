@@ -3,7 +3,7 @@
 
 
 
-using namespace hid;
+using namespace oot::hid;
 
 
 void Player::attach(const std::shared_ptr<N64Controller>& controller)

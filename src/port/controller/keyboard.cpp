@@ -23,7 +23,7 @@ extern "C"
 }
 
 
-using namespace hid;
+using namespace oot::hid;
 
 u8 Get_Language();
 void Set_Language(u8 language_id);

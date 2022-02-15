@@ -8,7 +8,7 @@
 
 extern PadMgr gPadMgr;
 
-using namespace hid;
+using namespace oot::hid;
 
 Players g_players;
 

@@ -4,20 +4,23 @@
 
 
 
-namespace hid
+namespace oot
 {
-	class Tas : public N64Controller, public InputDevice
+	namespace hid
 	{
-	public:
-		static bool isTasPlaying();
-		static void playTas(bool enabled);
+		class Tas : public N64Controller, public InputDevice
+		{
+		public:
+			static bool isTasPlaying();
+			static void playTas(bool enabled);
 
-		Tas();
-		virtual ~Tas();
-		void scan() override;
-		void update();
+			Tas();
+			virtual ~Tas();
+			void scan() override;
+			void update();
 
-	private:
-		FILE* fp = nullptr;
-	};
+		private:
+			FILE* fp = nullptr;
+		};
+	}
 }

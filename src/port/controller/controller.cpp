@@ -12,7 +12,7 @@
 #define TAS_DIR "tas"
 #endif
 
-using namespace hid;
+using namespace oot::hid;
 
 
 N64Controller::State::State()

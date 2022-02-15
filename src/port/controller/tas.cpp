@@ -7,7 +7,7 @@
 static u64 g_counter = 0;
 static bool g_tasPlaying = false;
 
-using namespace hid;
+using namespace oot::hid;
 
 
 bool Tas::isTasPlaying()

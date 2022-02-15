@@ -39,7 +39,7 @@ static int g_rstickY_peak = INITIAL_PEAK;
 bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
 #endif
 
-using namespace hid;
+using namespace oot::hid;
 
 static bool g_haptics = false;
 

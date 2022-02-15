@@ -6,7 +6,7 @@
 #include "../options.h"
 
 
-using namespace hid;
+using namespace oot::hid;
 
 static InputDeviceManager* g_deviceManager = nullptr;
 
