@@ -1,30 +1,36 @@
 #pragma once
 #include "ultra64/types.h"
-#include "player.h"
 #include <vector>
+#include "player.h"
+#include "../controller/sdl.h"
 
-namespace sm64
+
+static const u8 MAX_PLAYERS = 0xFF;
+
+
+namespace oot
 {
-	static const u8 MAX_PLAYERS = 0xFF;
-	class Players
+	namespace hid
 	{
-		public:
-		static const u32 MAX_PLAYERS = 1;
-
-		Players();
-		const u64 size() const;
-		void update();
-		Player& operator[](u32 i)
+		class Players
 		{
-			return m_players[i];
-		}
-		void attach(const std::shared_ptr<hid::Controller>& controller, const u8 playerId = MAX_PLAYERS);
+		public:
+			static const u32 MAX_PLAYERS = 1;
 
-		protected:
-		Player m_players[MAX_PLAYERS];
-		u64 m_size;
-	};
+			static Players& get();
+			static void Update();
+			static const N64Controller* GetController();
 
-	Players& players();
-	Player& player(const u64 i);
-} // namespace sm64
+			Players() = default;
+			const u64 size() const { return m_size; }
+			void update();
+			void attach(const std::shared_ptr<N64Controller>& controller, const u8 playerId = MAX_PLAYERS);
+
+			Player& operator[](u32 i) { return m_players[i]; }
+
+		private:
+			Player m_players[MAX_PLAYERS];
+			u64 m_size = 0;
+		};
+	}
+}

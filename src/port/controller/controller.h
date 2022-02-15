@@ -1,111 +1,130 @@
 #pragma once
 #include "ultra64/types.h"
+#include <stdio.h>
 
-namespace sm64::hid
+
+
+namespace oot
 {
-	enum Button
+	namespace hid
 	{
-		CONT_A	   = 0x8000,
-		CONT_B	   = 0x4000,
-		CONT_G	   = 0x2000,
-		CONT_START = 0x1000,
-		CONT_UP	   = 0x0800,
-		CONT_DOWN  = 0x0400,
-		CONT_LEFT  = 0x0200,
-		CONT_RIGHT = 0x0100,
-		CONT_L	   = 0x0020,
-		CONT_R	   = 0x0010,
-		CONT_E	   = 0x0008,
-		CONT_D	   = 0x0004,
-		CONT_C	   = 0x0002,
-		CONT_F	   = 0x0001,
-
-		A_BUTTON     = CONT_A,
-		B_BUTTON     = CONT_B,
-		L_TRIG	     = CONT_L,
-		R_TRIG	     = CONT_R,
-		Z_TRIG	     = CONT_G,
-		START_BUTTON = CONT_START,
-		U_JPAD	     = CONT_UP,
-		L_JPAD	     = CONT_LEFT,
-		R_JPAD	     = CONT_RIGHT,
-		D_JPAD	     = CONT_DOWN,
-		U_CBUTTONS   = CONT_E,
-		L_CBUTTONS   = CONT_C,
-		R_CBUTTONS   = CONT_F,
-		D_CBUTTONS   = CONT_D,
-		STICK_X_LEFT = 0x10000,
-		STICK_X_RIGHT = 0x20000,
-		STICK_X_DOWN = 0x80000,
-		STICK_X_UP = 0x40000,
-		WALK_BUTTON	 = 0x100000
-	};
-
-	class State
-	{
-		public:
-		State();
-		void reset();
-
-		u16 button;
-		s8 stick_x; /* -80 <= stick_x <= 80 */
-		s8 stick_y; /* -80 <= stick_y <= 80 */
-		u8 errnum;
-		s8 r_stick_x; /* -80 <= stick_x <= 80 */
-		s8 r_stick_y; /* -80 <= stick_y <= 80 */
-
-		s64 mouse_x;
-		s64 mouse_y;
-		bool has_mouse;
-	};
-
-	class Controller
-	{
-		public:
-		s16 rawStickX;
-		s16 rawStickY;
-		float stickX;	// [-64, 64] positive is right
-		float stickY;	// [-64, 64] positive is up
-		float stickMag; // distance from center [0, 64]
-		u16 buttonDown;
-		u16 buttonPressed;
-		s16 r_rawStickX;  //
-		s16 r_rawStickY;  //
-		float r_stickX;	  // [-64, 64] positive is right
-		float r_stickY;	  // [-64, 64] positive is up
-		float r_stickMag; // distance from center [0, 64]
-
-
-		s64 mouse_x() const;
-		s64 mouse_y() const;
-
-		Controller(bool isLocal = true);
-		virtual void update();
-		virtual void resolveInputs();
-		virtual bool isLocal() const
+		class N64Controller
 		{
-			return m_isLocal;
-		}
-		State& state()
-		{
-			return m_state;
-		}
+		public:
+			class State
+			{
+			public:
+				State();
+				void reset();
 
-		virtual void merge(const Controller& controller);
-		virtual bool hasMouse() const;
+				u16 button;
+				s8 stick_x; /* -80 <= stick_x <= 80 */
+				s8 stick_y; /* -80 <= stick_y <= 80 */
+				u8 errnum;
+				s8 r_stick_x; /* -80 <= stick_x <= 80 */
+				s8 r_stick_y; /* -80 <= stick_y <= 80 */
 
-		virtual void SendMotorEvent(short time, short level);
-		virtual void SendMotorDecay(short level);
-		virtual void ResetMotorPack();
-		virtual void SendMotorVib(int level);
+				s64 mouse_x;
+				s64 mouse_y;
+				bool has_mouse;
+			};
 
-		virtual bool updateRebind(int input);
+			class StateCompressed
+			{
+			public:
+				StateCompressed() = default;
+				StateCompressed(State state)
+				{
+					m_data.button  = state.button;
+					m_data.stick_x = state.stick_x;
+					m_data.stick_y = state.stick_y;
+
+					//Is there any real data?
+					m_isUsed = m_data.button || m_data.stick_x || m_data.stick_y;
+				}
+
+				operator State ()
+				{
+					State ret;
+					ret.button  = m_data.button;
+					ret.stick_x = m_data.stick_x;
+					ret.stick_y = m_data.stick_y;
+					return ret;
+				}
+
+				void read(FILE* in) {
+					fread(&m_isUsed, sizeof(u8), 1, in);//Read the flag
+
+					if (m_isUsed)//Is there even any input?
+						fread(&m_data, sizeof(InputFrame), 1, in);//Write the full state
+				}
+
+				void write(FILE* out) {
+					fwrite(&m_isUsed, sizeof(u8), 1, out);//Write if there is data
+
+					if (m_isUsed)//Is there even any input?
+						fwrite(&m_data, sizeof(InputFrame), 1, out);//Write the full state
+				}
+
+			private:
+				u8 m_isUsed = 0;//0 when all input is zero
+				struct InputFrame {
+					u16 button = 0x0000;
+					s8 stick_x = 0; /* -80 <= stick_x <= 80 */
+					s8 stick_y = 0; /* -80 <= stick_y <= 80 */
+				} m_data;
+			};
+
+
+			s16 rawStickX;
+			s16 rawStickY;
+			float stickX;	// [-64, 64] positive is right
+			float stickY;	// [-64, 64] positive is up
+			float stickMag; // distance from center [0, 64]
+			u16 buttonDown;
+			u16 buttonPressed;
+			s16 r_rawStickX;  //
+			s16 r_rawStickY;  //
+			float r_stickX;	  // [-64, 64] positive is right
+			float r_stickY;	  // [-64, 64] positive is up
+			float r_stickMag; // distance from center [0, 64]
+
+
+			s64 mouse_x() const;
+			s64 mouse_y() const;
+
+			N64Controller(bool isLocal = true);
+			~N64Controller();
+
+			virtual void update() {}
+			virtual void resolveInputs();
+			virtual bool isLocal() const {
+				return m_isLocal;
+			}
+			State& state() {
+				return m_state;
+			}
+			const State state() const {
+				return m_state;
+			}
+
+			virtual void merge(const N64Controller& controller);
+			virtual bool hasMouse() const { return m_state.has_mouse; }
+
+			virtual void SendMotorEvent(short time, short level) {}
+			virtual void SendMotorDecay(short level) {}
+			virtual void ResetMotorPack() {}
+			virtual void SendMotorVib(int level) {}
+
+			//virtual bool updateRebind(Button input);
 
 		protected:
-		State m_state;
-		bool m_isLocal;
-		bool m_motorEnabled;
-	};
+			State m_state;
+			bool m_isLocal;
+			bool m_motorEnabled;
 
-	bool isTasPlaying();
-} // namespace sm64::hid
+		private:
+			FILE* m_tasFile = nullptr;
+		};
+	}
+}

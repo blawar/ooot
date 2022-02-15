@@ -288,6 +288,11 @@ namespace oot
 			return m_recordTas;
 		}
 
+		void Game::recordTas(bool enable)
+		{
+			m_recordTas = enable;
+		}
+
 		bool& Game::forceMouse()
 		{
 			return m_forceMouse;

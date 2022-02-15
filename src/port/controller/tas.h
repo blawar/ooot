@@ -1,15 +1,26 @@
 #pragma once
+#include <stdio.h>
 #include "controllers.h"
 
-namespace sm64::hid
-{
-	class Tas : public Driver
-	{
-		public:
-		Tas();
-		virtual ~Tas();
-		void scan(class Controllers* controllers) override;
 
-		protected:
-	};
-} // namespace sm64::hid
+
+namespace oot
+{
+	namespace hid
+	{
+		class Tas : public N64Controller, public InputDevice
+		{
+		public:
+			static bool isTasPlaying();
+			static void playTas(bool enabled);
+
+			Tas();
+			virtual ~Tas();
+			void scan() override;
+			void update();
+
+		private:
+			FILE* fp = nullptr;
+		};
+	}
+}

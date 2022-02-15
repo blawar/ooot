@@ -2,6 +2,9 @@
 #define ENABLE_OPENGL
 #define USE_GLIDEN64
 #include "window.h"
+#include "options.h"
+#include "player/players.h"
+#include "controller/tas.h"
 
 static std::unique_ptr<platform::window::Base> gWindow;
 
@@ -287,6 +290,13 @@ void main_func(void)
 	}
 #endif
 
+#ifdef _DEBUG//Record TAS to capture bugs and crashes
+	oot::hid::Tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
+
+	if (!oot::hid::Tas::isTasPlaying())
+		oot::config().game().recordTas(true);
+#endif
+
 	//static u64 pool[0x165000 / 8 / 4 * sizeof(void*)];
 	//main_pool_init(pool, pool + sizeof(pool) / sizeof(pool[0]));
 	//gEffectsMemoryPool = mem_pool_init(0x4000, MEMORY_POOL_LEFT);
@@ -328,6 +338,7 @@ void main_func(void)
 	inited = 1;
 
 	Graph_ThreadEntry(0);
+
 	gfx_shutdown();
 }
 

@@ -5,138 +5,107 @@
 #include <stdexcept>
 #include "../options.h"
 
-namespace sm64::hid
+
+using namespace oot::hid;
+
+static InputDeviceManager* g_deviceManager = nullptr;
+
+
+
+InputDeviceManager& InputDeviceManager::get()
 {
-	static Controllers* g_controllers;
+	if (!g_deviceManager)
+		g_deviceManager = new InputDeviceManager();
+	return *g_deviceManager;
+}
 
-	Controllers& controllers()
+
+
+N64Controller& InputDevice::controller(const u64 index)
+{
+	if (index >= m_controllers.size())
+		throw std::runtime_error("invalid controller index");
+	return *m_controllers[index];
+}
+
+
+
+bool InputDevice::updateRebind(Button input)
+{
+	bool result = 0;
+	for (auto& controller : m_controllers)
 	{
-		if(!g_controllers)
-		{
-			g_controllers = new Controllers();
-		}
-		return *g_controllers;
+		controller->state().reset();
+		//result |= controller->updateRebind(input);
+		controller->resolveInputs();
 	}
+	return result;
+}
 
-	Driver::Driver()
+
+void InputDevice::update()
+{
+	for(auto& controller : m_controllers)
 	{
+		controller->state().reset();
+		controller->update();
+		controller->resolveInputs();
 	}
+}
 
-	Driver::~Driver()
-	{
-	}
 
-	const u64 Driver::size() const
-	{
-		return m_controllers.size();
-	}
 
-	Controller& Driver::controller(const u64 index)
-	{
-		if(index >= m_controllers.size())
-		{
-			throw std::runtime_error("invalid controller index");
-		}
-		return *m_controllers[index];
-	}
-
-	bool Driver::updateRebind(int input)
-	{
-		bool result = 0;
-		for (auto& controller : m_controllers)
-		{
-			controller->state().reset();
-			result |= controller->updateRebind(input);
-			controller->resolveInputs();
-		}
-		return result;
-	}
-
-	void Driver::update()
-	{
-		for(auto& controller : m_controllers)
-		{
-			controller->state().reset();
-			controller->update();
-			controller->resolveInputs();
-		}
-	}
-
-	void Driver::scan(class Controllers* controllers)
-	{
-	}
-
-	Controllers::Controllers() : m_rebindInput(0)
-	{
-		m_drivers.push_back(new SDL());
+InputDeviceManager::InputDeviceManager() : m_rebindInput(Button::NONE)
+{
+	m_drivers.push_back(new Joypad());
 
 #ifdef ENABLE_MOUSE
-		m_drivers.push_back(new Keyboard());
+	m_drivers.push_back(new Keyboard());
 #endif
+	//if (Tas::isTasPlaying())
 		//m_drivers.push_back(new Tas());
-	}
+}
 
-	Controllers::~Controllers()
+
+
+const u64 InputDeviceManager::size() const
+{
+	u64 count = 0;
+
+	for (auto& driver : m_drivers)
+		count += driver->size();
+
+	return count;
+}
+
+
+
+void InputDeviceManager::update()
+{
+	if (isRebindMode())
 	{
-	}
+		bool result = 0;
 
-	const u64 Controllers::size() const
+		for (auto& driver : m_drivers)
+			result |= driver->updateRebind(m_rebindInput);
+
+		if (result)
+			m_rebindInput = Button::NONE;
+	}
+	else
 	{
-		u64 count = 0;
-
-		for(auto& driver : m_drivers)
-		{
-			count += driver->size();
-		}
-
-		return count;
+		for (auto& driver : m_drivers)
+			driver->update();
 	}
+}
 
-	void Controllers::update()
+
+
+void InputDeviceManager::scan()
+{
+	for (auto& driver : m_drivers)
 	{
-		if (isRebindMode())
-		{
-			bool result = 0;
-
-			for (auto& driver : m_drivers)
-			{
-				result |= driver->updateRebind(m_rebindInput);
-			}
-
-			if (result)
-			{
-				m_rebindInput = 0;
-			}
-		}
-		else
-		{
-			for (auto& driver : m_drivers)
-			{
-				driver->update();
-			}
-		}
+		//if(!driver->defaultOnly() || !found)
+			driver->scan();
 	}
-
-	void Controllers::scan()
-	{
-		u64 found = 0;
-		for(auto& driver : m_drivers)
-		{
-			//if(!driver->defaultOnly() || !found)
-			{
-				driver->scan(this);
-				found += driver->size();
-			}
-		}
-	}
-
-	void Controllers::rebind(int input)
-	{
-		m_rebindInput = input;
-	}
-
-	bool Controllers::isRebindMode() const
-	{
-		return m_rebindInput > 0;
-	}
-} // namespace sm64::hid
+}

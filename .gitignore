@@ -27,6 +27,7 @@ docs/doxygen/
 out.txt
 *.log
 *.sav
+*.tas
 
 
 # Tool artifacts

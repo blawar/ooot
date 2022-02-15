@@ -2,74 +2,83 @@
 #include <stdio.h>
 #include "../player/players.h"
 #include "../options.h"
+#include "tas.h"
 
 static u64 g_counter = 0;
-static  bool g_tasPlaying = false;
+static bool g_tasPlaying = false;
 
-namespace sm64::hid
+using namespace oot::hid;
+
+
+bool Tas::isTasPlaying()
 {
-	bool isTasPlaying()
-	{
-		return g_tasPlaying;
-	}
+	return g_tasPlaying;
+}
 
-	namespace controller
+
+
+void Tas::playTas(bool enabled)
+{
+	g_tasPlaying = enabled;
+}
+
+
+
+Tas::Tas() : N64Controller()
+{
+	fp = fopen("last-run.tas", "rb");
+
+	if (fp)
 	{
-		class Tas : public Controller
+		//fread(&oot::config(), 1, sizeof(oot::config()), fp);
+
+#define SRAM_SIZE 0x8000//But this in ultra_reimplementation.h?
+
+		uint8_t* sram = new uint8_t[SRAM_SIZE];
+		fread(sram, sizeof(uint8_t), SRAM_SIZE, fp);
+
+		FILE* save = nullptr;
+		fopen_s(&save, "oot.sav", "wb");
+		if (save)
 		{
-			public:
-			Tas() : Controller()
-			{
-				fp = fopen("cont.tas", "rb");
-
-				if(fp != NULL)
-				{
-					fread(&oot::config(), 1, sizeof(oot::config()), fp);
-					g_tasPlaying = true;
-				}
-			}
-
-			virtual ~Tas()
-			{
-				if(fp)
-				{
-					fclose(fp);
-				}
-			}
-
-			void update()
-			{
-				if(fp != NULL)
-				{
-					auto r = fread(&m_state, 1, sizeof(m_state), fp);
-					if (m_state.button)
-					{
-						int x = 0;
-					}
-				}
-			}
-
-			protected:
-				FILE* fp;
-		};
-	} // namespace controller
-
-	Tas::Tas() : Driver()
-	{
-	}
-
-	Tas::~Tas()
-	{
-	}
-
-	void Tas::scan(class Controllers* controllers)
-	{
-		if(!size())
-		{
-			auto controller = std::make_shared<controller::Tas>();
-			m_controllers.push_back(controller);
-			players().attach(controller, 0);
+			fwrite(sram, sizeof(uint8_t), SRAM_SIZE, save);
+			fclose(save);
 		}
-	}
 
-} // namespace sm64::hid
+		delete[] sram;
+
+		g_tasPlaying = true;
+	}
+}
+
+
+
+Tas::~Tas()
+{
+	if (fp)
+		fclose(fp);
+}
+
+
+
+void Tas::update()
+{
+	if (fp)
+	{
+		auto r = fread(&m_state, 1, sizeof(m_state), fp);
+		if (m_state.button)
+			int x = 0;
+	}
+}
+
+
+
+void Tas::scan()
+{
+	if (!size())
+	{
+		auto controller = std::make_shared<Tas>();
+		m_controllers.push_back(controller);
+		Players::get().attach(controller, 0);
+	}
+}
