@@ -1,5 +1,6 @@
 #pragma once
 #include "ultra64/types.h"
+#include <stdio.h>
 
 
 
@@ -45,6 +46,8 @@ namespace hid
 		s64 mouse_y() const;
 
 		N64Controller(bool isLocal = true);
+		~N64Controller();
+
 		virtual void update() {}
 		virtual void resolveInputs();
 		virtual bool isLocal() const {
@@ -71,5 +74,8 @@ namespace hid
 		State m_state;
 		bool m_isLocal;
 		bool m_motorEnabled;
+
+	private:
+		FILE* m_tasFile = nullptr;
 	};
 }

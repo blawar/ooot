@@ -10,6 +10,7 @@ namespace hid
 	{
 	public:
 		static bool isTasPlaying();
+		static void playTas(bool enabled);
 
 		Tas();
 		virtual ~Tas();
@@ -17,6 +18,6 @@ namespace hid
 		void update();
 
 	private:
-		FILE* fp;
+		FILE* fp = nullptr;
 	};
 }

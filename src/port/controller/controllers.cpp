@@ -62,7 +62,8 @@ InputDeviceManager::InputDeviceManager() : m_rebindInput(Button::NONE)
 #ifdef ENABLE_MOUSE
 	m_drivers.push_back(new Keyboard());
 #endif
-	//m_drivers.push_back(new Tas());
+	//if (Tas::isTasPlaying())
+		//m_drivers.push_back(new Tas());
 }
 
 

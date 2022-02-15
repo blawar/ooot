@@ -17,13 +17,36 @@ bool Tas::isTasPlaying()
 
 
 
+void Tas::playTas(bool enabled)
+{
+	g_tasPlaying = enabled;
+}
+
+
+
 Tas::Tas() : N64Controller()
 {
-	fp = fopen("cont.tas", "rb");
+	fp = fopen("last-run.tas", "rb");
 
 	if (fp)
 	{
-		fread(&oot::config(), 1, sizeof(oot::config()), fp);
+		//fread(&oot::config(), 1, sizeof(oot::config()), fp);
+
+#define SRAM_SIZE 0x8000//But this in ultra_reimplementation.h?
+
+		uint8_t* sram = new uint8_t[SRAM_SIZE];
+		fread(sram, sizeof(uint8_t), SRAM_SIZE, fp);
+
+		FILE* save = nullptr;
+		fopen_s(&save, "oot.sav", "wb");
+		if (save)
+		{
+			fwrite(sram, sizeof(uint8_t), SRAM_SIZE, save);
+			fclose(save);
+		}
+
+		delete[] sram;
+
 		g_tasPlaying = true;
 	}
 }

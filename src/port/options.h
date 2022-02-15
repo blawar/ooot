@@ -181,6 +181,7 @@ namespace oot
 			bool& disableFramePacing();
 
 			bool& recordTas();
+			void  recordTas(bool enable);
 			bool& forceMouse();
 
 			protected:

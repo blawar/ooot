@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "players.h"
 #include "../controller/controllers.h"
+#include "../options.h"
 
 #include "z64.h";
 #include "padmgr.h"
@@ -10,6 +11,7 @@ extern PadMgr gPadMgr;
 using namespace hid;
 
 Players g_players;
+
 
 extern "C" {
 void hid_init() {
