@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "../player/players.h"
 #include "../options.h"
+#include "tas.h"
 
 
 using namespace oot::hid::tas;
@@ -113,6 +114,4 @@ void Tas::scan(class Controllers* controllers)
         m_controllers.push_back(controller);
         players().attach(controller, 0);
     }
-}
-
 }*/
