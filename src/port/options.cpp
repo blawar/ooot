@@ -273,14 +273,29 @@ namespace oot
 			return m_blindowl;
 		}
 
+		bool& Game::isGraphicsDisabled()
+		{
+			return m_disableGraphics;
+		}
+
+		void Game::disableGraphics()
+		{
+			m_disableGraphics = true;
+		}
+
 		bool& Game::disableSound()
 		{
 			return m_disableSound;
 		}
 
-		bool& Game::disableFramePacing()
+		bool Game::isFramePacing()
 		{
-			return m_paceFrames;
+			return !m_paceFramesDisabled;
+		}
+
+		void Game::disableFramePacing()
+		{
+			m_paceFramesDisabled = true;
 		}
 
 		bool& Game::recordTas()

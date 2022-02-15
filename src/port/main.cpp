@@ -1,4 +1,8 @@
-﻿#include "global.h"
+﻿#include <string>
+#include <vector>
+#include "global.h"
+#include "options.h"
+#include "controller/tas.h"
 #include "ultra64/types.h"
 #include "ultra64/vi.h"
 #include "z64audio.h"
@@ -129,7 +133,40 @@ extern f32 gViConfigXScale;
 extern f32 gViConfigYScale;
 extern u32 gViConfigFeatures;
 
-int main() {
+
+
+void ParseCommandLineArguments(const std::vector<std::string>& commands)
+{
+    auto size_left = commands.size();
+    for (size_t i = 0; i < commands.size(); i++)
+    {
+        auto& cmd = commands[i];
+        size_left--;
+
+        if (cmd == "-tas" && size_left > 0)
+        {
+            auto tas_filename = std::move(commands[++i]);
+            oot::hid::tas::setTasFileName(tas_filename);
+            oot::hid::tas::playTas(true);
+        }
+
+        else if (cmd == "-no-graphics")
+            oot::config().game().disableGraphics();
+
+        else if (cmd == "-fast-forward")
+            oot::config().game().disableFramePacing();
+    }
+}
+
+
+
+int main(int argc, char** argv) {
+    std::vector<std::string> commands;
+    for (int i = 1; i < argc; i++)
+        commands.push_back(argv[i]);
+
+    ParseCommandLineArguments(commands);
+
     s16* msg;
 
 

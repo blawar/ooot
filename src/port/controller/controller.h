@@ -52,11 +52,13 @@ namespace oot
 					return ret;
 				}
 
-				void read(FILE* in) {
-					fread(&m_isUsed, sizeof(u8), 1, in);//Read the flag
+				bool read(FILE* in) {
+					if (fread(&m_isUsed, sizeof(u8), 1, in) != 1)//Read the flag
+						return true;//End of file reached
 
 					if (m_isUsed)//Is there even any input?
 						fread(&m_data, sizeof(InputFrame), 1, in);//Write the full state
+					return false;
 				}
 
 				void write(FILE* out) {

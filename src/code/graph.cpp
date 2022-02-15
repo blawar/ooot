@@ -37,6 +37,8 @@
 #include "def/z_game_dlftbls.h"
 #include "def/z_prenmi_buff.h"
 #include "def/z_play.h" // FORCE
+#include "../port/controller/tas.h"
+#include "../port/options.h"
 
 extern GameStateOverlay gGameStateOverlayTable[6];
 extern PreNmiBuff* gAppNmiBufferPtr;
@@ -206,7 +208,8 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext);
 
-    gfx_run(task, sizeof(OSTask_t));
+    if (!oot::config().game().isGraphicsDisabled())
+        gfx_run(task, sizeof(OSTask_t));
 }
 
 void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
@@ -393,7 +396,11 @@ void Graph_ThreadEntry(void* arg0) {
         GameState_Init(gameState, (GameStateFunc)ovl->init, &gfxCtx);
 
         while (GameState_IsRunning(gameState) && isRunning()) {
-            if(gfx_start_frame())
+            //Has the TAS playback completed?
+            if (oot::hid::tas::isTasPlaying() && oot::hid::tas::hasTasEnded())
+                break;
+
+            if (gfx_start_frame())
             {
                 Graph_Update(&gfxCtx, gameState);
                 gfx_end_frame();

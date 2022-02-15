@@ -291,9 +291,9 @@ void main_func(void)
 #endif
 
 #ifdef _DEBUG//Record TAS to capture bugs and crashes
-	oot::hid::Tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
+	oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
-	if (!oot::hid::Tas::isTasPlaying())
+	if (!oot::hid::tas::isTasPlaying())
 		oot::config().game().recordTas(true);
 #endif
 
@@ -452,4 +452,3 @@ void quit()
 {
 	g_isRunning = false;
 }
-

@@ -117,7 +117,7 @@ void N64Controller::resolveInputs()
 #define SRAM_SIZE 0x8000//But this in ultra_reimplementation.h?
 
 	//Recording TAS?
-	if (!Tas::isTasPlaying() && oot::config().game().recordTas())
+	if (!tas::isTasPlaying() && oot::config().game().recordTas())
 	{
 		//stream().write((const char*)&m_state, sizeof(m_state));
 
@@ -159,7 +159,7 @@ void N64Controller::resolveInputs()
 	}
 
 	//Playing back a TAS?
-	else if (Tas::isTasPlaying())
+	else if (tas::isTasPlaying())
 	{
 		if (!m_tasFile)
 		{
@@ -188,8 +188,12 @@ void N64Controller::resolveInputs()
 		{
 			//fread(&m_state, sizeof(m_state), 1, m_tasFile);//Uncompressed read
 			StateCompressed compressed;
-			compressed.read(m_tasFile);//Read the compressed state
-			m_state = compressed;//Uncompress
+			bool end_of_file = compressed.read(m_tasFile);//Read the compressed state
+
+			if (end_of_file)//End of file reached, playback is complete
+				tas::TasEnded();
+			else
+				m_state = compressed;//Uncompress
 		}
 	}
 
