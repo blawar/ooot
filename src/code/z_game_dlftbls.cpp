@@ -1,11 +1,11 @@
 #define INTERNAL_SRC_CODE_Z_GAME_DLFTBLS_C
 #include "global.h"
 #include "z64game.h"
+#include "z64global.h"
 #include "title_setup.h"
 #include "segment_symbols.h"
 #include "z_select.h"
 #include "z_title.h"
-#include "z_player.h"
 #include "z_opening.h"
 #include "z_file_choose.h"
 #include "def/z_game_dlftbls.h"

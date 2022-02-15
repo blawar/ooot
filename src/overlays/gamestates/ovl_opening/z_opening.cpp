@@ -2,7 +2,6 @@
 #include "actor_common.h"
 #include "framerate.h"
 #include "z_opening.h"
-#include "z_player.h"
 /*
  * File: z_opening.c
  * Overlay: ovl_opening

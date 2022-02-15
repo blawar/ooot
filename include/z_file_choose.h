@@ -4,6 +4,7 @@
 #include "z64environment.h"
 #include "z64message.h"
 #include "z64render.h"
+#include "z64sram.h"
 
 struct FileChooseContext {
     /* 0x00000 */ GameState state;

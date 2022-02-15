@@ -3,7 +3,6 @@
 #include "z_select.h"
 #include "z_title.h"
 #include "z_kankyo.h"
-#include "z_player.h"
 #include "framerate.h"
 #include "gfxprint.h"
 #include <malloc.h>

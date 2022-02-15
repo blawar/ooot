@@ -6,7 +6,6 @@
 #include "n64fault.h"
 #include "z64game.h"
 #include "z_opening.h"
-#include "z_player.h"
 #include "z_select.h"
 #include "z_file_choose.h"
 #include "title_setup.h"

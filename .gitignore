@@ -28,6 +28,7 @@ out.txt
 *.log
 *.sav
 *.tas
+*.bak
 
 
 # Tool artifacts

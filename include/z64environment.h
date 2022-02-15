@@ -4,6 +4,10 @@
 #include "z64light.h"
 #include "z64dma.h"
 
+struct SkyboxContext;
+struct PauseContext;
+struct MessageContext;
+
 #define FILL_SCREEN_OPA (1 << 0)
 #define FILL_SCREEN_XLU (1 << 1)
 

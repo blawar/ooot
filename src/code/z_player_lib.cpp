@@ -6,7 +6,6 @@
 #include "z64save.h"
 #include "z64object.h"
 #include "z64item.h"
-#include "z_player.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"

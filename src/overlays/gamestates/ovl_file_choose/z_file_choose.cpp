@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_GAMESTATES_OVL_FILE_CHOOSE_Z_FILE_CHOOSE_C
 #include "actor_common.h"
 #include "z_kankyo.h"
-#include "z_player.h"
+#include "z64player.h"
 #include "z_play.h"
 #include "z_file_choose.h"
 #include "z_select.h"

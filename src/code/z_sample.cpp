@@ -6,7 +6,7 @@
 #include "textures/title_static/title_static.h"
 #include "z_sample.h"
 #include "padmgr.h"
-#include "z_player.h"
+#include "z64player.h"
 #include "def/game.h"
 #include "def/graph.h"
 #include "def/position.h"
