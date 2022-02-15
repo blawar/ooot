@@ -400,10 +400,20 @@ void Graph_ThreadEntry(void* arg0) {
             if (oot::hid::tas::isTasPlaying() && oot::hid::tas::hasTasEnded())
                 break;
 
-            if (gfx_start_frame())
+            if (oot::config().game().isGraphicsDisabled())
             {
+                gfx_start_frame();
                 Graph_Update(&gfxCtx, gameState);
                 gfx_end_frame();
+            }
+
+            else
+            {
+                if (gfx_start_frame())
+                {
+                    Graph_Update(&gfxCtx, gameState);
+                    gfx_end_frame();
+                }
             }
         }
 
