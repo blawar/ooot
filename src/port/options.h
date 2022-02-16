@@ -172,13 +172,16 @@ namespace oot
 			float framerateScaler() const;
 			u8 framerateScalerInv() const;
 
+			bool& isGraphicsDisabled();
+			void disableGraphics();
 			bool& disableSound();
 			bool& fullscreen();
 			const bool mirror() const;
 			bool& setMirror();
 			bool& blindOwl();
 
-			bool& disableFramePacing();
+			bool isFramePacing();
+			void disableFramePacing();
 
 			bool& recordTas();
 			void  recordTas(bool enable);
@@ -187,14 +190,15 @@ namespace oot
 			protected:
 			u8 m_overclock;
 			u8 m_framerate;
+			bool m_disableGraphics;
 			bool m_disableSound;
 			bool m_fullscreen;
 			bool m_mirror;
 			bool m_blindowl;
-			bool m_paceFrames;
+			bool m_paceFramesDisabled;
 			bool m_recordTas;
 			bool m_forceMouse;
-			u8 m_padding[0x40 - 9];
+			u8 m_padding[0x40 - 10];
 		};
 
 		static_assert(sizeof(Game) == 0x40, "Game Incorrect Size");

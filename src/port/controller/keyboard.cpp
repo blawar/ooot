@@ -302,7 +302,7 @@ void Keyboard::update()
 	if (state[SDL_SCANCODE_F5] && (m_lastKeyState[SDL_SCANCODE_F5] ^ state[SDL_SCANCODE_F5]))
 		m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
 
-	if (Tas::isTasPlaying())
+	if (tas::isTasPlaying())
 		return;
 
 	for (const auto& [scancode, input] : m_keyBindings)

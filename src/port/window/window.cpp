@@ -1,6 +1,7 @@
 #include "../window.h"
 #include <thread>
 #include "z64.h"
+#include "../options.h"
 
 namespace platform::window
 {
@@ -108,8 +109,10 @@ namespace platform::window
 	bool Base::begin_frame()
 	{
 		handle_events();
-		while(!run_paced_loop())
+		if (oot::config().game().isFramePacing())
 		{
+			while (!run_paced_loop())
+			{}
 		}
 		return !dropped_frame;
 	}

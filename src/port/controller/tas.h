@@ -1,26 +1,19 @@
 #pragma once
-#include <stdio.h>
-#include "controllers.h"
+#include <string>
 
 
 
-namespace oot
+namespace oot::hid
 {
-	namespace hid
-	{
-		class Tas : public N64Controller, public InputDevice
-		{
-		public:
-			static bool isTasPlaying();
-			static void playTas(bool enabled);
+    namespace tas
+    {
+        bool isTasPlaying();
+        void playTas(bool enable);
 
-			Tas();
-			virtual ~Tas();
-			void scan() override;
-			void update();
+        std::string getTasFileName();
+        void setTasFileName(const std::string& newFilename);
 
-		private:
-			FILE* fp = nullptr;
-		};
-	}
+        void TasEnded();//Called when the TAS has ended (end of file of .tas file reached)
+        bool hasTasEnded();//Returns true when playback was complete
+    }
 }

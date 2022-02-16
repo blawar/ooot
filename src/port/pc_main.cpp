@@ -291,9 +291,9 @@ void main_func(void)
 #endif
 
 #ifdef _DEBUG//Record TAS to capture bugs and crashes
-	oot::hid::Tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
+	//oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
-	if (!oot::hid::Tas::isTasPlaying())
+	if (!oot::hid::tas::isTasPlaying())
 		oot::config().game().recordTas(true);
 #endif
 
@@ -316,7 +316,8 @@ void main_func(void)
 	//audio_init();
 	//interface_init();
 
-	gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
+	if (!oot::config().game().isGraphicsDisabled())
+		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
 	
 #ifdef USE_F3D
 	gfx_init(&gfx_sdl, &gfx_opengl_api, "Zelda OOT PC-Port", 0);
@@ -327,10 +328,15 @@ void main_func(void)
 
 	screen_init(&config);
 #elif defined(USE_GLIDEN64)
-    gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
-	//gfx_fbe_enable(0);//Uncomment to disable frame buffer emulation
+	if (!oot::config().game().isGraphicsDisabled())
+	{
+		gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
+		//gfx_fbe_enable(0);//Uncomment to disable frame buffer emulation
+	}
 #endif
-	gWindow->resize(-1, -1);
+	if (!oot::config().game().isGraphicsDisabled())
+		gWindow->resize(-1, -1);
+
 	hid_init();
 
 	game_init(NULL);
@@ -452,4 +458,3 @@ void quit()
 {
 	g_isRunning = false;
 }
-

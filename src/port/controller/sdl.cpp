@@ -369,7 +369,7 @@ bool Joypad::updateRebind(Button input)
 
 void Joypad::update()
 {
-	if (!m_context || Tas::isTasPlaying())
+	if (!m_context || tas::isTasPlaying())
 		return;
 
 	bool walk = false;
