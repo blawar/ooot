@@ -79,24 +79,6 @@ void N64Controller::merge(const N64Controller& controller)
 
 
 
-static std::string getTasFileName()
-{
-	return "last_run.tas";
-	/*std::error_code error;
-	std::filesystem::create_directory(TAS_DIR, error);
-
-	time_t now = time(0);
-	tm* time = localtime(&now);
-
-	if (!time)
-		return TAS_DIR"/record.tas";
-
-	char buf[64] = { 0 };
-	sprintf(buf, TAS_DIR"/%04d.%02d.%02d-%04d.tas", time->tm_year, time->tm_mon + 1, time->tm_mday, time->tm_hour * 60 + time->tm_min);
-	return buf;*/
-}
-
-
 static std::ofstream g_tas;
 
 static std::ofstream& stream()
@@ -125,7 +107,7 @@ void N64Controller::resolveInputs()
 
 		if (!m_tasFile)//Not open yet?
 		{
-			fopen_s(&m_tasFile, "last-run.tas", "wb");
+			fopen_s(&m_tasFile, tas::getTasFileName().c_str(), "wb");
 
 			if (!m_tasFile)
 				return;
@@ -163,7 +145,7 @@ void N64Controller::resolveInputs()
 	{
 		if (!m_tasFile)
 		{
-			m_tasFile = fopen("last-run.tas", "rb");
+			m_tasFile = fopen(tas::getTasFileName().c_str(), "rb");
 
 			if (!m_tasFile)
 				return;
