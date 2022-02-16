@@ -20,11 +20,10 @@
 #include "def/code_800430A0.h"
 #include "def/code_8006BA00.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FC620.h"
-#include "def/code_800FCE80.h"
-#include "def/code_800FD970.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
+#include "def/math_float.h"
+#include "def/random.h"
 #include "def/fault.h"
 #include "def/fault_drawer.h"
 #include "def/graph.h"
@@ -2720,7 +2719,6 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
             }
 
             overlayLoaded = true;
-            Overlay_Load(overlayEntry->vromStart, overlayEntry->vromEnd, overlayEntry->vramStart, overlayEntry->vramEnd, overlayEntry->loadedRamAddr);
 
             overlayEntry->numLoaded = 0;
         }

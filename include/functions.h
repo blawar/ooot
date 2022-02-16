@@ -514,7 +514,7 @@ Gfx* THGA_AllocEnd64(TwoHeadGfxArena* thga);
 Gfx* THGA_AllocEndArray16(TwoHeadGfxArena* thga, u32 count);
 Gfx* THGA_AllocEnd16(TwoHeadGfxArena* thga);
 
-void func_800C3C20(void);
+void Audio_StopAllBanks(void);
 void func_800C3C80(AudioMgr* audioMgr);
 void AudioMgr_HandleRetrace(AudioMgr* audioMgr);
 void AudioMgr_HandlePRENMI(AudioMgr* audioMgr);

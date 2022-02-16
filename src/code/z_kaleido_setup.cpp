@@ -6,7 +6,7 @@
 #include "z64global.h"
 #include "z64item.h"
 #include "framerate.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/shrink_window.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"

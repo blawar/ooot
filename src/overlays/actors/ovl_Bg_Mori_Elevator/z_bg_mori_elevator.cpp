@@ -3,7 +3,7 @@
 #include "z_bg_mori_elevator.h"
 #include "objects/object_mori_objects/object_mori_objects.h"
 #include "def/code_80043480.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

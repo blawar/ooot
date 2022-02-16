@@ -3,7 +3,7 @@
 #include "z_kaleido_scope.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "gfxprint.h"
-#include "def/code_80097A00.h"
+#include "def/inventory.h"
 #include "def/gfxprint.h"
 #include "def/graph.h"
 #include "def/xprintf.h"

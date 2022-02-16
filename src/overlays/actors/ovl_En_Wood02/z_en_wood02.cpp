@@ -8,7 +8,7 @@
 
 #include "z_en_wood02.h"
 #include "objects/object_wood02/object_wood02.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

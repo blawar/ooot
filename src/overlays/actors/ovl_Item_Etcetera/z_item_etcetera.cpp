@@ -7,7 +7,7 @@
  */
 
 #include "z_item_etcetera.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_draw.h"

@@ -8,7 +8,7 @@
 
 #include "z_en_tr.h"
 #include "objects/object_tr/object_tr.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

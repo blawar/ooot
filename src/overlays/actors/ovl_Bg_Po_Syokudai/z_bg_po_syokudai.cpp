@@ -9,7 +9,7 @@
 #include "z_bg_po_syokudai.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_syokudai/object_syokudai.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"

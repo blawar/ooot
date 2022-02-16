@@ -12,7 +12,7 @@
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/coss.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

@@ -11,7 +11,7 @@
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

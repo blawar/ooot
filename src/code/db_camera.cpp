@@ -8,7 +8,7 @@
 #include "z_demo.h"
 #include "gfx.h"
 #include "def/code_800BB0A0.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/db_camera.h"
 #include "def/debug_malloc.h"
 #include "def/mempak.h"

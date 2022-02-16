@@ -16,7 +16,7 @@
 #include "scenes/dungeons/ice_doukutu/ice_doukutu_scene.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/graph.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"

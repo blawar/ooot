@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_efc_erupc.h"
 #include "objects/object_efc_erupc/object_efc_erupc.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"

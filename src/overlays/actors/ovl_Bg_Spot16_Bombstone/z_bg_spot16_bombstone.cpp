@@ -6,7 +6,7 @@
 #include "overlays/actors/ovl_En_Bombf/z_en_bombf.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

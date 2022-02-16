@@ -11,7 +11,7 @@
 #include "overlays/actors/ovl_En_Ik/z_en_ik.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"

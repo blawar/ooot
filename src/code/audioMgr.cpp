@@ -8,8 +8,8 @@
 #include "regs.h"
 #include "z64game.h"
 #include "def/audioMgr.h"
-#include "def/code_800EC960.h"
-#include "def/code_800E4FE0.h"
+#include "def/audio.h"
+#include "def/audio_rsp.h"
 #include "def/audio_playback.h"
 
 static AudioMgr* g_audioMgr = NULL;

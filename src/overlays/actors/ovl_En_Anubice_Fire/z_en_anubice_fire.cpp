@@ -9,7 +9,7 @@
 #include "z_en_anubice_fire.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_anubice/object_anubice.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

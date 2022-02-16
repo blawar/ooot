@@ -8,7 +8,7 @@
 #include "def/audio_seqplayer.h"
 #include "def/audio_synthesis.h"
 #include "def/code_800E6840.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 
 #define DEFAULT_LEN_1CH 0x1A0
 #define DEFAULT_LEN_2CH 0x340

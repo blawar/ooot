@@ -9,7 +9,7 @@
 #include "z_en_dns.h"
 #include "objects/object_shopnuts/object_shopnuts.h"
 #include "vt.h"
-#include "def/code_80097A00.h"
+#include "def/inventory.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
 #include "def/z_common_data.h"

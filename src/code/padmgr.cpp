@@ -12,6 +12,7 @@ extern "C"
 	void hid_update();
 }
 
+u32 gIsCtrlr2Valid = false;
 s32 D_8012D280 = 1;
 
 OSMesgQueue* PadMgr_LockSerialMesgQueue(PadMgr* padMgr) {

@@ -10,7 +10,7 @@
 #include "objects/object_ru2/object_ru2.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "vt.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"

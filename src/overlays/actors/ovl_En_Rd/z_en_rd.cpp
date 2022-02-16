@@ -3,7 +3,7 @@
 #include "z_en_rd.h"
 #include "objects/object_rd/object_rd.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

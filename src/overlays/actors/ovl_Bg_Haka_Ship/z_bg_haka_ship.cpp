@@ -9,7 +9,7 @@
 #include "z_bg_haka_ship.h"
 #include "objects/object_haka_objects/object_haka_objects.h"
 #include "def/code_80043480.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

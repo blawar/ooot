@@ -15,7 +15,7 @@
 #include "objects/object_mastergolon/object_mastergolon.h"
 #include "objects/object_masterzoora/object_masterzoora.h"
 #include "objects/object_masterkokirihead/object_masterkokirihead.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/graph.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"

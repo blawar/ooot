@@ -11,10 +11,9 @@
 #include "ultra64/rcp.h"
 #include "ultra64/exception.h"
 #include "def/sys_cfb.h"
-#include "def/code_800FC620.h"
 #include "def/z_debug.h"
 #include "audiomgr.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/audioMgr.h"
 
 //f32 qNaN0x3FFFFF;
@@ -178,29 +177,11 @@ int main(int argc, char** argv) {
 
     osSyncPrintf("mainproc execution start\n"); // "Start running"
     gAppNmiBufferPtr = (PreNmiBuff*)osAppNmiBuffer;
-    //PreNmiBuff_Init(gAppNmiBufferPtr);
-    //Fault_Init();
     SysCfb_Init(0);
-    //sysHeap = (u32)gSystemHeap;
-    //fb = SysCfb_GetFbPtr(0);
-#ifndef USE_NATIVE_MALLOC
-    gSystemHeapSize = 0x20000000; //(fb - sysHeap);
-    debugHeapSize = 0x8000000;
-    // "System heap initalization"
-    //osSyncPrintf("System heap initalization %08x-%08x %08x\n", sysHeap, fb, gSystemHeapSize);
-    SystemHeap_Init(malloc(gSystemHeapSize), gSystemHeapSize); // initializes the system heap
 
-    debugHeap = malloc(debugHeapSize);
-    osSyncPrintf("debug_InitArena(%08x, %08x)\n", debugHeap, debugHeapSize);
-    DebugArena_Init(debugHeap, debugHeapSize);
-#else
-    SystemHeap_Init(NULL, 0); // initializes the system heap
-#endif
     func_800636C0();
 
     R_ENABLE_ARENA_DBG = 0;
-
-    //Main_LogSystemHeap();
 
     AudioMgr_Init(&gAudioMgr, NULL, NULL, 0xA, NULL, NULL);
 

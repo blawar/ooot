@@ -9,7 +9,7 @@
  */
 
 #include "global.h"
-#include "def/code_80097A00.h"
+#include "def/inventory.h"
 #include "def/sys_matrix.h"
 #include "def/z_common_data.h"
 #include "def/z_opening.h"

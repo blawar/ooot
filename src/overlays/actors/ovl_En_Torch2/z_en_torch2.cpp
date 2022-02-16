@@ -8,8 +8,8 @@
 
 #include "z_en_torch2.h"
 #include "objects/object_torch2/object_torch2.h"
-#include "def/code_800EC960.h"
-#include "def/code_800FD970.h"
+#include "def/audio.h"
+#include "def/random.h"
 #include "def/padutils.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

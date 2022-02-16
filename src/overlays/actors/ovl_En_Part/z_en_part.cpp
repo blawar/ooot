@@ -9,7 +9,7 @@
 #include "z_en_part.h"
 #include "objects/object_tite/object_tite.h"
 #include "objects/object_ik/object_ik.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

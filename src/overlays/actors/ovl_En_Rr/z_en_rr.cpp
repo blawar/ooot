@@ -9,7 +9,7 @@
 #include "z_en_rr.h"
 #include "objects/object_rr/object_rr.h"
 #include "vt.h"
-#include "def/code_80097A00.h"
+#include "def/inventory.h"
 #include "def/code_800A9F30.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"

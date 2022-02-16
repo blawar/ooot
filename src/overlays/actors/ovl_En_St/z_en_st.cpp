@@ -26,7 +26,7 @@ void EnSt_BounceAround(EnSt* pthis, GlobalContext* globalCtx);
 void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx);
 
 #include "overlays/ovl_En_St/ovl_En_St.cpp"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

@@ -9,7 +9,7 @@
 #include "z_en_vali.h"
 #include "objects/object_vali/object_vali.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"

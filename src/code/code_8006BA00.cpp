@@ -2,7 +2,7 @@
 #include "global.h"
 #include "z64global.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/z_skin_matrix.h"
 
 void func_8006BA00(GlobalContext* globalCtx) {

@@ -14,8 +14,8 @@ static s16 sUnused = -1;
 static s32 sPrevFrameCs1100 = -4096;
 
 #include "z_onepointdemo_data.cpp"
-#include "def/code_800FCE80.h"
-#include "def/code_800FD970.h"
+#include "def/math_float.h"
+#include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"

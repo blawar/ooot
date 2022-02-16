@@ -5,8 +5,7 @@
 #include "z64camera.h"
 #include "z64global.h"
 #include <string.h>
-#include "def/code_800FD970.h"
-#include "def/code_80106860.h"
+#include "def/random.h"
 #include "def/z_lib.h"
 #include "def/z_olib.h"
 #include "def/z_quake.h"
@@ -162,7 +161,7 @@ QuakeRequest* Quake_AddImpl(Camera* cam, u32 callbackIdx) {
     s16 idx = Quake_GetFreeIndex();
     QuakeRequest* req = &sQuakeRequest[idx];
 
-    z_memset(req, 0, sizeof(QuakeRequest)); // memset
+    memset(req, 0, sizeof(QuakeRequest));
     req->cam = cam;
     req->camPtrIdx = cam->thisIdx;
     req->callbackIdx = callbackIdx;

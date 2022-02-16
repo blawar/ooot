@@ -29,8 +29,8 @@ static Vec3f dustPosOffsets_91[] = {
 static s32 sUnused = 0;
 
 #include "z_demo_du_cutscene_data.cpp" EARLY
-#include "def/code_800F7260.h"
-#include "def/code_800FD970.h"
+#include "def/audio_bank.h"
+#include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"

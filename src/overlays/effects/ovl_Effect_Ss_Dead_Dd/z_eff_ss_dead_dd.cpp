@@ -9,7 +9,7 @@
 
 #include "z_eff_ss_dead_dd.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_object_kankyo.h"
 #include "def/z_rcp.h"

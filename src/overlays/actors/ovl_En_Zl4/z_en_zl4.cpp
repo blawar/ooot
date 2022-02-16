@@ -10,7 +10,7 @@
 #include "objects/object_zl4/object_zl4.h"
 #include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/shrink_window.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

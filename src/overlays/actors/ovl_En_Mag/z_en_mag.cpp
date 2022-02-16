@@ -8,9 +8,9 @@
 
 #include "z_en_mag.h"
 #include "objects/object_mag/object_mag.h"
-#include "def/code_8006C3A0.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
+#include "def/environment_flags.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/z_common_data.h"
 #include "def/z_kanfont.h"

@@ -10,7 +10,7 @@
 #include "objects/object_hidan_objects/object_hidan_objects.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

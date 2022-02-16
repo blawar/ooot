@@ -9,7 +9,7 @@
 #include "z_en_attack_niw.h"
 #include "objects/object_niw/object_niw.h"
 #include "overlays/actors/ovl_En_Niw/z_en_niw.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_lib.h"

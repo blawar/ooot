@@ -3,7 +3,7 @@
 #include "file_choose.h"
 #include "z_file_choose.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/z_common_data.h"
 #include "def/z_sram.h"
 

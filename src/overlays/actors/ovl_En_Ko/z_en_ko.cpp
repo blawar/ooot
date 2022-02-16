@@ -14,7 +14,7 @@
 #include "objects/object_km1/object_km1.h"
 #include "objects/object_kw1/object_kw1.h"
 #include "vt.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

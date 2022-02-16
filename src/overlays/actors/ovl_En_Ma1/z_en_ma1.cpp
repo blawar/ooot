@@ -8,7 +8,7 @@
 
 #include "z_en_ma1.h"
 #include "objects/object_ma1/object_ma1.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_btltbls.h"

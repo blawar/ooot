@@ -12,7 +12,7 @@
 #include "objects/object_demo_6k/object_demo_6k.h"
 #include "objects/object_gnd_magic/object_gnd_magic.h"
 #include "overlays/actors/ovl_Eff_Dust/z_eff_dust.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

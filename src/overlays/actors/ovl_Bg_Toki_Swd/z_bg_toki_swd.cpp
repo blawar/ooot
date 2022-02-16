@@ -8,8 +8,8 @@
 
 #include "z_bg_toki_swd.h"
 #include "objects/object_toki_objects/object_toki_objects.h"
-#include "def/code_8006C3A0.h"
-#include "def/code_800F9280.h"
+#include "def/environment_flags.h"
+#include "def/audio_command.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

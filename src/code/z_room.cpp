@@ -8,7 +8,7 @@
 #include "z64player.h"
 #include "z64save.h"
 #include "rsp.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/createmesgqueue.h"
 #include "def/game.h"
 #include "def/gettime.h"

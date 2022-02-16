@@ -11,14 +11,14 @@
 #include "def/audio_data.h"
 #include "def/audio_load.h"
 #include "def/audio_sound_params.h"
-#include "def/code_800E4FE0.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
-#include "def/code_800F9280.h"
+#include "def/audio_rsp.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
+#include "def/audio_command.h"
 #include "def/gettime.h"
 
 
-// TODO: can these macros be shared between files? code_800F9280 seems to use
+// TODO: can these macros be shared between files? audio_command seems to use
 // versions without any casts...
 #define Audio_DisableSeq(playerIdx, fadeOut) Audio_QueueCmdS32(0x83000000 | ((u8)playerIdx << 16), fadeOut)
 #define Audio_StartSeq(playerIdx, fadeTimer, seqId) \

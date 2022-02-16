@@ -8,10 +8,10 @@
 #include "regs.h"
 #include "z64game.h"
 #include "z_view.h"
+#include <string.h>
 #include "z64gu.h"
 #include "z64memory.h"
 #include "shrink_window.h"
-#include "def/code_80106860.h"
 #include "def/graph.h"
 #include "def/logutils.h"
 #include "def/lookat.h"
@@ -42,7 +42,7 @@ View* View_New(GraphicsContext* gfxCtx) {
     View* view = (View*)SystemArena_MallocDebug(sizeof(View), "../z_view.c", 285);
 
     if (view != NULL) {
-        z_memset(view, 0, sizeof(View)); // memset
+        memset(view, 0, sizeof(View));
         View_Init(view, gfxCtx);
     }
 

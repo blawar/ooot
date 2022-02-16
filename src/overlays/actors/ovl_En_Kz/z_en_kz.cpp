@@ -8,8 +8,8 @@
 
 #include "z_en_kz.h"
 #include "objects/object_kz/object_kz.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FCE80.h"
+#include "def/audio_bank.h"
+#include "def/math_float.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

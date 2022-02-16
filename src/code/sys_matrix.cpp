@@ -7,7 +7,7 @@
 #include "math.h"
 #include "z64memory.h"
 #include "z64skinmatrix.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/game.h"
 #include "def/graph.h"
 #include "def/mtxf2l.h"

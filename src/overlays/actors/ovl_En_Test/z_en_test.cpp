@@ -8,9 +8,9 @@
 
 #include "z_en_test.h"
 #include "objects/object_sk2/object_sk2.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FD970.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

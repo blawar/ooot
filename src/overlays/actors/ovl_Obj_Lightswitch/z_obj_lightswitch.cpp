@@ -10,7 +10,7 @@
 #include "vt.h"
 #include "overlays/actors/ovl_Obj_Oshihiki/z_obj_oshihiki.h"
 #include "objects/object_lightswitch/object_lightswitch.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"

@@ -8,9 +8,9 @@
 
 #include "z_en_elf.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FD970.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
+#include "def/random.h"
 #include "def/graph.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"

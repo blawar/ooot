@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_dead_sound.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 
 #define rSfxId regs[10]
 #define rRepeatMode regs[11] // sound is replayed every update. unused in the original game

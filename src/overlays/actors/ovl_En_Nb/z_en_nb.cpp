@@ -10,7 +10,7 @@
 #include "vt.h"
 #include "objects/object_nb/object_nb.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

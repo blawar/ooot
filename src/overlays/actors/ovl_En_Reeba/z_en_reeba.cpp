@@ -11,7 +11,7 @@
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
 #include "vt.h"
 #include "objects/object_reeba/object_reeba.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_collision_check.h"

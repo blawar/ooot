@@ -9,7 +9,7 @@
 #include "z_demo_ext.h"
 #include "vt.h"
 #include "objects/object_fhg/object_fhg.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

@@ -1797,70 +1797,49 @@
     <ClCompile Include="..\src\code\code_800BB0A0.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800C3C20.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\code\code_800D2E30.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800D31A0.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_800E4FE0.cpp">
+    <ClCompile Include="..\src\code\audio_rsp.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_800E6840.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800EC960.cpp">
+    <ClCompile Include="..\src\code\audio.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800F7260.cpp">
+    <ClCompile Include="..\src\code\audio_bank.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800F9280.cpp">
+    <ClCompile Include="..\src\code\audio_command.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800FBCE0.cpp">
+    <ClCompile Include="..\src\code\math_float.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_800FC620.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_800FCE80.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_800FD970.cpp">
+    <ClCompile Include="..\src\code\random.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_8006BA00.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_8006C3A0.cpp">
+    <ClCompile Include="..\src\code\environment_flags.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_8006C510.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\code_80097A00.cpp">
+    <ClCompile Include="..\src\code\inventory.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_800430A0.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_801067F0.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_801068B0.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_80043480.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\code_80069420.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\code_80106860.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\db_camera.cpp">

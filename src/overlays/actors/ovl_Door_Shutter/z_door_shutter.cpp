@@ -27,7 +27,7 @@
 #include "objects/object_ouke_haka/object_ouke_haka.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

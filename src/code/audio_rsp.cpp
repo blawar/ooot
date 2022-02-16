@@ -1,8 +1,10 @@
 #define INTERNAL_SRC_CODE_CODE_800E4FE0_C
 #include "global.h"
 #include "rsp.h"
+#include <string.h>
 #include "z64audio.h"
 #include "ultra64/abi.h"
+#include "ultra64/mbi.h"
 #include "def/aigetlen.h"
 #include "def/aisetnextbuf.h"
 #include "def/audio_data.h"
@@ -11,12 +13,33 @@
 #include "def/audio_playback.h"
 #include "def/audio_seqplayer.h"
 #include "def/audio_synthesis.h"
-#include "def/code_800E4FE0.h"
-#include "def/code_800F7260.h"
+#include "def/audio_rsp.h"
+#include "def/audio_bank.h"
 #include "def/createmesgqueue.h"
 #include "def/recvmesg.h"
 
 #include "redef_msgqueue.h"
+
+static const int16_t RESAMPLE_LUT[64 * 4] = {
+    (int16_t)0x0c39, (int16_t)0x66ad, (int16_t)0x0d46, (int16_t)0xffdf, (int16_t)0x0b39, (int16_t)0x6696, (int16_t)0x0e5f, (int16_t)0xffd8, (int16_t)0x0a44, (int16_t)0x6669, (int16_t)0x0f83, (int16_t)0xffd0, (int16_t)0x095a, (int16_t)0x6626,
+    (int16_t)0x10b4, (int16_t)0xffc8, (int16_t)0x087d, (int16_t)0x65cd, (int16_t)0x11f0, (int16_t)0xffbf, (int16_t)0x07ab, (int16_t)0x655e, (int16_t)0x1338, (int16_t)0xffb6, (int16_t)0x06e4, (int16_t)0x64d9, (int16_t)0x148c, (int16_t)0xffac,
+    (int16_t)0x0628, (int16_t)0x643f, (int16_t)0x15eb, (int16_t)0xffa1, (int16_t)0x0577, (int16_t)0x638f, (int16_t)0x1756, (int16_t)0xff96, (int16_t)0x04d1, (int16_t)0x62cb, (int16_t)0x18cb, (int16_t)0xff8a, (int16_t)0x0435, (int16_t)0x61f3,
+    (int16_t)0x1a4c, (int16_t)0xff7e, (int16_t)0x03a4, (int16_t)0x6106, (int16_t)0x1bd7, (int16_t)0xff71, (int16_t)0x031c, (int16_t)0x6007, (int16_t)0x1d6c, (int16_t)0xff64, (int16_t)0x029f, (int16_t)0x5ef5, (int16_t)0x1f0b, (int16_t)0xff56,
+    (int16_t)0x022a, (int16_t)0x5dd0, (int16_t)0x20b3, (int16_t)0xff48, (int16_t)0x01be, (int16_t)0x5c9a, (int16_t)0x2264, (int16_t)0xff3a, (int16_t)0x015b, (int16_t)0x5b53, (int16_t)0x241e, (int16_t)0xff2c, (int16_t)0x0101, (int16_t)0x59fc,
+    (int16_t)0x25e0, (int16_t)0xff1e, (int16_t)0x00ae, (int16_t)0x5896, (int16_t)0x27a9, (int16_t)0xff10, (int16_t)0x0063, (int16_t)0x5720, (int16_t)0x297a, (int16_t)0xff02, (int16_t)0x001f, (int16_t)0x559d, (int16_t)0x2b50, (int16_t)0xfef4,
+    (int16_t)0xffe2, (int16_t)0x540d, (int16_t)0x2d2c, (int16_t)0xfee8, (int16_t)0xffac, (int16_t)0x5270, (int16_t)0x2f0d, (int16_t)0xfedb, (int16_t)0xff7c, (int16_t)0x50c7, (int16_t)0x30f3, (int16_t)0xfed0, (int16_t)0xff53, (int16_t)0x4f14,
+    (int16_t)0x32dc, (int16_t)0xfec6, (int16_t)0xff2e, (int16_t)0x4d57, (int16_t)0x34c8, (int16_t)0xfebd, (int16_t)0xff0f, (int16_t)0x4b91, (int16_t)0x36b6, (int16_t)0xfeb6, (int16_t)0xfef5, (int16_t)0x49c2, (int16_t)0x38a5, (int16_t)0xfeb0,
+    (int16_t)0xfedf, (int16_t)0x47ed, (int16_t)0x3a95, (int16_t)0xfeac, (int16_t)0xfece, (int16_t)0x4611, (int16_t)0x3c85, (int16_t)0xfeab, (int16_t)0xfec0, (int16_t)0x4430, (int16_t)0x3e74, (int16_t)0xfeac, (int16_t)0xfeb6, (int16_t)0x424a,
+    (int16_t)0x4060, (int16_t)0xfeaf, (int16_t)0xfeaf, (int16_t)0x4060, (int16_t)0x424a, (int16_t)0xfeb6, (int16_t)0xfeac, (int16_t)0x3e74, (int16_t)0x4430, (int16_t)0xfec0, (int16_t)0xfeab, (int16_t)0x3c85, (int16_t)0x4611, (int16_t)0xfece,
+    (int16_t)0xfeac, (int16_t)0x3a95, (int16_t)0x47ed, (int16_t)0xfedf, (int16_t)0xfeb0, (int16_t)0x38a5, (int16_t)0x49c2, (int16_t)0xfef5, (int16_t)0xfeb6, (int16_t)0x36b6, (int16_t)0x4b91, (int16_t)0xff0f, (int16_t)0xfebd, (int16_t)0x34c8,
+    (int16_t)0x4d57, (int16_t)0xff2e, (int16_t)0xfec6, (int16_t)0x32dc, (int16_t)0x4f14, (int16_t)0xff53, (int16_t)0xfed0, (int16_t)0x30f3, (int16_t)0x50c7, (int16_t)0xff7c, (int16_t)0xfedb, (int16_t)0x2f0d, (int16_t)0x5270, (int16_t)0xffac,
+    (int16_t)0xfee8, (int16_t)0x2d2c, (int16_t)0x540d, (int16_t)0xffe2, (int16_t)0xfef4, (int16_t)0x2b50, (int16_t)0x559d, (int16_t)0x001f, (int16_t)0xff02, (int16_t)0x297a, (int16_t)0x5720, (int16_t)0x0063, (int16_t)0xff10, (int16_t)0x27a9,
+    (int16_t)0x5896, (int16_t)0x00ae, (int16_t)0xff1e, (int16_t)0x25e0, (int16_t)0x59fc, (int16_t)0x0101, (int16_t)0xff2c, (int16_t)0x241e, (int16_t)0x5b53, (int16_t)0x015b, (int16_t)0xff3a, (int16_t)0x2264, (int16_t)0x5c9a, (int16_t)0x01be,
+    (int16_t)0xff48, (int16_t)0x20b3, (int16_t)0x5dd0, (int16_t)0x022a, (int16_t)0xff56, (int16_t)0x1f0b, (int16_t)0x5ef5, (int16_t)0x029f, (int16_t)0xff64, (int16_t)0x1d6c, (int16_t)0x6007, (int16_t)0x031c, (int16_t)0xff71, (int16_t)0x1bd7,
+    (int16_t)0x6106, (int16_t)0x03a4, (int16_t)0xff7e, (int16_t)0x1a4c, (int16_t)0x61f3, (int16_t)0x0435, (int16_t)0xff8a, (int16_t)0x18cb, (int16_t)0x62cb, (int16_t)0x04d1, (int16_t)0xff96, (int16_t)0x1756, (int16_t)0x638f, (int16_t)0x0577,
+    (int16_t)0xffa1, (int16_t)0x15eb, (int16_t)0x643f, (int16_t)0x0628, (int16_t)0xffac, (int16_t)0x148c, (int16_t)0x64d9, (int16_t)0x06e4, (int16_t)0xffb6, (int16_t)0x1338, (int16_t)0x655e, (int16_t)0x07ab, (int16_t)0xffbf, (int16_t)0x11f0,
+    (int16_t)0x65cd, (int16_t)0x087d, (int16_t)0xffc8, (int16_t)0x10b4, (int16_t)0x6626, (int16_t)0x095a, (int16_t)0xffd0, (int16_t)0x0f83, (int16_t)0x6669, (int16_t)0x0a44, (int16_t)0xffd8, (int16_t)0x0e5f, (int16_t)0x6696, (int16_t)0x0b39,
+    (int16_t)0xffdf, (int16_t)0x0d46, (int16_t)0x66ad, (int16_t)0x0c39};
 
 u32 osGetCount(void);
 
@@ -56,6 +79,286 @@ AudioTask* func_800E4FE0(void) {
 }
 
 extern u64 rspAspMainDataStart[0x5C];
+
+static inline int16_t clamp_s16(int32_t v)
+{
+	return v < -32768 ? -32768 : v > 32767 ? 32767 : v;
+}
+
+static inline int16_t sample_mix(int16_t dst, int16_t src, int16_t gain)
+{
+	int32_t src_modified = (src * gain) >> 15;
+	return clamp_s16(dst + src_modified);
+}
+
+static const u32 MAX_MEMORY_SIZE = 0xFFFF;
+static u8 m_memory[MAX_MEMORY_SIZE];
+
+class AudioRsp
+{
+	typedef void (AudioRsp::*AbiHandler)(const Acmd& cmds);
+	public:
+
+	constexpr AudioRsp()
+	{
+	}
+
+	void execute(Acmd* cmds, size_t len)
+	{
+		for(size_t i = 0; i < len; i++)
+		{
+			const auto& cmd = cmds[i];
+			u8 op		= _SHIFTR(cmd.words.w0, 24, 8);
+
+			if(op >= sizeof(m_abiHandlers))
+			{
+				break;
+			}
+
+			(*this.*m_abiHandlers[op])(cmd);
+		}
+	}
+
+	protected:
+	void cmd_SPNOOP(const Acmd& cmd)
+	{
+	}
+
+	void cmd_ADPCM(const Acmd& cmd)
+	{
+		return;
+	}
+
+	void cmd_CLEARBUFF(const Acmd& cmd)
+	{
+		DMem addr = _SHIFTR(cmd.words.w0, 0, 16);
+		u16 count = _SHIFTR(cmd.words.w1, 0, 16);
+
+        memset(addr, 0, count);
+		return;
+	}
+
+	void cmd_UNK3(const Acmd& cmd)
+	{
+	}
+
+	void cmd_ADDMIXER(const Acmd& cmd)
+	{
+	}
+
+	void cmd_RESAMPLE(const Acmd& cmd)
+	{
+		u8 flags		   = _SHIFTR(cmd.words.w0, 16, 8);
+		uintptr_t s		   = cmd.words.w1;
+		u16 p			   = _SHIFTR(cmd.words.w0, 0, 16);
+		/*_a->words.w0		   = (_SHIFTL(A_RESAMPLE, 24, 8) | _SHIFTL(f, 16, 8) | _SHIFTL(p, 0, 16));
+		_a->words.w1		   = (uintptr_t)(s);
+
+		int16_t* dst		   = (int16_t*)(alist_buffer + alist_audio.out);
+		int16_t* src		   = (int16_t*)(alist_buffer + alist_audio.in);
+		size_t count		   = alist_audio.count >> 1;
+		uint32_t pitch_accumulator = 0;
+
+		count = align(count, 8);
+
+		src -= 4;
+
+		if(flags & A_INIT)
+		{
+			memset(src, 0, 4 * sizeof(int16_t));
+		}
+		else
+		{
+			memcpy(src, state_addr, 4 * sizeof(int16_t));
+			pitch_accumulator = state_addr[4];
+		}
+
+		while(count != 0)
+		{
+			const int16_t* lut = RESAMPLE_LUT + ((pitch_accumulator & 0xfc00) >> 8);
+
+			*dst++ = clamp_s16((src[0] * lut[0] + src[1] * lut[1] + src[2] * lut[2] + src[3] * lut[3]) >> 15);
+			pitch_accumulator += (pitch << 1);
+			src += pitch_accumulator >> 16;
+			pitch_accumulator &= 0xffff;
+			--count;
+		}
+
+		memcpy(state_addr, src, 4 * sizeof(int16_t));
+		state_addr[4] = pitch_accumulator;*/
+		return;
+	}
+
+	void cmd_RESAMPLE_ZOH(const Acmd& cmd)
+	{
+	}
+
+	void cmd_FILTER(const Acmd& cmd)
+	{
+	}
+
+	void cmd_SETBUFF(const Acmd& cmd)
+	{
+		return;
+	}
+
+	void cmd_DUPLICATE(const Acmd& cmd)
+	{
+		return;
+	}
+
+	void cmd_DMEMMOVE(const Acmd& cmd)
+	{
+		return;
+	}
+
+	void cmd_LOADADPCM(const Acmd& cmd)
+	{
+		return;
+	}
+
+	void cmd_MIXER(const Acmd& cmd)
+	{
+		u16 count = _SHIFTR(cmd.words.w0, 16, 8);
+		s16 gain = _SHIFTR(cmd.words.w0, 0, 16);
+		DMem _src  = _SHIFTR(cmd.words.w1, 16, 16);
+		DMem _dest = _SHIFTR(cmd.words.w1, 0, 16);
+
+
+		int16_t* dst	   = (int16_t*)_dest.buffer();
+		const int16_t* src = (const int16_t*)_src.buffer();
+
+		while(count != 0)
+		{
+			*dst = sample_mix(*dst, *src, gain);
+			++dst;
+			++src;
+			--count;
+		}
+		return;
+	}
+
+	void cmd_INTERLEAVE(const Acmd& cmd)
+	{
+		u16 count = _SHIFTR(cmd.words.w0, 16, 8) << 4;
+		DMem dest  = _SHIFTR(cmd.words.w0, 0, 16);
+		DMem L  = _SHIFTR(cmd.words.w1, 16, 16);
+		DMem R	  = _SHIFTR(cmd.words.w1, 0, 16);
+
+        int16_t* dst  = (int16_t*)dest.buffer();
+		int16_t* srcL = (int16_t*)L.buffer();
+		int16_t* srcR = (int16_t*)R.buffer();
+
+		// Unroll a bit
+		while(count != 0)
+		{
+			int16_t l1 = *srcL++;
+			int16_t l2 = *srcL++;
+			int16_t r1 = *srcR++;
+			int16_t r2 = *srcR++;
+
+			*dst++ = l1;
+			*dst++ = r1;
+			*dst++ = l2;
+			*dst++ = r2;
+
+			--count;
+		}
+
+		return;
+	}
+
+	void cmd_HILOGAIN(const Acmd& cmd)
+	{
+	}
+
+	void cmd_SETLOOP(const Acmd& cmd)
+	{
+	}
+
+	void cmd_UNK16(const Acmd& cmd)
+	{
+	}
+
+	void cmd_INTERL(const Acmd& cmd)
+	{
+	}
+
+	void cmd_ENVSETUP1(const Acmd& cmd)
+	{
+	}
+
+	void cmd_ENVMIXER(const Acmd& cmd)
+	{
+	}
+
+	void cmd_LOADBUFF(const Acmd& cmd)
+	{
+		auto addr = (void*)cmd.words.w1;
+		size_t len       = _SHIFTR(cmd.words.w0, 16, 8) << 4;
+		DMem arg2   = _SHIFTR(cmd.words.w0, 0, 16);
+		memcpy(addr, arg2, len);
+
+		return;
+	}
+
+	void cmd_SAVEBUFF(const Acmd& cmd)
+	{
+		size_t len = _SHIFTR(cmd.words.w0, 16, 8) << 4;
+		auto addr = (void*)cmd.words.w1;
+		DMem arg2       = _SHIFTR(cmd.words.w0, 0, 16);
+		memcpy(arg2, addr, len);
+		return;
+	}
+
+	void cmd_ENVSETUP2(const Acmd& cmd)
+	{
+	}
+
+	void cmd_UNK17(const Acmd& cmd)
+	{
+	}
+
+    AbiHandler m_abiHandlers[24] = {&AudioRsp::cmd_SPNOOP,   &AudioRsp::cmd_ADPCM,     &AudioRsp::cmd_CLEARBUFF, &AudioRsp::cmd_UNK3,	  &AudioRsp::cmd_ADDMIXER,  &AudioRsp::cmd_RESAMPLE,
+				       &AudioRsp::cmd_RESAMPLE_ZOH, &AudioRsp::cmd_FILTER,   &AudioRsp::cmd_SETBUFF,   &AudioRsp::cmd_DUPLICATE, &AudioRsp::cmd_DMEMMOVE, &AudioRsp::cmd_LOADADPCM, &AudioRsp::cmd_MIXER,
+				       &AudioRsp::cmd_INTERLEAVE,   &AudioRsp::cmd_HILOGAIN, &AudioRsp::cmd_SETLOOP,   &AudioRsp::cmd_UNK16,	 &AudioRsp::cmd_INTERL,	  &AudioRsp::cmd_ENVSETUP1, &AudioRsp::cmd_ENVMIXER,
+				       &AudioRsp::cmd_LOADBUFF,	    &AudioRsp::cmd_SAVEBUFF, &AudioRsp::cmd_ENVSETUP2, &AudioRsp::cmd_UNK17};
+
+ 
+    class DMem
+    {
+	    public:
+	    DMem(u16 addr)
+	    {
+		    m_address = (uintptr_t)m_memory + addr;
+	    }
+
+        void* buffer()
+	    {
+		return (void*)m_address;
+	    }
+
+        operator uintptr_t()
+	    {
+		return m_address;
+	    }
+
+        operator u8*()
+	    {
+		    return (u8*)m_address;
+	    }
+
+        /*operator int16_t*()
+	    {
+		    return (int16_t*)m_address;
+	    }*/
+
+	    protected:
+	    uintptr_t m_address;
+    };
+};
+
+static AudioRsp rsp;
 
 AudioTask* func_800E5000(void) {
     static s32 sMaxAbiCmdCnt = 0x80;
@@ -208,6 +511,8 @@ AudioTask* func_800E5000(void) {
     task->data_size = abiCmdCnt * sizeof(Acmd);
     task->yield_data_ptr = NULL;
     task->yield_data_size = 0;
+
+    rsp.execute(gAudioContext.abiCmdBufs[index], abiCmdCnt);
 
     if (sMaxAbiCmdCnt < abiCmdCnt) {
         sMaxAbiCmdCnt = abiCmdCnt;

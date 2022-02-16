@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_OLIB_C
 #include "global.h"
 #include "z64math.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/z_lib.h"
 #include "def/z_olib.h"
 

@@ -8,7 +8,7 @@
 
 #include "z_en_pu_box.h"
 #include "objects/object_pu_box/object_pu_box.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"

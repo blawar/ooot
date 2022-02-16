@@ -8,7 +8,7 @@
 
 #include "z_en_nwc.h"
 #include "objects/object_nwc/object_nwc.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
 #include "def/z_collision_check.h"

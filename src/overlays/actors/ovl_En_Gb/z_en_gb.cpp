@@ -9,7 +9,7 @@
 #include "z_en_gb.h"
 #include "objects/object_ps/object_ps.h"
 #include "def/code_80043480.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

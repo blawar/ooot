@@ -8,7 +8,7 @@
 
 #include "z_en_zl1.h"
 #include "objects/object_zl1/object_zl1.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/shrink_window.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

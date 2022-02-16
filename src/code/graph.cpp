@@ -13,12 +13,12 @@
 #include "gfx.h"
 #include "gfxapi.h"
 #include "sched.h"
+#include "padmgr.h"
 #include "z64save.h"
 #include "speedmeter.h"
 #include "z_prenmi_buff.h"
 #include "def/TwoHeadArena.h"
-#include "def/code_800D31A0.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/createmesgqueue.h"
 #include "def/fault.h"
 #include "def/game.h"
@@ -114,11 +114,11 @@ void Graph_Init(GraphicsContext* gfxCtx) {
     gfxCtx->viFeatures = gViConfigFeatures;
     gfxCtx->xScale = gViConfigXScale;
     gfxCtx->yScale = gViConfigYScale;
-    func_800D31F0();
+    gIsCtrlr2Valid     = (gPadMgr.validCtrlrsMask & 2) != 0;
 }
 
 void Graph_Destroy(GraphicsContext* gfxCtx) {
-    func_800D3210();
+	gIsCtrlr2Valid = false;
 }
 
 void gfx_run(OSTask_t* task, u32 sz);

@@ -4,8 +4,7 @@
 #include "z64global.h"
 #include "segment_symbols.h"
 #include "vt.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FC620.h"
+#include "def/audio_bank.h"
 #include "def/game.h"
 #include "def/z_effect_soft_sprite.h"
 #include "def/z_effect_soft_sprite_dlftbls.h"
@@ -216,9 +215,6 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
                 osSyncPrintf(VT_RST);
                 return;
             }
-
-            Overlay_Load(overlayEntry->vromStart, overlayEntry->vromEnd, overlayEntry->vramStart, overlayEntry->vramEnd,
-                         overlayEntry->loadedRamAddr);
 
             osSyncPrintf(VT_FGCOL(GREEN));
             osSyncPrintf("EFFECT SS OVL:SegRom %08x %08x, Seg %08x %08x, RamStart %08x, type: %d\n",
