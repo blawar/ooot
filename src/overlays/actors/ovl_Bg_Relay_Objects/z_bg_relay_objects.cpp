@@ -49,13 +49,14 @@ ActorInit Bg_Relay_Objects_InitVars = {
     (ActorFunc)BgRelayObjects_Reset,
 };
 
+static u32 D_808A9508 = 0;
+
 static InitChainEntry sInitChain[] = {
     ICHAIN_F32(gravity, 5, ICHAIN_CONTINUE),
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_STOP),
 };
 
 void BgRelayObjects_Init(Actor* thisx, GlobalContext* globalCtx) {
-    static u32 D_808A9508 = 0;
     BgRelayObjects* pthis = (BgRelayObjects*)thisx;
     s32 pad;
     CollisionHeader* colHeader = NULL;
@@ -233,4 +234,5 @@ void BgRelayObjects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)BgRelayObjects_Reset,
     };
 
+    D_808A9508 = 0;
 }
