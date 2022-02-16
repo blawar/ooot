@@ -7,7 +7,7 @@
 #include "def/audio_load.h"
 #include "def/audio_playback.h"
 #include "def/audio_seqplayer.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 
 void Audio_InitNoteSub(Note* note, NoteSubEu* sub, NoteSubAttributes* attrs) {
     f32 volRight, volLeft;

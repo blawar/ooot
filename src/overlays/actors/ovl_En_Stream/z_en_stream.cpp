@@ -8,7 +8,7 @@
 
 #include "z_en_stream.h"
 #include "objects/object_stream/object_stream.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_lib.h"

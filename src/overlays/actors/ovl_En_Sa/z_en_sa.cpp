@@ -5,7 +5,7 @@
 #include "objects/object_sa/object_sa.h"
 #include "scenes/overworld/spot04/spot04_scene.h"
 #include "scenes/overworld/spot05/spot05_scene.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

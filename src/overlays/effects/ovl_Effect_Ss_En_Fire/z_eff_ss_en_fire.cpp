@@ -8,7 +8,7 @@
 
 #include "z_eff_ss_en_fire.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_camera.h"
 #include "def/z_lib.h"

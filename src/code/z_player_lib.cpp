@@ -9,7 +9,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/graph.h"
 #include "def/lookat.h"
 #include "def/perspective.h"

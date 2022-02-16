@@ -8,7 +8,7 @@
 
 #include "z_eff_ss_dead_db.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 #include "def/z_skin_matrix.h"

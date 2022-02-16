@@ -4,10 +4,10 @@
 #include "z64audio.h"
 #include "sequence.h"
 #include "ultra64/abi.h"
-#include "def/code_800E4FE0.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
-#include "def/code_800F9280.h"
+#include "def/audio_rsp.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
+#include "def/audio_command.h"
 
 u8 sSeqCmdWrPos = 0;
 u8 sSeqCmdRdPos = 0;
@@ -17,7 +17,7 @@ u8 D_80133410[] = {0, 1, 2, 3};
 u8 gAudioSpecId = 0;
 u8 D_80133418	= 0;
 
-// TODO: clean up these macros. They are similar to ones in code_800EC960.c but without casts.
+// TODO: clean up these macros. They are similar to ones in audio.c but without casts.
 #define Audio_StartSeq(playerIdx, fadeTimer, seqId) \
     Audio_QueueSeqCmd(0x00000000 | ((playerIdx) << 24) | ((fadeTimer) << 16) | (seqId))
 #define Audio_SeqCmdA(playerIdx, a) Audio_QueueSeqCmd(0xA0000000 | ((playerIdx) << 24) | (a))

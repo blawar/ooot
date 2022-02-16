@@ -10,7 +10,7 @@
 #include "objects/object_mm/object_mm.h"
 #include "objects/object_link_child/object_link_child.h"
 #include "hack.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

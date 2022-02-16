@@ -5,7 +5,7 @@
 #include "objects/object_jya_obj/object_jya_obj.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

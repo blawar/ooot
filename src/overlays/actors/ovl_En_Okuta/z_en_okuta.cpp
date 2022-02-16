@@ -3,7 +3,7 @@
 #include "z_en_okuta.h"
 #include "objects/object_okuta/object_okuta.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

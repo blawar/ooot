@@ -3,7 +3,7 @@
 #include "z_en_eiyer.h"
 #include "objects/object_ei/object_ei.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
 #include "def/z_actor.h"

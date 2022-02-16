@@ -8,8 +8,8 @@
 
 #include "z_en_horse_ganon.h"
 #include "objects/object_horse_ganon/object_horse_ganon.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FCE80.h"
+#include "def/audio_bank.h"
+#include "def/math_float.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

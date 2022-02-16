@@ -9,7 +9,6 @@
 #include "vt.h"
 #include "gfx_align.h"
 #include "textures/parameter_static/parameter_static.h"
-#include "def/code_800FC620.h"
 #include "def/game.h"
 #include "def/logutils.h"
 #include "def/z_actor.h"
@@ -75,8 +74,6 @@ void MapMark_Init(GlobalContext* globalCtx) {
 
     overlay->loadedRamAddr = GameState_Alloc(&globalCtx->state, overlaySize, "../z_map_mark.c", 235);
     LogUtils_CheckNullPointer("dlftbl->allocp", overlay->loadedRamAddr, "../z_map_mark.c", 236);
-
-    Overlay_Load(overlay->vromStart, overlay->vromEnd, overlay->vramStart, overlay->vramEnd, overlay->loadedRamAddr);
 
     sLoadedMarkDataTable = (MapMarkData**)gMapMarkDataTable;
     sLoadedMarkDataTable = (MapMarkData**)overlay->vramTable;

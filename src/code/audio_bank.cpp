@@ -5,10 +5,10 @@
 #include "sequence.h"
 #include "vt.h"
 #include "def/audio_sound_params.h"
-#include "def/code_800E4FE0.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
-#include "def/code_800F9280.h"
+#include "def/audio_rsp.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
+#include "def/audio_command.h"
 
 typedef struct {
     /* 0x00 */ u16 sfxId;
@@ -36,7 +36,7 @@ char D_80133344[] = VT_COL(RED, WHITE) "<INAGAKI CHECK> dist over! flag:%04X ptr
 // file padding
 s32 D_8013338C = 0;
 
-// rodata for Audio_ProcessSeqCmd (code_800F9280.c)
+// rodata for Audio_ProcessSeqCmd (audio_command.c)
 char D_80133390[] = "SEQ H";
 char D_80133398[] = "    L";
 
@@ -54,6 +54,21 @@ static u8 sSoundBankFreeListStart[7];
 static u8 sSoundBankUnused[7];
 static u8 sCurSfxPlayerChannelIdx;
 static UnusedBankLerp sUnusedBankLerp[7];
+
+u8 D_8012D200[] = {
+    0, 1, 2, 3, 4, 5, 6,
+};
+
+void Audio_StopAllBanks(void)
+{
+	s32 i;
+
+	for(i = 0; (i < ARRAY_COUNT(D_8012D200)) & 0xFFFFFFFF; i++)
+	{
+		Audio_StopSfxByBank(D_8012D200[i]);
+	}
+}
+
 
 ActiveSound gActiveSounds[7][MAX_CHANNELS_PER_BANK]; // total size = 0xA8
 u8 gSoundBankMuted[0x100];

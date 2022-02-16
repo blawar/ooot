@@ -5,7 +5,7 @@
 #include "z64effect.h"
 #include "gfx.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/graph.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"

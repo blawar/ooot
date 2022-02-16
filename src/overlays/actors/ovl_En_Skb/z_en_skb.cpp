@@ -3,7 +3,7 @@
 #include "z_en_skb.h"
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
 #include "objects/object_skb/object_skb.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

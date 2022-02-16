@@ -3,7 +3,7 @@
 #include "z_demo_tre_lgt.h"
 #include "overlays/actors/ovl_En_Box/z_en_box.h"
 #include "objects/object_box/object_box.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_fcurve_data_skelanime.h"

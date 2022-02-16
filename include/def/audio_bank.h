@@ -42,3 +42,4 @@ void Audio_StopSfxByPosAndId(Vec3f* pos, u16 sfxId);
 void Audio_StopSfxByTokenAndId(u8, u16);
 void func_800F8884(u8, Vec3f*);
 void func_800F8F88(void);
+void Audio_StopAllBanks(void);

@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_kakera.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/logutils.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"

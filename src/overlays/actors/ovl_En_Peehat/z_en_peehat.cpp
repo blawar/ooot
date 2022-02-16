@@ -4,7 +4,7 @@
 #include "objects/object_peehat/object_peehat.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

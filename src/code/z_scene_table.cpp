@@ -137,7 +137,7 @@ extern Gfx gEmptyDL[];
 
 #include "overlays/actors/ovl_Bg_Dodoago/z_bg_dodoago.h"
 #include "z_scene_table_assets.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/coss.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"

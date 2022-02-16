@@ -7,7 +7,7 @@
  */
 
 #include "z_en_river_sound.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_lib.h"

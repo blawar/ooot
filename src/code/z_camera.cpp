@@ -12,10 +12,9 @@
 #include "vt.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
 #include "def/code_800BB0A0.h"
-#include "def/code_800EC960.h"
-#include "def/code_800FCE80.h"
-#include "def/code_800FD970.h"
-#include "def/code_80106860.h"
+#include "def/audio.h"
+#include "def/math_float.h"
+#include "def/random.h"
 #include "def/db_camera.h"
 #include "def/shrink_window.h"
 #include "def/sys_math3d.h"
@@ -6829,7 +6828,7 @@ void Camera_Init(Camera* camera, View* view, CollisionContext* colCtx, GlobalCon
     s16 curUID;
     s16 j;
 
-    z_memset(camera, 0, sizeof(*camera));
+    memset(camera, 0, sizeof(*camera));
     if (sInitRegs) {
         for (i = 0; i < sOREGInitCnt; i++) {
             OREG(i) = sOREGInit[i];

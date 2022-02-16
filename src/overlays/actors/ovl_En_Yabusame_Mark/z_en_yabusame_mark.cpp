@@ -8,8 +8,8 @@
 
 #include "z_en_yabusame_mark.h"
 #include "vt.h"
-#include "def/code_800EC960.h"
-#include "def/code_800F7260.h"
+#include "def/audio.h"
+#include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
 #include "def/z_common_data.h"

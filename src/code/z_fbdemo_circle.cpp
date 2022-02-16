@@ -11,7 +11,7 @@ Gfx sCircleNullDList[] = {
 };
 
 #include "code/fbdemo_circle/z_fbdemo_circle.cpp"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/lookat.h"
 #include "def/perspective.h"
 #include "def/rotate.h"

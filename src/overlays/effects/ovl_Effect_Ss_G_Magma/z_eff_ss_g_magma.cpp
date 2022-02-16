@@ -8,7 +8,7 @@
 
 #include "z_eff_ss_g_magma.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 
 u32 EffectSsGMagma_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx);

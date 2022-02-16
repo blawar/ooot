@@ -8,8 +8,8 @@
 
 #include "z_door_ana.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
-#include "def/code_8006C3A0.h"
-#include "def/code_800F7260.h"
+#include "def/environment_flags.h"
+#include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"

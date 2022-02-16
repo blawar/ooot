@@ -1,6 +1,6 @@
 #define INTERNAL_SRC_CODE_CODE_800FD970_C
 #include "global.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 
 // The latest generated random number, used to generate the next number in the sequence.
 static u32 sRandInt = 1;

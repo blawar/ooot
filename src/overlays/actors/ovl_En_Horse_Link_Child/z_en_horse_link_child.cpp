@@ -8,8 +8,8 @@
 
 #include "z_en_horse_link_child.h"
 #include "objects/object_horse_link_child/object_horse_link_child.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FD970.h"
+#include "def/audio_bank.h"
+#include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

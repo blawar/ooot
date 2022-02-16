@@ -10,7 +10,7 @@
 #include "objects/object_gs/object_gs.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

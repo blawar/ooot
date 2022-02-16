@@ -8,7 +8,7 @@
 
 #include "z_bg_spot01_idomizu.h"
 #include "objects/object_spot01_objects/object_spot01_objects.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_common_data.h"
 #include "def/z_lib.h"

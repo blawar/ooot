@@ -9,7 +9,7 @@
 #include "z_en_honotrap.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"

@@ -8,7 +8,7 @@
 
 #include "z_en_lightbox.h"
 #include "objects/object_lightbox/object_lightbox.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"

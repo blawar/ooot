@@ -3,7 +3,7 @@
 #include "z_demo_ik.h"
 #include "vt.h"
 #include "objects/object_ik/object_ik.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

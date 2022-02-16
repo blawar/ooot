@@ -8,7 +8,7 @@
 
 #include "z_en_mu.h"
 #include "objects/object_mu/object_mu.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

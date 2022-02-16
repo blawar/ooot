@@ -2,7 +2,7 @@
 #include "global.h"
 #include "z64global.h"
 #include "z64math.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/z_path.h"
 
 Path* Path_GetByIndex(GlobalContext* globalCtx, s16 index, s16 max) {

@@ -10,7 +10,7 @@
 #include "objects/object_bdan_objects/object_bdan_objects.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

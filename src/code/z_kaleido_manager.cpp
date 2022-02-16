@@ -5,7 +5,6 @@
 #include "include/kaleido.h"
 #include "vt.h"
 #include <string.h>
-#include "def/code_800FC620.h"
 #include "def/game.h"
 #include "def/logutils.h"
 #include "def/z_kaleido_manager.h"
@@ -27,9 +26,8 @@ u8 gBossMarkState = 0;
 
 void KaleidoManager_LoadOvl(KaleidoMgrOverlay* ovl) {
     ovl->loadedRamAddr = (void*)ovl->vromStart;
-    Overlay_Load(ovl->vromStart, ovl->vromEnd, ovl->vramStart, ovl->vramEnd, ovl->loadedRamAddr);
 
-    ovl->offset = 0; // POINTER_SUB(ovl->loadedRamAddr, ovl->vramStart);
+    ovl->offset = 0;
     gKaleidoMgrCurOvl = ovl;
 }
 

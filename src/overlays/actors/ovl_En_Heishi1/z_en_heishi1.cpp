@@ -9,7 +9,7 @@
 #include "z_en_heishi1.h"
 #include "objects/object_sd/object_sd.h"
 #include "vt.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"

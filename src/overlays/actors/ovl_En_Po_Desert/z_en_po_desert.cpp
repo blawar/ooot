@@ -8,7 +8,7 @@
 
 #include "z_en_po_desert.h"
 #include "objects/object_po_field/object_po_field.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

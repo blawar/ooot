@@ -5,7 +5,7 @@
 #include "z64global.h"
 #include "z64player.h"
 #include "z64elf_message.h"
-#include "def/code_80097A00.h"
+#include "def/inventory.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_elf_message.h"

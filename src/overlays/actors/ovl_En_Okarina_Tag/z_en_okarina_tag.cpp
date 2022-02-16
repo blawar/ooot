@@ -10,7 +10,7 @@
 #include "scenes/misc/hakaana_ouke/hakaana_ouke_scene.h"
 #include "scenes/overworld/spot02/spot02_scene.h"
 #include "vt.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_lib.h"

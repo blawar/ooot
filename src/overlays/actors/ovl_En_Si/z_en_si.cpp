@@ -7,7 +7,7 @@
  */
 
 #include "z_en_si.h"
-#include "def/code_800EC960.h"
+#include "def/audio.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
 #include "def/z_draw.h"

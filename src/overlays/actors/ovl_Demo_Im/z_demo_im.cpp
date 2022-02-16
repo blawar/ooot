@@ -12,7 +12,7 @@
 #include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
 #include "objects/object_im/object_im.h"
 #include "vt.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

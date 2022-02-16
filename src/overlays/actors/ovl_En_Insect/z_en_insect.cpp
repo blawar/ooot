@@ -10,7 +10,7 @@
 #include "z_en_insect.h"
 #include "vt.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

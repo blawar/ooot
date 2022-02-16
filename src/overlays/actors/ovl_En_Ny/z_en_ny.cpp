@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_ny.h"
 #include "objects/object_ny/object_ny.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"

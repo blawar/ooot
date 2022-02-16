@@ -9,7 +9,7 @@
 #include "z_en_dodojr.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "objects/object_dodojr/object_dodojr.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"

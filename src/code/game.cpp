@@ -15,9 +15,8 @@
 #include "def/code_800A9F30.h"
 #include "def/code_800ACE70.h"
 #include "def/code_800AD920.h"
-#include "def/code_800C3C20.h"
-#include "def/code_800D31A0.h"
-#include "def/code_800EC960.h"
+#include "def/audio_bank.h"
+#include "def/audio.h"
 #include "def/fault.h"
 #include "def/fault_drawer.h"
 #include "def/game.h"
@@ -495,7 +494,7 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
 
 void GameState_Destroy(GameState* gameState) {
     osSyncPrintf("game destructor start\n"); // "game destructor start"
-    func_800C3C20();
+    Audio_StopAllBanks();
     func_800F3054();
     osRecvMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
     LogUtils_CheckNullPointer("this->cleanup", gameState->destroy, "../game.c", 1139);

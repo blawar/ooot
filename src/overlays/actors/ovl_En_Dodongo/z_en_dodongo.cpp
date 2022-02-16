@@ -4,7 +4,7 @@
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "overlays/actors/ovl_En_Bombf/z_en_bombf.h"
 #include "objects/object_dodongo/object_dodongo.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

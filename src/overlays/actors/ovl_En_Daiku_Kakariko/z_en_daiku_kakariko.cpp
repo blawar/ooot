@@ -8,8 +8,8 @@
 
 #include "z_en_daiku_kakariko.h"
 #include "objects/object_daiku/object_daiku.h"
-#include "def/code_800FCE80.h"
-#include "def/code_800FD970.h"
+#include "def/math_float.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

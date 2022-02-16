@@ -8,8 +8,8 @@
 
 #include "z_en_tp.h"
 #include "objects/object_tp/object_tp.h"
-#include "def/code_800F7260.h"
-#include "def/code_800FD970.h"
+#include "def/audio_bank.h"
+#include "def/random.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

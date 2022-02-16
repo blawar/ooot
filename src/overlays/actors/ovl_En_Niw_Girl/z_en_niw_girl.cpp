@@ -9,7 +9,7 @@
 #include "z_en_niw_girl.h"
 #include "objects/object_gr/object_gr.h"
 #include "vt.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"

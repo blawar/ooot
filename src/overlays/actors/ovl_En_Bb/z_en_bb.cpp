@@ -9,7 +9,7 @@
 #include "z_en_bb.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_Bb/object_Bb.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

@@ -13,7 +13,7 @@
 #include "vt.h"
 #include "def/code_8006BA00.h"
 #include "def/code_800A9F30.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"

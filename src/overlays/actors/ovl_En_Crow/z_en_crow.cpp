@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_crow.h"
 #include "objects/object_crow/object_crow.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

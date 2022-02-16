@@ -11,7 +11,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "def/code_8006BA00.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sinf.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"

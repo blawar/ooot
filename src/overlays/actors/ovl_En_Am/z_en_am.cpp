@@ -10,7 +10,7 @@
 #include "objects/object_am/object_am.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "def/code_80043480.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"

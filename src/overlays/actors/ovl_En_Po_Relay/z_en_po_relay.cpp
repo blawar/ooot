@@ -9,7 +9,7 @@
 #include "z_en_po_relay.h"
 #include "overlays/actors/ovl_En_Honotrap/z_en_honotrap.h"
 #include "objects/object_tk/object_tk.h"
-#include "def/code_800FD970.h"
+#include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

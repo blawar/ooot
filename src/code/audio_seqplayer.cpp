@@ -8,8 +8,8 @@
 #include "def/audio_load.h"
 #include "def/audio_playback.h"
 #include "def/audio_seqplayer.h"
-#include "def/code_800E4FE0.h"
-#include "def/code_800F7260.h"
+#include "def/audio_rsp.h"
+#include "def/audio_bank.h"
 
 #define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
 #define PORTAMENTO_MODE(x) ((x).mode & ~0x80)

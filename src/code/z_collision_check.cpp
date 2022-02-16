@@ -6,7 +6,7 @@
 #include "z64global.h"
 #include "z64effect.h"
 #include "sfx.h"
-#include "def/code_800F7260.h"
+#include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"

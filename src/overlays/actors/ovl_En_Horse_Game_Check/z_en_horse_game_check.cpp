@@ -8,8 +8,8 @@
 
 #include "z_en_horse_game_check.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
-#include "def/code_800F7260.h"
-#include "def/code_800F9280.h"
+#include "def/audio_bank.h"
+#include "def/audio_command.h"
 #include "def/logutils.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"

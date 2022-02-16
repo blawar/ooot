@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_CODE_CODE_800FCE80_C
 #include "global.h"
 #include "fp.h"
-#include "def/code_800FCE80.h"
+#include "def/math_float.h"
 
 s32 gUseAtanContFrac;
 

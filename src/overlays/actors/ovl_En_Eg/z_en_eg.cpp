@@ -8,7 +8,7 @@
 
 #include "z_en_eg.h"
 #include "vt.h"
-#include "def/code_800F9280.h"
+#include "def/audio_command.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_lib.h"
