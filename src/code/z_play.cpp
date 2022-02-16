@@ -1,4 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_PLAY_C
+#include <functional>
+#include <string>
 #include "global.h"
 #include "vt.h"
 #include "unk.h"
@@ -19,7 +21,6 @@
 #include "z_scene_table.h"
 #include "z_file_choose.h"
 #include "gfxapi.h"
-#include <string.h>
 #include "def/PreRender.h"
 #include "def/TwoHeadArena.h"
 #include "def/code_8006BA00.h"
@@ -412,7 +413,12 @@ void Gameplay_Init(GameState* thisx) {
     gTrnsnUnkState = 0;
     globalCtx->transitionMode = 0;
     FrameAdvance_Init(&globalCtx->frameAdvCtx);
+#ifdef N64_VERSION
     Rand_Seed((u32)osGetTime());
+#else
+    using namespace std::string_literals;
+    Rand_Seed((u32)std::hash<std::string>{}("Open Ocarina Team"s));
+#endif
     Matrix_Init(&globalCtx->state);
     globalCtx->state.main = Gameplay_Main;
     globalCtx->state.destroy = Gameplay_Destroy;
