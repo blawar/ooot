@@ -1326,13 +1326,13 @@ s32 OnePointCutscene_Attention(GlobalContext* globalCtx, Actor* actor) {
         case ACTORCAT_MISC:
         case ACTORCAT_BOSS:
         default:
-            osSyncPrintf(VT_COL(YELLOW, BLACK) "actor attention demo camera: %d: unkown part of actor %d\n" VT_RST,
-                         globalCtx->state.frames, actor->category);
+            //osSyncPrintf(VT_COL(YELLOW, BLACK) "actor attention demo camera: %d: unkown part of actor %d\n" VT_RST,
+                         //globalCtx->state.frames, actor->category);
             timer = 30;
             break;
     }
-    osSyncPrintf(VT_FGCOL(CYAN) "%06u:" VT_RST " actor attention demo camera: request %d ", globalCtx->state.frames,
-                 actor->category);
+    //osSyncPrintf(VT_FGCOL(CYAN) "%06u:" VT_RST " actor attention demo camera: request %d ", globalCtx->state.frames,
+                 //actor->category);
 
     // If the previous attention cutscene has an actor in the same category, skip this actor.
     if (actor->category == vLastHigherCat) {

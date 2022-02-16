@@ -5586,8 +5586,8 @@ s32 Camera_Demo1(Camera* camera) {
             anim->curFrame = 0.0f;
             camera->animState++;
             // "absolute" : "relative"
-            osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: spline demo: start %s \n",
-                         camera->globalCtx->state.frames, *relativeToPlayer == 0 ? "absolute" : "relative");
+            //osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: spline demo: start %s \n",
+                         //camera->globalCtx->state.frames, *relativeToPlayer == 0 ? "absolute" : "relative");
 
             if (PREG(93)) {
                 Camera_DebugPrintSplineArray("CENTER", 5, csAtPoints);
@@ -7644,7 +7644,7 @@ s32 Camera_ChangeModeFlags(Camera* camera, s16 mode, u8 flags) {
     static s32 modeChangeFlags = 0;
 
     if (QREG(89)) {
-        osSyncPrintf("+=+(%d)+=+ recive request -> %s\n", camera->globalCtx->state.frames, sCameraModeNames[mode]);
+        //osSyncPrintf("+=+(%d)+=+ recive request -> %s\n", camera->globalCtx->state.frames, sCameraModeNames[mode]);
     }
 
     if (camera->unk_14C & 0x20 && flags == 0) {
@@ -7840,8 +7840,8 @@ s16 Camera_ChangeSettingFlags(Camera* camera, s16 setting, s16 flags) {
         Camera_CopyModeValuesToPREG(camera, camera->mode);
     }
 
-    osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: change camera[%d] set %s\n", camera->globalCtx->state.frames.whole(),
-                 camera->thisIdx, sCameraSettingNames[camera->setting]);
+    //osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: change camera[%d] set %s\n", camera->globalCtx->state.frames.whole(),
+                 //camera->thisIdx, sCameraSettingNames[camera->setting]);
 
     return setting;
 }
