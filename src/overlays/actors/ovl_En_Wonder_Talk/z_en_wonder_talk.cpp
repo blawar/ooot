@@ -15,6 +15,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_27)
 
 void EnWonderTalk_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnWonderTalk_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnWonderTalk_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnWonderTalk_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -32,6 +33,7 @@ ActorInit En_Wonder_Talk_InitVars = {
     (ActorFunc)EnWonderTalk_Destroy,
     (ActorFunc)EnWonderTalk_Update,
     NULL,
+    (ActorFunc)EnWonderTalk_Reset,
 };
 
 void EnWonderTalk_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -243,4 +245,20 @@ void EnWonderTalk_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
     pthis->actionFunc(pthis, globalCtx);
     Actor_SetFocus(&pthis->actor, pthis->height);
+}
+
+void EnWonderTalk_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Wonder_Talk_InitVars = {
+        ACTOR_EN_WONDER_TALK,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnWonderTalk),
+        (ActorFunc)EnWonderTalk_Init,
+        (ActorFunc)EnWonderTalk_Destroy,
+        (ActorFunc)EnWonderTalk_Update,
+        NULL,
+        (ActorFunc)EnWonderTalk_Reset,
+    };
+
 }

@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_23)
 
 void EnNiw_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnNiw_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnNiw_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnNiw_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnNiw_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -59,6 +60,7 @@ ActorInit En_Niw_InitVars = {
     (ActorFunc)EnNiw_Destroy,
     (ActorFunc)EnNiw_Update,
     (ActorFunc)EnNiw_Draw,
+    (ActorFunc)EnNiw_Reset,
 };
 
 static f32 D_80AB8604[] = {
@@ -1237,4 +1239,66 @@ void EnNiw_FeatherDraw(EnNiw* pthis, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_en_niw.c", 1919);
+}
+
+void EnNiw_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80AB85E0 = 0;
+
+    En_Niw_InitVars = {
+        ACTOR_EN_NIW,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_NIW,
+        sizeof(EnNiw),
+        (ActorFunc)EnNiw_Init,
+        (ActorFunc)EnNiw_Destroy,
+        (ActorFunc)EnNiw_Update,
+        (ActorFunc)EnNiw_Draw,
+        (ActorFunc)EnNiw_Reset,
+    };
+
+    sLowerRiverSpawned = false;
+
+    sUpperRiverSpawned = false;
+
+    sCylinderInit1 = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 15, 25, 4, { 0, 0, 0 } },
+    };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 15, 25, 4, { 0, 0, 0 } },
+    };
+
 }

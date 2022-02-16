@@ -1,4 +1,4 @@
-#ifndef Z_EN_GUEST_H
+#pragma once
 #define Z_EN_GUEST_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnGuest;
 
 typedef void (*EnGuestActionFunc)(struct EnGuest* pthis, GlobalContext* globalCtx);
 
-typedef struct EnGuest {
+
+struct EnGuest {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -23,6 +25,6 @@ typedef struct EnGuest {
     /* 0x030C */ s32 osAnimeBankIndex;
     /* 0x0300 */ u8 unk_30D;
     /* 0x0304 */ u8 unk_30E;
-} EnGuest; // size = 0x0308
+}; 
 
-#endif
+

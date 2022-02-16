@@ -1,4 +1,4 @@
-#ifndef Z_EN_GELDB_H
+#pragma once
 #define Z_EN_GELDB_H
 
 #include "ultra64.h"
@@ -6,7 +6,7 @@
 
 struct EnGeldB;
 
-typedef enum {
+enum EnGeldBLimb {
     /* 0x00 */ GELDB_LIMB_NONE,
     /* 0x01 */ GELDB_LIMB_ROOT,
     /* 0x02 */ GELDB_LIMB_TORSO,
@@ -32,11 +32,42 @@ typedef enum {
     /* 0x16 */ GELDB_LIMB_R_FOOT,
     /* 0x17 */ GELDB_LIMB_WAIST,
     /* 0x18 */ GELDB_LIMB_MAX
-} EnGeldBLimb;
+};
 
 typedef void (*EnGeldBActionFunc)(struct EnGeldB*, GlobalContext*);
 
-typedef struct EnGeldB {
+
+enum EnGeldBAction {
+    /*  0 */ GELDB_WAIT,
+    /*  1 */ GELDB_DEFEAT,
+    /*  2 */ GELDB_DAMAGED,
+    /*  3 */ GELDB_JUMP,
+    /*  4 */ GELDB_ROLL_BACK,
+    /*  5 */ GELDB_READY,
+    /*  6 */ GELDB_BLOCK,
+    /*  7 */ GELDB_SLASH,
+    /*  8 */ GELDB_ADVANCE,
+    /*  9 */ GELDB_PIVOT,
+    /* 10 */ GELDB_CIRCLE,
+    /* 11 */ GELDB_UNUSED,
+    /* 12 */ GELDB_SPIN_ATTACK,
+    /* 13 */ GELDB_SIDESTEP,
+    /* 14 */ GELDB_ROLL_FORWARD,
+    /* 15 */ GELDB_STUNNED,
+    /* 16 */ GELDB_SPIN_DODGE
+};
+
+
+enum EnGeldBDamageEffects {
+    /* 0x0 */ GELDB_DMG_NORMAL,
+    /* 0x1 */ GELDB_DMG_STUN,
+    /* 0x6 */ GELDB_DMG_UNK_6 = 0x6,
+    /* 0xD */ GELDB_DMG_UNK_D = 0xD,
+    /* 0xE */ GELDB_DMG_UNK_E,
+    /* 0xF */ GELDB_DMG_FREEZE
+};
+struct EnGeldB {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Vec3s bodyPartsPos[10];
     /* 0x0188 */ SkelAnime skelAnime;
@@ -67,6 +98,6 @@ typedef struct EnGeldB {
     /* 0x04C4 */ Vec3f rightFootPos;
     /* 0x04D0 */ Vec3f leftFootPos;
     /* 0x04DC */ Vec3s headRot;
-} EnGeldB; // size = 0x04E4
+}; 
 
-#endif
+

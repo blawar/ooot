@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_DODONGO_H
+#pragma once
 #define Z_BOSS_DODONGO_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct BossDodongo;
 
 typedef void (*BossDodongoActionFunc)(struct BossDodongo*, GlobalContext*);
 
-typedef struct {
+struct BossDodongoEffect {
     /* 0x00 */ Vec3f unk_00;
     /* 0x0C */ Vec3f unk_0C;
     /* 0x18 */ Vec3f unk_18;
@@ -17,9 +17,11 @@ typedef struct {
     /* 0x26 */ Color_RGB8 color;
     /* 0x2A */ s16 alpha;
     /* 0x2C */ f32 unk_2C;
-} BossDodongoEffect; // Size = 0x30
+}; 
 
-typedef struct BossDodongo {
+
+struct BossDodongo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ BossDodongoActionFunc actionFunc;
@@ -96,6 +98,6 @@ typedef struct BossDodongo {
     /* 0x0440 */ ColliderJntSph collider;
     /* 0x0460 */ ColliderJntSphElement items[19];
     /* 0x0920 */ BossDodongoEffect effects[80];
-} BossDodongo; // size = 0x1820
+}; 
 
-#endif
+

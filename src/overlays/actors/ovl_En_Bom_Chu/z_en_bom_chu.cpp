@@ -22,6 +22,7 @@
 #define BOMBCHU_SCALE 0.01f
 
 void EnBomChu_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBomChu_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBomChu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBomChu_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBomChu_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit En_Bom_Chu_InitVars = {
     (ActorFunc)EnBomChu_Destroy,
     (ActorFunc)EnBomChu_Update,
     (ActorFunc)EnBomChu_Draw,
+    (ActorFunc)EnBomChu_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElemInit[] = {
@@ -528,4 +530,33 @@ void EnBomChu_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gBombchuDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_chu.c", 961);
+}
+
+void EnBomChu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bom_Chu_InitVars = {
+        ACTOR_EN_BOM_CHU,
+        ACTORCAT_EXPLOSIVE,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnBomChu),
+        (ActorFunc)EnBomChu_Init,
+        (ActorFunc)EnBomChu_Destroy,
+        (ActorFunc)EnBomChu_Update,
+        (ActorFunc)EnBomChu_Draw,
+        (ActorFunc)EnBomChu_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_1 | OC1_TYPE_2,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphElemInit),
+        sJntSphElemInit,
+    };
+
 }

@@ -21,13 +21,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* 0 */ FWBIG_MOVE,
-    /* 1 */ FWBIG_RESET,
-    /* 2 */ FWBIG_KILL
-} HidanFwbigMoveState;
 
 void BgHidanFwbig_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanFwbig_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanFwbig_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanFwbig_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanFwbig_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +47,7 @@ ActorInit Bg_Hidan_Fwbig_InitVars = {
     (ActorFunc)BgHidanFwbig_Destroy,
     (ActorFunc)BgHidanFwbig_Update,
     (ActorFunc)BgHidanFwbig_Draw,
+    (ActorFunc)BgHidanFwbig_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -284,4 +281,40 @@ void BgHidanFwbig_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gFireTempleBigFireWallDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_fwbig.c", 664);
+}
+
+void BgHidanFwbig_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Fwbig_InitVars = {
+        ACTOR_BG_HIDAN_FWBIG,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanFwbig),
+        (ActorFunc)BgHidanFwbig_Init,
+        (ActorFunc)BgHidanFwbig_Destroy,
+        (ActorFunc)BgHidanFwbig_Update,
+        (ActorFunc)BgHidanFwbig_Draw,
+        (ActorFunc)BgHidanFwbig_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x01, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 30, 130, 0, { 0, 0, 0 } },
+    };
+
 }

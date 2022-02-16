@@ -46,6 +46,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void DoorShutter_Init(Actor* thisx, GlobalContext* globalCtx);
+void DoorShutter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DoorShutter_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorShutter_Update(Actor* thisx, GlobalContext* globalCtx);
 void DoorShutter_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -76,13 +77,8 @@ ActorInit Door_Shutter_InitVars = {
     (ActorFunc)DoorShutter_Destroy,
     (ActorFunc)DoorShutter_Update,
     (ActorFunc)DoorShutter_Draw,
+    (ActorFunc)DoorShutter_Reset,
 };
-
-typedef struct {
-    s16 objectId;
-    u8 index1;
-    u8 index2;
-} ShutterObjectInfo;
 
 static ShutterObjectInfo sObjectInfo[] = {
     { OBJECT_GND, 4, 4 },
@@ -103,15 +99,6 @@ static ShutterObjectInfo sObjectInfo[] = {
     { OBJECT_DEMO_KEKKAI, 18, 18 },
     { OBJECT_OUKE_HAKA, 19, 19 },
 };
-
-typedef struct {
-    /* 0x0000 */ Gfx* a;
-    /* 0x0004 */ Gfx* b;
-    /* 0x0008 */ u8 c;
-    /* 0x0009 */ u8 translateZ;
-    /* 0x000A */ u8 e;
-    /* 0x000B */ u8 f;
-} ShutterInfo;
 
 static ShutterInfo sShutterInfo[] = {
     { gDTDungeonDoor1DL, gDoorMetalBarsDL, 130, 12, 20, 15 },
@@ -147,11 +134,6 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 400, ICHAIN_STOP),
 };
 
-typedef struct {
-    s16 sceneNum;
-    u8 index;
-} ShutterSceneInfo;
-
 static ShutterSceneInfo sSceneInfo[] = {
     { SCENE_YDAN, 0x02 },       { SCENE_DDAN, 0x03 },         { SCENE_DDAN_BOSS, 0x03 },
     { SCENE_BDAN, 0x04 },       { SCENE_BMORI1, 0x05 },       { SCENE_HIDAN, 0x08 },
@@ -160,12 +142,6 @@ static ShutterSceneInfo sSceneInfo[] = {
     { SCENE_HAKADANCH, 0x0C },  { SCENE_ICE_DOUKUTO, 0x0D },  { SCENE_MEN, 0x0E },
     { SCENE_GANONTIKA, 0x0F },  { SCENE_HAKAANA_OUKE, 0x10 }, { -1, 0x07 },
 };
-
-typedef struct {
-    s16 dungeonScene;
-    s16 bossScene;
-    u8 index;
-} BossDoorInfo;
 
 static BossDoorInfo D_80998288[] = {
     { SCENE_HIDAN, SCENE_FIRE_BS, 0x01 },
@@ -790,4 +766,21 @@ void func_8099803C(GlobalContext* globalCtx, s16 y, s16 countdown, s16 camId) {
     Quake_SetSpeed(quakeId, 20000);
     Quake_SetQuakeValues(quakeId, y, 0, 0, 0);
     Quake_SetCountdown(quakeId, countdown);
+}
+
+
+void DoorShutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Door_Shutter_InitVars = {
+        ACTOR_DOOR_SHUTTER,
+        ACTORCAT_DOOR,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(DoorShutter),
+        (ActorFunc)DoorShutter_Init,
+        (ActorFunc)DoorShutter_Destroy,
+        (ActorFunc)DoorShutter_Update,
+        (ActorFunc)DoorShutter_Draw,
+        (ActorFunc)DoorShutter_Reset,
+    };
+
 }

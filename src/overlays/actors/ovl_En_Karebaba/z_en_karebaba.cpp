@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnKarebaba_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnKarebaba_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnKarebaba_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKarebaba_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +52,7 @@ ActorInit En_Karebaba_InitVars = {
     (ActorFunc)EnKarebaba_Destroy,
     (ActorFunc)EnKarebaba_Update,
     (ActorFunc)EnKarebaba_Draw,
+    (ActorFunc)EnKarebaba_Reset,
 };
 
 static ColliderCylinderInit sBodyColliderInit = {
@@ -550,4 +552,62 @@ void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->boundFloor != NULL) {
         EnKarebaba_DrawBaseShadow(pthis, globalCtx);
     }
+}
+
+void EnKarebaba_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Karebaba_InitVars = {
+        ACTOR_EN_KAREBABA,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_DEKUBABA,
+        sizeof(EnKarebaba),
+        (ActorFunc)EnKarebaba_Init,
+        (ActorFunc)EnKarebaba_Destroy,
+        (ActorFunc)EnKarebaba_Update,
+        (ActorFunc)EnKarebaba_Draw,
+        (ActorFunc)EnKarebaba_Reset,
+    };
+
+    sBodyColliderInit = {
+        {
+            COLTYPE_HARD,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 7, 25, 0, { 0, 0, 0 } },
+    };
+
+    sHeadColliderInit = {
+        {
+            COLTYPE_HARD,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_HARD,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 4, 25, 0, { 0, 0, 0 } },
+    };
+
+    sColCheckInfoInit = { 1, 15, 80, MASS_HEAVY };
+
 }

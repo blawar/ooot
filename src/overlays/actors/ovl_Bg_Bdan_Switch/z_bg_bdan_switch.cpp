@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgBdanSwitch_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgBdanSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgBdanSwitch_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgBdanSwitch_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgBdanSwitch_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -65,6 +66,7 @@ ActorInit Bg_Bdan_Switch_InitVars = {
     (ActorFunc)BgBdanSwitch_Destroy,
     (ActorFunc)BgBdanSwitch_Update,
     (ActorFunc)BgBdanSwitch_Draw,
+    (ActorFunc)BgBdanSwitch_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -544,4 +546,35 @@ void BgBdanSwitch_Draw(Actor* pthisx, GlobalContext* globalCtx) {
             func_8086DF58(pthis, globalCtx, gJabuBlueFloorSwitchDL);
             break;
     }
+}
+
+void BgBdanSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Bdan_Switch_InitVars = {
+        ACTOR_BG_BDAN_SWITCH,
+        ACTORCAT_SWITCH,
+        FLAGS,
+        OBJECT_BDAN_OBJECTS,
+        sizeof(BgBdanSwitch),
+        (ActorFunc)BgBdanSwitch_Init,
+        (ActorFunc)BgBdanSwitch_Destroy,
+        (ActorFunc)BgBdanSwitch_Update,
+        (ActorFunc)BgBdanSwitch_Draw,
+        (ActorFunc)BgBdanSwitch_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    D_8086E0E0 = { 0.0f, 140.0f, 0.0f };
+
 }

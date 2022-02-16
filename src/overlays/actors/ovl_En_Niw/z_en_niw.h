@@ -1,4 +1,4 @@
-#ifndef Z_EN_NIW_H
+#pragma once
 #define Z_EN_NIW_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnNiw;
 
 typedef void (*EnNiwActionFunc)(struct EnNiw*, GlobalContext*);
 
-typedef struct {
+struct EnNiwFeather {
     /* 0x0000 */ u8 type;
     /* 0x0004 */ Vec3f pos;
     /* 0x0010 */ Vec3f vel;
@@ -18,9 +18,11 @@ typedef struct {
     /* 0x002C */ f32 scale;
     /* 0x0030 */ f32 unk_30;
     /* 0x0034 */ u8 timer;
-} EnNiwFeather; // size = 0x0038
+}; 
 
-typedef struct EnNiw {
+
+struct EnNiw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -74,6 +76,6 @@ typedef struct EnNiw {
     /* 0x0308 */ u8 unk_308;
     /* 0x030C */ ColliderCylinder collider;
     /* 0x0358 */ EnNiwFeather feathers[20];
-} EnNiw; // size = 0x07B8
+}; 
 
-#endif
+

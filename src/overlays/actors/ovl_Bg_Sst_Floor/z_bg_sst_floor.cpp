@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSstFloor_Init(BgSstFloor* pthis, GlobalContext* globalCtx);
+void BgSstFloor_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSstFloor_Destroy(BgSstFloor* pthis, GlobalContext* globalCtx);
 void BgSstFloor_Update(BgSstFloor* pthis, GlobalContext* globalCtx);
 void BgSstFloor_Draw(BgSstFloor* pthis, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Sst_Floor_InitVars = {
     (ActorFunc)BgSstFloor_Destroy,
     (ActorFunc)BgSstFloor_Update,
     (ActorFunc)BgSstFloor_Draw,
+    (ActorFunc)BgSstFloor_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -143,4 +145,20 @@ void BgSstFloor_Draw(BgSstFloor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gBongoDrumDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_sst_floor.c", 287);
+}
+
+void BgSstFloor_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Sst_Floor_InitVars = {
+        ACTOR_BG_SST_FLOOR,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SST,
+        sizeof(BgSstFloor),
+        (ActorFunc)BgSstFloor_Init,
+        (ActorFunc)BgSstFloor_Destroy,
+        (ActorFunc)BgSstFloor_Update,
+        (ActorFunc)BgSstFloor_Draw,
+        (ActorFunc)BgSstFloor_Reset,
+    };
+
 }

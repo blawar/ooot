@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSpot11Bakudankabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot11Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot11Bakudankabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot11Bakudankabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot11Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Spot11_Bakudankabe_InitVars = {
     (ActorFunc)BgSpot11Bakudankabe_Destroy,
     (ActorFunc)BgSpot11Bakudankabe_Update,
     (ActorFunc)BgSpot11Bakudankabe_Draw,
+    (ActorFunc)BgSpot11Bakudankabe_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -160,4 +162,44 @@ void BgSpot11Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot11Bakudankabe* pthis = (BgSpot11Bakudankabe*)thisx;
 
     Gfx_DrawDListOpa(globalCtx, gDesertColossusBombableWallDL);
+}
+
+void BgSpot11Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot11_Bakudankabe_InitVars = {
+        ACTOR_BG_SPOT11_BAKUDANKABE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT11_OBJ,
+        sizeof(BgSpot11Bakudankabe),
+        (ActorFunc)BgSpot11Bakudankabe_Init,
+        (ActorFunc)BgSpot11Bakudankabe_Destroy,
+        (ActorFunc)BgSpot11Bakudankabe_Update,
+        (ActorFunc)BgSpot11Bakudankabe_Draw,
+        (ActorFunc)BgSpot11Bakudankabe_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000008, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 40, 80, 0, { 2259, 108, -1580 } },
+    };
+
+    D_808B272C = { 2259.0f, 108.0f, -1550.0f };
+
+    D_808B2738 = { 2259.0f, 108.0f, -1550.0f };
+
 }

@@ -41,6 +41,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossGanon_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossGanon_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossGanon_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossGanon_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossGanon_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -84,6 +85,7 @@ ActorInit Boss_Ganon_InitVars = {
     (ActorFunc)BossGanon_Destroy,
     (ActorFunc)BossGanon_Update,
     (ActorFunc)BossGanon_Draw,
+    (ActorFunc)BossGanon_Reset,
 };
 
 static ColliderCylinderInit sDorfCylinderInit = {
@@ -137,25 +139,7 @@ static s32 sSeed3;
 
 static BossGanon* sGanondorf;
 
-static EnZl3* sZelda;
-
-typedef struct {
-    /* 0x00 */ u8 type;
-    /* 0x01 */ u8 timer;
-    /* 0x04 */ Vec3f pos;
-    /* 0x10 */ Vec3f velocity;
-    /* 0x1C */ Vec3f accel;
-    /* 0x28 */ Color_RGB8 color;
-    /* 0x2C */ s16 alpha;
-    /* 0x2E */ s16 unk_2E;
-    /* 0x30 */ s16 unk_30;
-    /* 0x34 */ f32 scale;
-    /* 0x38 */ f32 unk_38; // scale target mostly, but used for other things
-    /* 0x3C */ f32 unk_3C; // mostly z rot
-    /* 0x40 */ f32 unk_40;
-    /* 0x44 */ f32 unk_44; // mostly x rot
-    /* 0x48 */ f32 unk_48; // mostly y rot
-} GanondorfEffect;         // size = 0x4C
+static EnZl3* sZelda;         
 
 GanondorfEffect sEffectBuf[200];
 
@@ -517,12 +501,7 @@ void BossGanon_SetupIntroCutscene(BossGanon* pthis, GlobalContext* globalCtx) {
     } else {
         pthis->actionFunc = BossGanon_SetupIntroCutscene;
     }
-}
-
-typedef struct {
-    /* 0x00 */ Vec3s eye;
-    /* 0x06 */ Vec3s at;
-} CutsceneCameraPosition; // size = 0x12
+} 
 
 static CutsceneCameraPosition sIntroCsCameraPositions[] = {
     { { 0, 40, 0 }, { 0, 50, 430 } },
@@ -5037,3 +5016,62 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx) {
 }
 
 #include "overlays/ovl_Boss_Ganon/ovl_Boss_Ganon.cpp"
+
+
+void BossGanon_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Ganon_InitVars = {
+        ACTOR_BOSS_GANON,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GANON,
+        sizeof(BossGanon),
+        (ActorFunc)BossGanon_Init,
+        (ActorFunc)BossGanon_Destroy,
+        (ActorFunc)BossGanon_Update,
+        (ActorFunc)BossGanon_Draw,
+        (ActorFunc)BossGanon_Reset,
+    };
+
+    sDorfCylinderInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x10 },
+            { 0xFFCFFFFE, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 20, 80, -50, { 0, 0, 0 } },
+    };
+
+    sLightBallCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK6,
+            { 0x00100700, 0x00, 0x08 },
+            { 0x0D900740, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 30, -15, { 0, 0, 0 } },
+    };
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
+}

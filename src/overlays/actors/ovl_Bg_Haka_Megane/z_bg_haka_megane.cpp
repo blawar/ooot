@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_7)
 
 void BgHakaMegane_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaMegane_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaMegane_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaMegane_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaMegane_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Haka_Megane_InitVars = {
     (ActorFunc)BgHakaMegane_Destroy,
     (ActorFunc)BgHakaMegane_Update,
     NULL,
+    (ActorFunc)BgHakaMegane_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -146,4 +148,20 @@ void BgHakaMegane_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->params == 0) {
         Gfx_DrawDListXlu(globalCtx, gBotwBloodSplatterDL);
     }
+}
+
+void BgHakaMegane_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_Megane_InitVars = {
+        ACTOR_BG_HAKA_MEGANE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgHakaMegane),
+        (ActorFunc)BgHakaMegane_Init,
+        (ActorFunc)BgHakaMegane_Destroy,
+        (ActorFunc)BgHakaMegane_Update,
+        NULL,
+        (ActorFunc)BgHakaMegane_Reset,
+    };
+
 }

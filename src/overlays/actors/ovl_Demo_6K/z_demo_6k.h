@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_6K_H
+#pragma once
 #define Z_DEMO_6K_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct Demo6K;
 
 typedef void (*Demo6KActionFunc)(struct Demo6K*, GlobalContext*);
 
-typedef struct Demo6K {
+
+struct Demo6K {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Demo6KActionFunc initActionFunc;
     /* 0x0150 */ LightInfo lightInfo;
@@ -29,6 +31,6 @@ typedef struct Demo6K {
     /* 0x0290 */ u16 timer2;
     /* 0x0292 */ s32 objBankIndex;
     /* 0x0293 */ u8 unk_293;
-} Demo6K; // size = 0x0294
+}; 
 
-#endif
+

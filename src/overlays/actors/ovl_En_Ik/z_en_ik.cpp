@@ -37,6 +37,7 @@
 typedef void (*EnIkDrawFunc)(struct EnIk*, GlobalContext*);
 
 void EnIk_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnIk_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnIk_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnIk_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnIk_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -1480,4 +1481,111 @@ ActorInit En_Ik_InitVars = {
     (ActorFunc)EnIk_Destroy,
     (ActorFunc)EnIk_Update,
     (ActorFunc)EnIk_Draw,
+    (ActorFunc)EnIk_Reset,
 };
+
+void EnIk_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 25, 80, 0, { 0, 0, 0 } },
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x00, 0x40 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL | TOUCH_UNK7,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0xD),
+        /* Deku stick    */ DMG_ENTRY(2, 0xF),
+        /* Slingshot     */ DMG_ENTRY(1, 0xE),
+        /* Explosive     */ DMG_ENTRY(2, 0xF),
+        /* Boomerang     */ DMG_ENTRY(0, 0xD),
+        /* Normal arrow  */ DMG_ENTRY(2, 0xE),
+        /* Hammer swing  */ DMG_ENTRY(2, 0xF),
+        /* Hookshot      */ DMG_ENTRY(0, 0xD),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0xF),
+        /* Master sword  */ DMG_ENTRY(2, 0xF),
+        /* Giant's Knife */ DMG_ENTRY(4, 0xF),
+        /* Fire arrow    */ DMG_ENTRY(2, 0xE),
+        /* Ice arrow     */ DMG_ENTRY(2, 0xE),
+        /* Light arrow   */ DMG_ENTRY(2, 0xE),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0xE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0xE),
+        /* Unk arrow 3   */ DMG_ENTRY(15, 0xE),
+        /* Fire magic    */ DMG_ENTRY(0, 0x6),
+        /* Ice magic     */ DMG_ENTRY(0, 0x6),
+        /* Light magic   */ DMG_ENTRY(0, 0x6),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0xF),
+        /* Giant spin    */ DMG_ENTRY(4, 0xF),
+        /* Master spin   */ DMG_ENTRY(2, 0xF),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0xF),
+        /* Giant jump    */ DMG_ENTRY(8, 0xF),
+        /* Master jump   */ DMG_ENTRY(4, 0xF),
+        /* Unknown 1     */ DMG_ENTRY(10, 0xF),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0xF),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    D_80A78470 = { 300.0f, 0.0f, 0.0f };
+
+    En_Ik_InitVars = {
+        ACTOR_EN_IK,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_IK,
+        sizeof(EnIk),
+        (ActorFunc)EnIk_Init,
+        (ActorFunc)EnIk_Destroy,
+        (ActorFunc)EnIk_Update,
+        (ActorFunc)EnIk_Draw,
+        (ActorFunc)EnIk_Reset,
+    };
+
+}

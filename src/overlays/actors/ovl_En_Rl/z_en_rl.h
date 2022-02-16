@@ -1,4 +1,4 @@
-#ifndef Z_EN_RL_H
+#pragma once
 #define Z_EN_RL_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnRl;
 typedef void (*EnRlActionFunc)(struct EnRl*, GlobalContext*);
 typedef void (*EnRlDrawFunc)(struct EnRl*, GlobalContext*);
 
-typedef struct EnRl {
+
+struct EnRl {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ s16 eyeTextureIndex;
@@ -20,6 +22,6 @@ typedef struct EnRl {
     /* 0x01A0 */ s32 alpha;
     /* 0x01A4 */ u32 lightBallSpawned;
     /* 0x01A8 */ s32 lightMedallionGiven;
-} EnRl; // size = 0x01AC
+}; 
 
-#endif
+

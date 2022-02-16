@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ItemShield_Init(Actor* thisx, GlobalContext* globalCtx);
+void ItemShield_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ItemShield_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ItemShield_Update(Actor* thisx, GlobalContext* globalCtx);
 void ItemShield_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -57,6 +58,7 @@ ActorInit Item_Shield_InitVars = {
     (ActorFunc)ItemShield_Destroy,
     (ActorFunc)ItemShield_Update,
     (ActorFunc)ItemShield_Draw,
+    (ActorFunc)ItemShield_Reset,
 };
 
 static Color_RGBA8 unused = { 255, 255, 0, 255 };
@@ -235,4 +237,44 @@ void ItemShield_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gLinkChildDekuShieldDL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_item_shield.c", 465);
     }
+}
+
+void ItemShield_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000004, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 15, 15, 0, { 0, 0, 0 } },
+    };
+
+    Item_Shield_InitVars = {
+        ACTOR_ITEM_SHIELD,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_LINK_CHILD,
+        sizeof(ItemShield),
+        (ActorFunc)ItemShield_Init,
+        (ActorFunc)ItemShield_Destroy,
+        (ActorFunc)ItemShield_Update,
+        (ActorFunc)ItemShield_Draw,
+        (ActorFunc)ItemShield_Reset,
+    };
+
+    unused = { 255, 255, 0, 255 };
+
+    unused2 = { 255, 0, 0, 255 };
+
 }

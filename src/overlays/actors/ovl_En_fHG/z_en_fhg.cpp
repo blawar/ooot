@@ -25,26 +25,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef struct {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ s16 yRot;
-} EnfHGPainting; // size = 0x10;
-
-typedef enum {
-    /*  0 */ INTRO_WAIT,
-    /*  1 */ INTRO_START,
-    /*  2 */ INTRO_FENCE,
-    /*  3 */ INTRO_BACK,
-    /*  4 */ INTRO_REVEAL,
-    /*  5 */ INTRO_CUT,
-    /*  6 */ INTRO_LAUGH,
-    /*  7 */ INTRO_TITLE,
-    /*  8 */ INTRO_RETREAT,
-    /*  9 */ INTRO_FINISH,
-    /* 15 */ INTRO_READY = 15
-} EnfHGIntroState;
 
 void EnfHG_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnfHG_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnfHG_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnfHG_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnfHG_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -70,6 +53,7 @@ ActorInit En_fHG_InitVars = {
     (ActorFunc)EnfHG_Destroy,
     (ActorFunc)EnfHG_Update,
     (ActorFunc)EnfHG_Draw,
+    (ActorFunc)EnfHG_Reset,
 };
 
 static EnfHGPainting sPaintings[] = {
@@ -740,4 +724,20 @@ void EnfHG_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_800A6330(&pthis->actor, globalCtx, &pthis->skin, EnfHG_Noop, 0x23);
     POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg.c", 2480);
+}
+
+void EnfHG_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_fHG_InitVars = {
+        ACTOR_EN_FHG,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_FHG,
+        sizeof(EnfHG),
+        (ActorFunc)EnfHG_Init,
+        (ActorFunc)EnfHG_Destroy,
+        (ActorFunc)EnfHG_Update,
+        (ActorFunc)EnfHG_Draw,
+        (ActorFunc)EnfHG_Reset,
+    };
+
 }

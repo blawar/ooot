@@ -21,6 +21,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgSpot16Bombstone_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot16Bombstone_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot16Bombstone_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Bombstone_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -133,6 +134,7 @@ ActorInit Bg_Spot16_Bombstone_InitVars = {
     (ActorFunc)BgSpot16Bombstone_Destroy,
     (ActorFunc)BgSpot16Bombstone_Update,
     (ActorFunc)BgSpot16Bombstone_Draw,
+    (ActorFunc)BgSpot16Bombstone_Reset,
 };
 
 static InitChainEntry sInitChainBoulder[] = {
@@ -564,4 +566,61 @@ void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_bombstone.c", 1274);
+}
+
+void BgSpot16Bombstone_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sPlayerBomb = NULL;
+
+    sTimer = 0;
+
+    sJntSphInit = {
+        {
+            COLTYPE_HARD,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000008, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 190, 80, 0, { 10, 0, 50 } },
+    };
+
+    Bg_Spot16_Bombstone_InitVars = {
+        ACTOR_BG_SPOT16_BOMBSTONE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT16_OBJ,
+        sizeof(BgSpot16Bombstone),
+        (ActorFunc)BgSpot16Bombstone_Init,
+        (ActorFunc)BgSpot16Bombstone_Destroy,
+        (ActorFunc)BgSpot16Bombstone_Update,
+        (ActorFunc)BgSpot16Bombstone_Draw,
+        (ActorFunc)BgSpot16Bombstone_Reset,
+    };
+
+    sVelocity = { 0.0f, 0.0f, 0.0f };
+
+    sAcceleration = { 0.0f, 0.4f, 0.0f };
+
 }

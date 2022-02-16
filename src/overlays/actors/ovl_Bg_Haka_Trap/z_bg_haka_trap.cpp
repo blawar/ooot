@@ -25,6 +25,7 @@
 #define FLAGS 0
 
 void BgHakaTrap_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaTrap_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaTrap_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -54,6 +55,7 @@ ActorInit Bg_Haka_Trap_InitVars = {
     (ActorFunc)BgHakaTrap_Destroy,
     (ActorFunc)BgHakaTrap_Update,
     (ActorFunc)BgHakaTrap_Draw,
+    (ActorFunc)BgHakaTrap_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -561,4 +563,57 @@ void BgHakaTrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
         SkinMatrix_Vec3fMtxFMultXYZ(&globalCtx->viewProjectionMtxF, &sp2C, &pthis->unk_16C);
         func_80078914(&pthis->unk_16C, NA_SE_EV_BRIDGE_CLOSE - SFX_FLAG);
     }
+}
+
+void BgHakaTrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80880F30 = 0;
+
+    Bg_Haka_Trap_InitVars = {
+        ACTOR_BG_HAKA_TRAP,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HAKA_OBJECTS,
+        sizeof(BgHakaTrap),
+        (ActorFunc)BgHakaTrap_Init,
+        (ActorFunc)BgHakaTrap_Destroy,
+        (ActorFunc)BgHakaTrap_Update,
+        (ActorFunc)BgHakaTrap_Draw,
+        (ActorFunc)BgHakaTrap_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 30, 90, 0, { 0, 0, 0 } },
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
+    sColChkInfoInit = { 0, 80, 100, MASS_IMMOVABLE };
+
 }

@@ -25,6 +25,7 @@
 #define FLAGS 0
 
 void BgPoEvent_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgPoEvent_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgPoEvent_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgPoEvent_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -53,6 +54,7 @@ ActorInit Bg_Po_Event_InitVars = {
     (ActorFunc)BgPoEvent_Destroy,
     (ActorFunc)BgPoEvent_Update,
     (ActorFunc)BgPoEvent_Draw,
+    (ActorFunc)BgPoEvent_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -646,4 +648,37 @@ void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx) {
             func_80033C30(&sp58, &sp4C, (u8)(155.0f + sp48 * 100.0f), globalCtx);
         }
     }
+}
+
+void BgPoEvent_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Po_Event_InitVars = {
+        ACTOR_BG_PO_EVENT,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_PO_SISTERS,
+        sizeof(BgPoEvent),
+        (ActorFunc)BgPoEvent_Init,
+        (ActorFunc)BgPoEvent_Destroy,
+        (ActorFunc)BgPoEvent_Update,
+        (ActorFunc)BgPoEvent_Draw,
+        (ActorFunc)BgPoEvent_Reset,
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
+    sBlocksAtRest = 0;
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
 }

@@ -11,17 +11,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    SYATEKI_ROUND_GREEN_APPEAR,
-    SYATEKI_ROUND_BLUE_SEQUENTIAL,
-    SYATEKI_ROUND_GREEN_THROW,
-    SYATEKI_ROUND_BLUE_SIMUL,
-    SYATEKI_ROUND_RED_LEFT,
-    SYATEKI_ROUND_RED_RIGHT,
-    SYATEKI_ROUND_MAX
-} EnSyatekItemRound;
 
 void EnSyatekiItm_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSyatekiItm_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSyatekiItm_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiItm_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -42,6 +34,7 @@ ActorInit En_Syateki_Itm_InitVars = {
     (ActorFunc)EnSyatekiItm_Destroy,
     (ActorFunc)EnSyatekiItm_Update,
     NULL,
+    (ActorFunc)EnSyatekiItm_Reset,
 };
 
 static Vec3f sGreenAppearHome = { 0.0f, -10.0f, -270.0f };
@@ -348,4 +341,60 @@ void EnSyatekiItm_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->unkTimer != 0) {
         pthis->unkTimer--;
     }
+}
+
+void EnSyatekiItm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Syateki_Itm_InitVars = {
+        ACTOR_EN_SYATEKI_ITM,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnSyatekiItm),
+        (ActorFunc)EnSyatekiItm_Init,
+        (ActorFunc)EnSyatekiItm_Destroy,
+        (ActorFunc)EnSyatekiItm_Update,
+        NULL,
+        (ActorFunc)EnSyatekiItm_Reset,
+    };
+
+    sGreenAppearHome = { 0.0f, -10.0f, -270.0f };
+
+    sBlueSeqHome1 = { -220.0f, 66.0f, -320.0f };
+
+    sBlueSeqHome2 = { 260.0f, 66.0f, -320.0f };
+
+    sGreenThrowHome = { 0.0f, -10.0f, -270.0f };
+
+    sBlueSimulHome1 = { -220.0f, 66.0f, -320.0f };
+
+    sBlueSimulHome2 = { 260.0f, 66.0f, -320.0f };
+
+    sRedLeftHome1 = { 260.0f, 100.0f, -320.0f };
+
+    sRedLeftHome2 = { 360.0f, 100.0f, -320.0f };
+
+    sRedRightHome1 = { -230.0f, 94.0f, -360.0f };
+
+    sRedRightHome2 = { -400.0f, 94.0f, -360.0f };
+
+    sGreenAppearFinal = { 0.0f, 53.0f, -270.0f };
+
+    sBlueSeqFinal1 = { -60.0f, 63.0f, -320.0f };
+
+    sBlueSeqFinal2 = { 60.0f, 63.0f, -320.0f };
+
+    sGreenThrowFinal = { 0.0f, 0.0f, 0.0f };
+
+    sBlueSimulFinal1 = { -60.0f, 63.0f, -320.0f };
+
+    sBlueSimulFinal2 = { 60.0f, 63.0f, -320.0f };
+
+    sRedLeftFinal1 = { -230.0f, 0.0f, 0.0f };
+
+    sRedLeftFinal2 = { -230.0f, 0.0f, 0.0f };
+
+    sRedRightFinal1 = { 260.0f, 0.0f, 0.0f };
+
+    sRedRightFinal2 = { 260.0f, 0.0f, 0.0f };
+
 }

@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnMs_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnMs_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnMs_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMs_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMs_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit En_Ms_InitVars = {
     (ActorFunc)EnMs_Destroy,
     (ActorFunc)EnMs_Update,
     (ActorFunc)EnMs_Draw,
+    (ActorFunc)EnMs_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -194,4 +196,32 @@ void EnMs_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, pthis);
+}
+
+void EnMs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ms_InitVars = {
+        ACTOR_EN_MS,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_MS,
+        sizeof(EnMs),
+        (ActorFunc)EnMs_Init,
+        (ActorFunc)EnMs_Destroy,
+        (ActorFunc)EnMs_Update,
+        (ActorFunc)EnMs_Draw,
+        (ActorFunc)EnMs_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        { 0x00, { 0x00000000, 0x00, 0x00 }, { 0xFFCFFFFF, 0x00, 0x00 }, 0x00, 0x01, 0x01 },
+        { 22, 37, 0, { 0 } },
+    };
+
 }

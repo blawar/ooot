@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ObjRoomtimer_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjRoomtimer_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjRoomtimer_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjRoomtimer_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -33,6 +34,7 @@ ActorInit Obj_Roomtimer_InitVars = {
     (ActorFunc)ObjRoomtimer_Destroy,
     (ActorFunc)ObjRoomtimer_Update,
     (ActorFunc)NULL,
+    (ActorFunc)ObjRoomtimer_Reset,
 };
 
 void ObjRoomtimer_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -93,4 +95,20 @@ void ObjRoomtimer_Update(Actor* thisx, GlobalContext* globalCtx) {
     ObjRoomtimer* pthis = (ObjRoomtimer*)thisx;
 
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void ObjRoomtimer_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Roomtimer_InitVars = {
+        ACTOR_OBJ_ROOMTIMER,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjRoomtimer),
+        (ActorFunc)ObjRoomtimer_Init,
+        (ActorFunc)ObjRoomtimer_Destroy,
+        (ActorFunc)ObjRoomtimer_Update,
+        (ActorFunc)NULL,
+        (ActorFunc)ObjRoomtimer_Reset,
+    };
+
 }

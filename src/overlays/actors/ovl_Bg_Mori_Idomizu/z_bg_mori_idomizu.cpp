@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgMoriIdomizu_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriIdomizu_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriIdomizu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriIdomizu_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriIdomizu_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Bg_Mori_Idomizu_InitVars = {
     (ActorFunc)BgMoriIdomizu_Destroy,
     (ActorFunc)BgMoriIdomizu_Update,
     NULL,
+    (ActorFunc)BgMoriIdomizu_Reset,
 };
 
 void BgMoriIdomizu_SetupAction(BgMoriIdomizu* pthis, BgMoriIdomizuActionFunc actionFunc) {
@@ -188,4 +190,22 @@ void BgMoriIdomizu_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gMoriIdomizuWaterDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_idomizu.c", 382);
+}
+
+void BgMoriIdomizu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sIsSpawned = false;
+
+    Bg_Mori_Idomizu_InitVars = {
+        ACTOR_BG_MORI_IDOMIZU,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriIdomizu),
+        (ActorFunc)BgMoriIdomizu_Init,
+        (ActorFunc)BgMoriIdomizu_Destroy,
+        (ActorFunc)BgMoriIdomizu_Update,
+        NULL,
+        (ActorFunc)BgMoriIdomizu_Reset,
+    };
+
 }

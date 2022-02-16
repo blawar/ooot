@@ -13,6 +13,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void ItemInbox_Init(Actor* thisx, GlobalContext* globalCtx);
+void ItemInbox_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ItemInbox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ItemInbox_Update(Actor* thisx, GlobalContext* globalCtx);
 void ItemInbox_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -29,6 +30,7 @@ ActorInit Item_Inbox_InitVars = {
     (ActorFunc)ItemInbox_Destroy,
     (ActorFunc)ItemInbox_Update,
     (ActorFunc)ItemInbox_Draw,
+    (ActorFunc)ItemInbox_Reset,
 };
 
 void ItemInbox_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -59,4 +61,20 @@ void ItemInbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_8002EBCC(&pthis->actor, globalCtx, 0);
     func_8002ED80(&pthis->actor, globalCtx, 0);
     GetItem_Draw(globalCtx, pthis->actor.params & 0xFF);
+}
+
+void ItemInbox_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Item_Inbox_InitVars = {
+        ACTOR_ITEM_INBOX,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ItemInbox),
+        (ActorFunc)ItemInbox_Init,
+        (ActorFunc)ItemInbox_Destroy,
+        (ActorFunc)ItemInbox_Update,
+        (ActorFunc)ItemInbox_Draw,
+        (ActorFunc)ItemInbox_Reset,
+    };
+
 }

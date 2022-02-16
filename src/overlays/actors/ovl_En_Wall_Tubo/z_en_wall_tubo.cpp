@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnWallTubo_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnWallTubo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnWallTubo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnWallTubo_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -36,6 +37,7 @@ ActorInit En_Wall_Tubo_InitVars = {
     (ActorFunc)EnWallTubo_Destroy,
     (ActorFunc)EnWallTubo_Update,
     NULL,
+    (ActorFunc)EnWallTubo_Reset,
 };
 
 void EnWallTubo_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -151,4 +153,20 @@ void EnWallTubo_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void EnWallTubo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Wall_Tubo_InitVars = {
+        ACTOR_EN_WALL_TUBO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnWallTubo),
+        (ActorFunc)EnWallTubo_Init,
+        (ActorFunc)EnWallTubo_Destroy,
+        (ActorFunc)EnWallTubo_Update,
+        NULL,
+        (ActorFunc)EnWallTubo_Reset,
+    };
+
 }

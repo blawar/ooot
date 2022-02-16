@@ -1,4 +1,4 @@
-#ifndef Z_BG_HAKA_SGAMI_H
+#pragma once
 #define Z_BG_HAKA_SGAMI_H
 
 #include "ultra64.h"
@@ -8,7 +8,14 @@ struct BgHakaSgami;
 
 typedef void (*BgHakaSgamiActionFunc)(struct BgHakaSgami*, GlobalContext*);
 
-typedef struct BgHakaSgami {
+
+enum SpinningScytheTrapMode {
+    /* 0 */ SCYTHE_TRAP_SHADOW_TEMPLE,
+    /* 1 */ SCYTHE_TRAP_SHADOW_TEMPLE_INVISIBLE,
+    /* 2 */ SCYTHE_TRAP_ICE_CAVERN
+};
+struct BgHakaSgami {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ BgHakaSgamiActionFunc actionFunc;
     /* 0x0150 */ s32 requiredObjBankIndex;
@@ -18,6 +25,6 @@ typedef struct BgHakaSgami {
     /* 0x015C */ ColliderCylinder colliderScytheCenter;
     /* 0x01A8 */ ColliderTris colliderScythe;
     /* 0x01C8 */ ColliderTrisElement colliderScytheItems[4];
-} BgHakaSgami; // size = 0x0338
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_EN_BOX_H
+#pragma once
 #define Z_EN_BOX_H
 
 #include "ultra64.h"
@@ -11,7 +11,7 @@ struct EnBox;
 
 typedef void (*EnBoxActionFunc)(struct EnBox*, GlobalContext*);
 
-typedef enum {
+enum EnBoxType {
     /*
     only values 1-11 are used explicitly, other values (like 0) default to another separate behavior
     */
@@ -27,9 +27,16 @@ typedef enum {
     /*  9 */ ENBOX_TYPE_9,                      // big, has something more to do with player and message context?
     /* 10 */ ENBOX_TYPE_10,                     // like 9
     /* 11 */ ENBOX_TYPE_SWITCH_FLAG_BIG         // big, appear on switch flag set
-} EnBoxType;
+};
 
-typedef struct EnBox {
+
+enum EnBoxStateUnk1FB {
+    ENBOX_STATE_0, // waiting for player near / player available / player ? (IDLE)
+    ENBOX_STATE_1, // used only temporarily, maybe "player is ready" ?
+    ENBOX_STATE_2  // waiting for something message context-related
+};
+struct EnBox {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ SkelAnime skelanime;
     /* 0x01A8 */ s32 unk_1A8; // related to animation delays for types 3 and 8
@@ -45,6 +52,6 @@ typedef struct EnBox {
     /* 0x01F9 */ u8 type;
     /* 0x01FA */ u8 iceSmokeTimer;
     /* 0x01FB */ u8 unk_1FB;
-} EnBox; // size = 0x01FC
+}; 
 
-#endif
+

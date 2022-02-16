@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnYukabyun_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnYukabyun_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnYukabyun_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnYukabyun_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnYukabyun_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Yukabyun_InitVars = {
     (ActorFunc)EnYukabyun_Destroy,
     (ActorFunc)EnYukabyun_Update,
     (ActorFunc)EnYukabyun_Draw,
+    (ActorFunc)EnYukabyun_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -164,4 +166,40 @@ void EnYukabyun_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gFloorTileEnemyDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_yukabyun.c", 378);
+}
+
+void EnYukabyun_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Yukabyun_InitVars = {
+        ACTOR_EN_YUKABYUN,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_YUKABYUN,
+        sizeof(EnYukabyun),
+        (ActorFunc)EnYukabyun_Init,
+        (ActorFunc)EnYukabyun_Destroy,
+        (ActorFunc)EnYukabyun_Update,
+        (ActorFunc)EnYukabyun_Draw,
+        (ActorFunc)EnYukabyun_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_NO_PUSH | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_HARD,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 28, 8, 0, { 0, 0, 0 } },
+    };
+
 }

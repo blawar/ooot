@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void BgMoriKaitenkabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriKaitenkabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriKaitenkabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriKaitenkabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriKaitenkabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Mori_Kaitenkabe_InitVars = {
     (ActorFunc)BgMoriKaitenkabe_Destroy,
     (ActorFunc)BgMoriKaitenkabe_Update,
     NULL,
+    (ActorFunc)BgMoriKaitenkabe_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -181,4 +183,20 @@ void BgMoriKaitenkabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gMoriKaitenkabeDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_kaitenkabe.c", 356);
+}
+
+void BgMoriKaitenkabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mori_Kaitenkabe_InitVars = {
+        ACTOR_BG_MORI_KAITENKABE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriKaitenkabe),
+        (ActorFunc)BgMoriKaitenkabe_Init,
+        (ActorFunc)BgMoriKaitenkabe_Destroy,
+        (ActorFunc)BgMoriKaitenkabe_Update,
+        NULL,
+        (ActorFunc)BgMoriKaitenkabe_Reset,
+    };
+
 }

@@ -14,6 +14,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EndTitle_Init(Actor* thisx, GlobalContext* globalCtx);
+void EndTitle_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EndTitle_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EndTitle_Update(Actor* thisx, GlobalContext* globalCtx);
 void EndTitle_DrawFull(Actor* thisx, GlobalContext* globalCtx);
@@ -29,6 +30,7 @@ ActorInit End_Title_InitVars = {
     (ActorFunc)EndTitle_Destroy,
     (ActorFunc)EndTitle_Update,
     (ActorFunc)EndTitle_DrawFull,
+    (ActorFunc)EndTitle_Reset,
 };
 
 #include "overlays/ovl_End_Title/ovl_End_Title.cpp"
@@ -132,4 +134,20 @@ void EndTitle_DrawNintendoLogo(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(OVERLAY_DISP++, sPresentedByNintendoDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_end_title.c", 600);
+}
+
+void EndTitle_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    End_Title_InitVars = {
+        ACTOR_END_TITLE,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EndTitle),
+        (ActorFunc)EndTitle_Init,
+        (ActorFunc)EndTitle_Destroy,
+        (ActorFunc)EndTitle_Update,
+        (ActorFunc)EndTitle_DrawFull,
+        (ActorFunc)EndTitle_Reset,
+    };
+
 }

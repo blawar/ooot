@@ -1,4 +1,4 @@
-#ifndef Z_EN_SW_H
+#pragma once
 #define Z_EN_SW_H
 
 #include "ultra64.h"
@@ -10,7 +10,9 @@ struct EnSw;
 
 typedef void (*EnSwActionFunc)(struct EnSw* pthis, GlobalContext* globalCtx);
 
-typedef struct EnSw {
+
+struct EnSw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnSwActionFunc actionFunc;
@@ -49,6 +51,6 @@ typedef struct EnSw {
     /* 0x0478 */ Vec3f unk_478;
     /* 0x0484 */ Vec3f unk_484;
     /* 0x0490 */ char unk_490[0x48];
-} EnSw; // size = 0x04D8
+}; 
 
-#endif
+

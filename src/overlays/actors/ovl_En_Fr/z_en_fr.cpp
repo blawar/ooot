@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnFr_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFr_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFr_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFr_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFr_UpdateIdle(Actor* thisx, GlobalContext* globalCtx);
@@ -98,17 +99,6 @@ sEnFrPointers.flags = 12
      - Deactivate frogs, frogs will jump back into the water
 */
 
-typedef struct {
-    u8 flags;
-    EnFr* frogs[5];
-} EnFrPointers;
-
-typedef struct {
-    f32 xzDist;
-    f32 yaw;
-    f32 yDist;
-} LogSpotToFromWater;
-
 static EnFrPointers sEnFrPointers = {
     0x00,
     {
@@ -145,6 +135,7 @@ ActorInit En_Fr_InitVars = {
     (ActorFunc)EnFr_Destroy,
     (ActorFunc)EnFr_Update,
     NULL,
+    (ActorFunc)EnFr_Reset,
 };
 
 static Color_RGBA8 sEnFrColor[] = {
@@ -1096,4 +1087,31 @@ void EnFr_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           NULL);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fr.c", 1816);
+}
+
+void EnFr_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sEnFrPointers = {
+        0x00,
+        {
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+        },
+    };
+
+    En_Fr_InitVars = {
+        ACTOR_EN_FR,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_FR,
+        sizeof(EnFr),
+        (ActorFunc)EnFr_Init,
+        (ActorFunc)EnFr_Destroy,
+        (ActorFunc)EnFr_Update,
+        NULL,
+        (ActorFunc)EnFr_Reset,
+    };
+
 }

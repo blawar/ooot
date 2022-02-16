@@ -25,6 +25,7 @@
 #define FLAGS 0
 
 void EnButte_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnButte_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnButte_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnButte_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnButte_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -72,16 +73,8 @@ ActorInit En_Butte_InitVars = {
     (ActorFunc)EnButte_Destroy,
     (ActorFunc)EnButte_Update,
     (ActorFunc)EnButte_Draw,
-};
-
-typedef struct {
-    /* 0x00 */ s16 minTime;
-    /* 0x02 */ s16 maxTime;
-    /* 0x04 */ f32 speedXZTarget;
-    /* 0x08 */ f32 speedXZScale;
-    /* 0x0C */ f32 speedXZStep;
-    /* 0x10 */ s16 rotYStep;
-} EnButteFlightParams; // size = 0x14
+    (ActorFunc)EnButte_Reset,
+}; 
 
 static EnButteFlightParams sFlyAroundParams[] = {
     { 5, 35, 0.0f, 0.1f, 0.5f, 0 },
@@ -444,4 +437,37 @@ void EnButte_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (((pthis->actor.params & 1) == 1) && (pthis->actionFunc == EnButte_TransformIntoFairy)) {
         EnButte_DrawTransformationEffect(pthis, globalCtx);
     }
+}
+
+void EnButte_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sColliderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER | OC1_TYPE_1,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    En_Butte_InitVars = {
+        ACTOR_EN_BUTTE,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(EnButte),
+        (ActorFunc)EnButte_Init,
+        (ActorFunc)EnButte_Destroy,
+        (ActorFunc)EnButte_Update,
+        (ActorFunc)EnButte_Draw,
+        (ActorFunc)EnButte_Reset,
+    };
+
+    sTransformationEffectScale = 0.0f;
+
+    sTransformationEffectAlpha = 0;
+
 }

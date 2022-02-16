@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSpot02Objects_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot02Objects_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot02Objects_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot02Objects_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot02Objects_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -54,6 +55,7 @@ ActorInit Bg_Spot02_Objects_InitVars = {
     (ActorFunc)BgSpot02Objects_Destroy,
     (ActorFunc)BgSpot02Objects_Update,
     (ActorFunc)BgSpot02Objects_Draw,
+    (ActorFunc)BgSpot02Objects_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -341,4 +343,20 @@ void func_808AD450(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 818);
+}
+
+void BgSpot02Objects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot02_Objects_InitVars = {
+        ACTOR_BG_SPOT02_OBJECTS,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT02_OBJECTS,
+        sizeof(BgSpot02Objects),
+        (ActorFunc)BgSpot02Objects_Init,
+        (ActorFunc)BgSpot02Objects_Destroy,
+        (ActorFunc)BgSpot02Objects_Update,
+        (ActorFunc)BgSpot02Objects_Draw,
+        (ActorFunc)BgSpot02Objects_Reset,
+    };
+
 }

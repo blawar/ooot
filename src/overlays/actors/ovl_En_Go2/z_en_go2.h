@@ -1,4 +1,4 @@
-#ifndef Z_EN_GO2_H
+#pragma once
 #define Z_EN_GO2_H
 
 #include "ultra64.h"
@@ -9,7 +9,7 @@ struct EnGo2;
 
 typedef void (*EnGo2ActionFunc)(struct EnGo2*, GlobalContext*);
 
-typedef enum {
+enum GoronType {
     /* 0x00 */ GORON_CITY_ROLLING_BIG,
     /* 0x01 */ GORON_CITY_LINK,
     /* 0x02 */ GORON_DMT_BIGGORON,
@@ -24,7 +24,7 @@ typedef enum {
     /* 0x0B */ GORON_CITY_LOST_WOODS,
     /* 0x0C */ GORON_DMT_FAIRY_HINT,
     /* 0x0D */ GORON_MARKET_BAZAAR
-} GoronType;
+};
 
 // WIP fire temple type docs
 // /* 0x00 */ UNUSED
@@ -41,31 +41,33 @@ typedef enum {
 // /* 0x0B */ GORON_FIRE_HIGHEST
 
 
-typedef struct {
+struct EnGo2DataStruct1 {
     s16 unused;
     s16 yDist;
     s16 xzDist;
     s16 radius;
     s16 height;
-} EnGo2DataStruct1; // size = 0xA
+}; 
 
-typedef struct {
+struct EnGo2DataStruct2 {
     f32 shape_unk_10;
     f32 scale;
     s8 actor_unk_1F;
     f32 unk_218;
-} EnGo2DataStruct2; // size = 0x10
+}; 
 
-typedef struct {
+struct EnGo2DustEffectData {
     u8 initialTimer;
     f32 scale;
     f32 scaleStep;
     s32 numDustEffects;
     f32 radius;
     f32 yAccel;
-} EnGo2DustEffectData; // size = 0x18
+}; 
 
-typedef struct EnGo2 {
+
+struct EnGo2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnGo2ActionFunc actionFunc;
@@ -104,6 +106,6 @@ typedef struct EnGo2 {
     /* 0x0598 */ char unk_598[0x02];
     /* 0x059A */ s16 camId;
     /* 0x059C */ s16 unk_59C;
-} EnGo2; // size = 0x05A0
+}; 
 
-#endif
+

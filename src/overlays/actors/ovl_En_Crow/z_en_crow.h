@@ -1,4 +1,4 @@
-#ifndef Z_EN_CROW_H
+#pragma once
 #define Z_EN_CROW_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnCrow;
 
 typedef void (*EnCrowActionFunc)(struct EnCrow*, GlobalContext*);
 
-typedef struct EnCrow {
+
+struct EnCrow {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Vec3f bodyPartsPos[4];
     /* 0x017C */ SkelAnime skelAnime;
@@ -20,6 +22,6 @@ typedef struct EnCrow {
     /* 0x0200 */ Vec3s morphTable[9];
     /* 0x0238 */ ColliderJntSph collider;
     /* 0x0258 */ ColliderJntSphElement colliderItems[1];
-} EnCrow; // size = 0x0298
+}; 
 
-#endif
+

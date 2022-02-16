@@ -16,6 +16,7 @@
 #define FLAGS ACTOR_FLAG_0
 
 void BgJyaBombchuiwa_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaBombchuiwa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Jya_Bombchuiwa_InitVars = {
     (ActorFunc)BgJyaBombchuiwa_Destroy,
     (ActorFunc)BgJyaBombchuiwa_Update,
     (ActorFunc)BgJyaBombchuiwa_Draw,
+    (ActorFunc)BgJyaBombchuiwa_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -251,4 +253,33 @@ void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
             BgJyaBombchuiwa_DrawLight(thisx, globalCtx);
         }
     }
+}
+
+void BgJyaBombchuiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Bombchuiwa_InitVars = {
+        ACTOR_BG_JYA_BOMBCHUIWA,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaBombchuiwa),
+        (ActorFunc)BgJyaBombchuiwa_Init,
+        (ActorFunc)BgJyaBombchuiwa_Destroy,
+        (ActorFunc)BgJyaBombchuiwa_Update,
+        (ActorFunc)BgJyaBombchuiwa_Draw,
+        (ActorFunc)BgJyaBombchuiwa_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_2,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

@@ -19,15 +19,11 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
 
-typedef enum {
-    /* 0 */ SCYTHE_TRAP_SHADOW_TEMPLE,
-    /* 1 */ SCYTHE_TRAP_SHADOW_TEMPLE_INVISIBLE,
-    /* 2 */ SCYTHE_TRAP_ICE_CAVERN
-} SpinningScytheTrapMode;
 
 #define SCYTHE_SPIN_TIME 32
 
 void BgHakaSgami_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaSgami_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaSgami_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaSgami_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaSgami_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -45,6 +41,7 @@ ActorInit Bg_Haka_Sgami_InitVars = {
     (ActorFunc)BgHakaSgami_Destroy,
     (ActorFunc)BgHakaSgami_Update,
     NULL,
+    (ActorFunc)BgHakaSgami_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[4] = {
@@ -313,4 +310,55 @@ void BgHakaSgami_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_0021F0);
     }
+}
+
+void BgHakaSgami_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_Sgami_InitVars = {
+        ACTOR_BG_HAKA_SGAMI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgHakaSgami),
+        (ActorFunc)BgHakaSgami_Init,
+        (ActorFunc)BgHakaSgami_Destroy,
+        (ActorFunc)BgHakaSgami_Update,
+        NULL,
+        (ActorFunc)BgHakaSgami_Reset,
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_TRIS,
+        },
+        4,
+        sTrisElementsInit,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 80, 130, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 80, 130, MASS_IMMOVABLE };
+
 }

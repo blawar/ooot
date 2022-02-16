@@ -1,4 +1,4 @@
-#ifndef Z_EN_INSECT_H
+#pragma once
 #define Z_EN_INSECT_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnInsect;
 
 typedef void (*EnInsectActionFunc)(struct EnInsect*, GlobalContext*);
 
-typedef struct EnInsect {
+
+struct EnInsect {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderJntSph collider;
     /* 0x016C */ ColliderJntSphElement colliderItem;
@@ -27,6 +29,6 @@ typedef struct EnInsect {
     /* 0x0324 */ f32 unk_324;
     /* 0x0328 */ s16 unk_328;
     /* 0x032A */ u8 unk_32A;
-} EnInsect; // size = 0x032C
+}; 
 
-#endif
+

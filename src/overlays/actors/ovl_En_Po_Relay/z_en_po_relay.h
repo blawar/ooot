@@ -1,4 +1,4 @@
-#ifndef Z_EN_PO_RELAY_H
+#pragma once
 #define Z_EN_PO_RELAY_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnPoRelay;
 
 typedef void (*EnPoRelayActionFunc)(struct EnPoRelay*, GlobalContext*);
 
-typedef struct EnPoRelay {
+
+struct EnPoRelay {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPoRelayActionFunc actionFunc;
@@ -25,6 +27,6 @@ typedef struct EnPoRelay {
     /* 0x027C */ LightNode* lightNode;
     /* 0x0280 */ LightInfo lightInfo;
     /* 0x0290 */ ColliderCylinder collider;
-} EnPoRelay; // size = 0x02DC
+}; 
 
-#endif
+

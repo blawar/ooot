@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnSth_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSth_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSth_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSth_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSth_Update2(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit En_Sth_InitVars = {
     (ActorFunc)EnSth_Destroy,
     (ActorFunc)EnSth_Update,
     NULL,
+    (ActorFunc)EnSth_Reset,
 };
 
 #include "overlays/ovl_En_Sth/ovl_En_Sth.cpp"
@@ -421,4 +423,42 @@ void EnSth_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnSth_OverrideLimbDraw, EnSth_PostLimbDraw, &pthis->actor);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2176);
+}
+
+void EnSth_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Sth_InitVars = {
+        ACTOR_EN_STH,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnSth),
+        (ActorFunc)EnSth_Init,
+        (ActorFunc)EnSth_Destroy,
+        (ActorFunc)EnSth_Update,
+        NULL,
+        (ActorFunc)EnSth_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ENEMY,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 30, 40, 0, { 0, 0, 0 } },
+    };
+
+    D_80B0B49C = { 700.0f, 400.0f, 0.0f };
+
 }

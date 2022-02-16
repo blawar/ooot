@@ -38,6 +38,7 @@
 #define vMovementMetric genericVar2
 
 void EnTrap_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTrap_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTrap_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -52,6 +53,7 @@ ActorInit En_Trap_InitVars = {
     (ActorFunc)EnTrap_Destroy,
     (ActorFunc)EnTrap_Update,
     (ActorFunc)EnTrap_Draw,
+    (ActorFunc)EnTrap_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -397,4 +399,33 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx) {
 void EnTrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_8002EBCC(thisx, globalCtx, 1);
     Gfx_DrawDListOpa(globalCtx, gSlidingBladeTrapDL);
+}
+
+void EnTrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Trap_InitVars = {
+        ACTOR_EN_TRAP,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_TRAP,
+        sizeof(EnTrap),
+        (ActorFunc)EnTrap_Init,
+        (ActorFunc)EnTrap_Destroy,
+        (ActorFunc)EnTrap_Update,
+        (ActorFunc)EnTrap_Draw,
+        (ActorFunc)EnTrap_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_NO_PUSH | OC1_TYPE_1 | OC1_TYPE_2,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        { ELEMTYPE_UNK0, { 0x00000000, 0x00, 0x00 }, { 0x00001000, 0x00, 0x00 }, TOUCH_NONE, BUMP_ON, OCELEM_ON },
+        { 30, 20, 0, { 0, 0, 0 } },
+    };
+
 }

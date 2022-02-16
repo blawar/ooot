@@ -1,4 +1,4 @@
-#ifndef Z_EN_KAKASI2_H
+#pragma once
 #define Z_EN_KAKASI2_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnKakasi2;
 
 typedef void (*EnKakasi2ActionFunc)(struct EnKakasi2*, GlobalContext*);
 
-typedef struct EnKakasi2 {
+
+struct EnKakasi2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnKakasi2ActionFunc actionFunc;
     /* 0x0150 */ SkelAnime skelAnime;
@@ -18,6 +20,6 @@ typedef struct EnKakasi2 {
     /* 0x019C */ Vec3f maxSpawnDistance;
     /* 0x01A8 */ f32 height;
     /* 0x01AC */ ColliderCylinder collider;
-} EnKakasi2; // size = 0x01F8
+}; 
 
-#endif
+

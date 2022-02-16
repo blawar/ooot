@@ -26,6 +26,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_26)
 
 void EnAm_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnAm_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnAm_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnAm_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnAm_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,17 +44,6 @@ void EnAm_Ricochet(EnAm* pthis, GlobalContext* globalCtx);
 void EnAm_Stunned(EnAm* pthis, GlobalContext* globalCtx);
 void EnAm_RecoilFromDamage(EnAm* pthis, GlobalContext* globalCtx);
 
-typedef enum {
-    /* 00 */ AM_BEHAVIOR_NONE,
-    /* 01 */ AM_BEHAVIOR_DAMAGED,
-    /* 03 */ AM_BEHAVIOR_DO_NOTHING = 3,
-    /* 05 */ AM_BEHAVIOR_5 = 5, // checked but never set
-    /* 06 */ AM_BEHAVIOR_STUNNED,
-    /* 07 */ AM_BEHAVIOR_GO_HOME,
-    /* 08 */ AM_BEHAVIOR_RICOCHET,
-    /* 10 */ AM_BEHAVIOR_AGGRO = 10
-} ArmosBehavior;
-
 ActorInit En_Am_InitVars = {
     ACTOR_EN_AM,
     ACTORCAT_ENEMY,
@@ -64,6 +54,7 @@ ActorInit En_Am_InitVars = {
     (ActorFunc)EnAm_Destroy,
     (ActorFunc)EnAm_Update,
     (ActorFunc)EnAm_Draw,
+    (ActorFunc)EnAm_Reset,
 };
 
 static ColliderCylinderInit sHurtCylinderInit = {
@@ -125,15 +116,6 @@ static ColliderQuadInit sQuadInit = {
     },
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
-
-typedef enum {
-    /* 00 */ AM_DMGEFF_NONE, // used by anything that cant kill the armos
-    /* 01 */ AM_DMGEFF_NUT,
-    /* 06 */ AM_DMGEFF_STUN = 6, // doesnt include deku nuts
-    /* 13 */ AM_DMGEFF_ICE = 13,
-    /* 14 */ AM_DMGEFF_MAGIC_FIRE_LIGHT,
-    /* 15 */ AM_DMGEFF_KILL // any damage source that can kill the armos (and isnt a special case)
-} ArmosDamageEffect;
 
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, AM_DMGEFF_NUT),
@@ -986,4 +968,119 @@ void EnAm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_am.c", 1605);
+}
+
+void EnAm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Am_InitVars = {
+        ACTOR_EN_AM,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_AM,
+        sizeof(EnAm),
+        (ActorFunc)EnAm_Init,
+        (ActorFunc)EnAm_Destroy,
+        (ActorFunc)EnAm_Update,
+        (ActorFunc)EnAm_Draw,
+        (ActorFunc)EnAm_Reset,
+    };
+
+    sHurtCylinderInit = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 15, 70, 0, { 0, 0, 0 } },
+    };
+
+    sBlockCylinderInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00400106, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 15, 70, 0, { 0, 0, 0 } },
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, AM_DMGEFF_NUT),
+        /* Deku stick    */ DMG_ENTRY(2, AM_DMGEFF_NONE),
+        /* Slingshot     */ DMG_ENTRY(1, AM_DMGEFF_NONE),
+        /* Explosive     */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Boomerang     */ DMG_ENTRY(0, AM_DMGEFF_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Hammer swing  */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Hookshot      */ DMG_ENTRY(0, AM_DMGEFF_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, AM_DMGEFF_NONE),
+        /* Master sword  */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Giant's Knife */ DMG_ENTRY(4, AM_DMGEFF_KILL),
+        /* Fire arrow    */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Ice arrow     */ DMG_ENTRY(4, AM_DMGEFF_ICE),
+        /* Light arrow   */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Unk arrow 1   */ DMG_ENTRY(2, AM_DMGEFF_NONE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, AM_DMGEFF_NONE),
+        /* Unk arrow 3   */ DMG_ENTRY(2, AM_DMGEFF_NONE),
+        /* Fire magic    */ DMG_ENTRY(0, AM_DMGEFF_MAGIC_FIRE_LIGHT),
+        /* Ice magic     */ DMG_ENTRY(3, AM_DMGEFF_ICE),
+        /* Light magic   */ DMG_ENTRY(0, AM_DMGEFF_MAGIC_FIRE_LIGHT),
+        /* Shield        */ DMG_ENTRY(0, AM_DMGEFF_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, AM_DMGEFF_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, AM_DMGEFF_NONE),
+        /* Giant spin    */ DMG_ENTRY(4, AM_DMGEFF_KILL),
+        /* Master spin   */ DMG_ENTRY(2, AM_DMGEFF_KILL),
+        /* Kokiri jump   */ DMG_ENTRY(2, AM_DMGEFF_NONE),
+        /* Giant jump    */ DMG_ENTRY(8, AM_DMGEFF_KILL),
+        /* Master jump   */ DMG_ENTRY(4, AM_DMGEFF_KILL),
+        /* Unknown 1     */ DMG_ENTRY(0, AM_DMGEFF_NONE),
+        /* Unblockable   */ DMG_ENTRY(0, AM_DMGEFF_NONE),
+        /* Hammer jump   */ DMG_ENTRY(4, AM_DMGEFF_KILL),
+        /* Unknown 2     */ DMG_ENTRY(0, AM_DMGEFF_NONE),
+    };
+
+    sUnused1 = { 1100.0f, -700.0f, 0.0f };
+
+    sUnused2 = { 0.0f, 0.0f, 0.0f };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_SYATEKI_NIW_H
+#pragma once
 #define Z_EN_SYATEKI_NIW_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnSyatekiNiw;
 
 typedef void (*EnSyatekiNiwActionFunc)(struct EnSyatekiNiw*, GlobalContext*);
 
-typedef struct {
+struct EnSyatekiNiw_1 {
     /* 0x00 */ u8    unk_00;
     /* 0x0C */ Vec3f unk_04;
     /* 0x10 */ Vec3f unk_10;
@@ -18,9 +18,11 @@ typedef struct {
     /* 0x2C */ f32   unk_2C;
     /* 0x30 */ f32   unk_30;
     /* 0x34 */ u8    unk_34;
-} EnSyatekiNiw_1; // size = 0x38
+}; 
 
-typedef struct EnSyatekiNiw {
+
+struct EnSyatekiNiw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -66,6 +68,6 @@ typedef struct EnSyatekiNiw {
     /* 0x02F8 */ u8 unk_2F8;
     /* 0x02FC */ ColliderCylinder collider;
     /* 0x0348 */ EnSyatekiNiw_1 unk_348[5];
-} EnSyatekiNiw; // size = 0x0460
+}; 
 
-#endif
+

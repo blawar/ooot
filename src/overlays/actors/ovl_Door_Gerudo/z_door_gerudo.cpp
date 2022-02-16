@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void DoorGerudo_Init(Actor* thisx, GlobalContext* globalCtx);
+void DoorGerudo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DoorGerudo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorGerudo_Update(Actor* thisx, GlobalContext* globalCtx);
 void DoorGerudo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Door_Gerudo_InitVars = {
     (ActorFunc)DoorGerudo_Destroy,
     (ActorFunc)DoorGerudo_Update,
     (ActorFunc)DoorGerudo_Draw,
+    (ActorFunc)DoorGerudo_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -166,4 +168,20 @@ void DoorGerudo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_gerudo.c", 377);
+}
+
+void DoorGerudo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Door_Gerudo_InitVars = {
+        ACTOR_DOOR_GERUDO,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_DOOR_GERUDO,
+        sizeof(DoorGerudo),
+        (ActorFunc)DoorGerudo_Init,
+        (ActorFunc)DoorGerudo_Destroy,
+        (ActorFunc)DoorGerudo_Update,
+        (ActorFunc)DoorGerudo_Draw,
+        (ActorFunc)DoorGerudo_Reset,
+    };
+
 }

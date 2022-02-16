@@ -1,4 +1,4 @@
-#ifndef Z_DOOR_SHUTTER_H
+#pragma once
 #define Z_DOOR_SHUTTER_H
 
 #include "ultra64.h"
@@ -20,7 +20,7 @@
  * 
  */
 
-typedef enum {
+enum DoorShutterType {
     /* 0x00 */ SHUTTER,
     /* 0x01 */ SHUTTER_FRONT_CLEAR,
     /* 0x02 */ SHUTTER_FRONT_SWITCH,
@@ -37,13 +37,44 @@ typedef enum {
     /* 0x0D */ SHUTTER_D,
     /* 0x0E */ SHUTTER_E,
     /* 0x0F */ SHUTTER_F
-} DoorShutterType;
+};
 
 struct DoorShutter;
 
 typedef void (*DoorShutterActionFunc)(struct DoorShutter*, GlobalContext*);
 
-typedef struct DoorShutter {
+
+
+struct ShutterObjectInfo {
+    s16 objectId;
+    u8 index1;
+    u8 index2;
+};
+
+
+struct ShutterInfo {
+    /* 0x0000 */ Gfx* a;
+    /* 0x0004 */ Gfx* b;
+    /* 0x0008 */ u8 c;
+    /* 0x0009 */ u8 translateZ;
+    /* 0x000A */ u8 e;
+    /* 0x000B */ u8 f;
+};
+
+
+struct ShutterSceneInfo {
+    s16 sceneNum;
+    u8 index;
+};
+
+
+struct BossDoorInfo {
+    s16 dungeonScene;
+    s16 bossScene;
+    u8 index;
+};
+struct DoorShutter {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ s16 unk_164;
     /* 0x0166 */ s16 unk_166;
@@ -56,6 +87,6 @@ typedef struct DoorShutter {
     /* 0x016F */ s8 unk_16F;
     /* 0x0170 */ f32 unk_170;
     /* 0x0174 */ DoorShutterActionFunc actionFunc;
-} DoorShutter; // size = 0x0178
+}; 
 
-#endif
+

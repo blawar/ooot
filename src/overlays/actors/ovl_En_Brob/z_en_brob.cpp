@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnBrob_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBrob_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBrob_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBrob_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBrob_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit En_Brob_InitVars = {
     (ActorFunc)EnBrob_Destroy,
     (ActorFunc)EnBrob_Update,
     (ActorFunc)EnBrob_Draw,
+    (ActorFunc)EnBrob_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -336,4 +338,42 @@ void EnBrob_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_Translate(0.0f, pthis->unk_1AE, 0.0f, MTXMODE_APPLY);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, EnBrob_PostLimbDraw, pthis);
+}
+
+void EnBrob_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Brob_InitVars = {
+        ACTOR_EN_BROB,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_BROB,
+        sizeof(EnBrob),
+        (ActorFunc)EnBrob_Init,
+        (ActorFunc)EnBrob_Destroy,
+        (ActorFunc)EnBrob_Update,
+        (ActorFunc)EnBrob_Draw,
+        (ActorFunc)EnBrob_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0xFFCFFFFF, 0x03, 0x08 },
+            { 0xFFCFFFFF, 0x01, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 8000, 11000, -5000, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 60, 120, MASS_IMMOVABLE };
+
 }

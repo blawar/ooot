@@ -18,6 +18,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgSpot01Idosoko_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot01Idosoko_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot01Idosoko_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Idosoko_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Idosoko_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit Bg_Spot01_Idosoko_InitVars = {
     (ActorFunc)BgSpot01Idosoko_Destroy,
     (ActorFunc)BgSpot01Idosoko_Update,
     (ActorFunc)BgSpot01Idosoko_Draw,
+    (ActorFunc)BgSpot01Idosoko_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -86,4 +88,20 @@ void BgSpot01Idosoko_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gKakarikoBOTWStoneDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idosoko.c", 171);
+}
+
+void BgSpot01Idosoko_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot01_Idosoko_InitVars = {
+        ACTOR_BG_SPOT01_IDOSOKO,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT01_MATOYA,
+        sizeof(BgSpot01Idosoko),
+        (ActorFunc)BgSpot01Idosoko_Init,
+        (ActorFunc)BgSpot01Idosoko_Destroy,
+        (ActorFunc)BgSpot01Idosoko_Update,
+        (ActorFunc)BgSpot01Idosoko_Draw,
+        (ActorFunc)BgSpot01Idosoko_Reset,
+    };
+
 }

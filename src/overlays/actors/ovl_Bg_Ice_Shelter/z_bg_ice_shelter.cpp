@@ -15,6 +15,7 @@
 #define FLAGS 0
 
 void BgIceShelter_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgIceShelter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgIceShelter_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgIceShelter_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit Bg_Ice_Shelter_InitVars = {
     (ActorFunc)BgIceShelter_Destroy,
     (ActorFunc)BgIceShelter_Update,
     (ActorFunc)BgIceShelter_Draw,
+    (ActorFunc)BgIceShelter_Reset,
 };
 
 static f32 sScales[] = { 0.1f, 0.06f, 0.1f, 0.1f, 0.25f };
@@ -446,4 +448,64 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ice_shelter.c", 815);
+}
+
+void BgIceShelter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Ice_Shelter_InitVars = {
+        ACTOR_BG_ICE_SHELTER,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_ICE_OBJECTS,
+        sizeof(BgIceShelter),
+        (ActorFunc)BgIceShelter_Init,
+        (ActorFunc)BgIceShelter_Destroy,
+        (ActorFunc)BgIceShelter_Update,
+        (ActorFunc)BgIceShelter_Draw,
+        (ActorFunc)BgIceShelter_Reset,
+    };
+
+    sDustPrimColor = { 250, 250, 250, 255 };
+
+    sDustEnvColor = { 180, 180, 180, 255 };
+
+    D_8089170C = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_OTHER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 0, 0, 0, { 0, 0, 0 } },
+    };
+
+    D_80891738 = {
+        {
+            COLTYPE_HARD,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x4FC1FFF6, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 0, 0, 0, { 0, 0, 0 } },
+    };
+
 }

@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_25
 
 void DoorAna_Init(Actor* thisx, GlobalContext* globalCtx);
+void DoorAna_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DoorAna_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorAna_Update(Actor* thisx, GlobalContext* globalCtx);
 void DoorAna_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit Door_Ana_InitVars = {
     (ActorFunc)DoorAna_Destroy,
     (ActorFunc)DoorAna_Update,
     (ActorFunc)DoorAna_Draw,
+    (ActorFunc)DoorAna_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -194,4 +196,40 @@ void DoorAna_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gGrottoDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_ana.c", 449);
+}
+
+void DoorAna_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Door_Ana_InitVars = {
+        ACTOR_DOOR_ANA,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(DoorAna),
+        (ActorFunc)DoorAna_Init,
+        (ActorFunc)DoorAna_Destroy,
+        (ActorFunc)DoorAna_Update,
+        (ActorFunc)DoorAna_Draw,
+        (ActorFunc)DoorAna_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000048, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 50, 10, 0, { 0 } },
+    };
+
 }

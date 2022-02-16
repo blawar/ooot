@@ -64,6 +64,7 @@ Gorons only move when pthis->unk_194.unk_00 == 0
 */
 
 void EnGo2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGo2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGo2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGo2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGo2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -125,6 +126,7 @@ ActorInit En_Go2_InitVars = {
     (ActorFunc)EnGo2_Destroy,
     (ActorFunc)EnGo2_Update,
     (ActorFunc)EnGo2_Draw,
+    (ActorFunc)EnGo2_Reset,
 };
 
 static EnGo2DataStruct1 D_80A4816C[14] = {
@@ -2070,4 +2072,52 @@ void EnGo2_Draw(Actor* thisx, GlobalContext* globalCtx) {
                               pthis->skelAnime.dListCount, EnGo2_OverrideLimbDraw, EnGo2_PostLimbDraw, pthis);
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_go2.c", 3081);
     }
+}
+
+void EnGo2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sPos = { 0.0f, 0.0f, 0.0f };
+
+    sVelocity = { 0.0f, 0.0f, 0.0f };
+
+    sAccel = { 0.0f, 0.3f, 0.0f };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000008, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 40, 65, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = {
+        0, 0, 0, 0, MASS_IMMOVABLE,
+    };
+
+    En_Go2_InitVars = {
+        ACTOR_EN_GO2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_OF1D_MAP,
+        sizeof(EnGo2),
+        (ActorFunc)EnGo2_Init,
+        (ActorFunc)EnGo2_Destroy,
+        (ActorFunc)EnGo2_Update,
+        (ActorFunc)EnGo2_Draw,
+        (ActorFunc)EnGo2_Reset,
+    };
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
 }

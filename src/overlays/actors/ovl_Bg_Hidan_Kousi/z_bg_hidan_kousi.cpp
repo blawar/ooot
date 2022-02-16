@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgHidanKousi_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanKousi_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanKousi_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanKousi_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanKousi_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Hidan_Kousi_InitVars = {
     (ActorFunc)BgHidanKousi_Destroy,
     (ActorFunc)BgHidanKousi_Update,
     (ActorFunc)BgHidanKousi_Draw,
+    (ActorFunc)BgHidanKousi_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -169,4 +171,20 @@ void BgHidanKousi_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, sMetalFencesDLs[thisx->params & 0xFF]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_kousi.c", 359);
+}
+
+void BgHidanKousi_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Kousi_InitVars = {
+        ACTOR_BG_HIDAN_KOUSI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanKousi),
+        (ActorFunc)BgHidanKousi_Init,
+        (ActorFunc)BgHidanKousi_Destroy,
+        (ActorFunc)BgHidanKousi_Update,
+        (ActorFunc)BgHidanKousi_Draw,
+        (ActorFunc)BgHidanKousi_Reset,
+    };
+
 }

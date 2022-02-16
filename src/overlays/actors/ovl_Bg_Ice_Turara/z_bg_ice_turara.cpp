@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void BgIceTurara_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgIceTurara_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgIceTurara_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgIceTurara_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgIceTurara_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -61,6 +62,7 @@ ActorInit Bg_Ice_Turara_InitVars = {
     (ActorFunc)BgIceTurara_Destroy,
     (ActorFunc)BgIceTurara_Update,
     (ActorFunc)BgIceTurara_Draw,
+    (ActorFunc)BgIceTurara_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -209,4 +211,40 @@ void BgIceTurara_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgIceTurara_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_0023D0);
+}
+
+void BgIceTurara_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0x4FC007CA, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 13, 120, 0, { 0, 0, 0 } },
+    };
+
+    Bg_Ice_Turara_InitVars = {
+        ACTOR_BG_ICE_TURARA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_ICE_OBJECTS,
+        sizeof(BgIceTurara),
+        (ActorFunc)BgIceTurara_Init,
+        (ActorFunc)BgIceTurara_Destroy,
+        (ActorFunc)BgIceTurara_Update,
+        (ActorFunc)BgIceTurara_Draw,
+        (ActorFunc)BgIceTurara_Reset,
+    };
+
 }

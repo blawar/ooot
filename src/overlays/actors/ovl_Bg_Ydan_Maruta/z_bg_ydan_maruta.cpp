@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void BgYdanMaruta_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgYdanMaruta_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgYdanMaruta_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgYdanMaruta_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgYdanMaruta_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Bg_Ydan_Maruta_InitVars = {
     (ActorFunc)BgYdanMaruta_Destroy,
     (ActorFunc)BgYdanMaruta_Update,
     (ActorFunc)BgYdanMaruta_Draw,
+    (ActorFunc)BgYdanMaruta_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -215,4 +217,33 @@ void BgYdanMaruta_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, gDTFallingLadderDL);
     }
+}
+
+void BgYdanMaruta_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Ydan_Maruta_InitVars = {
+        ACTOR_BG_YDAN_MARUTA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_YDAN_OBJECTS,
+        sizeof(BgYdanMaruta),
+        (ActorFunc)BgYdanMaruta_Init,
+        (ActorFunc)BgYdanMaruta_Destroy,
+        (ActorFunc)BgYdanMaruta_Update,
+        (ActorFunc)BgYdanMaruta_Draw,
+        (ActorFunc)BgYdanMaruta_Reset,
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
 }

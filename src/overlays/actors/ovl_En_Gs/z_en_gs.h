@@ -1,4 +1,4 @@
-#ifndef Z_EN_GS_H
+#pragma once
 #define Z_EN_GS_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnGs;
 
 typedef void (*EnGsActionFunc)(struct EnGs*, GlobalContext*);
 
-typedef struct EnGs {
+
+struct EnGs {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ EnGsActionFunc actionFunc;
@@ -29,6 +31,6 @@ typedef struct EnGs {
     /* 0x01FC */ f32 unk_1FC;
     /* 0x0200 */ u16 unk_200;
     /* 0x0202 */ char unk_202[0x6];
-} EnGs; // size = 0x0208
+}; 
 
-#endif
+

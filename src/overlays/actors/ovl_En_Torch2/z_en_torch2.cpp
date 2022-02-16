@@ -24,45 +24,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0 */ ENTORCH2_WAIT,
-    /* 1 */ ENTORCH2_ATTACK,
-    /* 2 */ ENTORCH2_DEATH,
-    /* 3 */ ENTORCH2_DAMAGE
-} EnTorch2ActionStates;
-
-typedef enum {
-    /*  0 */ FORWARD_SLASH_1H,
-    /*  1 */ FORWARD_SLASH_2H,
-    /*  2 */ FORWARD_COMBO_1H,
-    /*  3 */ FORWARD_COMBO_2H,
-    /*  4 */ RIGHT_SLASH_1H,
-    /*  5 */ RIGHT_SLASH_2H,
-    /*  6 */ RIGHT_COMBO_1H,
-    /*  7 */ RIGHT_COMBO_2H,
-    /*  8 */ LEFT_SLASH_1H,
-    /*  9 */ LEFT_SLASH_2H,
-    /* 10 */ LEFT_COMBO_1H,
-    /* 11 */ LEFT_COMBO_2H,
-    /* 12 */ STAB_1H,
-    /* 13 */ STAB_2H,
-    /* 14 */ STAB_COMBO_1H,
-    /* 15 */ STAB_COMBO_2H,
-    /* 16 */ FLIPSLASH_START,
-    /* 17 */ JUMPSLASH_START,
-    /* 18 */ FLIPSLASH_FINISH,
-    /* 19 */ JUMPSLASH_FINISH,
-    /* 20 */ BACKSLASH_RIGHT,
-    /* 21 */ BACKSLASH_LEFT,
-    /* 22 */ HAMMER_FORWARD,
-    /* 23 */ HAMMER_SIDE,
-    /* 24 */ SPIN_ATTACK_1H,
-    /* 25 */ SPIN_ATTACK_2H,
-    /* 26 */ BIG_SPIN_1H,
-    /* 27 */ BIG_SPIN_2H
-} PlayerSwordAnimation;
 
 void EnTorch2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTorch2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTorch2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -77,6 +41,7 @@ ActorInit En_Torch2_InitVars = {
     (ActorFunc)EnTorch2_Destroy,
     (ActorFunc)EnTorch2_Update,
     (ActorFunc)EnTorch2_Draw,
+    (ActorFunc)EnTorch2_Reset,
 };
 
 static f32 sStickTilt = 0.0f;
@@ -805,4 +770,67 @@ void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                                            pthis, POLY_XLU_DISP);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_torch2.c", 1114);
+}
+
+void EnTorch2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Torch2_InitVars = {
+        ACTOR_EN_TORCH2,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_TORCH2,
+        sizeof(Player),
+        (ActorFunc)EnTorch2_Init,
+        (ActorFunc)EnTorch2_Destroy,
+        (ActorFunc)EnTorch2_Update,
+        (ActorFunc)EnTorch2_Draw,
+        (ActorFunc)EnTorch2_Reset,
+    };
+
+    sStickTilt = 0.0f;
+
+    sStickAngle = 0;
+
+    sSwordJumpHeight = 0.0f;
+
+    sHoldShieldTimer = 0;
+
+    sZTargetFlag = false;
+
+    sDeathFlag = false;
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x1),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x1),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x1),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(2, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(4, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(2, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(2, 0x0),
+        /* Light arrow   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(2, 0xE),
+        /* Ice magic     */ DMG_ENTRY(0, 0x6),
+        /* Light magic   */ DMG_ENTRY(3, 0xD),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
 }

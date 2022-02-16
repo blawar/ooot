@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_GANON_H
+#pragma once
 #define Z_BOSS_GANON_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct BossGanon;
 
 typedef void (*BossGanonActionFunc)(struct BossGanon*, GlobalContext*);
 
-typedef enum {
+enum GanondorfFwork {
     /*  0 */ GDF_FWORK_0,
     /*  1 */ GDF_FWORK_1,
     /*  2 */ GDF_CENTER_POS,
@@ -20,21 +20,21 @@ typedef enum {
     /*  8 */ GDF_VORTEX_SCALE,
     /*  9 */ GDF_FWORK_UNUSED_9,
     /* 10 */ GDF_FWORK_MAX
-} GanondorfFwork;
+};
 
-typedef enum {
+enum WindowShatterState {
     /* 0 */ GDF_WINDOW_SHATTER_OFF,
     /* 1 */ GDF_WINDOW_SHATTER_PARTIAL,
     /* 2 */ GDF_WINDOW_SHATTER_FULL
-} WindowShatterState;
+};
 
-typedef enum {
+enum GanondorfShockType {
     /* 0 */ GDF_SHOCK_DORF_YELLOW,
     /* 1 */ GDF_SHOCK_PLAYER_YELLOW,
     /* 2 */ GDF_SHOCK_PLAYER_PURPLE
-} GanondorfShockType;
+};
 
-typedef enum {
+enum GanondorfEffectType {
     /* 0 */ GDF_EFF_NONE,
     /* 1 */ GDF_EFF_SPARKLE,
     /* 2 */ GDF_EFF_LIGHT_RAY,
@@ -45,15 +45,41 @@ typedef enum {
     /* 7 */ GDF_EFF_SHOCKWAVE,
     /* 8 */ GDF_EFF_BLACK_DOT,
     /* 9 */ GDF_EFF_WINDOW_SHARD
-} GanondorfEffectType;
+};
 
-typedef enum {
+enum GanondorfTriforceType {
     /* 0 */ GDF_TRIFORCE_PLAYER,
     /* 1 */ GDF_TRIFORCE_ZELDA,
     /* 2 */ GDF_TRIFORCE_DORF
-} GanondorfTriforceType;
+};
 
-typedef struct BossGanon {
+
+
+struct GanondorfEffect {
+    /* 0x00 */ u8 type;
+    /* 0x01 */ u8 timer;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ Vec3f velocity;
+    /* 0x1C */ Vec3f accel;
+    /* 0x28 */ Color_RGB8 color;
+    /* 0x2C */ s16 alpha;
+    /* 0x2E */ s16 unk_2E;
+    /* 0x30 */ s16 unk_30;
+    /* 0x34 */ f32 scale;
+    /* 0x38 */ f32 unk_38; // scale target mostly, but used for other things
+    /* 0x3C */ f32 unk_3C; // mostly z rot
+    /* 0x40 */ f32 unk_40;
+    /* 0x44 */ f32 unk_44; // mostly x rot
+    /* 0x48 */ f32 unk_48; // mostly y rot
+};
+
+
+struct CutsceneCameraPosition {
+    /* 0x00 */ Vec3s eye;
+    /* 0x06 */ Vec3s at;
+};
+struct BossGanon {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 animBankIndex;
     /* 0x0150 */ SkelAnime skelAnime;
@@ -142,6 +168,6 @@ typedef struct BossGanon {
     /* 0x0718 */ s16 organAlpha;
     /* 0x071A */ u8 useOpenHand;
     /* 0x071B */ u8 windowShatterState;
-} BossGanon; // size = 0x71C
+}; 
 
-#endif
+

@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnTr_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTr_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTr_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTr_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTr_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit En_Tr_InitVars = {
     (ActorFunc)EnTr_Destroy,
     (ActorFunc)EnTr_Update,
     (ActorFunc)EnTr_Draw,
+    (ActorFunc)EnTr_Reset,
 };
 
 // The first elements of these animation arrays are for Koume, the second for Kotake
@@ -537,4 +539,20 @@ void EnTr_SetStartPosRot(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex)
 
     pthis->actor.world.pos = startPos;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y = globalCtx->csCtx.npcActions[actionIndex]->rot.y;
+}
+
+void EnTr_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Tr_InitVars = {
+        ACTOR_EN_TR,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_TR,
+        sizeof(EnTr),
+        (ActorFunc)EnTr_Init,
+        (ActorFunc)EnTr_Destroy,
+        (ActorFunc)EnTr_Update,
+        (ActorFunc)EnTr_Draw,
+        (ActorFunc)EnTr_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_HORSE_ZELDA_H
+#pragma once
 #define Z_EN_HORSE_ZELDA_H
 
 #include "ultra64.h"
@@ -8,7 +8,14 @@ struct EnHorseZelda;
 
 typedef void (*EnHorseZeldaActionFunc)(struct EnHorseZelda*, GlobalContext*);
 
-typedef struct EnHorseZelda {
+
+
+struct unknownStruct {
+    /* 0x0 */ Vec3s unk_0;
+    /* 0x6 */ u8 unk_6;
+};
+struct EnHorseZelda {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 action;
     /* 0x0150 */ s32 animationIndex;
@@ -21,6 +28,6 @@ typedef struct EnHorseZelda {
     /* 0x01FC */ ColliderCylinder colliderCylinder;
     /* 0x0248 */ ColliderJntSph colliderSphere;
     /* 0x0268 */ ColliderJntSphElement colliderSphereItem;
-} EnHorseZelda; // size = 0x02A8
+}; 
 
-#endif
+

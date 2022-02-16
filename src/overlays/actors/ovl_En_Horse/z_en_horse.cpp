@@ -44,6 +44,7 @@ typedef void (*EnHorseCsFunc)(EnHorse*, GlobalContext*, CsCmdActorAction*);
 typedef void (*EnHorseActionFunc)(EnHorse*, GlobalContext*);
 
 void EnHorse_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHorse_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHorse_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHorse_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorse_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -104,6 +105,7 @@ ActorInit En_Horse_InitVars = {
     (ActorFunc)EnHorse_Destroy,
     (ActorFunc)EnHorse_Update,
     (ActorFunc)EnHorse_Draw,
+    (ActorFunc)EnHorse_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit1 = {
@@ -174,12 +176,6 @@ static ColliderJntSphInit sJntSphInit = {
 };
 
 static CollisionCheckInfoInit D_80A65F38 = { 10, 35, 100, MASS_HEAVY };
-
-typedef struct {
-    s16 scene;
-    Vec3s pos;
-    s16 angle;
-} EnHorseSpawnpoint;
 
 static EnHorseSpawnpoint sHorseSpawns[] = {
     // Hyrule Field
@@ -362,37 +358,10 @@ static EnHorseSpawnpoint sHorseSpawns[] = {
     { SCENE_SPOT20, 907, 0, -2336, 0 },
 };
 
-typedef struct {
-    s16 zMin;
-    s16 zMax;
-
-    s16 xMin;
-    s16 xMax;
-    s16 xOffset;
-
-    s16 angle;
-    s16 angleRange;
-
-    Vec3s pos;
-} BridgeJumpPoint;
-
 static BridgeJumpPoint sBridgeJumps[] = {
     { -195, -40, 225, 120, 360, -0x4000, 0x7D0, -270, -52, -117 },
     { -195, -40, -240, -120, -360, 0x4000, 0x7D0, 270, -52, -117 },
 };
-
-typedef struct {
-    s16 x;
-    s16 y;
-    s16 z;
-    s16 speed;
-    s16 angle;
-} RaceWaypoint;
-
-typedef struct {
-    s32 numWaypoints;
-    RaceWaypoint* waypoints;
-} RaceInfo;
 
 static RaceWaypoint sIngoRaceWaypoints[] = {
     { 1056, 1, -1540, 11, 0x2A8D },  { 1593, 1, -985, 10, 0xFC27 },   { 1645, 1, -221, 11, 0xE891 },
@@ -438,11 +407,6 @@ void EnHorse_CsWarpRearing(EnHorse* pthis, GlobalContext* globalCtx, CsCmdActorA
 static EnHorseCsFunc sCutsceneActionFuncs[] = {
     NULL, EnHorse_CsMoveToPoint, EnHorse_CsJump, EnHorse_CsRearing, EnHorse_CsWarpMoveToPoint, EnHorse_CsWarpRearing,
 };
-
-typedef struct {
-    s32 csAction;
-    s32 csFuncIdx;
-} CsActionEntry;
 
 static CsActionEntry sCsActionTable[] = {
     { 36, 1 }, { 37, 2 }, { 38, 3 }, { 64, 4 }, { 65, 5 },
@@ -3866,4 +3830,79 @@ void EnHorse_Draw(Actor* thisx, GlobalContext* globalCtx) {
             pthis->postDrawFunc(pthis, globalCtx);
         }
     }
+}
+
+void EnHorse_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Horse_InitVars = {
+        ACTOR_EN_HORSE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HORSE,
+        sizeof(EnHorse),
+        (ActorFunc)EnHorse_Init,
+        (ActorFunc)EnHorse_Destroy,
+        (ActorFunc)EnHorse_Update,
+        (ActorFunc)EnHorse_Draw,
+        (ActorFunc)EnHorse_Reset,
+    };
+
+    sCylinderInit1 = {
+        {
+            COLTYPE_NONE,
+            AT_TYPE_PLAYER,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000400, 0x00, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 70, 0, { 0, 0, 0 } },
+    };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 70, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphItemsInit,
+    };
+
+    D_80A65F38 = { 10, 35, 100, MASS_HEAVY };
+
+    sIngoRace = { 8, sIngoRaceWaypoints };
+
+    sHbaInfo = { 5, sHbaWaypoints };
+
 }

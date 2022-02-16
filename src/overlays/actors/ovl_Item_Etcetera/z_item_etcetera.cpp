@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ItemEtcetera_Init(Actor* thisx, GlobalContext* globalCtx);
+void ItemEtcetera_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ItemEtcetera_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ItemEtcetera_Update(Actor* thisx, GlobalContext* globalCtx);
 void ItemEtcetera_DrawThroughLens(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Item_Etcetera_InitVars = {
     (ActorFunc)ItemEtcetera_Destroy,
     (ActorFunc)ItemEtcetera_Update,
     NULL,
+    (ActorFunc)ItemEtcetera_Reset,
 };
 
 static s16 sObjectIds[] = {
@@ -222,4 +224,20 @@ void ItemEtcetera_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_8002EBCC(&pthis->actor, globalCtx, 0);
     func_8002ED80(&pthis->actor, globalCtx, 0);
     GetItem_Draw(globalCtx, pthis->giDrawId);
+}
+
+void ItemEtcetera_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Item_Etcetera_InitVars = {
+        ACTOR_ITEM_ETCETERA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ItemEtcetera),
+        (ActorFunc)ItemEtcetera_Init,
+        (ActorFunc)ItemEtcetera_Destroy,
+        (ActorFunc)ItemEtcetera_Update,
+        NULL,
+        (ActorFunc)ItemEtcetera_Reset,
+    };
+
 }

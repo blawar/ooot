@@ -1,4 +1,4 @@
-#ifndef Z_EN_GE1_H
+#pragma once
 #define Z_EN_GE1_H
 
 #include "ultra64.h"
@@ -9,16 +9,16 @@ struct EnGe1;
 typedef void (*EnGe1AnimFunc)(struct EnGe1*);
 typedef void (*EnGe1ActionFunc)(struct EnGe1*, GlobalContext*);
 
-typedef enum {
+enum EnGe1Type {
     /* 0x00 */ GE1_TYPE_GATE_GUARD,
     /* 0x01 */ GE1_TYPE_GATE_OPERATOR,
     /* 0x04 */ GE1_TYPE_NORMAL = 4,
     /* 0x05 */ GE1_TYPE_VALLEY_FLOOR,
     /* 0x45 */ GE1_TYPE_HORSEBACK_ARCHERY = 0x45,
     /* 0x46 */ GE1_TYPE_TRAINING_GROUNDS_GUARD
-} EnGe1Type;
+};
 
-typedef enum {
+enum EnGe1Limb {
     /* 00 */ GE1_LIMB_NONE,
     /* 01 */ GE1_LIMB_WAIST,
     /* 02 */ GE1_LIMB_L_THIGH,
@@ -36,9 +36,16 @@ typedef enum {
     /* 14 */ GE1_LIMB_R_HAND,
     /* 15 */ GE1_LIMB_HEAD,
     /* 16 */ GE1_LIMB_MAX
-} EnGe1Limb;
+};
 
-typedef struct EnGe1 {
+
+enum EnGe1Hairstyle {
+    /* 00 */ GE1_HAIR_BOB,
+    /* 01 */ GE1_HAIR_STRAIGHT,
+    /* 02 */ GE1_HAIR_SPIKY
+};
+struct EnGe1 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelAnime;
@@ -54,6 +61,6 @@ typedef struct EnGe1 {
     /* 0x02B0 */ AnimationHeader* animation;
     /* 0x02B4 */ EnGe1ActionFunc actionFunc;
     /* 0x02B8 */ EnGe1AnimFunc animFunc;
-} EnGe1; // size = 0x02BC
+}; 
 
-#endif
+

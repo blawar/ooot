@@ -22,6 +22,7 @@
 #define FLAGS 0
 
 void BgVbSima_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgVbSima_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgVbSima_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgVbSima_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgVbSima_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Vb_Sima_InitVars = {
     (ActorFunc)BgVbSima_Destroy,
     (ActorFunc)BgVbSima_Update,
     (ActorFunc)BgVbSima_Draw,
+    (ActorFunc)BgVbSima_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -166,4 +168,20 @@ void BgVbSima_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, gVolvagiaPlatformDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_vb_sima.c", 296);
+}
+
+void BgVbSima_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Vb_Sima_InitVars = {
+        ACTOR_BG_VB_SIMA,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_FD,
+        sizeof(BgVbSima),
+        (ActorFunc)BgVbSima_Init,
+        (ActorFunc)BgVbSima_Destroy,
+        (ActorFunc)BgVbSima_Update,
+        (ActorFunc)BgVbSima_Draw,
+        (ActorFunc)BgVbSima_Reset,
+    };
+
 }

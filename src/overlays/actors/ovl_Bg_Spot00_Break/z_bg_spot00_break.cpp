@@ -17,6 +17,7 @@
 #define FLAGS 0
 
 void BgSpot00Break_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot00Break_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot00Break_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot00Break_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot00Break_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Bg_Spot00_Break_InitVars = {
     (ActorFunc)BgSpot00Break_Destroy,
     (ActorFunc)BgSpot00Break_Update,
     (ActorFunc)BgSpot00Break_Draw,
+    (ActorFunc)BgSpot00Break_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -78,4 +80,20 @@ void BgSpot00Break_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, gBrokenDrawbridgeDL);
     }
+}
+
+void BgSpot00Break_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot00_Break_InitVars = {
+        ACTOR_BG_SPOT00_BREAK,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT00_BREAK,
+        sizeof(BgSpot00Break),
+        (ActorFunc)BgSpot00Break_Init,
+        (ActorFunc)BgSpot00Break_Destroy,
+        (ActorFunc)BgSpot00Break_Update,
+        (ActorFunc)BgSpot00Break_Draw,
+        (ActorFunc)BgSpot00Break_Reset,
+    };
+
 }

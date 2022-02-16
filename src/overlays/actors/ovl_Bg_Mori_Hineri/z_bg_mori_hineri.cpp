@@ -27,6 +27,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgMoriHineri_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriHineri_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriHineri_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriHineri_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx);
@@ -50,6 +51,7 @@ ActorInit Bg_Mori_Hineri_InitVars = {
     (ActorFunc)BgMoriHineri_Destroy,
     (ActorFunc)BgMoriHineri_Update,
     NULL,
+    (ActorFunc)BgMoriHineri_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -289,4 +291,22 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 709);
+}
+
+void BgMoriHineri_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sNextCamIdx = SUBCAM_NONE;
+
+    Bg_Mori_Hineri_InitVars = {
+        ACTOR_BG_MORI_HINERI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgMoriHineri),
+        (ActorFunc)BgMoriHineri_Init,
+        (ActorFunc)BgMoriHineri_Destroy,
+        (ActorFunc)BgMoriHineri_Update,
+        NULL,
+        (ActorFunc)BgMoriHineri_Reset,
+    };
+
 }

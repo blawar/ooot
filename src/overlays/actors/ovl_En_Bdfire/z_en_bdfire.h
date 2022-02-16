@@ -1,4 +1,4 @@
-#ifndef Z_EN_BDFIRE_H
+#pragma once
 #define Z_EN_BDFIRE_H
 
 #include "ultra64.h"
@@ -10,7 +10,9 @@ struct EnBdfire;
 typedef void (*EnBdfireActionFunc)(struct EnBdfire*, GlobalContext*);
 typedef void (*EnBdfireDrawFunc)(struct EnBdfire*, GlobalContext*);
 
-typedef struct EnBdfire {
+
+struct EnBdfire {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnBdfireActionFunc actionFunc;
     /* 0x0150 */ EnBdfireDrawFunc drawFunc;
@@ -25,6 +27,6 @@ typedef struct EnBdfire {
     /* 0x0198 */ char unk_198[0x38];
     /* 0x01D0 */ LightNode* lightNode;
     /* 0x01D4 */ LightInfo lightInfoNoGlow;
-} EnBdfire; // size = 0x01E4
+}; 
 
-#endif
+

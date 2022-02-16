@@ -16,6 +16,7 @@
 #define FLAGS 0
 
 void EnWonderItem_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnWonderItem_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnWonderItem_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnWonderItem_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -57,6 +58,7 @@ ActorInit En_Wonder_Item_InitVars = {
     (ActorFunc)EnWonderItem_Destroy,
     (ActorFunc)EnWonderItem_Update,
     NULL,
+    (ActorFunc)EnWonderItem_Reset,
 };
 
 static Vec3f sTagPointsFree[9];
@@ -351,4 +353,40 @@ void EnWonderItem_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->wonderMode > 12) {
         colorIndex = 0;
     }
+}
+
+void EnWonderItem_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 20, 30, 0, { 0, 0, 0 } },
+    };
+
+    En_Wonder_Item_InitVars = {
+        ACTOR_EN_WONDER_ITEM,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnWonderItem),
+        (ActorFunc)EnWonderItem_Init,
+        (ActorFunc)EnWonderItem_Destroy,
+        (ActorFunc)EnWonderItem_Update,
+        NULL,
+        (ActorFunc)EnWonderItem_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_TEST_H
+#pragma once
 #define Z_EN_TEST_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnTest;
 
 typedef void (*EnTestActionFunc)(struct EnTest*, GlobalContext*);
 
-typedef enum {
+enum StalfosLimb {
     /* 0x00 */ STALFOS_LIMB_NONE,
     /* 0x01 */ STALFOS_LIMB_ROOT,
     /* 0x02 */ STALFOS_LIMB_UPPERBODY_ROOT,
@@ -71,9 +71,20 @@ typedef enum {
     /* 0x3B */ STALFOS_LIMB_THIGH_R,
     /* 0x3C */ STALFOS_LIMB_WAIST,
     /* 0x3D */ STALFOS_LIMB_MAX
-} StalfosLimb;
+};
 
-typedef struct EnTest {
+
+
+enum StalfosDamageEffect {
+    /* 0x0 */ STALFOS_DMGEFF_NORMAL,
+    /* 0x1 */ STALFOS_DMGEFF_STUN,
+    /* 0x6 */ STALFOS_DMGEFF_FIREMAGIC = 6,
+    /* 0xD */ STALFOS_DMGEFF_SLING = 0xD,
+    /* 0xE */ STALFOS_DMGEFF_LIGHT,
+    /* 0xF */ STALFOS_DMGEFF_FREEZE
+};
+struct EnTest {
+
     /* 0x000 */ Actor actor;
     /* 0x14C */ Vec3s bodyPartsPos[10];
     /* 0x188 */ SkelAnime skelAnime;
@@ -100,15 +111,15 @@ typedef struct EnTest {
     /* 0x810 */ ColliderCylinder bodyCollider;
     /* 0x85C */ ColliderQuad swordCollider;
     /* 0x8DC */ ColliderCylinder shieldCollider;
-} EnTest; // size = 0x928
+}; 
 
-typedef enum {
+enum StalfosType {
     /* 0 */ STALFOS_TYPE_INVISIBLE,
     /* 1 */ STALFOS_TYPE_1,
     /* 2 */ STALFOS_TYPE_2,
     /* 3 */ STALFOS_TYPE_CEILING,
     /* 4 */ STALFOS_TYPE_4,
     /* 5 */ STALFOS_TYPE_5
-} StalfosType;
+};
 
-#endif
+

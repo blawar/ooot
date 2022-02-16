@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnLightbox_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnLightbox_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnLightbox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnLightbox_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnLightbox_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit En_Lightbox_InitVars = {
     (ActorFunc)EnLightbox_Destroy,
     (ActorFunc)EnLightbox_Update,
     (ActorFunc)EnLightbox_Draw,
+    (ActorFunc)EnLightbox_Reset,
 };
 
 void EnLightbox_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -116,4 +118,20 @@ void EnLightbox_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnLightbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, object_lightbox_DL_000B70);
+}
+
+void EnLightbox_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Lightbox_InitVars = {
+        ACTOR_EN_LIGHTBOX,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_LIGHTBOX,
+        sizeof(EnLightbox),
+        (ActorFunc)EnLightbox_Init,
+        (ActorFunc)EnLightbox_Destroy,
+        (ActorFunc)EnLightbox_Update,
+        (ActorFunc)EnLightbox_Draw,
+        (ActorFunc)EnLightbox_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_BG_SPOT18_BASKET_H
+#pragma once
 #define Z_BG_SPOT18_BASKET_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgSpot18Basket;
 
 typedef void (*BgSpot18BasketActionFunc)(struct BgSpot18Basket*, GlobalContext*);
 
-typedef struct BgSpot18Basket {
+
+struct BgSpot18Basket {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ColliderJntSph colliderJntSph;
     /* 0x0184 */ ColliderJntSphElement ColliderJntSphElements[2];
@@ -23,7 +25,6 @@ typedef struct BgSpot18Basket {
     /* 0x0218 */ s16 unk_218;
     /* 0x021A */ u8 unk_21A;
     /* 0x021B */ u8 unk_21B;
-} BgSpot18Basket; // size = 0x021C
+}; 
 
-#endif
 

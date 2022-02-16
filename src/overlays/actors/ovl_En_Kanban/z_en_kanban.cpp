@@ -43,48 +43,9 @@
 #define UPPERRIGHT_HALF (PART_POST_UPPER | PART_UPPER_RIGHT | PART_RIGHT_UPPER | PART_UPPER_LEFT | PART_RIGHT_LOWER)
 #define ALL_PARTS (LEFT_HALF | RIGHT_HALF | PART_POST_UPPER | PART_POST_LOWER)
 
-typedef enum {
-    ENKANBAN_SIGN,
-    ENKANBAN_AIR,
-    ENKANBAN_UNUSED,
-    ENKANBAN_GROUND,
-    ENKANBAN_WATER,
-    ENKANBAN_REPAIR
-} EnKanbanActionState;
-
-typedef enum {
-    PIECE_WHOLE_SIGN,
-    PIECE_UPPER_HALF,
-    PIECE_LOWER_HALF,
-    PIECE_RIGHT_HALF,
-    PIECE_LEFT_HALF,
-    PIECE_2ND_QUAD,
-    PIECE_1ST_QUAD,
-    PIECE_3RD_QUAD,
-    PIECE_4TH_QUAD,
-    PIECE_UPPER_LEFT,
-    PIECE_LEFT_UPPER,
-    PIECE_LEFT_LOWER,
-    PIECE_LOWER_LEFT,
-    PIECE_UPPER_RIGHT,
-    PIECE_RIGHT_UPPER,
-    PIECE_RIGHT_LOWER,
-    PIECE_LOWER_RIGHT,
-    PIECE_POST_UPPER,
-    PIECE_POST_LOWER,
-    PIECE_OTHER = 100
-} EnKanbanPiece;
-
-typedef enum {
-    CUT_POST,
-    CUT_VERT_L,
-    CUT_HORIZ,
-    CUT_DIAG_L, // lower left to upper right
-    CUT_DIAG_R, // upper left to lower right
-    CUT_VERT_R
-} EnKanbanCutType;
 
 void EnKanban_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnKanban_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnKanban_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -99,6 +60,7 @@ ActorInit En_Kanban_InitVars = {
     (ActorFunc)EnKanban_Destroy,
     (ActorFunc)EnKanban_Update,
     (ActorFunc)EnKanban_Draw,
+    (ActorFunc)EnKanban_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -906,4 +868,40 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_kanban.c", 1857);
+}
+
+void EnKanban_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Kanban_InitVars = {
+        ACTOR_EN_KANBAN,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_KANBAN,
+        sizeof(EnKanban),
+        (ActorFunc)EnKanban_Init,
+        (ActorFunc)EnKanban_Destroy,
+        (ActorFunc)EnKanban_Update,
+        (ActorFunc)EnKanban_Draw,
+        (ActorFunc)EnKanban_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 50, 5, { 0, 0, 0 } },
+    };
+
 }

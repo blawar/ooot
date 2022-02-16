@@ -23,13 +23,9 @@
 
 #define FLAGS 0
 
-typedef enum {
-    /* 0 */ CRACKED_STONE_FLOOR,
-    /* 1 */ BOMBABLE_WALL,
-    /* 2 */ LARGE_BOMBABLE_WALL
-} FireTempleBombableObjectsType;
 
 void BgHidanKowarerukabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanKowarerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanKowarerukabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanKowarerukabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanKowarerukabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +40,7 @@ ActorInit Bg_Hidan_Kowarerukabe_InitVars = {
     (ActorFunc)BgHidanKowarerukabe_Destroy,
     (ActorFunc)BgHidanKowarerukabe_Update,
     (ActorFunc)BgHidanKowarerukabe_Draw,
+    (ActorFunc)BgHidanKowarerukabe_Reset,
 };
 
 static Gfx* sBreakableWallDLists[] = {
@@ -346,4 +343,33 @@ void BgHidanKowarerukabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Collider_UpdateSpheres(0, &pthis->collider);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_kowarerukabe.c", 573);
+}
+
+void BgHidanKowarerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Kowarerukabe_InitVars = {
+        ACTOR_BG_HIDAN_KOWARERUKABE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanKowarerukabe),
+        (ActorFunc)BgHidanKowarerukabe_Init,
+        (ActorFunc)BgHidanKowarerukabe_Destroy,
+        (ActorFunc)BgHidanKowarerukabe_Update,
+        (ActorFunc)BgHidanKowarerukabe_Draw,
+        (ActorFunc)BgHidanKowarerukabe_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

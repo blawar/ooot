@@ -1,4 +1,4 @@
-#ifndef Z_BG_MJIN_H
+#pragma once
 #define Z_BG_MJIN_H
 
 #include "ultra64.h"
@@ -8,10 +8,12 @@ struct BgMjin;
 
 typedef void (*BgMjinActionFunc)(struct BgMjin*, GlobalContext*);
 
-typedef struct BgMjin {
+
+struct BgMjin {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ s32 objBankIndex;
     /* 0x0168 */ BgMjinActionFunc actionFunc;
-} BgMjin; // size = 0x016C
+}; 
 
-#endif
+

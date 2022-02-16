@@ -28,6 +28,7 @@
 #define FLAGS 0
 
 void EnItem00_Init(Actor* pthisx, GlobalContext* globalCtx);
+void EnItem00_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnItem00_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx);
 void EnItem00_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -52,6 +53,7 @@ ActorInit En_Item00_InitVars = {
     (ActorFunc)EnItem00_Destroy,
     (ActorFunc)EnItem00_Update,
     (ActorFunc)EnItem00_Draw,
+    (ActorFunc)EnItem00_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1347,4 +1349,44 @@ void Item_DropCollectibleRandom(GlobalContext* globalCtx, Actor* fromActor, Vec3
             dropQuantity--;
         }
     }
+}
+
+void EnItem00_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Item00_InitVars = {
+        ACTOR_EN_ITEM00,
+        ACTORCAT_MISC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnItem00),
+        (ActorFunc)EnItem00_Init,
+        (ActorFunc)EnItem00_Destroy,
+        (ActorFunc)EnItem00_Update,
+        (ActorFunc)EnItem00_Draw,
+        (ActorFunc)EnItem00_Reset,
+    };
+
+	sCylinderInit = {
+	    {
+		COLTYPE_NONE,
+		AT_NONE,
+		AC_ON | AC_TYPE_PLAYER,
+		OC1_NONE,
+		OC2_NONE,
+		COLSHAPE_CYLINDER,
+	    },
+	    {
+		ELEMTYPE_UNK0,
+		{0x00000000, 0x00, 0x00},
+		{0x00000010, 0x00, 0x00},
+		TOUCH_NONE | TOUCH_SFX_NORMAL,
+		BUMP_ON,
+		OCELEM_NONE,
+	    },
+	    {10, 30, 0, {0, 0, 0}},
+	};
+
+	sEffectPrimColor = {255, 255, 127, 0};
+	sEffectEnvColor  = {255, 255, 255, 0};
+	sEffectVelocity	    = {0.0f, 0.1f, 0.0f};
+	sEffectAccel	    = {0.0f, 0.01f, 0.0f};
 }

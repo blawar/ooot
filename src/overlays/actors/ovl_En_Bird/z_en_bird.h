@@ -1,4 +1,4 @@
-#ifndef Z_EN_BIRD_H
+#pragma once
 #define Z_EN_BIRD_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnBird;
 
 typedef void (*EnBirdActionFunc)(struct EnBird*, GlobalContext*);
 
-typedef struct EnBird {
+
+struct EnBird {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnBirdActionFunc actionFunc;
@@ -26,6 +28,6 @@ typedef struct EnBird {
     /* 0x01BC */ f32 unk_1BC;
     /* 0x01C0 */ s16 unk_1C0;
     /* 0x01C2 */ char unk_1C2[0x1A];
-} EnBird; // size = 0x01DC
+}; 
 
-#endif
+

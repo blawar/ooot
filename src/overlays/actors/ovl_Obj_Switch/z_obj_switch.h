@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_SWITCH_H
+#pragma once
 #define Z_OBJ_SWITCH_H
 
 #include "ultra64.h"
@@ -8,43 +8,45 @@ struct ObjSwitch;
 
 typedef void (*ObjSwitchActionFunc)(struct ObjSwitch*, GlobalContext*);
 
-typedef enum {
+enum ObjSwitchType {
     /* 0 */ OBJSWITCH_TYPE_FLOOR,
     /* 1 */ OBJSWITCH_TYPE_FLOOR_RUSTY,
     /* 2 */ OBJSWITCH_TYPE_EYE,
     /* 3 */ OBJSWITCH_TYPE_CRYSTAL,
     /* 4 */ OBJSWITCH_TYPE_CRYSTAL_TARGETABLE
-} ObjSwitchType;
+};
 
-typedef enum {
+enum ObjSwitchSubTypeFloor {
     /* 0 */ OBJSWITCH_SUBTYPE_FLOOR_0,
     /* 1 */ OBJSWITCH_SUBTYPE_FLOOR_1,
     /* 2 */ OBJSWITCH_SUBTYPE_FLOOR_2,
     /* 3 */ OBJSWITCH_SUBTYPE_FLOOR_3
-} ObjSwitchSubTypeFloor;
+};
 
-typedef enum {
+enum ObjSwitchSubTypeEye {
     /* 0 */ OBJSWITCH_SUBTYPE_EYE_0,
     /* 1 */ OBJSWITCH_SUBTYPE_EYE_1
-} ObjSwitchSubTypeEye;
+};
 
-typedef enum {
+enum ObjSwitchSubTypeCrystal {
     /* 0 */ OBJSWITCH_SUBTYPE_CRYSTAL_0,
     /* 1 */ OBJSWITCH_SUBTYPE_CRYSTAL_1,
     /* 4 */ OBJSWITCH_SUBTYPE_CRYSTAL_4 = 4
-} ObjSwitchSubTypeCrystal;
+};
 
-typedef struct {
+struct ObjSwitchJntSph {
     /* 0x00 */ ColliderJntSph col;
     /* 0x20 */ ColliderJntSphElement items[2];
-} ObjSwitchJntSph;
+};
 
-typedef struct {
+struct ObjSwitchTris {
     /* 0x00 */ ColliderTris col;
     /* 0x20 */ ColliderTrisElement items[2];
-} ObjSwitchTris;
+};
 
-typedef struct ObjSwitch {
+typedef 
+struct ObjSwitch {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjSwitchActionFunc actionFunc;
     /* 0x0168 */ s16 releaseTimer; // used for SUBTYPE_FLOOR_2 and SUBTYPE_FLOOR_3
@@ -63,6 +65,6 @@ typedef struct ObjSwitch {
         /* 0x0180 */ ObjSwitchJntSph jntSph;
         /* 0x0180 */ ObjSwitchTris tris;
     };
-} ObjSwitch; // size = 0x0258
+} ObjSwitch; 
 
-#endif
+

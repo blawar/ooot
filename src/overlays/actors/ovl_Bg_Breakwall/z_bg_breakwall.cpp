@@ -25,13 +25,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef struct {
-    /* 0x00 */ CollisionHeader* colHeader;
-    /* 0x04 */ Gfx* dList;
-    /* 0x08 */ s8 colType;
-} BombableWallInfo;
 
 void BgBreakwall_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgBreakwall_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgBreakwall_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgBreakwall_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgBreakwall_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -50,6 +46,7 @@ ActorInit Bg_Breakwall_InitVars = {
     (ActorFunc)BgBreakwall_Destroy,
     (ActorFunc)BgBreakwall_Update,
     NULL,
+    (ActorFunc)BgBreakwall_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -330,4 +327,40 @@ void BgBreakwall_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_breakwall.c", 822);
     }
+}
+
+void BgBreakwall_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Breakwall_InitVars = {
+        ACTOR_BG_BREAKWALL,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgBreakwall),
+        (ActorFunc)BgBreakwall_Init,
+        (ActorFunc)BgBreakwall_Destroy,
+        (ActorFunc)BgBreakwall_Update,
+        NULL,
+        (ActorFunc)BgBreakwall_Reset,
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER | AC_TYPE_OTHER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000048, 0x00, 0x00 },
+            { 0x00000048, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
 }

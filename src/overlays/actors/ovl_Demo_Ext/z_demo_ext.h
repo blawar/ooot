@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_EXT_H
+#pragma once
 #define Z_DEMO_EXT_H
 
 #include "ultra64.h"
@@ -9,7 +9,20 @@ struct DemoExt;
 typedef void (*DemoExtActionFunc)(struct DemoExt*, GlobalContext*);
 typedef void (*DemoExtDrawFunc)(Actor*, GlobalContext*);
 
-typedef struct DemoExt {
+
+enum DemoExtAction {
+    /* 0x00 */ EXT_WAIT,
+    /* 0x01 */ EXT_MAINTAIN,
+    /* 0x02 */ EXT_DISPELL
+};
+
+
+enum DemoExtDrawMode {
+    /* 0x00 */ EXT_DRAW_NOTHING,
+    /* 0x01 */ EXT_DRAW_VORTEX
+};
+struct DemoExt {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 action;
     /* 0x014C */ s32 drawMode;
@@ -21,6 +34,6 @@ typedef struct DemoExt {
     /* 0x0170 */ s32 primAlpha;
     /* 0x0174 */ s32 envAlpha;
     /* 0x0178 */ Vec3f scale;
-} DemoExt; // size = 0x0184
+}; 
 
-#endif
+

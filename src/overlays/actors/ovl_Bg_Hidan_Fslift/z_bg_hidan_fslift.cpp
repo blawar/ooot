@@ -18,6 +18,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgHidanFslift_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanFslift_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanFslift_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanFslift_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanFslift_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Hidan_Fslift_InitVars = {
     (ActorFunc)BgHidanFslift_Destroy,
     (ActorFunc)BgHidanFslift_Update,
     (ActorFunc)BgHidanFslift_Draw,
+    (ActorFunc)BgHidanFslift_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -148,4 +150,20 @@ void BgHidanFslift_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgHidanFslift_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gFireTempleHookshotElevatorDL);
+}
+
+void BgHidanFslift_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Fslift_InitVars = {
+        ACTOR_BG_HIDAN_FSLIFT,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanFslift),
+        (ActorFunc)BgHidanFslift_Init,
+        (ActorFunc)BgHidanFslift_Destroy,
+        (ActorFunc)BgHidanFslift_Update,
+        (ActorFunc)BgHidanFslift_Draw,
+        (ActorFunc)BgHidanFslift_Reset,
+    };
+
 }

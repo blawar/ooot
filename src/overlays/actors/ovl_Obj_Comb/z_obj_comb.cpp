@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void ObjComb_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjComb_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjComb_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjComb_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjComb_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Obj_Comb_InitVars = {
     (ActorFunc)ObjComb_Destroy,
     (ActorFunc)ObjComb_Update,
     (ActorFunc)ObjComb_Draw,
+    (ActorFunc)ObjComb_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -234,4 +236,33 @@ void ObjComb_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Collider_UpdateSpheres(0, &pthis->collider);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_comb.c", 402);
+}
+
+void ObjComb_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Comb_InitVars = {
+        ACTOR_OBJ_COMB,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(ObjComb),
+        (ActorFunc)ObjComb_Init,
+        (ActorFunc)ObjComb_Destroy,
+        (ActorFunc)ObjComb_Update,
+        (ActorFunc)ObjComb_Draw,
+        (ActorFunc)ObjComb_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

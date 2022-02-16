@@ -35,36 +35,9 @@
 #define vOnBackTimer actionVar1
 #define vLegTwitchTimer actionVar2
 
-typedef enum {
-    /* 0x0 */ TEKTITE_DEATH_CRY,
-    /* 0x1 */ TEKTITE_UNK_1,
-    /* 0x2 */ TEKTITE_UNK_2,
-    /* 0x3 */ TEKTITE_RECOIL,
-    /* 0x4 */ TEKTITE_UNK_4,
-    /* 0x5 */ TEKTITE_FALL_APART,
-    /* 0x6 */ TEKTITE_IDLE,
-    /* 0x7 */ TEKTITE_STUNNED,
-    /* 0x8 */ TEKTITE_UNK_8,
-    /* 0x9 */ TEKTITE_ATTACK,
-    /* 0xA */ TEKTITE_TURN_TOWARD_PLAYER,
-    /* 0xB */ TEKTITE_UNK9,
-    /* 0xC */ TEKTITE_MOVE_TOWARD_PLAYER
-} EnTiteAction;
-
-typedef enum {
-    /* 0x0 */ TEKTITE_BEGIN_LUNGE,
-    /* 0x1 */ TEKTITE_MID_LUNGE,
-    /* 0x2 */ TEKTITE_LANDED,
-    /* 0x2 */ TEKTITE_SUBMERGED
-} EnTiteAttackState;
-
-typedef enum {
-    /* 0x0 */ TEKTITE_INITIAL,
-    /* 0x1 */ TEKTITE_UNFLIPPED,
-    /* 0x2 */ TEKTITE_FLIPPED
-} EnTiteFlipState;
 
 void EnTite_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTite_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTite_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTite_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTite_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -96,6 +69,7 @@ ActorInit En_Tite_InitVars = {
     (ActorFunc)EnTite_Destroy,
     (ActorFunc)EnTite_Update,
     (ActorFunc)EnTite_Draw,
+    (ActorFunc)EnTite_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -1021,4 +995,35 @@ void EnTite_Draw(Actor* thisx, GlobalContext* globalCtx) {
             EffectSsEnIce_SpawnFlyingVec3f(globalCtx, &pthis->actor, &iceChunk, 150, 150, 150, 250, 235, 245, 255, 1.0f);
         }
     }
+}
+
+void EnTite_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Tite_InitVars = {
+        ACTOR_EN_TITE,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_TITE,
+        sizeof(EnTite),
+        (ActorFunc)EnTite_Init,
+        (ActorFunc)EnTite_Destroy,
+        (ActorFunc)EnTite_Update,
+        (ActorFunc)EnTite_Draw,
+        (ActorFunc)EnTite_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sFootOffset = { 2800.0f, -200.0f, 0.0f };
+
 }

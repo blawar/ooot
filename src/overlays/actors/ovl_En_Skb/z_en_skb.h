@@ -1,4 +1,4 @@
-#ifndef Z_EN_SKB_H
+#pragma once
 #define Z_EN_SKB_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnSkb;
 
 typedef void (*EnSkbActionFunc)(struct EnSkb*, GlobalContext*);
 
-typedef struct EnSkb {
+
+struct EnSkb {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[20];
@@ -22,6 +24,6 @@ typedef struct EnSkb {
     /* 0x028C */ BodyBreak bodyBreak; 
     /* 0x02A4 */ ColliderJntSph collider;
     /* 0x02C4 */ ColliderJntSphElement colliderItem[2];
-} EnSkb; // size = 0x0344
+}; 
 
-#endif
+

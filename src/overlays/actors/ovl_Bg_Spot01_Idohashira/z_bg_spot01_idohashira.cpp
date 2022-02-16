@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgSpot01Idohashira_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot01Idohashira_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot01Idohashira_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Idohashira_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Idohashira_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -58,6 +59,7 @@ ActorInit Bg_Spot01_Idohashira_InitVars = {
     (ActorFunc)BgSpot01Idohashira_Destroy,
     (ActorFunc)BgSpot01Idohashira_Update,
     (ActorFunc)BgSpot01Idohashira_Draw,
+    (ActorFunc)BgSpot01Idohashira_Reset,
 };
 
 void BgSpot01Idohashira_PlayBreakSfx1(BgSpot01Idohashira* pthis) {
@@ -351,4 +353,20 @@ void BgSpot01Idohashira_Draw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     sDrawFuncs[pthis->drawConfig](pthis, globalCtx);
+}
+
+void BgSpot01Idohashira_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot01_Idohashira_InitVars = {
+        ACTOR_BG_SPOT01_IDOHASHIRA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT01_OBJECTS,
+        sizeof(BgSpot01Idohashira),
+        (ActorFunc)BgSpot01Idohashira_Init,
+        (ActorFunc)BgSpot01Idohashira_Destroy,
+        (ActorFunc)BgSpot01Idohashira_Update,
+        (ActorFunc)BgSpot01Idohashira_Draw,
+        (ActorFunc)BgSpot01Idohashira_Reset,
+    };
+
 }

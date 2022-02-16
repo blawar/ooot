@@ -1,4 +1,4 @@
-#ifndef Z_EN_ENCOUNT1_H
+#pragma once
 #define Z_EN_ENCOUNT1_H
 
 #include "ultra64.h"
@@ -11,7 +11,9 @@ struct EnEncount1;
 
 typedef void (*EnEncount1UpdateFunc)(struct EnEncount1*, GlobalContext*);
 
-typedef struct EnEncount1 {
+
+struct EnEncount1 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnEncount1UpdateFunc updateFunc;
     /* 0x0150 */ s16 maxCurSpawns;
@@ -28,13 +30,13 @@ typedef struct EnEncount1 {
     /* 0x0166 */ u8 reduceLeevers;
     /* 0x0168 */ f32 spawnRange;
     /* 0x016C */ EnReeba* bigLeever;
-} EnEncount1; // size = 0x0170
+}; 
 
-typedef enum {
+enum EnEncount1type {
     /* 0 */ SPAWNER_LEEVER,
     /* 1 */ SPAWNER_TEKTITE,
     /* 2 */ SPAWNER_STALCHILDREN,
     /* 3 */ SPAWNER_WOLFOS
-} EnEncount1type;
+};
 
-#endif
+

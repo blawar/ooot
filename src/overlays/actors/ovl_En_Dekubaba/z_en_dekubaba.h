@@ -1,4 +1,4 @@
-#ifndef Z_EN_DEKUBABA_H
+#pragma once
 #define Z_EN_DEKUBABA_H
 
 #include "ultra64.h"
@@ -8,12 +8,22 @@ struct EnDekubaba;
 
 typedef void (*EnDekubabaActionFunc)(struct EnDekubaba*, GlobalContext*);
 
-typedef enum {
+enum DekuBabaType {
     /* 0 */ DEKUBABA_NORMAL,
     /* 1 */ DEKUBABA_BIG
-} DekuBabaType;
+};
 
-typedef struct EnDekubaba {
+
+
+enum DekuBabaDamageEffect {
+    /* 0x0 */ DEKUBABA_DMGEFF_NONE,
+    /* 0x1 */ DEKUBABA_DMGEFF_DEKUNUT,
+    /* 0x2 */ DEKUBABA_DMGEFF_FIRE,
+    /* 0xE */ DEKUBABA_DMGEFF_BOOMERANG = 14,
+    /* 0xF */ DEKUBABA_DMGEFF_SWORD
+};
+struct EnDekubaba {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Vec3f bodyPartsPos[4];
     /* 0x017C */ SkelAnime skelAnime;
@@ -28,6 +38,6 @@ typedef struct EnDekubaba {
     /* 0x0234 */ CollisionPoly* boundFloor;
     /* 0x0238 */ ColliderJntSph collider;
     /* 0x0258 */ ColliderJntSphElement colliderElements[7];
-} EnDekubaba; // size = 0x0418
+}; 
 
-#endif
+

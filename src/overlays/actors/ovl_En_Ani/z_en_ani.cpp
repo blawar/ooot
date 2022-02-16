@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnAni_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnAni_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnAni_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnAni_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit En_Ani_InitVars = {
     (ActorFunc)EnAni_Destroy,
     (ActorFunc)EnAni_Update,
     (ActorFunc)EnAni_Draw,
+    (ActorFunc)EnAni_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -338,4 +340,40 @@ void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnAni_OverrideLimbDraw, EnAni_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ani.c", 736);
+}
+
+void EnAni_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ani_InitVars = {
+        ACTOR_EN_ANI,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ANI,
+        sizeof(EnAni),
+        (ActorFunc)EnAni_Init,
+        (ActorFunc)EnAni_Destroy,
+        (ActorFunc)EnAni_Update,
+        (ActorFunc)EnAni_Draw,
+        (ActorFunc)EnAni_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ENEMY,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 30, 40, 0, { 0 } },
+    };
+
 }

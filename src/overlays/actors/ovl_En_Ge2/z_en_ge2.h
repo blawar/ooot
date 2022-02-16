@@ -1,4 +1,4 @@
-#ifndef Z_EN_GE2_H
+#pragma once
 #define Z_EN_GE2_H
 
 #include "ultra64.h"
@@ -8,7 +8,27 @@ struct EnGe2;
 
 typedef void (*EnGe2ActionFunc)(struct EnGe2*, GlobalContext*);
 
-typedef struct EnGe2 {
+
+enum EnGe2Type {
+    /* 0 */ GE2_TYPE_PATROLLING,
+    /* 1 */ GE2_TYPE_STATIONARY,
+    /* 2 */ GE2_TYPE_GERUDO_CARD_GIVER
+};
+
+
+enum EnGe2Action {
+    /* 0 */ GE2_ACTION_WALK,
+    /* 1 */ GE2_ACTION_ABOUTTURN,
+    /* 2 */ GE2_ACTION_TURNPLAYERSPOTTED,
+    /* 3 */ GE2_ACTION_KNOCKEDOUT,
+    /* 4 */ GE2_ACTION_CAPTURETURN,
+    /* 5 */ GE2_ACTION_CAPTURECHARGE,
+    /* 6 */ GE2_ACTION_CAPTURECLOSE,
+    /* 7 */ GE2_ACTION_STAND,
+    /* 8 */ GE2_ACTION_WAITLOOKATPLAYER
+};
+struct EnGe2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelAnime;
@@ -28,6 +48,6 @@ typedef struct EnGe2 {
     /* 0x0305 */ u8 timer;
     /* 0x0306 */ u8 playerSpottedParam;
     /* 0x0308 */ EnGe2ActionFunc actionFunc;
-} EnGe2; // size = 0x030C
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_EN_PO_DESERT_H
+#pragma once
 #define Z_EN_PO_DESERT_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnPoDesert;
 
 typedef void (*EnPoDesertActionFunc)(struct EnPoDesert*, GlobalContext*);
 
-typedef struct EnPoDesert {
+
+struct EnPoDesert {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPoDesertActionFunc actionFunc;
@@ -24,6 +26,6 @@ typedef struct EnPoDesert {
     /* 0x0224 */ LightNode* lightNode;
     /* 0x0228 */ LightInfo lightInfo;
     /* 0x0238 */ ColliderCylinder collider;
-} EnPoDesert; // size = 0x0284
+}; 
 
-#endif
+

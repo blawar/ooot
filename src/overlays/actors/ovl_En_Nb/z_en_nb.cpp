@@ -25,49 +25,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* 0x00 */ NB_CHAMBER_INIT,
-    /* 0x01 */ NB_CHAMBER_UNDERGROUND,
-    /* 0x02 */ NB_CHAMBER_APPEAR,
-    /* 0x03 */ NB_CHAMBER_IDLE,
-    /* 0x04 */ NB_CHAMBER_RAISE_ARM,
-    /* 0x05 */ NB_CHAMBER_RAISE_ARM_TRANSITION,
-    /* 0x06 */ NB_GIVE_MEDALLION,
-    /* 0x07 */ NB_ACTION_7,
-    /* 0x08 */ NB_SEAL_HIDE,
-    /* 0x09 */ NB_ACTION_9,
-    /* 0x0A */ NB_KIDNAPPED,
-    /* 0x0B */ NB_KIDNAPPED_LOOK_AROUND,
-    /* 0x0C */ NB_PORTAL_FALLTHROUGH,
-    /* 0x0D */ NB_IN_CONFRONTATION,
-    /* 0x0E */ NB_ACTION_14,
-    /* 0x0F */ NB_KNEEL,
-    /* 0x10 */ NB_LOOK_RIGHT,
-    /* 0x11 */ NB_LOOK_LEFT,
-    /* 0x12 */ NB_RUN,
-    /* 0x13 */ NB_CONFRONTATION_DESTROYED,
-    /* 0x14 */ NB_CREDITS_INIT,
-    /* 0x15 */ NB_CREDITS_FADEIN,
-    /* 0x16 */ NB_CREDITS_SIT,
-    /* 0x17 */ NB_CREDITS_HEAD_TURN,
-    /* 0x18 */ NB_CROUCH_CRAWLSPACE,
-    /* 0x19 */ NB_NOTICE_PLAYER,
-    /* 0x1A */ NB_IDLE_CRAWLSPACE,
-    /* 0x1B */ NB_IN_DIALOG,
-    /* 0x1C */ NB_IN_PATH,
-    /* 0x1D */ NB_IDLE_AFTER_TALK,
-    /* 0x1E */ NB_ACTION_30
-} EnNbAction;
-
-typedef enum {
-    /* 0x00 */ NB_DRAW_NOTHING,
-    /* 0x01 */ NB_DRAW_DEFAULT,
-    /* 0x02 */ NB_DRAW_HIDE,
-    /* 0x03 */ NB_DRAW_KNEEL,
-    /* 0x04 */ NB_DRAW_LOOK_DIRECTION
-} EnNbDrawMode;
 
 void EnNb_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnNb_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnNb_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnNb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnNb_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -1551,4 +1511,42 @@ ActorInit En_Nb_InitVars = {
     (ActorFunc)EnNb_Destroy,
     (ActorFunc)EnNb_Update,
     (ActorFunc)EnNb_Draw,
+    (ActorFunc)EnNb_Reset,
 };
+
+void EnNb_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 25, 80, 0, { 0, 0, 0 } },
+    };
+
+    D_80AB4318 = 0;
+
+    En_Nb_InitVars = {
+        ACTOR_EN_NB,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_NB,
+        sizeof(EnNb),
+        (ActorFunc)EnNb_Init,
+        (ActorFunc)EnNb_Destroy,
+        (ActorFunc)EnNb_Update,
+        (ActorFunc)EnNb_Draw,
+        (ActorFunc)EnNb_Reset,
+    };
+
+}

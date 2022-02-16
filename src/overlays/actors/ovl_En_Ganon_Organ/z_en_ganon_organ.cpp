@@ -16,6 +16,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnGanonOrgan_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGanonOrgan_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGanonOrgan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonOrgan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -30,6 +31,7 @@ ActorInit En_Ganon_Organ_InitVars = {
     (ActorFunc)EnGanonOrgan_Destroy,
     (ActorFunc)EnGanonOrgan_Update,
     (ActorFunc)EnGanonOrgan_Draw,
+    (ActorFunc)EnGanonOrgan_Reset,
 };
 
 static u64 sForceAlignment = 0;
@@ -119,4 +121,22 @@ void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx) {
     osSyncPrintf("ORGAN DRAW  2\n");
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ganon_organ.c", 230);
+}
+
+void EnGanonOrgan_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ganon_Organ_InitVars = {
+        ACTOR_EN_GANON_ORGAN,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GANON,
+        sizeof(EnGanonOrgan),
+        (ActorFunc)EnGanonOrgan_Init,
+        (ActorFunc)EnGanonOrgan_Destroy,
+        (ActorFunc)EnGanonOrgan_Update,
+        (ActorFunc)EnGanonOrgan_Draw,
+        (ActorFunc)EnGanonOrgan_Reset,
+    };
+
+    sForceAlignment = 0;
+
 }

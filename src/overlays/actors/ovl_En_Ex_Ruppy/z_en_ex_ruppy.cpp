@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnExRuppy_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnExRuppy_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnExRuppy_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnExRuppy_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -49,6 +50,7 @@ ActorInit En_Ex_Ruppy_InitVars = {
     (ActorFunc)EnExRuppy_Destroy,
     (ActorFunc)EnExRuppy_Update,
     (ActorFunc)EnExRuppy_Draw,
+    (ActorFunc)EnExRuppy_Reset,
 };
 
 void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -311,13 +313,7 @@ void EnExRuppy_Kill(EnExRuppy* pthis, GlobalContext* globalCtx) {
     if (pthis->timer == 0) {
         Actor_Kill(&pthis->actor);
     }
-}
-
-typedef struct {
-    /* 0x000 */ Actor actor;
-    /* 0x14C */ char unk_14C[0x11A];
-    /* 0x226 */ s16 unk_226;
-} EnExRuppyParentActor; // Unclear what actor was intended to spawn pthis.
+} // Unclear what actor was intended to spawn pthis.
 
 void EnExRuppy_WaitToBlowUp(EnExRuppy* pthis, GlobalContext* globalCtx) {
     EnExRuppyParentActor* parent;
@@ -404,4 +400,20 @@ void EnExRuppy_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_ruppy.c", 784);
     }
+}
+
+void EnExRuppy_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ex_Ruppy_InitVars = {
+        ACTOR_EN_EX_RUPPY,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnExRuppy),
+        (ActorFunc)EnExRuppy_Init,
+        (ActorFunc)EnExRuppy_Destroy,
+        (ActorFunc)EnExRuppy_Update,
+        (ActorFunc)EnExRuppy_Draw,
+        (ActorFunc)EnExRuppy_Reset,
+    };
+
 }

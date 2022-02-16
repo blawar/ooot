@@ -37,6 +37,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnHy_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHy_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHy_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHy_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -61,6 +62,7 @@ ActorInit En_Hy_InitVars = {
     (ActorFunc)EnHy_Destroy,
     (ActorFunc)EnHy_Update,
     (ActorFunc)EnHy_Draw,
+    (ActorFunc)EnHy_Reset,
 };
 
 static ColliderCylinderInit sColCylInit = {
@@ -93,31 +95,6 @@ static void* sEyeTexturesBJI13[] = { object_bji_Tex_0005FC, object_bji_Tex_0009F
 static void* sEyeTexturesBOJ2[] = { object_boj_Tex_0005FC, object_boj_Tex_0006FC, object_boj_Tex_0007FC, NULL };
 static void* sEyeTexturesBOB[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8, NULL };
 
-typedef struct {
-    /* 0x00 */ s16 objectId;
-    /* 0x04 */ Gfx* headDList;
-    /* 0x08 */ void** eyeTextures;
-} EnHyHeadInfo; // size = 0xC
-
-typedef enum {
-    /*  0 */ ENHY_HEAD_AOB,
-    /*  1 */ ENHY_HEAD_BOB,
-    /*  2 */ ENHY_HEAD_BOJ_2,
-    /*  3 */ ENHY_HEAD_BOJ_3,
-    /*  4 */ ENHY_HEAD_BOJ_4,
-    /*  5 */ ENHY_HEAD_BOJ_5,
-    /*  6 */ ENHY_HEAD_BOJ_6,
-    /*  7 */ ENHY_HEAD_AHG_7,
-    /*  8 */ ENHY_HEAD_AHG_8,
-    /*  9 */ ENHY_HEAD_AHG_9,
-    /* 10 */ ENHY_HEAD_BBA,
-    /* 11 */ ENHY_HEAD_CNE_11,
-    /* 12 */ ENHY_HEAD_CNE_12,
-    /* 13 */ ENHY_HEAD_BJI_13,
-    /* 14 */ ENHY_HEAD_BJI_14,
-    /* 15 */ ENHY_HEAD_COB
-} EnHyHeadIndex;
-
 static EnHyHeadInfo sHeadInfo[] = {
     /* ENHY_HEAD_AOB */ { OBJECT_AOB, gDogLadyHeadDL, sEyeTexturesAOB },
     /* ENHY_HEAD_BOB */ { OBJECT_BOB, object_bob_DL_003B78, sEyeTexturesBOB },
@@ -137,22 +114,6 @@ static EnHyHeadInfo sHeadInfo[] = {
     /* ENHY_HEAD_COB */ { OBJECT_COB, object_cob_DL_001300, NULL },
 };
 
-typedef struct {
-    /* 0x00 */ s16 objectId;
-    /* 0x04 */ FlexSkeletonHeader* skeleton;
-} EnHySkeletonInfo; // size = 0x8
-
-typedef enum {
-    /* 0 */ ENHY_SKEL_AOB,
-    /* 1 */ ENHY_SKEL_BOB,
-    /* 2 */ ENHY_SKEL_BOJ,
-    /* 3 */ ENHY_SKEL_AHG,
-    /* 4 */ ENHY_SKEL_BBA,
-    /* 5 */ ENHY_SKEL_CNE,
-    /* 6 */ ENHY_SKEL_BJI,
-    /* 7 */ ENHY_SKEL_COB
-} EnHySkeletonIndex;
-
 static EnHySkeletonInfo sSkeletonInfo[] = {
     /* ENHY_SKEL_AOB */ { OBJECT_AOB, &gDogLadySkel },
     /* ENHY_SKEL_BOB */ { OBJECT_BOB, &object_bob_Skel_0000F0 },
@@ -163,36 +124,6 @@ static EnHySkeletonInfo sSkeletonInfo[] = {
     /* ENHY_SKEL_BJI */ { OBJECT_BJI, &object_bji_Skel_0000F0 },
     /* ENHY_SKEL_COB */ { OBJECT_COB, &object_cob_Skel_0021F8 },
 };
-
-typedef enum {
-    /*  0 */ ENHY_ANIM_0,
-    /*  1 */ ENHY_ANIM_1,
-    /*  2 */ ENHY_ANIM_2,
-    /*  3 */ ENHY_ANIM_3,
-    /*  4 */ ENHY_ANIM_4,
-    /*  5 */ ENHY_ANIM_5,
-    /*  6 */ ENHY_ANIM_6,
-    /*  7 */ ENHY_ANIM_7,
-    /*  8 */ ENHY_ANIM_8,
-    /*  9 */ ENHY_ANIM_9,
-    /* 10 */ ENHY_ANIM_10,
-    /* 11 */ ENHY_ANIM_11,
-    /* 12 */ ENHY_ANIM_12,
-    /* 13 */ ENHY_ANIM_13,
-    /* 14 */ ENHY_ANIM_14,
-    /* 15 */ ENHY_ANIM_15,
-    /* 16 */ ENHY_ANIM_16,
-    /* 17 */ ENHY_ANIM_17,
-    /* 18 */ ENHY_ANIM_18,
-    /* 19 */ ENHY_ANIM_19,
-    /* 20 */ ENHY_ANIM_20,
-    /* 21 */ ENHY_ANIM_21,
-    /* 22 */ ENHY_ANIM_22,
-    /* 23 */ ENHY_ANIM_23,
-    /* 24 */ ENHY_ANIM_24,
-    /* 25 */ ENHY_ANIM_25,
-    /* 26 */ ENHY_ANIM_26
-} EnHyAnimationIndex;
 
 static struct_80034EC0_Entry sAnimationInfo[] = {
     /* ENHY_ANIM_0 */ { &gObjOsAnim_092C, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
@@ -222,16 +153,7 @@ static struct_80034EC0_Entry sAnimationInfo[] = {
     /* ENHY_ANIM_24 */ { &gObjOsAnim_12E8, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
     /* ENHY_ANIM_25 */ { &gObjOsAnim_0FE4, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
     /* ENHY_ANIM_26 */ { &gObjOsAnim_0BFC, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-};
-
-typedef struct {
-    /* 0x00 */ u8 headInfoIndex;  // EnHyHeadIndex
-    /* 0x01 */ u8 skelInfoIndex2; // EnHySkeletonIndex, see EnHy#objBankIndexSkel2
-    /* 0x02 */ Color_RGBA8 envColorSeg8;
-    /* 0x06 */ u8 skelInfoIndex1; // EnHySkeletonIndex, see EnHy#objBankIndexSkel1
-    /* 0x07 */ Color_RGBA8 envColorSeg9;
-    /* 0x0B */ u8 animInfoIndex; // EnHyAnimationIndex
-} EnHyModelInfo;                 // size = 0xC
+};                 
 
 static EnHyModelInfo sModelInfo[] = {
     /* ENHY_TYPE_AOB */
@@ -276,13 +198,7 @@ static EnHyModelInfo sModelInfo[] = {
     { ENHY_HEAD_BJI_14, ENHY_SKEL_BJI, { 160, 0, 100, 0 }, ENHY_SKEL_BJI, { 70, 130, 210, 0 }, ENHY_ANIM_21 },
     /* ENHY_TYPE_AHG_20 */
     { ENHY_HEAD_AHG_9, ENHY_SKEL_AHG, { 160, 230, 0, 0 }, ENHY_SKEL_AHG, { 0, 150, 110, 0 }, ENHY_ANIM_12 },
-};
-
-typedef struct {
-    /* 0x00 */ Vec3s offset;
-    /* 0x06 */ s16 radius;
-    /* 0x08 */ s16 height;
-} EnHyColliderInfo; // size 0xA
+}; 
 
 static EnHyColliderInfo sColliderInfo[] = {
     /* ENHY_TYPE_AOB */ { { 0, 0, 4 }, 24, 70 },
@@ -306,13 +222,7 @@ static EnHyColliderInfo sColliderInfo[] = {
     /* ENHY_TYPE_BOB_18 */ { { 0, 0, 8 }, 28, 62 },
     /* ENHY_TYPE_BJI_19 */ { { 0, 0, 0 }, 16, 60 },
     /* ENHY_TYPE_AHG_20 */ { { 0, 0, 8 }, 20, 58 },
-};
-
-typedef struct {
-    /* 0x00 */ u8 unkPresetIndex;
-    /* 0x04 */ f32 unkValueChild;
-    /* 0x08 */ f32 unkValueAdult;
-} EnHyInit1Info; // size = 0xC
+}; 
 
 static EnHyInit1Info sInit1Info[] = {
     /* ENHY_TYPE_AOB */ { 0x06, 20.0f, 10.0f },
@@ -336,15 +246,7 @@ static EnHyInit1Info sInit1Info[] = {
     /* ENHY_TYPE_BOB_18 */ { 0x06, 20.0f, 10.0f },
     /* ENHY_TYPE_BJI_19 */ { 0x06, 20.0f, 10.0f },
     /* ENHY_TYPE_AHG_20 */ { 0x0A, 20.0f, 0.0f },
-};
-
-typedef struct {
-    /* 0x00 */ f32 shadowScale;
-    /* 0x04 */ Vec3f modelOffset;
-    /* 0x10 */ f32 scale;
-    /* 0x14 */ s8 targetMode;
-    /* 0x18 */ f32 unkRange;
-} EnHyInit2Info; // size = 0x1C
+}; 
 
 static EnHyInit2Info sInit2Info[] = {
     /* ENHY_TYPE_AOB */ { 36.0f, { 0.0f, 0.0f, 600.0f }, 0.01f, 0x06, 30.0f },
@@ -1255,4 +1157,42 @@ void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2388);
+}
+
+void EnHy_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Hy_InitVars = {
+        ACTOR_EN_HY,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnHy),
+        (ActorFunc)EnHy_Init,
+        (ActorFunc)EnHy_Destroy,
+        (ActorFunc)EnHy_Update,
+        (ActorFunc)EnHy_Draw,
+        (ActorFunc)EnHy_Reset,
+    };
+
+    sColCylInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 46, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
 }

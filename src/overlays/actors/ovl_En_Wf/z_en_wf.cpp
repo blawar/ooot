@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnWf_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnWf_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnWf_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnWf_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -155,15 +156,6 @@ static ColliderCylinderInit sTailCylinderInit = {
     { 15, 20, -15, { 0, 0, 0 } },
 };
 
-typedef enum {
-    /*  0 */ ENWF_DMGEFF_NONE,
-    /*  1 */ ENWF_DMGEFF_STUN,
-    /*  6 */ ENWF_DMGEFF_ICE_MAGIC = 6,
-    /* 13 */ ENWF_DMGEFF_LIGHT_MAGIC = 13,
-    /* 14 */ ENWF_DMGEFF_FIRE,
-    /* 15 */ ENWF_DMGEFF_UNDEF // used like STUN in the code, but not in the table
-} EnWfDamageEffect;
-
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, ENWF_DMGEFF_STUN),
     /* Deku stick    */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
@@ -209,6 +201,7 @@ ActorInit En_Wf_InitVars = {
     (ActorFunc)EnWf_Destroy,
     (ActorFunc)EnWf_Update,
     (ActorFunc)EnWf_Draw,
+    (ActorFunc)EnWf_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -1500,4 +1493,108 @@ s32 EnWf_DodgeRanged(GlobalContext* globalCtx, EnWf* pthis) {
     }
 
     return false;
+}
+
+void EnWf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sJntSphInit = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphItemsInit),
+        sJntSphItemsInit,
+    };
+
+    sBodyCylinderInit = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 20, 50, 0, { 0, 0, 0 } },
+    };
+
+    sTailCylinderInit = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 15, 20, -15, { 0, 0, 0 } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, ENWF_DMGEFF_STUN),
+        /* Deku stick    */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Slingshot     */ DMG_ENTRY(1, ENWF_DMGEFF_NONE),
+        /* Explosive     */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Boomerang     */ DMG_ENTRY(0, ENWF_DMGEFF_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Hammer swing  */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Hookshot      */ DMG_ENTRY(0, ENWF_DMGEFF_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, ENWF_DMGEFF_NONE),
+        /* Master sword  */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Giant's Knife */ DMG_ENTRY(4, ENWF_DMGEFF_NONE),
+        /* Fire arrow    */ DMG_ENTRY(4, ENWF_DMGEFF_FIRE),
+        /* Ice arrow     */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Light arrow   */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Unk arrow 1   */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Unk arrow 3   */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Fire magic    */ DMG_ENTRY(4, ENWF_DMGEFF_FIRE),
+        /* Ice magic     */ DMG_ENTRY(0, ENWF_DMGEFF_ICE_MAGIC),
+        /* Light magic   */ DMG_ENTRY(3, ENWF_DMGEFF_LIGHT_MAGIC),
+        /* Shield        */ DMG_ENTRY(0, ENWF_DMGEFF_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, ENWF_DMGEFF_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, ENWF_DMGEFF_NONE),
+        /* Giant spin    */ DMG_ENTRY(4, ENWF_DMGEFF_NONE),
+        /* Master spin   */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Kokiri jump   */ DMG_ENTRY(2, ENWF_DMGEFF_NONE),
+        /* Giant jump    */ DMG_ENTRY(8, ENWF_DMGEFF_NONE),
+        /* Master jump   */ DMG_ENTRY(4, ENWF_DMGEFF_NONE),
+        /* Unknown 1     */ DMG_ENTRY(0, ENWF_DMGEFF_NONE),
+        /* Unblockable   */ DMG_ENTRY(0, ENWF_DMGEFF_NONE),
+        /* Hammer jump   */ DMG_ENTRY(4, ENWF_DMGEFF_NONE),
+        /* Unknown 2     */ DMG_ENTRY(0, ENWF_DMGEFF_NONE),
+    };
+
+    En_Wf_InitVars = {
+        ACTOR_EN_WF,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_WF,
+        sizeof(EnWf),
+        (ActorFunc)EnWf_Init,
+        (ActorFunc)EnWf_Destroy,
+        (ActorFunc)EnWf_Update,
+        (ActorFunc)EnWf_Draw,
+        (ActorFunc)EnWf_Reset,
+    };
+
 }

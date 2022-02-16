@@ -1,4 +1,4 @@
-#ifndef Z_EN_IN_H
+#pragma once
 #define Z_EN_IN_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnIn;
 
 typedef void (*EnInActionFunc)(struct EnIn*, GlobalContext*);
 
-typedef enum {
+enum IngoLimb {
     /* 0x00 */ INGO_LIMB_NONE,
     /* 0x01 */ INGO_LIMB_ROOT,
     /* 0x02 */ INGO_LEFT_THIGH_LIMB,
@@ -30,9 +30,11 @@ typedef enum {
     /* 0x12 */ INGO_RIGHTEYEBROW_LIMB,
     /* 0x13 */ INGO_MUSTACHE_LIMB,
     /* 0x14 */ INGO_LIMB_MAX
-} IngoLimb;
+};
 
-typedef struct EnIn {
+
+struct EnIn {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnInActionFunc actionFunc;
@@ -60,6 +62,6 @@ typedef struct EnIn {
     /* 0x0304 */ f32 unk_304;
     /* 0x0308 */ struct_80034A14_arg1 unk_308;
     /* 0x0330 */ Vec3s unk_330[INGO_LIMB_MAX];
-} EnIn; // size = 0x03A8
+}; 
 
-#endif
+

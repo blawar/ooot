@@ -28,6 +28,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_12 | ACTOR_FLAG_16)
 
 void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnPoRelay_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnPoRelay_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPoRelay_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPoRelay_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -60,6 +61,7 @@ ActorInit En_Po_Relay_InitVars = {
     (ActorFunc)EnPoRelay_Destroy,
     (ActorFunc)EnPoRelay_Update,
     (ActorFunc)EnPoRelay_Draw,
+    (ActorFunc)EnPoRelay_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -420,4 +422,46 @@ void EnPoRelay_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, EnPoRelay_PostLimbDraw, &pthis->actor);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 954);
+}
+
+void EnPoRelay_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Po_Relay_InitVars = {
+        ACTOR_EN_PO_RELAY,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_TK,
+        sizeof(EnPoRelay),
+        (ActorFunc)EnPoRelay_Init,
+        (ActorFunc)EnPoRelay_Destroy,
+        (ActorFunc)EnPoRelay_Update,
+        (ActorFunc)EnPoRelay_Draw,
+        (ActorFunc)EnPoRelay_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 30, 52, 0, { 0, 0, 0 } },
+    };
+
+    D_80AD8D30 = { 0.0f, 1.5f, 0.0f };
+
+    D_80AD8D3C = { 0.0f, 0.0f, 0.0f };
+
+    D_80AD8D48 = { 0.0f, 1200.0f, 0.0f };
+
 }

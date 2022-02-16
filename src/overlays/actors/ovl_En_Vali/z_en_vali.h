@@ -1,4 +1,4 @@
-#ifndef Z_EN_VALI_H
+#pragma once
 #define Z_EN_VALI_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnVali;
 
 typedef void (*EnValiActionFunc)(struct EnVali*, GlobalContext*);
 
-typedef enum {
+enum EnValiLimb {
     /* 0x00 */ EN_VALI_LIMB_NONE,
     /* 0x01 */ EN_VALI_LIMB_NUCLEUS_BASE,
     /* 0x02 */ EN_VALI_LIMB_NUCLEUS,
@@ -39,9 +39,20 @@ typedef enum {
     /* 0x1B */ EN_VALI_LIMB_INNER_HOOD,
     /* 0x1C */ EN_VALI_LIMB_OUTER_HOOD,
     /* 0x1D */ EN_VALI_LIMB_MAX
-} EnValiLimb;
+};
 
-typedef struct EnVali {
+
+
+enum BariDamageEffect {
+    /* 0x0 */ BARI_DMGEFF_NONE,
+    /* 0x1 */ BARI_DMGEFF_STUN,
+    /* 0x2 */ BARI_DMGEFF_FIRE,
+    /* 0x3 */ BARI_DMGEFF_ICE,
+    /* 0xE */ BARI_DMGEFF_SLINGSHOT = 0xE,
+    /* 0xF */ BARI_DMGEFF_SWORD
+};
+struct EnVali {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnValiActionFunc actionFunc;
@@ -55,11 +66,11 @@ typedef struct EnVali {
     /* 0x02FC */ ColliderQuad leftArmCollider;
     /* 0x037C */ ColliderQuad rightArmCollider;
     /* 0x03FC */ ColliderCylinder bodyCollider;
-} EnVali; // size = 0x0448
+}; 
 
-typedef enum {
+enum EnValiType {
     /* 0 */ BARI_TYPE_NORMAL,
     /* 1 */ BARI_TYPE_SWORD_DAMAGE
-} EnValiType;
+};
 
-#endif
+

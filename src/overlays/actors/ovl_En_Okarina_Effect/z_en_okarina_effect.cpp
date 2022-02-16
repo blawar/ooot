@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnOkarinaEffect_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnOkarinaEffect_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnOkarinaEffect_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnOkarinaEffect_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -36,6 +37,7 @@ ActorInit En_Okarina_Effect_InitVars = {
     (ActorFunc)EnOkarinaEffect_Destroy,
     (ActorFunc)EnOkarinaEffect_Update,
     NULL,
+    (ActorFunc)EnOkarinaEffect_Reset,
 };
 
 void EnOkarinaEffect_SetupAction(EnOkarinaEffect* pthis, EnOkarinaEffectActionFunc actionFunc) {
@@ -123,4 +125,20 @@ void EnOkarinaEffect_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnOkarinaEffect* pthis = (EnOkarinaEffect*)thisx;
 
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void EnOkarinaEffect_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Okarina_Effect_InitVars = {
+        ACTOR_EN_OKARINA_EFFECT,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnOkarinaEffect),
+        (ActorFunc)EnOkarinaEffect_Init,
+        (ActorFunc)EnOkarinaEffect_Destroy,
+        (ActorFunc)EnOkarinaEffect_Update,
+        NULL,
+        (ActorFunc)EnOkarinaEffect_Reset,
+    };
+
 }

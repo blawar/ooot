@@ -29,6 +29,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
 
 void EnPoh_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnPoh_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnPoh_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -70,6 +71,7 @@ ActorInit En_Poh_InitVars = {
     (ActorFunc)EnPoh_Destroy,
     (ActorFunc)EnPoh_Update,
     NULL,
+    (ActorFunc)EnPoh_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1216,4 +1218,104 @@ void EnPoh_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_XLU_DISP++, pthis->info->soulDisplayList);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2916);
+}
+
+void EnPoh_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80AE1A50 = 0;
+
+    En_Poh_InitVars = {
+        ACTOR_EN_POH,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnPoh),
+        (ActorFunc)EnPoh_Init,
+        (ActorFunc)EnPoh_Destroy,
+        (ActorFunc)EnPoh_Update,
+        NULL,
+        (ActorFunc)EnPoh_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT3,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 40, 20, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        D_80AE1AA0,
+    };
+
+    sColChkInfoInit = { 4, 25, 50, 40 };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(1, 0x1),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(2, 0x1),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(2, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(4, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(2, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(2, 0x0),
+        /* Light arrow   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    D_80AE1B4C = { 75, 20, 25, 255 };
+
+    D_80AE1B50 = { 80, 110, 90, 255 };
+
+    D_80AE1B54 = { 90, 85, 50, 255 };
+
+    D_80AE1B58 = { 100, 90, 100, 255 };
+
+    D_80AE1B60 = { 0.0f, 3.0f, 0.0f };
+
+    D_80AE1B6C = { 0.0f, 0.0f, 0.0f };
+
 }

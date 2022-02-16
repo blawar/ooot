@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnDns_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDns_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDns_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDns_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDns_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -66,6 +67,7 @@ ActorInit En_Dns_InitVars = {
     (ActorFunc)EnDns_Destroy,
     (ActorFunc)EnDns_Update,
     (ActorFunc)EnDns_Draw,
+    (ActorFunc)EnDns_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -133,11 +135,11 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(targetArrowOffset, 30, ICHAIN_STOP),
 };
 
-typedef struct {
+struct DnsAnimInfo {
     /* 0x00 */ AnimationHeader* anim;
     /* 0x04 */ u8 mode;
     /* 0x08 */ f32 transitionRate;
-} DnsAnimInfo; // size = 0xC
+}; 
 
 static DnsAnimInfo sAnimInfo[] = {
     { &gBusinessScrubNervousIdleAnim, ANIMMODE_LOOP, 0.0f },
@@ -510,4 +512,40 @@ void EnDns_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, &pthis->actor);
+}
+
+
+void EnDns_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dns_InitVars = {
+        ACTOR_EN_DNS,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SHOPNUTS,
+        sizeof(EnDns),
+        (ActorFunc)EnDns_Init,
+        (ActorFunc)EnDns_Destroy,
+        (ActorFunc)EnDns_Update,
+        (ActorFunc)EnDns_Draw,
+        (ActorFunc)EnDns_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 18, 32, 0, { 0, 0, 0 } },
+    };
+
 }

@@ -17,26 +17,12 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void MagicFire_Init(Actor* thisx, GlobalContext* globalCtx);
+void MagicFire_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void MagicFire_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void MagicFire_Update(Actor* thisx, GlobalContext* globalCtx);
 void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void MagicFire_UpdateBeforeCast(Actor* thisx, GlobalContext* globalCtx);
-
-typedef enum {
-    /* 0x00 */ DF_ACTION_INITIALIZE,
-    /* 0x01 */ DF_ACTION_EXPAND_SLOWLY,
-    /* 0x02 */ DF_ACTION_STOP_EXPANDING,
-    /* 0x03 */ DF_ACTION_EXPAND_QUICKLY
-} MagicFireAction;
-
-typedef enum {
-    /* 0x00 */ DF_SCREEN_TINT_NONE,
-    /* 0x01 */ DF_SCREEN_TINT_FADE_IN,
-    /* 0x02 */ DF_SCREEN_TINT_MAINTAIN,
-    /* 0x03 */ DF_SCREEN_TINT_FADE_OUT,
-    /* 0x04 */ DF_SCREEN_TINT_FINISHED
-} MagicFireScreenTint;
 
 ActorInit Magic_Fire_InitVars = {
     ACTOR_MAGIC_FIRE,
@@ -48,6 +34,7 @@ ActorInit Magic_Fire_InitVars = {
     (ActorFunc)MagicFire_Destroy,
     (ActorFunc)MagicFire_Update,
     (ActorFunc)MagicFire_Draw,
+    (ActorFunc)MagicFire_Reset,
 };
 
 #include "overlays/ovl_Magic_Fire/ovl_Magic_Fire.cpp"
@@ -266,4 +253,40 @@ void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
             sSphereVtx[sVertexIndices[i]].n.a = alpha;
         }
     }
+}
+
+void MagicFire_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Magic_Fire_InitVars = {
+        ACTOR_MAGIC_FIRE,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(MagicFire),
+        (ActorFunc)MagicFire_Init,
+        (ActorFunc)MagicFire_Destroy,
+        (ActorFunc)MagicFire_Update,
+        (ActorFunc)MagicFire_Draw,
+        (ActorFunc)MagicFire_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00020000, 0x00, 0x01 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { 9, 9, 0, { 0, 0, 0 } },
+    };
+
 }

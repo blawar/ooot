@@ -1,4 +1,4 @@
-#ifndef Z_EN_WONDER_ITEM_H
+#pragma once
 #define Z_EN_WONDER_ITEM_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnWonderItem;
 
 typedef void (*EnWonderItemUpdateFunc)(struct EnWonderItem*, GlobalContext*);
 
-typedef struct EnWonderItem {
+
+struct EnWonderItem {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnWonderItemUpdateFunc updateFunc;
     /* 0x0150 */ f32 unkHeight; // sets height of dummied out mode 4 
@@ -27,9 +29,9 @@ typedef struct EnWonderItem {
     /* 0x0178 */ char unk_178[8];
     /* 0x0180 */ ColliderCylinder collider;
     /* 0x01CC */ char unk_1CC[4];
-} EnWonderItem; // size = 0x01D0
+}; 
 
-typedef enum {
+enum EnWonderItemMode {
     /* 0 */ WONDERITEM_MULTITAG_FREE,
     /* 1 */ WONDERITEM_TAG_POINT_FREE,
     /* 2 */ WONDERITEM_PROXIMITY_DROP,
@@ -40,9 +42,9 @@ typedef enum {
     /* 7 */ WONDERITEM_PROXIMITY_SWITCH,
     /* 8 */ WONDERITEM_BOMB_SOLDIER,
     /* 9 */ WONDERITEM_ROLL_DROP
-} EnWonderItemMode;
+};
 
-typedef enum {
+enum EnWonderItemDrop {
     /* 0 */ WONDERITEM_DROP_NUTS,
     /* 1 */ WONDERITEM_DROP_HEART_PIECE,
     /* 2 */ WONDERITEM_DROP_MAGIC_LARGE,
@@ -56,6 +58,6 @@ typedef enum {
     /* A */ WONDERITEM_DROP_RED_RUPEE,
     /* B */ WONDERITEM_DROP_FLEXIBLE,
     /* C */ WONDERITEM_DROP_RANDOM
-} EnWonderItemDrop;
+};
 
-#endif
+

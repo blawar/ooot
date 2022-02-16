@@ -14,13 +14,9 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0x0 */ ENCOUNT2_INACTIVE,
-    /* 0x1 */ ENCOUNT2_ACTIVE_DEATH_MOUNTAIN,
-    /* 0x2 */ ENCOUNT2_ACTIVE_GANONS_TOWER
-} Encount2State;
 
 void EnEncount2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnEncount2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnEncount2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnEncount2_Draw(Actor* thisx, GlobalContext* globalCtx);
 
@@ -41,6 +37,7 @@ ActorInit En_Encount2_InitVars = {
     NULL,
     (ActorFunc)EnEncount2_Update,
     (ActorFunc)EnEncount2_Draw,
+    (ActorFunc)EnEncount2_Reset,
 };
 
 void EnEncount2_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -378,4 +375,20 @@ void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_en_encount2.c", 678);
+}
+
+void EnEncount2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Encount2_InitVars = {
+        ACTOR_EN_ENCOUNT2,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_EFC_STAR_FIELD,
+        sizeof(EnEncount2),
+        (ActorFunc)EnEncount2_Init,
+        NULL,
+        (ActorFunc)EnEncount2_Update,
+        (ActorFunc)EnEncount2_Draw,
+        (ActorFunc)EnEncount2_Reset,
+    };
+
 }

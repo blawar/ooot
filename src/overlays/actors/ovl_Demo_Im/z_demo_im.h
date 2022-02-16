@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_IM_H
+#pragma once
 #define Z_DEMO_IM_H
 
 #include "ultra64.h"
@@ -9,7 +9,7 @@ struct DemoIm;
 typedef void (*DemoImActionFunc)(struct DemoIm*, GlobalContext*);
 typedef void (*DemoImDrawFunc)(struct DemoIm*, GlobalContext*);
 
-typedef enum {
+enum ImpaLimb {
     /* 0x00 */ IMPA_LIMB_NONE,
     /* 0x01 */ IMPA_LIMB_ROOT,
     /* 0x02 */ IMPA_LIMB_TORSO,
@@ -28,9 +28,11 @@ typedef enum {
     /* 0x0F */ IMPA_LIMB_RIGHT_HAND,
     /* 0x10 */ IMPA_LIMB_HEAD,
     /* 0x11 */ IMPA_LIMB_MAX
-} ImpaLimb;
+};
 
-typedef struct DemoIm {
+
+struct DemoIm {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[IMPA_LIMB_MAX];
@@ -49,6 +51,6 @@ typedef struct DemoIm {
     /* 0x0284 */ ColliderCylinder collider;
     /* 0x02D0 */ s32 unk_2D0;
     /* 0x02D4 */ struct_80034A14_arg1 unk_2D4;
-} DemoIm; // size = 0x02FC
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_EN_SA_H
+#pragma once
 #define Z_EN_SA_H
 
 #include "ultra64.h"
@@ -8,7 +8,26 @@ struct EnSa;
 
 typedef void (*EnSaActionFunc)(struct EnSa*, GlobalContext*);
 
-typedef struct EnSa {
+
+
+enum SariaEyeState {
+    /* 0 */ SARIA_EYE_OPEN,
+    /* 1 */ SARIA_EYE_HALF,
+    /* 2 */ SARIA_EYE_CLOSED,
+    /* 3 */ SARIA_EYE_SUPRISED,
+    /* 4 */ SARIA_EYE_SAD
+};
+
+
+enum SariaMouthState {
+    /* 0 */ SARIA_MOUTH_CLOSED2,
+    /* 1 */ SARIA_MOUTH_SUPRISED,
+    /* 2 */ SARIA_MOUTH_CLOSED,
+    /* 3 */ SARIA_MOUTH_SMILING_OPEN,
+    /* 4 */ SARIA_MOUTH_FROWNING
+};
+struct EnSa {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnSaActionFunc actionFunc;
@@ -28,6 +47,6 @@ typedef struct EnSa {
     /* 0x021A */ Vec3s unk_21A;
     /* 0x0220 */ Vec3s jointTable[17];
     /* 0x0286 */ Vec3s morphTable[17];
-} EnSa; // size = 0x02EC
+}; 
 
-#endif
+

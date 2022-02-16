@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgJyaBigmirror_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaBigmirror_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaBigmirror_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBigmirror_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBigmirror_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,14 +34,8 @@ ActorInit Bg_Jya_Bigmirror_InitVars = {
     (ActorFunc)BgJyaBigmirror_Destroy,
     (ActorFunc)BgJyaBigmirror_Update,
     (ActorFunc)BgJyaBigmirror_Draw,
-};
-
-typedef struct {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ s16 params;
-    /* 0x0E */ s16 solvedRotY;
-    /* 0x10 */ s16 initRotY;
-} BigMirrorDataEntry; // size = 0x14
+    (ActorFunc)BgJyaBigmirror_Reset,
+}; 
 
 static BigMirrorDataEntry sCobraSpawnData[] = {
     { { -560.0f, 1743.0f, -310.0f }, 0xFF01, 0x4000, 0x8000 },
@@ -257,4 +252,22 @@ void BgJyaBigmirror_Draw(Actor* thisx, GlobalContext* globalCtx) {
         (pthis->puzzleFlags & BIGMIR_PUZZLE_COBRA2_SOLVED) && (pthis->puzzleFlags & BIGMIR_PUZZLE_COBRA1_SOLVED)) {
         BgJyaBigmirror_DrawLightBeam(&pthis->actor, globalCtx);
     }
+}
+
+void BgJyaBigmirror_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sIsSpawned = false;
+
+    Bg_Jya_Bigmirror_InitVars = {
+        ACTOR_BG_JYA_BIGMIRROR,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaBigmirror),
+        (ActorFunc)BgJyaBigmirror_Init,
+        (ActorFunc)BgJyaBigmirror_Destroy,
+        (ActorFunc)BgJyaBigmirror_Update,
+        (ActorFunc)BgJyaBigmirror_Draw,
+        (ActorFunc)BgJyaBigmirror_Reset,
+    };
+
 }

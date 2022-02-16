@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_LIGHTSWITCH_H
+#pragma once
 #define Z_OBJ_LIGHTSWITCH_H
 
 #include "ultra64.h"
@@ -8,14 +8,21 @@ struct ObjLightswitch;
 
 typedef void (*ObjLightswitchActionFunc)(struct ObjLightswitch*, GlobalContext*);
 
-typedef enum {
+enum ObjLightswitch_Type {
     /* 0 */ OBJLIGHTSWITCH_TYPE_STAY_ON, // doesn't turn off unless the switch flag is cleared some other way
     /* 1 */ OBJLIGHTSWITCH_TYPE_1,       // turns on and off
     /* 2 */ OBJLIGHTSWITCH_TYPE_2,       // turns on and off
     /* 3 */ OBJLIGHTSWITCH_TYPE_BURN     // disappears when turned on
-} ObjLightswitch_Type;
+};
 
-typedef struct ObjLightswitch {
+
+enum FaceTextureIndex {
+    /* 0x00 */ FACE_EYES_CLOSED,
+    /* 0x01 */ FACE_EYES_OPEN,
+    /* 0x02 */ FACE_EYES_OPEN_SMILING
+};
+struct ObjLightswitch {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ObjLightswitchActionFunc actionFunc;
     /* 0x0150 */ ColliderJntSph collider;
@@ -28,6 +35,6 @@ typedef struct ObjLightswitch {
     /* 0x01BE */ s16 flameRingRot;
     /* 0x01C0 */ s16 flameRingRotSpeed;
     /* 0x01C2 */ u8 prevFrameACflags;
-} ObjLightswitch; // size = 0x01C4
+}; 
 
-#endif
+

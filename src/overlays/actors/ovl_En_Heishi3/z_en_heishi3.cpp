@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void EnHeishi3_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHeishi3_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHeishi3_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi3_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi3_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit En_Heishi3_InitVars = {
     (ActorFunc)EnHeishi3_Destroy,
     (ActorFunc)EnHeishi3_Update,
     (ActorFunc)EnHeishi3_Draw,
+    (ActorFunc)EnHeishi3_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -259,4 +261,42 @@ void EnHeishi3_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi3_OverrideLimbDraw, NULL,
                       pthis);
+}
+
+void EnHeishi3_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sPlayerCaught = 0;
+
+    En_Heishi3_InitVars = {
+        ACTOR_EN_HEISHI3,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SD,
+        sizeof(EnHeishi3),
+        (ActorFunc)EnHeishi3_Init,
+        (ActorFunc)EnHeishi3_Destroy,
+        (ActorFunc)EnHeishi3_Update,
+        (ActorFunc)EnHeishi3_Draw,
+        (ActorFunc)EnHeishi3_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 15, 70, 0, { 0, 0, 0 } },
+    };
+
 }

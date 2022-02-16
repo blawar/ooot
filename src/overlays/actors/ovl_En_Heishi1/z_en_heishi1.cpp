@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnHeishi1_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHeishi1_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHeishi1_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi1_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi1_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -53,6 +54,7 @@ ActorInit En_Heishi1_InitVars = {
     (ActorFunc)EnHeishi1_Destroy,
     (ActorFunc)EnHeishi1_Update,
     (ActorFunc)EnHeishi1_Draw,
+    (ActorFunc)EnHeishi1_Reset,
 };
 
 static f32 sAnimParamsInit[][8] = {
@@ -503,4 +505,22 @@ void EnHeishi1_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi1_OverrideLimbDraw, NULL,
                       pthis);
     func_80033C30(&pthis->actor.world.pos, &matrixScale, 0xFF, globalCtx);
+}
+
+void EnHeishi1_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sPlayerIsCaught = false;
+
+    En_Heishi1_InitVars = {
+        0,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SD,
+        sizeof(EnHeishi1),
+        (ActorFunc)EnHeishi1_Init,
+        (ActorFunc)EnHeishi1_Destroy,
+        (ActorFunc)EnHeishi1_Update,
+        (ActorFunc)EnHeishi1_Draw,
+        (ActorFunc)EnHeishi1_Reset,
+    };
+
 }

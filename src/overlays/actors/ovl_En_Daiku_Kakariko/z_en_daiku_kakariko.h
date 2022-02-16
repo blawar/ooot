@@ -1,4 +1,4 @@
-#ifndef Z_EN_DAIKU_KAKARIKO_H
+#pragma once
 #define Z_EN_DAIKU_KAKARIKO_H
 
 #include "ultra64.h"
@@ -8,7 +8,15 @@ struct EnDaikuKakariko;
 
 typedef void (*EnDaikuKakarikoActionFunc)(struct EnDaikuKakariko*, GlobalContext*);
 
-typedef struct EnDaikuKakariko {
+
+enum KakarikoCarpenterType {
+    /* 0x0 */ CARPENTER_ICHIRO,  // Red and purple pants, normal hair
+    /* 0x1 */ CARPENTER_SABOORO, // Light blue pants
+    /* 0x2 */ CARPENTER_JIRO,    // Green pants
+    /* 0x3 */ CARPENTER_SHIRO    // Pink and purple pants, two-spiked hair
+};
+struct EnDaikuKakariko {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnDaikuKakarikoActionFunc actionFunc;
@@ -28,6 +36,6 @@ typedef struct EnDaikuKakariko {
     /* 0x02F8 */ s32 timer;
     /* 0x02FC */ Vec3s neckAngle;
     /* 0x0302 */ Vec3s neckAngleTarget;
-} EnDaikuKakariko; // size = 0x0308
+}; 
 
-#endif
+

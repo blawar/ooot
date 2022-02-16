@@ -26,25 +26,9 @@
 
 #define FLAGS 0
 
-typedef struct {
-    Vec3s pos;
-    u8 unk_06; // pthis may be a s16 if the always-0 following byte is actually not padding
-} EnHorseNormalUnkStruct1;
-
-typedef struct {
-    s32 len;
-    EnHorseNormalUnkStruct1* items;
-} EnHorseNormalUnkStruct2;
-
-typedef enum {
-    /* 0x00 */ HORSE_CYCLE_ANIMATIONS,
-    /* 0x01 */ HORSE_WANDER,
-    /* 0x02 */ HORSE_WAIT,
-    /* 0x03 */ HORSE_WAIT_CLONE,
-    /* 0x04 */ HORSE_FOLLOW_PATH
-} EnHorseNormalAction;
 
 void EnHorseNormal_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHorseNormal_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHorseNormal_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseNormal_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -65,6 +49,7 @@ ActorInit En_Horse_Normal_InitVars = {
     (ActorFunc)EnHorseNormal_Destroy,
     (ActorFunc)EnHorseNormal_Update,
     (ActorFunc)EnHorseNormal_Draw,
+    (ActorFunc)EnHorseNormal_Reset,
 };
 
 static AnimationHeader* sAnimations[] = {
@@ -727,4 +712,79 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_horse_normal.c", 2339);
+}
+
+void EnHorseNormal_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Horse_Normal_InitVars = {
+        ACTOR_EN_HORSE_NORMAL,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HORSE_NORMAL,
+        sizeof(EnHorseNormal),
+        (ActorFunc)EnHorseNormal_Init,
+        (ActorFunc)EnHorseNormal_Destroy,
+        (ActorFunc)EnHorseNormal_Update,
+        (ActorFunc)EnHorseNormal_Draw,
+        (ActorFunc)EnHorseNormal_Reset,
+    };
+
+    sCylinderInit1 = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 40, 100, 0, { 0, 0, 0 } },
+    };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 60, 100, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphElementsInit),
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 10, 35, 100, MASS_HEAVY };
+
+    D_80A6D468 = { ARRAY_COUNT(D_80A6D428), D_80A6D428 };
+
+    D_80A6D4B8 = { ARRAY_COUNT(D_80A6D470), D_80A6D470 };
+
 }

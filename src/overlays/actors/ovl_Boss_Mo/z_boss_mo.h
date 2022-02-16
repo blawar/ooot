@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_MO_H
+#pragma once
 #define Z_BOSS_MO_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct BossMo;
 
 typedef void (*BossMoActionFunc)(struct BossMo*, GlobalContext*);
 
-typedef enum {
+enum BossMoTentS16Var {
     /* 0 */ MO_TENT_ACTION_STATE,
     /* 1 */ MO_TENT_MOVE_TIMER,
     /* 2 */ MO_TENT_VAR_TIMER,
@@ -19,9 +19,9 @@ typedef enum {
     /* 7 */ MO_TENT_BASE_TEX2_X,
     /* 8 */ MO_TENT_BASE_TEX2_Y,
     /* 9 */ MO_TENT_SHORT_MAX
-} BossMoTentS16Var;
+};
 
-typedef enum {
+enum BossMoCoreS16Var {
     /* 0 */ MO_CORE_ACTION_STATE,
     /* 1 */ MO_CORE_MOVE_TIMER,
     /* 2 */ MO_CORE_VAR_TIMER,
@@ -32,9 +32,9 @@ typedef enum {
     /* 7 */ MO_CORE_DRAW_SHADOW,
     /* 8 */ MO_CORE_WAIT_IN_WATER,
     /* 9 */ MO_CORE_SHORT_MAX
-} BossMoCoreS16Var;
+};
 
-typedef enum {
+enum BossMoTentF32Var {
     /* 0 */ MO_TENT_SWING_LAG_X,
     /* 1 */ MO_TENT_SWING_SIZE_X,
     /* 2 */ MO_TENT_SWING_RATE_X,
@@ -43,17 +43,97 @@ typedef enum {
     /* 5 */ MO_TENT_SWING_RATE_Z,
     /* 6 */ MO_TENT_MAX_STRETCH,
     /* 7 */ MO_TENT_FLOAT_MAX
-} BossMoTentF32Var;
+};
 
-typedef enum {
+enum BossMoCoreF32Var {
     /* 0 */ MO_CORE_INTRO_WATER_ALPHA,
     /* 1 */ MO_CORE_FLOAT_MAX
-} BossMoCoreF32Var;
+};
 
 #define MO_SHORT_MAX MAX((s32)MO_TENT_SHORT_MAX, (s32)MO_CORE_SHORT_MAX)
 #define MO_FLOAT_MAX MAX((s32)MO_TENT_FLOAT_MAX, (s32)MO_CORE_FLOAT_MAX)
 
-typedef struct BossMo {
+
+struct BossMoEffect {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ Vec3f vel;
+    /* 0x18 */ Vec3f accel;
+    /* 0x24 */ u8 type;
+    /* 0x25 */ u8 timer;
+    /* 0x26 */ u8 stopTimer;
+    /* 0x28 */ s16 unk_28; // unused?
+    /* 0x2A */ s16 alpha;
+    /* 0x2C */ s16 rippleMode;
+    /* 0x2E */ s16 maxAlpha;
+    /* 0x30 */ f32 scale;
+    /* 0x30 */ f32 fwork[2];
+    /* 0x3C */ Vec3f* targetPos;
+};
+
+
+enum BossMoEffectType {
+    /* 0 */ MO_FX_NONE,
+    /* 1 */ MO_FX_SMALL_RIPPLE,
+    /* 2 */ MO_FX_BIG_RIPPLE,
+    /* 3 */ MO_FX_DROPLET,
+    /* 4 */ MO_FX_SPLASH,
+    /* 5 */ MO_FX_SPLASH_TRAIL,
+    /* 6 */ MO_FX_WET_SPOT,
+    /* 7 */ MO_FX_BUBBLE
+};
+
+
+enum BossMoTentState {
+    /*   0 */ MO_TENT_READY,
+    /*   1 */ MO_TENT_SWING,
+    /*   2 */ MO_TENT_ATTACK,
+    /*   3 */ MO_TENT_CURL,
+    /*   4 */ MO_TENT_GRAB,
+    /*   5 */ MO_TENT_SHAKE,
+    /*  10 */ MO_TENT_WAIT = 10,
+    /*  11 */ MO_TENT_SPAWN,
+    /* 100 */ MO_TENT_CUT = 100,
+    /* 101 */ MO_TENT_RETREAT,
+    /* 102 */ MO_TENT_DESPAWN,
+    /* 200 */ MO_TENT_DEATH_START = 200,
+    /* 201 */ MO_TENT_DEATH_1,
+    /* 202 */ MO_TENT_DEATH_2,
+    /* 203 */ MO_TENT_DEATH_3,
+    /* 205 */ MO_TENT_DEATH_5 = 205,
+    /* 206 */ MO_TENT_DEATH_6
+};
+
+
+enum BossMoCoreState {
+    /* -11 */ MO_CORE_UNUSED = -11,
+    /*   0 */ MO_CORE_MOVE = 0,
+    /*   1 */ MO_CORE_MAKE_TENT,
+    /*   2 */ MO_CORE_UNDERWATER,
+    /*   5 */ MO_CORE_STUNNED = 5,
+    /*  10 */ MO_CORE_ATTACK = 10,
+    /*  11 */ MO_CORE_RETREAT,
+    /*  20 */ MO_CORE_INTRO_WAIT = 20,
+    /*  21 */ MO_CORE_INTRO_REVEAL
+};
+
+
+enum BossMoCsState {
+    /*   0 */ MO_BATTLE,
+    /*   1 */ MO_INTRO_WAIT,
+    /*   2 */ MO_INTRO_START,
+    /*   3 */ MO_INTRO_SWIM,
+    /*   4 */ MO_INTRO_REVEAL,
+    /*   5 */ MO_INTRO_FINISH,
+    /* 100 */ MO_DEATH_START = 100,
+    /* 101 */ MO_DEATH_DRAIN_WATER_1,
+    /* 102 */ MO_DEATH_DRAIN_WATER_2,
+    /* 103 */ MO_DEATH_CEILING,
+    /* 104 */ MO_DEATH_DROPLET,
+    /* 105 */ MO_DEATH_FINISH,
+    /* 150 */ MO_DEATH_MO_CORE_BURST = 150
+};
+struct BossMo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Actor* otherTent;
     /* 0x0150 */ BossMoActionFunc actionFunc;
@@ -127,9 +207,9 @@ typedef struct BossMo {
     /* 0x103C */ ColliderJntSphElement tentElements[19];
     /* 0x14FC */ ColliderCylinder coreCollider;
     /* 0x1548 */ char unk_1548[0x44];
-} BossMo; // size = 0x158C
+}; 
 
 #define BOSSMO_CORE -1
 #define BOSSMO_TENTACLE 100
 
-#endif
+

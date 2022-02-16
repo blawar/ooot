@@ -27,6 +27,7 @@
 #define MERGE_SLAVE 0x20
 
 void EnFloormas_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFloormas_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFloormas_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFloormas_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFloormas_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -65,6 +66,7 @@ ActorInit En_Floormas_InitVars = {
     (ActorFunc)EnFloormas_Destroy,
     (ActorFunc)EnFloormas_Update,
     (ActorFunc)EnFloormas_Draw,
+    (ActorFunc)EnFloormas_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1152,4 +1154,79 @@ void EnFloormas_DrawHighlighted(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_floormas.c", 2374);
+}
+
+void EnFloormas_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Floormas_InitVars = {
+        ACTOR_EN_FLOORMAS,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_WALLMASTER,
+        sizeof(EnFloormas),
+        (ActorFunc)EnFloormas_Init,
+        (ActorFunc)EnFloormas_Destroy,
+        (ActorFunc)EnFloormas_Update,
+        (ActorFunc)EnFloormas_Draw,
+        (ActorFunc)EnFloormas_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x04, 0x10 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_HARD,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 25, 40, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 4, 30, 40, 150 };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x1),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x1),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x1),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(2, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(4, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(4, 0x2),
+        /* Ice arrow     */ DMG_ENTRY(2, 0x0),
+        /* Light arrow   */ DMG_ENTRY(4, 0x4),
+        /* Unk arrow 1   */ DMG_ENTRY(4, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(4, 0x2),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(4, 0x4),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    sMergeColor = { 0, 255, 0, 0 };
+
 }

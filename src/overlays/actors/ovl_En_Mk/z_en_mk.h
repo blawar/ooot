@@ -1,4 +1,4 @@
-#ifndef Z_EN_MK_H
+#pragma once
 #define Z_EN_MK_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnMk;
 
 typedef void (*EnMkActionFunc)(struct EnMk*, GlobalContext*);
 
-typedef struct EnMk {
+
+struct EnMk {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelAnime;
@@ -19,6 +21,6 @@ typedef struct EnMk {
     /* 0x0280 */ s16 swimFlag;
     /* 0x0282 */ u16 timer;
     /* 0x0284 */ EnMkActionFunc actionFunc;
-} EnMk; // size = 0x0288
+}; 
 
-#endif
+

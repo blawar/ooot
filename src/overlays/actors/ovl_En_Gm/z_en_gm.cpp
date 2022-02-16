@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnGm_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGm_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGm_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGm_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGm_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -49,6 +50,7 @@ ActorInit En_Gm_InitVars = {
     (ActorFunc)EnGm_Destroy,
     (ActorFunc)EnGm_Update,
     NULL,
+    (ActorFunc)EnGm_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -343,4 +345,39 @@ void EnGm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gm.c", 629);
 
     func_80A3E090(pthis);
+}
+
+void EnGm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Gm_InitVars = {
+        ACTOR_EN_GM,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_OF1D_MAP,
+        sizeof(EnGm),
+        (ActorFunc)EnGm_Init,
+        (ActorFunc)EnGm_Destroy,
+        (ActorFunc)EnGm_Update,
+        NULL,
+        (ActorFunc)EnGm_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 100, 120, 0, { 0, 0, 0 } },
+    };
+
 }

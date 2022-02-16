@@ -24,6 +24,7 @@
 #define FLAGS 0
 
 void BgDodoago_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgDodoago_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgDodoago_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgDodoago_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgDodoago_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Dodoago_InitVars = {
     (ActorFunc)BgDodoago_Destroy,
     (ActorFunc)BgDodoago_Update,
     (ActorFunc)BgDodoago_Draw,
+    (ActorFunc)BgDodoago_Reset,
 };
 
 static ColliderCylinderInit sColCylinderInitMain = {
@@ -330,4 +332,62 @@ void BgDodoago_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_dodoago.c", 681);
+}
+
+void BgDodoago_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Dodoago_InitVars = {
+        ACTOR_BG_DODOAGO,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_DDAN_OBJECTS,
+        sizeof(BgDodoago),
+        (ActorFunc)BgDodoago_Init,
+        (ActorFunc)BgDodoago_Destroy,
+        (ActorFunc)BgDodoago_Update,
+        (ActorFunc)BgDodoago_Draw,
+        (ActorFunc)BgDodoago_Reset,
+    };
+
+    sColCylinderInitMain = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ALL,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 80, 30, 80, { 0, 0, 0 } },
+    };
+
+    sColCylinderInitLeftRight = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_NO_PUSH | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 50, 60, 280, { 0, 0, 0 } },
+    };
+
+    sFirstExplosiveFlag = false;
+
 }

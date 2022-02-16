@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnRl_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnRl_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnRl_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnRl_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnRl_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -398,4 +399,21 @@ ActorInit En_Rl_InitVars = {
     (ActorFunc)EnRl_Destroy,
     (ActorFunc)EnRl_Update,
     (ActorFunc)EnRl_Draw,
+    (ActorFunc)EnRl_Reset,
 };
+
+void EnRl_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Rl_InitVars = {
+        ACTOR_EN_RL,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_RL,
+        sizeof(EnRl),
+        (ActorFunc)EnRl_Init,
+        (ActorFunc)EnRl_Destroy,
+        (ActorFunc)EnRl_Update,
+        (ActorFunc)EnRl_Draw,
+        (ActorFunc)EnRl_Reset,
+    };
+
+}

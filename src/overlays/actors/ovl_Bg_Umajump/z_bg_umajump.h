@@ -1,4 +1,4 @@
-#ifndef Z_BG_UMAJUMP_H
+#pragma once
 #define Z_BG_UMAJUMP_H
 
 #include "ultra64.h"
@@ -6,8 +6,10 @@
 
 struct BgUmaJump;
 
-typedef struct BgUmaJump {
-    /* 0x0000 */ DynaPolyActor dyna;
-} BgUmaJump; // size = 0x0164
 
-#endif
+struct BgUmaJump {
+
+    /* 0x0000 */ DynaPolyActor dyna;
+}; 
+
+

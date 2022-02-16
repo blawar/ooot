@@ -1,4 +1,4 @@
-#ifndef Z_ITEM_SHIELD_H
+#pragma once
 #define Z_ITEM_SHIELD_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct ItemShield;
 
 typedef void (*ItemShieldActionFunc)(struct ItemShield*, GlobalContext*);
 
-typedef struct ItemShield {
+
+struct ItemShield {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ s16 unk_198;
@@ -17,6 +19,6 @@ typedef struct ItemShield {
     /* 0x019E */ u8 unk_19E[8];
     /* 0x01A8 */ Vec3f unk_1A8[8];
     /* 0x0208 */ ItemShieldActionFunc actionFunc;
-} ItemShield; // size = 0x020C
+}; 
 
-#endif
+

@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgGndFiremeiro_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgGndFiremeiro_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgGndFiremeiro_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgGndFiremeiro_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgGndFiremeiro_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Gnd_Firemeiro_InitVars = {
     (ActorFunc)BgGndFiremeiro_Destroy,
     (ActorFunc)BgGndFiremeiro_Update,
     (ActorFunc)BgGndFiremeiro_Draw,
+    (ActorFunc)BgGndFiremeiro_Reset,
 };
 
 void BgGndFiremeiro_Init(Actor* pthisx, GlobalContext* globalCtx) {
@@ -155,4 +157,20 @@ void BgGndFiremeiro_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gFireTrialPlatformDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_firemeiro.c", 285);
+}
+
+void BgGndFiremeiro_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Gnd_Firemeiro_InitVars = {
+        ACTOR_BG_GND_FIREMEIRO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_DEMO_KEKKAI,
+        sizeof(BgGndFiremeiro),
+        (ActorFunc)BgGndFiremeiro_Init,
+        (ActorFunc)BgGndFiremeiro_Destroy,
+        (ActorFunc)BgGndFiremeiro_Update,
+        (ActorFunc)BgGndFiremeiro_Draw,
+        (ActorFunc)BgGndFiremeiro_Reset,
+    };
+
 }

@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnGanonMant_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGanonMant_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGanonMant_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonMant_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonMant_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -32,6 +33,7 @@ ActorInit En_Ganon_Mant_InitVars = {
     (ActorFunc)EnGanonMant_Destroy,
     (ActorFunc)EnGanonMant_Update,
     (ActorFunc)EnGanonMant_Draw,
+    (ActorFunc)EnGanonMant_Reset,
 };
 
 static s16 sTearSizesMedium[] = {
@@ -44,12 +46,7 @@ static s16 sTearSizesLarge[] = {
 
 static s16 sTearSizesSmall[] = {
     0, 0, 0, 0, 0, 0, 0,
-};
-
-typedef struct {
-    s16* tearAreaSizes;
-    s16 count;
-} TearShape; // size = 0x8
+}; 
 
 /**
  * The arrays pointed to by pthis table describe how many pixels should
@@ -472,4 +469,22 @@ void EnGanonMant_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     EnGanonMant_DrawCloak(globalCtx, pthis);
+}
+
+void EnGanonMant_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ganon_Mant_InitVars = {
+        ACTOR_EN_GANON_MANT,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnGanonMant),
+        (ActorFunc)EnGanonMant_Init,
+        (ActorFunc)EnGanonMant_Destroy,
+        (ActorFunc)EnGanonMant_Update,
+        (ActorFunc)EnGanonMant_Draw,
+        (ActorFunc)EnGanonMant_Reset,
+    };
+
+    sForceAlignment = 0;
+
 }

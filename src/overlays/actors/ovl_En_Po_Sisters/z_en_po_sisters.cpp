@@ -29,6 +29,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnPoSisters_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnPoSisters_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnPoSisters_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPoSisters_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -89,6 +90,7 @@ ActorInit En_Po_Sisters_InitVars = {
     (ActorFunc)EnPoSisters_Destroy,
     (ActorFunc)EnPoSisters_Update,
     (ActorFunc)EnPoSisters_Draw,
+    (ActorFunc)EnPoSisters_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1433,4 +1435,85 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3139);
+}
+
+void EnPoSisters_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Po_Sisters_InitVars = {
+        ACTOR_EN_PO_SISTERS,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_PO_SISTERS,
+        sizeof(EnPoSisters),
+        (ActorFunc)EnPoSisters_Init,
+        (ActorFunc)EnPoSisters_Destroy,
+        (ActorFunc)EnPoSisters_Update,
+        (ActorFunc)EnPoSisters_Draw,
+        (ActorFunc)EnPoSisters_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0x4FC7FFEA, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 18, 60, 15, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 10, 25, 60, 40 };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0xF),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(2, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0xE),
+        /* Master sword  */ DMG_ENTRY(2, 0xE),
+        /* Giant's Knife */ DMG_ENTRY(4, 0xE),
+        /* Fire arrow    */ DMG_ENTRY(2, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(2, 0x0),
+        /* Light arrow   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0xE),
+        /* Giant spin    */ DMG_ENTRY(4, 0xE),
+        /* Master spin   */ DMG_ENTRY(2, 0xE),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0xE),
+        /* Giant jump    */ DMG_ENTRY(8, 0xE),
+        /* Master jump   */ DMG_ENTRY(4, 0xE),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    D_80ADD784 = 0;
+
+    sZeroVector = { 0.0f, 0.0f, 0.0f };
+
+    D_80ADD7BC = { 120.0f, 250.0f, -1420.0f };
+
+    D_80ADD7F8 = { 1000.0f, -1700.0f, 0.0f };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_NWC_H
+#pragma once
 #define Z_EN_NWC_H
 
 #include "ultra64.h"
@@ -10,7 +10,7 @@ struct EnNwcChick;
 typedef void (*EnNwcUpdateFunc)(struct EnNwc*, GlobalContext*);
 typedef void (*EnNwcChickFunc)(struct EnNwcChick*, struct EnNwc*, GlobalContext*);
 
-typedef struct EnNwcChick {
+struct EnNwcChick {
     /* 0x00 */ s8 type;
     /* 0x01 */ u8 bgFlags;
     /* 0x04 */ f32 floorY;
@@ -23,14 +23,20 @@ typedef struct EnNwcChick {
     /* 0x36 */ u16 height;
     /* 0x38 */ CollisionPoly* floorPoly;
     /* 0x44 */ char unk_3C[0x20]; 
-} EnNwcChick; // size = 0x5C
+}; 
 
-typedef struct EnNwc {
+
+enum ChickTypes {
+    /* 0 */ CHICK_NONE,
+    /* 1 */ CHICK_NORMAL
+};
+struct EnNwc {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderJntSph collider;
     /* 0x016C */ u8 count;
     /* 0x0170 */ EnNwcChick chicks[16];
     /* 0x0730 */ EnNwcUpdateFunc updateFunc;
-} EnNwc; // size = 0x0734
+}; 
 
-#endif
+

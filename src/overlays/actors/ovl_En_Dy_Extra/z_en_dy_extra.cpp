@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnDyExtra_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDyExtra_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDyExtra_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDyExtra_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit En_Dy_Extra_InitVars = {
     (ActorFunc)EnDyExtra_Destroy,
     (ActorFunc)EnDyExtra_Update,
     (ActorFunc)EnDyExtra_Draw,
+    (ActorFunc)EnDyExtra_Reset,
 };
 
 void EnDyExtra_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -130,4 +132,20 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gGreatFairySpiralBeamDL);
 
     CLOSE_DISPS(gfxCtx, "../z_en_dy_extra.c", 325);
+}
+
+void EnDyExtra_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dy_Extra_InitVars = {
+        ACTOR_EN_DY_EXTRA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_DY_OBJ,
+        sizeof(EnDyExtra),
+        (ActorFunc)EnDyExtra_Init,
+        (ActorFunc)EnDyExtra_Destroy,
+        (ActorFunc)EnDyExtra_Update,
+        (ActorFunc)EnDyExtra_Draw,
+        (ActorFunc)EnDyExtra_Reset,
+    };
+
 }

@@ -22,6 +22,7 @@
 #define FLAGS 0
 
 void BgGndSoulmeiro_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgGndSoulmeiro_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgGndSoulmeiro_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgGndSoulmeiro_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgGndSoulmeiro_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Gnd_Soulmeiro_InitVars = {
     (ActorFunc)BgGndSoulmeiro_Destroy,
     (ActorFunc)BgGndSoulmeiro_Update,
     (ActorFunc)BgGndSoulmeiro_Draw,
+    (ActorFunc)BgGndSoulmeiro_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -225,4 +227,40 @@ void BgGndSoulmeiro_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Gfx_DrawDListOpa(globalCtx, dLists[params]);
             break;
     }
+}
+
+void BgGndSoulmeiro_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Gnd_Soulmeiro_InitVars = {
+        ACTOR_BG_GND_SOULMEIRO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_DEMO_KEKKAI,
+        sizeof(BgGndSoulmeiro),
+        (ActorFunc)BgGndSoulmeiro_Init,
+        (ActorFunc)BgGndSoulmeiro_Destroy,
+        (ActorFunc)BgGndSoulmeiro_Update,
+        (ActorFunc)BgGndSoulmeiro_Draw,
+        (ActorFunc)BgGndSoulmeiro_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0x00020800, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 50, 20, 20, { 0, 0, 0 } },
+    };
+
 }

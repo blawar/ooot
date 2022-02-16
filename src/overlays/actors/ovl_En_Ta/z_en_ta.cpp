@@ -28,6 +28,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnTa_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTa_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -58,6 +59,7 @@ ActorInit En_Ta_InitVars = {
     (ActorFunc)EnTa_Destroy,
     (ActorFunc)EnTa_Update,
     (ActorFunc)EnTa_Draw,
+    (ActorFunc)EnTa_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1238,4 +1240,40 @@ void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnTa_OverrideLimbDraw, EnTa_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ta.c", 2400);
+}
+
+void EnTa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ta_InitVars = {
+        ACTOR_EN_TA,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_TA,
+        sizeof(EnTa),
+        (ActorFunc)EnTa_Init,
+        (ActorFunc)EnTa_Destroy,
+        (ActorFunc)EnTa_Update,
+        (ActorFunc)EnTa_Draw,
+        (ActorFunc)EnTa_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000004, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 30, 40, 0, { 0, 0, 0 } },
+    };
+
 }

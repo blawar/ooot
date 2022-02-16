@@ -16,6 +16,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSpot17Funen_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot17Funen_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot17Funen_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot17Funen_Update(Actor* thisx, GlobalContext* globalCtx);
 void func_808B746C(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Bg_Spot17_Funen_InitVars = {
     (ActorFunc)BgSpot17Funen_Destroy,
     (ActorFunc)BgSpot17Funen_Update,
     NULL,
+    (ActorFunc)BgSpot17Funen_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -77,4 +79,20 @@ void func_808B7478(Actor* thisx, GlobalContext* globalCtx) {
     if (1) {}
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot17_funen.c", 176);
+}
+
+void BgSpot17Funen_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot17_Funen_InitVars = {
+        ACTOR_BG_SPOT17_FUNEN,
+        ACTORCAT_SWITCH,
+        FLAGS,
+        OBJECT_SPOT17_OBJ,
+        sizeof(BgSpot17Funen),
+        (ActorFunc)BgSpot17Funen_Init,
+        (ActorFunc)BgSpot17Funen_Destroy,
+        (ActorFunc)BgSpot17Funen_Update,
+        NULL,
+        (ActorFunc)BgSpot17Funen_Reset,
+    };
+
 }

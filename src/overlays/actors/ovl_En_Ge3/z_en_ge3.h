@@ -1,4 +1,4 @@
-#ifndef Z_EN_GE3_H
+#pragma once
 #define Z_EN_GE3_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnGe3;
 
 typedef void (*EnGe3ActionFunc)(struct EnGe3*, GlobalContext*);
 
-typedef struct EnGe3 {
+
+struct EnGe3 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelAnime;
@@ -21,6 +23,6 @@ typedef struct EnGe3 {
     /* 0x0306 */ Vec3s unk_306;
     /* 0x030C */ u16 unk_30C;
     /* 0x0310 */ EnGe3ActionFunc actionFunc;
-} EnGe3; // size = 0x0314
+}; 
 
-#endif
+

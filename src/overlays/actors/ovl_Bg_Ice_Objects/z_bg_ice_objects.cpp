@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void BgIceObjects_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgIceObjects_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgIceObjects_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgIceObjects_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgIceObjects_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Ice_Objects_InitVars = {
     (ActorFunc)BgIceObjects_Destroy,
     (ActorFunc)BgIceObjects_Update,
     (ActorFunc)BgIceObjects_Draw,
+    (ActorFunc)BgIceObjects_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -244,4 +246,26 @@ void BgIceObjects_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgIceObjects* pthis = (BgIceObjects*)thisx;
 
     Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_000190);
+}
+
+void BgIceObjects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sWhite = { 250, 250, 250, 255 };
+
+    sGray = { 180, 180, 180, 255 };
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
+    Bg_Ice_Objects_InitVars = {
+        ACTOR_BG_ICE_OBJECTS,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_ICE_OBJECTS,
+        sizeof(BgIceObjects),
+        (ActorFunc)BgIceObjects_Init,
+        (ActorFunc)BgIceObjects_Destroy,
+        (ActorFunc)BgIceObjects_Update,
+        (ActorFunc)BgIceObjects_Draw,
+        (ActorFunc)BgIceObjects_Reset,
+    };
+
 }

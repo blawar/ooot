@@ -1,4 +1,4 @@
-#ifndef Z_MIR_RAY_H
+#pragma once
 #define Z_MIR_RAY_H
 
 #include "ultra64.h"
@@ -6,7 +6,7 @@
 
 struct MirRay;
 
-typedef struct {
+struct MirRayDataEntry {
     /* 0x00 */ Vec3s sourcePoint;
     /* 0x06 */ Vec3s poolPoint; // point at center of light pool on floor for windows and BigMirror, same as source point for Cobra Mirror
     /* 0x0C */ s16 sourceEndRadius; // Radius of beam frustum at the source end
@@ -17,16 +17,29 @@ typedef struct {
     /* 0x18 */ f32 unk_18; // placement of light point between source and reflection point (pool point for windows, player for mirrors)
     /* 0x1C */ Color_RGB8 color;
     /* 0x1F */ u8 params;
-} MirRayDataEntry; // size = 0x20
+}; 
 
-typedef struct {
+struct MirRayShieldReflection {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ MtxF mtx;
     /* 0x4C */ CollisionPoly* reflectionPoly;
     /* 0x50 */ u8 opacity;
-} MirRayShieldReflection; // size = 0x54
+}; 
 
-typedef struct MirRay {
+enum MirRayBeamLocations {
+    /* 0 */ MIRRAY_SPIRIT_BOMBCHUIWAROOM_DOWNLIGHT,
+    /* 1 */ MIRRAY_SPIRIT_SUNBLOCKROOM_DOWNLIGHT,
+    /* 2 */ MIRRAY_SPIRIT_SINGLECOBRAROOM_DOWNLIGHT,
+    /* 3 */ MIRRAY_SPIRIT_ARMOSROOM_DOWNLIGHT,
+    /* 4 */ MIRRAY_SPIRIT_TOPROOM_DOWNLIGHT,
+    /* 5 */ MIRRAY_SPIRIT_TOPROOM_CEILINGMIRROR,
+    /* 6 */ MIRRAY_SPIRIT_SINGLECOBRAROOM_COBRA,
+    /* 7 */ MIRRAY_SPIRIT_TOPROOM_COBRA1,
+    /* 8 */ MIRRAY_SPIRIT_TOPROOM_COBRA2,
+    /* 9 */ MIRRAY_GANONSCASTLE_SPIRITTRIAL_DOWNLIGHT
+};
+struct MirRay {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderJntSph colliderSph;
     /* 0x016C */ ColliderJntSphElement colliderSphItem;
@@ -42,6 +55,6 @@ typedef struct MirRay {
     /* 0x029C */ LightNode* lightNode;
     /* 0x02A0 */ LightInfo lightInfo;
     /* 0x02AE */ u8 unLit; // Conditioned on. set in Cobra?
-} MirRay; // size = 0x02B0
+}; 
 
-#endif
+

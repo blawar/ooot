@@ -25,6 +25,7 @@
 #define FLAGS 0
 
 void BgYdanSp_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgYdanSp_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgYdanSp_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgYdanSp_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgYdanSp_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,11 +34,6 @@ void BgYdanSp_BurnFloorWeb(BgYdanSp* pthis, GlobalContext* globalCtx);
 void BgYdanSp_FloorWebIdle(BgYdanSp* pthis, GlobalContext* globalCtx);
 void BgYdanSp_BurnWallWeb(BgYdanSp* pthis, GlobalContext* globalCtx);
 void BgYdanSp_WallWebIdle(BgYdanSp* pthis, GlobalContext* globalCtx);
-
-typedef enum {
-    /* 0 */ WEB_FLOOR,
-    /* 1 */ WEB_WALL
-} BgYdanSpType;
 
 ActorInit Bg_Ydan_Sp_InitVars = {
     ACTOR_BG_YDAN_SP,
@@ -49,6 +45,7 @@ ActorInit Bg_Ydan_Sp_InitVars = {
     (ActorFunc)BgYdanSp_Destroy,
     (ActorFunc)BgYdanSp_Update,
     (ActorFunc)BgYdanSp_Draw,
+    (ActorFunc)BgYdanSp_Reset,
 };
 
 static ColliderTrisElementInit sTrisItemsInit[2] = {
@@ -469,4 +466,33 @@ void BgYdanSp_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ydan_sp.c", 856);
+}
+
+void BgYdanSp_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Ydan_Sp_InitVars = {
+        ACTOR_BG_YDAN_SP,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_YDAN_OBJECTS,
+        sizeof(BgYdanSp),
+        (ActorFunc)BgYdanSp_Init,
+        (ActorFunc)BgYdanSp_Destroy,
+        (ActorFunc)BgYdanSp_Update,
+        (ActorFunc)BgYdanSp_Draw,
+        (ActorFunc)BgYdanSp_Reset,
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisItemsInit,
+    };
+
 }

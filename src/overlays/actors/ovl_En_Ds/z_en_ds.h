@@ -1,4 +1,4 @@
-#ifndef Z_EN_DS_H
+#pragma once
 #define Z_EN_DS_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnDs;
 
 typedef void (*EnDsActionFunc)(struct EnDs*, GlobalContext*);
 
-typedef struct EnDs {
+
+struct EnDs {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[6];
@@ -19,6 +21,6 @@ typedef struct EnDs {
     /* 0x01E8 */ u16 unk_1E8;
     /* 0x01EA */ u16 brewTimer;
     /* 0x01EC */ EnDsActionFunc actionFunc;
-} EnDs; // size = 0x01F0
+}; 
 
-#endif
+

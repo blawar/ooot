@@ -1,4 +1,4 @@
-#ifndef Z_BG_JYA_LIFT_H
+#pragma once
 #define Z_BG_JYA_LIFT_H
 
 #include "ultra64.h"
@@ -7,12 +7,14 @@
 struct BgJyaLift;
 typedef void (*BgJyaLiftActionFunc)(struct BgJyaLift*, GlobalContext*);
 
-typedef struct BgJyaLift {
+
+struct BgJyaLift {
+
     /* 0x000 */ DynaPolyActor dyna;
     /* 0x164 */ BgJyaLiftActionFunc actionFunc;
     /* 0x168 */ s16 moveDelay;
     /* 0x16A */ u8 isSpawned;
     /* 0x16B */ u8 unk_16B;
-} BgJyaLift; // size = 0x016C
+}; 
 
-#endif
+

@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void ObjHamishi_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjHamishi_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjHamishi_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjHamishi_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit Obj_Hamishi_InitVars = {
     (ActorFunc)ObjHamishi_Destroy,
     (ActorFunc)ObjHamishi_Update,
     (ActorFunc)ObjHamishi_Draw,
+    (ActorFunc)ObjHamishi_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -214,4 +216,42 @@ void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gSilverRockDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_hamishi.c", 411);
+}
+
+void ObjHamishi_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Hamishi_InitVars = {
+        ACTOR_OBJ_HAMISHI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(ObjHamishi),
+        (ActorFunc)ObjHamishi_Init,
+        (ActorFunc)ObjHamishi_Destroy,
+        (ActorFunc)ObjHamishi_Update,
+        (ActorFunc)ObjHamishi_Draw,
+        (ActorFunc)ObjHamishi_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HARD,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x4FC1FFF6, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 50, 70, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE };
+
 }

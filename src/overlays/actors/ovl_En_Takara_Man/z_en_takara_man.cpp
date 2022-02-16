@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_27)
 
 void EnTakaraMan_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTakaraMan_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTakaraMan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTakaraMan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTakaraMan_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit En_Takara_Man_InitVars = {
     (ActorFunc)EnTakaraMan_Destroy,
     (ActorFunc)EnTakaraMan_Update,
     (ActorFunc)EnTakaraMan_Draw,
+    (ActorFunc)EnTakaraMan_Reset,
 };
 
 static u8 sTakaraIsInitialized = false;
@@ -234,4 +236,22 @@ void EnTakaraMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnTakaraMan_OverrideLimbDraw, NULL, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_takara_man.c", 544);
+}
+
+void EnTakaraMan_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Takara_Man_InitVars = {
+        ACTOR_EN_TAKARA_MAN,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_TS,
+        sizeof(EnTakaraMan),
+        (ActorFunc)EnTakaraMan_Init,
+        (ActorFunc)EnTakaraMan_Destroy,
+        (ActorFunc)EnTakaraMan_Update,
+        (ActorFunc)EnTakaraMan_Draw,
+        (ActorFunc)EnTakaraMan_Reset,
+    };
+
+    sTakaraIsInitialized = false;
+
 }

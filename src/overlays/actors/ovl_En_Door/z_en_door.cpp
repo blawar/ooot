@@ -30,6 +30,7 @@
 #define DOOR_CHECK_RANGE 40.0f
 
 void EnDoor_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDoor_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDoor_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDoor_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDoor_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -53,6 +54,7 @@ ActorInit En_Door_InitVars = {
     (ActorFunc)EnDoor_Destroy,
     (ActorFunc)EnDoor_Update,
     (ActorFunc)EnDoor_Draw,
+    (ActorFunc)EnDoor_Reset,
 };
 
 /**
@@ -359,4 +361,20 @@ void EnDoor_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_door.c", 941);
     }
+}
+
+void EnDoor_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Door_InitVars = {
+        ACTOR_EN_DOOR,
+        ACTORCAT_DOOR,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnDoor),
+        (ActorFunc)EnDoor_Init,
+        (ActorFunc)EnDoor_Destroy,
+        (ActorFunc)EnDoor_Update,
+        (ActorFunc)EnDoor_Draw,
+        (ActorFunc)EnDoor_Reset,
+    };
+
 }

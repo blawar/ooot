@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnSb_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSb_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSb_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSb_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit En_Sb_InitVars = {
     (ActorFunc)EnSb_Destroy,
     (ActorFunc)EnSb_Update,
     (ActorFunc)EnSb_Draw,
+    (ActorFunc)EnSb_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -105,14 +107,6 @@ static Vec3f sFlamePosOffsets[] = {
     { 0.0f, 0.0f, 5.0f },
     { 0.0f, 0.0f, -5.0f },
 };
-
-typedef enum {
-    /* 0x00 */ SHELLBLADE_OPEN,
-    /* 0x01 */ SHELLBLADE_WAIT_CLOSED,
-    /* 0x02 */ SHELLBLADE_WAIT_OPEN,
-    /* 0x03 */ SHELLBLADE_LUNGE,
-    /* 0x04 */ SHELLBLADE_BOUNCE
-} ShellbladeBehavior;
 
 void EnSb_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnSb* pthis = (EnSb*)thisx;
@@ -509,4 +503,32 @@ void EnSb_Draw(Actor* thisx, GlobalContext* globalCtx) {
             EffectSsEnFire_SpawnVec3f(globalCtx, &pthis->actor, &flamePos, 100, 0, 0, -1);
         }
     }
+}
+
+void EnSb_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Sb_InitVars = {
+        ACTOR_EN_SB,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_SB,
+        sizeof(EnSb),
+        (ActorFunc)EnSb_Init,
+        (ActorFunc)EnSb_Destroy,
+        (ActorFunc)EnSb_Update,
+        (ActorFunc)EnSb_Draw,
+        (ActorFunc)EnSb_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        { 0x00, { 0xFFCFFFFF, 0x04, 0x08 }, { 0xFFCFFFFF, 0x00, 0x00 }, 0x01, 0x01, 0x01 },
+        { 30, 40, 0, { 0, 0, 0 } },
+    };
+
 }

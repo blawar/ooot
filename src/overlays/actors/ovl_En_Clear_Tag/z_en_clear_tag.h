@@ -1,4 +1,4 @@
-#ifndef Z_EN_CLEAR_TAG_H
+#pragma once
 #define Z_EN_CLEAR_TAG_H
 
 #include "ultra64.h"
@@ -6,49 +6,51 @@
 
 struct EnClearTag;
 
-typedef enum {
+enum ClearTagType {
     /* 0x00 */ CLEAR_TAG_CUTSCENE_ARWING = 0,
     /* 0x01 */ CLEAR_TAG_ARWING = 1,
     /* 0x64 */ CLEAR_TAG_LASER = 100
-} ClearTagType;
+};
 
-typedef enum {
+enum ClearTagState {
     /* 0x00 */ CLEAR_TAG_STATE_FLYING = 0,
     /* 0x01 */ CLEAR_TAG_STATE_TARGET_LOCKED = 1,
     /* 0x02 */ CLEAR_TAG_STATE_DEMO = 2,
     /* 0x0A */ CLEAR_TAG_STATE_CRASHING = 10,
     /* 0x64 */ CLEAR_TAG_STATE_LASER = 100
-} ClearTagState;
+};
 
-typedef enum {
+enum ClearTagDemoMode {
     /* 0x00 */ CLEAR_TAG_CUTSCENE_MODE_NONE,
     /* 0x01 */ CLEAR_TAG_CUTSCENE_MODE_SETUP,
     /* 0x02 */ CLEAR_TAG_CUTSCENE_MODE_PLAY
-} ClearTagDemoMode;
+};
 
-typedef enum {
+enum ClearTagDrawMode {
     /* 0x00 */ CLEAR_TAG_DRAW_MODE_ARWING,
     /* 0x01 */ CLEAR_TAG_DRAW_MODE_ALL,
     /* 0x02 */ CLEAR_TAG_DRAW_MODE_EFFECT
-} ClearTagDrawMode;
+};
 
-typedef enum {
+enum ClearTagEffectType {
     /* 0x00 */ CLEAR_TAG_EFFECT_AVAILABLE,
     /* 0x01 */ CLEAR_TAG_EFFECT_DEBRIS,
     /* 0x02 */ CLEAR_TAG_EFFECT_FIRE,
     /* 0x03 */ CLEAR_TAG_EFFECT_SMOKE,
     /* 0x04 */ CLEAR_TAG_EFFECT_FLASH
-} ClearTagEffectType;
+};
 
-typedef enum {
+enum ClearTagTimers {
     /* 0x00 */ CLEAR_TAG_TIMER_ARWING_UPDATE_STATE = 0,
     /* 0x00 */ CLEAR_TAG_TIMER_LASER_DEATH = 0,
     /* 0x01 */ CLEAR_TAG_TIMER_ARWING_ENTER_LOCKED_ON,
     /* 0x02 */ CLEAR_TAG_TIMER_ARWING_UPDATE_BG_INFO,
     /* 0x03 */ CLEAR_TAG_TIMER_COUNT
-} ClearTagTimers;
+};
 
-typedef struct EnClearTag {
+
+struct EnClearTag {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ u8 shouldExplode;
     /* 0x014D */ u8 drawMode;
@@ -70,9 +72,9 @@ typedef struct EnClearTag {
     /* 0x01F0 */ Vec3f cutsceneCameraEye;
     /* 0x01FC */ s16 cutsceneTimer;
     /* 0x01FE */ char unk_1FE[0x06];
-} EnClearTag; // size = 0x0204
+}; 
 
-typedef struct EnClearTagEffect {
+struct EnClearTagEffect {
     /* 0x0000 */ u8 type;
     /* 0x0001 */ u8 random;
     /* 0x0004 */ Vec3f position;
@@ -88,8 +90,8 @@ typedef struct EnClearTagEffect {
     /* 0x0058 */ f32 rotationX;
     /* 0x005C */ f32 floorHeight;
     /* 0x0060 */ Vec3f floorTangent;
-} EnClearTagEffect; // size = 0x6C
+}; 
 
 #define CLEAR_TAG_EFFECT_MAX_COUNT 100
 
-#endif
+

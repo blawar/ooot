@@ -1,4 +1,4 @@
-#ifndef Z_EN_ARROW_H
+#pragma once
 #define Z_EN_ARROW_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnArrow;
 
 typedef void (*EnArrowActionFunc)(struct EnArrow*, GlobalContext*);
 
-typedef struct EnArrow {
+
+struct EnArrow {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ ColliderQuad collider;
@@ -23,9 +25,9 @@ typedef struct EnArrow {
     /* 0x024C */ Actor* hitActor;
     /* 0x0250 */ Vec3f unk_250;
     /* 0x025C */ EnArrowActionFunc actionFunc;
-} EnArrow; // size = 0x0260
+}; 
 
-typedef enum {
+enum ArrowType {
     /* -10 */ ARROW_CS_NUT = -10, // cutscene deku nuts are allowed to update in blocking mode
     /* -1  */ ARROW_NORMAL_SILENT = -1, // normal arrow that does not make a sound when being shot
     /*  0  */ ARROW_NORMAL_LIT, // normal arrow lit on fire
@@ -39,6 +41,6 @@ typedef enum {
     /*  8  */ ARROW_0E,
     /*  9  */ ARROW_SEED,
     /*  10 */ ARROW_NUT
-} ArrowType;
+};
 
-#endif
+

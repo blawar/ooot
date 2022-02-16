@@ -1,4 +1,4 @@
-#ifndef Z_EN_ST_H
+#pragma once
 #define Z_EN_ST_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnSt;
 
 typedef void (*EnStActionFunc)(struct EnSt* pthis, GlobalContext* globalCtx);
 
-typedef struct EnSt {
+
+struct EnSt {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnStActionFunc actionFunc;
@@ -45,6 +47,6 @@ typedef struct EnSt {
     /* 0x0410 */ Rotation swayAngle;
     /* 0x0412 */ Vec3s jointTable[30];
     /* 0x04C6 */ Vec3s morphTable[30];
-} EnSt; // size = 0x057C
+}; 
 
-#endif
+

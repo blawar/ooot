@@ -12,6 +12,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
 void EnEncount1_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnEncount1_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnEncount1_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void EnEncount1_SpawnLeevers(EnEncount1* pthis, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit En_Encount1_InitVars = {
     NULL,
     (ActorFunc)EnEncount1_Update,
     NULL,
+    (ActorFunc)EnEncount1_Reset,
 };
 
 void EnEncount1_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -328,4 +330,20 @@ void EnEncount1_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     pthis->updateFunc(pthis, globalCtx);
+}
+
+void EnEncount1_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Encount1_InitVars = {
+        ACTOR_EN_ENCOUNT1,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnEncount1),
+        (ActorFunc)EnEncount1_Init,
+        NULL,
+        (ActorFunc)EnEncount1_Update,
+        NULL,
+        (ActorFunc)EnEncount1_Reset,
+    };
+
 }

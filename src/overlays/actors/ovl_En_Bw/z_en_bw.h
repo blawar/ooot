@@ -1,4 +1,4 @@
-#ifndef Z_EN_BW_H
+#pragma once
 #define Z_EN_BW_H
 
 #include "ultra64.h"
@@ -7,7 +7,9 @@
 struct EnBw;
 typedef void (*EnBwActionFunc)(struct EnBw*, GlobalContext*);
 
-typedef struct EnBw {
+
+struct EnBw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[12];
@@ -42,6 +44,6 @@ typedef struct EnBw {
     /* 0x0288 */ Vec3f unk_288;
     /* 0x0294 */ ColliderCylinder collider1;
     /* 0x02E0 */ ColliderCylinder collider2;
-} EnBw; // size = 0x032C
+}; 
 
-#endif
+

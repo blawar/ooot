@@ -1,4 +1,4 @@
-#ifndef Z_EN_BOM_BOWL_PIT_H
+#pragma once
 #define Z_EN_BOM_BOWL_PIT_H
 
 #include "ultra64.h"
@@ -6,10 +6,13 @@
 #include "overlays/actors/ovl_En_Ex_Item/z_en_ex_item.h"
 
 struct EnBomBowlPit;
+struct EnExItem;
 
 typedef void (*EnBomBowlPitActionFunc)(struct EnBomBowlPit*, GlobalContext*);
 
-typedef struct EnBomBowlPit {
+
+struct EnBomBowlPit {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnBomBowlPitActionFunc actionFunc;
     /* 0x0150 */ u16 unk_150;
@@ -33,6 +36,6 @@ typedef struct EnBomBowlPit {
     /* 0x01D4 */ Vec3f unk_1D4; // camera eye (maxsteps)
     /* 0x01E0 */ EnExItem* exItem;
     /* 0x01E4 */ char unk_1E4[0x3520];
-} EnBomBowlPit; // size = 0x3704
+}; 
 
-#endif
+

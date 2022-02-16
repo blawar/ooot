@@ -1,4 +1,4 @@
-#ifndef Z_EN_RU2_H
+#pragma once
 #define Z_EN_RU2_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnRu2;
 typedef void (*EnRu2ActionFunc)(struct EnRu2*, GlobalContext*);
 typedef void (*EnRu2DrawFunc)(struct EnRu2*, GlobalContext*);
 
-typedef struct EnRu2 {
+
+struct EnRu2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[23];
@@ -27,6 +29,6 @@ typedef struct EnRu2 {
     /* 0x02C3 */ u8 unk_2C3;
     /* 0x02C4 */ f32 unk_2C4;
     /* 0x02C8 */ ColliderCylinder collider;
-} EnRu2; // size = 0x0314
+}; 
 
-#endif
+

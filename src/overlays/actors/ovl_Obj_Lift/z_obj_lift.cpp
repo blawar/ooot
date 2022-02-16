@@ -22,6 +22,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ObjLift_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjLift_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjLift_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjLift_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjLift_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,14 +45,10 @@ ActorInit Obj_Lift_InitVars = {
     (ActorFunc)ObjLift_Destroy,
     (ActorFunc)ObjLift_Update,
     (ActorFunc)ObjLift_Draw,
+    (ActorFunc)ObjLift_Reset,
 };
 
-static s16 sFallTimerDurations[] = { 0, 10, 20, 30, 40, 50, 60 };
-
-typedef struct {
-    /* 0x00 */ s16 x;
-    /* 0x02 */ s16 z;
-} ObjLiftFramgentScale; // size = 0x4
+static s16 sFallTimerDurations[] = { 0, 10, 20, 30, 40, 50, 60 }; 
 
 static ObjLiftFramgentScale sFragmentScales[] = {
     { 120, -120 }, { 120, 0 },     { 120, 120 }, { 0, -120 },   { 0, 0 },
@@ -229,4 +226,20 @@ void ObjLift_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void ObjLift_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gCollapsingPlatformDL);
+}
+
+void ObjLift_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Lift_InitVars = {
+        ACTOR_OBJ_LIFT,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_D_LIFT,
+        sizeof(ObjLift),
+        (ActorFunc)ObjLift_Init,
+        (ActorFunc)ObjLift_Destroy,
+        (ActorFunc)ObjLift_Update,
+        (ActorFunc)ObjLift_Draw,
+        (ActorFunc)ObjLift_Reset,
+    };
+
 }

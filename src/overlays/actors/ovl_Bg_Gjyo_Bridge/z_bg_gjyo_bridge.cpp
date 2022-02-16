@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void BgGjyoBridge_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgGjyoBridge_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgGjyoBridge_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgGjyoBridge_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgGjyoBridge_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Bg_Gjyo_Bridge_InitVars = {
     (ActorFunc)BgGjyoBridge_Destroy,
     (ActorFunc)BgGjyoBridge_Update,
     (ActorFunc)BgGjyoBridge_Draw,
+    (ActorFunc)BgGjyoBridge_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -126,4 +128,20 @@ void BgGjyoBridge_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gRainbowBridgeDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 285);
+}
+
+void BgGjyoBridge_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Gjyo_Bridge_InitVars = {
+        ACTOR_BG_GJYO_BRIDGE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GJYO_OBJECTS,
+        sizeof(BgGjyoBridge),
+        (ActorFunc)BgGjyoBridge_Init,
+        (ActorFunc)BgGjyoBridge_Destroy,
+        (ActorFunc)BgGjyoBridge_Update,
+        (ActorFunc)BgGjyoBridge_Draw,
+        (ActorFunc)BgGjyoBridge_Reset,
+    };
+
 }

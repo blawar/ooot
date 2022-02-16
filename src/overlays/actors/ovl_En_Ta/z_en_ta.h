@@ -1,4 +1,4 @@
-#ifndef Z_EN_TA_H
+#pragma once
 #define Z_EN_TA_H
 
 #include "ultra64.h"
@@ -11,7 +11,9 @@ struct EnTa;
 typedef void (*EnTaActionFunc)(struct EnTa*, GlobalContext*);
 typedef void (*EnTaUnkFunc)(struct EnTa*);
 
-typedef struct EnTa {
+
+struct EnTa {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[17];
@@ -34,6 +36,6 @@ typedef struct EnTa {
     /* 0x02E0 */ u16 unk_2E0;
     /* 0x02E2 */ s16 unk_2E2;
     /* 0x02E4 */ AnimationHeader* currentAnimation;
-} EnTa; // size = 0x02E8
+}; 
 
-#endif
+

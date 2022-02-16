@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void BgSpot05Soko_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot05Soko_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot05Soko_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot05Soko_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot05Soko_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Spot05_Soko_InitVars = {
     (ActorFunc)BgSpot05Soko_Destroy,
     (ActorFunc)BgSpot05Soko_Update,
     (ActorFunc)BgSpot05Soko_Draw,
+    (ActorFunc)BgSpot05Soko_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -111,4 +113,20 @@ void BgSpot05Soko_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot05Soko_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, sDLists[thisx->params]);
+}
+
+void BgSpot05Soko_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot05_Soko_InitVars = {
+        ACTOR_BG_SPOT05_SOKO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT05_OBJECTS,
+        sizeof(BgSpot05Soko),
+        (ActorFunc)BgSpot05Soko_Init,
+        (ActorFunc)BgSpot05Soko_Destroy,
+        (ActorFunc)BgSpot05Soko_Update,
+        (ActorFunc)BgSpot05Soko_Draw,
+        (ActorFunc)BgSpot05Soko_Reset,
+    };
+
 }

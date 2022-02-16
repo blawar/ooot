@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnDha_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDha_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDha_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDha_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDha_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit En_Dha_InitVars = {
     (ActorFunc)EnDha_Destroy,
     (ActorFunc)EnDha_Update,
     (ActorFunc)EnDha_Draw,
+    (ActorFunc)EnDha_Reset,
 };
 
 static DamageTable sDamageTable = {
@@ -472,4 +474,68 @@ void EnDha_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnDha_OverrideLimbDraw, EnDha_OverridePostDraw, pthis);
+}
+
+void EnDha_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dha_InitVars = {
+        ACTOR_EN_DHA,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_DH,
+        sizeof(EnDha),
+        (ActorFunc)EnDha_Init,
+        (ActorFunc)EnDha_Destroy,
+        (ActorFunc)EnDha_Update,
+        (ActorFunc)EnDha_Draw,
+        (ActorFunc)EnDha_Reset,
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(2, 0xF),
+        /* Slingshot     */ DMG_ENTRY(0, 0x0),
+        /* Explosive     */ DMG_ENTRY(0, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(0, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(0, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(2, 0xF),
+        /* Master sword  */ DMG_ENTRY(2, 0xF),
+        /* Giant's Knife */ DMG_ENTRY(4, 0xF),
+        /* Fire arrow    */ DMG_ENTRY(0, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(0, 0x0),
+        /* Light arrow   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(0, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(2, 0xF),
+        /* Giant spin    */ DMG_ENTRY(4, 0xF),
+        /* Master spin   */ DMG_ENTRY(2, 0xF),
+        /* Kokiri jump   */ DMG_ENTRY(4, 0xF),
+        /* Giant jump    */ DMG_ENTRY(8, 0xF),
+        /* Master jump   */ DMG_ENTRY(4, 0xF),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0xF),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER | OC1_TYPE_1,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        5,
+        sJntSphElementsInit,
+    };
+
 }

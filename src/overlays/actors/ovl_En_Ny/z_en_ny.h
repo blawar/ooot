@@ -1,4 +1,4 @@
-#ifndef Z_EN_NY_H
+#pragma once
 #define Z_EN_NY_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnNy;
 
 typedef void (*EnNyActionFunc)(struct EnNy*, GlobalContext*);
 
-typedef struct EnNy {
+
+struct EnNy {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnNyActionFunc actionFunc;
     /* 0x0150 */ ColliderJntSph collider;
@@ -30,6 +32,6 @@ typedef struct EnNy {
     /* 0x01F0 */ f32 unk_1F0;
     /* 0x01F4 */ f32 unk_1F4;
     /* 0x01F8 */ Vec3f unk_1F8[16];
-} EnNy; // size = 0x02B8
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_OBJECT_KANKYO_H
+#pragma once
 #define Z_OBJECT_KANKYO_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct ObjectKankyo;
 
 typedef void (*ObjectKankyoActionFunc)(struct ObjectKankyo*, GlobalContext*);
 
-typedef struct ObjectKankyoEffect {
+struct ObjectKankyoEffect {
     /* 0x00 */ u8 state;
     /* 0x04 */ Vec3f pos; // relative to base
     /* 0x10 */ Vec3f prevPos;
@@ -24,15 +24,17 @@ typedef struct ObjectKankyoEffect {
     /* 0x4A */ u16 flightRadius;
     /* 0x4C */ f32 amplitude;
     /* 0x50 */ u16 timer;
-} ObjectKankyoEffect; // size = 0x54
+}; 
 
-typedef struct ObjectKankyo {
+
+struct ObjectKankyo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ObjectKankyoEffect effects[64];
     /* 0x164C */ Vec3f prevEyePos;
     /* 0x1658 */ s32 requiredObjBankIndex;
     /* 0x1659 */ s32 requiredObjectLoaded;
     /* 0x165C */ ObjectKankyoActionFunc actionFunc;
-} ObjectKankyo; // size = 0x1660
+}; 
 
-#endif
+

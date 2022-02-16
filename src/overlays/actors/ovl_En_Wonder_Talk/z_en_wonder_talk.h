@@ -1,4 +1,4 @@
-#ifndef Z_EN_WONDER_TALK_H
+#pragma once
 #define Z_EN_WONDER_TALK_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnWonderTalk;
 
 typedef void (*EnWonderTalkFunc)(struct EnWonderTalk*, GlobalContext*);
 
-typedef struct EnWonderTalk {
+
+struct EnWonderTalk {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnWonderTalkFunc actionFunc;
     /* 0x0150 */ s16 unk_150;
@@ -20,6 +22,6 @@ typedef struct EnWonderTalk {
     /* 0x015C */ f32 unk_15C;
     /* 0x0160 */ f32 height;
     /* 0x0164 */ u8  unk_164;
-} EnWonderTalk; // size = 0x0168
+}; 
 
-#endif
+

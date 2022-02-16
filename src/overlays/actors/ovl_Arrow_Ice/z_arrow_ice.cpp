@@ -13,6 +13,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void ArrowIce_Init(Actor* pthisx, GlobalContext* globalCtx);
+void ArrowIce_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowIce_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowIce_Update(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowIce_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Arrow_Ice_InitVars = {
     (ActorFunc)ArrowIce_Destroy,
     (ActorFunc)ArrowIce_Update,
     (ActorFunc)ArrowIce_Draw,
+    (ActorFunc)ArrowIce_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -249,4 +251,20 @@ void ArrowIce_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_ice.c", 676);
     }
+}
+
+void ArrowIce_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Arrow_Ice_InitVars = {
+        ACTOR_ARROW_ICE,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ArrowIce),
+        (ActorFunc)ArrowIce_Init,
+        (ActorFunc)ArrowIce_Destroy,
+        (ActorFunc)ArrowIce_Update,
+        (ActorFunc)ArrowIce_Draw,
+        (ActorFunc)ArrowIce_Reset,
+    };
+
 }

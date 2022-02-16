@@ -22,6 +22,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgSpot11Oasis_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot11Oasis_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot11Oasis_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot11Oasis_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_808B2970(BgSpot11Oasis* pthis);
@@ -41,6 +42,7 @@ ActorInit Bg_Spot11_Oasis_InitVars = {
     (ActorFunc)Actor_Noop,
     (ActorFunc)BgSpot11Oasis_Update,
     NULL,
+    (ActorFunc)BgSpot11Oasis_Reset,
 };
 
 static s16 D_808B2E10[][2] = {
@@ -170,4 +172,20 @@ void BgSpot11Oasis_Draw(Actor* thisx, GlobalContext* globalCtx) {
                                 32, 32, 1, gameplayFrames % 128, (gameplayFrames * 1) % 128, 32, 32));
     gSPDisplayList(POLY_XLU_DISP++, gDesertColossusOasisDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot11_oasis.c", 346);
+}
+
+void BgSpot11Oasis_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot11_Oasis_InitVars = {
+        ACTOR_BG_SPOT11_OASIS,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT11_OBJ,
+        sizeof(BgSpot11Oasis),
+        (ActorFunc)BgSpot11Oasis_Init,
+        (ActorFunc)Actor_Noop,
+        (ActorFunc)BgSpot11Oasis_Update,
+        NULL,
+        (ActorFunc)BgSpot11Oasis_Reset,
+    };
+
 }

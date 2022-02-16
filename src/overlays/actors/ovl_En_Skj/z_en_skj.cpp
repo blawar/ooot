@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSkj_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSkj_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSkj_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -115,66 +116,6 @@ void EnSkj_SetupWaitInRange(EnSkj* pthis);
 #define songFailTimer multiuseTimer
 #define battleExitTimer multiuseTimer
 
-typedef enum {
-    /* 0 */ SKJ_ANIM_BACKFLIP,
-    /* 1 */ SKJ_ANIM_SHOOT_NEEDLE,
-    /* 2 */ SKJ_ANIM_PLAY_FLUTE,
-    /* 3 */ SKJ_ANIM_DIE,
-    /* 4 */ SKJ_ANIM_HIT,
-    /* 5 */ SKJ_ANIM_LAND,
-    /* 6 */ SKJ_ANIM_LOOK_LEFT_RIGHT,
-    /* 7 */ SKJ_ANIM_FIGHTING_STANCE,
-    /* 8 */ SKJ_ANIM_WALK_TO_PLAYER,
-    /* 9 */ SKJ_ANIM_WAIT
-} SkullKidAnim;
-
-typedef enum {
-    /* 0 */ SKULL_KID_LEFT,
-    /* 1 */ SKULL_KID_RIGHT
-} SkullKidStumpSide;
-
-typedef enum {
-    /* 0 */ SKULL_KID_OCRAINA_WAIT,
-    /* 1 */ SKULL_KID_OCARINA_PLAY_NOTES,
-    /* 2 */ SKULL_KID_OCARINA_LEAVE_GAME
-} SkullKidOcarinaGameState;
-
-typedef enum {
-    /* 00 */ SKJ_ACTION_FADE,
-    /* 01 */ SKJ_ACTION_WAIT_TO_SHOOT_NEEDLE,
-    /* 02 */ SKJ_ACTION_SARIA_SONG_IDLE,
-    /* 03 */ SKJ_ACTION_WAIT_FOR_DEATH_ANIM,
-    /* 04 */ SKJ_ACTION_PICK_NEXT_FIHGT_ACTION,
-    /* 05 */ SKJ_ACTION_WAIT_FOR_LAND_ANIM,
-    /* 06 */ SKJ_ACTION_RESET_FIGHT,
-    /* 07 */ SKJ_ACTION_FIGHT,
-    /* 08 */ SKJ_ACTION_NEEDLE_RECOVER,
-    /* 09 */ SKJ_ACTION_SPAWN_DEATH_EFFECT,
-    /* 10 */ SKJ_ACTION_SARIA_SONG_WAIT_IN_RANGE,
-    /* 11 */ SKJ_ACTION_SARIA_SONG_WAIT_FOR_SONG,
-    /* 12 */ SKJ_ACTION_SARIA_SONG_AFTER_SONG,
-    /* 13 */ SKJ_ACTION_SARIA_TALK,
-    /* 14 */ SKJ_ACTION_UNK14,
-    /* 15 */ SKJ_ACTION_SARIA_SONG_CHANGE_MODE,
-    /* 16 */ SKJ_ACTION_SARIA_SONG_START_TRADE,
-    /* 17 */ SKJ_ACTION_SARIA_SONG_WAIT_FOR_LANDING,
-    /* 18 */ SKJ_ACTION_SARIA_SONG_WAIT_FOR_LANDING_ANIM,
-    /* 19 */ SKJ_ACTION_SARIA_SONG_WALK_TO_PLAYER,
-    /* 20 */ SKJ_ACTION_SARIA_SONG_ASK_FOR_MASK,
-    /* 21 */ SKJ_ACTION_SARIA_SONG_TAKE_MASK,
-    /* 22 */ SKJ_ACTION_SARIA_SONG_WAIT_MASK_TEXT,
-    /* 23 */ SKJ_ACTION_SARIA_SONG_WRONG_SONG,
-    /* 24 */ SKJ_ACTION_SARIA_SONG_WAIT_FOR_TEXT,
-    /* 25 */ SKJ_ACTION_OCARINA_GAME_WAIT_FOR_PLAYER,
-    /* 26 */ SKJ_ACTION_OCARINA_GAME_IDLE,
-    /* 27 */ SKJ_ACTION_OCARINA_GAME_PLAY,
-    /* 28 */ SKJ_ACTION_OCARINA_GAME_LEAVE
-} SkullKidAction;
-
-typedef struct {
-    u8 unk0;
-    EnSkj* skullkid;
-} unkSkjStruct;
 
 static unkSkjStruct sSmallStumpSkullKid = { 0, NULL };
 static unkSkjStruct sOcarinaMinigameSkullKids[] = { { 0, NULL }, { 0, NULL } };
@@ -189,6 +130,7 @@ ActorInit En_Skj_InitVars = {
     (ActorFunc)EnSkj_Destroy,
     (ActorFunc)EnSkj_Update,
     (ActorFunc)EnSkj_Draw,
+    (ActorFunc)EnSkj_Reset,
 };
 
 static ColliderCylinderInitType1 D_80B01678 = {
@@ -251,12 +193,6 @@ static s32 sOcarinaGameRewards[] = {
     GI_HEART_PIECE,
     GI_RUPEE_RED,
 };
-
-typedef struct {
-    AnimationHeader* animation;
-    u8 mode;
-    f32 morphFrames;
-} SkullkidAnimationEntry;
 
 static SkullkidAnimationEntry sSkullKidAnimations[] = {
     { &gSkullKidBackflipAnim, ANIMMODE_ONCE, 0.0f },
@@ -1672,4 +1608,76 @@ void EnSkj_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnSkj_OverrideLimbDraw, EnSkj_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2495);
+}
+
+void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sSmallStumpSkullKid = { 0, NULL };
+
+    En_Skj_InitVars = {
+        ACTOR_EN_SKJ,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_SKJ,
+        sizeof(EnSkj),
+        (ActorFunc)EnSkj_Init,
+        (ActorFunc)EnSkj_Destroy,
+        (ActorFunc)EnSkj_Update,
+        (ActorFunc)EnSkj_Draw,
+        (ActorFunc)EnSkj_Reset,
+    };
+
+    D_80B01678 = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x0, 0x08 },
+            { 0xFFCFFFFF, 0x0, 0x0 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 8, 48, 0, { 0, 0, 0 } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(0, 0x0),
+        /* Slingshot     */ DMG_ENTRY(0, 0x0),
+        /* Explosive     */ DMG_ENTRY(0, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(0, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0xF),
+        /* Master sword  */ DMG_ENTRY(2, 0xF),
+        /* Giant's Knife */ DMG_ENTRY(4, 0xF),
+        /* Fire arrow    */ DMG_ENTRY(0, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(0, 0x0),
+        /* Light arrow   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(0, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
 }

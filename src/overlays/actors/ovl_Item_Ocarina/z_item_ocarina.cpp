@@ -16,6 +16,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ItemOcarina_Init(Actor* thisx, GlobalContext* globalCtx);
+void ItemOcarina_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ItemOcarina_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ItemOcarina_Update(Actor* thisx, GlobalContext* globalCtx);
 void ItemOcarina_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Item_Ocarina_InitVars = {
     (ActorFunc)ItemOcarina_Destroy,
     (ActorFunc)ItemOcarina_Update,
     (ActorFunc)ItemOcarina_Draw,
+    (ActorFunc)ItemOcarina_Reset,
 };
 
 void ItemOcarina_SetupAction(ItemOcarina* pthis, ItemOcarinaActionFunc actionFunc) {
@@ -206,4 +208,20 @@ void ItemOcarina_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_8002EBCC(thisx, globalCtx, 0);
     func_8002ED80(thisx, globalCtx, 0);
     GetItem_Draw(globalCtx, GID_OCARINA_TIME);
+}
+
+void ItemOcarina_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Item_Ocarina_InitVars = {
+        ACTOR_ITEM_OCARINA,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GI_OCARINA,
+        sizeof(ItemOcarina),
+        (ActorFunc)ItemOcarina_Init,
+        (ActorFunc)ItemOcarina_Destroy,
+        (ActorFunc)ItemOcarina_Update,
+        (ActorFunc)ItemOcarina_Draw,
+        (ActorFunc)ItemOcarina_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_PO_FIELD_H
+#pragma once
 #define Z_EN_PO_FIELD_H
 
 #include "ultra64.h"
@@ -8,20 +8,22 @@ struct EnPoField;
 
 typedef void (*EnPoFieldActionFunc)(struct EnPoField*, GlobalContext*);
 
-typedef enum {
+enum EnPoFieldSize {
     EN_PO_FIELD_SMALL,
     EN_PO_FIELD_BIG
-} EnPoFieldSize;
+};
 
-typedef struct {
+struct EnPoFieldInfo {
     /* 0x0000 */ Color_RGB8 primColor;
     /* 0x0003 */ Color_RGB8 lightColor;
     /* 0x0006 */ Color_RGB8 envColor;
     /* 0x0009 */ s8 unk_9;
     /* 0x000C */ void* soulTexture;
-} EnPoFieldInfo; // size = 0x10
+}; 
 
-typedef struct EnPoField {
+
+struct EnPoField {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPoFieldActionFunc actionFunc;
@@ -41,6 +43,6 @@ typedef struct EnPoField {
     /* 0x0234 */ LightInfo lightInfo;
     /* 0x0244 */ ColliderCylinder collider;
     /* 0x0290 */ ColliderCylinder flameCollider;
-} EnPoField; // size = 0x02DC
+}; 
 
-#endif
+

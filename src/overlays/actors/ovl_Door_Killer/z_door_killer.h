@@ -1,4 +1,4 @@
-#ifndef Z_DOOR_KILLER_H
+#pragma once
 #define Z_DOOR_KILLER_H
 
 #include "ultra64.h"
@@ -9,16 +9,25 @@
  * ((params >> 8) & 0x3F) == 0x3F means no switch flag is checked / set
 */
 
-typedef struct {
+struct DoorKillerTextureEntry {
     /* 0x00 */ s16 objectId;
     /* 0x04 */ void* texture;
-} DoorKillerTextureEntry; // size 0x8
+}; 
 
 struct DoorKiller;
 
 typedef void (*DoorKillerActionFunc)(struct DoorKiller*, GlobalContext*);
 
-typedef struct DoorKiller {
+
+enum DoorKillerBehaviour {
+    /* 0 */ DOOR_KILLER_DOOR,
+    /* 1 */ DOOR_KILLER_RUBBLE_PIECE_1,
+    /* 2 */ DOOR_KILLER_RUBBLE_PIECE_2,
+    /* 3 */ DOOR_KILLER_RUBBLE_PIECE_3,
+    /* 4 */ DOOR_KILLER_RUBBLE_PIECE_4
+};
+struct DoorKiller {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ u8 animStyle; // Must be at same offset as animStyle in EnDoor due to the cast in func_80839800
@@ -33,6 +42,6 @@ typedef struct DoorKiller {
     /* 0x0220 */ ColliderJntSph colliderJntSph;
     /* 0x0240 */ ColliderJntSphElement colliderJntSphItems[1];
     /* 0x0280 */ DoorKillerActionFunc actionFunc;
-} DoorKiller; // size = 0x0284
+}; 
 
-#endif
+

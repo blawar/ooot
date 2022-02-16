@@ -31,6 +31,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnHeishi2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHeishi2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHeishi2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -76,6 +77,7 @@ ActorInit En_Heishi2_InitVars = {
     (ActorFunc)EnHeishi2_Destroy,
     (ActorFunc)EnHeishi2_Update,
     (ActorFunc)EnHeishi2_Draw,
+    (ActorFunc)EnHeishi2_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -877,4 +879,40 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1834);
+}
+
+void EnHeishi2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Heishi2_InitVars = {
+        ACTOR_EN_HEISHI2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SD,
+        sizeof(EnHeishi2),
+        (ActorFunc)EnHeishi2_Init,
+        (ActorFunc)EnHeishi2_Destroy,
+        (ActorFunc)EnHeishi2_Update,
+        (ActorFunc)EnHeishi2_Draw,
+        (ActorFunc)EnHeishi2_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 33, 40, 0, { 0, 0, 0 } },
+    };
+
 }

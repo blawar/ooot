@@ -1,4 +1,4 @@
-#ifndef Z_EN_M_THUNDER_H
+#pragma once
 #define Z_EN_M_THUNDER_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnMThunder;
 
 typedef void (*EnMThunderActionFunc)(struct EnMThunder*, GlobalContext*);
 
-typedef struct EnMThunder {
+
+struct EnMThunder {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ LightNode* lightNode;
@@ -25,6 +27,6 @@ typedef struct EnMThunder {
     /* 0x01C8 */ u8 unk_1C8;
     /* 0x01C9 */ u8 unk_1C9;
     /* 0x01CA */ u8 unk_1CA;
-} EnMThunder; // size = 0x01CC
+}; 
 
-#endif
+

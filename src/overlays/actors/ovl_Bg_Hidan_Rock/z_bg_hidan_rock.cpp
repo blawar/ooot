@@ -25,6 +25,7 @@
 #define FLAGS 0
 
 void BgHidanRock_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanRock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanRock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanRock_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanRock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -54,6 +55,7 @@ ActorInit Bg_Hidan_Rock_InitVars = {
     (ActorFunc)BgHidanRock_Destroy,
     (ActorFunc)BgHidanRock_Update,
     (ActorFunc)BgHidanRock_Draw,
+    (ActorFunc)BgHidanRock_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -411,4 +413,42 @@ void BgHidanRock_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_80078914(&pthis->unk_170, NA_SE_EV_FIRE_PILLAR - SFX_FLAG);
         func_8088BC40(globalCtx, pthis);
     }
+}
+
+void BgHidanRock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_8088BF60 = { 3310.0f, 120.0f, 0.0f };
+
+    Bg_Hidan_Rock_InitVars = {
+        ACTOR_BG_HIDAN_ROCK,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanRock),
+        (ActorFunc)BgHidanRock_Init,
+        (ActorFunc)BgHidanRock_Destroy,
+        (ActorFunc)BgHidanRock_Update,
+        (ActorFunc)BgHidanRock_Draw,
+        (ActorFunc)BgHidanRock_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x01, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { 45, 77, -40, { 3310, 120, 0 } },
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_BOM_BOWL_MAN_H
+#pragma once
 #define Z_EN_BOM_BOWL_MAN_H
 
 #include "ultra64.h"
@@ -7,10 +7,20 @@
 #include "overlays/actors/ovl_En_Bom_Bowl_Pit/z_en_bom_bowl_pit.h"
 
 struct EnBomBowlMan;
+struct EnBomBowlPit;
+struct EnExItem;
 
 typedef void (*EnBomBowlManActionFunc)(struct EnBomBowlMan*, GlobalContext*);
 
-typedef struct EnBomBowlMan {
+
+enum BombchuGirlEyeMode {
+    /* 0 */ CHU_GIRL_EYES_ASLEEP,
+    /* 1 */ CHU_GIRL_EYES_OPEN_SLOWLY,
+    /* 2 */ CHU_GIRL_EYES_BLINK_RAPIDLY,
+    /* 3 */ CHU_GIRL_EYES_AWAKE
+};
+struct EnBomBowlMan {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[11];
@@ -37,6 +47,6 @@ typedef struct EnBomBowlMan {
     /* 0x0258 */ u8 minigamePlayStatus; // 0 = default, 1 = paid, 2 = playing
     /* 0x025C */ EnBomBowlPit* bowlPit;
     /* 0x0260 */ EnExItem* exItem;
-} EnBomBowlMan; // size = 0x0264
+}; 
 
-#endif
+

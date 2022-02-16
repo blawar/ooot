@@ -26,6 +26,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_23)
 
 void EnKusa_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnKusa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnKusa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKusa_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKusa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -62,6 +63,7 @@ ActorInit En_Kusa_InitVars = {
     (ActorFunc)EnKusa_Destroy,
     (ActorFunc)EnKusa_Update,
     NULL,
+    (ActorFunc)EnKusa_Reset,
 };
 
 static s16 sObjectIds[] = { OBJECT_GAMEPLAY_FIELD_KEEP, OBJECT_KUSA, OBJECT_KUSA };
@@ -512,4 +514,50 @@ void EnKusa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, dLists[thisx->params & 3]);
     }
+}
+
+void EnKusa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    rotSpeedXtarget = 0;
+
+    rotSpeedX = 0;
+
+    rotSpeedYtarget = 0;
+
+    rotSpeedY = 0;
+
+    En_Kusa_InitVars = {
+        ACTOR_EN_KUSA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnKusa),
+        (ActorFunc)EnKusa_Init,
+        (ActorFunc)EnKusa_Destroy,
+        (ActorFunc)EnKusa_Update,
+        NULL,
+        (ActorFunc)EnKusa_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER | OC1_TYPE_2,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x4FC00758, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 12, 44, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 12, 30, MASS_IMMOVABLE };
+
 }

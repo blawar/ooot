@@ -1,4 +1,4 @@
-#ifndef Z_EN_ENCOUNT2_H
+#pragma once
 #define Z_EN_ENCOUNT2_H
 
 #include "ultra64.h"
@@ -8,15 +8,22 @@ struct EnEncount2;
 
 typedef void (*EnEncount2ActionFunc)(struct EnEncount2*, GlobalContext*);
 
-typedef struct {
+struct EnEncount2Particle {
     /* 0x0000 */ Vec3f pos;
     /* 0x000C */ f32 scale;
     /* 0x0010 */ u8 isAlive;
     /* 0x0014 */ Vec3f moveDirection;
     /* 0x0020 */ Vec3f rot;
-} EnEncount2Particle; // size = 0x2C
+}; 
 
-typedef struct EnEncount2 {
+
+enum Encount2State {
+    /* 0x0 */ ENCOUNT2_INACTIVE,
+    /* 0x1 */ ENCOUNT2_ACTIVE_DEATH_MOUNTAIN,
+    /* 0x2 */ ENCOUNT2_ACTIVE_GANONS_TOWER
+};
+struct EnEncount2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnEncount2ActionFunc actionFunc;
     /* 0x0150 */ char unk150[0x4];
@@ -36,6 +43,6 @@ typedef struct EnEncount2 {
     /* 0x017C */ f32 unk17C;
     /* 0x0180 */ u64 isQuaking;
     /* 0x0188 */ EnEncount2Particle particles[50];
-} EnEncount2; // size = 0x0A20
+}; 
 
-#endif
+

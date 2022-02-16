@@ -32,12 +32,6 @@
 #define INGORACE_SET_TIMER (1 << 1)
 #define INGORACE_INGO_MOVE (1 << 2)
 
-typedef enum {
-    /* 0 */ INGORACE_NO_RESULT,
-    /* 1 */ INGORACE_PLAYER_WIN,
-    /* 2 */ INGORACE_INGO_WIN,
-    /* 3 */ INGORACE_TIME_UP
-} HorseGameIngoRaceResult;
 
 #define MALONRACE_PLAYER_MOVE (1 << 0)
 #define MALONRACE_SET_TIMER (1 << 1)
@@ -47,15 +41,9 @@ typedef enum {
 #define MALONRACE_PLAYER_START (1 << 5)
 #define MALONRACE_PLAYER_ON_MARK (1 << 6)
 
-typedef enum {
-    /* 0 */ MALONRACE_NO_RESULT,
-    /* 1 */ MALONRACE_SUCCESS,
-    /* 2 */ MALONRACE_TIME_UP,
-    /* 3 */ MALONRACE_UNUSED,
-    /* 4 */ MALONRACE_FAILURE
-} HorseGameMalonRaceResult;
 
 void EnHorseGameCheck_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHorseGameCheck_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHorseGameCheck_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseGameCheck_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseGameCheck_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -70,6 +58,7 @@ ActorInit En_Horse_Game_Check_InitVars = {
     (ActorFunc)EnHorseGameCheck_Destroy,
     (ActorFunc)EnHorseGameCheck_Update,
     (ActorFunc)EnHorseGameCheck_Draw,
+    (ActorFunc)EnHorseGameCheck_Reset,
 };
 
 static Vec3f sIngoRaceCheckpoints[] = {
@@ -479,4 +468,22 @@ void EnHorseGameCheck_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnHorseGameCheck_Draw(Actor* thisx, GlobalContext* globalCtx) {
+}
+
+void EnHorseGameCheck_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Horse_Game_Check_InitVars = {
+        ACTOR_EN_HORSE_GAME_CHECK,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnHorseGameCheck),
+        (ActorFunc)EnHorseGameCheck_Init,
+        (ActorFunc)EnHorseGameCheck_Destroy,
+        (ActorFunc)EnHorseGameCheck_Update,
+        (ActorFunc)EnHorseGameCheck_Draw,
+        (ActorFunc)EnHorseGameCheck_Reset,
+    };
+
+    sUnusedZeroVec = { 0.0f, 0.0f, 0.0f };
+
 }

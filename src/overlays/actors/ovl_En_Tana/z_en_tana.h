@@ -1,4 +1,4 @@
-#ifndef Z_EN_TANA_H
+#pragma once
 #define Z_EN_TANA_H
 
 #include "ultra64.h"
@@ -6,8 +6,10 @@
 
 struct EnTana;
 
-typedef struct EnTana {
-    /* 0x0000 */ Actor actor;
-} EnTana; // size = 0x014C
 
-#endif
+struct EnTana {
+
+    /* 0x0000 */ Actor actor;
+}; 
+
+

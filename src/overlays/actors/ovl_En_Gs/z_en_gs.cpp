@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnGs_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGs_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGs_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGs_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit En_Gs_InitVars = {
     (ActorFunc)EnGs_Destroy,
     (ActorFunc)EnGs_Update,
     (ActorFunc)EnGs_Draw,
+    (ActorFunc)EnGs_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -625,4 +627,77 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gs.c", 1101);
     }
+}
+
+void EnGs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Gs_InitVars = {
+        ACTOR_EN_GS,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GS,
+        sizeof(EnGs),
+        (ActorFunc)EnGs_Init,
+        (ActorFunc)EnGs_Destroy,
+        (ActorFunc)EnGs_Update,
+        (ActorFunc)EnGs_Draw,
+        (ActorFunc)EnGs_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HARD,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 21, 48, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(0, 0x0),
+        /* Slingshot     */ DMG_ENTRY(0, 0xE),
+        /* Explosive     */ DMG_ENTRY(0, 0xC),
+        /* Boomerang     */ DMG_ENTRY(0, 0xE),
+        /* Normal arrow  */ DMG_ENTRY(0, 0xE),
+        /* Hammer swing  */ DMG_ENTRY(0, 0xD),
+        /* Hookshot      */ DMG_ENTRY(0, 0xE),
+        /* Kokiri sword  */ DMG_ENTRY(0, 0xF),
+        /* Master sword  */ DMG_ENTRY(0, 0xF),
+        /* Giant's Knife */ DMG_ENTRY(0, 0xF),
+        /* Fire arrow    */ DMG_ENTRY(0, 0xB),
+        /* Ice arrow     */ DMG_ENTRY(0, 0xB),
+        /* Light arrow   */ DMG_ENTRY(0, 0xB),
+        /* Unk arrow 1   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(0, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0xB),
+        /* Ice magic     */ DMG_ENTRY(0, 0xB),
+        /* Light magic   */ DMG_ENTRY(0, 0xB),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(0, 0x0),
+        /* Giant spin    */ DMG_ENTRY(0, 0x0),
+        /* Master spin   */ DMG_ENTRY(0, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(0, 0x0),
+        /* Giant jump    */ DMG_ENTRY(0, 0x0),
+        /* Master jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
 }

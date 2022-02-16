@@ -1,4 +1,4 @@
-#ifndef Z_EN_WOOD02_H
+#pragma once
 #define Z_EN_WOOD02_H
 
 #include "ultra64.h"
@@ -6,18 +6,35 @@
 
 struct EnWood02;
 
-typedef struct EnWood02 {
+
+enum WoodSpawnType {
+    /* 0 */ WOOD_SPAWN_NORMAL,
+    /* 1 */ WOOD_SPAWN_SPAWNED,
+    /* 2 */ WOOD_SPAWN_SPAWNER
+};
+
+
+enum WoodDrawType {
+    /* 0 */ WOOD_DRAW_TREE_CONICAL,
+    /* 1 */ WOOD_DRAW_TREE_OVAL,
+    /* 2 */ WOOD_DRAW_TREE_KAKARIKO_ADULT,
+    /* 3 */ WOOD_DRAW_BUSH_GREEN,
+    /* 4 */ WOOD_DRAW_4, // Used for black bushes and green leaves
+    /* 5 */ WOOD_DRAW_LEAF_YELLOW
+};
+struct EnWood02 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s16 unk_14C;
     /* 0x014E */ u8 unk_14E[5];
     /* 0x0153 */ u8 spawnType;
     /* 0x0154 */ u8 drawType;
     /* 0x0158 */ ColliderCylinder collider;
-} EnWood02; // size = 0x01A4
+}; 
 
 // Types with SPAWNED in the name are those that can be managed by a spawner, however the actor allows you to spawn them
 // on their own without a spawner as well.
-typedef enum {
+enum WoodType {
     /* 0x00 */ WOOD_TREE_CONICAL_LARGE,
     /* 0x01 */ WOOD_TREE_CONICAL_MEDIUM,
     /* 0x02 */ WOOD_TREE_CONICAL_SMALL,
@@ -43,6 +60,6 @@ typedef enum {
     /* 0x16 */ WOOD_BUSH_BLACK_LARGE_SPAWNED,
     /* 0x17 */ WOOD_LEAF_GREEN,
     /* 0x18 */ WOOD_LEAF_YELLOW
-} WoodType;
+};
 
-#endif
+

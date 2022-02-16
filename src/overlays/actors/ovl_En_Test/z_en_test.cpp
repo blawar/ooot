@@ -26,6 +26,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnTest_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTest_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTest_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTest_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTest_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -151,6 +152,7 @@ ActorInit En_Test_InitVars = {
     (ActorFunc)EnTest_Destroy,
     (ActorFunc)EnTest_Update,
     (ActorFunc)EnTest_Draw,
+    (ActorFunc)EnTest_Reset,
 };
 
 static ColliderCylinderInit sBodyColliderInit = {
@@ -212,15 +214,6 @@ static ColliderQuadInit sSwordColliderInit = {
     },
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
-
-typedef enum {
-    /* 0x0 */ STALFOS_DMGEFF_NORMAL,
-    /* 0x1 */ STALFOS_DMGEFF_STUN,
-    /* 0x6 */ STALFOS_DMGEFF_FIREMAGIC = 6,
-    /* 0xD */ STALFOS_DMGEFF_SLING = 0xD,
-    /* 0xE */ STALFOS_DMGEFF_LIGHT,
-    /* 0xF */ STALFOS_DMGEFF_FREEZE
-} StalfosDamageEffect;
 
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, STALFOS_DMGEFF_STUN),
@@ -2069,4 +2062,115 @@ s32 EnTest_ReactToProjectile(GlobalContext* globalCtx, EnTest* pthis) {
     }
 
     return false;
+}
+
+void EnTest_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Test_InitVars = {
+        ACTOR_EN_TEST,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_SK2,
+        sizeof(EnTest),
+        (ActorFunc)EnTest_Init,
+        (ActorFunc)EnTest_Destroy,
+        (ActorFunc)EnTest_Update,
+        (ActorFunc)EnTest_Draw,
+        (ActorFunc)EnTest_Reset,
+    };
+
+    sBodyColliderInit = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 25, 65, 0, { 0, 0, 0 } },
+    };
+
+    sShieldColliderInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFC1FFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 20, 70, -50, { 0, 0, 0 } },
+    };
+
+    sSwordColliderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x10 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL | TOUCH_UNK7,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, STALFOS_DMGEFF_STUN),
+        /* Deku stick    */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Slingshot     */ DMG_ENTRY(1, STALFOS_DMGEFF_SLING),
+        /* Explosive     */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Boomerang     */ DMG_ENTRY(0, STALFOS_DMGEFF_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Hammer swing  */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Hookshot      */ DMG_ENTRY(0, STALFOS_DMGEFF_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, STALFOS_DMGEFF_NORMAL),
+        /* Master sword  */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Giant's Knife */ DMG_ENTRY(4, STALFOS_DMGEFF_NORMAL),
+        /* Fire arrow    */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Ice arrow     */ DMG_ENTRY(4, STALFOS_DMGEFF_FREEZE),
+        /* Light arrow   */ DMG_ENTRY(2, STALFOS_DMGEFF_LIGHT),
+        /* Unk arrow 1   */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Unk arrow 2   */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Unk arrow 3   */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Fire magic    */ DMG_ENTRY(0, STALFOS_DMGEFF_FIREMAGIC),
+        /* Ice magic     */ DMG_ENTRY(3, STALFOS_DMGEFF_FREEZE),
+        /* Light magic   */ DMG_ENTRY(0, STALFOS_DMGEFF_LIGHT),
+        /* Shield        */ DMG_ENTRY(0, STALFOS_DMGEFF_NORMAL),
+        /* Mirror Ray    */ DMG_ENTRY(0, STALFOS_DMGEFF_NORMAL),
+        /* Kokiri spin   */ DMG_ENTRY(1, STALFOS_DMGEFF_NORMAL),
+        /* Giant spin    */ DMG_ENTRY(4, STALFOS_DMGEFF_NORMAL),
+        /* Master spin   */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Kokiri jump   */ DMG_ENTRY(2, STALFOS_DMGEFF_NORMAL),
+        /* Giant jump    */ DMG_ENTRY(8, STALFOS_DMGEFF_NORMAL),
+        /* Master jump   */ DMG_ENTRY(4, STALFOS_DMGEFF_NORMAL),
+        /* Unknown 1     */ DMG_ENTRY(0, STALFOS_DMGEFF_NORMAL),
+        /* Unblockable   */ DMG_ENTRY(0, STALFOS_DMGEFF_NORMAL),
+        /* Hammer jump   */ DMG_ENTRY(4, STALFOS_DMGEFF_NORMAL),
+        /* Unknown 2     */ DMG_ENTRY(0, STALFOS_DMGEFF_NORMAL),
+    };
+
 }

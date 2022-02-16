@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnBa_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBa_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit En_Ba_InitVars = {
     (ActorFunc)EnBa_Destroy,
     (ActorFunc)EnBa_Update,
     (ActorFunc)EnBa_Draw,
+    (ActorFunc)EnBa_Reset,
 };
 
 static Vec3f D_809B8080 = { 0.0f, 0.0f, 32.0f };
@@ -530,4 +532,37 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_OPA_DISP++, object_bxa_DL_001D80);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ba.c", 995);
+}
+
+void EnBa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ba_InitVars = {
+        ACTOR_EN_BA,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_BXA,
+        sizeof(EnBa),
+        (ActorFunc)EnBa_Init,
+        (ActorFunc)EnBa_Destroy,
+        (ActorFunc)EnBa_Update,
+        (ActorFunc)EnBa_Draw,
+        (ActorFunc)EnBa_Reset,
+    };
+
+    D_809B8080 = { 0.0f, 0.0f, 32.0f };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT0,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        2,
+        sJntSphElementInit,
+    };
+
+    D_809B80E4 = { 0.01f, 0.01f, 0.01f };
+
 }

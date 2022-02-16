@@ -1,4 +1,4 @@
-#ifndef Z_EN_XC_H
+#pragma once
 #define Z_EN_XC_H
 
 #include "ultra64.h"
@@ -9,7 +9,7 @@ struct EnXc;
 typedef void (*EnXcActionFunc)(struct EnXc*, GlobalContext*);
 typedef void (*EnXcDrawFunc)(struct Actor*, GlobalContext*);
 
-typedef enum {
+enum EnXcType {
     /* 0 */ SHEIK_TYPE_0,
     /* 1 */ SHEIK_TYPE_1,
     /* 2 */ SHEIK_TYPE_2,
@@ -20,18 +20,18 @@ typedef enum {
     /* 7 */ SHEIK_TYPE_BOLERO,
     /* 8 */ SHEIK_TYPE_SERENADE,
     /* 9 */ SHEIK_TYPE_9
-} EnXcType;
+};
 
-typedef enum {
+enum EnXcDrawMode {
     /* 0 */ SHEIK_DRAW_NOTHING,
     /* 1 */ SHEIK_DRAW_DEFAULT,
     /* 2 */ SHEIK_DRAW_PULLING_OUT_HARP,
     /* 3 */ SHEIK_DRAW_HARP,
     /* 4 */ SHEIK_DRAW_TRIFORCE,
     /* 5 */ SHEIK_DRAW_SQUINT
-} EnXcDrawMode;
+};
 
-typedef enum {
+enum EnXcAction {
     /* 00 */ SHEIK_ACTION_INIT,
     /* 01 */ SHEIK_ACTION_WAIT,
     /* 02 */ SHEIK_ACTION_GRACEFUL_FALL,
@@ -113,9 +113,11 @@ typedef enum {
     /* 78 */ SHEIK_ACTION_78,
     /* 79 */ SHEIK_ACTION_BLOCK_PEDESTAL,
     /* 80 */ SHEIK_ACTION_IN_DIALOGUE
-} EnXcAction;
+};
 
-typedef struct EnXc {
+
+struct EnXc {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[17];
@@ -140,6 +142,6 @@ typedef struct EnXc {
     /* 0x030C */ s32 unk_30C;
     /* 0x0310 */ Actor* flameActor;
     /* 0x0314 */ struct_80034A14_arg1 npcInfo;
-} EnXc; // size = 0x033C
+}; 
 
-#endif
+

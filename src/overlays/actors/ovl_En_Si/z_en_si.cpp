@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_9)
 
 void EnSi_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSi_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSi_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSi_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSi_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -60,6 +61,7 @@ ActorInit En_Si_InitVars = {
     (ActorFunc)EnSi_Destroy,
     (ActorFunc)EnSi_Update,
     (ActorFunc)EnSi_Draw,
+    (ActorFunc)EnSi_Reset,
 };
 
 void EnSi_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -160,4 +162,42 @@ void EnSi_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_8002EBCC(&pthis->actor, globalCtx, 0);
         GetItem_Draw(globalCtx, GID_SKULL_TOKEN_2);
     }
+}
+
+void EnSi_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_NO_PUSH | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000090, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 20, 18, 2, { 0, 0, 0 } },
+    };
+
+    D_80AFBADC = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
+    En_Si_InitVars = {
+        ACTOR_EN_SI,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_ST,
+        sizeof(EnSi),
+        (ActorFunc)EnSi_Init,
+        (ActorFunc)EnSi_Destroy,
+        (ActorFunc)EnSi_Update,
+        (ActorFunc)EnSi_Draw,
+        (ActorFunc)EnSi_Reset,
+    };
+
 }

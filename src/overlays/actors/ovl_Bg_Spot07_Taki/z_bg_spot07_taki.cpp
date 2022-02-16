@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSpot07Taki_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot07Taki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot07Taki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot07Taki_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,6 +34,7 @@ ActorInit Bg_Spot07_Taki_InitVars = {
     (ActorFunc)BgSpot07Taki_Destroy,
     (ActorFunc)BgSpot07Taki_Update,
     (ActorFunc)BgSpot07Taki_Draw,
+    (ActorFunc)BgSpot07Taki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -122,4 +124,20 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_0032D8);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 272);
+}
+
+void BgSpot07Taki_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot07_Taki_InitVars = {
+        ACTOR_BG_SPOT07_TAKI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT07_OBJECT,
+        sizeof(BgSpot07Taki),
+        (ActorFunc)BgSpot07Taki_Init,
+        (ActorFunc)BgSpot07Taki_Destroy,
+        (ActorFunc)BgSpot07Taki_Update,
+        (ActorFunc)BgSpot07Taki_Draw,
+        (ActorFunc)BgSpot07Taki_Reset,
+    };
+
 }

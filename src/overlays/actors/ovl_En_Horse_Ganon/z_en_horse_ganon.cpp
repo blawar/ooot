@@ -21,13 +21,10 @@
 #include "def/z_skin_awb.h"
 
 #define FLAGS ACTOR_FLAG_4
-
-typedef struct {
-    /* 0x0 */ Vec3s unk_0;
-    /* 0x6 */ u8 unk_6;
-} unk_D_80A69248; // size = 0x8
+ 
 
 void EnHorseGanon_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHorseGanon_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHorseGanon_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseGanon_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseGanon_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +43,7 @@ ActorInit En_Horse_Ganon_InitVars = {
     (ActorFunc)EnHorseGanon_Destroy,
     (ActorFunc)EnHorseGanon_Update,
     (ActorFunc)EnHorseGanon_Draw,
+    (ActorFunc)EnHorseGanon_Reset,
 };
 
 static AnimationHeader* sAnimations[] = {
@@ -340,4 +338,55 @@ void EnHorseGanon_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80A68E14(pthis, globalCtx);
     func_80093D18(globalCtx->state.gfxCtx);
     func_800A6330(&pthis->actor, globalCtx, &pthis->skin, func_80A68FA8, 1);
+}
+
+void EnHorseGanon_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Horse_Ganon_InitVars = {
+        ACTOR_EN_HORSE_GANON,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HORSE_GANON,
+        sizeof(EnHorseGanon),
+        (ActorFunc)EnHorseGanon_Init,
+        (ActorFunc)EnHorseGanon_Destroy,
+        (ActorFunc)EnHorseGanon_Update,
+        (ActorFunc)EnHorseGanon_Draw,
+        (ActorFunc)EnHorseGanon_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 40, 100, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 10, 35, 100, MASS_HEAVY };
+
 }

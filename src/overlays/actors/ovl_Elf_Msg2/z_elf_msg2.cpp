@@ -16,6 +16,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ElfMsg2_Init(Actor* thisx, GlobalContext* globalCtx);
+void ElfMsg2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ElfMsg2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ElfMsg2_Update(Actor* thisx, GlobalContext* globalCtx);
 void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit Elf_Msg2_InitVars = {
     (ActorFunc)ElfMsg2_Destroy,
     (ActorFunc)ElfMsg2_Update,
     (ActorFunc)ElfMsg2_Draw,
+    (ActorFunc)ElfMsg2_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -170,4 +172,20 @@ void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, sCubeDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 367);
+}
+
+void ElfMsg2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Elf_Msg2_InitVars = {
+        ACTOR_ELF_MSG2,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ElfMsg2),
+        (ActorFunc)ElfMsg2_Init,
+        (ActorFunc)ElfMsg2_Destroy,
+        (ActorFunc)ElfMsg2_Update,
+        (ActorFunc)ElfMsg2_Draw,
+        (ActorFunc)ElfMsg2_Reset,
+    };
+
 }

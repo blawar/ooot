@@ -32,6 +32,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnDntNomal_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDntNomal_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDntNomal_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDntNomal_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDntNomal_DrawTargetScrub(Actor* thisx, GlobalContext* globalCtx);
@@ -82,6 +83,7 @@ ActorInit En_Dnt_Nomal_InitVars = {
     (ActorFunc)EnDntNomal_Destroy,
     (ActorFunc)EnDntNomal_Update,
     NULL,
+    (ActorFunc)EnDntNomal_Reset,
 };
 
 static ColliderCylinderInit sBodyCylinderInit = {
@@ -900,4 +902,60 @@ void EnDntNomal_DrawTargetScrub(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, gHintNutsFlowerDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_nomal.c", 1851);
+}
+
+void EnDntNomal_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dnt_Nomal_InitVars = {
+        ACTOR_EN_DNT_NOMAL,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnDntNomal),
+        (ActorFunc)EnDntNomal_Init,
+        (ActorFunc)EnDntNomal_Destroy,
+        (ActorFunc)EnDntNomal_Update,
+        NULL,
+        (ActorFunc)EnDntNomal_Reset,
+    };
+
+    sBodyCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 16, 46, 0, { 0, 0, 0 } },
+    };
+
+    sTargetQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x0001F824, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
 }

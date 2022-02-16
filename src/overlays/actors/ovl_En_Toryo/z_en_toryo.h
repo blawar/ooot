@@ -1,4 +1,4 @@
-#ifndef Z_EN_TORYO_H
+#pragma once
 #define Z_EN_TORYO_H
 
 #include "ultra64.h"
@@ -8,7 +8,16 @@ struct EnToryo;
 
 typedef void (*EnToryoActionFunc)(struct EnToryo* pthis, GlobalContext* globalCtx);
 
-typedef struct EnToryo {
+
+
+struct EnToryoAnimation {
+    AnimationHeader* anim;
+    f32 unk_4;
+    u8 mode;
+    f32 transitionRate;
+};
+struct EnToryo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnToryoActionFunc actionFunc;
@@ -20,6 +29,6 @@ typedef struct EnToryo {
     /* 0x01EC */ struct_80034A14_arg1 unk_1EC;
     /* 0x0214 */ Vec3s jointTable[17];
     /* 0x027A */ Vec3s morphTable[17];
-} EnToryo; // size = 0x02E0
+}; 
 
-#endif
+

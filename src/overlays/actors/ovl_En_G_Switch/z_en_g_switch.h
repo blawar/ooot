@@ -1,4 +1,4 @@
-#ifndef Z_EN_G_SWITCH_H
+#pragma once
 #define Z_EN_G_SWITCH_H
 
 #include "ultra64.h"
@@ -8,23 +8,23 @@ struct EnGSwitch;
 
 typedef void (*EnGSwitchActionFunc)(struct EnGSwitch*, GlobalContext*);
 
-typedef enum {
+enum EnGSwitchMoveMode {
     /* 0 */ GSWITCH_NONE,
     /* 1 */ GSWITCH_APPEAR,
     /* 2 */ GSWITCH_THROW,
     /* 3 */ GSWITCH_UNUSED,
     /* 4 */ GSWITCH_LEFT,
     /* 5 */ GSWITCH_RIGHT
-} EnGSwitchMoveMode;
+};
 
-typedef enum {
+enum EnGSwitchType {
     /* 0 */ ENGSWITCH_SILVER_TRACKER,
     /* 1 */ ENGSWITCH_SILVER_RUPEE,
     /* 2 */ ENGSWITCH_ARCHERY_POT,
     /* 3 */ ENGSWITCH_TARGET_RUPEE
-} EnGSwitchType;
+};
 
-typedef struct {
+struct EnGSwitchEffect {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ s16 scale;
     /* 0x0E */ s16 timer;
@@ -32,9 +32,15 @@ typedef struct {
     /* 0x12 */ u8 flag;
     /* 0x14 */ Vec3f velocity;
     /* 0x20 */ Vec3f rot;
-} EnGSwitchEffect; // size = 0x2C
+}; 
 
-typedef struct EnGSwitch {
+
+enum GSwitchMoveState {
+    /* 0 */ MOVE_TARGET,
+    /* 1 */ MOVE_HOME
+};
+struct EnGSwitch {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnGSwitchActionFunc actionFunc;
     /* 0x0150 */ s16 type;
@@ -55,6 +61,6 @@ typedef struct EnGSwitch {
     /* 0x0178 */ s32 objIndex;
     /* 0x017C */ ColliderCylinder collider;
     /* 0x01C8 */ EnGSwitchEffect effects[100];
-} EnGSwitch; // size = 0x12F8
+}; 
 
-#endif
+

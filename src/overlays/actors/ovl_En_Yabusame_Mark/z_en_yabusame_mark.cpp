@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void EnYabusameMark_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnYabusameMark_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnYabusameMark_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnYabusameMark_Update(Actor* thisx, GlobalContext* globalCtx);
 void func_80B42F74(EnYabusameMark* pthis, GlobalContext* globalCtx);
@@ -53,6 +54,7 @@ ActorInit En_Yabusame_Mark_InitVars = {
     (ActorFunc)EnYabusameMark_Destroy,
     (ActorFunc)EnYabusameMark_Update,
     NULL,
+    (ActorFunc)EnYabusameMark_Reset,
 };
 
 static Vec3f sCollisionVertices[] = {
@@ -221,4 +223,40 @@ void EnYabusameMark_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     Collider_SetQuadVertices(&pthis->collider, &pthis->vertexA, &pthis->vertexB, &pthis->vertexC, &pthis->vertexD);
     CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
+}
+
+void EnYabusameMark_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x0001F824, 0x00, 0x00 },
+            TOUCH_NONE | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    En_Yabusame_Mark_InitVars = {
+        ACTOR_EN_YABUSAME_MARK,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnYabusameMark),
+        (ActorFunc)EnYabusameMark_Init,
+        (ActorFunc)EnYabusameMark_Destroy,
+        (ActorFunc)EnYabusameMark_Update,
+        NULL,
+        (ActorFunc)EnYabusameMark_Reset,
+    };
+
 }

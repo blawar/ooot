@@ -17,6 +17,7 @@
 #define FLAGS 0
 
 void BgHidanFirewall_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanFirewall_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanFirewall_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanFirewall_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanFirewall_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Bg_Hidan_Firewall_InitVars = {
     (ActorFunc)BgHidanFirewall_Destroy,
     (ActorFunc)BgHidanFirewall_Update,
     NULL,
+    (ActorFunc)BgHidanFirewall_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -220,4 +222,42 @@ void BgHidanFirewall_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gFireTempleFireballUpperHalfDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_firewall.c", 463);
+}
+
+void BgHidanFirewall_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Firewall_InitVars = {
+        ACTOR_BG_HIDAN_FIREWALL,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanFirewall),
+        (ActorFunc)BgHidanFirewall_Init,
+        (ActorFunc)BgHidanFirewall_Destroy,
+        (ActorFunc)BgHidanFirewall_Update,
+        NULL,
+        (ActorFunc)BgHidanFirewall_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x01, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 30, 83, 0, { 0 } },
+    };
+
+    sColChkInfoInit = { 1, 80, 100, MASS_IMMOVABLE };
+
 }

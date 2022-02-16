@@ -35,6 +35,7 @@
 #define FAIRY_FLAG_BIG (1 << 9)
 
 void EnElf_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnElf_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnElf_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnElf_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -86,6 +87,7 @@ ActorInit En_Elf_InitVars = {
     (ActorFunc)EnElf_Destroy,
     (ActorFunc)EnElf_Update,
     (ActorFunc)EnElf_Draw,
+    (ActorFunc)EnElf_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -101,10 +103,6 @@ static Color_RGBAf sOuterColors[] = {
     { 255.0f, 255.0f, 255.0f, 255.0f },
     { 255.0f, 50.0f, 100.0f, 255.0f },
 };
-
-typedef struct {
-    u8 r, g, b;
-} FairyColorFlags;
 
 static FairyColorFlags sColorFlags[] = {
     { 0, 0, 0 }, { 1, 0, 0 }, { 1, 2, 0 }, { 1, 0, 2 }, { 0, 1, 0 }, { 2, 1, 0 }, { 0, 1, 2 },
@@ -1573,4 +1571,20 @@ void EnElf_GetCutsceneNextPos(Vec3f* vec, GlobalContext* globalCtx, s32 action) 
     vec->x = ((endPos.x - startPos.x) * lerp) + startPos.x;
     vec->y = ((endPos.y - startPos.y) * lerp) + startPos.y;
     vec->z = ((endPos.z - startPos.z) * lerp) + startPos.z;
+}
+
+void EnElf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Elf_InitVars = {
+        ACTOR_EN_ELF,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnElf),
+        (ActorFunc)EnElf_Init,
+        (ActorFunc)EnElf_Destroy,
+        (ActorFunc)EnElf_Update,
+        (ActorFunc)EnElf_Draw,
+        (ActorFunc)EnElf_Reset,
+    };
+
 }

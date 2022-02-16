@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_BEAN_H
+#pragma once
 #define Z_OBJ_BEAN_H
 
 #include "ultra64.h"
@@ -9,7 +9,14 @@ struct ObjBean;
 typedef void (*ObjBeanActionFunc)(struct ObjBean*, GlobalContext*);
 typedef void (*ObjBeanTransformFunc)(struct ObjBean*);
 
-typedef struct ObjBean {
+
+
+struct BeenSpeedInfo {
+    f32 velocity;
+    f32 accel;
+};
+struct ObjBean {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjBeanActionFunc actionFunc;
     /* 0x0168 */ ColliderCylinder collider;
@@ -36,6 +43,6 @@ typedef struct ObjBean {
     /* 0x01F4 */ s16 nextPointIndex;
     /* 0x01F6 */ u8 unk_1F6;
     /* 0x01F7 */ u8 stateFlags;
-} ObjBean; // size = 0x01F8
+}; 
 
-#endif
+

@@ -27,6 +27,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void Demo6K_Init(Actor* thisx, GlobalContext* globalCtx);
+void Demo6K_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void Demo6K_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void Demo6K_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -60,6 +61,7 @@ ActorInit Demo_6K_InitVars = {
     (ActorFunc)Demo6K_Destroy,
     (ActorFunc)Demo6K_Update,
     NULL,
+    (ActorFunc)Demo6K_Reset,
 };
 
 static s16 sObjectIds[] = {
@@ -827,4 +829,20 @@ void func_809691BC(Demo6K* pthis, GlobalContext* globalCtx, s32 params) {
     pthis->actor.world.pos.x = (((endPos.x - startPos.x) * temp) + startPos.x);
     pthis->actor.world.pos.y = (((endPos.y - startPos.y) * temp) + startPos.y);
     pthis->actor.world.pos.z = (((endPos.z - startPos.z) * temp) + startPos.z);
+}
+
+void Demo6K_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_6K_InitVars = {
+        ACTOR_DEMO_6K,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(Demo6K),
+        (ActorFunc)Demo6K_Init,
+        (ActorFunc)Demo6K_Destroy,
+        (ActorFunc)Demo6K_Update,
+        NULL,
+        (ActorFunc)Demo6K_Reset,
+    };
+
 }

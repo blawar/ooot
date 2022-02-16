@@ -17,6 +17,7 @@
 #define FLAGS 0
 
 void BgJyaAmishutter_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaAmishutter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaAmishutter_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaAmishutter_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaAmishutter_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Jya_Amishutter_InitVars = {
     (ActorFunc)BgJyaAmishutter_Destroy,
     (ActorFunc)BgJyaAmishutter_Update,
     (ActorFunc)BgJyaAmishutter_Draw,
+    (ActorFunc)BgJyaAmishutter_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -132,4 +134,20 @@ void BgJyaAmishutter_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgJyaAmishutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gAmishutterDL);
+}
+
+void BgJyaAmishutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Amishutter_InitVars = {
+        ACTOR_BG_JYA_AMISHUTTER,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaAmishutter),
+        (ActorFunc)BgJyaAmishutter_Init,
+        (ActorFunc)BgJyaAmishutter_Destroy,
+        (ActorFunc)BgJyaAmishutter_Update,
+        (ActorFunc)BgJyaAmishutter_Draw,
+        (ActorFunc)BgJyaAmishutter_Reset,
+    };
+
 }

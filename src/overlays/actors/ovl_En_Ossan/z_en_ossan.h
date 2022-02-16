@@ -1,4 +1,4 @@
-#ifndef Z_EN_OSSAN_H
+#pragma once
 #define Z_EN_OSSAN_H
 
 #include "ultra64.h"
@@ -14,7 +14,7 @@ typedef void (*EnOssanInitFunc)(struct EnOssan*, GlobalContext*);
 typedef s16 (*EnOssanGetGirlAParamsFunc)(s16);
 typedef void (*EnOssanStateFunc)(struct EnOssan*, GlobalContext*, Player*);
 
-typedef struct {
+struct StickDirectionPrompt {
     /* 0x00 */ u32 stickColorR;
     /* 0x04 */ u32 stickColorG;
     /* 0x08 */ u32 stickColorB;
@@ -29,11 +29,27 @@ typedef struct {
     /* 0x2C */ f32 arrowTexY;
     /* 0x30 */ f32 z;
     /* 0x34 */ s32 isEnabled;
-} StickDirectionPrompt; // size = 0x38
+}; 
 
 #define ColChanMix(c1, c2, m) (c1 - (s32)(c2 * m)) & 0xFF
 
-typedef struct EnOssan {
+
+
+struct ShopkeeperObjInfo {
+    /* 0x00 */ s16 objId;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ s16 unk_04;
+};
+
+
+struct ShopItem {
+    /* 0x00 */ s16 shopItemIndex;
+    /* 0x02 */ s16 xOffset;
+    /* 0x04 */ s16 yOffset;
+    /* 0x06 */ s16 zOffset;
+};
+struct EnOssan {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnOssanActionFunc actionFunc;
@@ -81,9 +97,9 @@ typedef struct EnOssan {
     /* 0x02CD */ u8 stickAnimState;
     /* 0x02D0 */ f32 shopItemSelectedTween;
     /* 0x02D4 */ f32 cameraFaceAngle; // stored in degrees
-} EnOssan; // size = 0x02D8
+}; 
 
-typedef enum {
+enum OssanType {
     /* 00 */ OSSAN_TYPE_KOKIRI,
     /* 01 */ OSSAN_TYPE_KAKARIKO_POTION,
     /* 02 */ OSSAN_TYPE_BOMBCHUS,
@@ -95,9 +111,9 @@ typedef enum {
     /* 08 */ OSSAN_TYPE_GORON,
     /* 09 */ OSSAN_TYPE_INGO,
     /* 10 */ OSSAN_TYPE_MASK
-} OssanType;
+};
 
-typedef enum {
+enum EnOssanState {
     /* 00 */ OSSAN_STATE_IDLE,
     /* 01 */ OSSAN_STATE_START_CONVERSATION,
     /* 02 */ OSSAN_STATE_FACING_SHOPKEEPER,
@@ -125,9 +141,9 @@ typedef enum {
     /* 24 */ OSSAN_STATE_SELECT_ITEM_MASK,
     /* 25 */ OSSAN_STATE_LEND_MASK_OF_TRUTH, // First time all masks are sold
     /* 26 */ OSSAN_STATE_DISCOUNT_DIALOG     // Hylian Shield Discount
-} EnOssanState;
+};
 
-typedef enum {
+enum EnOssanHappyMaskState {
     OSSAN_HAPPY_STATE_REQUEST_PAYMENT_KEATON_MASK,
     OSSAN_HAPPY_STATE_REQUEST_PAYMENT_SPOOKY_MASK,
     OSSAN_HAPPY_STATE_REQUEST_PAYMENT_SKULL_MASK,
@@ -136,6 +152,6 @@ typedef enum {
     OSSAN_HAPPY_STATE_ANGRY,          // Give me my money man!
     OSSAN_HAPPY_STATE_ALL_MASKS_SOLD, // All masks have been sold
     OSSAN_HAPPY_STATE_NONE = 8        // No Action / Payment received!
-} EnOssanHappyMaskState;
+};
 
-#endif
+

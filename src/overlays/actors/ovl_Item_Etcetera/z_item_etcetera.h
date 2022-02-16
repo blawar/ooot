@@ -1,4 +1,4 @@
-#ifndef Z_ITEM_ETC_H
+#pragma once
 #define Z_ITEM_ETC_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct ItemEtcetera;
 
 typedef void (*ItemEtceteraActionFunc)(struct ItemEtcetera*, GlobalContext*);
 
-typedef struct ItemEtcetera {
+
+struct ItemEtcetera {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ItemEtceteraActionFunc futureActionFunc;
     /* 0x0150 */ s16 giDrawId;
@@ -16,9 +18,9 @@ typedef struct ItemEtcetera {
     /* 0x0154 */ s32 objBankIndex;
     /* 0x0158 */ ActorFunc drawFunc;
     /* 0x015C */ ItemEtceteraActionFunc actionFunc;
-} ItemEtcetera; // size = 0x0160
+}; 
 
-typedef enum {
+enum ItemEtceteraType {
     /* 0x00 */ ITEM_ETC_BOTTLE,
     /* 0x01 */ ITEM_ETC_LETTER,
     /* 0x02 */ ITEM_ETC_SHIELD_HYLIAN,
@@ -33,6 +35,6 @@ typedef enum {
     /* 0x0B */ ITEM_ETC_RUPEE_PURPLE_CHEST_GAME,
     /* 0x0C */ ITEM_ETC_HEART_PIECE_CHEST_GAME,
     /* 0x0D */ ITEM_ETC_KEY_SMALL_CHEST_GAME
-} ItemEtceteraType;
+};
 
-#endif
+

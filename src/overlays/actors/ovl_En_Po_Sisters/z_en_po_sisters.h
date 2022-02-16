@@ -1,4 +1,4 @@
-#ifndef Z_EN_PO_SISTERS_H
+#pragma once
 #define Z_EN_PO_SISTERS_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnPoSisters;
 
 typedef void (*EnPoSistersActionFunc)(struct EnPoSisters*, GlobalContext*);
 
-typedef struct EnPoSisters {
+
+struct EnPoSisters {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPoSistersActionFunc actionFunc;
@@ -29,6 +31,6 @@ typedef struct EnPoSisters {
     /* 0x029C */ LightInfo lightInfo;
     /* 0x02AC */ ColliderCylinder collider;
     /* 0x02F8 */ MtxF unk_2F8;
-} EnPoSisters; // size = 0x0338
+}; 
 
-#endif
+

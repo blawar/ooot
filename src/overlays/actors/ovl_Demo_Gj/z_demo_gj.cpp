@@ -27,6 +27,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void DemoGj_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoGj_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoGj_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoGj_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoGj_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -1473,4 +1474,78 @@ ActorInit Demo_Gj_InitVars = {
     (ActorFunc)DemoGj_Destroy,
     (ActorFunc)DemoGj_Update,
     (ActorFunc)DemoGj_Draw,
+    (ActorFunc)DemoGj_Reset,
 };
+
+void DemoGj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit1 = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000008, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 30, 100, 0, { 0, 0, 0 } },
+    };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000008, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 25, 110, 0, { 0, 0, 0 } },
+    };
+
+    sCylinderInit3 = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000008, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 25, 200, 0, { 0, 0, 0 } },
+    };
+
+    Demo_Gj_InitVars = {
+        ACTOR_DEMO_GJ,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GJ,
+        sizeof(DemoGj),
+        (ActorFunc)DemoGj_Init,
+        (ActorFunc)DemoGj_Destroy,
+        (ActorFunc)DemoGj_Update,
+        (ActorFunc)DemoGj_Draw,
+        (ActorFunc)DemoGj_Reset,
+    };
+
+}

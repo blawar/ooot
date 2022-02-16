@@ -13,6 +13,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnBomBowlPit_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBomBowlPit_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBomBowlPit_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBomBowlPit_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -37,6 +38,7 @@ ActorInit En_Bom_Bowl_Pit_InitVars = {
     (ActorFunc)EnBomBowlPit_Destroy,
     (ActorFunc)EnBomBowlPit_Update,
     NULL,
+    (ActorFunc)EnBomBowlPit_Reset,
 };
 
 void EnBomBowlPit_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -226,4 +228,20 @@ void EnBomBowlPit_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->timer != 0) {
         pthis->timer--;
     }
+}
+
+void EnBomBowlPit_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bom_Bowl_Pit_InitVars = {
+        ACTOR_EN_BOM_BOWL_PIT,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnBomBowlPit),
+        (ActorFunc)EnBomBowlPit_Init,
+        (ActorFunc)EnBomBowlPit_Destroy,
+        (ActorFunc)EnBomBowlPit_Update,
+        NULL,
+        (ActorFunc)EnBomBowlPit_Reset,
+    };
+
 }

@@ -26,6 +26,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgMjin_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMjin_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMjin_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMjin_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMjin_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Mjin_InitVars = {
     (ActorFunc)BgMjin_Destroy,
     (ActorFunc)BgMjin_Update,
     NULL,
+    (ActorFunc)BgMjin_Reset,
 };
 
 extern UNK_TYPE D_06000000;
@@ -133,4 +135,20 @@ void BgMjin_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, dlist);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mjin.c", 288);
+}
+
+void BgMjin_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mjin_InitVars = {
+        ACTOR_BG_MJIN,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgMjin),
+        (ActorFunc)BgMjin_Init,
+        (ActorFunc)BgMjin_Destroy,
+        (ActorFunc)BgMjin_Update,
+        NULL,
+        (ActorFunc)BgMjin_Reset,
+    };
+
 }

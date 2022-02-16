@@ -28,6 +28,7 @@
 #define FLAGS ACTOR_FLAG_23
 
 void EnIshi_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnIshi_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnIshi_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnIshi_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnIshi_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -56,6 +57,7 @@ ActorInit En_Ishi_InitVars = {
     (ActorFunc)EnIshi_Destroy,
     (ActorFunc)EnIshi_Update,
     (ActorFunc)EnIshi_Draw,
+    (ActorFunc)EnIshi_Reset,
 };
 
 static f32 sRockScales[] = { 0.1f, 0.4f };
@@ -511,4 +513,26 @@ void EnIshi_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnIshi* pthis = (EnIshi*)thisx;
 
     sDrawFuncs[pthis->actor.params & 1](pthis, globalCtx);
+}
+
+void EnIshi_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sRotSpeedX = 0;
+
+    sRotSpeedY = 0;
+
+    En_Ishi_InitVars = {
+        ACTOR_EN_ISHI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(EnIshi),
+        (ActorFunc)EnIshi_Init,
+        (ActorFunc)EnIshi_Destroy,
+        (ActorFunc)EnIshi_Update,
+        (ActorFunc)EnIshi_Draw,
+        (ActorFunc)EnIshi_Reset,
+    };
+
+    sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE };
+
 }

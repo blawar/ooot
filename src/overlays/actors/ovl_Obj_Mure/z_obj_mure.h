@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_MURE_H
+#pragma once
 #define Z_OBJ_MURE_H
 
 #include "ultra64.h"
@@ -10,7 +10,24 @@ typedef void (*ObjMureActionFunc)(struct ObjMure*, GlobalContext*);
 
 #define OBJMURE_MAX_SPAWNS 15
 
-typedef struct ObjMure {
+
+
+enum ObjMureType {
+    /* 0 */ OBJMURE_TYPE_GRASS,
+    /* 1 */ OBJMURE_TYPE_UNDEFINED,
+    /* 2 */ OBJMURE_TYPE_FISH,
+    /* 3 */ OBJMURE_TYPE_BUGS,
+    /* 4 */ OBJMURE_TYPE_BUTTERFLY
+};
+
+
+enum ObjMureChildState {
+    /* 0 */ OBJMURE_CHILD_STATE_0,
+    /* 1 */ OBJMURE_CHILD_STATE_1, // Dead
+    /* 2 */ OBJMURE_CHILD_STATE_2
+};
+struct ObjMure {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ObjMureActionFunc actionFunc;
     /* 0x0150 */ s16 chNum;
@@ -22,6 +39,6 @@ typedef struct ObjMure {
     /* 0x01A4 */ s16 unk_1A4;
     /* 0x01A6 */ s16 unk_1A6;
     /* 0x01A8 */ s16 unk_1A8;
-} ObjMure; // size = 0x01AC
+}; 
 
-#endif
+

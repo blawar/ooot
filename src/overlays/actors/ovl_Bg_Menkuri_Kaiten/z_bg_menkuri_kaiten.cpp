@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgMenkuriKaiten_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMenkuriKaiten_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMenkuriKaiten_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriKaiten_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriKaiten_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Bg_Menkuri_Kaiten_InitVars = {
     (ActorFunc)BgMenkuriKaiten_Destroy,
     (ActorFunc)BgMenkuriKaiten_Update,
     (ActorFunc)BgMenkuriKaiten_Draw,
+    (ActorFunc)BgMenkuriKaiten_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -65,4 +67,20 @@ void BgMenkuriKaiten_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgMenkuriKaiten_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gGTGRotatingRingPlatformDL);
+}
+
+void BgMenkuriKaiten_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Menkuri_Kaiten_InitVars = {
+        ACTOR_BG_MENKURI_KAITEN,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MENKURI_OBJECTS,
+        sizeof(BgMenkuriKaiten),
+        (ActorFunc)BgMenkuriKaiten_Init,
+        (ActorFunc)BgMenkuriKaiten_Destroy,
+        (ActorFunc)BgMenkuriKaiten_Update,
+        (ActorFunc)BgMenkuriKaiten_Draw,
+        (ActorFunc)BgMenkuriKaiten_Reset,
+    };
+
 }

@@ -34,6 +34,7 @@
 #define ENKO_PATH ((pthis->actor.params & 0xFF00) >> 8)
 
 void EnKo_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnKo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnKo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKo_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -57,6 +58,7 @@ ActorInit En_Ko_InitVars = {
     (ActorFunc)EnKo_Destroy,
     (ActorFunc)EnKo_Update,
     (ActorFunc)EnKo_Draw,
+    (ActorFunc)EnKo_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -82,24 +84,13 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static void* sFaEyes[] = { gFaEyeOpenTex, gFaEyeHalfTex, gFaEyeClosedTex, NULL };
-static void* sKw1Eyes[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex, NULL };
-
-typedef struct {
-    /* 0x0 */ s16 objectId;
-    /* 0x4 */ Gfx* dList;
-    /* 0x8 */ void** eyeTextures;
-} EnKoHead; // size = 0xC
+static void* sKw1Eyes[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex, NULL }; 
 
 static EnKoHead sHead[] = {
     { OBJECT_KM1, gKm1DL, NULL },
     { OBJECT_KW1, object_kw1_DL_002C10, sKw1Eyes },
     { OBJECT_FA, gFaDL, sFaEyes },
-};
-
-typedef struct {
-    /* 0x0 */ s16 objectId;
-    /* 0x4 */ FlexSkeletonHeader* flexSkeletonHeader;
-} EnKoSkeleton; // size = 0x8
+}; 
 
 static EnKoSkeleton sSkeleton[2] = {
     { OBJECT_KM1, &gKm1Skel },
@@ -159,20 +150,6 @@ static u8 sOsAnimeLookup[13][5] = {
     /* ENKO_TYPE_CHILD_FADO */ { 0x05, 0x05, 0x05, 0x05, 0x05 },
 };
 
-typedef struct {
-    /* 0x0 */ u8 headId;
-    /* 0x1 */ u8 bodyId;
-    /* 0x4 */ Color_RGBA8 tunicColor;
-    /* 0x8 */ u8 legsId;
-    /* 0xC */ Color_RGBA8 bootsColor;
-} EnKoModelInfo; // size = 0x10
-
-typedef enum {
-    /* 0 */ KO_BOY,
-    /* 1 */ KO_GIRL,
-    /* 2 */ KO_FADO
-} KokiriGender;
-
 static EnKoModelInfo sModelInfo[] = {
     /* ENKO_TYPE_CHILD_0    */ { KO_BOY, KO_BOY, { 0, 130, 70, 255 }, KO_BOY, { 110, 170, 20, 255 } },
     /* ENKO_TYPE_CHILD_1    */ { KO_GIRL, KO_GIRL, { 70, 190, 60, 255 }, KO_GIRL, { 100, 30, 0, 255 } },
@@ -187,13 +164,7 @@ static EnKoModelInfo sModelInfo[] = {
     /* ENKO_TYPE_CHILD_10   */ { KO_GIRL, KO_GIRL, { 70, 190, 60, 255 }, KO_GIRL, { 100, 30, 0, 255 } },
     /* ENKO_TYPE_CHILD_11   */ { KO_BOY, KO_BOY, { 0, 130, 70, 255 }, KO_BOY, { 110, 170, 20, 255 } },
     /* ENKO_TYPE_CHILD_FADO */ { KO_FADO, KO_GIRL, { 70, 190, 60, 255 }, KO_GIRL, { 100, 30, 0, 255 } },
-};
-
-typedef struct {
-    /* 0x0 */ s8 targetMode;
-    /* 0x4 */ f32 lookDist; // extended by collider radius
-    /* 0x8 */ f32 appearDist;
-} EnKoInteractInfo; // size = 0xC
+}; 
 
 static EnKoInteractInfo sInteractInfo[] = {
     /* ENKO_TYPE_CHILD_0    */ { 6, 30.0f, 180.0f },
@@ -1341,4 +1312,42 @@ void EnKo_Draw(Actor* thisx, GlobalContext* globalCtx) {
                       pthis->modelAlpha);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ko.c", 2136);
+}
+
+void EnKo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ko_InitVars = {
+        ACTOR_EN_KO,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnKo),
+        (ActorFunc)EnKo_Init,
+        (ActorFunc)EnKo_Destroy,
+        (ActorFunc)EnKo_Update,
+        (ActorFunc)EnKo_Draw,
+        (ActorFunc)EnKo_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 46, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
 }

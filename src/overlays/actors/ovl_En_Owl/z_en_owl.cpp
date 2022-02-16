@@ -32,6 +32,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnOwl_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnOwl_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnOwl_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnOwl_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -63,27 +64,6 @@ void func_80ACB680(EnOwl* pthis, GlobalContext* globalCtx);
 void func_80ACC460(EnOwl* pthis);
 void func_80ACBEA0(EnOwl*, GlobalContext*);
 
-typedef enum {
-    /* 0x00 */ OWL_DEFAULT,
-    /* 0x01 */ OWL_OUTSIDE_KOKIRI,
-    /* 0x02 */ OWL_HYRULE_CASTLE,
-    /* 0x03 */ OWL_KAKARIKO,
-    /* 0x04 */ OWL_HYLIA_GERUDO,
-    /* 0x05 */ OWL_LAKE_HYLIA,
-    /* 0x06 */ OWL_ZORA_RIVER,
-    /* 0x07 */ OWL_HYLIA_SHORTCUT,
-    /* 0x08 */ OWL_DEATH_MOUNTAIN,
-    /* 0x09 */ OWL_DEATH_MOUNTAIN2,
-    /* 0x0A */ OWL_DESSERT_COLOSSUS,
-    /* 0x0B */ OWL_LOST_WOODS_PRESARIA,
-    /* 0x0C */ OWL_LOST_WOODS_POSTSARIA
-} EnOwlType;
-
-typedef enum {
-    /* 0x00 */ OWL_REPEAT,
-    /* 0x01 */ OWL_OK
-} EnOwlMessageChoice;
-
 ActorInit En_Owl_InitVars = {
     ACTOR_EN_OWL,
     ACTORCAT_NPC,
@@ -94,6 +74,7 @@ ActorInit En_Owl_InitVars = {
     (ActorFunc)EnOwl_Destroy,
     (ActorFunc)EnOwl_Update,
     (ActorFunc)EnOwl_Draw,
+    (ActorFunc)EnOwl_Reset,
 };
 
 static ColliderCylinderInit sOwlCylinderInit = {
@@ -1437,4 +1418,40 @@ void func_80ACD4D4(EnOwl* pthis, GlobalContext* globalCtx) {
     pos.y = (endPosf.y - pos.y) * temp_ret + pos.y;
     pos.z = (endPosf.z - pos.z) * temp_ret + pos.z;
     func_80ACD220(pthis, &pos, 1.0f);
+}
+
+void EnOwl_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Owl_InitVars = {
+        ACTOR_EN_OWL,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_OWL,
+        sizeof(EnOwl),
+        (ActorFunc)EnOwl_Init,
+        (ActorFunc)EnOwl_Destroy,
+        (ActorFunc)EnOwl_Update,
+        (ActorFunc)EnOwl_Draw,
+        (ActorFunc)EnOwl_Reset,
+    };
+
+    sOwlCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ENEMY,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 30, 40, 0, { 0, 0, 0 } },
+    };
+
 }

@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_10)
 
 void ObjSyokudai_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjSyokudai_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjSyokudai_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Obj_Syokudai_InitVars = {
     (ActorFunc)ObjSyokudai_Destroy,
     (ActorFunc)ObjSyokudai_Update,
     (ActorFunc)ObjSyokudai_Draw,
+    (ActorFunc)ObjSyokudai_Reset,
 };
 
 static ColliderCylinderInit sCylInitStand = {
@@ -317,4 +319,60 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 749);
+}
+
+void ObjSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Syokudai_InitVars = {
+        ACTOR_OBJ_SYOKUDAI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SYOKUDAI,
+        sizeof(ObjSyokudai),
+        (ActorFunc)ObjSyokudai_Init,
+        (ActorFunc)ObjSyokudai_Destroy,
+        (ActorFunc)ObjSyokudai_Update,
+        (ActorFunc)ObjSyokudai_Draw,
+        (ActorFunc)ObjSyokudai_Reset,
+    };
+
+    sCylInitStand = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00100000, 0x00, 0x00 },
+            { 0xEE01FFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 12, 45, 0, { 0, 0, 0 } },
+    };
+
+    sCylInitFlame = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00020820, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 15, 45, 45, { 0, 0, 0 } },
+    };
+
 }

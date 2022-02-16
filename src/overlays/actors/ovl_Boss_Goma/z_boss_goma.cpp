@@ -29,21 +29,10 @@
 // IRIS_FOLLOW: gohma looks towards the player (iris rotation)
 // BONUS_IFRAMES: gain invincibility frames when the player does something (throwing things?), or
 // randomly (see BossGoma_UpdateEye)
-typedef enum {
-    EYESTATE_IRIS_FOLLOW_BONUS_IFRAMES, // default, allows not drawing lens and iris when eye is closed
-    EYESTATE_IRIS_NO_FOLLOW_NO_IFRAMES,
-    EYESTATE_IRIS_FOLLOW_NO_IFRAMES
-} GohmaEyeState;
 
-typedef enum {
-    VISUALSTATE_RED,         // main/eye: red
-    VISUALSTATE_DEFAULT,     // main: greenish cyan, blinks with dark gray every 16 frames; eye: white
-    VISUALSTATE_DEFEATED,    // main/eye: dark gray
-    VISUALSTATE_STUNNED = 4, // main: greenish cyan, alternates with blue; eye: greenish cyan
-    VISUALSTATE_HIT          // main: greenish cyan, alternates with red; eye: greenish cyan
-} GohmaVisualState;
 
 void BossGoma_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossGoma_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossGoma_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossGoma_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossGoma_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -79,6 +68,7 @@ ActorInit Boss_Goma_InitVars = {
     (ActorFunc)BossGoma_Destroy,
     (ActorFunc)BossGoma_Update,
     (ActorFunc)BossGoma_Draw,
+    (ActorFunc)BossGoma_Reset,
 };
 
 static ColliderJntSphElementInit sColliderJntSphElementInit[13] = {
@@ -2162,4 +2152,33 @@ void BossGoma_SpawnChildGohma(BossGoma* pthis, GlobalContext* globalCtx, s16 i) 
                        pthis->lastTailLimbWorldPos.y - 50.0f, pthis->lastTailLimbWorldPos.z, 0, i * (0x10000 / 3), 0, i);
 
     pthis->childrenGohmaState[i] = 1;
+}
+
+void BossGoma_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Goma_InitVars = {
+        ACTOR_BOSS_GOMA,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GOMA,
+        sizeof(BossGoma),
+        (ActorFunc)BossGoma_Init,
+        (ActorFunc)BossGoma_Destroy,
+        (ActorFunc)BossGoma_Update,
+        (ActorFunc)BossGoma_Draw,
+        (ActorFunc)BossGoma_Reset,
+    };
+
+    sColliderJntSphInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        13,
+        sColliderJntSphElementInit,
+    };
+
 }

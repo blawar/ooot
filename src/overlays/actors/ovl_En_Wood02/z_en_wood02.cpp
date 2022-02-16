@@ -22,6 +22,7 @@
 #define FLAGS 0
 
 void EnWood02_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnWood02_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnWood02_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnWood02_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -30,20 +31,6 @@ void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx);
  * WOOD_SPAWN_SPAWNER is also used by some individual trees: EnWood02_Update also checks for parent before running any
  * despawning code.
  *  */
-typedef enum {
-    /* 0 */ WOOD_SPAWN_NORMAL,
-    /* 1 */ WOOD_SPAWN_SPAWNED,
-    /* 2 */ WOOD_SPAWN_SPAWNER
-} WoodSpawnType;
-
-typedef enum {
-    /* 0 */ WOOD_DRAW_TREE_CONICAL,
-    /* 1 */ WOOD_DRAW_TREE_OVAL,
-    /* 2 */ WOOD_DRAW_TREE_KAKARIKO_ADULT,
-    /* 3 */ WOOD_DRAW_BUSH_GREEN,
-    /* 4 */ WOOD_DRAW_4, // Used for black bushes and green leaves
-    /* 5 */ WOOD_DRAW_LEAF_YELLOW
-} WoodDrawType;
 
 ActorInit En_Wood02_InitVars = {
     ACTOR_EN_WOOD02,
@@ -55,6 +42,7 @@ ActorInit En_Wood02_InitVars = {
     (ActorFunc)EnWood02_Destroy,
     (ActorFunc)EnWood02_Update,
     (ActorFunc)EnWood02_Draw,
+    (ActorFunc)EnWood02_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -468,4 +456,40 @@ void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_en_wood02.c", 840);
+}
+
+void EnWood02_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Wood02_InitVars = {
+        ACTOR_EN_WOOD02,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_WOOD02,
+        sizeof(EnWood02),
+        (ActorFunc)EnWood02_Init,
+        (ActorFunc)EnWood02_Destroy,
+        (ActorFunc)EnWood02_Update,
+        (ActorFunc)EnWood02_Draw,
+        (ActorFunc)EnWood02_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_TREE,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK5,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x0FC0074A, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 18, 60, 0, { 0, 0, 0 } },
+    };
+
 }

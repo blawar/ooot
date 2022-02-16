@@ -15,6 +15,7 @@ void (*sPlayerCallUpdateFunc)(Actor* thisx, GlobalContext* globalCtx);
 void (*sPlayerCallDrawFunc)(Actor* thisx, GlobalContext* globalCtx);
 
 void PlayerCall_Init(Actor* thisx, GlobalContext* globalCtx);
+void PlayerCall_Reset(Actor* thisx, GlobalContext* globalCtx);
 void PlayerCall_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void PlayerCall_Update(Actor* thisx, GlobalContext* globalCtx);
 void PlayerCall_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ void Player_Draw(Actor* thisx, GlobalContext* globalCtx);
     (ActorFunc)PlayerCall_Destroy,
     (ActorFunc)PlayerCall_Update,
     (ActorFunc)PlayerCall_Draw,
+    (ActorFunc)PlayerCall_Reset,
 };
 
 void PlayerCall_InitFuncPtrs(void) {
@@ -62,4 +64,19 @@ void PlayerCall_Update(Actor* thisx, GlobalContext* globalCtx) {
 void PlayerCall_Draw(Actor* thisx, GlobalContext* globalCtx) {
     KaleidoScopeCall_LoadPlayer();
     sPlayerCallDrawFunc(thisx, globalCtx);
+}
+
+void PlayerCall_Reset(Actor* thisx, GlobalContext* globalCtx) {
+    Player_InitVars = {
+        ACTOR_PLAYER,
+        ACTORCAT_PLAYER,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(Player),
+        (ActorFunc)PlayerCall_Init,
+        (ActorFunc)PlayerCall_Destroy,
+        (ActorFunc)PlayerCall_Update,
+        (ActorFunc)PlayerCall_Draw,
+        (ActorFunc)PlayerCall_Reset,
+    };
 }

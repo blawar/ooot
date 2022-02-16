@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_26)
 
 void ObjKibako_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjKibako_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjKibako_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjKibako_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjKibako_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -42,6 +43,7 @@ ActorInit Obj_Kibako_InitVars = {
     (ActorFunc)ObjKibako_Destroy,
     (ActorFunc)ObjKibako_Update,
     (ActorFunc)ObjKibako_Draw,
+    (ActorFunc)ObjKibako_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -294,4 +296,42 @@ void ObjKibako_Draw(Actor* thisx, GlobalContext* globalCtx) {
     ObjKibako* pthis = (ObjKibako*)thisx;
 
     Gfx_DrawDListOpa(globalCtx, gSmallWoodenBoxDL);
+}
+
+void ObjKibako_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Kibako_InitVars = {
+        ACTOR_OBJ_KIBAKO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(ObjKibako),
+        (ActorFunc)ObjKibako_Init,
+        (ActorFunc)ObjKibako_Destroy,
+        (ActorFunc)ObjKibako_Update,
+        (ActorFunc)ObjKibako_Draw,
+        (ActorFunc)ObjKibako_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000002, 0x00, 0x01 },
+            { 0x4FC00748, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 12, 27, 0, { 0, 0, 0 } },
+    };
+
+    sCCInfoInit = { 0, 12, 60, MASS_HEAVY };
+
 }

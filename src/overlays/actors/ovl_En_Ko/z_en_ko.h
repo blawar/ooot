@@ -1,4 +1,4 @@
-#ifndef Z_EN_KO_H
+#pragma once
 #define Z_EN_KO_H
 
 #include "ultra64.h"
@@ -8,7 +8,44 @@ struct EnKo;
 
 typedef void (*EnKoActionFunc)(struct EnKo*, GlobalContext*);
 
-typedef struct EnKo {
+
+
+struct EnKoHead {
+    /* 0x0 */ s16 objectId;
+    /* 0x4 */ Gfx* dList;
+    /* 0x8 */ void** eyeTextures;
+};
+
+
+struct EnKoSkeleton {
+    /* 0x0 */ s16 objectId;
+    /* 0x4 */ FlexSkeletonHeader* flexSkeletonHeader;
+};
+
+
+struct EnKoModelInfo {
+    /* 0x0 */ u8 headId;
+    /* 0x1 */ u8 bodyId;
+    /* 0x4 */ Color_RGBA8 tunicColor;
+    /* 0x8 */ u8 legsId;
+    /* 0xC */ Color_RGBA8 bootsColor;
+};
+ 
+
+enum KokiriGender {
+    /* 0 */ KO_BOY,
+    /* 1 */ KO_GIRL,
+    /* 2 */ KO_FADO
+};
+
+
+struct EnKoInteractInfo {
+    /* 0x0 */ s8 targetMode;
+    /* 0x4 */ f32 lookDist; // extended by collider radius
+    /* 0x8 */ f32 appearDist;
+};
+struct EnKo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnKoActionFunc actionFunc;
@@ -30,9 +67,9 @@ typedef struct EnKo {
     /* 0x0290 */ Vec3s morphTable[16];
     /* 0x02F0 */ s16 unk_2E4[16];
     /* 0x0310 */ s16 unk_304[16];
-} EnKo; // size = 0x0330
+}; 
 
-typedef enum {
+enum KokiriChildren {
     ENKO_TYPE_CHILD_0,
     ENKO_TYPE_CHILD_1,
     ENKO_TYPE_CHILD_2,
@@ -47,14 +84,14 @@ typedef enum {
     ENKO_TYPE_CHILD_11,
     ENKO_TYPE_CHILD_FADO,
     ENKO_TYPE_CHILD_MAX
-} KokiriChildren;
+};
 
-typedef enum {
+enum KokiriForestQuestState {
     ENKO_FQS_CHILD_START,
     ENKO_FQS_CHILD_STONE,
     ENKO_FQS_CHILD_SARIA,
     ENKO_FQS_ADULT_ENEMY,
     ENKO_FQS_ADULT_SAVED
-} KokiriForestQuestState;
+};
 
-#endif
+

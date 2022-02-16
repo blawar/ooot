@@ -16,6 +16,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgHakaWater_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaWater_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaWater_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaWater_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaWater_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit Bg_Haka_Water_InitVars = {
     (ActorFunc)BgHakaWater_Destroy,
     (ActorFunc)BgHakaWater_Update,
     (ActorFunc)BgHakaWater_Draw,
+    (ActorFunc)BgHakaWater_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -150,4 +152,20 @@ void BgHakaWater_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gBotwWaterFallDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_water.c", 332);
+}
+
+void BgHakaWater_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_Water_InitVars = {
+        ACTOR_BG_HAKA_WATER,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_HAKACH_OBJECTS,
+        sizeof(BgHakaWater),
+        (ActorFunc)BgHakaWater_Init,
+        (ActorFunc)BgHakaWater_Destroy,
+        (ActorFunc)BgHakaWater_Update,
+        (ActorFunc)BgHakaWater_Draw,
+        (ActorFunc)BgHakaWater_Reset,
+    };
+
 }

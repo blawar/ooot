@@ -1,4 +1,4 @@
-#ifndef Z_EN_TK_H
+#pragma once
 #define Z_EN_TK_H
 
 #include "ultra64.h"
@@ -7,7 +7,7 @@
 /* Dirt particle effect */
 struct EnTkEff;
 
-typedef struct EnTkEff {
+struct EnTkEff {
     /* 0x0000 */ u8         active;
     /* 0x0001 */ u8         timeLeft;
     /* 0x0002 */ u8         timeTotal;
@@ -17,13 +17,15 @@ typedef struct EnTkEff {
     /* 0x0014 */ Vec3f      pos;
     /* 0x0020 */ Vec3f      speed;
     /* 0x002C */ Vec3f      accel;
-} EnTkEff; // size = 0x0038
+}; 
 
 struct EnTk;
 
 typedef void (*EnTkActionFunc)(struct EnTk*, GlobalContext*);
 
-typedef struct EnTk {
+
+struct EnTk {
+
     /* 0x0000 */ Actor      actor;
     /* 0x014C */ SkelAnime  skelAnime;
     /* 0x0190 */ EnTkActionFunc actionFunc;
@@ -47,6 +49,6 @@ typedef struct EnTk {
     /* 0x0296 */ Vec3s      morphTable[18];
     /* 0x0304 */ Vec3f      v3f_304;
     /* 0x0310 */ EnTkEff    eff[20];
-} EnTk; // size = 0x0770
+}; 
 
-#endif
+

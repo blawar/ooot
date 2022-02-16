@@ -1,4 +1,4 @@
-#ifndef Z_BG_MORI_KAITENKABE_H
+#pragma once
 #define Z_BG_MORI_KAITENKABE_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgMoriKaitenkabe;
 
 typedef void (*BgMoriKaitenkabeActionFunc)(struct BgMoriKaitenkabe*, GlobalContext*);
 
-typedef struct BgMoriKaitenkabe {
+
+struct BgMoriKaitenkabe {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgMoriKaitenkabeActionFunc actionFunc;
     /* 0x0168 */ s32 timer;
@@ -17,6 +19,6 @@ typedef struct BgMoriKaitenkabe {
     /* 0x0174 */ f32 rotYdeg;
     /* 0x0178 */ Vec3f lockedPlayerPos;
     /* 0x0184 */ s32 moriTexObjIndex;
-} BgMoriKaitenkabe; // size = 0x0188
+}; 
 
-#endif
+

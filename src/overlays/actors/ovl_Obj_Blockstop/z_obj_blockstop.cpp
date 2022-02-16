@@ -15,6 +15,7 @@
 #define FLAGS 0
 
 void ObjBlockstop_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjBlockstop_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjBlockstop_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -28,6 +29,7 @@ ActorInit Obj_Blockstop_InitVars = {
     (ActorFunc)ObjBlockstop_Destroy,
     (ActorFunc)ObjBlockstop_Update,
     NULL,
+    (ActorFunc)ObjBlockstop_Reset,
 };
 
 void ObjBlockstop_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -66,4 +68,20 @@ void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx) {
             Actor_Kill(&pthis->actor);
         }
     }
+}
+
+void ObjBlockstop_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Blockstop_InitVars = {
+        ACTOR_OBJ_BLOCKSTOP,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjBlockstop),
+        (ActorFunc)ObjBlockstop_Init,
+        (ActorFunc)ObjBlockstop_Destroy,
+        (ActorFunc)ObjBlockstop_Update,
+        NULL,
+        (ActorFunc)ObjBlockstop_Reset,
+    };
+
 }

@@ -16,6 +16,7 @@
 #define FLAGS 0
 
 void DoorToki_Init(Actor* thisx, GlobalContext* globalCtx);
+void DoorToki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DoorToki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorToki_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -29,6 +30,7 @@ ActorInit Door_Toki_InitVars = {
     (ActorFunc)DoorToki_Destroy,
     (ActorFunc)DoorToki_Update,
     NULL,
+    (ActorFunc)DoorToki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -60,4 +62,20 @@ void DoorToki_Update(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         func_8003EC50(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
     }
+}
+
+void DoorToki_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Door_Toki_InitVars = {
+        ACTOR_DOOR_TOKI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_TOKI_OBJECTS,
+        sizeof(DoorToki),
+        (ActorFunc)DoorToki_Init,
+        (ActorFunc)DoorToki_Destroy,
+        (ActorFunc)DoorToki_Update,
+        NULL,
+        (ActorFunc)DoorToki_Reset,
+    };
+
 }

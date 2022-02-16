@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void EnDog_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDog_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDog_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDog_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDog_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit En_Dog_InitVars = {
     (ActorFunc)EnDog_Destroy,
     (ActorFunc)EnDog_Update,
     (ActorFunc)EnDog_Draw,
+    (ActorFunc)EnDog_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -74,16 +76,6 @@ static struct_80034EC0_Entry sAnimations[] = {
     { &gDogBowAnim, 1.0f, 0.0f, 6.0f, ANIMMODE_ONCE, -6.0f },
     { &gDogBow2Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
 };
-
-typedef enum {
-    /* 0x00 */ DOG_WALK,
-    /* 0x01 */ DOG_RUN,
-    /* 0x02 */ DOG_BARK,
-    /* 0x03 */ DOG_SIT,
-    /* 0x04 */ DOG_SIT_2,
-    /* 0x05 */ DOG_BOW,
-    /* 0x06 */ DOG_BOW_2
-} DogBehavior;
 
 void EnDog_PlayWalkSFX(EnDog* pthis) {
     AnimationHeader* walk = &gDogWalkAnim;
@@ -482,4 +474,42 @@ void EnDog_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnDog_OverrideLimbDraw, EnDog_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dog.c", 994);
+}
+
+void EnDog_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dog_InitVars = {
+        ACTOR_EN_DOG,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_DOG,
+        sizeof(EnDog),
+        (ActorFunc)EnDog_Init,
+        (ActorFunc)EnDog_Destroy,
+        (ActorFunc)EnDog_Update,
+        (ActorFunc)EnDog_Draw,
+        (ActorFunc)EnDog_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 16, 20, 0, { 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, 50 };
+
 }

@@ -15,6 +15,7 @@
 #define FLAGS 0
 
 void ObjMure3_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjMure3_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjMure3_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjMure3_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -35,6 +36,7 @@ ActorInit Obj_Mure3_InitVars = {
     (ActorFunc)ObjMure3_Destroy,
     (ActorFunc)ObjMure3_Update,
     NULL,
+    (ActorFunc)ObjMure3_Reset,
 };
 
 static s16 sRupeeCounts[] = { 5, 5, 7, 0 };
@@ -200,4 +202,20 @@ void ObjMure3_Update(Actor* thisx, GlobalContext* globalCtx) {
     ObjMure3* pthis = (ObjMure3*)thisx;
 
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void ObjMure3_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Mure3_InitVars = {
+        ACTOR_OBJ_MURE3,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjMure3),
+        (ActorFunc)ObjMure3_Init,
+        (ActorFunc)ObjMure3_Destroy,
+        (ActorFunc)ObjMure3_Update,
+        NULL,
+        (ActorFunc)ObjMure3_Reset,
+    };
+
 }

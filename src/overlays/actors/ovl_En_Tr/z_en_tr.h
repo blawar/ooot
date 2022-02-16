@@ -1,4 +1,4 @@
-#ifndef Z_EN_TR_H
+#pragma once
 #define Z_EN_TR_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnTr;
 
 typedef void (*EnTrActionFunc)(struct EnTr*, GlobalContext*);
 
-typedef struct EnTr {
+
+struct EnTr {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[27];
@@ -20,11 +22,11 @@ typedef struct EnTr {
     /* 0x02E0 */ s16 eyeIndex;
     /* 0x02E2 */ s16 blinkTimer;
     /* 0x02E4 */ AnimationHeader* animation;
-} EnTr; // size = 0x02E8
+}; 
 
-typedef enum {
+enum TwinrovaType {
     /* 0 */ TR_KOUME,
     /* 1 */ TR_KOTAKE
-} TwinrovaType;
+};
 
-#endif
+

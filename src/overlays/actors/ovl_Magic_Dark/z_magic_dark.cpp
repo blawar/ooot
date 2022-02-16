@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void MagicDark_Init(Actor* thisx, GlobalContext* globalCtx);
+void MagicDark_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void MagicDark_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void MagicDark_OrbUpdate(Actor* thisx, GlobalContext* globalCtx);
 void MagicDark_OrbDraw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Magic_Dark_InitVars = {
     (ActorFunc)MagicDark_Destroy,
     (ActorFunc)MagicDark_OrbUpdate,
     (ActorFunc)MagicDark_OrbDraw,
+    (ActorFunc)MagicDark_Reset,
 };
 
 #include "overlays/ovl_Magic_Dark/ovl_Magic_Dark.cpp"
@@ -289,4 +291,20 @@ void MagicDark_OrbDraw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_magic_dark.c", 643);
+}
+
+void MagicDark_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Magic_Dark_InitVars = {
+        ACTOR_MAGIC_DARK,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(MagicDark),
+        (ActorFunc)MagicDark_Init,
+        (ActorFunc)MagicDark_Destroy,
+        (ActorFunc)MagicDark_OrbUpdate,
+        (ActorFunc)MagicDark_OrbDraw,
+        (ActorFunc)MagicDark_Reset,
+    };
+
 }

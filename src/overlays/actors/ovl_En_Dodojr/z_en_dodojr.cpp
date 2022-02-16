@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDodojr_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDodojr_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -55,6 +56,7 @@ ActorInit En_Dodojr_InitVars = {
     (ActorFunc)EnDodojr_Destroy,
     (ActorFunc)EnDodojr_Update,
     (ActorFunc)EnDodojr_Draw,
+    (ActorFunc)EnDodojr_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -659,4 +661,42 @@ void EnDodojr_Draw(Actor* thisx, GlobalContext* globalCtx) {
         SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, func_809F7D50, func_809F7DFC,
                           &pthis->actor);
     }
+}
+
+void EnDodojr_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dodojr_InitVars = {
+        ACTOR_EN_DODOJR,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_DODOJR,
+        sizeof(EnDodojr),
+        (ActorFunc)EnDodojr_Init,
+        (ActorFunc)EnDodojr_Destroy,
+        (ActorFunc)EnDodojr_Update,
+        (ActorFunc)EnDodojr_Draw,
+        (ActorFunc)EnDodojr_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFC5FFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 18, 20, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInit = { 1, 2, 25, 25, 0xFF };
+
 }

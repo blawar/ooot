@@ -14,6 +14,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnSda_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSda_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSda_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSda_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSda_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -32,6 +33,7 @@ ActorInit En_Sda_InitVars = {
     (ActorFunc)EnSda_Destroy,
     (ActorFunc)EnSda_Update,
     (ActorFunc)EnSda_Draw,
+    (ActorFunc)EnSda_Reset,
 };
 
 static Vec3f D_80AFA0D0 = { 0.0f, 0.0f, 0.0f };
@@ -373,4 +375,22 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx) 
     }
     osSyncPrintf("SDA D 2\n");
     CLOSE_DISPS(gfxCtx, "../z_en_sda.c", 882);
+}
+
+void EnSda_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Sda_InitVars = {
+        ACTOR_EN_SDA,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnSda),
+        (ActorFunc)EnSda_Init,
+        (ActorFunc)EnSda_Destroy,
+        (ActorFunc)EnSda_Update,
+        (ActorFunc)EnSda_Draw,
+        (ActorFunc)EnSda_Reset,
+    };
+
+    D_80AFA0D0 = { 0.0f, 0.0f, 0.0f };
+
 }

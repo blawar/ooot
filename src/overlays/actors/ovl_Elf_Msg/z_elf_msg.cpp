@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ElfMsg_Init(Actor* thisx, GlobalContext* globalCtx);
+void ElfMsg_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ElfMsg_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ElfMsg_Update(Actor* thisx, GlobalContext* globalCtx);
 void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit Elf_Msg_InitVars = {
     (ActorFunc)ElfMsg_Destroy,
     (ActorFunc)ElfMsg_Update,
     (ActorFunc)ElfMsg_Draw,
+    (ActorFunc)ElfMsg_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -196,4 +198,20 @@ void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg.c", 457);
+}
+
+void ElfMsg_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Elf_Msg_InitVars = {
+        ACTOR_ELF_MSG,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ElfMsg),
+        (ActorFunc)ElfMsg_Init,
+        (ActorFunc)ElfMsg_Destroy,
+        (ActorFunc)ElfMsg_Update,
+        (ActorFunc)ElfMsg_Draw,
+        (ActorFunc)ElfMsg_Reset,
+    };
+
 }

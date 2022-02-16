@@ -1,4 +1,4 @@
-#ifndef Z_EN_SHOPNUTS_H
+#pragma once
 #define Z_EN_SHOPNUTS_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnShopnuts;
 
 typedef void (*EnShopnutsActionFunc)(struct EnShopnuts*, GlobalContext*);
 
-typedef struct EnShopnuts {
+
+struct EnShopnuts {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnShopnutsActionFunc actionFunc;
@@ -16,6 +18,6 @@ typedef struct EnShopnuts {
     /* 0x0196 */ Vec3s jointTable[18];
     /* 0x0202 */ Vec3s morphTable[18];
     /* 0x0270 */ ColliderCylinder collider;
-} EnShopnuts; // size = 0x02BC
+}; 
 
-#endif
+

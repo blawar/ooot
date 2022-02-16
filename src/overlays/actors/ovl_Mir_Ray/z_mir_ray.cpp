@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void MirRay_Init(Actor* thisx, GlobalContext* globalCtx);
+void MirRay_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void MirRay_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void MirRay_Update(Actor* thisx, GlobalContext* globalCtx);
 void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -28,18 +29,7 @@ void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx);
 s32 MirRay_CheckInFrustum(Vec3f* vecA, Vec3f* vecB, f32 pointx, f32 pointy, f32 pointz, s16 radiusA, s16 radiusB);
 
 // Locations of light beams in sMirRayData
-typedef enum {
-    /* 0 */ MIRRAY_SPIRIT_BOMBCHUIWAROOM_DOWNLIGHT,
-    /* 1 */ MIRRAY_SPIRIT_SUNBLOCKROOM_DOWNLIGHT,
-    /* 2 */ MIRRAY_SPIRIT_SINGLECOBRAROOM_DOWNLIGHT,
-    /* 3 */ MIRRAY_SPIRIT_ARMOSROOM_DOWNLIGHT,
-    /* 4 */ MIRRAY_SPIRIT_TOPROOM_DOWNLIGHT,
-    /* 5 */ MIRRAY_SPIRIT_TOPROOM_CEILINGMIRROR,
-    /* 6 */ MIRRAY_SPIRIT_SINGLECOBRAROOM_COBRA,
-    /* 7 */ MIRRAY_SPIRIT_TOPROOM_COBRA1,
-    /* 8 */ MIRRAY_SPIRIT_TOPROOM_COBRA2,
-    /* 9 */ MIRRAY_GANONSCASTLE_SPIRITTRIAL_DOWNLIGHT
-} MirRayBeamLocations;
+
 
 ActorInit Mir_Ray_InitVars = {
     ACTOR_MIR_RAY,
@@ -51,6 +41,7 @@ ActorInit Mir_Ray_InitVars = {
     (ActorFunc)MirRay_Destroy,
     (ActorFunc)MirRay_Update,
     (ActorFunc)MirRay_Draw,
+    (ActorFunc)MirRay_Reset,
 };
 
 static u8 D_80B8E670 = 0;
@@ -604,4 +595,55 @@ s32 MirRay_CheckInFrustum(Vec3f* vecA, Vec3f* vecB, f32 pointx, f32 pointy, f32 
         return 1;
     }
     return 0;
+}
+
+void MirRay_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Mir_Ray_InitVars = {
+        ACTOR_MIR_RAY,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_MIR_RAY,
+        sizeof(MirRay),
+        (ActorFunc)MirRay_Init,
+        (ActorFunc)MirRay_Destroy,
+        (ActorFunc)MirRay_Update,
+        (ActorFunc)MirRay_Draw,
+        (ActorFunc)MirRay_Reset,
+    };
+
+    D_80B8E670 = 0;
+
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00200000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

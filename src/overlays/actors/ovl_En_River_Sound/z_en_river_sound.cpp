@@ -15,6 +15,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnRiverSound_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnRiverSound_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnRiverSound_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnRiverSound_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -29,6 +30,7 @@ ActorInit En_River_Sound_InitVars = {
     (ActorFunc)EnRiverSound_Destroy,
     (ActorFunc)EnRiverSound_Update,
     (ActorFunc)EnRiverSound_Draw,
+    (ActorFunc)EnRiverSound_Reset,
 };
 
 void EnRiverSound_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -255,4 +257,20 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Audio_PlayActorSound2(&pthis->actor, soundEffects[pthis->actor.params]);
     }
+}
+
+void EnRiverSound_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_River_Sound_InitVars = {
+        ACTOR_EN_RIVER_SOUND,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnRiverSound),
+        (ActorFunc)EnRiverSound_Init,
+        (ActorFunc)EnRiverSound_Destroy,
+        (ActorFunc)EnRiverSound_Update,
+        (ActorFunc)EnRiverSound_Draw,
+        (ActorFunc)EnRiverSound_Reset,
+    };
+
 }

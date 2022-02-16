@@ -1,4 +1,4 @@
-#ifndef Z_EN_HONOTRAP_H
+#pragma once
 #define Z_EN_HONOTRAP_H
 
 #include "ultra64.h"
@@ -14,9 +14,17 @@ typedef union {
         ColliderTrisElement elements[2];
     };
     ColliderCylinder cyl;
-} EnHonotrapCollider; // size = 0xD8
+} EnHonotrapCollider; 
 
-typedef struct EnHonotrap {
+
+enum EnHonotrapEyeState {
+    /* 0 */ HONOTRAP_EYE_OPEN,
+    /* 1 */ HONOTRAP_EYE_HALF,
+    /* 2 */ HONOTRAP_EYE_CLOSE,
+    /* 3 */ HONOTRAP_EYE_SHUT
+};
+struct EnHonotrap {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnHonotrapActionFunc actionFunc;
     /* 0x0150 */ EnHonotrapCollider collider;
@@ -27,12 +35,12 @@ typedef struct EnHonotrap {
     /* 0x023C */ s16 bobPhase;
     /* 0x023E */ s16 flameScroll;
     /* 0x0240 */ u8 colChkFlags;
-} EnHonotrap; // size = 0x0244
+}; 
 
-typedef enum {
+enum EnHonotrapType {
     HONOTRAP_EYE,
     HONOTRAP_FLAME_MOVE,
     HONOTRAP_FLAME_DROP
-} EnHonotrapType;
+};
 
-#endif
+

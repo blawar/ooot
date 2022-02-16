@@ -1,4 +1,4 @@
-#ifndef Z_BG_MORI_ELEVATOR_H
+#pragma once
 #define Z_BG_MORI_ELEVATOR_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgMoriElevator;
 
 typedef void (*BgMoriElevatorActionFunc)(struct BgMoriElevator*, GlobalContext*);
 
-typedef struct BgMoriElevator {
+
+struct BgMoriElevator {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgMoriElevatorActionFunc actionFunc;
     /* 0x0168 */ f32 targetY;
@@ -16,6 +18,6 @@ typedef struct BgMoriElevator {
     /* 0x0170 */ u8 unk_170;
     /* 0x0171 */ s32 moriTexObjIndex;
     /* 0x0175 */ s16 unk_172;
-} BgMoriElevator; // size = 0x0174
+}; 
 
-#endif
+

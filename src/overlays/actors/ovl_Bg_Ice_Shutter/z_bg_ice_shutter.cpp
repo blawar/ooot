@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgIceShutter_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgIceShutter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgIceShutter_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgIceShutter_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgIceShutter_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Ice_Shutter_InitVars = {
     (ActorFunc)BgIceShutter_Destroy,
     (ActorFunc)BgIceShutter_Update,
     (ActorFunc)BgIceShutter_Draw,
+    (ActorFunc)BgIceShutter_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -140,4 +142,20 @@ void BgIceShutter_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgIceShutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_002740);
+}
+
+void BgIceShutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Ice_Shutter_InitVars = {
+        ACTOR_BG_ICE_SHUTTER,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_ICE_OBJECTS,
+        sizeof(BgIceShutter),
+        (ActorFunc)BgIceShutter_Init,
+        (ActorFunc)BgIceShutter_Destroy,
+        (ActorFunc)BgIceShutter_Update,
+        (ActorFunc)BgIceShutter_Draw,
+        (ActorFunc)BgIceShutter_Reset,
+    };
+
 }

@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void BgSpot12Gate_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot12Gate_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot12Gate_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot12Gate_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot12Gate_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -42,6 +43,7 @@ ActorInit Bg_Spot12_Gate_InitVars = {
     (ActorFunc)BgSpot12Gate_Destroy,
     (ActorFunc)BgSpot12Gate_Update,
     (ActorFunc)BgSpot12Gate_Draw,
+    (ActorFunc)BgSpot12Gate_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -148,4 +150,20 @@ void BgSpot12Gate_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot12Gate_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gGerudoFortressWastelandGateDL);
+}
+
+void BgSpot12Gate_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot12_Gate_InitVars = {
+        ACTOR_BG_SPOT12_GATE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT12_OBJ,
+        sizeof(BgSpot12Gate),
+        (ActorFunc)BgSpot12Gate_Init,
+        (ActorFunc)BgSpot12Gate_Destroy,
+        (ActorFunc)BgSpot12Gate_Update,
+        (ActorFunc)BgSpot12Gate_Draw,
+        (ActorFunc)BgSpot12Gate_Reset,
+    };
+
 }

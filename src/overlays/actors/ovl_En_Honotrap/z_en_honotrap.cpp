@@ -26,14 +26,9 @@
 #define HONOTRAP_AC_ACTIVE (1 << 1)
 #define HONOTRAP_OC_ACTIVE (1 << 2)
 
-typedef enum {
-    /* 0 */ HONOTRAP_EYE_OPEN,
-    /* 1 */ HONOTRAP_EYE_HALF,
-    /* 2 */ HONOTRAP_EYE_CLOSE,
-    /* 3 */ HONOTRAP_EYE_SHUT
-} EnHonotrapEyeState;
 
 void EnHonotrap_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHonotrap_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHonotrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHonotrap_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHonotrap_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -69,6 +64,7 @@ ActorInit En_Honotrap_InitVars = {
     (ActorFunc)EnHonotrap_Destroy,
     (ActorFunc)EnHonotrap_Update,
     (ActorFunc)EnHonotrap_Draw,
+    (ActorFunc)EnHonotrap_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -550,4 +546,55 @@ void EnHonotrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
             EnHonotrap_DrawFlame(thisx, globalCtx);
             break;
     }
+}
+
+void EnHonotrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Honotrap_InitVars = {
+        ACTOR_EN_HONOTRAP,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(EnHonotrap),
+        (ActorFunc)EnHonotrap_Init,
+        (ActorFunc)EnHonotrap_Destroy,
+        (ActorFunc)EnHonotrap_Update,
+        (ActorFunc)EnHonotrap_Draw,
+        (ActorFunc)EnHonotrap_Reset,
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x01, 0x04 },
+            { 0x00100000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 10, 25, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 9, 23, 1 };
+
 }

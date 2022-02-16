@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_5
 
 void BgMenkuriEye_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMenkuriEye_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMenkuriEye_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriEye_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Bg_Menkuri_Eye_InitVars = {
     (ActorFunc)BgMenkuriEye_Destroy,
     (ActorFunc)BgMenkuriEye_Update,
     (ActorFunc)BgMenkuriEye_Draw,
+    (ActorFunc)BgMenkuriEye_Reset,
 };
 
 static s32 D_8089C1A0;
@@ -145,4 +147,33 @@ void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPDisplayList(POLY_XLU_DISP++, gGTGEyeStatueEyeDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_menkuri_eye.c", 335);
+}
+
+void BgMenkuriEye_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Menkuri_Eye_InitVars = {
+        ACTOR_BG_MENKURI_EYE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MENKURI_OBJECTS,
+        sizeof(BgMenkuriEye),
+        (ActorFunc)BgMenkuriEye_Init,
+        (ActorFunc)BgMenkuriEye_Destroy,
+        (ActorFunc)BgMenkuriEye_Update,
+        (ActorFunc)BgMenkuriEye_Draw,
+        (ActorFunc)BgMenkuriEye_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

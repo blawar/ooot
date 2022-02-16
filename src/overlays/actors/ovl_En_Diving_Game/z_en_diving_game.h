@@ -1,4 +1,4 @@
-#ifndef Z_EN_DIVING_GAME_H
+#pragma once
 #define Z_EN_DIVING_GAME_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnDivingGame;
 
 typedef void (*EnDivingGameActionFunc)(struct EnDivingGame*, GlobalContext*);
 
-typedef struct EnDivingGame {
+
+struct EnDivingGame {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[20];
@@ -47,18 +49,18 @@ typedef struct EnDivingGame {
     /* 0x0320 */ char unk_320[0x4]; // unused
     /* 0x0324 */ struct_80034A14_arg1 unk_324;
     /* 0x034C */ ColliderCylinder collider;
-} EnDivingGame; // size = 0x0398
+}; 
 
-typedef enum {
+enum EnDivingGamePhase {
     /* 0 */ ENDIVINGGAME_PHASE_ENDED,
     /* 1 */ ENDIVINGGAME_PHASE_1, // Player has not received the scale.
     /* 2 */ ENDIVINGGAME_PHASE_2 // Player got the scale and there are 10 rupees thrown.
-} EnDivingGamePhase;
+};
 
-typedef enum {
+enum EnDivingGameState {
     /* 0 */ ENDIVINGGAME_STATE_NOTPLAYING,
     /* 1 */ ENDIVINGGAME_STATE_AWARDPRIZE, // Waiting to give the scale to player.
     /* 2 */ ENDIVINGGAME_STATE_PLAYING
-} EnDivingGameState;
+};
 
-#endif
+

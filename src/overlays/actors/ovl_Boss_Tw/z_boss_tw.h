@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_TW_H
+#pragma once
 #define Z_BOSS_TW_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct BossTw;
 
 typedef void (*BossTwActionFunc)(BossTw* pthis, GlobalContext* globalCtx);
 
-typedef enum {
+enum TwWork {
     /*  0 */ CS_TIMER_1,
     /*  1 */ CS_TIMER_2,
     /*  2 */ TW_PLLR_IDX,
@@ -23,9 +23,9 @@ typedef enum {
     /* 11 */ PLAYED_CHRG_SFX,
     /* 12 */ BURN_TMR,
     /* 13 */ WORK_MAX
-} TwWork;
+};
 
-typedef enum {
+enum TwFwork {
     /*  0 */ OUTR_CRWN_TX_X1,
     /*  1 */ OUTR_CRWN_TX_X2,
     /*  2 */ INNR_CRWN_TX_X1,
@@ -53,9 +53,67 @@ typedef enum {
     /* 24 */ UNK_F18,
     /* 25 */ UNK_F19,
     /* 26 */ FWORK_MAX
-} TwFwork;
+};
 
-typedef struct BossTw {
+
+enum TwEffType {
+    /*  0 */ TWEFF_NONE,
+    /*  1 */ TWEFF_DOT,
+    /*  2 */ TWEFF_2,
+    /*  3 */ TWEFF_3,
+    /*  4 */ TWEFF_RING,
+    /*  5 */ TWEFF_PLYR_FRZ,
+    /*  6 */ TWEFF_FLAME,
+    /*  7 */ TWEFF_MERGEFLAME,
+    /*  8 */ TWEFF_SHLD_BLST,
+    /*  9 */ TWEFF_SHLD_DEFL,
+    /* 10 */ TWEFF_SHLD_HIT
+};
+
+
+enum EffectWork {
+    /* 0 */ EFF_ARGS,
+    /* 1 */ EFF_UNKS1,
+    /* 2 */ EFF_WORK_MAX
+};
+
+
+enum EffectFWork {
+    /* 0 */ EFF_SCALE,
+    /* 1 */ EFF_DIST,
+    /* 2 */ EFF_ROLL,
+    /* 3 */ EFF_YAW,
+    /* 4 */ EFF_FWORK_MAX
+};
+
+
+enum TwinrovaType {
+    /* 0x00 */ TW_KOTAKE,
+    /* 0x01 */ TW_KOUME,
+    /* 0x02 */ TW_TWINROVA,
+    /* 0x64 */ TW_FIRE_BLAST = 0x64,
+    /* 0x65 */ TW_FIRE_BLAST_GROUND,
+    /* 0x66 */ TW_ICE_BLAST,
+    /* 0x67 */ TW_ICE_BLAST_GROUND,
+    /* 0x68 */ TW_DEATHBALL_KOTAKE,
+    /* 0x69 */ TW_DEATHBALL_KOUME
+};
+
+
+struct BossTwEffect {
+    /* 0x0000 */ u8 type;
+    /* 0x0001 */ u8 frame;
+    /* 0x0004 */ Vec3f pos;
+    /* 0x0010 */ Vec3f curSpeed;
+    /* 0x001C */ Vec3f accel;
+    /* 0x0028 */ Color_RGB8 color;
+    /* 0x002C */ s16 alpha;
+    /* 0x002E */ s16 work[EFF_WORK_MAX];
+    /* 0x0034 */ f32 workf[EFF_FWORK_MAX];
+    /* 0x0044 */ Actor* target;
+};
+struct BossTw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ BossTwActionFunc actionFunc;
     /* 0x0150 */ s16 work[WORK_MAX];
@@ -133,6 +191,6 @@ typedef struct BossTw {
     /* 0x06A8 */ char unused_6A8[4];
     /* 0x06AC */ f32 subCamYaw;
     /* 0x06B0 */ f32 subCamYawStep;
-} BossTw; // size = 0x06B4
+}; 
 
-#endif
+

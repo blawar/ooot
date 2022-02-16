@@ -1,4 +1,4 @@
-#ifndef Z_EN_RR_H
+#pragma once
 #define Z_EN_RR_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnRr;
 
 typedef void (*EnRrActionFunc)(struct EnRr*, GlobalContext*);
 
-typedef struct {
+struct EnRrBodySegment {
     /* 0x00 */ f32 height;
     /* 0x04 */ f32 heightTarget;
     /* 0x08 */ Vec3f scale;
@@ -16,9 +16,43 @@ typedef struct {
     /* 0x20 */ Vec3f scaleMod;
     /* 0x2C */ Vec3f rotTarget;
     /* 0x38 */ Vec3s rot;
-} EnRrBodySegment; // size = 0x40
+}; 
 
-typedef struct EnRr {
+
+enum EnRrReachState {
+    /* 0 */ REACH_NONE,
+    /* 1 */ REACH_EXTEND,
+    /* 2 */ REACH_STOP,
+    /* 3 */ REACH_OPEN,
+    /* 4 */ REACH_GAPE,
+    /* 5 */ REACH_CLOSE
+};
+
+
+enum EnRrDamageEffect {
+    /* 0x0 */ RR_DMG_NONE,
+    /* 0x1 */ RR_DMG_STUN,
+    /* 0x2 */ RR_DMG_FIRE,
+    /* 0x3 */ RR_DMG_ICE,
+    /* 0x4 */ RR_DMG_LIGHT_MAGIC,
+    /* 0xB */ RR_DMG_LIGHT_ARROW = 11,
+    /* 0xC */ RR_DMG_SHDW_ARROW,
+    /* 0xD */ RR_DMG_WIND_ARROW,
+    /* 0xE */ RR_DMG_SPRT_ARROW,
+    /* 0xF */ RR_DMG_NORMAL
+};
+
+
+enum EnRrDropType {
+    /* 0 */ RR_DROP_RANDOM_RUPEE,
+    /* 1 */ RR_DROP_MAGIC,
+    /* 2 */ RR_DROP_ARROW,
+    /* 3 */ RR_DROP_FLEXIBLE,
+    /* 4 */ RR_DROP_RUPEE_PURPLE,
+    /* 5 */ RR_DROP_RUPEE_RED
+};
+struct EnRr {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnRrActionFunc actionFunc;
     /* 0x0150 */ ColliderCylinder collider1;
@@ -57,6 +91,6 @@ typedef struct EnRr {
     /* 0x037C */ Vec3f mouthPos;
     /* 0x0388 */ Vec3f effectPos[5];
     /* 0x03C4 */ char unk_3C4[0x2000]; //! @bug This is a huge amount of wasted memory.
-} EnRr; // size = 0x23C4
+}; 
 
-#endif
+

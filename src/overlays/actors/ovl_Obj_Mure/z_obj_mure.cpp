@@ -14,6 +14,7 @@
 #define FLAGS 0
 
 void ObjMure_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjMure_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjMure_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjMure_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -33,21 +34,8 @@ ActorInit Obj_Mure_InitVars = {
     (ActorFunc)ObjMure_Destroy,
     (ActorFunc)ObjMure_Update,
     NULL,
+    (ActorFunc)ObjMure_Reset,
 };
-
-typedef enum {
-    /* 0 */ OBJMURE_TYPE_GRASS,
-    /* 1 */ OBJMURE_TYPE_UNDEFINED,
-    /* 2 */ OBJMURE_TYPE_FISH,
-    /* 3 */ OBJMURE_TYPE_BUGS,
-    /* 4 */ OBJMURE_TYPE_BUTTERFLY
-} ObjMureType;
-
-typedef enum {
-    /* 0 */ OBJMURE_CHILD_STATE_0,
-    /* 1 */ OBJMURE_CHILD_STATE_1, // Dead
-    /* 2 */ OBJMURE_CHILD_STATE_2
-} ObjMureChildState;
 
 static f32 sZClip[] = { 1600.0f, 1600.0f, 1000.0f, 1000.0f, 1000.0f };
 
@@ -418,4 +406,20 @@ void ObjMure_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->unk_1A4--;
     }
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void ObjMure_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Mure_InitVars = {
+        ACTOR_OBJ_MURE,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjMure),
+        (ActorFunc)ObjMure_Init,
+        (ActorFunc)ObjMure_Destroy,
+        (ActorFunc)ObjMure_Update,
+        NULL,
+        (ActorFunc)ObjMure_Reset,
+    };
+
 }

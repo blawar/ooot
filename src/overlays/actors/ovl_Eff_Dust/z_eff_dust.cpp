@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EffDust_Init(Actor* thisx, GlobalContext* globalCtx);
+void EffDust_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EffDust_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EffDust_Update(Actor* thisx, GlobalContext* globalCtx);
 void EffDust_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Eff_Dust_InitVars = {
     (ActorFunc)EffDust_Destroy,
     (ActorFunc)EffDust_Update,
     (ActorFunc)EffDust_Draw,
+    (ActorFunc)EffDust_Reset,
 };
 
 static Gfx sEmptyDL[] = {
@@ -377,4 +379,20 @@ void EffDust_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EffDust* pthis = (EffDust*)thisx;
 
     pthis->drawFunc(thisx, globalCtx);
+}
+
+void EffDust_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Eff_Dust_InitVars = {
+        ACTOR_EFF_DUST,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EffDust),
+        (ActorFunc)EffDust_Init,
+        (ActorFunc)EffDust_Destroy,
+        (ActorFunc)EffDust_Update,
+        (ActorFunc)EffDust_Draw,
+        (ActorFunc)EffDust_Reset,
+    };
+
 }

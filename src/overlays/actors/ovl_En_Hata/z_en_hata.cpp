@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void EnHata_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHata_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHata_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHata_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHata_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit En_Hata_InitVars = {
     (ActorFunc)EnHata_Destroy,
     (ActorFunc)EnHata_Update,
     (ActorFunc)EnHata_Draw,
+    (ActorFunc)EnHata_Reset,
 };
 
 // Unused Collider and CollisionCheck data
@@ -152,4 +154,42 @@ void EnHata_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_Scale(1.0f, 1.1f, 1.0f, MTXMODE_APPLY);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHata_OverrideLimbDraw,
                       EnHata_PostLimbDraw, pthis);
+}
+
+void EnHata_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Hata_InitVars = {
+        ACTOR_EN_HATA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_HATA,
+        sizeof(EnHata),
+        (ActorFunc)EnHata_Init,
+        (ActorFunc)EnHata_Destroy,
+        (ActorFunc)EnHata_Update,
+        (ActorFunc)EnHata_Draw,
+        (ActorFunc)EnHata_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000080, 0x00, 0x00 },
+            TOUCH_NONE | TOUCH_SFX_NORMAL,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 16, 246, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
 }

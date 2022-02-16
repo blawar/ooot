@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgHidanSyoku_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanSyoku_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanSyoku_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanSyoku_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanSyoku_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Hidan_Syoku_InitVars = {
     (ActorFunc)BgHidanSyoku_Destroy,
     (ActorFunc)BgHidanSyoku_Update,
     (ActorFunc)BgHidanSyoku_Draw,
+    (ActorFunc)BgHidanSyoku_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -132,4 +134,20 @@ void BgHidanSyoku_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgHidanSyoku_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gFireTempleFlareDancerPlatformDL);
+}
+
+void BgHidanSyoku_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Syoku_InitVars = {
+        ACTOR_BG_HIDAN_SYOKU,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanSyoku),
+        (ActorFunc)BgHidanSyoku_Init,
+        (ActorFunc)BgHidanSyoku_Destroy,
+        (ActorFunc)BgHidanSyoku_Update,
+        (ActorFunc)BgHidanSyoku_Draw,
+        (ActorFunc)BgHidanSyoku_Reset,
+    };
+
 }

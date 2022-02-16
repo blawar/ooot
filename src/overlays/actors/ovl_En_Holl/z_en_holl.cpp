@@ -20,6 +20,7 @@
 #define PLANE_HALFWIDTH_2 200.0f
 
 void EnHoll_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHoll_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHoll_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHoll_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -42,6 +43,7 @@ ActorInit En_Holl_InitVars = {
     (ActorFunc)EnHoll_Destroy,
     (ActorFunc)EnHoll_Update,
     (ActorFunc)EnHoll_Draw,
+    (ActorFunc)EnHoll_Reset,
 };
 
 static EnHollActionFunc sActionFuncs[] = {
@@ -364,4 +366,20 @@ void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_holl.c", 831);
     }
+}
+
+void EnHoll_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Holl_InitVars = {
+        ACTOR_EN_HOLL,
+        ACTORCAT_DOOR,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnHoll),
+        (ActorFunc)EnHoll_Init,
+        (ActorFunc)EnHoll_Destroy,
+        (ActorFunc)EnHoll_Update,
+        (ActorFunc)EnHoll_Draw,
+        (ActorFunc)EnHoll_Reset,
+    };
+
 }

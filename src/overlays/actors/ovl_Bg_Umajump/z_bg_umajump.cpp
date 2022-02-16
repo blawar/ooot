@@ -17,6 +17,7 @@
 #define FLAGS 0
 
 void BgUmaJump_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgUmaJump_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgUmaJump_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgUmaJump_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgUmaJump_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Bg_Umajump_InitVars = {
     (ActorFunc)BgUmaJump_Destroy,
     (ActorFunc)BgUmaJump_Update,
     (ActorFunc)BgUmaJump_Draw,
+    (ActorFunc)BgUmaJump_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -67,4 +69,20 @@ void BgUmaJump_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgUmaJump_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gJumpableHorseFenceDL);
+}
+
+void BgUmaJump_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Umajump_InitVars = {
+        ACTOR_BG_UMAJUMP,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_UMAJUMP,
+        sizeof(BgUmaJump),
+        (ActorFunc)BgUmaJump_Init,
+        (ActorFunc)BgUmaJump_Destroy,
+        (ActorFunc)BgUmaJump_Update,
+        (ActorFunc)BgUmaJump_Draw,
+        (ActorFunc)BgUmaJump_Reset,
+    };
+
 }

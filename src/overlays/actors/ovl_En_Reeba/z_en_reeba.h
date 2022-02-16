@@ -1,4 +1,4 @@
-#ifndef Z_EN_REEBA_H
+#pragma once
 #define Z_EN_REEBA_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnReeba;
 
 typedef void (*EnReebaActionFunc)(struct EnReeba*, GlobalContext*);
 
-typedef struct EnReeba {
+
+struct EnReeba {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelanime;
     /* 0x0190 */ Vec3s jointTable[18];
@@ -28,11 +30,11 @@ typedef struct EnReeba {
     /* 0x0288 */ f32 unk_288;
     /* 0x028C */ f32 scale;
     /* 0x0290 */ ColliderCylinder collider;
-} EnReeba; // size = 0x02DC
+}; 
 
-typedef enum {
+enum LeeverParam {
     /* 0 */ LEEVER_SMALL,
     /* 1 */ LEEVER_BIG
-} LeeverParam;
+};
 
-#endif
+

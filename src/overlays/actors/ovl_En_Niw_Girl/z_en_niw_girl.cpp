@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnNiwGirl_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnNiwGirl_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnNiwGirl_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnNiwGirl_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit En_Niw_Girl_InitVars = {
     (ActorFunc)EnNiwGirl_Destroy,
     (ActorFunc)EnNiwGirl_Update,
     (ActorFunc)EnNiwGirl_Draw,
+    (ActorFunc)EnNiwGirl_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -271,4 +273,42 @@ void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80033C30(&pthis->actor.world.pos, &sp4C, 255, globalCtx);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_girl.c", 592);
+}
+
+void EnNiwGirl_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Niw_Girl_InitVars = {
+        ACTOR_EN_NIW_GIRL,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GR,
+        sizeof(EnNiwGirl),
+        (ActorFunc)EnNiwGirl_Init,
+        (ActorFunc)EnNiwGirl_Destroy,
+        (ActorFunc)EnNiwGirl_Update,
+        (ActorFunc)EnNiwGirl_Draw,
+        (ActorFunc)EnNiwGirl_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 10, 30, 0, { 0, 0, 0 } },
+    };
+
+    sConstVec3f = { 0.2f, 0.2f, 0.2f };
+
 }

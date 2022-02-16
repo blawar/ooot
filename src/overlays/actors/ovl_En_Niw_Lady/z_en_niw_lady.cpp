@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnNiwLady_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnNiwLady_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnNiwLady_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnNiwLady_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -47,6 +48,7 @@ ActorInit En_Niw_Lady_InitVars = {
     (ActorFunc)EnNiwLady_Destroy,
     (ActorFunc)EnNiwLady_Update,
     NULL,
+    (ActorFunc)EnNiwLady_Reset,
 };
 
 static s16 sMissingCuccoTextIds[] = {
@@ -591,4 +593,40 @@ void EnNiwLady_Draw(Actor* thisx, GlobalContext* globalCtx) {
                               pthis->skelAnime.dListCount, EnNiwLady_OverrideLimbDraw, NULL, pthis);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_lady.c", 1370);
+}
+
+void EnNiwLady_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Niw_Lady_InitVars = {
+        ACTOR_EN_NIW_LADY,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ANE,
+        sizeof(EnNiwLady),
+        (ActorFunc)EnNiwLady_Init,
+        (ActorFunc)EnNiwLady_Destroy,
+        (ActorFunc)EnNiwLady_Update,
+        NULL,
+        (ActorFunc)EnNiwLady_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 10, 10, 0, { 0, 0, 0 } },
+    };
+
 }

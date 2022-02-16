@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgMoriRakkatenjo_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriRakkatenjo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriRakkatenjo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriRakkatenjo_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriRakkatenjo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -49,6 +50,7 @@ ActorInit Bg_Mori_Rakkatenjo_InitVars = {
     (ActorFunc)BgMoriRakkatenjo_Destroy,
     (ActorFunc)BgMoriRakkatenjo_Update,
     NULL,
+    (ActorFunc)BgMoriRakkatenjo_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -244,4 +246,22 @@ void BgMoriRakkatenjo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gMoriRakkatenjoDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_rakkatenjo.c", 506);
+}
+
+void BgMoriRakkatenjo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCamSetting = 0;
+
+    Bg_Mori_Rakkatenjo_InitVars = {
+        ACTOR_BG_MORI_RAKKATENJO,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriRakkatenjo),
+        (ActorFunc)BgMoriRakkatenjo_Init,
+        (ActorFunc)BgMoriRakkatenjo_Destroy,
+        (ActorFunc)BgMoriRakkatenjo_Update,
+        NULL,
+        (ActorFunc)BgMoriRakkatenjo_Reset,
+    };
+
 }

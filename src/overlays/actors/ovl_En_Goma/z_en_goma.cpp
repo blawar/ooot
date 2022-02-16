@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnGoma_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGoma_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGoma_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGoma_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGoma_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -68,6 +69,7 @@ ActorInit En_Goma_InitVars = {
     (ActorFunc)EnGoma_Destroy,
     (ActorFunc)EnGoma_Update,
     (ActorFunc)EnGoma_Draw,
+    (ActorFunc)EnGoma_Reset,
 };
 
 static ColliderCylinderInit D_80A4B7A0 = {
@@ -919,4 +921,64 @@ void EnGoma_BossLimb(EnGoma* pthis, GlobalContext* globalCtx) {
         pos.z = Rand_CenteredFloat(20.0f) + pthis->actor.world.pos.z;
         func_8002836C(globalCtx, &pos, &vel, &accel, &primColor, &envColor, 500, 10, 10);
     }
+}
+
+void EnGoma_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Goma_InitVars = {
+        ACTOR_BOSS_GOMA,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_GOL,
+        sizeof(EnGoma),
+        (ActorFunc)EnGoma_Init,
+        (ActorFunc)EnGoma_Destroy,
+        (ActorFunc)EnGoma_Update,
+        (ActorFunc)EnGoma_Draw,
+        (ActorFunc)EnGoma_Reset,
+    };
+
+    D_80A4B7A0 = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFDFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 15, 30, 10, { 0, 0, 0 } },
+    };
+
+    D_80A4B7CC = {
+        {
+            COLTYPE_HIT3,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFDFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 15, 30, 10, { 0, 0, 0 } },
+    };
+
+    sSpawnNum = 0;
+
+    sDeadEffectVel = { 0.0f, 0.0f, 0.0f };
+
 }

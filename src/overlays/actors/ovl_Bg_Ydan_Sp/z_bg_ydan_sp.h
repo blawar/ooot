@@ -1,4 +1,4 @@
-#ifndef Z_BG_YDAN_SP_H
+#pragma once
 #define Z_BG_YDAN_SP_H
 
 #include "ultra64.h"
@@ -8,7 +8,14 @@ struct BgYdanSp;
 
 typedef void (*BgYdanSpActionFunc)(struct BgYdanSp*, GlobalContext*);
 
-typedef struct BgYdanSp {
+
+
+enum BgYdanSpType {
+    /* 0 */ WEB_FLOOR,
+    /* 1 */ WEB_WALL
+};
+struct BgYdanSp {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgYdanSpActionFunc actionFunc;
     /* 0x0168 */ u8 isDestroyedSwitchFlag;
@@ -17,6 +24,6 @@ typedef struct BgYdanSp {
     /* 0x016C */ f32 unk16C;
     /* 0x0170 */ ColliderTris trisCollider;
     /* 0x0190 */ ColliderTrisElement trisColliderItems[2];
-} BgYdanSp; // size = 0x0248
+}; 
 
-#endif
+

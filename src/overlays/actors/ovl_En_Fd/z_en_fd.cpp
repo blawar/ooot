@@ -27,6 +27,7 @@
 #define FLG_COREDONE (0x8000)
 
 void EnFd_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFd_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFd_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFd_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFd_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -53,6 +54,7 @@ ActorInit En_Fd_InitVars = {
     (ActorFunc)EnFd_Destroy,
     (ActorFunc)EnFd_Update,
     (ActorFunc)EnFd_Draw,
+    (ActorFunc)EnFd_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[12] = {
@@ -942,4 +944,35 @@ void EnFd_DrawDots(EnFd* pthis, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fd.c", 2071);
+}
+
+void EnFd_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Fd_InitVars = {
+        ACTOR_EN_FD,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_FW,
+        sizeof(EnFd),
+        (ActorFunc)EnFd_Init,
+        (ActorFunc)EnFd_Destroy,
+        (ActorFunc)EnFd_Update,
+        (ActorFunc)EnFd_Draw,
+        (ActorFunc)EnFd_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        12,
+        sJntSphElementsInit,
+    };
+
+    sColChkInit = { 24, 2, 25, 25, MASS_IMMOVABLE };
+
 }

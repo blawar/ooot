@@ -1,4 +1,4 @@
-#ifndef Z_EN_ZL1_H
+#pragma once
 #define Z_EN_ZL1_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnZl1;
 
 typedef void (*EnZl1ActionFunc)(struct EnZl1*, GlobalContext*);
 
-typedef struct EnZl1 {
+
+struct EnZl1 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnZl1ActionFunc actionFunc;
@@ -28,6 +30,6 @@ typedef struct EnZl1 {
     /* 0x01FE */ s16 unk_1FE;
     /* 0x0200 */ Vec3s unk_200;
     /* 0x0206 */ Vec3s unk_206;
-} EnZl1; // size = 0x020C
+}; 
 
-#endif
+

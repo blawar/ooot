@@ -13,6 +13,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx);
+void EnSt_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSt_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void EnSt_Update(Actor* pthisx, GlobalContext* globalCtx);
 void EnSt_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -49,6 +50,7 @@ ActorInit En_St_InitVars = {
     (ActorFunc)EnSt_Destroy,
     (ActorFunc)EnSt_Update,
     (ActorFunc)EnSt_Draw,
+    (ActorFunc)EnSt_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1093,4 +1095,75 @@ void EnSt_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSt_OverrideLimbDraw,
                       EnSt_PostLimbDraw, pthis);
+}
+
+void EnSt_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_St_InitVars = {
+        ACTOR_EN_ST,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_ST,
+        sizeof(EnSt),
+        (ActorFunc)EnSt_Init,
+        (ActorFunc)EnSt_Destroy,
+        (ActorFunc)EnSt_Update,
+        (ActorFunc)EnSt_Draw,
+        (ActorFunc)EnSt_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 32, 50, -24, { 0, 0, 0 } },
+    };
+
+    sColChkInit = { 2, 0, 0, 0, MASS_IMMOVABLE };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 60, -30, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

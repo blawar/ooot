@@ -1,4 +1,4 @@
-#ifndef Z_EN_DH_H
+#pragma once
 #define Z_EN_DH_H
 
 #include "ultra64.h"
@@ -8,7 +8,18 @@ struct EnDh;
 
 typedef void (*EnDhActionFunc)(struct EnDh*, GlobalContext*);
 
-typedef struct EnDh {
+
+enum EnDhAction {
+    /* 0 */ DH_WAIT,
+    /* 1 */ DH_RETREAT,
+    /* 2 */ DH_BURROW,
+    /* 3 */ DH_WALK,
+    /* 4 */ DH_ATTACK,
+    /* 5 */ DH_DEATH,
+    /* 6 */ DH_DAMAGE
+};
+struct EnDh {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0170 */ Vec3s jointTable[16];
@@ -30,9 +41,9 @@ typedef struct EnDh {
     /* 0x0318 */ f32 dirtWaveSpread;
     /* 0x031C */ f32 dirtWaveHeight;
     /* 0x0320 */ f32 dirtWaveAlpha;
-} EnDh; // size = 0x0324
+}; 
 
-typedef enum {
+enum EnDhParams {
     ENDH_HANDS_KILLED_4 = -4,
     ENDH_HANDS_KILLED_3,
     ENDH_HANDS_KILLED_2,
@@ -41,6 +52,6 @@ typedef enum {
     ENDH_START_ATTACK_GRAB,
     ENDH_START_ATTACK_BOMB = 5,
     ENDH_DEATH = 10
-} EnDhParams;
+};
 
-#endif
+

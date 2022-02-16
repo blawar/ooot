@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void ObjDekujr_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjDekujr_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjDekujr_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjDekujr_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,6 +34,7 @@ ActorInit Obj_Dekujr_InitVars = {
     (ActorFunc)ObjDekujr_Destroy,
     (ActorFunc)ObjDekujr_Update,
     (ActorFunc)ObjDekujr_Draw,
+    (ActorFunc)ObjDekujr_Reset,
 };
 
 static ColliderCylinderInitToActor sCylinderInit = {
@@ -173,4 +175,32 @@ void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, object_dekujr_DL_0032D8);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_dekujr.c", 409);
+}
+
+void ObjDekujr_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Dekujr_InitVars = {
+        ACTOR_OBJ_DEKUJR,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_DEKUJR,
+        sizeof(ObjDekujr),
+        (ActorFunc)ObjDekujr_Init,
+        (ActorFunc)ObjDekujr_Destroy,
+        (ActorFunc)ObjDekujr_Update,
+        (ActorFunc)ObjDekujr_Draw,
+        (ActorFunc)ObjDekujr_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            NULL,
+            0x00,
+            0x00,
+            0x39,
+            COLSHAPE_CYLINDER,
+        },
+        { 0x02, { 0x00000000, 0x00, 0x00 }, { 0xFFCFFFFF, 0x00, 0x00 }, 0x00, 0x00, 0x01 },
+        { 60, 80, 0, { 0, 0, 0 } },
+    };
+
 }

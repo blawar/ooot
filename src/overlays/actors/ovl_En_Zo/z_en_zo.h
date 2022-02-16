@@ -1,4 +1,4 @@
-#ifndef Z_EN_ZO_H
+#pragma once
 #define Z_EN_ZO_H
 
 #include "ultra64.h"
@@ -6,7 +6,7 @@
 
 struct EnZo;
 
-typedef struct {
+struct EnZoEffect {
     /* 0x00 */ u8 type;
     /* 0x04 */ f32 scale;
     /* 0x08 */ f32 targetScale;
@@ -15,11 +15,19 @@ typedef struct {
     /* 0x14 */ Vec3f pos;
     /* 0x20 */ Vec3f vel;
     /* 0x2C */ Vec3f vec; // Usage specific
-} EnZoEffect; // size = 0x38
+}; 
 
 typedef void (*EnZoActionFunc)(struct EnZo*, GlobalContext*);
 
-typedef struct EnZo {
+
+enum EnZoEffectType {
+    /* 0 */ ENZO_EFFECT_NONE,
+    /* 1 */ ENZO_EFFECT_RIPPLE,
+    /* 2 */ ENZO_EFFECT_SPLASH,
+    /* 3 */ ENZO_EFFECT_BUBBLE
+};
+struct EnZo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnZoActionFunc actionFunc;
@@ -38,6 +46,6 @@ typedef struct EnZo {
     /* 0x0654 */ s16 eyeTexture;
     /* 0x0656 */ s16 unk_656[20];
     /* 0x067E */ s16 unk_67E[20];
-} EnZo; // size = 0x06A8
+}; 
 
-#endif
+

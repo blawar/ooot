@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9)
 
 void EnFw_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFw_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFw_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFw_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFw_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -47,6 +48,7 @@ ActorInit En_Fw_InitVars = {
     (ActorFunc)EnFw_Destroy,
     (ActorFunc)EnFw_Update,
     (ActorFunc)EnFw_Draw,
+    (ActorFunc)EnFw_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -494,4 +496,35 @@ void EnFw_DrawDust(EnFw* pthis, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fw.c", 1243);
+}
+
+void EnFw_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Fw_InitVars = {
+        ACTOR_EN_FW,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_FW,
+        sizeof(EnFw),
+        (ActorFunc)EnFw_Init,
+        (ActorFunc)EnFw_Destroy,
+        (ActorFunc)EnFw_Update,
+        (ActorFunc)EnFw_Draw,
+        (ActorFunc)EnFw_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    D_80A1FB94 = { 8, 2, 25, 25, MASS_IMMOVABLE };
+
 }

@@ -24,6 +24,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnSyatekiNiw_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSyatekiNiw_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSyatekiNiw_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiNiw_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiNiw_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -49,6 +50,7 @@ ActorInit En_Syateki_Niw_InitVars = {
     (ActorFunc)EnSyatekiNiw_Destroy,
     (ActorFunc)EnSyatekiNiw_Update,
     (ActorFunc)EnSyatekiNiw_Draw,
+    (ActorFunc)EnSyatekiNiw_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -802,4 +804,40 @@ void func_80B13464(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_en_syateki_niw.c", 1257);
+}
+
+void EnSyatekiNiw_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Syateki_Niw_InitVars = {
+        ACTOR_EN_SYATEKI_NIW,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_NIW,
+        sizeof(EnSyatekiNiw),
+        (ActorFunc)EnSyatekiNiw_Init,
+        (ActorFunc)EnSyatekiNiw_Destroy,
+        (ActorFunc)EnSyatekiNiw_Update,
+        (ActorFunc)EnSyatekiNiw_Draw,
+        (ActorFunc)EnSyatekiNiw_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 10, 20, 4, { 0, 0, 0 } },
+    };
+
 }

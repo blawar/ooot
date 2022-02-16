@@ -1,4 +1,4 @@
-#ifndef Z_EN_DNT_JIJI_H
+#pragma once
 #define Z_EN_DNT_JIJI_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnDntJiji;
 
 typedef void (*EnDntJijiActionFunc)(struct EnDntJiji*, GlobalContext*);
 
-typedef struct EnDntJiji {
+
+struct EnDntJiji {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[13];
@@ -30,6 +32,6 @@ typedef struct EnDntJiji {
     /* 0x0254 */ s32 getItemId;
     /* 0x0258 */ struct EnDntDemo* stage;
     /* 0x025C */ ColliderCylinder collider;
-} EnDntJiji; // size = 0x02A8
+}; 
 
-#endif
+

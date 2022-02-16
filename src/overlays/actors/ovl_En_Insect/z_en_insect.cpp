@@ -22,6 +22,7 @@
 #define FLAGS 0
 
 void EnInsect_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnInsect_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnInsect_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnInsect_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnInsect_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -56,6 +57,7 @@ ActorInit En_Insect_InitVars = {
     (ActorFunc)EnInsect_Destroy,
     (ActorFunc)EnInsect_Update,
     (ActorFunc)EnInsect_Draw,
+    (ActorFunc)EnInsect_Reset,
 };
 
 static ColliderJntSphElementInit sColliderItemInit[1] = {
@@ -801,4 +803,39 @@ void EnInsect_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, NULL);
     Collider_UpdateSpheres(0, &pthis->collider);
     D_80A7DEB4 = 0;
+}
+
+void EnInsect_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80A7DEB0 = 0.0f;
+
+    D_80A7DEB4 = 0;
+
+    D_80A7DEB8 = 0;
+
+    En_Insect_InitVars = {
+        ACTOR_EN_INSECT,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnInsect),
+        (ActorFunc)EnInsect_Init,
+        (ActorFunc)EnInsect_Destroy,
+        (ActorFunc)EnInsect_Update,
+        (ActorFunc)EnInsect_Draw,
+        (ActorFunc)EnInsect_Reset,
+    };
+
+    sColliderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER | OC1_TYPE_1,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sColliderItemInit,
+    };
+
 }

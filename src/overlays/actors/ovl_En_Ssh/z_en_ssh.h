@@ -1,4 +1,4 @@
-#ifndef Z_EN_SSH_H
+#pragma once
 #define Z_EN_SSH_H
 
 #include "ultra64.h"
@@ -8,7 +8,18 @@ struct EnSsh;
 
 typedef void (*EnSshActionFunc)(struct EnSsh*, GlobalContext*);
 
-typedef struct EnSsh {
+
+enum EnSshAnimation {
+    SSH_ANIM_UNK0, // Unused animation. Possibly being knocked back?
+    SSH_ANIM_UP,
+    SSH_ANIM_WAIT,
+    SSH_ANIM_LAND,
+    SSH_ANIM_DROP,
+    SSH_ANIM_UNK5, // Slower version of ANIM_DROP
+    SSH_ANIM_UNK6  // Faster repeating version of ANIM_UNK0
+};
+struct EnSsh {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[30];
@@ -37,8 +48,8 @@ typedef struct EnSsh {
     /* 0x05CC */ u8 hitCount;
     /* 0x05CE */ s16 blinkState;
     /* 0x05D0 */ s16 blinkTimer;
-} EnSsh; // size = 0x05D4
+}; 
 
 #define ENSSH_FATHER 0
 
-#endif
+

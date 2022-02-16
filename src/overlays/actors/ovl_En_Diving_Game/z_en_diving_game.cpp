@@ -28,6 +28,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnDivingGame_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDivingGame_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDivingGame_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDivingGame_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDivingGame_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -59,6 +60,7 @@ ActorInit En_Diving_Game_InitVars = {
     (ActorFunc)EnDivingGame_Destroy,
     (ActorFunc)EnDivingGame_Update,
     (ActorFunc)EnDivingGame_Draw,
+    (ActorFunc)EnDivingGame_Reset,
 };
 
 // used to ensure there's only one instance of pthis actor.
@@ -585,4 +587,42 @@ void EnDivingGame_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnDivingGame_OverrideLimbDraw, NULL, pthis);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_diving_game.c", 1232);
+}
+
+void EnDivingGame_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Diving_Game_InitVars = {
+        ACTOR_EN_DIVING_GAME,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ZO,
+        sizeof(EnDivingGame),
+        (ActorFunc)EnDivingGame_Init,
+        (ActorFunc)EnDivingGame_Destroy,
+        (ActorFunc)EnDivingGame_Update,
+        (ActorFunc)EnDivingGame_Draw,
+        (ActorFunc)EnDivingGame_Reset,
+    };
+
+    D_809EF0B0 = false;
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 10, 10, 0, { 0, 0, 0 } },
+    };
+
 }

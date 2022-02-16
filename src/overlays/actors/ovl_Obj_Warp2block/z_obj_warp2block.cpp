@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
 void ObjWarp2block_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjWarp2block_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjWarp2block_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjWarp2block_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjWarp2block_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -49,13 +50,8 @@ ActorInit Obj_Warp2block_InitVars = {
     (ActorFunc)ObjWarp2block_Destroy,
     (ActorFunc)ObjWarp2block_Update,
     (ActorFunc)ObjWarp2block_Draw,
-};
-
-typedef struct {
-    /* 0x00 */ f32 scale;
-    /* 0x04 */ f32 focus;
-    /* 0x08 */ s16 params;
-} Warp2BlockSpawnData; // size = 0x0C
+    (ActorFunc)ObjWarp2block_Reset,
+}; 
 
 static Warp2BlockSpawnData sSpawnData[] = {
     { 1.0f, 60.0f, 0x0018 },
@@ -327,4 +323,20 @@ void ObjWarp2block_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gSongOfTimeBlockDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 594);
+}
+
+void ObjWarp2block_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Warp2block_InitVars = {
+        ACTOR_OBJ_WARP2BLOCK,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_TIMEBLOCK,
+        sizeof(ObjWarp2block),
+        (ActorFunc)ObjWarp2block_Init,
+        (ActorFunc)ObjWarp2block_Destroy,
+        (ActorFunc)ObjWarp2block_Update,
+        (ActorFunc)ObjWarp2block_Draw,
+        (ActorFunc)ObjWarp2block_Reset,
+    };
+
 }

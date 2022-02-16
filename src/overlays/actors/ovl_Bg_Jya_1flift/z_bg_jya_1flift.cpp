@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgJya1flift_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJya1flift_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJya1flift_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJya1flift_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJya1flift_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit Bg_Jya_1flift_InitVars = {
     (ActorFunc)BgJya1flift_Destroy,
     (ActorFunc)BgJya1flift_Update,
     (ActorFunc)BgJya1flift_Draw,
+    (ActorFunc)BgJya1flift_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -213,4 +215,42 @@ void BgJya1flift_Update(Actor* thisx, GlobalContext* globalCtx2) {
 
 void BgJya1flift_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, g1fliftDL);
+}
+
+void BgJya1flift_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sIsSpawned = false;
+
+    Bg_Jya_1flift_InitVars = {
+        ACTOR_BG_JYA_1FLIFT,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJya1flift),
+        (ActorFunc)BgJya1flift_Init,
+        (ActorFunc)BgJya1flift_Destroy,
+        (ActorFunc)BgJya1flift_Update,
+        (ActorFunc)BgJya1flift_Draw,
+        (ActorFunc)BgJya1flift_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 70, 80, -82, { 0, 0, 0 } },
+    };
+
 }

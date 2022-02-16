@@ -22,6 +22,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgMizuBwall_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMizuBwall_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMizuBwall_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMizuBwall_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMizuBwall_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Mizu_Bwall_InitVars = {
     (ActorFunc)BgMizuBwall_Destroy,
     (ActorFunc)BgMizuBwall_Update,
     (ActorFunc)BgMizuBwall_Draw,
+    (ActorFunc)BgMizuBwall_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementInitFloor[2] = {
@@ -538,4 +540,72 @@ void BgMizuBwall_Draw(Actor* thisx, GlobalContext* globalCtx2) {
         gSPDisplayList(POLY_OPA_DISP++, pthis->dList);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_bwall.c", 1136);
+}
+
+void BgMizuBwall_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mizu_Bwall_InitVars = {
+        ACTOR_BG_MIZU_BWALL,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MIZU_OBJECTS,
+        sizeof(BgMizuBwall),
+        (ActorFunc)BgMizuBwall_Init,
+        (ActorFunc)BgMizuBwall_Destroy,
+        (ActorFunc)BgMizuBwall_Update,
+        (ActorFunc)BgMizuBwall_Draw,
+        (ActorFunc)BgMizuBwall_Reset,
+    };
+
+    sTrisInitFloor = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementInitFloor,
+    };
+
+    sTrisInitRutoWall = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        1,
+        sTrisElementInitRutoWall,
+    };
+
+    sTrisInitUnusedWall = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementInitWall,
+    };
+
+    sTrisInitStingerWall = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementInitWall,
+    };
+
 }

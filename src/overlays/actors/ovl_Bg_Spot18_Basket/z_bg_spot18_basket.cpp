@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgSpot18Basket_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot18Basket_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot18Basket_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Basket_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Basket_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit Bg_Spot18_Basket_InitVars = {
     (ActorFunc)BgSpot18Basket_Destroy,
     (ActorFunc)BgSpot18Basket_Update,
     (ActorFunc)BgSpot18Basket_Draw,
+    (ActorFunc)BgSpot18Basket_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[2] = {
@@ -463,4 +465,33 @@ void BgSpot18Basket_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Collider_UpdateSpheres(0, &pthis->colliderJntSph);
     Collider_UpdateSpheres(1, &pthis->colliderJntSph);
     Gfx_DrawDListOpa(globalCtx, gGoronCityVaseDL);
+}
+
+void BgSpot18Basket_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot18_Basket_InitVars = {
+        ACTOR_BG_SPOT18_BASKET,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT18_OBJ,
+        sizeof(BgSpot18Basket),
+        (ActorFunc)BgSpot18Basket_Init,
+        (ActorFunc)BgSpot18Basket_Destroy,
+        (ActorFunc)BgSpot18Basket_Update,
+        (ActorFunc)BgSpot18Basket_Draw,
+        (ActorFunc)BgSpot18Basket_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        2,
+        sJntSphElementsInit,
+    };
+
 }

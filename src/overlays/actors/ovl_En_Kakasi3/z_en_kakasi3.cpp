@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnKakasi3_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnKakasi3_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnKakasi3_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKakasi3_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKakasi3_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -67,6 +68,7 @@ ActorInit En_Kakasi3_InitVars = {
     (ActorFunc)EnKakasi3_Destroy,
     (ActorFunc)EnKakasi3_Update,
     (ActorFunc)EnKakasi3_Draw,
+    (ActorFunc)EnKakasi3_Reset,
 };
 
 void EnKakasi3_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -448,4 +450,40 @@ void EnKakasi3_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, pthis);
+}
+
+void EnKakasi3_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 20, 70, 0, { 0, 0, 0 } },
+    };
+
+    En_Kakasi3_InitVars = {
+        ACTOR_EN_KAKASI3,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_KA,
+        sizeof(EnKakasi3),
+        (ActorFunc)EnKakasi3_Init,
+        (ActorFunc)EnKakasi3_Destroy,
+        (ActorFunc)EnKakasi3_Update,
+        (ActorFunc)EnKakasi3_Draw,
+        (ActorFunc)EnKakasi3_Reset,
+    };
+
 }

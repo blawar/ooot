@@ -18,6 +18,7 @@
 #define FLAGS ACTOR_FLAG_0
 
 void EnBubble_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBubble_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBubble_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBubble_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit En_Bubble_InitVars = {
     (ActorFunc)EnBubble_Destroy,
     (ActorFunc)EnBubble_Update,
     (ActorFunc)EnBubble_Draw,
+    (ActorFunc)EnBubble_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[2] = {
@@ -446,4 +448,43 @@ void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.shape.shadowScale = (f32)((pthis->expansionWidth + 1.0f) * 0.2f);
         func_809CC774(pthis);
     }
+}
+
+void EnBubble_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bubble_InitVars = {
+        ACTOR_EN_BUBBLE,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_BUBBLE,
+        sizeof(EnBubble),
+        (ActorFunc)EnBubble_Init,
+        (ActorFunc)EnBubble_Destroy,
+        (ActorFunc)EnBubble_Update,
+        (ActorFunc)EnBubble_Draw,
+        (ActorFunc)EnBubble_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        2,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit2 = {
+        1, 2, 25, 25, MASS_IMMOVABLE,
+    };
+
+    sEffectAccel = { 0.0f, -0.5f, 0.0f };
+
+    sEffectPrimColor = { 255, 255, 255, 255 };
+
+    sEffectEnvColor = { 150, 150, 150, 0 };
+
 }

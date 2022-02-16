@@ -30,6 +30,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnZl2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnZl2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnZl2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnZl2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnZl2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -111,6 +112,7 @@ ActorInit En_Zl2_InitVars = {
     (ActorFunc)EnZl2_Destroy,
     (ActorFunc)EnZl2_Update,
     (ActorFunc)EnZl2_Draw,
+    (ActorFunc)EnZl2_Reset,
 };
 
 void EnZl2_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -1702,4 +1704,20 @@ void EnZl2_Draw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     sDrawFuncs[pthis->drawConfig](pthis, globalCtx);
+}
+
+void EnZl2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Zl2_InitVars = {
+        ACTOR_EN_ZL2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ZL2,
+        sizeof(EnZl2),
+        (ActorFunc)EnZl2_Init,
+        (ActorFunc)EnZl2_Destroy,
+        (ActorFunc)EnZl2_Update,
+        (ActorFunc)EnZl2_Draw,
+        (ActorFunc)EnZl2_Reset,
+    };
+
 }

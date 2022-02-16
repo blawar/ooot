@@ -15,12 +15,9 @@
 
 #define FLAGS 0
 
-typedef enum {
-    /* 0 */ CHEST_LEFT,
-    /* 1 */ CHEST_RIGHT
-} ChangerChestSide;
 
 void EnChanger_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnChanger_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnChanger_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnChanger_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -38,6 +35,7 @@ ActorInit En_Changer_InitVars = {
     (ActorFunc)EnChanger_Destroy,
     (ActorFunc)EnChanger_Update,
     NULL,
+    (ActorFunc)EnChanger_Reset,
 };
 
 static Vec3f sLeftChestPos[] = {
@@ -295,4 +293,20 @@ void EnChanger_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->timer != 0) {
         pthis->timer--;
     }
+}
+
+void EnChanger_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Changer_InitVars = {
+        ACTOR_EN_CHANGER,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnChanger),
+        (ActorFunc)EnChanger_Init,
+        (ActorFunc)EnChanger_Destroy,
+        (ActorFunc)EnChanger_Update,
+        NULL,
+        (ActorFunc)EnChanger_Reset,
+    };
+
 }

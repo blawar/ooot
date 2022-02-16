@@ -1,4 +1,4 @@
-#ifndef Z_EN_BIGOKUTA_H
+#pragma once
 #define Z_EN_BIGOKUTA_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnBigokuta;
 
 typedef void (*EnBigokutaActionFunc)(struct EnBigokuta*, GlobalContext*);
 
-typedef struct EnBigokuta {
+
+struct EnBigokuta {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnBigokutaActionFunc actionFunc;
@@ -22,6 +24,6 @@ typedef struct EnBigokuta {
     /* 0x028C */ ColliderJntSph collider;
     /* 0x02AC */ ColliderJntSphElement element;
     /* 0x02EC */ ColliderCylinder cylinder[2];
-} EnBigokuta; // size = 0x0384
+}; 
 
-#endif
+

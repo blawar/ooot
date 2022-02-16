@@ -14,6 +14,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnAnubiceTag_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnAnubiceTag_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnAnubiceTag_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnAnubiceTag_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnAnubiceTag_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit En_Anubice_Tag_InitVars = {
     (ActorFunc)EnAnubiceTag_Destroy,
     (ActorFunc)EnAnubiceTag_Update,
     (ActorFunc)EnAnubiceTag_Draw,
+    (ActorFunc)EnAnubiceTag_Reset,
 };
 
 void EnAnubiceTag_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -107,4 +109,20 @@ void EnAnubiceTag_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnAnubiceTag_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnAnubiceTag* pthis = (EnAnubiceTag*)thisx;
+}
+
+void EnAnubiceTag_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Anubice_Tag_InitVars = {
+        ACTOR_EN_ANUBICE_TAG,
+        ACTORCAT_SWITCH,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnAnubiceTag),
+        (ActorFunc)EnAnubiceTag_Init,
+        (ActorFunc)EnAnubiceTag_Destroy,
+        (ActorFunc)EnAnubiceTag_Update,
+        (ActorFunc)EnAnubiceTag_Draw,
+        (ActorFunc)EnAnubiceTag_Reset,
+    };
+
 }

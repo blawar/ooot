@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnGe3_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGe3_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGe3_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGe3_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGe3_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Ge3_InitVars = {
     (ActorFunc)EnGe3_Destroy,
     (ActorFunc)EnGe3_Update,
     (ActorFunc)EnGe3_Draw,
+    (ActorFunc)EnGe3_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -301,4 +303,40 @@ void EnGe3_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                           EnGe3_OverrideLimbDraw, EnGe3_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge3.c", 631);
+}
+
+void EnGe3_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ge3_InitVars = {
+        ACTOR_EN_GE3,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GELDB,
+        sizeof(EnGe3),
+        (ActorFunc)EnGe3_Init,
+        (ActorFunc)EnGe3_Destroy,
+        (ActorFunc)EnGe3_Update,
+        (ActorFunc)EnGe3_Draw,
+        (ActorFunc)EnGe3_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000722, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 50, 0, { 0, 0, 0 } },
+    };
+
 }

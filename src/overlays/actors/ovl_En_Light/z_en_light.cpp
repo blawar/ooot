@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void EnLight_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnLight_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnLight_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnLight_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,13 +37,8 @@ ActorInit En_Light_InitVars = {
     (ActorFunc)EnLight_Destroy,
     (ActorFunc)EnLight_Update,
     (ActorFunc)EnLight_Draw,
+    (ActorFunc)EnLight_Reset,
 };
-
-typedef struct {
-    /* 0x00 */ Color_RGBA8 primColor;
-    /* 0x04 */ Color_RGB8 envColor;
-    /* 0x07 */ u8 scale;
-} FlameParams;
 
 static FlameParams D_80A9E840[] = {
     { { 255, 200, 0, 255 }, { 255, 0, 0 }, 75 },     { { 255, 200, 0, 255 }, { 255, 0, 0 }, 75 },
@@ -206,4 +202,20 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, dList);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_light.c", 491);
+}
+
+void EnLight_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Light_InitVars = {
+        ACTOR_EN_LIGHT,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnLight),
+        (ActorFunc)EnLight_Init,
+        (ActorFunc)EnLight_Destroy,
+        (ActorFunc)EnLight_Update,
+        (ActorFunc)EnLight_Draw,
+        (ActorFunc)EnLight_Reset,
+    };
+
 }

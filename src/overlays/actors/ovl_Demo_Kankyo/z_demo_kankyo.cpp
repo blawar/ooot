@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void DemoKankyo_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoKankyo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoKankyo_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoKankyo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -68,6 +69,7 @@ ActorInit Demo_Kankyo_InitVars = {
     (ActorFunc)DemoKankyo_Destroy,
     (ActorFunc)DemoKankyo_Update,
     (ActorFunc)DemoKankyo_Draw,
+    (ActorFunc)DemoKankyo_Reset,
 };
 
 static s16 sObjIds[] = {
@@ -1006,4 +1008,20 @@ void DemoKankyo_DrawSparkles(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_kankyo.c", 2579);
+}
+
+void DemoKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Kankyo_InitVars = {
+        ACTOR_DEMO_KANKYO,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(DemoKankyo),
+        (ActorFunc)DemoKankyo_Init,
+        (ActorFunc)DemoKankyo_Destroy,
+        (ActorFunc)DemoKankyo_Update,
+        (ActorFunc)DemoKankyo_Draw,
+        (ActorFunc)DemoKankyo_Reset,
+    };
+
 }

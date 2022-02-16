@@ -18,6 +18,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgJyaZurerukabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaZurerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaZurerukabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaZurerukabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaZurerukabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Jya_Zurerukabe_InitVars = {
     (ActorFunc)BgJyaZurerukabe_Destroy,
     (ActorFunc)BgJyaZurerukabe_Update,
     (ActorFunc)BgJyaZurerukabe_Draw,
+    (ActorFunc)BgJyaZurerukabe_Reset,
 };
 
 static s16 D_8089B9F0[4] = { 943, 1043, 1243, 1343 };
@@ -193,4 +195,20 @@ void BgJyaZurerukabe_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgJyaZurerukabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gZurerukabeDL);
+}
+
+void BgJyaZurerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Zurerukabe_InitVars = {
+        ACTOR_BG_JYA_ZURERUKABE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaZurerukabe),
+        (ActorFunc)BgJyaZurerukabe_Init,
+        (ActorFunc)BgJyaZurerukabe_Destroy,
+        (ActorFunc)BgJyaZurerukabe_Update,
+        (ActorFunc)BgJyaZurerukabe_Draw,
+        (ActorFunc)BgJyaZurerukabe_Reset,
+    };
+
 }

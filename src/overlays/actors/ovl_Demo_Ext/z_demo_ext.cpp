@@ -17,18 +17,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* 0x00 */ EXT_WAIT,
-    /* 0x01 */ EXT_MAINTAIN,
-    /* 0x02 */ EXT_DISPELL
-} DemoExtAction;
-
-typedef enum {
-    /* 0x00 */ EXT_DRAW_NOTHING,
-    /* 0x01 */ EXT_DRAW_VORTEX
-} DemoExtDrawMode;
 
 void DemoExt_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoExt_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoExt_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoExt_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoExt_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -250,4 +241,21 @@ ActorInit Demo_Ext_InitVars = {
     (ActorFunc)DemoExt_Destroy,
     (ActorFunc)DemoExt_Update,
     (ActorFunc)DemoExt_Draw,
+    (ActorFunc)DemoExt_Reset,
 };
+
+void DemoExt_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Ext_InitVars = {
+        ACTOR_DEMO_EXT,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_FHG,
+        sizeof(DemoExt),
+        (ActorFunc)DemoExt_Init,
+        (ActorFunc)DemoExt_Destroy,
+        (ActorFunc)DemoExt_Update,
+        (ActorFunc)DemoExt_Draw,
+        (ActorFunc)DemoExt_Reset,
+    };
+
+}

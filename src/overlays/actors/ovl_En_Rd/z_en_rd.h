@@ -1,4 +1,4 @@
-#ifndef Z_EN_RD_H
+#pragma once
 #define Z_EN_RD_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnRd;
 
 typedef void (*EnRdActionFunc)(struct EnRd*, GlobalContext*);
 
-typedef struct EnRd {
+
+struct EnRd {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Vec3s firePos[10];
     /* 0x0188 */ SkelAnime skelAnime;
@@ -32,6 +34,6 @@ typedef struct EnRd {
     /* 0x031C */ u8 unk_31C;
     /* 0x031D */ u8 unk_31D;
     /* 0x0320 */ ColliderCylinder collider;
-} EnRd; // size = 0x036C
+}; 
 
-#endif
+

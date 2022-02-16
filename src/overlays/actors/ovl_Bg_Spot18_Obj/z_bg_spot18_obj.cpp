@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void BgSpot18Obj_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot18Obj_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot18Obj_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Obj_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Obj_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -48,6 +49,7 @@ ActorInit Bg_Spot18_Obj_InitVars = {
     (ActorFunc)BgSpot18Obj_Destroy,
     (ActorFunc)BgSpot18Obj_Update,
     (ActorFunc)BgSpot18Obj_Draw,
+    (ActorFunc)BgSpot18Obj_Reset,
 };
 
 static u8 D_808B90F0[2][2] = { { 0x01, 0x01 }, { 0x01, 0x00 } };
@@ -291,4 +293,20 @@ void BgSpot18Obj_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot18Obj_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, sDlists[thisx->params & 0xF]);
+}
+
+void BgSpot18Obj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot18_Obj_InitVars = {
+        ACTOR_BG_SPOT18_OBJ,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT18_OBJ,
+        sizeof(BgSpot18Obj),
+        (ActorFunc)BgSpot18Obj_Init,
+        (ActorFunc)BgSpot18Obj_Destroy,
+        (ActorFunc)BgSpot18Obj_Update,
+        (ActorFunc)BgSpot18Obj_Draw,
+        (ActorFunc)BgSpot18Obj_Reset,
+    };
+
 }

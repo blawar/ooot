@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_9)
 
 void EnSkjneedle_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSkjneedle_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSkjneedle_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSkjneedle_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,6 +34,7 @@ ActorInit En_Skjneedle_InitVars = {
     (ActorFunc)EnSkjneedle_Destroy,
     (ActorFunc)EnSkjneedle_Update,
     (ActorFunc)EnSkjneedle_Draw,
+    (ActorFunc)EnSkjneedle_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -115,4 +117,39 @@ void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gSKJNeedleDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 210);
+}
+
+void EnSkjneedle_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Skjneedle_InitVars = {
+        ACTOR_EN_SKJNEEDLE,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_SKJ,
+        sizeof(EnSkjneedle),
+        (ActorFunc)EnSkjneedle_Init,
+        (ActorFunc)EnSkjneedle_Destroy,
+        (ActorFunc)EnSkjneedle_Update,
+        (ActorFunc)EnSkjneedle_Draw,
+        (ActorFunc)EnSkjneedle_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT1,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 10, 4, -2, { 0, 0, 0 } },
+    };
+
 }

@@ -22,17 +22,9 @@
 #define SSH_STATE_ATTACKED (1 << 3)
 #define SSH_STATE_SPIN (1 << 4)
 
-typedef enum {
-    SSH_ANIM_UNK0, // Unused animation. Possibly being knocked back?
-    SSH_ANIM_UP,
-    SSH_ANIM_WAIT,
-    SSH_ANIM_LAND,
-    SSH_ANIM_DROP,
-    SSH_ANIM_UNK5, // Slower version of ANIM_DROP
-    SSH_ANIM_UNK6  // Faster repeating version of ANIM_UNK0
-} EnSshAnimation;
 
 void EnSsh_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSsh_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSsh_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSsh_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSsh_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -54,6 +46,7 @@ ActorInit En_Ssh_InitVars = {
     (ActorFunc)EnSsh_Destroy,
     (ActorFunc)EnSsh_Update,
     (ActorFunc)EnSsh_Draw,
+    (ActorFunc)EnSsh_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit1 = {
@@ -896,4 +889,75 @@ void EnSsh_Draw(Actor* thisx, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ssh.c", 2336);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSsh_OverrideLimbDraw,
                       EnSsh_PostLimbDraw, &pthis->actor);
+}
+
+void EnSsh_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ssh_InitVars = {
+        ACTOR_EN_SSH,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SSH,
+        sizeof(EnSsh),
+        (ActorFunc)EnSsh_Init,
+        (ActorFunc)EnSsh_Destroy,
+        (ActorFunc)EnSsh_Update,
+        (ActorFunc)EnSsh_Draw,
+        (ActorFunc)EnSsh_Reset,
+    };
+
+    sCylinderInit1 = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 32, 50, -24, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 1, 0, 0, 0, MASS_IMMOVABLE };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 60, -30, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphElementsInit),
+        sJntSphElementsInit,
+    };
+
 }

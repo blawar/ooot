@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnBdfire_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBdfire_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBdfire_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBdfire_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBdfire_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Bdfire_InitVars = {
     (ActorFunc)EnBdfire_Destroy,
     (ActorFunc)EnBdfire_Update,
     (ActorFunc)EnBdfire_Draw,
+    (ActorFunc)EnBdfire_Reset,
 };
 
 void EnBdfire_SetupAction(EnBdfire* pthis, EnBdfireActionFunc actionFunc) {
@@ -235,4 +237,20 @@ void EnBdfire_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnBdfire* pthis = (EnBdfire*)thisx;
 
     pthis->drawFunc(pthis, globalCtx);
+}
+
+void EnBdfire_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bdfire_InitVars = {
+        0,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_KINGDODONGO,
+        sizeof(EnBdfire),
+        (ActorFunc)EnBdfire_Init,
+        (ActorFunc)EnBdfire_Destroy,
+        (ActorFunc)EnBdfire_Update,
+        (ActorFunc)EnBdfire_Draw,
+        (ActorFunc)EnBdfire_Reset,
+    };
+
 }

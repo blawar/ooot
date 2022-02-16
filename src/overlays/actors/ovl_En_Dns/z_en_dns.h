@@ -1,4 +1,4 @@
-#ifndef Z_EN_DNS_H
+#pragma once
 #define Z_EN_DNS_H
 
 #include "ultra64.h"
@@ -10,15 +10,17 @@ typedef void (*EnDnsActionFunc)(struct EnDns*, GlobalContext*);
 typedef u32 (*EnDnsPurchaseableCheck)(struct EnDns*);
 typedef void (*EnDnsSetRupeesAndFlags)(struct EnDns*);
 
-typedef struct {
+struct DnsItemEntry {
     /* 0x00 */ s16 itemPrice;
     /* 0x02 */ u16 itemAmount;
     /* 0x04 */ s32 getItemId;
     /* 0x08 */ EnDnsPurchaseableCheck purchaseableCheck;
     /* 0x0C */ EnDnsSetRupeesAndFlags setRupeesAndFlags;
-} DnsItemEntry; // size = 0x10
+}; 
 
-typedef struct EnDns {
+
+struct EnDns {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[18];
@@ -32,6 +34,6 @@ typedef struct EnDns {
     /* 0x02BD */ u8 dropCollectible;
     /* 0x02C0 */ DnsItemEntry* dnsItemEntry;
     /* 0x02C4 */ f32 yInitPos;
-} EnDns; // size = 0x02C8
+}; 
 
-#endif
+

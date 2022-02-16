@@ -1,4 +1,4 @@
-#ifndef Z_EN_HINTNUTS_H
+#pragma once
 #define Z_EN_HINTNUTS_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnHintnuts;
 
 typedef void (*EnHintnutsActionFunc)(struct EnHintnuts*, GlobalContext*);
 
-typedef struct EnHintnuts {
+
+struct EnHintnuts {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnHintnutsActionFunc actionFunc;
@@ -18,6 +20,6 @@ typedef struct EnHintnuts {
     /* 0x019A */ Vec3s jointTable[10];
     /* 0x01D6 */ Vec3s morphTable[10];
     /* 0x0214 */ ColliderCylinder collider;
-} EnHintnuts; // size = 0x0260
+}; 
 
-#endif
+

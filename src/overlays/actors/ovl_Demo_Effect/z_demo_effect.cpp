@@ -32,6 +32,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void DemoEffect_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoEffect_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoEffect_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoEffect_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -91,6 +92,7 @@ ActorInit Demo_Effect_InitVars = {
     (ActorFunc)DemoEffect_Destroy,
     (ActorFunc)DemoEffect_Update,
     NULL,
+    (ActorFunc)DemoEffect_Reset,
 };
 
 // This variable assures only one jewel will play SFX
@@ -2164,4 +2166,20 @@ void DemoEffect_InitPositionFromCsAction(DemoEffect* pthis, GlobalContext* globa
     pthis->actor.world.pos.x = x;
     pthis->actor.world.pos.y = y;
     pthis->actor.world.pos.z = z;
+}
+
+void DemoEffect_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Effect_InitVars = {
+        ACTOR_DEMO_EFFECT,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(DemoEffect),
+        (ActorFunc)DemoEffect_Init,
+        (ActorFunc)DemoEffect_Destroy,
+        (ActorFunc)DemoEffect_Update,
+        NULL,
+        (ActorFunc)DemoEffect_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_DOOR_H
+#pragma once
 #define Z_EN_DOOR_H
 
 #include "ultra64.h"
@@ -22,13 +22,13 @@
  *
  */
 
-typedef struct {
+struct EnDoorInfo {
     /* 0x00 */ s16 sceneNum;
     /* 0x02 */ u8 dListIndex;
     /* 0x04 */ s16 objectId;
-} EnDoorInfo;
+};
 
-typedef enum {
+enum EnDoorType {
     /* 0x00 */ DOOR_ROOMLOAD,  // loads rooms
     /* 0x01 */ DOOR_LOCKED,    // small key locked door
     /* 0x02 */ DOOR_ROOMLOAD2, // loads rooms
@@ -37,13 +37,15 @@ typedef enum {
     /* 0x05 */ DOOR_CHECKABLE, // doors that display a textbox when interacting
     /* 0x06 */ DOOR_EVENING,   // unlocked between 18:00 and 21:00, Dampé's hut
     /* 0x07 */ DOOR_ROOMLOAD7  // loads rooms
-} EnDoorType;
+};
 
 struct EnDoor;
 
 typedef void (*EnDoorActionFunc)(struct EnDoor*, GlobalContext*);
 
-typedef struct EnDoor {
+
+struct EnDoor {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ u8 animStyle; // Must be at same offset as animStyle in DoorKiller due to the cast in func_80839800
@@ -55,6 +57,6 @@ typedef struct EnDoor {
     /* 0x0198 */ Vec3s jointTable[5];
     /* 0x01B6 */ Vec3s morphTable[5];
     /* 0x01D4 */ EnDoorActionFunc actionFunc;
-} EnDoor; // size = 0x01D8
+}; 
 
-#endif
+

@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnDu_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDu_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDu_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDu_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -47,6 +48,7 @@ ActorInit En_Du_InitVars = {
     (ActorFunc)EnDu_Destroy,
     (ActorFunc)EnDu_Update,
     (ActorFunc)EnDu_Draw,
+    (ActorFunc)EnDu_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -627,4 +629,44 @@ void EnDu_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80034BA0(globalCtx, &pthis->skelAnime, EnDu_OverrideLimbDraw, EnDu_PostLimbDraw, &pthis->actor, 255);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_du.c", 1487);
+}
+
+void EnDu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Du_InitVars = {
+        ACTOR_EN_DU,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_DU,
+        sizeof(EnDu),
+        (ActorFunc)EnDu_Init,
+        (ActorFunc)EnDu_Destroy,
+        (ActorFunc)EnDu_Update,
+        (ActorFunc)EnDu_Draw,
+        (ActorFunc)EnDu_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 46, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = {
+        0, 0, 0, 0, MASS_IMMOVABLE,
+    };
+
 }

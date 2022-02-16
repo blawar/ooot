@@ -1,4 +1,4 @@
-#ifndef Z_EN_EX_RUPPY_H
+#pragma once
 #define Z_EN_EX_RUPPY_H
 
 #include "ultra64.h"
@@ -8,7 +8,15 @@ struct EnExRuppy;
 
 typedef void (*EnExRuppyActionFunc)(struct EnExRuppy*, GlobalContext*);
 
-typedef struct EnExRuppy {
+
+
+struct EnExRuppyParentActor {
+    /* 0x000 */ Actor actor;
+    /* 0x14C */ char unk_14C[0x11A];
+    /* 0x226 */ s16 unk_226;
+};
+struct EnExRuppy {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnExRuppyActionFunc actionFunc;
     /* 0x0150 */ s16 colorIdx;
@@ -19,6 +27,6 @@ typedef struct EnExRuppy {
     /* 0x015A */ s16 unk_15A; 
     /* 0x015C */ s16 galleryFlag;
     /* 0x0160 */ f32 unk_160;
-} EnExRuppy; // size = 0x0164
+}; 
 
-#endif
+

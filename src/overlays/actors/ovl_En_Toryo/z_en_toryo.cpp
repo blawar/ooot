@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnToryo_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnToryo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnToryo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnToryo_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnToryo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit En_Toryo_InitVars = {
     (ActorFunc)EnToryo_Destroy,
     (ActorFunc)EnToryo_Update,
     (ActorFunc)EnToryo_Draw,
+    (ActorFunc)EnToryo_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -97,13 +99,6 @@ static DamageTable sDamageTable = {
     /* Hammer jump   */ DMG_ENTRY(0, 0x0),
     /* Unknown 2     */ DMG_ENTRY(0, 0x0),
 };
-
-typedef struct {
-    AnimationHeader* anim;
-    f32 unk_4;
-    u8 mode;
-    f32 transitionRate;
-} EnToryoAnimation;
 
 static EnToryoAnimation sEnToryoAnimation = { &object_toryo_Anim_000E50, 1.0f, 0, 0 };
 
@@ -429,4 +424,81 @@ void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
             Matrix_MultVec3f(&sMultVec, &pthis->actor.focus.pos);
             break;
     }
+}
+
+void EnToryo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Toryo_InitVars = {
+        ACTOR_EN_TORYO,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_TORYO,
+        sizeof(EnToryo),
+        (ActorFunc)EnToryo_Init,
+        (ActorFunc)EnToryo_Destroy,
+        (ActorFunc)EnToryo_Update,
+        (ActorFunc)EnToryo_Draw,
+        (ActorFunc)EnToryo_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 18, 63, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(0, 0x0),
+        /* Slingshot     */ DMG_ENTRY(0, 0x0),
+        /* Explosive     */ DMG_ENTRY(0, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(0, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(0, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(0, 0x0),
+        /* Master sword  */ DMG_ENTRY(0, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(0, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(0, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(0, 0x0),
+        /* Light arrow   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(0, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(0, 0x0),
+        /* Giant spin    */ DMG_ENTRY(0, 0x0),
+        /* Master spin   */ DMG_ENTRY(0, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(0, 0x0),
+        /* Giant jump    */ DMG_ENTRY(0, 0x0),
+        /* Master jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    sEnToryoAnimation = { &object_toryo_Anim_000E50, 1.0f, 0, 0 };
+
+    sMultVec = { 800.0f, 1000.0f, 0.0f };
+
 }

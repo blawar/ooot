@@ -13,6 +13,7 @@
 #define FLAGS 0
 
 void EnSceneChange_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSceneChange_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSceneChange_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSceneChange_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSceneChange_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -29,6 +30,7 @@ ActorInit En_Scene_Change_InitVars = {
     (ActorFunc)EnSceneChange_Destroy,
     (ActorFunc)EnSceneChange_Update,
     (ActorFunc)EnSceneChange_Draw,
+    (ActorFunc)EnSceneChange_Reset,
 };
 
 void EnSceneChange_SetupAction(EnSceneChange* pthis, EnSceneChangeActionFunc actionFunc) {
@@ -69,4 +71,20 @@ void EnSceneChange_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_scene_change.c", 386);
+}
+
+void EnSceneChange_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Scene_Change_InitVars = {
+        ACTOR_EN_SCENE_CHANGE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_JJ,
+        sizeof(EnSceneChange),
+        (ActorFunc)EnSceneChange_Init,
+        (ActorFunc)EnSceneChange_Destroy,
+        (ActorFunc)EnSceneChange_Update,
+        (ActorFunc)EnSceneChange_Draw,
+        (ActorFunc)EnSceneChange_Reset,
+    };
+
 }

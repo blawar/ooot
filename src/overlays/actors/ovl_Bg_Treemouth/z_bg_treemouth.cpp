@@ -26,6 +26,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgTreemouth_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgTreemouth_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgTreemouth_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgTreemouth_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgTreemouth_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -54,6 +55,7 @@ ActorInit Bg_Treemouth_InitVars = {
     (ActorFunc)BgTreemouth_Destroy,
     (ActorFunc)BgTreemouth_Update,
     (ActorFunc)BgTreemouth_Draw,
+    (ActorFunc)BgTreemouth_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -263,4 +265,20 @@ void BgTreemouth_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gDekuTreeMouthDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_treemouth.c", 937);
+}
+
+void BgTreemouth_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Treemouth_InitVars = {
+        ACTOR_BG_TREEMOUTH,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT04_OBJECTS,
+        sizeof(BgTreemouth),
+        (ActorFunc)BgTreemouth_Init,
+        (ActorFunc)BgTreemouth_Destroy,
+        (ActorFunc)BgTreemouth_Update,
+        (ActorFunc)BgTreemouth_Draw,
+        (ActorFunc)BgTreemouth_Reset,
+    };
+
 }

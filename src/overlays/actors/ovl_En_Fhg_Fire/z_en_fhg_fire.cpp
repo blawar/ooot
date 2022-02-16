@@ -30,25 +30,9 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /*  0 */ STRIKE_INIT,
-    /* 10 */ STRIKE_BURST = 10,
-    /* 11 */ STRIKE_TRAILS
-} StrikeMode;
-
-typedef enum {
-    /* 0 */ TRAIL_INIT,
-    /* 1 */ TRAIL_APPEAR,
-    /* 2 */ TRAIL_DISSIPATE
-} TrailMode;
-
-typedef enum {
-    /* 0 */ BALL_FIZZLE,
-    /* 1 */ BALL_BURST,
-    /* 2 */ BALL_IMPACT
-} BallKillMode;
 
 void EnFhgFire_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFhgFire_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFhgFire_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFhgFire_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -71,6 +55,7 @@ ActorInit En_Fhg_Fire_InitVars = {
     (ActorFunc)EnFhgFire_Destroy,
     (ActorFunc)EnFhgFire_Update,
     (ActorFunc)EnFhgFire_Draw,
+    (ActorFunc)EnFhgFire_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -770,4 +755,40 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1900);
+}
+
+void EnFhgFire_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Fhg_Fire_InitVars = {
+        0,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_FHG,
+        sizeof(EnFhgFire),
+        (ActorFunc)EnFhgFire_Init,
+        (ActorFunc)EnFhgFire_Destroy,
+        (ActorFunc)EnFhgFire_Update,
+        (ActorFunc)EnFhgFire_Draw,
+        (ActorFunc)EnFhgFire_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK6,
+            { 0x00100700, 0x03, 0x20 },
+            { 0x0D900700, 0x00, 0x00 },
+            TOUCH_ON,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 30, 10, { 0, 0, 0 } },
+    };
+
 }

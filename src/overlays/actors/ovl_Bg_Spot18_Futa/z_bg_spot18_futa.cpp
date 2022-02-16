@@ -17,6 +17,7 @@
 #define FLAGS 0
 
 void BgSpot18Futa_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot18Futa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot18Futa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Futa_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Futa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Bg_Spot18_Futa_InitVars = {
     (ActorFunc)BgSpot18Futa_Destroy,
     (ActorFunc)BgSpot18Futa_Update,
     (ActorFunc)BgSpot18Futa_Draw,
+    (ActorFunc)BgSpot18Futa_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -75,4 +77,20 @@ void BgSpot18Futa_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot18Futa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gGoronCityVaseLidDL);
+}
+
+void BgSpot18Futa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot18_Futa_InitVars = {
+        ACTOR_BG_SPOT18_FUTA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT18_OBJ,
+        sizeof(BgSpot18Futa),
+        (ActorFunc)BgSpot18Futa_Init,
+        (ActorFunc)BgSpot18Futa_Destroy,
+        (ActorFunc)BgSpot18Futa_Update,
+        (ActorFunc)BgSpot18Futa_Draw,
+        (ActorFunc)BgSpot18Futa_Reset,
+    };
+
 }

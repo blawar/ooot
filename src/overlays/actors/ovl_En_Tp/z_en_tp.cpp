@@ -22,6 +22,7 @@
 #define FLAGS 0
 
 void EnTp_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTp_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTp_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTp_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,16 +42,6 @@ void EnTp_Head_Wait(EnTp* pthis, GlobalContext* globalCtx);
 void EnTp_Head_SetupBurrowReturnHome(EnTp* pthis);
 void EnTp_Head_BurrowReturnHome(EnTp* pthis, GlobalContext* globalCtx);
 
-typedef enum {
-    /* 0 */ TAILPASARAN_ACTION_FRAGMENT_FADE,
-    /* 1 */ TAILPASARAN_ACTION_DIE,
-    /* 2 */ TAILPASARAN_ACTION_TAIL_FOLLOWHEAD,
-    /* 4 */ TAILPASARAN_ACTION_HEAD_WAIT = 4,
-    /* 7 */ TAILPASARAN_ACTION_HEAD_APPROACHPLAYER = 7,
-    /* 8 */ TAILPASARAN_ACTION_HEAD_TAKEOFF,
-    /* 9 */ TAILPASARAN_ACTION_HEAD_BURROWRETURNHOME
-} TailpasaranAction;
-
 ActorInit En_Tp_InitVars = {
     ACTOR_EN_TP,
     ACTORCAT_ENEMY,
@@ -61,6 +52,7 @@ ActorInit En_Tp_InitVars = {
     (ActorFunc)EnTp_Destroy,
     (ActorFunc)EnTp_Update,
     (ActorFunc)EnTp_Draw,
+    (ActorFunc)EnTp_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -89,13 +81,6 @@ static ColliderJntSphInit sJntSphInit = {
     1,
     sJntSphElementsInit,
 };
-
-typedef enum {
-    /* 00 */ TAILPASARAN_DMGEFF_NONE,
-    /* 01 */ TAILPASARAN_DMGEFF_DEKUNUT,
-    /* 14 */ TAILPASARAN_DMGEFF_SHOCKING = 14, // Kills the Tailpasaran but shocks Player
-    /* 15 */ TAILPASARAN_DMGEFF_INSULATING     // Kills the Tailpasaran and does not shock Player
-} TailpasaranDamageEffect;
 
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_DEKUNUT),
@@ -775,4 +760,68 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if ((thisx->params <= TAILPASARAN_TAIL) || (thisx->params == TAILPASARAN_TAIL_DYING)) {
         Collider_UpdateSpheres(0, &pthis->collider);
     }
+}
+
+void EnTp_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Tp_InitVars = {
+        ACTOR_EN_TP,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_TP,
+        sizeof(EnTp),
+        (ActorFunc)EnTp_Init,
+        (ActorFunc)EnTp_Destroy,
+        (ActorFunc)EnTp_Update,
+        (ActorFunc)EnTp_Draw,
+        (ActorFunc)EnTp_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT1,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_DEKUNUT),
+        /* Deku stick    */ DMG_ENTRY(2, TAILPASARAN_DMGEFF_INSULATING),
+        /* Slingshot     */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Explosive     */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Boomerang     */ DMG_ENTRY(1, TAILPASARAN_DMGEFF_INSULATING),
+        /* Normal arrow  */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Hammer swing  */ DMG_ENTRY(2, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Hookshot      */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Kokiri sword  */ DMG_ENTRY(1, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Master sword  */ DMG_ENTRY(2, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Giant's Knife */ DMG_ENTRY(4, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Fire arrow    */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Ice arrow     */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Light arrow   */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Unk arrow 1   */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Unk arrow 2   */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Unk arrow 3   */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Fire magic    */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Ice magic     */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Light magic   */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Shield        */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Giant spin    */ DMG_ENTRY(4, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Master spin   */ DMG_ENTRY(2, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Kokiri jump   */ DMG_ENTRY(2, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Giant jump    */ DMG_ENTRY(8, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Master jump   */ DMG_ENTRY(4, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Unknown 1     */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Unblockable   */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+        /* Hammer jump   */ DMG_ENTRY(4, TAILPASARAN_DMGEFF_SHOCKING),
+        /* Unknown 2     */ DMG_ENTRY(0, TAILPASARAN_DMGEFF_NONE),
+    };
+
 }

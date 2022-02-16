@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnHorseLinkChild_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHorseLinkChild_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHorseLinkChild_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseLinkChild_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseLinkChild_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit En_Horse_Link_Child_InitVars = {
     (ActorFunc)EnHorseLinkChild_Destroy,
     (ActorFunc)EnHorseLinkChild_Update,
     (ActorFunc)EnHorseLinkChild_Draw,
+    (ActorFunc)EnHorseLinkChild_Reset,
 };
 
 static AnimationHeader* sAnimations[] = {
@@ -635,4 +637,54 @@ void EnHorseLinkChild_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80093D18(globalCtx->state.gfxCtx);
     func_800A6360(&pthis->actor, globalCtx, &pthis->skin, func_80A6ABF8, func_80A6AD84, 1);
+}
+
+void EnHorseLinkChild_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Horse_Link_Child_InitVars = {
+        ACTOR_EN_HORSE_LINK_CHILD,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HORSE_LINK_CHILD,
+        sizeof(EnHorseLinkChild),
+        (ActorFunc)EnHorseLinkChild_Init,
+        (ActorFunc)EnHorseLinkChild_Destroy,
+        (ActorFunc)EnHorseLinkChild_Update,
+        (ActorFunc)EnHorseLinkChild_Draw,
+        (ActorFunc)EnHorseLinkChild_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 100, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementInit,
+    };
+
+    sColCheckInfoInit = { 10, 35, 100, MASS_HEAVY };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_BG_SPOT08_ICEBLOCK_H
+#pragma once
 #define Z_BG_SPOT08_ICEBLOCK_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgSpot08Iceblock;
 
 typedef void (*BgSpot08IceblockActionFunc)(struct BgSpot08Iceblock*, GlobalContext*);
 
-typedef struct BgSpot08Iceblock {
+
+struct BgSpot08Iceblock {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgSpot08IceblockActionFunc actionFunc;
     /* 0x0168 */ Vec3f surfaceNormal;
@@ -20,7 +22,7 @@ typedef struct BgSpot08Iceblock {
     /* 0x0192 */ s16 bobIncrFast;
     /* 0x0194 */ f32 sinkOffset;
     /* 0x0198 */ f32 bobOffset;
-} BgSpot08Iceblock; // size = 0x019C
+}; 
 
 // Params
 /**
@@ -49,4 +51,4 @@ typedef struct BgSpot08Iceblock {
  * 4 Completely static, does nothing
  */
 
-#endif
+

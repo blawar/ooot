@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
 
 void EnBombf_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBombf_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBombf_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit En_Bombf_InitVars = {
     (ActorFunc)EnBombf_Destroy,
     (ActorFunc)EnBombf_Update,
     (ActorFunc)EnBombf_Draw,
+    (ActorFunc)EnBombf_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -523,4 +525,53 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1063);
+}
+
+void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bombf_InitVars = {
+        ACTOR_EN_BOMBF,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_BOMBF,
+        sizeof(EnBombf),
+        (ActorFunc)EnBombf_Init,
+        (ActorFunc)EnBombf_Destroy,
+        (ActorFunc)EnBombf_Update,
+        (ActorFunc)EnBombf_Draw,
+        (ActorFunc)EnBombf_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER | AC_TYPE_OTHER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x0003F828, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 9, 18, 10, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ALL,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_7 | ACTOR_FLAG_12)
 
 void EnPoDesert_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnPoDesert_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnPoDesert_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPoDesert_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPoDesert_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -42,6 +43,7 @@ ActorInit En_Po_Desert_InitVars = {
     (ActorFunc)EnPoDesert_Destroy,
     (ActorFunc)EnPoDesert_Update,
     (ActorFunc)EnPoDesert_Draw,
+    (ActorFunc)EnPoDesert_Reset,
 };
 
 static ColliderCylinderInit sColliderInit = {
@@ -280,4 +282,40 @@ void EnPoDesert_Draw(Actor* thisx, GlobalContext* globalCtx) {
     POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                                    EnPoDesert_OverrideLimbDraw, EnPoDesert_PostLimbDraw, &pthis->actor, POLY_XLU_DISP);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_desert.c", 597);
+}
+
+void EnPoDesert_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Po_Desert_InitVars = {
+        ACTOR_EN_PO_DESERT,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_PO_FIELD,
+        sizeof(EnPoDesert),
+        (ActorFunc)EnPoDesert_Init,
+        (ActorFunc)EnPoDesert_Destroy,
+        (ActorFunc)EnPoDesert_Update,
+        (ActorFunc)EnPoDesert_Draw,
+        (ActorFunc)EnPoDesert_Reset,
+    };
+
+    sColliderInit = {
+        {
+            COLTYPE_HIT3,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 25, 50, 20, { 0, 0, 0 } },
+    };
+
 }

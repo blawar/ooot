@@ -18,25 +18,6 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
-typedef struct {
-    AnimationHeader* anim;
-    f32 unk_4;
-    u8 mode;
-    f32 transitionRate;
-} EnDaikuAnimation;
-
-typedef enum {
-    /* 0 */ ENDAIKU_ANIM_SHOUT,
-    /* 1 */ ENDAIKU_ANIM_STAND,
-    /* 2 */ ENDAIKU_ANIM_CELEBRATE,
-    /* 3 */ ENDAIKU_ANIM_RUN,
-    /* 4 */ ENDAIKU_ANIM_SIT
-} EnDaikuAnimationIdx;
-
-typedef struct {
-    Vec3f eyePosDeltaLocal;
-    s32 maxFramesActive;
-} EnDaikuEscapeSubCamParam;
 
 // state flags
 
@@ -49,13 +30,9 @@ typedef struct {
 // the gerudo guard was defeated
 #define ENDAIKU_STATEFLAG_GERUDODEFEATED (1 << 4)
 
-typedef enum {
-    /* 0 */ ENDAIKU_STATE_CAN_TALK,
-    /* 2 */ ENDAIKU_STATE_TALKING = 2,
-    /* 3 */ ENDAIKU_STATE_NO_TALK
-} EnDaikuTalkState;
 
 void EnDaiku_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDaiku_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDaiku_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDaiku_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDaiku_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -80,6 +57,7 @@ ActorInit En_Daiku_InitVars = {
     (ActorFunc)EnDaiku_Destroy,
     (ActorFunc)EnDaiku_Update,
     (ActorFunc)EnDaiku_Draw,
+    (ActorFunc)EnDaiku_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -659,4 +637,77 @@ void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1330);
+}
+
+void EnDaiku_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Daiku_InitVars = {
+        ACTOR_EN_DAIKU,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_DAIKU,
+        sizeof(EnDaiku),
+        (ActorFunc)EnDaiku_Init,
+        (ActorFunc)EnDaiku_Destroy,
+        (ActorFunc)EnDaiku_Update,
+        (ActorFunc)EnDaiku_Draw,
+        (ActorFunc)EnDaiku_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 18, 66, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit2 = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(0, 0x0),
+        /* Slingshot     */ DMG_ENTRY(0, 0x0),
+        /* Explosive     */ DMG_ENTRY(0, 0x0),
+        /* Boomerang     */ DMG_ENTRY(0, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(0, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(0, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(0, 0x0),
+        /* Master sword  */ DMG_ENTRY(0, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(0, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(0, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(0, 0x0),
+        /* Light arrow   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(0, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(0, 0x0),
+        /* Giant spin    */ DMG_ENTRY(0, 0x0),
+        /* Master spin   */ DMG_ENTRY(0, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(0, 0x0),
+        /* Giant jump    */ DMG_ENTRY(0, 0x0),
+        /* Master jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
 }

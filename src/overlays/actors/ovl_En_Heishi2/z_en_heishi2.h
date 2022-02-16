@@ -1,4 +1,4 @@
-#ifndef Z_EN_HEISHI2_H
+#pragma once
 #define Z_EN_HEISHI2_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnHeishi2;
 
 typedef void (*EnHeishi2ActionFunc)(struct EnHeishi2*, GlobalContext*);
 
-typedef struct EnHeishi2 {
+
+struct EnHeishi2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[17];
@@ -48,6 +50,6 @@ typedef struct EnHeishi2 {
     /* 0x0330 */ MtxF mtxf_330;
     /* 0x0370 */ char unk_370[0x28];
     /* 0x0398 */ ColliderCylinder collider;
-} EnHeishi2; // size = 0x03E4
+}; 
 
-#endif
+

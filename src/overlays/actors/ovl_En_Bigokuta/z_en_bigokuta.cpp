@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnBigokuta_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBigokuta_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBigokuta_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBigokuta_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBigokuta_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -56,6 +57,7 @@ ActorInit En_Bigokuta_InitVars = {
     (ActorFunc)EnBigokuta_Destroy,
     (ActorFunc)EnBigokuta_Update,
     (ActorFunc)EnBigokuta_Draw,
+    (ActorFunc)EnBigokuta_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementInit[1] = {
@@ -913,4 +915,74 @@ void EnBigokuta_Draw(Actor* thisx, GlobalContext* globalCtx) {
                                            pthis->skelAnime.dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 2076);
+}
+
+void EnBigokuta_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sEffectPrimColor = { 255, 255, 255, 255 };
+
+    sEffectEnvColor = { 100, 255, 255, 255 };
+
+    sEffectPosAccel = { 0.0f, 0.0f, 0.0f };
+
+    En_Bigokuta_InitVars = {
+        ACTOR_EN_BIGOKUTA,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_BIGOKUTA,
+        sizeof(EnBigokuta),
+        (ActorFunc)EnBigokuta_Init,
+        (ActorFunc)EnBigokuta_Destroy,
+        (ActorFunc)EnBigokuta_Update,
+        (ActorFunc)EnBigokuta_Draw,
+        (ActorFunc)EnBigokuta_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT0,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphElementInit),
+        sJntSphElementInit,
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x1),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(0, 0x0),
+        /* Explosive     */ DMG_ENTRY(0, 0xF),
+        /* Boomerang     */ DMG_ENTRY(0, 0x1),
+        /* Normal arrow  */ DMG_ENTRY(0, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(0, 0x0),
+        /* Hookshot      */ DMG_ENTRY(0, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(0, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(0, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(0, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(0, 0x0),
+        /* Light arrow   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(0, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(0, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(0, 0x0),
+        /* Master spin   */ DMG_ENTRY(0, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(0, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
 }

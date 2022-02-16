@@ -28,25 +28,9 @@
 #define GE2_STATE_CAPTURING (1 << 3)
 #define GE2_STATE_TALKED (1 << 4)
 
-typedef enum {
-    /* 0 */ GE2_TYPE_PATROLLING,
-    /* 1 */ GE2_TYPE_STATIONARY,
-    /* 2 */ GE2_TYPE_GERUDO_CARD_GIVER
-} EnGe2Type;
-
-typedef enum {
-    /* 0 */ GE2_ACTION_WALK,
-    /* 1 */ GE2_ACTION_ABOUTTURN,
-    /* 2 */ GE2_ACTION_TURNPLAYERSPOTTED,
-    /* 3 */ GE2_ACTION_KNOCKEDOUT,
-    /* 4 */ GE2_ACTION_CAPTURETURN,
-    /* 5 */ GE2_ACTION_CAPTURECHARGE,
-    /* 6 */ GE2_ACTION_CAPTURECLOSE,
-    /* 7 */ GE2_ACTION_STAND,
-    /* 8 */ GE2_ACTION_WAITLOOKATPLAYER
-} EnGe2Action;
 
 void EnGe2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGe2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGe2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGe2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGe2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -78,6 +62,7 @@ ActorInit En_Ge2_InitVars = {
     (ActorFunc)EnGe2_Destroy,
     (ActorFunc)EnGe2_Update,
     (ActorFunc)EnGe2_Draw,
+    (ActorFunc)EnGe2_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -667,4 +652,40 @@ void EnGe2_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnGe2_OverrideLimbDraw, EnGe2_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge2.c", 1291);
+}
+
+void EnGe2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ge2_InitVars = {
+        ACTOR_EN_GE2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GLA,
+        sizeof(EnGe2),
+        (ActorFunc)EnGe2_Init,
+        (ActorFunc)EnGe2_Destroy,
+        (ActorFunc)EnGe2_Update,
+        (ActorFunc)EnGe2_Draw,
+        (ActorFunc)EnGe2_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x000007A2, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 60, 0, { 0, 0, 0 } },
+    };
+
 }

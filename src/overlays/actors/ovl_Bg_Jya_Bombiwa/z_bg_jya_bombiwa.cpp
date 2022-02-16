@@ -23,6 +23,7 @@
 #define FLAGS 0
 
 void BgJyaBombiwa_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaBombiwa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaBombiwa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBombiwa_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Jya_Bombiwa_InitVars = {
     (ActorFunc)BgJyaBombiwa_Destroy,
     (ActorFunc)BgJyaBombiwa_Update,
     (ActorFunc)BgJyaBombiwa_Draw,
+    (ActorFunc)BgJyaBombiwa_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -188,4 +190,33 @@ void BgJyaBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     Gfx_DrawDListOpa(globalCtx, gBombiwaDL);
     Collider_UpdateSpheres(0, &pthis->collider);
+}
+
+void BgJyaBombiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Bombiwa_InitVars = {
+        ACTOR_BG_JYA_BOMBIWA,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaBombiwa),
+        (ActorFunc)BgJyaBombiwa_Init,
+        (ActorFunc)BgJyaBombiwa_Destroy,
+        (ActorFunc)BgJyaBombiwa_Update,
+        (ActorFunc)BgJyaBombiwa_Draw,
+        (ActorFunc)BgJyaBombiwa_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

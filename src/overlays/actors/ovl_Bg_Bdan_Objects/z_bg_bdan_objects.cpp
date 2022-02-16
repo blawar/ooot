@@ -26,6 +26,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgBdanObjects_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgBdanObjects_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgBdanObjects_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgBdanObjects_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgBdanObjects_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -57,6 +58,7 @@ ActorInit Bg_Bdan_Objects_InitVars = {
     (ActorFunc)BgBdanObjects_Destroy,
     (ActorFunc)BgBdanObjects_Update,
     (ActorFunc)BgBdanObjects_Draw,
+    (ActorFunc)BgBdanObjects_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -475,4 +477,40 @@ void BgBdanObjects_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, sDLists[pthisx->params]);
     }
+}
+
+void BgBdanObjects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Bdan_Objects_InitVars = {
+        ACTOR_BG_BDAN_OBJECTS,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_BDAN_OBJECTS,
+        sizeof(BgBdanObjects),
+        (ActorFunc)BgBdanObjects_Init,
+        (ActorFunc)BgBdanObjects_Destroy,
+        (ActorFunc)BgBdanObjects_Update,
+        (ActorFunc)BgBdanObjects_Draw,
+        (ActorFunc)BgBdanObjects_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_HARD,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { 0x00BB, 0x0050, 0x0000, { 0 } },
+    };
+
 }

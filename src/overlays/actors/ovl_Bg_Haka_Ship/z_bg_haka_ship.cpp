@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgHakaShip_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaShip_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaShip_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaShip_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaShip_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -45,6 +46,7 @@ ActorInit Bg_Haka_Ship_InitVars = {
     (ActorFunc)BgHakaShip_Destroy,
     (ActorFunc)BgHakaShip_Update,
     (ActorFunc)BgHakaShip_Draw,
+    (ActorFunc)BgHakaShip_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -245,4 +247,20 @@ void BgHakaShip_Draw(Actor* thisx, GlobalContext* globalCtx) {
         SkinMatrix_Vec3fMtxFMultXYZ(&globalCtx->viewProjectionMtxF, &sp2C, &pthis->bellSoundPos);
         func_80078914(&pthis->bellSoundPos, NA_SE_EV_SHIP_BELL - SFX_FLAG);
     }
+}
+
+void BgHakaShip_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_Ship_InitVars = {
+        ACTOR_BG_HAKA_SHIP,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HAKA_OBJECTS,
+        sizeof(BgHakaShip),
+        (ActorFunc)BgHakaShip_Init,
+        (ActorFunc)BgHakaShip_Destroy,
+        (ActorFunc)BgHakaShip_Update,
+        (ActorFunc)BgHakaShip_Draw,
+        (ActorFunc)BgHakaShip_Reset,
+    };
+
 }

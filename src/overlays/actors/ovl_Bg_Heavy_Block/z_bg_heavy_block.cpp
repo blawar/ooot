@@ -28,6 +28,7 @@
 #define PIECE_FLAG_HIT_FLOOR (1 << 0)
 
 void BgHeavyBlock_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHeavyBlock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHeavyBlock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHeavyBlock_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHeavyBlock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +52,7 @@ ActorInit Bg_Heavy_Block_InitVars = {
     (ActorFunc)BgHeavyBlock_Destroy,
     (ActorFunc)BgHeavyBlock_Update,
     (ActorFunc)BgHeavyBlock_Draw,
+    (ActorFunc)BgHeavyBlock_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -534,4 +536,20 @@ void BgHeavyBlock_DrawPiece(Actor* thisx, GlobalContext* globalCtx) {
             Gfx_DrawDListOpa(globalCtx, gHeavyBlockSmallPieceDL);
             break;
     }
+}
+
+void BgHeavyBlock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Heavy_Block_InitVars = {
+        ACTOR_BG_HEAVY_BLOCK,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HEAVY_OBJECT,
+        sizeof(BgHeavyBlock),
+        (ActorFunc)BgHeavyBlock_Init,
+        (ActorFunc)BgHeavyBlock_Destroy,
+        (ActorFunc)BgHeavyBlock_Update,
+        (ActorFunc)BgHeavyBlock_Draw,
+        (ActorFunc)BgHeavyBlock_Reset,
+    };
+
 }

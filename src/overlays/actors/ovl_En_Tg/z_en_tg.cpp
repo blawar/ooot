@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnTg_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTg_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTg_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTg_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTg_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -57,6 +58,7 @@ ActorInit En_Tg_InitVars = {
     (ActorFunc)EnTg_Destroy,
     (ActorFunc)EnTg_Update,
     (ActorFunc)EnTg_Draw,
+    (ActorFunc)EnTg_Reset,
 };
 
 u16 EnTg_GetTextId(GlobalContext* globalCtx, Actor* thisx) {
@@ -201,4 +203,42 @@ void EnTg_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnTg_OverrideLimbDraw, EnTg_PostLimbDraw, pthis);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tg.c", 480);
+}
+
+void EnTg_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 64, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
+    En_Tg_InitVars = {
+        ACTOR_EN_TG,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_MU,
+        sizeof(EnTg),
+        (ActorFunc)EnTg_Init,
+        (ActorFunc)EnTg_Destroy,
+        (ActorFunc)EnTg_Update,
+        (ActorFunc)EnTg_Draw,
+        (ActorFunc)EnTg_Reset,
+    };
+
 }

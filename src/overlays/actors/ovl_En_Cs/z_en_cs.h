@@ -1,4 +1,4 @@
-#ifndef Z_EN_CS_H
+#pragma once
 #define Z_EN_CS_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnCs;
 
 typedef void (*EnCsActionFunc)(struct EnCs*, GlobalContext*);
 
-typedef struct EnCs {
+
+struct EnCs {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnCsActionFunc actionFunc;
@@ -32,6 +34,6 @@ typedef struct EnCs {
     /* 0x0280 */ s32 flag;
     /* 0x0284 */ Vec3s jointTable[16];
     /* 0x02E4 */ Vec3s morphTable[16];
-} EnCs; // size = 0x0344
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_EN_ANI_H
+#pragma once
 #define Z_EN_ANI_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnAni;
 
 typedef void (*EnAniActionFunc)(struct EnAni*, GlobalContext*);
 
-typedef struct EnAni {
+
+struct EnAni {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelAnime;
@@ -21,6 +23,6 @@ typedef struct EnAni {
     /* 0x02AC */ s16 eyeIndex;
     /* 0x02AE */ s16 blinkTimer;
     /* 0x02B0 */ EnAniActionFunc actionFunc;
-} EnAni; // size = 0x02B4
+}; 
 
-#endif
+

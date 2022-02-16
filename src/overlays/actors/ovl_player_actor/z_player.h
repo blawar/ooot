@@ -4,7 +4,118 @@ typedef void (*PlayerFunc674)(struct Player*, struct GlobalContext*);
 typedef s32 (*PlayerFunc82C)(struct Player*, struct GlobalContext*);
 typedef void (*PlayerFuncA74)(struct GlobalContext*, struct Player*);
 
+
+struct GetItemEntry {
+    /* 0x00 */ u8 itemId;
+    /* 0x01 */ u8 field; // various bit-packed data
+    /* 0x02 */ s8 gi;    // defines the draw id and chest opening animation
+    /* 0x03 */ u8 textId;
+    /* 0x04 */ u16 objectId;
+};
+
+enum KnobDoorAnim {
+    /* 0x00 */ KNOB_ANIM_ADULT_L,
+    /* 0x01 */ KNOB_ANIM_CHILD_L,
+    /* 0x02 */ KNOB_ANIM_ADULT_R,
+    /* 0x03 */ KNOB_ANIM_CHILD_R
+};
+
+
+struct ExplosiveInfo {
+    /* 0x00 */ u8 itemId;
+    /* 0x02 */ s16 actorId;
+};
+ 
+
+struct BottleCatchInfo {
+    /* 0x00 */ s16 actorId;
+    /* 0x02 */ u8 itemId;
+    /* 0x03 */ u8 actionParam;
+    /* 0x04 */ u8 textId;
+};
+ 
+
+struct BottleDropInfo {
+    /* 0x00 */ s16 actorId;
+    /* 0x02 */ s16 actorParams;
+};
+ 
+
+struct FallImpactInfo {
+    /* 0x00 */ s8 damage;
+    /* 0x01 */ u8 unk_01;
+    /* 0x02 */ u8 unk_02;
+    /* 0x03 */ u8 unk_03;
+    /* 0x04 */ u16 sfxId;
+};
+ 
+
+struct SpecialRespawnInfo {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ s16 yaw;
+};
+ 
+
+struct struct_80832924 {
+    /* 0x00 */ u16 sfxId;
+    /* 0x02 */ s16 field;
+};
+ 
+
+struct struct_808551A4 {
+    /* 0x00 */ u16 unk_00;
+    /* 0x02 */ s16 unk_02;
+};
+ 
+
+struct struct_808540F4 {
+    /* 0x00 */ LinkAnimationHeader* anim;
+    /* 0x04 */ u8 unk_04;
+};
+ 
+
+struct struct_80854554 {
+    /* 0x00 */ LinkAnimationHeader* unk_00;
+    /* 0x04 */ LinkAnimationHeader* unk_04;
+    /* 0x08 */ u8 unk_08;
+    /* 0x09 */ u8 unk_09;
+};
+ 
+
+struct struct_80854190 {
+    /* 0x00 */ LinkAnimationHeader* unk_00;
+    /* 0x04 */ LinkAnimationHeader* unk_04;
+    /* 0x08 */ LinkAnimationHeader* unk_08;
+    /* 0x0C */ u8 unk_0C;
+    /* 0x0D */ u8 unk_0D;
+};
+ 
+
+struct struct_80854578 {
+    /* 0x00 */ LinkAnimationHeader* anim;
+    /* 0x04 */ f32 unk_04;
+    /* 0x04 */ f32 unk_08;
+};
+ 
+
+struct struct_80854B18 {
+    /* 0x00 */ s8 type;
+    /* 0x04 */ union {
+        void* ptr;
+        void (*func)(GlobalContext*, Player*, CsCmdActorAction*);
+    };
+};
+ 
+
+struct struct_80858AC8 {
+    /* 0x00 */ s16 unk_00;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ s16 unk_08;
+};
 struct Player {
+
     /* 0x0000 */ Actor      actor;
     /* 0x014C */ s8         currentTunic; // current tunic from `PlayerTunic`
     /* 0x014D */ s8         currentSword; // current sword Item ID
@@ -179,4 +290,4 @@ struct Player {
     /* 0x0A86 */ s8         unk_A86;
     /* 0x0A87 */ u8         unk_A87;
     /* 0x0A88 */ Vec3f      unk_A88; // previous body part 0 position
-}; // size = 0xA94
+};

@@ -1,4 +1,4 @@
-#ifndef Z_FISHING_H
+#pragma once
 #define Z_FISHING_H
 
 #include "ultra64.h"
@@ -6,7 +6,100 @@
 
 struct Fishing;
 
-typedef struct Fishing {
+
+
+struct FishingFishInit {
+    /* 0x00 */ u8 unk_00;
+    /* 0x02 */ Vec3s pos;
+    /* 0x08 */ u8 unk_08;
+    /* 0x0C */ f32 unk_0C;
+};
+
+enum FishingEffectType {
+    /* 0x00 */ FS_EFF_NONE,
+    /* 0x01 */ FS_EFF_RIPPLE,
+    /* 0x02 */ FS_EFF_DUST_SPLASH,
+    /* 0x03 */ FS_EFF_WATER_DUST,
+    /* 0x04 */ FS_EFF_BUBBLE,
+    /* 0x05 */ FS_EFF_RAIN_DROP,
+    /* 0x06 */ FS_EFF_OWNER_HAT,
+    /* 0x07 */ FS_EFF_RAIN_RIPPLE,
+    /* 0x08 */ FS_EFF_RAIN_SPLASH
+};
+
+
+struct FishingEffect {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ Vec3f vel;
+    /* 0x18 */ Vec3f accel;
+    /* 0x24 */ u8 type;
+    /* 0x25 */ u8 timer;
+    /* 0x26 */ char unk_26[0x04];
+    /* 0x2A */ s16 alpha;
+    /* 0x2C */ s16 unk_2C;
+    /* 0x2E */ s16 unk_2E;
+    /* 0x30 */ f32 unk_30;
+    /* 0x34 */ f32 unk_34;
+    /* 0x38 */ f32 unk_38;
+    /* 0x3C */ f32 unk_3C;
+};
+
+enum FishingPropType {
+    /* 0x00 */ FS_PROP_NONE,
+    /* 0x01 */ FS_PROP_REED,
+    /* 0x02 */ FS_PROP_LILY_PAD,
+    /* 0x03 */ FS_PROP_ROCK,
+    /* 0x04 */ FS_PROP_WOOD_POST,
+    /* 0x23 */ FS_PROP_INIT_STOP = 0x23
+};
+
+
+struct FishingPropInit {
+    /* 0x00 */ u8 type;
+    /* 0x02 */ Vec3s pos;
+};
+ 
+
+struct FishingProp {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ f32 rotX;
+    /* 0x10 */ f32 rotY;
+    /* 0x14 */ f32 reedAngle;
+    /* 0x18 */ Vec3f projectedPos;
+    /* 0x24 */ f32 scale;
+    /* 0x28 */ s16 lilyPadAngle;
+    /* 0x2C */ f32 lilyPadOffset;
+    /* 0x30 */ u8 type;
+    /* 0x32 */ s16 timer;
+    /* 0x34 */ u8 shouldDraw;
+    /* 0x38 */ f32 drawDistance;
+};
+ 
+
+enum FishingGroupFishType {
+    /* 0x00 */ FS_GROUP_FISH_NONE,
+    /* 0x01 */ FS_GROUP_FISH_NORMAL
+};
+
+struct FishingGroupFish {
+    /* 0x00 */ u8 type;
+    /* 0x02 */ s16 timer;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ Vec3f unk_10;
+    /* 0x1C */ Vec3f projectedPos;
+    /* 0x28 */ f32 unk_28;
+    /* 0x2C */ f32 unk_2C;
+    /* 0x30 */ f32 unk_30;
+    /* 0x34 */ f32 unk_34;
+    /* 0x38 */ f32 unk_38;
+    /* 0x3C */ s16 unk_3C;
+    /* 0x3E */ s16 unk_3E;
+    /* 0x40 */ s16 unk_40;
+    /* 0x42 */ s16 unk_42;
+    /* 0x44 */ u8 shouldDraw;
+};
+struct Fishing {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ char unk_14C[0x004];
     /* 0x0150 */ u8 unk_150;
@@ -58,6 +151,6 @@ typedef struct Fishing {
     /* 0x0220 */ LightInfo lightInfo;
     /* 0x0230 */ ColliderJntSph collider;
     /* 0x0250 */ ColliderJntSphElement colliderElements[12];
-} Fishing; // size = 0x0550
+}; 
 
-#endif
+

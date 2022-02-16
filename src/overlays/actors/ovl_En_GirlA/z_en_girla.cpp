@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnGirlA_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGirlA_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGirlA_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGirlA_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -88,6 +89,7 @@ ActorInit En_GirlA_InitVars = {
     (ActorFunc)EnGirlA_Destroy,
     (ActorFunc)EnGirlA_Update,
     NULL,
+    (ActorFunc)EnGirlA_Reset,
 };
 
 static const char* sShopItemDescriptions[] = {
@@ -148,21 +150,7 @@ static s16 sMaskShopItems[8] = {
     ITEM_MASK_TRUTH,  ITEM_MASK_ZORA,   ITEM_MASK_GORON, ITEM_MASK_GERUDO,
 };
 
-static u16 sMaskShopFreeToBorrowTextIds[5] = { 0x70B6, 0x70B5, 0x70B4, 0x70B7, 0x70BB };
-
-typedef struct {
-    /* 0x00 */ s16 objID;
-    /* 0x02 */ s16 giDrawId;
-    /* 0x04 */ void (*hiliteFunc)(Actor*, GlobalContext*, s32);
-    /* 0x08 */ s16 price;
-    /* 0x0A */ s16 count;
-    /* 0x0C */ u16 itemDescTextId;
-    /* 0x0C */ u16 itemBuyPromptTextId;
-    /* 0x10 */ s32 getItemId;
-    /* 0x14 */ s32 (*canBuyFunc)(GlobalContext*, EnGirlA*);
-    /* 0x18 */ void (*itemGiveFunc)(GlobalContext*, EnGirlA*);
-    /* 0x1C */ void (*buyEventFunc)(GlobalContext*, EnGirlA*);
-} ShopItemEntry; // size = 0x20
+static u16 sMaskShopFreeToBorrowTextIds[5] = { 0x70B6, 0x70B5, 0x70B4, 0x70B7, 0x70BB }; 
 
 static ShopItemEntry shopItemEntries[] = {
     // SI_DEKU_NUTS_5
@@ -1118,4 +1106,20 @@ void EnGirlA_Draw(Actor* thisx, GlobalContext* globalCtx) {
         pthis->hiliteFunc(thisx, globalCtx, 0);
     }
     GetItem_Draw(globalCtx, pthis->giDrawId);
+}
+
+void EnGirlA_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_GirlA_InitVars = {
+        ACTOR_EN_GIRLA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnGirlA),
+        (ActorFunc)EnGirlA_Init,
+        (ActorFunc)EnGirlA_Destroy,
+        (ActorFunc)EnGirlA_Update,
+        NULL,
+        (ActorFunc)EnGirlA_Reset,
+    };
+
 }

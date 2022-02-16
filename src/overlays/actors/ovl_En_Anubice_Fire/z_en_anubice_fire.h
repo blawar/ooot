@@ -1,4 +1,4 @@
-#ifndef Z_EN_ANUBICE_FIRE_H
+#pragma once
 #define Z_EN_ANUBICE_FIRE_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnAnubiceFire;
 
 typedef void (*EnAnubiceFireActionFunc)(struct EnAnubiceFire*, GlobalContext*);
 
-typedef struct EnAnubiceFire {
+
+struct EnAnubiceFire {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnAnubiceFireActionFunc actionFunc;
     /* 0x0150 */ f32 scale;
@@ -19,6 +21,6 @@ typedef struct EnAnubiceFire {
     /* 0x015E */ s16 unk_15E;
     /* 0x0178 */ Vec3f unk_160[6];
     /* 0x01A8 */ ColliderCylinder cylinder;
-} EnAnubiceFire; // size = 0x01F4
+}; 
 
-#endif
+

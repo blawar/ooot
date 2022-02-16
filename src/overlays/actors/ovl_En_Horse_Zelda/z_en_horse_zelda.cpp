@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnHorseZelda_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHorseZelda_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHorseZelda_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseZelda_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseZelda_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit En_Horse_Zelda_InitVars = {
     (ActorFunc)EnHorseZelda_Destroy,
     (ActorFunc)EnHorseZelda_Update,
     (ActorFunc)EnHorseZelda_Draw,
+    (ActorFunc)EnHorseZelda_Reset,
 };
 
 static AnimationHeader* sAnimationHeaders[] = { &gHorseZeldaGallopingAnim };
@@ -93,12 +95,7 @@ static ColliderJntSphInit sJntSphInit = {
     sJntSphElementsInit,
 };
 
-static CollisionCheckInfoInit sColChkInfoInit = { 10, 35, 100, MASS_HEAVY };
-
-typedef struct {
-    /* 0x0 */ Vec3s unk_0;
-    /* 0x6 */ u8 unk_6;
-} unknownStruct; // size = 0x8
+static CollisionCheckInfoInit sColChkInfoInit = { 10, 35, 100, MASS_HEAVY }; 
 
 static unknownStruct D_80A6E240[] = {
     { -1682, -500, 12578, 0x07 }, { -3288, -500, 13013, 0x07 }, { -5142, -417, 11630, 0x07 },
@@ -284,4 +281,54 @@ void EnHorseZelda_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80A6DE38(pthis, globalCtx);
     func_80093D18(globalCtx->state.gfxCtx);
     func_800A6330(&pthis->actor, globalCtx, &pthis->skin, func_80A6DFD4, 1);
+}
+
+void EnHorseZelda_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Horse_Zelda_InitVars = {
+        ACTOR_EN_HORSE_ZELDA,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HORSE_ZELDA,
+        sizeof(EnHorseZelda),
+        (ActorFunc)EnHorseZelda_Init,
+        (ActorFunc)EnHorseZelda_Destroy,
+        (ActorFunc)EnHorseZelda_Update,
+        (ActorFunc)EnHorseZelda_Draw,
+        (ActorFunc)EnHorseZelda_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 40, 100, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 10, 35, 100, MASS_HEAVY };
+
 }

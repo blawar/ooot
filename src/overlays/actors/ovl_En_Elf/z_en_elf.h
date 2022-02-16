@@ -1,4 +1,4 @@
-#ifndef Z_EN_ELF_H
+#pragma once
 #define Z_EN_ELF_H
 
 #include "ultra64.h"
@@ -7,11 +7,18 @@
 #include "overlays/actors/ovl_Elf_Msg/z_elf_msg.h"
 
 struct EnElf;
+struct ElfMsg;
 
 typedef void (*EnElfActionFunc)(struct EnElf*, struct GlobalContext*);
 typedef void (*EnElfUnkFunc)(struct EnElf*, struct GlobalContext*);
 
-typedef struct EnElf {
+
+
+struct FairyColorFlags {
+    u8 r, g, b;
+};
+struct EnElf {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[15];
@@ -43,9 +50,9 @@ typedef struct EnElf {
     /* 0x02C7 */ u8 unk_2C7;
     /* 0x02C8 */ EnElfUnkFunc func_2C8;
     /* 0x02CC */ EnElfActionFunc actionFunc;
-} EnElf; // size = 0x02D0
+}; 
 
-typedef enum {
+enum FairyType {
     /* 0x00 */ FAIRY_NAVI,
     /* 0x01 */ FAIRY_REVIVE_BOTTLE,
     /* 0x02 */ FAIRY_HEAL_TIMED,
@@ -54,6 +61,6 @@ typedef enum {
     /* 0x05 */ FAIRY_REVIVE_DEATH,
     /* 0x06 */ FAIRY_HEAL,
     /* 0x07 */ FAIRY_HEAL_BIG
-} FairyType;
+};
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_BG_GANON_OTYUKA_H
+#pragma once
 #define Z_BG_GANON_OTYUKA_H
 
 #include "ultra64.h"
@@ -14,7 +14,14 @@ struct BgGanonOtyuka;
 
 typedef void (*BgGanonOtyukaActionFunc)(struct BgGanonOtyuka*, GlobalContext*);
 
-typedef struct BgGanonOtyuka {
+
+enum FlashState {
+    /* 0x00 */ FLASH_NONE,
+    /* 0x01 */ FLASH_GROW,
+    /* 0x02 */ FLASH_SHRINK
+};
+struct BgGanonOtyuka {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgGanonOtyukaActionFunc actionFunc;
     /* 0x0168 */ s16 dropTimer;
@@ -30,6 +37,6 @@ typedef struct BgGanonOtyuka {
     /* 0x0180 */ f32 flashEnvColorR;
     /* 0x0184 */ f32 flashEnvColorG;
     /* 0x0188 */ f32 flashEnvColorB;
-} BgGanonOtyuka; // size = 0x018C
+}; 
 
-#endif
+

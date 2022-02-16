@@ -30,6 +30,7 @@
 // frozen:      pthis->dyna.actor.params >> 7 & 1
 
 void ObjSwitch_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjSwitch_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjSwitch_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjSwitch_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -73,6 +74,7 @@ ActorInit Obj_Switch_InitVars = {
     (ActorFunc)ObjSwitch_Destroy,
     (ActorFunc)ObjSwitch_Update,
     (ActorFunc)ObjSwitch_Draw,
+    (ActorFunc)ObjSwitch_Reset,
 };
 
 static f32 sHeights[] = { 10, 10, 0, 30, 30 };
@@ -804,4 +806,59 @@ void ObjSwitch_Draw(Actor* thisx, GlobalContext* globalCtx) {
     ObjSwitch* pthis = (ObjSwitch*)thisx;
 
     sDrawFuncs[(pthis->dyna.actor.params & 7)](pthis, globalCtx);
+}
+
+void ObjSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Switch_InitVars = {
+        ACTOR_OBJ_SWITCH,
+        ACTORCAT_SWITCH,
+        FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(ObjSwitch),
+        (ActorFunc)ObjSwitch_Init,
+        (ActorFunc)ObjSwitch_Destroy,
+        (ActorFunc)ObjSwitch_Update,
+        (ActorFunc)ObjSwitch_Draw,
+        (ActorFunc)ObjSwitch_Reset,
+    };
+
+    sRustyFloorTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        D_80B9EC34,
+    };
+
+    trisColliderEye = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        D_80B9ECBC,
+    };
+
+    sCyrstalJntSphereInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        D_80B9ED44,
+    };
+
 }

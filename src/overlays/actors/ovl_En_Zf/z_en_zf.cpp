@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnZf_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnZf_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnZf_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnZf_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -123,6 +124,7 @@ ActorInit En_Zf_InitVars = {
     (ActorFunc)EnZf_Destroy,
     (ActorFunc)EnZf_Update,
     (ActorFunc)EnZf_Draw,
+    (ActorFunc)EnZf_Reset,
 };
 
 static ColliderCylinderInit sBodyCylinderInit = {
@@ -164,14 +166,6 @@ static ColliderQuadInit sSwordQuadInit = {
     },
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
-
-typedef enum {
-    /* 0x0 */ ENZF_DMGEFF_NONE,
-    /* 0x1 */ ENZF_DMGEFF_STUN,
-    /* 0x6 */ ENZF_DMGEFF_IMMUNE = 6,       // Skips damage code, but also skips the top half of Update
-    /* 0xD */ ENZF_DMGEFF_PROJECTILE = 0xD, // Projectiles that don't have another damageeffect
-    /* 0xF */ ENZF_DMGEFF_ICE = 0xF
-} EnZfDamageEffect;
 
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, ENZF_DMGEFF_STUN),
@@ -2436,4 +2430,99 @@ s32 EnZf_DodgeRangedWaiting(GlobalContext* globalCtx, EnZf* pthis) {
         return true;
     }
     return false;
+}
+
+void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80B4A1B0 = 0;
+
+    D_80B4A1B4 = 1;
+
+    En_Zf_InitVars = {
+        ACTOR_EN_ZF,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_ZF,
+        sizeof(EnZf),
+        (ActorFunc)EnZf_Init,
+        (ActorFunc)EnZf_Destroy,
+        (ActorFunc)EnZf_Update,
+        (ActorFunc)EnZf_Draw,
+        (ActorFunc)EnZf_Reset,
+    };
+
+    sBodyCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 70, 0, { 0, 0, 0 } },
+    };
+
+    sSwordQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL | TOUCH_UNK7,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, ENZF_DMGEFF_STUN),
+        /* Deku stick    */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Slingshot     */ DMG_ENTRY(1, ENZF_DMGEFF_PROJECTILE),
+        /* Explosive     */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Boomerang     */ DMG_ENTRY(0, ENZF_DMGEFF_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Hammer swing  */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Hookshot      */ DMG_ENTRY(0, ENZF_DMGEFF_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, ENZF_DMGEFF_NONE),
+        /* Master sword  */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Giant's Knife */ DMG_ENTRY(4, ENZF_DMGEFF_NONE),
+        /* Fire arrow    */ DMG_ENTRY(2, ENZF_DMGEFF_PROJECTILE),
+        /* Ice arrow     */ DMG_ENTRY(4, ENZF_DMGEFF_ICE),
+        /* Light arrow   */ DMG_ENTRY(2, ENZF_DMGEFF_PROJECTILE),
+        /* Unk arrow 1   */ DMG_ENTRY(2, ENZF_DMGEFF_PROJECTILE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, ENZF_DMGEFF_PROJECTILE),
+        /* Unk arrow 3   */ DMG_ENTRY(2, ENZF_DMGEFF_PROJECTILE),
+        /* Fire magic    */ DMG_ENTRY(0, ENZF_DMGEFF_IMMUNE),
+        /* Ice magic     */ DMG_ENTRY(3, ENZF_DMGEFF_ICE),
+        /* Light magic   */ DMG_ENTRY(0, ENZF_DMGEFF_IMMUNE),
+        /* Shield        */ DMG_ENTRY(0, ENZF_DMGEFF_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, ENZF_DMGEFF_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, ENZF_DMGEFF_NONE),
+        /* Giant spin    */ DMG_ENTRY(4, ENZF_DMGEFF_NONE),
+        /* Master spin   */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Kokiri jump   */ DMG_ENTRY(2, ENZF_DMGEFF_NONE),
+        /* Giant jump    */ DMG_ENTRY(8, ENZF_DMGEFF_NONE),
+        /* Master jump   */ DMG_ENTRY(4, ENZF_DMGEFF_NONE),
+        /* Unknown 1     */ DMG_ENTRY(0, ENZF_DMGEFF_NONE),
+        /* Unblockable   */ DMG_ENTRY(0, ENZF_DMGEFF_NONE),
+        /* Hammer jump   */ DMG_ENTRY(4, ENZF_DMGEFF_NONE),
+        /* Unknown 2     */ DMG_ENTRY(0, ENZF_DMGEFF_NONE),
+    };
+
 }

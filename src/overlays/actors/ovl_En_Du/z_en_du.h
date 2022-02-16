@@ -1,4 +1,4 @@
-#ifndef Z_EN_DU_H
+#pragma once
 #define Z_EN_DU_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnDu;
 
 typedef void (*EnDuActionFunc)(struct EnDu*, GlobalContext*);
 
-typedef struct EnDu {
+
+struct EnDu {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnDuActionFunc actionFunc;
@@ -27,6 +29,6 @@ typedef struct EnDu {
     /* 0x01F1 */ u8 noseTexIndex;
     /* 0x01F2 */ s16 blinkTimer;
     /* 0x01F4 */ struct_80034A14_arg1 unk_1F4;
-} EnDu; // size = 0x021C
+}; 
 
-#endif
+

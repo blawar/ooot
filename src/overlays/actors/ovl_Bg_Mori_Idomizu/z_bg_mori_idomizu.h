@@ -1,4 +1,4 @@
-#ifndef Z_BG_MORI_IDOMIZU_H
+#pragma once
 #define Z_BG_MORI_IDOMIZU_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgMoriIdomizu;
 
 typedef void (*BgMoriIdomizuActionFunc)(struct BgMoriIdomizu*, GlobalContext*);
 
-typedef struct BgMoriIdomizu {
+
+struct BgMoriIdomizu {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ BgMoriIdomizuActionFunc actionFunc;
     /* 0x0150 */ f32 targetWaterLevel;
@@ -16,6 +18,6 @@ typedef struct BgMoriIdomizu {
     /* 0x0158 */ s16 isLoaded;
     /* 0x015A */ s16 drainTimer;
     /* 0x015C */ s32 moriTexObjIndex;
-} BgMoriIdomizu; // size = 0x0160
+}; 
 
-#endif
+

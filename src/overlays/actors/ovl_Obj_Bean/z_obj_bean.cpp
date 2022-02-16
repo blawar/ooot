@@ -28,6 +28,7 @@
 #define FLAGS ACTOR_FLAG_22
 
 void ObjBean_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjBean_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjBean_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjBean_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjBean_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -98,6 +99,7 @@ ActorInit Obj_Bean_InitVars = {
     (ActorFunc)ObjBean_Destroy,
     (ActorFunc)ObjBean_Update,
     (ActorFunc)ObjBean_Draw,
+    (ActorFunc)ObjBean_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -119,11 +121,6 @@ static ColliderCylinderInit sCylinderInit = {
     },
     { 64, 30, -31, { 0, 0, 0 } },
 };
-
-typedef struct {
-    f32 velocity;
-    f32 accel;
-} BeenSpeedInfo;
 
 static BeenSpeedInfo sBeanSpeeds[] = {
     { 3.0f, 0.3f },
@@ -958,4 +955,42 @@ void ObjBean_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->stateFlags & BEAN_STATE_DRAW_STALK) {
         ObjBean_DrawBeanstalk(pthis, globalCtx);
     }
+}
+
+void ObjBean_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80B90E30 = NULL;
+
+    Obj_Bean_InitVars = {
+        ACTOR_OBJ_BEAN,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MAMENOKI,
+        sizeof(ObjBean),
+        (ActorFunc)ObjBean_Init,
+        (ActorFunc)ObjBean_Destroy,
+        (ActorFunc)ObjBean_Update,
+        (ActorFunc)ObjBean_Draw,
+        (ActorFunc)ObjBean_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 64, 30, -31, { 0, 0, 0 } },
+    };
+
 }

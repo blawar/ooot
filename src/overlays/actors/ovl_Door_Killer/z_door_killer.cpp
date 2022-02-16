@@ -25,15 +25,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* 0 */ DOOR_KILLER_DOOR,
-    /* 1 */ DOOR_KILLER_RUBBLE_PIECE_1,
-    /* 2 */ DOOR_KILLER_RUBBLE_PIECE_2,
-    /* 3 */ DOOR_KILLER_RUBBLE_PIECE_3,
-    /* 4 */ DOOR_KILLER_RUBBLE_PIECE_4
-} DoorKillerBehaviour;
 
 void DoorKiller_Init(Actor* thisx, GlobalContext* globalCtx);
+void DoorKiller_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DoorKiller_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorKiller_Update(Actor* thisx, GlobalContext* globalCtx);
 void DoorKiller_Wait(DoorKiller* pthis, GlobalContext* globalCtx);
@@ -51,6 +45,7 @@ ActorInit Door_Killer_InitVars = {
     (ActorFunc)DoorKiller_Destroy,
     (ActorFunc)DoorKiller_Update,
     NULL,
+    (ActorFunc)DoorKiller_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -533,4 +528,53 @@ void DoorKiller_DrawRubble(Actor* thisx, GlobalContext* globalCtx) {
         DoorKiller_SetTexture(thisx, globalCtx);
         Gfx_DrawDListOpa(globalCtx, dLists[rubblePieceIndex]);
     }
+}
+
+void DoorKiller_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Door_Killer_InitVars = {
+        ACTOR_DOOR_KILLER,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_DOOR_KILLER,
+        sizeof(DoorKiller),
+        (ActorFunc)DoorKiller_Init,
+        (ActorFunc)DoorKiller_Destroy,
+        (ActorFunc)DoorKiller_Update,
+        NULL,
+        (ActorFunc)DoorKiller_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x10 },
+            { 0x0001FFEE, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 20, 100, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphItemsInit,
+    };
+
 }

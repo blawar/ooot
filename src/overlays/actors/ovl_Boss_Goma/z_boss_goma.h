@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_GOMA_H
+#pragma once
 #define Z_BOSS_GOMA_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct BossGoma;
 
 typedef void (*BossGomaActionFunc)(struct BossGoma*, GlobalContext*);
 
-typedef enum {
+enum BossGomaLimb {
     /*  0 */ BOSSGOMA_LIMB_NONE,
     /*  1 */ BOSSGOMA_LIMB_ROOT1,
     /*  2 */ BOSSGOMA_LIMB_ROOT2,
@@ -96,9 +96,24 @@ typedef enum {
     /* 84 */ BOSSGOMA_LIMB_BODY_SHELL_BACK_ROOT2,
     /* 85 */ BOSSGOMA_LIMB_BODY_SHELL_BACK,
     /* 86 */ BOSSGOMA_LIMB_MAX
-} BossGomaLimb;
+};
 
-typedef struct BossGoma {
+enum GohmaEyeState {
+    EYESTATE_IRIS_FOLLOW_BONUS_IFRAMES, // default, allows not drawing lens and iris when eye is closed
+    EYESTATE_IRIS_NO_FOLLOW_NO_IFRAMES,
+    EYESTATE_IRIS_FOLLOW_NO_IFRAMES
+};
+
+
+enum GohmaVisualState {
+    VISUALSTATE_RED,         // main/eye: red
+    VISUALSTATE_DEFAULT,     // main: greenish cyan, blinks with dark gray every 16 frames; eye: white
+    VISUALSTATE_DEFEATED,    // main/eye: dark gray
+    VISUALSTATE_STUNNED = 4, // main: greenish cyan, alternates with blue; eye: greenish cyan
+    VISUALSTATE_HIT          // main: greenish cyan, alternates with red; eye: greenish cyan
+};
+struct BossGoma {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelanime;
     /* 0x0190 */ BossGomaActionFunc actionFunc;
@@ -151,6 +166,6 @@ typedef struct BossGoma {
     /* 0x0758 */ u8 deadLimbsState[100]; // only 85/90 first indices actually used
     /* 0x07BC */ ColliderJntSph collider;
     /* 0x07DC */ ColliderJntSphElement colliderItems[13];
-} BossGoma; // size = 0x0B1C
+}; 
 
-#endif
+

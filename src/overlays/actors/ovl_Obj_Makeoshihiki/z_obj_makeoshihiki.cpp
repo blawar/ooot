@@ -16,21 +16,15 @@
 #define FLAGS ACTOR_FLAG_5
 
 void ObjMakeoshihiki_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjMakeoshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjMakeoshihiki_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Obj_Makeoshihiki_InitVars = {
     ACTOR_OBJ_MAKEOSHIHIKI,       ACTORCAT_PROP,           FLAGS,
     OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjMakeoshihiki), (ActorFunc)ObjMakeoshihiki_Init,
     (ActorFunc)Actor_Noop,        (ActorFunc)Actor_Noop,   (ActorFunc)ObjMakeoshihiki_Draw,
-};
-
-typedef struct {
-    /* 0x00 */ Vec3f posVecs[3];
-    /* 0x24 */ u8 unk_24[3];
-    /* 0x27 */ u8 color;
-    /* 0x28 */ u8 type;
-    /* 0x2A */ s16 rotY;
-} BlockConfig; // size = 0x2C
+    (ActorFunc)ObjMakeoshihiki_Reset,
+}; 
 
 static BlockConfig sBlocks[] = {
     { { { 660.0f, 460.0f, 660.0f }, { 660.0f, 457.0f, 540.0f }, { 780.0f, 454.0f, 540.0f } },
@@ -133,4 +127,14 @@ void ObjMakeoshihiki_Draw(Actor* thisx, GlobalContext* globalCtx) {
             break;
         }
     }
+}
+
+void ObjMakeoshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Makeoshihiki_InitVars = {
+        ACTOR_OBJ_MAKEOSHIHIKI,       ACTORCAT_PROP,           FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjMakeoshihiki), (ActorFunc)ObjMakeoshihiki_Init,
+        (ActorFunc)Actor_Noop,        (ActorFunc)Actor_Noop,   (ActorFunc)ObjMakeoshihiki_Draw,
+        (ActorFunc)ObjMakeoshihiki_Reset,
+    };
+
 }

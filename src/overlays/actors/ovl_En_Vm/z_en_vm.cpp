@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
 
 void EnVm_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnVm_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnVm_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnVm_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnVm_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -45,6 +46,7 @@ ActorInit En_Vm_InitVars = {
     (ActorFunc)EnVm_Destroy,
     (ActorFunc)EnVm_Update,
     (ActorFunc)EnVm_Draw,
+    (ActorFunc)EnVm_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -565,4 +567,106 @@ void EnVm_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     gSPDisplayList(POLY_OPA_DISP++, gBeamosLaserDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vm.c", 1068);
+}
+
+void EnVm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Vm_InitVars = {
+        ACTOR_EN_VM,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_VM,
+        sizeof(EnVm),
+        (ActorFunc)EnVm_Init,
+        (ActorFunc)EnVm_Destroy,
+        (ActorFunc)EnVm_Update,
+        (ActorFunc)EnVm_Draw,
+        (ActorFunc)EnVm_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 25, 70, 0, { 0, 0, 0 } },
+    };
+
+    sQuadInit1 = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x10 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL | TOUCH_UNK7,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sQuadInit2 = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    D_80B2EAEC = { 0.0f, 0.0f, 0.0f };
+
+    D_80B2EAF8 = { 0.0f, 0.0f, 0.0f };
+
+    D_80B2EB04 = { 500.0f, 0.0f, 0.0f };
+
+    D_80B2EB10 = { -500.0f, 0.0f, 0.0f };
+
+    D_80B2EB1C = { 0.0f, 0.0f, 0.0f };
+
+    D_80B2EB28 = { 0.0f, 0.0f, 1600.0f };
+
+    D_80B2EB34 = { 1000.0f, 700.0f, 2000.0f };
+
+    D_80B2EB40 = { 1000.0f, -700.0f, 2000.0f };
+
+    D_80B2EB4C = { -1000.0f, 700.0f, 1500.0f };
+
+    D_80B2EB58 = { -1000.0f, -700.0f, 1500.0f };
+
+    D_80B2EB64 = { 500.0f, 0.0f, 0.0f };
+
+    D_80B2EB70 = { -500.0f, 0.0f, 0.0f };
+
+    D_80B2EB7C = { 0.4f, 0.4f, 0.4f };
+
 }

@@ -43,6 +43,7 @@
 #define SKULL_OF_TRUTH_FOUND 100
 
 void BgHakaGate_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaGate_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaGate_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaGate_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaGate_Draw(Actor* pthis, GlobalContext* globalCtx);
@@ -74,6 +75,7 @@ ActorInit Bg_Haka_Gate_InitVars = {
     (ActorFunc)BgHakaGate_Destroy,
     (ActorFunc)BgHakaGate_Update,
     (ActorFunc)BgHakaGate_Draw,
+    (ActorFunc)BgHakaGate_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -385,4 +387,26 @@ void BgHakaGate_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->params == BGHAKAGATE_SKULL) {
         BgHakaGate_DrawFlame(pthis, globalCtx);
     }
+}
+
+void BgHakaGate_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sSkullOfTruthRotY = 0x100;
+
+    sPuzzleState = 1;
+
+    sStatueDistToPlayer = 0;
+
+    Bg_Haka_Gate_InitVars = {
+        ACTOR_BG_HAKA_GATE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_HAKA_OBJECTS,
+        sizeof(BgHakaGate),
+        (ActorFunc)BgHakaGate_Init,
+        (ActorFunc)BgHakaGate_Destroy,
+        (ActorFunc)BgHakaGate_Update,
+        (ActorFunc)BgHakaGate_Draw,
+        (ActorFunc)BgHakaGate_Reset,
+    };
+
 }

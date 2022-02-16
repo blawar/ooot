@@ -26,27 +26,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
-typedef enum {
-    /*  0 */ GELDB_WAIT,
-    /*  1 */ GELDB_DEFEAT,
-    /*  2 */ GELDB_DAMAGED,
-    /*  3 */ GELDB_JUMP,
-    /*  4 */ GELDB_ROLL_BACK,
-    /*  5 */ GELDB_READY,
-    /*  6 */ GELDB_BLOCK,
-    /*  7 */ GELDB_SLASH,
-    /*  8 */ GELDB_ADVANCE,
-    /*  9 */ GELDB_PIVOT,
-    /* 10 */ GELDB_CIRCLE,
-    /* 11 */ GELDB_UNUSED,
-    /* 12 */ GELDB_SPIN_ATTACK,
-    /* 13 */ GELDB_SIDESTEP,
-    /* 14 */ GELDB_ROLL_FORWARD,
-    /* 15 */ GELDB_STUNNED,
-    /* 16 */ GELDB_SPIN_DODGE
-} EnGeldBAction;
 
 void EnGeldB_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGeldB_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGeldB_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGeldB_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -96,6 +78,7 @@ ActorInit En_GeldB_InitVars = {
     (ActorFunc)EnGeldB_Destroy,
     (ActorFunc)EnGeldB_Update,
     (ActorFunc)EnGeldB_Draw,
+    (ActorFunc)EnGeldB_Reset,
 };
 
 static ColliderCylinderInit sBodyCylInit = {
@@ -175,15 +158,6 @@ static ColliderQuadInit sSwordQuadInit = {
     },
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
-
-typedef enum {
-    /* 0x0 */ GELDB_DMG_NORMAL,
-    /* 0x1 */ GELDB_DMG_STUN,
-    /* 0x6 */ GELDB_DMG_UNK_6 = 0x6,
-    /* 0xD */ GELDB_DMG_UNK_D = 0xD,
-    /* 0xE */ GELDB_DMG_UNK_E,
-    /* 0xF */ GELDB_DMG_FREEZE
-} EnGeldBDamageEffects;
 
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, GELDB_DMG_STUN),
@@ -1656,4 +1630,110 @@ s32 EnGeldB_DodgeRanged(GlobalContext* globalCtx, EnGeldB* pthis) {
         return true;
     }
     return false;
+}
+
+void EnGeldB_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_GeldB_InitVars = {
+        ACTOR_EN_GELDB,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_GELDB,
+        sizeof(EnGeldB),
+        (ActorFunc)EnGeldB_Init,
+        (ActorFunc)EnGeldB_Destroy,
+        (ActorFunc)EnGeldB_Update,
+        (ActorFunc)EnGeldB_Draw,
+        (ActorFunc)EnGeldB_Reset,
+    };
+
+    sBodyCylInit = {
+        {
+            COLTYPE_HIT5,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 50, 0, { 0, 0, 0 } },
+    };
+
+    sBlockTrisInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sBlockTrisElementsInit,
+    };
+
+    sSwordQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL | TOUCH_UNK7,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, GELDB_DMG_STUN),
+        /* Deku stick    */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Slingshot     */ DMG_ENTRY(1, GELDB_DMG_NORMAL),
+        /* Explosive     */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Boomerang     */ DMG_ENTRY(0, GELDB_DMG_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Hammer swing  */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Hookshot      */ DMG_ENTRY(0, GELDB_DMG_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, GELDB_DMG_NORMAL),
+        /* Master sword  */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Giant's Knife */ DMG_ENTRY(4, GELDB_DMG_NORMAL),
+        /* Fire arrow    */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Ice arrow     */ DMG_ENTRY(2, GELDB_DMG_FREEZE),
+        /* Light arrow   */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Unk arrow 1   */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Unk arrow 2   */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Unk arrow 3   */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Fire magic    */ DMG_ENTRY(4, GELDB_DMG_UNK_E),
+        /* Ice magic     */ DMG_ENTRY(0, GELDB_DMG_UNK_6),
+        /* Light magic   */ DMG_ENTRY(3, GELDB_DMG_UNK_D),
+        /* Shield        */ DMG_ENTRY(0, GELDB_DMG_NORMAL),
+        /* Mirror Ray    */ DMG_ENTRY(0, GELDB_DMG_NORMAL),
+        /* Kokiri spin   */ DMG_ENTRY(1, GELDB_DMG_NORMAL),
+        /* Giant spin    */ DMG_ENTRY(4, GELDB_DMG_NORMAL),
+        /* Master spin   */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Kokiri jump   */ DMG_ENTRY(2, GELDB_DMG_NORMAL),
+        /* Giant jump    */ DMG_ENTRY(8, GELDB_DMG_NORMAL),
+        /* Master jump   */ DMG_ENTRY(4, GELDB_DMG_NORMAL),
+        /* Unknown 1     */ DMG_ENTRY(4, GELDB_DMG_NORMAL),
+        /* Unblockable   */ DMG_ENTRY(0, GELDB_DMG_NORMAL),
+        /* Hammer jump   */ DMG_ENTRY(4, GELDB_DMG_NORMAL),
+        /* Unknown 2     */ DMG_ENTRY(0, GELDB_DMG_NORMAL),
+    };
+
+    sUnusedOffset = { 1100.0f, -700.0f, 0.0f };
+
 }

@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnEg_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnEg_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnEg_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnEg_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnEg_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit En_Eg_InitVars = {
     (ActorFunc)EnEg_Destroy,
     (ActorFunc)EnEg_Update,
     (ActorFunc)EnEg_Draw,
+    (ActorFunc)EnEg_Reset,
 };
 
 void EnEg_PlayVoidOutSFX() {
@@ -79,4 +81,22 @@ void EnEg_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnEg_Draw(Actor* thisx, GlobalContext* globalCtx) {
+}
+
+void EnEg_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    voided = false;
+
+    En_Eg_InitVars = {
+        ACTOR_EN_EG,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_ZL2,
+        sizeof(EnEg),
+        (ActorFunc)EnEg_Init,
+        (ActorFunc)EnEg_Destroy,
+        (ActorFunc)EnEg_Update,
+        (ActorFunc)EnEg_Draw,
+        (ActorFunc)EnEg_Reset,
+    };
+
 }

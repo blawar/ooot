@@ -10,6 +10,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnOE2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnOE2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnOE2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnOE2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnOE2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -26,6 +27,7 @@ ActorInit En_OE2_InitVars = {
     (ActorFunc)EnOE2_Destroy,
     (ActorFunc)EnOE2_Update,
     (ActorFunc)EnOE2_Draw,
+    (ActorFunc)EnOE2_Reset,
 };
 
 void EnOE2_SetupAction(EnOE2* pthis, EnOE2ActionFunc actionFunc) {
@@ -48,4 +50,20 @@ void EnOE2_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnOE2_Draw(Actor* thisx, GlobalContext* globalCtx) {
+}
+
+void EnOE2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_OE2_InitVars = {
+        ACTOR_EN_OE2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_OE2,
+        sizeof(EnOE2),
+        (ActorFunc)EnOE2_Init,
+        (ActorFunc)EnOE2_Destroy,
+        (ActorFunc)EnOE2_Update,
+        (ActorFunc)EnOE2_Draw,
+        (ActorFunc)EnOE2_Reset,
+    };
+
 }

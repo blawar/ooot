@@ -1,4 +1,4 @@
-#ifndef Z_EN_MD_H
+#pragma once
 #define Z_EN_MD_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnMd;
 
 typedef void (*EnMdActionFunc)(struct EnMd*, GlobalContext*);
 
-typedef struct EnMd {
+
+struct EnMd {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnMdActionFunc actionFunc;
@@ -26,6 +28,6 @@ typedef struct EnMd {
     /* 0x0236 */ s16 unk_236[17];
     /* 0x0258 */ Vec3s jointTable[17];
     /* 0x02BE */ Vec3s morphTable[17];
-} EnMd; // size = 0x0324
+}; 
 
-#endif
+

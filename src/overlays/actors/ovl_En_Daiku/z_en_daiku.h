@@ -1,4 +1,4 @@
-#ifndef Z_EN_DAIKU_H
+#pragma once
 #define Z_EN_DAIKU_H
 
 #include "ultra64.h"
@@ -8,7 +8,36 @@ struct EnDaiku;
 
 typedef void (*EnDaikuActionFunc)(struct EnDaiku*, GlobalContext*);
 
-typedef struct EnDaiku {
+
+struct EnDaikuAnimation {
+    AnimationHeader* anim;
+    f32 unk_4;
+    u8 mode;
+    f32 transitionRate;
+};
+
+
+enum EnDaikuAnimationIdx {
+    /* 0 */ ENDAIKU_ANIM_SHOUT,
+    /* 1 */ ENDAIKU_ANIM_STAND,
+    /* 2 */ ENDAIKU_ANIM_CELEBRATE,
+    /* 3 */ ENDAIKU_ANIM_RUN,
+    /* 4 */ ENDAIKU_ANIM_SIT
+};
+
+
+struct EnDaikuEscapeSubCamParam {
+    Vec3f eyePosDeltaLocal;
+    s32 maxFramesActive;
+};
+
+enum EnDaikuTalkState {
+    /* 0 */ ENDAIKU_STATE_CAN_TALK,
+    /* 2 */ ENDAIKU_STATE_TALKING = 2,
+    /* 3 */ ENDAIKU_STATE_NO_TALK
+};
+struct EnDaiku {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnDaikuActionFunc actionFunc;
@@ -35,6 +64,6 @@ typedef struct EnDaiku {
     /* 0x02D2 */ Vec3s morphTable[17];
     /* 0x0338 */ Vec3s initRot;
     /* 0x0340 */ Vec3f initPos;
-} EnDaiku; // size = 0x034C
+}; 
 
-#endif
+

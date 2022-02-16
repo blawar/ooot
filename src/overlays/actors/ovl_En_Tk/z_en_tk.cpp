@@ -27,6 +27,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnTk_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTk_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTk_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTk_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTk_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit En_Tk_InitVars = {
     (ActorFunc)EnTk_Destroy,
     (ActorFunc)EnTk_Update,
     (ActorFunc)EnTk_Draw,
+    (ActorFunc)EnTk_Reset,
 };
 
 void EnTkEff_Create(EnTk* pthis, Vec3f* pos, Vec3f* speed, Vec3f* accel, u8 duration, f32 size, f32 growth) {
@@ -753,4 +755,42 @@ void EnTk_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnTk_OverrideLimbDraw, EnTk_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1312);
+}
+
+void EnTk_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Tk_InitVars = {
+        ACTOR_EN_TK,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_TK,
+        sizeof(EnTk),
+        (ActorFunc)EnTk_Init,
+        (ActorFunc)EnTk_Destroy,
+        (ActorFunc)EnTk_Update,
+        (ActorFunc)EnTk_Draw,
+        (ActorFunc)EnTk_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 30, 52, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
 }

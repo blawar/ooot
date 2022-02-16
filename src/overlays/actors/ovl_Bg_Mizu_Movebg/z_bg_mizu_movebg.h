@@ -1,4 +1,4 @@
-#ifndef Z_BG_MIZU_MOVEBG_H
+#pragma once
 #define Z_BG_MIZU_MOVEBG_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgMizuMovebg;
 
 typedef void (*BgMizuMovebgActionFunc)(struct BgMizuMovebg*, GlobalContext*);
 
-typedef struct BgMizuMovebg {
+
+struct BgMizuMovebg {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgMizuMovebgActionFunc actionFunc;
     /* 0x0168 */ f32 homeY;
@@ -19,6 +21,6 @@ typedef struct BgMizuMovebg {
     /* 0x017C */ u8 sfxFlags;
     /* 0x0180 */ Gfx* dlist;
     /* 0x0184 */ s32 waypointId;
-} BgMizuMovebg; // size = 0x0188
+}; 
 
-#endif
+

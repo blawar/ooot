@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_ICE_POLY_H
+#pragma once
 #define Z_OBJ_ICE_POLY_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct ObjIcePoly;
 
 typedef void (*ObjIcePolyActionFunc)(struct ObjIcePoly*, GlobalContext*);
 
-typedef struct ObjIcePoly {
+
+struct ObjIcePoly {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ObjIcePolyActionFunc actionFunc;
     /* 0x0150 */ u8 alpha;
@@ -16,6 +18,6 @@ typedef struct ObjIcePoly {
     /* 0x0152 */ s16 meltTimer;
     /* 0x0154 */ ColliderCylinder colliderIce;
     /* 0x01A0 */ ColliderCylinder colliderHard;
-} ObjIcePoly; // size = 0x01EC
+}; 
 
-#endif
+

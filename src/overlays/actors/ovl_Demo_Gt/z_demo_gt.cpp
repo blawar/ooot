@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void DemoGt_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoGt_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoGt_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoGt_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoGt_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -1795,4 +1796,21 @@ ActorInit Demo_Gt_InitVars = {
     (ActorFunc)DemoGt_Destroy,
     (ActorFunc)DemoGt_Update,
     (ActorFunc)DemoGt_Draw,
+    (ActorFunc)DemoGt_Reset,
 };
+
+void DemoGt_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Gt_InitVars = {
+        ACTOR_DEMO_GT,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GT,
+        sizeof(DemoGt),
+        (ActorFunc)DemoGt_Init,
+        (ActorFunc)DemoGt_Destroy,
+        (ActorFunc)DemoGt_Update,
+        (ActorFunc)DemoGt_Draw,
+        (ActorFunc)DemoGt_Reset,
+    };
+
+}

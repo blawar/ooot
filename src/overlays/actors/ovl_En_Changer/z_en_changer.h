@@ -1,4 +1,4 @@
-#ifndef Z_EN_CHANGER_H
+#pragma once
 #define Z_EN_CHANGER_H
 
 #include "ultra64.h"
@@ -9,7 +9,13 @@ struct EnChanger;
 
 typedef void (*EnChangerActionFunc)(struct EnChanger*, GlobalContext*);
 
-typedef struct EnChanger {
+
+enum ChangerChestSide {
+    /* 0 */ CHEST_LEFT,
+    /* 1 */ CHEST_RIGHT
+};
+struct EnChanger {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnChangerActionFunc actionFunc;
     /* 0x0150 */ EnBox* leftChest;
@@ -22,6 +28,6 @@ typedef struct EnChanger {
     /* 0x0164 */ s16 chestOpened;
     /* 0x0166 */ s16 timer;
     /* 0x0168 */ s16 roomChestsOpened;
-} EnChanger; // size = 0x016C
+}; 
 
-#endif
+

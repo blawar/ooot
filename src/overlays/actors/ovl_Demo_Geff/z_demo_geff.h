@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_GEFF_H
+#pragma once
 #define Z_DEMO_GEFF_H
 
 #include "ultra64.h"
@@ -12,7 +12,9 @@ typedef void (*DemoGeffInitFunc)(struct DemoGeff*, GlobalContext*);
 typedef void (*DemoGeffActionFunc)(struct DemoGeff*, GlobalContext*);
 typedef void (*DemoGeffDrawFunc)(struct DemoGeff*, GlobalContext*);
 
-typedef struct DemoGeff {
+
+struct DemoGeff {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 action;
     /* 0x0150 */ s32 drawConfig;
@@ -21,6 +23,6 @@ typedef struct DemoGeff {
     /* 0x015C */ f32 deltaPosX;
     /* 0x0160 */ f32 deltaPosY;
     /* 0x0164 */ f32 deltaPosZ;
-} DemoGeff; // size = 0x0168
+}; 
 
-#endif
+

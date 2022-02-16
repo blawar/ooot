@@ -1,4 +1,4 @@
-#ifndef Z_EN_FISH_H
+#pragma once
 #define Z_EN_FISH_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnFish;
 
 typedef void (*EnFishActionFunc)(struct EnFish*, GlobalContext*);
 
-typedef struct EnFish {
+
+struct EnFish {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderJntSph collider;
     /* 0x016C */ ColliderJntSphElement colliderItems[1];
@@ -21,12 +23,12 @@ typedef struct EnFish {
     /* 0x024C */ s16 slowPhase;
     /* 0x024E */ s16 fastPhase;
     /* 0x0250 */ s32 unk_250; // Set to 0 or 5, arg5 of Actor_UpdateBgCheckInfo
-} EnFish; // size = 0x0254
+}; 
 
-typedef enum {
+enum EnFishType {
     /* -1 */ FISH_SWIMMING_RESPAWNING = -1, // Used in Zora's Domain; code only uses not 0 or 1, runs away from Player
     /*  0 */ FISH_DROPPED,
     /*  1 */ FISH_SWIMMING_UNIQUE // Used in grottos
-} EnFishType;
+};
 
-#endif
+

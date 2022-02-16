@@ -1,4 +1,4 @@
-#ifndef Z_EN_FW_H
+#pragma once
 #define Z_EN_FW_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnFw;
 
 typedef void (*EnFwActionFunc)(struct EnFw* pthis, GlobalContext* globalCtx);
 
-typedef struct {
+struct EnFwEffect {
     /* 0x0000 */ u8 type;
     /* 0x0001 */ u8 timer;
     /* 0x0002 */ u8 initialTimer;
@@ -19,9 +19,11 @@ typedef struct {
     /* 0x0014 */ Vec3f pos;
     /* 0x0020 */ Vec3f velocity;
     /* 0x002C */ Vec3f accel;
-} EnFwEffect;
+};
 
-typedef struct EnFw {
+
+struct EnFw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnFwActionFunc actionFunc;
@@ -43,6 +45,6 @@ typedef struct EnFw {
     /* 0x021C */ Vec3s jointTable[11];
     /* 0x025E */ Vec3s morphTable[11];
     /* 0x02A0 */ EnFwEffect effects[20];
-} EnFw; // size = 0x0700
+}; 
 
-#endif
+

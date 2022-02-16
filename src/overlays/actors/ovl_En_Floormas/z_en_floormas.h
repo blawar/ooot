@@ -1,4 +1,4 @@
-#ifndef Z_EN_FLOORMAS_H
+#pragma once
 #define Z_EN_FLOORMAS_H
 
 #include "ultra64.h"
@@ -20,6 +20,7 @@ struct EnFloormas{
     /* 0x019C */ Vec3s jointTable[25];
     /* 0x0232 */ Vec3s morphTable[25];
     /* 0x02C8 */ ColliderCylinder collider;
-}; // size = 0x0314
+}; 
 
-#endif
+
+

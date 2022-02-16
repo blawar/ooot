@@ -28,38 +28,9 @@
 #define RR_MOUTH 4
 #define RR_BASE 0
 
-typedef enum {
-    /* 0 */ REACH_NONE,
-    /* 1 */ REACH_EXTEND,
-    /* 2 */ REACH_STOP,
-    /* 3 */ REACH_OPEN,
-    /* 4 */ REACH_GAPE,
-    /* 5 */ REACH_CLOSE
-} EnRrReachState;
-
-typedef enum {
-    /* 0x0 */ RR_DMG_NONE,
-    /* 0x1 */ RR_DMG_STUN,
-    /* 0x2 */ RR_DMG_FIRE,
-    /* 0x3 */ RR_DMG_ICE,
-    /* 0x4 */ RR_DMG_LIGHT_MAGIC,
-    /* 0xB */ RR_DMG_LIGHT_ARROW = 11,
-    /* 0xC */ RR_DMG_SHDW_ARROW,
-    /* 0xD */ RR_DMG_WIND_ARROW,
-    /* 0xE */ RR_DMG_SPRT_ARROW,
-    /* 0xF */ RR_DMG_NORMAL
-} EnRrDamageEffect;
-
-typedef enum {
-    /* 0 */ RR_DROP_RANDOM_RUPEE,
-    /* 1 */ RR_DROP_MAGIC,
-    /* 2 */ RR_DROP_ARROW,
-    /* 3 */ RR_DROP_FLEXIBLE,
-    /* 4 */ RR_DROP_RUPEE_PURPLE,
-    /* 5 */ RR_DROP_RUPEE_RED
-} EnRrDropType;
 
 void EnRr_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnRr_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnRr_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnRr_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -87,6 +58,7 @@ ActorInit En_Rr_InitVars = {
     (ActorFunc)EnRr_Destroy,
     (ActorFunc)EnRr_Update,
     (ActorFunc)EnRr_Draw,
+    (ActorFunc)EnRr_Reset,
 };
 
 static const char* sDropNames[] = {
@@ -914,4 +886,93 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx) {
             }
         }
     }
+}
+
+void EnRr_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Rr_InitVars = {
+        ACTOR_EN_RR,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_RR,
+        sizeof(EnRr),
+        (ActorFunc)EnRr_Init,
+        (ActorFunc)EnRr_Destroy,
+        (ActorFunc)EnRr_Update,
+        (ActorFunc)EnRr_Draw,
+        (ActorFunc)EnRr_Reset,
+    };
+
+    sCylinderInit1 = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 30, 55, 0, { 0, 0, 0 } },
+    };
+
+    sCylinderInit2 = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_NO_PUSH | OC1_TYPE_PLAYER,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 20, -10, { 0, 0, 0 } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, RR_DMG_NONE),
+        /* Deku stick    */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Slingshot     */ DMG_ENTRY(1, RR_DMG_NORMAL),
+        /* Explosive     */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Boomerang     */ DMG_ENTRY(0, RR_DMG_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Hammer swing  */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Hookshot      */ DMG_ENTRY(0, RR_DMG_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, RR_DMG_NORMAL),
+        /* Master sword  */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Giant's Knife */ DMG_ENTRY(4, RR_DMG_NORMAL),
+        /* Fire arrow    */ DMG_ENTRY(4, RR_DMG_FIRE),
+        /* Ice arrow     */ DMG_ENTRY(4, RR_DMG_ICE),
+        /* Light arrow   */ DMG_ENTRY(15, RR_DMG_LIGHT_ARROW),
+        /* Unk arrow 1   */ DMG_ENTRY(4, RR_DMG_WIND_ARROW),
+        /* Unk arrow 2   */ DMG_ENTRY(15, RR_DMG_SHDW_ARROW),
+        /* Unk arrow 3   */ DMG_ENTRY(15, RR_DMG_SPRT_ARROW),
+        /* Fire magic    */ DMG_ENTRY(4, RR_DMG_FIRE),
+        /* Ice magic     */ DMG_ENTRY(3, RR_DMG_ICE),
+        /* Light magic   */ DMG_ENTRY(10, RR_DMG_LIGHT_MAGIC),
+        /* Shield        */ DMG_ENTRY(0, RR_DMG_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, RR_DMG_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, RR_DMG_NORMAL),
+        /* Giant spin    */ DMG_ENTRY(4, RR_DMG_NORMAL),
+        /* Master spin   */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Kokiri jump   */ DMG_ENTRY(2, RR_DMG_NORMAL),
+        /* Giant jump    */ DMG_ENTRY(8, RR_DMG_NORMAL),
+        /* Master jump   */ DMG_ENTRY(4, RR_DMG_NORMAL),
+        /* Unknown 1     */ DMG_ENTRY(10, RR_DMG_SPRT_ARROW),
+        /* Unblockable   */ DMG_ENTRY(0, RR_DMG_NONE),
+        /* Hammer jump   */ DMG_ENTRY(0, RR_DMG_NONE),
+        /* Unknown 2     */ DMG_ENTRY(0, RR_DMG_NONE),
+    };
+
 }

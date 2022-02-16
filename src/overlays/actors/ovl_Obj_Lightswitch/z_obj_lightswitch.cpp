@@ -22,13 +22,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* 0x00 */ FACE_EYES_CLOSED,
-    /* 0x01 */ FACE_EYES_OPEN,
-    /* 0x02 */ FACE_EYES_OPEN_SMILING
-} FaceTextureIndex;
 
 void ObjLightswitch_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjLightswitch_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjLightswitch_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjLightswitch_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjLightswitch_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -56,6 +52,7 @@ ActorInit Obj_Lightswitch_InitVars = {
     (ActorFunc)ObjLightswitch_Destroy,
     (ActorFunc)ObjLightswitch_Update,
     (ActorFunc)ObjLightswitch_Draw,
+    (ActorFunc)ObjLightswitch_Reset,
 };
 
 static ColliderJntSphElementInit sColliderJntSphElementInit[] = {
@@ -508,4 +505,39 @@ void ObjLightswitch_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         ObjLightswitch_DrawOpa(pthis, globalCtx);
     }
+}
+
+void ObjLightswitch_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Lightswitch_InitVars = {
+        ACTOR_OBJ_LIGHTSWITCH,
+        ACTORCAT_SWITCH,
+        FLAGS,
+        OBJECT_LIGHTSWITCH,
+        sizeof(ObjLightswitch),
+        (ActorFunc)ObjLightswitch_Init,
+        (ActorFunc)ObjLightswitch_Destroy,
+        (ActorFunc)ObjLightswitch_Update,
+        (ActorFunc)ObjLightswitch_Draw,
+        (ActorFunc)ObjLightswitch_Reset,
+    };
+
+    sColliderJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sColliderJntSphElementInit,
+    };
+
+    sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE };
+
+    D_80B97F68 = { -1707.0f, 843.0f, -180.0f };
+
+    D_80B97F74 = { 0.0f, 0.0f, 0.0f };
+
 }

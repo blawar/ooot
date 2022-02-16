@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
 void EnReeba_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnReeba_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnReeba_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnReeba_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnReeba_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -86,6 +87,7 @@ ActorInit En_Reeba_InitVars = {
     (ActorFunc)EnReeba_Destroy,
     (ActorFunc)EnReeba_Update,
     (ActorFunc)EnReeba_Draw,
+    (ActorFunc)EnReeba_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -675,4 +677,75 @@ void EnReeba_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, NULL, NULL, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_reeba.c", 1088);
+}
+
+void EnReeba_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(2, 0xE),
+        /* Slingshot     */ DMG_ENTRY(1, 0xE),
+        /* Explosive     */ DMG_ENTRY(2, 0xE),
+        /* Boomerang     */ DMG_ENTRY(1, 0xC),
+        /* Normal arrow  */ DMG_ENTRY(2, 0xE),
+        /* Hammer swing  */ DMG_ENTRY(2, 0xE),
+        /* Hookshot      */ DMG_ENTRY(2, 0xD),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0xE),
+        /* Master sword  */ DMG_ENTRY(4, 0xE),
+        /* Giant's Knife */ DMG_ENTRY(6, 0xE),
+        /* Fire arrow    */ DMG_ENTRY(2, 0xE),
+        /* Ice arrow     */ DMG_ENTRY(4, 0x3),
+        /* Light arrow   */ DMG_ENTRY(2, 0xE),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0xE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0xE),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0xE),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(4, 0x3),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(2, 0xE),
+        /* Giant spin    */ DMG_ENTRY(8, 0xE),
+        /* Master spin   */ DMG_ENTRY(4, 0xE),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0xE),
+        /* Giant jump    */ DMG_ENTRY(8, 0xE),
+        /* Master jump   */ DMG_ENTRY(4, 0xE),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x1),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(0, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    En_Reeba_InitVars = {
+        ACTOR_EN_REEBA,
+        ACTORCAT_MISC,
+        FLAGS,
+        OBJECT_REEBA,
+        sizeof(EnReeba),
+        (ActorFunc)EnReeba_Init,
+        (ActorFunc)EnReeba_Destroy,
+        (ActorFunc)EnReeba_Update,
+        (ActorFunc)EnReeba_Draw,
+        (ActorFunc)EnReeba_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT5,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x08, 0x08 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 20, 40, 0, { 0, 0, 0 } },
+    };
+
 }

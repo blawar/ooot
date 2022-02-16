@@ -1,4 +1,4 @@
-#ifndef Z_BG_SPOT00_BREAK_H
+#pragma once
 #define Z_BG_SPOT00_BREAK_H
 
 #include "ultra64.h"
@@ -7,8 +7,10 @@
 
 struct BgSpot00Break;
 
-typedef struct BgSpot00Break {
-    /* 0x0000 */ DynaPolyActor dyna;
-} BgSpot00Break; // size = 0x0164
 
-#endif
+struct BgSpot00Break {
+
+    /* 0x0000 */ DynaPolyActor dyna;
+}; 
+
+

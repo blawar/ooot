@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_FD_H
+#pragma once
 #define Z_BOSS_FD_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct BossFd;
 
 typedef void (*BossFdActionFunc)(struct BossFd*, GlobalContext*);
 
-typedef enum {
+enum BossFdActionState {
     /*  -1 */ BOSSFD_WAIT_INTRO = -1,
     /*   0 */ BOSSFD_FLY_MAIN,
     /*   1 */ BOSSFD_FLY_HOLE,
@@ -24,9 +24,9 @@ typedef enum {
     /* 203 */ BOSSFD_SKULL_PAUSE,
     /* 204 */ BOSSFD_SKULL_FALL,
     /* 205 */ BOSSFD_SKULL_BURN
-} BossFdActionState;
+};
 
-typedef enum {
+enum BossFdCutsceneState {
     /* 0 */ BFD_CS_NONE,
     /* 1 */ BFD_CS_WAIT,
     /* 2 */ BFD_CS_START,
@@ -34,9 +34,9 @@ typedef enum {
     /* 4 */ BFD_CS_LOOK_GROUND,
     /* 5 */ BFD_CS_COLLAPSE,
     /* 6 */ BFD_CS_EMERGE
-} BossFdCutsceneState;
+};
 
-typedef struct {
+struct BossFdEffect {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f velocity;
     /* 0x18 */ Vec3f accel;
@@ -49,7 +49,7 @@ typedef struct {
     /* 0x30 */ f32 scale;
     /* 0x34 */ f32 bFdFxFloat1;
     /* 0x38 */ f32 bFdFxFloat2;
-} BossFdEffect; // size = 0x3C
+}; 
 
 #define BOSSFD_EFFECT_COUNT 180
 
@@ -58,22 +58,22 @@ typedef struct {
 #define vFdFxRotY bFdFxFloat2
 #define vFdFxYStop bFdFxFloat2
 
-typedef enum {
+enum BossFdEffectType {
     /* 0 */ BFD_FX_NONE,
     /* 1 */ BFD_FX_EMBER,
     /* 2 */ BFD_FX_DEBRIS,
     /* 3 */ BFD_FX_DUST,
     /* 4 */ BFD_FX_FIRE_BREATH,
     /* 5 */ BFD_FX_SKULL_PIECE
-} BossFdEffectType;
+};
 
-typedef struct {
+struct BossFdMane {
     /* 0x000 */ Vec3f pos[30];
     /* 0x168 */ f32 scale[30];
     /* 0x1E0 */ Vec3f head;
-} BossFdMane; // size = 0x1EC
+}; 
 
-typedef struct {
+struct BossFdCam {
     /* 0x00 */ Vec3f eye;
     /* 0x0C */ Vec3f at;
     /* 0x18 */ Vec3f pad[2];
@@ -87,9 +87,9 @@ typedef struct {
     /* 0x7C */ f32 accel;
     /* 0x80 */ f32 yMod;
     /* 0x84 */ f32 shake;
-} BossFdCam; // size = 0x88
+}; 
 
-typedef enum {
+enum BossFdS16Var {
     /*  0 */ BFD_ACTION_STATE,
     /*  1 */ BFD_MOVE_TIMER,
     /*  2 */ BFD_VAR_TIMER,
@@ -110,9 +110,9 @@ typedef enum {
     /* 17 */ BFD_STOP_FLAG,
     /* 18 */ BFD_FLY_COUNT,
     /* 19 */ BFD_SHORT_COUNT
-} BossFdS16Var;
+};
 
-typedef enum {
+enum BossFdF32Var {
     /*  0 */ BFD_TEX1_SCROLL_X,
     /*  1 */ BFD_TEX1_SCROLL_Y,
     /*  2 */ BFD_TEX2_SCROLL_X,
@@ -140,9 +140,31 @@ typedef enum {
     /* 24 */ BFD_FLY_WOBBLE_RATE,
     /* 25 */ BFD_UNUSED_F25,
     /* 26 */ BFD_FLOAT_COUNT
-} BossFdF32Var;
+};
 
-typedef struct BossFd {
+
+enum BossFdIntroFlyState {
+    /* 0 */ INTRO_FLY_EMERGE,
+    /* 1 */ INTRO_FLY_HOLE,
+    /* 2 */ INTRO_FLY_CAMERA,
+    /* 3 */ INTRO_FLY_RETRAT
+};
+
+
+enum BossFdManeIndex {
+    /* 0 */ MANE_CENTER,
+    /* 1 */ MANE_RIGHT,
+    /* 2 */ MANE_LEFT
+};
+
+
+enum BossFdEyeState {
+    /* 0 */ EYE_OPEN,
+    /* 1 */ EYE_HALF,
+    /* 2 */ EYE_CLOSED
+};
+struct BossFd {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnimeHead;
     /* 0x0190 */ SkelAnime skelAnimeRightArm;
@@ -180,6 +202,6 @@ typedef struct BossFd {
     /* 0x1490 */ ColliderJntSph collider;
     /* 0x14B0 */ ColliderJntSphElement elements[19];
     /* 0x1970 */ BossFdEffect effects[180];
-} BossFd; // size = 0x43A0
+}; 
 
-#endif
+

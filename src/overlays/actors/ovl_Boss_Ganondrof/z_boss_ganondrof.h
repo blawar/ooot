@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_GANONDROF_H
+#pragma once
 #define Z_BOSS_GANONDROF_H
 
 #include "ultra64.h"
@@ -15,21 +15,21 @@ typedef void (*BossGanondrofActionFunc)(struct BossGanondrof*, GlobalContext*);
 #define GND_BOSSROOM_CENTER_Y -33.0f
 #define GND_BOSSROOM_CENTER_Z -3315.0f
 
-typedef enum {
+enum BossGanondrofFlyMode {
     /* 0 */ GND_FLY_PAINTING,
     /* 1 */ GND_FLY_NEUTRAL,
     /* 2 */ GND_FLY_VOLLEY,
     /* 3 */ GND_FLY_RETURN,
     /* 4 */ GND_FLY_CHARGE
-} BossGanondrofFlyMode;
+};
 
-typedef enum {
+enum BossGanondrofEyeState {
     /* 0 */ GND_EYESTATE_NONE,
     /* 1 */ GND_EYESTATE_FADE,
     /* 2 */ GND_EYESTATE_BRIGHTEN
-} BossGanondrofEyeState;
+};
 
-typedef enum {
+enum BossGanondrofS16Var {
     /*  0 */ GND_VARIANCE_TIMER,
     /*  1 */ GND_US_1,
     /*  2 */ GND_US_2,
@@ -49,9 +49,9 @@ typedef enum {
     /* 16 */ GND_DEATH_ENV_TIMER,
     /* 17 */ GND_DEATH_SFX_TIMER,
     /* 20 */ GND_SHORT_COUNT = 20
-} BossGanondrofS16Var;
+};
 
-typedef enum {
+enum BossGanondrofF32Var {
     /*  0 */ GND_FLOAT_SPEED,
     /*  1 */ GND_END_FRAME,
     /*  2 */ GND_EYE_BRIGHTNESS,
@@ -59,9 +59,47 @@ typedef enum {
     /*  4 */ GND_CAMERA_ANGLE,
     /*  5 */ GND_EYE_ALPHA,
     /* 13 */ GND_FLOAT_COUNT = 13
-} BossGanondrofF32Var;
+};
 
-typedef struct BossGanondrof {
+
+enum BossGanondrofDeathState {
+    /* 0 */ NOT_DEAD,
+    /* 1 */ DEATH_START,
+    /* 2 */ DEATH_THROES,
+    /* 3 */ DEATH_WARP,
+    /* 4 */ DEATH_SCREAM,
+    /* 5 */ DEATH_DISINTEGRATE,
+    /* 6 */ DEATH_FINISH
+};
+
+
+enum BossGanondrofThrowAction {
+    /* 0 */ THROW_NORMAL,
+    /* 1 */ THROW_SLOW
+};
+
+
+enum BossGanondrofStunnedAction {
+    /* 0 */ STUNNED_FALL,
+    /* 1 */ STUNNED_GROUND
+};
+
+
+enum BossGanondrofChargeAction {
+    /* 0 */ CHARGE_WINDUP,
+    /* 1 */ CHARGE_START,
+    /* 2 */ CHARGE_ATTACK,
+    /* 3 */ CHARGE_FINISH
+};
+
+
+enum BossGanondrofDeathAction {
+    /* 0 */ DEATH_SPASM,
+    /* 1 */ DEATH_LIMP,
+    /* 2 */ DEATH_HUNCHED
+};
+struct BossGanondrof {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ BossGanondrofActionFunc actionFunc;
@@ -99,6 +137,6 @@ typedef struct BossGanondrof {
     /* 0x04D0 */ LightInfo lightInfo;
     /* 0x04E0 */ ColliderCylinder colliderBody;
     /* 0x052C */ ColliderCylinder colliderSpear;
-} BossGanondrof; // size = 0x0578
+}; 
 
-#endif
+

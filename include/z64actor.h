@@ -38,6 +38,11 @@ struct ActorEntry {
 }; // size = 0x10
 
 struct ActorInit {
+	constexpr ActorInit(s16 id, u8 category, u32 flags, s16 objectId, u32 instanceSize, ActorFunc init, ActorFunc destroy, ActorFunc update, ActorFunc draw, ActorFunc reset) :
+	    id(id), category(category), flags(flags), objectId(objectId), instanceSize(instanceSize), init(init), destroy(destroy), update(update), draw(draw), reset(reset)
+	{
+	}
+
     /* 0x00 */ s16 id;
     /* 0x02 */ u8 category; // Classifies actor and determines when it will update or draw
     /* 0x04 */ u32 flags;
@@ -47,6 +52,7 @@ struct ActorInit {
     /* 0x14 */ ActorFunc destroy; // Destructor
     /* 0x18 */ ActorFunc update; // Update Function
     /* 0x1C */ ActorFunc draw; // Draw function
+               ActorFunc reset;	 // Reset function
 }; // size = 0x20
 
 enum AllocType

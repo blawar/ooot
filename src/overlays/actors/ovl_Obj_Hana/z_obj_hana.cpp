@@ -17,6 +17,7 @@
 #define FLAGS 0
 
 void ObjHana_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjHana_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjHana_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjHana_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHana_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -31,6 +32,7 @@ ActorInit Obj_Hana_InitVars = {
     (ActorFunc)ObjHana_Destroy,
     (ActorFunc)ObjHana_Update,
     (ActorFunc)ObjHana_Draw,
+    (ActorFunc)ObjHana_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -53,15 +55,7 @@ static ColliderCylinderInit sCylinderInit = {
     { 8, 10, 0, { 0, 0, 0 } },
 };
 
-static CollisionCheckInfoInit sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE };
-
-typedef struct {
-    /* 0x00 */ Gfx* dList;
-    /* 0x04 */ f32 scale;
-    /* 0x08 */ f32 yOffset;
-    /* 0x0C */ s16 radius;
-    /* 0x0E */ s16 height;
-} HanaParams; // size = 0x10
+static CollisionCheckInfoInit sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE }; 
 
 static HanaParams sHanaParams[] = {
     { gHanaDL, 0.01f, 0.0f, -1, 0 },
@@ -116,4 +110,42 @@ void ObjHana_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void ObjHana_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, sHanaParams[thisx->params & 3].dList);
+}
+
+void ObjHana_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Hana_InitVars = {
+        ACTOR_OBJ_HANA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(ObjHana),
+        (ActorFunc)ObjHana_Init,
+        (ActorFunc)ObjHana_Destroy,
+        (ActorFunc)ObjHana_Update,
+        (ActorFunc)ObjHana_Draw,
+        (ActorFunc)ObjHana_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 8, 10, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE };
+
 }

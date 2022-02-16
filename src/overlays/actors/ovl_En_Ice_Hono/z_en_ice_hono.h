@@ -1,4 +1,4 @@
-#ifndef Z_EN_ICE_HONO_H
+#pragma once
 #define Z_EN_ICE_HONO_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnIceHono;
 
 typedef void (*EnIceHonoActionFunc)(struct EnIceHono*, GlobalContext*);
 
-typedef struct EnIceHono {
+
+struct EnIceHono {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnIceHonoActionFunc actionFunc;
     /* 0x0150 */ s16 alpha;
@@ -19,6 +21,6 @@ typedef struct EnIceHono {
     /* 0x015C */ ColliderCylinder collider;
     /* 0x01A8 */ LightNode* lightNode;
     /* 0x01AC */ LightInfo lightInfo;
-} EnIceHono; // size = 0x01BC
+}; 
 
-#endif
+

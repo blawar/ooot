@@ -1,4 +1,4 @@
-#ifndef Z_EN_FZ_H
+#pragma once
 #define Z_EN_FZ_H
 
 #include "ultra64.h"
@@ -9,7 +9,7 @@ struct EnFz;
 typedef void (*EnFzActionFunc)(struct EnFz*, GlobalContext*);
 typedef void (*EnFzSpawnIceSmokeFunc)(struct EnFz*);
 
-typedef struct {
+struct EnFzEffectSsIceSmoke {
     /* 0x0000 */ u8 type; // 0,1,2: State of freezard (1 not freezing, 2 freezing)
     /* 0x0001 */ u8 timer; // increments primAlphaState after reaching 7 (freezing), used in Gfx_TwoTexScroll
     /* 0x0004 */ Vec3f pos; // Random position within 20.0f of actor
@@ -21,9 +21,11 @@ typedef struct {
     /* 0x0030 */ f32 xyScale; // 
     /* 0x0034 */ f32 xyScaleTarget; 
     /* 0x0038 */ u8 isTimerMod8; // conditional, used to run CollisionCheck_SetAT 
-} EnFzEffectSsIceSmoke; // size = 0x3C
+}; 
 
-typedef struct EnFz {
+
+struct EnFz {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnFzActionFunc actionFunc;
     /* 0x0150 */ ColliderCylinder collider1;
@@ -50,6 +52,6 @@ typedef struct EnFz {
     /* 0x0264 */ Vec3f wallHitPos; // Position contact was made with a wall
     /* 0x0270 */ f32 distToTargetSq;
     /* 0x0274 */ EnFzEffectSsIceSmoke iceSmoke[40];
-} EnFz; // size = 0x0BD4
+}; 
 
-#endif
+

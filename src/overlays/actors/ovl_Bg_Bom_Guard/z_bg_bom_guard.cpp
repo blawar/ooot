@@ -16,6 +16,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgBomGuard_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgBomGuard_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgBomGuard_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgBomGuard_Update(Actor* pthisx, GlobalContext* globalCtx);
 
@@ -31,6 +32,7 @@ ActorInit Bg_Bom_Guard_InitVars = {
     (ActorFunc)BgBomGuard_Destroy,
     (ActorFunc)BgBomGuard_Update,
     NULL,
+    (ActorFunc)BgBomGuard_Reset,
 };
 
 void BgBomGuard_SetupAction(BgBomGuard* pthis, BgBomGuardActionFunc actionFunc) {
@@ -90,4 +92,20 @@ void BgBomGuard_Update(Actor* pthisx, GlobalContext* globalCtx) {
     BgBomGuard* pthis = (BgBomGuard*)pthisx;
 
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void BgBomGuard_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Bom_Guard_InitVars = {
+        ACTOR_BG_BOM_GUARD,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_BOWL,
+        sizeof(BgBomGuard),
+        (ActorFunc)BgBomGuard_Init,
+        (ActorFunc)BgBomGuard_Destroy,
+        (ActorFunc)BgBomGuard_Update,
+        NULL,
+        (ActorFunc)BgBomGuard_Reset,
+    };
+
 }

@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgBowlWall_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgBowlWall_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgBowlWall_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgBowlWall_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgBowlWall_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Bowl_Wall_InitVars = {
     (ActorFunc)BgBowlWall_Destroy,
     (ActorFunc)BgBowlWall_Update,
     (ActorFunc)BgBowlWall_Draw,
+    (ActorFunc)BgBowlWall_Reset,
 };
 
 static Vec3f sBullseyeOffset[] = {
@@ -227,4 +229,20 @@ void BgBowlWall_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 464);
+}
+
+void BgBowlWall_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Bowl_Wall_InitVars = {
+        ACTOR_BG_BOWL_WALL,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_BOWL,
+        sizeof(BgBowlWall),
+        (ActorFunc)BgBowlWall_Init,
+        (ActorFunc)BgBowlWall_Destroy,
+        (ActorFunc)BgBowlWall_Update,
+        (ActorFunc)BgBowlWall_Draw,
+        (ActorFunc)BgBowlWall_Reset,
+    };
+
 }

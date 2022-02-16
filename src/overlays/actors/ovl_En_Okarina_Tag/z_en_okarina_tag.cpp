@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnOkarinaTag_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnOkarinaTag_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnOkarinaTag_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnOkarinaTag_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -39,6 +40,7 @@ ActorInit En_Okarina_Tag_InitVars = {
     (ActorFunc)EnOkarinaTag_Destroy,
     (ActorFunc)EnOkarinaTag_Update,
     NULL,
+    (ActorFunc)EnOkarinaTag_Reset,
 };
 
 extern CutsceneData D_80ABF9D0[];
@@ -324,4 +326,20 @@ void EnOkarinaTag_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnOkarinaTag* pthis = (EnOkarinaTag*)thisx;
 
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void EnOkarinaTag_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Okarina_Tag_InitVars = {
+        ACTOR_EN_OKARINA_TAG,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnOkarinaTag),
+        (ActorFunc)EnOkarinaTag_Init,
+        (ActorFunc)EnOkarinaTag_Destroy,
+        (ActorFunc)EnOkarinaTag_Update,
+        NULL,
+        (ActorFunc)EnOkarinaTag_Reset,
+    };
+
 }

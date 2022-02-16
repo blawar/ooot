@@ -23,14 +23,9 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0 */ JABUJABU_EYE_OPEN,
-    /* 1 */ JABUJABU_EYE_HALF,
-    /* 2 */ JABUJABU_EYE_CLOSED,
-    /* 3 */ JABUJABU_EYE_MAX
-} EnJjEyeState;
 
 void EnJj_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnJj_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnJj_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnJj_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnJj_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +46,7 @@ ActorInit En_Jj_InitVars = {
     (ActorFunc)EnJj_Destroy,
     (ActorFunc)EnJj_Update,
     (ActorFunc)EnJj_Draw,
+    (ActorFunc)EnJj_Reset,
 };
 
 static s32 sUnused = 0;
@@ -332,4 +328,42 @@ void EnJj_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                           NULL, NULL, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_jj.c", 898);
+}
+
+void EnJj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Jj_InitVars = {
+        ACTOR_EN_JJ,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_JJ,
+        sizeof(EnJj),
+        (ActorFunc)EnJj_Init,
+        (ActorFunc)EnJj_Destroy,
+        (ActorFunc)EnJj_Update,
+        (ActorFunc)EnJj_Draw,
+        (ActorFunc)EnJj_Reset,
+    };
+
+    sUnused = 0;
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000004, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 170, 150, 0, { 0, 0, 0 } },
+    };
+
 }

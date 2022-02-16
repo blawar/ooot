@@ -1,4 +1,4 @@
-#ifndef Z_EN_EIYER_H
+#pragma once
 #define Z_EN_EIYER_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnEiyer;
 
 typedef void (*EnEiyerActionFunc)(struct EnEiyer*, GlobalContext*);
 
-typedef struct EnEiyer {
+
+struct EnEiyer {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelanime;
     /* 0x0190 */ EnEiyerActionFunc actionFunc;
@@ -18,6 +20,6 @@ typedef struct EnEiyer {
     /* 0x020A */ Vec3s morphTable[19];
     /* 0x027C */ Vec3f basePos;
     /* 0x0288 */ ColliderCylinder collider;
-} EnEiyer; // size = 0x02D4
+}; 
 
-#endif
+

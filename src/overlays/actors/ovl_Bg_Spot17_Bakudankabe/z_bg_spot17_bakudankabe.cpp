@@ -24,6 +24,7 @@
 #define FLAGS 0
 
 void BgSpot17Bakudankabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot17Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot17Bakudankabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot17Bakudankabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot17Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Bg_Spot17_Bakudankabe_InitVars = {
     (ActorFunc)BgSpot17Bakudankabe_Destroy,
     (ActorFunc)BgSpot17Bakudankabe_Update,
     (ActorFunc)BgSpot17Bakudankabe_Draw,
+    (ActorFunc)BgSpot17Bakudankabe_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -164,4 +166,20 @@ void BgSpot17Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gCraterBombableWallCracksDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot17_bakudankabe.c", 295);
+}
+
+void BgSpot17Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot17_Bakudankabe_InitVars = {
+        ACTOR_BG_SPOT17_BAKUDANKABE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT17_OBJ,
+        sizeof(BgSpot17Bakudankabe),
+        (ActorFunc)BgSpot17Bakudankabe_Init,
+        (ActorFunc)BgSpot17Bakudankabe_Destroy,
+        (ActorFunc)BgSpot17Bakudankabe_Update,
+        (ActorFunc)BgSpot17Bakudankabe_Draw,
+        (ActorFunc)BgSpot17Bakudankabe_Reset,
+    };
+
 }

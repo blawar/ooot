@@ -1,4 +1,4 @@
-#ifndef Z_EN_ANUBICE_H
+#pragma once
 #define Z_EN_ANUBICE_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnAnubice;
 
 typedef void (*EnAnubiceActionFunc)(struct EnAnubice*, struct GlobalContext*);
 
-typedef struct EnAnubice {
+
+struct EnAnubice {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -37,6 +39,6 @@ typedef struct EnAnubice {
     /* 0x02B0 */ BgHidanCurtain* flameCircles[4];
     /* 0x02C0 */ char unk_2C0[0x8];
     /* 0x02C8 */ ColliderCylinder col;
-} EnAnubice; // size = 0x0314
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_EN_FR_H
+#pragma once
 #define Z_EN_FR_H
 
 #include "ultra64.h"
@@ -9,15 +9,15 @@ struct EnFr;
 typedef void (*EnFrActionFunc)(struct EnFr*, GlobalContext*);
 typedef void (*EnFrBlinkFunc)(struct EnFr*);
 
-typedef enum {
+enum FrogType {
     /* 00 */ FROG_YELLOW,   // Middle
     /* 01 */ FROG_BLUE,     // Front Left
     /* 02 */ FROG_RED,      // Front Right
     /* 03 */ FROG_PURPLE,   // Back Left
     /* 04 */ FROG_WHITE     // Back Right
-} FrogType;
+};
 
-typedef enum {
+enum FrogSongType {
     /* 00 */ FROG_ZL, 
     /* 01 */ FROG_EPONA,
     /* 02 */ FROG_SARIA,
@@ -26,9 +26,23 @@ typedef enum {
     /* 05 */ FROG_STORMS,
     /* 06 */ FROG_CHOIR_SONG,
     /* 07 */ FROG_NO_SONG
-} FrogSongType;
+};
 
-typedef struct EnFr {
+
+
+struct EnFrPointers {
+    u8 flags;
+    EnFr* frogs[5];
+};
+
+
+struct LogSpotToFromWater {
+    f32 xzDist;
+    f32 yaw;
+    f32 yDist;
+};
+struct EnFr {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;   // Frog Skeleton
     /* 0x0190 */ Vec3s jointTable[24];                                   
@@ -67,6 +81,6 @@ typedef struct EnFr {
     /* 0x03AA */ s16 xyAngleButterfly; // Butterfly Travels along random angles in the x-y plane
     /* 0x03AC */ Vec3f posButterfly; // Position/Coordinates of the Butterfly
     /* 0x03B8 */ Vec3f posButterflyLight; // Used in Lights_PointNoGlowSetInfo()
-} EnFr; // size = 0x03C4
+}; 
 
-#endif
+

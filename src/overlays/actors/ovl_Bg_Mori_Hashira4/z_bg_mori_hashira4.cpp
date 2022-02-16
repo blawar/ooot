@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgMoriHashira4_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriHashira4_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriHashira4_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriHashira4_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriHashira4_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit Bg_Mori_Hashira4_InitVars = {
     (ActorFunc)BgMoriHashira4_Destroy,
     (ActorFunc)BgMoriHashira4_Update,
     NULL,
+    (ActorFunc)BgMoriHashira4_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -181,4 +183,20 @@ void BgMoriHashira4_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPDisplayList(POLY_OPA_DISP++, sDisplayLists[pthis->dyna.actor.params]);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 348);
+}
+
+void BgMoriHashira4_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mori_Hashira4_InitVars = {
+        ACTOR_BG_MORI_HASHIRA4,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriHashira4),
+        (ActorFunc)BgMoriHashira4_Init,
+        (ActorFunc)BgMoriHashira4_Destroy,
+        (ActorFunc)BgMoriHashira4_Update,
+        NULL,
+        (ActorFunc)BgMoriHashira4_Reset,
+    };
+
 }

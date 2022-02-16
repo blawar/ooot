@@ -26,13 +26,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* -1 */ DT_DRAWBRIDGE = -1,
-    /*  0 */ DT_CHAIN_1,
-    /*  1 */ DT_CHAIN_2
-} DrawbridgeType;
 
 void BgSpot00Hanebasi_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot00Hanebasi_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot00Hanebasi_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot00Hanebasi_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +47,7 @@ ActorInit Bg_Spot00_Hanebasi_InitVars = {
     (ActorFunc)BgSpot00Hanebasi_Destroy,
     (ActorFunc)BgSpot00Hanebasi_Update,
     (ActorFunc)BgSpot00Hanebasi_Draw,
+    (ActorFunc)BgSpot00Hanebasi_Reset,
 };
 
 static f32 sTorchFlameScale = 0.0f;
@@ -344,4 +341,22 @@ void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 733);
+}
+
+void BgSpot00Hanebasi_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot00_Hanebasi_InitVars = {
+        ACTOR_BG_SPOT00_HANEBASI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT00_OBJECTS,
+        sizeof(BgSpot00Hanebasi),
+        (ActorFunc)BgSpot00Hanebasi_Init,
+        (ActorFunc)BgSpot00Hanebasi_Destroy,
+        (ActorFunc)BgSpot00Hanebasi_Update,
+        (ActorFunc)BgSpot00Hanebasi_Draw,
+        (ActorFunc)BgSpot00Hanebasi_Reset,
+    };
+
+    sTorchFlameScale = 0.0f;
+
 }

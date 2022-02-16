@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnSiofuki_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSiofuki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSiofuki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSiofuki_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSiofuki_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit En_Siofuki_InitVars = {
     (ActorFunc)EnSiofuki_Destroy,
     (ActorFunc)EnSiofuki_Update,
     (ActorFunc)EnSiofuki_Draw,
+    (ActorFunc)EnSiofuki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -321,4 +323,20 @@ void EnSiofuki_Draw(Actor* thisx, GlobalContext* globalCtx) {
                 break;
         }
     }
+}
+
+void EnSiofuki_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Siofuki_InitVars = {
+        ACTOR_EN_SIOFUKI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SIOFUKI,
+        sizeof(EnSiofuki),
+        (ActorFunc)EnSiofuki_Init,
+        (ActorFunc)EnSiofuki_Destroy,
+        (ActorFunc)EnSiofuki_Update,
+        (ActorFunc)EnSiofuki_Draw,
+        (ActorFunc)EnSiofuki_Reset,
+    };
+
 }

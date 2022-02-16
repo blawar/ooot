@@ -1,4 +1,4 @@
-#ifndef Z_BG_MIZU_SHUTTER_H
+#pragma once
 #define Z_BG_MIZU_SHUTTER_H
 
 #include "ultra64.h"
@@ -10,7 +10,9 @@ struct BgMizuShutter;
 
 typedef void (*BgMizuShutterActionFunc)(struct BgMizuShutter*, GlobalContext*);
 
-typedef struct BgMizuShutter {
+
+struct BgMizuShutter {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgMizuShutterActionFunc actionFunc;
     /* 0x0168 */ s32 timer;
@@ -19,11 +21,11 @@ typedef struct BgMizuShutter {
     /* 0x0174 */ f32 maxSpeed;
     /* 0x0178 */ Vec3f closedPos;
     /* 0x0184 */ Vec3f openPos;
-} BgMizuShutter; // size = 0x0190
+}; 
 
 typedef enum BgMizuShutterSize {
     BGMIZUSHUTTER_SMALL,
     BGMIZUSHUTTER_LARGE
 } BgMizuShutterSize;
 
-#endif
+

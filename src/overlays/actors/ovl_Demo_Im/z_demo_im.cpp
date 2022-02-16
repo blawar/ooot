@@ -28,6 +28,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
 
 void DemoIm_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoIm_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoIm_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoIm_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoIm_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -114,6 +115,7 @@ ActorInit Demo_Im_InitVars = {
     (ActorFunc)DemoIm_Destroy,
     (ActorFunc)DemoIm_Update,
     (ActorFunc)DemoIm_Draw,
+    (ActorFunc)DemoIm_Reset,
 };
 
 void func_80984BE0(DemoIm* pthis) {
@@ -1223,4 +1225,36 @@ void DemoIm_Draw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     sDrawFuncs[pthis->drawConfig](pthis, globalCtx);
+}
+
+void DemoIm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_8098783C = 0;
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            COLSHAPE_CYLINDER,
+        },
+        { 0x00, { 0x00000000, 0x00, 0x00 }, { 0x00000000, 0x00, 0x00 }, 0x00, 0x00, 0x01 },
+        { 25, 80, 0, { 0, 0, 0 } },
+    };
+
+    D_809887D8 = { 0.0f, 10.0f, 0.0f };
+
+    Demo_Im_InitVars = {
+        ACTOR_DEMO_IM,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_IM,
+        sizeof(DemoIm),
+        (ActorFunc)DemoIm_Init,
+        (ActorFunc)DemoIm_Destroy,
+        (ActorFunc)DemoIm_Update,
+        (ActorFunc)DemoIm_Draw,
+        (ActorFunc)DemoIm_Reset,
+    };
+
 }

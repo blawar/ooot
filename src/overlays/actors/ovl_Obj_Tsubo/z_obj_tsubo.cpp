@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_23)
 
 void ObjTsubo_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjTsubo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjTsubo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjTsubo_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjTsubo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -58,6 +59,7 @@ ActorInit Obj_Tsubo_InitVars = {
     (ActorFunc)ObjTsubo_Destroy,
     (ActorFunc)ObjTsubo_Update,
     NULL,
+    (ActorFunc)ObjTsubo_Reset,
 };
 
 static s16 sObjectIds[] = { OBJECT_GAMEPLAY_DANGEON_KEEP, OBJECT_TSUBO };
@@ -347,4 +349,48 @@ void ObjTsubo_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void ObjTsubo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, D_80BA1B84[(thisx->params >> 8) & 1]);
+}
+
+void ObjTsubo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80BA1B50 = 0;
+
+    D_80BA1B54 = 0;
+
+    D_80BA1B58 = 0;
+
+    D_80BA1B5C = 0;
+
+    Obj_Tsubo_InitVars = {
+        ACTOR_OBJ_TSUBO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjTsubo),
+        (ActorFunc)ObjTsubo_Init,
+        (ActorFunc)ObjTsubo_Destroy,
+        (ActorFunc)ObjTsubo_Update,
+        NULL,
+        (ActorFunc)ObjTsubo_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HARD,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000002, 0x00, 0x01 },
+            { 0x4FC1FFFE, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 9, 26, 0, { 0, 0, 0 } },
+    };
+
 }

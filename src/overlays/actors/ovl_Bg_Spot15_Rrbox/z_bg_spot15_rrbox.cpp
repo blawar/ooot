@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void BgSpot15Rrbox_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot15Rrbox_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot15Rrbox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot15Rrbox_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot15Rrbox_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit Bg_Spot15_Rrbox_InitVars = {
     (ActorFunc)BgSpot15Rrbox_Destroy,
     (ActorFunc)BgSpot15Rrbox_Update,
     (ActorFunc)BgSpot15Rrbox_Draw,
+    (ActorFunc)BgSpot15Rrbox_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -373,4 +375,22 @@ void BgSpot15Rrbox_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot15Rrbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gLonLonMilkCrateDL);
+}
+
+void BgSpot15Rrbox_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_808B4590 = 0;
+
+    Bg_Spot15_Rrbox_InitVars = {
+        ACTOR_BG_SPOT15_RRBOX,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT15_OBJ,
+        sizeof(BgSpot15Rrbox),
+        (ActorFunc)BgSpot15Rrbox_Init,
+        (ActorFunc)BgSpot15Rrbox_Destroy,
+        (ActorFunc)BgSpot15Rrbox_Update,
+        (ActorFunc)BgSpot15Rrbox_Draw,
+        (ActorFunc)BgSpot15Rrbox_Reset,
+    };
+
 }

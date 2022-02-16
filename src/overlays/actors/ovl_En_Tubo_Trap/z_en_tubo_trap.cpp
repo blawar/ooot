@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnTuboTrap_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTuboTrap_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTuboTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTuboTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTuboTrap_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -61,6 +62,7 @@ ActorInit En_Tubo_Trap_InitVars = {
     (ActorFunc)EnTuboTrap_Destroy,
     (ActorFunc)EnTuboTrap_Update,
     (ActorFunc)EnTuboTrap_Draw,
+    (ActorFunc)EnTuboTrap_Reset,
 };
 
 void EnTuboTrap_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -297,4 +299,40 @@ void EnTuboTrap_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnTuboTrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gPotDL);
+}
+
+void EnTuboTrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 9, 23, 0, { 0 } },
+    };
+
+    En_Tubo_Trap_InitVars = {
+        ACTOR_EN_TUBO_TRAP,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(EnTuboTrap),
+        (ActorFunc)EnTuboTrap_Init,
+        (ActorFunc)EnTuboTrap_Destroy,
+        (ActorFunc)EnTuboTrap_Update,
+        (ActorFunc)EnTuboTrap_Draw,
+        (ActorFunc)EnTuboTrap_Reset,
+    };
+
 }

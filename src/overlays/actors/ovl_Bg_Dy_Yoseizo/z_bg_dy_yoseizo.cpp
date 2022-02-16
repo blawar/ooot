@@ -26,19 +26,9 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 
-typedef enum {
-    /* 0 */ FAIRY_UPGRADE_MAGIC,
-    /* 1 */ FAIRY_UPGRADE_DOUBLE_MAGIC,
-    /* 2 */ FAIRY_UPGRADE_HALF_DAMAGE
-} BgDyYoseizoRewardType;
-
-typedef enum {
-    /* 0 */ FAIRY_SPELL_FARORES_WIND,
-    /* 1 */ FAIRY_SPELL_DINS_FIRE,
-    /* 2 */ FAIRY_SPELL_NAYRUS_LOVE
-} BgDyYoseizoSpellType;
 
 void BgDyYoseizo_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgDyYoseizo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgDyYoseizo_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgDyYoseizo_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgDyYoseizo_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -77,6 +67,7 @@ ActorInit Bg_Dy_Yoseizo_InitVars = {
     (ActorFunc)BgDyYoseizo_Destroy,
     (ActorFunc)BgDyYoseizo_Update,
     NULL,
+    (ActorFunc)BgDyYoseizo_Reset,
 };
 
 void BgDyYoseizo_Init(Actor* pthisx, GlobalContext* globalCtx2) {
@@ -1050,4 +1041,20 @@ void BgDyYoseizo_ParticleDraw(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_bg_dy_yoseizo.c", 1819);
+}
+
+void BgDyYoseizo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Dy_Yoseizo_InitVars = {
+        ACTOR_BG_DY_YOSEIZO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_DY_OBJ,
+        sizeof(BgDyYoseizo),
+        (ActorFunc)BgDyYoseizo_Init,
+        (ActorFunc)BgDyYoseizo_Destroy,
+        (ActorFunc)BgDyYoseizo_Update,
+        NULL,
+        (ActorFunc)BgDyYoseizo_Reset,
+    };
+
 }

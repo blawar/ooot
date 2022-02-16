@@ -18,6 +18,7 @@
 #define FLAGS 0
 
 void ObjHsblock_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjHsblock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjHsblock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjHsblock_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHsblock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Obj_Hsblock_InitVars = {
     (ActorFunc)ObjHsblock_Destroy,
     (ActorFunc)ObjHsblock_Update,
     (ActorFunc)ObjHsblock_Draw,
+    (ActorFunc)ObjHsblock_Reset,
 };
 
 static f32 D_80B940C0[] = { 85.0f, 85.0f, 0.0f };
@@ -176,4 +178,22 @@ void ObjHsblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, sDLists[thisx->params & 3]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_hsblock.c", 399);
+}
+
+void ObjHsblock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Hsblock_InitVars = {
+        ACTOR_OBJ_HSBLOCK,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_D_HSBLOCK,
+        sizeof(ObjHsblock),
+        (ActorFunc)ObjHsblock_Init,
+        (ActorFunc)ObjHsblock_Destroy,
+        (ActorFunc)ObjHsblock_Update,
+        (ActorFunc)ObjHsblock_Draw,
+        (ActorFunc)ObjHsblock_Reset,
+    };
+
+    sFireTempleColor = { 165, 125, 55 };
+
 }

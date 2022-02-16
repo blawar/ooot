@@ -1,4 +1,4 @@
-#ifndef Z_BG_SPOT16_BOMBSTONE_H
+#pragma once
 #define Z_BG_SPOT16_BOMBSTONE_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgSpot16Bombstone;
 
 typedef void (*BgSpot16BombstoneActionFunc)(struct BgSpot16Bombstone*, GlobalContext*);
 
-typedef struct BgSpot16Bombstone {
+
+struct BgSpot16Bombstone {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ BgSpot16BombstoneActionFunc actionFunc;
     /* 0x0150 */ Gfx* dList;
@@ -23,6 +25,6 @@ typedef struct BgSpot16Bombstone {
     /* 0x0210 */ s16 unk_210;
     /* 0x0212 */ s16 unk_212;
     /* 0x0214 */ s32 bombiwaBankIndex;
-} BgSpot16Bombstone; // size = 0x0218
+}; 
 
-#endif
+

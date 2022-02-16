@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgJyaHaheniron_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaHaheniron_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaHaheniron_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaHaheniron_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaHaheniron_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit Bg_Jya_Haheniron_InitVars = {
     (ActorFunc)BgJyaHaheniron_Destroy,
     (ActorFunc)BgJyaHaheniron_Update,
     (ActorFunc)BgJyaHaheniron_Draw,
+    (ActorFunc)BgJyaHaheniron_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -223,4 +225,33 @@ void BgJyaHaheniron_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Collider_UpdateSpheres(0, &pthis->collider);
     }
     Gfx_DrawDListOpa(globalCtx, dLists[pthis->actor.params]);
+}
+
+void BgJyaHaheniron_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Haheniron_InitVars = {
+        ACTOR_BG_JYA_HAHENIRON,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_JYA_IRON,
+        sizeof(BgJyaHaheniron),
+        (ActorFunc)BgJyaHaheniron_Init,
+        (ActorFunc)BgJyaHaheniron_Destroy,
+        (ActorFunc)BgJyaHaheniron_Update,
+        (ActorFunc)BgJyaHaheniron_Draw,
+        (ActorFunc)BgJyaHaheniron_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

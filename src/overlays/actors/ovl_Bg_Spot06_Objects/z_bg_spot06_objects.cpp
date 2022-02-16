@@ -25,19 +25,6 @@
 
 #define FLAGS ACTOR_FLAG_9
 
-typedef enum {
-    /* 0x0 */ LHO_WATER_TEMPLE_ENTRACE_GATE,
-    /* 0x1 */ LHO_WATER_TEMPLE_ENTRANCE_LOCK,
-    /* 0x2 */ LHO_WATER_PLANE,
-    /* 0x3 */ LHO_ICE_BLOCK
-} LakeHyliaObjectsType;
-
-typedef enum {
-    /* 0x0 */ LHWB_GERUDO_VALLEY_RIVER_UPPER, // entrance from Gerudo Valley
-    /* 0x1 */ LHWB_GERUDO_VALLEY_RIVER_LOWER, // river flowing from Gerudo Valley
-    /* 0x2 */ LHWB_MAIN_1,                    // main water box
-    /* 0x3 */ LHWB_MAIN_2                     // extension of main water box
-} LakeHyliaWaterBoxIndices;
 
 // Lake Hylia water plane levels
 #define WATER_LEVEL_RAISED (-1313)
@@ -46,6 +33,7 @@ typedef enum {
 #define WATER_LEVEL_RIVER_LOWERED (WATER_LEVEL_RIVER_RAISED - 80)
 
 void BgSpot06Objects_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot06Objects_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot06Objects_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot06Objects_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot06Objects_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -70,6 +58,7 @@ ActorInit Bg_Spot06_Objects_InitVars = {
     (ActorFunc)BgSpot06Objects_Destroy,
     (ActorFunc)BgSpot06Objects_Update,
     (ActorFunc)BgSpot06Objects_Draw,
+    (ActorFunc)BgSpot06Objects_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphItemsInit[1] = {
@@ -520,4 +509,33 @@ void BgSpot06Objects_WaterPlaneCutsceneRise(BgSpot06Objects* pthis, GlobalContex
     }
 
     func_8002F948(&pthis->dyna.actor, NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
+}
+
+void BgSpot06Objects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot06_Objects_InitVars = {
+        ACTOR_BG_SPOT06_OBJECTS,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT06_OBJECTS,
+        sizeof(BgSpot06Objects),
+        (ActorFunc)BgSpot06Objects_Init,
+        (ActorFunc)BgSpot06Objects_Destroy,
+        (ActorFunc)BgSpot06Objects_Update,
+        (ActorFunc)BgSpot06Objects_Draw,
+        (ActorFunc)BgSpot06Objects_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphItemsInit,
+    };
+
 }

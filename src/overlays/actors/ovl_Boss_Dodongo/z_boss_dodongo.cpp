@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossDodongo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossDodongo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossDodongo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -62,6 +63,7 @@ ActorInit Boss_Dodongo_InitVars = {
     (ActorFunc)BossDodongo_Destroy,
     (ActorFunc)BossDodongo_Update,
     (ActorFunc)BossDodongo_Draw,
+    (ActorFunc)BossDodongo_Reset,
 };
 
 #include "z_boss_dodongo_data.cpp"
@@ -1722,4 +1724,20 @@ void BossDodongo_DrawEffects(GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_boss_dodongo.c", 5258);
+}
+
+void BossDodongo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Dodongo_InitVars = {
+        ACTOR_EN_DODONGO,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_KINGDODONGO,
+        sizeof(BossDodongo),
+        (ActorFunc)BossDodongo_Init,
+        (ActorFunc)BossDodongo_Destroy,
+        (ActorFunc)BossDodongo_Update,
+        (ActorFunc)BossDodongo_Draw,
+        (ActorFunc)BossDodongo_Reset,
+    };
+
 }

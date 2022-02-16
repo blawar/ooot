@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSpot18Shutter_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot18Shutter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot18Shutter_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Shutter_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Shutter_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Bg_Spot18_Shutter_InitVars = {
     (ActorFunc)BgSpot18Shutter_Destroy,
     (ActorFunc)BgSpot18Shutter_Update,
     (ActorFunc)BgSpot18Shutter_Draw,
+    (ActorFunc)BgSpot18Shutter_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -146,4 +148,20 @@ void BgSpot18Shutter_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot18Shutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gGoronCityDoorDL);
+}
+
+void BgSpot18Shutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot18_Shutter_InitVars = {
+        ACTOR_BG_SPOT18_SHUTTER,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SPOT18_OBJ,
+        sizeof(BgSpot18Shutter),
+        (ActorFunc)BgSpot18Shutter_Init,
+        (ActorFunc)BgSpot18Shutter_Destroy,
+        (ActorFunc)BgSpot18Shutter_Update,
+        (ActorFunc)BgSpot18Shutter_Draw,
+        (ActorFunc)BgSpot18Shutter_Reset,
+    };
+
 }

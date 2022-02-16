@@ -1,4 +1,4 @@
-#ifndef Z_EN_IK_H
+#pragma once
 #define Z_EN_IK_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnIk;
 
 typedef void (*EnIkActionFunc)(struct EnIk*, GlobalContext*);
 
-typedef struct EnIk {
+
+struct EnIk {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[30];
@@ -35,6 +37,6 @@ typedef struct EnIk {
     /* 0x04D0 */ u32 npcAction;
     /* 0x04D4 */ s32 unk_4D4;
     /* 0x04D8 */ char unk_4D8[0x04];
-} EnIk; // size = 0x04DC
+}; 
 
-#endif
+

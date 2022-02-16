@@ -27,6 +27,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_12)
 
 void EnPoField_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnPoField_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnPoField_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPoField_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPoField_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -59,6 +60,7 @@ ActorInit En_Po_Field_InitVars = {
     (ActorFunc)EnPoField_Destroy,
     (ActorFunc)EnPoField_Update,
     (ActorFunc)EnPoField_Draw,
+    (ActorFunc)EnPoField_Reset,
 };
 
 static ColliderCylinderInit D_80AD7080 = {
@@ -1019,4 +1021,107 @@ void EnPoField_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_field.c", 2149);
     EnPoField_DrawFlame(pthis, globalCtx);
+}
+
+void EnPoField_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Po_Field_InitVars = {
+        ACTOR_EN_PO_FIELD,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_PO_FIELD,
+        sizeof(EnPoField),
+        (ActorFunc)EnPoField_Init,
+        (ActorFunc)EnPoField_Destroy,
+        (ActorFunc)EnPoField_Update,
+        (ActorFunc)EnPoField_Draw,
+        (ActorFunc)EnPoField_Reset,
+    };
+
+    D_80AD7080 = {
+        {
+            COLTYPE_HIT3,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 25, 50, 20, { 0, 0, 0 } },
+    };
+
+    D_80AD70AC = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x01, 0x04 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { 10, 30, 0, { 0, 0, 0 } },
+    };
+
+    D_80AD70D8 = { 4, 25, 50, 40 };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x0),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(1, 0x1),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(2, 0x1),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(2, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(4, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(2, 0x0),
+        /* Ice arrow     */ DMG_ENTRY(2, 0x0),
+        /* Light arrow   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x0),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    sNumSpawned = 0;
+
+    sFieldMiddle = { -1000.0f, 0.0f, 6500.0f };
+
+    D_80AD7114 = { 0.0f, 3.0f, 0.0f };
+
+    D_80AD7120 = { 0.0f, 0.0f, 0.0f };
+
+    D_80AD714C = { 0.0f, 1400.0f, 0.0f };
+
 }

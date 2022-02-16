@@ -27,6 +27,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnRu2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnRu2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnRu2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnRu2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnRu2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -102,6 +103,7 @@ ActorInit En_Ru2_InitVars = {
     (ActorFunc)EnRu2_Destroy,
     (ActorFunc)EnRu2_Update,
     (ActorFunc)EnRu2_Draw,
+    (ActorFunc)EnRu2_Reset,
 };
 
 void func_80AF2550(Actor* thisx, GlobalContext* globalCtx) {
@@ -839,4 +841,34 @@ void EnRu2_Draw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     sDrawFuncs[pthis->drawConfig](pthis, globalCtx);
+}
+
+void EnRu2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            COLSHAPE_CYLINDER,
+        },
+        { 0x00, { 0x00000000, 0x00, 0x00 }, { 0x00000080, 0x00, 0x00 }, 0x00, 0x01, 0x00 },
+        { 30, 100, 0, { 0 } },
+    };
+
+    D_80AF4118 = 0;
+
+    En_Ru2_InitVars = {
+        ACTOR_EN_RU2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_RU2,
+        sizeof(EnRu2),
+        (ActorFunc)EnRu2_Init,
+        (ActorFunc)EnRu2_Destroy,
+        (ActorFunc)EnRu2_Update,
+        (ActorFunc)EnRu2_Draw,
+        (ActorFunc)EnRu2_Reset,
+    };
+
 }

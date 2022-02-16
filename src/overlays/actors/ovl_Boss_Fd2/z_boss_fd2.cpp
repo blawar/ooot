@@ -26,22 +26,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0 */ DEATH_START,
-    /* 1 */ DEATH_RETREAT,
-    /* 2 */ DEATH_HANDOFF,
-    /* 3 */ DEATH_FD_BODY,
-    /* 4 */ DEATH_FD_SKULL,
-    /* 5 */ DEATH_FINISH
-} BossFd2CutsceneState;
-
-typedef enum {
-    /* 0 */ EYE_OPEN,
-    /* 1 */ EYE_HALF,
-    /* 2 */ EYE_CLOSED
-} BossFd2EyeState;
 
 void BossFd2_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossFd2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossFd2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossFd2_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -70,6 +57,7 @@ ActorInit Boss_Fd2_InitVars = {
     (ActorFunc)BossFd2_Destroy,
     (ActorFunc)BossFd2_Update,
     (ActorFunc)BossFd2_Draw,
+    (ActorFunc)BossFd2_Reset,
 };
 
 #include "z_boss_fd2_colchk.cpp"
@@ -1228,4 +1216,22 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx) {
         POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2688);
+}
+
+void BossFd2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Fd2_InitVars = {
+        ACTOR_BOSS_FD2,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_FD2,
+        sizeof(BossFd2),
+        (ActorFunc)BossFd2_Init,
+        (ActorFunc)BossFd2_Destroy,
+        (ActorFunc)BossFd2_Update,
+        (ActorFunc)BossFd2_Draw,
+        (ActorFunc)BossFd2_Reset,
+    };
+
+    sUnkVec = { 0.0f, 0.0f, 50.0f };
+
 }

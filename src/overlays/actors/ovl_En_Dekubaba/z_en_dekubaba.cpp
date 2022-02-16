@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnDekubaba_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDekubaba_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDekubaba_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDekubaba_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDekubaba_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +52,7 @@ ActorInit En_Dekubaba_InitVars = {
     (ActorFunc)EnDekubaba_Destroy,
     (ActorFunc)EnDekubaba_Update,
     (ActorFunc)EnDekubaba_Draw,
+    (ActorFunc)EnDekubaba_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[7] = {
@@ -147,14 +149,6 @@ static ColliderJntSphInit sJntSphInit = {
 };
 
 static CollisionCheckInfoInit sColChkInfoInit = { 2, 25, 25, MASS_IMMOVABLE };
-
-typedef enum {
-    /* 0x0 */ DEKUBABA_DMGEFF_NONE,
-    /* 0x1 */ DEKUBABA_DMGEFF_DEKUNUT,
-    /* 0x2 */ DEKUBABA_DMGEFF_FIRE,
-    /* 0xE */ DEKUBABA_DMGEFF_BOOMERANG = 14,
-    /* 0xF */ DEKUBABA_DMGEFF_SWORD
-} DekuBabaDamageEffect;
 
 static DamageTable sDekuBabaDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, DEKUBABA_DMGEFF_DEKUNUT),
@@ -1327,4 +1321,108 @@ void EnDekubaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2804);
+}
+
+
+void EnDekubaba_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
+    En_Dekubaba_InitVars = {
+        ACTOR_EN_DEKUBABA,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_DEKUBABA,
+        sizeof(EnDekubaba),
+        (ActorFunc)EnDekubaba_Init,
+        (ActorFunc)EnDekubaba_Destroy,
+        (ActorFunc)EnDekubaba_Update,
+        (ActorFunc)EnDekubaba_Draw,
+        (ActorFunc)EnDekubaba_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        7,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 2, 25, 25, MASS_IMMOVABLE };
+
+    sDekuBabaDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, DEKUBABA_DMGEFF_DEKUNUT),
+        /* Deku stick    */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Slingshot     */ DMG_ENTRY(1, DEKUBABA_DMGEFF_NONE),
+        /* Explosive     */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Boomerang     */ DMG_ENTRY(2, DEKUBABA_DMGEFF_BOOMERANG),
+        /* Normal arrow  */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Hammer swing  */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Hookshot      */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Kokiri sword  */ DMG_ENTRY(1, DEKUBABA_DMGEFF_SWORD),
+        /* Master sword  */ DMG_ENTRY(2, DEKUBABA_DMGEFF_SWORD),
+        /* Giant's Knife */ DMG_ENTRY(4, DEKUBABA_DMGEFF_SWORD),
+        /* Fire arrow    */ DMG_ENTRY(4, DEKUBABA_DMGEFF_FIRE),
+        /* Ice arrow     */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Light arrow   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Unk arrow 1   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Unk arrow 3   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Fire magic    */ DMG_ENTRY(4, DEKUBABA_DMGEFF_FIRE),
+        /* Ice magic     */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Light magic   */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Shield        */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, DEKUBABA_DMGEFF_SWORD),
+        /* Giant spin    */ DMG_ENTRY(4, DEKUBABA_DMGEFF_SWORD),
+        /* Master spin   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_SWORD),
+        /* Kokiri jump   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_SWORD),
+        /* Giant jump    */ DMG_ENTRY(8, DEKUBABA_DMGEFF_SWORD),
+        /* Master jump   */ DMG_ENTRY(4, DEKUBABA_DMGEFF_SWORD),
+        /* Unknown 1     */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Unblockable   */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Hammer jump   */ DMG_ENTRY(4, DEKUBABA_DMGEFF_NONE),
+        /* Unknown 2     */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+    };
+
+    sBigDekuBabaDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, DEKUBABA_DMGEFF_DEKUNUT),
+        /* Deku stick    */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Slingshot     */ DMG_ENTRY(1, DEKUBABA_DMGEFF_NONE),
+        /* Explosive     */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Boomerang     */ DMG_ENTRY(2, DEKUBABA_DMGEFF_BOOMERANG),
+        /* Normal arrow  */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Hammer swing  */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Hookshot      */ DMG_ENTRY(0, DEKUBABA_DMGEFF_DEKUNUT),
+        /* Kokiri sword  */ DMG_ENTRY(1, DEKUBABA_DMGEFF_SWORD),
+        /* Master sword  */ DMG_ENTRY(2, DEKUBABA_DMGEFF_SWORD),
+        /* Giant's Knife */ DMG_ENTRY(4, DEKUBABA_DMGEFF_SWORD),
+        /* Fire arrow    */ DMG_ENTRY(4, DEKUBABA_DMGEFF_FIRE),
+        /* Ice arrow     */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Light arrow   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Unk arrow 1   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Unk arrow 2   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Unk arrow 3   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_NONE),
+        /* Fire magic    */ DMG_ENTRY(4, DEKUBABA_DMGEFF_FIRE),
+        /* Ice magic     */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Light magic   */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Shield        */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Mirror Ray    */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Kokiri spin   */ DMG_ENTRY(1, DEKUBABA_DMGEFF_SWORD),
+        /* Giant spin    */ DMG_ENTRY(4, DEKUBABA_DMGEFF_SWORD),
+        /* Master spin   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_SWORD),
+        /* Kokiri jump   */ DMG_ENTRY(2, DEKUBABA_DMGEFF_SWORD),
+        /* Giant jump    */ DMG_ENTRY(8, DEKUBABA_DMGEFF_SWORD),
+        /* Master jump   */ DMG_ENTRY(4, DEKUBABA_DMGEFF_SWORD),
+        /* Unknown 1     */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Unblockable   */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+        /* Hammer jump   */ DMG_ENTRY(4, DEKUBABA_DMGEFF_NONE),
+        /* Unknown 2     */ DMG_ENTRY(0, DEKUBABA_DMGEFF_NONE),
+    };
+
 }

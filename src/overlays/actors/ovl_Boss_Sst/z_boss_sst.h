@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_SST_H
+#pragma once
 #define Z_BOSS_SST_H
 
 #include "ultra64.h"
@@ -9,7 +9,7 @@ struct BossSst;
 typedef void (*BossSstActionFunc)(struct BossSst*, GlobalContext*);
 
 
-typedef struct {
+struct BossSstEffect {
     /* 0x0000 */ Vec3f pos;
     /* 0x0010 */ Vec3f vel;
     /* 0x0018 */ Vec3s rot;
@@ -17,15 +17,39 @@ typedef struct {
     /* 0x0020 */ s16 move;
     /* 0x0022 */ s16 status;
     /* 0x0024 */ u8 alpha;
-} BossSstEffect; // size = 0x28
+}; 
 
-typedef struct {
+struct BossSstHandTrail {
     /* 0x0000 */ PosRot world;
     /* 0x0014 */ f32 zPosMod;
     /* 0x0018 */ s16 yRotMod;
-} BossSstHandTrail; // size = 0x1C
+}; 
 
-typedef struct BossSst {
+
+enum BossSstHandState {
+    /*  0 */ HAND_WAIT,
+    /*  1 */ HAND_BEAT,
+    /*  2 */ HAND_RETREAT,
+    /*  3 */ HAND_SLAM,
+    /*  4 */ HAND_SWEEP,
+    /*  5 */ HAND_PUNCH,
+    /*  6 */ HAND_CLAP,
+    /*  7 */ HAND_GRAB,
+    /*  8 */ HAND_DAMAGED,
+    /*  9 */ HAND_FROZEN,
+    /* 10 */ HAND_BREAK_ICE,
+    /* 11 */ HAND_DEATH
+};
+
+
+enum BossSstEffectMode {
+    /* 0 */ BONGO_NULL,
+    /* 1 */ BONGO_ICE,
+    /* 2 */ BONGO_SHOCKWAVE,
+    /* 3 */ BONGO_SHADOW
+};
+struct BossSst {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ BossSstActionFunc actionFunc;
@@ -51,12 +75,12 @@ typedef struct BossSst {
     /* 0x09D0 */ s16 trailIndex;
     /* 0x09D2 */ s16 trailCount;
     /* 0x09D4 */ BossSstHandTrail handTrails[7];
-} BossSst; // size = 0x0A98
+}; 
 
-typedef enum {
+enum BossSstType {
     /* -1 */ BONGO_HEAD = -1,
     /*  0 */ BONGO_LEFT_HAND,
     /*  1 */ BONGO_RIGHT_HAND
-} BossSstType;
+};
 
-#endif
+

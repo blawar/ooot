@@ -1,4 +1,4 @@
-#ifndef Z_EN_BOM_H
+#pragma once
 #define Z_EN_BOM_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnBom;
 
 typedef void (*EnBomActionFunc)(struct EnBom*, struct GlobalContext*);
 
-typedef struct EnBom {
+
+struct EnBom {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder bombCollider;
     /* 0x0198 */ ColliderJntSph explosionCollider;
@@ -18,11 +20,11 @@ typedef struct EnBom {
     /* 0x01FC */ f32 flashIntensity;
     /* 0x0200 */ u8 bumpOn;
     /* 0x0204 */ EnBomActionFunc actionFunc;
-} EnBom; // size = 0x0208
+}; 
 
-typedef enum {
+enum EnBomType {
     /* 0x00 */ BOMB_BODY,
     /* 0x01 */ BOMB_EXPLOSION
-} EnBomType;
+};
 
-#endif
+

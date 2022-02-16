@@ -44,29 +44,9 @@
 #define ROOM_CENTER_Y 0.0f
 #define ROOM_CENTER_Z 0.0f
 
-typedef enum {
-    /*  0 */ HAND_WAIT,
-    /*  1 */ HAND_BEAT,
-    /*  2 */ HAND_RETREAT,
-    /*  3 */ HAND_SLAM,
-    /*  4 */ HAND_SWEEP,
-    /*  5 */ HAND_PUNCH,
-    /*  6 */ HAND_CLAP,
-    /*  7 */ HAND_GRAB,
-    /*  8 */ HAND_DAMAGED,
-    /*  9 */ HAND_FROZEN,
-    /* 10 */ HAND_BREAK_ICE,
-    /* 11 */ HAND_DEATH
-} BossSstHandState;
-
-typedef enum {
-    /* 0 */ BONGO_NULL,
-    /* 1 */ BONGO_ICE,
-    /* 2 */ BONGO_SHOCKWAVE,
-    /* 3 */ BONGO_SHADOW
-} BossSstEffectMode;
 
 void BossSst_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossSst_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossSst_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossSst_UpdateHand(Actor* thisx, GlobalContext* globalCtx);
 void BossSst_UpdateHead(Actor* thisx, GlobalContext* globalCtx);
@@ -264,6 +244,7 @@ ActorInit Boss_Sst_InitVars = {
     (ActorFunc)BossSst_Destroy,
     (ActorFunc)BossSst_UpdateHand,
     (ActorFunc)BossSst_DrawHand,
+    (ActorFunc)BossSst_Reset,
 };
 
 #include "z_boss_sst_colchk.cpp"
@@ -3241,4 +3222,38 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7433);
     }
+}
+
+void BossSst_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sRoomCenter = { ROOM_CENTER_X, ROOM_CENTER_Y, ROOM_CENTER_Z };
+
+    sCameraAt = { ROOM_CENTER_X + 50.0f, ROOM_CENTER_Y + 0.0f, ROOM_CENTER_Z + 0.0f };
+
+    sCameraEye = { ROOM_CENTER_X + 150.0f, ROOM_CENTER_Y + 100.0f, ROOM_CENTER_Z + 0.0f };
+
+    sCameraAtVel = { 0.0f, 0.0f, 0.0f };
+
+    sCameraEyeVel = { 0.0f, 0.0f, 0.0f };
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
+    sBodyStatic = false;
+
+    sBodyColor = { 255, 255, 255, 255 };
+
+    sStaticColor = { 0, 0, 0, 255 };
+
+    Boss_Sst_InitVars = {
+        ACTOR_BOSS_SST,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_SST,
+        sizeof(BossSst),
+        (ActorFunc)BossSst_Init,
+        (ActorFunc)BossSst_Destroy,
+        (ActorFunc)BossSst_UpdateHand,
+        (ActorFunc)BossSst_DrawHand,
+        (ActorFunc)BossSst_Reset,
+    };
+
 }

@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnSa_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSa_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -29,22 +30,6 @@ void func_80AF67D0(EnSa* pthis, GlobalContext* globalCtx);
 void func_80AF683C(EnSa* pthis, GlobalContext* globalCtx);
 void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx);
 void func_80AF6B20(EnSa* pthis, GlobalContext* globalCtx);
-
-typedef enum {
-    /* 0 */ SARIA_EYE_OPEN,
-    /* 1 */ SARIA_EYE_HALF,
-    /* 2 */ SARIA_EYE_CLOSED,
-    /* 3 */ SARIA_EYE_SUPRISED,
-    /* 4 */ SARIA_EYE_SAD
-} SariaEyeState;
-
-typedef enum {
-    /* 0 */ SARIA_MOUTH_CLOSED2,
-    /* 1 */ SARIA_MOUTH_SUPRISED,
-    /* 2 */ SARIA_MOUTH_CLOSED,
-    /* 3 */ SARIA_MOUTH_SMILING_OPEN,
-    /* 4 */ SARIA_MOUTH_FROWNING
-} SariaMouthState;
 
 ActorInit En_Sa_InitVars = {
     ACTOR_EN_SA,
@@ -56,6 +41,7 @@ ActorInit En_Sa_InitVars = {
     (ActorFunc)EnSa_Destroy,
     (ActorFunc)EnSa_Update,
     (ActorFunc)EnSa_Draw,
+    (ActorFunc)EnSa_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -797,4 +783,44 @@ void EnSa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sa.c", 1497);
+}
+
+void EnSa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Sa_InitVars = {
+        ACTOR_EN_SA,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SA,
+        sizeof(EnSa),
+        (ActorFunc)EnSa_Init,
+        (ActorFunc)EnSa_Destroy,
+        (ActorFunc)EnSa_Update,
+        (ActorFunc)EnSa_Draw,
+        (ActorFunc)EnSa_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 46, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = {
+        0, 0, 0, 0, MASS_IMMOVABLE,
+    };
+
 }

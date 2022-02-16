@@ -9,6 +9,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgJyaCobra_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaCobra_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaCobra_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaCobra_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaCobra_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Jya_Cobra_InitVars = {
     (ActorFunc)BgJyaCobra_Destroy,
     (ActorFunc)BgJyaCobra_Update,
     (ActorFunc)BgJyaCobra_Draw,
+    (ActorFunc)BgJyaCobra_Reset,
 };
 
 static s16 D_80897308[] = { 0, 0, 0, 0 };
@@ -628,4 +630,24 @@ void BgJyaCobra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         BgJyaCobra_DrawShadow(pthis, globalCtx);
     }
+}
+
+void BgJyaCobra_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Cobra_InitVars = {
+        ACTOR_BG_JYA_COBRA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaCobra),
+        (ActorFunc)BgJyaCobra_Init,
+        (ActorFunc)BgJyaCobra_Destroy,
+        (ActorFunc)BgJyaCobra_Update,
+        (ActorFunc)BgJyaCobra_Draw,
+        (ActorFunc)BgJyaCobra_Reset,
+    };
+
+    D_80897538 = { 0, -0x4000, 0 };
+
+    D_80897540 = { 0, 0x4000, 0 };
+
 }

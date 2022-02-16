@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_KANKYO_H
+#pragma once
 #define Z_DEMO_KANKYO_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct DemoKankyo;
 
 typedef void (*DemoKankyoActionFunc)(struct DemoKankyo*, GlobalContext*);
 
-typedef enum {
+enum DemoKankyoType {
     /* 0x00 */ DEMOKANKYO_BLUE_RAIN,
     /* 0x01 */ DEMOKANKYO_BLUE_RAIN_2,
     /* 0x02 */ DEMOKANKYO_ROCK_1,
@@ -27,9 +27,9 @@ typedef enum {
     /* 0x0F */ DEMOKANKYO_WARP_OUT,
     /* 0x10 */ DEMOKANKYO_WARP_IN,
     /* 0x11 */ DEMOKANKYO_SPARKLES
-} DemoKankyoType;
+};
 
-typedef struct {
+struct DemoKankyoUnk150 {
     /* 0x00 */ Vec3f unk_0;
     /* 0x0C */ Vec3f unk_C;
     /* 0x18 */ f32 unk_18;     // For Door of Time, this is the amount to translate it by used for when it's opening
@@ -38,15 +38,17 @@ typedef struct {
     /* 0x22 */ u8 unk_22;      // mode ?
     /* 0x23 */ u8 unk_23;
     /* 0x24 */ s16 unk_24;
-} DemoKankyoUnk150; // size = 0x28
+}; 
 
-typedef struct DemoKankyo {
+
+struct DemoKankyo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 objBankIndex;
     /* 0x014D */ u8 sparkleCounter;
     /* 0x014E */ u8 warpTimer;
     /* 0x0150 */ DemoKankyoUnk150 unk_150[30];
     /* 0x0600 */ DemoKankyoActionFunc actionFunc;
-} DemoKankyo; // size = 0x0604
+}; 
 
-#endif
+

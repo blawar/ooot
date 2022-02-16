@@ -1,4 +1,4 @@
-#ifndef Z_EN_KANBAN_H
+#pragma once
 #define Z_EN_KANBAN_H
 
 #include "ultra64.h"
@@ -6,7 +6,51 @@
 
 struct EnKanban;
 
-typedef struct EnKanban {
+
+enum EnKanbanActionState {
+    ENKANBAN_SIGN,
+    ENKANBAN_AIR,
+    ENKANBAN_UNUSED,
+    ENKANBAN_GROUND,
+    ENKANBAN_WATER,
+    ENKANBAN_REPAIR
+};
+
+
+enum EnKanbanPiece {
+    PIECE_WHOLE_SIGN,
+    PIECE_UPPER_HALF,
+    PIECE_LOWER_HALF,
+    PIECE_RIGHT_HALF,
+    PIECE_LEFT_HALF,
+    PIECE_2ND_QUAD,
+    PIECE_1ST_QUAD,
+    PIECE_3RD_QUAD,
+    PIECE_4TH_QUAD,
+    PIECE_UPPER_LEFT,
+    PIECE_LEFT_UPPER,
+    PIECE_LEFT_LOWER,
+    PIECE_LOWER_LEFT,
+    PIECE_UPPER_RIGHT,
+    PIECE_RIGHT_UPPER,
+    PIECE_RIGHT_LOWER,
+    PIECE_LOWER_RIGHT,
+    PIECE_POST_UPPER,
+    PIECE_POST_LOWER,
+    PIECE_OTHER = 100
+};
+
+
+enum EnKanbanCutType {
+    CUT_POST,
+    CUT_VERT_L,
+    CUT_HORIZ,
+    CUT_DIAG_L, // lower left to upper right
+    CUT_DIAG_R, // upper left to lower right
+    CUT_VERT_R
+};
+struct EnKanban {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ char unk_14C[4];
     /* 0x0150 */ u8 frameCount;
@@ -36,9 +80,9 @@ typedef struct EnKanban {
     /* 0x019D */ u8 msgTimer;
     /* 0x019E */ u8 ocarinaFlag;
     /* 0x01A0 */ ColliderCylinder collider;
-} EnKanban; // size = 0x01EC
+}; 
 
 #define ENKANBAN_PIECE ((s16)0xFFDD)
 #define ENKANBAN_FISHING 0x300
 
-#endif
+

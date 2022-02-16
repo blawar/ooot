@@ -1,4 +1,4 @@
-#ifndef Z_EN_GO_H
+#pragma once
 #define Z_EN_GO_H
 
 #include "ultra64.h"
@@ -23,7 +23,7 @@ typedef s16 (*callback2_80A3ED24)(GlobalContext*, struct EnGo*);
 // /* 0x90 */ GORON1_DMT_BIGGORON,
 
 
-typedef struct {
+struct EnGoEffect {
     /* 0x0000 */ u8 type;
     /* 0x0001 */ u8 timer;
     /* 0x0002 */ u8 initialTimer;
@@ -34,9 +34,18 @@ typedef struct {
     /* 0x0014 */ Vec3f pos;
     /* 0x0020 */ Vec3f velocity;
     /* 0x002C */ Vec3f accel;
-} EnGoEffect; // size = 0x38
+}; 
 
-typedef struct EnGo {
+
+
+struct EnGoAnimation {
+    AnimationHeader* animation;
+    f32 playSpeed;
+    u8 mode;
+    f32 morphRate;
+};
+struct EnGo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnGoActionFunc actionFunc;
@@ -56,6 +65,6 @@ typedef struct EnGo {
     /* 0x0220 */ s16 jointTable[18];
     /* 0x0244 */ s16 morphTable[18];
     /* 0x0268 */ EnGoEffect dustEffects[20];
-} EnGo; // size = 0x06C8
+}; 
 
-#endif
+

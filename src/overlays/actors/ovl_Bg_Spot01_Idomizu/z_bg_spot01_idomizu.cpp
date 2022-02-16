@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_5
 
 void BgSpot01Idomizu_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot01Idomizu_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot01Idomizu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Idomizu_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Idomizu_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,6 +34,7 @@ ActorInit Bg_Spot01_Idomizu_InitVars = {
     (ActorFunc)BgSpot01Idomizu_Destroy,
     (ActorFunc)BgSpot01Idomizu_Update,
     (ActorFunc)BgSpot01Idomizu_Draw,
+    (ActorFunc)BgSpot01Idomizu_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -90,4 +92,20 @@ void BgSpot01Idomizu_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gKakarikoWellWaterDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idomizu.c", 244);
+}
+
+void BgSpot01Idomizu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot01_Idomizu_InitVars = {
+        ACTOR_BG_SPOT01_IDOMIZU,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT01_OBJECTS,
+        sizeof(BgSpot01Idomizu),
+        (ActorFunc)BgSpot01Idomizu_Init,
+        (ActorFunc)BgSpot01Idomizu_Destroy,
+        (ActorFunc)BgSpot01Idomizu_Update,
+        (ActorFunc)BgSpot01Idomizu_Draw,
+        (ActorFunc)BgSpot01Idomizu_Reset,
+    };
+
 }

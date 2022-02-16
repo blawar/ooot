@@ -29,11 +29,6 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
-typedef enum {
-    /* -1 */ ENMB_TYPE_SPEAR_GUARD = -1,
-    /*  0 */ ENMB_TYPE_CLUB,
-    /*  1 */ ENMB_TYPE_SPEAR_PATROL
-} EnMbType;
 
 #define ENMB_ATTACK_NONE 0
 #define ENMB_ATTACK_SPEAR 1
@@ -42,26 +37,9 @@ typedef enum {
 #define ENMB_ATTACK_CLUB_LEFT 3
 
 /* Spear and Club moblins use a different skeleton but the limbs are organized the same */
-typedef enum {
-    /*  1 */ ENMB_LIMB_ROOT = 1,
-    /*  3 */ ENMB_LIMB_WAIST = 3,
-    /*  6 */ ENMB_LIMB_CHEST = 6,
-    /*  7 */ ENMB_LIMB_HEAD,
-    /*  9 */ ENMB_LIMB_LSHOULDER = 9,
-    /* 11 */ ENMB_LIMB_LFOREARM = 11,
-    /* 12 */ ENMB_LIMB_LHAND,
-    /* 14 */ ENMB_LIMB_RSHOULDER = 14,
-    /* 16 */ ENMB_LIMB_RFOREARM = 16,
-    /* 17 */ ENMB_LIMB_RHAND,
-    /* 20 */ ENMB_LIMB_LTHIGH = 20,
-    /* 21 */ ENMB_LIMB_LSHIN,
-    /* 22 */ ENMB_LIMB_LFOOT,
-    /* 25 */ ENMB_LIMB_RTHIGH = 25,
-    /* 26 */ ENMB_LIMB_RSHIN,
-    /* 27 */ ENMB_LIMB_RFOOT
-} EnMbLimb;
 
 void EnMb_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnMb_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnMb_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -76,6 +54,7 @@ ActorInit En_Mb_InitVars = {
     (ActorFunc)EnMb_Destroy,
     (ActorFunc)EnMb_Update,
     (ActorFunc)EnMb_Draw,
+    (ActorFunc)EnMb_Reset,
 };
 
 void EnMb_SetupSpearPatrolTurnTowardsWaypoint(EnMb* pthis, GlobalContext* globalCtx);
@@ -179,14 +158,6 @@ static ColliderQuadInit sAttackColliderInit = {
     },
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
-
-typedef enum {
-    /* 0x0 */ ENMB_DMGEFF_IGNORE,
-    /* 0x1 */ ENMB_DMGEFF_STUN,
-    /* 0x5 */ ENMB_DMGEFF_FREEZE = 0x5,
-    /* 0x6 */ ENMB_DMGEFF_STUN_ICE,
-    /* 0xF */ ENMB_DMGEFF_DEFAULT = 0xF
-} EnMbDamageEffect;
 
 static DamageTable sSpearMoblinDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
@@ -1568,4 +1539,143 @@ void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx) {
                                            245, 255, scale);
         }
     }
+}
+
+void EnMb_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Mb_InitVars = {
+        ACTOR_EN_MB,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_MB,
+        sizeof(EnMb),
+        (ActorFunc)EnMb_Init,
+        (ActorFunc)EnMb_Destroy,
+        (ActorFunc)EnMb_Update,
+        (ActorFunc)EnMb_Draw,
+        (ActorFunc)EnMb_Reset,
+    };
+
+    sHitboxInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 70, 0, { 0, 0, 0 } },
+    };
+
+    sFrontShieldingInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sFrontShieldingTrisInit,
+    };
+
+    sAttackColliderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sSpearMoblinDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Deku stick    */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Slingshot     */ DMG_ENTRY(1, ENMB_DMGEFF_DEFAULT),
+        /* Explosive     */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Boomerang     */ DMG_ENTRY(0, ENMB_DMGEFF_STUN),
+        /* Normal arrow  */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Hammer swing  */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Hookshot      */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Kokiri sword  */ DMG_ENTRY(1, ENMB_DMGEFF_DEFAULT),
+        /* Master sword  */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Giant's Knife */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Fire arrow    */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Ice arrow     */ DMG_ENTRY(4, ENMB_DMGEFF_STUN_ICE),
+        /* Light arrow   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Unk arrow 1   */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Unk arrow 2   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Unk arrow 3   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Fire magic    */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Ice magic     */ DMG_ENTRY(3, ENMB_DMGEFF_STUN_ICE),
+        /* Light magic   */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Shield        */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Mirror Ray    */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Kokiri spin   */ DMG_ENTRY(1, ENMB_DMGEFF_DEFAULT),
+        /* Giant spin    */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Master spin   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Kokiri jump   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Giant jump    */ DMG_ENTRY(8, ENMB_DMGEFF_DEFAULT),
+        /* Master jump   */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Unknown 1     */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Unblockable   */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Hammer jump   */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Unknown 2     */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+    };
+
+    sClubMoblinDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Deku stick    */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Slingshot     */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Explosive     */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Boomerang     */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Normal arrow  */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Hammer swing  */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Hookshot      */ DMG_ENTRY(0, ENMB_DMGEFF_STUN),
+        /* Kokiri sword  */ DMG_ENTRY(1, ENMB_DMGEFF_DEFAULT),
+        /* Master sword  */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Giant's Knife */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Fire arrow    */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Ice arrow     */ DMG_ENTRY(4, ENMB_DMGEFF_STUN_ICE),
+        /* Light arrow   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Unk arrow 1   */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Unk arrow 2   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Unk arrow 3   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Fire magic    */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Ice magic     */ DMG_ENTRY(3, ENMB_DMGEFF_STUN_ICE),
+        /* Light magic   */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Shield        */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Mirror Ray    */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Kokiri spin   */ DMG_ENTRY(1, ENMB_DMGEFF_DEFAULT),
+        /* Giant spin    */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Master spin   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Kokiri jump   */ DMG_ENTRY(2, ENMB_DMGEFF_DEFAULT),
+        /* Giant jump    */ DMG_ENTRY(8, ENMB_DMGEFF_DEFAULT),
+        /* Master jump   */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Unknown 1     */ DMG_ENTRY(0, ENMB_DMGEFF_FREEZE),
+        /* Unblockable   */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+        /* Hammer jump   */ DMG_ENTRY(4, ENMB_DMGEFF_DEFAULT),
+        /* Unknown 2     */ DMG_ENTRY(0, ENMB_DMGEFF_IGNORE),
+    };
+
 }

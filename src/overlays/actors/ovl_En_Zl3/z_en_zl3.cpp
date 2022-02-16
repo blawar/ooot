@@ -39,6 +39,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnZl3_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnZl3_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnZl3_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnZl3_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnZl3_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -2795,4 +2796,60 @@ ActorInit En_Zl3_InitVars = {
     (ActorFunc)EnZl3_Destroy,
     (ActorFunc)EnZl3_Update,
     (ActorFunc)EnZl3_Draw,
+    (ActorFunc)EnZl3_Reset,
 };
+
+void EnZl3_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 25, 80, 0, { 0, 0, 0 } },
+    };
+
+    D_80B5A468 = 0;
+
+    D_80B5A46C = { 0.0f, 0.0f, 0.0f };
+
+    D_80B5A478 = { 0.0f, 10.0f, 0.0f };
+
+    D_80B5A484 = 0.0f;
+
+    D_80B5A488 = { 0.0f, 0.0f, 0.0f };
+
+    D_80B5A494 = -1;
+
+    D_80B5A498 = { 148.0f, 260.0f, -87.0f };
+
+    D_80B5A4A4 = { -12.0f, 260.0f, -147.0f };
+
+    D_80B5A4B0 = { 42.0f, 260.0f, 13.0f };
+
+    D_80B5A4BC = 0;
+
+    En_Zl3_InitVars = {
+        ACTOR_EN_ZL3,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ZL2,
+        sizeof(EnZl3),
+        (ActorFunc)EnZl3_Init,
+        (ActorFunc)EnZl3_Destroy,
+        (ActorFunc)EnZl3_Update,
+        (ActorFunc)EnZl3_Draw,
+        (ActorFunc)EnZl3_Reset,
+    };
+
+}

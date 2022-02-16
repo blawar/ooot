@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnMag_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnMag_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnMag_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMag_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMag_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,6 +34,7 @@ ActorInit En_Mag_InitVars = {
     (ActorFunc)EnMag_Destroy,
     (ActorFunc)EnMag_Update,
     (ActorFunc)EnMag_Draw,
+    (ActorFunc)EnMag_Reset,
 };
 
 static s16 sDelayTimer = 0;
@@ -587,4 +589,22 @@ void EnMag_Draw(Actor* thisx, GlobalContext* globalCtx) {
     POLY_OPA_DISP = gfx;
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mag.c", 1161);
+}
+
+void EnMag_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Mag_InitVars = {
+        ACTOR_EN_MAG,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_MAG,
+        sizeof(EnMag),
+        (ActorFunc)EnMag_Init,
+        (ActorFunc)EnMag_Destroy,
+        (ActorFunc)EnMag_Update,
+        (ActorFunc)EnMag_Draw,
+        (ActorFunc)EnMag_Reset,
+    };
+
+    sDelayTimer = 0;
+
 }

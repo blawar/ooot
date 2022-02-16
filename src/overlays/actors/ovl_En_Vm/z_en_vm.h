@@ -1,4 +1,4 @@
-#ifndef Z_EN_VM_H
+#pragma once
 #define Z_EN_VM_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnVm;
 
 typedef void (*EnVmActionFunc)(struct EnVm*, GlobalContext*);
 
-typedef struct EnVm {
+
+struct EnVm {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[11];
@@ -30,11 +32,11 @@ typedef struct EnVm {
     /* 0x0268 */ ColliderCylinder colliderCylinder;
     /* 0x02B4 */ ColliderQuad colliderQuad1;
     /* 0x0334 */ ColliderQuad colliderQuad2;
-} EnVm; // size = 0x03B4
+}; 
 
-typedef enum {
+enum BeamosType {
     /* 0x00 */ BEAMOS_LARGE,
     /* 0x01 */ BEAMOS_SMALL
-} BeamosType;
+};
 
-#endif
+

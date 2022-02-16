@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_22
 
 void BgBombwall_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgBombwall_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgBombwall_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgBombwall_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgBombwall_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -88,6 +89,7 @@ ActorInit Bg_Bombwall_InitVars = {
     (ActorFunc)BgBombwall_Destroy,
     (ActorFunc)BgBombwall_Update,
     (ActorFunc)BgBombwall_Draw,
+    (ActorFunc)BgBombwall_Reset,
 };
 
 void BgBombwall_InitDynapoly(BgBombwall* pthis, GlobalContext* globalCtx) {
@@ -265,4 +267,33 @@ void BgBombwall_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     BgBombwall* pthis = (BgBombwall*)pthisx;
 
     Gfx_DrawDListOpa(globalCtx, pthis->dList);
+}
+
+void BgBombwall_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        3,
+        sTrisElementsInit,
+    };
+
+    Bg_Bombwall_InitVars = {
+        ACTOR_BG_BOMBWALL,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_FIELD_KEEP,
+        sizeof(BgBombwall),
+        (ActorFunc)BgBombwall_Init,
+        (ActorFunc)BgBombwall_Destroy,
+        (ActorFunc)BgBombwall_Update,
+        (ActorFunc)BgBombwall_Draw,
+        (ActorFunc)BgBombwall_Reset,
+    };
+
 }

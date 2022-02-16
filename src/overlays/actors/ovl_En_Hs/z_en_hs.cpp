@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnHs_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHs_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHs_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHs_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHs_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit En_Hs_InitVars = {
     (ActorFunc)EnHs_Destroy,
     (ActorFunc)EnHs_Update,
     (ActorFunc)EnHs_Draw,
+    (ActorFunc)EnHs_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -307,4 +309,40 @@ void EnHs_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_800943C8(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnHs_OverrideLimbDraw, EnHs_PostLimbDraw, pthis);
+}
+
+void EnHs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Hs_InitVars = {
+        ACTOR_EN_HS,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_HS,
+        sizeof(EnHs),
+        (ActorFunc)EnHs_Init,
+        (ActorFunc)EnHs_Destroy,
+        (ActorFunc)EnHs_Update,
+        (ActorFunc)EnHs_Draw,
+        (ActorFunc)EnHs_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ENEMY,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 40, 40, 0, { 0, 0, 0 } },
+    };
+
 }

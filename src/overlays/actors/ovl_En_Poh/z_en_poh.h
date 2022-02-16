@@ -1,4 +1,4 @@
-#ifndef Z_EN_POH_H
+#pragma once
 #define Z_EN_POH_H
 
 #include "ultra64.h"
@@ -8,19 +8,19 @@ struct EnPoh;
 
 typedef void (*EnPohActionFunc)(struct EnPoh*, GlobalContext*);
 
-typedef enum {
+enum EnPohType {
     EN_POH_NORMAL,
     EN_POH_RUPEE,
     EN_POH_SHARP,
     EN_POH_FLAT
-} EnPohType;
+};
 
-typedef enum {
+enum EnPohInfoType {
     EN_POH_INFO_NORMAL,
     EN_POH_INFO_COMPOSER
-} EnPohInfoType;
+};
 
-typedef struct {
+struct EnPohInfo {
     /* 0x0000 */ Color_RGB8 primColor;
     /* 0x0003 */ Color_RGB8 lightColor;
     /* 0x0006 */ u8 unk_6; // limb index
@@ -33,9 +33,11 @@ typedef struct {
     /* 0x001C */ Gfx* lanternDisplayList;
     /* 0x0020 */ Gfx* burnDisplayList;
     /* 0x0024 */ Gfx* soulDisplayList;
-} EnPohInfo; // size = 0x28
+}; 
 
-typedef struct EnPoh {
+
+struct EnPoh {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPohActionFunc actionFunc;
@@ -57,6 +59,6 @@ typedef struct EnPoh {
     /* 0x0308 */ ColliderJntSph colliderSph;
     /* 0x0328 */ ColliderJntSphElement colliderSphItem;
     /* 0x0368 */ MtxF unk_368;
-} EnPoh; // size = 0x03A8
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_EFC_ERUPC_H
+#pragma once
 #define Z_EFC_ERUPC_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EfcErupc;
 
 typedef void (*EfcErupcActionFunc)(struct EfcErupc*, GlobalContext*);
 
-typedef struct {
+struct EfcErupcParticles {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f vel;
     /* 0x18 */ Vec3f accel;
@@ -19,11 +19,13 @@ typedef struct {
     /* 0x30 */ char unk_2C[4];
     /* 0x34 */ f32 scale;
     /* 0x38 */ char unk_34[8];
-} EfcErupcParticles; // size 0x3C
+}; 
 
 #define EFC_ERUPC_NUM_PARTICLES 100
 
-typedef struct EfcErupc {
+
+struct EfcErupc {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s16 unk14C;
     /* 0x014E */ s16 unk14E;
@@ -32,6 +34,6 @@ typedef struct EfcErupc {
     /* 0x0154 */ s16 unk154;
     /* 0x0158 */ EfcErupcParticles particles[EFC_ERUPC_NUM_PARTICLES];
     /* 0x18C8 */ EfcErupcActionFunc actionFunc;
-} EfcErupc; // size = 0x18CC
+}; 
 
-#endif
+

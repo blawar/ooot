@@ -1,4 +1,4 @@
-#ifndef Z_EN_DHA_H
+#pragma once
 #define Z_EN_DHA_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnDha;
 
 typedef void (*EnDhaActionFunc)(struct EnDha*, GlobalContext*);
 
-typedef struct EnDha {
+
+struct EnDha {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[4];
@@ -25,6 +27,6 @@ typedef struct EnDha {
     /* 0x01F4 */ Vec3f armPos;
     /* 0x0200 */ ColliderJntSph collider;
     /* 0x0220 */ ColliderJntSphElement colliderItem[5];
-} EnDha; // size = 0x0360
+}; 
 
-#endif
+

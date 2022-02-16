@@ -22,6 +22,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgTokiSwd_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgTokiSwd_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgTokiSwd_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgTokiSwd_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgTokiSwd_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit Bg_Toki_Swd_InitVars = {
     (ActorFunc)BgTokiSwd_Destroy,
     (ActorFunc)BgTokiSwd_Update,
     (ActorFunc)BgTokiSwd_Draw,
+    (ActorFunc)BgTokiSwd_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -188,4 +190,42 @@ void BgTokiSwd_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     gSPDisplayList(POLY_OPA_DISP++, object_toki_objects_DL_001BD0);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_toki_swd.c", 776);
+}
+
+void BgTokiSwd_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Toki_Swd_InitVars = {
+        ACTOR_BG_TOKI_SWD,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_TOKI_OBJECTS,
+        sizeof(BgTokiSwd),
+        (ActorFunc)BgTokiSwd_Init,
+        (ActorFunc)BgTokiSwd_Destroy,
+        (ActorFunc)BgTokiSwd_Update,
+        (ActorFunc)BgTokiSwd_Draw,
+        (ActorFunc)BgTokiSwd_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1 | OC2_UNK1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 10, 70, 0, { 0 } },
+    };
+
+    sColChkInfoInit = { 10, 35, 100, MASS_IMMOVABLE };
+
 }

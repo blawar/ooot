@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void BgHaka_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHaka_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHaka_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHaka_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHaka_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit Bg_Haka_InitVars = {
     (ActorFunc)BgHaka_Destroy,
     (ActorFunc)BgHaka_Update,
     (ActorFunc)BgHaka_Draw,
+    (ActorFunc)BgHaka_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -172,4 +174,20 @@ void BgHaka_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gGravestoneEarthDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka.c", 421);
+}
+
+void BgHaka_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_InitVars = {
+        ACTOR_BG_HAKA,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HAKA,
+        sizeof(BgHaka),
+        (ActorFunc)BgHaka_Init,
+        (ActorFunc)BgHaka_Destroy,
+        (ActorFunc)BgHaka_Update,
+        (ActorFunc)BgHaka_Draw,
+        (ActorFunc)BgHaka_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_BA_H
+#pragma once
 #define Z_EN_BA_H
 
 #include "ultra64.h"
@@ -8,14 +8,16 @@ struct EnBa;
 
 typedef void (*EnBaActionFunc)(struct EnBa*, GlobalContext*);
 
-typedef enum {
+enum EnBaType {
     /* 0x00 */ EN_BA_TENTACLE_RED,
     /* 0x01 */ EN_BA_TENTACLE_GREEN,
     /* 0x02 */ EN_BA_TENTACLE_GRAY,
     /* 0x03 */ EN_BA_DEAD_BLOB
-} EnBaType;
+};
 
-typedef struct EnBa {
+
+struct EnBa {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 unk14C; 
     /* 0x0150 */ EnBaActionFunc actionFunc; 
@@ -32,6 +34,6 @@ typedef struct EnBa {
     /* 0x031C */ s16 unk31C;
     /* 0x0320 */ ColliderJntSph collider;
     /* 0x0340 */ ColliderJntSphElement colliderItems[2];
-} EnBa; // size = 0x03C0
+}; 
 
-#endif
+

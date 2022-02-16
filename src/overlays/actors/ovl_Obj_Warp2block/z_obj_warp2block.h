@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_WARP2BLOCK_H
+#pragma once
 #define Z_OBJ_WARP2BLOCK_H
 
 #include "ultra64.h"
@@ -9,7 +9,15 @@ struct ObjWarp2block;
 typedef void (*ObjWarp2blockActionFunc)(struct ObjWarp2block*, GlobalContext*);
 typedef s32 (*ObjWarp2blockFunc168)(struct ObjWarp2block*, GlobalContext*);
 
-typedef struct ObjWarp2block {
+
+
+struct Warp2BlockSpawnData {
+    /* 0x00 */ f32 scale;
+    /* 0x04 */ f32 focus;
+    /* 0x08 */ s16 params;
+};
+struct ObjWarp2block {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjWarp2blockActionFunc actionFunc;
     /* 0x0168 */ ObjWarp2blockFunc168 func_168;
@@ -18,6 +26,6 @@ typedef struct ObjWarp2block {
     /* 0x0170 */ s16 unk_170;
     /* 0x0172 */ u16 unk_172;
     /* 0x0174 */ s16 unk_174;
-} ObjWarp2block; // size = 0x0178
+}; 
 
-#endif
+

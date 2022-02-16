@@ -19,17 +19,13 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgMizuWater_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMizuWater_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMizuWater_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMizuWater_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMizuWater_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void BgMizuWater_WaitForAction(BgMizuWater* pthis, GlobalContext* globalCtx);
 void BgMizuWater_ChangeWaterLevel(BgMizuWater* pthis, GlobalContext* globalCtx);
-
-typedef struct {
-    s32 switchFlag;
-    s32 yDiff;
-} WaterLevel;
 
 static WaterLevel sWaterLevels[] = {
     { 0x00, 0 },
@@ -48,6 +44,7 @@ ActorInit Bg_Mizu_Water_InitVars = {
     (ActorFunc)BgMizuWater_Destroy,
     (ActorFunc)BgMizuWater_Update,
     (ActorFunc)BgMizuWater_Draw,
+    (ActorFunc)BgMizuWater_Reset,
 };
 
 static f32 sUnused1 = 0;
@@ -355,4 +352,24 @@ void BgMizuWater_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gObjectMizuObjectsWaterDL_004B20);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_water.c", 756);
+}
+
+void BgMizuWater_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mizu_Water_InitVars = {
+        ACTOR_BG_MIZU_WATER,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MIZU_OBJECTS,
+        sizeof(BgMizuWater),
+        (ActorFunc)BgMizuWater_Init,
+        (ActorFunc)BgMizuWater_Destroy,
+        (ActorFunc)BgMizuWater_Update,
+        (ActorFunc)BgMizuWater_Draw,
+        (ActorFunc)BgMizuWater_Reset,
+    };
+
+    sUnused1 = 0;
+
+    sUnused2 = 110.0f;
+
 }

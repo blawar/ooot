@@ -31,26 +31,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0 */ INTRO_FLY_EMERGE,
-    /* 1 */ INTRO_FLY_HOLE,
-    /* 2 */ INTRO_FLY_CAMERA,
-    /* 3 */ INTRO_FLY_RETRAT
-} BossFdIntroFlyState;
-
-typedef enum {
-    /* 0 */ MANE_CENTER,
-    /* 1 */ MANE_RIGHT,
-    /* 2 */ MANE_LEFT
-} BossFdManeIndex;
-
-typedef enum {
-    /* 0 */ EYE_OPEN,
-    /* 1 */ EYE_HALF,
-    /* 2 */ EYE_CLOSED
-} BossFdEyeState;
 
 void BossFd_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossFd_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossFd_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossFd_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossFd_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -71,6 +54,7 @@ ActorInit Boss_Fd_InitVars = {
     (ActorFunc)BossFd_Destroy,
     (ActorFunc)BossFd_Update,
     (ActorFunc)BossFd_Draw,
+    (ActorFunc)BossFd_Reset,
 };
 
 #include "z_boss_fd_colchk.cpp"
@@ -1994,4 +1978,22 @@ void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* pthis) {
     Matrix_Pop();
     osSyncPrintf("END\n");
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd.c", 4987);
+}
+
+void BossFd_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Fd_InitVars = {
+        ACTOR_BOSS_FD,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_FD,
+        sizeof(BossFd),
+        (ActorFunc)BossFd_Init,
+        (ActorFunc)BossFd_Destroy,
+        (ActorFunc)BossFd_Update,
+        (ActorFunc)BossFd_Draw,
+        (ActorFunc)BossFd_Reset,
+    };
+
+    sFireAudioVec = { 0.0f, 0.0f, 50.0f };
+
 }

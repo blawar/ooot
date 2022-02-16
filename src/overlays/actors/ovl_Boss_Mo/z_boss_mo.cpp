@@ -42,22 +42,7 @@
 #define HAS_LINK(tent) \
     ((tent != NULL) && \
      ((tent->work[MO_TENT_ACTION_STATE] == MO_TENT_GRAB) || (tent->work[MO_TENT_ACTION_STATE] == MO_TENT_SHAKE)))
-
-typedef struct {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ Vec3f vel;
-    /* 0x18 */ Vec3f accel;
-    /* 0x24 */ u8 type;
-    /* 0x25 */ u8 timer;
-    /* 0x26 */ u8 stopTimer;
-    /* 0x28 */ s16 unk_28; // unused?
-    /* 0x2A */ s16 alpha;
-    /* 0x2C */ s16 rippleMode;
-    /* 0x2E */ s16 maxAlpha;
-    /* 0x30 */ f32 scale;
-    /* 0x30 */ f32 fwork[2];
-    /* 0x3C */ Vec3f* targetPos;
-} BossMoEffect; // size = 0x40
+ 
 
 #define MO_FX_MAX_SIZE 0
 #define MO_FX_SHIMMER 0
@@ -68,6 +53,7 @@ typedef struct {
 #define MO_FX_MAX_SCALE 1
 
 void BossMo_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossMo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossMo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossMo_UpdateCore(Actor* thisx, GlobalContext* globalCtx);
 void BossMo_UpdateTent(Actor* thisx, GlobalContext* globalCtx);
@@ -82,65 +68,6 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx);
 
 void BossMo_Unknown(void);
 
-typedef enum {
-    /* 0 */ MO_FX_NONE,
-    /* 1 */ MO_FX_SMALL_RIPPLE,
-    /* 2 */ MO_FX_BIG_RIPPLE,
-    /* 3 */ MO_FX_DROPLET,
-    /* 4 */ MO_FX_SPLASH,
-    /* 5 */ MO_FX_SPLASH_TRAIL,
-    /* 6 */ MO_FX_WET_SPOT,
-    /* 7 */ MO_FX_BUBBLE
-} BossMoEffectType;
-
-typedef enum {
-    /*   0 */ MO_TENT_READY,
-    /*   1 */ MO_TENT_SWING,
-    /*   2 */ MO_TENT_ATTACK,
-    /*   3 */ MO_TENT_CURL,
-    /*   4 */ MO_TENT_GRAB,
-    /*   5 */ MO_TENT_SHAKE,
-    /*  10 */ MO_TENT_WAIT = 10,
-    /*  11 */ MO_TENT_SPAWN,
-    /* 100 */ MO_TENT_CUT = 100,
-    /* 101 */ MO_TENT_RETREAT,
-    /* 102 */ MO_TENT_DESPAWN,
-    /* 200 */ MO_TENT_DEATH_START = 200,
-    /* 201 */ MO_TENT_DEATH_1,
-    /* 202 */ MO_TENT_DEATH_2,
-    /* 203 */ MO_TENT_DEATH_3,
-    /* 205 */ MO_TENT_DEATH_5 = 205,
-    /* 206 */ MO_TENT_DEATH_6
-} BossMoTentState;
-
-typedef enum {
-    /* -11 */ MO_CORE_UNUSED = -11,
-    /*   0 */ MO_CORE_MOVE = 0,
-    /*   1 */ MO_CORE_MAKE_TENT,
-    /*   2 */ MO_CORE_UNDERWATER,
-    /*   5 */ MO_CORE_STUNNED = 5,
-    /*  10 */ MO_CORE_ATTACK = 10,
-    /*  11 */ MO_CORE_RETREAT,
-    /*  20 */ MO_CORE_INTRO_WAIT = 20,
-    /*  21 */ MO_CORE_INTRO_REVEAL
-} BossMoCoreState;
-
-typedef enum {
-    /*   0 */ MO_BATTLE,
-    /*   1 */ MO_INTRO_WAIT,
-    /*   2 */ MO_INTRO_START,
-    /*   3 */ MO_INTRO_SWIM,
-    /*   4 */ MO_INTRO_REVEAL,
-    /*   5 */ MO_INTRO_FINISH,
-    /* 100 */ MO_DEATH_START = 100,
-    /* 101 */ MO_DEATH_DRAIN_WATER_1,
-    /* 102 */ MO_DEATH_DRAIN_WATER_2,
-    /* 103 */ MO_DEATH_CEILING,
-    /* 104 */ MO_DEATH_DROPLET,
-    /* 105 */ MO_DEATH_FINISH,
-    /* 150 */ MO_DEATH_MO_CORE_BURST = 150
-} BossMoCsState;
-
 ActorInit Boss_Mo_InitVars = {
     ACTOR_BOSS_MO,
     ACTORCAT_BOSS,
@@ -151,6 +78,7 @@ ActorInit Boss_Mo_InitVars = {
     (ActorFunc)BossMo_Destroy,
     (ActorFunc)BossMo_UpdateTent,
     (ActorFunc)BossMo_DrawTent,
+    (ActorFunc)BossMo_Reset,
 };
 
 static BossMo* sMorphaCore = NULL;
@@ -3603,4 +3531,28 @@ void BossMo_Unknown(void) {
         BREG(34) = 0;
         Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | (u16)BREG(35));
     }
+}
+
+void BossMo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Mo_InitVars = {
+        ACTOR_BOSS_MO,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_MO,
+        sizeof(BossMo),
+        (ActorFunc)BossMo_Init,
+        (ActorFunc)BossMo_Destroy,
+        (ActorFunc)BossMo_UpdateTent,
+        (ActorFunc)BossMo_DrawTent,
+        (ActorFunc)BossMo_Reset,
+    };
+
+    sMorphaCore = NULL;
+
+    sMorphaTent1 = NULL;
+
+    sMorphaTent2 = NULL;
+
+    sAudioZeroVec = { 0.0f, 0.0f, 0.0f };
+
 }

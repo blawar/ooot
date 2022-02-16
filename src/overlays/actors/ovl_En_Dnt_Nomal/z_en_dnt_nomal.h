@@ -1,4 +1,4 @@
-#ifndef Z_EN_DNT_NOMAL_H
+#pragma once
 #define Z_EN_DNT_NOMAL_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnDntNomal;
 
 typedef void (*EnDntNomalActionFunc)(struct EnDntNomal*, GlobalContext*);
 
-typedef struct EnDntNomal {
+
+struct EnDntNomal {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[11];
@@ -40,9 +42,9 @@ typedef struct EnDntNomal {
     /* 0x0288 */ Vec3f targetPos;
     /* 0x0294 */ ColliderQuad targetQuad;
     /* 0x0314 */ ColliderCylinder bodyCyl;
-} EnDntNomal; // size = 0x0360
+}; 
 
 #define ENDNTNOMAL_TARGET 0
 #define ENDNTNOMAL_STAGE 1
 
-#endif
+

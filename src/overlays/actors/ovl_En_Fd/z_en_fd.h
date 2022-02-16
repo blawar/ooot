@@ -1,4 +1,4 @@
-#ifndef Z_EN_FD_H
+#pragma once
 #define Z_EN_FD_H
 
 #include "ultra64.h"
@@ -9,13 +9,13 @@ struct GlobalContext;
 
 typedef void (*EnFdActionFunc)(struct EnFd* pthis, GlobalContext* globalCtx);
 
-typedef enum {
+enum FDEffectType {
     FD_EFFECT_NONE,
     FD_EFFECT_FLAME,
     FD_EFFECT_DOT
-} FDEffectType;
+};
 
-typedef struct {
+struct EnFdEffect {
     /* 0x0000 */ u8 type;
     /* 0x0001 */ u8 timer;
     /* 0x0002 */ u8 initialTimer;
@@ -26,9 +26,11 @@ typedef struct {
     /* 0x0014 */ Vec3f pos;
     /* 0x0020 */ Vec3f velocity;
     /* 0x002C */ Vec3f accel;
-} EnFdEffect; // size = 0x38
+}; 
 
-typedef struct EnFd {
+
+struct EnFd {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnFdActionFunc actionFunc;
@@ -49,6 +51,6 @@ typedef struct EnFd {
     /* 0x04DC */ Vec3s jointTable[27];
     /* 0x057E */ Vec3s morphTable[27];
     /* 0x0620 */ EnFdEffect effects[200];
-} EnFd; // size = 0x31E0
+}; 
 
-#endif
+

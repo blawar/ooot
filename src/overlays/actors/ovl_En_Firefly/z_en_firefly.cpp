@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnFirefly_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFirefly_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFirefly_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFirefly_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,12 +41,6 @@ void EnFirefly_FrozenFall(EnFirefly* pthis, GlobalContext* globalCtx);
 void EnFirefly_Perch(EnFirefly* pthis, GlobalContext* globalCtx);
 void EnFirefly_DisturbDiveAttack(EnFirefly* pthis, GlobalContext* globalCtx);
 
-typedef enum {
-    /* 0 */ KEESE_AURA_NONE,
-    /* 1 */ KEESE_AURA_FIRE,
-    /* 2 */ KEESE_AURA_ICE
-} KeeseAuraType;
-
 ActorInit En_Firefly_InitVars = {
     ACTOR_EN_FIREFLY,
     ACTORCAT_ENEMY,
@@ -56,6 +51,7 @@ ActorInit En_Firefly_InitVars = {
     (ActorFunc)EnFirefly_Destroy,
     (ActorFunc)EnFirefly_Update,
     (ActorFunc)EnFirefly_Draw,
+    (ActorFunc)EnFirefly_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -844,4 +840,70 @@ void EnFirefly_DrawInvisible(Actor* thisx, GlobalContext* globalCtx) {
     POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                                    EnFirefly_OverrideLimbDraw, EnFirefly_PostLimbDraw, pthis, POLY_XLU_DISP);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1805);
+}
+
+void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Firefly_InitVars = {
+        ACTOR_EN_FIREFLY,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_FIREFLY,
+        sizeof(EnFirefly),
+        (ActorFunc)EnFirefly_Init,
+        (ActorFunc)EnFirefly_Destroy,
+        (ActorFunc)EnFirefly_Update,
+        (ActorFunc)EnFirefly_Draw,
+        (ActorFunc)EnFirefly_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 1, 10, 10, 30 };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x1),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(1, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(2, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(2, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(4, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(2, 0xF),
+        /* Ice arrow     */ DMG_ENTRY(4, 0x3),
+        /* Light arrow   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(0, 0x2),
+        /* Ice magic     */ DMG_ENTRY(4, 0x3),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
 }

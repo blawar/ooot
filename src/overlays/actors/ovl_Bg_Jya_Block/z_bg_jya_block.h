@@ -1,4 +1,4 @@
-#ifndef Z_BG_JYA_BLOCK_H
+#pragma once
 #define Z_BG_JYA_BLOCK_H
 
 #include "ultra64.h"
@@ -6,8 +6,10 @@
 
 struct BgJyaBlock;
 
-typedef struct BgJyaBlock {
-    /* 0x0000 */ DynaPolyActor dyna;
-} BgJyaBlock; // size = 0x0164
 
-#endif
+struct BgJyaBlock {
+
+    /* 0x0000 */ DynaPolyActor dyna;
+}; 
+
+

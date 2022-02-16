@@ -18,6 +18,7 @@
 #define FLAGS 0
 
 void BgSpot12Saku_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot12Saku_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot12Saku_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot12Saku_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot12Saku_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Bg_Spot12_Saku_InitVars = {
     (ActorFunc)BgSpot12Saku_Destroy,
     (ActorFunc)BgSpot12Saku_Update,
     (ActorFunc)BgSpot12Saku_Draw,
+    (ActorFunc)BgSpot12Saku_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -140,4 +142,20 @@ void BgSpot12Saku_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgSpot12Saku_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gGerudoFortressGTGShutterDL);
+}
+
+void BgSpot12Saku_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot12_Saku_InitVars = {
+        ACTOR_BG_SPOT12_SAKU,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT12_OBJ,
+        sizeof(BgSpot12Saku),
+        (ActorFunc)BgSpot12Saku_Init,
+        (ActorFunc)BgSpot12Saku_Destroy,
+        (ActorFunc)BgSpot12Saku_Update,
+        (ActorFunc)BgSpot12Saku_Draw,
+        (ActorFunc)BgSpot12Saku_Reset,
+    };
+
 }

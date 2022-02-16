@@ -12,6 +12,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EfcErupc_Init(Actor* thisx, GlobalContext* globalCtx);
+void EfcErupc_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EfcErupc_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EfcErupc_Update(Actor* thisx, GlobalContext* globalCtx);
 void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -32,6 +33,7 @@ ActorInit Efc_Erupc_InitVars = {
     (ActorFunc)EfcErupc_Destroy,
     (ActorFunc)EfcErupc_Update,
     (ActorFunc)EfcErupc_Draw,
+    (ActorFunc)EfcErupc_Reset,
 };
 
 void EfcErupc_SetupAction(EfcErupc* pthis, EfcErupcActionFunc actionFunc) {
@@ -257,4 +259,20 @@ void EfcErupc_InitParticles(EfcErupcParticles* particles) {
     for (i = 0; i < EFC_ERUPC_NUM_PARTICLES; i++, particles++) {
         particles->isActive = false;
     }
+}
+
+void EfcErupc_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Efc_Erupc_InitVars = {
+        ACTOR_EFC_ERUPC,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_EFC_ERUPC,
+        sizeof(EfcErupc),
+        (ActorFunc)EfcErupc_Init,
+        (ActorFunc)EfcErupc_Destroy,
+        (ActorFunc)EfcErupc_Update,
+        (ActorFunc)EfcErupc_Draw,
+        (ActorFunc)EfcErupc_Reset,
+    };
+
 }

@@ -39,6 +39,7 @@ typedef void (*EnGoroiwaUnkFunc2)(EnGoroiwa* pthis);
 #define ENGOROIWA_LOOPMODE_ROUNDTRIP 3
 
 void EnGoroiwa_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGoroiwa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -64,6 +65,7 @@ ActorInit En_Goroiwa_InitVars = {
     (ActorFunc)EnGoroiwa_Destroy,
     (ActorFunc)EnGoroiwa_Update,
     (ActorFunc)EnGoroiwa_Draw,
+    (ActorFunc)EnGoroiwa_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -766,4 +768,35 @@ void EnGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gRollingRockDL);
+}
+
+void EnGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Goroiwa_InitVars = {
+        ACTOR_EN_GOROIWA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GOROIWA,
+        sizeof(EnGoroiwa),
+        (ActorFunc)EnGoroiwa_Init,
+        (ActorFunc)EnGoroiwa_Destroy,
+        (ActorFunc)EnGoroiwa_Update,
+        (ActorFunc)EnGoroiwa_Draw,
+        (ActorFunc)EnGoroiwa_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 0, 12, 60, MASS_HEAVY };
+
 }

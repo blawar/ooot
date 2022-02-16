@@ -1,4 +1,4 @@
-#ifndef Z_EN_DODONGO_H
+#pragma once
 #define Z_EN_DODONGO_H
 
 #include "ultra64.h"
@@ -8,7 +8,20 @@ struct EnDodongo;
 
 typedef void (*EnDodongoActionFunc)(struct EnDodongo*, GlobalContext*);
 
-typedef struct EnDodongo {
+
+enum EnDodongoActionState {
+    DODONGO_SWEEP_TAIL,
+    DODONGO_SWALLOW_BOMB,
+    DODONGO_DEATH,
+    DODONGO_BREATHE_FIRE,
+    DODONGO_IDLE,
+    DODONGO_END_BREATHE_FIRE,
+    DODONGO_UNUSED,
+    DODONGO_STUNNED,
+    DODONGO_WALK
+};
+struct EnDodongo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[31];
@@ -37,11 +50,11 @@ typedef struct EnDodongo {
     /* 0x0474 */ ColliderTrisElement trisElements[3];
     /* 0x0588 */ ColliderJntSph colliderBody;
     /* 0x05A8 */ ColliderJntSphElement sphElements[6];
-} EnDodongo; // size = 0x0728
+}; 
 
-typedef enum {
+enum EnDodongoParam {
     EN_DODONGO_NORMAL = -1,
     EN_DODONGO_SMOKE_DEATH
-} EnDodongoParam;
+};
 
-#endif
+

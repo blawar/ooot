@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_KEKKAI_H
+#pragma once
 #define Z_DEMO_KEKKAI_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct DemoKekkai;
 
 typedef void (*DemoKekkaiUpdateFunc)(DemoKekkai* pthis, GlobalContext* globalCtx);
 
+
 struct DemoKekkai {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider1;
     /* 0x0198 */ ColliderCylinder collider2;
@@ -19,7 +21,7 @@ struct DemoKekkai {
     /* 0x01F4 */ u16 timer;
     /* 0x01F6 */ u16 sfxFlag;
     /* 0x01F8 */ DemoKekkaiUpdateFunc updateFunc;
-}; // size = 0x01FC
+}; 
 
 enum DemoKekkaiType
 {
@@ -32,4 +34,4 @@ enum DemoKekkaiType
     /* 6 */ KEKKAI_FOREST
 };
 
-#endif
+

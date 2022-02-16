@@ -23,6 +23,7 @@
 #define FLAGS 0
 
 void BgHidanHamstep_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanHamstep_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanHamstep_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanHamstep_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanHamstep_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -85,6 +86,7 @@ ActorInit Bg_Hidan_Hamstep_InitVars = {
     (ActorFunc)BgHidanHamstep_Destroy,
     (ActorFunc)BgHidanHamstep_Update,
     (ActorFunc)BgHidanHamstep_Draw,
+    (ActorFunc)BgHidanHamstep_Reset,
 };
 
 static BgHidanHamstepActionFunc sActionFuncs[] = {
@@ -422,4 +424,33 @@ void BgHidanHamstep_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_hamstep.c", 796);
+}
+
+void BgHidanHamstep_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
+    Bg_Hidan_Hamstep_InitVars = {
+        ACTOR_BG_HIDAN_HAMSTEP,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanHamstep),
+        (ActorFunc)BgHidanHamstep_Init,
+        (ActorFunc)BgHidanHamstep_Destroy,
+        (ActorFunc)BgHidanHamstep_Update,
+        (ActorFunc)BgHidanHamstep_Draw,
+        (ActorFunc)BgHidanHamstep_Reset,
+    };
+
 }

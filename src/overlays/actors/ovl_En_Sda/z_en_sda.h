@@ -1,4 +1,4 @@
-#ifndef Z_EN_SDA_H
+#pragma once
 #define Z_EN_SDA_H
 
 #include "ultra64.h"
@@ -6,8 +6,10 @@
 
 struct EnSda;
 
-typedef struct EnSda {
-    /* 0x0000 */ Actor actor;
-} EnSda; // size = 0x014C
 
-#endif
+struct EnSda {
+
+    /* 0x0000 */ Actor actor;
+}; 
+
+

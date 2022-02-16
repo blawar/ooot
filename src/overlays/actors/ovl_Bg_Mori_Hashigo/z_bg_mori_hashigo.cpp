@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void BgMoriHashigo_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriHashigo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriHashigo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriHashigo_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriHashigo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -44,6 +45,7 @@ ActorInit Bg_Mori_Hashigo_InitVars = {
     (ActorFunc)BgMoriHashigo_Destroy,
     (ActorFunc)BgMoriHashigo_Update,
     NULL,
+    (ActorFunc)BgMoriHashigo_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -308,4 +310,33 @@ void BgMoriHashigo_Draw(Actor* thisx, GlobalContext* globalCtx) {
             break;
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 531);
+}
+
+void BgMoriHashigo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mori_Hashigo_InitVars = {
+        ACTOR_BG_MORI_HASHIGO,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriHashigo),
+        (ActorFunc)BgMoriHashigo_Init,
+        (ActorFunc)BgMoriHashigo_Destroy,
+        (ActorFunc)BgMoriHashigo_Update,
+        NULL,
+        (ActorFunc)BgMoriHashigo_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
 }

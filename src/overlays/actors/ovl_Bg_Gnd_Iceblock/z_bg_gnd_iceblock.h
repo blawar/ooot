@@ -1,4 +1,4 @@
-#ifndef Z_BG_GND_ICEBLOCK_H
+#pragma once
 #define Z_BG_GND_ICEBLOCK_H
 
 #include "ultra64.h"
@@ -8,10 +8,17 @@ struct BgGndIceblock;
 
 typedef void (*BgGndIceblockActionFunc)(struct BgGndIceblock*, GlobalContext*);
 
-typedef struct BgGndIceblock {
+
+enum BgGndIceblockAction {
+    /* 0 */ GNDICE_IDLE,
+    /* 1 */ GNDICE_FALL,
+    /* 2 */ GNDICE_HOLE
+};
+struct BgGndIceblock {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgGndIceblockActionFunc actionFunc;
     /* 0x0168 */ Vec3f targetPos;
-} BgGndIceblock; // size = 0x0174
+}; 
 
-#endif
+

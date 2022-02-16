@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
 void ObjTimeblock_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjTimeblock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjTimeblock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjTimeblock_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjTimeblock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -45,13 +46,8 @@ ActorInit Obj_Timeblock_InitVars = {
     (ActorFunc)ObjTimeblock_Destroy,
     (ActorFunc)ObjTimeblock_Update,
     (ActorFunc)ObjTimeblock_Draw,
-};
-
-typedef struct {
-    /* 0x00 */ f32 scale;
-    /* 0x04 */ f32 height;
-    /* 0x08 */ s16 demoEffectParams;
-} ObjTimeblockSizeOptions; // size = 0x0C
+    (ActorFunc)ObjTimeblock_Reset,
+}; 
 
 static ObjTimeblockSizeOptions sSizeOptions[] = {
     { 1.0, 60.0, 0x0018 },
@@ -354,4 +350,20 @@ void ObjTimeblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_timeblock.c", 772);
     }
+}
+
+void ObjTimeblock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Timeblock_InitVars = {
+        ACTOR_OBJ_TIMEBLOCK,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_TIMEBLOCK,
+        sizeof(ObjTimeblock),
+        (ActorFunc)ObjTimeblock_Init,
+        (ActorFunc)ObjTimeblock_Destroy,
+        (ActorFunc)ObjTimeblock_Update,
+        (ActorFunc)ObjTimeblock_Draw,
+        (ActorFunc)ObjTimeblock_Reset,
+    };
+
 }

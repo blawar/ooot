@@ -14,6 +14,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnHeishi4_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnHeishi4_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnHeishi4_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi4_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi4_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit En_Heishi4_InitVars = {
     (ActorFunc)EnHeishi4_Destroy,
     (ActorFunc)EnHeishi4_Update,
     (ActorFunc)EnHeishi4_Draw,
+    (ActorFunc)EnHeishi4_Reset,
 };
 
 static u32 sFaceReactionSets[] = { 6, 7 };
@@ -392,4 +394,40 @@ void EnHeishi4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi_OverrideLimbDraw, NULL,
                       pthis);
+}
+
+void EnHeishi4_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Heishi4_InitVars = {
+        ACTOR_EN_HEISHI4,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SD,
+        sizeof(EnHeishi4),
+        (ActorFunc)EnHeishi4_Init,
+        (ActorFunc)EnHeishi4_Destroy,
+        (ActorFunc)EnHeishi4_Update,
+        (ActorFunc)EnHeishi4_Draw,
+        (ActorFunc)EnHeishi4_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 33, 40, 0, { 0, 0, 0 } },
+    };
+
 }

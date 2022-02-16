@@ -1,4 +1,4 @@
-#ifndef Z_EN_TRAP_H
+#pragma once
 #define Z_EN_TRAP_H
 
 #include "ultra64.h"
@@ -17,7 +17,9 @@
 
 struct EnTrap;
 
-typedef struct EnTrap {
+
+struct EnTrap {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 playerDmgTimer;
     /* 0x0150 */ s16 upperParams;
@@ -30,6 +32,6 @@ typedef struct EnTrap {
     /* 0x0188 */ Vec3f moveSpeedLeftRight;
     /* 0x0194 */ Vec3f moveSpeedForwardBack;
     /* 0x01A0 */ ColliderCylinder collider;
-} EnTrap; // size = 0x01EC
+}; 
 
-#endif
+

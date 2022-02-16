@@ -1,4 +1,4 @@
-#ifndef Z_EN_BOOM_H
+#pragma once
 #define Z_EN_BOOM_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnBoom;
 
 typedef void (*EnBoomActionFunc)(struct EnBoom*, GlobalContext*);
 
-typedef struct EnBoom {
+
+struct EnBoom {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderQuad collider;
     /* 0x01CC */ Actor* moveTo; // actor boomerang moves toward
@@ -18,6 +20,6 @@ typedef struct EnBoom {
     /* 0x01D8 */ s32 effectIndex;
     /* 0x01DC */ WeaponInfo boomerangInfo;
     /* 0x01F8 */ EnBoomActionFunc actionFunc;
-} EnBoom; // size = 0x01FC
+}; 
 
-#endif
+

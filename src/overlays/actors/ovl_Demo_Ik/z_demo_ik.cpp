@@ -14,6 +14,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void DemoIk_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoIk_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoIk_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoIk_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoIk_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -520,6 +521,7 @@ ActorInit Demo_Ik_InitVars = {
     (ActorFunc)DemoIk_Destroy,
     (ActorFunc)DemoIk_Update,
     (ActorFunc)DemoIk_Draw,
+    (ActorFunc)DemoIk_Reset,
 };
 
 void DemoIk_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -531,4 +533,20 @@ void DemoIk_Init(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         DemoIk_Type2Init(pthis, globalCtx);
     }
+}
+
+void DemoIk_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Ik_InitVars = {
+        ACTOR_DEMO_IK,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_IK,
+        sizeof(DemoIk),
+        (ActorFunc)DemoIk_Init,
+        (ActorFunc)DemoIk_Destroy,
+        (ActorFunc)DemoIk_Update,
+        (ActorFunc)DemoIk_Draw,
+        (ActorFunc)DemoIk_Reset,
+    };
+
 }

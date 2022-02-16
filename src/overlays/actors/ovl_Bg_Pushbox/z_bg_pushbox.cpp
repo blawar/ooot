@@ -18,6 +18,7 @@
 #define FLAGS 0
 
 void BgPushbox_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgPushbox_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgPushbox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgPushbox_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgPushbox_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit Bg_Pushbox_InitVars = {
     (ActorFunc)BgPushbox_Destroy,
     (ActorFunc)BgPushbox_Update,
     (ActorFunc)BgPushbox_Draw,
+    (ActorFunc)BgPushbox_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -94,4 +96,21 @@ void BgPushbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gBlockSmallDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_pushbox.c", 272);
+}
+
+void BgPushbox_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Pushbox_InitVars = {
+        ACTOR_BG_PUSHBOX,
+        ACTORCAT_BG,
+        FLAGS,
+        //! @bug fixing pthis actor would involve using OBJECT_PU_BOX
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(BgPushbox),
+        (ActorFunc)BgPushbox_Init,
+        (ActorFunc)BgPushbox_Destroy,
+        (ActorFunc)BgPushbox_Update,
+        (ActorFunc)BgPushbox_Draw,
+        (ActorFunc)BgPushbox_Reset,
+    };
+
 }

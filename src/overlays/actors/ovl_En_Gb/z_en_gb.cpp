@@ -26,6 +26,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnGb_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnGb_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnGb_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGb_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -52,6 +53,7 @@ ActorInit En_Gb_InitVars = {
     (ActorFunc)EnGb_Destroy,
     (ActorFunc)EnGb_Update,
     (ActorFunc)EnGb_Draw,
+    (ActorFunc)EnGb_Reset,
 };
 
 static EnGbCagedSoulInfo sCagedSoulInfo[] = {
@@ -566,4 +568,39 @@ void EnGb_DrawCagedSouls(EnGb* pthis, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gb.c", 962);
+}
+
+void EnGb_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Gb_InitVars = {
+        ACTOR_EN_GB,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_PS,
+        sizeof(EnGb),
+        (ActorFunc)EnGb_Init,
+        (ActorFunc)EnGb_Destroy,
+        (ActorFunc)EnGb_Update,
+        (ActorFunc)EnGb_Draw,
+        (ActorFunc)EnGb_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 40, 75, 0, { 0, 0, 0 } },
+    };
+
 }

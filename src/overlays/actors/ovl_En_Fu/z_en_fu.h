@@ -1,4 +1,4 @@
-#ifndef Z_EN_FU_H
+#pragma once
 #define Z_EN_FU_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnFu;
 
 typedef void (*EnFuActionFunc)(struct EnFu*, GlobalContext*);
 
-typedef enum {
+enum EnFuLimb {
     /* 0x00 */ FU_LIMB_ROOT,
     /* 0x01 */ FU_LIMB_TORSO,
     /* 0x02 */ FU_LIMB_LEFT_THIGH,
@@ -26,9 +26,16 @@ typedef enum {
     /* 0x0E */ FU_LIMB_HEAD,
     /* 0x0F */ FU_LIMB_HORN,
     /* 0x10 */ FU_LIMB_MAX
-} EnFuLimb;
+};
 
-typedef struct EnFu {
+
+
+enum EnFuFace {
+    /* 0x00 */ FU_FACE_CALM,
+    /* 0x01 */ FU_FACE_MAD
+};
+struct EnFu {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelanime;
@@ -39,6 +46,6 @@ typedef struct EnFu {
     /* 0x02A8 */ u16 behaviorFlags;
     /* 0x02AA */ u16 facialExpression;
     /* 0x02AC */ EnFuActionFunc actionFunc;
-} EnFu; // size = 0x02B0
+}; 
 
-#endif
+

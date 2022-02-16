@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void EnFish_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFish_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFish_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFish_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFish_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -84,6 +85,7 @@ ActorInit En_Fish_InitVars = {
     (ActorFunc)EnFish_Destroy,
     (ActorFunc)EnFish_Update,
     (ActorFunc)EnFish_Draw,
+    (ActorFunc)EnFish_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -773,4 +775,39 @@ void EnFish_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, NULL);
     Collider_UpdateSpheres(0, &pthis->collider);
+}
+
+void EnFish_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80A17010 = NULL;
+
+    D_80A17014 = 0.0f;
+
+    D_80A17018 = 0.0f;
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    En_Fish_InitVars = {
+        ACTOR_EN_FISH,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnFish),
+        (ActorFunc)EnFish_Init,
+        (ActorFunc)EnFish_Destroy,
+        (ActorFunc)EnFish_Update,
+        (ActorFunc)EnFish_Draw,
+        (ActorFunc)EnFish_Reset,
+    };
+
 }

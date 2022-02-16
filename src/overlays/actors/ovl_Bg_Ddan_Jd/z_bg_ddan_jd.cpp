@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgDdanJd_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgDdanJd_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgDdanJd_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgDdanJd_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgDdanJd_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -35,18 +36,12 @@ ActorInit Bg_Ddan_Jd_InitVars = {
     (ActorFunc)BgDdanJd_Destroy,
     (ActorFunc)BgDdanJd_Update,
     (ActorFunc)BgDdanJd_Draw,
+    (ActorFunc)BgDdanJd_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_STOP),
 };
-
-typedef enum {
-    /* 0 */ STATE_GO_BOTTOM,
-    /* 1 */ STATE_GO_MIDDLE_FROM_BOTTOM,
-    /* 2 */ STATE_GO_MIDDLE_FROM_TOP,
-    /* 3 */ STATE_GO_TOP
-} BgDdanJdState;
 
 #define MOVE_HEIGHT_MIDDLE 140.0f
 #define MOVE_HEIGHT_TOP 700.0f
@@ -184,4 +179,20 @@ void BgDdanJd_Update(Actor* pthisx, GlobalContext* globalCtx) {
 
 void BgDdanJd_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gDodongoRisingPlatformDL);
+}
+
+void BgDdanJd_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Ddan_Jd_InitVars = {
+        ACTOR_BG_DDAN_JD,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_DDAN_OBJECTS,
+        sizeof(BgDdanJd),
+        (ActorFunc)BgDdanJd_Init,
+        (ActorFunc)BgDdanJd_Destroy,
+        (ActorFunc)BgDdanJd_Update,
+        (ActorFunc)BgDdanJd_Draw,
+        (ActorFunc)BgDdanJd_Reset,
+    };
+
 }

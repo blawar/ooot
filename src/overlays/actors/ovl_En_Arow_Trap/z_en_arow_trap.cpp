@@ -12,6 +12,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnArowTrap_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnArowTrap_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnArowTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnArowTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -25,6 +26,7 @@ ActorInit En_Arow_Trap_InitVars = {
     (ActorFunc)EnArowTrap_Destroy,
     (ActorFunc)EnArowTrap_Update,
     NULL,
+    (ActorFunc)EnArowTrap_Reset,
 };
 
 void EnArowTrap_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -52,4 +54,20 @@ void EnArowTrap_Update(Actor* thisx, GlobalContext* globalCtx) {
             pthis->attackTimer = 80;
         }
     }
+}
+
+void EnArowTrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Arow_Trap_InitVars = {
+        ACTOR_EN_AROW_TRAP,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnArowTrap),
+        (ActorFunc)EnArowTrap_Init,
+        (ActorFunc)EnArowTrap_Destroy,
+        (ActorFunc)EnArowTrap_Update,
+        NULL,
+        (ActorFunc)EnArowTrap_Reset,
+    };
+
 }

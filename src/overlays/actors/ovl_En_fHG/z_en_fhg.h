@@ -1,4 +1,4 @@
-#ifndef Z_EN_FHG_H
+#pragma once
 #define Z_EN_FHG_H
 
 #include "ultra64.h"
@@ -9,7 +9,7 @@ struct EnfHG;
 
 typedef void (*EnfHGActionFunc)(struct EnfHG*, struct GlobalContext*);
 
-typedef enum {
+enum EnfHGSignal {
     /*  0 */ FHG_NO_SIGNAL,
     /*  1 */ FHG_RAISE_SPEAR,
     /*  2 */ FHG_REAR,
@@ -19,9 +19,30 @@ typedef enum {
     /* 10 */ FHG_SPUR = 10,
     /* 11 */ FHG_FINISH,
     /* -1 */ FHG_START_FIGHT = 255
-} EnfHGSignal;
+};
 
-typedef struct EnfHG {
+
+struct EnfHGPainting {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ s16 yRot;
+};
+ 
+
+enum EnfHGIntroState {
+    /*  0 */ INTRO_WAIT,
+    /*  1 */ INTRO_START,
+    /*  2 */ INTRO_FENCE,
+    /*  3 */ INTRO_BACK,
+    /*  4 */ INTRO_REVEAL,
+    /*  5 */ INTRO_CUT,
+    /*  6 */ INTRO_LAUGH,
+    /*  7 */ INTRO_TITLE,
+    /*  8 */ INTRO_RETREAT,
+    /*  9 */ INTRO_FINISH,
+    /* 15 */ INTRO_READY = 15
+};
+struct EnfHG {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ u8 bossGndSignal;
     /* 0x014D */ u8 bossGndInPainting;
@@ -60,6 +81,6 @@ typedef struct EnfHG {
     /* 0x01FC */ EnfHGActionFunc actionFunc;
     /* 0x0200 */ char unk_200[4];
     /* 0x0204 */ PSkinAwb skin;
-} EnfHG; // size = 0x0294
+}; 
 
-#endif
+

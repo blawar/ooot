@@ -1,4 +1,4 @@
-#ifndef Z_EN_BOM_CHU_H
+#pragma once
 #define Z_EN_BOM_CHU_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnBomChu;
 
 typedef void (*EnBomChuActionFunc)(struct EnBomChu*, GlobalContext*);
 
-typedef struct EnBomChu {
+
+struct EnBomChu {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnBomChuActionFunc actionFunc;
     /* 0x0150 */ s16 timer;
@@ -20,6 +22,6 @@ typedef struct EnBomChu {
     /* 0x0180 */ s32 blure2Index;
     /* 0x0184 */ ColliderJntSph collider;
     /* 0x01A4 */ ColliderJntSphElement colliderElements[1];
-} EnBomChu; // size = 0x01E4
+}; 
 
-#endif
+

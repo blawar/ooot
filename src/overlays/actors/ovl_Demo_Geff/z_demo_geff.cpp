@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void DemoGeff_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoGeff_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoGeff_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoGeff_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoGeff_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -58,6 +59,7 @@ ActorInit Demo_Geff_InitVars = {
     (ActorFunc)DemoGeff_Destroy,
     (ActorFunc)DemoGeff_Update,
     (ActorFunc)DemoGeff_Draw,
+    (ActorFunc)DemoGeff_Reset,
 };
 
 void DemoGeff_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -234,4 +236,20 @@ void DemoGeff_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_80977F80(pthis, globalCtx);
     }
     sDrawFuncs[drawConfig](pthis, globalCtx);
+}
+
+void DemoGeff_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Geff_InitVars = {
+        ACTOR_DEMO_GEFF,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GEFF,
+        sizeof(DemoGeff),
+        (ActorFunc)DemoGeff_Init,
+        (ActorFunc)DemoGeff_Destroy,
+        (ActorFunc)DemoGeff_Update,
+        (ActorFunc)DemoGeff_Draw,
+        (ActorFunc)DemoGeff_Reset,
+    };
+
 }

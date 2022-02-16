@@ -1,4 +1,4 @@
-#ifndef Z_EN_GM_H
+#pragma once
 #define Z_EN_GM_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EnGm;
 typedef void (*EnGmUpdateFunc)(struct EnGm*, GlobalContext*);
 typedef void (*EnGmActionFunc)(struct EnGm*, GlobalContext*);
 
-typedef struct EnGm {
+
+struct EnGm {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[18];
@@ -22,6 +24,6 @@ typedef struct EnGm {
     /* 0x02C4 */ s16 blinkTimer;
     /* 0x02C8 */ u8 eyeTexIndex;
     /* 0x02CC */ Vec3f talkPos;
-} EnGm; // size = 0x02D0
+}; 
 
-#endif
+

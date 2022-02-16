@@ -12,6 +12,7 @@ typedef void (*DemoDuActionFunc)(DemoDu*, GlobalContext*);
 typedef void (*DemoDuDrawFunc)(Actor*, GlobalContext*);
 
 void DemoDu_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoDu_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoDu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoDu_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoDu_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -1056,4 +1057,23 @@ ActorInit Demo_Du_InitVars = {
     (ActorFunc)DemoDu_Destroy,
     (ActorFunc)DemoDu_Update,
     (ActorFunc)DemoDu_Draw,
+    (ActorFunc)DemoDu_Reset,
 };
+
+void DemoDu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sUnused = 0;
+
+    Demo_Du_InitVars = {
+        ACTOR_DEMO_DU,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_DU,
+        sizeof(DemoDu),
+        (ActorFunc)DemoDu_Init,
+        (ActorFunc)DemoDu_Destroy,
+        (ActorFunc)DemoDu_Update,
+        (ActorFunc)DemoDu_Draw,
+        (ActorFunc)DemoDu_Reset,
+    };
+
+}

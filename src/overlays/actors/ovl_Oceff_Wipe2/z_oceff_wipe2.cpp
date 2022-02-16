@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void OceffWipe2_Init(Actor* thisx, GlobalContext* globalCtx);
+void OceffWipe2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void OceffWipe2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void OceffWipe2_Update(Actor* thisx, GlobalContext* globalCtx);
 void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -33,6 +34,7 @@ ActorInit Oceff_Wipe2_InitVars = {
     (ActorFunc)OceffWipe2_Destroy,
     (ActorFunc)OceffWipe2_Update,
     (ActorFunc)OceffWipe2_Draw,
+    (ActorFunc)OceffWipe2_Reset,
 };
 
 void OceffWipe2_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -116,4 +118,20 @@ void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, sFrustumDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe2.c", 417);
+}
+
+void OceffWipe2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Oceff_Wipe2_InitVars = {
+        ACTOR_OCEFF_WIPE2,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(OceffWipe2),
+        (ActorFunc)OceffWipe2_Init,
+        (ActorFunc)OceffWipe2_Destroy,
+        (ActorFunc)OceffWipe2_Update,
+        (ActorFunc)OceffWipe2_Draw,
+        (ActorFunc)OceffWipe2_Reset,
+    };
+
 }

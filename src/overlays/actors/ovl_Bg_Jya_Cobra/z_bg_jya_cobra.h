@@ -1,4 +1,4 @@
-#ifndef Z_BG_JYA_COBRA_H
+#pragma once
 #define Z_BG_JYA_COBRA_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgJyaCobra;
 
 typedef void (*BgJyaCobraActionFunc)(struct BgJyaCobra*, GlobalContext*);
 
-typedef struct BgJyaCobra {
+
+struct BgJyaCobra {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgJyaCobraActionFunc actionFunc;
     /* 0x0168 */ s16 unk_168;
@@ -22,6 +24,6 @@ typedef struct BgJyaCobra {
     /* 0x018C */ f32 unk_18C;
     /* 0x0190 */ f32 unk_190;
     /* 0x0194 */ u8 shadowTexture[0x1010];
-} BgJyaCobra; // size = 0x11A4
+}; 
 
-#endif
+

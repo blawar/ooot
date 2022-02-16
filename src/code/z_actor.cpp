@@ -2665,6 +2665,7 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
     ActorOverlay* overlayEntry;
     uintptr_t temp;
     const char* name;
+    bool overlayLoaded = false;
 
     overlayEntry = &gActorOverlayTable[actorId];
     ASSERT(actorId < ACTOR_ID_MAX, "profile < ACTOR_DLF_MAX", "../z_actor.c", 6883);
@@ -2718,6 +2719,7 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
                 return NULL;
             }
 
+            overlayLoaded = true;
             Overlay_Load(overlayEntry->vromStart, overlayEntry->vromEnd, overlayEntry->vramStart, overlayEntry->vramEnd, overlayEntry->loadedRamAddr);
 
             overlayEntry->numLoaded = 0;
@@ -2729,6 +2731,12 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
         }
         else {
             actorInit = NULL;
+        }
+
+        if(overlayLoaded) {
+		    if(actorInit->reset) {
+			    actorInit->reset(nullptr, nullptr);
+		    }
         }
 
         /*actorInit = (void*)(u32)((overlayEntry->initInfo != NULL)

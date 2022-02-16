@@ -1,21 +1,21 @@
-#ifndef Z_EN_GOMA_H
+#pragma once
 #define Z_EN_GOMA_H
 
 #include "ultra64.h"
 #include "global.h"
 
-typedef enum {
+enum GomaType {
     /* 0 */ ENGOMA_NORMAL,
     /* 1 */ ENGOMA_EGG,
     /* 2 */ ENGOMA_HATCH_DEBRIS,
     /* 3 */ ENGOMA_BOSSLIMB
-} GomaType;
+};
 
 struct EnGoma;
 
 typedef void (*EnGomaActionFunc)(struct EnGoma*, GlobalContext*);
 
-typedef enum {
+enum EnGomaLimb {
     /*  0 */ GOMA_LIMB_NONE,
     /*  1 */ GOMA_LIMB_ROOT1,
     /*  2 */ GOMA_LIMB_ROOT2,
@@ -41,9 +41,11 @@ typedef enum {
     /* 22 */ GOMA_LIMB_R_SHIN,
     /* 23 */ GOMA_LIMB_R_THIGH,
     /* 24 */ GOMA_LIMB_MAX
-} EnGomaLimb;
+};
 
-typedef struct EnGoma {
+
+struct EnGoma {
+
     /* 0x000 */ Actor actor;
     /* 0x14C */ SkelAnime skelanime;
     /* 0x190 */ Vec3s jointTable[24];
@@ -75,6 +77,6 @@ typedef struct EnGoma {
     /* 0x308 */ Gfx* bossLimbDl; // set by z_boss_goma
     /* 0x30C */ ColliderCylinder colCyl1;
     /* 0x358 */ ColliderCylinder colCyl2;
-} EnGoma; // size = 0x03A4
+}; 
 
-#endif
+

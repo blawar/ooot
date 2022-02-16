@@ -1,4 +1,4 @@
-#ifndef Z_BG_DY_YOSEIZO_H
+#pragma once
 #define Z_BG_DY_YOSEIZO_H
 
 #include "ultra64.h"
@@ -10,7 +10,7 @@ struct BgDyYoseizo;
 
 typedef void (*BgDyYoseizoActionFunc)(struct BgDyYoseizo*, GlobalContext*);
 
-typedef struct {
+struct BgDyYoseizoParticle {
     /* 0x00 */ u8 alive; // drawn if 1, respawn if 0
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ Vec3f velocity;
@@ -24,9 +24,23 @@ typedef struct {
     /* 0x36 */ f32 pitch;
     /* 0x36 */ f32 yaw;
     /* 0x40 */ f32 roll;
-} BgDyYoseizoParticle; // size = 0x44
+}; 
 
-typedef struct BgDyYoseizo {
+
+enum BgDyYoseizoRewardType {
+    /* 0 */ FAIRY_UPGRADE_MAGIC,
+    /* 1 */ FAIRY_UPGRADE_DOUBLE_MAGIC,
+    /* 2 */ FAIRY_UPGRADE_HALF_DAMAGE
+};
+
+
+enum BgDyYoseizoSpellType {
+    /* 0 */ FAIRY_SPELL_FARORES_WIND,
+    /* 1 */ FAIRY_SPELL_DINS_FIRE,
+    /* 2 */ FAIRY_SPELL_NAYRUS_LOVE
+};
+struct BgDyYoseizo {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ BgDyYoseizoActionFunc actionFunc;
     /* 0x0150 */ SkelAnime skelAnime;
@@ -68,6 +82,6 @@ typedef struct BgDyYoseizo {
     /* 0x0344 */ EnExItem* item;
     /* 0x0348 */ char unk_348[0x4C];
     /* 0x0394 */ BgDyYoseizoParticle particles[200];
-} BgDyYoseizo; // size = 0x38B4
+}; 
 
-#endif
+

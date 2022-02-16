@@ -1,4 +1,4 @@
-#ifndef Z_EN_GOROIWA_H
+#pragma once
 #define Z_EN_GOROIWA_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnGoroiwa;
 
 typedef void (*EnGoroiwaActionFunc)(struct EnGoroiwa*, GlobalContext*);
 
-typedef struct EnGoroiwa {
+
+struct EnGoroiwa {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnGoroiwaActionFunc actionFunc;
     /* 0x0150 */ ColliderJntSph collider;
@@ -25,6 +27,6 @@ typedef struct EnGoroiwa {
     /* 0x01D0 */ s16 pathDirection;
     /* 0x01D2 */ u8 isInKokiri;
     /* 0x01D3 */ u8 stateFlags;
-} EnGoroiwa; // size = 0x01D4
+}; 
 
-#endif
+

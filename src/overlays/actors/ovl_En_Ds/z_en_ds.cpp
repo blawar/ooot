@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnDs_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDs_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDs_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDs_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnDs_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit En_Ds_InitVars = {
     (ActorFunc)EnDs_Destroy,
     (ActorFunc)EnDs_Update,
     (ActorFunc)EnDs_Draw,
+    (ActorFunc)EnDs_Reset,
 };
 
 void EnDs_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -288,4 +290,20 @@ void EnDs_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_800943C8(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnDs_OverrideLimbDraw, EnDs_PostLimbDraw, pthis);
+}
+
+void EnDs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ds_InitVars = {
+        ACTOR_EN_DS,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_DS,
+        sizeof(EnDs),
+        (ActorFunc)EnDs_Init,
+        (ActorFunc)EnDs_Destroy,
+        (ActorFunc)EnDs_Update,
+        (ActorFunc)EnDs_Draw,
+        (ActorFunc)EnDs_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_OSHIHIKI_H
+#pragma once
 #define Z_OBJ_OSHIHIKI_H
 
 #include "ultra64.h"
@@ -6,7 +6,7 @@
 
 struct ObjOshihiki;
 
-typedef enum {
+enum PushBlockType {
     /* 0 */ PUSHBLOCK_SMALL_START_ON,
     /* 1 */ PUSHBLOCK_MEDIUM_START_ON,
     /* 2 */ PUSHBLOCK_LARGE_START_ON,
@@ -15,7 +15,7 @@ typedef enum {
     /* 5 */ PUSHBLOCK_MEDIUM_START_OFF,
     /* 6 */ PUSHBLOCK_LARGE_START_OFF,
     /* 7 */ PUSHBLOCK_HUGE_START_OFF
-} PushBlockType;
+};
 
 #define PUSHBLOCK_ON_SCENE       (1 << 0)
 #define PUSHBLOCK_SETUP_ON_SCENE (1 << 1)
@@ -29,7 +29,9 @@ typedef enum {
 
 typedef void (*ObjOshihikiActionFunc)(struct ObjOshihiki*, GlobalContext*);
 
-typedef struct ObjOshihiki {
+
+struct ObjOshihiki {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjOshihikiActionFunc actionFunc;
     /* 0x0168 */ u16 stateFlags;
@@ -49,6 +51,6 @@ typedef struct ObjOshihiki {
     /* 0x01C8 */ f32 underDistZ;
     /* 0x01CC */ void* texture;
     /* 0x01D0 */ Color_RGB8 color;
-} ObjOshihiki; // size = 0x01D4
+}; 
 
-#endif
+

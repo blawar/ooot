@@ -28,6 +28,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 
 void ObjectKankyo_Init(Actor* pthisx, GlobalContext* globalCtx);
+void ObjectKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjectKankyo_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void ObjectKankyo_Update(Actor* pthisx, GlobalContext* globalCtx);
 void ObjectKankyo_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -71,6 +72,7 @@ ActorInit Object_Kankyo_InitVars = {
     (ActorFunc)ObjectKankyo_Destroy,
     (ActorFunc)ObjectKankyo_Update,
     (ActorFunc)ObjectKankyo_Draw,
+    (ActorFunc)ObjectKankyo_Reset,
 };
 
 static u8 sIsSpawned = false;
@@ -953,4 +955,24 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1607);
+}
+
+void ObjectKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Object_Kankyo_InitVars = {
+        ACTOR_OBJECT_KANKYO,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjectKankyo),
+        (ActorFunc)ObjectKankyo_Init,
+        (ActorFunc)ObjectKankyo_Destroy,
+        (ActorFunc)ObjectKankyo_Update,
+        (ActorFunc)ObjectKankyo_Draw,
+        (ActorFunc)ObjectKankyo_Reset,
+    };
+
+    sIsSpawned = false;
+
+    sTrailingFairies = 0;
+
 }

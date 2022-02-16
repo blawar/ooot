@@ -1,4 +1,4 @@
-#ifndef Z_EN_VIEWER_H
+#pragma once
 #define Z_EN_VIEWER_H
 
 #include "ultra64.h"
@@ -10,7 +10,7 @@ typedef void (*EnViewerActionFunc)(struct EnViewer*, GlobalContext*);
 typedef void (*EnViewerDrawFunc)(struct EnViewer*, GlobalContext*);
 typedef void (*EnViewerInitAnimFunc)(struct EnViewer*, GlobalContext*, void*, AnimationHeader*);
 
-typedef enum {
+enum EnViewerType {
     /* 0 */ ENVIEWER_TYPE_0_HORSE_ZELDA,
     /* 1 */ ENVIEWER_TYPE_1_IMPA,
     /* 2 */ ENVIEWER_TYPE_2_ZELDA,
@@ -21,22 +21,22 @@ typedef enum {
     /* 7 */ ENVIEWER_TYPE_7_GANONDORF,
     /* 8 */ ENVIEWER_TYPE_8_GANONDORF,
     /* 9 */ ENVIEWER_TYPE_9_GANONDORF
-} EnViewerType;
+};
 
-typedef enum {
+enum EnViewerDrawType {
     /* 0 */ ENVIEWER_DRAW_GANONDORF,
     /* 1 */ ENVIEWER_DRAW_HORSE,
     /* 2 */ ENVIEWER_DRAW_ZELDA,
     /* 3 */ ENVIEWER_DRAW_IMPA
-} EnViewerDrawType;
+};
 
-typedef enum {
+enum EnViewerShadowType {
     /* 0 */ ENVIEWER_SHADOW_NONE,
     /* 1 */ ENVIEWER_SHADOW_CIRCLE,
     /* 2 */ ENVIEWER_SHADOW_HORSE
-} EnViewerShadowType;
+};
 
-typedef struct {
+struct EnViewerInitData {
     /* 0x00 */ s16 skeletonObject;
     /* 0x02 */ s16 animObject;
     /* 0x04 */ u8 scale; // divided by 100.0f
@@ -46,9 +46,9 @@ typedef struct {
     /* 0x08 */ u8 drawType;
     /* 0x0C */ void* skeletonHeaderSeg;
     /* 0x10 */ AnimationHeader* anim;
-} EnViewerInitData; // size = 0x14
+}; 
 
-typedef struct {
+struct EnViewerFireEffect {
     /* 0x00 */ Vec3f startPos;
     /* 0x0C */ Vec3f endPos;
     /* 0x18 */ Vec3f pos;
@@ -56,9 +56,11 @@ typedef struct {
     /* 0x28 */ f32 scale;
     /* 0x2C */ f32 lerpFactor;
     /* 0x30 */ u8 state;
-} EnViewerFireEffect; // size = 0x34
+}; 
 
-typedef struct EnViewer {
+
+struct EnViewer {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ PSkinAwb skin;
     /* 0x01DC */ s32 animObjBankIndex;
@@ -68,6 +70,6 @@ typedef struct EnViewer {
     /* 0x01E5 */ u8 state;
     /* 0x01E6 */ u8 isVisible;
     /* 0x01E8 */ EnViewerFireEffect fireEffects[20];
-} EnViewer; // size = 0x05F8
+}; 
 
-#endif
+

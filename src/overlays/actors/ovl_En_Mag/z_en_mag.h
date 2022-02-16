@@ -1,4 +1,4 @@
-#ifndef Z_EN_MAG_H
+#pragma once
 #define Z_EN_MAG_H
 
 #include "ultra64.h"
@@ -6,7 +6,9 @@
 
 struct EnMag;
 
-typedef struct EnMag {
+
+struct EnMag {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ char unk_14C[0x0004];
     /* 0x0150 */ Font font;
@@ -30,14 +32,14 @@ typedef struct EnMag {
     /* 0xE31C */ s32 unk_E31C;
     /* 0xE320 */ s32 unk_E320;
     /* 0xE324 */ char unk_E324[0x0004];
-} EnMag; // size = 0xE328
+}; 
 
-typedef enum {
+enum EnMagGlobalState {
     /* 0x00 */ MAG_STATE_INITIAL,
     /* 0x01 */ MAG_STATE_FADE_IN,
     /* 0x02 */ MAG_STATE_DISPLAY,
     /* 0x03 */ MAG_STATE_FADE_OUT,
     /* 0x04 */ MAG_STATE_POST_DISPLAY
-} EnMagGlobalState;
+};
 
-#endif
+

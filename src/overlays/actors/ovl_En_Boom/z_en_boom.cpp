@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnBoom_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBoom_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBoom_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBoom_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Boom_InitVars = {
     (ActorFunc)EnBoom_Destroy,
     (ActorFunc)EnBoom_Update,
     (ActorFunc)EnBoom_Draw,
+    (ActorFunc)EnBoom_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -285,4 +287,40 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gBoomerangRefDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_boom.c", 604);
+}
+
+void EnBoom_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Boom_InitVars = {
+        ACTOR_EN_BOOM,
+        ACTORCAT_MISC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnBoom),
+        (ActorFunc)EnBoom_Init,
+        (ActorFunc)EnBoom_Destroy,
+        (ActorFunc)EnBoom_Update,
+        (ActorFunc)EnBoom_Draw,
+        (ActorFunc)EnBoom_Reset,
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_PLAYER,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000010, 0x00, 0x01 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_NEAREST | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
 }

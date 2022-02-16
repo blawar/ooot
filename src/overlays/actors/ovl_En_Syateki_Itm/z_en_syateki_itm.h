@@ -1,4 +1,4 @@
-#ifndef Z_EN_SYATEKI_ITM_H
+#pragma once
 #define Z_EN_SYATEKI_ITM_H
 
 #include "ultra64.h"
@@ -8,20 +8,31 @@ struct EnSyatekiItm;
 
 typedef void (*EnSyatekiItmActionFunc)(struct EnSyatekiItm*, GlobalContext*);
 
-typedef enum {
+enum EnSyatekiSignal {
     /* 0 */ ENSYATEKI_NONE,
     /* 1 */ ENSYATEKI_START,
     /* 2 */ ENSYATEKI_END,
     /* 3 */ ENSYATEKI_RESULTS
-} EnSyatekiSignal;
+};
 
-typedef enum {
+enum EnSyatekiHitState {
     /* 0 */ ENSYATEKIHIT_NONE,
     /* 1 */ ENSYATEKIHIT_MISS,
     /* 2 */ ENSYATEKIHIT_HIT
-} EnSyatekiHitState;
+};
 
-typedef struct EnSyatekiItm {
+
+enum EnSyatekItemRound {
+    SYATEKI_ROUND_GREEN_APPEAR,
+    SYATEKI_ROUND_BLUE_SEQUENTIAL,
+    SYATEKI_ROUND_GREEN_THROW,
+    SYATEKI_ROUND_BLUE_SIMUL,
+    SYATEKI_ROUND_RED_LEFT,
+    SYATEKI_ROUND_RED_RIGHT,
+    SYATEKI_ROUND_MAX
+};
+struct EnSyatekiItm {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnSyatekiItmActionFunc actionFunc;
     /* 0x0150 */ s16 timer; // timer for next round
@@ -38,6 +49,6 @@ typedef struct EnSyatekiItm {
     /* 0x01C4 */ struct EnGSwitch* targets[2]; // currently spawned target rupees
     /* 0x01CC */ struct EnSyatekiMan* man; // shopkeeper
     /* 0x01D0 */ struct EnExRuppy* curMarkers[2]; // marker rupees for the current round
-} EnSyatekiItm; // size = 0x01D8
+}; 
 
-#endif
+

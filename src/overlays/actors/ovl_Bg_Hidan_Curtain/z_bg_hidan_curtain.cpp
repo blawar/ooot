@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgHidanCurtain_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanCurtain_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanCurtain_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanCurtain_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanCurtain_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -29,15 +30,7 @@ void BgHidanCurtain_WaitForCutscene(BgHidanCurtain* pthis, GlobalContext* global
 void BgHidanCurtain_WaitForClear(BgHidanCurtain* pthis, GlobalContext* globalCtx);
 void BgHidanCurtain_TurnOn(BgHidanCurtain* pthis, GlobalContext* globalCtx);
 void BgHidanCurtain_TurnOff(BgHidanCurtain* pthis, GlobalContext* globalCtx);
-void BgHidanCurtain_WaitForTimer(BgHidanCurtain* pthis, GlobalContext* globalCtx);
-
-typedef struct {
-    /* 0x00 */ s16 radius;
-    /* 0x02 */ s16 height;
-    /* 0x04 */ f32 scale;
-    /* 0x08 */ f32 riseDist;
-    /* 0x0C */ f32 riseSpeed;
-} BgHidanCurtainParams; // size = 0x10
+void BgHidanCurtain_WaitForTimer(BgHidanCurtain* pthis, GlobalContext* globalCtx); 
 
 static ColliderCylinderInit sCylinderInit = {
     {
@@ -73,6 +66,7 @@ ActorInit Bg_Hidan_Curtain_InitVars = {
     (ActorFunc)BgHidanCurtain_Destroy,
     (ActorFunc)BgHidanCurtain_Update,
     (ActorFunc)BgHidanCurtain_Draw,
+    (ActorFunc)BgHidanCurtain_Reset,
 };
 
 void BgHidanCurtain_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -268,4 +262,42 @@ void BgHidanCurtain_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gEffFireCircleDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_curtain.c", 702);
+}
+
+void BgHidanCurtain_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x01, 0x04 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 81, 144, 0, { 0, 0, 0 } },
+    };
+
+    sCcInfoInit = { 1, 80, 100, MASS_IMMOVABLE };
+
+    Bg_Hidan_Curtain_InitVars = {
+        ACTOR_BG_HIDAN_CURTAIN,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgHidanCurtain),
+        (ActorFunc)BgHidanCurtain_Init,
+        (ActorFunc)BgHidanCurtain_Destroy,
+        (ActorFunc)BgHidanCurtain_Update,
+        (ActorFunc)BgHidanCurtain_Draw,
+        (ActorFunc)BgHidanCurtain_Reset,
+    };
+
 }

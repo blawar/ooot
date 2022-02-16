@@ -1,4 +1,4 @@
-#ifndef Z_BOSS_FD2_H
+#pragma once
 #define Z_BOSS_FD2_H
 
 #include "ultra64.h"
@@ -8,22 +8,22 @@ struct BossFd2;
 
 typedef void (*BossFd2ActionFunc)(struct BossFd2*, GlobalContext*);
 
-typedef enum {
+enum BossFd2Signal {
     /* 0 */ FD2_SIGNAL_NONE,
     /* 1 */ FD2_SIGNAL_FLY,
     /* 2 */ FD2_SIGNAL_DEATH,
     /* 100 */ FD2_SIGNAL_GROUND = 100
-} BossFd2Signal;
+};
 
-typedef struct {
+struct BossFd2Mane {
     /* 0x000 */ Vec3f rot[10];
     /* 0x078 */ Vec3f pos[10];
     /* 0x0F0 */ Vec3f pull[10];
     /* 0x168 */ f32 scale[10];
     /* 0x190 */ Vec3f head;
-} BossFd2Mane; // size = 0x19C
+}; 
 
-typedef struct {
+struct BossFd2Cam {
     /* 0x00 */ Vec3f eye;
     /* 0x0C */ Vec3f at;
     /* 0x18 */ Vec3f pad[2];
@@ -37,9 +37,9 @@ typedef struct {
     /* 0x7C */ f32 accel;
     /* 0x80 */ f32 yMod;
     /* 0x84 */ f32 shake;
-} BossFd2Cam; // size = 0x88
+}; 
 
-typedef enum {
+enum BossFd2S16Var {
     /* 0 */ FD2_TURN_TO_LINK,
     /* 1 */ FD2_ACTION_STATE,
     /* 2 */ FD2_UNK_TIMER,
@@ -53,18 +53,30 @@ typedef enum {
     /* 10 */ FD2_INVINC_TIMER,
     /* 11 */ FD2_FAKEOUT_COUNT,
     /* 19 */ FD2_SHORT_COUNT = 19
-} BossFd2S16Var;
+};
 
-typedef enum {
+enum BossFd2F32Var {
     /*  0 */ FD2_TEX1_SCROLL_X,
     /*  1 */ FD2_TEX1_SCROLL_Y,
     /*  2 */ FD2_TEX2_SCROLL_X,
     /*  3 */ FD2_TEX2_SCROLL_Y,
     /* 10 */ FD2_END_FRAME = 10,
     /* 18 */ FD2_FLOAT_COUNT = 18
-} BossFd2F32Var;
+};
 
-typedef struct BossFd2 {
+
+enum BossFd2CutsceneState {
+    /* 0 */ DEATH_START,
+    /* 1 */ DEATH_RETREAT,
+    /* 2 */ DEATH_HANDOFF,
+    /* 3 */ DEATH_FD_BODY,
+    /* 4 */ DEATH_FD_SKULL,
+    /* 5 */ DEATH_FINISH
+};
+
+
+struct BossFd2 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ BossFd2ActionFunc actionFunc;
@@ -87,6 +99,6 @@ typedef struct BossFd2 {
     /* 0x1394 */ BossFd2Cam camData;
     /* 0x141C */ ColliderJntSph collider;
     /* 0x143C */ ColliderJntSphElement elements[9];
-} BossFd2; // size = 0x167C
+}; 
 
-#endif
+

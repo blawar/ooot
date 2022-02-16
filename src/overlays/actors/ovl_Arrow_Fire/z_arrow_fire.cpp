@@ -12,6 +12,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void ArrowFire_Init(Actor* pthisx, GlobalContext* globalCtx);
+void ArrowFire_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowFire_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowFire_Update(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Arrow_Fire_InitVars = {
     (ActorFunc)ArrowFire_Destroy,
     (ActorFunc)ArrowFire_Update,
     (ActorFunc)ArrowFire_Draw,
+    (ActorFunc)ArrowFire_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -250,4 +252,20 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_fire.c", 682);
     }
+}
+
+void ArrowFire_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Arrow_Fire_InitVars = {
+        ACTOR_ARROW_FIRE,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ArrowFire),
+        (ActorFunc)ArrowFire_Init,
+        (ActorFunc)ArrowFire_Destroy,
+        (ActorFunc)ArrowFire_Update,
+        (ActorFunc)ArrowFire_Draw,
+        (ActorFunc)ArrowFire_Reset,
+    };
+
 }

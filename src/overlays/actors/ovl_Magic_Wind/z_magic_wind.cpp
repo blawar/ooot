@@ -15,6 +15,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void MagicWind_Init(Actor* thisx, GlobalContext* globalCtx);
+void MagicWind_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void MagicWind_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void MagicWind_Update(Actor* thisx, GlobalContext* globalCtx);
 void MagicWind_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit Magic_Wind_InitVars = {
     (ActorFunc)MagicWind_Destroy,
     (ActorFunc)MagicWind_Update,
     (ActorFunc)MagicWind_Draw,
+    (ActorFunc)MagicWind_Reset,
 };
 
 #include "overlays/ovl_Magic_Wind/ovl_Magic_Wind.cpp"
@@ -183,4 +185,20 @@ void MagicWind_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_magic_wind.c", 673);
+}
+
+void MagicWind_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Magic_Wind_InitVars = {
+        ACTOR_MAGIC_WIND,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(MagicWind),
+        (ActorFunc)MagicWind_Init,
+        (ActorFunc)MagicWind_Destroy,
+        (ActorFunc)MagicWind_Update,
+        (ActorFunc)MagicWind_Draw,
+        (ActorFunc)MagicWind_Reset,
+    };
+
 }

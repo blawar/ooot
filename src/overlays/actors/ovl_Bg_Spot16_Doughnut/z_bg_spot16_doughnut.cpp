@@ -18,6 +18,7 @@
 #define FLAGS 0
 
 void BgSpot16Doughnut_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot16Doughnut_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot16Doughnut_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Doughnut_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Doughnut_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit Bg_Spot16_Doughnut_InitVars = {
     (ActorFunc)BgSpot16Doughnut_Destroy,
     (ActorFunc)BgSpot16Doughnut_Update,
     (ActorFunc)BgSpot16Doughnut_Draw,
+    (ActorFunc)BgSpot16Doughnut_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -166,4 +168,20 @@ void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 256);
+}
+
+void BgSpot16Doughnut_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot16_Doughnut_InitVars = {
+        ACTOR_BG_SPOT16_DOUGHNUT,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_EFC_DOUGHNUT,
+        sizeof(BgSpot16Doughnut),
+        (ActorFunc)BgSpot16Doughnut_Init,
+        (ActorFunc)BgSpot16Doughnut_Destroy,
+        (ActorFunc)BgSpot16Doughnut_Update,
+        (ActorFunc)BgSpot16Doughnut_Draw,
+        (ActorFunc)BgSpot16Doughnut_Reset,
+    };
+
 }

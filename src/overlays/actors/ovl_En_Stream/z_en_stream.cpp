@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnStream_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnStream_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnStream_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnStream_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -32,6 +33,7 @@ ActorInit En_Stream_InitVars = {
     (ActorFunc)EnStream_Destroy,
     (ActorFunc)EnStream_Update,
     (ActorFunc)EnStream_Draw,
+    (ActorFunc)EnStream_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -148,4 +150,20 @@ void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx) {
                                 multipliedFrames, -multipliedFrames, 0x40, 0x40));
     gSPDisplayList(POLY_XLU_DISP++, object_stream_DL_000950);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_stream.c", 310);
+}
+
+void EnStream_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Stream_InitVars = {
+        ACTOR_EN_STREAM,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_STREAM,
+        sizeof(EnStream),
+        (ActorFunc)EnStream_Init,
+        (ActorFunc)EnStream_Destroy,
+        (ActorFunc)EnStream_Update,
+        (ActorFunc)EnStream_Draw,
+        (ActorFunc)EnStream_Reset,
+    };
+
 }

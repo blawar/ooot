@@ -1,4 +1,4 @@
-#ifndef Z_EN_GB_H
+#pragma once
 #define Z_EN_GB_H
 
 #include "ultra64.h"
@@ -8,14 +8,14 @@ struct EnGb;
 
 typedef void (*EnGbActionFunc)(struct EnGb*, GlobalContext*);
 
-typedef struct {
+struct EnGbCagedSoulInfo {
     /* 0x00 */ Color_RGBA8 prim;
     /* 0x04 */ Color_RGBA8 env;
     /* 0x08 */ void* texture;
     /* 0x0C */ s16 timerMultiplier;
-} EnGbCagedSoulInfo; // size = 0x10
+}; 
 
-typedef struct {
+struct EnGbCagedSoul {
     /* 0x00 */ u8    infoIdx;
     /* 0x01 */ u8    unk_1;
     /* 0x02 */ u8    unk_2;
@@ -27,9 +27,11 @@ typedef struct {
     /* 0x20 */ f32   unk_20;
     /* 0x24 */ f32   unk_24;
     /* 0x28 */ f32   unk_28;
-} EnGbCagedSoul; // size = 0x2C
+}; 
 
-typedef struct EnGb {
+
+struct EnGb {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ SkelAnime skelAnime;
     /* 0x01A8 */ Vec3s jointTable[12];
@@ -44,6 +46,6 @@ typedef struct EnGb {
     /* 0x0382 */ s16 actionTimer;
     /* 0x0384 */ Color_RGBA8 lightColor;
     /* 0x0388 */ EnGbCagedSoul cagedSouls[4];
-} EnGb; // size = 0x0438
+}; 
 
-#endif
+

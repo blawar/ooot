@@ -22,12 +22,9 @@
 
 #define FLAGS ACTOR_FLAG_4
 
-typedef enum {
-    /* 0 */ WINDMILL_ROTATING_GEAR,
-    /* 1 */ WINDMILL_DAMPE_STONE_DOOR
-} WindmillSetpiecesMode;
 
 void BgRelayObjects_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgRelayObjects_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgRelayObjects_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgRelayObjects_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgRelayObjects_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -49,6 +46,7 @@ ActorInit Bg_Relay_Objects_InitVars = {
     (ActorFunc)BgRelayObjects_Destroy,
     (ActorFunc)BgRelayObjects_Update,
     (ActorFunc)BgRelayObjects_Draw,
+    (ActorFunc)BgRelayObjects_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -219,4 +217,20 @@ void BgRelayObjects_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, gDampeRaceDoorDL);
     }
+}
+
+void BgRelayObjects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Relay_Objects_InitVars = {
+        ACTOR_BG_RELAY_OBJECTS,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_RELAY_OBJECTS,
+        sizeof(BgRelayObjects),
+        (ActorFunc)BgRelayObjects_Init,
+        (ActorFunc)BgRelayObjects_Destroy,
+        (ActorFunc)BgRelayObjects_Update,
+        (ActorFunc)BgRelayObjects_Draw,
+        (ActorFunc)BgRelayObjects_Reset,
+    };
+
 }

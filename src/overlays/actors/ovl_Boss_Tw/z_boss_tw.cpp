@@ -26,60 +26,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /*  0 */ TWEFF_NONE,
-    /*  1 */ TWEFF_DOT,
-    /*  2 */ TWEFF_2,
-    /*  3 */ TWEFF_3,
-    /*  4 */ TWEFF_RING,
-    /*  5 */ TWEFF_PLYR_FRZ,
-    /*  6 */ TWEFF_FLAME,
-    /*  7 */ TWEFF_MERGEFLAME,
-    /*  8 */ TWEFF_SHLD_BLST,
-    /*  9 */ TWEFF_SHLD_DEFL,
-    /* 10 */ TWEFF_SHLD_HIT
-} TwEffType;
-
-typedef enum {
-    /* 0 */ EFF_ARGS,
-    /* 1 */ EFF_UNKS1,
-    /* 2 */ EFF_WORK_MAX
-} EffectWork;
-
-typedef enum {
-    /* 0 */ EFF_SCALE,
-    /* 1 */ EFF_DIST,
-    /* 2 */ EFF_ROLL,
-    /* 3 */ EFF_YAW,
-    /* 4 */ EFF_FWORK_MAX
-} EffectFWork;
-
-typedef enum {
-    /* 0x00 */ TW_KOTAKE,
-    /* 0x01 */ TW_KOUME,
-    /* 0x02 */ TW_TWINROVA,
-    /* 0x64 */ TW_FIRE_BLAST = 0x64,
-    /* 0x65 */ TW_FIRE_BLAST_GROUND,
-    /* 0x66 */ TW_ICE_BLAST,
-    /* 0x67 */ TW_ICE_BLAST_GROUND,
-    /* 0x68 */ TW_DEATHBALL_KOTAKE,
-    /* 0x69 */ TW_DEATHBALL_KOUME
-} TwinrovaType;
-
-typedef struct {
-    /* 0x0000 */ u8 type;
-    /* 0x0001 */ u8 frame;
-    /* 0x0004 */ Vec3f pos;
-    /* 0x0010 */ Vec3f curSpeed;
-    /* 0x001C */ Vec3f accel;
-    /* 0x0028 */ Color_RGB8 color;
-    /* 0x002C */ s16 alpha;
-    /* 0x002E */ s16 work[EFF_WORK_MAX];
-    /* 0x0034 */ f32 workf[EFF_FWORK_MAX];
-    /* 0x0044 */ Actor* target;
-} BossTwEffect;
 
 void BossTw_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossTw_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossTw_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossTw_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossTw_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -145,6 +94,7 @@ ActorInit Boss_Tw_InitVars = {
     (ActorFunc)BossTw_Destroy,
     (ActorFunc)BossTw_Update,
     (ActorFunc)BossTw_Draw,
+    (ActorFunc)BossTw_Reset,
 };
 
 static Vec3f D_8094A7D0 = { 0.0f, 0.0f, 1000.0f };
@@ -5482,4 +5432,87 @@ void BossTw_TwinrovaLaugh(BossTw* pthis, GlobalContext* globalCtx) {
     if (Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
         BossTw_TwinrovaSetupFly(pthis, globalCtx);
     }
+}
+
+
+void BossTw_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Tw_InitVars = {
+        ACTOR_BOSS_TW,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_TW,
+        sizeof(BossTw),
+        (ActorFunc)BossTw_Init,
+        (ActorFunc)BossTw_Destroy,
+        (ActorFunc)BossTw_Update,
+        (ActorFunc)BossTw_Draw,
+        (ActorFunc)BossTw_Reset,
+    };
+
+    D_8094A7D0 = { 0.0f, 0.0f, 1000.0f };
+
+    sZeroVector = { 0.0f, 0.0f, 0.0f };
+
+    sCylinderInitBlasts = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ALL,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x30 },
+            { 0x00100000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 25, 35, -17, { 0, 0, 0 } },
+    };
+
+    sCylinderInitKoumeKotake = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x20 },
+            { 0xFFCDFFFE, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 45, 120, -30, { 0, 0, 0 } },
+    };
+
+    sCylinderInitTwinrova = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x20 },
+            { 0xFFCDFFFE, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 45, 120, -30, { 0, 0, 0 } },
+    };
+
+    sTwInitalized = false;
+
 }

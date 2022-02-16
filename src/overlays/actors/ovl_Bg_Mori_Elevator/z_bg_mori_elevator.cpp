@@ -15,6 +15,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgMoriElevator_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriElevator_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriElevator_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriElevator_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -40,6 +41,7 @@ ActorInit Bg_Mori_Elevator_InitVars = {
     (ActorFunc)BgMoriElevator_Destroy,
     (ActorFunc)BgMoriElevator_Update,
     NULL,
+    (ActorFunc)BgMoriElevator_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -271,4 +273,22 @@ void BgMoriElevator_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gMoriElevatorDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_elevator.c", 584);
+}
+
+void BgMoriElevator_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sIsSpawned = false;
+
+    Bg_Mori_Elevator_InitVars = {
+        ACTOR_BG_MORI_ELEVATOR,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriElevator),
+        (ActorFunc)BgMoriElevator_Init,
+        (ActorFunc)BgMoriElevator_Destroy,
+        (ActorFunc)BgMoriElevator_Update,
+        NULL,
+        (ActorFunc)BgMoriElevator_Reset,
+    };
+
 }

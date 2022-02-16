@@ -1,4 +1,4 @@
-#ifndef Z_EN_ZF_H
+#pragma once
 #define Z_EN_ZF_H
 
 #include "ultra64.h"
@@ -8,14 +8,14 @@ struct EnZf;
 
 typedef void (*EnZfActionFunc)(struct EnZf*, GlobalContext*);
 
-typedef enum {
+enum EnZfType {
     /* -2 */ ENZF_TYPE_DINOLFOS = -2,
     /* -1 */ ENZF_TYPE_LIZALFOS_LONE, // Not a miniboss, e.g. Spirit Temple
     /*  0 */ ENZF_TYPE_LIZALFOS_MINIBOSS_A, // Pair with B
     /*  1 */ ENZF_TYPE_LIZALFOS_MINIBOSS_B // Pair with A
-} EnZfType;
+};
 
-typedef enum {
+enum EnZfAction {
     /*  0 */ ENZF_ACTION_DROP_IN,
     /*  3 */ ENZF_ACTION_3 = 3, // stop and choose action?
     /*  5 */ ENZF_ACTION_APPROACH_PLAYER = 5,
@@ -34,9 +34,9 @@ typedef enum {
     /* 20 */ ENZF_ACTION_HOP_AND_TAUNT,
     /* 21 */ ENZF_ACTION_DRAW_SWORD,
     /* 22 */ ENZF_ACTION_JUMP_UP
-} EnZfAction;
+};
 
-typedef enum {
+enum EnZfLimb {
     /* 0x00 */ ENZF_LIMB_NONE,
     /* 0x01 */ ENZF_LIMB_ROOT,
     /* 0x02 */ ENZF_LIMB_BODY_ROOT,
@@ -87,9 +87,19 @@ typedef enum {
     /* 0x2F */ ENZF_LIMB_LEFT_THIGH,
     /* 0x30 */ ENZF_LIMB_TRUNK,
     /* 0x31 */ ENZF_LIMB_MAX
-} EnZfLimb; // used for both Lizalfos and Dinalfos
+}; // used for both Lizalfos and Dinalfos
 
-typedef struct EnZf {
+
+
+enum EnZfDamageEffect {
+    /* 0x0 */ ENZF_DMGEFF_NONE,
+    /* 0x1 */ ENZF_DMGEFF_STUN,
+    /* 0x6 */ ENZF_DMGEFF_IMMUNE = 6,       // Skips damage code, but also skips the top half of Update
+    /* 0xD */ ENZF_DMGEFF_PROJECTILE = 0xD, // Projectiles that don't have another damageeffect
+    /* 0xF */ ENZF_DMGEFF_ICE = 0xF
+};
+struct EnZf {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[ENZF_LIMB_MAX];
@@ -119,6 +129,6 @@ typedef struct EnZf {
     /* 0x04E4 */ Vec3f rightFootPos;
     /* 0x04F0 */ Vec3f leftFootPos;
     /* 0x04FC */ Vec3f bodyPartsPos[9];
-} EnZf; // size = 0x0568
+}; 
 
-#endif
+

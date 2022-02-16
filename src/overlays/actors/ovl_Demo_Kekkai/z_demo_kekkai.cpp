@@ -21,6 +21,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void DemoKekkai_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoKekkai_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoKekkai_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoKekkai_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoKekkai_DrawTowerBarrier(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit Demo_Kekkai_InitVars = {
     (ActorFunc)DemoKekkai_Destroy,
     (ActorFunc)DemoKekkai_Update,
     (ActorFunc)DemoKekkai_DrawTowerBarrier,
+    (ActorFunc)DemoKekkai_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -343,4 +345,40 @@ void DemoKekkai_DrawTowerBarrier(Actor* thisx, GlobalContext* globalCtx) {
                                 scroll * -4, 0x20, 0x40));
     gSPDisplayList(POLY_XLU_DISP++, gTowerBarrierDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 722);
+}
+
+void DemoKekkai_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Kekkai_InitVars = {
+        ACTOR_DEMO_KEKKAI,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_DEMO_KEKKAI,
+        sizeof(DemoKekkai),
+        (ActorFunc)DemoKekkai_Init,
+        (ActorFunc)DemoKekkai_Destroy,
+        (ActorFunc)DemoKekkai_Update,
+        (ActorFunc)DemoKekkai_DrawTowerBarrier,
+        (ActorFunc)DemoKekkai_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x07, 0x04 },
+            { 0x00002000, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 680, 220, 120, { 0, 0, 0 } },
+    };
+
 }

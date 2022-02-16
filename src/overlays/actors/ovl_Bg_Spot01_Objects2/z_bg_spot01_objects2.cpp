@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgSpot01Objects2_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot01Objects2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot01Objects2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot01Objects2_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -36,6 +37,7 @@ ActorInit Bg_Spot01_Objects2_InitVars = {
     (ActorFunc)BgSpot01Objects2_Destroy,
     (ActorFunc)BgSpot01Objects2_Update,
     NULL,
+    (ActorFunc)BgSpot01Objects2_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -144,4 +146,20 @@ void BgSpot01Objects2_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_808AC4A4(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, D_808AC510[thisx->params & 7]);
+}
+
+void BgSpot01Objects2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot01_Objects2_InitVars = {
+        ACTOR_BG_SPOT01_OBJECTS2,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgSpot01Objects2),
+        (ActorFunc)BgSpot01Objects2_Init,
+        (ActorFunc)BgSpot01Objects2_Destroy,
+        (ActorFunc)BgSpot01Objects2_Update,
+        NULL,
+        (ActorFunc)BgSpot01Objects2_Reset,
+    };
+
 }

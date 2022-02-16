@@ -49,13 +49,9 @@ when set, gets cleared next EnBox_Update call and clip to the floor
 */
 #define ENBOX_MOVE_STICK_TO_GROUND (1 << 4)
 
-typedef enum {
-    ENBOX_STATE_0, // waiting for player near / player available / player ? (IDLE)
-    ENBOX_STATE_1, // used only temporarily, maybe "player is ready" ?
-    ENBOX_STATE_2  // waiting for something message context-related
-} EnBoxStateUnk1FB;
 
 void EnBox_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBox_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBox_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBox_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -79,6 +75,7 @@ ActorInit En_Box_InitVars = {
     (ActorFunc)EnBox_Destroy,
     (ActorFunc)EnBox_Update,
     (ActorFunc)EnBox_Draw,
+    (ActorFunc)EnBox_Reset,
 };
 
 static AnimationHeader* sAnimations[4] = { &gTreasureChestAnim_00024C, &gTreasureChestAnim_000128,
@@ -664,4 +661,20 @@ void EnBox_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_box.c", 1639);
+}
+
+void EnBox_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Box_InitVars = {
+        ACTOR_EN_BOX,
+        ACTORCAT_CHEST,
+        FLAGS,
+        OBJECT_BOX,
+        sizeof(EnBox),
+        (ActorFunc)EnBox_Init,
+        (ActorFunc)EnBox_Destroy,
+        (ActorFunc)EnBox_Update,
+        (ActorFunc)EnBox_Draw,
+        (ActorFunc)EnBox_Reset,
+    };
+
 }

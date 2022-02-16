@@ -1,4 +1,4 @@
-#ifndef Z_EN_OWL_H
+#pragma once
 #define Z_EN_OWL_H
 
 #include "ultra64.h"
@@ -9,7 +9,31 @@ struct EnOwl;
 typedef void (*EnOwlActionFunc)(struct EnOwl*, GlobalContext*);
 typedef void (*OwlFunc)(struct EnOwl*);
 
-typedef struct EnOwl {
+
+
+enum EnOwlType {
+    /* 0x00 */ OWL_DEFAULT,
+    /* 0x01 */ OWL_OUTSIDE_KOKIRI,
+    /* 0x02 */ OWL_HYRULE_CASTLE,
+    /* 0x03 */ OWL_KAKARIKO,
+    /* 0x04 */ OWL_HYLIA_GERUDO,
+    /* 0x05 */ OWL_LAKE_HYLIA,
+    /* 0x06 */ OWL_ZORA_RIVER,
+    /* 0x07 */ OWL_HYLIA_SHORTCUT,
+    /* 0x08 */ OWL_DEATH_MOUNTAIN,
+    /* 0x09 */ OWL_DEATH_MOUNTAIN2,
+    /* 0x0A */ OWL_DESSERT_COLOSSUS,
+    /* 0x0B */ OWL_LOST_WOODS_PRESARIA,
+    /* 0x0C */ OWL_LOST_WOODS_POSTSARIA
+};
+
+
+enum EnOwlMessageChoice {
+    /* 0x00 */ OWL_REPEAT,
+    /* 0x01 */ OWL_OK
+};
+struct EnOwl {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderCylinder collider;
     /* 0x0198 */ SkelAnime skelAnime;
@@ -41,6 +65,6 @@ typedef struct EnOwl {
     /* 0x040B */ u8 unk_40B;
     /* 0x040C */ EnOwlActionFunc actionFunc;
     /* 0x0410 */ OwlFunc unk_410;
-} EnOwl; // size = 0x0414
+}; 
 
-#endif
+

@@ -24,6 +24,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnZl1_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnZl1_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnZl1_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnZl1_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnZl1_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +52,7 @@ ActorInit En_Zl1_InitVars = {
     (ActorFunc)EnZl1_Destroy,
     (ActorFunc)EnZl1_Update,
     (ActorFunc)EnZl1_Draw,
+    (ActorFunc)EnZl1_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -641,4 +643,40 @@ void EnZl1_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnZl1_OverrideLimbDraw, EnZl1_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_girlB.c", 2046);
+}
+
+void EnZl1_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Zl1_InitVars = {
+        ACTOR_EN_ZL1,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ZL1,
+        sizeof(EnZl1),
+        (ActorFunc)EnZl1_Init,
+        (ActorFunc)EnZl1_Destroy,
+        (ActorFunc)EnZl1_Update,
+        (ActorFunc)EnZl1_Draw,
+        (ActorFunc)EnZl1_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT0,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK1,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 20, 46, 0, { 0, 0, 0 } },
+    };
+
 }

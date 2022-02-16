@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgMoriBigst_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMoriBigst_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMoriBigst_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriBigst_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMoriBigst_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -50,6 +51,7 @@ ActorInit Bg_Mori_Bigst_InitVars = {
     (ActorFunc)BgMoriBigst_Destroy,
     (ActorFunc)BgMoriBigst_Update,
     NULL,
+    (ActorFunc)BgMoriBigst_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -266,4 +268,20 @@ void BgMoriBigst_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPDisplayList(POLY_OPA_DISP++, gMoriBigstDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 553);
+}
+
+void BgMoriBigst_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mori_Bigst_InitVars = {
+        ACTOR_BG_MORI_BIGST,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MORI_OBJECTS,
+        sizeof(BgMoriBigst),
+        (ActorFunc)BgMoriBigst_Init,
+        (ActorFunc)BgMoriBigst_Destroy,
+        (ActorFunc)BgMoriBigst_Update,
+        NULL,
+        (ActorFunc)BgMoriBigst_Reset,
+    };
+
 }

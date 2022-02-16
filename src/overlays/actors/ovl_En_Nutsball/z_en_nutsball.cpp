@@ -24,6 +24,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnNutsball_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnNutsball_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnNutsball_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnNutsball_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnNutsball_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit En_Nutsball_InitVars = {
     (ActorFunc)EnNutsball_Destroy,
     (ActorFunc)EnNutsball_Update,
     (ActorFunc)NULL,
+    (ActorFunc)EnNutsball_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -183,4 +185,40 @@ void EnNutsball_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, sDLists[thisx->params]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nutsball.c", 337);
+}
+
+void EnNutsball_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Nutsball_InitVars = {
+        ACTOR_EN_NUTSBALL,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnNutsball),
+        (ActorFunc)EnNutsball_Init,
+        (ActorFunc)EnNutsball_Destroy,
+        (ActorFunc)EnNutsball_Update,
+        (ActorFunc)NULL,
+        (ActorFunc)EnNutsball_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x08 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_WOOD,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 13, 13, 0, { 0 } },
+    };
+
 }

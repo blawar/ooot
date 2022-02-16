@@ -1,4 +1,4 @@
-#ifndef Z_EN_BUBBLE_H
+#pragma once
 #define Z_EN_BUBBLE_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnBubble;
 
 typedef void (*EnBubbleActionFunc)(struct EnBubble*, GlobalContext*);
 
-typedef struct EnBubble {
+
+struct EnBubble {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnBubbleActionFunc actionFunc;
     /* 0x0150 */ ColliderJntSph colliderSphere;
@@ -30,6 +32,6 @@ typedef struct EnBubble {
     /* 0x0244 */ Vec3f normalizedBumpVelocity;
     /* 0x0250 */ Vec3f velocityFromBump;
     /* 0x025C */ f32 sinkSpeed;
-} EnBubble; // size = 0x0260
+}; 
 
-#endif
+

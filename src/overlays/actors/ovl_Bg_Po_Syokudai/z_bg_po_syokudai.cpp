@@ -20,16 +20,11 @@
 
 #define FLAGS 0
 
-typedef enum {
-    POE_FLAME_PURPLE, // Meg
-    POE_FLAME_RED,    // Joelle
-    POE_FLAME_BLUE,   // Beth
-    POE_FLAME_GREEN   // Amy
-} PoeFlameColor;
 
 #define POE_TORCH_FLAG 0x1C
 
 void BgPoSyokudai_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgPoSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgPoSyokudai_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgPoSyokudai_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -78,6 +73,7 @@ ActorInit Bg_Po_Syokudai_InitVars = {
     (ActorFunc)BgPoSyokudai_Destroy,
     (ActorFunc)BgPoSyokudai_Update,
     (ActorFunc)BgPoSyokudai_Draw,
+    (ActorFunc)BgPoSyokudai_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -197,4 +193,40 @@ void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 373);
+}
+
+void BgPoSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_METAL,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 12, 60, 0, { 0, 0, 0 } },
+    };
+
+    Bg_Po_Syokudai_InitVars = {
+        ACTOR_BG_PO_SYOKUDAI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SYOKUDAI,
+        sizeof(BgPoSyokudai),
+        (ActorFunc)BgPoSyokudai_Init,
+        (ActorFunc)BgPoSyokudai_Destroy,
+        (ActorFunc)BgPoSyokudai_Update,
+        (ActorFunc)BgPoSyokudai_Draw,
+        (ActorFunc)BgPoSyokudai_Reset,
+    };
+
 }

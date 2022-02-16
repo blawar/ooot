@@ -17,6 +17,7 @@
 #define TIMER_PARAM (((u16)pthis->dyna.actor.params >> 6) & 0x3F)
 
 void BgMizuShutter_Init(BgMizuShutter* pthis, GlobalContext* globalCtx);
+void BgMizuShutter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMizuShutter_Destroy(BgMizuShutter* pthis, GlobalContext* globalCtx);
 void BgMizuShutter_Update(BgMizuShutter* pthis, GlobalContext* globalCtx);
 void BgMizuShutter_Draw(BgMizuShutter* pthis, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Mizu_Shutter_InitVars = {
     (ActorFunc)BgMizuShutter_Destroy,
     (ActorFunc)BgMizuShutter_Update,
     (ActorFunc)BgMizuShutter_Draw,
+    (ActorFunc)BgMizuShutter_Reset,
 };
 
 static Gfx* sDisplayLists[] = { gObjectMizuObjectsShutterDL_007130, gObjectMizuObjectsShutterDL_0072D0 };
@@ -176,4 +178,20 @@ void BgMizuShutter_Draw(BgMizuShutter* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_OPA_DISP++, pthis->displayList);
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_shutter.c", 422);
+}
+
+void BgMizuShutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mizu_Shutter_InitVars = {
+        ACTOR_BG_MIZU_SHUTTER,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_MIZU_OBJECTS,
+        sizeof(BgMizuShutter),
+        (ActorFunc)BgMizuShutter_Init,
+        (ActorFunc)BgMizuShutter_Destroy,
+        (ActorFunc)BgMizuShutter_Update,
+        (ActorFunc)BgMizuShutter_Draw,
+        (ActorFunc)BgMizuShutter_Reset,
+    };
+
 }

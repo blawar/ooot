@@ -1,4 +1,4 @@
-#ifndef Z_EN_ATTACK_NIW_H
+#pragma once
 #define Z_EN_ATTACK_NIW_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnAttackNiw;
 
 typedef void (*EnAttackNiwActionFunc)(struct EnAttackNiw*, GlobalContext*);
 
-typedef struct EnAttackNiw {
+
+struct EnAttackNiw {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -49,6 +51,6 @@ typedef struct EnAttackNiw {
     /* 0x02DC */ f32 unk_2DC;
     /* 0x02E0 */ f32 unk_2E0;
     /* 0x02E4 */ f32 unk_2E4;
-} EnAttackNiw; // size = 0x02E8
+}; 
 
-#endif
+

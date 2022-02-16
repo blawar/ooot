@@ -27,6 +27,7 @@
 #define FU_WAIT (1 << 1)
 
 void EnFu_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnFu_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnFu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnFu_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFu_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,6 +52,7 @@ ActorInit En_Fu_InitVars = {
     (ActorFunc)EnFu_Destroy,
     (ActorFunc)EnFu_Update,
     (ActorFunc)EnFu_Draw,
+    (ActorFunc)EnFu_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -78,11 +80,6 @@ static Vec3f sMtxSrc = {
     700.0f,
     0.0f,
 };
-
-typedef enum {
-    /* 0x00 */ FU_FACE_CALM,
-    /* 0x01 */ FU_FACE_MAD
-} EnFuFace;
 
 void EnFu_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
@@ -319,4 +316,46 @@ void EnFu_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnFu_OverrideLimbDraw, EnFu_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fu.c", 791);
+}
+
+void EnFu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Fu_InitVars = {
+        ACTOR_EN_FU,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_FU,
+        sizeof(EnFu),
+        (ActorFunc)EnFu_Init,
+        (ActorFunc)EnFu_Destroy,
+        (ActorFunc)EnFu_Update,
+        (ActorFunc)EnFu_Draw,
+        (ActorFunc)EnFu_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ENEMY,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 30, 40, 0, { 0, 0, 0 } },
+    };
+
+    sMtxSrc = {
+        700.0f,
+        700.0f,
+        0.0f,
+    };
+
 }

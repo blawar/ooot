@@ -22,13 +22,9 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0x00 */ FLASH_NONE,
-    /* 0x01 */ FLASH_GROW,
-    /* 0x02 */ FLASH_SHRINK
-} FlashState;
 
 void BgGanonOtyuka_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgGanonOtyuka_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgGanonOtyuka_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgGanonOtyuka_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -47,6 +43,7 @@ ActorInit Bg_Ganon_Otyuka_InitVars = {
     (ActorFunc)BgGanonOtyuka_Destroy,
     (ActorFunc)BgGanonOtyuka_Update,
     (ActorFunc)BgGanonOtyuka_Draw,
+    (ActorFunc)BgGanonOtyuka_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -374,4 +371,24 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 857);
+}
+
+void BgGanonOtyuka_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Ganon_Otyuka_InitVars = {
+        ACTOR_BG_GANON_OTYUKA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GANON,
+        sizeof(BgGanonOtyuka),
+        (ActorFunc)BgGanonOtyuka_Init,
+        (ActorFunc)BgGanonOtyuka_Destroy,
+        (ActorFunc)BgGanonOtyuka_Update,
+        (ActorFunc)BgGanonOtyuka_Draw,
+        (ActorFunc)BgGanonOtyuka_Reset,
+    };
+
+    sDustPrimColor = { 60, 60, 0, 0 };
+
+    sDustEnvColor = { 50, 20, 0, 0 };
+
 }

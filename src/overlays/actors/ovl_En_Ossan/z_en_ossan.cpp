@@ -32,6 +32,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnOssan_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnOssan_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnOssan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnOssan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnOssan_DrawKokiriShopkeeper(Actor* thisx, GlobalContext* globalCtx);
@@ -125,6 +126,7 @@ ActorInit En_Ossan_InitVars = {
     (ActorFunc)EnOssan_Destroy,
     (ActorFunc)EnOssan_Update,
     NULL,
+    (ActorFunc)EnOssan_Reset,
 };
 
 // Unused collider
@@ -170,12 +172,6 @@ static const char* sShopkeeperPrintName[] = {
     "お面屋      ", // "Mask Shop"
 };
 
-typedef struct {
-    /* 0x00 */ s16 objId;
-    /* 0x02 */ s16 unk_02;
-    /* 0x04 */ s16 unk_04;
-} ShopkeeperObjInfo;
-
 static s16 sShopkeeperObjectIds[][3] = {
     { OBJECT_KM1, OBJECT_MASTERKOKIRIHEAD, OBJECT_MASTERKOKIRI },
     { OBJECT_DS2, OBJECT_ID_MAX, OBJECT_ID_MAX },
@@ -199,14 +195,7 @@ static EnOssanTalkOwnerFunc sShopkeeperTalkOwner[] = {
 
 static f32 sShopkeeperScale[] = {
     0.01f, 0.011f, 0.0105f, 0.011f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f,
-};
-
-typedef struct {
-    /* 0x00 */ s16 shopItemIndex;
-    /* 0x02 */ s16 xOffset;
-    /* 0x04 */ s16 yOffset;
-    /* 0x06 */ s16 zOffset;
-} ShopItem; // size 0x08
+}; 
 
 ShopItem sShopkeeperStores[][8] = {
     { { SI_DEKU_SHIELD, 50, 52, -20 },
@@ -2525,4 +2514,39 @@ void EnOssan_DrawBombchuShopkeeper(Actor* thisx, GlobalContext* globalCtx) {
     EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4631);
+}
+
+void EnOssan_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ossan_InitVars = {
+        ACTOR_EN_OSSAN,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnOssan),
+        (ActorFunc)EnOssan_Init,
+        (ActorFunc)EnOssan_Destroy,
+        (ActorFunc)EnOssan_Update,
+        NULL,
+        (ActorFunc)EnOssan_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 30, 80, 0, { 0, 0, 0 } },
+    };
+
 }

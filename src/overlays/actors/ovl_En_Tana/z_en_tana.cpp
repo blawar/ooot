@@ -15,6 +15,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
 
 void EnTana_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTana_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnTana_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTana_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTana_DrawWoodenShelves(Actor* thisx, GlobalContext* globalCtx);
@@ -30,6 +31,7 @@ ActorInit En_Tana_InitVars = {
     (ActorFunc)EnTana_Destroy,
     (ActorFunc)EnTana_Update,
     NULL,
+    (ActorFunc)EnTana_Reset,
 };
 
 //! @bug A third entry is missing here. When printing the string indexed by `params` for type 2, the
@@ -98,4 +100,20 @@ void EnTana_DrawStoneShelves(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, sShelfDLists[thisx->params]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tana.c", 174);
+}
+
+void EnTana_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Tana_InitVars = {
+        ACTOR_EN_TANA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_SHOP_DUNGEN,
+        sizeof(EnTana),
+        (ActorFunc)EnTana_Init,
+        (ActorFunc)EnTana_Destroy,
+        (ActorFunc)EnTana_Update,
+        NULL,
+        (ActorFunc)EnTana_Reset,
+    };
+
 }

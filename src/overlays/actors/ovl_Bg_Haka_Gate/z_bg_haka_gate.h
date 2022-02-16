@@ -1,4 +1,4 @@
-#ifndef Z_BG_HAKA_GATE_H
+#pragma once
 #define Z_BG_HAKA_GATE_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgHakaGate;
 
 typedef void (*BgHakaGateActionFunc)(struct BgHakaGate*, GlobalContext*);
 
-typedef struct BgHakaGate {
+
+struct BgHakaGate {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgHakaGateActionFunc actionFunc;
     /* 0x0168 */ u8 switchFlag;
@@ -17,13 +19,13 @@ typedef struct BgHakaGate {
     /* 0x016E */ s16 actionVar3;
     /* 0x0170 */ s16 actionVar4;
     /* 0x0172 */ s16 actionVar5;
-} BgHakaGate; // size = 0x0174
+}; 
 
-typedef enum {
+enum BgHakaGateType {
     BGHAKAGATE_STATUE,
     BGHAKAGATE_FLOOR,
     BGHAKAGATE_GATE,
     BGHAKAGATE_SKULL
-} BgHakaGateType;
+};
 
-#endif
+

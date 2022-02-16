@@ -1,20 +1,48 @@
-#ifndef Z_EN_PEEHAT_H
+#pragma once
 #define Z_EN_PEEHAT_H
 
 #include "ultra64.h"
 #include "global.h"
 
-typedef enum {
+enum PeahatType {
     /* -1 */ PEAHAT_TYPE_GROUNDED = -1,
     /*  0 */ PEAHAT_TYPE_FLYING = 0,
     /*  1 */ PEAHAT_TYPE_LARVA = 1
-} PeahatType;
+};
 
 struct EnPeehat;
 
 typedef void (*EnPeehatActionFunc)(struct EnPeehat*, GlobalContext*);
 
-typedef struct EnPeehat {
+
+
+enum DamageEffect {
+    /* 00 */ PEAHAT_DMG_EFF_ATTACK = 0,
+    /* 06 */ PEAHAT_DMG_EFF_LIGHT_ICE_ARROW = 6,
+    /* 12 */ PEAHAT_DMG_EFF_FIRE = 12,
+    /* 13 */ PEAHAT_DMG_EFF_HOOKSHOT = 13,
+    /* 14 */ PEAHAT_DMG_EFF_BOOMERANG = 14,
+    /* 15 */ PEAHAT_DMG_EFF_NUT = 15
+};
+
+
+enum PeahatState {
+    /* 00 */ PEAHAT_STATE_DYING,
+    /* 01 */ PEAHAT_STATE_EXPLODE,
+    /* 03 */ PEAHAT_STATE_3 = 3,
+    /* 04 */ PEAHAT_STATE_4,
+    /* 05 */ PEAHAT_STATE_FLY,
+    /* 07 */ PEAHAT_STATE_ATTACK_RECOIL = 7,
+    /* 08 */ PEAHAT_STATE_8,
+    /* 09 */ PEAHAT_STATE_9,
+    /* 10 */ PEAHAT_STATE_LANDING,
+    /* 12 */ PEAHAT_STATE_RETURN_HOME = 12,
+    /* 13 */ PEAHAT_STATE_STUNNED,
+    /* 14 */ PEAHAT_STATE_SEEK_PLAYER,
+    /* 15 */ PEAHAT_STATE_15
+};
+struct EnPeehat {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[24];
@@ -42,6 +70,6 @@ typedef struct EnPeehat {
     /* 0x034C */ ColliderJntSph colJntSph;
     /* 0x036C */ ColliderJntSphElement colJntSphItemList[1];
     /* 0x03AC */ ColliderQuad colQuad;
-} EnPeehat; // size = 0x042C
+}; 
 
-#endif
+

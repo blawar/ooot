@@ -22,6 +22,7 @@
 #define MAX_LARVA 3
 
 void EnPeehat_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnPeehat_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnPeehat_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPeehat_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPeehat_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -63,6 +64,7 @@ ActorInit En_Peehat_InitVars = {
     (ActorFunc)EnPeehat_Destroy,
     (ActorFunc)EnPeehat_Update,
     (ActorFunc)EnPeehat_Draw,
+    (ActorFunc)EnPeehat_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -132,15 +134,6 @@ static ColliderQuadInit sQuadInit = {
     { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
 };
 
-typedef enum {
-    /* 00 */ PEAHAT_DMG_EFF_ATTACK = 0,
-    /* 06 */ PEAHAT_DMG_EFF_LIGHT_ICE_ARROW = 6,
-    /* 12 */ PEAHAT_DMG_EFF_FIRE = 12,
-    /* 13 */ PEAHAT_DMG_EFF_HOOKSHOT = 13,
-    /* 14 */ PEAHAT_DMG_EFF_BOOMERANG = 14,
-    /* 15 */ PEAHAT_DMG_EFF_NUT = 15
-} DamageEffect;
-
 static DamageTable sDamageTable = {
     /* Deku nut      */ DMG_ENTRY(0, PEAHAT_DMG_EFF_NUT),
     /* Deku stick    */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
@@ -175,22 +168,6 @@ static DamageTable sDamageTable = {
     /* Hammer jump   */ DMG_ENTRY(4, PEAHAT_DMG_EFF_ATTACK),
     /* Unknown 2     */ DMG_ENTRY(0, PEAHAT_DMG_EFF_ATTACK),
 };
-
-typedef enum {
-    /* 00 */ PEAHAT_STATE_DYING,
-    /* 01 */ PEAHAT_STATE_EXPLODE,
-    /* 03 */ PEAHAT_STATE_3 = 3,
-    /* 04 */ PEAHAT_STATE_4,
-    /* 05 */ PEAHAT_STATE_FLY,
-    /* 07 */ PEAHAT_STATE_ATTACK_RECOIL = 7,
-    /* 08 */ PEAHAT_STATE_8,
-    /* 09 */ PEAHAT_STATE_9,
-    /* 10 */ PEAHAT_STATE_LANDING,
-    /* 12 */ PEAHAT_STATE_RETURN_HOME = 12,
-    /* 13 */ PEAHAT_STATE_STUNNED,
-    /* 14 */ PEAHAT_STATE_SEEK_PLAYER,
-    /* 15 */ PEAHAT_STATE_15
-} PeahatState;
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_F32(targetArrowOffset, 700, ICHAIN_STOP),
@@ -1093,4 +1070,108 @@ void EnPeehat_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Collider_SetQuadVertices(&pthis->colQuad, &pthis->colQuad.dim.quad[0], &pthis->colQuad.dim.quad[1],
                                  &pthis->colQuad.dim.quad[2], &pthis->colQuad.dim.quad[3]);
     }
+}
+
+void EnPeehat_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Peehat_InitVars = {
+        ACTOR_EN_PEEHAT,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_PEEHAT,
+        sizeof(EnPeehat),
+        (ActorFunc)EnPeehat_Init,
+        (ActorFunc)EnPeehat_Destroy,
+        (ActorFunc)EnPeehat_Update,
+        (ActorFunc)EnPeehat_Draw,
+        (ActorFunc)EnPeehat_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_WOOD,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 50, 160, -70, { 0, 0, 0 } },
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_PLAYER,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElemInit,
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x10 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, PEAHAT_DMG_EFF_NUT),
+        /* Deku stick    */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Slingshot     */ DMG_ENTRY(1, PEAHAT_DMG_EFF_ATTACK),
+        /* Explosive     */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Boomerang     */ DMG_ENTRY(0, PEAHAT_DMG_EFF_BOOMERANG),
+        /* Normal arrow  */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Hammer swing  */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Hookshot      */ DMG_ENTRY(2, PEAHAT_DMG_EFF_HOOKSHOT),
+        /* Kokiri sword  */ DMG_ENTRY(1, PEAHAT_DMG_EFF_ATTACK),
+        /* Master sword  */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Giant's Knife */ DMG_ENTRY(4, PEAHAT_DMG_EFF_ATTACK),
+        /* Fire arrow    */ DMG_ENTRY(4, PEAHAT_DMG_EFF_FIRE),
+        /* Ice arrow     */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Light arrow   */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Unk arrow 1   */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Unk arrow 2   */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Unk arrow 3   */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Fire magic    */ DMG_ENTRY(3, PEAHAT_DMG_EFF_FIRE),
+        /* Ice magic     */ DMG_ENTRY(0, PEAHAT_DMG_EFF_LIGHT_ICE_ARROW),
+        /* Light magic   */ DMG_ENTRY(0, PEAHAT_DMG_EFF_LIGHT_ICE_ARROW),
+        /* Shield        */ DMG_ENTRY(0, PEAHAT_DMG_EFF_ATTACK),
+        /* Mirror Ray    */ DMG_ENTRY(0, PEAHAT_DMG_EFF_ATTACK),
+        /* Kokiri spin   */ DMG_ENTRY(1, PEAHAT_DMG_EFF_ATTACK),
+        /* Giant spin    */ DMG_ENTRY(4, PEAHAT_DMG_EFF_ATTACK),
+        /* Master spin   */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Kokiri jump   */ DMG_ENTRY(2, PEAHAT_DMG_EFF_ATTACK),
+        /* Giant jump    */ DMG_ENTRY(8, PEAHAT_DMG_EFF_ATTACK),
+        /* Master jump   */ DMG_ENTRY(4, PEAHAT_DMG_EFF_ATTACK),
+        /* Unknown 1     */ DMG_ENTRY(0, PEAHAT_DMG_EFF_ATTACK),
+        /* Unblockable   */ DMG_ENTRY(0, PEAHAT_DMG_EFF_ATTACK),
+        /* Hammer jump   */ DMG_ENTRY(4, PEAHAT_DMG_EFF_ATTACK),
+        /* Unknown 2     */ DMG_ENTRY(0, PEAHAT_DMG_EFF_ATTACK),
+    };
+
 }

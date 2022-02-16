@@ -12,6 +12,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnShopnuts_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnShopnuts_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnShopnuts_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnShopnuts_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -34,6 +35,7 @@ ActorInit En_Shopnuts_InitVars = {
     (ActorFunc)EnShopnuts_Destroy,
     (ActorFunc)EnShopnuts_Update,
     (ActorFunc)EnShopnuts_Draw,
+    (ActorFunc)EnShopnuts_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -312,4 +314,42 @@ void EnShopnuts_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnShopnuts_OverrideLimbDraw, EnShopnuts_PostLimbDraw, pthis);
+}
+
+void EnShopnuts_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Shopnuts_InitVars = {
+        ACTOR_EN_SHOPNUTS,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_SHOPNUTS,
+        sizeof(EnShopnuts),
+        (ActorFunc)EnShopnuts_Init,
+        (ActorFunc)EnShopnuts_Destroy,
+        (ActorFunc)EnShopnuts_Update,
+        (ActorFunc)EnShopnuts_Draw,
+        (ActorFunc)EnShopnuts_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 40, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 1, 20, 40, 0xFE };
+
 }

@@ -17,14 +17,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_27)
 
-typedef enum {
-    /* 0 */ CHU_GIRL_EYES_ASLEEP,
-    /* 1 */ CHU_GIRL_EYES_OPEN_SLOWLY,
-    /* 2 */ CHU_GIRL_EYES_BLINK_RAPIDLY,
-    /* 3 */ CHU_GIRL_EYES_AWAKE
-} BombchuGirlEyeMode;
 
 void EnBomBowlMan_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBomBowlMan_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBomBowlMan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBomBowlMan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBomBowlMan_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -55,6 +50,7 @@ ActorInit En_Bom_Bowl_Man_InitVars = {
     (ActorFunc)EnBomBowlMan_Destroy,
     (ActorFunc)EnBomBowlMan_Update,
     (ActorFunc)EnBomBowlMan_Draw,
+    (ActorFunc)EnBomBowlMan_Reset,
 };
 
 void EnBomBowlMan_Init(Actor* thisx, GlobalContext* globalCtx2) {
@@ -544,4 +540,20 @@ void EnBomBowlMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnBomBowlMan_OverrideLimbDraw, NULL, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_bowl_man.c", 923);
+}
+
+void EnBomBowlMan_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bom_Bowl_Man_InitVars = {
+        ACTOR_EN_BOM_BOWL_MAN,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_BG,
+        sizeof(EnBomBowlMan),
+        (ActorFunc)EnBomBowlMan_Init,
+        (ActorFunc)EnBomBowlMan_Destroy,
+        (ActorFunc)EnBomBowlMan_Update,
+        (ActorFunc)EnBomBowlMan_Draw,
+        (ActorFunc)EnBomBowlMan_Reset,
+    };
+
 }

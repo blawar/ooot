@@ -19,6 +19,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnClearTag_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnClearTag_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnClearTag_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -45,6 +46,7 @@ ActorInit En_Clear_Tag_InitVars = {
     (ActorFunc)EnClearTag_Destroy,
     (ActorFunc)EnClearTag_Update,
     (ActorFunc)EnClearTag_Draw,
+    (ActorFunc)EnClearTag_Reset,
 };
 
 static u8 sIsEffectsInitialized = false;
@@ -1036,4 +1038,68 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(gfxCtx, "../z_en_clear_tag.c", 1477);
+}
+
+void EnClearTag_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Clear_Tag_InitVars = {
+        ACTOR_EN_CLEAR_TAG,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnClearTag),
+        (ActorFunc)EnClearTag_Init,
+        (ActorFunc)EnClearTag_Destroy,
+        (ActorFunc)EnClearTag_Update,
+        (ActorFunc)EnClearTag_Draw,
+        (ActorFunc)EnClearTag_Reset,
+    };
+
+    sIsEffectsInitialized = false;
+
+    sZeroVector = { 0.0f, 0.0f, 0.0f };
+
+    sArwingCylinderInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0xFFDFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 15, 30, 10, { 0, 0, 0 } },
+    };
+
+    sLaserCylinderInit = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x04 },
+            { 0xFFDFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 15, 30, 10, { 0, 0, 0 } },
+    };
+
+    D_809D5C98 = 0;
+
+    D_809D5C9C = 0;
+
 }

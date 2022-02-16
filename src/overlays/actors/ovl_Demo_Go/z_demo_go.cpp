@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void DemoGo_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoGo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoGo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoGo_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoGo_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -56,6 +57,7 @@ ActorInit Demo_Go_InitVars = {
     (ActorFunc)DemoGo_Destroy,
     (ActorFunc)DemoGo_Update,
     (ActorFunc)DemoGo_Draw,
+    (ActorFunc)DemoGo_Reset,
 };
 
 s32 func_8097C870(DemoGo* pthis) {
@@ -359,4 +361,20 @@ void DemoGo_Draw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     D_8097D468[pthis->drawConfig](pthis, globalCtx);
+}
+
+void DemoGo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Go_InitVars = {
+        ACTOR_DEMO_GO,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_OF1D_MAP,
+        sizeof(DemoGo),
+        (ActorFunc)DemoGo_Init,
+        (ActorFunc)DemoGo_Destroy,
+        (ActorFunc)DemoGo_Update,
+        (ActorFunc)DemoGo_Draw,
+        (ActorFunc)DemoGo_Reset,
+    };
+
 }

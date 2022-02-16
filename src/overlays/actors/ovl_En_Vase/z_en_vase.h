@@ -1,4 +1,4 @@
-#ifndef Z_EN_VASE_H
+#pragma once
 #define Z_EN_VASE_H
 
 #include "ultra64.h"
@@ -6,8 +6,10 @@
 
 struct EnVase;
 
-typedef struct EnVase {
-    /* 0x0000 */ Actor actor;
-} EnVase; // size = 0x014C
 
-#endif
+struct EnVase {
+
+    /* 0x0000 */ Actor actor;
+}; 
+
+

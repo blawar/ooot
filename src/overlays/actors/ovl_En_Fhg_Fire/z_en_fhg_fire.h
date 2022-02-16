@@ -1,4 +1,4 @@
-#ifndef Z_EN_FHG_FIRE_H
+#pragma once
 #define Z_EN_FHG_FIRE_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnFhgFire;
 
 typedef void (*EnFhgFireUpdateFunc)(struct EnFhgFire*, GlobalContext*);
 
-typedef enum {
+enum FhgFireParam {
     /*   1 */ FHGFIRE_LIGHTNING_STRIKE = 1,
     /*  35 */ FHGFIRE_LIGHTNING_SHOCK = 35,
     /*  36 */ FHGFIRE_LIGHTNING_BURST,
@@ -18,15 +18,15 @@ typedef enum {
     /*  41 */ FHGFIRE_WARP_DEATH,
     /*  50 */ FHGFIRE_ENERGY_BALL = 50,
     /* 100 */ FHGFIRE_LIGHTNING_TRAIL = 100
-} FhgFireParam;
+};
 
-typedef enum {
+enum FhgLightMode {
     /* 0 */ FHGFIRE_LIGHT_GREEN,
     /* 1 */ FHGFIRE_LIGHT_BLUE,
     /* 2 */ FHGFIRE_LIGHT_REFLECT
-} FhgLightMode;
+};
 
-typedef enum {
+enum FhgFireS16Var {
     /*  0 */ FHGFIRE_TIMER,
     /*  1 */ FHGFIRE_FX_TIMER,
     /*  2 */ FHGFIRE_US_2,
@@ -35,9 +35,9 @@ typedef enum {
     /*  5 */ FHGFIRE_RETURN_COUNT,
     /*  6 */ FHGFIRE_KILL_TIMER,
     /*  7 */ FHGFIRE_SHORT_COUNT
-} FhgFireS16Var;
+};
 
-typedef enum {
+enum FhgFireF32Var {
     /*  0 */ FHGFIRE_ALPHA,
     /*  1 */ FHGFIRE_UF_1,
     /*  2 */ FHGFIRE_UF_2,
@@ -51,9 +51,30 @@ typedef enum {
     /* 10 */ FHGFIRE_WARP_ALPHA,
     /* 11 */ FHGFIRE_BURST_SCALE,
     /* 15 */ FHGFIRE_FLOAT_COUNT = 15
-} FhgFireF32Var;
+};
 
-typedef struct EnFhgFire {
+
+enum StrikeMode {
+    /*  0 */ STRIKE_INIT,
+    /* 10 */ STRIKE_BURST = 10,
+    /* 11 */ STRIKE_TRAILS
+};
+
+
+enum TrailMode {
+    /* 0 */ TRAIL_INIT,
+    /* 1 */ TRAIL_APPEAR,
+    /* 2 */ TRAIL_DISSIPATE
+};
+
+
+enum BallKillMode {
+    /* 0 */ BALL_FIZZLE,
+    /* 1 */ BALL_BURST,
+    /* 2 */ BALL_IMPACT
+};
+struct EnFhgFire {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnFhgFireUpdateFunc updateFunc;
     /* 0x0150 */ s16 work[FHGFIRE_SHORT_COUNT];
@@ -64,6 +85,6 @@ typedef struct EnFhgFire {
     /* 0x01FC */ u8 lensFlareOn;
     /* 0x01FE */ s16 lensFlareTimer;
     /* 0x0200 */ f32 lensFlareScale;
-} EnFhgFire; // size = 0x0204
+}; 
 
-#endif
+

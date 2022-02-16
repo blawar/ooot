@@ -19,6 +19,7 @@
 #define FLAGS 0
 
 void BgHidanHrock_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanHrock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanHrock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanHrock_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanHrock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Bg_Hidan_Hrock_InitVars = {
     (ActorFunc)BgHidanHrock_Destroy,
     (ActorFunc)BgHidanHrock_Update,
     (ActorFunc)BgHidanHrock_Draw,
+    (ActorFunc)BgHidanHrock_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -245,4 +247,33 @@ void BgHidanHrock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     };
 
     Gfx_DrawDListOpa(globalCtx, dlists[thisx->params]);
+}
+
+void BgHidanHrock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Hrock_InitVars = {
+        ACTOR_BG_HIDAN_HROCK,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanHrock),
+        (ActorFunc)BgHidanHrock_Init,
+        (ActorFunc)BgHidanHrock_Destroy,
+        (ActorFunc)BgHidanHrock_Update,
+        (ActorFunc)BgHidanHrock_Draw,
+        (ActorFunc)BgHidanHrock_Reset,
+    };
+
+    sTrisInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_TRIS,
+        },
+        2,
+        sTrisElementsInit,
+    };
+
 }

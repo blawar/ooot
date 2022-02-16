@@ -1,4 +1,4 @@
-#ifndef Z_EFF_DUST_H
+#pragma once
 #define Z_EFF_DUST_H
 
 #include "ultra64.h"
@@ -9,7 +9,9 @@ struct EffDust;
 typedef void (*EffDustActionFunc)(EffDust*, GlobalContext*);
 typedef void (*EffDustDrawFunc)(Actor*, GlobalContext*);
 
+
 struct EffDust {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ f32 distanceTraveled[64]; // For each particle. Normalized. From 0.0f to 1.0f
     /* 0x024C */ Vec3f initialPositions[64]; // Array of position for each dust particle.
@@ -21,7 +23,7 @@ struct EffDust {
     /* 0x055C */ f32 scalingFactor;
     /* 0x0560 */ EffDustActionFunc actionFunc;
     /* 0x0564 */ EffDustDrawFunc drawFunc;
-}; // size = 0x0568
+}; 
 
 enum EffDustType
 {
@@ -32,4 +34,4 @@ enum EffDustType
     /* 0x04 */ EFF_DUST_TYPE_4
 };
 
-#endif
+

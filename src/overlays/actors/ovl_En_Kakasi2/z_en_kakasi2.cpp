@@ -40,6 +40,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 void EnKakasi2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnKakasi2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnKakasi2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKakasi2_Update(Actor* thisx, GlobalContext* globalCtx);
 void func_80A90948(Actor* thisx, GlobalContext* globalCtx);
@@ -60,6 +61,7 @@ ActorInit En_Kakasi2_InitVars = {
     (ActorFunc)EnKakasi2_Destroy,
     (ActorFunc)EnKakasi2_Update,
     NULL,
+    (ActorFunc)EnKakasi2_Reset,
 };
 
 void EnKakasi2_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -231,4 +233,40 @@ void func_80A90948(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, pthis);
+}
+
+void EnKakasi2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON | BUMP_HOOKABLE,
+            OCELEM_ON,
+        },
+        { 20, 70, 0, { 0, 0, 0 } },
+    };
+
+    En_Kakasi2_InitVars = {
+        ACTOR_EN_KAKASI2,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_KA,
+        sizeof(EnKakasi2),
+        (ActorFunc)EnKakasi2_Init,
+        (ActorFunc)EnKakasi2_Destroy,
+        (ActorFunc)EnKakasi2_Update,
+        NULL,
+        (ActorFunc)EnKakasi2_Reset,
+    };
+
 }

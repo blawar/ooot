@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnExItem_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnExItem_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnExItem_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnExItem_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnExItem_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -52,6 +53,7 @@ ActorInit En_Ex_Item_InitVars = {
     (ActorFunc)EnExItem_Destroy,
     (ActorFunc)EnExItem_Update,
     (ActorFunc)EnExItem_Draw,
+    (ActorFunc)EnExItem_Reset,
 };
 
 void EnExItem_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -526,4 +528,20 @@ void EnExItem_DrawRupee(EnExItem* pthis, GlobalContext* globalCtx) {
         pthis->unk_180(&pthis->actor, globalCtx, 0);
     }
     GetItem_Draw(globalCtx, pthis->giDrawId);
+}
+
+void EnExItem_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ex_Item_InitVars = {
+        ACTOR_EN_EX_ITEM,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnExItem),
+        (ActorFunc)EnExItem_Init,
+        (ActorFunc)EnExItem_Destroy,
+        (ActorFunc)EnExItem_Update,
+        (ActorFunc)EnExItem_Draw,
+        (ActorFunc)EnExItem_Reset,
+    };
+
 }

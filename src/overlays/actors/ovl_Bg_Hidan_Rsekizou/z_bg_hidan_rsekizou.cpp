@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void BgHidanRsekizou_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHidanRsekizou_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHidanRsekizou_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanRsekizou_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanRsekizou_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit Bg_Hidan_Rsekizou_InitVars = {
     (ActorFunc)BgHidanRsekizou_Destroy,
     (ActorFunc)BgHidanRsekizou_Update,
     (ActorFunc)BgHidanRsekizou_Draw,
+    (ActorFunc)BgHidanRsekizou_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[6] = {
@@ -266,4 +268,33 @@ void BgHidanRsekizou_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_rsekizou.c", 600);
+}
+
+void BgHidanRsekizou_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Hidan_Rsekizou_InitVars = {
+        ACTOR_BG_HIDAN_RSEKIZOU,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HIDAN_OBJECTS,
+        sizeof(BgHidanRsekizou),
+        (ActorFunc)BgHidanRsekizou_Init,
+        (ActorFunc)BgHidanRsekizou_Destroy,
+        (ActorFunc)BgHidanRsekizou_Update,
+        (ActorFunc)BgHidanRsekizou_Draw,
+        (ActorFunc)BgHidanRsekizou_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        6,
+        sJntSphElementsInit,
+    };
+
 }

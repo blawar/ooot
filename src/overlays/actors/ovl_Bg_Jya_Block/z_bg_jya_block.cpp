@@ -18,6 +18,7 @@
 #define FLAGS 0
 
 void BgJyaBlock_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaBlock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaBlock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBlock_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBlock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -32,6 +33,7 @@ ActorInit Bg_Jya_Block_InitVars = {
     (ActorFunc)BgJyaBlock_Destroy,
     (ActorFunc)BgJyaBlock_Update,
     (ActorFunc)BgJyaBlock_Draw,
+    (ActorFunc)BgJyaBlock_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -82,4 +84,20 @@ void BgJyaBlock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gPushBlockDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_block.c", 158);
+}
+
+void BgJyaBlock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Block_InitVars = {
+        ACTOR_BG_JYA_BLOCK,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(BgJyaBlock),
+        (ActorFunc)BgJyaBlock_Init,
+        (ActorFunc)BgJyaBlock_Destroy,
+        (ActorFunc)BgJyaBlock_Update,
+        (ActorFunc)BgJyaBlock_Draw,
+        (ActorFunc)BgJyaBlock_Reset,
+    };
+
 }

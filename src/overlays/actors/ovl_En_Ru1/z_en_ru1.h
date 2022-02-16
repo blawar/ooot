@@ -1,4 +1,4 @@
-#ifndef Z_EN_RU1_H
+#pragma once
 #define Z_EN_RU1_H
 
 #include "ultra64.h"
@@ -13,7 +13,9 @@ typedef void (*EnRu1ActionFunc)(struct EnRu1*, GlobalContext*);
 typedef void (*EnRu1DrawFunc)(struct EnRu1*, GlobalContext*);
 typedef void (*EnRu1PreLimbDrawFunc)(struct EnRu1*, GlobalContext*, s32, Vec3s*);
 
-typedef struct EnRu1 {
+
+struct EnRu1 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[17];
@@ -55,9 +57,9 @@ typedef struct EnRu1 {
     /* 0x0364 */ Vec3f unk_364;
     /* 0x0370 */ f32 unk_370;
     /* 0x0374 */ struct_80034A14_arg1 unk_374;
-} EnRu1; // size = 0x039C
+}; 
 
-typedef enum {
+enum RutoLimb {
     /* 0 */ RUTO_CHILD_ROOT,
     /* 1 */ RUTO_CHILD_LEFT_THIGH,
     /* 2 */ RUTO_CHILD_LEFT_SHIN,
@@ -74,6 +76,6 @@ typedef enum {
     /* 13 */ RUTO_CHILD_RIGHT_HAND,
     /* 14 */ RUTO_CHILD_HEAD,
     /* 15 */ RUTO_CHILD_TORSO
-} RutoLimb;
+};
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_BG_SPOT15_RRBOX_H
+#pragma once
 #define Z_BG_SPOT15_RRBOX_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct BgSpot15Rrbox;
 
 typedef void (*BgSpot15RrboxActionFunc)(struct BgSpot15Rrbox*, GlobalContext*);
 
-typedef struct BgSpot15Rrbox {
+
+struct BgSpot15Rrbox {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgSpot15RrboxActionFunc actionFunc;
     /* 0x0168 */ s16 unk_168; 
@@ -18,6 +20,6 @@ typedef struct BgSpot15Rrbox {
     /* 0x0178 */ f32 unk_178;
     /* 0x017C */ f32 unk_17C;
     /* 0x0180 */ s32 bgId; // Id of BgActor beneath the box
-} BgSpot15Rrbox; // size = 0x0184
+}; 
 
-#endif
+

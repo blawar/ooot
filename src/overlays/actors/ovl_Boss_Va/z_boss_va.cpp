@@ -44,95 +44,9 @@
 #define PHASE_4 15
 #define PHASE_DEATH 18
 
-typedef struct BossVaEffect {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ Vec3f velocity;
-    /* 0x18 */ Vec3f accel;
-    /* 0x24 */ u8 type;
-    /* 0x26 */ u16 timer;
-    /* 0x28 */ s16 mode;
-    /* 0x2A */ Vec3s rot;
-    /* 0x30 */ s16 primColor[4];
-    /* 0x38 */ s16 envColor[4];
-    /* 0x40 */ f32 scale;
-    /* 0x44 */ f32 scaleMod;
-    /* 0x48 */ Vec3f offset;
-    /* 0x54 */ struct BossVa* parent;
-} BossVaEffect; // size = 0x58
-
-typedef enum {
-    /* 0 */ VA_NONE,
-    /* 1 */ VA_LARGE_SPARK,
-    /* 2 */ VA_BLAST_SPARK,
-    /* 3 */ VA_SMALL_SPARK,
-    /* 4 */ VA_SPARK_BALL,
-    /* 5 */ VA_ZAP_CHARGE,
-    /* 6 */ VA_BLOOD,
-    /* 7 */ VA_TUMOR,
-    /* 8 */ VA_GORE
-} BossVaEffectType;
-
-typedef enum {
-    /* 1 */ SPARK_TETHER = 1,
-    /* 2 */ SPARK_BARI,
-    /* 3 */ SPARK_BLAST,
-    /* 4 */ SPARK_UNUSED,
-    /* 5 */ SPARK_BODY,
-    /* 6 */ SPARK_LINK
-} BossVaSparkMode;
-
-typedef enum {
-    /* 0 */ BLOOD_DROPLET,
-    /* 1 */ BLOOD_SPLATTER,
-    /* 2 */ BLOOD_SPOT
-} BossVaBloodMode;
-
-typedef enum {
-    /* 0 */ TUMOR_UNUSED,
-    /* 1 */ TUMOR_BODY,
-    /* 2 */ TUMOR_ARM
-} BossVaTumorMode;
-
-typedef enum {
-    /* 0 */ GORE_PERMANENT,
-    /* 1 */ GORE_FLOOR,
-    /* 2 */ GORE_FADING
-} BossVaGoreMode;
-
-typedef enum {
-    /* -5 */ INTRO_UNUSED_START = -5,
-    /* -4 */ INTRO_START,
-    /* -3 */ INTRO_LOOK_DOOR,
-    /* -2 */ INTRO_CLOSE_DOOR,
-    /* -1 */ INTRO_DOOR_SHUT,
-    /*  0 */ INTRO_CRACKLE,
-    /*  1 */ INTRO_SPAWN_BARI,
-    /*  2 */ INTRO_LOOK_BARI,
-    /*  3 */ INTRO_REVERSE_CAMERA,
-    /*  4 */ INTRO_SUPPORT_CAMERA,
-    /*  5 */ INTRO_BODY_SOUND,
-    /*  6 */ INTRO_LOOK_SUPPORT,
-    /*  7 */ INTRO_UNUSED_CALL_BARI,
-    /*  8 */ INTRO_CALL_BARI,
-    /*  9 */ INTRO_ATTACH_BARI,
-    /* 10 */ INTRO_TITLE,
-    /* 11 */ INTRO_BRIGHTEN,
-    /* 12 */ INTRO_FINISH,
-    /* 13 */ BOSSVA_BATTLE,
-    /* 14 */ DEATH_START,
-    /* 15 */ DEATH_BODY_TUMORS,
-    /* 16 */ DEATH_ZAPPER_1,
-    /* 17 */ DEATH_ZAPPER_2,
-    /* 18 */ DEATH_ZAPPER_3,
-    /* 19 */ DEATH_SHELL_BURST,
-    /* 20 */ DEATH_CORE_TUMORS,
-    /* 21 */ DEATH_CORE_DEAD,
-    /* 22 */ DEATH_CORE_BURST,
-    /* 23 */ DEATH_MUSIC,
-    /* 24 */ DEATH_FINISH
-} BossVaCutscene;
 
 void BossVa_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossVa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossVa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossVa_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossVa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -219,6 +133,7 @@ ActorInit Boss_Va_InitVars = {
     (ActorFunc)BossVa_Destroy,
     (ActorFunc)BossVa_Update,
     (ActorFunc)BossVa_Draw,
+    (ActorFunc)BossVa_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -4029,4 +3944,94 @@ void BossVa_DrawDoor(GlobalContext* globalCtx, s16 scale) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_va.c", 5629);
+}
+
+void BossVa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Va_InitVars = {
+        ACTOR_BOSS_VA,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_BV,
+        sizeof(BossVa),
+        (ActorFunc)BossVa_Init,
+        (ActorFunc)BossVa_Destroy,
+        (ActorFunc)BossVa_Update,
+        (ActorFunc)BossVa_Draw,
+        (ActorFunc)BossVa_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFEF, 0x03, 0x08 },
+            { 0x00000010, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 85, 120, 0, { 0, 0, 0 } },
+    };
+
+    sJntSphInitSupport = {
+        {
+            COLTYPE_HIT6,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphElementsInitSupport),
+        sJntSphElementsInitSupport,
+    };
+
+    sJntSphInitBari = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        ARRAY_COUNT(sJntSphElementsInitBari),
+        sJntSphElementsInitBari,
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_METAL,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_NONE,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x20000000, 0x03, 0x04 },
+            { 0x00000010, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL | TOUCH_UNK7,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
+    sKillBari = 0;
+
+    sCsCamera = 0;
+
+    sUnkValue = 0x009B0000;
+
 }

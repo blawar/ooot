@@ -24,6 +24,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgHakaHuta_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgHakaHuta_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgHakaHuta_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaHuta_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaHuta_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit Bg_Haka_Huta_InitVars = {
     (ActorFunc)BgHakaHuta_Destroy,
     (ActorFunc)BgHakaHuta_Update,
     (ActorFunc)BgHakaHuta_Draw,
+    (ActorFunc)BgHakaHuta_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -226,4 +228,20 @@ void BgHakaHuta_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgHakaHuta_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gBotwCoffinLidDL);
+}
+
+void BgHakaHuta_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_Huta_InitVars = {
+        ACTOR_BG_HAKA_HUTA,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_HAKACH_OBJECTS,
+        sizeof(BgHakaHuta),
+        (ActorFunc)BgHakaHuta_Init,
+        (ActorFunc)BgHakaHuta_Destroy,
+        (ActorFunc)BgHakaHuta_Update,
+        (ActorFunc)BgHakaHuta_Draw,
+        (ActorFunc)BgHakaHuta_Reset,
+    };
+
 }

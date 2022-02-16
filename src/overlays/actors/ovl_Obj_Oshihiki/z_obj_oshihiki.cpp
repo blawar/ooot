@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ObjOshihiki_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjOshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjOshihiki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjOshihiki_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjOshihiki_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Obj_Oshihiki_InitVars = {
     (ActorFunc)ObjOshihiki_Destroy,
     (ActorFunc)ObjOshihiki_Update,
     (ActorFunc)ObjOshihiki_Draw,
+    (ActorFunc)ObjOshihiki_Reset,
 };
 
 static f32 sScales[] = {
@@ -691,4 +693,20 @@ void ObjOshihiki_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPDisplayList(POLY_OPA_DISP++, gPushBlockDL);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_oshihiki.c", 1334);
+}
+
+void ObjOshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Oshihiki_InitVars = {
+        ACTOR_OBJ_OSHIHIKI,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_DANGEON_KEEP,
+        sizeof(ObjOshihiki),
+        (ActorFunc)ObjOshihiki_Init,
+        (ActorFunc)ObjOshihiki_Destroy,
+        (ActorFunc)ObjOshihiki_Update,
+        (ActorFunc)ObjOshihiki_Draw,
+        (ActorFunc)ObjOshihiki_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_HORSE_H
+#pragma once
 #define Z_EN_HORSE_H
 
 #include "ultra64.h"
@@ -6,7 +6,7 @@
 #include "z64math.h"
 #include "z64actor.h"
 
-typedef enum {
+enum EnHorseAction {
     /* 0  */ ENHORSE_ACT_FROZEN,
     /* 1  */ ENHORSE_ACT_INACTIVE,
     /* 2  */ ENHORSE_ACT_IDLE,
@@ -27,7 +27,7 @@ typedef enum {
     /* 17 */ ENHORSE_ACT_CS_UPDATE,
     /* 18 */ ENHORSE_ACT_HBA,
     /* 19 */ ENHORSE_ACT_FLEE_PLAYER
-} EnHorseAction;
+};
 
 
 #define ENHORSE_BOOST                      (1 << 0)   /*         0x1 */
@@ -65,16 +65,16 @@ typedef enum {
 
 struct EnHorse;
 
-typedef enum {
+enum EnHorsePlayerDir {
     /* 0 */ PLAYER_DIR_FRONT_R,
     /* 1 */ PLAYER_DIR_FRONT_L,
     /* 2 */ PLAYER_DIR_BACK_R,
     /* 3 */ PLAYER_DIR_BACK_L,
     /* 4 */ PLAYER_DIR_SIDE_R,
     /* 5 */ PLAYER_DIR_SIDE_L
-} EnHorsePlayerDir;
+};
 
-typedef enum {
+enum EnHorseAnimationIndex {
     /* 0 */ ENHORSE_ANIM_IDLE,
     /* 1 */ ENHORSE_ANIM_WHINNEY,
     /* 2 */ ENHORSE_ANIM_STOPPING,
@@ -84,16 +84,60 @@ typedef enum {
     /* 6 */ ENHORSE_ANIM_GALLOP,
     /* 7 */ ENHORSE_ANIM_LOW_JUMP,
     /* 8 */ ENHORSE_ANIM_HIGH_JUMP
-} EnHorseAnimationIndex;
+};
 
-typedef enum {
+enum HorseType {
     /* 0 */ HORSE_EPONA,
     /* 1 */ HORSE_HNI
-} HorseType;
+};
 
 typedef void (*EnHorsePostdrawFunc)(struct EnHorse*, struct GlobalContext*);
 
-typedef struct EnHorse {
+typedef 
+
+struct EnHorseSpawnpoint {
+    s16 scene;
+    Vec3s pos;
+    s16 angle;
+};
+
+
+struct BridgeJumpPoint {
+    s16 zMin;
+    s16 zMax;
+
+    s16 xMin;
+    s16 xMax;
+    s16 xOffset;
+
+    s16 angle;
+    s16 angleRange;
+
+    Vec3s pos;
+};
+
+
+struct RaceWaypoint {
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 speed;
+    s16 angle;
+};
+
+
+struct RaceInfo {
+    s32 numWaypoints;
+    RaceWaypoint* waypoints;
+};
+
+
+struct CsActionEntry {
+    s32 csAction;
+    s32 csFuncIdx;
+};
+struct EnHorse {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnHorseAction action;
     /* 0x0150 */ s32 noInputTimer;
@@ -162,7 +206,7 @@ typedef struct EnHorse {
     /* 0x03D8 */ Vec3f frontLeftHoof;
     /* 0x03E4 */ Vec3f backRightHoof;
     /* 0x03F0 */ Vec3f backLeftHoof;
-} EnHorse; // size = 0x03FC
+}; 
 
 #define EN_HORSE_CHECK_1(horseActor) \
     (((horseActor)->stateFlags & ENHORSE_FLAG_6)  \
@@ -190,4 +234,4 @@ typedef struct EnHorse {
         ? true                       \
         : false)
 
-#endif
+

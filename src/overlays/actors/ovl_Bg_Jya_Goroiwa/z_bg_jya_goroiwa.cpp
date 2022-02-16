@@ -18,6 +18,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void BgJyaGoroiwa_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaGoroiwa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Jya_Goroiwa_InitVars = {
     (ActorFunc)BgJyaGoroiwa_Destroy,
     (ActorFunc)BgJyaGoroiwa_Update,
     (ActorFunc)BgJyaGoroiwa_Draw,
+    (ActorFunc)BgJyaGoroiwa_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -225,4 +227,35 @@ void BgJyaGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgJyaGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, gRollingRockDL);
+}
+
+void BgJyaGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Goroiwa_InitVars = {
+        ACTOR_BG_JYA_GOROIWA,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GOROIWA,
+        sizeof(BgJyaGoroiwa),
+        (ActorFunc)BgJyaGoroiwa_Init,
+        (ActorFunc)BgJyaGoroiwa_Destroy,
+        (ActorFunc)BgJyaGoroiwa_Update,
+        (ActorFunc)BgJyaGoroiwa_Draw,
+        (ActorFunc)BgJyaGoroiwa_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 1, 15, 0, MASS_HEAVY };
+
 }

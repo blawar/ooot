@@ -21,22 +21,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
-typedef enum {
-    /* 0 */ RM2_ANIM_RUN,
-    /* 1 */ RM2_ANIM_SIT,
-    /* 2 */ RM2_ANIM_SIT_WAIT,
-    /* 3 */ RM2_ANIM_STAND,
-    /* 4 */ RM2_ANIM_SPRINT,
-    /* 5 */ RM2_ANIM_EXCITED, // plays when talking to him with bunny hood on
-    /* 6 */ RM2_ANIM_HAPPY    // plays when you sell him the bunny hood
-} RunningManAnimIndex;
-
-typedef enum {
-    /* 0 */ RM2_MOUTH_CLOSED,
-    /* 1 */ RM2_MOUTH_OPEN
-} RunningManMouthTex;
 
 void EnMm2_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnMm2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnMm2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMm2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMm2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -56,6 +43,7 @@ ActorInit En_Mm2_InitVars = {
     (ActorFunc)EnMm2_Destroy,
     (ActorFunc)EnMm2_Update,
     (ActorFunc)EnMm2_Draw,
+    (ActorFunc)EnMm2_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -76,14 +64,7 @@ static ColliderCylinderInit sCylinderInit = {
         OCELEM_ON,
     },
     { 18, 63, 0, { 0, 0, 0 } },
-};
-
-typedef struct {
-    /* 0x00 */ AnimationHeader* animation;
-    /* 0x04 */ f32 playSpeed;
-    /* 0x08 */ u8 mode;
-    /* 0x0C */ f32 morphFrames;
-} EnMm2AnimEntry; // size = 0x10
+}; 
 
 static EnMm2AnimEntry sAnimationEntries[] = {
     { &gRunningManRunAnim, 1.0f, ANIMMODE_LOOP, -7.0f },     { &gRunningManSitStandAnim, -1.0f, ANIMMODE_ONCE, -7.0f },
@@ -362,4 +343,40 @@ void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
     if (limbIndex == 15) {
         Matrix_MultVec3f(&headOffset, &pthis->actor.focus.pos);
     }
+}
+
+void EnMm2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Mm2_InitVars = {
+        ACTOR_EN_MM2,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_MM,
+        sizeof(EnMm2),
+        (ActorFunc)EnMm2_Init,
+        (ActorFunc)EnMm2_Destroy,
+        (ActorFunc)EnMm2_Update,
+        (ActorFunc)EnMm2_Draw,
+        (ActorFunc)EnMm2_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000004, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 18, 63, 0, { 0, 0, 0 } },
+    };
+
 }

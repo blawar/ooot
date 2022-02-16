@@ -1,4 +1,4 @@
-#ifndef Z_EN_TP_H
+#pragma once
 #define Z_EN_TP_H
 
 #include "ultra64.h"
@@ -8,7 +8,27 @@ struct EnTp;
 
 typedef void (*EnTpActionFunc)(struct EnTp*, GlobalContext*);
 
-typedef struct EnTp {
+
+
+enum TailpasaranAction {
+    /* 0 */ TAILPASARAN_ACTION_FRAGMENT_FADE,
+    /* 1 */ TAILPASARAN_ACTION_DIE,
+    /* 2 */ TAILPASARAN_ACTION_TAIL_FOLLOWHEAD,
+    /* 4 */ TAILPASARAN_ACTION_HEAD_WAIT = 4,
+    /* 7 */ TAILPASARAN_ACTION_HEAD_APPROACHPLAYER = 7,
+    /* 8 */ TAILPASARAN_ACTION_HEAD_TAKEOFF,
+    /* 9 */ TAILPASARAN_ACTION_HEAD_BURROWRETURNHOME
+};
+
+
+enum TailpasaranDamageEffect {
+    /* 00 */ TAILPASARAN_DMGEFF_NONE,
+    /* 01 */ TAILPASARAN_DMGEFF_DEKUNUT,
+    /* 14 */ TAILPASARAN_DMGEFF_SHOCKING = 14, // Kills the Tailpasaran but shocks Player
+    /* 15 */ TAILPASARAN_DMGEFF_INSULATING     // Kills the Tailpasaran and does not shock Player
+};
+struct EnTp {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 actionIndex;
     /* 0x0150 */ s32 unk_150; // Some kind of state indicator
@@ -26,14 +46,14 @@ typedef struct EnTp {
     /* 0x0174 */ ColliderJntSph collider;
     /* 0x0194 */ ColliderJntSphElement colliderItems[1];
     /* 0x01D4 */ struct EnTp* head;
-} EnTp; // size = 0x01D8
+}; 
 
-typedef enum {
+enum EnTpType {
     /* -1 */ TAILPASARAN_HEAD = -1, // Used when scenes spawn them: code only cares about < 0
     /*  0 */ TAILPASARAN_TAIL,
     /* 10 */ TAILPASARAN_FRAGMENT = 10,
     /* 11 */ TAILPASARAN_TAIL_DYING,
     /* 12 */ TAILPASARAN_HEAD_DYING
-} EnTpType;
+};
 
-#endif
+

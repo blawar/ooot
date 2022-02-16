@@ -1,4 +1,4 @@
-#ifndef Z_EN_NIW_LADY_H
+#pragma once
 #define Z_EN_NIW_LADY_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnNiwLady;
 
 typedef void (*EnNiwLadyActionFunc)(struct EnNiwLady*, GlobalContext*);
 
-typedef struct EnNiwLady {
+
+struct EnNiwLady {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -40,6 +42,6 @@ typedef struct EnNiwLady {
     /* 0x0284 */ s32 getItemId;
     /* 0x0288 */ struct_80034A14_arg1 unk_288;
     /* 0x02B0 */ ColliderCylinder collider;
-} EnNiwLady; // size = 0x02FC
+}; 
 
-#endif
+

@@ -1,4 +1,4 @@
-#ifndef Z_MAGIC_WIND_H
+#pragma once
 #define Z_MAGIC_WIND_H
 
 #include "ultra64.h"
@@ -8,11 +8,13 @@ struct MagicWind;
 
 typedef void (*MagicWindFunc)(MagicWind* pthis, GlobalContext* globalCtx);
 
-typedef struct MagicWind {
+
+struct MagicWind {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnimeCurve skelCurve;
     /* 0x016C */ s16 timer;
     /* 0x0170 */ MagicWindFunc actionFunc;
-} MagicWind; // size = 0x0174
+}; 
 
-#endif
+

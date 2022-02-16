@@ -21,6 +21,7 @@
 #define FLAGS 0
 
 void BgSpot08Iceblock_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot08Iceblock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot08Iceblock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot08Iceblock_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot08Iceblock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Spot08_Iceblock_InitVars = {
     (ActorFunc)BgSpot08Iceblock_Destroy,
     (ActorFunc)BgSpot08Iceblock_Update,
     (ActorFunc)BgSpot08Iceblock_Draw,
+    (ActorFunc)BgSpot08Iceblock_Reset,
 };
 
 void BgSpot08Iceblock_SetupAction(BgSpot08Iceblock* pthis, BgSpot08IceblockActionFunc actionFunc) {
@@ -454,4 +456,24 @@ void BgSpot08Iceblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     Gfx_DrawDListOpa(globalCtx, dList);
+}
+
+void BgSpot08Iceblock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot08_Iceblock_InitVars = {
+        ACTOR_BG_SPOT08_ICEBLOCK,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT08_OBJ,
+        sizeof(BgSpot08Iceblock),
+        (ActorFunc)BgSpot08Iceblock_Init,
+        (ActorFunc)BgSpot08Iceblock_Destroy,
+        (ActorFunc)BgSpot08Iceblock_Update,
+        (ActorFunc)BgSpot08Iceblock_Draw,
+        (ActorFunc)BgSpot08Iceblock_Reset,
+    };
+
+    sVerticalVector = { 0.0f, 1.0f, 0.0f };
+
+    sZeroVector = { 0.0f, 0.0f, 0.0f };
+
 }

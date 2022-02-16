@@ -16,6 +16,7 @@
 #define FLAGS 0
 
 void EnBird_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBird_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBird_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBird_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBird_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit En_Bird_InitVars = {
     (ActorFunc)EnBird_Destroy,
     (ActorFunc)EnBird_Update,
     (ActorFunc)EnBird_Draw,
+    (ActorFunc)EnBird_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -135,4 +137,20 @@ void EnBird_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnBird* pthis = (EnBird*)thisx;
 
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, NULL);
+}
+
+void EnBird_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Bird_InitVars = {
+        ACTOR_EN_BIRD,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_BIRD,
+        sizeof(EnBird),
+        (ActorFunc)EnBird_Init,
+        (ActorFunc)EnBird_Destroy,
+        (ActorFunc)EnBird_Update,
+        (ActorFunc)EnBird_Draw,
+        (ActorFunc)EnBird_Reset,
+    };
+
 }

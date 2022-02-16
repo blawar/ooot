@@ -1,4 +1,4 @@
-#ifndef Z_EN_BB_H
+#pragma once
 #define Z_EN_BB_H
 
 #include "ultra64.h"
@@ -8,7 +8,47 @@ struct EnBb;
 
 typedef void (*EnBbActionFunc)(struct EnBb*, GlobalContext*);
 
-typedef struct EnBb {
+
+enum EnBbAction {
+    /* 0 */ BB_DAMAGE,
+    /* 1 */ BB_KILL,
+    /* 2 */ BB_FLAME_TRAIL,
+    /* 3 */ BB_DOWN,
+    /* 4 */ BB_STUNNED,
+    /* 5 */ BB_UNUSED,
+    /* 6 */ BB_BLUE,
+    /* 7 */ BB_RED,
+    /* 8 */ BB_WHITE,
+    /* 9 */ BB_GREEN
+};
+
+
+enum EnBbMoveMode {
+    /* 0 */ BBMOVE_NORMAL,
+    /* 1 */ BBMOVE_NOCLIP,
+    /* 2 */ BBMOVE_HIDDEN
+};
+
+
+enum EnBbBlueActionState {
+    /* 0 */ BBBLUE_NORMAL,
+    /* 1 */ BBBLUE_AGGRO
+};
+
+
+enum EnBbRedActionState {
+    /* 0 */ BBRED_WAIT,
+    /* 1 */ BBRED_ATTACK,
+    /* 2 */ BBRED_HIDE
+};
+
+
+enum EnBbGreenActionState {
+    /* 0 */ BBGREEN_FLAME_ON,
+    /* 1 */ BBGREEN_FLAME_OFF
+};
+struct EnBb {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ Vec3s jointTable[16];
@@ -44,9 +84,9 @@ typedef struct EnBb {
     /* 0x02CC */ ColliderJntSphElement elements[1];
     /* 0x030C */ BodyBreak bodyBreak;
     /* 0x0324 */ Actor* targetActor;
-} EnBb; // size = 0x0328
+}; 
 
-typedef enum {
+enum EnBbType {
     ENBB_GREEN_BIG = -5,
     ENBB_GREEN,
     ENBB_WHITE,
@@ -54,6 +94,6 @@ typedef enum {
     ENBB_BLUE,
     ENBB_FLAME_TRAIL,
     ENBB_KILL_TRAIL = 11
-} EnBbType;
+};
 
-#endif
+

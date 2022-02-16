@@ -17,6 +17,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnCrow_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnCrow_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnCrow_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnCrow_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnCrow_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -41,6 +42,7 @@ ActorInit En_Crow_InitVars = {
     (ActorFunc)EnCrow_Destroy,
     (ActorFunc)EnCrow_Update,
     (ActorFunc)EnCrow_Draw,
+    (ActorFunc)EnCrow_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -519,4 +521,76 @@ void EnCrow_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnCrow_OverrideLimbDraw, EnCrow_PostLimbDraw, pthis);
+}
+
+void EnCrow_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sZeroVecAccel = { 0.0f, 0.0f, 0.0f };
+
+    En_Crow_InitVars = {
+        ACTOR_EN_CROW,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_CROW,
+        sizeof(EnCrow),
+        (ActorFunc)EnCrow_Init,
+        (ActorFunc)EnCrow_Destroy,
+        (ActorFunc)EnCrow_Update,
+        (ActorFunc)EnCrow_Draw,
+        (ActorFunc)EnCrow_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_HIT3,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_JNTSPH,
+        },
+        1,
+        sJntSphElementsInit,
+    };
+
+    sColChkInfoInit = { 1, 15, 30, 30 };
+
+    sDamageTable = {
+        /* Deku nut      */ DMG_ENTRY(0, 0x1),
+        /* Deku stick    */ DMG_ENTRY(2, 0x0),
+        /* Slingshot     */ DMG_ENTRY(1, 0x0),
+        /* Explosive     */ DMG_ENTRY(2, 0x0),
+        /* Boomerang     */ DMG_ENTRY(1, 0x0),
+        /* Normal arrow  */ DMG_ENTRY(2, 0x0),
+        /* Hammer swing  */ DMG_ENTRY(2, 0x0),
+        /* Hookshot      */ DMG_ENTRY(2, 0x0),
+        /* Kokiri sword  */ DMG_ENTRY(1, 0x0),
+        /* Master sword  */ DMG_ENTRY(2, 0x0),
+        /* Giant's Knife */ DMG_ENTRY(4, 0x0),
+        /* Fire arrow    */ DMG_ENTRY(4, 0x2),
+        /* Ice arrow     */ DMG_ENTRY(2, 0x3),
+        /* Light arrow   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 1   */ DMG_ENTRY(4, 0x0),
+        /* Unk arrow 2   */ DMG_ENTRY(2, 0x0),
+        /* Unk arrow 3   */ DMG_ENTRY(2, 0x0),
+        /* Fire magic    */ DMG_ENTRY(4, 0x2),
+        /* Ice magic     */ DMG_ENTRY(0, 0x0),
+        /* Light magic   */ DMG_ENTRY(0, 0x0),
+        /* Shield        */ DMG_ENTRY(0, 0x0),
+        /* Mirror Ray    */ DMG_ENTRY(0, 0x0),
+        /* Kokiri spin   */ DMG_ENTRY(1, 0x0),
+        /* Giant spin    */ DMG_ENTRY(4, 0x0),
+        /* Master spin   */ DMG_ENTRY(2, 0x0),
+        /* Kokiri jump   */ DMG_ENTRY(2, 0x0),
+        /* Giant jump    */ DMG_ENTRY(8, 0x0),
+        /* Master jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 1     */ DMG_ENTRY(0, 0x0),
+        /* Unblockable   */ DMG_ENTRY(0, 0x0),
+        /* Hammer jump   */ DMG_ENTRY(4, 0x0),
+        /* Unknown 2     */ DMG_ENTRY(0, 0x0),
+    };
+
+    sDeathCount = 0;
+
+    sHeadVec = { 2500.0f, 0.0f, 0.0f };
+
 }

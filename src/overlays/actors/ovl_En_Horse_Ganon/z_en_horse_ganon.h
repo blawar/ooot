@@ -1,4 +1,4 @@
-#ifndef Z_EN_HORSE_GANON_H
+#pragma once
 #define Z_EN_HORSE_GANON_H
 
 #include "ultra64.h"
@@ -8,7 +8,13 @@ struct EnHorseGanon;
 
 typedef void (*EnHorseGanonActionFunc)(struct EnHorseGanon*, GlobalContext*);
 
-typedef struct EnHorseGanon {
+
+struct unk_D_80A69248 {
+    /* 0x0 */ Vec3s unk_0;
+    /* 0x6 */ u8 unk_6;
+};
+struct EnHorseGanon {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s32 action;
     /* 0x0150 */ s32 currentAnimation;
@@ -22,6 +28,6 @@ typedef struct EnHorseGanon {
     /* 0x01FC */ ColliderCylinder colliderBody;
     /* 0x0248 */ ColliderJntSph colliderHead;
     /* 0x0268 */ ColliderJntSphElement headElements[1];
-} EnHorseGanon; // size = 0x02A8
+}; 
 
-#endif
+

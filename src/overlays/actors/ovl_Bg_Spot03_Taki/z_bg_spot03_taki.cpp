@@ -20,6 +20,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BgSpot03Taki_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot03Taki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot03Taki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot03Taki_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot03Taki_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Spot03_Taki_InitVars = {
     (ActorFunc)BgSpot03Taki_Destroy,
     (ActorFunc)BgSpot03Taki_Update,
     (ActorFunc)BgSpot03Taki_Draw,
+    (ActorFunc)BgSpot03Taki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -165,4 +167,20 @@ void BgSpot03Taki_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Audio_PlaySoundWaterfall(&pthis->dyna.actor.projectedPos, 1.0f);
     }
+}
+
+void BgSpot03Taki_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot03_Taki_InitVars = {
+        ACTOR_BG_SPOT03_TAKI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT03_OBJECT,
+        sizeof(BgSpot03Taki),
+        (ActorFunc)BgSpot03Taki_Init,
+        (ActorFunc)BgSpot03Taki_Destroy,
+        (ActorFunc)BgSpot03Taki_Update,
+        (ActorFunc)BgSpot03Taki_Draw,
+        (ActorFunc)BgSpot03Taki_Reset,
+    };
+
 }

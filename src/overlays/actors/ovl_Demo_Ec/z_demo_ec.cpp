@@ -48,68 +48,10 @@
 #define FLAGS ACTOR_FLAG_4
 
 void DemoEc_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoEc_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoEc_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoEc_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoEc_Draw(Actor* thisx, GlobalContext* globalCtx);
-
-typedef enum {
-    /* 00 */ EC_UPDATE_COMMON,
-    /* 01 */ EC_UPDATE_INGO,
-    /* 02 */ EC_UPDATE_TALON,
-    /* 03 */ EC_UPDATE_WINDMILL_MAN,
-    /* 04 */ EC_UPDATE_KOKIRI_BOY,
-    /* 05 */ EC_UPDATE_KOKIRI_GIRL,
-    /* 06 */ EC_UPDATE_OLD_MAN,
-    /* 07 */ EC_UPDATE_BEARDED_MAN,
-    /* 08 */ EC_UPDATE_WOMAN,
-    /* 09 */ EC_UPDATE_OLD_WOMAN,
-    /* 10 */ EC_UPDATE_BOSS_CARPENTER,
-    /* 11 */ EC_UPDATE_CARPENTER,
-    /* 12 */ EC_UPDATE_DANCING_KOKIRI_BOY,
-    /* 13 */ EC_UPDATE_DANCING_KOKIRI_GIRL,
-    /* 14 */ EC_UPDATE_GERUDO,
-    /* 15 */ EC_UPDATE_DANCING_ZORA,
-    /* 16 */ EC_UPDATE_KING_ZORA,
-    /* 17 */ EC_UPDATE_17,
-    /* 18 */ EC_UPDATE_18,
-    /* 19 */ EC_UPDATE_MIDO,
-    /* 20 */ EC_UPDATE_20,
-    /* 21 */ EC_UPDATE_CUCCO,
-    /* 22 */ EC_UPDATE_CUCCO_LADY,
-    /* 23 */ EC_UPDATE_POTION_SHOP_OWNER,
-    /* 24 */ EC_UPDATE_MASK_SHOP_OWNER,
-    /* 25 */ EC_UPDATE_FISHING_MAN,
-    /* 26 */ EC_UPDATE_BOMBCHU_SHOP_OWNER,
-    /* 27 */ EC_UPDATE_GORON,
-    /* 28 */ EC_UPDATE_MALON
-} DemoEcUpdateMode;
-
-typedef enum {
-    /* 00 */ EC_DRAW_COMMON,
-    /* 01 */ EC_DRAW_INGO,
-    /* 02 */ EC_DRAW_TALON,
-    /* 03 */ EC_DRAW_WINDMILL_MAN,
-    /* 04 */ EC_DRAW_KOKIRI_BOY,
-    /* 05 */ EC_DRAW_KOKIRI_GIRL,
-    /* 06 */ EC_DRAW_OLD_MAN,
-    /* 07 */ EC_DRAW_BEARDED_MAN,
-    /* 08 */ EC_DRAW_WOMAN,
-    /* 09 */ EC_DRAW_OLD_WOMAN,
-    /* 10 */ EC_DRAW_BOSS_CARPENTER,
-    /* 11 */ EC_DRAW_CARPENTER,
-    /* 12 */ EC_DRAW_GERUDO,
-    /* 13 */ EC_DRAW_DANCING_ZORA,
-    /* 14 */ EC_DRAW_KING_ZORA,
-    /* 15 */ EC_DRAW_MIDO,
-    /* 16 */ EC_DRAW_CUCCO,
-    /* 17 */ EC_DRAW_CUCCO_LADY,
-    /* 18 */ EC_DRAW_POTION_SHOP_OWNER,
-    /* 19 */ EC_DRAW_MASK_SHOP_OWNER,
-    /* 20 */ EC_DRAW_FISHING_MAN,
-    /* 21 */ EC_DRAW_BOMBCHU_SHOP_OWNER,
-    /* 22 */ EC_DRAW_GORON,
-    /* 23 */ EC_DRAW_MALON
-} DemoEcDrawconfig;
 
 static s16 sDrawObjects[] = {
     /*  0 */ OBJECT_IN,
@@ -1349,4 +1291,21 @@ ActorInit Demo_Ec_InitVars = {
     (ActorFunc)DemoEc_Destroy,
     (ActorFunc)DemoEc_Update,
     (ActorFunc)DemoEc_Draw,
+    (ActorFunc)DemoEc_Reset,
 };
+
+void DemoEc_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Ec_InitVars = {
+        ACTOR_DEMO_EC,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_EC,
+        sizeof(DemoEc),
+        (ActorFunc)DemoEc_Init,
+        (ActorFunc)DemoEc_Destroy,
+        (ActorFunc)DemoEc_Update,
+        (ActorFunc)DemoEc_Draw,
+        (ActorFunc)DemoEc_Reset,
+    };
+
+}

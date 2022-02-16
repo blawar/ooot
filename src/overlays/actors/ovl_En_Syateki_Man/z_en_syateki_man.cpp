@@ -17,22 +17,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
-typedef enum {
-    /* 0 */ SYATEKI_RESULT_NONE,
-    /* 1 */ SYATEKI_RESULT_WINNER,
-    /* 2 */ SYATEKI_RESULT_ALMOST,
-    /* 3 */ SYATEKI_RESULT_FAILURE,
-    /* 4 */ SYATEKI_RESULT_REFUSE
-} EnSyatekiManGameResult;
-
-typedef enum {
-    /* 0 */ SYATEKI_TEXT_CHOICE,
-    /* 1 */ SYATEKI_TEXT_START_GAME,
-    /* 2 */ SYATEKI_TEXT_NO_RUPEES,
-    /* 3 */ SYATEKI_TEXT_REFUSE
-} EnSyatekiManTextIdx;
 
 void EnSyatekiMan_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnSyatekiMan_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnSyatekiMan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiMan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiMan_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -64,6 +51,7 @@ ActorInit En_Syateki_Man_InitVars = {
     (ActorFunc)EnSyatekiMan_Destroy,
     (ActorFunc)EnSyatekiMan_Update,
     (ActorFunc)EnSyatekiMan_Draw,
+    (ActorFunc)EnSyatekiMan_Reset,
 };
 
 static u16 sBgmList[] = {
@@ -520,4 +508,20 @@ void EnSyatekiMan_SetBgm(void) {
         BREG(80) = false;
         Audio_QueueSeqCmd(sBgmList[BREG(81)]);
     }
+}
+
+void EnSyatekiMan_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Syateki_Man_InitVars = {
+        ACTOR_EN_SYATEKI_MAN,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_OSSAN,
+        sizeof(EnSyatekiMan),
+        (ActorFunc)EnSyatekiMan_Init,
+        (ActorFunc)EnSyatekiMan_Destroy,
+        (ActorFunc)EnSyatekiMan_Update,
+        (ActorFunc)EnSyatekiMan_Draw,
+        (ActorFunc)EnSyatekiMan_Reset,
+    };
+
 }

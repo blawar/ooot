@@ -75,14 +75,7 @@ extern Gfx gCullFrontDList[];
 #include "def/z_skelanime.h"
 #include "def/z_skin_matrix.h"
 #include "def/z_std_dma.h"
-
-typedef struct {
-    /* 0x00 */ u8 itemId;
-    /* 0x01 */ u8 field; // various bit-packed data
-    /* 0x02 */ s8 gi;    // defines the draw id and chest opening animation
-    /* 0x03 */ u8 textId;
-    /* 0x04 */ u16 objectId;
-} GetItemEntry; // size = 0x06
+ 
 
 #define GET_ITEM(itemId, objectId, drawId, textId, field, chestAnim) \
     { itemId, field, (chestAnim != 0 ? 1 : -1) * (drawId + 1), textId, objectId }
@@ -92,95 +85,7 @@ typedef struct {
 
 #define GET_ITEM_NONE \
     { ITEM_NONE, 0, 0, 0, 0 }
-
-typedef enum {
-    /* 0x00 */ KNOB_ANIM_ADULT_L,
-    /* 0x01 */ KNOB_ANIM_CHILD_L,
-    /* 0x02 */ KNOB_ANIM_ADULT_R,
-    /* 0x03 */ KNOB_ANIM_CHILD_R
-} KnobDoorAnim;
-
-typedef struct {
-    /* 0x00 */ u8 itemId;
-    /* 0x02 */ s16 actorId;
-} ExplosiveInfo; // size = 0x04
-
-typedef struct {
-    /* 0x00 */ s16 actorId;
-    /* 0x02 */ u8 itemId;
-    /* 0x03 */ u8 actionParam;
-    /* 0x04 */ u8 textId;
-} BottleCatchInfo; // size = 0x06
-
-typedef struct {
-    /* 0x00 */ s16 actorId;
-    /* 0x02 */ s16 actorParams;
-} BottleDropInfo; // size = 0x04
-
-typedef struct {
-    /* 0x00 */ s8 damage;
-    /* 0x01 */ u8 unk_01;
-    /* 0x02 */ u8 unk_02;
-    /* 0x03 */ u8 unk_03;
-    /* 0x04 */ u16 sfxId;
-} FallImpactInfo; // size = 0x06
-
-typedef struct {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ s16 yaw;
-} SpecialRespawnInfo; // size = 0x10
-
-typedef struct {
-    /* 0x00 */ u16 sfxId;
-    /* 0x02 */ s16 field;
-} struct_80832924; // size = 0x04
-
-typedef struct {
-    /* 0x00 */ u16 unk_00;
-    /* 0x02 */ s16 unk_02;
-} struct_808551A4; // size = 0x04
-
-typedef struct {
-    /* 0x00 */ LinkAnimationHeader* anim;
-    /* 0x04 */ u8 unk_04;
-} struct_808540F4; // size = 0x08
-
-typedef struct {
-    /* 0x00 */ LinkAnimationHeader* unk_00;
-    /* 0x04 */ LinkAnimationHeader* unk_04;
-    /* 0x08 */ u8 unk_08;
-    /* 0x09 */ u8 unk_09;
-} struct_80854554; // size = 0x0C
-
-typedef struct {
-    /* 0x00 */ LinkAnimationHeader* unk_00;
-    /* 0x04 */ LinkAnimationHeader* unk_04;
-    /* 0x08 */ LinkAnimationHeader* unk_08;
-    /* 0x0C */ u8 unk_0C;
-    /* 0x0D */ u8 unk_0D;
-} struct_80854190; // size = 0x10
-
-typedef struct {
-    /* 0x00 */ LinkAnimationHeader* anim;
-    /* 0x04 */ f32 unk_04;
-    /* 0x04 */ f32 unk_08;
-} struct_80854578; // size = 0x0C
-
-struct struct_80854B18 {
-    /* 0x00 */ s8 type;
-    /* 0x04 */ union {
-        void* ptr;
-        void (*func)(GlobalContext*, Player*, CsCmdActorAction*);
-    };
-}; // size = 0x08
-
-typedef struct {
-    /* 0x00 */ s16 unk_00;
-    /* 0x02 */ s16 unk_02;
-    /* 0x04 */ s16 unk_04;
-    /* 0x06 */ s16 unk_06;
-    /* 0x08 */ s16 unk_08;
-} struct_80858AC8; // size = 0x0A
+ 
 
 void func_80833770(GlobalContext* globalCtx, Player* pthis);
 void func_80833790(GlobalContext* globalCtx, Player* pthis);

@@ -22,6 +22,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnMa3_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnMa3_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnMa3_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMa3_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMa3_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit En_Ma3_InitVars = {
     (ActorFunc)EnMa3_Destroy,
     (ActorFunc)EnMa3_Update,
     (ActorFunc)EnMa3_Draw,
+    (ActorFunc)EnMa3_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -375,4 +377,42 @@ void EnMa3_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnMa3_OverrideLimbDraw, EnMa3_PostLimbDraw, pthis);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma3.c", 1013);
+}
+
+void EnMa3_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Ma3_InitVars = {
+        ACTOR_EN_MA3,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_MA2,
+        sizeof(EnMa3),
+        (ActorFunc)EnMa3_Init,
+        (ActorFunc)EnMa3_Destroy,
+        (ActorFunc)EnMa3_Update,
+        (ActorFunc)EnMa3_Draw,
+        (ActorFunc)EnMa3_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 18, 46, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
 }

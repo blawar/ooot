@@ -20,6 +20,7 @@
 #define FLAGS 0
 
 void BgGateShutter_Init(Actor* pthisx, GlobalContext* globalCtx);
+void BgGateShutter_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgGateShutter_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void BgGateShutter_Update(Actor* pthisx, GlobalContext* globalCtx);
 void BgGateShutter_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -39,6 +40,7 @@ ActorInit Bg_Gate_Shutter_InitVars = {
     (ActorFunc)BgGateShutter_Destroy,
     (ActorFunc)BgGateShutter_Update,
     (ActorFunc)BgGateShutter_Draw,
+    (ActorFunc)BgGateShutter_Reset,
 };
 
 void BgGateShutter_Init(Actor* pthisx, GlobalContext* globalCtx) {
@@ -141,4 +143,20 @@ void BgGateShutter_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_OPA_DISP++, gKakarikoGuardGateDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gate_shutter.c", 333);
+}
+
+void BgGateShutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Gate_Shutter_InitVars = {
+        ACTOR_BG_GATE_SHUTTER,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_SPOT01_MATOYAB,
+        sizeof(BgGateShutter),
+        (ActorFunc)BgGateShutter_Init,
+        (ActorFunc)BgGateShutter_Destroy,
+        (ActorFunc)BgGateShutter_Update,
+        (ActorFunc)BgGateShutter_Draw,
+        (ActorFunc)BgGateShutter_Reset,
+    };
+
 }

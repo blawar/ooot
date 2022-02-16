@@ -23,13 +23,9 @@
 
 #define FLAGS 0
 
-typedef enum {
-    /* 0 */ DNT_LIKE,
-    /* 1 */ DNT_HATE,
-    /* 2 */ DNT_LOVE
-} EnDntDemoResults;
 
 void EnDntDemo_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDntDemo_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnDntDemo_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDntDemo_Update(Actor* pthis, GlobalContext* globalCtx);
 
@@ -47,6 +43,7 @@ ActorInit En_Dnt_Demo_InitVars = {
     (ActorFunc)EnDntDemo_Destroy,
     (ActorFunc)EnDntDemo_Update,
     NULL,
+    (ActorFunc)EnDntDemo_Reset,
 };
 
 //! @bug
@@ -333,4 +330,20 @@ void EnDntDemo_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->unkTimer1--;
     }
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void EnDntDemo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Dnt_Demo_InitVars = {
+        ACTOR_EN_DNT_DEMO,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnDntDemo),
+        (ActorFunc)EnDntDemo_Init,
+        (ActorFunc)EnDntDemo_Destroy,
+        (ActorFunc)EnDntDemo_Update,
+        NULL,
+        (ActorFunc)EnDntDemo_Reset,
+    };
+
 }

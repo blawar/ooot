@@ -23,6 +23,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnVbBall_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnVbBall_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnVbBall_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnVbBall_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Vb_Ball_InitVars = {
     (ActorFunc)EnVbBall_Destroy,
     (ActorFunc)EnVbBall_Update,
     (ActorFunc)EnVbBall_Draw,
+    (ActorFunc)EnVbBall_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -333,4 +335,40 @@ void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 632);
+}
+
+void EnVbBall_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Vb_Ball_InitVars = {
+        0,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_FD,
+        sizeof(EnVbBall),
+        (ActorFunc)EnVbBall_Init,
+        (ActorFunc)EnVbBall_Destroy,
+        (ActorFunc)EnVbBall_Update,
+        (ActorFunc)EnVbBall_Draw,
+        (ActorFunc)EnVbBall_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK6,
+            { 0x00100700, 0x00, 0x20 },
+            { 0x00100700, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NORMAL,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 20, 30, 10, { 0, 0, 0 } },
+    };
+
 }

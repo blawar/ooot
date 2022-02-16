@@ -19,13 +19,9 @@
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
-typedef enum {
-    /* 0 */ GNDICE_IDLE,
-    /* 1 */ GNDICE_FALL,
-    /* 2 */ GNDICE_HOLE
-} BgGndIceblockAction;
 
 void BgGndIceblock_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgGndIceblock_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgGndIceblock_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgGndIceblock_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgGndIceblock_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +39,7 @@ ActorInit Bg_Gnd_Iceblock_InitVars = {
     (ActorFunc)BgGndIceblock_Destroy,
     (ActorFunc)BgGndIceblock_Update,
     (ActorFunc)BgGndIceblock_Draw,
+    (ActorFunc)BgGndIceblock_Reset,
 };
 
 static Color_RGBA8 sWhite = { 250, 250, 250, 255 };
@@ -365,4 +362,26 @@ void BgGndIceblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgGndIceblock* pthis = (BgGndIceblock*)thisx;
 
     Gfx_DrawDListOpa(globalCtx, gWaterTrialIceBlockDL);
+}
+
+void BgGndIceblock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Gnd_Iceblock_InitVars = {
+        ACTOR_BG_GND_ICEBLOCK,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_DEMO_KEKKAI,
+        sizeof(BgGndIceblock),
+        (ActorFunc)BgGndIceblock_Init,
+        (ActorFunc)BgGndIceblock_Destroy,
+        (ActorFunc)BgGndIceblock_Update,
+        (ActorFunc)BgGndIceblock_Draw,
+        (ActorFunc)BgGndIceblock_Reset,
+    };
+
+    sWhite = { 250, 250, 250, 255 };
+
+    sGray = { 180, 180, 180, 255 };
+
+    sZeroVec = { 0.0f, 0.0f, 0.0f };
+
 }

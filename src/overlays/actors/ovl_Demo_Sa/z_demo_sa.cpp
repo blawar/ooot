@@ -22,6 +22,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void DemoSa_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoSa_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoSa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoSa_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoSa_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -51,22 +52,6 @@ void func_8098FD0C(DemoSa* pthis, GlobalContext* globalCtx);
 void DemoSa_DrawNothing(DemoSa* pthis, GlobalContext* globalCtx);
 void DemoSa_DrawOpa(DemoSa* pthis, GlobalContext* globalCtx);
 void DemoSa_DrawXlu(DemoSa* pthis, GlobalContext* globalCtx);
-
-typedef enum {
-    /* 0 */ SARIA_EYE_OPEN,
-    /* 1 */ SARIA_EYE_HALF,
-    /* 2 */ SARIA_EYE_CLOSED,
-    /* 3 */ SARIA_EYE_SUPRISED,
-    /* 4 */ SARIA_EYE_SAD
-} SariaEyeState;
-
-typedef enum {
-    /* 0 */ SARIA_MOUTH_CLOSED2,
-    /* 1 */ SARIA_MOUTH_SUPRISED,
-    /* 2 */ SARIA_MOUTH_CLOSED,
-    /* 3 */ SARIA_MOUTH_SMILING_OPEN,
-    /* 4 */ SARIA_MOUTH_FROWNING
-} SariaMouthState;
 
 static void* sEyeTextures[] = {
     gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
@@ -103,6 +88,7 @@ ActorInit Demo_Sa_InitVars = {
     (ActorFunc)DemoSa_Destroy,
     (ActorFunc)DemoSa_Update,
     (ActorFunc)DemoSa_Draw,
+    (ActorFunc)DemoSa_Reset,
 };
 
 void DemoSa_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -833,4 +819,22 @@ void DemoSa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     sDrawFuncs[pthis->drawConfig](pthis, globalCtx);
+}
+
+void DemoSa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80990108 = 0;
+
+    Demo_Sa_InitVars = {
+        ACTOR_DEMO_SA,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_SA,
+        sizeof(DemoSa),
+        (ActorFunc)DemoSa_Init,
+        (ActorFunc)DemoSa_Destroy,
+        (ActorFunc)DemoSa_Update,
+        (ActorFunc)DemoSa_Draw,
+        (ActorFunc)DemoSa_Reset,
+    };
+
 }

@@ -15,12 +15,8 @@
 
 typedef void (*ObjMure2SetPosFunc)(Vec3f* vec, ObjMure2* pthis);
 
-typedef struct {
-    s16 radius;
-    s16 angle;
-} Mure2sScatteredShrubInfo;
-
 void ObjMure2_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjMure2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjMure2_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void ObjMure2_SetPosShrubCircle(Vec3f* vec, ObjMure2* pthis);
@@ -43,6 +39,7 @@ ActorInit Obj_Mure2_InitVars = {
     (ActorFunc)Actor_Noop,
     (ActorFunc)ObjMure2_Update,
     NULL,
+    (ActorFunc)ObjMure2_Reset,
 };
 
 static f32 sDistSquared1[] = { SQ(1600.0f), SQ(1600.0f), SQ(1600.0f) };
@@ -224,4 +221,20 @@ void ObjMure2_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->unk_184 = 4.0f;
     }
     pthis->actionFunc(pthis, globalCtx);
+}
+
+void ObjMure2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Mure2_InitVars = {
+        ACTOR_OBJ_MURE2,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjMure2),
+        (ActorFunc)ObjMure2_Init,
+        (ActorFunc)Actor_Noop,
+        (ActorFunc)ObjMure2_Update,
+        NULL,
+        (ActorFunc)ObjMure2_Reset,
+    };
+
 }

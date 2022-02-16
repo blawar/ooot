@@ -25,6 +25,7 @@
 typedef void (*BgJyaIronobjIkFunc)(BgJyaIronobj*, GlobalContext*, EnIk*);
 
 void BgJyaIronobj_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgJyaIronobj_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgJyaIronobj_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaIronobj_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaIronobj_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -46,6 +47,7 @@ ActorInit Bg_Jya_Ironobj_InitVars = {
     (ActorFunc)BgJyaIronobj_Destroy,
     (ActorFunc)BgJyaIronobj_Update,
     (ActorFunc)BgJyaIronobj_Draw,
+    (ActorFunc)BgJyaIronobj_Reset,
 };
 
 static Gfx* sOpaDL[] = { gPillarDL, gThroneDL };
@@ -284,4 +286,42 @@ void BgJyaIronobj_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void BgJyaIronobj_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Gfx_DrawDListOpa(globalCtx, sOpaDL[thisx->params & 1]);
+}
+
+void BgJyaIronobj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sUnused = 0;
+
+    Bg_Jya_Ironobj_InitVars = {
+        ACTOR_BG_JYA_IRONOBJ,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_JYA_IRON,
+        sizeof(BgJyaIronobj),
+        (ActorFunc)BgJyaIronobj_Init,
+        (ActorFunc)BgJyaIronobj_Destroy,
+        (ActorFunc)BgJyaIronobj_Update,
+        (ActorFunc)BgJyaIronobj_Draw,
+        (ActorFunc)BgJyaIronobj_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_ENEMY,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 30, 150, 0, { 0, 0, 0 } },
+    };
+
 }

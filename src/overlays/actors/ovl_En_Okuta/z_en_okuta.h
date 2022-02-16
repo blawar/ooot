@@ -1,4 +1,4 @@
-#ifndef Z_EN_OKUTA_H
+#pragma once
 #define Z_EN_OKUTA_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnOkuta;
 
 typedef void (*EnOkutaActionFunc)(struct EnOkuta*, GlobalContext*);
 
-typedef struct EnOkuta {
+
+struct EnOkuta {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnOkutaActionFunc actionFunc;
@@ -19,6 +21,6 @@ typedef struct EnOkuta {
     /* 0x0360 */ f32 jumpHeight;
     /* 0x0364 */ Vec3f headScale;
     /* 0x0370 */ ColliderCylinder collider;
-} EnOkuta; // size = 0x03BC
+}; 
 
-#endif
+

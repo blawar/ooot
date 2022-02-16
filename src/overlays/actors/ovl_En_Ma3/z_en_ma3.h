@@ -1,4 +1,4 @@
-#ifndef Z_EN_MA3_H
+#pragma once
 #define Z_EN_MA3_H
 
 #include "ultra64.h"
@@ -8,7 +8,7 @@ struct EnMa3;
 
 typedef void (*EnMa3ActionFunc)(struct EnMa3*, GlobalContext*);
 
-typedef enum {
+enum AdultMalonLimb {
     /* 0x00 */ MALON_ADULT_LIMB_NONE,
     /* 0x01 */ MALON_ADULT_LIMB_ROOT,
     /* 0x02 */ MALON_ADULT_LIMB_LOWER_CONTROL,
@@ -29,9 +29,11 @@ typedef enum {
     /* 0x11 */ MALON_ADULT_LIMB_RIGHT_HAND,
     /* 0x12 */ MALON_ADULT_LIMB_HEAD,
     /* 0x13 */ MALON_ADULT_LIMB_MAX
-} AdultMalonLimb;
+};
 
-typedef struct EnMa3 {
+
+struct EnMa3 {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnMa3ActionFunc actionFunc;
@@ -43,6 +45,6 @@ typedef struct EnMa3 {
     /* 0x020E */ s16 eyeIndex;
     /* 0x0210 */ s16 mouthIndex;
     /* 0x0212 */ Vec3s unk_212[MALON_ADULT_LIMB_MAX];
-} EnMa3; // size = 0x0284
+}; 
 
-#endif
+

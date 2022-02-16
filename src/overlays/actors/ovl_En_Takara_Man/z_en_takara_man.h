@@ -1,4 +1,4 @@
-#ifndef Z_EN_TAKARA_MAN_H
+#pragma once
 #define Z_EN_TAKARA_MAN_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnTakaraMan;
 
 typedef void (*EnTakaraManActionFunc)(struct EnTakaraMan*, GlobalContext*);
 
-typedef struct EnTakaraMan {
+
+struct EnTakaraMan {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnTakaraManActionFunc actionFunc;
     /* 0x0150 */ SkelAnime skelAnime;
@@ -26,6 +28,6 @@ typedef struct EnTakaraMan {
     /* 0x0220 */ Vec3f pos;
     /* 0x022C */ Vec3s unk_22C;
     /* 0x0232 */ Vec3s unk_232;
-} EnTakaraMan; // size = 0x0238
+}; 
 
-#endif
+

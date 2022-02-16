@@ -26,46 +26,9 @@
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
-typedef enum {
-    /* 0 */ ZL4_CS_WAIT,
-    /* 1 */ ZL4_CS_START,
-    /* 2 */ ZL4_CS_MEET,
-    /* 3 */ ZL4_CS_STONE,
-    /* 4 */ ZL4_CS_NAMES,
-    /* 5 */ ZL4_CS_LEGEND,
-    /* 6 */ ZL4_CS_WINDOW,
-    /* 7 */ ZL4_CS_GANON,
-    /* 8 */ ZL4_CS_PLAN
-} EnZl4CutsceneState;
-
-typedef enum {
-    /* 0 */ ZL4_EYES_NEUTRAL,
-    /* 1 */ ZL4_EYES_SHUT,
-    /* 2 */ ZL4_EYES_LOOK_LEFT,
-    /* 3 */ ZL4_EYES_LOOK_RIGHT,
-    /* 4 */ ZL4_EYES_WIDE,
-    /* 5 */ ZL4_EYES_SQUINT,
-    /* 6 */ ZL4_EYES_OPEN
-} EnZl4EyeExpression;
-
-typedef enum {
-    /* 0 */ ZL4_MOUTH_NEUTRAL,
-    /* 1 */ ZL4_MOUTH_HAPPY,
-    /* 2 */ ZL4_MOUTH_WORRIED,
-    /* 3 */ ZL4_MOUTH_SURPRISED
-} EnZl4MouthExpression;
-
-typedef enum {
-    /* 0 */ ZL4_EYE_OPEN,
-    /* 1 */ ZL4_EYE_BLINK,
-    /* 2 */ ZL4_EYE_SHUT,
-    /* 3 */ ZL4_EYE_WIDE,
-    /* 4 */ ZL4_EYE_SQUINT,
-    /* 5 */ ZL4_EYE_LOOK_OUT,
-    /* 6 */ ZL4_EYE_LOOK_IN
-} EnZl4EyeState;
 
 void EnZl4_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnZl4_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnZl4_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnZl4_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnZl4_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -84,6 +47,7 @@ ActorInit En_Zl4_InitVars = {
     (ActorFunc)EnZl4_Destroy,
     (ActorFunc)EnZl4_Update,
     (ActorFunc)EnZl4_Draw,
+    (ActorFunc)EnZl4_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -107,43 +71,6 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
-
-typedef enum {
-    /*  0 */ ZL4_ANIM_0,
-    /*  1 */ ZL4_ANIM_1,
-    /*  2 */ ZL4_ANIM_2,
-    /*  3 */ ZL4_ANIM_3,
-    /*  4 */ ZL4_ANIM_4,
-    /*  5 */ ZL4_ANIM_5,
-    /*  6 */ ZL4_ANIM_6,
-    /*  7 */ ZL4_ANIM_7,
-    /*  8 */ ZL4_ANIM_8,
-    /*  9 */ ZL4_ANIM_9,
-    /* 10 */ ZL4_ANIM_10,
-    /* 11 */ ZL4_ANIM_11,
-    /* 12 */ ZL4_ANIM_12,
-    /* 13 */ ZL4_ANIM_13,
-    /* 14 */ ZL4_ANIM_14,
-    /* 15 */ ZL4_ANIM_15,
-    /* 16 */ ZL4_ANIM_16,
-    /* 17 */ ZL4_ANIM_17,
-    /* 18 */ ZL4_ANIM_18,
-    /* 19 */ ZL4_ANIM_19,
-    /* 20 */ ZL4_ANIM_20,
-    /* 21 */ ZL4_ANIM_21,
-    /* 22 */ ZL4_ANIM_22,
-    /* 23 */ ZL4_ANIM_23,
-    /* 24 */ ZL4_ANIM_24,
-    /* 25 */ ZL4_ANIM_25,
-    /* 26 */ ZL4_ANIM_26,
-    /* 27 */ ZL4_ANIM_27,
-    /* 28 */ ZL4_ANIM_28,
-    /* 29 */ ZL4_ANIM_29,
-    /* 30 */ ZL4_ANIM_30,
-    /* 31 */ ZL4_ANIM_31,
-    /* 32 */ ZL4_ANIM_32,
-    /* 33 */ ZL4_ANIM_33
-} EnZl4Animation;
 
 static struct_80034EC0_Entry sAnimationEntries[] = {
     /*  0 */ /* standing idle */ { &gChildZeldaAnim_000654, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
@@ -1312,4 +1239,42 @@ void EnZl4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnZl4_OverrideLimbDraw, EnZl4_PostLimbDraw, pthis);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zl4.c", 2043);
+}
+
+void EnZl4_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Zl4_InitVars = {
+        ACTOR_EN_ZL4,
+        ACTORCAT_NPC,
+        FLAGS,
+        OBJECT_ZL4,
+        sizeof(EnZl4),
+        (ActorFunc)EnZl4_Init,
+        (ActorFunc)EnZl4_Destroy,
+        (ActorFunc)EnZl4_Update,
+        (ActorFunc)EnZl4_Draw,
+        (ActorFunc)EnZl4_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_NONE,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x00000000, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_NONE,
+            OCELEM_ON,
+        },
+        { 10, 44, 0, { 0, 0, 0 } },
+    };
+
+    sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
+
 }

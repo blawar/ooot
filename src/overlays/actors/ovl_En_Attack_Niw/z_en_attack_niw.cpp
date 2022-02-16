@@ -19,6 +19,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void EnAttackNiw_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnAttackNiw_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnAttackNiw_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnAttackNiw_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnAttackNiw_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Attack_Niw_InitVars = {
     (ActorFunc)EnAttackNiw_Destroy,
     (ActorFunc)EnAttackNiw_Update,
     (ActorFunc)EnAttackNiw_Draw,
+    (ActorFunc)EnAttackNiw_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -408,4 +410,20 @@ void EnAttackNiw_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           func_809B5F98, NULL, pthis);
+}
+
+void EnAttackNiw_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Attack_Niw_InitVars = {
+        ACTOR_EN_ATTACK_NIW,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_NIW,
+        sizeof(EnAttackNiw),
+        (ActorFunc)EnAttackNiw_Init,
+        (ActorFunc)EnAttackNiw_Destroy,
+        (ActorFunc)EnAttackNiw_Update,
+        (ActorFunc)EnAttackNiw_Draw,
+        (ActorFunc)EnAttackNiw_Reset,
+    };
+
 }

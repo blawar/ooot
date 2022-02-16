@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void ArmsHook_Init(Actor* pthisx, GlobalContext* globalCtx);
+void ArmsHook_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ArmsHook_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void ArmsHook_Update(Actor* pthisx, GlobalContext* globalCtx);
 void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -35,6 +36,7 @@ ActorInit Arms_Hook_InitVars = {
     (ActorFunc)ArmsHook_Destroy,
     (ActorFunc)ArmsHook_Update,
     (ActorFunc)ArmsHook_Draw,
+    (ActorFunc)ArmsHook_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -350,4 +352,56 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arms_hook.c", 913);
     }
+}
+
+void ArmsHook_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Arms_Hook_InitVars = {
+        ACTOR_ARMS_HOOK,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_LINK_BOY,
+        sizeof(ArmsHook),
+        (ActorFunc)ArmsHook_Init,
+        (ActorFunc)ArmsHook_Destroy,
+        (ActorFunc)ArmsHook_Update,
+        (ActorFunc)ArmsHook_Draw,
+        (ActorFunc)ArmsHook_Reset,
+    };
+
+    sQuadInit = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_PLAYER,
+            AC_NONE,
+            OC1_NONE,
+            OC2_TYPE_PLAYER,
+            COLSHAPE_QUAD,
+        },
+        {
+            ELEMTYPE_UNK2,
+            { 0x00000080, 0x00, 0x01 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_NEAREST | TOUCH_SFX_NORMAL,
+            BUMP_NONE,
+            OCELEM_NONE,
+        },
+        { { { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } } },
+    };
+
+    sUnusedVec1 = { 0.0f, 0.5f, 0.0f };
+
+    sUnusedVec2 = { 0.0f, 0.5f, 0.0f };
+
+    D_80865B70 = { 0.0f, 0.0f, 0.0f };
+
+    D_80865B7C = { 0.0f, 0.0f, 900.0f };
+
+    D_80865B88 = { 0.0f, 500.0f, -3000.0f };
+
+    D_80865B94 = { 0.0f, -500.0f, -3000.0f };
+
+    D_80865BA0 = { 0.0f, 500.0f, 1200.0f };
+
+    D_80865BAC = { 0.0f, -500.0f, 1200.0f };
+
 }

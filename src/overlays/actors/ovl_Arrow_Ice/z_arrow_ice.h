@@ -1,4 +1,4 @@
-#ifndef Z_ARROW_ICE_H
+#pragma once
 #define Z_ARROW_ICE_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct ArrowIce;
 
 typedef void (*ArrowIceActionFunc)(struct ArrowIce*, GlobalContext*);
 
-typedef struct ArrowIce {
+
+struct ArrowIce {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ s16 radius;
     /* 0x014E */ u16 timer;
@@ -17,6 +19,6 @@ typedef struct ArrowIce {
     /* 0x0160 */ f32 unk_160;
     /* 0x0164 */ f32 unk_164;
     /* 0x0168 */ ArrowIceActionFunc actionFunc;
-} ArrowIce; // size = 0x016C
+}; 
 
-#endif
+

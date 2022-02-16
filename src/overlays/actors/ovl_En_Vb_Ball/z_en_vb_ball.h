@@ -1,4 +1,4 @@
-#ifndef Z_EN_VB_BALL_H
+#pragma once
 #define Z_EN_VB_BALL_H
 
 #include "ultra64.h"
@@ -6,7 +6,9 @@
 
 struct EnVbBall;
 
-typedef struct EnVbBall {
+
+struct EnVbBall {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ char unk_14C[4];
     /* 0x0150 */ s16 unkTimer1; // These count up and down, but nothing uses them.
@@ -17,6 +19,6 @@ typedef struct EnVbBall {
     /* 0x0160 */ f32 shadowSize;
     /* 0x0164 */ f32 shadowOpacity;
     /* 0x0168 */ ColliderCylinder collider;
-} EnVbBall; // size = 0x01B4
+}; 
 
-#endif
+

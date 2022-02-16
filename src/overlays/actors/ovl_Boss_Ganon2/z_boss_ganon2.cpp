@@ -31,6 +31,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossGanon2_Init(Actor* thisx, GlobalContext* globalCtx);
+void BossGanon2_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BossGanon2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BossGanon2_Update(Actor* thisx, GlobalContext* globalCtx);
 void BossGanon2_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -63,6 +64,7 @@ ActorInit Boss_Ganon2_InitVars = {
     (ActorFunc)BossGanon2_Destroy,
     (ActorFunc)BossGanon2_Update,
     (ActorFunc)BossGanon2_Draw,
+    (ActorFunc)BossGanon2_Reset,
 };
 
 #include "z_boss_ganon2_data.cpp"
@@ -3090,4 +3092,20 @@ void BossGanon2_DrawShadowTexture(void* shadowTexture, BossGanon2* pthis, Global
     gSPDisplayList(POLY_OPA_DISP++, ovl_Boss_Ganon2_DL_00B3F0);
 
     CLOSE_DISPS(gfxCtx, "../z_boss_ganon2.c", 6479);
+}
+
+void BossGanon2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Boss_Ganon2_InitVars = {
+        ACTOR_BOSS_GANON2,
+        ACTORCAT_BOSS,
+        FLAGS,
+        OBJECT_GANON2,
+        sizeof(BossGanon2),
+        (ActorFunc)BossGanon2_Init,
+        (ActorFunc)BossGanon2_Destroy,
+        (ActorFunc)BossGanon2_Update,
+        (ActorFunc)BossGanon2_Draw,
+        (ActorFunc)BossGanon2_Reset,
+    };
+
 }

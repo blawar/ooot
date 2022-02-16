@@ -25,6 +25,7 @@
 #define MOVEBG_SPEED(params) (((u16)(params) >> 0x4) & 0xF)
 
 void BgMizuMovebg_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMizuMovebg_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMizuMovebg_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMizuMovebg_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMizuMovebg_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -43,6 +44,7 @@ ActorInit Bg_Mizu_Movebg_InitVars = {
     (ActorFunc)BgMizuMovebg_Destroy,
     (ActorFunc)BgMizuMovebg_Update,
     (ActorFunc)BgMizuMovebg_Draw,
+    (ActorFunc)BgMizuMovebg_Reset,
 };
 
 static f32 D_8089EB40[] = { -115.200005f, -115.200005f, -115.200005f, 0.0f };
@@ -401,4 +403,24 @@ void BgMizuMovebg_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_movebg.c", 795);
+}
+
+void BgMizuMovebg_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Mizu_Movebg_InitVars = {
+        ACTOR_BG_MIZU_MOVEBG,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_MIZU_OBJECTS,
+        sizeof(BgMizuMovebg),
+        (ActorFunc)BgMizuMovebg_Init,
+        (ActorFunc)BgMizuMovebg_Destroy,
+        (ActorFunc)BgMizuMovebg_Update,
+        (ActorFunc)BgMizuMovebg_Draw,
+        (ActorFunc)BgMizuMovebg_Reset,
+    };
+
+    D_8089EBA0 = { 0.0f, 80.0f, 23.0f };
+
+    D_8089EBAC = { 0.0f, 80.0f, 23.0f };
+
 }

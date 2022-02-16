@@ -14,6 +14,7 @@
 #define FLAGS 0
 
 void BgMenkuriNisekabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgMenkuriNisekabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgMenkuriNisekabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriNisekabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriNisekabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -28,6 +29,7 @@ ActorInit Bg_Menkuri_Nisekabe_InitVars = {
     (ActorFunc)BgMenkuriNisekabe_Destroy,
     (ActorFunc)BgMenkuriNisekabe_Update,
     (ActorFunc)BgMenkuriNisekabe_Draw,
+    (ActorFunc)BgMenkuriNisekabe_Reset,
 };
 
 static Gfx* sDLists[] = { gGTGFakeWallDL, gGTGFakeCeilingDL };
@@ -60,4 +62,20 @@ void BgMenkuriNisekabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         Gfx_DrawDListOpa(globalCtx, sDLists[index]);
     }
+}
+
+void BgMenkuriNisekabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Menkuri_Nisekabe_InitVars = {
+        ACTOR_BG_MENKURI_NISEKABE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_MENKURI_OBJECTS,
+        sizeof(BgMenkuriNisekabe),
+        (ActorFunc)BgMenkuriNisekabe_Init,
+        (ActorFunc)BgMenkuriNisekabe_Destroy,
+        (ActorFunc)BgMenkuriNisekabe_Update,
+        (ActorFunc)BgMenkuriNisekabe_Draw,
+        (ActorFunc)BgMenkuriNisekabe_Reset,
+    };
+
 }

@@ -13,6 +13,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void DemoTreLgt_Init(Actor* thisx, GlobalContext* globalCtx);
+void DemoTreLgt_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void DemoTreLgt_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoTreLgt_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -20,14 +21,7 @@ void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80993848(DemoTreLgt* pthis, GlobalContext* globalCtx);
 void func_80993754(DemoTreLgt* pthis);
 void func_8099375C(DemoTreLgt* pthis, GlobalContext* globalCtx);
-void func_809937B4(DemoTreLgt* pthis, GlobalContext* globalCtx, f32 currentFrame);
-
-typedef struct {
-    /* 0x00 */ f32 startFrame;
-    /* 0x04 */ f32 endFrame;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-} DemoTreLgtInfo; // size = 0x10
+void func_809937B4(DemoTreLgt* pthis, GlobalContext* globalCtx, f32 currentFrame); 
 
 static DemoTreLgtInfo sDemoTreLgtInfo[] = {
     { 1.0f, 136.0f, 190.0f, 40.0f },
@@ -44,6 +38,7 @@ ActorInit Demo_Tre_Lgt_InitVars = {
     (ActorFunc)DemoTreLgt_Destroy,
     (ActorFunc)DemoTreLgt_Update,
     (ActorFunc)DemoTreLgt_Draw,
+    (ActorFunc)DemoTreLgt_Reset,
 };
 
 static TransformUpdateIndex* sTransformUpdIdx[] = { &gTreasureChestCurveAnim_4B60, &gTreasureChestCurveAnim_4F70 };
@@ -173,4 +168,20 @@ void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx) {
     SkelCurve_Draw(&pthis->actor, globalCtx, &pthis->skelCurve, DemoTreLgt_PostLimbDraw, NULL, 1, thisx);
 
     CLOSE_DISPS(gfxCtx, "../z_demo_tre_lgt.c", 476);
+}
+
+void DemoTreLgt_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Demo_Tre_Lgt_InitVars = {
+        ACTOR_DEMO_TRE_LGT,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_BOX,
+        sizeof(DemoTreLgt),
+        (ActorFunc)DemoTreLgt_Init,
+        (ActorFunc)DemoTreLgt_Destroy,
+        (ActorFunc)DemoTreLgt_Update,
+        (ActorFunc)DemoTreLgt_Draw,
+        (ActorFunc)DemoTreLgt_Reset,
+    };
+
 }

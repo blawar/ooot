@@ -13,6 +13,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void ArrowLight_Init(Actor* pthisx, GlobalContext* globalCtx);
+void ArrowLight_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowLight_Destroy(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowLight_Update(Actor* pthisx, GlobalContext* globalCtx);
 void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Arrow_Light_InitVars = {
     (ActorFunc)ArrowLight_Destroy,
     (ActorFunc)ArrowLight_Update,
     (ActorFunc)ArrowLight_Draw,
+    (ActorFunc)ArrowLight_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -247,4 +249,20 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_light.c", 664);
     }
+}
+
+void ArrowLight_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Arrow_Light_InitVars = {
+        ACTOR_ARROW_LIGHT,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ArrowLight),
+        (ActorFunc)ArrowLight_Init,
+        (ActorFunc)ArrowLight_Destroy,
+        (ActorFunc)ArrowLight_Update,
+        (ActorFunc)ArrowLight_Draw,
+        (ActorFunc)ArrowLight_Reset,
+    };
+
 }

@@ -13,6 +13,7 @@
 #define FLAGS 0
 
 void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx);
 
 ActorInit En_Torch_InitVars = {
     ACTOR_EN_TORCH,
@@ -24,6 +25,7 @@ ActorInit En_Torch_InitVars = {
     NULL,
     NULL,
     NULL,
+    (ActorFunc)EnTorch_Reset,
 };
 
 static u8 sChestContents[] = {
@@ -41,4 +43,20 @@ void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx) {
                 (sChestContents[(returnData >> 0x5) & 0x7] << 0x5) | 0x5000 | (returnData & 0x1F));
 
     Actor_Kill(&pthis->actor);
+}
+
+void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Torch_InitVars = {
+        ACTOR_EN_TORCH,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnTorch),
+        (ActorFunc)EnTorch_Init,
+        NULL,
+        NULL,
+        NULL,
+        (ActorFunc)EnTorch_Reset,
+    };
+
 }

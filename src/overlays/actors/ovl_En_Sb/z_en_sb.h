@@ -1,4 +1,4 @@
-#ifndef Z_EN_SB_H
+#pragma once
 #define Z_EN_SB_H
 
 #include "ultra64.h"
@@ -8,7 +8,17 @@ struct EnSb;
 
 typedef void (*EnSbActionFunc)(struct EnSb*, GlobalContext*);
 
-typedef struct EnSb {
+
+
+enum ShellbladeBehavior {
+    /* 0x00 */ SHELLBLADE_OPEN,
+    /* 0x01 */ SHELLBLADE_WAIT_CLOSED,
+    /* 0x02 */ SHELLBLADE_WAIT_OPEN,
+    /* 0x03 */ SHELLBLADE_LUNGE,
+    /* 0x04 */ SHELLBLADE_BOUNCE
+};
+struct EnSb {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnSbActionFunc actionFunc;
@@ -21,6 +31,6 @@ typedef struct EnSb {
     /* 0x0200 */ s16 attackYaw;
     /* 0x0202 */ s16 bouncesLeft; // amount of bounces left in the attack before going back to wait
     /* 0x0204 */ u8 hitByWindArrow;
-} EnSb; // size = 0x0208
+}; 
 
-#endif
+

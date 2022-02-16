@@ -18,6 +18,7 @@
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnBlkobj_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBlkobj_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnBlkobj_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBlkobj_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBlkobj_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit En_Blkobj_InitVars = {
     (ActorFunc)EnBlkobj_Destroy,
     (ActorFunc)EnBlkobj_Update,
     (ActorFunc)EnBlkobj_Draw,
+    (ActorFunc)EnBlkobj_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -179,4 +181,20 @@ void EnBlkobj_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_blkobj.c", 375);
+}
+
+void EnBlkobj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Blkobj_InitVars = {
+        ACTOR_EN_BLKOBJ,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_BLKOBJ,
+        sizeof(EnBlkobj),
+        (ActorFunc)EnBlkobj_Init,
+        (ActorFunc)EnBlkobj_Destroy,
+        (ActorFunc)EnBlkobj_Update,
+        (ActorFunc)EnBlkobj_Draw,
+        (ActorFunc)EnBlkobj_Reset,
+    };
+
 }

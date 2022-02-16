@@ -1,4 +1,4 @@
-#ifndef Z_EN_KZ_H
+#pragma once
 #define Z_EN_KZ_H
 
 #include "ultra64.h"
@@ -8,7 +8,9 @@ struct EnKz;
 
 typedef void (*EnKzActionFunc)(struct EnKz*, GlobalContext*);
 
-typedef struct EnKz {
+
+struct EnKz {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelanime;
     /* 0x0190 */ EnKzActionFunc actionFunc;
@@ -26,6 +28,6 @@ typedef struct EnKz {
     /* 0x025E */ Vec3s morphTable[12];
     /* 0x02A6 */ s16 unk_2A6[12];
     /* 0x02BE */ s16 unk_2BE[12];
-} EnKz; // size = 0x02D8
+}; 
 
-#endif
+

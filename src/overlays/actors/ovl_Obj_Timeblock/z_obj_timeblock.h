@@ -1,4 +1,4 @@
-#ifndef Z_OBJ_TIMEBLOCK_H
+#pragma once
 #define Z_OBJ_TIMEBLOCK_H
 
 #include "ultra64.h"
@@ -9,7 +9,15 @@ struct ObjTimeblock;
 typedef s32 (*ObjTimeblockSongObserverFunc)(struct ObjTimeblock*, GlobalContext*);
 typedef void (*ObjTimeblockActionFunc)(struct ObjTimeblock*, GlobalContext*);
 
-typedef struct ObjTimeblock {
+
+
+struct ObjTimeblockSizeOptions {
+    /* 0x00 */ f32 scale;
+    /* 0x04 */ f32 height;
+    /* 0x08 */ s16 demoEffectParams;
+};
+struct ObjTimeblock {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjTimeblockActionFunc actionFunc;
     /* 0x0168 */ ObjTimeblockSongObserverFunc songObserverFunc;
@@ -22,6 +30,6 @@ typedef struct ObjTimeblock {
     /* 0x0176 */ u8 unk_176;
     /* 0x0177 */ u8 unk_177;
     /* 0x0178 */ u8 isVisible;
-} ObjTimeblock; // size = 0x017C
+}; 
 
-#endif
+

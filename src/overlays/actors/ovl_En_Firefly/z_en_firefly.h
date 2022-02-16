@@ -1,4 +1,4 @@
-#ifndef Z_EN_FIREFLY_H
+#pragma once
 #define Z_EN_FIREFLY_H
 
 #include "ultra64.h"
@@ -8,7 +8,15 @@ struct EnFirefly;
 
 typedef void (*EnFireflyActionFunc)(struct EnFirefly*, GlobalContext*);
 
-typedef struct EnFirefly {
+
+
+enum KeeseAuraType {
+    /* 0 */ KEESE_AURA_NONE,
+    /* 1 */ KEESE_AURA_FIRE,
+    /* 2 */ KEESE_AURA_ICE
+};
+struct EnFirefly {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ Vec3f bodyPartsPos[3];
     /* 0x0170 */ SkelAnime skelAnime;
@@ -22,14 +30,14 @@ typedef struct EnFirefly {
     /* 0x0310 */ f32 maxAltitude;
     /* 0x0314 */ ColliderJntSph collider;
     /* 0x0344 */ ColliderJntSphElement colliderItems[1];
-} EnFirefly; // size = 0x0374
+}; 
 
-typedef enum {
+enum KeeseType {
     /* 0 */ KEESE_FIRE_FLY,
     /* 1 */ KEESE_FIRE_PERCH,
     /* 2 */ KEESE_NORMAL_FLY,
     /* 3 */ KEESE_NORMAL_PERCH,
     /* 4 */ KEESE_ICE_FLY
-} KeeseType;
+};
 
-#endif
+

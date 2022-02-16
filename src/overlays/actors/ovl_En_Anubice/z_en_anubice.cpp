@@ -25,6 +25,7 @@
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnAnubice_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnAnubice_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void EnAnubice_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnAnubice_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnAnubice_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -47,6 +48,7 @@ ActorInit En_Anubice_InitVars = {
     (ActorFunc)EnAnubice_Destroy,
     (ActorFunc)EnAnubice_Update,
     (ActorFunc)EnAnubice_Draw,
+    (ActorFunc)EnAnubice_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -499,4 +501,40 @@ void EnAnubice_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnAnubis_OverrideLimbDraw,
                       EnAnubis_PostLimbDraw, pthis);
+}
+
+void EnAnubice_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Anubice_InitVars = {
+        ACTOR_EN_ANUBICE,
+        ACTORCAT_ENEMY,
+        FLAGS,
+        OBJECT_ANUBICE,
+        sizeof(EnAnubice),
+        (ActorFunc)EnAnubice_Init,
+        (ActorFunc)EnAnubice_Destroy,
+        (ActorFunc)EnAnubice_Update,
+        (ActorFunc)EnAnubice_Draw,
+        (ActorFunc)EnAnubice_Reset,
+    };
+
+    sCylinderInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_1,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            { 0xFFCFFFFF, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 29, 103, 0, { 0, 0, 0 } },
+    };
+
 }

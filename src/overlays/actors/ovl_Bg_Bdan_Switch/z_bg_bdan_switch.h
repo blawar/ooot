@@ -1,23 +1,25 @@
-#ifndef Z_BG_BDAN_SWITCH_H
+#pragma once
 #define Z_BG_BDAN_SWITCH_H
 
 #include "ultra64.h"
 #include "global.h"
 
 // BgBdanSwitch.actor.params & 0xFF
-typedef enum {
+enum BgBdanSwitchType {
     /* 0x00 */ BLUE,
     /* 0x01 */ YELLOW_HEAVY,
     /* 0x02 */ YELLOW,
     /* 0x03 */ YELLOW_TALL_1,
     /* 0x04 */ YELLOW_TALL_2
-} BgBdanSwitchType;
+};
 
 struct BgBdanSwitch;
 
 typedef void (*BgBdanSwitchActionFunc)(struct BgBdanSwitch*, GlobalContext*);
 
-typedef struct BgBdanSwitch {
+
+struct BgBdanSwitch {
+
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgBdanSwitchActionFunc actionFunc;
     /* 0x0168 */ ColliderJntSph collider;
@@ -31,6 +33,6 @@ typedef struct BgBdanSwitch {
     /* 0x01DA */ s16 unk_1DA;
     /* 0x01DC */ u8 unk_1DC;
     /* 0x01DD */ char unk_1DD[0x3];
-} BgBdanSwitch; // size = 0x01E0
+}; 
 
-#endif
+

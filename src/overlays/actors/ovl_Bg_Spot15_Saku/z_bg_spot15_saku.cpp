@@ -18,6 +18,7 @@
 #define FLAGS 0
 
 void BgSpot15Saku_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot15Saku_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot15Saku_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot15Saku_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot15Saku_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -36,6 +37,7 @@ ActorInit Bg_Spot15_Saku_InitVars = {
     (ActorFunc)BgSpot15Saku_Destroy,
     (ActorFunc)BgSpot15Saku_Update,
     (ActorFunc)BgSpot15Saku_Draw,
+    (ActorFunc)BgSpot15Saku_Reset,
 };
 
 void BgSpot15Saku_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -111,4 +113,20 @@ void BgSpot15Saku_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gLonLonCorralFenceDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot15_saku.c", 268);
+}
+
+void BgSpot15Saku_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot15_Saku_InitVars = {
+        ACTOR_BG_SPOT15_SAKU,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_SPOT15_OBJ,
+        sizeof(BgSpot15Saku),
+        (ActorFunc)BgSpot15Saku_Init,
+        (ActorFunc)BgSpot15Saku_Destroy,
+        (ActorFunc)BgSpot15Saku_Update,
+        (ActorFunc)BgSpot15Saku_Draw,
+        (ActorFunc)BgSpot15Saku_Reset,
+    };
+
 }

@@ -1,4 +1,4 @@
-#ifndef Z_EN_BUTTE_H
+#pragma once
 #define Z_EN_BUTTE_H
 
 #include "ultra64.h"
@@ -8,7 +8,18 @@ struct EnButte;
 
 typedef void (*EnButteActionFunc)(struct EnButte*, GlobalContext*);
 
-typedef struct EnButte {
+
+
+struct EnButteFlightParams {
+    /* 0x00 */ s16 minTime;
+    /* 0x02 */ s16 maxTime;
+    /* 0x04 */ f32 speedXZTarget;
+    /* 0x08 */ f32 speedXZScale;
+    /* 0x0C */ f32 speedXZStep;
+    /* 0x10 */ s16 rotYStep;
+};
+struct EnButte {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderJntSph collider;
     /* 0x016C */ ColliderJntSphElement colliderItems[1];
@@ -25,6 +36,6 @@ typedef struct EnButte {
     /* 0x025E */ s16 unk_25E;
     /* 0x0260 */ s16 unk_260;
     /* 0x0264 */ f32 posYTarget;
-} EnButte; // size = 0x0268
+}; 
 
-#endif
+

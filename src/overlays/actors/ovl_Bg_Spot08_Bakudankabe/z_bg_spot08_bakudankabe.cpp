@@ -23,6 +23,7 @@
 #define FLAGS ACTOR_FLAG_22
 
 void BgSpot08Bakudankabe_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgSpot08Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgSpot08Bakudankabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot08Bakudankabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot08Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -40,6 +41,7 @@ ActorInit Bg_Spot08_Bakudankabe_InitVars = {
     (ActorFunc)BgSpot08Bakudankabe_Destroy,
     (ActorFunc)BgSpot08Bakudankabe_Update,
     (ActorFunc)BgSpot08Bakudankabe_Draw,
+    (ActorFunc)BgSpot08Bakudankabe_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -211,4 +213,33 @@ void BgSpot08Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Collider_UpdateSpheres(1, &pthis->collider);
     Collider_UpdateSpheres(2, &pthis->collider);
     Gfx_DrawDListOpa(globalCtx, gZorasFountainBombableWallDL);
+}
+
+void BgSpot08Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot08_Bakudankabe_InitVars = {
+        ACTOR_BG_SPOT08_BAKUDANKABE,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_SPOT08_OBJ,
+        sizeof(BgSpot08Bakudankabe),
+        (ActorFunc)BgSpot08Bakudankabe_Init,
+        (ActorFunc)BgSpot08Bakudankabe_Destroy,
+        (ActorFunc)BgSpot08Bakudankabe_Update,
+        (ActorFunc)BgSpot08Bakudankabe_Draw,
+        (ActorFunc)BgSpot08Bakudankabe_Reset,
+    };
+
+    sJntSphInit = {
+        {
+            COLTYPE_NONE,
+            AT_NONE,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_JNTSPH,
+        },
+        3,
+        sJntSphElementsInit,
+    };
+
 }

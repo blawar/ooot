@@ -20,6 +20,7 @@
 #define FLAGS ACTOR_FLAG_4
 
 void ObjIcePoly_Init(Actor* thisx, GlobalContext* globalCtx);
+void ObjIcePoly_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjIcePoly_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjIcePoly_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjIcePoly_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -37,6 +38,7 @@ ActorInit Obj_Ice_Poly_InitVars = {
     (ActorFunc)ObjIcePoly_Destroy,
     (ActorFunc)ObjIcePoly_Update,
     (ActorFunc)ObjIcePoly_Draw,
+    (ActorFunc)ObjIcePoly_Reset,
 };
 
 static ColliderCylinderInit sCylinderInitIce = {
@@ -216,4 +218,64 @@ void ObjIcePoly_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment3DL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_ice_poly.c", 444);
+}
+
+void ObjIcePoly_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Ice_Poly_InitVars = {
+        ACTOR_OBJ_ICE_POLY,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjIcePoly),
+        (ActorFunc)ObjIcePoly_Init,
+        (ActorFunc)ObjIcePoly_Destroy,
+        (ActorFunc)ObjIcePoly_Update,
+        (ActorFunc)ObjIcePoly_Draw,
+        (ActorFunc)ObjIcePoly_Reset,
+    };
+
+    sCylinderInitIce = {
+        {
+            COLTYPE_NONE,
+            AT_ON | AT_TYPE_ENEMY,
+            AC_ON | AC_TYPE_PLAYER,
+            OC1_ON | OC1_TYPE_ALL,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0xFFCFFFFF, 0x02, 0x00 },
+            { 0x00020800, 0x00, 0x00 },
+            TOUCH_ON | TOUCH_SFX_NONE,
+            BUMP_ON,
+            OCELEM_ON,
+        },
+        { 50, 120, 0, { 0, 0, 0 } },
+    };
+
+    sCylinderInitHard = {
+        {
+            COLTYPE_HARD,
+            AT_NONE,
+            AC_ON | AC_HARD | AC_TYPE_PLAYER,
+            OC1_NONE,
+            OC2_TYPE_2,
+            COLSHAPE_CYLINDER,
+        },
+        {
+            ELEMTYPE_UNK0,
+            { 0x00000000, 0x00, 0x00 },
+            { 0x4E01F7F6, 0x00, 0x00 },
+            TOUCH_NONE,
+            BUMP_ON,
+            OCELEM_NONE,
+        },
+        { 50, 120, 0, { 0, 0, 0 } },
+    };
+
+    sColorWhite = { 250, 250, 250, 255 };
+
+    sColorGray = { 180, 180, 180, 255 };
+
 }

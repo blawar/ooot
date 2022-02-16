@@ -1,4 +1,4 @@
-#ifndef Z_EN_GIRLA_H
+#pragma once
 #define Z_EN_GIRLA_H
 
 #include "ultra64.h"
@@ -11,7 +11,23 @@ typedef void (*EnGirlA2Func)(GlobalContext*, struct EnGirlA*);
 typedef void (*EnGirlA3Func)(Actor*, GlobalContext*, s32);
 typedef s32 (*EnGirlA4Func)(GlobalContext*, struct EnGirlA*);
 
-typedef struct EnGirlA {
+
+
+struct ShopItemEntry {
+    /* 0x00 */ s16 objID;
+    /* 0x02 */ s16 giDrawId;
+    /* 0x04 */ void (*hiliteFunc)(Actor*, GlobalContext*, s32);
+    /* 0x08 */ s16 price;
+    /* 0x0A */ s16 count;
+    /* 0x0C */ u16 itemDescTextId;
+    /* 0x0C */ u16 itemBuyPromptTextId;
+    /* 0x10 */ s32 getItemId;
+    /* 0x14 */ s32 (*canBuyFunc)(GlobalContext*, EnGirlA*);
+    /* 0x18 */ void (*itemGiveFunc)(GlobalContext*, EnGirlA*);
+    /* 0x1C */ void (*buyEventFunc)(GlobalContext*, EnGirlA*);
+};
+struct EnGirlA {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnGirlAActionFunc actionFunc;
@@ -33,9 +49,9 @@ typedef struct EnGirlA {
     /* 0x01CA */ s16 itemCount;
     /* 0x01CC */ s16 giDrawId;
     /* 0x01D0 */ EnGirlA3Func hiliteFunc;
-} EnGirlA; // size = 0x01D4
+}; 
 
-typedef enum {
+enum EnGirlAShopItem {
     /* 0x00 */ SI_DEKU_NUTS_5,
     /* 0x01 */ SI_ARROWS_30,
     /* 0x02 */ SI_ARROWS_50,
@@ -87,15 +103,15 @@ typedef enum {
     /* 0x30 */ SI_RED_POTION_R40,
     /* 0x31 */ SI_RED_POTION_R50,
     /* 0x32 */ SI_MAX
-} EnGirlAShopItem;
+};
 
-typedef enum {
+enum EnGirlACanBuyResult {
     /* 0 */ CANBUY_RESULT_SUCCESS_FANFARE,
     /* 1 */ CANBUY_RESULT_SUCCESS,
     /* 2 */ CANBUY_RESULT_CANT_GET_NOW,
     /* 3 */ CANBUY_RESULT_NEED_BOTTLE,
     /* 4 */ CANBUY_RESULT_NEED_RUPEES,
     /* 5 */ CANBUY_RESULT_CANT_GET_NOW_5
-} EnGirlACanBuyResult;
+};
 
-#endif
+

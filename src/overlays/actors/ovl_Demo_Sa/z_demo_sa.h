@@ -1,4 +1,4 @@
-#ifndef Z_DEMO_SA_H
+#pragma once
 #define Z_DEMO_SA_H
 
 #include "ultra64.h"
@@ -9,7 +9,26 @@ struct DemoSa;
 typedef void (*DemoSaActionFunc)(struct DemoSa*, GlobalContext*);
 typedef void (*DemoSaDrawFunc)(struct DemoSa*, GlobalContext*);
 
-typedef struct DemoSa {
+
+
+enum SariaEyeState {
+    /* 0 */ SARIA_EYE_OPEN,
+    /* 1 */ SARIA_EYE_HALF,
+    /* 2 */ SARIA_EYE_CLOSED,
+    /* 3 */ SARIA_EYE_SUPRISED,
+    /* 4 */ SARIA_EYE_SAD
+};
+
+
+enum SariaMouthState {
+    /* 0 */ SARIA_MOUTH_CLOSED2,
+    /* 1 */ SARIA_MOUTH_SUPRISED,
+    /* 2 */ SARIA_MOUTH_CLOSED,
+    /* 3 */ SARIA_MOUTH_SMILING_OPEN,
+    /* 4 */ SARIA_MOUTH_FROWNING
+};
+struct DemoSa {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ s16 eyeIndex;
@@ -22,6 +41,6 @@ typedef struct DemoSa {
     /* 0x01A8 */ s32 unk_1A8;
     /* 0x01AC */ s32 unk_1AC;
     /* 0x01B0 */ s32 unk_1B0;
-} DemoSa; // size = 0x01B4
+}; 
 
-#endif
+

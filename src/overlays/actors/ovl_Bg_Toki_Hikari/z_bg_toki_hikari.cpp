@@ -17,6 +17,7 @@
 #define FLAGS ACTOR_FLAG_5
 
 void BgTokiHikari_Init(Actor* thisx, GlobalContext* globalCtx);
+void BgTokiHikari_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void BgTokiHikari_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgTokiHikari_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgTokiHikari_Draw(Actor* thisx, GlobalContext* globalCtx);
@@ -38,6 +39,7 @@ ActorInit Bg_Toki_Hikari_InitVars = {
     (ActorFunc)BgTokiHikari_Destroy,
     (ActorFunc)BgTokiHikari_Update,
     (ActorFunc)BgTokiHikari_Draw,
+    (ActorFunc)BgTokiHikari_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -188,4 +190,20 @@ void func_808BA2CC(BgTokiHikari* pthis, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, &object_toki_objects_DL_0009C0[10]);
     Matrix_Pop();
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_toki_hikari.c", 443);
+}
+
+void BgTokiHikari_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Toki_Hikari_InitVars = {
+        ACTOR_BG_TOKI_HIKARI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_TOKI_OBJECTS,
+        sizeof(BgTokiHikari),
+        (ActorFunc)BgTokiHikari_Init,
+        (ActorFunc)BgTokiHikari_Destroy,
+        (ActorFunc)BgTokiHikari_Update,
+        (ActorFunc)BgTokiHikari_Draw,
+        (ActorFunc)BgTokiHikari_Reset,
+    };
+
 }

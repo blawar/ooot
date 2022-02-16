@@ -1,4 +1,4 @@
-#ifndef Z_ARMS_HOOK_H
+#pragma once
 #define Z_ARMS_HOOK_H
 
 #include "ultra64.h"
@@ -11,7 +11,9 @@ struct ArmsHook;
 
 typedef void (*ArmsHookActionFunc)(struct ArmsHook*, struct GlobalContext*);
 
-typedef struct ArmsHook {
+
+struct ArmsHook {
+
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ColliderQuad collider;
     /* 0x01CC */ WeaponInfo hookInfo;
@@ -21,6 +23,6 @@ typedef struct ArmsHook {
     /* 0x0204 */ Vec3f grabbedDistDiff;
     /* 0x0210 */ Timer timer;
     /* 0x0214 */ ArmsHookActionFunc actionFunc;
-} ArmsHook; // size = 0x0218
+}; 
 
-#endif
+
