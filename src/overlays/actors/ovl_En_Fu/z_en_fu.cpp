@@ -42,6 +42,13 @@ void func_80A1DBA0(EnFu* pthis, GlobalContext* globalCtx);
 void func_80A1DBD4(EnFu* pthis, GlobalContext* globalCtx);
 void func_80A1DB60(EnFu* pthis, GlobalContext* globalCtx);
 
+static s16 yawDiff_49;
+
+static void* sEyesSegments_53[] = { gWindmillManEyeClosedTex, gWindmillManEyeAngryTex };
+
+static void* sMouthSegments_53[] = { gWindmillManMouthOpenTex, gWindmillManMouthAngryTex };
+
+
 ActorInit En_Fu_InitVars = {
     ACTOR_EN_FU,
     ACTORCAT_NPC,
@@ -220,10 +227,9 @@ void EnFu_TeachSong(EnFu* pthis, GlobalContext* globalCtx) {
 }
 
 void EnFu_WaitAdult(EnFu* pthis, GlobalContext* globalCtx) {
-    static s16 yawDiff;
     Player* player = GET_PLAYER(globalCtx);
 
-    yawDiff = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
+    yawDiff_49 = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
     if ((gSaveContext.eventChkInf[5] & 0x800)) {
         func_80A1D94C(pthis, globalCtx, 0x508E, func_80A1DBA0);
     } else if (player->stateFlags2 & 0x1000000) {
@@ -233,7 +239,7 @@ void EnFu_WaitAdult(EnFu* pthis, GlobalContext* globalCtx) {
         pthis->behaviorFlags |= FU_WAIT;
     } else if (Actor_ProcessTalkRequest(&pthis->actor, globalCtx)) {
         pthis->actionFunc = func_80A1DBA0;
-    } else if (ABS(yawDiff) < 0x2301) {
+    } else if (ABS(yawDiff_49) < 0x2301) {
         if (pthis->actor.xzDistToPlayer < 100.0f) {
             pthis->actor.textId = 0x5034;
             func_8002F2CC(&pthis->actor, globalCtx, 100.0f);
@@ -302,16 +308,14 @@ void EnFu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnFu_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyesSegments[] = { gWindmillManEyeClosedTex, gWindmillManEyeAngryTex };
-    static void* sMouthSegments[] = { gWindmillManMouthOpenTex, gWindmillManMouthAngryTex };
     s32 pad;
     EnFu* pthis = (EnFu*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fu.c", 773);
 
     func_800943C8(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyesSegments[pthis->facialExpression]));
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthSegments[pthis->facialExpression]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyesSegments_53[pthis->facialExpression]));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthSegments_53[pthis->facialExpression]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, pthis->skelanime.dListCount,
                           EnFu_OverrideLimbDraw, EnFu_PostLimbDraw, pthis);
 
@@ -319,6 +323,8 @@ void EnFu_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnFu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    yawDiff_49 = 0;
+
     En_Fu_InitVars = {
         ACTOR_EN_FU,
         ACTORCAT_NPC,

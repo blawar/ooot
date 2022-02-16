@@ -38,6 +38,15 @@ void func_808ACB58(BgSpot02Objects* pthis, GlobalContext* globalCtx);
 void func_808ACC34(BgSpot02Objects* pthis, GlobalContext* globalCtx);
 void func_808AD3D4(BgSpot02Objects* pthis, GlobalContext* globalCtx);
 
+static Vec3f zeroVec_38 = { 0.0f, 0.0f, 0.0f };
+
+static Gfx* dLists_43[] = {
+    object_spot02_objects_DL_012A50,
+    object_spot02_objects_DL_0127C0,
+    object_spot02_objects_DL_0130B0,
+};
+
+
 static void* D_808AD850[] = {
     object_spot02_objects_Tex_0096B0, object_spot02_objects_Tex_00A2B0, object_spot02_objects_Tex_00AEB0,
     object_spot02_objects_Tex_00BAB0, object_spot02_objects_Tex_00C6B0, object_spot02_objects_Tex_00D2B0,
@@ -140,7 +149,6 @@ void func_808AC8FC(BgSpot02Objects* pthis, GlobalContext* globalCtx) {
 }
 
 void func_808AC908(BgSpot02Objects* pthis, GlobalContext* globalCtx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     Vec3f pos;
 
     if (globalCtx->csCtx.state != 0) {
@@ -151,7 +159,7 @@ void func_808AC908(BgSpot02Objects* pthis, GlobalContext* globalCtx) {
             pos.x = (Math_SinS(pthis->dyna.actor.shape.rot.y) * 50.0f) + pthis->dyna.actor.world.pos.x;
             pos.y = pthis->dyna.actor.world.pos.y + 30.0f;
             pos.z = (Math_CosS(pthis->dyna.actor.shape.rot.y) * 50.0f) + pthis->dyna.actor.world.pos.z;
-            EffectSsBomb2_SpawnLayered(globalCtx, &pos, &zeroVec, &zeroVec, 70, 30);
+            EffectSsBomb2_SpawnLayered(globalCtx, &pos, &zeroVec_38, &zeroVec_38, 70, 30);
             pthis->actionFunc = func_808ACA08;
         }
     }
@@ -205,13 +213,8 @@ void BgSpot02Objects_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot02Objects_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = {
-        object_spot02_objects_DL_012A50,
-        object_spot02_objects_DL_0127C0,
-        object_spot02_objects_DL_0130B0,
-    };
 
-    Gfx_DrawDListOpa(globalCtx, dLists[thisx->params]);
+    Gfx_DrawDListOpa(globalCtx, dLists_43[thisx->params]);
 }
 
 void func_808ACC34(BgSpot02Objects* pthis, GlobalContext* globalCtx) {
@@ -346,6 +349,8 @@ void func_808AD450(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot02Objects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    zeroVec_38 = { 0.0f, 0.0f, 0.0f };
+
     Bg_Spot02_Objects_InitVars = {
         ACTOR_BG_SPOT02_OBJECTS,
         ACTORCAT_BG,

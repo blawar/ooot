@@ -73,6 +73,9 @@ void EnDntNomal_StageAttackHide(EnDntNomal* pthis, GlobalContext* globalCtx);
 void EnDntNomal_StageAttack(EnDntNomal* pthis, GlobalContext* globalCtx);
 void EnDntNomal_StageReturn(EnDntNomal* pthis, GlobalContext* globalCtx);
 
+static void* blinkTex_104[] = { gDntStageEyeOpenTex, gDntStageEyeHalfTex, gDntStageEyeShutTex };
+
+
 ActorInit En_Dnt_Nomal_InitVars = {
     ACTOR_EN_DNT_NOMAL,
     ACTORCAT_PROP,
@@ -865,14 +868,13 @@ void EnDntNomal_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 }
 
 void EnDntNomal_DrawStageScrub(Actor* thisx, GlobalContext* globalCtx) {
-    static void* blinkTex[] = { gDntStageEyeOpenTex, gDntStageEyeHalfTex, gDntStageEyeShutTex };
     EnDntNomal* pthis = (EnDntNomal*)thisx;
     Vec3f dustScale = { 0.25f, 0.25f, 0.25f };
     s32 pad;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_nomal.c", 1790);
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex[pthis->eyeState]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex_104[pthis->eyeState]));
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnDntNomal_OverrideLimbDraw,
                       EnDntNomal_PostLimbDraw, pthis);
     Matrix_Translate(pthis->flowerPos.x, pthis->flowerPos.y, pthis->flowerPos.z, MTXMODE_NEW);

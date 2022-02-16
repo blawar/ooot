@@ -30,6 +30,19 @@ void BgHidanKowarerukabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanKowarerukabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanKowarerukabe_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static CollisionHeader* collisionHeaders_29[] = {
+    &gFireTempleCrackedStoneFloorCol,
+    &gFireTempleBombableWallCol,
+    &gFireTempleLargeBombableWallCol,
+};
+
+static s16 sphereRadii_30[] = { 80, 45, 80 };
+
+static s16 sphereYPositions_30[] = { 0, 500, 500 };
+
+static f32 actorYPosOffsets_31[] = { 0.7f, 0.0f, 0.0f };
+
+
 ActorInit Bg_Hidan_Kowarerukabe_InitVars = {
     ACTOR_BG_HIDAN_KOWARERUKABE,
     ACTORCAT_BG,
@@ -77,18 +90,13 @@ static ColliderJntSphInit sJntSphInit = {
 };
 
 void BgHidanKowarerukabe_InitDynaPoly(BgHidanKowarerukabe* pthis, GlobalContext* globalCtx) {
-    static CollisionHeader* collisionHeaders[] = {
-        &gFireTempleCrackedStoneFloorCol,
-        &gFireTempleBombableWallCol,
-        &gFireTempleLargeBombableWallCol,
-    };
     s32 pad;
     CollisionHeader* colHeader = NULL;
     s32 pad2;
 
-    if (collisionHeaders[pthis->dyna.actor.params & 0xFF] != NULL) {
+    if (collisionHeaders_29[pthis->dyna.actor.params & 0xFF] != NULL) {
         DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-        CollisionHeader_GetVirtual(collisionHeaders[pthis->dyna.actor.params & 0xFF], &colHeader);
+        CollisionHeader_GetVirtual(collisionHeaders_29[pthis->dyna.actor.params & 0xFF], &colHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     } else {
         pthis->dyna.bgId = BGACTOR_NEG_ONE;
@@ -96,21 +104,18 @@ void BgHidanKowarerukabe_InitDynaPoly(BgHidanKowarerukabe* pthis, GlobalContext*
 }
 
 void BgHidanKowarerukabe_InitColliderSphere(BgHidanKowarerukabe* pthis, GlobalContext* globalCtx) {
-    static s16 sphereRadii[] = { 80, 45, 80 };
-    static s16 sphereYPositions[] = { 0, 500, 500 };
     s32 pad;
 
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->dyna.actor, &sJntSphInit, pthis->colliderItems);
 
-    pthis->collider.elements[0].dim.modelSphere.radius = sphereRadii[pthis->dyna.actor.params & 0xFF];
-    pthis->collider.elements[0].dim.modelSphere.center.y = sphereYPositions[pthis->dyna.actor.params & 0xFF];
+    pthis->collider.elements[0].dim.modelSphere.radius = sphereRadii_30[pthis->dyna.actor.params & 0xFF];
+    pthis->collider.elements[0].dim.modelSphere.center.y = sphereYPositions_30[pthis->dyna.actor.params & 0xFF];
 }
 
 void BgHidanKowarerukabe_OffsetActorYPos(BgHidanKowarerukabe* pthis) {
-    static f32 actorYPosOffsets[] = { 0.7f, 0.0f, 0.0f };
 
-    pthis->dyna.actor.world.pos.y = actorYPosOffsets[pthis->dyna.actor.params & 0xFF] + pthis->dyna.actor.home.pos.y;
+    pthis->dyna.actor.world.pos.y = actorYPosOffsets_31[pthis->dyna.actor.params & 0xFF] + pthis->dyna.actor.home.pos.y;
 }
 
 static InitChainEntry sInitChain[] = {

@@ -92,6 +92,21 @@ static ColliderCylinderInitType1 sCylinderInit3 = {
 typedef void (*DemoGjUpdateFunc)(DemoGj*, GlobalContext*);
 typedef void (*DemoGjDrawFunc)(DemoGj*, GlobalContext*);
 
+static Vec3f velocity_43 = { 0.0f, 6.0f, 0.0f };
+
+static Vec3f accel_43 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 primColor_43 = { 0, 0, 0, 0 };
+
+static Color_RGBA8 envColor_43 = { 0, 0, 0, 0 };
+
+static Vec3f pos_65 = { -371.0f, 1188.0f, -303.0f };
+
+static Vec3f pos_76 = { -119.0f, 1056.0f, -147.0f };
+
+static Vec3f pos_127 = { -6.0f, 1053.0f, -473.0f };
+
+
 // bits 11-15
 s32 DemoGj_GetCollectibleType(DemoGj* pthis) {
     s32 params = pthis->dyna.actor.params >> 0xB;
@@ -158,14 +173,10 @@ void DemoGj_PlayExplosionSfx(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_SpawnSmoke(GlobalContext* globalCtx, Vec3f* pos, f32 arg2) {
-    static Vec3f velocity = { 0.0f, 6.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 primColor = { 0, 0, 0, 0 };
-    static Color_RGBA8 envColor = { 0, 0, 0, 0 };
     f32 temp = arg2 * 0.2f;
 
     if (1) {}
-    func_800283D4(globalCtx, pos, &velocity, &accel, &primColor, &envColor, temp * Rand_ZeroOne() + arg2, 15, 90);
+    func_800283D4(globalCtx, pos, &velocity_43, &accel_43, &primColor_43, &envColor_43, temp * Rand_ZeroOne() + arg2, 15, 90);
 }
 
 void DemoGj_DropCollectible(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -597,7 +608,6 @@ void func_8097A000(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_SpawnSmokePreBattle1(DemoGj* pthis, GlobalContext* globalCtx) {
-    static Vec3f pos = { -371.0f, 1188.0f, -303.0f };
     u32 gameplayFrames;
 
     if (!pthis->isTransformedIntoGanon) {
@@ -606,7 +616,7 @@ void DemoGj_SpawnSmokePreBattle1(DemoGj* pthis, GlobalContext* globalCtx) {
         if (1) {}
         if (gameplayFrames == 0) {
             if (!globalCtx->gameplayFrames) {}
-            DemoGj_SpawnSmoke(globalCtx, &pos, 300.0f);
+            DemoGj_SpawnSmoke(globalCtx, &pos_65, 300.0f);
         }
 
         DemoGj_CheckIfTransformedIntoGanon(pthis);
@@ -662,7 +672,6 @@ void func_8097A238(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_SpawnSmokePreBattle2(DemoGj* pthis, GlobalContext* globalCtx) {
-    static Vec3f pos = { -119.0f, 1056.0f, -147.0f };
     u32 gameplayFrames;
 
     if (!pthis->isTransformedIntoGanon) {
@@ -671,7 +680,7 @@ void DemoGj_SpawnSmokePreBattle2(DemoGj* pthis, GlobalContext* globalCtx) {
         if (1) {}
         if (gameplayFrames == 1) {
             if (!globalCtx->gameplayFrames) {}
-            DemoGj_SpawnSmoke(globalCtx, &pos, 300.0f);
+            DemoGj_SpawnSmoke(globalCtx, &pos_76, 300.0f);
         }
 
         DemoGj_CheckIfTransformedIntoGanon(pthis);
@@ -919,7 +928,6 @@ void func_8097ABB4(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_SpawnSmokePreBattle3(DemoGj* pthis, GlobalContext* globalCtx) {
-    static Vec3f pos = { -6.0f, 1053.0f, -473.0f };
     u32 gameplayFrames;
 
     if (!pthis->isTransformedIntoGanon) {
@@ -928,7 +936,7 @@ void DemoGj_SpawnSmokePreBattle3(DemoGj* pthis, GlobalContext* globalCtx) {
         if (1) {}
         if (gameplayFrames == 2) {
             if (!globalCtx->gameplayFrames) {}
-            DemoGj_SpawnSmoke(globalCtx, &pos, 300.0f);
+            DemoGj_SpawnSmoke(globalCtx, &pos_127, 300.0f);
         }
 
         DemoGj_CheckIfTransformedIntoGanon(pthis);
@@ -1478,6 +1486,20 @@ ActorInit Demo_Gj_InitVars = {
 };
 
 void DemoGj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velocity_43 = { 0.0f, 6.0f, 0.0f };
+
+    accel_43 = { 0.0f, 0.0f, 0.0f };
+
+    primColor_43 = { 0, 0, 0, 0 };
+
+    envColor_43 = { 0, 0, 0, 0 };
+
+    pos_65 = { -371.0f, 1188.0f, -303.0f };
+
+    pos_76 = { -119.0f, 1056.0f, -147.0f };
+
+    pos_127 = { -6.0f, 1053.0f, -473.0f };
+
     sCylinderInit1 = {
         {
             COLTYPE_HIT0,

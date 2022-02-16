@@ -42,6 +42,15 @@ void EnKarebaba_Dead(EnKarebaba* pthis, GlobalContext* globalCtx);
 void EnKarebaba_Regrow(EnKarebaba* pthis, GlobalContext* globalCtx);
 void EnKarebaba_Upright(EnKarebaba* pthis, GlobalContext* globalCtx);
 
+static Vec3f zeroVec_59 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 black_66 = { 0, 0, 0, 0 };
+
+static Gfx* stemDLists_66[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
+
+static Vec3f zeroVec_66 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Karebaba_InitVars = {
     ACTOR_EN_KAREBABA,
     ACTORCAT_ENEMY,
@@ -328,7 +337,6 @@ void EnKarebaba_Spin(EnKarebaba* pthis, GlobalContext* globalCtx) {
 }
 
 void EnKarebaba_Dying(EnKarebaba* pthis, GlobalContext* globalCtx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     s32 i;
     Vec3f position;
     Vec3f rotation;
@@ -358,13 +366,13 @@ void EnKarebaba_Dying(EnKarebaba* pthis, GlobalContext* globalCtx) {
         rotation.y = -20.0f * Math_CosS(pthis->actor.shape.rot.x) * Math_CosS(pthis->actor.shape.rot.y);
 
         for (i = 0; i < 4; i++) {
-            func_800286CC(globalCtx, &position, &zeroVec, &zeroVec, 500, 50);
+            func_800286CC(globalCtx, &position, &zeroVec_59, &zeroVec_59, 500, 50);
             position.x += rotation.x;
             position.y += rotation.z;
             position.z += rotation.y;
         }
 
-        func_800286CC(globalCtx, &pthis->actor.home.pos, &zeroVec, &zeroVec, 500, 100);
+        func_800286CC(globalCtx, &pthis->actor.home.pos, &zeroVec_59, &zeroVec_59, 500, 100);
         EnKarebaba_SetupDeadItemDrop(pthis, globalCtx);
     }
 }
@@ -472,9 +480,6 @@ void EnKarebaba_DrawBaseShadow(EnKarebaba* pthis, GlobalContext* globalCtx) {
 }
 
 void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Color_RGBA8 black = { 0, 0, 0, 0 };
-    static Gfx* stemDLists[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     EnKarebaba* pthis = (EnKarebaba*)thisx;
     s32 i;
     s32 stemSections;
@@ -492,7 +497,7 @@ void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gSPDisplayList(POLY_OPA_DISP++, gDekuBabaStickDropDL);
         }
     } else if (pthis->actionFunc != EnKarebaba_Dead) {
-        func_80026230(globalCtx, &black, 1, 2);
+        func_80026230(globalCtx, &black_66, 1, 2);
         SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, NULL);
         Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
 
@@ -515,17 +520,17 @@ void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Translate(0.0f, 0.0f, -2000.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_karebaba.c", 1116),
                       G_MTX_LOAD | G_MTX_NOPUSH | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, stemDLists[i]);
+            gSPDisplayList(POLY_OPA_DISP++, stemDLists_66[i]);
 
             if (i == 0 && pthis->actionFunc == EnKarebaba_Dying) {
-                Matrix_MultVec3f(&zeroVec, &pthis->actor.focus.pos);
+                Matrix_MultVec3f(&zeroVec_66, &pthis->actor.focus.pos);
             }
         }
 
         func_80026608(globalCtx);
     }
 
-    func_80026230(globalCtx, &black, 1, 2);
+    func_80026230(globalCtx, &black_66, 1, 2);
     Matrix_Translate(pthis->actor.home.pos.x, pthis->actor.home.pos.y, pthis->actor.home.pos.z, MTXMODE_NEW);
 
     if (pthis->actionFunc != EnKarebaba_Grow) {
@@ -555,6 +560,12 @@ void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnKarebaba_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    zeroVec_59 = { 0.0f, 0.0f, 0.0f };
+
+    black_66 = { 0, 0, 0, 0 };
+
+    zeroVec_66 = { 0.0f, 0.0f, 0.0f };
+
     En_Karebaba_InitVars = {
         ACTOR_EN_KAREBABA,
         ACTORCAT_ENEMY,

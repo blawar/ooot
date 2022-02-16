@@ -55,6 +55,13 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx);
 void BossGanondrof_Stunned(BossGanondrof* pthis, GlobalContext* globalCtx);
 void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx);
 
+static AnimationHeader* returnAnim_86[] = { &gPhantomGanonReturn1Anim, &gPhantomGanonReturn2Anim };
+
+static Vec3f zeroVec_99 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f spearVec_99 = { 0.0f, 0.0f, 6000.0f };
+
+
 ActorInit Boss_Ganondrof_InitVars = {
     ACTOR_BOSS_GANONDROF,
     ACTORCAT_BOSS,
@@ -669,11 +676,10 @@ void BossGanondrof_Throw(BossGanondrof* pthis, GlobalContext* globalCtx) {
 }
 
 void BossGanondrof_SetupReturn(BossGanondrof* pthis, GlobalContext* globalCtx) {
-    static AnimationHeader* returnAnim[] = { &gPhantomGanonReturn1Anim, &gPhantomGanonReturn2Anim };
     s16 rand = Rand_ZeroOne() * 1.99f;
 
-    pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(returnAnim[rand]);
-    Animation_MorphToPlayOnce(&pthis->skelAnime, returnAnim[rand], 0.0f);
+    pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(returnAnim_86[rand]);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, returnAnim_86[rand], 0.0f);
     pthis->actionFunc = BossGanondrof_Return;
 }
 
@@ -1432,19 +1438,17 @@ s32 BossGanondrof_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx*
 }
 
 void BossGanondrof_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
-    static Vec3f spearVec = { 0.0f, 0.0f, 6000.0f };
 
     BossGanondrof* pthis = (BossGanondrof*)thisx;
 
     if (limbIndex == 14) {
-        Matrix_MultVec3f(&zeroVec, &pthis->targetPos);
+        Matrix_MultVec3f(&zeroVec_99, &pthis->targetPos);
     } else if (limbIndex == 13) {
-        Matrix_MultVec3f(&spearVec, &pthis->spearTip);
+        Matrix_MultVec3f(&spearVec_99, &pthis->spearTip);
     }
 
     if (((pthis->flyMode != GND_FLY_PAINTING) || (pthis->actionFunc == BossGanondrof_Intro)) && (limbIndex <= 25)) {
-        Matrix_MultVec3f(&zeroVec, &pthis->bodyPartsPos[limbIndex - 1]);
+        Matrix_MultVec3f(&zeroVec_99, &pthis->bodyPartsPos[limbIndex - 1]);
     }
 }
 
@@ -1510,6 +1514,10 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BossGanondrof_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    zeroVec_99 = { 0.0f, 0.0f, 0.0f };
+
+    spearVec_99 = { 0.0f, 0.0f, 6000.0f };
+
     Boss_Ganondrof_InitVars = {
         ACTOR_BOSS_GANONDROF,
         ACTORCAT_BOSS,

@@ -31,6 +31,12 @@ void func_80B17934(EnTakaraMan* pthis, GlobalContext* globalCtx);
 void func_80B17A6C(EnTakaraMan* pthis, GlobalContext* globalCtx);
 void func_80B17AC4(EnTakaraMan* pthis, GlobalContext* globalCtx);
 
+static void* eyeTextures_37[] = {
+    object_ts_Tex_000970,
+    object_ts_Tex_000D70,
+};
+
+
 ActorInit En_Takara_Man_InitVars = {
     ACTOR_EN_TAKARA_MAN,
     ACTORCAT_NPC,
@@ -222,16 +228,12 @@ s32 EnTakaraMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
 }
 
 void EnTakaraMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
-        object_ts_Tex_000970,
-        object_ts_Tex_000D70,
-    };
     EnTakaraMan* pthis = (EnTakaraMan*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_takara_man.c", 528);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeTextureIdx]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_37[pthis->eyeTextureIdx]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnTakaraMan_OverrideLimbDraw, NULL, pthis);
 

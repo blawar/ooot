@@ -28,7 +28,6 @@ enum HorseGameMalonRaceResult {
     /* 3 */ MALONRACE_UNUSED,
     /* 4 */ MALONRACE_FAILURE
 };
-
 struct EnHorseGameCheckIngoRace {
 
     /* 0x0000 */ EnHorseGameCheckBase base;
@@ -54,9 +53,7 @@ struct EnHorseGameCheck3 {
     /* 0x0150 */ s32 unk_150;
 }; 
 
-
 struct EnHorseGameCheckMalonRace {
-
     /* 0x0000 */ EnHorseGameCheckBase base;
     /* 0x0150 */ s32 startTimer;
     /* 0x0154 */ s32 raceFlags;

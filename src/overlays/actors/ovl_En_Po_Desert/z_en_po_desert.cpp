@@ -33,6 +33,9 @@ void EnPoDesert_WaitForPlayer(EnPoDesert* pthis, GlobalContext* globalCtx);
 void EnPoDesert_MoveToNextPoint(EnPoDesert* pthis, GlobalContext* globalCtx);
 void EnPoDesert_Disappear(EnPoDesert* pthis, GlobalContext* globalCtx);
 
+static Vec3f baseLightPos_41 = { 0.0f, 1400.0f, 0.0f };
+
+
 ActorInit En_Po_Desert_InitVars = {
     ACTOR_EN_PO_DESERT,
     ACTORCAT_BG,
@@ -238,7 +241,6 @@ s32 EnPoDesert_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
 
 void EnPoDesert_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx,
                              Gfx** gfxP) {
-    static Vec3f baseLightPos = { 0.0f, 1400.0f, 0.0f };
 
     EnPoDesert* pthis = (EnPoDesert*)thisx;
     f32 rand;
@@ -246,7 +248,7 @@ void EnPoDesert_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     Vec3f lightPos;
 
     if (limbIndex == 7) {
-        Matrix_MultVec3f(&baseLightPos, &lightPos);
+        Matrix_MultVec3f(&baseLightPos_41, &lightPos);
         rand = Rand_ZeroOne();
         color.r = (s16)(rand * 30.0f) + 225;
         color.g = (s16)(rand * 100.0f) + 155;
@@ -285,6 +287,8 @@ void EnPoDesert_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnPoDesert_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    baseLightPos_41 = { 0.0f, 1400.0f, 0.0f };
+
     En_Po_Desert_InitVars = {
         ACTOR_EN_PO_DESERT,
         ACTORCAT_BG,

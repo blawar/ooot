@@ -33,6 +33,13 @@ void func_80A50518(EnGuest* pthis, GlobalContext* globalCtx);
 void func_80A5057C(EnGuest* pthis, GlobalContext* globalCtx);
 void func_80A505CC(Actor* thisx, GlobalContext* globalCtx);
 
+static void* D_80A50BA4_39[] = {
+    object_boj_Tex_0005FC,
+    object_boj_Tex_0006FC,
+    object_boj_Tex_0007FC,
+};
+
+
 ActorInit En_Guest_InitVars = {
     ACTOR_EN_GUEST,
     ACTORCAT_NPC,
@@ -226,11 +233,6 @@ s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 }
 
 void EnGuest_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* D_80A50BA4[] = {
-        object_boj_Tex_0005FC,
-        object_boj_Tex_0006FC,
-        object_boj_Tex_0007FC,
-    };
     EnGuest* pthis = (EnGuest*)thisx;
     s32 pad;
 
@@ -240,7 +242,7 @@ void EnGuest_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPSegment(POLY_OPA_DISP++, 0x08, func_80A50708(globalCtx->state.gfxCtx, 0xFF, 0xFF, 0xFF, 0xFF));
     gSPSegment(POLY_OPA_DISP++, 0x09, func_80A50708(globalCtx->state.gfxCtx, 0xA0, 0x3C, 0xDC, 0xFF));
-    gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(D_80A50BA4[pthis->unk_30E]));
+    gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(D_80A50BA4_39[pthis->unk_30E]));
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnGuest_OverrideLimbDraw, NULL, pthis);

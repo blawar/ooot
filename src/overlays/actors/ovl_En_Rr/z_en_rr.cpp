@@ -48,6 +48,9 @@ void EnRr_Death(EnRr* pthis, GlobalContext* globalCtx);
 void EnRr_Retreat(EnRr* pthis, GlobalContext* globalCtx);
 void EnRr_Stunned(EnRr* pthis, GlobalContext* globalCtx);
 
+static f32 segmentHeights_51[] = { 0.0f, 500.0f, 750.0f, 1000.0f, 1000.0f };
+
+
 ActorInit En_Rr_InitVars = {
     ACTOR_EN_RR,
     ACTORCAT_ENEMY,
@@ -196,7 +199,6 @@ void EnRr_SetSpeed(EnRr* pthis, f32 speed) {
 }
 
 void EnRr_SetupReach(EnRr* pthis) {
-    static f32 segmentHeights[] = { 0.0f, 500.0f, 750.0f, 1000.0f, 1000.0f };
     s32 i;
 
     pthis->reachState = 1;
@@ -204,7 +206,7 @@ void EnRr_SetupReach(EnRr* pthis) {
     pthis->segPhaseVelTarget = 2500.0f;
     pthis->segMoveRate = 0.0f;
     for (i = 0; i < 5; i++) {
-        pthis->bodySegs[i].heightTarget = segmentHeights[i];
+        pthis->bodySegs[i].heightTarget = segmentHeights_51[i];
         pthis->bodySegs[i].scaleTarget.x = pthis->bodySegs[i].scaleTarget.z = 0.8f;
         pthis->bodySegs[i].rotTarget.x = 6000.0f;
         pthis->bodySegs[i].rotTarget.z = 0.0f;

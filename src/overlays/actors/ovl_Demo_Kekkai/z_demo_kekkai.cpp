@@ -32,6 +32,19 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx);
 
 void DemoKekkai_TowerBarrier(DemoKekkai* pthis, GlobalContext* globalCtx);
 
+static s32 eventFlags_28[] = { 0xC3, 0xBC, 0xBF, 0xBE, 0xBD, 0xAD, 0xBB };
+
+static Vec3f vel_31 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_31 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 lightYellow_31 = { 255, 255, 170, 0 };
+
+static Color_RGBA8 darkRed_31 = { 200, 0, 0, 0 };
+
+static u16 csFrames_34[] = { 0, 280, 280, 280, 280, 280, 280 };
+
+
 ActorInit Demo_Kekkai_InitVars = {
     ACTOR_DEMO_KEKKAI,
     ACTORCAT_ITEMACTION,
@@ -75,12 +88,11 @@ static u8 sEnergyColors[] = {
 };
 
 s32 DemoKekkai_CheckEventFlag(s32 params) {
-    static s32 eventFlags[] = { 0xC3, 0xBC, 0xBF, 0xBE, 0xBD, 0xAD, 0xBB };
 
     if ((params < KEKKAI_TOWER) || (params > KEKKAI_FOREST)) {
         return true;
     }
-    return Flags_GetEventChkInf(eventFlags[params]);
+    return Flags_GetEventChkInf(eventFlags_28[params]);
 }
 
 void DemoKekkai_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -143,10 +155,6 @@ void DemoKekkai_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoKekkai_SpawnParticles(DemoKekkai* pthis, GlobalContext* globalCtx) {
-    static Vec3f vel = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 lightYellow = { 255, 255, 170, 0 };
-    static Color_RGBA8 darkRed = { 200, 0, 0, 0 };
     Vec3f pos;
     s32 i;
 
@@ -154,15 +162,15 @@ void DemoKekkai_SpawnParticles(DemoKekkai* pthis, GlobalContext* globalCtx) {
         s16 roll = Rand_ZeroFloat(65535.0f);
         s16 yaw = Rand_ZeroFloat(65535.0f);
 
-        vel.x = Math_SinS(yaw) * Math_CosS(roll) * Rand_ZeroFloat(8.0f);
-        vel.z = Math_CosS(yaw) * Math_CosS(roll) * Rand_ZeroFloat(8.0f);
-        vel.y = Math_SinS(roll) * Rand_ZeroFloat(3.0f);
+        vel_31.x = Math_SinS(yaw) * Math_CosS(roll) * Rand_ZeroFloat(8.0f);
+        vel_31.z = Math_CosS(yaw) * Math_CosS(roll) * Rand_ZeroFloat(8.0f);
+        vel_31.y = Math_SinS(roll) * Rand_ZeroFloat(3.0f);
 
-        pos.x = (vel.x * 7.0f) + pthis->actor.world.pos.x;
-        pos.y = (vel.y * 20.0f) + pthis->actor.world.pos.y + 120.0f;
-        pos.z = (vel.z * 7.0f) + pthis->actor.world.pos.z;
+        pos.x = (vel_31.x * 7.0f) + pthis->actor.world.pos.x;
+        pos.y = (vel_31.y * 20.0f) + pthis->actor.world.pos.y + 120.0f;
+        pos.z = (vel_31.z * 7.0f) + pthis->actor.world.pos.z;
 
-        EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &vel, &accel, &lightYellow, &darkRed, 3000,
+        EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &vel_31, &accel_31, &lightYellow_31, &darkRed_31, 3000,
                                       (s32)Rand_ZeroFloat(40.0f) + 45);
     }
 }
@@ -213,11 +221,10 @@ void DemoKekkai_Update(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 void DemoKekkai_TrialBarrierDispel(Actor* thisx, GlobalContext* globalCtx) {
-    static u16 csFrames[] = { 0, 280, 280, 280, 280, 280, 280 };
     s32 pad;
     DemoKekkai* pthis = (DemoKekkai*)thisx;
 
-    if (globalCtx->csCtx.frames == csFrames[pthis->actor.params]) {
+    if (globalCtx->csCtx.frames == csFrames_34[pthis->actor.params]) {
         func_800F3F3C(0xA);
     }
     if (pthis->energyAlpha >= 0.05f) {
@@ -348,6 +355,14 @@ void DemoKekkai_DrawTowerBarrier(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoKekkai_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    vel_31 = { 0.0f, 0.0f, 0.0f };
+
+    accel_31 = { 0.0f, 0.0f, 0.0f };
+
+    lightYellow_31 = { 255, 255, 170, 0 };
+
+    darkRed_31 = { 200, 0, 0, 0 };
+
     Demo_Kekkai_InitVars = {
         ACTOR_DEMO_KEKKAI,
         ACTORCAT_ITEMACTION,

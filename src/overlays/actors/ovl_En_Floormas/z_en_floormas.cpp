@@ -56,6 +56,13 @@ void EnFloormas_Stand(EnFloormas* pthis, GlobalContext* globalCtx);
 void EnFloormas_BigDecideAction(EnFloormas* pthis, GlobalContext* globalCtx);
 void EnFloormas_Charge(EnFloormas* pthis, GlobalContext* globalCtx);
 
+static Vec3f velocity_71 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_71 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_88 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Floormas_InitVars = {
     ACTOR_EN_FLOORMAS,
     ACTORCAT_ENEMY,
@@ -329,8 +336,6 @@ void EnFloormas_SetupSmDecideAction(EnFloormas* pthis) {
 }
 
 void EnFloormas_SetupSmShrink(EnFloormas* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
     Vec3f pos;
 
     pthis->actor.speedXZ = 0.0f;
@@ -338,7 +343,7 @@ void EnFloormas_SetupSmShrink(EnFloormas* pthis, GlobalContext* globalCtx) {
     pos.x = pthis->actor.world.pos.x;
     pos.y = pthis->actor.world.pos.y + 15.0f;
     pos.z = pthis->actor.world.pos.z;
-    EffectSsDeadDb_Spawn(globalCtx, &pos, &velocity, &accel, 150, -10, 255, 255, 255, 255, 0, 0, 255, 1, 9, true);
+    EffectSsDeadDb_Spawn(globalCtx, &pos, &velocity_71, &accel_71, 150, -10, 255, 255, 255, 255, 0, 0, 255, 1, 9, true);
     pthis->actionFunc = EnFloormas_SmShrink;
 }
 
@@ -575,7 +580,6 @@ void EnFloormas_Hover(EnFloormas* pthis, GlobalContext* globalCtx) {
 }
 
 void EnFloormas_Slide(EnFloormas* pthis, GlobalContext* globalCtx) {
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
     Vec3f pos;
     Vec3f velocity;
 
@@ -587,12 +591,12 @@ void EnFloormas_Slide(EnFloormas* pthis, GlobalContext* globalCtx) {
     velocity.x = Math_SinS(pthis->actor.shape.rot.y + 0x6000) * 7.0f;
     velocity.z = Math_CosS(pthis->actor.shape.rot.y + 0x6000) * 7.0f;
 
-    func_800286CC(globalCtx, &pos, &velocity, &accel, 450, 100);
+    func_800286CC(globalCtx, &pos, &velocity, &accel_88, 450, 100);
 
     velocity.x = Math_SinS(pthis->actor.shape.rot.y - 0x6000) * 7.0f;
     velocity.z = Math_CosS(pthis->actor.shape.rot.y - 0x6000) * 7.0f;
 
-    func_800286CC(globalCtx, &pos, &velocity, &accel, 450, 100);
+    func_800286CC(globalCtx, &pos, &velocity, &accel_88, 450, 100);
 
     func_8002F974(&pthis->actor, NA_SE_EN_FLOORMASTER_SLIDING);
 }
@@ -1157,6 +1161,12 @@ void EnFloormas_DrawHighlighted(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnFloormas_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velocity_71 = { 0.0f, 0.0f, 0.0f };
+
+    accel_71 = { 0.0f, 0.0f, 0.0f };
+
+    accel_88 = { 0.0f, 0.0f, 0.0f };
+
     En_Floormas_InitVars = {
         ACTOR_EN_FLOORMAS,
         ACTORCAT_ENEMY,

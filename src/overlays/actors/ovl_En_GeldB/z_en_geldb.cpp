@@ -68,6 +68,38 @@ void EnGeldB_Block(EnGeldB* pthis, GlobalContext* globalCtx);
 void EnGeldB_Sidestep(EnGeldB* pthis, GlobalContext* globalCtx);
 void EnGeldB_Defeated(EnGeldB* pthis, GlobalContext* globalCtx);
 
+static Vec3f footOffset_111 = { 300.0f, 0.0f, 0.0f };
+
+static Vec3f swordTipOffset_111 = { 0.0f, -3000.0f, 0.0f };
+
+static Vec3f swordHiltOffset_111 = { 400.0f, 0.0f, 0.0f };
+
+static Vec3f swordQuadOffset1_111 = { 1600.0f, -4000.0f, 0.0f };
+
+static Vec3f swordQuadOffset0_111 = { -3000.0f, -2000.0f, 1300.0f };
+
+static Vec3f swordQuadOffset3_111 = { -3000.0f, -2000.0f, -1300.0f };
+
+static Vec3f swordQuadOffset2_111 = { 1000.0f, 1000.0f, 0.0f };
+
+static Vec3f zeroVec_111 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f blockTrisOffsets0_112[3] = {
+    { -3000.0f, 6000.0f, 1600.0f },
+    { -3000.0f, 0.0f, 1600.0f },
+    { 3000.0f, 6000.0f, 1600.0f },
+};
+
+static Vec3f blockTrisOffsets1_112[3] = {
+    { -3000.0f, 0.0f, 1600.0f },
+    { 3000.0f, 0.0f, 1600.0f },
+    { 3000.0f, 6000.0f, 1600.0f },
+};
+
+static void* eyeTextures_112[] = { gGerudoRedEyeOpenTex, gGerudoRedEyeHalfTex, gGerudoRedEyeShutTex,
+                               gGerudoRedEyeHalfTex };
+
+
 ActorInit En_GeldB_InitVars = {
     ACTOR_EN_GELDB,
     ACTORCAT_ENEMY,
@@ -1441,29 +1473,21 @@ s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 }
 
 void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f footOffset = { 300.0f, 0.0f, 0.0f };
-    static Vec3f swordTipOffset = { 0.0f, -3000.0f, 0.0f };
-    static Vec3f swordHiltOffset = { 400.0f, 0.0f, 0.0f };
-    static Vec3f swordQuadOffset1 = { 1600.0f, -4000.0f, 0.0f };
-    static Vec3f swordQuadOffset0 = { -3000.0f, -2000.0f, 1300.0f };
-    static Vec3f swordQuadOffset3 = { -3000.0f, -2000.0f, -1300.0f };
-    static Vec3f swordQuadOffset2 = { 1000.0f, 1000.0f, 0.0f };
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     Vec3f swordTip;
     Vec3f swordHilt;
     EnGeldB* pthis = (EnGeldB*)thisx;
     s32 bodyPart = -1;
 
     if (limbIndex == GELDB_LIMB_R_SWORD) {
-        Matrix_MultVec3f(&swordQuadOffset1, &pthis->swordCollider.dim.quad[1]);
-        Matrix_MultVec3f(&swordQuadOffset0, &pthis->swordCollider.dim.quad[0]);
-        Matrix_MultVec3f(&swordQuadOffset3, &pthis->swordCollider.dim.quad[3]);
-        Matrix_MultVec3f(&swordQuadOffset2, &pthis->swordCollider.dim.quad[2]);
+        Matrix_MultVec3f(&swordQuadOffset1_111, &pthis->swordCollider.dim.quad[1]);
+        Matrix_MultVec3f(&swordQuadOffset0_111, &pthis->swordCollider.dim.quad[0]);
+        Matrix_MultVec3f(&swordQuadOffset3_111, &pthis->swordCollider.dim.quad[3]);
+        Matrix_MultVec3f(&swordQuadOffset2_111, &pthis->swordCollider.dim.quad[2]);
         Collider_SetQuadVertices(&pthis->swordCollider, &pthis->swordCollider.dim.quad[0],
                                  &pthis->swordCollider.dim.quad[1], &pthis->swordCollider.dim.quad[2],
                                  &pthis->swordCollider.dim.quad[3]);
-        Matrix_MultVec3f(&swordTipOffset, &swordTip);
-        Matrix_MultVec3f(&swordHiltOffset, &swordHilt);
+        Matrix_MultVec3f(&swordTipOffset_111, &swordTip);
+        Matrix_MultVec3f(&swordHiltOffset_111, &swordHilt);
 
         if ((pthis->swordState < 0) || ((pthis->action != GELDB_SLASH) && (pthis->action != GELDB_SPIN_ATTACK))) {
             EffectBlure_AddSpace((EffectBlure*)Effect_GetByIndex(pthis->blureIndex));
@@ -1472,13 +1496,13 @@ void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
             EffectBlure_AddVertex((EffectBlure*)Effect_GetByIndex(pthis->blureIndex), &swordTip, &swordHilt);
         }
     } else {
-        Actor_SetFeetPos(&pthis->actor, limbIndex, GELDB_LIMB_L_FOOT, &footOffset, GELDB_LIMB_R_FOOT, &footOffset);
+        Actor_SetFeetPos(&pthis->actor, limbIndex, GELDB_LIMB_L_FOOT, &footOffset_111, GELDB_LIMB_R_FOOT, &footOffset_111);
     }
 
     if (limbIndex == GELDB_LIMB_L_FOOT) {
-        Matrix_MultVec3f(&footOffset, &pthis->leftFootPos);
+        Matrix_MultVec3f(&footOffset_111, &pthis->leftFootPos);
     } else if (limbIndex == GELDB_LIMB_R_FOOT) {
-        Matrix_MultVec3f(&footOffset, &pthis->rightFootPos);
+        Matrix_MultVec3f(&footOffset_111, &pthis->rightFootPos);
     }
 
     if (pthis->iceTimer != 0) {
@@ -1517,7 +1541,7 @@ void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
         if (bodyPart >= 0) {
             Vec3f limbPos;
 
-            Matrix_MultVec3f(&zeroVec, &limbPos);
+            Matrix_MultVec3f(&zeroVec_111, &limbPos);
             pthis->bodyPartsPos[bodyPart].x = limbPos.x;
             pthis->bodyPartsPos[bodyPart].y = limbPos.y;
             pthis->bodyPartsPos[bodyPart].z = limbPos.z;
@@ -1526,18 +1550,6 @@ void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f blockTrisOffsets0[3] = {
-        { -3000.0f, 6000.0f, 1600.0f },
-        { -3000.0f, 0.0f, 1600.0f },
-        { 3000.0f, 6000.0f, 1600.0f },
-    };
-    static Vec3f blockTrisOffsets1[3] = {
-        { -3000.0f, 0.0f, 1600.0f },
-        { 3000.0f, 0.0f, 1600.0f },
-        { 3000.0f, 6000.0f, 1600.0f },
-    };
-    static void* eyeTextures[] = { gGerudoRedEyeOpenTex, gGerudoRedEyeHalfTex, gGerudoRedEyeShutTex,
-                                   gGerudoRedEyeHalfTex };
     s32 pad;
     EnGeldB* pthis = (EnGeldB*)thisx;
 
@@ -1568,7 +1580,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     if ((pthis->action != GELDB_WAIT) || !pthis->invisible) {
         func_80093D18(globalCtx->state.gfxCtx);
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->blinkState]));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_112[pthis->blinkState]));
         SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                               pthis->skelAnime.dListCount, EnGeldB_OverrideLimbDraw, EnGeldB_PostLimbDraw, pthis);
         if (pthis->action == GELDB_BLOCK) {
@@ -1577,8 +1589,8 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Vec3f blockTrisVtx1[3];
 
             for (i = 0; i < 3; i++) {
-                Matrix_MultVec3f(&blockTrisOffsets0[i], &blockTrisVtx0[i]);
-                Matrix_MultVec3f(&blockTrisOffsets1[i], &blockTrisVtx1[i]);
+                Matrix_MultVec3f(&blockTrisOffsets0_112[i], &blockTrisVtx0[i]);
+                Matrix_MultVec3f(&blockTrisOffsets1_112[i], &blockTrisVtx1[i]);
             }
             Collider_SetTrisVertices(&pthis->blockCollider, 0, &blockTrisVtx0[0], &blockTrisVtx0[1], &blockTrisVtx0[2]);
             Collider_SetTrisVertices(&pthis->blockCollider, 1, &blockTrisVtx1[0], &blockTrisVtx1[1], &blockTrisVtx1[2]);
@@ -1633,6 +1645,22 @@ s32 EnGeldB_DodgeRanged(GlobalContext* globalCtx, EnGeldB* pthis) {
 }
 
 void EnGeldB_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    footOffset_111 = { 300.0f, 0.0f, 0.0f };
+
+    swordTipOffset_111 = { 0.0f, -3000.0f, 0.0f };
+
+    swordHiltOffset_111 = { 400.0f, 0.0f, 0.0f };
+
+    swordQuadOffset1_111 = { 1600.0f, -4000.0f, 0.0f };
+
+    swordQuadOffset0_111 = { -3000.0f, -2000.0f, 1300.0f };
+
+    swordQuadOffset3_111 = { -3000.0f, -2000.0f, -1300.0f };
+
+    swordQuadOffset2_111 = { 1000.0f, 1000.0f, 0.0f };
+
+    zeroVec_111 = { 0.0f, 0.0f, 0.0f };
+
     En_GeldB_InitVars = {
         ACTOR_EN_GELDB,
         ACTORCAT_ENEMY,

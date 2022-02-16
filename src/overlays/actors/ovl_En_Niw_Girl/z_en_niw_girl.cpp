@@ -32,6 +32,9 @@ void EnNiwGirl_Talk(EnNiwGirl* pthis, GlobalContext* globalCtx);
 void func_80AB94D0(EnNiwGirl* pthis, GlobalContext* globalCtx);
 void func_80AB9210(EnNiwGirl* pthis, GlobalContext* globalCtx);
 
+static void* eyeTextures_37[] = { gNiwGirlEyeOpenTex, gNiwGirlEyeHalfTex, gNiwGirlEyeClosedTex };
+
+
 ActorInit En_Niw_Girl_InitVars = {
     ACTOR_EN_NIW_GIRL,
     ACTORCAT_NPC,
@@ -259,7 +262,6 @@ s32 EnNiwGirlOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 static Vec3f sConstVec3f = { 0.2f, 0.2f, 0.2f };
 
 void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gNiwGirlEyeOpenTex, gNiwGirlEyeHalfTex, gNiwGirlEyeClosedTex };
     EnNiwGirl* pthis = (EnNiwGirl*)thisx;
     s32 pad;
     Vec3f sp4C = sConstVec3f;
@@ -267,7 +269,7 @@ void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_girl.c", 573);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_37[pthis->eyeIndex]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnNiwGirlOverrideLimbDraw, NULL, pthis);
     func_80033C30(&pthis->actor.world.pos, &sp4C, 255, globalCtx);

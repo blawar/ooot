@@ -43,6 +43,11 @@ s32 func_80AADA70(void);
 s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
 void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*);
 
+static void* mouthTextures_61[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
+
+static Vec3f headOffset_63 = { 200.0f, 800.0f, 0.0f };
+
+
 ActorInit En_Mm_InitVars = {
     ACTOR_EN_MM,
     ACTORCAT_NPC,
@@ -510,7 +515,6 @@ void EnMm_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* mouthTextures[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
     s32 pad;
     EnMm* pthis = (EnMm*)thisx;
 
@@ -519,7 +523,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mm.c", 1065);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(mouthTextures[pthis->mouthTexIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(mouthTextures_61[pthis->mouthTexIndex]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnMm_OverrideLimbDraw, EnMm_PostLimbDraw, pthis);
 
@@ -584,11 +588,10 @@ s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f headOffset = { 200.0f, 800.0f, 0.0f };
     EnMm* pthis = (EnMm*)thisx;
 
     if (limbIndex == 15) {
-        Matrix_MultVec3f(&headOffset, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&headOffset_63, &pthis->actor.focus.pos);
         Matrix_Translate(260.0f, 20.0f, 0.0f, MTXMODE_APPLY);
         Matrix_RotateY(0.0f, MTXMODE_APPLY);
         Matrix_RotateX(0.0f, MTXMODE_APPLY);
@@ -599,6 +602,8 @@ void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnMm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    headOffset_63 = { 200.0f, 800.0f, 0.0f };
+
     En_Mm_InitVars = {
         ACTOR_EN_MM,
         ACTORCAT_NPC,

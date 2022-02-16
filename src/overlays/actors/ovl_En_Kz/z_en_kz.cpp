@@ -38,6 +38,13 @@ void EnKz_Wait(EnKz* pthis, GlobalContext* globalCtx);
 void EnKz_SetupGetItem(EnKz* pthis, GlobalContext* globalCtx);
 void EnKz_StartTimer(EnKz* pthis, GlobalContext* globalCtx);
 
+static void* sEyeSegments_57[] = {
+    gKzEyeOpenTex,
+    gKzEyeHalfTex,
+    gKzEyeClosedTex,
+};
+
+
 ActorInit En_Kz_InitVars = {
     ACTOR_EN_KZ,
     ACTORCAT_NPC,
@@ -500,16 +507,11 @@ void EnKz_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnKz_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyeSegments[] = {
-        gKzEyeOpenTex,
-        gKzEyeHalfTex,
-        gKzEyeClosedTex,
-    };
     EnKz* pthis = (EnKz*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_kz.c", 1259);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeSegments[pthis->eyeIdx]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeSegments_57[pthis->eyeIdx]));
     func_800943C8(globalCtx->state.gfxCtx);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, pthis->skelanime.dListCount,
                           EnKz_OverrideLimbDraw, EnKz_PostLimbDraw, pthis);

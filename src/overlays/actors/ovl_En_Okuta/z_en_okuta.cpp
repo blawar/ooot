@@ -34,6 +34,19 @@ void EnOkuta_Die(EnOkuta* pthis, GlobalContext* globalCtx);
 void EnOkuta_Freeze(EnOkuta* pthis, GlobalContext* globalCtx);
 void EnOkuta_ProjectileFly(EnOkuta* pthis, GlobalContext* globalCtx);
 
+static Vec3f accel_41 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 primColor_41 = { 255, 255, 255, 255 };
+
+static Color_RGBA8 envColor_41 = { 150, 150, 150, 255 };
+
+static Vec3f accel_59 = { 0.0f, -0.5f, 0.0f };
+
+static Color_RGBA8 primColor_59 = { 255, 255, 255, 255 };
+
+static Color_RGBA8 envColor_59 = { 150, 150, 150, 0 };
+
+
 ActorInit En_Okuta_InitVars = {
     ACTOR_EN_OKUTA,
     ACTORCAT_ENEMY,
@@ -188,11 +201,8 @@ void EnOkuta_SpawnBubbles(EnOkuta* pthis, GlobalContext* globalCtx) {
 }
 
 void EnOkuta_SpawnDust(Vec3f* pos, Vec3f* velocity, s16 scaleStep, GlobalContext* globalCtx) {
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 primColor = { 255, 255, 255, 255 };
-    static Color_RGBA8 envColor = { 150, 150, 150, 255 };
 
-    func_8002829C(globalCtx, pos, velocity, &accel, &primColor, &envColor, 0x190, scaleStep);
+    func_8002829C(globalCtx, pos, velocity, &accel_41, &primColor_41, &envColor_41, 0x190, scaleStep);
 }
 
 void EnOkuta_SpawnSplash(EnOkuta* pthis, GlobalContext* globalCtx) {
@@ -413,9 +423,6 @@ void EnOkuta_WaitToDie(EnOkuta* pthis, GlobalContext* globalCtx) {
 }
 
 void EnOkuta_Die(EnOkuta* pthis, GlobalContext* globalCtx) {
-    static Vec3f accel = { 0.0f, -0.5f, 0.0f };
-    static Color_RGBA8 primColor = { 255, 255, 255, 255 };
-    static Color_RGBA8 envColor = { 150, 150, 150, 0 };
     Vec3f velocity;
     Vec3f pos;
     s32 i;
@@ -452,8 +459,8 @@ void EnOkuta_Die(EnOkuta* pthis, GlobalContext* globalCtx) {
                 velocity.x = (Rand_ZeroOne() - 0.5f) * 7.0f;
                 velocity.y = Rand_ZeroOne() * 7.0f;
                 velocity.z = (Rand_ZeroOne() - 0.5f) * 7.0f;
-                EffectSsDtBubble_SpawnCustomColor(globalCtx, &pthis->actor.world.pos, &velocity, &accel, &primColor,
-                                                  &envColor, Rand_S16Offset(100, 50), 25, 0);
+                EffectSsDtBubble_SpawnCustomColor(globalCtx, &pthis->actor.world.pos, &velocity, &accel_59, &primColor_59,
+                                                  &envColor_59, Rand_S16Offset(100, 50), 25, 0);
             }
             Actor_Kill(&pthis->actor);
         }
@@ -739,6 +746,18 @@ void EnOkuta_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnOkuta_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    accel_41 = { 0.0f, 0.0f, 0.0f };
+
+    primColor_41 = { 255, 255, 255, 255 };
+
+    envColor_41 = { 150, 150, 150, 255 };
+
+    accel_59 = { 0.0f, -0.5f, 0.0f };
+
+    primColor_59 = { 255, 255, 255, 255 };
+
+    envColor_59 = { 150, 150, 150, 0 };
+
     En_Okuta_InitVars = {
         ACTOR_EN_OKUTA,
         ACTORCAT_ENEMY,

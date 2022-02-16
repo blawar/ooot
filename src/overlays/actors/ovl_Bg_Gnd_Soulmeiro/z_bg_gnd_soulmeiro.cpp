@@ -31,6 +31,13 @@ void func_8087AF38(BgGndSoulmeiro* pthis, GlobalContext* globalCtx);
 void func_8087B284(BgGndSoulmeiro* pthis, GlobalContext* globalCtx);
 void func_8087B350(BgGndSoulmeiro* pthis, GlobalContext* globalCtx);
 
+static Gfx* dLists_35[] = {
+    gSpiritTrialWebDL,
+    gSpiritTrialLightSourceDL,
+    gSpiritTrialLightFloorDL,
+};
+
+
 ActorInit Bg_Gnd_Soulmeiro_InitVars = {
     ACTOR_BG_GND_SOULMEIRO,
     ACTORCAT_PROP,
@@ -63,6 +70,8 @@ static ColliderCylinderInit sCylinderInit = {
     },
     { 50, 20, 20, { 0, 0, 0 } },
 };
+
+static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_CONTINUE),
@@ -115,7 +124,6 @@ void BgGndSoulmeiro_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_8087AF38(BgGndSoulmeiro* pthis, GlobalContext* globalCtx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     Vec3f vecA;
     Vec3f vecB;
     Actor* thisx = &pthis->actor;
@@ -202,11 +210,6 @@ void BgGndSoulmeiro_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgGndSoulmeiro_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = {
-        gSpiritTrialWebDL,
-        gSpiritTrialLightSourceDL,
-        gSpiritTrialLightFloorDL,
-    };
     s32 params = thisx->params & 0xFF;
 
     if (1) {}
@@ -217,14 +220,14 @@ void BgGndSoulmeiro_Draw(Actor* thisx, GlobalContext* globalCtx) {
             func_80093D84(globalCtx->state.gfxCtx);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gnd_soulmeiro.c", 400),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, dLists[params]);
+            gSPDisplayList(POLY_XLU_DISP++, dLists_35[params]);
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_soulmeiro.c", 403);
             break;
         case 1:
-            Gfx_DrawDListXlu(globalCtx, dLists[params]);
+            Gfx_DrawDListXlu(globalCtx, dLists_35[params]);
             break;
         case 2:
-            Gfx_DrawDListOpa(globalCtx, dLists[params]);
+            Gfx_DrawDListOpa(globalCtx, dLists_35[params]);
             break;
     }
 }
@@ -262,5 +265,7 @@ void BgGndSoulmeiro_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         },
         { 50, 20, 20, { 0, 0, 0 } },
     };
+
+    zeroVec = { 0.0f, 0.0f, 0.0f };
 
 }

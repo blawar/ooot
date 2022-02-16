@@ -44,6 +44,15 @@ void EnBili_Die(EnBili* pthis, GlobalContext* globalCtx);
 void EnBili_Stunned(EnBili* pthis, GlobalContext* globalCtx);
 void EnBili_Frozen(EnBili* pthis, GlobalContext* globalCtx);
 
+static Color_RGBA8 primColor_76 = { 255, 255, 255, 255 };
+
+static Color_RGBA8 envColor_76 = { 200, 255, 255, 255 };
+
+static Vec3f effectVelocity_82 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f effectAccel_82 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Bili_InitVars = {
     ACTOR_EN_BILI,
     ACTORCAT_ENEMY,
@@ -365,8 +374,6 @@ void EnBili_SpawnedFlyApart(EnBili* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBili_DischargeLightning(EnBili* pthis, GlobalContext* globalCtx) {
-    static Color_RGBA8 primColor = { 255, 255, 255, 255 };
-    static Color_RGBA8 envColor = { 200, 255, 255, 255 };
     s32 i;
     Vec3f effectPos;
     s16 effectYaw;
@@ -377,7 +384,7 @@ void EnBili_DischargeLightning(EnBili* pthis, GlobalContext* globalCtx) {
             effectPos.x = Rand_CenteredFloat(5.0f) + pthis->actor.world.pos.x;
             effectPos.y = (Rand_ZeroOne() * 5.0f) + pthis->actor.world.pos.y + 2.5f;
             effectPos.z = Rand_CenteredFloat(5.0f) + pthis->actor.world.pos.z;
-            EffectSsLightning_Spawn(globalCtx, &effectPos, &primColor, &envColor, 15, effectYaw, 6, 2);
+            EffectSsLightning_Spawn(globalCtx, &effectPos, &primColor_76, &envColor_76, 15, effectYaw, 6, 2);
         }
     }
 
@@ -477,8 +484,6 @@ void EnBili_Burnt(EnBili* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBili_Die(EnBili* pthis, GlobalContext* globalCtx) {
-    static Vec3f effectVelocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f effectAccel = { 0.0f, 0.0f, 0.0f };
     s16 effectScale;
     Vec3f effectPos;
     s32 i;
@@ -501,14 +506,14 @@ void EnBili_Die(EnBili* pthis, GlobalContext* globalCtx) {
             effectPos.y = ((Rand_ZeroOne() * 5.0f) + pthis->actor.world.pos.y) - 2.5f;
             effectPos.z = ((Rand_ZeroOne() * 10.0f) + pthis->actor.world.pos.z) - 5.0f;
 
-            effectVelocity.y = Rand_ZeroOne() + 1.0f;
+            effectVelocity_82.y = Rand_ZeroOne() + 1.0f;
             effectScale = Rand_S16Offset(40, 40);
 
             if (Rand_ZeroOne() < 0.7f) {
-                EffectSsDtBubble_SpawnColorProfile(globalCtx, &effectPos, &effectVelocity, &effectAccel, effectScale,
+                EffectSsDtBubble_SpawnColorProfile(globalCtx, &effectPos, &effectVelocity_82, &effectAccel_82, effectScale,
                                                    25, 2, 1);
             } else {
-                EffectSsDtBubble_SpawnColorProfile(globalCtx, &effectPos, &effectVelocity, &effectAccel, effectScale,
+                EffectSsDtBubble_SpawnColorProfile(globalCtx, &effectPos, &effectVelocity_82, &effectAccel_82, effectScale,
                                                    25, 0, 1);
             }
         }
@@ -777,6 +782,14 @@ void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBili_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    primColor_76 = { 255, 255, 255, 255 };
+
+    envColor_76 = { 200, 255, 255, 255 };
+
+    effectVelocity_82 = { 0.0f, 0.0f, 0.0f };
+
+    effectAccel_82 = { 0.0f, 0.0f, 0.0f };
+
     En_Bili_InitVars = {
         ACTOR_EN_BILI,
         ACTORCAT_ENEMY,

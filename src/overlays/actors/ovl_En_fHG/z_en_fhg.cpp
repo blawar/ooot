@@ -43,6 +43,9 @@ void EnfHG_Done(EnfHG* pthis, GlobalContext* globalCtx);
 
 void EnfHG_Noop(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* skin);
 
+static Vec3f audioVec_43 = { 0.0f, 0.0f, 50.0f };
+
+
 ActorInit En_fHG_InitVars = {
     ACTOR_EN_FHG,
     ACTORCAT_BG,
@@ -106,7 +109,6 @@ void EnfHG_SetupIntro(EnfHG* pthis, GlobalContext* globalCtx) {
 }
 
 void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
-    static Vec3f audioVec = { 0.0f, 0.0f, 50.0f };
     s32 pad64;
     Player* player = GET_PLAYER(globalCtx);
     BossGanondrof* bossGnd = (BossGanondrof*)pthis->actor.parent;
@@ -287,11 +289,11 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
                 bossGnd->work[GND_EYE_STATE] = GND_EYESTATE_BRIGHTEN;
             }
             if (pthis->timers[0] == 35) {
-                func_80078914(&audioVec, NA_SE_EN_FANTOM_EYE);
+                func_80078914(&audioVec_43, NA_SE_EN_FANTOM_EYE);
             }
             if (pthis->timers[0] == 130) {
                 bossGnd->work[GND_EYE_STATE] = GND_EYESTATE_FADE;
-                func_80078914(&audioVec, NA_SE_EN_FANTOM_ST_LAUGH);
+                func_80078914(&audioVec_43, NA_SE_EN_FANTOM_ST_LAUGH);
             }
             if (pthis->timers[0] == 20) {
                 Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_BOSS);
@@ -727,6 +729,8 @@ void EnfHG_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnfHG_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    audioVec_43 = { 0.0f, 0.0f, 50.0f };
+
     En_fHG_InitVars = {
         ACTOR_EN_FHG,
         ACTORCAT_BG,

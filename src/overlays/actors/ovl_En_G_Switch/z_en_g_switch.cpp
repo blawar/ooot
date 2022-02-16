@@ -48,6 +48,9 @@ void EnGSwitch_SpawnEffects(EnGSwitch* pthis, Vec3f* pos, s16 scale, s16 colorId
 void EnGSwitch_UpdateEffects(EnGSwitch* pthis, GlobalContext* globalCtx);
 void EnGSwitch_DrawEffects(EnGSwitch* pthis, GlobalContext* globalCtx);
 
+static s8 majorScale_50[] = { 0, 2, 4, 5, 7 };
+
+
 static s16 sCollectedCount = 0;
 
 static ColliderCylinderInit sCylinderInit = {
@@ -218,13 +221,12 @@ void EnGSwitch_WaitForObject(EnGSwitch* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGSwitch_SilverRupeeTracker(EnGSwitch* pthis, GlobalContext* globalCtx) {
-    static s8 majorScale[] = { 0, 2, 4, 5, 7 };
 
     if (pthis->noteIndex < sCollectedCount) {
         if (sCollectedCount < 5) {
             // "sound?"
             osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 音？ ☆☆☆☆☆ %d\n" VT_RST, pthis->noteIndex);
-            Audio_PlaySoundTransposed(&D_801333D4, NA_SE_EV_FIVE_COUNT_LUPY, majorScale[pthis->noteIndex]);
+            Audio_PlaySoundTransposed(&D_801333D4, NA_SE_EV_FIVE_COUNT_LUPY, majorScale_50[pthis->noteIndex]);
             pthis->noteIndex = sCollectedCount;
         }
     }

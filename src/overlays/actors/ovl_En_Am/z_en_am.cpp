@@ -44,6 +44,25 @@ void EnAm_Ricochet(EnAm* pthis, GlobalContext* globalCtx);
 void EnAm_Stunned(EnAm* pthis, GlobalContext* globalCtx);
 void EnAm_RecoilFromDamage(EnAm* pthis, GlobalContext* globalCtx);
 
+static Vec3f velocity_52 = { 0.0f, -1.5f, 0.0f };
+
+static Vec3f accel_52 = { 0.0f, -0.2f, 0.0f };
+
+static Vec3f D_809B0074_81 = { 2500.0f, 7000.0f, 0.0f };
+
+static Vec3f D_809B0080_81 = { -2500.0f, 0.0f, 0.0f };
+
+static Vec3f D_809B008C_81 = { 2500.0f, 7000.0f, 4000.0f };
+
+static Vec3f D_809B0098_81 = { -2500.0f, 0.0f, 4000.0f };
+
+static Vec3f zeroVec_83 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 dustPrimColor_83 = { 150, 150, 150, 255 };
+
+static Color_RGBA8 dustEnvColor_83 = { 100, 100, 100, 150 };
+
+
 ActorInit En_Am_InitVars = {
     ACTOR_EN_AM,
     ACTORCAT_ENEMY,
@@ -248,8 +267,6 @@ void EnAm_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnAm_SpawnEffects(EnAm* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, -1.5f, 0.0f };
-    static Vec3f accel = { 0.0f, -0.2f, 0.0f };
     s32 i;
     Vec3f pos;
     Color_RGBA8 primColor = { 100, 100, 100, 0 };
@@ -261,7 +278,7 @@ void EnAm_SpawnEffects(EnAm* pthis, GlobalContext* globalCtx) {
         pos.y = (pthis->dyna.actor.world.pos.y + 40.0f) + ((Rand_ZeroOne() - 0.5f) * 10.0f);
         pos.z = pthis->dyna.actor.world.pos.z + ((Rand_ZeroOne() - 0.5f) * 65.0f);
 
-        EffectSsKiraKira_SpawnSmall(globalCtx, &pos, &velocity, &accel, &primColor, &envColor);
+        EffectSsKiraKira_SpawnSmall(globalCtx, &pos, &velocity_52, &accel_52, &primColor, &envColor);
     }
 
     Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EN_AMOS_WALK);
@@ -762,16 +779,12 @@ void EnAm_Ricochet(EnAm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAm_TransformSwordHitbox(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f D_809B0074 = { 2500.0f, 7000.0f, 0.0f };
-    static Vec3f D_809B0080 = { -2500.0f, 0.0f, 0.0f };
-    static Vec3f D_809B008C = { 2500.0f, 7000.0f, 4000.0f };
-    static Vec3f D_809B0098 = { -2500.0f, 0.0f, 4000.0f };
     EnAm* pthis = (EnAm*)thisx;
 
-    Matrix_MultVec3f(&D_809B0074, &pthis->hitCollider.dim.quad[1]);
-    Matrix_MultVec3f(&D_809B0080, &pthis->hitCollider.dim.quad[0]);
-    Matrix_MultVec3f(&D_809B008C, &pthis->hitCollider.dim.quad[3]);
-    Matrix_MultVec3f(&D_809B0098, &pthis->hitCollider.dim.quad[2]);
+    Matrix_MultVec3f(&D_809B0074_81, &pthis->hitCollider.dim.quad[1]);
+    Matrix_MultVec3f(&D_809B0080_81, &pthis->hitCollider.dim.quad[0]);
+    Matrix_MultVec3f(&D_809B008C_81, &pthis->hitCollider.dim.quad[3]);
+    Matrix_MultVec3f(&D_809B0098_81, &pthis->hitCollider.dim.quad[2]);
 
     Collider_SetQuadVertices(&pthis->hitCollider, &pthis->hitCollider.dim.quad[0], &pthis->hitCollider.dim.quad[1],
                              &pthis->hitCollider.dim.quad[2], &pthis->hitCollider.dim.quad[3]);
@@ -825,9 +838,6 @@ void EnAm_UpdateDamage(EnAm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAm_Update(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 dustPrimColor = { 150, 150, 150, 255 };
-    static Color_RGBA8 dustEnvColor = { 100, 100, 100, 150 };
     s32 pad;
     EnAm* pthis = (EnAm*)thisx;
     EnBom* bomb;
@@ -869,7 +879,7 @@ void EnAm_Update(Actor* thisx, GlobalContext* globalCtx) {
                     dustPos.y = (Rand_CenteredFloat(10.0f) * 6.0f) + (pthis->dyna.actor.world.pos.y + 40.0f);
                     dustPos.z = (cosf(dustPosScale) * 7.0f) + pthis->dyna.actor.world.pos.z;
 
-                    func_8002836C(globalCtx, &dustPos, &zeroVec, &zeroVec, &dustPrimColor, &dustEnvColor, 200, 45, 12);
+                    func_8002836C(globalCtx, &dustPos, &zeroVec_83, &zeroVec_83, &dustPrimColor_83, &dustEnvColor_83, 200, 45, 12);
                     dustPosScale += 60.0f;
                 }
 
@@ -971,6 +981,24 @@ void EnAm_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnAm_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velocity_52 = { 0.0f, -1.5f, 0.0f };
+
+    accel_52 = { 0.0f, -0.2f, 0.0f };
+
+    D_809B0074_81 = { 2500.0f, 7000.0f, 0.0f };
+
+    D_809B0080_81 = { -2500.0f, 0.0f, 0.0f };
+
+    D_809B008C_81 = { 2500.0f, 7000.0f, 4000.0f };
+
+    D_809B0098_81 = { -2500.0f, 0.0f, 4000.0f };
+
+    zeroVec_83 = { 0.0f, 0.0f, 0.0f };
+
+    dustPrimColor_83 = { 150, 150, 150, 255 };
+
+    dustEnvColor_83 = { 100, 100, 100, 150 };
+
     En_Am_InitVars = {
         ACTOR_EN_AM,
         ACTORCAT_ENEMY,

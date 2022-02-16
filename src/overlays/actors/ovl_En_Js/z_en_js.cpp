@@ -29,6 +29,9 @@ void EnJs_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80A89304(EnJs* pthis, GlobalContext* globalCtx);
 
+static Vec3f D_80A896DC_39 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Js_InitVars = {
     ACTOR_EN_JS,
     ACTORCAT_NPC,
@@ -229,11 +232,10 @@ s32 EnJs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnJs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f D_80A896DC = { 0.0f, 0.0f, 0.0f };
     EnJs* pthis = (EnJs*)thisx;
 
     if (limbIndex == 12) {
-        Matrix_MultVec3f(&D_80A896DC, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&D_80A896DC_39, &pthis->actor.focus.pos);
     }
 }
 void EnJs_Draw(Actor* thisx, GlobalContext* globalCtx) {
@@ -245,6 +247,8 @@ void EnJs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnJs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80A896DC_39 = { 0.0f, 0.0f, 0.0f };
+
     En_Js_InitVars = {
         ACTOR_EN_JS,
         ACTORCAT_NPC,

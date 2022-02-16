@@ -32,6 +32,13 @@ void BgJyaHaheniron_PillarCrumble(BgJyaHaheniron* pthis, GlobalContext* globalCt
 void BgJyaHaheniron_SetupRubbleCollide(BgJyaHaheniron* pthis);
 void BgJyaHaheniron_RubbleCollide(BgJyaHaheniron* pthis, GlobalContext* globalCtx);
 
+static Gfx* dLists_45[] = {
+    gObjectJyaIronDL_000880,
+    gObjectJyaIronDL_000AE0,
+    gObjectJyaIronDL_000600,
+};
+
+
 ActorInit Bg_Jya_Haheniron_InitVars = {
     ACTOR_BG_JYA_HAHENIRON,
     ACTORCAT_PROP,
@@ -213,18 +220,13 @@ void BgJyaHaheniron_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaHaheniron_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = {
-        gObjectJyaIronDL_000880,
-        gObjectJyaIronDL_000AE0,
-        gObjectJyaIronDL_000600,
-    };
     s32 pad;
     BgJyaHaheniron* pthis = (BgJyaHaheniron*)thisx;
 
     if (pthis->actor.params == 0) {
         Collider_UpdateSpheres(0, &pthis->collider);
     }
-    Gfx_DrawDListOpa(globalCtx, dLists[pthis->actor.params]);
+    Gfx_DrawDListOpa(globalCtx, dLists_45[pthis->actor.params]);
 }
 
 void BgJyaHaheniron_Reset(Actor* pthisx, GlobalContext* globalCtx) {

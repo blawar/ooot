@@ -50,6 +50,23 @@ void EnXc_DrawHarp(Actor* thisx, GlobalContext* globalCtx);
 void EnXc_DrawTriforce(Actor* thisx, GlobalContext* globalCtx);
 void EnXc_DrawSquintingEyes(Actor* thisx, GlobalContext* globalCtx);
 
+static Vec3f sXyzDist_80;
+
+static s32 D_80B41D90_83 = 0;
+
+static Vec3f sPos_83 = { 0.0f, 0.0f, 0.0f };
+
+static f32 sMaxSpeed_83 = 0.0f;
+
+static Vec3f D_80B42DB0_83;
+
+static s32 sFlameSpawned_84 = false;
+
+static s32 D_80B41DA8_87 = 1;
+
+static s32 D_80B41DAC_191 = 1;
+
+
 static ColliderCylinderInitType1 sCylinderInit = {
     {
         COLTYPE_HIT0,
@@ -431,7 +448,6 @@ void EnXc_SetLandingSFX(EnXc* pthis, GlobalContext* globalCtx) {
 }
 
 void EnXc_SetColossusAppearSFX(EnXc* pthis, GlobalContext* globalCtx) {
-    static Vec3f sXyzDist;
     s16 sceneNum;
 
     if (gSaveContext.sceneSetupIndex == 4) {
@@ -444,14 +460,14 @@ void EnXc_SetColossusAppearSFX(EnXc* pthis, GlobalContext* globalCtx) {
             if (frameCount == 119) {
                 Vec3f pos = { -611.0f, 728.0f, -2.0f };
 
-                SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pos, &sXyzDist, wDest);
-                func_80078914(&sXyzDist, NA_SE_EV_JUMP_CONC);
+                SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pos, &sXyzDist_80, wDest);
+                func_80078914(&sXyzDist_80, NA_SE_EV_JUMP_CONC);
             } else if (frameCount == 164) {
                 Vec3f pos = { -1069.0f, 38.0f, 0.0f };
                 s32 pad;
 
-                SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pos, &sXyzDist, wDest);
-                func_80078914(&sXyzDist, NA_SE_PL_WALK_CONCRETE);
+                SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pos, &sXyzDist_80, wDest);
+                func_80078914(&sXyzDist_80, NA_SE_PL_WALK_CONCRETE);
             }
         }
     }
@@ -469,10 +485,6 @@ static Vec3f D_80B42DA0;
 
 void EnXc_SetColossusWindSFX(GlobalContext* globalCtx) {
     if (gSaveContext.sceneSetupIndex == 4) {
-        static s32 D_80B41D90 = 0;
-        static Vec3f sPos = { 0.0f, 0.0f, 0.0f };
-        static f32 sMaxSpeed = 0.0f;
-        static Vec3f D_80B42DB0;
         s32 pad;
         s16 sceneNum = globalCtx->sceneNum;
 
@@ -484,37 +496,36 @@ void EnXc_SetColossusWindSFX(GlobalContext* globalCtx) {
                 s32 pad;
                 Vec3f* eye = &globalCtx->view.eye;
 
-                if (D_80B41D90 != 0) {
-                    f32 speed = Math3D_Vec3f_DistXYZ(&D_80B42DB0, eye) / 7.058922f;
+                if (D_80B41D90_83 != 0) {
+                    f32 speed = Math3D_Vec3f_DistXYZ(&D_80B42DB0_83, eye) / 7.058922f;
 
-                    sMaxSpeed = CLAMP_MIN(sMaxSpeed, speed);
+                    sMaxSpeed_83 = CLAMP_MIN(sMaxSpeed_83, speed);
 
-                    osSyncPrintf("MAX speed = %f\n", sMaxSpeed);
+                    osSyncPrintf("MAX speed = %f\n", sMaxSpeed_83);
 
                     speed = CLAMP_MAX(speed, 2.0f);
-                    func_800F436C(&sPos, NA_SE_EV_FLYING_AIR - SFX_FLAG, 0.6f + (0.4f * speed));
+                    func_800F436C(&sPos_83, NA_SE_EV_FLYING_AIR - SFX_FLAG, 0.6f + (0.4f * speed));
                 }
 
-                D_80B42DB0.x = eye->x;
-                D_80B42DB0.y = eye->y;
-                D_80B42DB0.z = eye->z;
-                D_80B41D90 = 1;
+                D_80B42DB0_83.x = eye->x;
+                D_80B42DB0_83.y = eye->y;
+                D_80B42DB0_83.z = eye->z;
+                D_80B41D90_83 = 1;
             }
         }
     }
 }
 
 void EnXc_SpawnFlame(EnXc* pthis, GlobalContext* globalCtx) {
-    static s32 sFlameSpawned = false;
 
-    if (!sFlameSpawned) {
+    if (!sFlameSpawned_84) {
         CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
         f32 xPos = npcAction->startPos.x;
         f32 yPos = npcAction->startPos.y;
         f32 zPos = npcAction->startPos.z;
 
         pthis->flameActor = Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_LIGHT, xPos, yPos, zPos, 0, 0, 0, 5);
-        sFlameSpawned = true;
+        sFlameSpawned_84 = true;
     }
 }
 
@@ -540,7 +551,6 @@ void EnXc_DestroyFlame(EnXc* pthis) {
 }
 
 void EnXc_InitFlame(EnXc* pthis, GlobalContext* globalCtx) {
-    static s32 D_80B41DA8 = 1;
     s32 pad;
     s16 sceneNum = globalCtx->sceneNum;
 
@@ -549,7 +559,7 @@ void EnXc_InitFlame(EnXc* pthis, GlobalContext* globalCtx) {
         if (npcAction != NULL) {
             s32 action = npcAction->action;
 
-            if (D_80B41DA8 != action) {
+            if (D_80B41DA8_87 != action) {
                 if (action != 1) {
                     EnXc_SpawnFlame(pthis, globalCtx);
                 }
@@ -558,7 +568,7 @@ void EnXc_InitFlame(EnXc* pthis, GlobalContext* globalCtx) {
                     EnXc_DestroyFlame(pthis);
                 }
 
-                D_80B41DA8 = action;
+                D_80B41DA8_87 = action;
             }
 
             EnXc_SetupFlamePos(pthis, globalCtx);
@@ -1423,13 +1433,12 @@ void func_80B3F534(GlobalContext* globalCtx) {
 }
 
 void func_80B3F59C(EnXc* pthis, GlobalContext* globalCtx) {
-    static s32 D_80B41DAC = 1;
     CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
 
     if (npcAction != NULL) {
         s32 action = npcAction->action;
 
-        if (action != D_80B41DAC) {
+        if (action != D_80B41DAC_191) {
             switch (action) {
                 case 2:
                     func_80B3F3D8();
@@ -1440,7 +1449,7 @@ void func_80B3F59C(EnXc* pthis, GlobalContext* globalCtx) {
                 default:
                     break;
             }
-            D_80B41DAC = action;
+            D_80B41DAC_191 = action;
         }
     }
 }
@@ -2449,6 +2458,22 @@ ActorInit En_Xc_InitVars = {
 };
 
 void EnXc_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sXyzDist_80 = {0, 0, 0};
+
+    D_80B41D90_83 = 0;
+
+    sPos_83 = { 0.0f, 0.0f, 0.0f };
+
+    sMaxSpeed_83 = 0.0f;
+
+    D_80B42DB0_83 = {0, 0, 0};
+
+    sFlameSpawned_84 = false;
+
+    D_80B41DA8_87 = 1;
+
+    D_80B41DAC_191 = 1;
+
     sCylinderInit = {
         {
             COLTYPE_HIT0,
@@ -2467,6 +2492,8 @@ void EnXc_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         },
         { 25, 80, 0, { 0, 0, 0 } },
     };
+
+    D_80B42DA0 = {0, 0, 0};
 
     En_Xc_InitVars = {
         ACTOR_EN_XC,

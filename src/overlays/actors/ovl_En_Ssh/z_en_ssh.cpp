@@ -34,6 +34,13 @@ void EnSsh_Drop(EnSsh* pthis, GlobalContext* globalCtx);
 void EnSsh_Return(EnSsh* pthis, GlobalContext* globalCtx);
 void EnSsh_Start(EnSsh* pthis, GlobalContext* globalCtx);
 
+static void* blinkTex_85[] = {
+    object_ssh_Tex_0007E0,
+    object_ssh_Tex_000C60,
+    object_ssh_Tex_001060,
+};
+
+
 #include "overlays/ovl_En_Ssh/ovl_En_Ssh.cpp"
 
 ActorInit En_Ssh_InitVars = {
@@ -874,18 +881,13 @@ void EnSsh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 }
 
 void EnSsh_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* blinkTex[] = {
-        object_ssh_Tex_0007E0,
-        object_ssh_Tex_000C60,
-        object_ssh_Tex_001060,
-    };
     s32 pad;
     EnSsh* pthis = (EnSsh*)thisx;
 
     EnSsh_CheckBodyStickHit(pthis, globalCtx);
     EnSsh_Sway(pthis);
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ssh.c", 2333);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex[pthis->blinkState]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex_85[pthis->blinkState]));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ssh.c", 2336);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSsh_OverrideLimbDraw,
                       EnSsh_PostLimbDraw, &pthis->actor);

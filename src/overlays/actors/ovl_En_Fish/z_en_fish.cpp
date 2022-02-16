@@ -43,6 +43,11 @@ void EnFish_Dropped_SwimAway(EnFish* pthis, GlobalContext* globalCtx);
 void EnFish_Unique_SetupSwimIdle(EnFish* pthis);
 void EnFish_Unique_SwimIdle(EnFish* pthis, GlobalContext* globalCtx);
 
+static f32 speedStopping_77[] = { 0.0f, 0.04f, 0.09f };
+
+static f32 speedMoving_77[] = { 0.5f, 0.1f, 0.15f };
+
+
 // Used in the cutscene functions
 static Actor* D_80A17010 = NULL;
 static f32 D_80A17014 = 0.0f;
@@ -543,8 +548,6 @@ void EnFish_Unique_SetupSwimIdle(EnFish* pthis) {
 }
 
 void EnFish_Unique_SwimIdle(EnFish* pthis, GlobalContext* globalCtx) {
-    static f32 speedStopping[] = { 0.0f, 0.04f, 0.09f };
-    static f32 speedMoving[] = { 0.5f, 0.1f, 0.15f };
     f32 playSpeed;
     u32 frames = globalCtx->gameplayFrames;
     f32* speed;
@@ -554,15 +557,15 @@ void EnFish_Unique_SwimIdle(EnFish* pthis, GlobalContext* globalCtx) {
 
     if (pthis->actor.xzDistToPlayer < 60.0f) {
         if (pthis->timer < 12) {
-            speed = speedMoving;
+            speed = speedMoving_77;
         } else {
-            speed = speedStopping;
+            speed = speedStopping_77;
         }
     } else {
         if (pthis->timer < 4) {
-            speed = speedMoving;
+            speed = speedMoving_77;
         } else {
-            speed = speedStopping;
+            speed = speedStopping_77;
         }
     }
 

@@ -1124,4 +1124,6 @@ void EnPoField_Reset(Actor* pthisx, GlobalContext* globalCtx) {
 
     D_80AD714C = { 0.0f, 1400.0f, 0.0f };
 
+    sLimb7Mtx = {0};
+
 }

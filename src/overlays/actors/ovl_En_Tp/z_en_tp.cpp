@@ -42,6 +42,13 @@ void EnTp_Head_Wait(EnTp* pthis, GlobalContext* globalCtx);
 void EnTp_Head_SetupBurrowReturnHome(EnTp* pthis);
 void EnTp_Head_BurrowReturnHome(EnTp* pthis, GlobalContext* globalCtx);
 
+static Vec3f bubbleAccel_65 = { 0.0f, -0.5f, 0.0f };
+
+static Color_RGBA8 bubblePrimColor_65 = { 255, 255, 255, 255 };
+
+static Color_RGBA8 bubbleEnvColor_65 = { 150, 150, 150, 0 };
+
+
 ActorInit En_Tp_InitVars = {
     ACTOR_EN_TP,
     ACTORCAT_ENEMY,
@@ -485,9 +492,6 @@ void EnTp_Head_SetupBurrowReturnHome(EnTp* pthis) {
 }
 
 void EnTp_Head_BurrowReturnHome(EnTp* pthis, GlobalContext* globalCtx) {
-    static Vec3f bubbleAccel = { 0.0f, -0.5f, 0.0f };
-    static Color_RGBA8 bubblePrimColor = { 255, 255, 255, 255 };
-    static Color_RGBA8 bubbleEnvColor = { 150, 150, 150, 0 };
     Vec3f bubbleVelocity;
     Vec3f bubblePos;
     s32 closeToFloor;
@@ -555,8 +559,8 @@ void EnTp_Head_BurrowReturnHome(EnTp* pthis, GlobalContext* globalCtx) {
             bubbleVelocity.y = (Rand_ZeroOne() * 3.5f) + 1.5f;
             bubbleVelocity.z = Rand_CenteredFloat(5.0f);
 
-            EffectSsDtBubble_SpawnCustomColor(globalCtx, &bubblePos, &bubbleVelocity, &bubbleAccel, &bubblePrimColor,
-                                              &bubbleEnvColor, Rand_S16Offset(100, 50), 20, 0);
+            EffectSsDtBubble_SpawnCustomColor(globalCtx, &bubblePos, &bubbleVelocity, &bubbleAccel_65, &bubblePrimColor_65,
+                                              &bubbleEnvColor_65, Rand_S16Offset(100, 50), 20, 0);
         }
     }
 }
@@ -763,6 +767,12 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnTp_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    bubbleAccel_65 = { 0.0f, -0.5f, 0.0f };
+
+    bubblePrimColor_65 = { 255, 255, 255, 255 };
+
+    bubbleEnvColor_65 = { 150, 150, 150, 0 };
+
     En_Tp_InitVars = {
         ACTOR_EN_TP,
         ACTORCAT_ENEMY,

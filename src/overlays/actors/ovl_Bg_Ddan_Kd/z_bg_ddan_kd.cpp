@@ -65,6 +65,9 @@ static ColliderCylinderInit sCylinderInit = {
     { 245, 180, -400, { 0, 0, 0 } },
 };
 
+static Vec3f velocity = { 0.0f, 5.0f, 0.0f };
+static Vec3f accel = { 0.0f, -0.45f, 0.0f };
+
 static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_CONTINUE),
     ICHAIN_F32(uncullZoneScale, 32767, ICHAIN_CONTINUE),
@@ -135,8 +138,6 @@ void BgDdanKd_CheckForExplosions(BgDdanKd* pthis, GlobalContext* globalCtx) {
 }
 
 void BgDdanKd_LowerStairs(BgDdanKd* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 5.0f, 0.0f };
-    static Vec3f accel = { 0.0f, -0.45f, 0.0f };
     Vec3f pos1;
     Vec3f pos2;
     f32 effectStrength;
@@ -236,5 +237,9 @@ void BgDdanKd_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         },
         { 245, 180, -400, { 0, 0, 0 } },
     };
+
+    velocity = { 0.0f, 5.0f, 0.0f };
+
+    accel = { 0.0f, -0.45f, 0.0f };
 
 }

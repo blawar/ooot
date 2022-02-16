@@ -73,8 +73,6 @@ enum BossFd2CutsceneState {
     /* 4 */ DEATH_FD_SKULL,
     /* 5 */ DEATH_FINISH
 };
-
-
 struct BossFd2 {
 
     /* 0x0000 */ Actor actor;

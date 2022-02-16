@@ -30,6 +30,9 @@ void EnHs_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80A6E9AC(EnHs* pthis, GlobalContext* globalCtx);
 void func_80A6E6B0(EnHs* pthis, GlobalContext* globalCtx);
 
+static Vec3f D_80A6EDFC_41 = { 300.0f, 1000.0f, 0.0f };
+
+
 ActorInit En_Hs_InitVars = {
     ACTOR_EN_HS,
     ACTORCAT_NPC,
@@ -295,11 +298,10 @@ s32 EnHs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnHs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f D_80A6EDFC = { 300.0f, 1000.0f, 0.0f };
     EnHs* pthis = (EnHs*)thisx;
 
     if (limbIndex == 9) {
-        Matrix_MultVec3f(&D_80A6EDFC, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&D_80A6EDFC_41, &pthis->actor.focus.pos);
     }
 }
 
@@ -312,6 +314,8 @@ void EnHs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnHs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80A6EDFC_41 = { 300.0f, 1000.0f, 0.0f };
+
     En_Hs_InitVars = {
         ACTOR_EN_HS,
         ACTORCAT_NPC,

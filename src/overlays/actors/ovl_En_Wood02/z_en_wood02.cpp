@@ -492,4 +492,8 @@ void EnWood02_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         { 18, 60, 0, { 0, 0, 0 } },
     };
 
+    sSpawnCos = {0};
+
+    sSpawnSin = {0};
+
 }

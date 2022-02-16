@@ -28,6 +28,15 @@ void ItemShield_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80B86F68(ItemShield* pthis, GlobalContext* globalCtx);
 void func_80B86BC8(ItemShield* pthis, GlobalContext* globalCtx);
 
+static Vec3f D_80B871F4_31 = { 0.0f, 0.0f, 0.0f };
+
+static f32 D_80B87200_31[] = { 0.3f, 0.6f,  0.9f, 1.0f,  1.0f, 1.0f,  1.0f, 1.0f,
+                            1.0f, 0.85f, 0.7f, 0.55f, 0.4f, 0.25f, 0.1f, 0.0f };
+
+static f32 D_80B87240_31[] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.8f,
+                            0.6f, 0.4f, 0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+
+
 static ColliderCylinderInit sCylinderInit = {
     {
         COLTYPE_NONE,
@@ -150,11 +159,6 @@ void func_80B86BC8(ItemShield* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B86CA8(ItemShield* pthis, GlobalContext* globalCtx) {
-    static Vec3f D_80B871F4 = { 0.0f, 0.0f, 0.0f };
-    static f32 D_80B87200[] = { 0.3f, 0.6f,  0.9f, 1.0f,  1.0f, 1.0f,  1.0f, 1.0f,
-                                1.0f, 0.85f, 0.7f, 0.55f, 0.4f, 0.25f, 0.1f, 0.0f };
-    static f32 D_80B87240[] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.8f,
-                                0.6f, 0.4f, 0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
     s32 i;
     s32 temp;
 
@@ -164,11 +168,11 @@ void func_80B86CA8(ItemShield* pthis, GlobalContext* globalCtx) {
 
     for (i = 0; i < 8; i++) {
         temp = 15 - pthis->unk_19E[i];
-        D_80B871F4.x = pthis->unk_1A8[i].x;
-        D_80B871F4.y = pthis->unk_1A8[i].y + (pthis->actor.shape.yOffset * 0.01f) + (D_80B87200[temp] * -10.0f * 0.2f);
-        D_80B871F4.z = pthis->unk_1A8[i].z;
-        EffectSsFireTail_SpawnFlame(globalCtx, &pthis->actor, &D_80B871F4, D_80B87200[temp] * 0.2f, -1,
-                                    D_80B87240[temp]);
+        D_80B871F4_31.x = pthis->unk_1A8[i].x;
+        D_80B871F4_31.y = pthis->unk_1A8[i].y + (pthis->actor.shape.yOffset * 0.01f) + (D_80B87200_31[temp] * -10.0f * 0.2f);
+        D_80B871F4_31.z = pthis->unk_1A8[i].z;
+        EffectSsFireTail_SpawnFlame(globalCtx, &pthis->actor, &D_80B871F4_31, D_80B87200_31[temp] * 0.2f, -1,
+                                    D_80B87240_31[temp]);
         if (pthis->unk_19E[i] != 0) {
             pthis->unk_19E[i]--;
         } else if (pthis->timer > 16) {
@@ -240,6 +244,8 @@ void ItemShield_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ItemShield_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80B871F4_31 = { 0.0f, 0.0f, 0.0f };
+
     sCylinderInit = {
         {
             COLTYPE_NONE,

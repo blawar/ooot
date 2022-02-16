@@ -37,6 +37,17 @@ void BgHakaHuta_SlideOpen(BgHakaHuta* pthis, GlobalContext* globalCtx);
 void func_8087D720(BgHakaHuta* pthis, GlobalContext* globalCtx);
 void BgHakaHuta_DoNothing(BgHakaHuta* pthis, GlobalContext* globalCtx);
 
+static Vec3f sEffectAccel_35[] = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 primColor_35 = { 30, 20, 50, 255 };
+
+static Color_RGBA8 envColor_35 = { 0, 0, 0, 255 };
+
+static Vec3f D_8087D958_40 = { 30.0f, 0.0f, 0.0f };
+
+static Vec3f D_8087D964_40 = { 0.03258f, 0.3258f, -0.9449f };
+
+
 ActorInit Bg_Haka_Huta_InitVars = {
     ACTOR_BG_HAKA_HUTA,
     ACTORCAT_BG,
@@ -79,9 +90,6 @@ void BgHakaHuta_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHakaHuta_SpawnDust(BgHakaHuta* pthis, GlobalContext* globalCtx) {
-    static Vec3f sEffectAccel[] = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 primColor = { 30, 20, 50, 255 };
-    static Color_RGBA8 envColor = { 0, 0, 0, 255 };
     f32 scale;
     f32 phi_f20;
     Vec3f effectPos;
@@ -105,7 +113,7 @@ void BgHakaHuta_SpawnDust(BgHakaHuta* pthis, GlobalContext* globalCtx) {
         }
         effectPos.x = pthis->dyna.actor.home.pos.x - (Rand_ZeroOne() * xPosOffset);
         scale = ((Rand_ZeroOne() * 10.0f) + 50.0f);
-        func_8002829C(globalCtx, &effectPos, &effectVel, sEffectAccel, &primColor, &envColor, scale, 0xA);
+        func_8002829C(globalCtx, &effectPos, &effectVel, sEffectAccel_35, &primColor_35, &envColor_35, scale, 0xA);
     }
 }
 
@@ -185,8 +193,6 @@ void BgHakaHuta_SlideOpen(BgHakaHuta* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8087D720(BgHakaHuta* pthis, GlobalContext* globalCtx) {
-    static Vec3f D_8087D958 = { 30.0f, 0.0f, 0.0f };
-    static Vec3f D_8087D964 = { 0.03258f, 0.3258f, -0.9449f };
     MtxF mtx;
     Vec3f vec;
     s32 quakeIndex;
@@ -203,13 +209,13 @@ void func_8087D720(BgHakaHuta* pthis, GlobalContext* globalCtx) {
         pthis->actionFunc = BgHakaHuta_DoNothing;
     }
 
-    D_8087D958.x = pthis->counter + 24.0f;
-    if (D_8087D958.x > 30.0f) {
-        D_8087D958.x = 30.0f;
+    D_8087D958_40.x = pthis->counter + 24.0f;
+    if (D_8087D958_40.x > 30.0f) {
+        D_8087D958_40.x = 30.0f;
     }
     Matrix_RotateY(pthis->dyna.actor.world.rot.y * (M_PI / 0x8000), MTXMODE_NEW);
-    Matrix_RotateAxis(pthis->counter * (191 * M_PI / 3750), &D_8087D964, MTXMODE_APPLY);
-    Matrix_MultVec3f(&D_8087D958, &vec);
+    Matrix_RotateAxis(pthis->counter * (191 * M_PI / 3750), &D_8087D964_40, MTXMODE_APPLY);
+    Matrix_MultVec3f(&D_8087D958_40, &vec);
     pthis->dyna.actor.world.pos.x = pthis->dyna.actor.home.pos.x + vec.x;
     pthis->dyna.actor.world.pos.y = pthis->dyna.actor.home.pos.y + vec.y;
     pthis->dyna.actor.world.pos.z = pthis->dyna.actor.home.pos.z + vec.z;
@@ -231,6 +237,14 @@ void BgHakaHuta_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHakaHuta_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    primColor_35 = { 30, 20, 50, 255 };
+
+    envColor_35 = { 0, 0, 0, 255 };
+
+    D_8087D958_40 = { 30.0f, 0.0f, 0.0f };
+
+    D_8087D964_40 = { 0.03258f, 0.3258f, -0.9449f };
+
     Bg_Haka_Huta_InitVars = {
         ACTOR_BG_HAKA_HUTA,
         ACTORCAT_BG,

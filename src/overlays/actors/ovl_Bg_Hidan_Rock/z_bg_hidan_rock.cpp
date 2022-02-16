@@ -43,6 +43,9 @@ void func_8088B990(BgHidanRock* pthis, GlobalContext* globalCtx);
 
 void func_8088BC40(GlobalContext* globalCtx, BgHidanRock* pthis);
 
+static f32 D_8088BFC0_42 = 0.0f;
+
+
 static Vec3f D_8088BF60 = { 3310.0f, 120.0f, 0.0f };
 
 ActorInit Bg_Hidan_Rock_InitVars = {
@@ -136,7 +139,6 @@ void func_8088B24C(BgHidanRock* pthis) {
 }
 
 void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx) {
-    static f32 D_8088BFC0 = 0.0f;
     f32 sp2C;
     s32 temp_v1;
     s32 frame;
@@ -144,32 +146,32 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx) {
 
     if (pthis->dyna.unk_150 != 0.0f) {
         if (pthis->timer == 0) {
-            if (D_8088BFC0 == 0.0f) {
+            if (D_8088BFC0_42 == 0.0f) {
                 if (pthis->dyna.unk_150 > 0.0f) {
-                    D_8088BFC0 += 0.01f;
+                    D_8088BFC0_42 += 0.01f;
                 } else {
-                    D_8088BFC0 -= 0.01f;
+                    D_8088BFC0_42 -= 0.01f;
                 }
             }
 
             pthis->dyna.actor.speedXZ += 0.05f;
             pthis->dyna.actor.speedXZ = CLAMP_MAX(pthis->dyna.actor.speedXZ, 2.0f);
 
-            if (D_8088BFC0 > 0.0f) {
-                temp_v1 = Math_StepToF(&D_8088BFC0, 20.0f, pthis->dyna.actor.speedXZ);
+            if (D_8088BFC0_42 > 0.0f) {
+                temp_v1 = Math_StepToF(&D_8088BFC0_42, 20.0f, pthis->dyna.actor.speedXZ);
             } else {
-                temp_v1 = Math_StepToF(&D_8088BFC0, -20.0f, pthis->dyna.actor.speedXZ);
+                temp_v1 = Math_StepToF(&D_8088BFC0_42, -20.0f, pthis->dyna.actor.speedXZ);
             }
 
-            pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.unk_158) * D_8088BFC0) + pthis->dyna.actor.home.pos.x;
-            pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * D_8088BFC0) + pthis->dyna.actor.home.pos.z;
+            pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.unk_158) * D_8088BFC0_42) + pthis->dyna.actor.home.pos.x;
+            pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * D_8088BFC0_42) + pthis->dyna.actor.home.pos.z;
 
             if (temp_v1) {
                 player->stateFlags2 &= ~0x10;
                 pthis->dyna.unk_150 = 0.0f;
                 pthis->dyna.actor.home.pos.x = pthis->dyna.actor.world.pos.x;
                 pthis->dyna.actor.home.pos.z = pthis->dyna.actor.world.pos.z;
-                D_8088BFC0 = 0.0f;
+                D_8088BFC0_42 = 0.0f;
                 pthis->dyna.actor.speedXZ = 0.0f;
                 pthis->timer = 5;
             }
@@ -193,7 +195,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx) {
         pthis->dyna.actor.world.pos.x = D_8088BF60.x;
         pthis->dyna.actor.world.pos.z = D_8088BF60.z;
         pthis->dyna.actor.speedXZ = 0.0f;
-        D_8088BFC0 = 0.0f;
+        D_8088BFC0_42 = 0.0f;
         player->stateFlags2 &= ~0x10;
         pthis->actionFunc = func_8088B79C;
     }
@@ -416,6 +418,8 @@ void BgHidanRock_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHidanRock_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_8088BFC0_42 = 0.0f;
+
     D_8088BF60 = { 3310.0f, 120.0f, 0.0f };
 
     Bg_Hidan_Rock_InitVars = {

@@ -35,6 +35,13 @@ void func_80AAB948(EnMd* pthis, GlobalContext* globalCtx);
 void func_80AABC10(EnMd* pthis, GlobalContext* globalCtx);
 void func_80AABD0C(EnMd* pthis, GlobalContext* globalCtx);
 
+static void* sEyeTextures_70[] = {
+    gMidoEyeOpenTex,
+    gMidoEyeHalfTex,
+    gMidoEyeClosedTex,
+};
+
+
 ActorInit En_Md_InitVars = {
     ACTOR_EN_MD,
     ACTORCAT_NPC,
@@ -841,20 +848,15 @@ void EnMd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnMd_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyeTextures[] = {
-        gMidoEyeOpenTex,
-        gMidoEyeHalfTex,
-        gMidoEyeClosedTex,
-    };
     EnMd* pthis = (EnMd*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_md.c", 1280);
 
     if (pthis->alpha == 255) {
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeIdx]));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures_70[pthis->eyeIdx]));
         func_80034BA0(globalCtx, &pthis->skelAnime, EnMd_OverrideLimbDraw, EnMd_PostLimbDraw, &pthis->actor, pthis->alpha);
     } else if (pthis->alpha != 0) {
-        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeIdx]));
+        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures_70[pthis->eyeIdx]));
         func_80034CC4(globalCtx, &pthis->skelAnime, EnMd_OverrideLimbDraw, EnMd_PostLimbDraw, &pthis->actor, pthis->alpha);
     }
 

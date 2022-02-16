@@ -36,6 +36,9 @@ void func_80AE7FD0(EnRl* pthis, GlobalContext* globalCtx);
 void func_80AE7FDC(EnRl* pthis, GlobalContext* globalCtx);
 void func_80AE7D94(EnRl* pthis, GlobalContext* globalCtx);
 
+static s32 D_80AE81AC_34 = 0;
+
+
 static void* D_80AE81A0[] = { object_rl_Tex_003620, object_rl_Tex_003960, object_rl_Tex_003B60 };
 
 void EnRl_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -71,17 +74,16 @@ void func_80AE7358(EnRl* pthis) {
 }
 
 void func_80AE73D8(EnRl* pthis, GlobalContext* globalCtx) {
-    static s32 D_80AE81AC = 0;
 
     if (globalCtx->csCtx.state == CS_STATE_IDLE) {
-        if (D_80AE81AC) {
+        if (D_80AE81AC_34) {
             if (pthis->actor.params == 2) {
                 func_80AE7358(pthis);
             }
-            D_80AE81AC = 0;
+            D_80AE81AC_34 = 0;
         }
-    } else if (!D_80AE81AC) {
-        D_80AE81AC = 1;
+    } else if (!D_80AE81AC_34) {
+        D_80AE81AC_34 = 1;
     }
 }
 
@@ -403,6 +405,8 @@ ActorInit En_Rl_InitVars = {
 };
 
 void EnRl_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80AE81AC_34 = 0;
+
     En_Rl_InitVars = {
         ACTOR_EN_RL,
         ACTORCAT_NPC,

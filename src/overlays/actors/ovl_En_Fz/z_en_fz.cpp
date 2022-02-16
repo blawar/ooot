@@ -56,6 +56,13 @@ void EnFz_SpawnIceSmokeFreeze(EnFz* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* a
 void EnFz_UpdateIceSmoke(EnFz* pthis, GlobalContext* globalCtx);
 void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx);
 
+static Gfx* displayLists_88[] = {
+    gFreezardIntactDL,              // Body fully intact           (5 or 6 health)
+    gFreezardTopRightHornChippedDL, // Top right horn chipped off  (from Freezards perspective)   (3 or 4 health)
+    gFreezardHeadChippedDL,         // Entire head chipped off     (1 or 2 health)
+};
+
+
 ActorInit En_Fz_InitVars = {
     ACTOR_EN_FZ,
     ACTORCAT_ENEMY,
@@ -717,11 +724,6 @@ void EnFz_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnFz_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* displayLists[] = {
-        gFreezardIntactDL,              // Body fully intact           (5 or 6 health)
-        gFreezardTopRightHornChippedDL, // Top right horn chipped off  (from Freezards perspective)   (3 or 4 health)
-        gFreezardHeadChippedDL,         // Entire head chipped off     (1 or 2 health)
-    };
     EnFz* pthis = (EnFz*)thisx;
     s32 pad;
     s32 index;
@@ -748,7 +750,7 @@ void EnFz_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, COMBINED, 0, ENVIRONMENT, 0);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, 155, 255, 255, 255);
         gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 200, pthis->envAlpha);
-        gSPDisplayList(POLY_XLU_DISP++, displayLists[index]);
+        gSPDisplayList(POLY_XLU_DISP++, displayLists_88[index]);
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fz.c", 1200);

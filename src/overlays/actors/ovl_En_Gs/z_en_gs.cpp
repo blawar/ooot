@@ -35,6 +35,27 @@ void func_80A4F700(EnGs* pthis, GlobalContext* globalCtx);
 
 void func_80A4F77C(EnGs* pthis);
 
+static Color_RGBA8 flashRed_42 = { 255, 50, 50, 0 };
+
+static Color_RGBA8 flashBlue_42 = { 50, 50, 255, 0 };
+
+static Color_RGBA8 baseWhite_42 = { 255, 255, 255, 0 };
+
+static Vec3f dustAccel_42 = { 0.0f, -0.3f, 0.0f };
+
+static Color_RGBA8 dustPrim_42 = { 200, 200, 200, 128 };
+
+static Color_RGBA8 dustEnv_42 = { 100, 100, 100, 0 };
+
+static Vec3f bomb2Velocity_42 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f bomb2Accel_42 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3s D_80A4FE34_46 = { 0, 0, 0 };
+
+static Vec3f D_80A4FE3C_46 = { 1.0f, 1.0f, 1.0f };
+
+
 ActorInit En_Gs_InitVars = {
     ACTOR_EN_GS,
     ACTORCAT_PROP,
@@ -302,14 +323,6 @@ void func_80A4EB3C(EnGs* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A4ED34(EnGs* pthis, GlobalContext* globalCtx) {
-    static Color_RGBA8 flashRed = { 255, 50, 50, 0 };
-    static Color_RGBA8 flashBlue = { 50, 50, 255, 0 };
-    static Color_RGBA8 baseWhite = { 255, 255, 255, 0 };
-    static Vec3f dustAccel = { 0.0f, -0.3f, 0.0f };
-    static Color_RGBA8 dustPrim = { 200, 200, 200, 128 };
-    static Color_RGBA8 dustEnv = { 100, 100, 100, 0 };
-    static Vec3f bomb2Velocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f bomb2Accel = { 0.0f, 0.0f, 0.0f };
     u8 i;
     Vec3f dustPos;
     Vec3f dustVelocity;
@@ -330,16 +343,16 @@ void func_80A4ED34(EnGs* pthis, GlobalContext* globalCtx) {
 
     if (pthis->unk_19F == 2) {
         pthis->unk_200--;
-        Color_RGBA8_Copy(&pthis->flashColor, &baseWhite);
+        Color_RGBA8_Copy(&pthis->flashColor, &baseWhite_42);
         if ((pthis->unk_200 < 80) && ((pthis->unk_200 % 20) < 8)) {
             if (pthis->unk_200 < 20) {
-                Color_RGBA8_Copy(&pthis->flashColor, &flashRed);
+                Color_RGBA8_Copy(&pthis->flashColor, &flashRed_42);
                 if ((pthis->unk_200 % 20) == 7) {
                     Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &D_801333D4, 4, &D_801333E0, &D_801333E0,
                                            &D_801333E8);
                 }
             } else {
-                Color_RGBA8_Copy(&pthis->flashColor, &flashBlue);
+                Color_RGBA8_Copy(&pthis->flashColor, &flashBlue_42);
                 if ((pthis->unk_200 % 20) == 7) {
                     Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &D_801333D4, 4, &D_801333E0, &D_801333E0,
                                            &D_801333E8);
@@ -361,7 +374,7 @@ void func_80A4ED34(EnGs* pthis, GlobalContext* globalCtx) {
             dustPos.x = pthis->actor.world.pos.x + (dustVelocity.x + dustVelocity.x);
             dustPos.y = pthis->actor.world.pos.y + 7.0f;
             dustPos.z = pthis->actor.world.pos.z + (dustVelocity.z + dustVelocity.z);
-            func_8002836C(globalCtx, &dustPos, &dustVelocity, &dustAccel, &dustPrim, &dustEnv,
+            func_8002836C(globalCtx, &dustPos, &dustVelocity, &dustAccel_42, &dustPrim_42, &dustEnv_42,
                           (s16)Rand_ZeroFloat(50.0f) + 200, 40, 15);
         }
 
@@ -383,7 +396,7 @@ void func_80A4ED34(EnGs* pthis, GlobalContext* globalCtx) {
             bomb2Pos.y = pthis->actor.world.pos.y;
             bomb2Pos.z = pthis->actor.world.pos.z;
             Audio_PlayActorSound2(&pthis->actor, NA_SE_IT_BOMB_EXPLOSION);
-            EffectSsBomb2_SpawnLayered(globalCtx, &bomb2Pos, &bomb2Velocity, &bomb2Accel, 100, 20);
+            EffectSsBomb2_SpawnLayered(globalCtx, &bomb2Pos, &bomb2Velocity_42, &bomb2Accel_42, 100, 20);
             pthis->unk_200 = 10;
             pthis->unk_19E |= 8;
             pthis->actionFunc = func_80A4F700;
@@ -513,16 +526,14 @@ void func_80A4F734(EnGs* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A4F77C(EnGs* pthis) {
-    static Vec3s D_80A4FE34 = { 0, 0, 0 };
-    static Vec3f D_80A4FE3C = { 1.0f, 1.0f, 1.0f };
     s32 i;
 
     for (i = 0; i < 3; i++) {
-        pthis->unk_1A0[i] = D_80A4FE34;
+        pthis->unk_1A0[i] = D_80A4FE34_46;
     }
 
     for (i = 0; i < 2; i++) {
-        pthis->unk_1B4[i] = D_80A4FE3C;
+        pthis->unk_1B4[i] = D_80A4FE3C_46;
     }
 
     pthis->unk_19C = 3;
@@ -630,6 +641,26 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnGs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    flashRed_42 = { 255, 50, 50, 0 };
+
+    flashBlue_42 = { 50, 50, 255, 0 };
+
+    baseWhite_42 = { 255, 255, 255, 0 };
+
+    dustAccel_42 = { 0.0f, -0.3f, 0.0f };
+
+    dustPrim_42 = { 200, 200, 200, 128 };
+
+    dustEnv_42 = { 100, 100, 100, 0 };
+
+    bomb2Velocity_42 = { 0.0f, 0.0f, 0.0f };
+
+    bomb2Accel_42 = { 0.0f, 0.0f, 0.0f };
+
+    D_80A4FE34_46 = { 0, 0, 0 };
+
+    D_80A4FE3C_46 = { 1.0f, 1.0f, 1.0f };
+
     En_Gs_InitVars = {
         ACTOR_EN_GS,
         ACTORCAT_PROP,

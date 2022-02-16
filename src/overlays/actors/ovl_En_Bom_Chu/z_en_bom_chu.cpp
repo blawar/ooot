@@ -31,6 +31,21 @@ void EnBomChu_WaitForRelease(EnBomChu* pthis, GlobalContext* globalCtx);
 void EnBomChu_Move(EnBomChu* pthis, GlobalContext* globalCtx);
 void EnBomChu_WaitForKill(EnBomChu* pthis, GlobalContext* globalCtx);
 
+static u8 p1StartColor_33[] = { 250, 0, 0, 250 };
+
+static u8 p2StartColor_33[] = { 200, 0, 0, 130 };
+
+static u8 p1EndColor_33[] = { 150, 0, 0, 100 };
+
+static u8 p2EndColor_33[] = { 100, 0, 0, 50 };
+
+static Vec3f blureP1Model_45 = { 0.0f, 7.0f, -6.0f };
+
+static Vec3f blureP2LeftModel_45 = { 12.0f, 0.0f, -5.0f };
+
+static Vec3f blureP2RightModel_45 = { -12.0f, 0.0f, -5.0f };
+
+
 ActorInit En_Bom_Chu_InitVars = {
     ACTOR_EN_BOM_CHU,
     ACTORCAT_EXPLOSIVE,
@@ -77,10 +92,6 @@ static InitChainEntry sInitChain[] = {
 };
 
 void EnBomChu_Init(Actor* thisx, GlobalContext* globalCtx) {
-    static u8 p1StartColor[] = { 250, 0, 0, 250 };
-    static u8 p2StartColor[] = { 200, 0, 0, 130 };
-    static u8 p1EndColor[] = { 150, 0, 0, 100 };
-    static u8 p2EndColor[] = { 100, 0, 0, 50 };
     EnBomChu* pthis = (EnBomChu*)thisx;
     EffectBlureInit1 blureInit;
     s32 i;
@@ -92,10 +103,10 @@ void EnBomChu_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->collider.elements[0].dim.worldSphere.radius = pthis->collider.elements[0].dim.modelSphere.radius;
 
     for (i = 0; i < 4; i++) {
-        blureInit.p1StartColor[i] = p1StartColor[i];
-        blureInit.p2StartColor[i] = p2StartColor[i];
-        blureInit.p1EndColor[i] = p1EndColor[i];
-        blureInit.p2EndColor[i] = p2EndColor[i];
+        blureInit.p1StartColor[i] = p1StartColor_33[i];
+        blureInit.p2StartColor[i] = p2StartColor_33[i];
+        blureInit.p1EndColor[i] = p1EndColor_33[i];
+        blureInit.p2EndColor[i] = p2EndColor_33[i];
     }
 
     blureInit.elemDuration = 16;
@@ -400,9 +411,6 @@ void EnBomChu_SpawnRipples(EnBomChu* pthis, GlobalContext* globalCtx, f32 y) {
 }
 
 void EnBomChu_Update(Actor* thisx, GlobalContext* globalCtx2) {
-    static Vec3f blureP1Model = { 0.0f, 7.0f, -6.0f };
-    static Vec3f blureP2LeftModel = { 12.0f, 0.0f, -5.0f };
-    static Vec3f blureP2RightModel = { -12.0f, 0.0f, -5.0f };
     GlobalContext* globalCtx = globalCtx2;
     EnBomChu* pthis = (EnBomChu*)thisx;
     s16 yaw;
@@ -457,12 +465,12 @@ void EnBomChu_Update(Actor* thisx, GlobalContext* globalCtx2) {
         pthis->visualJitter =
             (5.0f + (Rand_ZeroOne() * 3.0f)) * Math_SinS(((Rand_ZeroOne() * (f32)0x200) + (f32)0x3000) * pthis->timer);
 
-        EnBomChu_ModelToWorld(pthis, &blureP1Model, &blureP1);
+        EnBomChu_ModelToWorld(pthis, &blureP1Model_45, &blureP1);
 
-        EnBomChu_ModelToWorld(pthis, &blureP2LeftModel, &blureP2);
+        EnBomChu_ModelToWorld(pthis, &blureP2LeftModel_45, &blureP2);
         EffectBlure_AddVertex((EffectBlure*)Effect_GetByIndex(pthis->blure1Index), &blureP1, &blureP2);
 
-        EnBomChu_ModelToWorld(pthis, &blureP2RightModel, &blureP2);
+        EnBomChu_ModelToWorld(pthis, &blureP2RightModel_45, &blureP2);
         EffectBlure_AddVertex((EffectBlure*)Effect_GetByIndex(pthis->blure2Index), &blureP1, &blureP2);
 
         waterY = pthis->actor.world.pos.y;
@@ -533,6 +541,12 @@ void EnBomChu_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBomChu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    blureP1Model_45 = { 0.0f, 7.0f, -6.0f };
+
+    blureP2LeftModel_45 = { 12.0f, 0.0f, -5.0f };
+
+    blureP2RightModel_45 = { -12.0f, 0.0f, -5.0f };
+
     En_Bom_Chu_InitVars = {
         ACTOR_EN_BOM_CHU,
         ACTORCAT_EXPLOSIVE,

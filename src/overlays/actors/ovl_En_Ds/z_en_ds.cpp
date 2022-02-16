@@ -29,6 +29,9 @@ void EnDs_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnDs_Wait(EnDs* pthis, GlobalContext* globalCtx);
 
+static Vec3f sMultVec_42 = { 1100.0f, 500.0f, 0.0f };
+
+
 ActorInit En_Ds_InitVars = {
     ACTOR_EN_DS,
     ACTORCAT_NPC,
@@ -276,11 +279,10 @@ s32 EnDs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnDs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f sMultVec = { 1100.0f, 500.0f, 0.0f };
     EnDs* pthis = (EnDs*)thisx;
 
     if (limbIndex == 5) {
-        Matrix_MultVec3f(&sMultVec, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&sMultVec_42, &pthis->actor.focus.pos);
     }
 }
 
@@ -293,6 +295,8 @@ void EnDs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sMultVec_42 = { 1100.0f, 500.0f, 0.0f };
+
     En_Ds_InitVars = {
         ACTOR_EN_DS,
         ACTORCAT_NPC,

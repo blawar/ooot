@@ -677,4 +677,6 @@ void EnBox_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)EnBox_Reset,
     };
 
+    sUnused = {0};
+
 }

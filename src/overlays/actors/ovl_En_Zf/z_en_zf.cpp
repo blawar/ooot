@@ -65,6 +65,25 @@ void EnZf_SetupCircleAroundPlayer(EnZf* pthis, f32 speed);
 s32 EnZf_DodgeRangedEngaging(GlobalContext* globalCtx, EnZf* pthis);
 s32 EnZf_DodgeRangedWaiting(GlobalContext* globalCtx, EnZf* pthis);
 
+static Vec3f sUnused_144 = { 1100.0f, -700.0f, 0.0f };
+
+static Vec3f footOffset_144 = { 300.0f, 0.0f, 0.0f };
+
+static Vec3f D_80B4A2A4_144 = { 300.0f, -1700.0f, 0.0f };
+
+static Vec3f D_80B4A2B0_144 = { -600.0f, 300.0f, 0.0f };
+
+static Vec3f swordQuadOffset1_144 = { 0.0f, 1500.0f, 0.0f };
+
+static Vec3f swordQuadOffset0_144 = { -600.0f, -3000.0f, 1000.0f };
+
+static Vec3f swordQuadOffset3_144 = { -600.0f, -3000.0f, -1000.0f };
+
+static Vec3f swordQuadOffset2_144 = { 1500.0f, -3000.0f, 0.0f };
+
+static Vec3f zeroVec_144 = { 0.0f, 0.0f, 0.0f };
+
+
 #define PLATFORM_INDEX_DOWNSTAIRS_MIN 0
 #define PLATFORM_INDEX_DOWNSTAIRS_INNER_MAX 5
 #define PLATFORM_INDEX_DOWNSTAIRS_MAX 7
@@ -2148,30 +2167,23 @@ s32 EnZf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnZf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
-    static Vec3f sUnused = { 1100.0f, -700.0f, 0.0f };
-    static Vec3f footOffset = { 300.0f, 0.0f, 0.0f };
-    static Vec3f D_80B4A2A4 = { 300.0f, -1700.0f, 0.0f }; // Sword tip?
-    static Vec3f D_80B4A2B0 = { -600.0f, 300.0f, 0.0f };  // Sword hilt?
-    static Vec3f swordQuadOffset1 = { 0.0f, 1500.0f, 0.0f };
-    static Vec3f swordQuadOffset0 = { -600.0f, -3000.0f, 1000.0f };
-    static Vec3f swordQuadOffset3 = { -600.0f, -3000.0f, -1000.0f };
-    static Vec3f swordQuadOffset2 = { 1500.0f, -3000.0f, 0.0f };
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
+    static Vec3f D_80B4A2A4_144 = { 300.0f, -1700.0f, 0.0f }; // Sword tip?
+    static Vec3f D_80B4A2B0_144 = { -600.0f, 300.0f, 0.0f };  // Sword hilt?
     Vec3f sp54;
     Vec3f sp48;
     EnZf* pthis = (EnZf*)thisx;
     s32 bodyPart = -1;
 
     if (limbIndex == ENZF_LIMB_SWORD) {
-        Matrix_MultVec3f(&swordQuadOffset1, &pthis->swordCollider.dim.quad[1]);
-        Matrix_MultVec3f(&swordQuadOffset0, &pthis->swordCollider.dim.quad[0]);
-        Matrix_MultVec3f(&swordQuadOffset3, &pthis->swordCollider.dim.quad[3]);
-        Matrix_MultVec3f(&swordQuadOffset2, &pthis->swordCollider.dim.quad[2]);
+        Matrix_MultVec3f(&swordQuadOffset1_144, &pthis->swordCollider.dim.quad[1]);
+        Matrix_MultVec3f(&swordQuadOffset0_144, &pthis->swordCollider.dim.quad[0]);
+        Matrix_MultVec3f(&swordQuadOffset3_144, &pthis->swordCollider.dim.quad[3]);
+        Matrix_MultVec3f(&swordQuadOffset2_144, &pthis->swordCollider.dim.quad[2]);
         Collider_SetQuadVertices(&pthis->swordCollider, &pthis->swordCollider.dim.quad[0],
                                  &pthis->swordCollider.dim.quad[1], &pthis->swordCollider.dim.quad[2],
                                  &pthis->swordCollider.dim.quad[3]);
-        Matrix_MultVec3f(&D_80B4A2A4, &sp54);
-        Matrix_MultVec3f(&D_80B4A2B0, &sp48);
+        Matrix_MultVec3f(&D_80B4A2A4_144, &sp54);
+        Matrix_MultVec3f(&D_80B4A2B0_144, &sp48);
 
         if (pthis->action == ENZF_ACTION_SLASH) {
             if (pthis->skelAnime.curFrame < 14.0f) {
@@ -2181,15 +2193,15 @@ void EnZf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
             }
         }
     } else {
-        Actor_SetFeetPos(&pthis->actor, limbIndex, ENZF_LIMB_LEFT_FOOT, &footOffset, ENZF_LIMB_RIGHT_FOOT, &footOffset);
+        Actor_SetFeetPos(&pthis->actor, limbIndex, ENZF_LIMB_LEFT_FOOT, &footOffset_144, ENZF_LIMB_RIGHT_FOOT, &footOffset_144);
     }
 
     switch (limbIndex) {
         case ENZF_LIMB_LEFT_FOOT:
-            Matrix_MultVec3f(&footOffset, &pthis->leftFootPos);
+            Matrix_MultVec3f(&footOffset_144, &pthis->leftFootPos);
             break;
         case ENZF_LIMB_RIGHT_FOOT:
-            Matrix_MultVec3f(&footOffset, &pthis->rightFootPos);
+            Matrix_MultVec3f(&footOffset_144, &pthis->rightFootPos);
             break;
     }
 
@@ -2226,7 +2238,7 @@ void EnZf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
                 break;
         }
         if (bodyPart >= 0) {
-            Matrix_MultVec3f(&zeroVec, &pthis->bodyPartsPos[bodyPart]);
+            Matrix_MultVec3f(&zeroVec_144, &pthis->bodyPartsPos[bodyPart]);
         }
     }
 }
@@ -2433,6 +2445,24 @@ s32 EnZf_DodgeRangedWaiting(GlobalContext* globalCtx, EnZf* pthis) {
 }
 
 void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sUnused_144 = { 1100.0f, -700.0f, 0.0f };
+
+    footOffset_144 = { 300.0f, 0.0f, 0.0f };
+
+    D_80B4A2A4_144 = { 300.0f, -1700.0f, 0.0f };
+
+    D_80B4A2B0_144 = { -600.0f, 300.0f, 0.0f };
+
+    swordQuadOffset1_144 = { 0.0f, 1500.0f, 0.0f };
+
+    swordQuadOffset0_144 = { -600.0f, -3000.0f, 1000.0f };
+
+    swordQuadOffset3_144 = { -600.0f, -3000.0f, -1000.0f };
+
+    swordQuadOffset2_144 = { 1500.0f, -3000.0f, 0.0f };
+
+    zeroVec_144 = { 0.0f, 0.0f, 0.0f };
+
     D_80B4A1B0 = 0;
 
     D_80B4A1B4 = 1;
@@ -2524,5 +2554,7 @@ void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         /* Hammer jump   */ DMG_ENTRY(4, ENZF_DMGEFF_NONE),
         /* Unknown 2     */ DMG_ENTRY(0, ENZF_DMGEFF_NONE),
     };
+
+    D_80B4AB30 = 0;
 
 }

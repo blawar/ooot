@@ -423,4 +423,6 @@ void BgMizuMovebg_Reset(Actor* pthisx, GlobalContext* globalCtx) {
 
     D_8089EBAC = { 0.0f, 80.0f, 23.0f };
 
+    D_8089EE40 = 0;
+
 }

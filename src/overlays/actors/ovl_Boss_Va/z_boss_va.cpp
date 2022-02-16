@@ -123,6 +123,19 @@ void BossVa_SpawnBloodDroplets(GlobalContext* globalCtx, BossVaEffect* effect, V
 void BossVa_Tumor(GlobalContext* globalCtx, BossVa* pthis, s32 count, s16 scale, f32 xzSpread, f32 ySpread, u8 mode,
                   f32 range, u8 fixed);
 
+static void* sSparkBallTex_206[] = {
+    gBarinadeSparkBall1Tex, gBarinadeSparkBall2Tex, gBarinadeSparkBall3Tex, gBarinadeSparkBall4Tex,
+    gBarinadeSparkBall5Tex, gBarinadeSparkBall6Tex, gBarinadeSparkBall7Tex, gBarinadeSparkBall8Tex,
+};
+
+static Gfx* doorPieceDispList_214[] = {
+    gBarinadeDoorPiece1DL, gBarinadeDoorPiece2DL, gBarinadeDoorPiece3DL, gBarinadeDoorPiece4DL,
+    gBarinadeDoorPiece5DL, gBarinadeDoorPiece6DL, gBarinadeDoorPiece7DL, gBarinadeDoorPiece8DL,
+};
+
+static s16 doorPieceLength_214[] = { 836, 900, 836, 1016, 800, 1016, 836, 900 };
+
+
 ActorInit Boss_Va_InitVars = {
     ACTOR_BOSS_VA,
     ACTORCAT_BOSS,
@@ -3437,10 +3450,6 @@ void BossVa_UpdateEffects(GlobalContext* globalCtx) {
 }
 
 void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
-    static void* sSparkBallTex[] = {
-        gBarinadeSparkBall1Tex, gBarinadeSparkBall2Tex, gBarinadeSparkBall3Tex, gBarinadeSparkBall4Tex,
-        gBarinadeSparkBall5Tex, gBarinadeSparkBall6Tex, gBarinadeSparkBall7Tex, gBarinadeSparkBall8Tex,
-    };
     s16 i;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     u8 flag = 0;
@@ -3485,7 +3494,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5002),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gDPPipeSync(POLY_XLU_DISP++);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sSparkBallTex[effect->mode]));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sSparkBallTex_206[effect->mode]));
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, effect->primColor[0], effect->primColor[1], effect->primColor[2],
                             effect->primColor[3]);
             gDPPipeSync(POLY_XLU_DISP++);
@@ -3908,11 +3917,6 @@ void BossVa_SpawnZapperCharge(GlobalContext* globalCtx, BossVaEffect* effect, Bo
 }
 
 void BossVa_DrawDoor(GlobalContext* globalCtx, s16 scale) {
-    static Gfx* doorPieceDispList[] = {
-        gBarinadeDoorPiece1DL, gBarinadeDoorPiece2DL, gBarinadeDoorPiece3DL, gBarinadeDoorPiece4DL,
-        gBarinadeDoorPiece5DL, gBarinadeDoorPiece6DL, gBarinadeDoorPiece7DL, gBarinadeDoorPiece8DL,
-    };
-    static s16 doorPieceLength[] = { 836, 900, 836, 1016, 800, 1016, 836, 900 };
     MtxF doorMtx;
     f32 yScale;
     f32 segAngle = 0.0f;
@@ -3936,11 +3940,11 @@ void BossVa_DrawDoor(GlobalContext* globalCtx, s16 scale) {
     for (i = 0; i < 8; i++, segAngle -= M_PI / 4) {
         Matrix_Put(&doorMtx);
         Matrix_RotateZ(segAngle, MTXMODE_APPLY);
-        Matrix_Translate(0.0f, doorPieceLength[i] * yScale, 0.0f, MTXMODE_APPLY);
+        Matrix_Translate(0.0f, doorPieceLength_214[i] * yScale, 0.0f, MTXMODE_APPLY);
 
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 5621),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, doorPieceDispList[i]);
+        gSPDisplayList(POLY_OPA_DISP++, doorPieceDispList_214[i]);
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_va.c", 5629);
@@ -4031,6 +4035,34 @@ void BossVa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     sKillBari = 0;
 
     sCsCamera = 0;
+
+    sBodyState = 0;
+
+    sFightPhase = 0;
+
+    sCsState = 0;
+
+    sCameraEye = {0, 0, 0};
+
+    sCameraAt = {0, 0, 0};
+
+    sCameraNextEye = {0, 0, 0};
+
+    sCameraNextAt = {0, 0, 0};
+
+    sCameraEyeMaxVel = {0, 0, 0};
+
+    sCameraAtMaxVel = {0, 0, 0};
+
+    sDoorState = 0;
+
+    sPhase3StopMoving = 0;
+
+    sZapperRot = {0, 0, 0};
+
+    sPhase2Timer = 0;
+
+    sPhase4HP = 0;
 
     sUnkValue = 0x009B0000;
 

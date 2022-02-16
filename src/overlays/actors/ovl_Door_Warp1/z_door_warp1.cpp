@@ -1079,4 +1079,8 @@ void DoorWarp1_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)DoorWarp1_Reset,
     };
 
+    sWarpTimerTarget = 0;
+
+    sRutoWarpSubCamId = 0;
+
 }

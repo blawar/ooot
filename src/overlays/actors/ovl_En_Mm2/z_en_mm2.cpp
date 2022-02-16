@@ -33,6 +33,11 @@ void func_80AAF668(EnMm2* pthis, GlobalContext* globalCtx);
 s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
 void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
 
+static void* mouthTextures_46[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
+
+static Vec3f headOffset_48 = { 200.0f, 800.0f, 0.0f };
+
+
 ActorInit En_Mm2_InitVars = {
     ACTOR_EN_MM2,
     ACTORCAT_NPC,
@@ -308,12 +313,11 @@ void EnMm2_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMm2_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* mouthTextures[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
     EnMm2* pthis = (EnMm2*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mm2.c", 634);
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(mouthTextures[pthis->mouthTexIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(mouthTextures_46[pthis->mouthTexIndex]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnMm2_OverrideLimbDraw, EnMm2_PostLimbDraw, pthis);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mm2.c", 654);
@@ -337,15 +341,16 @@ s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 }
 
 void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f headOffset = { 200.0f, 800.0f, 0.0f };
     EnMm2* pthis = (EnMm2*)thisx;
 
     if (limbIndex == 15) {
-        Matrix_MultVec3f(&headOffset, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&headOffset_48, &pthis->actor.focus.pos);
     }
 }
 
 void EnMm2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    headOffset_48 = { 200.0f, 800.0f, 0.0f };
+
     En_Mm2_InitVars = {
         ACTOR_EN_MM2,
         ACTORCAT_NPC,

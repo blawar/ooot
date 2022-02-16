@@ -1680,4 +1680,6 @@ void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         /* Unknown 2     */ DMG_ENTRY(0, 0x0),
     };
 
+    D_80B01EA0 = 0;
+
 }

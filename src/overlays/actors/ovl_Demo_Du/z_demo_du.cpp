@@ -17,6 +17,15 @@ void DemoDu_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoDu_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoDu_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static s32 D_8096CE94_44 = false;
+
+static Vec3f dustPosOffsets_91[] = {
+    { 11.0f, -11.0f, -6.0f }, { 0.0f, 14.0f, -13.0f },  { 14.0f, -2.0f, -10.0f }, { 10.0f, -6.0f, -8.0f },
+    { 8.0f, 6.0f, 8.0f },     { 13.0f, 8.0f, -10.0f },  { -14.0f, 1.0f, -14.0f }, { 5.0f, 12.0f, -9.0f },
+    { 11.0f, 6.0f, -7.0f },   { 14.0f, 14.0f, -14.0f },
+};
+
+
 static s32 sUnused = 0;
 
 #include "z_demo_du_cutscene_data.cpp" EARLY
@@ -91,18 +100,17 @@ void DemoDu_CsAfterGanon_Reset(DemoDu* pthis) {
 }
 
 void DemoDu_CsAfterGanon_CheckIfShouldReset(DemoDu* pthis, GlobalContext* globalCtx) {
-    static s32 D_8096CE94 = false;
 
     if (globalCtx->csCtx.state == CS_STATE_IDLE) {
-        if (D_8096CE94) {
+        if (D_8096CE94_44) {
             if (pthis->actor.params == DEMO_DU_CS_CHAMBER_AFTER_GANON) {
                 DemoDu_CsAfterGanon_Reset(pthis);
             }
-            D_8096CE94 = false;
+            D_8096CE94_44 = false;
             return;
         }
-    } else if (!D_8096CE94) {
-        D_8096CE94 = true;
+    } else if (!D_8096CE94_44) {
+        D_8096CE94_44 = true;
     }
 }
 
@@ -398,11 +406,6 @@ void func_8096A630(DemoDu* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoDu_CsGoronsRuby_SpawnDustWhenHittingLink(DemoDu* pthis, GlobalContext* globalCtx) {
-    static Vec3f dustPosOffsets[] = {
-        { 11.0f, -11.0f, -6.0f }, { 0.0f, 14.0f, -13.0f },  { 14.0f, -2.0f, -10.0f }, { 10.0f, -6.0f, -8.0f },
-        { 8.0f, 6.0f, 8.0f },     { 13.0f, 8.0f, -10.0f },  { -14.0f, 1.0f, -14.0f }, { 5.0f, 12.0f, -9.0f },
-        { 11.0f, 6.0f, -7.0f },   { 14.0f, 14.0f, -14.0f },
-    };
 
     if (Animation_OnFrame(&pthis->skelAnime, 31.0f) || Animation_OnFrame(&pthis->skelAnime, 41.0f)) {
         s32 pad[2];
@@ -420,13 +423,13 @@ void DemoDu_CsGoronsRuby_SpawnDustWhenHittingLink(DemoDu* pthis, GlobalContext* 
             Vec3f position;
 
             if (Animation_OnFrame(&pthis->skelAnime, 31.0f)) {
-                position.x = dustPosOffsets[i + 5].x + headPos->x;
-                position.y = dustPosOffsets[i + 5].y + headPos->y;
-                position.z = dustPosOffsets[i + 5].z + headPos->z;
+                position.x = dustPosOffsets_91[i + 5].x + headPos->x;
+                position.y = dustPosOffsets_91[i + 5].y + headPos->y;
+                position.z = dustPosOffsets_91[i + 5].z + headPos->z;
             } else {
-                position.x = dustPosOffsets[i + 0].x + headPos->x;
-                position.y = dustPosOffsets[i + 0].y + headPos->y;
-                position.z = dustPosOffsets[i + 0].z + headPos->z;
+                position.x = dustPosOffsets_91[i + 0].x + headPos->x;
+                position.y = dustPosOffsets_91[i + 0].y + headPos->y;
+                position.z = dustPosOffsets_91[i + 0].z + headPos->z;
             }
 
             colorDelta = Rand_ZeroOne() * 20.0f - 10.0f;
@@ -1061,6 +1064,8 @@ ActorInit Demo_Du_InitVars = {
 };
 
 void DemoDu_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_8096CE94_44 = false;
+
     sUnused = 0;
 
     Demo_Du_InitVars = {

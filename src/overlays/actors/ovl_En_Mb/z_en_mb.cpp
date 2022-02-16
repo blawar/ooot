@@ -81,6 +81,32 @@ void EnMb_SpearPatrolImmediateCharge(EnMb* pthis, GlobalContext* globalCtx);
 void EnMb_ClubWaitAfterAttack(EnMb* pthis, GlobalContext* globalCtx);
 void EnMb_ClubDamaged(EnMb* pthis, GlobalContext* globalCtx);
 
+static Vec3f quadModel_124[] = { { 1000.0f, 0.0f, 0.0f },
+                             { 1000.0f, 0.0f, 0.0f },
+                             { 1000.0f, -8000.0f, -1500.0f },
+                             { 1000.0f, -9000.0f, 2000.0f } };
+
+static Vec3f unused_127 = { 1100.0f, -700.0f, 0.0f };
+
+static Vec3f feetPos_127 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f effSpawnPosModel_127 = { 0.0f, -8000.0f, 0.0f };
+
+static Vec3f zeroVec_127 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f frontShieldingTriModel0_128[] = {
+    { 4000.0f, 7000.0f, 3500.0f },
+    { 4000.0f, 0.0f, 3500.0f },
+    { -4000.0f, 7000.0f, 3500.0f },
+};
+
+static Vec3f frontShieldingTriModel1_128[] = {
+    { -4000.0f, 7000.0f, 3500.0f },
+    { -4000.0f, 0.0f, 3500.0f },
+    { 4000.0f, 0.0f, 3500.0f },
+};
+
+
 static ColliderCylinderInit sHitboxInit = {
     {
         COLTYPE_HIT0,
@@ -1337,16 +1363,12 @@ void EnMb_SpearUpdateAttackCollider(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMb_ClubUpdateAttackCollider(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f quadModel[] = { { 1000.0f, 0.0f, 0.0f },
-                                 { 1000.0f, 0.0f, 0.0f },
-                                 { 1000.0f, -8000.0f, -1500.0f },
-                                 { 1000.0f, -9000.0f, 2000.0f } };
     EnMb* pthis = (EnMb*)thisx;
 
-    Matrix_MultVec3f(&quadModel[0], &pthis->attackCollider.dim.quad[1]);
-    Matrix_MultVec3f(&quadModel[1], &pthis->attackCollider.dim.quad[0]);
-    Matrix_MultVec3f(&quadModel[2], &pthis->attackCollider.dim.quad[3]);
-    Matrix_MultVec3f(&quadModel[3], &pthis->attackCollider.dim.quad[2]);
+    Matrix_MultVec3f(&quadModel_124[0], &pthis->attackCollider.dim.quad[1]);
+    Matrix_MultVec3f(&quadModel_124[1], &pthis->attackCollider.dim.quad[0]);
+    Matrix_MultVec3f(&quadModel_124[2], &pthis->attackCollider.dim.quad[3]);
+    Matrix_MultVec3f(&quadModel_124[3], &pthis->attackCollider.dim.quad[2]);
     Collider_SetQuadVertices(&pthis->attackCollider, &pthis->attackCollider.dim.quad[0],
                              &pthis->attackCollider.dim.quad[1], &pthis->attackCollider.dim.quad[2],
                              &pthis->attackCollider.dim.quad[3]);
@@ -1428,22 +1450,18 @@ void EnMb_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f unused = { 1100.0f, -700.0f, 0.0f };
-    static Vec3f feetPos = { 0.0f, 0.0f, 0.0f };
-    static Vec3f effSpawnPosModel = { 0.0f, -8000.0f, 0.0f };
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     s32 bodyPart = -1;
     EnMb* pthis = (EnMb*)thisx;
     Vec3f bodyPartPos;
 
     if (pthis->actor.params == ENMB_TYPE_CLUB) {
         if (limbIndex == ENMB_LIMB_LHAND) {
-            Matrix_MultVec3f(&effSpawnPosModel, &pthis->effSpawnPos);
+            Matrix_MultVec3f(&effSpawnPosModel_127, &pthis->effSpawnPos);
             if (pthis->attack > ENMB_ATTACK_NONE) {
                 EnMb_ClubUpdateAttackCollider(&pthis->actor, globalCtx);
             }
         }
-        Actor_SetFeetPos(&pthis->actor, limbIndex, ENMB_LIMB_LFOOT, &feetPos, ENMB_LIMB_RFOOT, &feetPos);
+        Actor_SetFeetPos(&pthis->actor, limbIndex, ENMB_LIMB_LFOOT, &feetPos_127, ENMB_LIMB_RFOOT, &feetPos_127);
     }
 
     if (pthis->iceEffectTimer != 0) {
@@ -1480,7 +1498,7 @@ void EnMb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
                 break;
         }
         if (bodyPart >= 0) {
-            Matrix_MultVec3f(&zeroVec, &bodyPartPos);
+            Matrix_MultVec3f(&zeroVec_127, &bodyPartPos);
             pthis->bodyPartsPos[bodyPart].x = bodyPartPos.x;
             pthis->bodyPartsPos[bodyPart].y = bodyPartPos.y;
             pthis->bodyPartsPos[bodyPart].z = bodyPartPos.z;
@@ -1489,16 +1507,6 @@ void EnMb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f frontShieldingTriModel0[] = {
-        { 4000.0f, 7000.0f, 3500.0f },
-        { 4000.0f, 0.0f, 3500.0f },
-        { -4000.0f, 7000.0f, 3500.0f },
-    };
-    static Vec3f frontShieldingTriModel1[] = {
-        { -4000.0f, 7000.0f, 3500.0f },
-        { -4000.0f, 0.0f, 3500.0f },
-        { 4000.0f, 0.0f, 3500.0f },
-    };
     s32 i;
     f32 scale;
     Vec3f frontShieldingTri0[3];
@@ -1515,8 +1523,8 @@ void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx) {
             EnMb_SpearUpdateAttackCollider(thisx, globalCtx);
         }
         for (i = 0; i < 3; i++) {
-            Matrix_MultVec3f(&frontShieldingTriModel0[i], &frontShieldingTri0[i]);
-            Matrix_MultVec3f(&frontShieldingTriModel1[i], &frontShieldingTri1[i]);
+            Matrix_MultVec3f(&frontShieldingTriModel0_128[i], &frontShieldingTri0[i]);
+            Matrix_MultVec3f(&frontShieldingTriModel1_128[i], &frontShieldingTri1[i]);
         }
         Collider_SetTrisVertices(&pthis->frontShielding, 0, &frontShieldingTri0[0], &frontShieldingTri0[1],
                                  &frontShieldingTri0[2]);
@@ -1542,6 +1550,14 @@ void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMb_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    unused_127 = { 1100.0f, -700.0f, 0.0f };
+
+    feetPos_127 = { 0.0f, 0.0f, 0.0f };
+
+    effSpawnPosModel_127 = { 0.0f, -8000.0f, 0.0f };
+
+    zeroVec_127 = { 0.0f, 0.0f, 0.0f };
+
     En_Mb_InitVars = {
         ACTOR_EN_MB,
         ACTORCAT_ENEMY,

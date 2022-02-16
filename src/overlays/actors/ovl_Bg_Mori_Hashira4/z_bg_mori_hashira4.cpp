@@ -199,4 +199,6 @@ void BgMoriHashira4_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)BgMoriHashira4_Reset,
     };
 
+    sUnkTimer = 0;
+
 }

@@ -27,6 +27,11 @@ void BgVbSima_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgVbSima_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgVbSima_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static Color_RGBA8 colorYellow_27 = { 255, 255, 0, 255 };
+
+static Color_RGBA8 colorRed_27 = { 255, 10, 0, 255 };
+
+
 ActorInit Bg_Vb_Sima_InitVars = {
     ACTOR_BG_VB_SIMA,
     ACTORCAT_BG,
@@ -80,8 +85,6 @@ void BgVbSima_SpawnEmber(BossFdEffect* effect, Vec3f* position, Vec3f* velocity,
 }
 
 void BgVbSima_Update(Actor* thisx, GlobalContext* globalCtx) {
-    static Color_RGBA8 colorYellow = { 255, 255, 0, 255 };
-    static Color_RGBA8 colorRed = { 255, 10, 0, 255 };
     s32 pad;
     BgVbSima* pthis = (BgVbSima*)thisx;
     BossFd* bossFd = (BossFd*)pthis->dyna.actor.parent;
@@ -137,7 +140,7 @@ void BgVbSima_Update(Actor* thisx, GlobalContext* globalCtx) {
                 splashPos.y = -80.0f;
                 splashPos.z = pthis->dyna.actor.world.pos.z + edgeZ;
 
-                func_8002836C(globalCtx, &splashPos, &splashVel, &splashAcc, &colorYellow, &colorRed,
+                func_8002836C(globalCtx, &splashPos, &splashVel, &splashAcc, &colorYellow_27, &colorRed_27,
                               (s16)Rand_ZeroFloat(100.0f) + 500, 10, 20);
 
                 for (i2 = 0; i2 < 3; i2++) {
@@ -171,6 +174,10 @@ void BgVbSima_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgVbSima_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    colorYellow_27 = { 255, 255, 0, 255 };
+
+    colorRed_27 = { 255, 10, 0, 255 };
+
     Bg_Vb_Sima_InitVars = {
         ACTOR_BG_VB_SIMA,
         ACTORCAT_BG,

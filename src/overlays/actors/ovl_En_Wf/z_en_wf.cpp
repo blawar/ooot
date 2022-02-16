@@ -56,6 +56,11 @@ void EnWf_SetupDie(EnWf* pthis);
 void EnWf_Die(EnWf* pthis, GlobalContext* globalCtx);
 s32 EnWf_DodgeRanged(GlobalContext* globalCtx, EnWf* pthis);
 
+static Vec3f colliderVec_94 = { 1200.0f, 0.0f, 0.0f };
+
+static Vec3f bodyPartVec_94 = { 0.0f, 0.0f, 0.0f };
+
+
 static ColliderJntSphElementInit sJntSphItemsInit[4] = {
     {
         {
@@ -1362,8 +1367,6 @@ s32 EnWf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f colliderVec = { 1200.0f, 0.0f, 0.0f };
-    static Vec3f bodyPartVec = { 0.0f, 0.0f, 0.0f };
     EnWf* pthis = (EnWf*)thisx;
     s32 bodyPartIndex = -1;
 
@@ -1373,7 +1376,7 @@ void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
         Vec3f colliderPos;
 
         bodyPartIndex = -1;
-        Matrix_MultVec3f(&colliderVec, &colliderPos);
+        Matrix_MultVec3f(&colliderVec_94, &colliderPos);
         pthis->colliderCylinderTail.dim.pos.x = colliderPos.x;
         pthis->colliderCylinderTail.dim.pos.y = colliderPos.y;
         pthis->colliderCylinderTail.dim.pos.z = colliderPos.z;
@@ -1418,7 +1421,7 @@ void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
         if (bodyPartIndex >= 0) {
             Vec3f bodyPartPos;
 
-            Matrix_MultVec3f(&bodyPartVec, &bodyPartPos);
+            Matrix_MultVec3f(&bodyPartVec_94, &bodyPartPos);
             pthis->bodyPartsPos[bodyPartIndex].x = bodyPartPos.x;
             pthis->bodyPartsPos[bodyPartIndex].y = bodyPartPos.y;
             pthis->bodyPartsPos[bodyPartIndex].z = bodyPartPos.z;
@@ -1496,6 +1499,10 @@ s32 EnWf_DodgeRanged(GlobalContext* globalCtx, EnWf* pthis) {
 }
 
 void EnWf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    colliderVec_94 = { 1200.0f, 0.0f, 0.0f };
+
+    bodyPartVec_94 = { 0.0f, 0.0f, 0.0f };
+
     sJntSphInit = {
         {
             COLTYPE_METAL,

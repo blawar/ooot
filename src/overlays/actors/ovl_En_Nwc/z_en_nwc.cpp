@@ -31,6 +31,9 @@ void EnNwc_UpdateChicks(EnNwc* pthis, GlobalContext* globalCtx);
 void EnNwc_DrawChicks(EnNwc* pthis, GlobalContext* globalCtx);
 void EnNwc_Idle(EnNwc* pthis, GlobalContext* globalCtx);
 
+static EnNwcChickFunc chickActionFuncs_36[] = { EnNwc_ChickNoop, EnNwc_ChickFall };
+
+
 #define CHICK_BG_FLOOR (1 << 0)
 #define CHICK_BG_WALL (1 << 1)
 
@@ -115,7 +118,6 @@ void EnNwc_ChickFall(EnNwcChick* chick, EnNwc* pthis, GlobalContext* globalCtx) 
 }
 
 void EnNwc_UpdateChicks(EnNwc* pthis, GlobalContext* globalCtx) {
-    static EnNwcChickFunc chickActionFuncs[] = { EnNwc_ChickNoop, EnNwc_ChickFall };
     EnNwcChick* chick = pthis->chicks;
     ColliderJntSphElement* element = pthis->collider.elements;
     Vec3f prevChickPos;
@@ -126,7 +128,7 @@ void EnNwc_UpdateChicks(EnNwc* pthis, GlobalContext* globalCtx) {
     for (i = 0; i < pthis->count; i++, prevChickPos = chick->pos, chick++, element++) {
         Math_Vec3f_Copy(&chick->lastPos, &chick->pos);
 
-        chickActionFuncs[chick->type](chick, pthis, globalCtx);
+        chickActionFuncs_36[chick->type](chick, pthis, globalCtx);
 
         element->dim.worldSphere.center.x = chick->pos.x;
         element->dim.worldSphere.center.y = chick->pos.y;

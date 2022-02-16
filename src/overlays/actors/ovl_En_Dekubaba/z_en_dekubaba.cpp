@@ -40,6 +40,13 @@ void EnDekubaba_PrunedSomersault(EnDekubaba* pthis, GlobalContext* globalCtx);
 void EnDekubaba_ShrinkDie(EnDekubaba* pthis, GlobalContext* globalCtx);
 void EnDekubaba_DeadStickDrop(EnDekubaba* pthis, GlobalContext* globalCtx);
 
+static Color_RGBA8 primColor_49 = { 105, 255, 105, 255 };
+
+static Color_RGBA8 envColor_49 = { 150, 250, 150, 0 };
+
+static Gfx* stemDLists_55[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
+
+
 static Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
 
 ActorInit En_Dekubaba_InitVars = {
@@ -670,8 +677,6 @@ void EnDekubaba_DecideLunge(EnDekubaba* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDekubaba_Lunge(EnDekubaba* pthis, GlobalContext* globalCtx) {
-    static Color_RGBA8 primColor = { 105, 255, 105, 255 };
-    static Color_RGBA8 envColor = { 150, 250, 150, 0 };
     s32 allStepsDone;
     s16 curFrame10;
     Vec3f velocity;
@@ -702,7 +707,7 @@ void EnDekubaba_Lunge(EnDekubaba* pthis, GlobalContext* globalCtx) {
             velocity.y = 0.0f;
             velocity.z = Math_CosS(pthis->actor.shape.rot.y) * 5.0f;
 
-            func_8002829C(globalCtx, &pthis->actor.world.pos, &velocity, &sZeroVec, &primColor, &envColor, 1,
+            func_8002829C(globalCtx, &pthis->actor.world.pos, &velocity, &sZeroVec, &primColor_49, &envColor_49, 1,
                           pthis->size * 100.0f);
             pthis->timer = 1;
             pthis->collider.base.acFlags |= AC_ON;
@@ -1171,7 +1176,6 @@ void EnDekubaba_DrawStemRetracted(EnDekubaba* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDekubaba_DrawStemExtended(EnDekubaba* pthis, GlobalContext* globalCtx) {
-    static Gfx* stemDLists[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
     MtxF mtx;
     s32 i;
     f32 horizontalStepSize;
@@ -1209,7 +1213,7 @@ void EnDekubaba_DrawStemExtended(EnDekubaba* pthis, GlobalContext* globalCtx) {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2533),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-        gSPDisplayList(POLY_OPA_DISP++, stemDLists[i]);
+        gSPDisplayList(POLY_OPA_DISP++, stemDLists_55[i]);
 
         Collider_UpdateSpheres(51 + 2 * i, &pthis->collider);
         Collider_UpdateSpheres(52 + 2 * i, &pthis->collider);
@@ -1325,6 +1329,10 @@ void EnDekubaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
 
 void EnDekubaba_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    primColor_49 = { 105, 255, 105, 255 };
+
+    envColor_49 = { 150, 250, 150, 0 };
+
     sZeroVec = { 0.0f, 0.0f, 0.0f };
 
     En_Dekubaba_InitVars = {

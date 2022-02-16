@@ -25,6 +25,14 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnDyExtra_WaitForTrigger(EnDyExtra* pthis, GlobalContext* globalCtx);
 void EnDyExtra_FallAndKill(EnDyExtra* pthis, GlobalContext* globalCtx);
 
+static Color_RGBA8 primColors_25[] = { { 255, 255, 170, 255 }, { 255, 255, 170, 255 } };
+
+static Color_RGBA8 envColors_25[] = { { 255, 100, 255, 255 }, { 100, 255, 255, 255 } };
+
+static u8 D_809FFC50_25[] = { 0x02, 0x01, 0x01, 0x02, 0x00, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02,
+                           0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x01, 0x02 };
+
+
 ActorInit En_Dy_Extra_InitVars = {
     ACTOR_EN_DY_EXTRA,
     ACTORCAT_PROP,
@@ -96,10 +104,6 @@ void EnDyExtra_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Color_RGBA8 primColors[] = { { 255, 255, 170, 255 }, { 255, 255, 170, 255 } };
-    static Color_RGBA8 envColors[] = { { 255, 100, 255, 255 }, { 100, 255, 255, 255 } };
-    static u8 D_809FFC50[] = { 0x02, 0x01, 0x01, 0x02, 0x00, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02,
-                               0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x01, 0x02 };
     EnDyExtra* pthis = (EnDyExtra*)thisx;
     s32 pad;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
@@ -112,8 +116,8 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     unk[2] = (s8)(pthis->unk_158 * 255.0f);
 
     for (i = 0; i < 27; i++) {
-        if (D_809FFC50[i]) {
-            vertices[i].v.cn[3] = unk[D_809FFC50[i]];
+        if (D_809FFC50_25[i]) {
+            vertices[i].v.cn[3] = unk[D_809FFC50_25[i]];
         }
     }
 
@@ -126,9 +130,9 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gDPPipeSync(POLY_XLU_DISP++);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dy_extra.c", 307),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, primColors[pthis->type].r, primColors[pthis->type].g,
-                    primColors[pthis->type].b, 255);
-    gDPSetEnvColor(POLY_XLU_DISP++, envColors[pthis->type].r, envColors[pthis->type].g, envColors[pthis->type].b, 128);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, primColors_25[pthis->type].r, primColors_25[pthis->type].g,
+                    primColors_25[pthis->type].b, 255);
+    gDPSetEnvColor(POLY_XLU_DISP++, envColors_25[pthis->type].r, envColors_25[pthis->type].g, envColors_25[pthis->type].b, 128);
     gSPDisplayList(POLY_XLU_DISP++, gGreatFairySpiralBeamDL);
 
     CLOSE_DISPS(gfxCtx, "../z_en_dy_extra.c", 325);

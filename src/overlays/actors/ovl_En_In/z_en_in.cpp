@@ -44,6 +44,9 @@ void func_80A7A940(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7AA40(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7A4BC(EnIn* pthis, GlobalContext* globalCtx);
 
+static void* eyeTextures_84[] = { gIngoEyeOpenTex, gIngoEyeHalfTex, gIngoEyeClosedTex, gIngoEyeClosed2Tex };
+
+
 ActorInit En_In_InitVars = {
     ACTOR_EN_IN,
     ACTORCAT_NPC,
@@ -996,14 +999,13 @@ void EnIn_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnIn_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gIngoEyeOpenTex, gIngoEyeHalfTex, gIngoEyeClosedTex, gIngoEyeClosed2Tex };
 
     EnIn* pthis = (EnIn*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_in.c", 2384);
     if (pthis->actionFunc != func_80A79FB0) {
         func_80093D18(globalCtx->state.gfxCtx);
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeIndex]));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_84[pthis->eyeIndex]));
         gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gIngoHeadGradient2Tex));
         SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                               pthis->skelAnime.dListCount, EnIn_OverrideLimbDraw, EnIn_PostLimbDraw, &pthis->actor);

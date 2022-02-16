@@ -37,6 +37,46 @@ void EnArrow_Fly(EnArrow* pthis, GlobalContext* globalCtx);
 void func_809B45E0(EnArrow* pthis, GlobalContext* globalCtx);
 void func_809B4640(EnArrow* pthis, GlobalContext* globalCtx);
 
+static EffectBlureInit2 blureNormal_35 = {
+    0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+    0, 1, 0, { 255, 255, 170, 255 }, { 0, 150, 0, 0 },
+};
+
+static EffectBlureInit2 blureFire_35 = {
+    0, 4, 0, { 0, 255, 200, 255 }, { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+    0, 1, 0, { 255, 200, 0, 255 }, { 255, 0, 0, 0 },
+};
+
+static EffectBlureInit2 blureIce_35 = {
+    0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+    0, 1, 0, { 170, 255, 255, 255 }, { 0, 100, 255, 0 },
+};
+
+static EffectBlureInit2 blureLight_35 = {
+    0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+    0, 1, 0, { 255, 255, 170, 255 }, { 255, 255, 0, 0 },
+};
+
+static u32 dmgFlags_35[] = {
+    0x00000800, 0x00000020, 0x00000020, 0x00000800, 0x00001000,
+    0x00002000, 0x00010000, 0x00004000, 0x00008000, 0x00000004,
+};
+
+static Vec3f velocity_43 = { 0.0f, 0.5f, 0.0f };
+
+static Vec3f accel_43 = { 0.0f, 0.5f, 0.0f };
+
+static Color_RGBA8 primColor_43 = { 255, 255, 100, 255 };
+
+static Color_RGBA8 envColor_43 = { 255, 50, 0, 0 };
+
+static Vec3f D_809B4E88_44 = { 0.0f, 400.0f, 1500.0f };
+
+static Vec3f D_809B4E94_44 = { 0.0f, -400.0f, 1500.0f };
+
+static Vec3f D_809B4EA0_44 = { 0.0f, 0.0f, -300.0f };
+
+
 ActorInit En_Arrow_InitVars = {
     ACTOR_EN_ARROW,
     ACTORCAT_ITEMACTION,
@@ -79,26 +119,6 @@ void EnArrow_SetupAction(EnArrow* pthis, EnArrowActionFunc actionFunc) {
 }
 
 void EnArrow_Init(Actor* thisx, GlobalContext* globalCtx) {
-    static EffectBlureInit2 blureNormal = {
-        0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
-        0, 1, 0, { 255, 255, 170, 255 }, { 0, 150, 0, 0 },
-    };
-    static EffectBlureInit2 blureFire = {
-        0, 4, 0, { 0, 255, 200, 255 }, { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
-        0, 1, 0, { 255, 200, 0, 255 }, { 255, 0, 0, 0 },
-    };
-    static EffectBlureInit2 blureIce = {
-        0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
-        0, 1, 0, { 170, 255, 255, 255 }, { 0, 100, 255, 0 },
-    };
-    static EffectBlureInit2 blureLight = {
-        0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
-        0, 1, 0, { 255, 255, 170, 255 }, { 255, 255, 0, 0 },
-    };
-    static u32 dmgFlags[] = {
-        0x00000800, 0x00000020, 0x00000020, 0x00000800, 0x00001000,
-        0x00002000, 0x00010000, 0x00004000, 0x00008000, 0x00000004,
-    };
     EnArrow* pthis = (EnArrow*)thisx;
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
@@ -116,24 +136,24 @@ void EnArrow_Init(Actor* thisx, GlobalContext* globalCtx) {
 
         if (pthis->actor.params <= ARROW_NORMAL) {
             if (pthis->actor.params == ARROW_NORMAL_HORSE) {
-                blureNormal.elemDuration = 4;
+                blureNormal_35.elemDuration = 4;
             } else {
-                blureNormal.elemDuration = 16;
+                blureNormal_35.elemDuration = 16;
             }
 
-            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureNormal);
+            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureNormal_35);
 
         } else if (pthis->actor.params == ARROW_FIRE) {
 
-            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureFire);
+            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureFire_35);
 
         } else if (pthis->actor.params == ARROW_ICE) {
 
-            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureIce);
+            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureIce_35);
 
         } else if (pthis->actor.params == ARROW_LIGHT) {
 
-            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureLight);
+            Effect_Add(globalCtx, &pthis->effectIndex, EFFECT_BLURE2, 0, 0, &blureLight_35);
         }
 
         Collider_InitQuad(globalCtx, &pthis->collider);
@@ -147,8 +167,8 @@ void EnArrow_Init(Actor* thisx, GlobalContext* globalCtx) {
         if (pthis->actor.params < 0) {
             pthis->collider.base.atFlags = (AT_ON | AT_TYPE_ENEMY);
         } else if (pthis->actor.params <= ARROW_SEED) {
-            pthis->collider.info.toucher.dmgFlags = dmgFlags[pthis->actor.params];
-            LOG_HEX("pthis->at_info.cl_elem.at_btl_info.at_type", pthis->collider.info.toucher.dmgFlags,
+            pthis->collider.info.toucher.dmgFlags = dmgFlags_35[pthis->actor.params];
+            LOG_HEX("pthis->at_info.cl_elem.at_btl_info.at_type", pthis->collider.info.toucher.dmgFlags_35,
                     "../z_en_arrow.c", 707);
         }
     }
@@ -422,28 +442,21 @@ void EnArrow_Update(Actor* thisx, GlobalContext* globalCtx) {
                                pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, 0);
         }
     } else if (pthis->actor.params == ARROW_NORMAL_LIT) {
-        static Vec3f velocity = { 0.0f, 0.5f, 0.0f };
-        static Vec3f accel = { 0.0f, 0.5f, 0.0f };
-        static Color_RGBA8 primColor = { 255, 255, 100, 255 };
-        static Color_RGBA8 envColor = { 255, 50, 0, 0 };
         // spawn dust for the flame
-        func_8002836C(globalCtx, &pthis->unk_21C, &velocity, &accel, &primColor, &envColor, 100, 0, 8);
+        func_8002836C(globalCtx, &pthis->unk_21C, &velocity_43, &accel_43, &primColor_43, &envColor_43, 100, 0, 8);
     }
 }
 
 void func_809B4800(EnArrow* pthis, GlobalContext* globalCtx) {
-    static Vec3f D_809B4E88 = { 0.0f, 400.0f, 1500.0f };
-    static Vec3f D_809B4E94 = { 0.0f, -400.0f, 1500.0f };
-    static Vec3f D_809B4EA0 = { 0.0f, 0.0f, -300.0f };
     Vec3f sp44;
     Vec3f sp38;
     s32 addBlureVertex;
 
-    Matrix_MultVec3f(&D_809B4EA0, &pthis->unk_21C);
+    Matrix_MultVec3f(&D_809B4EA0_44, &pthis->unk_21C);
 
     if (EnArrow_Fly == pthis->actionFunc) {
-        Matrix_MultVec3f(&D_809B4E88, &sp44);
-        Matrix_MultVec3f(&D_809B4E94, &sp38);
+        Matrix_MultVec3f(&D_809B4E88_44, &sp44);
+        Matrix_MultVec3f(&D_809B4E94_44, &sp38);
 
         if (pthis->actor.params <= ARROW_SEED) {
             addBlureVertex = pthis->actor.params <= ARROW_LIGHT;
@@ -514,6 +527,40 @@ void EnArrow_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnArrow_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    blureNormal_35 = {
+        0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+        0, 1, 0, { 255, 255, 170, 255 }, { 0, 150, 0, 0 },
+    };
+
+    blureFire_35 = {
+        0, 4, 0, { 0, 255, 200, 255 }, { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+        0, 1, 0, { 255, 200, 0, 255 }, { 255, 0, 0, 0 },
+    };
+
+    blureIce_35 = {
+        0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+        0, 1, 0, { 170, 255, 255, 255 }, { 0, 100, 255, 0 },
+    };
+
+    blureLight_35 = {
+        0, 4, 0, { 0, 255, 200, 255 },   { 0, 255, 255, 255 }, { 0, 255, 200, 0 }, { 0, 255, 255, 0 }, 16,
+        0, 1, 0, { 255, 255, 170, 255 }, { 255, 255, 0, 0 },
+    };
+
+    velocity_43 = { 0.0f, 0.5f, 0.0f };
+
+    accel_43 = { 0.0f, 0.5f, 0.0f };
+
+    primColor_43 = { 255, 255, 100, 255 };
+
+    envColor_43 = { 255, 50, 0, 0 };
+
+    D_809B4E88_44 = { 0.0f, 400.0f, 1500.0f };
+
+    D_809B4E94_44 = { 0.0f, -400.0f, 1500.0f };
+
+    D_809B4EA0_44 = { 0.0f, 0.0f, -300.0f };
+
     En_Arrow_InitVars = {
         ACTOR_EN_ARROW,
         ACTORCAT_ITEMACTION,

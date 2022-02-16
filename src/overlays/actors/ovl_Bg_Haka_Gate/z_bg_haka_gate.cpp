@@ -59,6 +59,14 @@ void BgHakaGate_GateOpen(BgHakaGate* pthis, GlobalContext* globalCtx);
 void BgHakaGate_SkullOfTruth(BgHakaGate* pthis, GlobalContext* globalCtx);
 void BgHakaGate_FalseSkull(BgHakaGate* pthis, GlobalContext* globalCtx);
 
+static Gfx* displayLists_69[] = {
+    object_haka_objects_DL_012270,
+    object_haka_objects_DL_010A10,
+    object_haka_objects_DL_00A860,
+    object_haka_objects_DL_00F1B0,
+};
+
+
 static s16 sSkullOfTruthRotY = 0x100;
 static u8 sPuzzleState = 1;
 static f32 sStatueDistToPlayer = 0;
@@ -350,12 +358,6 @@ void BgHakaGate_DrawFlame(BgHakaGate* pthis, GlobalContext* globalCtx) {
 }
 
 void BgHakaGate_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* displayLists[] = {
-        object_haka_objects_DL_012270,
-        object_haka_objects_DL_010A10,
-        object_haka_objects_DL_00A860,
-        object_haka_objects_DL_00F1B0,
-    };
     BgHakaGate* pthis = (BgHakaGate*)thisx;
     MtxF currentMtxF;
 
@@ -381,7 +383,7 @@ void BgHakaGate_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_010C10);
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_gate.c", 800);
         } else {
-            Gfx_DrawDListOpa(globalCtx, displayLists[thisx->params]);
+            Gfx_DrawDListOpa(globalCtx, displayLists_69[thisx->params]);
         }
     }
     if (thisx->params == BGHAKAGATE_SKULL) {
@@ -395,6 +397,8 @@ void BgHakaGate_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     sPuzzleState = 1;
 
     sStatueDistToPlayer = 0;
+
+    sStatueRotY = 0;
 
     Bg_Haka_Gate_InitVars = {
         ACTOR_BG_HAKA_GATE,

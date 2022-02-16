@@ -49,6 +49,19 @@ void func_80B167FC(EnTa* pthis);
 void func_80B16854(EnTa* pthis);
 void func_80B16938(EnTa* pthis);
 
+static Vec3f D_80B16E7C_111 = {
+    1100.0f,
+    1000.0f,
+    0.0f,
+};
+
+static void* eyeTextures_112[] = {
+    gTalonEyeOpenTex,
+    gTalonEyeHalfTex,
+    gTalonEyeClosedTex,
+};
+
+
 ActorInit En_Ta_InitVars = {
     ACTOR_EN_TA,
     ACTORCAT_NPC,
@@ -1208,24 +1221,14 @@ s32 EnTa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnTa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f D_80B16E7C = {
-        1100.0f,
-        1000.0f,
-        0.0f,
-    };
     EnTa* pthis = (EnTa*)thisx;
 
     if (limbIndex == 15) {
-        Matrix_MultVec3f(&D_80B16E7C, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&D_80B16E7C_111, &pthis->actor.focus.pos);
     }
 }
 
 void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
-        gTalonEyeOpenTex,
-        gTalonEyeHalfTex,
-        gTalonEyeClosedTex,
-    };
     EnTa* pthis = (EnTa*)thisx;
     s32 pad;
 
@@ -1233,7 +1236,7 @@ void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     func_800943C8(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(eyeTextures_112[pthis->eyeIndex]));
     gSPSegment(POLY_OPA_DISP++, 0x9, SEGMENTED_TO_VIRTUAL(gTalonHeadSkinTex));
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
@@ -1243,6 +1246,12 @@ void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnTa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80B16E7C_111 = {
+        1100.0f,
+        1000.0f,
+        0.0f,
+    };
+
     En_Ta_InitVars = {
         ACTOR_EN_TA,
         ACTORCAT_NPC,

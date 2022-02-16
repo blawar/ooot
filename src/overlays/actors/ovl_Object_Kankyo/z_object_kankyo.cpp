@@ -50,6 +50,18 @@ void ObjectKankyo_DrawLightning(ObjectKankyo* pthis, GlobalContext* globalCtx);
 void ObjectKankyo_DrawSunGraveSpark(ObjectKankyo* pthis, GlobalContext* globalCtx);
 void ObjectKankyo_DrawBeams(ObjectKankyo* pthis, GlobalContext* globalCtx);
 
+static Vec3f sSoundPos_53 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGB8 sBeamPrimColors_67[] = {
+    { 255, 255, 170 }, { 170, 255, 255 }, { 255, 170, 255 },
+    { 255, 255, 170 }, { 255, 255, 170 }, { 255, 255, 170 },
+};
+
+static Color_RGB8 sBeamEnvColors_67[] = {
+    { 0, 200, 0 }, { 0, 50, 255 }, { 100, 0, 200 }, { 200, 0, 0 }, { 200, 255, 0 }, { 255, 120, 0 },
+};
+
+
 Mtx D_01000000;
 
 static void* sEffLightningTextures[] = {
@@ -186,7 +198,6 @@ void ObjectKankyo_Snow(ObjectKankyo* pthis, GlobalContext* globalCtx) {
 }
 
 void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
-    static Vec3f sSoundPos = { 0.0f, 0.0f, 0.0f };
     Player* player;
     f32 dist;
     s32 playerMoved;
@@ -220,7 +231,7 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
             dist = 1.0f;
         }
 
-        func_800F436C(&sSoundPos, NA_SE_EV_NAVY_FLY - SFX_FLAG, (0.4f * dist) + 0.6f);
+        func_800F436C(&sSoundPos_53, NA_SE_EV_NAVY_FLY - SFX_FLAG, (0.4f * dist) + 0.6f);
 
         switch(globalCtx->csCtx.frames)
         {
@@ -913,13 +924,6 @@ void ObjectKankyo_Beams(ObjectKankyo* pthis, GlobalContext* globalCtx) {
 }
 
 void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
-    static Color_RGB8 sBeamPrimColors[] = {
-        { 255, 255, 170 }, { 170, 255, 255 }, { 255, 170, 255 },
-        { 255, 255, 170 }, { 255, 255, 170 }, { 255, 255, 170 },
-    };
-    static Color_RGB8 sBeamEnvColors[] = {
-        { 0, 200, 0 }, { 0, 50, 255 }, { 100, 0, 200 }, { 200, 0, 0 }, { 200, 255, 0 }, { 255, 120, 0 },
-    };
     ObjectKankyo* pthis = pthis2;
     GlobalContext* globalCtx = globalCtx2;
     s16 i;
@@ -940,9 +944,9 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
                 Matrix_Scale(pthis->effects[i].size, 0.1f, pthis->effects[i].size, MTXMODE_APPLY);
                 func_80093D84(globalCtx->state.gfxCtx);
                 gDPPipeSync(POLY_XLU_DISP++);
-                gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, sBeamPrimColors[i].r, sBeamPrimColors[i].g,
-                                sBeamPrimColors[i].b, 128);
-                gDPSetEnvColor(POLY_XLU_DISP++, sBeamEnvColors[i].r, sBeamEnvColors[i].g, sBeamEnvColors[i].b, 128);
+                gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, sBeamPrimColors_67[i].r, sBeamPrimColors_67[i].g,
+                                sBeamPrimColors_67[i].b, 128);
+                gDPSetEnvColor(POLY_XLU_DISP++, sBeamEnvColors_67[i].r, sBeamEnvColors_67[i].g, sBeamEnvColors_67[i].b, 128);
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1586),
                           G_MTX_LOAD);
                 gSPSegment(POLY_XLU_DISP++, 0x08,
@@ -958,6 +962,10 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
 }
 
 void ObjectKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sSoundPos_53 = { 0.0f, 0.0f, 0.0f };
+
+    D_01000000 = {0};
+
     Object_Kankyo_InitVars = {
         ACTOR_OBJECT_KANKYO,
         ACTORCAT_ITEMACTION,

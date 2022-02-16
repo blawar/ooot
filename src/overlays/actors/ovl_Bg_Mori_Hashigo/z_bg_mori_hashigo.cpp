@@ -35,6 +35,9 @@ void BgMoriHashigo_SetupLadderFall(BgMoriHashigo* pthis);
 void BgMoriHashigo_LadderFall(BgMoriHashigo* pthis, GlobalContext* globalCtx);
 void BgMoriHashigo_SetupLadderRest(BgMoriHashigo* pthis);
 
+static f32 bounceSpeed_48[3] = { 4.0f, 2.7f, 1.7f };
+
+
 ActorInit Bg_Mori_Hashigo_InitVars = {
     ACTOR_BG_MORI_HASHIGO,
     ACTORCAT_BG,
@@ -253,16 +256,15 @@ void BgMoriHashigo_SetupLadderFall(BgMoriHashigo* pthis) {
 }
 
 void BgMoriHashigo_LadderFall(BgMoriHashigo* pthis, GlobalContext* globalCtx) {
-    static f32 bounceSpeed[3] = { 4.0f, 2.7f, 1.7f };
     Actor* thisx = &pthis->dyna.actor;
 
     Actor_MoveForward(thisx);
     if ((thisx->bgCheckFlags & 1) && (thisx->velocity.y < 0.0f)) {
-        if (pthis->bounceCounter >= ARRAY_COUNT(bounceSpeed)) {
+        if (pthis->bounceCounter >= ARRAY_COUNT(bounceSpeed_48)) {
             BgMoriHashigo_SetupLadderRest(pthis);
         } else {
             Actor_UpdateBgCheckInfo(globalCtx, thisx, 0.0f, 0.0f, 0.0f, 0x1C);
-            thisx->velocity.y = bounceSpeed[pthis->bounceCounter];
+            thisx->velocity.y = bounceSpeed_48[pthis->bounceCounter];
             pthis->bounceCounter++;
         }
     } else {

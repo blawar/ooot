@@ -33,6 +33,13 @@ void DemoIk_DrawNothing(DemoIk* pthis, GlobalContext* globalCtx);
 void DemoIk_Type1Draw(DemoIk* pthis, GlobalContext* globalCtx);
 void DemoIk_Type2Draw(DemoIk* pthis, GlobalContext* globalCtx);
 
+static Vec3f deadDbOffsets_40[] = {
+    { -14.0f, 5.0f, 5.0f },  { -20.0f, 12.0f, 0.0f }, { -5.0f, 10.0f, -1.0f }, { -10.0f, 8.0f, 14.0f },
+    { -3.0f, 10.0f, 7.0f },  { -10.0f, 11.0f, 0.0f }, { 9.0f, 10.0f, -8.0f },  { 4.0f, 10.0f, 3.0f },
+    { -6.0f, 13.0f, -5.0f }, { 1.0f, 9.0f, 3.0f },    { -10.0f, 9.0f, 1.0f },
+};
+
+
 void DemoIk_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
@@ -120,11 +127,6 @@ void DemoIk_Type1PlaySound(DemoIk* pthis) {
 }
 
 void DemoIk_SpawnDeadDb(DemoIk* pthis, GlobalContext* globalCtx) {
-    static Vec3f deadDbOffsets[] = {
-        { -14.0f, 5.0f, 5.0f },  { -20.0f, 12.0f, 0.0f }, { -5.0f, 10.0f, -1.0f }, { -10.0f, 8.0f, 14.0f },
-        { -3.0f, 10.0f, 7.0f },  { -10.0f, 11.0f, 0.0f }, { 9.0f, 10.0f, -8.0f },  { 4.0f, 10.0f, 3.0f },
-        { -6.0f, 13.0f, -5.0f }, { 1.0f, 9.0f, 3.0f },    { -10.0f, 9.0f, 1.0f },
-    };
     s32 i;
     s32 index = DemoIk_GetIndexFromParams(pthis->actor.params);
 
@@ -145,9 +147,9 @@ void DemoIk_SpawnDeadDb(DemoIk* pthis, GlobalContext* globalCtx) {
             endIndex = 11;
         }
         for (i = startIndex; i < endIndex; i++) {
-            pos.x = deadDbOffsets[i].x + pthis->actor.world.pos.x;
-            pos.y = deadDbOffsets[i].y + pthis->actor.world.pos.y;
-            pos.z = deadDbOffsets[i].z + pthis->actor.world.pos.z;
+            pos.x = deadDbOffsets_40[i].x + pthis->actor.world.pos.x;
+            pos.y = deadDbOffsets_40[i].y + pthis->actor.world.pos.y;
+            pos.z = deadDbOffsets_40[i].z + pthis->actor.world.pos.z;
             EffectSsDeadDb_Spawn(globalCtx, &pos, &zeroVec, &zeroVec, 10, 7, 255, 255, 255, 255, 0, 0, 255, 1, 9, true);
         }
     }

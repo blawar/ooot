@@ -28,6 +28,9 @@ void func_80A9F314(GlobalContext* globalCtx, f32 arg1);
 void func_80A9F408(EnMThunder* pthis, GlobalContext* globalCtx);
 void func_80A9F9B4(EnMThunder* pthis, GlobalContext* globalCtx);
 
+static f32 D_80AA046C_41[] = { 0.1f, 0.15f, 0.2f, 0.25f, 0.3f, 0.25f, 0.2f, 0.15f };
+
+
 ActorInit En_M_Thunder_InitVars = {
     ACTOR_EN_M_THUNDER,
     ACTORCAT_ITEMACTION,
@@ -332,7 +335,6 @@ void EnMThunder_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2) {
-    static f32 D_80AA046C[] = { 0.1f, 0.15f, 0.2f, 0.25f, 0.3f, 0.25f, 0.2f, 0.15f };
     GlobalContext* globalCtx = globalCtx2;
     EnMThunder* pthis = (EnMThunder*)thisx;
     Player* player = GET_PLAYER(globalCtx);
@@ -388,12 +390,12 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     if (pthis->unk_1B8 >= 0.85f) {
-        phi_f14 = (D_80AA046C[(globalCtx->gameplayFrames & 7)] * 6.0f) + 1.0f;
+        phi_f14 = (D_80AA046C_41[(globalCtx->gameplayFrames & 7)] * 6.0f) + 1.0f;
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 255, 255, 170, pthis->unk_1C8);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 100, 0, 128);
         phi_t1 = 0x28;
     } else {
-        phi_f14 = (D_80AA046C[globalCtx->gameplayFrames & 7] * 2.0f) + 1.0f;
+        phi_f14 = (D_80AA046C_41[globalCtx->gameplayFrames & 7] * 2.0f) + 1.0f;
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 170, 255, 255, pthis->unk_1C8);
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 128);
         phi_t1 = 0x14;

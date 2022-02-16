@@ -59,6 +59,15 @@ void EnGoma_SetupLand(EnGoma* pthis);
 void EnGoma_SetupJump(EnGoma* pthis);
 void EnGoma_SetupStunned(EnGoma* pthis, GlobalContext* globalCtx);
 
+static Vec3f sShieldKnockbackVel_89 = { 0.0f, 0.0f, 20.0f };
+
+static f32 sTargetEyeEnvColors_90[][3] = {
+    { 255.0f, 0.0f, 50.0f },
+    { 17.0f, 255.0f, 50.0f },
+    { 0.0f, 170.0f, 50.0f },
+};
+
+
 ActorInit En_Goma_InitVars = {
     ACTOR_BOSS_GOMA,
     ACTORCAT_ENEMY,
@@ -621,7 +630,6 @@ void EnGoma_LookAtPlayer(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_UpdateHit(EnGoma* pthis, GlobalContext* globalCtx) {
-    static Vec3f sShieldKnockbackVel = { 0.0f, 0.0f, 20.0f };
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->hurtTimer != 0) {
@@ -650,7 +658,7 @@ void EnGoma_UpdateHit(EnGoma* pthis, GlobalContext* globalCtx) {
                         pthis->actor.speedXZ = -5.0f;
                     } else {
                         Matrix_RotateY(player->actor.shape.rot.y / (f32)0x8000 * M_PI, MTXMODE_NEW);
-                        Matrix_MultVec3f(&sShieldKnockbackVel, &pthis->shieldKnockbackVel);
+                        Matrix_MultVec3f(&sShieldKnockbackVel_89, &pthis->shieldKnockbackVel);
                         pthis->invincibilityTimer = 5;
                     }
                 } else if (dmgFlags & 1) { // stun
@@ -688,15 +696,10 @@ void EnGoma_UpdateHit(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_UpdateEyeEnvColor(EnGoma* pthis) {
-    static f32 sTargetEyeEnvColors[][3] = {
-        { 255.0f, 0.0f, 50.0f },
-        { 17.0f, 255.0f, 50.0f },
-        { 0.0f, 170.0f, 50.0f },
-    };
 
-    Math_ApproachF(&pthis->eyeEnvColor[0], sTargetEyeEnvColors[0][pthis->visualState], 0.5f, 20.0f);
-    Math_ApproachF(&pthis->eyeEnvColor[1], sTargetEyeEnvColors[1][pthis->visualState], 0.5f, 20.0f);
-    Math_ApproachF(&pthis->eyeEnvColor[2], sTargetEyeEnvColors[2][pthis->visualState], 0.5f, 20.0f);
+    Math_ApproachF(&pthis->eyeEnvColor[0], sTargetEyeEnvColors_90[0][pthis->visualState], 0.5f, 20.0f);
+    Math_ApproachF(&pthis->eyeEnvColor[1], sTargetEyeEnvColors_90[1][pthis->visualState], 0.5f, 20.0f);
+    Math_ApproachF(&pthis->eyeEnvColor[2], sTargetEyeEnvColors_90[2][pthis->visualState], 0.5f, 20.0f);
 }
 
 #include "hack.h"
@@ -924,6 +927,8 @@ void EnGoma_BossLimb(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sShieldKnockbackVel_89 = { 0.0f, 0.0f, 20.0f };
+
     En_Goma_InitVars = {
         ACTOR_BOSS_GOMA,
         ACTORCAT_ENEMY,

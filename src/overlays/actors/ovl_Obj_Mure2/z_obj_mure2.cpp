@@ -29,6 +29,15 @@ void ObjMure2_SetupWait(ObjMure2* pthis);
 void func_80B9A658(ObjMure2* pthis);
 void func_80B9A6E8(ObjMure2* pthis);
 
+static s16 actorSpawnParams_32[] = { 0, 0, 0 };
+
+static ObjMure2SetPosFunc setPosFunc_33[] = {
+    ObjMure2_SetPosShrubCircle,
+    ObjMure2_SetPosShrubScattered,
+    ObjMure2_SetPosRockCircle,
+};
+
+
 ActorInit Obj_Mure2_InitVars = {
     ACTOR_OBJ_MURE2,
     ACTORCAT_PROP,
@@ -87,28 +96,22 @@ void ObjMure2_SetPosRockCircle(Vec3f* vec, ObjMure2* pthis) {
 }
 
 void ObjMure2_SetActorSpawnParams(s16* params, ObjMure2* pthis) {
-    static s16 actorSpawnParams[] = { 0, 0, 0 };
     s16 dropTable = (pthis->actor.params >> 8) & 0xF;
 
     if (dropTable >= 13) {
         dropTable = 0;
     }
-    *params = actorSpawnParams[pthis->actor.params & 3] & 0xF0FF;
+    *params = actorSpawnParams_32[pthis->actor.params & 3] & 0xF0FF;
     *params |= (dropTable << 8);
 }
 
 void ObjMure2_SpawnActors(ObjMure2* pthis, GlobalContext* globalCtx) {
-    static ObjMure2SetPosFunc setPosFunc[] = {
-        ObjMure2_SetPosShrubCircle,
-        ObjMure2_SetPosShrubScattered,
-        ObjMure2_SetPosRockCircle,
-    };
     s32 actorNum = pthis->actor.params & 3;
     s32 i;
     Vec3f spawnPos[12];
     s16 params;
 
-    setPosFunc[actorNum](spawnPos, pthis);
+    setPosFunc_33[actorNum](spawnPos, pthis);
     ObjMure2_SetActorSpawnParams(&params, pthis);
 
     for (i = 0; i < D_80B9A818[actorNum]; i++) {

@@ -38,6 +38,9 @@ void func_80ABA244(EnNiwLady* pthis, GlobalContext* globalCtx);
 void func_80ABA654(EnNiwLady* pthis, GlobalContext* globalCtx);
 void func_80ABAD7C(EnNiwLady* pthis, GlobalContext* globalCtx);
 
+static void* sEyeTextures_60[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
+
+
 ActorInit En_Niw_Lady_InitVars = {
     ACTOR_EN_NIW_LADY,
     ACTORCAT_NPC,
@@ -579,7 +582,6 @@ s32 EnNiwLady_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 void EnNiwLady_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyeTextures[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
     EnNiwLady* pthis = (EnNiwLady*)thisx;
     s32 pad;
 
@@ -587,7 +589,7 @@ void EnNiwLady_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->unk_27E != 0) {
         func_80093D18(globalCtx->state.gfxCtx);
         gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->faceState]));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures_60[pthis->faceState]));
         gSPSegment(POLY_OPA_DISP++, 0x0C, func_80ABB0A0(globalCtx->state.gfxCtx));
         SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                               pthis->skelAnime.dListCount, EnNiwLady_OverrideLimbDraw, NULL, pthis);

@@ -37,6 +37,15 @@ void func_809B0994(EnAni* pthis, GlobalContext* globalCtx);
 void func_809B0A28(EnAni* pthis, GlobalContext* globalCtx);
 void func_809B0A6C(EnAni* pthis, GlobalContext* globalCtx);
 
+static Vec3f sMultVec_50 = { 800.0f, 500.0f, 0.0f };
+
+static void* eyeTextures_51[] = {
+    gRoofManEyeOpenTex,
+    gRoofManEyeHalfTex,
+    gRoofManEyeClosedTex,
+};
+
+
 ActorInit En_Ani_InitVars = {
     ACTOR_EN_ANI,
     ACTORCAT_NPC,
@@ -313,20 +322,14 @@ s32 EnAni_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 }
 
 void EnAni_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f sMultVec = { 800.0f, 500.0f, 0.0f };
     EnAni* pthis = (EnAni*)thisx;
 
     if (limbIndex == 15) {
-        Matrix_MultVec3f(&sMultVec, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&sMultVec_50, &pthis->actor.focus.pos);
     }
 }
 
 void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
-        gRoofManEyeOpenTex,
-        gRoofManEyeHalfTex,
-        gRoofManEyeClosedTex,
-    };
     EnAni* pthis = (EnAni*)thisx;
     s32 pad;
 
@@ -334,7 +337,7 @@ void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     func_800943C8(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_51[pthis->eyeIndex]));
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnAni_OverrideLimbDraw, EnAni_PostLimbDraw, pthis);
@@ -343,6 +346,8 @@ void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnAni_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sMultVec_50 = { 800.0f, 500.0f, 0.0f };
+
     En_Ani_InitVars = {
         ACTOR_EN_ANI,
         ACTORCAT_NPC,

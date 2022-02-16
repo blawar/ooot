@@ -47,6 +47,11 @@ void EnViewer_UpdateGanondorfCape(GlobalContext* globalCtx, EnViewer* pthis);
 void EnViewer_InitImpl(EnViewer* pthis, GlobalContext* globalCtx);
 void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx);
 
+static Vec3f zeroVec_61 = { 0.0f, 0.0f, 0.0f };
+
+static s16 yOscillationPhase_74 = 0;
+
+
 static u8 sHorseSfxPlayed = false;
 
 ActorInit En_Viewer_InitVars = {
@@ -536,10 +541,9 @@ void EnViewer_Ganondorf9PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
 
 void EnViewer_GanondorfPostLimbDrawUpdateCapeVec(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot,
                                                  void* thisx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 
     if (limbIndex == 15) {
-        Matrix_MultVec3f(&zeroVec, &sGanondorfNeckWorldPos);
+        Matrix_MultVec3f(&zeroVec_61, &sGanondorfNeckWorldPos);
     }
 }
 
@@ -880,7 +884,6 @@ void EnViewer_DrawFireEffects(EnViewer* pthis2, GlobalContext* globalCtx) {
 }
 
 void EnViewer_UpdateGanondorfCape(GlobalContext* globalCtx, EnViewer* pthis) {
-    static s16 yOscillationPhase = 0;
     Vec3f forearmModelOffset;
     Vec3f forearmWorldOffset;
 
@@ -893,9 +896,9 @@ void EnViewer_UpdateGanondorfCape(GlobalContext* globalCtx, EnViewer* pthis) {
         sGanondorfCape->minDist = 0.0f;
         sGanondorfCape->gravity = (BREG(67) - 10) / 10.0f;
         forearmModelOffset.x = KREG(16) - 13.0f;
-        forearmModelOffset.y = KREG(17) + 3.0f + Math_SinS(yOscillationPhase) * KREG(20);
+        forearmModelOffset.y = KREG(17) + 3.0f + Math_SinS(yOscillationPhase_74) * KREG(20);
         forearmModelOffset.z = KREG(18) - 10.0f;
-        yOscillationPhase += KREG(19) * 0x1000 + 0x2000;
+        yOscillationPhase_74 += KREG(19) * 0x1000 + 0x2000;
 
         Matrix_RotateY((pthis->actor.shape.rot.y / (f32)0x8000) * M_PI, MTXMODE_NEW);
         Matrix_MultVec3f(&forearmModelOffset, &forearmWorldOffset);
@@ -911,6 +914,10 @@ void EnViewer_UpdateGanondorfCape(GlobalContext* globalCtx, EnViewer* pthis) {
 }
 
 void EnViewer_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    zeroVec_61 = { 0.0f, 0.0f, 0.0f };
+
+    yOscillationPhase_74 = 0;
+
     sHorseSfxPlayed = false;
 
     En_Viewer_InitVars = {
@@ -925,6 +932,10 @@ void EnViewer_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)EnViewer_Draw,
         (ActorFunc)EnViewer_Reset,
     };
+
+    sGanondorfCape = 0;
+
+    sGanondorfNeckWorldPos = {0, 0, 0};
 
     sTimer = 0;
 

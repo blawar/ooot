@@ -64,6 +64,22 @@ void ObjSwitch_CrystalOn(ObjSwitch* pthis, GlobalContext* globalCtx);
 void ObjSwitch_CrystalTurnOffInit(ObjSwitch* pthis);
 void ObjSwitch_CrystalTurnOff(ObjSwitch* pthis, GlobalContext* globalCtx);
 
+static Gfx* floorSwitchDLists_102[] = { gFloorSwitch1DL, gFloorSwitch3DL, gFloorSwitch2DL, gFloorSwitch2DL };
+
+static void* eyeTextures_104[][4] = {
+    { gEyeSwitchGoldOpenTex, gEyeSwitchGoldOpeningTex, gEyeSwitchGoldClosingTex, gEyeSwitchGoldClosedTex },
+    { gEyeSwitchSilverOpenTex, gEyeSwitchSilverHalfTex, gEyeSwitchSilverClosedTex, gEyeSwitchSilverClosedTex },
+};
+
+static Gfx* eyeDlists_104[] = { gEyeSwitch1DL, gEyeSwitch2DL };
+
+static Gfx* xluDLists_105[] = { gCrystalSwitchCoreXluDL, gCrystalSwitchDiamondXluDL, NULL, NULL,
+                            gCrystalSwitchCoreXluDL };
+
+static Gfx* opaDLists_105[] = { gCrystalSwitchCoreOpaDL, gCrystalSwitchDiamondOpaDL, NULL, NULL,
+                            gCrystalSwitchCoreOpaDL };
+
+
 ActorInit Obj_Switch_InitVars = {
     ACTOR_OBJ_SWITCH,
     ACTORCAT_SWITCH,
@@ -727,9 +743,8 @@ void ObjSwitch_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjSwitch_DrawFloor(ObjSwitch* pthis, GlobalContext* globalCtx) {
-    static Gfx* floorSwitchDLists[] = { gFloorSwitch1DL, gFloorSwitch3DL, gFloorSwitch2DL, gFloorSwitch2DL };
 
-    Gfx_DrawDListOpa(globalCtx, floorSwitchDLists[(pthis->dyna.actor.params >> 4 & 7)]);
+    Gfx_DrawDListOpa(globalCtx, floorSwitchDLists_102[(pthis->dyna.actor.params >> 4 & 7)]);
 }
 
 void ObjSwitch_DrawFloorRusty(ObjSwitch* pthis, GlobalContext* globalCtx) {
@@ -737,11 +752,6 @@ void ObjSwitch_DrawFloorRusty(ObjSwitch* pthis, GlobalContext* globalCtx) {
 }
 
 void ObjSwitch_DrawEye(ObjSwitch* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[][4] = {
-        { gEyeSwitchGoldOpenTex, gEyeSwitchGoldOpeningTex, gEyeSwitchGoldClosingTex, gEyeSwitchGoldClosedTex },
-        { gEyeSwitchSilverOpenTex, gEyeSwitchSilverHalfTex, gEyeSwitchSilverClosedTex, gEyeSwitchSilverClosedTex },
-    };
-    static Gfx* eyeDlists[] = { gEyeSwitch1DL, gEyeSwitch2DL };
     s32 pad;
     s32 subType = (pthis->dyna.actor.params >> 4 & 7);
 
@@ -750,17 +760,13 @@ void ObjSwitch_DrawEye(ObjSwitch* pthis, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_switch.c", 1462),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[subType][pthis->eyeTexIndex]));
-    gSPDisplayList(POLY_OPA_DISP++, eyeDlists[subType]);
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_104[subType][pthis->eyeTexIndex]));
+    gSPDisplayList(POLY_OPA_DISP++, eyeDlists_104[subType]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_switch.c", 1471);
 }
 
 void ObjSwitch_DrawCrystal(ObjSwitch* pthis, GlobalContext* globalCtx) {
-    static Gfx* xluDLists[] = { gCrystalSwitchCoreXluDL, gCrystalSwitchDiamondXluDL, NULL, NULL,
-                                gCrystalSwitchCoreXluDL };
-    static Gfx* opaDLists[] = { gCrystalSwitchCoreOpaDL, gCrystalSwitchDiamondOpaDL, NULL, NULL,
-                                gCrystalSwitchCoreOpaDL };
     s32 pad1;
     s32 pad2;
     s32 subType;
@@ -775,7 +781,7 @@ void ObjSwitch_DrawCrystal(ObjSwitch* pthis, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_switch.c", 1497),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, xluDLists[subType]);
+    gSPDisplayList(POLY_XLU_DISP++, xluDLists_105[subType]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_switch.c", 1502);
 
@@ -793,7 +799,7 @@ void ObjSwitch_DrawCrystal(ObjSwitch* pthis, GlobalContext* globalCtx) {
     gSPSegment(POLY_OPA_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, pthis->x1TexScroll, pthis->y1TexScroll, 0x20, 0x20, 1,
                                 pthis->x2TexScroll, pthis->y2TexScroll, 0x20, 0x20));
-    gSPDisplayList(POLY_OPA_DISP++, opaDLists[subType]);
+    gSPDisplayList(POLY_OPA_DISP++, opaDLists_105[subType]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_switch.c", 1533);
 }

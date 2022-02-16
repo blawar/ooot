@@ -30,6 +30,11 @@ void ObjSyokudai_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjSyokudai_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static u8 sColTypesStand_30[] = { 0x09, 0x0B, 0x0B };
+
+static Gfx* displayLists_33[] = { gGoldenTorchDL, gTimedTorchDL, gWoodenTorchDL };
+
+
 ActorInit Obj_Syokudai_InitVars = {
     ACTOR_OBJ_SYOKUDAI,
     ACTORCAT_PROP,
@@ -93,7 +98,6 @@ static InitChainEntry sInitChain[] = {
 static s32 sLitTorchCount;
 
 void ObjSyokudai_Init(Actor* thisx, GlobalContext* globalCtx) {
-    static u8 sColTypesStand[] = { 0x09, 0x0B, 0x0B };
     s32 pad;
     ObjSyokudai* pthis = (ObjSyokudai*)thisx;
     s32 torchType = pthis->actor.params & 0xF000;
@@ -103,7 +107,7 @@ void ObjSyokudai_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Collider_InitCylinder(globalCtx, &pthis->colliderStand);
     Collider_SetCylinder(globalCtx, &pthis->colliderStand, &pthis->actor, &sCylInitStand);
-    pthis->colliderStand.base.colType = sColTypesStand[pthis->actor.params >> 0xC];
+    pthis->colliderStand.base.colType = sColTypesStand_30[pthis->actor.params >> 0xC];
 
     Collider_InitCylinder(globalCtx, &pthis->colliderFlame);
     Collider_SetCylinder(globalCtx, &pthis->colliderFlame, &pthis->actor, &sCylInitFlame);
@@ -272,7 +276,6 @@ void ObjSyokudai_Update(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* displayLists[] = { gGoldenTorchDL, gTimedTorchDL, gWoodenTorchDL };
     s32 pad;
     ObjSyokudai* pthis = (ObjSyokudai*)thisx;
     s32 timerMax;
@@ -285,7 +288,7 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 714),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, displayLists[(u16)pthis->actor.params >> 0xC]);
+    gSPDisplayList(POLY_OPA_DISP++, displayLists_33[(u16)pthis->actor.params >> 0xC]);
 
     if (pthis->litTimer != 0) {
         f32 flameScale = 1.0f;
@@ -374,5 +377,7 @@ void ObjSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         },
         { 15, 45, 45, { 0, 0, 0 } },
     };
+
+    sLitTorchCount = 0;
 
 }

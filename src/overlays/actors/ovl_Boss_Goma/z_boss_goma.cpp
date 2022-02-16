@@ -58,6 +58,38 @@ void BossGoma_WallClimb(BossGoma* pthis, GlobalContext* globalCtx);
 void BossGoma_CeilingMoveToCenter(BossGoma* pthis, GlobalContext* globalCtx);
 void BossGoma_SpawnChildGohma(BossGoma* pthis, GlobalContext* globalCtx, s16 i);
 
+static Vec3f velInit_122 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accelInit_122 = { 0.0f, -0.5f, 0.0f };
+
+static Vec3f roomCenter_122 = { -150.0f, 0.0f, -350.0f };
+
+static Vec3f roomCenter_129 = { -150.0f, 0.0f, -350.0f };
+
+static f32 colors1_185[][3] = {
+    { 255.0f, 17.0f, 0.0f },  { 0.0f, 255.0f, 170.0f }, { 50.0f, 50.0f, 50.0f },
+    { 0.0f, 255.0f, 170.0f }, { 0.0f, 255.0f, 170.0f }, { 0.0f, 255.0f, 170.0f },
+};
+
+static f32 colors2_185[][3] = {
+    { 255.0f, 17.0f, 0.0f },  { 0.0f, 255.0f, 170.0f }, { 50.0f, 50.0f, 50.0f },
+    { 0.0f, 255.0f, 170.0f }, { 0.0f, 0.0f, 255.0f },   { 255.0f, 17.0f, 0.0f },
+};
+
+static f32 targetEyeEnvColors_186[][3] = {
+    { 255.0f, 17.0f, 0.0f },  { 255.0f, 255.0f, 255.0f }, { 50.0f, 50.0f, 50.0f },
+    { 0.0f, 255.0f, 170.0f }, { 0.0f, 255.0f, 170.0f },   { 0.0f, 255.0f, 170.0f },
+};
+
+static Vec3f tailZero_189 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f clawBackLocalPos_189 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f focusEyeLocalPos_189 = { 0.0f, 300.0f, 2650.0f };
+
+static Vec3f zero_189 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit Boss_Goma_InitVars = {
     ACTOR_BOSS_GOMA,
     ACTORCAT_BOSS,
@@ -592,21 +624,18 @@ void BossGoma_SetupFloorDamaged(BossGoma* pthis) {
 
 void BossGoma_UpdateCeilingMovement(BossGoma* pthis, GlobalContext* globalCtx, f32 dz, f32 targetSpeedXZ,
                                     s16 rotateTowardsCenter) {
-    static Vec3f velInit = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accelInit = { 0.0f, -0.5f, 0.0f };
-    static Vec3f roomCenter = { -150.0f, 0.0f, -350.0f };
     Vec3f* basePos = NULL;
     s16 i;
     Vec3f vel;
     Vec3f accel;
     Vec3f pos;
 
-    roomCenter.z += dz; // dz is always 0
+    roomCenter_122.z += dz; // dz is always 0
     SkelAnime_Update(&pthis->skelanime);
     Math_ApproachF(&pthis->actor.speedXZ, targetSpeedXZ, 0.5f, 2.0f);
 
     if (rotateTowardsCenter) {
-        Math_ApproachS(&pthis->actor.world.rot.y, Math_Vec3f_Yaw(&pthis->actor.world.pos, &roomCenter) + 0x8000, 3,
+        Math_ApproachS(&pthis->actor.world.rot.y, Math_Vec3f_Yaw(&pthis->actor.world.pos, &roomCenter_122) + 0x8000, 3,
                        0x3E8);
     }
 
@@ -618,8 +647,8 @@ void BossGoma_UpdateCeilingMovement(BossGoma* pthis, GlobalContext* globalCtx, f
 
     if (basePos != NULL) {
         for (i = 0; i < 5; i++) {
-            vel = velInit;
-            accel = accelInit;
+            vel = velInit_122;
+            accel = accelInit_122;
             pos.x = Rand_CenteredFloat(70.0f) + basePos->x;
             pos.y = Rand_ZeroFloat(30.0f) + basePos->y;
             pos.z = Rand_CenteredFloat(70.0f) + basePos->z;
@@ -989,7 +1018,6 @@ void BossGoma_Encounter(BossGoma* pthis, GlobalContext* globalCtx) {
  * Spawns the heart container and blue warp actors
  */
 void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx) {
-    static Vec3f roomCenter = { -150.0f, 0.0f, -350.0f };
     f32 dx;
     f32 dz;
     s16 j;
@@ -1144,7 +1172,7 @@ void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx) {
             Math_SmoothStepToF(&pthis->subCameraFollowSpeed, 1.0f, 1.0f, 0.02f, 0.0f);
 
             if (pthis->timer == 0) {
-                childPos = roomCenter;
+                childPos = roomCenter_129;
                 pthis->timer = 30;
                 pthis->actionState = 3;
 
@@ -1865,14 +1893,6 @@ void BossGoma_UpdateHit(BossGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void BossGoma_UpdateMainEnvColor(BossGoma* pthis) {
-    static f32 colors1[][3] = {
-        { 255.0f, 17.0f, 0.0f },  { 0.0f, 255.0f, 170.0f }, { 50.0f, 50.0f, 50.0f },
-        { 0.0f, 255.0f, 170.0f }, { 0.0f, 255.0f, 170.0f }, { 0.0f, 255.0f, 170.0f },
-    };
-    static f32 colors2[][3] = {
-        { 255.0f, 17.0f, 0.0f },  { 0.0f, 255.0f, 170.0f }, { 50.0f, 50.0f, 50.0f },
-        { 0.0f, 255.0f, 170.0f }, { 0.0f, 0.0f, 255.0f },   { 255.0f, 17.0f, 0.0f },
-    };
 
     if (pthis->visualState == VISUALSTATE_DEFAULT && pthis->frameCount & 0x10) {
         Math_ApproachF(&pthis->mainEnvColor[0], 50.0f, 0.5f, 20.0f);
@@ -1880,30 +1900,26 @@ void BossGoma_UpdateMainEnvColor(BossGoma* pthis) {
         Math_ApproachF(&pthis->mainEnvColor[2], 50.0f, 0.5f, 20.0f);
     } else if (pthis->invincibilityFrames != 0) {
         if (pthis->invincibilityFrames & 2) {
-            pthis->mainEnvColor[0] = colors2[pthis->visualState][0];
-            pthis->mainEnvColor[1] = colors2[pthis->visualState][1];
-            pthis->mainEnvColor[2] = colors2[pthis->visualState][2];
+            pthis->mainEnvColor[0] = colors2_185[pthis->visualState][0];
+            pthis->mainEnvColor[1] = colors2_185[pthis->visualState][1];
+            pthis->mainEnvColor[2] = colors2_185[pthis->visualState][2];
         } else {
-            pthis->mainEnvColor[0] = colors1[pthis->visualState][0];
-            pthis->mainEnvColor[1] = colors1[pthis->visualState][1];
-            pthis->mainEnvColor[2] = colors1[pthis->visualState][2];
+            pthis->mainEnvColor[0] = colors1_185[pthis->visualState][0];
+            pthis->mainEnvColor[1] = colors1_185[pthis->visualState][1];
+            pthis->mainEnvColor[2] = colors1_185[pthis->visualState][2];
         }
     } else {
-        Math_ApproachF(&pthis->mainEnvColor[0], colors1[pthis->visualState][0], 0.5f, 20.0f);
-        Math_ApproachF(&pthis->mainEnvColor[1], colors1[pthis->visualState][1], 0.5f, 20.0f);
-        Math_ApproachF(&pthis->mainEnvColor[2], colors1[pthis->visualState][2], 0.5f, 20.0f);
+        Math_ApproachF(&pthis->mainEnvColor[0], colors1_185[pthis->visualState][0], 0.5f, 20.0f);
+        Math_ApproachF(&pthis->mainEnvColor[1], colors1_185[pthis->visualState][1], 0.5f, 20.0f);
+        Math_ApproachF(&pthis->mainEnvColor[2], colors1_185[pthis->visualState][2], 0.5f, 20.0f);
     }
 }
 
 void BossGoma_UpdateEyeEnvColor(BossGoma* pthis) {
-    static f32 targetEyeEnvColors[][3] = {
-        { 255.0f, 17.0f, 0.0f },  { 255.0f, 255.0f, 255.0f }, { 50.0f, 50.0f, 50.0f },
-        { 0.0f, 255.0f, 170.0f }, { 0.0f, 255.0f, 170.0f },   { 0.0f, 255.0f, 170.0f },
-    };
 
-    Math_ApproachF(&pthis->eyeEnvColor[0], targetEyeEnvColors[pthis->visualState][0], 0.5f, 20.0f);
-    Math_ApproachF(&pthis->eyeEnvColor[1], targetEyeEnvColors[pthis->visualState][1], 0.5f, 20.0f);
-    Math_ApproachF(&pthis->eyeEnvColor[2], targetEyeEnvColors[pthis->visualState][2], 0.5f, 20.0f);
+    Math_ApproachF(&pthis->eyeEnvColor[0], targetEyeEnvColors_186[pthis->visualState][0], 0.5f, 20.0f);
+    Math_ApproachF(&pthis->eyeEnvColor[1], targetEyeEnvColors_186[pthis->visualState][1], 0.5f, 20.0f);
+    Math_ApproachF(&pthis->eyeEnvColor[2], targetEyeEnvColors_186[pthis->visualState][2], 0.5f, 20.0f);
 }
 
 void BossGoma_Update(Actor* thisx, GlobalContext* globalCtx) {
@@ -2053,10 +2069,7 @@ s32 BossGoma_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 }
 
 void BossGoma_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f tailZero = { 0.0f, 0.0f, 0.0f };
-    static Vec3f clawBackLocalPos = { 0.0f, 0.0f, 0.0f };
-    static Vec3f focusEyeLocalPos = { 0.0f, 300.0f, 2650.0f }; // in the center of the surface of the lens
-    static Vec3f zero = { 0.0f, 0.0f, 0.0f };
+    static Vec3f focusEyeLocalPos_189 = { 0.0f, 300.0f, 2650.0f }; // in the center of the surface of the lens
     Vec3f childPos;
     Vec3s childRot;
     EnGoma* babyGohma;
@@ -2065,20 +2078,20 @@ void BossGoma_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     MtxF mtx;
 
     if (limbIndex == BOSSGOMA_LIMB_TAIL4) { // tail end/last part
-        Matrix_MultVec3f(&tailZero, &pthis->lastTailLimbWorldPos);
+        Matrix_MultVec3f(&tailZero_189, &pthis->lastTailLimbWorldPos);
     } else if (limbIndex == BOSSGOMA_LIMB_TAIL1) { // tail start/first part
-        Matrix_MultVec3f(&tailZero, &pthis->firstTailLimbWorldPos);
+        Matrix_MultVec3f(&tailZero_189, &pthis->firstTailLimbWorldPos);
     } else if (limbIndex == BOSSGOMA_LIMB_EYE) {
-        Matrix_MultVec3f(&focusEyeLocalPos, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&focusEyeLocalPos_189, &pthis->actor.focus.pos);
     } else if (limbIndex == BOSSGOMA_LIMB_R_FEET_BACK) {
-        Matrix_MultVec3f(&clawBackLocalPos, &pthis->rightHandBackLimbWorldPos);
+        Matrix_MultVec3f(&clawBackLocalPos_189, &pthis->rightHandBackLimbWorldPos);
     } else if (limbIndex == BOSSGOMA_LIMB_L_FEET_BACK) {
-        Matrix_MultVec3f(&clawBackLocalPos, &pthis->leftHandBackLimbWorldPos);
+        Matrix_MultVec3f(&clawBackLocalPos_189, &pthis->leftHandBackLimbWorldPos);
     }
 
     if (pthis->visualState == VISUALSTATE_DEFEATED) {
         if (*dList != NULL) {
-            Matrix_MultVec3f(&clawBackLocalPos, &pthis->defeatedLimbPositions[limbIndex]);
+            Matrix_MultVec3f(&clawBackLocalPos_189, &pthis->defeatedLimbPositions[limbIndex]);
         } else {
             pthis->defeatedLimbPositions[limbIndex].y = 10000.0f;
         }
@@ -2086,7 +2099,7 @@ void BossGoma_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
     if (pthis->deadLimbsState[limbIndex] == 1) {
         pthis->deadLimbsState[limbIndex] = 2;
-        Matrix_MultVec3f(&zero, &childPos);
+        Matrix_MultVec3f(&zero_189, &childPos);
         Matrix_Get(&mtx);
         Matrix_MtxFToYXZRotS(&mtx, &childRot, 0);
         // These are the pieces of Gohma as it falls apart. It appears to use the same actor as the baby gohmas.
@@ -2155,6 +2168,22 @@ void BossGoma_SpawnChildGohma(BossGoma* pthis, GlobalContext* globalCtx, s16 i) 
 }
 
 void BossGoma_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velInit_122 = { 0.0f, 0.0f, 0.0f };
+
+    accelInit_122 = { 0.0f, -0.5f, 0.0f };
+
+    roomCenter_122 = { -150.0f, 0.0f, -350.0f };
+
+    roomCenter_129 = { -150.0f, 0.0f, -350.0f };
+
+    tailZero_189 = { 0.0f, 0.0f, 0.0f };
+
+    clawBackLocalPos_189 = { 0.0f, 0.0f, 0.0f };
+
+    focusEyeLocalPos_189 = { 0.0f, 300.0f, 2650.0f };
+
+    zero_189 = { 0.0f, 0.0f, 0.0f };
+
     Boss_Goma_InitVars = {
         ACTOR_BOSS_GOMA,
         ACTORCAT_BOSS,

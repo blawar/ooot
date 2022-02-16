@@ -28,6 +28,11 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnBoom_Fly(EnBoom* pthis, GlobalContext* globalCtx);
 
+static Vec3f sMultVec1_30 = { -960.0f, 0.0f, 0.0f };
+
+static Vec3f sMultVec2_30 = { 960.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Boom_InitVars = {
     ACTOR_EN_BOOM,
     ACTORCAT_MISC,
@@ -261,8 +266,6 @@ void EnBoom_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f sMultVec1 = { -960.0f, 0.0f, 0.0f };
-    static Vec3f sMultVec2 = { 960.0f, 0.0f, 0.0f };
     EnBoom* pthis = (EnBoom*)thisx;
     Vec3f vec1;
     Vec3f vec2;
@@ -272,8 +275,8 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_RotateY(pthis->actor.world.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
     Matrix_RotateZ(0x1F40 * (M_PI / 0x8000), MTXMODE_APPLY);
     Matrix_RotateX(pthis->actor.world.rot.x * (M_PI / 0x8000), MTXMODE_APPLY);
-    Matrix_MultVec3f(&sMultVec1, &vec1);
-    Matrix_MultVec3f(&sMultVec2, &vec2);
+    Matrix_MultVec3f(&sMultVec1_30, &vec1);
+    Matrix_MultVec3f(&sMultVec2_30, &vec2);
 
     if (func_80090480(globalCtx, &pthis->collider, &pthis->boomerangInfo, &vec1, &vec2) != 0) {
 	    EffectBlure_AddVertex((EffectBlure*)Effect_GetByIndex(pthis->effectIndex), &vec1, &vec2);
@@ -290,6 +293,10 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBoom_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sMultVec1_30 = { -960.0f, 0.0f, 0.0f };
+
+    sMultVec2_30 = { 960.0f, 0.0f, 0.0f };
+
     En_Boom_InitVars = {
         ACTOR_EN_BOOM,
         ACTORCAT_MISC,

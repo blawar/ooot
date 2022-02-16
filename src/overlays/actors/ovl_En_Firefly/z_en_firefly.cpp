@@ -41,6 +41,21 @@ void EnFirefly_FrozenFall(EnFirefly* pthis, GlobalContext* globalCtx);
 void EnFirefly_Perch(EnFirefly* pthis, GlobalContext* globalCtx);
 void EnFirefly_DisturbDiveAttack(EnFirefly* pthis, GlobalContext* globalCtx);
 
+static Color_RGBA8 fireAuraPrimColor_75 = { 255, 255, 100, 255 };
+
+static Color_RGBA8 fireAuraEnvColor_75 = { 255, 50, 0, 0 };
+
+static Color_RGBA8 iceAuraPrimColor_75 = { 100, 200, 255, 255 };
+
+static Color_RGBA8 iceAuraEnvColor_75 = { 0, 0, 255, 0 };
+
+static Vec3f effVelocity_75 = { 0.0f, 0.5f, 0.0f };
+
+static Vec3f effAccel_75 = { 0.0f, 0.5f, 0.0f };
+
+static Vec3f limbSrc_75 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Firefly_InitVars = {
     ACTOR_EN_FIREFLY,
     ACTORCAT_ENEMY,
@@ -739,13 +754,6 @@ s32 EnFirefly_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
-    static Color_RGBA8 fireAuraPrimColor = { 255, 255, 100, 255 };
-    static Color_RGBA8 fireAuraEnvColor = { 255, 50, 0, 0 };
-    static Color_RGBA8 iceAuraPrimColor = { 100, 200, 255, 255 };
-    static Color_RGBA8 iceAuraEnvColor = { 0, 0, 255, 0 };
-    static Vec3f effVelocity = { 0.0f, 0.5f, 0.0f };
-    static Vec3f effAccel = { 0.0f, 0.5f, 0.0f };
-    static Vec3f limbSrc = { 0.0f, 0.0f, 0.0f };
     Vec3f effPos;
     Vec3f* limbDest;
     Color_RGBA8* effPrimColor;
@@ -782,14 +790,14 @@ void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
                 }
 
                 if (pthis->auraType == KEESE_AURA_FIRE) {
-                    effPrimColor = &fireAuraPrimColor;
-                    effEnvColor = &fireAuraEnvColor;
+                    effPrimColor = &fireAuraPrimColor_75;
+                    effEnvColor = &fireAuraEnvColor_75;
                 } else {
-                    effPrimColor = &iceAuraPrimColor;
-                    effEnvColor = &iceAuraEnvColor;
+                    effPrimColor = &iceAuraPrimColor_75;
+                    effEnvColor = &iceAuraEnvColor_75;
                 }
 
-                func_8002843C(globalCtx, &effPos, &effVelocity, &effAccel, effPrimColor, effEnvColor, 250, effScaleStep,
+                func_8002843C(globalCtx, &effPos, &effVelocity_75, &effAccel_75, effPrimColor, effEnvColor, 250, effScaleStep,
                               effLife);
             }
         }
@@ -803,7 +811,7 @@ void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
             limbDest = &pthis->bodyPartsPos[2];
         }
 
-        Matrix_MultVec3f(&limbSrc, limbDest);
+        Matrix_MultVec3f(&limbSrc_75, limbDest);
         limbDest->y -= 5.0f;
     }
 }
@@ -843,6 +851,20 @@ void EnFirefly_DrawInvisible(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    fireAuraPrimColor_75 = { 255, 255, 100, 255 };
+
+    fireAuraEnvColor_75 = { 255, 50, 0, 0 };
+
+    iceAuraPrimColor_75 = { 100, 200, 255, 255 };
+
+    iceAuraEnvColor_75 = { 0, 0, 255, 0 };
+
+    effVelocity_75 = { 0.0f, 0.5f, 0.0f };
+
+    effAccel_75 = { 0.0f, 0.5f, 0.0f };
+
+    limbSrc_75 = { 0.0f, 0.0f, 0.0f };
+
     En_Firefly_InitVars = {
         ACTOR_EN_FIREFLY,
         ACTORCAT_ENEMY,

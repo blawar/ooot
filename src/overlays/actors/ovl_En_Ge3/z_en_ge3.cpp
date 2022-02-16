@@ -28,6 +28,13 @@ void EnGe3_WaitLookAtPlayer(EnGe3* pthis, GlobalContext* globalCtx);
 void EnGe3_ForceTalk(EnGe3* pthis, GlobalContext* globalCtx);
 void EnGe3_UpdateWhenNotTalking(Actor* thisx, GlobalContext* globalCtx);
 
+static void* eyeTextures_44[] = {
+    gGerudoRedEyeOpenTex,
+    gGerudoRedEyeHalfTex,
+    gGerudoRedEyeShutTex,
+};
+
+
 ActorInit En_Ge3_InitVars = {
     ACTOR_EN_GE3,
     ACTORCAT_NPC,
@@ -286,18 +293,13 @@ void EnGe3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 }
 
 void EnGe3_Draw(Actor* thisx, GlobalContext* globalCtx2) {
-    static void* eyeTextures[] = {
-        gGerudoRedEyeOpenTex,
-        gGerudoRedEyeHalfTex,
-        gGerudoRedEyeShutTex,
-    };
     EnGe3* pthis = (EnGe3*)thisx;
     GlobalContext* globalCtx = globalCtx2;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge3.c", 614);
 
     func_800943C8(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_44[pthis->eyeIndex]));
     func_8002EBCC(&pthis->actor, globalCtx, 0);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnGe3_OverrideLimbDraw, EnGe3_PostLimbDraw, pthis);

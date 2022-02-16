@@ -56,6 +56,9 @@ void EnWallmas_WaitForSwitchFlag(EnWallmas* pthis, GlobalContext* globalCtx);
 void EnWallmas_Stun(EnWallmas* pthis, GlobalContext* globalCtx);
 void EnWallmas_Walk(EnWallmas* pthis, GlobalContext* globalCtx);
 
+static Vec3f zeroVec_66 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Wallmas_InitVars = {
     ACTOR_EN_WALLMAS,
     ACTORCAT_ENEMY,
@@ -259,11 +262,10 @@ void EnWallmas_SetupCooldown(EnWallmas* pthis) {
 }
 
 void EnWallmas_SetupDie(EnWallmas* pthis, GlobalContext* globalCtx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.velocity.y = 0.0f;
 
-    EffectSsDeadDb_Spawn(globalCtx, &pthis->actor.world.pos, &zeroVec, &zeroVec, 250, -10, 255, 255, 255, 255, 0, 0, 255,
+    EffectSsDeadDb_Spawn(globalCtx, &pthis->actor.world.pos, &zeroVec_66, &zeroVec_66, 250, -10, 255, 255, 255, 255, 0, 0, 255,
                          1, 9, true);
 
     Item_DropCollectibleRandom(globalCtx, &pthis->actor, &pthis->actor.world.pos, 0xC0);
@@ -670,6 +672,8 @@ void EnWallmas_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnWallmas_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    zeroVec_66 = { 0.0f, 0.0f, 0.0f };
+
     En_Wallmas_InitVars = {
         ACTOR_EN_WALLMAS,
         ACTORCAT_ENEMY,

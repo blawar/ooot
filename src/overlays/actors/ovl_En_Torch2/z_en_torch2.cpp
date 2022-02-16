@@ -798,6 +798,32 @@ void EnTorch2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
 
     sDeathFlag = false;
 
+    sInput = {0};
+
+    sSwordJumpState = 0;
+
+    sSpawnPoint = {0, 0, 0};
+
+    sJumpslashTimer = 0;
+
+    sJumpslashFlag = 0;
+
+    sActionState = 0;
+
+    sSwordJumpTimer = 0;
+
+    sCounterState = 0;
+
+    sDodgeRollState = 0;
+
+    sStaggerCount = 0;
+
+    sStaggerTimer = 0;
+
+    sLastSwordAnim = 0;
+
+    sAlpha = 0;
+
     sDamageTable = {
         /* Deku nut      */ DMG_ENTRY(0, 0x1),
         /* Deku stick    */ DMG_ENTRY(2, 0x0),

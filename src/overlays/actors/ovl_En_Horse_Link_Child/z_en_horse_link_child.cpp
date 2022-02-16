@@ -34,6 +34,9 @@ void func_80A69EC0(EnHorseLinkChild* pthis);
 void func_80A6A4DC(EnHorseLinkChild* pthis);
 void func_80A6A724(EnHorseLinkChild* pthis);
 
+static s32 D_80A6AF5C_34[] = { 1, 19 };
+
+
 ActorInit En_Horse_Link_Child_InitVars = {
     ACTOR_EN_HORSE_LINK_CHILD,
     ACTORCAT_BG,
@@ -101,14 +104,13 @@ static ColliderJntSphInit sJntSphInit = {
 static CollisionCheckInfoInit sColCheckInfoInit = { 10, 35, 100, MASS_HEAVY };
 
 void func_80A693D0(EnHorseLinkChild* pthis) {
-    static s32 D_80A6AF5C[] = { 1, 19 };
 
-    if ((pthis->skin.skelAnime.curFrame > D_80A6AF5C[pthis->unk_1F0]) &&
-        !((pthis->unk_1F0 == 0) && (pthis->skin.skelAnime.curFrame > D_80A6AF5C[1]))) {
+    if ((pthis->skin.skelAnime.curFrame > D_80A6AF5C_34[pthis->unk_1F0]) &&
+        !((pthis->unk_1F0 == 0) && (pthis->skin.skelAnime.curFrame > D_80A6AF5C_34[1]))) {
         Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_WALK, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                &D_801333E8);
         pthis->unk_1F0++;
-        if (pthis->unk_1F0 >= ARRAY_COUNT(D_80A6AF5C)) {
+        if (pthis->unk_1F0 >= ARRAY_COUNT(D_80A6AF5C_34)) {
             pthis->unk_1F0 = 0;
         }
     }

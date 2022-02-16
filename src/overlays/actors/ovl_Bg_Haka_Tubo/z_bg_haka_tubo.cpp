@@ -33,6 +33,9 @@ void BgHakaTubo_Draw(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaTubo_Idle(BgHakaTubo* pthis, GlobalContext* globalCtx);
 void BgHakaTubo_DropCollectible(BgHakaTubo* pthis, GlobalContext* globalCtx);
 
+static Vec3f sZeroVector_34 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit Bg_Haka_Tubo_InitVars = {
     ACTOR_BG_HAKA_TUBO,
     ACTORCAT_BG,
@@ -119,7 +122,6 @@ void BgHakaTubo_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHakaTubo_Idle(BgHakaTubo* pthis, GlobalContext* globalCtx) {
-    static Vec3f sZeroVector = { 0.0f, 0.0f, 0.0f };
     Vec3f pos;
 
     if (pthis->dyna.actor.room == 12) { // 3 spinning pots room in Shadow Temple
@@ -142,7 +144,7 @@ void BgHakaTubo_Idle(BgHakaTubo* pthis, GlobalContext* globalCtx) {
             pos.x = pthis->dyna.actor.world.pos.x;
             pos.z = pthis->dyna.actor.world.pos.z;
             pos.y = pthis->dyna.actor.world.pos.y + 80.0f;
-            EffectSsBomb2_SpawnLayered(globalCtx, &pos, &sZeroVector, &sZeroVector, 100, 45);
+            EffectSsBomb2_SpawnLayered(globalCtx, &pos, &sZeroVector_34, &sZeroVector_34, 100, 45);
             Audio_PlaySoundAtPosition(globalCtx, &pthis->dyna.actor.world.pos, 50, NA_SE_EV_BOX_BREAK);
             EffectSsHahen_SpawnBurst(globalCtx, &pos, 20.0f, 0, 350, 100, 50, OBJECT_HAKA_OBJECTS, 40,
                                      gEffFragments2DL);
@@ -265,6 +267,8 @@ void BgHakaTubo_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHakaTubo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sZeroVector_34 = { 0.0f, 0.0f, 0.0f };
+
     Bg_Haka_Tubo_InitVars = {
         ACTOR_BG_HAKA_TUBO,
         ACTORCAT_BG,

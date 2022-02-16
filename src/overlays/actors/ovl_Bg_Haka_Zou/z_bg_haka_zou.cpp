@@ -39,6 +39,14 @@ void func_80883328(BgHakaZou* pthis, GlobalContext* globalCtx);
 void func_808834D8(BgHakaZou* pthis, GlobalContext* globalCtx);
 void BgHakaZou_DoNothing(BgHakaZou* pthis, GlobalContext* globalCtx);
 
+static Gfx* dLists_52[] = {
+    object_haka_objects_DL_0064E0,
+    object_haka_objects_DL_005CE0,
+    gBotwBombSpotDL,
+    object_haka_objects_DL_005CE0,
+};
+
+
 static ColliderCylinderInit sCylinderInit = {
     {
         COLTYPE_NONE,
@@ -408,14 +416,8 @@ void BgHakaZou_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHakaZou_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = {
-        object_haka_objects_DL_0064E0,
-        object_haka_objects_DL_005CE0,
-        gBotwBombSpotDL,
-        object_haka_objects_DL_005CE0,
-    };
 
-    Gfx_DrawDListOpa(globalCtx, dLists[thisx->params]);
+    Gfx_DrawDListOpa(globalCtx, dLists_52[thisx->params]);
 }
 
 void BgHakaZou_Reset(Actor* pthisx, GlobalContext* globalCtx) {

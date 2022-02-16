@@ -47,7 +47,10 @@ void Fishing_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx);
 void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx);
 void Fishing_DrawFish(Actor* thisx, GlobalContext* globalCtx);
-void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx); 
+void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx);
+
+static Vec3f sLoachMouthOffset_218 = { 500.0f, 500.0f, 0.0f };
+ 
 
 #define EFFECT_COUNT 130
  
@@ -4193,11 +4196,10 @@ s32 Fishing_LoachOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
 }
 
 void Fishing_LoachPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f sLoachMouthOffset = { 500.0f, 500.0f, 0.0f };
     Fishing* pthis = (Fishing*)thisx;
 
     if (limbIndex == 0xB) {
-        Matrix_MultVec3f(&sLoachMouthOffset, &pthis->fishMouthPos);
+        Matrix_MultVec3f(&sLoachMouthOffset_218, &pthis->fishMouthPos);
     }
 }
 
@@ -5733,6 +5735,8 @@ void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void Fishing_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sLoachMouthOffset_218 = { 500.0f, 500.0f, 0.0f };
+
     Fishing_InitVars = {
         ACTOR_FISHING,
         ACTORCAT_NPC,
@@ -5824,6 +5828,148 @@ void Fishing_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     sZeroVec = { 0.0f, 0.0f, 0.0f };
 
     D_80B7A8A8 = { 0.0f, 0.0f, 2000.0f };
+
+    sFishingMain = 0;
+
+    D_80B7E074 = 0;
+
+    sLinkAge = 0;
+
+    D_80B7E076 = 0;
+
+    D_80B7E077 = 0;
+
+    D_80B7E078 = {0};
+
+    D_80B7E07C = 0;
+
+    D_80B7E07D = 0;
+
+    D_80B7E07E = 0;
+
+    D_80B7E080 = 0;
+
+    D_80B7E082 = 0;
+
+    D_80B7E084 = 0;
+
+    D_80B7E086 = 0;
+
+    D_80B7E088 = 0;
+
+    sOwnerHeadPos = {0, 0, 0};
+
+    sEffOwnerHatRot = {0, 0, 0};
+
+    D_80B7E0A2 = 0;
+
+    D_80B7E0A4 = 0;
+
+    D_80B7E0A6 = 0;
+
+    sFishingHookedFish = 0;
+
+    D_80B7E0AC = 0;
+
+    D_80B7E0AE = 0;
+
+    D_80B7E0B0 = 0;
+
+    D_80B7E0B2 = 0;
+
+    D_80B7E0B4 = 0;
+
+    D_80B7E0B6 = 0;
+
+    sLurePos = {0, 0, 0};
+
+    D_80B7E0C8 = {0, 0, 0};
+
+    sLureRot = {0, 0, 0};
+
+    D_80B7E0E8 = {0, 0, 0};
+
+    D_80B7E0F8 = {0, 0, 0};
+
+    D_80B7E104 = {0};
+
+    D_80B7E108 = {0};
+
+    D_80B7E10C = {0};
+
+    D_80B7E110 = {0};
+
+    D_80B7E114 = 0;
+
+    D_80B7E116 = 0;
+
+    D_80B7E118 = 0;
+
+    D_80B7E11C = {0};
+
+    D_80B7E120 = 0;
+
+    D_80B7E122 = 0;
+
+    D_80B7E124 = 0;
+
+    D_80B7E128 = {0, 0, 0};
+
+    D_80B7E134 = {0};
+
+    D_80B7E138 = {0};
+
+    D_80B7E13C = 0;
+
+    D_80B7E140 = {0};
+
+    D_80B7E144 = {0};
+
+    D_80B7E148 = {0};
+
+    D_80B7E14C = {0};
+
+    D_80B7E150 = 0;
+
+    D_80B7E154 = {0};
+
+    sRodTipPos = {0, 0, 0};
+
+    D_80B7FDA8 = 0;
+
+    D_80B7FEA0 = 0;
+
+    sProjectedW = {0};
+
+    sCameraEye = {0, 0, 0};
+
+    sCameraAt = {0, 0, 0};
+
+    sCameraId = 0;
+
+    D_80B7FEC8 = {0};
+
+    D_80B7FECC = {0};
+
+    D_80B7FED0 = {0};
+
+    sSinkingLureBasePos = {0, 0, 0};
+
+    D_80B7FEE4 = {0};
+
+    sRandSeed0 = 0;
+
+    sRandSeed1 = 0;
+
+    sRandSeed2 = 0;
+
+    sFishGroupAngle1 = {0};
+
+    sFishGroupAngle2 = {0};
+
+    sFishGroupAngle3 = {0};
+
+    sStreamSoundProjectedPos = {0, 0, 0};
 
     sRodTipOffset = { 0.0f, 0.0f, 0.0f };
 

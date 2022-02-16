@@ -51,6 +51,37 @@ void func_80968B70(Actor* thisx, GlobalContext* globalCtx);
 void func_80968FB0(Actor* thisx, GlobalContext* globalCtx);
 void func_809691BC(Demo6K* pthis, GlobalContext* globalCtx, s32 params);
 
+static u16 D_8096932C_58[] = { 275, 275, 275, 275, 275, 275 };
+
+static Vec3f velocity_59 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_59 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 primColor_59 = { 255, 255, 255, 0 };
+
+static Color_RGBA8 envColor_59 = { 255, 150, 0, 0 };
+
+static Vec3f velocity_62 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_62 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 primColor_62 = { 255, 255, 255, 0 };
+
+static Color_RGBA8 envColor_62 = { 255, 150, 0, 0 };
+
+static Vec3f velocity_66 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_66 = { 0.0f, 0.0f, 0.0f };
+
+static Color_RGBA8 primColor_66 = { 255, 255, 255, 0 };
+
+static Color_RGBA8 envColor_66 = { 255, 200, 0, 0 };
+
+static u8 skipIndices_71[] = { 6, 7, 11, 16, 20, 24, 28, 33, 35, 41, 45, 50, 57, 58, 62, 255 };
+
+static u8 D_809693CC_75[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1 };
+
+
 ActorInit Demo_6K_InitVars = {
     ACTOR_DEMO_6K,
     ACTORCAT_PROP,
@@ -292,7 +323,6 @@ void func_809670AC(Demo6K* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8096712C(Demo6K* pthis, GlobalContext* globalCtx) {
-    static u16 D_8096932C[] = { 275, 275, 275, 275, 275, 275 };
     const auto& frames = globalCtx->state.frames;
 
     if (pthis->actor.scale.x < 0.1f) {
@@ -314,16 +344,12 @@ void func_8096712C(Demo6K* pthis, GlobalContext* globalCtx) {
 
     pthis->timer2++;
 
-    if ((globalCtx->sceneNum == SCENE_GANONTIKA) && (globalCtx->csCtx.frames < D_8096932C[pthis->actor.params - 3])) {
+    if ((globalCtx->sceneNum == SCENE_GANONTIKA) && (globalCtx->csCtx.frames < D_8096932C_58[pthis->actor.params - 3])) {
         func_8002F974(&pthis->actor, NA_SE_EV_LIGHT_GATHER - SFX_FLAG);
     }
 }
 
 void func_80967244(Demo6K* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 primColor = { 255, 255, 255, 0 };
-    static Color_RGBA8 envColor = { 255, 150, 0, 0 };
     Vec3f pos;
     s16 rand1;
     s16 rand2;
@@ -336,15 +362,15 @@ void func_80967244(Demo6K* pthis, GlobalContext* globalCtx) {
     rand1 = Rand_ZeroFloat(0xFFFF);
     rand2 = Rand_ZeroFloat(0xFFFF);
 
-    velocity.x = Math_SinS(rand2) * Math_CosS(rand1) * 20.0f;
-    velocity.z = Math_CosS(rand2) * Math_CosS(rand1) * 20.0f;
-    velocity.y = Math_SinS(rand1) * 20.0f;
+    velocity_59.x = Math_SinS(rand2) * Math_CosS(rand1) * 20.0f;
+    velocity_59.z = Math_CosS(rand2) * Math_CosS(rand1) * 20.0f;
+    velocity_59.y = Math_SinS(rand1) * 20.0f;
 
-    accel.y = 0.0f;
+    accel_59.y = 0.0f;
 
-    envColor.r = sEnvColors[pthis->unk_293].r;
-    envColor.g = sEnvColors[pthis->unk_293].g;
-    envColor.b = sEnvColors[pthis->unk_293].b;
+    envColor_59.r = sEnvColors[pthis->unk_293].r;
+    envColor_59.g = sEnvColors[pthis->unk_293].g;
+    envColor_59.b = sEnvColors[pthis->unk_293].b;
 
     if (globalCtx->sceneNum == SCENE_TOKINOMA) {
         scale = 6000;
@@ -354,7 +380,7 @@ void func_80967244(Demo6K* pthis, GlobalContext* globalCtx) {
         scale = 18000;
     }
 
-    EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &velocity, &accel, &primColor, &envColor, scale, 20);
+    EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &velocity_59, &accel_59, &primColor_59, &envColor_59, scale, 20);
 }
 
 void func_80967410(Demo6K* pthis, GlobalContext* globalCtx) {
@@ -412,10 +438,6 @@ void func_809674E0(Demo6K* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809676A4(Demo6K* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 primColor = { 255, 255, 255, 0 };
-    static Color_RGBA8 envColor = { 255, 150, 0, 0 };
     Vec3f pos;
     f32 temp = pthis->actor.scale.x * 500.0f;
     s32 i;
@@ -425,13 +447,13 @@ void func_809676A4(Demo6K* pthis, GlobalContext* globalCtx) {
         pos.y = pthis->actor.world.pos.y + Rand_CenteredFloat(temp);
         pos.z = pthis->actor.world.pos.z + Rand_CenteredFloat(temp);
 
-        velocity.x = Rand_CenteredFloat(2.0f);
-        velocity.y = (Rand_ZeroFloat(-10.0f) - 5.0f) * 0.1f;
-        velocity.z = Rand_CenteredFloat(2.0f);
+        velocity_62.x = Rand_CenteredFloat(2.0f);
+        velocity_62.y = (Rand_ZeroFloat(-10.0f) - 5.0f) * 0.1f;
+        velocity_62.z = Rand_CenteredFloat(2.0f);
 
-        accel.y = 0.0f;
+        accel_62.y = 0.0f;
 
-        EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &velocity, &accel, &primColor, &envColor, 500, 20);
+        EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &velocity_62, &accel_62, &primColor_62, &envColor_62, 500, 20);
     }
 }
 
@@ -497,10 +519,6 @@ void func_80967AD0(Demo6K* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80967BF8(Player* player, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static Color_RGBA8 primColor = { 255, 255, 255, 0 };
-    static Color_RGBA8 envColor = { 255, 200, 0, 0 };
     Vec3f pos;
     s32 i;
 
@@ -509,13 +527,13 @@ void func_80967BF8(Player* player, GlobalContext* globalCtx) {
         pos.y = Rand_CenteredFloat(15.0f) + player->actor.world.pos.y + 30.0f;
         pos.z = Rand_CenteredFloat(15.0f) + player->actor.world.pos.z;
 
-        velocity.x = Rand_CenteredFloat(8.0f) + 1.0f;
-        velocity.y = Rand_CenteredFloat(4.0f);
-        velocity.z = Rand_CenteredFloat(8.0f) + 2.0f;
+        velocity_66.x = Rand_CenteredFloat(8.0f) + 1.0f;
+        velocity_66.y = Rand_CenteredFloat(4.0f);
+        velocity_66.z = Rand_CenteredFloat(8.0f) + 2.0f;
 
-        accel.y = 0.0f;
+        accel_66.y = 0.0f;
 
-        EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &velocity, &accel, &primColor, &envColor, 1000,
+        EffectSsKiraKira_SpawnFocused(globalCtx, &pos, &velocity_66, &accel_66, &primColor_66, &envColor_66, 1000,
                                       (s32)Rand_ZeroFloat(60.0f) + 60);
     }
 }
@@ -613,7 +631,6 @@ void func_80967FFC(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80968298(Actor* thisx, GlobalContext* globalCtx) {
-    static u8 skipIndices[] = { 6, 7, 11, 16, 20, 24, 28, 33, 35, 41, 45, 50, 57, 58, 62, 255 };
     Demo6K* pthis = (Demo6K*)thisx;
     s32 pad;
     u32 timer1 = pthis->timer1;
@@ -635,7 +652,7 @@ void func_80968298(Actor* thisx, GlobalContext* globalCtx) {
 
     alpha = (s32)(pthis->unk_16C * 255.0f);
     for (i2 = 0, i = 0; i < 63; i++) {
-        if (i == skipIndices[i2]) {
+        if (i == skipIndices_71[i2]) {
             i2++;
         } else {
             vertices[i].v.cn[3] = alpha;
@@ -782,7 +799,6 @@ void func_80968B70(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80968FB0(Actor* thisx, GlobalContext* globalCtx) {
-    static u8 D_809693CC[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1 };
     Demo6K* pthis = (Demo6K*)thisx;
     Gfx* displayList = (Gfx*)Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Gfx));
     u16 frames = globalCtx->gameplayFrames;
@@ -794,7 +810,7 @@ void func_80968FB0(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_6k.c", 1386);
 
     func_80093D84(globalCtx->state.gfxCtx);
-    scaleFactor = ((s16)D_809693CC[(frames * 4) & 0xF] * 0.01f) + 1.0f;
+    scaleFactor = ((s16)D_809693CC_75[(frames * 4) & 0xF] * 0.01f) + 1.0f;
     Matrix_Scale(pthis->actor.scale.x * scaleFactor, pthis->actor.scale.y * scaleFactor,
                  pthis->actor.scale.z * scaleFactor, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_6k.c", 1394),
@@ -832,6 +848,30 @@ void func_809691BC(Demo6K* pthis, GlobalContext* globalCtx, s32 params) {
 }
 
 void Demo6K_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velocity_59 = { 0.0f, 0.0f, 0.0f };
+
+    accel_59 = { 0.0f, 0.0f, 0.0f };
+
+    primColor_59 = { 255, 255, 255, 0 };
+
+    envColor_59 = { 255, 150, 0, 0 };
+
+    velocity_62 = { 0.0f, 0.0f, 0.0f };
+
+    accel_62 = { 0.0f, 0.0f, 0.0f };
+
+    primColor_62 = { 255, 255, 255, 0 };
+
+    envColor_62 = { 255, 150, 0, 0 };
+
+    velocity_66 = { 0.0f, 0.0f, 0.0f };
+
+    accel_66 = { 0.0f, 0.0f, 0.0f };
+
+    primColor_66 = { 255, 255, 255, 0 };
+
+    envColor_66 = { 255, 200, 0, 0 };
+
     Demo_6K_InitVars = {
         ACTOR_DEMO_6K,
         ACTORCAT_PROP,

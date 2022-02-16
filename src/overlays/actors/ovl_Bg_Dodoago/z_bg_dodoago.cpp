@@ -95,6 +95,9 @@ static u8 sUnused[90]; // unknown length
 
 static s32 sTimer;
 
+static Vec3f velocity = { 0.0f, -1.5f, 0.0f };
+static Vec3f acceleration = { 0.0f, -0.2f, 0.0f };
+
 void BgDodoago_SetupAction(BgDodoago* pthis, BgDodoagoActionFunc actionFunc) {
     pthis->actionFunc = actionFunc;
 }
@@ -103,8 +106,6 @@ void BgDodoago_SpawnSparkles(Vec3f* meanPos, GlobalContext* globalCtx) {
     Vec3f pos;
     Color_RGBA8 primColor = { 100, 100, 100, 0 };
     Color_RGBA8 envColor = { 40, 40, 40, 0 };
-    static Vec3f velocity = { 0.0f, -1.5f, 0.0f };
-    static Vec3f acceleration = { 0.0f, -0.2f, 0.0f };
     s32 i;
 
     for (i = 4; i > 0; i--) {
@@ -389,5 +390,13 @@ void BgDodoago_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     };
 
     sFirstExplosiveFlag = false;
+
+    sDisableBombCatcher = 0;
+
+    sTimer = 0;
+
+    velocity = { 0.0f, -1.5f, 0.0f };
+
+    acceleration = { 0.0f, -0.2f, 0.0f };
 
 }

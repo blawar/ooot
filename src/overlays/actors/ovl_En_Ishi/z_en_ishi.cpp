@@ -44,6 +44,13 @@ void EnIshi_SpawnFragmentsLarge(EnIshi* pthis, GlobalContext* globalCtx);
 void EnIshi_SpawnDustSmall(EnIshi* pthis, GlobalContext* globalCtx);
 void EnIshi_SpawnDustLarge(EnIshi* pthis, GlobalContext* globalCtx);
 
+static s16 scales_55[] = { 16, 13, 11, 9, 7, 5 };
+
+static s16 scales_56[] = { 145, 135, 120, 100, 70, 50, 45, 40, 35 };
+
+static u16 liftSounds_67[] = { NA_SE_PL_PULL_UP_ROCK, NA_SE_PL_PULL_UP_BIGROCK };
+
+
 static s16 sRotSpeedX = 0;
 static s16 sRotSpeedY = 0;
 
@@ -150,14 +157,13 @@ s32 EnIshi_SnapToFloor(EnIshi* pthis, GlobalContext* globalCtx, f32 arg2) {
 }
 
 void EnIshi_SpawnFragmentsSmall(EnIshi* pthis, GlobalContext* globalCtx) {
-    static s16 scales[] = { 16, 13, 11, 9, 7, 5 };
     s32 pad;
     Vec3f velocity;
     Vec3f pos;
     s16 phi_v0;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(scales); i++) {
+    for (i = 0; i < ARRAY_COUNT(scales_55); i++) {
         pos.x = pthis->actor.world.pos.x + (Rand_ZeroOne() - 0.5f) * 8.0f;
         pos.y = pthis->actor.world.pos.y + (Rand_ZeroOne() * 5.0f) + 5.0f;
         pos.z = pthis->actor.world.pos.z + (Rand_ZeroOne() - 0.5f) * 8.0f;
@@ -179,13 +185,12 @@ void EnIshi_SpawnFragmentsSmall(EnIshi* pthis, GlobalContext* globalCtx) {
         } else {
             phi_v0 = 33;
         }
-        EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -420, phi_v0, 30, 5, 0, scales[i], 3, 10, 40,
+        EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -420, phi_v0, 30, 5, 0, scales_55[i], 3, 10, 40,
                              KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, gFieldKakeraDL);
     }
 }
 
 void EnIshi_SpawnFragmentsLarge(EnIshi* pthis, GlobalContext* globalCtx) {
-    static s16 scales[] = { 145, 135, 120, 100, 70, 50, 45, 40, 35 };
     Actor* thisx = &pthis->actor;
     Vec3f velocity;
     Vec3f pos;
@@ -195,7 +200,7 @@ void EnIshi_SpawnFragmentsLarge(EnIshi* pthis, GlobalContext* globalCtx) {
     s16 phi_v0;
     s16 phi_v1;
 
-    for (i = 0; i < ARRAY_COUNT(scales); i++) {
+    for (i = 0; i < ARRAY_COUNT(scales_56); i++) {
         angle += 0x4E20;
         rand = Rand_ZeroOne() * 10.0f;
         pos.x = pthis->actor.world.pos.x + (Math_SinS(angle) * rand);
@@ -225,7 +230,7 @@ void EnIshi_SpawnFragmentsLarge(EnIshi* pthis, GlobalContext* globalCtx) {
             phi_v0 = 69;
             phi_v1 = -320;
         }
-        EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pthis->actor.world.pos, phi_v1, phi_v0, 30, 5, 0, scales[i], 5,
+        EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pthis->actor.world.pos, phi_v1, phi_v0, 30, 5, 0, scales_56[i], 5,
                              2, 70, KAKERA_COLOR_WHITE, OBJECT_GAMEPLAY_FIELD_KEEP, gSilverRockFragmentsDL);
     }
 }
@@ -360,13 +365,12 @@ void EnIshi_SetupWait(EnIshi* pthis) {
 }
 
 void EnIshi_Wait(EnIshi* pthis, GlobalContext* globalCtx) {
-    static u16 liftSounds[] = { NA_SE_PL_PULL_UP_ROCK, NA_SE_PL_PULL_UP_BIGROCK };
     s32 pad;
     s16 type = pthis->actor.params & 1;
 
     if (Actor_HasParent(&pthis->actor, globalCtx)) {
         EnIshi_SetupLiftedUp(pthis);
-        Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, liftSounds[type]);
+        Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, liftSounds_67[type]);
         if ((pthis->actor.params >> 4) & 1) {
             EnIshi_SpawnBugs(pthis, globalCtx);
         }

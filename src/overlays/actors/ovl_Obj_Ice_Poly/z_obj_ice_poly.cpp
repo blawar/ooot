@@ -28,6 +28,9 @@ void ObjIcePoly_Draw(Actor* thisx, GlobalContext* globalCtx);
 void ObjIcePoly_Idle(ObjIcePoly* pthis, GlobalContext* globalCtx);
 void ObjIcePoly_Melt(ObjIcePoly* pthis, GlobalContext* globalCtx);
 
+static Vec3f zeroVec_31 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit Obj_Ice_Poly_InitVars = {
     ACTOR_OBJ_ICE_POLY,
     ACTORCAT_PROP,
@@ -124,7 +127,6 @@ void ObjIcePoly_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjIcePoly_Idle(ObjIcePoly* pthis, GlobalContext* globalCtx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     s32 pad;
     Vec3f pos;
 
@@ -146,7 +148,7 @@ void ObjIcePoly_Idle(ObjIcePoly* pthis, GlobalContext* globalCtx) {
     pos.y = pthis->actor.world.pos.y + pthis->actor.scale.y * Rand_S16Offset(10, 90);
     pos.z = pthis->actor.world.pos.z + pthis->actor.scale.z * (Rand_S16Offset(15, 15) * (Rand_ZeroOne() < 0.5f ? -1 : 1));
     if ((globalCtx->gameplayFrames % 7) == 0) {
-        EffectSsKiraKira_SpawnDispersed(globalCtx, &pos, &zeroVec, &zeroVec, &sColorWhite, &sColorGray, 2000, 5);
+        EffectSsKiraKira_SpawnDispersed(globalCtx, &pos, &zeroVec_31, &zeroVec_31, &sColorWhite, &sColorGray, 2000, 5);
     }
 }
 
@@ -221,6 +223,8 @@ void ObjIcePoly_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjIcePoly_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    zeroVec_31 = { 0.0f, 0.0f, 0.0f };
+
     Obj_Ice_Poly_InitVars = {
         ACTOR_OBJ_ICE_POLY,
         ACTORCAT_PROP,

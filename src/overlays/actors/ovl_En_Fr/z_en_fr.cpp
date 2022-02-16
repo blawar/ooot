@@ -65,6 +65,12 @@ void EnFr_Deactivate(EnFr* pthis, GlobalContext* globalCtx);
 void EnFr_GiveReward(EnFr* pthis, GlobalContext* globalCtx);
 void EnFr_SetIdle(EnFr* pthis, GlobalContext* globalCtx);
 
+static void* eyeTextures_137[] = {
+    object_fr_Tex_0059A0,
+    object_fr_Tex_005BA0,
+};
+
+
 /*
 Frogs params WIP docs
 
@@ -1058,10 +1064,6 @@ void EnFr_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnFr_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
-        object_fr_Tex_0059A0,
-        object_fr_Tex_005BA0,
-    };
     s16 lightRadius;
     EnFr* pthis = (EnFr*)thisx;
     s16 frogIndex = pthis->actor.params - 1;
@@ -1075,8 +1077,8 @@ void EnFr_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Lights_PointNoGlowSetInfo(&pthis->lightInfo, pthis->posButterflyLight.x, pthis->posButterflyLight.y,
                               pthis->posButterflyLight.z, 255, 255, 255, lightRadius);
     gDPSetEnvColor(POLY_OPA_DISP++, sEnFrColor[frogIndex].r, sEnFrColor[frogIndex].g, sEnFrColor[frogIndex].b, 255);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeTexIndex]));
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeTexIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_137[pthis->eyeTexIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures_137[pthis->eyeTexIndex]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnFr_OverrideLimbDraw, EnFr_PostLimbDraw, pthis);
     if (pthis->isButterflyDrawn) {

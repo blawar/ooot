@@ -76,6 +76,19 @@ void func_80A77EDC(EnIk* pthis, GlobalContext* globalCtx);
 void func_80A78160(EnIk* pthis, GlobalContext* globalCtx);
 void func_80A781CC(Actor* thisx, GlobalContext* globalCtx);
 
+static Vec3f D_80A78514_115[] = {
+    { 1000.0, -1000.0, 1000.0 },  { 0.0, -1000.0, 0.0 },        { -1000.0, -5000.0, -4000.0 },
+    { 1000.0, -5000.0, -3000.0 }, { -1000.0, 1000.0, -6000.0 }, { -1000.0, 3000.0, -5000.0 },
+    { -800.0, 1000.0, -3000.0 },  { 0.0, -4000.0, -2000.0 },    { -1000.0, -2000.0, -6000.0 },
+    { 1000.0, -3000.0, 0.0 },     { 2000.0, -2000.0, -4000.0 }, { -1000.0, 0.0, -6000.0 },
+    { 1000.0, -2000.0, -2000.0 }, { 0.0, -2000.0, 2100.0 },     { 0.0, 0.0, 0.0 },
+    { 1000.0, -1000.0, -6000.0 }, { 2000.0, 0.0, -3000.0 },     { -1000.0, -1000.0, -4000.0 },
+    { 900.0, -800.0, 2700.0 },    { 720.0f, 900.0f, 2500.0f },
+};
+
+static Vec3f D_80A78FA0_126;
+
+
 static ColliderCylinderInit sCylinderInit = {
     {
         COLTYPE_NONE,
@@ -1013,15 +1026,6 @@ void func_80A76DDC(EnIk* pthis, GlobalContext* globalCtx, Vec3f* pos) {
 }
 
 void func_80A76E2C(EnIk* pthis, GlobalContext* globalCtx, Vec3f* pos) {
-    static Vec3f D_80A78514[] = {
-        { 1000.0, -1000.0, 1000.0 },  { 0.0, -1000.0, 0.0 },        { -1000.0, -5000.0, -4000.0 },
-        { 1000.0, -5000.0, -3000.0 }, { -1000.0, 1000.0, -6000.0 }, { -1000.0, 3000.0, -5000.0 },
-        { -800.0, 1000.0, -3000.0 },  { 0.0, -4000.0, -2000.0 },    { -1000.0, -2000.0, -6000.0 },
-        { 1000.0, -3000.0, 0.0 },     { 2000.0, -2000.0, -4000.0 }, { -1000.0, 0.0, -6000.0 },
-        { 1000.0, -2000.0, -2000.0 }, { 0.0, -2000.0, 2100.0 },     { 0.0, 0.0, 0.0 },
-        { 1000.0, -1000.0, -6000.0 }, { 2000.0, 0.0, -3000.0 },     { -1000.0, -1000.0, -4000.0 },
-        { 900.0, -800.0, 2700.0 },    { 720.0f, 900.0f, 2500.0f },
-    };
 
     if (pthis->unk_4D4 == 0) {
         s32 pad;
@@ -1029,13 +1033,13 @@ void func_80A76E2C(EnIk* pthis, GlobalContext* globalCtx, Vec3f* pos) {
         Vec3f effectAccel = { 0.0f, 0.3f, 0.0f };
         s32 i;
 
-        for (i = ARRAY_COUNT(D_80A78514) - 1; i >= 0; i--) {
+        for (i = ARRAY_COUNT(D_80A78514_115) - 1; i >= 0; i--) {
             Color_RGBA8 primColor = { 200, 200, 200, 255 };
             Color_RGBA8 envColor = { 150, 150, 150, 0 };
             s32 temp_v0;
             Vec3f effectPos;
 
-            Matrix_MultVec3f(&D_80A78514[i], &effectPos);
+            Matrix_MultVec3f(&D_80A78514_115[i], &effectPos);
             temp_v0 = (Rand_ZeroOne() * 20.0f) - 10.0f;
             primColor.r += temp_v0;
             primColor.g += temp_v0;
@@ -1121,12 +1125,11 @@ void func_80A772A4(EnIk* pthis) {
 }
 
 void func_80A772EC(EnIk* pthis, GlobalContext* globalCtx) {
-    static Vec3f D_80A78FA0;
     s32 pad[2];
     f32 wDest;
 
-    SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pthis->actor.world.pos, &D_80A78FA0, &wDest);
-    Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_DEAD, &D_80A78FA0, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+    SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pthis->actor.world.pos, &D_80A78FA0_126, &wDest);
+    Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_DEAD, &D_80A78FA0_126, 4, &D_801333E0, &D_801333E0, &D_801333E8);
 }
 
 void func_80A7735C(EnIk* pthis, GlobalContext* globalCtx) {
@@ -1485,6 +1488,8 @@ ActorInit En_Ik_InitVars = {
 };
 
 void EnIk_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80A78FA0_126 = {0, 0, 0};
+
     sCylinderInit = {
         {
             COLTYPE_NONE,

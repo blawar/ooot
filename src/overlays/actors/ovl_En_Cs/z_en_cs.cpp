@@ -32,6 +32,17 @@ void EnCs_Wait(EnCs* pthis, GlobalContext* globalCtx);
 s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
 void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
 
+static s32 eyeBlinkFrames_47[] = { 70, 1, 1 };
+
+static void* eyeTextures_48[] = {
+    gGraveyardKidEyesOpenTex,
+    gGraveyardKidEyesHalfTex,
+    gGraveyardKidEyesClosedTex,
+};
+
+static Vec3f D_809E2970_50 = { 500.0f, 800.0f, 0.0f };
+
+
 ActorInit En_Cs_InitVars = {
     ACTOR_EN_CS,
     ACTORCAT_NPC,
@@ -427,7 +438,6 @@ void EnCs_Talk(EnCs* pthis, GlobalContext* globalCtx) {
 }
 
 void EnCs_Update(Actor* thisx, GlobalContext* globalCtx) {
-    static s32 eyeBlinkFrames[] = { 70, 1, 1 };
     EnCs* pthis = (EnCs*)thisx;
     s32 pad;
 
@@ -459,23 +469,18 @@ void EnCs_Update(Actor* thisx, GlobalContext* globalCtx) {
             pthis->eyeIndex = 0;
         }
 
-        pthis->eyeBlinkTimer = eyeBlinkFrames[pthis->eyeIndex];
+        pthis->eyeBlinkTimer = eyeBlinkFrames_47[pthis->eyeIndex];
     }
 }
 
 void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
-        gGraveyardKidEyesOpenTex,
-        gGraveyardKidEyesHalfTex,
-        gGraveyardKidEyesClosedTex,
-    };
     EnCs* pthis = (EnCs*)thisx;
     s32 pad;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_cs.c", 968);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_48[pthis->eyeIndex]));
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnCs_OverrideLimbDraw, EnCs_PostLimbDraw, &pthis->actor);
@@ -519,11 +524,10 @@ s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f D_809E2970 = { 500.0f, 800.0f, 0.0f };
     EnCs* pthis = (EnCs*)thisx;
 
     if (limbIndex == 15) {
-        Matrix_MultVec3f(&D_809E2970, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&D_809E2970_50, &pthis->actor.focus.pos);
         Matrix_Translate(0.0f, -200.0f, 0.0f, MTXMODE_APPLY);
         Matrix_RotateY(0.0f, MTXMODE_APPLY);
         Matrix_RotateX(0.0f, MTXMODE_APPLY);
@@ -533,6 +537,8 @@ void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnCs_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_809E2970_50 = { 500.0f, 800.0f, 0.0f };
+
     En_Cs_InitVars = {
         ACTOR_EN_CS,
         ACTORCAT_NPC,

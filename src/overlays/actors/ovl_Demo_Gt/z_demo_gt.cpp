@@ -29,6 +29,31 @@ void DemoGt_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoGt_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoGt_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static Color_RGBA8 brownPrim_33 = { 100, 80, 100, 0 };
+
+static Color_RGBA8 redEnv_33 = { 255, 110, 96, 0 };
+
+static Actor* cloudRing_67 = NULL;
+
+static Vec3f velocity_69 = { 0.0f, 1.0f, 0.0f };
+
+static Vec3f accel_69 = { 0.0f, 0.0f, 0.0f };
+
+static f32 arg4_69 = 280.0f;
+
+static f32 scale_69 = 8.0f;
+
+static s32 arg6_69 = 11;
+
+static s32 arg7_69 = 1;
+
+static s16 life_69 = 3;
+
+static Actor* cloudRing_81 = NULL;
+
+static Actor* cloudRing_82 = NULL;
+
+
 void DemoGt_Destroy(Actor* thisx, GlobalContext* globalCtx) {
     DemoGt* pthis = (DemoGt*)thisx;
 
@@ -55,10 +80,8 @@ void DemoGt_Rumble(GlobalContext* globalCtx) {
 
 void DemoGt_SpawnDust(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel, f32 scale, s16 scaleStep,
                       s16 life) {
-    static Color_RGBA8 brownPrim = { 100, 80, 100, 0 };
-    static Color_RGBA8 redEnv = { 255, 110, 96, 0 };
 
-    func_8002843C(globalCtx, pos, velocity, accel, &brownPrim, &redEnv, ((Rand_ZeroOne() * (scale * 0.2f)) + scale),
+    func_8002843C(globalCtx, pos, velocity, accel, &brownPrim_33, &redEnv_33, ((Rand_ZeroOne() * (scale * 0.2f)) + scale),
                   scaleStep, life);
 }
 
@@ -718,7 +741,6 @@ void func_8097F960(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8097F96C(DemoGt* pthis, GlobalContext* globalCtx) {
-    static Actor* cloudRing = NULL;
     s32 pad[4];
     Vec3f pos;
     Actor* actor;
@@ -729,10 +751,10 @@ void func_8097F96C(DemoGt* pthis, GlobalContext* globalCtx) {
         pos.y = pthis->dyna.actor.world.pos.y + 612.0f;
         pos.z = pthis->dyna.actor.world.pos.z;
 
-        if (cloudRing == NULL) {
-            cloudRing = DemoGt_SpawnCloudRing(globalCtx, &pos, 2);
+        if (cloudRing_67 == NULL) {
+            cloudRing_67 = DemoGt_SpawnCloudRing(globalCtx, &pos, 2);
         } else {
-            actor = cloudRing;
+            actor = cloudRing_67;
             actor->world.pos.x = pos.x;
             actor->world.pos.y = pos.y;
             actor->world.pos.z = pos.z;
@@ -757,13 +779,6 @@ void func_8097FA1C(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8097FAFC(DemoGt* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 1.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.0f, 0.0f };
-    static f32 arg4 = 280.0f;
-    static f32 scale = 8.0f;
-    static s32 arg6 = 11;
-    static s32 arg7 = 1;
-    static s16 life = 3;
     s32 pad[2];
     const auto& frames = globalCtx->csCtx.frames;
     Vec3f pos;
@@ -774,12 +789,12 @@ void func_8097FAFC(DemoGt* pthis, GlobalContext* globalCtx) {
         pos.y += 680.0f;
 
         if (frames == 682) {
-            velocity.y += new_var;
+            velocity_69.y += new_var;
         } else if (frames == 681) {
-            accel.y += new_var;
+            accel_69.y += new_var;
         }
 
-        func_8097E454(globalCtx, &pos, &velocity, &accel, arg4, scale, arg6, arg7, life);
+        func_8097E454(globalCtx, &pos, &velocity_69, &accel_69, arg4_69, scale_69, arg6_69, arg7_69, life_69);
     }
 }
 
@@ -899,7 +914,6 @@ void func_80980178(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80980184(DemoGt* pthis, GlobalContext* globalCtx) {
-    static Actor* cloudRing = NULL;
     s32 pad[4];
     Vec3f pos;
     Actor* actor;
@@ -909,10 +923,10 @@ void func_80980184(DemoGt* pthis, GlobalContext* globalCtx) {
         pos.y = pthis->dyna.actor.world.pos.y + 247.0f;
         pos.z = pthis->dyna.actor.world.pos.z;
 
-        if (cloudRing == NULL) {
-            cloudRing = DemoGt_SpawnCloudRing(globalCtx, &pos, 3);
+        if (cloudRing_81 == NULL) {
+            cloudRing_81 = DemoGt_SpawnCloudRing(globalCtx, &pos, 3);
         } else {
-            actor = cloudRing;
+            actor = cloudRing_81;
             actor->world.pos.x = pos.x;
             actor->world.pos.y = pos.y;
             actor->world.pos.z = pos.z;
@@ -921,7 +935,6 @@ void func_80980184(DemoGt* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80980218(DemoGt* pthis, GlobalContext* globalCtx) {
-    static Actor* cloudRing = NULL;
     s32 pad[4];
     Vec3f pos;
     Actor* actor;
@@ -931,10 +944,10 @@ void func_80980218(DemoGt* pthis, GlobalContext* globalCtx) {
         pos.y = pthis->dyna.actor.home.pos.y + 38.0f;
         pos.z = pthis->dyna.actor.home.pos.z;
 
-        if (cloudRing == NULL) {
-            cloudRing = DemoGt_SpawnCloudRing(globalCtx, &pos, 4);
+        if (cloudRing_82 == NULL) {
+            cloudRing_82 = DemoGt_SpawnCloudRing(globalCtx, &pos, 4);
         } else {
-            actor = cloudRing;
+            actor = cloudRing_82;
             actor->world.pos.x = pos.x;
             actor->world.pos.y = pos.y;
             actor->world.pos.z = pos.z;
@@ -1800,6 +1813,30 @@ ActorInit Demo_Gt_InitVars = {
 };
 
 void DemoGt_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    brownPrim_33 = { 100, 80, 100, 0 };
+
+    redEnv_33 = { 255, 110, 96, 0 };
+
+    cloudRing_67 = NULL;
+
+    velocity_69 = { 0.0f, 1.0f, 0.0f };
+
+    accel_69 = { 0.0f, 0.0f, 0.0f };
+
+    arg4_69 = 280.0f;
+
+    scale_69 = 8.0f;
+
+    arg6_69 = 11;
+
+    arg7_69 = 1;
+
+    life_69 = 3;
+
+    cloudRing_81 = NULL;
+
+    cloudRing_82 = NULL;
+
     Demo_Gt_InitVars = {
         ACTOR_DEMO_GT,
         ACTORCAT_PROP,

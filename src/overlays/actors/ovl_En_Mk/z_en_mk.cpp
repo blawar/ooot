@@ -29,6 +29,9 @@ void EnMk_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnMk_Wait(EnMk* pthis, GlobalContext* globalCtx);
 
+static Vec3f D_80AAD64C_42 = { 1000.0f, -100.0f, 0.0f };
+
+
 ActorInit En_Mk_InitVars = {
     ACTOR_EN_MK,
     ACTORCAT_NPC,
@@ -368,11 +371,10 @@ s32 EnMk_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 }
 
 void EnMk_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f D_80AAD64C = { 1000.0f, -100.0f, 0.0f };
     EnMk* pthis = (EnMk*)thisx;
 
     if (limbIndex == 11) {
-        Matrix_MultVec3f(&D_80AAD64C, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&D_80AAD64C_42, &pthis->actor.focus.pos);
     }
 }
 
@@ -385,6 +387,8 @@ void EnMk_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMk_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80AAD64C_42 = { 1000.0f, -100.0f, 0.0f };
+
     En_Mk_InitVars = {
         ACTOR_EN_MK,
         ACTORCAT_NPC,

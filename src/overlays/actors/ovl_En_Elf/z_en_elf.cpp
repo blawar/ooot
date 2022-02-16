@@ -77,6 +77,13 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx);
 void EnElf_SpawnSparkles(EnElf* pthis, GlobalContext* globalCtx, s32 sparkleLife);
 void EnElf_GetCutsceneNextPos(Vec3f* vec, GlobalContext* globalCtx, s32 action);
 
+static Vec3f sparkleVelocity_105 = { 0.0f, -0.05f, 0.0f };
+
+static Vec3f sparkleAccel_105 = { 0.0f, -0.025f, 0.0f };
+
+static Vec3f zeroVec_121 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Elf_InitVars = {
     ACTOR_EN_ELF,
     ACTORCAT_ITEMACTION,
@@ -1195,8 +1202,6 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnElf_SpawnSparkles(EnElf* pthis, GlobalContext* globalCtx, s32 sparkleLife) {
-    static Vec3f sparkleVelocity = { 0.0f, -0.05f, 0.0f };
-    static Vec3f sparkleAccel = { 0.0f, -0.025f, 0.0f };
     s32 pad;
     Vec3f sparklePos;
     Color_RGBA8 primColor;
@@ -1214,7 +1219,7 @@ void EnElf_SpawnSparkles(EnElf* pthis, GlobalContext* globalCtx, s32 sparkleLife
     envColor.g = pthis->outerColor.g;
     envColor.b = pthis->outerColor.b;
 
-    EffectSsKiraKira_SpawnDispersed(globalCtx, &sparklePos, &sparkleVelocity, &sparkleAccel, &primColor, &envColor,
+    EffectSsKiraKira_SpawnDispersed(globalCtx, &sparklePos, &sparkleVelocity_105, &sparkleAccel_105, &primColor, &envColor,
                                     1000, sparkleLife);
 }
 
@@ -1479,7 +1484,6 @@ void EnElf_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 s32 EnElf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                            Gfx** gfx) {
-    static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     s32 pad;
     f32 scale;
     Vec3f mtxMult;
@@ -1493,7 +1497,7 @@ s32 EnElf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
         }
 
         scale *= (pthis->actor.scale.x * 124.99999f);
-        Matrix_MultVec3f(&zeroVec, &mtxMult);
+        Matrix_MultVec3f(&zeroVec_121, &mtxMult);
         Matrix_Translate(mtxMult.x, mtxMult.y, mtxMult.z, MTXMODE_NEW);
         Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
     }
@@ -1574,6 +1578,12 @@ void EnElf_GetCutsceneNextPos(Vec3f* vec, GlobalContext* globalCtx, s32 action) 
 }
 
 void EnElf_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sparkleVelocity_105 = { 0.0f, -0.05f, 0.0f };
+
+    sparkleAccel_105 = { 0.0f, -0.025f, 0.0f };
+
+    zeroVec_121 = { 0.0f, 0.0f, 0.0f };
+
     En_Elf_InitVars = {
         ACTOR_EN_ELF,
         ACTORCAT_ITEMACTION,

@@ -20,6 +20,34 @@ void EnRiverSound_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnRiverSound_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static s16 soundEffects_23[] = {
+    0,
+    NA_SE_EV_WATER_WALL - SFX_FLAG,
+    NA_SE_EV_MAGMA_LEVEL - SFX_FLAG,
+    NA_SE_EV_WATER_WALL_BIG - SFX_FLAG,
+    0,
+    0,
+    NA_SE_EV_MAGMA_LEVEL_M - SFX_FLAG,
+    NA_SE_EV_MAGMA_LEVEL_L - SFX_FLAG,
+    NA_SE_EV_WATERDROP - SFX_FLAG,
+    NA_SE_EV_FOUNTAIN - SFX_FLAG,
+    NA_SE_EV_CROWD - SFX_FLAG,
+    0,
+    NA_SE_EV_SARIA_MELODY - SFX_FLAG,
+    0,
+    NA_SE_EV_SAND_STORM - SFX_FLAG,
+    NA_SE_EV_WATER_BUBBLE - SFX_FLAG,
+    NA_SE_EV_KENJA_ENVIROMENT_0 - SFX_FLAG,
+    NA_SE_EV_KENJA_ENVIROMENT_1 - SFX_FLAG,
+    NA_SE_EV_EARTHQUAKE - SFX_FLAG,
+    0,
+    NA_SE_EV_TORCH - SFX_FLAG,
+    NA_SE_EV_COW_CRY_LV - SFX_FLAG,
+};
+
+static f32 soundPitch_23[] = { 0.7f, 1.0f, 1.4f };
+
+
 ActorInit En_River_Sound_InitVars = {
     ACTOR_EN_RIVER_SOUND,
     ACTORCAT_BG,
@@ -211,38 +239,13 @@ void EnRiverSound_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static s16 soundEffects[] = {
-        0,
-        NA_SE_EV_WATER_WALL - SFX_FLAG,
-        NA_SE_EV_MAGMA_LEVEL - SFX_FLAG,
-        NA_SE_EV_WATER_WALL_BIG - SFX_FLAG,
-        0,
-        0,
-        NA_SE_EV_MAGMA_LEVEL_M - SFX_FLAG,
-        NA_SE_EV_MAGMA_LEVEL_L - SFX_FLAG,
-        NA_SE_EV_WATERDROP - SFX_FLAG,
-        NA_SE_EV_FOUNTAIN - SFX_FLAG,
-        NA_SE_EV_CROWD - SFX_FLAG,
-        0,
-        NA_SE_EV_SARIA_MELODY - SFX_FLAG,
-        0,
-        NA_SE_EV_SAND_STORM - SFX_FLAG,
-        NA_SE_EV_WATER_BUBBLE - SFX_FLAG,
-        NA_SE_EV_KENJA_ENVIROMENT_0 - SFX_FLAG,
-        NA_SE_EV_KENJA_ENVIROMENT_1 - SFX_FLAG,
-        NA_SE_EV_EARTHQUAKE - SFX_FLAG,
-        0,
-        NA_SE_EV_TORCH - SFX_FLAG,
-        NA_SE_EV_COW_CRY_LV - SFX_FLAG,
-    };
-    static f32 soundPitch[] = { 0.7f, 1.0f, 1.4f };
     EnRiverSound* pthis = (EnRiverSound*)thisx;
 
     if (!(pthis->playSound)) {
         pthis->playSound = true;
     } else if ((pthis->actor.params == RS_UNK_0) || (pthis->actor.params == RS_UNK_4) ||
                (pthis->actor.params == RS_UNK_5)) {
-        Audio_PlaySoundRiver(&pthis->actor.projectedPos, soundPitch[pthis->soundPitchIndex]);
+        Audio_PlaySoundRiver(&pthis->actor.projectedPos, soundPitch_23[pthis->soundPitchIndex]);
     } else if (pthis->actor.params == RS_UNK_11) {
         func_800F4A54(90);
     } else if (pthis->actor.params == RS_SARIAS_SONG) {
@@ -253,9 +256,9 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Audio_PlaySariaBgm(&pthis->actor.home.pos, NA_BGM_GREAT_FAIRY, 800);
     } else if ((pthis->actor.params == RS_SANDSTORM) || (pthis->actor.params == RS_CHAMBER_OF_SAGES_1) ||
                (pthis->actor.params == RS_CHAMBER_OF_SAGES_2) || (pthis->actor.params == RS_RUMBLING)) {
-        func_800788CC(soundEffects[pthis->actor.params]);
+        func_800788CC(soundEffects_23[pthis->actor.params]);
     } else {
-        Audio_PlayActorSound2(&pthis->actor, soundEffects[pthis->actor.params]);
+        Audio_PlayActorSound2(&pthis->actor, soundEffects_23[pthis->actor.params]);
     }
 }
 

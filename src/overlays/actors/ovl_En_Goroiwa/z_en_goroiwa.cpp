@@ -55,6 +55,23 @@ void EnGoroiwa_MoveUp(EnGoroiwa* pthis, GlobalContext* globalCtx);
 void EnGoroiwa_SetupMoveDown(EnGoroiwa* pthis);
 void EnGoroiwa_MoveDown(EnGoroiwa* pthis, GlobalContext* globalCtx);
 
+static f32 yOffsets_54[] = { 0.0f, 59.5f };
+
+static Vec3f velocity_68 = { 0.0f, 0.0f, 0.0f };
+
+static Vec3f accel_68 = { 0.0f, 0.3f, 0.0f };
+
+static Vec3f unitY_74 = { 0.0f, 1.0f, 0.0f };
+
+static f32 yOffsets_76[] = { 0.0f, 59.5f };
+
+static f32 yOffsets_78[] = { 0.0f, 595.0f };
+
+static EnGoroiwaUnkFunc2 onHitSetupFuncs_81[] = { EnGoroiwa_SetupWait, EnGoroiwa_SetupMoveAndFallToGround };
+
+static s16 waitDurations_84[] = { 20, 6 };
+
+
 ActorInit En_Goroiwa_InitVars = {
     ACTOR_EN_GOROIWA,
     ACTORCAT_PROP,
@@ -100,11 +117,10 @@ static CollisionCheckInfoInit sColChkInfoInit = { 0, 12, 60, MASS_HEAVY };
 static f32 sUnused[] = { 10.0f, 9.2f };
 
 void EnGoroiwa_UpdateCollider(EnGoroiwa* pthis) {
-    static f32 yOffsets[] = { 0.0f, 59.5f };
     Sphere16* worldSphere = &pthis->collider.elements[0].dim.worldSphere;
 
     worldSphere->center.x = pthis->actor.world.pos.x;
-    worldSphere->center.y = pthis->actor.world.pos.y + yOffsets[(pthis->actor.params >> 10) & 1];
+    worldSphere->center.y = pthis->actor.world.pos.y + yOffsets_54[(pthis->actor.params >> 10) & 1];
     worldSphere->center.z = pthis->actor.world.pos.z;
 }
 
@@ -272,8 +288,6 @@ s32 EnGoroiwa_GetAscendDirection(EnGoroiwa* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoroiwa_SpawnDust(GlobalContext* globalCtx, Vec3f* pos) {
-    static Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.3f, 0.0f };
     Vec3f randPos;
     s32 i;
     s16 angle = 0;
@@ -283,8 +297,8 @@ void EnGoroiwa_SpawnDust(GlobalContext* globalCtx, Vec3f* pos) {
         randPos.x = pos->x + (47.0f * (Rand_ZeroOne() * 0.5f + 0.5f)) * Math_SinS(angle);
         randPos.y = pos->y + (Rand_ZeroOne() - 0.5f) * 40.0f;
         randPos.z = pos->z + ((47.0f * (Rand_ZeroOne() * 0.5f + 0.5f))) * Math_CosS(angle);
-        func_800286CC(globalCtx, &randPos, &velocity, &accel, (s16)(Rand_ZeroOne() * 30.0f) + 100, 80);
-        func_800286CC(globalCtx, &randPos, &velocity, &accel, (s16)(Rand_ZeroOne() * 20.0f) + 80, 80);
+        func_800286CC(globalCtx, &randPos, &velocity_68, &accel_68, (s16)(Rand_ZeroOne() * 30.0f) + 100, 80);
+        func_800286CC(globalCtx, &randPos, &velocity_68, &accel_68, (s16)(Rand_ZeroOne() * 20.0f) + 80, 80);
     }
 }
 
@@ -441,7 +455,6 @@ s32 EnGoroiwa_MoveDownToNextWaypoint(EnGoroiwa* pthis, GlobalContext* globalCtx)
 }
 
 void EnGoroiwa_UpdateRotation(EnGoroiwa* pthis, GlobalContext* globalCtx) {
-    static Vec3f unitY = { 0.0f, 1.0f, 0.0f };
     s32 pad;
     Vec3f* rollAxisPtr;
     f32 rollAngleDiff;
@@ -465,9 +478,9 @@ void EnGoroiwa_UpdateRotation(EnGoroiwa* pthis, GlobalContext* globalCtx) {
          * Math3D_Vec3f_Cross call.
          */
         EnGoroiwa_GetPrevWaypointDiff(pthis, globalCtx, &unusedDiff);
-        Math3D_Vec3f_Cross(&unitY, &pthis->actor.velocity, rollAxisPtr);
+        Math3D_Vec3f_Cross(&unitY_74, &pthis->actor.velocity, rollAxisPtr);
     } else {
-        Math3D_Vec3f_Cross(&unitY, &pthis->actor.velocity, rollAxisPtr);
+        Math3D_Vec3f_Cross(&unitY_74, &pthis->actor.velocity, rollAxisPtr);
     }
 
     if (EnGoroiwa_Vec3fNormalize(&unitRollAxis, rollAxisPtr)) {
@@ -499,7 +512,6 @@ void EnGoroiwa_NextWaypoint(EnGoroiwa* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoroiwa_SpawnFragments(EnGoroiwa* pthis, GlobalContext* globalCtx) {
-    static f32 yOffsets[] = { 0.0f, 59.5f };
     s16 angle1;
     s16 angle2;
     s32 pad;
@@ -518,7 +530,7 @@ void EnGoroiwa_SpawnFragments(EnGoroiwa* pthis, GlobalContext* globalCtx) {
         angle2 = Rand_ZeroOne() * 0xFFFF;
         effectPos.x = Rand_ZeroOne() * 50.0f * sin1 * Math_SinS(angle2);
         sin2 = Math_SinS(angle2);
-        effectPos.y = (Rand_ZeroOne() - 0.5f) * 100.0f * sin2 + yOffsets[yOffsetIdx];
+        effectPos.y = (Rand_ZeroOne() - 0.5f) * 100.0f * sin2 + yOffsets_76[yOffsetIdx];
         effectPos.z = Rand_ZeroOne() * 50.0f * cos1 * Math_SinS(angle2);
         fragmentVelocity.x = effectPos.x * 0.2f;
         fragmentVelocity.y = Rand_ZeroOne() * 15.0f + 2.0f;
@@ -529,7 +541,7 @@ void EnGoroiwa_SpawnFragments(EnGoroiwa* pthis, GlobalContext* globalCtx) {
     }
 
     effectPos.x = thisPos->x;
-    effectPos.y = thisPos->y + yOffsets[yOffsetIdx];
+    effectPos.y = thisPos->y + yOffsets_76[yOffsetIdx];
     effectPos.z = thisPos->z;
     func_80033480(globalCtx, &effectPos, 80.0f, 5, 70, 110, 1);
     func_80033480(globalCtx, &effectPos, 90.0f, 5, 110, 160, 1);
@@ -542,7 +554,6 @@ static InitChainEntry sInitChain[] = {
 };
 
 void EnGoroiwa_Init(Actor* thisx, GlobalContext* globalCtx) {
-    static f32 yOffsets[] = { 0.0f, 595.0f };
     EnGoroiwa* pthis = (EnGoroiwa*)thisx;
     s32 pathIdx;
 
@@ -563,7 +574,7 @@ void EnGoroiwa_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     CollisionCheck_SetInfo(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);
-    ActorShape_Init(&pthis->actor.shape, yOffsets[(pthis->actor.params >> 10) & 1], ActorShadow_DrawCircle, 9.4f);
+    ActorShape_Init(&pthis->actor.shape, yOffsets_78[(pthis->actor.params >> 10) & 1], ActorShadow_DrawCircle, 9.4f);
     pthis->actor.shape.shadowAlpha = 200;
     EnGoroiwa_SetSpeed(pthis, globalCtx);
     EnGoroiwa_InitPath(pthis, globalCtx);
@@ -590,9 +601,9 @@ void EnGoroiwa_SetupRoll(EnGoroiwa* pthis) {
     pthis->rollRotSpeed = 1.0f;
 }
 
+static const EnGoroiwaUnkFunc1 moveFuncs_81[] = {EnGoroiwa_Move, EnGoroiwa_MoveAndFall};
+
 void EnGoroiwa_Roll(EnGoroiwa* pthis, GlobalContext* globalCtx) {
-    static EnGoroiwaUnkFunc1 moveFuncs[] = { EnGoroiwa_Move, EnGoroiwa_MoveAndFall };
-    static EnGoroiwaUnkFunc2 onHitSetupFuncs[] = { EnGoroiwa_SetupWait, EnGoroiwa_SetupMoveAndFallToGround };
 
     s32 ascendDirection;
     s16 yawDiff;
@@ -613,12 +624,12 @@ void EnGoroiwa_Roll(EnGoroiwa* pthis, GlobalContext* globalCtx) {
         osSyncPrintf(VT_FGCOL(CYAN));
         osSyncPrintf("Player ぶっ飛ばし\n"); // "Player knocked down"
         osSyncPrintf(VT_RST);
-        onHitSetupFuncs[(pthis->actor.params >> 10) & 1](pthis);
+        onHitSetupFuncs_81[(pthis->actor.params >> 10) & 1](pthis);
         func_8002F7DC(&GET_PLAYER(globalCtx)->actor, NA_SE_PL_BODY_HIT);
         if ((pthis->actor.home.rot.z & 1) == 1) {
             pthis->collisionDisabledTimer = 50;
         }
-    } else if (moveFuncs[(pthis->actor.params >> 10) & 1](pthis, globalCtx)) {
+    } else if (moveFuncs_81[(pthis->actor.params >> 10) & 1](pthis, globalCtx)) {
         loopMode = (pthis->actor.params >> 8) & 3;
         if (loopMode == ENGOROIWA_LOOPMODE_ONEWAY_BREAK &&
             (pthis->nextWaypoint == 0 || pthis->nextWaypoint == pthis->endWaypoint)) {
@@ -667,12 +678,11 @@ void EnGoroiwa_MoveAndFallToGround(EnGoroiwa* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoroiwa_SetupWait(EnGoroiwa* pthis) {
-    static s16 waitDurations[] = { 20, 6 };
 
     pthis->actionFunc = EnGoroiwa_Wait;
     pthis->actor.speedXZ = 0.0f;
     EnGoroiwa_UpdateFlags(pthis, ENGOROIWA_ENABLE_OC);
-    pthis->waitTimer = waitDurations[pthis->actor.home.rot.z & 1];
+    pthis->waitTimer = waitDurations_84[pthis->actor.home.rot.z & 1];
     pthis->rollRotSpeed = 0.0f;
 }
 
@@ -771,6 +781,12 @@ void EnGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velocity_68 = { 0.0f, 0.0f, 0.0f };
+
+    accel_68 = { 0.0f, 0.3f, 0.0f };
+
+    unitY_74 = { 0.0f, 1.0f, 0.0f };
+
     En_Goroiwa_InitVars = {
         ACTOR_EN_GOROIWA,
         ACTORCAT_PROP,

@@ -41,6 +41,9 @@ void EnDekunuts_BeDamaged(EnDekunuts* pthis, GlobalContext* globalCtx);
 void EnDekunuts_BeStunned(EnDekunuts* pthis, GlobalContext* globalCtx);
 void EnDekunuts_Die(EnDekunuts* pthis, GlobalContext* globalCtx);
 
+static Vec3f effectVelAndAccel_63 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit En_Dekunuts_InitVars = {
     ACTOR_EN_DEKUNUTS,
     ACTORCAT_ENEMY,
@@ -432,7 +435,6 @@ void EnDekunuts_BeStunned(EnDekunuts* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDekunuts_Die(EnDekunuts* pthis, GlobalContext* globalCtx) {
-    static Vec3f effectVelAndAccel = { 0.0f, 0.0f, 0.0f };
 
     s32 pad;
     Vec3f effectPos;
@@ -441,7 +443,7 @@ void EnDekunuts_Die(EnDekunuts* pthis, GlobalContext* globalCtx) {
         effectPos.x = pthis->actor.world.pos.x;
         effectPos.y = pthis->actor.world.pos.y + 18.0f;
         effectPos.z = pthis->actor.world.pos.z;
-        EffectSsDeadDb_Spawn(globalCtx, &effectPos, &effectVelAndAccel, &effectVelAndAccel, 200, 0, 255, 255, 255, 255,
+        EffectSsDeadDb_Spawn(globalCtx, &effectPos, &effectVelAndAccel_63, &effectVelAndAccel_63, 200, 0, 255, 255, 255, 255,
                              150, 150, 150, 1, 13, 1);
         effectPos.y = pthis->actor.world.pos.y + 10.0f;
         EffectSsHahen_SpawnBurst(globalCtx, &effectPos, 3.0f, 0, 12, 3, 15, HAHEN_OBJECT_DEFAULT, 10, NULL);
@@ -548,6 +550,8 @@ void EnDekunuts_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDekunuts_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    effectVelAndAccel_63 = { 0.0f, 0.0f, 0.0f };
+
     En_Dekunuts_InitVars = {
         ACTOR_EN_DEKUNUTS,
         ACTORCAT_ENEMY,

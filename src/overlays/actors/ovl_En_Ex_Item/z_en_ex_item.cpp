@@ -43,6 +43,11 @@ void EnExItem_TargetPrizeApproach(EnExItem* pthis, GlobalContext* globalCtx);
 void EnExItem_TargetPrizeGive(EnExItem* pthis, GlobalContext* globalCtx);
 void EnExItem_TargetPrizeFinish(EnExItem* pthis, GlobalContext* globalCtx);
 
+static s16 sgiDrawIds_52[] = { GID_DINS_FIRE, GID_FARORES_WIND, GID_NAYRUS_LOVE };
+
+static void* keySegments_53[] = { gDropKeySmallTex };
+
+
 ActorInit En_Ex_Item_InitVars = {
     ACTOR_EN_EX_ITEM,
     ACTORCAT_PROP,
@@ -500,21 +505,19 @@ void EnExItem_DrawHeartPiece(EnExItem* pthis, GlobalContext* globalCtx) {
 }
 
 void EnExItem_DrawMagic(EnExItem* pthis, GlobalContext* globalCtx, s16 magicIndex) {
-    static s16 sgiDrawIds[] = { GID_DINS_FIRE, GID_FARORES_WIND, GID_NAYRUS_LOVE };
 
     func_8002ED80(&pthis->actor, globalCtx, 0);
-    GetItem_Draw(globalCtx, sgiDrawIds[magicIndex]);
+    GetItem_Draw(globalCtx, sgiDrawIds_52[magicIndex]);
 }
 
 void EnExItem_DrawKey(EnExItem* pthis, GlobalContext* globalCtx, s32 index) {
-    static void* keySegments[] = { gDropKeySmallTex };
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 880);
 
     func_8009460C(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 887),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(keySegments[index]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(keySegments_53[index]));
     gSPDisplayList(POLY_OPA_DISP++, gItemDropDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 893);

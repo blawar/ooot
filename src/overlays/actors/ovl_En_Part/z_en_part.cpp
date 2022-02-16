@@ -245,11 +245,11 @@ void func_80ACE7E8(EnPart* pthis, GlobalContext* globalCtx) {
     }
 }
 
-void EnPart_Update(Actor* thisx, GlobalContext* globalCtx) {
-    static EnPartActionFunc sActionFuncs[] = {
-        func_80ACDDE8, func_80ACE13C, func_80ACE5B8, func_80ACE5C8, func_80ACE7E8,
-    };
+static EnPartActionFunc sActionFuncs[] = {
+    func_80ACDDE8, func_80ACE13C, func_80ACE5B8, func_80ACE5C8, func_80ACE7E8,
+};
 
+void EnPart_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnPart* pthis = (EnPart*)thisx;
 
     Actor_MoveForward(&pthis->actor);

@@ -48,6 +48,9 @@ void EnKusa_DoNothing(EnKusa* pthis, GlobalContext* globalCtx);
 void EnKusa_UprootedWaitRegrow(EnKusa* pthis, GlobalContext* globalCtx);
 void EnKusa_Regrow(EnKusa* pthis, GlobalContext* globalCtx);
 
+static Gfx* dLists_79[] = { gFieldBushDL, object_kusa_DL_000140, object_kusa_DL_000140 };
+
+
 static s16 rotSpeedXtarget = 0;
 static s16 rotSpeedX = 0;
 static s16 rotSpeedYtarget = 0;
@@ -506,13 +509,12 @@ void EnKusa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnKusa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = { gFieldBushDL, object_kusa_DL_000140, object_kusa_DL_000140 };
     EnKusa* pthis = (EnKusa*)thisx;
 
     if (pthis->actor.flags & ACTOR_FLAG_11) {
         Gfx_DrawDListOpa(globalCtx, object_kusa_DL_0002E0);
     } else {
-        Gfx_DrawDListOpa(globalCtx, dLists[thisx->params & 3]);
+        Gfx_DrawDListOpa(globalCtx, dLists_79[thisx->params & 3]);
     }
 }
 

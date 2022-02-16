@@ -51,6 +51,9 @@ void EnGo_AddDust(EnGo* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 ini
 void EnGo_UpdateDust(EnGo* pthis);
 void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx);
 
+static void* dustTex_95[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
+
+
 ActorInit En_Go_InitVars = {
     ACTOR_EN_GO,
     ACTORCAT_NPC,
@@ -1210,7 +1213,6 @@ void EnGo_UpdateDust(EnGo* pthis) {
 }
 
 void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx) {
-    static void* dustTex[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
     EnGoEffect* dustEffect = pthis->dustEffects;
     s16 alpha;
     s16 firstDone;
@@ -1240,7 +1242,7 @@ void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
             index = dustEffect->timer * (8.0f / dustEffect->initialTimer);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex[index]));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_95[index]));
             gSPDisplayList(POLY_XLU_DISP++, gGoronDL_00FD50);
         }
     }

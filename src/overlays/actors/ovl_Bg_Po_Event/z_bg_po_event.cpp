@@ -44,6 +44,26 @@ void BgPoEvent_PaintingAppear(BgPoEvent* pthis, GlobalContext* globalCtx);
 void BgPoEvent_PaintingPresent(BgPoEvent* pthis, GlobalContext* globalCtx);
 void BgPoEvent_PaintingBurn(BgPoEvent* pthis, GlobalContext* globalCtx);
 
+static s16 paintingPosX_45[] = { -1302, -866, 1421, 985 };
+
+static s16 paintingPosY_45[] = { 1107, 1091 };
+
+static s16 paintingPosZ_45[] = { -3384, -3252 };
+
+static s16 blockPosX_46[] = { 2149, 1969, 1909 };
+
+static s16 blockPosZ_46[] = { -1410, -1350, -1530 };
+
+static s32 firstFall_53 = 0;
+
+static f32 blockPushDist_55 = 0.0f;
+
+static Gfx* displayLists_67[] = {
+    gPoSistersAmyBlockDL,     gPoSistersAmyBethBlockDL, gPoSistersJoellePaintingDL,
+    gPoSistersBethPaintingDL, gPoSistersAmyPaintingDL,
+};
+
+
 ActorInit Bg_Po_Event_InitVars = {
     ACTOR_BG_PO_EVENT,
     ACTORCAT_BG,
@@ -102,9 +122,6 @@ static Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
 static u8 sPuzzleState;
 
 void BgPoEvent_InitPaintings(BgPoEvent* pthis, GlobalContext* globalCtx) {
-    static s16 paintingPosX[] = { -1302, -866, 1421, 985 };
-    static s16 paintingPosY[] = { 1107, 1091 };
-    static s16 paintingPosZ[] = { -3384, -3252 };
     ColliderTrisElementInit* item;
     Vec3f* vtxVec;
     s32 i1;
@@ -139,7 +156,7 @@ void BgPoEvent_InitPaintings(BgPoEvent* pthis, GlobalContext* globalCtx) {
     if ((pthis->type != 4) && (pthis->index != 2)) {
         phi_t2 = (pthis->type == 2) ? pthis->index : pthis->index + 2;
         newPainting = Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->dyna.actor, globalCtx, ACTOR_BG_PO_EVENT,
-                                         paintingPosX[phi_t2], paintingPosY[pthis->index], paintingPosZ[pthis->index], 0,
+                                         paintingPosX_45[phi_t2], paintingPosY_45[pthis->index], paintingPosZ_45[pthis->index], 0,
                                          pthis->dyna.actor.shape.rot.y + 0x8000, 0,
                                          ((pthis->index + 1) << 0xC) + (pthis->type << 8) + pthis->dyna.actor.params);
         if (newPainting == NULL) {
@@ -166,8 +183,6 @@ void BgPoEvent_InitPaintings(BgPoEvent* pthis, GlobalContext* globalCtx) {
 }
 
 void BgPoEvent_InitBlocks(BgPoEvent* pthis, GlobalContext* globalCtx) {
-    static s16 blockPosX[] = { 2149, 1969, 1909 };
-    static s16 blockPosZ[] = { -1410, -1350, -1530 };
     Actor* newBlock;
     CollisionHeader* colHeader = NULL;
     s32 bgId;
@@ -177,7 +192,7 @@ void BgPoEvent_InitBlocks(BgPoEvent* pthis, GlobalContext* globalCtx) {
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     if ((pthis->type == 0) && (pthis->index != 3)) {
         newBlock = Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->dyna.actor, globalCtx, ACTOR_BG_PO_EVENT,
-                                      blockPosX[pthis->index], pthis->dyna.actor.world.pos.y, blockPosZ[pthis->index], 0,
+                                      blockPosX_46[pthis->index], pthis->dyna.actor.world.pos.y, blockPosZ_46[pthis->index], 0,
                                       pthis->dyna.actor.shape.rot.y, pthis->dyna.actor.shape.rot.z - 0x4000,
                                       ((pthis->index + 1) << 0xC) + (pthis->type << 8) + pthis->dyna.actor.params);
         if (newBlock == NULL) {
@@ -321,7 +336,6 @@ void BgPoEvent_CheckBlock(BgPoEvent* pthis) {
 }
 
 void BgPoEvent_BlockFall(BgPoEvent* pthis, GlobalContext* globalCtx) {
-    static s32 firstFall = 0;
 
     pthis->dyna.actor.velocity.y++;
     if (Math_StepToF(&pthis->dyna.actor.world.pos.y, 433.0f, pthis->dyna.actor.velocity.y)) {
@@ -334,8 +348,8 @@ void BgPoEvent_BlockFall(BgPoEvent* pthis, GlobalContext* globalCtx) {
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_STONE_BOUND);
             func_80033E88(&pthis->dyna.actor, globalCtx, 5, 5);
             func_80088B34(pthis->timer);
-            if (firstFall == 0) {
-                firstFall = 1;
+            if (firstFall_53 == 0) {
+                firstFall_53 = 1;
             } else {
                 func_8002DF54(globalCtx, &GET_PLAYER(globalCtx)->actor, 7);
             }
@@ -398,15 +412,14 @@ void BgPoEvent_BlockIdle(BgPoEvent* pthis, GlobalContext* globalCtx) {
 }
 
 void BgPoEvent_BlockPush(BgPoEvent* pthis, GlobalContext* globalCtx) {
-    static f32 blockPushDist = 0.0f;
     f32 displacement;
     s32 blockStop;
     Player* player = GET_PLAYER(globalCtx);
 
     pthis->dyna.actor.speedXZ += 0.1f;
     pthis->dyna.actor.speedXZ = CLAMP_MAX(pthis->dyna.actor.speedXZ, 2.0f);
-    blockStop = Math_StepToF(&blockPushDist, 20.0f, pthis->dyna.actor.speedXZ);
-    displacement = pthis->direction * blockPushDist;
+    blockStop = Math_StepToF(&blockPushDist_55, 20.0f, pthis->dyna.actor.speedXZ);
+    displacement = pthis->direction * blockPushDist_55;
     pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.x;
     pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.z;
     if (blockStop) {
@@ -417,7 +430,7 @@ void BgPoEvent_BlockPush(BgPoEvent* pthis, GlobalContext* globalCtx) {
         pthis->dyna.unk_150 = 0.0f;
         pthis->dyna.actor.home.pos.x = pthis->dyna.actor.world.pos.x;
         pthis->dyna.actor.home.pos.z = pthis->dyna.actor.world.pos.z;
-        blockPushDist = 0.0f;
+        blockPushDist_55 = 0.0f;
         pthis->dyna.actor.speedXZ = 0.0f;
         pthis->direction = 5;
         sBlocksAtRest++;
@@ -608,10 +621,6 @@ void BgPoEvent_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* displayLists[] = {
-        gPoSistersAmyBlockDL,     gPoSistersAmyBethBlockDL, gPoSistersJoellePaintingDL,
-        gPoSistersBethPaintingDL, gPoSistersAmyPaintingDL,
-    };
     s32 pad;
     BgPoEvent* pthis = (BgPoEvent*)thisx;
     u8 alpha;
@@ -634,7 +643,7 @@ void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_po_event.c", 1501),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, displayLists[pthis->type]);
+    gSPDisplayList(POLY_OPA_DISP++, displayLists_67[pthis->type]);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_event.c", 1508);
 
     if ((pthis->type == 0) || (pthis->type == 1)) {
@@ -651,6 +660,10 @@ void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgPoEvent_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    firstFall_53 = 0;
+
+    blockPushDist_55 = 0.0f;
+
     Bg_Po_Event_InitVars = {
         ACTOR_BG_PO_EVENT,
         ACTORCAT_BG,
@@ -680,5 +693,7 @@ void BgPoEvent_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     sBlocksAtRest = 0;
 
     sZeroVec = { 0.0f, 0.0f, 0.0f };
+
+    sPuzzleState = 0;
 
 }

@@ -28,6 +28,13 @@ void func_8088960C(BgHidanHrock* pthis, GlobalContext* globalCtx);
 void func_808896B8(BgHidanHrock* pthis, GlobalContext* globalCtx);
 void func_808894A4(BgHidanHrock* pthis, GlobalContext* globalCtx);
 
+static Gfx* dlists_33[] = {
+    gFireTempleTallestPillarAboveRoomBeforeBossDL,
+    gFireTemplePillarInsertedInGroundDL,
+    gFireTemplePillarInsertedInGroundDL,
+};
+
+
 ActorInit Bg_Hidan_Hrock_InitVars = {
     ACTOR_BG_HIDAN_HROCK,
     ACTORCAT_BG,
@@ -240,13 +247,8 @@ void BgHidanHrock_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHidanHrock_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dlists[] = {
-        gFireTempleTallestPillarAboveRoomBeforeBossDL,
-        gFireTemplePillarInsertedInGroundDL,
-        gFireTemplePillarInsertedInGroundDL,
-    };
 
-    Gfx_DrawDListOpa(globalCtx, dlists[thisx->params]);
+    Gfx_DrawDListOpa(globalCtx, dlists_33[thisx->params]);
 }
 
 void BgHidanHrock_Reset(Actor* pthisx, GlobalContext* globalCtx) {

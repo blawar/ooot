@@ -44,6 +44,19 @@ void BossFd_Wait(BossFd* pthis, GlobalContext* globalCtx);
 void BossFd_UpdateEffects(BossFd* pthis, GlobalContext* globalCtx);
 void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* pthis);
 
+static Color_RGBA8 colorYellow_59 = { 255, 255, 0, 255 };
+
+static Color_RGBA8 colorRed_59 = { 255, 10, 0, 255 };
+
+static void* dustTex_63[] = {
+    gDust1Tex, gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
+};
+
+static Vec3f targetMod_72 = { 4500.0f, 0.0f, 0.0f };
+
+static Vec3f headMod_72 = { 4000.0f, 0.0f, 0.0f };
+
+
 ActorInit Boss_Fd_InitVars = {
     ACTOR_BOSS_FD,
     ACTORCAT_BOSS,
@@ -1061,8 +1074,6 @@ void BossFd_Wait(BossFd* pthis, GlobalContext* globalCtx) {
 static Vec3f sFireAudioVec = { 0.0f, 0.0f, 50.0f };
 
 void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx) {
-    static Color_RGBA8 colorYellow = { 255, 255, 0, 255 };
-    static Color_RGBA8 colorRed = { 255, 10, 0, 255 };
     s16 breathOpacity = 0;
     f32 jawAngle;
     f32 jawSpeed;
@@ -1177,7 +1188,7 @@ void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx) {
                 spawnPos1.y = 100.0f;
                 spawnPos1.z = temp_z + pthis->holePosition.z;
 
-                func_8002836C(globalCtx, &spawnPos1, &spawnVel1, &spawnAccel1, &colorYellow, &colorRed,
+                func_8002836C(globalCtx, &spawnPos1, &spawnVel1, &spawnAccel1, &colorYellow_59, &colorRed_59,
                               (s16)Rand_ZeroFloat(150.0f) + 800, 10, (s16)Rand_ZeroFloat(5.0f) + 17);
             }
         } else {
@@ -1195,7 +1206,7 @@ void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx) {
                 spawnPos1.y = 100.0f;
                 spawnPos1.z = temp_z + pthis->holePosition.z;
 
-                func_8002836C(globalCtx, &spawnPos1, &spawnVel1, &spawnAccel1, &colorYellow, &colorRed, 500, 10, 20);
+                func_8002836C(globalCtx, &spawnPos1, &spawnVel1, &spawnAccel1, &colorYellow_59, &colorRed_59, 500, 10, 20);
             }
         }
 
@@ -1510,9 +1521,6 @@ void BossFd_UpdateEffects(BossFd* pthis, GlobalContext* globalCtx) {
 }
 
 void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
-    static void* dustTex[] = {
-        gDust1Tex, gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
-    };
     u8 flag = false;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     s16 i;
@@ -1578,7 +1586,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4104),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex[effect->timer2]));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2]));
             gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustModelDL);
         }
     }
@@ -1601,7 +1609,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4154),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex[effect->timer2]));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2]));
             gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustModelDL);
         }
     }
@@ -1794,13 +1802,11 @@ s32 BossFd_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 }
 
 void BossFd_PostHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f targetMod = { 4500.0f, 0.0f, 0.0f };
-    static Vec3f headMod = { 4000.0f, 0.0f, 0.0f };
     BossFd* pthis = (BossFd*)thisx;
 
     if (limbIndex == 5) {
-        Matrix_MultVec3f(&targetMod, &pthis->actor.focus.pos);
-        Matrix_MultVec3f(&headMod, &pthis->headPos);
+        Matrix_MultVec3f(&targetMod_72, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&headMod_72, &pthis->headPos);
     }
 }
 
@@ -1981,6 +1987,14 @@ void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* pthis) {
 }
 
 void BossFd_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    colorYellow_59 = { 255, 255, 0, 255 };
+
+    colorRed_59 = { 255, 10, 0, 255 };
+
+    targetMod_72 = { 4500.0f, 0.0f, 0.0f };
+
+    headMod_72 = { 4000.0f, 0.0f, 0.0f };
+
     Boss_Fd_InitVars = {
         ACTOR_BOSS_FD,
         ACTORCAT_BOSS,

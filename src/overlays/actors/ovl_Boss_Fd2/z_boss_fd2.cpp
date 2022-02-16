@@ -47,6 +47,19 @@ void BossFd2_Damaged(BossFd2* pthis, GlobalContext* globalCtx);
 void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx);
 void BossFd2_Wait(BossFd2* pthis, GlobalContext* globalCtx);
 
+static Vec3f targetMod_77 = { 4500.0f, 0.0f, 0.0f };
+
+static Vec3f headMod_77 = { 4000.0f, 0.0f, 0.0f };
+
+static Vec3f centerManeMod_77 = { 4000.0f, -2900.0, 2000.0f };
+
+static Vec3f rightManeMod_77 = { 4000.0f, -1600.0, 0.0f };
+
+static Vec3f leftManeMod_77 = { 4000.0f, -1600.0, -2000.0f };
+
+static void* eyeTextures_80[] = { gHoleVolvagiaEyeOpenTex, gHoleVolvagiaEyeHalfTex, gHoleVolvagiaEyeClosedTex };
+
+
 ActorInit Boss_Fd2_InitVars = {
     ACTOR_BOSS_FD2,
     ACTORCAT_BOSS,
@@ -1040,19 +1053,14 @@ s32 BossFd2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 }
 
 void BossFd2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f targetMod = { 4500.0f, 0.0f, 0.0f };
-    static Vec3f headMod = { 4000.0f, 0.0f, 0.0f };
-    static Vec3f centerManeMod = { 4000.0f, -2900.0, 2000.0f };
-    static Vec3f rightManeMod = { 4000.0f, -1600.0, 0.0f };
-    static Vec3f leftManeMod = { 4000.0f, -1600.0, -2000.0f };
     BossFd2* pthis = (BossFd2*)thisx;
 
     if (limbIndex == 35) {
-        Matrix_MultVec3f(&targetMod, &pthis->actor.focus.pos);
-        Matrix_MultVec3f(&headMod, &pthis->headPos);
-        Matrix_MultVec3f(&centerManeMod, &pthis->centerMane.head);
-        Matrix_MultVec3f(&rightManeMod, &pthis->rightMane.head);
-        Matrix_MultVec3f(&leftManeMod, &pthis->leftMane.head);
+        Matrix_MultVec3f(&targetMod_77, &pthis->actor.focus.pos);
+        Matrix_MultVec3f(&headMod_77, &pthis->headPos);
+        Matrix_MultVec3f(&centerManeMod_77, &pthis->centerMane.head);
+        Matrix_MultVec3f(&rightManeMod_77, &pthis->rightMane.head);
+        Matrix_MultVec3f(&leftManeMod_77, &pthis->leftMane.head);
     }
     Collider_UpdateSpheres(limbIndex, &pthis->collider);
 }
@@ -1189,7 +1197,6 @@ void BossFd2_DrawMane(BossFd2* pthis, GlobalContext* globalCtx) {
 }
 
 void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gHoleVolvagiaEyeOpenTex, gHoleVolvagiaEyeHalfTex, gHoleVolvagiaEyeClosedTex };
     s32 pad;
     BossFd2* pthis = (BossFd2*)thisx;
 
@@ -1200,7 +1207,7 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx) {
         if (pthis->work[FD2_DAMAGE_FLASH_TIMER] & 2) {
             POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 255, 255, 0, 900, 1099);
         }
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeState]));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures_80[pthis->eyeState]));
 
         gSPSegment(POLY_OPA_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (s16)pthis->fwork[FD2_TEX1_SCROLL_X],
@@ -1219,6 +1226,16 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BossFd2_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    targetMod_77 = { 4500.0f, 0.0f, 0.0f };
+
+    headMod_77 = { 4000.0f, 0.0f, 0.0f };
+
+    centerManeMod_77 = { 4000.0f, -2900.0, 2000.0f };
+
+    rightManeMod_77 = { 4000.0f, -1600.0, 0.0f };
+
+    leftManeMod_77 = { 4000.0f, -1600.0, -2000.0f };
+
     Boss_Fd2_InitVars = {
         ACTOR_BOSS_FD2,
         ACTORCAT_BOSS,

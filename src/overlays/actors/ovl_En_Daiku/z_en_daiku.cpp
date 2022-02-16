@@ -47,6 +47,14 @@ void EnDaiku_EscapeRun(EnDaiku* pthis, GlobalContext* globalCtx);
 s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
 void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s* rot, void* thisx);
 
+static Vec3f D_809E4148_73 = { 0.0f, 0.0f, 120.0f };
+
+static Gfx* hairDLists_80[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
+                             object_daiku_DL_005880 };
+
+static Vec3f targetPosHeadLocal_80 = { 700, 1100, 0 };
+
+
 ActorInit En_Daiku_InitVars = {
     ACTOR_EN_DAIKU,
     ACTORCAT_NPC,
@@ -484,7 +492,6 @@ void EnDaiku_UpdateSubCamera(EnDaiku* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDaiku_EscapeSuccess(EnDaiku* pthis, GlobalContext* globalCtx) {
-    static Vec3f D_809E4148 = { 0.0f, 0.0f, 120.0f };
     Actor* gerudoGuard;
     Vec3f vec;
 
@@ -494,7 +501,7 @@ void EnDaiku_EscapeSuccess(EnDaiku* pthis, GlobalContext* globalCtx) {
 
     if ((gSaveContext.eventChkInf[9] & 0xF) == 0xF) {
         Matrix_RotateY(pthis->initRot.y * (M_PI / 0x8000), MTXMODE_NEW);
-        Matrix_MultVec3f(&D_809E4148, &vec);
+        Matrix_MultVec3f(&D_809E4148_73, &vec);
         gerudoGuard =
             Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_GE3, pthis->initPos.x + vec.x, pthis->initPos.y + vec.y,
                         pthis->initPos.z + vec.z, 0, Math_FAtan2F(-vec.x, -vec.z) * (0x8000 / M_PI), 0, 2);
@@ -624,22 +631,23 @@ s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Ve
 }
 
 void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Gfx* hairDLists[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
-                                 object_daiku_DL_005880 };
-    static Vec3f targetPosHeadLocal = { 700, 1100, 0 };
     EnDaiku* pthis = (EnDaiku*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1323);
 
     if (limb == 15) { // head
-        Matrix_MultVec3f(&targetPosHeadLocal, &pthis->actor.focus.pos);
-        gSPDisplayList(POLY_OPA_DISP++, hairDLists[pthis->actor.params & 3]);
+        Matrix_MultVec3f(&targetPosHeadLocal_80, &pthis->actor.focus.pos);
+        gSPDisplayList(POLY_OPA_DISP++, hairDLists_80[pthis->actor.params & 3]);
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1330);
 }
 
 void EnDaiku_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_809E4148_73 = { 0.0f, 0.0f, 120.0f };
+
+    targetPosHeadLocal_80 = { 700, 1100, 0 };
+
     En_Daiku_InitVars = {
         ACTOR_EN_DAIKU,
         ACTORCAT_NPC,

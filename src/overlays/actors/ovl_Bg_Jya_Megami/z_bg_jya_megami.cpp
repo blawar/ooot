@@ -28,6 +28,9 @@ void BgJyaMegami_DetectLight(BgJyaMegami* pthis, GlobalContext* globalCtx);
 void BgJyaMegami_SetupExplode(BgJyaMegami* pthis);
 void BgJyaMegami_Explode(BgJyaMegami* pthis, GlobalContext* globalCtx);
 
+static Vec3f sVec_46 = { 0.0f, 0.0f, 0.0f };
+
+
 ActorInit Bg_Jya_Megami_InitVars = {
     ACTOR_BG_JYA_MEGAMI,
     ACTORCAT_BG,
@@ -228,7 +231,6 @@ void BgJyaMegami_SetupExplode(BgJyaMegami* pthis) {
 }
 
 void BgJyaMegami_Explode(BgJyaMegami* pthis, GlobalContext* globalCtx) {
-    static Vec3f sVec = { 0.0f, 0.0f, 0.0f };
     BgJyaMegamiPiece* temp;
     u32 i;
     Vec3f sp8C;
@@ -270,7 +272,7 @@ void BgJyaMegami_Explode(BgJyaMegami* pthis, GlobalContext* globalCtx) {
         sp8C.x = ((Rand_ZeroOne() - 0.5f) * 90.0f) + pthis->dyna.actor.world.pos.x;
         sp8C.y = (pthis->dyna.actor.world.pos.y - (Rand_ZeroOne() * 80.0f)) - 20.0f;
         sp8C.z = pthis->dyna.actor.world.pos.z - (Rand_ZeroOne() - 0.5f) * 50.0f;
-        BgJyaMegami_SpawnEffect(globalCtx, &sp8C, &sVec, 1, 0);
+        BgJyaMegami_SpawnEffect(globalCtx, &sp8C, &sVec_46, 1, 0);
     }
     if (pthis->explosionTimer < ARRAY_COUNT(pthis->pieces)) {
         sp8C.x = pthis->dyna.actor.world.pos.x;
@@ -360,6 +362,8 @@ void BgJyaMegami_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaMegami_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sVec_46 = { 0.0f, 0.0f, 0.0f };
+
     Bg_Jya_Megami_InitVars = {
         ACTOR_BG_JYA_MEGAMI,
         ACTORCAT_BG,

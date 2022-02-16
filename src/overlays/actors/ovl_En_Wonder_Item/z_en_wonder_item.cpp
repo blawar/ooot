@@ -28,6 +28,23 @@ void EnWonderItem_MultitagOrdered(EnWonderItem* pthis, GlobalContext* globalCtx)
 void EnWonderItem_BombSoldier(EnWonderItem* pthis, GlobalContext* globalCtx);
 void EnWonderItem_RollDrop(EnWonderItem* pthis, GlobalContext* globalCtx);
 
+static s16 dropTable_27[] = {
+    ITEM00_NUTS,        ITEM00_HEART_PIECE,  ITEM00_MAGIC_LARGE,   ITEM00_MAGIC_SMALL,
+    ITEM00_HEART,       ITEM00_ARROWS_SMALL, ITEM00_ARROWS_MEDIUM, ITEM00_ARROWS_LARGE,
+    ITEM00_RUPEE_GREEN, ITEM00_RUPEE_BLUE,   ITEM00_RUPEE_RED,     ITEM00_FLEXIBLE,
+};
+
+static u32 collisionTypes_28[] = {
+    0x00000702 /* sword slash */, 0x0001F820 /* arrow */,     0x00000040 /* hammer */,   0x00000008 /* bomb */,
+    0x00000004 /* slingshot */,   0x00000010 /* boomerang */, 0x00000080 /* hookshot */,
+};
+
+static s16 debugArrowColors_36[] = {
+    255, 255, 0,   255, 0,   255, 0,   255, 255, 255, 0,   0, 0, 255, 0,   0, 0, 255, 128, 128,
+    128, 128, 128, 0,   128, 0,   128, 0,   128, 0,   128, 0, 0, 0,   128, 0, 0, 0,   128,
+};
+
+
 static ColliderCylinderInit sCylinderInit = {
     {
         COLTYPE_NONE,
@@ -74,11 +91,6 @@ void EnWonderItem_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnWonderItem_DropCollectible(EnWonderItem* pthis, GlobalContext* globalCtx, s32 autoCollect) {
-    static s16 dropTable[] = {
-        ITEM00_NUTS,        ITEM00_HEART_PIECE,  ITEM00_MAGIC_LARGE,   ITEM00_MAGIC_SMALL,
-        ITEM00_HEART,       ITEM00_ARROWS_SMALL, ITEM00_ARROWS_MEDIUM, ITEM00_ARROWS_LARGE,
-        ITEM00_RUPEE_GREEN, ITEM00_RUPEE_BLUE,   ITEM00_RUPEE_RED,     ITEM00_FLEXIBLE,
-    };
     s32 i;
     s32 randomDrop;
 
@@ -90,9 +102,9 @@ void EnWonderItem_DropCollectible(EnWonderItem* pthis, GlobalContext* globalCtx,
     for (i = pthis->dropCount; i > 0; i--) {
         if (pthis->itemDrop < WONDERITEM_DROP_RANDOM) {
             if ((pthis->itemDrop == WONDERITEM_DROP_FLEXIBLE) || !autoCollect) {
-                Item_DropCollectible(globalCtx, &pthis->actor.world.pos, dropTable[pthis->itemDrop]);
+                Item_DropCollectible(globalCtx, &pthis->actor.world.pos, dropTable_27[pthis->itemDrop]);
             } else {
-                Item_DropCollectible(globalCtx, &pthis->actor.world.pos, dropTable[pthis->itemDrop] | 0x8000);
+                Item_DropCollectible(globalCtx, &pthis->actor.world.pos, dropTable_27[pthis->itemDrop] | 0x8000);
             }
         } else {
             randomDrop = pthis->itemDrop - WONDERITEM_DROP_RANDOM;
@@ -110,10 +122,6 @@ void EnWonderItem_DropCollectible(EnWonderItem* pthis, GlobalContext* globalCtx,
 }
 
 void EnWonderItem_Init(Actor* thisx, GlobalContext* globalCtx) {
-    static u32 collisionTypes[] = {
-        0x00000702 /* sword slash */, 0x0001F820 /* arrow */,     0x00000040 /* hammer */,   0x00000008 /* bomb */,
-        0x00000004 /* slingshot */,   0x00000010 /* boomerang */, 0x00000080 /* hookshot */,
-    };
     s32 pad;
     s16 colTypeIndex;
     EnWonderItem* pthis = (EnWonderItem*)thisx;
@@ -162,7 +170,7 @@ void EnWonderItem_Init(Actor* thisx, GlobalContext* globalCtx) {
             colTypeIndex = pthis->actor.world.rot.z & 0xFF;
             Collider_InitCylinder(globalCtx, &pthis->collider);
             Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
-            pthis->collider.info.bumper.dmgFlags = collisionTypes[colTypeIndex];
+            pthis->collider.info.bumper.dmgFlags = collisionTypes_28[colTypeIndex];
             pthis->collider.dim.radius = 20;
             pthis->collider.dim.height = 30;
             pthis->updateFunc = EnWonderItem_InteractSwitch;
@@ -328,7 +336,7 @@ void EnWonderItem_RollDrop(EnWonderItem* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWonderItem_Update(Actor* thisx, GlobalContext* globalCtx) {
-    static s16 debugArrowColors[] = {
+    static s16 debugArrowColors_36[] = {
         255, 255, 0,   255, 0,   255, 0,   255, 255, 255, 0,   0, 0, 255, 0,   0, 0, 255, 128, 128,
         128, 128, 128, 0,   128, 0,   128, 0,   128, 0,   128, 0, 0, 0,   128, 0, 0, 0,   128,
     }; // These seem to be mistyped. Logically they should be s16[13][3] and be indexed as [colorIndex][i]

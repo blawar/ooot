@@ -31,6 +31,15 @@ void ItemEtcetera_MoveFireArrowDown(ItemEtcetera* pthis, GlobalContext* globalCt
 void func_80B85B28(ItemEtcetera* pthis, GlobalContext* globalCtx);
 void ItemEtcetera_UpdateFireArrow(ItemEtcetera* pthis, GlobalContext* globalCtx);
 
+static Vec3f velocity_36 = { 0.0f, 0.2f, 0.0f };
+
+static Vec3f accel_36 = { 0.0f, 0.05f, 0.0f };
+
+static Color_RGBA8 primColor_36 = { 255, 255, 255, 0 };
+
+static Color_RGBA8 envColor_36 = { 255, 50, 50, 0 };
+
+
 ActorInit Item_Etcetera_InitVars = {
     ACTOR_ITEM_ETCETERA,
     ACTORCAT_PROP,
@@ -155,20 +164,16 @@ void func_80B858B4(ItemEtcetera* pthis, GlobalContext* globalCtx) {
 }
 
 void ItemEtcetera_SpawnSparkles(ItemEtcetera* pthis, GlobalContext* globalCtx) {
-    static Vec3f velocity = { 0.0f, 0.2f, 0.0f };
-    static Vec3f accel = { 0.0f, 0.05f, 0.0f };
-    static Color_RGBA8 primColor = { 255, 255, 255, 0 };
-    static Color_RGBA8 envColor = { 255, 50, 50, 0 };
     Vec3f pos;
 
-    velocity.x = Rand_CenteredFloat(3.0f);
-    velocity.z = Rand_CenteredFloat(3.0f);
-    velocity.y = -0.05f;
-    accel.y = -0.025f;
+    velocity_36.x = Rand_CenteredFloat(3.0f);
+    velocity_36.z = Rand_CenteredFloat(3.0f);
+    velocity_36.y = -0.05f;
+    accel_36.y = -0.025f;
     pos.x = Rand_CenteredFloat(12.0f) + pthis->actor.world.pos.x;
     pos.y = (Rand_ZeroOne() * 6.0f) + pthis->actor.world.pos.y;
     pos.z = Rand_CenteredFloat(12.0f) + pthis->actor.world.pos.z;
-    EffectSsKiraKira_SpawnDispersed(globalCtx, &pos, &velocity, &accel, &primColor, &envColor, 5000, 16);
+    EffectSsKiraKira_SpawnDispersed(globalCtx, &pos, &velocity_36, &accel_36, &primColor_36, &envColor_36, 5000, 16);
 }
 
 void ItemEtcetera_MoveFireArrowDown(ItemEtcetera* pthis, GlobalContext* globalCtx) {
@@ -227,6 +232,14 @@ void ItemEtcetera_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ItemEtcetera_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    velocity_36 = { 0.0f, 0.2f, 0.0f };
+
+    accel_36 = { 0.0f, 0.05f, 0.0f };
+
+    primColor_36 = { 255, 255, 255, 0 };
+
+    envColor_36 = { 255, 50, 50, 0 };
+
     Item_Etcetera_InitVars = {
         ACTOR_ITEM_ETCETERA,
         ACTORCAT_PROP,

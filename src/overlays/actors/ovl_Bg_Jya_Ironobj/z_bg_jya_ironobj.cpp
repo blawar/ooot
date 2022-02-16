@@ -35,6 +35,9 @@ void func_808992E8(BgJyaIronobj* pthis, GlobalContext* globalCtx);
 void BgJyaIronobj_SpawnPillarParticles(BgJyaIronobj* pthis, GlobalContext* globalCtx, EnIk* enIk);
 void BgJyaIronobj_SpawnThoneParticles(BgJyaIronobj* pthis, GlobalContext* arg1, EnIk* enIk);
 
+static BgJyaIronobjIkFunc particleFunc_53[] = { BgJyaIronobj_SpawnPillarParticles, BgJyaIronobj_SpawnThoneParticles };
+
+
 static int sUnused = 0;
 
 ActorInit Bg_Jya_Ironobj_InitVars = {
@@ -252,7 +255,6 @@ void func_808992D8(BgJyaIronobj* pthis) {
 }
 
 void func_808992E8(BgJyaIronobj* pthis, GlobalContext* globalCtx) {
-    static BgJyaIronobjIkFunc particleFunc[] = { BgJyaIronobj_SpawnPillarParticles, BgJyaIronobj_SpawnThoneParticles };
     Actor* actor;
     Vec3f dropPos;
     s32 i;
@@ -261,7 +263,7 @@ void func_808992E8(BgJyaIronobj* pthis, GlobalContext* globalCtx) {
         actor = pthis->colCylinder.base.ac;
         pthis->colCylinder.base.acFlags &= ~AC_HIT;
         if (actor != NULL && actor->id == ACTOR_EN_IK) {
-            particleFunc[pthis->dyna.actor.params & 1](pthis, globalCtx, (EnIk*)actor);
+            particleFunc_53[pthis->dyna.actor.params & 1](pthis, globalCtx, (EnIk*)actor);
             Audio_PlaySoundAtPosition(globalCtx, &pthis->dyna.actor.world.pos, 80, NA_SE_EN_IRONNACK_BREAK_PILLAR);
             dropPos.x = pthis->dyna.actor.world.pos.x;
             dropPos.y = pthis->dyna.actor.world.pos.y + 20.0f;

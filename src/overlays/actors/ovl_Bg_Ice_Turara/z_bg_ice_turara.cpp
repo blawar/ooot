@@ -32,6 +32,13 @@ void BgIceTurara_Shiver(BgIceTurara* pthis, GlobalContext* globalCtx);
 void BgIceTurara_Fall(BgIceTurara* pthis, GlobalContext* globalCtx);
 void BgIceTurara_Regrow(BgIceTurara* pthis, GlobalContext* globalCtx);
 
+static Vec3f accel_31 = { 0.0f, -1.0f, 0.0f };
+
+static Color_RGBA8 primColor_31 = { 170, 255, 255, 255 };
+
+static Color_RGBA8 envColor_31 = { 0, 50, 100, 255 };
+
+
 static ColliderCylinderInit sCylinderInit = {
     {
         COLTYPE_NONE,
@@ -101,9 +108,6 @@ void BgIceTurara_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgIceTurara_Break(BgIceTurara* pthis, GlobalContext* globalCtx, f32 arg2) {
-    static Vec3f accel = { 0.0f, -1.0f, 0.0f };
-    static Color_RGBA8 primColor = { 170, 255, 255, 255 };
-    static Color_RGBA8 envColor = { 0, 50, 100, 255 };
     Vec3f vel;
     Vec3f pos;
     s32 j;
@@ -120,7 +124,7 @@ void BgIceTurara_Break(BgIceTurara* pthis, GlobalContext* globalCtx, f32 arg2) {
             vel.z = Rand_CenteredFloat(7.0f);
             vel.y = (Rand_ZeroOne() * 4.0f) + 8.0f;
 
-            EffectSsEnIce_Spawn(globalCtx, &pos, (Rand_ZeroOne() * 0.2f) + 0.1f, &vel, &accel, &primColor, &envColor,
+            EffectSsEnIce_Spawn(globalCtx, &pos, (Rand_ZeroOne() * 0.2f) + 0.1f, &vel, &accel_31, &primColor_31, &envColor_31,
                                 30);
         }
     }
@@ -214,6 +218,12 @@ void BgIceTurara_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgIceTurara_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    accel_31 = { 0.0f, -1.0f, 0.0f };
+
+    primColor_31 = { 170, 255, 255, 255 };
+
+    envColor_31 = { 0, 50, 100, 255 };
+
     sCylinderInit = {
         {
             COLTYPE_NONE,

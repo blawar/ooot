@@ -54,6 +54,13 @@ void EnPeehat_Adult_StateDie(EnPeehat* pthis, GlobalContext* globalCtx);
 void EnPeehat_SetStateExplode(EnPeehat* pthis);
 void EnPeehat_StateExplode(EnPeehat* pthis, GlobalContext* globalCtx);
 
+static Vec3f peahatBladeTip_101[] = { { 0.0f, 0.0f, 5500.0f }, { 0.0f, 0.0f, -5500.0f } };
+
+static Vec3f D_80AD285C_102[] = {
+    { 0.0f, 0.0f, -4500.0f }, { -4500.0f, 0.0f, 0.0f }, { 4500.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 4500.0f }
+};
+
+
 ActorInit En_Peehat_InitVars = {
     ACTOR_EN_PEEHAT,
     ACTORCAT_ENEMY,
@@ -1022,14 +1029,13 @@ s32 EnPeehat_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 }
 
 void EnPeehat_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f peahatBladeTip[] = { { 0.0f, 0.0f, 5500.0f }, { 0.0f, 0.0f, -5500.0f } };
 
     EnPeehat* pthis = (EnPeehat*)thisx;
     f32 damageYRot;
 
     if (limbIndex == 4) {
-        Matrix_MultVec3f(&peahatBladeTip[0], &pthis->bladeTip[0]);
-        Matrix_MultVec3f(&peahatBladeTip[1], &pthis->bladeTip[1]);
+        Matrix_MultVec3f(&peahatBladeTip_101[0], &pthis->bladeTip[0]);
+        Matrix_MultVec3f(&peahatBladeTip_101[1], &pthis->bladeTip[1]);
         return;
     }
     // is Adult Peahat
@@ -1054,19 +1060,16 @@ void EnPeehat_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 }
 
 void EnPeehat_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f D_80AD285C[] = {
-        { 0.0f, 0.0f, -4500.0f }, { -4500.0f, 0.0f, 0.0f }, { 4500.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 4500.0f }
-    };
     EnPeehat* pthis = (EnPeehat*)thisx;
 
     func_80093D18(globalCtx->state.gfxCtx);
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnPeehat_OverrideLimbDraw,
                       EnPeehat_PostLimbDraw, pthis);
     if (pthis->actor.speedXZ != 0.0f || pthis->actor.velocity.y != 0.0f) {
-        Matrix_MultVec3f(&D_80AD285C[0], &pthis->colQuad.dim.quad[1]);
-        Matrix_MultVec3f(&D_80AD285C[1], &pthis->colQuad.dim.quad[0]);
-        Matrix_MultVec3f(&D_80AD285C[2], &pthis->colQuad.dim.quad[3]);
-        Matrix_MultVec3f(&D_80AD285C[3], &pthis->colQuad.dim.quad[2]);
+        Matrix_MultVec3f(&D_80AD285C_102[0], &pthis->colQuad.dim.quad[1]);
+        Matrix_MultVec3f(&D_80AD285C_102[1], &pthis->colQuad.dim.quad[0]);
+        Matrix_MultVec3f(&D_80AD285C_102[2], &pthis->colQuad.dim.quad[3]);
+        Matrix_MultVec3f(&D_80AD285C_102[3], &pthis->colQuad.dim.quad[2]);
         Collider_SetQuadVertices(&pthis->colQuad, &pthis->colQuad.dim.quad[0], &pthis->colQuad.dim.quad[1],
                                  &pthis->colQuad.dim.quad[2], &pthis->colQuad.dim.quad[3]);
     }

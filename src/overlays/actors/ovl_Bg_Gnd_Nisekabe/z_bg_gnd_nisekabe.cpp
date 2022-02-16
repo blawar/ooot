@@ -32,6 +32,12 @@ ActorInit Bg_Gnd_Nisekabe_InitVars = {
     (ActorFunc)BgGndNisekabe_Reset,
 };
 
+static Gfx* dLists[] = {
+    gLightTrialFakeWallDL,
+    gGanonsCastleUnusedFakeWallDL,
+    gGanonsCastleScrubsFakeWallDL,
+};
+
 void BgGndNisekabe_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgGndNisekabe* pthis = (BgGndNisekabe*)thisx;
 
@@ -53,11 +59,6 @@ void BgGndNisekabe_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgGndNisekabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = {
-        gLightTrialFakeWallDL,
-        gGanonsCastleUnusedFakeWallDL,
-        gGanonsCastleScrubsFakeWallDL,
-    };
     BgGndNisekabe* pthis = (BgGndNisekabe*)thisx;
     u32 index = pthis->actor.params & 0xFF;
 

@@ -235,4 +235,5 @@ void BgRelayObjects_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     };
 
     D_808A9508 = 0;
+
 }

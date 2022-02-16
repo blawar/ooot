@@ -40,6 +40,15 @@ void EnBomBowMan_SetupChooseShowPrize(EnBomBowlMan* pthis, GlobalContext* global
 void EnBomBowMan_ChooseShowPrize(EnBomBowlMan* pthis, GlobalContext* globalCtx);
 void EnBomBowlMan_BeginPlayGame(EnBomBowlMan* pthis, GlobalContext* globalCtx);
 
+static f32 cuccoColliderDims_39[][3] = { { 16.0f, 46.0f, 0.0f }, { 36.0f, 56.0f, 0.0f } };
+
+static Vec3f cuccoSpawnPos_39[] = { { 60, -60, -430 }, { 0, -120, -620 } };
+
+static f32 cuccoScales_39[] = { 0.01f, 0.03f };
+
+static void* eyeTextures_60[] = { gChuGirlEyeOpenTex, gChuGirlEyeHalfTex, gChuGirlEyeClosedTex };
+
+
 ActorInit En_Bom_Bowl_Man_InitVars = {
     ACTOR_EN_BOM_BOWL_MAN,
     ACTORCAT_NPC,
@@ -54,9 +63,6 @@ ActorInit En_Bom_Bowl_Man_InitVars = {
 };
 
 void EnBomBowlMan_Init(Actor* thisx, GlobalContext* globalCtx2) {
-    static f32 cuccoColliderDims[][3] = { { 16.0f, 46.0f, 0.0f }, { 36.0f, 56.0f, 0.0f } };
-    static Vec3f cuccoSpawnPos[] = { { 60, -60, -430 }, { 0, -120, -620 } };
-    static f32 cuccoScales[] = { 0.01f, 0.03f };
     EnBomBowlMan* pthis = (EnBomBowlMan*)thisx;
     EnSyatekiNiw* cucco;
     s32 i;
@@ -75,13 +81,13 @@ void EnBomBowlMan_Init(Actor* thisx, GlobalContext* globalCtx2) {
     Actor_SetScale(&pthis->actor, 0.013f);
 
     for (i = 0; i < 2; i++) {
-        cucco = (EnSyatekiNiw*)Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_SYATEKI_NIW, cuccoSpawnPos[i].x,
-                                           cuccoSpawnPos[i].y, cuccoSpawnPos[i].z, 0, 0, 0, 1);
+        cucco = (EnSyatekiNiw*)Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_SYATEKI_NIW, cuccoSpawnPos_39[i].x,
+                                           cuccoSpawnPos_39[i].y, cuccoSpawnPos_39[i].z, 0, 0, 0, 1);
 
         if (cucco != NULL) {
-            cucco->unk_2F4 = cuccoScales[i];
-            cucco->collider.dim.radius = (s16)cuccoColliderDims[i][0];
-            cucco->collider.dim.height = (s16)cuccoColliderDims[i][1];
+            cucco->unk_2F4 = cuccoScales_39[i];
+            cucco->collider.dim.radius = (s16)cuccoColliderDims_39[i][0];
+            cucco->collider.dim.height = (s16)cuccoColliderDims_39[i][1];
         }
     }
 
@@ -529,13 +535,12 @@ s32 EnBomBowlMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
 }
 
 void EnBomBowlMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gChuGirlEyeOpenTex, gChuGirlEyeHalfTex, gChuGirlEyeClosedTex };
     EnBomBowlMan* pthis = (EnBomBowlMan*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_bowl_man.c", 907);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->eyeTextureIndex]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_60[pthis->eyeTextureIndex]));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnBomBowlMan_OverrideLimbDraw, NULL, pthis);
 

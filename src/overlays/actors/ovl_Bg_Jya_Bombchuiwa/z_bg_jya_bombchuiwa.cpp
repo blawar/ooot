@@ -27,6 +27,11 @@ void func_808949B8(BgJyaBombchuiwa* pthis, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_CleanUpAfterExplosion(BgJyaBombchuiwa* pthis, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_SpawnLightRay(BgJyaBombchuiwa* pthis, GlobalContext* globalCtx);
 
+static Vec3f D_80894F88_42 = { -920.0f, 480.0f, -889.0f };
+
+static Vec3s D_80894F94_42 = { 0, 0, 0 };
+
+
 ActorInit Bg_Jya_Bombchuiwa_InitVars = {
     ACTOR_BG_JYA_BOMBCHUIWA,
     ACTORCAT_BG,
@@ -234,8 +239,6 @@ void BgJyaBombchuiwa_DrawLight(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Vec3f D_80894F88 = { -920.0f, 480.0f, -889.0f };
-    static Vec3s D_80894F94 = { 0, 0, 0 };
     BgJyaBombchuiwa* pthis = (BgJyaBombchuiwa*)thisx;
 
     if (pthis->drawFlags & 1) {
@@ -247,7 +250,7 @@ void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         BgJyaBombchuiwa_DrawRock(globalCtx);
     }
     if (pthis->drawFlags & 4) {
-        func_800D1694(D_80894F88.x, D_80894F88.y, D_80894F88.z, &D_80894F94);
+        func_800D1694(D_80894F88_42.x, D_80894F88_42.y, D_80894F88_42.z, &D_80894F94_42);
         Matrix_Scale(pthis->actor.scale.x, pthis->actor.scale.y, pthis->actor.scale.z, MTXMODE_APPLY);
         if (pthis->drawFlags & 4) {
             BgJyaBombchuiwa_DrawLight(thisx, globalCtx);
@@ -256,6 +259,10 @@ void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaBombchuiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_80894F88_42 = { -920.0f, 480.0f, -889.0f };
+
+    D_80894F94_42 = { 0, 0, 0 };
+
     Bg_Jya_Bombchuiwa_InitVars = {
         ACTOR_BG_JYA_BOMBCHUIWA,
         ACTORCAT_BG,

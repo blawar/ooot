@@ -40,6 +40,13 @@ void EnDodongo_Stunned(EnDodongo* pthis, GlobalContext* globalCtx);
 void EnDodongo_Death(EnDodongo* pthis, GlobalContext* globalCtx);
 void EnDodongo_SweepTail(EnDodongo* pthis, GlobalContext* globalCtx);
 
+static Vec3f legOffsets_69[3] = {
+    { 1100.0f, -700.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f },
+    { 2190.0f, 0.0f, 0.0f },
+};
+
+
 ActorInit En_Dodongo_InitVars = {
     ACTOR_EN_DODONGO,
     ACTORCAT_ENEMY,
@@ -810,11 +817,6 @@ s32 EnDodongo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 void EnDodongo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Vec3f legOffsets[3] = {
-        { 1100.0f, -700.0f, 0.0f },
-        { 0.0f, 0.0f, 0.0f },
-        { 2190.0f, 0.0f, 0.0f },
-    };
     Vec3f tailTipOffset = { 3000.0f, 0.0f, 0.0f };
     Vec3f baseOffset = { 0.0f, 0.0f, 0.0f };
     s32 i;
@@ -873,10 +875,10 @@ void EnDodongo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
             }
             break;
         case 21:
-            Matrix_MultVec3f(&legOffsets[1], &pthis->leftFootPos);
+            Matrix_MultVec3f(&legOffsets_69[1], &pthis->leftFootPos);
             break;
         case 28:
-            Matrix_MultVec3f(&legOffsets[1], &pthis->rightFootPos);
+            Matrix_MultVec3f(&legOffsets_69[1], &pthis->rightFootPos);
             break;
     }
     if (pthis->iceTimer != 0) {

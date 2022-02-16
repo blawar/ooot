@@ -34,6 +34,11 @@ void func_809CB2B8(EnBrob* pthis, GlobalContext* globalCtx);
 void func_809CB354(EnBrob* pthis, GlobalContext* globalCtx);
 void func_809CB458(EnBrob* pthis, GlobalContext* globalCtx);
 
+static Color_RGBA8 primColor_44 = { 255, 255, 255, 255 };
+
+static Color_RGBA8 envColor_44 = { 200, 255, 255, 255 };
+
+
 ActorInit En_Brob_InitVars = {
     ACTOR_EN_BROB,
     ACTORCAT_ENEMY,
@@ -245,8 +250,6 @@ void func_809CB458(EnBrob* pthis, GlobalContext* globalCtx) {
     dist2 = pthis->dyna.actor.scale.x * 5500.0f;
 
     for (i = 0; i < 4; i++) {
-        static Color_RGBA8 primColor = { 255, 255, 255, 255 };
-        static Color_RGBA8 envColor = { 200, 255, 255, 255 };
 
         if (i % 2) {
             pos.x = pthis->dyna.actor.world.pos.x + dist1;
@@ -258,7 +261,7 @@ void func_809CB458(EnBrob* pthis, GlobalContext* globalCtx) {
             dist2 = -dist2;
         }
         pos.y = (((Rand_ZeroOne() * 15000.0f) + 1000.0f) * pthis->dyna.actor.scale.y) + pthis->dyna.actor.world.pos.y;
-        EffectSsLightning_Spawn(globalCtx, &pos, &primColor, &envColor, pthis->dyna.actor.scale.y * 8000.0f,
+        EffectSsLightning_Spawn(globalCtx, &pos, &primColor_44, &envColor_44, pthis->dyna.actor.scale.y * 8000.0f,
                                 Rand_ZeroOne() * 65536.0f, 4, 1);
     }
 
@@ -341,6 +344,10 @@ void EnBrob_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBrob_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    primColor_44 = { 255, 255, 255, 255 };
+
+    envColor_44 = { 200, 255, 255, 255 };
+
     En_Brob_InitVars = {
         ACTOR_EN_BROB,
         ACTORCAT_ENEMY,

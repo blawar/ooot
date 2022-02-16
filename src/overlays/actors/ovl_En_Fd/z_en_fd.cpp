@@ -44,6 +44,11 @@ void EnFd_DrawDots(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_Land(EnFd* pthis, GlobalContext* globalCtx);
 
+static void* dustTextures_81[] = {
+    gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
+};
+
+
 ActorInit En_Fd_InitVars = {
     ACTOR_EN_FD,
     ACTORCAT_ENEMY,
@@ -878,9 +883,6 @@ void EnFd_UpdateDots(EnFd* pthis) {
 }
 
 void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx) {
-    static void* dustTextures[] = {
-        gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
-    };
     s32 firstDone;
     s16 i;
     s16 idx;
@@ -906,7 +908,7 @@ void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fd.c", 2006),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             idx = eff->timer * (8.0f / eff->initialTimer);
-            gSPSegment(POLY_XLU_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(dustTextures[idx]));
+            gSPSegment(POLY_XLU_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(dustTextures_81[idx]));
             gSPDisplayList(POLY_XLU_DISP++, gFlareDancerSquareParticleDL);
         }
     }

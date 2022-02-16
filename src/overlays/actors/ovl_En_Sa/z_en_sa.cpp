@@ -31,6 +31,16 @@ void func_80AF683C(EnSa* pthis, GlobalContext* globalCtx);
 void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx);
 void func_80AF6B20(EnSa* pthis, GlobalContext* globalCtx);
 
+static void* mouthTextures_67[] = {
+    gSariaMouthClosed2Tex,  gSariaMouthSmilingOpenTex, gSariaMouthFrowningTex,
+    gSariaMouthSuprisedTex, gSariaMouthClosedTex,
+};
+
+static void* eyeTextures_67[] = {
+    gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
+};
+
+
 ActorInit En_Sa_InitVars = {
     ACTOR_EN_SA,
     ACTORCAT_NPC,
@@ -765,26 +775,19 @@ void EnSa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnSa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* mouthTextures[] = {
-        gSariaMouthClosed2Tex,  gSariaMouthSmilingOpenTex, gSariaMouthFrowningTex,
-        gSariaMouthSuprisedTex, gSariaMouthClosedTex,
-    };
-    static void* eyeTextures[] = {
-        gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
-    };
     EnSa* pthis = (EnSa*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sa.c", 1444);
 
     if (pthis->alpha == 255) {
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->rightEyeIndex]));
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->leftEyeIndex]));
-        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(mouthTextures[pthis->mouthIndex]));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_67[pthis->rightEyeIndex]));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures_67[pthis->leftEyeIndex]));
+        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(mouthTextures_67[pthis->mouthIndex]));
         func_80034BA0(globalCtx, &pthis->skelAnime, EnSa_OverrideLimbDraw, EnSa_PostLimbDraw, &pthis->actor, pthis->alpha);
     } else if (pthis->alpha != 0) {
-        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->rightEyeIndex]));
-        gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures[pthis->leftEyeIndex]));
-        gSPSegment(POLY_XLU_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(mouthTextures[pthis->mouthIndex]));
+        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_67[pthis->rightEyeIndex]));
+        gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTextures_67[pthis->leftEyeIndex]));
+        gSPSegment(POLY_XLU_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(mouthTextures_67[pthis->mouthIndex]));
         func_80034CC4(globalCtx, &pthis->skelAnime, EnSa_OverrideLimbDraw, EnSa_PostLimbDraw, &pthis->actor, pthis->alpha);
     }
 

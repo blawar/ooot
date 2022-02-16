@@ -163,6 +163,8 @@ void BgMenkuriEye_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)BgMenkuriEye_Reset,
     };
 
+    D_8089C1A0 = 0;
+
     sJntSphInit = {
         {
             COLTYPE_NONE,

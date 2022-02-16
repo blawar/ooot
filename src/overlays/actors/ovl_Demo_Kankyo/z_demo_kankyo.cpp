@@ -46,6 +46,29 @@ void DemoKankyo_DrawLightPlane(Actor* thisx, GlobalContext* globalCtx);
 void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx);
 void DemoKankyo_DrawSparkles(Actor* thisx, GlobalContext* globalCtx);
 
+static f32 sWarpRoll_90;
+
+static f32 sWarpFoV_90;
+
+static u32 D_8098CF90_90;
+
+static u32 D_8098CF94_90;
+
+static Vec3f D_8098CF98_90;
+
+static f32 sSparklesRoll_91;
+
+static f32 sSparklesFoV_91;
+
+static u32 D_8098CFAC_91;
+
+static u32 D_8098CFB0_91;
+
+static u32 D_8098CFB4_91;
+
+static Vec3f D_8098CFB8_91;
+
+
 // adult warp songs cutscenes
 extern CutsceneData gAdultWarpInCS[];
 extern CutsceneData gAdultWarpOutCS[];
@@ -772,12 +795,7 @@ void DemoKankyo_Vec3fAddPosRot(PosRot* posRot, Vec3f* vec, Vec3f* dst) {
 }
 
 void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
-    static f32 sWarpRoll;
-    static f32 sWarpFoV;
     // the following 2 vars are unused
-    static u32 D_8098CF90;
-    static u32 D_8098CF94;
-    static Vec3f D_8098CF98;
 
     s16 i;
     f32 temp_f22;
@@ -810,7 +828,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->unk_150[i].unk_22++;
             case 1:
                 if (pthis->actor.params == DEMOKANKYO_WARP_OUT) {
-                    if (func_800BB2B4(&camPos, &sWarpRoll, &sWarpFoV, sWarpOutCameraPoints, &pthis->unk_150[i].unk_20,
+                    if (func_800BB2B4(&camPos, &sWarpRoll_90, &sWarpFoV_90, sWarpOutCameraPoints, &pthis->unk_150[i].unk_20,
                                       &pthis->unk_150[i].unk_1C) != 0) {
                         pthis->unk_150[i].unk_22++;
                     }
@@ -820,7 +838,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
                 } else {
                     Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP_OUT - SFX_FLAG, &D_801333D4, 4, &D_801333E0, &D_801333E0,
                                            &D_801333E8);
-                    if (func_800BB2B4(&camPos, &sWarpRoll, &sWarpFoV, sWarpInCameraPoints, &pthis->unk_150[i].unk_20,
+                    if (func_800BB2B4(&camPos, &sWarpRoll_90, &sWarpFoV_90, sWarpInCameraPoints, &pthis->unk_150[i].unk_20,
                                       &pthis->unk_150[i].unk_1C) != 0) {
                         pthis->unk_150[i].unk_22++;
                     }
@@ -829,7 +847,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
                     }
                 }
                 Actor_GetWorld(&posRot, &player->actor);
-                DemoKankyo_Vec3fAddPosRot(&posRot, &camPos, &D_8098CF98);
+                DemoKankyo_Vec3fAddPosRot(&posRot, &camPos, &D_8098CF98_90);
                 break;
             case 2:
                 if (pthis->actor.params == DEMOKANKYO_WARP_OUT) {
@@ -844,9 +862,9 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
                 break;
         }
 
-        pthis->unk_150[i].unk_C.x = D_8098CF98.x;
-        pthis->unk_150[i].unk_C.y = D_8098CF98.y;
-        pthis->unk_150[i].unk_C.z = D_8098CF98.z;
+        pthis->unk_150[i].unk_C.x = D_8098CF98_90.x;
+        pthis->unk_150[i].unk_C.y = D_8098CF98_90.y;
+        pthis->unk_150[i].unk_C.z = D_8098CF98_90.z;
 
         switch (pthis->unk_150[i].unk_23) {
             case 0:
@@ -909,13 +927,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoKankyo_DrawSparkles(Actor* thisx, GlobalContext* globalCtx) {
-    static f32 sSparklesRoll;
-    static f32 sSparklesFoV;
     // the following 3 vars are unused
-    static u32 D_8098CFAC;
-    static u32 D_8098CFB0;
-    static u32 D_8098CFB4;
-    static Vec3f D_8098CFB8;
 
     DemoKankyo* pthis = (DemoKankyo*)thisx;
     f32 translateX;
@@ -946,12 +958,12 @@ void DemoKankyo_DrawSparkles(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->unk_150[i].unk_23 = 0;
                 pthis->unk_150[i].unk_22++;
             case 1:
-                if (func_800BB2B4(&camPos, &sSparklesRoll, &sSparklesFoV, sSparklesCameraPoints,
+                if (func_800BB2B4(&camPos, &sSparklesRoll_91, &sSparklesFoV_91, sSparklesCameraPoints,
                                   &pthis->unk_150[i].unk_20, &pthis->unk_150[i].unk_1C) != 0) {
                     pthis->unk_150[i].unk_22++;
                 }
                 Actor_GetWorld(&posRot, &pthis->actor);
-                DemoKankyo_Vec3fAddPosRot(&posRot, &camPos, &D_8098CFB8);
+                DemoKankyo_Vec3fAddPosRot(&posRot, &camPos, &D_8098CFB8_91);
                 break;
             case 2:
                 if (i + 1 == pthis->sparkleCounter && globalCtx->csCtx.state == CS_STATE_IDLE) {
@@ -960,9 +972,9 @@ void DemoKankyo_DrawSparkles(Actor* thisx, GlobalContext* globalCtx) {
                 break;
         }
 
-        pthis->unk_150[i].unk_C.x = D_8098CFB8.x;
-        pthis->unk_150[i].unk_C.y = D_8098CFB8.y;
-        pthis->unk_150[i].unk_C.z = D_8098CFB8.z;
+        pthis->unk_150[i].unk_C.x = D_8098CFB8_91.x;
+        pthis->unk_150[i].unk_C.y = D_8098CFB8_91.y;
+        pthis->unk_150[i].unk_C.z = D_8098CFB8_91.z;
 
         switch (pthis->unk_150[i].unk_23) {
             case 0:
@@ -1011,6 +1023,28 @@ void DemoKankyo_DrawSparkles(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    sWarpRoll_90 = {0};
+
+    sWarpFoV_90 = {0};
+
+    D_8098CF90_90 = 0;
+
+    D_8098CF94_90 = 0;
+
+    D_8098CF98_90 = {0, 0, 0};
+
+    sSparklesRoll_91 = {0};
+
+    sSparklesFoV_91 = {0};
+
+    D_8098CFAC_91 = 0;
+
+    D_8098CFB0_91 = 0;
+
+    D_8098CFB4_91 = 0;
+
+    D_8098CFB8_91 = {0, 0, 0};
+
     Demo_Kankyo_InitVars = {
         ACTOR_DEMO_KANKYO,
         ACTORCAT_BG,
@@ -1023,5 +1057,11 @@ void DemoKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         (ActorFunc)DemoKankyo_Draw,
         (ActorFunc)DemoKankyo_Reset,
     };
+
+    D_8098CF80 = 0;
+
+    sRainScale = 0;
+
+    D_8098CF84 = {0};
 
 }

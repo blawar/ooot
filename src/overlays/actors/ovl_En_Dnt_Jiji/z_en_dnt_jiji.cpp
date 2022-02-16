@@ -56,6 +56,9 @@ void EnDntJiji_GivePrize(EnDntJiji* pthis, GlobalContext* globalCtx);
 void EnDntJiji_Hide(EnDntJiji* pthis, GlobalContext* globalCtx);
 void EnDntJiji_Return(EnDntJiji* pthis, GlobalContext* globalCtx);
 
+static void* blinkTex_74[] = { gDntJijiEyeOpenTex, gDntJijiEyeHalfTex, gDntJijiEyeShutTex };
+
+
 ActorInit En_Dnt_Jiji_InitVars = {
     ACTOR_EN_DNT_JIJI,
     ACTORCAT_NPC,
@@ -445,13 +448,12 @@ void EnDntJiji_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* blinkTex[] = { gDntJijiEyeOpenTex, gDntJijiEyeHalfTex, gDntJijiEyeShutTex };
     EnDntJiji* pthis = (EnDntJiji*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1019);
     func_80093D18(globalCtx->state.gfxCtx);
     Matrix_Push();
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex[pthis->eyeState]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex_74[pthis->eyeState]));
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, pthis);
     Matrix_Pop();
     Matrix_Translate(pthis->flowerPos.x, pthis->flowerPos.y, pthis->flowerPos.z, MTXMODE_NEW);

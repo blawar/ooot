@@ -37,6 +37,9 @@ void func_808B7D50(BgSpot18Basket* pthis, GlobalContext* globalCtx);
 void func_808B7FC0(BgSpot18Basket* pthis, GlobalContext* globalCtx);
 void func_808B81A0(BgSpot18Basket* pthis, GlobalContext* globalCtx);
 
+static s16 D_808B85D0_40 = 0;
+
+
 ActorInit Bg_Spot18_Basket_InitVars = {
     ACTOR_BG_SPOT18_BASKET,
     ACTORCAT_PROP,
@@ -99,7 +102,6 @@ void func_808B7710(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_808B7770(BgSpot18Basket* pthis, GlobalContext* globalCtx, f32 arg2) {
-    static s16 D_808B85D0 = 0;
     Vec3f acceleration;
     Vec3f velocity;
     Vec3f position;
@@ -112,10 +114,10 @@ void func_808B7770(BgSpot18Basket* pthis, GlobalContext* globalCtx, f32 arg2) {
     for (i = 0, count = 2; i != count; i++) {
         if (globalCtx) {}
         if (!(arg2 < Rand_ZeroOne())) {
-            D_808B85D0 += 0x7530;
+            D_808B85D0_40 += 0x7530;
 
-            sinValue = Math_SinS(D_808B85D0);
-            cosValue = Math_CosS(D_808B85D0);
+            sinValue = Math_SinS(D_808B85D0_40);
+            cosValue = Math_CosS(D_808B85D0_40);
 
             randomValue = (Rand_ZeroOne() * 35.0f) + 35.0f;
 
@@ -468,6 +470,8 @@ void BgSpot18Basket_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot18Basket_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    D_808B85D0_40 = 0;
+
     Bg_Spot18_Basket_InitVars = {
         ACTOR_BG_SPOT18_BASKET,
         ACTORCAT_PROP,

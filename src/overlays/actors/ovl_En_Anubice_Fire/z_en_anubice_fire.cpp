@@ -31,6 +31,11 @@ void func_809B26EC(EnAnubiceFire* pthis, GlobalContext* globalCtx);
 void func_809B27D8(EnAnubiceFire* pthis, GlobalContext* globalCtx);
 void func_809B2B48(EnAnubiceFire* pthis, GlobalContext* globalCtx);
 
+static void* D_809B3270_33[] = {
+    gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex,
+};
+
+
 ActorInit En_Anubice_Fire_InitVars = {
     ACTOR_EN_ANUBICE_FIRE,
     ACTORCAT_ENEMY,
@@ -227,9 +232,6 @@ void EnAnubiceFire_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnAnubiceFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* D_809B3270[] = {
-        gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex,
-    };
     EnAnubiceFire* pthis = (EnAnubiceFire*)thisx;
     s32 pad[2];
     s32 i;
@@ -240,7 +242,7 @@ void EnAnubiceFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 0, 255);
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
     gDPPipeSync(POLY_XLU_DISP++);
-    gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_809B3270[0]));
+    gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_809B3270_33[0]));
 
     Matrix_Push();
     for (i = pthis->unk_15E; i < 6; ++i) {

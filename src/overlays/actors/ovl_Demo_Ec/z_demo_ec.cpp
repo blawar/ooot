@@ -53,6 +53,56 @@ void DemoEc_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DemoEc_Update(Actor* thisx, GlobalContext* globalCtx);
 void DemoEc_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+static u8 color1_83[] = { 0, 130, 70, 255 };
+
+static u8 color2_83[] = { 110, 170, 20, 255 };
+
+static void* eyeTextures_88[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex };
+
+static u8 color1_88[] = { 70, 190, 60, 255 };
+
+static u8 color2_88[] = { 100, 30, 0, 255 };
+
+static void* eyeTextures_91[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC };
+
+static u8 color1_91[] = { 0, 50, 100, 255 };
+
+static u8 color2_91[] = { 0, 50, 160, 255 };
+
+static void* eyeTextures_94[] = { object_ahg_Tex_00057C, object_ahg_Tex_00067C, object_ahg_Tex_00077C };
+
+static u8 color1_94[] = { 255, 255, 255, 255 };
+
+static u8 color2_94[] = { 255, 255, 255, 255 };
+
+static u8* eyeTextures_97[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8 };
+
+static void* eyeTextures_114[] = { gGerudoWhiteEyeOpenTex, gGerudoWhiteEyeHalfTex, gGerudoWhiteEyeClosedTex };
+
+static void* eyeTextures_117[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
+
+static void* eyeTextures_126[] = { gKzEyeOpenTex, gKzEyeHalfTex, gKzEyeClosedTex, gKzEyeOpen2Tex };
+
+static void* eyeTextures_133[] = { gMidoEyeOpenTex, gMidoEyeHalfTex, gMidoEyeClosedTex, gMidoEyeAngryTex };
+
+static void* eyeTextures_139[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
+
+static void* eyeTextures_142[] = { gPotionShopkeeperEyeOpenTex, gPotionShopkeeperEyeHalfTex, gPotionShopkeeperEyeClosedTex };
+
+static void* eyeTextures_149[] = {
+    gFishingOwnerEyeOpenTex,
+    gFishingOwnerEyeHalfTex,
+    gFishingOwnerEyeClosedTex,
+};
+
+static void* eyeTextures_152[] = { gBombchuShopkeeperEyeOpenTex, gBombchuShopkeeperEyeHalfTex,
+                               gBombchuShopkeeperEyeClosedTex };
+
+static void* eyeTextures_155[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+
+static void* eyeTextures_158[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
+
+
 static s16 sDrawObjects[] = {
     /*  0 */ OBJECT_IN,
     /*  1 */ OBJECT_TA,
@@ -397,10 +447,8 @@ void DemoEc_UpdateDancingKokiriBoy(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawKokiriBoy(DemoEc* pthis, GlobalContext* globalCtx) {
-    static u8 color1[] = { 0, 130, 70, 255 };
-    static u8 color2[] = { 110, 170, 20, 255 };
 
-    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, NULL, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, NULL, NULL, color1_83, color2_83, NULL, NULL);
 }
 
 void DemoEc_InitKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
@@ -437,13 +485,10 @@ void DemoEc_UpdateDancingKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex };
-    static u8 color1[] = { 70, 190, 60, 255 };
-    static u8 color2[] = { 100, 30, 0, 255 };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_88[eyeTexIndex];
 
-    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, (Gfx*)eyeTexture, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, (Gfx*)eyeTexture, NULL, color1_88, color2_88, NULL, NULL);
 }
 void DemoEc_InitOldMan(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
@@ -464,13 +509,10 @@ void DemoEc_UpdateOldMan(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawOldMan(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC };
-    static u8 color1[] = { 0, 50, 100, 255 };
-    static u8 color2[] = { 0, 50, 160, 255 };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_91[eyeTexIndex];
 
-    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, (Gfx*)eyeTexture, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, (Gfx*)eyeTexture, NULL, color1_91, color2_91, NULL, NULL);
 }
 
 void DemoEc_InitBeardedMan(DemoEc* pthis, GlobalContext* globalCtx) {
@@ -492,13 +534,10 @@ void DemoEc_UpdateBeardedMan(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawBeardedMan(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { object_ahg_Tex_00057C, object_ahg_Tex_00067C, object_ahg_Tex_00077C };
-    static u8 color1[] = { 255, 255, 255, 255 };
-    static u8 color2[] = { 255, 255, 255, 255 };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_94[eyeTexIndex];
 
-    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, (Gfx*)eyeTexture, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(pthis, globalCtx, (Gfx*)eyeTexture, NULL, color1_94, color2_94, NULL, NULL);
 }
 
 void DemoEc_InitWoman(DemoEc* pthis, GlobalContext* globalCtx) {
@@ -520,9 +559,8 @@ void DemoEc_UpdateWoman(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawWoman(DemoEc* pthis, GlobalContext* globalCtx) {
-    static u8* eyeTextures[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8 };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_97[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -686,9 +724,8 @@ void DemoEc_GerudoPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 void DemoEc_DrawGerudo(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gGerudoWhiteEyeOpenTex, gGerudoWhiteEyeHalfTex, gGerudoWhiteEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_114[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, DemoEc_GerudoPostLimbDraw);
 }
@@ -712,9 +749,8 @@ void DemoEc_UpdateDancingZora(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawDancingZora(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_117[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -797,9 +833,8 @@ void func_8096F3D4(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawKingZora(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gKzEyeOpenTex, gKzEyeHalfTex, gKzEyeClosedTex, gKzEyeOpen2Tex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_126[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -863,9 +898,8 @@ void func_8096F640(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawMido(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gMidoEyeOpenTex, gMidoEyeHalfTex, gMidoEyeClosedTex, gMidoEyeAngryTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_133[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -921,9 +955,8 @@ void DemoEc_UpdateCuccoLady(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawCuccoLady(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_139[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -947,9 +980,8 @@ void DemoEc_UpdatePotionShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawPotionShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gPotionShopkeeperEyeOpenTex, gPotionShopkeeperEyeHalfTex, gPotionShopkeeperEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_142[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -1003,13 +1035,8 @@ void DemoEc_FishingOwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
 }
 
 void DemoEc_DrawFishingOwner(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
-        gFishingOwnerEyeOpenTex,
-        gFishingOwnerEyeHalfTex,
-        gFishingOwnerEyeClosedTex,
-    };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_149[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, DemoEc_FishingOwnerPostLimbDraw);
 }
@@ -1033,10 +1060,8 @@ void DempEc_UpdateBombchuShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawBombchuShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gBombchuShopkeeperEyeOpenTex, gBombchuShopkeeperEyeHalfTex,
-                                   gBombchuShopkeeperEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_152[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -1085,9 +1110,8 @@ void DemoEc_UpdateGorons(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawGorons(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_155[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, gGoronCsMouthNeutralTex, NULL, NULL);
 }
@@ -1111,9 +1135,8 @@ void DemoEc_UpdateMalon(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawMalon(DemoEc* pthis, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
     s32 eyeTexIndex = pthis->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    void* eyeTexture = eyeTextures_158[eyeTexIndex];
 
     DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, gMalonAdultMouthHappyTex, NULL, NULL);
 }
