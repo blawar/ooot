@@ -224,7 +224,7 @@ void ObjTimeblock_Normal(ObjTimeblock* pthis, GlobalContext* globalCtx) {
         // Possibly points the camera to pthis actor
         OnePointCutscene_Attention(globalCtx, &pthis->dyna.actor);
         // "◯◯◯◯ Time Block Attention Camera (frame counter  %d)\n"
-        osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->state.frames);
+        //osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->state.frames);
 
         pthis->demoEffectFirstPartTimer = 12;
 
@@ -282,7 +282,7 @@ void ObjTimeblock_AltBehaviorVisible(ObjTimeblock* pthis, GlobalContext* globalC
         pthis->demoEffectTimer = 160;
         OnePointCutscene_Attention(globalCtx, &pthis->dyna.actor);
         // "Time Block Attention Camera (frame counter)"
-        osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->state.frames);
+        //osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->state.frames);
         ObjTimeblock_ToggleSwitchFlag(globalCtx, pthis->dyna.actor.params & 0x3F);
     }
 
