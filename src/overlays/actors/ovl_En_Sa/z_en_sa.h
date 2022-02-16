@@ -47,6 +47,7 @@ struct EnSa {
     /* 0x021A */ Vec3s unk_21A;
     /* 0x0220 */ Vec3s jointTable[17];
     /* 0x0286 */ Vec3s morphTable[17];
+                 u32 counter;
 }; 
 
 

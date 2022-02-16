@@ -445,6 +445,8 @@ void EnSa_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnSa* pthis = (EnSa*)thisx;
     s32 pad;
 
+    pthis->counter = 0;
+
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 12.0f);
     SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSariaSkel, NULL, pthis->jointTable, pthis->morphTable, 17);
     Collider_InitCylinder(globalCtx, &pthis->collider);
@@ -604,7 +606,9 @@ void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx) {
     f32 gravity;
 
     if (globalCtx->csCtx.state == CS_STATE_IDLE) {
-        pthis->actionFunc = func_80AF6B20;
+        if(pthis->counter) {
+            pthis->actionFunc = func_80AF6B20;
+        }
         return;
     }
     csAction = globalCtx->csCtx.npcActions[1];
@@ -720,6 +724,8 @@ void EnSa_Update(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actionFunc(pthis, globalCtx);
     func_80AF57D8(pthis, globalCtx);
     func_80AF5F34(pthis, globalCtx);
+
+    pthis->counter++;
 }
 
 s32 EnSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
