@@ -136,10 +136,10 @@ void N64Controller::resolveInputs()
 			//Write save data
 			uint8_t* sram = new uint8_t[SRAM_SIZE];
 			FILE* save = nullptr;
-			fopen_s(&save, "oot.sav", "wb");
+			fopen_s(&save, "oot.sav", "rb");
 			if (save)
 			{
-				fwrite(sram, sizeof(uint8_t), SRAM_SIZE, save);
+				fread(sram, sizeof(uint8_t), SRAM_SIZE, save);
 				fclose(save);
 			}
 
