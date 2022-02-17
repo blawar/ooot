@@ -17,6 +17,9 @@ expected/
 notes/
 baserom/
 docs/doxygen/
+*.lib
+*.idb
+*.pdb
 *.elf
 *.sra
 *.z64
@@ -42,7 +45,6 @@ tools/asmsplitter/c/*
 ctx.c
 tools/*dSYM/
 graphs/
-external/
 vs/Debug
 vs/build
 src/code/*_assets.h
