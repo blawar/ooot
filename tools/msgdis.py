@@ -5,6 +5,7 @@
 
 import re, struct
 from os import path
+from oot import *
 
 # ===================================================
 #   Util
@@ -282,7 +283,7 @@ def read_tables():
     global staff_message_entry_table
 
     baserom = None
-    with open("baserom.z64","rb") as infile:
+    with open(romPath("baserom.z64"),"rb") as infile:
         baserom = infile.read()
 
     nes_message_entry_table = as_message_table_entry(baserom[nes_message_entry_table_addr:ger_message_entry_table_addr])
@@ -326,7 +327,7 @@ def dump_all_text():
             nes_offset = segmented_to_physical(entry[3])
             nes_length = next_entry[3] - entry[3]
             nes_text = ""
-            with open("baserom/nes_message_data_static","rb") as infile:
+            with open(assetPath("baserom/nes_message_data_static"),"rb") as infile:
                 infile.seek(nes_offset)
                 nes_text = fixup_message(decode(infile.read(nes_length), entry[1]).replace("\x00","",-1))
 
@@ -337,13 +338,13 @@ def dump_all_text():
                     next_entry = combined_message_entry_table[i+2]
                 ger_offset = segmented_to_physical(entry[4])
                 ger_length = next_entry[4] - entry[4]
-                with open("baserom/ger_message_data_static","rb") as infile:
+                with open(assetPath("baserom/ger_message_data_static"),"rb") as infile:
                     infile.seek(ger_offset)
                     ger_text = fixup_message(decode(infile.read(ger_length), entry[1]).replace("\x00","",-1))
                 
                 fra_offset = segmented_to_physical(entry[5])
                 fra_length = next_entry[5] - entry[5]
-                with open("baserom/fra_message_data_static","rb") as infile:
+                with open(assetPath("baserom/fra_message_data_static"),"rb") as infile:
                     infile.seek(fra_offset)
                     fra_text = fixup_message(decode(infile.read(fra_length), entry[1]).replace("\x00","",-1))
 
@@ -352,7 +353,7 @@ def dump_all_text():
     return messages
 
 def dump_staff_text():
-    staff_message_data_static_size = path.getsize("baserom/staff_message_data_static")
+    staff_message_data_static_size = path.getsize(assetPath("baserom/staff_message_data_static"))
     # text id, ypos, type, staff
     messages = []
     for i,entry in enumerate(staff_message_entry_table,0):
@@ -361,7 +362,7 @@ def dump_staff_text():
             staff_offset = segmented_to_physical(entry[3])
             # hacky way to ensure the staff message entry table is read all the way to the end
             staff_length = (staff_message_data_static_size if entry[0] == 0x052F else segmented_to_physical(next_entry[3])) - segmented_to_physical(entry[3])
-            with open("baserom/staff_message_data_static","rb") as infile:
+            with open(assetPath("baserom/staff_message_data_static"),"rb") as infile:
                 infile.seek(staff_offset)
                 messages.append((entry[0], entry[1], entry[2], fixup_message(decode(infile.read(staff_length), entry[1]).replace("\x00","",-1))))
         else:

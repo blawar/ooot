@@ -4,6 +4,7 @@
 #
 
 import argparse, ast, re
+from oot import *
 
 charmap = {}
 
@@ -31,7 +32,9 @@ if __name__ == "__main__":
     parser.add_argument("charmap", help="path to charmap file specifying custom encoding elements")
     parser.add_argument("input", help="path to file to be encoded")
     parser.add_argument("output", help="encoded file")
+    parser.add_argument("buildRom", help="encoded file")
     args = parser.parse_args()
+    setBuildRom(args.buildRom)
 
     read_charmap(args.charmap)
 

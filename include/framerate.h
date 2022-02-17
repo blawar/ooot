@@ -1,8 +1,6 @@
 #pragma once
 #include <math.h>
 
-//#define ENABLE_60FPS
-
 #if defined(ENABLE_240FPS)
 #define FRAME_RATE 240
 #define ENABLE_HIGH_FRAMERATE
@@ -11,6 +9,8 @@
 #define ENABLE_HIGH_FRAMERATE
 #elif defined(ENABLE_60FPS)
 #define FRAME_RATE 60
+#elif defined(ENABLE_30FPS)
+#define FRAME_RATE 30
 #else
 #define FRAME_RATE 20
 #endif

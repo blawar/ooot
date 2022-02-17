@@ -6,4 +6,4 @@
 #define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) \
     const char _message_##textId##_ger[sizeof(gerMessage END)] = { gerMessage END };
 
-#include "assets/text/message_data.enc.h"
+#include "text/message_data.enc.h"

@@ -2,15 +2,13 @@ import os
 import os.path
 from tqdm import tqdm
 from pathlib import Path
+from oot import *
 
-basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__.replace('\\', '/'))), '../'))
 
-try:
-	os.makedirs(os.path.join(basedir, 'assets/audio/'))
-except:
-	pass
+createDir(assetPath('audio'))
 
-segments = {'assets/z_vr_box_assets.h': [
+
+segments = {'misc/z_vr_box_assets.h': [
 'vr_SP1a_static',
 'vr_SP1a_pal_static',
 'vr_cloud2_static',
@@ -62,7 +60,7 @@ segments = {'assets/z_vr_box_assets.h': [
 'vr_KR3VR_static',
 'vr_KR3VR_pal_static'
 ],
-'assets/z_scene_table_assets.h': [
+'misc/z_scene_table_assets.h': [
 'g_pn_01',
 'g_pn_02',
 'g_pn_03',
@@ -121,13 +119,13 @@ segments = {'assets/z_vr_box_assets.h': [
 'g_pn_56',
 'g_pn_57'
 ],
-'assets/z_message_PAL_assets.h': [
+'misc/z_message_PAL_assets.h': [
 'nes_message_data_static',
 'ger_message_data_static',
 'fra_message_data_static',
 'staff_message_data_static'
 ],
-'assets/z_kankyo_assets.h': [
+'misc/z_kankyo_assets.h': [
 'vr_fine0_static',
 'vr_fine0_pal_static',
 'vr_fine1_static',
@@ -146,7 +144,7 @@ segments = {'assets/z_vr_box_assets.h': [
 'vr_cloud3_pal_static',
 'vr_holy0_static',
 'vr_holy0_pal_static'],
-'assets/z_scene_assets.h': [
+'misc/z_scene_assets.h': [
 'elf_message_field',
 'elf_message_ydan',
 'gameplay_keep',
@@ -529,9 +527,9 @@ segments = {'assets/z_vr_box_assets.h': [
 'object_ouke_haka',
 'object_timeblock',
 'object_zl4'],
-'assets/audio/bank.h': ['Audiobank_le'],
-'assets/audio/seq.h': ['Audioseq'],
-'assets/audio/table.h': ['Audiotable']
+'audio/bank.h': ['Audiobank_le'],
+'audio/seq.h': ['Audioseq'],
+'audio/table.h': ['Audiotable']
 }
 
 def writeFile(path, buffer):
@@ -549,7 +547,7 @@ def writeFile(path, buffer):
 		f.write(buffer)
 
 def serialize(name):
-	path = os.path.join('baserom', name)
+	path = os.path.join(assetPath('baserom'), name)
 	path = os.path.abspath(os.path.join(basedir, path))
 
 	with open(path, 'rb') as f:
@@ -562,7 +560,7 @@ def serialize(name):
 	return 'static const u8 %s[0x%X] = { %s };\n' % (name, len(buffer), ', '.join(lst))
 	
 def serializeU16(name, doswap = True):
-	path = os.path.join('baserom', name)
+	path = os.path.join(assetPath('baserom'), name)
 	path = os.path.abspath(os.path.join(basedir, path))
 	lst = []
 	'''
@@ -596,7 +594,7 @@ def serializeU16(name, doswap = True):
 	return 'static const u16 %s[0x%X] = { %s };\n' % (name, len(buffer) // n, ', '.join(lst))
 	
 def serializeU32(name, doswap = True):
-	path = os.path.join('baserom', name)
+	path = os.path.join(assetPath('baserom'), name)
 	path = os.path.abspath(os.path.join(basedir, path))
 	lst = []
 
@@ -634,4 +632,4 @@ for output, files in segments.items():
 			else:
 				buffer += serialize(file)
 
-	writeFile(output, buffer)
+	writeFile(assetPath(output), buffer)

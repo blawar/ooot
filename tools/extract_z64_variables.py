@@ -1,5 +1,6 @@
 import struct
 import json
+from oot import *
 
 def reverse(s):
 	return s[::-1]
@@ -371,7 +372,7 @@ class Table(Section):
 		lst = []
 		relocs = []
 		
-		with ConvFile(self.dataFile, 'rb') as x:
+		with ConvFile(assetPath(self.dataFile), 'rb') as x:
 			while z64.tell() < self.offset + self.sz:
 				address = readU32(z64, swap = False)
 				size = readU32(z64, swap = False)
@@ -406,7 +407,7 @@ class FontTable(Table):
 	def getReloc(self, address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f):
 		return FontReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, self.dataFile, f = f)
 
-sections = {'assets/rsp.h': [
+sections = {'misc/rsp.h': [
 		FontTable('gSoundFontTable', 0xBCC270, 0x270, 'baserom/Audiobank'),
 		Section('gSequenceFontTable', 0xBCC4E0, 0x1C0, 2),
 		Table('gSequenceTable', 0xBCC6A0, 0x6F0, 'baserom/Audioseq'),
@@ -420,11 +421,11 @@ sections = {'assets/rsp.h': [
 		Section('D_80113070', 0xB8A210, 0x18C0, 1),
 		Section('gJpegUCode', 0xB8BAD0, 0xAF0, 8)
 	],
-	'assets/rsp_boot.h': [
+	'misc/rsp_boot.h': [
 		Section('D_80009320', 0x9F20, 0xD0, 1),
 		Section('D_800093F0', 0x9FF0, 0x20, 1)
 	],
-	'assets/code_800F9280.h': [
+	'misc/code_800F9280.h': [
 		Section('sSeqCmdWrPos', 0xBAA5A0, 0x4, 1),
 		Section('sSeqCmdRdPos', 0xBAA5A4, 0x4, 1),
 		Section('D_80133408', 0xBAA5A8, 0x1, 1),
@@ -435,9 +436,11 @@ sections = {'assets/rsp.h': [
 	]
 }
 
-with open('baserom.z64', 'rb') as z64:
+createDir(assetPath('misc'))
+
+with open(romPath('baserom.z64'), 'rb') as z64:
 	for filename, s in sections.items():
-		with open(filename, 'w') as f:
+		with open(assetPath(filename), 'w') as f:
 			f.write('#include "global.h"\n')
 			includes = {}
 			for section in s:

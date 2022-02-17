@@ -1,1 +1,1 @@
-#include "assets/rsp_boot.h"
+#include "misc/rsp_boot.h"

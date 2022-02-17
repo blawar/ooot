@@ -3,20 +3,19 @@ import sys
 import struct
 import hashlib
 import subprocess
-
+from oot import *
 
 def cancel():
     input("Press Enter To Cancel...")
     sys.exit(1)
-
 
 def get_str_hash(byte_array):
     return str(hashlib.md5(byte_array).hexdigest())
 
 
 # If the baserom exists and is correct, we don't need to change anything
-if path.exists("baserom.z64"):
-    with open("baserom.z64", mode="rb") as file:
+if path.exists(romPath("baserom.z64")):
+    with open(romPath("baserom.z64"), mode="rb") as file:
         fileContent = bytearray(file.read())
         if get_str_hash(fileContent) == "f0b7f35375f9cc8ca1b2d59d78e35405":
             print("Found valid baserom - exiting early")
@@ -28,7 +27,7 @@ romFileExtensions = ["z64", "n64", "v64"]
 def find_baserom_original():
     for romFileExtLower in romFileExtensions:
         for romFileExt in (romFileExtLower, romFileExtLower.upper()):
-            romFileNameCandidate = "baserom_original." + romFileExt
+            romFileNameCandidate = romPath("baserom_original." + romFileExt)
             if path.exists(romFileNameCandidate):
                 return romFileNameCandidate
     return None
@@ -82,6 +81,7 @@ fileContent[0x3E] = 0x50
 for i in range(0x35CF000, len(fileContent)):
     fileContent[i] = 0xFF
 
+'''
 # Check to see if the ROM is a "vanilla" Debug ROM
 str_hash = get_str_hash(bytearray(fileContent))
 if str_hash != "f0b7f35375f9cc8ca1b2d59d78e35405":
@@ -93,10 +93,11 @@ if str_hash != "f0b7f35375f9cc8ca1b2d59d78e35405":
               "Find a new one.")
 
     cancel()
+'''
 
 # Write out our new ROM
 print("Writing new ROM 'baserom.z64'.")
-with open("baserom.z64", mode="wb") as file:
+with open(romPath("baserom.z64"), mode="wb") as file:
     file.write(bytes(fileContent))
 
 print("Done!")

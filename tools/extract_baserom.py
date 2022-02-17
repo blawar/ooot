@@ -4,9 +4,10 @@ import os
 import sys
 import struct
 from multiprocessing import Pool, cpu_count
+from oot import *
 
 
-ROM_FILE_NAME = 'baserom.z64'
+ROM_FILE_NAME = romPath('baserom.z64')
 FILE_TABLE_OFFSET = 0x12F70
 
 FILE_NAMES = [
@@ -1562,7 +1563,7 @@ def write_output_file(name, offset, size):
         print('failed to write file ' + name)
 
 def ExtractFunc(i):
-    filename = 'baserom/' + FILE_NAMES[i]
+    filename = assetPath('baserom/') + FILE_NAMES[i]
     entryOffset = FILE_TABLE_OFFSET + 16 * i
 
     virtStart = read_uint32_be(entryOffset + 0)
@@ -1586,9 +1587,9 @@ def ExtractFunc(i):
 
 def main():
     try:
-        os.mkdir('baserom')
+        createDir(assetPath('baserom'))
     except:
-        pass
+        raise
 
     # read baserom data
     try:

@@ -3,7 +3,7 @@
 #include "file_choose.h"
 #include "z_file_choose.h"
 #include "textures/title_static/title_static.h"
-#include "assets/overlays/ovl_File_Choose/ovl_file_choose.h"
+#include "overlays/ovl_File_Choose/ovl_file_choose.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"

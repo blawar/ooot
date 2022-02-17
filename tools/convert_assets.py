@@ -5,8 +5,9 @@ from pathlib import Path
 from itertools import repeat
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
+from oot import *
 
-zapd = Path("tools/ZAPD/ZAPD.out")
+zapd = Path(zapdBinary())
 
 def worker(path, type):
     # path without file extension
@@ -24,21 +25,21 @@ def worker(path, type):
         cmd = f"{zapd} btex -tt {assetType} -i {rel}.png -o {out}.inc.c"
 
     # Create folder before running of command. Otherwise it silently fails without converting
-    Path.mkdir(out.parent, parents=True, exist_ok = True)
+    createDir(out.parent)
     os.system(cmd)
 
 def main():
     # Gather all asset paths recursively in their respective lists
     pngs = []
-    for path in Path('assets').rglob('*.png'):
+    for path in Path(assetPath()).rglob('*.png'):
         pngs.append(path)
 
     jpgs = []
-    for path in Path('assets').rglob('*.jpg'):
+    for path in Path(assetPath()).rglob('*.jpg'):
         jpgs.append(path)
 
     bins = []
-    for path in Path('assets').rglob('*.bin'):
+    for path in Path(assetPath()).rglob('*.bin'):
         bins.append(path)
 
     # Multithreaded conversion of all assets with progress bar

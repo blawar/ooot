@@ -5,15 +5,19 @@ from itertools import repeat
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 from tqdm import tqdm
+import shutil
+from oot import *
 
 def ExtractFile(xmlPath: Path, outputPath: Path, outputSourcePath: Path, unaccounted: bool):
     # Create target folder recursivly, ignore error if it already exists
-    Path.mkdir(Path(outputSourcePath), parents=True, exist_ok = True)
+    createDir(outputSourcePath)
 
-    zapd = Path("tools/ZAPD/ZAPD.out")
-    zapdConfig = Path("tools/ZAPDConfigs/MqDbg/Config.xml")
-    execStr = f"{zapd} e -i {xmlPath} -b baserom -o {outputPath} -osf {outputSourcePath} -gsf 1 -rconf {zapdConfig}"
-    
+    zapd = Path(zapdBinary())
+    zapdConfig = Path(romPath("zapd/Config.xml"))
+    baserom = assetPath('baserom')
+    externalXmlFolder = assetPath('xml')
+    execStr = f"{zapd} e -i {xmlPath} -b {baserom} -o {outputPath} -osf {outputSourcePath} -gsf 1 -rconf {zapdConfig} --externalXmlFolder {externalXmlFolder}"
+
     # Use error handler only if non-windows environment, because it's not supported in windows
     if os.name != 'nt':
         execStr += " -eh"
@@ -28,6 +32,7 @@ def ExtractFile(xmlPath: Path, outputPath: Path, outputSourcePath: Path, unaccou
     # print(execStr)
 
     exitValue = os.system(execStr)
+
     if exitValue != 0:
         return ("failed", f"Error extracting {xmlPath}: {os.sys.stderr}")
     else:
@@ -42,9 +47,8 @@ def ExtractFunc(fullPath: Path, force: bool, unaccounted: bool):
 
     # Remove xml directory and suffix in path to use as output directory
     # Example: assets/xml/objects/object_example.xml -> assets/objects/object_bdoor
-    parts = list(fullPath.parts)
-    parts.remove('xml')
-    outPath = Path(*parts).with_suffix('')
+    rel = relPath(fullPath, romPath())[4:-4]
+    outPath = Path(assetPath(rel))
 
     # If output is more recent than source file: skip extraction
     # Don't skip if force == True was passed
@@ -56,10 +60,10 @@ def ExtractFunc(fullPath: Path, force: bool, unaccounted: bool):
     return ExtractFile(fullPath, outPath, outPath, unaccounted)
 
 def ExtractText(force: bool):
-    extract_text_path = Path("assets/text/message_data.h")
-    extract_staff_text_path = Path("assets/text/message_data_staff.h")
+    extract_text_path = Path(assetPath("text/message_data.h"))
+    extract_staff_text_path = Path(assetPath("text/message_data_staff.h"))
     # Ensure target folder exists
-    Path.mkdir(extract_text_path.parent, parents=True, exist_ok = True)
+    createDir(extract_text_path.parent)
 
     # Always extract if force flag was passed
     # otherwise check if target already exists and skip (by setting it to None) if it does
@@ -109,15 +113,18 @@ def main():
     parser.add_argument("-u", "--unaccounted", help="Enables ZAPD unaccounted detector warning system.", action="store_true", default=False)
     args = parser.parse_args()
 
+    shutil.rmtree(Path(assetPath('xml')), ignore_errors = True)
+    shutil.copytree(romPath('xml'), assetPath('xml'))
+
     # List of xml files for extraction
     xmlFiles = None
-    if args.assets:
+    if args.assets and len(args.assets) > 1:
         # Generate list of Paths by transforming asset inputs into full Path structure
         # Example: objects/gameplay_keep  -->  assets/xml/objects/gameplay_keep.xml
-        xmlFiles = [Path('assets/xml').joinpath(file).with_suffix('.xml') for file in args.assets]
+        xmlFiles = [Path(assetPath('xml')).joinpath(file).with_suffix('.xml') for file in args.assets[1:]]
     else:
         # Get list of all xml files in assets/xml/ subdirectories recursivly 
-        xmlFiles = sorted(Path('.').glob('assets/xml/**/*.xml'))
+        xmlFiles = sorted(Path(romPath()).glob('xml/**/*.xml'))
 
     start = time.perf_counter()
     ExtractText(args.force)
