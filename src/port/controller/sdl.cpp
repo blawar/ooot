@@ -32,6 +32,10 @@
 
 #define INITIAL_PEAK 0x8000
 
+extern RumbleStruct g_Rumble;
+
+OSTime osGetTime(void);
+
 static int g_lstickX_peak = INITIAL_PEAK;
 static int g_lstickY_peak = INITIAL_PEAK;
 static int g_rstickX_peak = INITIAL_PEAK;
