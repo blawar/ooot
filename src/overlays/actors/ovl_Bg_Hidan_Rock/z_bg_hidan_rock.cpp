@@ -252,7 +252,7 @@ void func_8088B69C(BgHidanRock* pthis, GlobalContext* globalCtx) {
     }
 
     if (!(pthis->timer % 4)) {
-        func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 0xB4, 0x0A, 0x64);
+        Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 0xB4, 0x0A, 0x64);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_SHAKE);
     }
 }

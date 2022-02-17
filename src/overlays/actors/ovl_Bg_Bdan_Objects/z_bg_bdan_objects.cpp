@@ -200,7 +200,7 @@ void func_8086C054(BgBdanObjects* pthis, GlobalContext* globalCtx) {
             player->actor.world.pos.x = -1130.0f;
             player->actor.world.pos.y = -1025.0f;
             player->actor.world.pos.z = -3300.0f;
-            func_800AA000(0.0f, 0xFF, 0x14, 0x96);
+            Rumble_Shake(0.0f, 0xFF, 0x14, 0x96);
         }
     } else if (pthis->timer != 0) {
         if (pthis->timer != 0) {
@@ -225,13 +225,13 @@ void func_8086C1A0(BgBdanObjects* pthis, GlobalContext* globalCtx) {
         pthis->actionFunc = func_8086C29C;
         pthis->timer = 30;
         BgBdanObjects_SetContactRu1(pthis, 2);
-        func_800AA000(0.0f, 0xFF, 0x14, 0x96);
+        Rumble_Shake(0.0f, 0xFF, 0x14, 0x96);
     } else {
         if (pthis->timer != 0) {
             pthis->timer--;
         }
         if (pthis->timer == 0) {
-            func_800AA000(0.0f, 0x78, 0x14, 0xA);
+            Rumble_Shake(0.0f, 0x78, 0x14, 0xA);
             pthis->timer = 11;
         }
         func_8002F974(&pthis->dyna.actor, NA_SE_EV_BUYOSTAND_RISING - SFX_FLAG);
@@ -279,14 +279,14 @@ void func_8086C3D8(BgBdanObjects* pthis, GlobalContext* globalCtx) {
         player->actor.world.pos.z = -3500.0f;
         player->actor.shape.rot.y = 0x7530;
         player->actor.world.rot.y = player->actor.shape.rot.y;
-        func_800AA000(0.0f, 0xFF, 0x1E, 0x96);
+        Rumble_Shake(0.0f, 0xFF, 0x1E, 0x96);
     } else {
         func_8002F974(&pthis->dyna.actor, NA_SE_EV_BUYOSTAND_FALL - SFX_FLAG);
         if (pthis->timer != 0) {
             pthis->timer--;
         }
         if (pthis->timer == 0) {
-            func_800AA000(0.0f, 0x78, 0x14, 0xA);
+            Rumble_Shake(0.0f, 0x78, 0x14, 0xA);
             pthis->timer = 11;
         }
         if (pthis->dyna.actor.child != NULL) {

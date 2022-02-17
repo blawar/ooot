@@ -728,7 +728,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx) {
                 func_80033E88(&pthis->actor, globalCtx, 4, 10);
             } else {
                 pthis->unk_1B6 = 10;
-                func_800A9F6C(0.0f, 180, 20, 100);
+                Rumble_Shake2(0.0f, 180, 20, 100);
             }
         }
     }

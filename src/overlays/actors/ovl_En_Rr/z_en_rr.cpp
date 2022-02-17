@@ -605,7 +605,7 @@ void EnRr_Reach(EnRr* pthis, GlobalContext* globalCtx) {
 void EnRr_GrabPlayer(EnRr* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    func_800AA000(pthis->actor.xyzDistToPlayerSq, 120, 2, 120);
+    Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 120, 2, 120);
     if ((pthis->frameCount % 8) == 0) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_LIKE_EAT);
     }

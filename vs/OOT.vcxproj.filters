@@ -5199,6 +5199,9 @@
     <ClCompile Include="..\src\code\framerate.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\port\controller\xcontroller.cpp">
+      <Filter>Source Files\port\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\segment_symbols.h">
@@ -5347,6 +5350,9 @@
     </ClInclude>
     <ClInclude Include="..\include\asset_common.h">
       <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\port\controller\xcontroller.h">
+      <Filter>Source Files\port\controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

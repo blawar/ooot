@@ -1,6 +1,6 @@
 #pragma once
-struct UnkRumbleStruct;
+struct RumbleStruct;
 
-void func_800D2E30(UnkRumbleStruct* arg0);
-void func_800D3140(UnkRumbleStruct* arg0);
-void func_800D3178(UnkRumbleStruct* arg0);
+void Rumble_Update(RumbleStruct* arg0);
+void func_800D3140(RumbleStruct* arg0);
+void func_800D3178(RumbleStruct* arg0);

@@ -502,7 +502,7 @@ void Cutscene_Command_FadeBGM(GlobalContext* globalCtx, CutsceneContext* csCtx, 
 // Command 9: ?
 void Cutscene_Command_09(GlobalContext* globalCtx, CutsceneContext* csCtx, CsCmdUnknown9* cmd) {
     if (csCtx->frames == cmd->startFrame) {
-        func_800AA000(0.0f, cmd->unk_06, cmd->unk_07, cmd->unk_08);
+        Rumble_Shake(0.0f, cmd->unk_06, cmd->unk_07, cmd->unk_08);
     }
 }
 

@@ -139,7 +139,7 @@ void BgMizuShutter_Move(BgMizuShutter* pthis, GlobalContext* globalCtx) {
         if ((pthis->dyna.actor.world.pos.x == pthis->closedPos.x) &&
             (pthis->dyna.actor.world.pos.y == pthis->closedPos.y) &&
             (pthis->dyna.actor.world.pos.z == pthis->closedPos.z)) {
-            func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
+            Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_STONE_BOUND);
             pthis->actionFunc = BgMizuShutter_WaitForSwitch;
         }

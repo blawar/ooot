@@ -453,7 +453,7 @@ void FileChoose_DrawNameEntry(GameState* thisx) {
                             pthis->configMode = CM_NAME_ENTRY_TO_MAIN;
                             pthis->nameBoxAlpha[pthis->buttonIndex] = pthis->nameAlpha[pthis->buttonIndex] = 200;
                             pthis->connectorAlpha[pthis->buttonIndex] = 255;
-                            func_800AA000(300.0f, 0xB4, 0x14, 0x64);
+                            Rumble_Shake(300.0f, 0xB4, 0x14, 0x64);
                         } else {
                             Audio_PlaySoundGeneral(NA_SE_SY_FSEL_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0,
                                                    &D_801333E8);

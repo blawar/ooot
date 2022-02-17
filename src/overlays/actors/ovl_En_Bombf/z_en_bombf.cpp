@@ -277,7 +277,7 @@ void EnBombf_Explode(EnBombf* pthis, GlobalContext* globalCtx) {
 
     if (pthis->explosionCollider.elements[0].dim.modelSphere.radius == 0) {
         pthis->actor.flags |= ACTOR_FLAG_5;
-        func_800AA000(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
+        Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
     }
 
     pthis->explosionCollider.elements[0].dim.modelSphere.radius += 8;

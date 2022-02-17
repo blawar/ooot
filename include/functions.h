@@ -367,15 +367,15 @@ void SsSram_Init(uintptr_t addr, u8 handleType, u8 handleDomain, u8 handleLatenc
                  u8 handlePulse, u32 handleSpeed);
 void SsSram_Dma(void* dramAddr, size_t size, s32 direction);
 void SsSram_ReadWrite(uintptr_t addr, void* dramAddr, size_t size, s32 direction);
-void func_800A9F30(PadMgr*, s32);
-void func_800A9F6C(f32, u8, u8, u8);
-void func_800AA000(f32, u8, u8, u8);
-void func_800AA0B4();
-void func_800AA0F0(void);
-u32 func_800AA148();
-void func_800AA15C();
-void func_800AA16C();
-void func_800AA178(u32);
+void Rumble_Init(PadMgr*, s32);
+void Rumble_Shake2(f32, u8, u8, u8);
+void Rumble_Shake(f32, u8, u8, u8);
+void Rumble_Reset();
+void Rumble_Destroy(void);
+u32 Rumble_IsEnabled();
+void Rumble_Stop();
+void Rumble_Clear();
+void Rumble_Enable(u32);
 
 
 
@@ -581,9 +581,9 @@ u64* SysUcode_GetUCodeBoot(void);
 u64 SysUcode_GetUCodeBootSize(void);
 u64* SysUcode_GetUCode(void);
 u64* SysUcode_GetUCodeData(void);
-void func_800D2E30(UnkRumbleStruct* arg0);
-void func_800D3140(UnkRumbleStruct* arg0);
-void func_800D3178(UnkRumbleStruct* arg0);
+void Rumble_Update(RumbleStruct* arg0);
+void func_800D3140(RumbleStruct* arg0);
+void func_800D3178(RumbleStruct* arg0);
 void func_800D31A0(void);
 void func_800D31F0(void);
 void func_800D3210(void);

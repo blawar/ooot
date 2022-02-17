@@ -458,7 +458,7 @@ void Environment_Init(GlobalContext* globalCtx2, EnvironmentContext* envCtx, s32
     }
 
     gCustomLensFlareOn = false;
-    func_800AA15C();
+    Rumble_Stop();
 }
 
 u8 Environment_SmoothStepToU8(u8* pvalue, u8 target, u8 scale, u8 step, u8 minStep) {
@@ -910,7 +910,7 @@ void Environment_Update(GlobalContext* globalCtx, EnvironmentContext* envCtx, Li
     s32 adjustment;
 
     if ((((void)0, gSaveContext.gameMode) != 0) && (((void)0, gSaveContext.gameMode) != 3)) {
-        func_800AA16C();
+        Rumble_Clear();
     }
 
     if (pauseCtx->state == 0) {

@@ -1246,7 +1246,7 @@ void func_80832630(GlobalContext* globalCtx) {
 
 void func_8083264C(Player* pthis, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     if (pthis->actor.category == ACTORCAT_PLAYER) {
-        func_800AA000(arg4, arg1, arg2, arg3);
+        Rumble_Shake(arg4, arg1, arg2, arg3);
     }
 }
 
