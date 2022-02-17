@@ -16,9 +16,9 @@
 
 volatile OSTime D_8016A520;
 volatile OSTime D_8016A528;
-volatile OSTime D_8016A530;
-volatile OSTime D_8016A538;
-volatile OSTime D_8016A540;
+volatile OSTime gRSPAudioTotalTime_LastFrame;
+volatile OSTime gRSPGFXTotalTime_LastFrame;
+volatile OSTime gRDPTotalTime_LastFrame;
 volatile OSTime D_8016A548;
 volatile OSTime D_8016A550;
 volatile OSTime D_8016A558;
@@ -33,8 +33,8 @@ extern volatile OSTime gIrqMgrRetraceTime;
 
 SpeedMeterTimeEntry sSpeedMeterTimeEntryArray[] = {
     { &D_8016A520, 0, 0, GPACK_RGBA5551(255, 0, 0, 1) }, { &D_8016A528, 0, 2, GPACK_RGBA5551(255, 255, 0, 1) },
-    { &D_8016A530, 0, 4, GPACK_RGBA5551(0, 0, 255, 1) }, { &D_8016A538, 0, 6, GPACK_RGBA5551(255, 128, 128, 1) },
-    { &D_8016A540, 0, 8, GPACK_RGBA5551(0, 255, 0, 1) }, { &D_8016A548, 0, 10, GPACK_RGBA5551(255, 0, 255, 1) },
+    { &gRSPAudioTotalTime_LastFrame, 0, 4, GPACK_RGBA5551(0, 0, 255, 1) }, { &gRSPGFXTotalTime_LastFrame, 0, 6, GPACK_RGBA5551(255, 128, 128, 1) },
+    { &gRDPTotalTime_LastFrame, 0, 8, GPACK_RGBA5551(0, 255, 0, 1) }, { &D_8016A548, 0, 10, GPACK_RGBA5551(255, 0, 255, 1) },
 };
 
 #define DrawRec(gfx, color, ulx, uly, lrx, lry)        \

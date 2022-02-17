@@ -44,13 +44,6 @@ f32 Rand_Centered(void) {
 }
 
 /**
- * Seeds a pseudo-random number at rndNum with a provided seed.
- */
-void Rand_Seed_Variable(u32* rndNum, u32 seed) {
-    *rndNum = seed;
-}
-
-/**
  * Generates the next pseudo-random integer from the provided rndNum.
  */
 u32 Rand_Next_Variable(u32* rndNum) {

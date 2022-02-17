@@ -128,7 +128,6 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     static s32 sGraphCfbInfoIdx = 0;
 
     OSTime time;
-    OSTimer timer;
     OSMesg msg;
     OSTask_t* task = &gfxCtx->task.list.t;
     OSScTask* scTask = &gfxCtx->task;
@@ -338,12 +337,12 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
         OSTime time = osGetTime();
         s32 pad[4];
 
-        D_8016A538 = gRSPGFXTotalTime;
-        D_8016A530 = gRSPAudioTotalTime;
-        D_8016A540 = gRDPTotalTime;
-        gRSPGFXTotalTime = 0;
+        gRSPGFXTotalTime_LastFrame   = gRSPGFXTotalTime;
+        gRSPAudioTotalTime_LastFrame = gRSPAudioTotalTime;
+        gRDPTotalTime_LastFrame      = gRDPTotalTime;
+        gRSPGFXTotalTime   = 0;
         gRSPAudioTotalTime = 0;
-        gRDPTotalTime = 0;
+        gRDPTotalTime      = 0;
 
         if (sGraphUpdateTime != 0) {
             D_8016A548 = time - sGraphUpdateTime;

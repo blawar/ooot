@@ -28,9 +28,9 @@ struct SpeedMeterTimeEntry {
 
 extern volatile OSTime D_8016A520;
 extern volatile OSTime D_8016A528;
-extern volatile OSTime D_8016A530;
-extern volatile OSTime D_8016A538;
-extern volatile OSTime D_8016A540;
+extern volatile OSTime gRSPAudioTotalTime_LastFrame;
+extern volatile OSTime gRSPGFXTotalTime_LastFrame;
+extern volatile OSTime gRDPTotalTime_LastFrame;
 extern volatile OSTime D_8016A548;
 extern volatile OSTime D_8016A550;
 extern volatile OSTime D_8016A558;
