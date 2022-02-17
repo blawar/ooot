@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Debug
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Cleanup
+      run: Remove-Item ooot-master -Recurse -Force -ErrorAction SilentlyContinue
+
+    - name: Clone OOT
+      run: git clone --recursive https://github.com/blawar/ooot.git ooot-master
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    - name: Extract Assets
+      run: cd ooot-master ; cp ../baserom_original.z64 . ; python setup.py
+      
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: cd ooot-master ; msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} vs/OOT.sln
