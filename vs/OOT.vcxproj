@@ -1922,6 +1922,7 @@
     <ClCompile Include="..\src\port\controller\keyboard.cpp" />
     <ClCompile Include="..\src\port\controller\sdl.cpp" />
     <ClCompile Include="..\src\port\controller\tas.cpp" />
+    <ClCompile Include="..\src\port\controller\xcontroller.cpp" />
     <ClCompile Include="..\src\port\debug.cpp" />
     <ClCompile Include="..\src\port\main.cpp" />
     <ClCompile Include="..\src\port\mixer.cpp" />
@@ -1984,6 +1985,7 @@
     <ClInclude Include="..\src\port\controller\keyboard.h" />
     <ClInclude Include="..\src\port\controller\sdl.h" />
     <ClInclude Include="..\src\port\controller\tas.h" />
+    <ClInclude Include="..\src\port\controller\xcontroller.h" />
     <ClInclude Include="..\src\port\player\player.h" />
     <ClInclude Include="..\src\port\player\players.h" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 #if !defined(DISABLE_SDL_CONTROLLER)
-
+#include <algorithm>
 #include "ultra64/types.h"
+#include "padmgr.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -35,8 +36,6 @@ static int g_lstickX_peak = INITIAL_PEAK;
 static int g_lstickY_peak = INITIAL_PEAK;
 static int g_rstickX_peak = INITIAL_PEAK;
 static int g_rstickY_peak = INITIAL_PEAK;
-
-
 
 namespace oot::hid
 {
@@ -101,6 +100,9 @@ namespace oot::hid
 		m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT]	   = Button::R_CBUTTONS;
 		m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP]	   = Button::U_CBUTTONS;
 		m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN]	   = Button::D_CBUTTONS;
+
+	//Connect rumble pack callback
+	g_Rumble.onVibrate = [=](auto strength, auto time, auto decay) { onVibrate(strength, time, decay); };
 
 #ifndef __SWITCH__
 		loadKeyBindings();
@@ -345,11 +347,13 @@ namespace oot::hid
 		bool walk = false;
 		SDL_GameControllerUpdate();
 
-		if(m_context != NULL && !SDL_GameControllerGetAttached(m_context))
-		{
-			SDL_GameControllerClose(m_context);
-			m_context = NULL;
-		}
+	updateVibration();
+
+	if (m_context != NULL && !SDL_GameControllerGetAttached(m_context))
+	{
+		SDL_GameControllerClose(m_context);
+		m_context = NULL;
+	}
 
 		for(int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
 			m_buttonState[i] = SDL_GameControllerGetButton(m_context, (SDL_GameControllerButton)i);
@@ -458,9 +462,51 @@ namespace oot::hid
 			m_state.button &= ~((uint16_t)Button::U_CBUTTONS | (uint16_t)Button::D_CBUTTONS | (uint16_t)Button::L_CBUTTONS | (uint16_t)Button::R_CBUTTONS); // Unpress the c buttons
 		}
 
-		// When the back button is pressed. Mark all dpad button as pressed. Used to open map select
-		if(m_buttonState[SDL_CONTROLLER_BUTTON_BACK])
-			m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+	//When the back button is pressed. Mark all dpad button as pressed. Used to open map select
+	if (m_buttonState[SDL_CONTROLLER_BUTTON_BACK])
+		m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+}
+
+void Joypad::onVibrate(uint8_t strength, uint8_t vibtime, uint8_t decay)//Called from the game
+{
+	if (strength <= 20)
+		return;
+	if (decay <= 0)
+		decay = 1;
+
+	uint32_t strengthScaled = strength * strength;
+	//uint32_t strengthScaled = strength * 257;
+	//uint32_t strengthScaled = strength * 150 + 27135;
+
+	if (strengthScaled < m_VibrationStrength)//The new one is weak
+		return;//Let's not play the new one
+
+	auto current_time = osGetTime();
+
+	m_VibrationEnds = current_time + (int)(vibtime * 0.04f);
+	m_VibrationStrength = strengthScaled;
+	m_VibrationDecay = decay * 15;
+
+	xinput.Vibrate(m_VibrationStrength, m_VibrationStrength);
+}
+
+//Called once per frame
+//BUG: this should not depend on the framerate!
+void Joypad::updateVibration()
+{
+	if (m_VibrationStrength <= 0)
+		return;
+
+	auto current_time = osGetTime();
+
+	if (current_time >= m_VibrationEnds)//Ease off
+	{
+		//m_VibrationStrength -= 250;
+		m_VibrationStrength -= m_VibrationDecay;
+		m_VibrationStrength = std::max(m_VibrationStrength, 0);
 	}
+
+	xinput.Vibrate(m_VibrationStrength, m_VibrationStrength);
+}
 } // namespace oot::hid
 #endif

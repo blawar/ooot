@@ -75,7 +75,7 @@ void DemoGt_PlayExplosion2Sfx(GlobalContext* globalCtx, Vec3f* pos) {
 }
 
 void DemoGt_Rumble(GlobalContext* globalCtx) {
-    func_800AA000(0.0f, 0x32, 0xA, 5);
+    Rumble_Shake(0.0f, 0x32, 0xA, 5);
 }
 
 void DemoGt_SpawnDust(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel, f32 scale, s16 scaleStep,

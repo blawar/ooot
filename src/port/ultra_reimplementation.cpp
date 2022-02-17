@@ -77,6 +77,7 @@ OSTime osGetTime(void)
 #else
 OSTime osGetTime(void)
 {
+	//Don't used (uint32_t)time(NULL), it's not accurate enough for rumble!
 	return 0;
 }
 #endif

@@ -91,7 +91,7 @@ void GameOver_Update(GlobalContext* globalCtx) {
             v91 = VREG(91);
             v92 = VREG(92);
 
-            func_800AA000(0.0f, ((v90 > 0x64) ? 0xFF : (v90 * 0xFF) / 0x64), (CLAMP_MAX(v91 * 3, 0xFF)),
+            Rumble_Shake(0.0f, ((v90 > 0x64) ? 0xFF : (v90 * 0xFF) / 0x64), (CLAMP_MAX(v91 * 3, 0xFF)),
                           ((v92 > 0x64) ? 0xFF : (v92 * 0xFF) / 0x64));
 
             gameOverCtx->state = GAMEOVER_DEATH_WAIT_GROUND;
@@ -106,7 +106,7 @@ void GameOver_Update(GlobalContext* globalCtx) {
             if (gGameOverTimer == 0) {
                 globalCtx->pauseCtx.state = 8;
                 gameOverCtx->state++;
-                func_800AA15C();
+                Rumble_Stop();
             }
             break;
 
@@ -126,7 +126,7 @@ void GameOver_Update(GlobalContext* globalCtx) {
             v91 = VREG(91);
             v92 = VREG(92);
 
-            func_800AA000(0.0f, ((v90 > 0x64) ? 0xFF : (v90 * 0xFF) / 0x64), (CLAMP_MAX(v91 * 3, 0xFF)),
+            Rumble_Shake(0.0f, ((v90 > 0x64) ? 0xFF : (v90 * 0xFF) / 0x64), (CLAMP_MAX(v91 * 3, 0xFF)),
                           ((v92 > 0x64) ? 0xFF : (v92 * 0xFF) / 0x64));
             break;
 

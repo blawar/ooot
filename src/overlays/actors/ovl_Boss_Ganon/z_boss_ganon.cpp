@@ -3972,7 +3972,7 @@ void BossGanon_LightBall_Update(Actor* thisx, GlobalContext* globalCtx2) {
                         spBA = 2;
                         Audio_PlaySoundGeneral(NA_SE_IT_SHIELD_REFLECT_MG, &player->actor.projectedPos, 4, &D_801333E0,
                                                &D_801333E0, &D_801333E8);
-                        func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
+                        Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
                     } else {
                         spBA = 1;
                         pthis->actor.world.rot.y = Math_Atan2S(zDistFromGanondorf, xDistFromGanondorf);
@@ -3982,7 +3982,7 @@ void BossGanon_LightBall_Update(Actor* thisx, GlobalContext* globalCtx2) {
                         pthis->timers[1] = 2;
                         Audio_PlaySoundGeneral(NA_SE_IT_SWORD_REFLECT_MG, &player->actor.projectedPos, 4, &D_801333E0,
                                                &D_801333E0, &D_801333E8);
-                        func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
+                        Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
 
                         if (hitWithBottle == false) {
                             // if ganondorf is 250 units away from link, at least 3 volleys are required
@@ -4451,7 +4451,7 @@ void func_808E2544(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->collider.base.acFlags &= ~2;
 
                 if (!(acHitInfo->toucher.dmgFlags & 0x100000) || Player_HasMirrorShieldEquipped(globalCtx)) {
-                    func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
+                    Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
                     pthis->unk_1C2 = 0xC;
                     pthis->actor.speedXZ = -30.0f;
 

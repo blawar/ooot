@@ -344,7 +344,7 @@ void func_80AE2C1C(EnRd* pthis, GlobalContext* globalCtx) {
                     player->actor.freezeTimer = 40;
                     func_8008EEAC(globalCtx, &pthis->actor);
                     GET_PLAYER(globalCtx)->unk_684 = &pthis->actor;
-                    func_800AA000(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
+                    Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
                 }
                 pthis->unk_306 = 0x3C;
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_AIM);
@@ -497,7 +497,7 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx) {
             Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_004268);
             pthis->unk_304++;
             globalCtx->damagePlayer(globalCtx, -8);
-            func_800AA000(pthis->actor.xzDistToPlayer, 0xFF, 1, 0xC);
+            Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 1, 0xC);
             pthis->unk_319 = 20;
         case 0:
             Math_SmoothStepToS(&pthis->unk_30E, 0, 1, 0x5DC, 0);
@@ -531,7 +531,7 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx) {
 
             if (pthis->unk_319 == 0) {
                 globalCtx->damagePlayer(globalCtx, -8);
-                func_800AA000(pthis->actor.xzDistToPlayer, 0xF0, 1, 0xC);
+                Rumble_Shake(pthis->actor.xzDistToPlayer, 0xF0, 1, 0xC);
                 pthis->unk_319 = 20;
                 func_8002F7DC(&player->actor, NA_SE_VO_LI_DAMAGE_S + player->ageProperties->unk_92);
             }
@@ -571,7 +571,7 @@ void func_80AE3834(EnRd* pthis, GlobalContext* globalCtx) {
     if (ABS(temp_v0) < 0x2008) {
         if (!(pthis->unk_312 & 0x80)) {
             player->actor.freezeTimer = 60;
-            func_800AA000(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
+            Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
             func_8008EEAC(globalCtx, &pthis->actor);
         }
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_AIM);

@@ -1305,7 +1305,7 @@ void EnHorse_MountedTrot(EnHorse* pthis, GlobalContext* globalCtx) {
     pthis->skin.skelAnime.playSpeed = pthis->actor.speedXZ * 0.375f;
     if (SkelAnime_Update(&pthis->skin.skelAnime)) {
         EnHorse_PlayTrottingSound(pthis);
-        func_800AA000(0.0f, 60, 8, 255);
+        Rumble_Shake(0.0f, 60, 8, 255);
         if (pthis->actor.speedXZ >= 6.0f) {
             EnHorse_StartGallopingInterruptable(pthis);
         } else if (pthis->actor.speedXZ < 3.0f) {
@@ -1373,7 +1373,7 @@ void EnHorse_MountedGallop(EnHorse* pthis, GlobalContext* globalCtx) {
     pthis->skin.skelAnime.playSpeed = pthis->actor.speedXZ * 0.3f;
     if (SkelAnime_Update(&pthis->skin.skelAnime)) {
         EnHorse_PlayGallopingSound(pthis);
-        func_800AA000(0, 120, 8, 255);
+        Rumble_Shake(0, 120, 8, 255);
         if (EnHorse_PlayerCanMove(pthis, globalCtx) == true) {
             if (stickMag >= 10.0f && Math_CosS(stickAngle) <= -0.5f) {
                 EnHorse_StartBraking(pthis, globalCtx);
@@ -1396,7 +1396,7 @@ void EnHorse_StartRearing(EnHorse* pthis) {
     if (pthis->stateFlags & ENHORSE_DRAW) {
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_21C, 4, &D_801333E0, &D_801333E0, &D_801333E8);
     }
-    func_800AA000(0.0f, 180, 20, 100);
+    Rumble_Shake(0.0f, 180, 20, 100);
     Animation_Change(&pthis->skin.skelAnime, sAnimationHeaders[pthis->type][pthis->animationIdx], 1.0f, 0.0f,
                      Animation_GetLastFrame(sAnimationHeaders[pthis->type][pthis->animationIdx]), ANIMMODE_ONCE, -3.0f);
 }
@@ -1411,7 +1411,7 @@ void EnHorse_MountedRearing(EnHorse* pthis, GlobalContext* globalCtx) {
             pthis->stateFlags |= ENHORSE_LAND2_SOUND;
             Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND2, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                    &D_801333E8);
-            func_800AA000(0, 180, 20, 100);
+            Rumble_Shake(0, 180, 20, 100);
         }
     }
 
@@ -1466,7 +1466,7 @@ void EnHorse_Stopping(EnHorse* pthis, GlobalContext* globalCtx) {
             if (pthis->stateFlags & ENHORSE_DRAW) {
                 Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_21C, 4, &D_801333E0, &D_801333E0, &D_801333E8);
             }
-            func_800AA000(0.0f, 180, 20, 100);
+            Rumble_Shake(0.0f, 180, 20, 100);
             pthis->stateFlags &= ~ENHORSE_STOPPING_NEIGH_SOUND;
         } else {
             EnHorse_StartMountedIdleResetAnim(pthis);
@@ -1596,7 +1596,7 @@ void EnHorse_StartLowJump(EnHorse* pthis, GlobalContext* globalCtx) {
     pthis->riderPos.y -= y * 0.01f;
 
     Audio_PlaySoundGeneral(NA_SE_EV_HORSE_JUMP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-    func_800AA000(0.0f, 170, 10, 10);
+    Rumble_Shake(0.0f, 170, 10, 10);
 }
 
 void EnHorse_Stub1(EnHorse* pthis) {
@@ -1631,7 +1631,7 @@ void EnHorse_LowJump(EnHorse* pthis, GlobalContext* globalCtx) {
         (curFrame > 17.0f && pthis->actor.world.pos.y < pthis->actor.floorHeight - pthis->actor.velocity.y + 80.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                &D_801333E8);
-        func_800AA000(0.0f, 255, 10, 80);
+        Rumble_Shake(0.0f, 255, 10, 80);
         pthis->stateFlags &= ~ENHORSE_JUMPING;
         pthis->actor.gravity = -3.5f;
         pthis->actor.world.pos.y = pthis->actor.floorHeight;
@@ -1670,7 +1670,7 @@ void EnHorse_StartHighJump(EnHorse* pthis, GlobalContext* globalCtx) {
 
     pthis->stateFlags |= ENHORSE_CALC_RIDER_POS;
     Audio_PlaySoundGeneral(NA_SE_EV_HORSE_JUMP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-    func_800AA000(0.0f, 170, 10, 10);
+    Rumble_Shake(0.0f, 170, 10, 10);
 }
 
 void EnHorse_Stub2(EnHorse* pthis) {
@@ -1706,7 +1706,7 @@ void EnHorse_HighJump(EnHorse* pthis, GlobalContext* globalCtx) {
         (curFrame > 23.0f && pthis->actor.world.pos.y < pthis->actor.floorHeight - pthis->actor.velocity.y + 80.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                &D_801333E8);
-        func_800AA000(0.0f, 255, 10, 80);
+        Rumble_Shake(0.0f, 255, 10, 80);
         pthis->stateFlags &= ~ENHORSE_JUMPING;
         pthis->actor.gravity = -3.5f;
         pthis->actor.world.pos.y = pthis->actor.floorHeight;
@@ -2124,7 +2124,7 @@ void EnHorse_CsMoveToPoint(EnHorse* pthis, GlobalContext* globalCtx, CsCmdActorA
 
     if (SkelAnime_Update(&pthis->skin.skelAnime)) {
         EnHorse_PlayGallopingSound(pthis);
-        func_800AA000(0.0f, 120, 8, 255);
+        Rumble_Shake(0.0f, 120, 8, 255);
         Animation_PlayOnceSetSpeed(&pthis->skin.skelAnime, sAnimationHeaders[pthis->type][pthis->animationIdx],
                                    pthis->actor.speedXZ * 0.3f);
     }
@@ -2155,7 +2155,7 @@ void EnHorse_CsPlayHighJumpAnim(EnHorse* pthis, GlobalContext* globalCtx) {
 
     pthis->stateFlags |= ENHORSE_CALC_RIDER_POS;
     Audio_PlaySoundGeneral(NA_SE_EV_HORSE_JUMP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-    func_800AA000(0.0f, 170, 10, 10);
+    Rumble_Shake(0.0f, 170, 10, 10);
 }
 
 void EnHorse_CsJumpInit(EnHorse* pthis, GlobalContext* globalCtx, CsCmdActorAction* action) {
@@ -2200,7 +2200,7 @@ void EnHorse_CsJump(EnHorse* pthis, GlobalContext* globalCtx, CsCmdActorAction* 
         pthis->cutsceneFlags |= 1;
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                &D_801333E8);
-        func_800AA000(0.0f, 255, 10, 80);
+        Rumble_Shake(0.0f, 255, 10, 80);
         pthis->stateFlags &= ~ENHORSE_JUMPING;
         pthis->actor.gravity = -3.5f;
         pthis->actor.velocity.y = 0;
@@ -2283,7 +2283,7 @@ void EnHorse_CsWarpMoveToPoint(EnHorse* pthis, GlobalContext* globalCtx, CsCmdAc
 
     if (SkelAnime_Update(&pthis->skin.skelAnime)) {
         EnHorse_PlayGallopingSound(pthis);
-        func_800AA000(0.0f, 120, 8, 255);
+        Rumble_Shake(0.0f, 120, 8, 255);
         Animation_PlayOnceSetSpeed(&pthis->skin.skelAnime, sAnimationHeaders[pthis->type][pthis->animationIdx],
                                    pthis->actor.speedXZ * 0.3f);
     }
@@ -2466,11 +2466,11 @@ void EnHorse_UpdateHbaAnim(EnHorse* pthis) {
     } else if (pthis->animationIdx == ENHORSE_ANIM_TROT) {
         animSpeed = pthis->actor.speedXZ * 0.25f;
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-        func_800AA000(0.0f, 60, 8, 255);
+        Rumble_Shake(0.0f, 60, 8, 255);
     } else if (pthis->animationIdx == ENHORSE_ANIM_GALLOP) {
         animSpeed = pthis->actor.speedXZ * 0.2f;
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-        func_800AA000(0.0f, 120, 8, 255);
+        Rumble_Shake(0.0f, 120, 8, 255);
     } else {
         animSpeed = 1.0f;
     }
@@ -2742,7 +2742,7 @@ void EnHorse_BridgeJumpInit(EnHorse* pthis, GlobalContext* globalCtx) {
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_21C, 4, &D_801333E0, &D_801333E0, &D_801333E8);
     }
     Audio_PlaySoundGeneral(NA_SE_EV_HORSE_JUMP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
-    func_800AA000(0.0f, 170, 10, 10);
+    Rumble_Shake(0.0f, 170, 10, 10);
     pthis->postDrawFunc = NULL;
 }
 
@@ -2792,7 +2792,7 @@ void EnHorse_CheckBridgeJumpLanding(EnHorse* pthis, GlobalContext* globalCtx) {
         EnHorse_JumpLanding(pthis, globalCtx);
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                &D_801333E8);
-        func_800AA000(0.0f, 255, 10, 80);
+        Rumble_Shake(0.0f, 255, 10, 80);
     }
 }
 
@@ -3311,7 +3311,7 @@ void EnHorse_CheckBoost(EnHorse* thisx, GlobalContext* globalCtx2) {
             if (!(pthis->stateFlags & ENHORSE_BOOST) && !(pthis->stateFlags & ENHORSE_FLAG_8) &&
                 !(pthis->stateFlags & ENHORSE_FLAG_9)) {
                 if (pthis->numBoosts > 0) {
-                    func_800AA000(0.0f, 180, 20, 100);
+                    Rumble_Shake(0.0f, 180, 20, 100);
                     pthis->stateFlags |= ENHORSE_BOOST;
                     pthis->stateFlags |= ENHORSE_FIRST_BOOST_REGEN;
                     pthis->stateFlags |= ENHORSE_FLAG_8;

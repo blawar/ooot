@@ -908,7 +908,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
 
                 globalCtx->gameplayFrames++;
 
-                func_800AA178(1);
+                Rumble_Enable(1);
 
                 if (globalCtx->actorCtx.freezeFlashTimer && (globalCtx->actorCtx.freezeFlashTimer-- < 5)) {
                     osSyncPrintf("FINISH=%d\n", globalCtx->actorCtx.freezeFlashTimer);
@@ -989,7 +989,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     }
                 }
             } else {
-                func_800AA178(0);
+                Rumble_Enable(0);
             }
 
             if (1 && HREG(63)) {

@@ -570,7 +570,7 @@ void func_809973E8(DoorShutter* pthis, GlobalContext* globalCtx) {
         Quake_SetSpeed(quakeId, -32536);
         Quake_SetQuakeValues(quakeId, 2, 0, 0, 0);
         Quake_SetCountdown(quakeId, 10);
-        func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
+        Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
         func_80997220(pthis, globalCtx);
     }
 }
@@ -762,7 +762,7 @@ void DoorShutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
 void func_8099803C(GlobalContext* globalCtx, s16 y, s16 countdown, s16 camId) {
     s16 quakeId = Quake_Add(Gameplay_GetCamera(globalCtx, camId), 3);
 
-    func_800A9F6C(0.0f, 180, 20, 100);
+    Rumble_Shake2(0.0f, 180, 20, 100);
     Quake_SetSpeed(quakeId, 20000);
     Quake_SetQuakeValues(quakeId, y, 0, 0, 0);
     Quake_SetCountdown(quakeId, countdown);

@@ -453,7 +453,7 @@ void func_809BD8DC(EnBigokuta* pthis, GlobalContext* globalCtx) {
             EffectSsGSplash_Spawn(globalCtx, &effectPos, NULL, NULL, 1, 2000);
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DAIOCTA_LAND_WATER);
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOLON_LAND_BIG);
-            func_800AA000(0.0f, 0xFF, 0x14, 0x96);
+            Rumble_Shake(0.0f, 0xFF, 0x14, 0x96);
         }
     } else if (pthis->unk_196 < -1) {
         pthis->actor.world.pos.y = pthis->actor.home.pos.y - (sinf((pthis->unk_196 + 1) * (M_PI / 10)) * 20.0f);

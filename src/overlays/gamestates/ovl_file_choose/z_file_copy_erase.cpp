@@ -384,7 +384,7 @@ void FileChoose_CopyConfirm(GameState* thisx) {
         pthis->nextTitleLabel = FS_TITLE_COPY_COMPLETE;
         pthis->actionTimer = 8;
         pthis->configMode = CM_COPY_ANIM_1;
-        func_800AA000(300.0f, 0xB4, 0x14, 0x64);
+        Rumble_Shake(300.0f, 0xB4, 0x14, 0x64);
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
     } else if (ABS(pthis->stickRelY) >= 30) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
@@ -840,7 +840,7 @@ void FileChoose_EraseConfirm(GameState* thisx) {
         pthis->actionTimer = 8;
         pthis->configMode = CM_ERASE_ANIM_1;
         pthis->nextTitleLabel = FS_TITLE_ERASE_COMPLETE;
-        func_800AA000(200.0f, 0xFF, 0x14, 0x96);
+        Rumble_Shake(200.0f, 0xFF, 0x14, 0x96);
         sEraseDelayTimer = 15;
     } else if (ABS(pthis->stickRelY) >= 30) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);

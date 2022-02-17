@@ -211,7 +211,7 @@ void BgHeavyBlock_MovePiece(BgHeavyBlock* pthis, GlobalContext* globalCtx) {
             thisx->velocity.z = Rand_CenteredFloat(8.0f);
             BgHeavyBlock_SetPieceRandRot(pthis, 1.0f);
             Audio_PlayActorSound2(thisx, NA_SE_EV_ROCK_BROKEN);
-            func_800AA000(thisx->xzDistToPlayer, 0x96, 0xA, 8);
+            Rumble_Shake(thisx->xzDistToPlayer, 0x96, 0xA, 8);
         }
     }
 
@@ -370,7 +370,7 @@ void BgHeavyBlock_LiftedUp(BgHeavyBlock* pthis, GlobalContext* globalCtx) {
     f32 xOffset;
 
     if (pthis->timer == 11) {
-        func_800AA000(0.0f, 0xFF, 0x14, 0x14);
+        Rumble_Shake(0.0f, 0xFF, 0x14, 0x14);
         func_8002F7DC(&player->actor, NA_SE_PL_PULL_UP_BIGROCK);
         LOG_STRING("NA_SE_PL_PULL_UP_BIGROCK", "../z_bg_heavy_block.c", 691);
     }
@@ -412,7 +412,7 @@ void BgHeavyBlock_Fly(BgHeavyBlock* pthis, GlobalContext* globalCtx) {
     pthis->dyna.actor.floorHeight = raycastResult;
 
     if (pthis->dyna.actor.home.pos.y <= raycastResult) {
-        func_800AA000(0.0f, 0xFF, 0x3C, 4);
+        Rumble_Shake(0.0f, 0xFF, 0x3C, 4);
 
         switch (pthis->dyna.actor.params & 0xFF) {
             case HEAVYBLOCK_BREAKABLE:

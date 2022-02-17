@@ -453,7 +453,7 @@ void EnIshi_Fly(EnIshi* pthis, GlobalContext* globalCtx) {
             Quake_SetSpeed(quakeIdx, -0x3CB0);
             Quake_SetQuakeValues(quakeIdx, 3, 0, 0, 0);
             Quake_SetCountdown(quakeIdx, 7);
-            func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
+            Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
         }
         Actor_Kill(&pthis->actor);
         return;

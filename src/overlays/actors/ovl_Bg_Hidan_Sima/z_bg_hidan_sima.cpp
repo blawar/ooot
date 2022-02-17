@@ -159,7 +159,7 @@ void func_8088E5D0(BgHidanSima* pthis, GlobalContext* globalCtx) {
         pthis->dyna.actor.world.pos.z = pthis->dyna.actor.home.pos.z;
     }
     if (!(pthis->timer % 4)) {
-        func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 180, 10, 100);
+        Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 180, 10, 100);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_SHAKE);
     }
 }

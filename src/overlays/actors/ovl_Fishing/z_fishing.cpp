@@ -3432,7 +3432,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                     }
                     D_80B7E122 = phi_v0;
                     D_80B7E0A4 = phi_v0;
-                    func_800A9F6C(0.0f, 60, phi_v0 * 3, 10);
+                    Rumble_Shake2(0.0f, 60, phi_v0 * 3, 10);
                 } else {
                     if (pthis->unk_1AC > 70.0f) {
                         phi_v0 = (s16)Rand_ZeroFloat(5.0f) + 10;
@@ -3445,7 +3445,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                     }
                     D_80B7E122 = phi_v0;
                     D_80B7E0A4 = phi_v0;
-                    func_800A9F6C(0.0f, 180, phi_v0 * 3, 10);
+                    Rumble_Shake2(0.0f, 180, phi_v0 * 3, 10);
                 }
 
                 D_80B7E124 = 0;
@@ -3487,11 +3487,11 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                 if (D_80B7E0B6 == 2) {
                     D_80B7E122 = 30;
                     D_80B7E0A4 = 100;
-                    func_800A9F6C(0.0f, 60, 90, 10);
+                    Rumble_Shake2(0.0f, 60, 90, 10);
                 } else {
                     D_80B7E122 = 30;
                     D_80B7E0A4 = 40;
-                    func_800A9F6C(0.0f, 180, 90, 10);
+                    Rumble_Shake2(0.0f, 180, 90, 10);
                 }
 
                 D_80B7E124 = 0;
@@ -3544,7 +3544,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                         spA4 = 255.0f;
                     }
 
-                    func_800A9F6C(0.0f, spA4, 120, 5);
+                    Rumble_Shake2(0.0f, spA4, 120, 5);
                     D_80B7E0A4 = 40;
                     D_80B7FDA8 = 10;
                     func_80078884(NA_SE_IT_FISHING_HIT);
@@ -3575,7 +3575,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                         spA4 *= 3.0f / 4.0f;
                     }
 
-                    func_800A9F6C(0.0f, spA4, (s16)Rand_ZeroFloat(5.0f) + 10, 5);
+                    Rumble_Shake2(0.0f, spA4, (s16)Rand_ZeroFloat(5.0f) + 10, 5);
                 }
 
                 if (pthis->unk_17A[1] > 30) {
@@ -3606,7 +3606,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                             } else {
                                 phi_a1 = 180;
                             }
-                            func_800A9F6C(0.0f, phi_a1, 90, 2);
+                            Rumble_Shake2(0.0f, phi_a1, 90, 2);
                             pthis->unk_17A[0] = 20;
                             pthis->unk_17A[1] = 100;
                             pthis->unk_17A[2] = 20;
@@ -3736,7 +3736,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                     }
                 } else {
                     D_80B7E086 = 0x4082;
-                    func_800A9F6C(0.0f, 1, 3, 1);
+                    Rumble_Shake2(0.0f, 1, 3, 1);
                     Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x0A00FF);
                 }
 
@@ -3759,7 +3759,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                 pthis->unk_158 = 6;
                 pthis->unk_17A[0] = 100;
                 player->unk_860 = 3;
-                func_800A9F6C(0.0f, 1, 3, 1);
+                Rumble_Shake2(0.0f, 1, 3, 1);
                 D_80B7E084++;
                 func_80064520(globalCtx, &globalCtx->csCtx);
                 D_80B7A6CC = 100;
@@ -4707,7 +4707,7 @@ void Fishing_HandleOwnerDialog(Fishing* pthis, GlobalContext* globalCtx) {
                     case 0:
                         if (gSaveContext.rupees >= 20) {
                             Rupees_ChangeBy(-20);
-                            if (func_800AA148() == 0) {
+                            if (Rumble_IsEnabled() == 0) {
                                 pthis->actor.textId = 0x407C;
                             } else {
                                 pthis->actor.textId = 0x407D;
@@ -5150,7 +5150,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
         (fabsf(player->actor.world.pos.z - sSinkingLureLocationPos[sSinkingLureLocation - 1].z) < 25.0f)) {
         sSinkingLureLocation = 0;
         D_80B7A6CC = 20;
-        func_800A9F6C(0.0f, 150, 10, 10);
+        Rumble_Shake2(0.0f, 150, 10, 10);
         func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
         Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x1400FF);
     }
@@ -5159,7 +5159,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
         KREG(0) = 0;
         D_80B7E0B6 = 0;
         D_80B7A6CC = 20;
-        func_800A9F6C(0.0f, 150, 10, 10);
+        Rumble_Shake2(0.0f, 150, 10, 10);
         func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
         Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x1400FF);
     }
@@ -5319,7 +5319,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
             sCameraAt.z = camera->at.z;
             Message_StartTextbox(globalCtx, 0x409E, NULL);
             D_80B7A6CC = 11;
-            func_800A9F6C(0.0f, 150, 10, 10);
+            Rumble_Shake2(0.0f, 150, 10, 10);
             // fallthrough
         }
 

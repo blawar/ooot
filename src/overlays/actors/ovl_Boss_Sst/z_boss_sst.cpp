@@ -458,7 +458,7 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx) {
             if (!pthis->ready) {
                 sFloor->dyna.actor.params = BONGOFLOOR_HIT;
                 pthis->ready = true;
-                func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
+                Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
                 Audio_PlayActorSound2(&sFloor->dyna.actor, NA_SE_EN_SHADEST_TAIKO_HIGH);
             } else if (gSaveContext.eventChkInf[7] & 0x80) {
                 sHands[RIGHT]->actor.draw = BossSst_DrawHand;
@@ -1299,7 +1299,7 @@ void BossSst_HandDownbeat(BossSst* pthis, GlobalContext* globalCtx) {
             } else {
                 BossSst_HandSetupDownbeatEnd(pthis);
             }
-            func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
+            Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_SHADEST_TAIKO_HIGH);
         }
     }

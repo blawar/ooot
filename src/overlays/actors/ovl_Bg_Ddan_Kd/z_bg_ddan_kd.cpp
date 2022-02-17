@@ -143,7 +143,7 @@ void BgDdanKd_LowerStairs(BgDdanKd* pthis, GlobalContext* globalCtx) {
     f32 effectStrength;
 
     Math_SmoothStepToF(&pthis->dyna.actor.speedXZ, 4.0f, 0.5f, 0.025f, 0.0f);
-    func_800AA000(500.0f, 0x78, 0x14, 0xA);
+    Rumble_Shake(500.0f, 0x78, 0x14, 0xA);
 
     if (Math_SmoothStepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y - 200.0f - 20.0f, 0.075f,
                            pthis->dyna.actor.speedXZ, 0.0075f) == 0.0f) {
