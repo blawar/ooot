@@ -142,13 +142,13 @@ void TransitionWipe_SetType(void* pthisx, s32 type) {
     }
 }
 
-void TransitionWipe_SetColor(void* pthisx, u32 color) {
+void TransitionWipe_SetColor(void* pthisx, Color_RGBA8 color) {
     TransitionWipe* pthis = (TransitionWipe*)pthisx;
 
     pthis->color = color;
 }
 
-void TransitionWipe_SetEnvColor(void* pthisx, u32 color) {
+void TransitionWipe_SetEnvColor(void* pthisx, Color_RGBA8 color) {
     TransitionWipe* pthis = (TransitionWipe*)pthisx;
 
     pthis->envColor = color;

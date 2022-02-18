@@ -74,9 +74,9 @@ void TransitionCircle_Start(void* thisx) {
     }
 
     if (pthis->typeColor == 0) {
-        pthis->color = RGBA8(0, 0, 0, 255);
+        pthis->color = Color_RGBA8(0, 0, 0, 255);
     } else if (pthis->typeColor == 1) {
-        pthis->color = RGBA8(160, 160, 160, 255);
+        pthis->color = Color_RGBA8(160, 160, 160, 255);
     } else if (pthis->typeColor == 2) {
         // yes, really.
         pthis->color.r = 100;
@@ -85,7 +85,7 @@ void TransitionCircle_Start(void* thisx) {
         pthis->color.a = 255;
     } else {
         pthis->step = 0x28;
-        pthis->color = pthis->effect == 1 ? RGBA8(0, 0, 0, 255) : RGBA8(160, 160, 160, 255);
+        pthis->color = pthis->effect == 1 ? Color_RGBA8(0, 0, 0, 255) : Color_RGBA8(160, 160, 160, 255);
     }
     if (pthis->unk_14 != 0) {
         pthis->texY = 0;
@@ -161,8 +161,8 @@ void TransitionCircle_Draw(void* thisx, Gfx** gfxP) {
     texScroll = Gfx_BranchTexScroll(&gfx, pthis->texX, pthis->texY, 0x10, 0x40);
     gSPSegment(gfx++, 9, texScroll);
     gSPSegment(gfx++, 8, pthis->texture);
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color);
-    gDPSetColor(gfx++, G_SETENVCOLOR, pthis->color);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
+    gDPSetColor(gfx++, G_SETENVCOLOR,  pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
     gSPMatrix(gfx++, &pthis->projection, G_MTX_PROJECTION | G_MTX_LOAD);
     gSPPerspNormalize(gfx++, pthis->normal);
     gSPMatrix(gfx++, &pthis->lookAt, G_MTX_PROJECTION | G_MTX_NOPUSH | G_MTX_MUL);
@@ -207,13 +207,13 @@ void TransitionCircle_SetType(void* thisx, s32 type) {
     }
 }
 
-void TransitionCircle_SetColor(void* thisx, u32 color) {
+void TransitionCircle_SetColor(void* thisx, Color_RGBA8 color) {
     TransitionCircle* pthis = (TransitionCircle*)thisx;
 
     pthis->color = color;
 }
 
-void TransitionCircle_SetEnvColor(void* thisx, u32 envColor) {
+void TransitionCircle_SetEnvColor(void* thisx, Color_RGBA8 envColor) {
     TransitionCircle* pthis = (TransitionCircle*)thisx;
 
     pthis->envColor = envColor;

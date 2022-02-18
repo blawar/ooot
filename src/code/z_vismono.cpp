@@ -103,8 +103,8 @@ void VisMono_Draw(VisMono* pthis, Gfx** gfxp) {
         gDPSetScissor(gfx++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->primColor);
-    gDPSetColor(gfx++, G_SETENVCOLOR, pthis->envColor);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->primColor.r, pthis->primColor.g, pthis->primColor.b, pthis->primColor.a);
+    gDPSetColor(gfx++, G_SETENVCOLOR,  pthis->envColor.r,  pthis->envColor.g,  pthis->envColor.b,  pthis->envColor.a);
 
     gDPLoadTLUT_pal256(gfx++, tlut);
 

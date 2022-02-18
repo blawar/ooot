@@ -83,15 +83,15 @@ void func_800ACE98(struct_801664F0* pthis, Gfx** gfxp) {
             gSPDisplayList(gfx++, D_8012AC40);
             break;
         case 2:
-            gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color);
+            gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color. r, pthis->color.g, pthis->color.b, pthis->color.a);
             gSPDisplayList(gfx++, D_8012AC58);
             break;
         case 3:
-            gDPSetColor(gfx++, G_SETBLENDCOLOR, pthis->color);
+            gDPSetColor(gfx++, G_SETBLENDCOLOR, pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
             gSPDisplayList(gfx++, D_8012AC00);
             break;
         case 4:
-            gDPSetColor(gfx++, G_SETFOGCOLOR, pthis->color);
+            gDPSetColor(gfx++, G_SETFOGCOLOR,   pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
             gSPDisplayList(gfx++, D_8012AC28);
             break;
     }

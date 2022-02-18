@@ -5,27 +5,10 @@ struct Color_RGB8 {
 };
 
 struct Color_RGBA8 {
+    Color_RGBA8() = default;
+    Color_RGBA8(u8 r_, u8 g_, u8 b_, u8 a_) : r(r_), g(g_), b(b_), a(a_) {}
+
     u8 r, g, b, a;
-};
-
-// only use when necessary for alignment purposes
-union Color_RGBA8_u32 {
-    Color_RGBA8_u32() = default;
-    Color_RGBA8_u32(u32 color) : abgr(SWAP32(color)) {}
-
-    void operator = (u32 color) {
-        abgr = SWAP32(color);
-    }
-
-    operator u32 () const {
-        return abgr;
-    }
-
-    struct {
-        u8 a, b, g, r;
-    };
-private:
-    u32 abgr;
 };
 
 struct Color_RGBAf {
