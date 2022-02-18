@@ -79,7 +79,6 @@ struct GfxPrint {
     /* 0x0E */ u8 baseY;
     /* 0x0F */ u8 flags;
     /* 0x10 */ Color_RGBA8 color;
-    /* 0x10 */ u32 color_u32;
     /* 0x14 */ char unk_14[0x1C]; // unused
 };                       // size = 0x30
 
