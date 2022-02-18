@@ -162,7 +162,7 @@ void TransitionCircle_Draw(void* thisx, Gfx** gfxP) {
     f32 scale = 14.8f;
 #else
     const float correction_factor = (gfx_width() * 3.0f) / (gfx_height() * 4.0f); // Should be 1 on a 4:3 display
-    f32 scale			  = 14.8f * correction_factor;
+    f32 scale = 14.8f * correction_factor;
 #endif
 
     modelView = pthis->modelView[pthis->frame];
