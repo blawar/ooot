@@ -1228,7 +1228,7 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
             TransitionFade_Draw(&globalCtx->transitionFade, &gfxP);
 
             if (D_801614B0.a > 0) {
-                D_80161498.primColor.rgba = D_801614B0.rgba;
+                D_80161498.primColor = D_801614B0;
                 VisMono_Draw(&D_80161498, &gfxP);
             }
 

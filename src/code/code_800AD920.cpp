@@ -47,8 +47,8 @@ void func_800AD958(struct_80166500* pthis, Gfx** gfxp) {
     gDPSetCombineLERP(gfx++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT,
                       PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT);
 
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->primColor.rgba);
-    gDPSetColor(gfx++, G_SETENVCOLOR, pthis->envColor.rgba);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->primColor);
+    gDPSetColor(gfx++, G_SETENVCOLOR, pthis->envColor);
 
     for (y = 0; y <= SCREEN_HEIGHT - height; y += height) {
         gDPLoadTextureBlock(gfx++, tex, fmt, G_IM_SIZ_16b, SCREEN_WIDTH, height, 0, G_TX_NOMIRROR | G_TX_CLAMP,

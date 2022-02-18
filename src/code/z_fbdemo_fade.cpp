@@ -117,7 +117,7 @@ s32 TransitionFade_IsDone(void* pthisx) {
 void TransitionFade_SetColor(void* pthisx, u32 color) {
     TransitionFade* pthis = (TransitionFade*)pthisx;
 
-    pthis->fadeColor.rgba = color;
+    pthis->fadeColor = color;
 }
 
 void TransitionFade_SetType(void* pthisx, s32 type) {

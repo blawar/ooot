@@ -56,7 +56,7 @@ void TransitionTriforce_Update(void* pthisx, s32 updateRate) {
 void TransitionTriforce_SetColor(void* pthisx, u32 color) {
     TransitionTriforce* pthis = (TransitionTriforce*)pthisx;
 
-    pthis->color.rgba = color;
+    pthis->color = color;
 }
 
 void TransitionTriforce_SetType(void* pthisx, s32 type) {
@@ -89,7 +89,7 @@ void TransitionTriforce_Draw(void* pthisx, Gfx** gfxP) {
     guTranslate(&modelView[2], 0.0f, 0.0f, 0.0f);
     gDPPipeSync(gfx++);
     gSPDisplayList(gfx++, sTriforceWipeDL);
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.rgba);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color);
     gDPSetCombineMode(gfx++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gSPMatrix(gfx++, &pthis->projection, G_MTX_LOAD | G_MTX_PROJECTION);
     gSPMatrix(gfx++, &modelView[0], G_MTX_LOAD);

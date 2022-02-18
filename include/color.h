@@ -9,12 +9,24 @@ struct Color_RGBA8 {
 };
 
 // only use when necessary for alignment purposes
-typedef union {
+union Color_RGBA8_u32 {
+    Color_RGBA8_u32() = default;
+    Color_RGBA8_u32(u32 color) : abgr(SWAP32(color)) {}
+
+    void operator = (u32 color) {
+        abgr = SWAP32(color);
+    }
+
+    operator u32 () const {
+        return abgr;
+    }
+
     struct {
-        u8 r, g, b, a;
+        u8 a, b, g, r;
     };
-    u32 rgba;
-} Color_RGBA8_u32;
+private:
+    u32 abgr;
+};
 
 struct Color_RGBAf {
     f32 r, g, b, a;
