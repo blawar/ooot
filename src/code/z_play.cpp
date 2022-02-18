@@ -267,11 +267,6 @@ void Gameplay_Destroy(GameState* thisx) {
 void Gameplay_Init(GameState* thisx) {
     GlobalContext* globalCtx = (GlobalContext*)thisx;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
-#ifndef USE_NATIVE_MALLOC
-    uintptr_t zAlloc;
-    uintptr_t zAllocAligned;
-    size_t zAllocSize;
-#endif
     Player* player;
     s32 playerStartCamId;
     s32 i;
@@ -448,16 +443,6 @@ void Gameplay_Init(GameState* thisx) {
     D_801614B0.a = 0;
     Flags_UnsetAllEnv(globalCtx);
 
-#ifndef USE_NATIVE_MALLOC
-    osSyncPrintf("ZELDA ALLOC SIZE=%x\n", THA_GetSize(&globalCtx->state.tha));
-    zAllocSize = THA_GetSize(&globalCtx->state.tha);
-    zAlloc = GameState_Alloc(&globalCtx->state, zAllocSize, "../z_play.c", 2918);
-    zAllocAligned = (zAlloc + 8) & ~0xF;
-    ZeldaArena_Init(zAllocAligned, zAllocSize - zAllocAligned + zAlloc);
-    // "Zelda Heap"
-    osSyncPrintf("ゼルダヒープ %08x-%08x\n", zAllocAligned,
-                 (s32)(zAllocAligned + zAllocSize) - (s32)(zAllocAligned - zAlloc));
-#endif
 
     Fault_AddClient(&D_801614B8, ZeldaArena_Display, NULL, NULL);
     func_800304DC(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);

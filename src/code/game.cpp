@@ -149,11 +149,6 @@ void func_800C4344(GameState* gameState) {
     s32 hexDumpSize;
     u16 hReg82;
 
-#ifndef USE_NATIVE_MALLOC
-    if (HREG(80) == 0x14) {
-        __osMalloc_FreeBlockTest_Enable = HREG(82);
-    }
-#endif
 
     if (HREG(80) == 0xC) {
         selectedInput = &gameState->input[(u32)HREG(81) < 4U ? HREG(81) : 0];
