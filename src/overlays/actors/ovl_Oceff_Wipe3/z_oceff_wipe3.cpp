@@ -16,6 +16,12 @@
 #include "def/z_parameter.h"
 #include "def/z_rcp.h"
 
+extern "C"
+{
+	u64 gfx_width();
+	u64 gfx_height();
+}
+
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void OceffWipe3_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -104,7 +110,12 @@ void OceffWipe3_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
 
     Matrix_Translate(eye.x + vec.x, eye.y + vec.y, eye.z + vec.z, MTXMODE_NEW);
+#ifdef N64_VERSION
     Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
+#else
+    const float correction_factor = (gfx_width() * 3.0f) / (gfx_height() * 4.0f); // Should be 1 on a 4:3 display
+    Matrix_Scale(0.1f * correction_factor, 0.1f, 0.1f, MTXMODE_APPLY);
+#endif
     func_800D1FD4(&globalCtx->billboardMtxF);
     Matrix_Translate(0.0f, 0.0f, -z, MTXMODE_APPLY);
 
