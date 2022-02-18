@@ -157,17 +157,6 @@ void ParseCommandLineArguments(const std::vector<std::string>& commands)
     }
 }
 
-
-
-int main(int argc, char** argv)
-{
-	std::vector<std::string> commands;
-	for(int i = 1; i < argc; i++)
-		commands.push_back(argv[i]);
-
-	ParseCommandLineArguments(commands);
-}
-
 void run()
 {
     s16* msg;
@@ -190,6 +179,16 @@ void run()
     AudioMgr_Init(&gAudioMgr, NULL, NULL, 0xA, NULL, NULL);
 
     main_func();
+}
+
+int main(int argc, char** argv)
+{
+	std::vector<std::string> commands;
+	for(int i = 1; i < argc; i++)
+		commands.push_back(argv[i]);
+
+	ParseCommandLineArguments(commands);
+	run();
 }
 
 #include <string.h>
