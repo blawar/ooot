@@ -64,6 +64,7 @@ void framerate_set_profile(FramerateProfile profile)
 	u64 i = 1 * REG_PER_GROUP + 30;
 	g_profile = profile;
 	R_UPDATE_RATE = g_profileRates[g_profile];
+	WREG(5)	      = 3 / FRAMERATE_SCALER;
 }
 
 FramerateProfile framerate_get_profile()

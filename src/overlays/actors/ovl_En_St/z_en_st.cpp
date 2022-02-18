@@ -367,12 +367,12 @@ s32 EnSt_SetCylinderOC(EnSt* pthis, GlobalContext* globalCtx) {
 
 void EnSt_UpdateCylinders(EnSt* pthis, GlobalContext* globalCtx) {
     if ((pthis->actor.colChkInfo.health != 0) || (pthis->actionFunc == EnSt_FinishBouncing)) {
-        if (DECR(pthis->gaveDamageSpinTimer) == 0) {
+        if (DECRT(pthis->gaveDamageSpinTimer) == 0) {
             EnSt_SetCylinderOC(pthis, globalCtx);
         }
 
-        DECR(pthis->invulnerableTimer);
-        DECR(pthis->takeDamageSpinTimer);
+        DECRT(pthis->invulnerableTimer);
+        DECRT(pthis->takeDamageSpinTimer);
 
         if (pthis->invulnerableTimer == 0 && pthis->takeDamageSpinTimer == 0) {
             EnSt_SetBodyCylinderAC(pthis, globalCtx);
@@ -566,7 +566,7 @@ float EnSt_DecrStunTimer(EnSt* pthis) {
     }
     
     float r = pthis->stunTimer.toFloat();
-    DECR(pthis->stunTimer);
+    DECRT(pthis->stunTimer);
     return r;
 }
 
@@ -610,14 +610,14 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
 
         if (pthis->rotAwayTimer != 0) {
             // turn away from the player
-            DECR(pthis->rotAwayTimer);
+            DECRT(pthis->rotAwayTimer);
             if (pthis->rotAwayTimer == 0) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_ROLL);
                 pthis->rotTowardsTimer = 30;
             }
         } else if (pthis->rotTowardsTimer != 0) {
             // turn towards the player
-            DECR(pthis->rotTowardsTimer);
+            DECRT(pthis->rotTowardsTimer);
             if (pthis->rotTowardsTimer == 0) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_ROLL);
                 pthis->rotAwayTimer = 30;
@@ -751,7 +751,7 @@ void EnSt_Sway(EnSt* pthis) {
     if (pthis->swayTimer != 0) {
 
         pthis->swayAngle += 0xA28;
-        DECR(pthis->swayTimer);
+        DECRT(pthis->swayTimer);
 
         if (pthis->swayTimer == 0) {
             pthis->swayAngle = 0;
@@ -836,7 +836,7 @@ void EnSt_WaitOnCeiling(EnSt* pthis, GlobalContext* globalCtx) {
  */
 void EnSt_WaitOnGround(EnSt* pthis, GlobalContext* globalCtx) {
     if (pthis->takeDamageSpinTimer != 0) {
-        DECR(pthis->takeDamageSpinTimer);
+        DECRT(pthis->takeDamageSpinTimer);
         if (pthis->takeDamageSpinTimer == 0) {
             func_80034EC0(&pthis->skelAnime, sAnimations, 3);
         }
@@ -856,7 +856,7 @@ void EnSt_WaitOnGround(EnSt* pthis, GlobalContext* globalCtx) {
         return;
     }
 
-    if (DECR(pthis->sfxTimer) == 0) {
+    if (DECRT(pthis->sfxTimer) == 0) {
         // play the "laugh" sfx every 64 frames.
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_LAUGH);
         pthis->sfxTimer = 64;
@@ -875,7 +875,7 @@ void EnSt_LandOnGround(EnSt* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->takeDamageSpinTimer != 0) {
-        DECR(pthis->takeDamageSpinTimer);
+        DECRT(pthis->takeDamageSpinTimer);
         if (pthis->takeDamageSpinTimer == 0) {
             func_80034EC0(&pthis->skelAnime, sAnimations, 3);
         }
@@ -898,7 +898,7 @@ void EnSt_LandOnGround(EnSt* pthis, GlobalContext* globalCtx) {
 
 void EnSt_MoveToGround(EnSt* pthis, GlobalContext* globalCtx) {
     if (pthis->takeDamageSpinTimer != 0) {
-        DECR(pthis->takeDamageSpinTimer);
+        DECRT(pthis->takeDamageSpinTimer);
         if (pthis->takeDamageSpinTimer == 0) {
             func_80034EC0(&pthis->skelAnime, sAnimations, 5);
         }
@@ -913,7 +913,7 @@ void EnSt_MoveToGround(EnSt* pthis, GlobalContext* globalCtx) {
         EnSt_SpawnBlastEffect(pthis, globalCtx);
         EnSt_SetLandAnimation(pthis);
         EnSt_SetupAction(pthis, EnSt_LandOnGround);
-    } else if (DECR(pthis->sfxTimer) == 0) {
+    } else if (DECRT(pthis->sfxTimer) == 0) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_DOWN);
         pthis->sfxTimer = 3;
     }
@@ -965,14 +965,14 @@ void EnSt_BounceAround(EnSt* pthis, GlobalContext* globalCtx) {
 void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx) {
     Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 
-    if (DECR(pthis->deathTimer) == 0) {
+    if (DECRT(pthis->deathTimer) == 0) {
         pthis->actor.velocity = zeroVec;
         pthis->finishDeathTimer = 8;
         EnSt_SetupAction(pthis, EnSt_Die);
         return;
     }
 
-    if (DECR(pthis->setTargetYawTimer) == 0) {
+    if (DECRT(pthis->setTargetYawTimer) == 0) {
         pthis->deathYawTarget = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
         pthis->setTargetYawTimer = 8;
     }
@@ -992,7 +992,7 @@ void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx) {
  * Spawn the enemy dying effects, and drop a random item
  */
 void EnSt_Die(EnSt* pthis, GlobalContext* globalCtx) {
-    if (DECR(pthis->finishDeathTimer) != 0) {
+    if (DECRT(pthis->finishDeathTimer) != 0) {
         EnSt_SpawnDeadEffect(pthis, globalCtx);
     } else {
         Item_DropCollectibleRandom(globalCtx, NULL, &pthis->actor.world.pos, 0xE0);

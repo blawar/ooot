@@ -303,7 +303,7 @@ s32 EnSsh_Damaged(EnSsh* pthis) {
     if ((pthis->stunTimer == 120) && (pthis->stateFlags & SSH_STATE_STUNNED)) {
         Actor_SetColorFilter(&pthis->actor, 0, 0xC8, 0, pthis->stunTimer.whole());
     }
-    if (DECR(pthis->stunTimer) != 0) {
+    if (DECRT(pthis->stunTimer) != 0) {
         Math_SmoothStepToS(&pthis->maxTurnRate, 0x2710, 0xA, 0x3E8, 1);
         return false;
     } else {
@@ -323,7 +323,7 @@ void EnSsh_Turn(EnSsh* pthis, GlobalContext* globalCtx) {
     if (pthis->hitTimer != 0) {
         pthis->hitTimer--;
     }
-    if (DECR(pthis->spinTimer) != 0) {
+    if (DECRT(pthis->spinTimer) != 0) {
 	    pthis->actor.world.rot.y += 10000.0f * FRAMERATE_SCALER * (pthis->spinTimer.toFloat() / 30.0f);
     } else if ((pthis->swayTimer == 0) && (pthis->stunTimer == 0)) {
         Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 4, 0x2710, 1);
@@ -606,7 +606,7 @@ void EnSsh_SetColliders(EnSsh* pthis, GlobalContext* globalCtx) {
         if (pthis->hitTimer == 0) {
             EnSsh_SetCylinderOC(pthis, globalCtx);
         }
-        if (DECR(pthis->invincibilityTimer) == 0) {
+        if (DECRT(pthis->invincibilityTimer) == 0) {
             EnSsh_SetBodyCylinderAC(pthis, globalCtx);
             EnSsh_SetLegsCylinderAC(pthis, globalCtx);
         }
@@ -688,17 +688,17 @@ void EnSsh_Idle(EnSsh* pthis, GlobalContext* globalCtx) {
             gSaveContext.infTable[25] |= 0x80;
         }
     } else {
-        if ((pthis->unkTimer != 0) && (DECR(pthis->unkTimer) == 0)) {
+        if ((pthis->unkTimer != 0) && (DECRT(pthis->unkTimer) == 0)) {
             EnSsh_SetAnimation(pthis, SSH_ANIM_WAIT);
         }
-        if ((pthis->animTimer != 0) && (DECR(pthis->animTimer) == 0)) {
+        if ((pthis->animTimer != 0) && (DECRT(pthis->animTimer) == 0)) {
             EnSsh_SetAnimation(pthis, SSH_ANIM_WAIT);
         }
         if (!EnSsh_IsCloseToLink(pthis, globalCtx)) {
             EnSsh_SetReturnAnimation(pthis);
             EnSsh_SetupAction(pthis, EnSsh_Return);
         } else {
-            if (DECR(pthis->sfxTimer) == 0) {
+            if (DECRT(pthis->sfxTimer) == 0) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_LAUGH);
                 pthis->sfxTimer = 64;
             }
@@ -733,10 +733,10 @@ void EnSsh_Idle(EnSsh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnSsh_Land(EnSsh* pthis, GlobalContext* globalCtx) {
-    if ((pthis->unkTimer != 0) && (DECR(pthis->unkTimer) == 0)) {
+    if ((pthis->unkTimer != 0) && (DECRT(pthis->unkTimer) == 0)) {
         EnSsh_SetAnimation(pthis, SSH_ANIM_WAIT);
     }
-    if ((pthis->animTimer != 0) && (DECR(pthis->animTimer) == 0)) {
+    if ((pthis->animTimer != 0) && (DECRT(pthis->animTimer) == 0)) {
         EnSsh_SetAnimation(pthis, SSH_ANIM_WAIT);
     }
     if ((pthis->actor.floorHeight + pthis->floorHeightOffset) <= pthis->actor.world.pos.y) {
@@ -747,7 +747,7 @@ void EnSsh_Land(EnSsh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnSsh_Drop(EnSsh* pthis, GlobalContext* globalCtx) {
-    if ((pthis->unkTimer != 0) && (DECR(pthis->unkTimer) == 0)) {
+    if ((pthis->unkTimer != 0) && (DECRT(pthis->unkTimer) == 0)) {
         EnSsh_SetAnimation(pthis, SSH_ANIM_DROP);
     }
     if (!EnSsh_IsCloseToLink(pthis, globalCtx)) {
@@ -757,7 +757,7 @@ void EnSsh_Drop(EnSsh* pthis, GlobalContext* globalCtx) {
         EnSsh_SpawnShockwave(pthis, globalCtx);
         EnSsh_SetLandAnimation(pthis);
         EnSsh_SetupAction(pthis, EnSsh_Land);
-    } else if (DECR(pthis->sfxTimer) == 0) {
+    } else if (DECRT(pthis->sfxTimer) == 0) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STALTU_DOWN);
         pthis->sfxTimer = 3;
     }
