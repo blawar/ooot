@@ -47,7 +47,6 @@ tools/*dSYM/
 graphs/
 vs/Debug
 vs/build
-src/code/*_assets.h
 
 # Assets
 *.png

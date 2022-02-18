@@ -16,7 +16,7 @@
 #include "z64player.h"
 #include "z64item.h"
 
-#include "z_kankyo_assets.h"
+#include "misc/z_kankyo_assets.h"
 #include "z64file.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
