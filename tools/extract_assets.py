@@ -75,7 +75,7 @@ def ExtractText(force: bool):
 
     if extract_text_path is not None or extract_staff_text_path is not None:
         print("Start Extracting text")
-        from tools import msgdis
+        import msgdis
         msgdis.extract_all_text(extract_text_path, extract_staff_text_path)
         print("Finished extracting text")
 
