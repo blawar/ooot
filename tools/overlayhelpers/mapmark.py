@@ -2,11 +2,14 @@
 import os
 import struct
 import sys
+from oot import *
+
+conf = config()
 
 NUM_SCENES = 10
 SIMPLIFY_OUTPUT = True # setting to True reduces the final output by ~9k lines
-MAP_MARK_RAM = 0x80858B70
-gMapMarkDataTable = 0x8085F5E8
+MAP_MARK_RAM = conf.sections.MAP_MARK_RAM.offset
+gMapMarkDataTable = conf.sections.gMapMarkDataTable.offset
 
 DUNGEON_NAMES = [
     ("DekuTree", "Deku Tree"),

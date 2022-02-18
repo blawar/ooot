@@ -108,12 +108,21 @@ void EnMag_Init(Actor* thisx, GlobalContext* globalCtx) {
         pthis->effectPrimLodFrac = 128.0f;
         pthis->effectAlpha = 255.0f;
 
+#ifndef RETAIL
         pthis->effectPrimColor[0] = 170;
         pthis->effectPrimColor[1] = 255.0f;
         pthis->effectPrimColor[2] = 255.0f;
         pthis->effectEnvColor[0] = 200.0f;
         pthis->effectEnvColor[1] = 255.0f;
         pthis->effectEnvColor[2] = 0;
+#else
+	    pthis->effectPrimColor[0] = 255.0f;
+	    pthis->effectPrimColor[1] = 255.0f;
+	    pthis->effectPrimColor[2] = 170.0f;
+	    pthis->effectEnvColor[0]  = 255.0f;
+	    pthis->effectEnvColor[1]  = 100.0f;
+	    pthis->effectEnvColor[2]  = 0.0f;
+#endif
 
         gSaveContext.unk_13E7 = 0;
         pthis->globalState = MAG_STATE_DISPLAY;
@@ -152,12 +161,21 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->effectPrimLodFrac = 128.0f;
                 pthis->effectAlpha = 255.0f;
 
+#ifndef RETAIL
                 pthis->effectPrimColor[0] = 170;
                 pthis->effectPrimColor[1] = 255.0f;
                 pthis->effectPrimColor[2] = 255.0f;
                 pthis->effectEnvColor[0] = 200.0f;
                 pthis->effectEnvColor[1] = 255.0f;
                 pthis->effectEnvColor[2] = 0;
+#else
+		        pthis->effectPrimColor[0] = 255.0f;
+		        pthis->effectPrimColor[1] = 255.0f;
+		        pthis->effectPrimColor[2] = 170.0f;
+		        pthis->effectEnvColor[0]  = 255.0f;
+		        pthis->effectEnvColor[1]  = 100.0f;
+			    pthis->effectEnvColor[2]  = 0.0f;
+#endif
 
                 pthis->globalState = MAG_STATE_DISPLAY;
                 sDelayTimer = 20;
@@ -196,11 +214,19 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
             pthis->effectAlpha += 6.375f;
             pthis->effectPrimLodFrac += 0.8f;
 
+#ifndef RETAIL
             pthis->effectPrimColor[0] += 6.375f;
             pthis->effectPrimColor[1] += 3.875f;
             pthis->effectPrimColor[2] += 2.125f;
             pthis->effectEnvColor[0] += 6.375f;
             pthis->effectEnvColor[1] += 3.875f;
+#else
+	        pthis->effectPrimColor[0] += (255.0f / 40.0f);
+	        pthis->effectPrimColor[1] += ((255.0f - 100.0f) / 40.0f);
+	        pthis->effectPrimColor[2] += ((255.0f - 170.0f) / 40.0f);
+	        pthis->effectEnvColor[0] += (255.0f / 40.0f);
+	        pthis->effectEnvColor[1] += ((255.0f - 100.0f) / 40.0f);
+#endif
 
             pthis->effectFadeInTimer--;
 
@@ -218,8 +244,13 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->effectFadeInState = 1;
             }
         } else if (pthis->effectFadeInState == 1) {
+#ifndef RETAIL
             pthis->effectPrimColor[0] += -2.125f;
             pthis->effectEnvColor[0] += -1.375f;
+#else
+		    pthis->effectPrimColor[2] += ((170.0f - 255.0f) / 40.0f);
+		    pthis->effectEnvColor[1] += ((100.0f - 255.0f) / 40.0f);
+#endif
 
             pthis->effectPrimLodFrac += 2.4f;
 
@@ -228,8 +259,13 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
             if (pthis->effectFadeInTimer == 0) {
                 pthis->effectPrimLodFrac = 128.0f;
 
+#ifndef RETAIL
                 pthis->effectPrimColor[0] = 170.0f;
                 pthis->effectEnvColor[0] = 200.0f;
+#else
+		        pthis->effectPrimColor[2] = 170.0f;
+		        pthis->effectEnvColor[1]	 = 100.0f;
+#endif
 
                 pthis->effectFadeInTimer = 32;
                 pthis->effectFadeInState = 2;
@@ -439,7 +475,11 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
     gDPSetPrimColor(gfx++, 0, 0, 255, 255, 255, (s16)pthis->mainAlpha);
 
     if ((s16)pthis->mainAlpha != 0) {
+#ifndef RETAIL
         EnMag_DrawImageRGBA32(&gfx, 152, 100, (u8*)gTitleZeldaShieldLogoMQTex, 160, 160);
+#else
+	    EnMag_DrawImageRGBA32(&gfx, 152, 100, (u8*)gTitleZeldaShieldLogoTex, 160, 160);
+#endif
     }
 
     func_8009457C(&gfx);
@@ -463,8 +503,13 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
         EnMag_DrawTextureI8(&gfx, gTitleOcarinaOfTimeTMTextTex, 96, 8, 144, 127, 96, 8, 1024, 1024);
 
         gDPPipeSync(gfx++);
+#ifndef RETAIL
         gDPSetPrimColor(gfx++, 0, 0, 100, 150, 255, (s16)pthis->mainAlpha);
         gDPSetEnvColor(gfx++, 20, 80, 160, 255);
+#else
+	    gDPSetPrimColor(gfx++, 0, 0, 200, 200, 150, (s16)pthis->mainAlpha);
+	    gDPSetEnvColor(gfx++, 100, 100, 50, 255);
+#endif
 
         EnMag_DrawTextureI8(&gfx, gTitleTheLegendOfTextTex, 72, 8, 145, 72, 72, 8, 1024, 1024);
         EnMag_DrawTextureI8(&gfx, gTitleOcarinaOfTimeTMTextTex, 96, 8, 143, 126, 96, 8, 1024, 1024);
@@ -472,7 +517,9 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
         gDPPipeSync(gfx++);
         gDPSetPrimColor(gfx++, 0, 0, 255, 255, 255, (s16)pthis->subAlpha);
 
+#ifndef RETAIL
         EnMag_DrawImageRGBA32(&gfx, 174, 145, (u8*)gTitleMasterQuestSubtitleTex, 128, 32);
+#endif
     }
 
     func_8009457C(&gfx);
@@ -484,11 +531,16 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
                     (s16)pthis->copyrightAlpha);
 
     if ((s16)pthis->copyrightAlpha != 0) {
+#ifndef RETAIL
         gDPLoadTextureBlock(gfx++, gTitleCopyright19982003Tex, G_IM_FMT_IA, G_IM_SIZ_8b, 160, 16, 0,
                             G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK,
                             G_TX_NOLOD, G_TX_NOLOD);
 
         gSPTextureRectangle(gfx++, 312, 792, 952, 856, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
+#else
+	    gDPLoadTextureBlock(gfx++, gTitleCopyrightTex, G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+	    gSPTextureRectangle(gfx++, 94 << 2, 198 << 2, (94 + 128) << 2, (198 + 16) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
+#endif
     }
 
     if (gSaveContext.fileNum == 0xFEDC) {

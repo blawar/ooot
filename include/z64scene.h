@@ -396,6 +396,7 @@ enum SceneID {
     /* 0x62 */ SCENE_SPOT18,
     /* 0x63 */ SCENE_SPOT20,
     /* 0x64 */ SCENE_GANON_TOU,
+#ifndef RETAIL
     // Debug only scenes
     /* 0x65 */ SCENE_TEST01,
     /* 0x66 */ SCENE_BESITU,
@@ -406,6 +407,7 @@ enum SceneID {
     /* 0x6B */ SCENE_HAIRAL_NIWA2,
     /* 0x6C */ SCENE_SASATEST,
     /* 0x6D */ SCENE_TESTROOM,
+#endif
     /* 0x6E */ SCENE_ID_MAX
 };
 

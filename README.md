@@ -44,9 +44,20 @@ The current main contributers of this project are [blawar](https://github.com/bl
 
 You must use the ZAPD that is included with this repository, and not the main branch as it is modified.
 
+### PAL 1.0 RETAIL ROM
+If you are using the EUR PAL 1.0 retail rom, than place it at roms/PAL_1.0/baserom_original.z64
+
 Run this command to extract the assets from the rom (baserom_original.z64 must exist in the directory)
 ```
-setup.py
+setup.py -b PAL_1.0
+```
+
+### EUR Masterquest Debug ROM
+If you are using the EUR Master Quest Debug rom, than place it at roms/EUR_MQD/baserom_original.z64
+
+Run this command to extract the assets from the rom (baserom_original.z64 must exist in the directory)
+```
+setup.py -b EUR_MQD
 ```
 
 Open vs/OOT.sln, make sure **Debug - Win32** is selected, then hit build.

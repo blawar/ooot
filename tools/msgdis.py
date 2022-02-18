@@ -7,6 +7,8 @@ import re, struct
 from os import path
 from oot import *
 
+conf = config()
+
 # ===================================================
 #   Util
 # ===================================================
@@ -260,11 +262,11 @@ textbox_ypos = {
 }
 
 # message entry tables vrom addresses
-nes_message_entry_table_addr = 0x00BC24C0
-ger_message_entry_table_addr = 0x00BC66E8
-fra_message_entry_table_addr = 0x00BC87F8
-staff_message_entry_table_addr = 0x00BCA908
-staff_message_entry_table_addr_end = 0x00BCAA90
+nes_message_entry_table_addr = conf.sections.nes_message_entry_table_addr.offset
+ger_message_entry_table_addr = conf.sections.ger_message_entry_table_addr.offset
+fra_message_entry_table_addr = conf.sections.fra_message_entry_table_addr.offset
+staff_message_entry_table_addr = conf.sections.staff_message_entry_table_addr.offset
+staff_message_entry_table_addr_end = conf.sections.staff_message_entry_table_addr_end.offset
 
 nes_message_entry_table = []
 ger_message_entry_table = []

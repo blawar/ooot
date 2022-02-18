@@ -40,14 +40,15 @@ def build():
     # sys.executable points to python executable
 
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'tqdm'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'libyaz0'])
     subprocess.check_call([sys.executable, str('tools/fixbaserom.py'), buildRom()])
     subprocess.check_call([sys.executable, str('tools/extract_baserom.py'), buildRom()])
     subprocess.check_call([sys.executable, str('tools/extract_assets.py'), buildRom()])
     subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py'), buildRom()])
     subprocess.check_call([sys.executable, str('tools/convert_assets.py'), buildRom()])
     mkdir(assetPath('text'))
-    subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(romPath('text/message_data.h')), str(assetPath('text/message_data.enc.h')), buildRom()])
-    subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(romPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+    subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data.h')), str(assetPath('text/message_data.enc.h')), buildRom()])
+    subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
     subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py'), buildRom()])
     subprocess.check_call([sys.executable, str('tools/create_luts.py'), buildRom()])
     subprocess.check_call([sys.executable, str('tools/fix_mtx.py'), buildRom()])
@@ -69,8 +70,7 @@ def main():
     else:
         setBuildRom(findBuildRom())
         
-    prop = Path('vs/oot.props')
-    with open(prop, 'r') as f:
+    with open('vs/oot.props.src', 'r') as f:
         buffer = f.read()
     buffer = re.sub(r'<buildrom>.*</buildrom>', r'<buildrom>%s</buildrom>' % buildRom(), buffer)
     defines = []
@@ -86,7 +86,7 @@ def main():
     defines.append('%(PreprocessorDefinitions)')
     buffer = re.sub(r'<PreprocessorDefinitions>.*</PreprocessorDefinitions>',  r'<PreprocessorDefinitions>%s</PreprocessorDefinitions>' % ';'.join(defines), buffer)
 
-    with open(prop, 'w') as f:
+    with open('vs/oot.props', 'w') as f:
         f.write(buffer)
 
     if args.clean == True:
