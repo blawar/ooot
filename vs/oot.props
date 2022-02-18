@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <buildrom>#BUILD_ROM#</buildrom>
+    <buildrom>EUR_MQD</buildrom>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -14,7 +14,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
 	  <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <PreprocessorDefinitions>#DEFINES#;OS_WINDOWS;_LANGUAGE_C;ENABLE_OPENGL;USE_NATIVE_MALLOC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENABLE_20FPS;ENABLE_MOUSE;EUR_MQD;NATIVE;OS_WINDOWS;_LANGUAGE_C;ENABLE_OPENGL;USE_NATIVE_MALLOC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ObjectFileName>$(IntDir)</ObjectFileName>

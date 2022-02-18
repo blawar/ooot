@@ -62,8 +62,6 @@ u32 framerate_get()
 void framerate_set_profile(FramerateProfile profile)
 {
 	u64 i = 1 * REG_PER_GROUP + 30;
-	auto x = &gGameInfo->data[i];
-	auto& y = gGameInfo->data[i];
 	g_profile = profile;
 	R_UPDATE_RATE = g_profileRates[g_profile];
 }

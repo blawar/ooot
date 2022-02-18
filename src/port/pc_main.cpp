@@ -19,48 +19,6 @@ static std::unique_ptr<platform::window::Base> gWindow;
 #include "def/graph.h"
 extern OSViMode osViModeNtscLan1;
 
-u64 frameRateDivisor();
-
-/*struct OSViMode
-{
-	u8 type;
-	OSViCommonRegs comRegs;
-	OSViFieldRegs fldRegs[2];
-}; // size = 0x4C
-
-/*static OSViMode osViMode = {
-	2, // type
-	{
-		// comRegs
-		0x311E,       // ctrl
-		SCREEN_WIDTH, // width
-		0x3E52239,    // burst
-		0x20D,        // vSync
-		0xC15,        // hSync
-		0xC150C15,    // leap
-		0x6C02EC,     // hStart
-		0x200,        // xScale
-		0,            // vCurrent
-	},
-	{ // fldRegs
-	  {
-			// [0]
-			0x280,    // origin
-			0x400,    // yScale
-			0x2501FF, // vStart
-			0xE0204,  // vBurst
-			2,        // vIntr
-		},
-		{
-			// [1]
-			0x280,    // origin
-			0x400,    // yScale
-			0x2501FF, // vStart
-			0xE0204,  // vBurst
-			2,        // vIntr
-		} },
-};*/
-
 #include <stdlib.h>
 //#include "gfx/fast64.h"
 
@@ -382,11 +340,12 @@ bool SetDPIAwarness(PROCESS_DPI_AWARENESS Awarness)
 	}
 	return false;
 }
+void run();
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
 	SetDPIAwarness(PROCESS_SYSTEM_DPI_AWARE);
-	main_func();
+	run();
 	return 0;
 }
 #else

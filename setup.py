@@ -72,7 +72,7 @@ def main():
         
     with open('vs/oot.props.src', 'r') as f:
         buffer = f.read()
-    buffer = re.sub(r'<buildrom>.*</buildrom>', r'<buildrom>%s</buildrom>' % buildRom(), buffer)
+    buffer = buffer.replace('#BUILD_ROM#', buildRom())
     defines = []
     defines.append('ENABLE_%sFPS' % args.framerate)
 
@@ -83,8 +83,9 @@ def main():
         defines.append('RETAIL')
     defines.append(re.sub(r'[^A-Z0-9_]+', '', buildRom()))
     defines.append('NATIVE')
-    defines.append('%(PreprocessorDefinitions)')
-    buffer = re.sub(r'<PreprocessorDefinitions>.*</PreprocessorDefinitions>',  r'<PreprocessorDefinitions>%s</PreprocessorDefinitions>' % ';'.join(defines), buffer)
+
+    #buffer = re.sub(r'<PreprocessorDefinitions>.*</PreprocessorDefinitions>',  r'<PreprocessorDefinitions>%s</PreprocessorDefinitions>' % ';'.join(defines), buffer)
+    buffer = buffer.replace('#DEFINES#', ';'.join(defines))
 
     with open('vs/oot.props', 'w') as f:
         f.write(buffer)
