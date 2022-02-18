@@ -551,7 +551,7 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
         WREG(87) -= (s16)(WREG(87) / sEquipMoveTimer);
 
         if (sEquipState == 1) {
-            if (pauseCtx->equipAnimX >= GFX_ALIGN_RIGHT(pauseCtx->itemVtx[12].v.ob[0] * 10)) {
+            if (pauseCtx->equipAnimX >= (pauseCtx->itemVtx[12].v.ob[0] * 10) * gfx_ar_ratio()) {
                 pauseCtx->equipAnimX -= offsetX;
             } else {
                 pauseCtx->equipAnimX += offsetX;
