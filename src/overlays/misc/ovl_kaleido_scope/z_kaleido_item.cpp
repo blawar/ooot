@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "textures/parameter_static/parameter_static.h"
+#include "gfx_align.h"
 #include "def/inventory.h"
 #include "def/audio_bank.h"
 #include "def/z_common_data.h"
@@ -14,8 +15,8 @@ u8 gAmmoItems[] = {
 };
 
 static s16 sEquipState = 0;
-static s16 sEquipAnimTimer = 0;
-static s16 sEquipMoveTimer = 10;
+static Timer sEquipAnimTimer(0);
+static Timer sEquipMoveTimer(10);
 
 static s16 sAmmoVtxOffset[] = {
     0, 2, 4, 6, 99, 99, 8, 99, 99, 10, 99, 99, 99, 99, 99, 99, 12,
@@ -529,11 +530,11 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
 
     if (sEquipState == 1) {
         bowItemVtx = &pauseCtx->itemVtx[12];
-        offsetX = ABS(pauseCtx->equipAnimX - bowItemVtx->v.ob[0] * 10) / sEquipMoveTimer;
-        offsetY = ABS(pauseCtx->equipAnimY - bowItemVtx->v.ob[1] * 10) / sEquipMoveTimer;
+        offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - bowItemVtx->v.ob[0] * 10) / sEquipMoveTimer);
+        offsetY = (u16)(ABS((s16)pauseCtx->equipAnimY - bowItemVtx->v.ob[1] * 10) / sEquipMoveTimer);
     } else {
-        offsetX = ABS(pauseCtx->equipAnimX - sCButtonPosX[pauseCtx->equipTargetCBtn]) / sEquipMoveTimer;
-        offsetY = ABS(pauseCtx->equipAnimY - sCButtonPosY[pauseCtx->equipTargetCBtn]) / sEquipMoveTimer;
+        offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - (sCButtonPosX[pauseCtx->equipTargetCBtn] * gfx_ar_ratio())) / sEquipMoveTimer);
+	    offsetY = (u16)(ABS((s16)pauseCtx->equipAnimY - (sCButtonPosY[pauseCtx->equipTargetCBtn])) / sEquipMoveTimer);
     }
 
     if ((pauseCtx->equipTargetItem >= 0xBF) && (pauseCtx->equipAnimAlpha < 254)) {
@@ -546,11 +547,11 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
     }
 
     if (sEquipAnimTimer == 0) {
-        WREG(90) -= WREG(87) / sEquipMoveTimer;
-        WREG(87) -= WREG(87) / sEquipMoveTimer;
+        WREG(90) -= (s16)(WREG(87) / sEquipMoveTimer);
+        WREG(87) -= (s16)(WREG(87) / sEquipMoveTimer);
 
         if (sEquipState == 1) {
-            if (pauseCtx->equipAnimX >= (pauseCtx->itemVtx[12].v.ob[0] * 10)) {
+            if (pauseCtx->equipAnimX >= GFX_ALIGN_RIGHT(pauseCtx->itemVtx[12].v.ob[0] * 10)) {
                 pauseCtx->equipAnimX -= offsetX;
             } else {
                 pauseCtx->equipAnimX += offsetX;
@@ -562,7 +563,7 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
                 pauseCtx->equipAnimY += offsetY;
             }
         } else {
-            if (pauseCtx->equipAnimX >= sCButtonPosX[pauseCtx->equipTargetCBtn]) {
+            if (pauseCtx->equipAnimX >= sCButtonPosX[pauseCtx->equipTargetCBtn]  * gfx_ar_ratio()) {
                 pauseCtx->equipAnimX -= offsetX;
             } else {
                 pauseCtx->equipAnimX += offsetX;
