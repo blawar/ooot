@@ -473,6 +473,8 @@ namespace oot::hid
 
 void Joypad::onVibrate(uint8_t strength, uint8_t vibtime, uint8_t decay)//Called from the game
 {
+	if (tas::isTasPlaying())
+		return;
 	if (strength <= 20)
 		return;
 	if (decay <= 0)
