@@ -2,6 +2,7 @@
 extern "C" {
 	u64 gfx_width();
 	u64 gfx_height();
+	float gfx_ar();
 	float gfx_ar_ratio();
 }
 #define GFX_DIMENSIONS_ASPECT_RATIO ((float)gfx_width() / (float)gfx_height())

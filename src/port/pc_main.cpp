@@ -402,6 +402,15 @@ extern "C" {
 		return 1.0f;
 	}
 
+	float gfx_ar()
+	{
+		if(gWindow)
+		{
+			return gWindow->ar();
+		}
+		return 1.0f;
+	}
+
 	void set_fullscreen(bool value)
 	{
 		gWindow->set_fullscreen(value, false);
