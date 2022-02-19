@@ -540,32 +540,32 @@ static bool operator>=(s32 a, Timer b)
 
 static bool operator==(s32 a, Timer b)
 {
-	return b == a;
+	return b.operator==(a);
 }
 
 static bool operator!=(s32 a, Timer b)
 {
-	return b != a;
+	return b.operator!=(a);
 }
 
 static Timer operator*(s32 a, Timer b)
 {
-	return Timer(a) * b;
+	return b.operator*(a);
 }
 
 static Timer operator/(s32 a, Timer b)
 {
-	return Timer(a) / b;
+	return Timer(a).operator/(b);
 }
 
 static Timer operator+(s32 a, Timer b)
 {
-	return Timer(a) + b;
+	return b.operator+(a);
 }
 
 static Timer operator-(s32 a, Timer b)
 {
-	return Timer(a) - b;
+	return Timer(a).operator-(b);
 }
 
 
