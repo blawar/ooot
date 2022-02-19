@@ -4,12 +4,7 @@
 #include "z64transition.h"
 #include "z64audio.h"
 #include "sfx.h"
-
-extern "C"
-{
-	u64 gfx_width();
-	u64 gfx_height();
-}
+#include "gfx_align.h"
 
 // unused
 Gfx sCircleNullDList[] = {
@@ -158,12 +153,8 @@ void TransitionCircle_Draw(void* thisx, Gfx** gfxP) {
     // These variables are a best guess based on the other transition types.
     f32 tPos = 0.0f;
     f32 rot = 0.0f;
-#ifdef N64_VERSION
-    f32 scale = 14.8f;
-#else
     const float correction_factor = (gfx_width() * 3.0f) / (gfx_height() * 4.0f); // Should be 1 on a 4:3 display
     f32 scale = 14.8f * correction_factor;
-#endif
 
     modelView = pthis->modelView[pthis->frame];
 
