@@ -16,11 +16,7 @@ While it is playable in it's current state, if you are not interested in contrib
 wait until the project is further along before playing it.  This is a development branch.  We need help
 finding bugs and PR's for bug fixes and enhancements.
 
-Only Visual Studio Debug 32-bit is currently supported.
-
 Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
-
-32-bit Release works, but is buggy due to optimizations breaking many assumptions.
 ```
 
 **Note: This repository does not include any of the assets necessary to build the ROM. A prior copy of the game is required to extract the needed assets.**
@@ -36,13 +32,7 @@ The current main contributers of this project are [blawar](https://github.com/bl
 
 ### Windows
 
-**Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86 Debug build**
-
-**Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86 Debug build**
-
-**Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86 Debug build**
-
-**Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86 Debug build**
+**Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86/WIN32 build**
 
 You must use the ZAPD that is included with this repository, and not the main branch as it is modified.
 
@@ -62,7 +52,7 @@ Run this command to extract the assets from the rom (baserom_original.z64 must e
 setup.py -b EUR_MQD
 ```
 
-Open vs/OOT.sln, make sure **Debug - Win32** is selected, then hit build.
+Open vs/OOT.sln, make sure **Debug - Win32** or **Release - Win32** is selected, then hit build.
 
 Once the build completes, press F5 to start it.
 

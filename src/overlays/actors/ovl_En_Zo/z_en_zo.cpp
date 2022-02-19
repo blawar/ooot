@@ -492,7 +492,7 @@ s16 func_80B61298(GlobalContext* globalCtx, Actor* thisx) {
 }
 
 void EnZo_Blink(EnZo* pthis) {
-    if (DECR(pthis->blinkTimer) == 0) {
+    if (DECRT(pthis->blinkTimer) == 0) {
         pthis->eyeTexture++;
         if (pthis->eyeTexture >= 3) {
             pthis->blinkTimer = (float)Rand_S16Offset(30, 30);
@@ -663,7 +663,7 @@ void EnZo_TreadWater(EnZo* pthis, GlobalContext* globalCtx) {
 
     Math_ApproachF(&pthis->actor.velocity.y, pthis->actor.yDistToWater < 54.0f ? -0.6f : 0.6f, 0.3f, 0.2f);
     if (pthis->rippleTimer > 0.0f) {
-        DECR(pthis->rippleTimer);
+        DECRT(pthis->rippleTimer);
         if ((pthis->rippleTimer == 3) || (pthis->rippleTimer == 6)) {
             EnZo_TreadWaterRipples(pthis, 0.2f, 1.0f, 200);
         }
@@ -674,7 +674,7 @@ void EnZo_TreadWater(EnZo* pthis, GlobalContext* globalCtx) {
 
     if (EnZo_PlayerInProximity(pthis, globalCtx) != 0) {
         pthis->timeToDive = Rand_S16Offset(40, 40);
-    } else if (DECR(pthis->timeToDive) == 0) {
+    } else if (DECRT(pthis->timeToDive) == 0) {
         f32 startFrame;
         func_80034EC0(&pthis->skelAnime, sAnimations, 4);
         pthis->canSpeak = false;

@@ -96,7 +96,7 @@ void TransitionFade_Update(void* pthisx, s32 updateRate) {
 void TransitionFade_Draw(void* pthisx, Gfx** gfxP) {
     TransitionFade* pthis = (TransitionFade*)pthisx;
     Gfx* gfx;
-    Color_RGBA8_u32* color = &pthis->fadeColor;
+    Color_RGBA8* color = &pthis->fadeColor;
 
     if (color->a > 0) {
         gfx = *gfxP;
@@ -114,10 +114,10 @@ s32 TransitionFade_IsDone(void* pthisx) {
     return pthis->isDone;
 }
 
-void TransitionFade_SetColor(void* pthisx, u32 color) {
+void TransitionFade_SetColor(void* pthisx, Color_RGBA8 color) {
     TransitionFade* pthis = (TransitionFade*)pthisx;
 
-    pthis->fadeColor.rgba = color;
+    pthis->fadeColor = color;
 }
 
 void TransitionFade_SetType(void* pthisx, s32 type) {

@@ -78,8 +78,14 @@ struct Frame
 	{
 	}
 
-	constexpr Frame(const T& n) : m_counter(n * (FRAMERATE_MAX / 20))
+	explicit constexpr Frame(const T& n) : m_counter(n * (FRAMERATE_MAX / 20))
 	{
+	}
+
+	Frame<T> operator=(const T& n)
+	{
+		m_counter = n * (FRAMERATE_MAX / 20);
+		return *this;
 	}
 
 	template<class S>
@@ -323,19 +329,109 @@ struct Frame
 		return (float)whole() + ((float)fraction() / ((float)FRAMERATE_MAX / 20.0f));
 	}
 
+	s8 toS8() const
+	{
+		return (s8)whole();
+	}
+
 	s16 toS16() const
 	{
 		return (s16)whole();
 	}
 
-	s16 toU16() const
+	s32 toS32() const
+	{
+		return (s32)whole();
+	}
+
+	s64 toS64() const
+	{
+		return (s64)whole();
+	}
+
+	u8 toU8() const
+	{
+		return (u8)whole();
+	}
+
+	u16 toU16() const
 	{
 		return (u16)whole();
+	}	
+
+	u32 toU32() const
+	{
+		return (u32)whole();
+	}
+
+	u64 toU64() const
+	{
+		return (u64)whole();
+	}
+
+	explicit operator u8() const
+	{
+		return toU8();
+	}
+
+	explicit operator u16() const
+	{
+		return toU16();
+	}
+
+	explicit operator u32() const
+	{
+		return toU32();
+	}
+
+	explicit operator u64() const
+	{
+		return toU64();
+	}
+
+	explicit operator s8() const
+	{
+		return toS8();
+	}
+
+	explicit operator s16() const
+	{
+		return toS16();
+	}
+
+	explicit operator s32() const
+	{
+		return toS32();
+	}
+
+	explicit operator s64() const
+	{
+		return toS64();
+	}
+
+	explicit operator float() const
+	{
+		return toFloat();
+	}
+
+	Frame<T>& dec()
+	{
+		if(m_counter)
+		{
+			m_counter--;
+		}
+		return *this;
 	}
 
 	const T& get() const
 	{
 		return m_counter;
+	}
+
+	Frame<T>& operator^=(long n)
+	{
+		m_counter ^= n;
+		return *this;
 	}
 
 	T& get()
@@ -371,24 +467,106 @@ typedef Frame<s64> Timer;
 typedef Frame<s64> Rotation;
 typedef Frame<s64> Counter;
 
-template <class T> bool operator<(u16 a, Frame<T> b)
+template <class T> bool operator<(T a, Frame<T> b)
 {
-	return b >= a;
+	return b.operator>=(a);
 }
 
-template <class T> bool operator<=(u16 a, Frame<T> b)
+template <class T> bool operator<=(T a, Frame<T> b)
 {
-	return b > a;
+	return b.operator>(a);
 }
 
-template <class T> bool operator>(u16 a, Frame<T> b)
+template <class T> bool operator>(T a, Frame<T> b)
 {
-	return b <= a;
+	return b.operator<=(a);
 }
 
-template <class T> bool operator>=(u16 a, Frame<T> b)
+template <class T> bool operator>=(T a, Frame<T> b)
 {
-	return b < a;
+	return b.operator<(a);
 }
+
+template <class T> bool operator==(T a, Frame<T> b)
+{
+	return b.operator==(a);
+}
+
+template <class T> bool operator!=(T a, Frame<T> b)
+{
+	return b.operator!=(a);
+}
+
+template <class T> Frame<T> operator*(T a, Frame<T> b)
+{
+	return b.operator*(a);
+}
+
+template <class T> Frame<T> operator/(T a, Frame<T> b)
+{
+	return Frame<T>(a).operator/(b);
+}
+
+template <class T> Frame<T> operator+(T a, Frame<T> b)
+{
+	return b.operator+(a);
+}
+
+template <class T> Frame<T> operator-(T a, Frame<T> b)
+{
+	return Frame<T>(a).operator-(b);
+}
+
+
+static bool operator<(s32 a, Timer b)
+{
+	return b.operator>=(a);
+}
+
+static bool operator<=(s32 a, Timer b)
+{
+	return b.operator>(a);
+}
+
+static bool operator>(s32 a, Timer b)
+{
+	return b.operator<=(a);
+}
+
+static bool operator>=(s32 a, Timer b)
+{
+	return b.operator<(a);
+}
+
+static bool operator==(s32 a, Timer b)
+{
+	return b.operator==(a);
+}
+
+static bool operator!=(s32 a, Timer b)
+{
+	return b.operator!=(a);
+}
+
+static Timer operator*(s32 a, Timer b)
+{
+	return b.operator*(a);
+}
+
+static Timer operator/(s32 a, Timer b)
+{
+	return Timer(a).operator/(b);
+}
+
+static Timer operator+(s32 a, Timer b)
+{
+	return b.operator+(a);
+}
+
+static Timer operator-(s32 a, Timer b)
+{
+	return Timer(a).operator-(b);
+}
+
 
 

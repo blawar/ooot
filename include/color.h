@@ -1,20 +1,20 @@
 #pragma once
+#include "macros.h"
 
 struct Color_RGB8 {
     u8 r, g, b;
 };
 
 struct Color_RGBA8 {
+    Color_RGBA8() = default;
+    Color_RGBA8(u8 r_, u8 g_, u8 b_, u8 a_) : r(r_), g(g_), b(b_), a(a_) {}
+
+    explicit operator u32 () {
+        return BE32(RGBA8(r, g, b, a));
+    }
+
     u8 r, g, b, a;
 };
-
-// only use when necessary for alignment purposes
-typedef union {
-    struct {
-        u8 r, g, b, a;
-    };
-    u32 rgba;
-} Color_RGBA8_u32;
 
 struct Color_RGBAf {
     f32 r, g, b, a;

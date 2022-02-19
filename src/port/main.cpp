@@ -157,15 +157,8 @@ void ParseCommandLineArguments(const std::vector<std::string>& commands)
     }
 }
 
-
-
-int main(int argc, char** argv) {
-    std::vector<std::string> commands;
-    for (int i = 1; i < argc; i++)
-        commands.push_back(argv[i]);
-
-    ParseCommandLineArguments(commands);
-
+void run()
+{
     s16* msg;
 
 
@@ -185,13 +178,17 @@ int main(int argc, char** argv) {
 
     AudioMgr_Init(&gAudioMgr, NULL, NULL, 0xA, NULL, NULL);
 
-
-    /*StackCheck_Init(&sGraphStackInfo, sGraphStack, sGraphStack + sizeof(sGraphStack), 0, 0x100, "graph");
-    osCreateThread(&sGraphThread, 4, Graph_ThreadEntry, arg, sGraphStack + sizeof(sGraphStack), Z_PRIORITY_GRAPH);
-    osStartThread(&sGraphThread);
-    osSetThreadPri(0, Z_PRIORITY_SCHED);*/
-
     main_func();
+}
+
+int main(int argc, char** argv)
+{
+	std::vector<std::string> commands;
+	for(int i = 1; i < argc; i++)
+		commands.push_back(argv[i]);
+
+	ParseCommandLineArguments(commands);
+	run();
 }
 
 #include <string.h>
