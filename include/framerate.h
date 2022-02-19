@@ -469,73 +469,73 @@ typedef Frame<s64> Counter;
 
 template <class T> bool operator<(T a, Frame<T> b)
 {
-	return b >= a;
+	return b.operator>=(a);
 }
 
 template <class T> bool operator<=(T a, Frame<T> b)
 {
-	return b > a;
+	return b.operator>(a);
 }
 
 template <class T> bool operator>(T a, Frame<T> b)
 {
-	return b <= a;
+	return b.operator<=(a);
 }
 
 template <class T> bool operator>=(T a, Frame<T> b)
 {
-	return b < a;
+	return b.operator<(a);
 }
 
 template <class T> bool operator==(T a, Frame<T> b)
 {
-	return b == a;
+	return b.operator==(a);
 }
 
 template <class T> bool operator!=(T a, Frame<T> b)
 {
-	return b != a;
+	return b.operator!=(a);
 }
 
 template <class T> Frame<T> operator*(T a, Frame<T> b)
 {
-	return Frame<T>(a) * b;
+	return b.operator*(a);
 }
 
 template <class T> Frame<T> operator/(T a, Frame<T> b)
 {
-	return Frame<T>(a) / b;
+	return Frame<T>(a).operator/(b);
 }
 
 template <class T> Frame<T> operator+(T a, Frame<T> b)
 {
-	return Frame<T>(a) + b;
+	return b.operator+(a);
 }
 
 template <class T> Frame<T> operator-(T a, Frame<T> b)
 {
-	return Frame<T>(a) - b;
+	return Frame<T>(a).operator-(b);
 }
 
 
 static bool operator<(s32 a, Timer b)
 {
-	return b >= a;
+	return b.operator>=(a);
 }
 
 static bool operator<=(s32 a, Timer b)
 {
-	return b > a;
+	return b.operator>(a);
 }
 
 static bool operator>(s32 a, Timer b)
 {
-	return b <= a;
+	return b.operator<=(a);
 }
 
 static bool operator>=(s32 a, Timer b)
 {
-	return b < a;
+	return b.operator<(a);
 }
 
 static bool operator==(s32 a, Timer b)
