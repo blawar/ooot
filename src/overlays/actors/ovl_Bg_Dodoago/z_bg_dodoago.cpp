@@ -257,7 +257,7 @@ void BgDodoago_OpenJaw(BgDodoago* pthis, GlobalContext* globalCtx) {
     BgDodoago_SpawnSparkles(&pos, globalCtx);
 
     Math_StepToS(&pthis->state, 100, 3);
-    func_800AA000(500.0f, 0x78, 0x14, 0xA);
+    Rumble_Shake(500.0f, 0x78, 0x14, 0xA);
 
     if (Math_SmoothStepToS(&pthis->dyna.actor.shape.rot.x, 0x1333, 110 - pthis->state, 0x3E8, 0x32) == 0) {
         BgDodoago_SetupAction(pthis, BgDodoago_DoNothing);

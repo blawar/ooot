@@ -30,7 +30,7 @@ Gfx sCircleDList[] = {
                      G_AC_NONE | G_ZS_PIXEL | G_RM_XLU_SURF | G_RM_XLU_SURF2),
     gsDPSetCombineMode(G_CC_BLENDPEDECALA, G_CC_BLENDPEDECALA),
     gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
-    gsDPLoadTextureBlock(0x08000000, G_IM_FMT_I, G_IM_SIZ_8b, 16, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(SEGMENT_ADDRESS(0x08000000), G_IM_FMT_I, G_IM_SIZ_8b, 16, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_CLAMP, 4, 6, G_TX_NOLOD, G_TX_NOLOD),
     gsSPDisplayListSEG(SEGMENT_ADDRESS(0x09000000)),
     gsSPVertex(sCircleWipeVtx, 32, 0),
@@ -74,9 +74,9 @@ void TransitionCircle_Start(void* thisx) {
     }
 
     if (pthis->typeColor == 0) {
-        pthis->color.rgba = RGBA8(0, 0, 0, 255);
+        pthis->color = Color_RGBA8(0, 0, 0, 255);
     } else if (pthis->typeColor == 1) {
-        pthis->color.rgba = RGBA8(160, 160, 160, 255);
+        pthis->color = Color_RGBA8(160, 160, 160, 255);
     } else if (pthis->typeColor == 2) {
         // yes, really.
         pthis->color.r = 100;
@@ -85,7 +85,7 @@ void TransitionCircle_Start(void* thisx) {
         pthis->color.a = 255;
     } else {
         pthis->step = 0x28;
-        pthis->color.rgba = pthis->effect == 1 ? RGBA8(0, 0, 0, 255) : RGBA8(160, 160, 160, 255);
+        pthis->color = pthis->effect == 1 ? Color_RGBA8(0, 0, 0, 255) : Color_RGBA8(160, 160, 160, 255);
     }
     if (pthis->unk_14 != 0) {
         pthis->texY = 0;
@@ -161,8 +161,8 @@ void TransitionCircle_Draw(void* thisx, Gfx** gfxP) {
     texScroll = Gfx_BranchTexScroll(&gfx, pthis->texX, pthis->texY, 0x10, 0x40);
     gSPSegment(gfx++, 9, texScroll);
     gSPSegment(gfx++, 8, pthis->texture);
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.rgba);
-    gDPSetColor(gfx++, G_SETENVCOLOR, pthis->color.rgba);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
+    gDPSetColor(gfx++, G_SETENVCOLOR,  pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
     gSPMatrix(gfx++, &pthis->projection, G_MTX_PROJECTION | G_MTX_LOAD);
     gSPPerspNormalize(gfx++, pthis->normal);
     gSPMatrix(gfx++, &pthis->lookAt, G_MTX_PROJECTION | G_MTX_NOPUSH | G_MTX_MUL);
@@ -207,14 +207,14 @@ void TransitionCircle_SetType(void* thisx, s32 type) {
     }
 }
 
-void TransitionCircle_SetColor(void* thisx, u32 color) {
+void TransitionCircle_SetColor(void* thisx, Color_RGBA8 color) {
     TransitionCircle* pthis = (TransitionCircle*)thisx;
 
-    pthis->color.rgba = color;
+    pthis->color = color;
 }
 
-void TransitionCircle_SetEnvColor(void* thisx, u32 envColor) {
+void TransitionCircle_SetEnvColor(void* thisx, Color_RGBA8 envColor) {
     TransitionCircle* pthis = (TransitionCircle*)thisx;
 
-    pthis->envColor.rgba = envColor;
+    pthis->envColor = envColor;
 }

@@ -149,11 +149,6 @@ void func_800C4344(GameState* gameState) {
     s32 hexDumpSize;
     u16 hReg82;
 
-#ifndef USE_NATIVE_MALLOC
-    if (HREG(80) == 0x14) {
-        __osMalloc_FreeBlockTest_Enable = HREG(82);
-    }
-#endif
 
     if (HREG(80) == 0xC) {
         selectedInput = &gameState->input[(u32)HREG(81) < 4U ? HREG(81) : 0];
@@ -480,7 +475,7 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
         ViMode_Init(&sViMode);
     }
     SpeedMeter_Init(&D_801664D0);
-    func_800AA0B4();
+    Rumble_Reset();
     osSendMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
 
     endTime = osGetTime();
@@ -501,7 +496,7 @@ void GameState_Destroy(GameState* gameState) {
     if (gameState->destroy != NULL) {
         gameState->destroy(gameState);
     }
-    func_800AA0F0();
+    Rumble_Destroy();
     SpeedMeter_Destroy(&D_801664D0);
     func_800ACE90(&D_801664F0);
     func_800AD950(&D_80166500);

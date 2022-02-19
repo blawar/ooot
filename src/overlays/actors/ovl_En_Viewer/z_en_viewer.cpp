@@ -219,7 +219,7 @@ static s16 sTimer = 0;
 
 void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
     u8 type = pthis->actor.params >> 8;
-    FrameU16 csFrames;
+    Counter csFrames;
     s32 animationEnded;
 
     if (type == ENVIEWER_TYPE_2_ZELDA) {
@@ -548,7 +548,7 @@ void EnViewer_GanondorfPostLimbDrawUpdateCapeVec(GlobalContext* globalCtx, s32 l
 }
 
 void EnViewer_DrawGanondorf(EnViewer* pthis, GlobalContext* globalCtx) {
-    FrameU16 frames = 0;
+    Counter frames;
     s16 type;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1405);

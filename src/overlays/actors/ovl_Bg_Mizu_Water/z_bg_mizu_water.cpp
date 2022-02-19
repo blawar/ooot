@@ -288,10 +288,10 @@ void BgMizuWater_ChangeWaterLevel(BgMizuWater* pthis, GlobalContext* globalCtx) 
     }
 
     if (pthis->targetY < pthis->actor.world.pos.y) {
-        func_800AA000(0.0f, 0x78, 0x14, 0xA);
+        Rumble_Shake(0.0f, 0x78, 0x14, 0xA);
         func_8002F948(&pthis->actor, NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
     } else if (pthis->targetY > pthis->actor.world.pos.y) {
-        func_800AA000(0.0f, 0x78, 0x14, 0xA);
+        Rumble_Shake(0.0f, 0x78, 0x14, 0xA);
         func_8002F948(&pthis->actor, NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
     }
 }

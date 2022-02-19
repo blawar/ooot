@@ -1,0 +1,8 @@
+<Root>
+    <File Name="code" OutName="z_fbdemo_triforce" RangeStart="0xE8E50" RangeEnd="0xE8F20">
+        <DList Name="sTriforceWipeDL" Offset="0xE8E50"/>
+        <Array Name="sTriforceWipeVtx" Count="10" Offset="0xE8E80">
+            <Vtx/>
+        </Array>
+    </File>
+</Root>

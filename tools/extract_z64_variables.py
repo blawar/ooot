@@ -1,5 +1,8 @@
 import struct
 import json
+from oot import *
+
+conf = config()
 
 def reverse(s):
 	return s[::-1]
@@ -371,7 +374,7 @@ class Table(Section):
 		lst = []
 		relocs = []
 		
-		with ConvFile(self.dataFile, 'rb') as x:
+		with ConvFile(assetPath(self.dataFile), 'rb') as x:
 			while z64.tell() < self.offset + self.sz:
 				address = readU32(z64, swap = False)
 				size = readU32(z64, swap = False)
@@ -406,38 +409,40 @@ class FontTable(Table):
 	def getReloc(self, address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f):
 		return FontReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, self.dataFile, f = f)
 
-sections = {'assets/rsp.h': [
-		FontTable('gSoundFontTable', 0xBCC270, 0x270, 'baserom/Audiobank'),
-		Section('gSequenceFontTable', 0xBCC4E0, 0x1C0, 2),
-		Table('gSequenceTable', 0xBCC6A0, 0x6F0, 'baserom/Audioseq'),
-		Table('gSampleBankTable', 0xBCCD90, 0x80, 'baserom/Audiotable'),
-		Section('rspAspMainDataStart', 0xBCCE10, 0x2E0),
-		Section('D_80155F50', 0xBCD0F0, 0x1630, 1),
-		Section('D_80157580', 0xBCE720, 0x420, 1),
-		Section('D_801579A0', 0xBCEB40, 0x390, 1),
-		Section('gJpegUCodeData', 0xBCEED0, 0x60),
-		Section('D_801120C0', 0xB89260, 0xFB0, 8),
-		Section('D_80113070', 0xB8A210, 0x18C0, 1),
-		Section('gJpegUCode', 0xB8BAD0, 0xAF0, 8)
+sections = {'misc/rsp.h': [
+		FontTable('gSoundFontTable', conf.sections.gSoundFontTable.offset, conf.sections.gSoundFontTable.size, 'baserom/Audiobank'),
+		Section('gSequenceFontTable', conf.sections.gSequenceFontTable.offset, conf.sections.gSequenceFontTable.size, 2),
+		Table('gSequenceTable', conf.sections.gSequenceTable.offset, conf.sections.gSequenceTable.size, 'baserom/Audioseq'),
+		Table('gSampleBankTable', conf.sections.gSampleBankTable.offset, conf.sections.gSampleBankTable.size, 'baserom/Audiotable'),
+		Section('rspAspMainDataStart', conf.sections.rspAspMainData.offset, conf.sections.rspAspMainData.size),
+		Section('D_80155F50', conf.sections.rspF3DZEXText.offset, conf.sections.rspF3DZEXText.size, 1),
+		Section('D_80157580', conf.sections.rspF3DZEXData.offset, conf.sections.rspF3DZEXData.size, 1),
+		Section('D_801579A0', conf.sections.rspS2DEXData.offset, conf.sections.rspS2DEXData.size, 1),
+		Section('gJpegUCodeData', conf.sections.rspJpegData.offset, conf.sections.rspJpegData.size),
+		Section('D_801120C0', conf.sections.rspAspMainText.offset, conf.sections.rspAspMainText.size, 8),
+		Section('D_80113070', conf.sections.rspS2DEXText.offset, conf.sections.rspS2DEXText.size, 1),
+		Section('gJpegUCode', conf.sections.rspJpegTextStart.offset, conf.sections.rspJpegTextStart.size, 8)
 	],
-	'assets/rsp_boot.h': [
-		Section('D_80009320', 0x9F20, 0xD0, 1),
-		Section('D_800093F0', 0x9FF0, 0x20, 1)
+	'misc/rsp_boot.h': [
+		Section('D_80009320', conf.sections.rspBootText.offset, conf.sections.rspBootText.size, 1),
+		Section('D_800093F0', conf.sections.D_800093F0.offset, conf.sections.D_800093F0.size, 1)
 	],
-	'assets/code_800F9280.h': [
-		Section('sSeqCmdWrPos', 0xBAA5A0, 0x4, 1),
-		Section('sSeqCmdRdPos', 0xBAA5A4, 0x4, 1),
-		Section('D_80133408', 0xBAA5A8, 0x1, 1),
-		Section('D_8013340C', 0xBAA5AC, 0x1, 1),
-		Section('D_80133410', 0xBAA5B0, 0x4, 1),
-		Section('gAudioSpecId', 0xBAA5B4, 0x1, 1),
-		Section('D_80133418', 0xBAA5B8, 0x1, 1),
+	'misc/code_800F9280.h': [
+		Section('sSeqCmdWrPos', conf.sections.sSeqCmdWrPos.offset, conf.sections.sSeqCmdWrPos.size, 1),
+		Section('sSeqCmdRdPos', conf.sections.sSeqCmdRdPos.offset, conf.sections.sSeqCmdRdPos.size, 1),
+		Section('D_80133408', conf.sections.D_80133408.offset, conf.sections.D_80133408.size, 1),
+		Section('D_8013340C', conf.sections.D_8013340C.offset, conf.sections.D_8013340C.size, 1),
+		Section('D_80133410', conf.sections.D_80133410.offset, conf.sections.D_80133410.size, 1),
+		Section('gAudioSpecId', conf.sections.gAudioSpecId.offset, conf.sections.gAudioSpecId.size, 1),
+		Section('D_80133418', conf.sections.D_80133418.offset, conf.sections.D_80133418.size, 1),
 	]
 }
 
-with open('baserom.z64', 'rb') as z64:
+createDir(assetPath('misc'))
+
+with open(romPath('baserom.z64'), 'rb') as z64:
 	for filename, s in sections.items():
-		with open(filename, 'w') as f:
+		with open(assetPath(filename), 'w') as f:
 			f.write('#include "global.h"\n')
 			includes = {}
 			for section in s:

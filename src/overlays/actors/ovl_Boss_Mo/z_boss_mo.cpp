@@ -1006,7 +1006,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx) {
                 if ((pthis->sfxTimer % 32) == 0) {
                     Audio_PlaySoundIncreasinglyTransposed(&pthis->tentTipPos, NA_SE_EN_MOFER_WAVE,
                                                           gMorphaTransposeTable);
-                    func_800AA000(0, 100, 5, 2);
+                    Rumble_Shake(0, 100, 5, 2);
                     func_8002F7DC(&player->actor, NA_SE_VO_LI_FREEZE + player->ageProperties->unk_92);
                 }
             } else {
@@ -1021,7 +1021,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx) {
                 if ((pthis->sfxTimer % 16) == 0) {
                     Audio_PlaySoundIncreasinglyTransposed(&pthis->tentTipPos, NA_SE_EN_MOFER_WAVE,
                                                           gMorphaTransposeTable);
-                    func_800AA000(0, 160, 5, 4);
+                    Rumble_Shake(0, 160, 5, 4);
                     func_8002F7DC(&player->actor, NA_SE_VO_LI_FREEZE + player->ageProperties->unk_92);
                 }
             }

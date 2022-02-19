@@ -161,7 +161,7 @@ void GfxPrint_Setup(GfxPrint* pthis) {
         gDPSetTileSize(pthis->dList++, i * 2, 0, 0, 60, 1020);
     }
 
-    gDPSetColor(pthis->dList++, G_SETPRIMCOLOR, pthis->color.rgba);
+    gDPSetColor(pthis->dList++, G_SETPRIMCOLOR, pthis->color);
 
     gDPLoadMultiTile_4b(pthis->dList++, sGfxPrintRainbowData, 0, 1, G_IM_FMT_CI, 2, 8, 0, 0, 1, 7, 4,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 1, 3, G_TX_NOLOD, G_TX_NOLOD);
@@ -175,13 +175,13 @@ void GfxPrint_Setup(GfxPrint* pthis) {
     }
 }
 
-void GfxPrint_SetColor(GfxPrint* pthis, u32 r, u32 g, u32 b, u32 a) {
+void GfxPrint_SetColor(GfxPrint* pthis, u8 r, u8 g, u8 b, u8 a) {
     pthis->color.r = r;
     pthis->color.g = g;
     pthis->color.b = b;
     pthis->color.a = a;
     gDPPipeSync(pthis->dList++);
-    gDPSetColor(pthis->dList++, G_SETPRIMCOLOR, pthis->color.rgba);
+    gDPSetColor(pthis->dList++, G_SETPRIMCOLOR, pthis->color);
 }
 
 void GfxPrint_SetPosPx(GfxPrint* pthis, s32 x, s32 y) {
@@ -230,7 +230,7 @@ void GfxPrint_PrintCharImpl(GfxPrint* pthis, u8 c) {
                                 tile, (u16)(c & 4) * 64, (u16)(c >> 3) * 256, 1 << 10, 1 << 10);
         }
 
-        gDPSetColor(pthis->dList++, G_SETPRIMCOLOR, pthis->color.rgba);
+        gDPSetColor(pthis->dList++, G_SETPRIMCOLOR, pthis->color);
     }
 
     if (pthis->flags & GFXP_FLAG_ENLARGE) {
@@ -328,7 +328,7 @@ void GfxPrint_Init(GfxPrint* pthis) {
     pthis->posY = 0;
     pthis->baseX = 0;
     pthis->baseY = 0;
-    pthis->color.rgba = 0;
+    pthis->color = Color_RGBA8(0, 0, 0, 0);
 
     pthis->flags &= ~GFXP_FLAG_HIRAGANA;
     pthis->flags &= ~GFXP_FLAG_RAINBOW;

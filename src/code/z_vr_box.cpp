@@ -7,7 +7,7 @@
 #include "z64save.h"
 #include "z64environment.h"
 #include "segment_symbols.h"
-#include "z_vr_box_assets.h"
+#include "misc/z_vr_box_assets.h"
 #include "z_kankyo.h"
 #include "def/game.h"
 #include "def/z_common_data.h"

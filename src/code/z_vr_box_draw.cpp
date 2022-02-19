@@ -7,15 +7,16 @@
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 #include "def/z_vr_box_draw.h"
+#include "framerate.h"
 
 Mtx* sSkyboxDrawMatrix;
 
 Mtx* SkyboxDraw_UpdateMatrix(SkyboxContext* skyboxCtx, f32 x, f32 y, f32 z) {
     Matrix_Translate(x, y, z, MTXMODE_NEW);
     Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-    Matrix_RotateX(skyboxCtx->rot.x, MTXMODE_APPLY);
-    Matrix_RotateY(skyboxCtx->rot.y, MTXMODE_APPLY);
-    Matrix_RotateZ(skyboxCtx->rot.z, MTXMODE_APPLY);
+    Matrix_RotateX(skyboxCtx->rot.x * FRAMERATE_SCALER, MTXMODE_APPLY);
+    Matrix_RotateY(skyboxCtx->rot.y * FRAMERATE_SCALER, MTXMODE_APPLY);
+    Matrix_RotateZ(skyboxCtx->rot.z * FRAMERATE_SCALER, MTXMODE_APPLY);
     return Matrix_ToMtx(sSkyboxDrawMatrix, "../z_vr_box_draw.c", 42);
 }
 
@@ -35,9 +36,9 @@ void SkyboxDraw_Draw(SkyboxContext* skyboxCtx, GraphicsContext* gfxCtx, s16 skyb
 
     Matrix_Translate(x, y, z, MTXMODE_NEW);
     Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-    Matrix_RotateX(skyboxCtx->rot.x, MTXMODE_APPLY);
-    Matrix_RotateY(skyboxCtx->rot.y, MTXMODE_APPLY);
-    Matrix_RotateZ(skyboxCtx->rot.z, MTXMODE_APPLY);
+    Matrix_RotateX(skyboxCtx->rot.x * FRAMERATE_SCALER, MTXMODE_APPLY);
+    Matrix_RotateY(skyboxCtx->rot.y * FRAMERATE_SCALER, MTXMODE_APPLY);
+    Matrix_RotateZ(skyboxCtx->rot.z * FRAMERATE_SCALER, MTXMODE_APPLY);
     Matrix_ToMtx(sSkyboxDrawMatrix, "../z_vr_box_draw.c", 76);
     gSPMatrix(POLY_OPA_DISP++, sSkyboxDrawMatrix, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

@@ -37,8 +37,8 @@ typedef struct {
     /* 0x238 */ void  (*draw)(void* transition, Gfx** gfxP);
     /* 0x23C */ void  (*start)(void* transition);
     /* 0x240 */ void  (*setType)(void* transition, s32 type);
-    /* 0x244 */ void  (*setColor)(void* transition, u32 color);
-    /* 0x248 */ void  (*setEnvColor)(void* transition, u32 color);
+    /* 0x244 */ void  (*setColor)(void* transition, Color_RGBA8 color);
+    /* 0x248 */ void  (*setEnvColor)(void* transition, Color_RGBA8 color);
     /* 0x24C */ s32   (*isDone)(void* transition);
 } TransitionContext; // size = 0x250
 

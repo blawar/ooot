@@ -40,11 +40,12 @@ namespace oot
 			int keyboard_buttons_down;
 
 		private:
-			const char* getInputName(Button input);
-			Button getInputValue(const std::string& input);
 
 			std::unordered_map<SDL_Scancode, Button> m_keyBindings;
 			u8 m_lastKeyState[MAX_KEY_STATE];
 		};
+
+		const char* getInputName(Button input);
+		Button getInputValue(const std::string& input);
 	}
 }

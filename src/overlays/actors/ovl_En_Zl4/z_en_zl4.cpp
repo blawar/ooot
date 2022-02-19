@@ -854,7 +854,7 @@ s32 EnZl4_CsLookWindow(EnZl4* pthis, GlobalContext* globalCtx) {
                     globalCtx->csCtx.state = CS_STATE_UNSKIPPABLE_INIT;
                 }
             } else {
-                func_800AA000(0.0f, 0xA0, 0xA, 0x28);
+                Rumble_Shake(0.0f, 0xA0, 0xA, 0x28);
                 func_8002DF54(globalCtx, &pthis->actor, 1);
                 func_80034EC0(&pthis->skelAnime, sAnimationEntries, ZL4_ANIM_30);
                 EnZl4_SetCsCameraAngle(globalCtx, 11);

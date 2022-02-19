@@ -179,7 +179,7 @@ void func_808894B0(BgHidanHrock* pthis, GlobalContext* globalCtx) {
         (Math_CosS(pthis->dyna.actor.world.rot.y + (pthis->unk_168 << 0xE)) * 5.0f) + pthis->dyna.actor.home.pos.z;
 
     if (!(pthis->unk_168 % 4)) {
-        func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 180, 10, 100);
+        Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 180, 10, 100);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_SHAKE);
     }
 

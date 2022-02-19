@@ -3,7 +3,7 @@
 #include "file_choose.h"
 #include "z_file_choose.h"
 #include "textures/title_static/title_static.h"
-#include "assets/overlays/ovl_File_Choose/ovl_file_choose.h"
+#include "overlays/ovl_File_Choose/ovl_file_choose.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -453,7 +453,7 @@ void FileChoose_DrawNameEntry(GameState* thisx) {
                             pthis->configMode = CM_NAME_ENTRY_TO_MAIN;
                             pthis->nameBoxAlpha[pthis->buttonIndex] = pthis->nameAlpha[pthis->buttonIndex] = 200;
                             pthis->connectorAlpha[pthis->buttonIndex] = 255;
-                            func_800AA000(300.0f, 0xB4, 0x14, 0x64);
+                            Rumble_Shake(300.0f, 0xB4, 0x14, 0x64);
                         } else {
                             Audio_PlaySoundGeneral(NA_SE_SY_FSEL_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0,
                                                    &D_801333E8);
@@ -874,11 +874,22 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
         }
     }
 
+#ifndef RETAIL
     if (gSaveContext.language == LANGUAGE_GER) {
         gSPVertex(POLY_OPA_DISP++, D_80811E30, 32, 0);
     } else {
         gSPVertex(POLY_OPA_DISP++, D_80811D30, 32, 0);
     }
+#else
+    if(gSaveContext.language == LANGUAGE_GER)
+    {
+	    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[16], 32, 0);
+    }
+    else
+    {
+	    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[0], 32, 0);
+    }
+#endif
 
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetCombineLERP(POLY_OPA_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE,
@@ -894,11 +905,22 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
         gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
     }
 
+#ifndef RETAIL
     if (gSaveContext.language == LANGUAGE_GER) {
         gSPVertex(POLY_OPA_DISP++, D_80812130, 32, 0);
     } else {
         gSPVertex(POLY_OPA_DISP++, D_80811F30, 32, 0);
     }
+#else
+    if(gSaveContext.language == LANGUAGE_GER)
+    {
+	    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[64], 32, 0);
+    }
+    else
+    {
+	    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[24], 32, 0);
+    }
+#endif
 
     for (i = 0, vtx = 0; i < 4; i++, vtx += 4) {
         gDPPipeSync(POLY_OPA_DISP++);

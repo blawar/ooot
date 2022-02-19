@@ -198,7 +198,7 @@ void ArmsHook_Shoot(ArmsHook* pthis, GlobalContext* globalCtx) {
         pthis->timer = 0;
         Audio_PlaySoundGeneral(NA_SE_IT_ARROW_STICK_CRE, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
                                &D_801333E8);
-    } else if (DECR(pthis->timer) == 0) {
+    } else if (DECRT(pthis->timer) == 0) {
         grabbed = pthis->grabbed;
         if (grabbed != NULL) {
             if ((grabbed->update == NULL) || !CHECK_FLAG_ALL(grabbed->flags, ACTOR_FLAG_13)) {

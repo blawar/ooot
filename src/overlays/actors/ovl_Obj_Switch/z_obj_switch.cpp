@@ -454,7 +454,7 @@ void ObjSwitch_FloorPress(ObjSwitch* pthis, GlobalContext* globalCtx) {
         if (pthis->dyna.actor.scale.y <= 33.0f / 2000.0f) {
             ObjSwitch_FloorDownInit(pthis);
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_FOOT_SWITCH);
-            func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 120, 20, 10);
+            Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 120, 20, 10);
         }
     }
 }
@@ -511,7 +511,7 @@ void ObjSwitch_FloorRelease(ObjSwitch* pthis, GlobalContext* globalCtx) {
             ObjSwitch_FloorUpInit(pthis);
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_FOOT_SWITCH);
             if (subType == OBJSWITCH_SUBTYPE_FLOOR_1) {
-                func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 120, 20, 10);
+                Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 120, 20, 10);
             }
         }
     }

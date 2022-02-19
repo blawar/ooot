@@ -1,5 +1,6 @@
 import os
 import re
+from oot import *
 
 def fix(path):
 	with open(path, 'r', encoding="UTF-8") as f:
@@ -9,13 +10,14 @@ def fix(path):
 	
 	with open(path, 'w', encoding="UTF-8") as f:
 		buffer = f.write(result)
-		
-	
-#fix('assets/objects/object_link_child/object_link_child.c')
-PATH = 'assets'
+
+PATH = assetPath()
 result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] in ['.cpp', '.h']]
 for f in result:
 	try:
+		if str(f).endswith('.enc.h'):
+			continue
+
 		fix(f)
 	except:
 		print('failed: %s' % str(f))

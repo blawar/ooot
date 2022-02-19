@@ -216,6 +216,10 @@ int main(int argc, char* argv[])
 		{
 			Globals::Instance->forceUnaccountedStatic = true;
 		}
+		else if (arg == "--externalXmlFolder")
+		{
+			Globals::Instance->cfg.externalXmlFolder = argv[++i];
+		}
 	}
 
 	// Parse File Mode

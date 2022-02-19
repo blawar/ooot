@@ -157,7 +157,7 @@ void func_808A91AC(BgRelayObjects* pthis, GlobalContext* globalCtx) {
 void func_808A9234(BgRelayObjects* pthis, GlobalContext* globalCtx) {
     pthis->dyna.actor.velocity.y += pthis->dyna.actor.gravity;
     if (Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, pthis->dyna.actor.velocity.y)) {
-        func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 180, 20, 100);
+        Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 180, 20, 100);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_STONE_BOUND);
         if (pthis->unk_169 != globalCtx->roomCtx.curRoom.num) {
             func_800788CC(NA_SE_EN_PO_LAUGH);

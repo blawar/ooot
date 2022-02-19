@@ -26,14 +26,14 @@ void BgSpot16Bombstone_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Bombstone_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-void func_808B5A94(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
-void func_808B5B04(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
-void func_808B5B6C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
-void func_808B5B58(BgSpot16Bombstone* pthis);
-void func_808B5950(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
-void func_808B5934(BgSpot16Bombstone* pthis);
-void func_808B5AF0(BgSpot16Bombstone* pthis);
-void func_808B5A78(BgSpot16Bombstone* pthis);
+void action_808B5A94(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
+void action_wait_object_load(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
+void action_808B5B6C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
+void set_action_808B5B58(BgSpot16Bombstone* pthis);
+void action_show_boulder(BgSpot16Bombstone* pthis, GlobalContext* globalCtx);
+void set_action_show_boulder(BgSpot16Bombstone* pthis);
+void set_action_wait_object_load(BgSpot16Bombstone* pthis);
+void set_action_808B5A78(BgSpot16Bombstone* pthis);
 
 static EnBombf* sPlayerBomb = NULL;
 
@@ -155,16 +155,16 @@ static Vec3f sVelocity = { 0.0f, 0.0f, 0.0f };
 
 static Vec3f sAcceleration = { 0.0f, 0.4f, 0.0f };
 
-static f32 D_808B6074[] = { 66.0f, 51.0f, 48.0f, 36.0f, 21.0f };
+static f32 sBombSizeScalers[] = { 66.0f, 51.0f, 48.0f, 36.0f, 21.0f };
 
-static s16 D_808B6088[] = { 0, 1, 2, 3, 4 };
+static s16 sActorSpawnParams[] = { 0, 1, 2, 3, 4 };
 
-void func_808B4C30(BgSpot16Bombstone* pthis) {
+void set_flags(BgSpot16Bombstone* pthis) {
     pthis->switchFlag = (pthis->actor.params >> 8) & 0x3F;
     pthis->actor.params = pthis->actor.params & 0xFF;
 }
 
-void func_808B4C4C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+void set_collision_sphere(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     s32 pad;
 
     Collider_InitJntSph(globalCtx, &pthis->colliderJntSph);
@@ -175,7 +175,7 @@ void func_808B4C4C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     pthis->colliderJntSph.elements[0].dim.worldSphere.radius = 120;
 }
 
-void func_808B4D04(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+void set_collision_cylinder(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     s32 pad;
 
     Collider_InitCylinder(globalCtx, &pthis->colliderCylinder);
@@ -185,7 +185,7 @@ void func_808B4D04(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     pthis->colliderCylinder.dim.pos.z += (s16)pthis->actor.world.pos.z;
 }
 
-s32 func_808B4D9C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+s32 init_boulder(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     if (Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
         osSyncPrintf("Spot16 obj 爆弾石 破壊済み\n");
         return false;
@@ -193,17 +193,17 @@ s32 func_808B4D9C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChainBoulder);
     Actor_SetScale(&pthis->actor, 0.4f);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
-    func_808B4C4C(pthis, globalCtx);
-    func_808B4D04(pthis, globalCtx);
+    set_collision_sphere(pthis, globalCtx);
+    set_collision_cylinder(pthis, globalCtx);
     pthis->sinRotation = Math_SinS(pthis->actor.shape.rot.y);
     pthis->cosRotation = Math_CosS(pthis->actor.shape.rot.y);
     pthis->dList = gDodongosCavernRock3DL;
 
-    func_808B5934(pthis);
+    set_action_show_boulder(pthis);
     return true;
 }
 
-s32 func_808B4E58(BgSpot16Bombstone* pthis, GlobalContext* globalctx) {
+s32 init_debris(BgSpot16Bombstone* pthis, GlobalContext* globalctx) {
     Actor* actor = &pthis->actor;
     f32 scaleFactor = 1.0f / 600.0f;
     f32 sinCosPosFactor = 50.0f;
@@ -217,8 +217,8 @@ s32 func_808B4E58(BgSpot16Bombstone* pthis, GlobalContext* globalctx) {
 
     Actor_SetScale(actor, D_808B5DD8[actor->params][2] * scaleFactor);
 
-    pthis->unk_210 = (f32)D_808B5DD8[actor->params][3];
-    pthis->unk_212 = (f32)D_808B5DD8[actor->params][4];
+    pthis->rotateSpeedX = (f32)D_808B5DD8[actor->params][3];
+    pthis->rotateSpeedZ = (f32)D_808B5DD8[actor->params][4];
 
     actor->world.rot.y = D_808B5DD8[actor->params][5];
 
@@ -242,7 +242,7 @@ s32 func_808B4E58(BgSpot16Bombstone* pthis, GlobalContext* globalctx) {
         return false;
     }
 
-    func_808B5AF0(pthis);
+    set_action_wait_object_load(pthis);
     return true;
 }
 
@@ -250,12 +250,12 @@ void BgSpot16Bombstone_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot16Bombstone* pthis = (BgSpot16Bombstone*)thisx;
     s16 shouldLive;
 
-    func_808B4C30(pthis);
+    set_flags(pthis);
 
     switch (pthis->actor.params) {
         case 0xFF:
             // The boulder is intact
-            shouldLive = func_808B4D9C(pthis, globalCtx);
+            shouldLive = init_boulder(pthis, globalCtx);
             break;
         case 0:
         case 1:
@@ -264,7 +264,7 @@ void BgSpot16Bombstone_Init(Actor* thisx, GlobalContext* globalCtx) {
         case 4:
         case 5:
             // The boulder is debris
-            shouldLive = func_808B4E58(pthis, globalCtx);
+            shouldLive = init_debris(pthis, globalCtx);
             break;
         default:
             osSyncPrintf("Error : arg_data おかしいな(%s %d)(arg_data 0x%04x)\n", "../z_bg_spot16_bombstone.c", 668,
@@ -309,10 +309,8 @@ void func_808B5240(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     Vec3f position;
     Vec3f* actorPosition = &pthis->actor.world.pos;
 
-    if (1) {}
-
     while (true) {
-        if ((u32)pthis->unk_158 >= ARRAY_COUNTU(D_808B5EB0) || pthis->unk_154 < D_808B5EB0[pthis->unk_158][0]) {
+        if ((u32)pthis->unk_158 >= ARRAY_COUNTU(D_808B5EB0) || pthis->counter < D_808B5EB0[pthis->unk_158][0]) {
             break;
         }
 
@@ -347,7 +345,7 @@ void BgSpot16Bombstone_SpawnFragments(BgSpot16Bombstone* pthis, GlobalContext* g
         index = 0;
     }
 
-    if (index < ARRAY_COUNT(D_808B6074)) {
+    if (index < ARRAY_COUNT(sBombSizeScalers)) {
         do {
             pos.x = ((Rand_ZeroOne() - 0.5f) * 8.0f) + pthis->actor.world.pos.x;
             pos.y = ((Rand_ZeroOne() * 5.0f) + pthis->actor.world.pos.y) + 8.0f;
@@ -357,12 +355,12 @@ void BgSpot16Bombstone_SpawnFragments(BgSpot16Bombstone* pthis, GlobalContext* g
             velocity.y = (Rand_ZeroOne() * 14.0) + (fabsf(pthis->actor.velocity.y) * velocityYMultiplier);
             velocity.z = (Rand_ZeroOne() - 0.5f) * 16.0f;
 
-            scale = D_808B6074[index] * pthis->actor.scale.x * 3;
+            scale = sBombSizeScalers[index] * pthis->actor.scale.x * 3;
 
             EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pthis->actor.world.pos, -420, 0x31, 0xF, 0xF, 0, scale, 2,
                                  0x40, 160, KAKERA_COLOR_NONE, OBJECT_BOMBIWA, object_bombiwa_DL_0009E0);
             index += 1;
-        } while (index != ARRAY_COUNT(D_808B6074));
+        } while (index != ARRAY_COUNT(sBombSizeScalers));
     }
 }
 
@@ -371,9 +369,9 @@ void func_808B561C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     PosRot* world;
 
     world = &pthis->actor.world;
-    for (index = 0; index < ARRAY_COUNT(D_808B6088); index++) {
+    for (index = 0; index < ARRAY_COUNT(sActorSpawnParams); index++) {
         if (Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_BG_SPOT16_BOMBSTONE, world->pos.x, world->pos.y,
-                        world->pos.z, 0, 0, 0, D_808B6088[index]) == NULL) {
+                        world->pos.z, 0, 0, 0, sActorSpawnParams[index]) == NULL) {
             break;
         }
     }
@@ -438,18 +436,16 @@ void func_808B57E0(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     }
 }
 
-void func_808B5934(BgSpot16Bombstone* pthis) {
+void set_action_show_boulder(BgSpot16Bombstone* pthis) {
     pthis->actor.draw = BgSpot16Bombstone_Draw;
-    pthis->actionFunc = func_808B5950;
+    pthis->actionFunc = action_show_boulder;
 }
 
-void func_808B5950(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+void action_show_boulder(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     s32 pad;
 
     func_808B56BC(pthis, globalCtx);
     func_808B57E0(pthis, globalCtx);
-
-    if (globalCtx) {}
 
     if (pthis->colliderCylinder.base.acFlags & AC_HIT) {
         pthis->colliderCylinder.base.acFlags &= ~AC_HIT;
@@ -461,7 +457,7 @@ void func_808B5950(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
         Flags_SetSwitch(globalCtx, pthis->switchFlag);
         gSaveContext.eventChkInf[2] |= 8;
 
-        func_808B5A78(pthis);
+        set_action_808B5A78(pthis);
     } else {
         CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &pthis->colliderCylinder.base);
         CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->colliderJntSph.base);
@@ -476,51 +472,51 @@ void func_808B5950(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     }
 }
 
-void func_808B5A78(BgSpot16Bombstone* pthis) {
-    pthis->unk_154 = 0;
+void set_action_808B5A78(BgSpot16Bombstone* pthis) {
+    pthis->counter = 0;
     pthis->unk_158 = 0;
     pthis->actor.draw = NULL;
-    pthis->actionFunc = func_808B5A94;
+    pthis->actionFunc = action_808B5A94;
 }
 
-void func_808B5A94(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+void action_808B5A94(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
 
     func_808B5240(pthis, globalCtx);
 
-    if (pthis->unk_154 == 56) {
+    if (pthis->counter == 56) {
         func_80078884(NA_SE_SY_CORRECT_CHIME);
     }
 
-    if (pthis->unk_154 > 60) {
+    if (pthis->counter > 60) {
         Actor_Kill(&pthis->actor);
     }
 }
 
-void func_808B5AF0(BgSpot16Bombstone* pthis) {
-    pthis->actionFunc = func_808B5B04;
+void set_action_wait_object_load(BgSpot16Bombstone* pthis) {
+    pthis->actionFunc = action_wait_object_load;
     pthis->actor.draw = NULL;
 }
 
-void func_808B5B04(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+void action_wait_object_load(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, pthis->bombiwaBankIndex)) {
-        func_808B5B58(pthis);
+        set_action_808B5B58(pthis);
         pthis->actor.draw = BgSpot16Bombstone_Draw;
     }
 }
 
-void func_808B5B58(BgSpot16Bombstone* pthis) {
-    pthis->unk_154 = 0;
-    pthis->actionFunc = func_808B5B6C;
+void set_action_808B5B58(BgSpot16Bombstone* pthis) {
+    pthis->counter = 0;
+    pthis->actionFunc = action_808B5B6C;
 }
 
-void func_808B5B6C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
+void action_808B5B6C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     Actor* actor = &pthis->actor;
 
     Actor_MoveForward(actor);
-    actor->shape.rot.x += pthis->unk_210;
-    actor->shape.rot.z += pthis->unk_212;
+    actor->shape.rot.x += pthis->rotateSpeedX;
+    actor->shape.rot.z += pthis->rotateSpeedZ;
 
-    if (pthis->unk_154 > 60) {
+    if (pthis->counter > 60) {
         Actor_Kill(actor);
         return;
     }
@@ -539,7 +535,7 @@ void func_808B5B6C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
 void BgSpot16Bombstone_Update(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot16Bombstone* pthis = (BgSpot16Bombstone*)thisx;
 
-    pthis->unk_154++;
+    pthis->counter++;
     if (pthis->actionFunc != NULL) {
         pthis->actionFunc(pthis, globalCtx);
     }

@@ -465,7 +465,7 @@ void func_80A74EBC(EnIk* pthis, GlobalContext* globalCtx) {
         sp2C.y = pthis->actor.world.pos.y;
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_IRONNACK_HIT_GND);
         Camera_AddQuake(&globalCtx->mainCamera, 2, 0x19, 5);
-        func_800AA000(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
+        Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
         CollisionCheck_SpawnShieldParticles(globalCtx, &sp2C);
     }
 

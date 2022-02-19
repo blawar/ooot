@@ -497,7 +497,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx) {
                         killMode = BALL_IMPACT;
                         Audio_PlaySoundGeneral(NA_SE_IT_SHIELD_REFLECT_MG, &player->actor.projectedPos, 4, &D_801333E0,
                                                &D_801333E0, &D_801333E8);
-                        func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
+                        Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
                     } else {
                         if (bossGnd->flyMode == GND_FLY_NEUTRAL) {
                             angleModX = Rand_CenteredFloat(0x2000);
@@ -526,7 +526,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx) {
                         pthis->work[FHGFIRE_FX_TIMER] = 2;
                         Audio_PlaySoundGeneral(NA_SE_IT_SWORD_REFLECT_MG, &player->actor.projectedPos, 4, &D_801333E0,
                                                &D_801333E0, &D_801333E8);
-                        func_800AA000(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
+                        Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
                     }
                 } else if (sqrtf(SQ(dxL) + SQ(dyL) + SQ(dzL)) <= 25.0f) {
                     killMode = BALL_BURST;

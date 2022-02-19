@@ -155,9 +155,12 @@ void ElfMsg2_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+#ifndef RETAIL
 #include "overlays/ovl_Elf_Msg2/ovl_Elf_Msg2.cpp"
+#endif
 
 void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx) {
+#ifndef RETAIL
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 355);
 
     if (R_NAVI_MSG_REGION_ALPHA == 0) {
@@ -172,6 +175,7 @@ void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPDisplayList(POLY_XLU_DISP++, sCubeDL);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 367);
+#endif
 }
 
 void ElfMsg2_Reset(Actor* pthisx, GlobalContext* globalCtx) {

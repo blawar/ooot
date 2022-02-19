@@ -90,7 +90,7 @@ Input* D_8012D1F8 = NULL;
 TransitionUnk sTrnsnUnk;
 s32 gTrnsnUnkState;
 VisMono D_80161498;
-Color_RGBA8_u32 D_801614B0;
+Color_RGBA8 D_801614B0;
 FaultClient D_801614B8;
 s16 D_801614C8;
 u64 D_801614D0[0xA00];
@@ -267,11 +267,6 @@ void Gameplay_Destroy(GameState* thisx) {
 void Gameplay_Init(GameState* thisx) {
     GlobalContext* globalCtx = (GlobalContext*)thisx;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
-#ifndef USE_NATIVE_MALLOC
-    uintptr_t zAlloc;
-    uintptr_t zAllocAligned;
-    size_t zAllocSize;
-#endif
     Player* player;
     s32 playerStartCamId;
     s32 i;
@@ -442,22 +437,12 @@ void Gameplay_Init(GameState* thisx) {
     ShrinkWindow_Init();
     TransitionFade_Init(&globalCtx->transitionFade);
     TransitionFade_SetType(&globalCtx->transitionFade, 3);
-    TransitionFade_SetColor(&globalCtx->transitionFade, RGBA8(160, 160, 160, 255));
+    TransitionFade_SetColor(&globalCtx->transitionFade, Color_RGBA8(160, 160, 160, 255));
     TransitionFade_Start(&globalCtx->transitionFade);
     VisMono_Init(&D_80161498);
     D_801614B0.a = 0;
     Flags_UnsetAllEnv(globalCtx);
 
-#ifndef USE_NATIVE_MALLOC
-    osSyncPrintf("ZELDA ALLOC SIZE=%x\n", THA_GetSize(&globalCtx->state.tha));
-    zAllocSize = THA_GetSize(&globalCtx->state.tha);
-    zAlloc = GameState_Alloc(&globalCtx->state, zAllocSize, "../z_play.c", 2918);
-    zAllocAligned = (zAlloc + 8) & ~0xF;
-    ZeldaArena_Init(zAllocAligned, zAllocSize - zAllocAligned + zAlloc);
-    // "Zelda Heap"
-    osSyncPrintf("ゼルダヒープ %08x-%08x\n", zAllocAligned,
-                 (s32)(zAllocAligned + zAllocSize) - (s32)(zAllocAligned - zAlloc));
-#endif
 
     Fault_AddClient(&D_801614B8, ZeldaArena_Display, NULL, NULL);
     func_800304DC(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);
@@ -629,27 +614,27 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                         (globalCtx->transitionCtx.transitionType == 7) ||
                         (globalCtx->transitionCtx.transitionType == 13) ||
                         (globalCtx->transitionCtx.transitionType == 17)) {
-                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, RGBA8(160, 160, 160, 255));
+                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, Color_RGBA8(160, 160, 160, 255));
                         if (globalCtx->transitionCtx.setEnvColor != NULL) {
                             globalCtx->transitionCtx.setEnvColor(&globalCtx->transitionCtx.data,
-                                                                 RGBA8(160, 160, 160, 255));
+                                                                 Color_RGBA8(160, 160, 160, 255));
                         }
                     } else if (globalCtx->transitionCtx.transitionType == 18) {
-                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, RGBA8(140, 140, 100, 255));
+                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, Color_RGBA8(140, 140, 100, 255));
                         if (globalCtx->transitionCtx.setEnvColor != NULL) {
                             globalCtx->transitionCtx.setEnvColor(&globalCtx->transitionCtx.data,
-                                                                 RGBA8(140, 140, 100, 255));
+                                                                 Color_RGBA8(140, 140, 100, 255));
                         }
                     } else if (globalCtx->transitionCtx.transitionType == 19) {
-                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, RGBA8(70, 100, 110, 255));
+                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, Color_RGBA8(70, 100, 110, 255));
                         if (globalCtx->transitionCtx.setEnvColor != NULL) {
                             globalCtx->transitionCtx.setEnvColor(&globalCtx->transitionCtx.data,
-                                                                 RGBA8(70, 100, 110, 255));
+                                                                 Color_RGBA8(70, 100, 110, 255));
                         }
                     } else {
-                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, RGBA8(0, 0, 0, 0));
+                        globalCtx->transitionCtx.setColor(&globalCtx->transitionCtx.data, Color_RGBA8(0, 0, 0, 0));
                         if (globalCtx->transitionCtx.setEnvColor != NULL) {
-                            globalCtx->transitionCtx.setEnvColor(&globalCtx->transitionCtx.data, RGBA8(0, 0, 0, 0));
+                            globalCtx->transitionCtx.setEnvColor(&globalCtx->transitionCtx.data, Color_RGBA8(0, 0, 0, 0));
                         }
                     }
 
@@ -908,7 +893,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
 
                 globalCtx->gameplayFrames++;
 
-                func_800AA178(1);
+                Rumble_Enable(1);
 
                 if (globalCtx->actorCtx.freezeFlashTimer && (globalCtx->actorCtx.freezeFlashTimer-- < 5)) {
                     osSyncPrintf("FINISH=%d\n", globalCtx->actorCtx.freezeFlashTimer);
@@ -989,7 +974,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     }
                 }
             } else {
-                func_800AA178(0);
+                Rumble_Enable(0);
             }
 
             if (1 && HREG(63)) {
@@ -1228,7 +1213,7 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
             TransitionFade_Draw(&globalCtx->transitionFade, &gfxP);
 
             if (D_801614B0.a > 0) {
-                D_80161498.primColor.rgba = D_801614B0.rgba;
+                D_80161498.primColor = D_801614B0;
                 VisMono_Draw(&D_80161498, &gfxP);
             }
 

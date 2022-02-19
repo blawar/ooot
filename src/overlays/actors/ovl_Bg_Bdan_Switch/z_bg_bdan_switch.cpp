@@ -288,7 +288,7 @@ void func_8086D694(BgBdanSwitch* pthis, GlobalContext* globalCtx) {
         if (pthis->unk_1C8 <= 0.1f) {
             func_8086D730(pthis);
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_FOOT_SWITCH);
-            func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
+            Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
         }
     }
 }
@@ -351,7 +351,7 @@ void func_8086D8CC(BgBdanSwitch* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_1C8 <= 0.6f) {
         func_8086D9F8(pthis);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_FOOT_SWITCH);
-        func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
+        Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
     }
 }
 
@@ -366,7 +366,7 @@ void func_8086D95C(BgBdanSwitch* pthis, GlobalContext* globalCtx) {
         if (pthis->unk_1C8 <= 0.1f) {
             func_8086DB24(pthis);
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_FOOT_SWITCH);
-            func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
+            Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 0x78, 0x14, 0xA);
         }
     }
 }

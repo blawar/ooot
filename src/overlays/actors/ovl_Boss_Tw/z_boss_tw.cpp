@@ -1140,7 +1140,7 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
                         pthis->groundBlastPos.y = 0.0f;
                         pthis->groundBlastPos.z = 0.0f;
                         globalCtx->envCtx.unk_D8 = 1.0f;
-                        func_800AA000(0.0f, 0x64, 5, 4);
+                        Rumble_Shake(0.0f, 0x64, 5, 4);
                     } else if (beamReflection == 0) {
                         BossTw_BeamHitPlayerCheck(pthis, globalCtx);
 
@@ -4333,7 +4333,7 @@ s32 BossTw_BlastShieldCheck(BossTw* pthis, GlobalContext* globalCtx) {
             if (info->toucher.dmgFlags & DMG_SHIELD) {
                 pthis->work[INVINC_TIMER] = 7;
                 globalCtx->envCtx.unk_D8 = 1.0f;
-                func_800AA000(0.0f, 100, 5, 4);
+                Rumble_Shake(0.0f, 100, 5, 4);
 
                 if (Player_HasMirrorShieldEquipped(globalCtx)) {
                     if (pthis->blastType == 1) {

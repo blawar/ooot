@@ -5,7 +5,7 @@
 #include "z64global.h"
 #include "z64scene.h"
 #include "z64scene_asserts.h"
-#include "z_scene_assets.h"
+#include "misc/z_scene_assets.h"
 #include "z64save.h"
 #include "z_kankyo.h"
 #include "z64item.h"

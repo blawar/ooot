@@ -12,7 +12,7 @@
 #include "textures/icon_item_24_static/icon_item_24_static.h"
 #include "textures/message_texture_static/message_texture_static.h"
 #include "textures/message_static/message_static.h"
-#include "z_message_PAL_assets.h"
+#include "misc/z_message_PAL_assets.h"
 #include "unk.h"
 #include "z64actor.h"
 #include "z64save.h"

@@ -2,10 +2,13 @@
 import os
 import struct
 import sys
+from oot import *
+
+conf = config()
 
 SIMPLIFY_OUTPUT = True
-OVL_KALEIDO_SCOPE_RAM = 0x80813820
-gPauseMapMarkDataTable = 0x8082B2C0
+OVL_KALEIDO_SCOPE_RAM = conf.sections.OVL_KALEIDO_SCOPE_RAM.offset
+gPauseMapMarkDataTable = conf.sections.gPauseMapMarkDataTable.offset
 
 SCENES = [
     ("Deku Tree", 5),
@@ -59,9 +62,9 @@ def GetIconName(v):
 def GetVtxPointer(v):
     if v == 0:
         return "NULL"
-    if v == 0x80830610:
+    if v == conf.sections.sMarkBossVtx.offset:
         return "sMarkBossVtx"
-    if v == 0x80830650:
+    if v == conf.sections.sMarkChestVtx.offset:
         return "sMarkChestVtx"
 
 def IND(n):

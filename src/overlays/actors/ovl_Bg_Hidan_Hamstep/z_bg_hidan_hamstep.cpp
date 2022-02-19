@@ -327,7 +327,7 @@ void func_80888860(BgHidanHamstep* pthis, GlobalContext* globalCtx) {
                 Quake_SetQuakeValues(quakeIndex, 0, 0, 500, 0);
                 Quake_SetCountdown(quakeIndex, 20);
                 Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);
-                func_800AA000(pthis->dyna.actor.xyzDistToPlayerSq, 255, 20, 150);
+                Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 255, 20, 150);
                 func_80888638(pthis, globalCtx);
                 osSyncPrintf("A(%d)\n", pthis->dyna.actor.params);
             }
@@ -387,7 +387,7 @@ void func_80888A58(BgHidanHamstep* pthis, GlobalContext* globalCtx) {
                 Quake_SetCountdown(quakeIndex, 7);
 
                 Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);
-                func_800AA000(10000.0f, 255, 20, 150);
+                Rumble_Shake(10000.0f, 255, 20, 150);
                 func_808884C8(pthis, globalCtx);
 
                 if ((pthis->dyna.actor.params & 0xFF) == 5) {

@@ -3526,9 +3526,9 @@ void func_80033E1C(GlobalContext* globalCtx, s16 arg1, s16 arg2, s16 arg3) {
 
 void func_80033E88(Actor* actor, GlobalContext* globalCtx, s16 arg2, s16 arg3) {
     if (arg2 >= 5) {
-        func_800AA000(actor->xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
+        Rumble_Shake(actor->xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
     } else {
-        func_800AA000(actor->xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
+        Rumble_Shake(actor->xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
     }
 
     func_80033DB8(globalCtx, arg2, arg3);

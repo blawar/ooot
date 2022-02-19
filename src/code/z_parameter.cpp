@@ -159,7 +159,7 @@ static s16 sHBAScoreTier = 0;
 static u16 sHBAScoreDigits[] = { 0, 0, 0, 0 };
 
 static u16 sCUpInvisible = 0;
-static u16 sCUpTimer = 0;
+static Timer sCUpTimer;
 
 s16 gSpoilingItems[] = { ITEM_ODD_MUSHROOM, ITEM_FROG, ITEM_EYEDROPS };
 s16 gSpoilingItemReverts[] = { ITEM_COJIRO, ITEM_PRESCRIPTION, ITEM_PRESCRIPTION };
@@ -3282,7 +3282,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
         gDPSetEnvColor(OVERLAY_DISP++, 0, 0, 0, 0);
         Matrix_Translate(0.0f, 0.0f, WREG(46 + gSaveContext.language) / 10.0f, MTXMODE_NEW);
         Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-        Matrix_RotateX(interfaceCtx->unk_1F4 / 10000.0f, MTXMODE_APPLY);
+        Matrix_RotateX(interfaceCtx->unk_1F4 / 10000.0f * FRAMERATE_SCALER, MTXMODE_APPLY);
         gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_parameter.c", 3701),
                   G_MTX_MODELVIEW | G_MTX_LOAD);
         gSPVertex(OVERLAY_DISP++, &interfaceCtx->actionVtx[4], 4, 0);
