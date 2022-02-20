@@ -1,5 +1,7 @@
 <Root>
     <File Name="spot16_scene" Segment="2">
+        <Path Name="spot16_scenePathway_000254" Offset="0x254" NumPaths="2"/>
+        <Path Name="spot16_scenePathway_0078B4" Offset="0x78B4" NumPaths="3"/>
         <Cutscene Name="gDMTOwlCs" Offset="0x1E6D0"/>
         <Cutscene Name="gDMTIntroCs" Offset="0x7ED0"/>
         <Scene Name="spot16_scene" Offset="0x0"/>
