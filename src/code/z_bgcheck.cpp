@@ -1560,8 +1560,8 @@ void BgCheck_Allocate(CollisionContext* colCtx, GlobalContext* globalCtx, Collis
         // "/* BGCheck Normal Size %dbyte  */\n"
         osSyncPrintf("/* BGCheck Normal Size %dbyte  */\n", colCtx->memSize);
         colCtx->dyna.polyNodesMax = 1000;
-        colCtx->dyna.polyListMax = 1024;
-        colCtx->dyna.vtxListMax = 1024;
+        colCtx->dyna.polyListMax = 512;
+        colCtx->dyna.vtxListMax = 512;
         useCustomSubdivisions = false;
 
         for (i = 0; i < ARRAY_COUNT(sceneSubdivisionList); i++) {

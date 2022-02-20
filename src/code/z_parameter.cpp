@@ -3313,12 +3313,10 @@ void Interface_Draw(GlobalContext* globalCtx) {
             gDPSetCombineMode(OVERLAY_DISP++, G_CC_MODULATERGBA_PRIM, G_CC_MODULATERGBA_PRIM);
             gSPMatrix(OVERLAY_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 
-            pauseCtx->cursorVtx[svar3].v.ob[0] = pauseCtx->cursorVtx[18].v.ob[0] = svar2 = pauseCtx->equipAnimX / 10;
-            pauseCtx->cursorVtx[17].v.ob[0] = pauseCtx->cursorVtx[19].v.ob[0] = svar2 =
-                pauseCtx->cursorVtx[svar3].v.ob[0] + WREG(90) / 10;
-            pauseCtx->cursorVtx[svar3].v.ob[1] = pauseCtx->cursorVtx[17].v.ob[1] = svar2 = pauseCtx->equipAnimY / 10;
-            pauseCtx->cursorVtx[18].v.ob[1] = pauseCtx->cursorVtx[19].v.ob[1] = svar2 =
-                pauseCtx->cursorVtx[svar3].v.ob[1] - WREG(90) / 10;
+            pauseCtx->cursorVtx[svar3].v.ob[0] = pauseCtx->cursorVtx[18].v.ob[0] = svar2 = pauseCtx->equipAnimX;
+            pauseCtx->cursorVtx[17].v.ob[0] = pauseCtx->cursorVtx[19].v.ob[0] = svar2 = pauseCtx->cursorVtx[svar3].v.ob[0] + WREG(90) / 10;
+            pauseCtx->cursorVtx[svar3].v.ob[1] = pauseCtx->cursorVtx[17].v.ob[1] = svar2 = pauseCtx->equipAnimY;
+            pauseCtx->cursorVtx[18].v.ob[1] = pauseCtx->cursorVtx[19].v.ob[1] = svar2 = pauseCtx->cursorVtx[svar3].v.ob[1] - WREG(90) / 10;
 
             if (pauseCtx->equipTargetItem < 0xBF) {
                 // Normal Equip (icon goes from the inventory slot to the C button when equipping it)
