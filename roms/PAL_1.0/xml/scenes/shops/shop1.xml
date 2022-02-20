@@ -3,6 +3,7 @@
         <Scene Name="shop1_scene" Offset="0x0"/>
     </File>
     <File Name="shop1_room_0" Segment="3">
+        <DList Name="shop1_room_0DL_003F60" Offset="0x003F60"/>
         <Room Name="shop1_room_0" Offset="0x0"/>
     </File>
 </Root>

@@ -5,36 +5,49 @@
         <Scene Name="men_scene" Offset="0x0"/>
     </File>
     <File Name="men_room_0" Segment="3">
+        <DList Name="men_room_0DL_00FF78" Offset="0x00FF78"/>
+        <DList Name="men_room_0DL_008118" Offset="0x008118"/>
         <Room Name="men_room_0" Offset="0x0"/>
     </File>
     <File Name="men_room_1" Segment="3">
+        <DList Name="men_room_1DL_004230" Offset="0x004230"/>
         <Room Name="men_room_1" Offset="0x0"/>
     </File>
     <File Name="men_room_2" Segment="3">
+        <DList Name="men_room_2DL_003B30" Offset="0x003B30"/>
         <Room Name="men_room_2" Offset="0x0"/>
     </File>
     <File Name="men_room_3" Segment="3">
+        <DList Name="men_room_3DL_003800" Offset="0x003800"/>
         <Room Name="men_room_3" Offset="0x0"/>
     </File>
     <File Name="men_room_4" Segment="3">
+        <DList Name="men_room_4DL_005110" Offset="0x005110"/>
         <Room Name="men_room_4" Offset="0x0"/>
     </File>
     <File Name="men_room_5" Segment="3">
+        <DList Name="men_room_5DL_0024C0" Offset="0x0024C0"/>
         <Room Name="men_room_5" Offset="0x0"/>
     </File>
     <File Name="men_room_6" Segment="3">
+        <DList Name="men_room_6DL_003EE0" Offset="0x003EE0"/>
         <Room Name="men_room_6" Offset="0x0"/>
     </File>
     <File Name="men_room_7" Segment="3">
+        <DList Name="men_room_7DL_003708" Offset="0x003708"/>
         <Room Name="men_room_7" Offset="0x0"/>
     </File>
     <File Name="men_room_8" Segment="3">
+        <DList Name="men_room_8DL_005CC0" Offset="0x005CC0"/>
         <Room Name="men_room_8" Offset="0x0"/>
     </File>
     <File Name="men_room_9" Segment="3">
+        <DList Name="men_room_9DL_0030E0" Offset="0x0030E0"/>
+        <DList Name="men_room_9DL_001B00" Offset="0x001B00"/>
         <Room Name="men_room_9" Offset="0x0"/>
     </File>
     <File Name="men_room_10" Segment="3">
+        <DList Name="men_room_10DL_002410" Offset="0x002410"/>
         <Room Name="men_room_10" Offset="0x0"/>
     </File>
 </Root>

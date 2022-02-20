@@ -19,63 +19,92 @@
         <Scene Name="ganontika_scene" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_0" Segment="3">
+        <DList Name="ganontika_room_0DL_0089B0" Offset="0x0089B0"/>
+        <DList Name="ganontika_room_0DL_007E70" Offset="0x007E70"/>
         <Room Name="ganontika_room_0" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_1" Segment="3">
+        <DList Name="ganontika_room_1DL_01B970" Offset="0x01B970"/>
+        <DList Name="ganontika_room_1DL_00D880" Offset="0x00D880"/>
         <Room Name="ganontika_room_1" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_2" Segment="3">
+        <DList Name="ganontika_room_2DL_002F88" Offset="0x002F88"/>
         <Room Name="ganontika_room_2" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_3" Segment="3">
+        <DList Name="ganontika_room_3DL_008978" Offset="0x008978"/>
+        <DList Name="ganontika_room_3DL_003DB0" Offset="0x003DB0"/>
         <Room Name="ganontika_room_3" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_4" Segment="3">
+        <DList Name="ganontika_room_4DL_004258" Offset="0x004258"/>
         <Room Name="ganontika_room_4" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_5" Segment="3">
+        <DList Name="ganontika_room_5DL_003AF8" Offset="0x003AF8"/>
         <Room Name="ganontika_room_5" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_6" Segment="3">
+        <DList Name="ganontika_room_6DL_00EBD8" Offset="0x00EBD8"/>
+        <DList Name="ganontika_room_6DL_00B3F0" Offset="0x00B3F0"/>
         <Room Name="ganontika_room_6" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_7" Segment="3">
+        <DList Name="ganontika_room_7DL_004258" Offset="0x004258"/>
         <Room Name="ganontika_room_7" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_8" Segment="3">
+        <DList Name="ganontika_room_8DL_008058" Offset="0x008058"/>
+        <DList Name="ganontika_room_8DL_0034C0" Offset="0x0034C0"/>
         <Room Name="ganontika_room_8" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_9" Segment="3">
+        <DList Name="ganontika_room_9DL_00A878" Offset="0x00A878"/>
+        <DList Name="ganontika_room_9DL_005498" Offset="0x005498"/>
         <Room Name="ganontika_room_9" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_10" Segment="3">
+        <DList Name="ganontika_room_10DL_003930" Offset="0x003930"/>
         <Room Name="ganontika_room_10" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_11" Segment="3">
+        <DList Name="ganontika_room_11DL_0040F8" Offset="0x0040F8"/>
         <Room Name="ganontika_room_11" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_12" Segment="3">
+        <DList Name="ganontika_room_12DL_009358" Offset="0x009358"/>
+        <DList Name="ganontika_room_12DL_0051E8" Offset="0x0051E8"/>
         <Room Name="ganontika_room_12" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_13" Segment="3">
+        <DList Name="ganontika_room_13DL_004308" Offset="0x004308"/>
         <Room Name="ganontika_room_13" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_14" Segment="3">
+        <DList Name="ganontika_room_14DL_008980" Offset="0x008980"/>
+        <DList Name="ganontika_room_14DL_004F10" Offset="0x004F10"/>
         <Room Name="ganontika_room_14" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_15" Segment="3">
+        <DList Name="ganontika_room_15DL_004308" Offset="0x004308"/>
         <Room Name="ganontika_room_15" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_16" Segment="3">
+        <DList Name="ganontika_room_16DL_001600" Offset="0x001600"/>
         <Room Name="ganontika_room_16" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_17" Segment="3">
+        <DList Name="ganontika_room_17DL_002A58" Offset="0x002A58"/>
         <Room Name="ganontika_room_17" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_18" Segment="3">
+        <DList Name="ganontika_room_18DL_00B660" Offset="0x00B660"/>
+        <DList Name="ganontika_room_18DL_004298" Offset="0x004298"/>
         <Room Name="ganontika_room_18" Offset="0x0"/>
     </File>
     <File Name="ganontika_room_19" Segment="3">
+        <DList Name="ganontika_room_19DL_004308" Offset="0x004308"/>
         <Room Name="ganontika_room_19" Offset="0x0"/>
     </File>
 </Root>

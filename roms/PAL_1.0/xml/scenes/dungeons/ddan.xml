@@ -17,54 +17,73 @@
         <Scene Name="ddan_scene" Offset="0x0"/>
     </File>
     <File Name="ddan_room_0" Segment="3">
+        <DList Name="ddan_room_0DL_0111D8" Offset="0x0111D8"/>
         <Room Name="ddan_room_0" Offset="0x0"/>
     </File>
     <File Name="ddan_room_1" Segment="3">
+        <DList Name="ddan_room_1DL_0046E8" Offset="0x0046E8"/>
         <Room Name="ddan_room_1" Offset="0x0"/>
     </File>
     <File Name="ddan_room_2" Segment="3">
+        <DList Name="ddan_room_2DL_006D88" Offset="0x006D88"/>
+        <DList Name="ddan_room_2DL_003A48" Offset="0x003A48"/>
         <Room Name="ddan_room_2" Offset="0x0"/>
     </File>
     <File Name="ddan_room_3" Segment="3">
+        <DList Name="ddan_room_3DL_00D5A8" Offset="0x00D5A8"/>
+        <DList Name="ddan_room_3DL_008528" Offset="0x008528"/>
         <Room Name="ddan_room_3" Offset="0x0"/>
     </File>
     <File Name="ddan_room_4" Segment="3">
+        <DList Name="ddan_room_4DL_006A28" Offset="0x006A28"/>
         <Room Name="ddan_room_4" Offset="0x0"/>
     </File>
     <File Name="ddan_room_5" Segment="3">
+        <DList Name="ddan_room_5DL_0032C8" Offset="0x0032C8"/>
         <Room Name="ddan_room_5" Offset="0x0"/>
     </File>
     <File Name="ddan_room_6" Segment="3">
+        <DList Name="ddan_room_6DL_000BE8" Offset="0x000BE8"/>
         <Room Name="ddan_room_6" Offset="0x0"/>
     </File>
     <File Name="ddan_room_7" Segment="3">
+        <DList Name="ddan_room_7DL_0046B0" Offset="0x0046B0"/>
         <Room Name="ddan_room_7" Offset="0x0"/>
     </File>
     <File Name="ddan_room_8" Segment="3">
+        <DList Name="ddan_room_8DL_003FF0" Offset="0x003FF0"/>
         <Room Name="ddan_room_8" Offset="0x0"/>
     </File>
     <File Name="ddan_room_9" Segment="3">
+        <DList Name="ddan_room_9DL_005138" Offset="0x005138"/>
         <Room Name="ddan_room_9" Offset="0x0"/>
     </File>
     <File Name="ddan_room_10" Segment="3">
+        <DList Name="ddan_room_10DL_002A40" Offset="0x002A40"/>
         <Room Name="ddan_room_10" Offset="0x0"/>
     </File>
     <File Name="ddan_room_11" Segment="3">
+        <DList Name="ddan_room_11DL_000C70" Offset="0x000C70"/>
         <Room Name="ddan_room_11" Offset="0x0"/>
     </File>
     <File Name="ddan_room_12" Segment="3">
+        <DList Name="ddan_room_12DL_002F20" Offset="0x002F20"/>
         <Room Name="ddan_room_12" Offset="0x0"/>
     </File>
     <File Name="ddan_room_13" Segment="3">
+        <DList Name="ddan_room_13DL_000C68" Offset="0x000C68"/>
         <Room Name="ddan_room_13" Offset="0x0"/>
     </File>
     <File Name="ddan_room_14" Segment="3">
+        <DList Name="ddan_room_14DL_000C78" Offset="0x000C78"/>
         <Room Name="ddan_room_14" Offset="0x0"/>
     </File>
     <File Name="ddan_room_15" Segment="3">
+        <DList Name="ddan_room_15DL_000C38" Offset="0x000C38"/>
         <Room Name="ddan_room_15" Offset="0x0"/>
     </File>
     <File Name="ddan_room_16" Segment="3">
+        <DList Name="ddan_room_16DL_002130" Offset="0x002130"/>
         <Room Name="ddan_room_16" Offset="0x0"/>
     </File>
 </Root>

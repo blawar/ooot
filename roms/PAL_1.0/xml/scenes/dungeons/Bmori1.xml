@@ -5,72 +5,104 @@
         <Scene Name="Bmori1_scene" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_0" Segment="3">
+        <DList Name="Bmori1_room_0DL_00CBA0" Offset="0x00CBA0"/>
+        <DList Name="Bmori1_room_0DL_005CF8" Offset="0x005CF8"/>
         <Room Name="Bmori1_room_0" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_1" Segment="3">
+        <DList Name="Bmori1_room_1DL_003340" Offset="0x003340"/>
         <Room Name="Bmori1_room_1" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_2" Segment="3">
+        <DList Name="Bmori1_room_2DL_00A3D8" Offset="0x00A3D8"/>
         <Room Name="Bmori1_room_2" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_3" Segment="3">
+        <DList Name="Bmori1_room_3DL_0023E8" Offset="0x0023E8"/>
         <Room Name="Bmori1_room_3" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_4" Segment="3">
+        <DList Name="Bmori1_room_4DL_002298" Offset="0x002298"/>
         <Room Name="Bmori1_room_4" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_5" Segment="3">
+        <DList Name="Bmori1_room_5DL_0023C0" Offset="0x0023C0"/>
         <Room Name="Bmori1_room_5" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_6" Segment="3">
+        <DList Name="Bmori1_room_6DL_006660" Offset="0x006660"/>
         <Room Name="Bmori1_room_6" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_7" Segment="3">
+        <DList Name="Bmori1_room_7DL_00EFC8" Offset="0x00EFC8"/>
+        <DList Name="Bmori1_room_7DL_007DA8" Offset="0x007DA8"/>
         <Room Name="Bmori1_room_7" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_8" Segment="3">
+        <DList Name="Bmori1_room_8DL_013B28" Offset="0x013B28"/>
+        <DList Name="Bmori1_room_8DL_00AC70" Offset="0x00AC70"/>
         <Room Name="Bmori1_room_8" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_9" Segment="3">
+        <DList Name="Bmori1_room_9DL_008970" Offset="0x008970"/>
+        <DList Name="Bmori1_room_9DL_0048B0" Offset="0x0048B0"/>
         <Room Name="Bmori1_room_9" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_10" Segment="3">
+        <DList Name="Bmori1_room_10DL_004BC8" Offset="0x004BC8"/>
+        <DList Name="Bmori1_room_10DL_001248" Offset="0x001248"/>
         <Room Name="Bmori1_room_10" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_11" Segment="3">
+        <DList Name="Bmori1_room_11DL_00ABC0" Offset="0x00ABC0"/>
+        <DList Name="Bmori1_room_11DL_008148" Offset="0x008148"/>
         <Room Name="Bmori1_room_11" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_12" Segment="3">
+        <DList Name="Bmori1_room_12DL_007BC8" Offset="0x007BC8"/>
+        <DList Name="Bmori1_room_12DL_0049E8" Offset="0x0049E8"/>
         <Room Name="Bmori1_room_12" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_13" Segment="3">
+        <DList Name="Bmori1_room_13DL_008298" Offset="0x008298"/>
+        <DList Name="Bmori1_room_13DL_004CB8" Offset="0x004CB8"/>
         <Room Name="Bmori1_room_13" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_14" Segment="3">
+        <DList Name="Bmori1_room_14DL_0057A0" Offset="0x0057A0"/>
+        <DList Name="Bmori1_room_14DL_003560" Offset="0x003560"/>
         <Room Name="Bmori1_room_14" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_15" Segment="3">
+        <DList Name="Bmori1_room_15DL_001280" Offset="0x001280"/>
         <Room Name="Bmori1_room_15" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_16" Segment="3">
+        <DList Name="Bmori1_room_16DL_002F88" Offset="0x002F88"/>
         <Room Name="Bmori1_room_16" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_17" Segment="3">
+        <DList Name="Bmori1_room_17DL_0064F0" Offset="0x0064F0"/>
         <Room Name="Bmori1_room_17" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_18" Segment="3">
+        <DList Name="Bmori1_room_18DL_000B30" Offset="0x000B30"/>
         <Room Name="Bmori1_room_18" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_19" Segment="3">
+        <DList Name="Bmori1_room_19DL_000500" Offset="0x000500"/>
         <Room Name="Bmori1_room_19" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_20" Segment="3">
+        <DList Name="Bmori1_room_20DL_0006E8" Offset="0x0006E8"/>
         <Room Name="Bmori1_room_20" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_21" Segment="3">
+        <DList Name="Bmori1_room_21DL_000F70" Offset="0x000F70"/>
         <Room Name="Bmori1_room_21" Offset="0x0"/>
     </File>
     <File Name="Bmori1_room_22" Segment="3">
+        <DList Name="Bmori1_room_22DL_0005D0" Offset="0x0005D0"/>
         <Room Name="Bmori1_room_22" Offset="0x0"/>
     </File>
 </Root>

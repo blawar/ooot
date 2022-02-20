@@ -9,12 +9,18 @@
         <Scene Name="spot04_scene" Offset="0x0"/>
     </File>
     <File Name="spot04_room_0" Segment="3">
+        <DList Name="spot04_room_0DL_018A60" Offset="0x018A60"/>
+        <DList Name="spot04_room_0DL_00BE80" Offset="0x00BE80"/>
         <Room Name="spot04_room_0" Offset="0x0"/>
     </File>
     <File Name="spot04_room_1" Segment="3">
+        <DList Name="spot04_room_1DL_007B60" Offset="0x007B60"/>
+        <DList Name="spot04_room_1DL_004E88" Offset="0x004E88"/>
         <Room Name="spot04_room_1" Offset="0x0"/>
     </File>
     <File Name="spot04_room_2" Segment="3">
+        <DList Name="spot04_room_2DL_005058" Offset="0x005058"/>
+        <DList Name="spot04_room_2DL_002BB8" Offset="0x002BB8"/>
         <Room Name="spot04_room_2" Offset="0x0"/>
     </File>
 </Root>

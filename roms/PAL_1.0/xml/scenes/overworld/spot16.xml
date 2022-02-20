@@ -6,6 +6,8 @@
         <Texture Name="spot16_scene_Tex_01AE98" Format="i4" Width="64" Height="64" Offset="0x1AEC8"/>
     </File>
     <File Name="spot16_room_0" Segment="3">
+        <DList Name="spot16_room_0DL_00ACE8" Offset="0x00ACE8"/>
+        <DList Name="spot16_room_0DL_00A310" Offset="0x00A310"/>
         <Room Name="spot16_room_0" Offset="0x0"/>
         <DList Name="spot16_room_0DL_00AA48" Offset="0xAA48"/>
     </File>

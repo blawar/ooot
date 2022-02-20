@@ -5,72 +5,102 @@
         <Scene Name="MIZUsin_scene" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_0" Segment="3">
+        <DList Name="MIZUsin_room_0DL_015458" Offset="0x015458"/>
+        <DList Name="MIZUsin_room_0DL_00CCF0" Offset="0x00CCF0"/>
         <Room Name="MIZUsin_room_0" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_1" Segment="3">
+        <DList Name="MIZUsin_room_1DL_0058F8" Offset="0x0058F8"/>
         <Room Name="MIZUsin_room_1" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_2" Segment="3">
+        <DList Name="MIZUsin_room_2DL_005378" Offset="0x005378"/>
+        <DList Name="MIZUsin_room_2DL_002990" Offset="0x002990"/>
         <Room Name="MIZUsin_room_2" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_3" Segment="3">
+        <DList Name="MIZUsin_room_3DL_0036C0" Offset="0x0036C0"/>
         <Room Name="MIZUsin_room_3" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_4" Segment="3">
+        <DList Name="MIZUsin_room_4DL_0027B0" Offset="0x0027B0"/>
         <Room Name="MIZUsin_room_4" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_5" Segment="3">
+        <DList Name="MIZUsin_room_5DL_009DD8" Offset="0x009DD8"/>
+        <DList Name="MIZUsin_room_5DL_0039C8" Offset="0x0039C8"/>
         <Room Name="MIZUsin_room_5" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_6" Segment="3">
+        <DList Name="MIZUsin_room_6DL_005070" Offset="0x005070"/>
         <Room Name="MIZUsin_room_6" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_7" Segment="3">
+        <DList Name="MIZUsin_room_7DL_002538" Offset="0x002538"/>
         <Room Name="MIZUsin_room_7" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_8" Segment="3">
+        <DList Name="MIZUsin_room_8DL_00D4A8" Offset="0x00D4A8"/>
+        <DList Name="MIZUsin_room_8DL_005C60" Offset="0x005C60"/>
         <Room Name="MIZUsin_room_8" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_9" Segment="3">
+        <DList Name="MIZUsin_room_9DL_0077C8" Offset="0x0077C8"/>
+        <DList Name="MIZUsin_room_9DL_0035D8" Offset="0x0035D8"/>
         <Room Name="MIZUsin_room_9" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_10" Segment="3">
+        <DList Name="MIZUsin_room_10DL_003768" Offset="0x003768"/>
         <Room Name="MIZUsin_room_10" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_11" Segment="3">
+        <DList Name="MIZUsin_room_11DL_0021A0" Offset="0x0021A0"/>
         <Room Name="MIZUsin_room_11" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_12" Segment="3">
+        <DList Name="MIZUsin_room_12DL_006570" Offset="0x006570"/>
+        <DList Name="MIZUsin_room_12DL_0038E8" Offset="0x0038E8"/>
         <Room Name="MIZUsin_room_12" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_13" Segment="3">
+        <DList Name="MIZUsin_room_13DL_0001E8" Offset="0x0001E8"/>
         <Room Name="MIZUsin_room_13" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_14" Segment="3">
+        <DList Name="MIZUsin_room_14DL_003620" Offset="0x003620"/>
         <Room Name="MIZUsin_room_14" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_15" Segment="3">
+        <DList Name="MIZUsin_room_15DL_002C10" Offset="0x002C10"/>
         <Room Name="MIZUsin_room_15" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_16" Segment="3">
+        <DList Name="MIZUsin_room_16DL_0012C0" Offset="0x0012C0"/>
         <Room Name="MIZUsin_room_16" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_17" Segment="3">
+        <DList Name="MIZUsin_room_17DL_005990" Offset="0x005990"/>
         <Room Name="MIZUsin_room_17" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_18" Segment="3">
+        <DList Name="MIZUsin_room_18DL_001878" Offset="0x001878"/>
         <Room Name="MIZUsin_room_18" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_19" Segment="3">
+        <DList Name="MIZUsin_room_19DL_001120" Offset="0x001120"/>
         <Room Name="MIZUsin_room_19" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_20" Segment="3">
+        <DList Name="MIZUsin_room_20DL_002EE8" Offset="0x002EE8"/>
         <Room Name="MIZUsin_room_20" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_21" Segment="3">
+        <DList Name="MIZUsin_room_21DL_006C90" Offset="0x006C90"/>
+        <DList Name="MIZUsin_room_21DL_004328" Offset="0x004328"/>
         <Room Name="MIZUsin_room_21" Offset="0x0"/>
     </File>
     <File Name="MIZUsin_room_22" Segment="3">
+        <DList Name="MIZUsin_room_22DL_004490" Offset="0x004490"/>
         <Room Name="MIZUsin_room_22" Offset="0x0"/>
     </File>
 </Root>

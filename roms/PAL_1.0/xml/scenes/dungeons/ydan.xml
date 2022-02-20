@@ -7,39 +7,60 @@
         <Scene Name="ydan_scene" Offset="0x0"/>
     </File>
     <File Name="ydan_room_0" Segment="3">
+        <DList Name="ydan_room_0DL_012EC0" Offset="0x012EC0"/>
+        <DList Name="ydan_room_0DL_007138" Offset="0x007138"/>
         <Room Name="ydan_room_0" Offset="0x0"/>
     </File>
     <File Name="ydan_room_1" Segment="3">
+        <DList Name="ydan_room_1DL_003140" Offset="0x003140"/>
+        <DList Name="ydan_room_1DL_000ED8" Offset="0x000ED8"/>
         <Room Name="ydan_room_1" Offset="0x0"/>
     </File>
     <File Name="ydan_room_2" Segment="3">
+        <DList Name="ydan_room_2DL_004E18" Offset="0x004E18"/>
+        <DList Name="ydan_room_2DL_001BF8" Offset="0x001BF8"/>
         <Room Name="ydan_room_2" Offset="0x0"/>
     </File>
     <File Name="ydan_room_3" Segment="3">
+        <DList Name="ydan_room_3DL_011D70" Offset="0x011D70"/>
+        <DList Name="ydan_room_3DL_007478" Offset="0x007478"/>
         <Room Name="ydan_room_3" Offset="0x0"/>
     </File>
     <File Name="ydan_room_4" Segment="3">
+        <DList Name="ydan_room_4DL_003BB8" Offset="0x003BB8"/>
+        <DList Name="ydan_room_4DL_0018B0" Offset="0x0018B0"/>
         <Room Name="ydan_room_4" Offset="0x0"/>
     </File>
     <File Name="ydan_room_5" Segment="3">
+        <DList Name="ydan_room_5DL_003F00" Offset="0x003F00"/>
         <Room Name="ydan_room_5" Offset="0x0"/>
     </File>
     <File Name="ydan_room_6" Segment="3">
+        <DList Name="ydan_room_6DL_001EB0" Offset="0x001EB0"/>
         <Room Name="ydan_room_6" Offset="0x0"/>
     </File>
     <File Name="ydan_room_7" Segment="3">
+        <DList Name="ydan_room_7DL_0078F8" Offset="0x0078F8"/>
+        <DList Name="ydan_room_7DL_002AF8" Offset="0x002AF8"/>
         <Room Name="ydan_room_7" Offset="0x0"/>
     </File>
     <File Name="ydan_room_8" Segment="3">
+        <DList Name="ydan_room_8DL_0008E8" Offset="0x0008E8"/>
         <Room Name="ydan_room_8" Offset="0x0"/>
     </File>
     <File Name="ydan_room_9" Segment="3">
+        <DList Name="ydan_room_9DL_007478" Offset="0x007478"/>
+        <DList Name="ydan_room_9DL_002468" Offset="0x002468"/>
         <Room Name="ydan_room_9" Offset="0x0"/>
     </File>
     <File Name="ydan_room_10" Segment="3">
+        <DList Name="ydan_room_10DL_003D68" Offset="0x003D68"/>
+        <DList Name="ydan_room_10DL_001B50" Offset="0x001B50"/>
         <Room Name="ydan_room_10" Offset="0x0"/>
     </File>
     <File Name="ydan_room_11" Segment="3">
+        <DList Name="ydan_room_11DL_006958" Offset="0x006958"/>
+        <DList Name="ydan_room_11DL_003CC8" Offset="0x003CC8"/>
         <Room Name="ydan_room_11" Offset="0x0"/>
     </File>
 </Root>
