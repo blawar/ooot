@@ -1,5 +1,6 @@
 <Root>
     <File Name="ganontika_scene" Segment="2">
+        <Path Name="ganontika_scenePathway_000674" Offset="0x0674" NumPaths="3"/>
         <Cutscene Name="gForestTrialSageCs" Offset="0x19ED0"/>
         <Cutscene Name="gWaterTrialSageCs" Offset="0x1A8D0"/>
         <Cutscene Name="gShadowTrialSageCs" Offset="0x1B2A0"/>
