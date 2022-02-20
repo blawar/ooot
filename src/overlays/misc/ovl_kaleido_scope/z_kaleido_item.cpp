@@ -502,6 +502,7 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
     Vtx* bowItemVtx;
     u16 offsetX;
     u16 offsetY;
+    float ar_ratio = gfx_is_standard_ar() == 1 ? 1.0f : gfx_ar_ratio();
 
     if (sEquipState == 0) {
         pauseCtx->equipAnimAlpha += 14;
@@ -533,7 +534,7 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
         offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - bowItemVtx->v.ob[0] * 10) / sEquipMoveTimer);
         offsetY = (u16)(ABS((s16)pauseCtx->equipAnimY - bowItemVtx->v.ob[1] * 10) / sEquipMoveTimer);
     } else {
-        offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - (sCButtonPosX[pauseCtx->equipTargetCBtn] * gfx_ar_ratio())) / sEquipMoveTimer);
+        offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - (sCButtonPosX[pauseCtx->equipTargetCBtn] * ar_ratio)) / sEquipMoveTimer);
 	    offsetY = (u16)(ABS((s16)pauseCtx->equipAnimY - (sCButtonPosY[pauseCtx->equipTargetCBtn])) / sEquipMoveTimer);
     }
 
@@ -551,7 +552,7 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
         WREG(87) -= (s16)(WREG(87) / sEquipMoveTimer);
 
         if (sEquipState == 1) {
-            if (pauseCtx->equipAnimX >= (pauseCtx->itemVtx[12].v.ob[0] * 10) * gfx_ar_ratio()) {
+            if (pauseCtx->equipAnimX >= (pauseCtx->itemVtx[12].v.ob[0] * 10) * ar_ratio) {
                 pauseCtx->equipAnimX -= offsetX;
             } else {
                 pauseCtx->equipAnimX += offsetX;
@@ -563,7 +564,7 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
                 pauseCtx->equipAnimY += offsetY;
             }
         } else {
-            if (pauseCtx->equipAnimX >= sCButtonPosX[pauseCtx->equipTargetCBtn]  * gfx_ar_ratio()) {
+            if (pauseCtx->equipAnimX >= sCButtonPosX[pauseCtx->equipTargetCBtn]  * ar_ratio) {
                 pauseCtx->equipAnimX -= offsetX;
             } else {
                 pauseCtx->equipAnimX += offsetX;

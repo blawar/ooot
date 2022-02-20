@@ -2,6 +2,7 @@
 extern "C" {
 	u64 gfx_width();
 	u64 gfx_height();
+	int gfx_is_standard_ar();
 	float gfx_ar();
 	float gfx_ar_ratio();
 }
