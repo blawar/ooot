@@ -3,6 +3,8 @@ name: Build
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 env:
   # Configuration type to build.
@@ -16,22 +18,23 @@ jobs:
 
     steps:
     - name: Cleanup
-      run: Remove-Item ooot-master -Recurse -Force -ErrorAction SilentlyContinue
+      run: Remove-Item ooot -Recurse -Force -ErrorAction SilentlyContinue
 
-    - name: Clone OOT
-      run: git clone --recursive https://github.com/blawar/ooot.git ooot-master
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
     
     - name: Copy roms Folder
-      run: cd ooot-master ; Remove-Item roms -Recurse -Force -ErrorAction SilentlyContinue ; cp -r ../roms .
+      run: Remove-Item roms -Recurse -Force -ErrorAction SilentlyContinue ; cp -r ../roms .
 
     - name: Extract Assets
-      run: cd ooot-master ; python setup.py -b EUR_MQD
+      run: python setup.py -b EUR_MQD
       
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: cd ooot-master ; msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} vs/OOT.sln
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} vs/OOT.sln
