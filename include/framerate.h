@@ -78,13 +78,13 @@ struct Frame
 	{
 	}
 
-	explicit constexpr Frame(const T& n) : m_counter(n * (FRAMERATE_MAX / 20))
+	explicit constexpr Frame(const T& n) : m_counter(n * (FRAME_RATE / 20))
 	{
 	}
 
 	Frame<T> operator=(const T& n)
 	{
-		m_counter = n * (FRAMERATE_MAX / 20);
+		m_counter = n * (FRAME_RATE / 20);
 		return *this;
 	}
 
@@ -100,12 +100,12 @@ struct Frame
 
 	T whole() const
 	{
-		return m_counter / (FRAMERATE_MAX / 20);
+		return m_counter / (FRAME_RATE / 20);
 	}
 
 	T fraction() const
 	{
-		return m_counter % (FRAMERATE_MAX / 20);
+		return m_counter % (FRAME_RATE / 20);
 	}
 
 	bool operator==(Frame n) const
@@ -326,7 +326,7 @@ struct Frame
 
 	float toFloat() const
 	{
-		return (float)whole() + ((float)fraction() / ((float)FRAMERATE_MAX / 20.0f));
+		return (float)whole() + ((float)fraction() / ((float)FRAME_RATE / 20.0f));
 	}
 
 	s8 toS8() const
