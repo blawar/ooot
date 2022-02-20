@@ -103,8 +103,10 @@ struct PauseContext {
     /* 0x024E */ u16 equipTargetItem; // "sl_item_no"
     /* 0x0250 */ u16 equipTargetSlot; // "sl_number"
     /* 0x0252 */ u16 equipTargetCBtn;
-    /* 0x0254 */ s16 equipAnimX;
-    /* 0x0256 */ s16 equipAnimY;
+    /* 0x0254 */ float equipAnimX;
+    /* 0x0256 */ float equipAnimY;
+                 float equipAnimStartX;
+                 float equipAnimStartY;
     /* 0x0258 */ s16 equipAnimAlpha;
     /* 0x025A */ s16 infoPanelOffsetY;
     /* 0x025C */ u16 nameDisplayTimer;

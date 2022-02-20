@@ -366,8 +366,8 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx) {
                             pauseCtx->equipTargetItem = cursorItem;
                             pauseCtx->equipTargetSlot = cursorSlot;
                             pauseCtx->unk_1E4 = 3;
-                            pauseCtx->equipAnimX = pauseCtx->itemVtx[index].v.ob[0] * 10;
-                            pauseCtx->equipAnimY = pauseCtx->itemVtx[index].v.ob[1] * 10;
+			                pauseCtx->equipAnimStartX = pauseCtx->equipAnimX = pauseCtx->itemVtx[index].v.ob[0];
+			                pauseCtx->equipAnimStartY = pauseCtx->equipAnimY = pauseCtx->itemVtx[index].v.ob[1];
                             pauseCtx->equipAnimAlpha = 255;
                             sEquipAnimTimer = 0;
                             sEquipState = 3;
@@ -493,15 +493,15 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_item.c", 516);
 }
 
-static s16 sCButtonPosX[] = { 660, 900, 1140 };
-static s16 sCButtonPosY[] = { 1100, 920, 1100 };
+static float sCButtonPosX[] = { 66.0f, 90.0f, 114.0f };
+static float sCButtonPosY[] = { 110.0f, 92.0f, 110.0f };
 
 void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
     static s16 D_8082A488 = 0;
     PauseContext* pauseCtx = &globalCtx->pauseCtx;
     Vtx* bowItemVtx;
-    u16 offsetX;
-    u16 offsetY;
+    float targetX;
+    float targetY;
 
     if (sEquipState == 0) {
         pauseCtx->equipAnimAlpha += 14;
@@ -530,11 +530,11 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
 
     if (sEquipState == 1) {
         bowItemVtx = &pauseCtx->itemVtx[12];
-        offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - bowItemVtx->v.ob[0] * 10) / sEquipMoveTimer);
-        offsetY = (u16)(ABS((s16)pauseCtx->equipAnimY - bowItemVtx->v.ob[1] * 10) / sEquipMoveTimer);
+	    targetX    = bowItemVtx->v.ob[0];
+	    targetY	   = bowItemVtx->v.ob[1];
     } else {
-        offsetX = (u16)(ABS((s16)pauseCtx->equipAnimX - (sCButtonPosX[pauseCtx->equipTargetCBtn] * gfx_ar_ratio())) / sEquipMoveTimer);
-	    offsetY = (u16)(ABS((s16)pauseCtx->equipAnimY - (sCButtonPosY[pauseCtx->equipTargetCBtn])) / sEquipMoveTimer);
+	    targetX = sCButtonPosX[pauseCtx->equipTargetCBtn] * gfx_ar_ratio();
+	    targetY = sCButtonPosY[pauseCtx->equipTargetCBtn];
     }
 
     if ((pauseCtx->equipTargetItem >= 0xBF) && (pauseCtx->equipAnimAlpha < 254)) {
@@ -548,33 +548,20 @@ void KaleidoScope_UpdateItemEquip(GlobalContext* globalCtx) {
 
     if (sEquipAnimTimer == 0) {
         WREG(90) -= (s16)(WREG(87) / sEquipMoveTimer);
-        WREG(87) -= (s16)(WREG(87) / sEquipMoveTimer);
+	    WREG(87) -= (s16)(WREG(87) / sEquipMoveTimer);
+
+        float pos = 1.0f - ((float)sEquipMoveTimer / 10.0f);
 
         if (sEquipState == 1) {
-            if (pauseCtx->equipAnimX >= (pauseCtx->itemVtx[12].v.ob[0] * 10) * gfx_ar_ratio()) {
-                pauseCtx->equipAnimX -= offsetX;
-            } else {
-                pauseCtx->equipAnimX += offsetX;
-            }
-
-            if (pauseCtx->equipAnimY >= (pauseCtx->itemVtx[12].v.ob[1] * 10)) {
-                pauseCtx->equipAnimY -= offsetY;
-            } else {
-                pauseCtx->equipAnimY += offsetY;
-            }
+            targetX = pauseCtx->itemVtx[12].v.ob[0];
+		    targetY = pauseCtx->itemVtx[12].v.ob[1];
         } else {
-            if (pauseCtx->equipAnimX >= sCButtonPosX[pauseCtx->equipTargetCBtn]  * gfx_ar_ratio()) {
-                pauseCtx->equipAnimX -= offsetX;
-            } else {
-                pauseCtx->equipAnimX += offsetX;
-            }
-
-            if (pauseCtx->equipAnimY >= sCButtonPosY[pauseCtx->equipTargetCBtn]) {
-                pauseCtx->equipAnimY -= offsetY;
-            } else {
-                pauseCtx->equipAnimY += offsetY;
-            }
+		    targetX = sCButtonPosX[pauseCtx->equipTargetCBtn];
+		    targetY = sCButtonPosY[pauseCtx->equipTargetCBtn];
         }
+
+        pauseCtx->equipAnimX = F32_LERP(pauseCtx->equipAnimStartX, GFX_ALIGN_RIGHT_F(targetX), pos);
+	    pauseCtx->equipAnimY = F32_LERP(pauseCtx->equipAnimStartY, targetY, pos);
 
         sEquipMoveTimer--;
 
