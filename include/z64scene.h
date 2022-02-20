@@ -298,7 +298,7 @@ enum SceneID {
     /* 0x00 */ SCENE_YDAN,
     /* 0x01 */ SCENE_DDAN,
     /* 0x02 */ SCENE_BDAN,
-    /* 0x03 */ SCENE_BMORI1,
+    /* 0x03 */ SCENE_BMORI1,//Forest temple
     /* 0x04 */ SCENE_HIDAN,
     /* 0x05 */ SCENE_MIZUSIN,
     /* 0x06 */ SCENE_JYASINZOU,

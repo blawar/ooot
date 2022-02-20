@@ -65,6 +65,7 @@ static EnDoorInfo sDoorInfo[] = {
     { SCENE_MIZUSIN, 2, OBJECT_MIZU_OBJECTS },
     { SCENE_HAKADAN, 3, OBJECT_HAKA_DOOR },
     { SCENE_HAKADANCH, 3, OBJECT_HAKA_DOOR },
+    { SCENE_BMORI1, 0, OBJECT_GAMEPLAY_KEEP },//Doors in the forest temple. Might be incorrect
     // KEEP objects should remain last and in pthis order
     { -1, 0, OBJECT_GAMEPLAY_KEEP },
     { -1, 4, OBJECT_GAMEPLAY_FIELD_KEEP },
@@ -101,11 +102,14 @@ void EnDoor_Init(Actor* thisx, GlobalContext* globalCtx2) {
     objectInfo = &sDoorInfo[0];
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDoorSkel, &gDoor3Anim, pthis->jointTable, pthis->morphTable, 5);
+
+    // Find the correct door depending on the scene number
     for (i = 0; i < ARRAY_COUNT(sDoorInfo) - 2; i++, objectInfo++) {
         if (globalCtx->sceneNum == objectInfo->sceneNum) {
             break;
         }
     }
+    // Not found in the sDoorInfo array
     if (i >= ARRAY_COUNT(sDoorInfo) - 2 && Object_GetIndex(&globalCtx->objectCtx, OBJECT_GAMEPLAY_FIELD_KEEP) >= 0) {
         objectInfo++;
     }
