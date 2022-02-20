@@ -477,8 +477,8 @@ void Joypad::onVibrate(uint8_t strength, uint8_t vibtime, uint8_t decay)//Called
 		return;
 	if (strength <= 20)
 		return;
-	if (decay <= 0)
-		decay = 1;
+	if (decay < 8)
+		decay = 8;
 
 	uint32_t strengthScaled = strength * strength;
 	//uint32_t strengthScaled = strength * 257;
