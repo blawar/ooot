@@ -32,6 +32,18 @@ enum PauseMenuPage {
     /* 0x04 */ PAUSE_WORLD_MAP
 };
 
+namespace oot::pause
+{
+    struct Segments
+	{
+	    u8 preRenderFb[0x3800];   // offset 0
+	    u8* keep;		// offset 0x3800
+	    Vec3s linkJointTable[22]; // size = ~0x90 PLAYER_LIMB_MAX
+	    u8* linkObjectSegment;
+	    u8 preRenderCvg[SCREEN_WIDTH * SCREEN_HEIGHT];
+	};
+}
+
 struct PauseContext {
     /* 0x0000 */ View view;
     /* 0x0128 */ u8* iconItemSegment;
@@ -39,10 +51,10 @@ struct PauseContext {
     /* 0x0130 */ u8* iconItemAltSegment;
     /* 0x0134 */ u8* iconItemLangSegment;
     /* 0x0138 */ u8* nameSegment;
-                 u8* uknSegment;
+                 u8* nameSegment2;
                  u8* uknSegment2;
                  u8* uknSegment3;
-    /* 0x013C */ u8* playerSegment;
+    /* 0x013C */ oot::pause::Segments* playerSegment;
     /* 0x0140 */ char unk_140[0x04];
     /* 0x0144 */ Vtx* itemPageVtx;
     /* 0x0148 */ Vtx* equipPageVtx;

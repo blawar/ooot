@@ -718,7 +718,7 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 150, 255, 255, pauseCtx->alpha);
         gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
-        POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, pauseCtx->nameSegment + 0x400, 80, 32, 4);
+        POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, pauseCtx->nameSegment2, 80, 32, 4);
     }
 
     gDPPipeSync(POLY_OPA_DISP++);

@@ -1440,27 +1440,19 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
     }
 }
 
-u32 func_80091738(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime) {
+u32 func_80091738(GlobalContext* globalCtx, oot::pause::Segments* segment, SkelAnime* skelAnime)
+{
     s16 linkObjectId = gLinkObjectIds[(void)0, gSaveContext.linkAge];
-    u32 size;
-    void* ptr;
 
-    size = (gObjectTable[OBJECT_GAMEPLAY_KEEP].vromEnd - gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart).size();
-    ptr = segment + 0x3800;
-    DmaMgr_SendRequest1(ptr, gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart, size, "../z_player_lib.c", 2982);
+    segment->keep = (u8*)gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart.get();
+    segment->linkObjectSegment = (u8*)gObjectTable[linkObjectId].vromStart.get();
 
-    size = (gObjectTable[linkObjectId].vromEnd - gObjectTable[linkObjectId].vromStart).size();
-    ptr = segment + 0x8800;
-    DmaMgr_SendRequest1(ptr, gObjectTable[linkObjectId].vromStart, size, "../z_player_lib.c", 2988);
+    gSegments[4] = (uintptr_t)segment->keep;
+    gSegments[6] = (uintptr_t)segment->linkJointTable;
 
-    ptr = (void*)ALIGN16(POINTER_ADD(ptr, size));
+    SkelAnime_InitLink(globalCtx, skelAnime, gPlayerSkelHeaders[(void)0, gSaveContext.linkAge], &gPlayerAnim_003238, 9, segment->linkJointTable, segment->linkJointTable, PLAYER_LIMB_MAX);
 
-    gSegments[4] = (uintptr_t)VIRTUAL_TO_PHYSICAL(segment + 0x3800);
-    gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(segment + 0x8800);
-
-    SkelAnime_InitLink(globalCtx, skelAnime, gPlayerSkelHeaders[(void)0, gSaveContext.linkAge], &gPlayerAnim_003238, 9, (Vec3s*)ptr, (Vec3s*)ptr, PLAYER_LIMB_MAX);
-
-    return size + 0x8800 + 0x90;
+    return 0;
 }
 
 u8 D_801261F8[] = { 2, 2, 5 };
@@ -1507,7 +1499,7 @@ s32 func_80091880(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     return 0;
 }
 
-void func_80091A24(GlobalContext* globalCtx, void* seg04, void* seg06, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot,
+void func_80091A24(GlobalContext* globalCtx, void* keepSegment, void* linkObjectSegment, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot,
                    f32 scale, s32 sword, s32 tunic, s32 shield, s32 boots, s32 width, s32 height, Vec3f* eye, Vec3f* at,
                    f32 fovy, void* img1, void* img2) {
     static Vp viewport = { 128, 224, 511, 0, 128, 224, 511, 0 };
@@ -1585,8 +1577,8 @@ void func_80091A24(GlobalContext* globalCtx, void* seg04, void* seg06, SkelAnime
     func_800D1694(pos->x, pos->y, pos->z, rot);
     Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 
-    gSPSegment(POLY_OPA_DISP++, 0x04, seg04);
-    gSPSegment(POLY_OPA_DISP++, 0x06, seg06);
+    gSPSegment(POLY_OPA_DISP++, 0x04, keepSegment);
+    gSPSegment(POLY_OPA_DISP++, 0x06, linkObjectSegment);
 
     gSPSetLights1(POLY_OPA_DISP++, lights1);
 
@@ -1610,7 +1602,7 @@ void func_80091A24(GlobalContext* globalCtx, void* seg04, void* seg06, SkelAnime
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 3288);
 }
 
-void func_8009214C(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot, f32 scale,
+void func_8009214C(GlobalContext* globalCtx, oot::pause::Segments* segment, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot, f32 scale,
                    s32 sword, s32 tunic, s32 shield, s32 boots) {
     static Vec3f eye = { 0.0f, 0.0f, -400.0f };
     static Vec3f at = { 0.0f, 0.0f, 0.0f };
@@ -1618,8 +1610,8 @@ void func_8009214C(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime, 
     Vec3s* srcTable;
     s32 i;
 
-    gSegments[4] = (uintptr_t)VIRTUAL_TO_PHYSICAL(segment + 0x3800);
-    gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(segment + 0x8800);
+    gSegments[4] = (uintptr_t)segment->keep;
+    gSegments[6] = (uintptr_t)segment->linkObjectSegment;
 
     if (!LINK_IS_ADULT) {
         if (shield == PLAYER_SHIELD_DEKU) {
@@ -1643,7 +1635,7 @@ void func_8009214C(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime, 
         *destTable++ = *srcTable++;
     }
 
-    func_80091A24(globalCtx, segment + 0x3800, segment + 0x8800, skelAnime, pos, rot, scale, sword, tunic, shield,
+    func_80091A24(globalCtx, segment->keep, segment->linkObjectSegment, skelAnime, pos, rot, scale, sword, tunic, shield,
                   boots, 64, 112, &eye, &at, 60.0f, globalCtx->state.gfxCtx->curFrameBuffer,
                   globalCtx->state.gfxCtx->curFrameBuffer + 0x1C00);
 }
