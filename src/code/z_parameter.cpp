@@ -44,6 +44,8 @@
 #define DO_ACTION_TEX_HEIGHT 16
 #define DO_ACTION_TEX_SIZE ((DO_ACTION_TEX_WIDTH * DO_ACTION_TEX_HEIGHT) / 2) // (sizeof(gCheckDoActionENGTex))
 
+static const u8 gEmptyTex[DO_ACTION_TEX_SIZE] = { 0 };
+
 typedef struct {
     /* 0x00 */ u8 scene;
     /* 0x01 */ u8 flags1;
@@ -2069,7 +2071,7 @@ s32 Inventory_ConsumeFairy(GlobalContext* globalCtx) {
     return 0;
 }
 
-void func_80086D5C(s32* buf, u16 size) {
+void Interface_ClearData(s32* buf, u16 size) {
     u16 i;
 
     for (i = 0; i < size; i++) {
@@ -2078,8 +2080,6 @@ void func_80086D5C(s32* buf, u16 size) {
 }
 
 void Interface_LoadActionLabel(InterfaceContext* interfaceCtx, u16 action, s16 loadOffset) {
-    static void* sDoActionTextures[] = { gAttackDoActionENGTex, gCheckDoActionENGTex };
-
     if (action >= DO_ACTION_MAX) {
         action = DO_ACTION_NONE;
     }
@@ -2107,7 +2107,15 @@ void Interface_LoadActionLabel(InterfaceContext* interfaceCtx, u16 action, s16 l
         }
     } else {
         gSegments[7] = (uintptr_t)VIRTUAL_TO_PHYSICAL(interfaceCtx->doActionSegment1);
-        func_80086D5C((s32*)SEGMENTED_TO_VIRTUAL(sDoActionTextures[loadOffset]), DO_ACTION_TEX_SIZE / 4);
+#ifdef N64_VERSION
+        static void* sDoActionTextures[] = { gAttackDoActionENGTex, gCheckDoActionENGTex };
+        Interface_ClearData((s32*)SEGMENTED_TO_VIRTUAL(sDoActionTextures[loadOffset]), DO_ACTION_TEX_SIZE / 4);
+#else
+        if (loadOffset == 0)
+            interfaceCtx->doActionSegment1 = (u8*)gEmptyTex;
+        else
+            interfaceCtx->doActionSegment2 = (u8*)gEmptyTex;
+#endif
     }
 }
 
