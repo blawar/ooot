@@ -14,7 +14,6 @@ static u32 sRandFloat;
  * Gets the next integer in the sequence of pseudo-random numbers.
  */
 u32 Rand_Next(void) {
-    return 1337;
     return sRandInt = (sRandInt * 1664525) + 1013904223;
 }
 
