@@ -21,7 +21,7 @@
 #include "../options.h"
 #include "../player/players.h"
 #include "tas.h"
-#include <SDL_gamecontrollerdb.h>
+#include <SDL2/SDL_gamecontrollerdb.h>
 
 #ifndef __SWITCH__
 #define DEADZONE 20
