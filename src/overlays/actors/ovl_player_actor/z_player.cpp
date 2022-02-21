@@ -2213,7 +2213,7 @@ s32 func_80834D2C(Player* pthis, GlobalContext* globalCtx) {
         LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_002628);
     }
 
-    if (pthis->stateFlags1 & 0x800000) {
+    if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
         func_80832284(globalCtx, pthis, &gPlayerAnim_003380);
     } else if ((pthis->actor.bgCheckFlags & 1) && !func_80833B54(pthis)) {
         func_80832284(globalCtx, pthis, D_80853914[pthis->modelAnimType]);
@@ -4580,7 +4580,7 @@ void func_8083AA10(Player* pthis, GlobalContext* globalCtx) {
 
 s32 func_8083AD4C(GlobalContext* globalCtx, Player* pthis) {
     s32 cameraMode;
-
+    
     if (pthis->unk_6AD == 2) {
         if (func_8002DD6C(pthis)) {
             if (LINK_IS_ADULT) {
@@ -4670,7 +4670,7 @@ s32 func_8083B040(Player* pthis, GlobalContext* globalCtx) {
     s32 sp28;
     GetItemEntry* giEntry;
     Actor* targetActor;
-
+    
     if ((pthis->unk_6AD != 0) &&
         (Player_IsSwimmingWithoutIronBoots(pthis) || (pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x800000))) {
 
@@ -4784,7 +4784,7 @@ s32 func_8083B040(Player* pthis, GlobalContext* globalCtx) {
                     }
                 }
             } else if (func_8083AD4C(globalCtx, pthis)) {
-                if (!(pthis->stateFlags1 & 0x800000)) {
+                if (!(pthis->stateFlags1 & 0x800000)) {//Not mounted on a horse
                     func_80835C58(globalCtx, pthis, func_8084B1D8, 1);
                     pthis->unk_850 = 13;
                     func_8083B010(pthis);
@@ -5058,7 +5058,7 @@ void func_8083C0E8(Player* pthis, GlobalContext* globalCtx) {
 void func_8083C148(Player* pthis, GlobalContext* globalCtx) {
     if (!(pthis->stateFlags3 & 0x80)) {
         func_8083B010(pthis);
-        if (pthis->stateFlags1 & 0x8000000) {
+        if (pthis->stateFlags1 & 0x8000000) {//Swimming?
             func_80838F18(globalCtx, pthis);
         } else {
             func_80839F90(pthis, globalCtx);
@@ -5500,7 +5500,7 @@ void func_8083D36C(GlobalContext* globalCtx, Player* pthis) {
         }
     }
 
-    pthis->stateFlags1 |= 0x8000000;
+    pthis->stateFlags1 |= 0x8000000;//Swimming
     pthis->stateFlags2 |= 0x400;
     pthis->stateFlags1 &= ~0xC0000;
     pthis->unk_854 = 0.0f;
@@ -5744,7 +5744,7 @@ s32 func_8083E0FC(Player* pthis, GlobalContext* globalCtx) {
 
         func_80836898(globalCtx, pthis, func_8083A360);
 
-        pthis->stateFlags1 |= 0x800000;
+        pthis->stateFlags1 |= 0x800000;//Mounted on a horse
         pthis->actor.bgCheckFlags &= ~0x20;
 
         if (pthis->mountSide < 0) {
@@ -9929,7 +9929,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
         if ((pthis->actor.parent == NULL) && (pthis->stateFlags1 & 0x800000)) {
             pthis->actor.parent = pthis->rideActor;
             func_8083A360(globalCtx, pthis);
-            pthis->stateFlags1 |= 0x800000;
+            pthis->stateFlags1 |= 0x800000;//Mounted on a horse
             func_80832264(globalCtx, pthis, &gPlayerAnim_0033B8);
             func_80832F54(globalCtx, pthis, 0x9B);
             pthis->unk_850 = 99;
@@ -10050,7 +10050,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
             Math_ScaledStepToS(&pthis->windDirection, D_808535FC,
                                ((pthis->stateFlags1 & 0x8000000) ? 400.0f : 800.0f) * sp48);
         } else if (pthis->windSpeed != 0.0f) {
-            Math_StepToF(&pthis->windSpeed, 0.0f, (pthis->stateFlags1 & 0x8000000) ? 0.5f : 1.0f);
+            Math_StepToF(&pthis->windSpeed, 0.0f, (pthis->stateFlags1 & 0x8000000) ? 0.5f : 1.0f);//Swimming?
         }
 
         if (!Player_InBlockingCsMode(globalCtx, pthis) && !(pthis->stateFlags2 & 0x40000)) {
@@ -11446,7 +11446,7 @@ void func_8084CC98(Player* pthis, GlobalContext* globalCtx) {
             }
             return;
         }
-
+        
         if ((pthis->csMode != 0) || (!func_8084C9BC(pthis, globalCtx) && !func_8083B040(pthis, globalCtx))) {
             if (pthis->unk_664 != NULL) {
                 if (func_8002DD78(pthis) != 0) {
@@ -13298,7 +13298,7 @@ void func_80851314(Player* pthis) {
 }
 
 void func_80851368(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {
-    pthis->stateFlags1 |= 0x8000000;
+    pthis->stateFlags1 |= 0x8000000;//Swimming
     pthis->stateFlags2 |= 0x400;
     pthis->stateFlags1 &= ~0xC0000;
 
@@ -14087,7 +14087,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor) {
             pthis->actor.textId = actor->textId;
         }
 
-        if (pthis->stateFlags1 & 0x800000) {
+        if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
             s32 sp24 = pthis->unk_850;
 
             func_80832528(globalCtx, pthis);

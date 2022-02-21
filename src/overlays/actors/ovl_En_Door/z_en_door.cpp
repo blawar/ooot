@@ -205,7 +205,7 @@ void EnDoor_Idle(EnDoor* pthis, GlobalContext* globalCtx) {
     if (pthis->playerIsOpening != 0) {
         pthis->actionFunc = EnDoor_Open;
         Animation_PlayOnceSetSpeed(&pthis->skelAnime, D_809FCECC[pthis->animStyle],
-                                   (player->stateFlags1 & 0x8000000) ? 0.75f : 1.5f);
+                                   (player->stateFlags1 & 0x8000000) ? 0.75f : 1.5f);//Swimming?
         if (pthis->lockTimer != 0) {
             gSaveContext.inventory.dungeonKeys[gSaveContext.mapIndex]--;
             Flags_SetSwitch(globalCtx, pthis->actor.params & 0x3F);
