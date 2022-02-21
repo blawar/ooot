@@ -66,6 +66,38 @@ namespace oot::hid
 
 		g_haptics = SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0;
 
+/*
+ * Initialize the game controller system, mostly load our DB of controller config mappings
+ */
+int
+SDL_GameControllerInitMappings(void)
+{
+    char szControllerMapPath[1024];
+    int i = 0;
+    const char *pMappingString = NULL;
+    pMappingString = s_ControllerMappings[i];
+    while (pMappingString) {
+        SDL_PrivateGameControllerAddMapping(pMappingString, SDL_CONTROLLER_MAPPING_PRIORITY_DEFAULT);
+
+        i++;
+        pMappingString = s_ControllerMappings[i];
+    }
+
+    if (SDL_GetControllerMappingFilePath(szControllerMapPath, sizeof(szControllerMapPath))) {
+        SDL_GameControllerAddMappingsFromFile(szControllerMapPath);        
+    }
+
+    /* load in any user supplied config */
+    SDL_GameControllerLoadHints();
+
+    SDL_AddHintCallback(SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES,
+                        SDL_GameControllerIgnoreDevicesChanged, NULL);
+    SDL_AddHintCallback(SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT,
+                        SDL_GameControllerIgnoreDevicesExceptChanged, NULL);
+
+    return (0);
+}
+		
 #ifdef __SWITCH__
 		// swap A, B and X, Y to correct positions
 		SDL_GameControllerAddMapping("53776974636820436F6E74726F6C6C65,Switch Controller,"
