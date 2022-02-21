@@ -20,6 +20,7 @@
 #include "def/z_message_PAL.h"
 #include "def/z_rcp.h"
 #include "def/z_skelanime.h"
+#include "../../../port/options.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
@@ -576,13 +577,15 @@ void EnGe2_Update(Actor* thisx, GlobalContext* globalCtx) {
                                      pthis->yDetectRange)) {
             // "Discovered!"
             osSyncPrintf(VT_FGCOL(GREEN) "発見!!!!!!!!!!!!\n" VT_RST);
-            EnGe2_SetupCapturePlayer(pthis, globalCtx);
+            if (!oot::config().cheats().blindGerudoGuards())
+                EnGe2_SetupCapturePlayer(pthis, globalCtx);
         }
 
         if (((pthis->actor.params & 0xFF) == GE2_TYPE_STATIONARY) && (pthis->actor.xzDistToPlayer < 100.0f)) {
             // "Discovered!"
             osSyncPrintf(VT_FGCOL(GREEN) "発見!!!!!!!!!!!!\n" VT_RST);
-            EnGe2_SetupCapturePlayer(pthis, globalCtx);
+            if (!oot::config().cheats().blindGerudoGuards())
+                EnGe2_SetupCapturePlayer(pthis, globalCtx);
         }
     }
 

@@ -125,6 +125,11 @@ namespace oot
 			{
 				return m_speed;
 			}
+
+			bool& blindGerudoGuards()
+			{
+				return m_blindGerudoGuards;
+			}
 			
 			protected:
 			bool m_invincible;
@@ -132,8 +137,9 @@ namespace oot
 			u8 padding[2];
 			float m_bowserAimAssist;
 			float m_speed;
+			bool m_blindGerudoGuards;
 
-			u8 junk[0x40 - (2 + 7 + 4)];
+			u8 junk[0x40 - (2 + 7 + 4 + 1)];
 		};
 
 		static_assert(sizeof(Cheats) == 0x40, "Cheats size incorrect");
