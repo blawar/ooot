@@ -12,7 +12,7 @@
 	<Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLideN64d.lib;opengl32.lib;libGLideNHQd.lib;osald.lib;freetype253MT.lib;SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLideN64d.lib;AziAudio.lib;dsound.lib;opengl32.lib;libGLideNHQd.lib;osald.lib;freetype253MT.lib;SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>

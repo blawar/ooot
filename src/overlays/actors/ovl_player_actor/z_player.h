@@ -139,9 +139,7 @@ struct Player {
     /* 0x0164 */ Gfx**      leftHandDLists;
     /* 0x0168 */ Gfx**      sheathDLists;
     /* 0x016C */ Gfx**      waistDLists;
-    /* 0x0170 */ u8         giObjectLoading;
     /* 0x0174 */ DmaRequest giObjectDmaRequest;
-    /* 0x0194 */ OSMesgQueue giObjectLoadQueue;
     /* 0x01AC */ OSMesg     giObjectLoadMsg;
     /* 0x01B0 */ void*      giObjectSegment; // also used for title card textures
     /* 0x01B4 */ SkelAnime  skelAnime;

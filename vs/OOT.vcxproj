@@ -1703,7 +1703,6 @@
     <ClCompile Include="..\src\overlays\misc\ovl_kaleido_scope\z_lmap_mark.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\src\overlays\misc\ovl_kaleido_scope\z_lmap_mark_data.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\src\overlays\misc\ovl_map_mark_data\z_map_mark_data.cpp" />
-    <ClCompile Include="..\src\port\audio\audio_sdl.cpp" />
     <ClCompile Include="..\src\port\configfile.cpp" />
     <ClCompile Include="..\src\port\controller\controller.cpp" />
     <ClCompile Include="..\src\port\controller\controllers.cpp" />

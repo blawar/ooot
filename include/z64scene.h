@@ -630,7 +630,6 @@ struct RoomContext {
     /* 0x31 */ s8 status;
     /* 0x34 */ void* unk_34;
     /* 0x38 */ DmaRequest dmaRequest;
-    /* 0x58 */ OSMesgQueue loadQueue;
     /* 0x70 */ OSMesg loadMsg;
     /* 0x74 */ s16 unk_74[2]; // context-specific data used by the current scene draw config
 };                // size = 0x78

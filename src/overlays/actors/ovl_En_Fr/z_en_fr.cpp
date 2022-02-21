@@ -4,6 +4,7 @@
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "vt.h"
 #include "objects/object_fr/object_fr.h"
+#include "z64audio.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"

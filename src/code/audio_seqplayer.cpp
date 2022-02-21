@@ -2,6 +2,7 @@
 #include "ultra64.h"
 #include "global.h"
 #include "z64audio.h"
+#include <unordered_map>
 #include "def/audio_data.h"
 #include "def/audio_effects.h"
 #include "def/audio_heap.h"
@@ -11,6 +12,39 @@
 #include "def/audio_rsp.h"
 #include "def/audio_bank.h"
 
+static std::unordered_map<AdsrEnvelope*, AdsrEnvelope*> g_envelopeMape;
+
+static u32 AdsrEnvelopeBE_Length(const AdsrEnvelope* env)
+{
+	u32 len = 1;
+
+    while(BE16(env->delay) != (u16)-1)
+    {
+	    env++;
+	    len++;
+    }
+
+    return len;
+}
+
+static AdsrEnvelope* AdsrEnvelopeBE(AdsrEnvelope* pointer)
+{
+	auto& ptr = g_envelopeMape[pointer];
+
+    if(!ptr)
+	{
+	    u32 len = AdsrEnvelopeBE_Length(pointer);
+		ptr	= new AdsrEnvelope[len];
+
+	    for(u32 i=0; i < len; i++)
+		{
+		    ptr[i].delay = BE16(pointer[i].delay);
+			ptr[i].arg   = BE16(pointer[i].arg);
+		}
+	}
+    return ptr;
+}
+
 #define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
 #define PORTAMENTO_MODE(x) ((x).mode & ~0x80)
 #define PORTAMENTO_MODE_1 1
@@ -18,6 +52,14 @@
 #define PORTAMENTO_MODE_3 3
 #define PORTAMENTO_MODE_4 4
 #define PORTAMENTO_MODE_5 5
+
+#if 0
+#define BES16(x) ((s16)BE16((u16)x))
+#define BEU16(x) (BE16(x))
+#else
+#define BES16(x) (x)
+#define BEU16(x) (x)
+#endif
 
 u8 AudioSeq_ScriptReadU8(SeqScriptState* state);
 s16 AudioSeq_ScriptReadS16(SeqScriptState* state);
@@ -369,18 +411,18 @@ u8 AudioSeq_ScriptReadU8(SeqScriptState* state) {
 }
 
 s16 AudioSeq_ScriptReadS16(SeqScriptState* state) {
-    s16 ret = *(state->pc++) << 8;
+    s16 ret = BES16(*(state->pc++)) << 8;
 
-    ret = *(state->pc++) | ret;
+    ret = BES16(*(state->pc++)) | ret;
     return ret;
 }
 
 u16 AudioSeq_ScriptReadCompressedU16(SeqScriptState* state) {
-    u16 ret = *(state->pc++);
+    u16 ret = BEU16(*(state->pc++));
 
     if (ret & 0x80) {
         ret = (ret << 8) & 0x7F00;
-        ret = *(state->pc++) | ret;
+        ret = BEU16(*(state->pc++)) | ret;
     }
     return ret;
 }
@@ -594,7 +636,7 @@ s32 AudioSeq_SeqLayerProcessScriptStep2(SequenceLayer* layer) {
 
             case 0xCB:
                 sp3A = AudioSeq_ScriptReadS16(state);
-                layer->adsr.envelope = (AdsrEnvelope*)(seqPlayer->seqData + sp3A);
+                layer->adsr.envelope = AdsrEnvelopeBE((AdsrEnvelope*)(seqPlayer->seqData + sp3A));
                 // fallthrough
 
             case 0xCF:
@@ -1061,8 +1103,13 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
 
                         if (seqPlayer->defaultFont != 0xFF) {
                             offset = ((u16*)gAudioContext.sequenceFontTable)[seqPlayer->seqId];
+#ifdef LITTLE_ENDIAN
+			                lowBits = gAudioContext.sequenceFontTable[offset + 1];
+			                command = gAudioContext.sequenceFontTable[offset + lowBits - result + 1];
+#else
                             lowBits = gAudioContext.sequenceFontTable[offset];
                             command = gAudioContext.sequenceFontTable[offset + lowBits - result];
+#endif
                         }
 
                         if (AudioHeap_SearchCaches(FONT_TABLE, CACHE_EITHER, command)) {
@@ -1124,7 +1171,7 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
                         break;
                     case 0xDA:
                         offset = (u16)parameters[0];
-                        channel->adsr.envelope = (AdsrEnvelope*)&seqPlayer->seqData[offset];
+                        channel->adsr.envelope = AdsrEnvelopeBE((AdsrEnvelope*)&seqPlayer->seqData[offset]);
                         break;
                     case 0xD9:
                         command = (u8)parameters[0];
@@ -1172,8 +1219,13 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
 
                         if (seqPlayer->defaultFont != 0xFF) {
                             offset = ((u16*)gAudioContext.sequenceFontTable)[seqPlayer->seqId];
+#ifdef LITTLE_ENDIAN
+			                lowBits = gAudioContext.sequenceFontTable[offset + 1];
+			                command = gAudioContext.sequenceFontTable[offset + lowBits - result + 1];
+#else
                             lowBits = gAudioContext.sequenceFontTable[offset];
                             command = gAudioContext.sequenceFontTable[offset + lowBits - result];
+#endif
                         }
 
                         if (AudioHeap_SearchCaches(FONT_TABLE, CACHE_EITHER, command)) {

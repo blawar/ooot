@@ -476,7 +476,7 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
     }
     SpeedMeter_Init(&D_801664D0);
     Rumble_Reset();
-    osSendMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
+    //osSendMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
 
     endTime = osGetTime();
     // "Other initialization processing time %d us"
@@ -491,7 +491,7 @@ void GameState_Destroy(GameState* gameState) {
     osSyncPrintf("game destructor start\n"); // "game destructor start"
     Audio_StopAllBanks();
     func_800F3054();
-    osRecvMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
+    //osRecvMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
     LogUtils_CheckNullPointer("this->cleanup", gameState->destroy, "../game.c", 1139);
     if (gameState->destroy != NULL) {
         gameState->destroy(gameState);

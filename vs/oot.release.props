@@ -18,7 +18,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLideN64.lib;opengl32.lib;libGLideNHQ.lib;osald.lib;freetype253MT.lib;SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLideN64.lib;AziAudio.lib;dsound.lib;opengl32.lib;libGLideNHQ.lib;osald.lib;freetype253MT.lib;SDL2-static.lib;winmm.lib;setupapi.lib;version.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>

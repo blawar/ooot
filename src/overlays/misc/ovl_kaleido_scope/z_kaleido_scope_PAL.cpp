@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "Framerate.h"
+#include "z64audio.h"
 #include "segment_symbols.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"

@@ -699,9 +699,9 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
     s32 phi_s4;
     s32 nFirstFrameSamplesToIgnore;
     s32 pad2[7];
-    s32 frameSize = 0; // TODO HACK not sure why this isnt being set
+    s32 frameSize; // TODO HACK not sure why this isnt being set
     s32 nFramesToDecode;
-    s32 skipInitialSamples = 16; // TODO HACK not sure why this isnt being set
+    s32 skipInitialSamples; // TODO HACK not sure why this isnt being set
     Pointer sampleDataStart;
     u8* sampleData;
     s32 nParts;
@@ -750,13 +750,6 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
     samplesLenFixedPoint = (resamplingRateFixedPoint * aiBufLen * 2) + synthState->samplePosFrac;
     nSamplesToLoad = samplesLenFixedPoint >> 16;
     synthState->samplePosFrac = samplesLenFixedPoint & 0xFFFF;
-
-    // Partially-optimized out no-op ifs required for matching. SM64 decomp
-    // makes it clear that this is how it should look.
-    if (synthState->numParts == 1 && nParts == 2) {
-    } else if (synthState->numParts == 2 && nParts == 1) {
-    } else {
-    }
 
     synthState->numParts = nParts;
 
@@ -880,9 +873,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
                     } else if (audioFontSample->medium == MEDIUM_UNK) {
                         return cmd;
                     } else {
-                        sampleData = (u8*)AudioLoad_DmaSampleData(sampleDataStart + sampleDataOffset + sampleAddr,
-                                                             ALIGN16((nFramesToDecode * frameSize) + 0x10), flags,
-                                                             &synthState->sampleDmaIndex, audioFontSample->medium);
+			            sampleData = (u8*)(sampleDataStart + sampleDataOffset + sampleAddr).get();
                     }
 
                     if (sampleData == NULL) {
@@ -914,12 +905,14 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
                 switch (audioFontSample->codec) {
                     case CODEC_ADPCM:
                         aligned = ALIGN16((nFramesToDecode * frameSize) + 0x10);
+                        aligned = ALIGN16((nFramesToDecode * frameSize) + 0x10);
                         addr = DMEM_COMPRESSED_ADPCM_DATA - aligned;
                         aSetBuffer(cmd++, 0, addr + sampleDataStartPad, DMEM_UNCOMPRESSED_NOTE + phi_s4,
                                    nSamplesToDecode * 2);
                         aADPCMdec(cmd++, flags, synthState->synthesisBuffers->adpcmdecState);
                         break;
                     case CODEC_SMALL_ADPCM:
+                        aligned = ALIGN16((nFramesToDecode * frameSize) + 0x10);
                         aligned = ALIGN16((nFramesToDecode * frameSize) + 0x10);
                         addr = DMEM_COMPRESSED_ADPCM_DATA - aligned;
                         aSetBuffer(cmd++, 0, addr + sampleDataStartPad, DMEM_UNCOMPRESSED_NOTE + phi_s4,

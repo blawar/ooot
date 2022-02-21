@@ -8,6 +8,7 @@
 
 #include "z_en_kakasi3.h"
 #include "vt.h"
+#include "z64audio.h"
 #include "objects/object_ka/object_ka.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"

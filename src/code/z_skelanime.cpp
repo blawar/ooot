@@ -951,8 +951,6 @@ void AnimationContext_SetMoveActor(GlobalContext* globalCtx, Actor* actor, SkelA
  */
 void AnimationContext_LoadFrame(GlobalContext* globalCtx, AnimationEntryData* data) {
     AnimEntryLoadFrame* entry = &data->load;
-
-    osRecvMesg(&entry->msgQueue, NULL, OS_MESG_BLOCK);
 }
 
 /**

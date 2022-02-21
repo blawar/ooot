@@ -1,7 +1,8 @@
 #pragma once
-#include "z64audio.h"
 #include "sched.h"
 #include "z64math.h"
+
+struct AudioTask;
 
 struct SoundSource {
     /* 0x00 */ u16 countdown;

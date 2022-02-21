@@ -13,7 +13,7 @@ extern s8 D_801333E8;
 extern u8 D_801333F0;
 extern u8 D_8016E348[4];
 extern unk_D_8016E750 D_8016E750[4];
-extern ActiveSound gActiveSounds[7][MAX_CHANNELS_PER_BANK];
+extern ActiveSound gActiveSounds[7][3]; // MAX_CHANNELS_PER_BANK = 3
 extern AudioContext gAudioContext;
 extern u8 gAudioSfxSwapMode[10];
 extern u8 gAudioSfxSwapOff;

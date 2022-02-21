@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Sound Driver">
+      <UniqueIdentifier>{43b2e3b5-e716-4d8f-ba1a-b40e20c69319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HLE">
+      <UniqueIdentifier>{8c30a8de-e2ce-48be-af01-21ba3969d5f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mupen64Plus HLE">
+      <UniqueIdentifier>{95916df6-fc86-47c2-9217-016b83ad7d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mupen64Plus HLE\Mupen64Plus Headers">
+      <UniqueIdentifier>{25c811b5-8ad0-4d49-b449-e6b2a225ab89}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\AziAudio\AziAudio\DirectSoundDriver.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\SoundDriver.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\XAudio2SoundDriver.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\arithmetics.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\audio.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\common.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\hle.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\hle_external.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\hle_internal.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\memory.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Mupen64plusHLE\ucodes.h">
+      <Filter>Mupen64Plus HLE\Mupen64Plus Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\audiohle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\AudioSpec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\WaveOut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\my_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\NoSoundDriver.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\SoundDriverFactory.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\SoundDriverInterface.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Configuration.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\SoundDriverLegacy.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\DirectSoundDriverLegacy.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\XAudio2SoundDriverLegacy.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\WASAPISoundDriver.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\WaveOutSoundDriver.h">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AziAudio\AziAudio\Settings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AziAudio\AziAudio\DirectSoundDriver.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\XAudio2SoundDriver.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\WaveOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI1.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI2.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI3.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI3mp3.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\HLEMain.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI_Resample.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI_Envmixer.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI_Adpcm.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI_Buffers.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI_Filters.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\ABI_MixerInterleave.cpp">
+      <Filter>Source Files\HLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\SoundDriver.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\NoSoundDriver.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\SoundDriverFactory.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\SoundDriverInterface.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\Configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\SoundDriverLegacy.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\DirectSoundDriverLegacy.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\XAudio2SoundDriverLegacy.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\WASAPISoundDriver.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AziAudio\AziAudio\WaveOutSoundDriver.cpp">
+      <Filter>Source Files\Sound Driver</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\AziAudio\AziAudio\readme.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

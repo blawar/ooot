@@ -88,7 +88,7 @@ CameraModeValue D_8011A3C8[] = {
     { 50, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 }     // unk_1C
+    { 20, 12 }     // tempo
 };
 
 CameraModeValue D_8011A3F4[] = {
@@ -100,7 +100,7 @@ CameraModeValue D_8011A3F4[] = {
     { 45, 14 },    // unk_10
     { -5, 15 },    // unk_14
     { 15, 16 },    // unk_18
-    { 15, 17 },    // unk_1C
+    { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
     { 50, 8 },     // unk_24
     { 0x2001, 9 }, // flags
@@ -326,7 +326,7 @@ CameraModeValue D_8011A660[] = {
     { 30, 8 },     // unk_14
     { 0x206A, 9 }, // flags
     { -20, 11 },   // unk_18
-    { 30, 12 },    // unk_1C
+    { 30, 12 },    // tempo
 };
 
 CameraModeValue D_8011A68C[] = {
@@ -338,7 +338,7 @@ CameraModeValue D_8011A68C[] = {
     { 85, 14 },    // unk_10
     { 10, 15 },    // unk_14
     { 5, 16 },     // unk_18
-    { 25, 17 },    // unk_1C
+    { 25, 17 },    // tempo
     { 45, 7 },     // unk_20
     { 50, 8 },     // unk_24
     { 0x2001, 9 }, // flags
@@ -372,7 +372,7 @@ CameraModeValue sSetNorm1ModeParaVals[] = {
     { 50, 8 },     // unk_14
     { 0x2002, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011A714[] = {
@@ -384,7 +384,7 @@ CameraModeValue D_8011A714[] = {
     { 45, 14 },    // unk_10
     { -5, 15 },    // unk_14
     { 15, 16 },    // unk_18
-    { 15, 17 },    // unk_1C
+    { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
     { 50, 8 },     // unk_24
     { 0x2001, 9 }, // flags
@@ -543,7 +543,7 @@ CameraModeValue D_8011A8C4[] = {
     { 50, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011A8F0[] = {
@@ -555,7 +555,7 @@ CameraModeValue D_8011A8F0[] = {
     { 45, 14 },    // unk_10
     { -5, 15 },    // unk_14
     { 15, 16 },    // unk_18
-    { 15, 17 },    // unk_1C
+    { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
     { 50, 8 },     // unk_24
     { 0x2001, 9 }, // flags
@@ -815,7 +815,7 @@ CameraModeValue D_8011ABB4[] = {
     { 50, 8 },     // unk_14
     { 0x206A, 9 }, // flags
     { -20, 11 },   // unk_18
-    { 30, 12 },    // unk_1C
+    { 30, 12 },    // tempo
 };
 
 CameraModeValue sSetNorm3ModeNormVals[] = {
@@ -828,7 +828,7 @@ CameraModeValue sSetNorm3ModeNormVals[] = {
     { 5, 5 },      // unk_10
     { 40, 6 },     // unk_14
     { 60, 7 },     // fovTarget
-    { 100, 8 },    // unk_1C
+    { 100, 8 },    // tempo
     { 0x0004, 9 }, // flags
 };
 
@@ -844,7 +844,7 @@ CameraModeValue D_8011AC08[] = {
     { 100, 8 },    // unk_14
     { 0x200A, 9 }, // flags
     { -50, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011AC34[] = {
@@ -876,7 +876,7 @@ CameraModeValue sSetNorm3ModeBoomVals[] = {
     { 5, 5 },      // unk_10
     { 60, 6 },     // unk_14
     { 60, 7 },     // fovTarget
-    { 40, 8 },     // unk_1C
+    { 40, 8 },     // tempo
     { 0x0005, 9 }, // flags
 };
 
@@ -928,7 +928,7 @@ CameraModeValue D_8011ACF8[] = {
     { 45, 14 },    // unk_10
     { -5, 15 },    // unk_14
     { 15, 16 },    // unk_18
-    { 15, 17 },    // unk_1C
+    { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
     { 50, 8 },     // unk_24
     { 0x2601, 9 }, // flags
@@ -1280,7 +1280,7 @@ CameraModeValue D_8011B108[] = {
     { 0, 0 },      // unk_00
     { 120, 1 },    // unk_04
     { 280, 2 },    // unk_08
-    { 60, 23 },    // unk_1C
+    { 60, 23 },    // tempo
     { 8, 4 },      // unk_0C
     { 40, 6 },     // unk_10
     { 60, 7 },     // unk_14
@@ -1293,7 +1293,7 @@ CameraModeValue D_8011B12C[] = {
     { 0, 0 },      // unk_00
     { 120, 1 },    // unk_04
     { 280, 2 },    // unk_08
-    { 60, 23 },    // unk_1C
+    { 60, 23 },    // tempo
     { 8, 4 },      // unk_0C
     { 40, 6 },     // unk_10
     { 60, 7 },     // unk_14
@@ -1306,7 +1306,7 @@ CameraModeValue D_8011B150[] = {
     { 0, 0 },      // unk_00
     { 270, 1 },    // unk_04
     { 300, 2 },    // unk_08
-    { 120, 23 },   // unk_1C
+    { 120, 23 },   // tempo
     { 8, 4 },      // unk_0C
     { 60, 6 },     // unk_10
     { 60, 7 },     // unk_14
@@ -1319,7 +1319,7 @@ CameraModeValue D_8011B174[] = {
     { 0, 0 },      // unk_00
     { 270, 1 },    // unk_04
     { 300, 2 },    // unk_08
-    { 120, 23 },   // unk_1C
+    { 120, 23 },   // tempo
     { 6, 4 },      // unk_0C
     { 60, 6 },     // unk_10
     { 60, 7 },     // unk_14
@@ -1509,7 +1509,7 @@ CameraModeValue sSetMori1ModeNormVals[] = {
     { 30, 8 },     // unk_14
     { 0x000C, 9 }, // flags
     { -50, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011B2E0[] = {
@@ -1556,7 +1556,7 @@ CameraModeValue D_8011B31C[] = {
     { 50, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011B348[] = {
@@ -1633,7 +1633,7 @@ CameraModeValue D_8011B3F0[] = {
     { 50, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011B41C[] = {
@@ -1769,7 +1769,7 @@ CameraModeValue D_8011B560[] = {
     { 80, 8 },     // unk_14
     { 0x201A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 40, 12 },    // unk_1C
+    { 40, 12 },    // tempo
 };
 
 CameraModeValue D_8011B58C[] = {
@@ -1784,7 +1784,7 @@ CameraModeValue D_8011B58C[] = {
     { 80, 8 },     // unk_14
     { 0x201A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 40, 12 },    // unk_1C
+    { 40, 12 },    // tempo
 };
 
 CameraModeValue D_8011B5B8[] = {
@@ -1827,7 +1827,7 @@ CameraModeValue D_8011B608[] = {
     { 80, 8 },     // unk_14
     { 0x201A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 40, 12 },    // unk_1C
+    { 40, 12 },    // tempo
 };
 
 CameraModeValue D_8011B634[] = {
@@ -1842,7 +1842,7 @@ CameraModeValue D_8011B634[] = {
     { 80, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 40, 12 },    // unk_1C
+    { 40, 12 },    // tempo
 };
 
 CameraModeValue D_8011B660[] = {
@@ -1885,7 +1885,7 @@ CameraModeValue D_8011B6B0[] = {
     { 80, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 40, 12 },    // unk_1C
+    { 40, 12 },    // tempo
 };
 
 CameraModeValue D_8011B6DC[] = {
@@ -1900,7 +1900,7 @@ CameraModeValue D_8011B6DC[] = {
     { 80, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 40, 12 },    // unk_1C
+    { 40, 12 },    // tempo
 };
 
 CameraModeValue D_8011B708[] = {
@@ -1976,7 +1976,7 @@ CameraModeValue D_8011B7AC[] = {
     { 50, 8 },     // unk_14
     { 0x2F0A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue D_8011B7D8[] = {
@@ -2131,7 +2131,7 @@ CameraModeValue D_8011B958[] = {
     { 50, 8 },     // unk_14
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
-    { 20, 12 },    // unk_1C
+    { 20, 12 },    // tempo
 };
 
 CameraModeValue sSetDung2ModeBattVals[] = {
@@ -2248,7 +2248,7 @@ CameraModeValue D_8011BA9C[] = {
     { 30, 8 },     // unk_14
     { 0x206A, 9 }, // flags
     { -20, 11 },   // unk_18
-    { 30, 12 },    // unk_1C
+    { 30, 12 },    // tempo
 };
 
 CameraModeValue D_8011BAC8[] = {
@@ -2274,7 +2274,7 @@ CameraModeValue D_8011BAF0[] = {
     { 45, 14 },    // unk_10
     { 0, 15 },     // unk_14
     { -5, 16 },    // unk_18
-    { 20, 17 },    // unk_1C
+    { 20, 17 },    // tempo
     { 50, 7 },     // unk_20
     { 50, 8 },     // unk_24
     { 0x2001, 9 }, // flags

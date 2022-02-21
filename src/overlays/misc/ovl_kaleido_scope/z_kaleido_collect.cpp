@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_COLLECT_C
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
+#include "z64audio.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "hack.h"

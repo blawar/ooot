@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libGLideNHQ", "libGLideNHQ.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "osal", "osal.vcxproj", "{7BF6F100-31DB-44AE-A2A5-5DDEED9A909C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AziAudio", "AziAudio.vcxproj", "{835979AC-BC6A-45B7-A513-8EEE79B443DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_mupenplus|Win32 = Debug_mupenplus|Win32
@@ -92,6 +94,22 @@ Global
 		{7BF6F100-31DB-44AE-A2A5-5DDEED9A909C}.Release|Win32.Build.0 = Release|Win32
 		{7BF6F100-31DB-44AE-A2A5-5DDEED9A909C}.Release|x64.ActiveCfg = Release|x64
 		{7BF6F100-31DB-44AE-A2A5-5DDEED9A909C}.Release|x64.Build.0 = Release|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug_mupenplus|Win32.ActiveCfg = Debug|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug_mupenplus|Win32.Build.0 = Debug|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug_mupenplus|x64.ActiveCfg = Debug|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug_mupenplus|x64.Build.0 = Debug|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug|Win32.Build.0 = Debug|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug|x64.ActiveCfg = Debug|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Debug|x64.Build.0 = Debug|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release_mupenplus|Win32.ActiveCfg = Release|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release_mupenplus|Win32.Build.0 = Release|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release_mupenplus|x64.ActiveCfg = Release|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release_mupenplus|x64.Build.0 = Release|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release|Win32.ActiveCfg = Release|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release|Win32.Build.0 = Release|Win32
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release|x64.ActiveCfg = Release|x64
+		{835979AC-BC6A-45B7-A513-8EEE79B443DE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,6 @@
 #pragma once
+#include "ultra64/message.h"
+
 struct OSPiHandle;
 struct OSIoMesg;
 struct DmaRequest;

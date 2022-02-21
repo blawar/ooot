@@ -722,14 +722,11 @@ void TitleCard_InitBossName(GlobalContext* globalCtx, TitleCardContext* titleCtx
     titleCtx->delayTimer = 0;
 }
 
-void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s32 x, s32 y,
+void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void*& texture, s32 x, s32 y,
                              s32 width, s32 height, s32 delay) {
     SceneTableEntry* loadedScene = globalCtx->loadedScene;
-    size_t size = (loadedScene->titleFile.vromEnd - loadedScene->titleFile.vromStart).size();
 
-    if ((size != 0) && (size <= 0x3000)) {
-        DmaMgr_SendRequest1(texture, loadedScene->titleFile.vromStart, size, "../z_actor.c", 2765);
-    }
+    texture = loadedScene->titleFile.vromStart.buffer();
 
     titleCtx->texture = texture;
     titleCtx->x = x;
@@ -2890,7 +2887,7 @@ Actor* Actor_Delete(ActorContext* actorCtx, Actor* actor, GlobalContext* globalC
         actorCtx->targetCtx.bgmEnemy = NULL;
     }
 
-    /* Audio_StopSfxByPos(&actor->projectedPos); */
+    Audio_StopSfxByPos(&actor->projectedPos);
     Actor_Destroy(actor, globalCtx);
 
     newHead = Actor_RemoveFromCategory(globalCtx, actorCtx, actor);

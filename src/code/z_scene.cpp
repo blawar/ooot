@@ -346,7 +346,7 @@ bool cmd_sound_settings(GlobalContext* globalCtx, const SceneCmd* cmd) {
     globalCtx->sequenceCtx.natureAmbienceId = cmd->soundSettings.natureAmbienceId;
 
     if (gSaveContext.seqId == (u8)NA_BGM_DISABLED) {
-        Audio_QueueSeqCmd(cmd->soundSettings.specId | 0xF0000000);
+        Audio_QueueSeqCmd(cmd->soundSettings.specId | 0xF0000000); // AUDIO_CMD_CHANGE_SPEC
     }
     return true;
 }

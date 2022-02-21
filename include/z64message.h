@@ -1,7 +1,9 @@
 #pragma once
 #include "ultra64/types.h"
 #include "view.h"
-#include "z64audio.h"
+//#include "z64audio.h"
+
+struct OcarinaStaff;
 
 typedef enum { TEXTBOX_ICON_TRIANGLE, TEXTBOX_ICON_SQUARE, TEXTBOX_ICON_ARROW } TextBoxIcon;
 

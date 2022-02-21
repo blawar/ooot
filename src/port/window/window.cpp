@@ -15,7 +15,7 @@ namespace platform::window
 		m_ar_ratio = m_ar / ((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
 	}
 
-	bool Base::run_paced_loop()
+	bool Base::wait_frame_ready()
 	{
 		m_refreshInterval = std::chrono::microseconds(1000 * 1000 / 1);
 		// const auto frameAlignment = (m_refreshRate - (m_lastFrameDuration % m_refreshRate)) / 2;
@@ -61,30 +61,6 @@ namespace platform::window
 
 			
 			m_currentFrameStartTime = std::chrono::high_resolution_clock::now();
-
-			/*
-			int samples_left = audio_api->buffered();
-			u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? 544 : 528;
-
-#ifdef ENABLE_60FPS
-			s16 audio_buffer[544 * 2];
-			create_next_audio_buffer(audio_buffer, num_audio_samples);
-			if(!config().game().disableSound())
-			{
-				audio_api->play((const u8*)audio_buffer, num_audio_samples * 4);
-			}
-#else
-			s16 audio_buffer[544 * 2 * 2];
-			for(int i = 0; i < 2; i++)
-			{
-				create_next_audio_buffer(audio_buffer + i * (num_audio_samples * 2), num_audio_samples);
-			}
-			if(!config().game().disableSound())
-			{
-				audio_api->play((const u8*)audio_buffer, 2 * num_audio_samples * 4);
-			}
-#endif
-*/
 			return true;
 			
 		}
@@ -96,22 +72,12 @@ namespace platform::window
 		return false;
 	}
 
-	void Base::run()
-	{
-		while(1)
-		{
-			begin_frame();
-			game_loop_one_iteration();
-			end_frame();
-		}
-	}
-
 	bool Base::begin_frame()
 	{
 		handle_events();
 		if (oot::config().game().isFramePacing())
 		{
-			while (!run_paced_loop())
+			while(!wait_frame_ready())
 			{}
 		}
 		return !dropped_frame;

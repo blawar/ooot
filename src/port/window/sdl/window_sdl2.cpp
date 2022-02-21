@@ -17,6 +17,19 @@
 
 void quit();
 
+/*
+#ifdef _WIN32
+#include "SDL_syswm.h"
+HWND getHwnd()
+{
+	SDL_SysWMinfo wmInfo;
+	SDL_VERSION(&wmInfo.version);
+	SDL_GetWindowWMInfo(window, &wmInfo);
+	HWND hwnd = wmInfo.info.win.window;
+}
+#endif
+*/
+
 
 namespace platform::window
 {

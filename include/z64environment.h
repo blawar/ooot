@@ -91,7 +91,6 @@ struct EnvironmentContext {
     /* 0x36 */ LightInfo dirLight2; // used for moonlight outdoors
     /* 0x44 */ s8 skyboxDmaState;
     /* 0x48 */ DmaRequest dmaRequest;
-    /* 0x68 */ OSMesgQueue loadQueue;
     /* 0x80 */ OSMesg loadMsg;
     /* 0x84 */ f32 unk_84;
     /* 0x88 */ f32 unk_88;

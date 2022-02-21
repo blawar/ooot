@@ -61,17 +61,8 @@
     <Filter Include="Source Files\port">
       <UniqueIdentifier>{057ee800-4200-4c7a-a71e-208d474c6e8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\port\gfx">
-      <UniqueIdentifier>{076249ff-2c0a-43d4-b2a1-f6ccd1ebb59c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\port\audio">
-      <UniqueIdentifier>{b812585d-3a65-4698-b9b6-72c21967ea4b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\include">
       <UniqueIdentifier>{cdd864ce-73d5-467a-8fa2-93129f1e0479}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\port\fast3d">
-      <UniqueIdentifier>{30e9f867-99b2-403c-8285-bb8a7b77ecc5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\port\controller">
       <UniqueIdentifier>{3b39d445-502a-4ef8-9dc4-bc4de8f3982e}</UniqueIdentifier>
@@ -2189,9 +2180,6 @@
     </ClCompile>
     <ClCompile Include="..\src\port\options.cpp">
       <Filter>Source Files\port</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\port\audio\audio_sdl.cpp">
-      <Filter>Source Files\port\audio</Filter>
     </ClCompile>
     <ClCompile Include="..\src\port\controller\controller.cpp">
       <Filter>Source Files\port\controller</Filter>
@@ -5080,6 +5068,72 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\roms\$(buildrom)\text\staff_message_data_static.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa2\hairal_niwa2_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa2\hairal_niwa2_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\besitu\besitu_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\besitu\besitu_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\depth_test\depth_test_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\depth_test\depth_test_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sasatest\sasatest_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sasatest\sasatest_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sutaru\sutaru_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sutaru\sutaru_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes2\syotes2_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes2\syotes2_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes\syotes_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes\syotes_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\test01\test01_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\test01\test01_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

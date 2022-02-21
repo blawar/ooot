@@ -1,2 +1,2 @@
 #pragma once
-#define osAiGetLength(a) 0
+u32 osAiGetLength();

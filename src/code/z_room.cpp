@@ -592,19 +592,15 @@ s32 func_8009728C(GlobalContext* globalCtx, RoomContext* roomCtx, s32 roomNum) {
 
 s32 func_800973FC(GlobalContext* globalCtx, RoomContext* roomCtx) {
     if (roomCtx->status == 1) {
-        if (!osRecvMesg(&roomCtx->loadQueue, NULL, OS_MESG_NOBLOCK)) {
-            roomCtx->status = 0;
-            roomCtx->curRoom.segment = roomCtx->unk_34;
-            gSegments[3] = (uintptr_t)VIRTUAL_TO_PHYSICAL(roomCtx->unk_34);
+        roomCtx->status = 0;
+        roomCtx->curRoom.segment = roomCtx->unk_34;
+        gSegments[3] = (uintptr_t)VIRTUAL_TO_PHYSICAL(roomCtx->unk_34);
 
-            Scene_ExecuteCommands(globalCtx, (SceneCmd*)roomCtx->curRoom.segment);
-            Player_SetBootData(globalCtx, GET_PLAYER(globalCtx));
-            Actor_SpawnTransitionActors(globalCtx, &globalCtx->actorCtx);
+        Scene_ExecuteCommands(globalCtx, (SceneCmd*)roomCtx->curRoom.segment);
+        Player_SetBootData(globalCtx, GET_PLAYER(globalCtx));
+        Actor_SpawnTransitionActors(globalCtx, &globalCtx->actorCtx);
 
-            return 1;
-        }
-
-        return 0;
+        return 1;
     }
 
     return 1;

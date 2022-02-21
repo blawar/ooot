@@ -115,7 +115,7 @@ s32 Player_IsFacingActor(Actor* actor, s16 angle, GlobalContext* globalCtx);
 f32 Rand_CenteredFloat(f32 f);
 f32 Rand_ZeroFloat(f32 f);
 void TitleCard_InitBossName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s16 x, s16 y, u8 width, u8 height);
-void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s32 x, s32 y, s32 width, s32 height, s32 delay);
+void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void*& texture, s32 x, s32 y, s32 width, s32 height, s32 delay);
 void func_8002BE04(GlobalContext* globalCtx, Vec3f* arg1, Vec3f* arg2, f32* arg3);
 void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx);
 s32 func_8002D53C(GlobalContext* globalCtx, TitleCardContext* titleCtx);
