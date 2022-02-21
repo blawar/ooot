@@ -597,7 +597,7 @@ void EnGe1_BeginGame_Archery(EnGe1* pthis, GlobalContext* globalCtx) {
                     gSaveContext.eventInf[0] |= 0x100;
                     gSaveContext.eventChkInf[6] |= 0x100;
 
-                    if (!(player->stateFlags1 & 0x800000)) {
+                    if (!(player->stateFlags1 & 0x800000)) {//Mounted on a horse?
                         func_8002DF54(globalCtx, &pthis->actor, 1);
                     } else {
                         horse = Actor_FindNearby(globalCtx, &player->actor, ACTOR_EN_HORSE, ACTORCAT_BG, 1200.0f);
@@ -677,7 +677,7 @@ void EnGe1_Wait_Archery(EnGe1* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     u16 textId;
 
-    if (!(player->stateFlags1 & 0x800000)) {
+    if (!(player->stateFlags1 & 0x800000)) {//Not mounted on a horse?
         EnGe1_SetTalkAction(pthis, globalCtx, 0x603F, 100.0f, EnGe1_TalkNoHorse_Archery);
     } else {
         if (gSaveContext.eventChkInf[6] & 0x100) {

@@ -325,7 +325,7 @@ void Player_SetBootData(GlobalContext* globalCtx, Player* pthis) {
             currentBoots = PLAYER_BOOTS_NORMAL_CHILD;
         }
     } else if (currentBoots == PLAYER_BOOTS_IRON) {
-        if (pthis->stateFlags1 & 0x8000000) {
+        if (pthis->stateFlags1 & 0x8000000) {//Swimming?
             currentBoots = PLAYER_BOOTS_IRON_UNDERWATER;
         }
         REG(27) = 500;
@@ -488,7 +488,7 @@ void func_8008EEAC(GlobalContext* globalCtx, Actor* actor) {
     Camera_ChangeMode(Gameplay_GetCamera(globalCtx, 0), 2);
 }
 
-s32 func_8008EF30(GlobalContext* globalCtx) {
+s32 Player_MountedOnHorse(GlobalContext* globalCtx) {
     Player* pthis = GET_PLAYER(globalCtx);
 
     return (pthis->stateFlags1 & 0x800000);
