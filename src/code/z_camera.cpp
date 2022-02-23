@@ -36,6 +36,8 @@
 #include "def/z_quake.h"
 #include "def/z_view.h"
 
+#define FIZZLE_CAM
+
 GlobalContext* D_8015BD7C;
 DbCamera D_8015BD80;
 CollisionPoly* playerFloorPoly;
@@ -1338,9 +1340,44 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 
     velFactor = Camera_InterpolateCurve(0.5f, camera->speedRatio);
     yawUpdRate = 1.0f / camera->yawUpdateRateInv;
+#ifndef FIZZLE_CAM
     return cur + (s16)(angDelta * velocity * velFactor * yawUpdRate);
+#else
+    return cur + (s16)(angDelta * yawUpdRate);
+#endif
 }
 
+#ifdef FIZZLE_CAM
+#include "../port/controller/controller.h"
+#include "../port/player/players.h"
+
+const oot::hid::N64Controller* sControlInput;
+s16 startControlTimer;
+
+s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3) {
+    f32 pitchUpdRate;
+    oot::hid::Players players;
+    sControlInput = players.GetController();
+    s16 rStickY = (s16)sControlInput->state().r_stick_y * (s16)-255;
+    if (rStickY > 0 || rStickY < 0) {
+        startControlTimer = OREG(50) + OREG(51);
+    }
+    pitchUpdRate = 1.0f / camera->pitchUpdateRateInv;
+    return cur + (s16)(rStickY * pitchUpdRate);
+}
+
+s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel) {
+    f32 yawUpdRate;
+    oot::hid::Players players;
+    sControlInput = players.GetController();
+    s16 rStickX = (s16)sControlInput->state().r_stick_x * (s16)-255;
+    if (rStickX > 0 || rStickX < 0) {
+        startControlTimer = OREG(50) + OREG(51);
+    }
+    yawUpdRate = 1.0f / camera->yawUpdateRateInv;
+    return cur + (s16)(rStickX * yawUpdRate);
+}
+#endif
 void func_80046E20(Camera* camera, VecSph* eyeAdjustment, f32 minDist, f32 arg3, f32* arg4, SwingAnimation* anim) {
     static CamColChk atEyeColChk;
     static CamColChk eyeAtColChk;
@@ -1461,7 +1498,10 @@ s32 Camera_Normal1(Camera* camera) {
     Normal1Anim* anim = &norm1->anim;
     f32 playerHeight;
     f32 rate = 0.1f;
-
+#ifdef FIZZLE_CAM
+    oot::hid::Players players;
+    sControlInput = players.GetController();
+#endif
     playerHeight = Player_GetHeight(camera->player);
     if (RELOAD_PARAMS) {
         CameraModeValue* values = sCameraSettings[camera->setting].cameraModes[camera->mode].values;
@@ -1507,6 +1547,9 @@ s32 Camera_Normal1(Camera* camera) {
             anim->swingYawTarget = atEyeGeo.yaw;
             sUpdateCameraDirection = 0;
             anim->startSwingTimer = OREG(50) + OREG(51);
+#ifdef FIZZLE_CAM
+            startControlTimer = OREG(50) + OREG(51);
+#endif
             break;
         default:
             break;
@@ -1518,10 +1561,20 @@ s32 Camera_Normal1(Camera* camera) {
     if (anim->unk_28 != 0) {
         anim->unk_28--;
     }
-
+#ifndef FIZZLE_CAM
     if (camera->xzSpeed > 0.001f) {
         anim->startSwingTimer = OREG(50) + OREG(51);
     } else if (anim->startSwingTimer > 0) {
+#else
+    if (camera->xzSpeed > 0.001f && (sControlInput->state().r_stick_x > 0 || sControlInput->state().r_stick_x < 0 || sControlInput->state().r_stick_y > 0 || sControlInput->state().r_stick_y < 0)) {
+        //anim->startSwingTimer = OREG(50) + OREG(51);
+        startControlTimer = OREG(50) + OREG(51);
+    }
+	if (startControlTimer > 0) {
+        startControlTimer--;
+    }
+    if (anim->startSwingTimer > 0) {
+#endif
         if (anim->startSwingTimer > OREG(50)) {
             anim->swingYawTarget = atEyeGeo.yaw + (BINANG_SUB(BINANG_ROT180(camera->playerPosRot.rot.y), atEyeGeo.yaw) /
                                                    anim->startSwingTimer);
@@ -1590,7 +1643,7 @@ s32 Camera_Normal1(Camera* camera) {
 
     camera->dist = eyeAdjustment.r =
         Camera_ClampDist(camera, eyeAdjustment.r, norm1->distMin, norm1->distMax, anim->unk_28);
-
+#ifndef FIZZLE_CAM
     if (anim->startSwingTimer <= 0) {
         eyeAdjustment.pitch = atEyeNextGeo.pitch;
         eyeAdjustment.yaw =
@@ -1607,7 +1660,20 @@ s32 Camera_Normal1(Camera* camera) {
         eyeAdjustment.pitch =
             Camera_CalcDefaultPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
     }
-
+#else
+	if (startControlTimer > 0 || sControlInput->state().r_stick_x > 0 || sControlInput->state().r_stick_x < 0 || sControlInput->state().r_stick_y > 0 || sControlInput->state().r_stick_y < 0) {
+        eyeAdjustment.yaw = Camera_CalcControllerYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
+        eyeAdjustment.pitch = Camera_CalcControllerPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
+    } else if (anim->swing.unk_18 != 0) {
+        eyeAdjustment.yaw =
+            Camera_LERPCeilS(anim->swing.unk_16, atEyeNextGeo.yaw, 1.0f / camera->yawUpdateRateInv, 0xA);
+        eyeAdjustment.pitch =
+            Camera_LERPCeilS(anim->swing.unk_14, atEyeNextGeo.pitch, 1.0f / camera->yawUpdateRateInv, 0xA);
+    } else if (anim->startSwingTimer <= 0 && startControlTimer <= 0) {
+        eyeAdjustment.pitch = Camera_CalcDefaultPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
+        eyeAdjustment.yaw = Camera_CalcDefaultYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
+    }
+#endif
     // set eyeAdjustment pitch from 79.65 degrees to -85 degrees
     if (eyeAdjustment.pitch > 0x38A4) {
         eyeAdjustment.pitch = 0x38A4;
@@ -1620,13 +1686,20 @@ s32 Camera_Normal1(Camera* camera) {
     if ((camera->status == CAM_STAT_ACTIVE) && (!(norm1->interfaceFlags & 0x10))) {
         anim->swingYawTarget = BINANG_ROT180(camera->playerPosRot.rot.y);
         if (anim->startSwingTimer > 0) {
+#ifdef FIZZLE_CAM
+            anim->swing.swingUpdateRate = camera->yawUpdateRateInv = norm1->unk_0C * 2.0f;
+#endif
             func_80046E20(camera, &eyeAdjustment, norm1->distMin, norm1->unk_0C, &sp98, &anim->swing);
         } else {
             sp88 = *eyeNext;
             anim->swing.swingUpdateRate = camera->yawUpdateRateInv = norm1->unk_0C * 2.0f;
             if (Camera_BGCheck(camera, at, &sp88)) {
+#ifndef FIZZLE_CAM
                 anim->swingYawTarget = atEyeNextGeo.yaw;
                 anim->startSwingTimer = -1;
+#else
+                func_80046E20(camera, &eyeAdjustment, norm1->distMin, norm1->unk_0C, &sp98, &anim->swing);
+#endif
             } else {
                 *eye = *eyeNext;
             }
