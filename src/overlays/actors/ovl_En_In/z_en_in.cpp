@@ -154,7 +154,7 @@ u16 func_80A79010(GlobalContext* globalCtx) {
     }
     switch (gSaveContext.eventInf[0] & 0xF) {
         case 1:
-            if (!(player->stateFlags1 & 0x800000)) {
+            if (!(player->stateFlags1 & 0x800000)) {//Not mounted on a horse?
                 return 0x2036;
             } else if (gSaveContext.eventChkInf[1] & 0x800) {
                 if (gSaveContext.infTable[10] & 4) {

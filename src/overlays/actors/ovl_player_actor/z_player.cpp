@@ -1528,7 +1528,7 @@ void func_8083328C(GlobalContext* globalCtx, Player* pthis, LinkAnimationHeader*
     LinkAnimation_PlayOnceSetSpeed(globalCtx, &pthis->skelAnime, linkAnim, D_808535E8);
 }
 
-s32 func_808332B8(Player* pthis) {
+s32 Player_IsSwimmingWithoutIronBoots(Player* pthis) {
     return (pthis->stateFlags1 & 0x8000000) && (pthis->currentBoots != PLAYER_BOOTS_IRON);
 }
 
@@ -1958,7 +1958,7 @@ void func_80834298(Player* pthis, GlobalContext* globalCtx) {
 s32 func_80834380(GlobalContext* globalCtx, Player* pthis, s32* itemPtr, s32* typePtr) {
     if (LINK_IS_ADULT) {
         *itemPtr = ITEM_BOW;
-        if (pthis->stateFlags1 & 0x800000) {
+        if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
             *typePtr = ARROW_NORMAL_HORSE;
         } else {
             *typePtr = pthis->heldItemActionParam - 6;
@@ -2213,7 +2213,7 @@ s32 func_80834D2C(Player* pthis, GlobalContext* globalCtx) {
         LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_002628);
     }
 
-    if (pthis->stateFlags1 & 0x800000) {
+    if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
         func_80832284(globalCtx, pthis, &gPlayerAnim_003380);
     } else if ((pthis->actor.bgCheckFlags & 1) && !func_80833B54(pthis)) {
         func_80832284(globalCtx, pthis, D_80853914[pthis->modelAnimType]);
@@ -2768,7 +2768,7 @@ void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item) {
 }
 
 void func_80836448(GlobalContext* globalCtx, Player* pthis, LinkAnimationHeader* anim) {
-    s32 cond = func_808332B8(pthis);
+    s32 cond = Player_IsSwimmingWithoutIronBoots(pthis);
 
     func_80832564(globalCtx, pthis);
 
@@ -3426,7 +3426,7 @@ void func_80837C0C(GlobalContext* globalCtx, Player* pthis, s32 arg2, f32 arg3, 
         pthis->unk_850 = 20;
     } else {
         arg5 -= pthis->actor.shape.rot.y;
-        if (pthis->stateFlags1 & 0x8000000) {
+        if (pthis->stateFlags1 & 0x8000000) {//Swimming?
             func_80835C58(globalCtx, pthis, func_8084E30C, 0);
             func_8083264C(pthis, 180, 20, 50, 0);
 
@@ -3643,7 +3643,7 @@ s32 func_808382DC(Player* pthis, GlobalContext* globalCtx) {
                         LinkAnimationHeader* anim;
                         s32 sp54 = func_80843188 == pthis->func_674;
 
-                        if (!func_808332B8(pthis)) {
+                        if (!Player_IsSwimmingWithoutIronBoots(pthis)) {
                             func_80835C58(globalCtx, pthis, func_808435C4, 0);
                         }
 
@@ -3688,7 +3688,7 @@ s32 func_808382DC(Player* pthis, GlobalContext* globalCtx) {
                     func_8002F7DC(&pthis->actor, NA_SE_PL_BODY_HIT);
                 }
 
-                if (pthis->stateFlags1 & 0x8000000) {
+                if (pthis->stateFlags1 & 0x8000000) {//Swimming?
                     sp4C = 0;
                 } else if (pthis->actor.colChkInfo.acHitEffect == 2) {
                     sp4C = 3;
@@ -3762,7 +3762,7 @@ s32 func_80838A14(Player* pthis, GlobalContext* globalCtx) {
         (!(pthis->stateFlags1 & 0x8000000) || (pthis->ageProperties->unk_14 > pthis->wallHeight))) {
         sp3C = 0;
 
-        if (func_808332B8(pthis)) {
+        if (Player_IsSwimmingWithoutIronBoots(pthis)) {
             if (pthis->actor.yDistToWater < 50.0f) {
                 if ((pthis->unk_88C < 2) || (pthis->wallHeight > pthis->ageProperties->unk_10)) {
                     return 0;
@@ -3803,7 +3803,7 @@ s32 func_80838A14(Player* pthis, GlobalContext* globalCtx) {
 
                 pthis->stateFlags1 |= 0x4000;
 
-                if (func_808332B8(pthis)) {
+                if (Player_IsSwimmingWithoutIronBoots(pthis)) {
                     sp38 = &gPlayerAnim_0032E8;
                     sp34 -= (60.0f * pthis->ageProperties->unk_08);
                     pthis->stateFlags1 &= ~0x8000000;
@@ -3949,7 +3949,7 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
                 globalCtx->sceneLoadFlag = 0x14;
             }
 
-            if (!(pthis->stateFlags1 & 0x20800000) && !(pthis->stateFlags2 & 0x40000) && !func_808332B8(pthis) &&
+            if (!(pthis->stateFlags1 & 0x20800000) && !(pthis->stateFlags2 & 0x40000) && !Player_IsSwimmingWithoutIronBoots(pthis) &&
                 (temp = func_80041D4C(&globalCtx->colCtx, poly, bgId), (temp != 10)) &&
                 ((sp34 < 100) || (pthis->actor.bgCheckFlags & 1))) {
 
@@ -4580,7 +4580,7 @@ void func_8083AA10(Player* pthis, GlobalContext* globalCtx) {
 
 s32 func_8083AD4C(GlobalContext* globalCtx, Player* pthis) {
     s32 cameraMode;
-
+    
     if (pthis->unk_6AD == 2) {
         if (func_8002DD6C(pthis)) {
             if (LINK_IS_ADULT) {
@@ -4670,9 +4670,9 @@ s32 func_8083B040(Player* pthis, GlobalContext* globalCtx) {
     s32 sp28;
     GetItemEntry* giEntry;
     Actor* targetActor;
-
+    
     if ((pthis->unk_6AD != 0) &&
-        (func_808332B8(pthis) || (pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x800000))) {
+        (Player_IsSwimmingWithoutIronBoots(pthis) || (pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x800000))) {
 
         if (!func_8083ADD4(globalCtx, pthis)) {
             if (pthis->unk_6AD == 4) {
@@ -4784,7 +4784,7 @@ s32 func_8083B040(Player* pthis, GlobalContext* globalCtx) {
                     }
                 }
             } else if (func_8083AD4C(globalCtx, pthis)) {
-                if (!(pthis->stateFlags1 & 0x800000)) {
+                if (!(pthis->stateFlags1 & 0x800000)) {//Not mounted on a horse
                     func_80835C58(globalCtx, pthis, func_8084B1D8, 1);
                     pthis->unk_850 = 13;
                     func_8083B010(pthis);
@@ -4837,7 +4837,7 @@ s32 func_8083B644(Player* pthis, GlobalContext* globalCtx) {
                 ((pthis->heldActor != NULL) && (sp28 || (sp34 == pthis->heldActor) || (sp2C == pthis->heldActor) ||
                                                ((sp34 != NULL) && (sp34->flags & ACTOR_FLAG_16))))) {
                 if ((pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x800000) ||
-                    (func_808332B8(pthis) && !(pthis->stateFlags2 & 0x400))) {
+                    (Player_IsSwimmingWithoutIronBoots(pthis) && !(pthis->stateFlags2 & 0x400))) {
 
                     if (sp34 != NULL) {
                         pthis->stateFlags2 |= 2;
@@ -4887,7 +4887,7 @@ s32 func_8083B644(Player* pthis, GlobalContext* globalCtx) {
 s32 func_8083B8F4(Player* pthis, GlobalContext* globalCtx) {
     if (!(pthis->stateFlags1 & 0x800800) && Camera_CheckValidMode(Gameplay_GetCamera(globalCtx, 0), 6)) {
         if ((pthis->actor.bgCheckFlags & 1) ||
-            (func_808332B8(pthis) && (pthis->actor.yDistToWater < pthis->ageProperties->unk_2C))) {
+            (Player_IsSwimmingWithoutIronBoots(pthis) && (pthis->actor.yDistToWater < pthis->ageProperties->unk_2C))) {
             pthis->unk_6AD = 1;
             return 1;
         }
@@ -5058,7 +5058,7 @@ void func_8083C0E8(Player* pthis, GlobalContext* globalCtx) {
 void func_8083C148(Player* pthis, GlobalContext* globalCtx) {
     if (!(pthis->stateFlags3 & 0x80)) {
         func_8083B010(pthis);
-        if (pthis->stateFlags1 & 0x8000000) {
+        if (pthis->stateFlags1 & 0x8000000) {//Swimming?
             func_80838F18(globalCtx, pthis);
         } else {
             func_80839F90(pthis, globalCtx);
@@ -5500,7 +5500,7 @@ void func_8083D36C(GlobalContext* globalCtx, Player* pthis) {
         }
     }
 
-    pthis->stateFlags1 |= 0x8000000;
+    pthis->stateFlags1 |= 0x8000000;//Swimming
     pthis->stateFlags2 |= 0x400;
     pthis->stateFlags1 &= ~0xC0000;
     pthis->unk_854 = 0.0f;
@@ -5606,7 +5606,7 @@ void func_8083D6EC(GlobalContext* globalCtx, Player* pthis) {
                 ripplePos.z = (Rand_ZeroOne() * 10.0f) + pthis->actor.world.pos.z;
                 EffectSsGRipple_Spawn(globalCtx, &ripplePos, 100, 500, 0);
 
-                if ((pthis->linearVelocity > 4.0f) && !func_808332B8(pthis) &&
+                if ((pthis->linearVelocity > 4.0f) && !Player_IsSwimmingWithoutIronBoots(pthis) &&
                     ((pthis->actor.world.pos.y + pthis->actor.yDistToWater) < pthis->bodyPartsPos[0].y)) {
                     func_8083CFA8(globalCtx, pthis, 20.0f,
                                   (fabsf(pthis->linearVelocity) * 50.0f) + (pthis->actor.yDistToWater * 5.0f));
@@ -5744,7 +5744,7 @@ s32 func_8083E0FC(Player* pthis, GlobalContext* globalCtx) {
 
         func_80836898(globalCtx, pthis, func_8083A360);
 
-        pthis->stateFlags1 |= 0x800000;
+        pthis->stateFlags1 |= 0x800000;//Mounted on a horse
         pthis->actor.bgCheckFlags &= ~0x20;
 
         if (pthis->mountSide < 0) {
@@ -6273,7 +6273,7 @@ s32 func_8083F7BC(Player* pthis, GlobalContext* globalCtx) {
             return 1;
         }
 
-        if (!func_808332B8(pthis) && ((pthis->linearVelocity == 0.0f) || !(pthis->stateFlags2 & 4)) &&
+        if (!Player_IsSwimmingWithoutIronBoots(pthis) && ((pthis->linearVelocity == 0.0f) || !(pthis->stateFlags2 & 4)) &&
             (D_808535F0 & 0x40) && (pthis->actor.bgCheckFlags & 1) && (pthis->wallHeight >= 39.0f)) {
 
             pthis->stateFlags2 |= 1;
@@ -9199,7 +9199,7 @@ void func_808473D4(GlobalContext* globalCtx, Player* pthis) {
         Actor* interactRangeActor = pthis->interactRangeActor;
         s32 sp24;
         s32 sp20 = pthis->unk_84B[pthis->unk_846];
-        s32 sp1C = func_808332B8(pthis);
+        s32 sp1C = Player_IsSwimmingWithoutIronBoots(pthis);
         s32 doAction = DO_ACTION_NONE;
 
         if (!Player_InBlockingCsMode(globalCtx, pthis)) {
@@ -9666,7 +9666,7 @@ void Player_UpdateCamAndSeqModes(GlobalContext* globalCtx, Player* pthis) {
                     seqMode = SEQ_MODE_STILL;
                 }
             }
-
+            
             Camera_ChangeMode(Gameplay_GetCamera(globalCtx, 0), camMode);
         } else {
             // First person mode
@@ -9929,7 +9929,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
         if ((pthis->actor.parent == NULL) && (pthis->stateFlags1 & 0x800000)) {
             pthis->actor.parent = pthis->rideActor;
             func_8083A360(globalCtx, pthis);
-            pthis->stateFlags1 |= 0x800000;
+            pthis->stateFlags1 |= 0x800000;//Mounted on a horse
             func_80832264(globalCtx, pthis, &gPlayerAnim_0033B8);
             func_80832F54(globalCtx, pthis, 0x9B);
             pthis->unk_850 = 99;
@@ -10050,7 +10050,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
             Math_ScaledStepToS(&pthis->windDirection, D_808535FC,
                                ((pthis->stateFlags1 & 0x8000000) ? 400.0f : 800.0f) * sp48);
         } else if (pthis->windSpeed != 0.0f) {
-            Math_StepToF(&pthis->windSpeed, 0.0f, (pthis->stateFlags1 & 0x8000000) ? 0.5f : 1.0f);
+            Math_StepToF(&pthis->windSpeed, 0.0f, (pthis->stateFlags1 & 0x8000000) ? 0.5f : 1.0f);//Swimming?
         }
 
         if (!Player_InBlockingCsMode(globalCtx, pthis) && !(pthis->stateFlags2 & 0x40000)) {
@@ -10062,7 +10062,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
                     func_80837B9C(pthis, globalCtx);
                 } else if ((pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x8000000)) {
                     func_80836448(globalCtx, pthis,
-                                  func_808332B8(pthis)       ? &gPlayerAnim_003310
+                                  Player_IsSwimmingWithoutIronBoots(pthis)       ? &gPlayerAnim_003310
                                   : (pthis->shockTimer != 0) ? &gPlayerAnim_002F08
                                                             : &gPlayerAnim_002878);
                 }
@@ -10486,7 +10486,7 @@ s16 func_8084ABD8(GlobalContext* globalCtx, Player* pthis, s32 arg2, s16 arg3) {
         temp2 = CLAMP(temp2, -3000, 3000);
         pthis->actor.focus.rot.y += temp2;
     } else {
-        temp1 = (pthis->stateFlags1 & 0x800000) ? 3500 : 14000;
+        temp1 = (pthis->stateFlags1 & 0x800000) ? 3500 : 14000;//Riding a horse?
         temp3 = ((sControlInput->rel.stick_y >= 0) ? 1 : -1) *
                 (s32)((1.0f - Math_CosS(sControlInput->rel.stick_y * 200)) * 1500.0f);
         pthis->actor.focus.rot.x += temp3;
@@ -10678,11 +10678,11 @@ void func_8084B530(Player* pthis, GlobalContext* globalCtx) {
 
         if (!func_8084B4D4(globalCtx, pthis) && !func_8084B3CC(globalCtx, pthis) && !func_8083ADD4(globalCtx, pthis)) {
             if ((pthis->targetActor != pthis->interactRangeActor) || !func_8083E5A8(pthis, globalCtx)) {
-                if (pthis->stateFlags1 & 0x800000) {
+                if (pthis->stateFlags1 & 0x800000) {//When mounted on a horse
                     s32 sp24 = pthis->unk_850;
                     func_8083A360(globalCtx, pthis);
                     pthis->unk_850 = sp24;
-                } else if (func_808332B8(pthis)) {
+                } else if (Player_IsSwimmingWithoutIronBoots(pthis)) {
                     func_80838F18(globalCtx, pthis);
                 } else {
                     func_80853080(pthis, globalCtx);
@@ -10694,9 +10694,9 @@ void func_8084B530(Player* pthis, GlobalContext* globalCtx) {
         return;
     }
 
-    if (pthis->stateFlags1 & 0x800000) {
+    if (pthis->stateFlags1 & 0x800000) {//When mounted on a horse
         func_8084CC98(pthis, globalCtx);
-    } else if (func_808332B8(pthis)) {
+    } else if (Player_IsSwimmingWithoutIronBoots(pthis)) {
         func_8084D610(pthis, globalCtx);
     } else if (!func_8008E9C4(pthis) && LinkAnimation_Update(globalCtx, &pthis->skelAnime)) {
         if (pthis->skelAnime.moveFlags != 0) {
@@ -11446,7 +11446,7 @@ void func_8084CC98(Player* pthis, GlobalContext* globalCtx) {
             }
             return;
         }
-
+        
         if ((pthis->csMode != 0) || (!func_8084C9BC(pthis, globalCtx) && !func_8083B040(pthis, globalCtx))) {
             if (pthis->unk_664 != NULL) {
                 if (func_8002DD78(pthis) != 0) {
@@ -13298,7 +13298,7 @@ void func_80851314(Player* pthis) {
 }
 
 void func_80851368(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {
-    pthis->stateFlags1 |= 0x8000000;
+    pthis->stateFlags1 |= 0x8000000;//Swimming
     pthis->stateFlags2 |= 0x400;
     pthis->stateFlags1 &= ~0xC0000;
 
@@ -13334,7 +13334,7 @@ void func_808513BC(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 void func_808514C0(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {
     func_80851314(pthis);
 
-    if (func_808332B8(pthis)) {
+    if (Player_IsSwimmingWithoutIronBoots(pthis)) {
         func_808513BC(globalCtx, pthis, 0);
         return;
     }
@@ -13358,7 +13358,7 @@ void func_8085157C(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 void func_808515A4(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {
     LinkAnimationHeader* anim;
 
-    if (func_808332B8(pthis)) {
+    if (Player_IsSwimmingWithoutIronBoots(pthis)) {
         func_80851368(globalCtx, pthis, 0);
         return;
     }
@@ -13383,7 +13383,7 @@ void func_80851688(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
             return;
         }
 
-        if (func_808332B8(pthis) != 0) {
+        if (Player_IsSwimmingWithoutIronBoots(pthis) != 0) {
             func_808513BC(globalCtx, pthis, 0);
             return;
         }
@@ -13885,7 +13885,7 @@ void func_808528C8(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 }
 
 void func_80852944(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {
-    if (func_808332B8(pthis)) {
+    if (Player_IsSwimmingWithoutIronBoots(pthis)) {
         func_80838F18(globalCtx, pthis);
         func_80832340(globalCtx, pthis);
     } else {
@@ -14087,7 +14087,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor) {
             pthis->actor.textId = actor->textId;
         }
 
-        if (pthis->stateFlags1 & 0x800000) {
+        if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
             s32 sp24 = pthis->unk_850;
 
             func_80832528(globalCtx, pthis);
@@ -14095,7 +14095,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor) {
 
             pthis->unk_850 = sp24;
         } else {
-            if (func_808332B8(pthis)) {
+            if (Player_IsSwimmingWithoutIronBoots(pthis)) {
                 func_80836898(globalCtx, pthis, func_8083A2F8);
                 func_80832C6C(globalCtx, pthis, &gPlayerAnim_003328);
             } else if ((actor->category != ACTORCAT_NPC) || (pthis->heldItemActionParam == PLAYER_AP_FISHING_POLE)) {

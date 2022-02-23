@@ -251,7 +251,7 @@ void EnEncount1_SpawnStalchildOrWolfos(EnEncount1* pthis, GlobalContext* globalC
         while ((pthis->curNumSpawn < pthis->maxCurSpawns) && (pthis->totalNumSpawn < pthis->maxTotalSpawns)) {
             if (globalCtx->sceneNum == SCENE_SPOT00) {
                 if ((player->unk_89E == 0) || (player->actor.floorBgId != BGCHECK_SCENE) ||
-                    !(player->actor.bgCheckFlags & 1) || (player->stateFlags1 & 0x08000000)) {
+                    !(player->actor.bgCheckFlags & 1) || (player->stateFlags1 & 0x08000000)) {//Swimming?
 
                     pthis->fieldSpawnTimer = 60;
                     break;
