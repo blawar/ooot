@@ -1000,6 +1000,7 @@ f32 Actor_HeightDiff(Actor* actorA, Actor* actorB) {
 }
 
 f32 Player_GetHeight(Player* player) {
+    //Mounted on a horse?
     f32 offset = (player->stateFlags1 & 0x800000) ? 32.0f : 0.0f;
 
     if (LINK_IS_ADULT) {
@@ -1010,9 +1011,9 @@ f32 Player_GetHeight(Player* player) {
 }
 
 f32 func_8002DCE4(Player* player) {
-    if (player->stateFlags1 & 0x800000) {
+    if (player->stateFlags1 & 0x800000) {//When mounted on a horse
         return 8.0f;
-    } else if (player->stateFlags1 & 0x8000000) {
+    } else if (player->stateFlags1 & 0x8000000) {//When swimming
         return (R_RUN_SPEED_LIMIT / 100.0f) * 0.6f;
     } else {
         return R_RUN_SPEED_LIMIT / 100.0f;

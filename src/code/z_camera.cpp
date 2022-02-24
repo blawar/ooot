@@ -3674,7 +3674,7 @@ s32 Camera_KeepOn4(Camera* camera) {
                 keep4->unk_04 = playerHeight * 1.6f * yNormal;
                 keep4->unk_08 = -2.0f;
                 keep4->unk_0C = 120.0f;
-                keep4->unk_10 = player->stateFlags1 & 0x8000000 ? 0.0f : 20.0f;
+                keep4->unk_10 = player->stateFlags1 & 0x8000000 ? 0.0f : 20.0f;//Swimming?
                 keep4->unk_1C = 0x3212;
                 keep4->unk_1E = 0x1E;
                 keep4->unk_18 = 50.0f;
@@ -5182,6 +5182,7 @@ s32 Camera_Unique9(Camera* camera) {
                     D_8011D3AC = anim->curKeyFrame->unk_01 & 0xF;
                 } else if ((anim->curKeyFrame->unk_01 & 0xF0) == 0xC0) {
                     Camera_UpdateInterface(0xF000 | ((anim->curKeyFrame->unk_01 & 0xF) << 8));
+                //Swimming without iron boots?
                 } else if (camera->player->stateFlags1 & 0x8000000 && player->currentBoots != PLAYER_BOOTS_IRON) {
                     func_8002DF38(camera->globalCtx, camera->target, 8);
                     osSyncPrintf("camera: demo: player demo set WAIT\n");
@@ -5558,6 +5559,7 @@ s32 Camera_Unique9(Camera* camera) {
         // Set the player's position
         camera->player->actor.world.pos.x = anim->playerPos.x;
         camera->player->actor.world.pos.z = anim->playerPos.z;
+        //Swimming without iron boots?
         if (camera->player->stateFlags1 & 0x8000000 && player->currentBoots != PLAYER_BOOTS_IRON) {
             camera->player->actor.world.pos.y = anim->playerPos.y;
         }
@@ -7000,9 +7002,6 @@ void func_80057FC4(Camera* camera) {
         camera->prevSetting = camera->setting = CAM_SET_FREE0;
         camera->unk_14C &= ~0x4;
     }
-}
-
-void Camera_Stub80058140(Camera* camera) {
 }
 
 void Camera_InitPlayerSettings(Camera* camera, Player* player) {
