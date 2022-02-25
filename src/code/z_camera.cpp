@@ -36,8 +36,6 @@
 #include "def/z_quake.h"
 #include "def/z_view.h"
 
-#define FIZZLE_CAM
-
 GlobalContext* D_8015BD7C;
 DbCamera D_8015BD80;
 CollisionPoly* playerFloorPoly;
@@ -4408,8 +4406,8 @@ s32 Camera_Subj3(Camera* camera) {
             func_80044340(camera, at, eye);
         }
     } else {
-	    sp58 = Math_SinS(-sp60.rot.x);
-		temp_f0_3 = Math_CosS(-sp60.rot.x);
+        sp58 = Math_SinS(-sp60.rot.x);
+        temp_f0_3 = Math_CosS(-sp60.rot.x);
         sp98.x = subj3->atOffset.x;
         sp98.y = (subj3->atOffset.y * temp_f0_3) - (subj3->atOffset.z * sp58);
         sp98.z = (subj3->atOffset.y * sp58) + (subj3->atOffset.z * temp_f0_3);
