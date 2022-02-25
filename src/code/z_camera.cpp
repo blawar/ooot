@@ -1354,7 +1354,7 @@ s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3) {
 	const oot::hid::N64Controller* sControlInput = oot::hid::Players::GetController();
     s16 rStickY = (s16)sControlInput->state().r_stick_y * (s16)-100;
     if (rStickY != 0) {
-        camera->startControlTimer = 250;//20FPS *10 = 8s
+        camera->startControlTimer = 250;//10s
     }
 
     pitchUpdRate = 1.0f / camera->pitchUpdateRateInv;
@@ -1366,7 +1366,7 @@ s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 
 	const oot::hid::N64Controller* sControlInput = oot::hid::Players::GetController();
     s16 rStickX = (s16)sControlInput->state().r_stick_x * (s16)-250;
     if (rStickX != 0) {
-	    camera->startControlTimer = 250; // 20FPS*4cyclesperframe *10 = 8s
+	    camera->startControlTimer = 250;//10s
     }
     yawUpdRate = 1.0f / camera->yawUpdateRateInv;
     return cur + (s16)(rStickX * yawUpdRate);
@@ -1376,7 +1376,7 @@ void StepControlTimer(Camera* camera)
 {
 	const oot::hid::N64Controller* sControlInput = oot::hid::Players::GetController();
 	if(camera->xzSpeed > 0.001f && (sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0)) {
-		camera->startControlTimer = 250; // 20FPS*4cyclesperframe *10 = 8s
+		camera->startControlTimer = 250;//10s
 	}
 	if(camera->startControlTimer > 0) {
 		camera->startControlTimer--;
