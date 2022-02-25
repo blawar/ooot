@@ -921,6 +921,7 @@ struct Camera {
     /* 0x166 */ s16 prevCamDataIdx;
     /* 0x168 */ s16 csId;
     /* 0x16A */ s16 unk_16A;
+    /* 0x16C */ s16 startControlTimer;
 }; // size = 0x16C
 
 /**
