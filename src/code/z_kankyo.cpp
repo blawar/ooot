@@ -1992,11 +1992,11 @@ void func_800758AC(GlobalContext* globalCtx) {
         osSyncPrintf("\n\n\nBGM Configuration game_play->sound_info.BGM=[%d] old_bgm=[%d]\n\n", globalCtx->sequenceCtx.seqId,
                      ((void)0, gSaveContext.seqId));
         if (((void)0, gSaveContext.seqId) != globalCtx->sequenceCtx.seqId) {
-            func_800F5550(globalCtx->sequenceCtx.seqId);
+            Audio_PlaySequence(globalCtx->sequenceCtx.seqId);
         }
     } else if (((void)0, gSaveContext.dayTime) > 0x4AAA && ((void)0, gSaveContext.dayTime) < 0xB71D) {
         if (((void)0, gSaveContext.seqId) != globalCtx->sequenceCtx.seqId) {
-            func_800F5550(globalCtx->sequenceCtx.seqId);
+            Audio_PlaySequence(globalCtx->sequenceCtx.seqId);
         }
 
         globalCtx->envCtx.unk_E0 = 1;

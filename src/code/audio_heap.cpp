@@ -190,8 +190,9 @@ void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
 }
 
 void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
+    pool->count++;
 	return _aligned_malloc(ALIGN16(size), 0x10);
-	return malloc(size);
+	//return malloc(size);
     u32 aligned = ALIGN16(size);
     u8* ret = pool->cur;
 

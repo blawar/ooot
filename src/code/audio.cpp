@@ -1761,7 +1761,7 @@ void AudioDebug_ProcessInput_SndCont(void) {
                                        &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
                 break;
             case 4:
-                func_800F6700(sAudioSndContWork[sAudioSndContSel]);
+                Audio_SetSettings(sAudioSndContWork[sAudioSndContSel]);
                 break;
             case 5:
                 Audio_SeqCmdE01(SEQ_PLAYER_BGM_MAIN, sAudioSndContWork[sAudioSndContSel]);
@@ -3133,11 +3133,11 @@ void Audio_ClearSariaBgm2(void) {
 }
 
 void func_800F5510(u16 seqId) {
-    func_800F5550(seqId);
+    Audio_PlaySequence(seqId);
     func_800F5E18(SEQ_PLAYER_BGM_MAIN, seqId, 0, 0, 1);
 }
 
-void func_800F5550(u16 seqId) {
+void Audio_PlaySequence(u16 seqId) {
     u8 sp27 = 0;
     u16 nv;
 
@@ -3550,7 +3550,7 @@ void Audio_SetCodeReverb(s8 reverb) {
     }
 }
 
-void func_800F6700(s8 arg0) {
+void Audio_SetSettings(s8 arg0) {
     s8 sp1F;
 
     switch (arg0) {
