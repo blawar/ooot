@@ -183,7 +183,7 @@ void func_8087B284(BgGndSoulmeiro* pthis, GlobalContext* globalCtx) {
     if (!Flags_GetSwitch(globalCtx, (pthis->actor.params >> 8) & 0x3F)) {
         pthis->actor.draw = BgGndSoulmeiro_Draw;
         if (pthis->collider.base.acFlags & AC_HIT) {
-            Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->unk_198 = 40;
             pthis->actionFunc = func_8087AF38;
         } else {

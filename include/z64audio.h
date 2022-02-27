@@ -1036,7 +1036,7 @@ struct unk_50_s {
     /* 0x1C */ u16 unk_1C;
 }; // size = 0x20
 
-struct unk_D_8016E750 {
+struct AudioPlayer {
     /* 0x000 */ f32 volCur;
     /* 0x004 */ f32 volTarget;
     /* 0x008 */ f32 unk_08;
@@ -1057,7 +1057,7 @@ struct unk_D_8016E750 {
     /* 0x050 */ unk_50_s unk_50[0x10];
     /* 0x250 */ u16 unk_250;
     /* 0x252 */ u16 unk_252;
-    /* 0x254 */ u16 unk_254;
+    /* 0x254 */ u16 seqAndFlags;
     /* 0x256 */ u16 unk_256;
     /* 0x258 */ u16 unk_258;
     /* 0x25C */ u32 unk_25C;
@@ -1213,10 +1213,10 @@ extern char D_80133398[];
 extern u8 gSfxChannelLayout;
 extern Vec3f D_801333D4;
 extern f32 D_801333E0;
-extern s8 D_801333E8;
+extern s8 gReverbAdd2;
 extern u8 D_801333F0;
 extern u8 gAudioSfxSwapOff;
-extern u8 D_80133408;
+extern u8 gAudioDisable;
 extern u8 D_8013340C;
 extern u8 gAudioSpecId;
 extern u8 D_80133418;
@@ -1236,9 +1236,9 @@ extern u8 gSoundBankMuted[];
 extern u16 gAudioSfxSwapSource[10];
 extern u16 gAudioSfxSwapTarget[10];
 extern u8 gAudioSfxSwapMode[10];
-extern u8 D_8016E348[4];
+extern u8 gAudioPlayerInfoNum[4];
 extern u32 sAudioSeqCmds[0x100];
-extern unk_D_8016E750 D_8016E750[4];
+extern AudioPlayer gAudioPlayers[4];
 extern AudioContext gAudioContext;
 extern void(*D_801755D0)(void);
 

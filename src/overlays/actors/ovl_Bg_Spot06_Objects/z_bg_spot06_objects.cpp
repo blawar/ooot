@@ -317,7 +317,7 @@ void BgSpot06Objects_LockWait(BgSpot06Objects* pthis, GlobalContext* globalCtx) 
         EffectSsGSplash_Spawn(globalCtx, &pthis->dyna.actor.world.pos, NULL, NULL, 1, 700);
         pthis->collider.elements->dim.worldSphere.radius = 45;
         pthis->actionFunc = BgSpot06Objects_LockPullOutward;
-        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         Flags_SetSwitch(globalCtx, pthis->switchFlag);
         OnePointCutscene_Init(globalCtx, 4120, 170, &pthis->dyna.actor, MAIN_CAM);
     } else {

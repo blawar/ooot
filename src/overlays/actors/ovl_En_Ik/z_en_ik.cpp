@@ -1001,28 +1001,28 @@ void EnIk_StartMusic(void) {
 void func_80A76C14(EnIk* pthis) {
     if (Animation_OnFrame(&pthis->skelAnime, 1.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_WAKEUP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (Animation_OnFrame(&pthis->skelAnime, 33.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_WALK, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (Animation_OnFrame(&pthis->skelAnime, 68.0f) || Animation_OnFrame(&pthis->skelAnime, 80.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_ARMOR_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (Animation_OnFrame(&pthis->skelAnime, 107.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_FINGER_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (Animation_OnFrame(&pthis->skelAnime, 156.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_ARMOR_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (Animation_OnFrame(&pthis->skelAnime, 188.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_WAVE_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 
 void func_80A76DDC(EnIk* pthis, GlobalContext* globalCtx, Vec3f* pos) {
     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_TRANSFORM, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                           &D_801333E8);
+                           &gReverbAdd2);
 }
 
 void func_80A76E2C(EnIk* pthis, GlobalContext* globalCtx, Vec3f* pos) {
@@ -1121,7 +1121,7 @@ void func_80A77264(EnIk* pthis, GlobalContext* globalCtx, s32 arg2) {
 
 void func_80A772A4(EnIk* pthis) {
     Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_STAGGER_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                           &D_801333E8);
+                           &gReverbAdd2);
 }
 
 void func_80A772EC(EnIk* pthis, GlobalContext* globalCtx) {
@@ -1129,7 +1129,7 @@ void func_80A772EC(EnIk* pthis, GlobalContext* globalCtx) {
     f32 wDest;
 
     SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pthis->actor.world.pos, &D_80A78FA0_126, &wDest);
-    Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_DEAD, &D_80A78FA0_126, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+    Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_DEAD, &D_80A78FA0_126, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }
 
 void func_80A7735C(EnIk* pthis, GlobalContext* globalCtx) {

@@ -1254,7 +1254,7 @@ void func_80832698(Player* pthis, u16 sfxId) {
     if (pthis->actor.category == ACTORCAT_PLAYER) {
         func_8002F7DC(&pthis->actor, sfxId + pthis->ageProperties->unk_92);
     } else {
-        func_800F4190(&pthis->actor.projectedPos, sfxId);
+        Audio_PlaySoundWithPos(&pthis->actor.projectedPos, sfxId);
     }
 }
 
@@ -11762,7 +11762,7 @@ s32 func_8084DFF4(GlobalContext* globalCtx, Player* pthis) {
             ((pthis->getItemId >= GI_RUPEE_PURPLE) && (pthis->getItemId <= GI_RUPEE_GOLD)) ||
             ((pthis->getItemId >= GI_RUPEE_GREEN_LOSE) && (pthis->getItemId <= GI_RUPEE_PURPLE_LOSE)) ||
             (pthis->getItemId == GI_HEART)) {
-            Audio_PlaySoundGeneral(NA_SE_SY_GET_BOXITEM, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_GET_BOXITEM, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         } else {
             if ((pthis->getItemId == GI_HEART_CONTAINER_2) || (pthis->getItemId == GI_HEART_CONTAINER) ||
                 ((pthis->getItemId == GI_HEART_PIECE) &&

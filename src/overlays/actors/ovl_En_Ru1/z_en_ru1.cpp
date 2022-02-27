@@ -611,7 +611,7 @@ void func_80AEBC30(GlobalContext* globalCtx) {
     if (globalCtx->csCtx.frames == 0xCD) {
         player = GET_PLAYER(globalCtx);
         Audio_PlaySoundGeneral(NA_SE_EV_DIVE_INTO_WATER, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 
@@ -1216,7 +1216,7 @@ void func_80AED520(EnRu1* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     Audio_PlaySoundGeneral(NA_SE_PL_PULL_UP_RUTO, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                           &D_801333E8);
+                           &gReverbAdd2);
     func_80078914(&pthis->actor.projectedPos, NA_SE_VO_RT_LIFT);
 }
 

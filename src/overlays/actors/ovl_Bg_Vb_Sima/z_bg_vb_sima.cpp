@@ -100,7 +100,7 @@ void BgVbSima_Update(Actor* thisx, GlobalContext* globalCtx) {
             pthis->dyna.actor.shape.rot.x = (s16)Math_SinS(pthis->shakeTimer * 0x7000) * 0x37;
             pthis->dyna.actor.shape.rot.z = (s16)Math_SinS(pthis->shakeTimer * 0x5000) * 0x37;
             Audio_PlaySoundGeneral(NA_SE_EV_BLOCKSINK - SFX_FLAG, &pthis->dyna.actor.projectedPos, 4, &D_801333E0,
-                                   &D_801333E0, &D_801333E8);
+                                   &D_801333E0, &gReverbAdd2);
         } else if (signal == VBSIMA_KILL) {
             Actor_Kill(&pthis->dyna.actor);
         }

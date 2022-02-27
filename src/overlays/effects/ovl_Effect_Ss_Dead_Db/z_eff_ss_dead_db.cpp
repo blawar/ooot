@@ -138,6 +138,6 @@ void EffectSsDeadDb_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
     if (pthis->rPlaySound && (pthis->rTextIdx == 1)) {
         SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pthis->pos, &pthis->vec, &w);
-        Audio_PlaySoundGeneral(NA_SE_EN_EXTINCT, &pthis->vec, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EN_EXTINCT, &pthis->vec, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 }

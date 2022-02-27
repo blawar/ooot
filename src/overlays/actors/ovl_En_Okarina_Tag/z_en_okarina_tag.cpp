@@ -254,7 +254,7 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
             case 2:
                 globalCtx->csCtx.segment = D_80ABF9D0;
                 gSaveContext.cutsceneTrigger = 1;
-                func_800F574C(1.18921f, 0x5A);
+                Audio_PlayFanfare(1.18921f, 0x5A);
                 break;
             case 4:
                 globalCtx->csCtx.segment = D_80ABFB40;

@@ -610,7 +610,7 @@ s16 EnGo2_GetStateGoronDmtBiggoron(GlobalContext* globalCtx, EnGo2* pthis) {
                 case 0x3054:
                     if (dialogState == TEXT_STATE_NONE) {
                         Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0,
-                                               &D_801333E8);
+                                               &gReverbAdd2);
                     }
             }
             return 1;
@@ -882,7 +882,7 @@ s32 func_80A44AB0(EnGo2* pthis, GlobalContext* globalCtx) {
             return false;
         } else {
             if (pthis->collider.base.acFlags & 2) {
-                Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->actor.flags &= ~ACTOR_FLAG_24;
                 pthis->collider.base.acFlags &= ~0x2;
                 EnGo2_StopRolling(pthis, globalCtx);

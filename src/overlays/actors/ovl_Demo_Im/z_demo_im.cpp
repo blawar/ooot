@@ -738,7 +738,7 @@ void func_80986570(DemoIm* pthis, GlobalContext* globalCtx) {
         u32 sfxId = SFX_FLAG;
 
         sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
-        Audio_PlaySoundGeneral(sfxId, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(sfxId, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 }
 

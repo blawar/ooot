@@ -284,7 +284,7 @@ void EnSw_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     if (((thisx->params & 0xE000) >> 0xD) >= 3) {
-        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 
     switch ((thisx->params & 0xE000) >> 0xD) {
@@ -627,7 +627,7 @@ void func_80B0D878(EnSw* pthis, GlobalContext* globalCtx) {
     pthis->actor.shape.rot = pthis->actor.world.rot;
 
     if ((pthis->unk_394 == 0) && (pthis->unk_392 == 0)) {
-        Audio_PlaySoundGeneral(NA_SE_SY_KINSTA_MARK_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_KINSTA_MARK_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         x = (pthis->unk_364.x * 10.0f);
         y = (pthis->unk_364.y * 10.0f);
         z = (pthis->unk_364.z * 10.0f);

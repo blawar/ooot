@@ -1,6 +1,6 @@
 #pragma once
 struct Vec3f;
-struct unk_D_8016E750;
+struct AudioPlayer;
 struct ActiveSound;
 struct AudioContext;
 struct SoundBankEntry;
@@ -9,10 +9,10 @@ extern char D_80133390[];
 extern char D_80133398[];
 extern Vec3f D_801333D4;
 extern f32 D_801333E0;
-extern s8 D_801333E8;
+extern s8 gReverbAdd2;
 extern u8 D_801333F0;
-extern u8 D_8016E348[4];
-extern unk_D_8016E750 D_8016E750[4];
+extern u8 gAudioPlayerInfoNum[4];
+extern AudioPlayer gAudioPlayers[4];
 extern ActiveSound gActiveSounds[7][3]; // MAX_CHANNELS_PER_BANK = 3
 extern AudioContext gAudioContext;
 extern u8 gAudioSfxSwapMode[10];
@@ -40,6 +40,6 @@ void Audio_StopSfxByPos(Vec3f*);
 void Audio_StopSfxByPosAndBank(u8, Vec3f*);
 void Audio_StopSfxByPosAndId(Vec3f* pos, u16 sfxId);
 void Audio_StopSfxByTokenAndId(u8, u16);
-void func_800F8884(u8, Vec3f*);
-void func_800F8F88(void);
+void Audio_StopByBankIDAndPos(u8, Vec3f*);
+void Audio_UpdateActiveSounds(void);
 void Audio_StopAllBanks(void);

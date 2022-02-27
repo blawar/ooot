@@ -160,7 +160,7 @@ void func_80A6B250(EnHorseNormal* pthis) {
     if (D_80A6D4C0_50[pthis->unk_200] < pthis->skin.skelAnime.curFrame &&
         ((pthis->unk_200 != 0) || !(D_80A6D4C0_50[1] < pthis->skin.skelAnime.curFrame))) {
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_WALK, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         pthis->unk_200++;
         if (pthis->unk_200 >= ARRAY_COUNT(D_80A6D4C0_50)) {
             pthis->unk_200 = 0;
@@ -351,9 +351,9 @@ void func_80A6BC48(EnHorseNormal* pthis) {
 
 void func_80A6BCEC(EnHorseNormal* pthis) {
     if (pthis->animationIdx == 5) {
-        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (pthis->animationIdx == 6) {
-        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 }
 
@@ -363,11 +363,11 @@ void func_80A6BD7C(EnHorseNormal* pthis) {
     if (pthis->animationIdx == 0 && frame > 28.0f && !(pthis->unk_1E4 & 1)) {
         pthis->unk_1E4 |= 1;
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_SANDDUST, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (pthis->animationIdx == 3 && frame > 25.0f && !(pthis->unk_1E4 & 2)) {
         pthis->unk_1E4 |= 2;
         Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND2, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 
@@ -434,9 +434,9 @@ void EnHorseNormal_Wander(EnHorseNormal* pthis, GlobalContext* globalCtx) {
             pthis->unk_1E4 &= ~1;
             pthis->unk_1E4 &= ~2;
             if (phi_t0 == 1) {
-                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             } else if (phi_t0 == 3) {
-                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             } else {
                 func_80A6BCEC(pthis);
             }
@@ -463,9 +463,9 @@ void EnHorseNormal_Wander(EnHorseNormal* pthis, GlobalContext* globalCtx) {
             pthis->unk_1E4 &= ~1;
             pthis->unk_1E4 &= ~2;
             if (phi_t0 == 1) {
-                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             } else if (phi_t0 == 3) {
-                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             } else {
                 func_80A6BCEC(pthis);
             }
@@ -500,10 +500,10 @@ void EnHorseNormal_Wait(EnHorseNormal* pthis, GlobalContext* globalCtx) {
             pthis->animationIdx = 0;
         } else if (rand < 0.8f) {
             pthis->animationIdx = 1;
-            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         } else {
             pthis->animationIdx = 3;
-            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
 
         Animation_Change(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx], func_80A6B30C(pthis), 0.0f,
@@ -534,11 +534,11 @@ void EnHorseNormal_WaitClone(EnHorseNormal* pthis, GlobalContext* globalCtx) {
         } else if (rand < 0.8f) {
             pthis->animationIdx = 1;
             pthis->unk_1E4 |= 0x20;
-            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         } else {
             pthis->animationIdx = 3;
             pthis->unk_1E4 |= 0x20;
-            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_204, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
 
         Animation_Change(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx], func_80A6B30C(pthis), 0.0f,
@@ -625,16 +625,16 @@ void func_80A6CC88(GlobalContext* globalCtx, EnHorseNormal* pthis, Vec3f* arg2) 
 
     if (pthis->animationIdx == 0 && curFrame > 28.0f && !(pthis->unk_1E4 & 8)) {
         pthis->unk_1E4 |= 8;
-        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_SANDDUST, &pthis->unk_1E8, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_SANDDUST, &pthis->unk_1E8, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (pthis->animationIdx == 3 && curFrame > 25.0f && !(pthis->unk_1E4 & 0x10)) {
         pthis->unk_1E4 |= 0x10;
-        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND2, &pthis->unk_1E8, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_LAND2, &pthis->unk_1E8, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (pthis->animationIdx == 3 && pthis->unk_1E4 & 0x20) {
         pthis->unk_1E4 &= ~0x20;
-        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_1F4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_NEIGH, &pthis->unk_1F4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (pthis->animationIdx == 1 && pthis->unk_1E4 & 0x20) {
         pthis->unk_1E4 &= ~0x20;
-        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_1F4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_HORSE_GROAN, &pthis->unk_1F4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 }
 

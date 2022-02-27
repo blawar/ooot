@@ -66,7 +66,7 @@ void BgZg_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_808C0C50(BgZg* pthis) {
     Audio_PlaySoundGeneral(NA_SE_EV_METALDOOR_OPEN, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                           &D_801333E8);
+                           &gReverbAdd2);
 }
 
 s32 func_808C0C98(BgZg* pthis, GlobalContext* globalCtx) {

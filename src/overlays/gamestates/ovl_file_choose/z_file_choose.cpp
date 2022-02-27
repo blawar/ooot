@@ -215,7 +215,7 @@ void FileChoose_UpdateMainMenu(GameState* pthisx) {
                          GET_NEWF(sramCtx, pthis->buttonIndex, 4), GET_NEWF(sramCtx, pthis->buttonIndex, 5));
 
             if (!SLOT_OCCUPIED(sramCtx, pthis->buttonIndex)) {
-                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->configMode = CM_ROTATE_TO_NAME_ENTRY;
                 pthis->kbdButton = FS_KBD_BTN_NONE;
                 pthis->charPage = FS_CHAR_PAGE_ENG;
@@ -228,18 +228,18 @@ void FileChoose_UpdateMainMenu(GameState* pthisx) {
                 pthis->nameEntryBoxAlpha = 0;
                 MemCopy(&pthis->fileNames[pthis->buttonIndex][0], &emptyName, 8);
             } else if (pthis->n64ddFlags[pthis->buttonIndex] == pthis->n64ddFlag) {
-                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->actionTimer = 8;
                 pthis->selectMode = SM_FADE_MAIN_TO_SELECT;
                 pthis->selectedFileIndex = pthis->buttonIndex;
                 pthis->menuMode = FS_MENU_MODE_SELECT;
                 pthis->nextTitleLabel = FS_TITLE_OPEN_FILE;
             } else if (!pthis->n64ddFlags[pthis->buttonIndex]) {
-                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             }
         } else {
             if (pthis->warningLabel == FS_WARNING_NONE) {
-                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->prevConfigMode = pthis->configMode;
 
                 if (pthis->buttonIndex == FS_BTN_MAIN_COPY) {
@@ -260,12 +260,12 @@ void FileChoose_UpdateMainMenu(GameState* pthisx) {
 
                 pthis->actionTimer = 8;
             } else {
-                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_FSEL_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             }
         }
     } else {
         if (ABS(pthis->stickRelY) > 30) {
-            Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 
             if (pthis->stickRelY > 30) {
                 pthis->buttonIndex--;
@@ -1354,18 +1354,18 @@ void FileChoose_ConfirmFile(GameState* pthisx) {
     if (CHECK_BTN_ALL(input->press.button, BTN_START) || (CHECK_BTN_ALL(input->press.button, BTN_A))) {
         if (pthis->confirmButtonIndex == FS_BTN_CONFIRM_YES) {
             Rumble_Shake(300.0f, 180, 20, 100);
-            Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->selectMode = SM_FADE_OUT;
             func_800F6964(0xF);
         } else {
-            Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CLOSE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CLOSE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->selectMode++;
         }
     } else if (CHECK_BTN_ALL(input->press.button, BTN_B)) {
-        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CLOSE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CLOSE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         pthis->selectMode++;
     } else if (ABS(pthis->stickRelY) >= 30) {
-        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         pthis->confirmButtonIndex ^= 1;
     }
 }
@@ -1470,14 +1470,14 @@ void FileChoose_LoadGame(GameState* pthisx) {
     s32 pad;
 
     if (pthis->buttonIndex == FS_BTN_SELECT_FILE_1) {
-        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
         Sram_OpenSave(&pthis->sramCtx);
         gSaveContext.gameMode = 0;
         SET_NEXT_GAMESTATE(&pthis->state, Select_Init, SelectContext);
         pthis->state.running = false;
     } else {
-        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
         Sram_OpenSave(&pthis->sramCtx);
         gSaveContext.gameMode = 0;
@@ -1923,5 +1923,5 @@ void FileChoose_Init(GameState* pthisx) {
     FileChoose_InitContext(&pthis->state);
     Font_LoadOrderedFont(&pthis->font);
     Audio_QueueSeqCmd(0xF << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0xA);
-    func_800F5E18(SEQ_PLAYER_BGM_MAIN, NA_BGM_FILE_SELECT, 0, 7, 1);
+    Audio_SendStartSequence(SEQ_PLAYER_BGM_MAIN, NA_BGM_FILE_SELECT, 0, 7, 1);
 }

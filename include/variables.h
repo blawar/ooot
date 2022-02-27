@@ -203,9 +203,9 @@ extern u8 gSoundBankMuted[];
 extern u16 gAudioSfxSwapSource[10];
 extern u16 gAudioSfxSwapTarget[10];
 extern u8 gAudioSfxSwapMode[10];
-extern u8 D_8016E348[4];
+extern u8 gAudioPlayerInfoNum[4];
 extern u32 sAudioSeqCmds[0x100];
-extern unk_D_8016E750 D_8016E750[4];
+extern AudioPlayer gAudioPlayers[4];
 extern AudioContext gAudioContext;
 extern void(*D_801755D0)(void);
 

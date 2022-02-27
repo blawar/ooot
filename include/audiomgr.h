@@ -30,4 +30,4 @@ struct AudioMgr {
 
 extern Vec3f D_801333D4;
 extern f32 D_801333E0;
-extern s8 D_801333E8;
+extern s8 gReverbAdd2;

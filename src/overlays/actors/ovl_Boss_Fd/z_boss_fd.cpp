@@ -400,7 +400,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 }
                 if (pthis->timers[0] < 50) {
                     Audio_PlaySoundGeneral(NA_SE_EN_DODO_K_ROLL - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                     pthis->camData.yMod = Math_CosS(pthis->work[BFD_MOVE_TIMER] * 0x8000) * pthis->camData.shake;
                     Math_ApproachF(&pthis->camData.shake, 2.0f, 1.0f, 0.8 * 0.01f);
                 }
@@ -421,7 +421,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 pthis->camData.yMod = Math_CosS(pthis->work[BFD_MOVE_TIMER] * 0x8000) * pthis->camData.shake;
                 Math_ApproachF(&pthis->camData.shake, 2.0f, 1.0f, 0.8 * 0.01f);
                 Audio_PlaySoundGeneral(NA_SE_EN_DODO_K_ROLL - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
                 if (pthis->timers[0] == 0) {
                     pthis->introState = BFD_CS_COLLAPSE;
                     pthis->camData.nextEye.x = player2->actor.world.pos.x + 100.0f + 300.0f;
@@ -442,7 +442,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 pthis->camData.yMod = Math_CosS(pthis->work[BFD_MOVE_TIMER] * 0x8000) * pthis->camData.shake;
                 Math_ApproachF(&pthis->camData.shake, 2.0f, 1.0f, 0.8 * 0.01f);
                 Audio_PlaySoundGeneral(NA_SE_EN_DODO_K_ROLL - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
                 if (pthis->timers[0] == 100) {
                     pthis->platformSignal = VBSIMA_COLLAPSE;
                 }
@@ -479,7 +479,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 osSyncPrintf("WAY_SPD Z = %f\n", pthis->camData.atVel.z);
                 if ((pthis->timers[3] > 190) && !(gSaveContext.eventChkInf[7] & 8)) {
                     Audio_PlaySoundGeneral(NA_SE_EN_DODO_K_ROLL - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 }
                 if (pthis->timers[3] == 190) {
                     pthis->camData.atMaxVel.x = pthis->camData.atMaxVel.y = pthis->camData.atMaxVel.z = 0.05f;
@@ -686,7 +686,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                     pthis->fwork[BFD_CEILING_BOUNCE] = -18384.0f;
                     pthis->timers[1] = 10;
                     Audio_PlaySoundGeneral(NA_SE_EV_EXPLOSION, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                           &D_801333E8);
+                                           &gReverbAdd2);
                     func_80033E1C(globalCtx, 3, 0xA, 0x7530);
                     pthis->work[BFD_ROCK_TIMER] = 300;
                 }
@@ -786,7 +786,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 sp150 = 1;
                 if (pthis->work[BFD_MOVE_TIMER] & 0x1C) {
                     Audio_PlaySoundGeneral(NA_SE_EN_VALVAISA_BURN - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 }
                 for (i1 = 0; i1 < sp150; i1++) {
                     if (sp150) { // Needed for matching
@@ -859,7 +859,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                         pthis->timers[1] = 60;
                         pthis->work[BFD_CAM_SHAKE_TIMER] = 20;
                         Audio_PlaySoundGeneral(NA_SE_EN_VALVAISA_LAND2, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                               &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &gReverbAdd2);
                         func_8002DF54(globalCtx, &pthis->actor, 5);
                         for (i1 = 0; i1 < 15; i1++) {
                             Vec3f sp144 = { 0.0f, 0.0f, 0.0f };
@@ -901,7 +901,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 Vec3f sp108 = { 0.0f, 0.03f, 0.0f };
 
                 Audio_PlaySoundGeneral(NA_SE_EN_GOMA_LAST - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
 
                 sp120.x = Rand_CenteredFloat(40.0f) + pthis->actor.world.pos.x;
                 sp120.y = (Rand_CenteredFloat(10.0f) + pthis->actor.world.pos.y) - 10.0f;
@@ -1143,7 +1143,7 @@ void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx) {
     if (pthis->work[BFD_ROAR_TIMER] != 0) {
         if (pthis->work[BFD_ROAR_TIMER] == 37) {
             Audio_PlaySoundGeneral(NA_SE_EN_VALVAISA_ROAR, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
         }
         jawAngle = 6000.0f;
         jawSpeed = 1300.0f;
@@ -1164,7 +1164,7 @@ void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx) {
         s32 pad;
 
         Audio_PlaySoundGeneral(NA_SE_EN_VALVAISA_APPEAR - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0,
-                               &D_801333E0, &D_801333E8);
+                               &D_801333E0, &gReverbAdd2);
         if (pthis->work[BFD_SPLASH_TIMER] != 0) {
             pthis->work[BFD_SPLASH_TIMER]--;
             if ((pthis->actor.colChkInfo.health == 0) ||
@@ -1242,7 +1242,7 @@ void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx) {
         spawnSpeed2.z = 30.0f;
 
         Audio_PlaySoundGeneral(NA_SE_EN_VALVAISA_FIRE - SFX_FLAG, &sFireAudioVec, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         spawnPos2 = pthis->headPos;
 
         spawnAngleY = (pthis->actor.world.rot.y / (f32)0x8000) * M_PI;
@@ -1305,7 +1305,7 @@ void BossFd_CollisionCheck(BossFd* pthis, GlobalContext* globalCtx) {
         pthis->work[BFD_DAMAGE_FLASH_TIMER] = 10;
         pthis->work[BFD_INVINC_TIMER] = 20;
         Audio_PlaySoundGeneral(NA_SE_EN_VALVAISA_DAMAGE1, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 

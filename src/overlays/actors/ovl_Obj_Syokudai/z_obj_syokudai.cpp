@@ -207,7 +207,7 @@ void ObjSyokudai_Update(Actor* thisx, GlobalContext* globalCtx2) {
                     if (player->unk_860 == 0) {
                         player->unk_860 = 210;
                         Audio_PlaySoundGeneral(NA_SE_EV_FLAME_IGNITION, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                               &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &gReverbAdd2);
                     } else if (player->unk_860 < 200) {
                         player->unk_860 = 200;
                     }
@@ -244,7 +244,7 @@ void ObjSyokudai_Update(Actor* thisx, GlobalContext* globalCtx2) {
                     }
                 }
                 Audio_PlaySoundGeneral(NA_SE_EV_FLAME_IGNITION, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                       &D_801333E8);
+                                       &gReverbAdd2);
             }
         }
     }

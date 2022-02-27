@@ -410,13 +410,13 @@ void Select_UpdateMenu(SelectContext* pthis) {
             if (pthis->timerUp == 0) {
                 pthis->timerUp = 20;
                 pthis->lockUp = true;
-                Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->verticalInput = FRAMERATE_RATE_SCALED;
             }
         }
 
         if (CHECK_BTN_ALL(input->cur.button, BTN_CUP) && pthis->timerUp == 0) {
-            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->verticalInput = FRAMERATE_RATE_SCALE(R_UPDATE_RATE * 3);
         }
 
@@ -427,23 +427,23 @@ void Select_UpdateMenu(SelectContext* pthis) {
             if (pthis->timerDown == 0) {
                 pthis->timerDown = 20;
                 pthis->lockDown = true;
-                Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->verticalInput = -FRAMERATE_RATE_SCALED;
             }
         }
 
         if (CHECK_BTN_ALL(input->cur.button, BTN_CDOWN) && (pthis->timerDown == 0)) {
-            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->verticalInput = -FRAMERATE_RATE_SCALE(R_UPDATE_RATE * 3);
         }
 
         if (CHECK_BTN_ALL(input->press.button, BTN_CLEFT) || CHECK_BTN_ALL(input->cur.button, BTN_CLEFT)) {
-            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->verticalInput = FRAMERATE_RATE_SCALED;
         }
 
         if (CHECK_BTN_ALL(input->press.button, BTN_CRIGHT) || CHECK_BTN_ALL(input->cur.button, BTN_CRIGHT)) {
-            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_IT_SWORD_IMPACT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->verticalInput = -FRAMERATE_RATE_SCALED;
         }
     }

@@ -766,7 +766,7 @@ void func_80B154FC(EnTa* pthis, GlobalContext* globalCtx) {
     }
 
     if (gSaveContext.timer1Value == 10) {
-        func_800F5918();
+        Audio_UpdateTempo();
     }
 
     if (gSaveContext.timer1Value == 0 && !Gameplay_InCsMode(globalCtx)) {

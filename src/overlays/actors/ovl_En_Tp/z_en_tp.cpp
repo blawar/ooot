@@ -246,7 +246,7 @@ void EnTp_Head_ApproachPlayer(EnTp* pthis, GlobalContext* globalCtx) {
 
     Math_SmoothStepToF(&pthis->actor.world.pos.y, player->actor.world.pos.y + 30.0f, 1.0f, 0.5f, 0.0f);
     Audio_PlaySoundGeneral(NA_SE_EN_TAIL_FLY - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                           &D_801333E8);
+                           &gReverbAdd2);
 
     if (pthis->collider.base.atFlags & AT_HIT) {
         pthis->collider.base.atFlags &= ~AT_HIT;
@@ -383,7 +383,7 @@ void EnTp_Head_TakeOff(EnTp* pthis, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&pthis->actor.world.pos.y, player->actor.world.pos.y + 85.0f + pthis->horizontalVariation, 1.0f,
                        pthis->actor.speedXZ * 0.25f, 0.0f);
     Audio_PlaySoundGeneral(NA_SE_EN_TAIL_FLY - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                           &D_801333E8);
+                           &gReverbAdd2);
 
     if (pthis->collider.base.atFlags & AT_HIT) {
         pthis->collider.base.atFlags &= ~AT_HIT;
@@ -481,7 +481,7 @@ void EnTp_Head_Wait(EnTp* pthis, GlobalContext* globalCtx) {
 
     if (pthis->actor.world.pos.y != pthis->actor.home.pos.y) {
         Audio_PlaySoundGeneral(NA_SE_EN_TAIL_FLY - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 
@@ -548,7 +548,7 @@ void EnTp_Head_BurrowReturnHome(EnTp* pthis, GlobalContext* globalCtx) {
 
         if (pthis->actor.world.pos.y != pthis->actor.home.pos.y) {
             Audio_PlaySoundGeneral(NA_SE_EN_TAIL_FLY - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
         }
 
         if (closeToFloor && ((globalCtx->gameplayFrames & 1) != 0)) {
@@ -691,7 +691,7 @@ void EnTp_Update(Actor* thisx, GlobalContext* globalCtx) {
 
         if (pthis->actor.shape.rot.z == 0) {
             Audio_PlaySoundGeneral(NA_SE_EN_TAIL_CRY, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
         }
 
         if (pthis->actionIndex >= TAILPASARAN_ACTION_TAIL_FOLLOWHEAD) {

@@ -96,7 +96,7 @@ void TransitionCircle_Start(void* thisx) {
     } else {
         pthis->texY = 0x1F4;
         if (pthis->effect == 2) {
-            Audio_PlaySoundGeneral(NA_SE_OC_SECRET_WARP_OUT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_OC_SECRET_WARP_OUT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
     }
     guPerspective(&pthis->projection, &pthis->normal, 60.0f, (4.0f / 3.0f), 10.0f, 12800.0f, 1.0f);
@@ -121,7 +121,7 @@ void TransitionCircle_Update(void* thisx, s32 updateRate) {
     if (pthis->unk_14 != 0) {
         if (pthis->texY == 0) {
             if (pthis->effect == 2) {
-                Audio_PlaySoundGeneral(NA_SE_OC_SECRET_WARP_IN, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_OC_SECRET_WARP_IN, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             }
         }
         pthis->texY += pthis->step * 3 / updateRate;

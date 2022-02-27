@@ -84,7 +84,7 @@ void func_80B9D0B0(ObjRoomtimer* pthis, GlobalContext* globalCtx) {
         Actor_Kill(&pthis->actor);
     } else {
         if ((pthis->actor.params != 0x3FF) && (gSaveContext.timer1Value == 0)) {
-            Audio_PlaySoundGeneral(NA_SE_OC_ABYSS, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_OC_ABYSS, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             Gameplay_TriggerVoidOut(globalCtx);
             Actor_Kill(&pthis->actor);
         }

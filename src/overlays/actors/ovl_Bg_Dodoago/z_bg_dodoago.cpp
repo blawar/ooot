@@ -174,16 +174,16 @@ void BgDodoago_WaitExplosives(BgDodoago* pthis, GlobalContext* globalCtx) {
             ((globalCtx->roomCtx.unk_74[BGDODOAGO_EYE_RIGHT] == 255) && (pthis->state == BGDODOAGO_EYE_LEFT))) {
             Flags_SetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F);
             pthis->state = 0;
-            Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             BgDodoago_SetupAction(pthis, BgDodoago_OpenJaw);
             OnePointCutscene_Init(globalCtx, 3380, 160, &pthis->dyna.actor, MAIN_CAM);
         } else if (globalCtx->roomCtx.unk_74[pthis->state] == 0) {
             OnePointCutscene_Init(globalCtx, 3065, 40, &pthis->dyna.actor, MAIN_CAM);
             BgDodoago_SetupAction(pthis, BgDodoago_LightOneEye);
-            Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         } else {
             OnePointCutscene_Init(globalCtx, 3065, 20, &pthis->dyna.actor, MAIN_CAM);
-            Audio_PlaySoundGeneral(NA_SE_SY_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             sTimer += 30;
             return;
         }
@@ -262,10 +262,10 @@ void BgDodoago_OpenJaw(BgDodoago* pthis, GlobalContext* globalCtx) {
     if (Math_SmoothStepToS(&pthis->dyna.actor.shape.rot.x, 0x1333, 110 - pthis->state, 0x3E8, 0x32) == 0) {
         BgDodoago_SetupAction(pthis, BgDodoago_DoNothing);
         Audio_PlaySoundGeneral(NA_SE_EV_STONE_BOUND, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else {
         Audio_PlaySoundGeneral(NA_SE_EV_STONE_STATUE_OPEN - SFX_FLAG, &pthis->dyna.actor.projectedPos, 4, &D_801333E0,
-                               &D_801333E0, &D_801333E8);
+                               &D_801333E0, &gReverbAdd2);
     }
 }
 

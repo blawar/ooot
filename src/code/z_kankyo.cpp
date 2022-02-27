@@ -2030,7 +2030,7 @@ void func_80075B44(GlobalContext* globalCtx) {
             func_800F6D58(86, 1, 0);
             if (globalCtx->envCtx.unk_EE[0] == 0 && globalCtx->envCtx.unk_F2[0] == 0) {
                 osSyncPrintf("\n\n\nNa_StartMorinigBgm\n\n");
-                func_800F5510(globalCtx->sequenceCtx.seqId);
+                Audio_PlaySequence2(globalCtx->sequenceCtx.seqId);
             }
             globalCtx->envCtx.unk_E0++;
             break;
@@ -2472,7 +2472,7 @@ void func_80077684(GlobalContext* globalCtx) {
     func_800F6D58(14, 1, 0);
     func_800F6D58(15, 1, 0);
 
-    if (func_800FA0B4(SEQ_PLAYER_BGM_MAIN) == NA_BGM_NATURE_AMBIENCE) {
+    if (Audio_GetSequenceBeingPlayed(SEQ_PLAYER_BGM_MAIN) == NA_BGM_NATURE_AMBIENCE) {
         gSaveContext.seqId = NA_BGM_NATURE_SFX_RAIN;
         func_800758AC(globalCtx);
     }

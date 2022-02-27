@@ -1234,7 +1234,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx) {
                         pthis->work[MO_TENT_ACTION_STATE] = MO_TENT_GRAB;
                         func_80078914(&pthis->tentTipPos, NA_SE_EN_MOFER_CATCH);
                         Audio_PlaySoundGeneral(NA_SE_VO_LI_DAMAGE_S, &player->actor.projectedPos, 4, &D_801333E0,
-                                               &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &gReverbAdd2);
                     } else {
                         pthis->work[MO_TENT_ACTION_STATE] = MO_TENT_READY;
                         pthis->tentMaxAngle = .001f;

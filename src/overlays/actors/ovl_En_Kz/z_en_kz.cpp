@@ -157,11 +157,11 @@ s16 func_80A9C6C0(GlobalContext* globalCtx, Actor* thisx) {
             if (pthis->actor.textId != 0x4014) {
                 if (pthis->actor.textId == 0x401B && !pthis->sfxPlayed) {
                     Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0,
-                                           &D_801333E8);
+                                           &gReverbAdd2);
                     pthis->sfxPlayed = true;
                 }
             } else if (!pthis->sfxPlayed) {
-                Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->sfxPlayed = true;
             }
             break;

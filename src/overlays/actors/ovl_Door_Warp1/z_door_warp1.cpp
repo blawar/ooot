@@ -483,7 +483,7 @@ void DoorWarp1_ChildWarpIdle(DoorWarp1* pthis, GlobalContext* globalCtx) {
         player = GET_PLAYER(globalCtx);
 
         Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         OnePointCutscene_Init(globalCtx, 0x25E7, 999, &pthis->actor, MAIN_CAM);
         func_8002DF54(globalCtx, &pthis->actor, 10);
 
@@ -595,7 +595,7 @@ void func_80999EE0(DoorWarp1* pthis, GlobalContext* globalCtx) {
 
 void func_80999FE4(DoorWarp1* pthis, GlobalContext* globalCtx) {
     if (Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_NONE) {
-        Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         OnePointCutscene_Init(globalCtx, 0x25E9, 999, &pthis->actor, MAIN_CAM);
         Gameplay_CopyCamera(globalCtx, -1, sRutoWarpSubCamId);
         Gameplay_ChangeCameraStatus(globalCtx, sRutoWarpSubCamId, CAM_STAT_WAIT);
@@ -681,7 +681,7 @@ void func_8099A508(DoorWarp1* pthis, GlobalContext* globalCtx) {
         pthis->unk_1B2--;
         return;
     }
-    Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+    Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     Animation_ChangeImpl(&pthis->skelAnime, &gWarpCrystalAnim, 1.0f, Animation_GetLastFrame(&gWarpCrystalAnim),
                          Animation_GetLastFrame(&gWarpCrystalAnim), ANIMMODE_ONCE, 40.0f, 1);
 

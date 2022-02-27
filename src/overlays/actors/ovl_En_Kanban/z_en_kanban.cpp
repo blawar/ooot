@@ -692,7 +692,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2) {
                         pthis->actionState = ENKANBAN_REPAIR;
                         pthis->bounceX = 1;
                         Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0,
-                                               &D_801333E8);
+                                               &gReverbAdd2);
                     }
                     break;
             }

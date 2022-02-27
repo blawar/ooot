@@ -228,10 +228,10 @@ void BgGanonOtyuka_Fall(BgGanonOtyuka* pthis, GlobalContext* globalCtx) {
     } else {
         if (pthis->dropTimer == 1) {
             Audio_PlaySoundGeneral(NA_SE_EV_STONEDOOR_STOP, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
         } else {
             Audio_PlaySoundGeneral(NA_SE_EV_BLOCKSINK - SFX_FLAG, &pthis->dyna.actor.projectedPos, 4, &D_801333E0,
-                                   &D_801333E0, &D_801333E8);
+                                   &D_801333E0, &gReverbAdd2);
         }
         Math_ApproachF(&pthis->dyna.actor.world.pos.y, -1000.0f, 1.0f, pthis->dyna.actor.speedXZ);
         Math_ApproachF(&pthis->dyna.actor.speedXZ, 100.0f, 1.0f, 0.1f);

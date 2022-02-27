@@ -928,7 +928,7 @@ void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx) {
     }
 
     if ((*params <= ITEM00_RUPEE_RED) || (*params == ITEM00_RUPEE_ORANGE)) {
-        Audio_PlaySoundGeneral(NA_SE_SY_GET_RUPY, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_GET_RUPY, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (getItemId != GI_NONE) {
         if (Actor_HasParent(&pthis->actor, globalCtx)) {
             Flags_SetCollectible(globalCtx, pthis->collectibleFlag);
@@ -936,7 +936,7 @@ void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx) {
         }
         return;
     } else {
-        Audio_PlaySoundGeneral(NA_SE_SY_GET_ITEM, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_GET_ITEM, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 
     Flags_SetCollectible(globalCtx, pthis->collectibleFlag);

@@ -21,10 +21,6 @@ static AudioMgr* g_audioMgr = NULL;
 
 void AudioMgr_HandleRetrace(AudioMgr* audioMgr);
 
-void func_800C3C80(AudioMgr* audioMgr) {
-    return;
-}
-
 void AudioMgr_HandleRetraceNULL() {
     AudioMgr_HandleRetrace(NULL);
 }
@@ -43,15 +39,6 @@ void AudioMgr_HandleRetrace(AudioMgr* audioMgr) {
     AudioTask* task = func_800E4FE0();
 
     return;
-}
-
-void AudioMgr_HandlePRENMI(AudioMgr* audioMgr) {
-}
-
-void AudioMgr_ThreadEntry(void* arg0) {
-}
-
-void AudioMgr_Unlock(AudioMgr* audioMgr) {
 }
 
 void audio_int()
@@ -104,10 +91,6 @@ void audio_int()
 }
 
 static AudioTask* g_currentAudioTask = nullptr;
-
-void bah()
-{
-}
 
 void audio_thread()
 {

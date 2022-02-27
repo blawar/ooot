@@ -152,7 +152,7 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
                 CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_A) ||
                 CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B)) {
 
-                Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 
                 pthis->mainAlpha = 210;
                 pthis->subAlpha = 255;
@@ -192,7 +192,7 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
                         Audio_SetCutsceneFlag(0);
 
                         Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &D_801333D4, 4, &D_801333E0, &D_801333E0,
-                                               &D_801333E8);
+                                               &gReverbAdd2);
 
                         gSaveContext.gameMode = 2;
                         globalCtx->sceneLoadFlag = 20;

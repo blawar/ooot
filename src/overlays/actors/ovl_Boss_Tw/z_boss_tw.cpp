@@ -1156,10 +1156,10 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
 
                 if (pthis->actor.params == 1) {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FIRE - SFX_FLAG, &pthis->unk_54C, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 } else {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FREEZE - SFX_FLAG, &pthis->unk_54C, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 }
                 break;
 
@@ -1186,14 +1186,14 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
 
                 if (pthis->actor.params == 1) {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FIRE - SFX_FLAG, &pthis->unk_558, 4U, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_REFL_FIRE - SFX_FLAG, &pthis->unk_558, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 } else {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FREEZE - SFX_FLAG, &pthis->unk_558, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_REFL_FREEZE - SFX_FLAG, &pthis->unk_558, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 }
                 break;
         }

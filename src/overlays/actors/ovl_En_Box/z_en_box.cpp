@@ -268,7 +268,7 @@ void EnBox_Fall(EnBox* pthis, GlobalContext* globalCtx) {
             OnePointCutscene_EndCutscene(globalCtx, pthis->unk_1AC);
         }
         Audio_PlaySoundGeneral(NA_SE_EV_COFFIN_CAP_BOUND, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         EnBox_SpawnDust(pthis, globalCtx);
     }
     yDiff = pthis->dyna.actor.world.pos.y - pthis->dyna.actor.floorHeight;
@@ -378,7 +378,7 @@ void EnBox_AppearInit(EnBox* pthis, GlobalContext* globalCtx) {
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_DEMO_KANKYO, pthis->dyna.actor.home.pos.x,
                     pthis->dyna.actor.home.pos.y, pthis->dyna.actor.home.pos.z, 0, 0, 0, 0x0011);
         Audio_PlaySoundGeneral(NA_SE_EV_TRE_BOX_APPEAR, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 
@@ -480,7 +480,7 @@ void EnBox_Open(EnBox* pthis, GlobalContext* globalCtx) {
         }
 
         if (sfxId != 0) {
-            Audio_PlaySoundGeneral(sfxId, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(sfxId, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
 
         if (pthis->skelanime.jointTable[3].z > 0) {

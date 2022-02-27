@@ -209,7 +209,7 @@ void func_80A6DD14(EnHorseZelda* pthis) {
     pthis->action = 1;
     pthis->animationIndex = 0;
     sp34 = pthis->actor.speedXZ / 6.0f;
-    Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+    Audio_PlaySoundGeneral(NA_SE_EV_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     Animation_Change(&pthis->skin.skelAnime, sAnimationHeaders[pthis->animationIndex],
                      splaySpeeds[pthis->animationIndex] * sp34 * 1.5f, 0.0f,
                      Animation_GetLastFrame(sAnimationHeaders[pthis->animationIndex]), ANIMMODE_ONCE, 0.0f);

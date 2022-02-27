@@ -48,5 +48,5 @@ void EffectSsDeadSound_Update(GlobalContext* globalCtx, u32 index, EffectSs* pth
             return;
     }
 
-    Audio_PlaySoundGeneral(pthis->rSfxId, &pthis->pos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+    Audio_PlaySoundGeneral(pthis->rSfxId, &pthis->pos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }

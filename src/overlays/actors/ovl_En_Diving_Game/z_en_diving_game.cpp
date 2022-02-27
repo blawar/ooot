@@ -517,7 +517,7 @@ void EnDivingGame_Update(Actor* thisx, GlobalContext* globalCtx2) {
     if (1) {}
 
     if (gSaveContext.timer1Value == 10) {
-        func_800F5918();
+        Audio_UpdateTempo();
     }
     if (pthis->eyeTimer == 0) {
         pthis->eyeTimer = 2;
