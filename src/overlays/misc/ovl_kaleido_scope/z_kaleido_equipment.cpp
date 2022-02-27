@@ -565,11 +565,10 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
         }
 
         for (k = 0, bit = rowStart, point = 4; k < 3; k++, point += 4, temp++, bit++) {
-
             if (((u32)i == 0) && (k == 2) && (gSaveContext.bgsFlag != 0)) {
-                KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_BROKEN], 32, 32, point);
-            } else if ((i == 0) && (k == 2) && (gBitFlags[bit + 1] & gSaveContext.inventory.equipment)) {
                 KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_BGS], 32, 32, point);
+            } else if ((i == 0) && (k == 2) && (gBitFlags[bit + 1] & gSaveContext.inventory.equipment)) {
+                KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_BROKEN], 32, 32, point);
             } else if (gBitFlags[bit] & gSaveContext.inventory.equipment) {
                 KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_KOKIRI + temp], 32,
                                                    32, point);
