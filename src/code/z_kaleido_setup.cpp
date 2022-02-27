@@ -70,7 +70,7 @@ void KaleidoSetup_Update(GlobalContext* globalCtx) {
                 ShrinkWindow_SetVal(0);
             }
 
-            func_800F64E0(1);
+            Audio_PlayKaleido(1);
         }
     }
 }

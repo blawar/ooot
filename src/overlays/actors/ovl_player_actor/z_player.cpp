@@ -2792,7 +2792,7 @@ void func_80836448(GlobalContext* globalCtx, Player* pthis, LinkAnimationHeader*
             pthis->unk_84F = 1;
         } else {
             globalCtx->gameOverCtx.state = GAMEOVER_DEATH_START;
-            func_800F6AB0(0);
+            Audio_FadeOutPlayers(0);
             Audio_PlayFanfare(NA_BGM_GAME_OVER);
             gSaveContext.seqId = (u8)NA_BGM_DISABLED;
             gSaveContext.natureAmbienceId = 0xFF;
@@ -3955,7 +3955,7 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
 
                 if (temp == 11) {
                     func_800788CC(NA_SE_OC_SECRET_HOLE_OUT);
-                    func_800F6964(5);
+                    Audio_FadeOutMostSFX(5);
                     gSaveContext.seqId = (u8)NA_BGM_DISABLED;
                     gSaveContext.natureAmbienceId = 0xFF;
                 } else {

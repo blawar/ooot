@@ -12,5 +12,5 @@ void func_800FA174(u8);
 void func_800FA18C(u8, u8);
 void func_800FA3DC(void);
 u8 func_800FAD34(void);
-void func_800FADF8(void);
-void func_800FAEB4(void);
+void Audio_ResetPlayers(void);
+void Audio_ResetVolume(void);

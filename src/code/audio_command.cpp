@@ -676,7 +676,7 @@ u8 func_800FAD34(void) {
     return D_80133418;
 }
 
-void func_800FADF8(void) {
+void Audio_ResetPlayers(void) {
     u8 playerIdx, j;
 
     for (playerIdx = 0; playerIdx < 4; playerIdx++) {
@@ -699,7 +699,7 @@ void func_800FADF8(void) {
     }
 }
 
-void func_800FAEB4(void) {
+void Audio_ResetVolume(void) {
     u8 playerIdx, j;
 
     for (playerIdx = 0; playerIdx < 4; playerIdx++) {
@@ -710,5 +710,5 @@ void func_800FAEB4(void) {
             gAudioPlayers[playerIdx].volScales[j] = 0x7F;
         }
     }
-    func_800FADF8();
+    Audio_ResetPlayers();
 }

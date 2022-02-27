@@ -2960,7 +2960,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                         Interface_SetDoAction(globalCtx, DO_ACTION_NONE);
                         pauseCtx->state = 0x12;
                         WREG(2) = -6240;
-                        func_800F64E0(0);
+                        Audio_PlayKaleido(0);
                     } else if (CHECK_BTN_ALL(input->press.button, BTN_B)) {
                         pauseCtx->mode = 0;
                         pauseCtx->promptChoice = 0;
@@ -3002,7 +3002,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                         Interface_SetDoAction(globalCtx, DO_ACTION_NONE);
                         pauseCtx->state = 0x12;
                         WREG(2) = -6240;
-                        func_800F64E0(0);
+                        Audio_PlayKaleido(0);
                         pauseCtx->unk_1E4 = 0;
                         break;
                     } else if (CHECK_BTN_ALL(input->press.button, BTN_B)) {
@@ -3052,7 +3052,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                         Interface_SetDoAction(globalCtx, DO_ACTION_NONE);
                         pauseCtx->state = 0x12;
                         WREG(2) = -6240;
-                        func_800F64E0(0);
+                        Audio_PlayKaleido(0);
                         pauseCtx->unk_1E4 = 0;
                     } else if (CHECK_BTN_ALL(input->press.button, BTN_B)) {
                         Audio_OcaSetInstrument(0);
@@ -3102,7 +3102,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                             pauseCtx->unk_1EC = 2;
                             WREG(2) = -6240;
                             YREG(8) = pauseCtx->unk_204;
-                            func_800F64E0(0);
+                            Audio_PlayKaleido(0);
                         } else {
                             Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &D_801333D4, 4, &D_801333E0, &D_801333E0,
                                                    &gReverbAdd2);
@@ -3118,7 +3118,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                         pauseCtx->unk_1EC = 2;
                         WREG(2) = -6240;
                         YREG(8) = pauseCtx->unk_204;
-                        func_800F64E0(0);
+                        Audio_PlayKaleido(0);
                         gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
                             gSaveContext.buttonStatus[3] = BTN_ENABLED;
                         gSaveContext.unk_13EA = 0;
@@ -3137,7 +3137,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                         pauseCtx->unk_1EC = 5;
                         WREG(2) = -6240;
                         YREG(8) = pauseCtx->unk_204;
-                        func_800F64E0(0);
+                        Audio_PlayKaleido(0);
                     }
                     break;
 
@@ -3336,7 +3336,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                        (CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_START))) {
                 pauseCtx->state = 0x10;
                 gameOverCtx->state++;
-                func_800F64E0(0);
+                Audio_PlayKaleido(0);
             }
             break;
 

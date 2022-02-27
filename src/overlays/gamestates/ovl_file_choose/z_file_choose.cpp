@@ -1356,7 +1356,7 @@ void FileChoose_ConfirmFile(GameState* pthisx) {
             Rumble_Shake(300.0f, 180, 20, 100);
             Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->selectMode = SM_FADE_OUT;
-            func_800F6964(0xF);
+            Audio_FadeOutMostSFX(0xF);
         } else {
             Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CLOSE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             pthis->selectMode++;

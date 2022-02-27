@@ -567,7 +567,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                             if ((globalCtx->fadeTransition < 56) && !Environment_IsForcedSequenceDisabled()) {
                                 // "Sound initalized. 222"
                                 osSyncPrintf("\n\n\nサウンドイニシャル来ました。222");
-                                func_800F6964(0x14);
+                                Audio_FadeOutMostSFX(0x14);
                                 gSaveContext.seqId = (u8)NA_BGM_DISABLED;
                                 gSaveContext.natureAmbienceId = 0xFF;
                             }

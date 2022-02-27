@@ -741,14 +741,6 @@ s32 func_800E6590(s32 playerIdx, s32 arg1, s32 arg2) {
     return 0;
 }
 
-s32 func_800E6680(void) {
-    return func_800E66C0(0);
-}
-
-void func_800E66A0(void) {
-    func_800E66C0(2);
-}
-
 s32 func_800E66C0(s32 arg0) {
     s32 phi_v1;
     NotePlaybackState* temp_a2;

@@ -4210,7 +4210,7 @@ void Interface_Update(GlobalContext* globalCtx) {
             globalCtx->nextEntranceIndex = gSaveContext.entranceIndex;
             globalCtx->sceneLoadFlag = 0x14;
             gSaveContext.sunsSongState = SUNSSONG_INACTIVE;
-            func_800F6964(30);
+            Audio_FadeOutMostSFX(30);
             gSaveContext.seqId = (u8)NA_BGM_DISABLED;
             gSaveContext.natureAmbienceId = 0xFF;
         } else {
