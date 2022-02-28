@@ -54,7 +54,7 @@ void Audio_SequenceChannelProcessSound(SequenceChannel* channel, s32 recalculate
     channel->changes.asByte = 0;
 }
 
-void Audio_SequencePlayerProcessSound(SequencePlayer* seqPlayer) {
+void Audio_SequencePlayerProcessVolume(SequencePlayer* seqPlayer) {
     s32 i;
 
     if (seqPlayer->fadeTimer != 0) {

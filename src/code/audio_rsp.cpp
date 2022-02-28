@@ -33,7 +33,7 @@ AudioTask* getAudioTask(void);
 void Audio_ProcessCmds(u32);
 void Audio_ProcessSequenceCmd(SequencePlayer* seqPlayer, AudioCmd* arg1);
 void Audio_LoadSetFadeOutTimer(s32 playerIdx, s32 fadeTimer);
-s32 func_800E66C0(s32 arg0);
+s32 Audio_UpdateNotes(s32 arg0);
 
 // AudioMgr_Retrace
 AudioTask* func_800E4FE0(void) {
@@ -286,7 +286,7 @@ void Audio_ProcessLoadCmd(AudioCmd* cmd) {
                     }
                 }
             }
-            func_800E66C0(temp_t7);
+            Audio_UpdateNotes(temp_t7);
             return;
         case CHAN_LOAD_POP_CACHE:
             AudioHeap_PopCache(cmd->asInt);
@@ -533,7 +533,7 @@ s8 Audio_GetScriptIO_Value(s32 playerIdx, s32 channelIdx, s32 scriptIdx) {
     }
 }
 
-s8 func_800E60C4(s32 playerIdx, s32 arg1) {
+s8 Audio_GetSequenceScriptIO(s32 playerIdx, s32 arg1) {
     return gAudioContext.seqPlayers[playerIdx].soundScriptIO[arg1];
 }
 
@@ -734,7 +734,7 @@ s32 func_800E6590(s32 playerIdx, s32 arg1, s32 arg2) {
     return 0;
 }
 
-s32 func_800E66C0(s32 arg0) {
+s32 Audio_UpdateNotes(s32 filter) {
     s32 phi_v1;
     NotePlaybackState* temp_a2;
     NoteSubEu* temp_a3;
@@ -749,7 +749,7 @@ s32 func_800E66C0(s32 arg0) {
         if (note->noteSubEu.bitField0.enabled) {
             temp_a3 = &note->noteSubEu;
             if (temp_a2->adsr.action.s.state != 0) {
-                if (arg0 >= 2) {
+                if (filter >= 2) {
                     sound = temp_a3->sound.soundFontSound;
                     if (sound == NULL || temp_a3->bitField1.isSyntheticWave) {
                         continue;
@@ -760,7 +760,7 @@ s32 func_800E66C0(s32 arg0) {
                 }
 
                 phi_v1++;
-                if ((arg0 & 1) == 1) {
+                if ((filter & 1) == 1) {
                     temp_a2->adsr.fadeOutVel = gAudioContext.audioBufferParameters.updatesPerFrameInv;
                     temp_a2->adsr.action.s.release = 1;
                 }

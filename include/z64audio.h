@@ -805,6 +805,7 @@ typedef struct {
 #endif
     };
     union {
+#ifndef LITTLE_ENDIAN
         void* data;
         f32 asFloat;
         s32 asInt;
@@ -812,6 +813,24 @@ typedef struct {
         s8 asSbyte;
         u8 asUbyte;
         u32 asUInt;
+#else
+        void* data;
+        f32 asFloat;
+        s32 asInt;
+        struct {
+            s8 padding1[2];
+            u16 asUShort;
+        };
+        struct {
+            s8 padding2[3];
+            s8 asSbyte;
+        };
+        struct {
+            s8 padding3[3];
+            u8 asUbyte;
+        };
+        u32 asUInt;
+#endif
     };
 } AudioCmd;
 

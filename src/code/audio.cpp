@@ -3649,13 +3649,13 @@ void Audio_DisableAllSeq(void) {
     Audio_ScheduleProcessCmds();
 }
 
-s32 func_800E66C0(s32 arg0);
+s32 Audio_UpdateNotes(s32 arg0);
 
-void func_800F6BDC(void) {
+void Audio_WaitUntilNotesPlayed(void) {
     Audio_DisableAllSeq();
     Audio_ScheduleProcessCmds();
-    while (true) {
-        if (!func_800E66C0(0)) {
+    while (true) {//Wait until all notes are played
+        if (Audio_UpdateNotes(0) == 0) {//Are any notes being played?
             return;
         }
     }

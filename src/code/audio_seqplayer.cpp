@@ -1562,6 +1562,11 @@ void AudioSeq_SequencePlayerProcessSequence(SequencePlayer* seqPlayer) {
         return;
     }
 
+    if (seqPlayer->seqId == 0)
+    {
+        int t=42;//breakpoint
+    }
+
     seqPlayer->tempoAcc -= (u16)gAudioContext.tempoInternalToExternal;
 
     if (seqPlayer->stopScript == true) {
@@ -1822,7 +1827,7 @@ void AudioSeq_ProcessSequences(s32 arg0) {
         seqPlayer = &gAudioContext.seqPlayers[i];
         if (seqPlayer->enabled == 1) {
             AudioSeq_SequencePlayerProcessSequence(seqPlayer);
-            Audio_SequencePlayerProcessSound(seqPlayer);
+            Audio_SequencePlayerProcessVolume(seqPlayer);
         }
     }
     Audio_ProcessNotes();
@@ -1831,7 +1836,7 @@ void AudioSeq_ProcessSequences(s32 arg0) {
 void AudioSeq_SkipForwardSequence(SequencePlayer* seqPlayer) {
     while (seqPlayer->skipTicks > 0) {
         AudioSeq_SequencePlayerProcessSequence(seqPlayer);
-        Audio_SequencePlayerProcessSound(seqPlayer);
+        Audio_SequencePlayerProcessVolume(seqPlayer);
         seqPlayer->skipTicks--;
     }
 }
