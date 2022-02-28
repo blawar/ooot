@@ -252,7 +252,7 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
                 case 380:
                 case 409:
                 case 438:
-                    Audio_PlaySoundGeneral(NA_SE_SY_DEMO_CUT, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                    Audio_PlaySoundGeneral(NA_SE_SY_DEMO_CUT, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                     break;
             }
         }
@@ -456,7 +456,7 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
             case 0:
                 if (globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[1] != NULL &&
                     globalCtx->csCtx.npcActions[1]->action == 7) {
-                    Audio_PlaySoundGeneral(NA_SE_EN_GANON_LAUGH, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                    Audio_PlaySoundGeneral(NA_SE_EN_GANON_LAUGH, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                     Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_gndd_Anim_004534, -5.0f);
                     pthis->state++;
                 }
@@ -798,7 +798,7 @@ void EnViewer_UpdatePosition(EnViewer* pthis, GlobalContext* globalCtx) {
             }
         }
         if (type == ENVIEWER_TYPE_5_GANONDORF) {
-            Audio_PlaySoundGeneral(NA_SE_EV_BURNING - SFX_FLAG, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+            Audio_PlaySoundGeneral(NA_SE_EV_BURNING - SFX_FLAG, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             EnViewer_DrawFireEffects(pthis, globalCtx);
         }
     }

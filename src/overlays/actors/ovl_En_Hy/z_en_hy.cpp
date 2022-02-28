@@ -493,7 +493,7 @@ s16 func_80A70058(GlobalContext* globalCtx, Actor* thisx) {
                 case 0x709F:
                     if (!pthis->unk_215) {
                         Audio_PlaySoundGeneral(pthis->actor.textId == 0x709F ? NA_SE_SY_CORRECT_CHIME : NA_SE_SY_ERROR,
-                                               &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                                               &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                         pthis->unk_215 = true;
                     }
                     break;

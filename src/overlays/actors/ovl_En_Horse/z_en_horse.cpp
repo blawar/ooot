@@ -3354,7 +3354,7 @@ void EnHorse_RegenBoost(EnHorse* pthis, GlobalContext* globalCtx) {
             pthis->numBoosts = pthis->numBoosts + 1;
 
             if (!EN_HORSE_CHECK_4(pthis)) {
-                Audio_PlaySoundGeneral(NA_SE_SY_CARROT_RECOVER, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                Audio_PlaySoundGeneral(NA_SE_SY_CARROT_RECOVER, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             }
 
             if (pthis->numBoosts < 6) {
@@ -3370,7 +3370,7 @@ void EnHorse_RegenBoost(EnHorse* pthis, GlobalContext* globalCtx) {
             pthis->numBoosts = 6;
 
             if (!EN_HORSE_CHECK_4(pthis)) {
-                Audio_PlaySoundGeneral(NA_SE_SY_CARROT_RECOVER, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                Audio_PlaySoundGeneral(NA_SE_SY_CARROT_RECOVER, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             }
         }
     }

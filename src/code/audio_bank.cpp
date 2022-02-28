@@ -105,7 +105,7 @@ u8 gSfxChannelLayout = 0;
 
 u16 gMutedChannels = 0;
 
-Vec3f D_801333D4 = { 0.0f, 0.0f, 0.0f }; // default pos
+Vec3f gAudioDefaultPos = { 0.0f, 0.0f, 0.0f }; // default pos
 
 f32 D_801333E0 = 1.0f; // default freqScale
 
@@ -396,7 +396,7 @@ void Audio_ChooseActiveSounds(u8 bankId) {
         } else if (gSoundBanks[bankId][entryIndex].state != SFX_STATE_EMPTY) {
             entry = &gSoundBanks[bankId][entryIndex];
 
-            if (&D_801333D4.x == entry[0].posX) {
+            if (&gAudioDefaultPos.x == entry[0].posX) {
                 entry->dist = 0.0f;
             } else {
                 tempf1 = *entry->posY * 1;

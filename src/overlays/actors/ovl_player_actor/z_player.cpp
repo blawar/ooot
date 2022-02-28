@@ -11762,7 +11762,7 @@ s32 func_8084DFF4(GlobalContext* globalCtx, Player* pthis) {
             ((pthis->getItemId >= GI_RUPEE_PURPLE) && (pthis->getItemId <= GI_RUPEE_GOLD)) ||
             ((pthis->getItemId >= GI_RUPEE_GREEN_LOSE) && (pthis->getItemId <= GI_RUPEE_PURPLE_LOSE)) ||
             (pthis->getItemId == GI_HEART)) {
-            Audio_PlaySoundGeneral(NA_SE_SY_GET_BOXITEM, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+            Audio_PlaySoundGeneral(NA_SE_SY_GET_BOXITEM, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         } else {
             if ((pthis->getItemId == GI_HEART_CONTAINER_2) || (pthis->getItemId == GI_HEART_CONTAINER) ||
                 ((pthis->getItemId == GI_HEART_PIECE) &&

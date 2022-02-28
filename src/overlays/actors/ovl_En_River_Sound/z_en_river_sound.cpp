@@ -247,7 +247,7 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
                (pthis->actor.params == RS_UNK_5)) {
         Audio_PlaySoundRiver(&pthis->actor.projectedPos, soundPitch_23[pthis->soundPitchIndex]);
     } else if (pthis->actor.params == RS_UNK_11) {
-        func_800F4A54(90);
+        Audio_RequestBgmVolumeChange(90);
     } else if (pthis->actor.params == RS_SARIAS_SONG) {
         func_800F4E30(&pthis->actor.projectedPos, pthis->actor.xzDistToPlayer);
     } else if (pthis->actor.params == RS_UNK_13) {

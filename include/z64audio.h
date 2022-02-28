@@ -1211,7 +1211,7 @@ extern u8* gFrogsSongPtr;
 extern char D_80133390[];
 extern char D_80133398[];
 extern u8 gSfxChannelLayout;
-extern Vec3f D_801333D4;
+extern Vec3f gAudioDefaultPos;
 extern f32 D_801333E0;
 extern s8 gReverbAdd2;
 extern u8 D_801333F0;
@@ -1219,7 +1219,7 @@ extern u8 gAudioSfxSwapOff;
 extern u8 gAudioDisable;
 extern u8 D_8013340C;
 extern u8 gAudioSpecId;
-extern u8 D_80133418;
+extern u8 gAudioSyncMode;
 
 
 

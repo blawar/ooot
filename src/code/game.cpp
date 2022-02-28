@@ -490,7 +490,7 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
 void GameState_Destroy(GameState* gameState) {
     osSyncPrintf("game destructor start\n"); // "game destructor start"
     Audio_StopAllBanks();
-    func_800F3054();
+    Audio_UpdateAll();
     //osRecvMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
     LogUtils_CheckNullPointer("this->cleanup", gameState->destroy, "../game.c", 1139);
     if (gameState->destroy != NULL) {

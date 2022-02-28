@@ -11,6 +11,6 @@ s32 Audio_IsCommandNotIssued(u32 arg0, u32 arg1);
 void func_800FA174(u8);
 void func_800FA18C(u8, u8);
 void func_800FA3DC(void);
-u8 func_800FAD34(void);
+u8 Audio_SyncIfNeeded(void);
 void Audio_ResetPlayers(void);
 void Audio_ResetVolume(void);

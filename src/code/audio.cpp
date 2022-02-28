@@ -131,9 +131,9 @@ u8 sPrevChargeLevel = 0;
 f32 D_801305E4[4] = { 1.0f, 1.12246f, 1.33484f, 1.33484f }; // 2**({0, 2, 5, 5}/12)
 f32 D_801305F4 = 1.0f;
 u8 D_801305F8[8] = { 127, 80, 75, 73, 70, 68, 65, 60 };
-u8 D_80130600 = 0;
+u8 gAudioGanonVolumeDelay = 0;
 s8 D_80130604 = 2;
-s8 D_80130608 = 0;
+s8 gAudioOverwriteBgmVolume = 0;
 s8 sAudioCutsceneFlag = 0;
 s8 sSpecReverb = 0;
 s8 sAudioEnvReverb = 0;
@@ -334,7 +334,7 @@ u8 sNotePlaybackVibrato = 0;
 s8 sNotePlaybackTone = 0;
 f32 sNormalizedNotePlaybackTone = 1.0f;
 f32 sNormalizedNotePlaybackVolume = 1.0f;
-s32 D_80130F68 = 0;
+s32 gAudioLastTaskCount = 0;
 u8 sOcarinaNoteValues[5] = { 2, 5, 9, 11, 14 };
 u8 sOcaMinigameAppendPos = 0;
 u8 sOcaMinigameEndPos = 0;
@@ -673,10 +673,10 @@ struct {
     s8 str[5];
     u16 num;
 } sAudioScrPrtBuf[SCROLL_PRINT_BUF_SIZE];
-u8 D_8016B8B0;
-u8 D_8016B8B1;
-u8 D_8016B8B2;
-u8 D_8016B8B3;
+u8 gAudioBgmVolumeReq;
+u8 gAudioBgmVolumeNow;
+u8 gAudioChangeBgmVolume;
+u8 gAudioChangeBgmVolumeToDefault;
 u8 sAudioGanonDistVol;
 SfxPlayerState sSfxChannelState[0x10];
 
@@ -691,7 +691,7 @@ u16 gFanfareLastSeqPlayed;
 OcarinaStaff sPlayingStaff;
 OcarinaStaff sDisplayedStaff;
 OcarinaStaff sRecordingStaff;
-u32 D_8016BA04;
+u32 gAudioCurrentTaskCount;
 typedef struct {
     s8 x;
     s8 y;
@@ -1093,7 +1093,7 @@ void func_800ED458(s32 arg0) {
         if ((sCurOcarinaBtnVal != 0xFF) && (sPrevOcarinaNoteVal != sCurOcarinaBtnVal)) {
             Audio_QueueCmdS8(CHAN_UPD_SCRIPT_IO << 24 | SEQ_PLAYER_SFX << 16 | 0xD07, D_80130F10 - 1);
             Audio_QueueCmdS8(CHAN_UPD_SCRIPT_IO << 24 | SEQ_PLAYER_SFX << 16 | 0xD05, sCurOcarinaBtnVal);
-            Audio_PlaySoundGeneral(NA_SE_OC_OCARINA, &D_801333D4, 4, &D_80130F24, &D_80130F28, &gReverbAdd2);
+            Audio_PlaySoundGeneral(NA_SE_OC_OCARINA, &gAudioDefaultPos, 4, &D_80130F24, &D_80130F28, &gReverbAdd2);
         } else if ((sPrevOcarinaNoteVal != 0xFF) && (sCurOcarinaBtnVal == 0xFF)) {
             Audio_StopSfxById(NA_SE_OC_OCARINA);
         }
@@ -1163,7 +1163,7 @@ void Audio_OcaPlayback(void) {
         if (sStaffPlaybackPos == 0) {
             noteTimerStep = 3;
         } else {
-            noteTimerStep = D_8016BA04 - D_80130F68;
+            noteTimerStep = gAudioCurrentTaskCount - gAudioLastTaskCount;
         }
 
         if (noteTimerStep < sNotePlaybackTimer) {
@@ -1229,7 +1229,7 @@ void Audio_OcaPlayback(void) {
                     sStaffPlaybackPos++;
                     Audio_QueueCmdS8(CHAN_UPD_SCRIPT_IO << 24 | SEQ_PLAYER_SFX << 16 | 0xD07, D_80130F10 - 1);
                     Audio_QueueCmdS8(CHAN_UPD_SCRIPT_IO << 24 | SEQ_PLAYER_SFX << 16 | 0xD05, sDisplayedNoteValue & 0x3F);
-                    Audio_PlaySoundGeneral(NA_SE_OC_OCARINA, &D_801333D4, 4, &sNormalizedNotePlaybackTone,
+                    Audio_PlaySoundGeneral(NA_SE_OC_OCARINA, &gAudioDefaultPos, 4, &sNormalizedNotePlaybackTone,
                                            &sNormalizedNotePlaybackVolume, &gReverbAdd2);
                 } else {
                     Audio_StopSfxById(NA_SE_OC_OCARINA);
@@ -1257,7 +1257,7 @@ void func_800EDD68(u8 arg0) {
         song = D_80131BEC;
     }
     song[sRecordSongPos].noteIdx = D_80131864;
-    song[sRecordSongPos].unk_02 = D_8016BA04 - D_80131860;
+    song[sRecordSongPos].unk_02 = gAudioCurrentTaskCount - D_80131860;
     song[sRecordSongPos].volume = D_80131868;
     song[sRecordSongPos].vibrato = D_8013186C;
     song[sRecordSongPos].tone = D_80131870;
@@ -1354,7 +1354,7 @@ void Audio_OcaSetRecordingState(u8 recordingState) {
     }
 
     if (recordingState != 0) {
-        D_80131860 = D_8016BA04;
+        D_80131860 = gAudioCurrentTaskCount;
         D_80131864 = 0xFF;
         D_80131868 = 0x57;
         D_8013186C = 0;
@@ -1430,7 +1430,7 @@ OcarinaStaff* Audio_OcaGetDisplayingStaff(void) {
 void func_800EE404(void) {
     s32 noteChanged;
 
-    if ((sRecordingState != 0) && ((D_8016BA04 - D_80131860) >= 3)) {
+    if ((sRecordingState != 0) && ((gAudioCurrentTaskCount - D_80131860) >= 3)) {
         noteChanged = false;
         if (D_80131864 != sCurOcarinaBtnVal) {
             if (sCurOcarinaBtnVal != 0xFF) {
@@ -1461,7 +1461,7 @@ void func_800EE404(void) {
 
         if (noteChanged) {
             func_800EDD68(0);
-            D_80131860 = D_8016BA04;
+            D_80131860 = gAudioCurrentTaskCount;
         }
     }
 }
@@ -1513,8 +1513,8 @@ s32 Audio_OcaMemoryGameGenNote(void) {
 }
 
 // input update?
-void func_800EE6F4(void) {
-    D_8016BA04 = gAudioContext.totalTaskCnt;
+void Audio_UpdateOcarina(void) {
+    gAudioCurrentTaskCount = gAudioContext.totalTaskCnt;
     if (D_80130F10 != 0) {
         if (sOcarinaInpEnabled == 1) {
             Audio_GetOcaInput();
@@ -1531,7 +1531,7 @@ void func_800EE6F4(void) {
         }
 
         Audio_OcaPlayback();
-        D_80130F68 = D_8016BA04;
+        gAudioLastTaskCount = gAudioCurrentTaskCount;
 
         if (sPlaybackState == 0) {
             func_800EE404();
@@ -1758,7 +1758,7 @@ void AudioDebug_ProcessInput_SndCont(void) {
             case 2:
             case 3:
                 Audio_PlaySoundGeneral(((sAudioSndContWork[2] << 12) & 0xFFFF) + sAudioSndContWork[3] + SFX_FLAG,
-                                       &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                                       &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 break;
             case 4:
                 Audio_SetSettings(sAudioSndContWork[sAudioSndContSel]);
@@ -2157,7 +2157,7 @@ void AudioDebug_ProcessInput_SfxParamChg(void) {
 
     if (CHECK_BTN_ANY(sDebugPadPress, BTN_A)) {
         sfx = (u16)(sAudioSfxParamChgWork[0] << 12) + sAudioSfxParamChgWork[1] + SFX_FLAG;
-        Audio_PlaySoundGeneral(sfx, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+        Audio_PlaySoundGeneral(sfx, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 
     if (CHECK_BTN_ANY(sDebugPadPress, BTN_B)) {
@@ -2285,17 +2285,17 @@ void AudioDebug_ProcessInput(void) {
     D_8013340C = sAudioScrPrtWork[10];
 }
 
-void func_800F4A70(void);
+void Audio_UpdateBgmVolume(void);
 void Audio_UpdateFanfare(void);
 
-void func_800F3054(void) {
-    if (func_800FAD34() == 0) {
+void Audio_UpdateAll(void) {
+    if (Audio_SyncIfNeeded() == 0) {
         sAudioUpdateTaskStart = gAudioContext.totalTaskCnt;
         sAudioUpdateStartTime = osGetTime();
-        func_800EE6F4();
+        Audio_UpdateOcarina();
         Audio_StepFreqLerp(&sRiverFreqScaleLerp);
         Audio_StepFreqLerp(&sWaterfallFreqScaleLerp);
-        func_800F4A70();
+        Audio_UpdateBgmVolume();
         Audio_UpdateScriptIO();
         Audio_UpdateFanfare();
         if (gAudioSpecId == 7) {
@@ -2800,8 +2800,8 @@ void func_800F4578(Vec3f* pos, u16 sfxId, f32 arg2) {
 }
 
 void func_800F45D0(f32 arg0) {
-    func_800F4414(&D_801333D4, NA_SE_IT_FISHING_REEL_SLOW - SFX_FLAG, arg0);
-    func_800F436C(&D_801333D4, 0, (0.15f * arg0) + 1.4f);
+    func_800F4414(&gAudioDefaultPos, NA_SE_IT_FISHING_REEL_SLOW - SFX_FLAG, arg0);
+    func_800F436C(&gAudioDefaultPos, 0, (0.15f * arg0) + 1.4f);
 }
 
 void Audio_PlaySoundRiver(Vec3f* pos, f32 freqScale) {
@@ -2868,7 +2868,7 @@ void func_800F4870(u8 arg0) {
     }
 
     if (arg0 == 7) {
-        D_80130600 = 2;
+        gAudioGanonVolumeDelay = 2;
     } else {
         Audio_SetGanonDistVol(D_801305F8[arg0 & 7]);
     }
@@ -2911,28 +2911,28 @@ s32 Audio_SetGanonDistVol(u8 targetVol) {
     return -1;
 }
 
-void func_800F4A54(u8 arg0) {
-    D_8016B8B0 = arg0;
-    D_8016B8B2 = 1;
+void Audio_RequestBgmVolumeChange(u8 newVolume) {
+    gAudioBgmVolumeReq = newVolume;
+    gAudioChangeBgmVolume = 1;
 }
 
-void func_800F4A70(void) {
-    if (D_8016B8B2 == 1) {
-        if (D_8016B8B1 != D_8016B8B0) {
-            Audio_SetVolScale(SEQ_PLAYER_BGM_MAIN, 0, D_8016B8B0, 0xA);
-            D_8016B8B1 = D_8016B8B0;
-            D_8016B8B3 = 1;
+void Audio_UpdateBgmVolume(void) {
+    if (gAudioChangeBgmVolume == 1) {
+        if (gAudioBgmVolumeNow != gAudioBgmVolumeReq) {
+            Audio_SetVolScale(SEQ_PLAYER_BGM_MAIN, 0, gAudioBgmVolumeReq, 0xA);
+            gAudioBgmVolumeNow = gAudioBgmVolumeReq;
+            gAudioChangeBgmVolumeToDefault = 1;
         }
-        D_8016B8B2 = 0;
-    } else if (D_8016B8B3 == 1 && D_80130608 == 0) {
+        gAudioChangeBgmVolume = 0;
+    } else if (gAudioChangeBgmVolumeToDefault == 1 && gAudioOverwriteBgmVolume == 0) {
         Audio_SetVolScale(SEQ_PLAYER_BGM_MAIN, 0, 0x7F, 0xA);
-        D_8016B8B1 = 0x7F;
-        D_8016B8B3 = 0;
+        gAudioBgmVolumeNow = 0x7F;
+        gAudioChangeBgmVolumeToDefault = 0;
     }
 
-    if (D_80130600 != 0) {
-        D_80130600--;
-        if (D_80130600 == 0) {
+    if (gAudioGanonVolumeDelay != 0) {
+        gAudioGanonVolumeDelay--;
+        if (gAudioGanonVolumeDelay == 0) {
             Audio_SetGanonDistVol(D_801305F8[7]);
         }
     }
@@ -3486,12 +3486,12 @@ void func_800F6268(f32 dist, u16 seqid) {
 }
 
 void Audio_PlayKaleido(u8 arg0) {
-    D_80130608 = arg0;
+    gAudioOverwriteBgmVolume = arg0;
     if (arg0 != 0) {
-        Audio_PlaySoundGeneral(NA_SE_SY_WIN_OPEN, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+        Audio_PlaySoundGeneral(NA_SE_SY_WIN_OPEN, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 	    Audio_QueueCmdS32(CHAN_LOAD_UKN_F1 << 24, 0);
     } else {
-        Audio_PlaySoundGeneral(NA_SE_SY_WIN_CLOSE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+        Audio_PlaySoundGeneral(NA_SE_SY_WIN_CLOSE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 	    Audio_QueueCmdS32(CHAN_LOAD_UKN_F2 << 24, 0);
     }
 }
@@ -3569,7 +3569,7 @@ void Audio_SetBaseFilter(u8 filter) {
         if (filter == 0) {
             Audio_StopSfxById(NA_SE_PL_IN_BUBBLE);
         } else if (sAudioBaseFilter == 0) {
-            Audio_PlaySoundGeneral(NA_SE_PL_IN_BUBBLE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+            Audio_PlaySoundGeneral(NA_SE_PL_IN_BUBBLE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
     }
     sAudioBaseFilter = filter;
@@ -3602,7 +3602,7 @@ void Audio_PlaySoundGeneralIfNotInCutscene(u16 sfxId, Vec3f* pos, u8 arg2, f32* 
 }
 
 void Audio_PlaySoundIfNotInCutscene(u16 sfxId) {
-    Audio_PlaySoundGeneralIfNotInCutscene(sfxId, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+    Audio_PlaySoundGeneralIfNotInCutscene(sfxId, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }
 
 void Audio_FadeOutMostSFX(u16 fade) {
@@ -3679,14 +3679,14 @@ void func_800F6C34(void) {
     sRiverFreqScaleLerp.value = 1.0f;
     sWaterfallFreqScaleLerp.value = 1.0f;
     D_8016B7D8 = 1.0f;
-    D_8016B8B0 = 0x7F;
-    D_8016B8B1 = 0x7F;
-    D_8016B8B2 = 0;
-    D_8016B8B3 = 0;
+    gAudioBgmVolumeReq = 0x7F;
+    gAudioBgmVolumeNow = 0x7F;
+    gAudioChangeBgmVolume = 0;
+    gAudioChangeBgmVolumeToDefault = 0;
     sAudioGanonDistVol = 0xFF;
     D_8016B9D8 = 0;
     sSpecReverb = sSpecReverbs[gAudioSpecId];
-    D_80130608 = 0;
+    gAudioOverwriteBgmVolume = 0;
     D_80130628 = NA_BGM_DISABLED;
     Audio_QueueCmdS8(SEQ_CMD_UKN_46 << 24 | SEQ_PLAYER_BGM_MAIN << 16, -1);
     sSariaBgmPtr = NULL;
@@ -3796,7 +3796,7 @@ void func_800F7170(void) {
 }
 
 void func_800F71BC(s32 arg0) {
-    D_80133418 = 1;
+    gAudioSyncMode = 1;
     func_800F6C34();
     func_800EE930();
     Audio_ResetSfxChannelState();

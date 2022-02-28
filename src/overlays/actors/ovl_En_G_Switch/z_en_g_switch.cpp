@@ -226,7 +226,7 @@ void EnGSwitch_SilverRupeeTracker(EnGSwitch* pthis, GlobalContext* globalCtx) {
         if (sCollectedCount < 5) {
             // "sound?"
             osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 音？ ☆☆☆☆☆ %d\n" VT_RST, pthis->noteIndex);
-            Audio_PlaySoundTransposed(&D_801333D4, NA_SE_EV_FIVE_COUNT_LUPY, majorScale_50[pthis->noteIndex]);
+            Audio_PlaySoundTransposed(&gAudioDefaultPos, NA_SE_EV_FIVE_COUNT_LUPY, majorScale_50[pthis->noteIndex]);
             pthis->noteIndex = sCollectedCount;
         }
     }

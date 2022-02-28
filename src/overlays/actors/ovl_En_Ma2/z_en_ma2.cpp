@@ -294,7 +294,7 @@ void func_80AA20E4(EnMa2* pthis, GlobalContext* globalCtx) {
         pthis->actionFunc = func_80AA204C;
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
     } else if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_03) {
-        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         pthis->unk_208 = 0x1E;
         gSaveContext.infTable[8] |= 0x4000;
         pthis->actionFunc = func_80AA21C8;

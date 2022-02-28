@@ -132,7 +132,7 @@ void BgGndDarkmeiro_UpdateBlockTimer(BgGndDarkmeiro* pthis, GlobalContext* globa
         } else {
             pthis->actionFlags |= 4;
             pthis->timer1 = 304;
-            Audio_PlaySoundGeneral(NA_SE_EV_RED_EYE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+            Audio_PlaySoundGeneral(NA_SE_EV_RED_EYE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
     }
 
@@ -147,7 +147,7 @@ void BgGndDarkmeiro_UpdateBlockTimer(BgGndDarkmeiro* pthis, GlobalContext* globa
         } else {
             pthis->actionFlags |= 8;
             pthis->timer2 = 304;
-            Audio_PlaySoundGeneral(NA_SE_EV_RED_EYE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+            Audio_PlaySoundGeneral(NA_SE_EV_RED_EYE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         }
     }
 

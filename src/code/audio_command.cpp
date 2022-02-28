@@ -15,7 +15,7 @@ u8 gAudioDisable	= 0;
 u8 D_8013340C	= 1;
 u8 D_80133410[] = {0, 1, 2, 3};
 u8 gAudioSpecId = 0;
-u8 D_80133418	= 0;
+u8 gAudioSyncMode	= 0;
 
 // TODO: clean up these macros. They are similar to ones in audio.c but without casts.
 #define Audio_StartSeq(playerIdx, fadeTimer, seqId) \
@@ -657,23 +657,23 @@ void func_800FA3DC(void) {
     }
 }
 
-u8 func_800FAD34(void) {
-    if (D_80133418 != 0) {
-        if (D_80133418 == 1) {
-            if (func_800E5EDC() == 1) {
-                D_80133418 = 0;
+u8 Audio_SyncIfNeeded(void) {
+    if (gAudioSyncMode != 0) {
+        if (gAudioSyncMode == 1) {
+            if (Audio_Sync() == 1) {
+                gAudioSyncMode = 0;
                 Audio_QueueCmdS8(SEQ_CMD_UKN_46 << 24 | 0x00020000, gSfxChannelLayout);
                 func_800F7170();
             }
-        } else if (D_80133418 == 2) {
-            while (func_800E5EDC() != 1) {}
-            D_80133418 = 0;
+        } else if (gAudioSyncMode == 2) {
+            while (Audio_Sync() != 1) {}//Wait for audio sync
+            gAudioSyncMode = 0;
             Audio_QueueCmdS8(SEQ_CMD_UKN_46 << 24 | 0x00020000, gSfxChannelLayout);
             func_800F7170();
         }
     }
 
-    return D_80133418;
+    return gAudioSyncMode;
 }
 
 void Audio_ResetPlayers(void) {

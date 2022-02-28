@@ -489,7 +489,7 @@ s16 func_80A97738(GlobalContext* globalCtx, Actor* thisx) {
                 case 0x10B7:
                 case 0x10B8:
                     if (pthis->unk_210 == 0) {
-                        Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &D_801333D4, 4, &D_801333E0, &D_801333E0,
+                        Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                                &gReverbAdd2);
                         pthis->unk_210 = 1;
                     }

@@ -130,7 +130,7 @@ void DoorAna_WaitClosed(DoorAna* pthis, GlobalContext* globalCtx) {
     if (openGrotto) {
         pthis->actor.params &= ~0x0300;
         DoorAna_SetupAction(pthis, DoorAna_WaitOpen);
-        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+        Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
     func_8002F5F0(&pthis->actor, globalCtx);
 }

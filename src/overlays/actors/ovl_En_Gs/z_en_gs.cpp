@@ -348,13 +348,13 @@ void func_80A4ED34(EnGs* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_200 < 20) {
                 Color_RGBA8_Copy(&pthis->flashColor, &flashRed_42);
                 if ((pthis->unk_200 % 20) == 7) {
-                    Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &D_801333D4, 4, &D_801333E0, &D_801333E0,
+                    Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                            &gReverbAdd2);
                 }
             } else {
                 Color_RGBA8_Copy(&pthis->flashColor, &flashBlue_42);
                 if ((pthis->unk_200 % 20) == 7) {
-                    Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &D_801333D4, 4, &D_801333E0, &D_801333E0,
+                    Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                            &gReverbAdd2);
                 }
             }

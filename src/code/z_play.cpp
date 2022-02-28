@@ -105,7 +105,7 @@ void func_800BC490(GlobalContext* globalCtx, s16 point) {
     globalCtx->unk_1242B = point;
 
     if ((YREG(15) != 0x10) && (gSaveContext.cutsceneIndex < 0xFFF0)) {
-        Audio_PlaySoundGeneral((point == 1) ? NA_SE_SY_CAMERA_ZOOM_DOWN : NA_SE_SY_CAMERA_ZOOM_UP, &D_801333D4, 4,
+        Audio_PlaySoundGeneral((point == 1) ? NA_SE_SY_CAMERA_ZOOM_DOWN : NA_SE_SY_CAMERA_ZOOM_UP, &gAudioDefaultPos, 4,
                                &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 
@@ -780,7 +780,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     break;
 
                 case 13:
-                    Audio_PlaySoundGeneral(NA_SE_EV_SAND_STORM - SFX_FLAG, &D_801333D4, 4, &D_801333E0, &D_801333E0,
+                    Audio_PlaySoundGeneral(NA_SE_EV_SAND_STORM - SFX_FLAG, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                            &gReverbAdd2);
                     if (globalCtx->sceneLoadFlag == -0x14) {
                         if (globalCtx->envCtx.sandstormPrimA < 110) {
@@ -814,7 +814,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                     break;
 
                 case 15:
-                    Audio_PlaySoundGeneral(NA_SE_EV_SAND_STORM - SFX_FLAG, &D_801333D4, 4, &D_801333E0, &D_801333E0,
+                    Audio_PlaySoundGeneral(NA_SE_EV_SAND_STORM - SFX_FLAG, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                            &gReverbAdd2);
                     if (globalCtx->sceneLoadFlag == -0x14) {
                         if (globalCtx->envCtx.sandstormPrimA <= 0) {
@@ -1002,7 +1002,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                         // "Changing viewpoint is prohibited during the cutscene"
                         osSyncPrintf(VT_FGCOL(CYAN) "デモ中につき視点変更を禁止しております\n" VT_RST);
                     } else if (YREG(15) == 0x10) {
-                        Audio_PlaySoundGeneral(NA_SE_SY_ERROR, &D_801333D4, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+                        Audio_PlaySoundGeneral(NA_SE_SY_ERROR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                     } else {
                         func_800BC490(globalCtx, globalCtx->unk_1242B ^ 3);
                     }

@@ -63,7 +63,7 @@ void func_808ABB84(BgSpot01Idomizu* pthis, GlobalContext* globalCtx) {
     }
     globalCtx->colCtx.colHeader->waterBoxes[0].ySurface = pthis->actor.world.pos.y;
     if (pthis->waterHeight < pthis->actor.world.pos.y) {
-        Audio_PlaySoundGeneral(NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG, &D_801333D4, 4, &D_801333E0, &D_801333E0,
+        Audio_PlaySoundGeneral(NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                &gReverbAdd2);
     }
     Math_ApproachF(&pthis->actor.world.pos.y, pthis->waterHeight, 1.0f, 2.0f);

@@ -7,7 +7,7 @@ struct SoundBankEntry;
 
 extern char D_80133390[];
 extern char D_80133398[];
-extern Vec3f D_801333D4;
+extern Vec3f gAudioDefaultPos;
 extern f32 D_801333E0;
 extern s8 gReverbAdd2;
 extern u8 D_801333F0;

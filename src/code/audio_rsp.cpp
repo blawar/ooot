@@ -370,14 +370,7 @@ void Audio_QueueCmdU16(u32 opArgs, u16 data) {
 }
 
 s32 Audio_ScheduleProcessCmds(void) {
-    static s32 D_801304E8 = 0;
-    s32 ret;
-
-    if (D_801304E8 < (u8)((gAudioContext.cmdWrPos - gAudioContext.cmdRdPos) + 0x100)) {
-        D_801304E8 = (u8)((gAudioContext.cmdWrPos - gAudioContext.cmdRdPos) + 0x100);
-    }
-
-    ret =
+    s32 ret =
         osSendMesg(gAudioContext.cmdProcQueueP,
                    (void*)(((gAudioContext.cmdRdPos & 0xFF) << 8) | (gAudioContext.cmdWrPos & 0xFF)), OS_MESG_NOBLOCK);
     if (ret != -1) {
@@ -475,7 +468,7 @@ void func_800E5EA4(s32 arg0, u32* arg1, u32* arg2) {
     *arg2 = gAudioContext.soundFonts[arg0].sampleBankId2;
 }
 
-s32 func_800E5EDC(void) {
+s32 Audio_Sync(void) {
     s32 pad;
     s32 sp18 = 0;
 

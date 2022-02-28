@@ -28,6 +28,6 @@ struct AudioMgr {
     /* 0x00E8 */ OSThread unk_E8;
 }; // size = 0x298
 
-extern Vec3f D_801333D4;
+extern Vec3f gAudioDefaultPos;
 extern f32 D_801333E0;
 extern s8 gReverbAdd2;
