@@ -19,9 +19,15 @@ typedef struct {
     union {
         u32 unk_00;
         struct {
+#ifdef LITTLE_ENDIAN
+		    u32 validModes : 30;
+		    u32 unk_bit1 : 1;
+		    u32 unk_bit0 : 1;
+#else
             u32 unk_bit0 : 1;
             u32 unk_bit1 : 1;
             u32 validModes : 30;
+#endif
         };
     };
     CameraMode* cameraModes;

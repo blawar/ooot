@@ -202,3 +202,10 @@ void func_800359B8(Actor* actor, s16 arg1, Vec3s* arg2);
 u16 func_80037C30(GlobalContext* globalCtx, s16 arg1);
 s32 func_80037D98(GlobalContext* globalCtx, Actor* actor, s16 arg2, s32* arg3);
 s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, Vec3f arg4);
+
+enum PlayerState1
+{
+	PLAYER_STATE_HORSE_MOUNTED = 0x800000,
+	PLAYER_STATE_SWIMMING = 0x8000000
+};
+

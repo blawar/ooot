@@ -183,7 +183,7 @@ struct Player {
     /* 0x066C */ s32        unk_66C;
     /* 0x0670 */ s32        swordEffectIndex;
     /* 0x0674 */ PlayerFunc674 func_674;
-    /* 0x0678 */ PlayerAgeProperties* ageProperties;
+    /* 0x0678 */ const PlayerAgeProperties* ageProperties;
     /* 0x067C */ u32        stateFlags1;//0x8000000 when swimming, 0x800000 when mounted on a horse
     /* 0x0680 */ u32        stateFlags2;
     /* 0x0684 */ Actor*     unk_684;

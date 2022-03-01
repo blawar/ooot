@@ -998,7 +998,7 @@ f32 Actor_HeightDiff(Actor* actorA, Actor* actorB) {
 
 f32 Player_GetHeight(Player* player) {
     //Mounted on a horse?
-    f32 offset = (player->stateFlags1 & 0x800000) ? 32.0f : 0.0f;
+	f32 offset = (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) ? 32.0f : 0.0f;
 
     if (LINK_IS_ADULT) {
         return offset + 68.0f;
@@ -1008,9 +1008,9 @@ f32 Player_GetHeight(Player* player) {
 }
 
 f32 func_8002DCE4(Player* player) {
-    if (player->stateFlags1 & 0x800000) {//When mounted on a horse
+    if (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//When mounted on a horse
         return 8.0f;
-    } else if (player->stateFlags1 & 0x8000000) {//When swimming
+    } else if (player->stateFlags1 & PLAYER_STATE_SWIMMING) {//When swimming
         return (R_RUN_SPEED_LIMIT / 100.0f) * 0.6f;
     } else {
         return R_RUN_SPEED_LIMIT / 100.0f;
@@ -1062,7 +1062,7 @@ void func_8002DE74(GlobalContext* globalCtx, Player* player) {
 
 void Actor_MountHorse(GlobalContext* globalCtx, Player* player, Actor* horse) {
     player->rideActor = horse;
-    player->stateFlags1 |= 0x800000;
+	player->stateFlags1 |= PLAYER_STATE_HORSE_MOUNTED;
     horse->child = &player->actor;
 }
 

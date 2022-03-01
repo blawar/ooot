@@ -325,7 +325,7 @@ void Player_SetBootData(GlobalContext* globalCtx, Player* pthis) {
             currentBoots = PLAYER_BOOTS_NORMAL_CHILD;
         }
     } else if (currentBoots == PLAYER_BOOTS_IRON) {
-        if (pthis->stateFlags1 & 0x8000000) {//Swimming?
+        if (pthis->stateFlags1 & PLAYER_STATE_SWIMMING) {//Swimming?
             currentBoots = PLAYER_BOOTS_IRON_UNDERWATER;
         }
         REG(27) = 500;
@@ -491,7 +491,7 @@ void func_8008EEAC(GlobalContext* globalCtx, Actor* actor) {
 s32 Player_MountedOnHorse(GlobalContext* globalCtx) {
     Player* pthis = GET_PLAYER(globalCtx);
 
-    return (pthis->stateFlags1 & 0x800000);
+    return (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED);
 }
 
 s32 func_8008EF44(GlobalContext* globalCtx, s32 ammo) {
@@ -648,7 +648,7 @@ s32 func_8008F2F8(GlobalContext* globalCtx) {
     } else if ((pthis->unk_840 > 80) &&
                ((pthis->currentBoots == PLAYER_BOOTS_IRON) || (pthis->unk_840 >= 300))) { // Deep underwater
         var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & 1)) ? 1 : 3;
-    } else if (pthis->stateFlags1 & 0x8000000) { // Swimming
+    } else if (pthis->stateFlags1 & PLAYER_STATE_SWIMMING) { // Swimming
         var = 2;
     } else {
         return 0;
@@ -958,7 +958,7 @@ s32 func_80090014(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
             } else if ((D_80160014 == 6) && (pthis->stateFlags1 & 0x2000000)) {
                 dLists = &D_80125E08[gSaveContext.linkAge];
                 D_80160014 = 0;
-            } else if ((pthis->leftHandType == 0) && (pthis->actor.speedXZ > 2.0f) && !(pthis->stateFlags1 & 0x8000000)) {
+            } else if ((pthis->leftHandType == 0) && (pthis->actor.speedXZ > 2.0f) && !(pthis->stateFlags1 & PLAYER_STATE_SWIMMING)) {
                 dLists = &D_80125E18[gSaveContext.linkAge];
                 D_80160014 = 1;
             }
@@ -969,7 +969,7 @@ s32 func_80090014(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 
             if (D_80160018 == 10) {
                 dLists += pthis->currentShield * 4;
-            } else if ((pthis->rightHandType == 8) && (pthis->actor.speedXZ > 2.0f) && !(pthis->stateFlags1 & 0x8000000)) {
+            } else if ((pthis->rightHandType == 8) && (pthis->actor.speedXZ > 2.0f) && !(pthis->stateFlags1 & PLAYER_STATE_SWIMMING)) {
                 dLists = &D_80125E58[gSaveContext.linkAge];
                 D_80160018 = 9;
             }

@@ -548,7 +548,7 @@ s32 Camera_GetWaterBoxDataIdx(Camera* camera, f32* waterY) {
         return -1;
     }
 
-    if (!(camera->player->stateFlags1 & 0x8000000)) {
+    if (!(camera->player->stateFlags1 & PLAYER_STATE_SWIMMING)) {
         // player is not swimming
         *waterY = BGCHECK_Y_MIN;
         return -1;
