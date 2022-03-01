@@ -11,6 +11,7 @@
 #include "z64audio.h"
 #include "controller/controllers.h"
 #include "def/audio_rsp.h"
+#include "def/audioMgr.h"
 
 static std::unique_ptr<platform::window::Base> gWindow;
 
@@ -149,6 +150,8 @@ void main_func(void)
 	inited = 1;
 
 	Graph_ThreadEntry(0);
+
+	AudioMgr_Shutdown();
 
 	gfx_shutdown();
 }

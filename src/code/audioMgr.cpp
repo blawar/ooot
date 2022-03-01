@@ -91,6 +91,7 @@ void audio_int()
 }
 
 static AudioTask* g_currentAudioTask = nullptr;
+static bool g_aziInit = false;
 
 void audio_thread()
 {
@@ -100,7 +101,7 @@ void audio_thread()
 
 	const auto interval = std::chrono::microseconds(1000 * 1000 / 60);
 	auto targetTime	    = std::chrono::high_resolution_clock::now() + interval;
-	while(true)
+	while(g_aziInit)
 	{
 		if(std::chrono::high_resolution_clock::now() > targetTime)
 		{
@@ -122,8 +123,6 @@ void audio_thread()
 }
 
 std::unique_ptr<std::thread> t1;
-
-static bool g_aziInit = false;
 
 void azi_init()
 {
@@ -165,4 +164,18 @@ void AudioMgr_Init(AudioMgr* audioMgr, void* stack, OSPri pri, OSId id, SchedCon
     Audio_InitSound();
 
     t1 = std::make_unique<std::thread>(audio_thread);
+}
+
+void AudioMgr_Shutdown()
+{
+	Sleep(500);//Wait until the audio buffer finishes playing
+
+	CloseDLL();//Shut down Azi
+
+	Sleep(1000);//Keep the audio thread open a bit longer
+
+	g_aziInit = false;//Thread closes now
+
+	if (t1->joinable())
+		t1->join();
 }
