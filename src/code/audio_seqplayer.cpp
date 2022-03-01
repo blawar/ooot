@@ -1522,6 +1522,310 @@ exit_loop:
             AudioSeq_SeqLayerProcessScript(channel->layers[i]);
         }
     }
+
+
+#ifdef DEBUG_AUDIO_PRINT//Debug output
+#ifdef DEBUG_PRINT
+    auto GetInstrumentName = [](int font, int instr) {
+        if (font == 0 && instr == 0)
+            return "Ground";//Step - Ground
+        if (font == 0 && instr == 1)
+            return "Step - Sand";
+        if (font == 0 && instr == 2)
+            return "Step - Rock";
+        if (font == 0 && instr == 3)
+            return "Step - Wet Dirt";
+        if (font == 0 && instr == 4)
+            return "Step - Water";
+        if (font == 0 && instr == 5)
+            return "Step - Carpet";
+        if (font == 0 && instr == 6)
+            return "Step - Thick Carpet";
+        if (font == 0 && instr == 7)
+            return "Step - Tall Grass";
+        if (font == 0 && instr == 11)
+            return "Wood Tap";
+        if (font == 0 && instr == 8)
+            return "Synth Pad Sting";
+        if (font == 0 && instr == 9)
+            return "Small Splash";
+        if (font == 0 && instr == 10)
+            return "Crunchy Drop";
+        if (font == 0 && instr == 12)
+            return "Sliding Block";
+        if (font == 0 && instr == 13)
+            return "Boots Sliding";
+        if (font == 0 && instr == 14)
+            return "Heavy Slide";
+        if (font == 0 && instr == 16)
+            return "Staticky Sound";
+        if (font == 0 && instr == 17)
+            return "Distorted Sound";
+        if (font == 0 && instr == 18)
+            return "Rushing Water";
+        if (font == 0 && instr == 19)
+            return "Large Water Splash";
+        if (font == 0 && instr == 20)
+            return "Swimming";
+        if (font == 0 && instr == 21)
+            return "Crash and Gunshot";
+        if (font == 0 && instr == 22)
+            return "Step - Wood + Metal";
+        if (font == 0 && instr == 23)
+            return "Step - Fire";
+        if (font == 0 && instr == 24)
+            return "Iron Boots 2";
+        if (font == 0 && instr == 25)
+            return "Step - Wet Rock";
+        if (font == 0 && instr == 15)
+            return "Crackling Fire (Keese)";
+        if (font == 0 && instr == 26)
+            return "Sword Strike";
+        if (font == 0 && instr == 27)
+            return "Sword Miss";
+        if (font == 0 && instr == 28)
+            return "Put Away Sword";
+        if (font == 0 && instr == 29)
+            return "Draw Sword";
+        if (font == 0 && instr == 30)
+            return "Swing Sword";
+        if (font == 0 && instr == 31)
+            return "Air Whistle";
+        if (font == 0 && instr == 33)
+            return "Bow Sounds";
+        if (font == 0 && instr == 32)
+            return "Metallic Strike";
+        if (font == 0 && instr == 34)
+            return "Moving Metal Chain";
+        if (font == 0 && instr == 35)
+            return "Bomb Fuses";
+        if (font == 0 && instr == 36)
+            return "Heavy Thump";
+        if (font == 0 && instr == 52)
+            return "Ocarina 1";
+        if (font == 0 && instr == 53)
+            return "Ocarina 2";
+        if (font == 0 && instr == 37)
+            return "Egg Hatches";
+        if (font == 0 && instr == 38)
+            return "Arrow Thunk";
+        if (font == 0 && instr == 39)
+            return "Air Whoosh";
+        if (font == 0 && instr == 40)
+            return "Muffled Crunch";
+        if (font == 0 && instr == 41)
+            return "Whip and Cork";
+        if (font == 0 && instr == 42)
+            return "Buzzing Synth";
+        if (font == 0 && instr == 43)
+            return "Dirt Sound";
+        if (font == 0 && instr == 44)
+            return "Eye of Truth";
+        if (font == 0 && instr == 45)
+            return "Wooden Door";
+        if (font == 0 && instr == 47)
+            return "Explosion 1";
+        if (font == 0 && instr == 48)
+            return "Gallop";
+        if (font == 0 && instr == 50)
+            return "Horse Sounds";
+        if (font == 0 && instr == 51)
+            return "Water Sounds";
+        if (font == 0 && instr == 54)
+            return "Metal Door and Stone Shift";
+        if (font == 0 && instr == 55)
+            return "Rolling Boulder";
+        if (font == 0 && instr == 56)
+            return "Bubbling Lava";
+        if (font == 0 && instr == 57)
+            return "Retracting Metal Chain";
+        if (font == 0 && instr == 58)
+            return "Animal Sounds";
+        if (font == 0 && instr == 59)
+            return "Closed Stone Door";
+        if (font == 0 && instr == 61)
+            return "Animal Cries";
+        if (font == 0 && instr == 62)
+            return "Water Splish";
+        if (font == 0 && instr == 63)
+            return "Wooden Strike";
+        if (font == 0 && instr == 64)
+            return "Flying Fairy";
+        if (font == 0 && instr == 65)
+            return "Settled Stone Block";
+        if (font == 0 && instr == 66)
+            return "Creaking Sounds";
+        if (font == 0 && instr == 67)
+            return "Low Swooshing Sound";
+        if (font == 0 && instr == 68)
+            return "Warp Circle Ambience";
+        if (font == 0 && instr == 69)
+            return "Fairy Magic";
+        if (font == 0 && instr == 70)
+            return "Broken Pottery + Charge-up";
+        if (font == 0 && instr == 71)
+            return "Water Drips";
+        if (font == 0 && instr == 72)
+            return "Underwater Bubbles";
+        if (font == 0 && instr == 73)
+            return "Fire and Cow";
+        if (font == 0 && instr == 74)
+            return "Flames and Thunder";
+        if (font == 0 && instr == 75)
+            return "Heavy Platform Rotating";
+        if (font == 0 && instr == 76)
+            return "Light Rock Slam";
+        if (font == 0 && instr == 77)
+            return "Mechanical Ramp-Up";
+        if (font == 0 && instr == 78)
+            return "Flapping Cloak";
+        if (font == 0 && instr == 60)
+            return "Short Howling Wind";
+        if (font == 0 && instr == 79)
+            return "People Chattering";
+        if (font == 0 && instr == 80)
+            return "Tearing Cloth";
+        if (font == 0 && instr == 81)
+            return "Dodongos and Dogs";
+        if (font == 0 && instr == 46)
+            return "Shim Treas";//Shimmering Treasure
+        if (font == 0 && instr == 84)
+            return "Dialog Cont";//Dialogue Continue
+        if (font == 0 && instr == 87)
+            return "Fail Song+Bells";//Failed Song and Bells
+        if (font == 0 && instr == 88)
+            return "Reed Whistle";
+        if (font == 0 && instr == 89)
+            return "Harp";
+        if (font == 0 && instr == 90)
+            return "Targeting";//Targeting Sounds
+        if (font == 0 && instr == 85)
+            return "Malon";
+        if (font == 0 && instr == 86)
+            return "Whistle";
+        if (font == 0 && instr == 82)
+            return "Pan Flute";
+
+        if (font == 3 && instr == 1)
+            return "Pan Flute";
+        if (font == 3 && instr == 2)
+            return "Oboe";
+        if (font == 3 && instr == 3)
+            return "Clarinet";
+        if (font == 3 && instr == 4)
+            return "Bassoon";
+        if (font == 3 && instr == 5)
+            return "Horn";
+        if (font == 3 && instr == 6)
+            return "Trumpet";
+        if (font == 3 && instr == 7)
+            return "Tromb";//Trombone
+        if (font == 3 && instr == 8)
+            return "Tuba";
+        if (font == 3 && instr == 9)
+            return "Glockensp";//Glockenspiel
+        if (font == 3 && instr == 10)
+            return "Strings 1";
+        if (font == 3 && instr == 11)
+            return "Strings 2";
+        if (font == 3 && instr == 12)
+            return "Pizzi Strin";//Pizzicato Strings
+        if (font == 3 && instr == 13)
+            return "Piano";
+        if (font == 3 && instr == 14)
+            return "Harp";
+        if (font == 3 && instr == 15)
+            return "Marimba";
+
+        if (font == 6 && instr == 1)
+            return "Ocarina";
+        if (font == 6 && instr == 10)
+            return "Strings 1";
+        if (font == 6 && instr == 11)
+            return "Strings 2";
+        if (font == 6 && instr == 13)
+            return "Piano";
+        if (font == 6 && instr == 14)
+            return "Sust Piano";//Sustained Piano
+
+        if (font == 7 && instr == 0)
+            return "Rumb Insides";//Rumbling Insides
+        if (font == 7 && instr == 2)
+            return "Sweep Pad";
+        if (font == 7 && instr == 3)
+            return "Gurgling 1";
+        if (font == 7 && instr == 4)
+            return "Gurgling 2";
+
+        if (font == 9 && instr == 0)
+            return "Harp 1";
+        if (font == 9 && instr == 1)
+            return "Harp 2";
+        if (font == 9 && instr == 2)
+            return "Harp 3";
+        if (font == 9 && instr == 3)
+            return "Harp 4";
+        if (font == 9 && instr == 4)
+            return "Strings 1";
+        if (font == 9 && instr == 5)
+            return "Ocarina";
+        if (font == 9 && instr == 6)
+            return "Vocals 1";
+        if (font == 9 && instr == 7)
+            return "Vocals 2";
+        if (font == 9 && instr == 8)
+            return "Glockens";//Glockenspiel
+        if (font == 9 && instr == 10)
+            return "Strings 2";
+        if (font == 9 && instr == 11)
+            return "Strings 3";
+        if (font == 9 && instr == 12)
+            return "Pizzi Strin";//Pizzicato Strings
+
+        return "???";
+    };
+
+
+    for (i = 0; i < ARRAY_COUNT(seqPlayer->channels); i++)
+    {
+        auto& channel = seqPlayer->channels[i];
+
+        if (!seqPlayer->channels[i]->enabled)
+            continue;
+
+        for (int j = 0; j < ARRAY_COUNT(channel->layers); j++)
+        {
+            auto& layer = channel->layers[j];
+            if (layer == NULL || !layer->enabled)
+                continue;
+
+            auto& instrument = channel->instrument;
+            int volume = (int)(channel->appliedVolume * 100.0f);
+
+            if (layer->delay > 5)//Not being played
+                continue;
+            if (volume <= 5)//Too silent
+                continue;
+
+            char buffer[256];
+
+            if (instrument && instrument != (Instrument*)1 && instrument != (Instrument*)2)
+            {
+                char name[128];
+                sprintf(name, GetInstrumentName(channel->fontId, instrument->id));
+
+                sprintf(buffer, "Ch%dL%dF%dI%d %s %s %d\n",
+                    i, j, channel->fontId, instrument->id, channel->instOrWave ? "Ins" : "Wav", name, volume);
+            }
+            else
+                sprintf(buffer, "[Ch%d L%d] Font %d (%s)\n",
+                    i, j, channel->fontId, channel->instOrWave ? "Inst." : "Wav");
+
+            Debug_Print(buffer);
+        }
+    }
+#endif
+#endif
 }
 
 void AudioSeq_SequencePlayerProcessSequence(SequencePlayer* seqPlayer) {
