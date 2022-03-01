@@ -16,6 +16,8 @@
 #include <chrono>
 #include "../../AziAudio/AziAudio/AudioSpec.h"
 
+HardwareRegisters hw_regs;
+
 extern u32 osTvType;
 
 extern OSViMode osViModePalLan1;
@@ -450,7 +452,7 @@ s32 osAiSetNextBuffer(void* buf, u32 size)
 	}
 
 	// Originally a call to __osAiDeviceBusy
-	status = HW_REG(AI_STATUS_REG, s32);
+	status = hw_regs.AI_STATUS_REG;
 	if(status & AI_STATUS_AI_FULL)
 	{
 		return -1;
@@ -458,8 +460,8 @@ s32 osAiSetNextBuffer(void* buf, u32 size)
 
 	// OS_K0_TO_PHYSICAL replaces osVirtualToPhysical, this replacement
 	// assumes that only KSEG0 addresses are given
-	HW_REG(AI_DRAM_ADDR_REG, u32) = bufAdjusted;
-	HW_REG(AI_LEN_REG, u32)	      = size;
+	hw_regs.AI_DRAM_ADDR_REG = bufAdjusted;
+	hw_regs.AI_LEN_REG	      = size;
 	AiLenChanged();
 	return 0;
 }
@@ -469,7 +471,7 @@ extern s32 osViClock;
 u32 osAiGetLength()
 {
 	AiReadLength();
-	return HW_REG(AI_LEN_REG, u32);
+	return hw_regs.AI_LEN_REG;
 }
 
 s32 osAiSetFrequency(u32 frequency)
@@ -490,28 +492,10 @@ s32 osAiSetFrequency(u32 frequency)
 		bitrate = 16;
 	}
 
-	HW_REG(AI_DACRATE_REG, u32) = dacRate - 1;
-	HW_REG(AI_BITRATE_REG, u32) = bitrate - 1;
+	hw_regs.AI_DACRATE_REG = dacRate - 1;
+	hw_regs.AI_BITRATE_REG = bitrate - 1;
 	AiDacrateChanged(SYSTEM_NTSC);
 	return osViClock / (s32)dacRate;
-}
-
-#include <unordered_map>
-
-static std::unordered_map<u32, uintptr_t> gRegisterMap;
-
-uintptr_t& hw_reg(u32 reg)
-{
-	if(reg == AI_DACRATE_REG || reg == AI_BITRATE_REG || reg == AI_LEN_REG)
-	{
-		int x = 0;
-	}
-	if(gRegisterMap.size() == 0)
-	{
-		gRegisterMap.reserve(64);
-	}
-
-	return gRegisterMap[reg];
 }
 
 void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 count)

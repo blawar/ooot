@@ -49,7 +49,7 @@ void audio_int()
 	 *AudioInfo.MI_INTR_REG |= MI_INTR_AI;
 	 */
 	/*
-	uint32_t mi_intr_reg = HW_REG(MI_INTR_REG, u32), status_register;
+	uint32_t mi_intr_reg = hw_regs.MI_INTR_REG, status_register;
 
 		mi_intr_reg &= ~MI_INTR_AI;
 		mi_intr_reg |= (m_AudioIntrReg & MI_INTR_AI);
@@ -64,8 +64,8 @@ void audio_int()
 	{
 		FAKE_CAUSE_REGISTER &= ~CAUSE_IP2;
 	}
-	HW_REG(MI_INTR_REG, u32) = mi_intr_reg;
-	status_register = HW_REG(AI_STATUS_REG, u32);
+	hw_regs.MI_INTR_REG = mi_intr_reg;
+	status_register = hw_regs.AI_STATUS_REG;
 
 	if((status_register & STATUS_IE) == 0)
 	{
@@ -135,18 +135,18 @@ void azi_init()
 	AUDIO_INFO Audio_Info;
 	memset(&Audio_Info, 0, sizeof(Audio_Info));
 
-	HW_REG(AI_CONTROL_REG, u32) = 1;
-	HW_REG(AI_DACRATE_REG, u32) = 0x3FFF;
-	HW_REG(AI_BITRATE_REG, u32) = 0xF;
+	hw_regs.AI_CONTROL_REG = 1;
+	hw_regs.AI_DACRATE_REG = 0x3FFF;
+	hw_regs.AI_BITRATE_REG = 0xF;
 
 	Audio_Info.hwnd		    = GetActiveWindow();
-	Audio_Info.AI_DRAM_ADDR_REG = &HW_REG(AI_DRAM_ADDR_REG, u32);
-	Audio_Info.AI_LEN_REG	    = &HW_REG(AI_LEN_REG, u32);
-	Audio_Info.AI_CONTROL_REG   = &HW_REG(AI_CONTROL_REG, u32);
-	Audio_Info.AI_STATUS_REG    = &HW_REG(AI_STATUS_REG, u32);
-	Audio_Info.AI_DACRATE_REG   = &HW_REG(AI_DACRATE_REG, u32);
-	Audio_Info.AI_BITRATE_REG   = &HW_REG(AI_BITRATE_REG, u32);
-	Audio_Info.MI_INTR_REG	    = &HW_REG(MI_INTR_REG, u32);
+	Audio_Info.AI_DRAM_ADDR_REG = &hw_regs.AI_DRAM_ADDR_REG;
+	Audio_Info.AI_LEN_REG	    = &hw_regs.AI_LEN_REG;
+	Audio_Info.AI_CONTROL_REG   = &hw_regs.AI_CONTROL_REG;
+	Audio_Info.AI_STATUS_REG    = (u32*)&hw_regs.AI_STATUS_REG;
+	Audio_Info.AI_DACRATE_REG   = &hw_regs.AI_DACRATE_REG;
+	Audio_Info.AI_BITRATE_REG   = &hw_regs.AI_BITRATE_REG;
+	Audio_Info.MI_INTR_REG	    = &hw_regs.MI_INTR_REG;
 	Audio_Info.CheckInterrupts  = audio_int;
 
 	InitiateAudio(Audio_Info);
