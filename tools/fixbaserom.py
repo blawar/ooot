@@ -197,8 +197,8 @@ if conf.rom.FILE_TABLE_OFFSET:
 
 # Check to see if the ROM is a "vanilla" Debug ROM
 str_hash = get_str_hash(bytearray(fileContent))
-if str_hash != conf.rom.hash_md5:
-    print("Error: Expected a hash of %s but got %s. The baserom has probably been tampered, find a new one" % (conf.rom.hash_md5, str_hash))
+if str_hash.lower() not in conf.rom.hash_md5:
+    print("Error: Expected a hash of %s but got %s. The baserom has probably been tampered, find a new one" % (', '.join(conf.rom.hash_md5), str_hash))
 
     cancel()
 
