@@ -122,7 +122,7 @@ void audio_thread()
 	}
 }
 
-std::unique_ptr<std::thread> t1;
+std::thread t1;
 
 void azi_init()
 {
@@ -163,7 +163,7 @@ void AudioMgr_Init(AudioMgr* audioMgr, void* stack, OSPri pri, OSId id, SchedCon
     //AudioLoad_SetDmaHandler(DmaMgr_DmaHandler);
     Audio_InitSound();
 
-    t1 = std::make_unique<std::thread>(audio_thread);
+    t1 = std::thread(audio_thread);
 }
 
 void AudioMgr_Shutdown()
@@ -176,6 +176,6 @@ void AudioMgr_Shutdown()
 
 	g_aziInit = false;//Thread closes now
 
-	if (t1->joinable())
-		t1->join();
+	if (t1.joinable())
+		t1.join();
 }
