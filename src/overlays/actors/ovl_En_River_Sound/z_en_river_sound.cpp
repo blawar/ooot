@@ -256,7 +256,7 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Audio_PlaySariaBgm(&pthis->actor.home.pos, NA_BGM_GREAT_FAIRY, 800);
     } else if ((pthis->actor.params == RS_SANDSTORM) || (pthis->actor.params == RS_CHAMBER_OF_SAGES_1) ||
                (pthis->actor.params == RS_CHAMBER_OF_SAGES_2) || (pthis->actor.params == RS_RUMBLING)) {
-        func_800788CC(soundEffects_23[pthis->actor.params]);
+        Common_PlaySfx2(soundEffects_23[pthis->actor.params]);
     } else {
         Audio_PlayActorSound2(&pthis->actor, soundEffects_23[pthis->actor.params]);
     }

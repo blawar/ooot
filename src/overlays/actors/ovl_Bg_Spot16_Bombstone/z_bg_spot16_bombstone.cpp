@@ -484,7 +484,7 @@ void action_808B5A94(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     func_808B5240(pthis, globalCtx);
 
     if (pthis->counter == 56) {
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
     }
 
     if (pthis->counter > 60) {

@@ -2517,7 +2517,7 @@ void BossSst_HandSetInvulnerable(BossSst* pthis, s32 isInv) {
 }
 
 void BossSst_HeadSfx(BossSst* pthis, u16 sfxId) {
-    func_80078914(&pthis->center, sfxId);
+    Common_PlaySfxAtPos(&pthis->center, sfxId);
 }
 
 void BossSst_HandCollisionCheck(BossSst* pthis, GlobalContext* globalCtx) {

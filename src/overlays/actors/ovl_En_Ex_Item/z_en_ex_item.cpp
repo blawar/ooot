@@ -172,7 +172,7 @@ void EnExItem_WaitForObject(EnExItem* pthis, GlobalContext* globalCtx) {
                 pthis->prizeRotateTimer = 35;
                 pthis->scale = 0.5f;
                 if (!onCounter) {
-                    func_80078884(NA_SE_SY_PIECE_OF_HEART);
+                    Common_PlaySfx(NA_SE_SY_PIECE_OF_HEART);
                     pthis->actionFunc = EnExItem_BowlPrize;
                 } else {
                     pthis->actionFunc = EnExItem_SetupBowlCounter;

@@ -719,7 +719,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx) {
             }
 
             if (pthis->unk_1BC != 0) {
-                func_80078884(NA_SE_EN_DODO_K_WALK);
+                Common_PlaySfx(NA_SE_EN_DODO_K_WALK);
             } else {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_WALK);
             }

@@ -2174,7 +2174,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
                     D_80B7E11C = 0.5f;
                     D_80B7E118 = Rand_ZeroFloat(1.9f);
                     sFishMouthOffset.y = 500.0f;
-                    func_80078914(&D_80B7AF94, NA_SE_IT_SWORD_SWING_HARD);
+                    Common_PlaySfxAtPos(&D_80B7AF94, NA_SE_IT_SWORD_SWING_HARD);
                 }
             }
             break;
@@ -2194,7 +2194,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
                 D_80B7E0E8.x *= 0.9f;
                 D_80B7E0E8.z *= 0.9f;
                 if (D_80B7A68C == 0) {
-                    func_80078884(NA_SE_IT_FISHING_REEL_HIGH - SFX_FLAG);
+                    Common_PlaySfx(NA_SE_IT_FISHING_REEL_HIGH - SFX_FLAG);
                 }
             }
 
@@ -2249,7 +2249,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
                     D_80B7E154 = 0.0;
                 } else {
                     Math_ApproachF(&D_80B7E148, 0.0f, 1.0f, 0.05f);
-                    func_80078914(&D_80B7AF94, NA_SE_EN_FANTOM_FLOAT - SFX_FLAG);
+                    Common_PlaySfxAtPos(&D_80B7AF94, NA_SE_EN_FANTOM_FLOAT - SFX_FLAG);
                 }
             } else {
                 spE4 = WATER_SURFACE_Y(globalCtx);
@@ -2267,7 +2267,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
 
                     if ((sLurePos.y <= spE4) && (spE4 < spE0) && (spE4 == WATER_SURFACE_Y(globalCtx))) {
                         D_80B7E114 = 10;
-                        func_80078914(&D_80B7AF94, NA_SE_EV_BOMB_DROP_WATER);
+                        Common_PlaySfxAtPos(&D_80B7AF94, NA_SE_EV_BOMB_DROP_WATER);
                         D_80B7E0F8.y = 0.0f;
                         D_80B7E0E8.y *= 0.2f;
 
@@ -2293,7 +2293,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
                     }
                 } else {
                     Math_ApproachZeroF(&D_80B7E148, 1.0f, 0.05f);
-                    func_80078914(&D_80B7AF94, NA_SE_EN_FANTOM_FLOAT - SFX_FLAG);
+                    Common_PlaySfxAtPos(&D_80B7AF94, NA_SE_EN_FANTOM_FLOAT - SFX_FLAG);
                 }
             }
 
@@ -2426,7 +2426,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
                     sLureRot.x = 0.0f;
                     if (CHECK_BTN_ALL(input->press.button, BTN_B)) {
                         D_80B7E144 += 6.0f;
-                        func_80078914(&D_80B7AF94, NA_SE_PL_WALK_SAND);
+                        Common_PlaySfxAtPos(&D_80B7AF94, NA_SE_PL_WALK_SAND);
                     }
                 } else {
                     if (D_80B7E144 > 150.0f) {
@@ -2507,11 +2507,11 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
             if (CHECK_BTN_ALL(input->cur.button, BTN_A)) {
                 if (CHECK_BTN_ALL(input->cur.button, BTN_R)) {
                     D_80B7E144 += 1.5f;
-                    func_80078884(NA_SE_IT_FISHING_REEL_HIGH - SFX_FLAG);
+                    Common_PlaySfx(NA_SE_IT_FISHING_REEL_HIGH - SFX_FLAG);
                     Math_ApproachF(&D_80B7E154, 1000.0f, 1.0f, 2.0f);
                 } else {
                     D_80B7E144 += D_80B7E11C;
-                    func_80078884(NA_SE_IT_FISHING_REEL_SLOW - SFX_FLAG);
+                    Common_PlaySfx(NA_SE_IT_FISHING_REEL_SLOW - SFX_FLAG);
                     Math_ApproachF(&D_80B7E154, 1000.0f, 1.0f, 0.2f);
                 }
 
@@ -2569,7 +2569,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
                 } else {
                     D_80B7E144 += D_80B7E11C;
                 }
-                func_80078884(NA_SE_IT_FISHING_REEL_SLOW - SFX_FLAG);
+                Common_PlaySfx(NA_SE_IT_FISHING_REEL_SLOW - SFX_FLAG);
             }
 
             if ((D_80B7E0AE & 0x1F) == 0) {
@@ -3469,7 +3469,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
             } else if (sp124 < 10.0f) {
                 if (sLurePos.y > (WATER_SURFACE_Y(globalCtx) - 10.0f)) {
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_JUMP_OUT_WATER);
-                    func_80078884(NA_SE_PL_CATCH_BOOMERANG);
+                    Common_PlaySfx(NA_SE_PL_CATCH_BOOMERANG);
                 }
 
                 func_80B70A2C(pthis, globalCtx, false);
@@ -3547,7 +3547,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                     Rumble_Shake2(0.0f, spA4, 120, 5);
                     D_80B7E0A4 = 40;
                     D_80B7FDA8 = 10;
-                    func_80078884(NA_SE_IT_FISHING_HIT);
+                    Common_PlaySfx(NA_SE_IT_FISHING_HIT);
                 }
             }
 
@@ -5151,7 +5151,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
         sSinkingLureLocation = 0;
         D_80B7A6CC = 20;
         Rumble_Shake2(0.0f, 150, 10, 10);
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x1400FF);
     }
 
@@ -5160,7 +5160,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
         D_80B7E0B6 = 0;
         D_80B7A6CC = 20;
         Rumble_Shake2(0.0f, 150, 10, 10);
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x1400FF);
     }
 
@@ -5238,9 +5238,9 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
                     }
 
                     if ((D_80B7E088 == 0) || (D_80B7E088 == 3)) {
-                        func_80078884(NA_SE_SY_CAMERA_ZOOM_DOWN);
+                        Common_PlaySfx(NA_SE_SY_CAMERA_ZOOM_DOWN);
                     } else {
-                        func_80078884(NA_SE_SY_CAMERA_ZOOM_UP);
+                        Common_PlaySfx(NA_SE_SY_CAMERA_ZOOM_UP);
                     }
                 }
             }
@@ -5618,7 +5618,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2) {
     SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &sStreamSoundPos, &sStreamSoundProjectedPos,
                                  &sProjectedW);
 
-    func_80078914(&sStreamSoundProjectedPos, NA_SE_EV_WATER_WALL - SFX_FLAG);
+    Common_PlaySfxAtPos(&sStreamSoundProjectedPos, NA_SE_EV_WATER_WALL - SFX_FLAG);
 
     gSaveContext.minigameScore = (SQ((f32)D_80B7A678) * 0.0036f) + 0.5f;
 

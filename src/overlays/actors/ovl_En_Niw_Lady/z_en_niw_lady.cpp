@@ -274,7 +274,7 @@ void func_80ABA244(EnNiwLady* pthis, GlobalContext* globalCtx) {
         osSyncPrintf("\n\n");
         if (Text_GetFaceReaction(globalCtx, 8) == 0) {
             if (pthis->actor.textId == 0x503C) {
-                func_80078884(NA_SE_SY_ERROR);
+                Common_PlaySfx(NA_SE_SY_ERROR);
                 pthis->unk_26C = 2;
                 pthis->unk_262 = TEXT_STATE_EVENT;
                 pthis->actionFunc = func_80ABA654;
@@ -282,7 +282,7 @@ void func_80ABA244(EnNiwLady* pthis, GlobalContext* globalCtx) {
             }
             pthis->unk_26E = phi_s1 + 1;
             if (phi_s1 == 7) {
-                func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                 pthis->unk_26C = 1;
                 pthis->unk_262 = TEXT_STATE_EVENT;
                 pthis->unk_26A = pthis->cuccosInPen;
@@ -295,9 +295,9 @@ void func_80ABA244(EnNiwLady* pthis, GlobalContext* globalCtx) {
             }
             if (pthis->unk_26A != pthis->cuccosInPen) {
                 if (pthis->cuccosInPen < pthis->unk_26A) {
-                    func_80078884(NA_SE_SY_ERROR);
+                    Common_PlaySfx(NA_SE_SY_ERROR);
                 } else if (phi_s1 + 1 < 9) {
-                    func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                    Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                 }
             }
             if (pthis->unk_26A < pthis->cuccosInPen) {
@@ -378,7 +378,7 @@ void func_80ABA878(EnNiwLady* pthis, GlobalContext* globalCtx) {
     if (Actor_ProcessTalkRequest(&pthis->actor, globalCtx)) {
         playerExchangeItemId = func_8002F368(globalCtx);
         if ((playerExchangeItemId == 6) && (gSaveContext.eventChkInf[6] & 0x400)) {
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
             player->actor.textId = sTradeItemTextIds[5];
             pthis->unk_26E = pthis->unk_27A + 21;
             pthis->unk_262 = TEXT_STATE_CHOICE;

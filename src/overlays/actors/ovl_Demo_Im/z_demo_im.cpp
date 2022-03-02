@@ -448,7 +448,7 @@ void func_80985860(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809858A8(void) {
-    func_800788CC(NA_SE_SY_WHITE_OUT_T);
+    Common_PlaySfx2(NA_SE_SY_WHITE_OUT_T);
 }
 
 void DemoIm_SpawnLightBall(DemoIm* pthis, GlobalContext* globalCtx) {

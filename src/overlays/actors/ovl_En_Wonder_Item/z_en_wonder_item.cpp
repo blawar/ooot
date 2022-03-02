@@ -94,7 +94,7 @@ void EnWonderItem_DropCollectible(EnWonderItem* pthis, GlobalContext* globalCtx,
     s32 i;
     s32 randomDrop;
 
-    func_80078884(NA_SE_SY_GET_ITEM);
+    Common_PlaySfx(NA_SE_SY_GET_ITEM);
 
     if (pthis->dropCount == 0) {
         pthis->dropCount++;

@@ -222,7 +222,7 @@ void EnHintnuts_SetupFreeze(EnHintnuts* pthis) {
     pthis->animFlagAndTimer = 0;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_FAINT);
     if (sPuzzleCounter == -3) {
-        func_80078884(NA_SE_SY_ERROR);
+        Common_PlaySfx(NA_SE_SY_ERROR);
         sPuzzleCounter = -4;
     }
     pthis->actionFunc = EnHintnuts_Freeze;

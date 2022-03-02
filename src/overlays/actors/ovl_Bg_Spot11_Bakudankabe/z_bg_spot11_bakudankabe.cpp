@@ -151,7 +151,7 @@ void BgSpot11Bakudankabe_Update(Actor* thisx, GlobalContext* globalCtx) {
         func_808B2218(pthis, globalCtx);
         Flags_SetSwitch(globalCtx, (pthis->dyna.actor.params & 0x3F));
         Audio_PlaySoundAtPosition(globalCtx, &D_808B2738, 40, NA_SE_EV_WALL_BROKEN);
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         Actor_Kill(&pthis->dyna.actor);
         return;
     }

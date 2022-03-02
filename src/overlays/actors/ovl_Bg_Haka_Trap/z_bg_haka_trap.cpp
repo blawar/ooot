@@ -567,7 +567,7 @@ void BgHakaTrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
         sp2C.y = pthis->dyna.actor.world.pos.y + 110.0f;
 
         SkinMatrix_Vec3fMtxFMultXYZ(&globalCtx->viewProjectionMtxF, &sp2C, &pthis->unk_16C);
-        func_80078914(&pthis->unk_16C, NA_SE_EV_BRIDGE_CLOSE - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->unk_16C, NA_SE_EV_BRIDGE_CLOSE - SFX_FLAG);
     }
 }
 

@@ -751,7 +751,7 @@ void EnOssan_ChooseTalkToOwner(GlobalContext* globalCtx, EnOssan* pthis) {
 }
 
 void EnOssan_SetLookToShopkeeperFromShelf(GlobalContext* globalCtx, EnOssan* pthis) {
-    func_80078884(NA_SE_SY_CURSOR);
+    Common_PlaySfx(NA_SE_SY_CURSOR);
     pthis->drawCursor = 0;
     pthis->stateFlag = OSSAN_STATE_LOOK_SHOPKEEPER;
 }
@@ -925,7 +925,7 @@ void EnOssan_State_StartConversation(EnOssan* pthis, GlobalContext* globalCtx, P
             }
         }
     } else if (dialogState == TEXT_STATE_EVENT && Message_ShouldAdvance(globalCtx)) {
-        func_80078884(NA_SE_SY_MESSAGE_PASS);
+        Common_PlaySfx(NA_SE_SY_MESSAGE_PASS);
 
         switch (pthis->happyMaskShopState) {
             case OSSAN_HAPPY_STATE_ALL_MASKS_SOLD:
@@ -977,7 +977,7 @@ void EnOssan_State_FacingShopkeeper(EnOssan* pthis, GlobalContext* globalCtx, Pl
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE) &&
         !EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->state.input[0])) {
         if (Message_ShouldAdvance(globalCtx) && EnOssan_FacingShopkeeperDialogResult(pthis, globalCtx)) {
-            func_80078884(NA_SE_SY_DECIDE);
+            Common_PlaySfx(NA_SE_SY_DECIDE);
             return;
         }
         // Stick Left
@@ -988,7 +988,7 @@ void EnOssan_State_FacingShopkeeper(EnOssan* pthis, GlobalContext* globalCtx, Pl
                 pthis->stateFlag = OSSAN_STATE_LOOK_SHELF_LEFT;
                 Interface_SetDoAction(globalCtx, DO_ACTION_DECIDE);
                 pthis->stickLeftPrompt.isEnabled = false;
-                func_80078884(NA_SE_SY_CURSOR);
+                Common_PlaySfx(NA_SE_SY_CURSOR);
             }
         } else if (pthis->stickAccumX > 0) {
             nextIndex = EnOssan_SetCursorIndexFromNeutral(pthis, 0);
@@ -997,7 +997,7 @@ void EnOssan_State_FacingShopkeeper(EnOssan* pthis, GlobalContext* globalCtx, Pl
                 pthis->stateFlag = OSSAN_STATE_LOOK_SHELF_RIGHT;
                 Interface_SetDoAction(globalCtx, DO_ACTION_DECIDE);
                 pthis->stickRightPrompt.isEnabled = false;
-                func_80078884(NA_SE_SY_CURSOR);
+                Common_PlaySfx(NA_SE_SY_CURSOR);
             }
         }
     }
@@ -1153,23 +1153,23 @@ s32 EnOssan_HasPlayerSelectedItem(GlobalContext* globalCtx, EnOssan* pthis, Inpu
                 case SI_ZORA_MASK:
                 case SI_GORON_MASK:
                 case SI_GERUDO_MASK:
-                    func_80078884(NA_SE_SY_DECIDE);
+                    Common_PlaySfx(NA_SE_SY_DECIDE);
                     pthis->drawCursor = 0;
                     pthis->stateFlag = OSSAN_STATE_SELECT_ITEM_MASK;
                     return true;
                 case SI_MILK_BOTTLE:
-                    func_80078884(NA_SE_SY_DECIDE);
+                    Common_PlaySfx(NA_SE_SY_DECIDE);
                     pthis->drawCursor = 0;
                     pthis->stateFlag = OSSAN_STATE_SELECT_ITEM_MILK_BOTTLE;
                     return true;
                 case SI_WEIRD_EGG:
-                    func_80078884(NA_SE_SY_DECIDE);
+                    Common_PlaySfx(NA_SE_SY_DECIDE);
                     pthis->drawCursor = 0;
                     pthis->stateFlag = OSSAN_STATE_SELECT_ITEM_WEIRD_EGG;
                     return true;
                 case SI_19:
                 case SI_20:
-                    func_80078884(NA_SE_SY_ERROR);
+                    Common_PlaySfx(NA_SE_SY_ERROR);
                     pthis->drawCursor = 0;
                     pthis->stateFlag = OSSAN_STATE_SELECT_ITEM_UNIMPLEMENTED;
                     return true;
@@ -1178,18 +1178,18 @@ s32 EnOssan_HasPlayerSelectedItem(GlobalContext* globalCtx, EnOssan* pthis, Inpu
                 case SI_BOMBS_20:
                 case SI_BOMBS_30:
                 case SI_BOMBS_5_R35:
-                    func_80078884(NA_SE_SY_DECIDE);
+                    Common_PlaySfx(NA_SE_SY_DECIDE);
                     pthis->drawCursor = 0;
                     pthis->stateFlag = OSSAN_STATE_SELECT_ITEM_BOMBS;
                     return true;
                 default:
-                    func_80078884(NA_SE_SY_DECIDE);
+                    Common_PlaySfx(NA_SE_SY_DECIDE);
                     pthis->drawCursor = 0;
                     pthis->stateFlag = OSSAN_STATE_SELECT_ITEM;
                     return true;
             }
         }
-        func_80078884(NA_SE_SY_ERROR);
+        Common_PlaySfx(NA_SE_SY_ERROR);
         return true;
     }
     return false;
@@ -1250,7 +1250,7 @@ void EnOssan_State_BrowseLeftShelf(EnOssan* pthis, GlobalContext* globalCtx, Pla
         EnOssan_CursorUpDown(pthis);
         if (pthis->cursorIndex != prevIndex) {
             Message_ContinueTextbox(globalCtx, pthis->shelfSlots[pthis->cursorIndex]->actor.textId);
-            func_80078884(NA_SE_SY_CURSOR);
+            Common_PlaySfx(NA_SE_SY_CURSOR);
         }
     }
 }
@@ -1309,7 +1309,7 @@ void EnOssan_State_BrowseRightShelf(EnOssan* pthis, GlobalContext* globalCtx, Pl
         EnOssan_CursorUpDown(pthis);
         if (pthis->cursorIndex != prevIndex) {
             Message_ContinueTextbox(globalCtx, pthis->shelfSlots[pthis->cursorIndex]->actor.textId);
-            func_80078884(NA_SE_SY_CURSOR);
+            Common_PlaySfx(NA_SE_SY_CURSOR);
         }
     }
 }
@@ -1389,19 +1389,19 @@ void EnOssan_HandleCanBuyItem(GlobalContext* globalCtx, EnOssan* pthis) {
             selectedItem->setOutOfStockFunc(globalCtx, selectedItem);
             break;
         case CANBUY_RESULT_CANT_GET_NOW:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x86);
             break;
         case CANBUY_RESULT_NEED_BOTTLE:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x96);
             break;
         case CANBUY_RESULT_NEED_RUPEES:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x85);
             break;
         case CANBUY_RESULT_CANT_GET_NOW_5:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x86);
             break;
     }
@@ -1450,11 +1450,11 @@ void EnOssan_HandleCanBuyWeirdEgg(GlobalContext* globalCtx, EnOssan* pthis) {
             item->setOutOfStockFunc(globalCtx, item);
             break;
         case CANBUY_RESULT_CANT_GET_NOW:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x9D);
             break;
         case CANBUY_RESULT_NEED_RUPEES:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x85);
             break;
     }
@@ -1473,11 +1473,11 @@ void EnOssan_HandleCanBuyBombs(GlobalContext* globalCtx, EnOssan* pthis) {
             item->setOutOfStockFunc(globalCtx, item);
             break;
         case CANBUY_RESULT_CANT_GET_NOW:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x86);
             break;
         case CANBUY_RESULT_NEED_RUPEES:
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
             EnOssan_SetStateCantGetItem(globalCtx, pthis, 0x85);
             break;
     }

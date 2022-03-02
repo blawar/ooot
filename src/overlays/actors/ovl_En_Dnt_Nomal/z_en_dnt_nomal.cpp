@@ -264,7 +264,7 @@ void EnDntNomal_TargetWait(EnDntNomal* pthis, GlobalContext* globalCtx) {
             scorePos.z = pthis->actor.world.pos.z;
             EffectSsExtra_Spawn(globalCtx, &scorePos, &scoreVel, &scoreAccel, 4, 2);
             Audio_StopSfxById(NA_SE_SY_TRE_BOX_APPEAR);
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
             // "Big hit"
             osSyncPrintf(VT_FGCOL(CYAN) "☆☆☆☆☆ 大当り ☆☆☆☆☆ %d\n" VT_RST, pthis->hitCounter);
             if (!LINK_IS_ADULT && !(gSaveContext.itemGetInf[1] & 0x2000)) {
@@ -607,7 +607,7 @@ void EnDntNomal_StageDance(EnDntNomal* pthis, GlobalContext* globalCtx) {
 void EnDntNomal_SetupStageHide(EnDntNomal* pthis, GlobalContext* globalCtx) {
     if (pthis->timer3 != 0) {
         if ((pthis->timer3 == 1) && (pthis->ignore == 1)) {
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
         }
     } else {
         pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageHideAnim);
@@ -649,7 +649,7 @@ void EnDntNomal_StageHide(EnDntNomal* pthis, GlobalContext* globalCtx) {
                     if (rupee->colorIdx == 2) {
                         rupee->actor.velocity.y = 7.0f;
                     }
-                    func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                    Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                 }
                 pthis->action = DNT_ACTION_NONE;
                 pthis->actionFunc = EnDntNomal_SetupStageWait;

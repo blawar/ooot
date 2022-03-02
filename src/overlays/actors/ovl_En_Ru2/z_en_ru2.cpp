@@ -398,7 +398,7 @@ void func_80AF2E1C(EnRu2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AF2E64() {
-    func_800788CC(NA_SE_SY_WHITE_OUT_T);
+    Common_PlaySfx2(NA_SE_SY_WHITE_OUT_T);
 }
 
 void func_80AF2E84(EnRu2* pthis, GlobalContext* globalCtx) {

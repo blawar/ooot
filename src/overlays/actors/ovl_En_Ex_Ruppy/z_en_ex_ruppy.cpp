@@ -230,7 +230,7 @@ void EnExRuppy_DropIntoWater(EnExRuppy* pthis, GlobalContext* globalCtx) {
     pthis->actor.shape.rot.y += 0x7A8;
     Math_ApproachF(&pthis->actor.gravity, -2.0f, 0.3f, 1.0f);
     EnExRuppy_SpawnSparkles(pthis, globalCtx, 2, 0);
-    func_80078884(NA_SE_EV_RAINBOW_SHOWER - SFX_FLAG);
+    Common_PlaySfx(NA_SE_EV_RAINBOW_SHOWER - SFX_FLAG);
     divingGame = (EnDivingGame*)pthis->actor.parent;
     if ((divingGame != NULL) && (divingGame->actor.update != NULL) &&
         ((divingGame->unk_296 == 0) || (pthis->actor.bgCheckFlags & 0x20) || (pthis->timer == 0))) {
@@ -238,7 +238,7 @@ void EnExRuppy_DropIntoWater(EnExRuppy* pthis, GlobalContext* globalCtx) {
         pthis->actor.speedXZ = 0.0f;
         pthis->actor.velocity.x = pthis->actor.velocity.y = pthis->actor.velocity.z = 0.0f;
         pthis->actor.gravity = 0.0f;
-        func_80078914(&pthis->actor.projectedPos, NA_SE_EV_BOMB_DROP_WATER);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EV_BOMB_DROP_WATER);
         pthis->actionFunc = EnExRuppy_EnterWater;
     }
 }
@@ -275,7 +275,7 @@ void EnExRuppy_Sink(EnExRuppy* pthis, GlobalContext* globalCtx) {
         pthis->actor.velocity.y = -1.0f;
         pthis->actor.gravity = -0.2f;
         EffectSsGSplash_Spawn(globalCtx, &pos, 0, 0, 0, 800);
-        func_80078914(&pthis->actor.projectedPos, NA_SE_EV_BOMB_DROP_WATER);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EV_BOMB_DROP_WATER);
         pthis->actionFunc = EnExRuppy_WaitInGame;
     }
     divingGame = (EnDivingGame*)pthis->actor.parent;
@@ -304,7 +304,7 @@ void EnExRuppy_WaitInGame(EnExRuppy* pthis, GlobalContext* globalCtx) {
                 if (1) {}
             } else if (pthis->actor.xyzDistToPlayerSq < SQ(localConst)) {
                 Rupees_ChangeBy(pthis->rupeeValue);
-                func_80078884(NA_SE_SY_GET_RUPY);
+                Common_PlaySfx(NA_SE_SY_GET_RUPY);
                 divingGame->grabbedRupeesCounter++;
                 Actor_Kill(&pthis->actor);
             }
@@ -362,7 +362,7 @@ void EnExRuppy_WaitAsCollectible(EnExRuppy* pthis, GlobalContext* globalCtx) {
     f32 localConst = 30.0f;
 
     if (pthis->actor.xyzDistToPlayerSq < SQ(localConst)) {
-        func_80078884(NA_SE_SY_GET_RUPY);
+        Common_PlaySfx(NA_SE_SY_GET_RUPY);
         Item_DropCollectible(globalCtx, &pthis->actor.world.pos, (sEnExRuppyCollectibleTypes[pthis->colorIdx] | 0x8000));
         Actor_Kill(&pthis->actor);
     }

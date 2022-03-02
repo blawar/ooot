@@ -373,7 +373,7 @@ void BgPoEvent_BlockIdle(BgPoEvent* pthis, GlobalContext* globalCtx) {
             if (amy != NULL) {
                 OnePointCutscene_Init(globalCtx, 3170, 30, amy, MAIN_CAM);
             }
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
             gSaveContext.timer1State = 0xA;
         }
     } else {
@@ -567,7 +567,7 @@ void BgPoEvent_PaintingPresent(BgPoEvent* pthis, GlobalContext* globalCtx) {
                         thisx->world.pos.y - 40.0f, thisx->world.pos.z, 0, thisx->shape.rot.y, 0,
                         thisx->params + ((pthis->type - 1) << 8));
             OnePointCutscene_Init(globalCtx, 3160, 80, thisx, MAIN_CAM);
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
 
         } else {
             Audio_PlayActorSound2(thisx, NA_SE_EN_PO_LAUGH2);

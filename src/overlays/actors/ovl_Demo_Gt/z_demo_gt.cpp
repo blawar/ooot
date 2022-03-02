@@ -63,7 +63,7 @@ void DemoGt_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoGt_PlayEarthquakeSfx() {
-    func_800788CC(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+    Common_PlaySfx2(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 }
 
 void DemoGt_PlayExplosion1Sfx(GlobalContext* globalCtx, Vec3f* pos) {
@@ -1220,7 +1220,7 @@ void func_80980F58(DemoGt* pthis, GlobalContext* globalCtx) {
     const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 244) {
-        func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
     }
 }
 
@@ -1343,7 +1343,7 @@ void func_80981424(DemoGt* pthis, GlobalContext* globalCtx) {
     const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 789) {
-        func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
     }
 }
 
@@ -1461,7 +1461,7 @@ void func_809818FC(DemoGt* pthis, GlobalContext* globalCtx) {
     const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 845) {
-        func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
     }
 }
 void func_80981930(DemoGt* pthis, GlobalContext* globalCtx) {
@@ -1552,7 +1552,7 @@ void func_80981CEC(DemoGt* pthis, GlobalContext* globalCtx) {
     const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 183) {
-        func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
     }
 }
 
@@ -1643,7 +1643,7 @@ void func_809820AC(DemoGt* pthis, GlobalContext* globalCtx) {
     const auto& frames = globalCtx->csCtx.frames;
 
     if (frames == 154) {
-        func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->dyna.actor.projectedPos, NA_SE_EV_TOWER_PARTS_BROKEN - SFX_FLAG);
     }
 }
 

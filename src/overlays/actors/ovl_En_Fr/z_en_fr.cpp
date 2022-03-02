@@ -739,7 +739,7 @@ void EnFr_ChildSong(EnFr* pthis, GlobalContext* globalCtx) {
             EnFr_SetupReward(pthis, globalCtx, false);
         } else if (!(gSaveContext.eventChkInf[13] & sSongIndex[songIndex])) {
             frog = sEnFrPointers.frogs[sSongToFrog[songIndex]];
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
             if (frog->actionFunc == EnFr_ChooseJumpFromLogSpot) {
                 frog->isJumpingUp = true;
                 frog->isActive = true;
@@ -858,7 +858,7 @@ s32 EnFr_IsFrogSongComplete(EnFr* pthis, GlobalContext* globalCtx) {
 void EnFr_OcarinaMistake(EnFr* pthis, GlobalContext* globalCtx) {
     Message_CloseTextbox(globalCtx);
     pthis->reward = GI_NONE;
-    func_80078884(NA_SE_SY_OCARINA_ERROR);
+    Common_PlaySfx(NA_SE_SY_OCARINA_ERROR);
     Audio_OcaSetInstrument(0);
     sEnFrPointers.flags = 12;
     EnFr_DeactivateButterfly();
@@ -919,9 +919,9 @@ void EnFr_ContinueFrogSong(EnFr* pthis, GlobalContext* globalCtx) {
 void EnFr_SetupReward(EnFr* pthis, GlobalContext* globalCtx, u8 unkCondition) {
     EnFr_DeactivateButterfly();
     if (unkCondition) {
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
     } else {
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
     }
 
     Audio_OcaSetInstrument(0);

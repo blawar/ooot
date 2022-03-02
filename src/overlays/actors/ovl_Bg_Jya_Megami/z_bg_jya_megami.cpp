@@ -281,7 +281,7 @@ void BgJyaMegami_Explode(BgJyaMegami* pthis, GlobalContext* globalCtx) {
         func_80033480(globalCtx, &sp8C, 100.0f, 1, 150, 100, 1);
     }
     if (pthis->explosionTimer == 60) {
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
     }
     if (pthis->explosionTimer >= 100) {
         Actor_Kill(&pthis->dyna.actor);

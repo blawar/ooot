@@ -316,7 +316,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             Math_ApproachF(&pthis->unk_3B0.y, player->actor.world.pos.y + 47.0f + 7.0f, 0.1f, 2.0f);
             pthis->unk_339 = 4;
             if (pthis->unk_398 == 10) {
-                func_80078914(&D_80906D6C, NA_SE_EV_STONE_BOUND);
+                Common_PlaySfxAtPos(&D_80906D6C, NA_SE_EV_STONE_BOUND);
                 Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_STOP);
             }
             if (pthis->unk_398 == 20) {
@@ -379,7 +379,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             pthis->unk_3B0.y = (player->actor.world.pos.y + 200.0f) - 160.0f;
             pthis->unk_3B0.z = player->actor.world.pos.z;
             if (pthis->unk_398 >= 20) {
-                func_80078884(NA_SE_EN_GOMA_LAST - SFX_FLAG);
+                Common_PlaySfx(NA_SE_EN_GOMA_LAST - SFX_FLAG);
                 Math_ApproachF(&pthis->unk_324, 255.0f, 1.0f, 10.0f);
                 pthis->unk_339 = 5;
                 if (pthis->unk_398 == 20) {
@@ -400,7 +400,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             break;
         case 11:
             pthis->unk_339 = 5;
-            func_80078884(NA_SE_EN_GOMA_LAST - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EN_GOMA_LAST - SFX_FLAG);
             player->actor.world.pos.x = 490.0f;
             player->actor.world.pos.y = 1086.0f;
             player->actor.world.pos.z = -166.0f;
@@ -416,10 +416,10 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             pthis->unk_3B0.y = ((player->actor.world.pos.y + 200.0f) - 151.0f) - 2.0f;
             pthis->unk_3B0.z = player->actor.world.pos.z + 2.0f;
             if (pthis->unk_398 == 10) {
-                func_80078914(&D_80906D6C, NA_SE_EV_STONE_BOUND);
+                Common_PlaySfxAtPos(&D_80906D6C, NA_SE_EV_STONE_BOUND);
             }
             if (pthis->unk_398 == 20) {
-                func_80078884(NA_SE_EV_STONE_BOUND);
+                Common_PlaySfx(NA_SE_EV_STONE_BOUND);
             }
             if (pthis->unk_398 == 30) {
                 func_8002DF54(globalCtx, &pthis->actor, 0x52);
@@ -453,7 +453,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 Rumble_Shake2(0.0f, 0xC8, 0x14, 0x14);
             }
             if (pthis->unk_398 == 30) {
-                func_80078884(NA_SE_EV_GRAVE_EXPLOSION);
+                Common_PlaySfx(NA_SE_EV_GRAVE_EXPLOSION);
             }
             if (pthis->unk_398 >= 30) {
                 Math_ApproachF(&pthis->actor.world.pos.y, 1289.0f, 0.1f, 10.0f);
@@ -709,8 +709,8 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 pthis->unk_312 = 2;
             }
             if ((pthis->unk_398 == 166) || (pthis->unk_398 == 185) || (pthis->unk_398 == 200)) {
-                func_80078884(NA_SE_EN_MGANON_SWORD);
-                func_80078884(NA_SE_EN_MGANON_ROAR);
+                Common_PlaySfx(NA_SE_EN_MGANON_SWORD);
+                Common_PlaySfx(NA_SE_EN_MGANON_ROAR);
             }
             if (pthis->unk_398 == 215) {
                 pthis->unk_39C = 23;
@@ -724,8 +724,8 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 pthis->unk_312 = 2;
             }
             if (pthis->unk_398 == 222) {
-                func_80078884(NA_SE_EN_MGANON_SWORD);
-                func_80078884(NA_SE_EN_MGANON_ROAR);
+                Common_PlaySfx(NA_SE_EN_MGANON_SWORD);
+                Common_PlaySfx(NA_SE_EN_MGANON_ROAR);
             }
             pthis->unk_3A4.x = (player->actor.world.pos.x - 40.0f) + 6.0f;
             pthis->unk_3A4.y = player->actor.world.pos.y + 40.0f;
@@ -734,7 +734,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             pthis->unk_3B0.y = ((player->actor.world.pos.y + 10.0f + 60.0f) - 20.0f) - 2.0f;
             pthis->unk_3B0.z = player->actor.world.pos.z;
             if (pthis->unk_398 == 228) {
-                func_80078884(NA_SE_IT_SHIELD_REFLECT_SW);
+                Common_PlaySfx(NA_SE_IT_SHIELD_REFLECT_SW);
                 func_8002DF54(globalCtx, &pthis->actor, 0x56);
                 Rumble_Shake2(0.0f, 0xFF, 0xA, 0x32);
             }
@@ -769,7 +769,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 pthis->unk_3A4.z = effect->position.z + 70.0f;
             }
             if ((pthis->unk_398 & 3) == 0) {
-                func_80078884(NA_SE_IT_SWORD_SWING);
+                Common_PlaySfx(NA_SE_IT_SWORD_SWING);
             }
             if (pthis->unk_398 == 25) {
                 func_8002DF54(globalCtx, &pthis->actor, 0x57);
@@ -949,11 +949,11 @@ void func_808FF898(BossGanon2* pthis, GlobalContext* globalCtx) {
         }
 
         if (pthis->unk_392 == 4) {
-            func_80078884(NA_SE_EV_GRAVE_EXPLOSION);
+            Common_PlaySfx(NA_SE_EV_GRAVE_EXPLOSION);
         }
 
         if (pthis->unk_392 == 3) {
-            func_80078884(NA_SE_EN_MGANON_SWDIMP);
+            Common_PlaySfx(NA_SE_EN_MGANON_SWDIMP);
         }
     }
 }
@@ -1322,7 +1322,7 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx) {
             globalCtx->envCtx.unk_D8 = 0.0f;
         case 1:
             if (pthis->unk_1A2[1] == 50) {
-                func_80078884(NA_SE_EN_MGANON_WALK);
+                Common_PlaySfx(NA_SE_EN_MGANON_WALK);
             }
             Matrix_RotateY(((pthis->actor.shape.rot.y / (f32)0x8000) * M_PI) + 0.3f, MTXMODE_NEW);
             sp5C.x = 0.0f;
@@ -1518,12 +1518,12 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
                 Math_ApproachZeroF(&globalCtx->envCtx.unk_D8, 1.0f, 0.08f);
             }
             if (pthis->unk_398 == 50) {
-                func_80078884(NA_SE_EN_MGANON_WALK);
+                Common_PlaySfx(NA_SE_EN_MGANON_WALK);
             }
             if (pthis->unk_398 > 90) {
                 Math_ApproachF(&pthis->unk_380, 0.25f, 1.0f, 0.0125f);
                 pthis->unk_37C = 200.0f;
-                func_80078884(NA_SE_EV_TIMETRIP_LIGHT - SFX_FLAG);
+                Common_PlaySfx(NA_SE_EV_TIMETRIP_LIGHT - SFX_FLAG);
             }
             if (pthis->unk_398 >= 110) {
                 if (pthis->unk_398 == 110) {
@@ -1558,7 +1558,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
         case 2:
             pthis->unk_339 = 22;
             Math_ApproachF(&globalCtx->envCtx.unk_D8, 1.0f, 1.0f, 0.1f);
-            func_80078884(NA_SE_EV_TIMETRIP_LIGHT - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_TIMETRIP_LIGHT - SFX_FLAG);
             pthis->unk_3A4.x = 250;
             pthis->unk_3A4.y = 1150.0f;
             pthis->unk_3A4.z = 0.0f;
@@ -1572,7 +1572,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
             break;
         case 3:
             pthis->unk_339 = 22;
-            func_80078884(NA_SE_EV_TIMETRIP_LIGHT - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_TIMETRIP_LIGHT - SFX_FLAG);
             pthis->unk_3A4.x = 330.0f;
             pthis->unk_3A4.y = 1120.0f;
             pthis->unk_3A4.z = -150.0f;
@@ -1609,7 +1609,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
             pthis->unk_339 = 23;
             if ((pthis->unk_398 >= 60) && (pthis->unk_398 <= 90)) {
                 if (pthis->unk_398 == 62) {
-                    func_80078884(NA_SE_EV_TRIFORCE_FLASH);
+                    Common_PlaySfx(NA_SE_EV_TRIFORCE_FLASH);
                 }
                 Math_ApproachF(&pthis->unk_38C, 200.0f, 1.0f, 8.0f);
             } else {
@@ -1668,12 +1668,12 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
             player->actor.shape.rot.y = -0x4000;
             player->actor.world.pos.z = 30.0f;
             if ((pthis->unk_398 == 20) || (pthis->unk_398 == 30) || (pthis->unk_398 == 65) || (pthis->unk_398 == 40)) {
-                func_80078884(NA_SE_VO_LI_SWORD_N);
-                func_80078884(NA_SE_IT_SWORD_SWING_HARD);
+                Common_PlaySfx(NA_SE_VO_LI_SWORD_N);
+                Common_PlaySfx(NA_SE_IT_SWORD_SWING_HARD);
             }
             if ((pthis->unk_398 == 22) || (pthis->unk_398 == 35) || (pthis->unk_398 == 72) || (pthis->unk_398 == 45)) {
-                func_80078884(NA_SE_EN_MGANON_DAMAGE);
-                func_80078884(NA_SE_IT_SHIELD_BOUND);
+                Common_PlaySfx(NA_SE_EN_MGANON_DAMAGE);
+                Common_PlaySfx(NA_SE_IT_SHIELD_BOUND);
                 globalCtx->envCtx.unk_D8 = 1.0f;
             }
             if ((pthis->unk_398 == 22) || (pthis->unk_398 == 35) || (pthis->unk_398 == 72) || (pthis->unk_398 == 45)) {
@@ -2013,7 +2013,7 @@ void BossGanon2_Update(Actor* thisx, GlobalContext* globalCtx) {
         if (pthis->actor.bgCheckFlags & 1) {
             if (pthis->actor.velocity.y < -5.0f) {
                 func_80033E88(&pthis->actor, globalCtx, 5, 20);
-                func_80078884(NA_SE_IT_BOMB_EXPLOSION);
+                Common_PlaySfx(NA_SE_IT_BOMB_EXPLOSION);
             }
             pthis->actor.velocity.y = 0.0f;
         }
@@ -2099,7 +2099,7 @@ void BossGanon2_Update(Actor* thisx, GlobalContext* globalCtx) {
         if (Rand_ZeroOne() < 0.5f) {
             D_8090EB20.z = Rand_ZeroFloat(1000.0f);
         }
-        func_80078914(&D_8090EB20, NA_SE_EV_LIGHTNING);
+        Common_PlaySfxAtPos(&D_8090EB20, NA_SE_EV_LIGHTNING);
         pthis->unk_328 = 0xFF;
         pthis->unk_330 = 5;
         pthis->unk_32C = 0.0f;
@@ -2866,7 +2866,7 @@ void func_80905DA8(BossGanon2* pthis, GlobalContext* globalCtx) {
                         if (effect->velocity.y < -10.0f) {
                             sp78 = effect->position;
                             sp78.y = 1086.0f;
-                            func_80078884(NA_SE_IT_SHIELD_REFLECT_SW);
+                            Common_PlaySfx(NA_SE_IT_SHIELD_REFLECT_SW);
                             CollisionCheck_SpawnShieldParticlesMetal(globalCtx, &sp78);
                         }
                         effect->velocity.y = 0.0f;

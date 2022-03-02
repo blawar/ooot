@@ -352,7 +352,7 @@ void BossGanondrof_Intro(BossGanondrof* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->timers[1] == 30) {
-        func_80078914(&sAudioVec, NA_SE_EN_FANTOM_TRANSFORM);
+        Common_PlaySfxAtPos(&sAudioVec, NA_SE_EN_FANTOM_TRANSFORM);
     }
 
     if (horse->bossGndSignal == FHG_LIGHTNING) {

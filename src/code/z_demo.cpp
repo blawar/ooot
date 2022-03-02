@@ -316,7 +316,7 @@ void func_80064824(GlobalContext* globalCtx, CutsceneContext* csCtx, CsCmdBase* 
                 globalCtx->roomCtx.unk_74[0] += 0x14;
             }
             if (csCtx->frames == 0x30F) {
-                func_80078884(NA_SE_EV_DEKU_DEATH);
+                Common_PlaySfx(NA_SE_EV_DEKU_DEATH);
             } else if (csCtx->frames == 0x2CD) {
                 globalCtx->roomCtx.unk_74[0] = 0;
             }
@@ -330,7 +330,7 @@ void func_80064824(GlobalContext* globalCtx, CutsceneContext* csCtx, CsCmdBase* 
             break;
         case 13:
             if (globalCtx->roomCtx.unk_74[1] == 0) {
-                func_80078884(NA_SE_EV_TRIFORCE_FLASH);
+                Common_PlaySfx(NA_SE_EV_TRIFORCE_FLASH);
             }
             if (globalCtx->roomCtx.unk_74[1] < 0xFF) {
                 globalCtx->roomCtx.unk_74[1] += 5;
@@ -443,7 +443,7 @@ void func_80064824(GlobalContext* globalCtx, CutsceneContext* csCtx, CsCmdBase* 
             if (sp3F != 0) {
                 globalCtx->envCtx.sandstormState = 1;
             }
-            func_800788CC(NA_SE_EV_SAND_STORM - SFX_FLAG);
+            Common_PlaySfx2(NA_SE_EV_SAND_STORM - SFX_FLAG);
             break;
         case 33:
             gSaveContext.sunsSongState = SUNSSONG_START;
@@ -1291,7 +1291,7 @@ void Cutscene_Command_TransitionFX(GlobalContext* globalCtx, CutsceneContext* cs
                         Audio_PlaySoundGeneral(NA_SE_EV_WHITE_OUT, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
                                                &gReverbAdd2);
                     } else if ((temp == 0.0f) && (globalCtx->sceneNum == SCENE_GANONTIKA)) {
-                        func_800788CC(NA_SE_EV_WHITE_OUT);
+                        Common_PlaySfx2(NA_SE_EV_WHITE_OUT);
                     }
                 } else {
                     globalCtx->envCtx.screenFillColor[3] = (1.0f - temp) * 255.0f;

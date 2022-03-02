@@ -117,7 +117,7 @@ void BgMenkuriEye_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->framesUntilDisable = 416;
         if (D_8089C1A0 == 4) {
             Flags_SetSwitch(globalCtx, pthis->actor.params);
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         }
     }
     if (pthis->framesUntilDisable == -1) {

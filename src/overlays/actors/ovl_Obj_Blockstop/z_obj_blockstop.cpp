@@ -59,9 +59,9 @@ void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx) {
         if (dynaPolyActor != NULL && dynaPolyActor->actor.id == ACTOR_OBJ_OSHIHIKI) {
             if ((dynaPolyActor->actor.params & 0x000F) == PUSHBLOCK_HUGE_START_ON ||
                 (dynaPolyActor->actor.params & 0x000F) == PUSHBLOCK_HUGE_START_OFF) {
-                func_80078884(NA_SE_SY_CORRECT_CHIME);
+                Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
             } else {
-                func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
             }
 
             Flags_SetSwitch(globalCtx, pthis->actor.params);

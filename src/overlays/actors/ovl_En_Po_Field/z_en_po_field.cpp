@@ -343,7 +343,7 @@ void func_80AD42B0(EnPoField* pthis) {
     pthis->actor.scale.y = 0.0f;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_METAL_BOX_BOUND);
     if (pthis->actor.params == EN_PO_FIELD_BIG) {
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
     }
     pthis->actionFunc = func_80AD587C;
 }

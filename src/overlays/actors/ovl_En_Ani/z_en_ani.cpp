@@ -281,7 +281,7 @@ void EnAni_Update(Actor* thisx, GlobalContext* globalCtx) {
         }
 
         if (globalCtx->csCtx.frames == 100) {
-            func_800788CC(NA_SE_IT_EARTHQUAKE);
+            Common_PlaySfx2(NA_SE_IT_EARTHQUAKE);
         }
     } else {
         if (SkelAnime_Update(&pthis->skelAnime) != 0) {

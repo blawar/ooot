@@ -236,7 +236,7 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
         switch(globalCtx->csCtx.frames)
         {
             case 473:
-                func_800788CC(NA_SE_VO_NA_HELLO_3);
+                Common_PlaySfx2(NA_SE_VO_NA_HELLO_3);
                 break;
 
             case 583:
@@ -244,11 +244,11 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
                 break;
 
             case 763:
-                func_80078884(NA_SE_EV_NAVY_CRASH - SFX_FLAG);
+                Common_PlaySfx(NA_SE_EV_NAVY_CRASH - SFX_FLAG);
                 break;
 
             case 771:
-                func_80078884(NA_SE_VO_RT_THROW);
+                Common_PlaySfx(NA_SE_VO_RT_THROW);
                 break;
         }
     }

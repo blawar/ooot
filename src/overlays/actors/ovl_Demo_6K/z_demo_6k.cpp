@@ -277,7 +277,7 @@ void func_80966E98(Demo6K* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->timer1 == 39) {
-        func_800788CC(NA_SE_EV_CONSENTRATION);
+        Common_PlaySfx2(NA_SE_EV_CONSENTRATION);
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_DEMO_6K, pthis->actor.world.pos.x,
                     pthis->actor.world.pos.y + 10.0f, pthis->actor.world.pos.z, 0, 0, 0, 2);
     }

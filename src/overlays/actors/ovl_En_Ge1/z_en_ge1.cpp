@@ -255,7 +255,7 @@ void EnGe1_SpotPlayer(EnGe1* pthis, GlobalContext* globalCtx) {
     pthis->cutsceneTimer = 30;
     pthis->actionFunc = EnGe1_KickPlayer;
     func_8002DF54(globalCtx, &pthis->actor, 0x5F);
-    func_80078884(NA_SE_SY_FOUND);
+    Common_PlaySfx(NA_SE_SY_FOUND);
     Message_StartTextbox(globalCtx, 0x6000, &pthis->actor);
 }
 

@@ -921,10 +921,10 @@ void Environment_Update(GlobalContext* globalCtx, EnvironmentContext* envCtx, Li
             osSyncPrintf("\nnext_zelda_time=[%x]", ((void)0, gSaveContext.nextDayTime));
 
             if (((void)0, gSaveContext.nextDayTime) == 0xFF0E) {
-                func_80078884(NA_SE_EV_CHICKEN_CRY_M);
+                Common_PlaySfx(NA_SE_EV_CHICKEN_CRY_M);
                 gSaveContext.nextDayTime = 0xFFFF;
             } else if (((void)0, gSaveContext.nextDayTime) == 0xFF0D) {
-                func_800788CC(NA_SE_EV_DOG_CRY_EVENING);
+                Common_PlaySfx2(NA_SE_EV_DOG_CRY_EVENING);
                 gSaveContext.nextDayTime = 0xFFFF;
             }
         }
@@ -2044,7 +2044,7 @@ void func_80075B44(GlobalContext* globalCtx) {
             break;
         case 2:
             if (gSaveContext.dayTime > 0xC000) {
-                func_800788CC(NA_SE_EV_DOG_CRY_EVENING);
+                Common_PlaySfx2(NA_SE_EV_DOG_CRY_EVENING);
                 globalCtx->envCtx.unk_E0++;
             }
             break;
@@ -2072,7 +2072,7 @@ void func_80075B44(GlobalContext* globalCtx) {
                 gSaveContext.totalDays++;
                 gSaveContext.bgsDayCount++;
                 gSaveContext.dogIsLost = true;
-                func_80078884(NA_SE_EV_CHICKEN_CRY_M);
+                Common_PlaySfx(NA_SE_EV_CHICKEN_CRY_M);
                 if ((Inventory_ReplaceItem(globalCtx, ITEM_WEIRD_EGG, ITEM_CHICKEN) ||
                      Inventory_ReplaceItem(globalCtx, ITEM_POCKET_EGG, ITEM_POCKET_CUCCO)) &&
                     globalCtx->csCtx.state == 0 && !Player_InCsMode(globalCtx)) {
