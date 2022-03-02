@@ -4483,6 +4483,9 @@ _DW({                                   \
     _SHIFTL(cmd, 24, 8), (param)                    \
 }
 
+#define TextureRectScalerValue(xl, yl, xh, yh) ((MAX(ABS(xl), ABS(xh)) / (1 << 11)))
+#define TextureRectScale(n, xl, yl, xh, yh) (n >> TextureRectScalerValue(xl, yl, xh, yh))
+
 /* Notice that textured rectangles are 128-bit commands, therefore
  * gsDPTextureRectangle() should not be used in display lists
  * under normal circumstances (use gsSPTextureRectangle()).
@@ -4490,9 +4493,9 @@ _DW({                                   \
  */
 #define gsDPTextureRectangle(xl, yl, xh, yh, tile, s, t, dsdx, dtdy)    \
 {                                   \
-    (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(xh, 12, 12) |          \
+    (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) |          \
      _SHIFTL(yh, 0, 12)),                       \
-    (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) | _SHIFTL(yl, 0, 12)),  \
+    (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) | _SHIFTL(yl, 0, 12)),  \
 },                                  \
 {                                   \
     _SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16),             \
@@ -4503,9 +4506,9 @@ _DW({                                   \
 _DW({                                   \
     Gfx *_g = (Gfx *)(pkt);                     \
     if (pkt);                               \
-    _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(xh, 12, 12) |   \
+    _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) |   \
             _SHIFTL(yh, 0, 12));                    \
-    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) |    \
+    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) |    \
             _SHIFTL(yl, 0, 12));                \
     _g ++;                              \
     _g->words.w0 = (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16));        \
@@ -4514,9 +4517,9 @@ _DW({                                   \
 
 #define gsDPTextureRectangleFlip(xl, yl, xh, yh, tile, s, t, dsdx, dtdy) \
 {                                   \
-    (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(xh, 12, 12) |      \
+    (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) |      \
      _SHIFTL(yh, 0, 12)),                       \
-    (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) | _SHIFTL(yl, 0, 12)),  \
+    (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5)  | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) | _SHIFTL(yl, 0, 12)),  \
 },                                  \
 {                                   \
     _SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16),             \
@@ -4527,9 +4530,9 @@ _DW({                                   \
 _DW({                                   \
     Gfx *_g = (Gfx *)(pkt);                     \
     if (pkt);                               \
-    _g->words.w0 = (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(xh, 12, 12) | \
+    _g->words.w0 = (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) | \
             _SHIFTL(yh, 0, 12));                    \
-    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) |    \
+    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) |    \
             _SHIFTL(yl, 0, 12));                \
     _g ++;                              \
     _g->words.w0 = (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16));        \
@@ -4537,8 +4540,8 @@ _DW({                                   \
 })
 
 #define gsSPTextureRectangle(xl, yl, xh, yh, tile, s, t, dsdx, dtdy)    \
-    (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(xh, 12, 12) | _SHIFTL(yh, 0, 12)),\
-    (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) | _SHIFTL(yl, 0, 12)),  \
+    (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) | _SHIFTL(yh, 0, 12)),\
+    (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) | _SHIFTL(yl, 0, 12)),  \
     gsImmp1(G_RDPHALF_1, (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16))), \
     gsImmp1(G_RDPHALF_2, (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16)))
 
@@ -4546,9 +4549,9 @@ _DW({                                   \
 _DW({                                   \
     Gfx *_g = (Gfx *)(pkt);                     \
                                     \
-    _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(xh, 12, 12) |   \
+    _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) |   \
             _SHIFTL(yh, 0, 12));                    \
-    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) |    \
+    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) |    \
             _SHIFTL(yl, 0, 12));                \
     gImmp1(pkt, G_RDPHALF_1, (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16))); \
     gImmp1(pkt, G_RDPHALF_2, (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16)));\
@@ -4563,6 +4566,7 @@ _DW({                                                                           
                     _SHIFTL(MAX((s16)(xh),0), 12, 12) |                      \
                     _SHIFTL(MAX((s16)(yh),0), 0, 12));                       \
     _g->words.w1 = (_SHIFTL((tile), 24, 3) |                                 \
+                    _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | \
                     _SHIFTL(MAX((s16)(xl),0), 12, 12) |                      \
                     _SHIFTL(MAX((s16)(yl),0), 0, 12));                       \
     gImmp1(pkt, G_RDPHALF_1,                                                 \
@@ -4583,9 +4587,9 @@ _DW({                                                                           
 })
 
 #define gsSPTextureRectangleFlip(xl, yl, xh, yh, tile, s, t, dsdx, dtdy) \
-    (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(xh, 12, 12) |      \
+    (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) |      \
      _SHIFTL(yh, 0, 12)),                       \
-    (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) | _SHIFTL(yl, 0, 12)),  \
+    (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) | _SHIFTL(yl, 0, 12)),  \
     gsImmp1(G_RDPHALF_1, (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16))), \
     gsImmp1(G_RDPHALF_2, (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16)))
 
@@ -4593,9 +4597,9 @@ _DW({                                                                           
 _DW({                                       \
     Gfx *_g = (Gfx *)(pkt);                         \
                                      \
-    _g->words.w0 = (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(xh, 12, 12) |\
+    _g->words.w0 = (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(TextureRectScale(xh, xl, yl, xh, yh), 12, 12) |\
             _SHIFTL(yh, 0, 12));                \
-    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) |    \
+    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(TextureRectScalerValue(xl, yl, xh, yh), 27, 5) | _SHIFTL(TextureRectScale(xl, xl, yl, xh, yh), 12, 12) |    \
             _SHIFTL(yl, 0, 12));                \
     gImmp1(pkt, G_RDPHALF_1, (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16))); \
     gImmp1(pkt, G_RDPHALF_2, (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16))); \
