@@ -143,9 +143,9 @@ void BgMoriIdomizu_Main(BgMoriIdomizu* pthis, GlobalContext* globalCtx) {
             BgMoriIdomizu_SetWaterLevel(globalCtx, thisx->world.pos.y);
             if (pthis->drainTimer > 0) {
                 if (switchFlagSet) {
-                    func_800788CC(NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
+                    Common_PlaySfx2(NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
                 } else {
-                    func_800788CC(NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
+                    Common_PlaySfx2(NA_SE_EV_WATER_LEVEL_DOWN - SFX_FLAG);
                 }
             }
         }

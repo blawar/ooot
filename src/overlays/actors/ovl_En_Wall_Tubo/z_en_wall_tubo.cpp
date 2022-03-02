@@ -96,7 +96,7 @@ void EnWallTubo_DetectChu(EnWallTubo* pthis, GlobalContext* globalCtx) {
                     (fabsf(chuPosDiff.z) < 40.0f || (BREG(2)))) {
                     pthis->chuGirl->wallStatus[pthis->actor.params] = 1;
                     chu->timer = 2;
-                    func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                    Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                     pthis->timer = 60;
                     EffectSsBomb2_SpawnLayered(globalCtx, &pthis->explosionCenter, &effVelocity, &effAccel, 200, 40);
                     quakeIndex = Quake_Add(GET_ACTIVE_CAM(globalCtx), 1);

@@ -122,7 +122,7 @@ void func_808B29F0(BgSpot11Oasis* pthis, GlobalContext* globalCtx) {
         func_808B2AA8(pthis);
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_ELF, pthis->actor.world.pos.x,
                     pthis->actor.world.pos.y + 40.0f, pthis->actor.world.pos.z, 0, 0, 0, FAIRY_SPAWNER);
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
     }
     func_808B27F0(globalCtx, pthis->actor.world.pos.y);
 }

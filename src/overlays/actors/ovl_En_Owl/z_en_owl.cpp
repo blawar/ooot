@@ -957,7 +957,7 @@ void func_80ACC00C(EnOwl* pthis, GlobalContext* globalCtx) {
                     break;
             }
 
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
             gSaveContext.cutsceneTrigger = 1;
             func_800F44EC(0x14, 0xA);
             pthis->actionFunc = EnOwl_WaitDefault;

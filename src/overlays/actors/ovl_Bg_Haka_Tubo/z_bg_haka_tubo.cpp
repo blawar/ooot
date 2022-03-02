@@ -180,7 +180,7 @@ void BgHakaTubo_DropCollectible(BgHakaTubo* pthis, GlobalContext* globalCtx) {
             if (sPotsDestroyed == 3) {
                 // All 3 pots destroyed
                 collectibleParams = -1;
-                func_80078884(NA_SE_SY_CORRECT_CHIME);
+                Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
                 // Drop rupees
                 for (i = 0; i < 9; i++) {
                     collectible = Item_DropCollectible(globalCtx, &spawnPos, i % 3);
@@ -195,7 +195,7 @@ void BgHakaTubo_DropCollectible(BgHakaTubo* pthis, GlobalContext* globalCtx) {
                 Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_FIREFLY, pthis->dyna.actor.world.pos.x,
                             pthis->dyna.actor.world.pos.y + 80.0f, pthis->dyna.actor.world.pos.z, 0,
                             pthis->dyna.actor.shape.rot.y, 0, 2);
-                func_80078884(NA_SE_SY_ERROR);
+                Common_PlaySfx(NA_SE_SY_ERROR);
             } else {
                 // Random rewards
                 if (rnd < 0.4f) {
@@ -207,16 +207,16 @@ void BgHakaTubo_DropCollectible(BgHakaTubo* pthis, GlobalContext* globalCtx) {
                 } else {
                     collectibleParams = ITEM00_ARROWS_SMALL;
                 }
-                func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
             }
         } else if (Flags_GetCollectible(globalCtx, pthis->dyna.actor.params) != 0) {
             // If small key already collected, drop recovery heart instead
             collectibleParams = ITEM00_HEART;
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         } else {
             // Drops a small key and sets a collect flag
             collectibleParams = ((pthis->dyna.actor.params & 0x3F) << 8) | ITEM00_SMALL_KEY;
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         }
         if (collectibleParams != -1) {
             collectible = Item_DropCollectible(globalCtx, &spawnPos, collectibleParams);

@@ -219,7 +219,7 @@ void func_808A3E54(BgMoriHineri* pthis, GlobalContext* globalCtx) {
             pthis->moriHineriObjIdx = objBankIndex;
             pthis->dyna.actor.params ^= 1;
             sNextCamIdx = MAIN_CAM;
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         } else {
             pthis->dyna.actor.draw = NULL;
             pthis->actionFunc = func_808A3D58;

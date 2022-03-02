@@ -228,7 +228,7 @@ void func_80A6E9AC(EnHs* pthis, GlobalContext* globalCtx) {
             Animation_Change(&pthis->skelAnime, &object_hs_Anim_000304, 1.0f, 0.0f,
                              Animation_GetLastFrame(&object_hs_Anim_000304), ANIMMODE_LOOP, 8.0f);
             pthis->unk_2AA = 40;
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         } else {
             player->actor.textId = 0x10B1;
             func_80A6E3A0(pthis, func_80A6E6D8);

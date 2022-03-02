@@ -738,7 +738,7 @@ void BossGanon_IntroCutscene(BossGanon* pthis, GlobalContext* globalCtx) {
             pthis->fwork[GDF_TRIFORCE_PRIM_A] = 0.0f;
             pthis->fwork[GDF_TRIFORCE_PRIM_B] = 255.0f;
             pthis->fwork[GDF_TRIFORCE_ENV_G] = 100.0f;
-            func_80078884(NA_SE_EV_TRIFORCE_MARK);
+            Common_PlaySfx(NA_SE_EV_TRIFORCE_MARK);
             globalCtx->envCtx.unk_D8 = 0.0f;
             // fallthrough
         case 7:
@@ -785,7 +785,7 @@ void BossGanon_IntroCutscene(BossGanon* pthis, GlobalContext* globalCtx) {
             pthis->fwork[GDF_TRIFORCE_PRIM_A] = 0.0f;
             pthis->fwork[GDF_TRIFORCE_PRIM_B] = 255.0f;
             pthis->fwork[GDF_TRIFORCE_ENV_G] = 100.0f;
-            func_80078884(NA_SE_EV_TRIFORCE_MARK);
+            Common_PlaySfx(NA_SE_EV_TRIFORCE_MARK);
             globalCtx->envCtx.unk_D8 = 0.0f;
             // fallthrough
         case 9:
@@ -990,7 +990,7 @@ void BossGanon_IntroCutscene(BossGanon* pthis, GlobalContext* globalCtx) {
 
             if (pthis->csTimer >= 30) {
                 if (pthis->csTimer == 30) {
-                    func_80078884(NA_SE_EV_TRIFORCE_MARK);
+                    Common_PlaySfx(NA_SE_EV_TRIFORCE_MARK);
                 }
 
                 // fade in ganondorf's triforce
@@ -1478,7 +1478,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * 0.2f;
 
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
         skip_cam_and_quake:
             pthis->envLightMode = 15;
@@ -1525,7 +1525,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
             }
 
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * pthis->unk_710;
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             if (pthis->csTimer < 100) {
                 pthis->windowShatterState = GDF_WINDOW_SHATTER_PARTIAL;
@@ -1722,7 +1722,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 
         case 1055:
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * 0.3f;
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             if (pthis->csTimer == 20) {
                 sZelda->unk_3C8 = 5;
@@ -1737,7 +1737,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 
         case 1056:
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * 0.3f;
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             pthis->csCamEye.x = -503.0f;
             pthis->csCamEye.y = 4128.0f;
@@ -1755,7 +1755,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 
         case 1057:
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * (50.0f * pthis->csCamMovementScale);
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             Math_ApproachF(&pthis->csCamEye.x, -1200.0f, 0.1f, pthis->csCamMovementScale * 697.0f);
             Math_ApproachF(&pthis->csCamEye.y, 4241.0f, 0.1f, pthis->csCamMovementScale * 113.0f);
@@ -1779,7 +1779,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
             pthis->csCamAt.z = sZelda->actor.world.pos.z - 25.0f;
 
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * 0.3f;
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             if (pthis->csTimer == 70) {
                 sZelda->unk_3C8 = 6;
@@ -1799,7 +1799,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 
         case 107:
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * 0.8f;
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             pthis->csCamEye.x = -380.0f;
             pthis->csCamEye.y = 4154.0f;
@@ -1818,7 +1818,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 
         case 108:
             pthis->unk_70C = Math_SinS(pthis->csTimer * 0x6300) * 0.8f;
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
 
             pthis->csCamAt.x = (sZelda->actor.world.pos.x - 5.0f) - 30.0f;
             pthis->csCamAt.y = (sZelda->actor.world.pos.y + 40.0f + 5.0f) - 20.0f;
@@ -1841,7 +1841,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
             break;
 
         case 109:
-            func_80078884(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
+            Common_PlaySfx(NA_SE_EV_EARTHQUAKE - SFX_FLAG);
             break;
     }
 
@@ -2284,7 +2284,7 @@ void BossGanon_Wait(BossGanon* pthis, GlobalContext* globalCtx) {
     pthis->actor.world.pos.y += pthis->actor.velocity.y;
 
     Math_ApproachS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 5, 0xBB8);
-    func_80078914(&pthis->actor.projectedPos, NA_SE_EN_FANTOM_FLOAT - SFX_FLAG);
+    Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EN_FANTOM_FLOAT - SFX_FLAG);
 }
 
 void BossGanon_SetupChargeLightBall(BossGanon* pthis, GlobalContext* globalCtx) {
@@ -2779,7 +2779,7 @@ void BossGanon_UpdateDamage(BossGanon* pthis, GlobalContext* globalCtx) {
                     BossGanon_SetupDeathCutscene(pthis, globalCtx);
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GANON_DEAD);
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GANON_DD_THUNDER);
-                    func_80078914(&sZeroVec, NA_SE_EN_LAST_DAMAGE);
+                    Common_PlaySfxAtPos(&sZeroVec, NA_SE_EN_LAST_DAMAGE);
                     Audio_QueueSeqCmd(0x100100FF);
                     pthis->screenFlashTimer = 4;
                 } else {
@@ -2960,7 +2960,7 @@ void BossGanon_Update(Actor* thisx, GlobalContext* globalCtx2) {
 
         // player hit, spawn shock and play sound
         if (pthis->unk_2E8 != 0) {
-            func_80078914(&player->actor.projectedPos, NA_SE_PL_SPARK - SFX_FLAG);
+            Common_PlaySfxAtPos(&player->actor.projectedPos, NA_SE_PL_SPARK - SFX_FLAG);
             BossGanonEff_SpawnShock(globalCtx, 700.0f, GDF_SHOCK_PLAYER_YELLOW);
         }
     }
@@ -4256,8 +4256,8 @@ void func_808E1EB4(Actor* thisx, GlobalContext* globalCtx2) {
             pthis->actor.speedXZ = 0.0f;
 
             if (pthis->actor.params == 0xC8) {
-                func_80078884(NA_SE_EN_GANON_DAMAGE2);
-                func_80078884(NA_SE_EN_GANON_DD_THUNDER);
+                Common_PlaySfx(NA_SE_EN_GANON_DAMAGE2);
+                Common_PlaySfx(NA_SE_EN_GANON_DD_THUNDER);
 
                 for (i = 0; i < 150; i++) {
 
@@ -4761,7 +4761,7 @@ void BossGanon_UpdateEffects(GlobalContext* globalCtx) {
                 Math_ApproachF(&eff->unk_40, 4.0f, 1.0f, 0.15f);
             } else if (eff->type == GDF_EFF_IMPACT_DUST_LIGHT) {
                 if (i == 0) {
-                    func_80078884(NA_SE_EN_GANON_WAVE_GND - SFX_FLAG);
+                    Common_PlaySfx(NA_SE_EN_GANON_WAVE_GND - SFX_FLAG);
                 }
 
                 eff->unk_30++; // unused

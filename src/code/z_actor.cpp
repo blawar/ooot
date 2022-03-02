@@ -538,7 +538,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 
             lockOnSfxId = CHECK_FLAG_ALL(actorArg->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2) ? NA_SE_SY_LOCK_ON
                                                                                        : NA_SE_SY_LOCK_ON_HUMAN;
-            func_80078884(lockOnSfxId);
+            Common_PlaySfx(lockOnSfxId);
         }
 
         targetCtx->targetCenterPos.x = actorArg->world.pos.x;
@@ -1733,7 +1733,7 @@ void func_8002F7DC(Actor* actor, u16 sfxId) {
 }
 
 void Audio_PlayActorSound2(Actor* actor, u16 sfxId) {
-    func_80078914(&actor->projectedPos, sfxId);
+    Common_PlaySfxAtPos(&actor->projectedPos, sfxId);
 }
 
 void func_8002F850(GlobalContext* globalCtx, Actor* actor) {
@@ -1749,8 +1749,8 @@ void func_8002F850(GlobalContext* globalCtx, Actor* actor) {
         sfxId = SurfaceType_GetSfx(&globalCtx->colCtx, actor->floorPoly, actor->floorBgId);
     }
 
-    func_80078914(&actor->projectedPos, NA_SE_EV_BOMB_BOUND);
-    func_80078914(&actor->projectedPos, sfxId + SFX_FLAG);
+    Common_PlaySfxAtPos(&actor->projectedPos, NA_SE_EV_BOMB_BOUND);
+    Common_PlaySfxAtPos(&actor->projectedPos, sfxId + SFX_FLAG);
 }
 
 void func_8002F8F0(Actor* actor, u16 sfxId) {
@@ -2167,7 +2167,7 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
         actor = NULL;
         if (actorCtx->targetCtx.unk_4B != 0) {
             actorCtx->targetCtx.unk_4B = 0;
-            func_80078884(NA_SE_SY_LOCK_OFF);
+            Common_PlaySfx(NA_SE_SY_LOCK_OFF);
         }
     }
 
@@ -2266,13 +2266,13 @@ void func_80030ED8(Actor* actor) {
     if (actor->flags & ACTOR_FLAG_19) {
         Audio_PlaySoundGeneral(actor->sfx, &actor->projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (actor->flags & ACTOR_FLAG_20) {
-        func_80078884(actor->sfx);
+        Common_PlaySfx(actor->sfx);
     } else if (actor->flags & ACTOR_FLAG_21) {
-        func_800788CC(actor->sfx);
+        Common_PlaySfx2(actor->sfx);
     } else if (actor->flags & ACTOR_FLAG_28) {
         func_800F4C58(&gAudioDefaultPos, NA_SE_SY_TIMER - SFX_FLAG, (s8)(actor->sfx - 1));
     } else {
-        func_80078914(&actor->projectedPos, actor->sfx);
+        Common_PlaySfxAtPos(&actor->projectedPos, actor->sfx);
     }
 }
 

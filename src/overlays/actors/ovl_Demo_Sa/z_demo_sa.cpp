@@ -366,7 +366,7 @@ void func_8098EDB0(DemoSa* pthis) {
 }
 
 void func_8098EE08(void) {
-    func_800788CC(NA_SE_SY_WHITE_OUT_T);
+    Common_PlaySfx2(NA_SE_SY_WHITE_OUT_T);
 }
 
 void func_8098EE28(DemoSa* pthis, GlobalContext* globalCtx) {

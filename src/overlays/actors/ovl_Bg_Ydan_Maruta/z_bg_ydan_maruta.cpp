@@ -159,7 +159,7 @@ void func_808BF078(BgYdanMaruta* pthis, GlobalContext* globalCtx) {
     if (pthis->collider.base.acFlags & AC_HIT) {
         pthis->unk_16A = 20;
         Flags_SetSwitch(globalCtx, pthis->switchFlag);
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         pthis->actionFunc = func_808BF108;
         OnePointCutscene_Init(globalCtx, 3010, 50, &pthis->dyna.actor, MAIN_CAM);
     } else {

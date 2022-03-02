@@ -581,14 +581,14 @@ void Color_RGBA8_Copy(Color_RGBA8* dst, Color_RGBA8* src) {
     dst->a = src->a;
 }
 
-void func_80078884(u16 sfxId) {
+void Common_PlaySfx(u16 sfxId) {
     Audio_PlaySoundGeneral(sfxId, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }
 
-void func_800788CC(u16 sfxId) {
+void Common_PlaySfx2(u16 sfxId) {
     Audio_PlaySoundGeneral(sfxId, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }
 
-void func_80078914(Vec3f* arg0, u16 sfxId) {
-    Audio_PlaySoundGeneral(sfxId, arg0, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+void Common_PlaySfxAtPos(Vec3f* pos, u16 sfxId) {
+    Audio_PlaySoundGeneral(sfxId, pos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }

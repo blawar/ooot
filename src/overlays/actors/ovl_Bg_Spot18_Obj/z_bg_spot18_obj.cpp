@@ -267,7 +267,7 @@ void func_808B8F08(BgSpot18Obj* pthis, GlobalContext* globalCtx) {
         pthis->dyna.unk_150 = 0.0f;
         player->stateFlags2 &= ~0x10;
         Flags_SetSwitch(globalCtx, (pthis->dyna.actor.params >> 8) & 0x3F);
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);
     } else {
         func_8002F974(&pthis->dyna.actor, NA_SE_EV_ROCK_SLIDE - SFX_FLAG);

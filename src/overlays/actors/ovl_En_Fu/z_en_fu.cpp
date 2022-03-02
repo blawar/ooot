@@ -186,7 +186,7 @@ void func_80A1DBD4(EnFu* pthis, GlobalContext* globalCtx) {
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
         pthis->actor.flags &= ~ACTOR_FLAG_16;
     } else if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_03) {
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         pthis->actionFunc = func_80A1DB60;
         pthis->actor.flags &= ~ACTOR_FLAG_16;
         globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gSongOfStormsCs);

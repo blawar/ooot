@@ -469,7 +469,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
             Gameplay_CameraChangeSetting(globalCtx, camIdx, CAM_SET_CS_3);
             func_8002DF54(globalCtx, &player->actor, 5);
             OnePointCutscene_SetCsCamPoints(csCam, D_80120304 | 0x2000, D_80120300, D_8012013C, D_8012021C);
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
             OnePointCutscene_Vec3sToVec3f(&mainCam->at, &D_8012013C[D_801202FC - 2].pos);
             OnePointCutscene_Vec3sToVec3f(&mainCam->eye, &D_8012021C[D_801202FC - 2].pos);
             D_8012013C[D_801202FC - 3].pos.x +=

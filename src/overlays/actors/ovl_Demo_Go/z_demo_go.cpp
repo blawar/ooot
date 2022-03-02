@@ -111,14 +111,14 @@ void func_8097C930(DemoGo* pthis) {
 }
 
 void func_8097C9B8(DemoGo* pthis) {
-    func_80078914(&pthis->actor.projectedPos, NA_SE_EN_DODO_M_GND);
+    Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EN_DODO_M_GND);
 }
 
 void func_8097C9DC(DemoGo* pthis) {
     s32 pad[2];
 
     if (Animation_OnFrame(&pthis->skelAnime, 12.0f) || Animation_OnFrame(&pthis->skelAnime, 25.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_EN_MORIBLIN_WALK);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EN_MORIBLIN_WALK);
     }
 }
 

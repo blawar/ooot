@@ -147,7 +147,7 @@ s32 EnDivingGame_HasMinigameFinished(EnDivingGame* pthis, GlobalContext* globalC
         // Failed.
         gSaveContext.timer1State = 0;
         func_800F5B58();
-        func_80078884(NA_SE_SY_FOUND);
+        Common_PlaySfx(NA_SE_SY_FOUND);
         pthis->actor.textId = 0x71AD;
         Message_StartTextbox(globalCtx, pthis->actor.textId, NULL);
         pthis->unk_292 = TEXT_STATE_EVENT;

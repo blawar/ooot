@@ -254,7 +254,7 @@ void ObjTimeblock_Normal(ObjTimeblock* pthis, GlobalContext* globalCtx) {
     pthis->isVisible = newIsVisible;
 
     if (pthis->demoEffectTimer == 50) {
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
     }
 }
 
@@ -289,7 +289,7 @@ void ObjTimeblock_AltBehaviorVisible(ObjTimeblock* pthis, GlobalContext* globalC
     func_80BA06AC(pthis, globalCtx);
 
     if (pthis->demoEffectTimer == 50) {
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
     }
 
     if (!pthis->isVisible && pthis->demoEffectTimer <= 0) {

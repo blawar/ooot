@@ -64,7 +64,7 @@ void EfcErupc_UpdateAction(EfcErupc* pthis, GlobalContext* globalCtx) {
         if (globalCtx->csCtx.npcActions[1] != NULL) {
             if (globalCtx->csCtx.npcActions[1]->action == 2) {
                 if (pthis->unk150 == 30) {
-                    func_800788CC(NA_SE_IT_EARTHQUAKE);
+                    Common_PlaySfx2(NA_SE_IT_EARTHQUAKE);
                 }
                 if (pthis->unk150 <= 64) {
                     if (pthis->unk154 < 200) {

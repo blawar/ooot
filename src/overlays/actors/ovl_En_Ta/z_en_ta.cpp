@@ -772,7 +772,7 @@ void func_80B154FC(EnTa* pthis, GlobalContext* globalCtx) {
     if (gSaveContext.timer1Value == 0 && !Gameplay_InCsMode(globalCtx)) {
         Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_STOP);
         pthis->unk_2E0 &= ~0x200;
-        func_80078884(NA_SE_SY_FOUND);
+        Common_PlaySfx(NA_SE_SY_FOUND);
         gSaveContext.timer1State = 0;
         func_8002DF54(globalCtx, &pthis->actor, 1);
         Message_StartTextbox(globalCtx, 0x2081, &pthis->actor);

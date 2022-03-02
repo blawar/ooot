@@ -235,9 +235,9 @@ s16 Rand_S16Offset(s16 base, s16 range);
 void Actor_ProcessInitChain(Actor* actor, InitChainEntry* initChain);
 
 void Color_RGBA8_Copy(Color_RGBA8* dst, Color_RGBA8* src);
-void func_80078884(u16 sfxId);
-void func_800788CC(u16 sfxId);
-void func_80078914(Vec3f* arg0, u16 sfxId);
+void Common_PlaySfx(u16 sfxId);
+void Common_PlaySfx2(u16 sfxId);
+void Common_PlaySfxAtPos(Vec3f* arg0, u16 sfxId);
 void HealthMeter_Init(GlobalContext* globalCtx);
 void HealthMeter_Update(GlobalContext* globalCtx);
 void HealthMeter_Draw(GlobalContext* globalCtx);

@@ -422,7 +422,7 @@ void func_80A53AD4(EnHeishi2* pthis, GlobalContext* globalCtx) {
     if (Actor_ProcessTalkRequest(&pthis->actor, globalCtx)) {
         exchangeItemId = func_8002F368(globalCtx);
         if (exchangeItemId == EXCH_ITEM_LETTER_ZELDA) {
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
             player->actor.textId = 0x2010;
             pthis->unk_300 = TEXT_STATE_EVENT;
             pthis->actionFunc = func_80A53C0C;
@@ -743,7 +743,7 @@ void func_80A5475C(EnHeishi2* pthis, GlobalContext* globalCtx) {
 
             if (pthis->unk_300 == TEXT_STATE_CHOICE) {
                 pthis->unk_309 = 1;
-                func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                 pthis->actionFunc = func_80A540C0;
             }
             return;

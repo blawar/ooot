@@ -63,7 +63,7 @@ ActorInit Bg_Spot01_Idohashira_InitVars = {
 };
 
 void BgSpot01Idohashira_PlayBreakSfx1(BgSpot01Idohashira* pthis) {
-    func_80078914(&pthis->dyna.actor.projectedPos, NA_SE_EV_BOX_BREAK);
+    Common_PlaySfxAtPos(&pthis->dyna.actor.projectedPos, NA_SE_EV_BOX_BREAK);
 }
 
 void BgSpot01Idohashira_PlayBreakSfx2(BgSpot01Idohashira* pthis, GlobalContext* globalCtx) {
