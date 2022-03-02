@@ -12,39 +12,6 @@
 #include "def/audio_rsp.h"
 #include "def/audio_bank.h"
 
-static std::unordered_map<AdsrEnvelope*, AdsrEnvelope*> g_envelopeMape;
-
-static u32 AdsrEnvelopeBE_Length(const AdsrEnvelope* env)
-{
-	u32 len = 1;
-
-    while(BE16(env->delay) != (u16)-1)
-    {
-	    env++;
-	    len++;
-    }
-
-    return len;
-}
-
-static AdsrEnvelope* AdsrEnvelopeBE(AdsrEnvelope* pointer)
-{
-	auto& ptr = g_envelopeMape[pointer];
-
-    if(!ptr)
-	{
-	    u32 len = AdsrEnvelopeBE_Length(pointer);
-		ptr	= new AdsrEnvelope[len];
-
-	    for(u32 i=0; i < len; i++)
-		{
-		    ptr[i].delay = BE16(pointer[i].delay);
-			ptr[i].arg   = BE16(pointer[i].arg);
-		}
-	}
-    return ptr;
-}
-
 #define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
 #define PORTAMENTO_MODE(x) ((x).mode & ~0x80)
 #define PORTAMENTO_MODE_1 1
@@ -636,7 +603,7 @@ s32 AudioSeq_SeqLayerProcessScriptStep2(SequenceLayer* layer) {
 
             case 0xCB:
                 sp3A = AudioSeq_ScriptReadS16(state);
-                layer->adsr.envelope = AdsrEnvelopeBE((AdsrEnvelope*)(seqPlayer->seqData + sp3A));
+                layer->adsr.envelope = ((AdsrEnvelope*)(seqPlayer->seqData + sp3A));
                 // fallthrough
 
             case 0xCF:
@@ -784,12 +751,12 @@ s32 AudioSeq_SeqLayerProcessScriptStep4(SequenceLayer* layer, s32 cmd) {
                         freqScale2 = temp_f14;
                         break;
                     default:
-                        freqScale = temp_f2;
                         freqScale2 = temp_f2;
                         break;
                 }
 
-                portamento->extent = (freqScale2 / freqScale) - 1.0f;
+
+                        freqScale = temp_f2;                portamento->extent = (freqScale2 / freqScale) - 1.0f;
 
                 if (PORTAMENTO_IS_SPECIAL(*portamento)) {
                     speed = seqPlayer->tempo * 0x8000 / gAudioContext.tempoInternalToExternal;
@@ -1171,7 +1138,7 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
                         break;
                     case 0xDA:
                         offset = (u16)parameters[0];
-                        channel->adsr.envelope = AdsrEnvelopeBE((AdsrEnvelope*)&seqPlayer->seqData[offset]);
+                        channel->adsr.envelope = ((AdsrEnvelope*)&seqPlayer->seqData[offset]);
                         break;
                     case 0xD9:
                         command = (u8)parameters[0];
@@ -1382,13 +1349,13 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
                         break;
                     case 0xB2:
                         offset = (u16)parameters[0];
-                        channel->unk_22 = *(u16*)(seqPlayer->seqData + (u32)(offset + scriptState->value * 2));
+                        channel->unk_22 = BE16(*(u16*)(seqPlayer->seqData + (u32)(offset + scriptState->value * 2)));
                         break;
                     case 0xB4:
                         channel->dynTable = (u8 (*)[][2])&seqPlayer->seqData[channel->unk_22];
                         break;
                     case 0xB5:
-                        channel->unk_22 = ((u16*)(channel->dynTable))[scriptState->value];
+                        channel->unk_22 = BE16(((u16*)(channel->dynTable))[scriptState->value]);
                         break;
                     case 0xB6:
                         scriptState->value = (*channel->dynTable)[0][scriptState->value];

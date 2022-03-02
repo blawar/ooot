@@ -115,8 +115,8 @@ struct AdsrEnvelope {
 	{
 	}
 
-    /* 0x0 */ s16 delay;
-    /* 0x2 */ s16 arg;
+    /* 0x0 */ s16be delay;
+    /* 0x2 */ s16be arg;
 }; // size = 0x4
 
 struct AdpcmLoop {
@@ -597,9 +597,9 @@ struct NoteSubEu {
         u8 unused : 1;
         u8 finished : 1; // ?
         u8 needsInit : 1;
-        volatile u8 enabled : 1;
+        u8 enabled : 1;
 #else
-        volatile u8 enabled : 1;
+        u8 enabled : 1;
         u8 needsInit : 1;
         u8 finished : 1; // ?
         u8 unused : 1;

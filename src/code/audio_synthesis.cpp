@@ -686,7 +686,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
     s32 nTrailingSamplesToIgnore;
     s32 phi_a1_2;
     s32 frameIndex;
-    s32 skipBytes;// = 0; // TODO HACK not sure why this isnt being set
+    s32 skipBytes;
     s32 temp_v1_6;
     void* buf;
     s32 nSamplesToDecode;
@@ -699,9 +699,9 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
     s32 phi_s4;
     s32 nFirstFrameSamplesToIgnore;
     s32 pad2[7];
-    s32 frameSize; // TODO HACK not sure why this isnt being set
+    s32 frameSize;
     s32 nFramesToDecode;
-    s32 skipInitialSamples; // TODO HACK not sure why this isnt being set
+    s32 skipInitialSamples;
     Pointer sampleDataStart;
     u8* sampleData;
     s32 nParts;
