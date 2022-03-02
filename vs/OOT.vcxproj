@@ -27,7 +27,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
