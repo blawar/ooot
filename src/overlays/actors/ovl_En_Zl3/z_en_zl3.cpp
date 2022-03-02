@@ -1558,7 +1558,7 @@ void func_80B56D44(EnZl3* pthis, GlobalContext* globalCtx) {
     func_80B564A8(pthis, globalCtx);
 }
 
-void func_80B56DA4(EnZl3* pthis) {
+void EnZl3_PlayPowerSfx(EnZl3* pthis) {
     Common_PlaySfx2(NA_SE_EV_ZELDA_POWER);
 }
 
@@ -1838,7 +1838,7 @@ void func_80B57754(EnZl3* pthis, GlobalContext* globalCtx) {
     if (gSaveContext.unk_13F0 == 0) {
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_OCEFF_WIPE4, pthis->actor.world.pos.x,
                     pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, 1);
-        func_80B56DA4(pthis);
+        EnZl3_PlayPowerSfx(pthis);
     }
 }
 
