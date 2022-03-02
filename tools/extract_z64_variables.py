@@ -4,6 +4,8 @@ from oot import *
 
 conf = config()
 
+sampleBankTable = None
+
 symbols = {}
 
 class Root:
@@ -257,22 +259,29 @@ def RSHIFT(n, offset, length):
 	return (n >> offset) & ((0x01 << length) - 1)
 
 class BufferU8:
-	def __init__(self, parent, offset, size, dataFile = 'baserom/Audiotable'):
+	def __init__(self, parent, offset, size, dataFile = 'baserom/Audiotable', prefix = 'buffer_'):
 		self.pos = offset
+		self.prefix = prefix
+
 		data = []
-		with open(assetPath(dataFile), 'rb') as f:
-			f.seek(offset)
+		with open(romPath('baserom.z64') if dataFile == 'baserom' else assetPath(dataFile), 'rb') as f:
+			f.seek(offset + sampleBankTable.getBankOffset(parent.shortData1 >> 8))
 			for b in f.read(size):
 				data.append(hex(b))
+
+			if len(data) != size:
+				raise IOError('did not read all of u8 buffer')
 		registerSymbol(self.getSymbol(), 'u8 %s[] = {%s};' % (self.getSymbol(), ', '.join(data)), self.pos + 0x10000000)
 
 	def getSymbol(self):
-		return 'buffer_%8.8X' % self.pos
+		return '%s%8.8X' % (self.prefix, self.pos)
 
 
 class SoundFontSample:
 	def __init__(self, f, parent):
 		self.pos = f.tell()
+		modes, u2, length, address, loopOffset, bookOffset = struct.unpack(">bbHLLL", f.read(4 * 4))
+		f.seek(self.pos)
 		self.flags = readU32(f)
 		self.sampleOffset = readU32(f)
 		self.loopOffset = readU32(f)
@@ -288,10 +297,19 @@ class SoundFontSample:
 		#self.size = RSHIFT(self.flags, 8, 24)
 
 		self.size = RSHIFT(self.flags, 0, 24)
-		self.unk_bit25 = RSHIFT(self.flags, 25, 1)
-		self.unk_bit26 = RSHIFT(self.flags, 26, 1)
-		self.medium = RSHIFT(self.flags, 27, 2)
-		self.codec = RSHIFT(self.flags, 29, 4)
+		self.unk_bit25 = RSHIFT(self.flags, 24, 1)
+		self.unk_bit26 = RSHIFT(self.flags, 25, 1)
+		self.medium = RSHIFT(self.flags, 26, 2)
+		self.codec = RSHIFT(self.flags, 28, 4)
+
+		if self.size != length:
+			raise IOError('bad size, got %d expected %d' % (length, self.size))
+
+		if self.codec != ((modes >> 4) & 0xF):
+			raise IOError('bad codec, got %d, expected %d' % ((modes >> 4) & 0xF, self.codec))
+
+		if self.medium != ((modes & 0xC) >> 2):
+			raise IOError('bad medium, got %d expected %d' % ((modes & 0xC) >> 2, self.medium))
 
 		print('sample flags: %8.8X, size = %d, codec = %d, medium = %d, unk_bit26 = %d, unk_bit25 = %d, sampleOffset = %8.8X' % (self.flags, self.size, self.codec, self.medium, self.unk_bit26, self.unk_bit25, self.sampleOffset))
 		
@@ -315,21 +333,10 @@ class SoundFontSample:
 		sampleSymbol = '0x%8.8X' % self.sampleOffset
 
 		if self.size > 0 and self.unk_bit25 != 1:
-			if self.medium == 2:
-				self.medium = 0
-			'''
-			if self.medium == 2:
+			if self.medium == 0 and 1 == 0:
 				self.sampleBuffer = BufferU8(parent, offset = self.sampleOffset, size = self.size, dataFile = 'baserom/Audiotable')
-				#self.medium = 2
 				self.unk_bit25 = 1
 				sampleSymbol = self.sampleBuffer.getSymbol()
-
-			if self.medium == 0:
-				self.sampleBuffer = BufferU8(parent, offset = self.sampleOffset, size = self.size, dataFile = 'baserom/Audiotable')
-				#self.medium = 2
-				self.unk_bit25 = 1
-				sampleSymbol = self.sampleBuffer.getSymbol()
-			'''
 
 		f.seek(pos)
 		
@@ -576,6 +583,41 @@ class Table(Section):
 		super(Table, self).__init__(name, offset, sz, 1)
 		
 		self.dataFile = dataFile
+		self.relocs = []
+
+	def getRealId(self, id):
+		if self.relocs[id].size == 0:
+			return self.relocs[id].address
+		return id
+
+	def getBankOffset(self, id):
+		id = self.getRealId(id)
+
+		return self.relocs[id].address
+
+	def load(self, z64):
+		relocs = []
+		z64.seek(self.offset)
+
+		numEntries = readS16(z64, swap = False)
+		unkMediumParam = readS16(z64, swap = False)
+		address = readU32(z64, swap = False)
+		
+		z64.read(8) # padding
+
+		with ConvFile(assetPath(self.dataFile), 'rb') as x:
+			while z64.tell() < self.offset + self.sz:
+				address = readU32(z64, swap = False)
+				size = readU32(z64, swap = False)
+				medium = readS8(z64, swap = False)
+				cachePolicy = readS8(z64, swap = False)
+				shortData1 = readS16(z64, swap = False)
+				shortData2 = readS16(z64, swap = False)
+				shortData3 = readS16(z64, swap = False)
+
+				reloc = self.getReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f = x)
+				relocs.append(reloc)
+		self.relocs = relocs
 
 		
 	def serialize(self, f, z64):
@@ -605,8 +647,8 @@ class Table(Section):
 				reloc = self.getReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f = x)
 				relocs.append(reloc)
 				lst.append('{ .romAddr = (uintptr_t)%s, .size = 0x%8.8X, .medium = 0x%2.2X, .cachePolicy = %d, .shortData1 = 0x%4.4X, .shortData2 = 0x%4.4X, .shortData3 = 0x%4.4X }' % (reloc.getSymbol(), size, medium, cachePolicy, shortData1, shortData2, shortData3))
-				
 				#reloc.render(f)
+		self.relocs = relocs
 			
 		definition = ('AudioTableDef %s = {\n.numEntries = 0x%4.4X, .unkMediumParam = 0x%4.4X, .romAddr = 0x%8.8X, .pad = {0}, .entries = {\n' % (self.name, numEntries, unkMediumParam, address))
 
@@ -667,6 +709,9 @@ sections = {'misc/rsp.h': [
 createDir(assetPath('misc'))
 
 with open(romPath('baserom.z64'), 'rb') as z64:
+	sampleBankTable = Table('gSampleBankTable', conf.sections.gSampleBankTable.offset, conf.sections.gSampleBankTable.size, 'baserom/Audiotable')
+	sampleBankTable.load(z64)
+
 	for filename, s in sections.items():
 		with open(assetPath(filename), 'w') as f:
 			f.write('#include "global.h"\n')
