@@ -77,7 +77,7 @@ s32 osJamMesg(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED s32 flag)
 
 OSTime osGetTime(void)
 {
-	return GetTickCount64();
+	return timeGetTime();
 }
 #else
 OSTime osGetTime(void)
