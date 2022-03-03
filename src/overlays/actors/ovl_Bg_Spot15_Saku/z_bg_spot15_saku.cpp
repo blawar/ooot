@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot15_saku.h"
-#include "objects/object_spot15_obj/object_spot15_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -47,7 +47,7 @@ void BgSpot15Saku_Init(Actor* thisx, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gLonLonCorralFenceCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gLonLonCorralFenceCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     pthis->dyna.actor.scale.x = 0.1f;
     pthis->dyna.actor.scale.y = 0.1f;
@@ -110,7 +110,7 @@ void BgSpot15Saku_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot15_saku.c", 263),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gLonLonCorralFenceDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLonLonCorralFenceDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot15_saku.c", 268);
 }

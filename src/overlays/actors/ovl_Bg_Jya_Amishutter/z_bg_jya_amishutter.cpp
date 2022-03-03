@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_jya_amishutter.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -69,7 +69,7 @@ void BgJyaAmishutter_InitDynaPoly(BgJyaAmishutter* pthis, GlobalContext* globalC
 void BgJyaAmishutter_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaAmishutter* pthis = (BgJyaAmishutter*)thisx;
 
-    BgJyaAmishutter_InitDynaPoly(pthis, globalCtx, &gAmishutterCol, DPM_UNK);
+    BgJyaAmishutter_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gAmishutterCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     BgJyaAmishutter_SetupWaitForPlayer(pthis);
 }
@@ -133,7 +133,7 @@ void BgJyaAmishutter_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaAmishutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gAmishutterDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gAmishutterDL));
 }
 
 void BgJyaAmishutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {

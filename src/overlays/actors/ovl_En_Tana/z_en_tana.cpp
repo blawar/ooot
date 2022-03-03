@@ -7,7 +7,7 @@
  */
 
 #include "z_en_tana.h"
-#include "objects/object_shop_dungen/object_shop_dungen.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_rcp.h"
@@ -49,15 +49,15 @@ static const ActorFunc sDrawFuncs[] = {
 };
 
 static Gfx* sShelfDLists[] = {
-    gShopDungenWoodenShelvesDL,
-    gShopDungenStoneShelvesDL,
-    gShopDungenStoneShelvesDL,
+    oot::asset::gfx::load(symbol::gShopDungenWoodenShelvesDL),
+    oot::asset::gfx::load(symbol::gShopDungenStoneShelvesDL),
+    oot::asset::gfx::load(symbol::gShopDungenStoneShelvesDL),
 };
 
 static void* sStoneTextures[] = {
     NULL,
-    gShopDungenStone1Tex,
-    gShopDungenStone2Tex,
+    oot::asset::texture::load(symbol::gShopDungenStone1Tex),
+    oot::asset::texture::load(symbol::gShopDungenStone2Tex),
 };
 
 void EnTana_Init(Actor* thisx, GlobalContext* globalCtx) {

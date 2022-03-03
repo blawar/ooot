@@ -8,7 +8,7 @@
 
 #include "z_bg_jya_haheniron.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_jya_iron/object_jya_iron.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -33,9 +33,9 @@ void BgJyaHaheniron_SetupRubbleCollide(BgJyaHaheniron* pthis);
 void BgJyaHaheniron_RubbleCollide(BgJyaHaheniron* pthis, GlobalContext* globalCtx);
 
 static Gfx* dLists_45[] = {
-    gObjectJyaIronDL_000880,
-    gObjectJyaIronDL_000AE0,
-    gObjectJyaIronDL_000600,
+    oot::asset::gfx::load(symbol::gObjectJyaIronDL_000880),
+    oot::asset::gfx::load(symbol::gObjectJyaIronDL_000AE0),
+    oot::asset::gfx::load(symbol::gObjectJyaIronDL_000600),
 };
 
 
@@ -124,7 +124,7 @@ void BgJyaHaheniron_SpawnFragments(GlobalContext* globalCtx, Vec3f* vec1, Vec3f*
         }
 
         EffectSsKakera_Spawn(globalCtx, vec1, &vel, vec1, -350, arg5, 40, 4, 0, sKakeraScales[i], 0, 20, 40,
-                             KAKERA_COLOR_NONE, OBJECT_JYA_IRON, gObjectJyaIronDL_000880);
+                             KAKERA_COLOR_NONE, OBJECT_JYA_IRON, oot::asset::gfx::load(symbol::gObjectJyaIronDL_000880));
         angle += 0x3333;
     }
     pos.x = vec1->x + (vec2->x * 5.0f);

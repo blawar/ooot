@@ -2,9 +2,7 @@
 #include "actor_common.h"
 #include "z_en_sa.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
-#include "objects/object_sa/object_sa.h"
-#include "scenes/overworld/spot04/spot04_scene.h"
-#include "scenes/overworld/spot05/spot05_scene.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -32,12 +30,12 @@ void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx);
 void func_80AF6B20(EnSa* pthis, GlobalContext* globalCtx);
 
 static void* mouthTextures_67[] = {
-    gSariaMouthClosed2Tex,  gSariaMouthSmilingOpenTex, gSariaMouthFrowningTex,
-    gSariaMouthSuprisedTex, gSariaMouthClosedTex,
+    oot::asset::texture::load(symbol::gSariaMouthClosed2Tex),  oot::asset::texture::load(symbol::gSariaMouthSmilingOpenTex), oot::asset::texture::load(symbol::gSariaMouthFrowningTex),
+    oot::asset::texture::load(symbol::gSariaMouthSuprisedTex), oot::asset::texture::load(symbol::gSariaMouthClosedTex),
 };
 
 static void* eyeTextures_67[] = {
-    gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
+    oot::asset::texture::load(symbol::gSariaEyeOpenTex), oot::asset::texture::load(symbol::gSariaEyeHalfTex), oot::asset::texture::load(symbol::gSariaEyeClosedTex), oot::asset::texture::load(symbol::gSariaEyeSuprisedTex), oot::asset::texture::load(symbol::gSariaEyeSadTex),
 };
 
 
@@ -79,31 +77,31 @@ static CollisionCheckInfoInit2 sColChkInfoInit = {
 };
 
 static struct_D_80AA1678 sAnimationInfo[] = {
-    { &gSariaWaitArmsToSideAnim, 1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gSariaLookUpArmExtendedAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gSariaWaveAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gSariaRunAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gSariaWaitArmsToSideAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gSariaLookOverShoulderAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gSariaPlayingOcarinaAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gSariaStopPlayingOcarinaAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gSariaOcarinaToMouthAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gSariaLinkLearnedSariasSongAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gSariaReturnToOcarinaAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gSariaPlayingOcarinaAnim, 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSariaWaitArmsToSideAnim), 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSariaLookUpArmExtendedAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaWaveAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaRunAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaWaitArmsToSideAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaLookOverShoulderAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaPlayingOcarinaAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaStopPlayingOcarinaAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaOcarinaToMouthAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaLinkLearnedSariasSongAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaReturnToOcarinaAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gSariaPlayingOcarinaAnim), 1.0f, ANIMMODE_LOOP, 0.0f },
 };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gSariaTransitionHandsSideToChestToSideAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gSariaTransitionHandsSideToBackAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -4.0f },
-    { &gSariaRightArmExtendedWaitAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gSariaHandsOutAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gSariaStandHandsOnHipsAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gSariaExtendRightArmAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gSariaTransitionHandsSideToHipsAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gSariaHandsBehindBackWaitAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gSariaHandsOnFaceAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gSariaWaitArmsToSideAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
+    { oot::asset::anim::header::load(symbol::gSariaTransitionHandsSideToChestToSideAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaTransitionHandsSideToBackAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -4.0f },
+    { oot::asset::anim::header::load(symbol::gSariaRightArmExtendedWaitAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaHandsOutAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaStandHandsOnHipsAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaExtendRightArmAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaTransitionHandsSideToHipsAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaHandsBehindBackWaitAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaHandsOnFaceAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gSariaWaitArmsToSideAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
 };
 
 s16 func_80AF5560(EnSa* pthis, GlobalContext* globalCtx) {
@@ -386,14 +384,14 @@ void func_80AF5F34(EnSa* pthis, GlobalContext* globalCtx) {
         phi_a3 = (pthis->actionFunc == func_80AF68E4) ? 1 : 4;
     }
     if (globalCtx->sceneNum == SCENE_SPOT05) {
-        phi_a3 = (pthis->skelAnime.animation == &gSariaPlayingOcarinaAnim) ? 1 : 3;
+        phi_a3 = (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaPlayingOcarinaAnim)) ? 1 : 3;
     }
     if (globalCtx->sceneNum == SCENE_SPOT05 && pthis->actionFunc == func_80AF6448 &&
-        pthis->skelAnime.animation == &gSariaStopPlayingOcarinaAnim) {
+        pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaStopPlayingOcarinaAnim)) {
         phi_a3 = 1;
     }
     if (globalCtx->sceneNum == SCENE_SPOT05 && pthis->actionFunc == func_80AF68E4 &&
-        pthis->skelAnime.animation == &gSariaOcarinaToMouthAnim) {
+        pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaOcarinaToMouthAnim)) {
         phi_a3 = 1;
     }
     pthis->unk_1E0.unk_18 = player->actor.world.pos;
@@ -402,8 +400,8 @@ void func_80AF5F34(EnSa* pthis, GlobalContext* globalCtx) {
 }
 
 s32 func_80AF603C(EnSa* pthis) {
-    if (pthis->skelAnime.animation != &gSariaPlayingOcarinaAnim &&
-        pthis->skelAnime.animation != &gSariaOcarinaToMouthAnim) {
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gSariaPlayingOcarinaAnim) &&
+        pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gSariaOcarinaToMouthAnim)) {
         return 0;
     }
     if (pthis->unk_1E0.unk_00 != 0) {
@@ -458,7 +456,7 @@ void EnSa_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->counter = 0;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 12.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSariaSkel, NULL, pthis->jointTable, pthis->morphTable, 17);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gSariaSkel), NULL, pthis->jointTable, pthis->morphTable, 17);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);
@@ -480,7 +478,7 @@ void EnSa_Init(Actor* thisx, GlobalContext* globalCtx) {
         case 4:
             pthis->unk_210 = 0;
             pthis->actor.gravity = -1.0f;
-            globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gSpot04Cs_10E20);
+            globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gSpot04Cs_10E20));
             gSaveContext.cutsceneTrigger = 1;
             EnSa_ChangeAnim(pthis, 4);
             pthis->actionFunc = func_80AF68E4;
@@ -537,7 +535,7 @@ void func_80AF6448(EnSa* pthis, GlobalContext* globalCtx) {
                     break;
                 case 0x1031:
                     if (pthis->unk_208 == 0 && pthis->unk_20B != 4 &&
-                        pthis->skelAnime.animation == &gSariaHandsBehindBackWaitAnim) {
+                        pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaHandsBehindBackWaitAnim)) {
                         func_80AF5CD4(pthis, 4);
                         pthis->mouthIndex = 3;
                     }
@@ -552,7 +550,7 @@ void func_80AF6448(EnSa* pthis, GlobalContext* globalCtx) {
                     break;
                 case 0x1032:
                     if (pthis->unk_208 == 0 && pthis->unk_20B != 4 &&
-                        pthis->skelAnime.animation == &gSariaHandsBehindBackWaitAnim) {
+                        pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaHandsBehindBackWaitAnim)) {
                         func_80AF5CD4(pthis, 4);
                     }
                     break;
@@ -577,21 +575,21 @@ void func_80AF6448(EnSa* pthis, GlobalContext* globalCtx) {
         }
         func_80AF5CE4(pthis);
     }
-    if (pthis->skelAnime.animation == &gSariaStopPlayingOcarinaAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaStopPlayingOcarinaAnim)) {
         pthis->skelAnime.playSpeed = -1.0f;
         if ((s32)pthis->skelAnime.curFrame == 0) {
             EnSa_ChangeAnim(pthis, 6);
         }
     }
     if (pthis->unk_1E0.unk_00 != 0 && globalCtx->sceneNum == SCENE_SPOT05) {
-        Animation_Change(&pthis->skelAnime, &gSariaStopPlayingOcarinaAnim, 1.0f, 0.0f, 10.0f, ANIMMODE_ONCE, -10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gSariaStopPlayingOcarinaAnim), 1.0f, 0.0f, 10.0f, ANIMMODE_ONCE, -10.0f);
         pthis->actionFunc = func_80AF67D0;
     }
 }
 
 void func_80AF67D0(EnSa* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_1E0.unk_00 == 0) {
-        Animation_Change(&pthis->skelAnime, &gSariaStopPlayingOcarinaAnim, 0.0f, 10.0f, 0.0f, ANIMMODE_ONCE, -10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gSariaStopPlayingOcarinaAnim), 0.0f, 10.0f, 0.0f, ANIMMODE_ONCE, -10.0f);
         pthis->actionFunc = func_80AF6448;
     }
 }
@@ -600,7 +598,7 @@ void func_80AF683C(EnSa* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (!(player->actor.world.pos.z >= -2220.0f) && !Gameplay_InCsMode(globalCtx)) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(spot05_scene_Cs_005730);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::spot05_scene_Cs_005730));
         gSaveContext.cutsceneTrigger = 1;
         pthis->actionFunc = func_80AF68E4;
     }
@@ -705,8 +703,8 @@ void EnSa_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
     SkelAnime_Update(&pthis->skelAnime);
 
-    if (pthis->skelAnime.animation == &gSariaOcarinaToMouthAnim &&
-        pthis->skelAnime.curFrame >= Animation_GetLastFrame(&gSariaOcarinaToMouthAnim)) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gSariaOcarinaToMouthAnim) &&
+        pthis->skelAnime.curFrame >= Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSariaOcarinaToMouthAnim))) {
         EnSa_ChangeAnim(pthis, 6);
     }
 
@@ -759,7 +757,7 @@ s32 EnSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     }
 
     if (globalCtx->sceneNum == SCENE_SPOT05 && limbIndex == 15) {
-        *dList = gSariaRightHandAndOcarinaDL;
+        *dList = oot::asset::gfx::load(symbol::gSariaRightHandAndOcarinaDL);
     }
 
     return 0;

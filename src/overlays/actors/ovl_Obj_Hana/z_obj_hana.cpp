@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_hana.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_cheap_proc.h"
 #include "def/z_collision_check.h"
@@ -58,9 +58,9 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit sColChkInfoInit = { 0, 12, 60, MASS_IMMOVABLE }; 
 
 static HanaParams sHanaParams[] = {
-    { gHanaDL, 0.01f, 0.0f, -1, 0 },
-    { gFieldKakeraDL, 0.1f, 58.0f, 10, 18 },
-    { gFieldBushDL, 0.4f, 0.0f, 12, 44 },
+    { oot::asset::gfx::load(symbol::gHanaDL), 0.01f, 0.0f, -1, 0 },
+    { oot::asset::gfx::load(symbol::gFieldKakeraDL), 0.1f, 58.0f, 10, 18 },
+    { oot::asset::gfx::load(symbol::gFieldBushDL), 0.4f, 0.0f, 12, 44 },
 };
 
 static InitChainEntry sInitChain[] = {

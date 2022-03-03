@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_menkuri_kaiten.h"
-#include "objects/object_menkuri_objects/object_menkuri_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -46,7 +46,7 @@ void BgMenkuriKaiten_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK3);
-    CollisionHeader_GetVirtual(&gGTGRotatingRingPlatformCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gGTGRotatingRingPlatformCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 }
 
@@ -66,7 +66,7 @@ void BgMenkuriKaiten_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgMenkuriKaiten_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gGTGRotatingRingPlatformDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gGTGRotatingRingPlatformDL));
 }
 
 void BgMenkuriKaiten_Reset(Actor* pthisx, GlobalContext* globalCtx) {

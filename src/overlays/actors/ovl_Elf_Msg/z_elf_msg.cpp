@@ -172,7 +172,7 @@ void ElfMsg_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 #ifndef RETAIL
-#include "overlays/ovl_Elf_Msg/ovl_Elf_Msg.cpp"
+#include "asset.h"
 #endif
 
 void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx) {
@@ -192,12 +192,12 @@ void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_elf_msg.c", 448),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, D_809AD278);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_809AD278));
 
     if (thisx->params & 0x4000) {
-        gSPDisplayList(POLY_XLU_DISP++, sCubeDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sCubeDL));
     } else {
-        gSPDisplayList(POLY_XLU_DISP++, sCylinderDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sCylinderDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg.c", 457);

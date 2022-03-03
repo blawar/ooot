@@ -8,7 +8,7 @@
 
 #include "z_bg_mizu_bwall.h"
 #include "overlays/actors/ovl_Bg_Mizu_Water/z_bg_mizu_water.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -161,12 +161,12 @@ static ColliderTrisInit sTrisInitStingerWall = {
 };
 
 static Gfx* sDLists[] = {
-    gObjectMizuObjectsBwallDL_001A30, gObjectMizuObjectsBwallDL_002390, gObjectMizuObjectsBwallDL_001CD0,
-    gObjectMizuObjectsBwallDL_002090, gObjectMizuObjectsBwallDL_001770,
+    oot::asset::gfx::load(symbol::gObjectMizuObjectsBwallDL_001A30), oot::asset::gfx::load(symbol::gObjectMizuObjectsBwallDL_002390), oot::asset::gfx::load(symbol::gObjectMizuObjectsBwallDL_001CD0),
+    oot::asset::gfx::load(symbol::gObjectMizuObjectsBwallDL_002090), oot::asset::gfx::load(symbol::gObjectMizuObjectsBwallDL_001770),
 };
 static CollisionHeader* sColHeaders[] = {
-    &gObjectMizuObjectsBwallCol_001C58, &gObjectMizuObjectsBwallCol_0025A4, &gObjectMizuObjectsBwallCol_001DE8,
-    &gObjectMizuObjectsBwallCol_001DE8, &gObjectMizuObjectsBwallCol_001DE8,
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsBwallCol_001C58), oot::asset::collision::header::load(symbol::gObjectMizuObjectsBwallCol_0025A4), oot::asset::collision::header::load(symbol::gObjectMizuObjectsBwallCol_001DE8),
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsBwallCol_001DE8), oot::asset::collision::header::load(symbol::gObjectMizuObjectsBwallCol_001DE8),
 };
 
 static InitChainEntry D_8089D854[] = {

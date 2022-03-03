@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_syoku.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/cosf.h"
 #include "def/z_actor.h"
@@ -52,7 +52,7 @@ void BgHidanSyoku_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&gFireTempleFlareDancerPlatformCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleFlareDancerPlatformCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     pthis->actionFunc = func_8088F4B8;
     pthis->dyna.actor.home.pos.y += 540.0f;
@@ -133,7 +133,7 @@ void BgHidanSyoku_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHidanSyoku_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gFireTempleFlareDancerPlatformDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFireTempleFlareDancerPlatformDL));
 }
 
 void BgHidanSyoku_Reset(Actor* pthisx, GlobalContext* globalCtx) {

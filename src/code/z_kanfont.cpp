@@ -3,10 +3,13 @@
 #include "segment_symbols.h"
 #include "z64message.h"
 #include "message_data_static.h"
-#include "textures/nes_font_static/nes_font_static.h"
-#include "textures/message_static/message_static.h"
+#include "asset.h"
 #include "def/z_kanfont.h"
 #include "def/z_std_dma.h"
+
+extern void* nes_font_static_lut[];
+extern void* message_static_lut[];
+extern char* _message_0xFFFC_nes;
 
 void func_8006EE50(Font* font, u16 arg1, u16 arg2) {
 }

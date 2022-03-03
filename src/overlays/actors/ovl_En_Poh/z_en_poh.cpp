@@ -7,8 +7,8 @@
  */
 
 #include "z_en_poh.h"
-#include "objects/object_poh/object_poh.h"
-#include "objects/object_po_composer/object_po_composer.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -165,13 +165,13 @@ static EnPohInfo sPoeInfo[2] = {
         18,
         5,
         248,
-        &gPoeDisappearAnim,
-        &gPoeFloatAnim,
-        &gPoeDamagedAnim,
-        &gPoeFleeAnim,
-        gPoeLanternDL,
-        gPoeBurnDL,
-        gPoeSoulDL,
+        oot::asset::anim::header::load(symbol::gPoeDisappearAnim),
+        oot::asset::anim::header::load(symbol::gPoeFloatAnim),
+        oot::asset::anim::header::load(symbol::gPoeDamagedAnim),
+        oot::asset::anim::header::load(symbol::gPoeFleeAnim),
+        oot::asset::gfx::load(symbol::gPoeLanternDL),
+        oot::asset::gfx::load(symbol::gPoeBurnDL),
+        oot::asset::gfx::load(symbol::gPoeSoulDL),
     },
     {
         { 255, 255, 170 },
@@ -179,13 +179,13 @@ static EnPohInfo sPoeInfo[2] = {
         9,
         1,
         244,
-        &gPoeComposerDisappearAnim,
-        &gPoeComposerFloatAnim,
-        &gPoeComposerDamagedAnim,
-        &gPoeComposerFleeAnim,
-        gPoeComposerLanternDL,
-        gPoeComposerBurnDL,
-        gPoeComposerSoulDL,
+        oot::asset::anim::header::load(symbol::gPoeComposerDisappearAnim),
+        oot::asset::anim::header::load(symbol::gPoeComposerFloatAnim),
+        oot::asset::anim::header::load(symbol::gPoeComposerDamagedAnim),
+        oot::asset::anim::header::load(symbol::gPoeComposerFleeAnim),
+        oot::asset::gfx::load(symbol::gPoeComposerLanternDL),
+        oot::asset::gfx::load(symbol::gPoeComposerBurnDL),
+        oot::asset::gfx::load(symbol::gPoeComposerSoulDL),
     },
 };
 
@@ -297,9 +297,9 @@ void func_80ADE1BC(EnPoh* pthis) {
 
 void EnPoh_SetupAttack(EnPoh* pthis) {
     if (pthis->infoIdx == EN_POH_INFO_NORMAL) {
-        Animation_MorphToLoop(&pthis->skelAnime, &gPoeAttackAnim, -6.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeAttackAnim), -6.0f);
     } else {
-        Animation_PlayLoop(&pthis->skelAnime, &gPoeComposerAttackAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeComposerAttackAnim));
     }
     pthis->unk_198 = 12;
     pthis->actor.speedXZ = 0.0f;
@@ -309,9 +309,9 @@ void EnPoh_SetupAttack(EnPoh* pthis) {
 
 void func_80ADE28C(EnPoh* pthis) {
     if (pthis->infoIdx == EN_POH_INFO_NORMAL) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gPoeDamagedAnim, -6.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeDamagedAnim), -6.0f);
     } else {
-        Animation_PlayOnce(&pthis->skelAnime, &gPoeComposerDamagedAnim);
+        Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeComposerDamagedAnim));
     }
     if (pthis->colliderCyl.info.acHitInfo->toucher.dmgFlags & 0x0001F824) {
         pthis->actor.world.rot.y = pthis->colliderCyl.base.ac->world.rot.y;
@@ -337,10 +337,10 @@ void EnPoh_SetupInitialAction(EnPoh* pthis) {
     pthis->lightColor.a = 0;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     if (pthis->infoIdx == EN_POH_INFO_NORMAL) {
-        Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gPoeAppearAnim, 0.0f);
+        Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeAppearAnim), 0.0f);
         pthis->actionFunc = func_80ADEF38;
     } else {
-        Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gPoeComposerAppearAnim, 1.0f);
+        Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeComposerAppearAnim), 1.0f);
         pthis->actor.world.pos.y = pthis->actor.home.pos.y + 20.0f;
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_LAUGH);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_APPEAR);
@@ -933,11 +933,11 @@ void EnPoh_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.update = EnPoh_UpdateLiving;
         Actor_SetObjectDependency(globalCtx, &pthis->actor);
         if (pthis->infoIdx == EN_POH_INFO_NORMAL) {
-            SkelAnime_Init(globalCtx, &pthis->skelAnime, &gPoeSkel, &gPoeFloatAnim, pthis->jointTable, pthis->morphTable,
+            SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gPoeSkel), oot::asset::anim::header::load(symbol::gPoeFloatAnim), pthis->jointTable, pthis->morphTable,
                            21);
             pthis->actor.draw = EnPoh_DrawRegular;
         } else {
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gPoeComposerSkel, &gPoeComposerFloatAnim, pthis->jointTable,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gPoeComposerSkel), oot::asset::anim::header::load(symbol::gPoeComposerFloatAnim), pthis->jointTable,
                                pthis->morphTable, 12);
             pthis->actor.draw = EnPoh_DrawComposer;
             pthis->colliderSph.elements[0].dim.limb = 9;
@@ -1054,7 +1054,7 @@ s32 EnPoh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
         *dList = NULL;
     } else if (pthis->actor.params == EN_POH_FLAT && limbIndex == 0xA) {
         // Replace Sharp's head with Flat's
-        *dList = gPoeComposerFlatHeadDL;
+        *dList = oot::asset::gfx::load(symbol::gPoeComposerFlatHeadDL);
     }
     if (limbIndex == 0x13 && pthis->infoIdx == EN_POH_INFO_NORMAL) {
         gDPPipeSync((*gfxP)++);
@@ -1165,10 +1165,10 @@ void EnPoh_DrawComposer(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2787),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, pthis->info->lanternDisplayList);
-    gSPDisplayList(POLY_OPA_DISP++, gPoeComposerLanternBottomDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeComposerLanternBottomDL));
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetEnvColor(POLY_OPA_DISP++, sp90->r, sp90->g, sp90->b, 255);
-    gSPDisplayList(POLY_OPA_DISP++, gPoeComposerLanternTopDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeComposerLanternTopDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2802);
 }
 
@@ -1199,10 +1199,10 @@ void EnPoh_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
             Color_RGBA8* envColor = (pthis->actor.params == EN_POH_SHARP) ? &D_80AE1B4C : &D_80AE1B50;
             s32 pad;
 
-            gSPDisplayList(POLY_OPA_DISP++, gPoeComposerLanternBottomDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeComposerLanternBottomDL));
             gDPPipeSync(POLY_OPA_DISP++);
             gDPSetEnvColor(POLY_OPA_DISP++, envColor->r, envColor->g, envColor->b, 255);
-            gSPDisplayList(POLY_OPA_DISP++, gPoeComposerLanternTopDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeComposerLanternTopDL));
         }
     } else {
         func_80093D84(globalCtx->state.gfxCtx);

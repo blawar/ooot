@@ -7,7 +7,7 @@
  */
 
 #include "z_en_tubo_trap.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
@@ -129,7 +129,7 @@ void EnTuboTrap_SpawnEffectsOnLand(EnTuboTrap* pthis, GlobalContext* globalCtx) 
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, actorPos, -240, arg5, 10, 10, 0,
                              (Rand_ZeroOne() * 65.0f) + 15.0f, 0, 32, 60, KAKERA_COLOR_NONE,
-                             OBJECT_GAMEPLAY_DANGEON_KEEP, gPotFragmentDL);
+                             OBJECT_GAMEPLAY_DANGEON_KEEP, oot::asset::gfx::load(symbol::gPotFragmentDL));
     }
 
     func_80033480(globalCtx, actorPos, 30.0f, 4, 20, 50, 0);
@@ -175,7 +175,7 @@ void EnTuboTrap_SpawnEffectsInWater(EnTuboTrap* pthis, GlobalContext* globalCtx)
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, actorPos, -180, arg5, 30, 30, 0,
                              (Rand_ZeroOne() * 65.0f) + 15.0f, 0, 32, 70, KAKERA_COLOR_NONE,
-                             OBJECT_GAMEPLAY_DANGEON_KEEP, gPotFragmentDL);
+                             OBJECT_GAMEPLAY_DANGEON_KEEP, oot::asset::gfx::load(symbol::gPotFragmentDL));
     }
 }
 
@@ -298,7 +298,7 @@ void EnTuboTrap_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnTuboTrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gPotDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gPotDL));
 }
 
 void EnTuboTrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {

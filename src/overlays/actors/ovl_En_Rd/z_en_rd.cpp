@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_RD_Z_EN_RD_C
 #include "actor_common.h"
 #include "z_en_rd.h"
-#include "objects/object_rd/object_rd.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -158,11 +158,11 @@ void EnRd_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     if (thisx->params >= -1) {
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_rd_Skel_00E778, &object_rd_Anim_0087D0,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_rd_Skel_00E778), oot::asset::anim::header::load(symbol::object_rd_Anim_0087D0),
                            pthis->jointTable, pthis->morphTable, 26);
         thisx->naviEnemyId = 0x2A;
     } else {
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_rd_Skel_003DD8, &object_rd_Anim_0087D0,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_rd_Skel_003DD8), oot::asset::anim::header::load(symbol::object_rd_Anim_0087D0),
                            pthis->jointTable, pthis->morphTable, 26);
         thisx->naviEnemyId = 0x2D;
     }
@@ -212,9 +212,9 @@ void func_80AE2630(GlobalContext* globalCtx, Actor* thisx, s32 arg2) {
 
 void func_80AE269C(EnRd* pthis) {
     if (pthis->actor.params != 2) {
-        Animation_MorphToLoop(&pthis->skelAnime, &object_rd_Anim_0087D0, -6.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_0087D0), -6.0f);
     } else {
-        Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_005D98);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_005D98));
     }
 
     pthis->unk_31B = 0;
@@ -231,9 +231,9 @@ void func_80AE2744(EnRd* pthis, GlobalContext* globalCtx) {
 
     if ((pthis->actor.params == 2) && (0.0f == pthis->skelAnime.curFrame)) {
         if (Rand_ZeroOne() >= 0.5f) {
-            Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_005D98);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_005D98));
         } else {
-            Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_0057AC);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_0057AC));
         }
     } else {
         pthis->unk_30C--;
@@ -276,7 +276,7 @@ void func_80AE2744(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE2970(EnRd* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_rd_Anim_0087D0, 0, 0, Animation_GetLastFrame(&object_rd_Anim_0087D0),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_0087D0), 0, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_0087D0)),
                      ANIMMODE_LOOP, -6.0f);
     pthis->unk_31B = 11;
     pthis->unk_30C = 6;
@@ -311,8 +311,8 @@ void func_80AE2A10(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE2B90(EnRd* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &object_rd_Anim_00EFDC, 1.0f, 4.0f,
-                     Animation_GetLastFrame(&object_rd_Anim_00EFDC), ANIMMODE_LOOP_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_00EFDC), 1.0f, 4.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_00EFDC)), ANIMMODE_LOOP_INTERP, -4.0f);
     pthis->actor.speedXZ = 0.4f;
     pthis->unk_31B = 4;
     EnRd_SetupAction(pthis, func_80AE2C1C);
@@ -381,7 +381,7 @@ void func_80AE2C1C(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE2F50(EnRd* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &object_rd_Anim_00EFDC, 0.5f, 0, Animation_GetLastFrame(&object_rd_Anim_00EFDC),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_00EFDC), 0.5f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_00EFDC)),
                      ANIMMODE_LOOP_INTERP, -4.0f);
     pthis->unk_31B = 2;
     EnRd_SetupAction(pthis, func_80AE2FD0);
@@ -430,7 +430,7 @@ void func_80AE2FD0(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE31DC(EnRd* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_rd_Anim_00EFDC, 0.5f, 0, Animation_GetLastFrame(&object_rd_Anim_00EFDC),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_00EFDC), 0.5f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_00EFDC)),
                      ANIMMODE_LOOP_INTERP, -4.0f);
     pthis->unk_31B = 3;
     pthis->unk_305 = 1;
@@ -476,7 +476,7 @@ void func_80AE3260(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE33F0(EnRd* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &object_rd_Anim_004ADC);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_004ADC));
     pthis->unk_30C = pthis->unk_304 = 0;
     pthis->unk_319 = 200;
     pthis->unk_31B = 8;
@@ -494,7 +494,7 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx) {
 
     switch (pthis->unk_304) {
         case 1:
-            Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_004268);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_004268));
             pthis->unk_304++;
             globalCtx->damagePlayer(globalCtx, -8);
             Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 1, 0xC);
@@ -504,8 +504,8 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx) {
             Math_SmoothStepToS(&pthis->unk_310, 0, 1, 0x5DC, 0);
         case 2:
             if (!(player->stateFlags2 & 0x80)) {
-                Animation_Change(&pthis->skelAnime, &object_rd_Anim_0046F8, 0.5f, 0.0f,
-                                 Animation_GetLastFrame(&object_rd_Anim_0046F8), ANIMMODE_ONCE_INTERP, 0.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_0046F8), 0.5f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_0046F8)), ANIMMODE_ONCE_INTERP, 0.0f);
                 pthis->unk_304++;
                 pthis->unk_31B = 4;
                 return;
@@ -555,8 +555,8 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE37BC(EnRd* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_rd_Anim_004F94, 0.0f, 0.0f,
-                     Animation_GetLastFrame(&object_rd_Anim_004F94), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_004F94), 0.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_004F94)), ANIMMODE_ONCE, 0.0f);
     pthis->unk_31B = 7;
     EnRd_SetupAction(pthis, func_80AE3834);
 }
@@ -580,7 +580,7 @@ void func_80AE3834(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE392C(EnRd* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_rd_Anim_008040, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_008040), -4.0f);
     pthis->unk_31B = 5;
     EnRd_SetupAction(pthis, func_80AE3978);
 }
@@ -596,7 +596,7 @@ void func_80AE3978(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE39D4(EnRd* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_rd_Anim_008040, -1.0f, Animation_GetLastFrame(&object_rd_Anim_008040),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_008040), -1.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rd_Anim_008040)),
                      0.0f, ANIMMODE_ONCE, -4.0f);
     pthis->unk_31B = 6;
     EnRd_SetupAction(pthis, func_80AE3A54);
@@ -609,7 +609,7 @@ void func_80AE3A54(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE3A8C(EnRd* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_rd_Anim_0074F0, -6.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_0074F0), -6.0f);
 
     if (pthis->actor.bgCheckFlags & 1) {
         pthis->actor.speedXZ = -2.0f;
@@ -647,7 +647,7 @@ void func_80AE3B18(EnRd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE3C20(EnRd* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_rd_Anim_006E88, -1.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rd_Anim_006E88), -1.0f);
     pthis->unk_31B = 10;
     pthis->unk_30C = 300;
     pthis->actor.flags &= ~ACTOR_FLAG_0;

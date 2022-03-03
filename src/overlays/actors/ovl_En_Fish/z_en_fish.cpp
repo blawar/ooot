@@ -7,7 +7,7 @@
  */
 
 #include "z_en_fish.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -105,12 +105,12 @@ f32 EnFish_XZDistanceSquared(Vec3f* v1, Vec3f* v2) {
 }
 
 void EnFish_SetInWaterAnimation(EnFish* pthis) {
-    Animation_Change(&pthis->skelAnime, &gFishInWaterAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gFishInWaterAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishInWaterAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gFishInWaterAnim)),
                      ANIMMODE_LOOP_INTERP, 2.0f);
 }
 
 void EnFish_SetOutOfWaterAnimation(EnFish* pthis) {
-    Animation_Change(&pthis->skelAnime, &gFishOutOfWaterAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gFishOutOfWaterAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishOutOfWaterAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gFishOutOfWaterAnim)),
                      ANIMMODE_LOOP_INTERP, 2.0f);
 }
 
@@ -149,7 +149,7 @@ void EnFish_Init(Actor* thisx, GlobalContext* globalCtx) {
     s16 params = pthis->actor.params;
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFishSkel, &gFishInWaterAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFishSkel), oot::asset::anim::header::load(symbol::gFishInWaterAnim), pthis->jointTable, pthis->morphTable,
                        7);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colliderItems);

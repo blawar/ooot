@@ -8,11 +8,11 @@
 
 #include "z_en_nutsball.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
-#include "objects/object_dekunuts/object_dekunuts.h"
-#include "objects/object_hintnuts/object_hintnuts.h"
-#include "objects/object_shopnuts/object_shopnuts.h"
-#include "objects/object_dns/object_dns.h"
-#include "objects/object_dnk/object_dnk.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -70,7 +70,7 @@ static s16 sObjectIDs[] = {
 };
 
 static Gfx* sDLists[] = {
-    gDekuNutsDekuNutDL, gHintNutsNutDL, gBusinessScrubDekuNutDL, gDntJijiNutDL, gDntStageNutDL,
+    oot::asset::gfx::load(symbol::gDekuNutsDekuNutDL), oot::asset::gfx::load(symbol::gHintNutsNutDL), oot::asset::gfx::load(symbol::gBusinessScrubDekuNutDL), oot::asset::gfx::load(symbol::gDntJijiNutDL), oot::asset::gfx::load(symbol::gDntStageNutDL),
 };
 
 void EnNutsball_Init(Actor* thisx, GlobalContext* globalCtx) {

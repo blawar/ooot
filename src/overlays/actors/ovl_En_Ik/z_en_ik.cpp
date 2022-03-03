@@ -7,8 +7,7 @@
  */
 
 #include "z_en_ik.h"
-#include "scenes/dungeons/jyasinboss/jyasinboss_scene.h"
-#include "objects/object_ik/object_ik.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
 #include "def/code_800A9F30.h"
@@ -305,7 +304,7 @@ Actor* func_80A74674(GlobalContext* globalCtx, Actor* actor) {
 }
 
 void func_80A74714(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_00CD70);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00CD70));
     f32 frame;
 
     if (pthis->actor.params >= 2) {
@@ -314,7 +313,7 @@ void func_80A74714(EnIk* pthis) {
         frame = 0.0f;
     }
 
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_00CD70, 0.0f, frame, frames, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_00CD70), 0.0f, frame, frames, ANIMMODE_ONCE, 0.0f);
     pthis->unk_2F8 = 3;
     pthis->actor.speedXZ = 0.0f;
     EnIk_SetupAction(pthis, func_80A747C0);
@@ -341,12 +340,12 @@ void func_80A747C0(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A7489C(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_00DD50);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00DD50));
 
     pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
     pthis->unk_2F8 = 4;
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_00DD50, 0.0f, 0.0f, frames, ANIMMODE_LOOP, 4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_00DD50), 0.0f, 0.0f, frames, ANIMMODE_LOOP, 4.0f);
     EnIk_SetupAction(pthis, func_80A7492C);
 }
 
@@ -373,12 +372,12 @@ void func_80A7492C(EnIk* pthis, GlobalContext* globalCtx) {
 void func_80A74AAC(EnIk* pthis) {
     pthis->unk_2F8 = 5;
     if (pthis->unk_2FB == 0) {
-        Animation_Change(&pthis->skelAnime, &object_ik_Anim_00ED24, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_ik_Anim_00ED24), ANIMMODE_LOOP, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_00ED24), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00ED24)), ANIMMODE_LOOP, -4.0f);
         pthis->actor.speedXZ = 0.9f;
     } else {
-        Animation_Change(&pthis->skelAnime, &object_ik_Anim_006734, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_ik_Anim_006734), ANIMMODE_LOOP, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_006734), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_006734)), ANIMMODE_LOOP, -4.0f);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_IRONNACK_DASH);
         pthis->actor.speedXZ = 2.5f;
     }
@@ -445,12 +444,12 @@ void func_80A74BA4(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A74E2C(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_001C28);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_001C28));
 
     pthis->unk_2FF = 1;
     pthis->unk_2F8 = 6;
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_001C28, 1.5f, 0.0f, frames, ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_001C28), 1.5f, 0.0f, frames, ANIMMODE_ONCE, -4.0f);
     EnIk_SetupAction(pthis, func_80A74EBC);
 }
 
@@ -485,13 +484,13 @@ void func_80A74EBC(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A7506C(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_0029FC);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_0029FC));
 
     pthis->unk_2FE = 0;
     pthis->unk_2F9 = (s8)frames;
     pthis->unk_2F8 = 7;
     pthis->unk_2FF = pthis->unk_2FE;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_0029FC, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_0029FC), 1.0f, 0.0f, frames, ANIMMODE_LOOP, -4.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_IRONNACK_PULLOUT);
     EnIk_SetupAction(pthis, func_80A7510C);
 }
@@ -503,21 +502,21 @@ void func_80A7510C(EnIk* pthis, GlobalContext* globalCtx) {
         if (pthis->unk_2F8 == 8) {
             func_80A7489C(pthis);
         } else {
-            frames = Animation_GetLastFrame(&object_ik_Anim_002538);
+            frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_002538));
             pthis->unk_2F8 = 8;
-            Animation_Change(&pthis->skelAnime, &object_ik_Anim_002538, 1.5f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_002538), 1.5f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
         }
     }
 }
 
 void func_80A751C8(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_0033C4);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_0033C4));
 
     pthis->unk_2FF = 2;
     pthis->unk_300 = 0;
     pthis->unk_2F8 = 6;
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_0033C4, 0.0f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -6.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_0033C4), 0.0f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -6.0f);
     pthis->unk_2FC = 0;
     EnIk_SetupAction(pthis, func_80A75260);
 }
@@ -551,11 +550,11 @@ void func_80A75260(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A753D0(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_003DBC);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_003DBC));
 
     pthis->unk_2FF = pthis->unk_2FE = 0;
     pthis->unk_2F8 = 8;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_003DBC, 1.5f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_003DBC), 1.5f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
     EnIk_SetupAction(pthis, func_80A7545C);
 }
 
@@ -567,12 +566,12 @@ void func_80A7545C(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A754A0(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_0033C4);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_0033C4));
 
     pthis->unk_2F8 = 1;
     pthis->unk_2FF = 3;
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_0033C4, 0.5f, 13.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_0033C4), 0.5f, 13.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
     EnIk_SetupAction(pthis, func_80A75530);
 }
 
@@ -594,12 +593,12 @@ void func_80A75530(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A755F0(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_00485C);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00485C));
 
     pthis->unk_2FE = 0;
     pthis->unk_2F8 = 9;
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_00485C, 1.0f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_00485C), 1.0f, 0.0f, frames, ANIMMODE_ONCE_INTERP, -4.0f);
     EnIk_SetupAction(pthis, func_80A7567C);
 }
 
@@ -627,12 +626,12 @@ void func_80A75790(EnIk* pthis) {
     pthis->unk_2F8 = 0;
     yawDiff = yaw - pthis->actor.shape.rot.y;
     if (ABS(yawDiff) <= 0x4000) {
-        Animation_Change(&pthis->skelAnime, &object_ik_Anim_006194, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_ik_Anim_006194), ANIMMODE_ONCE, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_006194), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_006194)), ANIMMODE_ONCE, -4.0f);
         pthis->actor.speedXZ = -6.0f;
     } else {
-        Animation_Change(&pthis->skelAnime, &object_ik_Anim_0045BC, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_ik_Anim_0045BC), ANIMMODE_ONCE, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_0045BC), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_0045BC)), ANIMMODE_ONCE, -4.0f);
         pthis->actor.speedXZ = 6.0f;
     }
     pthis->unk_2FE = 0;
@@ -655,12 +654,12 @@ void func_80A758B0(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A7598C(EnIk* pthis) {
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_005944);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_005944));
 
     pthis->unk_2FE = 0;
     pthis->unk_2F8 = 2;
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_005944, 1.0f, 0.0f, frames, ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_005944), 1.0f, 0.0f, frames, ANIMMODE_ONCE, -4.0f);
     pthis->unk_2F9 = 0x18;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_IRONNACK_DEAD);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_CUTBODY);
@@ -707,7 +706,7 @@ void func_80A75C38(EnIk* pthis, GlobalContext* globalCtx) {
         return;
     }
     if (pthis->shieldCollider.base.acFlags & AC_BOUNCED) {
-        temp_f0 = Animation_GetLastFrame(&object_ik_Anim_00485C) - 2.0f;
+        temp_f0 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00485C)) - 2.0f;
         if (pthis->skelAnime.curFrame < temp_f0) {
             pthis->skelAnime.curFrame = temp_f0;
         }
@@ -845,11 +844,11 @@ s32 EnIk_OverrideLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
     if (limbIndex == 12) {
         if (pthis->actor.params != 0) {
-            *dList = object_ik_DL_018E78;
+            *dList = oot::asset::gfx::load(symbol::object_ik_DL_018E78);
         }
     } else if (limbIndex == 13) {
         if (pthis->actor.params != 0) {
-            *dList = object_ik_DL_019100;
+            *dList = oot::asset::gfx::load(symbol::object_ik_DL_019100);
         }
     } else if ((limbIndex == 26) || (limbIndex == 27)) {
         if ((pthis->unk_2FA & 1)) {
@@ -899,9 +898,9 @@ void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1217),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         if (pthis->actor.params != 0) {
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_019E08);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_019E08));
         } else {
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016D88);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016D88));
         }
     } else if (limbIndex == 17) {
         s32 i;
@@ -937,25 +936,25 @@ void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         case 22:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1270),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016F88);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016F88));
             break;
         case 24:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1275),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016EE8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016EE8));
             break;
         case 26:
             if (!(pthis->unk_2FA & 1)) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1281),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016BE0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016BE0));
             }
             break;
         case 27:
             if (!(pthis->unk_2FA & 1)) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1288),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016CD8);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016CD8));
             }
             break;
     }
@@ -1096,8 +1095,8 @@ void func_80A77148(EnIk* pthis) {
 }
 
 void func_80A77158(EnIk* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_00C114, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_ik_Anim_00C114), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_00C114), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00C114)), ANIMMODE_ONCE, 0.0f);
     func_80A770C0(pthis, globalCtx, 4);
     pthis->action = 1;
     pthis->drawMode = 1;
@@ -1105,8 +1104,8 @@ void func_80A77158(EnIk* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A771E4(EnIk* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_00C114, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_ik_Anim_00C114), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_00C114), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_00C114)), ANIMMODE_ONCE, 0.0f);
     pthis->action = 2;
     pthis->drawMode = 1;
     pthis->unk_4D4 = 0;
@@ -1134,11 +1133,11 @@ void func_80A772EC(EnIk* pthis, GlobalContext* globalCtx) {
 
 void func_80A7735C(EnIk* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
-    f32 frames = Animation_GetLastFrame(&object_ik_Anim_0203D8);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ik_Anim_0203D8));
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ik_Skel_0205C0, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ik_Skel_0205C0), NULL, pthis->jointTable, pthis->morphTable,
                        30);
-    Animation_Change(&pthis->skelAnime, &object_ik_Anim_0203D8, 1.0f, 0.0f, frames, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ik_Anim_0203D8), 1.0f, 0.0f, frames, ANIMMODE_ONCE, 0.0f);
     pthis->action = 3;
     pthis->drawMode = 2;
     func_80A770C0(pthis, globalCtx, 4);
@@ -1200,18 +1199,18 @@ void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
             if (EnIk_curFrame(&pthis->actor) < 30.0f) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inAwake.c", 267),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016D88);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016D88));
             }
         } break;
         case 22:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inAwake.c", 274),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016F88);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016F88));
             break;
         case 24:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inAwake.c", 280),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016EE8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016EE8));
             break;
         case 26: {
             EnIk* pthis = (EnIk*)thisx;
@@ -1219,7 +1218,7 @@ void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
             if (EnIk_curFrame(&pthis->actor) < 30.0f) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inAwake.c", 288),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016BE0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016BE0));
             }
         } break;
         case 27: {
@@ -1228,7 +1227,7 @@ void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
             if (EnIk_curFrame(&pthis->actor) < 30.0f) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inAwake.c", 297),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016CD8);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016CD8));
             }
         } break;
     }
@@ -1359,27 +1358,27 @@ void EnIk_PostLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         case 12:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inConfrontion.c", 575),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016D88);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016D88));
             break;
         case 22:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inConfrontion.c", 581),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016F88);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016F88));
             break;
         case 24:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inConfrontion.c", 587),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016EE8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016EE8));
             break;
         case 26:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inConfrontion.c", 593),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016BE0);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016BE0));
             break;
         case 27:
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_ik_inConfrontion.c", 599),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016CD8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016CD8));
             break;
     }
 
@@ -1450,7 +1449,7 @@ void func_80A781CC(Actor* thisx, GlobalContext* globalCtx) {
     if (!Gameplay_InCsMode(globalCtx)) {
         pthis->actor.update = EnIk_Update;
         pthis->actor.draw = EnIk_Draw;
-        Cutscene_SetSegment(globalCtx, gSpiritBossNabooruKnuckleDefeatCs);
+        Cutscene_SetSegment(globalCtx, oot::asset::cutscene::data::load(symbol::gSpiritBossNabooruKnuckleDefeatCs));
         gSaveContext.cutsceneTrigger = 1;
         Actor_SetScale(&pthis->actor, 0.01f);
         gSaveContext.eventChkInf[3] |= 0x1000;
@@ -1467,7 +1466,7 @@ void EnIk_Init(Actor* thisx, GlobalContext* globalCtx) {
         Actor_Kill(&pthis->actor);
     } else {
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ik_Skel_01E178, &object_ik_Anim_00C114,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ik_Skel_01E178), oot::asset::anim::header::load(symbol::object_ik_Anim_00C114),
                            pthis->jointTable, pthis->morphTable, 30);
         func_80A74398(&pthis->actor, globalCtx);
         func_80A780D0(pthis, globalCtx);

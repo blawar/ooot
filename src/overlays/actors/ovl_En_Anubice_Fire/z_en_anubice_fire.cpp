@@ -7,8 +7,7 @@
  */
 
 #include "z_en_anubice_fire.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_anubice/object_anubice.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -32,7 +31,7 @@ void func_809B27D8(EnAnubiceFire* pthis, GlobalContext* globalCtx);
 void func_809B2B48(EnAnubiceFire* pthis, GlobalContext* globalCtx);
 
 static void* D_809B3270_33[] = {
-    gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex,
+    oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust8Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust5Tex),
 };
 
 
@@ -261,7 +260,7 @@ void EnAnubiceFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_anubice_fire.c", 546),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gAnubiceFireAttackDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gAnubiceFireAttackDL));
         }
 
         if (pthis->scale < 0.1f) {

@@ -8,8 +8,7 @@
 
 #include "z_bg_spot11_bakudankabe.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_spot11_obj/object_spot11_obj.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -110,7 +109,7 @@ void func_808B2218(BgSpot11Bakudankabe* pthis, GlobalContext* globalCtx) {
             rotationSpeed = 33;
         }
         EffectSsKakera_Spawn(globalCtx, &burstDepthY, &burstDepthX, &burstDepthY, gravityInfluence, rotationSpeed, 0x1E,
-                             4, 0, scale, 1, 3, 80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, gFieldKakeraDL);
+                             4, 0, scale, 1, 3, 80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, oot::asset::gfx::load(symbol::gFieldKakeraDL));
     }
     Math_Vec3f_Sum(&thisx->world.pos, &D_808B272C, &burstDepthY);
     func_80033480(globalCtx, &burstDepthY, 70, 4, 110, 160, 1);
@@ -131,7 +130,7 @@ void BgSpot11Bakudankabe_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     func_808B2180(pthis, globalCtx);
-    CollisionHeader_GetVirtual(&gDesertColossusBombableWallCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDesertColossusBombableWallCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Actor_SetScale(&pthis->dyna.actor, 1.0f);
     osSyncPrintf("(spot11 爆弾壁)(arg_data 0x%04x)\n", pthis->dyna.actor.params);
@@ -161,7 +160,7 @@ void BgSpot11Bakudankabe_Update(Actor* thisx, GlobalContext* globalCtx) {
 void BgSpot11Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot11Bakudankabe* pthis = (BgSpot11Bakudankabe*)thisx;
 
-    Gfx_DrawDListOpa(globalCtx, gDesertColossusBombableWallDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gDesertColossusBombableWallDL));
 }
 
 void BgSpot11Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {

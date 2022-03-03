@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_ice_piece.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -78,7 +78,7 @@ void EffectSsIcePiece_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (frames * 1) % 256, 0x20, 0x10, 1, 0, (frames * 2) % 256,
                                 0x40, 0x20));
-    gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffIceFragment1DL));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_ice_piece.c", 209);
 }

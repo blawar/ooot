@@ -7,7 +7,7 @@
  */
 
 #include "z_en_bdfire.h"
-#include "objects/object_kingdodongo/object_kingdodongo.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -29,9 +29,9 @@ void func_809BC2A4(EnBdfire* pthis, GlobalContext* globalCtx);
 void func_809BC598(EnBdfire* pthis, GlobalContext* globalCtx);
 
 static void* D_809BCB10_30[] = {
-    object_kingdodongo_Tex_0264E0, object_kingdodongo_Tex_0274E0, object_kingdodongo_Tex_0284E0,
-    object_kingdodongo_Tex_0294E0, object_kingdodongo_Tex_02A4E0, object_kingdodongo_Tex_02B4E0,
-    object_kingdodongo_Tex_02C4E0, object_kingdodongo_Tex_02D4E0,
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_0264E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_0274E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_0284E0),
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_0294E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02A4E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02B4E0),
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_02C4E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02D4E0),
 };
 
 
@@ -231,7 +231,7 @@ void EnBdfire_DrawFire(EnBdfire* pthis, GlobalContext* globalCtx) {
     Matrix_Translate(0.0f, 11.0f, 0.0f, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bdfire.c", 647),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, object_kingdodongo_DL_01D950);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_kingdodongo_DL_01D950));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bdfire.c", 651);
 }
 

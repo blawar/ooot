@@ -7,9 +7,8 @@
  */
 
 #include "z_en_gs.h"
-#include "objects/object_gs/object_gs.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
 #include "def/audio_bank.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -608,7 +607,7 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_gs.c", 1064),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gGossipStoneMaterialDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGossipStoneMaterialDL));
 
         if (pthis->unk_19E & 4) {
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->flashColor.r, pthis->flashColor.g, pthis->flashColor.b,
@@ -617,8 +616,8 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
         }
 
-        gSPDisplayList(POLY_OPA_DISP++, gGossipStoneDL);
-        gSPDisplayList(POLY_OPA_DISP++, gGossipStoneSquishedDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGossipStoneDL));
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGossipStoneSquishedDL));
 
         Matrix_Pop();
         if (pthis->unk_19E & 2) {
@@ -633,7 +632,7 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx) {
                 Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, -frames * 0x14, 0x20, 0x80));
             gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 255, 255, 0, 255);
             gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
-            gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
         }
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gs.c", 1101);

@@ -10,7 +10,7 @@
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
 #include "vt.h"
-#include "objects/object_tite/object_tite.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -142,7 +142,7 @@ static InitChainEntry sInitChain[] = {
 };
 
 static AnimationHeader* D_80B1B634[] = {
-    &object_tite_Anim_00083C, &object_tite_Anim_0004F8, &object_tite_Anim_00069C, NULL, NULL, NULL,
+    oot::asset::anim::header::load(symbol::object_tite_Anim_00083C), oot::asset::anim::header::load(symbol::object_tite_Anim_0004F8), oot::asset::anim::header::load(symbol::object_tite_Anim_00069C), NULL, NULL, NULL,
 };
 
 // Some kind of offset for the position of each tektite foot
@@ -165,7 +165,7 @@ void EnTite_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(thisx, sInitChain);
     thisx->targetMode = 3;
     Actor_SetScale(thisx, 0.01f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_tite_Skel_003A20, &object_tite_Anim_0012E4, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_tite_Skel_003A20), oot::asset::anim::header::load(symbol::object_tite_Anim_0012E4), pthis->jointTable,
                    pthis->morphTable, 25);
     ActorShape_Init(&thisx->shape, -200.0f, ActorShadow_DrawCircle, 70.0f);
     pthis->flipState = TEKTITE_INITIAL;
@@ -205,7 +205,7 @@ void EnTite_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnTite_SetupIdle(EnTite* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tite_Anim_0012E4, 4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_0012E4), 4.0f);
     pthis->action = TEKTITE_IDLE;
     pthis->vIdleTimer = Rand_S16Offset(15, 30);
     pthis->actor.speedXZ = 0.0f;
@@ -237,7 +237,7 @@ void EnTite_Idle(EnTite* pthis, GlobalContext* globalCtx) {
 }
 
 void EnTite_SetupAttack(EnTite* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &object_tite_Anim_00083C);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_00083C));
     pthis->action = TEKTITE_ATTACK;
     pthis->vAttackState = TEKTITE_BEGIN_LUNGE;
     pthis->vQueuedJumps = Rand_S16Offset(1, 3);
@@ -354,7 +354,7 @@ void EnTite_Attack(EnTite* pthis, GlobalContext* globalCtx) {
             } else {
                 Player* player = GET_PLAYER(globalCtx);
                 pthis->collider.base.atFlags &= ~AT_HIT;
-                Animation_MorphToLoop(&pthis->skelAnime, &object_tite_Anim_0012E4, 4.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_0012E4), 4.0f);
                 pthis->actor.speedXZ = -6.0f;
                 pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
                 if (&player->actor == pthis->collider.base.at) {
@@ -406,7 +406,7 @@ void EnTite_Attack(EnTite* pthis, GlobalContext* globalCtx) {
 }
 
 void EnTite_SetupTurnTowardPlayer(EnTite* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_tite_Anim_000A14);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_000A14));
     pthis->action = TEKTITE_TURN_TOWARD_PLAYER;
     if ((pthis->actor.bgCheckFlags & 3) || ((pthis->actor.params == TEKTITE_BLUE) && (pthis->actor.bgCheckFlags & 0x20))) {
         if (pthis->actor.velocity.y <= 0.0f) {
@@ -473,7 +473,7 @@ void EnTite_TurnTowardPlayer(EnTite* pthis, GlobalContext* globalCtx) {
 }
 
 void EnTite_SetupMoveTowardPlayer(EnTite* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_tite_Anim_000C70);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_000C70));
     pthis->action = TEKTITE_MOVE_TOWARD_PLAYER;
     pthis->actor.velocity.y = 10.0f;
     pthis->actor.gravity = -1.0f;
@@ -589,7 +589,7 @@ void EnTite_MoveTowardPlayer(EnTite* pthis, GlobalContext* globalCtx) {
 
 void EnTite_SetupRecoil(EnTite* pthis) {
     pthis->action = TEKTITE_RECOIL;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tite_Anim_0012E4, 4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_0012E4), 4.0f);
     pthis->actor.speedXZ = -6.0f;
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
     pthis->actor.gravity = -1.0f;
@@ -653,8 +653,8 @@ void EnTite_Recoil(EnTite* pthis, GlobalContext* globalCtx) {
 }
 
 void EnTite_SetupStunned(EnTite* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_tite_Anim_0012E4, 0.0f, 0.0f,
-                     (f32)Animation_GetLastFrame(&object_tite_Anim_0012E4), ANIMMODE_LOOP, 4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_0012E4), 0.0f, 0.0f,
+                     (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tite_Anim_0012E4)), ANIMMODE_LOOP, 4.0f);
     pthis->action = TEKTITE_STUNNED;
     pthis->actor.speedXZ = -6.0f;
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
@@ -758,7 +758,7 @@ void EnTite_FallApart(EnTite* pthis, GlobalContext* globalCtx) {
 
 void EnTite_SetupFlipOnBack(EnTite* pthis) {
 
-    Animation_PlayLoopSetSpeed(&pthis->skelAnime, &object_tite_Anim_000A14, 1.5f);
+    Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tite_Anim_000A14), 1.5f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TEKU_REVERSE);
     pthis->flipState = TEKTITE_FLIPPED;
     pthis->vOnBackTimer = 500;
@@ -969,13 +969,13 @@ void EnTite_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     Collider_UpdateSpheres(0, &pthis->collider);
     if (pthis->actor.params == TEKTITE_BLUE) {
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(object_tite_Tex_001300));
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(object_tite_Tex_001700));
-        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(object_tite_Tex_001900));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tite_Tex_001300)));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tite_Tex_001700)));
+        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tite_Tex_001900)));
     } else {
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(object_tite_Tex_001B00));
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(object_tite_Tex_001F00));
-        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(object_tite_Tex_002100));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tite_Tex_001B00)));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tite_Tex_001F00)));
+        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tite_Tex_002100)));
     }
     SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, EnTite_PostLimbDraw,
                       thisx);

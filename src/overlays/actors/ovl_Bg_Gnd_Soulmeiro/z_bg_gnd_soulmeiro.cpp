@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_gnd_soulmeiro.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "asset.h"
 #include "global.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -32,9 +32,9 @@ void func_8087B284(BgGndSoulmeiro* pthis, GlobalContext* globalCtx);
 void func_8087B350(BgGndSoulmeiro* pthis, GlobalContext* globalCtx);
 
 static Gfx* dLists_35[] = {
-    gSpiritTrialWebDL,
-    gSpiritTrialLightSourceDL,
-    gSpiritTrialLightFloorDL,
+    oot::asset::gfx::load(symbol::gSpiritTrialWebDL),
+    oot::asset::gfx::load(symbol::gSpiritTrialLightSourceDL),
+    oot::asset::gfx::load(symbol::gSpiritTrialLightFloorDL),
 };
 
 

@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_haka_trap.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -50,8 +50,8 @@ static UNK_TYPE D_80881018_47 = 0;
 static Vec3f zeroVec_48 = { 0.0f, 0.0f, 0.0f };
 
 static Gfx* sDLists_59[5] = {
-    object_haka_objects_DL_007610, object_haka_objects_DL_009860, object_haka_objects_DL_007EF0,
-    object_haka_objects_DL_008A20, object_haka_objects_DL_0072C0,
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_007610), oot::asset::gfx::load(symbol::object_haka_objects_DL_009860), oot::asset::gfx::load(symbol::object_haka_objects_DL_007EF0),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_008A20), oot::asset::gfx::load(symbol::object_haka_objects_DL_0072C0),
 };
 
 static Color_RGBA8 D_8088103C_59 = { 0, 0, 0, 0 };
@@ -164,7 +164,7 @@ void BgHakaTrap_Init(Actor* thisx, GlobalContext* globalCtx) {
             thisx->flags |= ACTOR_FLAG_4;
 
             if (thisx->params == HAKA_TRAP_SPIKED_BOX) {
-                CollisionHeader_GetVirtual(&object_haka_objects_Col_009CD0, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_009CD0), &colHeader);
                 pthis->timer = 30;
 
                 if (D_80881014_44 != 0) {
@@ -183,11 +183,11 @@ void BgHakaTrap_Init(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->colliderCylinder.dim.height = 40;
             } else {
                 if (thisx->params == HAKA_TRAP_SPIKED_WALL) {
-                    CollisionHeader_GetVirtual(&object_haka_objects_Col_0081D0, &colHeader);
+                    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_0081D0), &colHeader);
                     thisx->home.pos.x -= 200.0f;
                 } else {
                     thisx->home.pos.x += 200.0f;
-                    CollisionHeader_GetVirtual(&object_haka_objects_Col_008D10, &colHeader);
+                    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_008D10), &colHeader);
                 }
 
                 Collider_InitTris(globalCtx, &pthis->colliderSpikes);

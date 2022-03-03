@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_hamishi.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -139,7 +139,7 @@ void ObjHamishi_Break(ObjHamishi* pthis, GlobalContext* globalCtx) {
         }
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pthis->actor.world.pos, gravity, phi_v0, 30, 5, 0,
-                             sEffectScales[i], 3, 0, 70, 1, OBJECT_GAMEPLAY_FIELD_KEEP, gSilverRockFragmentsDL);
+                             sEffectScales[i], 3, 0, 70, 1, OBJECT_GAMEPLAY_FIELD_KEEP, oot::asset::gfx::load(symbol::gSilverRockFragmentsDL));
     }
 
     func_80033480(globalCtx, &pthis->actor.world.pos, 140.0f, 6, 180, 90, 1);
@@ -213,7 +213,7 @@ void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_hamishi.c", 404),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 170, 130, 255);
-    gSPDisplayList(POLY_OPA_DISP++, gSilverRockDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSilverRockDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_hamishi.c", 411);
 }

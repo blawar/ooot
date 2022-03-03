@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SSH_Z_EN_SSH_C
 #include "actor_common.h"
 #include "z_en_ssh.h"
-#include "objects/object_ssh/object_ssh.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -35,13 +35,13 @@ void EnSsh_Return(EnSsh* pthis, GlobalContext* globalCtx);
 void EnSsh_Start(EnSsh* pthis, GlobalContext* globalCtx);
 
 static void* blinkTex_85[] = {
-    object_ssh_Tex_0007E0,
-    object_ssh_Tex_000C60,
-    object_ssh_Tex_001060,
+    oot::asset::texture::load(symbol::object_ssh_Tex_0007E0),
+    oot::asset::texture::load(symbol::object_ssh_Tex_000C60),
+    oot::asset::texture::load(symbol::object_ssh_Tex_001060),
 };
 
 
-#include "overlays/ovl_En_Ssh/ovl_En_Ssh.cpp"
+#include "asset.h"
 
 ActorInit En_Ssh_InitVars = {
     ACTOR_EN_SSH,
@@ -229,8 +229,8 @@ void EnSsh_InitColliders(EnSsh* pthis, GlobalContext* globalCtx) {
 
 f32 EnSsh_SetAnimation(EnSsh* pthis, s32 animIndex) {
     AnimationHeader* animation[] = {
-        &object_ssh_Anim_005BE8, &object_ssh_Anim_000304, &object_ssh_Anim_000304, &object_ssh_Anim_0055F8,
-        &object_ssh_Anim_000304, &object_ssh_Anim_000304, &object_ssh_Anim_005BE8,
+        oot::asset::anim::header::load(symbol::object_ssh_Anim_005BE8), oot::asset::anim::header::load(symbol::object_ssh_Anim_000304), oot::asset::anim::header::load(symbol::object_ssh_Anim_000304), oot::asset::anim::header::load(symbol::object_ssh_Anim_0055F8),
+        oot::asset::anim::header::load(symbol::object_ssh_Anim_000304), oot::asset::anim::header::load(symbol::object_ssh_Anim_000304), oot::asset::anim::header::load(symbol::object_ssh_Anim_005BE8),
     };
     f32 playbackSpeed[] = { 1.0f, 4.0f, 1.0f, 1.0f, 8.0f, 6.0f, 2.0f };
     u8 mode[] = { 3, 3, 1, 3, 1, 1, 1 };
@@ -618,7 +618,7 @@ void EnSsh_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnSsh* pthis = (EnSsh*)thisx;
 
-    frameCount = Animation_GetLastFrame(&object_ssh_Anim_000304);
+    frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ssh_Anim_000304));
     if (pthis->actor.params == ENSSH_FATHER) {
         if (gSaveContext.inventory.gsTokens >= 100) {
             Actor_Kill(&pthis->actor);
@@ -629,8 +629,8 @@ void EnSsh_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_ssh_Skel_0052E0, NULL, pthis->jointTable, pthis->morphTable, 30);
-    Animation_Change(&pthis->skelAnime, &object_ssh_Anim_000304, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP_INTERP, 0.0f);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_ssh_Skel_0052E0), NULL, pthis->jointTable, pthis->morphTable, 30);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ssh_Anim_000304), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP_INTERP, 0.0f);
     pthis->blureIdx = EnSsh_CreateBlureEffect(globalCtx);
     EnSsh_InitColliders(pthis, globalCtx);
     pthis->stateFlags = 0;
@@ -857,17 +857,17 @@ s32 EnSsh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
             break;
         case 4:
             if (pthis->actor.params == ENSSH_FATHER) {
-                *dList = object_ssh_DL_0046C0;
+                *dList = oot::asset::gfx::load(symbol::object_ssh_DL_0046C0);
             }
             break;
         case 5:
             if (pthis->actor.params == ENSSH_FATHER) {
-                *dList = object_ssh_DL_004080;
+                *dList = oot::asset::gfx::load(symbol::object_ssh_DL_004080);
             }
             break;
         case 8:
             if (pthis->actor.params == ENSSH_FATHER) {
-                *dList = object_ssh_DL_004DE8;
+                *dList = oot::asset::gfx::load(symbol::object_ssh_DL_004DE8);
             }
             break;
     }

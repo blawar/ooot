@@ -7,12 +7,7 @@
 #include "vt.h"
 #include "gfx.h"
 #include "z64message.h"
-#include "textures/parameter_static/parameter_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
-#include "textures/icon_item_24_static/icon_item_24_static.h"
-#include "textures/message_texture_static/message_texture_static.h"
-#include "textures/message_static/message_static.h"
-#include "misc/z_message_PAL_assets.h"
+#include "asset.h"
 #include "unk.h"
 #include "z64actor.h"
 #include "z64save.h"
@@ -66,60 +61,8 @@ s16 sMessageHasSetSfx = false;
 
 u16 sOcarinaSongBitFlags = 0; // ocarina bit flags
 
-#undef MESSAGE_DATA_FMT_H
-#define MESSAGE_DATA_STATIC
-#include "message_data_fmt.h"
-
-
-MessageTableEntry sNesMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_nes, sizeof(nesMessage)},
-#define DEFINE_MESSAGE_FFFC
-#include "text/message_data.h"
-#undef DEFINE_MESSAGE_FFFC
-#undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
-};
-
-MessageTableEntry sGerMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_ger, sizeof(gerMessage)},
-#include "text/message_data.h"
-#undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
-};
-
-MessageTableEntry sFraMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_fra, sizeof(fraMessage)},
-#include "text/message_data.h"
-#undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
-};
-
-MessageTableEntry sStaffMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, staffMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_staff, sizeof(staffMessage)},
-#include "text/message_data_staff.h"
-#undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
-};
-
-
-#undef HS_HORSE_ARCHERY
-#undef HS_POE_POINTS
-#undef HS_LARGEST_FISH
-#undef HS_HORSE_RACE
-#undef HS_MARATHON
-#undef HS_DAMPE_RACE
-#undef COLOR
-#undef DEFAULT
-#undef RED
-#undef ADJUSTABLE
-#undef BLUE
-#undef LIGHTBLUE
-#undef PURPLE
-#undef YELLOW
-#undef BLACK
-
-MessageTableEntry* sMessageEntryTablePtr = sNesMessageEntryTable;
-MessageTableEntry* sStaffMessageEntryTablePtr = sStaffMessageEntryTable;
+MessageTableEntry* sMessageEntryTablePtr      = oot::asset::text::load(symbol::gNesMessageEntryTable);
+MessageTableEntry* sStaffMessageEntryTablePtr = oot::asset::text::load(symbol::gStaffMessageEntryTable);
 
 s16 sTextboxBackgroundForePrimColors[][3] = {
     { 255, 255, 255 }, { 50, 20, 0 },     { 255, 60, 0 },    { 255, 255, 255 },
@@ -136,6 +79,195 @@ s16 sTextboxBackgroundBackPrimColors[][3] = {
 s16 sTextboxBackgroundYOffsets[] = {
     1,
     2,
+};
+
+static void* icon_item_24_static_lut[] = {oot::asset::texture::load(symbol::gForestMedallionIconTex), oot::asset::texture::load(symbol::gFireMedallionIconTex), oot::asset::texture::load(symbol::gWaterMedallionIconTex), oot::asset::texture::load(symbol::gSpiritMedallionIconTex), oot::asset::texture::load(symbol::gShadowMedallionIconTex), oot::asset::texture::load(symbol::gLightMedallionIconTex), oot::asset::texture::load(symbol::gKokiriEmeraldIconTex),
+					  oot::asset::texture::load(symbol::gGoronRubyIconTex),	   oot::asset::texture::load(symbol::gZoraSapphireIconTex),  oot::asset::texture::load(symbol::gStoneOfAgonyIconTex),	  oot::asset::texture::load(symbol::gGerudosCardIconTex),	   oot::asset::texture::load(symbol::gGoldSkulltulaIconTex),   oot::asset::texture::load(symbol::gHeartContainerIconTex), oot::asset::texture::load(symbol::gUnusedPieceOfHeartIconTex),
+					  oot::asset::texture::load(symbol::gBossKeyIconTex),	   oot::asset::texture::load(symbol::gCompassIconTex),	  oot::asset::texture::load(symbol::gDungeonMapIconTex),	  oot::asset::texture::load(symbol::gSmallKeyIconTex),	   oot::asset::texture::load(symbol::gSmallMagicJarIconTex),   oot::asset::texture::load(symbol::gBigMagicJarIconTex)};
+
+void* message_static_lut[] = {oot::asset::texture::load(symbol::gDefaultMessageBackgroundTex), oot::asset::texture::load(symbol::gSignMessageBackgroundTex), oot::asset::texture::load(symbol::gNoteStaffMessageBackgroundTex), oot::asset::texture::load(symbol::gFadingMessageBackgroundTex), oot::asset::texture::load(symbol::gMessageContinueTriangleTex), oot::asset::texture::load(symbol::gMessageEndSquareTex), oot::asset::texture::load(symbol::gMessageArrowTex)};
+
+static void* message_texture_static_lut[] = {oot::asset::texture::load(symbol::gRedMessageXLeftTex), oot::asset::texture::load(symbol::gRedMessageXRightTex)};
+
+void* icon_item_static_lut[] = {
+    oot::asset::texture::load(symbol::gDekuStickIconTex),
+    oot::asset::texture::load(symbol::gDekuNutIconTex),
+    oot::asset::texture::load(symbol::gBombIconTex),
+    oot::asset::texture::load(symbol::gFairyBowIconTex),
+    oot::asset::texture::load(symbol::gFireArrowIconTex),
+    oot::asset::texture::load(symbol::gDinsFireIconTex),
+    oot::asset::texture::load(symbol::gFairySlingshotIconTex),
+    oot::asset::texture::load(symbol::gFairyOcarinaIconTex),
+    oot::asset::texture::load(symbol::gOcarinaofTimeIconTex),
+    oot::asset::texture::load(symbol::gBombchuIconTex),
+    oot::asset::texture::load(symbol::gHookshotIconTex),
+    oot::asset::texture::load(symbol::gLongshotIconTex),
+    oot::asset::texture::load(symbol::gIceArrowIconTex),
+    oot::asset::texture::load(symbol::gFaroresWindIconTex),
+    oot::asset::texture::load(symbol::gBoomerangIconTex),
+    oot::asset::texture::load(symbol::gLensofTruthIconTex),
+    oot::asset::texture::load(symbol::gMagicBeansIconTex),
+    oot::asset::texture::load(symbol::gMegatonHammerIconTex),
+    oot::asset::texture::load(symbol::gLightArrowIconTex),
+    oot::asset::texture::load(symbol::gNayrusLoveIconTex),
+    oot::asset::texture::load(symbol::gEmptyBottleIconTex),
+    oot::asset::texture::load(symbol::gRedPotionIconTex),
+    oot::asset::texture::load(symbol::gGreenPotionIconTex),
+    oot::asset::texture::load(symbol::gBluePotionIconTex),
+    oot::asset::texture::load(symbol::gBottledFairyIconTex),
+    oot::asset::texture::load(symbol::gFishIconTex),
+    oot::asset::texture::load(symbol::gMilkFullIconTex),
+    oot::asset::texture::load(symbol::gRutosLetterIconTex),
+    oot::asset::texture::load(symbol::gBlueFireIconTex),
+    oot::asset::texture::load(symbol::gBugIconTex),
+    oot::asset::texture::load(symbol::gBigPoeIconTex),
+    oot::asset::texture::load(symbol::gMilkhalfIconTex),
+    oot::asset::texture::load(symbol::gPoeIconTex),
+    oot::asset::texture::load(symbol::gWeirdEggIconTex),
+    oot::asset::texture::load(symbol::gCuccoIconTex),
+    oot::asset::texture::load(symbol::gZeldasLetterIconTex),
+    oot::asset::texture::load(symbol::gKeatonMaskIconTex),
+    oot::asset::texture::load(symbol::gSkullMaskIconTex),
+    oot::asset::texture::load(symbol::gSpookyMaskIconTex),
+    oot::asset::texture::load(symbol::gBunnyHoodIconTex),
+    oot::asset::texture::load(symbol::gGoronMaskIconTex),
+    oot::asset::texture::load(symbol::gZoraMaskIconTex),
+    oot::asset::texture::load(symbol::gGerudoMaskIconTex),
+    oot::asset::texture::load(symbol::gMaskofTruthIconTex),
+    oot::asset::texture::load(symbol::gSoldOutIconTex),
+    oot::asset::texture::load(symbol::gPocketEggIconTex),
+    oot::asset::texture::load(symbol::gPocketCuccoIconTex),
+    oot::asset::texture::load(symbol::gCojiroIconTex),
+    oot::asset::texture::load(symbol::gOddMushroomIconTex),
+    oot::asset::texture::load(symbol::gOddPotionIconTex),
+    oot::asset::texture::load(symbol::gPoachersSawIconTex),
+    oot::asset::texture::load(symbol::gBrokenBiggoronSwordIconTex),
+    oot::asset::texture::load(symbol::gPrescriptionIconTex),
+    oot::asset::texture::load(symbol::gEyeBallFrogIconTex),
+    oot::asset::texture::load(symbol::gEyeDropsIconTex),
+    oot::asset::texture::load(symbol::gClaimCheckIconTex),
+    oot::asset::texture::load(symbol::gFairyBowFireIconTex),
+    oot::asset::texture::load(symbol::gFairyBowIceIconTex),
+    oot::asset::texture::load(symbol::gFairyBowLightIconTex),
+    oot::asset::texture::load(symbol::gKokiriSwordIconTex),
+    oot::asset::texture::load(symbol::gMasterSwordIconTex),
+    oot::asset::texture::load(symbol::gBiggoronSwordIconTex),
+    oot::asset::texture::load(symbol::gDekuShieldIconTex),
+    oot::asset::texture::load(symbol::gHylianShieldIconTex),
+    oot::asset::texture::load(symbol::gMirrorShieldIconTex),
+    oot::asset::texture::load(symbol::gKokiriTunicIconTex),
+    oot::asset::texture::load(symbol::gGoronTunicIconTex),
+    oot::asset::texture::load(symbol::gZoraTunicIconTex),
+    oot::asset::texture::load(symbol::gKokiriBootsIconTex),
+    oot::asset::texture::load(symbol::gIronBootsIconTex),
+    oot::asset::texture::load(symbol::gHoverBootsIconTex),
+    oot::asset::texture::load(symbol::gBulletBag30IconTex),
+    oot::asset::texture::load(symbol::gBulletBag40IconTex),
+    oot::asset::texture::load(symbol::gBulletBag50IconTex),
+    oot::asset::texture::load(symbol::gQuiver30IconTex),
+    oot::asset::texture::load(symbol::gQuiver40IconTex),
+    oot::asset::texture::load(symbol::gQuiver50IconTex),
+    oot::asset::texture::load(symbol::gBombBag20IconTex),
+    oot::asset::texture::load(symbol::gBombBag30IconTex),
+    oot::asset::texture::load(symbol::gBombBag40IconTex),
+    oot::asset::texture::load(symbol::gGoronsBraceletIconTex),
+    oot::asset::texture::load(symbol::gSilverGauntletsIconTex),
+    oot::asset::texture::load(symbol::gGoldenGauntletsIconTex),
+    oot::asset::texture::load(symbol::gSilverScaleIconTex),
+    oot::asset::texture::load(symbol::gGoldenScaleIconTex),
+    oot::asset::texture::load(symbol::gBrokenGiantsKnifeIconTex),
+    oot::asset::texture::load(symbol::gAdultsWalletIconTex),
+    oot::asset::texture::load(symbol::gGiantsWalletIconTex),
+    oot::asset::texture::load(symbol::gDekuSeedsIconTex),
+    oot::asset::texture::load(symbol::gFishingPoleIconTex),
+    oot::asset::texture::load(symbol::gHeartPieceIcon1Tex),
+    oot::asset::texture::load(symbol::gHeartPieceIcon2Tex),
+    oot::asset::texture::load(symbol::gHeartPieceIcon3Tex),
+    oot::asset::texture::load(symbol::gPausePromptCursorTex),
+    oot::asset::texture::load(symbol::gPauseUnusedCursorTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorTopLeftTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorTopRightTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorBottomLeftTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorBottomRightTex),
+    oot::asset::texture::load(symbol::gPauseEquipment00Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment20Tex),
+    oot::asset::texture::load(symbol::gPauseMap00Tex),
+    oot::asset::texture::load(symbol::gPauseMap20Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus00Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus20Tex),
+    oot::asset::texture::load(symbol::gPauseSave00Tex),
+    oot::asset::texture::load(symbol::gPauseSave20Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment01Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment11Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment21Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem01Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem11Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem21Tex),
+    oot::asset::texture::load(symbol::gPauseMap01Tex),
+    oot::asset::texture::load(symbol::gPauseMap11Tex),
+    oot::asset::texture::load(symbol::gPauseMap21Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus01Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus11Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus21Tex),
+    oot::asset::texture::load(symbol::gPauseSave01Tex),
+    oot::asset::texture::load(symbol::gPauseSave11Tex),
+    oot::asset::texture::load(symbol::gPauseSave21Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment02Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment12Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment22Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem02Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem12Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem22Tex),
+    oot::asset::texture::load(symbol::gPauseMap02Tex),
+    oot::asset::texture::load(symbol::gPauseMap12Tex),
+    oot::asset::texture::load(symbol::gPauseMap22Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus02Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus12Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus22Tex),
+    oot::asset::texture::load(symbol::gPauseSave02Tex),
+    oot::asset::texture::load(symbol::gPauseSave12Tex),
+    oot::asset::texture::load(symbol::gPauseSave22Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment03Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment13Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment23Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem03Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem13Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem23Tex),
+    oot::asset::texture::load(symbol::gPauseMap03Tex),
+    oot::asset::texture::load(symbol::gPauseMap13Tex),
+    oot::asset::texture::load(symbol::gPauseMap23Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus03Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus13Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus23Tex),
+    oot::asset::texture::load(symbol::gPauseSave03Tex),
+    oot::asset::texture::load(symbol::gPauseSave13Tex),
+    oot::asset::texture::load(symbol::gPauseSave23Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment04Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment14Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment24Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem04Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem14Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem24Tex),
+    oot::asset::texture::load(symbol::gPauseMap04Tex),
+    oot::asset::texture::load(symbol::gPauseMap14Tex),
+    oot::asset::texture::load(symbol::gPauseMap24Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus04Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus14Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus24Tex),
+    oot::asset::texture::load(symbol::gPauseSave04Tex),
+    oot::asset::texture::load(symbol::gPauseSave14Tex),
+    oot::asset::texture::load(symbol::gPauseSave24Tex),
+    oot::asset::texture::load(symbol::gPauseGameOver10Tex),
+    oot::asset::texture::load(symbol::gABtnSymbolTex),
+    oot::asset::texture::load(symbol::gBBtnSymbolTex),
+    oot::asset::texture::load(symbol::gCBtnSymbolsTex),
+    oot::asset::texture::load(symbol::gNamePanelLeftTex),
+    oot::asset::texture::load(symbol::gNamePanelRightTex),
+    oot::asset::texture::load(symbol::gLButtonTex),
+    oot::asset::texture::load(symbol::gRButtonTex),
+    oot::asset::texture::load(symbol::gUnknownJPTex),
+    oot::asset::texture::load(symbol::gSongNoteTex),
+    oot::asset::texture::load(symbol::gMagicArrowEquipEffectTex)
 };
 
 // original name: onpu_buff
@@ -1908,7 +2040,7 @@ void Message_DrawTextBox(GlobalContext* globalCtx, Gfx** p) {
         gDPSetCombineLERP(gfx++, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE,
                           0);
         gDPSetPrimColor(gfx++, 0, 0, 255, 100, 0, 255);
-        gDPLoadTextureBlock_4b(gfx++, gOcarinaTrebleClefTex, G_IM_FMT_I, 16, 32, 0, G_TX_MIRROR, G_TX_MIRROR,
+        gDPLoadTextureBlock_4b(gfx++, oot::asset::texture::load(symbol::gOcarinaTrebleClefTex), G_IM_FMT_I, 16, 32, 0, G_TX_MIRROR, G_TX_MIRROR,
                                G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(gfx++, R_TEXTBOX_CLEF_XPOS << 2, R_TEXTBOX_CLEF_YPOS << 2, (R_TEXTBOX_CLEF_XPOS + 16) << 2,
                             (R_TEXTBOX_CLEF_YPOS + 32) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
@@ -1932,7 +2064,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p) {
     };
     static s16 sOcarinaEffectActorParams[] = { 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0000, 0x0000 };
     static void* sOcarinaNoteTextures[] = {
-        gOcarinaATex, gOcarinaCDownTex, gOcarinaCRightTex, gOcarinaCLeftTex, gOcarinaCUpTex,
+        oot::asset::texture::load(symbol::gOcarinaATex), oot::asset::texture::load(symbol::gOcarinaCDownTex), oot::asset::texture::load(symbol::gOcarinaCRightTex), oot::asset::texture::load(symbol::gOcarinaCLeftTex), oot::asset::texture::load(symbol::gOcarinaCUpTex),
     };
     static s16 sOcarinaNoteAPrimColors[][3] = {
         { 80, 150, 255 },
@@ -3278,19 +3410,19 @@ void Message_Update(GlobalContext* globalCtx) {
 }
 
 void Message_SetTables(void) {
-    sMessageEntryTablePtr = sNesMessageEntryTable;
-    sStaffMessageEntryTablePtr = sStaffMessageEntryTable;
+    sMessageEntryTablePtr = oot::asset::text::load(symbol::gNesMessageEntryTable);
+	sStaffMessageEntryTablePtr = oot::asset::text::load(symbol::gStaffMessageEntryTable);
 
     switch(gSaveContext.language)
     {
         case LANGUAGE_GER:
-            sMessageEntryTablePtr = sGerMessageEntryTable;
+		    sMessageEntryTablePtr = oot::asset::text::load(symbol::gGerMessageEntryTable);
         case LANGUAGE_FRA:
-            sMessageEntryTablePtr = sFraMessageEntryTable;
+            sMessageEntryTablePtr = oot::asset::text::load(symbol::gFraMessageEntryTable);
             break;
         case LANGUAGE_ENG:
         default:
-            sMessageEntryTablePtr = sNesMessageEntryTable;
+            sMessageEntryTablePtr = oot::asset::text::load(symbol::gNesMessageEntryTable);
     }
 }
 

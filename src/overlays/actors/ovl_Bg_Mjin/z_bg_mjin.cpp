@@ -7,14 +7,14 @@
  */
 
 #include "z_bg_mjin.h"
-#include "objects/object_mjin/object_mjin.h"
-#include "objects/object_mjin_wind/object_mjin_wind.h"
-#include "objects/object_mjin_soul/object_mjin_soul.h"
-#include "objects/object_mjin_dark/object_mjin_dark.h"
-#include "objects/object_mjin_ice/object_mjin_ice.h"
-#include "objects/object_mjin_flame/object_mjin_flame.h"
-#include "objects/object_mjin_flash/object_mjin_flash.h"
-#include "objects/object_mjin_oka/object_mjin_oka.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -93,7 +93,7 @@ void func_808A0850(BgMjin* pthis, GlobalContext* globalCtx) {
         pthis->dyna.actor.objBankIndex = pthis->objBankIndex;
         Actor_SetObjectDependency(globalCtx, &pthis->dyna.actor);
         DynaPolyActor_Init(&pthis->dyna, 0);
-        collision = pthis->dyna.actor.params != 0 ? &gWarpPadCol : &gOcarinaWarpPadCol;
+        collision = pthis->dyna.actor.params != 0 ? oot::asset::collision::header::load(symbol::gWarpPadCol) : oot::asset::collision::header::load(symbol::gOcarinaWarpPadCol);
         CollisionHeader_GetVirtual(collision, &colHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
         BgMjin_SetupAction(pthis, BgMjin_DoNothing);
@@ -120,13 +120,11 @@ void BgMjin_Draw(Actor* thisx, GlobalContext* globalCtx) {
         s32 objBankIndex = Object_GetIndex(&globalCtx->objectCtx, sObjectIDs[thisx->params - 1]);
 
         if (objBankIndex >= 0) {
-            gSegments[6] = gObjectTable[objBankIndex].vromStart.get();
         }
 
-        gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[objBankIndex].vromStart.get());
-        dlist = gWarpPadBaseDL;
+        dlist = oot::asset::gfx::load(symbol::gWarpPadBaseDL);
     } else {
-        dlist = gOcarinaWarpPadDL;
+        dlist = oot::asset::gfx::load(symbol::gOcarinaWarpPadDL);
     }
 
     func_80093D18(globalCtx->state.gfxCtx);

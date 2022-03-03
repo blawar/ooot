@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FD_FIRE_Z_EN_FD_FIRE_C
 #include "actor_common.h"
 #include "z_en_fd_fire.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -292,7 +292,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
                    envColors[((pthis->actor.params & 0x8000) >> 0xF)].b,
                    envColors[((pthis->actor.params & 0x8000) >> 0xF)].a);
     gDPPipeSync(POLY_XLU_DISP++);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fd_fire.c", 672);
 }

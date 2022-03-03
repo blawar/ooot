@@ -7,11 +7,7 @@
  */
 
 #include "z_en_door.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
-#include "objects/object_haka_door/object_haka_door.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
@@ -78,18 +74,18 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneForward, 4000, ICHAIN_STOP),
 };
 
-static AnimationHeader* D_809FCECC[] = { &gDoor3Anim, &gDoor1Anim, &gDoor4Anim, &gDoor2Anim };
+static AnimationHeader* D_809FCECC[] = { oot::asset::anim::header::load(symbol::gDoor3Anim), oot::asset::anim::header::load(symbol::gDoor1Anim), oot::asset::anim::header::load(symbol::gDoor4Anim), oot::asset::anim::header::load(symbol::gDoor2Anim) };
 
 static u8 sDoorAnimOpenFrames[] = { 25, 25, 25, 25 };
 
 static u8 sDoorAnimCloseFrames[] = { 60, 70, 60, 70 };
 
 static Gfx* D_809FCEE4[5][2] = {
-    { gDoorLeftDL, gDoorRightDL },
-    { gFireTempleDoorWithHandleFrontDL, gFireTempleDoorWithHandleBackDL },
-    { gWaterTempleDoorLeftDL, gWaterTempleDoorRightDL },
-    { object_haka_door_DL_0013B8, object_haka_door_DL_001420 },
-    { gFieldDoor1DL, gFieldDoor2DL },
+    { oot::asset::gfx::load(symbol::gDoorLeftDL), oot::asset::gfx::load(symbol::gDoorRightDL) },
+    { oot::asset::gfx::load(symbol::gFireTempleDoorWithHandleFrontDL), oot::asset::gfx::load(symbol::gFireTempleDoorWithHandleBackDL) },
+    { oot::asset::gfx::load(symbol::gWaterTempleDoorLeftDL), oot::asset::gfx::load(symbol::gWaterTempleDoorRightDL) },
+    { oot::asset::gfx::load(symbol::object_haka_door_DL_0013B8), oot::asset::gfx::load(symbol::object_haka_door_DL_001420) },
+    { oot::asset::gfx::load(symbol::gFieldDoor1DL), oot::asset::gfx::load(symbol::gFieldDoor2DL) },
 };
 
 void EnDoor_Init(Actor* thisx, GlobalContext* globalCtx2) {
@@ -103,7 +99,7 @@ void EnDoor_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     objectInfo = &sDoorInfo[0];
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDoorSkel, &gDoor3Anim, pthis->jointTable, pthis->morphTable, 5);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gDoorSkel), oot::asset::anim::header::load(symbol::gDoor3Anim), pthis->jointTable, pthis->morphTable, 5);
 
     // Find the correct door depending on the scene number
     for (i = 0; i < ARRAY_COUNT(sDoorInfo) - 2; i++, objectInfo++) {
@@ -356,9 +352,9 @@ void EnDoor_Draw(Actor* thisx, GlobalContext* globalCtx) {
         if (pthis->actor.world.rot.y != 0) {
             if (1) {}
             if (pthis->actor.world.rot.y > 0) {
-                gSPDisplayList(POLY_OPA_DISP++, gDoorRightDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDoorRightDL));
             } else {
-                gSPDisplayList(POLY_OPA_DISP++, gDoorLeftDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDoorLeftDL));
             }
         }
         if (pthis->lockTimer != 0) {

@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ba.h"
-#include "objects/object_bxa/object_bxa.h"
+#include "asset.h"
 #include "def/graph.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
@@ -478,9 +478,9 @@ void EnBa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static void* D_809B8118[] = {
-    object_bxa_Tex_0024F0,
-    object_bxa_Tex_0027F0,
-    object_bxa_Tex_0029F0,
+    oot::asset::texture::load(symbol::object_bxa_Tex_0024F0),
+    oot::asset::texture::load(symbol::object_bxa_Tex_0027F0),
+    oot::asset::texture::load(symbol::object_bxa_Tex_0029F0),
 };
 
 void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
@@ -519,7 +519,7 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Pop();
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ba.c", 973),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, object_bxa_DL_000890);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_bxa_DL_000890));
     } else {
         gSPSegment(POLY_OPA_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->gameplayFrames * 2) % 128,
@@ -529,7 +529,7 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 125, 100, 255);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ba.c", 991),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, object_bxa_DL_001D80);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_bxa_DL_001D80));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ba.c", 995);
 }

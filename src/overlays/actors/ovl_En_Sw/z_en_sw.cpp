@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SW_Z_EN_SW_C
 #include "actor_common.h"
 #include "z_en_sw.h"
-#include "objects/object_st/object_st.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
@@ -72,10 +72,10 @@ static ColliderJntSphInit sJntSphInit = {
 static CollisionCheckInfoInit2 D_80B0F074 = { 1, 2, 25, 25, MASS_IMMOVABLE };
 
 static struct_80034EC0_Entry D_80B0F080[] = {
-    { &object_st_Anim_000304, 1.0f, 0.0f, -1.0f, 0x01, 0.0f },
-    { &object_st_Anim_000304, 1.0f, 0.0f, -1.0f, 0x01, -8.0f },
-    { &object_st_Anim_0055A8, 1.0f, 0.0f, -1.0f, 0x01, -8.0f },
-    { &object_st_Anim_005B98, 1.0f, 0.0f, -1.0f, 0x01, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 1.0f, 0.0f, -1.0f, 0x01, 0.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 1.0f, 0.0f, -1.0f, 0x01, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_0055A8), 1.0f, 0.0f, -1.0f, 0x01, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_005B98), 1.0f, 0.0f, -1.0f, 0x01, -8.0f },
 };
 
 char D_80B0F630[0x80]; // unused
@@ -253,7 +253,7 @@ void EnSw_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
 
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_st_Skel_005298, NULL, pthis->jointTable, pthis->morphTable, 30);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_st_Skel_005298), NULL, pthis->jointTable, pthis->morphTable, 30);
     func_80034EC0(&pthis->skelAnime, D_80B0F080, 0);
     ActorShape_Init(&thisx->shape, 0.0f, NULL, 0.0f);
     Collider_InitJntSph(globalCtx, &pthis->collider);
@@ -800,7 +800,7 @@ void func_80B0E314(EnSw* pthis, Vec3f arg1, f32 arg4) {
 
 s32 func_80B0E430(EnSw* pthis, f32 arg1, s16 arg2, s32 arg3, GlobalContext* globalCtx) {
     Camera* activeCam;
-    f32 lastFrame = Animation_GetLastFrame(&object_st_Anim_000304);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_st_Anim_000304));
 
     if (DECR(pthis->unk_388) != 0) {
         Math_SmoothStepToF(&pthis->skelAnime.playSpeed, 0.0f, 0.6f, 1000.0f, 0.01f);
@@ -928,34 +928,34 @@ s32 EnSw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     if (((pthis->actor.params & 0xE000) >> 0xD) != 0) {
         switch (limbIndex) {
             case 23:
-                *dList = object_st_DL_004788;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_004788);
                 break;
             case 8:
-                *dList = object_st_DL_0046F0;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_0046F0);
                 break;
             case 14:
-                *dList = object_st_DL_004658;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_004658);
                 break;
             case 11:
-                *dList = object_st_DL_0045C0;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_0045C0);
                 break;
             case 26:
-                *dList = object_st_DL_004820;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_004820);
                 break;
             case 20:
-                *dList = object_st_DL_0048B8;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_0048B8);
                 break;
             case 17:
-                *dList = object_st_DL_004950;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_004950);
                 break;
             case 29:
-                *dList = object_st_DL_0049E8;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_0049E8);
                 break;
             case 5:
-                *dList = object_st_DL_003FB0;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_003FB0);
                 break;
             case 4:
-                *dList = object_st_DL_0043D8;
+                *dList = oot::asset::gfx::load(symbol::object_st_DL_0043D8);
                 break;
         }
     }

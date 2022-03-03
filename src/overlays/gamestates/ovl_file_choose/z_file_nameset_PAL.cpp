@@ -2,8 +2,7 @@
 #include "actor_common.h"
 #include "file_choose.h"
 #include "z_file_choose.h"
-#include "textures/title_static/title_static.h"
-#include "overlays/ovl_File_Choose/ovl_file_choose.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -98,12 +97,12 @@ void FileChoose_SetKeyboardVtx(GameState* thisx) {
     }
 }
 
-static void* sNameLabelTextures[] = { gFileSelNameENGTex, gFileSelNameENGTex, gFileSelNameFRATex };
+static void* sNameLabelTextures[] = { oot::asset::texture::load(symbol::gFileSelNameENGTex), oot::asset::texture::load(symbol::gFileSelNameENGTex), oot::asset::texture::load(symbol::gFileSelNameFRATex) };
 
 static void* sBackspaceEndTextures[][2] = {
-    { gFileSelBackspaceButtonTex, gFileSelENDButtonENGTex },
-    { gFileSelBackspaceButtonTex, gFileSelENDButtonGERTex },
-    { gFileSelBackspaceButtonTex, gFileSelENDButtonFRATex },
+    { oot::asset::texture::load(symbol::gFileSelBackspaceButtonTex), oot::asset::texture::load(symbol::gFileSelENDButtonENGTex) },
+    { oot::asset::texture::load(symbol::gFileSelBackspaceButtonTex), oot::asset::texture::load(symbol::gFileSelENDButtonGERTex) },
+    { oot::asset::texture::load(symbol::gFileSelBackspaceButtonTex), oot::asset::texture::load(symbol::gFileSelENDButtonFRATex) },
 };
 
 static u16 sBackspaceEndWidths[] = { 28, 44 };
@@ -138,7 +137,7 @@ void FileChoose_SetNameEntryVtx(GameState* thisx) {
                       ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[0]);
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
-    gSPVertex(POLY_OPA_DISP++, D_80811BB0, 24, 0);
+    gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::D_80811BB0), 24, 0);
     gDPLoadTextureBlock(POLY_OPA_DISP++, sNameLabelTextures[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, 56, 16, 0,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                         G_TX_NOLOD);
@@ -212,7 +211,7 @@ void FileChoose_SetNameEntryVtx(GameState* thisx) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->windowColor[0], pthis->windowColor[1], pthis->windowColor[2],
                     pthis->nameEntryBoxAlpha);
     gSPVertex(POLY_OPA_DISP++, pthis->nameEntryVtx, 4, 0);
-    gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelNameBoxTex, G_IM_FMT_IA, G_IM_SIZ_16b, 108, 16, 0,
+    gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelNameBoxTex), G_IM_FMT_IA, G_IM_SIZ_16b, 108, 16, 0,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                         G_TX_NOLOD);
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
@@ -299,17 +298,17 @@ void FileChoose_DrawNameEntry(GameState* thisx) {
         if (pthis->kbdX != pthis->kbdButton) {
             osSyncPrintf("014 xpos=%d  contents=%d\n", pthis->kbdX, pthis->kbdButton);
         }
-        pthis->nameEntryVtx[40].v.ob[0] = pthis->nameEntryVtx[42].v.ob[0] = D_80811BB0[(pthis->kbdX + 1) * 4].v.ob[0] - 4;
+        pthis->nameEntryVtx[40].v.ob[0] = pthis->nameEntryVtx[42].v.ob[0] = oot::asset::vtx::load(symbol::D_80811BB0)[(pthis->kbdX + 1) * 4].v.ob[0] - 4;
         pthis->nameEntryVtx[41].v.ob[0] = pthis->nameEntryVtx[43].v.ob[0] = pthis->nameEntryVtx[40].v.ob[0] + 52;
-        pthis->nameEntryVtx[40].v.ob[1] = pthis->nameEntryVtx[41].v.ob[1] = D_80811BB0[(pthis->kbdX + 1) * 4].v.ob[1] + 4;
+        pthis->nameEntryVtx[40].v.ob[1] = pthis->nameEntryVtx[41].v.ob[1] = oot::asset::vtx::load(symbol::D_80811BB0)[(pthis->kbdX + 1) * 4].v.ob[1] + 4;
 
     } else if ((pthis->kbdButton == FS_KBD_BTN_ENG) || (pthis->kbdButton == FS_KBD_BTN_BACKSPACE)) {
         if (pthis->kbdX != pthis->kbdButton) {
             osSyncPrintf("23 xpos=%d  contents=%d\n", pthis->kbdX, pthis->kbdButton);
         }
-        pthis->nameEntryVtx[40].v.ob[0] = pthis->nameEntryVtx[42].v.ob[0] = D_80811BB0[(pthis->kbdX + 1) * 4].v.ob[0] - 4;
+        pthis->nameEntryVtx[40].v.ob[0] = pthis->nameEntryVtx[42].v.ob[0] = oot::asset::vtx::load(symbol::D_80811BB0)[(pthis->kbdX + 1) * 4].v.ob[0] - 4;
         pthis->nameEntryVtx[41].v.ob[0] = pthis->nameEntryVtx[43].v.ob[0] = pthis->nameEntryVtx[40].v.ob[0] + 40;
-        pthis->nameEntryVtx[40].v.ob[1] = pthis->nameEntryVtx[41].v.ob[1] = D_80811BB0[(pthis->kbdX + 1) * 4].v.ob[1] + 4;
+        pthis->nameEntryVtx[40].v.ob[1] = pthis->nameEntryVtx[41].v.ob[1] = oot::asset::vtx::load(symbol::D_80811BB0)[(pthis->kbdX + 1) * 4].v.ob[1] + 4;
     } else {
         if (pthis->charIndex >= 65) {
             osSyncPrintf("mjp=%d  xpos=%d  ypos=%d  name_contents=%d\n", pthis->charIndex, pthis->kbdX, pthis->kbdY,
@@ -331,19 +330,19 @@ void FileChoose_DrawNameEntry(GameState* thisx) {
                       PRIMITIVE, 0);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->highlightColor[0], pthis->highlightColor[1], pthis->highlightColor[2],
                     pthis->highlightColor[3]);
-    gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelCharHighlightTex, G_IM_FMT_I, G_IM_SIZ_8b, 24, 24, 0,
+    gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelCharHighlightTex), G_IM_FMT_I, G_IM_SIZ_8b, 24, 24, 0,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                         G_TX_NOLOD);
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
     if ((pthis->kbdButton == FS_KBD_BTN_HIRA) || (pthis->kbdButton == FS_KBD_BTN_KATA) ||
         (pthis->kbdButton == FS_KBD_BTN_END)) {
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelMediumButtonHighlightTex, G_IM_FMT_I, G_IM_SIZ_8b, 56, 24, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelMediumButtonHighlightTex), G_IM_FMT_I, G_IM_SIZ_8b, 56, 24, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
 
     } else if ((pthis->kbdButton == FS_KBD_BTN_ENG) || (pthis->kbdButton == FS_KBD_BTN_BACKSPACE)) {
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelSmallButtonHighlightTex, G_IM_FMT_I, G_IM_SIZ_8b, 40, 24, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelSmallButtonHighlightTex), G_IM_FMT_I, G_IM_SIZ_8b, 40, 24, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
     }
@@ -733,22 +732,22 @@ static u16 gOptionsMenuHeadersHeight = 16;
 
 static OptionsMenuTextureInfo gOptionsMenuHeaders[] = {
     {
-        { gFileSelOptionsENGTex, gFileSelOptionsGERTex, gFileSelOptionsENGTex },
+        { oot::asset::texture::load(symbol::gFileSelOptionsENGTex), oot::asset::texture::load(symbol::gFileSelOptionsGERTex), oot::asset::texture::load(symbol::gFileSelOptionsENGTex) },
         { 128, 128, 128 },
         16,
     },
     {
-        { gFileSelSOUNDENGTex, gFileSelSOUNDENGTex, gFileSelSOUNDFRATex },
+        { oot::asset::texture::load(symbol::gFileSelSOUNDENGTex), oot::asset::texture::load(symbol::gFileSelSOUNDENGTex), oot::asset::texture::load(symbol::gFileSelSOUNDFRATex) },
         { 64, 64, 64 },
         16,
     },
     {
-        { gFileSelLTargetingENGTex, gFileSelLTargetingGERTex, gFileSelLTargetingFRATex },
+        { oot::asset::texture::load(symbol::gFileSelLTargetingENGTex), oot::asset::texture::load(symbol::gFileSelLTargetingGERTex), oot::asset::texture::load(symbol::gFileSelLTargetingFRATex) },
         { 64, 144, 64 },
         16,
     },
     {
-        { gFileSelCheckBrightnessENGTex, gFileSelCheckBrightnessGERTex, gFileSelCheckBrightnessFRATex },
+        { oot::asset::texture::load(symbol::gFileSelCheckBrightnessENGTex), oot::asset::texture::load(symbol::gFileSelCheckBrightnessGERTex), oot::asset::texture::load(symbol::gFileSelCheckBrightnessFRATex) },
         { 128, 128, 128 },
         16,
     },
@@ -756,32 +755,32 @@ static OptionsMenuTextureInfo gOptionsMenuHeaders[] = {
 
 static OptionsMenuTextureInfo gOptionsMenuSettings[] = {
     {
-        { gFileSelStereoENGTex, gFileSelStereoENGTex, gFileSelStereoFRATex },
+        { oot::asset::texture::load(symbol::gFileSelStereoENGTex), oot::asset::texture::load(symbol::gFileSelStereoENGTex), oot::asset::texture::load(symbol::gFileSelStereoFRATex) },
         { 48, 48, 48 },
         16,
     },
     {
-        { gFileSelMonoENGTex, gFileSelMonoENGTex, gFileSelMonoENGTex },
+        { oot::asset::texture::load(symbol::gFileSelMonoENGTex), oot::asset::texture::load(symbol::gFileSelMonoENGTex), oot::asset::texture::load(symbol::gFileSelMonoENGTex) },
         { 48, 48, 48 },
         16,
     },
     {
-        { gFileSelHeadsetENGTex, gFileSelHeadsetGERTex, gFileSelHeadsetFRATex },
+        { oot::asset::texture::load(symbol::gFileSelHeadsetENGTex), oot::asset::texture::load(symbol::gFileSelHeadsetGERTex), oot::asset::texture::load(symbol::gFileSelHeadsetFRATex) },
         { 48, 48, 48 },
         16,
     },
     {
-        { gFileSelSurroundENGTex, gFileSelSurroundENGTex, gFileSelSurroundENGTex },
+        { oot::asset::texture::load(symbol::gFileSelSurroundENGTex), oot::asset::texture::load(symbol::gFileSelSurroundENGTex), oot::asset::texture::load(symbol::gFileSelSurroundENGTex) },
         { 48, 48, 48 },
         16,
     },
     {
-        { gFileSelSwitchENGTex, gFileSelSwitchGERTex, gFileSelSwitchFRATex },
+        { oot::asset::texture::load(symbol::gFileSelSwitchENGTex), oot::asset::texture::load(symbol::gFileSelSwitchGERTex), oot::asset::texture::load(symbol::gFileSelSwitchFRATex) },
         { 48, 80, 48 },
         16,
     },
     {
-        { gFileSelHoldENGTex, gFileSelHoldGERTex, gFileSelHoldFRATex },
+        { oot::asset::texture::load(symbol::gFileSelHoldENGTex), oot::asset::texture::load(symbol::gFileSelHoldGERTex), oot::asset::texture::load(symbol::gFileSelHoldFRATex) },
         { 48, 80, 48 },
         16,
     },
@@ -876,9 +875,9 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
 
 #ifndef RETAIL
     if (gSaveContext.language == LANGUAGE_GER) {
-        gSPVertex(POLY_OPA_DISP++, D_80811E30, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::D_80811E30), 32, 0);
     } else {
-        gSPVertex(POLY_OPA_DISP++, D_80811D30, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::D_80811D30), 32, 0);
     }
 #else
     if(gSaveContext.language == LANGUAGE_GER)
@@ -907,9 +906,9 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
 
 #ifndef RETAIL
     if (gSaveContext.language == LANGUAGE_GER) {
-        gSPVertex(POLY_OPA_DISP++, D_80812130, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::D_80812130), 32, 0);
     } else {
-        gSPVertex(POLY_OPA_DISP++, D_80811F30, 32, 0);
+        gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::D_80811F30), 32, 0);
     }
 #else
     if(gSaveContext.language == LANGUAGE_GER)
@@ -972,7 +971,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     gDPPipeSync(POLY_OPA_DISP++);
 
     // check brightness bars
-    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, gFileSelBrightnessCheckTex, G_IM_FMT_IA, 96, 16, 0,
+    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelBrightnessCheckTex), G_IM_FMT_IA, 96, 16, 0,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                            G_TX_NOLOD);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 55, 55, 55, pthis->titleAlpha[0]);
@@ -993,7 +992,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 255, 255, pthis->titleAlpha[0]);
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
-    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, gFileSelOptionsDividerTex, G_IM_FMT_IA, 256, 2, 0,
+    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelOptionsDividerTex), G_IM_FMT_IA, 256, 2, 0,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                            G_TX_NOLOD);
 
@@ -1001,7 +1000,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     Matrix_Translate(0.0f, 0.1f, 0.0f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(pthis->state.gfxCtx, "../z_file_nameset_PAL.c", 1009),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPVertex(POLY_OPA_DISP++, gOptionsDividerTopVtx, 4, 0);
+    gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::gOptionsDividerTopVtx), 4, 0);
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
     Matrix_Pop();
 
@@ -1010,7 +1009,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(pthis->state.gfxCtx, "../z_file_nameset_PAL.c", 1021),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPVertex(POLY_OPA_DISP++, gOptionsDividerMiddleVtx, 4, 0);
+    gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::gOptionsDividerMiddleVtx), 4, 0);
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
     Matrix_Pop();
 
@@ -1018,7 +1017,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     Matrix_Translate(0.0f, 0.4f, 0.0f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(pthis->state.gfxCtx, "../z_file_nameset_PAL.c", 1033),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPVertex(POLY_OPA_DISP++, gOptionsDividerBottomVtx, 4, 0);
+    gSPVertex(POLY_OPA_DISP++, oot::asset::vtx::load(symbol::gOptionsDividerBottomVtx), 4, 0);
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
     Matrix_Pop();
 

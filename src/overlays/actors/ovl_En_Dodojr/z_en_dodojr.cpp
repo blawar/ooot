@@ -8,7 +8,7 @@
 
 #include "z_en_dodojr.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
-#include "objects/object_dodojr/object_dodojr.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
@@ -85,7 +85,7 @@ void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnDodojr* pthis = (EnDodojr*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, NULL, 18.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_dodojr_Skel_0020E0, &object_dodojr_Anim_0009D4,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_dodojr_Skel_0020E0), oot::asset::anim::header::load(symbol::object_dodojr_Anim_0009D4),
                    pthis->jointTable, pthis->morphTable, 15);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -177,18 +177,18 @@ s32 func_809F68B0(EnDodojr* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809F6994(EnDodojr* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&object_dodojr_Anim_000860);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dodojr_Anim_000860));
 
-    Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_000860, 1.8f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dodojr_Anim_000860), 1.8f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -10.0f);
     pthis->actor.velocity.y = 0.0f;
     pthis->actor.speedXZ = 2.6f;
     pthis->actor.gravity = -0.8f;
 }
 
 void func_809F6A20(EnDodojr* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&object_dodojr_Anim_0004A0);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dodojr_Anim_0004A0));
 
-    Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_0004A0, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dodojr_Anim_0004A0), 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -10.0f);
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.velocity.x = 0.0f;
     pthis->actor.velocity.z = 0.0f;
@@ -201,17 +201,17 @@ void func_809F6A20(EnDodojr* pthis) {
 }
 
 void func_809F6AC4(EnDodojr* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&object_dodojr_Anim_0005F0);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dodojr_Anim_0005F0));
 
-    Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_0005F0, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dodojr_Anim_0005F0), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP, 0.0f);
     pthis->actor.velocity.y = 0.0f;
     pthis->actor.gravity = -0.8f;
 }
 
 void func_809F6B38(EnDodojr* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&object_dodojr_Anim_000724);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dodojr_Anim_000724));
 
-    Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_000724, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dodojr_Anim_000724), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.gravity = -0.8f;
     pthis->unk_1FC = 3;
     pthis->actor.velocity.y = 10.0f;
@@ -228,7 +228,7 @@ void func_809F6BBC(EnDodojr* pthis) {
 }
 
 void func_809F6C24(EnDodojr* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_000724, 1.0f, 8.0f, 12.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dodojr_Anim_000724), 1.0f, 8.0f, 12.0f, ANIMMODE_ONCE, 0.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_EAT);
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.velocity.x = 0.0f;
@@ -403,7 +403,7 @@ void func_809F72A4(EnDodojr* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809F73AC(EnDodojr* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&object_dodojr_Anim_000860);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dodojr_Anim_000860));
     Player* player = GET_PLAYER(globalCtx);
     f32 dist;
 
@@ -411,7 +411,7 @@ void func_809F73AC(EnDodojr* pthis, GlobalContext* globalCtx) {
         dist = pthis->actor.world.pos.y - player->actor.world.pos.y;
 
         if (!(dist >= 40.0f)) {
-            Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_000860, 1.8f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP,
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dodojr_Anim_000860), 1.8f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP,
                              -10.0f);
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_UP);
             pthis->actor.world.pos.y -= 60.0f;

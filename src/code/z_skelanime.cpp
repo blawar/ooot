@@ -5,7 +5,6 @@
 #include "z_skelanime.h"
 #include "framerate.h"
 #include "vt.h"
-#include "misc/link_animetion/link_animetion.h"
 #include "def/createmesgqueue.h"
 #include "def/graph.h"
 #include "def/recvmesg.h"

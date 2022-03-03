@@ -7,7 +7,7 @@
  */
 
 #include "z_en_elf.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -346,7 +346,7 @@ void EnElf_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 i;
 
     Actor_ProcessInitChain(thisx, sInitChain);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gFairySkel, &gFairyAnim, pthis->jointTable, pthis->morphTable, 15);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gFairySkel), oot::asset::anim::header::load(symbol::gFairyAnim), pthis->jointTable, pthis->morphTable, 15);
     ActorShape_Init(&thisx->shape, 0.0f, NULL, 15.0f);
     thisx->shape.shadowAlpha = 0xFF;
 

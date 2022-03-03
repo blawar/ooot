@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_po_syokudai.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_syokudai/object_syokudai.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -160,7 +159,7 @@ void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 319),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gGoldenTorchDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGoldenTorchDL));
 
     if (Flags_GetSwitch(globalCtx, pthis->actor.params)) {
         Color_RGBA8* primColor = &sPrimColors[pthis->flameColor];
@@ -190,7 +189,7 @@ void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 368),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 373);
 }

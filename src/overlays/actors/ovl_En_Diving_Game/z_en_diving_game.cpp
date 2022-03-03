@@ -8,7 +8,7 @@
 
 #include "z_en_diving_game.h"
 #include "overlays/actors/ovl_En_Ex_Ruppy/z_en_ex_ruppy.h"
-#include "objects/object_zo/object_zo.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/audio.h"
 #include "def/random.h"
@@ -87,9 +87,9 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 static void* sEyeTextures[] = {
-    gZoraEyeOpenTex,
-    gZoraEyeHalfTex,
-    gZoraEyeClosedTex,
+    oot::asset::texture::load(symbol::gZoraEyeOpenTex),
+    oot::asset::texture::load(symbol::gZoraEyeHalfTex),
+    oot::asset::texture::load(symbol::gZoraEyeClosedTex),
 };
 
 void EnDivingGame_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -97,7 +97,7 @@ void EnDivingGame_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     pthis->actor.gravity = -3.0f;
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gZoraSkel, &gZoraIdleAnim, pthis->jointTable, pthis->morphTable, 20);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gZoraSkel), oot::asset::anim::header::load(symbol::gZoraIdleAnim), pthis->jointTable, pthis->morphTable, 20);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 素もぐりＧＯ ☆☆☆☆☆ \n" VT_RST);
@@ -191,9 +191,9 @@ s32 EnDivingGame_HasMinigameFinished(EnDivingGame* pthis, GlobalContext* globalC
 
 // EnDivingGame_FinishMinigame ? // Reset probably
 void func_809EDCB0(EnDivingGame* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gZoraIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZoraIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gZoraIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZoraIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->notPlayingMinigame = true;
     pthis->actionFunc = EnDivingGame_Talk;
 }
@@ -296,9 +296,9 @@ void func_809EE048(EnDivingGame* pthis, GlobalContext* globalCtx) {
 
 // another "start minigame" step
 void func_809EE0FC(EnDivingGame* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gZoraThrowRupeesAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZoraThrowRupeesAnim));
 
-    Animation_Change(&pthis->skelAnime, &gZoraThrowRupeesAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZoraThrowRupeesAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_ONCE, -10.0f);
     pthis->notPlayingMinigame = false;
     pthis->actionFunc = func_809EE194;
 }

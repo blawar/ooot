@@ -7,7 +7,7 @@
  */
 
 #include "z_en_fhg.h"
-#include "objects/object_fhg/object_fhg.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Door_Shutter/z_door_shutter.h"
 #include "overlays/actors/ovl_Boss_Ganondrof/z_boss_ganondrof.h"
 #include "overlays/actors/ovl_En_Fhg_Fire/z_en_fhg_fire.h"
@@ -82,7 +82,7 @@ void EnfHG_Init(Actor* thisx, GlobalContext* globalCtx2) {
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.focus.pos = pthis->actor.world.pos;
     pthis->actor.focus.pos.y += 70.0f;
-    func_800A663C(globalCtx, &pthis->skin, &gPhantomHorseSkel, &gPhantomHorseRunningAnim);
+    func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gPhantomHorseSkel), oot::asset::anim::header::load(symbol::gPhantomHorseRunningAnim));
 
     if (pthis->actor.params >= GND_FAKE_BOSS) {
         EnfHG_SetupApproach(pthis, globalCtx, pthis->actor.params - GND_FAKE_BOSS);
@@ -101,7 +101,7 @@ void EnfHG_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnfHG_SetupIntro(EnfHG* pthis, GlobalContext* globalCtx) {
-    Animation_PlayLoop(&pthis->skin.skelAnime, &gPhantomHorseIdleAnim);
+    Animation_PlayLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseIdleAnim));
     pthis->actionFunc = EnfHG_Intro;
     pthis->actor.world.pos.x = GND_BOSSROOM_CENTER_X;
     pthis->actor.world.pos.y = GND_BOSSROOM_CENTER_Y - 267.0f;
@@ -257,7 +257,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
                            pthis->cameraSpeedMod * pthis->cameraAtVel.z);
             Math_ApproachF(&pthis->cameraSpeedMod, 0.01f, 1.0f, 0.001f);
             if ((pthis->timers[0] == 245) || (pthis->timers[0] == 3)) {
-                Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &gPhantomHorseRearingAnim, -8.0f);
+                Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseRearingAnim), -8.0f);
                 pthis->bossGndSignal = FHG_REAR;
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_GANON_HORSE_NEIGH);
                 if (pthis->timers[0] == 3) {
@@ -269,7 +269,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
             }
             if (pthis->timers[0] == 212) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_HORSE_LAND2);
-                Animation_Change(&pthis->skin.skelAnime, &gPhantomHorseIdleAnim, 0.3f, 0.0f, 5.0f, ANIMMODE_LOOP_INTERP,
+                Animation_Change(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseIdleAnim), 0.3f, 0.0f, 5.0f, ANIMMODE_LOOP_INTERP,
                                  -10.0f);
             }
             if (pthis->timers[0] == 90) {
@@ -313,8 +313,8 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
             break;
         case INTRO_TITLE:
             if (pthis->timers[1] == 1) {
-                Animation_Change(&pthis->skin.skelAnime, &gPhantomHorseIdleAnim, 0.5f, 0.0f,
-                                 Animation_GetLastFrame(&gPhantomHorseIdleAnim), ANIMMODE_LOOP_INTERP, -3.0f);
+                Animation_Change(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseIdleAnim), 0.5f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPhantomHorseIdleAnim)), ANIMMODE_LOOP_INTERP, -3.0f);
             }
             Math_ApproachF(&pthis->cameraEye.x, GND_BOSSROOM_CENTER_X + 180.0f, 0.1f,
                            pthis->cameraSpeedMod * pthis->cameraEyeVel.x);
@@ -332,15 +332,15 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
             Math_ApproachF(&pthis->cameraSpeedMod, 1.0f, 1.0f, 0.05f);
             if (pthis->timers[0] == 75) {
                 TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                       SEGMENTED_TO_VIRTUAL(gPhantomGanonTitleCardTex), 160, 180, 128, 40);
+                                       SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gPhantomGanonTitleCardTex)), 160, 180, 128, 40);
             }
             if (pthis->timers[0] == 0) {
                 pthis->cutsceneState = INTRO_RETREAT;
                 pthis->timers[0] = 200;
                 pthis->timers[1] = 23;
                 pthis->cameraSpeedMod = 0.0f;
-                Animation_Change(&pthis->skin.skelAnime, &gPhantomHorseLeapAnim, 1.0f, 0.0f,
-                                 Animation_GetLastFrame(&gPhantomHorseLeapAnim), ANIMMODE_ONCE_INTERP, -4.0f);
+                Animation_Change(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseLeapAnim), 1.0f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPhantomHorseLeapAnim)), ANIMMODE_ONCE_INTERP, -4.0f);
                 pthis->bossGndSignal = FHG_SPUR;
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_VOICE);
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_GANON_HORSE_NEIGH);
@@ -348,8 +348,8 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
             break;
         case INTRO_RETREAT:
             if (pthis->timers[1] == 1) {
-                Animation_Change(&pthis->skin.skelAnime, &gPhantomHorseLandAnim, 0.5f, 0.0f,
-                                 Animation_GetLastFrame(&gPhantomHorseLandAnim), ANIMMODE_ONCE_INTERP, -3.0f);
+                Animation_Change(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseLandAnim), 0.5f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPhantomHorseLandAnim)), ANIMMODE_ONCE_INTERP, -3.0f);
                 pthis->bossGndSignal = FHG_FINISH;
             }
             if (pthis->timers[0] == 170) {
@@ -378,7 +378,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
                 globalCtx->envCtx.unk_BF = 0;
                 globalCtx->envCtx.unk_D6 = 0x14;
                 pthis->cutsceneState = INTRO_FINISH;
-                Animation_MorphToLoop(&pthis->skin.skelAnime, &gPhantomHorseRunningAnim, -3.0f);
+                Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseRunningAnim), -3.0f);
                 pthis->bossGndSignal = FHG_START_FIGHT;
                 pthis->timers[1] = 75;
                 pthis->timers[0] = 140;
@@ -413,7 +413,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx) {
 void EnfHG_SetupApproach(EnfHG* pthis, GlobalContext* globalCtx, s16 paintingIndex) {
     s16 oppositeIndex[6] = { 3, 4, 5, 0, 1, 2 };
 
-    Animation_MorphToLoop(&pthis->skin.skelAnime, &gPhantomHorseRunningAnim, 0.0f);
+    Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseRunningAnim), 0.0f);
     pthis->actionFunc = EnfHG_Approach;
     pthis->curPainting = paintingIndex;
     pthis->targetPainting = oppositeIndex[pthis->curPainting];
@@ -480,7 +480,7 @@ void EnfHG_Approach(EnfHG* pthis, GlobalContext* globalCtx) {
         if (pthis->actor.params != GND_REAL_BOSS) {
             pthis->timers[0] = 140;
             pthis->actionFunc = EnfHG_Retreat;
-            Animation_MorphToLoop(&pthis->skin.skelAnime, &gPhantomHorseRunningAnim, 0.0f);
+            Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseRunningAnim), 0.0f);
             pthis->turnTarget = -0x8000;
         } else {
             pthis->actionFunc = EnfHG_Attack;
@@ -503,7 +503,7 @@ void EnfHG_Attack(EnfHG* pthis, GlobalContext* globalCtx) {
         if (pthis->timers[0] == 1) {
             pthis->bossGndSignal = FHG_RAISE_SPEAR;
             pthis->timers[1] = 50;
-            Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &gPhantomHorseLeapAnim, 0.0f);
+            Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseLeapAnim), 0.0f);
         }
         Math_ApproachF(&pthis->warpColorFilterR, 255.0f, 1.0f, 10.0f);
         Math_ApproachF(&pthis->warpColorFilterG, 255.0f, 1.0f, 10.0f);
@@ -525,13 +525,13 @@ void EnfHG_Attack(EnfHG* pthis, GlobalContext* globalCtx) {
                                    pthis->actor.world.pos.z, 0, 0, 0, FHGFIRE_LIGHTNING_STRIKE);
             }
             if (pthis->timers[1] == 45) {
-                Animation_MorphToLoop(&pthis->skin.skelAnime, &gPhantomHorseAirAnim, 0.0f);
+                Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseAirAnim), 0.0f);
             }
             if (pthis->timers[1] == 38) {
                 pthis->bossGndSignal = FHG_LIGHTNING;
             }
             if (pthis->timers[1] == 16) {
-                Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &gPhantomHorseLandAnim, 0.0f);
+                Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseLandAnim), 0.0f);
                 pthis->bossGndSignal = FHG_RESET;
             }
         }
@@ -543,8 +543,8 @@ void EnfHG_Attack(EnfHG* pthis, GlobalContext* globalCtx) {
     if (pthis->hitTimer == 20) {
         pthis->actionFunc = EnfHG_Damage;
         pthis->spawnedWarp = false;
-        Animation_Change(&pthis->skin.skelAnime, &gPhantomHorseLandAnim, -1.0f, 0.0f,
-                         Animation_GetLastFrame(&gPhantomHorseLandAnim), ANIMMODE_ONCE, -5.0f);
+        Animation_Change(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseLandAnim), -1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPhantomHorseLandAnim)), ANIMMODE_ONCE, -5.0f);
         pthis->timers[0] = 10;
         pthis->bossGndSignal = FHG_RESET;
         pthis->damageSpeedMod = 1.0f;
@@ -570,7 +570,7 @@ void EnfHG_Attack(EnfHG* pthis, GlobalContext* globalCtx) {
         if (dxz == 0.0f) {
             pthis->timers[0] = 140;
             pthis->actionFunc = EnfHG_Retreat;
-            Animation_MorphToLoop(&pthis->skin.skelAnime, &gPhantomHorseRunningAnim, 0.0f);
+            Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseRunningAnim), 0.0f);
             pthis->bossGndSignal = FHG_RIDE;
         }
     }
@@ -616,7 +616,7 @@ void EnfHG_Damage(EnfHG* pthis, GlobalContext* globalCtx) {
 
         pthis->timers[0] = 140;
         pthis->actionFunc = EnfHG_Retreat;
-        Animation_MorphToLoop(&pthis->skin.skelAnime, &gPhantomHorseRunningAnim, 0.0f);
+        Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gPhantomHorseRunningAnim), 0.0f);
         if (bossGnd->actor.colChkInfo.health > 24) {
             pthis->bossGndSignal = FHG_RIDE;
         } else {

@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot05_soko.h"
-#include "objects/object_spot05_objects/object_spot05_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/z_actor.h"
@@ -45,8 +45,8 @@ static InitChainEntry sInitChain[] = {
 };
 
 static Gfx* sDLists[] = {
-    object_spot05_objects_DL_000840,
-    object_spot05_objects_DL_001190,
+    oot::asset::gfx::load(symbol::object_spot05_objects_DL_000840),
+    oot::asset::gfx::load(symbol::object_spot05_objects_DL_001190),
 };
 
 void BgSpot05Soko_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -60,14 +60,14 @@ void BgSpot05Soko_Init(Actor* thisx, GlobalContext* globalCtx) {
     thisx->params &= 0xFF;
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
     if (thisx->params == 0) {
-        CollisionHeader_GetVirtual(&object_spot05_objects_Col_000918, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot05_objects_Col_000918), &colHeader);
         if (LINK_IS_ADULT) {
             Actor_Kill(thisx);
         } else {
             pthis->actionFunc = func_808AE5A8;
         }
     } else {
-        CollisionHeader_GetVirtual(&object_spot05_objects_Col_0012C0, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot05_objects_Col_0012C0), &colHeader);
         if (Flags_GetSwitch(globalCtx, pthis->switchFlag) != 0) {
             Actor_Kill(thisx);
         } else {

@@ -8,7 +8,7 @@
 
 #include "z_en_dha.h"
 #include "overlays/actors/ovl_En_Dh/z_en_dh.h"
-#include "objects/object_dh/object_dh.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -168,7 +168,7 @@ void EnDha_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     pthis->actor.colChkInfo.damageTable = &sDamageTable;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_dh_Skel_000BD8, &object_dh_Anim_0015B0, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_dh_Skel_000BD8), oot::asset::anim::header::load(symbol::object_dh_Anim_0015B0), pthis->jointTable,
                        pthis->morphTable, 4);
     ActorShape_Init(&pthis->actor.shape, 0, ActorShadow_DrawFeet, 90.0f);
     pthis->actor.focus.pos = pthis->actor.world.pos;
@@ -191,7 +191,7 @@ void EnDha_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDha_SetupWait(EnDha* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_dh_Anim_0015B0);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_0015B0));
     pthis->unk_1C0 = 0;
     pthis->actionTimer = ((Rand_ZeroOne() * 10.0f) + 5.0f);
     pthis->actor.speedXZ = 0.0f;

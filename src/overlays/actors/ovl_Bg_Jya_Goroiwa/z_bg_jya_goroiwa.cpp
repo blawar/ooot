@@ -8,7 +8,7 @@
  */
 
 #include "z_bg_jya_goroiwa.h"
-#include "objects/object_goroiwa/object_goroiwa.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"
@@ -226,7 +226,7 @@ void BgJyaGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gRollingRockDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gRollingRockDL));
 }
 
 void BgJyaGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {

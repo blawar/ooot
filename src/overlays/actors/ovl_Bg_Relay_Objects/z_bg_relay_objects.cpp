@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_relay_objects.h"
-#include "objects/object_relay_objects/object_relay_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/environment_flags.h"
 #include "def/code_800A9F30.h"
@@ -66,7 +66,7 @@ void BgRelayObjects_Init(Actor* thisx, GlobalContext* globalCtx) {
     thisx->params = (thisx->params >> 8) & 0xFF;
     DynaPolyActor_Init(&pthis->dyna, 3);
     if (thisx->params == WINDMILL_ROTATING_GEAR) {
-        CollisionHeader_GetVirtual(&gWindmillRotatingPlatformCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gWindmillRotatingPlatformCol), &colHeader);
         if (gSaveContext.eventChkInf[6] & 0x20) {
             thisx->world.rot.y = 0x400;
         } else {
@@ -83,7 +83,7 @@ void BgRelayObjects_Init(Actor* thisx, GlobalContext* globalCtx) {
             pthis->actionFunc = func_808A939C;
         }
     } else {
-        CollisionHeader_GetVirtual(&gDampeRaceDoorCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDampeRaceDoorCol), &colHeader);
         if (thisx->room == 0) {
             pthis->unk_169 = pthis->switchFlag - 0x33;
         } else {
@@ -214,9 +214,9 @@ void BgRelayObjects_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgRelayObjects* pthis = (BgRelayObjects*)thisx;
 
     if (pthis->dyna.actor.params == WINDMILL_ROTATING_GEAR) {
-        Gfx_DrawDListOpa(globalCtx, gWindmillRotatingPlatformDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gWindmillRotatingPlatformDL));
     } else {
-        Gfx_DrawDListOpa(globalCtx, gDampeRaceDoorDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gDampeRaceDoorDL));
     }
 }
 

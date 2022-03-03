@@ -1,8 +1,8 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_GT_Z_DEMO_GT_C
 #include "actor_common.h"
 #include "z_demo_gt.h"
-#include "objects/object_gt/object_gt.h"
-#include "objects/object_geff/object_geff.h"
+#include "asset.h"
+#include "asset.h"
 #include "vt.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "def/code_80043480.h"
@@ -169,7 +169,7 @@ void func_8097DAC8(DemoGt* pthis, GlobalContext* globalCtx, Vec3f* spawnerPos) {
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, spawnerPos, -247, phi_s0, 3, 0, 0,
                              (s32)(Rand_ZeroOne() * 10.0f + 30.0f), 2, 300, (s32)(Rand_ZeroOne() * 0.0f) + 30,
-                             KAKERA_COLOR_NONE, OBJECT_GEFF, gGanonRubbleDL);
+                             KAKERA_COLOR_NONE, OBJECT_GEFF, oot::asset::gfx::load(symbol::gGanonRubbleDL));
         angle += 0x1555;
     }
 }
@@ -210,7 +210,7 @@ void func_8097DD28(DemoGt* pthis, GlobalContext* globalCtx, Vec3f* spawnerPos) {
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, spawnerPos, -247, phi_s0, 3, 0, 0,
                              (s32)((Rand_ZeroOne() * 10.0f) + 30.0f), 2, 300, (s32)(Rand_ZeroOne() * 0.0f) + 0x1E,
-                             KAKERA_COLOR_NONE, OBJECT_GEFF, gGanonRubbleDL);
+                             KAKERA_COLOR_NONE, OBJECT_GEFF, oot::asset::gfx::load(symbol::gGanonRubbleDL));
 
         angle += 0x2000;
     }
@@ -252,7 +252,7 @@ void func_8097DF70(DemoGt* pthis, GlobalContext* globalCtx, Vec3f* spawnerPos) {
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, spawnerPos, -200, phi_s0, 10, 10, 0,
                              Rand_ZeroOne() * 30.0f + 30.0f, 2, 300, (s32)(Rand_ZeroOne() * 30.0f) + 30,
-                             KAKERA_COLOR_NONE, OBJECT_GEFF, gGanonRubbleDL);
+                             KAKERA_COLOR_NONE, OBJECT_GEFF, oot::asset::gfx::load(symbol::gGanonRubbleDL));
         angle += 0x1555;
     }
 }
@@ -293,7 +293,7 @@ void func_8097E1D4(GlobalContext* globalCtx, Vec3f* arg1, s16 arg2) {
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, arg1, -247, phi_s0, 3, 0, 0,
                              (s32)((Rand_ZeroOne() * 10.0f) + 30.0f), 2, 300, (s32)(Rand_ZeroOne() * 0.0f) + 30,
-                             KAKERA_COLOR_NONE, OBJECT_GEFF, gGanonRubbleDL);
+                             KAKERA_COLOR_NONE, OBJECT_GEFF, oot::asset::gfx::load(symbol::gGanonRubbleDL));
 
         angle += 0x10000;
     }
@@ -718,14 +718,14 @@ void DemoGt_Draw1(DemoGt* pthis, GlobalContext* globalCtx) {
                Gfx_TwoTexScrollEnvColor(gfxCtx, 0, 0, unk198[0], 0x20, 0x40, 1, 0, unk198[1], 0x20, 0x40, unk188[0],
                                         unk188[1], unk188[2], 0x80));
     gSPMatrix(POLY_OPA_DISP++, spB4, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsExteriorStructureDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsExteriorStructureDL));
     func_80093D84(gfxCtx);
     gDPSetEnvColor(POLY_XLU_DISP++, 128, 128, 128, 128);
     gSPSegment(
         POLY_XLU_DISP++, 0x09,
         Gfx_TwoTexScroll(gfxCtx, 0, 0, gameplayFrames * 0x14, 0x10, 0x200, 1, 0, gameplayFrames * 0x1E, 0x10, 0x200));
     gSPMatrix(POLY_XLU_DISP++, spB4, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gTowerCollapseCsFlameSmokeDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsFlameSmokeDL));
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part1.c", 557);
 }
@@ -734,7 +734,7 @@ void func_8097F904_Init1(DemoGt* pthis, GlobalContext* globalCtx) {
     pthis->dyna.actor.scale.x *= 10.0f;
     pthis->dyna.actor.scale.y *= 10.0f;
     pthis->dyna.actor.scale.z *= 10.0f;
-    func_8097EE44(pthis, globalCtx, 1, 2, &gTowerCollapseCsCollapsedStructureInnerCol);
+    func_8097EE44(pthis, globalCtx, 1, 2, oot::asset::collision::header::load(symbol::gTowerCollapseCsCollapsedStructureInnerCol));
 }
 
 void func_8097F960(DemoGt* pthis, GlobalContext* globalCtx) {
@@ -894,7 +894,7 @@ void DemoGt_Draw2(DemoGt* pthis, GlobalContext* globalCtx) {
                                         unk178[1], unk178[2], 128));
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_gt_part2.c", 485),
               G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsCollapsedStructureInnerDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsCollapsedStructureInnerDL));
     gSPPopMatrix(POLY_OPA_DISP++, G_MTX_MODELVIEW);
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part2.c", 489);
@@ -904,7 +904,7 @@ void func_80980110_Init2(DemoGt* pthis, GlobalContext* globalCtx) {
     pthis->dyna.actor.scale.x *= 10.0f;
     pthis->dyna.actor.scale.y *= 10.0f;
     pthis->dyna.actor.scale.z *= 10.0f;
-    func_8097EE44(pthis, globalCtx, 2, 3, &gTowerCollapseCsCollapsedStructureOuterCol);
+    func_8097EE44(pthis, globalCtx, 2, 3, oot::asset::collision::header::load(symbol::gTowerCollapseCsCollapsedStructureOuterCol));
 }
 
 void func_8098016C(DemoGt* pthis, GlobalContext* globalCtx) {
@@ -1202,7 +1202,7 @@ void DemoGt_Draw3(DemoGt* pthis, GlobalContext* globalCtx) {
     func_80093D18(gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_gt_part3.c", 1028),
               G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsCollapsedStructureOuterDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsCollapsedStructureOuterDL));
     gSPPopMatrix(POLY_OPA_DISP++, G_MTX_MODELVIEW);
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part3.c", 1032);
@@ -1324,7 +1324,7 @@ void DemoGt_Draw4(DemoGt* pthis, GlobalContext* globalCtx2) {
 
         func_80093D18(gfxCtx);
         gSPMatrix(POLY_OPA_DISP++, sp60, (G_MTX_PUSH | G_MTX_LOAD) | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsStandalonePillarDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsStandalonePillarDL));
         gSPPopMatrix(POLY_OPA_DISP++, G_MTX_MODELVIEW);
 
         CLOSE_DISPS(gfxCtx, "../z_demo_gt_part4_1.c", 246);
@@ -1443,7 +1443,7 @@ void DemoGt_Draw5(DemoGt* pthis, GlobalContext* globalCtx) {
 
     func_80093D18(gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, sp60, G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsStandalonePillarDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsStandalonePillarDL));
     gSPPopMatrix(POLY_OPA_DISP++, G_MTX_MODELVIEW);
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part4_2.c", 241);
@@ -1535,7 +1535,7 @@ void DemoGt_Draw6(DemoGt* pthis, GlobalContext* globalCtx) {
 
     func_80093D18(gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, sp64, G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsStandalonePillarDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsStandalonePillarDL));
     gSPPopMatrix(POLY_OPA_DISP++, G_MTX_MODELVIEW);
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part4_3.c", 307);
@@ -1627,7 +1627,7 @@ void DemoGt_Draw7(DemoGt* pthis, GlobalContext* globalCtx) {
 
     func_80093D18(gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, sp5C, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsWalkwayDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsWalkwayDL));
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part5.c", 160);
 }
@@ -1718,7 +1718,7 @@ void DemoGt_Draw8(DemoGt* pthis, GlobalContext* globalCtx) {
 
     func_80093D18(gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, sp5C, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseCsAlternativeWalkwayDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseCsAlternativeWalkwayDL));
 
     CLOSE_DISPS(gfxCtx, "../z_demo_gt_part6.c", 163);
 }

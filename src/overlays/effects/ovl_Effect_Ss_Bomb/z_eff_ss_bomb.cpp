@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_bomb.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_lib.h"
@@ -32,7 +32,7 @@ u32 EffectSsBomb_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void
     Math_Vec3f_Copy(&pthis->pos, &initParams->pos);
     Math_Vec3f_Copy(&pthis->velocity, &initParams->velocity);
     Math_Vec3f_Copy(&pthis->accel, &initParams->accel);
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffBombExplosion1DL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffBombExplosion1DL));
     pthis->life = 20;
     pthis->draw = EffectSsBomb_Draw;
     pthis->update = EffectSsBomb_Update;
@@ -44,10 +44,10 @@ u32 EffectSsBomb_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void
 
 void EffectSsBomb_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* explosionTextures[] = {
-        gEffBombExplosion1Tex,
-        gEffBombExplosion2Tex,
-        gEffBombExplosion3Tex,
-        gEffBombExplosion4Tex,
+        oot::asset::texture::load(symbol::gEffBombExplosion1Tex),
+        oot::asset::texture::load(symbol::gEffBombExplosion2Tex),
+        oot::asset::texture::load(symbol::gEffBombExplosion3Tex),
+        oot::asset::texture::load(symbol::gEffBombExplosion4Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     MtxF mfTrans;

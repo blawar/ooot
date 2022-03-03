@@ -4,7 +4,7 @@
 #include "z64bgcheck.h"
 #include "z64effect.h"
 #include "gfx.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/math_float.h"
 #include "def/graph.h"
 #include "def/sys_math3d.h"
@@ -743,7 +743,7 @@ void EffectBlure_SetupSimpleAlt(GraphicsContext* gfxCtx, EffectBlure* pthis, Vtx
     gDPSetTextureLUT(POLY_XLU_DISP++, G_TT_NONE);
     gSPTexture(POLY_XLU_DISP++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
 
-    gDPLoadTextureBlock(POLY_XLU_DISP++, gUnknownEffBlureTex, G_IM_FMT_I, G_IM_SIZ_8b, 64, 32, 0,
+    gDPLoadTextureBlock(POLY_XLU_DISP++, oot::asset::texture::load(symbol::gUnknownEffBlureTex), G_IM_FMT_I, G_IM_SIZ_8b, 64, 32, 0,
                         G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_WRAP, 6, 5, G_TX_NOLOD, G_TX_NOLOD);
 
     gDPSetCombineLERP(POLY_XLU_DISP++, TEXEL0, PRIMITIVE, PRIM_LOD_FRAC, TEXEL0, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE,

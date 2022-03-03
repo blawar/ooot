@@ -7,7 +7,7 @@
  */
 
 #include "z_en_hintnuts.h"
-#include "objects/object_hintnuts/object_hintnuts.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
@@ -90,7 +90,7 @@ void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
     } else {
         ActorShape_Init(&pthis->actor.shape, 0x0, ActorShadow_DrawCircle, 35.0f);
-        SkelAnime_Init(globalCtx, &pthis->skelAnime, &gHintNutsSkel, &gHintNutsStandAnim, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gHintNutsSkel), oot::asset::anim::header::load(symbol::gHintNutsStandAnim), pthis->jointTable,
                        pthis->morphTable, 10);
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -129,7 +129,7 @@ void EnHintnuts_HitByScrubProjectile1(EnHintnuts* pthis, GlobalContext* globalCt
 }
 
 void EnHintnuts_SetupWait(EnHintnuts* pthis) {
-    Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gHintNutsUpAnim, 0.0f);
+    Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsUpAnim), 0.0f);
     pthis->animFlagAndTimer = Rand_S16Offset(100, 50);
     pthis->collider.dim.height = 5;
     pthis->actor.world.pos = pthis->actor.home.pos;
@@ -138,18 +138,18 @@ void EnHintnuts_SetupWait(EnHintnuts* pthis) {
 }
 
 void EnHintnuts_SetupLookAround(EnHintnuts* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gHintNutsLookAroundAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsLookAroundAnim));
     pthis->animFlagAndTimer = 2;
     pthis->actionFunc = EnHintnuts_LookAround;
 }
 
 void EnHintnuts_SetupThrowScrubProjectile(EnHintnuts* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gHintNutsSpitAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsSpitAnim));
     pthis->actionFunc = EnHintnuts_ThrowNut;
 }
 
 void EnHintnuts_SetupStand(EnHintnuts* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gHintNutsStandAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsStandAnim), -3.0f);
     if (pthis->actionFunc == EnHintnuts_ThrowNut) {
         pthis->animFlagAndTimer = 2 | 0x1000; // sets timer and flag
     } else {
@@ -159,13 +159,13 @@ void EnHintnuts_SetupStand(EnHintnuts* pthis) {
 }
 
 void EnHintnuts_SetupBurrow(EnHintnuts* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gHintNutsBurrowAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim), -5.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_DOWN);
     pthis->actionFunc = EnHintnuts_Burrow;
 }
 
 void EnHintnuts_HitByScrubProjectile2(EnHintnuts* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gHintNutsUnburrowAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsUnburrowAnim), -3.0f);
     pthis->collider.dim.height = 37;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_DAMAGE);
     pthis->collider.base.acFlags &= ~AC_ON;
@@ -190,19 +190,19 @@ void EnHintnuts_HitByScrubProjectile2(EnHintnuts* pthis) {
 }
 
 void EnHintnuts_SetupRun(EnHintnuts* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gHintNutsRunAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsRunAnim));
     pthis->animFlagAndTimer = 5;
     pthis->actionFunc = EnHintnuts_Run;
 }
 
 void EnHintnuts_SetupTalk(EnHintnuts* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gHintNutsTalkAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsTalkAnim), -5.0f);
     pthis->actionFunc = EnHintnuts_Talk;
     pthis->actor.speedXZ = 0.0f;
 }
 
 void EnHintnuts_SetupLeave(EnHintnuts* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gHintNutsRunAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsRunAnim), -5.0f);
     pthis->actor.speedXZ = 3.0f;
     pthis->animFlagAndTimer = 100;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -215,7 +215,7 @@ void EnHintnuts_SetupLeave(EnHintnuts* pthis, GlobalContext* globalCtx) {
 }
 
 void EnHintnuts_SetupFreeze(EnHintnuts* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gHintNutsFreezeAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsFreezeAnim));
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     Actor_SetColorFilter(&pthis->actor, 0, 0xFF, 0, 100);
     pthis->actor.colorFilterTimer = 1;
@@ -507,7 +507,7 @@ void EnHintnuts_Update(Actor* thisx, GlobalContext* globalCtx) {
             Actor_SetFocus(&pthis->actor, pthis->skelAnime.curFrame);
         } else if (pthis->actionFunc == EnHintnuts_Burrow) {
             Actor_SetFocus(&pthis->actor,
-                           20.0f - ((pthis->skelAnime.curFrame * 20.0f) / Animation_GetLastFrame(&gHintNutsBurrowAnim)));
+                           20.0f - ((pthis->skelAnime.curFrame * 20.0f) / Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim))));
         } else {
             Actor_SetFocus(&pthis->actor, 20.0f);
         }
@@ -547,7 +547,7 @@ void EnHintnuts_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnHintnuts* pthis = (EnHintnuts*)thisx;
 
     if (pthis->actor.params == 0xA) {
-        Gfx_DrawDListOpa(globalCtx, gHintNutsFlowerDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gHintNutsFlowerDL));
     } else {
         SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHintnuts_OverrideLimbDraw,
                           NULL, pthis);

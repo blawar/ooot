@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ingate.h"
-#include "objects/object_ingate/object_ingate.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -51,7 +51,7 @@ void BgInGate_Init(Actor* thisx, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gIngoGateCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gIngoGateCol), &colHeader);
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 
@@ -121,7 +121,7 @@ void BgInGate_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ingate.c", 245),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gIngoGateDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gIngoGateDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ingate.c", 250);
 }

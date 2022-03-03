@@ -7,7 +7,7 @@
  */
 
 #include "z_en_kz.h"
-#include "objects/object_kz/object_kz.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/sys_matrix.h"
@@ -39,9 +39,9 @@ void EnKz_SetupGetItem(EnKz* pthis, GlobalContext* globalCtx);
 void EnKz_StartTimer(EnKz* pthis, GlobalContext* globalCtx);
 
 static void* sEyeSegments_57[] = {
-    gKzEyeOpenTex,
-    gKzEyeHalfTex,
-    gKzEyeClosedTex,
+    oot::asset::texture::load(symbol::gKzEyeOpenTex),
+    oot::asset::texture::load(symbol::gKzEyeHalfTex),
+    oot::asset::texture::load(symbol::gKzEyeClosedTex),
 };
 
 
@@ -81,9 +81,9 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gKzIdleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gKzIdleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gKzMweepAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gKzIdleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gKzIdleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gKzMweepAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
 };
 
 u16 EnKz_GetTextNoMaskChild(GlobalContext* globalCtx, EnKz* pthis) {
@@ -337,7 +337,7 @@ void EnKz_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnKz* pthis = (EnKz*)thisx;
     s32 pad;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelanime, &gKzSkel, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelanime, oot::asset::skel::header::load(symbol::gKzSkel), NULL, pthis->jointTable, pthis->morphTable,
                        12);
     ActorShape_Init(&pthis->actor.shape, 0.0, NULL, 0.0);
     Collider_InitCylinder(globalCtx, &pthis->collider);

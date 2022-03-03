@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_en_ice.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"
@@ -136,7 +136,7 @@ void EffectSsEnIce_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB,
                     pthis->rPrimColorA);
     gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, (u32)alpha);
-    gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment2DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffIceFragment2DL));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_en_ice.c", 294);
 }

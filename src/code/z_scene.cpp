@@ -5,7 +5,7 @@
 #include "z64global.h"
 #include "z64scene.h"
 #include "z64scene_asserts.h"
-#include "misc/z_scene_assets.h"
+#include "asset.h"
 #include "z64save.h"
 #include "z_kankyo.h"
 #include "z64item.h"
@@ -196,7 +196,6 @@ bool cmd_entrance_list(GlobalContext* globalCtx, const SceneCmd* cmd) {
 bool cmd_special_files(GlobalContext* globalCtx, const SceneCmd* cmd) {
     if (cmd->specialFiles.keepObjectId != 0) {
         globalCtx->objectCtx.subKeepIndex = Object_Spawn(&globalCtx->objectCtx, cmd->specialFiles.keepObjectId);
-        gSegments[5] = gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart.get();
     }
 
     if (cmd->specialFiles.cUpElfMsgNum != 0) {
@@ -432,35 +431,10 @@ static bool (*gSceneCmdHandlers[])(GlobalContext*, const SceneCmd*) = {
 };
 
 RomFile sNaviMsgFiles[] = {
-    ROM_FILE(elf_message_field),
-    ROM_FILE(elf_message_ydan),
+    oot::asset::loadFile(symbol::elf_message_field),
+    oot::asset::loadFile(symbol::elf_message_ydan),
     ROM_FILE_UNSET,
 };
 
 s16 gLinkObjectIds[] = { OBJECT_LINK_BOY, OBJECT_LINK_CHILD };
 
-u32 gObjectTableSize = ARRAY_COUNT(gObjectTable);
-
-// Object linker symbol declarations (used in the table below)
-#define DEFINE_OBJECT(name, _1) DECLARE_ROM_SEGMENT(name)
-#define DEFINE_OBJECT_NULL(_0, _1)
-#define DEFINE_OBJECT_UNSET(_0)
-
-#include "tables/object_table.h"
-
-#undef DEFINE_OBJECT
-#undef DEFINE_OBJECT_NULL
-#undef DEFINE_OBJECT_UNSET
-
-// Object Table definition
-#define DEFINE_OBJECT(name, _1) ROM_FILE(name),
-#define DEFINE_OBJECT_NULL(name, _1) ROM_FILE_EMPTY(name),
-#define DEFINE_OBJECT_UNSET(_0) { 0 },
-
-RomFile gObjectTable[] = {
-#include "tables/object_table.h"
-};
-
-#undef DEFINE_OBJECT
-#undef DEFINE_OBJECT_NULL
-#undef DEFINE_OBJECT_UNSET

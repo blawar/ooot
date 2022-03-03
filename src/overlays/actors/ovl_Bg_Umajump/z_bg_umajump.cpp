@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_umajump.h"
-#include "objects/object_umajump/object_umajump.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -46,7 +46,7 @@ void BgUmaJump_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gJumpableHorseFenceCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJumpableHorseFenceCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 
     if (pthis->dyna.actor.params == 1) {
@@ -68,7 +68,7 @@ void BgUmaJump_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgUmaJump_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gJumpableHorseFenceDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gJumpableHorseFenceDL));
 }
 
 void BgUmaJump_Reset(Actor* pthisx, GlobalContext* globalCtx) {

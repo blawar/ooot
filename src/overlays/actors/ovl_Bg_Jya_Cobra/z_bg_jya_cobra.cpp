@@ -3,7 +3,7 @@
 #include "z_bg_jya_cobra.h"
 #include "overlays/actors/ovl_Bg_Jya_Bigmirror/z_bg_jya_bigmirror.h"
 #include "overlays/actors/ovl_Mir_Ray/z_mir_ray.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "vt.h"
 
 #define FLAGS ACTOR_FLAG_4
@@ -19,7 +19,6 @@ void func_80896950(BgJyaCobra* pthis, GlobalContext* globalCtx);
 void func_808969F8(BgJyaCobra* pthis, GlobalContext* globalCtx);
 void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx);
 
-#include "overlays/ovl_Bg_Jya_Cobra/ovl_Bg_Jya_Cobra.cpp"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -408,7 +407,7 @@ void BgJyaCobra_UpdateShadowFromTop(BgJyaCobra* pthis) {
 void BgJyaCobra_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaCobra* pthis = (BgJyaCobra*)thisx;
 
-    BgJyaCobra_InitDynapoly(pthis, globalCtx, &gCobraCol, DPM_UNK);
+    BgJyaCobra_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gCobraCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     if (!(pthis->dyna.actor.params & 3) && Flags_GetSwitch(globalCtx, ((s32)pthis->dyna.actor.params >> 8) & 0x3F)) {
         pthis->dyna.actor.world.rot.y = pthis->dyna.actor.home.rot.y = pthis->dyna.actor.shape.rot.y = 0;
@@ -541,7 +540,7 @@ void func_80896CB4(GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_cobra.c", 867),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gCobra2DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCobra2DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_cobra.c", 872);
 }
@@ -562,7 +561,7 @@ void func_80896D78(BgJyaCobra* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_cobra.c", 939),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s32)(pthis->unk_18C * 140.0f));
-    gSPDisplayList(POLY_XLU_DISP++, gCobra3DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCobra3DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_cobra.c", 947);
 }
@@ -605,7 +604,7 @@ void BgJyaCobra_DrawShadow(BgJyaCobra* pthis, GlobalContext* globalCtx) {
                         G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                         G_TX_NOLOD);
 
-    gSPDisplayList(POLY_XLU_DISP++, sShadowDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sShadowDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_cobra.c", 1006);
 }
@@ -614,7 +613,7 @@ void BgJyaCobra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaCobra* pthis = (BgJyaCobra*)thisx;
 
     func_80896CB4(globalCtx);
-    Gfx_DrawDListOpa(globalCtx, gCobra1DL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gCobra1DL));
 
     if (pthis->unk_18C > 0.0f) {
         func_80896D78(pthis, globalCtx);

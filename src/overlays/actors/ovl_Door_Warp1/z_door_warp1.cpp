@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DOOR_WARP1_Z_DOOR_WARP1_C
 #include "actor_common.h"
 #include "z_door_warp1.h"
-#include "objects/object_warp1/object_warp1.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
 #include "def/sys_matrix.h"
@@ -203,8 +203,8 @@ void DoorWarp1_SetupWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
 }
 
 void DoorWarp1_SetupAdultDungeonWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gWarpCrystalSkel, &gWarpCrystalAnim, NULL, NULL, 0);
-    Animation_ChangeImpl(&pthis->skelAnime, &gWarpCrystalAnim, 1.0f, 1.0f, 1.0f, ANIMMODE_ONCE, 40.0f, 1);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gWarpCrystalSkel), oot::asset::anim::header::load(symbol::gWarpCrystalAnim), NULL, NULL, 0);
+    Animation_ChangeImpl(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWarpCrystalAnim), 1.0f, 1.0f, 1.0f, ANIMMODE_ONCE, 40.0f, 1);
 
     pthis->scale = 0;
     pthis->unk_1AE = -140;
@@ -231,11 +231,11 @@ void DoorWarp1_SetupAdultDungeonWarp(DoorWarp1* pthis, GlobalContext* globalCtx)
 void DoorWarp1_SetupBlueCrystal(DoorWarp1* pthis, GlobalContext* globalCtx) {
     s16 i;
 
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gWarpCrystalSkel, &gWarpCrystalAnim, NULL, NULL, 0);
-    Animation_ChangeImpl(&pthis->skelAnime, &gWarpCrystalAnim, 0, Animation_GetLastFrame(&gWarpCrystalAnim),
-                         Animation_GetLastFrame(&gWarpCrystalAnim), ANIMMODE_ONCE, 0.0f, 1);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gWarpCrystalSkel), oot::asset::anim::header::load(symbol::gWarpCrystalAnim), NULL, NULL, 0);
+    Animation_ChangeImpl(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWarpCrystalAnim), 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim)),
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim)), ANIMMODE_ONCE, 0.0f, 1);
 
-    pthis->skelAnime.curFrame = Animation_GetLastFrame(&gWarpCrystalAnim);
+    pthis->skelAnime.curFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim));
     pthis->scale = 10;
     pthis->unk_1AE = 120;
     pthis->unk_1B0 = 230;
@@ -261,11 +261,11 @@ void DoorWarp1_SetupBlueCrystal(DoorWarp1* pthis, GlobalContext* globalCtx) {
 }
 
 void DoorWarp1_SetupPurpleCrystal(DoorWarp1* pthis, GlobalContext* globalCtx) {
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gWarpCrystalSkel, &gWarpCrystalAnim, NULL, NULL, 0);
-    Animation_ChangeImpl(&pthis->skelAnime, &gWarpCrystalAnim, 0, Animation_GetLastFrame(&gWarpCrystalAnim),
-                         Animation_GetLastFrame(&gWarpCrystalAnim), ANIMMODE_ONCE, 0.0f, 1);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gWarpCrystalSkel), oot::asset::anim::header::load(symbol::gWarpCrystalAnim), NULL, NULL, 0);
+    Animation_ChangeImpl(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWarpCrystalAnim), 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim)),
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim)), ANIMMODE_ONCE, 0.0f, 1);
 
-    pthis->skelAnime.curFrame = Animation_GetLastFrame(&gWarpCrystalAnim);
+    pthis->skelAnime.curFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim));
     pthis->unk_1AE = 120;
     pthis->unk_1B0 = 230;
     pthis->warpTimer = 200;
@@ -682,8 +682,8 @@ void func_8099A508(DoorWarp1* pthis, GlobalContext* globalCtx) {
         return;
     }
     Audio_PlaySoundGeneral(NA_SE_EV_LINK_WARP, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-    Animation_ChangeImpl(&pthis->skelAnime, &gWarpCrystalAnim, 1.0f, Animation_GetLastFrame(&gWarpCrystalAnim),
-                         Animation_GetLastFrame(&gWarpCrystalAnim), ANIMMODE_ONCE, 40.0f, 1);
+    Animation_ChangeImpl(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWarpCrystalAnim), 1.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim)),
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWarpCrystalAnim)), ANIMMODE_ONCE, 40.0f, 1);
 
     pthis->unk_1B2 = 0x32;
     DoorWarp1_SetupAction(pthis, DoorWarp1_AdultWarpOut);
@@ -992,7 +992,7 @@ void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
     xzScale = (((f32)pthis->unk_1AE * spE8) / 100.0f) + 1.0f;
     Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
     gSPSegment(POLY_XLU_DISP++, 0x09, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2267));
-    gSPDisplayList(POLY_XLU_DISP++, gWarpPortalDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gWarpPortalDL));
     Matrix_Pop();
 
     if (pthis->lightRayAlpha > 0.0f) {
@@ -1030,7 +1030,7 @@ void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
         Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
 
         gSPSegment(POLY_XLU_DISP++, 0x09, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2336));
-        gSPDisplayList(POLY_XLU_DISP++, gWarpPortalDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gWarpPortalDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2340);

@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_extra.h"
-#include "objects/object_yabusame_point/object_yabusame_point.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 #include "def/z_scene.h"
@@ -38,7 +38,6 @@ u32 EffectSsExtra_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
     if ((objBankIndex >= 0) && Object_IsLoaded(&globalCtx->objectCtx, objBankIndex)) {
         oldSeg6 = gSegments[6];
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIndex].vromStart.get());
         pthis->pos = initParams->pos;
         pthis->velocity = initParams->velocity;
         pthis->accel = initParams->accel;
@@ -58,20 +57,17 @@ u32 EffectSsExtra_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 }
 
 static void* sTextures[] = {
-    object_yabusame_point_Tex_000000,
-    object_yabusame_point_Tex_000480,
-    object_yabusame_point_Tex_000900,
+    oot::asset::texture::load(symbol::object_yabusame_point_Tex_000000),
+    oot::asset::texture::load(symbol::object_yabusame_point_Tex_000480),
+    oot::asset::texture::load(symbol::object_yabusame_point_Tex_000900),
 };
 
 void EffectSsExtra_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     s32 pad;
     f32 scale = pthis->rScale / 100.0f;
-    void* object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 168);
 
-    gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(object);
-    gSPSegment(POLY_XLU_DISP++, 0x06, object);
     Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);
     Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
     func_80093D84(globalCtx->state.gfxCtx);
@@ -79,7 +75,7 @@ void EffectSsExtra_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 186),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sTextures[pthis->rScoreIdx]));
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_yabusame_point_DL_000DC0));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_yabusame_point_DL_000DC0)));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 194);
 }

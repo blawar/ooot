@@ -7,11 +7,7 @@
  */
 
 #include "z_door_killer.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
-#include "objects/object_haka_door/object_haka_door.h"
-#include "objects/object_door_killer/object_door_killer.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/z_actor.h"
 #include "def/z_cheap_proc.h"
@@ -35,8 +31,8 @@ void DoorKiller_SetProperties(DoorKiller* pthis, GlobalContext* globalCtx);
 void DoorKiller_DrawDoor(Actor* thisx, GlobalContext* globalCtx);
 void DoorKiller_DrawRubble(Actor* thisx, GlobalContext* globalCtx);
 
-static Gfx* dLists_66[] = { object_door_killer_DL_001250, object_door_killer_DL_001550, object_door_killer_DL_0017B8,
-                         object_door_killer_DL_001A58 };
+static Gfx* dLists_66[] = { oot::asset::gfx::load(symbol::object_door_killer_DL_001250), oot::asset::gfx::load(symbol::object_door_killer_DL_001550), oot::asset::gfx::load(symbol::object_door_killer_DL_0017B8),
+                         oot::asset::gfx::load(symbol::object_door_killer_DL_001A58) };
 
 
 ActorInit Door_Killer_InitVars = {
@@ -100,10 +96,10 @@ static ColliderJntSphInit sJntSphInit = {
 };
 
 static DoorKillerTextureEntry sDoorTextures[4] = {
-    { OBJECT_HIDAN_OBJECTS, gFireTempleDoorKillerTex },
-    { OBJECT_MIZU_OBJECTS, object_mizu_objects_Tex_0035C0 },
-    { OBJECT_HAKA_DOOR, object_haka_door_Tex_000000 },
-    { OBJECT_GAMEPLAY_KEEP, gWoodenDoorTex },
+    { OBJECT_HIDAN_OBJECTS, oot::asset::texture::load(symbol::gFireTempleDoorKillerTex) },
+    { OBJECT_MIZU_OBJECTS, oot::asset::texture::load(symbol::object_mizu_objects_Tex_0035C0) },
+    { OBJECT_HAKA_DOOR, oot::asset::texture::load(symbol::object_haka_door_Tex_000000) },
+    { OBJECT_GAMEPLAY_KEEP, oot::asset::texture::load(symbol::gWoodenDoorTex) },
 };
 
 void DoorKiller_Init(Actor* thisx, GlobalContext* globalCtx2) {
@@ -135,7 +131,7 @@ void DoorKiller_Init(Actor* thisx, GlobalContext* globalCtx2) {
         case DOOR_KILLER_DOOR:
             // `jointTable` is used for both the `jointTable` and `morphTable` args here. Because pthis actor doesn't
             // play any animations it does not cause problems, but it would need to be changed otherwise.
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_door_killer_Skel_001BC8, NULL, pthis->jointTable,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_door_killer_Skel_001BC8), NULL, pthis->jointTable,
                                pthis->jointTable, 9);
             pthis->actionFunc = DoorKiller_SetProperties;
             DoorKiller_SetProperties(pthis, globalCtx);
@@ -470,9 +466,7 @@ void DoorKiller_Wait(DoorKiller* pthis, GlobalContext* globalCtx) {
 void DoorKiller_UpdateTexture(Actor* thisx, GlobalContext* globalCtx) {
     DoorKiller* pthis = (DoorKiller*)thisx;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->doorObjBankIndex].vromStart.get());
     pthis->texture = SEGMENTED_TO_VIRTUAL(pthis->texture);
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[thisx->objBankIndex].vromStart.get());
 }
 
 /**

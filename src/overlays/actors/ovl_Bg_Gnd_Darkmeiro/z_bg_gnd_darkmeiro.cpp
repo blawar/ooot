@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_gnd_darkmeiro.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -67,7 +67,7 @@ void BgGndDarkmeiro_Init(Actor* pthisx, GlobalContext* globalCtx2) {
             pthis->dyna.actor.flags |= ACTOR_FLAG_7;
             break;
         case DARKMEIRO_CLEAR_BLOCK:
-            CollisionHeader_GetVirtual(&gClearBlockCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gClearBlockCol), &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
             if (((pthis->dyna.actor.params >> 8) & 0x3F) == 0x3F) {
                 pthis->updateFunc = BgGndDarkmeiro_UpdateStaticBlock;
@@ -185,7 +185,7 @@ void BgGndDarkmeiro_Update(Actor* pthisx, GlobalContext* globalCtx2) {
 }
 
 void BgGndDarkmeiro_DrawInvisiblePath(Actor* pthisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListXlu(globalCtx, gShadowTrialPathDL);
+    Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::gShadowTrialPathDL));
 }
 
 void BgGndDarkmeiro_DrawSwitchBlock(Actor* pthisx, GlobalContext* globalCtx) {
@@ -210,7 +210,7 @@ void BgGndDarkmeiro_DrawSwitchBlock(Actor* pthisx, GlobalContext* globalCtx) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 198, 202, 208, pthis->timer2);
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_darkmeiro.c", 380);
 
-        Gfx_DrawDListXlu(globalCtx, gClearBlockDL);
+        Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::gClearBlockDL));
     }
 }
 
@@ -219,7 +219,7 @@ void BgGndDarkmeiro_DrawStaticBlock(Actor* pthisx, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 198, 202, 208, 255);
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_darkmeiro.c", 393);
 
-    Gfx_DrawDListXlu(globalCtx, gClearBlockDL);
+    Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::gClearBlockDL));
 }
 
 void BgGndDarkmeiro_Reset(Actor* pthisx, GlobalContext* globalCtx) {

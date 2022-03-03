@@ -7,7 +7,7 @@
  */
 
 #include "z_en_skjneedle.h"
-#include "objects/object_skj/object_skj.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -114,7 +114,7 @@ void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 205),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gSKJNeedleDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSKJNeedleDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 210);
 }

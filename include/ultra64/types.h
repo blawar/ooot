@@ -181,22 +181,22 @@ class Pointer
 		return n != m_address;
 	}
 
-	uintptr_t size()
+	uintptr_t size() const
 	{
 		return m_address;
 	}
 
-    uintptr_t get()
+    uintptr_t get() const
 	{
 	    return m_address;
 	}
 
-	void* buffer()
+	void* buffer() const
 	{
 		return (void*)m_address;
 	}
 
-	void* c_str()
+	void* c_str() const
 	{
 		return (char*)m_address;
 	}

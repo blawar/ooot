@@ -1,5 +1,4 @@
-#ifndef MESSAGE_DATA_STATIC_H
-#define MESSAGE_DATA_STATIC_H
+#pragma once
 
 #include "global.h"
 #include "message_data_fmt.h"
@@ -35,7 +34,7 @@ struct MessageTableEntry {
 /* 
  *  Message Symbol Declarations
  */
-
+/*
 #define DEFINE_MESSAGE(textId, type, yPos, staffMessage) \
     extern "C" const char _message_##textId##_staff[];
 
@@ -53,5 +52,5 @@ extern "C" const char _message_0xFFFC_nes[73];
 
 
 #undef DEFINE_MESSAGE
+*/
 
-#endif

@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot12_gate.h"
-#include "objects/object_spot12_obj/object_spot12_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -70,7 +70,7 @@ void BgSpot12Gate_InitDynaPoly(BgSpot12Gate* pthis, GlobalContext* globalCtx, Co
 void BgSpot12Gate_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot12Gate* pthis = (BgSpot12Gate*)thisx;
 
-    BgSpot12Gate_InitDynaPoly(pthis, globalCtx, &gGerudoFortressWastelandGateCol, DPM_UNK);
+    BgSpot12Gate_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gGerudoFortressWastelandGateCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
 
     if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F)) {
@@ -149,7 +149,7 @@ void BgSpot12Gate_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot12Gate_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gGerudoFortressWastelandGateDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gGerudoFortressWastelandGateDL));
 }
 
 void BgSpot12Gate_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,7 +7,7 @@
  */
 
 #include "z_door_toki.h"
-#include "objects/object_toki_objects/object_toki_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_bgcheck.h"
 #include "def/z_common_data.h"
@@ -44,7 +44,7 @@ void DoorToki_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gDoorTokiCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDoorTokiCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 }
 

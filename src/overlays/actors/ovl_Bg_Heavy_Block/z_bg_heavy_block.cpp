@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_heavy_block.h"
-#include "objects/object_heavy_object/object_heavy_object.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -99,7 +99,7 @@ void BgHeavyBlock_SetupDynapoly(BgHeavyBlock* pthis, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
     pthis->dyna.actor.flags |= ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_17;
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gHeavyBlockCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gHeavyBlockCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 }
 
@@ -523,7 +523,7 @@ void BgHeavyBlock_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_heavy_block.c", 931),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gHeavyBlockEntirePillarDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gHeavyBlockEntirePillarDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_heavy_block.c", 935);
 }
@@ -532,11 +532,11 @@ void BgHeavyBlock_DrawPiece(Actor* thisx, GlobalContext* globalCtx) {
     switch (thisx->params & 0xFF) {
         case HEAVYBLOCK_BIG_PIECE:
             Matrix_Translate(50.0f, -260.0f, -20.0f, MTXMODE_APPLY);
-            Gfx_DrawDListOpa(globalCtx, gHeavyBlockBigPieceDL);
+            Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gHeavyBlockBigPieceDL));
             break;
         case HEAVYBLOCK_SMALL_PIECE:
             Matrix_Translate(45.0f, -280.0f, -5.0f, MTXMODE_APPLY);
-            Gfx_DrawDListOpa(globalCtx, gHeavyBlockSmallPieceDL);
+            Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gHeavyBlockSmallPieceDL));
             break;
     }
 }

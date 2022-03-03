@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ice_shutter.h"
-#include "objects/object_ice_objects/object_ice_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/z_actor.h"
@@ -67,7 +67,7 @@ void BgIceShutter_Init(Actor* thisx, GlobalContext* globalCtx) {
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
     sp28 = pthis->dyna.actor.params & 0xFF;
     pthis->dyna.actor.params = (pthis->dyna.actor.params >> 8) & 0xFF;
-    CollisionHeader_GetVirtual(&object_ice_objects_Col_002854, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_ice_objects_Col_002854), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     if (sp28 == 2) {
         pthis->dyna.actor.shape.rot.x = -0x4000;
@@ -141,7 +141,7 @@ void BgIceShutter_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgIceShutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_002740);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_ice_objects_DL_002740));
 }
 
 void BgIceShutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {

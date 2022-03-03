@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_ice_smoke.h"
-#include "objects/object_fz/object_fz.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_lib.h"
 #include "def/z_rcp.h"
@@ -36,7 +36,6 @@ u32 EffectSsIceSmoke_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, 
 
     if ((objBankIdx > -1) && Object_IsLoaded(&globalCtx->objectCtx, objBankIdx)) {
         oldSeg6 = (void*)gSegments[6];
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIdx].vromStart.get());
         Math_Vec3f_Copy(&pthis->pos, &initParams->pos);
         Math_Vec3f_Copy(&pthis->velocity, &initParams->velocity);
         Math_Vec3f_Copy(&pthis->accel, &initParams->accel);
@@ -63,7 +62,6 @@ void EffectSsIceSmoke_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
     f32 scale;
     s32 objBankIdx;
 
-    object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_ice_smoke.c", 155);
 
@@ -74,7 +72,7 @@ void EffectSsIceSmoke_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
         func_80093D84(globalCtx->state.gfxCtx);
         gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(object);
         gSPSegment(POLY_XLU_DISP++, 0x06, object);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFreezardSteamStartDL));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFreezardSteamStartDL)));
         gDPPipeSync(POLY_XLU_DISP++);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 235, 235, pthis->rAlpha);
         gSPSegment(
@@ -89,7 +87,7 @@ void EffectSsIceSmoke_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
         if (mtx != NULL) {
             gSPMatrix(POLY_XLU_DISP++, mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFreezardSteamDL));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFreezardSteamDL)));
         }
     } else {
         pthis->life = -1;

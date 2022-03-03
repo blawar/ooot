@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_k_fire.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_rcp.h"
@@ -82,7 +82,7 @@ void EffectSsKFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_k_fire.c", 215),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_k_fire.c", 220);
 }

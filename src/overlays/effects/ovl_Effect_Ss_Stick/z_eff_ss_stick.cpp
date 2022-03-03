@@ -8,8 +8,7 @@ extern Gfx gCullBackDList[];
  */
 
 #include "z_eff_ss_stick.h"
-#include "objects/object_link_boy/object_link_boy.h"
-#include "objects/object_link_child/object_link_child.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_common_data.h"
 #include "def/z_lib.h"
@@ -36,8 +35,8 @@ typedef struct {
 
 u32 EffectSsStick_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx) {
     StickDrawInfo drawInfo[] = {
-        { OBJECT_LINK_BOY, gLinkAdultBrokenGiantsKnifeBladeDL },   // adult, broken sword
-        { OBJECT_LINK_CHILD, gLinkChildLinkDekuStickDL }, // child, broken stick
+        { OBJECT_LINK_BOY, oot::asset::gfx::load(symbol::gLinkAdultBrokenGiantsKnifeBladeDL) },   // adult, broken sword
+        { OBJECT_LINK_CHILD, oot::asset::gfx::load(symbol::gLinkChildLinkDekuStickDL) }, // child, broken stick
     };
     StickDrawInfo* ageInfoEntry = gSaveContext.linkAge + drawInfo;
     EffectSsStickInitParams* initParams = (EffectSsStickInitParams*)initParamsx;
@@ -76,7 +75,6 @@ void EffectSsStick_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_ss_stick.c", 176),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     func_80093D18(gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->rObjBankIdx].vromStart.get());
     gSPSegment(POLY_OPA_DISP++, 0x0C, gCullBackDList);
     gSPDisplayList(POLY_OPA_DISP++, pthis->gfx);
 

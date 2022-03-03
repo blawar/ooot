@@ -7,8 +7,8 @@
  */
 
 #include "z_en_karebaba.h"
-#include "objects/object_dekubaba/object_dekubaba.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -46,7 +46,7 @@ static Vec3f zeroVec_59 = { 0.0f, 0.0f, 0.0f };
 
 static Color_RGBA8 black_66 = { 0, 0, 0, 0 };
 
-static Gfx* stemDLists_66[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
+static Gfx* stemDLists_66[] = { oot::asset::gfx::load(symbol::gDekuBabaStemTopDL), oot::asset::gfx::load(symbol::gDekuBabaStemMiddleDL), oot::asset::gfx::load(symbol::gDekuBabaStemBaseDL) };
 
 static Vec3f zeroVec_66 = { 0.0f, 0.0f, 0.0f };
 
@@ -117,7 +117,7 @@ void EnKarebaba_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 22.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDekuBabaSkel, &gDekuBabaFastChompAnim, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gDekuBabaSkel), oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), pthis->jointTable,
                    pthis->morphTable, 8);
     Collider_InitCylinder(globalCtx, &pthis->bodyCollider);
     Collider_SetCylinder(globalCtx, &pthis->bodyCollider, &pthis->actor, &sBodyColliderInit);
@@ -167,8 +167,8 @@ void EnKarebaba_SetupIdle(EnKarebaba* pthis) {
 }
 
 void EnKarebaba_SetupAwaken(EnKarebaba* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, 4.0f, 0.0f,
-                     Animation_GetLastFrame(&gDekuBabaFastChompAnim), ANIMMODE_LOOP, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), 4.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)), ANIMMODE_LOOP, -3.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DUMMY482);
     pthis->actionFunc = EnKarebaba_Awaken;
 }
@@ -218,14 +218,14 @@ void EnKarebaba_SetupDeadItemDrop(EnKarebaba* pthis, GlobalContext* globalCtx) {
 }
 
 void EnKarebaba_SetupRetract(EnKarebaba* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, -3.0f, Animation_GetLastFrame(&gDekuBabaFastChompAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), -3.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)),
                      0.0f, ANIMMODE_ONCE, -3.0f);
     EnKarebaba_ResetCollider(pthis);
     pthis->actionFunc = EnKarebaba_Retract;
 }
 
 void EnKarebaba_SetupDead(EnKarebaba* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, 0.0f, 0.0f, 0.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), 0.0f, 0.0f, 0.0f, ANIMMODE_ONCE, 0.0f);
     EnKarebaba_ResetCollider(pthis);
     pthis->actor.shape.rot.x = -0x4000;
     pthis->actor.params = 200;
@@ -474,7 +474,7 @@ void EnKarebaba_DrawBaseShadow(EnKarebaba* pthis, GlobalContext* globalCtx) {
     Matrix_Scale(0.15f, 1.0f, 0.15f, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_karebaba.c", 1029),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gCircleShadowDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCircleShadowDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_karebaba.c", 1034);
 }
@@ -494,7 +494,7 @@ void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Translate(0.0f, 0.0f, 200.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_karebaba.c", 1066),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gDekuBabaStickDropDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaStickDropDL));
         }
     } else if (pthis->actionFunc != EnKarebaba_Dead) {
         func_80026230(globalCtx, &black_66, 1, 2);
@@ -541,13 +541,13 @@ void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_RotateY(pthis->actor.home.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_karebaba.c", 1144),
               G_MTX_LOAD | G_MTX_NOPUSH | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gDekuBabaBaseLeavesDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaBaseLeavesDL));
 
     if (pthis->actionFunc == EnKarebaba_Dying) {
         Matrix_RotateZYX(-0x4000, (s16)(pthis->actor.shape.rot.y - pthis->actor.home.rot.y), 0, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_karebaba.c", 1155),
                   G_MTX_LOAD | G_MTX_NOPUSH | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gDekuBabaStemBaseDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaStemBaseDL));
     }
 
     func_80026608(globalCtx);

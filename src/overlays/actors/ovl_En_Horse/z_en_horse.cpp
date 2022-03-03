@@ -8,9 +8,7 @@
 
 #include "z_en_horse.h"
 #include "overlays/actors/ovl_En_In/z_en_in.h"
-#include "objects/object_horse/object_horse.h"
-#include "objects/object_hni/object_hni.h"
-#include "scenes/overworld/spot09/spot09_scene.h"
+#include "asset.h"
 
 #include "hack.h"
 #include "def/assert.h"
@@ -79,21 +77,21 @@ void EnHorse_UpdateHorsebackArchery(EnHorse* pthis, GlobalContext* globalCtx);
 void EnHorse_FleePlayer(EnHorse* pthis, GlobalContext* globalCtx);
 
 static AnimationHeader* sEponaAnimHeaders[] = {
-    &gEponaIdleAnim,     &gEponaWhinnyAnim,    &gEponaRefuseAnim,  &gEponaRearingAnim,     &gEponaWalkingAnim,
-    &gEponaTrottingAnim, &gEponaGallopingAnim, &gEponaJumpingAnim, &gEponaJumpingHighAnim,
+    oot::asset::anim::header::load(symbol::gEponaIdleAnim),     oot::asset::anim::header::load(symbol::gEponaWhinnyAnim),    oot::asset::anim::header::load(symbol::gEponaRefuseAnim),  oot::asset::anim::header::load(symbol::gEponaRearingAnim),     oot::asset::anim::header::load(symbol::gEponaWalkingAnim),
+    oot::asset::anim::header::load(symbol::gEponaTrottingAnim), oot::asset::anim::header::load(symbol::gEponaGallopingAnim), oot::asset::anim::header::load(symbol::gEponaJumpingAnim), oot::asset::anim::header::load(symbol::gEponaJumpingHighAnim),
 };
 
 static AnimationHeader* sHniAnimHeaders[] = {
-    &gHorseIngoIdleAnim,      &gHorseIngoWhinnyAnim,  &gHorseIngoRefuseAnim,
-    &gHorseIngoRearingAnim,   &gHorseIngoWalkingAnim, &gHorseIngoTrottingAnim,
-    &gHorseIngoGallopingAnim, &gHorseIngoJumpingAnim, &gHorseIngoJumpingHighAnim,
+    oot::asset::anim::header::load(symbol::gHorseIngoIdleAnim),      oot::asset::anim::header::load(symbol::gHorseIngoWhinnyAnim),  oot::asset::anim::header::load(symbol::gHorseIngoRefuseAnim),
+    oot::asset::anim::header::load(symbol::gHorseIngoRearingAnim),   oot::asset::anim::header::load(symbol::gHorseIngoWalkingAnim), oot::asset::anim::header::load(symbol::gHorseIngoTrottingAnim),
+    oot::asset::anim::header::load(symbol::gHorseIngoGallopingAnim), oot::asset::anim::header::load(symbol::gHorseIngoJumpingAnim), oot::asset::anim::header::load(symbol::gHorseIngoJumpingHighAnim),
 };
 
 static AnimationHeader** sAnimationHeaders[] = { sEponaAnimHeaders, sHniAnimHeaders };
 
 static f32 sPlaybackSpeeds[] = { 2.0f / 3.0f, 2.0f / 3.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f / 3.0f, 2.0f / 3.0f };
 
-static SkeletonHeader* sSkeletonHeaders[] = { &gEponaSkel, &gHorseIngoSkel };
+static SkeletonHeader* sSkeletonHeaders[] = { oot::asset::skel::header2::load(symbol::gEponaSkel), oot::asset::skel::header2::load(symbol::gHorseIngoSkel) };
 
 ActorInit En_Horse_InitVars = {
     ACTOR_EN_HORSE,
@@ -2749,10 +2747,10 @@ void EnHorse_BridgeJumpInit(EnHorse* pthis, GlobalContext* globalCtx) {
 void EnHorse_StartBridgeJump(EnHorse* pthis, GlobalContext* globalCtx) {
     pthis->postDrawFunc = EnHorse_BridgeJumpInit;
     if (pthis->bridgeJumpIdx == 0) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGerudoValleyBridgeJumpFieldFortressCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGerudoValleyBridgeJumpFieldFortressCs));
         gSaveContext.cutsceneTrigger = 1;
     } else {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGerudoValleyBridgeJumpFortressToFieldCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGerudoValleyBridgeJumpFortressToFieldCs));
         gSaveContext.cutsceneTrigger = 1;
     }
 }
@@ -3091,9 +3089,9 @@ void EnHorse_Stub2(EnHorse* pthis);
 void EnHorse_Stub1(EnHorse* pthis);
 
 static void* eyeTextures_265[] = {
-    gEponaEyeOpenTex,
-    gEponaEyeHalfTex,
-    gEponaEyeClosedTex,
+    oot::asset::texture::load(symbol::gEponaEyeOpenTex),
+    oot::asset::texture::load(symbol::gEponaEyeHalfTex),
+    oot::asset::texture::load(symbol::gEponaEyeClosedTex),
 };
 
 static u8 eyeBlinkIndexes_265[] = { 0, 1, 2, 1 };
@@ -3811,7 +3809,7 @@ s32 EnHorse_SkinCallback2(Actor* thisx, GlobalContext* globalCtx, s32 limbIndex,
 
         gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_265[index]));
     } else if (pthis->type == HORSE_HNI && pthis->stateFlags & ENHORSE_FLAG_18 && limbIndex == 30) {
-        func_800A5F60(globalCtx->state.gfxCtx, &pthis->skin, limbIndex, gHorseIngoGerudoSaddleDL, 0);
+        func_800A5F60(globalCtx->state.gfxCtx, &pthis->skin, limbIndex, oot::asset::gfx::load(symbol::gHorseIngoGerudoSaddleDL), 0);
         drawOriginalLimb = false;
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_horse.c", 8601);

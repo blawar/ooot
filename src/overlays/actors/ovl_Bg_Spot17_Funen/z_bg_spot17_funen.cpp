@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot17_funen.h"
-#include "objects/object_spot17_obj/object_spot17_obj.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_camera.h"
 #include "def/z_lib.h"
@@ -74,7 +74,7 @@ void func_808B7478(Actor* thisx, GlobalContext* globalCtx) {
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames) & 0x7F, 0x20, 0x20, 1, 0,
                                 (0 - globalCtx->gameplayFrames) & 0x7F, 0x20, 0x20));
-    gSPDisplayList(POLY_XLU_DISP++, gCraterSmokeConeDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCraterSmokeConeDL));
 
     if (1) {}
 

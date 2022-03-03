@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_dead_db.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
@@ -41,7 +41,7 @@ u32 EffectSsDeadDb_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
     pthis->pos = initParams->pos;
     pthis->velocity = initParams->velocity;
     pthis->accel = initParams->accel;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffEnemyDeathFlameDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffEnemyDeathFlameDL));
     pthis->life = initParams->unk_34;
     pthis->flags = 4;
     pthis->rScaleStep = initParams->scaleStep;
@@ -63,9 +63,9 @@ u32 EffectSsDeadDb_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 }
 
 static void* sTextures[] = {
-    gEffEnemyDeathFlame1Tex, gEffEnemyDeathFlame2Tex,  gEffEnemyDeathFlame3Tex, gEffEnemyDeathFlame4Tex,
-    gEffEnemyDeathFlame5Tex, gEffEnemyDeathFlame6Tex,  gEffEnemyDeathFlame7Tex, gEffEnemyDeathFlame8Tex,
-    gEffEnemyDeathFlame9Tex, gEffEnemyDeathFlame10Tex,
+    oot::asset::texture::load(symbol::gEffEnemyDeathFlame1Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame2Tex),  oot::asset::texture::load(symbol::gEffEnemyDeathFlame3Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame4Tex),
+    oot::asset::texture::load(symbol::gEffEnemyDeathFlame5Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame6Tex),  oot::asset::texture::load(symbol::gEffEnemyDeathFlame7Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame8Tex),
+    oot::asset::texture::load(symbol::gEffEnemyDeathFlame9Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame10Tex),
 };
 
 void EffectSsDeadDb_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {

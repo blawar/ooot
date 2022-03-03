@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BOX_Z_EN_BOX_C
 #include "actor_common.h"
 #include "z_en_box.h"
-#include "objects/object_box/object_box.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -78,8 +78,8 @@ ActorInit En_Box_InitVars = {
     (ActorFunc)EnBox_Reset,
 };
 
-static AnimationHeader* sAnimations[4] = { &gTreasureChestAnim_00024C, &gTreasureChestAnim_000128,
-                                           &gTreasureChestAnim_00043C, &gTreasureChestAnim_00043C };
+static AnimationHeader* sAnimations[4] = { oot::asset::anim::header::load(symbol::gTreasureChestAnim_00024C), oot::asset::anim::header::load(symbol::gTreasureChestAnim_000128),
+                                           oot::asset::anim::header::load(symbol::gTreasureChestAnim_00043C), oot::asset::anim::header::load(symbol::gTreasureChestAnim_00043C) };
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_U8(targetMode, 0, ICHAIN_STOP),
@@ -120,7 +120,7 @@ void EnBox_Init(Actor* thisx, GlobalContext* globalCtx2) {
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gTreasureChestCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gTreasureChestCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     func_8003ECA8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
 
@@ -186,7 +186,7 @@ void EnBox_Init(Actor* thisx, GlobalContext* globalCtx2) {
     pthis->dyna.actor.world.rot.y += 0x8000;
     pthis->dyna.actor.home.rot.z = pthis->dyna.actor.world.rot.z = pthis->dyna.actor.shape.rot.z = 0;
 
-    SkelAnime_Init(globalCtx, &pthis->skelanime, &gTreasureChestSkel, anim, pthis->jointTable, pthis->morphTable, 5);
+    SkelAnime_Init(globalCtx, &pthis->skelanime, oot::asset::skel::header2::load(symbol::gTreasureChestSkel), anim, pthis->jointTable, pthis->morphTable, 5);
     Animation_Change(&pthis->skelanime, anim, 1.5f, animFrameStart, endFrame, ANIMMODE_ONCE, 0.0f);
 
     switch (pthis->type) {
@@ -565,17 +565,17 @@ void EnBox_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_box.c", 1492),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         if (pthis->type != ENBOX_TYPE_DECORATED_BIG) {
-            gSPDisplayList((*gfx)++, gTreasureChestChestFrontDL);
+            gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gTreasureChestChestFrontDL));
         } else {
-            gSPDisplayList((*gfx)++, gTreasureChestBossKeyChestFrontDL);
+            gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gTreasureChestBossKeyChestFrontDL));
         }
     } else if (limbIndex == 3) {
         gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_box.c", 1502),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         if (pthis->type != ENBOX_TYPE_DECORATED_BIG) {
-            gSPDisplayList((*gfx)++, gTreasureChestChestSideAndLidDL);
+            gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gTreasureChestChestSideAndLidDL));
         } else {
-            gSPDisplayList((*gfx)++, gTreasureChestBossKeyChestSideAndTopDL);
+            gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gTreasureChestBossKeyChestSideAndTopDL));
         }
     }
 }

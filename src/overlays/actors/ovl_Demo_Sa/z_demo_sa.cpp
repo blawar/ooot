@@ -9,7 +9,7 @@
 #include "z_demo_sa.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "objects/object_sa/object_sa.h"
+#include "asset.h"
 
 #include "vt.h"
 #include "def/z_actor.h"
@@ -54,12 +54,12 @@ void DemoSa_DrawOpa(DemoSa* pthis, GlobalContext* globalCtx);
 void DemoSa_DrawXlu(DemoSa* pthis, GlobalContext* globalCtx);
 
 static void* sEyeTextures[] = {
-    gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
+    oot::asset::texture::load(symbol::gSariaEyeOpenTex), oot::asset::texture::load(symbol::gSariaEyeHalfTex), oot::asset::texture::load(symbol::gSariaEyeClosedTex), oot::asset::texture::load(symbol::gSariaEyeSuprisedTex), oot::asset::texture::load(symbol::gSariaEyeSadTex),
 };
 
 static void* sMouthTextures[] = {
-    gSariaMouthClosed2Tex,     gSariaMouthSuprisedTex, gSariaMouthClosedTex,
-    gSariaMouthSmilingOpenTex, gSariaMouthFrowningTex,
+    oot::asset::texture::load(symbol::gSariaMouthClosed2Tex),     oot::asset::texture::load(symbol::gSariaMouthSuprisedTex), oot::asset::texture::load(symbol::gSariaMouthClosedTex),
+    oot::asset::texture::load(symbol::gSariaMouthSmilingOpenTex), oot::asset::texture::load(symbol::gSariaMouthFrowningTex),
 };
 
 static u32 D_80990108 = 0;
@@ -209,7 +209,7 @@ void func_8098E76C(DemoSa* pthis, AnimationHeader* animHeaderSeg, u8 arg2, f32 t
 }
 
 void func_8098E7FC(DemoSa* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSariaSkel, &gSariaWaitArmsToSideAnim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gSariaSkel), oot::asset::anim::header::load(symbol::gSariaWaitArmsToSideAnim), NULL, NULL, 0);
     pthis->actor.shape.yOffset = -10000.0f;
     DemoSa_SetEyeIndex(pthis, SARIA_EYE_HALF);
     DemoSa_SetMouthIndex(pthis, SARIA_MOUTH_CLOSED2);
@@ -280,8 +280,8 @@ void func_8098EA68(DemoSa* pthis, GlobalContext* globalCtx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         npcAction = globalCtx->csCtx.npcActions[4];
         if ((npcAction != NULL) && (npcAction->action == 3)) {
-            Animation_Change(&pthis->skelAnime, &gSariaGiveForestMedallionAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gSariaGiveForestMedallionAnim), ANIMMODE_ONCE, -4.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gSariaGiveForestMedallionAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSariaGiveForestMedallionAnim)), ANIMMODE_ONCE, -4.0f);
             pthis->action = 4;
         }
     }
@@ -289,8 +289,8 @@ void func_8098EA68(DemoSa* pthis, GlobalContext* globalCtx) {
 
 void func_8098EB00(DemoSa* pthis, s32 arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gSariaGiveForestMedallionStandAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gSariaGiveForestMedallionStandAnim), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gSariaGiveForestMedallionStandAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSariaGiveForestMedallionStandAnim)), ANIMMODE_LOOP, 0.0f);
         pthis->action = 5;
     }
 }
@@ -346,10 +346,10 @@ void func_8098ECCC(DemoSa* pthis, GlobalContext* globalCtx) {
 void func_8098ECF4(DemoSa* pthis, GlobalContext* globalCtx) {
     s32 pad[2];
     SkelAnime* skelAnime = &pthis->skelAnime;
-    f32 frameCount = Animation_GetLastFrame(&gSariaSealGanonAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSariaSealGanonAnim));
 
-    SkelAnime_InitFlex(globalCtx, skelAnime, &gSariaSkel, NULL, NULL, NULL, 0);
-    Animation_Change(skelAnime, &gSariaSealGanonAnim, 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, 0.0f);
+    SkelAnime_InitFlex(globalCtx, skelAnime, oot::asset::skel::header::load(symbol::gSariaSkel), NULL, NULL, NULL, 0);
+    Animation_Change(skelAnime, oot::asset::anim::header::load(symbol::gSariaSealGanonAnim), 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, 0.0f);
     pthis->action = 7;
     pthis->actor.shape.shadowAlpha = 0;
     DemoSa_SetEyeIndex(pthis, SARIA_EYE_CLOSED);
@@ -474,7 +474,7 @@ void DemoSa_DrawXlu(DemoSa* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8098F390(DemoSa* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSariaSkel, &gSariaWaitArmsToSideAnim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gSariaSkel), oot::asset::anim::header::load(symbol::gSariaWaitArmsToSideAnim), NULL, NULL, 0);
     pthis->action = 10;
     pthis->drawConfig = 1;
 }
@@ -486,7 +486,7 @@ void func_8098F3F0(DemoSa* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8098F420(DemoSa* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSariaSkel, &gSariaSitting3Anim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gSariaSkel), oot::asset::anim::header::load(symbol::gSariaSitting3Anim), NULL, NULL, 0);
     pthis->action = 11;
     pthis->drawConfig = 0;
     pthis->actor.shape.shadowAlpha = 0;
@@ -521,18 +521,18 @@ void func_8098F544(DemoSa* pthis) {
 }
 
 void func_8098F590(DemoSa* pthis) {
-    func_8098E76C(pthis, &gSariaSitting1Anim, 2, -8.0f, 0);
+    func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaSitting1Anim), 2, -8.0f, 0);
     pthis->action = 14;
 }
 
 void func_8098F5D0(DemoSa* pthis) {
-    func_8098E76C(pthis, &gSariaSitting2Anim, 2, 0.0f, 0);
+    func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaSitting2Anim), 2, 0.0f, 0);
     pthis->action = 15;
 }
 
 void func_8098F610(DemoSa* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_8098E76C(pthis, &gSariaSitting3Anim, 0, 0.0f, 0);
+        func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaSitting3Anim), 0, 0.0f, 0);
         pthis->action = 13;
     }
 }
@@ -602,7 +602,7 @@ void func_8098F7FC(DemoSa* pthis, GlobalContext* globalCtx) {
 void func_8098F83C(DemoSa* pthis, GlobalContext* globalCtx) {
     Vec3f* thisPos = &pthis->actor.world.pos;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSariaSkel, &gSariaWaitOnBridgeAnim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gSariaSkel), oot::asset::anim::header::load(symbol::gSariaWaitOnBridgeAnim), NULL, NULL, 0);
     Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_ELF, thisPos->x, thisPos->y, thisPos->z,
                        0, 0, 0, FAIRY_KOKIRI);
     pthis->action = 16;
@@ -641,7 +641,7 @@ void func_8098F998(DemoSa* pthis, GlobalContext* globalCtx) {
         pthis->unk_1B0 = 0;
         pthis->actor.shape.shadowAlpha = 0;
     } else {
-        func_8098E76C(pthis, &gSariaWaitOnBridgeAnim, 0, 0.0f, 0);
+        func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaWaitOnBridgeAnim), 0, 0.0f, 0);
         pthis->action = 18;
         pthis->drawConfig = 1;
         pthis->unk_1B0 = 0;
@@ -660,7 +660,7 @@ void func_8098FA2C(DemoSa* pthis) {
 }
 
 void func_8098FA84(DemoSa* pthis) {
-    func_8098E76C(pthis, &gSariaHoldOcarinaAnim, 0, 0.0f, 0);
+    func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaHoldOcarinaAnim), 0, 0.0f, 0);
     pthis->action = 19;
     pthis->drawConfig = 1;
     pthis->unk_1B0 = 1;
@@ -669,7 +669,7 @@ void func_8098FA84(DemoSa* pthis) {
 }
 
 void func_8098FAE0(DemoSa* pthis) {
-    func_8098E76C(pthis, &gSariaGiveLinkOcarinaAnim, 2, -8.0f, 0);
+    func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaGiveLinkOcarinaAnim), 2, -8.0f, 0);
     pthis->action = 20;
     pthis->drawConfig = 1;
     pthis->unk_1B0 = 1;
@@ -678,7 +678,7 @@ void func_8098FAE0(DemoSa* pthis) {
 
 void func_8098FB34(DemoSa* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_8098E76C(pthis, &gSariaHoldOutOcarinaAnim, 0, 0, 0);
+        func_8098E76C(pthis, oot::asset::anim::header::load(symbol::gSariaHoldOutOcarinaAnim), 0, 0, 0);
     }
 }
 
@@ -778,7 +778,7 @@ s32 DemoSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     DemoSa* pthis = (DemoSa*)thisx;
 
     if ((limbIndex == 15) && (pthis->unk_1B0 != 0)) {
-        *dList = gSariaRightHandAndOcarinaDL;
+        *dList = oot::asset::gfx::load(symbol::gSariaRightHandAndOcarinaDL);
     }
     return false;
 }

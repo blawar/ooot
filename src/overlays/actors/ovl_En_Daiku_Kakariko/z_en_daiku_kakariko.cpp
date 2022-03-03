@@ -7,7 +7,7 @@
  */
 
 #include "z_en_daiku_kakariko.h"
-#include "objects/object_daiku/object_daiku.h"
+#include "asset.h"
 #include "def/math_float.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -36,8 +36,8 @@ static u16 initFlags_32[] = { 0x0080, 0x00B0, 0x0070, 0x0470 };
 
 static s32 maskReactionSets_35[] = { 1, 2, 3, 4 };
 
-static Gfx* carpenterHeadDLists_42[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
-                                      object_daiku_DL_005880 };
+static Gfx* carpenterHeadDLists_42[] = { oot::asset::gfx::load(symbol::object_daiku_DL_005BD0), oot::asset::gfx::load(symbol::object_daiku_DL_005AC0), oot::asset::gfx::load(symbol::object_daiku_DL_005990),
+                                      oot::asset::gfx::load(symbol::object_daiku_DL_005880) };
 
 static Vec3f unkVec_42 = { 700.0f, 1100.0f, 0.0f };
 
@@ -113,9 +113,9 @@ static DamageTable sDamageTable = {
 };
 
 static struct_D_80AA1678 sAnimations[] = {
-    { &object_daiku_Anim_001AB0, 1.0f, 2, -7.0f }, { &object_daiku_Anim_007DE0, 1.0f, 0, -7.0f },
-    { &object_daiku_Anim_00885C, 1.0f, 0, -7.0f }, { &object_daiku_Anim_000C44, 1.0f, 0, -7.0f },
-    { &object_daiku_Anim_000600, 1.0f, 0, -7.0f }, { &object_daiku_Anim_008164, 1.0f, 0, -7.0f },
+    { oot::asset::anim::header::load(symbol::object_daiku_Anim_001AB0), 1.0f, 2, -7.0f }, { oot::asset::anim::header::load(symbol::object_daiku_Anim_007DE0), 1.0f, 0, -7.0f },
+    { oot::asset::anim::header::load(symbol::object_daiku_Anim_00885C), 1.0f, 0, -7.0f }, { oot::asset::anim::header::load(symbol::object_daiku_Anim_000C44), 1.0f, 0, -7.0f },
+    { oot::asset::anim::header::load(symbol::object_daiku_Anim_000600), 1.0f, 0, -7.0f }, { oot::asset::anim::header::load(symbol::object_daiku_Anim_008164), 1.0f, 0, -7.0f },
 };
 
 void EnDaikuKakariko_SetAnimFromIndex(EnDaikuKakariko* pthis, s32 animIndex, s32* currentAnimIndex) {
@@ -168,7 +168,7 @@ void EnDaikuKakariko_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 40.0f);
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_daiku_Skel_007958, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_daiku_Skel_007958), NULL, pthis->jointTable, pthis->morphTable,
                        17);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);

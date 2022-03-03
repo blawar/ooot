@@ -7,7 +7,7 @@
  */
 
 #include "z_en_geldb.h"
-#include "objects/object_geldb/object_geldb.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -96,8 +96,8 @@ static Vec3f blockTrisOffsets1_112[3] = {
     { 3000.0f, 6000.0f, 1600.0f },
 };
 
-static void* eyeTextures_112[] = { gGerudoRedEyeOpenTex, gGerudoRedEyeHalfTex, gGerudoRedEyeShutTex,
-                               gGerudoRedEyeHalfTex };
+static void* eyeTextures_112[] = { oot::asset::texture::load(symbol::gGerudoRedEyeOpenTex), oot::asset::texture::load(symbol::gGerudoRedEyeHalfTex), oot::asset::texture::load(symbol::gGerudoRedEyeShutTex),
+                               oot::asset::texture::load(symbol::gGerudoRedEyeHalfTex) };
 
 
 ActorInit En_GeldB_InitVars = {
@@ -255,7 +255,7 @@ void EnGeldB_Init(Actor* thisx, GlobalContext* globalCtx) {
     thisx->params &= 0xFF;
     pthis->blinkState = 0;
     pthis->unkFloat = 10.0f;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGerudoRedSkel, &gGerudoRedNeutralAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGerudoRedSkel), oot::asset::anim::header::load(symbol::gGerudoRedNeutralAnim), pthis->jointTable,
                        pthis->morphTable, GELDB_LIMB_MAX);
     Collider_InitCylinder(globalCtx, &pthis->bodyCollider);
     Collider_SetCylinder(globalCtx, &pthis->bodyCollider, thisx, &sBodyCylInit);
@@ -364,7 +364,7 @@ s32 EnGeldB_ReactToPlayer(GlobalContext* globalCtx, EnGeldB* pthis, s16 arg2) {
 }
 
 void EnGeldB_SetupWait(EnGeldB* pthis) {
-    Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gGerudoRedJumpAnim, 0.0f);
+    Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedJumpAnim), 0.0f);
     pthis->actor.world.pos.y = pthis->actor.home.pos.y + 120.0f;
     pthis->timer = 10;
     pthis->invisible = true;
@@ -402,9 +402,9 @@ void EnGeldB_Wait(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupFlee(EnGeldB* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedJumpAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedJumpAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedJumpAnim, -2.0f, lastFrame, 0.0f, ANIMMODE_ONCE_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedJumpAnim), -2.0f, lastFrame, 0.0f, ANIMMODE_ONCE_INTERP, -4.0f);
     pthis->timer = 20;
     pthis->invisible = false;
     pthis->action = GELDB_WAIT;
@@ -431,7 +431,7 @@ void EnGeldB_Flee(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupReady(EnGeldB* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gGerudoRedNeutralAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedNeutralAnim), -4.0f);
     pthis->action = GELDB_READY;
     pthis->timer = Rand_ZeroOne() * 10.0f + 5.0f;
     pthis->actor.speedXZ = 0.0f;
@@ -495,9 +495,9 @@ void EnGeldB_Ready(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupAdvance(EnGeldB* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedWalkAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedWalkAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedWalkAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedWalkAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
     pthis->action = GELDB_ADVANCE;
     EnGeldB_SetupAction(pthis, EnGeldB_Advance);
 }
@@ -578,9 +578,9 @@ void EnGeldB_Advance(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupRollForward(EnGeldB* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedFlipAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedFlipAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedFlipAnim, -1.0f, lastFrame, 0.0f, ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedFlipAnim), -1.0f, lastFrame, 0.0f, ANIMMODE_ONCE, -3.0f);
     pthis->timer = 0;
     pthis->invisible = true;
     pthis->action = GELDB_ROLL_FORWARD;
@@ -616,7 +616,7 @@ void EnGeldB_RollForward(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupPivot(EnGeldB* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gGerudoRedSidestepAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim), -4.0f);
     pthis->action = GELDB_PIVOT;
     EnGeldB_SetupAction(pthis, EnGeldB_Pivot);
 }
@@ -653,9 +653,9 @@ void EnGeldB_Pivot(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupCircle(EnGeldB* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedSidestepAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedSidestepAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
     pthis->actor.speedXZ = Rand_CenteredFloat(12.0f);
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
     pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
@@ -757,9 +757,9 @@ void EnGeldB_Circle(EnGeldB* pthis, GlobalContext* globalCtx) {
 void EnGeldB_SetupSpinDodge(EnGeldB* pthis, GlobalContext* globalCtx) {
     s16 sp3E;
     Player* player = GET_PLAYER(globalCtx);
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedSidestepAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedSidestepAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
     sp3E = player->actor.shape.rot.y;
     if (Math_SinS(sp3E - pthis->actor.shape.rot.y) > 0.0f) {
         pthis->actor.speedXZ = -10.0f;
@@ -854,7 +854,7 @@ void EnGeldB_SpinDodge(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupSlash(EnGeldB* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gGerudoRedSlashAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSlashAnim));
     pthis->swordCollider.base.atFlags &= ~AT_BOUNCED;
     pthis->action = GELDB_SLASH;
     pthis->spinAttackState = 0;
@@ -911,9 +911,9 @@ void EnGeldB_Slash(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupSpinAttack(EnGeldB* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedSpinAttackAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedSpinAttackAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedSpinAttackAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSpinAttackAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE_INTERP, 0.0f);
     pthis->swordCollider.base.atFlags &= ~(AT_HIT | AT_BOUNCED);
     pthis->action = GELDB_SPIN_ATTACK;
     pthis->spinAttackState = 0;
@@ -993,7 +993,7 @@ void EnGeldB_SpinAttack(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupRollBack(EnGeldB* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gGerudoRedFlipAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedFlipAnim), -3.0f);
     pthis->timer = 0;
     pthis->invisible = true;
     pthis->action = GELDB_ROLL_BACK;
@@ -1024,7 +1024,7 @@ void EnGeldB_SetupStunned(EnGeldB* pthis) {
         pthis->actor.speedXZ = 0.0f;
     }
     if ((pthis->damageEffect != GELDB_DMG_FREEZE) || (pthis->action == GELDB_SPIN_ATTACK)) {
-        Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gGerudoRedDamageAnim, 0.0f);
+        Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedDamageAnim), 0.0f);
     }
     if (pthis->damageEffect == GELDB_DMG_FREEZE) {
         pthis->iceTimer = 36;
@@ -1054,7 +1054,7 @@ void EnGeldB_Stunned(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupDamaged(EnGeldB* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gGerudoRedDamageAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedDamageAnim), -4.0f);
     if (pthis->actor.bgCheckFlags & 1) {
         pthis->invisible = false;
         pthis->actor.speedXZ = -4.0f;
@@ -1098,9 +1098,9 @@ void EnGeldB_Damaged(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupJump(EnGeldB* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedFlipAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedFlipAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedFlipAnim, -1.0f, lastFrame, 0.0f, ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedFlipAnim), -1.0f, lastFrame, 0.0f, ANIMMODE_ONCE, -3.0f);
     pthis->timer = 0;
     pthis->invisible = false;
     pthis->action = GELDB_JUMP;
@@ -1132,7 +1132,7 @@ void EnGeldB_Jump(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupBlock(EnGeldB* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedBlockAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedBlockAnim));
 
     if (pthis->swordState != 0) {
         pthis->swordState = -1;
@@ -1140,7 +1140,7 @@ void EnGeldB_SetupBlock(EnGeldB* pthis) {
     pthis->actor.speedXZ = 0.0f;
     pthis->action = GELDB_BLOCK;
     pthis->timer = (s32)Rand_CenteredFloat(10.0f) + 10;
-    Animation_Change(&pthis->skelAnime, &gGerudoRedBlockAnim, 0.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedBlockAnim), 0.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
     EnGeldB_SetupAction(pthis, EnGeldB_Block);
 }
 
@@ -1200,9 +1200,9 @@ void EnGeldB_Block(EnGeldB* pthis, GlobalContext* globalCtx) {
 void EnGeldB_SetupSidestep(EnGeldB* pthis, GlobalContext* globalCtx) {
     s16 linkAngle;
     Player* player;
-    f32 lastFrame = Animation_GetLastFrame(&gGerudoRedSidestepAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim));
 
-    Animation_Change(&pthis->skelAnime, &gGerudoRedSidestepAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSidestepAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
     player = GET_PLAYER(globalCtx);
     Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 1, 0xFA0, 1);
     linkAngle = player->actor.shape.rot.y;
@@ -1328,7 +1328,7 @@ void EnGeldB_Sidestep(EnGeldB* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGeldB_SetupDefeated(EnGeldB* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gGerudoRedDefeatAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedDefeatAnim), -4.0f);
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
     if (pthis->actor.bgCheckFlags & 1) {
         pthis->invisible = false;
@@ -1558,7 +1558,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     if ((pthis->spinAttackState >= 2) && SkelAnime_Update(&pthis->skelAnime)) {
         if (pthis->spinAttackState == 2) {
-            Animation_Change(&pthis->skelAnime, &gGerudoRedSpinAttackAnim, 0.5f, 0.0f, 12.0f, ANIMMODE_ONCE_INTERP,
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedSpinAttackAnim), 0.5f, 0.0f, 12.0f, ANIMMODE_ONCE_INTERP,
                              4.0f);
             pthis->spinAttackState++;
             thisx->world.rot.y = thisx->shape.rot.y = thisx->yawTowardsPlayer;

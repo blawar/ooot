@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FZ_Z_EN_FZ_C
 #include "actor_common.h"
 #include "z_en_fz.h"
-#include "objects/object_fz/object_fz.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -57,9 +57,9 @@ void EnFz_UpdateIceSmoke(EnFz* pthis, GlobalContext* globalCtx);
 void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx);
 
 static Gfx* displayLists_88[] = {
-    gFreezardIntactDL,              // Body fully intact           (5 or 6 health)
-    gFreezardTopRightHornChippedDL, // Top right horn chipped off  (from Freezards perspective)   (3 or 4 health)
-    gFreezardHeadChippedDL,         // Entire head chipped off     (1 or 2 health)
+    oot::asset::gfx::load(symbol::gFreezardIntactDL),              // Body fully intact           (5 or 6 health)
+    oot::asset::gfx::load(symbol::gFreezardTopRightHornChippedDL), // Top right horn chipped off  (from Freezards perspective)   (3 or 4 health)
+    oot::asset::gfx::load(symbol::gFreezardHeadChippedDL),         // Entire head chipped off     (1 or 2 health)
 };
 
 
@@ -883,7 +883,7 @@ void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx) {
             gDPPipeSync(POLY_XLU_DISP++);
 
             if (!texLoaded) {
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFreezardSteamStartDL));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFreezardSteamStartDL)));
                 texLoaded++;
             }
 
@@ -896,7 +896,7 @@ void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx) {
             Matrix_Scale(iceSmoke->xyScale, iceSmoke->xyScale, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_fz.c", 1424),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFreezardSteamDL));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFreezardSteamDL)));
         }
 
         iceSmoke++;

@@ -8,8 +8,7 @@
  */
 
 #include "z_en_fhg_fire.h"
-#include "objects/object_fhg/object_fhg.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Boss_Ganondrof/z_boss_ganondrof.h"
 #include "overlays/actors/ovl_En_fHG/z_en_fhg.h"
 #include "overlays/effects/ovl_Effect_Ss_Fhg_Flash/z_eff_ss_fhg_flash.h"
@@ -694,7 +693,7 @@ void EnFhgFire_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static void* sDustTextures[] = {
-    gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
+    oot::asset::texture::load(symbol::gDust1Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust8Tex),
 };
 
 void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
@@ -710,7 +709,7 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gDPPipeSync(POLY_XLU_DISP++);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1745),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gPhantomLightningBlastDL));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gPhantomLightningBlastDL)));
     } else if ((pthis->actor.params == FHGFIRE_SPEAR_LIGHT) || (pthis->actor.params == FHGFIRE_ENERGY_BALL)) {
         osSyncPrintf("yari hikari draw 1\n");
         func_800D1FD4(&globalCtx->billboardMtxF);
@@ -726,7 +725,7 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_RotateZ((pthis->actor.shape.rot.z / (f32)0x8000) * 3.1416f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1801),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gPhantomEnergyBallDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gPhantomEnergyBallDL));
     } else if ((pthis->actor.params == FHGFIRE_WARP_EMERGE) || (pthis->actor.params == FHGFIRE_WARP_RETREAT) ||
                (pthis->actor.params == FHGFIRE_WARP_DEATH)) {
         func_80093D84(globalCtx->state.gfxCtx);
@@ -740,7 +739,7 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
                                     (s16)pthis->fwork[FHGFIRE_WARP_TEX_1_Y], 0x40, 0x40, 1,
                                     (s16)pthis->fwork[FHGFIRE_WARP_TEX_2_X], (s16)pthis->fwork[FHGFIRE_WARP_TEX_2_Y],
                                     0x40, 0x40));
-        gSPDisplayList(POLY_XLU_DISP++, gPhantomWarpDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gPhantomWarpDL));
     } else {
         osSyncPrintf("FF DRAW 1\n");
         Matrix_Translate(0.0f, -100.0f, 0.0f, MTXMODE_APPLY);
@@ -750,7 +749,7 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gDPPipeSync(POLY_XLU_DISP++);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1892),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gPhantomLightningDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gPhantomLightningDL));
         osSyncPrintf("FF DRAW 2\n");
     }
 

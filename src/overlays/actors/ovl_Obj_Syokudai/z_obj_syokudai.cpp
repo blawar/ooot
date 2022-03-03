@@ -8,8 +8,7 @@
 
 #include "z_obj_syokudai.h"
 #include "overlays/actors/ovl_En_Arrow/z_en_arrow.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_syokudai/object_syokudai.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -32,7 +31,7 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 static u8 sColTypesStand_30[] = { 0x09, 0x0B, 0x0B };
 
-static Gfx* displayLists_33[] = { gGoldenTorchDL, gTimedTorchDL, gWoodenTorchDL };
+static Gfx* displayLists_33[] = { oot::asset::gfx::load(symbol::gGoldenTorchDL), oot::asset::gfx::load(symbol::gTimedTorchDL), oot::asset::gfx::load(symbol::gWoodenTorchDL) };
 
 
 ActorInit Obj_Syokudai_InitVars = {
@@ -319,7 +318,7 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 745),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 749);
 }

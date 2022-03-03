@@ -1,17 +1,12 @@
 #define INTERNAL_SRC_CODE_Z_FBDEMO_CIRCLE_C
 #include "global.h"
+#include "asset.h"
 #include "gfx.h"
 #include "z64transition.h"
 #include "z64audio.h"
 #include "sfx.h"
 #include "gfx_align.h"
 
-// unused
-Gfx sCircleNullDList[] = {
-    gsSPEndDisplayList(),
-};
-
-#include "code/fbdemo_circle/z_fbdemo_circle.cpp"
 #include "def/audio_bank.h"
 #include "def/lookat.h"
 #include "def/perspective.h"
@@ -34,7 +29,7 @@ Gfx sCircleDList[] = {
     gsDPLoadTextureBlock(SEGMENT_ADDRESS(0x08000000), G_IM_FMT_I, G_IM_SIZ_8b, 16, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_CLAMP, 4, 6, G_TX_NOLOD, G_TX_NOLOD),
     gsSPDisplayListSEG(SEGMENT_ADDRESS(0x09000000)),
-    gsSPVertex(sCircleWipeVtx, 32, 0),
+    gsSPVertex(oot::asset::vtx::load(symbol::sCircleWipeVtx), 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 4, 0),
     gsSP2Triangles(3, 5, 6, 0, 5, 7, 8, 0),
     gsSP2Triangles(7, 9, 10, 0, 9, 11, 12, 0),
@@ -43,7 +38,7 @@ Gfx sCircleDList[] = {
     gsSP2Triangles(19, 21, 22, 0, 21, 23, 24, 0),
     gsSP2Triangles(23, 25, 26, 0, 25, 27, 28, 0),
     gsSP1Triangle(27, 29, 30, 0),
-    gsSPVertex(&sCircleWipeVtx[31], 3, 0),
+    gsSPVertex(&oot::asset::vtx::load(symbol::sCircleWipeVtx)[31], 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
 };
@@ -55,16 +50,16 @@ void TransitionCircle_Start(void* thisx) {
 
     switch (pthis->effect) {
         case 1:
-            pthis->texture = sCircleWipeWaveTex;
+            pthis->texture = oot::asset::texture::load(symbol::sCircleWipeWaveTex);
             break;
         case 2:
-            pthis->texture = sCircleWipeRippleTex;
+            pthis->texture = oot::asset::texture::load(symbol::sCircleWipeRippleTex);
             break;
         case 3:
-            pthis->texture = sCircleWipeStarburstTex;
+            pthis->texture = oot::asset::texture::load(symbol::sCircleWipeStarburstTex);
             break;
         default:
-            pthis->texture = sCircleWipeDefaultTex;
+            pthis->texture = oot::asset::texture::load(symbol::sCircleWipeDefaultTex);
             break;
     }
 

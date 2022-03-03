@@ -10,7 +10,7 @@
 #include "z_fishing.h"
 
 #include "overlays/actors/ovl_En_Kanban/z_en_kanban.h"
-#include "objects/object_fish/object_fish.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
@@ -782,8 +782,8 @@ void Fishing_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
         thisx->params = 1;
 
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFishingOwnerSkel, &gFishingOwnerAnim, NULL, NULL, 0);
-        Animation_MorphToLoop(&pthis->skelAnime, &gFishingOwnerAnim, 0.0f);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFishingOwnerSkel), oot::asset::anim::header::load(symbol::gFishingOwnerAnim), NULL, NULL, 0);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishingOwnerAnim), 0.0f);
 
         thisx->update = Fishing_UpdateOwner;
         thisx->draw = Fishing_DrawOwner;
@@ -915,11 +915,11 @@ void Fishing_Init(Actor* thisx, GlobalContext* globalCtx2) {
         }
     } else {
         if ((thisx->params < 115) || (thisx->params == 200)) {
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFishingFishSkel, &gFishingFishAnim, NULL, NULL, 0);
-            Animation_MorphToLoop(&pthis->skelAnime, &gFishingFishAnim, 0.0f);
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFishingFishSkel), oot::asset::anim::header::load(symbol::gFishingFishAnim), NULL, NULL, 0);
+            Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishingFishAnim), 0.0f);
         } else {
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFishingLoachSkel, &gFishingLoachAnim, NULL, NULL, 0);
-            Animation_MorphToLoop(&pthis->skelAnime, &gFishingLoachAnim, 0.0f);
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFishingLoachSkel), oot::asset::anim::header::load(symbol::gFishingLoachAnim), NULL, NULL, 0);
+            Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishingLoachAnim), 0.0f);
         }
 
         SkelAnime_Update(&pthis->skelAnime);
@@ -1130,7 +1130,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
     for (i = 0; i < 100; i++) {
         if (effect->type == FS_EFF_RIPPLE) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingRippleMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRippleMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 155, 155, 155, 0);
                 flag++;
             }
@@ -1143,7 +1143,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2305),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gFishingRippleModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRippleModelDL));
         }
         effect++;
     }
@@ -1153,7 +1153,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
     for (i = 0; i < 100; i++) {
         if (effect->type == FS_EFF_DUST_SPLASH) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingDustSplashMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingDustSplashMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 200, 0);
                 flag++;
             }
@@ -1167,7 +1167,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2346),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gFishingDustSplashModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingDustSplashModelDL));
         }
         effect++;
     }
@@ -1177,7 +1177,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
     for (i = 0; i < 100; i++) {
         if (effect->type == FS_EFF_WATER_DUST) {
             if (flag == 0) {
-                gSPDisplayList(POLY_OPA_DISP++, gFishingWaterDustMaterialDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingWaterDustMaterialDL));
                 gDPSetEnvColor(POLY_OPA_DISP++, 40, 90, 80, 128);
                 flag++;
             }
@@ -1195,7 +1195,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2394),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_OPA_DISP++, gFishingWaterDustModelDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingWaterDustModelDL));
         }
         effect++;
     }
@@ -1205,7 +1205,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
     for (i = 0; i < 100; i++) {
         if (effect->type == FS_EFF_BUBBLE) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingBubbleMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingBubbleMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 150, 150, 150, 0);
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
                 flag++;
@@ -1218,7 +1218,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2423),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gFishingBubbleModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingBubbleModelDL));
         }
         effect++;
     }
@@ -1243,7 +1243,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2467),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gFishingRainDropModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRainDropModelDL));
         }
         effect++;
     }
@@ -1255,7 +1255,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
     for (i = 30; i < EFFECT_COUNT; i++) {
         if (effect->type == FS_EFF_RAIN_RIPPLE) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingRippleMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRippleMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 155, 155, 155, 0);
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 130);
                 flag++;
@@ -1267,7 +1267,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2504),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gFishingRippleModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRippleModelDL));
         }
         effect++;
     }
@@ -1277,7 +1277,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
     for (i = 30; i < EFFECT_COUNT; i++) {
         if (effect->type == FS_EFF_RAIN_SPLASH) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingRainSplashMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRainSplashMaterialDL));
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, KREG(19) + 80);
                 flag++;
             }
@@ -1296,7 +1296,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2541),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gFishingRainSplashModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingRainSplashModelDL));
         }
         effect++;
     }
@@ -1313,7 +1313,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx) {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2560),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-        gSPDisplayList(POLY_OPA_DISP++, gFishingOwnerHatDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingOwnerHatDL));
     }
 
     Matrix_Pop();
@@ -1337,7 +1337,7 @@ void Fishing_DrawStreamSplash(GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2598),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFishingStreamSplashDL));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFishingStreamSplashDL)));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 2613);
 }
@@ -1565,13 +1565,13 @@ void Fishing_DrawLureHook(GlobalContext* globalCtx, Vec3f* pos, Vec3f* refPos, u
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3029),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gFishingLureHookDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingLureHookDL));
 
     Matrix_RotateZ(M_PI / 2, MTXMODE_APPLY);
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3034),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gFishingLureHookDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingLureHookDL));
 
     if ((hookIndex == 1) && (D_80B7A68C != 0)) {
         Matrix_Scale(2.0f, 2.0f, 2.0f, MTXMODE_APPLY);
@@ -1601,7 +1601,7 @@ void Fishing_DrawLureHook(GlobalContext* globalCtx, Vec3f* pos, Vec3f* refPos, u
 
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3085),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gFishingOwnerHatDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingOwnerHatDL));
     }
 
     Matrix_Pop();
@@ -1690,7 +1690,7 @@ void Fishing_DrawSinkingLure(GlobalContext* globalCtx) {
     if (sLurePos.y < WATER_SURFACE_Y(globalCtx)) {
         func_80093D18(globalCtx->state.gfxCtx);
 
-        gSPDisplayList(POLY_OPA_DISP++, gFishingSinkingLureSegmentMaterialDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingSinkingLureSegmentMaterialDL));
 
         for (i = SINKING_LURE_SEG_COUNT - 1; i >= 0; i--) {
             if ((i + D_80B7FEA0) < SINKING_LURE_SEG_COUNT) {
@@ -1701,13 +1701,13 @@ void Fishing_DrawSinkingLure(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3239),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, gFishingSinkingLureSegmentModelDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingSinkingLureSegmentModelDL));
             }
         }
     } else {
         func_80093D84(globalCtx->state.gfxCtx);
 
-        gSPDisplayList(POLY_XLU_DISP++, gFishingSinkingLureSegmentMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingSinkingLureSegmentMaterialDL));
 
         for (i = SINKING_LURE_SEG_COUNT - 1; i >= 0; i--) {
             if ((i + D_80B7FEA0) < SINKING_LURE_SEG_COUNT) {
@@ -1718,7 +1718,7 @@ void Fishing_DrawSinkingLure(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3265),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, gFishingSinkingLureSegmentModelDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingSinkingLureSegmentModelDL));
             }
         }
     }
@@ -1783,7 +1783,7 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3369),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gFishingLureFloatDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingLureFloatDL));
 
         posSrc.x = -850.0f;
         posSrc.y = 0.0f;
@@ -1831,7 +1831,7 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3444),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gFishingLineModelDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingLineModelDL));
     } else {
         for (i = spB4; i < LINE_SEG_COUNT - 1; i++) {
             if ((i == LINE_SEG_COUNT - 3) && (D_80B7E0B6 == 0) && (D_80B7A694 == 3)) {
@@ -1859,7 +1859,7 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3475),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, gFishingLineModelDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingLineModelDL));
                 break;
             }
 
@@ -1870,7 +1870,7 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3492),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gFishingLineModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingLineModelDL));
         }
     }
 
@@ -1972,7 +1972,7 @@ void Fishing_DrawRod(GlobalContext* globalCtx) {
 
     func_80093D18(globalCtx->state.gfxCtx);
 
-    gSPDisplayList(POLY_OPA_DISP++, gFishingRodMaterialDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingRodMaterialDL));
 
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 155, 0, 255);
 
@@ -2010,17 +2010,17 @@ void Fishing_DrawRod(GlobalContext* globalCtx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
         if (i < 5) {
-            gDPLoadTextureBlock(POLY_OPA_DISP++, gFishingRodSegmentBlackTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 8, 0,
+            gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFishingRodSegmentBlackTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 8, 0,
                                 G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, 3, G_TX_NOLOD, G_TX_NOLOD);
         } else if ((i < 8) || ((i % 2) == 0)) {
-            gDPLoadTextureBlock(POLY_OPA_DISP++, gFishingRodSegmentWhiteTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 8, 0,
+            gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFishingRodSegmentWhiteTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 8, 0,
                                 G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, 3, G_TX_NOLOD, G_TX_NOLOD);
         } else {
-            gDPLoadTextureBlock(POLY_OPA_DISP++, gFishingRodSegmentStripTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 8, 0,
+            gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFishingRodSegmentStripTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 8, 0,
                                 G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, 3, G_TX_NOLOD, G_TX_NOLOD);
         }
 
-        gSPDisplayList(POLY_OPA_DISP++, gFishingRodSegmentDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingRodSegmentDL));
 
         Matrix_Pop();
         Matrix_Translate(0.0f, 0.0f, 500.0f, MTXMODE_APPLY);
@@ -3906,12 +3906,12 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
                     SkelAnime_Free(&pthis->skelAnime, globalCtx);
 
                     if (pthis->unk_150 == 0) {
-                        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFishingFishSkel, &gFishingFishAnim, 0, 0, 0);
-                        Animation_MorphToLoop(&pthis->skelAnime, &gFishingFishAnim, 0.0f);
+                        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFishingFishSkel), oot::asset::anim::header::load(symbol::gFishingFishAnim), 0, 0, 0);
+                        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishingFishAnim), 0.0f);
                     } else {
-                        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFishingLoachSkel, &gFishingLoachAnim, 0, 0,
+                        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFishingLoachSkel), oot::asset::anim::header::load(symbol::gFishingLoachAnim), 0, 0,
                                            0);
-                        Animation_MorphToLoop(&pthis->skelAnime, &gFishingLoachAnim, 0.0f);
+                        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFishingLoachAnim), 0.0f);
                     }
                 }
 
@@ -4339,7 +4339,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
     for (i = 0; i < POND_PROP_COUNT; i++) {
         if (prop->type == FS_PROP_REED) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingReedMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingReedMaterialDL));
                 flag++;
             }
 
@@ -4352,7 +4352,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7726),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, gFishingReedModelDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingReedModelDL));
             }
         }
 
@@ -4364,7 +4364,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
     for (i = 0; i < POND_PROP_COUNT; i++) {
         if (prop->type == FS_PROP_WOOD_POST) {
             if (flag == 0) {
-                gSPDisplayList(POLY_OPA_DISP++, gFishingWoodPostMaterialDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingWoodPostMaterialDL));
                 flag++;
             }
 
@@ -4374,7 +4374,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7748),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, gFishingWoodPostModelDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingWoodPostModelDL));
             }
         }
 
@@ -4386,7 +4386,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
     for (i = 0; i < POND_PROP_COUNT; i++) {
         if (prop->type == FS_PROP_LILY_PAD) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gFishingLilyPadMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingLilyPadMaterialDL));
                 flag++;
             }
 
@@ -4399,7 +4399,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7774),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, gFishingLilyPadModelDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingLilyPadModelDL));
             }
         }
 
@@ -4411,7 +4411,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
     for (i = 0; i < POND_PROP_COUNT; i++) {
         if (prop->type == FS_PROP_ROCK) {
             if (flag == 0) {
-                gSPDisplayList(POLY_OPA_DISP++, gFishingRockMaterialDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingRockMaterialDL));
                 flag++;
             }
 
@@ -4422,7 +4422,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7798),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, gFishingRockModelDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingRockModelDL));
             }
         }
 
@@ -4640,7 +4640,7 @@ void Fishing_DrawGroupFishes(GlobalContext* globalCtx) {
     for (i = 0; i < GROUP_FISH_COUNT; i++) {
         if (fish->type != FS_GROUP_FISH_NONE) {
             if (flag == 0) {
-                gSPDisplayList(POLY_OPA_DISP++, gFishingGroupFishMaterialDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingGroupFishMaterialDL));
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 155, 155, 155, 255);
                 flag++;
             }
@@ -4653,7 +4653,7 @@ void Fishing_DrawGroupFishes(GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 8093),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, gFishingGroupFishModelDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingGroupFishModelDL));
             }
         }
         fish++;
@@ -5647,9 +5647,9 @@ void Fishing_OwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
         Matrix_MultVec3f(&sZeroVec, &sOwnerHeadPos);
 
         if (D_80B7A688 == 1) {
-            gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gFishingOwnerHatDL));
+            gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFishingOwnerHatDL)));
         } else if (D_80B7A688 == 2) {
-            gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gFishingOwnerHairDL));
+            gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFishingOwnerHairDL)));
         }
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 9142);
@@ -5657,9 +5657,9 @@ void Fishing_OwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 static void* sFishingOwnerEyeTexs[] = {
-    gFishingOwnerEyeOpenTex,
-    gFishingOwnerEyeHalfTex,
-    gFishingOwnerEyeClosedTex,
+    oot::asset::texture::load(symbol::gFishingOwnerEyeOpenTex),
+    oot::asset::texture::load(symbol::gFishingOwnerEyeHalfTex),
+    oot::asset::texture::load(symbol::gFishingOwnerEyeClosedTex),
 };
 
 void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx) {
@@ -5724,8 +5724,8 @@ void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 9298),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gFishingAquariumBottomDL);
-    gSPDisplayList(POLY_XLU_DISP++, gFishingAquariumContainerDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFishingAquariumBottomDL));
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFishingAquariumContainerDL));
 
     if ((D_80B7E0AC != 0) && (D_80B7E0B6 == 2)) {
         Fishing_DrawSinkingLure(globalCtx);

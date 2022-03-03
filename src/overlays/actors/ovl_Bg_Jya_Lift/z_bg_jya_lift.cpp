@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_jya_lift.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -72,7 +72,7 @@ void BgJyaLift_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     // "Goddess lift CT"
     osSyncPrintf("女神リフト CT\n");
-    BgJyaLift_InitDynapoly(pthis, globalCtx, &gLiftCol, DPM_UNK);
+    BgJyaLift_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gLiftCol), DPM_UNK);
     Actor_ProcessInitChain(thisx, sInitChain);
     if (Flags_GetSwitch(globalCtx, (thisx->params & 0x3F))) {
         BgJyaLift_SetFinalPosY(pthis);
@@ -161,7 +161,7 @@ void BgJyaLift_Update(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 void BgJyaLift_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gLiftDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gLiftDL));
 }
 
 void BgJyaLift_Reset(Actor* pthisx, GlobalContext* globalCtx) {

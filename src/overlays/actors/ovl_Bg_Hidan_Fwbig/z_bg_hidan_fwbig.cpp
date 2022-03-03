@@ -8,8 +8,8 @@
  */
 
 #include "z_bg_hidan_fwbig.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -261,9 +261,9 @@ void BgHidanFwbig_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80093D84(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gEffUnknown4Tex));
+    gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gEffUnknown4Tex)));
 
-    gSPSegment(POLY_XLU_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gEffUnknown5Tex));
+    gSPSegment(POLY_XLU_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gEffUnknown5Tex)));
 
     height = thisx->scale.y * 2400.0f;
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 220, 0,
@@ -278,7 +278,7 @@ void BgHidanFwbig_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_fwbig.c", 660),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_XLU_DISP++, gFireTempleBigFireWallDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFireTempleBigFireWallDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_fwbig.c", 664);
 }

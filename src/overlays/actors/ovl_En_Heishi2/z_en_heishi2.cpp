@@ -9,8 +9,7 @@
 
 #include "vt.h"
 #include "z_en_heishi2.h"
-#include "objects/object_sd/object_sd.h"
-#include "objects/object_link_child/object_link_child.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Bg_Gate_Shutter/z_bg_gate_shutter.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "overlays/actors/ovl_Bg_Spot15_Saku/z_bg_spot15_saku.h"
@@ -136,7 +135,7 @@ void EnHeishi2_Init(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         pthis->unk_2E0 = 60.0f;
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-        SkelAnime_Init(globalCtx, &pthis->skelAnime, &gEnHeishiSkel, &gEnHeishiIdleAnim, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gEnHeishiSkel), oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), pthis->jointTable,
                        pthis->morphTable, 17);
         collider = &pthis->collider;
         Collider_InitCylinder(globalCtx, collider);
@@ -192,9 +191,9 @@ void EnHeishi_DoNothing2(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A531E4(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = func_80A53278;
 }
 
@@ -287,10 +286,10 @@ void func_80A53538(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A535BC(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiSlamSpearAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiSlamSpearAnim));
 
     pthis->unk_2EC = frameCount;
-    Animation_Change(&pthis->skelAnime, &gEnHeishiSlamSpearAnim, 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiSlamSpearAnim), 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = func_80A53638;
 }
 
@@ -322,9 +321,9 @@ void func_80A53638(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A5372C(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->unk_2F2[0] = 200;
     pthis->cameraId = Gameplay_CreateSubCamera(globalCtx);
     Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -358,9 +357,9 @@ void func_80A53850(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A53908(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = func_80A5399C;
 }
 
@@ -448,10 +447,10 @@ void func_80A53C0C(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A53C90(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiSlamSpearAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiSlamSpearAnim));
 
     pthis->unk_2EC = frameCount;
-    Animation_Change(&pthis->skelAnime, &gEnHeishiSlamSpearAnim, 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiSlamSpearAnim), 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = func_80A53D0C;
 }
 
@@ -486,9 +485,9 @@ void func_80A53D0C(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A53DF8(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->unk_2F2[0] = 200;
     pthis->cameraId = Gameplay_CreateSubCamera(globalCtx);
     Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -608,10 +607,10 @@ void func_80A5427C(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A54320(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiSlamSpearAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiSlamSpearAnim));
 
     pthis->unk_2EC = frameCount;
-    Animation_Change(&pthis->skelAnime, &gEnHeishiSlamSpearAnim, 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiSlamSpearAnim), 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -10.0f);
     pthis->audioFlag = 0;
     pthis->actionFunc = func_80A543A0;
 }
@@ -759,9 +758,9 @@ void func_80A5475C(EnHeishi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A54954(EnHeishi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = func_80A549E8;
 }
 
@@ -847,7 +846,7 @@ void EnHeishi2_DrawKingGuard(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1774),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gHeishiKingGuardDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gHeishiKingGuardDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1777);
 }
@@ -871,10 +870,8 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_RotateZ(DEGTORAD(70.0), MTXMODE_APPLY);
             mtx = (Mtx*)POINTER_SUB(Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1820), 7 * sizeof(float[4][4]));
 
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[linkObjBankIndex].vromStart.get());
             gSPSegment(POLY_OPA_DISP++, 0x0D, mtx);
-            gSPDisplayList(POLY_OPA_DISP++, gLinkChildKeatonMaskDL);
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkChildKeatonMaskDL));
         }
     }
 

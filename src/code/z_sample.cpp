@@ -3,7 +3,6 @@
 #include "gfx.h"
 #include "framerate.h"
 #include "segment_symbols.h"
-#include "textures/title_static/title_static.h"
 #include "z_sample.h"
 #include "padmgr.h"
 #include "z64player.h"
@@ -93,10 +92,6 @@ void Sample_SetupView(SampleContext* pthis) {
 }
 
 void Sample_LoadTitleStatic(SampleContext* pthis) {
-    u32 size = _title_staticSegmentRomEnd - _title_staticSegmentRomStart;
-
-    pthis->staticSegment = (u8*)GameState_Alloc(&pthis->state, size, "../z_sample.c", 163);
-    DmaMgr_SendRequest1(pthis->staticSegment, _title_staticSegmentRomStart, size, "../z_sample.c", 164);
 }
 
 void Sample_Init(GameState* pthisx) {

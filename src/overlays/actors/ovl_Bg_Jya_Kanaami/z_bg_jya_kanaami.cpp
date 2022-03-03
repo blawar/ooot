@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_jya_kanaami.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -67,7 +67,7 @@ void BgJyaKanaami_InitDynaPoly(BgJyaKanaami* pthis, GlobalContext* globalCtx, Co
 void BgJyaKanaami_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
 
-    BgJyaKanaami_InitDynaPoly(pthis, globalCtx, &gKanaamiCol, DPM_UNK);
+    BgJyaKanaami_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gKanaamiCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F)) {
         func_80899A08(pthis);
@@ -135,7 +135,7 @@ void BgJyaKanaami_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaKanaami_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gKanaamiDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gKanaamiDL));
 }
 
 void BgJyaKanaami_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_g_magma.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 
@@ -28,7 +28,7 @@ u32 EffectSsGMagma_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
     pthis->pos = initParams->pos;
     pthis->draw = EffectSsGMagma_Draw;
     pthis->update = EffectSsGMagma_Update;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffMagmaBubbleDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffMagmaBubbleDL));
     pthis->life = 16;
     pthis->rgScale = (s16)(Rand_ZeroOne() * 100.0f) + 200;
     pthis->rgTexIdx = 0;
@@ -46,8 +46,8 @@ u32 EffectSsGMagma_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 }
 
 static void* sTextures[] = {
-    gEffMagmaBubble1Tex, gEffMagmaBubble2Tex, gEffMagmaBubble3Tex, gEffMagmaBubble4Tex,
-    gEffMagmaBubble5Tex, gEffMagmaBubble6Tex, gEffMagmaBubble7Tex, gEffMagmaBubble8Tex,
+    oot::asset::texture::load(symbol::gEffMagmaBubble1Tex), oot::asset::texture::load(symbol::gEffMagmaBubble2Tex), oot::asset::texture::load(symbol::gEffMagmaBubble3Tex), oot::asset::texture::load(symbol::gEffMagmaBubble4Tex),
+    oot::asset::texture::load(symbol::gEffMagmaBubble5Tex), oot::asset::texture::load(symbol::gEffMagmaBubble6Tex), oot::asset::texture::load(symbol::gEffMagmaBubble7Tex), oot::asset::texture::load(symbol::gEffMagmaBubble8Tex),
 };
 
 void EffectSsGMagma_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {

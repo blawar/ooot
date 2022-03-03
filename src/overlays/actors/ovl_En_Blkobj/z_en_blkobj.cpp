@@ -7,7 +7,7 @@
  */
 
 #include "z_en_blkobj.h"
-#include "objects/object_blkobj/object_blkobj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -74,7 +74,7 @@ void EnBlkobj_Init(Actor* thisx, GlobalContext* globalCtx) {
         pthis->alpha = 255;
         EnBlkobj_SetupAction(pthis, EnBlkobj_DoNothing);
     } else {
-        CollisionHeader_GetVirtual(&gIllusionRoomCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gIllusionRoomCol), &colHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
         EnBlkobj_SetupAction(pthis, EnBlkobj_Wait);
     }
@@ -173,11 +173,11 @@ void EnBlkobj_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if (pthis->alpha != 0) {
-        EnBlkobj_DrawAlpha(globalCtx, gIllusionRoomNormalDL, pthis->alpha);
+        EnBlkobj_DrawAlpha(globalCtx, oot::asset::gfx::load(symbol::gIllusionRoomNormalDL), pthis->alpha);
     }
     illusionAlpha = 255 - pthis->alpha;
     if (illusionAlpha != 0) {
-        EnBlkobj_DrawAlpha(globalCtx, gIllusionRoomIllusionDL, illusionAlpha);
+        EnBlkobj_DrawAlpha(globalCtx, oot::asset::gfx::load(symbol::gIllusionRoomIllusionDL), illusionAlpha);
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_blkobj.c", 375);

@@ -7,7 +7,7 @@
  */
 
 #include "z_en_horse_zelda.h"
-#include "objects/object_horse_zelda/object_horse_zelda.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/sys_math3d.h"
@@ -45,7 +45,7 @@ ActorInit En_Horse_Zelda_InitVars = {
     (ActorFunc)EnHorseZelda_Reset,
 };
 
-static AnimationHeader* sAnimationHeaders[] = { &gHorseZeldaGallopingAnim };
+static AnimationHeader* sAnimationHeaders[] = { oot::asset::anim::header::load(symbol::gHorseZeldaGallopingAnim) };
 
 static f32 splaySpeeds[] = { 2.0f / 3.0f };
 
@@ -167,7 +167,7 @@ void EnHorseZelda_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.focus.pos = pthis->actor.world.pos;
     pthis->action = 0;
     pthis->actor.focus.pos.y += 70.0f;
-    func_800A663C(globalCtx, &pthis->skin, &gHorseZeldaSkel, &gHorseZeldaGallopingAnim);
+    func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseZeldaSkel), oot::asset::anim::header::load(symbol::gHorseZeldaGallopingAnim));
     pthis->animationIndex = 0;
     Animation_PlayOnce(&pthis->skin.skelAnime, sAnimationHeaders[0]);
     Collider_InitCylinder(globalCtx, &pthis->colliderCylinder);

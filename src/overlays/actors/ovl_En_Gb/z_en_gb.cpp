@@ -7,7 +7,7 @@
  */
 
 #include "z_en_gb.h"
-#include "objects/object_ps/object_ps.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -57,9 +57,9 @@ ActorInit En_Gb_InitVars = {
 };
 
 static EnGbCagedSoulInfo sCagedSoulInfo[] = {
-    { { 255, 255, 170, 255 }, { 255, 200, 0, 255 }, gPoeSellerAngrySoulTex, -15 },
-    { { 255, 255, 170, 255 }, { 0, 150, 0, 255 }, gPoeSellerHappySoulTex, -12 },
-    { { 255, 170, 255, 255 }, { 100, 0, 150, 255 }, gPoeSellerSadSoulTex, -8 },
+    { { 255, 255, 170, 255 }, { 255, 200, 0, 255 }, oot::asset::texture::load(symbol::gPoeSellerAngrySoulTex), -15 },
+    { { 255, 255, 170, 255 }, { 0, 150, 0, 255 }, oot::asset::texture::load(symbol::gPoeSellerHappySoulTex), -12 },
+    { { 255, 170, 255, 255 }, { 100, 0, 150, 255 }, oot::asset::texture::load(symbol::gPoeSellerSadSoulTex), -8 },
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -176,9 +176,9 @@ void EnGb_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gPoeSellerCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gPoeSellerCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gPoeSellerSkel, &gPoeSellerIdleAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gPoeSellerSkel), oot::asset::anim::header::load(symbol::gPoeSellerIdleAnim), pthis->jointTable,
                        pthis->morphTable, 12);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinderType1(globalCtx, &pthis->collider, &pthis->dyna.actor, &sCylinderInit);
@@ -280,8 +280,8 @@ s32 func_80A2F760(EnGb* pthis) {
 }
 
 void func_80A2F7C0(EnGb* pthis) {
-    Animation_Change(&pthis->skelAnime, &gPoeSellerSwingStickAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gPoeSellerSwingStickAnim), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSellerSwingStickAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSellerSwingStickAnim)), ANIMMODE_ONCE, 0.0f);
     Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_NALE_MAGIC);
     pthis->actionFunc = func_80A2FC70;
 }
@@ -391,8 +391,8 @@ void func_80A2FC0C(EnGb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A2FC70(EnGb* pthis, GlobalContext* globalCtx) {
-    if (pthis->skelAnime.curFrame == Animation_GetLastFrame(&gPoeSellerSwingStickAnim)) {
-        Animation_Change(&pthis->skelAnime, &gPoeSellerIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gPoeSellerIdleAnim),
+    if (pthis->skelAnime.curFrame == Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSellerSwingStickAnim))) {
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSellerIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSellerIdleAnim)),
                          ANIMMODE_LOOP, 0.0f);
         pthis->actionFunc = func_80A2F83C;
     } else if (pthis->skelAnime.curFrame == 18.0f) {
@@ -562,7 +562,7 @@ void EnGb_DrawCagedSouls(EnGb* pthis, GlobalContext* globalCtx) {
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_gb.c", 955),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gPoeSellerCagedSoulDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gPoeSellerCagedSoulDL));
 
         Matrix_Pop();
     }

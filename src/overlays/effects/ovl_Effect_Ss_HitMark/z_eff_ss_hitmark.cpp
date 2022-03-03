@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_hitmark.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_effect_soft_sprite.h"
 #include "def/z_rcp.h"
@@ -34,12 +34,12 @@ static Color_RGB8 sColors[] = {
 };
 
 static void* sTextures[] = {
-    gEffHitMark1Tex,  gEffHitMark2Tex,  gEffHitMark3Tex,  gEffHitMark4Tex,  gEffHitMark5Tex,  gEffHitMark6Tex,
-    gEffHitMark7Tex,  gEffHitMark8Tex,  gEffHitMark9Tex,  gEffHitMark10Tex, gEffHitMark11Tex, gEffHitMark12Tex,
-    gEffHitMark13Tex, gEffHitMark14Tex, gEffHitMark15Tex, gEffHitMark16Tex, gEffHitMark17Tex, gEffHitMark18Tex,
-    gEffHitMark19Tex, gEffHitMark20Tex, gEffHitMark21Tex, gEffHitMark22Tex, gEffHitMark23Tex, gEffHitMark24Tex,
-    gEffHitMark1Tex,  gEffHitMark2Tex,  gEffHitMark3Tex,  gEffHitMark4Tex,  gEffHitMark5Tex,  gEffHitMark6Tex,
-    gEffHitMark7Tex,  gEffHitMark8Tex,
+    oot::asset::texture::load(symbol::gEffHitMark1Tex),  oot::asset::texture::load(symbol::gEffHitMark2Tex),  oot::asset::texture::load(symbol::gEffHitMark3Tex),  oot::asset::texture::load(symbol::gEffHitMark4Tex),  oot::asset::texture::load(symbol::gEffHitMark5Tex),  oot::asset::texture::load(symbol::gEffHitMark6Tex),
+    oot::asset::texture::load(symbol::gEffHitMark7Tex),  oot::asset::texture::load(symbol::gEffHitMark8Tex),  oot::asset::texture::load(symbol::gEffHitMark9Tex),  oot::asset::texture::load(symbol::gEffHitMark10Tex), oot::asset::texture::load(symbol::gEffHitMark11Tex), oot::asset::texture::load(symbol::gEffHitMark12Tex),
+    oot::asset::texture::load(symbol::gEffHitMark13Tex), oot::asset::texture::load(symbol::gEffHitMark14Tex), oot::asset::texture::load(symbol::gEffHitMark15Tex), oot::asset::texture::load(symbol::gEffHitMark16Tex), oot::asset::texture::load(symbol::gEffHitMark17Tex), oot::asset::texture::load(symbol::gEffHitMark18Tex),
+    oot::asset::texture::load(symbol::gEffHitMark19Tex), oot::asset::texture::load(symbol::gEffHitMark20Tex), oot::asset::texture::load(symbol::gEffHitMark21Tex), oot::asset::texture::load(symbol::gEffHitMark22Tex), oot::asset::texture::load(symbol::gEffHitMark23Tex), oot::asset::texture::load(symbol::gEffHitMark24Tex),
+    oot::asset::texture::load(symbol::gEffHitMark1Tex),  oot::asset::texture::load(symbol::gEffHitMark2Tex),  oot::asset::texture::load(symbol::gEffHitMark3Tex),  oot::asset::texture::load(symbol::gEffHitMark4Tex),  oot::asset::texture::load(symbol::gEffHitMark5Tex),  oot::asset::texture::load(symbol::gEffHitMark6Tex),
+    oot::asset::texture::load(symbol::gEffHitMark7Tex),  oot::asset::texture::load(symbol::gEffHitMark8Tex),
 };
 
 EffectSsInit Effect_Ss_HitMark_InitVars = {
@@ -51,7 +51,7 @@ u32 EffectSsHitMark_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
     s32 colorIdx;
     EffectSsHitMarkInitParams* initParams = (EffectSsHitMarkInitParams*)initParamsx;
     pthis->pos = initParams->pos;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffHitMarkDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffHitMarkDL));
 
     if (initParams->type == EFFECT_HITMARK_DUST) {
         pthis->life = 16;

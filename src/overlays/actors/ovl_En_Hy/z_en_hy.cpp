@@ -8,15 +8,7 @@
  */
 
 #include "z_en_hy.h"
-#include "objects/object_aob/object_aob.h"
-#include "objects/object_ahg/object_ahg.h"
-#include "objects/object_bob/object_bob.h"
-#include "objects/object_boj/object_boj.h"
-#include "objects/object_bba/object_bba.h"
-#include "objects/object_bji/object_bji.h"
-#include "objects/object_cne/object_cne.h"
-#include "objects/object_cob/object_cob.h"
-#include "objects/object_os_anime/object_os_anime.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/graph.h"
@@ -88,71 +80,71 @@ static ColliderCylinderInit sColCylInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 // NULL-terminated arrays of eye textures
-static void* sEyeTexturesAOB[] = { gDogLadyEyeOpenTex, gDogLadyEyeHalfTex, gDogLadyEyeClosedTex, NULL };
-static void* sEyeTexturesAHG7[] = { object_ahg_Tex_00057C, object_ahg_Tex_00067C, object_ahg_Tex_00077C, NULL };
-static void* sEyeTexturesBBA[] = { object_bba_Tex_0004C8, NULL };
-static void* sEyeTexturesBJI13[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC, NULL };
-static void* sEyeTexturesBOJ2[] = { object_boj_Tex_0005FC, object_boj_Tex_0006FC, object_boj_Tex_0007FC, NULL };
-static void* sEyeTexturesBOB[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8, NULL };
+static void* sEyeTexturesAOB[] = { oot::asset::texture::load(symbol::gDogLadyEyeOpenTex), oot::asset::texture::load(symbol::gDogLadyEyeHalfTex), oot::asset::texture::load(symbol::gDogLadyEyeClosedTex), NULL };
+static void* sEyeTexturesAHG7[] = { oot::asset::texture::load(symbol::object_ahg_Tex_00057C), oot::asset::texture::load(symbol::object_ahg_Tex_00067C), oot::asset::texture::load(symbol::object_ahg_Tex_00077C), NULL };
+static void* sEyeTexturesBBA[] = { oot::asset::texture::load(symbol::object_bba_Tex_0004C8), NULL };
+static void* sEyeTexturesBJI13[] = { oot::asset::texture::load(symbol::object_bji_Tex_0005FC), oot::asset::texture::load(symbol::object_bji_Tex_0009FC), oot::asset::texture::load(symbol::object_bji_Tex_000DFC), NULL };
+static void* sEyeTexturesBOJ2[] = { oot::asset::texture::load(symbol::object_boj_Tex_0005FC), oot::asset::texture::load(symbol::object_boj_Tex_0006FC), oot::asset::texture::load(symbol::object_boj_Tex_0007FC), NULL };
+static void* sEyeTexturesBOB[] = { oot::asset::texture::load(symbol::object_bob_Tex_0007C8), oot::asset::texture::load(symbol::object_bob_Tex_000FC8), oot::asset::texture::load(symbol::object_bob_Tex_0017C8), NULL };
 
 static EnHyHeadInfo sHeadInfo[] = {
-    /* ENHY_HEAD_AOB */ { OBJECT_AOB, gDogLadyHeadDL, sEyeTexturesAOB },
-    /* ENHY_HEAD_BOB */ { OBJECT_BOB, object_bob_DL_003B78, sEyeTexturesBOB },
-    /* ENHY_HEAD_BOJ_2 */ { OBJECT_BOJ, object_boj_DL_0026F0, sEyeTexturesBOJ2 },
-    /* ENHY_HEAD_BOJ_3 */ { OBJECT_BOJ, object_boj_DL_0052E0, NULL },
-    /* ENHY_HEAD_BOJ_4 */ { OBJECT_BOJ, object_boj_DL_005528, NULL },
-    /* ENHY_HEAD_BOJ_5 */ { OBJECT_BOJ, object_boj_DL_005738, NULL },
-    /* ENHY_HEAD_BOJ_6 */ { OBJECT_BOJ, object_boj_DL_0059B0, NULL },
-    /* ENHY_HEAD_AHG_7 */ { OBJECT_AHG, object_ahg_DL_0030F0, sEyeTexturesAHG7 },
-    /* ENHY_HEAD_AHG_8 */ { OBJECT_AHG, object_ahg_DL_005508, NULL },
-    /* ENHY_HEAD_AHG_9 */ { OBJECT_AHG, object_ahg_DL_005728, NULL },
-    /* ENHY_HEAD_BBA */ { OBJECT_BBA, object_bba_DL_002948, sEyeTexturesBBA },
-    /* ENHY_HEAD_CNE_11 */ { OBJECT_CNE, object_cne_DL_001300, NULL },
-    /* ENHY_HEAD_CNE_12 */ { OBJECT_CNE, object_cne_DL_002860, NULL },
-    /* ENHY_HEAD_BJI_13 */ { OBJECT_BJI, object_bji_DL_002560, sEyeTexturesBJI13 },
-    /* ENHY_HEAD_BJI_14 */ { OBJECT_BJI, object_bji_DL_003F68, NULL },
-    /* ENHY_HEAD_COB */ { OBJECT_COB, object_cob_DL_001300, NULL },
+    /* ENHY_HEAD_AOB */ { OBJECT_AOB, oot::asset::gfx::load(symbol::gDogLadyHeadDL), sEyeTexturesAOB },
+    /* ENHY_HEAD_BOB */ { OBJECT_BOB, oot::asset::gfx::load(symbol::object_bob_DL_003B78), sEyeTexturesBOB },
+    /* ENHY_HEAD_BOJ_2 */ { OBJECT_BOJ, oot::asset::gfx::load(symbol::object_boj_DL_0026F0), sEyeTexturesBOJ2 },
+    /* ENHY_HEAD_BOJ_3 */ { OBJECT_BOJ, oot::asset::gfx::load(symbol::object_boj_DL_0052E0), NULL },
+    /* ENHY_HEAD_BOJ_4 */ { OBJECT_BOJ, oot::asset::gfx::load(symbol::object_boj_DL_005528), NULL },
+    /* ENHY_HEAD_BOJ_5 */ { OBJECT_BOJ, oot::asset::gfx::load(symbol::object_boj_DL_005738), NULL },
+    /* ENHY_HEAD_BOJ_6 */ { OBJECT_BOJ, oot::asset::gfx::load(symbol::object_boj_DL_0059B0), NULL },
+    /* ENHY_HEAD_AHG_7 */ { OBJECT_AHG, oot::asset::gfx::load(symbol::object_ahg_DL_0030F0), sEyeTexturesAHG7 },
+    /* ENHY_HEAD_AHG_8 */ { OBJECT_AHG, oot::asset::gfx::load(symbol::object_ahg_DL_005508), NULL },
+    /* ENHY_HEAD_AHG_9 */ { OBJECT_AHG, oot::asset::gfx::load(symbol::object_ahg_DL_005728), NULL },
+    /* ENHY_HEAD_BBA */ { OBJECT_BBA, oot::asset::gfx::load(symbol::object_bba_DL_002948), sEyeTexturesBBA },
+    /* ENHY_HEAD_CNE_11 */ { OBJECT_CNE, oot::asset::gfx::load(symbol::object_cne_DL_001300), NULL },
+    /* ENHY_HEAD_CNE_12 */ { OBJECT_CNE, oot::asset::gfx::load(symbol::object_cne_DL_002860), NULL },
+    /* ENHY_HEAD_BJI_13 */ { OBJECT_BJI, oot::asset::gfx::load(symbol::object_bji_DL_002560), sEyeTexturesBJI13 },
+    /* ENHY_HEAD_BJI_14 */ { OBJECT_BJI, oot::asset::gfx::load(symbol::object_bji_DL_003F68), NULL },
+    /* ENHY_HEAD_COB */ { OBJECT_COB, oot::asset::gfx::load(symbol::object_cob_DL_001300), NULL },
 };
 
 static EnHySkeletonInfo sSkeletonInfo[] = {
-    /* ENHY_SKEL_AOB */ { OBJECT_AOB, &gDogLadySkel },
-    /* ENHY_SKEL_BOB */ { OBJECT_BOB, &object_bob_Skel_0000F0 },
-    /* ENHY_SKEL_BOJ */ { OBJECT_BOJ, &object_boj_Skel_0000F0 },
-    /* ENHY_SKEL_AHG */ { OBJECT_AHG, &object_ahg_Skel_0000F0 },
-    /* ENHY_SKEL_BBA */ { OBJECT_BBA, &object_bba_Skel_0000F0 },
-    /* ENHY_SKEL_CNE */ { OBJECT_CNE, &object_cne_Skel_0000F0 },
-    /* ENHY_SKEL_BJI */ { OBJECT_BJI, &object_bji_Skel_0000F0 },
-    /* ENHY_SKEL_COB */ { OBJECT_COB, &object_cob_Skel_0021F8 },
+    /* ENHY_SKEL_AOB */ { OBJECT_AOB, oot::asset::skel::header::load(symbol::gDogLadySkel) },
+    /* ENHY_SKEL_BOB */ { OBJECT_BOB, oot::asset::skel::header::load(symbol::object_bob_Skel_0000F0) },
+    /* ENHY_SKEL_BOJ */ { OBJECT_BOJ, oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0) },
+    /* ENHY_SKEL_AHG */ { OBJECT_AHG, oot::asset::skel::header::load(symbol::object_ahg_Skel_0000F0) },
+    /* ENHY_SKEL_BBA */ { OBJECT_BBA, oot::asset::skel::header::load(symbol::object_bba_Skel_0000F0) },
+    /* ENHY_SKEL_CNE */ { OBJECT_CNE, oot::asset::skel::header::load(symbol::object_cne_Skel_0000F0) },
+    /* ENHY_SKEL_BJI */ { OBJECT_BJI, oot::asset::skel::header::load(symbol::object_bji_Skel_0000F0) },
+    /* ENHY_SKEL_COB */ { OBJECT_COB, oot::asset::skel::header::load(symbol::object_cob_Skel_0021F8) },
 };
 
 static struct_80034EC0_Entry sAnimationInfo[] = {
-    /* ENHY_ANIM_0 */ { &gObjOsAnim_092C, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_1 */ { &gObjOsAnim_0228, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_2 */ { &gObjOsAnim_4CF4, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_3 */ { &gObjOsAnim_16EC, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_4 */ { &gObjOsAnim_265C, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_5 */ { &gObjOsAnim_42AC, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_6 */ { &gObjOsAnim_28DC, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_7 */ { &gObjOsAnim_2160, 1.0f, 0.0f, -1.0f, 0x00, -10.0f },
-    /* ENHY_ANIM_8 */ { &gObjOsAnim_265C, 1.0f, 0.0f, -1.0f, 0x00, -10.0f },
-    /* ENHY_ANIM_9 */ { &gObjOsAnim_4E90, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_10 */ { &gObjOsAnim_1E7C, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_11 */ { &gObjOsAnim_0170, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_12 */ { &gObjOsAnim_00B4, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_13 */ { &gObjOsAnim_3D84, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_14 */ { &gObjOsAnim_41F8, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_15 */ { &gObjOsAnim_300C, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_16 */ { &gObjOsAnim_31B0, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_17 */ { &gObjOsAnim_31B0, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    /* ENHY_ANIM_18 */ { &gObjOsAnim_2D0C, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_19 */ { &gObjOsAnim_2DC0, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_20 */ { &gObjOsAnim_4408, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_21 */ { &gObjOsAnim_1F18, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_22 */ { &gObjOsAnim_4F28, 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
-    /* ENHY_ANIM_23 */ { &gObjOsAnim_33B4, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    /* ENHY_ANIM_24 */ { &gObjOsAnim_12E8, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    /* ENHY_ANIM_25 */ { &gObjOsAnim_0FE4, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    /* ENHY_ANIM_26 */ { &gObjOsAnim_0BFC, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    /* ENHY_ANIM_0 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_092C), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_1 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_0228), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_2 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_4CF4), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_3 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_16EC), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_4 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_265C), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_5 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_42AC), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_6 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_28DC), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_7 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_2160), 1.0f, 0.0f, -1.0f, 0x00, -10.0f },
+    /* ENHY_ANIM_8 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_265C), 1.0f, 0.0f, -1.0f, 0x00, -10.0f },
+    /* ENHY_ANIM_9 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_4E90), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_10 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_1E7C), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_11 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_0170), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_12 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_00B4), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_13 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_3D84), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_14 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_41F8), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_15 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_300C), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_16 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_31B0), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_17 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_31B0), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    /* ENHY_ANIM_18 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_2D0C), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_19 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_2DC0), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_20 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_4408), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_21 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_1F18), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_22 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_4F28), 1.0f, 0.0f, -1.0f, 0x00, 0.0f },
+    /* ENHY_ANIM_23 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_33B4), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    /* ENHY_ANIM_24 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_12E8), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    /* ENHY_ANIM_25 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_0FE4), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    /* ENHY_ANIM_26 */ { oot::asset::anim::header::load(symbol::gObjOsAnim_0BFC), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
 };                 
 
 static EnHyModelInfo sModelInfo[] = {
@@ -501,7 +493,7 @@ s16 func_80A70058(GlobalContext* globalCtx, Actor* thisx) {
                 case 0x70F1:
                 case 0x70F2:
                 case 0x70F3:
-                    if (pthis->skelAnime.animation != &gObjOsAnim_33B4) {
+                    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gObjOsAnim_33B4)) {
                         func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_23);
                         Audio_PlayFanfare(NA_BGM_ITEM_GET | 0x900);
                     }
@@ -815,12 +807,10 @@ void EnHy_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void EnHy_InitImpl(EnHy* pthis, GlobalContext* globalCtx) {
     if (EnHy_IsOsAnimeObjectLoaded(pthis, globalCtx) && EnHy_AreSkelAndHeadObjectsLoaded(pthis, globalCtx)) {
         pthis->actor.objBankIndex = pthis->objBankIndexSkel1;
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->actor.objBankIndex].vromStart.get());
         SkelAnime_InitFlex(globalCtx, &pthis->skelAnime,
                            sSkeletonInfo[sModelInfo[pthis->actor.params & 0x7F].skelInfoIndex1].skeleton, NULL,
                            pthis->jointTable, pthis->morphTable, 16);
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndexOsAnime].vromStart.get());
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sColCylInit);
         EnHy_InitCollider(pthis);
@@ -887,14 +877,14 @@ void EnHy_InitImpl(EnHy* pthis, GlobalContext* globalCtx) {
 
 void func_80A710F8(EnHy* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_1E8.unk_00 != 0) {
-        if (pthis->skelAnime.animation != &gObjOsAnim_0BFC) {
+        if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gObjOsAnim_0BFC)) {
             func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_26);
         }
     } else if (gSaveContext.eventInf[3] & 1) {
-        if (pthis->skelAnime.animation != &gObjOsAnim_0FE4) {
+        if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gObjOsAnim_0FE4)) {
             func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_25);
         }
-    } else if (pthis->skelAnime.animation != &gObjOsAnim_12E8) {
+    } else if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gObjOsAnim_12E8)) {
         func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_24);
     }
 }
@@ -936,11 +926,11 @@ void func_80A7134C(EnHy* pthis, GlobalContext* globalCtx) {
     s16 yaw;
     f32 distSq;
 
-    if ((pthis->skelAnime.animation == &gObjOsAnim_2160) && (pthis->unk_1E8.unk_00 != 0)) {
+    if ((pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gObjOsAnim_2160)) && (pthis->unk_1E8.unk_00 != 0)) {
         func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_8);
     }
 
-    if ((pthis->skelAnime.animation == &gObjOsAnim_265C) && (pthis->unk_1E8.unk_00 == 0)) {
+    if ((pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gObjOsAnim_265C)) && (pthis->unk_1E8.unk_00 == 0)) {
         func_80034EC0(&pthis->skelAnime, sAnimationInfo, ENHY_ANIM_7);
     }
 
@@ -998,7 +988,6 @@ void EnHy_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnHy* pthis = (EnHy*)thisx;
 
     if (pthis->actionFunc != EnHy_InitImpl) {
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndexOsAnime].vromStart.get());
         SkelAnime_Update(&pthis->skelAnime);
         EnHy_UpdateEyes(pthis);
 
@@ -1026,8 +1015,6 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2170);
 
     if (limbIndex == 15) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->objBankIndexHead].vromStart.get());
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndexHead].vromStart.get());
         i = sModelInfo[pthis->actor.params & 0x7F].headInfoIndex;
         *dList = sHeadInfo[i].headDList;
 
@@ -1036,7 +1023,6 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
             gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(ptr));
         }
 
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndexSkel1].vromStart.get());
     }
 
     if (limbIndex == 15) {
@@ -1071,12 +1057,10 @@ void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2255);
 
     if (limbIndex == 7) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->objBankIndexSkel2].vromStart.get());
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndexSkel2].vromStart.get());
     }
 
     if ((pthis->actor.params & 0x7F) == ENHY_TYPE_BOJ_3 && limbIndex == 8) {
-        gSPDisplayList(POLY_OPA_DISP++, object_boj_DL_005BC8);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_boj_DL_005BC8));
     }
 
     if (limbIndex == 15) {

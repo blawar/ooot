@@ -7,7 +7,7 @@
  */
 
 #include "z_en_siofuki.h"
-#include "objects/object_siofuki/object_siofuki.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio.h"
 #include "def/math_float.h"
@@ -62,7 +62,7 @@ void EnSiofuki_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(thisx, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&object_siofuki_Col_000D78, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_siofuki_Col_000D78), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
     pthis->sfxFlags |= 1;
 
@@ -305,7 +305,7 @@ void EnSiofuki_Draw(Actor* thisx, GlobalContext* globalCtx) {
     x = gameplayFrames * 15;
     y = gameplayFrames * -15;
     gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, x, y, 64, 64, 1, x, y, 64, 64));
-    gSPDisplayList(POLY_XLU_DISP++, object_siofuki_DL_000B70);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_siofuki_DL_000B70));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_siofuki.c", 674);
 
     if (pthis->sfxFlags & 1) {

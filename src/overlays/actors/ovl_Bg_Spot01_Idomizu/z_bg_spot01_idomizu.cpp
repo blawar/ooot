@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot01_idomizu.h"
-#include "objects/object_spot01_objects/object_spot01_objects.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_common_data.h"
@@ -89,7 +89,7 @@ void BgSpot01Idomizu_Draw(Actor* thisx, GlobalContext* globalCtx) {
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 127 - frames % 128, frames & 0x7F, 32, 32, 1, frames % 128,
                                 frames & 0x7F, 32, 32));
 
-    gSPDisplayList(POLY_XLU_DISP++, gKakarikoWellWaterDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gKakarikoWellWaterDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idomizu.c", 244);
 }

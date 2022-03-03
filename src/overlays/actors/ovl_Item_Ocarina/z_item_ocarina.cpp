@@ -7,7 +7,7 @@
  */
 
 #include "z_item_ocarina.h"
-#include "scenes/overworld/spot00/spot00_scene.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_draw.h"
@@ -176,7 +176,7 @@ void ItemOcarina_DoNothing(ItemOcarina* pthis, GlobalContext* globalCtx) {
 
 void ItemOcarina_StartSoTCutscene(ItemOcarina* pthis, GlobalContext* globalCtx) {
     if (Actor_TextboxIsClosing(&pthis->actor, globalCtx)) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gHyruleFieldZeldaSongOfTimeCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gHyruleFieldZeldaSongOfTimeCs));
         gSaveContext.cutsceneTrigger = 1;
     }
 }

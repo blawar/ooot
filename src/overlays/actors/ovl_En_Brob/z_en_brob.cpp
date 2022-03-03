@@ -7,7 +7,7 @@
  */
 
 #include "z_en_brob.h"
-#include "objects/object_brob/object_brob.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -79,10 +79,10 @@ void EnBrob_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnBrob* pthis = (EnBrob*)thisx;
     CollisionHeader* colHeader = NULL;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_brob_Skel_0015D8, &object_brob_Anim_001750,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_brob_Skel_0015D8), oot::asset::anim::header::load(symbol::object_brob_Anim_001750),
                        pthis->jointTable, pthis->morphTable, 10);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&object_brob_Col_001A70, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_brob_Col_001A70), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
     Collider_InitCylinder(globalCtx, &pthis->colliders[0]);
     Collider_SetCylinder(globalCtx, &pthis->colliders[0], &pthis->dyna.actor, &sCylinderInit);
@@ -129,21 +129,21 @@ void func_809CADDC(EnBrob* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809CAE44(EnBrob* pthis, GlobalContext* globalCtx) {
-    Animation_PlayOnce(&pthis->skelAnime, &object_brob_Anim_001750);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_brob_Anim_001750));
     func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
     pthis->unk_1AE = 1000;
     pthis->actionFunc = func_809CB114;
 }
 
 void func_809CAEA0(EnBrob* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_brob_Anim_001958, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_brob_Anim_001958), -5.0f);
     pthis->unk_1AE = 8000;
     pthis->timer = 1200;
     pthis->actionFunc = func_809CB218;
 }
 
 void func_809CAEF4(EnBrob* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_brob_Anim_000290, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_brob_Anim_000290), -5.0f);
     pthis->unk_1AE -= 125.0f;
     Actor_SetColorFilter(&pthis->dyna.actor, 0, 0xFF, 0, 0x50);
     Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EN_GOMA_JR_FREEZE);
@@ -151,14 +151,14 @@ void func_809CAEF4(EnBrob* pthis) {
 }
 
 void func_809CAF88(EnBrob* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_brob_Anim_001750, -1.0f,
-                     Animation_GetLastFrame(&object_brob_Anim_001750), 0.0f, ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_brob_Anim_001750), -1.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_brob_Anim_001750)), 0.0f, ANIMMODE_ONCE, -5.0f);
     pthis->unk_1AE = 8250;
     pthis->actionFunc = func_809CB354;
 }
 
 void func_809CB008(EnBrob* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_brob_Anim_001678, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_brob_Anim_001678), -5.0f);
     pthis->timer = 10;
     pthis->actionFunc = func_809CB458;
 }

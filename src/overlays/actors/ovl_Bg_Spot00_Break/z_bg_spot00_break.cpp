@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot00_break.h"
-#include "objects/object_spot00_break/object_spot00_break.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -51,9 +51,9 @@ void BgSpot00Break_Init(Actor* thisx, GlobalContext* globalCtx) {
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
 
     if (pthis->dyna.actor.params == 1) {
-        CollisionHeader_GetVirtual(&gBarbedWireFenceCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBarbedWireFenceCol), &colHeader);
     } else {
-        CollisionHeader_GetVirtual(&gBrokenDrawbridgeCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBrokenDrawbridgeCol), &colHeader);
     }
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -76,9 +76,9 @@ void BgSpot00Break_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot00Break* pthis = (BgSpot00Break*)thisx;
 
     if (pthis->dyna.actor.params == 1) {
-        Gfx_DrawDListOpa(globalCtx, gBarbedWireFenceDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gBarbedWireFenceDL));
     } else {
-        Gfx_DrawDListOpa(globalCtx, gBrokenDrawbridgeDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gBrokenDrawbridgeDL));
     }
 }
 

@@ -7,12 +7,11 @@
  */
 
 #include "z_en_dnt_nomal.h"
-#include "objects/object_dnk/object_dnk.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Dnt_Demo/z_en_dnt_demo.h"
 #include "overlays/actors/ovl_En_Ex_Ruppy/z_en_ex_ruppy.h"
 #include "overlays/actors/ovl_En_Ex_Item/z_en_ex_item.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
-#include "objects/object_hintnuts/object_hintnuts.h"
 #include "vt.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
@@ -73,7 +72,7 @@ void EnDntNomal_StageAttackHide(EnDntNomal* pthis, GlobalContext* globalCtx);
 void EnDntNomal_StageAttack(EnDntNomal* pthis, GlobalContext* globalCtx);
 void EnDntNomal_StageReturn(EnDntNomal* pthis, GlobalContext* globalCtx);
 
-static void* blinkTex_104[] = { gDntStageEyeOpenTex, gDntStageEyeHalfTex, gDntStageEyeShutTex };
+static void* blinkTex_104[] = { oot::asset::texture::load(symbol::gDntStageEyeOpenTex), oot::asset::texture::load(symbol::gDntStageEyeHalfTex), oot::asset::texture::load(symbol::gDntStageEyeShutTex) };
 
 
 ActorInit En_Dnt_Nomal_InitVars = {
@@ -191,17 +190,16 @@ void EnDntNomal_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnDntNomal_WaitForObject(EnDntNomal* pthis, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, pthis->objIndex)) {
-        gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objIndex].vromStart.get());
         pthis->actor.objBankIndex = pthis->objIndex;
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
         pthis->actor.gravity = -2.0f;
         Actor_SetScale(&pthis->actor, 0.01f);
         if (pthis->type == ENDNTNOMAL_TARGET) {
-            SkelAnime_Init(globalCtx, &pthis->skelAnime, &gHintNutsSkel, &gHintNutsBurrowAnim, pthis->jointTable,
+            SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gHintNutsSkel), oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim), pthis->jointTable,
                            pthis->morphTable, 10);
             pthis->actor.draw = EnDntNomal_DrawTargetScrub;
         } else {
-            SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDntStageSkel, &gDntStageHideAnim, pthis->jointTable,
+            SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gDntStageSkel), oot::asset::anim::header::load(symbol::gDntStageHideAnim), pthis->jointTable,
                            pthis->morphTable, 11);
             pthis->actor.draw = EnDntNomal_DrawStageScrub;
         }
@@ -221,8 +219,8 @@ void EnDntNomal_SetFlower(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_SetupTargetWait(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsBurrowAnim);
-    Animation_Change(&pthis->skelAnime, &gHintNutsBurrowAnim, 0.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim), 0.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     pthis->skelAnime.curFrame = 8.0f;
     pthis->actionFunc = EnDntNomal_TargetWait;
 }
@@ -290,8 +288,8 @@ void EnDntNomal_SetupTargetUnburrow(EnDntNomal* pthis, GlobalContext* globalCtx)
     Vec3f spawnPos;
 
     if (pthis->timer4 == 0) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsUnburrowAnim);
-        Animation_Change(&pthis->skelAnime, &gHintNutsUnburrowAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsUnburrowAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsUnburrowAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         spawnPos = pthis->actor.world.pos;
         spawnPos.y = pthis->actor.world.pos.y + 50.0f;
         EffectSsHahen_SpawnBurst(globalCtx, &spawnPos, 4.0f, 0, 10, 3, 15, HAHEN_OBJECT_DEFAULT, 10, NULL);
@@ -310,8 +308,8 @@ void EnDntNomal_TargetUnburrow(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_SetupTargetWalk(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsRunAnim);
-    Animation_Change(&pthis->skelAnime, &gHintNutsRunAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsRunAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsRunAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.speedXZ = 1.0f;
     pthis->actor.colChkInfo.mass = 0;
     pthis->actionFunc = EnDntNomal_TargetWalk;
@@ -347,8 +345,8 @@ void EnDntNomal_TargetFacePlayer(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_SetupTargetTalk(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsTalkAnim);
-    Animation_Change(&pthis->skelAnime, &gHintNutsTalkAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsTalkAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsTalkAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.textId = 0x10AF;
     Message_StartTextbox(globalCtx, pthis->actor.textId, NULL);
     pthis->actionFunc = EnDntNomal_TargetTalk;
@@ -366,8 +364,8 @@ void EnDntNomal_TargetTalk(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_SetupTargetGivePrize(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsSpitAnim);
-    Animation_Change(&pthis->skelAnime, &gHintNutsSpitAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsSpitAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsSpitAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = EnDntNomal_TargetGivePrize;
 }
 
@@ -389,8 +387,8 @@ void EnDntNomal_TargetGivePrize(EnDntNomal* pthis, GlobalContext* globalCtx) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_THROW);
     }
     if (frame >= pthis->endFrame) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsRunAnim);
-        Animation_Change(&pthis->skelAnime, &gHintNutsRunAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsRunAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsRunAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
         pthis->actionFunc = EnDntNomal_TargetReturn;
     }
 }
@@ -412,8 +410,8 @@ void EnDntNomal_TargetReturn(EnDntNomal* pthis, GlobalContext* globalCtx) {
     }
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
     if (pthis->actor.world.pos.z < -172.0f) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gHintNutsBurrowAnim);
-        Animation_Change(&pthis->skelAnime, &gHintNutsBurrowAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gHintNutsBurrowAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         pthis->actor.world.pos.z = -173.0f;
         pthis->actor.speedXZ = 0.0f;
         pthis->actionFunc = EnDntNomal_TargetBurrow;
@@ -431,8 +429,8 @@ void EnDntNomal_TargetBurrow(EnDntNomal* pthis, GlobalContext* globalCtx) {
 
 void EnDntNomal_SetupStageWait(EnDntNomal* pthis, GlobalContext* globalCtx) {
     if (pthis->timer3 == 0) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageHideAnim);
-        Animation_Change(&pthis->skelAnime, &gDntStageHideAnim, 0.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageHideAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageHideAnim), 0.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         pthis->skelAnime.curFrame = 8.0f;
         pthis->isSolid = false;
         pthis->actionFunc = EnDntNomal_StageWait;
@@ -445,8 +443,8 @@ void EnDntNomal_StageWait(EnDntNomal* pthis, GlobalContext* globalCtx) {
 
 void EnDntNomal_SetupStageUp(EnDntNomal* pthis, GlobalContext* globalCtx) {
     if (pthis->timer3 == 0) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageUpAnim);
-        Animation_Change(&pthis->skelAnime, &gDntStageUpAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageUpAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageUpAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         if (pthis->action != DNT_ACTION_ATTACK) {
             pthis->rotDirection = -1;
         }
@@ -502,8 +500,8 @@ void EnDntNomal_StageUp(EnDntNomal* pthis, GlobalContext* globalCtx) {
 
 void EnDntNomal_SetupStageUnburrow(EnDntNomal* pthis, GlobalContext* globalCtx) {
     if (pthis->timer3 == 0) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageUnburrowAnim);
-        Animation_Change(&pthis->skelAnime, &gDntStageUnburrowAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageUnburrowAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageUnburrowAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         pthis->isSolid = false;
         EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 4.0f, 0, 10, 3, 15, HAHEN_OBJECT_DEFAULT, 10, NULL);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_UP);
@@ -527,8 +525,8 @@ void EnDntNomal_StageUnburrow(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_SetupStageCelebrate(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageWalkAnim);
-    Animation_Change(&pthis->skelAnime, &gDntStageWalkAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageWalkAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageWalkAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.speedXZ = 3.0f;
     pthis->isSolid = true;
     pthis->actionFunc = EnDntNomal_StageCelebrate;
@@ -569,8 +567,8 @@ void EnDntNomal_StageCelebrate(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_SetupStageDance(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageDanceAnim);
-    Animation_Change(&pthis->skelAnime, &gDntStageDanceAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageDanceAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageDanceAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->isSolid = true;
     pthis->timer3 = (s16)Rand_ZeroFloat(20.0f) + 20.0f;
     pthis->rotDirection = -1;
@@ -610,8 +608,8 @@ void EnDntNomal_SetupStageHide(EnDntNomal* pthis, GlobalContext* globalCtx) {
             Common_PlaySfx(NA_SE_SY_ERROR);
         }
     } else {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageHideAnim);
-        Animation_Change(&pthis->skelAnime, &gDntStageHideAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageHideAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageHideAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         pthis->isSolid = false;
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_DOWN);
         pthis->actionFunc = EnDntNomal_StageHide;
@@ -666,8 +664,8 @@ void EnDntNomal_StageAttackHide(EnDntNomal* pthis, GlobalContext* globalCtx) {
 
 void EnDntNomal_SetupStageAttack(EnDntNomal* pthis, GlobalContext* globalCtx) {
     if (pthis->timer3 == 0) {
-        pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageSpitAnim);
-        Animation_Change(&pthis->skelAnime, &gDntStageSpitAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+        pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageSpitAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageSpitAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
         pthis->actor.colChkInfo.mass = 0xFF;
         pthis->isSolid = true;
         pthis->timer2 = 0;
@@ -728,8 +726,8 @@ void EnDntNomal_StageAttack(EnDntNomal* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntNomal_StageSetupReturn(EnDntNomal* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntStageWalkAnim);
-    Animation_Change(&pthis->skelAnime, &gDntStageWalkAnim, 1.5f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntStageWalkAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntStageWalkAnim), 1.5f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.speedXZ = 4.0f;
     pthis->isSolid = false;
     pthis->actionFunc = EnDntNomal_StageReturn;
@@ -884,7 +882,7 @@ void EnDntNomal_DrawStageScrub(Actor* thisx, GlobalContext* globalCtx) {
                    sLeafColors[pthis->type - ENDNTNOMAL_STAGE].g, sLeafColors[pthis->type - ENDNTNOMAL_STAGE].b, 255);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dnt_nomal.c", 1814),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gDntStageFlowerDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDntStageFlowerDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_nomal.c", 1817);
     if (pthis->actionFunc == EnDntNomal_StageCelebrate) {
         func_80033C30(&pthis->actor.world.pos, &dustScale, 255, globalCtx);
@@ -902,7 +900,7 @@ void EnDntNomal_DrawTargetScrub(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dnt_nomal.c", 1848),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gHintNutsFlowerDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gHintNutsFlowerDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_nomal.c", 1851);
 }
 

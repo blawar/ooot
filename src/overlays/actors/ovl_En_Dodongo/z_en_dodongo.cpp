@@ -3,7 +3,7 @@
 #include "z_en_dodongo.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "overlays/actors/ovl_En_Bombf/z_en_bombf.h"
-#include "objects/object_dodongo/object_dodongo.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
@@ -328,7 +328,7 @@ void EnDodongo_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->bodyScale.x = pthis->bodyScale.y = pthis->bodyScale.z = 1.0f;
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 48.0f);
     Actor_SetScale(&pthis->actor, 0.01875f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDodongoSkel, &gDodongoWaitAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gDodongoSkel), oot::asset::anim::header::load(symbol::gDodongoWaitAnim), pthis->jointTable, pthis->morphTable,
                    31);
     pthis->actor.colChkInfo.health = 4;
     pthis->actor.colChkInfo.mass = MASS_HEAVY;
@@ -367,7 +367,7 @@ void EnDodongo_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDodongo_SetupIdle(EnDodongo* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gDodongoWaitAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoWaitAnim), -4.0f);
     pthis->actor.speedXZ = 0.0f;
     pthis->timer = Rand_S16Offset(30, 50);
     pthis->actionState = DODONGO_IDLE;
@@ -375,9 +375,9 @@ void EnDodongo_SetupIdle(EnDodongo* pthis) {
 }
 
 void EnDodongo_SetupWalk(EnDodongo* pthis) {
-    f32 frames = Animation_GetLastFrame(&gDodongoWalkAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDodongoWalkAnim));
 
-    Animation_Change(&pthis->skelAnime, &gDodongoWalkAnim, 0.0f, 0.0f, frames, ANIMMODE_LOOP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoWalkAnim), 0.0f, 0.0f, frames, ANIMMODE_LOOP, -4.0f);
     pthis->actor.speedXZ = 1.5f;
     pthis->timer = Rand_S16Offset(50, 70);
     pthis->rightFootStep = true;
@@ -386,21 +386,21 @@ void EnDodongo_SetupWalk(EnDodongo* pthis) {
 }
 
 void EnDodongo_SetupBreatheFire(EnDodongo* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gDodongoBreatheFireAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoBreatheFireAnim), -4.0f);
     pthis->actionState = DODONGO_BREATHE_FIRE;
     pthis->actor.speedXZ = 0.0f;
     EnDodongo_SetupAction(pthis, EnDodongo_BreatheFire);
 }
 
 void EnDodongo_SetupEndBreatheFire(EnDodongo* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gDodongoAfterBreatheFireAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoAfterBreatheFireAnim));
     pthis->actionState = DODONGO_END_BREATHE_FIRE;
     pthis->actor.speedXZ = 0.0f;
     EnDodongo_SetupAction(pthis, EnDodongo_EndBreatheFire);
 }
 
 void EnDodongo_SetupSwallowBomb(EnDodongo* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDodongoBreatheFireAnim, -1.0f, 35.0f, 0.0f, ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoBreatheFireAnim), -1.0f, 35.0f, 0.0f, ANIMMODE_ONCE, -4.0f);
     pthis->actionState = DODONGO_SWALLOW_BOMB;
     pthis->timer = 25;
     pthis->actor.speedXZ = 0.0f;
@@ -408,7 +408,7 @@ void EnDodongo_SetupSwallowBomb(EnDodongo* pthis) {
 }
 
 void EnDodongo_SetupStunned(EnDodongo* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDodongoBreatheFireAnim, 0.0f, 25.0f, 0.0f, ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoBreatheFireAnim), 0.0f, 25.0f, 0.0f, ANIMMODE_ONCE, -4.0f);
     pthis->actionState = DODONGO_STUNNED;
     pthis->actor.speedXZ = 0.0f;
     if (pthis->damageEffect == 0xF) {
@@ -603,7 +603,7 @@ void EnDodongo_Walk(EnDodongo* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDodongo_SetupSweepTail(EnDodongo* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gDodongoDamageAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoDamageAnim), -4.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_J_DAMAGE);
     pthis->actionState = DODONGO_SWEEP_TAIL;
     pthis->timer = 0;
@@ -632,9 +632,9 @@ void EnDodongo_SweepTail(EnDodongo* pthis, GlobalContext* globalCtx) {
             pthis->tailSwipeSpeed = (0xFFFF - ABS(yawDiff2)) / 0xF;
             if ((s16)(pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y) >= 0) {
                 pthis->tailSwipeSpeed = -pthis->tailSwipeSpeed;
-                animation = &gDodongoSweepTailLeftAnim;
+                animation = oot::asset::anim::header::load(symbol::gDodongoSweepTailLeftAnim);
             } else {
-                animation = &gDodongoSweepTailRightAnim;
+                animation = oot::asset::anim::header::load(symbol::gDodongoSweepTailRightAnim);
             }
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_J_TAIL);
             Animation_PlayOnceSetSpeed(&pthis->skelAnime, animation, 2.0f);
@@ -670,7 +670,7 @@ void EnDodongo_SweepTail(EnDodongo* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDodongo_SetupDeath(EnDodongo* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gDodongoDieAnim, -8.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDodongoDieAnim), -8.0f);
     pthis->timer = 0;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_J_DEAD);
     pthis->actionState = DODONGO_DEATH;

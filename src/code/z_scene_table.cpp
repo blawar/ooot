@@ -10,137 +10,14 @@
 #include "z_kankyo.h"
 #include "sfx.h"
 #include "z_scene_table.h"
+#include "asset.h"
 
 extern Gfx gEmptyDL[];
 
 
 #include "segment_symbols.h"
 
-#include "scenes/overworld/spot00/spot00_scene.h"
-#include "scenes/overworld/spot00/spot00_room_0.h"
-#include "scenes/overworld/spot01/spot01_scene.h"
-#include "scenes/overworld/spot02/spot02_scene.h"
-#include "scenes/overworld/spot03/spot03_scene.h"
-#include "scenes/overworld/spot04/spot04_scene.h"
-#include "scenes/overworld/spot05/spot05_scene.h"
-#include "scenes/overworld/spot06/spot06_scene.h"
-#include "scenes/overworld/spot07/spot07_scene.h"
-#include "scenes/overworld/spot08/spot08_scene.h"
-#include "scenes/overworld/spot09/spot09_scene.h"
-#include "scenes/overworld/spot10/spot10_scene.h"
-#include "scenes/overworld/spot11/spot11_scene.h"
-#include "scenes/overworld/spot12/spot12_scene.h"
-#include "scenes/overworld/spot13/spot13_scene.h"
-#include "scenes/overworld/spot15/spot15_scene.h"
-#include "scenes/overworld/spot16/spot16_scene.h"
-#include "scenes/overworld/spot16/spot16_room_0.h"
-#include "scenes/overworld/spot17/spot17_scene.h"
-#include "scenes/overworld/spot18/spot18_scene.h"
-#include "scenes/overworld/spot20/spot20_scene.h"
-#include "scenes/overworld/souko/souko_scene.h"
-#include "scenes/overworld/entra/entra_scene.h"
-
-#include "scenes/indoors/takaraya/takaraya_scene.h"
-#include "scenes/indoors/kokiri_home/kokiri_home_scene.h"
-#include "scenes/indoors/kokiri_home3/kokiri_home3_scene.h"
-#include "scenes/indoors/kokiri_home4/kokiri_home4_scene.h"
-#include "scenes/indoors/kokiri_home5/kokiri_home5_scene.h"
-#include "scenes/indoors/kakariko/kakariko_scene.h"
-#include "scenes/indoors/link_home/link_home_scene.h"
-#include "scenes/indoors/impa/impa_scene.h"
-#include "scenes/indoors/malon_stable/malon_stable_scene.h"
-#include "scenes/indoors/labo/labo_scene.h"
-#include "scenes/indoors/hylia_labo/hylia_labo_scene.h"
-#include "scenes/indoors/tent/tent_scene.h"
-#include "scenes/indoors/hut/hut_scene.h"
-#include "scenes/indoors/daiyousei_izumi/daiyousei_izumi_scene.h"
-#include "scenes/indoors/yousei_izumi_tate/yousei_izumi_tate_scene.h"
-#include "scenes/indoors/yousei_izumi_yoko/yousei_izumi_yoko_scene.h"
-#include "scenes/indoors/syatekijyou/syatekijyou_scene.h"
-#include "scenes/indoors/tokinoma/tokinoma_scene.h"
-#include "scenes/indoors/kenjyanoma/kenjyanoma_scene.h"
-#include "scenes/indoors/hairal_niwa/hairal_niwa_scene.h"
-#include "scenes/indoors/hairal_niwa_n/hairal_niwa_n_scene.h"
-#include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
-#include "scenes/indoors/bowling/bowling_scene.h"
-#include "scenes/indoors/mahouya/mahouya_scene.h"
-#include "scenes/indoors/hakasitarelay/hakasitarelay_scene.h"
-#ifndef RETAIL
-#include "scenes/indoors/hairal_niwa2/hairal_niwa2_scene.h"
-#endif
-
-#include "scenes/misc/entra_n/entra_n_scene.h"
-#include "scenes/misc/enrui/enrui_scene.h"
-#include "scenes/misc/market_alley/market_alley_scene.h"
-#include "scenes/misc/market_alley_n/market_alley_n_scene.h"
-#include "scenes/misc/market_day/market_day_scene.h"
-#include "scenes/misc/market_night/market_night_scene.h"
-#include "scenes/misc/market_ruins/market_ruins_scene.h"
-#include "scenes/misc/shrine/shrine_scene.h"
-#include "scenes/misc/shrine_n/shrine_n_scene.h"
-#include "scenes/misc/shrine_r/shrine_r_scene.h"
-#include "scenes/misc/kakariko3/kakariko3_scene.h"
-#include "scenes/misc/kakusiana/kakusiana_scene.h"
-#include "scenes/misc/hakaana/hakaana_scene.h"
-#include "scenes/misc/hakaana2/hakaana2_scene.h"
-#include "scenes/misc/hakaana_ouke/hakaana_ouke_scene.h"
-#include "scenes/misc/turibori/turibori_scene.h"
-#include "scenes/misc/kinsuta/kinsuta_scene.h"
-#include "scenes/misc/hiral_demo/hiral_demo_scene.h"
-
-#include "scenes/dungeons/men/men_scene.h"
-#include "scenes/dungeons/ddan/ddan_scene.h"
-#include "scenes/dungeons/ydan/ydan_scene.h"
-#include "scenes/dungeons/bdan/bdan_scene.h"
-#include "scenes/dungeons/HIDAN/HIDAN_scene.h"
-#include "scenes/dungeons/ganon/ganon_scene.h"
-
-#include "scenes/shops/shop1/shop1_scene.h"
-#include "scenes/shops/kokiri_shop/kokiri_shop_scene.h"
-#include "scenes/shops/golon/golon_scene.h"
-#include "scenes/shops/zoora/zoora_scene.h"
-#include "scenes/shops/drag/drag_scene.h"
-#include "scenes/shops/alley_shop/alley_shop_scene.h"
-#include "scenes/shops/night_shop/night_shop_scene.h"
-#include "scenes/shops/face_shop/face_shop_scene.h"
-
-#include "scenes/dungeons/Bmori1/Bmori1_scene.h"
-#include "scenes/dungeons/MIZUsin/MIZUsin_scene.h"
-#include "scenes/dungeons/gerudoway/gerudoway_scene.h"
-#include "scenes/dungeons/jyasinzou/jyasinzou_scene.h"
-#include "scenes/indoors/miharigoya/miharigoya_scene.h"
-#include "scenes/dungeons/ice_doukutu/ice_doukutu_scene.h"
-#include "scenes/dungeons/HAKAdan/HAKAdan_scene.h"
-#include "scenes/dungeons/HAKAdanCH/HAKAdanCH_scene.h"
-#include "scenes/dungeons/ganontika/ganontika_scene.h"
-#include "scenes/dungeons/ganon_sonogo/ganon_sonogo_scene.h"
-#include "scenes/dungeons/ganontikasonogo/ganontikasonogo_scene.h"
-#include "scenes/dungeons/ydan_boss/ydan_boss_scene.h"
-#include "scenes/dungeons/ddan_boss/ddan_boss_scene.h"
-#include "scenes/dungeons/bdan_boss/bdan_boss_scene.h"
-#include "scenes/dungeons/moribossroom/moribossroom_scene.h"
-#include "scenes/dungeons/FIRE_bs/FIRE_bs_scene.h"
-#include "scenes/dungeons/MIZUsin_bs/MIZUsin_bs_scene.h"
-#include "scenes/dungeons/jyasinboss/jyasinboss_scene.h"
-#include "scenes/dungeons/HAKAdan_bs/HAKAdan_bs_scene.h"
-#include "scenes/dungeons/ganon_boss/ganon_boss_scene.h"
-#include "scenes/dungeons/ganon_final/ganon_final_scene.h"
-#include "scenes/dungeons/ganon_demo/ganon_demo_scene.h"
-#include "scenes/dungeons/ganon_tou/ganon_tou_scene.h"
-
-#ifndef RETAIL
-#include "scenes/test_levels/test01/test01_scene.h"
-#include "scenes/test_levels/besitu/besitu_scene.h"
-#include "scenes/test_levels/depth_test/depth_test_scene.h"
-#include "scenes/test_levels/syotes/syotes_scene.h"
-#include "scenes/test_levels/syotes2/syotes2_scene.h"
-#include "scenes/test_levels/sutaru/sutaru_scene.h"
-#include "scenes/test_levels/sasatest/sasatest_scene.h"
-#include "scenes/test_levels/testroom/testroom_scene.h"
-#endif
-
 #include "overlays/actors/ovl_Bg_Dodoago/z_bg_dodoago.h"
-#include "misc/z_scene_table_assets.h"
 #include "def/random.h"
 #include "def/coss.h"
 #include "def/graph.h"
@@ -951,19 +828,19 @@ EntranceInfo gEntranceTable[] = {
 
 #define TITLED_SCENE(name, title, unk_10, config, unk_12)                                            \
     {                                                                                                \
-        (uintptr_t) _##name##SegmentRomStart, (uintptr_t)_##name##SegmentRomEnd, (uintptr_t)title, \
-            (uintptr_t)title + sizeof(title), unk_10, config, unk_12, 0, name##Commands                                  \
+        oot::asset::texture::load(symbol::title), unk_10, config, unk_12, 0, oot::asset::scene::entry::load(symbol::name##Commands)                                  \
     }
 
 #define TITLED_SCENE2(name, title, unk_10, config, unk_12)                                            \
     {                                                                                                \
-        (uintptr_t) name, (uintptr_t)name + sizeof(name), (uintptr_t)title, \
-            (uintptr_t)title + sizeof(title), unk_10, config, unk_12, 0, name##Commands                                  \
+        oot::asset::texture::load(symbol::title), unk_10, config, unk_12, 0, oot::asset::scene::entry::load(symbol::name##Commands)                                  \
     }
 
 #define UNTITLED_SCENE(name, unk_10, config, unk_12) \
-    { (uintptr_t) _##name##SegmentRomStart, (uintptr_t)_##name##SegmentRomEnd, 0, 0, unk_10, config, unk_12, 0, name##Commands }
-
+    {                                                                                                                                                                                                                                                      \
+		nullptr, unk_10, config, unk_12, 0, oot::asset::scene::entry::load(symbol::UN##name##Commands)                                                                                                                                                         \
+	}
+/*
 #define SCENE_EXTERN(name) extern SceneCmd name##Commands[]
 
 SCENE_EXTERN(ydan_scene);
@@ -1078,6 +955,7 @@ SCENE_EXTERN(hairal_niwa2_scene);
 SCENE_EXTERN(sasatest_scene);
 SCENE_EXTERN(testroom_scene);
 #endif
+*/
 
 SceneTableEntry gSceneTable[] = {
     TITLED_SCENE(ydan_scene, g_pn_06, 1, 19, 2),
@@ -1239,8 +1117,8 @@ void func_80099550(GlobalContext* globalCtx) {
 }
 
 void* D_8012A2F8[] = {
-    gYdanTex_00BA18,
-    gYdanTex_00CA18,
+    oot::asset::texture::load(symbol::gYdanTex_00BA18),
+    oot::asset::texture::load(symbol::gYdanTex_00CA18),
 };
 
 // Scene Draw Config 19
@@ -1281,12 +1159,12 @@ void func_80099760(GlobalContext* globalCtx) {
 }
 
 void* gDCEntranceTextures[] = {
-    gDCDayEntranceTex,
-    gDCNightEntranceTex,
+    oot::asset::texture::load(symbol::gDCDayEntranceTex),
+    oot::asset::texture::load(symbol::gDCNightEntranceTex),
 };
 void* sDCLavaFloorTextures[] = {
-    gDCLavaFloor1Tex, gDCLavaFloor2Tex, gDCLavaFloor3Tex, gDCLavaFloor4Tex,
-    gDCLavaFloor5Tex, gDCLavaFloor6Tex, gDCLavaFloor7Tex, gDCLavaFloor8Tex,
+    oot::asset::texture::load(symbol::gDCLavaFloor1Tex), oot::asset::texture::load(symbol::gDCLavaFloor2Tex), oot::asset::texture::load(symbol::gDCLavaFloor3Tex), oot::asset::texture::load(symbol::gDCLavaFloor4Tex),
+    oot::asset::texture::load(symbol::gDCLavaFloor5Tex), oot::asset::texture::load(symbol::gDCLavaFloor6Tex), oot::asset::texture::load(symbol::gDCLavaFloor7Tex), oot::asset::texture::load(symbol::gDCLavaFloor8Tex),
 };
 
 // Scene Draw Config 20 - Dodongo's Cavern
@@ -1538,8 +1416,8 @@ void func_8009AE30(GlobalContext* globalCtx) {
 }
 
 void* sThievesHideoutEntranceTextures[] = {
-    gThievesHideoutDayEntranceTex,
-    gThievesHideoutNightEntranceTex,
+    oot::asset::texture::load(symbol::gThievesHideoutDayEntranceTex),
+    oot::asset::texture::load(symbol::gThievesHideoutNightEntranceTex),
 };
 
 // Scene Draw Config 40
@@ -1559,8 +1437,8 @@ void func_8009AFE0(GlobalContext* globalCtx) {
 }
 
 void* D_8012A330[] = {
-    gWaterTempleDayEntranceTex,
-    gWaterTempleNightEntranceTex,
+    oot::asset::texture::load(symbol::gWaterTempleDayEntranceTex),
+    oot::asset::texture::load(symbol::gWaterTempleNightEntranceTex),
 };
 
 // Scene Draw Config 23 (Water Temple)
@@ -1795,8 +1673,8 @@ void func_8009C0AC(GlobalContext* globalCtx) {
 }
 
 void* sIceCavernEntranceTextures[] = {
-    gIceCavernDayEntranceTex,
-    gIceCavernNightEntranceTex,
+    oot::asset::texture::load(symbol::gIceCavernDayEntranceTex),
+    oot::asset::texture::load(symbol::gIceCavernNightEntranceTex),
 };
 
 // Scene Draw Config 37
@@ -1899,8 +1777,8 @@ void func_8009CAC0(GlobalContext* globalCtx) {
 }
 
 void* sGTGEntranceTextures[] = {
-    gGTGDayEntranceTex,
-    gGTGNightEntranceTex,
+    oot::asset::texture::load(symbol::gGTGDayEntranceTex),
+    oot::asset::texture::load(symbol::gGTGNightEntranceTex),
 };
 
 // Scene Draw Config 27
@@ -1998,8 +1876,8 @@ void func_8009D0E8(GlobalContext* globalCtx) {
 }
 
 void* sLonLonHouseEntranceTextures[] = {
-    gLonLonHouseDayEntranceTex,
-    gLonLonHouseNightEntranceTex,
+    oot::asset::texture::load(symbol::gLonLonHouseDayEntranceTex),
+    oot::asset::texture::load(symbol::gLonLonHouseNightEntranceTex),
 };
 
 // Scene Draw Config 44
@@ -2020,12 +1898,12 @@ void func_8009D31C(GlobalContext* globalCtx) {
 }
 
 void* sGuardHouseView2Textures[] = {
-    gGuardHouseOutSideView1DayTex,
-    gGuardHouseOutSideView1NightTex,
+    oot::asset::texture::load(symbol::gGuardHouseOutSideView1DayTex),
+    oot::asset::texture::load(symbol::gGuardHouseOutSideView1NightTex),
 };
 void* sGuardHouseView1Textures[] = {
-    gGuardHouseOutSideView2DayTex,
-    gGuardHouseOutSideView2NightTex,
+    oot::asset::texture::load(symbol::gGuardHouseOutSideView2DayTex),
+    oot::asset::texture::load(symbol::gGuardHouseOutSideView2NightTex),
 };
 
 // Scene Draw Config 45
@@ -2074,8 +1952,8 @@ void func_8009D5B4(GlobalContext* globalCtx) {
 }
 
 void* sForestTempleEntranceTextures[] = {
-    gForestTempleDayEntranceTex,
-    gForestTempleNightEntranceTex,
+    oot::asset::texture::load(symbol::gForestTempleDayEntranceTex),
+    oot::asset::texture::load(symbol::gForestTempleNightEntranceTex),
 };
 
 // Scene Draw Config 22
@@ -2107,8 +1985,8 @@ void func_8009D758(GlobalContext* globalCtx) {
 }
 
 void* sSpiritTempleEntranceTextures[] = {
-    gSpiritTempleDayEntranceTex,
-    gSpiritTempleNightEntranceTex,
+    oot::asset::texture::load(symbol::gSpiritTempleDayEntranceTex),
+    oot::asset::texture::load(symbol::gSpiritTempleNightEntranceTex),
 };
 
 // Scene Draw Config 25
@@ -2161,7 +2039,7 @@ void func_8009DA30(GlobalContext* globalCtx) {
         }
 
         gDPSetPrimColor(displayListHead++, 0, 0, 255, 255, 255, globalCtx->roomCtx.unk_74[0]);
-        gSPDisplayList(displayListHead++, spot00_room_0DL_012B20);
+        gSPDisplayList(displayListHead++, oot::asset::gfx::load(symbol::spot00_room_0DL_012B20));
         gSPEndDisplayList(displayListHead);
     }
 
@@ -2169,8 +2047,8 @@ void func_8009DA30(GlobalContext* globalCtx) {
 }
 
 void* sKakarikoWindowTextures[] = {
-    gKakarikoVillageDayWindowTex,
-    gKakarikoVillageNightWindowTex,
+    oot::asset::texture::load(symbol::gKakarikoVillageDayWindowTex),
+    oot::asset::texture::load(symbol::gKakarikoVillageNightWindowTex),
 };
 
 // Scene Draw Config 2
@@ -2297,8 +2175,8 @@ void func_8009E54C(GlobalContext* globalCtx) {
 }
 
 void* sZorasDomainEntranceTextures[] = {
-    gZorasDomainDayEntranceTex,
-    gZorasDomainNightEntranceTex,
+    oot::asset::texture::load(symbol::gZorasDomainDayEntranceTex),
+    oot::asset::texture::load(symbol::gZorasDomainNightEntranceTex),
 };
 
 // Scene Draw Config 6
@@ -2438,8 +2316,8 @@ void func_8009F074(GlobalContext* globalCtx) {
 }
 
 void* D_8012A380[] = {
-    gSpot12_009678Tex,
-    gSpot12_00DE78Tex,
+    oot::asset::texture::load(symbol::gSpot12_009678Tex),
+    oot::asset::texture::load(symbol::gSpot12_00DE78Tex),
 };
 
 // Scene Draw Config 11
@@ -2521,7 +2399,7 @@ void func_8009F5D4(GlobalContext* globalCtx) {
         }
 
         gDPSetPrimColor(displayListHead++, 0, 0, 255, 255, 255, globalCtx->roomCtx.unk_74[0]);
-        gSPDisplayList(displayListHead++, spot16_room_0DL_00AA48);
+        gSPDisplayList(displayListHead++, oot::asset::gfx::load(symbol::spot16_room_0DL_00AA48));
         gSPEndDisplayList(displayListHead);
     }
 
@@ -2560,8 +2438,8 @@ void func_8009F7D4(GlobalContext* globalCtx) {
 }
 
 void* sGoronCityEntranceTextures[] = {
-    gGoronCityDayEntranceTex,
-    gGoronCityNightEntranceTex,
+    oot::asset::texture::load(symbol::gGoronCityDayEntranceTex),
+    oot::asset::texture::load(symbol::gGoronCityNightEntranceTex),
 };
 
 // Scene Draw Config 16
@@ -2589,8 +2467,8 @@ void func_8009F9D0(GlobalContext* globalCtx) {
 }
 
 void* sLonLonRanchWindowTextures[] = {
-    gLonLonRanchDayWindowTex,
-    gLonLonRangeNightWindowsTex,
+    oot::asset::texture::load(symbol::gLonLonRanchDayWindowTex),
+    oot::asset::texture::load(symbol::gLonLonRangeNightWindowsTex),
 };
 
 // Scene Draw Config 17

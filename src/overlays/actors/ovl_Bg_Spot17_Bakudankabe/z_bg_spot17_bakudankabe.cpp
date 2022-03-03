@@ -8,8 +8,8 @@
 
 #include "z_bg_spot17_bakudankabe.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_spot17_obj/object_spot17_obj.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -94,7 +94,7 @@ void func_808B6BC0(BgSpot17Bakudankabe* pthis, GlobalContext* globalCtx) {
             rotationSpeed = 33;
         }
         EffectSsKakera_Spawn(globalCtx, &burstDepthY, &burstDepthX, &burstDepthY, gravityInfluence, rotationSpeed, 0x1E,
-                             4, 0, scale, 1, 3, 80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, gFieldKakeraDL);
+                             4, 0, scale, 1, 3, 80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, oot::asset::gfx::load(symbol::gFieldKakeraDL));
     }
     Math_Vec3f_Copy(&burstDepthY, &pthis->dyna.actor.world.pos);
     func_80033480(globalCtx, &burstDepthY, 60.0f, 4, 110, 160, 1);
@@ -115,7 +115,7 @@ void BgSpot17Bakudankabe_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
 
-    CollisionHeader_GetVirtual(&gCraterBombableWallCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gCraterBombableWallCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
 }
@@ -153,7 +153,7 @@ void BgSpot17Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gDPSetEnvColor(POLY_OPA_DISP++, r, g, 255, 128);
 
-    gSPDisplayList(POLY_OPA_DISP++, gCraterBombableWallDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gCraterBombableWallDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot17_bakudankabe.c", 283);
 
@@ -163,7 +163,7 @@ void BgSpot17Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot17_bakudankabe.c", 290),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gCraterBombableWallCracksDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCraterBombableWallCracksDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot17_bakudankabe.c", 295);
 }

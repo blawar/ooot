@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_sima.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/cosf.h"
@@ -92,8 +92,8 @@ static InitChainEntry sInitChain[] = {
 };
 
 static void* sFireballsTexs[] = {
-    gFireTempleFireball0Tex, gFireTempleFireball1Tex, gFireTempleFireball2Tex, gFireTempleFireball3Tex,
-    gFireTempleFireball4Tex, gFireTempleFireball5Tex, gFireTempleFireball6Tex, gFireTempleFireball7Tex,
+    oot::asset::texture::load(symbol::gFireTempleFireball0Tex), oot::asset::texture::load(symbol::gFireTempleFireball1Tex), oot::asset::texture::load(symbol::gFireTempleFireball2Tex), oot::asset::texture::load(symbol::gFireTempleFireball3Tex),
+    oot::asset::texture::load(symbol::gFireTempleFireball4Tex), oot::asset::texture::load(symbol::gFireTempleFireball5Tex), oot::asset::texture::load(symbol::gFireTempleFireball6Tex), oot::asset::texture::load(symbol::gFireTempleFireball7Tex),
 };
 
 void BgHidanSima_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -105,9 +105,9 @@ void BgHidanSima_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
     if (pthis->dyna.actor.params == 0) {
-        CollisionHeader_GetVirtual(&gFireTempleStonePlatform1Col, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStonePlatform1Col), &colHeader);
     } else {
-        CollisionHeader_GetVirtual(&gFireTempleStonePlatform2Col, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStonePlatform2Col), &colHeader);
     }
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Collider_InitJntSph(globalCtx, &pthis->collider);
@@ -278,7 +278,7 @@ Gfx* func_8088EB54(GlobalContext* globalCtx, BgHidanSima* pthis, Gfx* gfx) {
                   Matrix_MtxFToMtx(&mtxF,
                                    (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(gfx++, gFireTempleFireballDL);
+        gSPDisplayList(gfx++, oot::asset::gfx::load(symbol::gFireTempleFireballDL));
     }
     mtxF.xw = pthis->dyna.actor.world.pos.x + (phi_s5 * 25 + 80) * sin;
     mtxF.zw = pthis->dyna.actor.world.pos.z + (phi_s5 * 25 + 80) * cos;
@@ -287,7 +287,7 @@ Gfx* func_8088EB54(GlobalContext* globalCtx, BgHidanSima* pthis, Gfx* gfx) {
               Matrix_MtxFToMtx(&mtxF,
                                (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(gfx++, gFireTempleFireballDL);
+    gSPDisplayList(gfx++, oot::asset::gfx::load(symbol::gFireTempleFireballDL));
     return gfx;
 }
 
@@ -299,9 +299,9 @@ void BgHidanSima_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_sima.c", 645),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     if (pthis->dyna.actor.params == 0) {
-        gSPDisplayList(POLY_OPA_DISP++, gFireTempleStonePlatform1DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleStonePlatform1DL));
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, gFireTempleStonePlatform2DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleStonePlatform2DL));
         if (pthis->actionFunc == func_8088E7A8) {
             POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0x14);
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 1, 255, 255, 0, 150);

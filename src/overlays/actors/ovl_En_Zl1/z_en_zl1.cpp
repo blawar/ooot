@@ -7,7 +7,7 @@
  */
 
 #include "z_en_zl1.h"
-#include "objects/object_zl1/object_zl1.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/shrink_window.h"
 #include "def/sys_matrix.h"
@@ -76,12 +76,12 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 static void* D_80B4E61C[] = {
-    gChildZelda1EyeOpenLookingUpRightTex,
-    gChildZelda1EyeHalf2Tex,
-    gChildZelda1EyeClosedTex,
-    gChildZelda1EyeHalf2Tex,
+    oot::asset::texture::load(symbol::gChildZelda1EyeOpenLookingUpRightTex),
+    oot::asset::texture::load(symbol::gChildZelda1EyeHalf2Tex),
+    oot::asset::texture::load(symbol::gChildZelda1EyeClosedTex),
+    oot::asset::texture::load(symbol::gChildZelda1EyeHalf2Tex),
 };
-static void* D_80B4E62C[] = { gChildZelda1MouthNeutralTex };
+static void* D_80B4E62C[] = { oot::asset::texture::load(symbol::gChildZelda1MouthNeutralTex) };
 
 void func_80B4AB40(void) {
 }
@@ -93,9 +93,9 @@ void EnZl1_Init(Actor* thisx, GlobalContext* globalCtx) {
     f32 frameCount;
     EnZl1* pthis = (EnZl1*)thisx;
 
-    frameCount = Animation_GetLastFrame(&gChildZelda1Anim_12118);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gChildZelda1Skel, NULL, NULL, NULL, 0);
-    Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_12118, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
+    frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_12118));
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gChildZelda1Skel), NULL, NULL, NULL, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_12118), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
 
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -104,21 +104,21 @@ void EnZl1_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.targetMode = 0;
 
     if (gSaveContext.sceneSetupIndex >= 4) {
-        frameCount = Animation_GetLastFrame(&gChildZelda1Anim_00438);
-        Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_00438, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
         pthis->unk_1E6 = 0;
         pthis->actionFunc = func_80B4BC78;
     } else if (Flags_GetEventChkInf(9) && Flags_GetEventChkInf(0x25) && Flags_GetEventChkInf(0x37)) {
         Actor_Kill(&pthis->actor);
     } else if ((Flags_GetEventChkInf(9) && Flags_GetEventChkInf(0x25)) ||
                (Flags_GetEventChkInf(9) && Flags_GetEventChkInf(0x37))) {
-        frameCount = Animation_GetLastFrame(&gChildZelda1Anim_00438);
-        Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_00438, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
         pthis->actor.textId = 0x703D;
         pthis->actionFunc = func_80B4AF18;
     } else if (Flags_GetEventChkInf(0x40)) {
-        frameCount = Animation_GetLastFrame(&gChildZelda1Anim_00438);
-        Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_00438, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
         pthis->actor.textId = 0x703C;
         pthis->actionFunc = func_80B4AF18;
     } else {
@@ -135,9 +135,9 @@ void EnZl1_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80B4AE18(EnZl1* pthis) {
-    if ((pthis->skelAnime.animation == &gChildZelda1Anim_10B38) && (pthis->skelAnime.curFrame < 26.0f)) {
-        pthis->unk_1F4 = gChildZelda1EyeOpenLookingRightTex;
-        pthis->unk_1F8 = gChildZelda1EyeOpenLookingLeftTex;
+    if ((pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZelda1Anim_10B38)) && (pthis->skelAnime.curFrame < 26.0f)) {
+        pthis->unk_1F4 = oot::asset::texture::load(symbol::gChildZelda1EyeOpenLookingRightTex);
+        pthis->unk_1F8 = oot::asset::texture::load(symbol::gChildZelda1EyeOpenLookingLeftTex);
         pthis->unk_1FC = 2;
     } else {
         if (DECR(pthis->unk_1FC) == 0) {
@@ -182,8 +182,8 @@ void func_80B4B010(EnZl1* pthis, GlobalContext* globalCtx) {
     s16 rotDiff;
 
     if (Actor_ProcessTalkRequest(&pthis->actor, globalCtx)) {
-        Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_10B38, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gChildZelda1Anim_10B38), ANIMMODE_ONCE_INTERP, -10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_10B38), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_10B38)), ANIMMODE_ONCE_INTERP, -10.0f);
         pthis->unk_1E8 = Gameplay_CreateSubCamera(globalCtx);
         Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
         Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_1E8, CAM_STAT_ACTIVE);
@@ -236,7 +236,7 @@ void func_80B4B240(EnZl1* pthis, GlobalContext* globalCtx) {
                     }
                     break;
                 case 64:
-                    animHeaderSeg = &gChildZelda1Anim_11348;
+                    animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_11348);
                     sp3C = 1;
                     pthis->actor.textId = 0x702E;
                     Message_StartTextbox(globalCtx, pthis->actor.textId, NULL);
@@ -258,20 +258,20 @@ void func_80B4B240(EnZl1* pthis, GlobalContext* globalCtx) {
         case 2:
             if ((Message_GetState(msgCtx) == TEXT_STATE_CHOICE) && Message_ShouldAdvance(globalCtx)) {
                 if (msgCtx->choiceIndex == 0) {
-                    animHeaderSeg = &gChildZelda1Anim_13F10;
+                    animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_13F10);
                     sp3C = 2;
                     pthis->unk_1E2++;
                 } else {
-                    animHeaderSeg = &gChildZelda1Anim_116E4;
+                    animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_116E4);
                     sp3C = 2;
                     pthis->unk_1E2 = 6;
                 }
             }
             break;
         case 3:
-            frameCount = Animation_GetLastFrame(&gChildZelda1Anim_13F10);
+            frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_13F10));
             if (pthis->skelAnime.curFrame == frameCount) {
-                animHeaderSeg = &gChildZelda1Anim_143A8;
+                animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_143A8);
                 sp3C = 1;
                 pthis->actor.textId = 0x7032;
                 Message_ContinueTextbox(globalCtx, pthis->actor.textId);
@@ -281,7 +281,7 @@ void func_80B4B240(EnZl1* pthis, GlobalContext* globalCtx) {
         case 4:
             if ((Message_GetState(msgCtx) == TEXT_STATE_CHOICE) && Message_ShouldAdvance(globalCtx)) {
                 if (msgCtx->choiceIndex == 0) {
-                    animHeaderSeg = &gChildZelda1Anim_132D8;
+                    animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_132D8);
                     sp3C = 2;
                     pthis->unk_1E2 = 9;
                 } else {
@@ -299,9 +299,9 @@ void func_80B4B240(EnZl1* pthis, GlobalContext* globalCtx) {
             }
             break;
         case 6:
-            frameCount = Animation_GetLastFrame(&gChildZelda1Anim_116E4);
+            frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_116E4));
             if (pthis->skelAnime.curFrame == frameCount) {
-                animHeaderSeg = &gChildZelda1Anim_12B88;
+                animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_12B88);
                 sp3C = 1;
                 pthis->actor.textId = 0x7031;
                 Message_ContinueTextbox(globalCtx, pthis->actor.textId);
@@ -318,7 +318,7 @@ void func_80B4B240(EnZl1* pthis, GlobalContext* globalCtx) {
         case 8:
             if ((Message_GetState(msgCtx) == TEXT_STATE_CHOICE) && Message_ShouldAdvance(globalCtx)) {
                 if (msgCtx->choiceIndex == 0) {
-                    animHeaderSeg = &gChildZelda1Anim_138E0;
+                    animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_138E0);
                     sp3C = 2;
                     pthis->unk_1E2 = 3;
                 } else {
@@ -329,9 +329,9 @@ void func_80B4B240(EnZl1* pthis, GlobalContext* globalCtx) {
             }
             break;
         case 9:
-            frameCount = Animation_GetLastFrame(&gChildZelda1Anim_132D8);
+            frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_132D8));
             if (pthis->skelAnime.curFrame == frameCount) {
-                animHeaderSeg = &gChildZelda1Anim_00438;
+                animHeaderSeg = oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438);
                 sp3C = 1;
                 globalCtx->csCtx.segment = D_80B4C5D0;
                 gSaveContext.cutsceneTrigger = 1;
@@ -373,9 +373,9 @@ void func_80B4B8B4(EnZl1* pthis, GlobalContext* globalCtx) {
         NULL,
         NULL,
         NULL,
-        &gChildZelda1Anim_12B04,
-        &gChildZelda1Anim_12118,
-        &gChildZelda1Anim_10B38,
+        oot::asset::anim::header::load(symbol::gChildZelda1Anim_12B04),
+        oot::asset::anim::header::load(symbol::gChildZelda1Anim_12118),
+        oot::asset::anim::header::load(symbol::gChildZelda1Anim_10B38),
     };
     u8 spA4[] = {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02,
@@ -433,10 +433,10 @@ void func_80B4B8B4(EnZl1* pthis, GlobalContext* globalCtx) {
 
 void func_80B4BBC4(EnZl1* pthis, GlobalContext* globalCtx) {
     s32 pad;
-    f32 frameCount = Animation_GetLastFrame(&gChildZelda1Anim_00438);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438));
     Player* player = GET_PLAYER(globalCtx);
 
-    Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_00438, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_00438), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
     func_8002DF54(globalCtx, &pthis->actor, 1);
     func_8002F7DC(&player->actor, NA_SE_VO_LI_SURPRISE_KID);
     pthis->actor.textId = 0x7039;
@@ -454,9 +454,9 @@ void func_80B4BC78(EnZl1* pthis, GlobalContext* globalCtx) {
         NULL,
         NULL,
         NULL,
-        &gChildZelda1Anim_12B04,
-        &gChildZelda1Anim_12118,
-        &gChildZelda1Anim_10B38,
+        oot::asset::anim::header::load(symbol::gChildZelda1Anim_12B04),
+        oot::asset::anim::header::load(symbol::gChildZelda1Anim_12118),
+        oot::asset::anim::header::load(symbol::gChildZelda1Anim_10B38),
     };
     u8 sp84[] = {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02,
@@ -470,9 +470,9 @@ void func_80B4BC78(EnZl1* pthis, GlobalContext* globalCtx) {
     s32 pad;
     f32 frameCount;
 
-    if (SkelAnime_Update(&pthis->skelAnime) && (pthis->skelAnime.animation == &gChildZelda1Anim_10B38)) {
-        frameCount = Animation_GetLastFrame(&gChildZelda1Anim_11348);
-        Animation_Change(&pthis->skelAnime, &gChildZelda1Anim_11348, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, -10.0f);
+    if (SkelAnime_Update(&pthis->skelAnime) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZelda1Anim_10B38))) {
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChildZelda1Anim_11348));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChildZelda1Anim_11348), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, -10.0f);
     }
     func_80B4B874(pthis, globalCtx);
     npcAction = globalCtx->csCtx.npcActions[0];

@@ -4,18 +4,7 @@
 #include "Framerate.h"
 #include "z64audio.h"
 #include "segment_symbols.h"
-#include "textures/icon_item_static/icon_item_static.h"
-#include "textures/icon_item_24_static/icon_item_24_static.h"
-#include "textures/icon_item_nes_static/icon_item_nes_static.h"
-#include "textures/icon_item_ger_static/icon_item_ger_static.h"
-#include "textures/icon_item_fra_static/icon_item_fra_static.h"
-#include "textures/icon_item_gameover_static/icon_item_gameover_static.h"
-#include "textures/map_name_static/map_name_static.h"
-#include "textures/item_name_static/item_name_static.h"
-#include "textures/map_48x85_static/map_48x85_static.h"
-#include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
-#include "textures/icon_item_field_static/icon_item_field_static.h"
-#include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
+#include "asset.h"
 #include "vt.h"
 #include "kaleido.h"
 #include "hack.h"
@@ -42,94 +31,664 @@
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 
+static void* icon_item_24_static_lut[] = {
+oot::asset::texture::load(symbol::gForestMedallionIconTex),
+oot::asset::texture::load(symbol::gFireMedallionIconTex),
+oot::asset::texture::load(symbol::gWaterMedallionIconTex),
+oot::asset::texture::load(symbol::gSpiritMedallionIconTex),
+oot::asset::texture::load(symbol::gShadowMedallionIconTex),
+oot::asset::texture::load(symbol::gLightMedallionIconTex),
+oot::asset::texture::load(symbol::gKokiriEmeraldIconTex),
+oot::asset::texture::load(symbol::gGoronRubyIconTex),
+oot::asset::texture::load(symbol::gZoraSapphireIconTex),
+oot::asset::texture::load(symbol::gStoneOfAgonyIconTex),
+oot::asset::texture::load(symbol::gGerudosCardIconTex),
+oot::asset::texture::load(symbol::gGoldSkulltulaIconTex),
+oot::asset::texture::load(symbol::gHeartContainerIconTex),
+oot::asset::texture::load(symbol::gUnusedPieceOfHeartIconTex),
+oot::asset::texture::load(symbol::gBossKeyIconTex),
+oot::asset::texture::load(symbol::gCompassIconTex),
+oot::asset::texture::load(symbol::gDungeonMapIconTex),
+oot::asset::texture::load(symbol::gSmallKeyIconTex),
+oot::asset::texture::load(symbol::gSmallMagicJarIconTex),
+oot::asset::texture::load(symbol::gBigMagicJarIconTex)
+};
+
+static void* map_name_static_lut[] = {
+    oot::asset::texture::load(symbol::gHauntedWastelandPointNameENGTex),
+    oot::asset::texture::load(symbol::gGerudosFortressPointNameENGTex),
+    oot::asset::texture::load(symbol::gGerudoValleyPointNameENGTex),
+    oot::asset::texture::load(symbol::gHyliaLakesidePointNameENGTex),
+    oot::asset::texture::load(symbol::gLonLonRanchPointNameENGTex),
+    oot::asset::texture::load(symbol::gMarketPointNameENGTex),
+    oot::asset::texture::load(symbol::gHyruleFieldPointNameENGTex),
+    oot::asset::texture::load(symbol::gDeathMountainPointNameENGTex),
+    oot::asset::texture::load(symbol::gKakarikoVillagePointNameENGTex),
+    oot::asset::texture::load(symbol::gLostWoodsPointNameENGTex),
+    oot::asset::texture::load(symbol::gKokiriForestPointNameENGTex),
+    oot::asset::texture::load(symbol::gZorasDomainPointNameENGTex),
+    oot::asset::texture::load(symbol::gHauntedWastelandPointNameGERTex),
+    oot::asset::texture::load(symbol::gGerudosFortressPointNameGERTex),
+    oot::asset::texture::load(symbol::gGerudoValleyPointNameGERTex),
+    oot::asset::texture::load(symbol::gHyliaLakesidePointNameGERTex),
+    oot::asset::texture::load(symbol::gLonLonRanchPointNameGERTex),
+    oot::asset::texture::load(symbol::gMarketPointNameGERTex),
+    oot::asset::texture::load(symbol::gHyruleFieldPointNameGERTex),
+    oot::asset::texture::load(symbol::gDeathMountainPointNameGERTex),
+    oot::asset::texture::load(symbol::gKakarikoVillagePointNameGERTex),
+    oot::asset::texture::load(symbol::gLostWoodsPointNameGERTex),
+    oot::asset::texture::load(symbol::gKokiriForestPointNameGERTex),
+    oot::asset::texture::load(symbol::gZorasDomainPointNameGERTex),
+    oot::asset::texture::load(symbol::gHauntedWastelandPointNameFRATex),
+    oot::asset::texture::load(symbol::gGerudosFortressPointNameFRATex),
+    oot::asset::texture::load(symbol::gGerudoValleyPointNameFRATex),
+    oot::asset::texture::load(symbol::gHyliaLakesidePointNameFRATex),
+    oot::asset::texture::load(symbol::gLonLonRanchPointNameFRATex),
+    oot::asset::texture::load(symbol::gMarketPointNameFRATex),
+    oot::asset::texture::load(symbol::gHyruleFieldPointNameFRATex),
+    oot::asset::texture::load(symbol::gDeathMountainPointNameFRATex),
+    oot::asset::texture::load(symbol::gKakarikoVillagePointNameFRATex),
+    oot::asset::texture::load(symbol::gLostWoodsPointNameFRATex),
+    oot::asset::texture::load(symbol::gKokiriForestPointNameFRATex),
+    oot::asset::texture::load(symbol::gZorasDomainPointNameFRATex),
+    oot::asset::texture::load(symbol::gHyruleFieldPositionNameENGTex),
+    oot::asset::texture::load(symbol::gKakarikoVillagePositionNameENGTex),
+    oot::asset::texture::load(symbol::gGraveyardPositionNameENGTex),
+    oot::asset::texture::load(symbol::gZorasRiverPositionNameENGTex),
+    oot::asset::texture::load(symbol::gKokiriForestPositionNameENGTex),
+    oot::asset::texture::load(symbol::gSacredForestMeadowPositionNameENGTex),
+    oot::asset::texture::load(symbol::gLakeHyliaPositionNameENGTex),
+    oot::asset::texture::load(symbol::gZorasDomainPositionNameENGTex),
+    oot::asset::texture::load(symbol::gZorasFountainPositionNameENGTex),
+    oot::asset::texture::load(symbol::gGerudoValleyPositionNameENGTex),
+    oot::asset::texture::load(symbol::gLostWoodsPositionNameENGTex),
+    oot::asset::texture::load(symbol::gDesertColossusPositionNameENGTex),
+    oot::asset::texture::load(symbol::gGerudosFortressPositionNameENGTex),
+    oot::asset::texture::load(symbol::gHauntedWastelandPositionNameENGTex),
+    oot::asset::texture::load(symbol::gMarketPositionNameENGTex),
+    oot::asset::texture::load(symbol::gHyruleCastlePositionNameENGTex),
+    oot::asset::texture::load(symbol::gDeathMountainTrailPositionNameENGTex),
+    oot::asset::texture::load(symbol::gDeathMountainCraterPositionNameENGTex),
+    oot::asset::texture::load(symbol::gGoronCityPositionNameENGTex),
+    oot::asset::texture::load(symbol::gLonLonRanchPositionNameENGTex),
+    oot::asset::texture::load(symbol::gQuestionMarkPositionNameENGTex),
+    oot::asset::texture::load(symbol::gGanonsCastlePositionNameENGTex),
+    oot::asset::texture::load(symbol::gHyruleFieldPositionNameGERTex),
+    oot::asset::texture::load(symbol::gKakarikoVillagePositionNameGERTex),
+    oot::asset::texture::load(symbol::gGraveyardPositionNameGERTex),
+    oot::asset::texture::load(symbol::gZorasRiverPositionNameGERTex),
+    oot::asset::texture::load(symbol::gKokiriForestPositionNameGERTex),
+    oot::asset::texture::load(symbol::gSacredForestMeadowPositionNameGERTex),
+    oot::asset::texture::load(symbol::gLakeHyliaPositionNameGERTex),
+    oot::asset::texture::load(symbol::gZorasDomainPositionNameGERTex),
+    oot::asset::texture::load(symbol::gZorasFountainPositionNameGERTex),
+    oot::asset::texture::load(symbol::gGerudoValleyPositionNameGERTex),
+    oot::asset::texture::load(symbol::gLostWoodsPositionNameGERTex),
+    oot::asset::texture::load(symbol::gDesertColossusPositionNameGERTex),
+    oot::asset::texture::load(symbol::gGerudosFortressPositionNameGERTex),
+    oot::asset::texture::load(symbol::gHauntedWastelandPositionNameGERTex),
+    oot::asset::texture::load(symbol::gMarketPositionNameGERTex),
+    oot::asset::texture::load(symbol::gHyruleCastlePositionNameGERTex),
+    oot::asset::texture::load(symbol::gDeathMountainTrailPositionNameGERTex),
+    oot::asset::texture::load(symbol::gDeathMountainCraterPositionNameGERTex),
+    oot::asset::texture::load(symbol::gGoronCityPositionNameGERTex),
+    oot::asset::texture::load(symbol::gLonLonRanchPositionNameGERTex),
+    oot::asset::texture::load(symbol::gQuestionMarkPositionNameGERTex),
+    oot::asset::texture::load(symbol::gGanonsCastlePositionNameGERTex),
+    oot::asset::texture::load(symbol::gHyruleFieldPositionNameFRATex),
+    oot::asset::texture::load(symbol::gKakarikoVillagePositionNameFRATex),
+    oot::asset::texture::load(symbol::gGraveyardPositionNameFRATex),
+    oot::asset::texture::load(symbol::gZorasRiverPositionNameFRATex),
+    oot::asset::texture::load(symbol::gKokiriForestPositionNameFRATex),
+    oot::asset::texture::load(symbol::gSacredForestMeadowPositionNameFRATex),
+    oot::asset::texture::load(symbol::gLakeHyliaPositionNameFRATex),
+    oot::asset::texture::load(symbol::gZorasDomainPositionNameFRATex),
+    oot::asset::texture::load(symbol::gZorasFountainPositionNameFRATex),
+    oot::asset::texture::load(symbol::gGerudoValleyPositionNameFRATex),
+    oot::asset::texture::load(symbol::gLostWoodsPositionNameFRATex),
+    oot::asset::texture::load(symbol::gDesertColossusPositionNameFRATex),
+    oot::asset::texture::load(symbol::gGerudosFortressPositionNameFRATex),
+    oot::asset::texture::load(symbol::gHauntedWastelandPositionNameFRATex),
+    oot::asset::texture::load(symbol::gMarketPositionNameFRATex),
+    oot::asset::texture::load(symbol::gHyruleCastlePositionNameFRATex),
+    oot::asset::texture::load(symbol::gDeathMountainTrailPositionNameFRATex),
+    oot::asset::texture::load(symbol::gDeathMountainCraterPositionNameFRATex),
+    oot::asset::texture::load(symbol::gGoronCityPositionNameFRATex),
+    oot::asset::texture::load(symbol::gLonLonRanchPositionNameFRATex),
+    oot::asset::texture::load(symbol::gQuestionMarkPositionNameFRATex),
+    oot::asset::texture::load(symbol::gGanonsCastlePositionNameFRATex)
+};
+
+static void* item_name_static_lut[] = {
+    oot::asset::texture::load(symbol::gDekuStickItemNameENGTex),
+    oot::asset::texture::load(symbol::gDekuNutItemNameENGTex),
+    oot::asset::texture::load(symbol::gBombItemNameENGTex),
+    oot::asset::texture::load(symbol::gFairyBowItemNameENGTex),
+    oot::asset::texture::load(symbol::gFireArrowItemNameENGTex),
+    oot::asset::texture::load(symbol::gDinsFireItemNameENGTex),
+    oot::asset::texture::load(symbol::gFairySlingshotItemNameENGTex),
+    oot::asset::texture::load(symbol::gFairyOcarinaItemNameENGTex),
+    oot::asset::texture::load(symbol::gOcarinaOfTimeItemNameENGTex),
+    oot::asset::texture::load(symbol::gBombchuItemNameENGTex),
+    oot::asset::texture::load(symbol::gHookshotItemNameENGTex),
+    oot::asset::texture::load(symbol::gLongshotItemNameENGTex),
+    oot::asset::texture::load(symbol::gIceArrowItemNameENGTex),
+    oot::asset::texture::load(symbol::gFaroresWindItemNameENGTex),
+    oot::asset::texture::load(symbol::gBoomerangItemNameENGTex),
+    oot::asset::texture::load(symbol::gLensItemNameENGTex),
+    oot::asset::texture::load(symbol::gMagicBeansItemNameENGTex),
+    oot::asset::texture::load(symbol::gMegatonHammerItemNameENGTex),
+    oot::asset::texture::load(symbol::gLightArrowItemNameENGTex),
+    oot::asset::texture::load(symbol::gNayrusLoveItemNameENGTex),
+    oot::asset::texture::load(symbol::gEmptyBottleItemNameENGTex),
+    oot::asset::texture::load(symbol::gRedPotionItemNameENGTex),
+    oot::asset::texture::load(symbol::gGreenPotionItemNameENGTex),
+    oot::asset::texture::load(symbol::gBluePotionItemNameENGTex),
+    oot::asset::texture::load(symbol::gBottledFairyItemNameENGTex),
+    oot::asset::texture::load(symbol::gFishItemNameENGTex),
+    oot::asset::texture::load(symbol::gFullMilkItemNameENGTex),
+    oot::asset::texture::load(symbol::gRutosLetterItemNameENGTex),
+    oot::asset::texture::load(symbol::gBlueFireItemNameENGTex),
+    oot::asset::texture::load(symbol::gBugItemNameENGTex),
+    oot::asset::texture::load(symbol::gBigPoeItemNameENGTex),
+    oot::asset::texture::load(symbol::gHalfMilkItemNameENGTex),
+    oot::asset::texture::load(symbol::gPoeItemNameENGTex),
+    oot::asset::texture::load(symbol::gWeirdEggItemNameENGTex),
+    oot::asset::texture::load(symbol::gCuccoItemNameENGTex),
+    oot::asset::texture::load(symbol::gZeldasLetterItemNameENGTex),
+    oot::asset::texture::load(symbol::gKeatonMaskItemNameENGTex),
+    oot::asset::texture::load(symbol::gSkullMaskItemNameENGTex),
+    oot::asset::texture::load(symbol::gSpookyMaskItemNameENGTex),
+    oot::asset::texture::load(symbol::gBunnyHoodItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoronMaskItemNameENGTex),
+    oot::asset::texture::load(symbol::gZoraMaskItemNameENGTex),
+    oot::asset::texture::load(symbol::gGerudoMaskItemNameENGTex),
+    oot::asset::texture::load(symbol::gMaskofTruthItemNameENGTex),
+    oot::asset::texture::load(symbol::gSOLDOUTItemNameENGTex),
+    oot::asset::texture::load(symbol::gPocketEggItemNameENGTex),
+    oot::asset::texture::load(symbol::gPocketCuccoItemNameENGTex),
+    oot::asset::texture::load(symbol::gCojiroItemNameENGTex),
+    oot::asset::texture::load(symbol::gOddMushroomItemNameENGTex),
+    oot::asset::texture::load(symbol::gOddPotionItemNameENGTex),
+    oot::asset::texture::load(symbol::gPoachersSawItemNameENGTex),
+    oot::asset::texture::load(symbol::gBrokenGoronsSwordItemNameENGTex),
+    oot::asset::texture::load(symbol::gPrescriptionItemNameENGTex),
+    oot::asset::texture::load(symbol::gEyeBallFrogItemNameENGTex),
+    oot::asset::texture::load(symbol::gEyeDropsItemNameENGTex),
+    oot::asset::texture::load(symbol::gClaimCheckItemNameENGTex),
+    oot::asset::texture::load(symbol::gUnusedWindMedallionItemName1JPNTex),
+    oot::asset::texture::load(symbol::gUnusedFireMedallionItemName1JPNTex),
+    oot::asset::texture::load(symbol::gUnusedIceMedallionItemName1JPNTex),
+    oot::asset::texture::load(symbol::gKokiriSwordItemNameENGTex),
+    oot::asset::texture::load(symbol::gMasterSwordItemNameENGTex),
+    oot::asset::texture::load(symbol::gGiantsKnifeItemNameENGTex),
+    oot::asset::texture::load(symbol::gDekuShieldItemNameENGTex),
+    oot::asset::texture::load(symbol::gHylianShieldItemNameENGTex),
+    oot::asset::texture::load(symbol::gMirrorShieldItemNameENGTex),
+    oot::asset::texture::load(symbol::gKokiriTunicItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoronTunicItemNameENGTex),
+    oot::asset::texture::load(symbol::gZoraTunicItemNameENGTex),
+    oot::asset::texture::load(symbol::gKokiriBootsItemNameENGTex),
+    oot::asset::texture::load(symbol::gIronBootsItemNameENGTex),
+    oot::asset::texture::load(symbol::gHoverBootsItemNameENGTex),
+    oot::asset::texture::load(symbol::gBulletBag30ItemNameENGTex),
+    oot::asset::texture::load(symbol::gBulletBag40ItemNameENGTex),
+    oot::asset::texture::load(symbol::gBulletBag50ItemNameENGTex),
+    oot::asset::texture::load(symbol::gQuiver30ItemNameENGTex),
+    oot::asset::texture::load(symbol::gQuiver40ItemNameENGTex),
+    oot::asset::texture::load(symbol::gQuiver50ItemNameENGTex),
+    oot::asset::texture::load(symbol::gBombBag20ItemNameENGTex),
+    oot::asset::texture::load(symbol::gBombBag30ItemNameENGTex),
+    oot::asset::texture::load(symbol::gBombBag40ItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoronsBraceletItemNameENGTex),
+    oot::asset::texture::load(symbol::gSilverGauntletsItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoldenGauntletsItemNameENGTex),
+    oot::asset::texture::load(symbol::gSilverScaleItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoldenScaleItemNameENGTex),
+    oot::asset::texture::load(symbol::gBrokenGiantsKnifeItemNameENGTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName1JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName2JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName3JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName4JPNTex),
+    oot::asset::texture::load(symbol::gMinuetOfForestItemNameENGTex),
+    oot::asset::texture::load(symbol::gBoleroOfFireItemNameENGTex),
+    oot::asset::texture::load(symbol::gSerenadeOfWaterItemNameENGTex),
+    oot::asset::texture::load(symbol::gRequiemOfSpiritItemNameENGTex),
+    oot::asset::texture::load(symbol::gNocturneOfShadowItemNameENGTex),
+    oot::asset::texture::load(symbol::gPreludeOfLightItemNameENGTex),
+    oot::asset::texture::load(symbol::gZeldasLullabyItemNameENGTex),
+    oot::asset::texture::load(symbol::gEponasSongItemNameENGTex),
+    oot::asset::texture::load(symbol::gSariasSongItemNameENGTex),
+    oot::asset::texture::load(symbol::gSunsSongItemNameENGTex),
+    oot::asset::texture::load(symbol::gSongOfTimeItemNameENGTex),
+    oot::asset::texture::load(symbol::gSongOfStormsItemNameENGTex),
+    oot::asset::texture::load(symbol::gForestMedallionItemNameENGTex),
+    oot::asset::texture::load(symbol::gFireMedallionItemNameENGTex),
+    oot::asset::texture::load(symbol::gWaterMedallionItemNameENGTex),
+    oot::asset::texture::load(symbol::gSpiritMedallionItemNameENGTex),
+    oot::asset::texture::load(symbol::gShadowMedallionItemNameENGTex),
+    oot::asset::texture::load(symbol::gLightMedallionItemNameENGTex),
+    oot::asset::texture::load(symbol::gKokiriEmeraldItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoronsRubyItemNameENGTex),
+    oot::asset::texture::load(symbol::gZorasSapphireItemNameENGTex),
+    oot::asset::texture::load(symbol::gStoneofAgonyItemNameENGTex),
+    oot::asset::texture::load(symbol::gGerudosCardItemNameENGTex),
+    oot::asset::texture::load(symbol::gGoldSkulltulaItemNameENGTex),
+    oot::asset::texture::load(symbol::gPieceOfHeartItemNameENGTex),
+    oot::asset::texture::load(symbol::gUnusedPieceOfHeartItemName1JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBigKeyItemNameENGTex),
+    oot::asset::texture::load(symbol::gCompassItemNameENGTex),
+    oot::asset::texture::load(symbol::gDungeonMapItemNameENGTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName5JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName6JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName7JPNTex),
+    oot::asset::texture::load(symbol::gBiggoronsSwordItemNameENGTex),
+    oot::asset::texture::load(symbol::gDekuStickItemNameGERTex),
+    oot::asset::texture::load(symbol::gDekuNutItemNameGERTex),
+    oot::asset::texture::load(symbol::gBombItemNameItemNameGERTex),
+    oot::asset::texture::load(symbol::gFairyBowItemNameGERTex),
+    oot::asset::texture::load(symbol::gFireArrowItemNameUnk2GERTex),
+    oot::asset::texture::load(symbol::gDinsFireItemNameGERTex),
+    oot::asset::texture::load(symbol::gFairySlingshotItemNameGERTex),
+    oot::asset::texture::load(symbol::gFairyOcarinaItemNameGERTex),
+    oot::asset::texture::load(symbol::gOcarinaOfTimeItemNameGERTex),
+    oot::asset::texture::load(symbol::gBombchuItemNameGERTex),
+    oot::asset::texture::load(symbol::gHookshotItemNameGERTex),
+    oot::asset::texture::load(symbol::gLongshotItemNameGERTex),
+    oot::asset::texture::load(symbol::gIceArrowItemNameGERTex),
+    oot::asset::texture::load(symbol::gFaroresWindItemNameGERTex),
+    oot::asset::texture::load(symbol::gBoomerangItemNameGERTex),
+    oot::asset::texture::load(symbol::gLensItemNameGERTex),
+    oot::asset::texture::load(symbol::gMagicBeansItemNameGERTex),
+    oot::asset::texture::load(symbol::gMegatonHammerItemNameGERTex),
+    oot::asset::texture::load(symbol::gLightArrowItemNameGERTex),
+    oot::asset::texture::load(symbol::gNayrusLoveItemNameGERTex),
+    oot::asset::texture::load(symbol::gEmptyBottleItemNameGERTex),
+    oot::asset::texture::load(symbol::gRedPotionItemNameGERTex),
+    oot::asset::texture::load(symbol::gGreenPotionItemNameGERTex),
+    oot::asset::texture::load(symbol::gBluePotionItemNameGERTex),
+    oot::asset::texture::load(symbol::gBottledFairyItemNameGERTex),
+    oot::asset::texture::load(symbol::gFishItemNameGERTex),
+    oot::asset::texture::load(symbol::gFullMilkItemNameGERTex),
+    oot::asset::texture::load(symbol::gRutosLetterItemNameGERTex),
+    oot::asset::texture::load(symbol::gBlueFireItemNameGERTex),
+    oot::asset::texture::load(symbol::gBugItemNameGERTex),
+    oot::asset::texture::load(symbol::gBigPoeItemNameGERTex),
+    oot::asset::texture::load(symbol::gHalfMilkItemNameGERTex),
+    oot::asset::texture::load(symbol::gPoeItemNameGERTex),
+    oot::asset::texture::load(symbol::gWeirdEggItemNameGERTex),
+    oot::asset::texture::load(symbol::gCuccoItemNameGERTex),
+    oot::asset::texture::load(symbol::gZeldasLetterItemNameGERTex),
+    oot::asset::texture::load(symbol::gKeatonMaskItemNameGERTex),
+    oot::asset::texture::load(symbol::gSkullMaskItemNameGERTex),
+    oot::asset::texture::load(symbol::gSpookyMaskItemNameGERTex),
+    oot::asset::texture::load(symbol::gBunnyHoodItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoronMaskItemNameGERTex),
+    oot::asset::texture::load(symbol::gZoraMaskItemNameGERTex),
+    oot::asset::texture::load(symbol::gGerudoMaskItemNameGERTex),
+    oot::asset::texture::load(symbol::gMaskofTruthItemNameGERTex),
+    oot::asset::texture::load(symbol::gSOLDOUTItemNameGERTex),
+    oot::asset::texture::load(symbol::gPocketEggItemNameGERTex),
+    oot::asset::texture::load(symbol::gPocketCuccoItemNameGERTex),
+    oot::asset::texture::load(symbol::gCojiroItemNameGERTex),
+    oot::asset::texture::load(symbol::gOddMushroomItemNameGERTex),
+    oot::asset::texture::load(symbol::gOddPotionItemNameGERTex),
+    oot::asset::texture::load(symbol::gPoachersSawItemNameGERTex),
+    oot::asset::texture::load(symbol::gBrokenGoronsSwordItemNameGERTex),
+    oot::asset::texture::load(symbol::gPrescriptionItemNameGERTex),
+    oot::asset::texture::load(symbol::gEyeBallFrogItemNameGERTex),
+    oot::asset::texture::load(symbol::gEyeDropsItemNameGERTex),
+    oot::asset::texture::load(symbol::gClaimCheckItemNameGERTex),
+    oot::asset::texture::load(symbol::gUnusedWindMedallionItemName2JPNTex),
+    oot::asset::texture::load(symbol::gUnusedFireMedallionItemName2JPNTex),
+    oot::asset::texture::load(symbol::gUnusedIceMedallionItemName2JPNTex),
+    oot::asset::texture::load(symbol::gKokiriSwordItemNameGERTex),
+    oot::asset::texture::load(symbol::gMasterSwordItemNameGERTex),
+    oot::asset::texture::load(symbol::gGiantsKnifeItemNameGERTex),
+    oot::asset::texture::load(symbol::gDekuShieldItemNameGERTex),
+    oot::asset::texture::load(symbol::gHylianShieldItemNameGERTex),
+    oot::asset::texture::load(symbol::gMirrorShieldItemNameGERTex),
+    oot::asset::texture::load(symbol::gKokiriTunicItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoronTunicItemNameGERTex),
+    oot::asset::texture::load(symbol::gZoraTunicItemNameGERTex),
+    oot::asset::texture::load(symbol::gKokiriBootsItemNameGERTex),
+    oot::asset::texture::load(symbol::gIronBootsItemNameGERTex),
+    oot::asset::texture::load(symbol::gHoverBootsItemNameGERTex),
+    oot::asset::texture::load(symbol::gBulletBag30ItemNameGERTex),
+    oot::asset::texture::load(symbol::gBulletBag40ItemNameGERTex),
+    oot::asset::texture::load(symbol::gBulletBag50ItemNameGERTex),
+    oot::asset::texture::load(symbol::gQuiver30ItemNameGERTex),
+    oot::asset::texture::load(symbol::gQuiver40ItemNameGERTex),
+    oot::asset::texture::load(symbol::gQuiver50ItemNameGERTex),
+    oot::asset::texture::load(symbol::gBombBag20ItemNameGERTex),
+    oot::asset::texture::load(symbol::gBombBag30ItemNameGERTex),
+    oot::asset::texture::load(symbol::gBombBag40ItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoronsBraceletItemNameGERTex),
+    oot::asset::texture::load(symbol::gSilverGauntletsItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoldenGauntletsItemNameGERTex),
+    oot::asset::texture::load(symbol::gSilverScaleItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoldenScaleItemNameGERTex),
+    oot::asset::texture::load(symbol::gBrokenGiantsKnifeItemNameGERTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName8JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName9JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName10JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName11JPNTex),
+    oot::asset::texture::load(symbol::gMinuetOfForestItemNameGERTex),
+    oot::asset::texture::load(symbol::gBoleroOfFireItemNameGERTex),
+    oot::asset::texture::load(symbol::gSerenadeOfWaterItemNameGERTex),
+    oot::asset::texture::load(symbol::gRequiemOfSpiritItemNameGERTex),
+    oot::asset::texture::load(symbol::gNocturneOfShadowItemNameGERTex),
+    oot::asset::texture::load(symbol::gPreludeOfLightItemNameGERTex),
+    oot::asset::texture::load(symbol::gZeldasLullabyItemNameGERTex),
+    oot::asset::texture::load(symbol::gEponasSongItemNameGERTex),
+    oot::asset::texture::load(symbol::gSariasSongItemNameGERTex),
+    oot::asset::texture::load(symbol::gSunsSongItemNameGERTex),
+    oot::asset::texture::load(symbol::gSongOfTimeItemNameGERTex),
+    oot::asset::texture::load(symbol::gSongOfStormsItemNameGERTex),
+    oot::asset::texture::load(symbol::gForestMedallionItemNameGERTex),
+    oot::asset::texture::load(symbol::gFireMedallionItemNameGERTex),
+    oot::asset::texture::load(symbol::gWaterMedallionItemNameGERTex),
+    oot::asset::texture::load(symbol::gSpiritMedallionItemNameGERTex),
+    oot::asset::texture::load(symbol::gShadowMedallionItemNameGERTex),
+    oot::asset::texture::load(symbol::gLightMedallionItemNameGERTex),
+    oot::asset::texture::load(symbol::gKokiriEmeraldItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoronsRubyItemNameGERTex),
+    oot::asset::texture::load(symbol::gZorasSapphireItemNameGERTex),
+    oot::asset::texture::load(symbol::gStoneofAgonyItemNameGERTex),
+    oot::asset::texture::load(symbol::gGerudosCardItemNameGERTex),
+    oot::asset::texture::load(symbol::gGoldSkulltulaItemNameGERTex),
+    oot::asset::texture::load(symbol::gHeartContainerItemNameGERTex),
+    oot::asset::texture::load(symbol::gUnusedPieceOfHeartItemName2JPNTex),
+    oot::asset::texture::load(symbol::gBigKeyItemNameGERTex),
+    oot::asset::texture::load(symbol::gCompassItemNameGERTex),
+    oot::asset::texture::load(symbol::gDungeonMapItemNameGERTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName12JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName13JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName14JPNTex),
+    oot::asset::texture::load(symbol::gBiggoronsSwordItemNameGERTex),
+    oot::asset::texture::load(symbol::gDekuStickItemNameFRATex),
+    oot::asset::texture::load(symbol::gDekuNutItemNameFRATex),
+    oot::asset::texture::load(symbol::gBombItemNameFRATex),
+    oot::asset::texture::load(symbol::gFairyBowItemNameFRATex),
+    oot::asset::texture::load(symbol::gFireArrowItemNameFRATex),
+    oot::asset::texture::load(symbol::gDinsFireItemNameFRATex),
+    oot::asset::texture::load(symbol::gFairySlingshotItemNameFRATex),
+    oot::asset::texture::load(symbol::gFairyOcarinaItemNameFRATex),
+    oot::asset::texture::load(symbol::gOcarinaOfTimeItemNameFRATex),
+    oot::asset::texture::load(symbol::gBombchuItemNameFRATex),
+    oot::asset::texture::load(symbol::gHookshotItemNameFRATex),
+    oot::asset::texture::load(symbol::gLongshotItemNameFRATex),
+    oot::asset::texture::load(symbol::gIceArrowItemNameFRATex),
+    oot::asset::texture::load(symbol::gFaroresWindItemNameFRATex),
+    oot::asset::texture::load(symbol::gBoomerangItemNameFRATex),
+    oot::asset::texture::load(symbol::gLensItemNameFRATex),
+    oot::asset::texture::load(symbol::gMagicBeansItemNameFRATex),
+    oot::asset::texture::load(symbol::gMegatonHammerItemNameFRATex),
+    oot::asset::texture::load(symbol::gLightArrowItemNameFRATex),
+    oot::asset::texture::load(symbol::gNayrusLoveItemNameFRATex),
+    oot::asset::texture::load(symbol::gEmptyBottleItemNameFRATex),
+    oot::asset::texture::load(symbol::gRedPotionItemNameFRATex),
+    oot::asset::texture::load(symbol::gGreenPotionItemNameFRATex),
+    oot::asset::texture::load(symbol::gBluePotionItemNameFRATex),
+    oot::asset::texture::load(symbol::gBottledFairyItemNameFRATex),
+    oot::asset::texture::load(symbol::gFishItemNameFRATex),
+    oot::asset::texture::load(symbol::gFullMilkItemNameFRATex),
+    oot::asset::texture::load(symbol::gRutosLetterItemNameFRATex),
+    oot::asset::texture::load(symbol::gBlueFireItemNameFRATex),
+    oot::asset::texture::load(symbol::gBugItemNameFRATex),
+    oot::asset::texture::load(symbol::gBigPoeItemNameFRATex),
+    oot::asset::texture::load(symbol::gHalfMilkItemNameFRATex),
+    oot::asset::texture::load(symbol::gPoeItemNameFRATex),
+    oot::asset::texture::load(symbol::gWeirdEggItemNameFRATex),
+    oot::asset::texture::load(symbol::gCuccoItemNameFRATex),
+    oot::asset::texture::load(symbol::gZeldasLetterItemNameFRATex),
+    oot::asset::texture::load(symbol::gKeatonMaskItemNameFRATex),
+    oot::asset::texture::load(symbol::gSkullMaskItemNameFRATex),
+    oot::asset::texture::load(symbol::gSpookyMaskItemNameFRATex),
+    oot::asset::texture::load(symbol::gBunnyHoodItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoronMaskItemNameFRATex),
+    oot::asset::texture::load(symbol::gZoraMaskItemNameFRATex),
+    oot::asset::texture::load(symbol::gGerudoMaskItemNameFRATex),
+    oot::asset::texture::load(symbol::gMaskofTruthItemNameFRATex),
+    oot::asset::texture::load(symbol::gSOLDOUTItemNameFRATex),
+    oot::asset::texture::load(symbol::gPocketEggItemNameFRATex),
+    oot::asset::texture::load(symbol::gPocketCuccoItemNameFRATex),
+    oot::asset::texture::load(symbol::gCojiroItemNameFRATex),
+    oot::asset::texture::load(symbol::gOddMushroomItemNameFRATex),
+    oot::asset::texture::load(symbol::gOddPotionItemNameFRATex),
+    oot::asset::texture::load(symbol::gPoachersSawItemNameFRATex),
+    oot::asset::texture::load(symbol::gBrokenGoronsSwordItemNameFRATex),
+    oot::asset::texture::load(symbol::gPrescriptionItemNameFRATex),
+    oot::asset::texture::load(symbol::gEyeBallFrogItemNameFRATex),
+    oot::asset::texture::load(symbol::gEyeDropsItemNameFRATex),
+    oot::asset::texture::load(symbol::gClaimCheckItemNameFRATex),
+    oot::asset::texture::load(symbol::gUnusedWindMedallionItemName3JPNTex),
+    oot::asset::texture::load(symbol::gUnusedFireMedallionItemName3JPNTex),
+    oot::asset::texture::load(symbol::gUnusedIceMedallionItemName3JPNTex),
+    oot::asset::texture::load(symbol::gKokiriSwordItemNameFRATex),
+    oot::asset::texture::load(symbol::gMasterSwordItemNameFRATex),
+    oot::asset::texture::load(symbol::gGiantsKnifeItemNameFRATex),
+    oot::asset::texture::load(symbol::gDekuShieldItemNameFRATex),
+    oot::asset::texture::load(symbol::gHylianShieldItemNameFRATex),
+    oot::asset::texture::load(symbol::gMirrorShieldItemNameFRATex),
+    oot::asset::texture::load(symbol::gKokiriTunicItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoronTunicItemNameFRATex),
+    oot::asset::texture::load(symbol::gZoraTunicItemNameFRATex),
+    oot::asset::texture::load(symbol::gKokiriBootsItemNameFRATex),
+    oot::asset::texture::load(symbol::gIronBootsItemNameFRATex),
+    oot::asset::texture::load(symbol::gHoverBootsItemNameFRATex),
+    oot::asset::texture::load(symbol::gBulletBag30ItemNameFRATex),
+    oot::asset::texture::load(symbol::gBulletBag40ItemNameFRATex),
+    oot::asset::texture::load(symbol::gBulletBag50ItemNameFRATex),
+    oot::asset::texture::load(symbol::gQuiver30ItemNameFRATex),
+    oot::asset::texture::load(symbol::gQuiver40ItemNameFRATex),
+    oot::asset::texture::load(symbol::gQuiver50ItemNameFRATex),
+    oot::asset::texture::load(symbol::gBombBag20ItemNameFRATex),
+    oot::asset::texture::load(symbol::gBombBag30ItemNameFRATex),
+    oot::asset::texture::load(symbol::gBombBag40ItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoronsBraceletItemNameFRATex),
+    oot::asset::texture::load(symbol::gSilverGauntletsItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoldenGauntletsItemNameFRATex),
+    oot::asset::texture::load(symbol::gSilverScaleItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoldenScaleItemNameFRATex),
+    oot::asset::texture::load(symbol::gBrokenGiantsKnifeItemNameFRATex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName15JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName16JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName17JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName18JPNTex),
+    oot::asset::texture::load(symbol::gMinuetOfForestItemNameFRATex),
+    oot::asset::texture::load(symbol::gBoleroOfFireItemNameFRATex),
+    oot::asset::texture::load(symbol::gSerenadeOfWaterItemNameFRATex),
+    oot::asset::texture::load(symbol::gRequiemOfSpiritItemNameFRATex),
+    oot::asset::texture::load(symbol::gNocturneOfShadowItemNameFRATex),
+    oot::asset::texture::load(symbol::gPreludeOfLightItemNameFRATex),
+    oot::asset::texture::load(symbol::gZeldasLullabyItemNameFRATex),
+    oot::asset::texture::load(symbol::gEponasSongItemNameFRATex),
+    oot::asset::texture::load(symbol::gSariasSongItemNameFRATex),
+    oot::asset::texture::load(symbol::gSunsSongItemNameFRATex),
+    oot::asset::texture::load(symbol::gSongOfTimeItemNameFRATex),
+    oot::asset::texture::load(symbol::gSongOfStormsItemNameFRATex),
+    oot::asset::texture::load(symbol::gForestMedallionItemNameFRATex),
+    oot::asset::texture::load(symbol::gFireMedallionItemNameFRATex),
+    oot::asset::texture::load(symbol::gWaterMedallionItemNameFRATex),
+    oot::asset::texture::load(symbol::gSpiritMedallionItemNameFRATex),
+    oot::asset::texture::load(symbol::gShadowMedallionItemNameFRATex),
+    oot::asset::texture::load(symbol::gLightMedallionItemNameFRATex),
+    oot::asset::texture::load(symbol::gKokiriEmeraldItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoronsRubyItemNameFRATex),
+    oot::asset::texture::load(symbol::gZorasSapphireItemNameFRATex),
+    oot::asset::texture::load(symbol::gStoneofAgonyItemNameFRATex),
+    oot::asset::texture::load(symbol::gGerudosCardItemNameFRATex),
+    oot::asset::texture::load(symbol::gGoldSkulltulaItemNameFRATex),
+    oot::asset::texture::load(symbol::gHeartContainerItemNameFRATex),
+    oot::asset::texture::load(symbol::gUnusedPieceOfHeartItemName3JPNTex),
+    oot::asset::texture::load(symbol::gBossKeyItemNameFRATex),
+    oot::asset::texture::load(symbol::gCompassItemNameFRATex),
+    oot::asset::texture::load(symbol::gDungeonMapItemNameFRATex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName19JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName20JPNTex),
+    oot::asset::texture::load(symbol::gUnusedBossKeyItemName21JPNTex),
+    oot::asset::texture::load(symbol::gBiggoronsSwordItemNameFRATex)
+};
+
+static void* map_48x85_static_lut[] = {
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapFloor3LeftTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapFloor3RightTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapFloor2LeftTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapFloor2RightTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapBasement1LeftTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapBasement1RightTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapBasement2LeftTex),
+    oot::asset::texture::load(symbol::gDekuTreePauseScreenMapBasement2RightTex),
+    oot::asset::texture::load(symbol::gDodongosCavernPauseScreenMapFloor2LeftTex),
+    oot::asset::texture::load(symbol::gDodongosCavernPauseScreenMapFloor2RightTex),
+    oot::asset::texture::load(symbol::gDodongosCavernPauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gDodongosCavernPauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gJabuPauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gJabuPauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gJabuPauseScreenMapBasement1LeftTex),
+    oot::asset::texture::load(symbol::gJabuPauseScreenMapBasement1RightTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapFloor2LeftTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapFloor2RightTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapBasement1LeftTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapBasement1RightTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapBasement2LeftTex),
+    oot::asset::texture::load(symbol::gForestTemplePauseScreenMapBasement2RightTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor5LeftTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor5RightTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor4LeftTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor4RightTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor3LeftTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor3RightTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor2LeftTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor2RightTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gFireTemplePauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapFloor3LeftTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapFloor3RightTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapFloor2LeftTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapFloor2RightTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapBasement1LeftTex),
+    oot::asset::texture::load(symbol::gWaterTemplePauseScreenMapBasement1RightTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor4LeftTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor4RightTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor3LeftTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor3RightTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor2LeftTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor2RightTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gSpiritTemplePauseScreenMapFloor1RightTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement1LeftTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement1RightTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement2LeftTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement2RightTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement3LeftTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement3RightTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement4LeftTex),
+    oot::asset::texture::load(symbol::gShadowTemplePauseScreenMapBasement4RightTex),
+    oot::asset::texture::load(symbol::gBottomOfTheWellPauseScreenMapBasement1LeftTex),
+    oot::asset::texture::load(symbol::gBottomOfTheWellPauseScreenMapBasement1RightTex),
+    oot::asset::texture::load(symbol::gBottomOfTheWellPauseScreenMapBasement2LeftTex),
+    oot::asset::texture::load(symbol::gBottomOfTheWellPauseScreenMapBasement2RightTex),
+    oot::asset::texture::load(symbol::gBottomOfTheWellPauseScreenMapBasement3LeftTex),
+    oot::asset::texture::load(symbol::gBottomOfTheWellPauseScreenMapBasement3RightTex),
+    oot::asset::texture::load(symbol::gIceCavernPauseScreenMapFloor1LeftTex),
+    oot::asset::texture::load(symbol::gIceCavernPauseScreenMapFloor1RightTex)};
+
 static void* sEquipmentFRATexs[] = {
-    gPauseEquipment00FRATex, gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
-    gPauseEquipment10FRATex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
-    gPauseEquipment20FRATex, gPauseEquipment21Tex, gPauseEquipment22Tex, gPauseEquipment23Tex, gPauseEquipment24Tex,
+    oot::asset::texture::load(symbol::gPauseEquipment00FRATex), oot::asset::texture::load(symbol::gPauseEquipment01Tex), oot::asset::texture::load(symbol::gPauseEquipment02Tex), oot::asset::texture::load(symbol::gPauseEquipment03Tex), oot::asset::texture::load(symbol::gPauseEquipment04Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment10FRATex), oot::asset::texture::load(symbol::gPauseEquipment11Tex), oot::asset::texture::load(symbol::gPauseEquipment12Tex), oot::asset::texture::load(symbol::gPauseEquipment13Tex), oot::asset::texture::load(symbol::gPauseEquipment14Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment20FRATex), oot::asset::texture::load(symbol::gPauseEquipment21Tex), oot::asset::texture::load(symbol::gPauseEquipment22Tex), oot::asset::texture::load(symbol::gPauseEquipment23Tex), oot::asset::texture::load(symbol::gPauseEquipment24Tex),
 };
 static void* sSelectItemFRATexs[] = {
-    gPauseSelectItem00FRATex, gPauseSelectItem01Tex,    gPauseSelectItem02Tex,    gPauseSelectItem03Tex,
-    gPauseSelectItem04Tex,    gPauseSelectItem10FRATex, gPauseSelectItem11Tex,    gPauseSelectItem12Tex,
-    gPauseSelectItem13Tex,    gPauseSelectItem14Tex,    gPauseSelectItem20FRATex, gPauseSelectItem21Tex,
-    gPauseSelectItem22Tex,    gPauseSelectItem23Tex,    gPauseSelectItem24Tex,
+    oot::asset::texture::load(symbol::gPauseSelectItem00FRATex), oot::asset::texture::load(symbol::gPauseSelectItem01Tex),    oot::asset::texture::load(symbol::gPauseSelectItem02Tex),    oot::asset::texture::load(symbol::gPauseSelectItem03Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem04Tex),    oot::asset::texture::load(symbol::gPauseSelectItem10FRATex), oot::asset::texture::load(symbol::gPauseSelectItem11Tex),    oot::asset::texture::load(symbol::gPauseSelectItem12Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem13Tex),    oot::asset::texture::load(symbol::gPauseSelectItem14Tex),    oot::asset::texture::load(symbol::gPauseSelectItem20FRATex), oot::asset::texture::load(symbol::gPauseSelectItem21Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem22Tex),    oot::asset::texture::load(symbol::gPauseSelectItem23Tex),    oot::asset::texture::load(symbol::gPauseSelectItem24Tex),
 };
 static void* sMapFRATexs[] = {
-    gPauseMap00Tex,    gPauseMap01Tex, gPauseMap02Tex, gPauseMap03Tex, gPauseMap04Tex,
-    gPauseMap10FRATex, gPauseMap11Tex, gPauseMap12Tex, gPauseMap13Tex, gPauseMap14Tex,
-    gPauseMap20Tex,    gPauseMap21Tex, gPauseMap22Tex, gPauseMap23Tex, gPauseMap24Tex,
+    oot::asset::texture::load(symbol::gPauseMap00Tex),    oot::asset::texture::load(symbol::gPauseMap01Tex), oot::asset::texture::load(symbol::gPauseMap02Tex), oot::asset::texture::load(symbol::gPauseMap03Tex), oot::asset::texture::load(symbol::gPauseMap04Tex),
+    oot::asset::texture::load(symbol::gPauseMap10FRATex), oot::asset::texture::load(symbol::gPauseMap11Tex), oot::asset::texture::load(symbol::gPauseMap12Tex), oot::asset::texture::load(symbol::gPauseMap13Tex), oot::asset::texture::load(symbol::gPauseMap14Tex),
+    oot::asset::texture::load(symbol::gPauseMap20Tex),    oot::asset::texture::load(symbol::gPauseMap21Tex), oot::asset::texture::load(symbol::gPauseMap22Tex), oot::asset::texture::load(symbol::gPauseMap23Tex), oot::asset::texture::load(symbol::gPauseMap24Tex),
 };
 static void* sQuestStatusFRATexs[] = {
-    gPauseQuestStatus00Tex, gPauseQuestStatus01Tex,    gPauseQuestStatus02Tex, gPauseQuestStatus03Tex,
-    gPauseQuestStatus04Tex, gPauseQuestStatus10FRATex, gPauseQuestStatus11Tex, gPauseQuestStatus12Tex,
-    gPauseQuestStatus13Tex, gPauseQuestStatus14Tex,    gPauseQuestStatus20Tex, gPauseQuestStatus21Tex,
-    gPauseQuestStatus22Tex, gPauseQuestStatus23Tex,    gPauseQuestStatus24Tex,
+    oot::asset::texture::load(symbol::gPauseQuestStatus00Tex), oot::asset::texture::load(symbol::gPauseQuestStatus01Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus02Tex), oot::asset::texture::load(symbol::gPauseQuestStatus03Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus04Tex), oot::asset::texture::load(symbol::gPauseQuestStatus10FRATex), oot::asset::texture::load(symbol::gPauseQuestStatus11Tex), oot::asset::texture::load(symbol::gPauseQuestStatus12Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus13Tex), oot::asset::texture::load(symbol::gPauseQuestStatus14Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus20Tex), oot::asset::texture::load(symbol::gPauseQuestStatus21Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus22Tex), oot::asset::texture::load(symbol::gPauseQuestStatus23Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus24Tex),
 };
 static void* sSaveFRATexs[] = {
-    gPauseSave00FRATex, gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
-    gPauseSave10FRATex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
-    gPauseSave20FRATex, gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
+    oot::asset::texture::load(symbol::gPauseSave00FRATex), oot::asset::texture::load(symbol::gPauseSave01Tex), oot::asset::texture::load(symbol::gPauseSave02Tex), oot::asset::texture::load(symbol::gPauseSave03Tex), oot::asset::texture::load(symbol::gPauseSave04Tex),
+    oot::asset::texture::load(symbol::gPauseSave10FRATex), oot::asset::texture::load(symbol::gPauseSave11Tex), oot::asset::texture::load(symbol::gPauseSave12Tex), oot::asset::texture::load(symbol::gPauseSave13Tex), oot::asset::texture::load(symbol::gPauseSave14Tex),
+    oot::asset::texture::load(symbol::gPauseSave20FRATex), oot::asset::texture::load(symbol::gPauseSave21Tex), oot::asset::texture::load(symbol::gPauseSave22Tex), oot::asset::texture::load(symbol::gPauseSave23Tex), oot::asset::texture::load(symbol::gPauseSave24Tex),
 };
 
 static void* sEquipmentGERTexs[] = {
-    gPauseEquipment00GERTex, gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
-    gPauseEquipment10GERTex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
-    gPauseEquipment20GERTex, gPauseEquipment21Tex, gPauseEquipment22Tex, gPauseEquipment23Tex, gPauseEquipment24Tex,
+    oot::asset::texture::load(symbol::gPauseEquipment00GERTex), oot::asset::texture::load(symbol::gPauseEquipment01Tex), oot::asset::texture::load(symbol::gPauseEquipment02Tex), oot::asset::texture::load(symbol::gPauseEquipment03Tex), oot::asset::texture::load(symbol::gPauseEquipment04Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment10GERTex), oot::asset::texture::load(symbol::gPauseEquipment11Tex), oot::asset::texture::load(symbol::gPauseEquipment12Tex), oot::asset::texture::load(symbol::gPauseEquipment13Tex), oot::asset::texture::load(symbol::gPauseEquipment14Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment20GERTex), oot::asset::texture::load(symbol::gPauseEquipment21Tex), oot::asset::texture::load(symbol::gPauseEquipment22Tex), oot::asset::texture::load(symbol::gPauseEquipment23Tex), oot::asset::texture::load(symbol::gPauseEquipment24Tex),
 };
 static void* sSelectItemGERTexs[] = {
-    gPauseSelectItem00GERTex, gPauseSelectItem01Tex,    gPauseSelectItem02Tex,    gPauseSelectItem03Tex,
-    gPauseSelectItem04Tex,    gPauseSelectItem10GERTex, gPauseSelectItem11Tex,    gPauseSelectItem12Tex,
-    gPauseSelectItem13Tex,    gPauseSelectItem14Tex,    gPauseSelectItem20GERTex, gPauseSelectItem21Tex,
-    gPauseSelectItem22Tex,    gPauseSelectItem23Tex,    gPauseSelectItem24Tex,
+    oot::asset::texture::load(symbol::gPauseSelectItem00GERTex), oot::asset::texture::load(symbol::gPauseSelectItem01Tex),    oot::asset::texture::load(symbol::gPauseSelectItem02Tex),    oot::asset::texture::load(symbol::gPauseSelectItem03Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem04Tex),    oot::asset::texture::load(symbol::gPauseSelectItem10GERTex), oot::asset::texture::load(symbol::gPauseSelectItem11Tex),    oot::asset::texture::load(symbol::gPauseSelectItem12Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem13Tex),    oot::asset::texture::load(symbol::gPauseSelectItem14Tex),    oot::asset::texture::load(symbol::gPauseSelectItem20GERTex), oot::asset::texture::load(symbol::gPauseSelectItem21Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem22Tex),    oot::asset::texture::load(symbol::gPauseSelectItem23Tex),    oot::asset::texture::load(symbol::gPauseSelectItem24Tex),
 };
 static void* sMapGERTexs[] = {
-    gPauseMap00Tex,    gPauseMap01Tex, gPauseMap02Tex, gPauseMap03Tex, gPauseMap04Tex,
-    gPauseMap10GERTex, gPauseMap11Tex, gPauseMap12Tex, gPauseMap13Tex, gPauseMap14Tex,
-    gPauseMap20Tex,    gPauseMap21Tex, gPauseMap22Tex, gPauseMap23Tex, gPauseMap24Tex,
+    oot::asset::texture::load(symbol::gPauseMap00Tex),    oot::asset::texture::load(symbol::gPauseMap01Tex), oot::asset::texture::load(symbol::gPauseMap02Tex), oot::asset::texture::load(symbol::gPauseMap03Tex), oot::asset::texture::load(symbol::gPauseMap04Tex),
+    oot::asset::texture::load(symbol::gPauseMap10GERTex), oot::asset::texture::load(symbol::gPauseMap11Tex), oot::asset::texture::load(symbol::gPauseMap12Tex), oot::asset::texture::load(symbol::gPauseMap13Tex), oot::asset::texture::load(symbol::gPauseMap14Tex),
+    oot::asset::texture::load(symbol::gPauseMap20Tex),    oot::asset::texture::load(symbol::gPauseMap21Tex), oot::asset::texture::load(symbol::gPauseMap22Tex), oot::asset::texture::load(symbol::gPauseMap23Tex), oot::asset::texture::load(symbol::gPauseMap24Tex),
 };
 static void* sQuestStatusGERTexs[] = {
-    gPauseQuestStatus00Tex, gPauseQuestStatus01Tex,    gPauseQuestStatus02Tex, gPauseQuestStatus03Tex,
-    gPauseQuestStatus04Tex, gPauseQuestStatus10GERTex, gPauseQuestStatus11Tex, gPauseQuestStatus12Tex,
-    gPauseQuestStatus13Tex, gPauseQuestStatus14Tex,    gPauseQuestStatus20Tex, gPauseQuestStatus21Tex,
-    gPauseQuestStatus22Tex, gPauseQuestStatus23Tex,    gPauseQuestStatus24Tex,
+    oot::asset::texture::load(symbol::gPauseQuestStatus00Tex), oot::asset::texture::load(symbol::gPauseQuestStatus01Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus02Tex), oot::asset::texture::load(symbol::gPauseQuestStatus03Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus04Tex), oot::asset::texture::load(symbol::gPauseQuestStatus10GERTex), oot::asset::texture::load(symbol::gPauseQuestStatus11Tex), oot::asset::texture::load(symbol::gPauseQuestStatus12Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus13Tex), oot::asset::texture::load(symbol::gPauseQuestStatus14Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus20Tex), oot::asset::texture::load(symbol::gPauseQuestStatus21Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus22Tex), oot::asset::texture::load(symbol::gPauseQuestStatus23Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus24Tex),
 };
 static void* sSaveGERTexs[] = {
-    gPauseSave00Tex,    gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
-    gPauseSave10GERTex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
-    gPauseSave20GERTex, gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
+    oot::asset::texture::load(symbol::gPauseSave00Tex),    oot::asset::texture::load(symbol::gPauseSave01Tex), oot::asset::texture::load(symbol::gPauseSave02Tex), oot::asset::texture::load(symbol::gPauseSave03Tex), oot::asset::texture::load(symbol::gPauseSave04Tex),
+    oot::asset::texture::load(symbol::gPauseSave10GERTex), oot::asset::texture::load(symbol::gPauseSave11Tex), oot::asset::texture::load(symbol::gPauseSave12Tex), oot::asset::texture::load(symbol::gPauseSave13Tex), oot::asset::texture::load(symbol::gPauseSave14Tex),
+    oot::asset::texture::load(symbol::gPauseSave20GERTex), oot::asset::texture::load(symbol::gPauseSave21Tex), oot::asset::texture::load(symbol::gPauseSave22Tex), oot::asset::texture::load(symbol::gPauseSave23Tex), oot::asset::texture::load(symbol::gPauseSave24Tex),
 };
 
 static void* sEquipmentENGTexs[] = {
-    gPauseEquipment00Tex,    gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
-    gPauseEquipment10ENGTex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
-    gPauseEquipment20Tex,    gPauseEquipment21Tex, gPauseEquipment22Tex, gPauseEquipment23Tex, gPauseEquipment24Tex,
+    oot::asset::texture::load(symbol::gPauseEquipment00Tex),    oot::asset::texture::load(symbol::gPauseEquipment01Tex), oot::asset::texture::load(symbol::gPauseEquipment02Tex), oot::asset::texture::load(symbol::gPauseEquipment03Tex), oot::asset::texture::load(symbol::gPauseEquipment04Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment10ENGTex), oot::asset::texture::load(symbol::gPauseEquipment11Tex), oot::asset::texture::load(symbol::gPauseEquipment12Tex), oot::asset::texture::load(symbol::gPauseEquipment13Tex), oot::asset::texture::load(symbol::gPauseEquipment14Tex),
+    oot::asset::texture::load(symbol::gPauseEquipment20Tex),    oot::asset::texture::load(symbol::gPauseEquipment21Tex), oot::asset::texture::load(symbol::gPauseEquipment22Tex), oot::asset::texture::load(symbol::gPauseEquipment23Tex), oot::asset::texture::load(symbol::gPauseEquipment24Tex),
 };
 static void* sSelectItemENGTexs[] = {
-    gPauseSelectItem00ENGTex, gPauseSelectItem01Tex,    gPauseSelectItem02Tex,    gPauseSelectItem03Tex,
-    gPauseSelectItem04Tex,    gPauseSelectItem10ENGTex, gPauseSelectItem11Tex,    gPauseSelectItem12Tex,
-    gPauseSelectItem13Tex,    gPauseSelectItem14Tex,    gPauseSelectItem20ENGTex, gPauseSelectItem21Tex,
-    gPauseSelectItem22Tex,    gPauseSelectItem23Tex,    gPauseSelectItem24Tex,
+    oot::asset::texture::load(symbol::gPauseSelectItem00ENGTex), oot::asset::texture::load(symbol::gPauseSelectItem01Tex),    oot::asset::texture::load(symbol::gPauseSelectItem02Tex),    oot::asset::texture::load(symbol::gPauseSelectItem03Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem04Tex),    oot::asset::texture::load(symbol::gPauseSelectItem10ENGTex), oot::asset::texture::load(symbol::gPauseSelectItem11Tex),    oot::asset::texture::load(symbol::gPauseSelectItem12Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem13Tex),    oot::asset::texture::load(symbol::gPauseSelectItem14Tex),    oot::asset::texture::load(symbol::gPauseSelectItem20ENGTex), oot::asset::texture::load(symbol::gPauseSelectItem21Tex),
+    oot::asset::texture::load(symbol::gPauseSelectItem22Tex),    oot::asset::texture::load(symbol::gPauseSelectItem23Tex),    oot::asset::texture::load(symbol::gPauseSelectItem24Tex),
 };
 static void* sMapENGTexs[] = {
-    gPauseMap00Tex,    gPauseMap01Tex, gPauseMap02Tex, gPauseMap03Tex, gPauseMap04Tex,
-    gPauseMap10ENGTex, gPauseMap11Tex, gPauseMap12Tex, gPauseMap13Tex, gPauseMap14Tex,
-    gPauseMap20Tex,    gPauseMap21Tex, gPauseMap22Tex, gPauseMap23Tex, gPauseMap24Tex,
+    oot::asset::texture::load(symbol::gPauseMap00Tex),    oot::asset::texture::load(symbol::gPauseMap01Tex), oot::asset::texture::load(symbol::gPauseMap02Tex), oot::asset::texture::load(symbol::gPauseMap03Tex), oot::asset::texture::load(symbol::gPauseMap04Tex),
+    oot::asset::texture::load(symbol::gPauseMap10ENGTex), oot::asset::texture::load(symbol::gPauseMap11Tex), oot::asset::texture::load(symbol::gPauseMap12Tex), oot::asset::texture::load(symbol::gPauseMap13Tex), oot::asset::texture::load(symbol::gPauseMap14Tex),
+    oot::asset::texture::load(symbol::gPauseMap20Tex),    oot::asset::texture::load(symbol::gPauseMap21Tex), oot::asset::texture::load(symbol::gPauseMap22Tex), oot::asset::texture::load(symbol::gPauseMap23Tex), oot::asset::texture::load(symbol::gPauseMap24Tex),
 };
 static void* sQuestStatusENGTexs[] = {
-    gPauseQuestStatus00ENGTex, gPauseQuestStatus01Tex,    gPauseQuestStatus02Tex,    gPauseQuestStatus03Tex,
-    gPauseQuestStatus04Tex,    gPauseQuestStatus10ENGTex, gPauseQuestStatus11Tex,    gPauseQuestStatus12Tex,
-    gPauseQuestStatus13Tex,    gPauseQuestStatus14Tex,    gPauseQuestStatus20ENGTex, gPauseQuestStatus21Tex,
-    gPauseQuestStatus22Tex,    gPauseQuestStatus23Tex,    gPauseQuestStatus24Tex,
+    oot::asset::texture::load(symbol::gPauseQuestStatus00ENGTex), oot::asset::texture::load(symbol::gPauseQuestStatus01Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus02Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus03Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus04Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus10ENGTex), oot::asset::texture::load(symbol::gPauseQuestStatus11Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus12Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus13Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus14Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus20ENGTex), oot::asset::texture::load(symbol::gPauseQuestStatus21Tex),
+    oot::asset::texture::load(symbol::gPauseQuestStatus22Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus23Tex),    oot::asset::texture::load(symbol::gPauseQuestStatus24Tex),
 };
 static void* sSaveENGTexs[] = {
-    gPauseSave00Tex,    gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
-    gPauseSave10ENGTex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
-    gPauseSave20Tex,    gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
+    oot::asset::texture::load(symbol::gPauseSave00Tex),    oot::asset::texture::load(symbol::gPauseSave01Tex), oot::asset::texture::load(symbol::gPauseSave02Tex), oot::asset::texture::load(symbol::gPauseSave03Tex), oot::asset::texture::load(symbol::gPauseSave04Tex),
+    oot::asset::texture::load(symbol::gPauseSave10ENGTex), oot::asset::texture::load(symbol::gPauseSave11Tex), oot::asset::texture::load(symbol::gPauseSave12Tex), oot::asset::texture::load(symbol::gPauseSave13Tex), oot::asset::texture::load(symbol::gPauseSave14Tex),
+    oot::asset::texture::load(symbol::gPauseSave20Tex),    oot::asset::texture::load(symbol::gPauseSave21Tex), oot::asset::texture::load(symbol::gPauseSave22Tex), oot::asset::texture::load(symbol::gPauseSave23Tex), oot::asset::texture::load(symbol::gPauseSave24Tex),
 };
 
 static void* sGameOverTexs[] = {
-    gPauseSave00Tex,     gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
-    gPauseGameOver10Tex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
-    gPauseSave20Tex,     gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
+    oot::asset::texture::load(symbol::gPauseSave00Tex),     oot::asset::texture::load(symbol::gPauseSave01Tex), oot::asset::texture::load(symbol::gPauseSave02Tex), oot::asset::texture::load(symbol::gPauseSave03Tex), oot::asset::texture::load(symbol::gPauseSave04Tex),
+    oot::asset::texture::load(symbol::gPauseGameOver10Tex), oot::asset::texture::load(symbol::gPauseSave11Tex), oot::asset::texture::load(symbol::gPauseSave12Tex), oot::asset::texture::load(symbol::gPauseSave13Tex), oot::asset::texture::load(symbol::gPauseSave14Tex),
+    oot::asset::texture::load(symbol::gPauseSave20Tex),     oot::asset::texture::load(symbol::gPauseSave21Tex), oot::asset::texture::load(symbol::gPauseSave22Tex), oot::asset::texture::load(symbol::gPauseSave23Tex), oot::asset::texture::load(symbol::gPauseSave24Tex),
 };
 
 static void* sEquipmentTexs[] = {
@@ -227,10 +786,10 @@ u8 gAreaGsFlags[] = {
 };
 
 static void* sCursorTexs[] = {
-    gPauseMenuCursorTopLeftTex,
-    gPauseMenuCursorTopRightTex,
-    gPauseMenuCursorBottomLeftTex,
-    gPauseMenuCursorBottomRightTex,
+    oot::asset::texture::load(symbol::gPauseMenuCursorTopLeftTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorTopRightTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorBottomLeftTex),
+    oot::asset::texture::load(symbol::gPauseMenuCursorBottomRightTex),
 };
 
 static s16 sCursorColors[][3] = {
@@ -240,27 +799,27 @@ static s16 sCursorColors[][3] = {
 };
 
 static void* sSavePromptTexs[] = {
-    gPauseSavePromptENGTex,
-    gPauseSavePromptGERTex,
-    gPauseSavePromptFRATex,
+    oot::asset::texture::load(symbol::gPauseSavePromptENGTex),
+    oot::asset::texture::load(symbol::gPauseSavePromptGERTex),
+    oot::asset::texture::load(symbol::gPauseSavePromptFRATex),
 };
 
 static void* sSaveConfirmationTexs[] = {
-    gPauseSaveConfirmationENGTex,
-    gPauseSaveConfirmationGERTex,
-    gPauseSaveConfirmationFRATex,
+    oot::asset::texture::load(symbol::gPauseSaveConfirmationENGTex),
+    oot::asset::texture::load(symbol::gPauseSaveConfirmationGERTex),
+    oot::asset::texture::load(symbol::gPauseSaveConfirmationFRATex),
 };
 
 static void* sContinuePromptTexs[] = {
-    gContinuePlayingENGTex,
-    gContinuePlayingGERTex,
-    gContinuePlayingFRATex,
+    oot::asset::texture::load(symbol::gContinuePlayingENGTex),
+    oot::asset::texture::load(symbol::gContinuePlayingGERTex),
+    oot::asset::texture::load(symbol::gContinuePlayingFRATex),
 };
 
 static void* sPromptChoiceTexs[][2] = {
-    { gPauseYesENGTex, gPauseNoENGTex },
-    { gPauseYesGERTex, gPauseNoGERTex },
-    { gPauseYesFRATex, gPauseNoFRATex },
+    { oot::asset::texture::load(symbol::gPauseYesENGTex), oot::asset::texture::load(symbol::gPauseNoENGTex) },
+    { oot::asset::texture::load(symbol::gPauseYesGERTex), oot::asset::texture::load(symbol::gPauseNoGERTex) },
+    { oot::asset::texture::load(symbol::gPauseYesFRATex), oot::asset::texture::load(symbol::gPauseNoFRATex) },
 };
 
 static u8 D_808321A8[5];
@@ -879,9 +1438,9 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 100, 100, 255, VREG(61));
 
             if (pauseCtx->promptChoice == 0) {
-                gSPDisplayList(POLY_OPA_DISP++, gPromptCursorLeftDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPromptCursorLeftDL));
             } else {
-                gSPDisplayList(POLY_OPA_DISP++, gPromptCursorRightDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPromptCursorRightDL));
             }
 
             gDPPipeSync(POLY_OPA_DISP++);
@@ -903,9 +1462,9 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 100, 100, 255, VREG(61));
 
                 if (pauseCtx->promptChoice == 0) {
-                    gSPDisplayList(POLY_OPA_DISP++, gPromptCursorLeftDL);
+                    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPromptCursorLeftDL));
                 } else {
-                    gSPDisplayList(POLY_OPA_DISP++, gPromptCursorRightDL);
+                    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPromptCursorRightDL));
                 }
 
                 gDPPipeSync(POLY_OPA_DISP++);
@@ -935,31 +1494,31 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
 
 void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
     static void* D_8082AD54[3] = {
-        gPauseToEquipENGTex,
-        gPauseToEquipGERTex,
-        gPauseToEquipFRATex,
+        oot::asset::texture::load(symbol::gPauseToEquipENGTex),
+        oot::asset::texture::load(symbol::gPauseToEquipGERTex),
+        oot::asset::texture::load(symbol::gPauseToEquipFRATex),
     };
     static void* D_8082AD60[3] = {
-        gPauseToDecideENGTex,
-        gPauseToDecideGERTex,
-        gPauseToDecideFRATex,
+        oot::asset::texture::load(symbol::gPauseToDecideENGTex),
+        oot::asset::texture::load(symbol::gPauseToDecideGERTex),
+        oot::asset::texture::load(symbol::gPauseToDecideFRATex),
     };
     static void* D_8082AD6C[3] = {
-        gPauseToPlayMelodyENGTex,
-        gPauseToPlayMelodyGERTex,
-        gPauseToPlayMelodyFRATex,
+        oot::asset::texture::load(symbol::gPauseToPlayMelodyENGTex),
+        oot::asset::texture::load(symbol::gPauseToPlayMelodyGERTex),
+        oot::asset::texture::load(symbol::gPauseToPlayMelodyFRATex),
     };
     static void* D_8082AD78[][3] = {
-        { gPauseToEquipmentENGTex, gPauseToEquipmentGERTex, gPauseToEquipmentFRATex },
-        { gPauseToSelectItemENGTex, gPauseToSelectItemGERTex, gPauseToSelectItemFRATex },
-        { gPauseToMapENGTex, gPauseToMapGERTex, gPauseToMapFRATex },
-        { gPauseToQuestStatusENGTex, gPauseToQuestStatusGERTex, gPauseToQuestStatusFRATex },
+        { oot::asset::texture::load(symbol::gPauseToEquipmentENGTex), oot::asset::texture::load(symbol::gPauseToEquipmentGERTex), oot::asset::texture::load(symbol::gPauseToEquipmentFRATex) },
+        { oot::asset::texture::load(symbol::gPauseToSelectItemENGTex), oot::asset::texture::load(symbol::gPauseToSelectItemGERTex), oot::asset::texture::load(symbol::gPauseToSelectItemFRATex) },
+        { oot::asset::texture::load(symbol::gPauseToMapENGTex), oot::asset::texture::load(symbol::gPauseToMapGERTex), oot::asset::texture::load(symbol::gPauseToMapFRATex) },
+        { oot::asset::texture::load(symbol::gPauseToQuestStatusENGTex), oot::asset::texture::load(symbol::gPauseToQuestStatusGERTex), oot::asset::texture::load(symbol::gPauseToQuestStatusFRATex) },
     };
     static void* D_8082ADA8[][3] = {
-        { gPauseToMapENGTex, gPauseToMapGERTex, gPauseToMapFRATex },
-        { gPauseToQuestStatusENGTex, gPauseToQuestStatusGERTex, gPauseToQuestStatusFRATex },
-        { gPauseToEquipmentENGTex, gPauseToEquipmentGERTex, gPauseToEquipmentFRATex },
-        { gPauseToSelectItemENGTex, gPauseToSelectItemGERTex, gPauseToSelectItemFRATex },
+        { oot::asset::texture::load(symbol::gPauseToMapENGTex), oot::asset::texture::load(symbol::gPauseToMapGERTex), oot::asset::texture::load(symbol::gPauseToMapFRATex) },
+        { oot::asset::texture::load(symbol::gPauseToQuestStatusENGTex), oot::asset::texture::load(symbol::gPauseToQuestStatusGERTex), oot::asset::texture::load(symbol::gPauseToQuestStatusFRATex) },
+        { oot::asset::texture::load(symbol::gPauseToEquipmentENGTex), oot::asset::texture::load(symbol::gPauseToEquipmentGERTex), oot::asset::texture::load(symbol::gPauseToEquipmentFRATex) },
+        { oot::asset::texture::load(symbol::gPauseToSelectItemENGTex), oot::asset::texture::load(symbol::gPauseToSelectItemGERTex), oot::asset::texture::load(symbol::gPauseToSelectItemFRATex) },
     };
     static u16 D_8082ADD8[3] = { 56, 88, 80 };
     static u16 D_8082ADE0[3] = { 64, 88, 72 };
@@ -1123,13 +1682,13 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 90, 100, 130, 255);
     gSPVertex(POLY_OPA_DISP++, &pauseCtx->infoPanelVtx[0], 16, 0);
 
-    gSPDisplayList(POLY_OPA_DISP++, gItemNamePanelDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gItemNamePanelDL));
 
     if ((pauseCtx->cursorSpecialPos == PAUSE_CURSOR_PAGE_LEFT) && (pauseCtx->unk_1E4 == 0)) {
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, D_808321A0, D_808321A2, D_808321A4, D_808321A6);
     }
 
-    gSPDisplayList(POLY_OPA_DISP++, gLButtonIconDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLButtonIconDL));
 
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 180, 210, 255, 220);
 
@@ -1137,7 +1696,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, D_808321A0, D_808321A2, D_808321A4, D_808321A6);
     }
 
-    gSPDisplayList(POLY_OPA_DISP++, gRButtonIconDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gRButtonIconDL));
 
     if (pauseCtx->cursorSpecialPos != 0) {
         j = (pauseCtx->cursorSpecialPos * 4) - 32;
@@ -1222,7 +1781,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
                 gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
-                KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gGoldSkulltulaIconTex, 24, 24, 0);
+                KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, oot::asset::texture::load(symbol::gGoldSkulltulaIconTex), 24, 24, 0);
             }
         }
     } else if ((pauseCtx->unk_1E4 < 3) || (pauseCtx->unk_1E4 == 7) || (pauseCtx->unk_1E4 == 8)) {
@@ -1252,7 +1811,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
             pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADE0[gSaveContext.language]
                                                                                       << 5;
 
-            gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gAButtonIconDL));
 
             gDPPipeSync(POLY_OPA_DISP++);
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
@@ -1298,7 +1857,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
                 pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] =
                     D_8082ADD8[gSaveContext.language] << 5;
 
-                gSPDisplayList(POLY_OPA_DISP++, gCButtonIconsDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gCButtonIconsDL));
 
                 gDPPipeSync(POLY_OPA_DISP++);
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
@@ -1332,7 +1891,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
                     pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] =
                         D_8082ADE8[gSaveContext.language] << 5;
 
-                    gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
+                    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gAButtonIconDL));
 
                     gDPPipeSync(POLY_OPA_DISP++);
                     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
@@ -1358,7 +1917,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
                 pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] =
                     D_8082ADD8[gSaveContext.language] << 5;
 
-                gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gAButtonIconDL));
 
                 gDPPipeSync(POLY_OPA_DISP++);
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
@@ -2267,11 +2826,11 @@ void KaleidoScope_DrawGameOver(GlobalContext* globalCtx) {
 
     VREG(89) -= 2;
 
-    gDPLoadMultiBlock(POLY_OPA_DISP++, gGameOverP1Tex, 0, 0, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
+    gDPLoadMultiBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gGameOverP1Tex), 0, 0, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
                       G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                       G_TX_NOLOD);
 
-    gDPLoadMultiBlock(POLY_OPA_DISP++, gGameOverMaskTex, 256, 1, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
+    gDPLoadMultiBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gGameOverMaskTex), 256, 1, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
                       G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, 5, G_TX_NOLOD, G_TX_NOLOD);
 
     gDPSetTileSize(POLY_OPA_DISP++, 1, 0, VREG(89) & 0x7F, 252, (VREG(89) & 0x7F) + 0x7C);
@@ -2279,14 +2838,14 @@ void KaleidoScope_DrawGameOver(GlobalContext* globalCtx) {
     gSPTextureRectangle(POLY_OPA_DISP++, VREG(87) << 2, VREG(88) << 2, (VREG(87) + 64) << 2, (VREG(88) + 32) << 2,
                         G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 
-    gDPLoadMultiBlock(POLY_OPA_DISP++, gGameOverP2Tex, 0, 0, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
+    gDPLoadMultiBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gGameOverP2Tex), 0, 0, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
                       G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                       G_TX_NOLOD);
 
     gSPTextureRectangle(POLY_OPA_DISP++, (VREG(87) + 64) << 2, VREG(88) << 2, (VREG(87) + 128) << 2,
                         (VREG(88) + 32) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 
-    gDPLoadMultiBlock(POLY_OPA_DISP++, gGameOverP3Tex, 0, 0, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
+    gDPLoadMultiBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gGameOverP3Tex), 0, 0, G_IM_FMT_IA, G_IM_SIZ_8b, 64, 32, 0,
                       G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                       G_TX_NOLOD);
     gSPTextureRectangle(POLY_OPA_DISP++, (VREG(87) + 128) << 2, VREG(88) << 2, (VREG(87) + 192) << 2,
@@ -2616,7 +3175,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
 
             func_80091738(globalCtx, pauseCtx->playerSegment, &pauseCtx->playerSkelAnime);
 
-            pauseCtx->iconItemSegment = (u8*)icon_item_static_lut[0];
+            //pauseCtx->iconItemSegment = (u8*)icon_item_static_lut[0];
             gSegments[8] = (uintptr_t)VIRTUAL_TO_PHYSICAL(pauseCtx->iconItemSegment);
             
             //On N64 the textures of the icons are manipulated in RAM every time the pause menu opens.
@@ -2659,7 +3218,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
                 case SCENE_JYASINBOSS:
                 case SCENE_HAKADAN_BS:
                     sInDungeonScene = true;
-                    pauseCtx->iconItemAltSegment = _icon_item_dungeon_staticSegmentRomStart;
+                    //pauseCtx->iconItemAltSegment = _icon_item_dungeon_staticSegmentRomStart;
 
                     interfaceCtx->mapPalette[28] = 6;
                     interfaceCtx->mapPalette[29] = 99;
@@ -2668,16 +3227,16 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
 
                 default:
                     sInDungeonScene = false;
-                    pauseCtx->iconItemAltSegment = _icon_item_field_staticSegmentRomStart;
+                    //pauseCtx->iconItemAltSegment = _icon_item_field_staticSegmentRomStart;
                     break;
             }
 
             if (gSaveContext.language == LANGUAGE_ENG) {
-                pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
+                //pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
             } else if (gSaveContext.language == LANGUAGE_GER) {
-                pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
+                //pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
             } else {
-                pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
+                //pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
             }
 
             Interface_SetDoAction(globalCtx, DO_ACTION_DECIDE);
@@ -3188,16 +3747,16 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
             pauseCtx->unk_204 = -434.0f;
             Interface_ChangeAlpha(1);
 
-            pauseCtx->iconItemSegment = _icon_item_staticSegmentRomStart;
-            pauseCtx->iconItem24Segment = _icon_item_24_staticSegmentRomStart;
-            pauseCtx->iconItemAltSegment = _icon_item_gameover_staticSegmentRomStart;
+            //pauseCtx->iconItemSegment = _icon_item_staticSegmentRomStart;
+            //pauseCtx->iconItem24Segment = _icon_item_24_staticSegmentRomStart;
+            //pauseCtx->iconItemAltSegment = _icon_item_gameover_staticSegmentRomStart;
 
             if (gSaveContext.language == LANGUAGE_ENG) {
-                pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
+                //pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
             } else if (gSaveContext.language == LANGUAGE_GER) {
-                pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
+                //pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
             } else {
-                pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
+                //pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
             }
             
 

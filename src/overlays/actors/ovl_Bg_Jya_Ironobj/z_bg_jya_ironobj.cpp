@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_jya_ironobj.h"
-#include "objects/object_jya_iron/object_jya_iron.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Ik/z_en_ik.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -53,7 +53,7 @@ ActorInit Bg_Jya_Ironobj_InitVars = {
     (ActorFunc)BgJyaIronobj_Reset,
 };
 
-static Gfx* sOpaDL[] = { gPillarDL, gThroneDL };
+static Gfx* sOpaDL[] = { oot::asset::gfx::load(symbol::gPillarDL), oot::asset::gfx::load(symbol::gThroneDL) };
 
 static ColliderCylinderInit sCylinderInit = {
     {
@@ -94,7 +94,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 1000, ICHAIN_STOP),
 };
 
-static CollisionHeader* sCollisionHeaders[] = { &gPillarCol, &gThroneCol };
+static CollisionHeader* sCollisionHeaders[] = { oot::asset::collision::header::load(symbol::gPillarCol), oot::asset::collision::header::load(symbol::gThroneCol) };
 
 void BgJyaIronobj_InitCylinder(BgJyaIronobj* pthis, GlobalContext* globalCtx) {
     ColliderCylinder* colCylinder = &pthis->colCylinder;
@@ -164,7 +164,7 @@ void BgJyaIronobj_SpawnPillarParticles(BgJyaIronobj* pthis, GlobalContext* globa
         vel.y = (Rand_ZeroOne() * 8.0f) - 3.0f;
         vel.z = 2.0f * ((Rand_ZeroOne() * 6.0f) - 3.0f) + (Rand_ZeroOne() * coss * 8.0f * temp_f22);
         EffectSsKakera_Spawn(globalCtx, &pos, &vel, &pos, -350, unkArg5, D_80899500[j & 7], 4, 0, D_808994E0[j & 7], 0,
-                             5, D_808994F0[j & 7], -1, OBJECT_JYA_IRON, gObjectJyaIronDL_000880);
+                             5, D_808994F0[j & 7], -1, OBJECT_JYA_IRON, oot::asset::gfx::load(symbol::gObjectJyaIronDL_000880));
         if (Rand_ZeroOne() < 0.26f) {
             func_80033480(globalCtx, &pos, 200.0f, 1, D_808994E0[j & 7] * 4 + 60, D_808994E0[j & 7] * 4 + 80, 1);
         }
@@ -223,7 +223,7 @@ void BgJyaIronobj_SpawnThoneParticles(BgJyaIronobj* pthis, GlobalContext* arg1, 
         vel.y = Rand_ZeroOne() * 8.0f - 3.0f;
         vel.z = 2.0f * (Rand_ZeroOne() * 6.0f - 3.0f) + (Rand_ZeroOne() * coss * 8.0f * temp_f22);
         EffectSsKakera_Spawn(arg1, &pos, &vel, &pos, -350, unkArg5, D_80899530[j & 7], 4, 0, D_80899510[j & 7], 0, 5,
-                             D_80899520[j & 7], -1, OBJECT_JYA_IRON, gObjectJyaIronDL_000880);
+                             D_80899520[j & 7], -1, OBJECT_JYA_IRON, oot::asset::gfx::load(symbol::gObjectJyaIronDL_000880));
         if (Rand_ZeroOne() < 0.26f) {
             func_80033480(arg1, &pos, 200.0f, 1, D_80899510[j & 7] * 4 + 60, D_80899510[j & 7] * 4 + 80, 1);
         }

@@ -8,7 +8,7 @@
 
 #include "z_en_ishi.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 
 #include "vt.h"
 #include "def/code_8006BA00.h"
@@ -186,7 +186,7 @@ void EnIshi_SpawnFragmentsSmall(EnIshi* pthis, GlobalContext* globalCtx) {
             phi_v0 = 33;
         }
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -420, phi_v0, 30, 5, 0, scales_55[i], 3, 10, 40,
-                             KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, gFieldKakeraDL);
+                             KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, oot::asset::gfx::load(symbol::gFieldKakeraDL));
     }
 }
 
@@ -231,7 +231,7 @@ void EnIshi_SpawnFragmentsLarge(EnIshi* pthis, GlobalContext* globalCtx) {
             phi_v1 = -320;
         }
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pthis->actor.world.pos, phi_v1, phi_v0, 30, 5, 0, scales_56[i], 5,
-                             2, 70, KAKERA_COLOR_WHITE, OBJECT_GAMEPLAY_FIELD_KEEP, gSilverRockFragmentsDL);
+                             2, 70, KAKERA_COLOR_WHITE, OBJECT_GAMEPLAY_FIELD_KEEP, oot::asset::gfx::load(symbol::gSilverRockFragmentsDL));
     }
 }
 
@@ -496,7 +496,7 @@ void EnIshi_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnIshi_DrawSmall(EnIshi* pthis, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gFieldKakeraDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFieldKakeraDL));
 }
 
 void EnIshi_DrawLarge(EnIshi* pthis, GlobalContext* globalCtx) {
@@ -506,7 +506,7 @@ void EnIshi_DrawLarge(EnIshi* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ishi.c", 1055),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
-    gSPDisplayList(POLY_OPA_DISP++, gSilverRockDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSilverRockDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ishi.c", 1062);
 }

@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_g_magma2.h"
-#include "objects/object_kingdodongo/object_kingdodongo.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 #include "def/z_scene.h"
@@ -30,11 +30,11 @@ void EffectSsGMagma2_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis);
 void EffectSsGMagma2_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis);
 
 static void* sTextures[] = {
-    object_kingdodongo_Tex_02E4E0, object_kingdodongo_Tex_02E8E0, object_kingdodongo_Tex_02ECE0,
-    object_kingdodongo_Tex_02F0E0, object_kingdodongo_Tex_02F4E0, object_kingdodongo_Tex_02F8E0,
-    object_kingdodongo_Tex_02FCE0, object_kingdodongo_Tex_0300E0, object_kingdodongo_Tex_0304E0,
-    object_kingdodongo_Tex_0308E0, object_kingdodongo_Tex_0308E0, object_kingdodongo_Tex_0308E0,
-    object_kingdodongo_Tex_0308E0,
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_02E4E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02E8E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02ECE0),
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_02F0E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02F4E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_02F8E0),
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_02FCE0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_0300E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_0304E0),
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_0308E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_0308E0), oot::asset::texture::load(symbol::object_kingdodongo_Tex_0308E0),
+    oot::asset::texture::load(symbol::object_kingdodongo_Tex_0308E0),
 };
 
 EffectSsInit Effect_Ss_G_Magma2_InitVars = {
@@ -50,7 +50,6 @@ u32 EffectSsGMagma2_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
         Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
         EffectSsGMagma2InitParams* initParams = (EffectSsGMagma2InitParams*)initParamsx;
 
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIndex].vromStart.get());
         pthis->rObjBankIdx = objBankIndex;
         pthis->pos = initParams->pos;
         pthis->velocity = zeroVec;
@@ -58,7 +57,7 @@ u32 EffectSsGMagma2_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
         pthis->life = 100;
         pthis->draw = EffectSsGMagma2_Draw;
         pthis->update = EffectSsGMagma2_Update;
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(object_kingdodongo_DL_025A90);
+        pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_kingdodongo_DL_025A90));
         pthis->rTexIdx = 0;
         pthis->rDrawMode = initParams->drawMode;
         pthis->rUpdateRate = initParams->updateRate;
@@ -83,7 +82,6 @@ void EffectSsGMagma2_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) 
     void* object;
 
     scale = pthis->rScale / 100.0f;
-    object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
     OPEN_DISPS(gfxCtx, "../z_eff_ss_g_magma2.c", 261);
 

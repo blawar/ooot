@@ -2,8 +2,8 @@
 #include "actor_common.h"
 #include "z_en_go2.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_oF1d_map/object_oF1d_map.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -86,7 +86,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx);
 void EnGo2_GoronLinkStopRolling(EnGo2* pthis, GlobalContext* globalCtx);
 void EnGo2_GoronFireGenericAction(EnGo2* pthis, GlobalContext* globalCtx);
 
-static void* sDustTex[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
+static void* sDustTex[] = { oot::asset::texture::load(symbol::gDust8Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust1Tex) };
 
 static Vec3f sPos = { 0.0f, 0.0f, 0.0f };
 static Vec3f sVelocity = { 0.0f, 0.0f, 0.0f };
@@ -149,13 +149,13 @@ static f32 D_80A482D8[14][2] = {
 };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gGoronAnim_004930, 0.0f, 0.0f, -1.0f, 0x00, 0.0f },  { &gGoronAnim_004930, 0.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    { &gGoronAnim_0029A8, 1.0f, 0.0f, -1.0f, 0x00, -8.0f }, { &gGoronAnim_010590, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    { &gGoronAnim_003768, 1.0f, 0.0f, -1.0f, 0x00, -8.0f }, { &gGoronAnim_0038E4, 1.0f, 0.0f, -1.0f, 0x02, -8.0f },
-    { &gGoronAnim_002D80, 1.0f, 0.0f, -1.0f, 0x02, -8.0f }, { &gGoronAnim_00161C, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    { &gGoronAnim_001A00, 1.0f, 0.0f, -1.0f, 0x00, -8.0f }, { &gGoronAnim_0021D0, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    { &gGoronAnim_004930, 0.0f, 0.0f, -1.0f, 0x01, -8.0f }, { &gGoronAnim_000750, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
-    { &gGoronAnim_000D5C, 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_004930), 0.0f, 0.0f, -1.0f, 0x00, 0.0f },  { oot::asset::anim::header::load(symbol::gGoronAnim_004930), 0.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_0029A8), 1.0f, 0.0f, -1.0f, 0x00, -8.0f }, { oot::asset::anim::header::load(symbol::gGoronAnim_010590), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_003768), 1.0f, 0.0f, -1.0f, 0x00, -8.0f }, { oot::asset::anim::header::load(symbol::gGoronAnim_0038E4), 1.0f, 0.0f, -1.0f, 0x02, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_002D80), 1.0f, 0.0f, -1.0f, 0x02, -8.0f }, { oot::asset::anim::header::load(symbol::gGoronAnim_00161C), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_001A00), 1.0f, 0.0f, -1.0f, 0x00, -8.0f }, { oot::asset::anim::header::load(symbol::gGoronAnim_0021D0), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_004930), 0.0f, 0.0f, -1.0f, 0x01, -8.0f }, { oot::asset::anim::header::load(symbol::gGoronAnim_000750), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_000D5C), 1.0f, 0.0f, -1.0f, 0x00, -8.0f },
 };
 
 static EnGo2DustEffectData sDustEffectData[2][4] = {
@@ -239,7 +239,7 @@ void EnGo2_DrawDust(EnGo2* pthis, GlobalContext* globalCtx) {
         if (dustEffect->type) {
             if (!firstDone) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gGoronDL_00FD40);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00FD40));
                 gDPSetEnvColor(POLY_XLU_DISP++, 100, 60, 20, 0);
                 firstDone = true;
             }
@@ -254,7 +254,7 @@ void EnGo2_DrawDust(EnGo2* pthis, GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             index = dustEffect->timer * (8.0f / dustEffect->initialTimer);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sDustTex[index]));
-            gSPDisplayList(POLY_XLU_DISP++, gGoronDL_00FD50);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00FD50));
         }
     }
 
@@ -1095,7 +1095,7 @@ void func_80A45288(EnGo2* pthis, GlobalContext* globalCtx) {
 
 void func_80A45360(EnGo2* pthis, f32* alpha) {
     f32 alphaTarget =
-        (pthis->skelAnime.animation == &gGoronAnim_004930) && (pthis->skelAnime.curFrame <= 32.0f) ? 0.0f : 255.0f;
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gGoronAnim_004930)) && (pthis->skelAnime.curFrame <= 32.0f) ? 0.0f : 255.0f;
 
     Math_ApproachF(alpha, alphaTarget, 0.4f, 100.0f);
     pthis->actor.shape.shadowAlpha = (u8)(u32)*alpha;
@@ -1260,7 +1260,7 @@ void EnGo2_EyeMouthTexState(EnGo2* pthis) {
 }
 
 void EnGo2_SitDownAnimation(EnGo2* pthis) {
-    if ((pthis->skelAnime.playSpeed != 0.0f) && (pthis->skelAnime.animation == &gGoronAnim_004930)) {
+    if ((pthis->skelAnime.playSpeed != 0.0f) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gGoronAnim_004930))) {
         if (pthis->skelAnime.playSpeed > 0.0f && pthis->skelAnime.curFrame == 14.0f) {
             if ((pthis->actor.params & 0x1F) != GORON_DMT_BIGGORON) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOLON_SIT_DOWN);
@@ -1439,7 +1439,7 @@ void EnGo2_GoronLinkAnimation(EnGo2* pthis, GlobalContext* globalCtx) {
     if ((pthis->actor.params & 0x1F) == GORON_CITY_LINK) {
         if ((pthis->actor.textId == 0x3035 && pthis->unk_20C == 0) ||
             (pthis->actor.textId == 0x3036 && pthis->unk_20C == 0)) {
-            if (pthis->skelAnime.animation != &gGoronAnim_000D5C) {
+            if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gGoronAnim_000D5C)) {
                 animation = 12;
                 pthis->eyeMouthTexState = 0;
             }
@@ -1447,13 +1447,13 @@ void EnGo2_GoronLinkAnimation(EnGo2* pthis, GlobalContext* globalCtx) {
 
         if ((pthis->actor.textId == 0x3032 && pthis->unk_20C == 12) || (pthis->actor.textId == 0x3033) ||
             (pthis->actor.textId == 0x3035 && pthis->unk_20C == 6)) {
-            if (pthis->skelAnime.animation != &gGoronAnim_000750) {
+            if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gGoronAnim_000750)) {
                 animation = 11;
                 pthis->eyeMouthTexState = 1;
             }
         }
 
-        if (pthis->skelAnime.animation == &gGoronAnim_000750) {
+        if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gGoronAnim_000750)) {
             if (pthis->skelAnime.curFrame == 20.0f) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOLON_CRY);
             }
@@ -1502,7 +1502,7 @@ void EnGo2_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 28.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGoronSkel, NULL, pthis->jointTable, pthis->morphTable, 18);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGoronSkel), NULL, pthis->jointTable, pthis->morphTable, 18);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);
@@ -1981,7 +1981,7 @@ s32 EnGo2_DrawCurledUp(EnGo2* pthis, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_go2.c", 2884),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gGoronDL_00BD80);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00BD80));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_go2.c", 2889);
     Matrix_MultVec3f(&D_80A48554, &pthis->actor.focus.pos);
 
@@ -1999,7 +1999,7 @@ s32 EnGo2_DrawRolling(EnGo2* pthis, GlobalContext* globalCtx) {
     Matrix_RotateZYX((globalCtx->state.frames * ((s16)speedXZ * 1400)).toS16(), 0, pthis->actor.shape.rot.z, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_go2.c", 2926),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gGoronDL_00C140);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00C140));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_go2.c", 2930);
     Matrix_MultVec3f(&D_80A48560, &pthis->actor.focus.pos);
     return 1;
@@ -2046,8 +2046,8 @@ void EnGo2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
 void EnGo2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnGo2* pthis = (EnGo2*)thisx;
-    void* eyeTextures[] = { gGoronCsEyeClosed2Tex, gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
-    void* mouthTextures[] = { gGoronCsMouthNeutralTex, gGoronCsMouthSmileTex };
+    void* eyeTextures[] = { oot::asset::texture::load(symbol::gGoronCsEyeClosed2Tex), oot::asset::texture::load(symbol::gGoronCsEyeOpenTex), oot::asset::texture::load(symbol::gGoronCsEyeHalfTex), oot::asset::texture::load(symbol::gGoronCsEyeClosedTex) };
+    void* mouthTextures[] = { oot::asset::texture::load(symbol::gGoronCsMouthNeutralTex), oot::asset::texture::load(symbol::gGoronCsMouthSmileTex) };
 
     EnGo2_UpdateDust(pthis);
     Matrix_Push();

@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_GOMA_Z_EN_GOMA_C
 #include "actor_common.h"
 #include "z_en_goma.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
-#include "objects/object_gol/object_gol.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Boss_Goma/z_boss_goma.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "def/code_8006BA00.h"
@@ -163,9 +162,9 @@ void EnGoma_Init(Actor* thisx, GlobalContext* globalCtx) {
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
     } else { // Egg
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 40.0f);
-        SkelAnime_Init(globalCtx, &pthis->skelanime, &gObjectGolSkel, &gObjectGolStandAnim, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelanime, oot::asset::skel::header2::load(symbol::gObjectGolSkel), oot::asset::anim::header::load(symbol::gObjectGolStandAnim), pthis->jointTable,
                        pthis->morphTable, GOMA_LIMB_MAX);
-        Animation_PlayLoop(&pthis->skelanime, &gObjectGolStandAnim);
+        Animation_PlayLoop(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolStandAnim));
         pthis->actor.colChkInfo.health = 2;
 
         if (pthis->actor.params < 3) { // Spawned by boss
@@ -206,8 +205,8 @@ void EnGoma_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupFlee(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolRunningAnim, 2.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolRunningAnim), ANIMMODE_LOOP, -2.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolRunningAnim), 2.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolRunningAnim)), ANIMMODE_LOOP, -2.0f);
     pthis->actionFunc = EnGoma_Flee;
     pthis->actionTimer = 20;
 
@@ -323,8 +322,8 @@ void EnGoma_Egg(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupHatch(EnGoma* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelanime, &gObjectGolJumpHeadbuttAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolJumpHeadbuttAnim), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolJumpHeadbuttAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolJumpHeadbuttAnim)), ANIMMODE_ONCE, 0.0f);
     pthis->actionFunc = EnGoma_Hatch;
     Actor_SetScale(&pthis->actor, 0.005f);
     pthis->gomaType = ENGOMA_NORMAL;
@@ -344,8 +343,8 @@ void EnGoma_Hatch(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupHurt(EnGoma* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelanime, &gObjectGolDamagedAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolDamagedAnim), ANIMMODE_ONCE, -2.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolDamagedAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolDamagedAnim)), ANIMMODE_ONCE, -2.0f);
     pthis->actionFunc = EnGoma_Hurt;
 
     if ((s8)pthis->actor.colChkInfo.health <= 0) {
@@ -381,7 +380,7 @@ void EnGoma_Hurt(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupDie(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolDeathAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gObjectGolDeathAnim),
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolDeathAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolDeathAnim)),
                      ANIMMODE_ONCE, -2.0f);
     pthis->actionFunc = EnGoma_Die;
     pthis->actionTimer = 30;
@@ -417,8 +416,8 @@ void EnGoma_Die(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupDead(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolDeadTwitchingAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolDeadTwitchingAnim), ANIMMODE_LOOP, -2.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolDeadTwitchingAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolDeadTwitchingAnim)), ANIMMODE_LOOP, -2.0f);
     pthis->actionFunc = EnGoma_Dead;
     pthis->actionTimer = 3;
 }
@@ -455,23 +454,23 @@ void EnGoma_Dead(EnGoma* pthis, GlobalContext* globalCtx) {
 void EnGoma_SetupStand(EnGoma* pthis) {
     f32 lastFrame;
 
-    lastFrame = Animation_GetLastFrame(&gObjectGolStandAnim);
+    lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolStandAnim));
     pthis->actionTimer = Rand_S16Offset(10, 30);
-    Animation_Change(&pthis->skelanime, &gObjectGolStandAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP, -5.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolStandAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP, -5.0f);
     pthis->actionFunc = EnGoma_Stand;
     pthis->gomaType = ENGOMA_NORMAL;
 }
 
 void EnGoma_SetupChasePlayer(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolRunningAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolRunningAnim), ANIMMODE_LOOP, -5.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolRunningAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolRunningAnim)), ANIMMODE_LOOP, -5.0f);
     pthis->actionFunc = EnGoma_ChasePlayer;
     pthis->actionTimer = Rand_S16Offset(70, 110);
 }
 
 void EnGoma_SetupPrepareJump(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolPrepareJumpAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolPrepareJumpAnim), ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolPrepareJumpAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolPrepareJumpAnim)), ANIMMODE_ONCE, -5.0f);
     pthis->actionFunc = EnGoma_PrepareJump;
     pthis->actionTimer = 30;
 }
@@ -493,8 +492,8 @@ void EnGoma_PrepareJump(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupLand(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolLandFromJumpAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolLandFromJumpAnim), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolLandFromJumpAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolLandFromJumpAnim)), ANIMMODE_ONCE, 0.0f);
     pthis->actionFunc = EnGoma_Land;
     pthis->actionTimer = 10;
 }
@@ -511,8 +510,8 @@ void EnGoma_Land(EnGoma* pthis, GlobalContext* globalCtx) {
 }
 
 void EnGoma_SetupJump(EnGoma* pthis) {
-    Animation_Change(&pthis->skelanime, &gObjectGolJumpHeadbuttAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gObjectGolJumpHeadbuttAnim), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolJumpHeadbuttAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectGolJumpHeadbuttAnim)), ANIMMODE_ONCE, 0.0f);
     pthis->actionFunc = EnGoma_Jump;
     pthis->actor.velocity.y = 8.0f;
 
@@ -576,7 +575,7 @@ void EnGoma_ChasePlayer(EnGoma* pthis, GlobalContext* globalCtx) {
 void EnGoma_SetupStunned(EnGoma* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = EnGoma_Stunned;
     pthis->stunTimer = 100;
-    Animation_MorphToLoop(&pthis->skelanime, &gObjectGolStandAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelanime, oot::asset::anim::header::load(symbol::gObjectGolStandAnim), -5.0f);
     pthis->actionTimer = (s16)Rand_ZeroFloat(15.0f) + 3;
 
     if (pthis->actor.params < 6) {
@@ -841,14 +840,14 @@ void EnGoma_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_RotateX(pthis->eggPitch, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_goma.c", 2101),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gObjectGolEggDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gObjectGolEggDL));
             Matrix_Pop();
             break;
 
         case ENGOMA_HATCH_DEBRIS:
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_goma.c", 2107),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gBrownFragmentDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBrownFragmentDL));
             break;
 
         case ENGOMA_BOSSLIMB:

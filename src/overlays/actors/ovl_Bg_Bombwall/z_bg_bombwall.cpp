@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_bombwall.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -98,7 +98,7 @@ void BgBombwall_InitDynapoly(BgBombwall* pthis, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gBgBombwallCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBgBombwallCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 
     if (pthis->dyna.bgId == BG_ACTOR_MAX) {
@@ -216,7 +216,7 @@ void func_8086EB5C(BgBombwall* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8086ED50(BgBombwall* pthis, GlobalContext* globalCtx) {
-    pthis->dList = gBgBombwallNormalDL;
+    pthis->dList = oot::asset::gfx::load(symbol::gBgBombwallNormalDL);
     pthis->actionFunc = func_8086ED70;
 }
 
@@ -231,7 +231,7 @@ void func_8086ED70(BgBombwall* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8086EDFC(BgBombwall* pthis, GlobalContext* globalCtx) {
-    pthis->dList = gBgBombwallNormalDL;
+    pthis->dList = oot::asset::gfx::load(symbol::gBgBombwallNormalDL);
     pthis->unk_2A0 = 1;
     func_8086EB5C(pthis, globalCtx);
     pthis->actionFunc = func_8086EE40;
@@ -250,7 +250,7 @@ void func_8086EE40(BgBombwall* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8086EE94(BgBombwall* pthis, GlobalContext* globalCtx) {
-    pthis->dList = gBgBombwallBrokenDL;
+    pthis->dList = oot::asset::gfx::load(symbol::gBgBombwallBrokenDL);
     BgBombwall_DestroyCollision(pthis, globalCtx);
     pthis->actionFunc = NULL;
 }

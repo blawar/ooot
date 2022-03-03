@@ -7,7 +7,7 @@
  */
 
 #include "z_magic_dark.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
@@ -41,7 +41,7 @@ ActorInit Magic_Dark_InitVars = {
     (ActorFunc)MagicDark_Reset,
 };
 
-#include "overlays/ovl_Magic_Dark/ovl_Magic_Dark.cpp"
+#include "asset.h"
 
 // unused
 static Color_RGBA8 D_80B88B10[] = { { 50, 100, 150, 200 }, { 255, 200, 150, 100 } };
@@ -234,11 +234,11 @@ void MagicDark_DiamondDraw(Actor* thisx, GlobalContext* globalCtx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 170, 255, 255, (s32)(pthis->primAlpha * 0.6f) & 0xFF);
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 128);
-        gSPDisplayList(POLY_XLU_DISP++, sDiamondMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sDiamondMaterialDL));
         gSPDisplayList(POLY_XLU_DISP++,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, gameplayFrames * 2, gameplayFrames * -4, 32, 32, 1,
                                         0, gameplayFrames * -16, 64, 32));
-        gSPDisplayList(POLY_XLU_DISP++, sDiamondModelDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sDiamondModelDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_magic_dark.c", 570);
@@ -283,12 +283,12 @@ void MagicDark_OrbDraw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_magic_dark.c", 632),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     Matrix_RotateZ(sp6C * (M_PI / 32), MTXMODE_APPLY);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFlash1DL));
     Matrix_Pop();
     Matrix_RotateZ(-sp6C * (M_PI / 32), MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_magic_dark.c", 639),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFlash1DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_magic_dark.c", 643);
 }

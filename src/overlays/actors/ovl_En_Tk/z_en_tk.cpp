@@ -7,8 +7,8 @@
  */
 
 #include "z_en_tk.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_tk/object_tk.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -38,13 +38,13 @@ void EnTk_Walk(EnTk* pthis, GlobalContext* globalCtx);
 void EnTk_Dig(EnTk* pthis, GlobalContext* globalCtx);
 
 static void* dustTextures_34[] = {
-    gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
+    oot::asset::texture::load(symbol::gDust8Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust1Tex),
 };
 
 static void* sEyesSegments_62[] = {
-    gDampeEyeOpenTex,
-    gDampeEyeHalfTex,
-    gDampeEyeClosedTex,
+    oot::asset::texture::load(symbol::gDampeEyeOpenTex),
+    oot::asset::texture::load(symbol::gDampeEyeHalfTex),
+    oot::asset::texture::load(symbol::gDampeEyeClosedTex),
 };
 
 
@@ -125,7 +125,7 @@ void EnTkEff_Draw(EnTk* pthis, GlobalContext* globalCtx) {
         if (eff->active != 0) {
             if (gfxSetup == 0) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gDampeEff1DL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDampeEff1DL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 100, 60, 20, 0);
                 gfxSetup = 1;
             }
@@ -143,7 +143,7 @@ void EnTkEff_Draw(EnTk* pthis, GlobalContext* globalCtx) {
             imageIdx = eff->timeLeft * ((f32)ARRAY_COUNT(dustTextures_34) / eff->timeTotal);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTextures_34[imageIdx]));
 
-            gSPDisplayList(POLY_XLU_DISP++, gDampeEff2DL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDampeEff2DL));
         }
         eff++;
     }
@@ -187,9 +187,9 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 void EnTk_RestAnim(EnTk* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* anim = &gDampeRestAnim;
+    AnimationHeader* anim = oot::asset::anim::header::load(symbol::gDampeRestAnim);
 
-    Animation_Change(&pthis->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeRestAnim), ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDampeRestAnim)), ANIMMODE_LOOP,
                      -10.0f);
 
     pthis->actionCountdown = Rand_S16Offset(60, 60);
@@ -197,18 +197,18 @@ void EnTk_RestAnim(EnTk* pthis, GlobalContext* globalCtx) {
 }
 
 void EnTk_WalkAnim(EnTk* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* anim = &gDampeWalkAnim;
+    AnimationHeader* anim = oot::asset::anim::header::load(symbol::gDampeWalkAnim);
 
-    Animation_Change(&pthis->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeRestAnim), ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDampeRestAnim)), ANIMMODE_LOOP,
                      -10.0f);
 
     pthis->actionCountdown = Rand_S16Offset(240, 240);
 }
 
 void EnTk_DigAnim(EnTk* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* anim = &gDampeDigAnim;
+    AnimationHeader* anim = oot::asset::anim::header::load(symbol::gDampeDigAnim);
 
-    Animation_Change(&pthis->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeDigAnim), ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDampeDigAnim)), ANIMMODE_LOOP, -10.0f);
 
     if (EnTk_CheckNextSpot(pthis, globalCtx) >= 0) {
         pthis->validDigHere = 1;
@@ -306,7 +306,7 @@ f32 EnTk_Step(EnTk* pthis, GlobalContext* globalCtx) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_WALK);
     }
 
-    if (pthis->skelAnime.animation != &gDampeWalkAnim) {
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gDampeWalkAnim)) {
         return 0.0f;
     }
 
@@ -508,8 +508,8 @@ void EnTk_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(&pthis->actor.shape, 0, ActorShadow_DrawCircle, 24.0f);
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDampeSkel, NULL, pthis->jointTable, pthis->morphTable, 18);
-    Animation_Change(&pthis->skelAnime, &gDampeRestAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeRestAnim),
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDampeSkel), NULL, pthis->jointTable, pthis->morphTable, 18);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDampeRestAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDampeRestAnim)),
                      ANIMMODE_LOOP, 0.0f);
 
     Collider_InitCylinder(globalCtx, &pthis->collider);
@@ -701,7 +701,7 @@ void EnTk_Update(Actor* thisx, GlobalContext* globalCtx) {
 void func_80B1D200(GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1188);
 
-    gSPDisplayList(POLY_OPA_DISP++, gDampeShovelDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDampeShovelDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1190);
 }

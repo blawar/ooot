@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_mizu_uzu.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -50,7 +50,7 @@ void BgMizuUzu_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gObjectMizuObjectsUzuCol_0074EC, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gObjectMizuObjectsUzuCol_0074EC), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     pthis->actionFunc = func_8089F788;
 }

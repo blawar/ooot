@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_skj.h"
 #include "overlays/actors/ovl_En_Skjneedle/z_en_skjneedle.h"
-#include "objects/object_skj/object_skj.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/graph.h"
@@ -195,16 +195,16 @@ static s32 sOcarinaGameRewards[] = {
 };
 
 static SkullkidAnimationEntry sSkullKidAnimations[] = {
-    { &gSkullKidBackflipAnim, ANIMMODE_ONCE, 0.0f },
-    { &gSkullKidShootNeedleAnim, ANIMMODE_ONCE, 0.0f },
-    { &gSkullKidPlayFluteAnim, ANIMMODE_LOOP, 0.0f },
-    { &gSkullKidDieAnim, ANIMMODE_ONCE, 0.0f },
-    { &gSkullKidHitAnim, ANIMMODE_ONCE, 0.0f },
-    { &gSkullKidLandAnim, ANIMMODE_ONCE, 0.0f },
-    { &gSkullKidLookLeftAndRightAnim, ANIMMODE_LOOP, 0.0f },
-    { &gSkullKidFightingStanceAnim, ANIMMODE_LOOP, 0.0f },
-    { &gSkullKidWalkToPlayerAnim, ANIMMODE_LOOP, 0.0f },
-    { &gSkullKidWaitAnim, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidBackflipAnim), ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidShootNeedleAnim), ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidPlayFluteAnim), ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidDieAnim), ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidHitAnim), ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidLandAnim), ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidLookLeftAndRightAnim), ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidFightingStanceAnim), ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidWalkToPlayerAnim), ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gSkullKidWaitAnim), ANIMMODE_LOOP, 0.0f },
 };
 
 static EnSkjActionFunc sActionFuncs[] = {
@@ -366,7 +366,7 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2) {
             }
 
             EnSkj_SetNaviId(pthis);
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSkullKidSkel, &gSkullKidPlayFluteAnim, pthis->jointTable,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gSkullKidSkel), oot::asset::anim::header::load(symbol::gSkullKidPlayFluteAnim), pthis->jointTable,
                                pthis->morphTable, 19);
             if ((type >= 0) && (type < 3)) {
                 pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
@@ -647,7 +647,7 @@ void EnSkj_SetupWaitToShootNeedle(EnSkj* pthis) {
 
 void EnSkj_WaitToShootNeedle(EnSkj* pthis, GlobalContext* globalCtx) {
     u8 val;
-    s16 lastFrame = Animation_GetLastFrame(&gSkullKidShootNeedleAnim);
+    s16 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSkullKidShootNeedleAnim));
 
     if ((pthis->skelAnime.curFrame == lastFrame) && (pthis->needleShootTimer == 0)) {
         val = pthis->needlesToShoot;
@@ -696,7 +696,7 @@ void EnSkj_SetupDie(EnSkj* pthis) {
 }
 
 void EnSkj_WaitForDeathAnim(EnSkj* pthis, GlobalContext* globalCtx) {
-    s16 lastFrame = Animation_GetLastFrame(&gSkullKidDieAnim);
+    s16 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSkullKidDieAnim));
 
     if (pthis->skelAnime.curFrame == lastFrame) {
         EnSkj_SetupSpawnDeathEffect(pthis);
@@ -709,7 +709,7 @@ void func_80AFF1F0(EnSkj* pthis) {
 }
 
 void EnSkj_PickNextFightAction(EnSkj* pthis, GlobalContext* globalCtx) {
-    s16 lastFrame = Animation_GetLastFrame(&gSkullKidHitAnim);
+    s16 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSkullKidHitAnim));
 
     if (pthis->skelAnime.curFrame == lastFrame) {
         if (pthis->hitsUntilDodge == 0) {
@@ -729,7 +729,7 @@ void func_80AFF2A0(EnSkj* pthis) {
 }
 
 void EnSkj_WaitForLandAnim(EnSkj* pthis, GlobalContext* globalCtx) {
-    s16 lastFrame = Animation_GetLastFrame(&gSkullKidLandAnim);
+    s16 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSkullKidLandAnim));
 
     if (pthis->skelAnime.curFrame == lastFrame) {
         EnSkj_SetupStand(pthis);
@@ -1065,7 +1065,7 @@ void EnSkj_SetupWaitForLandAnimFinish(EnSkj* pthis) {
 }
 
 void EnSkj_WaitForLandAnimFinish(EnSkj* pthis, GlobalContext* globalCtx) {
-    s16 lastFrame = Animation_GetLastFrame(&gSkullKidLandAnim);
+    s16 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gSkullKidLandAnim));
 
     if (pthis->skelAnime.curFrame == lastFrame) {
         EnSkj_SetupWalkToPlayer(pthis);
@@ -1558,7 +1558,7 @@ void EnSkj_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         Matrix_RotateZYX(-0x4000, 0, 0, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_skj.c", 2430),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gSKJskullMaskDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSKJskullMaskDL));
         Matrix_Pop();
     }
 

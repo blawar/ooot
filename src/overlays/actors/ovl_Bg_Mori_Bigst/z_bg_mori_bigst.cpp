@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_mori_bigst.h"
-#include "objects/object_mori_objects/object_mori_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -89,7 +89,7 @@ void BgMoriBigst_Init(Actor* thisx, GlobalContext* globalCtx) {
                  Flags_GetSwitch(globalCtx, (pthis->dyna.actor.params >> 8) & 0x3F),
                  Flags_GetTempClear(globalCtx, pthis->dyna.actor.room), Flags_GetClear(globalCtx, pthis->dyna.actor.room),
                  GET_PLAYER(globalCtx)->actor.world.pos.y);
-    BgMoriBigst_InitDynapoly(pthis, globalCtx, &gMoriBigstCol, DPM_UNK);
+    BgMoriBigst_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gMoriBigstCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     pthis->moriTexObjIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_MORI_TEX);
     if (pthis->moriTexObjIndex < 0) {
@@ -261,12 +261,11 @@ void BgMoriBigst_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 541);
     func_80093D18(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 548),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gMoriBigstDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMoriBigstDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 553);
 }
 

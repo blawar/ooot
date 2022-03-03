@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_mori_hashira4.h"
-#include "objects/object_mori_objects/object_mori_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -52,7 +52,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 1000, ICHAIN_STOP),
 };
 
-static Gfx* sDisplayLists[] = { gMoriHashiraPlatformsDL, gMoriHashiraGateDL };
+static Gfx* sDisplayLists[] = { oot::asset::gfx::load(symbol::gMoriHashiraPlatformsDL), oot::asset::gfx::load(symbol::gMoriHashiraGateDL) };
 
 static s16 sUnkTimer; // seems to be unused
 
@@ -86,9 +86,9 @@ void BgMoriHashira4_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->dyna.actor.params &= 0xFF;
 
     if (pthis->dyna.actor.params == 0) {
-        BgMoriHashira4_InitDynaPoly(pthis, globalCtx, &gMoriHashira1Col, DPM_UNK3);
+        BgMoriHashira4_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gMoriHashira1Col), DPM_UNK3);
     } else {
-        BgMoriHashira4_InitDynaPoly(pthis, globalCtx, &gMoriHashira2Col, DPM_UNK);
+        BgMoriHashira4_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gMoriHashira2Col), DPM_UNK);
     }
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     pthis->moriTexObjIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_MORI_TEX);
@@ -176,7 +176,6 @@ void BgMoriHashira4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 339);
     func_80093D18(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 344),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

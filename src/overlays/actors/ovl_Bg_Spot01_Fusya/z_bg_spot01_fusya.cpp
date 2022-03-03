@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot01_fusya.h"
-#include "objects/object_spot01_objects/object_spot01_objects.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_common_data.h"
@@ -90,7 +90,7 @@ void BgSpot01Fusya_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot01_fusya.c", 214),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gKakarikoWindmillSailsDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gKakarikoWindmillSailsDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_fusya.c", 219);
 }

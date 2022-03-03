@@ -8,7 +8,7 @@
 
 #include "z_en_mm2.h"
 #include "vt.h"
-#include "objects/object_mm/object_mm.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -33,7 +33,7 @@ void func_80AAF668(EnMm2* pthis, GlobalContext* globalCtx);
 s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
 void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
 
-static void* mouthTextures_46[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
+static void* mouthTextures_46[] = { oot::asset::texture::load(symbol::gRunningManMouthOpenTex), oot::asset::texture::load(symbol::gRunningManMouthClosedTex) };
 
 static Vec3f headOffset_48 = { 200.0f, 800.0f, 0.0f };
 
@@ -72,10 +72,10 @@ static ColliderCylinderInit sCylinderInit = {
 }; 
 
 static EnMm2AnimEntry sAnimationEntries[] = {
-    { &gRunningManRunAnim, 1.0f, ANIMMODE_LOOP, -7.0f },     { &gRunningManSitStandAnim, -1.0f, ANIMMODE_ONCE, -7.0f },
-    { &gRunningManSitWaitAnim, 1.0f, ANIMMODE_LOOP, -7.0f }, { &gRunningManSitStandAnim, 1.0f, ANIMMODE_ONCE, -7.0f },
-    { &gRunningManSprintAnim, 1.0f, ANIMMODE_LOOP, -7.0f },  { &gRunningManExcitedAnim, 1.0f, ANIMMODE_LOOP, -12.0f },
-    { &gRunningManHappyAnim, 1.0f, ANIMMODE_LOOP, -12.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManRunAnim), 1.0f, ANIMMODE_LOOP, -7.0f },     { oot::asset::anim::header::load(symbol::gRunningManSitStandAnim), -1.0f, ANIMMODE_ONCE, -7.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManSitWaitAnim), 1.0f, ANIMMODE_LOOP, -7.0f }, { oot::asset::anim::header::load(symbol::gRunningManSitStandAnim), 1.0f, ANIMMODE_ONCE, -7.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManSprintAnim), 1.0f, ANIMMODE_LOOP, -7.0f },  { oot::asset::anim::header::load(symbol::gRunningManExcitedAnim), 1.0f, ANIMMODE_LOOP, -12.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManHappyAnim), 1.0f, ANIMMODE_LOOP, -12.0f },
 };
 
 static InitChainEntry sInitChain[] = {
@@ -133,7 +133,7 @@ void EnMm2_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 21.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gRunningManSkel, NULL, pthis->jointTable, pthis->morphTable, 16);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gRunningManSkel), NULL, pthis->jointTable, pthis->morphTable, 16);
     Animation_Change(&pthis->skelAnime, sAnimationEntries[RM2_ANIM_SIT_WAIT].animation, 1.0f, 0.0f,
                      Animation_GetLastFrame(sAnimationEntries[RM2_ANIM_SIT_WAIT].animation),
                      sAnimationEntries[RM2_ANIM_SIT_WAIT].mode, sAnimationEntries[RM2_ANIM_SIT_WAIT].morphFrames);

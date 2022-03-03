@@ -36,7 +36,7 @@ ActorInit En_Ganon_Organ_InitVars = {
 
 static u64 sForceAlignment = 0;
 
-#include "overlays/ovl_En_Ganon_Organ/ovl_En_Ganon_Organ.cpp"
+#include "asset.h"
 
 void EnGanonOrgan_Init(Actor* thisx, GlobalContext* globalCtx) {
     thisx->flags &= ~ACTOR_FLAG_0;
@@ -115,8 +115,8 @@ void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ganon_organ.c", 221),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, sRoomOrganAndFloorDL);
-    gSPDisplayList(POLY_OPA_DISP++, sRoomStatuesDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::sRoomOrganAndFloorDL));
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::sRoomStatuesDL));
 
     osSyncPrintf("ORGAN DRAW  2\n");
 

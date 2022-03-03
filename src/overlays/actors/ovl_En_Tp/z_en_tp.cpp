@@ -7,7 +7,7 @@
  */
 
 #include "z_en_tp.h"
-#include "objects/object_tp/object_tp.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_math.h"
@@ -738,7 +738,7 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tp.c", 1459),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gTailpasaranHeadDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTailpasaranHeadDL));
 
             Matrix_Translate(0.0f, 0.0f, 8.0f, MTXMODE_APPLY);
         } else {
@@ -751,11 +751,11 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx) {
                               TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT,
                               TEXEL0, ENVIRONMENT);
             gDPPipeSync(POLY_XLU_DISP++);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gTailpasaranTailSegmentTex));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gTailpasaranTailSegmentTex)));
             gDPPipeSync(POLY_XLU_DISP++);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tp.c", 1480),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gTailpasaranTailSegmentDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gTailpasaranTailSegmentDL));
         }
     }
 

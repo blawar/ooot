@@ -6,7 +6,7 @@
 #include "z64save.h"
 #include "sfx.h"
 #include "gfx_align.h""
-#include "textures/parameter_static/parameter_static.h"
+#include "asset.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_common_data.h"
@@ -253,19 +253,19 @@ void HealthMeter_Update(GlobalContext* globalCtx) {
 }
 
 static void* sHeartTextures[] = {
-    gHeartFullTex,         gHeartQuarterTex,      gHeartQuarterTex,      gHeartQuarterTex,
-    gHeartQuarterTex,      gHeartQuarterTex,      gHeartHalfTex,         gHeartHalfTex,
-    gHeartHalfTex,         gHeartHalfTex,         gHeartHalfTex,         gHeartThreeQuarterTex,
-    gHeartThreeQuarterTex, gHeartThreeQuarterTex, gHeartThreeQuarterTex, gHeartThreeQuarterTex,
+    oot::asset::texture::load(symbol::gHeartFullTex),         oot::asset::texture::load(symbol::gHeartQuarterTex),      oot::asset::texture::load(symbol::gHeartQuarterTex),      oot::asset::texture::load(symbol::gHeartQuarterTex),
+    oot::asset::texture::load(symbol::gHeartQuarterTex),      oot::asset::texture::load(symbol::gHeartQuarterTex),      oot::asset::texture::load(symbol::gHeartHalfTex),         oot::asset::texture::load(symbol::gHeartHalfTex),
+    oot::asset::texture::load(symbol::gHeartHalfTex),         oot::asset::texture::load(symbol::gHeartHalfTex),         oot::asset::texture::load(symbol::gHeartHalfTex),         oot::asset::texture::load(symbol::gHeartThreeQuarterTex),
+    oot::asset::texture::load(symbol::gHeartThreeQuarterTex), oot::asset::texture::load(symbol::gHeartThreeQuarterTex), oot::asset::texture::load(symbol::gHeartThreeQuarterTex), oot::asset::texture::load(symbol::gHeartThreeQuarterTex),
 };
 
 static void* sHeartDDTextures[] = {
-    gDefenseHeartFullTex,         gDefenseHeartQuarterTex,      gDefenseHeartQuarterTex,
-    gDefenseHeartQuarterTex,      gDefenseHeartQuarterTex,      gDefenseHeartQuarterTex,
-    gDefenseHeartHalfTex,         gDefenseHeartHalfTex,         gDefenseHeartHalfTex,
-    gDefenseHeartHalfTex,         gDefenseHeartHalfTex,         gDefenseHeartThreeQuarterTex,
-    gDefenseHeartThreeQuarterTex, gDefenseHeartThreeQuarterTex, gDefenseHeartThreeQuarterTex,
-    gDefenseHeartThreeQuarterTex,
+    oot::asset::texture::load(symbol::gDefenseHeartFullTex),         oot::asset::texture::load(symbol::gDefenseHeartQuarterTex),      oot::asset::texture::load(symbol::gDefenseHeartQuarterTex),
+    oot::asset::texture::load(symbol::gDefenseHeartQuarterTex),      oot::asset::texture::load(symbol::gDefenseHeartQuarterTex),      oot::asset::texture::load(symbol::gDefenseHeartQuarterTex),
+    oot::asset::texture::load(symbol::gDefenseHeartHalfTex),         oot::asset::texture::load(symbol::gDefenseHeartHalfTex),         oot::asset::texture::load(symbol::gDefenseHeartHalfTex),
+    oot::asset::texture::load(symbol::gDefenseHeartHalfTex),         oot::asset::texture::load(symbol::gDefenseHeartHalfTex),         oot::asset::texture::load(symbol::gDefenseHeartThreeQuarterTex),
+    oot::asset::texture::load(symbol::gDefenseHeartThreeQuarterTex), oot::asset::texture::load(symbol::gDefenseHeartThreeQuarterTex), oot::asset::texture::load(symbol::gDefenseHeartThreeQuarterTex),
+    oot::asset::texture::load(symbol::gDefenseHeartThreeQuarterTex),
 };
 
 void HealthMeter_Draw(GlobalContext* globalCtx) {
@@ -343,11 +343,11 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
             }
 
             if (heartIndex < fullHeartCount) {
-                heartBgImg = gHeartFullTex;
+                heartBgImg = oot::asset::texture::load(symbol::gHeartFullTex);
             } else if (heartIndex == fullHeartCount) {
                 heartBgImg = sHeartTextures[curHeartFraction];
             } else {
-                heartBgImg = gHeartEmptyTex;
+                heartBgImg = oot::asset::texture::load(symbol::gHeartEmptyTex);
             }
         } else {
             if (heartIndex < fullHeartCount) {
@@ -386,11 +386,11 @@ void HealthMeter_Draw(GlobalContext* globalCtx) {
             }
 
             if (heartIndex < fullHeartCount) {
-                heartBgImg = gDefenseHeartFullTex;
+                heartBgImg = oot::asset::texture::load(symbol::gDefenseHeartFullTex);
             } else if (heartIndex == fullHeartCount) {
                 heartBgImg = sHeartDDTextures[curHeartFraction];
             } else {
-                heartBgImg = gDefenseHeartEmptyTex;
+                heartBgImg = oot::asset::texture::load(symbol::gDefenseHeartEmptyTex);
             }
         }
 

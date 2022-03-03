@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ydan_hasi.h"
-#include "objects/object_ydan_objects/object_ydan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -33,7 +33,7 @@ void BgYdanHasi_MoveWater(BgYdanHasi* pthis, GlobalContext* globalCtx);
 void BgYdanHasi_DecWaterTimer(BgYdanHasi* pthis, GlobalContext* globalCtx);
 void BgYdanHasi_UpdateThreeBlocks(BgYdanHasi* pthis, GlobalContext* globalCtx);
 
-static Gfx* dLists_38[] = { gDTSlidingPlatformDL, gDTWaterPlaneDL, gDTRisingPlatformsDL };
+static Gfx* dLists_38[] = { oot::asset::gfx::load(symbol::gDTSlidingPlatformDL), oot::asset::gfx::load(symbol::gDTWaterPlaneDL), oot::asset::gfx::load(symbol::gDTRisingPlatformsDL) };
 
 
 ActorInit Bg_Ydan_Hasi_InitVars = {
@@ -71,14 +71,14 @@ void BgYdanHasi_Init(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         if (thisx->params == HASI_WATER_BLOCK) {
             // Moving platform on the water in B1
-            CollisionHeader_GetVirtual(&gDTSlidingPlatformCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDTSlidingPlatformCol), &colHeader);
             thisx->scale.z = 0.15f;
             thisx->scale.x = 0.15f;
             thisx->world.pos.y = (waterBox->ySurface + 20.0f);
             pthis->actionFunc = BgYdanHasi_UpdateFloatingBlock;
         } else {
             // 3 platforms on 2F
-            CollisionHeader_GetVirtual(&gDTRisingPlatformsCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDTRisingPlatformsCol), &colHeader);
             thisx->draw = NULL;
             pthis->actionFunc = BgYdanHasi_SetupThreeBlocks;
             Actor_SetFocus(&pthis->dyna.actor, 40.0f);
@@ -200,7 +200,7 @@ void BgYdanHasi_Draw(Actor* thisx, GlobalContext* globalCtx) {
                                     globalCtx->gameplayFrames % 128, 0x20, 0x20));
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ydan_hasi.c", 592),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gDTWaterPlaneDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDTWaterPlaneDL));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ydan_hasi.c", 597);
     }

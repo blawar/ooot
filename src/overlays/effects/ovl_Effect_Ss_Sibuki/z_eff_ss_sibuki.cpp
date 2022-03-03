@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_sibuki.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_camera.h"
@@ -44,9 +44,9 @@ u32 EffectSsSibuki_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
     pthis->accel = initParams->accel;
 
     if (KREG(2) != 0) {
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffBubble2Tex);
+        pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gEffBubble2Tex));
     } else {
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffBubble1Tex);
+        pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gEffBubble1Tex));
     }
 
     pthis->life = ((s16)((Rand_ZeroOne() * (500.0f + KREG(64))) * 0.01f)) + KREG(65) + 10;
@@ -81,7 +81,7 @@ void EffectSsSibuki_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, pthis->rPrimColorA);
     gDPSetEnvColor(POLY_OPA_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, pthis->rEnvColorA);
     gSPSegment(POLY_OPA_DISP++, 0x08, pthis->gfx);
-    gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gEffBubbleDL));
+    gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffBubbleDL)));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_ss_sibuki.c", 198);
 }

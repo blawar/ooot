@@ -1,7 +1,7 @@
 #include "actor_common.h"
 #include "file_choose.h"
 
-#include "overlays/ovl_File_Choose/ovl_file_choose.cpp"
+#include "asset.h"
 
 s16 D_808123F0[] = {
     0x000A, 0x000B, 0x000C, 0x000D, 0x000E, 0x000F, 0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016,

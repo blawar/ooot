@@ -7,7 +7,7 @@
  */
 
 #include "z_en_am.h"
-#include "objects/object_am/object_am.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
@@ -226,7 +226,7 @@ void EnAm_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     ActorShape_Init(&pthis->dyna.actor.shape, 0.0f, ActorShadow_DrawCircle, 48.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gArmosSkel, &gArmosRicochetAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gArmosSkel), oot::asset::anim::header::load(symbol::gArmosRicochetAnim), pthis->jointTable, pthis->morphTable,
                    14);
     Actor_SetScale(&pthis->dyna.actor, 0.01f);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
@@ -239,7 +239,7 @@ void EnAm_Init(Actor* thisx, GlobalContext* globalCtx) {
         Collider_SetCylinder(globalCtx, &pthis->blockCollider, &pthis->dyna.actor, &sHurtCylinderInit);
         pthis->hurtCollider.base.ocFlags1 = (OC1_ON | OC1_NO_PUSH | OC1_TYPE_1 | OC1_TYPE_2);
         pthis->blockCollider.base.ocFlags1 = (OC1_ON | OC1_NO_PUSH | OC1_TYPE_PLAYER);
-        CollisionHeader_GetVirtual(&gArmosCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gArmosCol), &colHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
         Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->dyna.actor, ACTORCAT_BG);
         EnAm_SetupStatue(pthis);
@@ -286,9 +286,9 @@ void EnAm_SpawnEffects(EnAm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAm_SetupSleep(EnAm* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gArmosRicochetAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gArmosRicochetAnim));
 
-    Animation_Change(&pthis->skelAnime, &gArmosRicochetAnim, 0.0f, lastFrame, lastFrame, ANIMMODE_LOOP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosRicochetAnim), 0.0f, lastFrame, lastFrame, ANIMMODE_LOOP, 0.0f);
     pthis->behavior = AM_BEHAVIOR_DO_NOTHING;
     pthis->dyna.actor.speedXZ = 0.0f;
     pthis->unk_258 = (pthis->textureBlend == 255) ? 0 : 1;
@@ -296,9 +296,9 @@ void EnAm_SetupSleep(EnAm* pthis) {
 }
 
 void EnAm_SetupStatue(EnAm* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gArmosRicochetAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gArmosRicochetAnim));
 
-    Animation_Change(&pthis->skelAnime, &gArmosRicochetAnim, 0.0f, lastFrame, lastFrame, ANIMMODE_LOOP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosRicochetAnim), 0.0f, lastFrame, lastFrame, ANIMMODE_LOOP, 0.0f);
     pthis->dyna.actor.flags &= ~ACTOR_FLAG_0;
     pthis->behavior = AM_BEHAVIOR_DO_NOTHING;
     pthis->dyna.actor.speedXZ = 0.0f;
@@ -306,7 +306,7 @@ void EnAm_SetupStatue(EnAm* pthis) {
 }
 
 void EnAm_SetupLunge(EnAm* pthis) {
-    Animation_PlayLoopSetSpeed(&pthis->skelAnime, &gArmosHopAnim, 4.0f);
+    Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosHopAnim), 4.0f);
     pthis->unk_258 = 3;
     pthis->behavior = AM_BEHAVIOR_AGGRO;
     pthis->dyna.actor.speedXZ = 0.0f;
@@ -315,7 +315,7 @@ void EnAm_SetupLunge(EnAm* pthis) {
 }
 
 void EnAm_SetupCooldown(EnAm* pthis) {
-    Animation_PlayLoopSetSpeed(&pthis->skelAnime, &gArmosHopAnim, 4.0f);
+    Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosHopAnim), 4.0f);
     pthis->unk_258 = 3;
     pthis->cooldownTimer = 40;
     pthis->behavior = AM_BEHAVIOR_AGGRO;
@@ -325,7 +325,7 @@ void EnAm_SetupCooldown(EnAm* pthis) {
 }
 
 void EnAm_SetupMoveToHome(EnAm* pthis) {
-    Animation_PlayLoopSetSpeed(&pthis->skelAnime, &gArmosHopAnim, 4.0f);
+    Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosHopAnim), 4.0f);
     pthis->behavior = AM_BEHAVIOR_GO_HOME;
     pthis->unk_258 = 1;
     pthis->dyna.actor.speedXZ = 0.0f;
@@ -333,7 +333,7 @@ void EnAm_SetupMoveToHome(EnAm* pthis) {
 }
 
 void EnAm_SetupRotateToInit(EnAm* pthis) {
-    Animation_PlayLoopSetSpeed(&pthis->skelAnime, &gArmosHopAnim, 4.0f);
+    Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosHopAnim), 4.0f);
     pthis->behavior = AM_BEHAVIOR_GO_HOME;
     pthis->unk_258 = 1;
     pthis->dyna.actor.speedXZ = 0.0f;
@@ -341,7 +341,7 @@ void EnAm_SetupRotateToInit(EnAm* pthis) {
 }
 
 void EnAm_SetupRotateToHome(EnAm* pthis) {
-    Animation_PlayLoopSetSpeed(&pthis->skelAnime, &gArmosHopAnim, 4.0f);
+    Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosHopAnim), 4.0f);
     pthis->behavior = AM_BEHAVIOR_GO_HOME;
     pthis->dyna.actor.speedXZ = 0.0f;
     pthis->dyna.actor.world.rot.y = pthis->dyna.actor.shape.rot.y;
@@ -349,8 +349,8 @@ void EnAm_SetupRotateToHome(EnAm* pthis) {
 }
 
 void EnAm_SetupRecoilFromDamage(EnAm* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gArmosDamagedAnim, 1.0f, 4.0f,
-                     Animation_GetLastFrame(&gArmosDamagedAnim) - 6.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosDamagedAnim), 1.0f, 4.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gArmosDamagedAnim)) - 6.0f, ANIMMODE_ONCE, 0.0f);
     pthis->behavior = AM_BEHAVIOR_DAMAGED;
     pthis->dyna.actor.world.rot.y = pthis->dyna.actor.yawTowardsPlayer;
     Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EN_AMOS_DAMAGE);
@@ -365,7 +365,7 @@ void EnAm_SetupRecoilFromDamage(EnAm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAm_SetupRicochet(EnAm* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gArmosRicochetAnim, 1.0f, 0.0f, 8.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosRicochetAnim), 1.0f, 0.0f, 8.0f, ANIMMODE_ONCE, 0.0f);
     pthis->dyna.actor.world.rot.y = pthis->dyna.actor.yawTowardsPlayer;
 
     if (EnAm_CanMove(pthis, globalCtx, -6.0f, pthis->dyna.actor.world.rot.y)) {
@@ -722,7 +722,7 @@ void EnAm_Statue(EnAm* pthis, GlobalContext* globalCtx) {
 void EnAm_SetupStunned(EnAm* pthis, GlobalContext* globalCtx) {
     // animation is set but SkelAnime_Update is not called in the action
     // likely copy pasted from EnAm_SetupRecoilFromDamage
-    Animation_Change(&pthis->skelAnime, &gArmosDamagedAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gArmosDamagedAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArmosDamagedAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gArmosDamagedAnim)),
                      ANIMMODE_ONCE, 0.0f);
 
     pthis->dyna.actor.world.rot.y = pthis->dyna.actor.yawTowardsPlayer;

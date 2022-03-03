@@ -14,9 +14,7 @@
 #include "z_play.h"
 #include "z_parameter.h"
 #include "gfx_align.h""
-#include "textures/parameter_static/parameter_static.h"
-#include "textures/do_action_static/do_action_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
+#include "asset.h"
 #include "def/inventory.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -42,9 +40,11 @@
 // TODO extract this information from the texture definitions themselves
 #define DO_ACTION_TEX_WIDTH 48
 #define DO_ACTION_TEX_HEIGHT 16
-#define DO_ACTION_TEX_SIZE ((DO_ACTION_TEX_WIDTH * DO_ACTION_TEX_HEIGHT) / 2) // (sizeof(gCheckDoActionENGTex))
+#define DO_ACTION_TEX_SIZE ((DO_ACTION_TEX_WIDTH * DO_ACTION_TEX_HEIGHT) / 2) // (sizeof(oot::asset::texture::load(symbol::gCheckDoActionENGTex)))
 
-static const u8 gEmptyTex[DO_ACTION_TEX_SIZE] = { 0 };
+extern void* do_action_static_lut[];
+extern void* icon_item_static_lut[];
+static const u8 gEmptyTex[DO_ACTION_TEX_SIZE] = {0};
 
 typedef struct {
     /* 0x00 */ u8 scene;
@@ -2108,7 +2108,7 @@ void Interface_LoadActionLabel(InterfaceContext* interfaceCtx, u16 action, s16 l
     } else {
         gSegments[7] = (uintptr_t)VIRTUAL_TO_PHYSICAL(interfaceCtx->doActionSegment1);
 #ifdef N64_VERSION
-        static void* sDoActionTextures[] = { gAttackDoActionENGTex, gCheckDoActionENGTex };
+        static void* sDoActionTextures[] = { oot::asset::texture::load(symbol::gAttackDoActionENGTex), oot::asset::texture::load(symbol::gCheckDoActionENGTex) };
         Interface_ClearData((s32*)SEGMENTED_TO_VIRTUAL(sDoActionTextures[loadOffset]), DO_ACTION_TEX_SIZE / 4);
 #else
         if (loadOffset == 0)
@@ -2596,12 +2596,12 @@ void Interface_DrawMagicBar(GlobalContext* globalCtx) {
         gDPSetEnvColor(OVERLAY_DISP++, 100, 50, 50, 255);
 
         OVERLAY_DISP =
-            Gfx_TextureIA8(OVERLAY_DISP, gMagicBarEndTex, 8, 16, GFX_ALIGN_LEFT(R_MAGIC_BAR_X), magicBarY, 8, 16, 1 << 10, 1 << 10);
+            Gfx_TextureIA8(OVERLAY_DISP, oot::asset::texture::load(symbol::gMagicBarEndTex), 8, 16, GFX_ALIGN_LEFT(R_MAGIC_BAR_X), magicBarY, 8, 16, 1 << 10, 1 << 10);
 
-        OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, gMagicBarMidTex, 24, 16, GFX_ALIGN_LEFT(R_MAGIC_BAR_X) + 8, magicBarY,
+        OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, oot::asset::texture::load(symbol::gMagicBarMidTex), 24, 16, GFX_ALIGN_LEFT(R_MAGIC_BAR_X) + 8, magicBarY,
                                       gSaveContext.unk_13F4, 16, 1 << 10, 1 << 10);
 
-        gDPLoadTextureBlock(OVERLAY_DISP++, gMagicBarEndTex, G_IM_FMT_IA, G_IM_SIZ_8b, 8, 16, 0,
+        gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gMagicBarEndTex), G_IM_FMT_IA, G_IM_SIZ_8b, 8, 16, 0,
                             G_TX_MIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 3, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
         gSPTextureRectangle(OVERLAY_DISP++, ((GFX_ALIGN_LEFT(R_MAGIC_BAR_X) + gSaveContext.unk_13F4) + 8) << 2, magicBarY << 2,
@@ -2617,7 +2617,7 @@ void Interface_DrawMagicBar(GlobalContext* globalCtx) {
             // Yellow part of the bar indicating the amount of magic to be subtracted
             gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 250, 250, 0, interfaceCtx->magicAlpha);
 
-            gDPLoadMultiBlock_4b(OVERLAY_DISP++, gMagicBarFillTex, 0, G_TX_RENDERTILE, G_IM_FMT_I, 16, 16, 0,
+            gDPLoadMultiBlock_4b(OVERLAY_DISP++, oot::asset::texture::load(symbol::gMagicBarFillTex), 0, G_TX_RENDERTILE, G_IM_FMT_I, 16, 16, 0,
                                  G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                  G_TX_NOLOD, G_TX_NOLOD);
 
@@ -2638,7 +2638,7 @@ void Interface_DrawMagicBar(GlobalContext* globalCtx) {
             gDPSetPrimColor(OVERLAY_DISP++, 0, 0, R_MAGIC_FILL_COLOR(0), R_MAGIC_FILL_COLOR(1), R_MAGIC_FILL_COLOR(2),
                             interfaceCtx->magicAlpha);
 
-            gDPLoadMultiBlock_4b(OVERLAY_DISP++, gMagicBarFillTex, 0, G_TX_RENDERTILE, G_IM_FMT_I, 16, 16, 0,
+            gDPLoadMultiBlock_4b(OVERLAY_DISP++, oot::asset::texture::load(symbol::gMagicBarFillTex), 0, G_TX_RENDERTILE, G_IM_FMT_I, 16, 16, 0,
                                  G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                  G_TX_NOLOD, G_TX_NOLOD);
 
@@ -2700,7 +2700,7 @@ void Interface_DrawActionLabel(GraphicsContext* gfxCtx, void* texture) {
 }
 
 void Interface_DrawItemButtons(GlobalContext* globalCtx) {
-    static void* cUpLabelTextures[] = { gNaviCUpENGTex, gNaviCUpENGTex, gNaviCUpENGTex };
+    static void* cUpLabelTextures[] = { oot::asset::texture::load(symbol::gNaviCUpENGTex), oot::asset::texture::load(symbol::gNaviCUpENGTex), oot::asset::texture::load(symbol::gNaviCUpENGTex) };
     static s16 startButtonLeftPos[] = { 132, 130, 130 };
     InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
     Player* player = GET_PLAYER(globalCtx);
@@ -2719,7 +2719,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx) {
     gDPSetPrimColor(OVERLAY_DISP++, 0, 0, R_B_BTN_COLOR(0), R_B_BTN_COLOR(1), R_B_BTN_COLOR(2), interfaceCtx->bAlpha);
     gDPSetEnvColor(OVERLAY_DISP++, 0, 0, 0, 255);
     OVERLAY_DISP =
-        Gfx_TextureIA8(OVERLAY_DISP, gButtonBackgroundTex, 32, 32, GFX_ALIGN_RIGHT(R_ITEM_BTN_X(0)), R_ITEM_BTN_Y(0),
+        Gfx_TextureIA8(OVERLAY_DISP, oot::asset::texture::load(symbol::gButtonBackgroundTex), 32, 32, GFX_ALIGN_RIGHT(R_ITEM_BTN_X(0)), R_ITEM_BTN_Y(0),
                        R_ITEM_BTN_WIDTH(0), R_ITEM_BTN_WIDTH(0), R_ITEM_BTN_DD(0) << 1, R_ITEM_BTN_DD(0) << 1);
 
     // C-Left Button Color & Texture
@@ -2828,7 +2828,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx) {
                                 interfaceCtx->cRightAlpha);
             }
 
-            OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)gButtonBackgroundTex + ((32 * 32) * (temp + 1))), 32, 32,
+            OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gButtonBackgroundTex) + ((32 * 32) * (temp + 1))), 32, 32,
                                           GFX_ALIGN_RIGHT(R_ITEM_BTN_X(temp)), R_ITEM_BTN_Y(temp), R_ITEM_BTN_WIDTH(temp),
                                           R_ITEM_BTN_WIDTH(temp), R_ITEM_BTN_DD(temp) << 1, R_ITEM_BTN_DD(temp) << 1);
         }
@@ -2898,11 +2898,11 @@ void Interface_DrawAmmoCount(GlobalContext* globalCtx, s16 button, s16 alpha) {
         }
 
         if (i != 0) {
-            OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)gAmmoDigit0Tex + ((8 * 8) * i)), 8, 8,
+            OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gAmmoDigit0Tex) + ((8 * 8) * i)), 8, 8,
                                           GFX_ALIGN_RIGHT(R_ITEM_AMMO_X(button)), R_ITEM_AMMO_Y(button), 8, 8, 1 << 10, 1 << 10);
         }
 
-        OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)gAmmoDigit0Tex + ((8 * 8) * ammo)), 8, 8,
+        OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gAmmoDigit0Tex) + ((8 * 8) * ammo)), 8, 8,
                                       GFX_ALIGN_RIGHT(R_ITEM_AMMO_X(button)) + 6, R_ITEM_AMMO_Y(button), 8, 8, 1 << 10, 1 << 10);
     }
 
@@ -2922,7 +2922,7 @@ void Interface_DrawActionButton(GlobalContext* globalCtx) {
               G_MTX_MODELVIEW | G_MTX_LOAD);
     gSPVertex(OVERLAY_DISP++, &interfaceCtx->actionVtx[0], 4, 0);
 
-    gDPLoadTextureBlock(OVERLAY_DISP++, gButtonBackgroundTex, G_IM_FMT_IA, G_IM_SIZ_8b, 32, 32, 0,
+    gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gButtonBackgroundTex), G_IM_FMT_IA, G_IM_SIZ_8b, 32, 32, 0,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                         G_TX_NOLOD);
 
@@ -3090,7 +3090,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
         // Rupee Icon
         gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 200, 255, 100, interfaceCtx->magicAlpha);
         gDPSetEnvColor(OVERLAY_DISP++, 0, 80, 0, 255);
-        OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, gRupeeCounterIconTex, 16, 16, GFX_ALIGN_LEFT(26), 206, 16, 16, 1 << 10, 1 << 10);
+        OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, oot::asset::texture::load(symbol::gRupeeCounterIconTex), 16, 16, GFX_ALIGN_LEFT(26), 206, 16, 16, 1 << 10, 1 << 10);
 
         switch (globalCtx->sceneNum) {
             case SCENE_BMORI1:
@@ -3112,7 +3112,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                     gDPPipeSync(OVERLAY_DISP++);
                     gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 200, 230, 255, interfaceCtx->magicAlpha);
                     gDPSetEnvColor(OVERLAY_DISP++, 0, 0, 20, 255);
-                    OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, gSmallKeyCounterIconTex, 16, 16, GFX_ALIGN_LEFT(26), 190, 16, 16,
+                    OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, oot::asset::texture::load(symbol::gSmallKeyCounterIconTex), 16, 16, GFX_ALIGN_LEFT(26), 190, 16, 16,
                                                   1 << 10, 1 << 10);
 
                     // Small Key Counter
@@ -3133,13 +3133,13 @@ void Interface_Draw(GlobalContext* globalCtx) {
 
                     if (interfaceCtx->counterDigits[2] != 0) {
                         OVERLAY_DISP = Gfx_TextureI8(
-                            OVERLAY_DISP, ((u8*)gCounterDigit0Tex + (8 * 16 * interfaceCtx->counterDigits[2])), 8, 16,
+                            OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gCounterDigit0Tex) + (8 * 16 * interfaceCtx->counterDigits[2])), 8, 16,
                             svar3, 190, 8, 16, 1 << 10, 1 << 10);
                         svar3 += 8;
                     }
 
                     OVERLAY_DISP = Gfx_TextureI8(OVERLAY_DISP,
-                                                 ((u8*)gCounterDigit0Tex + (8 * 16 * interfaceCtx->counterDigits[3])),
+                                                 ((u8*)oot::asset::texture::load(symbol::gCounterDigit0Tex) + (8 * 16 * interfaceCtx->counterDigits[3])),
                                                  8, 16, svar3, 190, 8, 16, 1 << 10, 1 << 10);
                 }
                 break;
@@ -3183,7 +3183,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
 
         for (svar1 = 0, svar3 = 42; svar1 < svar5; svar1++, svar2++, svar3 += 8) {
             OVERLAY_DISP =
-                Gfx_TextureI8(OVERLAY_DISP, ((u8*)gCounterDigit0Tex + (8 * 16 * interfaceCtx->counterDigits[svar2])), 8,
+                Gfx_TextureI8(OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gCounterDigit0Tex) + (8 * 16 * interfaceCtx->counterDigits[svar2])), 8,
                               16, GFX_ALIGN_LEFT(svar3), 206, 8, 16, 1 << 10, 1 << 10);
         }
 
@@ -3345,7 +3345,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                 }
 
                 gSPVertex(OVERLAY_DISP++, &pauseCtx->cursorVtx[16], 4, 0);
-                gDPLoadTextureBlock(OVERLAY_DISP++, gMagicArrowEquipEffectTex, G_IM_FMT_IA, G_IM_SIZ_8b, 32, 32, 0,
+                gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gMagicArrowEquipEffectTex), G_IM_FMT_IA, G_IM_SIZ_8b, 32, 32, 0,
                                     G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                     G_TX_NOLOD, G_TX_NOLOD);
             }
@@ -3360,7 +3360,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                 // Carrots rendering if the action corresponds to riding a horse
                 if (interfaceCtx->unk_1EE == 8) {
                     // Load Carrot Icon
-                    gDPLoadTextureBlock(OVERLAY_DISP++, gCarrotIconTex, G_IM_FMT_RGBA, G_IM_SIZ_32b, 16, 16, 0,
+                    gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gCarrotIconTex), G_IM_FMT_RGBA, G_IM_SIZ_32b, 16, 16, 0,
                                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                         G_TX_NOLOD, G_TX_NOLOD);
 
@@ -3383,7 +3383,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                 gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 255, 255, 255, interfaceCtx->bAlpha);
 
                 // Target Icon
-                gDPLoadTextureBlock(OVERLAY_DISP++, gArcheryScoreIconTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 24, 16, 0,
+                gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gArcheryScoreIconTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 24, 16, 0,
                                     G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                     G_TX_NOLOD, G_TX_NOLOD);
 
@@ -3400,7 +3400,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                 for (svar1 = svar2 = 0; svar1 < 4; svar1++) {
                     if (sHBAScoreDigits[svar1] != 0 || (svar2 != 0) || (svar1 >= 3)) {
                         OVERLAY_DISP = Gfx_TextureI8(
-                            OVERLAY_DISP, ((u8*)gCounterDigit0Tex + (8 * 16 * sHBAScoreDigits[svar1])), 8, 16, svar5,
+                            OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gCounterDigit0Tex) + (8 * 16 * sHBAScoreDigits[svar1])), 8, 16, svar5,
                             (ZREG(15) - 2), digitWidth[0], VREG(42), VREG(43) << 1, VREG(43) << 1);
                         svar5 += 9;
                         svar2++;
@@ -3797,7 +3797,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                 svar2 = gSaveContext.timerY[svar6];
 
                 OVERLAY_DISP =
-                    Gfx_TextureIA8(OVERLAY_DISP, gClockIconTex, 16, 16, svar5, svar2 + 2, 16, 16, 1 << 10, 1 << 10);
+                    Gfx_TextureIA8(OVERLAY_DISP, oot::asset::texture::load(symbol::gClockIconTex), 16, 16, svar5, svar2 + 2, 16, 16, 1 << 10, 1 << 10);
 
                 // Timer Counter
                 gDPPipeSync(OVERLAY_DISP++);
@@ -3823,7 +3823,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                     svar5 = GFX_ALIGN_GUESS(gSaveContext.timerX[svar6]);
                     
                     OVERLAY_DISP =
-                        Gfx_TextureI8(OVERLAY_DISP, ((u8*)gCounterDigit0Tex + (8 * 16 * timerDigits[svar1])), 8, 16,
+                        Gfx_TextureI8(OVERLAY_DISP, ((u8*)oot::asset::texture::load(symbol::gCounterDigit0Tex) + (8 * 16 * timerDigits[svar1])), 8, 16,
                                       svar5 + timerDigitLeftPos[svar1],
                                       svar2 = gSaveContext.timerY[svar6], digitWidth[svar1], VREG(42), VREG(43) << 1,
                                       VREG(43) << 1);

@@ -9,14 +9,14 @@
 
 #include "z_en_viewer.h"
 #include "overlays/actors/ovl_En_Ganon_Mant/z_en_ganon_mant.h"
-#include "objects/object_zl4/object_zl4.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_horse_zelda/object_horse_zelda.h"
-#include "objects/object_horse_ganon/object_horse_ganon.h"
-#include "objects/object_im/object_im.h"
-#include "objects/object_gndd/object_gndd.h"
-#include "objects/object_ganon/object_ganon.h"
-#include "objects/object_opening_demo1/object_opening_demo1.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
@@ -73,35 +73,35 @@ static InitChainEntry sInitChain[] = {
 
 static EnViewerInitData sInitData[] = {
     /* ENVIEWER_TYPE_0_HORSE_ZELDA */
-    { OBJECT_HORSE_ZELDA, OBJECT_HORSE_ZELDA, 1, 0, ENVIEWER_SHADOW_HORSE, 20, ENVIEWER_DRAW_HORSE, &gHorseZeldaSkel,
-      &gHorseZeldaGallopingAnim },
+    { OBJECT_HORSE_ZELDA, OBJECT_HORSE_ZELDA, 1, 0, ENVIEWER_SHADOW_HORSE, 20, ENVIEWER_DRAW_HORSE, oot::asset::skel::header2::load(symbol::gHorseZeldaSkel),
+      oot::asset::anim::header::load(symbol::gHorseZeldaGallopingAnim) },
     /* ENVIEWER_TYPE_1_IMPA */
-    { OBJECT_IM, OBJECT_OPENING_DEMO1, 1, 0, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_IMPA, &gImpaSkel,
-      &object_opening_demo1_Anim_0029CC },
+    { OBJECT_IM, OBJECT_OPENING_DEMO1, 1, 0, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_IMPA, oot::asset::skel::header::load(symbol::gImpaSkel),
+      oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_0029CC) },
     /* ENVIEWER_TYPE_2_ZELDA */
-    { OBJECT_ZL4, OBJECT_OPENING_DEMO1, 1, 0, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_ZELDA, &gChildZeldaSkel,
-      &object_opening_demo1_Anim_000450 },
+    { OBJECT_ZL4, OBJECT_OPENING_DEMO1, 1, 0, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_ZELDA, oot::asset::skel::header::load(symbol::gChildZeldaSkel),
+      oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_000450) },
     /* ENVIEWER_TYPE_3_GANONDORF */
-    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, &object_gndd_Skel_0119E8,
-      &object_gndd_Anim_002928 },
+    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, oot::asset::skel::header::load(symbol::object_gndd_Skel_0119E8),
+      oot::asset::anim::header::load(symbol::object_gndd_Anim_002928) },
     /* ENVIEWER_TYPE_4_HORSE_GANONDORF */
-    { OBJECT_HORSE_GANON, OBJECT_HORSE_GANON, 1, 0, ENVIEWER_SHADOW_HORSE, 20, ENVIEWER_DRAW_HORSE, &gHorseGanonSkel,
-      &gHorseGanonRearingAnim },
+    { OBJECT_HORSE_GANON, OBJECT_HORSE_GANON, 1, 0, ENVIEWER_SHADOW_HORSE, 20, ENVIEWER_DRAW_HORSE, oot::asset::skel::header2::load(symbol::gHorseGanonSkel),
+      oot::asset::anim::header::load(symbol::gHorseGanonRearingAnim) },
     /* ENVIEWER_TYPE_5_GANONDORF */
-    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, &object_gndd_Skel_0119E8,
-      &object_gndd_Anim_0005B4 },
+    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, oot::asset::skel::header::load(symbol::object_gndd_Skel_0119E8),
+      oot::asset::anim::header::load(symbol::object_gndd_Anim_0005B4) },
     /* ENVIEWER_TYPE_6_HORSE_GANONDORF */
-    { OBJECT_HORSE_GANON, OBJECT_HORSE_GANON, 1, 0, ENVIEWER_SHADOW_HORSE, 20, ENVIEWER_DRAW_HORSE, &gHorseGanonSkel,
-      &gHorseGanonGallopingAnim },
+    { OBJECT_HORSE_GANON, OBJECT_HORSE_GANON, 1, 0, ENVIEWER_SHADOW_HORSE, 20, ENVIEWER_DRAW_HORSE, oot::asset::skel::header2::load(symbol::gHorseGanonSkel),
+      oot::asset::anim::header::load(symbol::gHorseGanonGallopingAnim) },
     /* ENVIEWER_TYPE_7_GANONDORF */
-    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, &object_gndd_Skel_0119E8,
-      &object_gndd_Anim_004260 },
+    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, oot::asset::skel::header::load(symbol::object_gndd_Skel_0119E8),
+      oot::asset::anim::header::load(symbol::object_gndd_Anim_004260) },
     /* ENVIEWER_TYPE_8_GANONDORF */
-    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, &object_gndd_Skel_0119E8,
-      &object_gndd_Anim_0050A8 },
+    { OBJECT_GNDD, OBJECT_GNDD, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, oot::asset::skel::header::load(symbol::object_gndd_Skel_0119E8),
+      oot::asset::anim::header::load(symbol::object_gndd_Anim_0050A8) },
     /* ENVIEWER_TYPE_9_GANONDORF */
-    { OBJECT_GANON, OBJECT_GANON, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, &gDorfSkel,
-      &object_ganon_Anim_011348 },
+    { OBJECT_GANON, OBJECT_GANON, 1, -6, ENVIEWER_SHADOW_NONE, 10, ENVIEWER_DRAW_GANONDORF, oot::asset::skel::header::load(symbol::gDorfSkel),
+      oot::asset::anim::header::load(symbol::object_ganon_Anim_011348) },
 };
 
 static EnGanonMant* sGanondorfCape;
@@ -147,7 +147,6 @@ void EnViewer_InitAnimGanondorfOrZelda(EnViewer* pthis, GlobalContext* globalCtx
         SkelAnime_Init(globalCtx, &pthis->skin.skelAnime, (SkeletonHeader*)skeletonHeaderSeg, NULL, NULL, NULL, 0);
     }
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->animObjBankIndex].vromStart.get());
     if (type == ENVIEWER_TYPE_3_GANONDORF || type == ENVIEWER_TYPE_7_GANONDORF || type == ENVIEWER_TYPE_8_GANONDORF ||
         type == ENVIEWER_TYPE_9_GANONDORF) {
         Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, anim, 1.0f);
@@ -158,7 +157,6 @@ void EnViewer_InitAnimGanondorfOrZelda(EnViewer* pthis, GlobalContext* globalCtx
 
 void EnViewer_InitAnimImpa(EnViewer* pthis, GlobalContext* globalCtx, void* skeletonHeaderSeg, AnimationHeader* anim) {
     SkelAnime_InitFlex(globalCtx, &pthis->skin.skelAnime, (FlexSkeletonHeader*)skeletonHeaderSeg, NULL, NULL, NULL, 0);
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->animObjBankIndex].vromStart.get());
     Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, anim, 3.0f);
 }
 
@@ -279,18 +277,18 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
     } else if (type == ENVIEWER_TYPE_4_HORSE_GANONDORF) {
         s16 curFrame = pthis->skin.skelAnime.curFrame;
 
-        if (pthis->skin.skelAnime.animation == &gHorseGanonRearingAnim) {
+        if (pthis->skin.skelAnime.animation == oot::asset::anim::header::load(symbol::gHorseGanonRearingAnim)) {
             if (curFrame == 8) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_GANON_HORSE_NEIGH);
             }
             if (curFrame == 30) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_HORSE_LAND2);
             }
-        } else if (pthis->skin.skelAnime.animation == &gHorseGanonIdleAnim) {
+        } else if (pthis->skin.skelAnime.animation == oot::asset::anim::header::load(symbol::gHorseGanonIdleAnim)) {
             if (curFrame == 25) {
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_HORSE_SANDDUST);
             }
-        } else if (pthis->skin.skelAnime.animation == &gHorseGanonGallopingAnim) {
+        } else if (pthis->skin.skelAnime.animation == oot::asset::anim::header::load(symbol::gHorseGanonGallopingAnim)) {
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_HORSE_RUN_LEVEL - SFX_FLAG);
         }
     }
@@ -307,63 +305,63 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
         if (globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[1] != NULL) {
             if (globalCtx->csCtx.npcActions[1]->action == 2 && sTimer == 0) {
                 if (type == ENVIEWER_TYPE_3_GANONDORF) {
-                    if (pthis->skin.skelAnime.animation != &object_gndd_Anim_002928) {
-                        Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_gndd_Anim_002928, 1.0f);
+                    if (pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::object_gndd_Anim_002928)) {
+                        Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_002928), 1.0f);
                     }
-                } else if (pthis->skin.skelAnime.animation != &gHorseGanonIdleAnim) {
-                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &gHorseGanonIdleAnim, 1.0f);
+                } else if (pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::gHorseGanonIdleAnim)) {
+                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gHorseGanonIdleAnim), 1.0f);
                 }
             } else if (globalCtx->csCtx.npcActions[1]->action == 1) {
                 sTimer = 100;
                 if (type == ENVIEWER_TYPE_3_GANONDORF) {
-                    if (pthis->skin.skelAnime.animation != &object_gndd_Anim_001D28) {
-                        Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_gndd_Anim_001D28, 1.0f);
+                    if (pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::object_gndd_Anim_001D28)) {
+                        Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_001D28), 1.0f);
                     }
-                } else if (pthis->skin.skelAnime.animation != &gHorseGanonRearingAnim) {
-                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &gHorseGanonRearingAnim, 1.0f);
+                } else if (pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::gHorseGanonRearingAnim)) {
+                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gHorseGanonRearingAnim), 1.0f);
                 }
             } else if (type == ENVIEWER_TYPE_3_GANONDORF) {
                 switch (pthis->state) {
                     case 0:
                         if (globalCtx->csCtx.npcActions[1]->action == 4) {
-                            Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_gndd_Anim_000F54, -5.0f);
+                            Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_000F54), -5.0f);
                             pthis->state++;
                         }
                         break;
                     case 1:
                         if (animationEnded) {
-                            Animation_MorphToLoop(&pthis->skin.skelAnime, &object_gndd_Anim_0014F4, -5.0f);
+                            Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_0014F4), -5.0f);
                             pthis->state++;
                         }
                         break;
                     case 2:
                         if (globalCtx->csCtx.npcActions[1]->action == 5) {
-                            Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_gndd_Anim_0008A0, -5.0f);
+                            Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_0008A0), -5.0f);
                             pthis->state++;
                         }
                         break;
                     case 3:
                         if (animationEnded) {
-                            Animation_MorphToLoop(&pthis->skin.skelAnime, &object_gndd_Anim_000BC8, -5.0f);
+                            Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_000BC8), -5.0f);
                             pthis->state++;
                         }
                         break;
                     case 4:
                         if (globalCtx->csCtx.npcActions[1]->action == 11) {
-                            Animation_MorphToLoop(&pthis->skin.skelAnime, &object_gndd_Anim_0014F4, -20.0f);
+                            Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_0014F4), -20.0f);
                             pthis->state++;
                         }
                         break;
                     case 5:
                         if (globalCtx->csCtx.npcActions[1]->action == 8) {
-                            Animation_MorphToLoop(&pthis->skin.skelAnime, &object_gndd_Anim_002928, -15.0f);
+                            Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_002928), -15.0f);
                             pthis->state++;
                         }
                         break;
                     case 6:
                         if (globalCtx->csCtx.npcActions[1]->action == 12) {
                             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GANON_VOICE_DEMO);
-                            Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_gndd_Anim_0005B4, 3.0f);
+                            Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_0005B4), 3.0f);
                             pthis->state++;
                         }
                         break;
@@ -371,9 +369,9 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
                         pthis->state = 0;
                         break;
                 }
-            } else if (pthis->skin.skelAnime.animation != &gHorseGanonGallopingAnim &&
+            } else if (pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::gHorseGanonGallopingAnim) &&
                        globalCtx->csCtx.npcActions[1]->action == 12) {
-                Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &gHorseGanonGallopingAnim, 3.0f);
+                Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::gHorseGanonGallopingAnim), 3.0f);
             }
         }
     } else if (type == ENVIEWER_TYPE_1_IMPA) {
@@ -392,16 +390,16 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
             case 0:
                 if (globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[0] != NULL &&
                     globalCtx->csCtx.npcActions[0]->action == 6 &&
-                    pthis->skin.skelAnime.animation != &object_opening_demo1_Anim_002574) {
-                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_opening_demo1_Anim_002574, 1.5f);
+                    pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_002574)) {
+                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_002574), 1.5f);
                     pthis->state++;
                 }
                 break;
             case 1:
                 if (globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[0] != NULL &&
                     globalCtx->csCtx.npcActions[0]->action == 2 &&
-                    pthis->skin.skelAnime.animation != &object_opening_demo1_Anim_0029CC) {
-                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_opening_demo1_Anim_0029CC, 3.0f);
+                    pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_0029CC)) {
+                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_0029CC), 3.0f);
                     pthis->state++;
                 }
                 break;
@@ -412,8 +410,8 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
                 case 0:
                     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
                         if (globalCtx->csCtx.npcActions[0] != NULL && globalCtx->csCtx.npcActions[0]->action == 6 &&
-                            pthis->skin.skelAnime.animation != &object_opening_demo1_Anim_001410) {
-                            Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_opening_demo1_Anim_001410, 1.5f);
+                            pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_001410)) {
+                            Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_001410), 1.5f);
                             pthis->state++;
                         }
                     }
@@ -421,8 +419,8 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
                 case 1:
                     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
                         if (globalCtx->csCtx.npcActions[0] != NULL && globalCtx->csCtx.npcActions[0]->action == 2 &&
-                            pthis->skin.skelAnime.animation != &object_opening_demo1_Anim_000450) {
-                            Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_opening_demo1_Anim_000450, 3.0f);
+                            pthis->skin.skelAnime.animation != oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_000450)) {
+                            Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_000450), 3.0f);
                             pthis->state++;
                         }
                     }
@@ -432,18 +430,18 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
             Audio_SetBaseFilter(0);
             switch (pthis->state) {
                 case 0:
-                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_opening_demo1_Anim_00504C, 1.0f);
+                    Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_00504C), 1.0f);
                     pthis->state++;
                     break;
                 case 1:
                     if (globalCtx->csCtx.npcActions[0]->action == 11) {
-                        Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_opening_demo1_Anim_00420C, -5.0f);
+                        Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_00420C), -5.0f);
                         pthis->state++;
                     }
                     break;
                 case 2:
                     if (animationEnded) {
-                        Animation_MorphToLoop(&pthis->skin.skelAnime, &object_opening_demo1_Anim_0048FC, -5.0f);
+                        Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_opening_demo1_Anim_0048FC), -5.0f);
                         pthis->state++;
                     }
                     break;
@@ -457,13 +455,13 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
                 if (globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[1] != NULL &&
                     globalCtx->csCtx.npcActions[1]->action == 7) {
                     Audio_PlaySoundGeneral(NA_SE_EN_GANON_LAUGH, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-                    Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_gndd_Anim_004534, -5.0f);
+                    Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_004534), -5.0f);
                     pthis->state++;
                 }
                 break;
             case 1:
                 if (animationEnded) {
-                    Animation_MorphToLoop(&pthis->skin.skelAnime, &object_gndd_Anim_0048B0, -5.0f);
+                    Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_0048B0), -5.0f);
                     pthis->state++;
                 }
                 break;
@@ -473,26 +471,26 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
             case 0:
                 if (globalCtx->csCtx.state != CS_STATE_IDLE) {
                     if (globalCtx->csCtx.npcActions[1] != NULL && globalCtx->csCtx.npcActions[1]->action == 9) {
-                        Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, &object_gndd_Anim_0050A8, 1.0f);
+                        Animation_PlayLoopSetSpeed(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_0050A8), 1.0f);
                         pthis->state++;
                     }
                 }
                 break;
             case 1:
                 if (globalCtx->csCtx.npcActions[1]->action == 10) {
-                    Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_gndd_Anim_003284, -10.0f);
+                    Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_003284), -10.0f);
                     pthis->state++;
                 }
                 break;
             case 2:
                 if (animationEnded) {
-                    Animation_MorphToLoop(&pthis->skin.skelAnime, &object_gndd_Anim_003D84, -5.0f);
+                    Animation_MorphToLoop(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_003D84), -5.0f);
                     pthis->state++;
                 }
                 break;
             case 3:
                 if (globalCtx->csCtx.npcActions[1]->action == 4) {
-                    Animation_MorphToPlayOnce(&pthis->skin.skelAnime, &object_gndd_Anim_003428, -5.0f);
+                    Animation_MorphToPlayOnce(&pthis->skin.skelAnime, oot::asset::anim::header::load(symbol::object_gndd_Anim_003428), -5.0f);
                     pthis->state++;
                 }
                 break;
@@ -506,7 +504,6 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
 void EnViewer_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnViewer* pthis = (EnViewer*)thisx;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->animObjBankIndex].vromStart.get());
     pthis->actionFunc(pthis, globalCtx);
 }
 
@@ -515,13 +512,13 @@ s32 EnViewer_Ganondorf3OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex,
     if (gSaveContext.sceneSetupIndex == 4) {
         if (globalCtx->csCtx.frames >= 400) {
             if (limbIndex == 5) {
-                *dList = object_gndd_DL_00E1A8;
+                *dList = oot::asset::gfx::load(symbol::object_gndd_DL_00E1A8);
             }
         }
     } else {
         if (globalCtx->csCtx.frames >= 1510 && globalCtx->csCtx.frames <= 1650) {
             if (limbIndex == 5) {
-                *dList = object_gndd_DL_00E1A8;
+                *dList = oot::asset::gfx::load(symbol::object_gndd_DL_00E1A8);
             }
         }
     }
@@ -534,7 +531,7 @@ void EnViewer_Ganondorf9PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
         func_80093D84(globalCtx->state.gfxCtx);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1370),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_ganon_DL_00BE90));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_ganon_DL_00BE90)));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1372);
     }
 }
@@ -560,23 +557,23 @@ void EnViewer_DrawGanondorf(EnViewer* pthis, GlobalContext* globalCtx) {
         }
 
         if (frames + 1127 >= globalCtx->csCtx.frames) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F178));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F178));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F178)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F178)));
 
         } else if (frames + 1128 >= globalCtx->csCtx.frames) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F378));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F378));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F378)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F378)));
 
         } else if (frames + 1129 >= globalCtx->csCtx.frames) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F578));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F578));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F578)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F578)));
 
         } else {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F778));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(&object_gndd_Tex_00F778));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F778)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_gndd_Tex_00F778)));
         }
     } else if (type == ENVIEWER_TYPE_9_GANONDORF) {
-        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(&object_ganon_Tex_00A4E0));
+        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_ganon_Tex_00A4E0)));
     }
 
     if (type == ENVIEWER_TYPE_9_GANONDORF) {
@@ -609,7 +606,7 @@ s32 EnViewer_ZeldaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx*
                                    void* thisx) {
     if (globalCtx->sceneNum == SCENE_SPOT00) { // Hyrule Field
         if (limbIndex == 2) {
-            *dList = gChildZeldaCutsceneDressDL;
+            *dList = oot::asset::gfx::load(symbol::gChildZeldaCutsceneDressDL);
         }
         if (limbIndex == 7) {
             *dList = NULL;
@@ -636,7 +633,7 @@ void EnViewer_ZeldaPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
     if (globalCtx->sceneNum == SCENE_TOKINOMA) {
         if (limbIndex == 16) {
             OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1568);
-            gSPDisplayList(POLY_OPA_DISP++, gChildZeldaOcarinaOfTimeDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gChildZeldaOcarinaOfTimeDL));
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1570);
         }
     }
@@ -646,43 +643,43 @@ void EnViewer_DrawZelda(EnViewer* pthis, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1583);
     if (globalCtx->sceneNum == SCENE_SPOT00) { // Hyrule Field
         if (globalCtx->csCtx.frames < 771) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeInTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeOutTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeInTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeOutTex)));
         } else if (globalCtx->csCtx.frames < 772) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeBlinkTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeBlinkTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeBlinkTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeBlinkTex)));
         } else if (globalCtx->csCtx.frames < 773) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeShutTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeShutTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeShutTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeShutTex)));
         } else if (globalCtx->csCtx.frames < 791) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeWideTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeWideTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeWideTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeWideTex)));
         } else if (globalCtx->csCtx.frames < 792) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeBlinkTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeBlinkTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeBlinkTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeBlinkTex)));
         } else if (globalCtx->csCtx.frames < 793) {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeShutTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeShutTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeShutTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeShutTex)));
         } else {
-            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeInTex));
-            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeOutTex));
+            gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeInTex)));
+            gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeOutTex)));
         }
 
         if (gSaveContext.sceneSetupIndex == 6) {
-            gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gChildZeldaMouthSurprisedTex));
+            gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaMouthSurprisedTex)));
         } else {
             if (globalCtx->csCtx.frames < 758) {
-                gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gChildZeldaMouthWorriedTex));
+                gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaMouthWorriedTex)));
             } else if (globalCtx->csCtx.frames < 848) {
-                gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gChildZeldaMouthSurprisedTex));
+                gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaMouthSurprisedTex)));
             } else {
-                gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gChildZeldaMouthWorriedTex));
+                gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaMouthWorriedTex)));
             }
         }
     } else {
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeShutTex));
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gChildZeldaEyeShutTex));
-        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gChildZeldaMouthWorriedTex));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeShutTex)));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaEyeShutTex)));
+        gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gChildZeldaMouthWorriedTex)));
     }
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skin.skelAnime.skeleton, pthis->skin.skelAnime.jointTable,
                           pthis->skin.skelAnime.dListCount, EnViewer_ZeldaOverrideLimbDraw, EnViewer_ZeldaPostLimbDraw,
@@ -693,15 +690,15 @@ void EnViewer_DrawZelda(EnViewer* pthis, GlobalContext* globalCtx) {
 s32 EnViewer_ImpaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* thisx) {
     if (limbIndex == 16) {
-        *dList = gImpaHeadMaskedDL;
+        *dList = oot::asset::gfx::load(symbol::gImpaHeadMaskedDL);
     }
     return false;
 }
 
 void EnViewer_DrawImpa(EnViewer* pthis, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1717);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gImpaEyeOpenTex));
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gImpaEyeOpenTex));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gImpaEyeOpenTex)));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gImpaEyeOpenTex)));
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
     gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skin.skelAnime.skeleton, pthis->skin.skelAnime.jointTable,
@@ -878,7 +875,7 @@ void EnViewer_DrawFireEffects(EnViewer* pthis2, GlobalContext* globalCtx) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_viewer.c", 2027),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 2034);
 }

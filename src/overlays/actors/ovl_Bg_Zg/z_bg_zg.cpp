@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_zg.h"
-#include "objects/object_zg/object_zg.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
@@ -115,7 +115,7 @@ void BgZg_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
     colHeader = NULL;
-    CollisionHeader_GetVirtual(&gTowerCollapseBarsCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gTowerCollapseBarsCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     if ((func_808C0CC8(pthis) == 8) || (func_808C0CC8(pthis) == 9)) {
         pthis->dyna.actor.scale.x = pthis->dyna.actor.scale.x * 1.3f;
@@ -138,7 +138,7 @@ void func_808C0EEC(BgZg* pthis, GlobalContext* globalCtx) {
     func_80093D18(localGfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(localGfxCtx, "../z_bg_zg.c", 315),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gTowerCollapseBarsDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTowerCollapseBarsDL));
 
     CLOSE_DISPS(localGfxCtx, "../z_bg_zg.c", 320);
 }

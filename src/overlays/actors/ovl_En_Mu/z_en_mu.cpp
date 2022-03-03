@@ -7,7 +7,7 @@
  */
 
 #include "z_en_mu.h"
-#include "objects/object_mu/object_mu.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
@@ -145,7 +145,7 @@ void EnMu_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 160.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_mu_Skel_004F70, &object_mu_Anim_0003F4, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_mu_Skel_004F70), oot::asset::anim::header::load(symbol::object_mu_Anim_0003F4), NULL, NULL, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &D_80AB0BD0);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &D_80AB0BFC);

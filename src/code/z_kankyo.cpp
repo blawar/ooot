@@ -9,14 +9,12 @@
 #include "sfx.h"
 #include "sequence.h"
 #include "vt.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "z_kankyo.h"
 #include "z_demo.h"
 #include "z64player.h"
 #include "z64item.h"
+#include "asset.h"
 
-#include "misc/z_kankyo_assets.h"
 #include "z64file.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
@@ -203,40 +201,40 @@ struct_8011FC1C D_8011FC1C[][9] = {
 
 SkyboxFile gSkyboxFiles[] = {
     {
-        ROM_FILE(vr_fine0_static),
-        ROM_FILE(vr_fine0_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_fine0_static),
+        oot::asset::texture::loadFile(symbol::vr_fine0_pal_static),
     },
     {
-        ROM_FILE(vr_fine1_static),
-        ROM_FILE(vr_fine1_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_fine1_static),
+        oot::asset::texture::loadFile(symbol::vr_fine1_pal_static),
     },
     {
-        ROM_FILE(vr_fine2_static),
-        ROM_FILE(vr_fine2_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_fine2_static),
+        oot::asset::texture::loadFile(symbol::vr_fine2_pal_static),
     },
     {
-        ROM_FILE(vr_fine3_static),
-        ROM_FILE(vr_fine3_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_fine3_static),
+        oot::asset::texture::loadFile(symbol::vr_fine3_pal_static),
     },
     {
-        ROM_FILE(vr_cloud0_static),
-        ROM_FILE(vr_cloud0_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud0_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud0_pal_static),
     },
     {
-        ROM_FILE(vr_cloud1_static),
-        ROM_FILE(vr_cloud1_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud1_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud1_pal_static),
     },
     {
-        ROM_FILE(vr_cloud2_static),
-        ROM_FILE(vr_cloud2_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud2_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud2_pal_static),
     },
     {
-        ROM_FILE(vr_cloud3_static),
-        ROM_FILE(vr_cloud3_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud3_static),
+        oot::asset::texture::loadFile(symbol::vr_cloud3_pal_static),
     },
     {
-        ROM_FILE(vr_holy0_static),
-        ROM_FILE(vr_holy0_pal_static),
+        oot::asset::texture::loadFile(symbol::vr_holy0_static),
+        oot::asset::texture::loadFile(symbol::vr_holy0_pal_static),
     },
 };
 
@@ -1365,7 +1363,7 @@ void Environment_DrawSunAndMoon(GlobalContext* globalCtx) {
         Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_kankyo.c", 2364), G_MTX_LOAD);
         func_80093AD0(globalCtx->state.gfxCtx);
-        gSPDisplayList(POLY_OPA_DISP++, gSunDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSunDL));
 
         Matrix_Translate(globalCtx->view.eye.x - globalCtx->envCtx.sunPos.x,
                          globalCtx->view.eye.y - globalCtx->envCtx.sunPos.y,
@@ -1388,7 +1386,7 @@ void Environment_DrawSunAndMoon(GlobalContext* globalCtx) {
             gDPPipeSync(POLY_OPA_DISP++);
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 240, 255, 180, alpha);
             gDPSetEnvColor(POLY_OPA_DISP++, 80, 70, 20, alpha);
-            gSPDisplayList(POLY_OPA_DISP++, gMoonDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMoonDL));
         }
     }
 
@@ -1562,10 +1560,10 @@ void Environment_DrawLensFlare(GlobalContext* globalCtx, EnvironmentContext* env
             switch (lensFlareTypes[i]) {
                 case LENS_FLARE_CIRCLE0:
                 case LENS_FLARE_CIRCLE1:
-                    gSPDisplayList(POLY_XLU_DISP++, gLensFlareCircleDL);
+                    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLensFlareCircleDL));
                     break;
                 case LENS_FLARE_RING:
-                    gSPDisplayList(POLY_XLU_DISP++, gLensFlareRingDL);
+                    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLensFlareRingDL));
                     break;
             }
         }
@@ -1686,7 +1684,7 @@ void Environment_DrawRain(GlobalContext* globalCtx, View* view, GraphicsContext*
             Matrix_Scale(0.4f, 1.2f, 0.4f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_kankyo.c", 2887),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gRaindropDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gRaindropDL));
         }
 
         // draw droplet rings on the ground
@@ -1713,7 +1711,7 @@ void Environment_DrawRain(GlobalContext* globalCtx, View* view, GraphicsContext*
 
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_kankyo.c", 2940),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, gEffShockwaveDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffShockwaveDL));
             }
         }
 
@@ -1894,9 +1892,9 @@ void Environment_AddLightningBolts(GlobalContext* globalCtx, u8 num) {
  */
 void Environment_DrawLightning(GlobalContext* globalCtx, s32 unused) {
     static void* lightningTextures[] = {
-        gEffLightning1Tex, gEffLightning2Tex, gEffLightning3Tex,
-        gEffLightning4Tex, gEffLightning5Tex, gEffLightning6Tex,
-        gEffLightning7Tex, gEffLightning8Tex, NULL,
+        oot::asset::texture::load(symbol::gEffLightning1Tex), oot::asset::texture::load(symbol::gEffLightning2Tex), oot::asset::texture::load(symbol::gEffLightning3Tex),
+        oot::asset::texture::load(symbol::gEffLightning4Tex), oot::asset::texture::load(symbol::gEffLightning5Tex), oot::asset::texture::load(symbol::gEffLightning6Tex),
+        oot::asset::texture::load(symbol::gEffLightning7Tex), oot::asset::texture::load(symbol::gEffLightning8Tex), NULL,
     };
     s16 i;
     f32 dx;
@@ -1962,7 +1960,7 @@ void Environment_DrawLightning(GlobalContext* globalCtx, s32 unused) {
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(lightningTextures[sLightningBolts[i].textureIndex]));
             func_80094C50(globalCtx->state.gfxCtx);
             gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gEffLightningDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffLightningDL));
         }
     }
 
@@ -2383,7 +2381,7 @@ void Environment_DrawSandstorm(GlobalContext* globalCtx, u8 sandstormState) {
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (u32)sp96 % 0x1000, 0, 0x200, 0x20, 1, (u32)sp94 % 0x1000,
                                 0xFFF - ((u32)sp92 % 0x1000), 0x100, 0x40));
     gDPSetTextureLUT(POLY_XLU_DISP++, G_TT_NONE);
-    gSPDisplayList(POLY_XLU_DISP++, gFieldSandstormDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFieldSandstormDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kankyo.c", 4068);
 

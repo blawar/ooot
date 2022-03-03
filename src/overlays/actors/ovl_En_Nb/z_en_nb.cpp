@@ -8,7 +8,7 @@
 
 #include "z_en_nb.h"
 #include "vt.h"
-#include "objects/object_nb/object_nb.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "def/math_float.h"
 #include "def/sys_matrix.h"
@@ -52,9 +52,9 @@ static ColliderCylinderInitType1 sCylinderInit = {
 };
 
 static void* sEyeTextures[] = {
-    gNabooruEyeOpenTex,
-    gNabooruEyeHalfTex,
-    gNabooruEyeClosedTex,
+    oot::asset::texture::load(symbol::gNabooruEyeOpenTex),
+    oot::asset::texture::load(symbol::gNabooruEyeHalfTex),
+    oot::asset::texture::load(symbol::gNabooruEyeClosedTex),
 };
 
 static s32 D_80AB4318 = 0;
@@ -276,7 +276,7 @@ void EnNb_SetCurrentAnim(EnNb* pthis, AnimationHeader* animation, u8 mode, f32 t
 }
 
 void EnNb_SetChamberAnim(EnNb* pthis, GlobalContext* globalCtx) {
-    EnNb_SetCurrentAnim(pthis, &gNabooruStandingHandsOnHipsChamberOfSagesAnim, 0, 0, 0);
+    EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruStandingHandsOnHipsChamberOfSagesAnim), 0, 0, 0);
     pthis->actor.shape.yOffset = -10000.0f;
 }
 
@@ -340,7 +340,7 @@ void EnNb_SetupDefaultChamberIdle(EnNb* pthis) {
 }
 
 void EnNb_SetupArmRaise(EnNb* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* animation = &gNabooruRaisingArmsGivingMedallionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruRaisingArmsGivingMedallionAnim);
     CsCmdActorAction* csCmdNPCAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
@@ -354,7 +354,7 @@ void EnNb_SetupArmRaise(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupRaisedArmTransition(EnNb* pthis, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruArmsRaisedGivingMedallionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruArmsRaisedGivingMedallionAnim);
 
     if (animFinished) {
         Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -421,7 +421,7 @@ void func_80AB19FC(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupLightArrowOrSealingCs(EnNb* pthis, GlobalContext* globalCtx) {
-    EnNb_SetCurrentAnim(pthis, &gNabooruPuttingHandsTogetherCastingMagicAnim, 2, 0.0f, 0);
+    EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruPuttingHandsTogetherCastingMagicAnim), 2, 0.0f, 0);
     pthis->action = NB_ACTION_7;
     pthis->actor.shape.shadowAlpha = 0;
 }
@@ -534,7 +534,7 @@ void EnNb_DrawTransparency(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_InitKidnap(EnNb* pthis, GlobalContext* globalCtx) {
-    EnNb_SetCurrentAnim(pthis, &gNabooruTrappedInVortexPushingGroundAnim, 0, 0.0f, 0);
+    EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruTrappedInVortexPushingGroundAnim), 0, 0.0f, 0);
     pthis->action = NB_KIDNAPPED;
     pthis->actor.shape.shadowAlpha = 0;
     gSaveContext.eventChkInf[9] |= 0x20;
@@ -582,7 +582,7 @@ void EnNb_SetupCaptureCutsceneState(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetRaisedArmCaptureAnim(EnNb* pthis, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruSuckedByVortexAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruSuckedByVortexAnim);
 
     if (animFinished) {
         Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -591,7 +591,7 @@ void EnNb_SetRaisedArmCaptureAnim(EnNb* pthis, s32 animFinished) {
 }
 
 void EnNb_SetupLookAroundInKidnap(EnNb* pthis) {
-    AnimationHeader* animation = &gNabooruTrappedInVortexPushingGroundAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruTrappedInVortexPushingGroundAnim);
 
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP, -8.0f);
     pthis->action = NB_KIDNAPPED_LOOK_AROUND;
@@ -599,7 +599,7 @@ void EnNb_SetupLookAroundInKidnap(EnNb* pthis) {
 }
 
 void EnNb_SetupKidnap(EnNb* pthis) {
-    AnimationHeader* animation = &gNabooruTrappedInVortexRaisingArmAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruTrappedInVortexRaisingArmAnim);
 
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_ONCE, -8.0f);
     pthis->action = NB_PORTAL_FALLTHROUGH;
@@ -662,7 +662,7 @@ void EnNb_SuckedInByPortal(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupConfrontation(EnNb* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruCollapseFromStandingToKneelingTransitionAnim);
 
     EnNb_SetCurrentAnim(pthis, animation, 0, 0.0f, 0);
     pthis->action = NB_IN_CONFRONTATION;
@@ -721,7 +721,7 @@ void func_80AB26C8(EnNb* pthis) {
 
 void func_80AB26DC(EnNb* pthis, GlobalContext* globalCtx) {
     s32 pad;
-    AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruCollapseFromStandingToKneelingTransitionAnim);
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     EnNb_SetupCsPosRot(pthis, globalCtx, 1);
@@ -732,7 +732,7 @@ void func_80AB26DC(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupKneel(EnNb* pthis) {
-    AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruCollapseFromStandingToKneelingTransitionAnim);
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
@@ -742,7 +742,7 @@ void EnNb_SetupKneel(EnNb* pthis) {
 }
 
 void EnNb_CheckIfKneeling(EnNb* pthis, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruOnAllFoursAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruOnAllFoursAnim);
 
     if (animFinished) {
         Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -752,7 +752,7 @@ void EnNb_CheckIfKneeling(EnNb* pthis, s32 animFinished) {
 }
 
 void EnNb_SetupLookRight(EnNb* pthis) {
-    AnimationHeader* animation = &gNabooruOnAllFoursToOnOneKneeLookingRightTransitionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruOnAllFoursToOnOneKneeLookingRightTransitionAnim);
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -8.0f);
@@ -762,7 +762,7 @@ void EnNb_SetupLookRight(EnNb* pthis) {
 }
 
 void EnNb_CheckIfLookingRight(EnNb* pthis, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruOnOneKneeLookingRightAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruOnOneKneeLookingRightAnim);
 
     if (animFinished) {
         Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -772,7 +772,7 @@ void EnNb_CheckIfLookingRight(EnNb* pthis, s32 animFinished) {
 }
 
 void EnNb_SetupLookLeft(EnNb* pthis) {
-    AnimationHeader* animation = &gNabooruOnOneKneeTurningHeadRightToLeftTransitionAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruOnOneKneeTurningHeadRightToLeftTransitionAnim);
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -8.0f);
@@ -782,7 +782,7 @@ void EnNb_SetupLookLeft(EnNb* pthis) {
 }
 
 void EnNb_CheckIfLookLeft(EnNb* pthis, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruOnOneKneeLookingLeftAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruOnOneKneeLookingLeftAnim);
 
     if (animFinished) {
         Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -798,7 +798,7 @@ void EnNb_SetupDemo6KInConfrontation(EnNb* pthis, GlobalContext* globalCtx, s32 
 }
 
 void EnNb_SetupRun(EnNb* pthis) {
-    AnimationHeader* animation = &gNabooruKneeingToRunningToHitAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gNabooruKneeingToRunningToHitAnim);
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -8.0f);
@@ -930,8 +930,8 @@ void func_80AB2E70(EnNb* pthis, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 572);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gNabooruEyeWideTex));
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gNabooruEyeWideTex));
+    gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gNabooruEyeWideTex)));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gNabooruEyeWideTex)));
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
     gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
     SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL,
@@ -944,7 +944,7 @@ s32 func_80AB2FC0(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     EnNb* pthis = (EnNb*)thisx;
 
     if (limbIndex == NB_LIMB_HEAD) {
-        *dList = gNabooruHeadMouthOpenDL;
+        *dList = oot::asset::gfx::load(symbol::gNabooruHeadMouthOpenDL);
     }
 
     return 0;
@@ -971,7 +971,7 @@ void func_80AB2FE4(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupCreditsSpawn(EnNb* pthis, GlobalContext* globalCtx) {
-    EnNb_SetCurrentAnim(pthis, &gNabooruSittingCrossLeggedAnim, 0, 0.0f, 0);
+    EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruSittingCrossLeggedAnim), 0, 0.0f, 0);
     pthis->action = NB_CREDITS_INIT;
     pthis->drawMode = NB_DRAW_NOTHING;
     pthis->actor.shape.shadowAlpha = 0;
@@ -1007,13 +1007,13 @@ void EnNb_SetupCreditsSit(EnNb* pthis) {
 }
 
 void EnNb_SetupCreditsHeadTurn(EnNb* pthis) {
-    EnNb_SetCurrentAnim(pthis, &gNabooruSittingCrossLeggedTurningToLookUpRightTransitionAnim, 2, -8.0f, 0);
+    EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruSittingCrossLeggedTurningToLookUpRightTransitionAnim), 2, -8.0f, 0);
     pthis->action = NB_CREDITS_HEAD_TURN;
 }
 
 void EnNb_CheckIfLookingUp(EnNb* pthis, s32 animFinished) {
     if (animFinished) {
-        EnNb_SetCurrentAnim(pthis, &gNabooruSittingCrossLeggedLookingUpRightAnim, 0, 0.0f, 0);
+        EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruSittingCrossLeggedLookingUpRightAnim), 0, 0.0f, 0);
     }
 }
 
@@ -1077,11 +1077,11 @@ void EnNb_CrawlspaceSpawnCheck(EnNb* pthis, GlobalContext* globalCtx) {
 
         // looking into crawlspace
         if (!(gSaveContext.eventChkInf[9] & 0x10)) {
-            EnNb_SetCurrentAnim(pthis, &gNabooruKneeingAtCrawlspaceAnim, 0, 0.0f, 0);
+            EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruKneeingAtCrawlspaceAnim), 0, 0.0f, 0);
             pthis->action = NB_CROUCH_CRAWLSPACE;
             pthis->drawMode = NB_DRAW_DEFAULT;
         } else {
-            EnNb_SetCurrentAnim(pthis, &gNabooruStandingHandsOnHipsAnim, 0, 0.0f, 0);
+            EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruStandingHandsOnHipsAnim), 0, 0.0f, 0);
             pthis->headTurnFlag = 1;
             pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
             pthis->actor.world.pos = pthis->finalPos;
@@ -1152,7 +1152,7 @@ void func_80AB36DC(EnNb* pthis, GlobalContext* globalCtx) {
 
 void EnNb_CheckNoticed(EnNb* pthis, GlobalContext* globalCtx) {
     if (EnNb_GetNoticedStatus(pthis, globalCtx)) {
-        EnNb_SetCurrentAnim(pthis, &gNabooruStandingToWalkingTransitionAnim, 2, -8.0f, 0);
+        EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruStandingToWalkingTransitionAnim), 2, -8.0f, 0);
         pthis->action = NB_NOTICE_PLAYER;
         EnNb_SetNoticeSFX(pthis);
     }
@@ -1160,7 +1160,7 @@ void EnNb_CheckNoticed(EnNb* pthis, GlobalContext* globalCtx) {
 
 void EnNb_SetupIdleCrawlspace(EnNb* pthis, s32 animFinished) {
     if (animFinished) {
-        EnNb_SetCurrentAnim(pthis, &gNabooruStandingHandsOnHipsAnim, 0, -8.0f, 0);
+        EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruStandingHandsOnHipsAnim), 0, -8.0f, 0);
         pthis->headTurnFlag = 1;
         pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
         pthis->action = NB_IDLE_CRAWLSPACE;
@@ -1184,7 +1184,7 @@ void func_80AB3838(EnNb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupPathMovement(EnNb* pthis, GlobalContext* globalCtx) {
-    EnNb_SetCurrentAnim(pthis, &gNabooruStandingToWalkingTransitionAnim, 2, -8.0f, 0);
+    EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruStandingToWalkingTransitionAnim), 2, -8.0f, 0);
     gSaveContext.eventChkInf[9] |= 0x10;
     pthis->action = NB_IN_PATH;
     pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
@@ -1251,10 +1251,10 @@ void func_80AB3A7C(EnNb* pthis, GlobalContext* globalCtx, s32 animFinished) {
 
     if ((u16)(kREG(17) + 25) > movementTimer) {
         if (animFinished) {
-            EnNb_SetCurrentAnim(pthis, &gNabooruWalkingAnim, 0, 0.0f, 0);
+            EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruWalkingAnim), 0, 0.0f, 0);
         }
     } else {
-        EnNb_SetCurrentAnim(pthis, &gNabooruStandingHandsOnHipsAnim, 0, -8.0f, 0);
+        EnNb_SetCurrentAnim(pthis, oot::asset::anim::header::load(symbol::gNabooruStandingHandsOnHipsAnim), 0, -8.0f, 0);
         pthis->action = NB_IDLE_AFTER_TALK;
     }
 }
@@ -1400,7 +1400,7 @@ void EnNb_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     EnNb_SetupCollider(thisx, globalCtx);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gNabooruSkel, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gNabooruSkel), NULL, pthis->jointTable, pthis->morphTable,
                        NB_LIMB_MAX);
 
     switch (EnNb_GetType(pthis)) {

@@ -7,6 +7,7 @@
  */
 
 #include "z_magic_fire.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -36,8 +37,6 @@ ActorInit Magic_Fire_InitVars = {
     (ActorFunc)MagicFire_Draw,
     (ActorFunc)MagicFire_Reset,
 };
-
-#include "overlays/ovl_Magic_Fire/ovl_Magic_Fire.cpp"
 
 static ColliderCylinderInit sCylinderInit = {
     {
@@ -230,27 +229,27 @@ void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gDPPipeSync(POLY_XLU_DISP++);
         gSPTexture(POLY_XLU_DISP++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
         gDPSetTextureLUT(POLY_XLU_DISP++, G_TT_NONE);
-        gDPLoadTextureBlock(POLY_XLU_DISP++, sTex, G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
+        gDPLoadTextureBlock(POLY_XLU_DISP++, oot::asset::texture::load(symbol::sTex), G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR | G_TX_WRAP,
                             G_TX_NOMIRROR | G_TX_WRAP, 6, 6, 15, G_TX_NOLOD);
         gDPSetTile(POLY_XLU_DISP++, G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 6, 14,
                    G_TX_NOMIRROR | G_TX_WRAP, 6, 14);
         gDPSetTileSize(POLY_XLU_DISP++, 1, 0, 0, 252, 252);
-        gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sMaterialDL));
         gSPDisplayList(POLY_XLU_DISP++,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (gameplayFrames * 2) % 512,
                                         511 - ((gameplayFrames * 5) % 512), 64, 64, 1, (gameplayFrames * 2) % 256,
                                         255 - ((gameplayFrames * 20) % 256), 32, 32));
-        gSPDisplayList(POLY_XLU_DISP++, sModelDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sModelDL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_magic_fire.c", 750);
 
         alpha = (s32)(pthis->alphaMultiplier * 255);
         for (i = 0; i < 36; i++) {
-            sSphereVtx[sVertexIndices[i]].n.a = alpha;
+            oot::asset::vtx::load(symbol::sSphereVtx)[sVertexIndices[i]].n.a = alpha;
         }
 
         alpha = (s32)(pthis->alphaMultiplier * 76);
         for (i = 36; i < 60; i++) {
-            sSphereVtx[sVertexIndices[i]].n.a = alpha;
+            oot::asset::vtx::load(symbol::sSphereVtx)[sVertexIndices[i]].n.a = alpha;
         }
     }
 }

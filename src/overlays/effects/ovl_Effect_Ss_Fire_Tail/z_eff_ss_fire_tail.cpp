@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_fire_tail.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_camera.h"
 #include "def/z_lib.h"
@@ -135,9 +135,9 @@ void EffectSsFireTail_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
                                 (globalCtx->state.frames * -0x14) & 0x1FF, 32, 128));
 
     if (pthis->rType != 0) {
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire2DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire2DL));
     } else {
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
 
     CLOSE_DISPS(gfxCtx, "../z_eff_fire_tail.c", 273);

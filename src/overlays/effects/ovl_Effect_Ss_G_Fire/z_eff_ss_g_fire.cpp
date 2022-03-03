@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_g_fire.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 
 u32 EffectSsGFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx);
@@ -27,7 +27,7 @@ u32 EffectSsGFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
     pthis->pos = initParams->pos;
     pthis->draw = EffectSsGFire_Draw;
     pthis->update = EffectSsGFire_Update;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffFireFootprintDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffFireFootprintDL));
     pthis->life = 8;
     pthis->flags = 0;
     pthis->rgScale = 200;
@@ -47,8 +47,8 @@ u32 EffectSsGFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
 void EffectSsGFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     void* fireFootprintTextures[] = {
-        gEffFireFootprint1Tex, gEffFireFootprint2Tex, gEffFireFootprint3Tex, gEffFireFootprint4Tex,
-        gEffFireFootprint5Tex, gEffFireFootprint6Tex, gEffFireFootprint7Tex, gEffFireFootprint8Tex,
+        oot::asset::texture::load(symbol::gEffFireFootprint1Tex), oot::asset::texture::load(symbol::gEffFireFootprint2Tex), oot::asset::texture::load(symbol::gEffFireFootprint3Tex), oot::asset::texture::load(symbol::gEffFireFootprint4Tex),
+        oot::asset::texture::load(symbol::gEffFireFootprint5Tex), oot::asset::texture::load(symbol::gEffFireFootprint6Tex), oot::asset::texture::load(symbol::gEffFireFootprint7Tex), oot::asset::texture::load(symbol::gEffFireFootprint8Tex),
     };
     s16 texIdx = (pthis->rgTexIdx / 100) % 7;
 

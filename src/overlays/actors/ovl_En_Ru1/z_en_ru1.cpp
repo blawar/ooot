@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ru1.h"
-#include "objects/object_ru1/object_ru1.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
 #include "def/audio_bank.h"
@@ -112,14 +112,14 @@ static ColliderCylinderInitType1 sCylinderInit2 = {
 };
 
 static void* sEyeTextures[] = {
-    gRutoChildEyeOpenTex,     gRutoChildEyeHalfTex,  gRutoChildEyeClosedTex,
-    gRutoChildEyeRollLeftTex, gRutoChildEyeHalf2Tex, gRutoChildEyeHalfWithBlushTex,
+    oot::asset::texture::load(symbol::gRutoChildEyeOpenTex),     oot::asset::texture::load(symbol::gRutoChildEyeHalfTex),  oot::asset::texture::load(symbol::gRutoChildEyeClosedTex),
+    oot::asset::texture::load(symbol::gRutoChildEyeRollLeftTex), oot::asset::texture::load(symbol::gRutoChildEyeHalf2Tex), oot::asset::texture::load(symbol::gRutoChildEyeHalfWithBlushTex),
 };
 
 static void* sMouthTextures[] = {
-    gRutoChildMouthClosedTex,
-    gRutoChildMouthFrownTex,
-    gRutoChildMouthOpenTex,
+    oot::asset::texture::load(symbol::gRutoChildMouthClosedTex),
+    oot::asset::texture::load(symbol::gRutoChildMouthFrownTex),
+    oot::asset::texture::load(symbol::gRutoChildMouthOpenTex),
 };
 
 static s32 sUnused = 0;
@@ -421,7 +421,7 @@ void func_80AEB3CC(EnRu1* pthis) {
 }
 
 void func_80AEB3DC(EnRu1* pthis, GlobalContext* globalCtx) {
-    func_80AEB264(pthis, &gRutoChildWaitHandsBehindBackAnim, 0, 0, 0);
+    func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWaitHandsBehindBackAnim), 0, 0, 0);
     pthis->action = 0;
     pthis->drawConfig = 1;
     EnRu1_SetEyeIndex(pthis, 4);
@@ -623,8 +623,8 @@ void func_80AEBC84(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AEBCB8(EnRu1* pthis, UNK_TYPE arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildSwimOnBackAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildSwimOnBackAnim), ANIMMODE_LOOP, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSwimOnBackAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSwimOnBackAnim)), ANIMMODE_LOOP, -8.0f);
     }
 }
 
@@ -644,10 +644,10 @@ void func_80AEBD94(EnRu1* pthis, GlobalContext* globalCtx) {
     f32 frameCount;
 
     if (func_80AEB480(globalCtx, 3)) {
-        frameCount = Animation_GetLastFrame(&gRutoChildAnim_009060);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildAnim_009060));
         func_80AEB934(pthis, globalCtx);
         func_80AEB738(pthis, globalCtx);
-        Animation_Change(&pthis->skelAnime, &gRutoChildAnim_009060, 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildAnim_009060), 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, 0.0f);
         pthis->action = 2;
         pthis->drawConfig = 1;
     }
@@ -658,9 +658,9 @@ void func_80AEBE3C(EnRu1* pthis, GlobalContext* globalCtx, s32 arg2) {
     f32 frameCount;
 
     if (arg2 != 0) {
-        frameCount = Animation_GetLastFrame(&gRutoChildTreadWaterAnim);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildTreadWaterAnim));
         func_80AEB7D0(pthis);
-        Animation_Change(&pthis->skelAnime, &gRutoChildTreadWaterAnim, 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildTreadWaterAnim), 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
         pthis->action = 3;
     } else {
         func_80AEB954(pthis, globalCtx);
@@ -672,9 +672,9 @@ void func_80AEBEC8(EnRu1* pthis, GlobalContext* globalCtx) {
     f32 frameCount;
 
     if (func_80AEB458(globalCtx, 6)) {
-        frameCount = Animation_GetLastFrame(&gRutoChildTransitionToSwimOnBackAnim);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildTransitionToSwimOnBackAnim));
         func_80AEB738(pthis, globalCtx);
-        Animation_Change(&pthis->skelAnime, &gRutoChildTransitionToSwimOnBackAnim, 1.0f, 0, frameCount, ANIMMODE_ONCE,
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildTransitionToSwimOnBackAnim), 1.0f, 0, frameCount, ANIMMODE_ONCE,
                          -8.0f);
         pthis->action = 4;
     }
@@ -700,8 +700,8 @@ void func_80AEBFD8(EnRu1* pthis, GlobalContext* globalCtx) {
         csCtxFrames = globalCtx->csCtx.frames;
         endFrame = csCmdNPCAction->endFrame;
         if (csCtxFrames >= endFrame - 2) {
-            frameCount = Animation_GetLastFrame(&gRutoChildTransitionFromSwimOnBackAnim);
-            Animation_Change(&pthis->skelAnime, &gRutoChildTransitionFromSwimOnBackAnim, 1.0, 0, frameCount,
+            frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildTransitionFromSwimOnBackAnim));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildTransitionFromSwimOnBackAnim), 1.0, 0, frameCount,
                              ANIMMODE_ONCE, -8.0f);
             pthis->action = 6;
         }
@@ -782,13 +782,13 @@ void func_80AEC320(EnRu1* pthis, GlobalContext* globalCtx) {
     s8 actorRoom;
 
     if (!(gSaveContext.infTable[20] & 2)) {
-        func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+        func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
         pthis->action = 7;
         EnRu1_SetMouthIndex(pthis, 1);
     } else if ((gSaveContext.infTable[20] & 0x80) && !(gSaveContext.infTable[20] & 1) &&
                !(gSaveContext.infTable[20] & 0x20)) {
         if (!func_80AEB020(pthis, globalCtx)) {
-            func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+            func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
             actorRoom = pthis->actor.room;
             pthis->action = 22;
             pthis->actor.room = -1;
@@ -864,8 +864,8 @@ void func_80AEC6B0(EnRu1* pthis) {
 
 void func_80AEC6E4(EnRu1* pthis, GlobalContext* globalCtx) {
     if ((func_80AEAFA0(globalCtx, 4, 3)) && (pthis->unk_280 == 0)) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildBringArmsUpAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildBringArmsUpAnim), ANIMMODE_ONCE, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildBringArmsUpAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildBringArmsUpAnim)), ANIMMODE_ONCE, -8.0f);
         pthis->unk_280 = 1;
         func_80AEC6B0(pthis);
     }
@@ -904,15 +904,15 @@ void func_80AEC81C(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AEC8B8(EnRu1* pthis, GlobalContext* globalCtx) {
     if (func_80AEAFA0(globalCtx, 3, 3)) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildTurnAroundAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildTurnAroundAnim), ANIMMODE_ONCE, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildTurnAroundAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildTurnAroundAnim)), ANIMMODE_ONCE, -8.0f);
         pthis->action = 10;
     }
 }
 
 void func_80AEC93C(EnRu1* pthis, UNK_TYPE arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildWalkAnim, 1.0f, 0, Animation_GetLastFrame(&gRutoChildWalkAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildWalkAnim), 1.0f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildWalkAnim)),
                          ANIMMODE_LOOP, -8.0f);
         pthis->actor.world.rot.y += 0x8000;
         pthis->action = 0xB;
@@ -1022,7 +1022,7 @@ void func_80AECCB0(EnRu1* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AECDA0(EnRu1* pthis, GlobalContext* globalCtx) {
-    func_80AEB264(pthis, &gRutoChildWaitHandsOnHipsAnim, 0, 0, 0);
+    func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWaitHandsOnHipsAnim), 0, 0, 0);
     pthis->action = 15;
     pthis->actor.shape.yOffset = -10000.0f;
     EnRu1_SetEyeIndex(pthis, 5);
@@ -1130,8 +1130,8 @@ void func_80AED154(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AED19C(EnRu1* pthis, s32 cond) {
     if (cond) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildTransitionHandsOnHipToCrossArmsAndLegsAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildTransitionHandsOnHipToCrossArmsAndLegsAnim), ANIMMODE_ONCE,
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildTransitionHandsOnHipToCrossArmsAndLegsAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildTransitionHandsOnHipToCrossArmsAndLegsAnim)), ANIMMODE_ONCE,
                          -8.0f);
         pthis->action = 20;
         func_80AED0B0(pthis, WARP_BLUE_RUTO_STATE_3);
@@ -1141,12 +1141,12 @@ void func_80AED19C(EnRu1* pthis, s32 cond) {
 void func_80AED218(EnRu1* pthis, UNK_TYPE arg1) {
     if (func_80AED084(pthis, WARP_BLUE_RUTO_STATE_TALKING)) {
         if (arg1 != 0) {
-            Animation_Change(&pthis->skelAnime, &gRutoChildWaitSittingAnim, 1.0f, 0,
-                             Animation_GetLastFrame(&gRutoChildWaitSittingAnim), ANIMMODE_LOOP, -8.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildWaitSittingAnim), 1.0f, 0,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildWaitSittingAnim)), ANIMMODE_LOOP, -8.0f);
         }
     } else if (func_80AED084(pthis, WARP_BLUE_RUTO_STATE_WARPING)) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildWaitInBlueWarpAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildWaitInBlueWarpAnim), ANIMMODE_ONCE, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildWaitInBlueWarpAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildWaitInBlueWarpAnim)), ANIMMODE_ONCE, -8.0f);
         pthis->action = 21;
         pthis->unk_27C = pthis->actor.xzDistToPlayer;
     }
@@ -1193,7 +1193,7 @@ void func_80AED44C(EnRu1* pthis, GlobalContext* globalCtx) {
     if ((gSaveContext.infTable[20] & 2) && !(gSaveContext.infTable[20] & 0x20) && !(gSaveContext.infTable[20] & 1) &&
         !(gSaveContext.infTable[20] & 0x80)) {
         if (!func_80AEB020(pthis, globalCtx)) {
-            func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+            func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
             actorRoom = pthis->actor.room;
             pthis->action = 22;
             pthis->actor.room = -1;
@@ -1606,8 +1606,8 @@ void func_80AEE628(EnRu1* pthis, GlobalContext* globalCtx) {
     s8 curRoomNum = globalCtx->roomCtx.curRoom.num;
 
     if (EnRu1_IsCsStateIdle(globalCtx)) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildSittingAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildSittingAnim), ANIMMODE_LOOP, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSittingAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSittingAnim)), ANIMMODE_LOOP, -8.0f);
         gSaveContext.infTable[20] |= 0x10;
         pthis->action = 31;
     }
@@ -1620,8 +1620,8 @@ s32 func_80AEE6D0(EnRu1* pthis, GlobalContext* globalCtx) {
 
     if (!(gSaveContext.infTable[20] & 0x10) && (func_80AEB124(globalCtx) != 0)) {
         if (!Player_InCsMode(globalCtx)) {
-            Animation_Change(&pthis->skelAnime, &gRutoChildSeesSapphireAnim, 1.0f, 0,
-                             Animation_GetLastFrame(&gRutoChildSquirmAnim), ANIMMODE_LOOP, -8.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSeesSapphireAnim), 1.0f, 0,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSquirmAnim)), ANIMMODE_LOOP, -8.0f);
             func_80AED600(pthis);
             pthis->action = 34;
             pthis->unk_26C = 0.0f;
@@ -1642,8 +1642,8 @@ void func_80AEE7C4(EnRu1* pthis, GlobalContext* globalCtx) {
     f32* unk_370 = &pthis->unk_370;
 
     if (Actor_HasNoParent(&pthis->actor, globalCtx)) {
-        frameCount = Animation_GetLastFrame(&gRutoChildSittingAnim);
-        Animation_Change(&pthis->skelAnime, &gRutoChildSittingAnim, 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSittingAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSittingAnim), 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
         func_80AED6DC(pthis, globalCtx);
         pthis->actor.speedXZ *= (kREG(25) * 0.01f) + 1.0f;
         pthis->actor.velocity.y *= (kREG(26) * 0.01f) + 1.0f;
@@ -1666,8 +1666,8 @@ void func_80AEE7C4(EnRu1* pthis, GlobalContext* globalCtx) {
         if (pthis->action != 32) {
             if (*unk_370 > 30.0f) {
                 if (Rand_S16Offset(0, 3) == 0) {
-                    frameCount = Animation_GetLastFrame(&gRutoChildSquirmAnim);
-                    Animation_Change(&pthis->skelAnime, &gRutoChildSquirmAnim, 1.0f, 0, frameCount, ANIMMODE_LOOP,
+                    frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSquirmAnim));
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSquirmAnim), 1.0f, 0, frameCount, ANIMMODE_LOOP,
                                      -8.0f);
                     func_80AED5DC(pthis);
                     pthis->action = 32;
@@ -1676,15 +1676,15 @@ void func_80AEE7C4(EnRu1* pthis, GlobalContext* globalCtx) {
             }
         } else {
             if (*unk_370 > 50.0f) {
-                frameCount = Animation_GetLastFrame(&gRutoChildSittingAnim);
-                Animation_Change(&pthis->skelAnime, &gRutoChildSittingAnim, 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
+                frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSittingAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSittingAnim), 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
                 pthis->action = 31;
                 *unk_370 = 0.0f;
             }
         }
     } else {
-        frameCount = Animation_GetLastFrame(&gRutoChildSittingAnim);
-        Animation_Change(&pthis->skelAnime, &gRutoChildSittingAnim, 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSittingAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSittingAnim), 1.0f, 0, frameCount, ANIMMODE_LOOP, -8.0f);
         *unk_370 = 0.0f;
     }
 }
@@ -1831,8 +1831,8 @@ s32 func_80AEF0BC(EnRu1* pthis, GlobalContext* globalCtx) {
     s32 frameCount;
 
     if (gSaveContext.infTable[20] & 4) {
-        frameCount = Animation_GetLastFrame(&gRutoChildSitAnim);
-        Animation_Change(&pthis->skelAnime, &gRutoChildSitAnim, 1.0f, 0, frameCount, ANIMMODE_ONCE, -8.0f);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSitAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSitAnim), 1.0f, 0, frameCount, ANIMMODE_ONCE, -8.0f);
         globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
         pthis->action = 26;
         pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
@@ -1857,8 +1857,8 @@ void func_80AEF188(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AEF1F0(EnRu1* pthis, GlobalContext* globalCtx, UNK_TYPE arg2) {
     if (arg2 != 0) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildSittingAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gRutoChildSittingAnim), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildSittingAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildSittingAnim)), ANIMMODE_LOOP, 0.0f);
         Message_CloseTextbox(globalCtx);
         gSaveContext.infTable[20] |= 8;
         func_80AED6DC(pthis, globalCtx);
@@ -1939,7 +1939,7 @@ void func_80AEF540(EnRu1* pthis) {
         EnRu1_SetEyeIndex(pthis, 3);
         EnRu1_SetMouthIndex(pthis, 2);
         if (pthis->skelAnime.mode != 2) {
-            func_80AEB264(pthis, &gRutoChildShutterAnim, 2, -8.0f, 0);
+            func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildShutterAnim), 2, -8.0f, 0);
             func_80AEF51C(pthis);
         }
     }
@@ -1966,7 +1966,7 @@ void func_80AEF624(EnRu1* pthis, GlobalContext* globalCtx) {
     s16 newRotTmp;
 
     if (func_80AEAFE0(globalCtx, 1, 3)) {
-        frameCount = Animation_GetLastFrame(&gRutoChildWalkToAndHoldUpSapphireAnim);
+        frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildWalkToAndHoldUpSapphireAnim));
         // pthis weird part with the redundant variable is necessary to match for some reason
         csCmdNPCAction2 = globalCtx->csCtx.npcActions[3];
         csCmdNPCAction = csCmdNPCAction2;
@@ -1982,7 +1982,7 @@ void func_80AEF624(EnRu1* pthis, GlobalContext* globalCtx) {
         newRotTmp = csCmdNPCAction->rot.z;
         pthis->actor.shape.rot.z = newRotTmp;
         pthis->actor.world.rot.z = newRotTmp;
-        Animation_Change(&pthis->skelAnime, &gRutoChildWalkToAndHoldUpSapphireAnim, 1.0f, 0.0f, frameCount,
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildWalkToAndHoldUpSapphireAnim), 1.0f, 0.0f, frameCount,
                          ANIMMODE_ONCE, 0.0f);
         func_80AEB3A4(pthis, globalCtx);
         pthis->action = 37;
@@ -1993,8 +1993,8 @@ void func_80AEF624(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AEF728(EnRu1* pthis, UNK_TYPE arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildHoldArmsUpAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gRutoChildHoldArmsUpAnim), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildHoldArmsUpAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildHoldArmsUpAnim)), ANIMMODE_LOOP, 0.0f);
         func_80AEB3CC(pthis);
         pthis->action = 38;
     }
@@ -2002,15 +2002,15 @@ void func_80AEF728(EnRu1* pthis, UNK_TYPE arg1) {
 
 void func_80AEF79C(EnRu1* pthis, GlobalContext* globalCtx) {
     if (func_80AEAFE0(globalCtx, 2, 3)) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildBringHandsDownAnim, 1.0f, 0,
-                         Animation_GetLastFrame(&gRutoChildBringHandsDownAnim), ANIMMODE_ONCE, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildBringHandsDownAnim), 1.0f, 0,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildBringHandsDownAnim)), ANIMMODE_ONCE, -8.0f);
         pthis->action = 39;
     }
 }
 
 void func_80AEF820(EnRu1* pthis, UNK_TYPE arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gRutoChildWait2Anim, 1.0f, 0, Animation_GetLastFrame(&gRutoChildWait2Anim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 1.0f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRutoChildWait2Anim)),
                          ANIMMODE_LOOP, -8.0f);
         pthis->action = 40;
     }
@@ -2114,7 +2114,7 @@ void func_80AEFC24(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AEFC54(EnRu1* pthis, GlobalContext* globalCtx) {
     if ((gSaveContext.infTable[20] & 0x20) && !(gSaveContext.infTable[20] & 0x40)) {
-        func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+        func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
         pthis->action = 41;
         pthis->unk_28C = EnRu1_FindSwitch(globalCtx);
         func_80AEB0EC(pthis, 1);
@@ -2135,7 +2135,7 @@ void func_80AEFCE8(EnRu1* pthis, GlobalContext* globalCtx) {
 
 void func_80AEFD38(EnRu1* pthis, GlobalContext* globalCtx) {
     if ((gSaveContext.eventChkInf[3] & 0x80) && LINK_IS_CHILD) {
-        func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+        func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
         pthis->actor.flags &= ~ACTOR_FLAG_4;
         pthis->action = 44;
         pthis->drawConfig = 1;
@@ -2199,7 +2199,7 @@ void func_80AEFF94(EnRu1* pthis, GlobalContext* globalCtx) {
 
     if ((gSaveContext.infTable[20] & 2) && (gSaveContext.infTable[20] & 1) && !(gSaveContext.infTable[20] & 0x20) &&
         (!(func_80AEB020(pthis, globalCtx)))) {
-        func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+        func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
         actorRoom = pthis->actor.room;
         pthis->action = 22;
         pthis->actor.room = -1;
@@ -2217,7 +2217,7 @@ void func_80AEFF94(EnRu1* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AF0050(EnRu1* pthis, GlobalContext* globalCtx) {
-    func_80AEB264(pthis, &gRutoChildWait2Anim, 0, 0, 0);
+    func_80AEB264(pthis, oot::asset::anim::header::load(symbol::gRutoChildWait2Anim), 0, 0, 0);
     pthis->action = 36;
     pthis->roomNum1 = pthis->actor.room;
     pthis->unk_28C = EnRu1_FindSwitch(globalCtx);
@@ -2241,7 +2241,7 @@ void EnRu1_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnRu1* pthis = (EnRu1*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gRutoChildSkel, NULL, pthis->jointTable, pthis->morphTable, 17);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gRutoChildSkel), NULL, pthis->jointTable, pthis->morphTable, 17);
     func_80AEAD20(&pthis->actor, globalCtx);
     switch (func_80AEADF0(pthis)) {
         case 0:

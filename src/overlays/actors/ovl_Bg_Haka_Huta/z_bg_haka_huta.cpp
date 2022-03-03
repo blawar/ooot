@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_haka_huta.h"
-#include "objects/object_hakach_objects/object_hakach_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -72,7 +72,7 @@ void BgHakaHuta_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(thisx, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&gBotwCoffinLidCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBotwCoffinLidCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
     pthis->unk_16A = (thisx->params >> 8) & 0xFF;
     thisx->params &= 0xFF;
@@ -233,7 +233,7 @@ void BgHakaHuta_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHakaHuta_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gBotwCoffinLidDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gBotwCoffinLidDL));
 }
 
 void BgHakaHuta_Reset(Actor* pthisx, GlobalContext* globalCtx) {

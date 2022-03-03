@@ -63,6 +63,9 @@
     <Import Project="oot.x64.props" />
   </ImportGroup>
   <PropertyGroup>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../include;../assets/$(buildrom)/;%(IncludePath);../;../build</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
     <IntDir>$(Configuration)\$(PlatformShortName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup>

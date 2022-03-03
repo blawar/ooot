@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot08_iceblock.h"
-#include "objects/object_spot08_obj/object_spot08_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -303,10 +303,10 @@ void BgSpot08Iceblock_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     switch (pthis->dyna.actor.params & 0x200) {
         case 0:
-            colHeader = &gZorasFountainIcebergCol;
+            colHeader = oot::asset::collision::header::load(symbol::gZorasFountainIcebergCol);
             break;
         case 0x200:
-            colHeader = &gZorasFountainIceRampCol;
+            colHeader = oot::asset::collision::header::load(symbol::gZorasFountainIceRampCol);
             break;
     }
 
@@ -448,10 +448,10 @@ void BgSpot08Iceblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     switch (pthis->dyna.actor.params & 0x200) {
         case 0:
-            dList = gZorasFountainIcebergDL;
+            dList = oot::asset::gfx::load(symbol::gZorasFountainIcebergDL);
             break;
         case 0x200:
-            dList = gZorasFountainIceRampDL;
+            dList = oot::asset::gfx::load(symbol::gZorasFountainIceRampDL);
             break;
     }
 

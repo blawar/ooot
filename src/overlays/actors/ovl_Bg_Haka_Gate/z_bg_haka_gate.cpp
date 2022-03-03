@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_haka_gate.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -60,10 +59,10 @@ void BgHakaGate_SkullOfTruth(BgHakaGate* pthis, GlobalContext* globalCtx);
 void BgHakaGate_FalseSkull(BgHakaGate* pthis, GlobalContext* globalCtx);
 
 static Gfx* displayLists_69[] = {
-    object_haka_objects_DL_012270,
-    object_haka_objects_DL_010A10,
-    object_haka_objects_DL_00A860,
-    object_haka_objects_DL_00F1B0,
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_012270),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_010A10),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_00A860),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_00F1B0),
 };
 
 
@@ -125,7 +124,7 @@ void BgHakaGate_Init(Actor* thisx, GlobalContext* globalCtx) {
         }
     } else {
         if (thisx->params == BGHAKAGATE_STATUE) {
-            CollisionHeader_GetVirtual(&object_haka_objects_Col_0131C4, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_0131C4), &colHeader);
             pthis->vTimer = 0;
             sStatueDistToPlayer = 0.0f;
             if (Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
@@ -134,14 +133,14 @@ void BgHakaGate_Init(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->actionFunc = BgHakaGate_StatueIdle;
             }
         } else if (thisx->params == BGHAKAGATE_FLOOR) {
-            CollisionHeader_GetVirtual(&object_haka_objects_Col_010E10, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_010E10), &colHeader);
             if (Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
                 pthis->actionFunc = BgHakaGate_DoNothing;
             } else {
                 pthis->actionFunc = BgHakaGate_FloorClosed;
             }
         } else { // BGHAKAGATE_GATE
-            CollisionHeader_GetVirtual(&object_haka_objects_Col_00A938, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_00A938), &colHeader);
             if (Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
                 pthis->actionFunc = BgHakaGate_DoNothing;
                 thisx->world.pos.y += 80.0f;
@@ -352,7 +351,7 @@ void BgHakaGate_DrawFlame(BgHakaGate* pthis, GlobalContext* globalCtx) {
         Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_gate.c", 744),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_gate.c", 749);
     }
 }
@@ -362,7 +361,7 @@ void BgHakaGate_Draw(Actor* thisx, GlobalContext* globalCtx) {
     MtxF currentMtxF;
 
     if (CHECK_FLAG_ALL(thisx->flags, ACTOR_FLAG_7)) {
-        Gfx_DrawDListXlu(globalCtx, object_haka_objects_DL_00F1B0);
+        Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::object_haka_objects_DL_00F1B0));
     } else {
         func_80093D18(globalCtx->state.gfxCtx);
         if (thisx->params == BGHAKAGATE_FLOOR) {
@@ -373,14 +372,14 @@ void BgHakaGate_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Translate(0.0f, 0.0f, 2000.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_gate.c", 788),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_010A10);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_haka_objects_DL_010A10));
             Matrix_Put(&currentMtxF);
             Matrix_Translate(0.0f, 0.0f, 2000.0f, MTXMODE_APPLY);
             Matrix_RotateX(-pthis->vOpenAngle * (M_PI / 0x8000), MTXMODE_APPLY);
             Matrix_Translate(0.0f, 0.0f, -2000.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_gate.c", 796),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_010C10);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_haka_objects_DL_010C10));
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_gate.c", 800);
         } else {
             Gfx_DrawDListOpa(globalCtx, displayLists_69[thisx->params]);

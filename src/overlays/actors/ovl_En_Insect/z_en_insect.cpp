@@ -9,7 +9,7 @@
 
 #include "z_en_insect.h"
 #include "vt.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"
@@ -131,7 +131,7 @@ s32 EnInsect_InBottleRange(EnInsect* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A7BF58(EnInsect* pthis) {
-    Animation_Change(&pthis->skelAnime, &gBugCrawlAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBugCrawlAnim), 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, 0.0f);
 }
 
 /**
@@ -192,7 +192,7 @@ void EnInsect_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     temp_s2 = pthis->actor.params & 3;
 
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBugSkel, &gBugCrawlAnim, pthis->jointTable, pthis->morphTable, 24);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBugSkel), oot::asset::anim::header::load(symbol::gBugCrawlAnim), pthis->jointTable, pthis->morphTable, 24);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sColliderInit, &pthis->colliderItem);
 

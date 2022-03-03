@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot18_futa.h"
-#include "objects/object_spot18_obj/object_spot18_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -48,7 +48,7 @@ void BgSpot18Futa_Init(Actor* thisx, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gGoronCityVaseLidCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gGoronCityVaseLidCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
 }
@@ -76,7 +76,7 @@ void BgSpot18Futa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot18Futa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gGoronCityVaseLidDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gGoronCityVaseLidDL));
 }
 
 void BgSpot18Futa_Reset(Actor* pthisx, GlobalContext* globalCtx) {

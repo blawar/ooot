@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_CROW_Z_EN_CROW_C
 #include "actor_common.h"
 #include "z_en_crow.h"
-#include "objects/object_crow/object_crow.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -124,7 +124,7 @@ void EnCrow_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnCrow* pthis = (EnCrow*)thisx;
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGuaySkel, &gGuayFlyAnim, pthis->jointTable, pthis->morphTable, 9);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGuaySkel), oot::asset::anim::header::load(symbol::gGuayFlyAnim), pthis->jointTable, pthis->morphTable, 9);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colliderItems);
     pthis->collider.elements[0].dim.worldSphere.radius = sJntSphInit.elements[0].dim.modelSphere.radius;
@@ -163,7 +163,7 @@ void EnCrow_SetupDamaged(EnCrow* pthis, GlobalContext* globalCtx) {
 
     pthis->actor.speedXZ *= Math_CosS(pthis->actor.world.rot.x);
     pthis->actor.velocity.y = 0.0f;
-    Animation_Change(&pthis->skelAnime, &gGuayFlyAnim, 0.4f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGuayFlyAnim), 0.4f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, -3.0f);
     scale = pthis->actor.scale.x * 100.0f;
     pthis->actor.world.pos.y += 20.0f * scale;
     pthis->actor.bgCheckFlags &= ~1;
@@ -227,7 +227,7 @@ void EnCrow_SetupRespawn(EnCrow* pthis) {
         pthis->collider.elements[0].dim.worldSphere.radius = sJntSphInit.elements[0].dim.modelSphere.radius;
     }
 
-    Animation_PlayLoop(&pthis->skelAnime, &gGuayFlyAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGuayFlyAnim));
     Math_Vec3f_Copy(&pthis->actor.world.pos, &pthis->actor.home.pos);
     pthis->actor.shape.rot.x = 0;
     pthis->actor.shape.rot.z = 0;

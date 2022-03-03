@@ -7,8 +7,7 @@
  */
 
 #include "z_en_light.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -174,7 +173,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx) {
             POLY_XLU_DISP++, 0x08,
             Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->timer * -20) & 511, 32, 128));
 
-        dList = gEffFire1DL;
+        dList = oot::asset::gfx::load(symbol::gEffFire1DL);
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, flameParams->primColor.r, flameParams->primColor.g,
                         flameParams->primColor.b, flameParams->primColor.a);
         gDPSetEnvColor(POLY_XLU_DISP++, flameParams->envColor.r, flameParams->envColor.g, flameParams->envColor.b, 0);
@@ -183,7 +182,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx) {
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 32, 1, ((pthis->timer * 2) & 63),
                                     (pthis->timer * -6) & 127 * 1, 16, 32));
 
-        dList = gUnusedCandleDL;
+        dList = oot::asset::gfx::load(symbol::gUnusedCandleDL);
         gDPSetPrimColor(POLY_XLU_DISP++, 0xC0, 0xC0, 255, 200, 0, 0);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
     }

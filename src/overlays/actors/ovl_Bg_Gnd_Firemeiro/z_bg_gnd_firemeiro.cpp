@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_gnd_firemeiro.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -51,7 +51,7 @@ void BgGndFiremeiro_Init(Actor* pthisx, GlobalContext* globalCtx) {
 
     if (pthis->dyna.actor.params == 0) {
         DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-        CollisionHeader_GetVirtual(&gFireTrialPlatformCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTrialPlatformCol), &colHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
         pthis->actionFunc = BgGndFiremeiro_Rise;
     }
@@ -154,7 +154,7 @@ void BgGndFiremeiro_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gnd_firemeiro.c", 282),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gFireTrialPlatformDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTrialPlatformDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_firemeiro.c", 285);
 }

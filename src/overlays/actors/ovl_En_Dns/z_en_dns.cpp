@@ -7,7 +7,7 @@
  */
 
 #include "z_en_dns.h"
-#include "objects/object_shopnuts/object_shopnuts.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/inventory.h"
 #include "def/z_actor.h"
@@ -142,9 +142,9 @@ struct DnsAnimInfo {
 }; 
 
 static DnsAnimInfo sAnimInfo[] = {
-    { &gBusinessScrubNervousIdleAnim, ANIMMODE_LOOP, 0.0f },
-    { &gBusinessScrubAnim_4404, ANIMMODE_ONCE, 0.0f },
-    { &gBusinessScrubNervousTransitionAnim, ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gBusinessScrubNervousIdleAnim), ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gBusinessScrubAnim_4404), ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gBusinessScrubNervousTransitionAnim), ANIMMODE_ONCE, 0.0f },
 };
 
 void EnDns_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -164,7 +164,7 @@ void EnDns_Init(Actor* thisx, GlobalContext* globalCtx) {
     osSyncPrintf(VT_FGCOL(GREEN) "◆◆◆ 売りナッツ『%s』 ◆◆◆" VT_RST "\n", D_809F0424[pthis->actor.params],
                  pthis->actor.params);
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBusinessScrubSkel, &gBusinessScrubNervousTransitionAnim,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBusinessScrubSkel), oot::asset::anim::header::load(symbol::gBusinessScrubNervousTransitionAnim),
                        pthis->jointTable, pthis->morphTable, 18);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinderType1(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -449,7 +449,7 @@ void func_809F008C(EnDns* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDns_SetupBurrow(EnDns* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gBusinessScrubAnim_4404);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBusinessScrubAnim_4404));
 
     if (pthis->skelAnime.curFrame == frameCount) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_AKINDONUTS_HIDE);

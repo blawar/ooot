@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot01_idohashira.h"
-#include "objects/object_spot01_objects/object_spot01_objects.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -311,7 +311,7 @@ void BgSpot01Idohashira_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
     colHeader = NULL;
-    CollisionHeader_GetVirtual(&gKakarikoWellArchCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gKakarikoWellArchCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 
     if (gSaveContext.sceneSetupIndex < 4) {
@@ -340,7 +340,7 @@ void func_808AB700(BgSpot01Idohashira* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(localGfxCtx, "../z_bg_spot01_idohashira.c", 699),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     func_808AAF34(pthis, globalCtx);
-    gSPDisplayList(POLY_OPA_DISP++, gKakarikoWellArchDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gKakarikoWellArchDL));
 
     CLOSE_DISPS(localGfxCtx, "../z_bg_spot01_idohashira.c", 708);
 }

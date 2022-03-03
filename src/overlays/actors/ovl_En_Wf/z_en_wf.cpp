@@ -9,7 +9,7 @@
 #include "z_en_wf.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
-#include "objects/object_wf/object_wf.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -243,12 +243,12 @@ void EnWf_Init(Actor* thisx, GlobalContext* globalCtx) {
     Collider_SetCylinder(globalCtx, &pthis->colliderCylinderTail, thisx, &sTailCylinderInit);
 
     if (thisx->params == WOLFOS_NORMAL) {
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gWolfosNormalSkel, &gWolfosWaitingAnim, pthis->jointTable,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gWolfosNormalSkel), oot::asset::anim::header::load(symbol::gWolfosWaitingAnim), pthis->jointTable,
                            pthis->morphTable, WOLFOS_LIMB_MAX);
         Actor_SetScale(thisx, 0.0075f);
         thisx->naviEnemyId = 0x4C; // Wolfos
     } else {                       // WOLFOS_WHITE
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gWolfosWhiteSkel, &gWolfosWaitingAnim, pthis->jointTable,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gWolfosWhiteSkel), oot::asset::anim::header::load(symbol::gWolfosWaitingAnim), pthis->jointTable,
                            pthis->morphTable, WOLFOS_LIMB_MAX);
         Actor_SetScale(thisx, 0.01f);
         pthis->colliderSpheres.elements[0].info.toucher.damage = pthis->colliderSpheres.elements[1].info.toucher.damage =
@@ -375,7 +375,7 @@ s32 EnWf_ChangeAction(GlobalContext* globalCtx, EnWf* pthis, s16 mustChoose) {
 }
 
 void EnWf_SetupWaitToAppear(EnWf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gWolfosRearingUpFallingOverAnim, 0.5f, 0.0f, 7.0f, ANIMMODE_ONCE_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosRearingUpFallingOverAnim), 0.5f, 0.0f, 7.0f, ANIMMODE_ONCE_INTERP, 0.0f);
     pthis->actor.world.pos.y = pthis->actor.home.pos.y - 5.0f;
     pthis->actionTimer = 20;
     pthis->unk_300 = false;
@@ -417,7 +417,7 @@ void EnWf_WaitToAppear(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupWait(EnWf* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gWolfosWaitingAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosWaitingAnim), -4.0f);
     pthis->action = WOLFOS_ACTION_WAIT;
     pthis->actionTimer = (Rand_ZeroOne() * 10.0f) + 2.0f;
     pthis->actor.speedXZ = 0.0f;
@@ -490,9 +490,9 @@ void EnWf_Wait(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupRunAtPlayer(EnWf* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gWolfosRunningAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWolfosRunningAnim));
 
-    Animation_Change(&pthis->skelAnime, &gWolfosRunningAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosRunningAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
     pthis->action = WOLFOS_ACTION_RUN_AT_PLAYER;
     EnWf_SetupAction(pthis, EnWf_RunAtPlayer);
 }
@@ -573,7 +573,7 @@ void EnWf_RunAtPlayer(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupSearchForPlayer(EnWf* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gWolfosSidesteppingAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosSidesteppingAnim), -4.0f);
     pthis->action = WOLFOS_ACTION_SEARCH_FOR_PLAYER;
     EnWf_SetupAction(pthis, EnWf_SearchForPlayer);
 }
@@ -615,9 +615,9 @@ void EnWf_SearchForPlayer(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupRunAroundPlayer(EnWf* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gWolfosRunningAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWolfosRunningAnim));
 
-    Animation_Change(&pthis->skelAnime, &gWolfosRunningAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosRunningAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
 
     if (Rand_ZeroOne() > 0.5f) {
         pthis->runAngle = 16000;
@@ -723,7 +723,7 @@ void EnWf_RunAroundPlayer(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupSlash(EnWf* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gWolfosSlashingAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosSlashingAnim));
     pthis->colliderSpheres.base.atFlags &= ~AT_BOUNCED;
     pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
     pthis->action = WOLFOS_ACTION_SLASH;
@@ -798,7 +798,7 @@ void EnWf_SetupRecoilFromBlockedSlash(EnWf* pthis) {
         endFrame = 15.0f;
     }
 
-    Animation_Change(&pthis->skelAnime, &gWolfosSlashingAnim, -0.5f, pthis->skelAnime.curFrame - 1.0f, endFrame,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosSlashingAnim), -0.5f, pthis->skelAnime.curFrame - 1.0f, endFrame,
                      ANIMMODE_ONCE_INTERP, 0.0f);
     pthis->action = WOLFOS_ACTION_RECOIL_FROM_BLOCKED_SLASH;
     pthis->slashStatus = 0;
@@ -846,7 +846,7 @@ void EnWf_RecoilFromBlockedSlash(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupBackflipAway(EnWf* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gWolfosBackflippingAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosBackflippingAnim), -3.0f);
     pthis->actor.speedXZ = -6.0f;
     pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
     pthis->actionTimer = 0;
@@ -878,7 +878,7 @@ void EnWf_SetupStunned(EnWf* pthis) {
     }
 
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOMA_JR_FREEZE);
-    Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gWolfosDamagedAnim, 0.0f);
+    Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosDamagedAnim), 0.0f);
     pthis->action = WOLFOS_ACTION_STUNNED;
     EnWf_SetupAction(pthis, EnWf_Stunned);
 }
@@ -906,7 +906,7 @@ void EnWf_Stunned(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupDamaged(EnWf* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gWolfosDamagedAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosDamagedAnim), -4.0f);
 
     if (pthis->actor.bgCheckFlags & 1) {
         pthis->unk_300 = false;
@@ -963,9 +963,9 @@ void EnWf_Damaged(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupSomersaultAndAttack(EnWf* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gWolfosBackflippingAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWolfosBackflippingAnim));
 
-    Animation_Change(&pthis->skelAnime, &gWolfosBackflippingAnim, -1.0f, lastFrame, 0.0f, ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosBackflippingAnim), -1.0f, lastFrame, 0.0f, ANIMMODE_ONCE, -3.0f);
     pthis->actionTimer = 0;
     pthis->unk_300 = false;
     pthis->action = WOLFOS_ACTION_TURN_TOWARDS_PLAYER;
@@ -1000,7 +1000,7 @@ void EnWf_SomersaultAndAttack(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupBlocking(EnWf* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gWolfosBlockingAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWolfosBlockingAnim));
 
     if (pthis->slashStatus != 0) {
         pthis->slashStatus = -1;
@@ -1010,7 +1010,7 @@ void EnWf_SetupBlocking(EnWf* pthis) {
     pthis->action = WOLFOS_ACTION_BLOCKING;
     pthis->actionTimer = 10;
 
-    Animation_Change(&pthis->skelAnime, &gWolfosBlockingAnim, 0.0f, 0.0f, lastFrame, ANIMMODE_ONCE_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosBlockingAnim), 0.0f, 0.0f, lastFrame, ANIMMODE_ONCE_INTERP, -4.0f);
     EnWf_SetupAction(pthis, EnWf_Blocking);
 }
 
@@ -1067,9 +1067,9 @@ void EnWf_Blocking(EnWf* pthis, GlobalContext* globalCtx) {
 void EnWf_SetupSidestep(EnWf* pthis, GlobalContext* globalCtx) {
     s16 angle;
     Player* player;
-    f32 lastFrame = Animation_GetLastFrame(&gWolfosRunningAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWolfosRunningAnim));
 
-    Animation_Change(&pthis->skelAnime, &gWolfosRunningAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosRunningAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -4.0f);
 
     player = GET_PLAYER(globalCtx);
     angle = player->actor.shape.rot.y + pthis->runAngle;
@@ -1187,7 +1187,7 @@ void EnWf_Sidestep(EnWf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWf_SetupDie(EnWf* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gWolfosRearingUpFallingOverAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWolfosRearingUpFallingOverAnim), -4.0f);
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 
     if (pthis->actor.bgCheckFlags & 1) {
@@ -1429,10 +1429,10 @@ void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
     }
 }
 
-static void* sWolfosNormalEyeTextures[] = { gWolfosNormalEyeOpenTex, gWolfosNormalEyeHalfTex, gWolfosNormalEyeNarrowTex,
-                                            gWolfosNormalEyeHalfTex };
-static void* sWolfosWhiteEyeTextures[] = { gWolfosWhiteEyeOpenTex, gWolfosWhiteEyeHalfTex, gWolfosWhiteEyeNarrowTex,
-                                           gWolfosWhiteEyeHalfTex };
+static void* sWolfosNormalEyeTextures[] = { oot::asset::texture::load(symbol::gWolfosNormalEyeOpenTex), oot::asset::texture::load(symbol::gWolfosNormalEyeHalfTex), oot::asset::texture::load(symbol::gWolfosNormalEyeNarrowTex),
+                                            oot::asset::texture::load(symbol::gWolfosNormalEyeHalfTex) };
+static void* sWolfosWhiteEyeTextures[] = { oot::asset::texture::load(symbol::gWolfosWhiteEyeOpenTex), oot::asset::texture::load(symbol::gWolfosWhiteEyeHalfTex), oot::asset::texture::load(symbol::gWolfosWhiteEyeNarrowTex),
+                                           oot::asset::texture::load(symbol::gWolfosWhiteEyeHalfTex) };
 
 void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnWf* pthis = (EnWf*)thisx;

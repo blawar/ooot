@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_sekizou.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
@@ -133,8 +133,8 @@ static InitChainEntry sInitChain[] = {
 };
 
 static void* sFireballsTexs[] = {
-    gFireTempleFireball0Tex, gFireTempleFireball1Tex, gFireTempleFireball2Tex, gFireTempleFireball3Tex,
-    gFireTempleFireball4Tex, gFireTempleFireball5Tex, gFireTempleFireball6Tex, gFireTempleFireball7Tex,
+    oot::asset::texture::load(symbol::gFireTempleFireball0Tex), oot::asset::texture::load(symbol::gFireTempleFireball1Tex), oot::asset::texture::load(symbol::gFireTempleFireball2Tex), oot::asset::texture::load(symbol::gFireTempleFireball3Tex),
+    oot::asset::texture::load(symbol::gFireTempleFireball4Tex), oot::asset::texture::load(symbol::gFireTempleFireball5Tex), oot::asset::texture::load(symbol::gFireTempleFireball6Tex), oot::asset::texture::load(symbol::gFireTempleFireball7Tex),
 };
 
 void func_8088CEC0(BgHidanSekizou* pthis, s32 arg1, s16 arg2) {
@@ -175,11 +175,11 @@ void BgHidanSekizou_Init(Actor* thisx, GlobalContext* globalCtx) {
         for (i = 0; i < 2; i++) {
             func_8088CEC0(pthis, i, pthis->dyna.actor.shape.rot.y + ((i == 0) ? 0x2000 : -0x2000));
         }
-        CollisionHeader_GetVirtual(&gFireTempleStationaryFlamethrowerShortCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStationaryFlamethrowerShortCol), &colHeader);
         pthis->updateFunc = func_8088D720;
     } else {
         pthis->unk_168[0] = pthis->unk_168[1] = pthis->unk_168[2] = pthis->unk_168[3] = 0;
-        CollisionHeader_GetVirtual(&gFireTempleStationaryFlamethrowerTallCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStationaryFlamethrowerTallCol), &colHeader);
         pthis->updateFunc = func_8088D434;
     }
     pthis->unk_170 = 0;
@@ -335,7 +335,7 @@ Gfx* func_8088D9F4(GlobalContext* globalCtx, BgHidanSekizou* pthis, s16 arg2, Mt
                                (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(arg7++, gFireTempleFireballDL);
+    gSPDisplayList(arg7++, oot::asset::gfx::load(symbol::gFireTempleFireballDL));
 
     return arg7;
 }
@@ -412,9 +412,9 @@ void BgHidanSekizou_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_sekizou.c", 831),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     if (pthis->dyna.actor.params == 0) {
-        gSPDisplayList(POLY_OPA_DISP++, gFireTempleStationaryFlamethrowerShortDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleStationaryFlamethrowerShortDL));
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, gFireTempleStationaryFlamethrowerTallDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleStationaryFlamethrowerTallDL));
     }
     POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0x14);
     if (pthis->dyna.actor.params == 0) {

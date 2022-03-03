@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_mori_rakkatenjo.h"
-#include "objects/object_mori_objects/object_mori_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/sys_matrix.h"
@@ -88,7 +88,7 @@ void BgMoriRakkatenjo_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
-    CollisionHeader_GetVirtual(&gMoriRakkatenjoCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gMoriRakkatenjoCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     BgMoriRakkatenjo_SetupWaitForMoriTex(pthis);
     sCamSetting = 0;
@@ -240,12 +240,11 @@ void BgMoriRakkatenjo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_rakkatenjo.c", 497);
     func_80093D18(globalCtx->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_rakkatenjo.c", 502),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gMoriRakkatenjoDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMoriRakkatenjoDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_rakkatenjo.c", 506);
 }

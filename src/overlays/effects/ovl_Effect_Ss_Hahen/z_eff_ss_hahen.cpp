@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_hahen.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
@@ -52,11 +52,11 @@ u32 EffectSsHahen_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
         pthis->rObjId = initParams->objId;
         EffectSsHahen_CheckForObject(pthis, globalCtx);
     } else {
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffFragments1DL);
+        pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffFragments1DL));
         pthis->rObjId = -1;
     }
 
-    if ((pthis->rObjId == OBJECT_HAKA_OBJECTS) && (pthis->gfx == gEffFragments2DL)) {
+    if ((pthis->rObjId == OBJECT_HAKA_OBJECTS) && (pthis->gfx == oot::asset::gfx::load(symbol::gEffFragments2DL))) {
         pthis->draw = EffectSsHahen_DrawGray;
     } else {
         pthis->draw = EffectSsHahen_Draw;
@@ -80,7 +80,6 @@ void EffectSsHahen_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     OPEN_DISPS(gfxCtx, "../z_eff_hahen.c", 208);
 
     if (pthis->rObjId != -1) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->rObjBankIdx].vromStart.get());
     }
 
     Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);
@@ -104,7 +103,6 @@ void EffectSsHahen_DrawGray(GlobalContext* globalCtx, u32 index, EffectSs* pthis
     OPEN_DISPS(gfxCtx, "../z_eff_hahen.c", 253);
 
     if (pthis->rObjId != -1) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->rObjBankIdx].vromStart.get());
     }
 
     Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);

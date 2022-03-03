@@ -7,7 +7,7 @@
  */
 
 #include "z_en_md.h"
-#include "objects/object_md/object_md.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
@@ -36,9 +36,9 @@ void func_80AABC10(EnMd* pthis, GlobalContext* globalCtx);
 void func_80AABD0C(EnMd* pthis, GlobalContext* globalCtx);
 
 static void* sEyeTextures_70[] = {
-    gMidoEyeOpenTex,
-    gMidoEyeHalfTex,
-    gMidoEyeClosedTex,
+    oot::asset::texture::load(symbol::gMidoEyeOpenTex),
+    oot::asset::texture::load(symbol::gMidoEyeHalfTex),
+    oot::asset::texture::load(symbol::gMidoEyeClosedTex),
 };
 
 
@@ -78,20 +78,20 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gMidoHandsOnHipsIdleAnim, 0.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gMidoHandsOnHipsIdleAnim, 0.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gMidoRaiseHand1Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gMidoHaltAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gMidoPutHandDownAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gMidoAnnoyedPointedHeadIdle1Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gMidoAnnoyedPointedHeadIdle2Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gMidoAnim_92B0, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gMidoWalkingAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gMidoHandsOnHipsTransitionAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gMidoHandsOnHipsIdleAnim, 0.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
-    { &gMidoSlamAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    { &gMidoRaiseHand2Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    { &gMidoAngryHeadTurnAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim), 0.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim), 0.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMidoRaiseHand1Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoHaltAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoPutHandDownAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoAnnoyedPointedHeadIdle1Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoAnnoyedPointedHeadIdle2Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoAnim_92B0), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoWalkingAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoHandsOnHipsTransitionAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim), 0.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
+    { oot::asset::anim::header::load(symbol::gMidoSlamAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoRaiseHand2Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gMidoAngryHeadTurnAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
 };
 
 void func_80AAA250(EnMd* pthis) {
@@ -344,7 +344,7 @@ void func_80AAAA24(EnMd* pthis) {
                 }
                 break;
         }
-    } else if (pthis->skelAnime.animation != &gMidoHandsOnHipsIdleAnim) {
+    } else if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim)) {
         func_80034EC0(&pthis->skelAnime, sAnimations, 10);
         func_80AAA92C(pthis, 0);
     }
@@ -634,7 +634,7 @@ void EnMd_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 24.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gMidoSkel, NULL, pthis->jointTable, pthis->morphTable, 17);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gMidoSkel), NULL, pthis->jointTable, pthis->morphTable, 17);
 
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -673,7 +673,7 @@ void EnMd_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80AAB874(EnMd* pthis, GlobalContext* globalCtx) {
-    if (pthis->skelAnime.animation == &gMidoHandsOnHipsIdleAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim)) {
         func_80034F54(globalCtx, pthis->unk_214, pthis->unk_236, 17);
     } else if ((pthis->unk_1E0.unk_00 == 0) && (pthis->unk_20B != 7)) {
         func_80AAA92C(pthis, 7);
@@ -683,7 +683,7 @@ void func_80AAB874(EnMd* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AAB8F8(EnMd* pthis, GlobalContext* globalCtx) {
-    if (pthis->skelAnime.animation == &gMidoHandsOnHipsIdleAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim)) {
         func_80034F54(globalCtx, pthis->unk_214, pthis->unk_236, 17);
     }
     func_80AAA93C(pthis);
@@ -735,7 +735,7 @@ void func_80AAB948(EnMd* pthis, GlobalContext* globalCtx) {
         return;
     }
 
-    if (pthis->skelAnime.animation == &gMidoHandsOnHipsIdleAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMidoHandsOnHipsIdleAnim)) {
         func_80034F54(globalCtx, pthis->unk_214, pthis->unk_236, 17);
     }
 

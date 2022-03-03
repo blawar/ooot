@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_TW_Z_BOSS_TW_C
 #include "actor_common.h"
 #include "z_boss_tw.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_tw/object_tw.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "def/code_800A9F30.h"
 #include "def/audio_bank.h"
@@ -109,9 +108,9 @@ static Vec3f D_8094A95C_143[] = {
 
 
 static void* sEyeTextures_143[] = {
-    object_tw_Tex_00A438,
-    object_tw_Tex_00B238,
-    object_tw_Tex_00B638,
+    oot::asset::texture::load(symbol::object_tw_Tex_00A438),
+    oot::asset::texture::load(symbol::object_tw_Tex_00B238),
+    oot::asset::texture::load(symbol::object_tw_Tex_00B638),
 };
 
 static Vec3f D_8094A9A4_143 = { 0.0f, 200.0f, 2000.0f };
@@ -536,7 +535,7 @@ void BossTw_Init(Actor* thisx, GlobalContext* globalCtx2) {
     if (pthis->actor.params == TW_KOTAKE) {
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInitKoumeKotake);
         pthis->actor.naviEnemyId = 0x33;
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_tw_Skel_0070E0, &object_tw_Anim_006F28, NULL, NULL, 0);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_tw_Skel_0070E0), oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), NULL, NULL, 0);
 
         if (gSaveContext.eventChkInf[7] & 0x20) {
             // began twinrova battle
@@ -549,12 +548,12 @@ void BossTw_Init(Actor* thisx, GlobalContext* globalCtx2) {
             BossTw_SetupCSWait(pthis, globalCtx);
         }
 
-        Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_006F28, -3.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), -3.0f);
         pthis->visible = true;
     } else if (pthis->actor.params == TW_KOUME) {
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInitKoumeKotake);
         pthis->actor.naviEnemyId = 0x32;
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_tw_Skel_01F888, &object_tw_Anim_006F28, NULL, NULL, 0);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_tw_Skel_01F888), oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), NULL, NULL, 0);
 
         if (gSaveContext.eventChkInf[7] & 0x20) {
             // began twinrova battle
@@ -566,7 +565,7 @@ void BossTw_Init(Actor* thisx, GlobalContext* globalCtx2) {
             BossTw_SetupCSWait(pthis, globalCtx);
         }
 
-        Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_006F28, -3.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), -3.0f);
         pthis->visible = true;
     } else {
         // Twinrova
@@ -575,8 +574,8 @@ void BossTw_Init(Actor* thisx, GlobalContext* globalCtx2) {
         pthis->actor.colChkInfo.health = 24;
         pthis->actor.update = BossTw_TwinrovaUpdate;
         pthis->actor.draw = BossTw_TwinrovaDraw;
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_tw_Skel_032020, &object_tw_Anim_0244B4, NULL, NULL, 0);
-        Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_0244B4, -3.0f);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_tw_Skel_032020), oot::asset::anim::header::load(symbol::object_tw_Anim_0244B4), NULL, NULL, 0);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0244B4), -3.0f);
 
         if (gSaveContext.eventChkInf[7] & 0x20) {
             // began twinrova battle
@@ -671,7 +670,7 @@ void BossTw_SetupFlyTo(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actor.flags |= ACTOR_FLAG_0;
     pthis->actionFunc = BossTw_FlyTo;
     pthis->rotateSpeed = 0.0f;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_006F28, -10.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), -10.0f);
     if ((Rand_ZeroOne() < 0.5f) && (otherTw != NULL && otherTw->actionFunc == BossTw_ShootBeam)) {
         // Other Sister is shooting a beam, go near them.
         pthis->targetPos.x = otherTw->actor.world.pos.x + Rand_CenteredFloat(200.0f);
@@ -732,8 +731,8 @@ void BossTw_SetupShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     pthis->actionFunc = BossTw_ShootBeam;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_007688, -5.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_007688);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_007688), -5.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_007688));
     pthis->timers[1] = 70;
     pthis->targetPos = player->actor.world.pos;
     pthis->csState1 = 0;
@@ -1073,13 +1072,13 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
         }
 
         if (Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-            Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_009398, 0.0f);
+            Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_009398), 0.0f);
             pthis->workf[ANIM_SW_TGT] = 10000.0f;
         }
 
         if (pthis->timers[1] == 1) {
-            Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_003614, 0.0f);
-            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_003614);
+            Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_003614), 0.0f);
+            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_003614));
             pthis->unk_4DC = 0.0f;
             pthis->spawnPortalAlpha = 0.0f;
             pthis->flameAlpha = 0.0f;
@@ -1087,7 +1086,7 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
         }
     } else {
         if (Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-            Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_003E34, 0.0f);
+            Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_003E34), 0.0f);
             pthis->workf[ANIM_SW_TGT] = 10000.0f;
         }
 
@@ -1342,8 +1341,8 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_SetupFinishBeamShoot(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_FinishBeamShoot;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_004548, 0.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_004548);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_004548), 0.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_004548));
 }
 
 void BossTw_FinishBeamShoot(BossTw* pthis, GlobalContext* globalCtx) {
@@ -1363,7 +1362,7 @@ void BossTw_FinishBeamShoot(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_SetupHitByBeam(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_HitByBeam;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_00578C, 0.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_00578C), 0.0f);
     pthis->timers[0] = 53;
     pthis->actor.speedXZ = 0.0f;
 
@@ -1417,8 +1416,8 @@ void BossTw_HitByBeam(BossTw* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->timers[0] == 1) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_006530, 0.0f);
-        pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_006530);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006530), 0.0f);
+        pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_006530));
     }
 
     if ((pthis->timers[0] == 0) && Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
@@ -1428,8 +1427,8 @@ void BossTw_HitByBeam(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_SetupLaugh(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_Laugh;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_0088C8, 0.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0088C8);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0088C8), 0.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_0088C8));
     pthis->actor.speedXZ = 0.0f;
 }
 
@@ -1451,8 +1450,8 @@ void BossTw_Laugh(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_SetupSpin(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_Spin;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_007CA8, -3.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_007CA8);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_007CA8), -3.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_007CA8));
     pthis->actor.speedXZ = 0.0f;
     SkelAnime_Update(&pthis->skelAnime);
     pthis->timers[0] = 20;
@@ -1480,7 +1479,7 @@ void BossTw_SetupMergeCS(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_MergeCS;
     pthis->rotateSpeed = 0.0f;
     pthis->actor.speedXZ = 0.0f;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_006F28, -10.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), -10.0f);
 }
 
 void BossTw_MergeCS(BossTw* pthis, GlobalContext* globalCtx) {
@@ -1659,8 +1658,8 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx) {
                     BossTw_SetupWait(sKotakePtr, globalCtx);
                     BossTw_SetupWait(sKoumePtr, globalCtx);
                     Actor_SetScale(&pthis->actor, 0.0f);
-                    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_038E2C, 0.0f);
-                    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_038E2C);
+                    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_038E2C), 0.0f);
+                    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_038E2C));
                     pthis->timers[0] = 50;
                     func_8002DF54(globalCtx, &pthis->actor, 2);
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_TRANSFORM);
@@ -1674,7 +1673,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx) {
 
         case 1:
             if (Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-                Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, -15.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_032BF8), -15.0f);
             }
 
             sEnvType = -1;
@@ -1749,7 +1748,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_SetupDeathCS(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_DeathCS;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_0004A4, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0004A4), -3.0f);
     pthis->unk_5F8 = 0;
     pthis->work[CS_TIMER_2] = Rand_ZeroFloat(20.0f);
 }
@@ -1875,7 +1874,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                 if (pthis->work[CS_TIMER_1] >= 236) {
                     pthis->csState2 = 2;
                     sKoumePtr->visible = 1;
-                    Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_0004A4, 0.0f);
+                    Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0004A4), 0.0f);
                     sKoumePtr->actor.world.pos.x = 0.0f;
                     sKoumePtr->actor.world.pos.y = 80.0f;
                     sKoumePtr->actor.world.pos.z = 600.0f;
@@ -1955,8 +1954,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                 pthis->subCamAtStep.z = fabsf(pthis->subCamAtTarget.z - pthis->subCamAt.z);
                 pthis->subCamUpdateRate = 0.0f;
                 pthis->subCamDistStep = 0.05f;
-                Animation_MorphToPlayOnce(&sKoumePtr->skelAnime, &object_tw_Anim_000AAC, 0.0f);
-                pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_000AAC);
+                Animation_MorphToPlayOnce(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_000AAC), 0.0f);
+                pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_000AAC));
                 pthis->work[CS_TIMER_1] = 0;
             }
             break;
@@ -2004,8 +2003,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                                        1.0f, 0.005f);
                     } else {
                         if (pthis->work[CS_TIMER_1] == 50) {
-                            Animation_MorphToPlayOnce(&sKoumePtr->skelAnime, &object_tw_Anim_0088C8, -5);
-                            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0088C8);
+                            Animation_MorphToPlayOnce(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0088C8), -5);
+                            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_0088C8));
                         }
 
                         if (pthis->work[CS_TIMER_1] == 60) {
@@ -2013,7 +2012,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                         }
 
                         if (Animation_OnFrame(&sKoumePtr->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-                            Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_006F28, 0.f);
+                            Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), 0.f);
                             pthis->workf[ANIM_SW_TGT] = 1000.0f;
                         }
 
@@ -2029,7 +2028,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                         pthis->work[CS_TIMER_1] = 0;
                         pthis->subCamYawStep = 0.0f;
                         sKotakePtr->visible = 1;
-                        Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_0004A4, 0.0f);
+                        Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0004A4), 0.0f);
                         sKotakePtr->actor.world.pos.x = 0.0f;
                         sKotakePtr->actor.world.pos.y = 80.0f;
                         sKotakePtr->actor.world.pos.z = -600.0f;
@@ -2057,7 +2056,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                 Math_ApproachF(&pthis->subCamYawStep, 12288.0f, 1.0f, 384.0f);
 
                 if (Animation_OnFrame(&sKoumePtr->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-                    Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_006F28, 0.0f);
+                    Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), 0.0f);
                     pthis->workf[ANIM_SW_TGT] = 1000.0f;
                 }
             }
@@ -2119,8 +2118,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                 pthis->subCamAtStep.z = fabsf(pthis->subCamAtTarget.z - pthis->subCamAt.z);
                 pthis->subCamUpdateRate = 0;
                 pthis->subCamDistStep = 0.05f;
-                Animation_MorphToPlayOnce(&sKotakePtr->skelAnime, &object_tw_Anim_000AAC, 0);
-                pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_000AAC);
+                Animation_MorphToPlayOnce(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_000AAC), 0);
+                pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_000AAC));
                 pthis->work[CS_TIMER_1] = 0;
             }
             break;
@@ -2166,8 +2165,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                                        1.0f, 0.005f);
                     } else {
                         if (pthis->work[CS_TIMER_1] == 50) {
-                            Animation_MorphToPlayOnce(&sKotakePtr->skelAnime, &object_tw_Anim_0088C8, -5.0f);
-                            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0088C8);
+                            Animation_MorphToPlayOnce(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0088C8), -5.0f);
+                            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_0088C8));
                         }
 
                         if (pthis->work[CS_TIMER_1] == 60) {
@@ -2175,7 +2174,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                         }
 
                         if (Animation_OnFrame(&sKotakePtr->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-                            Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_006F28, 0.0f);
+                            Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), 0.0f);
                             pthis->workf[ANIM_SW_TGT] = 1000.0f;
                         }
 
@@ -2218,7 +2217,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                 Math_ApproachF(&pthis->subCamYawStep, 12288.0f, 1.0f, 384.0f);
 
                 if (Animation_OnFrame(&sKotakePtr->skelAnime, pthis->workf[ANIM_SW_TGT])) {
-                    Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_006F28, 0.0f);
+                    Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_006F28), 0.0f);
                     pthis->workf[ANIM_SW_TGT] = 1000.0f;
                 }
             }
@@ -2240,7 +2239,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
                 globalCtx->envCtx.unk_BD = 1;
                 globalCtx->envCtx.unk_D8 = 0.0f;
                 TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                       SEGMENTED_TO_VIRTUAL(object_tw_Blob_02E170), 0xA0, 0xB4, 0x80, 0x28);
+                                       SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_tw_Blob_02E170)), 0xA0, 0xB4, 0x80, 0x28);
                 gSaveContext.eventChkInf[7] |= 0x20;
                 Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_BOSS);
             }
@@ -2393,7 +2392,7 @@ void BossTw_DeathBall(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaSetupDeathCS(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaDeathCS;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_024374, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_024374), -3.0f);
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     pthis->csState2 = pthis->csState1 = 0;
@@ -2568,31 +2567,31 @@ void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx) {
 
     switch (kotakeAnim) {
         case 1:
-            Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_00230C, -5.0f);
+            Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_00230C), -5.0f);
             break;
         case 2:
-            Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_001D10, -5.0f);
+            Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_001D10), -5.0f);
             break;
         case 3:
-            Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_0017E0, -5.0f);
+            Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0017E0), -5.0f);
             break;
         case 4:
-            Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_0012A4, -5.0f);
+            Animation_MorphToLoop(&sKotakePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0012A4), -5.0f);
             break;
     }
 
     switch (koumeAnim) {
         case 1:
-            Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_00230C, -5.0f);
+            Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_00230C), -5.0f);
             break;
         case 2:
-            Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_001D10, -5.0f);
+            Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_001D10), -5.0f);
             break;
         case 3:
-            Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_0017E0, -5.0f);
+            Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0017E0), -5.0f);
             break;
         case 4:
-            Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_0012A4, -5.0f);
+            Animation_MorphToLoop(&sKoumePtr->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0012A4), -5.0f);
             break;
     }
 
@@ -2646,7 +2645,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx) {
     switch (pthis->csState1) {
         case 0:
             if (pthis->work[CS_TIMER_1] == 15) {
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_0216DC, -3.0f);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0216DC), -3.0f);
             }
 
             if (pthis->work[CS_TIMER_1] >= 15) {
@@ -3199,9 +3198,9 @@ s32 BossTw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     if (limbIndex == 21) {
         if (pthis->unk_5F8 == 0) {
             if (pthis->actor.params == 0) {
-                *dList = object_tw_DL_012CE0;
+                *dList = oot::asset::gfx::load(symbol::object_tw_DL_012CE0);
             } else {
-                *dList = object_tw_DL_0134B8;
+                *dList = oot::asset::gfx::load(symbol::object_tw_DL_0134B8);
             }
         }
     }
@@ -3211,9 +3210,9 @@ s32 BossTw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
             *dList = NULL;
         } else if (pthis->scepterAlpha == 0.0f) {
             if (pthis->actor.params == 0) {
-                *dList = object_tw_DL_012B38;
+                *dList = oot::asset::gfx::load(symbol::object_tw_DL_012B38);
             } else {
-                *dList = object_tw_DL_013310;
+                *dList = oot::asset::gfx::load(symbol::object_tw_DL_013310);
             }
         }
     }
@@ -3235,9 +3234,9 @@ void BossTw_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, V
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6190),
                           G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
                 if (pthis->actor.params == 0) {
-                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_013AE8));
+                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_013AE8)));
                 } else {
-                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_013D68));
+                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_013D68)));
                 }
             }
             break;
@@ -3253,14 +3252,14 @@ void BossTw_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, V
                           G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
                 if (pthis->actor.params == 0) {
                     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 225, 255, (s16)pthis->scepterAlpha);
-                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_013E98));
+                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_013E98)));
                     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s16)pthis->scepterAlpha);
-                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_013F98));
+                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_013F98)));
                 } else {
                     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 20, 0, (s16)pthis->scepterAlpha);
-                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_014070));
+                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_014070)));
                     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 70, 0, (s16)pthis->scepterAlpha);
-                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_014158));
+                    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_014158)));
                 }
             }
             break;
@@ -3282,7 +3281,7 @@ void func_80941BC0(BossTw* pthis, GlobalContext* globalCtx) {
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->workf[UNK_F11]);
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 40, 30, 80);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01BC00));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01BC00)));
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 215, 215, 215, (s16)pthis->workf[UNK_F11] * pthis->workf[UNK_F14]);
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
     gSPSegment(POLY_XLU_DISP++, 8,
@@ -3292,7 +3291,7 @@ void func_80941BC0(BossTw* pthis, GlobalContext* globalCtx) {
     Matrix_RotateY(pthis->workf[UNK_F15], MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6423),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01C1C0));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01C1C0)));
     Matrix_Pop();
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6427),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
@@ -3307,7 +3306,7 @@ void func_80941BC0(BossTw* pthis, GlobalContext* globalCtx) {
                          GBL_c1(G_BL_CLR_FOG, G_BL_A_SHADE, G_BL_CLR_IN, G_BL_1MA),
                      G_RM_ZB_OVL_SURF2);
     gSPSetGeometryMode(POLY_XLU_DISP++, G_CULL_BACK | G_FOG);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A790));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A790)));
     Matrix_Pop();
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6461);
@@ -3331,7 +3330,7 @@ void func_80942180(BossTw* pthis, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 40, 00, (s16)pthis->workf[KM_GRND_CRTR_A]);
     gDPPipeSync(POLY_XLU_DISP++);
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 245, 255, 128);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_019D40));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_019D40)));
 
     func_800D1FD4(&globalCtx->billboardMtxF);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6514),
@@ -3343,7 +3342,7 @@ void func_80942180(BossTw* pthis, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 80, 0, 0, (s16)pthis->workf[KM_GD_SMOKE_A]);
     gDPPipeSync(POLY_XLU_DISP++);
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, 100);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_018FC0));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_018FC0)));
 
     gSPSegment(POLY_XLU_DISP++, 8,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (-pthis->work[CS_TIMER_1] * 3) & 0x7F, 0, 0x20, 0x20, 1, 0,
@@ -3354,7 +3353,7 @@ void func_80942180(BossTw* pthis, GlobalContext* globalCtx) {
     Matrix_Scale(pthis->workf[KM_GD_FLM_SCL], pthis->workf[KM_GD_FLM_SCL], pthis->workf[KM_GD_FLM_SCL], MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6575),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_019938));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_019938)));
 
     Matrix_Pop();
 
@@ -3380,17 +3379,17 @@ void func_809426F0(BossTw* pthis, GlobalContext* globalCtx) {
 
     if (pthis->actor.params == 0) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 135, 175, 165, (s16)pthis->spawnPortalAlpha);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01CEE0));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01CEE0)));
     } else {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 0, (s16)pthis->spawnPortalAlpha);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01DBE8));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01DBE8)));
     }
 
     Matrix_Pop();
 
     if (pthis->actor.params == 0) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s16)pthis->flameAlpha);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A998)));
     } else {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, (s16)pthis->flameAlpha);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 215, 255, 128);
@@ -3408,7 +3407,7 @@ void func_809426F0(BossTw* pthis, GlobalContext* globalCtx) {
         func_800D1FD4(&globalCtx->billboardMtxF);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6751),
                   G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A430));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A430)));
         Matrix_Pop();
     }
 
@@ -3442,7 +3441,7 @@ void func_80942C70(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(pthis->beamScale, pthis->beamScale, (pthis->beamDist * 0.01f * 98.0f) / 20000.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6846),
                   G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01DDF0));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01DDF0)));
 
         if (pthis->beamReflectionDist > 10.0f) {
             Matrix_Translate(pthis->beamReflectionOrigin.x, pthis->beamReflectionOrigin.y, pthis->beamReflectionOrigin.z,
@@ -3454,7 +3453,7 @@ void func_80942C70(Actor* thisx, GlobalContext* globalCtx) {
                          MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6870),
                       G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01DDF0));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01DDF0)));
         }
 
         Matrix_Pop();
@@ -3474,7 +3473,7 @@ void func_80943028(Actor* thisx, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6908),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01F608));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01F608)));
     func_80094044(globalCtx->state.gfxCtx);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, 200);
     Matrix_Translate(pthis->actor.world.pos.x, 240.0f, pthis->actor.world.pos.z, MTXMODE_NEW);
@@ -3482,7 +3481,7 @@ void func_80943028(Actor* thisx, GlobalContext* globalCtx) {
                  MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6926),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gCircleShadowDL));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gCircleShadowDL)));
     Matrix_Pop();
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_tw.c", 6933);
@@ -3569,9 +3568,9 @@ void BossTw_Draw(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 void* D_8094A9B0[] = {
-    object_tw_Tex_02A9B0,
-    object_tw_Tex_02A070,
-    object_tw_Tex_02A470,
+    oot::asset::texture::load(symbol::object_tw_Tex_02A9B0),
+    oot::asset::texture::load(symbol::object_tw_Tex_02A070),
+    oot::asset::texture::load(symbol::object_tw_Tex_02A470),
 };
 
 s32 BossTw_TwinrovaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
@@ -3617,13 +3616,13 @@ s32 BossTw_TwinrovaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx
             break;
         case 19:
             if (pthis->unk_5F8 != 0) {
-                *dList = object_tw_DL_02D940;
+                *dList = oot::asset::gfx::load(symbol::object_tw_DL_02D940);
             }
             break;
 
         case 20:
             if (pthis->unk_5F8 != 0) {
-                *dList = object_tw_DL_02D890;
+                *dList = oot::asset::gfx::load(symbol::object_tw_DL_02D890);
             }
             break;
     }
@@ -3720,20 +3719,20 @@ void BossTw_ShieldChargeDraw(BossTw* pthis, GlobalContext* globalCtx) {
             temp_a0 = (Math_SinS(pthis->work[CS_TIMER_1] * 2730 * temp_t0) * D_8094C854 * 0.5f) + (D_8094C854 * 0.5f);
             if (sShieldFireCharge != 0) {
                 gDPSetEnvColor(POLY_XLU_DISP++, 255, 245, 255, temp_a0);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E0E0));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01E0E0)));
                 gSPSegment(POLY_XLU_DISP++, 8,
                            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (pthis->work[CS_TIMER_1] * 2) * temp_t0, 0, 0x20,
                                             0x20, 1, (-pthis->work[CS_TIMER_1] * 2) * temp_t0, 0, 0x20, 0x20));
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 20, 0, (s16)D_8094C854);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E020));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01E020)));
             } else {
                 gDPSetEnvColor(POLY_XLU_DISP++, 225, 255, 255, temp_a0);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E3A0));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01E3A0)));
                 gSPSegment(POLY_XLU_DISP++, 8,
                            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (-pthis->work[CS_TIMER_1] * 5) * temp_t0,
                                             0x20, 0x40, 1, (pthis->work[CS_TIMER_1] * 4) * temp_t0, 0, 0x20, 0x20));
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 175, 205, 195, (s16)D_8094C854);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E2C0));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01E2C0)));
             }
         }
     }
@@ -3768,7 +3767,7 @@ void BossTw_ShieldChargeDraw(BossTw* pthis, GlobalContext* globalCtx) {
         gSPSegment(POLY_XLU_DISP++, 8,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, pthis->work[CS_TIMER_1] * D_8094C872, 0x20, 0x40, 1,
                                     0, pthis->work[CS_TIMER_1] * D_8094C872, 0x20, 0x20));
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E9F0));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01E9F0)));
     }
 
     Matrix_Pop();
@@ -3793,28 +3792,28 @@ void BossTw_SpawnPortalDraw(BossTw* pthis, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, (s16)pthis->spawnPortalAlpha);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7582),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01EC68));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01EC68)));
 
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 135, 175, 165, (s16)pthis->spawnPortalAlpha);
     Matrix_Translate(0.0f, 2.0f, 0.0f, MTXMODE_APPLY);
     Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7596),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01CEE0));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01CEE0)));
 
     Matrix_Translate(0.0f, 232.0f, 600.0f, MTXMODE_NEW);
     Matrix_Scale(pthis->spawnPortalScale, pthis->spawnPortalScale, pthis->spawnPortalScale, MTXMODE_APPLY);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, (s16)pthis->spawnPortalAlpha);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7617),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01EC68));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01EC68)));
 
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 0, (s16)pthis->spawnPortalAlpha);
     Matrix_Translate(0.0f, 2.0f, 0.0f, MTXMODE_APPLY);
     Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7631),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01DBE8));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01DBE8)));
 
     Matrix_Pop();
 
@@ -3834,7 +3833,7 @@ void func_80944C50(BossTw* pthis, GlobalContext* globalCtx) {
     Matrix_Scale(pthis->workf[UNK_F19], pthis->workf[UNK_F19], pthis->workf[UNK_F19], MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7671),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01F390));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01F390)));
 
     Matrix_Pop();
     gSPSegment(POLY_XLU_DISP++, 8,
@@ -3843,7 +3842,7 @@ void func_80944C50(BossTw* pthis, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->workf[UNK_F18] / 2);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7694),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01F238));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01F238)));
 
     gSPSegment(POLY_XLU_DISP++, 8,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -sKoumePtr->work[CS_TIMER_1] * 5,
@@ -3857,7 +3856,7 @@ void func_80944C50(BossTw* pthis, GlobalContext* globalCtx) {
     Matrix_Scale(scale, 1.0f, scale, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7728),
               G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01EEB0));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01EEB0)));
     Matrix_Pop();
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_tw.c", 7732);
@@ -4461,7 +4460,7 @@ void BossTw_BlastDraw(Actor* thisx, GlobalContext* globalCtx2) {
                 func_800D1FD4(&globalCtx->billboardMtxF);
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 8865),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A430));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A430)));
             }
             break;
 
@@ -4470,7 +4469,7 @@ void BossTw_BlastDraw(Actor* thisx, GlobalContext* globalCtx2) {
 
         case TW_ICE_BLAST:
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s8)pthis->workf[TAIL_ALPHA]);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A998)));
             for (i = 9; i >= 0; i--) {
                 gSPSegment(POLY_XLU_DISP++, 8,
                            Gfx_TwoTexScroll(
@@ -4485,7 +4484,7 @@ void BossTw_BlastDraw(Actor* thisx, GlobalContext* globalCtx2) {
                 func_800D1FD4(&globalCtx->billboardMtxF);
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 9004),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01AB00)));
             }
             break;
 
@@ -4525,11 +4524,11 @@ void BossTw_DrawDeathBall(Actor* thisx, GlobalContext* globalCtx2) {
             func_800D1FD4(&globalCtx->billboardMtxF);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 9071),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A430));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A430)));
         }
     } else {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s8)pthis->workf[TAIL_ALPHA]);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A998)));
 
         for (i = 9; i >= 0; i--) {
             gSPSegment(POLY_XLU_DISP++, 8,
@@ -4545,7 +4544,7 @@ void BossTw_DrawDeathBall(Actor* thisx, GlobalContext* globalCtx2) {
             func_800D1FD4(&globalCtx->billboardMtxF);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_tw.c", 9107),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01AB00)));
         }
     }
 
@@ -4904,7 +4903,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
     for (i = 0; i < ARRAY_COUNT(sTwEffects); i++) {
         if (currentEffect->type == 1) {
             if (sp18F == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, object_tw_DL_01A528);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_tw_DL_01A528));
                 sp18F++;
             }
 
@@ -4915,7 +4914,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9617),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_tw_DL_01A5A8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_tw_DL_01A5A8));
         }
 
         currentEffect++;
@@ -4927,7 +4926,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
     for (i = 0; i < ARRAY_COUNT(sTwEffects); i++) {
         if (currentEffect->type == 3) {
             if (sp18F == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A998)));
                 sp18F++;
             }
 
@@ -4940,7 +4939,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9660),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01AB00)));
         }
         currentEffect++;
     }
@@ -4965,7 +4964,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9709),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A430));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A430)));
         }
 
         currentEffect++;
@@ -5010,7 +5009,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
             gSPClearGeometryMode(POLY_XLU_DISP++, G_CULL_BACK | G_FOG);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A790));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A790)));
         }
 
         currentEffect++;
@@ -5025,7 +5024,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
 
         if (currentEffect->type == TWEFF_PLYR_FRZ) {
             if (sp18F == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AA50));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01AA50)));
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, 255);
                 gSPSegment(POLY_XLU_DISP++, 8,
                            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
@@ -5055,7 +5054,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
                 Matrix_RotateX((BossTw_RandZeroOne() - 0.5f) * M_PI * 0.5f, MTXMODE_APPLY);
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9855),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01AB00)));
             }
         }
 
@@ -5069,7 +5068,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
         if (currentEffect->type >= 6) {
             if (currentEffect->work[EFF_ARGS] == 0) {
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, currentEffect->alpha);
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A998)));
             } else {
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, currentEffect->alpha);
                 gDPPipeSync(POLY_XLU_DISP++);
@@ -5086,9 +5085,9 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
             if (currentEffect->work[EFF_ARGS] == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01AB00)));
             } else {
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A430));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_tw_DL_01A430)));
             }
         }
 
@@ -5100,7 +5099,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaSetupArriveAtTarget(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaArriveAtTarget;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_032BF8), -3.0f);
     pthis->work[CS_TIMER_1] = Rand_ZeroFloat(100.0f);
     pthis->timers[1] = 25;
     pthis->rotateSpeed = 0.0f;
@@ -5123,8 +5122,8 @@ void BossTw_TwinrovaArriveAtTarget(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaSetupChargeBlast(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaChargeBlast;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_036FBC, -5.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_036FBC);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_036FBC), -5.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_036FBC));
     pthis->csState1 = 0;
 }
 
@@ -5156,12 +5155,12 @@ void BossTw_TwinrovaSetupShootBlast(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaShootBlast;
 
     if (sTwinrovaBlastType == 0) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_022700, 0.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_022700), 0.0f);
     } else {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_023750, 0.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_023750), 0.0f);
     }
 
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_023750);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_023750));
 }
 
 void BossTw_TwinrovaShootBlast(BossTw* pthis, GlobalContext* globalCtx) {
@@ -5219,7 +5218,7 @@ void BossTw_TwinrovaShootBlast(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaSetupDoneBlastShoot(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaDoneBlastShoot;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, -10.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_032BF8), -10.0f);
     pthis->timers[1] = 60;
 }
 
@@ -5240,7 +5239,7 @@ void BossTw_TwinrovaDoneBlastShoot(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaDamage(BossTw* pthis, GlobalContext* globalCtx, u8 damage) {
     if (pthis->actionFunc != BossTw_TwinrovaStun) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_0338F0, -15.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0338F0), -15.0f);
         pthis->timers[0] = 150;
         pthis->timers[1] = 20;
         pthis->csState1 = 0;
@@ -5248,8 +5247,8 @@ void BossTw_TwinrovaDamage(BossTw* pthis, GlobalContext* globalCtx, u8 damage) {
     } else {
         pthis->work[FOG_TIMER] = 10;
         pthis->work[INVINC_TIMER] = 20;
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_024374, -3.0f);
-        pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_024374);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_024374), -3.0f);
+        pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_024374));
         pthis->csState1 = 1;
 
         if ((s8)(pthis->actor.colChkInfo.health -= damage) < 0) {
@@ -5311,12 +5310,12 @@ void BossTw_TwinrovaStun(BossTw* pthis, GlobalContext* globalCtx) {
     if (pthis->csState1 == 0) {
         if (pthis->timers[1] == 0) {
             pthis->csState1 = 1;
-            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0343B4);
-            Animation_Change(&pthis->skelAnime, &object_tw_Anim_0343B4, 1.0f, 0.0f, pthis->workf[ANIM_SW_TGT], 3, 0.0f);
+            pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_0343B4));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_0343B4), 1.0f, 0.0f, pthis->workf[ANIM_SW_TGT], 3, 0.0f);
         }
     } else if (Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
         pthis->workf[ANIM_SW_TGT] = 1000.0f;
-        Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_035030, 0.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_035030), 0.0f);
     }
 
     if (pthis->actor.bgCheckFlags & 1) {
@@ -5329,8 +5328,8 @@ void BossTw_TwinrovaStun(BossTw* pthis, GlobalContext* globalCtx) {
 }
 
 void BossTw_TwinrovaSetupGetUp(BossTw* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_035988, 0.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_035988);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_035988), 0.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_035988));
     pthis->actionFunc = BossTw_TwinrovaGetUp;
     pthis->timers[0] = 50;
 }
@@ -5341,7 +5340,7 @@ void BossTw_TwinrovaGetUp(BossTw* pthis, GlobalContext* globalCtx) {
 
     if (Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT])) {
         pthis->workf[ANIM_SW_TGT] = 1000.0f;
-        Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, 0.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_032BF8), 0.0f);
     }
 
     if (pthis->timers[0] == 0) {
@@ -5375,7 +5374,7 @@ void BossTw_TwinrovaSetupFly(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actor.world.rot.y = Math_FAtan2F(xDiff, zDiff) * (32768 / M_PI);
     xzDist = sqrtf(SQ(xDiff) + SQ(zDiff));
     pthis->actor.world.rot.x = Math_FAtan2F(yDiff, xzDist) * (32768 / M_PI);
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, -10.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_032BF8), -10.0f);
 }
 
 void BossTw_TwinrovaFly(BossTw* pthis, GlobalContext* globalCtx) {
@@ -5414,7 +5413,7 @@ void BossTw_TwinrovaFly(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaSetupSpin(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaSpin;
-    Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, 0.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_032BF8), 0.0f);
     pthis->timers[0] = 20;
     pthis->actor.speedXZ = 0.0f;
 }
@@ -5435,8 +5434,8 @@ void BossTw_TwinrovaSpin(BossTw* pthis, GlobalContext* globalCtx) {
 
 void BossTw_TwinrovaSetupLaugh(BossTw* pthis, GlobalContext* globalCtx) {
     pthis->actionFunc = BossTw_TwinrovaLaugh;
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_03A2D0, 0.0f);
-    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_03A2D0);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tw_Anim_03A2D0), 0.0f);
+    pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tw_Anim_03A2D0));
     pthis->actor.speedXZ = 0.0f;
 }
 

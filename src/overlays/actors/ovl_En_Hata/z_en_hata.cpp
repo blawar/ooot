@@ -7,7 +7,7 @@
  */
 
 #include "z_en_hata.h"
-#include "objects/object_hata/object_hata.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -65,13 +65,13 @@ void EnHata_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnHata* pthis = (EnHata*)thisx;
     s32 pad;
     CollisionHeader* colHeader = NULL;
-    f32 frameCount = Animation_GetLastFrame(&gFlagpoleFlapAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gFlagpoleFlapAnim));
 
     Actor_SetScale(&pthis->dyna.actor, 1.0f / 75.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gFlagpoleSkel, &gFlagpoleFlapAnim, NULL, NULL, 0);
-    Animation_Change(&pthis->skelAnime, &gFlagpoleFlapAnim, 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gFlagpoleSkel), oot::asset::anim::header::load(symbol::gFlagpoleFlapAnim), NULL, NULL, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gFlagpoleFlapAnim), 1.0f, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gFlagpoleCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFlagpoleCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     pthis->dyna.actor.uncullZoneScale = 500.0f;
     pthis->dyna.actor.uncullZoneDownward = 550.0f;

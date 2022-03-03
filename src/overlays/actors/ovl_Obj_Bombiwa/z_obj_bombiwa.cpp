@@ -8,7 +8,7 @@
 
 #include "z_obj_bombiwa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_bombiwa/object_bombiwa.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -115,7 +115,7 @@ void ObjBombiwa_Break(ObjBombiwa* pthis, GlobalContext* globalCtx) {
     s16 scale;
     s32 i;
 
-    dlist = object_bombiwa_DL_0009E0;
+    dlist = oot::asset::gfx::load(symbol::object_bombiwa_DL_0009E0);
     for (i = 0; i < ARRAY_COUNT(sEffectScales); i++) {
         pos.x = ((Rand_ZeroOne() - 0.5f) * 10.0f) + pthis->actor.home.pos.x;
         pos.y = ((Rand_ZeroOne() * 5.0f) + pthis->actor.home.pos.y) + 8.0f;
@@ -154,7 +154,7 @@ void ObjBombiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, object_bombiwa_DL_0009E0);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_bombiwa_DL_0009E0));
 }
 
 void ObjBombiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {

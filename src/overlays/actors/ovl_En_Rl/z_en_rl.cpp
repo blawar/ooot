@@ -8,7 +8,7 @@
 
 #include "z_en_rl.h"
 #include "vt.h"
-#include "objects/object_rl/object_rl.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_lib.h"
@@ -39,7 +39,7 @@ void func_80AE7D94(EnRl* pthis, GlobalContext* globalCtx);
 static s32 D_80AE81AC_34 = 0;
 
 
-static void* D_80AE81A0[] = { object_rl_Tex_003620, object_rl_Tex_003960, object_rl_Tex_003B60 };
+static void* D_80AE81A0[] = { oot::asset::texture::load(symbol::object_rl_Tex_003620), oot::asset::texture::load(symbol::object_rl_Tex_003960), oot::asset::texture::load(symbol::object_rl_Tex_003B60) };
 
 void EnRl_Destroy(Actor* thisx, GlobalContext* globalCtx) {
     EnRl* pthis = (EnRl*)thisx;
@@ -63,8 +63,8 @@ void func_80AE72D0(EnRl* pthis) {
 }
 
 void func_80AE7358(EnRl* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_rl_Anim_000A3C, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_rl_Anim_000A3C), ANIMMODE_LOOP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rl_Anim_000A3C), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rl_Anim_000A3C)), ANIMMODE_LOOP, 0.0f);
     pthis->action = 4;
     pthis->drawConfig = 0;
     pthis->alpha = 0;
@@ -120,7 +120,7 @@ s32 func_80AE74FC(EnRl* pthis, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
 }
 
 void func_80AE7544(EnRl* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_rl_Skel_007B38, &object_rl_Anim_000A3C, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_rl_Skel_007B38), oot::asset::anim::header::load(symbol::object_rl_Anim_000A3C), NULL, NULL, 0);
 }
 
 void func_80AE7590(EnRl* pthis, GlobalContext* globalCtx) {
@@ -156,8 +156,8 @@ void func_80AE7698(EnRl* pthis, GlobalContext* globalCtx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdActorAction = globalCtx->csCtx.npcActions[0];
         if (csCmdActorAction != NULL && csCmdActorAction->action == 3) {
-            Animation_Change(&pthis->skelAnime, &object_rl_Anim_00040C, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&object_rl_Anim_00040C), ANIMMODE_ONCE, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rl_Anim_00040C), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rl_Anim_00040C)), ANIMMODE_ONCE, 0.0f);
             pthis->action = 2;
         }
     }
@@ -165,8 +165,8 @@ void func_80AE7698(EnRl* pthis, GlobalContext* globalCtx) {
 
 void func_80AE772C(EnRl* pthis, s32 arg1) {
     if (arg1) {
-        Animation_Change(&pthis->skelAnime, &object_rl_Anim_000830, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_rl_Anim_000830), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rl_Anim_000830), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rl_Anim_000830)), ANIMMODE_LOOP, 0.0f);
         pthis->action = 3;
     }
 }
@@ -199,7 +199,7 @@ void func_80AE7838(EnRl* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AE7878(EnRl* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_rl_Skel_007B38, &object_rl_Anim_000A3C, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_rl_Skel_007B38), oot::asset::anim::header::load(symbol::object_rl_Anim_000A3C), NULL, NULL, 0);
     pthis->action = 4;
     pthis->actor.shape.shadowAlpha = 0;
 }
@@ -251,8 +251,8 @@ void func_80AE79A4(EnRl* pthis, GlobalContext* globalCtx) {
 
 void func_80AE7AF8(EnRl* pthis, GlobalContext* globalCtx) {
     if (func_80AE74B4(pthis, globalCtx, 3, 0)) {
-        Animation_Change(&pthis->skelAnime, &object_rl_Anim_00040C, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_rl_Anim_00040C), ANIMMODE_ONCE, -8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rl_Anim_00040C), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rl_Anim_00040C)), ANIMMODE_ONCE, -8.0f);
         pthis->action = 6;
     } else if (func_80AE74FC(pthis, globalCtx, 4, 0)) {
         pthis->action = 5;
@@ -269,8 +269,8 @@ void func_80AE7AF8(EnRl* pthis, GlobalContext* globalCtx) {
 
 void func_80AE7BF8(EnRl* pthis, s32 arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &object_rl_Anim_000830, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_rl_Anim_000830), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_rl_Anim_000830), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_rl_Anim_000830)), ANIMMODE_LOOP, 0.0f);
         pthis->action = 7;
     }
 }

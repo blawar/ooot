@@ -8,7 +8,7 @@
 
 #include "z_en_hs2.h"
 #include "vt.h"
-#include "objects/object_hs/object_hs.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -67,9 +67,9 @@ void EnHs2_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_hs_Skel_006260, &object_hs_Anim_0005C0, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_hs_Skel_006260), oot::asset::anim::header::load(symbol::object_hs_Anim_0005C0), pthis->jointTable,
                        pthis->morphTable, 16);
-    Animation_PlayLoop(&pthis->skelAnime, &object_hs_Anim_0005C0);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_hs_Anim_0005C0));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;

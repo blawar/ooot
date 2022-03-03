@@ -18,7 +18,7 @@ const char gBuildMakeOption[] = "";
 #include "global.h"
 #include "segment_symbols.h"
 #include "alloca.h"
-#include "textures/nintendo_rogo_static/nintendo_rogo_static.h"
+#include "asset.h"
 #include "def/game.h"
 #include "def/gfxprint.h"
 #include "def/sys_matrix.h"
@@ -137,7 +137,7 @@ void Title_Draw(TitleContext* pthis) {
     Matrix_RotateZYX(0, sTitleRotY, 0, MTXMODE_APPLY);
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(pthis->state.gfxCtx, "../z_title.c", 424), G_MTX_LOAD);
-    gSPDisplayList(POLY_OPA_DISP++, gNintendo64LogoDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gNintendo64LogoDL));
     func_800944C4(pthis->state.gfxCtx);
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetCycleType(POLY_OPA_DISP++, G_CYC_2CYCLE);
@@ -147,11 +147,11 @@ void Title_Draw(TitleContext* pthis) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 170, 255, 255, 255);
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 255, 128);
 
-    gDPLoadMultiBlock(POLY_OPA_DISP++, nintendo_rogo_static_Tex_001800, 0x100, 1, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0,
+    gDPLoadMultiBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::nintendo_rogo_static_Tex_001800), 0x100, 1, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0,
                       G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, 2, 11);
 
     for (idx = 0, y = 94; idx < 16; idx++, y += 2) {
-        gDPLoadTextureBlock(POLY_OPA_DISP++, &((u8*)nintendo_rogo_static_Tex_000000)[0x180 * idx], G_IM_FMT_I,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, &((u8*)oot::asset::texture::load(symbol::nintendo_rogo_static_Tex_000000))[0x180 * idx], G_IM_FMT_I,
                             G_IM_SIZ_8b, 192, 2, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                             G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 

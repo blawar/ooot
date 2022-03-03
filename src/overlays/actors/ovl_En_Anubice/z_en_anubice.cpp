@@ -7,7 +7,7 @@
  */
 
 #include "z_en_anubice.h"
-#include "objects/object_anubice/object_anubice.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Anubice_Tag/z_en_anubice_tag.h"
 #include "overlays/actors/ovl_Bg_Hidan_Curtain/z_bg_hidan_curtain.h"
 #include "vt.h"
@@ -136,7 +136,7 @@ void EnAnubice_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnAnubice* pthis = (EnAnubice*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 20.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gAnubiceSkel, &gAnubiceIdleAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gAnubiceSkel), oot::asset::anim::header::load(symbol::gAnubiceIdleAnim), pthis->jointTable, pthis->morphTable,
                    16);
 
     osSyncPrintf("\n\n");
@@ -207,9 +207,9 @@ void EnAnubice_FindFlameCircles(EnAnubice* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAnubice_SetupIdle(EnAnubice* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gAnubiceIdleAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gAnubiceIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gAnubiceIdleAnim, 1.0f, 0.0f, (s16)lastFrame, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gAnubiceIdleAnim), 1.0f, 0.0f, (s16)lastFrame, ANIMMODE_LOOP, -10.0f);
 
     pthis->actionFunc = EnAnubice_Idle;
     pthis->actor.velocity.x = pthis->actor.velocity.z = pthis->actor.gravity = 0.0f;
@@ -271,10 +271,10 @@ void EnAnubice_GoToHome(EnAnubice* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAnubis_SetupShootFireball(EnAnubice* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gAnubiceAttackingAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gAnubiceAttackingAnim));
 
     pthis->animLastFrame = lastFrame;
-    Animation_Change(&pthis->skelAnime, &gAnubiceAttackingAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gAnubiceAttackingAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = EnAnubis_ShootFireball;
     pthis->actor.velocity.x = pthis->actor.velocity.z = 0.0f;
 }
@@ -301,10 +301,10 @@ void EnAnubis_ShootFireball(EnAnubice* pthis, GlobalContext* globalCtx) {
 }
 
 void EnAnubice_SetupDie(EnAnubice* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gAnubiceFallDownAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gAnubiceFallDownAnim));
 
     pthis->animLastFrame = lastFrame;
-    Animation_Change(&pthis->skelAnime, &gAnubiceFallDownAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -20.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gAnubiceFallDownAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -20.0f);
 
     pthis->unk_256 = false;
     pthis->unk_258 = 0;
@@ -488,7 +488,7 @@ void EnAnubis_PostLimbDraw(struct GlobalContext* globalCtx, s32 limbIndex, Gfx**
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_anubice.c", 856),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gAnubiceEyesDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gAnubiceEyesDL));
         Matrix_MultVec3f(&pos, &pthis->fireballPos);
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_anubice.c", 868);

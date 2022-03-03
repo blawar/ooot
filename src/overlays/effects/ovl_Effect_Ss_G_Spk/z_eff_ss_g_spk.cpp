@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_g_spk.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_lib.h"
@@ -42,7 +42,7 @@ u32 EffectSsGSpk_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void
     Math_Vec3f_Copy(&pthis->pos, &initParams->pos);
     Math_Vec3f_Copy(&pthis->velocity, &initParams->velocity);
     Math_Vec3f_Copy(&pthis->accel, &initParams->accel);
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffSparkDL);
+    pthis->gfx = oot::asset::gfx::load(symbol::gEffSparkDL);
 
     if (initParams->updateMode == 0) {
         pthis->life = 10;
@@ -74,10 +74,10 @@ u32 EffectSsGSpk_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void
 
 void EffectSsGSpk_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* sparkTextures[] = {
-        gEffSpark1Tex,
-        gEffSpark2Tex,
-        gEffSpark3Tex,
-        gEffSpark4Tex,
+        oot::asset::texture::load(symbol::gEffSpark1Tex),
+        oot::asset::texture::load(symbol::gEffSpark2Tex),
+        oot::asset::texture::load(symbol::gEffSpark3Tex),
+        oot::asset::texture::load(symbol::gEffSpark4Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     MtxF mfTrans;

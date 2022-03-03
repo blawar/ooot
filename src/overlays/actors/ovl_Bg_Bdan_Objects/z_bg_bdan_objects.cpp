@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_bdan_objects.h"
-#include "objects/object_bdan_objects/object_bdan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
@@ -86,10 +86,10 @@ static InitChainEntry sInitChain[] = {
 };
 
 static Gfx* sDLists[] = {
-    gJabuObjectsLargeRotatingSpikePlatformDL,
-    gJabuElevatorPlatformDL,
-    gJabuWaterDL,
-    gJabuFallingPlatformDL,
+    oot::asset::gfx::load(symbol::gJabuObjectsLargeRotatingSpikePlatformDL),
+    oot::asset::gfx::load(symbol::gJabuElevatorPlatformDL),
+    oot::asset::gfx::load(symbol::gJabuWaterDL),
+    oot::asset::gfx::load(symbol::gJabuFallingPlatformDL),
 };
 
 s32 BgBdanObjects_GetContactRu1(BgBdanObjects* pthis, s32 arg1) {
@@ -138,7 +138,7 @@ void BgBdanObjects_Init(Actor* pthisx, GlobalContext* globalCtx) {
         return;
     }
     if (pthisx->params == 0) {
-        CollisionHeader_GetVirtual(&gJabuBigOctoPlatformCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJabuBigOctoPlatformCol), &colHeader);
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->dyna.actor, &sCylinderInit);
         pthisx->world.pos.y += -79.0f;
@@ -163,12 +163,12 @@ void BgBdanObjects_Init(Actor* pthisx, GlobalContext* globalCtx) {
         }
     } else {
         if (pthisx->params == 1) {
-            CollisionHeader_GetVirtual(&gJabuElevatorCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJabuElevatorCol), &colHeader);
             pthis->timer = 512;
             pthis->switchFlag = 0;
             pthis->actionFunc = func_8086C874;
         } else {
-            CollisionHeader_GetVirtual(&gJabuLoweringPlatformCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJabuLoweringPlatformCol), &colHeader);
             if (Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
                 pthis->actionFunc = BgBdanObjects_DoNothing;
                 pthisx->world.pos.y = pthisx->home.pos.y - 400.0f;
@@ -473,7 +473,7 @@ void BgBdanObjects_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     }
 
     if (pthisx->params == 2) {
-        Gfx_DrawDListXlu(globalCtx, gJabuWaterDL);
+        Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::gJabuWaterDL));
     } else {
         Gfx_DrawDListOpa(globalCtx, sDLists[pthisx->params]);
     }

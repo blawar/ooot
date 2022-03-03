@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_d_fire.h"
-#include "objects/object_dodongo/object_dodongo.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 #include "def/z_scene.h"
@@ -41,7 +41,7 @@ u32 EffectSsDFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
         pthis->pos = initParams->pos;
         pthis->velocity = initParams->velocity;
         pthis->accel = initParams->accel;
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(gDodongoFireDL);
+        pthis->gfx = oot::asset::gfx::load(symbol::gDodongoFireDL);
         pthis->life = initParams->life;
         pthis->rScale = initParams->scale;
         pthis->rScaleStep = initParams->scaleStep;
@@ -62,7 +62,7 @@ u32 EffectSsDFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
     return 0;
 }
 
-static void* sTextures[] = { gDodongoFire0Tex, gDodongoFire1Tex, gDodongoFire2Tex, gDodongoFire3Tex };
+static void* sTextures[] = { oot::asset::texture::load(symbol::gDodongoFire0Tex), oot::asset::texture::load(symbol::gDodongoFire1Tex), oot::asset::texture::load(symbol::gDodongoFire2Tex), oot::asset::texture::load(symbol::gDodongoFire3Tex) };
 
 void EffectSsDFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
@@ -75,7 +75,6 @@ void EffectSsDFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     Mtx* mtx;
     f32 scale;
 
-    object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
     OPEN_DISPS(gfxCtx, "../z_eff_ss_d_fire.c", 276);
 

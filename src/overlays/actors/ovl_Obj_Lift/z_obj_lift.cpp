@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_lift.h"
-#include "objects/object_d_lift/object_d_lift.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -101,7 +101,7 @@ void func_80B96160(ObjLift* pthis, GlobalContext* globalCtx) {
         velocity.z = sFragmentScales[i].z * pthis->dyna.actor.scale.z * 0.8f;
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, temp_s3, -256, (Rand_ZeroOne() < 0.5f) ? 64 : 32, 15, 15, 0,
                              (Rand_ZeroOne() * 50.0f + 50.0f) * pthis->dyna.actor.scale.x, 0, 32, 50, KAKERA_COLOR_NONE,
-                             OBJECT_D_LIFT, gCollapsingPlatformDL);
+                             OBJECT_D_LIFT, oot::asset::gfx::load(symbol::gCollapsingPlatformDL));
     }
 
     if (((pthis->dyna.actor.params >> 1) & 1) == 0) {
@@ -114,7 +114,7 @@ void func_80B96160(ObjLift* pthis, GlobalContext* globalCtx) {
 void ObjLift_Init(Actor* thisx, GlobalContext* globalCtx) {
     ObjLift* pthis = (ObjLift*)thisx;
 
-    ObjLift_InitDynaPoly(pthis, globalCtx, &gCollapsingPlatformCol, DPM_PLAYER);
+    ObjLift_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gCollapsingPlatformCol), DPM_PLAYER);
 
     if (Flags_GetSwitch(globalCtx, (pthis->dyna.actor.params >> 2) & 0x3F)) {
         Actor_Kill(&pthis->dyna.actor);
@@ -225,7 +225,7 @@ void ObjLift_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjLift_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gCollapsingPlatformDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gCollapsingPlatformDL));
 }
 
 void ObjLift_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,8 +7,7 @@
  */
 
 #include "z_en_bw.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_bw/object_bw.h"
+#include "asset.h"
 #include "def/math_float.h"
 #include "def/random.h"
 #include "def/sys_math.h"
@@ -148,7 +147,7 @@ void EnBw_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_SetScale(&pthis->actor, 0.012999999f);
     pthis->actor.naviEnemyId = 0x23;
     pthis->actor.gravity = -2.0f;
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_bw_Skel_0020F0, &object_bw_Anim_000228, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_bw_Skel_0020F0), oot::asset::anim::header::load(symbol::object_bw_Anim_000228), pthis->jointTable,
                    pthis->morphTable, 12);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 40.0f);
     pthis->actor.colChkInfo.damageTable = &sDamageTable;
@@ -190,7 +189,7 @@ void func_809CE884(EnBw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809CE9A8(EnBw* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_bw_Anim_000228, -2.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bw_Anim_000228), -2.0f);
     pthis->unk_220 = 2;
     pthis->unk_222 = Rand_ZeroOne() * 200.0f + 200.0f;
     pthis->unk_232 = 0;
@@ -405,7 +404,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809CF72C(EnBw* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_bw_Anim_0021A0, -2.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bw_Anim_0021A0), -2.0f);
     pthis->unk_220 = 3;
     pthis->unk_221 = 0;
     pthis->unk_250 = 0.6f;
@@ -437,7 +436,7 @@ void func_809CF7AC(EnBw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809CF8F0(EnBw* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_bw_Anim_002250, -1.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bw_Anim_002250), -1.0f);
     pthis->actor.speedXZ = 7.0f;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
     pthis->unk_220 = 4;
@@ -482,7 +481,7 @@ void func_809CF984(EnBw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809CFBA8(EnBw* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_bw_Anim_002250, -1.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bw_Anim_002250), -1.0f);
     pthis->unk_220 = 5;
     pthis->unk_222 = 1000;
     pthis->unk_260 = 0.0f;
@@ -540,7 +539,7 @@ void func_809CFC4C(EnBw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809CFF10(EnBw* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_bw_Anim_002250, -1.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bw_Anim_002250), -1.0f);
     pthis->unk_220 = 6;
     pthis->unk_222 = 1000;
     pthis->unk_221 = 3;
@@ -902,7 +901,7 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     func_800D1FD4(&globalCtx->billboardMtxF);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bw.c", 1500),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
 
     if (pthis->iceTimer != 0) {
         thisx->colorFilterTimer++;

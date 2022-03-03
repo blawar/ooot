@@ -8,7 +8,7 @@
 #include "segment_symbols.h"
 #include "vt.h"
 #include "gfx_align.h"
-#include "textures/parameter_static/parameter_static.h"
+#include "asset.h"
 #include "def/game.h"
 #include "def/logutils.h"
 #include "def/z_actor.h"
@@ -53,8 +53,8 @@ static u32 sLineBytesImageSizes[] = { 0, 1, 2, 2 };
 #define G_IM_SIZ_MARK_LINE_BYTES sLineBytesImageSizes[markInfo->imageSize]
 
 static MapMarkInfo sMapMarkInfoTable[] = {
-    { gMapChestIconTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 32, 32, 1 << 10, 1 << 10 }, // Chest Icon
-    { gMapBossIconTex, G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 32, 32, 1 << 10, 1 << 10 },     // Boss Skull Icon
+    { oot::asset::texture::load(symbol::gMapChestIconTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 32, 32, 1 << 10, 1 << 10 }, // Chest Icon
+    { oot::asset::texture::load(symbol::gMapBossIconTex), G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 32, 32, 1 << 10, 1 << 10 },     // Boss Skull Icon
 };
 
 static MapMarkDataOverlay sMapMarkDataOvl = {

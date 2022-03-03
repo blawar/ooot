@@ -7,7 +7,7 @@
  */
 
 #include "z_en_bili.h"
-#include "objects/object_bl/object_bl.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/cosf.h"
@@ -134,7 +134,7 @@ void EnBili_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 17.0f);
     pthis->actor.shape.shadowAlpha = 155;
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBiriSkel, &gBiriDefaultAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBiriSkel), oot::asset::anim::header::load(symbol::gBiriDefaultAnim), pthis->jointTable, pthis->morphTable,
                    EN_BILI_LIMB_MAX);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -172,7 +172,7 @@ void EnBili_SetupFloatIdle(EnBili* pthis) {
  * Separates the Biri spawned by a dying EnVali.
  */
 void EnBili_SetupSpawnedFlyApart(EnBili* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gBiriDefaultAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBiriDefaultAnim));
     pthis->timer = 25;
     pthis->actor.velocity.y = 6.0f;
     pthis->actor.gravity = -0.3f;
@@ -185,7 +185,7 @@ void EnBili_SetupSpawnedFlyApart(EnBili* pthis) {
  * Used for both touching player/player's shield and being hit with sword. What to do next is determined by params.
  */
 void EnBili_SetupDischargeLightning(EnBili* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gBiriDischargeLightningAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBiriDischargeLightningAnim));
     pthis->timer = 10;
     pthis->actionFunc = EnBili_DischargeLightning;
     pthis->actor.speedXZ = 0.0f;
@@ -193,7 +193,7 @@ void EnBili_SetupDischargeLightning(EnBili* pthis) {
 }
 
 void EnBili_SetupClimb(EnBili* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gBiriClimbAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBiriClimbAnim));
     pthis->collider.base.atFlags &= ~AT_ON;
     pthis->actionFunc = EnBili_Climb;
     pthis->actor.speedXZ = 0.0f;
@@ -206,7 +206,7 @@ void EnBili_SetupApproachPlayer(EnBili* pthis) {
 }
 
 void EnBili_SetupSetNewHomeHeight(EnBili* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gBiriDefaultAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBiriDefaultAnim));
     pthis->timer = 96;
     pthis->actor.speedXZ = 0.9f;
     pthis->collider.base.atFlags |= AT_ON;
@@ -215,8 +215,8 @@ void EnBili_SetupSetNewHomeHeight(EnBili* pthis) {
 }
 
 void EnBili_SetupRecoil(EnBili* pthis) {
-    if (pthis->skelAnime.animation != &gBiriDefaultAnim) {
-        Animation_PlayLoop(&pthis->skelAnime, &gBiriDefaultAnim);
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gBiriDefaultAnim)) {
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBiriDefaultAnim));
     }
 
     pthis->actor.world.rot.y = Actor_WorldYawTowardPoint(&pthis->actor, &pthis->collider.base.ac->prevPos) + 0x8000;
@@ -230,7 +230,7 @@ void EnBili_SetupRecoil(EnBili* pthis) {
  */
 void EnBili_SetupBurnt(EnBili* pthis) {
     if (pthis->actionFunc == EnBili_Climb) {
-        Animation_PlayLoop(&pthis->skelAnime, &gBiriDefaultAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBiriDefaultAnim));
     }
 
     pthis->timer = 20;
@@ -754,11 +754,11 @@ s32 EnBili_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 }
 
 static void* sTentaclesTextures[] = {
-    gBiriTentacles0Tex, gBiriTentacles1Tex, gBiriTentacles2Tex, gBiriTentacles3Tex,
-    gBiriTentacles4Tex, gBiriTentacles5Tex, gBiriTentacles6Tex, gBiriTentacles7Tex,
+    oot::asset::texture::load(symbol::gBiriTentacles0Tex), oot::asset::texture::load(symbol::gBiriTentacles1Tex), oot::asset::texture::load(symbol::gBiriTentacles2Tex), oot::asset::texture::load(symbol::gBiriTentacles3Tex),
+    oot::asset::texture::load(symbol::gBiriTentacles4Tex), oot::asset::texture::load(symbol::gBiriTentacles5Tex), oot::asset::texture::load(symbol::gBiriTentacles6Tex), oot::asset::texture::load(symbol::gBiriTentacles7Tex),
 };
 
-#include "overlays/ovl_En_Bili/ovl_En_Bili.cpp"
+#include "asset.h"
 
 void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnBili* pthis = (EnBili*)thisx;
@@ -771,9 +771,9 @@ void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sTentaclesTextures[pthis->tentaclesTexIndex]));
 
     if ((pthis->actionFunc == EnBili_DischargeLightning) && ((pthis->timer & 1) != 0)) {
-        gSPSegment(POLY_XLU_DISP++, 0x09, D_809C16F0);
+        gSPSegment(POLY_XLU_DISP++, 0x09, oot::asset::gfx::load(symbol::D_809C16F0));
     } else {
-        gSPSegment(POLY_XLU_DISP++, 0x09, D_809C1700);
+        gSPSegment(POLY_XLU_DISP++, 0x09, oot::asset::gfx::load(symbol::D_809C1700));
     }
 
     POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,

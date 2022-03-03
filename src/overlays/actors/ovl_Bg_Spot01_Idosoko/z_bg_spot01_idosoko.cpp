@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot01_idosoko.h"
-#include "objects/object_spot01_matoya/object_spot01_matoya.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -54,7 +54,7 @@ void BgSpot01Idosoko_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
-    CollisionHeader_GetVirtual(&gKakarikoBOTWStoneCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gKakarikoBOTWStoneCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     if (!LINK_IS_ADULT) {
         Actor_Kill(&pthis->dyna.actor);
@@ -85,7 +85,7 @@ void BgSpot01Idosoko_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot01_idosoko.c", 166),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gKakarikoBOTWStoneDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gKakarikoBOTWStoneDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idosoko.c", 171);
 }

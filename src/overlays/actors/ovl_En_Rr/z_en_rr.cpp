@@ -7,7 +7,7 @@
  */
 
 #include "z_en_rr.h"
-#include "objects/object_rr/object_rr.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/inventory.h"
 #include "def/code_800A9F30.h"
@@ -865,7 +865,7 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
     pthis->effectPos[0] = pthis->actor.world.pos;
     Matrix_MultVec3f(&zeroVec, &pthis->mouthPos);
-    gSPDisplayList(POLY_XLU_DISP++, gLikeLikeDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLikeLikeDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_rr.c", 1551);
     if (pthis->effectTimer != 0) {

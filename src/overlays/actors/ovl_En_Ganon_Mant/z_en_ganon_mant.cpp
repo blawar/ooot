@@ -7,6 +7,7 @@
  */
 
 #include "z_en_ganon_mant.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Boss_Ganon/z_boss_ganon.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
@@ -102,8 +103,6 @@ static u16 sVerticesMap[GANON_MANT_NUM_STRANDS * GANON_MANT_NUM_JOINTS] = {
 
 static u64 sForceAlignment = 0;
 
-#include "overlays/ovl_En_Ganon_Mant/ovl_En_Ganon_Mant.cpp"
-
 void EnGanonMant_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnGanonMant* pthis = (EnGanonMant*)thisx;
 
@@ -139,7 +138,7 @@ void EnGanonMant_Tear(EnGanonMant* pthis) {
                 for (areaY = 0; areaY <= tearAreaSizes[i]; areaY++) {
                     texIdx = (s16)((s16)tx + ((s16)ty * MANT_TEX_WIDTH)) + ((s16)areaX + ((s16)areaY * MANT_TEX_WIDTH));
                     if (texIdx < MANT_TEX_WIDTH * MANT_TEX_HEIGHT) {
-                        ((u16*)gMantTex)[texIdx] = 0;
+                        ((u16*)oot::asset::texture::load(symbol::gMantTex))[texIdx] = 0;
                     }
                 }
             }
@@ -309,9 +308,9 @@ void EnGanonMant_UpdateVertices(EnGanonMant* pthis) {
     Vec3f normal;
 
     if (pthis->frameTimer % 2 != 0) {
-        vertices = SEGMENTED_TO_VIRTUAL(gMant1Vtx);
+        vertices = SEGMENTED_TO_VIRTUAL(oot::asset::vtx::load(symbol::gMant1Vtx));
     } else {
-        vertices = SEGMENTED_TO_VIRTUAL(gMant2Vtx);
+        vertices = SEGMENTED_TO_VIRTUAL(oot::asset::vtx::load(symbol::gMant2Vtx));
     }
     up.x = 0.0f;
     up.y = 30.0f;
@@ -371,18 +370,18 @@ void EnGanonMant_DrawCloak(GlobalContext* globalCtx, EnGanonMant* pthis) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     // set texture
-    gSPDisplayList(POLY_OPA_DISP++, gMantMaterialDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMantMaterialDL));
 
     // set vertices, vertices are double buffered to prevent
     // modification of vertices as they are being drawn
     if (pthis->frameTimer % 2 != 0) {
-        gSPSegment(POLY_OPA_DISP++, 0x0C, gMant1Vtx);
+        gSPSegment(POLY_OPA_DISP++, 0x0C, oot::asset::vtx::load(symbol::gMant1Vtx));
     } else {
-        gSPSegment(POLY_OPA_DISP++, 0x0C, gMant2Vtx);
+        gSPSegment(POLY_OPA_DISP++, 0x0C, oot::asset::vtx::load(symbol::gMant2Vtx));
     }
 
     // draw cloak
-    gSPDisplayList(POLY_OPA_DISP++, gMantDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMantDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ganon_mant.c", 584);
 }

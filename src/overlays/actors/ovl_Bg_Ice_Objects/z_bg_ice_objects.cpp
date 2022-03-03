@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ice_objects.h"
-#include "objects/object_ice_objects/object_ice_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -58,7 +58,7 @@ void BgIceObjects_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&object_ice_objects_Col_0003F0, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_ice_objects_Col_0003F0), &colHeader);
     Math_Vec3f_Copy(&pthis->targetPos, &pthis->dyna.actor.home.pos);
     pthis->actionFunc = BgIceObjects_Idle;
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -245,7 +245,7 @@ void BgIceObjects_Draw(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     BgIceObjects* pthis = (BgIceObjects*)thisx;
 
-    Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_000190);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_ice_objects_DL_000190));
 }
 
 void BgIceObjects_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -8,7 +8,7 @@
 
 #include "z_en_st.h"
 #include "framerate.h"
-#include "objects/object_st/object_st.h"
+#include "asset.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -25,7 +25,6 @@ void EnSt_Die(EnSt* pthis, GlobalContext* globalCtx);
 void EnSt_BounceAround(EnSt* pthis, GlobalContext* globalCtx);
 void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx);
 
-#include "overlays/ovl_En_St/ovl_En_St.cpp"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -123,14 +122,14 @@ static ColliderJntSphInit sJntSphInit = {
 };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &object_st_Anim_000304, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, 0.0f },
-    { &object_st_Anim_005B98, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
-    { &object_st_Anim_000304, 4.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
-    { &object_st_Anim_000304, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
-    { &object_st_Anim_0055A8, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
-    { &object_st_Anim_000304, 8.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
-    { &object_st_Anim_000304, 6.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
-    { &object_st_Anim_005B98, 2.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, 0.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_005B98), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 4.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_0055A8), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 8.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_000304), 6.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::object_st_Anim_005B98), 2.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
 };
 
 void EnSt_SetupAction(EnSt* pthis, EnStActionFunc actionFunc) {
@@ -789,7 +788,7 @@ void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 14.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_st_Skel_005298, NULL, pthis->jointTable, pthis->morphTable, 30);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_st_Skel_005298), NULL, pthis->jointTable, pthis->morphTable, 30);
     func_80034EC0(&pthis->skelAnime, sAnimations, 0);
     pthis->blureIdx = EnSt_CreateBlureEffect(globalCtx);
     EnSt_InitColliders(pthis, globalCtx);

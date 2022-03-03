@@ -8,8 +8,7 @@
 #include "framerate.h"
 #include "file_choose.h"
 #include "segment_symbols.h"
-#include "textures/title_static/title_static.h"
-#include "textures/parameter_static/parameter_static.h"
+#include "asset.h"
 #include "def/code_80069420.h"
 #include "def/inventory.h"
 #include "def/code_800A9F30.h"
@@ -816,9 +815,9 @@ void FileChoose_SetWindowContentVtx(GameState* pthisx) {
 static u16 D_8081284C[] = { 0x007C, 0x0124, 0x01CC };
 
 static void* sQuestItemTextures[] = {
-    gFileSelKokiriEmeraldTex,   gFileSelGoronRubyTex,       gFileSelZoraSapphireTex,
-    gFileSelForestMedallionTex, gFileSelFireMedallionTex,   gFileSelWaterMedallionTex,
-    gFileSelSpiritMedallionTex, gFileSelShadowMedallionTex, gFileSelLightMedallionTex,
+    oot::asset::texture::load(symbol::gFileSelKokiriEmeraldTex),   oot::asset::texture::load(symbol::gFileSelGoronRubyTex),       oot::asset::texture::load(symbol::gFileSelZoraSapphireTex),
+    oot::asset::texture::load(symbol::gFileSelForestMedallionTex), oot::asset::texture::load(symbol::gFileSelFireMedallionTex),   oot::asset::texture::load(symbol::gFileSelWaterMedallionTex),
+    oot::asset::texture::load(symbol::gFileSelSpiritMedallionTex), oot::asset::texture::load(symbol::gFileSelShadowMedallionTex), oot::asset::texture::load(symbol::gFileSelLightMedallionTex),
 };
 
 static s16 sQuestItemRed[] = { 255, 255, 255, 0, 255, 0, 255, 200, 200 };
@@ -826,7 +825,7 @@ static s16 sQuestItemGreen[] = { 255, 255, 255, 255, 60, 100, 130, 50, 200 };
 static s16 sQuestItemBlue[] = { 255, 255, 255, 0, 0, 255, 0, 255, 0 };
 static s16 sQuestItemFlags[] = { 0x0012, 0x0013, 0x0014, 0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005 };
 static s16 sNamePrimColors[2][3] = { { 255, 255, 255 }, { 100, 100, 100 } };
-static void* sHeartTextures[] = { gHeartFullTex, gDefenseHeartFullTex };
+static void* sHeartTextures[] = { oot::asset::texture::load(symbol::gHeartFullTex), oot::asset::texture::load(symbol::gDefenseHeartFullTex) };
 static s16 sHeartPrimColors[2][3] = { { 255, 70, 50 }, { 200, 0, 0 } };
 static s16 sHeartEnvColors[2][3] = { { 50, 40, 60 }, { 255, 255, 255 } };
 
@@ -923,47 +922,47 @@ void FileChoose_DrawFileInfo(GameState* pthisx, s16 fileIndex, s16 isActive) {
 }
 
 static void* sFileInfoBoxTextures[] = {
-    gFileSelFileInfoBox1Tex, gFileSelFileInfoBox2Tex, gFileSelFileInfoBox3Tex,
-    gFileSelFileInfoBox4Tex, gFileSelFileInfoBox5Tex,
+    oot::asset::texture::load(symbol::gFileSelFileInfoBox1Tex), oot::asset::texture::load(symbol::gFileSelFileInfoBox2Tex), oot::asset::texture::load(symbol::gFileSelFileInfoBox3Tex),
+    oot::asset::texture::load(symbol::gFileSelFileInfoBox4Tex), oot::asset::texture::load(symbol::gFileSelFileInfoBox5Tex),
 };
 
 static void* sTitleLabels[3][9] = {
-    { gFileSelPleaseSelectAFileENGTex, gFileSelOpenThisFileENGTex, gFileSelCopyWhichFileENGTex,
-      gFileSelCopyToWhichFileENGTex, gFileSelAreYouSureENGTex, gFileSelFileCopiedENGTex, gFileSelEraseWhichFileENGTex,
-      gFileSelAreYouSure2ENGTex, gFileSelFileErasedENGTex },
-    { gFileSelPleaseSelectAFileGERTex, gFileSelOpenThisFileGERTex, gFileSelWhichFile1GERTex,
-      gFileSelCopyToWhichFileGERTex, gFileSelAreYouSureGERTex, gFileSelFileCopiedGERTex, gFileSelWhichFile2GERTex,
-      gFileSelAreYouSure2GERTex, gFileSelFileErasedGERTex },
-    { gFileSelPleaseSelectAFileFRATex, gFileSelOpenThisFileFRATex, gFileSelCopyWhichFileFRATex,
-      gFileSelCopyToWhichFileFRATex, gFileSelAreYouSureFRATex, gFileSelFileCopiedFRATex, gFileSelEraseWhichFileFRATex,
-      gFileSelAreYouSure2FRATex, gFileSelFileErasedFRATex }
+    { oot::asset::texture::load(symbol::gFileSelPleaseSelectAFileENGTex), oot::asset::texture::load(symbol::gFileSelOpenThisFileENGTex), oot::asset::texture::load(symbol::gFileSelCopyWhichFileENGTex),
+      oot::asset::texture::load(symbol::gFileSelCopyToWhichFileENGTex), oot::asset::texture::load(symbol::gFileSelAreYouSureENGTex), oot::asset::texture::load(symbol::gFileSelFileCopiedENGTex), oot::asset::texture::load(symbol::gFileSelEraseWhichFileENGTex),
+      oot::asset::texture::load(symbol::gFileSelAreYouSure2ENGTex), oot::asset::texture::load(symbol::gFileSelFileErasedENGTex) },
+    { oot::asset::texture::load(symbol::gFileSelPleaseSelectAFileGERTex), oot::asset::texture::load(symbol::gFileSelOpenThisFileGERTex), oot::asset::texture::load(symbol::gFileSelWhichFile1GERTex),
+      oot::asset::texture::load(symbol::gFileSelCopyToWhichFileGERTex), oot::asset::texture::load(symbol::gFileSelAreYouSureGERTex), oot::asset::texture::load(symbol::gFileSelFileCopiedGERTex), oot::asset::texture::load(symbol::gFileSelWhichFile2GERTex),
+      oot::asset::texture::load(symbol::gFileSelAreYouSure2GERTex), oot::asset::texture::load(symbol::gFileSelFileErasedGERTex) },
+    { oot::asset::texture::load(symbol::gFileSelPleaseSelectAFileFRATex), oot::asset::texture::load(symbol::gFileSelOpenThisFileFRATex), oot::asset::texture::load(symbol::gFileSelCopyWhichFileFRATex),
+      oot::asset::texture::load(symbol::gFileSelCopyToWhichFileFRATex), oot::asset::texture::load(symbol::gFileSelAreYouSureFRATex), oot::asset::texture::load(symbol::gFileSelFileCopiedFRATex), oot::asset::texture::load(symbol::gFileSelEraseWhichFileFRATex),
+      oot::asset::texture::load(symbol::gFileSelAreYouSure2FRATex), oot::asset::texture::load(symbol::gFileSelFileErasedFRATex) }
 };
 
 static void* sWarningLabels[3][5] = {
-    { gFileSelNoFileToCopyENGTex, gFileSelNoFileToEraseENGTex, gFileSelNoEmptyFileENGTex, gFileSelFileEmptyENGTex,
-      gFileSelFileInUseENGTex },
-    { gFileSelNoFileToCopyGERTex, gFileSelNoFileToEraseGERTex, gFileSelNoEmptyFileGERTex, gFileSelFileEmptyGERTex,
-      gFileSelFileInUseGERTex },
-    { gFileSelNoFileToCopyFRATex, gFileSelNoFileToEraseFRATex, gFileSelNoEmptyFileFRATex, gFileSelFileEmptyFRATex,
-      gFileSelFileInUseFRATex },
+    { oot::asset::texture::load(symbol::gFileSelNoFileToCopyENGTex), oot::asset::texture::load(symbol::gFileSelNoFileToEraseENGTex), oot::asset::texture::load(symbol::gFileSelNoEmptyFileENGTex), oot::asset::texture::load(symbol::gFileSelFileEmptyENGTex),
+      oot::asset::texture::load(symbol::gFileSelFileInUseENGTex) },
+    { oot::asset::texture::load(symbol::gFileSelNoFileToCopyGERTex), oot::asset::texture::load(symbol::gFileSelNoFileToEraseGERTex), oot::asset::texture::load(symbol::gFileSelNoEmptyFileGERTex), oot::asset::texture::load(symbol::gFileSelFileEmptyGERTex),
+      oot::asset::texture::load(symbol::gFileSelFileInUseGERTex) },
+    { oot::asset::texture::load(symbol::gFileSelNoFileToCopyFRATex), oot::asset::texture::load(symbol::gFileSelNoFileToEraseFRATex), oot::asset::texture::load(symbol::gFileSelNoEmptyFileFRATex), oot::asset::texture::load(symbol::gFileSelFileEmptyFRATex),
+      oot::asset::texture::load(symbol::gFileSelFileInUseFRATex) },
 };
 
 static void* sFileButtonTextures[3][3] = {
-    { gFileSelFile1ButtonENGTex, gFileSelFile2ButtonENGTex, gFileSelFile3ButtonENGTex },
-    { gFileSelFile1ButtonGERTex, gFileSelFile2ButtonGERTex, gFileSelFile3ButtonGERTex },
-    { gFileSelFile1ButtonFRATex, gFileSelFile2ButtonFRATex, gFileSelFile3ButtonFRATex },
+    { oot::asset::texture::load(symbol::gFileSelFile1ButtonENGTex), oot::asset::texture::load(symbol::gFileSelFile2ButtonENGTex), oot::asset::texture::load(symbol::gFileSelFile3ButtonENGTex) },
+    { oot::asset::texture::load(symbol::gFileSelFile1ButtonGERTex), oot::asset::texture::load(symbol::gFileSelFile2ButtonGERTex), oot::asset::texture::load(symbol::gFileSelFile3ButtonGERTex) },
+    { oot::asset::texture::load(symbol::gFileSelFile1ButtonFRATex), oot::asset::texture::load(symbol::gFileSelFile2ButtonFRATex), oot::asset::texture::load(symbol::gFileSelFile3ButtonFRATex) },
 };
 
 static void* sActionButtonTextures[3][4] = {
-    { gFileSelCopyButtonENGTex, gFileSelEraseButtonENGTex, gFileSelYesButtonENGTex, gFileSelQuitButtonENGTex },
-    { gFileSelCopyButtonGERTex, gFileSelEraseButtonGERTex, gFileSelYesButtonGERTex, gFileSelQuitButtonGERTex },
-    { gFileSelCopyButtonFRATex, gFileSelEraseButtonFRATex, gFileSelYesButtonFRATex, gFileSelQuitButtonFRATex },
+    { oot::asset::texture::load(symbol::gFileSelCopyButtonENGTex), oot::asset::texture::load(symbol::gFileSelEraseButtonENGTex), oot::asset::texture::load(symbol::gFileSelYesButtonENGTex), oot::asset::texture::load(symbol::gFileSelQuitButtonENGTex) },
+    { oot::asset::texture::load(symbol::gFileSelCopyButtonGERTex), oot::asset::texture::load(symbol::gFileSelEraseButtonGERTex), oot::asset::texture::load(symbol::gFileSelYesButtonGERTex), oot::asset::texture::load(symbol::gFileSelQuitButtonGERTex) },
+    { oot::asset::texture::load(symbol::gFileSelCopyButtonFRATex), oot::asset::texture::load(symbol::gFileSelEraseButtonFRATex), oot::asset::texture::load(symbol::gFileSelYesButtonFRATex), oot::asset::texture::load(symbol::gFileSelQuitButtonFRATex) },
 };
 
 static void* sOptionsButtonTextures[] = {
-    gFileSelOptionsButtonENGTex,
-    gFileSelOptionsButtonGERTex,
-    gFileSelOptionsButtonENGTex,
+    oot::asset::texture::load(symbol::gFileSelOptionsButtonENGTex),
+    oot::asset::texture::load(symbol::gFileSelOptionsButtonGERTex),
+    oot::asset::texture::load(symbol::gFileSelOptionsButtonENGTex),
 };
 
 /**
@@ -1036,7 +1035,7 @@ void FileChoose_DrawWindowContents(GameState* pthisx) {
         // draw file name box
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sWindowContentColors[isActive][0], sWindowContentColors[isActive][1],
                         sWindowContentColors[isActive][2], pthis->nameBoxAlpha[i]);
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelNameBoxTex, G_IM_FMT_IA, G_IM_SIZ_16b, 108, 16, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelNameBoxTex), G_IM_FMT_IA, G_IM_SIZ_16b, 108, 16, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
         gSP1Quadrangle(POLY_OPA_DISP++, 4, 6, 7, 5, 0);
@@ -1045,7 +1044,7 @@ void FileChoose_DrawWindowContents(GameState* pthisx) {
         if (pthis->n64ddFlags[i]) {
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sWindowContentColors[isActive][0], sWindowContentColors[isActive][1],
                             sWindowContentColors[isActive][2], pthis->nameAlpha[i]);
-            gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelDISKButtonTex, G_IM_FMT_IA, G_IM_SIZ_16b, 44, 16, 0,
+            gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelDISKButtonTex), G_IM_FMT_IA, G_IM_SIZ_16b, 44, 16, 0,
                                 G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                 G_TX_NOLOD, G_TX_NOLOD);
             gSP1Quadrangle(POLY_OPA_DISP++, 8, 10, 11, 9, 0);
@@ -1054,7 +1053,7 @@ void FileChoose_DrawWindowContents(GameState* pthisx) {
         // draw connectors
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sWindowContentColors[isActive][0], sWindowContentColors[isActive][1],
                         sWindowContentColors[isActive][2], pthis->connectorAlpha[i]);
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelConnectorTex, G_IM_FMT_IA, G_IM_SIZ_8b, 24, 16, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelConnectorTex), G_IM_FMT_IA, G_IM_SIZ_8b, 24, 16, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
         gSP1Quadrangle(POLY_OPA_DISP++, 12, 14, 15, 13, 0);
@@ -1121,7 +1120,7 @@ void FileChoose_DrawWindowContents(GameState* pthisx) {
                           PRIMITIVE, 0);
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->highlightColor[0], pthis->highlightColor[1],
                         pthis->highlightColor[2], pthis->highlightColor[3]);
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gFileSelBigButtonHighlightTex, G_IM_FMT_I, G_IM_SIZ_8b, 72, 24, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gFileSelBigButtonHighlightTex), G_IM_FMT_I, G_IM_SIZ_8b, 72, 24, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
         gSP1Quadrangle(POLY_OPA_DISP++, 12, 14, 15, 13, 0);
@@ -1188,13 +1187,13 @@ void FileChoose_ConfigModeDraw(GameState* pthisx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[0], 32, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow1DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow1DL));
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[32], 32, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow2DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow2DL));
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[64], 16, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow3DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow3DL));
 
         gDPPipeSync(POLY_OPA_DISP++);
 
@@ -1216,13 +1215,13 @@ void FileChoose_ConfigModeDraw(GameState* pthisx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[0], 32, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow1DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow1DL));
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[32], 32, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow2DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow2DL));
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[64], 16, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow3DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow3DL));
 
         gDPPipeSync(POLY_OPA_DISP++);
 
@@ -1245,13 +1244,13 @@ void FileChoose_ConfigModeDraw(GameState* pthisx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[0], 32, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow1DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow1DL));
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[32], 32, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow2DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow2DL));
 
         gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[64], 16, 0);
-        gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow3DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow3DL));
 
         gDPPipeSync(POLY_OPA_DISP++);
 
@@ -1591,13 +1590,13 @@ void FileChoose_SelectModeDraw(GameState* pthisx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[0], 32, 0);
-    gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow1DL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow1DL));
 
     gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[32], 32, 0);
-    gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow2DL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow2DL));
 
     gSPVertex(POLY_OPA_DISP++, &pthis->windowVtx[64], 16, 0);
-    gSPDisplayList(POLY_OPA_DISP++, gFileSelWindow3DL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFileSelWindow3DL));
 
     FileChoose_DrawWindowContents(&pthis->state);
     gDPPipeSync(POLY_OPA_DISP++);
@@ -1620,9 +1619,9 @@ static void (*gFileSelectUpdateFuncs[])(GameState*) = {
 
 void FileChoose_Main(GameState* pthisx) {
     static void* controlsTextures[] = {
-        gFileSelControlsENGTex,
-        gFileSelControlsGERTex,
-        gFileSelControlsFRATex,
+        oot::asset::texture::load(symbol::gFileSelControlsENGTex),
+        oot::asset::texture::load(symbol::gFileSelControlsGERTex),
+        oot::asset::texture::load(symbol::gFileSelControlsFRATex),
     };
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
     Input* input = &pthis->state.input[0];

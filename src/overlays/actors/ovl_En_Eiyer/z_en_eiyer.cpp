@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_EIYER_Z_EN_EIYER_C
 #include "actor_common.h"
 #include "z_en_eiyer.h"
-#include "objects/object_ei/object_ei.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/cosf.h"
@@ -137,7 +137,7 @@ void EnEiyer_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 600.0f, ActorShadow_DrawCircle, 65.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelanime, &gStingerSkel, &gStingerIdleAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelanime, oot::asset::skel::header2::load(symbol::gStingerSkel), oot::asset::anim::header::load(symbol::gStingerIdleAnim), pthis->jointTable, pthis->morphTable,
                    19);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sColCylInit);
@@ -196,7 +196,7 @@ void EnEiyer_RotateAroundHome(EnEiyer* pthis) {
 
 void EnEiyer_SetupAppearFromGround(EnEiyer* pthis) {
     pthis->collider.info.bumper.dmgFlags = 0x19;
-    Animation_PlayLoop(&pthis->skelanime, &gStingerIdleAnim);
+    Animation_PlayLoop(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerIdleAnim));
 
     pthis->actor.world.pos.x = pthis->actor.home.pos.x;
     pthis->actor.world.pos.y = pthis->actor.home.pos.y - 40.0f;
@@ -244,7 +244,7 @@ void EnEiyer_SetupInactive(EnEiyer* pthis) {
 
 void EnEiyer_SetupAmbush(EnEiyer* pthis, GlobalContext* globalCtx) {
     pthis->actor.speedXZ = 0.0f;
-    Animation_PlayOnce(&pthis->skelanime, &gStingerBackflipAnim);
+    Animation_PlayOnce(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerBackflipAnim));
     pthis->collider.info.bumper.dmgFlags = ~0x00300000;
     pthis->basePos = pthis->actor.world.pos;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -260,7 +260,7 @@ void EnEiyer_SetupAmbush(EnEiyer* pthis, GlobalContext* globalCtx) {
 void EnEiyer_SetupGlide(EnEiyer* pthis) {
     pthis->targetYaw = pthis->actor.shape.rot.y;
     pthis->basePos.y = (cosf(-M_PI / 8) * 5.0f) + pthis->actor.world.pos.y;
-    Animation_MorphToLoop(&pthis->skelanime, &gStingerHitAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerHitAnim), -5.0f);
     pthis->timer = 60;
     pthis->actionFunc = EnEiyer_Glide;
 }
@@ -280,7 +280,7 @@ void EnEiyer_SetupDiveAttack(EnEiyer* pthis, GlobalContext* globalCtx) {
 }
 
 void EnEiyer_SetupLand(EnEiyer* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelanime, &gStingerDiveAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerDiveAnim), -3.0f);
     pthis->collider.base.atFlags &= ~AT_ON;
     pthis->actor.flags |= ACTOR_FLAG_4;
 
@@ -293,7 +293,7 @@ void EnEiyer_SetupLand(EnEiyer* pthis) {
 
 void EnEiyer_SetupHurt(EnEiyer* pthis) {
     pthis->basePos.y = pthis->actor.world.pos.y;
-    Animation_Change(&pthis->skelanime, &gStingerHitAnim, 2.0f, 0.0f, 0.0f, 0, -3.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerHitAnim), 2.0f, 0.0f, 0.0f, 0, -3.0f);
     pthis->timer = 40;
     pthis->actor.gravity = 0.0f;
     pthis->actor.velocity.y = 0.0f;
@@ -309,7 +309,7 @@ void EnEiyer_SetupDie(EnEiyer* pthis) {
 
     if (pthis->collider.info.bumper.dmgFlags != 0x19) {
         pthis->actor.speedXZ = 6.0f;
-        Animation_MorphToLoop(&pthis->skelanime, &gStingerHitAnim, -3.0f);
+        Animation_MorphToLoop(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerHitAnim), -3.0f);
     } else {
         pthis->actor.speedXZ -= 6.0f;
     }
@@ -328,7 +328,7 @@ void EnEiyer_SetupDead(EnEiyer* pthis) {
 }
 
 void EnEiyer_SetupStunned(EnEiyer* pthis) {
-    Animation_Change(&pthis->skelanime, &gStingerPopOutAnim, 2.0f, 0.0f, 0.0f, 0, -8.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gStingerPopOutAnim), 2.0f, 0.0f, 0.0f, 0, -8.0f);
     pthis->timer = 80;
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.velocity.y = 0.0f;

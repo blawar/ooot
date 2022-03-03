@@ -7,8 +7,8 @@
  */
 
 #include "z_bg_haka_megane.h"
-#include "objects/object_hakach_objects/object_hakach_objects.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -46,27 +46,27 @@ static InitChainEntry sInitChain[] = {
 };
 
 static CollisionHeader* sCollisionHeaders[] = {
-    &gBotw1Col,
-    &gBotw2Col,
+    oot::asset::collision::header::load(symbol::gBotw1Col),
+    oot::asset::collision::header::load(symbol::gBotw2Col),
     NULL,
-    &object_haka_objects_Col_004330,
-    &object_haka_objects_Col_0044D0,
+    oot::asset::collision::header::load(symbol::object_haka_objects_Col_004330),
+    oot::asset::collision::header::load(symbol::object_haka_objects_Col_0044D0),
     NULL,
-    &object_haka_objects_Col_004780,
-    &object_haka_objects_Col_004940,
+    oot::asset::collision::header::load(symbol::object_haka_objects_Col_004780),
+    oot::asset::collision::header::load(symbol::object_haka_objects_Col_004940),
     NULL,
-    &object_haka_objects_Col_004B00,
+    oot::asset::collision::header::load(symbol::object_haka_objects_Col_004B00),
     NULL,
-    &object_haka_objects_Col_004CC0,
+    oot::asset::collision::header::load(symbol::object_haka_objects_Col_004CC0),
     NULL,
 };
 
 static Gfx* sDLists[] = {
-    gBotwFakeWallsAndFloorsDL,     gBotwThreeFakeFloorsDL,        gBotwHoleTrap2DL,
-    object_haka_objects_DL_0040F0, object_haka_objects_DL_0043B0, object_haka_objects_DL_001120,
-    object_haka_objects_DL_0045A0, object_haka_objects_DL_0047F0, object_haka_objects_DL_0018F0,
-    object_haka_objects_DL_0049B0, object_haka_objects_DL_003CF0, object_haka_objects_DL_004B70,
-    object_haka_objects_DL_002ED0,
+    oot::asset::gfx::load(symbol::gBotwFakeWallsAndFloorsDL),     oot::asset::gfx::load(symbol::gBotwThreeFakeFloorsDL),        oot::asset::gfx::load(symbol::gBotwHoleTrap2DL),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_0040F0), oot::asset::gfx::load(symbol::object_haka_objects_DL_0043B0), oot::asset::gfx::load(symbol::object_haka_objects_DL_001120),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_0045A0), oot::asset::gfx::load(symbol::object_haka_objects_DL_0047F0), oot::asset::gfx::load(symbol::object_haka_objects_DL_0018F0),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_0049B0), oot::asset::gfx::load(symbol::object_haka_objects_DL_003CF0), oot::asset::gfx::load(symbol::object_haka_objects_DL_004B70),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_002ED0),
 };
 
 void BgHakaMegane_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -146,7 +146,7 @@ void BgHakaMegane_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     if (thisx->params == 0) {
-        Gfx_DrawDListXlu(globalCtx, gBotwBloodSplatterDL);
+        Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::gBotwBloodSplatterDL));
     }
 }
 

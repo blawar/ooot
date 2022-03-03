@@ -7,7 +7,7 @@
  */
 
 #include "z_en_firefly.h"
-#include "objects/object_firefly/object_firefly.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Obj_Syokudai/z_obj_syokudai.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -164,7 +164,7 @@ void EnFirefly_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gKeeseSkeleton, &gKeeseFlyAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gKeeseSkeleton), oot::asset::anim::header::load(symbol::gKeeseFlyAnim), pthis->jointTable, pthis->morphTable,
                    28);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colliderItems);
@@ -235,7 +235,7 @@ void EnFirefly_SetupFlyIdle(EnFirefly* pthis) {
 void EnFirefly_SetupFall(EnFirefly* pthis) {
     pthis->timer = 40;
     pthis->actor.velocity.y = 0.0f;
-    Animation_Change(&pthis->skelAnime, &gKeeseFlyAnim, 0.5f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gKeeseFlyAnim), 0.5f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, -3.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FFLY_DEAD);
     pthis->actor.flags |= ACTOR_FLAG_4;
     Actor_SetColorFilter(&pthis->actor, 0x4000, 0xFF, 0, 40);
@@ -764,7 +764,7 @@ void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     EnFirefly* pthis = (EnFirefly*)thisx;
 
     if (!pthis->onFire && (limbIndex == 27)) {
-        gSPDisplayList((*gfx)++, gKeeseEyesDL);
+        gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gKeeseEyesDL));
     } else {
         if ((pthis->auraType == KEESE_AURA_FIRE) || (pthis->auraType == KEESE_AURA_ICE)) {
             if ((limbIndex == 15) || (limbIndex == 21)) {

@@ -14,33 +14,7 @@
 #include "z_kankyo.h"
 #include "z_scene_table.h"
 
-#include "scenes/indoors/tokinoma/tokinoma_scene.h"
-#include "scenes/overworld/spot00/spot00_scene.h"
-#include "scenes/overworld/spot01/spot01_scene.h"
-#include "scenes/overworld/spot02/spot02_scene.h"
-#include "scenes/overworld/spot04/spot04_scene.h"
-#include "scenes/overworld/spot05/spot05_scene.h"
-#include "scenes/overworld/spot06/spot06_scene.h"
-#include "scenes/overworld/spot07/spot07_scene.h"
-#include "scenes/overworld/spot08/spot08_scene.h"
-#include "scenes/overworld/spot09/spot09_scene.h"
-#include "scenes/overworld/spot11/spot11_scene.h"
-#include "scenes/overworld/spot12/spot12_scene.h"
-#include "scenes/overworld/spot15/spot15_scene.h"
-#include "scenes/overworld/spot16/spot16_scene.h"
-#include "scenes/overworld/spot17/spot17_scene.h"
-#include "scenes/overworld/spot18/spot18_scene.h"
-#include "scenes/overworld/spot20/spot20_scene.h"
-
-#include "scenes/dungeons/bdan/bdan_scene.h"
-#include "scenes/dungeons/ddan/ddan_scene.h"
-#include "scenes/dungeons/ydan/ydan_scene.h"
-#include "scenes/dungeons/ganontika/ganontika_scene.h"
-#include "scenes/dungeons/ganon_tou/ganon_tou_scene.h"
-#include "scenes/dungeons/jyasinboss/jyasinboss_scene.h"
-#include "scenes/dungeons/ice_doukutu/ice_doukutu_scene.h"
-
-#include "scenes/misc/hakaana_ouke/hakaana_ouke_scene.h"
+#include "asset.h"
 #include "def/code_80069420.h"
 #include "def/environment_flags.h"
 #include "def/code_800A9F30.h"
@@ -88,45 +62,45 @@ CutsceneStateHandler sCsStateHandlers2[] = {
 u8 sTitleCsState = 0;
 
 EntranceCutscene sEntranceCutsceneTable[] = {
-    { 0x0185, 2, 0xA0, gHyruleFieldIntroCs },
-    { 0x013D, 2, 0xA1, gDMTIntroCs },
-    { 0x00DB, 2, 0xA3, gKakarikoVillageIntroCs },
-    { 0x0108, 2, 0xA4, gZorasDomainIntroCs },
-    { 0x0138, 1, 0xA5, gHyruleCastleIntroCs },
-    { 0x014D, 2, 0xA6, gGoronCityIntroCs },
-    { 0x0053, 2, 0xA7, gTempleOfTimeIntroCs },
-    { 0x0000, 2, 0xA8, gDekuTreeIntroCs },
-    { 0x028A, 0, 0x18, gHyruleFieldSouthEponaJumpCs },
-    { 0x0292, 0, 0x18, gHyruleFieldEastEponaJumpCs },
-    { 0x028E, 0, 0x18, gHyruleFieldWestEponaJumpCs },
-    { 0x0476, 0, 0x18, gHyruleFieldGateEponaJumpCs },
-    { 0x050F, 1, 0xA9, gHyruleFieldGetOoTCs },
-    { 0x0102, 2, 0xB1, gLakeHyliaIntroCs },
-    { 0x0117, 2, 0xB2, gGerudoValleyIntroCs },
-    { 0x0129, 2, 0xB3, gGerudoFortressIntroCs },
-    { 0x0157, 2, 0xB4, gLonLonRanchIntroCs },
-    { 0x0028, 2, 0xB5, gJabuJabuIntroCs },
-    { 0x00E4, 2, 0xB6, gGraveyardIntroCs },
-    { 0x0225, 2, 0xB7, gZorasFountainIntroCs },
-    { 0x0123, 2, 0xB8, gDesertColossusIntroCs },
-    { 0x0147, 2, 0xB9, gDeathMountainCraterIntroCs },
-    { 0x0138, 0, 0xBA, gGanonsCastleIntroCs },
-    { 0x0574, 2, 0x5A, gSunSongGraveSunSongTeachPart2Cs },
-    { 0x0538, 2, 0xBB, gForestBarrierCs },
-    { 0x053C, 2, 0xBC, gWaterBarrierCs },
-    { 0x0540, 2, 0xBD, gShadowBarrierCs },
-    { 0x0544, 2, 0xBE, gFireBarrierCs },
-    { 0x0548, 2, 0xBF, gLightBarrierCs },
-    { 0x054C, 2, 0xAD, gSpiritBarrierCs },
-    { 0x008D, 0, 0xC0, gSpiritBossNabooruKnuckleIntroCs },
-    { 0x03B4, 0, 0xC7, gGerudoFortressFirstCaptureCs },
-    { 0x0246, 2, 0xB9, gDeathMountainCraterIntroCs },
-    { 0x05E8, 2, 0xC6, gKokiriForestDekuSproutCs },
+    { 0x0185, 2, 0xA0, oot::asset::cutscene::data::load(symbol::gHyruleFieldIntroCs) },
+    { 0x013D, 2, 0xA1, oot::asset::cutscene::data::load(symbol::gDMTIntroCs) },
+    { 0x00DB, 2, 0xA3, oot::asset::cutscene::data::load(symbol::gKakarikoVillageIntroCs) },
+    { 0x0108, 2, 0xA4, oot::asset::cutscene::data::load(symbol::gZorasDomainIntroCs) },
+    { 0x0138, 1, 0xA5, oot::asset::cutscene::data::load(symbol::gHyruleCastleIntroCs) },
+    { 0x014D, 2, 0xA6, oot::asset::cutscene::data::load(symbol::gGoronCityIntroCs) },
+    { 0x0053, 2, 0xA7, oot::asset::cutscene::data::load(symbol::gTempleOfTimeIntroCs) },
+    { 0x0000, 2, 0xA8, oot::asset::cutscene::data::load(symbol::gDekuTreeIntroCs) },
+    { 0x028A, 0, 0x18, oot::asset::cutscene::data::load(symbol::gHyruleFieldSouthEponaJumpCs) },
+    { 0x0292, 0, 0x18, oot::asset::cutscene::data::load(symbol::gHyruleFieldEastEponaJumpCs) },
+    { 0x028E, 0, 0x18, oot::asset::cutscene::data::load(symbol::gHyruleFieldWestEponaJumpCs) },
+    { 0x0476, 0, 0x18, oot::asset::cutscene::data::load(symbol::gHyruleFieldGateEponaJumpCs) },
+    { 0x050F, 1, 0xA9, oot::asset::cutscene::data::load(symbol::gHyruleFieldGetOoTCs) },
+    { 0x0102, 2, 0xB1, oot::asset::cutscene::data::load(symbol::gLakeHyliaIntroCs) },
+    { 0x0117, 2, 0xB2, oot::asset::cutscene::data::load(symbol::gGerudoValleyIntroCs) },
+    { 0x0129, 2, 0xB3, oot::asset::cutscene::data::load(symbol::gGerudoFortressIntroCs) },
+    { 0x0157, 2, 0xB4, oot::asset::cutscene::data::load(symbol::gLonLonRanchIntroCs) },
+    { 0x0028, 2, 0xB5, oot::asset::cutscene::data::load(symbol::gJabuJabuIntroCs) },
+    { 0x00E4, 2, 0xB6, oot::asset::cutscene::data::load(symbol::gGraveyardIntroCs) },
+    { 0x0225, 2, 0xB7, oot::asset::cutscene::data::load(symbol::gZorasFountainIntroCs) },
+    { 0x0123, 2, 0xB8, oot::asset::cutscene::data::load(symbol::gDesertColossusIntroCs) },
+    { 0x0147, 2, 0xB9, oot::asset::cutscene::data::load(symbol::gDeathMountainCraterIntroCs) },
+    { 0x0138, 0, 0xBA, oot::asset::cutscene::data::load(symbol::gGanonsCastleIntroCs) },
+    { 0x0574, 2, 0x5A, oot::asset::cutscene::data::load(symbol::gSunSongGraveSunSongTeachPart2Cs) },
+    { 0x0538, 2, 0xBB, oot::asset::cutscene::data::load(symbol::gForestBarrierCs) },
+    { 0x053C, 2, 0xBC, oot::asset::cutscene::data::load(symbol::gWaterBarrierCs) },
+    { 0x0540, 2, 0xBD, oot::asset::cutscene::data::load(symbol::gShadowBarrierCs) },
+    { 0x0544, 2, 0xBE, oot::asset::cutscene::data::load(symbol::gFireBarrierCs) },
+    { 0x0548, 2, 0xBF, oot::asset::cutscene::data::load(symbol::gLightBarrierCs) },
+    { 0x054C, 2, 0xAD, oot::asset::cutscene::data::load(symbol::gSpiritBarrierCs) },
+    { 0x008D, 0, 0xC0, oot::asset::cutscene::data::load(symbol::gSpiritBossNabooruKnuckleIntroCs) },
+    { 0x03B4, 0, 0xC7, oot::asset::cutscene::data::load(symbol::gGerudoFortressFirstCaptureCs) },
+    { 0x0246, 2, 0xB9, oot::asset::cutscene::data::load(symbol::gDeathMountainCraterIntroCs) },
+    { 0x05E8, 2, 0xC6, oot::asset::cutscene::data::load(symbol::gKokiriForestDekuSproutCs) },
 };
 
 // Unused, seems to be an early list of dungeon entrance cutscene locations
 void* D_8011E304[] = {
-    gDekuTreeIntroCs, gJabuJabuIntroCs, gDcOpeningCs, gMinuetCs, gIceCavernSerenadeCs, gTowerBarrierCs,
+    oot::asset::cutscene::data::load(symbol::gDekuTreeIntroCs), oot::asset::cutscene::data::load(symbol::gJabuJabuIntroCs), oot::asset::cutscene::data::load(symbol::gDcOpeningCs), oot::asset::cutscene::data::load(symbol::gMinuetCs), oot::asset::cutscene::data::load(symbol::gIceCavernSerenadeCs), oot::asset::cutscene::data::load(symbol::gTowerBarrierCs),
 };
 
 u16 D_8015FCC0;
@@ -1207,7 +1181,7 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
             case 113:
                 if (Flags_GetEventChkInf(0xBB) && Flags_GetEventChkInf(0xBC) && Flags_GetEventChkInf(0xBD) &&
                     Flags_GetEventChkInf(0xBE) && Flags_GetEventChkInf(0xBF) && Flags_GetEventChkInf(0xAD)) {
-                    globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gTowerBarrierCs);
+                    globalCtx->csCtx.segment = oot::asset::cutscene::data::load(symbol::gTowerBarrierCs);
                     globalCtx->csCtx.frames = 0;
                     gSaveContext.cutsceneTrigger = 1;
                     gSaveContext.cutsceneIndex = 0xFFFF;

@@ -8,7 +8,7 @@
 
 #include "z_eff_ss_fhg_flash.h"
 #include "overlays/actors/ovl_Boss_Ganondrof/z_boss_ganondrof.h"
-#include "objects/object_fhg/object_fhg.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -48,7 +48,6 @@ u32 EffectSsFhgFlash_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, 
 
         if ((objBankIdx > -1) && Object_IsLoaded(&globalCtx->objectCtx, objBankIdx)) {
             oldSeg6 = (void*)gSegments[6];
-            gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIdx].vromStart.get());
             pthis->rObjBankIdx = objBankIdx;
             pthis->pos = initParams->pos;
             pthis->velocity = initParams->velocity;
@@ -59,7 +58,7 @@ u32 EffectSsFhgFlash_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, 
             pthis->rAlpha = 255;
             pthis->draw = EffectSsFhgFlash_DrawLightBall;
             pthis->update = EffectSsFhgFlash_UpdateLightBall;
-            pthis->gfx = SEGMENTED_TO_VIRTUAL(gPhantomEnergyBallDL);
+            pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gPhantomEnergyBallDL));
             gSegments[6] = (uintptr_t)oldSeg6;
         } else {
             osSyncPrintf("Effect_Ss_Fhg_Flash_ct():pffd->modeエラー\n");
@@ -98,7 +97,6 @@ void EffectSsFhgFlash_DrawLightBall(GlobalContext* globalCtx, u32 index, EffectS
     void* object;
 
     scale = pthis->rScale / 100.0f;
-    object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
     OPEN_DISPS(gfxCtx, "../z_eff_fhg_flash.c", 268);
 

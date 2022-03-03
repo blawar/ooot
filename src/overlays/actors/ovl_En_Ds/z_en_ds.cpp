@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ds.h"
-#include "objects/object_ds/object_ds.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -49,9 +49,9 @@ void EnDs_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnDs* pthis = (EnDs*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gPotionShopLadySkel, &gPotionShopLadyAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gPotionShopLadySkel), oot::asset::anim::header::load(symbol::gPotionShopLadyAnim), pthis->jointTable,
                        pthis->morphTable, 6);
-    Animation_PlayOnce(&pthis->skelAnime, &gPotionShopLadyAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPotionShopLadyAnim));
 
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
 

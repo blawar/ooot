@@ -5,9 +5,7 @@
 #include "z64save.h"
 #include "z64interface.h"
 #include "segment_symbols.h"
-#include "textures/do_action_static/do_action_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
-#include "textures/parameter_static/parameter_static.h"
+#include "asset.h"
 #include "def/game.h"
 #include "def/z_common_data.h"
 #include "def/z_construct.h"
@@ -17,6 +15,19 @@
 #include "def/z_message_PAL.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
+
+extern void* icon_item_static_lut[];
+
+void* do_action_static_lut[] = {
+    oot::asset::texture::load(symbol::gAttackDoActionENGTex),     oot::asset::texture::load(symbol::gCheckDoActionENGTex),  oot::asset::texture::load(symbol::gEnterDoActionENGTex),  oot::asset::texture::load(symbol::gReturnDoActionENGTex), oot::asset::texture::load(symbol::gOpenDoActionENGTex),   oot::asset::texture::load(symbol::gJumpDoActionENGTex),	  oot::asset::texture::load(symbol::gDecideDoActionENGTex), oot::asset::texture::load(symbol::gDiveDoActionENGTex),	 oot::asset::texture::load(symbol::gFasterDoActionENGTex),	    oot::asset::texture::load(symbol::gThrowDoActionENGTex),
+    oot::asset::texture::load(symbol::gUnusedNaviDoActionENGTex), oot::asset::texture::load(symbol::gClimbDoActionENGTex),  oot::asset::texture::load(symbol::gDropDoActionENGTex),   oot::asset::texture::load(symbol::gDownDoActionENGTex),   oot::asset::texture::load(symbol::gSaveDoActionENGTex),   oot::asset::texture::load(symbol::gSpeakDoActionENGTex),  oot::asset::texture::load(symbol::gNextDoActionENGTex),	 oot::asset::texture::load(symbol::gGrabDoActionENGTex),	 oot::asset::texture::load(symbol::gStopDoActionENGTex),	    oot::asset::texture::load(symbol::gPutAwayDoActionENGTex),
+    oot::asset::texture::load(symbol::gReelDoActionENGTex),       oot::asset::texture::load(symbol::gNum1DoActionENGTex),   oot::asset::texture::load(symbol::gNum2DoActionENGTex),   oot::asset::texture::load(symbol::gNum3DoActionENGTex),   oot::asset::texture::load(symbol::gNum4DoActionENGTex),   oot::asset::texture::load(symbol::gNum5DoActionENGTex),	  oot::asset::texture::load(symbol::gNum6DoActionENGTex),	 oot::asset::texture::load(symbol::gNum7DoActionENGTex),	 oot::asset::texture::load(symbol::gNum8DoActionENGTex),	    oot::asset::texture::load(symbol::gAttackDoActionGERTex),
+    oot::asset::texture::load(symbol::gCheckDoActionGERTex),      oot::asset::texture::load(symbol::gEnterDoActionGERTex),  oot::asset::texture::load(symbol::gReturnDoActionGERTex), oot::asset::texture::load(symbol::gOpenDoActionGERTex),   oot::asset::texture::load(symbol::gJumpDoActionGERTex),   oot::asset::texture::load(symbol::gDecideDoActionGERTex), oot::asset::texture::load(symbol::gDiveDoActionGERTex),	 oot::asset::texture::load(symbol::gFasterDoActionGERTex),	 oot::asset::texture::load(symbol::gThrowDoActionGERTex),	    oot::asset::texture::load(symbol::gUnusedNaviDoActionGERTex),
+    oot::asset::texture::load(symbol::gClimbDoActionGERTex),      oot::asset::texture::load(symbol::gDropDoActionGERTex),   oot::asset::texture::load(symbol::gDownDoActionGERTex),   oot::asset::texture::load(symbol::gSaveDoActionGERTex),   oot::asset::texture::load(symbol::gSpeakDoActionGERTex),  oot::asset::texture::load(symbol::gNextDoActionGERTex),	  oot::asset::texture::load(symbol::gGrabDoActionGERTex),	 oot::asset::texture::load(symbol::gStopDoActionGERTex),	 oot::asset::texture::load(symbol::gPutAwayDoActionGERTex),    oot::asset::texture::load(symbol::gReelDoActionGERTex),
+    oot::asset::texture::load(symbol::gNum1DoActionGERTex),       oot::asset::texture::load(symbol::gNum2DoActionGERTex),   oot::asset::texture::load(symbol::gNum3DoActionGERTex),   oot::asset::texture::load(symbol::gNum4DoActionGERTex),   oot::asset::texture::load(symbol::gNum5DoActionGERTex),   oot::asset::texture::load(symbol::gNum6DoActionGERTex),	  oot::asset::texture::load(symbol::gNum7DoActionGERTex),	 oot::asset::texture::load(symbol::gNum8DoActionGERTex),	 oot::asset::texture::load(symbol::gAttackDoActionFRATex),	    oot::asset::texture::load(symbol::gCheckDoActionFRATex),
+    oot::asset::texture::load(symbol::gEnterDoActionFRATex),      oot::asset::texture::load(symbol::gReturnDoActionFRATex), oot::asset::texture::load(symbol::gOpenDoActionFRATex),   oot::asset::texture::load(symbol::gJumpDoActionFRATex),   oot::asset::texture::load(symbol::gDecideDoActionFRATex), oot::asset::texture::load(symbol::gDiveDoActionFRATex),	  oot::asset::texture::load(symbol::gFasterDoActionFRATex), oot::asset::texture::load(symbol::gThrowDoActionFRATex),	 oot::asset::texture::load(symbol::gUnusedNaviDoActionFRATex), oot::asset::texture::load(symbol::gClimbDoActionFRATex),
+    oot::asset::texture::load(symbol::gDropDoActionFRATex),       oot::asset::texture::load(symbol::gDownDoActionFRATex),   oot::asset::texture::load(symbol::gSaveDoActionFRATex),   oot::asset::texture::load(symbol::gSpeakDoActionFRATex),  oot::asset::texture::load(symbol::gNextDoActionFRATex),   oot::asset::texture::load(symbol::gGrabDoActionFRATex),	  oot::asset::texture::load(symbol::gStopDoActionFRATex),	 oot::asset::texture::load(symbol::gPutAwayDoActionFRATex), oot::asset::texture::load(symbol::gReelDoActionFRATex),	    oot::asset::texture::load(symbol::gNum1DoActionFRATex),
+    oot::asset::texture::load(symbol::gNum2DoActionFRATex),       oot::asset::texture::load(symbol::gNum3DoActionFRATex),   oot::asset::texture::load(symbol::gNum4DoActionFRATex),   oot::asset::texture::load(symbol::gNum5DoActionFRATex),   oot::asset::texture::load(symbol::gNum6DoActionFRATex),   oot::asset::texture::load(symbol::gNum7DoActionFRATex),	  oot::asset::texture::load(symbol::gNum8DoActionFRATex)};
 
 void func_80110990(GlobalContext* globalCtx) {
     Map_Destroy(globalCtx);
@@ -43,7 +54,7 @@ void func_801109B0(GlobalContext* globalCtx) {
         interfaceCtx->cDownAlpha = interfaceCtx->cRightAlpha = interfaceCtx->healthAlpha = interfaceCtx->startAlpha =
             interfaceCtx->magicAlpha = 0;
 
-    interfaceCtx->parameterSegment = _parameter_staticSegmentRomStart;
+    //interfaceCtx->parameterSegment = _parameter_staticSegmentRomStart; TODO FIX
 
 
     if (gSaveContext.language == LANGUAGE_ENG) {

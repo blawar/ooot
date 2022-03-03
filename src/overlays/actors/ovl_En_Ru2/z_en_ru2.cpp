@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ru2.h"
-#include "objects/object_ru2/object_ru2.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "vt.h"
 #include "def/audio.h"
@@ -72,9 +72,9 @@ static ColliderCylinderInitType1 sCylinderInit = {
 };
 
 static void* sEyeTextures[] = {
-    gAdultRutoEyeOpenTex,
-    gAdultRutoEyeHalfTex,
-    gAdultRutoEyeClosedTex,
+    oot::asset::texture::load(symbol::gAdultRutoEyeOpenTex),
+    oot::asset::texture::load(symbol::gAdultRutoEyeHalfTex),
+    oot::asset::texture::load(symbol::gAdultRutoEyeClosedTex),
 };
 
 static UNK_TYPE D_80AF4118 = 0;
@@ -253,7 +253,7 @@ void func_80AF2978(EnRu2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AF2994(EnRu2* pthis, GlobalContext* globalCtx) {
-    func_80AF28E8(pthis, &gAdultRutoIdleAnim, 0, 0.0f, 0);
+    func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoIdleAnim), 0, 0.0f, 0);
     pthis->actor.shape.yOffset = -10000.0f;
 }
 
@@ -316,7 +316,7 @@ void func_80AF2B94(EnRu2* pthis) {
 }
 
 void func_80AF2BC0(EnRu2* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* animation = &gAdultRutoRaisingArmsUpAnim;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gAdultRutoRaisingArmsUpAnim);
     CsCmdActorAction* csCmdNPCAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
@@ -392,7 +392,7 @@ void func_80AF2DEC(EnRu2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AF2E1C(EnRu2* pthis, GlobalContext* globalCtx) {
-    func_80AF28E8(pthis, &gAdultRutoCrossingArmsAnim, 2, 0.0f, 0);
+    func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoCrossingArmsAnim), 2, 0.0f, 0);
     pthis->action = 7;
     pthis->actor.shape.shadowAlpha = 0;
 }
@@ -504,7 +504,7 @@ void func_80AF321C(EnRu2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AF3394(EnRu2* pthis, GlobalContext* globalCtx) {
-    func_80AF28E8(pthis, &gAdultRutoIdleHandsOnHipsAnim, 0, 0.0f, 0);
+    func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoIdleHandsOnHipsAnim), 0, 0.0f, 0);
     pthis->action = 10;
     pthis->drawConfig = 0;
     pthis->actor.shape.shadowAlpha = 0;
@@ -542,13 +542,13 @@ void func_80AF34A4(EnRu2* pthis) {
 }
 
 void func_80AF34F0(EnRu2* pthis) {
-    func_80AF28E8(pthis, &gAdultRutoHeadTurnDownLeftAnim, 2, 0.0f, 0);
+    func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoHeadTurnDownLeftAnim), 2, 0.0f, 0);
     pthis->action = 13;
 }
 
 void func_80AF3530(EnRu2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80AF28E8(pthis, &gAdultRutoLookingDownLeftAnim, 0, 0.0f, 0);
+        func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoLookingDownLeftAnim), 0, 0.0f, 0);
     }
 }
 
@@ -618,7 +618,7 @@ void func_80AF3744(EnRu2* pthis, GlobalContext* globalCtx) {
     if (func_80AF3718(pthis, globalCtx)) {
         Actor_Kill(&pthis->actor);
     } else {
-        func_80AF28E8(pthis, &gAdultRutoIdleAnim, 0, 0.0f, 0);
+        func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoIdleAnim), 0, 0.0f, 0);
         pthis->action = 14;
         pthis->drawConfig = 1;
     }
@@ -710,7 +710,7 @@ void func_80AF39DC(EnRu2* pthis, GlobalContext* globalCtx) {
 void func_80AF3ADC(EnRu2* pthis, GlobalContext* globalCtx) {
     pthis->unk_2C4 += 1.0f;
     if (pthis->unk_2C4 > kREG(5) + 100.0f) {
-        func_80AF28E8(pthis, &gAdultRutoSwimmingUpAnim, 0, -12.0f, 0);
+        func_80AF28E8(pthis, oot::asset::anim::header::load(symbol::gAdultRutoSwimmingUpAnim), 0, -12.0f, 0);
         pthis->action = 19;
         func_80AF36EC(pthis, globalCtx);
     }
@@ -786,7 +786,7 @@ void EnRu2_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     func_80AF2550(thisx, globalCtx);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gAdultRutoSkel, NULL, pthis->jointTable, pthis->morphTable, 23);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gAdultRutoSkel), NULL, pthis->jointTable, pthis->morphTable, 23);
 
     switch (func_80AF26A0(pthis)) {
         case 2:

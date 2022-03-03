@@ -2,19 +2,8 @@
 #include "actor_common.h"
 #include "z_en_ossan.h"
 #include "vt.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_ossan/object_ossan.h"
-#include "objects/object_oF1d_map/object_oF1d_map.h"
-#include "objects/object_os/object_os.h"
-#include "objects/object_zo/object_zo.h"
-#include "objects/object_rs/object_rs.h"
-#include "objects/object_ds2/object_ds2.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
-#include "objects/object_masterkokiri/object_masterkokiri.h"
-#include "objects/object_km1/object_km1.h"
-#include "objects/object_mastergolon/object_mastergolon.h"
-#include "objects/object_masterzoora/object_masterzoora.h"
-#include "objects/object_masterkokirihead/object_masterkokirihead.h"
 #include "def/random.h"
 #include "def/graph.h"
 #include "def/z_actor.h"
@@ -100,8 +89,6 @@ void EnOssan_State_SelectMaskItem(EnOssan* pthis, GlobalContext* globalCtx, Play
 void EnOssan_State_LendMaskOfTruth(EnOssan* pthis, GlobalContext* globalCtx, Player* player);
 void EnOssan_State_GiveDiscountDialog(EnOssan* pthis, GlobalContext* globalCtx, Player* player);
 
-void EnOssan_Obj3ToSeg6(EnOssan* pthis, GlobalContext* globalCtx);
-
 void EnOssan_StartShopping(GlobalContext* globalCtx, EnOssan* pthis);
 
 void EnOssan_WaitForBlink(EnOssan* pthis);
@@ -114,25 +101,25 @@ s32 EnOssan_ReturnItemToShelf(EnOssan* pthis);
 void EnOssan_ResetItemPosition(EnOssan* pthis);
 void EnOssan_SetStateGiveDiscountDialog(GlobalContext* globalCtx, EnOssan* pthis);
 
-static void* sBazaarShopkeeperEyeTextures_238[] = { gOssanEyeOpenTex, gOssanEyeHalfTex, gOssanEyeClosedTex };
+static void* sBazaarShopkeeperEyeTextures_238[] = { oot::asset::texture::load(symbol::gOssanEyeOpenTex), oot::asset::texture::load(symbol::gOssanEyeHalfTex), oot::asset::texture::load(symbol::gOssanEyeClosedTex) };
 
 static void* sKokiriShopkeeperEyeTextures_239[] = {
-    gKokiriShopkeeperEyeDefaultTex,
-    gKokiriShopkeeperEyeHalfTex,
-    gKokiriShopkeeperEyeOpenTex,
+    oot::asset::texture::load(symbol::gKokiriShopkeeperEyeDefaultTex),
+    oot::asset::texture::load(symbol::gKokiriShopkeeperEyeHalfTex),
+    oot::asset::texture::load(symbol::gKokiriShopkeeperEyeOpenTex),
 };
 
-static void* sGoronShopkeeperEyeTextures_243[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+static void* sGoronShopkeeperEyeTextures_243[] = { oot::asset::texture::load(symbol::gGoronCsEyeOpenTex), oot::asset::texture::load(symbol::gGoronCsEyeHalfTex), oot::asset::texture::load(symbol::gGoronCsEyeClosedTex) };
 
-static void* sZoraShopkeeperEyeTextures_245[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
+static void* sZoraShopkeeperEyeTextures_245[] = { oot::asset::texture::load(symbol::gZoraEyeOpenTex), oot::asset::texture::load(symbol::gZoraEyeHalfTex), oot::asset::texture::load(symbol::gZoraEyeClosedTex) };
 
-static void* sPotionShopkeeperEyeTextures_246[] = { gPotionShopkeeperEyeOpenTex, gPotionShopkeeperEyeHalfTex,
-                                                gPotionShopkeeperEyeClosedTex };
+static void* sPotionShopkeeperEyeTextures_246[] = { oot::asset::texture::load(symbol::gPotionShopkeeperEyeOpenTex), oot::asset::texture::load(symbol::gPotionShopkeeperEyeHalfTex),
+                                                oot::asset::texture::load(symbol::gPotionShopkeeperEyeClosedTex) };
 
-static void* sHappyMaskShopkeeperEyeTextures_247[] = { gOsEyeClosedTex, gOsEyeOpenTex };
+static void* sHappyMaskShopkeeperEyeTextures_247[] = { oot::asset::texture::load(symbol::gOsEyeClosedTex), oot::asset::texture::load(symbol::gOsEyeOpenTex) };
 
-static void* sBombchuShopkeeperEyeTextures_248[] = { gBombchuShopkeeperEyeOpenTex, gBombchuShopkeeperEyeHalfTex,
-                                                 gBombchuShopkeeperEyeClosedTex };
+static void* sBombchuShopkeeperEyeTextures_248[] = { oot::asset::texture::load(symbol::gBombchuShopkeeperEyeOpenTex), oot::asset::texture::load(symbol::gBombchuShopkeeperEyeHalfTex),
+                                                 oot::asset::texture::load(symbol::gBombchuShopkeeperEyeClosedTex) };
 
 
 #define CURSOR_INVALID 0xFF
@@ -2010,56 +1997,46 @@ s32 EnOssan_AreShopkeeperObjectsLoaded(EnOssan* pthis, GlobalContext* globalCtx)
 }
 
 void EnOssan_InitBazaarShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gObjectOssanSkel, &gObjectOssanAnim_000338, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gObjectOssanSkel), oot::asset::anim::header::load(symbol::gObjectOssanAnim_000338), NULL, NULL, 0);
     pthis->actor.draw = EnOssan_DrawBazaarShopkeeper;
-    pthis->obj3ToSeg6Func = NULL;
 }
 
 void EnOssan_InitKokiriShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gKm1Skel, NULL, NULL, NULL, 0);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objBankIndex3].vromStart.get());
-    Animation_Change(&pthis->skelAnime, &object_masterkokiri_Anim_0004A8, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_masterkokiri_Anim_0004A8), 0, 0.0f);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gKm1Skel), NULL, NULL, NULL, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_masterkokiri_Anim_0004A8), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_masterkokiri_Anim_0004A8)), 0, 0.0f);
     pthis->actor.draw = EnOssan_DrawKokiriShopkeeper;
-    pthis->obj3ToSeg6Func = EnOssan_Obj3ToSeg6;
     Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_ELF, pthis->actor.world.pos.x,
                        pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, FAIRY_KOKIRI);
 }
 
 void EnOssan_InitGoronShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGoronSkel, NULL, NULL, NULL, 0);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objBankIndex3].vromStart.get());
-    Animation_Change(&pthis->skelAnime, &gGoronShopkeeperAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gGoronShopkeeperAnim),
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGoronSkel), NULL, NULL, NULL, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGoronShopkeeperAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGoronShopkeeperAnim)),
                      0, 0.0f);
     pthis->actor.draw = EnOssan_DrawGoronShopkeeper;
-    pthis->obj3ToSeg6Func = EnOssan_Obj3ToSeg6;
 }
 
 void EnOssan_InitZoraShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gZoraSkel, NULL, NULL, NULL, 0);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objBankIndex3].vromStart.get());
-    Animation_Change(&pthis->skelAnime, &gZoraShopkeeperAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gZoraShopkeeperAnim),
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gZoraSkel), NULL, NULL, NULL, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZoraShopkeeperAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZoraShopkeeperAnim)),
                      0, 0.0f);
     pthis->actor.draw = EnOssan_DrawZoraShopkeeper;
-    pthis->obj3ToSeg6Func = EnOssan_Obj3ToSeg6;
 }
 
 void EnOssan_InitPotionShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ds2_Skel_004258, &object_ds2_Anim_0002E4, 0, 0, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ds2_Skel_004258), oot::asset::anim::header::load(symbol::object_ds2_Anim_0002E4), 0, 0, 0);
     pthis->actor.draw = EnOssan_DrawPotionShopkeeper;
-    pthis->obj3ToSeg6Func = NULL;
 }
 
 void EnOssan_InitHappyMaskShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_os_Skel_004658, &object_os_Anim_0002E4, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_os_Skel_004658), oot::asset::anim::header::load(symbol::object_os_Anim_0002E4), NULL, NULL, 0);
     pthis->actor.draw = EnOssan_DrawHappyMaskShopkeeper;
-    pthis->obj3ToSeg6Func = NULL;
 }
 
 void EnOssan_InitBombchuShopkeeper(EnOssan* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_rs_Skel_004868, &object_rs_Anim_00065C, 0, 0, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_rs_Skel_004868), oot::asset::anim::header::load(symbol::object_rs_Anim_00065C), 0, 0, 0);
     pthis->actor.draw = EnOssan_DrawBombchuShopkeeper;
-    pthis->obj3ToSeg6Func = NULL;
 }
 
 u16 EnOssan_SetupHelloDialog(EnOssan* pthis) {
@@ -2219,10 +2196,6 @@ void EnOssan_InitActionFunc(EnOssan* pthis, GlobalContext* globalCtx) {
     }
 }
 
-void EnOssan_Obj3ToSeg6(EnOssan* pthis, GlobalContext* globalCtx) {
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndex3].vromStart.get());
-}
-
 void EnOssan_MainActionFunc(EnOssan* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
@@ -2241,11 +2214,6 @@ void EnOssan_MainActionFunc(EnOssan* pthis, GlobalContext* globalCtx) {
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 26.0f, 10.0f, 0.0f, 5);
     Actor_SetFocus(&pthis->actor, 90.0f);
     Actor_SetScale(&pthis->actor, sShopkeeperScale[pthis->actor.params]);
-
-    // use animation object if needed
-    if (pthis->obj3ToSeg6Func != NULL) {
-        pthis->obj3ToSeg6Func(pthis, globalCtx);
-    }
 
     SkelAnime_Update(&pthis->skelAnime);
 }
@@ -2277,7 +2245,7 @@ void EnOssan_DrawCursor(GlobalContext* globalCtx, EnOssan* pthis, f32 x, f32 y, 
         func_80094520(globalCtx->state.gfxCtx);
         gDPSetPrimColor(OVERLAY_DISP++, 0, 0, pthis->cursorColorR, pthis->cursorColorG, pthis->cursorColorB,
                         pthis->cursorColorA);
-        gDPLoadTextureBlock_4b(OVERLAY_DISP++, gSelectionCursorTex, G_IM_FMT_IA, 16, 16, 0, G_TX_MIRROR | G_TX_WRAP,
+        gDPLoadTextureBlock_4b(OVERLAY_DISP++, oot::asset::texture::load(symbol::gSelectionCursorTex), G_IM_FMT_IA, 16, 16, 0, G_TX_MIRROR | G_TX_WRAP,
                                G_TX_MIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
         w = 16.0f * z;
         ulx = (x - w) * 4.0f;
@@ -2323,7 +2291,7 @@ void EnOssan_DrawStickDirectionPrompts(GlobalContext* globalCtx, EnOssan* pthis)
     if (drawStickLeftPrompt || drawStickRightPrompt) {
         func_80094520(globalCtx->state.gfxCtx);
         gDPSetCombineMode(OVERLAY_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
-        gDPLoadTextureBlock(OVERLAY_DISP++, gArrowCursorTex, G_IM_FMT_IA, G_IM_SIZ_8b, 16, 24, 0,
+        gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gArrowCursorTex), G_IM_FMT_IA, G_IM_SIZ_8b, 16, 24, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
         if (drawStickLeftPrompt) {
@@ -2338,7 +2306,7 @@ void EnOssan_DrawStickDirectionPrompts(GlobalContext* globalCtx, EnOssan* pthis)
                                 pthis->stickRightPrompt.arrowTexX, pthis->stickRightPrompt.arrowTexY,
                                 pthis->stickRightPrompt.z, 0, 0, 1.0f, 1.0f);
         }
-        gDPLoadTextureBlock(OVERLAY_DISP++, gControlStickTex, G_IM_FMT_IA, G_IM_SIZ_8b, 16, 16, 0,
+        gDPLoadTextureBlock(OVERLAY_DISP++, oot::asset::texture::load(symbol::gControlStickTex), G_IM_FMT_IA, G_IM_SIZ_8b, 16, 16, 0,
                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
         if (drawStickLeftPrompt) {
@@ -2381,9 +2349,7 @@ s32 EnOssan_OverrideLimbDrawKokiriShopkeeper(GlobalContext* globalCtx, s32 limbI
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4354);
 
     if (limbIndex == 15) {
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->objBankIndex2].vromStart.get());
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objBankIndex2].vromStart.get());
-        *dList = gKokiriShopkeeperHeadDL;
+        *dList = oot::asset::gfx::load(symbol::gKokiriShopkeeperHeadDL);
         gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(sKokiriShopkeeperEyeTextures_239[pthis->eyeTextureIdx]));
     }
 
@@ -2435,7 +2401,7 @@ void EnOssan_DrawGoronShopkeeper(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80093D18(globalCtx->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sGoronShopkeeperEyeTextures_243[pthis->eyeTextureIdx]));
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gGoronCsMouthNeutralTex));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gGoronCsMouthNeutralTex)));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, pthis);
     EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);

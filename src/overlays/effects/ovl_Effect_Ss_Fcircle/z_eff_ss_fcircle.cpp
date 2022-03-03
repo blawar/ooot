@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_fcircle.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_lib.h"
 #include "def/z_rcp.h"
@@ -35,7 +35,7 @@ u32 EffectSsFcircle_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
     pthis->vec.x = initParams->pos.x - initParams->actor->world.pos.x;
     pthis->vec.y = initParams->pos.y - initParams->actor->world.pos.y;
     pthis->vec.z = initParams->pos.z - initParams->actor->world.pos.z;
-    pthis->gfx = gEffFireCircleDL;
+    pthis->gfx = oot::asset::gfx::load(symbol::gEffFireCircleDL);
     pthis->life = 20;
     pthis->draw = EffectSsFcircle_Draw;
     pthis->update = EffectSsFcircle_Update;

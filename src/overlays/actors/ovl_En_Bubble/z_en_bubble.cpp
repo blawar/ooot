@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BUBBLE_Z_EN_BUBBLE_C
 #include "actor_common.h"
 #include "z_en_bubble.h"
-#include "objects/object_bubble/object_bubble.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
@@ -439,7 +439,7 @@ void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bubble.c", 1220),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gBubbleDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBubbleDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bubble.c", 1226);

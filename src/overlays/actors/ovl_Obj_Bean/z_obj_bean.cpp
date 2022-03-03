@@ -7,8 +7,7 @@
  */
 
 #include "z_obj_bean.h"
-#include "objects/object_mamenoki/object_mamenoki.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/environment_flags.h"
@@ -129,7 +128,7 @@ static BeenSpeedInfo sBeanSpeeds[] = {
     { 3.0f, 0.3f },
 };
 
-static Gfx* sBreakDlists[] = { gCuttableShrubStalkDL, gCuttableShrubTipDL };
+static Gfx* sBreakDlists[] = { oot::asset::gfx::load(symbol::gCuttableShrubStalkDL), oot::asset::gfx::load(symbol::gCuttableShrubTipDL) };
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_CONTINUE),
@@ -508,7 +507,7 @@ void ObjBean_Init(Actor* thisx, GlobalContext* globalCtx) {
             ObjBean_Move(pthis);
             ObjBean_SetupWaitForPlayer(pthis);
 
-            ObjBean_InitDynaPoly(pthis, globalCtx, &gMagicBeanPlatformCol, DPM_UNK3);
+            ObjBean_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gMagicBeanPlatformCol), DPM_UNK3);
             pthis->stateFlags |= BEAN_STATE_DYNAPOLY_SET;
             ObjBean_InitCollider(&pthis->dyna.actor, globalCtx);
             pthis->stateFlags |= BEAN_STATE_COLLIDER_SET;
@@ -929,7 +928,7 @@ void ObjBean_DrawSoftSoilSpot(ObjBean* pthis, GlobalContext* globalCtx) {
                      MTXMODE_NEW);
     Matrix_RotateY(pthis->dyna.actor.home.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
     Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
-    Gfx_DrawDListOpa(globalCtx, gMagicBeanSoftSoilDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gMagicBeanSoftSoilDL));
 }
 
 void ObjBean_DrawBeanstalk(ObjBean* pthis, GlobalContext* globalCtx) {
@@ -937,17 +936,17 @@ void ObjBean_DrawBeanstalk(ObjBean* pthis, GlobalContext* globalCtx) {
                      MTXMODE_NEW);
     Matrix_RotateY(pthis->dyna.actor.shape.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
     Matrix_Scale(0.1f, pthis->stalkSizeMultiplier, 0.1f, MTXMODE_APPLY);
-    Gfx_DrawDListOpa(globalCtx, gMagicBeanStemDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gMagicBeanStemDL));
 }
 
 void ObjBean_Draw(Actor* thisx, GlobalContext* globalCtx) {
     ObjBean* pthis = (ObjBean*)thisx;
 
     if (pthis->stateFlags & BEAN_STATE_DRAW_SOIL) {
-        Gfx_DrawDListOpa(globalCtx, gMagicBeanSeedlingDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gMagicBeanSeedlingDL));
     }
     if (pthis->stateFlags & BEAN_STATE_DRAW_PLANT) {
-        Gfx_DrawDListOpa(globalCtx, gMagicBeanPlatformDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gMagicBeanPlatformDL));
     }
     if (pthis->stateFlags & BEAN_STATE_DRAW_LEAVES) {
         ObjBean_DrawSoftSoilSpot(pthis, globalCtx);

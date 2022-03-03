@@ -8,7 +8,7 @@
 
 #include "z_en_kakasi2.h"
 #include "vt.h"
-#include "objects/object_ka/object_ka.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
 #include "def/z_common_data.h"
@@ -107,7 +107,7 @@ void EnKakasi2_Init(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.draw = func_80A90948;
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ka_Skel_0065B0, &object_ka_Anim_000214, NULL, NULL, 0);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ka_Skel_0065B0), oot::asset::anim::header::load(symbol::object_ka_Anim_000214), NULL, NULL, 0);
         pthis->actionFunc = func_80A9062C;
     } else {
         pthis->actionFunc = func_80A90264;
@@ -133,7 +133,7 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx) {
         pthis->actor.draw = func_80A90948;
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ka_Skel_0065B0, &object_ka_Anim_000214, NULL, NULL, 0);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ka_Skel_0065B0), oot::asset::anim::header::load(symbol::object_ka_Anim_000214), NULL, NULL, 0);
         OnePointCutscene_Attention(globalCtx, &pthis->actor);
         pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_27;
 
@@ -158,7 +158,7 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx) {
             pthis->actor.draw = func_80A90948;
             Collider_InitCylinder(globalCtx, &pthis->collider);
             Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ka_Skel_0065B0, &object_ka_Anim_000214, NULL, NULL,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ka_Skel_0065B0), oot::asset::anim::header::load(symbol::object_ka_Anim_000214), NULL, NULL,
                                0);
             OnePointCutscene_Attention(globalCtx, &pthis->actor);
             Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
@@ -170,9 +170,9 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A904D8(EnKakasi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&object_ka_Anim_000214);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ka_Anim_000214));
 
-    Animation_Change(&pthis->skelAnime, &object_ka_Anim_000214, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ka_Anim_000214), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_COME_UP_DEKU_JR);
     pthis->actionFunc = func_80A90578;
 }
@@ -197,9 +197,9 @@ void func_80A90578(EnKakasi2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A9062C(EnKakasi2* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&object_ka_Anim_000214);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ka_Anim_000214));
 
-    Animation_Change(&pthis->skelAnime, &object_ka_Anim_000214, 0.0f, 0.0f, (s16)frameCount, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ka_Anim_000214), 0.0f, 0.0f, (s16)frameCount, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = func_80A906C4;
 }
 

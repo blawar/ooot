@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_elevator.h"
-#include "objects/object_d_elevator/object_d_elevator.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -71,7 +71,7 @@ void ObjElevator_Init(Actor* thisx, GlobalContext* globalCtx) {
     ObjElevator* pthis = (ObjElevator*)thisx;
     f32 temp_f0;
 
-    func_80B92B08(pthis, globalCtx, &object_d_elevator_Col_000360, DPM_PLAYER);
+    func_80B92B08(pthis, globalCtx, oot::asset::collision::header::load(symbol::object_d_elevator_Col_000360), DPM_PLAYER);
     Actor_SetScale(thisx, sScales[thisx->params & 1]);
     Actor_ProcessInitChain(thisx, sInitChain);
     temp_f0 = (thisx->params >> 8) & 0xF;
@@ -130,7 +130,7 @@ void ObjElevator_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjElevator_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, object_d_elevator_DL_000180);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_d_elevator_DL_000180));
 }
 
 void ObjElevator_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -39,7 +39,7 @@ ActorInit Magic_Wind_InitVars = {
     (ActorFunc)MagicWind_Reset,
 };
 
-#include "overlays/ovl_Magic_Wind/ovl_Magic_Wind.cpp"
+#include "asset.h"
 
 static u8 sAlphaUpdVals[] = {
     0x00, 0x03, 0x04, 0x07, 0x09, 0x0A, 0x0D, 0x0F, 0x11, 0x12, 0x15, 0x16, 0x19, 0x1B, 0x1C, 0x1F, 0x21, 0x23,
@@ -53,19 +53,19 @@ void MagicWind_Init(Actor* thisx, GlobalContext* globalCtx) {
     MagicWind* pthis = (MagicWind*)thisx;
     Player* player = GET_PLAYER(globalCtx);
 
-    if (SkelCurve_Init(globalCtx, &pthis->skelCurve, &sSkel, &sAnim) == 0) {
+    if (SkelCurve_Init(globalCtx, &pthis->skelCurve, oot::asset::skel::curve_limb_list::load(symbol::sSkel), oot::asset::transform_update_index::load(symbol::sAnim)) == 0) {
         // "Magic_Wind_Actor_ct (): Construct failed"
         osSyncPrintf("Magic_Wind_Actor_ct():コンストラクト失敗\n");
     }
     pthis->actor.room = -1;
     switch (pthis->actor.params) {
         case 0:
-            SkelCurve_SetAnim(&pthis->skelCurve, &sAnim, 0.0f, 60.0f, 0.0f, 1.0f);
+            SkelCurve_SetAnim(&pthis->skelCurve, oot::asset::transform_update_index::load(symbol::sAnim), 0.0f, 60.0f, 0.0f, 1.0f);
             pthis->timer = 29;
             MagicWind_SetupAction(pthis, MagicWind_WaitForTimer);
             break;
         case 1:
-            SkelCurve_SetAnim(&pthis->skelCurve, &sAnim, 60.0f, 0.0f, 60.0f, -1.0f);
+            SkelCurve_SetAnim(&pthis->skelCurve, oot::asset::transform_update_index::load(symbol::sAnim), 60.0f, 0.0f, 60.0f, -1.0f);
             MagicWind_SetupAction(pthis, MagicWind_Shrink);
             // "Means start"
             LOG_STRING("表示開始", "../z_magic_wind.c", 486);
@@ -86,7 +86,7 @@ void MagicWind_UpdateAlpha(f32 alpha) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(sAlphaUpdVals); i++) {
-        sCylinderVtx[sAlphaUpdVals[i]].n.a = alpha * 255.0f;
+        oot::asset::vtx::load(symbol::sCylinderVtx)[sAlphaUpdVals[i]].n.a = alpha * 255.0f;
     }
 }
 

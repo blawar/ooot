@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_MIZU_SHUTTER_Z_BG_MIZU_SHUTTER_C
 #include "actor_common.h"
 #include "z_bg_mizu_shutter.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/sys_matrix.h"
@@ -40,11 +40,11 @@ ActorInit Bg_Mizu_Shutter_InitVars = {
     (ActorFunc)BgMizuShutter_Reset,
 };
 
-static Gfx* sDisplayLists[] = { gObjectMizuObjectsShutterDL_007130, gObjectMizuObjectsShutterDL_0072D0 };
+static Gfx* sDisplayLists[] = { oot::asset::gfx::load(symbol::gObjectMizuObjectsShutterDL_007130), oot::asset::gfx::load(symbol::gObjectMizuObjectsShutterDL_0072D0) };
 
 static CollisionHeader* sCollisionHeaders[] = {
-    &gObjectMizuObjectsShutterCol_007250,
-    &gObjectMizuObjectsShutterCol_0073F0,
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsShutterCol_007250),
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsShutterCol_0073F0),
 };
 
 static Vec3f sDisplacements[] = {

@@ -7,7 +7,7 @@
  */
 
 #include "z_mir_ray.h"
-#include "objects/object_mir_ray/object_mir_ray.h"
+#include "asset.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -500,7 +500,7 @@ void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_mir_ray.c", 972),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 150, (s16)(temp = pthis->reflectIntensity * 100.0f));
-            gSPDisplayList(POLY_XLU_DISP++, gShieldBeamGlowDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gShieldBeamGlowDL));
             MirRay_SetupReflectionPolys(pthis, globalCtx, reflection);
             MirRay_RemoveSimilarReflections(reflection);
             MirRay_ReflectedBeam(pthis, globalCtx, reflection);
@@ -524,7 +524,7 @@ void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx) {
                               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                     gDPSetRenderMode(POLY_XLU_DISP++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_DECAL2);
                     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 150, reflection[0].opacity);
-                    gSPDisplayList(POLY_XLU_DISP++, gShieldBeamImageDL);
+                    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gShieldBeamImageDL));
                 }
             }
 

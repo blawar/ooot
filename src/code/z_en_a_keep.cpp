@@ -3,7 +3,7 @@
 #include "vt.h"
 #include "z64global.h"
 #include "sfx.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -64,30 +64,30 @@ static ColliderCylinderInit sCylinderInit = {
     { 25, 60, 0, { 0, 0, 0 } },
 };
 
-static CollisionHeader D_06000730; // gHookshotTargetCol ?
+static CollisionHeader D_06000730; // oot::asset::collision::header::load(symbol::gHookshotTargetCol) ?
 
 static CollisionHeader* sColHeaders[] = {
-    &gLargerCubeCol,       // A_OBJ_GRASS_CLUMP, A_OBJ_TREE_STUMP
-    &gLargerCubeCol,       // A_OBJ_BLOCK_LARGE, A_OBJ_BLOCK_HUGE
-    &gSmallerFlatBlockCol, // unused
-    &gLargerFlatBlockCol,  // A_OBJ_BLOCK_SMALL_ROT, A_OBJ_BLOCK_LARGE_ROT
-    &gSmallerCubeCol,      // unused
+    oot::asset::collision::header::load(symbol::gLargerCubeCol),       // A_OBJ_GRASS_CLUMP, A_OBJ_TREE_STUMP
+    oot::asset::collision::header::load(symbol::gLargerCubeCol),       // A_OBJ_BLOCK_LARGE, A_OBJ_BLOCK_HUGE
+    oot::asset::collision::header::load(symbol::gSmallerFlatBlockCol), // unused
+    oot::asset::collision::header::load(symbol::gLargerFlatBlockCol),  // A_OBJ_BLOCK_SMALL_ROT, A_OBJ_BLOCK_LARGE_ROT
+    oot::asset::collision::header::load(symbol::gSmallerCubeCol),      // unused
     &D_06000730,           // A_OBJ_UNKNOWN_6
 };
 
 static Gfx* sDLists[] = {
-    gFlatBlockDL,
-    gFlatBlockDL,
-    gFlatBlockDL,
-    gFlatRotBlockDL,
-    gFlatRotBlockDL,
-    gSmallCubeDL,
-    /* gHookshotPostDL ? */ (Gfx*)0x06000211,
-    gGrassBladesDL,
-    gTreeStumpDL,
-    gSignRectangularDL,
-    gSignDirectionalDL,
-    gBoulderFragmentsDL,
+    oot::asset::gfx::load(symbol::gFlatBlockDL),
+    oot::asset::gfx::load(symbol::gFlatBlockDL),
+    oot::asset::gfx::load(symbol::gFlatBlockDL),
+    oot::asset::gfx::load(symbol::gFlatRotBlockDL),
+    oot::asset::gfx::load(symbol::gFlatRotBlockDL),
+    oot::asset::gfx::load(symbol::gSmallCubeDL),
+    /* oot::asset::gfx::load(symbol::gHookshotPostDL) ? */ (Gfx*)0x06000211,
+    oot::asset::gfx::load(symbol::gGrassBladesDL),
+    oot::asset::gfx::load(symbol::gTreeStumpDL),
+    oot::asset::gfx::load(symbol::gSignRectangularDL),
+    oot::asset::gfx::load(symbol::gSignDirectionalDL),
+    oot::asset::gfx::load(symbol::gBoulderFragmentsDL),
 };
 
 void EnAObj_SetupAction(EnAObj* pthis, EnAObjActionFunc actionFunc) {

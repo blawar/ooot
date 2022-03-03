@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_daiku.h"
 #include "overlays/actors/ovl_En_GeldB/z_en_geldb.h"
-#include "objects/object_daiku/object_daiku.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -49,8 +49,8 @@ void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s
 
 static Vec3f D_809E4148_73 = { 0.0f, 0.0f, 120.0f };
 
-static Gfx* hairDLists_80[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
-                             object_daiku_DL_005880 };
+static Gfx* hairDLists_80[] = { oot::asset::gfx::load(symbol::object_daiku_DL_005BD0), oot::asset::gfx::load(symbol::object_daiku_DL_005AC0), oot::asset::gfx::load(symbol::object_daiku_DL_005990),
+                             oot::asset::gfx::load(symbol::object_daiku_DL_005880) };
 
 static Vec3f targetPosHeadLocal_80 = { 700, 1100, 0 };
 
@@ -126,9 +126,9 @@ static DamageTable sDamageTable = {
 };
 
 static EnDaikuAnimation sAnimations[] = {
-    { &object_daiku_Anim_001AB0, 1.0f, 0, 0 }, { &object_daiku_Anim_007DE0, 1.0f, 0, 0 },
-    { &object_daiku_Anim_00885C, 1.0f, 0, 0 }, { &object_daiku_Anim_000C44, 1.0f, 0, 0 },
-    { &object_daiku_Anim_008164, 1.0f, 0, 0 },
+    { oot::asset::anim::header::load(symbol::object_daiku_Anim_001AB0), 1.0f, 0, 0 }, { oot::asset::anim::header::load(symbol::object_daiku_Anim_007DE0), 1.0f, 0, 0 },
+    { oot::asset::anim::header::load(symbol::object_daiku_Anim_00885C), 1.0f, 0, 0 }, { oot::asset::anim::header::load(symbol::object_daiku_Anim_000C44), 1.0f, 0, 0 },
+    { oot::asset::anim::header::load(symbol::object_daiku_Anim_008164), 1.0f, 0, 0 },
 };
 
 static EnDaikuEscapeSubCamParam sEscapeSubCamParams[] = {
@@ -179,7 +179,7 @@ void EnDaiku_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.shape.rot.z = 0;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 40.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_daiku_Skel_007958, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_daiku_Skel_007958), NULL, pthis->jointTable, pthis->morphTable,
                        17);
 
     if (!noKill) {

@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_LMAP_MARK_C
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
-#include "textures/parameter_static/parameter_static.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_kaleido_manager.h"
@@ -26,8 +26,8 @@ typedef struct {
 } PauseMapMarkInfo; // size = 0x24
 
 static PauseMapMarkInfo sMapMarkInfoTable[] = {
-    { gMapChestIconTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 32, 32, 1 << 10, 1 << 10 },
-    { gMapBossIconTex, G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 32, 32, 1 << 10, 1 << 10 },
+    { oot::asset::texture::load(symbol::gMapChestIconTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 32, 32, 1 << 10, 1 << 10 },
+    { oot::asset::texture::load(symbol::gMapBossIconTex), G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 32, 32, 1 << 10, 1 << 10 },
 };
 
 static const u32 sBaseImageSizes[] = { 0, 1, 2, 3 };

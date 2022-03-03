@@ -7,8 +7,8 @@
  */
 
 #include "z_en_kanban.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_kanban/object_kanban.h"
+#include "asset.h"
+#include "asset.h"
 #include "vt.h"
 #include "hack.h"
 #include "def/audio_bank.h"
@@ -738,9 +738,9 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 static Gfx* sDisplayLists[] = {
-    object_kanban_DL_000CB0, object_kanban_DL_000DB8, object_kanban_DL_000E78, object_kanban_DL_000F38,
-    object_kanban_DL_000FF8, object_kanban_DL_0010B8, object_kanban_DL_0011C0, object_kanban_DL_0012C8,
-    object_kanban_DL_0013D0, object_kanban_DL_001488, object_kanban_DL_001540,
+    oot::asset::gfx::load(symbol::object_kanban_DL_000CB0), oot::asset::gfx::load(symbol::object_kanban_DL_000DB8), oot::asset::gfx::load(symbol::object_kanban_DL_000E78), oot::asset::gfx::load(symbol::object_kanban_DL_000F38),
+    oot::asset::gfx::load(symbol::object_kanban_DL_000FF8), oot::asset::gfx::load(symbol::object_kanban_DL_0010B8), oot::asset::gfx::load(symbol::object_kanban_DL_0011C0), oot::asset::gfx::load(symbol::object_kanban_DL_0012C8),
+    oot::asset::gfx::load(symbol::object_kanban_DL_0013D0), oot::asset::gfx::load(symbol::object_kanban_DL_001488), oot::asset::gfx::load(symbol::object_kanban_DL_001540),
 };
 
 #include "z_en_kanban_gfx.cpp"
@@ -756,8 +756,6 @@ static f32 sCutAngles[] = {
 
 static s32 sUnused[] = { 0, 0, 0 }; // Unused zero vector?
 
-#include "overlays/ovl_En_Kanban/ovl_En_Kanban.cpp"
-
 void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnKanban* pthis = (EnKanban*)thisx;
     f32 zShift;
@@ -768,7 +766,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_kanban.c", 1659);
     func_80093D18(globalCtx->state.gfxCtx);
     func_80093D84(globalCtx->state.gfxCtx);
-    gSPDisplayList(POLY_OPA_DISP++, object_kanban_DL_000C30);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_kanban_DL_000C30));
     if (pthis->actionState != ENKANBAN_SIGN) {
         Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
         Matrix_Scale(pthis->actor.scale.x, pthis->actor.scale.y, pthis->actor.scale.z, MTXMODE_APPLY);
@@ -797,7 +795,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_kanban.c", 1725),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         if (pthis->partFlags == 0xFFFF) {
-            gSPDisplayList(POLY_OPA_DISP++, gSignRectangularDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSignRectangularDL));
         } else {
             for (i = 0; i < ARRAY_COUNT(sPartFlags); i++) {
                 if (sPartFlags[i] & pthis->partFlags) {
@@ -816,7 +814,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 150, 0);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_kanban.c", 1773),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_kanban_DL_001630);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_kanban_DL_001630));
         }
     }
     if ((pthis->actor.projectedPos.z <= 400.0f) && (pthis->actor.projectedPos.z > 0.0f) &&
@@ -864,7 +862,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
                 }
             }
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(shadowTex));
-            gSPDisplayList(POLY_XLU_DISP++, sShadowDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sShadowDL));
         }
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_kanban.c", 1857);

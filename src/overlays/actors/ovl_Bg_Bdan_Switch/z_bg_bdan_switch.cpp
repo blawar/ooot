@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_bdan_switch.h"
-#include "objects/object_bdan_objects/object_bdan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/sys_matrix.h"
@@ -170,7 +170,7 @@ void BgBdanSwitch_Init(Actor* pthisx, GlobalContext* globalCtx) {
         case BLUE:
         case YELLOW_HEAVY:
         case YELLOW:
-            BgBdanSwitch_InitDynaPoly(pthis, globalCtx, &gJabuFloorSwitchCol, DPM_PLAYER);
+            BgBdanSwitch_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gJabuFloorSwitchCol), DPM_PLAYER);
             break;
         case YELLOW_TALL_1:
         case YELLOW_TALL_2:
@@ -534,16 +534,16 @@ void BgBdanSwitch_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     switch (pthis->dyna.actor.params & 0xFF) {
         case YELLOW_HEAVY:
         case YELLOW:
-            func_8086DF58(pthis, globalCtx, gJabuYellowFloorSwitchDL);
+            func_8086DF58(pthis, globalCtx, oot::asset::gfx::load(symbol::gJabuYellowFloorSwitchDL));
             break;
         case YELLOW_TALL_1:
         case YELLOW_TALL_2:
-            func_8086DF58(pthis, globalCtx, gJabuYellowFloorSwitchDL);
+            func_8086DF58(pthis, globalCtx, oot::asset::gfx::load(symbol::gJabuYellowFloorSwitchDL));
             Collider_UpdateSpheres(0, &pthis->collider);
             Matrix_MultVec3f(&D_8086E0E0, &pthis->dyna.actor.focus.pos);
             break;
         case BLUE:
-            func_8086DF58(pthis, globalCtx, gJabuBlueFloorSwitchDL);
+            func_8086DF58(pthis, globalCtx, oot::asset::gfx::load(symbol::gJabuBlueFloorSwitchDL));
             break;
     }
 }

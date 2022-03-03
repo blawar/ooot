@@ -7,8 +7,7 @@
  */
 
 #include "z_en_wallmas.h"
-#include "objects/object_wallmaster/object_wallmaster.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -140,7 +139,7 @@ void EnWallmas_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(thisx, sInitChain);
     ActorShape_Init(&thisx->shape, 0, NULL, 0.5f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gWallmasterSkel, &gWallmasterWaitAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gWallmasterSkel), oot::asset::anim::header::load(symbol::gWallmasterWaitAnim), pthis->jointTable,
                        pthis->morphTable, 25);
 
     Collider_InitCylinder(globalCtx, &pthis->collider);
@@ -184,9 +183,9 @@ void EnWallmas_TimerInit(EnWallmas* pthis, GlobalContext* globalCtx) {
 
 void EnWallmas_SetupDrop(EnWallmas* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
-    AnimationHeader* objSegChangee = &gWallmasterLungeAnim;
+    AnimationHeader* objSegChangee = oot::asset::anim::header::load(symbol::gWallmasterLungeAnim);
 
-    Animation_Change(&pthis->skelAnime, objSegChangee, 0.0f, 20.0f, Animation_GetLastFrame(&gWallmasterLungeAnim),
+    Animation_Change(&pthis->skelAnime, objSegChangee, 0.0f, 20.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWallmasterLungeAnim)),
                      ANIMMODE_ONCE, 0.0f);
 
     pthis->yTarget = player->actor.world.pos.y;
@@ -199,8 +198,8 @@ void EnWallmas_SetupDrop(EnWallmas* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWallmas_SetupLand(EnWallmas* pthis, GlobalContext* globalCtx) {
-    AnimationHeader* objSegFrameCount = &gWallmasterJumpAnim;
-    AnimationHeader* objSegChangee = &gWallmasterJumpAnim;
+    AnimationHeader* objSegFrameCount = oot::asset::anim::header::load(symbol::gWallmasterJumpAnim);
+    AnimationHeader* objSegChangee = oot::asset::anim::header::load(symbol::gWallmasterJumpAnim);
 
     Animation_Change(&pthis->skelAnime, objSegChangee, 1.0f, 41.0f, Animation_GetLastFrame(objSegFrameCount),
                      ANIMMODE_ONCE, -3.0f);
@@ -211,24 +210,24 @@ void EnWallmas_SetupLand(EnWallmas* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWallmas_SetupStand(EnWallmas* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gWallmasterStandUpAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterStandUpAnim));
     pthis->actionFunc = EnWallmas_Stand;
 }
 
 void EnWallmas_SetupWalk(EnWallmas* pthis) {
-    Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gWallmasterWalkAnim, 3.0f);
+    Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterWalkAnim), 3.0f);
     pthis->actionFunc = EnWallmas_Walk;
     pthis->actor.speedXZ = 3.0f;
 }
 
 void EnWallmas_SetupJumpToCeiling(EnWallmas* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gWallmasterStopWalkAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterStopWalkAnim));
     pthis->actionFunc = EnWallmas_JumpToCeiling;
     pthis->actor.speedXZ = 0.0f;
 }
 void EnWallmas_SetupReturnToCeiling(EnWallmas* pthis) {
-    AnimationHeader* objSegFrameCount = &gWallmasterJumpAnim;
-    AnimationHeader* objSegChangee = &gWallmasterJumpAnim;
+    AnimationHeader* objSegFrameCount = oot::asset::anim::header::load(symbol::gWallmasterJumpAnim);
+    AnimationHeader* objSegChangee = oot::asset::anim::header::load(symbol::gWallmasterJumpAnim);
 
     pthis->timer = 0;
     pthis->actor.speedXZ = 0.0f;
@@ -240,7 +239,7 @@ void EnWallmas_SetupReturnToCeiling(EnWallmas* pthis) {
 }
 
 void EnWallmas_SetupTakeDamage(EnWallmas* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gWallmasterDamageAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterDamageAnim), -3.0f);
     if (pthis->collider.info.acHitInfo->toucher.dmgFlags & 0x0001F824) {
         pthis->actor.world.rot.y = pthis->collider.base.ac->world.rot.y;
     } else {
@@ -254,7 +253,7 @@ void EnWallmas_SetupTakeDamage(EnWallmas* pthis) {
 }
 
 void EnWallmas_SetupCooldown(EnWallmas* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gWallmasterRecoverFromDamageAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterRecoverFromDamageAnim));
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.velocity.y = 0.0f;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -273,7 +272,7 @@ void EnWallmas_SetupDie(EnWallmas* pthis, GlobalContext* globalCtx) {
 }
 
 void EnWallmas_SetupTakePlayer(EnWallmas* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gWallmasterHoverAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterHoverAnim), -5.0f);
     pthis->timer = -0x1E;
     pthis->actionFunc = EnWallmas_TakePlayer;
     pthis->actor.speedXZ = 0.0f;
@@ -296,7 +295,7 @@ void EnWallmas_ProximityOrSwitchInit(EnWallmas* pthis) {
 }
 
 void EnWallmas_SetupStun(EnWallmas* pthis) {
-    Animation_Change(&pthis->skelAnime, &gWallmasterJumpAnim, 1.5f, 0, 20.0f, ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gWallmasterJumpAnim), 1.5f, 0, 20.0f, ANIMMODE_ONCE, -3.0f);
 
     pthis->actor.speedXZ = 0.0f;
     if (pthis->actor.colChkInfo.damageEffect == 4) {
@@ -621,7 +620,7 @@ void EnWallmas_DrawXlu(EnWallmas* pthis, GlobalContext* globalCtx) {
 
     Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1421), G_MTX_LOAD);
-    gSPDisplayList(POLY_XLU_DISP++, gCircleShadowDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCircleShadowDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1426);
 }
@@ -651,7 +650,7 @@ void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
         Matrix_Scale(2.0f, 2.0f, 2.0f, MTXMODE_APPLY);
 
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1489), G_MTX_LOAD);
-        gSPDisplayList(POLY_OPA_DISP++, gWallmasterFingerDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gWallmasterFingerDL));
 
         Matrix_Pop();
 

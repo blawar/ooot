@@ -7,7 +7,7 @@
  */
 
 #include "z_door_gerudo.h"
-#include "objects/object_door_gerudo/object_door_gerudo.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -52,7 +52,7 @@ void DoorGerudo_Init(Actor* thisx, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
-    CollisionHeader_GetVirtual(&gGerudoCellDoorCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gGerudoCellDoorCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
 
     if (Flags_GetSwitch(globalCtx, thisx->params & 0x3F)) {
@@ -160,7 +160,7 @@ void DoorGerudo_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_gerudo.c", 365),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gGerudoCellDoorDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGerudoCellDoorDL));
 
     if (pthis->unk_166 != 0) {
         Matrix_Scale(0.01f, 0.01f, 0.025f, MTXMODE_APPLY);

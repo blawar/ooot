@@ -1,9 +1,8 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_FR_Z_EN_FR_C
 #include "actor_common.h"
 #include "z_en_fr.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "vt.h"
-#include "objects/object_fr/object_fr.h"
 #include "z64audio.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
@@ -67,8 +66,8 @@ void EnFr_GiveReward(EnFr* pthis, GlobalContext* globalCtx);
 void EnFr_SetIdle(EnFr* pthis, GlobalContext* globalCtx);
 
 static void* eyeTextures_137[] = {
-    object_fr_Tex_0059A0,
-    object_fr_Tex_005BA0,
+    oot::asset::texture::load(symbol::object_fr_Tex_0059A0),
+    oot::asset::texture::load(symbol::object_fr_Tex_005BA0),
 };
 
 
@@ -283,10 +282,10 @@ void EnFr_Update(Actor* thisx, GlobalContext* globalCtx) {
         sEnFrPointers.frogs[frogIndex] = pthis;
         Actor_ProcessInitChain(&pthis->actor, sInitChain);
         // frog
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_fr_Skel_00B498, &object_fr_Anim_001534,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_fr_Skel_00B498), oot::asset::anim::header::load(symbol::object_fr_Anim_001534),
                            pthis->jointTable, pthis->morphTable, 24);
         // butterfly
-        SkelAnime_Init(globalCtx, &pthis->skelAnimeButterfly, &gButterflySkel, &gButterflyAnim,
+        SkelAnime_Init(globalCtx, &pthis->skelAnimeButterfly, oot::asset::skel::header2::load(symbol::gButterflySkel), oot::asset::anim::header::load(symbol::gButterflyAnim),
                        pthis->jointTableButterfly, pthis->morphTableButterfly, 8);
         // When playing the song for the HP, the frog with the next note and the butterfly turns on its lightsource
         pthis->lightNode = LightContext_InsertLight(globalCtx, &globalCtx->lightCtx, &pthis->lightInfo);
@@ -402,8 +401,8 @@ void EnFr_DecrementBlinkTimerUpdate(EnFr* pthis) {
 
 void EnFr_SetupJumpingOutOfWater(EnFr* pthis, GlobalContext* globalCtx) {
     if (sEnFrPointers.flags == sTimerJumpingOutOfWater[pthis->actor.params - 1]) {
-        Animation_Change(&pthis->skelAnime, &object_fr_Anim_0007BC, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_fr_Anim_0007BC), ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_fr_Anim_0007BC), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_fr_Anim_0007BC)), ANIMMODE_ONCE, 0.0f);
         EnFr_DrawActive(pthis);
         pthis->actionFunc = EnFr_JumpingOutOfWater;
     }
@@ -451,20 +450,20 @@ void EnFr_OrientOnLogSpot(EnFr* pthis, GlobalContext* globalCtx) {
     if ((rotYRemaining == 0) && (pthis->skelAnime.curFrame == pthis->skelAnime.endFrame)) {
         sEnFrPointers.flags++;
         pthis->actionFunc = EnFr_ChooseJumpFromLogSpot;
-        Animation_Change(&pthis->skelAnime, &object_fr_Anim_001534, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_fr_Anim_001534), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_fr_Anim_001534), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_fr_Anim_001534)), ANIMMODE_LOOP, 0.0f);
     }
 }
 
 void EnFr_ChooseJumpFromLogSpot(EnFr* pthis, GlobalContext* globalCtx) {
     if (sEnFrPointers.flags == 12) {
         pthis->actor.world.rot.y = ((f32)0x8000 / M_PI) * sLogSpotToFromWater[pthis->actor.params].yaw;
-        Animation_Change(&pthis->skelAnime, &object_fr_Anim_0007BC, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_fr_Anim_0007BC), ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_fr_Anim_0007BC), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_fr_Anim_0007BC)), ANIMMODE_ONCE, 0.0f);
         pthis->actionFunc = EnFr_JumpingBackIntoWater;
     } else if (pthis->isJumpingUp) {
-        Animation_Change(&pthis->skelAnime, &object_fr_Anim_0007BC, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_fr_Anim_0007BC), ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_fr_Anim_0007BC), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_fr_Anim_0007BC)), ANIMMODE_ONCE, 0.0f);
         pthis->actionFunc = EnFr_JumpingUp;
     }
 }
@@ -486,8 +485,8 @@ void EnFr_JumpingUp(EnFr* pthis, GlobalContext* globalCtx) {
     if (EnFr_IsBelowLogSpot(pthis, &yDistToLogSpot)) {
         pthis->isJumpingUp = false;
         pthis->actor.gravity = 0.0f;
-        Animation_Change(&pthis->skelAnime, &object_fr_Anim_0011C0, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_fr_Anim_0011C0), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_fr_Anim_0011C0), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_fr_Anim_0011C0)), ANIMMODE_LOOP, 0.0f);
         pthis->actionFunc = EnFr_ChooseJumpFromLogSpot;
     } else if ((pthis->actor.velocity.y <= 0.0f) && (yDistToLogSpot < 40.0f)) {
         pthis->skelAnime.playSpeed = 1.0f;
@@ -508,8 +507,8 @@ void EnFr_JumpingBackIntoWater(EnFr* pthis, GlobalContext* globalCtx) {
 
     // Final Spot Reached
     if ((pthis->actor.velocity.y < 0.0f) && (pthis->actor.world.pos.y < yUnderwater)) {
-        Animation_Change(&pthis->skelAnime, &object_fr_Anim_001534, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_fr_Anim_001534), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_fr_Anim_001534), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_fr_Anim_001534)), ANIMMODE_LOOP, 0.0f);
         pthis->actionFunc = EnFr_SetupJumpingOutOfWater;
         EnFr_DrawIdle(pthis);
         pthis->isDeactivating = true;

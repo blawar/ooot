@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EFC_ERUPC_Z_EFC_ERUPC_C
 #include "actor_common.h"
 #include "z_efc_erupc.h"
-#include "objects/object_efc_erupc/object_efc_erupc.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -147,7 +147,7 @@ void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     if (globalCtx->csCtx.state != 0) {
         if ((globalCtx->csCtx.npcActions[1] != 0) && (globalCtx->csCtx.npcActions[1]->action == 2)) {
-            gSPDisplayList(POLY_XLU_DISP++, object_efc_erupc_DL_002570);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_efc_erupc_DL_002570));
         }
     }
     Matrix_Pop();
@@ -161,7 +161,7 @@ void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx) {
             if ((csAction == 2) || (csAction == 3)) {
                 gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 200, 255);
                 gDPSetEnvColor(POLY_XLU_DISP++, 100, 0, 0, 255);
-                gSPDisplayList(POLY_XLU_DISP++, object_efc_erupc_DL_001720);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_efc_erupc_DL_001720));
             }
         }
     }
@@ -178,7 +178,7 @@ void EfcErupc_DrawParticles(EfcErupcParticles* particles, GlobalContext* globalC
     for (i = 0; i < EFC_ERUPC_NUM_PARTICLES; i++, particles++) {
         if (particles->isActive) {
             func_80093D84(globalCtx->state.gfxCtx);
-            gSPDisplayList(POLY_XLU_DISP++, object_efc_erupc_DL_002760);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_efc_erupc_DL_002760));
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, particles->color.r, particles->color.g, particles->color.b,
                             particles->alpha);
             gDPSetEnvColor(POLY_XLU_DISP++, 150, 0, 0, 0);
@@ -188,7 +188,7 @@ void EfcErupc_DrawParticles(EfcErupcParticles* particles, GlobalContext* globalC
             Matrix_Scale(particles->scale, particles->scale, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_efc_erupc.c", 393),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_efc_erupc_DL_0027D8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_efc_erupc_DL_0027D8));
         }
     }
     CLOSE_DISPS(gfxCtx, "../z_efc_erupc.c", 399);

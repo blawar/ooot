@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ydan_sp.h"
-#include "objects/object_ydan_objects/object_ydan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -121,7 +121,7 @@ void BgYdanSp_Init(Actor* thisx, GlobalContext* globalCtx) {
     Collider_InitTris(globalCtx, &pthis->trisCollider);
     Collider_SetTris(globalCtx, &pthis->trisCollider, &pthis->dyna.actor, &sTrisInit, pthis->trisColliderItems);
     if (pthis->dyna.actor.params == WEB_FLOOR) {
-        CollisionHeader_GetVirtual(&gDTWebFloorCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDTWebFloorCol), &colHeader);
         pthis->actionFunc = BgYdanSp_FloorWebIdle;
 
         for (i = 0; i < 3; i++) {
@@ -136,7 +136,7 @@ void BgYdanSp_Init(Actor* thisx, GlobalContext* globalCtx) {
         Collider_SetTrisVertices(&pthis->trisCollider, 1, &tri[0], &tri[2], &tri[1]);
         pthis->unk16C = 0.0f;
     } else {
-        CollisionHeader_GetVirtual(&gDTWebWallCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDTWebWallCol), &colHeader);
         pthis->actionFunc = BgYdanSp_WallWebIdle;
         Actor_SetFocus(&pthis->dyna.actor, 30.0f);
         sinsY = Math_SinS(pthis->dyna.actor.shape.rot.y);
@@ -176,7 +176,7 @@ void BgYdanSp_UpdateFloorWebCollision(BgYdanSp* pthis) {
     s16 newY;
     CollisionHeader* colHeader;
 
-    colHeader = SEGMENTED_TO_VIRTUAL(&gDTWebFloorCol);
+    colHeader = SEGMENTED_TO_VIRTUAL(oot::asset::collision::header::load(symbol::gDTWebFloorCol));
     colHeader->vtxList = SEGMENTED_TO_VIRTUAL(colHeader->vtxList);
     newY = (pthis->dyna.actor.home.pos.y - pthis->dyna.actor.world.pos.y) * 10;
     colHeader->vtxList[14].y = newY;
@@ -444,7 +444,7 @@ void BgYdanSp_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->params == WEB_WALL) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ydan_sp.c", 787),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gDTWebWallDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDTWebWallDL));
     } else if (pthis->actionFunc == BgYdanSp_FloorWebBroken) {
         Matrix_Get(&mtxF);
         if (pthis->timer == 40) {
@@ -452,7 +452,7 @@ void BgYdanSp_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Scale(1.0f, ((thisx->home.pos.y - thisx->world.pos.y) + 10.0f) * 0.1f, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ydan_sp.c", 808),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gDTWebFloorDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDTWebFloorDL));
         }
         for (i = 0; i < 8; i++) {
             Matrix_Put(&mtxF);
@@ -461,14 +461,14 @@ void BgYdanSp_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Scale(3.5f, 5.0f, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ydan_sp.c", 830),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gDTUnknownWebDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDTUnknownWebDL));
         }
     } else {
         Matrix_Translate(0.0f, (thisx->home.pos.y - thisx->world.pos.y) * 10.0f, 0.0f, MTXMODE_APPLY);
         Matrix_Scale(1.0f, ((thisx->home.pos.y - thisx->world.pos.y) + 10.0f) * 0.1f, 1.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ydan_sp.c", 849),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gDTWebFloorDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDTWebFloorDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ydan_sp.c", 856);

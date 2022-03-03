@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DEKUBABA_Z_EN_DEKUBABA_C
 #include "actor_common.h"
 #include "z_en_dekubaba.h"
-#include "objects/object_dekubaba/object_dekubaba.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -44,7 +43,7 @@ static Color_RGBA8 primColor_49 = { 105, 255, 105, 255 };
 
 static Color_RGBA8 envColor_49 = { 150, 250, 150, 0 };
 
-static Gfx* stemDLists_55[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
+static Gfx* stemDLists_55[] = { oot::asset::gfx::load(symbol::gDekuBabaStemTopDL), oot::asset::gfx::load(symbol::gDekuBabaStemMiddleDL), oot::asset::gfx::load(symbol::gDekuBabaStemBaseDL) };
 
 
 static Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
@@ -239,7 +238,7 @@ void EnDekubaba_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 22.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDekuBabaSkel, &gDekuBabaFastChompAnim, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gDekuBabaSkel), oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), pthis->jointTable,
                    pthis->morphTable, 8);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colliderElements);
@@ -329,9 +328,9 @@ void EnDekubaba_SetupWait(EnDekubaba* pthis) {
 void EnDekubaba_SetupGrow(EnDekubaba* pthis) {
     s32 i;
 
-    Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim,
-                     Animation_GetLastFrame(&gDekuBabaFastChompAnim) * (1.0f / 15), 0.0f,
-                     Animation_GetLastFrame(&gDekuBabaFastChompAnim), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim),
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)) * (1.0f / 15), 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)), ANIMMODE_ONCE, 0.0f);
 
     pthis->timer = 15;
 
@@ -348,7 +347,7 @@ void EnDekubaba_SetupGrow(EnDekubaba* pthis) {
 void EnDekubaba_SetupRetract(EnDekubaba* pthis) {
     s32 i;
 
-    Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, -1.5f, Animation_GetLastFrame(&gDekuBabaFastChompAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), -1.5f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)),
                      0.0f, ANIMMODE_ONCE, -3.0f);
 
     pthis->timer = 15;
@@ -361,8 +360,8 @@ void EnDekubaba_SetupRetract(EnDekubaba* pthis) {
 }
 
 void EnDekubaba_SetupDecideLunge(EnDekubaba* pthis) {
-    pthis->timer = Animation_GetLastFrame(&gDekuBabaFastChompAnim) * 2;
-    Animation_MorphToLoop(&pthis->skelAnime, &gDekuBabaFastChompAnim, -3.0f);
+    pthis->timer = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)) * 2;
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), -3.0f);
     pthis->actionFunc = EnDekubaba_DecideLunge;
 }
 
@@ -373,14 +372,14 @@ void EnDekubaba_SetupPrepareLunge(EnDekubaba* pthis) {
 }
 
 void EnDekubaba_SetupLunge(EnDekubaba* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gDekuBabaPauseChompAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaPauseChompAnim));
     pthis->timer = 0;
     pthis->actionFunc = EnDekubaba_Lunge;
 }
 
 void EnDekubaba_SetupPullBack(EnDekubaba* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDekuBabaPauseChompAnim, 1.0f, 15.0f,
-                     Animation_GetLastFrame(&gDekuBabaPauseChompAnim), ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaPauseChompAnim), 1.0f, 15.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaPauseChompAnim)), ANIMMODE_ONCE, -3.0f);
     pthis->timer = 0;
     pthis->actionFunc = EnDekubaba_PullBack;
 }
@@ -393,7 +392,7 @@ void EnDekubaba_SetupRecover(EnDekubaba* pthis) {
 }
 
 void EnDekubaba_SetupHit(EnDekubaba* pthis, s32 arg1) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gDekuBabaPauseChompAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaPauseChompAnim), -5.0f);
     pthis->timer = arg1;
     pthis->collider.base.acFlags &= ~AC_ON;
     Actor_SetScale(&pthis->actor, pthis->size * 0.01f);
@@ -420,7 +419,7 @@ void EnDekubaba_SetupPrunedSomersault(EnDekubaba* pthis) {
 }
 
 void EnDekubaba_SetupShrinkDie(EnDekubaba* pthis) {
-    Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, -1.5f, Animation_GetLastFrame(&gDekuBabaFastChompAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), -1.5f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)),
                      0.0f, ANIMMODE_ONCE, -3.0f);
     pthis->collider.base.acFlags &= ~AC_ON;
     pthis->actionFunc = EnDekubaba_ShrinkDie;
@@ -434,12 +433,12 @@ void EnDekubaba_SetupStunnedVertical(EnDekubaba* pthis) {
     }
 
     if (pthis->timer == 1) {
-        Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, 4.0f, 0.0f,
-                         Animation_GetLastFrame(&gDekuBabaFastChompAnim), ANIMMODE_LOOP, -3.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), 4.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)), ANIMMODE_LOOP, -3.0f);
         pthis->timer = 40;
     } else {
-        Animation_Change(&pthis->skelAnime, &gDekuBabaFastChompAnim, 0.0f, 0.0f,
-                         Animation_GetLastFrame(&gDekuBabaFastChompAnim), ANIMMODE_LOOP, -3.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), 0.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim)), ANIMMODE_LOOP, -3.0f);
         pthis->timer = 60;
     }
 
@@ -702,7 +701,7 @@ void EnDekubaba_Lunge(EnDekubaba* pthis, GlobalContext* globalCtx) {
         allStepsDone &= Math_ScaledStepToS(&pthis->stemSectionAngle[2], -0xE38, curFrame10 + 0xE38);
 
         if (allStepsDone) {
-            Animation_PlayLoopSetSpeed(&pthis->skelAnime, &gDekuBabaFastChompAnim, 4.0f);
+            Animation_PlayLoopSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDekuBabaFastChompAnim), 4.0f);
             velocity.x = Math_SinS(pthis->actor.shape.rot.y) * 5.0f;
             velocity.y = 0.0f;
             velocity.z = Math_CosS(pthis->actor.shape.rot.y) * 5.0f;
@@ -1168,7 +1167,7 @@ void EnDekubaba_DrawStemRetracted(EnDekubaba* pthis, GlobalContext* globalCtx) {
     Matrix_Scale(horizontalScale, horizontalScale, horizontalScale, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2461),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gDekuBabaStemTopDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaStemTopDL));
 
     Actor_SetFocus(&pthis->actor, 0.0f);
 
@@ -1247,7 +1246,7 @@ void EnDekubaba_DrawStemBasePruned(EnDekubaba* pthis, GlobalContext* globalCtx) 
     Matrix_RotateZYX(pthis->stemSectionAngle[2], pthis->actor.shape.rot.y, 0, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2586),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gDekuBabaStemBaseDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaStemBaseDL));
 
     Collider_UpdateSpheres(55, &pthis->collider);
     Collider_UpdateSpheres(56, &pthis->collider);
@@ -1270,7 +1269,7 @@ void EnDekubaba_DrawBaseShadow(EnDekubaba* pthis, GlobalContext* globalCtx) {
     Matrix_Scale(horizontalScale, 1.0f, horizontalScale, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2710),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gCircleShadowDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCircleShadowDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2715);
 }
 
@@ -1306,7 +1305,7 @@ void EnDekubaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2780),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gDekuBabaBaseLeavesDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaBaseLeavesDL));
 
         if (pthis->actionFunc == EnDekubaba_PrunedSomersault) {
             EnDekubaba_DrawStemBasePruned(pthis, globalCtx);
@@ -1321,7 +1320,7 @@ void EnDekubaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Translate(0.0f, 0.0f, 200.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2797),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gDekuBabaStickDropDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDekuBabaStickDropDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2804);

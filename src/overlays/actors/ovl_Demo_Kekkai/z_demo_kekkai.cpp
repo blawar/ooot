@@ -7,8 +7,7 @@
  */
 
 #include "z_demo_kekkai.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
-#include "scenes/dungeons/ganontika/ganontika_scene.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -250,12 +249,12 @@ void DemoKekkai_TrialBarrierDispel(Actor* thisx, GlobalContext* globalCtx) {
 
 static CutsceneData* sSageCutscenes[] = {
     NULL,
-    gWaterTrialSageCs,
-    gLightTrialSageCs,
-    gFireTrialSageCs,
-    gShadowTrialSageCs,
-    gSpiritTrialSageCs,
-    gForestTrialSageCs,
+    oot::asset::cutscene::data::load(symbol::gWaterTrialSageCs),
+    oot::asset::cutscene::data::load(symbol::gLightTrialSageCs),
+    oot::asset::cutscene::data::load(symbol::gFireTrialSageCs),
+    oot::asset::cutscene::data::load(symbol::gShadowTrialSageCs),
+    oot::asset::cutscene::data::load(symbol::gSpiritTrialSageCs),
+    oot::asset::cutscene::data::load(symbol::gForestTrialSageCs),
 };
 
 void DemoKekkai_TrialBarrierIdle(Actor* thisx, GlobalContext* globalCtx) {
@@ -291,7 +290,7 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx2) {
     s32 colorIndex;
     DemoKekkai* pthis = (DemoKekkai*)thisx;
     u8 alphas[3];
-    Vtx* energyVtx = SEGMENTED_TO_VIRTUAL(gTrialBarrierEnergyVtx);
+    Vtx* energyVtx = SEGMENTED_TO_VIRTUAL(oot::asset::vtx::load(symbol::gTrialBarrierEnergyVtx));
     s32 i;
 
     if (pthis->orbScale != 0.0f) {
@@ -314,7 +313,7 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx2) {
         gSPSegment(POLY_XLU_DISP++, 0x09,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 5, frames * -10, 0x20, 0x20, 1, frames * 5,
                                     frames * -10, 0x20, 0x20));
-        gSPDisplayList(POLY_XLU_DISP++, gTrialBarrierOrbDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gTrialBarrierOrbDL));
         Matrix_Pop();
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 656),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -322,7 +321,7 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx2) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x80, 50, 0, 100, 255);
         gSPSegment(POLY_XLU_DISP++, 0x0A,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x20, 1, frames, frames, 0x20, 0x20));
-        gSPDisplayList(POLY_XLU_DISP++, gTrialBarrierFloorDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gTrialBarrierFloorDL));
         gDPPipeSync(POLY_XLU_DISP++);
         gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x80, sEnergyColors[colorIndex + 0], sEnergyColors[colorIndex + 1],
                         sEnergyColors[colorIndex + 2], 255);
@@ -331,7 +330,7 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx2) {
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 5, frames * -10, 0x20, 0x20, 1, frames * 5,
                                     frames * -10, 0x20, 0x40));
-        gSPDisplayList(POLY_XLU_DISP++, gTrialBarrierEnergyDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gTrialBarrierEnergyDL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 696);
     }
 }
@@ -350,7 +349,7 @@ void DemoKekkai_DrawTowerBarrier(Actor* thisx, GlobalContext* globalCtx) {
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 2, scroll * -4, 0x20, 0x40, 1, scroll * 2,
                                 scroll * -4, 0x20, 0x40));
-    gSPDisplayList(POLY_XLU_DISP++, gTowerBarrierDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gTowerBarrierDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 722);
 }
 

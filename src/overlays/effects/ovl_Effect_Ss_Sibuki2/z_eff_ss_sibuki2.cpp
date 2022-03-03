@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_sibuki2.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 
@@ -56,9 +56,9 @@ u32 EffectSsSibuki2_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
 
 void EffectSsSibuki2_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* bubbleTextures[] = {
-        gEffUnusedBubbles1Tex, gEffUnusedBubbles1Tex, gEffUnusedBubbles2Tex,
-        gEffUnusedBubbles3Tex, gEffUnusedBubbles4Tex, gEffUnusedBubbles5Tex,
-        gEffUnusedBubbles6Tex, gEffUnusedBubbles7Tex, gEffUnusedBubbles8Tex,
+        oot::asset::texture::load(symbol::gEffUnusedBubbles1Tex), oot::asset::texture::load(symbol::gEffUnusedBubbles1Tex), oot::asset::texture::load(symbol::gEffUnusedBubbles2Tex),
+        oot::asset::texture::load(symbol::gEffUnusedBubbles3Tex), oot::asset::texture::load(symbol::gEffUnusedBubbles4Tex), oot::asset::texture::load(symbol::gEffUnusedBubbles5Tex),
+        oot::asset::texture::load(symbol::gEffUnusedBubbles6Tex), oot::asset::texture::load(symbol::gEffUnusedBubbles7Tex), oot::asset::texture::load(symbol::gEffUnusedBubbles8Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     f32 scale = pthis->rScale / 100.0f;
@@ -73,7 +73,7 @@ void EffectSsSibuki2_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) 
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, pthis->rPrimColorA);
     gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, pthis->rEnvColorA);
     gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(bubbleTextures[pthis->rTexIdx]));
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gEffUnusedBubblesDL));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffUnusedBubblesDL)));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_ss_sibuki2.c", 198);
 }

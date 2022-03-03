@@ -8,7 +8,7 @@
 
 #include "z_obj_oshihiki.h"
 #include "overlays/actors/ovl_Obj_Switch/z_obj_switch.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -219,7 +219,7 @@ void ObjOshihiki_CheckType(ObjOshihiki* pthis, GlobalContext* globalCtx) {
         case PUSHBLOCK_MEDIUM_START_OFF:
         case PUSHBLOCK_LARGE_START_OFF:
         case PUSHBLOCK_HUGE_START_OFF:
-            ObjOshihiki_InitDynapoly(pthis, globalCtx, &gPushBlockCol, 1);
+            ObjOshihiki_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gPushBlockCol), 1);
             break;
         default:
             // "Error : type cannot be determined"
@@ -239,15 +239,15 @@ void ObjOshihiki_SetTexture(ObjOshihiki* pthis, GlobalContext* globalCtx) {
         case PUSHBLOCK_MEDIUM_START_ON:
         case PUSHBLOCK_SMALL_START_OFF:
         case PUSHBLOCK_MEDIUM_START_OFF:
-            pthis->texture = gPushBlockSilverTex;
+            pthis->texture = oot::asset::texture::load(symbol::gPushBlockSilverTex);
             break;
         case PUSHBLOCK_LARGE_START_ON:
         case PUSHBLOCK_LARGE_START_OFF:
-            pthis->texture = gPushBlockBaseTex;
+            pthis->texture = oot::asset::texture::load(symbol::gPushBlockBaseTex);
             break;
         case PUSHBLOCK_HUGE_START_ON:
         case PUSHBLOCK_HUGE_START_OFF:
-            pthis->texture = gPushBlockGrayTex;
+            pthis->texture = oot::asset::texture::load(symbol::gPushBlockGrayTex);
             break;
     }
 }
@@ -691,7 +691,7 @@ void ObjOshihiki_Draw(Actor* thisx, GlobalContext* globalCtx) {
             break;
     }
 
-    gSPDisplayList(POLY_OPA_DISP++, gPushBlockDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPushBlockDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_oshihiki.c", 1334);
 }
 

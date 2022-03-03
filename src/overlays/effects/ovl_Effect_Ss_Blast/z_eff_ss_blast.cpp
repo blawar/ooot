@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_blast.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_lib.h"
 #include "def/z_play.h"
@@ -42,7 +42,7 @@ u32 EffectSsBlast_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
     pthis->pos.y += 5.0f;
     pthis->velocity = initParams->velocity;
     pthis->accel = initParams->accel;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffShockwaveDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffShockwaveDL));
     pthis->life = initParams->life;
     pthis->draw = EffectSsBlast_Draw;
     pthis->update = EffectSsBlast_Update;

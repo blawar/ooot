@@ -8,7 +8,7 @@
 
 #include "z_bg_hidan_hamstep.h"
 #include "framerate.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/sys_matrix.h"
@@ -166,9 +166,9 @@ void BgHidanHamstep_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     if ((pthis->dyna.actor.params & 0xFF) == 0) {
-        CollisionHeader_GetVirtual(&gFireTempleStoneStep1Col, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStoneStep1Col), &colHeader);
     } else {
-        CollisionHeader_GetVirtual(&gFireTempleStoneStep2Col, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStoneStep2Col), &colHeader);
     }
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -418,9 +418,9 @@ void BgHidanHamstep_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if ((thisx->params & 0xFF) == 0) {
-        gSPDisplayList(POLY_OPA_DISP++, gFireTempleStoneStep1DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleStoneStep1DL));
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, gFireTempleStoneStep2DL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleStoneStep2DL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_hamstep.c", 796);

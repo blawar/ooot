@@ -7,7 +7,7 @@
  */
 
 #include "z_demo_geff.h"
-#include "objects/object_geff/object_geff.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -99,8 +99,6 @@ void func_80977F80(DemoGeff* pthis, GlobalContext* globalCtx) {
 
     OPEN_DISPS(gfxCtx, "../z_demo_geff.c", 204);
 
-    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[objBankIndex].vromStart.get());
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[objBankIndex].vromStart.get());
 
     // Necessary to match
     if (!globalCtx) {}
@@ -178,7 +176,7 @@ void func_80978308(DemoGeff* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80978344(DemoGeff* pthis, GlobalContext* globalCtx) {
-    func_80977EA8(globalCtx, gGanonRubbleDL);
+    func_80977EA8(globalCtx, oot::asset::gfx::load(symbol::gGanonRubbleDL));
 }
 
 void func_80978370(DemoGeff* pthis, GlobalContext* globalCtx) {

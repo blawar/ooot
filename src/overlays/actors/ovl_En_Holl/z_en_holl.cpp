@@ -330,7 +330,7 @@ void EnHoll_Update(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actionFunc(pthis, globalCtx);
 }
 
-#include "overlays/ovl_En_Holl/ovl_En_Holl.cpp"
+#include "asset.h"
 
 void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnHoll* pthis = (EnHoll*)thisx;
@@ -356,7 +356,7 @@ void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPMatrix(gfxP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_holl.c", 824),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gDPSetPrimColor(gfxP++, 0, 0, 0, 0, 0, (u8)pthis->planeAlpha);
-        gSPDisplayList(gfxP++, sPlaneDL);
+        gSPDisplayList(gfxP++, oot::asset::gfx::load(symbol::sEnHollPlaneDL));
 
         if (pthis->planeAlpha == 255) {
             POLY_OPA_DISP = gfxP;

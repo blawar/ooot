@@ -7,7 +7,7 @@
  */
 
 #include "z_en_mag.h"
-#include "objects/object_mag/object_mag.h"
+#include "asset.h"
 #include "def/environment_flags.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -39,9 +39,9 @@ static u8 pressStartFontIndexes_28[] = {
 };
 
 static void* effectMaskTextures_28[] = {
-    gTitleEffectMask00Tex, gTitleEffectMask01Tex, gTitleEffectMask02Tex,
-    gTitleEffectMask10Tex, gTitleEffectMask11Tex, gTitleEffectMask12Tex,
-    gTitleEffectMask20Tex, gTitleEffectMask21Tex, gTitleEffectMask22Tex,
+    oot::asset::texture::load(symbol::gTitleEffectMask00Tex), oot::asset::texture::load(symbol::gTitleEffectMask01Tex), oot::asset::texture::load(symbol::gTitleEffectMask02Tex),
+    oot::asset::texture::load(symbol::gTitleEffectMask10Tex), oot::asset::texture::load(symbol::gTitleEffectMask11Tex), oot::asset::texture::load(symbol::gTitleEffectMask12Tex),
+    oot::asset::texture::load(symbol::gTitleEffectMask20Tex), oot::asset::texture::load(symbol::gTitleEffectMask21Tex), oot::asset::texture::load(symbol::gTitleEffectMask22Tex),
 };
 
 
@@ -446,7 +446,6 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
     u16 rectLeft;
     u16 rectTop;
 
-    gSPSegment(gfx++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
 
     func_8009457C(&gfx);
 
@@ -466,7 +465,7 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
     if ((s16)pthis->effectPrimLodFrac != 0) {
         for (k = 0, i = 0, rectTop = 0; i < 3; i++, rectTop += 64) {
             for (j = 0, rectLeft = 56; j < 3; j++, k++, rectLeft += 64) {
-                EnMag_DrawEffectTextures(&gfx, effectMaskTextures_28[k], gTitleFlameEffectTex, 64, 64, 32, 32, rectLeft,
+                EnMag_DrawEffectTextures(&gfx, effectMaskTextures_28[k], oot::asset::texture::load(symbol::gTitleFlameEffectTex), 64, 64, 32, 32, rectLeft,
                                          rectTop, 64, 64, 1024, 1024, 1, 1, k, pthis);
             }
         }
@@ -476,7 +475,7 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
 
     if ((s16)pthis->mainAlpha != 0) {
 #ifndef RETAIL
-        EnMag_DrawImageRGBA32(&gfx, 152, 100, (u8*)gTitleZeldaShieldLogoMQTex, 160, 160);
+        EnMag_DrawImageRGBA32(&gfx, 152, 100, (u8*)oot::asset::texture::load(symbol::gTitleZeldaShieldLogoMQTex), 160, 160);
 #else
 	    EnMag_DrawImageRGBA32(&gfx, 152, 100, (u8*)gTitleZeldaShieldLogoTex, 160, 160);
 #endif
@@ -499,8 +498,8 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
     gDPSetEnvColor(gfx++, 0, 0, 100, 255);
 
     if ((s16)pthis->mainAlpha != 0) {
-        EnMag_DrawTextureI8(&gfx, gTitleTheLegendOfTextTex, 72, 8, 146, 73, 72, 8, 1024, 1024);
-        EnMag_DrawTextureI8(&gfx, gTitleOcarinaOfTimeTMTextTex, 96, 8, 144, 127, 96, 8, 1024, 1024);
+        EnMag_DrawTextureI8(&gfx, oot::asset::texture::load(symbol::gTitleTheLegendOfTextTex), 72, 8, 146, 73, 72, 8, 1024, 1024);
+        EnMag_DrawTextureI8(&gfx, oot::asset::texture::load(symbol::gTitleOcarinaOfTimeTMTextTex), 96, 8, 144, 127, 96, 8, 1024, 1024);
 
         gDPPipeSync(gfx++);
 #ifndef RETAIL
@@ -511,14 +510,14 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
 	    gDPSetEnvColor(gfx++, 100, 100, 50, 255);
 #endif
 
-        EnMag_DrawTextureI8(&gfx, gTitleTheLegendOfTextTex, 72, 8, 145, 72, 72, 8, 1024, 1024);
-        EnMag_DrawTextureI8(&gfx, gTitleOcarinaOfTimeTMTextTex, 96, 8, 143, 126, 96, 8, 1024, 1024);
+        EnMag_DrawTextureI8(&gfx, oot::asset::texture::load(symbol::gTitleTheLegendOfTextTex), 72, 8, 145, 72, 72, 8, 1024, 1024);
+        EnMag_DrawTextureI8(&gfx, oot::asset::texture::load(symbol::gTitleOcarinaOfTimeTMTextTex), 96, 8, 143, 126, 96, 8, 1024, 1024);
 
         gDPPipeSync(gfx++);
         gDPSetPrimColor(gfx++, 0, 0, 255, 255, 255, (s16)pthis->subAlpha);
 
 #ifndef RETAIL
-        EnMag_DrawImageRGBA32(&gfx, 174, 145, (u8*)gTitleMasterQuestSubtitleTex, 128, 32);
+        EnMag_DrawImageRGBA32(&gfx, 174, 145, (u8*)oot::asset::texture::load(symbol::gTitleMasterQuestSubtitleTex), 128, 32);
 #endif
     }
 
@@ -532,7 +531,7 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
 
     if ((s16)pthis->copyrightAlpha != 0) {
 #ifndef RETAIL
-        gDPLoadTextureBlock(gfx++, gTitleCopyright19982003Tex, G_IM_FMT_IA, G_IM_SIZ_8b, 160, 16, 0,
+        gDPLoadTextureBlock(gfx++, oot::asset::texture::load(symbol::gTitleCopyright19982003Tex), G_IM_FMT_IA, G_IM_SIZ_8b, 160, 16, 0,
                             G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK,
                             G_TX_NOLOD, G_TX_NOLOD);
 

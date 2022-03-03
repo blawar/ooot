@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot15_rrbox.h"
-#include "objects/object_spot15_obj/object_spot15_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"
@@ -131,7 +131,7 @@ s32 func_808B3AAC(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
 void BgSpot15Rrbox_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot15Rrbox* pthis = (BgSpot15Rrbox*)thisx;
 
-    func_808B3960(pthis, globalCtx, &gLonLonMilkCrateCol, DPM_UNK);
+    func_808B3960(pthis, globalCtx, oot::asset::collision::header::load(symbol::gLonLonMilkCrateCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     func_808B3A34(pthis);
     if (Flags_GetSwitch(globalCtx, (pthis->dyna.actor.params & 0x3F))) {
@@ -374,7 +374,7 @@ void BgSpot15Rrbox_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot15Rrbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gLonLonMilkCrateDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gLonLonMilkCrateDL));
 }
 
 void BgSpot15Rrbox_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -8,7 +8,7 @@
 
 #include "z_en_ge1.h"
 #include "vt.h"
-#include "objects/object_ge1/object_ge1.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -82,17 +82,17 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 static Gfx* sHairstyleDLists[] = {
-    gGerudoWhiteHairstyleBobDL,
-    gGerudoWhiteHairstyleStraightFringeDL,
-    gGerudoWhiteHairstyleSpikyDL,
+    oot::asset::gfx::load(symbol::gGerudoWhiteHairstyleBobDL),
+    oot::asset::gfx::load(symbol::gGerudoWhiteHairstyleStraightFringeDL),
+    oot::asset::gfx::load(symbol::gGerudoWhiteHairstyleSpikyDL),
 };
 
 static Vec3f D_80A327A8 = { 600.0f, 700.0f, 0.0f };
 
 static void* sEyeTextures[] = {
-    gGerudoWhiteEyeOpenTex,
-    gGerudoWhiteEyeHalfTex,
-    gGerudoWhiteEyeClosedTex,
+    oot::asset::texture::load(symbol::gGerudoWhiteEyeOpenTex),
+    oot::asset::texture::load(symbol::gGerudoWhiteEyeHalfTex),
+    oot::asset::texture::load(symbol::gGerudoWhiteEyeClosedTex),
 };
 
 void EnGe1_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -100,13 +100,13 @@ void EnGe1_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnGe1* pthis = (EnGe1*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGerudoWhiteSkel, &gGerudoWhiteIdleAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGerudoWhiteSkel), oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim), pthis->jointTable,
                        pthis->morphTable, GE1_LIMB_MAX);
-    Animation_PlayOnce(&pthis->skelAnime, &gGerudoWhiteIdleAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
-    pthis->animation = &gGerudoWhiteIdleAnim;
+    pthis->animation = oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim);
     pthis->animFunc = EnGe1_CueUpAnimation;
     pthis->actor.targetMode = 6;
     Actor_SetScale(&pthis->actor, 0.01f);
@@ -196,9 +196,9 @@ s32 EnGe1_SetTalkAction(EnGe1* pthis, GlobalContext* globalCtx, u16 textId, f32 
         pthis->actionFunc = actionFunc;
         pthis->animFunc = EnGe1_StopFidget;
         pthis->stateFlags &= ~GE1_STATE_IDLE_ANIM;
-        pthis->animation = &gGerudoWhiteIdleAnim;
-        Animation_Change(&pthis->skelAnime, &gGerudoWhiteIdleAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gGerudoWhiteIdleAnim), ANIMMODE_ONCE, -8.0f);
+        pthis->animation = oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim)), ANIMMODE_ONCE, -8.0f);
         return true;
     }
 
@@ -212,9 +212,9 @@ s32 EnGe1_SetTalkAction(EnGe1* pthis, GlobalContext* globalCtx, u16 textId, f32 
 }
 
 void EnGe1_SetAnimationIdle(EnGe1* pthis) {
-    Animation_Change(&pthis->skelAnime, &gGerudoWhiteIdleAnim, -1.0f, Animation_GetLastFrame(&gGerudoWhiteIdleAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim), -1.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim)),
                      0.0f, ANIMMODE_ONCE, 8.0f);
-    pthis->animation = &gGerudoWhiteIdleAnim;
+    pthis->animation = oot::asset::anim::header::load(symbol::gGerudoWhiteIdleAnim);
     pthis->animFunc = EnGe1_CueUpAnimation;
 }
 
@@ -352,9 +352,9 @@ void EnGe1_Open_GTGGuard(EnGe1* pthis, GlobalContext* globalCtx) {
 void EnGe1_SetupOpen_GTGGuard(EnGe1* pthis, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         pthis->actionFunc = EnGe1_Open_GTGGuard;
-        Animation_Change(&pthis->skelAnime, &gGerudoWhiteClapAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gGerudoWhiteClapAnim), ANIMMODE_ONCE, -3.0f);
-        pthis->animation = &gGerudoWhiteClapAnim;
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoWhiteClapAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoWhiteClapAnim)), ANIMMODE_ONCE, -3.0f);
+        pthis->animation = oot::asset::anim::header::load(symbol::gGerudoWhiteClapAnim);
         pthis->animFunc = EnGe1_StopFidget;
         pthis->stateFlags &= ~GE1_STATE_IDLE_ANIM;
     }
@@ -447,9 +447,9 @@ void EnGe1_SetupOpenGate_GateOp(EnGe1* pthis, GlobalContext* globalCtx) {
 
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         pthis->actionFunc = EnGe1_OpenGate_GateOp;
-        Animation_Change(&pthis->skelAnime, &gGerudoWhiteClapAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gGerudoWhiteClapAnim), ANIMMODE_ONCE, -3.0f);
-        pthis->animation = &gGerudoWhiteClapAnim;
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoWhiteClapAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoWhiteClapAnim)), ANIMMODE_ONCE, -3.0f);
+        pthis->animation = oot::asset::anim::header::load(symbol::gGerudoWhiteClapAnim);
         pthis->animFunc = EnGe1_StopFidget;
         pthis->stateFlags &= ~GE1_STATE_IDLE_ANIM;
     }
@@ -485,9 +485,9 @@ void EnGe1_GetReaction_GateGuard(EnGe1* pthis, GlobalContext* globalCtx) {
 
     if (EnGe1_SetTalkAction(pthis, globalCtx, reactionText, 100.0f, EnGe1_Talk_GateGuard)) {
         pthis->animFunc = EnGe1_CueUpAnimation;
-        pthis->animation = &gGerudoWhiteDismissiveAnim;
-        Animation_Change(&pthis->skelAnime, &gGerudoWhiteDismissiveAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gGerudoWhiteDismissiveAnim), ANIMMODE_ONCE, -8.0f);
+        pthis->animation = oot::asset::anim::header::load(symbol::gGerudoWhiteDismissiveAnim);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoWhiteDismissiveAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGerudoWhiteDismissiveAnim)), ANIMMODE_ONCE, -8.0f);
     }
 }
 

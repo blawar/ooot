@@ -7,9 +7,8 @@
  */
 
 #include "z_en_vm.h"
-#include "objects/object_vm/object_vm.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -136,9 +135,9 @@ static Vec3f D_80B2EB70 = { -500.0f, 0.0f, 0.0f };
 static Vec3f D_80B2EB7C = { 0.4f, 0.4f, 0.4f };
 
 static void* D_80B2EB88[] = {
-    gEffEnemyDeathFlame1Tex, gEffEnemyDeathFlame2Tex,  gEffEnemyDeathFlame3Tex, gEffEnemyDeathFlame4Tex,
-    gEffEnemyDeathFlame5Tex, gEffEnemyDeathFlame6Tex,  gEffEnemyDeathFlame7Tex, gEffEnemyDeathFlame8Tex,
-    gEffEnemyDeathFlame9Tex, gEffEnemyDeathFlame10Tex,
+    oot::asset::texture::load(symbol::gEffEnemyDeathFlame1Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame2Tex),  oot::asset::texture::load(symbol::gEffEnemyDeathFlame3Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame4Tex),
+    oot::asset::texture::load(symbol::gEffEnemyDeathFlame5Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame6Tex),  oot::asset::texture::load(symbol::gEffEnemyDeathFlame7Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame8Tex),
+    oot::asset::texture::load(symbol::gEffEnemyDeathFlame9Tex), oot::asset::texture::load(symbol::gEffEnemyDeathFlame10Tex),
 };
 
 void EnVm_SetupAction(EnVm* pthis, EnVmActionFunc actionFunc) {
@@ -148,7 +147,7 @@ void EnVm_SetupAction(EnVm* pthis, EnVmActionFunc actionFunc) {
 void EnVm_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnVm* pthis = (EnVm*)thisx;
 
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBeamosSkel, &gBeamosAnim, pthis->jointTable, pthis->morphTable, 11);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBeamosSkel), oot::asset::anim::header::load(symbol::gBeamosAnim), pthis->jointTable, pthis->morphTable, 11);
     ActorShape_Init(&thisx->shape, 0.0f, NULL, 0.0f);
     Collider_InitCylinder(globalCtx, &pthis->colliderCylinder);
     Collider_SetCylinder(globalCtx, &pthis->colliderCylinder, thisx, &sCylinderInit);
@@ -178,9 +177,9 @@ void EnVm_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnVm_SetupWait(EnVm* pthis) {
-    f32 frameCount = Animation_GetLastFrame(&gBeamosAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBeamosAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBeamosAnim, 1.0f, frameCount, frameCount, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBeamosAnim), 1.0f, frameCount, frameCount, ANIMMODE_ONCE, 0.0f);
     pthis->unk_25E = pthis->unk_260 = 0;
     pthis->unk_21C = 0;
     pthis->timer = 10;
@@ -262,7 +261,7 @@ void EnVm_Wait(EnVm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnVm_SetupAttack(EnVm* pthis) {
-    Animation_Change(&pthis->skelAnime, &gBeamosAnim, 3.0f, 3.0f, 7.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBeamosAnim), 3.0f, 3.0f, 7.0f, ANIMMODE_ONCE, 0.0f);
     pthis->timer = 305;
     pthis->beamScale.x = 0.6f;
     pthis->beamSpeed = 40.0f;
@@ -330,7 +329,7 @@ void EnVm_Attack(EnVm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnVm_SetupStun(EnVm* pthis) {
-    Animation_Change(&pthis->skelAnime, &gBeamosAnim, -1.0f, Animation_GetLastFrame(&gBeamosAnim), 0.0f, ANIMMODE_ONCE,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBeamosAnim), -1.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBeamosAnim)), 0.0f, ANIMMODE_ONCE,
                      0.0f);
     pthis->unk_260 = 0;
     pthis->timer = 180;
@@ -349,7 +348,7 @@ void EnVm_Stun(EnVm* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_25E == 3) {
                 EnVm_SetupWait(pthis);
             } else if (pthis->unk_25E == 1) {
-                Animation_Change(&pthis->skelAnime, &gBeamosAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gBeamosAnim),
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBeamosAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBeamosAnim)),
                                  ANIMMODE_ONCE, 0.0f);
             } else {
                 pthis->timer = 10;
@@ -365,7 +364,7 @@ void EnVm_Stun(EnVm* pthis, GlobalContext* globalCtx) {
 }
 
 void EnVm_SetupDie(EnVm* pthis) {
-    Animation_Change(&pthis->skelAnime, &gBeamosAnim, -1.0f, Animation_GetLastFrame(&gBeamosAnim), 0.0f, ANIMMODE_ONCE,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBeamosAnim), -1.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBeamosAnim)), 0.0f, ANIMMODE_ONCE,
                      0.0f);
     pthis->timer = 33;
     pthis->unk_25E = pthis->unk_260 = 0;
@@ -551,12 +550,12 @@ void EnVm_Draw(Actor* thisx, GlobalContext* globalCtx2) {
         func_80094BC4(globalCtx->state.gfxCtx);
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 255, 0);
         gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_80B2EB88[globalCtx->gameplayFrames % 8]));
-        gSPDisplayList(POLY_XLU_DISP++, gEffEnemyDeathFlameDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffEnemyDeathFlameDL));
         Matrix_RotateY(32767.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vm.c", 1044),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_80B2EB88[(globalCtx->gameplayFrames + 4) % 8]));
-        gSPDisplayList(POLY_XLU_DISP++, gEffEnemyDeathFlameDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffEnemyDeathFlameDL));
     }
     gSPSegment(POLY_OPA_DISP++, 0x08, func_80094E78(globalCtx->state.gfxCtx, 0, pthis->beamTexScroll));
     Matrix_Translate(pthis->beamPos1.x, pthis->beamPos1.y, pthis->beamPos1.z, MTXMODE_NEW);
@@ -564,7 +563,7 @@ void EnVm_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     Matrix_Scale(pthis->beamScale.x * 0.1f, pthis->beamScale.x * 0.1f, pthis->beamScale.z * 0.0015f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vm.c", 1063),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gBeamosLaserDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBeamosLaserDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vm.c", 1068);
 }

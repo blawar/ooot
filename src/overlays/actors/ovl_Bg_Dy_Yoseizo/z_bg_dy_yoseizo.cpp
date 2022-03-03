@@ -7,11 +7,9 @@
  */
 
 #include "z_bg_dy_yoseizo.h"
-#include "objects/object_dy_obj/object_dy_obj.h"
+#include "asset.h"
 #include "vt.h"
 #include "overlays/actors/ovl_Demo_Effect/z_demo_effect.h"
-#include "scenes/indoors/yousei_izumi_yoko/yousei_izumi_yoko_scene.h"
-#include "scenes/indoors/daiyousei_izumi/daiyousei_izumi_scene.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -87,12 +85,12 @@ void BgDyYoseizo_Init(Actor* pthisx, GlobalContext* globalCtx2) {
     if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
         // "Great Fairy Fountain"
         osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 大妖精の泉 ☆☆☆☆☆ %d\n" VT_RST, globalCtx->curSpawn);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGreatFairySkel, &gGreatFairySittingTransitionAnim,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGreatFairySkel), oot::asset::anim::header::load(symbol::gGreatFairySittingTransitionAnim),
                            pthis->jointTable, pthis->morphTable, 28);
     } else {
         // "Stone/Jewel Fairy Fountain"
         osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 石妖精の泉 ☆☆☆☆☆ %d\n" VT_RST, globalCtx->curSpawn);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGreatFairySkel, &gGreatFairyLayingDownTransitionAnim,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGreatFairySkel), oot::asset::anim::header::load(symbol::gGreatFairyLayingDownTransitionAnim),
                            pthis->jointTable, pthis->morphTable, 28);
     }
     pthis->actionFunc = BgDyYoseizo_CheckMagicAcquired;
@@ -261,30 +259,30 @@ void BgDyYoseizo_ChooseType(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
             if (globalCtx->sceneNum != SCENE_DAIYOUSEI_IZUMI) {
                 switch (pthis->fountainType) {
                     case FAIRY_SPELL_FARORES_WIND:
-                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGreatFairyFaroresWindCs);
+                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGreatFairyFaroresWindCs));
                         gSaveContext.cutsceneTrigger = 1;
                         break;
                     case FAIRY_SPELL_DINS_FIRE:
-                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGreatFairyDinsFireCs);
+                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGreatFairyDinsFireCs));
                         gSaveContext.cutsceneTrigger = 1;
                         break;
                     case FAIRY_SPELL_NAYRUS_LOVE:
-                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGreatFairyNayrusLoveCs);
+                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGreatFairyNayrusLoveCs));
                         gSaveContext.cutsceneTrigger = 1;
                         break;
                 }
             } else {
                 switch (pthis->fountainType) {
                     case FAIRY_UPGRADE_MAGIC:
-                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGreatFairyMagicCs);
+                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGreatFairyMagicCs));
                         gSaveContext.cutsceneTrigger = 1;
                         break;
                     case FAIRY_UPGRADE_DOUBLE_MAGIC:
-                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGreatFairyDoubleMagicCs);
+                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGreatFairyDoubleMagicCs));
                         gSaveContext.cutsceneTrigger = 1;
                         break;
                     case FAIRY_UPGRADE_HALF_DAMAGE:
-                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGreatFairyDoubleDefenceCs);
+                        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGreatFairyDoubleDefenceCs));
                         gSaveContext.cutsceneTrigger = 1;
                         break;
                 }
@@ -310,12 +308,12 @@ void BgDyYoseizo_ChooseType(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
 // Sets animations for spingrow
 void BgDyYoseizo_SetupSpinGrow_NoReward(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
     if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairySittingTransitionAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairySittingTransitionAnim, 1.0f, 0.0f, pthis->frameCount,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairySittingTransitionAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairySittingTransitionAnim), 1.0f, 0.0f, pthis->frameCount,
                          ANIMMODE_ONCE, -10.0f);
     } else {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairyLayingDownTransitionAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairyLayingDownTransitionAnim, 1.0f, 0.0f, pthis->frameCount,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyLayingDownTransitionAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyLayingDownTransitionAnim), 1.0f, 0.0f, pthis->frameCount,
                          ANIMMODE_ONCE, -10.0f);
     }
 
@@ -368,12 +366,12 @@ void BgDyYoseizo_SetupGreetPlayer_NoReward(BgDyYoseizo* pthis, GlobalContext* gl
     func_8002DF54(globalCtx, &pthis->actor, 1);
 
     if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairySittingAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairySittingAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairySittingAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairySittingAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
                          -10.0f);
     } else {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairyLayingSidewaysAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairyLayingSidewaysAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyLayingSidewaysAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyLayingSidewaysAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
                          -10.0f);
     }
 
@@ -406,12 +404,12 @@ void BgDyYoseizo_GreetPlayer_NoReward(BgDyYoseizo* pthis, GlobalContext* globalC
 
 void BgDyYoseizo_SetupHealPlayer_NoReward(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
     if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairyGivingUpgradeAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairyGivingUpgradeAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyGivingUpgradeAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyGivingUpgradeAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE,
                          -10.0f);
     } else {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairyAnim_005810);
-        Animation_Change(&pthis->skelAnime, &gGreatFairyAnim_005810, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyAnim_005810));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyAnim_005810), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE,
                          -10.0f);
     }
 
@@ -436,12 +434,12 @@ void BgDyYoseizo_HealPlayer_NoReward(BgDyYoseizo* pthis, GlobalContext* globalCt
     SkelAnime_Update(&pthis->skelAnime);
     if ((pthis->frameCount <= curFrame) && !(pthis->animationChanged)) {
         if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-            pthis->frameCount = Animation_GetLastFrame(&gGreatFairyAfterUpgradeAnim);
-            Animation_Change(&pthis->skelAnime, &gGreatFairyAfterUpgradeAnim, 1.0f, 0.0f, pthis->frameCount,
+            pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyAfterUpgradeAnim));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyAfterUpgradeAnim), 1.0f, 0.0f, pthis->frameCount,
                              ANIMMODE_LOOP, -10.0f);
         } else {
-            pthis->frameCount = Animation_GetLastFrame(&gGreatFairyAfterSpellAnim);
-            Animation_Change(&pthis->skelAnime, &gGreatFairyAfterSpellAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
+            pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyAfterSpellAnim));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyAfterSpellAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
                              -10.0f);
         }
         pthis->healingTimer = 150;
@@ -515,12 +513,12 @@ void BgDyYoseizo_SayFarewell_NoReward(BgDyYoseizo* pthis, GlobalContext* globalC
 
 void BgDyYoseizo_SetupSpinShrink(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
     if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairyJewelFountainSpinShrinkAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairyJewelFountainSpinShrinkAnim, 1.0f, 0.0f, pthis->frameCount,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyJewelFountainSpinShrinkAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyJewelFountainSpinShrinkAnim), 1.0f, 0.0f, pthis->frameCount,
                          ANIMMODE_ONCE, -10.0f);
     } else {
-        pthis->frameCount = Animation_GetLastFrame(&gGreatFairySpellFountainSpinShrinkAnim);
-        Animation_Change(&pthis->skelAnime, &gGreatFairySpellFountainSpinShrinkAnim, 1.0f, 0.0f, pthis->frameCount,
+        pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairySpellFountainSpinShrinkAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairySpellFountainSpinShrinkAnim), 1.0f, 0.0f, pthis->frameCount,
                          ANIMMODE_ONCE, -10.0f);
     }
 
@@ -579,12 +577,12 @@ void BgDyYoseizo_SetupSpinGrow_Reward(BgDyYoseizo* pthis, GlobalContext* globalC
             pthis->finishedSpinGrow = false;
 
             if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-                pthis->frameCount = Animation_GetLastFrame(&gGreatFairySittingTransitionAnim);
-                Animation_Change(&pthis->skelAnime, &gGreatFairySittingTransitionAnim, 1.0f, 0.0f, pthis->frameCount,
+                pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairySittingTransitionAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairySittingTransitionAnim), 1.0f, 0.0f, pthis->frameCount,
                                  ANIMMODE_ONCE, -10.0f);
             } else {
-                pthis->frameCount = Animation_GetLastFrame(&gGreatFairyLayingDownTransitionAnim);
-                Animation_Change(&pthis->skelAnime, &gGreatFairyLayingDownTransitionAnim, 1.0f, 0.0f, pthis->frameCount,
+                pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyLayingDownTransitionAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyLayingDownTransitionAnim), 1.0f, 0.0f, pthis->frameCount,
                                  ANIMMODE_ONCE, -10.0f);
             }
 
@@ -622,12 +620,12 @@ void BgDyYoseizo_SpinGrowSetupGive_Reward(BgDyYoseizo* pthis, GlobalContext* glo
 
         if ((pthis->frameCount <= curFrame) && !pthis->animationChanged) {
             if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-                pthis->frameCount = Animation_GetLastFrame(&gGreatFairySittingAnim);
-                Animation_Change(&pthis->skelAnime, &gGreatFairySittingAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
+                pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairySittingAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairySittingAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
                                  -10.0f);
             } else {
-                pthis->frameCount = Animation_GetLastFrame(&gGreatFairyLayingSidewaysAnim);
-                Animation_Change(&pthis->skelAnime, &gGreatFairyLayingSidewaysAnim, 1.0f, 0.0f, pthis->frameCount,
+                pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyLayingSidewaysAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyLayingSidewaysAnim), 1.0f, 0.0f, pthis->frameCount,
                                  ANIMMODE_LOOP, -10.0f);
             }
             pthis->animationChanged = true;
@@ -637,12 +635,12 @@ void BgDyYoseizo_SpinGrowSetupGive_Reward(BgDyYoseizo* pthis, GlobalContext* glo
             ((globalCtx->csCtx.npcActions[0] != NULL) && (globalCtx->csCtx.npcActions[0]->action == 3))) {
             pthis->finishedSpinGrow = pthis->animationChanged = false;
             if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-                pthis->frameCount = Animation_GetLastFrame(&gGreatFairyGivingUpgradeAnim);
-                Animation_Change(&pthis->skelAnime, &gGreatFairyGivingUpgradeAnim, 1.0f, 0.0f, pthis->frameCount,
+                pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyGivingUpgradeAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyGivingUpgradeAnim), 1.0f, 0.0f, pthis->frameCount,
                                  ANIMMODE_ONCE, -10.0f);
             } else {
-                pthis->frameCount = Animation_GetLastFrame(&gGreatFairyAnim_005810);
-                Animation_Change(&pthis->skelAnime, &gGreatFairyAnim_005810, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE,
+                pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyAnim_005810));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyAnim_005810), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE,
                                  -10.0f);
             }
             pthis->mouthState = 1;
@@ -677,12 +675,12 @@ void BgDyYoseizo_Give_Reward(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
 
     if ((pthis->frameCount <= curFrame) && !pthis->animationChanged) {
         if (globalCtx->sceneNum == SCENE_DAIYOUSEI_IZUMI) {
-            pthis->frameCount = Animation_GetLastFrame(&gGreatFairyAfterUpgradeAnim);
-            Animation_Change(&pthis->skelAnime, &gGreatFairyAfterUpgradeAnim, 1.0f, 0.0f, pthis->frameCount,
+            pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyAfterUpgradeAnim));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyAfterUpgradeAnim), 1.0f, 0.0f, pthis->frameCount,
                              ANIMMODE_LOOP, -10.0f);
         } else {
-            pthis->frameCount = Animation_GetLastFrame(&gGreatFairyAfterSpellAnim);
-            Animation_Change(&pthis->skelAnime, &gGreatFairyAfterSpellAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
+            pthis->frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGreatFairyAfterSpellAnim));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGreatFairyAfterSpellAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
                              -10.0f);
         }
         pthis->animationChanged = true;
@@ -884,14 +882,14 @@ s32 BgDyYoseizo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
 }
 
 static void* sEyeTextures[] = {
-    gGreatFairyEyeOpenTex,   // Open
-    gGreatFairyEyeHalfTex,   // Half
-    gGreatFairyEyeClosedTex, // Closed
+    oot::asset::texture::load(symbol::gGreatFairyEyeOpenTex),   // Open
+    oot::asset::texture::load(symbol::gGreatFairyEyeHalfTex),   // Half
+    oot::asset::texture::load(symbol::gGreatFairyEyeClosedTex), // Closed
 };
 
 static void* sMouthTextures[] = {
-    gGreatFairyMouthClosedTex, // Closed
-    gGreatFairyMouthOpenTex,   // Open
+    oot::asset::texture::load(symbol::gGreatFairyMouthClosedTex), // Closed
+    oot::asset::texture::load(symbol::gGreatFairyMouthOpenTex),   // Open
 };
 
 void BgDyYoseizo_Draw(Actor* pthisx, GlobalContext* globalCtx) {
@@ -1019,7 +1017,7 @@ void BgDyYoseizo_ParticleDraw(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
     for (i = 0; i < 200; i++, particle++) {
         if (particle->alive == 1) {
             if (phi_s3 == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gGreatFairyParticleAppearDL));
+                gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gGreatFairyParticleAppearDL)));
                 gDPPipeSync(POLY_XLU_DISP++);
 
                 phi_s3++;
@@ -1036,7 +1034,7 @@ void BgDyYoseizo_ParticleDraw(BgDyYoseizo* pthis, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_bg_dy_yoseizo.c", 1810),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gGreatFairyParticleAliveDL));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gGreatFairyParticleAliveDL)));
         }
     }
 

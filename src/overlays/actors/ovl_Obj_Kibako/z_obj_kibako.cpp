@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_kibako.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -153,7 +153,7 @@ void ObjKibako_AirBreak(ObjKibako* pthis, GlobalContext* globalCtx) {
         }
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, breakPos, -200, phi_s0, 10, 10, 0,
                              (Rand_ZeroOne() * 30.0f) + 10.0f, 0, 32, 60, KAKERA_COLOR_NONE,
-                             OBJECT_GAMEPLAY_DANGEON_KEEP, gSmallWoodenBoxFragmentDL);
+                             OBJECT_GAMEPLAY_DANGEON_KEEP, oot::asset::gfx::load(symbol::gSmallWoodenBoxFragmentDL));
     }
     func_80033480(globalCtx, &pthis->actor.world.pos, 40.0f, 3, 50, 140, 1);
 }
@@ -188,7 +188,7 @@ void ObjKibako_WaterBreak(ObjKibako* pthis, GlobalContext* globalCtx) {
         phi_s0 = (temp_rand < 0.2f) ? 0x40 : 0x20;
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, breakPos, -180, phi_s0, 30, 30, 0,
                              (Rand_ZeroOne() * 30.0f) + 10.0f, 0, 32, 70, KAKERA_COLOR_NONE,
-                             OBJECT_GAMEPLAY_DANGEON_KEEP, gSmallWoodenBoxFragmentDL);
+                             OBJECT_GAMEPLAY_DANGEON_KEEP, oot::asset::gfx::load(symbol::gSmallWoodenBoxFragmentDL));
     }
 }
 
@@ -295,7 +295,7 @@ void ObjKibako_Draw(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     ObjKibako* pthis = (ObjKibako*)thisx;
 
-    Gfx_DrawDListOpa(globalCtx, gSmallWoodenBoxDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gSmallWoodenBoxDL));
 }
 
 void ObjKibako_Reset(Actor* pthisx, GlobalContext* globalCtx) {

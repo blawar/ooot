@@ -8,8 +8,7 @@
  */
 
 #include "z_bg_spot00_hanebasi.h"
-#include "objects/object_spot00_objects/object_spot00_objects.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/environment_flags.h"
 #include "def/random.h"
@@ -69,9 +68,9 @@ void BgSpot00Hanebasi_Init(Actor* thisx, GlobalContext* globalCtx) {
     DynaPolyActor_Init(&pthis->dyna, 1);
 
     if (pthis->dyna.actor.params == DT_DRAWBRIDGE) {
-        CollisionHeader_GetVirtual(&gHyruleFieldCastleDrawbridgeCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gHyruleFieldCastleDrawbridgeCol), &colHeader);
     } else {
-        CollisionHeader_GetVirtual(&gHyruleFieldCastleDrawbridgeChainsCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gHyruleFieldCastleDrawbridgeChainsCol), &colHeader);
     }
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -298,7 +297,7 @@ void BgSpot00Hanebasi_DrawTorches(Actor* thisx, GlobalContext* globalCtx2) {
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 674),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 681);
@@ -316,7 +315,7 @@ void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if (thisx->params == DT_DRAWBRIDGE) {
-        gSPDisplayList(POLY_OPA_DISP++, gHyruleFieldCastleDrawbridgeDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gHyruleFieldCastleDrawbridgeDL));
 
         Matrix_MultVec3f(&basePos, &newPos);
         thisx->child->world.pos.x = newPos.x;
@@ -337,7 +336,7 @@ void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx) {
             }
         }
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, gHyruleFieldCastleDrawbridgeChainsDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gHyruleFieldCastleDrawbridgeChainsDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 733);

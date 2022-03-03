@@ -8,6 +8,7 @@
 
 #include "z_bg_ganon_otyuka.h"
 #include "overlays/actors/ovl_Boss_Ganon/z_boss_ganon.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -72,8 +73,6 @@ static Vec3f sSideCenters[] = {
 
 static f32 sSideAngles[] = { M_PI / 2, -M_PI / 2, 0.0f, M_PI };
 
-#include "overlays/ovl_Bg_Ganon_Otyuka/ovl_Bg_Ganon_Otyuka.cpp"
-
 void BgGanonOtyuka_Init(Actor* pthisx, GlobalContext* globalCtx2) {
     BgGanonOtyuka* pthis = (BgGanonOtyuka*)pthisx;
     GlobalContext* globalCtx = globalCtx2;
@@ -81,7 +80,7 @@ void BgGanonOtyuka_Init(Actor* pthisx, GlobalContext* globalCtx2) {
 
     Actor_ProcessInitChain(pthisx, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&sCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::sCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, pthisx, colHeader);
 
     if (pthisx->params != 0x23) {
@@ -283,7 +282,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     }
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPDisplayList(POLY_OPA_DISP++, sPlatformMaterialDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::sPlatformMaterialDL));
 
     actor = globalCtx->actorCtx.actorLists[ACTORCAT_PROP].head;
     while (actor != NULL) {
@@ -292,9 +291,9 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
             if (platform->dyna.actor.projectedPos.z > spBC) {
                 if (camera->eye.y > platform->dyna.actor.world.pos.y) {
-                    phi_s2 = sPlatformTopDL;
+                    phi_s2 = oot::asset::gfx::load(symbol::sPlatformTopDL);
                 } else {
-                    phi_s2 = sPlatformBottomDL;
+                    phi_s2 = oot::asset::gfx::load(symbol::sPlatformBottomDL);
                 }
                 Matrix_Translate(platform->dyna.actor.world.pos.x, platform->dyna.actor.world.pos.y,
                                  platform->dyna.actor.world.pos.z, MTXMODE_NEW);
@@ -303,9 +302,9 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx) {
                     Matrix_RotateX((platform->dyna.actor.shape.rot.x / (f32)0x8000) * M_PI, MTXMODE_APPLY);
                     Matrix_RotateZ((platform->dyna.actor.shape.rot.z / (f32)0x8000) * M_PI, MTXMODE_APPLY);
                     if (camera->eye.y > platform->dyna.actor.world.pos.y) {
-                        phi_s1 = sPlatformBottomDL;
+                        phi_s1 = oot::asset::gfx::load(symbol::sPlatformBottomDL);
                     } else {
-                        phi_s1 = sPlatformTopDL;
+                        phi_s1 = oot::asset::gfx::load(symbol::sPlatformTopDL);
                     }
                 }
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 766),
@@ -324,7 +323,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx) {
                         gSPMatrix(POLY_OPA_DISP++,
                                   Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 785),
                                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                        gSPDisplayList(POLY_OPA_DISP++, sPlatformSideDL);
+                        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::sPlatformSideDL));
                         Matrix_Pop();
                     }
                 }
@@ -360,7 +359,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx) {
                         gSPMatrix(POLY_XLU_DISP++,
                                   Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 847),
                                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                        gSPDisplayList(POLY_XLU_DISP++, sFlashDL);
+                        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sFlashDL));
                         Matrix_Pop();
                     }
                 }

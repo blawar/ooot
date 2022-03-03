@@ -2,8 +2,7 @@
 #include "actor_common.h"
 #include "z_en_go.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_oF1d_map/object_oF1d_map.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -51,7 +50,7 @@ void EnGo_AddDust(EnGo* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 ini
 void EnGo_UpdateDust(EnGo* pthis);
 void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx);
 
-static void* dustTex_95[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
+static void* dustTex_95[] = { oot::asset::texture::load(symbol::gDust8Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust1Tex) };
 
 
 ActorInit En_Go_InitVars = {
@@ -92,10 +91,10 @@ static CollisionCheckInfoInit2 sColChkInfoInit = {
 };
 
 static EnGoAnimation sAnimationEntries[] = {
-    { &gGoronAnim_004930, 0.0f, ANIMMODE_LOOP_INTERP, 0.0f },
-    { &gGoronAnim_004930, 0.0f, ANIMMODE_LOOP_INTERP, -10.0f },
-    { &gGoronAnim_0029A8, 1.0f, ANIMMODE_LOOP_INTERP, -10.0f },
-    { &gGoronAnim_010590, 1.0f, ANIMMODE_LOOP_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_004930), 0.0f, ANIMMODE_LOOP_INTERP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_004930), 0.0f, ANIMMODE_LOOP_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_0029A8), 1.0f, ANIMMODE_LOOP_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGoronAnim_010590), 1.0f, ANIMMODE_LOOP_INTERP, -10.0f },
 };
 
 void EnGo_SetupAction(EnGo* pthis, EnGoActionFunc actionFunc) {
@@ -466,8 +465,8 @@ void EnGo_ReverseAnimation(EnGo* pthis) {
 void EnGo_UpdateShadow(EnGo* pthis) {
     s16 shadowAlpha;
     f32 currentFrame = pthis->skelAnime.curFrame;
-    s16 shadowAlphaTarget = (pthis->skelAnime.animation == &gGoronAnim_004930 && currentFrame > 32.0f) ||
-                                    pthis->skelAnime.animation != &gGoronAnim_004930
+    s16 shadowAlphaTarget = (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gGoronAnim_004930) && currentFrame > 32.0f) ||
+                                    pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gGoronAnim_004930)
                                 ? 255
                                 : 0;
 
@@ -639,7 +638,7 @@ void EnGo_Init(Actor* thisx, GlobalContext* globalCtx) {
     Vec3f D_80A41BA8 = { 0.0f, 0.0f, 0.0f }; // unused
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGoronSkel, NULL, 0, 0, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGoronSkel), NULL, 0, 0, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(0x16), &sColChkInfoInit);
@@ -672,7 +671,7 @@ void EnGo_Init(Actor* thisx, GlobalContext* globalCtx) {
             }
             break;
         case 0x10:
-            pthis->skelAnime.curFrame = Animation_GetLastFrame(&gGoronAnim_004930);
+            pthis->skelAnime.curFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGoronAnim_004930));
             Actor_SetScale(&pthis->actor, 0.01f);
             EnGo_SetupAction(pthis, EnGo_FireGenericActionFunc);
             break;
@@ -849,7 +848,7 @@ void func_80A405CC(EnGo* pthis, GlobalContext* globalCtx) {
     f32 lastFrame;
     f32 frame;
 
-    lastFrame = Animation_GetLastFrame(&gGoronAnim_004930);
+    lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGoronAnim_004930));
     Math_SmoothStepToF(&pthis->skelAnime.playSpeed, (pthis->actor.params & 0xF0) == 0x90 ? 0.5f : 1.0f, 0.1f, 1000.0f,
                        0.1f);
 
@@ -934,13 +933,13 @@ void func_80A408D8(EnGo* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A40A54(EnGo* pthis, GlobalContext* globalCtx) {
-    f32 float1 = ((f32)0x8000 / Animation_GetLastFrame(&gGoronAnim_010590));
+    f32 float1 = ((f32)0x8000 / Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGoronAnim_010590)));
     f32 float2 = pthis->skelAnime.curFrame * float1;
 
     pthis->actor.speedXZ = Math_SinS((s16)float2);
     if (EnGo_FollowPath(pthis, globalCtx) && pthis->unk_218 == 0) {
         EnGo_ChangeAnimation(pthis, 1);
-        pthis->skelAnime.curFrame = Animation_GetLastFrame(&gGoronAnim_004930);
+        pthis->skelAnime.curFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGoronAnim_004930));
         pthis->actor.speedXZ = 0.0f;
         EnGo_SetupAction(pthis, EnGo_BiggoronActionFunc);
     }
@@ -1022,7 +1021,7 @@ void EnGo_Eyedrops(EnGo* pthis, GlobalContext* globalCtx) {
 void func_80A40DCC(EnGo* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_1E0.unk_00 == 2) {
         EnGo_ChangeAnimation(pthis, 1);
-        pthis->skelAnime.curFrame = Animation_GetLastFrame(&gGoronAnim_004930);
+        pthis->skelAnime.curFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gGoronAnim_004930));
         Message_CloseTextbox(globalCtx);
         EnGo_SetupAction(pthis, EnGo_GetItem);
         EnGo_GetItem(pthis, globalCtx);
@@ -1066,7 +1065,7 @@ void EnGo_DrawCurledUp(EnGo* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_go.c", 2326),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gGoronDL_00BD80);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00BD80));
 
     Matrix_MultVec3f(&D_80A41BB4, &pthis->actor.focus.pos);
     Matrix_Pop();
@@ -1085,7 +1084,7 @@ void EnGo_DrawRolling(EnGo* pthis, GlobalContext* globalCtx) {
                      MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_go.c", 2368),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gGoronDL_00C140);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00C140));
     Matrix_MultVec3f(&D_80A41BC0, &pthis->actor.focus.pos);
     Matrix_Pop();
 
@@ -1154,8 +1153,8 @@ void EnGo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         func_800943C8(globalCtx->state.gfxCtx);
 
-        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gGoronCsEyeOpenTex));
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gGoronCsMouthNeutralTex));
+        gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gGoronCsEyeOpenTex)));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gGoronCsMouthNeutralTex)));
 
         SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                               pthis->skelAnime.dListCount, EnGo_OverrideLimbDraw, EnGo_PostLimbDraw, &pthis->actor);
@@ -1227,7 +1226,7 @@ void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx) {
         if (dustEffect->type) {
             if (!firstDone) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gGoronDL_00FD40);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00FD40));
                 gDPSetEnvColor(POLY_XLU_DISP++, 100, 60, 20, 0);
                 firstDone = true;
             }
@@ -1243,7 +1242,7 @@ void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx) {
 
             index = dustEffect->timer * (8.0f / dustEffect->initialTimer);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_95[index]));
-            gSPDisplayList(POLY_XLU_DISP++, gGoronDL_00FD50);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGoronDL_00FD50));
         }
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_go.c", 2678);

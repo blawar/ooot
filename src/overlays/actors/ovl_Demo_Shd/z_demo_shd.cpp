@@ -35,7 +35,7 @@ ActorInit Demo_Shd_InitVars = {
     (ActorFunc)DemoShd_Reset,
 };
 
-#include "overlays/ovl_Demo_Shd/ovl_Demo_Shd.cpp"
+#include "asset.h"
 
 void DemoShd_SetupAction(DemoShd* pthis, DemoShdActionFunc actionFunc) {
     pthis->actionFunc = actionFunc;
@@ -117,16 +117,16 @@ void DemoShd_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_shd.c", 729),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, D_809932D0);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_809932D0));
 
     if (pthis->unk_14C & 1) {
         gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0x3FF - ((unk_14E * 5) & 0x3FF),
                                                          16, 256, 1, 0, 255 - ((unk_14E * 5) & 255), 32, 32));
-        gSPDisplayList(POLY_XLU_DISP++, D_80993390);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_80993390));
     } else if (pthis->unk_14C & 2) {
         gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0x3FF - ((unk_14E * 5) & 0x3FF),
                                                          16, 256, 1, 0, 255 - ((unk_14E * 5) & 255), 32, 32));
-        gSPDisplayList(POLY_XLU_DISP++, D_809934B8);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_809934B8));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_shd.c", 762);

@@ -9,8 +9,7 @@
 #include "z_demo_im.h"
 #include "overlays/actors/ovl_En_Arrow/z_en_arrow.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
-#include "objects/object_im/object_im.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
@@ -68,9 +67,9 @@ void DemoIm_DrawNothing(DemoIm* pthis, GlobalContext* globalCtx);
 void DemoIm_DrawSolid(DemoIm* pthis, GlobalContext* globalCtx);
 
 static void* sEyeTextures[] = {
-    gImpaEyeOpenTex,
-    gImpaEyeHalfTex,
-    gImpaEyeClosedTex,
+    oot::asset::texture::load(symbol::gImpaEyeOpenTex),
+    oot::asset::texture::load(symbol::gImpaEyeHalfTex),
+    oot::asset::texture::load(symbol::gImpaEyeClosedTex),
 };
 
 static u32 D_8098783C = 0;
@@ -312,7 +311,7 @@ void DemoIm_ChangeAnim(DemoIm* pthis, AnimationHeader* animHeaderSeg, u8 animMod
 }
 
 void func_80985310(DemoIm* pthis, GlobalContext* globalCtx) {
-    DemoIm_ChangeAnim(pthis, &gImpaIdleAnim, ANIMMODE_LOOP, 0.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::gImpaIdleAnim), ANIMMODE_LOOP, 0.0f, false);
     pthis->actor.shape.yOffset = -10000.0f;
 }
 
@@ -357,7 +356,7 @@ void func_8098544C(DemoIm* pthis, GlobalContext* globalCtx) {
 void func_809854DC(DemoIm* pthis, GlobalContext* globalCtx) {
     if ((globalCtx->csCtx.state != CS_STATE_IDLE) && (globalCtx->csCtx.npcActions[5] != NULL) &&
         (globalCtx->csCtx.npcActions[5]->action == 2)) {
-        Animation_Change(&pthis->skelAnime, &gImpaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaIdleAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaIdleAnim)),
                          ANIMMODE_LOOP, 0.0f);
         pthis->action = 2;
         pthis->drawConfig = 1;
@@ -375,7 +374,7 @@ void func_8098557C(DemoIm* pthis) {
 void func_809855A8(DemoIm* pthis, GlobalContext* globalCtx) {
     if ((globalCtx->csCtx.state != CS_STATE_IDLE) && (globalCtx->csCtx.npcActions[5] != NULL) &&
         (globalCtx->csCtx.npcActions[5]->action == 3)) {
-        Animation_Change(&pthis->skelAnime, &gImpaRaiseArmsAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaRaiseArmsAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaRaiseArmsAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaRaiseArmsAnim)),
                          ANIMMODE_ONCE, 4.0f);
         pthis->action = 4;
     }
@@ -383,8 +382,8 @@ void func_809855A8(DemoIm* pthis, GlobalContext* globalCtx) {
 
 void func_80985640(DemoIm* pthis, s32 arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gImpaPresentShadowMedallionAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gImpaPresentShadowMedallionAnim), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaPresentShadowMedallionAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaPresentShadowMedallionAnim)), ANIMMODE_LOOP, 0.0f);
         pthis->action = 5;
     }
 }
@@ -442,7 +441,7 @@ void func_80985830(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80985860(DemoIm* pthis, GlobalContext* globalCtx) {
-    DemoIm_ChangeAnim(pthis, &gImpaIdleAnim, ANIMMODE_LOOP, 0.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::gImpaIdleAnim), ANIMMODE_LOOP, 0.0f, false);
     pthis->action = 7;
     pthis->actor.shape.shadowAlpha = 0;
 }
@@ -458,8 +457,8 @@ void DemoIm_SpawnLightBall(DemoIm* pthis, GlobalContext* globalCtx) {
 
 void func_80985948(DemoIm* pthis, GlobalContext* globalCtx) {
     if (func_809850E8(pthis, globalCtx, 4, 5)) {
-        Animation_Change(&pthis->skelAnime, &gImpaPrepareSealGanonAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gImpaPrepareSealGanonAnim), ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaPrepareSealGanonAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaPrepareSealGanonAnim)), ANIMMODE_ONCE, 0.0f);
         pthis->action = 8;
         pthis->drawConfig = 2;
         pthis->alpha = 0;
@@ -498,7 +497,7 @@ void func_809859E0(DemoIm* pthis, GlobalContext* globalCtx) {
 
 void func_80985B34(DemoIm* pthis, GlobalContext* globalCtx) {
     if (func_80985134(pthis, globalCtx, 4, 5)) {
-        Animation_Change(&pthis->skelAnime, &gImpaSealGanonAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaSealGanonAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaSealGanonAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaSealGanonAnim)),
                          ANIMMODE_ONCE, -8.0f);
         pthis->action = 8;
         pthis->drawConfig = 2;
@@ -555,7 +554,7 @@ void DemoIm_DrawTranslucent(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80985E60(DemoIm* pthis, GlobalContext* globalCtx) {
-    DemoIm_ChangeAnim(pthis, &gImpaIdleAnim, ANIMMODE_LOOP, 0.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::gImpaIdleAnim), ANIMMODE_LOOP, 0.0f, false);
     pthis->action = 10;
     pthis->unk_280 = 1;
 }
@@ -569,7 +568,7 @@ void func_80985EAC(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80985EF4(DemoIm* pthis) {
-    if (!Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(&gImpaWhistlingAnim) - 1.0f)) {
+    if (!Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaWhistlingAnim)) - 1.0f)) {
         DemoIm_UpdateSkelAnime(pthis);
     }
 }
@@ -580,7 +579,7 @@ void func_80985F54(DemoIm* pthis) {
 }
 
 void func_80985F64(DemoIm* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gImpaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaIdleAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaIdleAnim)),
                      ANIMMODE_LOOP, 0.0f);
     func_80985180(pthis, globalCtx, 5);
     pthis->action = 11;
@@ -589,15 +588,15 @@ void func_80985F64(DemoIm* pthis, GlobalContext* globalCtx) {
 
 void func_80985FE8(DemoIm* pthis, s32 arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gImpaWhistlingAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaWhistlingAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaWhistlingAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaWhistlingAnim)),
                          ANIMMODE_LOOP, -8.0f);
     }
 }
 
 void func_8098604C(DemoIm* pthis) {
-    f32 frameCount = Animation_GetLastFrame(&gImpaStartWhistlingAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaStartWhistlingAnim));
 
-    Animation_Change(&pthis->skelAnime, &gImpaStartWhistlingAnim, 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -8.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaStartWhistlingAnim), 1.0f, 0.0f, frameCount, ANIMMODE_ONCE, -8.0f);
     pthis->action = 12;
     pthis->drawConfig = 1;
     pthis->unk_2D0 = 1;
@@ -610,15 +609,15 @@ void func_809860C8(DemoIm* pthis) {
 
 void func_809860DC(DemoIm* pthis, s32 arg1) {
     if (arg1 != 0) {
-        Animation_Change(&pthis->skelAnime, &gImpaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaIdleAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaIdleAnim)),
                          ANIMMODE_LOOP, -8.0f);
         pthis->unk_2D0 = 0;
     }
 }
 
 void func_80986148(DemoIm* pthis) {
-    Animation_Change(&pthis->skelAnime, &gImpaStartWhistlingAnim, -1.0f,
-                     Animation_GetLastFrame(&gImpaStartWhistlingAnim), 0.0f, ANIMMODE_ONCE, -8.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaStartWhistlingAnim), -1.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaStartWhistlingAnim)), 0.0f, ANIMMODE_ONCE, -8.0f);
     pthis->action = 14;
     pthis->drawConfig = 1;
 }
@@ -636,8 +635,8 @@ void func_809861C4(DemoIm* pthis, GlobalContext* globalCtx) {
                     func_80986148(pthis);
                     break;
                 case 7:
-                    Animation_Change(&pthis->skelAnime, &gImpaWhistlingAnim, 1.0f, 0.0f,
-                                     Animation_GetLastFrame(&gImpaWhistlingAnim), ANIMMODE_LOOP, -8.0f);
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaWhistlingAnim), 1.0f, 0.0f,
+                                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaWhistlingAnim)), ANIMMODE_LOOP, -8.0f);
                     pthis->action = 12;
                     break;
                 default:
@@ -729,7 +728,7 @@ void func_809864D4(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8098652C(DemoIm* pthis, GlobalContext* globalCtx) {
-    DemoIm_ChangeAnim(pthis, &gImpaIdleAnim, ANIMMODE_LOOP, 0.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::gImpaIdleAnim), ANIMMODE_LOOP, 0.0f, false);
     pthis->action = 15;
 }
 
@@ -772,7 +771,7 @@ void func_80986700(DemoIm* pthis) {
 }
 
 void func_80986710(DemoIm* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gImpaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gImpaIdleAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaIdleAnim)),
                      ANIMMODE_LOOP, 0.0f);
     func_80985180(pthis, globalCtx, 5);
     pthis->action = 16;
@@ -780,8 +779,8 @@ void func_80986710(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80986794(DemoIm* pthis) {
-    Animation_Change(&pthis->skelAnime, &gImpaThrowDekuNutAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gImpaThrowDekuNutAnim), ANIMMODE_ONCE, -8.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gImpaThrowDekuNutAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gImpaThrowDekuNutAnim)), ANIMMODE_ONCE, -8.0f);
     pthis->action = 17;
     pthis->drawConfig = 1;
 }
@@ -838,7 +837,7 @@ void func_80986948(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809869B0(DemoIm* pthis, GlobalContext* globalCtx) {
-    DemoIm_ChangeAnim(pthis, &gImpaIdleAnim, ANIMMODE_LOOP, 0.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::gImpaIdleAnim), ANIMMODE_LOOP, 0.0f, false);
     pthis->action = 18;
     pthis->actor.shape.shadowAlpha = 0;
 }
@@ -915,7 +914,7 @@ void func_80986BF8(DemoIm* pthis, GlobalContext* globalCtx) {
 
 void func_80986C30(DemoIm* pthis, GlobalContext* globalCtx) {
     if (func_80986A5C(pthis, globalCtx)) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gZeldasCourtyardLullabyCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gZeldasCourtyardLullabyCs));
         gSaveContext.cutsceneTrigger = 1;
         gSaveContext.eventChkInf[5] |= 0x200;
         Item_Give(globalCtx, ITEM_SONG_LULLABY);
@@ -1010,7 +1009,7 @@ void func_80986FA8(DemoIm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80987018(DemoIm* pthis, GlobalContext* globalCtx) {
-    DemoIm_ChangeAnim(pthis, &gImpaIdleAnim, ANIMMODE_LOOP, 0.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::gImpaIdleAnim), ANIMMODE_LOOP, 0.0f, false);
     pthis->action = 27;
     pthis->drawConfig = 0;
     pthis->actor.shape.shadowAlpha = 0;
@@ -1045,13 +1044,13 @@ void func_80987128(DemoIm* pthis) {
 }
 
 void func_80987174(DemoIm* pthis) {
-    DemoIm_ChangeAnim(pthis, &object_im_Anim_0101C8, ANIMMODE_ONCE, -8.0f, false);
+    DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::object_im_Anim_0101C8), ANIMMODE_ONCE, -8.0f, false);
     pthis->action = 30;
 }
 
 void func_809871B4(DemoIm* pthis, s32 arg1) {
     if (arg1 != 0) {
-        DemoIm_ChangeAnim(pthis, &object_im_Anim_00FB10, ANIMMODE_LOOP, 0.0f, false);
+        DemoIm_ChangeAnim(pthis, oot::asset::anim::header::load(symbol::object_im_Anim_00FB10), ANIMMODE_LOOP, 0.0f, false);
     }
 }
 
@@ -1121,7 +1120,7 @@ void DemoIm_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     DemoIm_InitCollider(thisx, globalCtx);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gImpaSkel, NULL, pthis->jointTable, pthis->morphTable, 17);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gImpaSkel), NULL, pthis->jointTable, pthis->morphTable, 17);
     thisx->flags &= ~ACTOR_FLAG_0;
 
     switch (pthis->actor.params) {
@@ -1170,7 +1169,7 @@ s32 DemoIm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     }
 
     if ((*unk_2D0 != 0) && (limbIndex == IMPA_LIMB_RIGHT_HAND)) {
-        *dList = gImpaHandPointingDL;
+        *dList = oot::asset::gfx::load(symbol::gImpaHandPointingDL);
     }
 
     return false;

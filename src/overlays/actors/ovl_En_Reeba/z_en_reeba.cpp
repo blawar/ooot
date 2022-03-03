@@ -10,7 +10,7 @@
 #include "z_en_reeba.h"
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
 #include "vt.h"
-#include "objects/object_reeba/object_reeba.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -119,7 +119,7 @@ void EnReeba_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.targetMode = 3;
     pthis->actor.gravity = -3.5f;
     pthis->actor.focus.pos = pthis->actor.world.pos;
-    SkelAnime_Init(globalCtx, &pthis->skelanime, &object_reeba_Skel_001EE8, &object_reeba_Anim_0001E4, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelanime, oot::asset::skel::header2::load(symbol::object_reeba_Skel_001EE8), oot::asset::anim::header::load(symbol::object_reeba_Anim_0001E4), pthis->jointTable,
                    pthis->morphTable, 18);
     pthis->actor.colChkInfo.mass = MASS_HEAVY;
     pthis->actor.colChkInfo.health = 4;
@@ -176,11 +176,11 @@ void EnReeba_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80AE4F40(EnReeba* pthis, GlobalContext* globalCtx) {
-    f32 frames = Animation_GetLastFrame(&object_reeba_Anim_0001E4);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_reeba_Anim_0001E4));
     Player* player = GET_PLAYER(globalCtx);
     s16 playerSpeed;
 
-    Animation_Change(&pthis->skelanime, &object_reeba_Anim_0001E4, 2.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::object_reeba_Anim_0001E4), 2.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
 
     playerSpeed = fabsf(player->linearVelocity);
     pthis->unk_278 = 20 - playerSpeed * 2;

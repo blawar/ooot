@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_en_fire.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_camera.h"
@@ -102,9 +102,9 @@ void EffectSsEnFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
                                 0x20, 0x80));
 
     if (((pthis->rFlags & 0x7FFF) != 0) || (pthis->life < 18)) {
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire2DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire2DL));
     } else {
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
 
     CLOSE_DISPS(gfxCtx, "../z_eff_en_fire.c", 213);

@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_haka_ship.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
 #include "def/sinf.h"
@@ -64,11 +64,11 @@ void BgHakaShip_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->dyna.actor.params &= 0xFF;
 
     if (pthis->dyna.actor.params == 0) {
-        CollisionHeader_GetVirtual(&object_haka_objects_Col_00E408, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_00E408), &colHeader);
         pthis->counter = 8;
         pthis->actionFunc = BgHakaShip_WaitForSong;
     } else {
-        CollisionHeader_GetVirtual(&object_haka_objects_Col_00ED7C, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_00ED7C), &colHeader);
         pthis->actionFunc = BgHakaShip_ChildUpdatePosition;
     }
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -218,22 +218,22 @@ void BgHakaShip_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->dyna.actor.params == 0) {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_ship.c", 534),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_00D330);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_haka_objects_DL_00D330));
         angleTemp = pthis->yOffset * (M_PI / 0x8000);
         Matrix_Translate(-3670.0f, 620.0f, 1150.0f, MTXMODE_APPLY);
         Matrix_RotateZ(angleTemp, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_ship.c", 547),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_005A70);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_haka_objects_DL_005A70));
         Matrix_Translate(0.0f, 0.0f, -2300.0f, MTXMODE_APPLY);
         Matrix_RotateZ(-(2.0f * angleTemp), MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_ship.c", 556),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_005A70);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_haka_objects_DL_005A70));
     } else {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_ship.c", 562),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, object_haka_objects_DL_00E910);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_haka_objects_DL_00E910));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_ship.c", 568);
     if (pthis->actionFunc == BgHakaShip_CutsceneStationary || pthis->actionFunc == BgHakaShip_Move) {

@@ -7,9 +7,9 @@
  */
 
 #include "z_bg_spot08_bakudankabe.h"
-#include "objects/object_spot08_obj/object_spot08_obj.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -158,7 +158,7 @@ void func_808B0324(BgSpot08Bakudankabe* pthis, GlobalContext* globalCtx) {
         }
 
         EffectSsKakera_Spawn(globalCtx, &burstDepthY, &burstDepthX, &burstDepthY, gravityInfluence, rotationSpeed, 0x1E,
-                             4, 0, scale, 1, 3, 80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, gFieldKakeraDL);
+                             4, 0, scale, 1, 3, 80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_FIELD_KEEP, oot::asset::gfx::load(symbol::gFieldKakeraDL));
     }
 
     for (i = 0; i < ARRAY_COUNT(D_808B08AC); i++) {
@@ -180,7 +180,7 @@ void BgSpot08Bakudankabe_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     func_808B02D0(pthis, globalCtx);
-    CollisionHeader_GetVirtual(&gZorasFountainBombableWallCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gZorasFountainBombableWallCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
 }
@@ -212,7 +212,7 @@ void BgSpot08Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Collider_UpdateSpheres(0, &pthis->collider);
     Collider_UpdateSpheres(1, &pthis->collider);
     Collider_UpdateSpheres(2, &pthis->collider);
-    Gfx_DrawDListOpa(globalCtx, gZorasFountainBombableWallDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gZorasFountainBombableWallDL));
 }
 
 void BgSpot08Bakudankabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {

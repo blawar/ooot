@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_dalm.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -118,7 +118,7 @@ void BgHidanDalm_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(thisx, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gFireTempleHammerableTotemCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleHammerableTotemCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
     Collider_InitTris(globalCtx, &pthis->collider);
     Collider_SetTris(globalCtx, &pthis->collider, thisx, &sTrisInit, pthis->colliderItems);
@@ -227,9 +227,9 @@ void BgHidanDalm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgHidanDalm* pthis = (BgHidanDalm*)thisx;
 
     if (pthis->dyna.actor.params == 0) {
-        Gfx_DrawDListOpa(globalCtx, gFireTempleHammerableTotemBodyDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFireTempleHammerableTotemBodyDL));
     } else {
-        Gfx_DrawDListOpa(globalCtx, gFireTempleHammerableTotemHeadDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFireTempleHammerableTotemHeadDL));
     }
 
     if (pthis->actionFunc == BgHidanDalm_Wait) {

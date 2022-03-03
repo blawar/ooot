@@ -7,7 +7,7 @@
  */
 
 #include "z_en_stream.h"
-#include "objects/object_stream/object_stream.h"
+#include "asset.h"
 #include "def/math_float.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -148,7 +148,7 @@ void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 30, -multipliedFrames, 0x40, 0x40, 1,
                                 multipliedFrames, -multipliedFrames, 0x40, 0x40));
-    gSPDisplayList(POLY_XLU_DISP++, object_stream_DL_000950);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_stream_DL_000950));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_stream.c", 310);
 }
 

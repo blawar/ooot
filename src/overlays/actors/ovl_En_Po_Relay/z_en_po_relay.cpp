@@ -8,7 +8,7 @@
 
 #include "z_en_po_relay.h"
 #include "overlays/actors/ovl_En_Honotrap/z_en_honotrap.h"
-#include "objects/object_tk/object_tk.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"
@@ -96,9 +96,9 @@ static Vec3f D_80AD8D3C = { 0.0f, 0.0f, 0.0f };
 static Vec3f D_80AD8D48 = { 0.0f, 1200.0f, 0.0f };
 
 static void* sEyesTextures[] = {
-    gDampeEyeOpenTex,
-    gDampeEyeHalfTex,
-    gDampeEyeClosedTex,
+    oot::asset::texture::load(symbol::gDampeEyeOpenTex),
+    oot::asset::texture::load(symbol::gDampeEyeHalfTex),
+    oot::asset::texture::load(symbol::gDampeEyeClosedTex),
 };
 
 void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -106,7 +106,7 @@ void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 42.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDampeSkel, &gDampeFloatAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDampeSkel), oot::asset::anim::header::load(symbol::gDampeFloatAnim), pthis->jointTable, pthis->morphTable,
                        18);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -398,7 +398,7 @@ void EnPoRelay_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
         pthis->lightColor.b = (s16)(rand * 160.0f) + 95;
         gDPPipeSync(POLY_OPA_DISP++);
         gDPSetEnvColor(POLY_OPA_DISP++, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, 128);
-        gSPDisplayList(POLY_OPA_DISP++, gDampeLanternDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDampeLanternDL));
         if (1) {}
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 901);
         Matrix_MultVec3f(&D_80AD8D48, &vec);
@@ -408,7 +408,7 @@ void EnPoRelay_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 916);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 918),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gDampeHaloDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDampeHaloDL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 922);
     }
 }

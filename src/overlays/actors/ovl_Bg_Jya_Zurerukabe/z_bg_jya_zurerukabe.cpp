@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_jya_zurerukabe.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
@@ -120,7 +120,7 @@ void BgJyaZurerukabe_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaZurerukabe* pthis = (BgJyaZurerukabe*)thisx;
     s32 i;
 
-    BgJyaZurerukabe_InitDynaPoly(pthis, globalCtx, &gZurerukabeCol, DPM_UNK);
+    BgJyaZurerukabe_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gZurerukabeCol), DPM_UNK);
     Actor_ProcessInitChain(thisx, sInitChain);
 
     for (i = 0; i < ARRAY_COUNT(D_8089B9F0); i++) {
@@ -194,7 +194,7 @@ void BgJyaZurerukabe_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgJyaZurerukabe_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gZurerukabeDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gZurerukabeDL));
 }
 
 void BgJyaZurerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx) {

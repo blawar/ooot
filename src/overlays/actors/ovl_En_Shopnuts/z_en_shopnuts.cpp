@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_SHOPNUTS_Z_EN_SHOPNUTS_C
 #include "actor_common.h"
 #include "z_en_shopnuts.h"
-#include "objects/object_shopnuts/object_shopnuts.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -71,7 +71,7 @@ void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 35.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBusinessScrubSkel, &gBusinessScrubAnim_4574, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBusinessScrubSkel), oot::asset::anim::header::load(symbol::gBusinessScrubAnim_4574), pthis->jointTable,
                        pthis->morphTable, 18);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -94,7 +94,7 @@ void EnShopnuts_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnShopnuts_SetupWait(EnShopnuts* pthis) {
-    Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gBusinessScrubAnim_139C, 0.0f);
+    Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBusinessScrubAnim_139C), 0.0f);
     pthis->animFlagAndTimer = Rand_S16Offset(100, 50);
     pthis->collider.dim.height = 5;
     pthis->collider.base.acFlags &= ~AC_ON;
@@ -102,18 +102,18 @@ void EnShopnuts_SetupWait(EnShopnuts* pthis) {
 }
 
 void EnShopnuts_SetupLookAround(EnShopnuts* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gBusinessScrubLookAroundAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBusinessScrubLookAroundAnim));
     pthis->animFlagAndTimer = 2;
     pthis->actionFunc = EnShopnuts_LookAround;
 }
 
 void EnShopnuts_SetupThrowNut(EnShopnuts* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gBusinessScrubAnim_1EC);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBusinessScrubAnim_1EC));
     pthis->actionFunc = EnShopnuts_ThrowNut;
 }
 
 void EnShopnuts_SetupStand(EnShopnuts* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gBusinessScrubAnim_4574, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBusinessScrubAnim_4574), -3.0f);
     if (pthis->actionFunc == EnShopnuts_ThrowNut) {
         pthis->animFlagAndTimer = 2 | 0x1000; // sets timer and flag
     } else {
@@ -123,13 +123,13 @@ void EnShopnuts_SetupStand(EnShopnuts* pthis) {
 }
 
 void EnShopnuts_SetupBurrow(EnShopnuts* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBusinessScrubAnim_39C, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBusinessScrubAnim_39C), -5.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_DOWN);
     pthis->actionFunc = EnShopnuts_Burrow;
 }
 
 void EnShopnuts_SetupSpawnSalesman(EnShopnuts* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBusinessScrubRotateAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBusinessScrubRotateAnim), -3.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_DAMAGE);
     pthis->collider.base.acFlags &= ~AC_ON;
     pthis->actionFunc = EnShopnuts_SpawnSalesman;
@@ -259,7 +259,7 @@ void EnShopnuts_Update(Actor* thisx, GlobalContext* globalCtx) {
         Actor_SetFocus(&pthis->actor, pthis->skelAnime.curFrame);
     } else if (pthis->actionFunc == EnShopnuts_Burrow) {
         Actor_SetFocus(&pthis->actor,
-                       20.0f - ((pthis->skelAnime.curFrame * 20.0f) / Animation_GetLastFrame(&gBusinessScrubAnim_39C)));
+                       20.0f - ((pthis->skelAnime.curFrame * 20.0f) / Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBusinessScrubAnim_39C))));
     } else {
         Actor_SetFocus(&pthis->actor, 20.0f);
     }
@@ -304,7 +304,7 @@ void EnShopnuts_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
         if (1) {}
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_shopnuts.c", 714),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gBusinessScrubNoseDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBusinessScrubNoseDL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_shopnuts.c", 717);
     }
 }

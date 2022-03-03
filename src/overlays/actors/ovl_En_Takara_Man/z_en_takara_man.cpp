@@ -8,7 +8,7 @@
 
 #include "z_en_takara_man.h"
 #include "vt.h"
-#include "objects/object_ts/object_ts.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
 #include "def/z_message_PAL.h"
@@ -32,8 +32,8 @@ void func_80B17A6C(EnTakaraMan* pthis, GlobalContext* globalCtx);
 void func_80B17AC4(EnTakaraMan* pthis, GlobalContext* globalCtx);
 
 static void* eyeTextures_37[] = {
-    object_ts_Tex_000970,
-    object_ts_Tex_000D70,
+    oot::asset::texture::load(symbol::object_ts_Tex_000970),
+    oot::asset::texture::load(symbol::object_ts_Tex_000D70),
 };
 
 
@@ -70,7 +70,7 @@ void EnTakaraMan_Init(Actor* thisx, GlobalContext* globalCtx) {
     osSyncPrintf(VT_FGCOL(PURPLE) "☆☆☆☆☆ ばぅん！ ☆☆☆☆☆ %x\n" VT_RST, globalCtx->actorCtx.flags.chest);
     globalCtx->actorCtx.flags.chest = 0;
     gSaveContext.inventory.dungeonKeys[gSaveContext.mapIndex] = -1;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ts_Skel_004FE0, &object_ts_Anim_000498, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ts_Skel_004FE0), oot::asset::anim::header::load(symbol::object_ts_Anim_000498), pthis->jointTable,
                        pthis->morphTable, 10);
     thisx->focus.pos = thisx->world.pos;
     pthis->pos = thisx->world.pos;
@@ -87,9 +87,9 @@ void EnTakaraMan_Init(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80B176E0(EnTakaraMan* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&object_ts_Anim_000498);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ts_Anim_000498));
 
-    Animation_Change(&pthis->skelAnime, &object_ts_Anim_000498, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ts_Anim_000498), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     if (!pthis->unk_214) {
         pthis->actor.textId = 0x6D;
         pthis->dialogState = TEXT_STATE_CHOICE;

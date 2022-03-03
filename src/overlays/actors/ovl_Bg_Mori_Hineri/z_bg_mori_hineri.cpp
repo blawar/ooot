@@ -7,13 +7,13 @@
  */
 
 #include "z_bg_mori_hineri.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_box/object_box.h"
-#include "objects/object_mori_hineri1/object_mori_hineri1.h"
-#include "objects/object_mori_hineri1a/object_mori_hineri1a.h"
-#include "objects/object_mori_hineri2/object_mori_hineri2.h"
-#include "objects/object_mori_hineri2a/object_mori_hineri2a.h"
-#include "objects/object_mori_tex/object_mori_tex.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -59,10 +59,10 @@ static InitChainEntry sInitChain[] = {
 };
 
 static Gfx* sDLists[] = {
-    object_mori_hineri1_DL_0024E0,
-    object_mori_hineri1a_DL_001980,
-    object_mori_hineri2_DL_0020F0,
-    object_mori_hineri2a_DL_002B70,
+    oot::asset::gfx::load(symbol::object_mori_hineri1_DL_0024E0),
+    oot::asset::gfx::load(symbol::object_mori_hineri1a_DL_001980),
+    oot::asset::gfx::load(symbol::object_mori_hineri2_DL_0020F0),
+    oot::asset::gfx::load(symbol::object_mori_hineri2a_DL_002B70),
 };
 
 void BgMoriHineri_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -152,16 +152,16 @@ void func_808A39FC(BgMoriHineri* pthis, GlobalContext* globalCtx) {
             pthis->dyna.actor.draw = BgMoriHineri_DrawHallAndRoom;
             if (pthis->dyna.actor.params == 0) {
                 pthis->actionFunc = func_808A3C8C;
-                CollisionHeader_GetVirtual(&object_mori_hineri1_Col_0054B8, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_mori_hineri1_Col_0054B8), &colHeader);
             } else if (pthis->dyna.actor.params == 1) {
                 pthis->actionFunc = BgMoriHineri_SpawnBossKeyChest;
-                CollisionHeader_GetVirtual(&object_mori_hineri1a_Col_003490, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_mori_hineri1a_Col_003490), &colHeader);
             } else if (pthis->dyna.actor.params == 2) {
                 pthis->actionFunc = BgMoriHineri_DoNothing;
-                CollisionHeader_GetVirtual(&object_mori_hineri2_Col_0043D0, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_mori_hineri2_Col_0043D0), &colHeader);
             } else {
                 pthis->actionFunc = func_808A3C8C;
-                CollisionHeader_GetVirtual(&object_mori_hineri2a_Col_006078, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_mori_hineri2a_Col_006078), &colHeader);
             }
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
         }
@@ -246,7 +246,6 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 611);
 
     func_80093D18(globalCtx->state.gfxCtx);
-    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIdx].vromStart.get());
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 618),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPDisplayList(POLY_OPA_DISP++, sDLists[pthis->dyna.actor.params]);
@@ -264,11 +263,10 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Translate(0.0f, -50.0f, 0.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 652),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gDungeonDoorDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDungeonDoorDL));
     }
     if ((pthis->boxObjIdx > 0) && ((pthis->boxObjIdx = Object_GetIndex(&globalCtx->objectCtx, OBJECT_BOX)) > 0) &&
         (Object_IsLoaded(&globalCtx->objectCtx, pthis->boxObjIdx))) {
-	    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->boxObjIdx].vromStart.get());
         gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
         Matrix_Put(&mtx);
         Matrix_Translate(147.0f, -245.0f, -453.0f, MTXMODE_APPLY);
@@ -276,7 +274,7 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 689),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gTreasureChestBossKeyChestFrontDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTreasureChestBossKeyChestFrontDL));
         Matrix_Put(&mtx);
         Matrix_Translate(167.0f, -218.0f, -453.0f, MTXMODE_APPLY);
         if (Flags_GetTreasure(globalCtx, 0xE)) {
@@ -287,7 +285,7 @@ void BgMoriHineri_DrawHallAndRoom(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 703),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gTreasureChestBossKeyChestSideAndTopDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gTreasureChestBossKeyChestSideAndTopDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hineri.c", 709);

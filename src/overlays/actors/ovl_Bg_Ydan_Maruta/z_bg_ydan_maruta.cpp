@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ydan_maruta.h"
-#include "objects/object_ydan_objects/object_ydan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -108,7 +108,7 @@ void BgYdanMaruta_Init(Actor* thisx, GlobalContext* globalCtx) {
     } else {
         triInit = &sTrisElementsInit[1];
         DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-        CollisionHeader_GetVirtual(&gDTFallingLadderCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDTFallingLadderCol), &colHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
         thisx->home.pos.y += -280.0f;
         if (Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
@@ -213,9 +213,9 @@ void BgYdanMaruta_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgYdanMaruta* pthis = (BgYdanMaruta*)thisx;
 
     if (pthis->dyna.actor.params == 0) {
-        Gfx_DrawDListOpa(globalCtx, gDTRollingSpikeTrapDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gDTRollingSpikeTrapDL));
     } else {
-        Gfx_DrawDListOpa(globalCtx, gDTFallingLadderDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gDTFallingLadderDL));
     }
 }
 

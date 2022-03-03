@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot06_objects.h"
-#include "objects/object_spot06_objects/object_spot06_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -110,7 +110,7 @@ void BgSpot06Objects_Init(Actor* thisx, GlobalContext* globalCtx) {
         case LHO_WATER_TEMPLE_ENTRACE_GATE:
             Actor_ProcessInitChain(thisx, sInitChain);
             DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-            CollisionHeader_GetVirtual(&gLakeHyliaWaterTempleGateCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gLakeHyliaWaterTempleGateCol), &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
 
             if (LINK_IS_ADULT && Flags_GetSwitch(globalCtx, pthis->switchFlag)) {
@@ -176,7 +176,7 @@ void BgSpot06Objects_Init(Actor* thisx, GlobalContext* globalCtx) {
         case LHO_ICE_BLOCK:
             Actor_ProcessInitChain(thisx, sInitChain);
             DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-            CollisionHeader_GetVirtual(&gLakeHyliaZoraShortcutIceblockCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gLakeHyliaZoraShortcutIceblockCol), &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
             pthis->actionFunc = BgSpot06Objects_DoNothing;
 
@@ -449,9 +449,9 @@ void BgSpot06Objects_DrawLakeHyliaWater(BgSpot06Objects* pthis, GlobalContext* g
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
 
     if ((pthis->lakeHyliaWaterLevel < -680.0f) && (gSaveContext.sceneSetupIndex < 4)) {
-        gSPDisplayList(POLY_XLU_DISP++, gLakeHyliaLowWaterDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLakeHyliaLowWaterDL));
     } else {
-        gSPDisplayList(POLY_XLU_DISP++, gLakeHyliaHighWaterDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLakeHyliaHighWaterDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot06_objects.c", 879);
@@ -462,10 +462,10 @@ void BgSpot06Objects_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     switch (pthis->dyna.actor.params) {
         case LHO_WATER_TEMPLE_ENTRACE_GATE:
-            Gfx_DrawDListOpa(globalCtx, gLakeHyliaWaterTempleGateDL);
+            Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gLakeHyliaWaterTempleGateDL));
             break;
         case LHO_WATER_TEMPLE_ENTRANCE_LOCK:
-            Gfx_DrawDListOpa(globalCtx, gLakeHyliaWaterTempleKeyDL);
+            Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gLakeHyliaWaterTempleKeyDL));
 
             if (pthis->actionFunc == BgSpot06Objects_LockSwimToSurface) {
                 Collider_UpdateSpheres(1, &pthis->collider);
@@ -475,7 +475,7 @@ void BgSpot06Objects_Draw(Actor* thisx, GlobalContext* globalCtx) {
             BgSpot06Objects_DrawLakeHyliaWater(pthis, globalCtx);
             break;
         case LHO_ICE_BLOCK:
-            Gfx_DrawDListOpa(globalCtx, gLakeHyliaZoraShortcutIceblockDL);
+            Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gLakeHyliaZoraShortcutIceblockDL));
             break;
     }
 }

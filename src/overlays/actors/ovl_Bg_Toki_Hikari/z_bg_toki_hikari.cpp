@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_toki_hikari.h"
-#include "objects/object_toki_objects/object_toki_objects.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
@@ -99,9 +99,9 @@ void func_808BA018(BgTokiHikari* pthis, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if (LINK_IS_ADULT) {
-        gSPDisplayList(POLY_OPA_DISP++, object_toki_objects_DL_008190);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_toki_objects_DL_008190));
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, object_toki_objects_DL_007E20);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_toki_objects_DL_007E20));
         func_80093D84(globalCtx->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 8,
                    Gfx_TexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames % 128, 64, 32));
@@ -112,7 +112,7 @@ void func_808BA018(BgTokiHikari* pthis, GlobalContext* globalCtx) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_toki_hikari.c", 278),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-        gSPDisplayList(POLY_XLU_DISP++, object_toki_objects_DL_007EE0);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_toki_objects_DL_007EE0));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_toki_hikari.c", 284);
 }
@@ -163,7 +163,7 @@ void func_808BA2CC(BgTokiHikari* pthis, GlobalContext* globalCtx) {
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -2 * (globalCtx->gameplayFrames & 0x7F), 0, 0x20, 0x40, 1,
                                 (globalCtx->gameplayFrames & 0x7F) * 4, 0, 0x20, 0x40));
 
-    gSPDisplayList(POLY_XLU_DISP++, object_toki_objects_DL_000880);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_toki_objects_DL_000880));
     Matrix_Pop();
     Matrix_Push();
     gDPPipeSync(POLY_XLU_DISP++);
@@ -175,7 +175,7 @@ void func_808BA2CC(BgTokiHikari* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_toki_hikari.c", 415),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_XLU_DISP++, object_toki_objects_DL_0009C0);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_toki_objects_DL_0009C0));
     Matrix_Pop();
     Matrix_Push();
     gDPPipeSync(POLY_XLU_DISP++);
@@ -187,7 +187,7 @@ void func_808BA2CC(BgTokiHikari* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_toki_hikari.c", 437),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_XLU_DISP++, &object_toki_objects_DL_0009C0[10]);
+    gSPDisplayList(POLY_XLU_DISP++, &oot::asset::gfx::load(symbol::object_toki_objects_DL_0009C0)[10]);
     Matrix_Pop();
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_toki_hikari.c", 443);
 }

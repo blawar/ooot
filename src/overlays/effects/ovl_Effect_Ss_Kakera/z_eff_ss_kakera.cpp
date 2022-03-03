@@ -108,9 +108,7 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
 
     if (pthis->rObjId != KAKERA_OBJECT_DEFAULT) {
         if ((((pthis->rReg4 >> 7) & 1) << 7) == 0x80) {
-            gSPSegment(POLY_XLU_DISP++, 0x06, gObjectTable[pthis->rObjBankIdx].vromStart.get());
         } else {
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->rObjBankIdx].vromStart.get());
         }
     }
 

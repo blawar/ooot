@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_g_splash.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 
 //! @bug the reuse of regs[11] means that EffectSs_DrawGEffect will treat the type as an object bank index
@@ -36,7 +36,7 @@ u32 EffectSsGSplash_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
         initParams->scale = 600;
     }
 
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffWaterSplashDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffWaterSplashDL));
     pthis->life = 8;
     pthis->rgScale = initParams->scale;
     pthis->rgTexIdx = 0;
@@ -94,8 +94,8 @@ u32 EffectSsGSplash_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
 
 void EffectSsGSplash_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* waterSplashTextures[] = {
-        gEffWaterSplash1Tex, gEffWaterSplash2Tex, gEffWaterSplash3Tex, gEffWaterSplash4Tex,
-        gEffWaterSplash5Tex, gEffWaterSplash6Tex, gEffWaterSplash7Tex, gEffWaterSplash8Tex,
+        oot::asset::texture::load(symbol::gEffWaterSplash1Tex), oot::asset::texture::load(symbol::gEffWaterSplash2Tex), oot::asset::texture::load(symbol::gEffWaterSplash3Tex), oot::asset::texture::load(symbol::gEffWaterSplash4Tex),
+        oot::asset::texture::load(symbol::gEffWaterSplash5Tex), oot::asset::texture::load(symbol::gEffWaterSplash6Tex), oot::asset::texture::load(symbol::gEffWaterSplash7Tex), oot::asset::texture::load(symbol::gEffWaterSplash8Tex),
     };
     s16 texIdx;
 

@@ -8,8 +8,8 @@
 
 #include "vt.h"
 #include "z_en_sth.h"
-#include "objects/object_ahg/object_ahg.h"
-#include "objects/object_boj/object_boj.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -48,8 +48,6 @@ ActorInit En_Sth_InitVars = {
     (ActorFunc)EnSth_Reset,
 };
 
-#include "overlays/ovl_En_Sth/ovl_En_Sth.cpp"
-
 static ColliderCylinderInit sCylinderInit = {
     {
         COLTYPE_NONE,
@@ -75,16 +73,16 @@ static s16 sObjectIds[6] = {
 };
 
 static FlexSkeletonHeader* sSkeletons[6] = {
-    &object_ahg_Skel_0000F0,
-    &object_boj_Skel_0000F0,
-    &object_boj_Skel_0000F0,
-    &object_boj_Skel_0000F0,
-    &object_boj_Skel_0000F0,
-    &object_boj_Skel_0000F0,
+    oot::asset::skel::header::load(symbol::object_ahg_Skel_0000F0),
+    oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0),
+    oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0),
+    oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0),
+    oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0),
+    oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0),
 };
 
 static AnimationHeader* sAnimations[6] = {
-    &sParentDanceAnim, &sChildDanceAnim, &sChildDanceAnim, &sChildDanceAnim, &sChildDanceAnim, &sChildDanceAnim,
+    oot::asset::anim::header::load(symbol::sParentDanceAnim), oot::asset::anim::header::load(symbol::sChildDanceAnim), oot::asset::anim::header::load(symbol::sChildDanceAnim), oot::asset::anim::header::load(symbol::sChildDanceAnim), oot::asset::anim::header::load(symbol::sChildDanceAnim), oot::asset::anim::header::load(symbol::sChildDanceAnim),
 };
 
 static EnSthActionFunc sRewardObtainedWaitActions[6] = {
@@ -168,7 +166,6 @@ void EnSth_SetupAfterObjectLoaded(EnSth* pthis, GlobalContext* globalCtx) {
     s16* params;
 
     EnSth_SetupShapeColliderUpdate2AndDraw(pthis, globalCtx);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objectBankIdx].vromStart.get());
     SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, sSkeletons[pthis->actor.params], NULL, pthis->jointTable,
                        pthis->morphTable, 16);
     Animation_PlayLoop(&pthis->skelAnime, sAnimations[pthis->actor.params]);
@@ -360,7 +357,7 @@ s32 EnSth_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     if (limbIndex == 15) {
         rot->x += pthis->headRot.y;
         rot->z += pthis->headRot.x;
-        *dList = D_80B0A050;
+        *dList = oot::asset::gfx::load(symbol::D_80B0A050);
     }
 
     if (pthis->unk_2B2 & 2) {
@@ -384,7 +381,7 @@ void EnSth_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         if (pthis->actor.params != 0) { // Children
             OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2079);
 
-            gSPDisplayList(POLY_OPA_DISP++, D_80B0A3C0);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::D_80B0A3C0));
 
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2081);
         }
@@ -407,7 +404,6 @@ void EnSth_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2133);
 
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objectBankIdx].vromStart.get());
     func_800943C8(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_OPA_DISP++, 0x08,

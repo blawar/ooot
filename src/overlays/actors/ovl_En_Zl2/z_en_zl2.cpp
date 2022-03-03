@@ -10,8 +10,8 @@
 #include "vt.h"
 
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "objects/object_zl2/object_zl2.h"
-#include "objects/object_zl2_anime1/object_zl2_anime1.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/graph.h"
@@ -77,11 +77,11 @@ void func_80B523BC(EnZl2* pthis, GlobalContext* globalCtx);
 void func_80B523C8(EnZl2* pthis, GlobalContext* globalCtx);
 void func_80B525D4(EnZl2* pthis, GlobalContext* globalCtx);
 
-static void* sEyeTextures[] = { gZelda2EyeOpenTex, gZelda2EyeHalfTex, gZelda2EyeShutTex,
-                                gZelda2Eye03Tex,   gZelda2Eye04Tex,   gZelda2Eye05Tex,
-                                gZelda2Eye06Tex,   gZelda2Eye07Tex,   gZelda2Eye08Tex };
+static void* sEyeTextures[] = { oot::asset::texture::load(symbol::gZelda2EyeOpenTex), oot::asset::texture::load(symbol::gZelda2EyeHalfTex), oot::asset::texture::load(symbol::gZelda2EyeShutTex),
+                                oot::asset::texture::load(symbol::gZelda2Eye03Tex),   oot::asset::texture::load(symbol::gZelda2Eye04Tex),   oot::asset::texture::load(symbol::gZelda2Eye05Tex),
+                                oot::asset::texture::load(symbol::gZelda2Eye06Tex),   oot::asset::texture::load(symbol::gZelda2Eye07Tex),   oot::asset::texture::load(symbol::gZelda2Eye08Tex) };
 
-static void* sMouthTextures[] = { gZelda2MouthSeriousTex, gZelda2MouthHappyTex, gZelda2MouthOpenTex };
+static void* sMouthTextures[] = { oot::asset::texture::load(symbol::gZelda2MouthSeriousTex), oot::asset::texture::load(symbol::gZelda2MouthHappyTex), oot::asset::texture::load(symbol::gZelda2MouthOpenTex) };
 
 static EnZl2ActionFunc sActionFuncs[] = {
     func_80B521A0, func_80B50BBC, func_80B50BEC, func_80B50C40, func_80B50CA8, func_80B50CFC,
@@ -556,7 +556,7 @@ void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
     if (limbIndex == 10) {
         if ((pthis->unk_254 != 0) && (globalCtx->csCtx.frames >= 900)) {
-            gSPDisplayList((*gfx)++, gZelda2OcarinaDL);
+            gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gZelda2OcarinaDL));
         }
 
         {
@@ -569,7 +569,7 @@ void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
                 Matrix_Scale(1.2f, 1.2f, 1.2f, MTXMODE_APPLY);
                 gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1253),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList((*gfx)++, gZelda2OcarinaDL);
+                gSPDisplayList((*gfx)++, oot::asset::gfx::load(symbol::gZelda2OcarinaDL));
             }
             Matrix_Pop();
         }
@@ -579,7 +579,6 @@ void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 void func_80B4FCCC(EnZl2* pthis, GlobalContext* globalCtx) {
     s32 unk_274 = pthis->unk_274;
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[unk_274].vromStart.get());
 }
 
 void func_80B4FD00(EnZl2* pthis, AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
@@ -602,7 +601,7 @@ void func_80B4FD00(EnZl2* pthis, AnimationHeader* animation, u8 arg2, f32 transi
 }
 
 void func_80B4FD90(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00B5FC, 0, 0.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00B5FC), 0, 0.0f, 0);
     pthis->action = 1;
 }
 
@@ -764,7 +763,7 @@ void func_80B50304(EnZl2* pthis, GlobalContext* globalCtx) {
 
     actionXDelta = npcAction->endPos.x - npcAction->startPos.x;
     actionZDelta = npcAction->endPos.z - npcAction->startPos.z;
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_0003BC, 0, -12.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0003BC), 0, -12.0f, 0);
     pthis->action = 3;
     pthis->drawConfig = 1;
     pthis->unk_23C = 0.0f;
@@ -781,7 +780,7 @@ void func_80B503DC(EnZl2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B5042C(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_0022D0, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0022D0), 2, -8.0f, 0);
     pthis->action = 5;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -790,14 +789,14 @@ void func_80B5042C(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B50488(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_002750, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_002750), 0, 0.0f, 0);
         pthis->action = 6;
         pthis->drawConfig = 1;
     }
 }
 
 void func_80B504D4(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00325C, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00325C), 2, -8.0f, 0);
     pthis->action = 7;
     pthis->drawConfig = 1;
     pthis->unk_27C = 0.0f;
@@ -807,13 +806,13 @@ void func_80B504D4(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B5053C(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_003538, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_003538), 0, 0.0f, 0);
         pthis->action = 8;
     }
 }
 
 void func_80B50580(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_000A50, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_000A50), 2, -8.0f, 0);
     pthis->action = 9;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -821,7 +820,7 @@ void func_80B50580(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B505D4(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_000EB0, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_000EB0), 0, 0.0f, 0);
         pthis->action = 10;
     }
 }
@@ -837,14 +836,14 @@ void func_80B50644(EnZl2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B50670(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00B5FC, 0, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00B5FC), 0, -8.0f, 0);
     pthis->action = 13;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
 }
 
 void func_80B506C4(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00AAD4, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00AAD4), 2, -8.0f, 0);
     pthis->action = 14;
     pthis->drawConfig = 1;
     EnZl2_setEyesIndex(pthis, 4);
@@ -855,13 +854,13 @@ void func_80B506C4(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B5073C(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_00AFE0, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00AFE0), 0, 0.0f, 0);
         pthis->action = 15;
     }
 }
 
 void func_80B50780(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_001670, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_001670), 2, -8.0f, 0);
     pthis->action = 16;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -871,13 +870,13 @@ void func_80B50780(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B507E8(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_001B48, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_001B48), 0, 0.0f, 0);
         pthis->action = 17;
     }
 }
 
 void func_80B5082C(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_002B14, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_002B14), 2, -8.0f, 0);
     pthis->action = 18;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -885,14 +884,14 @@ void func_80B5082C(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B50880(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_002F30, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_002F30), 0, 0.0f, 0);
         pthis->action = 19;
         func_80B4FEB4(pthis);
     }
 }
 
 void func_80B508C8(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_001010, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_001010), 2, -8.0f, 0);
     pthis->action = 20;
     pthis->drawConfig = 1;
     EnZl2_setEyesIndex(pthis, 6);
@@ -901,7 +900,7 @@ void func_80B508C8(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B50928(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_0013A0, 0, 0.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0013A0), 0, 0.0f, 0);
         pthis->action = 21;
         func_80B4FED8(pthis);
     }
@@ -1183,7 +1182,7 @@ void func_80B51310(EnZl2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B5135C(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00A15C, 0, 0.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00A15C), 0, 0.0f, 0);
     pthis->action = 25;
     pthis->unk_254 = 1;
 }
@@ -1261,7 +1260,7 @@ void func_80B515C4(EnZl2* pthis) {
 }
 
 void func_80B515D8(EnZl2* pthis, GlobalContext* globalCtx) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00A15C, 0, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00A15C), 0, -8.0f, 0);
     func_80B4EDB8(pthis, globalCtx, 0);
     pthis->action = 26;
     pthis->drawConfig = 1;
@@ -1271,12 +1270,12 @@ void func_80B515D8(EnZl2* pthis, GlobalContext* globalCtx) {
 
 void func_80B51644(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_0087B8, 0, -8.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0087B8), 0, -8.0f, 0);
     }
 }
 
 void func_80B51678(EnZl2* pthis) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_007D0C, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_007D0C), 2, -8.0f, 0);
     pthis->action = 27;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -1285,12 +1284,12 @@ void func_80B51678(EnZl2* pthis) {
 
 void func_80B516D0(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_009AD4, 0, -8.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_009AD4), 0, -8.0f, 0);
     }
 }
 
 void func_80B51704(EnZl2* pthis) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_0090D8, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0090D8), 2, -8.0f, 0);
     pthis->action = 28;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -1299,12 +1298,12 @@ void func_80B51704(EnZl2* pthis) {
 
 void func_80B5175C(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_006778, 0, -8.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_006778), 0, -8.0f, 0);
     }
 }
 
 void func_80B51790(EnZl2* pthis) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_005F40, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_005F40), 2, -8.0f, 0);
     pthis->action = 29;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -1312,13 +1311,13 @@ void func_80B51790(EnZl2* pthis) {
 
 void func_80B517E0(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_002750, 0, -8.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_002750), 0, -8.0f, 0);
         pthis->action = 31;
     }
 }
 
 void func_80B51824(EnZl2* pthis) {
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_0022D0, 2, -8.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0022D0), 2, -8.0f, 0);
     pthis->action = 30;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -1327,13 +1326,13 @@ void func_80B51824(EnZl2* pthis) {
 
 void func_80B5187C(EnZl2* pthis, s32 arg1) {
     if (arg1 != 0) {
-        func_80B4FD00(pthis, &gZelda2Anime1Anim_00A79C, 0, -8.0f, 0);
+        func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00A79C), 0, -8.0f, 0);
         pthis->unk_27C = 0.0f;
     }
 }
 
 void func_80B518C0(EnZl2* pthis) {
-    func_80B4FD00(pthis, SEGMENTED_TO_VIRTUAL(&gZelda2Anime1Anim_004900), 2, -8.0f, 0);
+    func_80B4FD00(pthis, SEGMENTED_TO_VIRTUAL(oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_004900)), 2, -8.0f, 0);
     pthis->action = 32;
     pthis->drawConfig = 1;
     pthis->actor.shape.shadowAlpha = 0xFF;
@@ -1501,7 +1500,7 @@ void func_80B51EBC(EnZl2* pthis, GlobalContext* globalCtx) {
     s32 pad[2];
 
     pthis->actor.world.rot.y = shape->rot.y = npcAction->rot.y;
-    func_80B4FD00(pthis, &gZelda2Anime1Anim_00B224, 0, 0.0f, 0);
+    func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00B224), 0, 0.0f, 0);
     pthis->action = 34;
     pthis->drawConfig = 1;
     shape->shadowAlpha = 255;
@@ -1512,7 +1511,7 @@ void func_80B51F38(EnZl2* pthis, GlobalContext* globalCtx) {
 
     if (npcAction != NULL) {
         if (globalCtx->csCtx.frames - 8 >= npcAction->endFrame) {
-            func_80B4FD00(pthis, &gZelda2Anime1Anim_00B5FC, 0, -8.0f, 0);
+            func_80B4FD00(pthis, oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_00B5FC), 0, -8.0f, 0);
             pthis->action = 35;
         }
     }
@@ -1595,7 +1594,7 @@ void func_80B521A0(EnZl2* pthis, GlobalContext* globalCtx) {
     if (Object_IsLoaded(objectCtx, bankIndex)) {
         pthis->unk_274 = bankIndex;
         func_80B4FCCC(pthis, globalCtx);
-        pthis->unk_278 = Animation_GetLastFrame(&gZelda2Anime1Anim_0022D0);
+        pthis->unk_278 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZelda2Anime1Anim_0022D0));
         func_80B52114(pthis, globalCtx);
     }
 }
@@ -1617,7 +1616,7 @@ void EnZl2_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     shape->shadowAlpha = 0;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gZelda2Skel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gZelda2Skel), NULL, NULL, NULL, 0);
 
     switch (thisx->params) {
         case 1:

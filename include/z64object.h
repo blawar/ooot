@@ -23,5 +23,3 @@ struct ObjectContext {
     s16* objectEntry;
 }; // size = 0x518
 
-extern u32 gObjectTableSize;
-extern RomFile gObjectTable[OBJECT_ID_MAX];

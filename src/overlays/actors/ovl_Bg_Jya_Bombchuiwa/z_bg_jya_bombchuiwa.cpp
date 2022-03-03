@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_bg_jya_bombchuiwa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -148,7 +148,7 @@ void BgJyaBombchuiwa_Break(BgJyaBombchuiwa* pthis, GlobalContext* globalCtx) {
             }
         }
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -300, arg5, arg6, arg7, 0, scale, 1, 15, 80,
-                             KAKERA_COLOR_NONE, OBJECT_JYA_OBJ, gBombiwaEffectDL);
+                             KAKERA_COLOR_NONE, OBJECT_JYA_OBJ, oot::asset::gfx::load(symbol::gBombiwaEffectDL));
     }
     func_80033480(globalCtx, &pthis->actor.world.pos, 100.0f, 8, 100, 160, 0);
 }
@@ -219,7 +219,7 @@ void BgJyaBombchuiwa_DrawRock(GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 439),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gBombchuiwa2DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBombchuiwa2DL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 443);
 }
 
@@ -231,10 +231,10 @@ void BgJyaBombchuiwa_DrawLight(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 457),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, CLAMP_MAX((u32)(pthis->lightRayIntensity * 153.0f), 153));
-    gSPDisplayList(POLY_XLU_DISP++, gBombchuiwaLight1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBombchuiwaLight1DL));
     gDPPipeSync(POLY_XLU_DISP++);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, CLAMP_MAX((u32)(pthis->lightRayIntensity * 255.0f), 255));
-    gSPDisplayList(POLY_XLU_DISP++, gBombchuiwaLight2DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBombchuiwaLight2DL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 472);
 }
 
@@ -242,7 +242,7 @@ void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaBombchuiwa* pthis = (BgJyaBombchuiwa*)thisx;
 
     if (pthis->drawFlags & 1) {
-        Gfx_DrawDListOpa(globalCtx, gBombchuiwaDL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gBombchuiwaDL));
         Collider_UpdateSpheres(0, &pthis->collider);
     }
 

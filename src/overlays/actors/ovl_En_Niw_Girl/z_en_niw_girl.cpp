@@ -7,7 +7,7 @@
  */
 
 #include "z_en_niw_girl.h"
-#include "objects/object_gr/object_gr.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/math_float.h"
 #include "def/sys_matrix.h"
@@ -32,7 +32,7 @@ void EnNiwGirl_Talk(EnNiwGirl* pthis, GlobalContext* globalCtx);
 void func_80AB94D0(EnNiwGirl* pthis, GlobalContext* globalCtx);
 void func_80AB9210(EnNiwGirl* pthis, GlobalContext* globalCtx);
 
-static void* eyeTextures_37[] = { gNiwGirlEyeOpenTex, gNiwGirlEyeHalfTex, gNiwGirlEyeClosedTex };
+static void* eyeTextures_37[] = { oot::asset::texture::load(symbol::gNiwGirlEyeOpenTex), oot::asset::texture::load(symbol::gNiwGirlEyeHalfTex), oot::asset::texture::load(symbol::gNiwGirlEyeClosedTex) };
 
 
 ActorInit En_Niw_Girl_InitVars = {
@@ -75,7 +75,7 @@ void EnNiwGirl_Init(Actor* thisx, GlobalContext* globalCtx) {
     Vec3f vec2;
     s32 pad2;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gNiwGirlSkel, &gNiwGirlRunAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gNiwGirlSkel), oot::asset::anim::header::load(symbol::gNiwGirlRunAnim), pthis->jointTable, pthis->morphTable,
                        17);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -112,8 +112,8 @@ void EnNiwGirl_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnNiwGirl_Jump(EnNiwGirl* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gNiwGirlRunAnim);
-    Animation_Change(&pthis->skelAnime, &gNiwGirlRunAnim, 1.0f, 0.0f, frameCount, 0, -10.0f);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gNiwGirlRunAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gNiwGirlRunAnim), 1.0f, 0.0f, frameCount, 0, -10.0f);
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     pthis->actionFunc = func_80AB9210;
 }
@@ -153,7 +153,7 @@ void func_80AB9210(EnNiwGirl* pthis, GlobalContext* globalCtx) {
 }
 
 void EnNiwGirl_Talk(EnNiwGirl* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gNiwGirlJumpAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gNiwGirlJumpAnim), 0,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gNiwGirlJumpAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gNiwGirlJumpAnim)), 0,
                      -10.0f);
     pthis->actor.flags |= ACTOR_FLAG_0;
     pthis->actor.textId = 0x7000;

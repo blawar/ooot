@@ -7,7 +7,7 @@
  */
 
 #include "z_en_attack_niw.h"
-#include "objects/object_niw/object_niw.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Niw/z_en_niw.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -53,7 +53,7 @@ void EnAttackNiw_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoSkel, &gCuccoAnim, pthis->jointTable, pthis->morphTable, 16);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gCuccoSkel), oot::asset::anim::header::load(symbol::gCuccoAnim), pthis->jointTable, pthis->morphTable, 16);
     if (pthis->actor.params < 0) {
         pthis->actor.params = 0;
     }

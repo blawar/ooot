@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_gnd_nisekabe.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_cheap_proc.h"
 
@@ -33,9 +33,9 @@ ActorInit Bg_Gnd_Nisekabe_InitVars = {
 };
 
 static Gfx* dLists[] = {
-    gLightTrialFakeWallDL,
-    gGanonsCastleUnusedFakeWallDL,
-    gGanonsCastleScrubsFakeWallDL,
+    oot::asset::gfx::load(symbol::gLightTrialFakeWallDL),
+    oot::asset::gfx::load(symbol::gGanonsCastleUnusedFakeWallDL),
+    oot::asset::gfx::load(symbol::gGanonsCastleScrubsFakeWallDL),
 };
 
 void BgGndNisekabe_Init(Actor* thisx, GlobalContext* globalCtx) {

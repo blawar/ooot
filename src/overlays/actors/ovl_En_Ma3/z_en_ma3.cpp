@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ma3.h"
-#include "objects/object_ma2/object_ma2.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -37,9 +37,9 @@ void EnMa3_UpdateEyes(EnMa3* pthis);
 void EnMa3_ChangeAnim(EnMa3* pthis, s32 arg1);
 void func_80AA3200(EnMa3* pthis, GlobalContext* globalCtx);
 
-static void* sMouthTextures_47[] = { gMalonAdultMouthNeutralTex, gMalonAdultMouthSadTex, gMalonAdultMouthHappyTex };
+static void* sMouthTextures_47[] = { oot::asset::texture::load(symbol::gMalonAdultMouthNeutralTex), oot::asset::texture::load(symbol::gMalonAdultMouthSadTex), oot::asset::texture::load(symbol::gMalonAdultMouthHappyTex) };
 
-static void* sEyeTextures_47[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
+static void* sEyeTextures_47[] = { oot::asset::texture::load(symbol::gMalonAdultEyeOpenTex), oot::asset::texture::load(symbol::gMalonAdultEyeHalfTex), oot::asset::texture::load(symbol::gMalonAdultEyeClosedTex) };
 
 
 ActorInit En_Ma3_InitVars = {
@@ -78,9 +78,9 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static struct_D_80AA1678 sAnimationInfo[] = {
-    { &gMalonAdultIdleAnim, 1.0f, ANIMMODE_LOOP, 0.0f },       { &gMalonAdultIdleAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gMalonAdultStandStillAnim, 1.0f, ANIMMODE_LOOP, 0.0f }, { &gMalonAdultSingAnim, 1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gMalonAdultSingAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMalonAdultIdleAnim), 1.0f, ANIMMODE_LOOP, 0.0f },       { oot::asset::anim::header::load(symbol::gMalonAdultIdleAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMalonAdultStandStillAnim), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::gMalonAdultSingAnim), 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gMalonAdultSingAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
 };
 
 u16 func_80AA2AA0(GlobalContext* globalCtx, Actor* thisx) {
@@ -194,7 +194,7 @@ void func_80AA2E54(EnMa3* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     s16 phi_a3;
 
-    if ((pthis->unk_1E0.unk_00 == 0) && (pthis->skelAnime.animation == &gMalonAdultSingAnim)) {
+    if ((pthis->unk_1E0.unk_00 == 0) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonAdultSingAnim))) {
         phi_a3 = 1;
     } else {
         phi_a3 = 0;
@@ -219,7 +219,7 @@ s32 func_80AA2EC8(EnMa3* pthis, GlobalContext* globalCtx) {
 }
 
 s32 func_80AA2F28(EnMa3* pthis) {
-    if (pthis->skelAnime.animation != &gMalonAdultSingAnim) {
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMalonAdultSingAnim)) {
         return 0;
     }
     if (pthis->unk_1E0.unk_00 != 0) {
@@ -255,7 +255,7 @@ void EnMa3_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 18.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gMalonAdultSkel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gMalonAdultSkel), NULL, NULL, NULL, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(22), &sColChkInfoInit);
@@ -353,8 +353,8 @@ void EnMa3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         Matrix_MultVec3f(&vec, &pthis->actor.focus.pos);
     }
 
-    if ((limbIndex == MALON_ADULT_LIMB_LEFT_HAND) && (pthis->skelAnime.animation == &gMalonAdultStandStillAnim)) {
-        gSPDisplayList(POLY_OPA_DISP++, gMalonAdultBasketDL);
+    if ((limbIndex == MALON_ADULT_LIMB_LEFT_HAND) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonAdultStandStillAnim))) {
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMalonAdultBasketDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma3.c", 950);

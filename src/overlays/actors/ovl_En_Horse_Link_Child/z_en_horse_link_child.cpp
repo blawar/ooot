@@ -7,7 +7,7 @@
  */
 
 #include "z_en_horse_link_child.h"
-#include "objects/object_horse_link_child/object_horse_link_child.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
@@ -51,8 +51,8 @@ ActorInit En_Horse_Link_Child_InitVars = {
 };
 
 static AnimationHeader* sAnimations[] = {
-    &gChildEponaIdleAnim,     &gChildEponaWhinnyAnim,    &gChildEponaWalkingAnim,
-    &gChildEponaTrottingAnim, &gChildEponaGallopingAnim,
+    oot::asset::anim::header::load(symbol::gChildEponaIdleAnim),     oot::asset::anim::header::load(symbol::gChildEponaWhinnyAnim),    oot::asset::anim::header::load(symbol::gChildEponaWalkingAnim),
+    oot::asset::anim::header::load(symbol::gChildEponaTrottingAnim), oot::asset::anim::header::load(symbol::gChildEponaGallopingAnim),
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -169,7 +169,7 @@ void EnHorseLinkChild_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->action = 1;
     pthis->actor.focus.pos = pthis->actor.world.pos;
     pthis->actor.focus.pos.y += 70.0f;
-    func_800A663C(globalCtx, &pthis->skin, &gChildEponaSkel, &gChildEponaGallopingAnim);
+    func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gChildEponaSkel), oot::asset::anim::header::load(symbol::gChildEponaGallopingAnim));
     pthis->animationIdx = 0;
     Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[0]);
     Collider_InitCylinder(globalCtx, &pthis->bodyCollider);
@@ -564,7 +564,7 @@ static EnHorseLinkChildActionFunc sActionFuncs[] = {
     func_80A698F4, func_80A69C18, func_80A699FC, func_80A6A068, func_80A6A7D0, func_80A6A5A4,
 };
 
-static void* sEyeTextures[] = { gChildEponaEyeOpenTex, gChildEponaEyeHalfTex, gChildEponaEyeCloseTex };
+static void* sEyeTextures[] = { oot::asset::texture::load(symbol::gChildEponaEyeOpenTex), oot::asset::texture::load(symbol::gChildEponaEyeHalfTex), oot::asset::texture::load(symbol::gChildEponaEyeCloseTex) };
 static u8 sEyeIndexOrder[] = { 0, 1, 2, 1 };
 
 void EnHorseLinkChild_Update(Actor* thisx, GlobalContext* globalCtx) {

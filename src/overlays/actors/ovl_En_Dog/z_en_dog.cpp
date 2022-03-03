@@ -7,7 +7,7 @@
  */
 
 #include "z_en_dog.h"
-#include "objects/object_dog/object_dog.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
 #include "def/z_common_data.h"
@@ -67,18 +67,18 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, 50 };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gDogWalkAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gDogWalkAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
-    { &gDogRunAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
-    { &gDogBarkAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
-    { &gDogSitAnim, 1.0f, 0.0f, 4.0f, ANIMMODE_ONCE, -6.0f },
-    { &gDogSitAnim, 1.0f, 5.0f, 25.0f, ANIMMODE_LOOP_PARTIAL, -6.0f },
-    { &gDogBowAnim, 1.0f, 0.0f, 6.0f, ANIMMODE_ONCE, -6.0f },
-    { &gDogBow2Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogWalkAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDogWalkAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogRunAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogBarkAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogSitAnim), 1.0f, 0.0f, 4.0f, ANIMMODE_ONCE, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogSitAnim), 1.0f, 5.0f, 25.0f, ANIMMODE_LOOP_PARTIAL, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogBowAnim), 1.0f, 0.0f, 6.0f, ANIMMODE_ONCE, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDogBow2Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -6.0f },
 };
 
 void EnDog_PlayWalkSFX(EnDog* pthis) {
-    AnimationHeader* walk = &gDogWalkAnim;
+    AnimationHeader* walk = oot::asset::anim::header::load(symbol::gDogWalkAnim);
 
     if (pthis->skelAnime.animation == walk) {
         if ((pthis->skelAnime.curFrame == 1.0f) || (pthis->skelAnime.curFrame == 7.0f)) {
@@ -88,7 +88,7 @@ void EnDog_PlayWalkSFX(EnDog* pthis) {
 }
 
 void EnDog_PlayRunSFX(EnDog* pthis) {
-    AnimationHeader* run = &gDogRunAnim;
+    AnimationHeader* run = oot::asset::anim::header::load(symbol::gDogRunAnim);
 
     if (pthis->skelAnime.animation == run) {
         if ((pthis->skelAnime.curFrame == 2.0f) || (pthis->skelAnime.curFrame == 4.0f)) {
@@ -98,7 +98,7 @@ void EnDog_PlayRunSFX(EnDog* pthis) {
 }
 
 void EnDog_PlayBarkSFX(EnDog* pthis) {
-    AnimationHeader* bark = &gDogBarkAnim;
+    AnimationHeader* bark = oot::asset::anim::header::load(symbol::gDogBarkAnim);
 
     if (pthis->skelAnime.animation == bark) {
         if ((pthis->skelAnime.curFrame == 13.0f) || (pthis->skelAnime.curFrame == 19.0f)) {
@@ -235,7 +235,7 @@ void EnDog_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 24.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDogSkel, NULL, pthis->jointTable, pthis->morphTable, 13);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDogSkel), NULL, pthis->jointTable, pthis->morphTable, 13);
     func_80034EC0(&pthis->skelAnime, sAnimations, 0);
 
     if ((pthis->actor.params & 0x8000) == 0) {

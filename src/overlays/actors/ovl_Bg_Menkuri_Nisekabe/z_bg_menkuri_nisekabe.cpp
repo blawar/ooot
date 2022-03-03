@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_menkuri_nisekabe.h"
-#include "objects/object_menkuri_objects/object_menkuri_objects.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_cheap_proc.h"
 
@@ -32,7 +32,7 @@ ActorInit Bg_Menkuri_Nisekabe_InitVars = {
     (ActorFunc)BgMenkuriNisekabe_Reset,
 };
 
-static Gfx* sDLists[] = { gGTGFakeWallDL, gGTGFakeCeilingDL };
+static Gfx* sDLists[] = { oot::asset::gfx::load(symbol::gGTGFakeWallDL), oot::asset::gfx::load(symbol::gGTGFakeCeilingDL) };
 
 void BgMenkuriNisekabe_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgMenkuriNisekabe* pthis = (BgMenkuriNisekabe*)thisx;

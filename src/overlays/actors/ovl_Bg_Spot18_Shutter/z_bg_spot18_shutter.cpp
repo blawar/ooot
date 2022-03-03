@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot18_shutter.h"
-#include "objects/object_spot18_obj/object_spot18_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -82,7 +82,7 @@ void BgSpot18Shutter_Init(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    CollisionHeader_GetVirtual(&gGoronCityDoorCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gGoronCityDoorCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 }
 
@@ -147,7 +147,7 @@ void BgSpot18Shutter_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot18Shutter_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gGoronCityDoorDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gGoronCityDoorDL));
 }
 
 void BgSpot18Shutter_Reset(Actor* pthisx, GlobalContext* globalCtx) {

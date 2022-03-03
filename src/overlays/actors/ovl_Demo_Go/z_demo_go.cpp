@@ -7,7 +7,7 @@
  */
 
 #include "z_demo_go.h"
-#include "objects/object_oF1d_map/object_oF1d_map.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
 #include "def/z_actor.h"
@@ -36,7 +36,7 @@ void func_8097D130(DemoGo* pthis, GlobalContext* globalCtx);
 void func_8097D290(DemoGo* pthis, GlobalContext* globalCtx);
 void func_8097D29C(DemoGo* pthis, GlobalContext* globalCtx);
 
-static void* sEyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+static void* sEyeTextures[] = { oot::asset::texture::load(symbol::gGoronCsEyeOpenTex), oot::asset::texture::load(symbol::gGoronCsEyeHalfTex), oot::asset::texture::load(symbol::gGoronCsEyeClosedTex) };
 
 static DemoGoActionFunc D_8097D44C[] = {
     func_8097CFDC, func_8097CFFC, func_8097D01C, func_8097D058, func_8097D088, func_8097D0D0, func_8097D130,
@@ -249,7 +249,7 @@ void func_8097CEEC(DemoGo* pthis, GlobalContext* globalCtx) {
 }
 
 void func_8097CF20(DemoGo* pthis, GlobalContext* globalCtx, s32 arg2) {
-    AnimationHeader* animation = &gGoronAnim_0029A8;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gGoronAnim_0029A8);
     if (arg2 != 0) {
         Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
                          -8.0f);
@@ -323,10 +323,10 @@ void DemoGo_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void DemoGo_Init(Actor* thisx, GlobalContext* globalCtx) {
     DemoGo* pthis = (DemoGo*)thisx;
-    AnimationHeader* animation = &gGoronAnim_004930;
+    AnimationHeader* animation = oot::asset::anim::header::load(symbol::gGoronAnim_004930);
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGoronSkel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGoronSkel), NULL, NULL, NULL, 0);
     Animation_Change(&pthis->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_ONCE, 0.0f);
     pthis->action = 0;
 }
@@ -339,7 +339,7 @@ void func_8097D29C(DemoGo* pthis, GlobalContext* globalCtx) {
     s16 eyeTexIdx = pthis->unk_190;
     SkelAnime* skelAnime = &pthis->skelAnime;
     void* eyeTexture = sEyeTextures[eyeTexIdx];
-    void* mouthTexture = gGoronCsMouthSmileTex;
+    void* mouthTexture = oot::asset::texture::load(symbol::gGoronCsMouthSmileTex);
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_go.c", 732);
 

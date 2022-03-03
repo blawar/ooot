@@ -8,7 +8,7 @@
  */
 
 #include "z_bg_spot18_obj.h"
-#include "objects/object_spot18_obj/object_spot18_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_math3d.h"
 #include "def/z_actor.h"
@@ -60,8 +60,8 @@ static f32 D_808B90F4[] = {
 };
 
 static CollisionHeader* D_808B90FC[] = {
-    &gGoronCityStatueCol,
-    &gGoronCityStatueSpearCol,
+    oot::asset::collision::header::load(symbol::gGoronCityStatueCol),
+    oot::asset::collision::header::load(symbol::gGoronCityStatueSpearCol),
 };
 
 static u32 D_808B9104[] = {
@@ -94,8 +94,8 @@ static BgSpot18ObjInitFunc D_808B913C[] = {
 };
 
 static Gfx(*sDlists[]) = {
-    gGoronCityStatueDL,
-    gGoronCityStatueSpearDL,
+    oot::asset::gfx::load(symbol::gGoronCityStatueDL),
+    oot::asset::gfx::load(symbol::gGoronCityStatueSpearDL),
 };
 
 s32 func_808B8910(BgSpot18Obj* pthis, GlobalContext* globalCtx) {

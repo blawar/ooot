@@ -7,7 +7,7 @@
  */
 
 #include "z_en_tr.h"
-#include "objects/object_tr/object_tr.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"
@@ -53,28 +53,28 @@ ActorInit En_Tr_InitVars = {
 // The first elements of these animation arrays are for Koume, the second for Kotake
 
 static AnimationHeader* unused[] = {
-    &object_tr_Anim_003FC8,
-    &object_tr_Anim_001CDC,
+    oot::asset::anim::header::load(symbol::object_tr_Anim_003FC8),
+    oot::asset::anim::header::load(symbol::object_tr_Anim_001CDC),
 };
 
 static AnimationHeader* D_80B24368[] = {
-    &object_tr_Anim_002BC4,
-    &object_tr_Anim_000BFC,
+    oot::asset::anim::header::load(symbol::object_tr_Anim_002BC4),
+    oot::asset::anim::header::load(symbol::object_tr_Anim_000BFC),
 };
 
 static AnimationHeader* D_80B24370[] = {
-    &object_tr_Anim_0035CC,
-    &object_tr_Anim_0013CC,
+    oot::asset::anim::header::load(symbol::object_tr_Anim_0035CC),
+    oot::asset::anim::header::load(symbol::object_tr_Anim_0013CC),
 };
 
 static AnimationHeader* D_80B24378[] = {
-    &object_tr_Anim_0049C8,
-    &object_tr_Anim_0049C8,
+    oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8),
+    oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8),
 };
 
 static AnimationHeader* D_80B24380[] = {
-    &object_tr_Anim_012E1C,
-    &object_tr_Anim_012E1C,
+    oot::asset::anim::header::load(symbol::object_tr_Anim_012E1C),
+    oot::asset::anim::header::load(symbol::object_tr_Anim_012E1C),
 };
 
 static f32 D_80B24388[] = { 0.0f, 20.0f, -30.0f, 20.0f, -20.0f, -20.0f, 30.0f };
@@ -90,9 +90,9 @@ static Color_RGBA8 D_80B243C0[4] = {
 };
 
 static void* sEyeTextures[] = {
-    object_tr_Tex_0086D8,
-    object_tr_Tex_0094D8,
-    object_tr_Tex_0098D8,
+    oot::asset::texture::load(symbol::object_tr_Tex_0086D8),
+    oot::asset::texture::load(symbol::object_tr_Tex_0094D8),
+    oot::asset::texture::load(symbol::object_tr_Tex_0098D8),
 };
 
 void EnTr_SetupAction(EnTr* pthis, EnTrActionFunc actionFunc) {
@@ -110,18 +110,18 @@ void EnTr_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     switch (pthis->actor.params) {
         case TR_KOUME:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_tr_Skel_011688, &object_tr_Anim_003FC8,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_tr_Skel_011688), oot::asset::anim::header::load(symbol::object_tr_Anim_003FC8),
                                pthis->jointTable, pthis->morphTable, 27);
-            Animation_PlayOnce(&pthis->skelAnime, &object_tr_Anim_003FC8);
+            Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tr_Anim_003FC8));
             pthis->animation = NULL;
             EnTr_SetupAction(pthis, EnTr_ChooseAction1);
             pthis->actionIndex = 3;
             break;
 
         case TR_KOTAKE:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_tr_Skel_00C530, &object_tr_Anim_001CDC,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_tr_Skel_00C530), oot::asset::anim::header::load(symbol::object_tr_Anim_001CDC),
                                pthis->jointTable, pthis->morphTable, 27);
-            Animation_PlayOnce(&pthis->skelAnime, &object_tr_Anim_001CDC);
+            Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tr_Anim_001CDC));
             pthis->animation = NULL;
             EnTr_SetupAction(pthis, EnTr_ChooseAction1);
             pthis->actionIndex = 2;
@@ -316,7 +316,7 @@ void EnTr_WaitToReappear(EnTr* pthis, GlobalContext* globalCtx) {
             pthis->timer = 34;
             EnTr_SetStartPosRot(pthis, globalCtx, pthis->actionIndex);
             EnTr_SetupAction(pthis, EnTr_Reappear);
-            Animation_PlayLoop(&pthis->skelAnime, &object_tr_Anim_0049C8);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8));
             pthis->animation = NULL;
             Actor_SetScale(&pthis->actor, 0.003f);
         }
@@ -365,7 +365,7 @@ void EnTr_ChooseAction1(EnTr* pthis, GlobalContext* globalCtx) {
                 case 3:
                     EnTr_SetStartPosRot(pthis, globalCtx, pthis->actionIndex);
                     EnTr_SetupAction(pthis, EnTr_ChooseAction2);
-                    Animation_PlayLoop(&pthis->skelAnime, &object_tr_Anim_0049C8);
+                    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8));
                     pthis->animation = NULL;
                     break;
 
@@ -376,7 +376,7 @@ void EnTr_ChooseAction1(EnTr* pthis, GlobalContext* globalCtx) {
 
                 case 7:
                     EnTr_SetupAction(pthis, EnTr_FlyKidnapCutscene);
-                    Animation_PlayLoop(&pthis->skelAnime, &object_tr_Anim_0049C8);
+                    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8));
                     pthis->animation = NULL;
                     pthis->timer =
                         ((pthis->actor.params != TR_KOUME) ? ((u8)frames * 0x400) + 0x8000 : (u8)frames * 0x400);
@@ -395,17 +395,17 @@ void EnTr_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     if (SkelAnime_Update(&pthis->skelAnime) != 0) {
         if (pthis->animation != NULL) {
-            if ((pthis->animation == &object_tr_Anim_0035CC) || (pthis->animation == &object_tr_Anim_0013CC)) {
+            if ((pthis->animation == oot::asset::anim::header::load(symbol::object_tr_Anim_0035CC)) || (pthis->animation == oot::asset::anim::header::load(symbol::object_tr_Anim_0013CC))) {
                 if (pthis->actor.params != TR_KOUME) {
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_LAUGH2);
                 } else {
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_LAUGH);
                 }
                 Animation_PlayLoop(&pthis->skelAnime, pthis->animation);
-            } else if (pthis->animation == &object_tr_Anim_0049C8) {
+            } else if (pthis->animation == oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8)) {
                 EnTr_SetupAction(pthis, EnTr_ChooseAction2);
-                Animation_Change(&pthis->skelAnime, &object_tr_Anim_0049C8, 1.0f, 0.0f,
-                                 Animation_GetLastFrame(&object_tr_Anim_0049C8), ANIMMODE_LOOP, -5.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8), 1.0f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_tr_Anim_0049C8)), ANIMMODE_LOOP, -5.0f);
             } else {
                 Animation_PlayLoop(&pthis->skelAnime, pthis->animation);
             }

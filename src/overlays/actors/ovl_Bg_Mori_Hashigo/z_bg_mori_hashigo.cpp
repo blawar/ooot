@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_mori_hashigo.h"
-#include "objects/object_mori_objects/object_mori_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -160,7 +160,7 @@ s32 BgMoriHashigo_InitClasp(BgMoriHashigo* pthis, GlobalContext* globalCtx) {
 }
 
 s32 BgMoriHashigo_InitLadder(BgMoriHashigo* pthis, GlobalContext* globalCtx) {
-    BgMoriHashigo_InitDynapoly(pthis, globalCtx, &gMoriHashigoCol, DPM_UNK);
+    BgMoriHashigo_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gMoriHashigoCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChainLadder);
     return true;
 }
@@ -298,17 +298,16 @@ void BgMoriHashigo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 516);
     func_80093D18(globalCtx->state.gfxCtx);
     if (1) {}
-    gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 521),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     switch (pthis->dyna.actor.params) {
         case HASHIGO_CLASP:
-            gSPDisplayList(POLY_OPA_DISP++, gMoriHashigoClaspDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMoriHashigoClaspDL));
             break;
         case HASHIGO_LADDER:
-            gSPDisplayList(POLY_OPA_DISP++, gMoriHashigoLadderDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMoriHashigoLadderDL));
             break;
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 531);

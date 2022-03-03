@@ -507,15 +507,6 @@ void Gameplay_Update(GlobalContext* globalCtx) {
 
     if ((HREG(80) == 18) && (HREG(81) < 0)) {
         HREG(81) = 0;
-        osSyncPrintf("object_exchange_rom_address %u\n", gObjectTableSize);
-        osSyncPrintf("RomStart RomEnd   Size\n");
-        for (i = 0; i < gObjectTableSize; i++) {
-            s32 size = POINTER_SUB2(gObjectTable[i].vromEnd, gObjectTable[i].vromStart);
-
-            osSyncPrintf("%08x-%08x %08x(%8.3fKB)\n", gObjectTable[i].vromStart, gObjectTable[i].vromEnd, size,
-                         size / 1024.0f);
-        }
-        osSyncPrintf("\n");
     }
 
     if ((HREG(81) == 18) && (HREG(82) < 0)) {
@@ -523,8 +514,6 @@ void Gameplay_Update(GlobalContext* globalCtx) {
         ActorOverlayTable_LogPrint();
     }
 
-    gSegments[4] = gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart.get();
-    gSegments[5] = gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart.get();
     gSegments[2] = (uintptr_t)globalCtx->sceneSegment;
 
     if (FrameAdvance_Update(&globalCtx->frameAdvCtx, &input[1])) {
@@ -1145,21 +1134,13 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
 
     OPEN_DISPS(gfxCtx, "../z_play.c", 3907);
 
-    gSegments[4] = gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart.get();
-    gSegments[5] = gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart.get();
     gSegments[2] = (uintptr_t)VIRTUAL_TO_PHYSICAL(globalCtx->sceneSegment);
 
     gSPSegment(POLY_OPA_DISP++, 0x00, NULL);
     gSPSegment(POLY_XLU_DISP++, 0x00, NULL);
     gSPSegment(OVERLAY_DISP++, 0x00, NULL);
 
-    gSPSegment(POLY_OPA_DISP++, 0x04, gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart.get());
-    gSPSegment(POLY_XLU_DISP++, 0x04, gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart.get());
-    gSPSegment(OVERLAY_DISP++, 0x04, gObjectTable[globalCtx->objectCtx.mainKeepIndex].vromStart.get());
 
-    gSPSegment(POLY_OPA_DISP++, 0x05, gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart.get());
-    gSPSegment(POLY_XLU_DISP++, 0x05, gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart.get());
-    gSPSegment(OVERLAY_DISP++, 0x05, gObjectTable[globalCtx->objectCtx.subKeepIndex].vromStart.get());
 
     gSPSegment(POLY_OPA_DISP++, 0x02, globalCtx->sceneSegment);
     gSPSegment(POLY_XLU_DISP++, 0x02, globalCtx->sceneSegment);
@@ -1548,9 +1529,7 @@ void Gameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn) {
     globalCtx->sceneNum = sceneNum;
     globalCtx->sceneConfig = scene->config;
 
-    osSyncPrintf("\nSCENE SIZE %fK\n", POINTER_SUB2(scene->sceneFile.vromEnd, scene->sceneFile.vromStart) / 1024.0f);
-
-    globalCtx->sceneSegment = (void*)scene->cmds;
+    globalCtx->sceneSegment = scene->cmds;
     scene->unk_13 = 0;
     ASSERT(globalCtx->sceneSegment != NULL, "this->sceneSegment != NULL", "../z_play.c", 4960);
 

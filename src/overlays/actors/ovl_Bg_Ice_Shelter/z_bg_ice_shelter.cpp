@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_ICE_SHELTER_Z_BG_ICE_SHELTER_C
 #include "actor_common.h"
 #include "z_bg_ice_shelter.h"
-#include "objects/object_ice_objects/object_ice_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -170,10 +170,10 @@ void BgIceShelter_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     switch (type) {
         case 2:
-            func_80890874(pthis, globalCtx, &object_ice_objects_Col_001C1C, 0);
+            func_80890874(pthis, globalCtx, oot::asset::collision::header::load(symbol::object_ice_objects_Col_001C1C), 0);
             break;
         case 3:
-            func_80890874(pthis, globalCtx, &object_ice_objects_Col_002920, 0);
+            func_80890874(pthis, globalCtx, oot::asset::collision::header::load(symbol::object_ice_objects_Col_002920), 0);
             break;
     }
 
@@ -432,7 +432,7 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                                         -globalCtx->gameplayFrames & 0x7F, 0x20, 0x20, 1,
                                         -globalCtx->gameplayFrames & 0x7F, globalCtx->gameplayFrames & 0x7F, 0x20,
                                         0x20));
-            gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_0006F0);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ice_objects_DL_0006F0));
             break;
 
         case 2:
@@ -444,11 +444,11 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                                         globalCtx->gameplayFrames & 0xFF, 0x40, 0x40, 1,
                                         globalCtx->gameplayFrames & 0xFF, globalCtx->gameplayFrames & 0xFF, 0x40,
                                         0x40));
-            gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_0012A0);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ice_objects_DL_0012A0));
             break;
 
         case 3:
-            gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_002640);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ice_objects_DL_002640));
             break;
     }
 

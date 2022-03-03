@@ -8,7 +8,7 @@
 
 #include "z_bg_mizu_movebg.h"
 #include "overlays/actors/ovl_Bg_Mizu_Water/z_bg_mizu_water.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -50,15 +50,15 @@ ActorInit Bg_Mizu_Movebg_InitVars = {
 static f32 D_8089EB40[] = { -115.200005f, -115.200005f, -115.200005f, 0.0f };
 
 static Gfx* D_8089EB50[] = {
-    gObjectMizuObjectsMovebgDL_000190, gObjectMizuObjectsMovebgDL_000680, gObjectMizuObjectsMovebgDL_000C20,
-    gObjectMizuObjectsMovebgDL_002E10, gObjectMizuObjectsMovebgDL_002E10, gObjectMizuObjectsMovebgDL_002E10,
-    gObjectMizuObjectsMovebgDL_002E10, gObjectMizuObjectsMovebgDL_0011F0,
+    oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_000190), oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_000680), oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_000C20),
+    oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_002E10), oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_002E10), oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_002E10),
+    oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_002E10), oot::asset::gfx::load(symbol::gObjectMizuObjectsMovebgDL_0011F0),
 };
 
 static CollisionHeader* D_8089EB70[] = {
-    &gObjectMizuObjectsMovebgCol_0003F0, &gObjectMizuObjectsMovebgCol_000998, &gObjectMizuObjectsMovebgCol_000ED0,
-    &gObjectMizuObjectsMovebgCol_003590, &gObjectMizuObjectsMovebgCol_003590, &gObjectMizuObjectsMovebgCol_003590,
-    &gObjectMizuObjectsMovebgCol_003590, &gObjectMizuObjectsMovebgCol_0015F8,
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_0003F0), oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_000998), oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_000ED0),
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_003590), oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_003590), oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_003590),
+    oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_003590), oot::asset::collision::header::load(symbol::gObjectMizuObjectsMovebgCol_0015F8),
 };
 
 static InitChainEntry D_8089EB90[] = {

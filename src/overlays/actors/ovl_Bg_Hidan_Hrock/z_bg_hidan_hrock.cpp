@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_hrock.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/z_actor.h"
@@ -29,9 +29,9 @@ void func_808896B8(BgHidanHrock* pthis, GlobalContext* globalCtx);
 void func_808894A4(BgHidanHrock* pthis, GlobalContext* globalCtx);
 
 static Gfx* dlists_33[] = {
-    gFireTempleTallestPillarAboveRoomBeforeBossDL,
-    gFireTemplePillarInsertedInGroundDL,
-    gFireTemplePillarInsertedInGroundDL,
+    oot::asset::gfx::load(symbol::gFireTempleTallestPillarAboveRoomBeforeBossDL),
+    oot::asset::gfx::load(symbol::gFireTemplePillarInsertedInGroundDL),
+    oot::asset::gfx::load(symbol::gFireTemplePillarInsertedInGroundDL),
 };
 
 
@@ -150,9 +150,9 @@ void BgHidanHrock_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     if (thisx->params == 0) {
-        CollisionHeader_GetVirtual(&gFireTempleTallestPillarAboveRoomBeforeBossCol, &collisionHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleTallestPillarAboveRoomBeforeBossCol), &collisionHeader);
     } else {
-        CollisionHeader_GetVirtual(&gFireTemplePillarInsertedInGroundCol, &collisionHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTemplePillarInsertedInGroundCol), &collisionHeader);
     }
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, collisionHeader);

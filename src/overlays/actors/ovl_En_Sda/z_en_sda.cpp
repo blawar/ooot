@@ -91,7 +91,7 @@ static Vec3f D_80AFA288[] = {
 
 static u32 D_80AFA390[] = { 0, 0 };
 
-#include "overlays/ovl_En_Sda/ovl_En_Sda.cpp"
+#include "asset.h"
 
 static Vec3f D_80AFA660[16];
 
@@ -362,16 +362,16 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx) 
     Matrix_Scale(((BREG(56) - 250) / 1000.0f) + 0.6f, 1.0f, ((BREG(59) - 250) / 1000.0f) + 0.6f, MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_sda.c", 860),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, D_80AFA3D8);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_80AFA3D8));
     gDPLoadTextureBlock(POLY_XLU_DISP++, shadowTexture, G_IM_FMT_I, G_IM_SIZ_8b, 0x40, 0x40, 0,
                         G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
-    gSPDisplayList(POLY_XLU_DISP++, D_80AFA3F8);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_80AFA3F8));
 
     for (phi_s1 = 0; phi_s1 < KREG(78); phi_s1++) {
         Matrix_Scale((KREG(79) / 100.0f) + 1.0f, 1.0f, (KREG(79) / 100.0f) + 1.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_sda.c", 877),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, D_80AFA3F8);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::D_80AFA3F8));
     }
     osSyncPrintf("SDA D 2\n");
     CLOSE_DISPS(gfxCtx, "../z_en_sda.c", 882);

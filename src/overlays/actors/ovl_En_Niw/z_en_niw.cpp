@@ -7,7 +7,7 @@
  */
 
 #include "z_en_niw.h"
-#include "objects/object_niw/object_niw.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Attack_Niw/z_en_attack_niw.h"
 #include "vt.h"
 #include "def/math_float.h"
@@ -167,7 +167,7 @@ void EnNiw_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     pthis->actor.flags |= ACTOR_FLAG_0;
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoSkel, &gCuccoAnim, pthis->jointTable, pthis->morphTable, 16);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gCuccoSkel), oot::asset::anim::header::load(symbol::gCuccoAnim), pthis->jointTable, pthis->morphTable, 16);
 
     if (globalCtx->sceneNum == SCENE_SPOT01) {
         for (i = 0; i < ARRAY_COUNT(sKakarikoPosList); i++) {
@@ -418,7 +418,7 @@ void func_80AB6100(EnNiw* pthis, GlobalContext* globalCtx, s32 arg2) {
 }
 
 void EnNiw_ResetAction(EnNiw* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gCuccoAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gCuccoAnim), ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCuccoAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gCuccoAnim)), ANIMMODE_LOOP,
                      -10.0f);
 
     switch (pthis->actor.params) {
@@ -832,7 +832,7 @@ void func_80AB7204(EnNiw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AB7290(EnNiw* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gCuccoAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gCuccoAnim), ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCuccoAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gCuccoAnim)), ANIMMODE_LOOP,
                      -10.0f);
     pthis->unk_2A0 = Rand_ZeroFloat(1.99f);
     pthis->actor.speedXZ = 4.0f;
@@ -1224,7 +1224,7 @@ void EnNiw_FeatherDraw(EnNiw* pthis, GlobalContext* globalCtx) {
     for (i = 0; i < ARRAY_COUNT(pthis->feathers); i++, feather++) {
         if (feather->type == 1) {
             if (!flag) {
-                gSPDisplayList(POLY_XLU_DISP++, gCuccoParticleAppearDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCuccoParticleAppearDL));
                 flag++;
             }
             Matrix_Translate(feather->pos.x, feather->pos.y, feather->pos.z, MTXMODE_NEW);
@@ -1234,7 +1234,7 @@ void EnNiw_FeatherDraw(EnNiw* pthis, GlobalContext* globalCtx) {
             Matrix_Translate(0.0f, -1000.0f, 0.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_niw.c", 1913),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gCuccoParticleAliveDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCuccoParticleAliveDL));
         }
     }
 

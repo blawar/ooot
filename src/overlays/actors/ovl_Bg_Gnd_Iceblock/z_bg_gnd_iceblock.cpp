@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_gnd_iceblock.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -58,7 +58,7 @@ void BgGndIceblock_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gWaterTrialIceBlockCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gWaterTrialIceBlockCol), &colHeader);
     pthis->targetPos = pthis->dyna.actor.home.pos;
     pthis->actionFunc = BgGndIceblock_Idle;
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -361,7 +361,7 @@ void BgGndIceblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     BgGndIceblock* pthis = (BgGndIceblock*)thisx;
 
-    Gfx_DrawDListOpa(globalCtx, gWaterTrialIceBlockDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gWaterTrialIceBlockDL));
 }
 
 void BgGndIceblock_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,7 +7,7 @@
  */
 
 #include "z_en_toryo.h"
-#include "objects/object_toryo/object_toryo.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -100,7 +100,7 @@ static DamageTable sDamageTable = {
     /* Unknown 2     */ DMG_ENTRY(0, 0x0),
 };
 
-static EnToryoAnimation sEnToryoAnimation = { &object_toryo_Anim_000E50, 1.0f, 0, 0 };
+static EnToryoAnimation sEnToryoAnimation = { oot::asset::anim::header::load(symbol::object_toryo_Anim_000E50), 1.0f, 0, 0 };
 
 static Vec3f sMultVec = { 800.0f, 1000.0f, 0.0f };
 
@@ -131,7 +131,7 @@ void EnToryo_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 42.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_toryo_Skel_007150, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_toryo_Skel_007150), NULL, pthis->jointTable, pthis->morphTable,
                        17);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -497,7 +497,7 @@ void EnToryo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
         /* Unknown 2     */ DMG_ENTRY(0, 0x0),
     };
 
-    sEnToryoAnimation = { &object_toryo_Anim_000E50, 1.0f, 0, 0 };
+    sEnToryoAnimation = { oot::asset::anim::header::load(symbol::object_toryo_Anim_000E50), 1.0f, 0, 0 };
 
     sMultVec = { 800.0f, 1000.0f, 0.0f };
 

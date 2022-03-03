@@ -7,7 +7,7 @@
  */
 
 #include "z_en_po_desert.h"
-#include "objects/object_po_field/object_po_field.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -80,7 +80,7 @@ void EnPoDesert_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnPoDesert* pthis = (EnPoDesert*)thisx;
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gPoeFieldSkel, &gPoeFieldFloatAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gPoeFieldSkel), oot::asset::anim::header::load(symbol::gPoeFieldFloatAnim), pthis->jointTable, pthis->morphTable,
                    10);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sColliderInit);
@@ -109,7 +109,7 @@ void EnPoDesert_SetNextPathPoint(EnPoDesert* pthis, GlobalContext* globalCtx) {
     Path* path = &globalCtx->setupPathList[pthis->actor.params];
     Vec3s* pathPoint;
 
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeFieldDisappearAnim, -6.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldDisappearAnim), -6.0f);
     pathPoint = &((Vec3s*)SEGMENTED_TO_VIRTUAL(path->points))[pthis->currentPathPoint];
     pthis->actor.home.pos.x = pathPoint->x;
     pthis->actor.home.pos.y = pathPoint->y;
@@ -126,12 +126,12 @@ void EnPoDesert_SetNextPathPoint(EnPoDesert* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPoDesert_SetupMoveToNextPoint(EnPoDesert* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeFieldFloatAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldFloatAnim), -5.0f);
     pthis->actionFunc = EnPoDesert_MoveToNextPoint;
 }
 
 void EnPoDesert_SetupDisappear(EnPoDesert* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gPoeFieldDisappearAnim, -6.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldDisappearAnim), -6.0f);
     pthis->actionTimer = 16;
     pthis->actor.speedXZ = 0.0f;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_DISAPPEAR);
@@ -258,8 +258,8 @@ void EnPoDesert_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
             gDPSetEnvColor((*gfxP)++, color.r, color.g, color.b, 255);
             gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_desert.c", 523),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList((*gfxP)++, gPoeFieldLanternDL);
-            gSPDisplayList((*gfxP)++, gPoeFieldLanternTopDL);
+            gSPDisplayList((*gfxP)++, oot::asset::gfx::load(symbol::gPoeFieldLanternDL));
+            gSPDisplayList((*gfxP)++, oot::asset::gfx::load(symbol::gPoeFieldLanternTopDL));
             gDPPipeSync((*gfxP)++);
             gDPSetEnvColor((*gfxP)++, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a);
         }

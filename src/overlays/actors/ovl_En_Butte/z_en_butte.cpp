@@ -8,8 +8,7 @@
 
 #include "z_en_butte.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/sinf.h"
@@ -151,7 +150,7 @@ void EnButte_DrawTransformationEffect(EnButte* pthis, GlobalContext* globalCtx) 
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 200, 200, 180, alpha);
     gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 210, 255);
-    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gEffFlash1DL));
+    gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffFlash1DL)));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_choo.c", 326);
 }
@@ -176,7 +175,7 @@ void EnButte_Init(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.uncullZoneScale = 200.0f;
     }
 
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gButterflySkel, &gButterflyAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gButterflySkel), oot::asset::anim::header::load(symbol::gButterflyAnim), pthis->jointTable, pthis->morphTable,
                    8);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sColliderInit, pthis->colliderItems);
@@ -184,7 +183,7 @@ void EnButte_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->unk_25C = Rand_ZeroOne() * 0xFFFF;
     pthis->unk_25E = Rand_ZeroOne() * 0xFFFF;
     pthis->unk_260 = Rand_ZeroOne() * 0xFFFF;
-    Animation_Change(&pthis->skelAnime, &gButterflyAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gButterflyAnim), 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, 0.0f);
     EnButte_SetupFlyAround(pthis);
     pthis->actor.shape.rot.x -= 0x2320;
     pthis->drawSkelAnime = true;

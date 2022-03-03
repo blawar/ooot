@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DU_Z_EN_DU_C
 #include "actor_common.h"
 #include "z_en_du.h"
-#include "objects/object_du/object_du.h"
-#include "scenes/overworld/spot18/spot18_scene.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
@@ -39,22 +38,22 @@ void func_809FECE4(EnDu* pthis, GlobalContext* globalCtx);
 void func_809FEB08(EnDu* pthis, GlobalContext* globalCtx);
 
 static void* eyeTextures_67[] = {
-    gDaruniaEyeOpenTex,
-    gDaruniaEyeOpeningTex,
-    gDaruniaEyeShutTex,
-    gDaruniaEyeClosingTex,
+    oot::asset::texture::load(symbol::gDaruniaEyeOpenTex),
+    oot::asset::texture::load(symbol::gDaruniaEyeOpeningTex),
+    oot::asset::texture::load(symbol::gDaruniaEyeShutTex),
+    oot::asset::texture::load(symbol::gDaruniaEyeClosingTex),
 };
 
 static void* mouthTextures_67[] = {
-    gDaruniaMouthSeriousTex,
-    gDaruniaMouthGrinningTex,
-    gDaruniaMouthOpenTex,
-    gDaruniaMouthHappyTex,
+    oot::asset::texture::load(symbol::gDaruniaMouthSeriousTex),
+    oot::asset::texture::load(symbol::gDaruniaMouthGrinningTex),
+    oot::asset::texture::load(symbol::gDaruniaMouthOpenTex),
+    oot::asset::texture::load(symbol::gDaruniaMouthHappyTex),
 };
 
 static void* noseTextures_67[] = {
-    gDaruniaNoseSeriousTex,
-    gDaruniaNoseHappyTex,
+    oot::asset::texture::load(symbol::gDaruniaNoseSeriousTex),
+    oot::asset::texture::load(symbol::gDaruniaNoseHappyTex),
 };
 
 
@@ -96,21 +95,21 @@ static CollisionCheckInfoInit2 sColChkInfoInit = {
 };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gDaruniaIdleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gDaruniaIdleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gDaruniaItemGiveAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gDaruniaItemGiveIdleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gDaruniaHitLinkAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gDaruniaHitBreastAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gDaruniaStandUpAfterFallingAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gDaruniaDancingLoop1Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gDaruniaDancingLoop1Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    { &gDaruniaDancingLoop2Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    { &gDaruniaDancingLoop3Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    { &gDaruniaWrongSongAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    { &gDaruniaWrongSongEndAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gDaruniaDancingLoop4Anim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    { &gDaruniaDancingEndAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -6.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaItemGiveAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaItemGiveIdleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaHitLinkAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaHitBreastAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaStandUpAfterFallingAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaDancingLoop1Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaDancingLoop1Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaDancingLoop2Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaDancingLoop3Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaWrongSongAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaWrongSongEndAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaDancingLoop4Anim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    { oot::asset::anim::header::load(symbol::gDaruniaDancingEndAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -6.0f },
 };
 
 void EnDu_SetupAction(EnDu* pthis, EnDuActionFunc actionFunc) {
@@ -293,7 +292,7 @@ void EnDu_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDaruniaSkel, NULL, 0, 0, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDaruniaSkel), NULL, 0, 0, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(0x16), &sColChkInfoInit);
@@ -307,7 +306,7 @@ void EnDu_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->unk_1F4.unk_00 = 0;
 
     if (gSaveContext.cutsceneIndex >= 0xFFF0) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGoronCityDarunia01Cs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGoronCityDarunia01Cs));
         gSaveContext.cutsceneTrigger = 1;
         EnDu_SetupAction(pthis, func_809FE890);
     } else if (globalCtx->sceneNum == 4) {
@@ -355,14 +354,14 @@ void func_809FE4A4(EnDu* pthis, GlobalContext* globalCtx) {
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_00;
         EnDu_SetupAction(pthis, func_809FE3C0);
     } else if (globalCtx->msgCtx.ocarinaMode >= OCARINA_MODE_06) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGoronCityDaruniaWrongCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGoronCityDaruniaWrongCs));
         gSaveContext.cutsceneTrigger = 1;
         pthis->unk_1E8 = 1;
         EnDu_SetupAction(pthis, func_809FE890);
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
     } else if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_03) {
         Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gGoronCityDaruniaCorrectCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gGoronCityDaruniaCorrectCs));
         gSaveContext.cutsceneTrigger = 1;
         pthis->unk_1E8 = 0;
         EnDu_SetupAction(pthis, func_809FE890);
@@ -566,7 +565,7 @@ void EnDu_Update(Actor* thisx, GlobalContext* globalCtx) {
     Collider_UpdateCylinder(&pthis->actor, &pthis->collider);
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 
-    if (pthis->skelAnime.animation == &gDaruniaDancingEndAnim &&
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gDaruniaDancingEndAnim) &&
         Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame)) {
         func_80034EC0(&pthis->skelAnime, sAnimations, 1);
     }

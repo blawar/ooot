@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_dust.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_lib.h"
@@ -50,7 +50,7 @@ u32 EffectSsDust_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void
     Math_Vec3f_Copy(&pthis->pos, &initParams->pos);
     Math_Vec3f_Copy(&pthis->velocity, &initParams->velocity);
     Math_Vec3f_Copy(&pthis->accel, &initParams->accel);
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffDustDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffDustDL));
     pthis->life = initParams->life;
     pthis->update = sUpdateFuncs[initParams->updateMode];
     pthis->draw = EffectSsDust_Draw;
@@ -85,7 +85,7 @@ u32 EffectSsDust_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void
 
 void EffectSsDust_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* dustTextures[] = {
-        gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
+        oot::asset::texture::load(symbol::gDust1Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust8Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     MtxF mfTrans;

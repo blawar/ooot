@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_bomb2.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_effect_soft_sprite.h"
 #include "def/z_lib.h"
@@ -48,7 +48,7 @@ u32 EffectSsBomb2_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
     Math_Vec3f_Copy(&pthis->pos, &initParams->pos);
     Math_Vec3f_Copy(&pthis->velocity, &initParams->velocity);
     Math_Vec3f_Copy(&pthis->accel, &initParams->accel);
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffBombExplosion1DL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffBombExplosion1DL));
     pthis->life = 24;
     pthis->update = EffectSsBomb2_Update;
     pthis->draw = sDrawFuncs[initParams->drawMode];
@@ -68,8 +68,8 @@ u32 EffectSsBomb2_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 // unused in the original game. looks like EffectSsBomb but with color
 void EffectSsBomb2_DrawFade(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* textures[] = {
-        gEffBombExplosion1Tex, gEffBombExplosion2Tex, gEffBombExplosion3Tex, gEffBombExplosion4Tex,
-        gEffBombExplosion5Tex, gEffBombExplosion6Tex, gEffBombExplosion7Tex, gEffBombExplosion8Tex,
+        oot::asset::texture::load(symbol::gEffBombExplosion1Tex), oot::asset::texture::load(symbol::gEffBombExplosion2Tex), oot::asset::texture::load(symbol::gEffBombExplosion3Tex), oot::asset::texture::load(symbol::gEffBombExplosion4Tex),
+        oot::asset::texture::load(symbol::gEffBombExplosion5Tex), oot::asset::texture::load(symbol::gEffBombExplosion6Tex), oot::asset::texture::load(symbol::gEffBombExplosion7Tex), oot::asset::texture::load(symbol::gEffBombExplosion8Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     MtxF mfTrans;
@@ -108,8 +108,8 @@ void EffectSsBomb2_DrawFade(GlobalContext* globalCtx, u32 index, EffectSs* pthis
 
 void EffectSsBomb2_DrawLayered(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* textures[] = {
-        gEffBombExplosion1Tex, gEffBombExplosion2Tex, gEffBombExplosion3Tex, gEffBombExplosion4Tex,
-        gEffBombExplosion5Tex, gEffBombExplosion6Tex, gEffBombExplosion7Tex, gEffBombExplosion8Tex,
+        oot::asset::texture::load(symbol::gEffBombExplosion1Tex), oot::asset::texture::load(symbol::gEffBombExplosion2Tex), oot::asset::texture::load(symbol::gEffBombExplosion3Tex), oot::asset::texture::load(symbol::gEffBombExplosion4Tex),
+        oot::asset::texture::load(symbol::gEffBombExplosion5Tex), oot::asset::texture::load(symbol::gEffBombExplosion6Tex), oot::asset::texture::load(symbol::gEffBombExplosion7Tex), oot::asset::texture::load(symbol::gEffBombExplosion8Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     MtxF mfTrans;
@@ -147,8 +147,8 @@ void EffectSsBomb2_DrawLayered(GlobalContext* globalCtx, u32 index, EffectSs* pt
                             pthis->rPrimColorA);
             gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, 0);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(textures[pthis->rTexIdx]));
-            gSPDisplayList(POLY_XLU_DISP++, gEffBombExplosion2DL);
-            gSPDisplayList(POLY_XLU_DISP++, gEffBombExplosion3DL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffBombExplosion2DL));
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffBombExplosion3DL));
 
             Matrix_MtxToMtxF(mtx2, &mtx2F);
             Matrix_Put(&mtx2F);
@@ -159,7 +159,7 @@ void EffectSsBomb2_DrawLayered(GlobalContext* globalCtx, u32 index, EffectSs* pt
                 Matrix_Scale(layer2Scale, layer2Scale, layer2Scale, MTXMODE_APPLY);
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_ss_bomb2.c", 448),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, gEffBombExplosion3DL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffBombExplosion3DL));
                 layer2Scale -= 0.15f;
             }
         }

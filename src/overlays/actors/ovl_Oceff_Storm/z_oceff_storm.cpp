@@ -7,6 +7,7 @@
  */
 
 #include "z_oceff_storm.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
@@ -130,8 +131,6 @@ void OceffStorm_Update(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actionFunc(pthis, globalCtx);
 }
 
-#include "overlays/ovl_Oceff_Storm/ovl_Oceff_Storm.cpp"
-
 void OceffStorm_Draw2(Actor* thisx, GlobalContext* globalCtx) {
     u32 scroll = globalCtx->state.frames & 0xFFF;
     OceffStorm* pthis = (OceffStorm*)thisx;
@@ -146,7 +145,7 @@ void OceffStorm_Draw2(Actor* thisx, GlobalContext* globalCtx) {
     gDPSetAlphaDither(POLY_XLU_DISP++, G_AD_NOISE);
     gDPSetColorDither(POLY_XLU_DISP++, G_CD_NOISE);
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 200, 200, 150, pthis->primColorAlpha);
-    gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sMaterialDL));
     gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 8, scroll * 4, 64, 64, 1,
                                                      scroll * 4, scroll * 4, 64, 64));
     gSPTextureRectangle(POLY_XLU_DISP++, 0, 0, (SCREEN_WIDTH << 2), (SCREEN_HEIGHT << 2), G_TX_RENDERTILE, 0, 0, 140,
@@ -158,7 +157,7 @@ void OceffStorm_Draw2(Actor* thisx, GlobalContext* globalCtx) {
 void OceffStorm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     u32 scroll = globalCtx->state.frames & 0xFFF;
     OceffStorm* pthis = (OceffStorm*)thisx;
-    Vtx* vtxPtr = sCylinderVtx;
+    Vtx* vtxPtr = oot::asset::vtx::load(symbol::sCylinderVtx);
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_oceff_storm.c", 486);
 
@@ -175,10 +174,10 @@ void OceffStorm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_oceff_storm.c", 498),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_XLU_DISP++, sCylinderMaterialDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sCylinderMaterialDL));
     gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 4, (0 - scroll) * 8, 32, 32,
                                                      1, scroll * 8, (0 - scroll) * 12, 32, 32));
-    gSPDisplayList(POLY_XLU_DISP++, sCylinderModelDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sCylinderModelDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_oceff_storm.c", 512);
 

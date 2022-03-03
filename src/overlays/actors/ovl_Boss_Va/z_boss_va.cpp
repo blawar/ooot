@@ -7,9 +7,9 @@
  */
 
 #include "z_boss_va.h"
-#include "objects/object_bv/object_bv.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Boom/z_en_boom.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "framerate.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -124,13 +124,13 @@ void BossVa_Tumor(GlobalContext* globalCtx, BossVa* pthis, s32 count, s16 scale,
                   f32 range, u8 fixed);
 
 static void* sSparkBallTex_206[] = {
-    gBarinadeSparkBall1Tex, gBarinadeSparkBall2Tex, gBarinadeSparkBall3Tex, gBarinadeSparkBall4Tex,
-    gBarinadeSparkBall5Tex, gBarinadeSparkBall6Tex, gBarinadeSparkBall7Tex, gBarinadeSparkBall8Tex,
+    oot::asset::texture::load(symbol::gBarinadeSparkBall1Tex), oot::asset::texture::load(symbol::gBarinadeSparkBall2Tex), oot::asset::texture::load(symbol::gBarinadeSparkBall3Tex), oot::asset::texture::load(symbol::gBarinadeSparkBall4Tex),
+    oot::asset::texture::load(symbol::gBarinadeSparkBall5Tex), oot::asset::texture::load(symbol::gBarinadeSparkBall6Tex), oot::asset::texture::load(symbol::gBarinadeSparkBall7Tex), oot::asset::texture::load(symbol::gBarinadeSparkBall8Tex),
 };
 
 static Gfx* doorPieceDispList_214[] = {
-    gBarinadeDoorPiece1DL, gBarinadeDoorPiece2DL, gBarinadeDoorPiece3DL, gBarinadeDoorPiece4DL,
-    gBarinadeDoorPiece5DL, gBarinadeDoorPiece6DL, gBarinadeDoorPiece7DL, gBarinadeDoorPiece8DL,
+    oot::asset::gfx::load(symbol::gBarinadeDoorPiece1DL), oot::asset::gfx::load(symbol::gBarinadeDoorPiece2DL), oot::asset::gfx::load(symbol::gBarinadeDoorPiece3DL), oot::asset::gfx::load(symbol::gBarinadeDoorPiece4DL),
+    oot::asset::gfx::load(symbol::gBarinadeDoorPiece5DL), oot::asset::gfx::load(symbol::gBarinadeDoorPiece6DL), oot::asset::gfx::load(symbol::gBarinadeDoorPiece7DL), oot::asset::gfx::load(symbol::gBarinadeDoorPiece8DL),
 };
 
 static s16 doorPieceLength_214[] = { 836, 900, 836, 1016, 800, 1016, 836, 900 };
@@ -535,29 +535,29 @@ void BossVa_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     switch (pthis->actor.params) {
         case BOSSVA_BODY:
-            SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBarinadeBodySkel, &gBarinadeBodyAnim, NULL, NULL, 0);
+            SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBarinadeBodySkel), oot::asset::anim::header::load(symbol::gBarinadeBodyAnim), NULL, NULL, 0);
             pthis->actor.flags |= ACTOR_FLAG_24;
             break;
         case BOSSVA_SUPPORT_1:
         case BOSSVA_SUPPORT_2:
         case BOSSVA_SUPPORT_3:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBarinadeSupportSkel, &gBarinadeSupportAttachedAnim, NULL,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBarinadeSupportSkel), oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim), NULL,
                                NULL, 0);
             break;
         case BOSSVA_ZAPPER_1:
         case BOSSVA_ZAPPER_2:
         case BOSSVA_ZAPPER_3:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBarinadeZapperSkel, &gBarinadeZapperIdleAnim, NULL, NULL,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBarinadeZapperSkel), oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim), NULL, NULL,
                                0);
             break;
         case BOSSVA_STUMP_1:
         case BOSSVA_STUMP_2:
         case BOSSVA_STUMP_3:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBarinadeStumpSkel, &gBarinadeStumpAnim, NULL, NULL, 0);
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBarinadeStumpSkel), oot::asset::anim::header::load(symbol::gBarinadeStumpAnim), NULL, NULL, 0);
             break;
         default:
             pthis->actor.flags |= ACTOR_FLAG_24;
-            SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBarinadeBariSkel, &gBarinadeBariAnim, NULL, NULL, 0);
+            SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBarinadeBariSkel), oot::asset::anim::header::load(symbol::gBarinadeBariAnim), NULL, NULL, 0);
             pthis->actor.shape.yOffset = 400.0f;
             break;
         case BOSSVA_DOOR:
@@ -702,9 +702,9 @@ void BossVa_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupIntro(BossVa* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gBarinadeBodyAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeBodyAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBarinadeBodyAnim, 1.0f, lastFrame, lastFrame, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeBodyAnim), 1.0f, lastFrame, lastFrame, ANIMMODE_ONCE, 0.0f);
     pthis->actor.shape.yOffset = -450.0f;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     BossVa_SetupAction(pthis, BossVa_BodyIntro);
@@ -924,7 +924,7 @@ void BossVa_BodyIntro(BossVa* pthis, GlobalContext* globalCtx) {
 
                 if (!(gSaveContext.eventChkInf[7] & 0x40)) {
                     TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                           SEGMENTED_TO_VIRTUAL(gBarinadeTitleCardTex), 0xA0, 0xB4, 0x80, 0x28);
+                                           SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gBarinadeTitleCardTex)), 0xA0, 0xB4, 0x80, 0x28);
                 }
 
                 if (Rand_ZeroOne() < 0.1f) {
@@ -994,9 +994,9 @@ void BossVa_BodyIntro(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupBodyPhase1(BossVa* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gBarinadeBodyAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeBodyAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBarinadeBodyAnim, 1.0f, lastFrame, lastFrame, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeBodyAnim), 1.0f, lastFrame, lastFrame, ANIMMODE_ONCE, 0.0f);
     pthis->actor.shape.yOffset = -450.0f;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     pthis->timer = 25;
@@ -1634,8 +1634,8 @@ void BossVa_BodyDeath(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupSupportIntro(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeSupportAttachedAnim, 0.0f, 0.0f,
-                     Animation_GetLastFrame(&gBarinadeSupportAttachedAnim), ANIMMODE_LOOP_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim), 0.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim)), ANIMMODE_LOOP_INTERP, 0.0f);
     pthis->timer = 0;
     BossVa_SetupAction(pthis, BossVa_SupportIntro);
 }
@@ -1659,8 +1659,8 @@ void BossVa_SupportIntro(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupSupportAttached(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeSupportAttachedAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gBarinadeSupportAttachedAnim), ANIMMODE_LOOP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim)), ANIMMODE_LOOP, 0.0f);
     pthis->timer = pthis->actor.params * 10;
     BossVa_SetupAction(pthis, BossVa_SupportAttached);
 }
@@ -1670,17 +1670,17 @@ void BossVa_SupportAttached(BossVa* pthis, GlobalContext* globalCtx) {
     if (sBodyState & 0x7F) {
         Actor_SetColorFilter(&pthis->actor, 0, 255, 0, 12);
         if (Rand_ZeroOne() > 0.5f) {
-            Animation_Change(&pthis->skelAnime, &gBarinadeSupportDamage1Anim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gBarinadeSupportDamage1Anim), ANIMMODE_ONCE, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportDamage1Anim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportDamage1Anim)), ANIMMODE_ONCE, 0.0f);
         } else {
-            Animation_Change(&pthis->skelAnime, &gBarinadeSupportDamage2Anim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gBarinadeSupportDamage2Anim), ANIMMODE_ONCE, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportDamage2Anim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportDamage2Anim)), ANIMMODE_ONCE, 0.0f);
         }
     }
 
     if (SkelAnime_Update(&pthis->skelAnime)) {
-        Animation_Change(&pthis->skelAnime, &gBarinadeSupportAttachedAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gBarinadeSupportAttachedAnim), ANIMMODE_LOOP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportAttachedAnim)), ANIMMODE_LOOP, 0.0f);
     }
 
     BossVa_AttachToBody(pthis);
@@ -1721,13 +1721,13 @@ void BossVa_SupportCut(BossVa* pthis, GlobalContext* globalCtx) {
     BossVa_AttachToBody(pthis);
 
     if (pthis->onCeiling) {
-        lastFrame = Animation_GetLastFrame(&gBarinadeSupportCutAnim);
+        lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportCutAnim));
         pthis->onCeiling = false;
         pthis->timer = (s32)(Rand_ZeroOne() * 10.0f) + 5;
         SkelAnime_Free(&pthis->skelAnime, globalCtx);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBarinadeCutSupportSkel, &gBarinadeSupportCutAnim, NULL, NULL,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBarinadeCutSupportSkel), oot::asset::anim::header::load(symbol::gBarinadeSupportCutAnim), NULL, NULL,
                            0);
-        Animation_Change(&pthis->skelAnime, &gBarinadeSupportCutAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportCutAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
         sBodyState = 0;
         GET_BODY(pthis)->actor.shape.yOffset -= 60.0f;
 
@@ -1748,8 +1748,8 @@ void BossVa_SupportCut(BossVa* pthis, GlobalContext* globalCtx) {
 
     Math_SmoothStepToS(&pthis->headRot.x, vaBody->vaBodySpinRate * -3, 1, 0x4B0, 0);
     if (SkelAnime_Update(&pthis->skelAnime)) {
-        lastFrame = Animation_GetLastFrame(&gBarinadeSupportDetachedAnim);
-        Animation_Change(&pthis->skelAnime, &gBarinadeSupportDetachedAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP,
+        lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeSupportDetachedAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeSupportDetachedAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP,
                          0.0f);
         pthis->actor.flags &= ~ACTOR_FLAG_0;
     }
@@ -1803,7 +1803,7 @@ void BossVa_SupportCut(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupStump(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeStumpAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gBarinadeStumpAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeStumpAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeStumpAnim)),
                      ANIMMODE_ONCE, 0.0f);
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     BossVa_SetupAction(pthis, BossVa_Stump);
@@ -1820,9 +1820,9 @@ void BossVa_Stump(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupZapperIntro(BossVa* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gBarinadeZapperIdleAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBarinadeZapperIdleAnim, 1.0f, lastFrame - 1.0f, lastFrame,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim), 1.0f, lastFrame - 1.0f, lastFrame,
                      ANIMMODE_LOOP_INTERP, -6.0f);
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     BossVa_SetupAction(pthis, BossVa_ZapperIntro);
@@ -1847,9 +1847,9 @@ void BossVa_ZapperIntro(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupZapperAttack(BossVa* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gBarinadeZapperIdleAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBarinadeZapperIdleAnim, 1.0f, lastFrame - 1.0f, lastFrame,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim), 1.0f, lastFrame - 1.0f, lastFrame,
                      ANIMMODE_LOOP_INTERP, -6.0f);
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     BossVa_SetupAction(pthis, BossVa_ZapperAttack);
@@ -2058,11 +2058,11 @@ void BossVa_ZapperAttack(BossVa* pthis, GlobalContext* globalCtx) {
 
 void BossVa_SetupZapperDamaged(BossVa* pthis, GlobalContext* globalCtx) {
     if (Rand_ZeroOne() > 0.5f) {
-        Animation_Change(&pthis->skelAnime, &gBarinadeZapperDamage1Anim, 0.5f, 0.0f,
-                         Animation_GetLastFrame(&gBarinadeZapperDamage1Anim), ANIMMODE_ONCE_INTERP, 4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperDamage1Anim), 0.5f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperDamage1Anim)), ANIMMODE_ONCE_INTERP, 4.0f);
     } else {
-        Animation_Change(&pthis->skelAnime, &gBarinadeZapperDamage2Anim, 0.5f, 0.0f,
-                         Animation_GetLastFrame(&gBarinadeZapperDamage2Anim), ANIMMODE_ONCE_INTERP, 4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperDamage2Anim), 0.5f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperDamage2Anim)), ANIMMODE_ONCE_INTERP, 4.0f);
     }
 
     Actor_SetColorFilter(&pthis->actor, 0, 255, 0, 12);
@@ -2088,9 +2088,9 @@ void BossVa_ZapperDamaged(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupZapperDeath(BossVa* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gBarinadeZapperIdleAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBarinadeZapperIdleAnim, Rand_ZeroOne() + 0.25f, Rand_ZeroOne() * 3.0f,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim), Rand_ZeroOne() + 0.25f, Rand_ZeroOne() * 3.0f,
                      lastFrame, ANIMMODE_LOOP_INTERP, -6.0f);
     pthis->burst = false;
     pthis->timer2 = (pthis->actor.params * -6) + 18;
@@ -2177,9 +2177,9 @@ void BossVa_ZapperDeath(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupZapperEnraged(BossVa* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gBarinadeZapperIdleAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gBarinadeZapperIdleAnim, 1.0f, lastFrame - 1.0f, lastFrame,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperIdleAnim), 1.0f, lastFrame - 1.0f, lastFrame,
                      ANIMMODE_LOOP_INTERP, -6.0f);
     pthis->burst = false;
     BossVa_SetupAction(pthis, BossVa_ZapperEnraged);
@@ -2316,8 +2316,8 @@ void BossVa_ZapperEnraged(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupZapperHold(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeZapperDamage2Anim, 0.0f, 0.0f,
-                     Animation_GetLastFrame(&gBarinadeZapperDamage2Anim), ANIMMODE_ONCE_INTERP, -6.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeZapperDamage2Anim), 0.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeZapperDamage2Anim)), ANIMMODE_ONCE_INTERP, -6.0f);
     pthis->burst = false;
     BossVa_SetupAction(pthis, BossVa_ZapperHold);
 }
@@ -2337,7 +2337,7 @@ void BossVa_ZapperHold(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupBariIntro(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeBariAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gBarinadeBariAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeBariAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeBariAnim)),
                      ANIMMODE_LOOP, 0.0f);
     pthis->unk_1A0 = 60.0f;
     pthis->unk_1A4 = Rand_ZeroOne() * 360.0f;
@@ -2463,7 +2463,7 @@ void BossVa_BariIntro(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupBariPhase3Attack(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeBariAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gBarinadeBariAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeBariAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeBariAnim)),
                      ANIMMODE_LOOP, 0.0f);
     pthis->timer2 = 0x80;
     pthis->unk_1F0 = 0x78;
@@ -2550,7 +2550,7 @@ void BossVa_BariPhase3Attack(BossVa* pthis, GlobalContext* globalCtx) {
 }
 
 void BossVa_SetupBariPhase2Attack(BossVa* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gBarinadeBariAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gBarinadeBariAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBarinadeBariAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBarinadeBariAnim)),
                      ANIMMODE_LOOP, 0.0f);
     pthis->timer2 = 0x40;
     pthis->unk_1F0 = 0x78;
@@ -2858,11 +2858,11 @@ void BossVa_BodyPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
         if (((limbIndex >= 16) || (limbIndex == 10)) && (sFightPhase <= PHASE_3)) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 4208),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_008BB8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_008BB8));
         } else if ((limbIndex >= 11) && (sFightPhase <= PHASE_2)) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 4212),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_008BB8);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_008BB8));
         }
 
         if (sCsState >= DEATH_START) {
@@ -2877,7 +2877,7 @@ void BossVa_BodyPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
                                     (globalCtx->gameplayFrames * 5) % 128, 16, 32));
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 4232),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_008D70);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_008D70));
     } else if ((*dList != NULL) && (limbIndex >= 29) && (limbIndex < 56)) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 4236),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -3107,7 +3107,7 @@ void BossVa_BariPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
                                     (globalCtx->gameplayFrames * -5) % 32, 16, 32));
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 4508),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_000FA0);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_000FA0));
     } else if ((limbIndex == 3) || (limbIndex == 4)) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_va.c", 4512),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -3463,7 +3463,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
                 gDPSetEnvColor(POLY_XLU_DISP++, 130, 130, 30, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_0156A0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_0156A0));
                 flag++;
             }
 
@@ -3474,7 +3474,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             Matrix_Scale(effect->scale * 0.0185f, effect->scale * 0.0185f, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 4976),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_015710);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_015710));
         }
     }
 
@@ -3483,7 +3483,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == VA_SPARK_BALL) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_011738);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_011738));
                 flag++;
             }
             Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
@@ -3500,7 +3500,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             gDPPipeSync(POLY_XLU_DISP++);
             gDPSetEnvColor(POLY_XLU_DISP++, effect->envColor[0], effect->envColor[1], effect->envColor[2],
                            effect->envColor[3]);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_011768);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_011768));
         }
     }
 
@@ -3509,8 +3509,8 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == VA_BLOOD) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_009430);
-                gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gEffBubble1Tex));
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_009430));
+                gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gEffBubble1Tex)));
                 flag++;
             }
 
@@ -3530,7 +3530,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             gDPPipeSync(POLY_XLU_DISP++);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5052),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_009468);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_009468));
         }
     }
 
@@ -3542,7 +3542,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             if (!flag) {
                 func_80093D18(globalCtx->state.gfxCtx);
                 gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, effect->envColor[3]);
-                gSPDisplayList(POLY_OPA_DISP++, gBarinadeDL_0128B8);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_0128B8));
                 flag++;
             }
 
@@ -3553,7 +3553,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5080),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, gBarinadeDL_012948);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_012948));
             }
         }
     }
@@ -3563,7 +3563,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == VA_GORE) {
             if (!flag) {
                 func_80093D18(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_OPA_DISP++, gBarinadeDL_012BA0);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_012BA0));
                 flag++;
             }
 
@@ -3585,7 +3585,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5124),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gBarinadeDL_012C50);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_012C50));
         }
     }
 
@@ -3594,7 +3594,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == VA_ZAP_CHARGE) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_0135B0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_0135B0));
                 flag++;
             }
 
@@ -3608,7 +3608,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5152),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_013638);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_013638));
         }
     }
 
@@ -3618,7 +3618,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             if (!flag) {
                 func_80093C14(globalCtx->state.gfxCtx);
                 gDPSetEnvColor(POLY_XLU_DISP++, 130, 130, 30, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_0156A0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_0156A0));
                 flag++;
             }
 
@@ -3630,7 +3630,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5180),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_015710);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_015710));
         }
     }
 
@@ -3640,7 +3640,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
                 gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 100, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_008F08);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_008F08));
                 flag++;
             }
 
@@ -3652,7 +3652,7 @@ void BossVa_DrawEffects(BossVaEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_va.c", 5208),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gBarinadeDL_008F70);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBarinadeDL_008F70));
         }
     }
 

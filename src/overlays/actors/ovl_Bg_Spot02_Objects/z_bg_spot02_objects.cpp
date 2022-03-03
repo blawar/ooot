@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot02_objects.h"
-#include "objects/object_spot02_objects/object_spot02_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -41,17 +41,17 @@ void func_808AD3D4(BgSpot02Objects* pthis, GlobalContext* globalCtx);
 static Vec3f zeroVec_38 = { 0.0f, 0.0f, 0.0f };
 
 static Gfx* dLists_43[] = {
-    object_spot02_objects_DL_012A50,
-    object_spot02_objects_DL_0127C0,
-    object_spot02_objects_DL_0130B0,
+    oot::asset::gfx::load(symbol::object_spot02_objects_DL_012A50),
+    oot::asset::gfx::load(symbol::object_spot02_objects_DL_0127C0),
+    oot::asset::gfx::load(symbol::object_spot02_objects_DL_0130B0),
 };
 
 
 static void* D_808AD850[] = {
-    object_spot02_objects_Tex_0096B0, object_spot02_objects_Tex_00A2B0, object_spot02_objects_Tex_00AEB0,
-    object_spot02_objects_Tex_00BAB0, object_spot02_objects_Tex_00C6B0, object_spot02_objects_Tex_00D2B0,
-    object_spot02_objects_Tex_00DEB0, object_spot02_objects_Tex_00EAB0, object_spot02_objects_Tex_00F6B0,
-    object_spot02_objects_Tex_0102B0, object_spot02_objects_Tex_010EB0, object_spot02_objects_Tex_011AB0,
+    oot::asset::texture::load(symbol::object_spot02_objects_Tex_0096B0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_00A2B0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_00AEB0),
+    oot::asset::texture::load(symbol::object_spot02_objects_Tex_00BAB0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_00C6B0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_00D2B0),
+    oot::asset::texture::load(symbol::object_spot02_objects_Tex_00DEB0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_00EAB0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_00F6B0),
+    oot::asset::texture::load(symbol::object_spot02_objects_Tex_0102B0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_010EB0), oot::asset::texture::load(symbol::object_spot02_objects_Tex_011AB0),
 };
 
 ActorInit Bg_Spot02_Objects_InitVars = {
@@ -94,10 +94,10 @@ void BgSpot02Objects_Init(Actor* thisx, GlobalContext* globalCtx) {
                     pthis->actionFunc = func_808ACAFC;
                 }
 
-                CollisionHeader_GetVirtual(&object_spot02_objects_Col_012BA4, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot02_objects_Col_012BA4), &colHeader);
             } else if (thisx->params == 1) {
                 pthis->actionFunc = func_808AC8FC;
-                CollisionHeader_GetVirtual(&object_spot02_objects_Col_0128D8, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot02_objects_Col_0128D8), &colHeader);
                 thisx->flags |= ACTOR_FLAG_22;
             } else {
                 if (globalCtx->sceneNum == SCENE_SPOT02) {
@@ -106,7 +106,7 @@ void BgSpot02Objects_Init(Actor* thisx, GlobalContext* globalCtx) {
                     pthis->actionFunc = func_808AC8FC;
                 }
 
-                CollisionHeader_GetVirtual(&object_spot02_objects_Col_0133EC, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot02_objects_Col_0133EC), &colHeader);
             }
 
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
@@ -175,7 +175,7 @@ void func_808ACA08(BgSpot02Objects* pthis, GlobalContext* globalCtx) {
     if (pthis->timer == 20) {
         pthis->dyna.actor.draw = NULL;
         EffectSsHahen_SpawnBurst(globalCtx, &pthis->dyna.actor.world.pos, 30.0f, 0, 25, 5, 40, OBJECT_SPOT02_OBJECTS, 20,
-                                 object_spot02_objects_DL_012D30);
+                                 oot::asset::gfx::load(symbol::object_spot02_objects_DL_012D30));
     } else if (pthis->timer == 0) {
         Actor_Kill(&pthis->dyna.actor);
     }
@@ -278,7 +278,7 @@ void func_808ACCB8(Actor* thisx, GlobalContext* globalCtx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_808AD850[pthis->unk_16A]));
         gDPPipeSync(POLY_XLU_DISP++);
-        gSPDisplayList(POLY_XLU_DISP++, object_spot02_objects_DL_0126F0);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot02_objects_DL_0126F0));
         gDPPipeSync(POLY_XLU_DISP++);
     }
 
@@ -340,7 +340,7 @@ void func_808AD450(Actor* thisx, GlobalContext* globalCtx) {
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 2 * pthis->timer, -3 * pthis->timer, 32, 64, 1,
                                         4 * pthis->timer, -6 * pthis->timer, 32, 64));
             gDPPipeSync(POLY_XLU_DISP++);
-            gSPDisplayList(POLY_XLU_DISP++, object_spot02_objects_DL_0013F0);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot02_objects_DL_0013F0));
             gDPPipeSync(POLY_XLU_DISP++);
         }
     }

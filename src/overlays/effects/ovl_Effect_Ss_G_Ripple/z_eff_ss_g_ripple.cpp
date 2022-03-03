@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_g_ripple.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
 #include "def/z_lib.h"
@@ -45,7 +45,7 @@ u32 EffectSsGRipple_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
     waterBox = NULL;
     pthis->velocity = pthis->accel = zeroVec;
     pthis->pos = initParams->pos;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffWaterRippleDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffWaterRippleDL));
     pthis->life = initParams->life + 20;
     pthis->flags = 0;
     pthis->draw = EffectSsGRipple_Draw;
@@ -110,7 +110,7 @@ void EffectSsGRipple_DrawRipple(GlobalContext* globalCtx, EffectSs* pthis, void*
 
 void EffectSsGRipple_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     if (pthis->rLifespan == 0) {
-        EffectSsGRipple_DrawRipple(globalCtx, pthis, gEffWaterRippleTex);
+        EffectSsGRipple_DrawRipple(globalCtx, pthis, oot::asset::texture::load(symbol::gEffWaterRippleTex));
     }
 }
 

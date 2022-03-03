@@ -7,8 +7,7 @@
  */
 
 #include "z_en_fu.h"
-#include "objects/object_fu/object_fu.h"
-#include "scenes/indoors/hakasitarelay/hakasitarelay_scene.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -44,9 +43,9 @@ void func_80A1DB60(EnFu* pthis, GlobalContext* globalCtx);
 
 static s16 yawDiff_49;
 
-static void* sEyesSegments_53[] = { gWindmillManEyeClosedTex, gWindmillManEyeAngryTex };
+static void* sEyesSegments_53[] = { oot::asset::texture::load(symbol::gWindmillManEyeClosedTex), oot::asset::texture::load(symbol::gWindmillManEyeAngryTex) };
 
-static void* sMouthSegments_53[] = { gWindmillManMouthOpenTex, gWindmillManMouthAngryTex };
+static void* sMouthSegments_53[] = { oot::asset::texture::load(symbol::gWindmillManMouthOpenTex), oot::asset::texture::load(symbol::gWindmillManMouthAngryTex) };
 
 
 ActorInit En_Fu_InitVars = {
@@ -93,9 +92,9 @@ void EnFu_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnFu* pthis = (EnFu*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelanime, &gWindmillManSkel, &gWindmillManPlayStillAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelanime, oot::asset::skel::header::load(symbol::gWindmillManSkel), oot::asset::anim::header::load(symbol::gWindmillManPlayStillAnim), pthis->jointTable,
                        pthis->morphTable, FU_LIMB_MAX);
-    Animation_PlayLoop(&pthis->skelanime, &gWindmillManPlayStillAnim);
+    Animation_PlayLoop(&pthis->skelanime, oot::asset::anim::header::load(symbol::gWindmillManPlayStillAnim));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
@@ -140,9 +139,9 @@ void func_80A1DA04(EnFu* pthis, GlobalContext* globalCtx) {
         pthis->behaviorFlags &= ~FU_WAIT;
         pthis->actionFunc = EnFu_WaitChild;
 
-        if (pthis->skelanime.animation == &gWindmillManPlayAndMoveHeadAnim) {
-            Animation_Change(&pthis->skelanime, &gWindmillManPlayStillAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gWindmillManPlayStillAnim), ANIMMODE_ONCE, -4.0f);
+        if (pthis->skelanime.animation == oot::asset::anim::header::load(symbol::gWindmillManPlayAndMoveHeadAnim)) {
+            Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gWindmillManPlayStillAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWindmillManPlayStillAnim)), ANIMMODE_ONCE, -4.0f);
         }
     }
 }
@@ -158,8 +157,8 @@ void EnFu_WaitChild(EnFu* pthis, GlobalContext* globalCtx) {
     // if func_80A1D94C returns 1, actionFunc is set to func_80A1DA04
     if (func_80A1D94C(pthis, globalCtx, textID, func_80A1DA04)) {
         if (textID == 0x5033) {
-            Animation_Change(&pthis->skelanime, &gWindmillManPlayAndMoveHeadAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gWindmillManPlayAndMoveHeadAnim), ANIMMODE_ONCE, -4.0f);
+            Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::gWindmillManPlayAndMoveHeadAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gWindmillManPlayAndMoveHeadAnim)), ANIMMODE_ONCE, -4.0f);
         }
     }
 }
@@ -189,7 +188,7 @@ void func_80A1DBD4(EnFu* pthis, GlobalContext* globalCtx) {
         Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         pthis->actionFunc = func_80A1DB60;
         pthis->actor.flags &= ~ACTOR_FLAG_16;
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gSongOfStormsCs);
+        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gSongOfStormsCs));
         gSaveContext.cutsceneTrigger = 1;
         Item_Give(globalCtx, ITEM_SONG_STORMS);
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_00;

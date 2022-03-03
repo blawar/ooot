@@ -3770,6 +3770,12 @@ void CollisionHeader_GetVirtual(void* colHeader, CollisionHeader** dest) {
     CollisionHeader_SegmentedToVirtual(*dest);
 }
 
+void CollisionHeader_GetVirtual(CollisionHeader& colHeader, CollisionHeader** dest)
+{
+	*dest = &colHeader;
+	CollisionHeader_SegmentedToVirtual(*dest);
+}
+
 /**
  * SEGMENT_TO_VIRTUAL all active BgActor CollisionHeaders
  */

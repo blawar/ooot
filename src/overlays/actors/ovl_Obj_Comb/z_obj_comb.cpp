@@ -8,7 +8,7 @@
 
 #include "z_obj_comb.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -82,7 +82,7 @@ void ObjComb_Break(ObjComb* pthis, GlobalContext* globalCtx) {
     Vec3f pos1;
     Vec3f pos;
     Vec3f velocity;
-    Gfx* dlist = gFieldBeehiveFragmentDL;
+    Gfx* dlist = oot::asset::gfx::load(symbol::gFieldBeehiveFragmentDL);
     s16 scale;
     s16 angle = 0;
     s16 gravity;
@@ -231,7 +231,7 @@ void ObjComb_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_comb.c", 394),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gFieldBeehiveDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFieldBeehiveDL));
 
     Collider_UpdateSpheres(0, &pthis->collider);
 

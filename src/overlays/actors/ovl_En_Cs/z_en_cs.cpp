@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_CS_Z_EN_CS_C
 #include "actor_common.h"
 #include "z_en_cs.h"
-#include "objects/object_cs/object_cs.h"
-#include "objects/object_link_child/object_link_child.h"
+#include "asset.h"
 #include "def/math_float.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -35,9 +34,9 @@ void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 static s32 eyeBlinkFrames_47[] = { 70, 1, 1 };
 
 static void* eyeTextures_48[] = {
-    gGraveyardKidEyesOpenTex,
-    gGraveyardKidEyesHalfTex,
-    gGraveyardKidEyesClosedTex,
+    oot::asset::texture::load(symbol::gGraveyardKidEyesOpenTex),
+    oot::asset::texture::load(symbol::gGraveyardKidEyesHalfTex),
+    oot::asset::texture::load(symbol::gGraveyardKidEyesClosedTex),
 };
 
 static Vec3f D_809E2970_50 = { 500.0f, 800.0f, 0.0f };
@@ -114,10 +113,10 @@ static DamageTable sDamageTable[] = {
 };
 
 static struct_D_80AA1678 sAnimations[] = {
-    { &gGraveyardKidWalkAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gGraveyardKidSwingStickUpAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gGraveyardKidGrabStickTwoHandsAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
-    { &gGraveyardKidIdleAnim, 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGraveyardKidWalkAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGraveyardKidSwingStickUpAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGraveyardKidGrabStickTwoHandsAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
+    { oot::asset::anim::header::load(symbol::gGraveyardKidIdleAnim), 1.0f, ANIMMODE_ONCE, -10.0f },
 };
 
 void EnCs_SetAnimFromIndex(EnCs* pthis, s32 animIndex, s32* currentAnimIndex) {
@@ -153,7 +152,7 @@ void EnCs_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 19.0f);
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGraveyardKidSkel, NULL, pthis->jointTable, pthis->morphTable, 16);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGraveyardKidSkel), NULL, pthis->jointTable, pthis->morphTable, 16);
 
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -494,10 +493,8 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
             Matrix_Put(&pthis->spookyMaskMtx);
             mtx = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_cs.c", 1000);
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[childLinkObjectIndex].vromStart.get());
             gSPSegment(POLY_OPA_DISP++, 0x0D, mtx - 7);
-            gSPDisplayList(POLY_OPA_DISP++, gLinkChildSpookyMaskDL);
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkChildSpookyMaskDL));
         }
     }
 

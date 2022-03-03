@@ -3,7 +3,7 @@
 #include "z_en_ex_ruppy.h"
 #include "vt.h"
 #include "../ovl_En_Diving_Game/z_en_diving_game.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -36,7 +36,7 @@ static Vec3f velocities_35[] = { { 0.0f, 0.1f, 0.0f }, { 0.0f, 0.0f, 0.0f } };
 static Vec3f accelerations_35[] = { { 0.0f, 0.01f, 0.0f }, { 0.0f, 0.0f, 0.0f } };
 
 static void* rupeeTextures_47[] = {
-    gRupeeGreenTex, gRupeeBlueTex, gRupeeRedTex, gRupeePinkTex, gRupeeOrangeTex,
+    oot::asset::texture::load(symbol::gRupeeGreenTex), oot::asset::texture::load(symbol::gRupeeBlueTex), oot::asset::texture::load(symbol::gRupeeRedTex), oot::asset::texture::load(symbol::gRupeePinkTex), oot::asset::texture::load(symbol::gRupeeOrangeTex),
 };
 
 
@@ -400,7 +400,7 @@ void EnExRuppy_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ex_ruppy.c", 780),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(rupeeTextures_47[pthis->colorIdx]));
-        gSPDisplayList(POLY_OPA_DISP++, gRupeeDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gRupeeDL));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_ruppy.c", 784);
     }

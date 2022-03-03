@@ -7,8 +7,7 @@
  */
 
 #include "z_en_po_field.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_po_field/object_po_field.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -153,8 +152,8 @@ static Vec3f D_80AD7114 = { 0.0f, 3.0f, 0.0f };
 static Vec3f D_80AD7120 = { 0.0f, 0.0f, 0.0f };
 
 static EnPoFieldInfo sPoFieldInfo[2] = {
-    { { 255, 170, 255 }, { 100, 0, 150 }, { 255, 85, 0 }, 248, gPoeFieldSoulTex },
-    { { 255, 255, 170 }, { 255, 200, 0 }, { 160, 0, 255 }, 241, gBigPoeSoulTex },
+    { { 255, 170, 255 }, { 100, 0, 150 }, { 255, 85, 0 }, 248, oot::asset::texture::load(symbol::gPoeFieldSoulTex) },
+    { { 255, 255, 170 }, { 255, 200, 0 }, { 160, 0, 255 }, 241, oot::asset::texture::load(symbol::gBigPoeSoulTex) },
 };
 
 static Vec3f D_80AD714C = { 0.0f, 1400.0f, 0.0f };
@@ -180,7 +179,7 @@ void EnPoField_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gPoeFieldSkel, &gPoeFieldFloatAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gPoeFieldSkel), oot::asset::anim::header::load(symbol::gPoeFieldFloatAnim), pthis->jointTable, pthis->morphTable,
                    10);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &D_80AD7080);
@@ -221,7 +220,7 @@ void EnPoField_SetupWaitForSpawn(EnPoField* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPoField_SetupAppear(EnPoField* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gPoeFieldAppearAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldAppearAnim));
     pthis->actor.draw = EnPoField_Draw;
     pthis->lightColor.r = 255;
     pthis->lightColor.g = 255;
@@ -254,7 +253,7 @@ void EnPoField_SetupAppear(EnPoField* pthis) {
 void EnPoField_SetupCirclePlayer(EnPoField* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    Animation_PlayLoop(&pthis->skelAnime, &gPoeFieldFloatAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldFloatAnim));
     pthis->collider.base.acFlags |= AC_ON;
     pthis->scaleModifier = pthis->actor.xzDistToPlayer;
     Math_Vec3f_Copy(&pthis->actor.home.pos, &player->actor.world.pos);
@@ -268,7 +267,7 @@ void EnPoField_SetupCirclePlayer(EnPoField* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPoField_SetupFlee(EnPoField* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeFieldFleeAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldFleeAnim), -5.0f);
     pthis->collider.base.acFlags |= AC_ON;
     pthis->actionFunc = EnPoField_Flee;
     pthis->actor.speedXZ = 12.0f;
@@ -281,7 +280,7 @@ void EnPoField_SetupFlee(EnPoField* pthis) {
 }
 
 void EnPoField_SetupDamage(EnPoField* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gPoeFieldDamagedAnim, -6.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldDamagedAnim), -6.0f);
     if (pthis->collider.info.acHitInfo->toucher.dmgFlags & 0x1F824) {
         pthis->actor.world.rot.y = pthis->collider.base.ac->world.rot.y;
     } else {
@@ -306,7 +305,7 @@ void EnPoField_SetupDeath(EnPoField* pthis) {
 }
 
 void EnPoField_SetupDisappear(EnPoField* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeFieldDisappearAnim, -6.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeFieldDisappearAnim), -6.0f);
     pthis->actionTimer = 16;
     pthis->collider.base.acFlags &= ~(AC_HIT | AC_ON);
     pthis->actor.speedXZ = 0.0f;
@@ -626,7 +625,7 @@ void EnPoField_SoulIdle(EnPoField* pthis, GlobalContext* globalCtx) {
     }
     if (pthis->actor.bgCheckFlags & 1) {
         EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 1, 1, 15, OBJECT_PO_FIELD, 10,
-                                 gPoeFieldLanternDL);
+                                 oot::asset::gfx::load(symbol::gPoeFieldLanternDL));
         func_80AD42B0(pthis);
     } else if (pthis->actionTimer == 0) {
         EnPoField_SetupWaitForSpawn(pthis, globalCtx);
@@ -817,7 +816,7 @@ void EnPoField_DrawFlame(EnPoField* pthis, GlobalContext* globalCtx) {
         }
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_field.c", 1709),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_field.c", 1712);
     }
 }
@@ -900,11 +899,11 @@ s32 EnPoField_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
         *dList = NULL;
     } else if (pthis->actor.params == EN_PO_FIELD_BIG) {
         if (limbIndex == 1) {
-            *dList = gBigPoeFaceDL;
+            *dList = oot::asset::gfx::load(symbol::gBigPoeFaceDL);
         } else if (limbIndex == 8) {
-            *dList = gBigPoeCloakDL;
+            *dList = oot::asset::gfx::load(symbol::gBigPoeCloakDL);
         } else if (limbIndex == 9) {
-            *dList = gBigPoeBodyDL;
+            *dList = oot::asset::gfx::load(symbol::gBigPoeBodyDL);
         }
     }
     if (pthis->actionFunc == EnPoField_Disappear && limbIndex == 7) {
@@ -919,7 +918,7 @@ void EnPoField_PostLimDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     if (pthis->actionFunc == EnPoField_Death && pthis->actionTimer >= 2 && limbIndex == 8) {
         gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_field.c", 1916),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList((*gfxP)++, gPoeFieldBurnDL);
+        gSPDisplayList((*gfxP)++, oot::asset::gfx::load(symbol::gPoeFieldBurnDL));
     }
     if (limbIndex == 7) {
         Vec3f vec;
@@ -971,8 +970,8 @@ void EnPoField_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Put(&sLimb7Mtx);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_field.c", 2033),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gPoeFieldLanternDL);
-        gSPDisplayList(POLY_OPA_DISP++, gPoeFieldLanternTopDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeFieldLanternDL));
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeFieldLanternTopDL));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_field.c", 2039);
     }
     EnPoField_DrawFlame(pthis, globalCtx);
@@ -1003,8 +1002,8 @@ void EnPoField_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
         gDPSetEnvColor(POLY_OPA_DISP++, pthis->soulColor.r, pthis->soulColor.g, pthis->soulColor.b, 255);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_field.c", 2104),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gPoeFieldLanternDL);
-        gSPDisplayList(POLY_OPA_DISP++, gPoeFieldLanternTopDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeFieldLanternDL));
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoeFieldLanternTopDL));
     } else {
         func_80093D84(globalCtx->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 0x08,
@@ -1017,7 +1016,7 @@ void EnPoField_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_RotateY((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x8000) * 9.58738e-05f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_field.c", 2143),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gPoeFieldSoulDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gPoeFieldSoulDL));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_field.c", 2149);
     EnPoField_DrawFlame(pthis, globalCtx);

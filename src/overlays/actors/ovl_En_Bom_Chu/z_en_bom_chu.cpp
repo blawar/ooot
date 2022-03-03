@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_bom_chu.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/code_800430A0.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -535,7 +535,7 @@ void EnBomChu_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_Translate(pthis->visualJitter * (1.0f / BOMBCHU_SCALE), 0.0f, 0.0f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bom_chu.c", 956),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gBombchuDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBombchuDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_chu.c", 961);
 }

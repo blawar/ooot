@@ -7,7 +7,7 @@
  */
 
 #include "z_en_vase.h"
-#include "objects/object_vase/object_vase.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_cheap_proc.h"
 
@@ -43,7 +43,7 @@ void EnVase_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnVase_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gUnusedVaseDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gUnusedVaseDL));
 }
 
 void EnVase_Reset(Actor* pthisx, GlobalContext* globalCtx) {

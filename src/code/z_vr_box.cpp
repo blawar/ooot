@@ -7,7 +7,7 @@
 #include "z64save.h"
 #include "z64environment.h"
 #include "segment_symbols.h"
-#include "misc/z_vr_box_assets.h"
+#include "asset.h"
 #include "z_kankyo.h"
 #include "def/game.h"
 #include "def/z_common_data.h"
@@ -388,6 +388,7 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
     s16 i;
     u8 skybox1Index;
     u8 skybox2Index;
+    RomFile file;
     void* start;
     s32 phi_v1;
 
@@ -462,17 +463,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
 
         case SKYBOX_BAZAAR:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_SP1a_static;
-            size = sizeof(vr_SP1a_static);
+file = oot::asset::texture::loadFile(symbol::vr_SP1a_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1127);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1128);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1129);
-
-            start = (void*)vr_SP1a_pal_static;
-            size = sizeof(vr_SP1a_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_SP1a_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1132);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1133);
 
@@ -480,8 +481,9 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             skyboxCtx->rot.y = 0.8f;
             break;
         case SKYBOX_OVERCAST_SUNSET:
-            start = (void*)vr_cloud2_static;
-            size = sizeof(vr_cloud2_static);
+file = oot::asset::texture::loadFile(symbol::vr_cloud2_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1155);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1156);
@@ -493,9 +495,9 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
                    1163);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[1], start, size, "../z_vr_box.c", 1166);
-
-            start = (void*)vr_cloud2_pal_static;
-            size = sizeof(vr_cloud2_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_cloud2_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size * 2, "../z_vr_box.c", 1170);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1171);
 
@@ -504,17 +506,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_MARKET_ADULT:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_RUVR_static;
-            size = sizeof(vr_RUVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_RUVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1182);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1183);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1184);
-
-            start = (void*)vr_RUVR_pal_static;
-            size = sizeof(vr_RUVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_RUVR_pal_static);
+start = file.buffer();
+size = file.size();
             osSyncPrintf("ＳＩＺＥ = %d\n", size);
 
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1188);
@@ -523,44 +525,45 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             DmaMgr_SendRequest1(skyboxCtx->palettes, start, size, "../z_vr_box.c", 1190);
             break;
         case SKYBOX_CUTSCENE_MAP:
-            start = (void*)vr_holy0_static;
-            size = sizeof(vr_holy0_static);
+file = oot::asset::texture::loadFile(symbol::vr_holy0_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1196);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1197);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1200);
-
-            start = (void*)vr_holy1_static;
-            size = sizeof(vr_holy1_static);
+file = oot::asset::texture::loadFile(symbol::vr_holy1_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[1] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1203);
             ASSERT(skyboxCtx->staticSegments[1] != NULL, "vr_box->vr_box_staticSegment[1] != NULL", "../z_vr_box.c",
                    1204);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[1], start, size, "../z_vr_box.c", 1207);
-
-            start = (void*)vr_holy0_pal_static;
-            size = sizeof(vr_holy0_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_holy0_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size * 2, "../z_vr_box.c", 1211);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1212);
 
             DmaMgr_SendRequest1(skyboxCtx->palettes, start, size, "../z_vr_box.c", 1214);
-            DmaMgr_SendRequest1(POINTER_ADD(skyboxCtx->palettes, size), (u8*)vr_holy1_pal_static, size,
+            DmaMgr_SendRequest1(POINTER_ADD(skyboxCtx->palettes, size), (u8*)oot::asset::texture::load(symbol::vr_holy1_pal_static), size,
                                 "../z_vr_box.c", 1216);
             break;
         case SKYBOX_HOUSE_LINK:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_LHVR_static;
-            size = sizeof(vr_LHVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_LHVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1226);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1227);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1228);
-
-            start = (void*)vr_LHVR_pal_static;
-            size = sizeof(vr_LHVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_LHVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1231);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1232);
 
@@ -568,17 +571,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_MARKET_CHILD_DAY:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_MDVR_static;
-            size = sizeof(vr_MDVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_MDVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1257);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1258);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1259);
-
-            start = (void*)vr_MDVR_pal_static;
-            size = sizeof(vr_MDVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_MDVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1262);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1263);
 
@@ -586,17 +589,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_MARKET_CHILD_NIGHT:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_MNVR_static;
-            size = sizeof(vr_MNVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_MNVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1271);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1272);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1273);
-
-            start = (void*)vr_MNVR_pal_static;
-            size = sizeof(vr_MNVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_MNVR_pal_static);
+start = file.buffer();
+size = file.size();
             osSyncPrintf("ＳＩＺＥ = %d\n", size);
 
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1277);
@@ -606,17 +609,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HAPPY_MASK_SHOP:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_FCVR_static;
-            size = sizeof(vr_FCVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_FCVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1286);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1287);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1288);
-
-            start = (void*)vr_FCVR_pal_static;
-            size = sizeof(vr_FCVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_FCVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1291);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1292);
 
@@ -625,17 +628,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_KNOW_IT_ALL_BROTHERS:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_KHVR_static;
-            size = sizeof(vr_KHVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_KHVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1301);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1302);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1303);
-
-            start = (void*)vr_KHVR_pal_static;
-            size = sizeof(vr_KHVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_KHVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1306);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1307);
 
@@ -643,17 +646,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_OF_TWINS:
             skyboxCtx->unk_140 = 2;
-
-            start = (void*)vr_K3VR_static;
-            size = sizeof(vr_K3VR_static);
+file = oot::asset::texture::loadFile(symbol::vr_K3VR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1331);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1332);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1333);
-
-            start = (void*)vr_K3VR_pal_static;
-            size = sizeof(vr_K3VR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_K3VR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1336);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1337);
 
@@ -661,17 +664,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_STABLES:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_MLVR_static;
-            size = sizeof(vr_MLVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_MLVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1345);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1346);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1347);
-
-            start = (void*)vr_MLVR_pal_static;
-            size = sizeof(vr_MLVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_MLVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1350);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1351);
 
@@ -679,17 +682,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_KAKARIKO:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_KKRVR_static;
-            size = sizeof(vr_KKRVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_KKRVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1359);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1360);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1361);
-
-            start = (void*)vr_KKRVR_pal_static;
-            size = sizeof(vr_KKRVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_KKRVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1364);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1365);
 
@@ -697,17 +700,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_KOKIRI_SHOP:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_KSVR_static;
-            size = sizeof(vr_KSVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_KSVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1373);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1374);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1375);
-
-            start = (void*)vr_KSVR_pal_static;
-            size = sizeof(vr_KSVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_KSVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1378);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1379);
 
@@ -716,17 +719,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_GORON_SHOP:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_GLVR_static;
-            size = sizeof(vr_GLVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_GLVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1405);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1406);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1407);
-
-            start = (void*)vr_GLVR_pal_static;
-            size = sizeof(vr_GLVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_GLVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1410);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1411);
 
@@ -735,17 +738,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_ZORA_SHOP:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_ZRVR_static;
-            size = sizeof(vr_ZRVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_ZRVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1420);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1421);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1422);
-
-            start = (void*)vr_ZRVR_pal_static;
-            size = sizeof(vr_ZRVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_ZRVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1425);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1426);
 
@@ -754,17 +757,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_POTION_SHOP_KAKARIKO:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_DGVR_static;
-            size = sizeof(vr_DGVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_DGVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1451);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1452);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1453);
-
-            start = (void*)vr_DGVR_pal_static;
-            size = sizeof(vr_DGVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_DGVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1456);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1457);
 
@@ -773,17 +776,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_POTION_SHOP_MARKET:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_ALVR_static;
-            size = sizeof(vr_ALVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_ALVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1466);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1467);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1468);
-
-            start = (void*)vr_ALVR_pal_static;
-            size = sizeof(vr_ALVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_ALVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1471);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1472);
 
@@ -792,17 +795,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_BOMBCHU_SHOP:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_NSVR_static;
-            size = sizeof(vr_NSVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_NSVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1481);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1482);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1483);
-
-            start = (void*)vr_NSVR_pal_static;
-            size = sizeof(vr_NSVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_NSVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1486);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1487);
 
@@ -811,17 +814,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_RICHARD:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_IPVR_static;
-            size = sizeof(vr_IPVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_IPVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1512);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1513);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1514);
-
-            start = (void*)vr_IPVR_pal_static;
-            size = sizeof(vr_IPVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_IPVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1517);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1518);
 
@@ -829,17 +832,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_IMPA:
             skyboxCtx->unk_140 = 1;
-
-            start = (void*)vr_LBVR_static;
-            size = sizeof(vr_LBVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_LBVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1526);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1527);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1528);
-
-            start = (void*)vr_LBVR_pal_static;
-            size = sizeof(vr_LBVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_LBVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1531);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1532);
 
@@ -847,17 +850,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_TENT:
             skyboxCtx->unk_140 = 2;
-
-            start = (void*)vr_TTVR_static;
-            size = sizeof(vr_TTVR_static);
+file = oot::asset::texture::loadFile(symbol::vr_TTVR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1540);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1541);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1542);
-
-            start = (void*)vr_TTVR_pal_static;
-            size = sizeof(vr_TTVR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_TTVR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1545);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1546);
 
@@ -865,17 +868,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_MIDO:
             skyboxCtx->unk_140 = 2;
-
-            start = (void*)vr_K4VR_static;
-            size = sizeof(vr_K4VR_static);
+file = oot::asset::texture::loadFile(symbol::vr_K4VR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1560);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1561);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1562);
-
-            start = (void*)vr_K4VR_pal_static;
-            size = sizeof(vr_K4VR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_K4VR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1565);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1566);
 
@@ -883,17 +886,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_SARIA:
             skyboxCtx->unk_140 = 2;
-
-            start = (void*)vr_K5VR_static;
-            size = sizeof(vr_K5VR_static);
+file = oot::asset::texture::loadFile(symbol::vr_K5VR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1574);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1575);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1576);
-
-            start = (void*)vr_K5VR_pal_static;
-            size = sizeof(vr_K5VR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_K5VR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1579);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1580);
 
@@ -901,17 +904,17 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
             break;
         case SKYBOX_HOUSE_ALLEY:
             skyboxCtx->unk_140 = 2;
-
-            start = (void*)vr_KR3VR_static;
-            size = sizeof(vr_KR3VR_static);
+file = oot::asset::texture::loadFile(symbol::vr_KR3VR_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->staticSegments[0] = GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1588);
             ASSERT(skyboxCtx->staticSegments[0] != NULL, "vr_box->vr_box_staticSegment[0] != NULL", "../z_vr_box.c",
                    1589);
 
             DmaMgr_SendRequest1(skyboxCtx->staticSegments[0], start, size, "../z_vr_box.c", 1590);
-
-            start = (void*)vr_KR3VR_pal_static;
-            size = sizeof(vr_KR3VR_pal_static);
+file = oot::asset::texture::loadFile(symbol::vr_KR3VR_pal_static);
+start = file.buffer();
+size = file.size();
             skyboxCtx->palettes = (u16 (*)[256])GameState_Alloc(&globalCtx->state, size, "../z_vr_box.c", 1593);
             ASSERT(skyboxCtx->palettes != NULL, "vr_box->vr_box_staticSegment[2] != NULL", "../z_vr_box.c", 1594);
 

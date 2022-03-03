@@ -98,7 +98,7 @@ static UNK_TYPE4 D_809D5C9C = 0; // unused
 
 static EnClearTagEffect sClearTagEffects[CLEAR_TAG_EFFECT_MAX_COUNT];
 
-#include "overlays/ovl_En_Clear_Tag/ovl_En_Clear_Tag.cpp"
+#include "asset.h"
 
 /**
  * Creates a debris effect.
@@ -712,12 +712,12 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Translate(25.0f, 0.0f, 0.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1004),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingLaserDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingLaserDL));
 
             Matrix_Translate(-50.0f, 0.0f, 0.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1011),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingLaserDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingLaserDL));
         } else {
             // Draw the Arwing itself.
             func_80093D18(globalCtx->state.gfxCtx);
@@ -735,7 +735,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_RotateZ(pthis->roll, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1030),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gArwingDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gArwingDL));
 
             // Draw the Arwing Backfire
             Matrix_Translate(0.0f, 0.0f, -60.0f, MTXMODE_APPLY);
@@ -749,7 +749,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gDPSetEnvColor(POLY_XLU_DISP++, 255, 50, 0, 0);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1067),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingBackfireDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingBackfireDL));
 
             // Draw the Arwing shadow.
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, 130);
@@ -773,7 +773,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_RotateZ(pthis->roll, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1104),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingShadowDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingShadowDL));
         }
     }
 
@@ -921,7 +921,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
             // Apply the debris effect material if it has not already been applied.
             if (!isMaterialApplied) {
                 isMaterialApplied++;
-                gSPDisplayList(POLY_OPA_DISP++, gArwingDebrisEffectMaterialDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gArwingDebrisEffectMaterialDL));
             }
 
             // Draw the debris effect.
@@ -931,7 +931,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
             Matrix_RotateX(effect->rotationX, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_clear_tag.c", 1307),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gArwingDebrisEffectDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gArwingDebrisEffectDL));
         }
     }
 
@@ -955,7 +955,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(effect->scale + effect->scale, 1.0f, effect->scale * 2.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_clear_tag.c", 1342),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingFlashEffectGroundDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingFlashEffectGroundDL));
         }
     }
 
@@ -966,7 +966,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
         if (effect->type == CLEAR_TAG_EFFECT_SMOKE) {
             // Apply the smoke effect material if it has not already been applied.
             if (!isMaterialApplied) {
-                gSPDisplayList(POLY_XLU_DISP++, gArwingFireEffectMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingFireEffectMaterialDL));
                 isMaterialApplied++;
             }
 
@@ -984,7 +984,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Translate(0.0f, 20.0f, 0.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_clear_tag.c", 1392),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingFireEffectDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingFireEffectDL));
         }
     }
 
@@ -995,7 +995,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
         if (effect->type == CLEAR_TAG_EFFECT_FIRE) {
             // Apply the fire effect material if it has not already been applied.
             if (!isMaterialApplied) {
-                gSPDisplayList(POLY_XLU_DISP++, gArwingFireEffectMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingFireEffectMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 255, 215, 255, 128);
                 isMaterialApplied++;
             }
@@ -1010,7 +1010,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(effect->scale, effect->scale, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_clear_tag.c", 1439),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingFireEffectDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingFireEffectDL));
         }
     }
 
@@ -1033,7 +1033,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(effect->scale, effect->scale, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_clear_tag.c", 1470),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gArwingFlashEffectDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gArwingFlashEffectDL));
         }
     }
 

@@ -9,7 +9,7 @@
 #include "z_en_kakasi.h"
 #include "z64audio.h"
 #include "vt.h"
-#include "objects/object_ka/object_ka.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
@@ -84,7 +84,7 @@ void EnKakasi_Init(Actor* thisx, GlobalContext* globalCtx) {
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.targetMode = 6;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelanime, &object_ka_Skel_0065B0, &object_ka_Anim_000214, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelanime, oot::asset::skel::header::load(symbol::object_ka_Skel_0065B0), oot::asset::anim::header::load(symbol::object_ka_Anim_000214), NULL, NULL, 0);
 
     pthis->rot = pthis->actor.world.rot;
     pthis->actor.flags |= ACTOR_FLAG_10;
@@ -184,9 +184,9 @@ void func_80A8F320(EnKakasi* pthis, GlobalContext* globalCtx, s16 arg) {
 }
 
 void func_80A8F660(EnKakasi* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&object_ka_Anim_000214);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ka_Anim_000214));
 
-    Animation_Change(&pthis->skelanime, &object_ka_Anim_000214, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelanime, oot::asset::anim::header::load(symbol::object_ka_Anim_000214), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
 
     pthis->actor.textId = 0x4076;
     pthis->unk_196 = TEXT_STATE_DONE;

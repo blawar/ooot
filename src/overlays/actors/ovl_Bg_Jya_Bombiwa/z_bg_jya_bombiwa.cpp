@@ -8,7 +8,7 @@
 
 #include "z_bg_jya_bombiwa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -109,7 +109,7 @@ void BgJyaBombiwa_Init(Actor* thisx, GlobalContext* globalCtx) {
                      pthis->dyna.actor.params & 0x3F);
         osSyncPrintf(VT_RST);
     }
-    BgJyaBombiwa_SetupDynaPoly(pthis, globalCtx, &gBombiwaCol, DPM_UNK);
+    BgJyaBombiwa_SetupDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gBombiwaCol), DPM_UNK);
     BgJyaBombiwa_InitCollider(pthis, globalCtx);
     if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F)) {
         Actor_Kill(&pthis->dyna.actor);
@@ -164,7 +164,7 @@ void BgJyaBombiwa_Break(BgJyaBombiwa* pthis, GlobalContext* globalCtx) {
             }
         }
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -400, arg5, arg6, arg7, 0, scale, 1, 20, 80,
-                             KAKERA_COLOR_NONE, OBJECT_JYA_OBJ, gBombiwaEffectDL);
+                             KAKERA_COLOR_NONE, OBJECT_JYA_OBJ, oot::asset::gfx::load(symbol::gBombiwaEffectDL));
     }
     pos.x = pthis->dyna.actor.world.pos.x;
     pos.y = pthis->dyna.actor.world.pos.y + 70.0f;
@@ -188,7 +188,7 @@ void BgJyaBombiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
 void BgJyaBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaBombiwa* pthis = (BgJyaBombiwa*)thisx;
 
-    Gfx_DrawDListOpa(globalCtx, gBombiwaDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gBombiwaDL));
     Collider_UpdateSpheres(0, &pthis->collider);
 }
 

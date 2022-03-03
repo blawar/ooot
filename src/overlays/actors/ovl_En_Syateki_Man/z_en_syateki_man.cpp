@@ -3,7 +3,7 @@
 #include "z_en_syateki_man.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Syateki_Itm/z_en_syateki_itm.h"
-#include "objects/object_ossan/object_ossan.h"
+#include "asset.h"
 #include "def/audio_command.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -158,7 +158,7 @@ void EnSyatekiMan_Init(Actor* thisx, GlobalContext* globalCtx) {
     osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 親父登場！！むほほほほほほほーん ☆☆☆☆☆ \n" VT_RST);
     pthis->actor.targetMode = 1;
     Actor_SetScale(&pthis->actor, 0.01f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gObjectOssanSkel, &gObjectOssanAnim_000338, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gObjectOssanSkel), oot::asset::anim::header::load(symbol::gObjectOssanAnim_000338), pthis->jointTable,
                        pthis->morphTable, 9);
     if (!LINK_IS_ADULT) {
         pthis->headRot.z = 20;
@@ -174,9 +174,9 @@ void EnSyatekiMan_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnSyatekiMan_Start(EnSyatekiMan* pthis, GlobalContext* globalCtx) {
-    f32 lastFrame = Animation_GetLastFrame(&gObjectOssanAnim_000338);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjectOssanAnim_000338));
 
-    Animation_Change(&pthis->skelAnime, &gObjectOssanAnim_000338, 1.0f, 0.0f, (s16)lastFrame, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjectOssanAnim_000338), 1.0f, 0.0f, (s16)lastFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = EnSyatekiMan_SetupIdle;
 }
 
@@ -483,7 +483,7 @@ s32 EnSyatekiMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
         rot->x += pthis->bodyRot.y;
     }
     if (limbIndex == 8) {
-        *dList = gObjectOssanEnSyatekiManDL_007E28;
+        *dList = oot::asset::gfx::load(symbol::gObjectOssanEnSyatekiManDL_007E28);
         turnDirection = 1;
         if (pthis->gameResult == SYATEKI_RESULT_REFUSE) {
             turnDirection = -1;

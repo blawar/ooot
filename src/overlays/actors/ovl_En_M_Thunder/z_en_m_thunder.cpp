@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_M_THUNDER_Z_EN_M_THUNDER_C
 #include "actor_common.h"
 #include "z_en_m_thunder.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
@@ -359,13 +359,13 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     switch (pthis->unk_1C6) {
         case 0:
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 255, 255, 170, (u8)(pthis->unk_1B0 * 255));
-            gSPDisplayList(POLY_XLU_DISP++, gSpinAttack3DL);
-            gSPDisplayList(POLY_XLU_DISP++, gSpinAttack4DL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gSpinAttack3DL));
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gSpinAttack4DL));
             break;
         case 1:
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 170, 255, 255, (u8)(pthis->unk_1B0 * 255));
-            gSPDisplayList(POLY_XLU_DISP++, gSpinAttack1DL);
-            gSPDisplayList(POLY_XLU_DISP++, gSpinAttack2DL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gSpinAttack1DL));
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gSpinAttack2DL));
             break;
     }
 
@@ -409,7 +409,7 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                                 (globalCtx->gameplayFrames * 20) & 0xFF, (globalCtx->gameplayFrames * phi_t1) & 0xFF, 8,
                                 8));
 
-    gSPDisplayList(POLY_XLU_DISP++, gSpinAttackChargingDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gSpinAttackChargingDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_m_thunder.c", 1031);
 }

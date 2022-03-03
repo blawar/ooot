@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_haka_tubo.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -102,7 +101,7 @@ void BgHakaTubo_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK3);
-    CollisionHeader_GetVirtual(&object_haka_objects_Col_0108B8, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_0108B8), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Collider_InitCylinder(globalCtx, &pthis->potCollider);
     Collider_SetCylinder(globalCtx, &pthis->potCollider, &pthis->dyna.actor, &sPotColliderInit);
@@ -147,7 +146,7 @@ void BgHakaTubo_Idle(BgHakaTubo* pthis, GlobalContext* globalCtx) {
             EffectSsBomb2_SpawnLayered(globalCtx, &pos, &sZeroVector_34, &sZeroVector_34, 100, 45);
             Audio_PlaySoundAtPosition(globalCtx, &pthis->dyna.actor.world.pos, 50, NA_SE_EV_BOX_BREAK);
             EffectSsHahen_SpawnBurst(globalCtx, &pos, 20.0f, 0, 350, 100, 50, OBJECT_HAKA_OBJECTS, 40,
-                                     gEffFragments2DL);
+                                     oot::asset::gfx::load(symbol::gEffFragments2DL));
             pthis->dropTimer = 5;
             pthis->dyna.actor.draw = NULL;
             Actor_SetScale(&pthis->dyna.actor, 0.0f);
@@ -254,7 +253,7 @@ void BgHakaTubo_DrawFlameCircle(BgHakaTubo* pthis, GlobalContext* globalCtx) {
                                 (pthis->fireScroll * -15) & 0xFF, 32, 64));
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_tubo.c", 497),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFireCircleDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFireCircleDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_tubo.c", 501);
 }
@@ -262,7 +261,7 @@ void BgHakaTubo_DrawFlameCircle(BgHakaTubo* pthis, GlobalContext* globalCtx) {
 void BgHakaTubo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgHakaTubo* pthis = (BgHakaTubo*)thisx;
 
-    Gfx_DrawDListOpa(globalCtx, object_haka_objects_DL_00FE40);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_haka_objects_DL_00FE40));
     BgHakaTubo_DrawFlameCircle(pthis, globalCtx);
 }
 

@@ -7,7 +7,7 @@
  */
 
 #include "z_en_heishi3.h"
-#include "objects/object_sd/object_sd.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -82,7 +82,7 @@ void EnHeishi3_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
     Actor_SetScale(&pthis->actor, 0.01f);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gEnHeishiSkel, &gEnHeishiIdleAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gEnHeishiSkel), oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), pthis->jointTable, pthis->morphTable,
                    17);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
     pthis->actor.targetMode = 6;
@@ -103,9 +103,9 @@ void EnHeishi3_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnHeishi3_SetupGuardType(EnHeishi3* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     if (pthis->unk_278 == 0) {
         pthis->actionFunc = EnHeishi3_StandSentinelInGrounds;
     } else {
@@ -179,9 +179,9 @@ void EnHeishi3_StandSentinelInCastle(EnHeishi3* pthis, GlobalContext* globalCtx)
 }
 
 void EnHeishi3_CatchStart(EnHeishi3* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiWalkAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiWalkAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiWalkAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiWalkAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->caughtTimer = 20;
     pthis->actionFunc = func_80A55BD4;
     pthis->actor.speedXZ = 2.5f;
@@ -202,9 +202,9 @@ void func_80A55BD4(EnHeishi3* pthis, GlobalContext* globalCtx) {
 }
 
 void EnHeishi3_ResetAnimationToIdle(EnHeishi3* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = func_80A55D00;
 }
 

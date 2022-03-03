@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_switch.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
@@ -64,20 +64,20 @@ void ObjSwitch_CrystalOn(ObjSwitch* pthis, GlobalContext* globalCtx);
 void ObjSwitch_CrystalTurnOffInit(ObjSwitch* pthis);
 void ObjSwitch_CrystalTurnOff(ObjSwitch* pthis, GlobalContext* globalCtx);
 
-static Gfx* floorSwitchDLists_102[] = { gFloorSwitch1DL, gFloorSwitch3DL, gFloorSwitch2DL, gFloorSwitch2DL };
+static Gfx* floorSwitchDLists_102[] = { oot::asset::gfx::load(symbol::gFloorSwitch1DL), oot::asset::gfx::load(symbol::gFloorSwitch3DL), oot::asset::gfx::load(symbol::gFloorSwitch2DL), oot::asset::gfx::load(symbol::gFloorSwitch2DL) };
 
 static void* eyeTextures_104[][4] = {
-    { gEyeSwitchGoldOpenTex, gEyeSwitchGoldOpeningTex, gEyeSwitchGoldClosingTex, gEyeSwitchGoldClosedTex },
-    { gEyeSwitchSilverOpenTex, gEyeSwitchSilverHalfTex, gEyeSwitchSilverClosedTex, gEyeSwitchSilverClosedTex },
+    { oot::asset::texture::load(symbol::gEyeSwitchGoldOpenTex), oot::asset::texture::load(symbol::gEyeSwitchGoldOpeningTex), oot::asset::texture::load(symbol::gEyeSwitchGoldClosingTex), oot::asset::texture::load(symbol::gEyeSwitchGoldClosedTex) },
+    { oot::asset::texture::load(symbol::gEyeSwitchSilverOpenTex), oot::asset::texture::load(symbol::gEyeSwitchSilverHalfTex), oot::asset::texture::load(symbol::gEyeSwitchSilverClosedTex), oot::asset::texture::load(symbol::gEyeSwitchSilverClosedTex) },
 };
 
-static Gfx* eyeDlists_104[] = { gEyeSwitch1DL, gEyeSwitch2DL };
+static Gfx* eyeDlists_104[] = { oot::asset::gfx::load(symbol::gEyeSwitch1DL), oot::asset::gfx::load(symbol::gEyeSwitch2DL) };
 
-static Gfx* xluDLists_105[] = { gCrystalSwitchCoreXluDL, gCrystalSwitchDiamondXluDL, NULL, NULL,
-                            gCrystalSwitchCoreXluDL };
+static Gfx* xluDLists_105[] = { oot::asset::gfx::load(symbol::gCrystalSwitchCoreXluDL), oot::asset::gfx::load(symbol::gCrystalSwitchDiamondXluDL), NULL, NULL,
+                            oot::asset::gfx::load(symbol::gCrystalSwitchCoreXluDL) };
 
-static Gfx* opaDLists_105[] = { gCrystalSwitchCoreOpaDL, gCrystalSwitchDiamondOpaDL, NULL, NULL,
-                            gCrystalSwitchCoreOpaDL };
+static Gfx* opaDLists_105[] = { oot::asset::gfx::load(symbol::gCrystalSwitchCoreOpaDL), oot::asset::gfx::load(symbol::gCrystalSwitchDiamondOpaDL), NULL, NULL,
+                            oot::asset::gfx::load(symbol::gCrystalSwitchCoreOpaDL) };
 
 
 ActorInit Obj_Switch_InitVars = {
@@ -318,7 +318,7 @@ void ObjSwitch_Init(Actor* thisx, GlobalContext* globalCtx) {
     type = (pthis->dyna.actor.params & 7);
 
     if (type == OBJSWITCH_TYPE_FLOOR || type == OBJSWITCH_TYPE_FLOOR_RUSTY) {
-        ObjSwitch_InitDynapoly(pthis, globalCtx, &gFloorSwitchCol, DPM_PLAYER);
+        ObjSwitch_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::gFloorSwitchCol), DPM_PLAYER);
     }
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
@@ -616,7 +616,7 @@ void ObjSwitch_CrystalOffInit(ObjSwitch* pthis) {
     pthis->crystalColor.r = 0;
     pthis->crystalColor.g = 0;
     pthis->crystalColor.b = 0;
-    pthis->crystalSubtype1texture = gCrstalSwitchRedTex;
+    pthis->crystalSubtype1texture = oot::asset::texture::load(symbol::gCrstalSwitchRedTex);
     pthis->actionFunc = ObjSwitch_CrystalOff;
 }
 
@@ -667,7 +667,7 @@ void ObjSwitch_CrystalOnInit(ObjSwitch* pthis) {
     pthis->crystalColor.r = 255;
     pthis->crystalColor.g = 255;
     pthis->crystalColor.b = 255;
-    pthis->crystalSubtype1texture = gCrstalSwitchBlueTex;
+    pthis->crystalSubtype1texture = oot::asset::texture::load(symbol::gCrstalSwitchBlueTex);
     pthis->actionFunc = ObjSwitch_CrystalOn;
 }
 
@@ -748,7 +748,7 @@ void ObjSwitch_DrawFloor(ObjSwitch* pthis, GlobalContext* globalCtx) {
 }
 
 void ObjSwitch_DrawFloorRusty(ObjSwitch* pthis, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gRustyFloorSwitchDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gRustyFloorSwitchDL));
 }
 
 void ObjSwitch_DrawEye(ObjSwitch* pthis, GlobalContext* globalCtx) {

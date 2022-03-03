@@ -8,7 +8,7 @@
 
 #include "z_en_ex_item.h"
 #include "overlays/actors/ovl_En_Bom_Bowl_Pit/z_en_bom_bowl_pit.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -45,7 +45,7 @@ void EnExItem_TargetPrizeFinish(EnExItem* pthis, GlobalContext* globalCtx);
 
 static s16 sgiDrawIds_52[] = { GID_DINS_FIRE, GID_FARORES_WIND, GID_NAYRUS_LOVE };
 
-static void* keySegments_53[] = { gDropKeySmallTex };
+static void* keySegments_53[] = { oot::asset::texture::load(symbol::gDropKeySmallTex) };
 
 
 ActorInit En_Ex_Item_InitVars = {
@@ -518,7 +518,7 @@ void EnExItem_DrawKey(EnExItem* pthis, GlobalContext* globalCtx, s32 index) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 887),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(keySegments_53[index]));
-    gSPDisplayList(POLY_OPA_DISP++, gItemDropDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gItemDropDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 893);
 }

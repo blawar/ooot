@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ice_turara.h"
-#include "objects/object_ice_objects/object_ice_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -86,7 +86,7 @@ void BgIceTurara_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&object_ice_objects_Col_002594, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_ice_objects_Col_002594), &colHeader);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->dyna.actor, &sCylinderInit);
     Collider_UpdateCylinder(&pthis->dyna.actor, &pthis->collider);
@@ -214,7 +214,7 @@ void BgIceTurara_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgIceTurara_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_0023D0);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_ice_objects_DL_0023D0));
 }
 
 void BgIceTurara_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,8 +7,8 @@
  */
 
 #include "z_en_mm.h"
-#include "objects/object_mm/object_mm.h"
-#include "objects/object_link_child/object_link_child.h"
+#include "asset.h"
+#include "asset.h"
 #include "hack.h"
 #include "def/math_float.h"
 #include "def/graph.h"
@@ -43,7 +43,7 @@ s32 func_80AADA70(void);
 s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
 void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*);
 
-static void* mouthTextures_61[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
+static void* mouthTextures_61[] = { oot::asset::texture::load(symbol::gRunningManMouthOpenTex), oot::asset::texture::load(symbol::gRunningManMouthClosedTex) };
 
 static Vec3f headOffset_63 = { 200.0f, 800.0f, 0.0f };
 
@@ -119,10 +119,10 @@ static DamageTable sDamageTable = {
 }; 
 
 static EnMmAnimEntry sAnimationEntries[] = {
-    { &gRunningManRunAnim, 1.0f, ANIMMODE_LOOP, -7.0f },     { &gRunningManSitStandAnim, -1.0f, ANIMMODE_ONCE, -7.0f },
-    { &gRunningManSitWaitAnim, 1.0f, ANIMMODE_LOOP, -7.0f }, { &gRunningManSitStandAnim, 1.0f, ANIMMODE_ONCE, -7.0f },
-    { &gRunningManSprintAnim, 1.0f, ANIMMODE_LOOP, -7.0f },  { &gRunningManExcitedAnim, 1.0f, ANIMMODE_LOOP, -12.0f },
-    { &gRunningManHappyAnim, 1.0f, ANIMMODE_LOOP, -12.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManRunAnim), 1.0f, ANIMMODE_LOOP, -7.0f },     { oot::asset::anim::header::load(symbol::gRunningManSitStandAnim), -1.0f, ANIMMODE_ONCE, -7.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManSitWaitAnim), 1.0f, ANIMMODE_LOOP, -7.0f }, { oot::asset::anim::header::load(symbol::gRunningManSitStandAnim), 1.0f, ANIMMODE_ONCE, -7.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManSprintAnim), 1.0f, ANIMMODE_LOOP, -7.0f },  { oot::asset::anim::header::load(symbol::gRunningManExcitedAnim), 1.0f, ANIMMODE_LOOP, -12.0f },
+    { oot::asset::anim::header::load(symbol::gRunningManHappyAnim), 1.0f, ANIMMODE_LOOP, -12.0f },
 };
 
 static EnMmPathInfo sPathInfo[] = {
@@ -167,7 +167,7 @@ void EnMm_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 21.0f);
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gRunningManSkel, NULL, pthis->jointTable, pthis->morphTable, 16);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gRunningManSkel), NULL, pthis->jointTable, pthis->morphTable, 16);
 
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -540,7 +540,6 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Put(&pthis->unk_208);
             mtx2 = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_mm.c", 1111);
 
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[linkChildObjBankIndex].vromStart.get());
             gSPSegment(POLY_OPA_DISP++, 0x0B, mtx);
             gSPSegment(POLY_OPA_DISP++, 0x0D, mtx2 - 7);
 
@@ -558,8 +557,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
             func_800D1694(97.0f, -1203.0f, 240.0f, &sp50);
             Matrix_ToMtx(mtx, "../z_en_mm.c", 1131);
 
-            gSPDisplayList(POLY_OPA_DISP++, gLinkChildBunnyHoodDL);
-            gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkChildBunnyHoodDL));
         }
     }
 

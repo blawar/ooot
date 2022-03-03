@@ -7,7 +7,7 @@
 #include "z64save.h"
 #include "sfx.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -86,13 +86,13 @@ static Vec3f sEffectVelocity = { 0.0f, 0.1f, 0.0f };
 static Vec3f sEffectAccel = { 0.0f, 0.01f, 0.0f };
 
 static void* sRupeeTex[] = {
-    gRupeeGreenTex, gRupeeBlueTex, gRupeeRedTex, gRupeePinkTex, gRupeeOrangeTex,
+    oot::asset::texture::load(symbol::gRupeeGreenTex), oot::asset::texture::load(symbol::gRupeeBlueTex), oot::asset::texture::load(symbol::gRupeeRedTex), oot::asset::texture::load(symbol::gRupeePinkTex), oot::asset::texture::load(symbol::gRupeeOrangeTex),
 };
 
 static void* sItemDropTex[] = {
-    gDropRecoveryHeartTex, gDropBombTex,       gDropArrows1Tex,   gDropArrows2Tex,
-    gDropArrows3Tex,       gDropBombTex,       gDropDekuNutTex,   gDropDekuStickTex,
-    gDropMagicLargeTex,    gDropMagicSmallTex, gDropDekuSeedsTex, gDropKeySmallTex,
+    oot::asset::texture::load(symbol::gDropRecoveryHeartTex), oot::asset::texture::load(symbol::gDropBombTex),       oot::asset::texture::load(symbol::gDropArrows1Tex),   oot::asset::texture::load(symbol::gDropArrows2Tex),
+    oot::asset::texture::load(symbol::gDropArrows3Tex),       oot::asset::texture::load(symbol::gDropBombTex),       oot::asset::texture::load(symbol::gDropDekuNutTex),   oot::asset::texture::load(symbol::gDropDekuStickTex),
+    oot::asset::texture::load(symbol::gDropMagicLargeTex),    oot::asset::texture::load(symbol::gDropMagicSmallTex), oot::asset::texture::load(symbol::gDropDekuSeedsTex), oot::asset::texture::load(symbol::gDropKeySmallTex),
 };
 
 static u8 sItemDropIds[] = {
@@ -1046,7 +1046,7 @@ void EnItem00_DrawRupee(EnItem00* pthis, GlobalContext* globalCtx) {
 
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sRupeeTex[texIndex]));
 
-    gSPDisplayList(POLY_OPA_DISP++, gRupeeDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gRupeeDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1568);
 }
@@ -1073,7 +1073,7 @@ void EnItem00_DrawCollectible(EnItem00* pthis, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1607),
               G_MTX_MODELVIEW | G_MTX_LOAD);
-    gSPDisplayList(POLY_OPA_DISP++, gItemDropDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gItemDropDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1611);
 }
@@ -1090,13 +1090,13 @@ void EnItem00_DrawHeartContainer(EnItem00* pthis, GlobalContext* globalCtx) {
     func_8002EBCC(&pthis->actor, globalCtx, 0);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1634),
               G_MTX_MODELVIEW | G_MTX_LOAD);
-    gSPDisplayList(POLY_OPA_DISP++, gHeartPieceExteriorDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gHeartPieceExteriorDL));
 
     func_80093D84(globalCtx->state.gfxCtx);
     func_8002ED80(&pthis->actor, globalCtx, 0);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1644),
               G_MTX_MODELVIEW | G_MTX_LOAD);
-    gSPDisplayList(POLY_XLU_DISP++, gHeartContainerInteriorDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gHeartContainerInteriorDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1647);
 }
@@ -1113,7 +1113,7 @@ void EnItem00_DrawHeartPiece(EnItem00* pthis, GlobalContext* globalCtx) {
     func_8002ED80(&pthis->actor, globalCtx, 0);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1670),
               G_MTX_MODELVIEW | G_MTX_LOAD);
-    gSPDisplayList(POLY_XLU_DISP++, gHeartPieceInteriorDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gHeartPieceInteriorDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1673);
 }

@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_po_event.h"
-#include "objects/object_po_sisters/object_po_sisters.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -59,8 +59,8 @@ static s32 firstFall_53 = 0;
 static f32 blockPushDist_55 = 0.0f;
 
 static Gfx* displayLists_67[] = {
-    gPoSistersAmyBlockDL,     gPoSistersAmyBethBlockDL, gPoSistersJoellePaintingDL,
-    gPoSistersBethPaintingDL, gPoSistersAmyPaintingDL,
+    oot::asset::gfx::load(symbol::gPoSistersAmyBlockDL),     oot::asset::gfx::load(symbol::gPoSistersAmyBethBlockDL), oot::asset::gfx::load(symbol::gPoSistersJoellePaintingDL),
+    oot::asset::gfx::load(symbol::gPoSistersBethPaintingDL), oot::asset::gfx::load(symbol::gPoSistersAmyPaintingDL),
 };
 
 
@@ -188,7 +188,7 @@ void BgPoEvent_InitBlocks(BgPoEvent* pthis, GlobalContext* globalCtx) {
     s32 bgId;
 
     pthis->dyna.actor.flags |= ACTOR_FLAG_4 | ACTOR_FLAG_5;
-    CollisionHeader_GetVirtual(&gPoSistersAmyBlockCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gPoSistersAmyBlockCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     if ((pthis->type == 0) && (pthis->index != 3)) {
         newBlock = Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->dyna.actor, globalCtx, ACTOR_BG_PO_EVENT,

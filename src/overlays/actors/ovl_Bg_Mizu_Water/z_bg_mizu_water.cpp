@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_mizu_water.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -349,7 +349,7 @@ void BgMizuWater_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 102);
 
-    gSPDisplayList(POLY_XLU_DISP++, gObjectMizuObjectsWaterDL_004B20);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gObjectMizuObjectsWaterDL_004B20));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_water.c", 756);
 }

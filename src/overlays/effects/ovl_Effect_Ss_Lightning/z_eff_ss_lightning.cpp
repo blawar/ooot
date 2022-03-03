@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_lightning.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_camera.h"
@@ -42,7 +42,7 @@ u32 EffectSsLightning_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis,
     EffectSsLightningInitParams* initParams = (EffectSsLightningInitParams*)initParamsx;
 
     pthis->pos = initParams->pos;
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffLightningDL);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffLightningDL));
     pthis->life = initParams->life;
     pthis->draw = EffectSsLightning_Draw;
     pthis->update = EffectSsLightning_Update;
@@ -77,8 +77,8 @@ void EffectSsLightning_NewLightning(GlobalContext* globalCtx, Vec3f* pos, s16 ya
 
 void EffectSsLightning_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     static void* lightningTextures[] = {
-        gEffLightning1Tex, gEffLightning2Tex, gEffLightning3Tex, gEffLightning4Tex,
-        gEffLightning5Tex, gEffLightning6Tex, gEffLightning7Tex, gEffLightning8Tex,
+        oot::asset::texture::load(symbol::gEffLightning1Tex), oot::asset::texture::load(symbol::gEffLightning2Tex), oot::asset::texture::load(symbol::gEffLightning3Tex), oot::asset::texture::load(symbol::gEffLightning4Tex),
+        oot::asset::texture::load(symbol::gEffLightning5Tex), oot::asset::texture::load(symbol::gEffLightning6Tex), oot::asset::texture::load(symbol::gEffLightning7Tex), oot::asset::texture::load(symbol::gEffLightning8Tex),
     };
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     MtxF mfResult;

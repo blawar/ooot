@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_toki_swd.h"
-#include "objects/object_toki_objects/object_toki_objects.h"
+#include "asset.h"
 #include "def/environment_flags.h"
 #include "def/audio_command.h"
 #include "def/sys_matrix.h"
@@ -187,7 +187,7 @@ void BgTokiSwd_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                Gfx_TexScroll(globalCtx->state.gfxCtx, 0, -(globalCtx->gameplayFrames % 0x80), 32, 32));
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_toki_swd.c", 742),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, object_toki_objects_DL_001BD0);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_toki_objects_DL_001BD0));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_toki_swd.c", 776);
 }

@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_kibako2.h"
-#include "objects/object_kibako2/object_kibako2.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -112,7 +112,7 @@ void ObjKibako2_Break(ObjKibako2* pthis, GlobalContext* globalCtx) {
             phi_s0 = 0x20;
         }
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -200, phi_s0, 28, 2, 0, (Rand_ZeroOne() * 30.0f) + 5.0f,
-                             0, 0, 70, KAKERA_COLOR_NONE, OBJECT_KIBAKO2, gLargeCrateFragmentDL);
+                             0, 0, 70, KAKERA_COLOR_NONE, OBJECT_KIBAKO2, oot::asset::gfx::load(symbol::gLargeCrateFragmentDL));
     }
     func_80033480(globalCtx, thisPos, 90.0f, 6, 100, 160, 1);
 }
@@ -137,7 +137,7 @@ void ObjKibako2_Init(Actor* thisx, GlobalContext* globalCtx) {
     DynaPolyActor_Init(&pthis->dyna, 0);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     ObjKibako2_InitCollider(thisx, globalCtx);
-    CollisionHeader_GetVirtual(&gLargeCrateCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gLargeCrateCol), &colHeader);
     bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     pthis->collectibleFlag = pthis->dyna.actor.home.rot.z & 0x3F;
     pthis->dyna.bgId = bgId;
@@ -189,7 +189,7 @@ void ObjKibako2_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjKibako2_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gLargeCrateDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gLargeCrateDL));
 }
 
 void ObjKibako2_Reset(Actor* pthisx, GlobalContext* globalCtx) {

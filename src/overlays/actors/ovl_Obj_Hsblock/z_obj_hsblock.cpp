@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_hsblock.h"
-#include "objects/object_d_hsblock/object_d_hsblock.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -52,11 +52,11 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 2000, ICHAIN_STOP),
 };
 
-static CollisionHeader* sCollisionHeaders[] = { &gHookshotTargetCol, &gHookshotTargetCol, &gHookshotPostCol };
+static CollisionHeader* sCollisionHeaders[] = { oot::asset::collision::header::load(symbol::gHookshotTargetCol), oot::asset::collision::header::load(symbol::gHookshotTargetCol), oot::asset::collision::header::load(symbol::gHookshotPostCol) };
 
 static Color_RGB8 sFireTempleColor = { 165, 125, 55 };
 
-static Gfx* sDLists[] = { gHookshotPostDL, gHookshotPostDL, gHookshotTargetDL };
+static Gfx* sDLists[] = { oot::asset::gfx::load(symbol::gHookshotPostDL), oot::asset::gfx::load(symbol::gHookshotPostDL), oot::asset::gfx::load(symbol::gHookshotTargetDL) };
 
 void ObjHsblock_SetupAction(ObjHsblock* pthis, ObjHsblockActionFunc actionFunc) {
     pthis->actionFunc = actionFunc;

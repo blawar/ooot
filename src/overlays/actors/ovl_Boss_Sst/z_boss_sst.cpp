@@ -7,8 +7,8 @@
  */
 
 #include "z_boss_sst.h"
-#include "objects/object_sst/object_sst.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Bg_Sst_Floor/z_bg_sst_floor.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "def/code_800A9F30.h"
@@ -207,9 +207,6 @@ static Vec3f shadowOffset_331[] = {
     { 160.0f, 0.0f, 250.0f },
 };
 
-
-#include "overlays/ovl_Boss_Sst/ovl_Boss_Sst.cpp"
-
 static BossSst* sHead;
 static BossSst* sHands[2];
 static BgSstFloor* sFloor;
@@ -271,14 +268,14 @@ ActorInit Boss_Sst_InitVars = {
 
 #include "z_boss_sst_colchk.cpp"
 
-static AnimationHeader* sHandIdleAnims[] = { &gBongoLeftHandIdleAnim, &gBongoRightHandIdleAnim };
-static AnimationHeader* sHandFlatPoses[] = { &gBongoLeftHandFlatPoseAnim, &gBongoRightHandFlatPoseAnim };
-static AnimationHeader* sHandOpenPoses[] = { &gBongoLeftHandOpenPoseAnim, &gBongoRightHandOpenPoseAnim };
-static AnimationHeader* sHandFistPoses[] = { &gBongoLeftHandFistPoseAnim, &gBongoRightHandFistPoseAnim };
-static AnimationHeader* sHandClenchAnims[] = { &gBongoLeftHandClenchAnim, &gBongoRightHandClenchAnim };
-static AnimationHeader* sHandDamagePoses[] = { &gBongoLeftHandDamagePoseAnim, &gBongoRightHandDamagePoseAnim };
-static AnimationHeader* sHandPushoffPoses[] = { &gBongoLeftHandPushoffPoseAnim, &gBongoRightHandPushoffPoseAnim };
-static AnimationHeader* sHandHangPoses[] = { &gBongoLeftHandHangPoseAnim, &gBongoRightHandHangPoseAnim };
+static AnimationHeader* sHandIdleAnims[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandIdleAnim), oot::asset::anim::header::load(symbol::gBongoRightHandIdleAnim) };
+static AnimationHeader* sHandFlatPoses[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandFlatPoseAnim), oot::asset::anim::header::load(symbol::gBongoRightHandFlatPoseAnim) };
+static AnimationHeader* sHandOpenPoses[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandOpenPoseAnim), oot::asset::anim::header::load(symbol::gBongoRightHandOpenPoseAnim) };
+static AnimationHeader* sHandFistPoses[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandFistPoseAnim), oot::asset::anim::header::load(symbol::gBongoRightHandFistPoseAnim) };
+static AnimationHeader* sHandClenchAnims[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandClenchAnim), oot::asset::anim::header::load(symbol::gBongoRightHandClenchAnim) };
+static AnimationHeader* sHandDamagePoses[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandDamagePoseAnim), oot::asset::anim::header::load(symbol::gBongoRightHandDamagePoseAnim) };
+static AnimationHeader* sHandPushoffPoses[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandPushoffPoseAnim), oot::asset::anim::header::load(symbol::gBongoRightHandPushoffPoseAnim) };
+static AnimationHeader* sHandHangPoses[] = { oot::asset::anim::header::load(symbol::gBongoLeftHandHangPoseAnim), oot::asset::anim::header::load(symbol::gBongoRightHandHangPoseAnim) };
 
 static InitChainEntry sInitChain[] = {
     ICHAIN_S8(naviEnemyId, 0x29, ICHAIN_CONTINUE),
@@ -298,7 +295,7 @@ void BossSst_Init(Actor* thisx, GlobalContext* globalCtx2) {
     if (pthis->actor.params == BONGO_HEAD) {
         sFloor = (BgSstFloor*)Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_BG_SST_FLOOR, sRoomCenter.x,
                                           sRoomCenter.y, sRoomCenter.z, 0, 0, 0, BONGOFLOOR_REST);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBongoHeadSkel, &gBongoHeadEyeOpenIdleAnim, pthis->jointTable,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBongoHeadSkel), oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenIdleAnim), pthis->jointTable,
                            pthis->morphTable, 45);
         ActorShape_Init(&pthis->actor.shape, 70000.0f, ActorShadow_DrawCircle, 95.0f);
         Collider_SetJntSph(globalCtx, &pthis->colliderJntSph, &pthis->actor, &sJntSphInitHead, pthis->colliderItems);
@@ -339,12 +336,12 @@ void BossSst_Init(Actor* thisx, GlobalContext* globalCtx2) {
         Collider_SetJntSph(globalCtx, &pthis->colliderJntSph, &pthis->actor, &sJntSphInitHand, pthis->colliderItems);
         Collider_SetCylinder(globalCtx, &pthis->colliderCyl, &pthis->actor, &sCylinderInitHand);
         if (pthis->actor.params == BONGO_LEFT_HAND) {
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBongoLeftHandSkel, &gBongoLeftHandIdleAnim,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBongoLeftHandSkel), oot::asset::anim::header::load(symbol::gBongoLeftHandIdleAnim),
                                pthis->jointTable, pthis->morphTable, 27);
             pthis->vParity = -1;
             pthis->colliderJntSph.elements[0].dim.modelSphere.center.z *= -1;
         } else {
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBongoRightHandSkel, &gBongoRightHandIdleAnim,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBongoRightHandSkel), oot::asset::anim::header::load(symbol::gBongoRightHandIdleAnim),
                                pthis->jointTable, pthis->morphTable, 27);
             pthis->vParity = 1;
         }
@@ -421,7 +418,7 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx) {
     }
 
     if (SkelAnime_Update(&pthis->skelAnime)) {
-        Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadEyeCloseIdleAnim, -3.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeCloseIdleAnim), -3.0f);
     }
 
     if (pthis->timer == 0) {
@@ -618,10 +615,10 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx) {
                 } else if (revealStateTimer == 85) {
                     if (!(gSaveContext.eventChkInf[7] & 0x80)) {
                         TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                               SEGMENTED_TO_VIRTUAL(gBongoTitleCardTex), 160, 180, 128, 40);
+                                               SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gBongoTitleCardTex)), 160, 180, 128, 40);
                     }
                     Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_BOSS);
-                    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadEyeCloseAnim, -5.0f);
+                    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeCloseAnim), -5.0f);
                     BossSst_HeadSfx(pthis, NA_SE_EN_SHADEST_DISAPPEAR);
                 }
             }
@@ -640,8 +637,8 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupWait(BossSst* pthis) {
-    if (pthis->skelAnime.animation != &gBongoHeadEyeCloseIdleAnim) {
-        Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadEyeCloseIdleAnim, -5.0f);
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gBongoHeadEyeCloseIdleAnim)) {
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeCloseIdleAnim), -5.0f);
     }
     pthis->actionFunc = BossSst_HeadWait;
 }
@@ -690,9 +687,9 @@ void BossSst_HeadNeutral(BossSst* pthis, GlobalContext* globalCtx) {
 
 void BossSst_HeadSetupDamagedHand(BossSst* pthis, s32 bothHands) {
     if (bothHands) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadEyeOpenAnim, -5.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenAnim), -5.0f);
     } else {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadDamagedHandAnim, -5.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadDamagedHandAnim), -5.0f);
     }
     pthis->actionFunc = BossSst_HeadDamagedHand;
 }
@@ -703,7 +700,7 @@ void BossSst_HeadDamagedHand(BossSst* pthis, GlobalContext* globalCtx) {
             BossSst_HeadSetupReadyCharge(pthis);
         } else if ((HAND_STATE(sHands[LEFT]) == HAND_FROZEN) || (HAND_STATE(sHands[RIGHT]) == HAND_FROZEN)) {
             BossSst_HeadSetupFrozenHand(pthis);
-        } else if (pthis->skelAnime.animation == &gBongoHeadEyeOpenAnim) {
+        } else if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenAnim)) {
             BossSst_HeadSetupUnfreezeHand(pthis);
         } else {
             BossSst_HeadSetupWait(pthis);
@@ -712,7 +709,7 @@ void BossSst_HeadDamagedHand(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupReadyCharge(BossSst* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadEyeOpenIdleAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenIdleAnim), -5.0f);
     pthis->actor.speedXZ = 0.0f;
     pthis->colliderCyl.base.acFlags |= AC_ON;
     pthis->actionFunc = BossSst_HeadReadyCharge;
@@ -729,7 +726,7 @@ void BossSst_HeadReadyCharge(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupCharge(BossSst* pthis) {
-    Animation_Change(&pthis->skelAnime, &gBongoHeadChargeAnim, 0.5f, 0.0f, Animation_GetLastFrame(&gBongoHeadChargeAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadChargeAnim), 0.5f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBongoHeadChargeAnim)),
                      ANIMMODE_ONCE_INTERP, -5.0f);
     BossSst_HandSetDamage(sHands[LEFT], 0x20);
     BossSst_HandSetDamage(sHands[RIGHT], 0x20);
@@ -787,7 +784,7 @@ void BossSst_HeadCharge(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupEndCharge(BossSst* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadEyeCloseIdleAnim, -20.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeCloseIdleAnim), -20.0f);
     pthis->targetYaw = Actor_WorldYawTowardPoint(&pthis->actor, &sRoomCenter);
     pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
     pthis->colliderCyl.base.acFlags &= ~AC_ON;
@@ -805,7 +802,7 @@ void BossSst_HeadEndCharge(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupFrozenHand(BossSst* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadEyeOpenIdleAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenIdleAnim), -5.0f);
     pthis->ready = false;
     pthis->colliderCyl.base.acFlags |= AC_ON;
     pthis->actionFunc = BossSst_HeadFrozenHand;
@@ -819,7 +816,7 @@ void BossSst_HeadFrozenHand(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupUnfreezeHand(BossSst* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadEyeCloseAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeCloseAnim), -5.0f);
     pthis->colliderCyl.base.acFlags &= ~AC_ON;
     pthis->actionFunc = BossSst_HeadUnfreezeHand;
 }
@@ -831,8 +828,8 @@ void BossSst_HeadUnfreezeHand(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupStunned(BossSst* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadKnockoutAnim, -5.0f);
-    Actor_SetColorFilter(&pthis->actor, 0, 0xFF, 0, Animation_GetLastFrame(&gBongoHeadKnockoutAnim));
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadKnockoutAnim), -5.0f);
+    Actor_SetColorFilter(&pthis->actor, 0, 0xFF, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBongoHeadKnockoutAnim)));
     pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
     pthis->colliderCyl.base.acFlags &= ~AC_ON;
     pthis->vVanish = false;
@@ -885,7 +882,7 @@ void BossSst_HeadStunned(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupVulnerable(BossSst* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadStunnedAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadStunnedAnim), -5.0f);
     pthis->colliderCyl.base.acFlags |= AC_ON;
     pthis->colliderCyl.info.bumper.dmgFlags = 0x0FC00702; // Sword-type damage
     pthis->actor.speedXZ = 0.0f;
@@ -921,10 +918,10 @@ void BossSst_HeadVulnerable(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupDamage(BossSst* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadDamageAnim, -3.0f);
-    Actor_SetColorFilter(&pthis->actor, 0x4000, 0xFF, 0, Animation_GetLastFrame(&gBongoHeadDamageAnim));
-    Actor_SetColorFilter(&sHands[LEFT]->actor, 0x4000, 0xFF, 0, Animation_GetLastFrame(&gBongoHeadDamageAnim));
-    Actor_SetColorFilter(&sHands[RIGHT]->actor, 0x4000, 0xFF, 0, Animation_GetLastFrame(&gBongoHeadDamageAnim));
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadDamageAnim), -3.0f);
+    Actor_SetColorFilter(&pthis->actor, 0x4000, 0xFF, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBongoHeadDamageAnim)));
+    Actor_SetColorFilter(&sHands[LEFT]->actor, 0x4000, 0xFF, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBongoHeadDamageAnim)));
+    Actor_SetColorFilter(&sHands[RIGHT]->actor, 0x4000, 0xFF, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBongoHeadDamageAnim)));
     pthis->colliderCyl.base.acFlags &= ~AC_ON;
     BossSst_HeadSfx(pthis, NA_SE_EN_SHADEST_DAMAGE);
     pthis->actionFunc = BossSst_HeadDamage;
@@ -941,7 +938,7 @@ void BossSst_HeadDamage(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupRecover(BossSst* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadRecoverAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadRecoverAnim), -5.0f);
     pthis->colliderCyl.base.acFlags &= ~AC_ON;
     pthis->colliderCyl.info.bumper.dmgFlags = 0xFFCFFFFF;
     pthis->colliderJntSph.elements[10].info.bumperFlags &= ~(BUMP_ON | BUMP_HOOKABLE);
@@ -1023,7 +1020,7 @@ void BossSst_UpdateDeathCamera(BossSst* pthis, GlobalContext* globalCtx) {
 void BossSst_HeadSetupDeath(BossSst* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    Animation_MorphToLoop(&pthis->skelAnime, &gBongoHeadEyeOpenIdleAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenIdleAnim), -5.0f);
     BossSst_HeadSfx(pthis, NA_SE_EN_SHADEST_DEAD);
     Actor_SetColorFilter(&pthis->actor, 0x4000, 0xFF, 0, 60);
     Actor_SetColorFilter(&sHands[LEFT]->actor, 0x4000, 0xFF, 0, 60);
@@ -1079,7 +1076,7 @@ void BossSst_HeadDeath(BossSst* pthis, GlobalContext* globalCtx) {
 }
 
 void BossSst_HeadSetupThrash(BossSst* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBongoHeadEyeOpenIdleAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBongoHeadEyeOpenIdleAnim), -5.0f);
     pthis->timer = 160;
     pthis->targetYaw = pthis->actor.shape.rot.y;
     BossSst_SetCameraTargets(1.0 / 80, 1);
@@ -2096,7 +2093,7 @@ void BossSst_HandSetupStunned(BossSst* hand) {
     hand->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
     hand->colliderJntSph.base.acFlags |= AC_ON;
     BossSst_HandSetInvulnerable(hand, true);
-    Actor_SetColorFilter(&hand->actor, 0, 0xFF, 0, Animation_GetLastFrame(&gBongoHeadKnockoutAnim));
+    Actor_SetColorFilter(&hand->actor, 0, 0xFF, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBongoHeadKnockoutAnim)));
     hand->actionFunc = BossSst_HandStunned;
 }
 
@@ -2730,7 +2727,7 @@ void BossSst_DrawHand(Actor* thisx, GlobalContext* globalCtx) {
         gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
     } else {
         gDPSetEnvColor(POLY_OPA_DISP++, sStaticColor.r, sStaticColor.g, sStaticColor.b, 0);
-        gSPSegment(POLY_OPA_DISP++, 0x08, sBodyStaticDList);
+        gSPSegment(POLY_OPA_DISP++, 0x08, oot::asset::gfx::load(symbol::sBodyStaticDList));
     }
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
@@ -2755,7 +2752,7 @@ void BossSst_DrawHand(Actor* thisx, GlobalContext* globalCtx) {
                 func_800D1694(trail->world.pos.x, trail->world.pos.y, trail->world.pos.z, &trail->world.rot);
                 Matrix_Scale(0.02f, 0.02f, 0.02f, MTXMODE_APPLY);
 
-                gSPSegment(POLY_XLU_DISP++, 0x08, sHandTrailDList);
+                gSPSegment(POLY_XLU_DISP++, 0x08, oot::asset::gfx::load(symbol::sHandTrailDList));
                 gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x00, ((3 - i) * 10) + 20, 0, ((3 - i) * 20) + 50,
                                 ((3 - i) * 30) + 70);
 
@@ -2878,7 +2875,7 @@ void BossSst_DrawHead(Actor* thisx, GlobalContext* globalCtx) {
             gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
         } else {
             gDPSetEnvColor(POLY_OPA_DISP++, sStaticColor.r, sStaticColor.g, sStaticColor.b, 0);
-            gSPSegment(POLY_OPA_DISP++, 0x08, sBodyStaticDList);
+            gSPSegment(POLY_OPA_DISP++, 0x08, oot::asset::gfx::load(symbol::sBodyStaticDList));
         }
     } else {
         func_80093D84(globalCtx->state.gfxCtx);
@@ -2931,7 +2928,7 @@ void BossSst_DrawHead(Actor* thisx, GlobalContext* globalCtx) {
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6934),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, sIntroVanishDList);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sIntroVanishDList));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6941);
@@ -3167,7 +3164,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames % 256, 0x20, 0x10, 1,
                                         0, (globalCtx->gameplayFrames * 2) % 256, 0x40, 0x20));
             gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, pthis->effects[0].alpha);
-            gSPDisplayList(POLY_XLU_DISP++, gBongoIceCrystalDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBongoIceCrystalDL));
 
             for (i = 0; i < 18; i++) {
                 effect = &pthis->effects[i];
@@ -3186,7 +3183,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
 
                     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7350),
                               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                    gSPDisplayList(POLY_XLU_DISP++, gBongoIceShardDL);
+                    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBongoIceShardDL));
                 }
             }
         } else if (pthis->effectMode == BONGO_SHOCKWAVE) {
@@ -3209,7 +3206,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
                     gDPSetEnvColor(POLY_XLU_DISP++, 30, 0, 30, 0);
                     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7396),
                               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                    gSPDisplayList(POLY_XLU_DISP++, gEffFireCircleDL);
+                    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFireCircleDL));
                 }
             }
         } else if (pthis->effectMode == BONGO_SHADOW) {
@@ -3223,7 +3220,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
 
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7423),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, sShadowDList);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sShadowDList));
                 effect++;
             }
         }

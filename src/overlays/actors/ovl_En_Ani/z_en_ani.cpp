@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ani.h"
-#include "objects/object_ani/object_ani.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -40,9 +40,9 @@ void func_809B0A6C(EnAni* pthis, GlobalContext* globalCtx);
 static Vec3f sMultVec_50 = { 800.0f, 500.0f, 0.0f };
 
 static void* eyeTextures_51[] = {
-    gRoofManEyeOpenTex,
-    gRoofManEyeHalfTex,
-    gRoofManEyeClosedTex,
+    oot::asset::texture::load(symbol::gRoofManEyeOpenTex),
+    oot::asset::texture::load(symbol::gRoofManEyeHalfTex),
+    oot::asset::texture::load(symbol::gRoofManEyeClosedTex),
 };
 
 
@@ -94,9 +94,9 @@ void EnAni_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, -2800.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gRoofManSkel, &gRoofManIdleAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gRoofManSkel), oot::asset::anim::header::load(symbol::gRoofManIdleAnim), pthis->jointTable,
                        pthis->morphTable, 0x10);
-    Animation_PlayOnce(&pthis->skelAnime, &gRoofManIdleAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRoofManIdleAnim));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
@@ -228,8 +228,8 @@ void func_809B0988(EnAni* pthis, GlobalContext* globalCtx) {
 
 void func_809B0994(EnAni* pthis, GlobalContext* globalCtx) {
     if (globalCtx->csCtx.npcActions[0]->action == 4) {
-        Animation_Change(&pthis->skelAnime, &gRoofManGettingUpAfterKnockbackAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gRoofManGettingUpAfterKnockbackAnim), ANIMMODE_ONCE, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRoofManGettingUpAfterKnockbackAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRoofManGettingUpAfterKnockbackAnim)), ANIMMODE_ONCE, -4.0f);
         pthis->unk_2AA++;
         pthis->actor.shape.shadowDraw = ActorShadow_DrawCircle;
     }
@@ -246,8 +246,8 @@ void func_809B0A6C(EnAni* pthis, GlobalContext* globalCtx) {
         pthis->skelAnime.curFrame = 0.0f;
     }
     if (globalCtx->csCtx.npcActions[0]->action == 2) {
-        Animation_Change(&pthis->skelAnime, &gRoofManKnockbackAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gRoofManKnockbackAnim), ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gRoofManKnockbackAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gRoofManKnockbackAnim)), ANIMMODE_ONCE, 0.0f);
         pthis->actor.shape.shadowDraw = NULL;
         pthis->unk_2AA++;
     }

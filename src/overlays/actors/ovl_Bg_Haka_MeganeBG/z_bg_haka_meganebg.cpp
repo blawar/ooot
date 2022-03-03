@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_haka_meganebg.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -57,10 +57,10 @@ static u32 D_8087E3FC[] = {
 };
 
 static Gfx* D_8087E410[] = {
-    object_haka_objects_DL_008EB0,
-    object_haka_objects_DL_00A1A0,
-    object_haka_objects_DL_005000,
-    object_haka_objects_DL_000040,
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_008EB0),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_00A1A0),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_005000),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_000040),
 };
 
 void BgHakaMeganeBG_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -75,18 +75,18 @@ void BgHakaMeganeBG_Init(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->params == 2) {
         DynaPolyActor_Init(&pthis->dyna, DPM_UNK3);
         thisx->flags |= ACTOR_FLAG_4;
-        CollisionHeader_GetVirtual(&object_haka_objects_Col_005334, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_005334), &colHeader);
         pthis->actionFunc = func_8087E258;
     } else {
         DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
 
         if (thisx->params == 0) {
-            CollisionHeader_GetVirtual(&object_haka_objects_Col_009168, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_009168), &colHeader);
             thisx->flags |= ACTOR_FLAG_7;
             pthis->unk_16A = 20;
             pthis->actionFunc = func_8087DFF8;
         } else if (thisx->params == 3) {
-            CollisionHeader_GetVirtual(&object_haka_objects_Col_000118, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_000118), &colHeader);
             thisx->home.pos.y += 100.0f;
 
             if (Flags_GetSwitch(globalCtx, pthis->unk_168)) {
@@ -97,7 +97,7 @@ void BgHakaMeganeBG_Init(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->actionFunc = func_8087E288;
             }
         } else {
-            CollisionHeader_GetVirtual(&object_haka_objects_Col_00A7F4, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_00A7F4), &colHeader);
             pthis->unk_16A = 80;
             pthis->actionFunc = func_8087E10C;
             thisx->uncullZoneScale = 3000.0f;
@@ -223,7 +223,7 @@ void BgHakaMeganeBG_Draw(Actor* thisx, GlobalContext* globalCtx) {
     s16 params = pthis->dyna.actor.params;
 
     if (params == 0) {
-        Gfx_DrawDListXlu(globalCtx, object_haka_objects_DL_008EB0);
+        Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::object_haka_objects_DL_008EB0));
     } else {
         Gfx_DrawDListOpa(globalCtx, D_8087E410[params]);
     }

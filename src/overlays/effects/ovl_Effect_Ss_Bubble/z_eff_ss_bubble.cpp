@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_bubble.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
@@ -32,7 +32,7 @@ u32 EffectSsBubble_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
     //! @bug Rand_ZeroOne in the macro means a random number is generated for both parts of the macro.
     // In the base game pthis works out because both addresses are segment 4, but it may break if
     // the addresses were changed to refer to different segments
-    pthis->gfx = SEGMENTED_TO_VIRTUAL(Rand_ZeroOne() < 0.5f ? gEffBubble1Tex : gEffBubble2Tex);
+    pthis->gfx = SEGMENTED_TO_VIRTUAL(Rand_ZeroOne() < 0.5f ? oot::asset::texture::load(symbol::gEffBubble1Tex) : oot::asset::texture::load(symbol::gEffBubble2Tex));
     pthis->pos.x = ((Rand_ZeroOne() - 0.5f) * initParams->xzPosRandScale) + initParams->pos.x;
     pthis->pos.y = (((Rand_ZeroOne() - 0.5f) * initParams->yPosRandScale) + initParams->yPosOffset) + initParams->pos.y;
     pthis->pos.z = ((Rand_ZeroOne() - 0.5f) * initParams->xzPosRandScale) + initParams->pos.z;
@@ -59,7 +59,7 @@ void EffectSsBubble_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
     gDPSetEnvColor(POLY_OPA_DISP++, 150, 150, 150, 0);
     gSPSegment(POLY_OPA_DISP++, 0x08, pthis->gfx);
-    gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gEffBubbleDL));
+    gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffBubbleDL)));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_ss_bubble.c", 179);
 }

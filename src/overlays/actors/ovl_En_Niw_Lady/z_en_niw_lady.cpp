@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_NIW_LADY_Z_EN_NIW_LADY_C
 #include "actor_common.h"
 #include "z_en_niw_lady.h"
-#include "objects/object_ane/object_ane.h"
-#include "objects/object_os_anime/object_os_anime.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Niw/z_en_niw.h"
 #include "vt.h"
 #include "def/graph.h"
@@ -38,7 +37,7 @@ void func_80ABA244(EnNiwLady* pthis, GlobalContext* globalCtx);
 void func_80ABA654(EnNiwLady* pthis, GlobalContext* globalCtx);
 void func_80ABAD7C(EnNiwLady* pthis, GlobalContext* globalCtx);
 
-static void* sEyeTextures_60[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
+static void* sEyeTextures_60[] = { oot::asset::texture::load(symbol::gCuccoLadyEyeOpenTex), oot::asset::texture::load(symbol::gCuccoLadyEyeHalfTex), oot::asset::texture::load(symbol::gCuccoLadyEyeClosedTex) };
 
 
 ActorInit En_Niw_Lady_InitVars = {
@@ -126,8 +125,8 @@ void EnNiwLady_ChoseAnimation(EnNiwLady* pthis, GlobalContext* globalCtx, s32 ar
             case 10:
                 pthis->unk_275 = 1;
             case 9:
-                frames = Animation_GetLastFrame(&gObjOsAnim_07D0);
-                Animation_Change(&pthis->skelAnime, &gObjOsAnim_07D0, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
+                frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_07D0));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_07D0), 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
                 break;
             case 0:
             case 1:
@@ -141,8 +140,8 @@ void EnNiwLady_ChoseAnimation(EnNiwLady* pthis, GlobalContext* globalCtx, s32 ar
             case 22:
             case 24:
             case 29:
-                frames = Animation_GetLastFrame(&gObjOsAnim_9F94);
-                Animation_Change(&pthis->skelAnime, &gObjOsAnim_9F94, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
+                frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_9F94));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_9F94), 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
                 break;
             case 7:
             case 20:
@@ -151,12 +150,12 @@ void EnNiwLady_ChoseAnimation(EnNiwLady* pthis, GlobalContext* globalCtx, s32 ar
             case 26:
             case 27:
             case 28:
-                frames = Animation_GetLastFrame(&gObjOsAnim_0718);
-                Animation_Change(&pthis->skelAnime, &gObjOsAnim_0718, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
+                frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_0718));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_0718), 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
                 break;
             case 100:
-                frames = Animation_GetLastFrame(&gObjOsAnim_A630);
-                Animation_Change(&pthis->skelAnime, &gObjOsAnim_A630, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
+                frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_A630));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_A630), 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
                 pthis->unk_276 = 0;
                 break;
         }
@@ -170,9 +169,7 @@ void func_80AB9F24(EnNiwLady* pthis, GlobalContext* globalCtx) {
 
     if (Object_IsLoaded(&globalCtx->objectCtx, pthis->objectAneIndex) &&
         Object_IsLoaded(&globalCtx->objectCtx, pthis->objectOsAnimeIndex)) {
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objectAneIndex].vromStart.get());
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoLadySkel, NULL, pthis->jointTable, pthis->morphTable, 16);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objectOsAnimeIndex].vromStart.get());
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gCuccoLadySkel), NULL, pthis->jointTable, pthis->morphTable, 16);
         pthis->unk_27E = 1;
         pthis->actor.gravity = -3.0f;
         Actor_SetScale(&pthis->actor, 0.01f);
@@ -185,11 +182,11 @@ void func_80AB9F24(EnNiwLady* pthis, GlobalContext* globalCtx) {
         switch (pthis->unk_278) {
             case 0:
                 if (!(gSaveContext.itemGetInf[0] & 0x1000) && !LINK_IS_ADULT) {
-                    frames = Animation_GetLastFrame(&gObjOsAnim_A630);
-                    Animation_Change(&pthis->skelAnime, &gObjOsAnim_A630, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, 0.0f);
+                    frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_A630));
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_A630), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, 0.0f);
                 } else {
-                    frames = Animation_GetLastFrame(&gObjOsAnim_07D0);
-                    Animation_Change(&pthis->skelAnime, &gObjOsAnim_07D0, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, 0.0f);
+                    frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_07D0));
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_07D0), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, 0.0f);
                 }
                 if (LINK_IS_ADULT) {
                     pthis->actionFunc = func_80ABA778;
@@ -198,8 +195,8 @@ void func_80AB9F24(EnNiwLady* pthis, GlobalContext* globalCtx) {
                 }
                 return;
             case 1:
-                frames = Animation_GetLastFrame(&gObjOsAnim_07D0);
-                Animation_Change(&pthis->skelAnime, &gObjOsAnim_07D0, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, 0.0f);
+                frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_07D0));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_07D0), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, 0.0f);
                 pthis->actionFunc = func_80ABAD38;
                 return;
         }
@@ -519,7 +516,6 @@ void EnNiwLady_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->unk_276 == 0) {
         Math_SmoothStepToS(&pthis->unk_254.y, 0, 5, 3000, 0);
     }
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objectOsAnimeIndex].vromStart.get());
     if (pthis->objectOsAnimeIndex >= 0) {
         if (pthis->unk_27E != 0) {
             if (pthis->unk_26E != 0) {

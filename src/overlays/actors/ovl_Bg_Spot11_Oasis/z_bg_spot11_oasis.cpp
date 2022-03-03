@@ -8,7 +8,7 @@
 
 #include "z_bg_spot11_oasis.h"
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
-#include "objects/object_spot11_obj/object_spot11_obj.h"
+#include "asset.h"
 #include "def/environment_flags.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
@@ -170,7 +170,7 @@ void BgSpot11Oasis_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 127 - (gameplayFrames % 128), (gameplayFrames * 1) % 128,
                                 32, 32, 1, gameplayFrames % 128, (gameplayFrames * 1) % 128, 32, 32));
-    gSPDisplayList(POLY_XLU_DISP++, gDesertColossusOasisDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDesertColossusOasisDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot11_oasis.c", 346);
 }
 

@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_haka_sgami.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
-#include "objects/object_ice_objects/object_ice_objects.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_cheap_proc.h"
 #include "def/z_collision_check.h"
@@ -311,11 +310,11 @@ void BgHakaSgami_Draw(Actor* thisx, GlobalContext* globalCtx) {
     BgHakaSgami* pthis = (BgHakaSgami*)thisx;
 
     if (pthis->unk_151 != 0) {
-        Gfx_DrawDListXlu(globalCtx, object_haka_objects_DL_00BF20);
+        Gfx_DrawDListXlu(globalCtx, oot::asset::gfx::load(symbol::object_haka_objects_DL_00BF20));
     } else if (pthis->actor.params == SCYTHE_TRAP_SHADOW_TEMPLE) {
-        Gfx_DrawDListOpa(globalCtx, object_haka_objects_DL_00BF20);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_haka_objects_DL_00BF20));
     } else {
-        Gfx_DrawDListOpa(globalCtx, object_ice_objects_DL_0021F0);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_ice_objects_DL_0021F0));
     }
 }
 

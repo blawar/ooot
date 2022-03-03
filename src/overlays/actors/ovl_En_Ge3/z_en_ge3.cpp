@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ge3.h"
-#include "objects/object_geldb/object_geldb.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -29,9 +29,9 @@ void EnGe3_ForceTalk(EnGe3* pthis, GlobalContext* globalCtx);
 void EnGe3_UpdateWhenNotTalking(Actor* thisx, GlobalContext* globalCtx);
 
 static void* eyeTextures_44[] = {
-    gGerudoRedEyeOpenTex,
-    gGerudoRedEyeHalfTex,
-    gGerudoRedEyeShutTex,
+    oot::asset::texture::load(symbol::gGerudoRedEyeOpenTex),
+    oot::asset::texture::load(symbol::gGerudoRedEyeHalfTex),
+    oot::asset::texture::load(symbol::gGerudoRedEyeShutTex),
 };
 
 
@@ -69,7 +69,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 static EnGe3ActionFunc sActionFuncs[] = { EnGe3_WaitLookAtPlayer };
-static AnimationHeader* sAnimations[] = { &gGerudoRedStandAnim }; // Idle with right hand on hip and left over mouth
+static AnimationHeader* sAnimations[] = { oot::asset::anim::header::load(symbol::gGerudoRedStandAnim) }; // Idle with right hand on hip and left over mouth
 static u8 sAnimationModes[] = { ANIMMODE_LOOP };
 
 void EnGe3_ChangeAction(EnGe3* pthis, s32 i) {
@@ -86,9 +86,9 @@ void EnGe3_Init(Actor* thisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGerudoRedSkel, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGerudoRedSkel), NULL, pthis->jointTable, pthis->morphTable,
                        GELDB_LIMB_MAX);
-    Animation_PlayLoop(&pthis->skelAnime, &gGerudoRedStandAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoRedStandAnim));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;

@@ -8,7 +8,7 @@
 
 #include "z_en_sb.h"
 #include "vt.h"
-#include "objects/object_sb/object_sb.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -114,7 +114,7 @@ void EnSb_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     pthis->actor.colChkInfo.damageTable = sDamageTable;
     pthis->actor.colChkInfo.health = 2;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_sb_Skel_002BF0, &object_sb_Anim_000194, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_sb_Skel_002BF0), oot::asset::anim::header::load(symbol::object_sb_Anim_000194), NULL, NULL, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinderType1(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->isDead = false;
@@ -146,14 +146,14 @@ void EnSb_SpawnBubbles(GlobalContext* globalCtx, EnSb* pthis) {
 }
 
 void EnSb_SetupWaitClosed(EnSb* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_sb_Anim_00004C, 1.0f, 0, Animation_GetLastFrame(&object_sb_Anim_00004C),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_sb_Anim_00004C), 1.0f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_00004C)),
                      ANIMMODE_ONCE, 0.0f);
     pthis->behavior = SHELLBLADE_WAIT_CLOSED;
     pthis->actionFunc = EnSb_WaitClosed;
 }
 
 void EnSb_SetupOpen(EnSb* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_sb_Anim_000194, 1.0f, 0, Animation_GetLastFrame(&object_sb_Anim_000194),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_sb_Anim_000194), 1.0f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_000194)),
                      ANIMMODE_ONCE, 0.0f);
     pthis->behavior = SHELLBLADE_OPEN;
     pthis->actionFunc = EnSb_Open;
@@ -161,34 +161,34 @@ void EnSb_SetupOpen(EnSb* pthis) {
 }
 
 void EnSb_SetupWaitOpen(EnSb* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_sb_Anim_002C8C, 1.0f, 0, Animation_GetLastFrame(&object_sb_Anim_002C8C),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_sb_Anim_002C8C), 1.0f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_002C8C)),
                      ANIMMODE_LOOP, 0.0f);
     pthis->behavior = SHELLBLADE_WAIT_OPEN;
     pthis->actionFunc = EnSb_WaitOpen;
 }
 
 void EnSb_SetupLunge(EnSb* pthis) {
-    f32 frameCount = Animation_GetLastFrame(&object_sb_Anim_000124);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_000124));
     f32 playbackSpeed = pthis->actor.yDistToWater > 0.0f ? 1.0f : 0.0f;
 
-    Animation_Change(&pthis->skelAnime, &object_sb_Anim_000124, playbackSpeed, 0.0f, frameCount, ANIMMODE_ONCE, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_sb_Anim_000124), playbackSpeed, 0.0f, frameCount, ANIMMODE_ONCE, 0);
     pthis->behavior = SHELLBLADE_LUNGE;
     pthis->actionFunc = EnSb_Lunge;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_SHELL_MOUTH);
 }
 
 void EnSb_SetupBounce(EnSb* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_sb_Anim_0000B4, 1.0f, 0, Animation_GetLastFrame(&object_sb_Anim_0000B4),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_sb_Anim_0000B4), 1.0f, 0, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_0000B4)),
                      ANIMMODE_ONCE, 0.0f);
     pthis->behavior = SHELLBLADE_BOUNCE;
     pthis->actionFunc = EnSb_Bounce;
 }
 
 void EnSb_SetupCooldown(EnSb* pthis, s32 changeSpeed) {
-    f32 frameCount = Animation_GetLastFrame(&object_sb_Anim_00004C);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_00004C));
 
     if (pthis->behavior != SHELLBLADE_WAIT_CLOSED) {
-        Animation_Change(&pthis->skelAnime, &object_sb_Anim_00004C, 1.0f, 0, frameCount, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_sb_Anim_00004C), 1.0f, 0, frameCount, ANIMMODE_ONCE, 0.0f);
     }
     pthis->behavior = SHELLBLADE_WAIT_CLOSED;
     if (changeSpeed) {
@@ -220,7 +220,7 @@ void EnSb_WaitClosed(EnSb* pthis, GlobalContext* globalCtx) {
 void EnSb_Open(EnSb* pthis, GlobalContext* globalCtx) {
     f32 currentFrame = pthis->skelAnime.curFrame;
 
-    if (Animation_GetLastFrame(&object_sb_Anim_000194) <= currentFrame) {
+    if (Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_000194)) <= currentFrame) {
         pthis->timer = 15;
         EnSb_SetupWaitOpen(pthis);
     } else {
@@ -291,7 +291,7 @@ void EnSb_Bounce(EnSb* pthis, GlobalContext* globalCtx) {
     f32 frameCount;
 
     currentFrame = pthis->skelAnime.curFrame;
-    frameCount = Animation_GetLastFrame(&object_sb_Anim_0000B4);
+    frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_sb_Anim_0000B4));
     Math_StepToF(&pthis->actor.speedXZ, 0.0f, 0.2f);
 
     if (currentFrame == frameCount) {

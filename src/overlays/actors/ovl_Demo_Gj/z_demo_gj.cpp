@@ -7,7 +7,7 @@
  */
 
 #include "z_demo_gj.h"
-#include "objects/object_gj/object_gj.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
@@ -222,7 +222,7 @@ void DemoGj_Explode(DemoGj* pthis, GlobalContext* globalCtx, Vec3f* initialPos, 
 
         EffectSsKakera_Spawn(globalCtx, &explosionPos, &velocity, initialPos, -200, phi_s0, 10, 10, 0,
                              Rand_ZeroOne() * 20.0f + 20.0f, 20, 300, (s32)(Rand_ZeroOne() * 30.0f) + 30, -1,
-                             OBJECT_GEFF, &gGanonsCastleRubbleAroundArenaDL[28]);
+                             OBJECT_GEFF, &oot::asset::gfx::load(symbol::gGanonsCastleRubbleAroundArenaDL)[28]);
 
         theta += 0x2AAA;
     }
@@ -594,7 +594,7 @@ void DemoGj_CheckIfTransformedIntoGanon(DemoGj* pthis) {
 }
 
 void DemoGj_InitRubblePile1(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 1, 2, &gGanonsCastleRubble2Col);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 1, 2, oot::asset::collision::header::load(symbol::gGanonsCastleRubble2Col));
 }
 
 void func_8097A000(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -650,15 +650,15 @@ void DemoGj_Update08(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubble2(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble2DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble2DL));
 }
 
 void DemoGj_DrawRotatedRubble2(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubble2DL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble2DL));
 }
 
 void DemoGj_InitRubblePile2(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 2, 3, &gGanonsCastleRubble3Col);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 2, 3, oot::asset::collision::header::load(symbol::gGanonsCastleRubble3Col));
 }
 
 void func_8097A238(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -714,15 +714,15 @@ void DemoGj_Update09(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubble3(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble3DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble3DL));
 }
 
 void DemoGj_DrawRotatedRubble3(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubble3DL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble3DL));
 }
 
 void DemoGj_InitRubblePile3(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 3, 4, &gGanonsCastleRubble4Col);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 3, 4, oot::asset::collision::header::load(symbol::gGanonsCastleRubble4Col));
 }
 
 void func_8097A474(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -762,15 +762,15 @@ void DemoGj_Update10(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubble4(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble4DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble4DL));
 }
 
 void DemoGj_DrawRotatedRubble4(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubble4DL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble4DL));
 }
 
 void DemoGj_InitRubblePile4(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 4, 5, &gGanonsCastleRubble5Col);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 4, 5, oot::asset::collision::header::load(symbol::gGanonsCastleRubble5Col));
 }
 
 void func_8097A644(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -810,15 +810,15 @@ void DemoGj_Update11(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubble5(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble5DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble5DL));
 }
 
 void DemoGj_DrawRotatedRubble5(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubble5DL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble5DL));
 }
 
 void DemoGj_InitRubblePile5(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 5, 6, &gGanonsCastleRubble6Col);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 5, 6, oot::asset::collision::header::load(symbol::gGanonsCastleRubble6Col));
 }
 
 void func_8097A814(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -858,15 +858,15 @@ void DemoGj_Update12(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubble6(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble6DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble6DL));
 }
 
 void DemoGj_DrawRotatedRubble6(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubble6DL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble6DL));
 }
 
 void DemoGj_InitRubblePile6(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 6, 7, &gGanonsCastleRubble7Col);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 6, 7, oot::asset::collision::header::load(symbol::gGanonsCastleRubble7Col));
 }
 
 void func_8097A9E4(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -906,15 +906,15 @@ void DemoGj_Update13(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubble7(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble7DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble7DL));
 }
 
 void DemoGj_DrawRotatedRubble7(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubble7DL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble7DL));
 }
 
 void DemoGj_InitRubblePile7(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 7, 8, &gGanonsCastleRubbleTallCol);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 7, 8, oot::asset::collision::header::load(symbol::gGanonsCastleRubbleTallCol));
 }
 
 void func_8097ABB4(DemoGj* pthis, GlobalContext* globalCtx) {
@@ -970,15 +970,15 @@ void DemoGj_Update14(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubbleTall(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubbleTallDL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubbleTallDL));
 }
 
 void DemoGj_DrawRotatedRubbleTall(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawRotated(pthis, globalCtx, gGanonsCastleRubbleTallDL);
+    DemoGj_DrawRotated(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubbleTallDL));
 }
 
 void DemoGj_InitRubbleAroundArena(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_InitSetIndexes(pthis, globalCtx, 0, 1, &gGanonsCastleRubbleAroundArenaCol);
+    DemoGj_InitSetIndexes(pthis, globalCtx, 0, 1, oot::asset::collision::header::load(symbol::gGanonsCastleRubbleAroundArenaCol));
 }
 
 // func_8097ADF0
@@ -990,7 +990,7 @@ void DemoGj_UpdateRubbleAroundArena(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawRubbleAroundArena(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubbleAroundArenaDL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubbleAroundArenaDL));
 }
 
 // Inits the three cylinders with `sCylinderInit1`
@@ -1057,7 +1057,7 @@ void func_8097B128(DemoGj* pthis, GlobalContext* globalCtx) {
     if (DemoGj_IsGanondorfFloatingInAir(pthis, globalCtx)) {
         Vec3f* scale = &pthis->dyna.actor.scale;
 
-        DemoGj_InitCommon(pthis, globalCtx, &gGanonsCastleRubble2Col);
+        DemoGj_InitCommon(pthis, globalCtx, oot::asset::collision::header::load(symbol::gGanonsCastleRubble2Col));
         pthis->updateMode = 18;
         pthis->drawConfig = 16;
         scale->x *= 0.8f;
@@ -1123,7 +1123,7 @@ void DemoGj_Update18(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DrawDestructableRubble1(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble2DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble2DL));
 }
 
 // Inits the three cylinders with `sCylinderInit2`
@@ -1201,7 +1201,7 @@ void func_8097B6C4(DemoGj* pthis, GlobalContext* globalCtx) {
     if (DemoGj_IsGanondorfFloatingInAir(pthis, globalCtx)) {
         Vec3f* scale = &pthis->dyna.actor.scale;
 
-        DemoGj_InitCommon(pthis, globalCtx, &gGanonsCastleRubble3Col);
+        DemoGj_InitCommon(pthis, globalCtx, oot::asset::collision::header::load(symbol::gGanonsCastleRubble3Col));
         pthis->updateMode = 19;
         pthis->drawConfig = 17;
         scale->x *= 0.8f;
@@ -1254,7 +1254,7 @@ void DemoGj_Update19(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DemoGj_InitDestructableRubble2(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubble3DL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubble3DL));
 }
 
 // Inits the first cylinder (only that one) with `sCylinderInit3`
@@ -1284,7 +1284,7 @@ void func_8097B9BC(DemoGj* pthis, GlobalContext* globalCtx) {
     if (DemoGj_IsGanondorfFloatingInAir(pthis, globalCtx)) {
         Vec3f* scale = &pthis->dyna.actor.scale;
 
-        DemoGj_InitCommon(pthis, globalCtx, &gGanonsCastleRubbleTallCol);
+        DemoGj_InitCommon(pthis, globalCtx, oot::asset::collision::header::load(symbol::gGanonsCastleRubbleTallCol));
         pthis->updateMode = 20;
         pthis->drawConfig = 18;
         scale->x *= 0.8f;
@@ -1339,7 +1339,7 @@ void DemoGj_Update20(DemoGj* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoGj_DemoGj_InitDestructableRubbleTall(DemoGj* pthis, GlobalContext* globalCtx) {
-    DemoGj_DrawCommon(pthis, globalCtx, gGanonsCastleRubbleTallDL);
+    DemoGj_DrawCommon(pthis, globalCtx, oot::asset::gfx::load(symbol::gGanonsCastleRubbleTallDL));
 }
 
 static DemoGjUpdateFunc sUpdateFuncs[] = {

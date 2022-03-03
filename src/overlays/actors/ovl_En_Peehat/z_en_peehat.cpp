@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_PEEHAT_Z_EN_PEEHAT_C
 #include "actor_common.h"
 #include "z_en_peehat.h"
-#include "objects/object_peehat/object_peehat.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "def/random.h"
@@ -189,7 +189,7 @@ void EnPeehat_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     Actor_SetScale(&pthis->actor, 36.0f * 0.001f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gPeehatSkel, &gPeehatRisingAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gPeehatSkel), oot::asset::anim::header::load(symbol::gPeehatRisingAnim), pthis->jointTable, pthis->morphTable,
                    24);
     ActorShape_Init(&pthis->actor.shape, 100.0f, ActorShadow_DrawCircle, 27.0f);
     pthis->actor.focus.pos = pthis->actor.world.pos;
@@ -308,7 +308,7 @@ void EnPeehat_HitWhenGrounded(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Ground_SetStateGround(EnPeehat* pthis) {
-    Animation_Change(&pthis->skelAnime, &gPeehatRisingAnim, 0.0f, 3.0f, Animation_GetLastFrame(&gPeehatRisingAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatRisingAnim), 0.0f, 3.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPeehatRisingAnim)),
                      ANIMMODE_ONCE, 0.0f);
     pthis->seekPlayerTimer = 600;
     pthis->unk2D4 = 0;
@@ -346,7 +346,7 @@ void EnPeehat_Ground_StateGround(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Flying_SetStateGround(EnPeehat* pthis) {
-    Animation_Change(&pthis->skelAnime, &gPeehatRisingAnim, 0.0f, 3.0f, Animation_GetLastFrame(&gPeehatRisingAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatRisingAnim), 0.0f, 3.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPeehatRisingAnim)),
                      ANIMMODE_ONCE, 0.0f);
     pthis->seekPlayerTimer = 400;
     pthis->unk2D4 = 0;
@@ -376,7 +376,7 @@ void EnPeehat_Flying_StateGrounded(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Flying_SetStateFly(EnPeehat* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gPeehatFlyingAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatFlyingAnim));
     pthis->state = PEAHAT_STATE_FLY;
     EnPeehat_SetupAction(pthis, EnPeehat_Flying_StateFly);
 }
@@ -402,10 +402,10 @@ void EnPeehat_Flying_StateFly(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Ground_SetStateRise(EnPeehat* pthis) {
-    f32 lastFrame = Animation_GetLastFrame(&gPeehatRisingAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPeehatRisingAnim));
 
     if (pthis->state != PEAHAT_STATE_STUNNED) {
-        Animation_Change(&pthis->skelAnime, &gPeehatRisingAnim, 0.0f, 3.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatRisingAnim), 0.0f, 3.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
     }
     pthis->state = PEAHAT_STATE_8;
     pthis->animTimer = lastFrame;
@@ -444,9 +444,9 @@ void EnPeehat_Ground_StateRise(EnPeehat* pthis, GlobalContext* globalCtx) {
 void EnPeehat_Flying_SetStateRise(EnPeehat* pthis) {
     f32 lastFrame;
 
-    lastFrame = Animation_GetLastFrame(&gPeehatRisingAnim);
+    lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPeehatRisingAnim));
     if (pthis->state != PEAHAT_STATE_STUNNED) {
-        Animation_Change(&pthis->skelAnime, &gPeehatRisingAnim, 0.0f, 3.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatRisingAnim), 0.0f, 3.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
     }
     pthis->state = PEAHAT_STATE_9;
     pthis->animTimer = lastFrame;
@@ -485,7 +485,7 @@ void EnPeehat_Flying_StateRise(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Ground_SetStateSeekPlayer(EnPeehat* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gPeehatFlyingAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatFlyingAnim));
     pthis->state = PEAHAT_STATE_SEEK_PLAYER;
     pthis->unk2E0 = 0.0f;
     EnPeehat_SetupAction(pthis, EnPeehat_Ground_StateSeekPlayer);
@@ -520,7 +520,7 @@ void EnPeehat_Ground_StateSeekPlayer(EnPeehat* pthis, GlobalContext* globalCtx) 
 }
 
 void EnPeehat_Larva_SetStateSeekPlayer(EnPeehat* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gPeehatFlyingAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatFlyingAnim));
     pthis->state = PEAHAT_STATE_SEEK_PLAYER;
     pthis->unk2D4 = 0;
     EnPeehat_SetupAction(pthis, EnPeehat_Larva_StateSeekPlayer);
@@ -592,7 +592,7 @@ void EnPeehat_Larva_StateSeekPlayer(EnPeehat* pthis, GlobalContext* globalCtx) {
 
 void EnPeehat_Ground_SetStateLanding(EnPeehat* pthis) {
     pthis->state = PEAHAT_STATE_LANDING;
-    Animation_PlayOnce(&pthis->skelAnime, &gPeehatLandingAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatLandingAnim));
     EnPeehat_SetupAction(pthis, EnPeehat_Ground_StateLanding);
 }
 
@@ -618,7 +618,7 @@ void EnPeehat_Ground_StateLanding(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Flying_SetStateLanding(EnPeehat* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gPeehatLandingAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatLandingAnim));
     pthis->state = PEAHAT_STATE_LANDING;
     EnPeehat_SetupAction(pthis, EnPeehat_Flying_StateLanding);
 }
@@ -645,7 +645,7 @@ void EnPeehat_Flying_StateLanding(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_Ground_SetStateHover(EnPeehat* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gPeehatFlyingAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatFlyingAnim));
     pthis->actor.speedXZ = Rand_ZeroOne() * 0.5f + 2.5f;
     pthis->unk2D4 = Rand_ZeroOne() * 10 + 10;
     pthis->state = PEAHAT_STATE_15;
@@ -730,7 +730,7 @@ void EnPeehat_Ground_StateReturnHome(EnPeehat* pthis, GlobalContext* globalCtx) 
 }
 
 void EnPeehat_SetStateAttackRecoil(EnPeehat* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gPeehatRecoilAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatRecoilAnim), -4.0f);
     pthis->state = PEAHAT_STATE_ATTACK_RECOIL;
     pthis->actor.speedXZ = -9.0f;
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
@@ -801,7 +801,7 @@ void EnPeehat_Adult_StateDie(EnPeehat* pthis, GlobalContext* globalCtx) {
     if (pthis->isStateDieFirstUpdate) {
         pthis->unk2D4--;
         if (pthis->unk2D4 <= 0 || pthis->actor.colChkInfo.health == 0) {
-            Animation_MorphToPlayOnce(&pthis->skelAnime, &gPeehatRecoilAnim, -4.0f);
+            Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatRecoilAnim), -4.0f);
             pthis->bladeRotVel = 4000;
             pthis->unk2D4 = 14;
             pthis->actor.speedXZ = 0;
@@ -847,7 +847,7 @@ void EnPeehat_Adult_StateDie(EnPeehat* pthis, GlobalContext* globalCtx) {
 }
 
 void EnPeehat_SetStateExplode(EnPeehat* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gPeehatFlyingAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPeehatFlyingAnim));
     pthis->state = PEAHAT_STATE_EXPLODE;
     pthis->animTimer = 5;
     pthis->unk2E0 = 0.0f;

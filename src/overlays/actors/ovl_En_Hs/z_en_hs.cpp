@@ -8,7 +8,7 @@
 
 #include "z_en_hs.h"
 #include "vt.h"
-#include "objects/object_hs/object_hs.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -75,9 +75,9 @@ void EnHs_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_hs_Skel_006260, &object_hs_Anim_0005C0, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_hs_Skel_006260), oot::asset::anim::header::load(symbol::object_hs_Anim_0005C0), pthis->jointTable,
                        pthis->morphTable, 16);
-    Animation_PlayLoop(&pthis->skelAnime, &object_hs_Anim_0005C0);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_hs_Anim_0005C0));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
@@ -190,8 +190,8 @@ void func_80A6E7BC(EnHs* pthis, GlobalContext* globalCtx) {
                 break;
         }
 
-        Animation_Change(&pthis->skelAnime, &object_hs_Anim_0005C0, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_hs_Anim_0005C0), ANIMMODE_LOOP, 8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_hs_Anim_0005C0), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_hs_Anim_0005C0)), ANIMMODE_LOOP, 8.0f);
     }
 
     pthis->unk_2A8 |= 1;
@@ -203,8 +203,8 @@ void func_80A6E8CC(EnHs* pthis, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         Message_ContinueTextbox(globalCtx, 0x10B3);
         func_80A6E3A0(pthis, func_80A6E7BC);
-        Animation_Change(&pthis->skelAnime, &object_hs_Anim_000528, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_hs_Anim_000528), ANIMMODE_LOOP, 8.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_hs_Anim_000528), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_hs_Anim_000528)), ANIMMODE_LOOP, 8.0f);
     }
 
     if (pthis->unk_2AA > 0) {
@@ -225,8 +225,8 @@ void func_80A6E9AC(EnHs* pthis, GlobalContext* globalCtx) {
         if (func_8002F368(globalCtx) == 7) {
             player->actor.textId = 0x10B2;
             func_80A6E3A0(pthis, func_80A6E8CC);
-            Animation_Change(&pthis->skelAnime, &object_hs_Anim_000304, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&object_hs_Anim_000304), ANIMMODE_LOOP, 8.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_hs_Anim_000304), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_hs_Anim_000304)), ANIMMODE_LOOP, 8.0f);
             pthis->unk_2AA = 40;
             Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         } else {

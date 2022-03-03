@@ -7,7 +7,7 @@
  */
 
 #include "z_en_mb.h"
-#include "objects/object_mb/object_mb.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -284,7 +284,7 @@ void EnMb_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     switch (pthis->actor.params) {
         case ENMB_TYPE_SPEAR_GUARD:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gEnMbSpearSkel, &gEnMbSpearStandStillAnim,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gEnMbSpearSkel), oot::asset::anim::header::load(symbol::gEnMbSpearStandStillAnim),
                                pthis->jointTable, pthis->morphTable, 28);
             pthis->actor.colChkInfo.health = 2;
             pthis->actor.colChkInfo.mass = MASS_HEAVY;
@@ -293,7 +293,7 @@ void EnMb_Init(Actor* thisx, GlobalContext* globalCtx) {
             EnMb_SetupSpearGuardLookAround(pthis);
             break;
         case ENMB_TYPE_CLUB:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gEnMbClubSkel, &gEnMbClubStandStillClubDownAnim,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gEnMbClubSkel), oot::asset::anim::header::load(symbol::gEnMbClubStandStillClubDownAnim),
                                pthis->jointTable, pthis->morphTable, 28);
 
             pthis->actor.colChkInfo.health = 6;
@@ -322,7 +322,7 @@ void EnMb_Init(Actor* thisx, GlobalContext* globalCtx) {
             EnMb_SetupClubWaitPlayerNear(pthis);
             break;
         default: /* Spear Patrol */
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gEnMbSpearSkel, &gEnMbSpearStandStillAnim,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gEnMbSpearSkel), oot::asset::anim::header::load(symbol::gEnMbSpearStandStillAnim),
                                pthis->jointTable, pthis->morphTable, 28);
 
             Actor_SetScale(&pthis->actor, 0.014f);
@@ -442,7 +442,7 @@ void EnMb_FindWaypointTowardsPlayer(EnMb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnMb_SetupSpearGuardLookAround(EnMb* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gEnMbSpearLookLeftAndRightAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearLookLeftAndRightAnim), -4.0f);
     pthis->actor.speedXZ = 0.0f;
     pthis->timer1 = Rand_S16Offset(30, 50);
     pthis->state = ENMB_STATE_IDLE;
@@ -450,7 +450,7 @@ void EnMb_SetupSpearGuardLookAround(EnMb* pthis) {
 }
 
 void EnMb_SetupClubWaitPlayerNear(EnMb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gEnMbClubStandStillClubDownAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubStandStillClubDownAnim));
     pthis->actor.speedXZ = 0.0f;
     pthis->timer1 = Rand_S16Offset(30, 50);
     pthis->state = ENMB_STATE_IDLE;
@@ -458,7 +458,7 @@ void EnMb_SetupClubWaitPlayerNear(EnMb* pthis) {
 }
 
 void EnMb_SetupSpearPatrolTurnTowardsWaypoint(EnMb* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gEnMbSpearLookLeftAndRightAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearLookLeftAndRightAnim), -4.0f);
     pthis->actor.speedXZ = 0.0f;
     pthis->timer1 = Rand_S16Offset(40, 80);
     pthis->state = ENMB_STATE_IDLE;
@@ -467,7 +467,7 @@ void EnMb_SetupSpearPatrolTurnTowardsWaypoint(EnMb* pthis, GlobalContext* global
 }
 
 void EnMb_SetupSpearGuardWalk(EnMb* pthis) {
-    Animation_Change(&pthis->skelAnime, &gEnMbSpearWalkAnim, 0.0f, 0.0f, Animation_GetLastFrame(&gEnMbSpearWalkAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearWalkAnim), 0.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbSpearWalkAnim)),
                      ANIMMODE_LOOP, -4.0f);
     pthis->actor.speedXZ = 0.59999996f;
     pthis->timer1 = Rand_S16Offset(50, 70);
@@ -477,20 +477,20 @@ void EnMb_SetupSpearGuardWalk(EnMb* pthis) {
 }
 
 void EnMb_SetupSpearPatrolWalkTowardsWaypoint(EnMb* pthis) {
-    f32 frameCount = Animation_GetLastFrame(&gEnMbSpearWalkAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbSpearWalkAnim));
 
     pthis->actor.speedXZ = 0.59999996f;
     pthis->timer1 = Rand_S16Offset(50, 70);
     pthis->unk_332 = 1;
     pthis->state = ENMB_STATE_WALK;
-    Animation_Change(&pthis->skelAnime, &gEnMbSpearWalkAnim, 0.0f, 0.0f, frameCount, ANIMMODE_LOOP_INTERP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearWalkAnim), 0.0f, 0.0f, frameCount, ANIMMODE_LOOP_INTERP, -4.0f);
     EnMb_SetupAction(pthis, EnMb_SpearPatrolWalkTowardsWaypoint);
 }
 
 void EnMb_SetupSpearPrepareAndCharge(EnMb* pthis) {
-    f32 frameCount = Animation_GetLastFrame(&gEnMbSpearPrepareChargeAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbSpearPrepareChargeAnim));
 
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbSpearPrepareChargeAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearPrepareChargeAnim), -4.0f);
     pthis->state = ENMB_STATE_ATTACK;
     pthis->actor.speedXZ = 0.0f;
     pthis->timer3 = (s16)frameCount + 6;
@@ -503,7 +503,7 @@ void EnMb_SetupSpearPrepareAndCharge(EnMb* pthis) {
 }
 
 void EnMb_SetupSpearPatrolImmediateCharge(EnMb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gEnMbSpearChargeAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearChargeAnim));
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_ATTACK);
     pthis->attack = ENMB_ATTACK_SPEAR;
     pthis->state = ENMB_STATE_ATTACK;
@@ -513,11 +513,11 @@ void EnMb_SetupSpearPatrolImmediateCharge(EnMb* pthis) {
 }
 
 void EnMb_SetupClubAttack(EnMb* pthis) {
-    f32 frames = Animation_GetLastFrame(&gEnMbClubLiftClubAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbClubLiftClubAnim));
     s16 relYawFromPlayer;
 
     pthis->state = ENMB_STATE_ATTACK;
-    Animation_Change(&pthis->skelAnime, &gEnMbClubLiftClubAnim, 3.0f, 0.0f, frames, ANIMMODE_ONCE_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubLiftClubAnim), 3.0f, 0.0f, frames, ANIMMODE_ONCE_INTERP, 0.0f);
     pthis->timer3 = 1;
     relYawFromPlayer = pthis->actor.world.rot.y - pthis->actor.yawTowardsPlayer;
 
@@ -533,7 +533,7 @@ void EnMb_SetupClubAttack(EnMb* pthis) {
 }
 
 void EnMb_SetupSpearEndChargeQuick(EnMb* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gEnMbSpearSlowDownAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearSlowDownAnim));
     pthis->state = ENMB_STATE_ATTACK_END;
     pthis->timer1 = 0;
     pthis->timer3 = 5;
@@ -542,7 +542,7 @@ void EnMb_SetupSpearEndChargeQuick(EnMb* pthis) {
 }
 
 void EnMb_SetupSpearPatrolEndCharge(EnMb* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gEnMbSpearSlowDownAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearSlowDownAnim));
     pthis->state = ENMB_STATE_ATTACK_END;
     pthis->actor.bgCheckFlags &= ~1;
     pthis->timer1 = 0;
@@ -554,16 +554,16 @@ void EnMb_SetupSpearPatrolEndCharge(EnMb* pthis) {
 }
 
 void EnMb_SetupClubWaitAfterAttack(EnMb* pthis) {
-    f32 frameCount = Animation_GetLastFrame(&gEnMbClubStandStillClubDownAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbClubStandStillClubDownAnim));
 
     pthis->state = ENMB_STATE_ATTACK_END;
-    Animation_Change(&pthis->skelAnime, &gEnMbClubStandStillClubDownAnim, 5.0f, 0.0f, frameCount, ANIMMODE_ONCE_INTERP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubStandStillClubDownAnim), 5.0f, 0.0f, frameCount, ANIMMODE_ONCE_INTERP,
                      0.0f);
     EnMb_SetupAction(pthis, EnMb_ClubWaitAfterAttack);
 }
 
 void EnMb_SetupClubDamaged(EnMb* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gEnMbClubDamagedKneelAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubDamagedKneelAnim));
     pthis->state = ENMB_STATE_CLUB_KNEELING;
     pthis->timer1 = 0;
     pthis->timer3 = 20;
@@ -572,17 +572,17 @@ void EnMb_SetupClubDamaged(EnMb* pthis) {
 }
 
 void EnMb_SetupClubDamagedWhileKneeling(EnMb* pthis) {
-    f32 frames = Animation_GetLastFrame(&gEnMbClubBeatenKneelingAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbClubBeatenKneelingAnim));
 
     pthis->state = ENMB_STATE_CLUB_KNEELING_DAMAGED;
     pthis->timer1 = 0;
     pthis->timer3 = 6;
-    Animation_Change(&pthis->skelAnime, &gEnMbClubBeatenKneelingAnim, 1.0f, 4.0f, frames, ANIMMODE_ONCE_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubBeatenKneelingAnim), 1.0f, 4.0f, frames, ANIMMODE_ONCE_INTERP, 0.0f);
     EnMb_SetupAction(pthis, EnMb_ClubDamagedWhileKneeling);
 }
 
 void EnMb_SetupClubDead(EnMb* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbClubFallOnItsBackAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubFallOnItsBackAnim), -4.0f);
     pthis->state = ENMB_STATE_CLUB_DEAD;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     pthis->hitbox.dim.height = 80;
@@ -601,7 +601,7 @@ void EnMb_SetupStunned(EnMb* pthis) {
         pthis->iceEffectTimer = 40;
     } else {
         if (pthis->actor.params != ENMB_TYPE_CLUB) {
-            Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gEnMbSpearDamagedFromFrontAnim, 0.0f);
+            Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearDamagedFromFrontAnim), 0.0f);
         }
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOMA_JR_FREEZE);
     }
@@ -695,8 +695,8 @@ void EnMb_SpearEndChargeQuick(EnMb* pthis, GlobalContext* globalCtx) {
             pthis->timer3--;
             if (pthis->timer3 == 0) {
                 /* Play the charge animation in reverse: let go of the spear and stand normally */
-                Animation_Change(&pthis->skelAnime, &gEnMbSpearPrepareChargeAnim, -1.0f,
-                                 Animation_GetLastFrame(&gEnMbSpearPrepareChargeAnim), 0.0f, ANIMMODE_ONCE, 0.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearPrepareChargeAnim), -1.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbSpearPrepareChargeAnim)), 0.0f, ANIMMODE_ONCE, 0.0f);
                 pthis->timer1 = 1;
                 pthis->actor.speedXZ = 0.0f;
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_SPEAR_NORM);
@@ -751,9 +751,9 @@ void EnMb_SpearPatrolEndCharge(EnMb* pthis, GlobalContext* globalCtx) {
                     ABS(relYawFromPlayer) <= 0x4000 && pthis->actor.xzDistToPlayer <= 200.0f) {
                     EnMb_SetupSpearPrepareAndCharge(pthis);
                 } else {
-                    lastFrame = Animation_GetLastFrame(&gEnMbSpearPrepareChargeAnim);
+                    lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbSpearPrepareChargeAnim));
                     /* Play the charge animation in reverse: let go of the spear and stand normally */
-                    Animation_Change(&pthis->skelAnime, &gEnMbSpearPrepareChargeAnim, -1.0f, lastFrame, 0.0f,
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearPrepareChargeAnim), -1.0f, lastFrame, 0.0f,
                                      ANIMMODE_ONCE, 0.0f);
                     pthis->actor.speedXZ = 0.0f;
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_SPEAR_NORM);
@@ -769,8 +769,8 @@ void EnMb_SpearPatrolEndCharge(EnMb* pthis, GlobalContext* globalCtx) {
 
         if (SkelAnime_Update(&pthis->skelAnime)) {
             if (pthis->timer1 == 0) {
-                lastFrame = Animation_GetLastFrame(&gEnMbSpearChargeAnim);
-                Animation_Change(&pthis->skelAnime, &gEnMbSpearChargeAnim, 0.5f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP,
+                lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbSpearChargeAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearChargeAnim), 0.5f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP,
                                  0.0f);
                 pthis->timer1 = 1;
             } else {
@@ -801,7 +801,7 @@ void EnMb_SpearGuardPrepareAndCharge(EnMb* pthis, GlobalContext* globalCtx) {
     prevFrame = pthis->skelAnime.curFrame;
 
     if (SkelAnime_Update(&pthis->skelAnime)) {
-        Animation_PlayLoop(&pthis->skelAnime, &gEnMbSpearChargeAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearChargeAnim));
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_ATTACK);
     }
 
@@ -860,8 +860,8 @@ void EnMb_ClubAttack(EnMb* pthis, GlobalContext* globalCtx) {
         if (pthis->timer3 != 0) {
             pthis->timer3--;
             if (pthis->timer3 == 0) {
-                f32 lastAnimFrame = Animation_GetLastFrame(&gEnMbClubStrikeDownAnim);
-                Animation_Change(&pthis->skelAnime, &gEnMbClubStrikeDownAnim, 1.5f, 0.0f, lastAnimFrame,
+                f32 lastAnimFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbClubStrikeDownAnim));
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubStrikeDownAnim), 1.5f, 0.0f, lastAnimFrame,
                                  ANIMMODE_ONCE_INTERP, 0.0f);
             }
         } else {
@@ -898,7 +898,7 @@ void EnMb_SpearPatrolPrepareAndCharge(EnMb* pthis, GlobalContext* globalCtx) {
 
     prevFrame = (s32)pthis->skelAnime.curFrame;
     if (SkelAnime_Update(&pthis->skelAnime)) {
-        Animation_PlayLoop(&pthis->skelAnime, &gEnMbSpearChargeAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearChargeAnim));
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_ATTACK);
     }
 
@@ -1051,7 +1051,7 @@ void EnMb_SpearPatrolImmediateCharge(EnMb* pthis, GlobalContext* globalCtx) {
 void EnMb_ClubDamaged(EnMb* pthis, GlobalContext* globalCtx) {
     if (SkelAnime_Update(&pthis->skelAnime)) {
         if (pthis->timer3 != 0) {
-            Animation_PlayOnce(&pthis->skelAnime, &gEnMbClubStandUpAnim);
+            Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubStandUpAnim));
             pthis->timer3 = 0;
             Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
             Camera_AddQuake(&globalCtx->mainCamera, 2, 25, 5);
@@ -1069,13 +1069,13 @@ void EnMb_ClubDamagedWhileKneeling(EnMb* pthis, GlobalContext* globalCtx) {
             pthis->timer3--;
             if (pthis->timer3 == 0) {
                 if (pthis->timer1 == 0) {
-                    Animation_Change(&pthis->skelAnime, &gEnMbClubStandUpAnim, 3.0f, 0.0f,
-                                     Animation_GetLastFrame(&gEnMbClubStandUpAnim), ANIMMODE_ONCE_INTERP, 0.0f);
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubStandUpAnim), 3.0f, 0.0f,
+                                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbClubStandUpAnim)), ANIMMODE_ONCE_INTERP, 0.0f);
                     pthis->timer1 = 1;
                     pthis->timer3 = 6;
                 } else {
-                    Animation_Change(&pthis->skelAnime, &gEnMbClubStandUpAnim, 3.0f, 0.0f,
-                                     Animation_GetLastFrame(&gEnMbClubStandUpAnim), ANIMMODE_ONCE_INTERP, 0.0f);
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbClubStandUpAnim), 3.0f, 0.0f,
+                                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnMbClubStandUpAnim)), ANIMMODE_ONCE_INTERP, 0.0f);
                 }
             }
         } else {
@@ -1255,10 +1255,10 @@ void EnMb_SetupSpearDamaged(EnMb* pthis) {
     s16 relYawTowardsPlayer = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
 
     if (ABS(relYawTowardsPlayer) <= 0x4000) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbSpearDamagedFromFrontAnim, -4.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearDamagedFromFrontAnim), -4.0f);
         pthis->actor.speedXZ = -8.0f;
     } else {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbSpearDamagedFromBehindAnim, -4.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearDamagedFromBehindAnim), -4.0f);
         pthis->actor.speedXZ = 8.0f;
     }
 
@@ -1284,11 +1284,11 @@ void EnMb_SetupSpearDead(EnMb* pthis) {
     s16 relYawTowardsPlayer = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
 
     if (ABS(relYawTowardsPlayer) <= 0x4000) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbSpearFallOnItsBackAnim, -4.0f);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearFallOnItsBackAnim), -4.0f);
         pthis->actor.speedXZ = -8.0f;
     } else {
-        /* The gEnMbSpearFallFaceDownAnim animation was probably meant to be used here */
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbSpearFallOnItsBackAnim, -4.0f);
+        /* The oot::asset::anim::header::load(symbol::gEnMbSpearFallFaceDownAnim) animation was probably meant to be used here */
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnMbSpearFallOnItsBackAnim), -4.0f);
         pthis->actor.speedXZ = 8.0f;
     }
 

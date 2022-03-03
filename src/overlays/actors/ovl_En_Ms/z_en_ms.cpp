@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ms.h"
-#include "objects/object_ms/object_ms.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
 #include "def/z_common_data.h"
@@ -90,7 +90,7 @@ void EnMs_Init(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gBeanSalesmanSkel, &gBeanSalesmanEatingAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gBeanSalesmanSkel), oot::asset::anim::header::load(symbol::gBeanSalesmanEatingAnim), pthis->jointTable,
                        pthis->morphTable, 9);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinderType1(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);

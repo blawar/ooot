@@ -523,8 +523,7 @@ enum SceneCommandTypeID {
 
 
 struct SceneTableEntry {
-    RomFile sceneFile;
-    RomFile titleFile;
+    u8* title;
     u8 unk_10;
     u8 config;
     u8 unk_12;

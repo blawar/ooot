@@ -7,8 +7,8 @@
  */
 
 #include "z_en_gm.h"
-#include "objects/object_oF1d_map/object_oF1d_map.h"
-#include "objects/object_gm/object_gm.h"
+#include "asset.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/inventory.h"
 #include "def/sys_matrix.h"
@@ -40,7 +40,7 @@ void EnGm_ProcessChoiceIndex(EnGm* pthis, GlobalContext* globalCtx);
 void func_80A3DF00(EnGm* pthis, GlobalContext* globalCtx);
 void func_80A3DF60(EnGm* pthis, GlobalContext* globalCtx);
 
-static void* eyeTextures_53[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+static void* eyeTextures_53[] = { oot::asset::texture::load(symbol::gGoronCsEyeOpenTex), oot::asset::texture::load(symbol::gGoronCsEyeHalfTex), oot::asset::texture::load(symbol::gGoronCsEyeClosedTex) };
 
 
 ActorInit En_Gm_InitVars = {
@@ -122,10 +122,9 @@ s32 func_80A3D7C8(void) {
 void func_80A3D838(EnGm* pthis, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, pthis->objGmBankIndex)) {
         pthis->actor.flags &= ~ACTOR_FLAG_4;
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGoronSkel, NULL, pthis->jointTable, pthis->morphTable, 18);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objGmBankIndex].vromStart.get());
-        Animation_Change(&pthis->skelAnime, &object_gm_Anim_0002B8, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_gm_Anim_0002B8), ANIMMODE_LOOP, 0.0f);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGoronSkel), NULL, pthis->jointTable, pthis->morphTable, 18);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_gm_Anim_0002B8), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_gm_Anim_0002B8)), ANIMMODE_LOOP, 0.0f);
         pthis->actor.draw = EnGm_Draw;
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinderType1(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -289,7 +288,6 @@ void func_80A3DF60(EnGm* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A3DFBC(EnGm* pthis, GlobalContext* globalCtx) {
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->objGmBankIndex].vromStart.get());
     pthis->timer++;
     pthis->actionFunc(pthis, globalCtx);
     pthis->actor.focus.rot.x = pthis->actor.world.rot.x;
@@ -340,7 +338,7 @@ void EnGm_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80093D18(globalCtx->state.gfxCtx);
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_53[pthis->eyeTexIndex]));
-    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gGoronCsMouthNeutralTex));
+    gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gGoronCsMouthNeutralTex)));
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           NULL, NULL, &pthis->actor);
 

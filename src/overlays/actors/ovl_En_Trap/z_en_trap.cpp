@@ -7,7 +7,7 @@
  */
 
 #include "z_en_trap.h"
-#include "objects/object_trap/object_trap.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"
@@ -398,7 +398,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnTrap_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_8002EBCC(thisx, globalCtx, 1);
-    Gfx_DrawDListOpa(globalCtx, gSlidingBladeTrapDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gSlidingBladeTrapDL));
 }
 
 void EnTrap_Reset(Actor* pthisx, GlobalContext* globalCtx) {

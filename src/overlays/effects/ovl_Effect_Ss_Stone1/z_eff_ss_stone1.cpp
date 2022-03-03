@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_stone1.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_rcp.h"
 #include "def/z_skin_matrix.h"
@@ -30,14 +30,14 @@ typedef struct {
 } EffStoneDrawInfo;
 
 static EffStoneDrawInfo sDrawInfo[] = {
-    { gUnknownEffStone8Tex, { 200, 0, 0, 255 }, { 0, 0, 0, 255 } },
-    { gUnknownEffStone7Tex, { 255, 100, 0, 255 }, { 100, 0, 0, 255 } },
-    { gUnknownEffStone6Tex, { 255, 200, 0, 255 }, { 200, 0, 0, 255 } },
-    { gUnknownEffStone5Tex, { 255, 255, 0, 255 }, { 255, 0, 0, 255 } },
-    { gUnknownEffStone4Tex, { 255, 255, 150, 255 }, { 255, 150, 0, 255 } },
-    { gUnknownEffStone3Tex, { 255, 255, 255, 255 }, { 255, 255, 0, 255 } },
-    { gUnknownEffStone2Tex, { 255, 255, 255, 255 }, { 0, 255, 0, 255 } },
-    { gUnknownEffStone1Tex, { 255, 255, 255, 255 }, { 0, 255, 255, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone8Tex), { 200, 0, 0, 255 }, { 0, 0, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone7Tex), { 255, 100, 0, 255 }, { 100, 0, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone6Tex), { 255, 200, 0, 255 }, { 200, 0, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone5Tex), { 255, 255, 0, 255 }, { 255, 0, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone4Tex), { 255, 255, 150, 255 }, { 255, 150, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone3Tex), { 255, 255, 255, 255 }, { 255, 255, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone2Tex), { 255, 255, 255, 255 }, { 0, 255, 0, 255 } },
+    { oot::asset::texture::load(symbol::gUnknownEffStone1Tex), { 255, 255, 255, 255 }, { 0, 255, 255, 255 } },
 };
 
 u32 EffectSsStone1_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx) {
@@ -74,7 +74,7 @@ void EffectSsStone1_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, drawParams->primColor.r, drawParams->primColor.g, drawParams->primColor.b,
                     255);
     gDPSetEnvColor(POLY_XLU_DISP++, drawParams->envColor.r, drawParams->envColor.g, drawParams->envColor.b, 255);
-    gSPDisplayList(POLY_XLU_DISP++, gUnknownEffStoneDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gUnknownEffStoneDL));
 
     CLOSE_DISPS(gfxCtx, "../z_eff_ss_stone1.c", 183);
 }

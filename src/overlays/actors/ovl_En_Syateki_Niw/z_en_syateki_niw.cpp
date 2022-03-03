@@ -7,7 +7,7 @@
  */
 
 #include "z_en_syateki_niw.h"
-#include "objects/object_niw/object_niw.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
@@ -85,7 +85,7 @@ void EnSyatekiNiw_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoSkel, &gCuccoAnim, pthis->jointTable, pthis->morphTable, 16);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gCuccoSkel), oot::asset::anim::header::load(symbol::gCuccoAnim), pthis->jointTable, pthis->morphTable, 16);
 
     pthis->unk_29E = pthis->actor.params;
     if (pthis->unk_29E < 0) {
@@ -222,7 +222,7 @@ void func_80B11A94(EnSyatekiNiw* pthis, GlobalContext* globalCtx, s16 arg2) {
 }
 
 void func_80B11DEC(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gCuccoAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gCuccoAnim), ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCuccoAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gCuccoAnim)), ANIMMODE_LOOP,
                      -10.0f);
     if (pthis->unk_29E != 0) {
         Actor_SetScale(&pthis->actor, pthis->unk_2F4);
@@ -362,7 +362,7 @@ void func_80B11E78(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B123A8(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gCuccoAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gCuccoAnim), ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCuccoAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gCuccoAnim)), ANIMMODE_LOOP,
                      -10.0f);
     pthis->unk_27C = 6000.0f;
     pthis->unk_288 = -10000.0f;
@@ -787,7 +787,7 @@ void func_80B13464(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
     for (i = 0; i < 5; i++, ptr++) {
         if (ptr->unk_00 == 1) {
             if (flag == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, gCuccoParticleAppearDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCuccoParticleAppearDL));
                 flag++;
             }
 
@@ -799,7 +799,7 @@ void func_80B13464(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_en_syateki_niw.c", 1251),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gCuccoParticleAliveDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCuccoParticleAliveDL));
         }
     }
 

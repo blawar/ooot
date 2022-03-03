@@ -22,7 +22,7 @@ void ArrowIce_Charge(ArrowIce* pthis, GlobalContext* globalCtx);
 void ArrowIce_Fly(ArrowIce* pthis, GlobalContext* globalCtx);
 void ArrowIce_Hit(ArrowIce* pthis, GlobalContext* globalCtx);
 
-#include "overlays/ovl_Arrow_Ice/ovl_Arrow_Ice.cpp"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_lib.h"
@@ -243,11 +243,11 @@ void ArrowIce_Draw(Actor* pthisx, GlobalContext* globalCtx) {
         Matrix_Translate(0.0f, -700.0f, 0.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arrow_ice.c", 660),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sArrowIceMaterialDL));
         gSPDisplayList(POLY_XLU_DISP++,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 511 - (stateFrames * 5) % 512, 0, 128, 32, 1,
                                         511 - (stateFrames * 10) % 512, 511 - (stateFrames * 10) % 512, 4, 16));
-        gSPDisplayList(POLY_XLU_DISP++, sModelDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sArrowIceModelDL));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_ice.c", 676);
     }

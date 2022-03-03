@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ddan_jd.h"
-#include "objects/object_ddan_objects/object_ddan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -60,7 +60,7 @@ void BgDdanJd_Init(Actor* pthisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&gDodongoRisingPlatformCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDodongoRisingPlatformCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     pthis->idleTimer = IDLE_FRAMES;
     pthis->state = STATE_GO_BOTTOM;
@@ -178,7 +178,7 @@ void BgDdanJd_Update(Actor* pthisx, GlobalContext* globalCtx) {
 }
 
 void BgDdanJd_Draw(Actor* pthisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gDodongoRisingPlatformDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gDodongoRisingPlatformDL));
 }
 
 void BgDdanJd_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_haka_zou.h"
-#include "objects/object_hakach_objects/object_hakach_objects.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/random.h"
 #include "def/z_actor.h"
@@ -40,10 +39,10 @@ void func_808834D8(BgHakaZou* pthis, GlobalContext* globalCtx);
 void BgHakaZou_DoNothing(BgHakaZou* pthis, GlobalContext* globalCtx);
 
 static Gfx* dLists_52[] = {
-    object_haka_objects_DL_0064E0,
-    object_haka_objects_DL_005CE0,
-    gBotwBombSpotDL,
-    object_haka_objects_DL_005CE0,
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_0064E0),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_005CE0),
+    oot::asset::gfx::load(symbol::gBotwBombSpotDL),
+    oot::asset::gfx::load(symbol::object_haka_objects_DL_005CE0),
 };
 
 
@@ -186,7 +185,7 @@ void BgHakaZou_Wait(BgHakaZou* pthis, GlobalContext* globalCtx) {
             colHeader = NULL;
 
             if (pthis->dyna.actor.params == STA_GIANT_BIRD_STATUE) {
-                CollisionHeader_GetVirtual(&object_haka_objects_Col_006F70, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_006F70), &colHeader);
                 pthis->collider.dim.radius = 80;
                 pthis->collider.dim.height = 100;
                 pthis->collider.dim.yShift = -30;
@@ -194,10 +193,10 @@ void BgHakaZou_Wait(BgHakaZou* pthis, GlobalContext* globalCtx) {
                 pthis->collider.dim.pos.z += 56;
                 pthis->dyna.actor.uncullZoneScale = 1500.0f;
             } else if (pthis->dyna.actor.params == STA_BOMBABLE_SKULL_WALL) {
-                CollisionHeader_GetVirtual(&object_haka_objects_Col_005E30, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_haka_objects_Col_005E30), &colHeader);
                 pthis->collider.dim.yShift = -50;
             } else {
-                CollisionHeader_GetVirtual(&gBotwBombSpotCol, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBotwBombSpotCol), &colHeader);
                 pthis->collider.dim.radius = 55;
                 pthis->collider.dim.height = 20;
             }
@@ -270,13 +269,13 @@ void func_80882E54(BgHakaZou* pthis, GlobalContext* globalCtx) {
     fragmentPos.y = pthis->collider.dim.pos.y;
     fragmentPos.z = pthis->collider.dim.pos.z;
 
-    EffectSsHahen_SpawnBurst(globalCtx, &fragmentPos, 10.0f, 0, 10, 10, 4, 141, 40, gBotwBombSpotDL);
+    EffectSsHahen_SpawnBurst(globalCtx, &fragmentPos, 10.0f, 0, 10, 10, 4, 141, 40, oot::asset::gfx::load(symbol::gBotwBombSpotDL));
 
     for (i = 0; i < 2; i++) {
         for (j = 0; j < 2; j++) {
             fragmentPos.x = pthis->collider.dim.pos.x + (((j * 2) - 1) * num);
             fragmentPos.z = pthis->collider.dim.pos.z + (((i * 2) - 1) * num);
-            EffectSsHahen_SpawnBurst(globalCtx, &fragmentPos, 10.0f, 0, 10, 10, 4, 141, 40, gBotwBombSpotDL);
+            EffectSsHahen_SpawnBurst(globalCtx, &fragmentPos, 10.0f, 0, 10, 10, 4, 141, 40, oot::asset::gfx::load(symbol::gBotwBombSpotDL));
             func_800286CC(globalCtx, &fragmentPos, &sZeroVec, &sZeroVec, 1000, 50);
         }
     }

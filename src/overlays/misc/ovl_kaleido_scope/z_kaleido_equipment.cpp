@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_EQUIPMENT_C
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
-#include "textures/icon_item_static/icon_item_static.h"
-#include "textures/parameter_static/parameter_static.h"
+#include "asset.h"
 #include "def/inventory.h"
 #include "def/audio_bank.h"
 #include "def/z_common_data.h"
@@ -149,7 +148,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
             gDPPipeSync(POLY_OPA_DISP++);
             gSPVertex(POLY_OPA_DISP++, &pauseCtx->equipVtx[j], 4, 0);
 
-            POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, gEquippedItemOutlineTex, 32, 32, 0);
+            POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, oot::asset::texture::load(symbol::gEquippedItemOutlineTex), 32, 32, 0);
         }
     }
 

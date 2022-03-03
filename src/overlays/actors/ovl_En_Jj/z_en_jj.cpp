@@ -7,7 +7,7 @@
  */
 
 #include "z_en_jj.h"
-#include "objects/object_jj/object_jj.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Eff_Dust/z_eff_dust.h"
 #include "def/code_80043480.h"
 #include "def/cosf.h"
@@ -38,7 +38,7 @@ void EnJj_RemoveDust(EnJj* pthis, GlobalContext* globalCtx);
 
 static Vec3f feedingSpot_45 = { -1589.0f, 53.0f, -43.0f };
 
-static void* eyeTextures_51[] = { gJabuJabuEyeOpenTex, gJabuJabuEyeHalfTex, gJabuJabuEyeClosedTex };
+static void* eyeTextures_51[] = { oot::asset::texture::load(symbol::gJabuJabuEyeOpenTex), oot::asset::texture::load(symbol::gJabuJabuEyeHalfTex), oot::asset::texture::load(symbol::gJabuJabuEyeClosedTex) };
 
 
 ActorInit En_Jj_InitVars = {
@@ -101,9 +101,9 @@ void EnJj_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
     switch (pthis->dyna.actor.params) {
         case JABUJABU_MAIN:
-            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gJabuJabuSkel, &gJabuJabuAnim, pthis->jointTable,
+            SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gJabuJabuSkel), oot::asset::anim::header::load(symbol::gJabuJabuAnim), pthis->jointTable,
                                pthis->morphTable, 22);
-            Animation_PlayLoop(&pthis->skelAnime, &gJabuJabuAnim);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gJabuJabuAnim));
             pthis->unk_30A = 0;
             pthis->eyeIndex = 0;
             pthis->blinkTimer = 0;
@@ -121,7 +121,7 @@ void EnJj_Init(Actor* thisx, GlobalContext* globalCtx2) {
                 pthis->dyna.actor.world.pos.y, pthis->dyna.actor.world.pos.z, 0, pthis->dyna.actor.world.rot.y, 0,
                 JABUJABU_COLLISION);
             DynaPolyActor_Init(&pthis->dyna, 0);
-            CollisionHeader_GetVirtual(&gJabuJabuHeadCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJabuJabuHeadCol), &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
             Collider_InitCylinder(globalCtx, &pthis->collider);
             Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->dyna.actor, &sCylinderInit);
@@ -130,7 +130,7 @@ void EnJj_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
         case JABUJABU_COLLISION:
             DynaPolyActor_Init(&pthis->dyna, 0);
-            CollisionHeader_GetVirtual(&gJabuJabuBodyCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJabuJabuBodyCol), &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
             func_8003ECA8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
             pthis->dyna.actor.update = EnJj_UpdateStaticCollision;
@@ -140,7 +140,7 @@ void EnJj_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
         case JABUJABU_UNUSED_COLLISION:
             DynaPolyActor_Init(&pthis->dyna, 0);
-            CollisionHeader_GetVirtual(&gJabuJabuUnusedCol, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gJabuJabuUnusedCol), &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
             pthis->dyna.actor.update = EnJj_UpdateStaticCollision;
             pthis->dyna.actor.draw = NULL;

@@ -7,7 +7,7 @@
  */
 
 #include "z_en_heishi1.h"
-#include "objects/object_sd/object_sd.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/math_float.h"
 #include "def/sys_matrix.h"
@@ -84,7 +84,7 @@ void EnHeishi1_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 i;
 
     Actor_SetScale(&pthis->actor, 0.01f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gEnHeishiSkel, &gEnHeishiIdleAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gEnHeishiSkel), oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), pthis->jointTable, pthis->morphTable,
                    17);
 
     pthis->type = (pthis->actor.params >> 8) & 0xFF;
@@ -144,9 +144,9 @@ void EnHeishi1_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnHeishi1_SetupWalk(EnHeishi1* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiWalkAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiWalkAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiWalkAnim, pthis->animSpeed, 0.0f, (s16)frameCount, ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiWalkAnim), pthis->animSpeed, 0.0f, (s16)frameCount, ANIMMODE_LOOP,
                      pthis->transitionRate);
     pthis->bodyTurnSpeed = 0.0f;
     pthis->moveSpeed = 0.0f;
@@ -228,9 +228,9 @@ void EnHeishi1_Walk(EnHeishi1* pthis, GlobalContext* globalCtx) {
 }
 
 void EnHeishi1_SetupMoveToLink(EnHeishi1* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiWalkAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiWalkAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiWalkAnim, 3.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiWalkAnim), 3.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -3.0f);
     pthis->bodyTurnSpeed = 0.0f;
     pthis->moveSpeed = 0.0f;
     Message_StartTextbox(globalCtx, 0x702D, &pthis->actor);
@@ -256,9 +256,9 @@ void EnHeishi1_MoveToLink(EnHeishi1* pthis, GlobalContext* globalCtx) {
 
 void EnHeishi1_SetupWait(EnHeishi1* pthis, GlobalContext* globalCtx) {
     s16 rand;
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, pthis->animSpeed, 0.0f, (s16)frameCount, ANIMMODE_LOOP,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), pthis->animSpeed, 0.0f, (s16)frameCount, ANIMMODE_LOOP,
                      pthis->transitionRate);
     pthis->headBehaviorDecided = false;
     pthis->headDirection = Rand_ZeroFloat(1.99f);
@@ -326,9 +326,9 @@ void EnHeishi1_Wait(EnHeishi1* pthis, GlobalContext* globalCtx) {
 }
 
 void EnHeishi1_SetupTurnTowardLink(EnHeishi1* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->kickTimer = 30;
     pthis->actionFunc = EnHeishi1_TurnTowardLink;
 }
@@ -348,9 +348,9 @@ void EnHeishi1_TurnTowardLink(EnHeishi1* pthis, GlobalContext* globalCtx) {
 }
 
 void EnHeishi1_SetupKick(EnHeishi1* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = EnHeishi1_Kick;
 }
 
@@ -374,9 +374,9 @@ void EnHeishi1_Kick(EnHeishi1* pthis, GlobalContext* globalCtx) {
 }
 
 void EnHeishi1_SetupWaitNight(EnHeishi1* pthis, GlobalContext* globalCtx) {
-    f32 frameCount = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = EnHeishi1_WaitNight;
 }
 

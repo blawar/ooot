@@ -7,7 +7,7 @@
  */
 
 #include "z_en_lightbox.h"
-#include "objects/object_lightbox/object_lightbox.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -64,7 +64,7 @@ void EnLightbox_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->dyna.unk_15C = 0;
     thisx->targetMode = 0;
     thisx->gravity = -2.0f;
-    CollisionHeader_GetVirtual(&object_lightbox_Col_001F10, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_lightbox_Col_001F10), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
 }
 
@@ -117,7 +117,7 @@ void EnLightbox_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnLightbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, object_lightbox_DL_000B70);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_lightbox_DL_000B70));
 }
 
 void EnLightbox_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -8,8 +8,7 @@
 
 #include "z_en_goroiwa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_goroiwa/object_goroiwa.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
@@ -537,7 +536,7 @@ void EnGoroiwa_SpawnFragments(EnGoroiwa* pthis, GlobalContext* globalCtx) {
         fragmentVelocity.z = effectPos.z * 0.2f;
         Math_Vec3f_Sum(&effectPos, thisPos, &effectPos);
         EffectSsKakera_Spawn(globalCtx, &effectPos, &fragmentVelocity, &effectPos, -340, 33, 28, 2, 0,
-                             Rand_ZeroOne() * 7.0f + 1.0f, 1, 0, 70, KAKERA_COLOR_NONE, 1, gBoulderFragmentsDL);
+                             Rand_ZeroOne() * 7.0f + 1.0f, 1, 0, 70, KAKERA_COLOR_NONE, 1, oot::asset::gfx::load(symbol::gBoulderFragmentsDL));
     }
 
     effectPos.x = thisPos->x;
@@ -777,7 +776,7 @@ void EnGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gRollingRockDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gRollingRockDL));
 }
 
 void EnGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx) {

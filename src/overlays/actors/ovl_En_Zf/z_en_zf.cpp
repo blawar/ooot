@@ -7,7 +7,7 @@
  */
 
 #include "z_en_zf.h"
-#include "objects/object_zf/object_zf.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -227,7 +227,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32_DIV1000(gravity, -3500, ICHAIN_STOP),
 };
 
-static AnimationHeader* sHoppingAnims[] = { &gZfHopCrouchingAnim, &gZfHopLeapingAnim, &gZfHopLandingAnim };
+static AnimationHeader* sHoppingAnims[] = { oot::asset::anim::header::load(symbol::gZfHopCrouchingAnim), oot::asset::anim::header::load(symbol::gZfHopLeapingAnim), oot::asset::anim::header::load(symbol::gZfHopLandingAnim) };
 
 static s32 D_80B4AB30; // Set to 0 and incremented in EnZf_HopAway, but not actually used
 
@@ -347,12 +347,12 @@ void EnZf_Init(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->params == ENZF_TYPE_DINOLFOS) {
         thisx->colChkInfo.health = 12;
         thisx->naviEnemyId = 0x10;
-        SkelAnime_Init(globalCtx, &pthis->skelAnime, &gZfDinolfosSkel, &gZfCryingAnim, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gZfDinolfosSkel), oot::asset::anim::header::load(symbol::gZfCryingAnim), pthis->jointTable,
                        pthis->morphTable, ENZF_LIMB_MAX);
     } else { // Lizalfos
         thisx->colChkInfo.health = 6;
         thisx->naviEnemyId = 0x0F;
-        SkelAnime_Init(globalCtx, &pthis->skelAnime, &gZfLizalfosSkel, &gZfCryingAnim, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gZfLizalfosSkel), oot::asset::anim::header::load(symbol::gZfCryingAnim), pthis->jointTable,
                        pthis->morphTable, ENZF_LIMB_MAX);
     }
 
@@ -648,7 +648,7 @@ s32 EnZf_ChooseAction(GlobalContext* globalCtx, EnZf* pthis) {
  * Set position 300 units above ground and invisible, fade in and drop to ground, fully solid when on ground
  */
 void EnZf_SetupDropIn(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfJumpingAnim, 0.0f, 9.0f, Animation_GetLastFrame(&gZfJumpingAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfJumpingAnim), 0.0f, 9.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZfJumpingAnim)),
                      ANIMMODE_LOOP, 0.0f);
 
     pthis->actor.world.pos.y = pthis->actor.floorHeight + 300.0f;
@@ -688,7 +688,7 @@ void EnZf_DropIn(EnZf* pthis, GlobalContext* globalCtx) {
 
     if ((pthis->actor.bgCheckFlags & 3) && (pthis->hopAnimIndex != 0)) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_ONGND);
-        Animation_Change(&pthis->skelAnime, &gZfLandingAnim, 1.0f, 0.0f, 17.0f, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfLandingAnim), 1.0f, 0.0f, 17.0f, ANIMMODE_ONCE, 0.0f);
         pthis->hopAnimIndex = 0;
         pthis->actor.bgCheckFlags &= ~2;
         pthis->actor.world.pos.y = pthis->actor.floorHeight;
@@ -710,7 +710,7 @@ void EnZf_DropIn(EnZf* pthis, GlobalContext* globalCtx) {
 
 // stop? and choose an action
 void func_80B45384(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfCryingAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gZfCryingAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfCryingAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZfCryingAnim)),
                      ANIMMODE_LOOP_INTERP, -4.0f);
     pthis->action = ENZF_ACTION_3;
     pthis->unk_3F0 = Rand_ZeroOne() * 10.0f + 5.0f;
@@ -775,7 +775,7 @@ void func_80B4543C(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupApproachPlayer(EnZf* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gZfWalkingAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfWalkingAnim), -4.0f);
     pthis->action = ENZF_ACTION_APPROACH_PLAYER;
 
     if (pthis->actor.params >= ENZF_TYPE_LIZALFOS_MINIBOSS_A) { // miniboss
@@ -934,7 +934,7 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupJumpForward(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfJumpingAnim, 1.0f, 0.0f, 3.0f, ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfJumpingAnim), 1.0f, 0.0f, 3.0f, ANIMMODE_ONCE, -3.0f);
     pthis->unk_3F0 = 0;
     pthis->hopAnimIndex = 1;
     pthis->actor.velocity.y = 15.0f;
@@ -960,7 +960,7 @@ void EnZf_JumpForward(EnZf* pthis, GlobalContext* globalCtx) {
 
     if (SkelAnime_Update(&pthis->skelAnime)) {
         if (pthis->unk_3F0 == 0) {
-            Animation_Change(&pthis->skelAnime, &gZfLandingAnim, 3.0f, 0.0f, 17.0f, ANIMMODE_ONCE, -3.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfLandingAnim), 3.0f, 0.0f, 17.0f, ANIMMODE_ONCE, -3.0f);
             pthis->unk_3F0 = 10;
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_JUMP);
         } else {
@@ -983,7 +983,7 @@ void EnZf_JumpForward(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B4604C(EnZf* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gZfWalkingAnim, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfWalkingAnim), -4.0f);
     pthis->action = ENZF_ACTION_6;
     EnZf_SetupAction(pthis, func_80B46098);
 }
@@ -1050,7 +1050,7 @@ void func_80B462E4(EnZf* pthis, GlobalContext* globalCtx) {
     if ((pthis->actor.params < ENZF_TYPE_LIZALFOS_MINIBOSS_A) /* miniboss */ ||
         Actor_TestFloorInDirection(&pthis->actor, globalCtx, 40.0f, (s16)(pthis->actor.shape.rot.y + 0x3FFF)) ||
         Actor_TestFloorInDirection(&pthis->actor, globalCtx, -40.0f, (s16)(pthis->actor.shape.rot.y + 0x3FFF))) {
-        Animation_PlayLoop(&pthis->skelAnime, &gZfSidesteppingAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSidesteppingAnim));
         pthis->actor.speedXZ = Rand_CenteredFloat(12.0f);
         pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
         pthis->unk_3F0 = Rand_ZeroOne() * 10.0f + 20.0f;
@@ -1179,7 +1179,7 @@ void func_80B463E4(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupSlash(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfSlashAnim, 1.25f, 0.0f, Animation_GetLastFrame(&gZfSlashAnim), ANIMMODE_ONCE,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSlashAnim), 1.25f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZfSlashAnim)), ANIMMODE_ONCE,
                      -4.0f);
 
     if (pthis->actor.params == ENZF_TYPE_DINOLFOS) {
@@ -1250,7 +1250,7 @@ void EnZf_Slash(EnZf* pthis, GlobalContext* globalCtx) {
 void EnZf_SetupRecoilFromBlockedSlash(EnZf* pthis) {
     f32 frame = pthis->skelAnime.curFrame - 3.0f;
 
-    Animation_Change(&pthis->skelAnime, &gZfSlashAnim, -1.0f, frame, 0.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSlashAnim), -1.0f, frame, 0.0f, ANIMMODE_ONCE, 0.0f);
     pthis->action = ENZF_ACTION_RECOIL_FROM_BLOCKED_SLASH;
     EnZf_SetupAction(pthis, EnZf_RecoilFromBlockedSlash);
 }
@@ -1268,7 +1268,7 @@ void EnZf_RecoilFromBlockedSlash(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupJumpBack(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfJumpingAnim, -1.0f, 3.0f, 0.0f, ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfJumpingAnim), -1.0f, 3.0f, 0.0f, ANIMMODE_ONCE, -3.0f);
     pthis->unk_3F0 = 0;
     pthis->hopAnimIndex = 1;
     pthis->action = ENZF_ACTION_JUMP_BACK;
@@ -1288,7 +1288,7 @@ void EnZf_JumpBack(EnZf* pthis, GlobalContext* globalCtx) {
 
     if (SkelAnime_Update(&pthis->skelAnime)) {
         if (pthis->unk_3F0 == 0) {
-            Animation_Change(&pthis->skelAnime, &gZfLandingAnim, 3.0f, 0.0f, 17.0f, ANIMMODE_ONCE, -3.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfLandingAnim), 3.0f, 0.0f, 17.0f, ANIMMODE_ONCE, -3.0f);
             pthis->unk_3F0 = 10;
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_JUMP);
         } else if ((globalCtx->gameplayFrames % 2) != 0) {
@@ -1314,7 +1314,7 @@ void EnZf_SetupStunned(EnZf* pthis) {
     if (pthis->damageEffect == ENZF_DMGEFF_ICE) {
         pthis->iceTimer = 36;
     } else {
-        Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gZfKnockedBackAnim, 0.0f);
+        Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfKnockedBackAnim), 0.0f);
     }
 
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOMA_JR_FREEZE);
@@ -1367,13 +1367,13 @@ void EnZf_Stunned(EnZf* pthis, GlobalContext* globalCtx) {
 
 void EnZf_SetupSheatheSword(EnZf* pthis, GlobalContext* globalCtx) {
     f32 morphFrames = 0.0f;
-    f32 lastFrame = Animation_GetLastFrame(&gZfSheathingSwordAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZfSheathingSwordAnim));
 
     if (pthis->action <= ENZF_ACTION_DAMAGED) {
         morphFrames = -4.0f;
     }
 
-    Animation_Change(&pthis->skelAnime, &gZfSheathingSwordAnim, 2.0f, 0.0f, lastFrame, ANIMMODE_ONCE, morphFrames);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSheathingSwordAnim), 2.0f, 0.0f, lastFrame, ANIMMODE_ONCE, morphFrames);
     pthis->action = ENZF_ACTION_SHEATHE_SWORD;
     pthis->actor.speedXZ = 0.0f;
     pthis->curPlatform = EnZf_FindPlatform(&pthis->actor.world.pos, pthis->curPlatform);
@@ -1597,7 +1597,7 @@ void EnZf_HopAway(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupDrawSword(EnZf* pthis, GlobalContext* globalCtx) {
-    Animation_PlayOnce(&pthis->skelAnime, &gZfDrawingSwordAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfDrawingSwordAnim));
     pthis->actor.world.rot.y += 0x8000;
     pthis->action = ENZF_ACTION_DRAW_SWORD;
     pthis->actor.speedXZ = 0.0f;
@@ -1627,7 +1627,7 @@ void EnZf_DrawSword(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupDamaged(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfKnockedBackAnim, 1.5f, 0.0f, Animation_GetLastFrame(&gZfKnockedBackAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfKnockedBackAnim), 1.5f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZfKnockedBackAnim)),
                      ANIMMODE_ONCE, -4.0f);
 
     if ((pthis->actor.bgCheckFlags & 1) && ((pthis->actor.velocity.y == 0.0f) || (pthis->actor.velocity.y == -4.0f))) {
@@ -1714,7 +1714,7 @@ void EnZf_Damaged(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupJumpUp(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfJumpingAnim, 1.0f, 0.0f, 3.0f, ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfJumpingAnim), 1.0f, 0.0f, 3.0f, ANIMMODE_ONCE, 0.0f);
     pthis->unk_3F0 = 0;
     pthis->hopAnimIndex = 1;
     pthis->action = ENZF_ACTION_JUMP_UP;
@@ -1734,7 +1734,7 @@ void EnZf_JumpUp(EnZf* pthis, GlobalContext* globalCtx) {
 
     if (SkelAnime_Update(&pthis->skelAnime)) {
         if (pthis->unk_3F0 == 0) {
-            Animation_Change(&pthis->skelAnime, &gZfSlashAnim, 3.0f, 0.0f, 13.0f, ANIMMODE_ONCE, -4.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSlashAnim), 3.0f, 0.0f, 13.0f, ANIMMODE_ONCE, -4.0f);
             pthis->unk_3F0 = 10;
         } else if (pthis->actor.bgCheckFlags & 3) {
             pthis->actor.velocity.y = 0.0f;
@@ -1756,7 +1756,7 @@ void func_80B483E4(EnZf* pthis, GlobalContext* globalCtx) {
     if ((pthis->actor.params < ENZF_TYPE_LIZALFOS_MINIBOSS_A) /* not miniboss */ ||
         Actor_TestFloorInDirection(&pthis->actor, globalCtx, 40.0f, (s16)(pthis->actor.shape.rot.y + 0x3FFF)) ||
         Actor_TestFloorInDirection(&pthis->actor, globalCtx, -40.0f, (s16)(pthis->actor.shape.rot.y + 0x3FFF))) {
-        Animation_PlayLoop(&pthis->skelAnime, &gZfSidesteppingAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSidesteppingAnim));
         player = GET_PLAYER(globalCtx);
         Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 1, 4000, 1);
         playerRotY = player->actor.shape.rot.y;
@@ -1914,7 +1914,7 @@ void EnZf_CircleAroundPlayer(EnZf* pthis, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupDie(EnZf* pthis) {
-    Animation_Change(&pthis->skelAnime, &gZfDyingAnim, 1.5f, 0.0f, Animation_GetLastFrame(&gZfDyingAnim), ANIMMODE_ONCE,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfDyingAnim), 1.5f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gZfDyingAnim)), ANIMMODE_ONCE,
                      -4.0f);
 
     if ((pthis->actor.bgCheckFlags & 1) && ((pthis->actor.velocity.y == 0.0f) || (pthis->actor.velocity.y == -4.0f))) {
@@ -2151,12 +2151,12 @@ s32 EnZf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
             break;
         case ENZF_LIMB_SWORD:
             if (pthis->swordSheathed) {
-                *dList = gZfEmptyHandDL;
+                *dList = oot::asset::gfx::load(symbol::gZfEmptyHandDL);
             }
             break;
         case ENZF_LIMB_SCABBARD:
             if (pthis->swordSheathed) {
-                *dList = gZfSheathedSwordDL;
+                *dList = oot::asset::gfx::load(symbol::gZfSheathedSwordDL);
             }
             break;
         default:
@@ -2293,7 +2293,7 @@ void EnZf_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnZf_SetupCircleAroundPlayer(EnZf* pthis, f32 speed) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gZfSidesteppingAnim, -1.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gZfSidesteppingAnim), -1.0f);
     pthis->unk_3F0 = Rand_ZeroOne() * 10.0f + 8.0f;
 
     if (pthis->actor.params == ENZF_TYPE_DINOLFOS) {

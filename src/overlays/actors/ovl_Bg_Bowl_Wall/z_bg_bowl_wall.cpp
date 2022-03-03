@@ -9,7 +9,7 @@
 #include "z_bg_bowl_wall.h"
 #include "overlays/actors/ovl_En_Wall_Tubo/z_en_wall_tubo.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
-#include "objects/object_bowl/object_bowl.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
@@ -65,9 +65,9 @@ void BgBowlWall_Init(Actor* pthisx, GlobalContext* globalCtx) {
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
 
     if (pthis->dyna.actor.params == 0) {
-        CollisionHeader_GetVirtual(&gBowlingFirstAndFinalRoundCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBowlingFirstAndFinalRoundCol), &colHeader);
     } else {
-        CollisionHeader_GetVirtual(&gBowlingSecondRoundCol, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBowlingSecondRoundCol), &colHeader);
     }
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
@@ -223,9 +223,9 @@ void BgBowlWall_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if (pthis->dyna.actor.params == 0) {
-        gSPDisplayList(POLY_OPA_DISP++, gBowlingRound1WallDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBowlingRound1WallDL));
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, gBowlingRound2WallDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBowlingRound2WallDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 464);

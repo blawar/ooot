@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot16_doughnut.h"
-#include "objects/object_efc_doughnut/object_efc_doughnut.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -143,11 +143,11 @@ void BgSpot16Doughnut_Draw(Actor* thisx, GlobalContext* globalCtx) {
             POLY_XLU_DISP++, 0x08,
             Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * (-1), 0, 16, 32, 1, scroll, scroll * (-2), 16, 32));
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, pthis->envColorAlpha);
-        gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleFieryDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDeathMountainCloudCircleFieryDL));
     } else {
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
-        gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDeathMountainCloudCircleNormalDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 238);
@@ -165,7 +165,7 @@ void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
-    gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDeathMountainCloudCircleNormalDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 256);
 }

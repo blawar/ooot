@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_demo_ik.h"
 #include "vt.h"
-#include "objects/object_ik/object_ik.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
@@ -174,18 +174,18 @@ void DemoIk_Type1Init(DemoIk* pthis, GlobalContext* globalCtx) {
 
     switch (pthis->actor.params) {
         case 0:
-            skeleton = &object_ik_Skel_000C90;
-            animation = &object_ik_Anim_000C6C;
+            skeleton = oot::asset::skel::header2::load(symbol::object_ik_Skel_000C90);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_000C6C);
             phi_f0 = 30.0f;
             break;
         case 1:
-            skeleton = &object_ik_Skel_000660;
-            animation = &object_ik_Anim_000634;
+            skeleton = oot::asset::skel::header2::load(symbol::object_ik_Skel_000660);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_000634);
             phi_f0 = 10.0f;
             break;
         default:
-            skeleton = &object_ik_Skel_000380;
-            animation = &object_ik_Anim_00035C;
+            skeleton = oot::asset::skel::header2::load(symbol::object_ik_Skel_000380);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_00035C);
             phi_f0 = 20.0f;
             // No break is required for matching
     }
@@ -277,12 +277,12 @@ void DemoIk_Type1PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
             case 0:
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_ik_inArmer.c", 390),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016BE0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016BE0));
                 break;
             case 2:
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_ik_inArmer.c", 396),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016F88);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016F88));
                 break;
         }
     }
@@ -312,20 +312,20 @@ void DemoIk_Type2Init(DemoIk* pthis, GlobalContext* globalCtx) {
 
     switch (pthis->actor.params) {
         case 3:
-            skeleton = &object_ik_Skel_01EB40;
-            animation = &object_ik_Anim_01EB14;
+            skeleton = oot::asset::skel::header::load(symbol::object_ik_Skel_01EB40);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_01EB14);
             break;
         case 4:
-            skeleton = &object_ik_Skel_01EE60;
-            animation = &object_ik_Anim_01EE34;
+            skeleton = oot::asset::skel::header::load(symbol::object_ik_Skel_01EE60);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_01EE34);
             break;
         case 5:
-            skeleton = &object_ik_Skel_000F30;
-            animation = &object_ik_Anim_000F0C;
+            skeleton = oot::asset::skel::header::load(symbol::object_ik_Skel_000F30);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_000F0C);
             break;
         default:
-            skeleton = &object_ik_Skel_000900;
-            animation = &object_ik_Anim_0008DC;
+            skeleton = oot::asset::skel::header::load(symbol::object_ik_Skel_000900);
+            animation = oot::asset::anim::header::load(symbol::object_ik_Anim_0008DC);
     }
 
     SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, skeleton, NULL, pthis->jointTable, pthis->morphTable, 2);
@@ -435,22 +435,22 @@ void DemoIk_Type2PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
             case 3:
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_ik_inFace.c", 274),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_017028);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_017028));
                 break;
             case 4:
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_ik_inFace.c", 280),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_017170);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_017170));
                 break;
             case 5:
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_ik_inFace.c", 286),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016BE0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016BE0));
                 break;
             default:
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_demo_ik_inFace.c", 292),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016CD8);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_ik_DL_016CD8));
                 break;
         }
     }

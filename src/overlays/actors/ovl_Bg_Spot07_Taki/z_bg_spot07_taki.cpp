@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot07_taki.h"
-#include "objects/object_spot07_object/object_spot07_object.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
@@ -50,9 +50,9 @@ void BgSpot07Taki_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     if (LINK_IS_ADULT) {
         if (pthis->dyna.actor.params == 0) {
-            CollisionHeader_GetVirtual(&object_spot07_object_Col_002590, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot07_object_Col_002590), &colHeader);
         } else {
-            CollisionHeader_GetVirtual(&object_spot07_object_Col_0038FC, &colHeader);
+            CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot07_object_Col_0038FC), &colHeader);
         }
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     }
@@ -85,9 +85,9 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 177),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         if (pthis->dyna.actor.params == 0) {
-            gSPDisplayList(POLY_OPA_DISP++, object_spot07_object_DL_001CF0);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_spot07_object_DL_001CF0));
         } else {
-            gSPDisplayList(POLY_OPA_DISP++, object_spot07_object_DL_003210);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_spot07_object_DL_003210));
         }
     }
     func_80093D84(globalCtx->state.gfxCtx);
@@ -108,7 +108,7 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gSPSegment(POLY_XLU_DISP++, 0x0A,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 0, ((frames * 3) & 0x1FF), 32, 128, 1,
                                         frames * 0, ((frames * 3) & 0x1FF), 32, 128));
-            gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_000460);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot07_object_DL_000460));
         } else {
             gSPSegment(POLY_XLU_DISP++, 0x09,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 0, ((frames * -1) & 0x7F), 32, 32, 1,
@@ -116,12 +116,12 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx) {
             gSPSegment(POLY_XLU_DISP++, 0x0A,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 0, ((frames * 3) & 0x1FF), 32, 128, 1,
                                         frames * 0, ((frames * 3) & 0x1FF), 32, 128));
-            gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_000BE0);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot07_object_DL_000BE0));
         }
     } else if (pthis->dyna.actor.params == 0) {
-        gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_001F68);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot07_object_DL_001F68));
     } else {
-        gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_0032D8);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot07_object_DL_0032D8));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 272);
 }

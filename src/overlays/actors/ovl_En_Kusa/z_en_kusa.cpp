@@ -8,9 +8,9 @@
 
 #include "z_en_kusa.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
-#include "objects/object_kusa/object_kusa.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -48,7 +48,7 @@ void EnKusa_DoNothing(EnKusa* pthis, GlobalContext* globalCtx);
 void EnKusa_UprootedWaitRegrow(EnKusa* pthis, GlobalContext* globalCtx);
 void EnKusa_Regrow(EnKusa* pthis, GlobalContext* globalCtx);
 
-static Gfx* dLists_79[] = { gFieldBushDL, object_kusa_DL_000140, object_kusa_DL_000140 };
+static Gfx* dLists_79[] = { oot::asset::gfx::load(symbol::gFieldBushDL), oot::asset::gfx::load(symbol::object_kusa_DL_000140), oot::asset::gfx::load(symbol::object_kusa_DL_000140) };
 
 
 static s16 rotSpeedXtarget = 0;
@@ -205,7 +205,7 @@ void EnKusa_SpawnFragments(EnKusa* pthis, GlobalContext* globalCtx) {
         scaleIndex = (s32)(Rand_ZeroOne() * 111.1f) & 7;
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -100, 64, 40, 3, 0, sFragmentScales[scaleIndex], 0, 0,
-                             80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_KEEP, gCuttableShrubStalkDL);
+                             80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_KEEP, oot::asset::gfx::load(symbol::gCuttableShrubStalkDL));
 
         pos.x = pthis->actor.world.pos.x + (dir->x * pthis->actor.scale.x * 40.0f);
         pos.y = pthis->actor.world.pos.y + (dir->y * pthis->actor.scale.y * 40.0f) + 10.0f;
@@ -218,7 +218,7 @@ void EnKusa_SpawnFragments(EnKusa* pthis, GlobalContext* globalCtx) {
         scaleIndex = (s32)(Rand_ZeroOne() * 111.1f) % 7;
 
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -100, 64, 40, 3, 0, sFragmentScales[scaleIndex], 0, 0,
-                             80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_KEEP, gCuttableShrubTipDL);
+                             80, KAKERA_COLOR_NONE, OBJECT_GAMEPLAY_KEEP, oot::asset::gfx::load(symbol::gCuttableShrubTipDL));
     }
 }
 
@@ -512,7 +512,7 @@ void EnKusa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnKusa* pthis = (EnKusa*)thisx;
 
     if (pthis->actor.flags & ACTOR_FLAG_11) {
-        Gfx_DrawDListOpa(globalCtx, object_kusa_DL_0002E0);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_kusa_DL_0002E0));
     } else {
         Gfx_DrawDListOpa(globalCtx, dLists_79[thisx->params & 3]);
     }

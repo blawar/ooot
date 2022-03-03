@@ -63,7 +63,7 @@ void OceffWipe4_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-#include "overlays/ovl_Oceff_Wipe4/ovl_Oceff_Wipe4.cpp"
+#include "asset.h"
 
 void OceffWipe4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     u32 scroll = globalCtx->state.frames & 0xFFF;
@@ -83,7 +83,7 @@ void OceffWipe4_Draw(Actor* thisx, GlobalContext* globalCtx) {
         z = 1330.0f;
     }
 
-    vtxPtr = sFrustumVtx;
+    vtxPtr = oot::asset::vtx::load(symbol::sFrustumVtx);
     if (pthis->timer >= 30) {
         alpha = 12 * (50 - pthis->timer);
     } else {
@@ -108,15 +108,15 @@ void OceffWipe4_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if (pthis->actor.params == OCEFF_WIPE4_UNUSED) {
-        gSPDisplayList(POLY_XLU_DISP++, sUnusedMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sUnusedMaterialDL));
     } else {
-        gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sMaterialDL));
     }
 
-    gSPDisplayList(POLY_XLU_DISP++, sMaterial2DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sMaterial2DL));
     gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 2, scroll * (-2), 32, 64, 1,
                                                      scroll * (-1), scroll, 32, 32));
-    gSPDisplayList(POLY_XLU_DISP++, &sMaterial2DL[11]);
+    gSPDisplayList(POLY_XLU_DISP++, &oot::asset::gfx::load(symbol::sMaterial2DL)[11]);
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe4.c", 344);
 }

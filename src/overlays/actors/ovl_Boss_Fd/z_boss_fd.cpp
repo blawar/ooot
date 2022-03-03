@@ -7,12 +7,12 @@
  */
 
 #include "z_boss_fd.h"
-#include "objects/object_fd/object_fd.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Vb_Ball/z_en_vb_ball.h"
 #include "overlays/actors/ovl_Bg_Vb_Sima/z_bg_vb_sima.h"
 #include "overlays/actors/ovl_Boss_Fd2/z_boss_fd2.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
 #include "def/math_float.h"
@@ -49,7 +49,7 @@ static Color_RGBA8 colorYellow_59 = { 255, 255, 0, 255 };
 static Color_RGBA8 colorRed_59 = { 255, 10, 0, 255 };
 
 static void* dustTex_63[] = {
-    gDust1Tex, gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
+    oot::asset::texture::load(symbol::gDust1Tex), oot::asset::texture::load(symbol::gDust1Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust8Tex),
 };
 
 static Vec3f targetMod_72 = { 4500.0f, 0.0f, 0.0f };
@@ -195,10 +195,10 @@ void BossFd_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, NULL, 0.0f);
     Actor_SetScale(&pthis->actor, 0.05f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnimeHead, &gVolvagiaHeadSkel, &gVolvagiaHeadEmergeAnim, NULL, NULL, 0);
-    SkelAnime_Init(globalCtx, &pthis->skelAnimeRightArm, &gVolvagiaRightArmSkel, &gVolvagiaRightArmEmergeAnim, NULL,
+    SkelAnime_Init(globalCtx, &pthis->skelAnimeHead, oot::asset::skel::header2::load(symbol::gVolvagiaHeadSkel), oot::asset::anim::header::load(symbol::gVolvagiaHeadEmergeAnim), NULL, NULL, 0);
+    SkelAnime_Init(globalCtx, &pthis->skelAnimeRightArm, oot::asset::skel::header2::load(symbol::gVolvagiaRightArmSkel), oot::asset::anim::header::load(symbol::gVolvagiaRightArmEmergeAnim), NULL,
                    NULL, 0);
-    SkelAnime_Init(globalCtx, &pthis->skelAnimeLeftArm, &gVolvagiaLeftArmSkel, &gVolvagiaLeftArmEmergeAnim, NULL, NULL,
+    SkelAnime_Init(globalCtx, &pthis->skelAnimeLeftArm, oot::asset::skel::header2::load(symbol::gVolvagiaLeftArmSkel), oot::asset::anim::header::load(symbol::gVolvagiaLeftArmEmergeAnim), NULL, NULL,
                    0);
     pthis->introState = BFD_CS_WAIT;
     if (pthis->introState == BFD_CS_NONE) {
@@ -255,9 +255,9 @@ s32 BossFd_IsFacingLink(BossFd* pthis) {
 }
 
 void BossFd_SetupFly(BossFd* pthis, GlobalContext* globalCtx) {
-    Animation_PlayOnce(&pthis->skelAnimeHead, &gVolvagiaHeadEmergeAnim);
-    Animation_PlayOnce(&pthis->skelAnimeRightArm, &gVolvagiaRightArmEmergeAnim);
-    Animation_PlayOnce(&pthis->skelAnimeLeftArm, &gVolvagiaLeftArmEmergeAnim);
+    Animation_PlayOnce(&pthis->skelAnimeHead, oot::asset::anim::header::load(symbol::gVolvagiaHeadEmergeAnim));
+    Animation_PlayOnce(&pthis->skelAnimeRightArm, oot::asset::anim::header::load(symbol::gVolvagiaRightArmEmergeAnim));
+    Animation_PlayOnce(&pthis->skelAnimeLeftArm, oot::asset::anim::header::load(symbol::gVolvagiaLeftArmEmergeAnim));
     pthis->actionFunc = BossFd_Fly;
     pthis->fwork[BFD_TURN_RATE_MAX] = 1000.0f;
 }
@@ -506,7 +506,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
                 }
                 if ((pthis->timers[3] == 130) && !(gSaveContext.eventChkInf[7] & 8)) {
                     TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                           SEGMENTED_TO_VIRTUAL(gVolvagiaBossTitleCardTex), 0xA0, 0xB4, 0x80, 0x28);
+                                           SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gVolvagiaBossTitleCardTex)), 0xA0, 0xB4, 0x80, 0x28);
                 }
                 if (pthis->timers[3] <= 100) {
                     pthis->camData.eyeVel.x = pthis->camData.eyeVel.y = pthis->camData.eyeVel.z = 2.0f;
@@ -1532,7 +1532,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == BFD_FX_EMBER) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_XLU_DISP++, gVolvagiaEmberMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaEmberMaterialDL));
                 flag++;
             }
 
@@ -1543,7 +1543,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4046),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gVolvagiaEmberModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaEmberModelDL));
         }
     }
 
@@ -1553,7 +1553,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == BFD_FX_DEBRIS) {
             if (!flag) {
                 func_80093D18(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_OPA_DISP++, gVolvagiaDebrisMaterialDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gVolvagiaDebrisMaterialDL));
                 flag++;
             }
 
@@ -1564,7 +1564,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4068),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gVolvagiaDebrisModelDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gVolvagiaDebrisModelDL));
         }
     }
 
@@ -1574,7 +1574,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == BFD_FX_DUST) {
             if (!flag) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaDustMaterialDL));
                 gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 90, 30, 0, 255);
                 gDPSetEnvColor(POLY_XLU_DISP++, 90, 30, 0, 0);
                 flag++;
@@ -1587,7 +1587,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4104),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2]));
-            gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaDustModelDL));
         }
     }
 
@@ -1597,7 +1597,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == BFD_FX_FIRE_BREATH) {
             if (!flag) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaDustMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 255, 10, 0, 255);
                 flag++;
             }
@@ -1610,7 +1610,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4154),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2]));
-            gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaDustModelDL));
         }
     }
 
@@ -1620,7 +1620,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
         if (effect->type == BFD_FX_SKULL_PIECE) {
             if (!flag) {
                 func_80093D84(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_XLU_DISP++, gVolvagiaSkullPieceMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaSkullPieceMaterialDL));
                 flag++;
             }
 
@@ -1631,7 +1631,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4192),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gVolvagiaSkullPieceModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaSkullPieceModelDL));
         }
     }
 
@@ -1768,7 +1768,7 @@ void BossFd_DrawMane(GlobalContext* globalCtx, BossFd* pthis, Vec3f* manePos, Ve
         Matrix_RotateX(-M_PI / 2.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_fd.c", 4480),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gVolvagiaManeModelDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaManeModelDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd.c", 4483);
@@ -1787,13 +1787,13 @@ s32 BossFd_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
             break;
     }
     if ((pthis->faceExposed == true) && (limbIndex == 5)) {
-        *dList = gVolvagiaBrokenFaceDL;
+        *dList = oot::asset::gfx::load(symbol::gVolvagiaBrokenFaceDL);
     }
     if (pthis->skinSegments == 0) {
         if (limbIndex == 6) {
-            *dList = gVolvagiaSkullDL;
+            *dList = oot::asset::gfx::load(symbol::gVolvagiaSkullDL);
         } else if (limbIndex == 2) {
-            *dList = gVolvagiaJawboneDL;
+            *dList = oot::asset::gfx::load(symbol::gVolvagiaJawboneDL);
         } else {
             *dList = NULL;
         }
@@ -1811,16 +1811,16 @@ void BossFd_PostHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, V
 }
 
 static void* sEyeTextures[] = {
-    gVolvagiaEyeOpenTex,
-    gVolvagiaEyeHalfTex,
-    gVolvagiaEyeClosedTex,
+    oot::asset::texture::load(symbol::gVolvagiaEyeOpenTex),
+    oot::asset::texture::load(symbol::gVolvagiaEyeHalfTex),
+    oot::asset::texture::load(symbol::gVolvagiaEyeClosedTex),
 };
 
 static Gfx* sBodyDLists[] = {
-    gVolvagiaBodySeg1DL,  gVolvagiaBodySeg2DL,  gVolvagiaBodySeg3DL,  gVolvagiaBodySeg4DL,  gVolvagiaBodySeg5DL,
-    gVolvagiaBodySeg6DL,  gVolvagiaBodySeg7DL,  gVolvagiaBodySeg8DL,  gVolvagiaBodySeg9DL,  gVolvagiaBodySeg10DL,
-    gVolvagiaBodySeg11DL, gVolvagiaBodySeg12DL, gVolvagiaBodySeg13DL, gVolvagiaBodySeg14DL, gVolvagiaBodySeg15DL,
-    gVolvagiaBodySeg16DL, gVolvagiaBodySeg17DL, gVolvagiaBodySeg18DL,
+    oot::asset::gfx::load(symbol::gVolvagiaBodySeg1DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg2DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg3DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg4DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg5DL),
+    oot::asset::gfx::load(symbol::gVolvagiaBodySeg6DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg7DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg8DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg9DL),  oot::asset::gfx::load(symbol::gVolvagiaBodySeg10DL),
+    oot::asset::gfx::load(symbol::gVolvagiaBodySeg11DL), oot::asset::gfx::load(symbol::gVolvagiaBodySeg12DL), oot::asset::gfx::load(symbol::gVolvagiaBodySeg13DL), oot::asset::gfx::load(symbol::gVolvagiaBodySeg14DL), oot::asset::gfx::load(symbol::gVolvagiaBodySeg15DL),
+    oot::asset::gfx::load(symbol::gVolvagiaBodySeg16DL), oot::asset::gfx::load(symbol::gVolvagiaBodySeg17DL), oot::asset::gfx::load(symbol::gVolvagiaBodySeg18DL),
 };
 
 void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* pthis) {
@@ -1909,7 +1909,7 @@ void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* pthis) {
                 Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_fd.c", 4768),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, gVolvagiaRibsDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gVolvagiaRibsDL));
 
                 if (pthis->bodyFallApart[i] == 1) {
                     EnVbBall* bones;
@@ -1962,7 +1962,7 @@ void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* pthis) {
         Vec3f spA4 = { -1000.0f, 700.0f, 7000.0f };
 
         func_80093D84(globalCtx->state.gfxCtx);
-        gSPDisplayList(POLY_XLU_DISP++, gVolvagiaManeMaterialDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gVolvagiaManeMaterialDL));
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, pthis->fwork[BFD_MANE_COLOR_CENTER], 0, 255);
         Matrix_Push();
         Matrix_MultVec3f(&spB0, &pthis->centerMane.head);

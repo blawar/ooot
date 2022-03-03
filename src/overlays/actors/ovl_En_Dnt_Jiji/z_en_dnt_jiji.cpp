@@ -7,7 +7,7 @@
  */
 
 #include "z_en_dnt_jiji.h"
-#include "objects/object_dns/object_dns.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Dnt_Demo/z_en_dnt_demo.h"
 #include "overlays/effects/ovl_Effect_Ss_Hahen/z_eff_ss_hahen.h"
 #include "vt.h"
@@ -56,7 +56,7 @@ void EnDntJiji_GivePrize(EnDntJiji* pthis, GlobalContext* globalCtx);
 void EnDntJiji_Hide(EnDntJiji* pthis, GlobalContext* globalCtx);
 void EnDntJiji_Return(EnDntJiji* pthis, GlobalContext* globalCtx);
 
-static void* blinkTex_74[] = { gDntJijiEyeOpenTex, gDntJijiEyeHalfTex, gDntJijiEyeShutTex };
+static void* blinkTex_74[] = { oot::asset::texture::load(symbol::gDntJijiEyeOpenTex), oot::asset::texture::load(symbol::gDntJijiEyeHalfTex), oot::asset::texture::load(symbol::gDntJijiEyeShutTex) };
 
 
 ActorInit En_Dnt_Jiji_InitVars = {
@@ -96,7 +96,7 @@ void EnDntJiji_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnDntJiji* pthis = (EnDntJiji*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gDntJijiSkel, &gDntJijiBurrowAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gDntJijiSkel), oot::asset::anim::header::load(symbol::gDntJijiBurrowAnim), pthis->jointTable, pthis->morphTable,
                    13);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -126,8 +126,8 @@ void EnDntJiji_SetFlower(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupWait(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiBurrowAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiBurrowAnim, 0.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiBurrowAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiBurrowAnim), 0.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->skelAnime.curFrame = 8.0f;
     pthis->isSolid = pthis->action = DNT_LEADER_ACTION_NONE;
     pthis->actionFunc = EnDntJiji_Wait;
@@ -147,8 +147,8 @@ void EnDntJiji_Wait(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupUp(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiUpAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiUpAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiUpAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiUpAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 15, 5, 20, HAHEN_OBJECT_DEFAULT, 10, NULL);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_UP);
     pthis->actionFunc = EnDntJiji_Up;
@@ -163,8 +163,8 @@ void EnDntJiji_Up(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupUnburrow(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiUnburrowAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiUnburrowAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiUnburrowAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiUnburrowAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 15, 5, 20, HAHEN_OBJECT_DEFAULT, 10, NULL);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_UP);
     pthis->actionFunc = EnDntJiji_Unburrow;
@@ -184,8 +184,8 @@ void EnDntJiji_Unburrow(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupWalk(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiWalkAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiWalkAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiWalkAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiWalkAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.speedXZ = 1.0f;
     pthis->isSolid = true;
     pthis->unburrow = true;
@@ -220,8 +220,8 @@ void EnDntJiji_Walk(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupBurrow(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiBurrowAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiBurrowAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiBurrowAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiBurrowAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 15, 5, 20, HAHEN_OBJECT_DEFAULT, 10, NULL);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_UP);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_DOWN);
@@ -233,8 +233,8 @@ void EnDntJiji_Burrow(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupCower(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiCowerAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiCowerAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiCowerAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiCowerAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 3.0f, 0, 9, 3, 10, HAHEN_OBJECT_DEFAULT, 10, NULL);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_UP);
 
@@ -264,8 +264,8 @@ void EnDntJiji_Cower(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupTalk(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiTalkAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiTalkAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiTalkAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiTalkAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = EnDntJiji_Talk;
 }
 
@@ -334,8 +334,8 @@ void EnDntJiji_GivePrize(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupHide(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiHideAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiHideAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiHideAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiHideAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = EnDntJiji_Hide;
 }
 
@@ -349,8 +349,8 @@ void EnDntJiji_Hide(EnDntJiji* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_SetupReturn(EnDntJiji* pthis, GlobalContext* globalCtx) {
-    pthis->endFrame = (f32)Animation_GetLastFrame(&gDntJijiWalkAnim);
-    Animation_Change(&pthis->skelAnime, &gDntJijiWalkAnim, 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
+    pthis->endFrame = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDntJijiWalkAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDntJijiWalkAnim), 1.0f, 0.0f, pthis->endFrame, ANIMMODE_LOOP, -10.0f);
     pthis->actor.speedXZ = 2.0f;
     pthis->isSolid = pthis->unburrow = true;
     pthis->actionFunc = EnDntJiji_Return;
@@ -460,7 +460,7 @@ void EnDntJiji_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1040),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gDntJijiFlowerDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gDntJijiFlowerDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1043);
 }
 

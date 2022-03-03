@@ -7,7 +7,7 @@
  */
 
 #include "z_en_torch2.h"
-#include "objects/object_torch2/object_torch2.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/random.h"
 #include "def/padutils.h"
@@ -109,7 +109,7 @@ void EnTorch2_Init(Actor* thisx, GlobalContext* globalCtx2) {
     pthis->currentShield = PLAYER_SHIELD_HYLIAN;
     pthis->heldItemActionParam = pthis->heldItemId = PLAYER_AP_SWORD_MASTER;
     Player_SetModelGroup(pthis, 2);
-    globalCtx->playerInit(pthis, globalCtx, &gDarkLinkSkel);
+    globalCtx->playerInit(pthis, globalCtx, oot::asset::skel::header::load(symbol::gDarkLinkSkel));
     pthis->actor.naviEnemyId = 0x26;
     pthis->cylinder.base.acFlags = AC_ON | AC_TYPE_PLAYER;
     pthis->swordQuads[0].base.atFlags = pthis->swordQuads[1].base.atFlags = AT_ON | AT_TYPE_ENEMY;

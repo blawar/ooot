@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_kirakira.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -49,12 +49,12 @@ u32 EffectSsKiraKira_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, 
 
     if ((pthis->life = initParams->life) < 0) {
         pthis->life = -pthis->life;
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffSparklesDL);
+        pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffSparklesDL));
         pthis->update = func_809AAD6C;
         pthis->rEnvColorA = initParams->scale;
         pthis->rScale = 0;
     } else {
-        pthis->gfx = SEGMENTED_TO_VIRTUAL(gEffSparklesDL);
+        pthis->gfx = SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gEffSparklesDL));
 
         if (initParams->updateMode == 0) {
             pthis->update = func_809AABF0;

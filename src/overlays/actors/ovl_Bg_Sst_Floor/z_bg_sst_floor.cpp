@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_sst_floor.h"
-#include "objects/object_sst/object_sst.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sinf.h"
 #include "def/sys_matrix.h"
@@ -51,7 +51,7 @@ void BgSstFloor_Init(BgSstFloor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&gBongoDrumCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBongoDrumCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 }
 
@@ -66,7 +66,7 @@ void BgSstFloor_Update(BgSstFloor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     BgSstFloor* pthis = (BgSstFloor*)thisx;
     Player* player = GET_PLAYER(globalCtx);
-    CollisionHeader* colHeader = &gBongoDrumCol;
+    CollisionHeader* colHeader = oot::asset::collision::header::load(symbol::gBongoDrumCol);
 
     colHeader->vtxList = colHeader->vtxList;
 
@@ -142,7 +142,7 @@ void BgSstFloor_Draw(BgSstFloor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_sst_floor.c", 283),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_OPA_DISP++, gBongoDrumDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBongoDrumDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_sst_floor.c", 287);
 }

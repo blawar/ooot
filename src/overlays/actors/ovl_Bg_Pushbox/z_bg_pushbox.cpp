@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_pushbox.h"
-#include "objects/object_pu_box/object_pu_box.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -55,7 +55,7 @@ void BgPushbox_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gBlockSmallCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBlockSmallCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     ActorShape_Init(&pthis->dyna.actor.shape, 0.0f, NULL, 0.0f);
     BgPushbox_SetupAction(pthis, BgPushbox_UpdateImpl);
@@ -93,7 +93,7 @@ void BgPushbox_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_pushbox.c", 269),
               G_MTX_NOPUSH | G_MTX_MODELVIEW | G_MTX_LOAD);
-    gSPDisplayList(POLY_OPA_DISP++, gBlockSmallDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBlockSmallDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_pushbox.c", 272);
 }

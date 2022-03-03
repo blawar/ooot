@@ -4,7 +4,7 @@
 #include "vt.h"
 #include "overlays/actors/ovl_En_Syateki_Niw/z_en_syateki_niw.h"
 #include "overlays/actors/ovl_En_Ex_Item/z_en_ex_item.h"
-#include "objects/object_bg/object_bg.h"
+#include "asset.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
 #include "def/z_common_data.h"
@@ -46,7 +46,7 @@ static Vec3f cuccoSpawnPos_39[] = { { 60, -60, -430 }, { 0, -120, -620 } };
 
 static f32 cuccoScales_39[] = { 0.01f, 0.03f };
 
-static void* eyeTextures_60[] = { gChuGirlEyeOpenTex, gChuGirlEyeHalfTex, gChuGirlEyeClosedTex };
+static void* eyeTextures_60[] = { oot::asset::texture::load(symbol::gChuGirlEyeOpenTex), oot::asset::texture::load(symbol::gChuGirlEyeHalfTex), oot::asset::texture::load(symbol::gChuGirlEyeClosedTex) };
 
 
 ActorInit En_Bom_Bowl_Man_InitVars = {
@@ -69,7 +69,7 @@ void EnBomBowlMan_Init(Actor* thisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gChuGirlSkel, &gChuGirlNoddingOffAnim, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gChuGirlSkel), oot::asset::anim::header::load(symbol::gChuGirlNoddingOffAnim), pthis->jointTable,
                        pthis->morphTable, 11);
     // "☆ Man, my shoulders hurt~ ☆"
     osSyncPrintf(VT_FGCOL(GREEN) "☆ もー 肩こっちゃうよねぇ〜 \t\t ☆ \n" VT_RST);
@@ -100,8 +100,8 @@ void EnBomBowlMan_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBomBowMan_SetupWaitAsleep(EnBomBowlMan* pthis, GlobalContext* globalCtx) {
-    pthis->frameCount = (f32)Animation_GetLastFrame(&gChuGirlNoddingOffAnim);
-    Animation_Change(&pthis->skelAnime, &gChuGirlNoddingOffAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP, -10.0f);
+    pthis->frameCount = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChuGirlNoddingOffAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChuGirlNoddingOffAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP, -10.0f);
     pthis->actor.textId = 0xC0;
     pthis->dialogState = TEXT_STATE_EVENT;
     pthis->actionFunc = EnBomBowMan_WaitAsleep;
@@ -133,8 +133,8 @@ void EnBomBowMan_TalkAsleep(EnBomBowlMan* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBomBowMan_WakeUp(EnBomBowlMan* pthis, GlobalContext* globalCtx) {
-    pthis->frameCount = (f32)Animation_GetLastFrame(&gChuGirlWakeUpAnim);
-    Animation_Change(&pthis->skelAnime, &gChuGirlWakeUpAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE, -10.0f);
+    pthis->frameCount = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChuGirlWakeUpAnim));
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChuGirlWakeUpAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_ONCE, -10.0f);
     pthis->eyeMode = CHU_GIRL_EYES_OPEN_SLOWLY;
     pthis->actionFunc = EnBomBowMan_BlinkAwake;
 }
@@ -170,8 +170,8 @@ void EnBomBowMan_CheckBeatenDC(EnBomBowlMan* pthis, GlobalContext* globalCtx) {
 
     if ((Message_GetState(&globalCtx->msgCtx) == pthis->dialogState) && Message_ShouldAdvance(globalCtx)) {
         Message_CloseTextbox(globalCtx);
-        pthis->frameCount = (f32)Animation_GetLastFrame(&gChuGirlLeanOverCounterAnim);
-        Animation_Change(&pthis->skelAnime, &gChuGirlLeanOverCounterAnim, 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
+        pthis->frameCount = (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gChuGirlLeanOverCounterAnim));
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gChuGirlLeanOverCounterAnim), 1.0f, 0.0f, pthis->frameCount, ANIMMODE_LOOP,
                          -10.0f);
         pthis->eyeMode = CHU_GIRL_EYES_AWAKE;
         pthis->blinkTimer = (s16)Rand_ZeroFloat(60.0f) + 20;

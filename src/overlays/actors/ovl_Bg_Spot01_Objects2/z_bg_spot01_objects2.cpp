@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_spot01_objects2.h"
-#include "objects/object_spot01_matoya/object_spot01_matoya.h"
-#include "objects/object_spot01_matoyab/object_spot01_matoyab.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -48,8 +47,8 @@ static InitChainEntry sInitChain[] = {
 };
 
 static Gfx* D_808AC510[] = {
-    gKakarikoPotionShopSignDL,   gKakarikoShootingGallerySignDL, gKakarikoBazaarSignDL,
-    gKakarikoConstructionSiteDL, gKakarikoShootingGalleryDL,
+    oot::asset::gfx::load(symbol::gKakarikoPotionShopSignDL),   oot::asset::gfx::load(symbol::gKakarikoShootingGallerySignDL), oot::asset::gfx::load(symbol::gKakarikoBazaarSignDL),
+    oot::asset::gfx::load(symbol::gKakarikoConstructionSiteDL), oot::asset::gfx::load(symbol::gKakarikoShootingGalleryDL),
 };
 
 void BgSpot01Objects2_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -104,18 +103,17 @@ void func_808AC2BC(BgSpot01Objects2* pthis, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, pthis->objBankIndex)) {
         // "---- Successful bank switching!!"
         osSyncPrintf("-----バンク切り換え成功！！\n");
-        gSegments[6] = gObjectTable[pthis->objBankIndex].vromStart.get();
 
         pthis->dyna.actor.objBankIndex = pthis->objBankIndex;
         DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
 
         switch (pthis->dyna.actor.params & 7) {
             case 4: // Shooting gallery
-                CollisionHeader_GetVirtual(&gKakarikoShootingGalleryCol, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gKakarikoShootingGalleryCol), &colHeader);
                 pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
                 break;
             case 3: // Shooting Gallery, spawns Carpenter Sabooro during the day
-                CollisionHeader_GetVirtual(&object_spot01_matoyab_col, &colHeader);
+                CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot01_matoyab_col), &colHeader);
                 pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
                 if (IS_DAY) {
                     func_808AC22C(globalCtx->setupPathList, &position, ((s32)thisx->params >> 8) & 0xFF, 0);

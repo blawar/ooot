@@ -8,36 +8,36 @@
 
 #include "z_demo_ec.h"
 #include "vt.h"
-#include "objects/object_zo/object_zo.h"
-#include "objects/object_ec/object_ec.h"
-#include "objects/object_ma2/object_ma2.h"
-#include "objects/object_in/object_in.h"
-#include "objects/object_ge1/object_ge1.h"
-#include "objects/object_fu/object_fu.h"
-#include "objects/object_fish/object_fish.h"
-#include "objects/object_ta/object_ta.h"
-#include "objects/object_oF1d_map/object_oF1d_map.h"
-#include "objects/object_ma2/object_ma2.h"
-#include "objects/object_in/object_in.h"
-#include "objects/object_ta/object_ta.h"
-#include "objects/object_fu/object_fu.h"
-#include "objects/object_toryo/object_toryo.h"
-#include "objects/object_daiku/object_daiku.h"
-#include "objects/object_ge1/object_ge1.h"
-#include "objects/object_kz/object_kz.h"
-#include "objects/object_md/object_md.h"
-#include "objects/object_niw/object_niw.h"
-#include "objects/object_ds2/object_ds2.h"
-#include "objects/object_os/object_os.h"
-#include "objects/object_rs/object_rs.h"
-#include "objects/object_gm/object_gm.h"
-#include "objects/object_km1/object_km1.h"
-#include "objects/object_kw1/object_kw1.h"
-#include "objects/object_bji/object_bji.h"
-#include "objects/object_ahg/object_ahg.h"
-#include "objects/object_bob/object_bob.h"
-#include "objects/object_bba/object_bba.h"
-#include "objects/object_ane/object_ane.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/graph.h"
 #include "def/z_actor.h"
 #include "def/z_lib.h"
@@ -57,50 +57,50 @@ static u8 color1_83[] = { 0, 130, 70, 255 };
 
 static u8 color2_83[] = { 110, 170, 20, 255 };
 
-static void* eyeTextures_88[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex };
+static void* eyeTextures_88[] = { oot::asset::texture::load(symbol::gKw1EyeOpenTex), oot::asset::texture::load(symbol::gKw1EyeHalfTex), oot::asset::texture::load(symbol::gKw1EyeClosedTex) };
 
 static u8 color1_88[] = { 70, 190, 60, 255 };
 
 static u8 color2_88[] = { 100, 30, 0, 255 };
 
-static void* eyeTextures_91[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC };
+static void* eyeTextures_91[] = { oot::asset::texture::load(symbol::object_bji_Tex_0005FC), oot::asset::texture::load(symbol::object_bji_Tex_0009FC), oot::asset::texture::load(symbol::object_bji_Tex_000DFC) };
 
 static u8 color1_91[] = { 0, 50, 100, 255 };
 
 static u8 color2_91[] = { 0, 50, 160, 255 };
 
-static void* eyeTextures_94[] = { object_ahg_Tex_00057C, object_ahg_Tex_00067C, object_ahg_Tex_00077C };
+static void* eyeTextures_94[] = { oot::asset::texture::load(symbol::object_ahg_Tex_00057C), oot::asset::texture::load(symbol::object_ahg_Tex_00067C), oot::asset::texture::load(symbol::object_ahg_Tex_00077C) };
 
 static u8 color1_94[] = { 255, 255, 255, 255 };
 
 static u8 color2_94[] = { 255, 255, 255, 255 };
 
-static u8* eyeTextures_97[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8 };
+static u8* eyeTextures_97[] = { oot::asset::texture::load(symbol::object_bob_Tex_0007C8), oot::asset::texture::load(symbol::object_bob_Tex_000FC8), oot::asset::texture::load(symbol::object_bob_Tex_0017C8) };
 
-static void* eyeTextures_114[] = { gGerudoWhiteEyeOpenTex, gGerudoWhiteEyeHalfTex, gGerudoWhiteEyeClosedTex };
+static void* eyeTextures_114[] = { oot::asset::texture::load(symbol::gGerudoWhiteEyeOpenTex), oot::asset::texture::load(symbol::gGerudoWhiteEyeHalfTex), oot::asset::texture::load(symbol::gGerudoWhiteEyeClosedTex) };
 
-static void* eyeTextures_117[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
+static void* eyeTextures_117[] = { oot::asset::texture::load(symbol::gZoraEyeOpenTex), oot::asset::texture::load(symbol::gZoraEyeHalfTex), oot::asset::texture::load(symbol::gZoraEyeClosedTex) };
 
-static void* eyeTextures_126[] = { gKzEyeOpenTex, gKzEyeHalfTex, gKzEyeClosedTex, gKzEyeOpen2Tex };
+static void* eyeTextures_126[] = { oot::asset::texture::load(symbol::gKzEyeOpenTex), oot::asset::texture::load(symbol::gKzEyeHalfTex), oot::asset::texture::load(symbol::gKzEyeClosedTex), oot::asset::texture::load(symbol::gKzEyeOpen2Tex) };
 
-static void* eyeTextures_133[] = { gMidoEyeOpenTex, gMidoEyeHalfTex, gMidoEyeClosedTex, gMidoEyeAngryTex };
+static void* eyeTextures_133[] = { oot::asset::texture::load(symbol::gMidoEyeOpenTex), oot::asset::texture::load(symbol::gMidoEyeHalfTex), oot::asset::texture::load(symbol::gMidoEyeClosedTex), oot::asset::texture::load(symbol::gMidoEyeAngryTex) };
 
-static void* eyeTextures_139[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
+static void* eyeTextures_139[] = { oot::asset::texture::load(symbol::gCuccoLadyEyeOpenTex), oot::asset::texture::load(symbol::gCuccoLadyEyeHalfTex), oot::asset::texture::load(symbol::gCuccoLadyEyeClosedTex) };
 
-static void* eyeTextures_142[] = { gPotionShopkeeperEyeOpenTex, gPotionShopkeeperEyeHalfTex, gPotionShopkeeperEyeClosedTex };
+static void* eyeTextures_142[] = { oot::asset::texture::load(symbol::gPotionShopkeeperEyeOpenTex), oot::asset::texture::load(symbol::gPotionShopkeeperEyeHalfTex), oot::asset::texture::load(symbol::gPotionShopkeeperEyeClosedTex) };
 
 static void* eyeTextures_149[] = {
-    gFishingOwnerEyeOpenTex,
-    gFishingOwnerEyeHalfTex,
-    gFishingOwnerEyeClosedTex,
+    oot::asset::texture::load(symbol::gFishingOwnerEyeOpenTex),
+    oot::asset::texture::load(symbol::gFishingOwnerEyeHalfTex),
+    oot::asset::texture::load(symbol::gFishingOwnerEyeClosedTex),
 };
 
-static void* eyeTextures_152[] = { gBombchuShopkeeperEyeOpenTex, gBombchuShopkeeperEyeHalfTex,
-                               gBombchuShopkeeperEyeClosedTex };
+static void* eyeTextures_152[] = { oot::asset::texture::load(symbol::gBombchuShopkeeperEyeOpenTex), oot::asset::texture::load(symbol::gBombchuShopkeeperEyeHalfTex),
+                               oot::asset::texture::load(symbol::gBombchuShopkeeperEyeClosedTex) };
 
-static void* eyeTextures_155[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+static void* eyeTextures_155[] = { oot::asset::texture::load(symbol::gGoronCsEyeOpenTex), oot::asset::texture::load(symbol::gGoronCsEyeHalfTex), oot::asset::texture::load(symbol::gGoronCsEyeClosedTex) };
 
-static void* eyeTextures_158[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
+static void* eyeTextures_158[] = { oot::asset::texture::load(symbol::gMalonAdultEyeOpenTex), oot::asset::texture::load(symbol::gMalonAdultEyeHalfTex), oot::asset::texture::load(symbol::gMalonAdultEyeClosedTex) };
 
 
 static s16 sDrawObjects[] = {
@@ -318,8 +318,6 @@ void DemoEc_UseDrawObject(DemoEc* pthis, GlobalContext* globalCtx) {
 
     OPEN_DISPS(gfxCtx, "../z_demo_ec.c", 662);
 
-    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[drawObjBankIndex].vromStart.get());
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[drawObjBankIndex].vromStart.get());
     if (!globalCtx) {}
 
     CLOSE_DISPS(gfxCtx, "../z_demo_ec.c", 670);
@@ -328,7 +326,6 @@ void DemoEc_UseDrawObject(DemoEc* pthis, GlobalContext* globalCtx) {
 void DemoEc_UseAnimationObject(DemoEc* pthis, GlobalContext* globalCtx) {
     s32 animObjBankIndex = pthis->animObjBankIndex;
 
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[animObjBankIndex].vromStart.get());
 }
 
 CsCmdActorAction* DemoEc_GetNpcAction(GlobalContext* globalCtx, s32 actionIndex) {
@@ -353,9 +350,9 @@ void DemoEc_SetNpcActionPosRot(DemoEc* pthis, GlobalContext* globalCtx, s32 acti
 
 void DemoEc_InitIngo(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gIngoSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gIngoSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcIngoAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcIngoAnim), 0, 0.0f, false);
     func_8096D64C(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_INGO;
@@ -369,14 +366,14 @@ void DemoEc_UpdateIngo(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawIngo(DemoEc* pthis, GlobalContext* globalCtx) {
-    DemoEc_DrawSkeleton(pthis, globalCtx, gIngoEyeClosed2Tex, gIngoRedTex, 0, 0);
+    DemoEc_DrawSkeleton(pthis, globalCtx, oot::asset::texture::load(symbol::gIngoEyeClosed2Tex), oot::asset::texture::load(symbol::gIngoRedTex), 0, 0);
 }
 
 void DemoEc_InitTalon(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gTalonSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gTalonSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcTalonAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcTalonAnim), 0, 0.0f, false);
     func_8096D64C(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_TALON;
@@ -390,14 +387,14 @@ void DemoEc_UpdateTalon(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawTalon(DemoEc* pthis, GlobalContext* globalCtx) {
-    DemoEc_DrawSkeleton(pthis, globalCtx, gTalonEyeClosed2Tex, gTalonRedTex, NULL, NULL);
+    DemoEc_DrawSkeleton(pthis, globalCtx, oot::asset::texture::load(symbol::gTalonEyeClosed2Tex), oot::asset::texture::load(symbol::gTalonRedTex), NULL, NULL);
 }
 
 void DemoEc_InitWindmillMan(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gWindmillManSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gWindmillManSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcWindmillManAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcWindmillManAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_WINDMILL_MAN;
@@ -411,14 +408,14 @@ void DemoEc_UpdateWindmillMan(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawWindmillMan(DemoEc* pthis, GlobalContext* globalCtx) {
-    DemoEc_DrawSkeleton(pthis, globalCtx, gWindmillManEyeClosedTex, gWindmillManMouthAngryTex, NULL, NULL);
+    DemoEc_DrawSkeleton(pthis, globalCtx, oot::asset::texture::load(symbol::gWindmillManEyeClosedTex), oot::asset::texture::load(symbol::gWindmillManMouthAngryTex), NULL, NULL);
 }
 
 void DemoEc_InitKokiriBoy(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gKm1Skel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gKm1Skel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcKokiriAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcKokiriAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_KOKIRI_BOY;
@@ -427,9 +424,9 @@ void DemoEc_InitKokiriBoy(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitDancingKokiriBoy(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gKm1Skel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gKm1Skel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcDancingKokiriAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcDancingKokiriAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_DANCING_KOKIRI_BOY;
@@ -453,9 +450,9 @@ void DemoEc_DrawKokiriBoy(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gKw1Skel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gKw1Skel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcKokiriAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcKokiriAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_KOKIRI_GIRL;
@@ -464,9 +461,9 @@ void DemoEc_InitKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitDancingKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gKw1Skel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gKw1Skel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcDancingKokiriAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcDancingKokiriAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_DANCING_KOKIRI_GIRL;
@@ -492,9 +489,9 @@ void DemoEc_DrawKokiriGirl(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 void DemoEc_InitOldMan(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_bji_Skel_0000F0);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_bji_Skel_0000F0));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcOldManAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcOldManAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_OLD_MAN;
@@ -517,9 +514,9 @@ void DemoEc_DrawOldMan(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitBeardedMan(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_ahg_Skel_0000F0);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_ahg_Skel_0000F0));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcOldManAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcOldManAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_BEARDED_MAN;
@@ -542,9 +539,9 @@ void DemoEc_DrawBeardedMan(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitWoman(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_bob_Skel_0000F0);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_bob_Skel_0000F0));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcOldManAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcOldManAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_WOMAN;
@@ -567,9 +564,9 @@ void DemoEc_DrawWoman(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitOldWoman(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_bba_Skel_0000F0);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_bba_Skel_0000F0));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcOldManAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcOldManAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_OLD_WOMAN;
@@ -583,14 +580,14 @@ void DemoEc_UpdateOldWoman(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawOldWoman(DemoEc* pthis, GlobalContext* globalCtx) {
-    DemoEc_DrawSkeleton(pthis, globalCtx, &object_bba_Tex_0004C8, NULL, NULL, NULL);
+    DemoEc_DrawSkeleton(pthis, globalCtx, oot::asset::texture::load(symbol::object_bba_Tex_0004C8), NULL, NULL, NULL);
 }
 
 void DemoEc_InitBossCarpenter(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_toryo_Skel_007150);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_toryo_Skel_007150));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcCarpenterAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcCarpenterAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_BOSS_CARPENTER;
@@ -609,9 +606,9 @@ void DemoEc_DrawBossCarpenter(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitCarpenter(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_daiku_Skel_007958);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_daiku_Skel_007958));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcCarpenterAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcCarpenterAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_CARPENTER;
@@ -652,13 +649,13 @@ s32 DemoEc_CarpenterOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
 Gfx* DemoEc_GetCarpenterPostLimbDList(DemoEc* pthis) {
     switch (pthis->actor.params) {
         case 10:
-            return object_daiku_DL_005BD0;
+            return oot::asset::gfx::load(symbol::object_daiku_DL_005BD0);
         case 11:
-            return object_daiku_DL_005AC0;
+            return oot::asset::gfx::load(symbol::object_daiku_DL_005AC0);
         case 12:
-            return object_daiku_DL_005990;
+            return oot::asset::gfx::load(symbol::object_daiku_DL_005990);
         case 13:
-            return object_daiku_DL_005880;
+            return oot::asset::gfx::load(symbol::object_daiku_DL_005880);
         default:
             osSyncPrintf(VT_FGCOL(RED) "かつらが無い!!!!!!!!!!!!!!!!\n" VT_RST);
             return NULL;
@@ -682,9 +679,9 @@ void DemoEc_DrawCarpenter(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitGerudo(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gGerudoWhiteSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gGerudoWhiteSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcGerudoAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcGerudoAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_GERUDO;
@@ -701,11 +698,11 @@ void DemoEc_UpdateGerudo(DemoEc* pthis, GlobalContext* globalCtx) {
 Gfx* DemoEc_GetGerudoPostLimbDList(DemoEc* pthis) {
     switch (pthis->actor.params) {
         case 16:
-            return gGerudoWhiteHairstyleBobDL;
+            return oot::asset::gfx::load(symbol::gGerudoWhiteHairstyleBobDL);
         case 17:
-            return gGerudoWhiteHairstyleStraightFringeDL;
+            return oot::asset::gfx::load(symbol::gGerudoWhiteHairstyleStraightFringeDL);
         case 18:
-            return gGerudoWhiteHairstyleSpikyDL;
+            return oot::asset::gfx::load(symbol::gGerudoWhiteHairstyleSpikyDL);
         default:
             osSyncPrintf(VT_FGCOL(RED) "かつらが無い!!!!!!!!!!!!!!!!\n" VT_RST);
             return NULL;
@@ -732,9 +729,9 @@ void DemoEc_DrawGerudo(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitDancingZora(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gZoraSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gZoraSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcDancingZoraAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcDancingZoraAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_DANCING_ZORA;
@@ -757,9 +754,9 @@ void DemoEc_DrawDancingZora(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitKingZora(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gKzSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gKzSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcKingZoraAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcKingZoraAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_KING_ZORA;
@@ -779,13 +776,13 @@ void func_8096F1D4(DemoEc* pthis) {
 
 void func_8096F224(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcAnim_006930, 2, -8.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcAnim_006930), 2, -8.0f, false);
     pthis->updateMode = EC_UPDATE_17;
 }
 
 void func_8096F26C(DemoEc* pthis, s32 arg1) {
     if (arg1 != 0) {
-        DemoEc_ChangeAnimation(pthis, &gDemoEcAnim_006220, 0, 0.0f, false);
+        DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcAnim_006220), 0, 0.0f, false);
         pthis->updateMode = EC_UPDATE_18;
     }
 }
@@ -841,9 +838,9 @@ void DemoEc_DrawKingZora(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitMido(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gMidoSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gMidoSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcMidoAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcMidoAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_MIDO;
@@ -853,13 +850,13 @@ void DemoEc_InitMido(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void func_8096F4FC(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcAnim_008D1C, 2, -8.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcAnim_008D1C), 2, -8.0f, false);
     pthis->updateMode = EC_UPDATE_20;
 }
 
 void func_8096F544(DemoEc* pthis, s32 changeAnim) {
     if (changeAnim) {
-        DemoEc_ChangeAnimation(pthis, &gDemoEcAnim_009234, 0, 0.0f, false);
+        DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcAnim_009234), 0, 0.0f, false);
     }
 }
 
@@ -908,15 +905,15 @@ void DemoEc_InitCucco(DemoEc* pthis, GlobalContext* globalCtx) {
     AnimationHeader* animation;
 
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gCuccoSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gCuccoSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
 
     if (pthis->actor.params == 22) {
-        animation = &gDemoEcJumpingCuccoAnim;
+        animation = oot::asset::anim::header::load(symbol::gDemoEcJumpingCuccoAnim);
     } else if (pthis->actor.params == 23) {
-        animation = &gDemoEcJumpingCucco2Anim;
+        animation = oot::asset::anim::header::load(symbol::gDemoEcJumpingCucco2Anim);
     } else {
-        animation = &gDemoEcWalkingCuccoAnim;
+        animation = oot::asset::anim::header::load(symbol::gDemoEcWalkingCuccoAnim);
     }
 
     DemoEc_ChangeAnimation(pthis, animation, 0, 0.0f, false);
@@ -938,9 +935,9 @@ void DemoEc_DrawCucco(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitCuccoLady(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gCuccoLadySkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gCuccoLadySkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcCuccoLadyAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcCuccoLadyAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_CUCCO_LADY;
@@ -963,9 +960,9 @@ void DemoEc_DrawCuccoLady(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitPotionShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_ds2_Skel_004258);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_ds2_Skel_004258));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcPotionShopOwnerAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcPotionShopOwnerAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_POTION_SHOP_OWNER;
@@ -988,9 +985,9 @@ void DemoEc_DrawPotionShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitMaskShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_os_Skel_004658);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_os_Skel_004658));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcPotionShopOwnerAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcPotionShopOwnerAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_MASK_SHOP_OWNER;
@@ -1004,14 +1001,14 @@ void DemoEc_UpdateMaskShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawMaskShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
-    DemoEc_DrawSkeleton(pthis, globalCtx, gOsEyeClosedTex, NULL, NULL, NULL);
+    DemoEc_DrawSkeleton(pthis, globalCtx, oot::asset::texture::load(symbol::gOsEyeClosedTex), NULL, NULL, NULL);
 }
 
 void DemoEc_InitFishingOwner(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gFishingOwnerSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gFishingOwnerSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcPotionShopOwnerAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcPotionShopOwnerAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_FISHING_MAN;
@@ -1030,7 +1027,7 @@ void DemoEc_FishingOwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
     DemoEc* pthis = (DemoEc*)thisx;
 
     if ((limbIndex == 8) && !(HIGH_SCORE(HS_FISHING) & 0x1000)) {
-        gSPDisplayList((*gfx)++, SEGMENTED_TO_VIRTUAL(gFishingOwnerHatDL));
+        gSPDisplayList((*gfx)++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gFishingOwnerHatDL)));
     }
 }
 
@@ -1043,9 +1040,9 @@ void DemoEc_DrawFishingOwner(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_InitBombchuShopOwner(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &object_rs_Skel_004868);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::object_rs_Skel_004868));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gDemoEcPotionShopOwnerAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gDemoEcPotionShopOwnerAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_BOMBCHU_SHOP_OWNER;
@@ -1073,21 +1070,21 @@ void DemoEc_InitGorons(DemoEc* pthis, GlobalContext* globalCtx) {
     Vec3f* scale = &pthis->actor.scale;
 
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gGoronSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gGoronSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
 
     if (pthis->actor.params == 30) {
-        animation = &gDemoEcGoronAnim;
+        animation = oot::asset::anim::header::load(symbol::gDemoEcGoronAnim);
         goronScale = 1.0f;
     } else if (pthis->actor.params == 31) {
-        animation = &gDemoEcGoron2Anim;
+        animation = oot::asset::anim::header::load(symbol::gDemoEcGoron2Anim);
         goronScale = 1.0f;
     } else if (pthis->actor.params == 32) {
-        animation = &gDemoEcGoronAnim;
+        animation = oot::asset::anim::header::load(symbol::gDemoEcGoronAnim);
         goronScale = 15.0f;
     } else {
         goronScale = 5.0f;
-        animation = &object_gm_Anim_0002B8;
+        animation = oot::asset::anim::header::load(symbol::object_gm_Anim_0002B8);
     }
 
     DemoEc_ChangeAnimation(pthis, animation, 0, 0.0f, false);
@@ -1113,14 +1110,14 @@ void DemoEc_DrawGorons(DemoEc* pthis, GlobalContext* globalCtx) {
     s32 eyeTexIndex = pthis->eyeTexIndex;
     void* eyeTexture = eyeTextures_155[eyeTexIndex];
 
-    DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, gGoronCsMouthNeutralTex, NULL, NULL);
+    DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, oot::asset::texture::load(symbol::gGoronCsMouthNeutralTex), NULL, NULL);
 }
 
 void DemoEc_InitMalon(DemoEc* pthis, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(pthis, globalCtx);
-    DemoEc_InitSkelAnime(pthis, globalCtx, &gMalonAdultSkel);
+    DemoEc_InitSkelAnime(pthis, globalCtx, oot::asset::skel::header::load(symbol::gMalonAdultSkel));
     DemoEc_UseAnimationObject(pthis, globalCtx);
-    DemoEc_ChangeAnimation(pthis, &gMalonAdultSingAnim, 0, 0.0f, false);
+    DemoEc_ChangeAnimation(pthis, oot::asset::anim::header::load(symbol::gMalonAdultSingAnim), 0, 0.0f, false);
     func_8096D5D4(pthis, globalCtx);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     pthis->updateMode = EC_UPDATE_MALON;
@@ -1138,7 +1135,7 @@ void DemoEc_DrawMalon(DemoEc* pthis, GlobalContext* globalCtx) {
     s32 eyeTexIndex = pthis->eyeTexIndex;
     void* eyeTexture = eyeTextures_158[eyeTexIndex];
 
-    DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, gMalonAdultMouthHappyTex, NULL, NULL);
+    DemoEc_DrawSkeleton(pthis, globalCtx, eyeTexture, oot::asset::texture::load(symbol::gMalonAdultMouthHappyTex), NULL, NULL);
 }
 
 static DemoEcInitFunc sInitFuncs[] = {

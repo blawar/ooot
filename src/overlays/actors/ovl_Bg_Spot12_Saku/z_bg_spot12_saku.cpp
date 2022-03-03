@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot12_saku.h"
-#include "objects/object_spot12_obj/object_spot12_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -67,7 +67,7 @@ void func_808B3420(BgSpot12Saku* pthis, GlobalContext* globalCtx, CollisionHeade
 void BgSpot12Saku_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgSpot12Saku* pthis = (BgSpot12Saku*)thisx;
 
-    func_808B3420(pthis, globalCtx, &gGerudoFortressGTGShutterCol, DPM_UNK);
+    func_808B3420(pthis, globalCtx, oot::asset::collision::header::load(symbol::gGerudoFortressGTGShutterCol), DPM_UNK);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F)) {
         func_808B3714(pthis);
@@ -141,7 +141,7 @@ void BgSpot12Saku_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgSpot12Saku_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gGerudoFortressGTGShutterDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gGerudoFortressGTGShutterDL));
 }
 
 void BgSpot12Saku_Reset(Actor* pthisx, GlobalContext* globalCtx) {

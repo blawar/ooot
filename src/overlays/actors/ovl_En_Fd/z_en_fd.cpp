@@ -7,8 +7,7 @@
  */
 
 #include "z_en_fd.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_fw/object_fw.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -45,7 +44,7 @@ void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_Land(EnFd* pthis, GlobalContext* globalCtx);
 
 static void* dustTextures_81[] = {
-    gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
+    oot::asset::texture::load(symbol::gDust8Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust1Tex),
 };
 
 
@@ -213,11 +212,11 @@ static ColliderJntSphInit sJntSphInit = {
 static CollisionCheckInfoInit2 sColChkInit = { 24, 2, 25, 25, MASS_IMMOVABLE };
 
 static struct_80034EC0_Entry sAnimations[] = {
-    { &gFlareDancerCastingFireAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, 0.0f },
-    { &gFlareDancerBackflipAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -10.0f },
-    { &gFlareDancerGettingUpAnim, 0.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -10.0f },
-    { &gFlareDancerChasingAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -10.0f },
-    { &gFlareDancerTwirlAnim, 0.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerCastingFireAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerBackflipAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerGettingUpAnim), 0.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerChasingAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerTwirlAnim), 0.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -10.0f },
 };
 
 s32 EnFd_SpawnCore(EnFd* pthis, GlobalContext* globalCtx) {
@@ -463,7 +462,7 @@ void EnFd_Fade(EnFd* pthis, GlobalContext* globalCtx) {
 void EnFd_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnFd* pthis = (EnFd*)thisx;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFlareDancerSkel, NULL, pthis->jointTable, pthis->morphTable, 27);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFlareDancerSkel), NULL, pthis->jointTable, pthis->morphTable, 27);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 32.0f);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colSphs);
@@ -896,7 +895,7 @@ void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx) {
         if (eff->type == FD_EFFECT_FLAME) {
             if (!firstDone) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gFlareDancerDL_7928);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFlareDancerDL_7928));
                 gDPSetEnvColor(POLY_XLU_DISP++, 255, 10, 0, (u8)((pthis->fadeAlpha / 255.0f) * 255));
                 firstDone = true;
             }
@@ -909,7 +908,7 @@ void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             idx = eff->timer * (8.0f / eff->initialTimer);
             gSPSegment(POLY_XLU_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(dustTextures_81[idx]));
-            gSPDisplayList(POLY_XLU_DISP++, gFlareDancerSquareParticleDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFlareDancerSquareParticleDL));
         }
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fd.c", 2020);
@@ -929,7 +928,7 @@ void EnFd_DrawDots(EnFd* pthis, GlobalContext* globalCtx) {
         if (eff->type == FD_EFFECT_DOT) {
             if (!firstDone) {
                 func_80093D84(globalCtx->state.gfxCtx);
-                gSPDisplayList(POLY_XLU_DISP++, gFlareDancerDL_79F8);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFlareDancerDL_79F8));
                 firstDone = true;
             }
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, eff->color.r, eff->color.g, eff->color.b,
@@ -941,7 +940,7 @@ void EnFd_DrawDots(EnFd* pthis, GlobalContext* globalCtx) {
             Matrix_Scale(eff->scale, eff->scale, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fd.c", 2064),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gFlareDancerTriangleParticleDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFlareDancerTriangleParticleDL));
         }
     }
 

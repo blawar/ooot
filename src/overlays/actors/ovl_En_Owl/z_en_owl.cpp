@@ -7,9 +7,7 @@
  */
 
 #include "z_en_owl.h"
-#include "objects/object_owl/object_owl.h"
-#include "scenes/overworld/spot06/spot06_scene.h"
-#include "scenes/overworld/spot16/spot16_scene.h"
+#include "asset.h"
 #include "vt.h"
 #include "z_kankyo.h"
 #include "def/audio.h"
@@ -66,7 +64,7 @@ void func_80ACBEA0(EnOwl*, GlobalContext*);
 
 static Vec3f D_80ACD62C_110 = { 0.0f, 0.0f, 0.0f };
 
-static void* eyeTextures_130[] = { gObjOwlEyeOpenTex, gObjOwlEyeHalfTex, gObjOwlEyeClosedTex };
+static void* eyeTextures_130[] = { oot::asset::texture::load(symbol::gObjOwlEyeOpenTex), oot::asset::texture::load(symbol::gObjOwlEyeHalfTex), oot::asset::texture::load(symbol::gObjOwlEyeClosedTex) };
 
 
 ActorInit En_Owl_InitVars = {
@@ -117,16 +115,16 @@ void EnOwl_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gOwlFlyingSkel, &gOwlFlyAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gOwlFlyingSkel), oot::asset::anim::header::load(symbol::gOwlFlyAnim), pthis->jointTable, pthis->morphTable,
                        21);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime2, &gOwlPerchingSkel, &gOwlPerchAnim, pthis->jointTable2,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime2, oot::asset::skel::header::load(symbol::gOwlPerchingSkel), oot::asset::anim::header::load(symbol::gOwlPerchAnim), pthis->jointTable2,
                        pthis->morphTable2, 16);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sOwlCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
     pthis->actor.minVelocityY = -10.0f;
     pthis->actor.targetArrowOffset = 500.0f;
-    EnOwl_ChangeMode(pthis, EnOwl_WaitDefault, func_80ACC540, &pthis->skelAnime2, &gOwlPerchAnim, 0.0f);
+    EnOwl_ChangeMode(pthis, EnOwl_WaitDefault, func_80ACC540, &pthis->skelAnime2, oot::asset::anim::header::load(symbol::gOwlPerchAnim), 0.0f);
     pthis->actionFlags = pthis->unk_406 = pthis->unk_409 = 0;
     pthis->unk_405 = 4;
     pthis->unk_404 = pthis->unk_407 = 0;
@@ -304,7 +302,7 @@ s32 func_80ACA558(EnOwl* pthis, GlobalContext* globalCtx, u16 textId) {
 }
 
 void func_80ACA5C8(EnOwl* pthis) {
-    EnOwl_ChangeMode(pthis, func_80ACBEA0, func_80ACC540, &pthis->skelAnime, &gOwlUnfoldWingsAnim, 0.0f);
+    EnOwl_ChangeMode(pthis, func_80ACBEA0, func_80ACC540, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlUnfoldWingsAnim), 0.0f);
     pthis->eyeTexIndex = 0;
     pthis->blinkTimer = Rand_S16Offset(60, 60);
 }
@@ -819,15 +817,15 @@ void EnOwl_WaitDefault(EnOwl* pthis, GlobalContext* globalCtx) {
 void func_80ACBAB8(EnOwl* pthis, GlobalContext* globalCtx) {
     switch (globalCtx->csCtx.npcActions[7]->action - 1) {
         case 0:
-            EnOwl_ChangeMode(pthis, func_80ACB904, func_80ACC540, &pthis->skelAnime, &gOwlFlyAnim, 0.0f);
+            EnOwl_ChangeMode(pthis, func_80ACB904, func_80ACC540, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlFlyAnim), 0.0f);
             break;
         case 1:
             pthis->actor.draw = EnOwl_Draw;
-            EnOwl_ChangeMode(pthis, EnOwl_WaitDefault, func_80ACC540, &pthis->skelAnime, &gOwlPerchAnim, 0.0f);
+            EnOwl_ChangeMode(pthis, EnOwl_WaitDefault, func_80ACC540, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlPerchAnim), 0.0f);
             break;
         case 2:
             pthis->actor.draw = EnOwl_Draw;
-            EnOwl_ChangeMode(pthis, func_80ACB994, func_80ACC540, &pthis->skelAnime, &gOwlFlyAnim, 0.0f);
+            EnOwl_ChangeMode(pthis, func_80ACB994, func_80ACC540, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlFlyAnim), 0.0f);
             break;
         case 3:
             pthis->actor.draw = NULL;
@@ -883,7 +881,7 @@ void func_80ACBD4C(EnOwl* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->actionFlags & 1) {
-        EnOwl_ChangeMode(pthis, func_80ACBC0C, func_80ACC460, &pthis->skelAnime, &gOwlFlyAnim, 0.0f);
+        EnOwl_ChangeMode(pthis, func_80ACBC0C, func_80ACC460, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlFlyAnim), 0.0f);
         pthis->unk_3FE = 6;
         if (pthis->actionFlags & 0x40) {
             pthis->unk_400 += 0x2000;
@@ -898,7 +896,7 @@ void func_80ACBD4C(EnOwl* pthis, GlobalContext* globalCtx) {
 void func_80ACBEA0(EnOwl* pthis, GlobalContext* GlobalContext) {
     if (pthis->actionFlags & 1) {
         pthis->unk_3FE = 3;
-        EnOwl_ChangeMode(pthis, func_80ACBD4C, func_80ACC540, &pthis->skelAnime, &gOwlTakeoffAnim, 0.0f);
+        EnOwl_ChangeMode(pthis, func_80ACBD4C, func_80ACC540, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlTakeoffAnim), 0.0f);
         pthis->unk_3F8 = pthis->actor.world.pos.y;
         pthis->actor.velocity.y = 2.0f;
         if (pthis->actionFlags & 0x40) {
@@ -916,7 +914,7 @@ void func_80ACBF50(EnOwl* pthis, GlobalContext* globalCtx) {
     pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
 
     if (pthis->actionFlags & 1) {
-        EnOwl_ChangeMode(pthis, func_80ACBC0C, func_80ACC460, &pthis->skelAnime, &gOwlFlyAnim, 0.0f);
+        EnOwl_ChangeMode(pthis, func_80ACBC0C, func_80ACC460, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlFlyAnim), 0.0f);
         pthis->unk_3FE = 6;
         pthis->actor.velocity.y = 2.0f;
         pthis->actor.gravity = 0.0f;
@@ -944,12 +942,12 @@ void func_80ACC00C(EnOwl* pthis, GlobalContext* globalCtx) {
                     osSyncPrintf(VT_FGCOL(CYAN));
                     osSyncPrintf("SPOT 06 の デモがはしった\n"); // "Demo of SPOT 06 has been completed"
                     osSyncPrintf(VT_RST);
-                    globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gLakeHyliaOwlCs);
+                    globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gLakeHyliaOwlCs));
                     pthis->actor.draw = NULL;
                     break;
                 case 8:
                 case 9:
-                    globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gDMTOwlCs);
+                    globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gDMTOwlCs));
                     pthis->actor.draw = NULL;
                     break;
                 default:
@@ -1003,7 +1001,7 @@ void func_80ACC23C(EnOwl* pthis, GlobalContext* globalCtx) {
 void func_80ACC30C(EnOwl* pthis, GlobalContext* globalCtx) {
     if (pthis->actionFlags & 1) {
         pthis->unk_3FE = 3;
-        EnOwl_ChangeMode(pthis, func_80ACC23C, func_80ACC540, &pthis->skelAnime, &gOwlTakeoffAnim, 0.0f);
+        EnOwl_ChangeMode(pthis, func_80ACC23C, func_80ACC540, &pthis->skelAnime, oot::asset::anim::header::load(symbol::gOwlTakeoffAnim), 0.0f);
         pthis->unk_3F8 = pthis->actor.world.pos.y;
         pthis->actor.velocity.y = 0.2f;
     }
@@ -1020,7 +1018,7 @@ void func_80ACC390(EnOwl* pthis) {
     } else {
         pthis->unk_410 = func_80ACC460;
         pthis->unk_3FE = 6;
-        Animation_Change(pthis->curSkelAnime, &gOwlFlyAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gOwlFlyAnim), 2, 5.0f);
+        Animation_Change(pthis->curSkelAnime, oot::asset::anim::header::load(symbol::gOwlFlyAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gOwlFlyAnim)), 2, 5.0f);
     }
 }
 
@@ -1033,7 +1031,7 @@ void func_80ACC460(EnOwl* pthis) {
         } else {
             pthis->unk_3FE = 0xA0;
             pthis->unk_410 = func_80ACC390;
-            Animation_Change(pthis->curSkelAnime, &gOwlGlideAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gOwlGlideAnim), 0,
+            Animation_Change(pthis->curSkelAnime, oot::asset::anim::header::load(symbol::gOwlGlideAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gOwlGlideAnim)), 0,
                              5.0f);
         }
     }
@@ -1099,11 +1097,11 @@ void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     if (!(pthis->actionFlags & 0x80) && func_80ACC624(pthis, globalCtx)) {
-        if ((pthis->skelAnime.animation == &gOwlTakeoffAnim &&
+        if ((pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gOwlTakeoffAnim) &&
              (pthis->skelAnime.curFrame == 2.0f || pthis->skelAnime.curFrame == 9.0f ||
               pthis->skelAnime.curFrame == 23.0f || pthis->skelAnime.curFrame == 40.0f ||
               pthis->skelAnime.curFrame == 58.0f)) ||
-            (pthis->skelAnime.animation == &gOwlFlyAnim && pthis->skelAnime.curFrame == 4.0f)) {
+            (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gOwlFlyAnim) && pthis->skelAnime.curFrame == 4.0f)) {
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_OWL_FLUTTER);
         }
     }

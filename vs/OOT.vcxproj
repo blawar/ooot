@@ -73,6 +73,7 @@
     <ClCompile Include="..\src\buffers\gfxbuffers.cpp" />
     <ClCompile Include="..\src\buffers\heaps.cpp" />
     <ClCompile Include="..\src\buffers\zbuffer.cpp" />
+    <ClCompile Include="..\src\code\asset.cpp" />
     <ClCompile Include="..\src\code\audioMgr.cpp" />
     <ClCompile Include="..\src\code\audio_data.cpp" />
     <ClCompile Include="..\src\code\audio_effects.cpp" />

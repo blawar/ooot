@@ -8,7 +8,7 @@
 
 #include "z_en_ge2.h"
 #include "vt.h"
-#include "objects/object_gla/object_gla.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -63,7 +63,7 @@ static Color_RGBA8 effectEnvColor_62 = { 255, 150, 0, 0 };
 
 static Vec3f D_80A343B0_83 = { 600.0f, 700.0f, 0.0f };
 
-static void* eyeTextures_84[] = { gGerudoPurpleEyeOpenTex, gGerudoPurpleEyeHalfTex, gGerudoPurpleEyeClosedTex };
+static void* eyeTextures_84[] = { oot::asset::texture::load(symbol::gGerudoPurpleEyeOpenTex), oot::asset::texture::load(symbol::gGerudoPurpleEyeHalfTex), oot::asset::texture::load(symbol::gGerudoPurpleEyeClosedTex) };
 
 
 ActorInit En_Ge2_InitVars = {
@@ -106,9 +106,9 @@ static EnGe2ActionFunc sActionFuncs[] = {
 };
 
 static AnimationHeader* sAnimations[] = {
-    &gGerudoPurpleWalkingAnim,         &gGerudoPurpleLookingAboutAnim, &gGerudoPurpleLookingAboutAnim,
-    &gGerudoPurpleFallingToGroundAnim, &gGerudoPurpleLookingAboutAnim, &gGerudoPurpleChargingAnim,
-    &gGerudoPurpleLookingAboutAnim,    &gGerudoPurpleLookingAboutAnim, &gGerudoPurpleLookingAboutAnim,
+    oot::asset::anim::header::load(symbol::gGerudoPurpleWalkingAnim),         oot::asset::anim::header::load(symbol::gGerudoPurpleLookingAboutAnim), oot::asset::anim::header::load(symbol::gGerudoPurpleLookingAboutAnim),
+    oot::asset::anim::header::load(symbol::gGerudoPurpleFallingToGroundAnim), oot::asset::anim::header::load(symbol::gGerudoPurpleLookingAboutAnim), oot::asset::anim::header::load(symbol::gGerudoPurpleChargingAnim),
+    oot::asset::anim::header::load(symbol::gGerudoPurpleLookingAboutAnim),    oot::asset::anim::header::load(symbol::gGerudoPurpleLookingAboutAnim), oot::asset::anim::header::load(symbol::gGerudoPurpleLookingAboutAnim),
 };
 
 static u8 sAnimModes[] = {
@@ -128,8 +128,8 @@ void EnGe2_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnGe2* pthis = (EnGe2*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gGerudoPurpleSkel, NULL, pthis->jointTable, pthis->morphTable, 22);
-    Animation_PlayLoop(&pthis->skelAnime, &gGerudoPurpleWalkingAnim);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gGerudoPurpleSkel), NULL, pthis->jointTable, pthis->morphTable, 22);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gGerudoPurpleWalkingAnim));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;

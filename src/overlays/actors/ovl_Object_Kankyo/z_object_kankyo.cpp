@@ -7,9 +7,7 @@
  */
 
 #include "z_object_kankyo.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_spot02_objects/object_spot02_objects.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -65,13 +63,13 @@ static Color_RGB8 sBeamEnvColors_67[] = {
 Mtx D_01000000;
 
 static void* sEffLightningTextures[] = {
-    gEffLightning1Tex, gEffLightning2Tex, gEffLightning3Tex, gEffLightning4Tex,
-    gEffLightning5Tex, gEffLightning6Tex, gEffLightning7Tex, gEffLightning8Tex,
+    oot::asset::texture::load(symbol::gEffLightning1Tex), oot::asset::texture::load(symbol::gEffLightning2Tex), oot::asset::texture::load(symbol::gEffLightning3Tex), oot::asset::texture::load(symbol::gEffLightning4Tex),
+    oot::asset::texture::load(symbol::gEffLightning5Tex), oot::asset::texture::load(symbol::gEffLightning6Tex), oot::asset::texture::load(symbol::gEffLightning7Tex), oot::asset::texture::load(symbol::gEffLightning8Tex),
 };
 
 static void* D_80BA5900[] = {
-    gEffSunGraveSpark1Tex, gEffSunGraveSpark2Tex, gEffSunGraveSpark3Tex, gEffSunGraveSpark4Tex,
-    gEffSunGraveSpark5Tex, gEffSunGraveSpark6Tex, gEffSunGraveSpark7Tex, gEffSunGraveSpark8Tex,
+    oot::asset::texture::load(symbol::gEffSunGraveSpark1Tex), oot::asset::texture::load(symbol::gEffSunGraveSpark2Tex), oot::asset::texture::load(symbol::gEffSunGraveSpark3Tex), oot::asset::texture::load(symbol::gEffSunGraveSpark4Tex),
+    oot::asset::texture::load(symbol::gEffSunGraveSpark5Tex), oot::asset::texture::load(symbol::gEffSunGraveSpark6Tex), oot::asset::texture::load(symbol::gEffSunGraveSpark7Tex), oot::asset::texture::load(symbol::gEffSunGraveSpark8Tex),
 };
 
 ActorInit Object_Kankyo_InitVars = {
@@ -523,8 +521,8 @@ void ObjectKankyo_DrawFairies(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
     if (!(globalCtx->cameraPtrs[0]->unk_14C & 0x100)) {
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 807);
         POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0x14);
-        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gSun1Tex));
-        gSPDisplayList(POLY_XLU_DISP++, gKokiriDustMoteTextureLoadDL);
+        gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gSun1Tex)));
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gKokiriDustMoteTextureLoadDL));
 
         for (i = 0; i < globalCtx->envCtx.unk_EE[3]; i++) {
             Matrix_Translate(pthis->effects[i].base.x + pthis->effects[i].pos.x,
@@ -591,7 +589,7 @@ void ObjectKankyo_DrawFairies(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
             Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
             Matrix_RotateZ(DEG_TO_RAD((globalCtx->state.frames * 20.0f).toFloat()), MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 913), G_MTX_LOAD);
-            gSPDisplayList(POLY_XLU_DISP++, gKokiriDustMoteDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gKokiriDustMoteDL));
         }
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 922);
     }
@@ -722,14 +720,14 @@ void ObjectKankyo_DrawSnow(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1107),
                       G_MTX_LOAD);
 
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gDust5Tex));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gDust5Tex)));
 
             func_80094C50(globalCtx->state.gfxCtx);
             gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
 
             gDPPipeSync(POLY_XLU_DISP++);
 
-            gSPDisplayList(POLY_XLU_DISP++, gEffDustDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffDustDL));
 
             gDPPipeSync(POLY_XLU_DISP++);
         }
@@ -782,7 +780,7 @@ void ObjectKankyo_DrawLightning(ObjectKankyo* pthis, GlobalContext* globalCtx) {
         func_80094C50(globalCtx->state.gfxCtx);
         gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
         gDPPipeSync(POLY_XLU_DISP++);
-        gSPDisplayList(POLY_XLU_DISP++, gEffLightningDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffLightningDL));
         gDPPipeSync(POLY_XLU_DISP++);
     }
 
@@ -881,7 +879,7 @@ void ObjectKankyo_DrawSunGraveSpark(ObjectKankyo* pthis2, GlobalContext* globalC
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_80BA5900[pthis->effects[0].timer]));
             gDPPipeSync(POLY_XLU_DISP++);
 
-            gSPDisplayList(POLY_XLU_DISP++, object_spot02_objects_DL_009620);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot02_objects_DL_009620));
             gDPPipeSync(POLY_XLU_DISP++);
         }
     }
@@ -953,7 +951,7 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
                            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->state.frames * 5).whole(),
                                             (globalCtx->state.frames * 10).whole(), 32, 64, 1, (globalCtx->state.frames * 5).whole(),
                                             (globalCtx->state.frames * 10).whole(), 32, 64));
-                gSPDisplayList(POLY_XLU_DISP++, gDemoKekkaiDL_005FF0);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDemoKekkaiDL_005FF0));
             }
         }
     }

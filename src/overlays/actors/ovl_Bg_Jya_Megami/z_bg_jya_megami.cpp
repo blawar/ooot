@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_bg_jya_megami.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -138,7 +138,7 @@ void BgJyaMegami_SpawnEffect(GlobalContext* globalCtx, Vec3f* pos, Vec3f* veloci
         s32 idx = ((s16)(Rand_ZeroOne() * 8.0f)) & D_8089B17C[arg4];
         s16 arg5 = ((idx < 5) && (Rand_ZeroOne() < 0.7f)) ? 0x40 : 0x20;
         EffectSsKakera_Spawn(globalCtx, pos, velocity, pos, -90, arg5, D_8089B16C[idx], 4, 0, D_8089B14C[idx], 0, 5,
-                             D_8089B15C[idx], KAKERA_COLOR_NONE, OBJECT_JYA_OBJ, gMegami2DL);
+                             D_8089B15C[idx], KAKERA_COLOR_NONE, OBJECT_JYA_OBJ, oot::asset::gfx::load(symbol::gMegami2DL));
         if (Rand_ZeroOne() < 0.45f) {
             Math_Vec3f_Copy(&spB4, pos);
             spB4.z += 25.0f;
@@ -163,7 +163,7 @@ void BgJyaMegami_SetupSpawnEffect(BgJyaMegami* pthis, GlobalContext* globalCtx, 
 void BgJyaMegami_Init(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaMegami* pthis = (BgJyaMegami*)thisx;
 
-    BgJyaMegami_InitDynaPoly(pthis, globalCtx, &GMegamiCol, DPM_UNK);
+    BgJyaMegami_InitDynaPoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::GMegamiCol), DPM_UNK);
     BgJyaMegami_InitCollider(pthis, globalCtx);
     if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F)) {
         Actor_Kill(&pthis->dyna.actor);
@@ -295,13 +295,13 @@ void BgJyaMegami_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static void* sRightSideCrumbles[] = {
-    gMegamiRightCrumble1Tex, gMegamiRightCrumble2Tex, gMegamiRightCrumble3Tex,
-    gMegamiRightCrumble4Tex, gMegamiRightCrumble5Tex,
+    oot::asset::texture::load(symbol::gMegamiRightCrumble1Tex), oot::asset::texture::load(symbol::gMegamiRightCrumble2Tex), oot::asset::texture::load(symbol::gMegamiRightCrumble3Tex),
+    oot::asset::texture::load(symbol::gMegamiRightCrumble4Tex), oot::asset::texture::load(symbol::gMegamiRightCrumble5Tex),
 };
 
 static void* sLeftSideCrumbles[] = {
-    gMegamiLeftCrumble1Tex, gMegamiLeftCrumble2Tex, gMegamiLeftCrumble3Tex,
-    gMegamiLeftCrumble4Tex, gMegamiLeftCrumble5Tex,
+    oot::asset::texture::load(symbol::gMegamiLeftCrumble1Tex), oot::asset::texture::load(symbol::gMegamiLeftCrumble2Tex), oot::asset::texture::load(symbol::gMegamiLeftCrumble3Tex),
+    oot::asset::texture::load(symbol::gMegamiLeftCrumble4Tex), oot::asset::texture::load(symbol::gMegamiLeftCrumble5Tex),
 };
 
 void BgJyaMegami_DrawFace(BgJyaMegami* pthis, GlobalContext* globalCtx) {
@@ -312,15 +312,15 @@ void BgJyaMegami_DrawFace(BgJyaMegami* pthis, GlobalContext* globalCtx) {
     gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sLeftSideCrumbles[pthis->crumbleIndex]));
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 716),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gMegami1DL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMegami1DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 720);
 }
 
 static Gfx* sDLists[] = {
-    gMegamiPiece1DL,  gMegamiPiece2DL,  gMegamiPiece3DL,  gMegamiPiece4DL, gMegamiPiece5DL,
-    gMegamiPiece6DL,  gMegamiPiece7DL,  gMegamiPiece8DL,  gMegamiPiece9DL, gMegamiPiece10DL,
-    gMegamiPiece11DL, gMegamiPiece12DL, gMegamiPiece13DL,
+    oot::asset::gfx::load(symbol::gMegamiPiece1DL),  oot::asset::gfx::load(symbol::gMegamiPiece2DL),  oot::asset::gfx::load(symbol::gMegamiPiece3DL),  oot::asset::gfx::load(symbol::gMegamiPiece4DL), oot::asset::gfx::load(symbol::gMegamiPiece5DL),
+    oot::asset::gfx::load(symbol::gMegamiPiece6DL),  oot::asset::gfx::load(symbol::gMegamiPiece7DL),  oot::asset::gfx::load(symbol::gMegamiPiece8DL),  oot::asset::gfx::load(symbol::gMegamiPiece9DL), oot::asset::gfx::load(symbol::gMegamiPiece10DL),
+    oot::asset::gfx::load(symbol::gMegamiPiece11DL), oot::asset::gfx::load(symbol::gMegamiPiece12DL), oot::asset::gfx::load(symbol::gMegamiPiece13DL),
 };
 
 void BgJyaMegami_DrawExplode(BgJyaMegami* pthis, GlobalContext* globalCtx) {

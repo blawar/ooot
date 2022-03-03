@@ -7,7 +7,7 @@
  */
 
 #include "z_en_tg.h"
-#include "objects/object_mu/object_mu.h"
+#include "asset.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -125,7 +125,7 @@ void EnTg_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnTg* pthis = (EnTg*)thisx;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 28.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDancingCoupleSkel, &gDancingCoupleAnim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDancingCoupleSkel), oot::asset::anim::header::load(symbol::gDancingCoupleAnim), NULL, NULL, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);

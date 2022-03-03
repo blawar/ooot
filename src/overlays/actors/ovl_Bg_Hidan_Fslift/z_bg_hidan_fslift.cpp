@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_fslift.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -55,7 +55,7 @@ void BgHidanFslift_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&gFireTempleHookshotElevatorCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleHookshotElevatorCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
     if (Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->dyna.actor, globalCtx, ACTOR_OBJ_HSBLOCK,
                            pthis->dyna.actor.world.pos.x, pthis->dyna.actor.world.pos.y + 40.0f,
@@ -149,7 +149,7 @@ void BgHidanFslift_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BgHidanFslift_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gFireTempleHookshotElevatorDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFireTempleHookshotElevatorDL));
 }
 
 void BgHidanFslift_Reset(Actor* pthisx, GlobalContext* globalCtx) {

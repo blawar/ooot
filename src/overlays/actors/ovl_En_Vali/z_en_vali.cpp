@@ -7,7 +7,7 @@
  */
 
 #include "z_en_vali.h"
-#include "objects/object_vali/object_vali.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/cosf.h"
@@ -163,7 +163,7 @@ void EnVali_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 27.0f);
     pthis->actor.shape.shadowAlpha = 155;
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBariSkel, &gBariLurkingAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBariSkel), oot::asset::anim::header::load(symbol::gBariLurkingAnim), pthis->jointTable, pthis->morphTable,
                    EN_VALI_LIMB_MAX);
 
     Collider_InitQuad(globalCtx, &pthis->leftArmCollider);
@@ -195,7 +195,7 @@ void EnVali_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnVali_SetupLurk(EnVali* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gBariLurkingAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBariLurkingAnim));
     pthis->actor.draw = NULL;
     pthis->bodyCollider.base.acFlags &= ~AC_ON;
     pthis->actionFunc = EnVali_Lurk;
@@ -209,7 +209,7 @@ void EnVali_SetupDropAppear(EnVali* pthis) {
 }
 
 void EnVali_SetupFloatIdle(EnVali* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gBariWaitingAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBariWaitingAnim), -3.0f);
     pthis->leftArmCollider.dim.quad[2] = pthis->leftArmCollider.dim.quad[3] = pthis->rightArmCollider.dim.quad[2] =
         pthis->rightArmCollider.dim.quad[3] = pthis->leftArmCollider.dim.quad[0] = pthis->leftArmCollider.dim.quad[1] =
             pthis->rightArmCollider.dim.quad[0] = pthis->rightArmCollider.dim.quad[1] = pthis->actor.world.pos;
@@ -237,7 +237,7 @@ void EnVali_SetupAttacked(EnVali* pthis) {
 }
 
 void EnVali_SetupRetaliate(EnVali* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBariRetaliatingAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBariRetaliatingAnim), -5.0f);
     Actor_SetColorFilter(&pthis->actor, 0x4000, 150, 0x2000, 30);
     pthis->actor.params = BARI_TYPE_NORMAL;
     pthis->bodyCollider.base.acFlags &= ~AC_ON;
@@ -245,7 +245,7 @@ void EnVali_SetupRetaliate(EnVali* pthis) {
 }
 
 void EnVali_SetupMoveArmsDown(EnVali* pthis) {
-    Animation_PlayOnce(&pthis->skelAnime, &gBariMovingArmsDownAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBariMovingArmsDownAnim));
     pthis->actionFunc = EnVali_MoveArmsDown;
 }
 
@@ -276,7 +276,7 @@ void EnVali_SetupDivideAndDie(EnVali* pthis, GlobalContext* globalCtx) {
 }
 
 void EnVali_SetupStunned(EnVali* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBariWaitingAnim, 10.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBariWaitingAnim), 10.0f);
     pthis->timer = 80;
     pthis->actor.velocity.y = 0.0f;
     Actor_SetColorFilter(&pthis->actor, 0, 255, 0x2000, 80);
@@ -295,7 +295,7 @@ void EnVali_SetupFrozen(EnVali* pthis) {
 }
 
 void EnVali_SetupReturnToLurk(EnVali* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gBariLurkingAnim, 10.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gBariLurkingAnim), 10.0f);
     pthis->actor.flags |= ACTOR_FLAG_4;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     pthis->actionFunc = EnVali_ReturnToLurk;
@@ -747,7 +747,7 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1436),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gBariInnerHoodDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBariInnerHoodDL));
 
     Matrix_Put(&mtx);
     Matrix_RotateY(-pthis->actor.shape.rot.y * (M_PI / 32768.0f), MTXMODE_APPLY);
@@ -757,19 +757,19 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1446),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBariNucleusDL));
 
     Matrix_Translate((506.0f * cos) + (372.0f * sin), 1114.0f, (372.0f * cos) - (506.0f * sin), MTXMODE_APPLY);
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1455),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBariNucleusDL));
 
     Matrix_Translate((-964.0f * cos) - (804.0f * sin), -108.0f, (-804.0f * cos) + (964.0f * sin), MTXMODE_APPLY);
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1463),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBariNucleusDL));
 
     Matrix_Put(&mtx);
 
@@ -780,7 +780,7 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1471),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gBariOuterHoodDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gBariOuterHoodDL));
 
     Matrix_Put(&mtx);
 

@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_arms_hook.h"
 #include "framerate.h"
-#include "objects/object_link_boy/object_link_boy.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/sys_math_atan.h"
@@ -338,7 +338,7 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx) {
         func_80093D18(globalCtx->state.gfxCtx);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arms_hook.c", 895),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gLinkAdultHookshotTipDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkAdultHookshotTipDL));
         Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
         Math_Vec3f_Diff(&player->unk_3C8, &pthis->actor.world.pos, &sp78);
         sp58 = SQ(sp78.x) + SQ(sp78.z);
@@ -348,7 +348,7 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx) {
         Matrix_Scale(0.015f, 0.015f, sqrtf(SQ(sp78.y) + sp58) * 0.01f, MTXMODE_APPLY);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arms_hook.c", 910),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gLinkAdultHookshotChainDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkAdultHookshotChainDL));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arms_hook.c", 913);
     }

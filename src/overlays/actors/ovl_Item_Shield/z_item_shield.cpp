@@ -8,7 +8,7 @@
 
 #include "vt.h"
 #include "z_item_shield.h"
-#include "objects/object_link_child/object_link_child.h"
+#include "asset.h"
 #include "def/sys_math_atan.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -238,7 +238,7 @@ void ItemShield_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_80093D18(globalCtx->state.gfxCtx);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_item_shield.c", 460),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gLinkChildDekuShieldDL));
+        gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gLinkChildDekuShieldDL)));
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_item_shield.c", 465);
     }
 }

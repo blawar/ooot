@@ -7,9 +7,7 @@
  */
 
 #include "z_bg_breakwall.h"
-#include "scenes/dungeons/ddan/ddan_scene.h"
-#include "objects/object_bwall/object_bwall.h"
-#include "objects/object_kingdodongo/object_kingdodongo.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -70,10 +68,10 @@ static ColliderQuadInit sQuadInit = {
 };
 
 static BombableWallInfo sBombableWallInfo[] = {
-    { &object_bwall_Col_000118, object_bwall_DL_000040, 0 },
-    { &object_bwall_Col_000118, object_bwall_DL_000040, 0 },
-    { &object_kingdodongo_Col_0264A8, object_kingdodongo_DL_025BD0, 1 },
-    { &object_kingdodongo_Col_025B64, NULL, -1 },
+    { oot::asset::collision::header::load(symbol::object_bwall_Col_000118), oot::asset::gfx::load(symbol::object_bwall_DL_000040), 0 },
+    { oot::asset::collision::header::load(symbol::object_bwall_Col_000118), oot::asset::gfx::load(symbol::object_bwall_DL_000040), 0 },
+    { oot::asset::collision::header::load(symbol::object_kingdodongo_Col_0264A8), oot::asset::gfx::load(symbol::object_kingdodongo_DL_025BD0), 1 },
+    { oot::asset::collision::header::load(symbol::object_kingdodongo_Col_025B64), NULL, -1 },
 };
 
 static InitChainEntry sInitChain[] = {
@@ -262,7 +260,7 @@ void BgBreakwall_Wait(BgBreakwall* pthis, GlobalContext* globalCtx) {
 
         if ((wallType == BWALL_DC_ENTRANCE) && (!(Flags_GetEventChkInf(0xB0)))) {
             Flags_SetEventChkInf(0xB0);
-            Cutscene_SetSegment(globalCtx, gDcOpeningCs);
+            Cutscene_SetSegment(globalCtx, oot::asset::cutscene::data::load(symbol::gDcOpeningCs));
             gSaveContext.cutsceneTrigger = 1;
             Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             func_8002DF54(globalCtx, NULL, 0x31);

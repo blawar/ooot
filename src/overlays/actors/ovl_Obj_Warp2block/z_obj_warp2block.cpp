@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_warp2block.h"
-#include "objects/object_timeblock/object_timeblock.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/sys_math3d.h"
@@ -221,7 +221,7 @@ void ObjWarp2block_Init(Actor* thisx, GlobalContext* globalCtx2) {
             pthis->dyna.actor.draw = NULL;
         }
         DynaPolyActor_Init(&pthis->dyna, 0);
-        CollisionHeader_GetVirtual(&gSongOfTimeBlockCol, &collisionHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gSongOfTimeBlockCol), &collisionHeader);
         pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, collisionHeader);
     } else {
         ObjWarp2block_SetInactive(pthis);
@@ -320,7 +320,7 @@ void ObjWarp2block_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 588),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sp44->r, sp44->g, sp44->b, 255);
-    gSPDisplayList(POLY_OPA_DISP++, gSongOfTimeBlockDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gSongOfTimeBlockDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 594);
 }

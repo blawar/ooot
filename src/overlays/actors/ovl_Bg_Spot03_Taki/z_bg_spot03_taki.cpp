@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot03_taki.h"
-#include "objects/object_spot03_object/object_spot03_object.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
@@ -46,7 +46,7 @@ static InitChainEntry sInitChain[] = {
 
 void BgSpot03Taki_ApplyOpeningAlpha(BgSpot03Taki* pthis, s32 bufferIndex) {
     s32 i;
-    Vtx* vtx = (bufferIndex == 0) ? object_spot03_object_Vtx_000800 : object_spot03_object_Vtx_000990;
+    Vtx* vtx = (bufferIndex == 0) ? oot::asset::vtx::load(symbol::object_spot03_object_Vtx_000800) : oot::asset::vtx::load(symbol::object_spot03_object_Vtx_000990);
 
     for (i = 0; i < 5; i++) {
         vtx[i + 10].v.cn[3] = pthis->openingAlpha;
@@ -60,7 +60,7 @@ void BgSpot03Taki_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     pthis->switchFlag = (pthis->dyna.actor.params & 0x3F);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&object_spot03_object_Col_000C98, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::object_spot03_object_Col_000C98), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     pthis->bufferIndex = 0;
@@ -142,21 +142,21 @@ void BgSpot03Taki_Draw(Actor* thisx, GlobalContext* globalCtx) {
         POLY_XLU_DISP++, 0x08,
         Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, gameplayFrames * 5, 64, 64, 1, 0, gameplayFrames * 5, 64, 64));
 
-    gSPDisplayList(POLY_XLU_DISP++, object_spot03_object_DL_000B20);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot03_object_DL_000B20));
 
     if (pthis->bufferIndex == 0) {
-        gSPVertex(POLY_XLU_DISP++, object_spot03_object_Vtx_000800, 25, 0);
+        gSPVertex(POLY_XLU_DISP++, oot::asset::vtx::load(symbol::object_spot03_object_Vtx_000800), 25, 0);
     } else {
-        gSPVertex(POLY_XLU_DISP++, object_spot03_object_Vtx_000990, 25, 0);
+        gSPVertex(POLY_XLU_DISP++, oot::asset::vtx::load(symbol::object_spot03_object_Vtx_000990), 25, 0);
     }
 
-    gSPDisplayList(POLY_XLU_DISP++, object_spot03_object_DL_000BC0);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot03_object_DL_000BC0));
 
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, gameplayFrames * 1, gameplayFrames * 3, 64, 64, 1,
                                 -gameplayFrames, gameplayFrames * 3, 64, 64));
 
-    gSPDisplayList(POLY_XLU_DISP++, object_spot03_object_DL_001580);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_spot03_object_DL_001580));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot03_taki.c", 358);
 

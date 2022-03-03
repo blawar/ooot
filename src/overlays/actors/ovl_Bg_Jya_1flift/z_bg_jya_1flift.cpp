@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_jya_1flift.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -110,7 +110,7 @@ void BgJya1flift_Init(Actor* thisx, GlobalContext* globalCtx) {
         Actor_Kill(thisx);
         return;
     }
-    BgJya1flift_InitDynapoly(pthis, globalCtx, &g1fliftCol, 0);
+    BgJya1flift_InitDynapoly(pthis, globalCtx, oot::asset::collision::header::load(symbol::g1fliftCol), 0);
     Actor_ProcessInitChain(thisx, sInitChain);
     BgJya1flift_InitCollision(thisx, globalCtx);
     if (Flags_GetSwitch(globalCtx, (thisx->params & 0x3F))) {
@@ -214,7 +214,7 @@ void BgJya1flift_Update(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 void BgJya1flift_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, g1fliftDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::g1fliftDL));
 }
 
 void BgJya1flift_Reset(Actor* pthisx, GlobalContext* globalCtx) {

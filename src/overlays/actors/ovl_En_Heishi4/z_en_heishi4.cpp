@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_HEISHI4_Z_EN_HEISHI4_C
 #include "actor_common.h"
 #include "z_en_heishi4.h"
-#include "objects/object_sd/object_sd.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -77,12 +77,12 @@ void EnHeishi4_Init(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->type == HEISHI4_AT_MARKET_DYING) {
         pthis->height = 30.0f;
         ActorShape_Init(&thisx->shape, 0.0f, NULL, 30.0f);
-        SkelAnime_Init(globalCtx, &pthis->skelAnime, &gEnHeishiSkel, &gEnHeishiDyingGuardAnim_00C444, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gEnHeishiSkel), oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardAnim_00C444), pthis->jointTable,
                        pthis->morphTable, 17);
     } else {
         pthis->height = 60.0f;
         ActorShape_Init(&thisx->shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
-        SkelAnime_Init(globalCtx, &pthis->skelAnime, &gEnHeishiSkel, &gEnHeishiIdleAnim, pthis->jointTable,
+        SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gEnHeishiSkel), oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), pthis->jointTable,
                        pthis->morphTable, 17);
     }
     Collider_InitCylinder(globalCtx, &pthis->collider);
@@ -119,9 +119,9 @@ void EnHeishi4_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80A56328(EnHeishi4* pthis, GlobalContext* globalCtx) {
-    f32 frames = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = func_80A563BC;
 }
 
@@ -174,9 +174,9 @@ void func_80A563BC(EnHeishi4* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A56544(EnHeishi4* pthis, GlobalContext* globalCtx) {
-    f32 frames = Animation_GetLastFrame(&gEnHeishiIdleAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiIdleAnim, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiIdleAnim), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, -10.0f);
     if (LINK_AGE_IN_YEARS != YEARS_CHILD) {
         osSyncPrintf(VT_FGCOL(GREEN) " ☆☆☆☆☆ ぎゃぁ！オトナだー ☆☆☆☆☆ \n" VT_RST);
         Actor_Kill(&pthis->actor);
@@ -230,8 +230,8 @@ void func_80A5673C(EnHeishi4* pthis, GlobalContext* globalCtx) {
     pthis->unk_284 = 0;
     if (gSaveContext.eventChkInf[8] & 1) {
         if (!(gSaveContext.infTable[6] & 0x1000)) {
-            f32 frames = Animation_GetLastFrame(&gEnHeishiDyingGuardAnim_00C444);
-            Animation_Change(&pthis->skelAnime, &gEnHeishiDyingGuardAnim_00C444, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP,
+            f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardAnim_00C444));
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardAnim_00C444), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP,
                              -10.0f);
             pthis->actor.textId = 0x7007;
             pthis->unk_282 = TEXT_STATE_EVENT;
@@ -265,9 +265,9 @@ void func_80A56874(EnHeishi4* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A56900(EnHeishi4* pthis, GlobalContext* globalCtx) {
-    f32 frames = Animation_GetLastFrame(&gEnHeishiDyingGuardTalkAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardTalkAnim));
 
-    Animation_Change(&pthis->skelAnime, &gEnHeishiDyingGuardTalkAnim, 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardTalkAnim), 1.0f, 0.0f, (s16)frames, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = func_80A56994;
 }
 
@@ -283,10 +283,10 @@ void func_80A56994(EnHeishi4* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A56A50(EnHeishi4* pthis, GlobalContext* globalCtx) {
-    f32 frames = Animation_GetLastFrame(&gEnHeishiDyingGuardDieAnim);
+    f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardDieAnim));
 
     pthis->unk_288 = frames;
-    Animation_Change(&pthis->skelAnime, &gEnHeishiDyingGuardDieAnim, 1.0f, 0.0f, frames, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gEnHeishiDyingGuardDieAnim), 1.0f, 0.0f, frames, ANIMMODE_ONCE, -10.0f);
     pthis->actionFunc = func_80A56ACC;
 }
 

@@ -7,7 +7,7 @@
  */
 
 #include "z_door_ana.h"
-#include "objects/gameplay_field_keep/gameplay_field_keep.h"
+#include "asset.h"
 #include "def/environment_flags.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
@@ -193,7 +193,7 @@ void DoorAna_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_ana.c", 446),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gGrottoDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGrottoDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_ana.c", 449);
 }

@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BIGOKUTA_Z_EN_BIGOKUTA_C
 #include "actor_common.h"
 #include "z_en_bigokuta.h"
-#include "objects/object_bigokuta/object_bigokuta.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
@@ -177,7 +177,7 @@ void EnBigokuta_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 i;
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_bigokuta_Skel_006BC0, &object_bigokuta_Anim_0014B8,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_bigokuta_Skel_006BC0), oot::asset::anim::header::load(symbol::object_bigokuta_Anim_0014B8),
                        pthis->jointTable, pthis->morphTable, 20);
 
     Collider_InitJntSph(globalCtx, &pthis->collider);
@@ -292,7 +292,7 @@ void func_809BD2E4(EnBigokuta* pthis) {
 }
 
 void func_809BD318(EnBigokuta* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_bigokuta_Anim_0014B8);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bigokuta_Anim_0014B8));
     pthis->unk_19A = 0;
     pthis->actor.home.pos.y = -1025.0f;
     pthis->unk_196 = 121;
@@ -318,7 +318,7 @@ void func_809BD3E0(EnBigokuta* pthis) {
 }
 
 void func_809BD3F8(EnBigokuta* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_bigokuta_Anim_001CA4, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bigokuta_Anim_001CA4), -5.0f);
     pthis->unk_196 = 350;
     pthis->unk_198 = 80;
     pthis->unk_19A = pthis->unk_194 * -0x200;
@@ -336,7 +336,7 @@ void func_809BD47C(EnBigokuta* pthis) {
 }
 
 void func_809BD4A4(EnBigokuta* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_bigokuta_Anim_0014B8, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bigokuta_Anim_0014B8), -5.0f);
     pthis->unk_195 = true;
     pthis->actor.world.rot.x = pthis->actor.shape.rot.y + 0x8000;
     pthis->unk_19A = pthis->unk_194 * 0x200;
@@ -346,7 +346,7 @@ void func_809BD4A4(EnBigokuta* pthis) {
 }
 
 void func_809BD524(EnBigokuta* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_bigokuta_Anim_000D1C, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bigokuta_Anim_000D1C), -5.0f);
     pthis->unk_196 = 80;
     pthis->unk_19A = 0;
     pthis->cylinder[0].base.atFlags |= AT_ON;
@@ -363,7 +363,7 @@ void func_809BD524(EnBigokuta* pthis) {
 }
 
 void func_809BD5E0(EnBigokuta* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_bigokuta_Anim_000444, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bigokuta_Anim_000444), -5.0f);
     pthis->unk_196 = 24;
     pthis->unk_19A = 0;
     pthis->cylinder[0].base.atFlags &= ~AT_ON;
@@ -372,7 +372,7 @@ void func_809BD5E0(EnBigokuta* pthis) {
 }
 void func_809BD658(EnBigokuta* pthis) {
 
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_bigokuta_Anim_000A74, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_bigokuta_Anim_000A74), -5.0f);
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DAIOCTA_DEAD2);
     pthis->unk_196 = 38;
     pthis->unk_198 = 10;

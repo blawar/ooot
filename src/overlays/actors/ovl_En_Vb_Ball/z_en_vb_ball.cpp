@@ -7,8 +7,8 @@
  */
 
 #include "z_en_vb_ball.h"
-#include "objects/object_fd/object_fd.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Boss_Fd/z_boss_fd.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
@@ -321,9 +321,9 @@ void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     if (pthis->actor.params >= 200) {
-        gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gVolvagiaRibsDL));
+        gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gVolvagiaRibsDL)));
     } else {
-        gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gVolvagiaRockDL));
+        gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gVolvagiaRockDL)));
         func_80094044(globalCtx->state.gfxCtx);
 
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, (s8)pthis->shadowOpacity);
@@ -331,7 +331,7 @@ void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(pthis->shadowSize, 1.0f, pthis->shadowSize, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 626),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gCircleShadowDL));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gCircleShadowDL)));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 632);

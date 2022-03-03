@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_DH_Z_EN_DH_C
 #include "actor_common.h"
 #include "z_en_dh.h"
-#include "objects/object_dh/object_dh.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/random.h"
 #include "def/sys_math.h"
@@ -148,7 +148,7 @@ void EnDh_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     pthis->actor.colChkInfo.damageTable = &D_809EC620;
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_dh_Skel_007E88, &object_dh_Anim_005880, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_dh_Skel_007E88), oot::asset::anim::header::load(symbol::object_dh_Anim_005880), pthis->jointTable,
                        pthis->limbRotTable, 16);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 64.0f);
     pthis->actor.params = ENDH_WAIT_UNDERGROUND;
@@ -192,7 +192,7 @@ void EnDh_SpawnDebris(GlobalContext* globalCtx, EnDh* pthis, Vec3f* spawnPos, f3
 }
 
 void EnDh_SetupWait(EnDh* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_dh_Anim_003A8C);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_003A8C));
     pthis->curAction = DH_WAIT;
     pthis->actor.world.pos.x = Rand_CenteredFloat(600.0f) + pthis->actor.home.pos.x;
     pthis->actor.world.pos.z = Rand_CenteredFloat(600.0f) + pthis->actor.home.pos.z;
@@ -246,8 +246,8 @@ void EnDh_Wait(EnDh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDh_SetupWalk(EnDh* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_dh_Anim_003A8C, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_dh_Anim_003A8C) - 3.0f, ANIMMODE_LOOP, -6.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_003A8C), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dh_Anim_003A8C)) - 3.0f, ANIMMODE_LOOP, -6.0f);
     pthis->curAction = DH_WALK;
     pthis->timer = 300;
     pthis->actor.speedXZ = 1.0f;
@@ -275,7 +275,7 @@ void EnDh_Walk(EnDh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDh_SetupRetreat(EnDh* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_dh_Anim_005880, -4.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_005880), -4.0f);
     pthis->curAction = DH_RETREAT;
     pthis->timer = 70;
     pthis->actor.speedXZ = 1.0f;
@@ -295,7 +295,7 @@ void EnDh_Retreat(EnDh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDh_SetupAttack(EnDh* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_dh_Anim_004658, -6.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_004658), -6.0f);
     pthis->timer = pthis->actionState = 0;
     pthis->curAction = DH_ATTACK;
     pthis->actor.speedXZ = 0.0f;
@@ -308,7 +308,7 @@ void EnDh_Attack(EnDh* pthis, GlobalContext* globalCtx) {
     if (SkelAnime_Update(&pthis->skelAnime)) {
         pthis->actionState++;
     } else if ((pthis->actor.xzDistToPlayer > 100.0f) || !Actor_IsFacingPlayer(&pthis->actor, 60 * 0x10000 / 360)) {
-        Animation_Change(&pthis->skelAnime, &object_dh_Anim_004658, -1.0f, pthis->skelAnime.curFrame, 0.0f, ANIMMODE_ONCE,
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_004658), -1.0f, pthis->skelAnime.curFrame, 0.0f, ANIMMODE_ONCE,
                          -4.0f);
         pthis->actionState = 4;
         pthis->collider2.base.atFlags = pthis->collider2.elements[0].info.toucherFlags = AT_NONE; // also TOUCH_NONE
@@ -316,7 +316,7 @@ void EnDh_Attack(EnDh* pthis, GlobalContext* globalCtx) {
     }
     switch (pthis->actionState) {
         case 1:
-            Animation_PlayOnce(&pthis->skelAnime, &object_dh_Anim_001A3C);
+            Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_001A3C));
             pthis->actionState++;
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DEADHAND_BITE);
         case 0:
@@ -342,12 +342,12 @@ void EnDh_Attack(EnDh* pthis, GlobalContext* globalCtx) {
             break;
         case 3:
             if ((pthis->actor.xzDistToPlayer <= 100.0f) && (Actor_IsFacingPlayer(&pthis->actor, 60 * 0x10000 / 360))) {
-                Animation_Change(&pthis->skelAnime, &object_dh_Anim_004658, 1.0f, 20.0f,
-                                 Animation_GetLastFrame(&object_dh_Anim_004658), ANIMMODE_ONCE, -6.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_004658), 1.0f, 20.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dh_Anim_004658)), ANIMMODE_ONCE, -6.0f);
                 pthis->actionState = 0;
             } else {
-                Animation_Change(&pthis->skelAnime, &object_dh_Anim_004658, -1.0f,
-                                 Animation_GetLastFrame(&object_dh_Anim_004658), 0.0f, ANIMMODE_ONCE, -4.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_004658), -1.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dh_Anim_004658)), 0.0f, ANIMMODE_ONCE, -4.0f);
                 pthis->actionState++;
                 pthis->collider2.base.atFlags = pthis->collider2.elements[0].info.toucherFlags =
                     AT_NONE; // also TOUCH_NONE
@@ -364,7 +364,7 @@ void EnDh_Attack(EnDh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDh_SetupBurrow(EnDh* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_dh_Anim_002148, -6.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_002148), -6.0f);
     pthis->curAction = DH_BURROW;
     pthis->dirtWaveSpread = pthis->actor.speedXZ = 0.0f;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -406,7 +406,7 @@ void EnDh_Burrow(EnDh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDh_SetupDamage(EnDh* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_dh_Anim_003D6C, -6.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_003D6C), -6.0f);
     if (pthis->actor.bgCheckFlags & 1) {
         pthis->actor.speedXZ = -1.0f;
     }
@@ -425,10 +425,10 @@ void EnDh_Damage(EnDh* pthis, GlobalContext* globalCtx) {
         if (pthis->retreat) {
             EnDh_SetupRetreat(pthis, globalCtx);
         } else if ((pthis->actor.xzDistToPlayer <= 105.0f) && Actor_IsFacingPlayer(&pthis->actor, 60 * 0x10000 / 360)) {
-            f32 frames = Animation_GetLastFrame(&object_dh_Anim_004658);
+            f32 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_dh_Anim_004658));
 
             EnDh_SetupAttack(pthis);
-            Animation_Change(&pthis->skelAnime, &object_dh_Anim_004658, 1.0f, 20.0f, frames, ANIMMODE_ONCE, -6.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_004658), 1.0f, 20.0f, frames, ANIMMODE_ONCE, -6.0f);
         } else {
             EnDh_SetupWalk(pthis);
         }
@@ -437,7 +437,7 @@ void EnDh_Damage(EnDh* pthis, GlobalContext* globalCtx) {
 }
 
 void EnDh_SetupDeath(EnDh* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_dh_Anim_0032BC, -1.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_0032BC), -1.0f);
     pthis->curAction = DH_DEATH;
     pthis->timer = 300;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
@@ -451,7 +451,7 @@ void EnDh_SetupDeath(EnDh* pthis) {
 void EnDh_Death(EnDh* pthis, GlobalContext* globalCtx) {
     if (SkelAnime_Update(&pthis->skelAnime) || (pthis->timer != 300)) {
         if (pthis->timer == 300) {
-            Animation_PlayLoop(&pthis->skelAnime, &object_dh_Anim_00375C);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_dh_Anim_00375C));
         }
         pthis->timer--;
         if (pthis->timer < 150) {
@@ -582,7 +582,7 @@ void EnDh_Draw(Actor* thisx, GlobalContext* globalCtx) {
                      MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dh.c", 1160),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, object_dh_DL_007FC0);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_dh_DL_007FC0));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dh.c", 1166);
 }

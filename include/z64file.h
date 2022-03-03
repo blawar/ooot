@@ -3,6 +3,15 @@
 struct RomFile {
     /* 0x00 */ Pointer vromStart;
     /* 0x04 */ Pointer vromEnd;
+    void* buffer() const
+    {
+	    return vromStart.buffer();
+    }
+
+    size_t size() const
+    {
+	    return vromEnd.get() - vromStart.get();
+    }
 }; // size = 0x8
 
 struct SkyboxFile {

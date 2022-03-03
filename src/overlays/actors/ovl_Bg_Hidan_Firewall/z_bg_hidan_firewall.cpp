@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_firewall.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -203,8 +203,8 @@ void BgHidanFirewall_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static void* sFireballTexs[] = {
-    gFireTempleFireball0Tex, gFireTempleFireball1Tex, gFireTempleFireball2Tex, gFireTempleFireball3Tex,
-    gFireTempleFireball4Tex, gFireTempleFireball5Tex, gFireTempleFireball6Tex, gFireTempleFireball7Tex,
+    oot::asset::texture::load(symbol::gFireTempleFireball0Tex), oot::asset::texture::load(symbol::gFireTempleFireball1Tex), oot::asset::texture::load(symbol::gFireTempleFireball2Tex), oot::asset::texture::load(symbol::gFireTempleFireball3Tex),
+    oot::asset::texture::load(symbol::gFireTempleFireball4Tex), oot::asset::texture::load(symbol::gFireTempleFireball5Tex), oot::asset::texture::load(symbol::gFireTempleFireball6Tex), oot::asset::texture::load(symbol::gFireTempleFireball7Tex),
 };
 
 void BgHidanFirewall_Draw(Actor* thisx, GlobalContext* globalCtx) {
@@ -219,7 +219,7 @@ void BgHidanFirewall_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 255);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_firewall.c", 458),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gFireTempleFireballUpperHalfDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFireTempleFireballUpperHalfDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_firewall.c", 463);
 }

@@ -65,7 +65,6 @@ void EffectSs_DrawGEffect(GlobalContext* globalCtx, EffectSs* pthis, void* textu
     MtxF mfTrans11DA0;
     s32 pad1;
     Mtx* mtx;
-    void* object = gObjectTable[pthis->rgObjBankIdx].vromStart.buffer();
 
     OPEN_DISPS(gfxCtx, "../z_effect_soft_sprite_old_init.c", 196);
 
@@ -74,8 +73,6 @@ void EffectSs_DrawGEffect(GlobalContext* globalCtx, EffectSs* pthis, void* textu
     SkinMatrix_SetScale(&mfScale, scale, scale, scale);
     SkinMatrix_MtxFMtxFMult(&mfTrans, &globalCtx->billboardMtxF, &mfTrans11DA0);
     SkinMatrix_MtxFMtxFMult(&mfTrans11DA0, &mfScale, &mfResult);
-    gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(object);
-    gSPSegment(POLY_XLU_DISP++, 0x06, object);
 
     mtx = SkinMatrix_MtxFToNewMtx(gfxCtx, &mfResult);
 

@@ -8,7 +8,7 @@
 
 #include "z_demo_ext.h"
 #include "vt.h"
-#include "objects/object_fhg/object_fhg.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
@@ -208,7 +208,7 @@ void DemoExt_DrawVortex(Actor* thisx, GlobalContext* globalCtx) {
         Gfx_TwoTexScroll(gfxCtx, 0, curScroll[0], curScroll[1], 0x40, 0x40, 1, curScroll[2], curScroll[3], 0x40, 0x40));
 
     gSPMatrix(POLY_XLU_DISP++, mtx, G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gPhantomWarpDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gPhantomWarpDL));
     gSPPopMatrix(POLY_XLU_DISP++, G_MTX_MODELVIEW);
 
     CLOSE_DISPS(gfxCtx, "../z_demo_ext.c", 512);

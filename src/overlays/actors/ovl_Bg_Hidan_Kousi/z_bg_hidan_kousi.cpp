@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_kousi.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -52,9 +52,9 @@ static InitChainEntry sInitChain[] = {
 };
 
 static CollisionHeader* sMetalFencesCollisions[] = {
-    &gFireTempleMetalFenceWithSlantCol,
-    &gFireTempleMetalFenceCol,
-    &gFireTempleMetalFence2Col,
+    oot::asset::collision::header::load(symbol::gFireTempleMetalFenceWithSlantCol),
+    oot::asset::collision::header::load(symbol::gFireTempleMetalFenceCol),
+    oot::asset::collision::header::load(symbol::gFireTempleMetalFence2Col),
 };
 
 static s16 D_80889E7C[] = {
@@ -65,9 +65,9 @@ static s16 D_80889E7C[] = {
 };
 
 static Gfx* sMetalFencesDLs[] = {
-    gFireTempleMetalFenceWithSlantDL,
-    gFireTempleMetalFenceDL,
-    gFireTempleMetalFence2DL,
+    oot::asset::gfx::load(symbol::gFireTempleMetalFenceWithSlantDL),
+    oot::asset::gfx::load(symbol::gFireTempleMetalFenceDL),
+    oot::asset::gfx::load(symbol::gFireTempleMetalFence2DL),
 };
 
 void BgHidanKousi_SetupAction(BgHidanKousi* pthis, BgHidanKousiActionFunc actionFunc) {

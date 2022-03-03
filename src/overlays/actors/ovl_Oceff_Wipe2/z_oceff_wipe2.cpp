@@ -7,6 +7,7 @@
  */
 
 #include "z_oceff_wipe2.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -68,8 +69,6 @@ void OceffWipe2_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-#include "overlays/ovl_Oceff_Wipe2/ovl_Oceff_Wipe2.cpp"
-
 void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     u32 scroll = globalCtx->state.frames & 0xFF;
     OceffWipe2* pthis = (OceffWipe2*)thisx;
@@ -88,7 +87,7 @@ void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx) {
         z = 1330;
     }
 
-    vtxPtr = sFrustumVtx;
+    vtxPtr = oot::asset::vtx::load(symbol::sFrustumVtx);
     if (pthis->timer >= 80) {
         alpha = 12 * (100 - pthis->timer);
     } else {
@@ -114,10 +113,10 @@ void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 170, 255);
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 100, 0, 128);
-    gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sMaterialDL));
     gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 6, scroll * (-6), 64, 64, 1,
                                                      scroll * (-6), 0, 64, 64));
-    gSPDisplayList(POLY_XLU_DISP++, sFrustumDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::sFrustumDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe2.c", 417);
 }

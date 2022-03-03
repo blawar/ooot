@@ -7,7 +7,7 @@
  */
 
 #include "z_eff_ss_dead_ds.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
 #include "def/z_rcp.h"
@@ -108,7 +108,7 @@ void EffectSsDeadDs_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     gDPSetCombineLERP(POLY_XLU_DISP++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0,
                       PRIMITIVE, 0);
-    gSPDisplayList(POLY_XLU_DISP++, gLensFlareCircleDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gLensFlareCircleDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead_ds.c", 255);
 }

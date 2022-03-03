@@ -8,7 +8,7 @@
 
 #include "z_en_ta.h"
 #include "vt.h"
-#include "objects/object_ta/object_ta.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_command.h"
 #include "def/random.h"
@@ -56,9 +56,9 @@ static Vec3f D_80B16E7C_111 = {
 };
 
 static void* eyeTextures_112[] = {
-    gTalonEyeOpenTex,
-    gTalonEyeHalfTex,
-    gTalonEyeClosedTex,
+    oot::asset::texture::load(symbol::gTalonEyeOpenTex),
+    oot::asset::texture::load(symbol::gTalonEyeHalfTex),
+    oot::asset::texture::load(symbol::gTalonEyeClosedTex),
 };
 
 
@@ -134,7 +134,7 @@ void EnTa_Init(Actor* thisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gTalonSkel, &gTalonStandAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gTalonSkel), oot::asset::anim::header::load(symbol::gTalonStandAnim), pthis->jointTable, pthis->morphTable,
                        17);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -161,13 +161,13 @@ void EnTa_Init(Actor* thisx, GlobalContext* globalCtx2) {
             } else if (gSaveContext.eventChkInf[6] & 0x400) {
                 func_80B13AA0(pthis, func_80B14CAC, func_80B167C0);
                 pthis->eyeIndex = 0;
-                Animation_PlayOnce(&pthis->skelAnime, &gTalonStandAnim);
-                pthis->currentAnimation = &gTalonStandAnim;
+                Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonStandAnim));
+                pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonStandAnim);
             } else {
                 func_80B13AA0(pthis, func_80B14754, func_80B167FC);
                 pthis->eyeIndex = 2;
-                Animation_PlayOnce(&pthis->skelAnime, &gTalonSleepAnim);
-                pthis->currentAnimation = &gTalonSleepAnim;
+                Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSleepAnim));
+                pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonSleepAnim);
                 pthis->actor.shape.shadowScale = 54.0f;
             }
             break;
@@ -183,8 +183,8 @@ void EnTa_Init(Actor* thisx, GlobalContext* globalCtx2) {
             } else {
                 func_80B13AA0(pthis, func_80B14D98, func_80B167C0);
                 pthis->eyeIndex = 0;
-                Animation_PlayOnce(&pthis->skelAnime, &gTalonStandAnim);
-                pthis->currentAnimation = &gTalonStandAnim;
+                Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonStandAnim));
+                pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonStandAnim);
             }
             break;
         default:
@@ -195,13 +195,13 @@ void EnTa_Init(Actor* thisx, GlobalContext* globalCtx2) {
                 } else if (gSaveContext.eventChkInf[1] & 0x8) {
                     func_80B13AA0(pthis, func_80B14C18, func_80B167C0);
                     pthis->eyeIndex = 0;
-                    Animation_PlayOnce(&pthis->skelAnime, &gTalonStandAnim);
-                    pthis->currentAnimation = &gTalonStandAnim;
+                    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonStandAnim));
+                    pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonStandAnim);
                 } else {
                     func_80B13AA0(pthis, func_80B14634, func_80B167FC);
                     pthis->eyeIndex = 2;
-                    Animation_PlayOnce(&pthis->skelAnime, &gTalonSleepAnim);
-                    pthis->currentAnimation = &gTalonSleepAnim;
+                    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSleepAnim));
+                    pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonSleepAnim);
                     pthis->actor.shape.shadowScale = 54.0f;
                 }
             } else if (globalCtx->sceneNum == SCENE_SOUKO) {
@@ -227,29 +227,29 @@ void EnTa_Init(Actor* thisx, GlobalContext* globalCtx2) {
 
                         if (gSaveContext.eventInf[0] & 0x400) {
                             func_80B13AA0(pthis, func_80B16608, func_80B16938);
-                            Animation_Change(&pthis->skelAnime, &gTalonSitWakeUpAnim, 1.0f,
-                                             Animation_GetLastFrame(&gTalonSitWakeUpAnim) - 1.0f,
-                                             Animation_GetLastFrame(&gTalonSitWakeUpAnim), ANIMMODE_ONCE, 0.0f);
+                            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim), 1.0f,
+                                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)) - 1.0f,
+                                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)), ANIMMODE_ONCE, 0.0f);
                             gSaveContext.eventInf[0] &= ~0x400;
                         } else {
                             func_80B13AA0(pthis, func_80B16504, func_80B16854);
                             pthis->eyeIndex = 0;
-                            Animation_PlayOnce(&pthis->skelAnime, &gTalonSitSleepingAnim);
-                            pthis->currentAnimation = &gTalonSitSleepingAnim;
+                            Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitSleepingAnim));
+                            pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonSitSleepingAnim);
                         }
                     } else {
                         func_80B13AA0(pthis, func_80B146F8, func_80B167FC);
                         pthis->eyeIndex = 2;
-                        Animation_PlayOnce(&pthis->skelAnime, &gTalonSleepAnim);
-                        pthis->currentAnimation = &gTalonSleepAnim;
+                        Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSleepAnim));
+                        pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonSleepAnim);
                         pthis->actor.shape.shadowScale = 54.0f;
                     }
                 }
             } else {
                 func_80B13AA0(pthis, func_80B14634, func_80B167FC);
                 pthis->eyeIndex = 2;
-                Animation_PlayOnce(&pthis->skelAnime, &gTalonSleepAnim);
-                pthis->currentAnimation = &gTalonSleepAnim;
+                Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSleepAnim));
+                pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonSleepAnim);
                 pthis->actor.shape.shadowScale = 54.0f;
             }
             break;
@@ -343,8 +343,8 @@ void func_80B14570(EnTa* pthis, GlobalContext* globalCtx) {
         func_80B13AA0(pthis, func_80B144D8, func_80B167C0);
         pthis->unk_2CE = 3;
         pthis->unk_2CC = 60;
-        Animation_PlayOnce(&pthis->skelAnime, &gTalonWakeUpAnim);
-        pthis->currentAnimation = &gTalonStandAnim;
+        Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonWakeUpAnim));
+        pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonStandAnim);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_VO_TA_SURPRISE);
     }
 }
@@ -495,8 +495,8 @@ void func_80B14B6C(EnTa* pthis, GlobalContext* globalCtx) {
         func_80B13AA0(pthis, func_80B14AF4, func_80B167C0);
         pthis->unk_2CC = 5;
         gSaveContext.eventChkInf[1] |= 0x10;
-        Animation_PlayOnce(&pthis->skelAnime, &gTalonRunTransitionAnim);
-        pthis->currentAnimation = &gTalonRunAnim;
+        Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonRunTransitionAnim));
+        pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonRunAnim);
     }
     pthis->unk_2E0 |= 1;
 }
@@ -578,17 +578,17 @@ void func_80B14EDC(EnTa* pthis, GlobalContext* globalCtx) {
 void func_80B14F20(EnTa* pthis, EnTaActionFunc arg1) {
     func_80B13AA0(pthis, arg1, func_80B16854);
     pthis->eyeIndex = 2;
-    Animation_Change(&pthis->skelAnime, &gTalonSitSleepingAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gTalonSitSleepingAnim), ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitSleepingAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitSleepingAnim)), ANIMMODE_ONCE, -5.0f);
     pthis->unk_2E2 = 0;
-    pthis->currentAnimation = &gTalonSitSleepingAnim;
+    pthis->currentAnimation = oot::asset::anim::header::load(symbol::gTalonSitSleepingAnim);
 }
 
 void func_80B14FAC(EnTa* pthis, EnTaActionFunc arg1) {
     pthis->eyeIndex = 1;
     func_80B13AA0(pthis, arg1, func_80B16938);
     pthis->unk_2E0 &= ~0x10;
-    Animation_Change(&pthis->skelAnime, &gTalonSitWakeUpAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gTalonSitWakeUpAnim),
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)),
                      ANIMMODE_ONCE, -5.0f);
 }
 
@@ -621,9 +621,9 @@ void func_80B15100(EnTa* pthis, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         s32 unk_2CA;
 
-        Animation_Change(&pthis->skelAnime, &gTalonSitWakeUpAnim, 1.0f,
-                         Animation_GetLastFrame(&gTalonSitWakeUpAnim) - 1.0f,
-                         Animation_GetLastFrame(&gTalonSitWakeUpAnim), ANIMMODE_ONCE, 10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim), 1.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)) - 1.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)), ANIMMODE_ONCE, 10.0f);
         pthis->unk_2E0 &= ~0x10;
         Message_CloseTextbox(globalCtx);
         unk_2CA = pthis->unk_2CA;
@@ -670,10 +670,10 @@ s32 EnTa_GetSuperCuccosCount(EnTa* pthis, GlobalContext* globalCtx) {
 void func_80B15308(EnTa* pthis) {
     if (pthis->unk_2E0 & 0x10) {
         if (pthis->unk_2E0 & 0x100) {
-            Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 17.0f, 22.0f, ANIMMODE_ONCE, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 17.0f, 22.0f, ANIMMODE_ONCE, 0.0f);
             pthis->unk_2E0 &= ~0x100;
         } else {
-            Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, -1.0f, 21.0f, 16.0f, ANIMMODE_ONCE, 3.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), -1.0f, 21.0f, 16.0f, ANIMMODE_ONCE, 3.0f);
             pthis->unk_2E0 |= 0x100;
         }
         pthis->unk_2E0 &= ~0x10;
@@ -726,7 +726,7 @@ void func_80B154FC(EnTa* pthis, GlobalContext* globalCtx) {
                     pthis->unk_2C4[i]--;
                 } else {
                     pthis->unk_2CA = i;
-                    Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE, -10.0f);
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE, -10.0f);
                     pthis->unk_2E0 &= ~0x10;
 
                     switch (EnTa_GetSuperCuccosCount(pthis, globalCtx)) {
@@ -736,7 +736,7 @@ void func_80B154FC(EnTa* pthis, GlobalContext* globalCtx) {
 
                             Message_StartTextbox(globalCtx, 0x2084, &pthis->actor);
                             pthis->actionFunc = func_80B15424;
-                            Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE,
+                            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE,
                                              -10.0f);
                             pthis->unk_2E0 &= ~0x10;
                             pthis->unk_2E0 &= ~0x100;
@@ -780,7 +780,7 @@ void func_80B154FC(EnTa* pthis, GlobalContext* globalCtx) {
         func_80B14E28(pthis, globalCtx);
         gSaveContext.eventInf[0] &= ~0x100;
         pthis->unk_2E0 |= 0x80;
-        Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE, -10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE, -10.0f);
         pthis->unk_2E0 &= ~0x10;
         pthis->unk_2E0 &= ~0x100;
     }
@@ -824,9 +824,9 @@ void func_80B1585C(EnTa* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_2CC == 0) {
         func_80B13AA0(pthis, func_80B154FC, func_80B16938);
         pthis->unk_2E0 &= ~0x10;
-        Animation_Change(&pthis->skelAnime, &gTalonSitWakeUpAnim, 1.0f,
-                         Animation_GetLastFrame(&gTalonSitWakeUpAnim) - 1.0f,
-                         Animation_GetLastFrame(&gTalonSitWakeUpAnim), ANIMMODE_ONCE, 10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim), 1.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)) - 1.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitWakeUpAnim)), ANIMMODE_ONCE, 10.0f);
         func_8002DF54(globalCtx, &pthis->actor, 7);
     }
 }
@@ -835,8 +835,8 @@ void func_80B15AD4(EnTa* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_2CC == 0 && pthis->unk_2E0 & 0x20) {
         func_80B13AA0(pthis, func_80B1585C, func_80B16938);
         pthis->unk_2E0 &= ~0x10;
-        Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 1.0f,
-                         Animation_GetLastFrame(&gTalonSitHandsUpAnim), ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 1.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim)), ANIMMODE_ONCE, 0.0f);
         pthis->unk_2CC = 50;
         func_80088B34(0x1E);
         func_800F5ACC(NA_BGM_MINI_GAME_2);
@@ -856,7 +856,7 @@ void func_80B15BF8(EnTa* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_2E0 & 0x10) {
         func_80B13AA0(pthis, func_80B15AD4, func_80B16938);
         pthis->unk_2E0 &= ~0x10;
-        Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 0.0f, 1.0f, ANIMMODE_ONCE, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 0.0f, 1.0f, ANIMMODE_ONCE, 0.0f);
         pthis->unk_2CC = 5;
     }
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
@@ -869,7 +869,7 @@ void func_80B15CC8(EnTa* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_2E0 & 0x10) {
         func_80B13AA0(pthis, func_80B15BF8, func_80B16938);
         pthis->unk_2E0 &= ~0x10;
-        Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, -1.0f, 29.0f, 0.0f, ANIMMODE_ONCE, 10.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), -1.0f, 29.0f, 0.0f, ANIMMODE_ONCE, 10.0f);
     }
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         pthis->unk_2E0 |= 0x20;
@@ -880,7 +880,7 @@ void func_80B15CC8(EnTa* pthis, GlobalContext* globalCtx) {
 void func_80B15D90(EnTa* pthis, GlobalContext* globalCtx) {
     func_80B13AA0(pthis, func_80B15CC8, func_80B16938);
     pthis->unk_2E0 &= ~0x10;
-    Animation_Change(&pthis->skelAnime, &gTalonSitHandsUpAnim, 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gTalonSitHandsUpAnim), 1.0f, 8.0f, 29.0f, ANIMMODE_ONCE, -10.0f);
     Message_ContinueTextbox(globalCtx, 0x2080);
     pthis->unk_2E0 &= ~0x20;
 }
@@ -1237,7 +1237,7 @@ void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_800943C8(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_OPA_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(eyeTextures_112[pthis->eyeIndex]));
-    gSPSegment(POLY_OPA_DISP++, 0x9, SEGMENTED_TO_VIRTUAL(gTalonHeadSkinTex));
+    gSPSegment(POLY_OPA_DISP++, 0x9, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gTalonHeadSkinTex)));
 
     SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount,
                           EnTa_OverrideLimbDraw, EnTa_PostLimbDraw, pthis);

@@ -2,14 +2,26 @@
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
 #include "z64audio.h"
-#include "textures/parameter_static/parameter_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
+#include "asset.h"
 #include "hack.h"
 #include "def/inventory.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/z_common_data.h"
 #include "def/z_message_PAL.h"
+
+static void* counter_lut[] = {
+oot::asset::texture::load(symbol::gCounterDigit0Tex),
+oot::asset::texture::load(symbol::gCounterDigit1Tex),
+oot::asset::texture::load(symbol::gCounterDigit2Tex),
+oot::asset::texture::load(symbol::gCounterDigit3Tex),
+oot::asset::texture::load(symbol::gCounterDigit4Tex),
+oot::asset::texture::load(symbol::gCounterDigit5Tex),
+oot::asset::texture::load(symbol::gCounterDigit6Tex),
+oot::asset::texture::load(symbol::gCounterDigit7Tex),
+oot::asset::texture::load(symbol::gCounterDigit8Tex),
+oot::asset::texture::load(symbol::gCounterDigit9Tex)
+};
 
 void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
     static s16 D_8082A070[][4] = {
@@ -39,7 +51,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
     static void* D_8082A130[] = {
-        gOcarinaATex, gOcarinaCDownTex, gOcarinaCRightTex, gOcarinaCLeftTex, gOcarinaCUpTex,
+        oot::asset::texture::load(symbol::gOcarinaATex), oot::asset::texture::load(symbol::gOcarinaCDownTex), oot::asset::texture::load(symbol::gOcarinaCRightTex), oot::asset::texture::load(symbol::gOcarinaCLeftTex), oot::asset::texture::load(symbol::gOcarinaCUpTex),
     };
     static u16 D_8082A144[] = {
         0xFFCC, 0xFFCC, 0xFFCC, 0xFFCC, 0xFFCC,
@@ -354,7 +366,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 
-    gDPLoadTextureBlock(POLY_OPA_DISP++, gSongNoteTex, G_IM_FMT_IA, G_IM_SIZ_8b, 16, 24, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gSongNoteTex), G_IM_FMT_IA, G_IM_SIZ_8b, 16, 24, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
     for (sp218 = 0; sp218 < QUEST_KOKIRI_EMERALD - QUEST_SONG_MINUET; sp218++, sp21A += 4) {
@@ -656,7 +668,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
             phi_s0 = 0;
             for (sp21A = 0; sp21A < 3; sp21A++, sp218 += 4) {
                 if ((sp21A >= 2) || (sp208[sp21A] != 0) || (phi_s0 != 0)) {
-                    gDPLoadTextureBlock(POLY_OPA_DISP++, ((u8*)gCounterDigit0Tex + (8 * 16 * sp208[sp21A])), G_IM_FMT_I,
+                    gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)counter_lut[sp208[sp21A]], G_IM_FMT_I,
                                         G_IM_SIZ_8b, 8, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
                                         G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 

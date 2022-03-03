@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_spot09_obj.h"
-#include "objects/object_spot09_obj/object_spot09_obj.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -43,7 +43,7 @@ ActorInit Bg_Spot09_Obj_InitVars = {
 };
 
 static CollisionHeader* D_808B1F90[] = {
-    NULL, &gValleyObjects1Col, &gValleyObjects2Col, &gValleyObjects3Col, &gValleyObjects4Col,
+    NULL, oot::asset::collision::header::load(symbol::gValleyObjects1Col), oot::asset::collision::header::load(symbol::gValleyObjects2Col), oot::asset::collision::header::load(symbol::gValleyObjects3Col), oot::asset::collision::header::load(symbol::gValleyObjects4Col),
 };
 
 static s32 (*D_808B1FA4[])(BgSpot09Obj* pthis, GlobalContext* globalCtx) = {
@@ -65,7 +65,7 @@ static InitChainEntry sInitChain2[] = {
 };
 
 static Gfx* sDLists[] = {
-    gValleyBridgeSidesDL, gValleyBrokenBridgeDL, gValleyBridgeChildDL, gCarpentersTentDL, gValleyRepairedBridgeDL,
+    oot::asset::gfx::load(symbol::gValleyBridgeSidesDL), oot::asset::gfx::load(symbol::gValleyBrokenBridgeDL), oot::asset::gfx::load(symbol::gValleyBridgeChildDL), oot::asset::gfx::load(symbol::gCarpentersTentDL), oot::asset::gfx::load(symbol::gValleyRepairedBridgeDL),
 };
 
 s32 func_808B1AE0(BgSpot09Obj* pthis, GlobalContext* globalCtx) {
@@ -186,7 +186,7 @@ void BgSpot09Obj_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot09_obj.c", 391),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gCarpentersTentEntranceDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gCarpentersTentEntranceDL));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot09_obj.c", 396);
     }

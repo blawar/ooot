@@ -7,8 +7,7 @@
  */
 
 #include "z_en_bb.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_Bb/object_Bb.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math.h"
 #include "def/sys_matrix.h"
@@ -295,7 +294,7 @@ void EnBb_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnBb* pthis = (EnBb*)thisx;
 
     Actor_ProcessInitChain(thisx, sInitChain);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_Bb_Skel_001A30, &object_Bb_Anim_000444, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_Bb_Skel_001A30), oot::asset::anim::header::load(symbol::object_Bb_Anim_000444), pthis->jointTable,
                    pthis->morphTable, 16);
     pthis->unk_254 = 0;
     thisx->colChkInfo.health = 4;
@@ -513,7 +512,7 @@ void EnBb_Damage(EnBb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBb_SetupBlue(EnBb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
     pthis->actor.speedXZ = (Rand_ZeroOne() * 0.5f) + 0.5f;
     pthis->timer = (Rand_ZeroOne() * 20.0f) + 40.0f;
     pthis->unk_264 = (Rand_ZeroOne() * 30.0f) + 180.0f;
@@ -558,14 +557,14 @@ void EnBb_Blue(EnBb* pthis, GlobalContext* globalCtx) {
             if (pthis->charge && (pthis->targetActor == NULL)) {
                 pthis->vMoveAngleY = pthis->actor.world.rot.y;
                 if (pthis->actor.xzDistToPlayer < 200.0f) {
-                    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000184);
+                    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000184));
                     pthis->vMoveAngleY = pthis->actor.yawTowardsPlayer;
                 }
                 pthis->maxSpeed = (Rand_ZeroOne() * 1.5f) + 6.0f;
                 pthis->timer = (Rand_ZeroOne() * 5.0f) + 20.0f;
                 pthis->actionState = BBBLUE_NORMAL;
             } else {
-                Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+                Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
                 pthis->maxSpeed = (Rand_ZeroOne() * 1.5f) + 1.0f;
                 pthis->timer = (Rand_ZeroOne() * 20.0f) + 40.0f;
                 pthis->vMoveAngleY = Math_SinF(pthis->bobPhase) * 65535.0f;
@@ -573,7 +572,7 @@ void EnBb_Blue(EnBb* pthis, GlobalContext* globalCtx) {
         }
         if ((pthis->actor.xzDistToPlayer < 150.0f) && (pthis->actionState != BBBLUE_NORMAL)) {
             if (!pthis->charge) {
-                Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000184);
+                Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000184));
                 pthis->maxSpeed = (Rand_ZeroOne() * 1.5f) + 6.0f;
                 pthis->timer = (Rand_ZeroOne() * 5.0f) + 20.0f;
                 pthis->vMoveAngleY = pthis->actor.yawTowardsPlayer;
@@ -651,7 +650,7 @@ void EnBb_Blue(EnBb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBb_SetupDown(EnBb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
     pthis->action = BB_DOWN;
     pthis->timer = 200;
     pthis->actor.colorFilterTimer = 0;
@@ -729,7 +728,7 @@ void EnBb_Down(EnBb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBb_SetupRed(GlobalContext* globalCtx, EnBb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000184);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000184));
     if (pthis->action == BB_DOWN) {
         pthis->actor.speedXZ = 5.0f;
         pthis->actor.gravity = -1.0f;
@@ -856,7 +855,7 @@ void EnBb_SetWaypoint(EnBb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBb_SetupWhite(GlobalContext* globalCtx, EnBb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.world.pos.y += 60.0f;
     pthis->flameScaleX = 100.0f;
@@ -887,11 +886,11 @@ void EnBb_White(EnBb* pthis, GlobalContext* globalCtx) {
             if (pthis->timer == 0) {
                 EnBb_SetWaypoint(pthis, globalCtx);
                 EnBb_FaceWaypoint(pthis);
-                Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000184);
+                Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000184));
                 pthis->timer = Rand_ZeroOne() * 30.0f + 40.0f;
             } else {
                 if (pthis->moveMode != BBMOVE_NORMAL) {
-                    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+                    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
                 }
                 pthis->actor.world.rot.y += 0x1F40;
             }
@@ -924,7 +923,7 @@ void EnBb_White(EnBb* pthis, GlobalContext* globalCtx) {
 void EnBb_InitGreen(EnBb* pthis, GlobalContext* globalCtx) {
     Vec3f bobOffset = { 0.0f, 0.0f, 0.0f };
 
-    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
     pthis->moveMode = BBMOVE_NOCLIP;
     pthis->actionState = BBGREEN_FLAME_ON;
     pthis->bobPhase = Rand_ZeroOne();
@@ -947,7 +946,7 @@ void EnBb_InitGreen(EnBb* pthis, GlobalContext* globalCtx) {
 }
 
 void EnBb_SetupGreen(EnBb* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &object_Bb_Anim_000444);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_Bb_Anim_000444));
     pthis->moveMode = BBMOVE_NOCLIP;
     pthis->actionState = BBGREEN_FLAME_ON;
     pthis->targetActor = NULL;
@@ -1319,7 +1318,7 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_Scale(pthis->flameScaleX * 0.01f, pthis->flameScaleY * 0.01f, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bb.c", 2106),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
         } else {
             Matrix_MultVec3f(&blureBase1, &blureVtx1);
             Matrix_MultVec3f(&blureBase2, &blureVtx2);

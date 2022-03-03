@@ -7,7 +7,7 @@
  */
 
 #include "z_en_wood02.h"
-#include "objects/object_wood02/object_wood02.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -74,23 +74,23 @@ static InitChainEntry sInitChain[] = {
 };
 
 static Gfx* D_80B3BF54[] = {
-    object_wood02_DL_0078D0, object_wood02_DL_007CA0, object_wood02_DL_0080D0, object_wood02_DL_000090,
-    object_wood02_DL_000340, object_wood02_DL_000340, object_wood02_DL_000700,
+    oot::asset::gfx::load(symbol::object_wood02_DL_0078D0), oot::asset::gfx::load(symbol::object_wood02_DL_007CA0), oot::asset::gfx::load(symbol::object_wood02_DL_0080D0), oot::asset::gfx::load(symbol::object_wood02_DL_000090),
+    oot::asset::gfx::load(symbol::object_wood02_DL_000340), oot::asset::gfx::load(symbol::object_wood02_DL_000340), oot::asset::gfx::load(symbol::object_wood02_DL_000700),
 };
 
 static Gfx* D_80B3BF70[] = {
-    object_wood02_DL_007968,
-    object_wood02_DL_007D38,
-    object_wood02_DL_0081A8,
+    oot::asset::gfx::load(symbol::object_wood02_DL_007968),
+    oot::asset::gfx::load(symbol::object_wood02_DL_007D38),
+    oot::asset::gfx::load(symbol::object_wood02_DL_0081A8),
     NULL,
     NULL,
     NULL,
-    object_wood02_DL_007AD0,
-    object_wood02_DL_007E20,
-    object_wood02_DL_008350,
-    object_wood02_DL_000160,
-    object_wood02_DL_000440,
-    object_wood02_DL_000700,
+    oot::asset::gfx::load(symbol::object_wood02_DL_007AD0),
+    oot::asset::gfx::load(symbol::object_wood02_DL_007E20),
+    oot::asset::gfx::load(symbol::object_wood02_DL_008350),
+    oot::asset::gfx::load(symbol::object_wood02_DL_000160),
+    oot::asset::gfx::load(symbol::object_wood02_DL_000440),
+    oot::asset::gfx::load(symbol::object_wood02_DL_000700),
 };
 
 static f32 sSpawnCos;
@@ -441,7 +441,7 @@ void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if ((pthis->actor.params == WOOD_LEAF_GREEN) || (pthis->actor.params == WOOD_LEAF_YELLOW)) {
         func_80093D18(gfxCtx);
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, red, green, blue, 127);
-        Gfx_DrawDListOpa(globalCtx, object_wood02_DL_000700);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::object_wood02_DL_000700));
     } else if (D_80B3BF70[pthis->drawType & 0xF] != NULL) {
         Gfx_DrawDListOpa(globalCtx, D_80B3BF54[pthis->drawType & 0xF]);
         gDPSetEnvColor(POLY_XLU_DISP++, red, green, blue, 0);

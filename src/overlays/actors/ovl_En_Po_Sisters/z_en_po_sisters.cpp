@@ -7,8 +7,8 @@
  */
 
 #include "z_en_po_sisters.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_po_sisters/object_po_sisters.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/audio.h"
 #include "def/random.h"
@@ -171,17 +171,17 @@ static Vec3s D_80ADD7A4[4] = {
 static Vec3f D_80ADD7BC = { 120.0f, 250.0f, -1420.0f };
 
 static Gfx* D_80ADD7C8[4] = {
-    gPoeSistersMegBodyDL,
-    gPoeSistersJoelleBodyDL,
-    gPoeSistersBethBodyDL,
-    gPoeSistersAmyBodyDL,
+    oot::asset::gfx::load(symbol::gPoeSistersMegBodyDL),
+    oot::asset::gfx::load(symbol::gPoeSistersJoelleBodyDL),
+    oot::asset::gfx::load(symbol::gPoeSistersBethBodyDL),
+    oot::asset::gfx::load(symbol::gPoeSistersAmyBodyDL),
 };
 
 static Gfx* D_80ADD7D8[4] = {
-    gPoeSistersMegFaceDL,
-    gPoeSistersJoelleFaceDL,
-    gPoeSistersBethFaceDL,
-    gPoSistersAmyFaceDL,
+    oot::asset::gfx::load(symbol::gPoeSistersMegFaceDL),
+    oot::asset::gfx::load(symbol::gPoeSistersJoelleFaceDL),
+    oot::asset::gfx::load(symbol::gPoeSistersBethFaceDL),
+    oot::asset::gfx::load(symbol::gPoSistersAmyFaceDL),
 };
 
 static Color_RGBA8 D_80ADD7E8[4] = {
@@ -199,7 +199,7 @@ void EnPoSisters_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 50.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gPoeSistersSkel, &gPoeSistersSwayAnim, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gPoeSistersSkel), oot::asset::anim::header::load(symbol::gPoeSistersSwayAnim), pthis->jointTable,
                    pthis->morphTable, 12);
     pthis->unk_22E.r = 255;
     pthis->unk_22E.g = 255;
@@ -264,7 +264,7 @@ void func_80AD9240(EnPoSisters* pthis, s32 arg1, Vec3f* arg2) {
 }
 
 void func_80AD9368(EnPoSisters* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersSwayAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersSwayAnim), -3.0f);
     pthis->unk_19A = Rand_S16Offset(2, 3);
     pthis->actionFunc = func_80ADA4A8;
     pthis->actor.speedXZ = 0.0f;
@@ -272,7 +272,7 @@ void func_80AD9368(EnPoSisters* pthis) {
 
 void func_80AD93C4(EnPoSisters* pthis) {
     if (pthis->actionFunc != func_80ADA6A0) {
-        Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersFloatAnim, -3.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim), -3.0f);
     }
     pthis->unk_19A = Rand_S16Offset(0xF, 3);
     pthis->unk_199 |= 7;
@@ -288,9 +288,9 @@ void func_80AD944C(EnPoSisters* pthis) {
         pthis->collider.base.colType = COLTYPE_METAL;
         pthis->collider.base.acFlags |= AC_HARD;
     }
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersAttackAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAttackAnim), -5.0f);
     pthis->actor.speedXZ = 0.0f;
-    pthis->unk_19A = Animation_GetLastFrame(&gPoeSistersAttackAnim) * 3 + 3;
+    pthis->unk_19A = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSistersAttackAnim)) * 3 + 3;
     pthis->unk_199 &= ~2;
     pthis->actionFunc = func_80ADA7F0;
 }
@@ -300,7 +300,7 @@ void func_80AD94E0(EnPoSisters* pthis) {
     if (pthis->unk_194 == 0) {
         pthis->collider.base.colType = COLTYPE_METAL;
         pthis->collider.base.acFlags |= AC_HARD;
-        Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersAttackAnim, -5.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAttackAnim), -5.0f);
     }
     pthis->unk_19A = 5;
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
@@ -309,7 +309,7 @@ void func_80AD94E0(EnPoSisters* pthis) {
 }
 
 void func_80AD9568(EnPoSisters* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersFloatAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim), -3.0f);
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer + 0x8000;
     if (pthis->unk_194 != 0) {
         pthis->collider.base.colType = COLTYPE_HIT3;
@@ -319,7 +319,7 @@ void func_80AD9568(EnPoSisters* pthis) {
 }
 
 void func_80AD95D8(EnPoSisters* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gPoeSistersDamagedAnim, -3.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersDamagedAnim), -3.0f);
     if (pthis->collider.base.ac != NULL) {
         pthis->actor.world.rot.y = (pthis->collider.info.acHitInfo->toucher.dmgFlags & 0x1F824)
                                       ? pthis->collider.base.ac->world.rot.y
@@ -334,7 +334,7 @@ void func_80AD95D8(EnPoSisters* pthis) {
 }
 
 void func_80AD96A4(EnPoSisters* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersFleeAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFleeAnim), -3.0f);
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y + 0x8000;
     pthis->unk_19A = 5;
     pthis->unk_199 |= 0xB;
@@ -343,8 +343,8 @@ void func_80AD96A4(EnPoSisters* pthis) {
 }
 
 void func_80AD9718(EnPoSisters* pthis) {
-    Animation_Change(&pthis->skelAnime, &gPoeSistersAppearDisappearAnim, 1.5f, 0.0f,
-                     Animation_GetLastFrame(&gPoeSistersAppearDisappearAnim), ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim), 1.5f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim)), ANIMMODE_ONCE, -3.0f);
     pthis->actor.speedXZ = 0.0f;
     pthis->unk_19C = 100;
     pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -374,8 +374,8 @@ void func_80AD97C8(EnPoSisters* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AD98F4(EnPoSisters* pthis, GlobalContext* globalCtx) {
-    Animation_Change(&pthis->skelAnime, &gPoeSistersAppearDisappearAnim, 1.5f, 0.0f,
-                     Animation_GetLastFrame(&gPoeSistersAppearDisappearAnim), ANIMMODE_ONCE, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim), 1.5f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim)), ANIMMODE_ONCE, -3.0f);
     if (pthis->unk_194 == 0) {
         pthis->unk_294 = 110.0f;
         func_80AD97C8(pthis, globalCtx);
@@ -435,7 +435,7 @@ void func_80AD9AA8(EnPoSisters* pthis, GlobalContext* globalCtx) {
         actor3->parent = &pthis->actor;
         actor2->parent = &pthis->actor;
         actor1->parent = &pthis->actor;
-        Animation_PlayLoop(&pthis->skelAnime, &gPoeSistersMegCryAnim);
+        Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersMegCryAnim));
         pthis->unk_198 = 0;
         pthis->unk_199 = 160;
         pthis->actionFunc = func_80ADB2B8;
@@ -464,11 +464,11 @@ void func_80AD9C24(EnPoSisters* pthis, GlobalContext* globalCtx) {
 
 void func_80AD9D44(EnPoSisters* pthis) {
     if (pthis->unk_194 == 3) {
-        Animation_PlayOnce(&pthis->skelAnime, &gPoeSistersAppearDisappearAnim);
+        Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim));
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_APPEAR);
     } else {
-        Animation_Change(&pthis->skelAnime, &gPoeSistersAppearDisappearAnim, 0.5f, 0.0f,
-                         Animation_GetLastFrame(&gPoeSistersAppearDisappearAnim), ANIMMODE_ONCE_INTERP, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim), 0.5f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim)), ANIMMODE_ONCE_INTERP, 0.0f);
     }
     pthis->unk_22E.a = 0;
     pthis->unk_199 = 32;
@@ -476,7 +476,7 @@ void func_80AD9D44(EnPoSisters* pthis) {
 }
 
 void func_80AD9DF0(EnPoSisters* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gPoeSistersAppearDisappearAnim, -5.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim), -5.0f);
     pthis->unk_198 = 1;
     pthis->unk_199 &= ~0x80;
     pthis->actionFunc = func_80ADB4B0;
@@ -484,8 +484,8 @@ void func_80AD9DF0(EnPoSisters* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AD9E60(EnPoSisters* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersFloatAnim, -3.0f);
-    pthis->unk_19A = Animation_GetLastFrame(&gPoeSistersFloatAnim) * 7 + 7;
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim), -3.0f);
+    pthis->unk_19A = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim)) * 7 + 7;
     if (pthis->actor.parent != NULL) {
         pthis->actor.world.pos = pthis->actor.parent->world.pos;
         pthis->actor.shape.rot.y = pthis->actor.parent->shape.rot.y;
@@ -500,7 +500,7 @@ void func_80AD9E60(EnPoSisters* pthis) {
 }
 
 void func_80AD9F1C(EnPoSisters* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersFloatAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim), -3.0f);
     pthis->unk_22E.a = 255;
     pthis->unk_19A = 300;
     pthis->unk_19C = 3;
@@ -517,14 +517,14 @@ void func_80AD9F90(EnPoSisters* pthis) {
         pthis->actor.home.pos.x = 752.0f;
         pthis->actor.home.pos.z = -3440.0f;
     }
-    Animation_PlayLoop(&pthis->skelAnime, &gPoeSistersFloatAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim));
     pthis->unk_199 |= 0xA;
     pthis->actionFunc = func_80ADBB6C;
     pthis->actor.speedXZ = 5.0f;
 }
 
 void func_80ADA028(EnPoSisters* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersSwayAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersSwayAnim), -3.0f);
     pthis->unk_22E.a = 255;
     pthis->unk_199 |= 0x15;
     pthis->actor.flags |= ACTOR_FLAG_0;
@@ -553,8 +553,8 @@ void func_80ADA10C(EnPoSisters* pthis) {
 }
 
 void func_80ADA1B8(EnPoSisters* pthis) {
-    Animation_Change(&pthis->skelAnime, &gPoeSistersAppearDisappearAnim, 0.833f, 0.0f,
-                     Animation_GetLastFrame(&gPoeSistersAppearDisappearAnim), ANIMMODE_ONCE_INTERP, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim), 0.833f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gPoeSistersAppearDisappearAnim)), ANIMMODE_ONCE_INTERP, 0.0f);
     if (pthis->unk_194 == 0 || pthis->unk_194 == 1) {
         pthis->unk_19A = 40;
     } else {
@@ -566,7 +566,7 @@ void func_80ADA1B8(EnPoSisters* pthis) {
 }
 
 void func_80ADA25C(EnPoSisters* pthis) {
-    Animation_PlayLoop(&pthis->skelAnime, &gPoeSistersSwayAnim);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersSwayAnim));
     pthis->unk_198 = 8;
     pthis->unk_19A = 32;
     func_80AD9240(pthis, pthis->unk_19A, &pthis->actor.home.pos);
@@ -574,7 +574,7 @@ void func_80ADA25C(EnPoSisters* pthis) {
 }
 
 void func_80ADA2BC(EnPoSisters* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersFloatAnim, -3.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gPoeSistersFloatAnim), -3.0f);
     pthis->unk_198 = 0;
     pthis->unk_199 = 40;
     pthis->unk_19A = 90;
@@ -1253,17 +1253,17 @@ void EnPoSisters_Update(Actor* thisx, GlobalContext* globalCtx) {
 void func_80ADC55C(EnPoSisters* pthis) {
     s16 temp_var;
 
-    if (pthis->skelAnime.animation == &gPoeSistersAttackAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gPoeSistersAttackAnim)) {
         pthis->unk_22E.r = CLAMP_MAX((s16)(pthis->unk_22E.r + 5), 255);
         pthis->unk_22E.g = CLAMP_MIN((s16)(pthis->unk_22E.g - 5), 50);
         temp_var = pthis->unk_22E.b - 5;
         pthis->unk_22E.b = CLAMP_MIN(temp_var, 0);
-    } else if (pthis->skelAnime.animation == &gPoeSistersFleeAnim) {
+    } else if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gPoeSistersFleeAnim)) {
         pthis->unk_22E.r = CLAMP_MAX((s16)(pthis->unk_22E.r + 5), 80);
         pthis->unk_22E.g = CLAMP_MAX((s16)(pthis->unk_22E.g + 5), 255);
         temp_var = pthis->unk_22E.b + 5;
         pthis->unk_22E.b = CLAMP_MAX(temp_var, 225);
-    } else if (pthis->skelAnime.animation == &gPoeSistersDamagedAnim) {
+    } else if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gPoeSistersDamagedAnim)) {
         if (pthis->actor.colorFilterTimer & 2) {
             pthis->unk_22E.r = 0;
             pthis->unk_22E.g = 0;
@@ -1323,7 +1323,7 @@ void EnPoSisters_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
     if (pthis->actionFunc == func_80ADAFC0 && pthis->unk_19A >= 8 && limbIndex == 9) {
         gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 2876),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList((*gfxP)++, gPoSistersBurnDL);
+        gSPDisplayList((*gfxP)++, oot::asset::gfx::load(symbol::gPoSistersBurnDL));
     }
     if (limbIndex == 8 && pthis->actionFunc != func_80ADB2B8) {
         if (pthis->unk_199 & 0x20) {
@@ -1388,7 +1388,7 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Put(&pthis->unk_2F8);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3034),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gPoSistersTorchDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gPoSistersTorchDL));
     }
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
@@ -1432,7 +1432,7 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(phi_f20, phi_f20, phi_f20, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3132),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3139);
 }

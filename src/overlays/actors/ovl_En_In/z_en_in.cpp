@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_in.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
-#include "objects/object_in/object_in.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
@@ -44,7 +44,7 @@ void func_80A7A940(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7AA40(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7A4BC(EnIn* pthis, GlobalContext* globalCtx);
 
-static void* eyeTextures_84[] = { gIngoEyeOpenTex, gIngoEyeHalfTex, gIngoEyeClosedTex, gIngoEyeClosed2Tex };
+static void* eyeTextures_84[] = { oot::asset::texture::load(symbol::gIngoEyeOpenTex), oot::asset::texture::load(symbol::gIngoEyeHalfTex), oot::asset::texture::load(symbol::gIngoEyeClosedTex), oot::asset::texture::load(symbol::gIngoEyeClosed2Tex) };
 
 
 ActorInit En_In_InitVars = {
@@ -85,39 +85,39 @@ static CollisionCheckInfoInit2 sColChkInfoInit = {
 };
 
 static struct_D_80AA1678 sAnimationInfo[] = {
-    { &object_in_Anim_001CC0, 1.0f, ANIMMODE_LOOP, 0.0f }, { &object_in_Anim_001CC0, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &object_in_Anim_013C6C, 1.0f, ANIMMODE_LOOP, 0.0f }, { &object_in_Anim_013C6C, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &object_in_Anim_000CB0, 1.0f, ANIMMODE_LOOP, 0.0f }, { &object_in_Anim_0003B4, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &object_in_Anim_001BE0, 1.0f, ANIMMODE_LOOP, 0.0f }, { &object_in_Anim_013D60, 1.0f, ANIMMODE_LOOP, 0.0f },
-    { &object_in_Anim_01431C, 1.0f, ANIMMODE_LOOP, 0.0f }, { &object_in_Anim_014CA8, 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::object_in_Anim_001CC0), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::object_in_Anim_001CC0), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::object_in_Anim_013C6C), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::object_in_Anim_013C6C), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::object_in_Anim_000CB0), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::object_in_Anim_0003B4), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::object_in_Anim_001BE0), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::object_in_Anim_013D60), 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::object_in_Anim_01431C), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::object_in_Anim_014CA8), 1.0f, ANIMMODE_LOOP, 0.0f },
 };
 
 static AnimationHeader* D_80A7B918[] = {
-    &object_in_Anim_0151C8, &object_in_Anim_015DF0, &object_in_Anim_016B3C, &object_in_Anim_015814,
-    &object_in_Anim_01646C, &object_in_Anim_0175D0, &object_in_Anim_017B58, &object_in_Anim_018C38,
+    oot::asset::anim::header::load(symbol::object_in_Anim_0151C8), oot::asset::anim::header::load(symbol::object_in_Anim_015DF0), oot::asset::anim::header::load(symbol::object_in_Anim_016B3C), oot::asset::anim::header::load(symbol::object_in_Anim_015814),
+    oot::asset::anim::header::load(symbol::object_in_Anim_01646C), oot::asset::anim::header::load(symbol::object_in_Anim_0175D0), oot::asset::anim::header::load(symbol::object_in_Anim_017B58), oot::asset::anim::header::load(symbol::object_in_Anim_018C38),
 };
 
 static Gfx* sAdultEraDLs[] = {
     NULL,
     NULL,
-    gIngoAdultEraLeftThighDL,
-    gIngoAdultEraLeftLegDL,
-    gIngoAdultEraLeftFootDL,
-    gIngoAdultEraRightThighDL,
-    gIngoAdultEraRightLegDL,
-    gIngoAdultEraRightFootDL,
-    gIngoAdultEraTorsoDL,
-    gIngoAdultEraChestDL,
-    gIngoAdultEraLeftShoulderDL,
-    gIngoAdultEraLeftArmDL,
-    gIngoAdultEraLeftHandDL,
-    gIngoAdultEraRightShoulderDL,
-    gIngoAdultEraRightArmDL,
-    gIngoAdultEraRightHandDL,
-    gIngoAdultEraHeadDL,
-    gIngoAdultEraLeftEyebrowDL,
-    gIngoAdultEraRightEyebrowDL,
-    gIngoAdultEraMustacheDL,
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftThighDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftLegDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftFootDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightThighDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightLegDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightFootDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraTorsoDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraChestDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftShoulderDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftArmDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftHandDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightShoulderDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightArmDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightHandDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraHeadDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraLeftEyebrowDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraRightEyebrowDL),
+    oot::asset::gfx::load(symbol::gIngoAdultEraMustacheDL),
 };
 
 u16 func_80A78FB0(GlobalContext* globalCtx) {
@@ -329,8 +329,8 @@ void func_80A795C8(EnIn* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     s16 phi_a3;
 
-    if (pthis->skelAnime.animation == &object_in_Anim_0003B4 || pthis->skelAnime.animation == &object_in_Anim_001BE0 ||
-        pthis->skelAnime.animation == &object_in_Anim_013D60) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_0003B4) || pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_001BE0) ||
+        pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_013D60)) {
         phi_a3 = 1;
     } else {
         phi_a3 = 0;
@@ -425,7 +425,7 @@ void func_80A79AB4(EnIn* pthis, GlobalContext* globalCtx) {
     s32 i;
     u32 f = 0;
 
-    if (pthis->skelAnime.animation != &object_in_Anim_014CA8) {
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::object_in_Anim_014CA8)) {
         f = globalCtx->gameplayFrames;
     }
     for (i = 0; i < ARRAY_COUNT(pthis->unk_330); i++) {
@@ -520,7 +520,7 @@ void func_80A79FB0(EnIn* pthis, GlobalContext* globalCtx) {
 
     if (Object_IsLoaded(&globalCtx->objectCtx, pthis->ingoObjBankIndex) || pthis->actor.params <= 0) {
         ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gIngoSkel, NULL, pthis->jointTable, pthis->morphTable, 20);
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gIngoSkel), NULL, pthis->jointTable, pthis->morphTable, 20);
         Collider_InitCylinder(globalCtx, &pthis->collider);
         Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
         CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);
@@ -619,13 +619,13 @@ void func_80A79FB0(EnIn* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80A7A304(EnIn* pthis, GlobalContext* globalCtx) {
-    if (pthis->skelAnime.animation == &object_in_Anim_015814 || pthis->skelAnime.animation == &object_in_Anim_01646C) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_015814) || pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_01646C)) {
         if (pthis->skelAnime.curFrame == 8.0f) {
             Audio_PlaySoundRandom(&pthis->actor.projectedPos, NA_SE_VO_IN_LASH_0,
                                   NA_SE_VO_IN_LASH_1 - NA_SE_VO_IN_LASH_0 + 1);
         }
     }
-    if (pthis->skelAnime.animation == &object_in_Anim_018C38 && pthis->skelAnime.curFrame == 20.0f) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_018C38) && pthis->skelAnime.curFrame == 20.0f) {
         Audio_PlayActorSound2(&pthis->actor, NA_SE_VO_IN_CRY_0);
     }
     if (SkelAnime_Update(&pthis->skelAnime) != 0) {
@@ -926,7 +926,7 @@ void EnIn_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &collider->base);
     if (pthis->actionFunc != func_80A7A304) {
         SkelAnime_Update(&pthis->skelAnime);
-        if (pthis->skelAnime.animation == &object_in_Anim_001BE0 && ((gSaveContext.eventInf[0] & 0xF) != 6)) {
+        if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_001BE0) && ((gSaveContext.eventInf[0] & 0xF) != 6)) {
             func_80A79690(&pthis->skelAnime, pthis, globalCtx);
         }
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);
@@ -988,11 +988,11 @@ void EnIn_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
         Matrix_MultVec3f(&D_80A7B9A8, &pthis->actor.focus.pos);
         pthis->actor.focus.rot = pthis->actor.world.rot;
     }
-    if (limbIndex == INGO_LEFT_HAND_LIMB && pthis->skelAnime.animation == &object_in_Anim_014CA8) {
-        gSPDisplayList(POLY_OPA_DISP++, gIngoChildEraBasketDL);
+    if (limbIndex == INGO_LEFT_HAND_LIMB && pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_014CA8)) {
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gIngoChildEraBasketDL));
     }
-    if (limbIndex == INGO_RIGHT_HAND_LIMB && pthis->skelAnime.animation == &object_in_Anim_014CA8) {
-        gSPDisplayList(POLY_OPA_DISP++, gIngoChildEraPitchForkDL);
+    if (limbIndex == INGO_RIGHT_HAND_LIMB && pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::object_in_Anim_014CA8)) {
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gIngoChildEraPitchForkDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_in.c", 2365);
@@ -1006,7 +1006,7 @@ void EnIn_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->actionFunc != func_80A79FB0) {
         func_80093D18(globalCtx->state.gfxCtx);
         gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_84[pthis->eyeIndex]));
-        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gIngoHeadGradient2Tex));
+        gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gIngoHeadGradient2Tex)));
         SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                               pthis->skelAnime.dListCount, EnIn_OverrideLimbDraw, EnIn_PostLimbDraw, &pthis->actor);
     }

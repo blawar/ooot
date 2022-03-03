@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT18_BASKET_Z_BG_SPOT18_BASKET_C
 #include "actor_common.h"
 #include "z_bg_spot18_basket.h"
-#include "objects/object_spot18_obj/object_spot18_obj.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/audio.h"
@@ -153,7 +153,7 @@ void BgSpot18Basket_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK3);
     func_808B7710(&pthis->dyna.actor, globalCtx);
-    CollisionHeader_GetVirtual(&gGoronCityVaseCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gGoronCityVaseCol), &colHeader);
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 
@@ -466,7 +466,7 @@ void BgSpot18Basket_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     Collider_UpdateSpheres(0, &pthis->colliderJntSph);
     Collider_UpdateSpheres(1, &pthis->colliderJntSph);
-    Gfx_DrawDListOpa(globalCtx, gGoronCityVaseDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gGoronCityVaseDL));
 }
 
 void BgSpot18Basket_Reset(Actor* pthisx, GlobalContext* globalCtx) {

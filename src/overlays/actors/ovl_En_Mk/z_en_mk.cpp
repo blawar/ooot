@@ -7,7 +7,7 @@
  */
 
 #include "z_en_mk.h"
-#include "objects/object_mk/object_mk.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -72,9 +72,9 @@ void EnMk_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.minVelocityY = -4.0f;
     pthis->actor.gravity = -1.0f;
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_mk_Skel_005DF0, &object_mk_Anim_000D88, pthis->jointTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_mk_Skel_005DF0), oot::asset::anim::header::load(symbol::object_mk_Anim_000D88), pthis->jointTable,
                        pthis->morphTable, 13);
-    Animation_PlayLoop(&pthis->skelAnime, &object_mk_Anim_000D88);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000D88));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = 0xFF;
@@ -147,8 +147,8 @@ void func_80AACC04(EnMk* pthis, GlobalContext* globalCtx) {
     } else {
         pthis->timer = 16;
         pthis->actionFunc = func_80AACBAC;
-        Animation_Change(&pthis->skelAnime, &object_mk_Anim_000D88, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_mk_Anim_000D88), ANIMMODE_LOOP, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000D88), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_mk_Anim_000D88)), ANIMMODE_LOOP, -4.0f);
         pthis->flags &= ~2;
     }
 }
@@ -160,8 +160,8 @@ void func_80AACCA0(EnMk* pthis, GlobalContext* globalCtx) {
     } else {
         pthis->timer = 120;
         pthis->actionFunc = func_80AACC04;
-        Animation_Change(&pthis->skelAnime, &object_mk_Anim_000724, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_mk_Anim_000724), ANIMMODE_LOOP, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000724), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_mk_Anim_000724)), ANIMMODE_LOOP, -4.0f);
         pthis->flags &= ~2;
     }
 }
@@ -175,8 +175,8 @@ void func_80AACD48(EnMk* pthis, GlobalContext* globalCtx) {
         globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
         player->exchangeItemId = EXCH_ITEM_NONE;
         pthis->timer = 16;
-        Animation_Change(&pthis->skelAnime, &object_mk_Anim_000D88, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_mk_Anim_000D88), ANIMMODE_LOOP, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000D88), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_mk_Anim_000D88)), ANIMMODE_LOOP, -4.0f);
         pthis->flags &= ~2;
     }
 
@@ -186,8 +186,8 @@ void func_80AACD48(EnMk* pthis, GlobalContext* globalCtx) {
 void func_80AACE2C(EnMk* pthis, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         Message_ContinueTextbox(globalCtx, 0x4001);
-        Animation_Change(&pthis->skelAnime, &object_mk_Anim_000AC0, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_mk_Anim_000AC0), ANIMMODE_ONCE, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000AC0), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_mk_Anim_000AC0)), ANIMMODE_ONCE, -4.0f);
         pthis->flags &= ~2;
         pthis->actionFunc = func_80AACD48;
     }
@@ -198,8 +198,8 @@ void func_80AACE2C(EnMk* pthis, GlobalContext* globalCtx) {
 void func_80AACEE8(EnMk* pthis, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         Message_ContinueTextbox(globalCtx, 0x4000);
-        Animation_Change(&pthis->skelAnime, &object_mk_Anim_000AC0, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_mk_Anim_000AC0), ANIMMODE_LOOP, -4.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000AC0), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_mk_Anim_000AC0)), ANIMMODE_LOOP, -4.0f);
         pthis->flags &= ~2;
         pthis->actionFunc = func_80AACE2C;
     }
@@ -267,8 +267,8 @@ void EnMk_Wait(EnMk* pthis, GlobalContext* globalCtx) {
                     case EXCH_ITEM_FROG:
                         player->actor.textId = 0x4019;
                         pthis->actionFunc = func_80AACEE8;
-                        Animation_Change(&pthis->skelAnime, &object_mk_Anim_000368, 1.0f, 0.0f,
-                                         Animation_GetLastFrame(&object_mk_Anim_000368), ANIMMODE_ONCE, -4.0f);
+                        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_mk_Anim_000368), 1.0f, 0.0f,
+                                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_mk_Anim_000368)), ANIMMODE_ONCE, -4.0f);
                         pthis->flags &= ~2;
                         gSaveContext.timer2State = 0;
                         Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);

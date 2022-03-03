@@ -7,7 +7,7 @@
  */
 
 #include "z_en_bx.h"
-#include "objects/object_bxa/object_bxa.h"
+#include "asset.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -37,9 +37,9 @@ static Color_RGBA8 primColor_25 = { 255, 255, 255, 255 };
 static Color_RGBA8 envColor_25 = { 200, 255, 255, 255 };
 
 static void* D_809D2560_26[] = {
-    object_bxa_Tex_0024F0,
-    object_bxa_Tex_0027F0,
-    object_bxa_Tex_0029F0,
+    oot::asset::texture::load(symbol::object_bxa_Tex_0024F0),
+    oot::asset::texture::load(symbol::object_bxa_Tex_0027F0),
+    oot::asset::texture::load(symbol::object_bxa_Tex_0029F0),
 };
 
 
@@ -258,7 +258,7 @@ void EnBx_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_ToMtx(mtx, "../z_en_bx.c", 507);
     }
 
-    gSPDisplayList(POLY_OPA_DISP++, object_bxa_DL_0022F0);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_bxa_DL_0022F0));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bx.c", 511);
 }

@@ -22,8 +22,8 @@ static DebugDispObject_DrawFunc sDebugObjectDrawFuncTable[] = {
 };
 
 static DebugDispObjectInfo sDebugObjectInfoTable[] = {
-    { 0, gDebugCircleTex }, { 0, gDebugCrossTex }, { 0, gDebugBallTex },
-    { 0, gDebugCursorTex }, { 1, gDebugArrowDL },  { 1, gDebugCameraDL },
+    { 0, oot::asset::texture::load(symbol::gDebugCircleTex) }, { 0, oot::asset::texture::load(symbol::gDebugCrossTex) }, { 0, oot::asset::texture::load(symbol::gDebugBallTex) },
+    { 0, oot::asset::texture::load(symbol::gDebugCursorTex) }, { 1, oot::asset::gfx::load(symbol::gDebugArrowDL) },  { 1, oot::asset::gfx::load(symbol::gDebugCameraDL) },
 };
 
 static Lights1 sDebugObjectLights = gdSPDefLights1(0x80, 0x80, 0x80, 0xFF, 0xFF, 0xFF, 0x49, 0x49, 0x49);
@@ -88,7 +88,7 @@ void DebugDisplay_DrawSpriteI8(DebugDispObject* dispObj, void* texture, GlobalCo
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_debug_display.c", 189),
               G_MTX_MODELVIEW | G_MTX_LOAD);
-    gSPDisplayList(POLY_XLU_DISP++, gDebugSpriteDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gDebugSpriteDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_debug_display.c", 192);
 }

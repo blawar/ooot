@@ -7,8 +7,7 @@
  */
 
 #include "z_en_okarina_tag.h"
-#include "scenes/misc/hakaana_ouke/hakaana_ouke_scene.h"
-#include "scenes/overworld/spot02/spot02_scene.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/audio.h"
 #include "def/z_actor.h"
@@ -261,8 +260,8 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
                 gSaveContext.cutsceneTrigger = 1;
                 break;
             case 6:
-                globalCtx->csCtx.segment = LINK_IS_ADULT ? SEGMENTED_TO_VIRTUAL(&spot02_scene_Cs_003C80)
-                                                         : SEGMENTED_TO_VIRTUAL(&spot02_scene_Cs_005020);
+                globalCtx->csCtx.segment = LINK_IS_ADULT ? oot::asset::cutscene::data::load(symbol::spot02_scene_Cs_003C80)
+                                                         : oot::asset::cutscene::data::load(symbol::spot02_scene_Cs_005020);
                 gSaveContext.cutsceneTrigger = 1;
                 gSaveContext.eventChkInf[1] |= 0x2000;
                 Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
@@ -315,7 +314,7 @@ void func_80ABF7CC(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         Message_CloseTextbox(globalCtx);
         if (!CHECK_QUEST_ITEM(QUEST_SONG_SUN)) {
-            globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(&gSunSongGraveSunSongTeachCs);
+            globalCtx->csCtx.segment = oot::asset::cutscene::data::load(symbol::gSunSongGraveSunSongTeachCs);
             gSaveContext.cutsceneTrigger = 1;
         }
         pthis->actionFunc = func_80ABF708;

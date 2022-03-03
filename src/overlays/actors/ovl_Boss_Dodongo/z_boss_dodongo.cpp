@@ -1,9 +1,9 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BOSS_DODONGO_Z_BOSS_DODONGO_C
 #include "actor_common.h"
 #include "z_boss_dodongo.h"
-#include "objects/object_kingdodongo/object_kingdodongo.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "scenes/dungeons/ddan_boss/ddan_boss_room_1.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/audio_command.h"
 #include "def/math_float.h"
@@ -143,16 +143,16 @@ void func_808C1278(s16* arg0, u8* arg1, s16 arg2) {
 }
 
 void func_808C12C4(u8* arg1, s16 arg2) {
-    func_808C1190((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_015890), arg1, arg2);
-	func_808C1200((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_017210), arg1, arg2);
-    func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_015D90), arg1, arg2);
-	func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_016390), arg1, arg2);
-    func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_016590), arg1, arg2);
-	func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_016790), arg1, arg2);
-    func_808C1230((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_015990), arg1, arg2);
-	func_808C1230((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_015F90), arg1, arg2);
-    func_808C1278((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_016990), arg1, arg2);
-	func_808C1278((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_016E10), arg1, arg2);
+    func_808C1190((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_015890)), arg1, arg2);
+	func_808C1200((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_017210)), arg1, arg2);
+    func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_015D90)), arg1, arg2);
+	func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_016390)), arg1, arg2);
+    func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_016590)), arg1, arg2);
+	func_808C11D0((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_016790)), arg1, arg2);
+    func_808C1230((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_015990)), arg1, arg2);
+	func_808C1230((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_015F90)), arg1, arg2);
+    func_808C1278((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_016990)), arg1, arg2);
+	func_808C1278((s16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_kingdodongo_Tex_016E10)), arg1, arg2);
 }
 
 void func_808C1554(void* arg0, void* floorTex, s32 arg2, f32 arg3) {
@@ -237,9 +237,9 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx) {
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 9200.0f, ActorShadow_DrawCircle, 250.0f);
     Actor_SetScale(&pthis->actor, 0.01f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &object_kingdodongo_Skel_01B310, &object_kingdodongo_Anim_00F0D8, NULL,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::object_kingdodongo_Skel_01B310), oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00F0D8), NULL,
                    NULL, 0);
-    Animation_PlayLoop(&pthis->skelAnime, &object_kingdodongo_Anim_00F0D8);
+    Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00F0D8));
     pthis->unk_1F8 = 1.0f;
     BossDodongo_SetupIntroCutscene(pthis, globalCtx);
     pthis->health = 12;
@@ -252,8 +252,8 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx) {
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->items);
 
     if (Flags_GetClear(globalCtx, globalCtx->roomCtx.curRoom.num)) { // KD is dead
-        temp_s1_3 = (u16*)SEGMENTED_TO_VIRTUAL(gDodongosCavernBossLavaFloorTex);
-        temp_s2 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorRockTex);
+        temp_s1_3 = (u16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gDodongosCavernBossLavaFloorTex));
+        temp_s2 = (u16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::sLavaFloorRockTex));
 
         Actor_Kill(&pthis->actor);
         Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_DOOR_WARP1, -890.0f, -1523.76f,
@@ -278,9 +278,9 @@ void BossDodongo_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void BossDodongo_SetupIntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
-    s16 frames = Animation_GetLastFrame(&object_kingdodongo_Anim_00F0D8);
+    s16 frames = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00F0D8));
 
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00F0D8, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00F0D8), 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
     pthis->actionFunc = BossDodongo_IntroCutscene;
     pthis->csState = 0;
     pthis->unk_1BC = 1;
@@ -394,8 +394,8 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
                     pthis->unk_196 = 30;
                     pthis->unk_198 = 150;
                     pthis->unk_204 = 0.0f;
-                    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_008EEC, 1.0f, 0.0f,
-                                     Animation_GetLastFrame(&object_kingdodongo_Anim_008EEC), ANIMMODE_ONCE, 0.0f);
+                    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_008EEC), 1.0f, 0.0f,
+                                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_008EEC)), ANIMMODE_ONCE, 0.0f);
                     SkelAnime_Update(&pthis->skelAnime);
                 }
             } else if (pthis->unk_198 == 0) {
@@ -417,8 +417,8 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
                 pthis->unk_196 = 0x1E;
                 pthis->unk_198 = 0x96;
                 pthis->unk_204 = 0.0f;
-                Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_008EEC, 1.0f, 0.0f,
-                                 Animation_GetLastFrame(&object_kingdodongo_Anim_008EEC), ANIMMODE_ONCE, -5.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_008EEC), 1.0f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_008EEC)), ANIMMODE_ONCE, -5.0f);
             }
             break;
         case 4:
@@ -454,7 +454,7 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_198 == 0x5A) {
                 if (!(gSaveContext.eventChkInf[7] & 2)) {
                     TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                           SEGMENTED_TO_VIRTUAL(&object_kingdodongo_Blob_017410), 0xA0, 0xB4, 0x80,
+                                           oot::asset::texture::load(symbol::object_kingdodongo_Blob_017410), 0xA0, 0xB4, 0x80,
                                            0x28);
                 }
                 Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_FIRE_BOSS);
@@ -502,8 +502,8 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
 
 void BossDodongo_SetupDamaged(BossDodongo* pthis) {
     if (pthis->actionFunc != BossDodongo_Damaged) {
-        Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_001074, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_kingdodongo_Anim_001074), ANIMMODE_ONCE, -5.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_001074), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_001074)), ANIMMODE_ONCE, -5.0f);
         pthis->actionFunc = BossDodongo_Damaged;
     }
 
@@ -511,8 +511,8 @@ void BossDodongo_SetupDamaged(BossDodongo* pthis) {
 }
 
 void BossDodongo_SetupExplode(BossDodongo* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00E848, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_kingdodongo_Anim_00E848), ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00E848), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00E848)), ANIMMODE_ONCE, -5.0f);
     pthis->actionFunc = BossDodongo_Explode;
     pthis->unk_1B0 = 10;
     pthis->unk_1C0 = 2;
@@ -522,8 +522,8 @@ void BossDodongo_SetupExplode(BossDodongo* pthis) {
 }
 
 void BossDodongo_SetupWalk(BossDodongo* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_01D934, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_kingdodongo_Anim_01D934), ANIMMODE_ONCE, -10.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_01D934), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_01D934)), ANIMMODE_ONCE, -10.0f);
     pthis->unk_1AA = 0;
     pthis->actionFunc = BossDodongo_Walk;
     pthis->unk_1DA = 0;
@@ -532,7 +532,7 @@ void BossDodongo_SetupWalk(BossDodongo* pthis) {
 }
 
 void BossDodongo_SetupRoll(BossDodongo* pthis) {
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00DF38, 1.0f, 0.0f, 59.0f, ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00DF38), 1.0f, 0.0f, 59.0f, ANIMMODE_ONCE, -5.0f);
     pthis->actionFunc = BossDodongo_Roll;
     pthis->numWallCollisions = 0;
     pthis->unk_1DA = 27;
@@ -541,8 +541,8 @@ void BossDodongo_SetupRoll(BossDodongo* pthis) {
 void BossDodongo_SetupBlowFire(BossDodongo* pthis) {
     pthis->actor.speedXZ = 0.0f;
     pthis->unk_1E4 = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_0061D4, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_kingdodongo_Anim_0061D4), ANIMMODE_ONCE, 0.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_0061D4), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_0061D4)), ANIMMODE_ONCE, 0.0f);
     pthis->actionFunc = BossDodongo_BlowFire;
     pthis->unk_1DA = 50;
     pthis->unk_1AE = 0;
@@ -550,8 +550,8 @@ void BossDodongo_SetupBlowFire(BossDodongo* pthis) {
 
 void BossDodongo_SetupInhale(BossDodongo* pthis) {
     pthis->actor.speedXZ = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_008EEC, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_kingdodongo_Anim_008EEC), ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_008EEC), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_008EEC)), ANIMMODE_ONCE, -5.0f);
     pthis->actionFunc = BossDodongo_Inhale;
     pthis->unk_1DA = 100;
     pthis->unk_1AC = 0;
@@ -563,7 +563,7 @@ void BossDodongo_Damaged(BossDodongo* pthis, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&pthis->unk_1F8, 1.0f, 0.5f, 0.02f, 0.001f);
     Math_SmoothStepToF(&pthis->unk_208, 0.05f, 1.0f, 0.005f, 0.0f);
 
-    if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(&object_kingdodongo_Anim_001074))) {
+    if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_001074)))) {
         BossDodongo_SetupRoll(pthis);
     }
 }
@@ -595,8 +595,8 @@ void BossDodongo_Explode(BossDodongo* pthis, GlobalContext* globalCtx) {
             func_8002836C(globalCtx, &dustPos, &dustVel, &dustAcell, &dustPrimColor_75, &dustEnvColor_75, 500, 10, 10);
         }
 
-        Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_004E0C, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_kingdodongo_Anim_004E0C), ANIMMODE_ONCE, -5.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_004E0C), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_004E0C)), ANIMMODE_ONCE, -5.0f);
         pthis->actionFunc = BossDodongo_LayDown;
         Audio_PlayActorSound2(&pthis->actor, NA_SE_IT_BOMB_EXPLOSION);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DAMAGE);
@@ -615,9 +615,9 @@ void BossDodongo_LayDown(BossDodongo* pthis, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&pthis->unk_1F8, 1.3f, 1.0f, 0.1f, 0.001f);
     SkelAnime_Update(&pthis->skelAnime);
 
-    if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(&object_kingdodongo_Anim_004E0C))) {
-        Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_0042A8, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_kingdodongo_Anim_0042A8), ANIMMODE_LOOP, -5.0f);
+    if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_004E0C)))) {
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_0042A8), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_0042A8)), ANIMMODE_LOOP, -5.0f);
         pthis->actionFunc = BossDodongo_Vulnerable;
         pthis->unk_1DA = 100;
     }
@@ -631,8 +631,8 @@ void BossDodongo_Vulnerable(BossDodongo* pthis, GlobalContext* globalCtx) {
     SkelAnime_Update(&pthis->skelAnime);
 
     if (pthis->unk_1DA == 0) {
-        Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_009D10, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&object_kingdodongo_Anim_009D10), ANIMMODE_ONCE, -5.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_009D10), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_009D10)), ANIMMODE_ONCE, -5.0f);
         pthis->actionFunc = BossDodongo_GetUp;
     }
 }
@@ -640,7 +640,7 @@ void BossDodongo_Vulnerable(BossDodongo* pthis, GlobalContext* globalCtx) {
 void BossDodongo_GetUp(BossDodongo* pthis, GlobalContext* globalCtx) {
     SkelAnime_Update(&pthis->skelAnime);
 
-    if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(&object_kingdodongo_Anim_009D10))) {
+    if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_009D10)))) {
         BossDodongo_SetupRoll(pthis);
     }
 }
@@ -707,7 +707,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx) {
 
     if (pthis->unk_1AA == 0) {
         if (Animation_OnFrame(&pthis->skelAnime, 14.0f)) {
-            Animation_PlayLoop(&pthis->skelAnime, &object_kingdodongo_Anim_01CAE0);
+            Animation_PlayLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_01CAE0));
             pthis->unk_1AA = 1;
         }
     } else if (pthis->unk_1BC != 2) {
@@ -1041,12 +1041,12 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2) {
             }
         }
 
-        func_808C1554(gDodongosCavernBossLavaFloorTex, sLavaFloorLavaTex, pthis->unk_19E, pthis->unk_224);
+        func_808C1554(oot::asset::texture::load(symbol::gDodongosCavernBossLavaFloorTex), oot::asset::texture::load(symbol::sLavaFloorLavaTex), pthis->unk_19E, pthis->unk_224);
     }
 
     if (pthis->unk_1C6 != 0) {
-        u16* ptr1 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorLavaTex);
-        u16* ptr2 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorRockTex);
+        u16* ptr1 = (u16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::sLavaFloorLavaTex));
+        u16* ptr2 = (u16*)SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::sLavaFloorRockTex));
         s16 i2;
 
         for (i2 = 0; i2 < 20; i2++) {
@@ -1314,8 +1314,8 @@ void BossDodongo_UpdateDamage(BossDodongo* pthis, GlobalContext* globalCtx) {
 void BossDodongo_SetupDeathCutscene(BossDodongo* pthis) {
     pthis->actor.speedXZ = 0.0f;
     pthis->unk_1E4 = 0.0f;
-    Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_002D0C, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&object_kingdodongo_Anim_002D0C), ANIMMODE_ONCE, -5.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_002D0C), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_002D0C)), ANIMMODE_ONCE, -5.0f);
     pthis->actionFunc = BossDodongo_DeathCutscene;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DEAD);
     pthis->unk_1DA = 0;
@@ -1369,9 +1369,9 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
             Math_SmoothStepToF(&pthis->cameraAt.x, pthis->actor.world.pos.x, 0.2f, 30.0f, 0.1f);
             Math_SmoothStepToF(&pthis->cameraAt.y, pthis->actor.focus.pos.y - 70.0f, 0.2f, 30.0f, 0.1f);
             Math_SmoothStepToF(&pthis->cameraAt.z, pthis->actor.world.pos.z, 0.2f, 30.0f, 0.1f);
-            if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(&object_kingdodongo_Anim_002D0C))) {
-                Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_003CF8, 1.0f, 0.0f,
-                                 Animation_GetLastFrame(&object_kingdodongo_Anim_003CF8), ANIMMODE_ONCE, -1.0f);
+            if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_002D0C)))) {
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_003CF8), 1.0f, 0.0f,
+                                 Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_003CF8)), ANIMMODE_ONCE, -1.0f);
                 pthis->csState = 6;
                 Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_BG_BREAKWALL, -890.0f, -1523.76f, -3304.0f, 0, 0, 0,
                             0x6000);
@@ -1382,8 +1382,8 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
             Math_SmoothStepToF(&pthis->cameraAt.y, (pthis->actor.world.pos.y - 70.0f) + 130.0f, 0.2f, 20.0f, 0.1f);
             Math_SmoothStepToF(&pthis->cameraAt.z, pthis->actor.world.pos.z, 0.2f, 30.0f, 0.1f);
 
-            if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(&object_kingdodongo_Anim_003CF8))) {
-                Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00DF38, 1.0f, 30.0f, 59.0f, ANIMMODE_ONCE,
+            if (Animation_OnFrame(&pthis->skelAnime, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_003CF8)))) {
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_00DF38), 1.0f, 30.0f, 59.0f, ANIMMODE_ONCE,
                                  -1.0f);
                 pthis->csState = 7;
                 pthis->unk_228 = 7700.0f;
@@ -1473,8 +1473,8 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx) {
         case 8:
         case 9:
             if (pthis->unk_1DA == 884) {
-                Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_0042A8, 1.0f, 0.0f,
-                                 (f32)Animation_GetLastFrame(&object_kingdodongo_Anim_0042A8), ANIMMODE_LOOP, -20.0f);
+                Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_0042A8), 1.0f, 0.0f,
+                                 (f32)Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_kingdodongo_Anim_0042A8)), ANIMMODE_LOOP, -20.0f);
                 tempSin = pthis->cameraEye.x - pthis->actor.world.pos.x;
                 tempCos = pthis->cameraEye.z - pthis->actor.world.pos.z;
                 pthis->unk_22C = sqrtf(SQ(tempSin) + SQ(tempCos));
@@ -1724,7 +1724,7 @@ void BossDodongo_DrawEffects(GlobalContext* globalCtx) {
             gDPPipeSync(POLY_XLU_DISP++);
 
             if (phi_s3 == 0) {
-                gSPDisplayList(POLY_XLU_DISP++, object_kingdodongo_DL_009D50);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_kingdodongo_DL_009D50));
                 phi_s3++;
             }
 
@@ -1734,7 +1734,7 @@ void BossDodongo_DrawEffects(GlobalContext* globalCtx) {
             Matrix_Scale(eff->unk_2C, eff->unk_2C, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_dodongo.c", 5253),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, object_kingdodongo_DL_009DD0);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_kingdodongo_DL_009DD0));
         }
     }
 

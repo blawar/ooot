@@ -7,7 +7,7 @@
  */
 
 #include "z_en_dy_extra.h"
-#include "objects/object_dy_obj/object_dy_obj.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -107,7 +107,7 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnDyExtra* pthis = (EnDyExtra*)thisx;
     s32 pad;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
-    Vtx* vertices = SEGMENTED_TO_VIRTUAL(gGreatFairySpiralBeamVtx);
+    Vtx* vertices = SEGMENTED_TO_VIRTUAL(oot::asset::vtx::load(symbol::gGreatFairySpiralBeamVtx));
     s32 i;
     u8 unk[3];
 
@@ -133,7 +133,7 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, primColors_25[pthis->type].r, primColors_25[pthis->type].g,
                     primColors_25[pthis->type].b, 255);
     gDPSetEnvColor(POLY_XLU_DISP++, envColors_25[pthis->type].r, envColors_25[pthis->type].g, envColors_25[pthis->type].b, 128);
-    gSPDisplayList(POLY_XLU_DISP++, gGreatFairySpiralBeamDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGreatFairySpiralBeamDL));
 
     CLOSE_DISPS(gfxCtx, "../z_en_dy_extra.c", 325);
 }

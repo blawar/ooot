@@ -1,8 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_BG_SPOT16_BOMBSTONE_Z_BG_SPOT16_BOMBSTONE_C
 #include "actor_common.h"
 #include "z_bg_spot16_bombstone.h"
-#include "objects/object_spot16_obj/object_spot16_obj.h"
-#include "objects/object_bombiwa/object_bombiwa.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Bombf/z_en_bombf.h"
 #include "overlays/effects/ovl_Effect_Ss_Kakera/z_eff_ss_kakera.h"
 #include "def/code_8006BA00.h"
@@ -197,7 +196,7 @@ s32 init_boulder(BgSpot16Bombstone* pthis, GlobalContext* globalCtx) {
     set_collision_cylinder(pthis, globalCtx);
     pthis->sinRotation = Math_SinS(pthis->actor.shape.rot.y);
     pthis->cosRotation = Math_CosS(pthis->actor.shape.rot.y);
-    pthis->dList = gDodongosCavernRock3DL;
+    pthis->dList = oot::asset::gfx::load(symbol::gDodongosCavernRock3DL);
 
     set_action_show_boulder(pthis);
     return true;
@@ -233,7 +232,7 @@ s32 init_debris(BgSpot16Bombstone* pthis, GlobalContext* globalctx) {
     actor->shape.rot.y = D_808B5DD8[actor->params][8];
     actor->shape.rot.z = D_808B5DD8[actor->params][9];
 
-    pthis->dList = object_bombiwa_DL_0009E0;
+    pthis->dList = oot::asset::gfx::load(symbol::object_bombiwa_DL_0009E0);
     pthis->bombiwaBankIndex = Object_GetIndex(&globalctx->objectCtx, OBJECT_BOMBIWA);
 
     if (pthis->bombiwaBankIndex < 0) {
@@ -358,7 +357,7 @@ void BgSpot16Bombstone_SpawnFragments(BgSpot16Bombstone* pthis, GlobalContext* g
             scale = sBombSizeScalers[index] * pthis->actor.scale.x * 3;
 
             EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pthis->actor.world.pos, -420, 0x31, 0xF, 0xF, 0, scale, 2,
-                                 0x40, 160, KAKERA_COLOR_NONE, OBJECT_BOMBIWA, object_bombiwa_DL_0009E0);
+                                 0x40, 160, KAKERA_COLOR_NONE, OBJECT_BOMBIWA, oot::asset::gfx::load(symbol::object_bombiwa_DL_0009E0));
             index += 1;
         } while (index != ARRAY_COUNT(sBombSizeScalers));
     }
@@ -557,7 +556,6 @@ void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_OPA_DISP++, pthis->dList);
     } else {
         // The boulder is debris
-	    gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[pthis->bombiwaBankIndex].vromStart.get());
         gSPDisplayList(POLY_OPA_DISP++, pthis->dList);
     }
 

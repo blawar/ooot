@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_en_skb.h"
 #include "overlays/actors/ovl_En_Encount1/z_en_encount1.h"
-#include "objects/object_skb/object_skb.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math.h"
 #include "def/z_actor.h"
@@ -165,7 +165,7 @@ void EnSkb_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.colChkInfo.mass = 0xFE;
     pthis->actor.colChkInfo.health = 2;
     pthis->actor.shape.yOffset = -8000.0f;
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gStalchildSkel, &gStalchildUncurlingAnim, pthis->jointTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gStalchildSkel), oot::asset::anim::header::load(symbol::gStalchildUncurlingAnim), pthis->jointTable,
                    pthis->morphTable, 20);
     pthis->actor.naviEnemyId = 0x55;
 
@@ -212,7 +212,7 @@ void func_80AFCD60(EnSkb* pthis) {
 }
 
 void func_80AFCDF8(EnSkb* pthis) {
-    Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gStalchildUncurlingAnim, 1.0f);
+    Animation_PlayOnceSetSpeed(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildUncurlingAnim), 1.0f);
     pthis->unk_280 = 0;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIVA_APPEAR);
@@ -237,8 +237,8 @@ void func_80AFCE5C(EnSkb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AFCF48(EnSkb* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStalchildUncurlingAnim, -1.0f,
-                     Animation_GetLastFrame(&gStalchildUncurlingAnim), 0.0f, ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildUncurlingAnim), -1.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gStalchildUncurlingAnim)), 0.0f, ANIMMODE_ONCE, -4.0f);
     pthis->unk_280 = 0;
     pthis->unk_281 = 0;
     pthis->actor.flags &= ~ACTOR_FLAG_0;
@@ -259,8 +259,8 @@ void func_80AFCFF0(EnSkb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AFD0A4(EnSkb* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStalchildWalkingAnim, 0.96000004f, 0.0f,
-                     Animation_GetLastFrame(&gStalchildWalkingAnim), ANIMMODE_LOOP, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildWalkingAnim), 0.96000004f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gStalchildWalkingAnim)), ANIMMODE_LOOP, -4.0f);
     pthis->unk_280 = 4;
     pthis->unk_288 = 0;
     pthis->actor.speedXZ = pthis->actor.scale.y * 160.0f;
@@ -307,8 +307,8 @@ void EnSkb_Advance(EnSkb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AFD33C(EnSkb* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStalchildAttackingAnim, 0.6f, 0.0f,
-                     Animation_GetLastFrame(&gStalchildAttackingAnim), ANIMMODE_ONCE_INTERP, 4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildAttackingAnim), 0.6f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gStalchildAttackingAnim)), ANIMMODE_ONCE_INTERP, 4.0f);
     pthis->collider.base.atFlags &= ~4;
     pthis->unk_280 = 3;
     pthis->actor.speedXZ = 0.0f;
@@ -334,7 +334,7 @@ void EnSkb_SetupAttack(EnSkb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AFD47C(EnSkb* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStalchildAttackingAnim, -0.4f, pthis->skelAnime.curFrame - 1.0f, 0.0f,
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildAttackingAnim), -0.4f, pthis->skelAnime.curFrame - 1.0f, 0.0f,
                      ANIMMODE_ONCE_INTERP, 0.0f);
     pthis->collider.base.atFlags &= ~4;
     pthis->unk_280 = 5;
@@ -377,7 +377,7 @@ void func_80AFD59C(EnSkb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AFD644(EnSkb* pthis) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gStalchildDamagedAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildDamagedAnim), -4.0f);
     if (pthis->actor.bgCheckFlags & 1) {
         pthis->actor.speedXZ = -4.0f;
     }
@@ -413,7 +413,7 @@ void func_80AFD6CC(EnSkb* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AFD7B4(EnSkb* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &gStalchildDyingAnim, -4.0f);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStalchildDyingAnim), -4.0f);
     pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
     pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
     if (pthis->actor.bgCheckFlags & 1) {

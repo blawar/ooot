@@ -7,8 +7,8 @@
  */
 
 #include "z_en_horse_normal.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_horse_normal/object_horse_normal.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/random.h"
@@ -62,9 +62,9 @@ ActorInit En_Horse_Normal_InitVars = {
 };
 
 static AnimationHeader* sAnimations[] = {
-    &gHorseNormalIdleAnim,      &gHorseNormalWhinnyAnim,  &gHorseNormalRefuseAnim,
-    &gHorseNormalRearingAnim,   &gHorseNormalWalkingAnim, &gHorseNormalTrottingAnim,
-    &gHorseNormalGallopingAnim, &gHorseNormalJumpingAnim, &gHorseNormalJumpingHighAnim,
+    oot::asset::anim::header::load(symbol::gHorseNormalIdleAnim),      oot::asset::anim::header::load(symbol::gHorseNormalWhinnyAnim),  oot::asset::anim::header::load(symbol::gHorseNormalRefuseAnim),
+    oot::asset::anim::header::load(symbol::gHorseNormalRearingAnim),   oot::asset::anim::header::load(symbol::gHorseNormalWalkingAnim), oot::asset::anim::header::load(symbol::gHorseNormalTrottingAnim),
+    oot::asset::anim::header::load(symbol::gHorseNormalGallopingAnim), oot::asset::anim::header::load(symbol::gHorseNormalJumpingAnim), oot::asset::anim::header::load(symbol::gHorseNormalJumpingHighAnim),
 };
 
 static ColliderCylinderInit sCylinderInit1 = {
@@ -234,7 +234,7 @@ void EnHorseNormal_Init(Actor* thisx, GlobalContext* globalCtx) {
             return;
         }
         pthis->actor.home.rot.z = pthis->actor.world.rot.z = pthis->actor.shape.rot.z = 0;
-        func_800A663C(globalCtx, &pthis->skin, &gHorseNormalSkel, &gHorseNormalIdleAnim);
+        func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseNormalSkel), oot::asset::anim::header::load(symbol::gHorseNormalIdleAnim));
         Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx]);
         if ((pthis->actor.world.pos.x == -730.0f && pthis->actor.world.pos.y == 0.0f &&
              pthis->actor.world.pos.z == -1100.0f) ||
@@ -248,7 +248,7 @@ void EnHorseNormal_Init(Actor* thisx, GlobalContext* globalCtx) {
             Actor_Kill(&pthis->actor);
             return;
         } else {
-            func_800A663C(globalCtx, &pthis->skin, &gHorseNormalSkel, &gHorseNormalIdleAnim);
+            func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseNormalSkel), oot::asset::anim::header::load(symbol::gHorseNormalIdleAnim));
             Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx]);
             func_80A6C6B0(pthis);
             return;
@@ -256,15 +256,15 @@ void EnHorseNormal_Init(Actor* thisx, GlobalContext* globalCtx) {
     } else if (globalCtx->sceneNum == SCENE_SPOT12) {
         if (pthis->actor.world.pos.x == 3707.0f && pthis->actor.world.pos.y == 1413.0f &&
             pthis->actor.world.pos.z == -665.0f) {
-            func_800A663C(globalCtx, &pthis->skin, &gHorseNormalSkel, &gHorseNormalIdleAnim);
+            func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseNormalSkel), oot::asset::anim::header::load(symbol::gHorseNormalIdleAnim));
             Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx]);
             func_80A6C4CC(pthis);
             return;
         }
-        func_800A663C(globalCtx, &pthis->skin, &gHorseNormalSkel, &gHorseNormalIdleAnim);
+        func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseNormalSkel), oot::asset::anim::header::load(symbol::gHorseNormalIdleAnim));
         Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx]);
     } else {
-        func_800A663C(globalCtx, &pthis->skin, &gHorseNormalSkel, &gHorseNormalIdleAnim);
+        func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseNormalSkel), oot::asset::anim::header::load(symbol::gHorseNormalIdleAnim));
         Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[pthis->animationIdx]);
     }
     if ((pthis->actor.params & 0xF0) == 0x10 && (pthis->actor.params & 0xF) != 0xF) {
@@ -712,7 +712,7 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx) {
         mtx2 = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_horse_normal.c", 2329);
         if (mtx2 != NULL) {
             gSPMatrix(POLY_XLU_DISP++, mtx2, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, gHorseShadowDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gHorseShadowDL));
         }
     }
 

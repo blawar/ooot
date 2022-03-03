@@ -2,84 +2,7 @@
 #include "global.h"
 #include "z64global.h"
 #include "gfx.h"
-#include "objects/object_gi_key/object_gi_key.h"
-#include "objects/object_gi_jewel/object_gi_jewel.h"
-#include "objects/object_gi_melody/object_gi_melody.h"
-#include "objects/object_gi_heart/object_gi_heart.h"
-#include "objects/object_gi_compass/object_gi_compass.h"
-#include "objects/object_gi_bosskey/object_gi_bosskey.h"
-#include "objects/object_gi_medal/object_gi_medal.h"
-#include "objects/object_gi_nuts/object_gi_nuts.h"
-#include "objects/object_gi_hearts/object_gi_hearts.h"
-#include "objects/object_gi_arrowcase/object_gi_arrowcase.h"
-#include "objects/object_gi_bombpouch/object_gi_bombpouch.h"
-#include "objects/object_gi_bottle/object_gi_bottle.h"
-#include "objects/object_gi_stick/object_gi_stick.h"
-#include "objects/object_gi_map/object_gi_map.h"
-#include "objects/object_gi_shield_1/object_gi_shield_1.h"
-#include "objects/object_gi_magicpot/object_gi_magicpot.h"
-#include "objects/object_gi_bomb_1/object_gi_bomb_1.h"
-#include "objects/object_gi_purse/object_gi_purse.h"
-#include "objects/object_gi_gerudo/object_gi_gerudo.h"
-#include "objects/object_gi_arrow/object_gi_arrow.h"
-#include "objects/object_gi_bomb_2/object_gi_bomb_2.h"
-#include "objects/object_gi_egg/object_gi_egg.h"
-#include "objects/object_gi_scale/object_gi_scale.h"
-#include "objects/object_gi_shield_2/object_gi_shield_2.h"
-#include "objects/object_gi_hookshot/object_gi_hookshot.h"
-#include "objects/object_gi_ocarina/object_gi_ocarina.h"
-#include "objects/object_gi_milk/object_gi_milk.h"
-#include "objects/object_gi_pachinko/object_gi_pachinko.h"
-#include "objects/object_gi_boomerang/object_gi_boomerang.h"
-#include "objects/object_gi_bow/object_gi_bow.h"
-#include "objects/object_gi_glasses/object_gi_glasses.h"
-#include "objects/object_gi_liquid/object_gi_liquid.h"
-#include "objects/object_gi_shield_3/object_gi_shield_3.h"
-#include "objects/object_gi_letter/object_gi_letter.h"
-#include "objects/object_gi_clothes/object_gi_clothes.h"
-#include "objects/object_gi_bean/object_gi_bean.h"
-#include "objects/object_gi_fish/object_gi_fish.h"
-#include "objects/object_gi_saw/object_gi_saw.h"
-#include "objects/object_gi_hammer/object_gi_hammer.h"
-#include "objects/object_gi_grass/object_gi_grass.h"
-#include "objects/object_gi_longsword/object_gi_longsword.h"
-#include "objects/object_gi_niwatori/object_gi_niwatori.h"
-#include "objects/object_gi_bottle_letter/object_gi_bottle_letter.h"
-#include "objects/object_gi_ocarina_0/object_gi_ocarina_0.h"
-#include "objects/object_gi_boots_2/object_gi_boots_2.h"
-#include "objects/object_gi_seed/object_gi_seed.h"
-#include "objects/object_gi_gloves/object_gi_gloves.h"
-#include "objects/object_gi_coin/object_gi_coin.h"
-#include "objects/object_gi_ki_tan_mask/object_gi_ki_tan_mask.h"
-#include "objects/object_gi_redead_mask/object_gi_redead_mask.h"
-#include "objects/object_gi_skj_mask/object_gi_skj_mask.h"
-#include "objects/object_gi_rabit_mask/object_gi_rabit_mask.h"
-#include "objects/object_gi_truth_mask/object_gi_truth_mask.h"
-#include "objects/object_gi_eye_lotion/object_gi_eye_lotion.h"
-#include "objects/object_gi_powder/object_gi_powder.h"
-#include "objects/object_gi_mushroom/object_gi_mushroom.h"
-#include "objects/object_gi_ticketstone/object_gi_ticketstone.h"
-#include "objects/object_gi_brokensword/object_gi_brokensword.h"
-#include "objects/object_gi_prescription/object_gi_prescription.h"
-#include "objects/object_gi_bracelet/object_gi_bracelet.h"
-#include "objects/object_gi_soldout/object_gi_soldout.h"
-#include "objects/object_gi_frog/object_gi_frog.h"
-#include "objects/object_gi_golonmask/object_gi_golonmask.h"
-#include "objects/object_gi_zoramask/object_gi_zoramask.h"
-#include "objects/object_gi_gerudomask/object_gi_gerudomask.h"
-#include "objects/object_gi_hoverboots/object_gi_hoverboots.h"
-#include "objects/object_gi_m_arrow/object_gi_m_arrow.h"
-#include "objects/object_gi_sutaru/object_gi_sutaru.h"
-#include "objects/object_gi_goddess/object_gi_goddess.h"
-#include "objects/object_gi_fire/object_gi_fire.h"
-#include "objects/object_gi_insect/object_gi_insect.h"
-#include "objects/object_gi_butterfly/object_gi_butterfly.h"
-#include "objects/object_gi_ghost/object_gi_ghost.h"
-#include "objects/object_gi_soul/object_gi_soul.h"
-#include "objects/object_gi_dekupouch/object_gi_dekupouch.h"
-#include "objects/object_gi_rupy/object_gi_rupy.h"
-#include "objects/object_gi_sword_1/object_gi_sword_1.h"
-#include "objects/object_st/object_st.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_draw.h"
 #include "def/z_rcp.h"
@@ -120,260 +43,260 @@ typedef struct {
 
 DrawItemTableEntry sDrawItemTable[] = {
     // bottle, OBJECT_GI_BOTTLE
-    { GetItem_DrawOpa0Xlu1, { gGiBottleStopperDL, gGiBottleDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiBottleStopperDL), oot::asset::gfx::load(symbol::gGiBottleDL) } },
     // small key, OBJECT_GI_KEY
-    { GetItem_DrawOpa0, { gGiSmallKeyDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiSmallKeyDL) } },
     // minuet of forest, OBJECT_GI_MELODY
-    { GetItem_DrawXlu01, { gGiMinuetColorDL, gGiSongNoteDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiMinuetColorDL), oot::asset::gfx::load(symbol::gGiSongNoteDL) } },
     // bolero of fire, OBJECT_GI_MELODY
-    { GetItem_DrawXlu01, { gGiBoleroColorDL, gGiSongNoteDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiBoleroColorDL), oot::asset::gfx::load(symbol::gGiSongNoteDL) } },
     // serenade of water, OBJECT_GI_MELODY
-    { GetItem_DrawXlu01, { gGiSerenadeColorDL, gGiSongNoteDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiSerenadeColorDL), oot::asset::gfx::load(symbol::gGiSongNoteDL) } },
     // requiem of spirit, OBJECT_GI_MELODY
-    { GetItem_DrawXlu01, { gGiRequiemColorDL, gGiSongNoteDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiRequiemColorDL), oot::asset::gfx::load(symbol::gGiSongNoteDL) } },
     // nocturne of shadow, OBJECT_GI_MELODY
-    { GetItem_DrawXlu01, { gGiNocturneColorDL, gGiSongNoteDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiNocturneColorDL), oot::asset::gfx::load(symbol::gGiSongNoteDL) } },
     // prelude of light, OBJECT_GI_MELODY
-    { GetItem_DrawXlu01, { gGiPreludeColorDL, gGiSongNoteDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiPreludeColorDL), oot::asset::gfx::load(symbol::gGiSongNoteDL) } },
     // recovery heart, OBJECT_GI_HEART
-    { GetItem_DrawRecoveryHeart, { gGiRecoveryHeartDL } },
+    { GetItem_DrawRecoveryHeart, { oot::asset::gfx::load(symbol::gGiRecoveryHeartDL) } },
     // boss key, OBJECT_GI_BOSSKEY
-    { GetItem_DrawOpa0Xlu1, { gGiBossKeyDL, gGiBossKeyGemDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiBossKeyDL), oot::asset::gfx::load(symbol::gGiBossKeyGemDL) } },
     // compass, OBJECT_GI_COMPASS
-    { GetItem_DrawCompass, { gGiCompassDL, gGiCompassGlassDL } },
+    { GetItem_DrawCompass, { oot::asset::gfx::load(symbol::gGiCompassDL), oot::asset::gfx::load(symbol::gGiCompassGlassDL) } },
     // forest medallion, OBJECT_GI_MEDAL
-    { GetItem_DrawEggOrMedallion, { gGiForestMedallionFaceDL, gGiMedallionDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiForestMedallionFaceDL), oot::asset::gfx::load(symbol::gGiMedallionDL) } },
     // fire medallion, OBJECT_GI_MEDAL
-    { GetItem_DrawEggOrMedallion, { gGiFireMedallionFaceDL, gGiMedallionDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiFireMedallionFaceDL), oot::asset::gfx::load(symbol::gGiMedallionDL) } },
     // water medallion, OBJECT_GI_MEDAL
-    { GetItem_DrawEggOrMedallion, { gGiWaterMedallionFaceDL, gGiMedallionDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiWaterMedallionFaceDL), oot::asset::gfx::load(symbol::gGiMedallionDL) } },
     // spirit medallion, OBJECT_GI_MEDAL
-    { GetItem_DrawEggOrMedallion, { gGiSpiritMedallionFaceDL, gGiMedallionDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiSpiritMedallionFaceDL), oot::asset::gfx::load(symbol::gGiMedallionDL) } },
     // shadow medallion, OBJECT_GI_MEDAL
-    { GetItem_DrawEggOrMedallion, { gGiShadowMedallionFaceDL, gGiMedallionDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiShadowMedallionFaceDL), oot::asset::gfx::load(symbol::gGiMedallionDL) } },
     // light medallion, OBJECT_GI_MEDAL
-    { GetItem_DrawEggOrMedallion, { gGiLightMedallionFaceDL, gGiMedallionDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiLightMedallionFaceDL), oot::asset::gfx::load(symbol::gGiMedallionDL) } },
     // deku nuts, OBJECT_GI_NUTS
-    { GetItem_DrawDekuNuts, { gGiNutDL } },
+    { GetItem_DrawDekuNuts, { oot::asset::gfx::load(symbol::gGiNutDL) } },
     // heart container, OBJECT_GI_HEARTS
-    { GetItem_DrawXlu01, { gGiHeartBorderDL, gGiHeartContainerDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiHeartBorderDL), oot::asset::gfx::load(symbol::gGiHeartContainerDL) } },
     // heart piece, OBJECT_GI_HEARTS
-    { GetItem_DrawXlu01, { gGiHeartBorderDL, gGiHeartPieceDL } },
+    { GetItem_DrawXlu01, { oot::asset::gfx::load(symbol::gGiHeartBorderDL), oot::asset::gfx::load(symbol::gGiHeartPieceDL) } },
     // quiver 30, OBJECT_GI_ARROWCASE
-    { GetItem_DrawOpa1023, { gGiQuiverInnerDL, gGiQuiver30InnerColorDL, gGiQuiver30OuterColorDL, gGiQuiverOuterDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiQuiverInnerDL), oot::asset::gfx::load(symbol::gGiQuiver30InnerColorDL), oot::asset::gfx::load(symbol::gGiQuiver30OuterColorDL), oot::asset::gfx::load(symbol::gGiQuiverOuterDL) } },
     // quiver 40, OBJECT_GI_ARROWCASE
-    { GetItem_DrawOpa1023, { gGiQuiverInnerDL, gGiQuiver40InnerColorDL, gGiQuiver40OuterColorDL, gGiQuiverOuterDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiQuiverInnerDL), oot::asset::gfx::load(symbol::gGiQuiver40InnerColorDL), oot::asset::gfx::load(symbol::gGiQuiver40OuterColorDL), oot::asset::gfx::load(symbol::gGiQuiverOuterDL) } },
     // quiver 50, OBJECT_GI_ARROWCASE
-    { GetItem_DrawOpa1023, { gGiQuiverInnerDL, gGiQuiver50InnerColorDL, gGiQuiver50OuterColorDL, gGiQuiverOuterDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiQuiverInnerDL), oot::asset::gfx::load(symbol::gGiQuiver50InnerColorDL), oot::asset::gfx::load(symbol::gGiQuiver50OuterColorDL), oot::asset::gfx::load(symbol::gGiQuiverOuterDL) } },
     // bomb bag 20, OBJECT_GI_BOMBPOUCH
-    { GetItem_DrawOpa1023, { gGiBombBagDL, gGiBombBag20BagColorDL, gGiBombBag20RingColorDL, gGiBombBagRingDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiBombBagDL), oot::asset::gfx::load(symbol::gGiBombBag20BagColorDL), oot::asset::gfx::load(symbol::gGiBombBag20RingColorDL), oot::asset::gfx::load(symbol::gGiBombBagRingDL) } },
     // bomb bag 30, OBJECT_GI_BOMBPOUCH
-    { GetItem_DrawOpa1023, { gGiBombBagDL, gGiBombBag30BagColorDL, gGiBombBag30RingColorDL, gGiBombBagRingDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiBombBagDL), oot::asset::gfx::load(symbol::gGiBombBag30BagColorDL), oot::asset::gfx::load(symbol::gGiBombBag30RingColorDL), oot::asset::gfx::load(symbol::gGiBombBagRingDL) } },
     // bomb bag 40, OBJECT_GI_BOMBPOUCH
-    { GetItem_DrawOpa1023, { gGiBombBagDL, gGiBombBag40BagColorDL, gGiBombBag40RingColorDL, gGiBombBagRingDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiBombBagDL), oot::asset::gfx::load(symbol::gGiBombBag40BagColorDL), oot::asset::gfx::load(symbol::gGiBombBag40RingColorDL), oot::asset::gfx::load(symbol::gGiBombBagRingDL) } },
     // stick, OBJECT_GI_STICK
-    { GetItem_DrawOpa0, { gGiStickDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiStickDL) } },
     // dungeon map, OBJECT_GI_MAP
-    { GetItem_DrawOpa0, { gGiDungeonMapDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiDungeonMapDL) } },
     // deku shield, OBJECT_GI_SHIELD_1
-    { GetItem_DrawOpa0, { gGiDekuShieldDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiDekuShieldDL) } },
     // small magic jar, OBJECT_GI_MAGICPOT
-    { GetItem_DrawOpa0, { gGiMagicJarSmallDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiMagicJarSmallDL) } },
     // large magic jar, OBJECT_GI_MAGICPOT
-    { GetItem_DrawOpa0, { gGiMagicJarLargeDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiMagicJarLargeDL) } },
     // bombs, OBJECT_GI_BOMB_1
-    { GetItem_DrawOpa0, { gGiBombDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiBombDL) } },
     // stone of agony, OBJECT_GI_MAP
-    { GetItem_DrawOpa0, { gGiStoneOfAgonyDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiStoneOfAgonyDL) } },
     // adult's wallet, OBJECT_GI_PURSE
     { GetItem_DrawWallet,
-      { gGiWalletDL, gGiAdultWalletColorDL, gGiAdultWalletRupeeOuterColorDL, gGiWalletRupeeOuterDL,
-        gGiAdultWalletStringColorDL, gGiWalletStringDL, gGiAdultWalletRupeeInnerColorDL, gGiWalletRupeeInnerDL } },
+      { oot::asset::gfx::load(symbol::gGiWalletDL), oot::asset::gfx::load(symbol::gGiAdultWalletColorDL), oot::asset::gfx::load(symbol::gGiAdultWalletRupeeOuterColorDL), oot::asset::gfx::load(symbol::gGiWalletRupeeOuterDL),
+        oot::asset::gfx::load(symbol::gGiAdultWalletStringColorDL), oot::asset::gfx::load(symbol::gGiWalletStringDL), oot::asset::gfx::load(symbol::gGiAdultWalletRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiWalletRupeeInnerDL) } },
     // giant's wallet, OBJECT_GI_PURSE
     { GetItem_DrawWallet,
-      { gGiWalletDL, gGiGiantsWalletColorDL, gGiGiantsWalletRupeeOuterColorDL, gGiWalletRupeeOuterDL,
-        gGiGiantsWalletStringColorDL, gGiWalletStringDL, gGiGiantsWalletRupeeInnerColorDL, gGiWalletRupeeInnerDL } },
+      { oot::asset::gfx::load(symbol::gGiWalletDL), oot::asset::gfx::load(symbol::gGiGiantsWalletColorDL), oot::asset::gfx::load(symbol::gGiGiantsWalletRupeeOuterColorDL), oot::asset::gfx::load(symbol::gGiWalletRupeeOuterDL),
+        oot::asset::gfx::load(symbol::gGiGiantsWalletStringColorDL), oot::asset::gfx::load(symbol::gGiWalletStringDL), oot::asset::gfx::load(symbol::gGiGiantsWalletRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiWalletRupeeInnerDL) } },
     // gerudo card, OBJECT_GI_GERUDO
-    { GetItem_DrawOpa0, { gGiGerudoCardDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiGerudoCardDL) } },
     // arrows (small), OBJECT_GI_ARROW
-    { GetItem_DrawOpa0, { gGiArrowSmallDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiArrowSmallDL) } },
     // arrows (medium), OBJECT_GI_ARROW
-    { GetItem_DrawOpa0, { gGiArrowMediumDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiArrowMediumDL) } },
     // arrows (large), OBJECT_GI_ARROW
-    { GetItem_DrawOpa0, { gGiArrowLargeDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiArrowLargeDL) } },
     // bombchus, OBJECT_GI_BOMB_2
-    { GetItem_DrawMaskOrBombchu, { gGiBombchuDL } },
+    { GetItem_DrawMaskOrBombchu, { oot::asset::gfx::load(symbol::gGiBombchuDL) } },
     // egg, OBJECT_GI_EGG
-    { GetItem_DrawEggOrMedallion, { gGiEggMaterialDL, gGiEggDL } },
+    { GetItem_DrawEggOrMedallion, { oot::asset::gfx::load(symbol::gGiEggMaterialDL), oot::asset::gfx::load(symbol::gGiEggDL) } },
     // silver scale, OBJECT_GI_SCALE
-    { GetItem_DrawScale, { gGiScaleWaterDL, gGiSilverScaleWaterColorDL, gGiSilverScaleColorDL, gGiScaleDL } },
+    { GetItem_DrawScale, { oot::asset::gfx::load(symbol::gGiScaleWaterDL), oot::asset::gfx::load(symbol::gGiSilverScaleWaterColorDL), oot::asset::gfx::load(symbol::gGiSilverScaleColorDL), oot::asset::gfx::load(symbol::gGiScaleDL) } },
     // gold scale, OBJECT_GI_SCALE
-    { GetItem_DrawScale, { gGiScaleWaterDL, gGiGoldenScaleWaterColorDL, gGiGoldenScaleColorDL, gGiScaleDL } },
+    { GetItem_DrawScale, { oot::asset::gfx::load(symbol::gGiScaleWaterDL), oot::asset::gfx::load(symbol::gGiGoldenScaleWaterColorDL), oot::asset::gfx::load(symbol::gGiGoldenScaleColorDL), oot::asset::gfx::load(symbol::gGiScaleDL) } },
     // hylian shield, OBJECT_GI_SHIELD_2
-    { GetItem_DrawOpa0, { gGiHylianShieldDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiHylianShieldDL) } },
     // hookshot, OBJECT_GI_HOOKSHOT
-    { GetItem_DrawOpa0, { gGiHookshotDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiHookshotDL) } },
     // longshot, OBJECT_GI_HOOKSHOT
-    { GetItem_DrawOpa0, { gGiLongshotDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiLongshotDL) } },
     // ocarina of time, OBJECT_GI_OCARINA
-    { GetItem_DrawOpa0Xlu1, { gGiOcarinaTimeDL, gGiOcarinaTimeHolesDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiOcarinaTimeDL), oot::asset::gfx::load(symbol::gGiOcarinaTimeHolesDL) } },
     // milk, OBJECT_GI_MILK
-    { GetItem_DrawOpa0Xlu1, { gGiMilkBottleContentsDL, gGiMilkBottleDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiMilkBottleContentsDL), oot::asset::gfx::load(symbol::gGiMilkBottleDL) } },
     // keaton mask, OBJECT_GI_KI_TAN_MASK
-    { GetItem_DrawOpa0Xlu1, { gGiKeatonMaskDL, gGiKeatonMaskEyesDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiKeatonMaskDL), oot::asset::gfx::load(symbol::gGiKeatonMaskEyesDL) } },
     // spooky mask, OBJECT_GI_REDEAD_MASK
-    { GetItem_DrawOpa0, { gGiSpookyMaskDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiSpookyMaskDL) } },
     // slingshot, OBJECT_GI_PACHINKO
-    { GetItem_DrawOpa0, { gGiSlingshotDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiSlingshotDL) } },
     // boomerang, OBJECT_GI_BOOMERANG
-    { GetItem_DrawOpa0, { gGiBoomerangDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiBoomerangDL) } },
     // bow, OBJECT_GI_BOW
-    { GetItem_DrawOpa0, { gGiBowDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiBowDL) } },
     // lens, OBJECT_GI_GLASSES
-    { GetItem_DrawOpa0Xlu1, { gGiLensDL, gGiLensGlassDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiLensDL), oot::asset::gfx::load(symbol::gGiLensGlassDL) } },
     // green potion, OBJECT_GI_LIQUID
     { GetItem_DrawPotion,
-      { gGiPotionPotDL, gGiGreenPotColorDL, gGiGreenLiquidColorDL, gGiPotionLiquidDL, gGiGreenPatternColorDL,
-        gGiPotionPatternDL } },
+      { oot::asset::gfx::load(symbol::gGiPotionPotDL), oot::asset::gfx::load(symbol::gGiGreenPotColorDL), oot::asset::gfx::load(symbol::gGiGreenLiquidColorDL), oot::asset::gfx::load(symbol::gGiPotionLiquidDL), oot::asset::gfx::load(symbol::gGiGreenPatternColorDL),
+        oot::asset::gfx::load(symbol::gGiPotionPatternDL) } },
     // red potion, OBJECT_GI_LIQUID
     { GetItem_DrawPotion,
-      { gGiPotionPotDL, gGiRedPotColorDL, gGiRedLiquidColorDL, gGiPotionLiquidDL, gGiRedPatternColorDL,
-        gGiPotionPatternDL } },
+      { oot::asset::gfx::load(symbol::gGiPotionPotDL), oot::asset::gfx::load(symbol::gGiRedPotColorDL), oot::asset::gfx::load(symbol::gGiRedLiquidColorDL), oot::asset::gfx::load(symbol::gGiPotionLiquidDL), oot::asset::gfx::load(symbol::gGiRedPatternColorDL),
+        oot::asset::gfx::load(symbol::gGiPotionPatternDL) } },
     // blue potion, OBJECT_GI_LIQUID
     { GetItem_DrawPotion,
-      { gGiPotionPotDL, gGiBluePotColorDL, gGiBlueLiquidColorDL, gGiPotionLiquidDL, gGiBluePatternColorDL,
-        gGiPotionPatternDL } },
+      { oot::asset::gfx::load(symbol::gGiPotionPotDL), oot::asset::gfx::load(symbol::gGiBluePotColorDL), oot::asset::gfx::load(symbol::gGiBlueLiquidColorDL), oot::asset::gfx::load(symbol::gGiPotionLiquidDL), oot::asset::gfx::load(symbol::gGiBluePatternColorDL),
+        oot::asset::gfx::load(symbol::gGiPotionPatternDL) } },
     // mirror shield, OBJECT_GI_SHIELD_3
-    { GetItem_DrawMirrorShield, { gGiMirrorShieldDL, gGiMirrorShieldSymbolDL } },
+    { GetItem_DrawMirrorShield, { oot::asset::gfx::load(symbol::gGiMirrorShieldDL), oot::asset::gfx::load(symbol::gGiMirrorShieldSymbolDL) } },
     // zelda's letter, OBJECT_GI_LETTER
-    { GetItem_DrawOpa0Xlu1, { gGiLetterDL, gGiLetterWritingDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiLetterDL), oot::asset::gfx::load(symbol::gGiLetterWritingDL) } },
     // goron tunic, OBJECT_GI_CLOTHES
-    { GetItem_DrawOpa1023, { gGiTunicCollarDL, gGiGoronCollarColorDL, gGiGoronTunicColorDL, gGiTunicDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiTunicCollarDL), oot::asset::gfx::load(symbol::gGiGoronCollarColorDL), oot::asset::gfx::load(symbol::gGiGoronTunicColorDL), oot::asset::gfx::load(symbol::gGiTunicDL) } },
     // zora tunic, OBJECT_GI_CLOTHES
-    { GetItem_DrawOpa1023, { gGiTunicCollarDL, gGiZoraCollarColorDL, gGiZoraTunicColorDL, gGiTunicDL } },
+    { GetItem_DrawOpa1023, { oot::asset::gfx::load(symbol::gGiTunicCollarDL), oot::asset::gfx::load(symbol::gGiZoraCollarColorDL), oot::asset::gfx::load(symbol::gGiZoraTunicColorDL), oot::asset::gfx::load(symbol::gGiTunicDL) } },
     // beans, OBJECT_GI_BEAN
-    { GetItem_DrawOpa0, { gGiBeanDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiBeanDL) } },
     // fish, OBJECT_GI_FISH
-    { GetItem_DrawFish, { gGiFishDL } },
+    { GetItem_DrawFish, { oot::asset::gfx::load(symbol::gGiFishDL) } },
     // saw, OBJECT_GI_SAW
-    { GetItem_DrawOpa0, { gGiSawDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiSawDL) } },
     // hammer, OBJECT_GI_HAMMER
-    { GetItem_DrawOpa0, { gGiHammerDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiHammerDL) } },
     // grass, OBJECT_GI_GRASS
-    { GetItem_DrawOpa0, { gGiGrassDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiGrassDL) } },
     // biggorons sword, OBJECT_GI_LONGSWORD
-    { GetItem_DrawGoronSword, { gGiBiggoronSwordDL } },
+    { GetItem_DrawGoronSword, { oot::asset::gfx::load(symbol::gGiBiggoronSwordDL) } },
     // chicken, OBJECT_GI_NIWATORI
-    { GetItem_DrawOpa10Xlu2, { gGiChickenDL, gGiChickenColorDL, gGiChickenEyesDL } },
+    { GetItem_DrawOpa10Xlu2, { oot::asset::gfx::load(symbol::gGiChickenDL), oot::asset::gfx::load(symbol::gGiChickenColorDL), oot::asset::gfx::load(symbol::gGiChickenEyesDL) } },
     // ruto's letter, OBJECT_GI_BOTTLE_LETTER
-    { GetItem_DrawOpa0Xlu1, { gGiLetterBottleContentsDL, gGiLetterBottleDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiLetterBottleContentsDL), oot::asset::gfx::load(symbol::gGiLetterBottleDL) } },
     // fairy ocarina, OBJECT_GI_OCARINA_0
-    { GetItem_DrawOpa0Xlu1, { gGiOcarinaFairyDL, gGiOcarinaFairyHolesDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiOcarinaFairyDL), oot::asset::gfx::load(symbol::gGiOcarinaFairyHolesDL) } },
     // iron boots, OBJECT_GI_BOOTS_2
-    { GetItem_DrawOpa0Xlu1, { gGiIronBootsDL, gGiIronBootsRivetsDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiIronBootsDL), oot::asset::gfx::load(symbol::gGiIronBootsRivetsDL) } },
     // seeds, OBJECT_GI_SEED
-    { GetItem_DrawOpa0, { gGiSeedDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiSeedDL) } },
     // silver gauntlets, OBJECT_GI_GLOVES
     { GetItem_DrawOpa10Xlu32,
-      { gGiGauntletsDL, gGiSilverGauntletsColorDL, gGiGauntletsPlateDL, gGiSilverGauntletsPlateColorDL } },
+      { oot::asset::gfx::load(symbol::gGiGauntletsDL), oot::asset::gfx::load(symbol::gGiSilverGauntletsColorDL), oot::asset::gfx::load(symbol::gGiGauntletsPlateDL), oot::asset::gfx::load(symbol::gGiSilverGauntletsPlateColorDL) } },
     // golden gauntlets, OBJECT_GI_GLOVES
     { GetItem_DrawOpa10Xlu32,
-      { gGiGauntletsDL, gGiGoldenGauntletsColorDL, gGiGauntletsPlateDL, gGiGoldenGauntletsPlateColorDL } },
+      { oot::asset::gfx::load(symbol::gGiGauntletsDL), oot::asset::gfx::load(symbol::gGiGoldenGauntletsColorDL), oot::asset::gfx::load(symbol::gGiGauntletsPlateDL), oot::asset::gfx::load(symbol::gGiGoldenGauntletsPlateColorDL) } },
     // yellow n coin, OBJECT_GI_COIN
-    { GetItem_DrawOpa10Xlu2, { gGiCoinDL, gGiYellowCoinColorDL, gGiNDL } },
+    { GetItem_DrawOpa10Xlu2, { oot::asset::gfx::load(symbol::gGiCoinDL), oot::asset::gfx::load(symbol::gGiYellowCoinColorDL), oot::asset::gfx::load(symbol::gGiNDL) } },
     // red n coin, OBJECT_GI_COIN
-    { GetItem_DrawOpa10Xlu2, { gGiCoinDL, gGiRedCoinColorDL, gGiNDL } },
+    { GetItem_DrawOpa10Xlu2, { oot::asset::gfx::load(symbol::gGiCoinDL), oot::asset::gfx::load(symbol::gGiRedCoinColorDL), oot::asset::gfx::load(symbol::gGiNDL) } },
     // green n coin, OBJECT_GI_COIN
-    { GetItem_DrawOpa10Xlu2, { gGiCoinDL, gGiGreenCoinColorDL, gGiNDL } },
+    { GetItem_DrawOpa10Xlu2, { oot::asset::gfx::load(symbol::gGiCoinDL), oot::asset::gfx::load(symbol::gGiGreenCoinColorDL), oot::asset::gfx::load(symbol::gGiNDL) } },
     // blue n coin, OBJECT_GI_COIN
-    { GetItem_DrawOpa10Xlu2, { gGiCoinDL, gGiBlueCoinColorDL, gGiNDL } },
+    { GetItem_DrawOpa10Xlu2, { oot::asset::gfx::load(symbol::gGiCoinDL), oot::asset::gfx::load(symbol::gGiBlueCoinColorDL), oot::asset::gfx::load(symbol::gGiNDL) } },
     // skull mask, OBJECT_GI_SKJ_MASK
-    { GetItem_DrawOpa0, { gGiSkullMaskDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiSkullMaskDL) } },
     // bunny hood OBJECT_GI_RABIT_MASK
-    { GetItem_DrawOpa0Xlu1, { gGiBunnyHoodDL, gGiBunnyHoodEyesDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiBunnyHoodDL), oot::asset::gfx::load(symbol::gGiBunnyHoodEyesDL) } },
     // mask of truth, OBJECT_GI_TRUTH_MASK
-    { GetItem_DrawOpa0Xlu1, { gGiMaskOfTruthDL, gGiMaskOfTruthAccentsDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiMaskOfTruthDL), oot::asset::gfx::load(symbol::gGiMaskOfTruthAccentsDL) } },
     // eyedrops, OBJECT_GI_EYE_LOTION
-    { GetItem_DrawOpa0Xlu1, { gGiEyeDropsCapDL, gGiEyeDropsBottleDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiEyeDropsCapDL), oot::asset::gfx::load(symbol::gGiEyeDropsBottleDL) } },
     // odd potion, OBJECT_GI_POWDER
-    { GetItem_DrawOpa0, { gGiOddPotionDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiOddPotionDL) } },
     // odd mushroom, OBJECT_GI_MUSHROOM
-    { GetItem_DrawOpa0, { gGiOddMushroomDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiOddMushroomDL) } },
     // claim check, OBJECT_GI_TICKETSTONE
-    { GetItem_DrawOpa0Xlu1, { gGiClaimCheckDL, gGiClaimCheckWritingDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiClaimCheckDL), oot::asset::gfx::load(symbol::gGiClaimCheckWritingDL) } },
     // broken goron's sword, OBJECT_GI_BROKENSWORD
-    { GetItem_DrawGoronSword, { gGiBrokenGoronSwordDL } },
+    { GetItem_DrawGoronSword, { oot::asset::gfx::load(symbol::gGiBrokenGoronSwordDL) } },
     // prescription, OBJECT_GI_PRESCRIPTION
-    { GetItem_DrawOpa0Xlu1, { gGiPrescriptionDL, gGiPrescriptionWritingDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiPrescriptionDL), oot::asset::gfx::load(symbol::gGiPrescriptionWritingDL) } },
     // goron bracelet, OBJECT_GI_BRACELET
-    { GetItem_DrawOpa0, { gGiGoronBraceletDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiGoronBraceletDL) } },
     // sold out, OBJECT_GI_SOLDOUT
-    { GetItem_DrawSoldOut, { gGiSoldOutDL } },
+    { GetItem_DrawSoldOut, { oot::asset::gfx::load(symbol::gGiSoldOutDL) } },
     // frog, OBJECT_GI_FROG
-    { GetItem_DrawOpa0Xlu1, { gGiFrogDL, gGiFrogEyesDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiFrogDL), oot::asset::gfx::load(symbol::gGiFrogEyesDL) } },
     // goron mask, OBJECT_GI_GOLONMASK
-    { GetItem_DrawMaskOrBombchu, { gGiGoronMaskDL } },
+    { GetItem_DrawMaskOrBombchu, { oot::asset::gfx::load(symbol::gGiGoronMaskDL) } },
     // zora mask, OBJECT_GI_ZORAMASK
-    { GetItem_DrawMaskOrBombchu, { gGiZoraMaskDL } },
+    { GetItem_DrawMaskOrBombchu, { oot::asset::gfx::load(symbol::gGiZoraMaskDL) } },
     // gerudo mask, OBJECT_GI_GERUDOMASK
-    { GetItem_DrawMaskOrBombchu, { gGiGerudoMaskDL } },
+    { GetItem_DrawMaskOrBombchu, { oot::asset::gfx::load(symbol::gGiGerudoMaskDL) } },
     // cojiro, OBJECT_GI_NIWATORI
-    { GetItem_DrawOpa10Xlu2, { gGiChickenDL, gGiCojiroColorDL, gGiChickenEyesDL } },
+    { GetItem_DrawOpa10Xlu2, { oot::asset::gfx::load(symbol::gGiChickenDL), oot::asset::gfx::load(symbol::gGiCojiroColorDL), oot::asset::gfx::load(symbol::gGiChickenEyesDL) } },
     // hover boots, OBJECT_GI_HOVERBOOTS
-    { GetItem_DrawOpa0, { gGiHoverBootsDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiHoverBootsDL) } },
     // fire arrows, OBJECT_GI_M_ARROW
-    { GetItem_DrawMagicArrow, { gGiMagicArrowDL, gGiFireArrowColorDL, gGiArrowMagicDL } },
+    { GetItem_DrawMagicArrow, { oot::asset::gfx::load(symbol::gGiMagicArrowDL), oot::asset::gfx::load(symbol::gGiFireArrowColorDL), oot::asset::gfx::load(symbol::gGiArrowMagicDL) } },
     // ice arrows, OBJECT_GI_M_ARROW
-    { GetItem_DrawMagicArrow, { gGiMagicArrowDL, gGiIceArrowColorDL, gGiArrowMagicDL } },
+    { GetItem_DrawMagicArrow, { oot::asset::gfx::load(symbol::gGiMagicArrowDL), oot::asset::gfx::load(symbol::gGiIceArrowColorDL), oot::asset::gfx::load(symbol::gGiArrowMagicDL) } },
     // light arrows, OBJECT_GI_M_ARROW
-    { GetItem_DrawMagicArrow, { gGiMagicArrowDL, gGiLightArrowColorDL, gGiArrowMagicDL } },
+    { GetItem_DrawMagicArrow, { oot::asset::gfx::load(symbol::gGiMagicArrowDL), oot::asset::gfx::load(symbol::gGiLightArrowColorDL), oot::asset::gfx::load(symbol::gGiArrowMagicDL) } },
     // skulltula token, OBJECT_GI_SUTARU
-    { GetItem_DrawSkullToken, { gGiSkulltulaTokenDL, gGiSkulltulaTokenFlameDL } },
+    { GetItem_DrawSkullToken, { oot::asset::gfx::load(symbol::gGiSkulltulaTokenDL), oot::asset::gfx::load(symbol::gGiSkulltulaTokenFlameDL) } },
     // din's fire, OBJECT_GI_GODDESS
-    { GetItem_DrawMagicSpell, { gGiMagicSpellDiamondDL, gGiDinsFireColorDL, gGiMagicSpellOrbDL } },
+    { GetItem_DrawMagicSpell, { oot::asset::gfx::load(symbol::gGiMagicSpellDiamondDL), oot::asset::gfx::load(symbol::gGiDinsFireColorDL), oot::asset::gfx::load(symbol::gGiMagicSpellOrbDL) } },
     // farore's wind, OBJECT_GI_GODDESS
-    { GetItem_DrawMagicSpell, { gGiMagicSpellDiamondDL, gGiFaroresWindColorDL, gGiMagicSpellOrbDL } },
+    { GetItem_DrawMagicSpell, { oot::asset::gfx::load(symbol::gGiMagicSpellDiamondDL), oot::asset::gfx::load(symbol::gGiFaroresWindColorDL), oot::asset::gfx::load(symbol::gGiMagicSpellOrbDL) } },
     // nayru's Love, OBJECT_GI_GODDESS
-    { GetItem_DrawMagicSpell, { gGiMagicSpellDiamondDL, gGiNayrusLoveColorDL, gGiMagicSpellOrbDL } },
+    { GetItem_DrawMagicSpell, { oot::asset::gfx::load(symbol::gGiMagicSpellDiamondDL), oot::asset::gfx::load(symbol::gGiNayrusLoveColorDL), oot::asset::gfx::load(symbol::gGiMagicSpellOrbDL) } },
     // blue fire, OBJECT_GI_FIRE
-    { GetItem_DrawBlueFire, { gGiBlueFireChamberstickDL, gGiBlueFireFlameDL } },
+    { GetItem_DrawBlueFire, { oot::asset::gfx::load(symbol::gGiBlueFireChamberstickDL), oot::asset::gfx::load(symbol::gGiBlueFireFlameDL) } },
     // bugs, OBJECT_GI_INSECT
-    { GetItem_DrawOpa0Xlu1, { gGiBugsContainerDL, gGiBugsGlassDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiBugsContainerDL), oot::asset::gfx::load(symbol::gGiBugsGlassDL) } },
     // butterfly, OBJECT_GI_BUTTERFLY
-    { GetItem_DrawOpa0Xlu1, { gGiButterflyContainerDL, gGiButterflyGlassDL } },
+    { GetItem_DrawOpa0Xlu1, { oot::asset::gfx::load(symbol::gGiButterflyContainerDL), oot::asset::gfx::load(symbol::gGiButterflyGlassDL) } },
     // poe, OBJECT_GI_GHOST
     { GetItem_DrawPoes,
-      { gGiGhostContainerLidDL, gGiGhostContainerGlassDL, gGiGhostContainerContentsDL, gGiPoeColorDL } },
+      { oot::asset::gfx::load(symbol::gGiGhostContainerLidDL), oot::asset::gfx::load(symbol::gGiGhostContainerGlassDL), oot::asset::gfx::load(symbol::gGiGhostContainerContentsDL), oot::asset::gfx::load(symbol::gGiPoeColorDL) } },
     // fairy, OBJECT_GI_SOUL
-    { GetItem_DrawFairy, { gGiFairyContainerBaseCapDL, gGiFairyContainerGlassDL, gGiFairyContainerContentsDL } },
+    { GetItem_DrawFairy, { oot::asset::gfx::load(symbol::gGiFairyContainerBaseCapDL), oot::asset::gfx::load(symbol::gGiFairyContainerGlassDL), oot::asset::gfx::load(symbol::gGiFairyContainerContentsDL) } },
     // bullet bag 40, OBJECT_GI_DEKUPOUCH
     { GetItem_DrawBulletBag,
-      { gGiBulletBagDL, gGiBulletBagColorDL, gGiBulletBagStringDL, gGiBulletBagStringColorDL, gGiBulletBagWritingDL } },
+      { oot::asset::gfx::load(symbol::gGiBulletBagDL), oot::asset::gfx::load(symbol::gGiBulletBagColorDL), oot::asset::gfx::load(symbol::gGiBulletBagStringDL), oot::asset::gfx::load(symbol::gGiBulletBagStringColorDL), oot::asset::gfx::load(symbol::gGiBulletBagWritingDL) } },
     // green rupee, OBJECT_GI_RUPY
     { GetItem_DrawSmallRupee,
-      { gGiRupeeInnerDL, gGiGreenRupeeInnerColorDL, gGiRupeeOuterDL, gGiGreenRupeeOuterColorDL } },
+      { oot::asset::gfx::load(symbol::gGiRupeeInnerDL), oot::asset::gfx::load(symbol::gGiGreenRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiRupeeOuterDL), oot::asset::gfx::load(symbol::gGiGreenRupeeOuterColorDL) } },
     // blue rupee, OBJECT_GI_RUPY
     { GetItem_DrawSmallRupee,
-      { gGiRupeeInnerDL, gGiBlueRupeeInnerColorDL, gGiRupeeOuterDL, gGiBlueRupeeOuterColorDL } },
+      { oot::asset::gfx::load(symbol::gGiRupeeInnerDL), oot::asset::gfx::load(symbol::gGiBlueRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiRupeeOuterDL), oot::asset::gfx::load(symbol::gGiBlueRupeeOuterColorDL) } },
     // red rupee, OBJECT_GI_RUPY
-    { GetItem_DrawSmallRupee, { gGiRupeeInnerDL, gGiRedRupeeInnerColorDL, gGiRupeeOuterDL, gGiRedRupeeOuterColorDL } },
+    { GetItem_DrawSmallRupee, { oot::asset::gfx::load(symbol::gGiRupeeInnerDL), oot::asset::gfx::load(symbol::gGiRedRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiRupeeOuterDL), oot::asset::gfx::load(symbol::gGiRedRupeeOuterColorDL) } },
     // big poe, OBJECT_GI_GHOST
     { GetItem_DrawPoes,
-      { gGiGhostContainerLidDL, gGiGhostContainerGlassDL, gGiGhostContainerContentsDL, gGiBigPoeColorDL } },
+      { oot::asset::gfx::load(symbol::gGiGhostContainerLidDL), oot::asset::gfx::load(symbol::gGiGhostContainerGlassDL), oot::asset::gfx::load(symbol::gGiGhostContainerContentsDL), oot::asset::gfx::load(symbol::gGiBigPoeColorDL) } },
     // purple rupee, OBJECT_GI_RUPY
     { GetItem_DrawOpa10Xlu32,
-      { gGiRupeeInnerDL, gGiPurpleRupeeInnerColorDL, gGiRupeeOuterDL, gGiPurpleRupeeOuterColorDL } },
+      { oot::asset::gfx::load(symbol::gGiRupeeInnerDL), oot::asset::gfx::load(symbol::gGiPurpleRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiRupeeOuterDL), oot::asset::gfx::load(symbol::gGiPurpleRupeeOuterColorDL) } },
     // gold rupee, OBJECT_GI_RUPY
     { GetItem_DrawOpa10Xlu32,
-      { gGiRupeeInnerDL, gGiGoldRupeeInnerColorDL, gGiRupeeOuterDL, gGiGoldRupeeOuterColorDL } },
+      { oot::asset::gfx::load(symbol::gGiRupeeInnerDL), oot::asset::gfx::load(symbol::gGiGoldRupeeInnerColorDL), oot::asset::gfx::load(symbol::gGiRupeeOuterDL), oot::asset::gfx::load(symbol::gGiGoldRupeeOuterColorDL) } },
     // bullet bag 50, OBJECT_GI_DEKUPOUCH
     { GetItem_DrawBulletBag,
-      { gGiBulletBagDL, gGiBulletBag50ColorDL, gGiBulletBagStringDL, gGiBulletBag50StringColorDL,
-        gGiBulletBagWritingDL } },
+      { oot::asset::gfx::load(symbol::gGiBulletBagDL), oot::asset::gfx::load(symbol::gGiBulletBag50ColorDL), oot::asset::gfx::load(symbol::gGiBulletBagStringDL), oot::asset::gfx::load(symbol::gGiBulletBag50StringColorDL),
+        oot::asset::gfx::load(symbol::gGiBulletBagWritingDL) } },
     // kokiri sword, OBJECT_GI_SWORD_1
-    { GetItem_DrawOpa0, { gGiKokiriSwordDL } },
+    { GetItem_DrawOpa0, { oot::asset::gfx::load(symbol::gGiKokiriSwordDL) } },
     // gold skulltula token, OBJECT_ST
-    { GetItem_DrawSkullToken, { object_st_DL_004DB0, object_st_DL_004EB8 } },
+    { GetItem_DrawSkullToken, { oot::asset::gfx::load(symbol::object_st_DL_004DB0), oot::asset::gfx::load(symbol::object_st_DL_004EB8) } },
 };
 
 /**

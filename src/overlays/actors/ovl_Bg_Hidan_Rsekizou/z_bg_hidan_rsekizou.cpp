@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_rsekizou.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
@@ -128,8 +128,8 @@ static InitChainEntry sInitChain[] = {
 };
 
 static void* sFireballsTexs[] = {
-    gFireTempleFireball0Tex, gFireTempleFireball1Tex, gFireTempleFireball2Tex, gFireTempleFireball3Tex,
-    gFireTempleFireball4Tex, gFireTempleFireball5Tex, gFireTempleFireball6Tex, gFireTempleFireball7Tex,
+    oot::asset::texture::load(symbol::gFireTempleFireball0Tex), oot::asset::texture::load(symbol::gFireTempleFireball1Tex), oot::asset::texture::load(symbol::gFireTempleFireball2Tex), oot::asset::texture::load(symbol::gFireTempleFireball3Tex),
+    oot::asset::texture::load(symbol::gFireTempleFireball4Tex), oot::asset::texture::load(symbol::gFireTempleFireball5Tex), oot::asset::texture::load(symbol::gFireTempleFireball6Tex), oot::asset::texture::load(symbol::gFireTempleFireball7Tex),
 };
 
 void BgHidanRsekizou_Init(Actor* thisx, GlobalContext* globalCtx) {
@@ -141,7 +141,7 @@ void BgHidanRsekizou_Init(Actor* thisx, GlobalContext* globalCtx) {
     colHeader = NULL;
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gFireTempleSpinningFlamethrowerCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleSpinningFlamethrowerCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
     Collider_InitJntSph(globalCtx, &pthis->collider);
     Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->dyna.actor, &sJntSphInit, pthis->colliderItems);
@@ -227,7 +227,7 @@ Gfx* BgHidanRsekizou_DrawFireball(GlobalContext* globalCtx, BgHidanRsekizou* pth
     mf->zw = (tmpf7 * coss) + pthis->dyna.actor.world.pos.z;
 
     gSPMatrix(displayList++, Matrix_MtxFToMtx(mf, (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(displayList++, gFireTempleFireballDL);
+    gSPDisplayList(displayList++, oot::asset::gfx::load(symbol::gFireTempleFireballDL));
 
     return displayList;
 }
@@ -244,7 +244,7 @@ void BgHidanRsekizou_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_rsekizou.c", 568),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gFireTempleSpinningFlamethrowerDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gFireTempleSpinningFlamethrowerDL));
     Matrix_MtxFCopy(&mf, &gMtxFClear);
 
     POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0x14);

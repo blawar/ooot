@@ -3,7 +3,7 @@
 #include "z_en_encount2.h"
 #include "overlays/actors/ovl_En_Fire_Rock/z_en_fire_rock.h"
 #include "vt.h"
-#include "objects/object_efc_star_field/object_efc_star_field.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -356,7 +356,6 @@ void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     if (objBankIndex >= 0) {
         gDPPipeSync(POLY_XLU_DISP++);
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[objBankIndex].vromStart.get());
 
         for (i = 0; i < ARRAY_COUNT(pthis->particles); particle++, i++) {
             if (particle->isAlive) {
@@ -369,7 +368,7 @@ void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx) {
                 gDPSetEnvColor(POLY_OPA_DISP++, 155, 255, 55, 255);
                 gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_encount2.c", 669),
                           G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-                gSPDisplayList(POLY_OPA_DISP++, object_efc_star_field_DL_000DE0);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_efc_star_field_DL_000DE0));
             }
         }
     }

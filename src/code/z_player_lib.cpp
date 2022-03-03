@@ -6,9 +6,7 @@
 #include "z64save.h"
 #include "z64object.h"
 #include "z64item.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_link_boy/object_link_boy.h"
-#include "objects/object_link_child/object_link_child.h"
+#include "asset.h"
 #include "def/math_float.h"
 #include "def/graph.h"
 #include "def/lookat.h"
@@ -45,7 +43,7 @@ typedef struct {
     /* 0x04 */ Vec3f pos;
 } BowStringData; // size = 0x10
 
-FlexSkeletonHeader* gPlayerSkelHeaders[] = { &gLinkAdultSkel, &gLinkChildSkel };
+FlexSkeletonHeader* gPlayerSkelHeaders[] = { oot::asset::skel::header::load(symbol::gLinkAdultSkel), oot::asset::skel::header::load(symbol::gLinkChildSkel) };
 
 s16 sBootData[PLAYER_BOOTS_MAX][17] = {
     { 200, 1000, 300, 700, 550, 270, 600, 350, 800, 600, -100, 600, 590, 750, 125, 200, 130 },
@@ -78,215 +76,215 @@ u8 gPlayerModelTypes[][5] = {
 };
 
 Gfx* D_80125CE8[] = {
-    gLinkAdultRightHandClosedNearDL,
-    gLinkChildRightHandClosedNearDL,
-    gLinkAdultRightHandClosedFarDL,
-    gLinkChildRightHandClosedFarDL,
-    gLinkAdultRightHandClosedNearDL,
-    gLinkChildRightFistAndDekuShieldNearDL,
-    gLinkAdultRightHandClosedFarDL,
-    gLinkChildRightFistAndDekuShieldFarDL,
-    gLinkAdultRightHandHoldingHylianShieldNearDL,
-    gLinkChildRightHandClosedNearDL,
-    gLinkAdultRightHandHoldingHylianShieldFarDL,
-    gLinkChildRightHandClosedFarDL,
-    gLinkAdultRightHandHoldingMirrorShieldNearDL,
-    gLinkChildRightHandClosedNearDL,
-    gLinkAdultRightHandHoldingMirrorShieldFarDL,
-    gLinkChildRightHandClosedFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandClosedFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightFistAndDekuShieldNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandClosedFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightFistAndDekuShieldFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingHylianShieldNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingHylianShieldFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingMirrorShieldNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingMirrorShieldFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedFarDL),
 };
 
 Gfx* D_80125D28[] = {
-    gLinkAdultMasterSwordAndSheathNearDL,       gLinkChildSwordAndSheathNearDL,
-    gLinkAdultMasterSwordAndSheathFarDL,        gLinkChildSwordAndSheathFarDL,
-    gLinkAdultMasterSwordAndSheathNearDL,       gLinkChildDekuShieldSwordAndSheathNearDL,
-    gLinkAdultMasterSwordAndSheathFarDL,        gLinkChildDekuShieldSwordAndSheathFarDL,
-    gLinkAdultHylianShieldSwordAndSheathNearDL, gLinkChildHylianShieldSwordAndSheathNearDL,
-    gLinkAdultHylianShieldSwordAndSheathFarDL,  gLinkChildHylianShieldSwordAndSheathFarDL,
-    gLinkAdultMirrorShieldSwordAndSheathNearDL, gLinkChildSwordAndSheathNearDL,
-    gLinkAdultMirrorShieldSwordAndSheathFarDL,  gLinkChildSwordAndSheathFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultMasterSwordAndSheathNearDL),       oot::asset::gfx::load(symbol::gLinkChildSwordAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMasterSwordAndSheathFarDL),        oot::asset::gfx::load(symbol::gLinkChildSwordAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMasterSwordAndSheathNearDL),       oot::asset::gfx::load(symbol::gLinkChildDekuShieldSwordAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMasterSwordAndSheathFarDL),        oot::asset::gfx::load(symbol::gLinkChildDekuShieldSwordAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultHylianShieldSwordAndSheathNearDL), oot::asset::gfx::load(symbol::gLinkChildHylianShieldSwordAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultHylianShieldSwordAndSheathFarDL),  oot::asset::gfx::load(symbol::gLinkChildHylianShieldSwordAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMirrorShieldSwordAndSheathNearDL), oot::asset::gfx::load(symbol::gLinkChildSwordAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMirrorShieldSwordAndSheathFarDL),  oot::asset::gfx::load(symbol::gLinkChildSwordAndSheathFarDL),
 };
 
 Gfx* D_80125D68[] = {
-    NULL, NULL, NULL, NULL, NULL, gLinkChildDekuShieldWithMatrixDL, NULL, gLinkChildDekuShieldWithMatrixDL,
+    NULL, NULL, NULL, NULL, NULL, oot::asset::gfx::load(symbol::gLinkChildDekuShieldWithMatrixDL), NULL, oot::asset::gfx::load(symbol::gLinkChildDekuShieldWithMatrixDL),
 };
 
 Gfx* D_80125D88[] = {
-    gLinkAdultSheathNearDL,
-    gLinkChildSheathNearDL,
-    gLinkAdultSheathFarDL,
-    gLinkChildSheathFarDL,
-    gLinkAdultSheathNearDL,
-    gLinkChildDekuShieldAndSheathNearDL,
-    gLinkAdultSheathFarDL,
-    gLinkChildDekuShieldAndSheathFarDL,
-    gLinkAdultHylianShieldAndSheathNearDL,
-    gLinkChildHylianShieldAndSheathNearDL,
-    gLinkAdultHylianShieldAndSheathFarDL,
-    gLinkChildHylianShieldAndSheathFarDL,
-    gLinkAdultMirrorShieldAndSheathNearDL,
-    gLinkChildSheathNearDL,
-    gLinkAdultMirrorShieldAndSheathFarDL,
-    gLinkChildSheathFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildDekuShieldAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildDekuShieldAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultHylianShieldAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildHylianShieldAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultHylianShieldAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildHylianShieldAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMirrorShieldAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMirrorShieldAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildSheathFarDL),
     NULL,
     NULL,
     NULL,
     NULL,
-    gLinkAdultSheathNearDL,
-    gLinkChildDekuShieldWithMatrixDL,
-    gLinkAdultSheathNearDL,
-    gLinkChildDekuShieldWithMatrixDL,
+    oot::asset::gfx::load(symbol::gLinkAdultSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildDekuShieldWithMatrixDL),
+    oot::asset::gfx::load(symbol::gLinkAdultSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildDekuShieldWithMatrixDL),
 };
 
 Gfx* D_80125DE8[] = {
-    gLinkAdultLeftHandHoldingBgsNearDL,          gLinkChildLeftHandHoldingMasterSwordDL,
-    gLinkAdultLeftHandHoldingBgsFarDL,           gLinkChildLeftHandHoldingMasterSwordDL,
-    gLinkAdultHandHoldingBrokenGiantsKnifeDL,    gLinkChildLeftHandHoldingMasterSwordDL,
-    gLinkAdultHandHoldingBrokenGiantsKnifeFarDL, gLinkChildLeftHandHoldingMasterSwordDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingBgsNearDL),          oot::asset::gfx::load(symbol::gLinkChildLeftHandHoldingMasterSwordDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingBgsFarDL),           oot::asset::gfx::load(symbol::gLinkChildLeftHandHoldingMasterSwordDL),
+    oot::asset::gfx::load(symbol::gLinkAdultHandHoldingBrokenGiantsKnifeDL),    oot::asset::gfx::load(symbol::gLinkChildLeftHandHoldingMasterSwordDL),
+    oot::asset::gfx::load(symbol::gLinkAdultHandHoldingBrokenGiantsKnifeFarDL), oot::asset::gfx::load(symbol::gLinkChildLeftHandHoldingMasterSwordDL),
 };
 
 Gfx* D_80125E08[] = {
-    gLinkAdultLeftHandNearDL,
-    gLinkChildLeftHandNearDL,
-    gLinkAdultLeftHandFarDL,
-    gLinkChildLeftHandFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftHandFarDL),
 };
 
 Gfx* D_80125E18[] = {
-    gLinkAdultLeftHandClosedNearDL,
-    gLinkChildLeftFistNearDL,
-    gLinkAdultLeftHandClosedFarDL,
-    gLinkChildLeftFistFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandClosedFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistFarDL),
 };
 
 Gfx* D_80125E28[] = {
-    gLinkAdultLeftHandHoldingMasterSwordNearDL,
-    gLinkChildLeftFistAndKokiriSwordNearDL,
-    gLinkAdultLeftHandHoldingMasterSwordFarDL,
-    gLinkChildLeftFistAndKokiriSwordFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingMasterSwordNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistAndKokiriSwordNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingMasterSwordFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistAndKokiriSwordFarDL),
 };
 
 Gfx* D_80125E38[] = {
-    gLinkAdultLeftHandHoldingMasterSwordNearDL,
-    gLinkChildLeftFistAndKokiriSwordNearDL,
-    gLinkAdultLeftHandHoldingMasterSwordFarDL,
-    gLinkChildLeftFistAndKokiriSwordFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingMasterSwordNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistAndKokiriSwordNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingMasterSwordFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistAndKokiriSwordFarDL),
 };
 
 Gfx* D_80125E48[] = {
-    gLinkAdultRightHandNearDL,
-    gLinkChildRightHandNearDL,
-    gLinkAdultRightHandFarDL,
-    gLinkChildRightHandFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandFarDL),
 };
 
 Gfx* D_80125E58[] = {
-    gLinkAdultRightHandClosedNearDL,
-    gLinkChildRightHandClosedNearDL,
-    gLinkAdultRightHandClosedFarDL,
-    gLinkChildRightHandClosedFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandClosedFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandClosedFarDL),
 };
 
 Gfx* D_80125E68[] = {
-    gLinkAdultRightHandHoldingBowNearDL,
-    gLinkChildRightHandHoldingSlingshotNearDL,
-    gLinkAdultRightHandHoldingBowFarDL,
-    gLinkChildRightHandHoldingSlingshotFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingBowNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingSlingshotNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingBowFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingSlingshotFarDL),
 };
 
 Gfx* D_80125E78[] = {
-    gLinkAdultMasterSwordAndSheathNearDL,
-    gLinkChildSwordAndSheathNearDL,
-    gLinkAdultMasterSwordAndSheathFarDL,
-    gLinkChildSwordAndSheathFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultMasterSwordAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildSwordAndSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultMasterSwordAndSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildSwordAndSheathFarDL),
 };
 
 Gfx* D_80125E88[] = {
-    gLinkAdultSheathNearDL,
-    gLinkChildSheathNearDL,
-    gLinkAdultSheathFarDL,
-    gLinkChildSheathFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildSheathNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultSheathFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildSheathFarDL),
 };
 
 Gfx* D_80125E98[] = {
-    gLinkAdultWaistNearDL,
-    gLinkChildWaistNearDL,
-    gLinkAdultWaistFarDL,
-    gLinkChildWaistFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultWaistNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildWaistNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultWaistFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildWaistFarDL),
 };
 
 Gfx* D_80125EA8[] = {
-    gLinkAdultRightHandHoldingBowNearDL,
-    gLinkChildRightHandHoldingSlingshotNearDL,
-    gLinkAdultRightHandHoldingBowFarDL,
-    gLinkChildRightHandHoldingSlingshotFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingBowNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingSlingshotNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingBowFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingSlingshotFarDL),
 };
 
 Gfx* D_80125EB8[] = {
-    gLinkAdultRightHandHoldingOotNearDL,
-    gLinkChildRightHandHoldingFairyOcarinaNearDL,
-    gLinkAdultRightHandHoldingOotFarDL,
-    gLinkChildRightHandHoldingFairyOcarinaFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingOotNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingFairyOcarinaNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingOotFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingFairyOcarinaFarDL),
 };
 
 Gfx* D_80125EC8[] = {
-    gLinkAdultRightHandHoldingOotNearDL,
-    gLinkChildRightHandAndOotNearDL,
-    gLinkAdultRightHandHoldingOotFarDL,
-    gLinkChildRightHandHoldingOOTFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingOotNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandAndOotNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingOotFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandHoldingOOTFarDL),
 };
 
 Gfx* D_80125ED8[] = {
-    gLinkAdultRightHandHoldingHookshotNearDL,
-    gLinkChildRightHandNearDL,
-    gLinkAdultRightHandHoldingHookshotNearDL, // The 'far' display list exists but is not used
-    gLinkChildRightHandFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingHookshotNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingHookshotNearDL), // The 'far' display list exists but is not used
+    oot::asset::gfx::load(symbol::gLinkChildRightHandFarDL),
 };
 
 Gfx* D_80125EE8[] = {
-    gLinkAdultLeftHandHoldingHammerNearDL,
-    gLinkChildLeftHandNearDL,
-    gLinkAdultLeftHandHoldingHammerFarDL,
-    gLinkChildLeftHandFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingHammerNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandHoldingHammerFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftHandFarDL),
 };
 
 Gfx* D_80125EF8[] = {
-    gLinkAdultLeftHandNearDL,
-    gLinkChildLeftFistAndBoomerangNearDL,
-    gLinkAdultLeftHandFarDL,
-    gLinkChildLeftFistAndBoomerangFarDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistAndBoomerangNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandFarDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftFistAndBoomerangFarDL),
 };
 
 Gfx* D_80125F08[] = {
-    gLinkAdultLeftHandOutNearDL,
-    gLinkChildLeftHandUpNearDL,
-    gLinkAdultLeftHandOutNearDL,
-    gLinkChildLeftHandUpNearDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandOutNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftHandUpNearDL),
+    oot::asset::gfx::load(symbol::gLinkAdultLeftHandOutNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildLeftHandUpNearDL),
 };
 
 Gfx* sArmOutDLs[] = {
-    gLinkAdultRightArmOutNearDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightArmOutNearDL),
     NULL,
 };
 
 Gfx* sHandOutDLs[] = {
-    gLinkAdultRightHandOutNearDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandOutNearDL),
     NULL,
 };
 
 Gfx* sRightShoulderNearDLs[] = {
-    gLinkAdultRightShoulderNearDL,
-    gLinkChildRightShoulderNearDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightShoulderNearDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightShoulderNearDL),
 };
 
 Gfx* D_80125F30[] = {
-    gLinkAdultLeftArmOutNearDL,
+    oot::asset::gfx::load(symbol::gLinkAdultLeftArmOutNearDL),
     NULL,
 };
 
 Gfx* sHoldingFirstPersonWeaponDLs[] = {
-    gLinkAdultRightHandHoldingBowFirstPersonDL,
-    gLinkChildRightArmStretchedSlingshotDL,
+    oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingBowFirstPersonDL),
+    oot::asset::gfx::load(symbol::gLinkChildRightArmStretchedSlingshotDL),
 };
 
 // Indexed by model types (left hand, right hand, sheath or waist)
@@ -678,21 +676,21 @@ u8 sEyeMouthIndexes[][2] = {
 };
 
 void* sEyeTextures[][2] = {
-    { gLinkAdultEyesOpenTex, gLinkChildEyesOpenTex },
-    { gLinkAdultEyesHalfTex, gLinkChildEyesHalfTex },
-    { gLinkAdultEyesClosedfTex, gLinkChildEyesClosedfTex },
-    { gLinkAdultEyesRollLeftTex, gLinkChildEyesRollLeftTex },
-    { gLinkAdultEyesRollRightTex, gLinkChildEyesRollRightTex },
-    { gLinkAdultEyesShockTex, gLinkChildEyesShockTex },
-    { gLinkAdultEyesUnk1Tex, gLinkChildEyesUnk1Tex },
-    { gLinkAdultEyesUnk2Tex, gLinkChildEyesUnk2Tex },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesOpenTex), oot::asset::texture::load(symbol::gLinkChildEyesOpenTex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesHalfTex), oot::asset::texture::load(symbol::gLinkChildEyesHalfTex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesClosedfTex), oot::asset::texture::load(symbol::gLinkChildEyesClosedfTex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesRollLeftTex), oot::asset::texture::load(symbol::gLinkChildEyesRollLeftTex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesRollRightTex), oot::asset::texture::load(symbol::gLinkChildEyesRollRightTex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesShockTex), oot::asset::texture::load(symbol::gLinkChildEyesShockTex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesUnk1Tex), oot::asset::texture::load(symbol::gLinkChildEyesUnk1Tex) },
+    { oot::asset::texture::load(symbol::gLinkAdultEyesUnk2Tex), oot::asset::texture::load(symbol::gLinkChildEyesUnk2Tex) },
 };
 
 void* sMouthTextures[][2] = {
-    { gLinkAdultMouth1Tex, gLinkChildMouth1Tex },
-    { gLinkAdultMouth2Tex, gLinkChildMouth2Tex },
-    { gLinkAdultMouth3Tex, gLinkChildMouth3Tex },
-    { gLinkAdultMouth4Tex, gLinkChildMouth4Tex },
+    { oot::asset::texture::load(symbol::gLinkAdultMouth1Tex), oot::asset::texture::load(symbol::gLinkChildMouth1Tex) },
+    { oot::asset::texture::load(symbol::gLinkAdultMouth2Tex), oot::asset::texture::load(symbol::gLinkChildMouth2Tex) },
+    { oot::asset::texture::load(symbol::gLinkAdultMouth3Tex), oot::asset::texture::load(symbol::gLinkChildMouth3Tex) },
+    { oot::asset::texture::load(symbol::gLinkAdultMouth4Tex), oot::asset::texture::load(symbol::gLinkChildMouth4Tex) },
 };
 
 Color_RGB8 sTunicColors[] = {
@@ -707,8 +705,8 @@ Color_RGB8 sGauntletColors[] = {
 };
 
 Gfx* sBootDListGroups[][2] = {
-    { gLinkAdultLeftIronBootDL, gLinkAdultRightIronBootDL },
-    { gLinkAdultLeftHoverBootDL, gLinkAdultRightHoverBootDL },
+    { oot::asset::gfx::load(symbol::gLinkAdultLeftIronBootDL), oot::asset::gfx::load(symbol::gLinkAdultRightIronBootDL) },
+    { oot::asset::gfx::load(symbol::gLinkAdultLeftHoverBootDL), oot::asset::gfx::load(symbol::gLinkAdultRightHoverBootDL) },
 };
 
 void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic,
@@ -749,12 +747,12 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
                 color = &sGauntletColors[strengthUpgrade - 2];
                 gDPSetEnvColor(POLY_OPA_DISP++, color->r, color->g, color->b, 0);
 
-                gSPDisplayList(POLY_OPA_DISP++, gLinkAdultLeftGauntletPlate1DL);
-                gSPDisplayList(POLY_OPA_DISP++, gLinkAdultRightGauntletPlate1DL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkAdultLeftGauntletPlate1DL));
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkAdultRightGauntletPlate1DL));
                 gSPDisplayList(POLY_OPA_DISP++,
-                               (D_80160014 == 0) ? gLinkAdultLeftGauntletPlate2DL : gLinkAdultLeftGauntletPlate3DL);
+                               (D_80160014 == 0) ? oot::asset::gfx::load(symbol::gLinkAdultLeftGauntletPlate2DL) : oot::asset::gfx::load(symbol::gLinkAdultLeftGauntletPlate3DL));
                 gSPDisplayList(POLY_OPA_DISP++,
-                               (D_80160018 == 8) ? gLinkAdultRightGauntletPlate2DL : gLinkAdultRightGauntletPlate3DL);
+                               (D_80160018 == 8) ? oot::asset::gfx::load(symbol::gLinkAdultRightGauntletPlate2DL) : oot::asset::gfx::load(symbol::gLinkAdultRightGauntletPlate3DL));
             }
 
             if (boots != 0) {
@@ -765,7 +763,7 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
             }
         } else {
             if (Player_GetStrength() > PLAYER_STR_NONE) {
-                gSPDisplayList(POLY_OPA_DISP++, gLinkChildGoronBraceletDL);
+                gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkChildGoronBraceletDL));
             }
         }
     }
@@ -1018,7 +1016,7 @@ s32 func_800902F0(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
         } else if (limbIndex == PLAYER_LIMB_R_FOREARM) {
             *dList = D_80125F30[(void)0, gSaveContext.linkAge];
         } else if (limbIndex == PLAYER_LIMB_R_HAND) {
-            *dList = Player_HoldsHookshot(pthis) ? gLinkAdultRightHandHoldingHookshotFarDL
+            *dList = Player_HoldsHookshot(pthis) ? oot::asset::gfx::load(symbol::gLinkAdultRightHandHoldingHookshotFarDL)
                                                 : sHoldingFirstPersonWeaponDLs[(void)0, gSaveContext.linkAge];
         } else {
             *dList = NULL;
@@ -1190,8 +1188,7 @@ void Player_DrawHookshotReticle(GlobalContext* globalCtx, Player* pthis, f32 arg
 
         gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2587),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPSegment(OVERLAY_DISP++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
-        gSPDisplayList(OVERLAY_DISP++, gLinkAdultHookshotReticleDL);
+        gSPDisplayList(OVERLAY_DISP++, oot::asset::gfx::load(symbol::gLinkAdultHookshotReticleDL));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2592);
     }
@@ -1203,7 +1200,7 @@ f32 sSwordLengths[] = {
     0.0f, 4000.0f, 3000.0f, 5500.0f, 0.0f, 2500.0f,
 };
 
-Gfx* sBottleDLists[] = { gLinkAdultBottleDL, gLinkChildBottleDL };
+Gfx* sBottleDLists[] = { oot::asset::gfx::load(symbol::gLinkAdultBottleDL), oot::asset::gfx::load(symbol::gLinkChildBottleDL) };
 
 Color_RGB8 sBottleColors[] = {
     { 255, 255, 255 }, { 80, 80, 255 },   { 255, 100, 255 }, { 0, 0, 255 }, { 255, 0, 255 },
@@ -1214,8 +1211,8 @@ Color_RGB8 sBottleColors[] = {
 Vec3f D_80126128 = { 398.0f, 1419.0f, 244.0f };
 
 BowStringData sBowStringData[] = {
-    { gLinkAdultBowStringDL, { 0.0f, -360.4f, 0.0f } },       // bow
-    { gLinkChildSlinghotStringDL, { 606.0f, 236.0f, 0.0f } }, // slingshot
+    { oot::asset::gfx::load(symbol::gLinkAdultBowStringDL), { 0.0f, -360.4f, 0.0f } },       // bow
+    { oot::asset::gfx::load(symbol::gLinkChildSlinghotStringDL), { 606.0f, 236.0f, 0.0f } }, // slingshot
 };
 
 Vec3f D_80126154[] = {
@@ -1277,7 +1274,7 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2653),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gLinkChildLinkDekuStickDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gLinkChildLinkDekuStickDL));
 
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2656);
         } else if ((pthis->actor.scale.y >= 0.0f) && (pthis->swordState != 0)) {
@@ -1441,13 +1438,11 @@ u32 func_80091738(GlobalContext* globalCtx, oot::pause::Segments* segment, SkelA
 {
     s16 linkObjectId = gLinkObjectIds[(void)0, gSaveContext.linkAge];
 
-    segment->keep = (u8*)gObjectTable[OBJECT_GAMEPLAY_KEEP].vromStart.get();
-    segment->linkObjectSegment = (u8*)gObjectTable[linkObjectId].vromStart.get();
 
     gSegments[4] = (uintptr_t)segment->keep;
     gSegments[6] = (uintptr_t)segment->linkJointTable;
 
-    SkelAnime_InitLink(globalCtx, skelAnime, gPlayerSkelHeaders[(void)0, gSaveContext.linkAge], &gPlayerAnim_003238, 9, segment->linkJointTable, segment->linkJointTable, PLAYER_LIMB_MAX);
+    SkelAnime_InitLink(globalCtx, skelAnime, gPlayerSkelHeaders[(void)0, gSaveContext.linkAge], oot::asset::anim::link::header::load(symbol::gPlayerAnim_003238), 9, segment->linkJointTable, segment->linkJointTable, PLAYER_LIMB_MAX);
 
     return 0;
 }
@@ -1612,17 +1607,17 @@ void func_8009214C(GlobalContext* globalCtx, oot::pause::Segments* segment, Skel
 
     if (!LINK_IS_ADULT) {
         if (shield == PLAYER_SHIELD_DEKU) {
-            srcTable = D_040020D0;
+            srcTable = oot::asset::v3s::load(symbol::D_040020D0);
         } else {
-            srcTable = D_04002040;
+            srcTable = oot::asset::v3s::load(symbol::D_04002040);
         }
     } else {
         if (sword == 3) {
-            srcTable = D_04002160;
+            srcTable = oot::asset::v3s::load(symbol::D_04002160);
         } else if (shield != PLAYER_SHIELD_NONE) {
-            srcTable = D_04002280;
+            srcTable = oot::asset::v3s::load(symbol::D_04002280);
         } else {
-            srcTable = D_040021F0;
+            srcTable = oot::asset::v3s::load(symbol::D_040021F0);
         }
     }
 

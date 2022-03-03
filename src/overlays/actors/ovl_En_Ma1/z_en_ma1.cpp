@@ -7,7 +7,7 @@
  */
 
 #include "z_en_ma1.h"
-#include "objects/object_ma1/object_ma1.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -76,24 +76,24 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static struct_D_80AA1678 sAnimationInfo[] = {
-    { &gMalonChildIdleAnim, 1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gMalonChildIdleAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gMalonChildSingAnim, 1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gMalonChildSingAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMalonChildIdleAnim), 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gMalonChildIdleAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMalonChildSingAnim), 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gMalonChildSingAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
 };
 
 static Vec3f D_80AA16B8 = { 800.0f, 0.0f, 0.0f };
 
 static void* sMouthTextures[] = {
-    gMalonChildNeutralMouthTex,
-    gMalonChildSmilingMouthTex,
-    gMalonChildTalkingMouthTex,
+    oot::asset::texture::load(symbol::gMalonChildNeutralMouthTex),
+    oot::asset::texture::load(symbol::gMalonChildSmilingMouthTex),
+    oot::asset::texture::load(symbol::gMalonChildTalkingMouthTex),
 };
 
 static void* sEyeTextures[] = {
-    gMalonChildEyeOpenTex,
-    gMalonChildEyeHalfTex,
-    gMalonChildEyeClosedTex,
+    oot::asset::texture::load(symbol::gMalonChildEyeOpenTex),
+    oot::asset::texture::load(symbol::gMalonChildEyeHalfTex),
+    oot::asset::texture::load(symbol::gMalonChildEyeClosedTex),
 };
 
 u16 EnMa1_GetText(GlobalContext* globalCtx, Actor* thisx) {
@@ -240,7 +240,7 @@ void func_80AA0AF4(EnMa1* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     s16 phi_a3;
 
-    if ((pthis->unk_1E8.unk_00 == 0) && (pthis->skelAnime.animation == &gMalonChildSingAnim)) {
+    if ((pthis->unk_1E8.unk_00 == 0) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonChildSingAnim))) {
         phi_a3 = 1;
     } else {
         phi_a3 = 0;
@@ -253,7 +253,7 @@ void func_80AA0AF4(EnMa1* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AA0B74(EnMa1* pthis) {
-    if (pthis->skelAnime.animation == &gMalonChildSingAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonChildSingAnim)) {
         if (pthis->unk_1E8.unk_00 == 0) {
             if (pthis->unk_1E0 != 0) {
                 pthis->unk_1E0 = 0;
@@ -273,7 +273,7 @@ void EnMa1_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 18.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gMalonChildSkel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gMalonChildSkel), NULL, NULL, NULL, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(22), &sColChkInfoInit);
@@ -306,11 +306,11 @@ void EnMa1_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80AA0D88(EnMa1* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_1E8.unk_00 != 0) {
-        if (pthis->skelAnime.animation != &gMalonChildIdleAnim) {
+        if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMalonChildIdleAnim)) {
             EnMa1_ChangeAnimation(pthis, 1);
         }
     } else {
-        if (pthis->skelAnime.animation != &gMalonChildSingAnim) {
+        if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMalonChildSingAnim)) {
             EnMa1_ChangeAnimation(pthis, 3);
         }
     }
@@ -348,11 +348,11 @@ void func_80AA0F44(EnMa1* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->unk_1E8.unk_00 != 0) {
-        if (pthis->skelAnime.animation != &gMalonChildIdleAnim) {
+        if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMalonChildIdleAnim)) {
             EnMa1_ChangeAnimation(pthis, 1);
         }
     } else {
-        if (pthis->skelAnime.animation != &gMalonChildSingAnim) {
+        if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMalonChildSingAnim)) {
             EnMa1_ChangeAnimation(pthis, 3);
         }
     }

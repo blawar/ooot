@@ -7,7 +7,7 @@
  */
 
 #include "z_en_pu_box.h"
-#include "objects/object_pu_box/object_pu_box.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -64,7 +64,7 @@ void EnPubox_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->dyna.unk_15C = DPM_UNK;
     thisx->targetMode = 1;
     thisx->gravity = -2.0f;
-    CollisionHeader_GetVirtual(&gBlockMediumCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gBlockMediumCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, colHeader);
 }
 
@@ -94,7 +94,7 @@ void EnPubox_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnPubox_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gBlockMediumDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gBlockMediumDL));
 }
 
 void EnPubox_Reset(Actor* pthisx, GlobalContext* globalCtx) {

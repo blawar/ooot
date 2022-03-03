@@ -7,8 +7,8 @@
  */
 
 #include "z_en_guest.h"
-#include "objects/object_os_anime/object_os_anime.h"
-#include "objects/object_boj/object_boj.h"
+#include "asset.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
@@ -34,9 +34,9 @@ void func_80A5057C(EnGuest* pthis, GlobalContext* globalCtx);
 void func_80A505CC(Actor* thisx, GlobalContext* globalCtx);
 
 static void* D_80A50BA4_39[] = {
-    object_boj_Tex_0005FC,
-    object_boj_Tex_0006FC,
-    object_boj_Tex_0007FC,
+    oot::asset::texture::load(symbol::object_boj_Tex_0005FC),
+    oot::asset::texture::load(symbol::object_boj_Tex_0006FC),
+    oot::asset::texture::load(symbol::object_boj_Tex_0007FC),
 };
 
 
@@ -101,10 +101,9 @@ void EnGuest_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.flags &= ~ACTOR_FLAG_4;
         Actor_ProcessInitChain(&pthis->actor, sInitChain);
 
-        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_boj_Skel_0000F0, NULL, pthis->jointTable,
+        SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_boj_Skel_0000F0), NULL, pthis->jointTable,
                            pthis->morphTable, 16);
-        gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->osAnimeBankIndex].vromStart.get());
-        Animation_Change(&pthis->skelAnime, &gObjOsAnim_42AC, 1.0f, 0.0f, Animation_GetLastFrame(&gObjOsAnim_42AC),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gObjOsAnim_42AC), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gObjOsAnim_42AC)),
                          ANIMMODE_LOOP, 0.0f);
 
         pthis->actor.draw = EnGuest_Draw;
@@ -181,7 +180,6 @@ void func_80A505CC(Actor* thisx, GlobalContext* globalCtx) {
 
     func_80034F54(globalCtx, pthis->unk_2CC, pthis->unk_2EC, 16);
 
-    gSegments[6] = VIRTUAL_TO_PHYSICAL(gObjectTable[pthis->osAnimeBankIndex].vromStart.get());
 
     SkelAnime_Update(&pthis->skelAnime);
     Actor_SetFocus(&pthis->actor, 60.0f);
@@ -208,7 +206,7 @@ s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_guest.c", 352);
 
     if (limbIndex == 15) {
-        *dList = object_boj_DL_0059B0;
+        *dList = oot::asset::gfx::load(symbol::object_boj_DL_0059B0);
         Matrix_Translate(1400.0f, 0.0f, 0.0f, MTXMODE_APPLY);
         sp3C = pthis->unk_2A0.unk_08;
         Matrix_RotateX((sp3C.y / 32768.0f) * M_PI, MTXMODE_APPLY);

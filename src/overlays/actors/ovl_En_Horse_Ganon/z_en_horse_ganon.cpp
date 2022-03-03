@@ -7,7 +7,7 @@
  */
 
 #include "z_en_horse_ganon.h"
-#include "objects/object_horse_ganon/object_horse_ganon.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/math_float.h"
 #include "def/sys_math3d.h"
@@ -47,8 +47,8 @@ ActorInit En_Horse_Ganon_InitVars = {
 };
 
 static AnimationHeader* sAnimations[] = {
-    &gHorseGanonIdleAnim,     &gHorseGanonWhinnyAnim,    &gHorseGanonWalkingAnim,
-    &gHorseGanonTrottingAnim, &gHorseGanonGallopingAnim, &gHorseGanonRearingAnim,
+    oot::asset::anim::header::load(symbol::gHorseGanonIdleAnim),     oot::asset::anim::header::load(symbol::gHorseGanonWhinnyAnim),    oot::asset::anim::header::load(symbol::gHorseGanonWalkingAnim),
+    oot::asset::anim::header::load(symbol::gHorseGanonTrottingAnim), oot::asset::anim::header::load(symbol::gHorseGanonGallopingAnim), oot::asset::anim::header::load(symbol::gHorseGanonRearingAnim),
 };
 
 static f32 splaySpeeds[] = { 2.0f / 3.0f, 2.0f / 3.0f, 1.0f, 1.0f, 1.0f, 2.0f / 3.0f };
@@ -188,7 +188,7 @@ void EnHorseGanon_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actor.focus.pos = pthis->actor.world.pos;
     pthis->action = 0;
     pthis->actor.focus.pos.y += 70.0f;
-    func_800A663C(globalCtx, &pthis->skin, &gHorseGanonSkel, &gHorseGanonIdleAnim);
+    func_800A663C(globalCtx, &pthis->skin, oot::asset::skel::header2::load(symbol::gHorseGanonSkel), oot::asset::anim::header::load(symbol::gHorseGanonIdleAnim));
     pthis->currentAnimation = 0;
     Animation_PlayOnce(&pthis->skin.skelAnime, sAnimations[0]);
 

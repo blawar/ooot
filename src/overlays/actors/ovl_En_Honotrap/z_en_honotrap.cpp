@@ -7,8 +7,8 @@
  */
 
 #include "z_en_honotrap.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
 #include "def/sys_math_atan.h"
@@ -59,10 +59,10 @@ static Vec3f velocity_76 = { 0.0f, 0.0f, 0.0f };
 static Vec3f accel_76 = { 0.0f, 0.1f, 0.0f };
 
 static void* eyeTextures_77[] = {
-    gEyeSwitchSilverOpenTex,
-    gEyeSwitchSilverHalfTex,
-    gEyeSwitchSilverClosedTex,
-    gEyeSwitchSilverClosedTex,
+    oot::asset::texture::load(symbol::gEyeSwitchSilverOpenTex),
+    oot::asset::texture::load(symbol::gEyeSwitchSilverHalfTex),
+    oot::asset::texture::load(symbol::gEyeSwitchSilverClosedTex),
+    oot::asset::texture::load(symbol::gEyeSwitchSilverClosedTex),
 };
 
 
@@ -512,7 +512,7 @@ void EnHonotrap_DrawEye(Actor* thisx, GlobalContext* globalCtx) {
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_77[pthis->eyeState]));
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_honotrap.c", 987),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gEyeSwitch2DL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gEyeSwitch2DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_honotrap.c", 991);
 }
@@ -535,7 +535,7 @@ void EnHonotrap_DrawFlame(Actor* thisx, GlobalContext* globalCtx) {
                    MTXMODE_APPLY);
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_honotrap.c", 1024),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffFire1DL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_honotrap.c", 1028);
 }

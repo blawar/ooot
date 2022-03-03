@@ -7,7 +7,7 @@
  */
 
 #include "z_item_b_heart.h"
-#include "objects/object_gi_hearts/object_gi_hearts.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_lib.h"
@@ -104,14 +104,14 @@ void ItemBHeart_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_item_b_heart.c", 551),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gGiHeartBorderDL);
-        gSPDisplayList(POLY_XLU_DISP++, gGiHeartContainerDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGiHeartBorderDL));
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gGiHeartContainerDL));
     } else {
         func_80093D18(globalCtx->state.gfxCtx);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_item_b_heart.c", 557),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_OPA_DISP++, gGiHeartBorderDL);
-        gSPDisplayList(POLY_OPA_DISP++, gGiHeartContainerDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGiHeartBorderDL));
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGiHeartContainerDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_item_b_heart.c", 561);

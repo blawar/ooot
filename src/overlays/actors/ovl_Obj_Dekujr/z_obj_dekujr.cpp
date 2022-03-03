@@ -7,7 +7,7 @@
  */
 
 #include "z_obj_dekujr.h"
-#include "objects/object_dekujr/object_dekujr.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
@@ -165,14 +165,14 @@ void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_dekujr.c", 379),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, object_dekujr_DL_0030D0);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_dekujr_DL_0030D0));
 
     gSPSegment(
         POLY_XLU_DISP++, 0x08,
         Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frameCount % 128, 0, 32, 32, 1, frameCount % 128, 0, 32, 32));
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_dekujr.c", 399),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, object_dekujr_DL_0032D8);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::object_dekujr_DL_0032D8));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_dekujr.c", 409);
 }

@@ -7,9 +7,9 @@
  */
 
 #include "z_boss_mo.h"
-#include "objects/object_mo/object_mo.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_8006BA00.h"
 #include "def/code_800A9F30.h"
@@ -1919,7 +1919,7 @@ void BossMo_IntroCs(BossMo* pthis, GlobalContext* globalCtx) {
             }
             if (pthis->timers[2] == 130) {
                 TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                       SEGMENTED_TO_VIRTUAL(gMorphaTitleCardTex), 0xA0, 0xB4, 0x80, 0x28);
+                                       SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gMorphaTitleCardTex)), 0xA0, 0xB4, 0x80, 0x28);
                 gSaveContext.eventChkInf[7] |= 0x10;
             }
             break;
@@ -2907,17 +2907,17 @@ void BossMo_UpdateTentColliders(BossMo* pthis, s32 item, ColliderJntSph* tentCol
 }
 
 static Gfx* sTentDLists[41] = {
-    gMorphaTentaclePart0DL,  gMorphaTentaclePart1DL,  gMorphaTentaclePart2DL,  gMorphaTentaclePart3DL,
-    gMorphaTentaclePart4DL,  gMorphaTentaclePart5DL,  gMorphaTentaclePart6DL,  gMorphaTentaclePart7DL,
-    gMorphaTentaclePart8DL,  gMorphaTentaclePart9DL,  gMorphaTentaclePart10DL, gMorphaTentaclePart11DL,
-    gMorphaTentaclePart12DL, gMorphaTentaclePart13DL, gMorphaTentaclePart14DL, gMorphaTentaclePart15DL,
-    gMorphaTentaclePart16DL, gMorphaTentaclePart17DL, gMorphaTentaclePart18DL, gMorphaTentaclePart19DL,
-    gMorphaTentaclePart20DL, gMorphaTentaclePart21DL, gMorphaTentaclePart22DL, gMorphaTentaclePart23DL,
-    gMorphaTentaclePart24DL, gMorphaTentaclePart25DL, gMorphaTentaclePart26DL, gMorphaTentaclePart27DL,
-    gMorphaTentaclePart28DL, gMorphaTentaclePart29DL, gMorphaTentaclePart30DL, gMorphaTentaclePart31DL,
-    gMorphaTentaclePart32DL, gMorphaTentaclePart33DL, gMorphaTentaclePart34DL, gMorphaTentaclePart35DL,
-    gMorphaTentaclePart36DL, gMorphaTentaclePart37DL, gMorphaTentaclePart38DL, gMorphaTentaclePart39DL,
-    gMorphaTentaclePart40DL,
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart0DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart1DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart2DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart3DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart4DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart5DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart6DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart7DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart8DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart9DL),  oot::asset::gfx::load(symbol::gMorphaTentaclePart10DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart11DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart12DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart13DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart14DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart15DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart16DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart17DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart18DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart19DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart20DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart21DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart22DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart23DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart24DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart25DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart26DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart27DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart28DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart29DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart30DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart31DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart32DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart33DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart34DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart35DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart36DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart37DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart38DL), oot::asset::gfx::load(symbol::gMorphaTentaclePart39DL),
+    oot::asset::gfx::load(symbol::gMorphaTentaclePart40DL),
 };
 
 void BossMo_DrawTentacle(BossMo* pthis, GlobalContext* globalCtx) {
@@ -2988,7 +2988,7 @@ void BossMo_DrawTentacle(BossMo* pthis, GlobalContext* globalCtx) {
         }
 
         if (i == 0) {
-            gSPDisplayList(POLY_XLU_DISP++, gMorphaTentacleBaseDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaTentacleBaseDL));
         } else {
             gSPDisplayList(POLY_XLU_DISP++, sTentDLists[i]);
         }
@@ -3015,7 +3015,7 @@ void BossMo_DrawTentacle(BossMo* pthis, GlobalContext* globalCtx) {
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_mo.c", 6511),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_OPA_DISP++, gMorphaBubbleDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMorphaBubbleDL));
 
             Matrix_Pop();
         }
@@ -3075,7 +3075,7 @@ void BossMo_DrawWater(BossMo* pthis, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_mo.c", 6675),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_XLU_DISP++, gMorphaWaterDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaWaterDL));
 
     Matrix_Pop();
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_mo.c", 6680);
@@ -3110,7 +3110,7 @@ void BossMo_DrawCore(Actor* thisx, GlobalContext* globalCtx) {
 
         func_8002ED80(&pthis->actor, globalCtx, 0);
 
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gMorphaCoreMembraneDL));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gMorphaCoreMembraneDL)));
 
         gDPPipeSync(POLY_XLU_DISP++);
 
@@ -3120,7 +3120,7 @@ void BossMo_DrawCore(Actor* thisx, GlobalContext* globalCtx) {
         } else {
             gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 255, 255);
         }
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gMorphaCoreNucleusDL));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gMorphaCoreNucleusDL)));
 
         if ((pthis->work[MO_CORE_DRAW_SHADOW] && (pthis->actor.world.pos.y >= 0.0f)) ||
             (pthis->actor.world.pos.y < MO_WATER_LEVEL(globalCtx))) {
@@ -3144,7 +3144,7 @@ void BossMo_DrawCore(Actor* thisx, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_mo.c", 6820),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gCircleShadowDL));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::gCircleShadowDL)));
         }
     }
 
@@ -3202,7 +3202,7 @@ void BossMo_DrawCore(Actor* thisx, GlobalContext* globalCtx) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_mo.c", 6941),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-        gSPDisplayList(POLY_XLU_DISP++, gMorphaWaterDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaWaterDL));
     }
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_mo.c", 6945);
 
@@ -3416,7 +3416,7 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_mo.c", 7294),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gEffWaterRippleDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffWaterRippleDL));
         }
     }
 
@@ -3439,7 +3439,7 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_mo.c", 7330),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gEffShockwaveDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffShockwaveDL));
         }
     }
 
@@ -3451,8 +3451,8 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             if (flag == 0) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0);
 
-                gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gDust1Tex));
-                gSPDisplayList(POLY_XLU_DISP++, gMorphaDropletMaterialDL);
+                gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gDust1Tex)));
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaDropletMaterialDL));
                 gDPSetEnvColor(POLY_XLU_DISP++, 250, 250, 255, 0);
 
                 flag++;
@@ -3468,7 +3468,7 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_mo.c", 7373),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gMorphaDropletModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaDropletModelDL));
         }
     }
 
@@ -3479,9 +3479,9 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             if (flag == 0) {
                 func_80094044(gfxCtx);
 
-                gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gDust1Tex));
+                gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gDust1Tex)));
                 gDPSetEnvColor(POLY_XLU_DISP++, 250, 250, 255, 0);
-                gSPDisplayList(POLY_XLU_DISP++, gMorphaDropletMaterialDL);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaDropletMaterialDL));
 
                 flag++;
             }
@@ -3494,7 +3494,7 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_mo.c", 7441),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_XLU_DISP++, gMorphaWetSpotModelDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gMorphaWetSpotModelDL));
         }
     }
 
@@ -3518,7 +3518,7 @@ void BossMo_DrawEffects(BossMoEffect* effect, GlobalContext* globalCtx) {
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_mo.c", 7476),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-            gSPDisplayList(POLY_OPA_DISP++, gMorphaBubbleDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMorphaBubbleDL));
         }
     }
 

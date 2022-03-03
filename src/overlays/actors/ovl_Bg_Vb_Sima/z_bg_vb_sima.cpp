@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_vb_sima.h"
-#include "objects/object_fd/object_fd.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Boss_Fd/z_boss_fd.h"
 #include "def/code_80043480.h"
 #include "def/audio_bank.h"
@@ -56,7 +56,7 @@ void BgVbSima_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
-    CollisionHeader_GetVirtual(&gVolvagiaPlatformCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gVolvagiaPlatformCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 }
 
@@ -169,7 +169,7 @@ void BgVbSima_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D18(globalCtx->state.gfxCtx);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_vb_sima.c", 291),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gVolvagiaPlatformDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gVolvagiaPlatformDL));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_vb_sima.c", 296);
 }
 

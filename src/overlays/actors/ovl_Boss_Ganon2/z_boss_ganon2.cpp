@@ -3,10 +3,10 @@
 #include "z_boss_ganon2.h"
 #include "overlays/actors/ovl_Demo_Gj/z_demo_gj.h"
 #include "overlays/actors/ovl_En_Zl3/z_en_zl3.h"
-#include "objects/object_ganon/object_ganon.h"
-#include "objects/object_ganon2/object_ganon2.h"
-#include "objects/object_ganon_anime3/object_ganon_anime3.h"
-#include "objects/object_geff/object_geff.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
@@ -103,13 +103,10 @@ void BossGanon2_SetObjectSegment(BossGanon2* pthis, GlobalContext* globalCtx, s3
     s32 pad;
     s32 objectIdx = Object_GetIndex(&globalCtx->objectCtx, objectId);
 
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[objectIdx].vromStart.get());
 
     if (setRSPSegment) {
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 790);
 
-        gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[objectIdx].vromStart.get());
-        gSPSegment(POLY_XLU_DISP++, 0x06, gObjectTable[objectIdx].vromStart.get());
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 799);
     }
@@ -169,7 +166,7 @@ void BossGanon2_Init(Actor* thisx, GlobalContext* globalCtx) {
     Collider_InitJntSph(globalCtx, &pthis->unk_444);
     Collider_SetJntSph(globalCtx, &pthis->unk_444, &pthis->actor, &sJntSphInit2, pthis->unk_864);
     BossGanon2_SetObjectSegment(pthis, globalCtx, OBJECT_GANON, false);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDorfSkel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDorfSkel), NULL, NULL, NULL, 0);
     func_808FD5C4(pthis, globalCtx);
     pthis->actor.naviEnemyId = 0x3E;
     pthis->actor.gravity = 0.0f;
@@ -242,7 +239,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 player->actor.world.pos.y = 1086.0f;
                 player->actor.world.pos.z = -186.0f;
                 player->actor.shape.rot.y = -0x5000;
-                Animation_MorphToLoop(&pthis->skelAnime, &object_ganon_anime3_Anim_002168, 0.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_002168), 0.0f);
                 globalCtx->envCtx.unk_D8 = 0.0f;
                 // fake, tricks the compiler into allocating more stack
                 if (zero) {
@@ -427,8 +424,8 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_398 == 50) {
                 pthis->unk_398 = 0;
                 pthis->unk_39C = 12;
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_002168, 0.0f);
-                pthis->unk_194 = Animation_GetLastFrame(&object_ganon_anime3_Anim_002168);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_002168), 0.0f);
+                pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_002168));
                 pthis->actor.world.pos.x = pthis->actor.world.pos.z = -200.0f;
                 pthis->actor.world.pos.y = 1009.0f;
                 pthis->actor.shape.yOffset = 7000.0f;
@@ -460,7 +457,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 pthis->unk_3B0.y = pthis->actor.world.pos.y + 70.0f;
             }
             if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
-                Animation_MorphToLoop(&pthis->skelAnime, &object_ganon_anime3_Anim_002E6C, 0.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_002E6C), 0.0f);
                 pthis->unk_39C = 14;
                 pthis->unk_398 = 0;
                 pthis->actor.world.pos.x = -200.0f;
@@ -512,12 +509,12 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             Math_ApproachF(&pthis->unk_3B0.y, pthis->actor.world.pos.y + 77.0f, 0.05f, 5.0f);
             if (pthis->unk_398 >= 50) {
                 if (pthis->unk_398 == 50) {
-                    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_000BFC, 0.0f);
-                    pthis->unk_194 = Animation_GetLastFrame(&object_ganon_anime3_Anim_000BFC);
+                    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_000BFC), 0.0f);
+                    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_000BFC));
                     pthis->unk_314 = 3;
                 }
                 if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
-                    Animation_MorphToLoop(&pthis->skelAnime, &object_ganon_anime3_Anim_003F38, 0.0f);
+                    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_003F38), 0.0f);
                     pthis->unk_194 = 1000.0f;
                 }
             }
@@ -527,8 +524,8 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_398 == 140) {
                 pthis->unk_39C = 16;
                 pthis->unk_398 = 0;
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_003754, 0.0f);
-                pthis->unk_194 = Animation_GetLastFrame(&object_ganon_anime3_Anim_003754);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_003754), 0.0f);
+                pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_003754));
                 pthis->unk_339 = 55;
                 globalCtx->envCtx.unk_D8 = 1.0f;
                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GANON_CASBREAK);
@@ -549,7 +546,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             pthis->unk_1B4 = 0.0f;
             SkelAnime_Update(&pthis->skelAnime);
             if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_0028A8, 0.0f);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_0028A8), 0.0f);
                 pthis->unk_194 = 1000.0f;
             }
             Math_ApproachF(&pthis->unk_3A4.x, (pthis->actor.world.pos.x + 200.0f) - 90.0f, 0.1f, 6.3999996f);
@@ -573,7 +570,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 pthis->unk_337 = 2;
                 BossGanon2_SetObjectSegment(pthis, globalCtx, OBJECT_GANON2, false);
                 SkelAnime_Free(&pthis->skelAnime, globalCtx);
-                SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ganon2_Skel_025970, NULL, NULL, NULL, 0);
+                SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::object_ganon2_Skel_025970), NULL, NULL, NULL, 0);
                 BossGanon2_SetObjectSegment(pthis, globalCtx, OBJECT_GANON_ANIME3, false);
                 func_8002DF54(globalCtx, &pthis->actor, 0x54);
                 pthis->unk_314 = 3;
@@ -595,7 +592,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_398 == 25) {
                 pthis->unk_39C = 18;
                 pthis->unk_398 = 0;
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_010380, 0.0f);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_010380), 0.0f);
                 pthis->skelAnime.playSpeed = 0.0f;
                 pthis->unk_3A4.x = ((pthis->actor.world.pos.x + 500.0f) - 350.0f) - 50.0f;
                 pthis->unk_3A4.y = pthis->actor.world.pos.y;
@@ -658,7 +655,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 pthis->unk_398 = 0;
                 pthis->unk_420 = 10.0f;
                 pthis->actor.velocity.y = 0.0f;
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_010380, 0.0f);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_010380), 0.0f);
                 func_808FD4D4(pthis, globalCtx, 0, 3);
                 Rumble_Shake2(0.0f, 0xC8, 0x14, 0x14);
             }
@@ -691,7 +688,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
             if (pthis->unk_398 == 80) {
                 BossGanon2_SetObjectSegment(pthis, globalCtx, OBJECT_GANON2, false);
                 TitleCard_InitBossName(globalCtx, &globalCtx->actorCtx.titleCtx,
-                                       SEGMENTED_TO_VIRTUAL(object_ganon2_Tex_021A90), 160, 180, 128, 40);
+                                       SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_ganon2_Tex_021A90)), 160, 180, 128, 40);
             }
             pthis->unk_3A4.x = ((pthis->actor.world.pos.x + 500.0f) - 350.0f) + 100.0f;
             pthis->unk_3A4.y = pthis->actor.world.pos.y;
@@ -859,8 +856,8 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx) {
                 if ((pthis->unk_398 > 40) && (Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_NONE)) {
                     pthis->unk_39C = 29;
                     pthis->unk_398 = 0;
-                    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon_anime3_Anim_0147E0, 0.0f);
-                    pthis->unk_194 = Animation_GetLastFrame(&object_ganon_anime3_Anim_0147E0);
+                    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_0147E0), 0.0f);
+                    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon_anime3_Anim_0147E0));
                     pthis->actor.shape.yOffset = 0.0f;
                     pthis->actor.world.pos.y = 1086.0f;
                     pthis->actor.gravity = -1.0f;
@@ -1057,8 +1054,7 @@ void func_808FFDB0(BossGanon2* pthis, GlobalContext* globalCtx) {
     s32 objectIdx = Object_GetIndex(&globalCtx->objectCtx, OBJECT_GANON2);
 
     if (Object_IsLoaded(&globalCtx->objectCtx, objectIdx)) {
-        gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[objectIdx].vromStart.get());
-        Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_00FFE4, -10.0f);
+        Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00FFE4), -10.0f);
         pthis->actionFunc = func_808FFEBC;
 
         if (pthis->unk_334 != 0) {
@@ -1096,7 +1092,7 @@ void func_808FFEBC(BossGanon2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_808FFF90(BossGanon2* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_00FFE4, -10.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00FFE4), -10.0f);
     pthis->actionFunc = func_808FFFE0;
     pthis->unk_1A2[0] = 40;
 }
@@ -1121,8 +1117,8 @@ void func_808FFFE0(BossGanon2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809000A0(BossGanon2* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_026510, -2.0f);
-    pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_026510);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_026510), -2.0f);
+    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_026510));
     pthis->unk_1AC = 0;
     pthis->actionFunc = func_80900104;
 }
@@ -1135,15 +1131,15 @@ void func_80900104(BossGanon2* pthis, GlobalContext* globalCtx) {
         case 0:
             if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
                 pthis->unk_1AC = 1;
-                Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_026AF4, 0.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_026AF4), 0.0f);
                 pthis->unk_1A2[0] = 80;
             }
             break;
         case 1:
             if (pthis->unk_1A2[0] == 0) {
                 pthis->unk_1AC = 2;
-                Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_027824, -5.0f);
-                pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_027824);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_027824), -5.0f);
+                pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_027824));
             }
             break;
         case 2:
@@ -1155,8 +1151,8 @@ void func_80900104(BossGanon2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80900210(BossGanon2* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_00DFF0, -3.0f);
-    pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_00DFF0);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00DFF0), -3.0f);
+    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_00DFF0));
     pthis->actionFunc = func_8090026C;
 }
 
@@ -1170,7 +1166,7 @@ void func_8090026C(BossGanon2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809002CC(BossGanon2* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_00E8EC, -10.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00E8EC), -10.0f);
     pthis->actionFunc = func_80900344;
     pthis->unk_338 = 0;
     pthis->unk_1A2[0] = 100;
@@ -1195,7 +1191,7 @@ void func_80900344(BossGanon2* pthis, GlobalContext* globalCtx) {
         }
         if (pthis->actor.xzDistToPlayer < 200.0f) {
             pthis->unk_338 = 0;
-            Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_00E8EC, -10.0f);
+            Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00E8EC), -10.0f);
         } else {
             pthis->skelAnime.playSpeed = ((pthis->actor.xzDistToPlayer - 300.0f) * 0.005f) + 1.0f;
             if (pthis->skelAnime.playSpeed > 2.0f) {
@@ -1210,7 +1206,7 @@ void func_80900344(BossGanon2* pthis, GlobalContext* globalCtx) {
         phi_f0 = 2.0f;
         if (pthis->actor.xzDistToPlayer >= 200.0f) {
             pthis->unk_338 = 1;
-            Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_0353C0, -10.0f);
+            Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_0353C0), -10.0f);
         }
     }
 
@@ -1229,12 +1225,12 @@ void func_80900344(BossGanon2* pthis, GlobalContext* globalCtx) {
 
 void func_80900580(BossGanon2* pthis, GlobalContext* globalCtx) {
     if (pthis->unk_311 == 0) {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_00ADD0, -5.0f);
-        pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_00ADD0);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00ADD0), -5.0f);
+        pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_00ADD0));
         pthis->unk_198 = (pthis->unk_194 - 15.0f) - 5.0f;
     } else {
-        Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_00CAF8, -5.0f);
-        pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_00CAF8);
+        Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_00CAF8), -5.0f);
+        pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_00CAF8));
         pthis->unk_198 = (pthis->unk_194 - 15.0f) - 5.0f;
     }
 
@@ -1281,8 +1277,8 @@ void func_80900650(BossGanon2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80900818(BossGanon2* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_02A848, -5.0f);
-    pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_02A848);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_02A848), -5.0f);
+    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_02A848));
     pthis->actionFunc = func_80900890;
     pthis->unk_1AC = 0;
     pthis->unk_39C = 0;
@@ -1405,7 +1401,7 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx) {
     switch (pthis->unk_1AC) {
         case 0:
             if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
-                Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_034278, 0.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_034278), 0.0f);
                 pthis->unk_1AC = 1;
             }
             break;
@@ -1419,8 +1415,8 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx) {
                 temp_f12 = -200.0f - player->actor.world.pos.z;
 
                 if (sqrtf(SQ(temp_f2) + SQ(temp_f12)) <= 784.0f) {
-                    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_0334F8, 0.0f);
-                    pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_0334F8);
+                    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_0334F8), 0.0f);
+                    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_0334F8));
                     pthis->unk_1AC = 2;
                     pthis->unk_1A2[0] = 40;
                     Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MGANON_ROAR);
@@ -1444,8 +1440,8 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80901020(BossGanon2* pthis, GlobalContext* globalCtx) {
-    Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_02A848, -5.0f);
-    pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_02A848);
+    Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_02A848), -5.0f);
+    pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_02A848));
     pthis->actionFunc = func_8090120C;
     pthis->unk_1AC = 0;
     pthis->unk_39C = 0;
@@ -1655,8 +1651,8 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
                 Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_39E, CAM_STAT_ACTIVE);
                 pthis->unk_39C = 7;
                 pthis->unk_398 = 0;
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_003B1C, 0.0f);
-                pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_003B1C);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_003B1C), 0.0f);
+                pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_003B1C));
                 globalCtx->startPlayerCutscene(globalCtx, &pthis->actor, 0x61);
             } else {
                 break;
@@ -1721,8 +1717,8 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
         case 75:
             pthis->unk_339 = 23;
             if (pthis->unk_398 == 55) {
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_007288, 0.0f);
-                pthis->unk_194 = Animation_GetLastFrame(&object_ganon2_Anim_007288);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_007288), 0.0f);
+                pthis->unk_194 = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::object_ganon2_Anim_007288));
                 func_8002DF54(globalCtx, &pthis->actor, 0x62);
                 pthis->unk_39C = 8;
                 pthis->unk_398 = 1000;
@@ -1746,7 +1742,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
                 globalCtx->envCtx.unk_D8 = 0.0f;
             }
             if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
-                Animation_MorphToPlayOnce(&pthis->skelAnime, &object_ganon2_Anim_008EB8, 0.0f);
+                Animation_MorphToPlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_008EB8), 0.0f);
                 pthis->unk_398 = 0;
                 pthis->unk_194 = 1000.0f;
             }
@@ -1830,7 +1826,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx) {
     switch (pthis->unk_1AC) {
         case 0:
             if (Animation_OnFrame(&pthis->skelAnime, pthis->unk_194)) {
-                Animation_MorphToLoop(&pthis->skelAnime, &object_ganon2_Anim_034278, 0.0f);
+                Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::object_ganon2_Anim_034278), 0.0f);
                 pthis->unk_1AC = 1;
             }
             break;
@@ -2384,7 +2380,7 @@ void func_809034E4(Vec3f* arg0, Vec3f* arg1) {
         }
     }
 
-    vtx = SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_Vtx_00BA20);
+    vtx = SEGMENTED_TO_VIRTUAL(oot::asset::vtx::load(symbol::ovl_Boss_Ganon2_Vtx_00BA20));
     for (i = 0; i < 11; i++) {
         if ((temp_s4 - i) > 0) {
             vtx[D_80907084[i]].n.ob[0] = sp18C[temp_s4 - i - 1].x;
@@ -2416,7 +2412,7 @@ void func_80903F38(BossGanon2* pthis, GlobalContext* globalCtx) {
         Matrix_Translate(0.0f, 0.0f, 0.0f, MTXMODE_NEW);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5117),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, ovl_Boss_Ganon2_DL_00BB80);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00BB80));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5122);
@@ -2439,7 +2435,7 @@ void func_80904108(BossGanon2* pthis, GlobalContext* globalCtx) {
         Matrix_Scale(0.098000005f, 0.1f, 0.098000005f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5183),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00E1C0));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00E1C0)));
         Matrix_Pop();
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5186);
@@ -2489,7 +2485,7 @@ void func_80904340(BossGanon2* pthis, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5250),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00D798));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00D798)));
         }
     }
 
@@ -2513,7 +2509,7 @@ void func_8090464C(BossGanon2* pthis, GlobalContext* globalCtx) {
         Matrix_Scale(0.6f, 0.6f, 1.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5290),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00CCD8));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00CCD8)));
         Matrix_Pop();
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5293);
@@ -2634,7 +2630,7 @@ void func_80904D88(BossGanon2* pthis, GlobalContext* globalCtx) {
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(POLY_XLU_DISP++, 100, 255, 255, 0);
         }
-        gSPDisplayList(POLY_XLU_DISP++, ovl_Boss_Ganon2_DL_00B308);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B308));
 
         for (i = 0; i < 15; i++) {
             Matrix_Translate(pthis->unk_234[i].x, pthis->unk_234[i].y, pthis->unk_234[i].z, MTXMODE_NEW);
@@ -2643,7 +2639,7 @@ void func_80904D88(BossGanon2* pthis, GlobalContext* globalCtx) {
             Matrix_RotateZ(Rand_CenteredFloat(M_PI), MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5618),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, ovl_Boss_Ganon2_DL_00B378);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B378));
         }
     }
 
@@ -2659,7 +2655,7 @@ void func_80904FC8(BossGanon2* pthis, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 200);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 200, 0, 0);
-        gSPDisplayList(POLY_XLU_DISP++, ovl_Boss_Ganon2_DL_00B308);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B308));
         Matrix_Translate(sZelda->actor.world.pos.x, sZelda->actor.world.pos.y + 80.0f, sZelda->actor.world.pos.z,
                          MTXMODE_NEW);
         func_800D1FD4(&globalCtx->billboardMtxF);
@@ -2667,11 +2663,11 @@ void func_80904FC8(BossGanon2* pthis, GlobalContext* globalCtx) {
         Matrix_RotateZ(pthis->unk_388, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5661),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00B378));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B378)));
         Matrix_RotateZ(pthis->unk_388 * -2.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5664),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00B378));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B378)));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5667);
@@ -2690,7 +2686,7 @@ void func_8090523C(BossGanon2* pthis, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->unk_38C);
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 255, 255, 0);
-        gSPDisplayList(POLY_XLU_DISP++, ovl_Boss_Ganon2_DL_00B308);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B308));
 
         for (i = 0; i < 11; i++) {
             Matrix_Mult(&player->mf_9E0, MTXMODE_NEW);
@@ -2707,7 +2703,7 @@ void func_8090523C(BossGanon2* pthis, GlobalContext* globalCtx) {
             Matrix_RotateZ(Rand_ZeroFloat(2.0f * M_PI), MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5721),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00B378));
+            gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B378)));
         }
     }
 
@@ -2726,7 +2722,7 @@ void BossGanon2_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5752),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_ganon_DL_00BE90));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::object_ganon_DL_00BE90)));
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5754);
     } else if (limbIndex == 10) {
@@ -2754,7 +2750,7 @@ void func_80905674(BossGanon2* pthis, GlobalContext* globalCtx) {
         Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5814),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(ovl_Boss_Ganon2_DL_00EC40));
+        gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00EC40)));
         Matrix_Pop();
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 5817);
@@ -2774,8 +2770,8 @@ void BossGanon2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     switch (pthis->unk_337) {
         case 0:
             BossGanon2_SetObjectSegment(pthis, globalCtx, OBJECT_GANON, true);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(object_ganon_Tex_00A8E0));
-            gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(object_ganon_Tex_00A8E0));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_ganon_Tex_00A8E0)));
+            gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::object_ganon_Tex_00A8E0)));
             SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable,
                                   pthis->skelAnime.dListCount, NULL, BossGanon2_PostLimbDraw2, pthis);
             break;
@@ -2932,7 +2928,7 @@ void func_809060E8(GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPSegment(POLY_OPA_DISP++, 0x08,
                        Gfx_TexScroll(globalCtx->state.gfxCtx, 0, 0 - (globalCtx->gameplayFrames & 0x7F), 32, 32));
-            gSPDisplayList(POLY_OPA_DISP++, ovl_Boss_Ganon2_DL_0103A8);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_0103A8));
             if ((globalCtx->envCtx.unk_BD == 1) || (globalCtx->envCtx.unk_BD == 2)) {
                 alpha = (s16)(globalCtx->envCtx.unk_D8 * 150.0f) + 50;
                 angle = M_PI / 5.0f;
@@ -2947,7 +2943,7 @@ void func_809060E8(GlobalContext* globalCtx) {
             Matrix_Scale(1.0f, 0.0f, 1.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 6155),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_XLU_DISP++, ovl_Boss_Ganon2_DL_00F188);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00F188));
         }
     }
 
@@ -2966,7 +2962,7 @@ void func_809060E8(GlobalContext* globalCtx) {
             Matrix_RotateZ(effect->unk_38.x, MTXMODE_APPLY);
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 6179),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gGanonRubbleDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gGanonRubbleDL));
         }
     }
 
@@ -3086,10 +3082,10 @@ void BossGanon2_DrawShadowTexture(void* shadowTexture, BossGanon2* pthis, Global
     Matrix_Scale(1.65f, 1.0f, 1.65f, MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon2.c", 6457),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, ovl_Boss_Ganon2_DL_00B3D0);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B3D0));
     gDPLoadTextureBlock(POLY_OPA_DISP++, shadowTexture, G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR | G_TX_CLAMP,
                         G_TX_NOMIRROR | G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
-    gSPDisplayList(POLY_OPA_DISP++, ovl_Boss_Ganon2_DL_00B3F0);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::ovl_Boss_Ganon2_DL_00B3F0));
 
     CLOSE_DISPS(gfxCtx, "../z_boss_ganon2.c", 6479);
 }

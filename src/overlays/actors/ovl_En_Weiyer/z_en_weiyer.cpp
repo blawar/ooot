@@ -7,7 +7,7 @@
  */
 
 #include "z_en_weiyer.h"
-#include "objects/object_ei/object_ei.h"
+#include "asset.h"
 #include "def/random.h"
 #include "def/cosf.h"
 #include "def/sinf.h"
@@ -120,7 +120,7 @@ void EnWeiyer_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(thisx, sInitChain);
     ActorShape_Init(&pthis->actor.shape, 1000.0f, ActorShadow_DrawCircle, 65.0f);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gStingerSkel, &gStingerIdleAnim, pthis->jointTable, pthis->morphTable,
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gStingerSkel), oot::asset::anim::header::load(symbol::gStingerIdleAnim), pthis->jointTable, pthis->morphTable,
                    19);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
@@ -137,7 +137,7 @@ void EnWeiyer_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void func_80B32384(EnWeiyer* pthis) {
     pthis->unk_196 = pthis->actor.shape.rot.y;
     pthis->unk_27C = (cosf(-M_PI / 8) * 3.0f) + pthis->actor.world.pos.y;
-    Animation_MorphToLoop(&pthis->skelAnime, &gStingerHitAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStingerHitAnim), -5.0f);
     pthis->unk_194 = 30;
     pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 2.5f);
     pthis->collider.base.atFlags &= ~AT_ON;
@@ -146,7 +146,7 @@ void func_80B32384(EnWeiyer* pthis) {
 }
 
 void func_80B32434(EnWeiyer* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gStingerHitAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStingerHitAnim), -5.0f);
     pthis->collider.base.atFlags |= AT_ON;
     pthis->unk_194 = 0;
     pthis->actor.speedXZ = 5.0f;
@@ -154,7 +154,7 @@ void func_80B32434(EnWeiyer* pthis) {
 }
 
 void func_80B32494(EnWeiyer* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStingerPopOutAnim, 2.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStingerPopOutAnim), 2.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f);
     pthis->unk_194 = 40;
     pthis->collider.base.atFlags |= AT_ON;
     pthis->actionFunc = func_80B32D30;
@@ -178,7 +178,7 @@ void func_80B32538(EnWeiyer* pthis) {
 }
 
 void func_80B325A0(EnWeiyer* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStingerHitAnim, 2.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -3.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStingerHitAnim), 2.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -3.0f);
     pthis->unk_194 = 40;
     pthis->collider.base.atFlags &= ~AT_ON;
     pthis->collider.base.acFlags &= ~AC_ON;
@@ -191,7 +191,7 @@ void func_80B325A0(EnWeiyer* pthis) {
 }
 
 void func_80B32660(EnWeiyer* pthis) {
-    Animation_Change(&pthis->skelAnime, &gStingerPopOutAnim, 2.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStingerPopOutAnim), 2.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f);
     pthis->unk_194 = 80;
     pthis->actor.speedXZ = 0.0f;
     pthis->actor.velocity.y = 0.0f;
@@ -204,7 +204,7 @@ void func_80B32660(EnWeiyer* pthis) {
 }
 
 void func_80B32724(EnWeiyer* pthis) {
-    Animation_MorphToLoop(&pthis->skelAnime, &gStingerHitAnim, -5.0f);
+    Animation_MorphToLoop(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gStingerHitAnim), -5.0f);
     pthis->unk_194 = 20;
     Actor_SetColorFilter(&pthis->actor, 0x4000, 0xC8, 0, 0x28);
     pthis->collider.base.atFlags &= ~AT_ON;

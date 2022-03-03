@@ -7,7 +7,7 @@
  */
 
 #include "z_en_bird.h"
-#include "objects/object_bird/object_bird.h"
+#include "asset.h"
 #include "def/sinf.h"
 #include "def/z_actor.h"
 #include "def/z_lib.h"
@@ -52,7 +52,7 @@ void EnBird_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(&pthis->actor, sInitChain);
     Actor_SetScale(&pthis->actor, 0.01);
-    SkelAnime_Init(globalCtx, &pthis->skelAnime, &gBirdSkel, &gBirdFlyAnim, NULL, NULL, 0);
+    SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gBirdSkel), oot::asset::anim::header::load(symbol::gBirdFlyAnim), NULL, NULL, 0);
     ActorShape_Init(&pthis->actor.shape, 5500, ActorShadow_DrawCircle, 4);
     pthis->unk_194 = 0;
     pthis->unk_198 = 0;
@@ -72,9 +72,9 @@ void EnBird_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_809C1CAC(EnBird* pthis, s16 params) {
-    f32 frameCount = Animation_GetLastFrame(&gBirdFlyAnim);
+    f32 frameCount = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gBirdFlyAnim));
     f32 playbackSpeed = pthis->unk_19C ? 0.0f : 1.0f;
-    AnimationHeader* anim = &gBirdFlyAnim;
+    AnimationHeader* anim = oot::asset::anim::header::load(symbol::gBirdFlyAnim);
 
     pthis->unk_198 = Rand_S16Offset(5, 0x23);
     Animation_Change(&pthis->skelAnime, anim, playbackSpeed, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);

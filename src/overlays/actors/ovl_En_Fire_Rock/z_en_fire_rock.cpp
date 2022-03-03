@@ -3,7 +3,7 @@
 #include "z_en_fire_rock.h"
 #include "overlays/actors/ovl_En_Encount2/z_en_encount2.h"
 #include "vt.h"
-#include "objects/object_efc_star_field/object_efc_star_field.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -399,7 +399,7 @@ void EnFireRock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gDPSetEnvColor(POLY_OPA_DISP++, 155, 255, 55, 255);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fire_rock.c", 768),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, object_efc_star_field_DL_000DE0);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::object_efc_star_field_DL_000DE0));
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fire_rock.c", 773);
 }
 

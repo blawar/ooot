@@ -2,9 +2,7 @@
 #include "ultra64.h"
 #include "global.h"
 #include "z64audio.h"
-#include "audio/bank.h"
-#include "audio/seq.h"
-#include "audio/table.h"
+#include "asset.h"
 #include <string.h>
 #include "segment_symbols.h"
 #include "def/audio_heap.h"
@@ -1195,9 +1193,9 @@ void AudioLoad_Init(void* heap, u32 heapSize) {
     gAudioContext.resetStatus = 1;
 
     AudioHeap_ResetStep();
-    AudioLoad_InitTable(gAudioContext.sequenceTable, (void*)Audioseq, 0);
+    AudioLoad_InitTable(gAudioContext.sequenceTable, (void*)oot::asset::audio::table::load(symbol::Audioseq), 0);
     //AudioLoad_InitTable(gAudioContext.soundFontTable, (void*)Audiobank_le, 0);
-    AudioLoad_InitTable(gAudioContext.sampleBankTable, (void*)Audiotable, 0);
+    AudioLoad_InitTable(gAudioContext.sampleBankTable, (void*)oot::asset::audio::table::load(symbol::Audiotable), 0);
     numFonts = gAudioContext.soundFontTable->numEntries;
     gAudioContext.soundFonts = (SoundFont*)AudioHeap_Alloc(&gAudioContext.audioInitPool, numFonts * sizeof(SoundFont));
 

@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_MA2_Z_EN_MA2_C
 #include "actor_common.h"
 #include "z_en_ma2.h"
-#include "objects/object_ma2/object_ma2.h"
+#include "asset.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/sys_matrix.h"
@@ -35,9 +35,9 @@ void func_80AA204C(EnMa2* pthis, GlobalContext* globalCtx);
 void func_80AA20E4(EnMa2* pthis, GlobalContext* globalCtx);
 void func_80AA21C8(EnMa2* pthis, GlobalContext* globalCtx);
 
-static void* sMouthTextures_53[] = { gMalonAdultMouthNeutralTex, gMalonAdultMouthSadTex, gMalonAdultMouthHappyTex };
+static void* sMouthTextures_53[] = { oot::asset::texture::load(symbol::gMalonAdultMouthNeutralTex), oot::asset::texture::load(symbol::gMalonAdultMouthSadTex), oot::asset::texture::load(symbol::gMalonAdultMouthHappyTex) };
 
-static void* sEyeTextures_53[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
+static void* sEyeTextures_53[] = { oot::asset::texture::load(symbol::gMalonAdultEyeOpenTex), oot::asset::texture::load(symbol::gMalonAdultEyeHalfTex), oot::asset::texture::load(symbol::gMalonAdultEyeClosedTex) };
 
 
 ActorInit En_Ma2_InitVars = {
@@ -76,9 +76,9 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static struct_D_80AA1678 sAnimationInfo[] = {
-    { &gMalonAdultIdleAnim, 1.0f, ANIMMODE_LOOP, 0.0f },       { &gMalonAdultIdleAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
-    { &gMalonAdultStandStillAnim, 1.0f, ANIMMODE_LOOP, 0.0f }, { &gMalonAdultSingAnim, 1.0f, ANIMMODE_LOOP, 0.0f },
-    { &gMalonAdultSingAnim, 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMalonAdultIdleAnim), 1.0f, ANIMMODE_LOOP, 0.0f },       { oot::asset::anim::header::load(symbol::gMalonAdultIdleAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
+    { oot::asset::anim::header::load(symbol::gMalonAdultStandStillAnim), 1.0f, ANIMMODE_LOOP, 0.0f }, { oot::asset::anim::header::load(symbol::gMalonAdultSingAnim), 1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gMalonAdultSingAnim), 1.0f, ANIMMODE_LOOP, -10.0f },
 };
 
 u16 func_80AA19A0(GlobalContext* globalCtx, Actor* thisx) {
@@ -138,7 +138,7 @@ void func_80AA1AE4(EnMa2* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     s16 phi_a3;
 
-    if ((pthis->unk_1E0.unk_00 == 0) && (pthis->skelAnime.animation == &gMalonAdultSingAnim)) {
+    if ((pthis->unk_1E0.unk_00 == 0) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonAdultSingAnim))) {
         phi_a3 = 1;
     } else {
         phi_a3 = 0;
@@ -175,7 +175,7 @@ u16 func_80AA1B58(EnMa2* pthis, GlobalContext* globalCtx) {
 }
 
 s32 func_80AA1C68(EnMa2* pthis) {
-    if (pthis->skelAnime.animation != &gMalonAdultSingAnim) {
+    if (pthis->skelAnime.animation != oot::asset::anim::header::load(symbol::gMalonAdultSingAnim)) {
         return 0;
     }
     if (pthis->unk_1E0.unk_00 != 0) {
@@ -207,7 +207,7 @@ void EnMa2_ChangeAnim(EnMa2* pthis, s32 idx) {
 }
 
 void func_80AA1DB4(EnMa2* pthis, GlobalContext* globalCtx) {
-    if (pthis->skelAnime.animation == &gMalonAdultSingAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonAdultSingAnim)) {
         if (pthis->unk_1E0.unk_00 == 0) {
             if (pthis->unk_20A != 0) {
                 func_800F6584(0);
@@ -227,7 +227,7 @@ void EnMa2_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 18.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gMalonAdultSkel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gMalonAdultSkel), NULL, NULL, NULL, 0);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(22), &sColChkInfoInit);
@@ -373,8 +373,8 @@ void EnMa2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
     if (limbIndex == MALON_ADULT_HEAD_LIMB) {
         Matrix_MultVec3f(&vec, &pthis->actor.focus.pos);
     }
-    if ((limbIndex == MALON_ADULT_LEFT_HAND_LIMB) && (pthis->skelAnime.animation == &gMalonAdultStandStillAnim)) {
-        gSPDisplayList(POLY_OPA_DISP++, gMalonAdultBasketDL);
+    if ((limbIndex == MALON_ADULT_LEFT_HAND_LIMB) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gMalonAdultStandStillAnim))) {
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gMalonAdultBasketDL));
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma2.c", 927);

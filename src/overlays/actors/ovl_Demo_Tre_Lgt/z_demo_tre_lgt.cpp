@@ -2,7 +2,7 @@
 #include "actor_common.h"
 #include "z_demo_tre_lgt.h"
 #include "overlays/actors/ovl_En_Box/z_en_box.h"
-#include "objects/object_box/object_box.h"
+#include "asset.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
 #include "def/z_common_data.h"
@@ -41,7 +41,7 @@ ActorInit Demo_Tre_Lgt_InitVars = {
     (ActorFunc)DemoTreLgt_Reset,
 };
 
-static TransformUpdateIndex* sTransformUpdIdx[] = { &gTreasureChestCurveAnim_4B60, &gTreasureChestCurveAnim_4F70 };
+static TransformUpdateIndex* sTransformUpdIdx[] = { oot::asset::transform_update_index::load(symbol::gTreasureChestCurveAnim_4B60), oot::asset::transform_update_index::load(symbol::gTreasureChestCurveAnim_4F70) };
 
 static DemoTreLgtActionFunc sActionFuncs[] = {
     func_8099375C,
@@ -51,7 +51,7 @@ static DemoTreLgtActionFunc sActionFuncs[] = {
 void DemoTreLgt_Init(Actor* thisx, GlobalContext* globalCtx) {
     DemoTreLgt* pthis = (DemoTreLgt*)thisx;
 
-    if (!SkelCurve_Init(globalCtx, &pthis->skelCurve, &gTreasureChestCurveSkel, sTransformUpdIdx[0])) {
+    if (!SkelCurve_Init(globalCtx, &pthis->skelCurve, oot::asset::skel::curve_limb_list::load(symbol::gTreasureChestCurveSkel), sTransformUpdIdx[0])) {
         // "Demo_Tre_Lgt_Actor_ct (); Construct failed"
         osSyncPrintf("Demo_Tre_Lgt_Actor_ct();コンストラクト失敗\n");
     }

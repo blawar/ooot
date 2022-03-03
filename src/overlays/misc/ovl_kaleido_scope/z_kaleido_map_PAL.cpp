@@ -1,13 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_MAP_PAL_C
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
-#include "textures/icon_item_24_static/icon_item_24_static.h"
-#include "textures/icon_item_nes_static/icon_item_nes_static.h"
-#include "textures/icon_item_ger_static/icon_item_ger_static.h"
-#include "textures/icon_item_fra_static/icon_item_fra_static.h"
-#include "textures/icon_item_field_static/icon_item_field_static.h"
-#include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
-#include "textures/icon_item_nes_static/icon_item_nes_static.h"
+#include "asset.h"
 #include "n64mapdata.h"
 #include "rsp.h"
 #include "def/inventory.h"
@@ -20,21 +14,21 @@
 
 void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
     static void* dungeonItemTexs[] = {
-        gBossKeyIconTex,
-        gCompassIconTex,
-        gDungeonMapIconTex,
+        oot::asset::texture::load(symbol::gBossKeyIconTex),
+        oot::asset::texture::load(symbol::gCompassIconTex),
+        oot::asset::texture::load(symbol::gDungeonMapIconTex),
     };
     static void* dungeonTitleTexs[] = {
-        gPauseDekuTitleENGTex, gPauseDodongoTitleENGTex,   gPauseJabuTitleENGTex,   gPauseForestTitleENGTex,
-        gPauseFireTitleENGTex, gPauseWaterTitleENGTex,     gPauseSpiritTitleENGTex, gPauseShadowTitleENGTex,
-        gPauseBotWTitleENGTex, gPauseIceCavernTitleENGTex,
+        oot::asset::texture::load(symbol::gPauseDekuTitleENGTex), oot::asset::texture::load(symbol::gPauseDodongoTitleENGTex),   oot::asset::texture::load(symbol::gPauseJabuTitleENGTex),   oot::asset::texture::load(symbol::gPauseForestTitleENGTex),
+        oot::asset::texture::load(symbol::gPauseFireTitleENGTex), oot::asset::texture::load(symbol::gPauseWaterTitleENGTex),     oot::asset::texture::load(symbol::gPauseSpiritTitleENGTex), oot::asset::texture::load(symbol::gPauseShadowTitleENGTex),
+        oot::asset::texture::load(symbol::gPauseBotWTitleENGTex), oot::asset::texture::load(symbol::gPauseIceCavernTitleENGTex),
     };
     static void* floorIconTexs[] = {
-        gDungeonMapBlankFloorButtonTex, gDungeonMap8FButtonTex, gDungeonMap7FButtonTex, gDungeonMap6FButtonTex,
-        gDungeonMap5FButtonTex,         gDungeonMap4FButtonTex, gDungeonMap3FButtonTex, gDungeonMap2FButtonTex,
-        gDungeonMap1FButtonTex,         gDungeonMapB1ButtonTex, gDungeonMapB2ButtonTex, gDungeonMapB3ButtonTex,
-        gDungeonMapB4ButtonTex,         gDungeonMapB5ButtonTex, gDungeonMapB6ButtonTex, gDungeonMapB7ButtonTex,
-        gDungeonMapB8ButtonTex,
+        oot::asset::texture::load(symbol::gDungeonMapBlankFloorButtonTex), oot::asset::texture::load(symbol::gDungeonMap8FButtonTex), oot::asset::texture::load(symbol::gDungeonMap7FButtonTex), oot::asset::texture::load(symbol::gDungeonMap6FButtonTex),
+        oot::asset::texture::load(symbol::gDungeonMap5FButtonTex),         oot::asset::texture::load(symbol::gDungeonMap4FButtonTex), oot::asset::texture::load(symbol::gDungeonMap3FButtonTex), oot::asset::texture::load(symbol::gDungeonMap2FButtonTex),
+        oot::asset::texture::load(symbol::gDungeonMap1FButtonTex),         oot::asset::texture::load(symbol::gDungeonMapB1ButtonTex), oot::asset::texture::load(symbol::gDungeonMapB2ButtonTex), oot::asset::texture::load(symbol::gDungeonMapB3ButtonTex),
+        oot::asset::texture::load(symbol::gDungeonMapB4ButtonTex),         oot::asset::texture::load(symbol::gDungeonMapB5ButtonTex), oot::asset::texture::load(symbol::gDungeonMapB6ButtonTex), oot::asset::texture::load(symbol::gDungeonMapB7ButtonTex),
+        oot::asset::texture::load(symbol::gDungeonMapB8ButtonTex),
     };
     static u16 mapBgPulseColors[][3] = {
         { 0 / 8, 80 / 8, 255 / 8 },
@@ -288,7 +282,7 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
     pauseCtx->mapPageVtx[116].v.ob[1] = pauseCtx->mapPageVtx[117].v.ob[1] = pauseCtx->offsetY - (VREG(30) * 14) + 49;
     pauseCtx->mapPageVtx[118].v.ob[1] = pauseCtx->mapPageVtx[119].v.ob[1] = pauseCtx->mapPageVtx[116].v.ob[1] - 16;
 
-    gDPLoadTextureBlock(POLY_OPA_DISP++, gDungeonMapLinkHeadTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0,
+    gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gDungeonMapLinkHeadTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0,
                         G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                         G_TX_NOLOD);
 
@@ -300,7 +294,7 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
             gMapData->skullFloorIconY[gSaveContext.mapIndex] + pauseCtx->offsetY;
         pauseCtx->mapPageVtx[122].v.ob[1] = pauseCtx->mapPageVtx[123].v.ob[1] = pauseCtx->mapPageVtx[120].v.ob[1] - 16;
 
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gDungeonMapSkullTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gDungeonMapSkullTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0,
                             G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
 
@@ -310,7 +304,7 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
 
     if (GET_GS_FLAGS(gSaveContext.mapIndex) == gAreaGsFlags[gSaveContext.mapIndex]) {
-        KaleidoScope_DrawQuadTextureRGBA32(gfxCtx, gGoldSkulltulaIconTex, 24, 24, 8);
+        KaleidoScope_DrawQuadTextureRGBA32(gfxCtx, oot::asset::texture::load(symbol::gGoldSkulltulaIconTex), 24, 24, 8);
     }
 
     if ((globalCtx->sceneNum >= SCENE_YDAN) && (globalCtx->sceneNum <= SCENE_TAKARAYA)) {
@@ -360,10 +354,10 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
 
 void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
     static void* cloudTexs[] = {
-        gWorldMapCloud16Tex, gWorldMapCloud15Tex, gWorldMapCloud14Tex, gWorldMapCloud13Tex,
-        gWorldMapCloud12Tex, gWorldMapCloud11Tex, gWorldMapCloud10Tex, gWorldMapCloud9Tex,
-        gWorldMapCloud8Tex,  gWorldMapCloud7Tex,  gWorldMapCloud6Tex,  gWorldMapCloud5Tex,
-        gWorldMapCloud4Tex,  gWorldMapCloud3Tex,  gWorldMapCloud2Tex,  gWorldMapCloud1Tex,
+        oot::asset::texture::load(symbol::gWorldMapCloud16Tex), oot::asset::texture::load(symbol::gWorldMapCloud15Tex), oot::asset::texture::load(symbol::gWorldMapCloud14Tex), oot::asset::texture::load(symbol::gWorldMapCloud13Tex),
+        oot::asset::texture::load(symbol::gWorldMapCloud12Tex), oot::asset::texture::load(symbol::gWorldMapCloud11Tex), oot::asset::texture::load(symbol::gWorldMapCloud10Tex), oot::asset::texture::load(symbol::gWorldMapCloud9Tex),
+        oot::asset::texture::load(symbol::gWorldMapCloud8Tex),  oot::asset::texture::load(symbol::gWorldMapCloud7Tex),  oot::asset::texture::load(symbol::gWorldMapCloud6Tex),  oot::asset::texture::load(symbol::gWorldMapCloud5Tex),
+        oot::asset::texture::load(symbol::gWorldMapCloud4Tex),  oot::asset::texture::load(symbol::gWorldMapCloud3Tex),  oot::asset::texture::load(symbol::gWorldMapCloud2Tex),  oot::asset::texture::load(symbol::gWorldMapCloud1Tex),
     };
     static u16 cloudFlagNums[] = {
         0x05, 0x00, 0x13, 0x0E, 0x0F, 0x01, 0x02, 0x10, 0x12, 0x03, 0x07, 0x08, 0x09, 0x0C, 0x0B, 0x06,
@@ -394,16 +388,16 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         59, 19, 13, 19, 38, 17, 38, 17, 13, 26, 16, 26, 26, 16, 19, 17, 26, 13, 17, 17, 16, 17,
     };
     static void* areaBoxTexs[] = {
-        gWorldMapAreaBox7Tex, gWorldMapAreaBox1Tex, gWorldMapAreaBox4Tex, gWorldMapAreaBox6Tex, gWorldMapAreaBox2Tex,
-        gWorldMapAreaBox3Tex, gWorldMapAreaBox2Tex, gWorldMapAreaBox3Tex, gWorldMapAreaBox4Tex, gWorldMapAreaBox5Tex,
-        gWorldMapAreaBox8Tex, gWorldMapAreaBox5Tex, gWorldMapAreaBox5Tex, gWorldMapAreaBox8Tex, gWorldMapAreaBox1Tex,
-        gWorldMapAreaBox3Tex, gWorldMapAreaBox5Tex, gWorldMapAreaBox4Tex, gWorldMapAreaBox3Tex, gWorldMapAreaBox3Tex,
-        gWorldMapAreaBox8Tex, gWorldMapAreaBox3Tex,
+        oot::asset::texture::load(symbol::gWorldMapAreaBox7Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox1Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox4Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox6Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox2Tex),
+        oot::asset::texture::load(symbol::gWorldMapAreaBox3Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox2Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox3Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox4Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox5Tex),
+        oot::asset::texture::load(symbol::gWorldMapAreaBox8Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox5Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox5Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox8Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox1Tex),
+        oot::asset::texture::load(symbol::gWorldMapAreaBox3Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox5Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox4Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox3Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox3Tex),
+        oot::asset::texture::load(symbol::gWorldMapAreaBox8Tex), oot::asset::texture::load(symbol::gWorldMapAreaBox3Tex),
     };
     static void* currentPosTitleTexs[] = {
-        gPauseCurrentPositionENGTex,
-        gPauseCurrentPositionGERTex,
-        gPauseCurrentPositionFRATex,
+        oot::asset::texture::load(symbol::gPauseCurrentPositionENGTex),
+        oot::asset::texture::load(symbol::gPauseCurrentPositionGERTex),
+        oot::asset::texture::load(symbol::gPauseCurrentPositionFRATex),
     };
     static u16 D_8082A6D4 = 0;
     PauseContext* pauseCtx = &globalCtx->pauseCtx;
@@ -501,14 +495,14 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
     if (HREG(15) == 0) {
         gDPSetTextureFilter(POLY_OPA_DISP++, G_TF_POINT);
 
-        gDPLoadTLUT_pal256(POLY_OPA_DISP++, gWorldMapImageTLUT);
+        gDPLoadTLUT_pal256(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gWorldMapImageTLUT));
         gDPSetTextureLUT(POLY_OPA_DISP++, G_TT_RGBA16);
 
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
         gSPVertex(POLY_OPA_DISP++, &pauseCtx->mapPageVtx[188], 32, 0);
 
         for (j = t = i = 0; i < 8; i++, t++, j += 4) {
-            gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)gWorldMapImageTex + t * 216 * 9, G_IM_FMT_CI, G_IM_SIZ_8b, 216, 9,
+            gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)oot::asset::texture::load(symbol::gWorldMapImageTex) + t * 216 * 9, G_IM_FMT_CI, G_IM_SIZ_8b, 216, 9,
                                 0, G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK,
                                 G_TX_NOLOD, G_TX_NOLOD);
 
@@ -518,26 +512,26 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         gSPVertex(POLY_OPA_DISP++, &pauseCtx->mapPageVtx[220], 28, 0);
 
         for (j = i = 0; i < 6; i++, t++, j += 4) {
-            gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)gWorldMapImageTex + t * 216 * 9, G_IM_FMT_CI, G_IM_SIZ_8b, 216, 9,
+            gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)oot::asset::texture::load(symbol::gWorldMapImageTex) + t * 216 * 9, G_IM_FMT_CI, G_IM_SIZ_8b, 216, 9,
                                 0, G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK,
                                 G_TX_NOLOD, G_TX_NOLOD);
 
             gSP1Quadrangle(POLY_OPA_DISP++, j, j + 2, j + 3, j + 1, 0);
         }
 
-        gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)gWorldMapImageTex + t * 216 * 9, G_IM_FMT_CI, G_IM_SIZ_8b, 216, 2, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, (u8*)oot::asset::texture::load(symbol::gWorldMapImageTex) + t * 216 * 9, G_IM_FMT_CI, G_IM_SIZ_8b, 216, 2, 0,
                             G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
 
         gSP1Quadrangle(POLY_OPA_DISP++, j, j + 2, j + 3, j + 1, 0);
     } else if (HREG(15) == 1) {
         Gfx* sp1CC = POLY_OPA_DISP;
-        void* mapImage = gWorldMapImageTex;
+        void* mapImage = oot::asset::texture::load(symbol::gWorldMapImageTex);
 
         // gSPLoadUcodeL(sp1CC++, rspS2DEX)?
         gSPLoadUcodeEx(sp1CC++, OS_K0_TO_PHYSICAL(D_80113070), OS_K0_TO_PHYSICAL(D_801579A0), 0x800);
 
-        func_8009638C(&sp1CC, mapImage, gWorldMapImageTLUT, 216, 128, G_IM_FMT_CI, G_IM_SIZ_8b, 0x8000, 256,
+        func_8009638C(&sp1CC, mapImage, oot::asset::texture::load(symbol::gWorldMapImageTLUT), 216, 128, G_IM_FMT_CI, G_IM_SIZ_8b, 0x8000, 256,
                       HREG(13) / 100.0f, HREG(14) / 100.0f);
 
         // gSPLoadUcode(sp1CC++, SysUcode_GetUCode(), SysUcode_GetUCodeData())?
@@ -670,7 +664,7 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
     gDPSetCombineLERP(POLY_OPA_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE,
                       ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
 
-    gDPLoadTextureBlock(POLY_OPA_DISP++, gWorldMapDotTex, G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 0, G_TX_WRAP | G_TX_NOMIRROR,
+    gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gWorldMapDotTex), G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 0, G_TX_WRAP | G_TX_NOMIRROR,
                         G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
     for (j = i = 0; i < 12; i++, t++, j += 4) {
@@ -704,7 +698,7 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, pointPulsePrimColor[0], 0, pauseCtx->alpha);
 
-        gDPLoadTextureBlock(POLY_OPA_DISP++, gWorldMapArrowTex, G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 0,
+        gDPLoadTextureBlock(POLY_OPA_DISP++, oot::asset::texture::load(symbol::gWorldMapArrowTex), G_IM_FMT_IA, G_IM_SIZ_8b, 8, 8, 0,
                             G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                             G_TX_NOLOD);
 

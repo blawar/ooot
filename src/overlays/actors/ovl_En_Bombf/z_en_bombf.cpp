@@ -7,7 +7,7 @@
  */
 
 #include "z_en_bombf.h"
-#include "objects/object_bombf/object_bombf.h"
+#include "asset.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
 #include "def/code_800A9F30.h"
 #include "def/graph.h"
@@ -505,8 +505,8 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx) {
         if (thisx->params != BOMBFLOWER_BODY) {
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1041),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPDisplayList(POLY_OPA_DISP++, gBombFlowerLeavesDL);
-            gSPDisplayList(POLY_OPA_DISP++, gBombFlowerBaseLeavesDL);
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBombFlowerLeavesDL));
+            gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBombFlowerBaseLeavesDL));
 
             Matrix_Translate(0.0f, 1000.0f, 0.0f, MTXMODE_APPLY);
             Matrix_Scale(pthis->flowerBombScale, pthis->flowerBombScale, pthis->flowerBombScale, MTXMODE_APPLY);
@@ -519,7 +519,7 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPSegment(POLY_OPA_DISP++, 0x08,
                    SEGMENTED_TO_VIRTUAL(EnBombf_NewMtxDList(globalCtx->state.gfxCtx, globalCtx)));
-        gSPDisplayList(POLY_OPA_DISP++, gBombFlowerBombAndSparkDL);
+        gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gBombFlowerBombAndSparkDL));
     } else {
         Collider_UpdateSpheres(0, &pthis->explosionCollider);
     }

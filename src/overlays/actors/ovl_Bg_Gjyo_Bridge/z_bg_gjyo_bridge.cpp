@@ -7,8 +7,7 @@
  */
 
 #include "z_bg_gjyo_bridge.h"
-#include "objects/object_gjyo_objects/object_gjyo_objects.h"
-#include "scenes/dungeons/ganon_tou/ganon_tou_scene.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
@@ -56,7 +55,7 @@ void BgGjyoBridge_Init(Actor* pthisx, GlobalContext* globalCtx) {
 
     Actor_ProcessInitChain(pthisx, sInitChain);
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gRainbowBridgeCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gRainbowBridgeCol), &colHeader);
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, pthisx, colHeader);
 
@@ -86,7 +85,7 @@ void BgGjyoBridge_TriggerCutscene(BgGjyoBridge* pthis, GlobalContext* globalCtx)
         (player->actor.world.pos.x < 300.0f) && (player->actor.world.pos.y > 1340.0f) &&
         (player->actor.world.pos.z > 1340.0f) && (player->actor.world.pos.z < 1662.0f) &&
         !Gameplay_InCsMode(globalCtx)) {
-        globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gRainbowBridgeCs);
+        globalCtx->csCtx.segment = oot::asset::cutscene::data::load(symbol::gRainbowBridgeCs);
         gSaveContext.cutsceneTrigger = 1;
         pthis->actionFunc = BgGjyoBridge_SpawnBridge;
     }
@@ -125,7 +124,7 @@ void BgGjyoBridge_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 281),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-    gSPDisplayList(POLY_XLU_DISP++, gRainbowBridgeDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gRainbowBridgeDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 285);
 }

@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_ddan_kd.h"
-#include "objects/object_ddan_objects/object_ddan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/audio_bank.h"
@@ -90,7 +90,7 @@ void BgDdanKd_Init(Actor* pthisx, GlobalContext* globalCtx) {
     DynaPolyActor_Init(&pthis->dyna, DPM_PLAYER);
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->dyna.actor, &sCylinderInit);
-    CollisionHeader_GetVirtual(&gDodongoFallingStairsCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gDodongoFallingStairsCol), &colHeader);
 
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
 
@@ -201,7 +201,7 @@ void BgDdanKd_Update(Actor* pthisx, GlobalContext* globalCtx) {
 }
 
 void BgDdanKd_Draw(Actor* pthisx, GlobalContext* globalCtx) {
-    Gfx_DrawDListOpa(globalCtx, gDodongoFallingStairsDL);
+    Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gDodongoFallingStairsDL));
 }
 
 void BgDdanKd_Reset(Actor* pthisx, GlobalContext* globalCtx) {

@@ -7,9 +7,8 @@
  */
 
 #include "z_en_fw.h"
-#include "objects/object_fw/object_fw.h"
+#include "asset.h"
 #include "overlays/actors/ovl_En_Bom/z_en_bom.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
 #include "def/math_float.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -39,7 +38,7 @@ void EnFw_JumpToParentInitPos(EnFw* pthis, GlobalContext* globalCtx);
 void EnFw_TurnToParentInitPos(EnFw* pthis, GlobalContext* globalCtx);
 
 static void* dustTextures_54[] = {
-    gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
+    oot::asset::texture::load(symbol::gDust8Tex), oot::asset::texture::load(symbol::gDust7Tex), oot::asset::texture::load(symbol::gDust6Tex), oot::asset::texture::load(symbol::gDust5Tex), oot::asset::texture::load(symbol::gDust4Tex), oot::asset::texture::load(symbol::gDust3Tex), oot::asset::texture::load(symbol::gDust2Tex), oot::asset::texture::load(symbol::gDust1Tex),
 };
 
 
@@ -86,9 +85,9 @@ static ColliderJntSphInit sJntSphInit = {
 static CollisionCheckInfoInit2 D_80A1FB94 = { 8, 2, 25, 25, MASS_IMMOVABLE };
 
 static struct_80034EC0_Entry D_80A1FBA0[] = {
-    { &gFlareDancerCoreInitRunCycleAnim, 0.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, 0.0f },
-    { &gFlareDancerCoreRunCycleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
-    { &gFlareDancerCoreEndRunCycleAnim, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerCoreInitRunCycleAnim), 0.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerCoreRunCycleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE_INTERP, -8.0f },
+    { oot::asset::anim::header::load(symbol::gFlareDancerCoreEndRunCycleAnim), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP_INTERP, -8.0f },
 };
 
 s32 EnFw_DoBounce(EnFw* pthis, s32 totalBounces, f32 yVelocity) {
@@ -204,7 +203,7 @@ s32 EnFw_SpawnDust(EnFw* pthis, u8 timer, f32 scale, f32 scaleStep, s32 dustCnt,
 void EnFw_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnFw* pthis = (EnFw*)thisx;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gFlareDancerCoreSkel, NULL, pthis->jointTable, pthis->morphTable,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gFlareDancerCoreSkel), NULL, pthis->jointTable, pthis->morphTable,
                        11);
     func_80034EC0(&pthis->skelAnime, D_80A1FBA0, 0);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 20.0f);
@@ -237,7 +236,7 @@ void EnFw_Run(EnFw* pthis, GlobalContext* globalCtx) {
     Actor* flareDancer;
 
     Math_SmoothStepToF(&pthis->skelAnime.playSpeed, 1.0f, 0.1f, 1.0f, 0.0f);
-    if (pthis->skelAnime.animation == &gFlareDancerCoreInitRunCycleAnim) {
+    if (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gFlareDancerCoreInitRunCycleAnim)) {
         if (Animation_OnFrame(&pthis->skelAnime, pthis->skelAnime.endFrame) == 0) {
             pthis->runRadius = Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &pthis->actor.parent->world.pos);
             func_80034EC0(&pthis->skelAnime, D_80A1FBA0, 2);
@@ -478,7 +477,7 @@ void EnFw_DrawDust(EnFw* pthis, GlobalContext* globalCtx) {
         if (eff->type != 0) {
             if (!firstDone) {
                 POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0U);
-                gSPDisplayList(POLY_XLU_DISP++, gFlareDancerDL_7928);
+                gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFlareDancerDL_7928));
                 gDPSetEnvColor(POLY_XLU_DISP++, 100, 60, 20, 0);
                 firstDone = true;
             }
@@ -493,7 +492,7 @@ void EnFw_DrawDust(EnFw* pthis, GlobalContext* globalCtx) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             idx = eff->timer * (8.0f / eff->initialTimer);
             gSPSegment(POLY_XLU_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(dustTextures_54[idx]));
-            gSPDisplayList(POLY_XLU_DISP++, gFlareDancerSquareParticleDL);
+            gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFlareDancerSquareParticleDL));
         }
     }
 

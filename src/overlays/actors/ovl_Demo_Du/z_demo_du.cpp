@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_DEMO_DU_Z_DEMO_DU_C
 #include "actor_common.h"
 #include "z_demo_du.h"
-#include "objects/object_du/object_du.h"
+#include "asset.h"
 #include "overlays/actors/ovl_Demo_Effect/z_demo_effect.h"
 #include "overlays/actors/ovl_Door_Warp1/z_door_warp1.h"
 #include "vt.h"
@@ -40,9 +40,9 @@ static s32 sUnused = 0;
 #include "def/z_rcp.h"
 #include "def/z_skelanime.h"
 
-static void* sEyeTextures[] = { gDaruniaEyeOpenTex, gDaruniaEyeOpeningTex, gDaruniaEyeShutTex, gDaruniaEyeClosingTex };
-static void* sMouthTextures[] = { gDaruniaMouthSeriousTex, gDaruniaMouthGrinningTex, gDaruniaMouthOpenTex,
-                                  gDaruniaMouthHappyTex };
+static void* sEyeTextures[] = { oot::asset::texture::load(symbol::gDaruniaEyeOpenTex), oot::asset::texture::load(symbol::gDaruniaEyeOpeningTex), oot::asset::texture::load(symbol::gDaruniaEyeShutTex), oot::asset::texture::load(symbol::gDaruniaEyeClosingTex) };
+static void* sMouthTextures[] = { oot::asset::texture::load(symbol::gDaruniaMouthSeriousTex), oot::asset::texture::load(symbol::gDaruniaMouthGrinningTex), oot::asset::texture::load(symbol::gDaruniaMouthOpenTex),
+                                  oot::asset::texture::load(symbol::gDaruniaMouthHappyTex) };
 
 /**
  * Cs => Cutscene
@@ -179,7 +179,7 @@ void func_80969DDC(DemoDu* pthis, AnimationHeader* animation, u8 mode, f32 morph
 }
 
 void DemoDu_InitCs_FireMedallion(DemoDu* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDaruniaSkel, &gDaruniaIdleAnim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDaruniaSkel), oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), NULL, NULL, 0);
     pthis->actor.shape.yOffset = -10000.0f;
     DemoDu_SetEyeTexIndex(pthis, 1);
     DemoDu_SetMouthTexIndex(pthis, 3);
@@ -251,8 +251,8 @@ void DemoDu_CsFireMedallion_AdvanceTo04(DemoDu* pthis, GlobalContext* globalCtx)
         CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[2];
 
         if ((npcAction != NULL) && (npcAction->action != 2)) {
-            Animation_Change(&pthis->skelAnime, &gDaruniaItemGiveAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gDaruniaItemGiveAnim), 2, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaItemGiveAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaItemGiveAnim)), 2, 0.0f);
             pthis->updateIndex = CS_FIREMEDALLION_SUBSCENE(4);
         }
     }
@@ -260,8 +260,8 @@ void DemoDu_CsFireMedallion_AdvanceTo04(DemoDu* pthis, GlobalContext* globalCtx)
 
 void DemoDu_CsFireMedallion_AdvanceTo05(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        Animation_Change(&pthis->skelAnime, &gDaruniaItemGiveIdleAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gDaruniaItemGiveIdleAnim), 0, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaItemGiveIdleAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaItemGiveIdleAnim)), 0, 0.0f);
         pthis->updateIndex = CS_FIREMEDALLION_SUBSCENE(5);
     }
 }
@@ -317,7 +317,7 @@ void DemoDu_UpdateCs_FM_06(DemoDu* pthis, GlobalContext* globalCtx) {
 }
 
 void DemoDu_InitCs_GoronsRuby(DemoDu* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDaruniaSkel, NULL, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDaruniaSkel), NULL, NULL, NULL, 0);
     pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(0);
 }
 
@@ -486,8 +486,8 @@ void DemoDu_CsGoronsRuby_AdvanceTo02(DemoDu* pthis, GlobalContext* globalCtx) {
         CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[2];
 
         if ((npcAction != NULL) && (npcAction->action != 1)) {
-            Animation_Change(&pthis->skelAnime, &gDaruniaStandUpAfterFallingAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gDaruniaStandUpAfterFallingAnim), 2, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaStandUpAfterFallingAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaStandUpAfterFallingAnim)), 2, 0.0f);
             pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(2);
             pthis->drawIndex = 1;
             DemoDu_CsGoronsRuby_DaruniaFalling(pthis, globalCtx);
@@ -520,7 +520,7 @@ void DemoDu_CsGoronsRuby_AdvanceTo04(DemoDu* pthis, GlobalContext* globalCtx) {
 
 void DemoDu_CsGoronsRuby_AdvanceTo05(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        Animation_Change(&pthis->skelAnime, &gDaruniaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gDaruniaIdleAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaIdleAnim)),
                          ANIMMODE_LOOP, 0.0f);
         pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(5);
     }
@@ -531,8 +531,8 @@ void DemoDu_CsGoronsRuby_AdvanceTo06(DemoDu* pthis, GlobalContext* globalCtx) {
         CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[2];
 
         if ((npcAction != NULL) && (npcAction->action != 3)) {
-            Animation_Change(&pthis->skelAnime, &gDaruniaHitBreastAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gDaruniaHitBreastAnim), 2, -4.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaHitBreastAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaHitBreastAnim)), 2, -4.0f);
             pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(6);
         }
     }
@@ -540,7 +540,7 @@ void DemoDu_CsGoronsRuby_AdvanceTo06(DemoDu* pthis, GlobalContext* globalCtx) {
 
 void DemoDu_CsGoronsRuby_AdvanceTo07(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        Animation_Change(&pthis->skelAnime, &gDaruniaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gDaruniaIdleAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaIdleAnim)),
                          ANIMMODE_LOOP, 0.0f);
         pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(7);
     }
@@ -551,8 +551,8 @@ void DemoDu_CsGoronsRuby_AdvanceTo08(DemoDu* pthis, GlobalContext* globalCtx) {
         CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[2];
 
         if ((npcAction != NULL) && (npcAction->action != 4)) {
-            Animation_Change(&pthis->skelAnime, &gDaruniaHitLinkAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gDaruniaHitLinkAnim), 2, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaHitLinkAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaHitLinkAnim)), 2, 0.0f);
             pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(8);
         }
     }
@@ -560,15 +560,15 @@ void DemoDu_CsGoronsRuby_AdvanceTo08(DemoDu* pthis, GlobalContext* globalCtx) {
 
 void DemoDu_CsGoronsRuby_AdvanceTo09(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        Animation_Change(&pthis->skelAnime, &gDaruniaHitBreastAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gDaruniaHitBreastAnim), 2, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaHitBreastAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaHitBreastAnim)), 2, 0.0f);
         pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(9);
     }
 }
 
 void DemoDu_CsGoronsRuby_AdvanceTo10(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        Animation_Change(&pthis->skelAnime, &gDaruniaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gDaruniaIdleAnim),
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaIdleAnim)),
                          ANIMMODE_LOOP, 0.0f);
         pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(10);
     }
@@ -579,8 +579,8 @@ void DemoDu_CsGoronsRuby_AdvanceTo11(DemoDu* pthis, GlobalContext* globalCtx) {
         CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[2];
 
         if ((npcAction != NULL) && (npcAction->action != 5)) {
-            Animation_Change(&pthis->skelAnime, &gDaruniaItemGiveAnim, 1.0f, 0.0f,
-                             Animation_GetLastFrame(&gDaruniaItemGiveAnim), 2, 0.0f);
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaItemGiveAnim), 1.0f, 0.0f,
+                             Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaItemGiveAnim)), 2, 0.0f);
             pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(11);
         }
     }
@@ -588,8 +588,8 @@ void DemoDu_CsGoronsRuby_AdvanceTo11(DemoDu* pthis, GlobalContext* globalCtx) {
 
 void DemoDu_CsGoronsRuby_AdvanceTo12(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        Animation_Change(&pthis->skelAnime, &gDaruniaItemGiveIdleAnim, 1.0f, 0.0f,
-                         Animation_GetLastFrame(&gDaruniaItemGiveIdleAnim), 0, 0.0f);
+        Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaItemGiveIdleAnim), 1.0f, 0.0f,
+                         Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaItemGiveIdleAnim)), 0, 0.0f);
         pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(12);
     }
 }
@@ -599,7 +599,7 @@ void DemoDu_CsGoronsRuby_AdvanceTo13(DemoDu* pthis, GlobalContext* globalCtx) {
         CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[2];
 
         if ((npcAction != NULL) && (npcAction->action != 6)) {
-            Animation_Change(&pthis->skelAnime, &gDaruniaIdleAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gDaruniaIdleAnim),
+            Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaIdleAnim), 1.0f, 0.0f, Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaIdleAnim)),
                              ANIMMODE_LOOP, 0.0f);
             pthis->updateIndex = CS_GORONSRUBY_SUBSCENE(13);
         }
@@ -716,10 +716,10 @@ void DemoDu_UpdateCs_GR_13(DemoDu* pthis, GlobalContext* globalCtx) {
 
 void DemoDu_InitCs_AfterGanon(DemoDu* pthis, GlobalContext* globalCtx) {
     s32 pad[3];
-    f32 lastFrame = Animation_GetLastFrame(&gDaruniaSageFormationAnim);
+    f32 lastFrame = Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gDaruniaSageFormationAnim));
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDaruniaSkel, NULL, NULL, NULL, 0);
-    Animation_Change(&pthis->skelAnime, &gDaruniaSageFormationAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDaruniaSkel), NULL, NULL, NULL, 0);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gDaruniaSageFormationAnim), 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
     pthis->updateIndex = CS_CHAMBERAFTERGANON_SUBSCENE(0);
     pthis->actor.shape.shadowAlpha = 0;
 }
@@ -826,7 +826,7 @@ void DemoDu_Draw_02(Actor* thisx, GlobalContext* globalCtx2) {
 
     gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
     gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(mouthTexture));
-    gSPSegment(POLY_XLU_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gDaruniaNoseSeriousTex));
+    gSPSegment(POLY_XLU_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gDaruniaNoseSeriousTex)));
 
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->shadowAlpha);
 
@@ -839,7 +839,7 @@ void DemoDu_Draw_02(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 void DemoDu_InitCs_Credits(DemoDu* pthis, GlobalContext* globalCtx) {
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gDaruniaSkel, &gDaruniaCreditsIdleAnim, NULL, NULL, 0);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gDaruniaSkel), oot::asset::anim::header::load(symbol::gDaruniaCreditsIdleAnim), NULL, NULL, 0);
     pthis->updateIndex = CS_CREDITS_SUBSCENE(0);
     pthis->drawIndex = 0;
     pthis->actor.shape.shadowAlpha = 0;
@@ -879,18 +879,18 @@ void DemoDu_CsCredits_AdvanceTo02(DemoDu* pthis) {
 }
 
 void DemoDu_CsCredits_AdvanceTo03(DemoDu* pthis) {
-    func_80969DDC(pthis, &gDaruniaLookingUpToSariaAnim, ANIMMODE_ONCE, -8.0f, 0);
+    func_80969DDC(pthis, oot::asset::anim::header::load(symbol::gDaruniaLookingUpToSariaAnim), ANIMMODE_ONCE, -8.0f, 0);
     pthis->updateIndex = CS_CREDITS_SUBSCENE(3);
 }
 
 void DemoDu_CsCredits_AdvanceTo04(DemoDu* pthis) {
-    func_80969DDC(pthis, &gDaruniaCreditsHitBreastAnim, ANIMMODE_ONCE, 0.0f, 0);
+    func_80969DDC(pthis, oot::asset::anim::header::load(symbol::gDaruniaCreditsHitBreastAnim), ANIMMODE_ONCE, 0.0f, 0);
     pthis->updateIndex = CS_CREDITS_SUBSCENE(4);
 }
 
 void DemoDu_CsCredits_BackTo02(DemoDu* pthis, s32 animFinished) {
     if (animFinished) {
-        func_80969DDC(pthis, &gDaruniaCreditsIdleAnim, ANIMMODE_LOOP, 0.0f, 0);
+        func_80969DDC(pthis, oot::asset::anim::header::load(symbol::gDaruniaCreditsIdleAnim), ANIMMODE_LOOP, 0.0f, 0);
         pthis->updateIndex = CS_CREDITS_SUBSCENE(2);
     }
 }
@@ -1021,7 +1021,7 @@ void DemoDu_Draw_01(Actor* thisx, GlobalContext* globalCtx2) {
 
     gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
     gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(mouthTexture));
-    gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(gDaruniaNoseSeriousTex));
+    gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(oot::asset::texture::load(symbol::gDaruniaNoseSeriousTex)));
 
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 

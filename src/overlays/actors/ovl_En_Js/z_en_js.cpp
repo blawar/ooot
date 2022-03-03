@@ -7,7 +7,7 @@
  */
 
 #include "z_en_js.h"
-#include "objects/object_js/object_js.h"
+#include "asset.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -74,9 +74,9 @@ void EnJs_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     ActorShape_Init(&pthis->actor.shape, 0.0f, NULL, 36.0f);
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCarpetMerchantSkel, &gCarpetMerchantSlappingKneeAnim,
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gCarpetMerchantSkel), oot::asset::anim::header::load(symbol::gCarpetMerchantSlappingKneeAnim),
                        pthis->jointTable, pthis->morphTable, 13);
-    Animation_PlayOnce(&pthis->skelAnime, &gCarpetMerchantSlappingKneeAnim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCarpetMerchantSlappingKneeAnim));
     Collider_InitCylinder(globalCtx, &pthis->collider);
     Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
     pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
@@ -113,8 +113,8 @@ u8 func_80A88F64(EnJs* pthis, GlobalContext* globalCtx, u16 textId) {
 
 void func_80A89008(EnJs* pthis) {
     En_Js_SetupAction(pthis, func_80A89304);
-    Animation_Change(&pthis->skelAnime, &gCarpetMerchantSlappingKneeAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gCarpetMerchantSlappingKneeAnim), ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCarpetMerchantSlappingKneeAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gCarpetMerchantSlappingKneeAnim)), ANIMMODE_ONCE, -4.0f);
 }
 
 void func_80A89078(EnJs* pthis, GlobalContext* globalCtx) {
@@ -170,8 +170,8 @@ void func_80A891C4(EnJs* pthis, GlobalContext* globalCtx) {
 
 void func_80A89294(EnJs* pthis) {
     En_Js_SetupAction(pthis, func_80A891C4);
-    Animation_Change(&pthis->skelAnime, &gCarpetMerchantIdleAnim, 1.0f, 0.0f,
-                     Animation_GetLastFrame(&gCarpetMerchantIdleAnim), ANIMMODE_ONCE, -4.0f);
+    Animation_Change(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gCarpetMerchantIdleAnim), 1.0f, 0.0f,
+                     Animation_GetLastFrame(oot::asset::anim::header::load(symbol::gCarpetMerchantIdleAnim)), ANIMMODE_ONCE, -4.0f);
 }
 
 void func_80A89304(EnJs* pthis, GlobalContext* globalCtx) {

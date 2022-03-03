@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_FBDEMO_TRIFORCE_C
 #include "global.h"
 #include "z64transition.h"
-#include "code/fbdemo_triforce/z_fbdemo_triforce.cpp"
+#include "asset.h"
 #include "def/ortho.h"
 #include "def/rotate.h"
 #include "def/scale.h"
@@ -88,14 +88,14 @@ void TransitionTriforce_Draw(void* pthisx, Gfx** gfxP) {
     guRotate(&modelView[1], rotation, 0.0f, 0.0f, 1.0f);
     guTranslate(&modelView[2], 0.0f, 0.0f, 0.0f);
     gDPPipeSync(gfx++);
-    gSPDisplayList(gfx++, sTriforceWipeDL);
+    gSPDisplayList(gfx++, oot::asset::gfx::load(symbol::sTriforceWipeDL));
     gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
     gDPSetCombineMode(gfx++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gSPMatrix(gfx++, &pthis->projection, G_MTX_LOAD | G_MTX_PROJECTION);
     gSPMatrix(gfx++, &modelView[0], G_MTX_LOAD);
     gSPMatrix(gfx++, &modelView[1], G_MTX_NOPUSH | G_MTX_MODELVIEW | G_MTX_MUL);
     gSPMatrix(gfx++, &modelView[2], G_MTX_NOPUSH | G_MTX_MODELVIEW | G_MTX_MUL);
-    gSPVertex(gfx++, sTriforceWipeVtx, 10, 0);
+    gSPVertex(gfx++, oot::asset::vtx::load(symbol::sTriforceWipeVtx), 10, 0);
     if (!TransitionTriforce_IsDone(pthis)) {
         switch (pthis->fadeDirection) {
             case 1:

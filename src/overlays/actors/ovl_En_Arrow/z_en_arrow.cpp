@@ -7,7 +7,7 @@
  */
 
 #include "z_en_arrow.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
+#include "asset.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
 #include "def/sys_math3d.h"
@@ -131,7 +131,7 @@ void EnArrow_Init(Actor* thisx, GlobalContext* globalCtx) {
     if (pthis->actor.params <= ARROW_SEED) {
 
         if (pthis->actor.params <= ARROW_0E) {
-            SkelAnime_Init(globalCtx, &pthis->skelAnime, &gArrowSkel, &gArrow2Anim, NULL, NULL, 0);
+            SkelAnime_Init(globalCtx, &pthis->skelAnime, oot::asset::skel::header2::load(symbol::gArrowSkel), oot::asset::anim::header::load(symbol::gArrow2Anim), NULL, NULL, 0);
         }
 
         if (pthis->actor.params <= ARROW_NORMAL) {
@@ -234,7 +234,7 @@ void EnArrow_Shoot(EnArrow* pthis, GlobalContext* globalCtx) {
 
 void func_809B3CEC(GlobalContext* globalCtx, EnArrow* pthis) {
     EnArrow_SetupAction(pthis, func_809B4640);
-    Animation_PlayOnce(&pthis->skelAnime, &gArrow1Anim);
+    Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArrow1Anim));
     pthis->actor.world.rot.y += (s32)(24576.0f * (Rand_ZeroOne() - 0.5f)) + 0x8000;
     pthis->actor.velocity.y += (pthis->actor.speedXZ * (0.4f + (0.4f * Rand_ZeroOne())));
     pthis->actor.speedXZ *= (0.04f + 0.3f * Rand_ZeroOne());
@@ -350,7 +350,7 @@ void EnArrow_Fly(EnArrow* pthis, GlobalContext* globalCtx) {
                 }
             } else if (pthis->touchedPoly) {
                 EnArrow_SetupAction(pthis, func_809B45E0);
-                Animation_PlayOnce(&pthis->skelAnime, &gArrow2Anim);
+                Animation_PlayOnce(&pthis->skelAnime, oot::asset::anim::header::load(symbol::gArrow2Anim));
 
                 if (pthis->actor.params >= ARROW_NORMAL_LIT) {
                     pthis->timer = 60;
@@ -516,7 +516,7 @@ void EnArrow_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_arrow.c", 1374),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPDisplayList(POLY_XLU_DISP++, gEffSparklesDL);
+        gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gEffSparklesDL));
         Matrix_Pop();
         Matrix_RotateY(pthis->actor.world.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
 

@@ -9,22 +9,22 @@
 #include "z_door_shutter.h"
 #include "overlays/actors/ovl_Boss_Goma/z_boss_goma.h"
 
-#include "objects/object_gnd/object_gnd.h"
-#include "objects/object_goma/object_goma.h"
-#include "objects/object_ydan_objects/object_ydan_objects.h"
-#include "objects/object_ddan_objects/object_ddan_objects.h"
-#include "objects/object_bdan_objects/object_bdan_objects.h"
-#include "objects/gameplay_keep/gameplay_keep.h"
-#include "objects/object_bdoor/object_bdoor.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
-#include "objects/object_ganon_objects/object_ganon_objects.h"
-#include "objects/object_jya_door/object_jya_door.h"
-#include "objects/object_mizu_objects/object_mizu_objects.h"
-#include "objects/object_haka_door/object_haka_door.h"
-#include "objects/object_ice_objects/object_ice_objects.h"
-#include "objects/object_menkuri_objects/object_menkuri_objects.h"
-#include "objects/object_demo_kekkai/object_demo_kekkai.h"
-#include "objects/object_ouke_haka/object_ouke_haka.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
@@ -101,26 +101,26 @@ static ShutterObjectInfo sObjectInfo[] = {
 };
 
 static ShutterInfo sShutterInfo[] = {
-    { gDTDungeonDoor1DL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gDTDungeonDoor2DL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gDodongoDoorDL, gDodongoBarsDL, 240, 14, 70, 15 },
-    { gJabuDoorSection1DL, gJabuWebDoorDL, 0, 110, 50, 15 },
-    { gPhantomGanonBarsDL, NULL, 130, 12, 50, 15 },
-    { gGohmaDoorDL, NULL, 130, 12, 50, 15 },
-    { gSpiritDoorDL, gJyaDoorMetalBarsDL, 240, 14, 50, 15 },
-    { object_bdoor_DL_0010C0, NULL, 130, 12, 50, 15 },
-    { gDungeonDoorDL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gFireTempleDoorFrontDL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gFireTempleDoorBackDL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { object_ganon_objects_DL_0000C0, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gObjectMizuObjectsDoorShutterDL_005D90, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gObjectMizuObjectsDoorShutterDL_007000, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { object_haka_door_DL_002620, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { object_haka_door_DL_003890, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { object_ice_objects_DL_001D10, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gGTGDoorDL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { gGanonsCastleDoorDL, gDoorMetalBarsDL, 130, 12, 20, 15 },
-    { object_ouke_haka_DL_0000C0, gDoorMetalBarsDL, 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gDTDungeonDoor1DL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gDTDungeonDoor2DL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gDodongoDoorDL), oot::asset::gfx::load(symbol::gDodongoBarsDL), 240, 14, 70, 15 },
+    { oot::asset::gfx::load(symbol::gJabuDoorSection1DL), oot::asset::gfx::load(symbol::gJabuWebDoorDL), 0, 110, 50, 15 },
+    { oot::asset::gfx::load(symbol::gPhantomGanonBarsDL), NULL, 130, 12, 50, 15 },
+    { oot::asset::gfx::load(symbol::gGohmaDoorDL), NULL, 130, 12, 50, 15 },
+    { oot::asset::gfx::load(symbol::gSpiritDoorDL), oot::asset::gfx::load(symbol::gJyaDoorMetalBarsDL), 240, 14, 50, 15 },
+    { oot::asset::gfx::load(symbol::object_bdoor_DL_0010C0), NULL, 130, 12, 50, 15 },
+    { oot::asset::gfx::load(symbol::gDungeonDoorDL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gFireTempleDoorFrontDL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gFireTempleDoorBackDL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::object_ganon_objects_DL_0000C0), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gObjectMizuObjectsDoorShutterDL_005D90), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gObjectMizuObjectsDoorShutterDL_007000), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::object_haka_door_DL_002620), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::object_haka_door_DL_003890), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::object_ice_objects_DL_001D10), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gGTGDoorDL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::gGanonsCastleDoorDL), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
+    { oot::asset::gfx::load(symbol::object_ouke_haka_DL_0000C0), oot::asset::gfx::load(symbol::gDoorMetalBarsDL), 130, 12, 20, 15 },
 };
 
 static s8 D_80998224[] = {
@@ -154,13 +154,13 @@ static BossDoorInfo D_80998288[] = {
 };
 
 static Gfx* sJabuDoorDLists[] = {
-    gJabuDoorSection1DL, gJabuDoorSection2DL, gJabuDoorSection7DL, gJabuDoorSection4DL,
-    gJabuDoorSection5DL, gJabuDoorSection4DL, gJabuDoorSection3DL, gJabuDoorSection2DL,
+    oot::asset::gfx::load(symbol::gJabuDoorSection1DL), oot::asset::gfx::load(symbol::gJabuDoorSection2DL), oot::asset::gfx::load(symbol::gJabuDoorSection7DL), oot::asset::gfx::load(symbol::gJabuDoorSection4DL),
+    oot::asset::gfx::load(symbol::gJabuDoorSection5DL), oot::asset::gfx::load(symbol::gJabuDoorSection4DL), oot::asset::gfx::load(symbol::gJabuDoorSection3DL), oot::asset::gfx::load(symbol::gJabuDoorSection2DL),
 };
 
 static void* D_809982D4[] = {
-    object_bdoor_Tex_0065C0, object_bdoor_Tex_0035C0, object_bdoor_Tex_0055C0, object_bdoor_Tex_0045C0,
-    object_bdoor_Tex_000000, object_bdoor_Tex_0025C0, object_bdoor_Tex_0015C0,
+    oot::asset::texture::load(symbol::object_bdoor_Tex_0065C0), oot::asset::texture::load(symbol::object_bdoor_Tex_0035C0), oot::asset::texture::load(symbol::object_bdoor_Tex_0055C0), oot::asset::texture::load(symbol::object_bdoor_Tex_0045C0),
+    oot::asset::texture::load(symbol::object_bdoor_Tex_000000), oot::asset::texture::load(symbol::object_bdoor_Tex_0025C0), oot::asset::texture::load(symbol::object_bdoor_Tex_0015C0),
 };
 
 void DoorShutter_SetupAction(DoorShutter* pthis, DoorShutterActionFunc actionFunc) {
@@ -288,7 +288,7 @@ void DoorShutter_SetupType(DoorShutter* pthis, GlobalContext* globalCtx) {
 
             Actor_SetObjectDependency(globalCtx, &pthis->dyna.actor);
             pthis->unk_16C = sObjectInfo[pthis->unk_16B].index1;
-            CollisionHeader_GetVirtual((pthis->doorType == SHUTTER_GOHMA_BLOCK) ? &gGohmaDoorCol : &gPhantomGanonBarsCol,
+            CollisionHeader_GetVirtual((pthis->doorType == SHUTTER_GOHMA_BLOCK) ? oot::asset::collision::header::load(symbol::gGohmaDoorCol) : oot::asset::collision::header::load(symbol::gPhantomGanonBarsCol),
                                        &colHeader);
             pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
             if (pthis->doorType == SHUTTER_GOHMA_BLOCK) {

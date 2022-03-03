@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_gate_shutter.h"
-#include "objects/object_spot01_matoyab/object_spot01_matoyab.h"
+#include "asset.h"
 #include "vt.h"
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
@@ -49,7 +49,7 @@ void BgGateShutter_Init(Actor* pthisx, GlobalContext* globalCtx) {
     CollisionHeader* colHeader = NULL;
 
     DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-    CollisionHeader_GetVirtual(&gKakarikoGuardGateCol, &colHeader);
+    CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gKakarikoGuardGateCol), &colHeader);
     pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, pthisx, colHeader);
     pthis->somePos.x = pthisx->world.pos.x;
     pthis->somePos.y = pthisx->world.pos.y;
@@ -140,7 +140,7 @@ void BgGateShutter_Draw(Actor* pthisx, GlobalContext* globalCtx) {
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gate_shutter.c", 328),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_OPA_DISP++, gKakarikoGuardGateDL);
+    gSPDisplayList(POLY_OPA_DISP++, oot::asset::gfx::load(symbol::gKakarikoGuardGateDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gate_shutter.c", 333);
 }

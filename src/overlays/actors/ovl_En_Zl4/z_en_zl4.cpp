@@ -7,8 +7,7 @@
  */
 
 #include "z_en_zl4.h"
-#include "objects/object_zl4/object_zl4.h"
-#include "scenes/indoors/nakaniwa/nakaniwa_scene.h"
+#include "asset.h"
 #include "def/code_800A9F30.h"
 #include "def/audio.h"
 #include "def/shrink_window.h"
@@ -73,50 +72,50 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 static struct_80034EC0_Entry sAnimationEntries[] = {
-    /*  0 */ /* standing idle */ { &gChildZeldaAnim_000654, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /*  1 */ /* moves to introduce herself */ { &gChildZeldaAnim_00E5C8, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    /*  2 */ /* introducing herself */ { &gChildZeldaAnim_00EBC4, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    /*  0 */ /* standing idle */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_000654), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /*  1 */ /* moves to introduce herself */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_00E5C8), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    /*  2 */ /* introducing herself */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_00EBC4), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
     /*  3 */ /* turns away from window surprised */
-    { &gChildZeldaAnim_010DF8, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_010DF8), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
     /*  4 */ /* standing with hand in front of mouth */
-    { &gChildZeldaAnim_011248, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    /*  5 */ /* surprise, moves hand to mouth */ { &gChildZeldaAnim_011698, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_011248), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    /*  5 */ /* surprise, moves hand to mouth */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_011698), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
     /*  6 */ /* uncrosses arms, leans toward link with hands together */
-    { &gChildZeldaAnim_011B34, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
-    /*  7 */ /* turns to write letter */ { &gChildZeldaAnim_0125E4, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    /*  8 */ /* writing letter */ { &gChildZeldaAnim_012E58, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /*  9 */ /* pulls back, looks askew */ { &gChildZeldaAnim_013280, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    /* 10 */ /* looks askew at Link */ { &gChildZeldaAnim_013628, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    /* 11 */ /* crosses arms, looks to the side */ { &gChildZeldaAnim_013A50, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    /* 12 */ /* arms crossed, looking away */ { &gChildZeldaAnim_013EA0, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_011B34), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
+    /*  7 */ /* turns to write letter */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_0125E4), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    /*  8 */ /* writing letter */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_012E58), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /*  9 */ /* pulls back, looks askew */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_013280), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    /* 10 */ /* looks askew at Link */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_013628), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    /* 11 */ /* crosses arms, looks to the side */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_013A50), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    /* 12 */ /* arms crossed, looking away */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_013EA0), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
     /* 13 */ /* turns away, hands behind back, looks up */
-    { &gChildZeldaAnim_015F14, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_015F14), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
     /* 14 */ /* turns back to link, hands on top of each other */
-    { &gChildZeldaAnim_0169B4, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 15 */ /* hands behind back looking up */ { &gChildZeldaAnim_016D08, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 16 */ /* leans toward link, looks askew */ { &gChildZeldaAnim_01726C, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_0169B4), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 15 */ /* hands behind back looking up */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_016D08), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 16 */ /* leans toward link, looks askew */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01726C), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
     /* 17 */ /* leaning toward link, looking askew */
-    { &gChildZeldaAnim_017818, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
-    /* 18 */ /* neutral, looking at Link */ { &gChildZeldaAnim_01805C, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_017818), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
+    /* 18 */ /* neutral, looking at Link */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01805C), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
     /* 19 */ /* moves towards link, hands clasped */
-    { &gChildZeldaAnim_018898, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
-    /* 20 */ /* facing link, hands clasped */ { &gChildZeldaAnim_01910C, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    /* 21 */ /* look in window */ { &gChildZeldaAnim_019600, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 22 */ /* leans forward, hands together */ { &gChildZeldaAnim_01991C, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_018898), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
+    /* 20 */ /* facing link, hands clasped */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01910C), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    /* 21 */ /* look in window */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_019600), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 22 */ /* leans forward, hands together */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01991C), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, -1.0f },
     /* 23 */ /* turns to link, hands on top of each other */
-    { &gChildZeldaAnim_01A2FC, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01A2FC), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
     /* 24 */ /* stands, hands on top of each other */
-    { &gChildZeldaAnim_01AAE0, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 25 */ /* leaning forward, hands together */ { &gChildZeldaAnim_01AE88, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    /* 26 */ /* walks aside, points to window */ { &gChildZeldaAnim_01B874, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    /* 27 */ /* stands pointing at window */ { &gChildZeldaAnim_01BCF0, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 28 */ /* laughs, hands together */ { &gChildZeldaAnim_01C494, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
-    /* 29 */ /* happy, hands together */ { &gChildZeldaAnim_01C7B0, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01AAE0), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 25 */ /* leaning forward, hands together */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01AE88), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    /* 26 */ /* walks aside, points to window */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01B874), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    /* 27 */ /* stands pointing at window */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01BCF0), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 28 */ /* laughs, hands together */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01C494), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
+    /* 29 */ /* happy, hands together */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01C7B0), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -1.0f },
     /* 30 */ /* standing hands behind back looking down*/
-    { &gChildZeldaAnim_01CE08, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 31 */ /* cocks head, hands clasped */ { &gChildZeldaAnim_00F0A4, 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
-    /* 32 */ /* happy, hands clasped */ { &gChildZeldaAnim_00F894, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
-    /* 33 */ /* transition to standing */ { &gChildZeldaAnim_000654, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
+    { oot::asset::anim::header::load(symbol::gChildZeldaAnim_01CE08), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 31 */ /* cocks head, hands clasped */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_00F0A4), 1.0f, 0.0f, -1.0f, ANIMMODE_ONCE, 0.0f },
+    /* 32 */ /* happy, hands clasped */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_00F894), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, 0.0f },
+    /* 33 */ /* transition to standing */ { oot::asset::anim::header::load(symbol::gChildZeldaAnim_000654), 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
 };
 
 #include "z_en_zl4_cutscene_data.cpp"
@@ -279,21 +278,21 @@ s32 EnZl4_SetupFromLegendCs(EnZl4* pthis, GlobalContext* globalCtx) {
 }
 
 s32 EnZl4_InMovingAnim(EnZl4* pthis) {
-    if ((pthis->skelAnime.animation == &gChildZeldaAnim_01B874) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_01BCF0) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_0125E4) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_012E58) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_015F14) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_0169B4) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_016D08) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_01805C) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_01A2FC) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_01AAE0) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_01CE08) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_018898) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_01910C) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_00F0A4) ||
-        (pthis->skelAnime.animation == &gChildZeldaAnim_00F894)) {
+    if ((pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01B874)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01BCF0)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_0125E4)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_012E58)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_015F14)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_0169B4)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_016D08)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01805C)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01A2FC)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01AAE0)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01CE08)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_018898)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_01910C)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_00F0A4)) ||
+        (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_00F894))) {
         return true;
     }
     return false;
@@ -303,7 +302,7 @@ void EnZl4_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnZl4* pthis = (EnZl4*)thisx;
 
-    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gChildZeldaSkel, NULL, pthis->jointTable, pthis->morphTable, 18);
+    SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, oot::asset::skel::header::load(symbol::gChildZeldaSkel), NULL, pthis->jointTable, pthis->morphTable, 18);
     ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 18.0f);
     func_80034EC0(&pthis->skelAnime, sAnimationEntries, ZL4_ANIM_21);
     Collider_InitCylinder(globalCtx, &pthis->collider);
@@ -408,7 +407,7 @@ s32 EnZl4_CsMeetPlayer(EnZl4* pthis, GlobalContext* globalCtx) {
             break;
         case 2:
             if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
-                globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gZeldasCourtyardMeetCs);
+                globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gZeldasCourtyardMeetCs));
                 gSaveContext.cutsceneTrigger = 1;
                 EnZl4_SetCsCameraMove(globalCtx, 0);
                 globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
@@ -832,7 +831,7 @@ s32 EnZl4_CsLookWindow(EnZl4* pthis, GlobalContext* globalCtx) {
     switch (pthis->talkState) {
         case 0:
             EnZl4_SetCsCameraMove(globalCtx, 7);
-            globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gZeldasCourtyardWindowCs);
+            globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gZeldasCourtyardWindowCs));
             gSaveContext.cutsceneTrigger = 1;
             pthis->talkState++;
             break;
@@ -842,7 +841,7 @@ s32 EnZl4_CsLookWindow(EnZl4* pthis, GlobalContext* globalCtx) {
                     globalCtx->csCtx.state = CS_STATE_UNSKIPPABLE_INIT;
                 }
             } else {
-                globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gZeldasCourtyardGanonCs);
+                globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(oot::asset::cutscene::data::load(symbol::gZeldasCourtyardGanonCs));
                 gSaveContext.cutsceneTrigger = 1;
                 pthis->talkState++;
                 func_8002DF54(globalCtx, &pthis->actor, 8);
@@ -1147,7 +1146,7 @@ void EnZl4_TheEnd(EnZl4* pthis, GlobalContext* globalCtx) {
     CsCmdActorAction* npcAction;
     Vec3f pos;
 
-    if (SkelAnime_Update(&pthis->skelAnime) && (pthis->skelAnime.animation == &gChildZeldaAnim_010DF8)) {
+    if (SkelAnime_Update(&pthis->skelAnime) && (pthis->skelAnime.animation == oot::asset::anim::header::load(symbol::gChildZeldaAnim_010DF8))) {
         func_80034EC0(&pthis->skelAnime, sAnimationEntries, ZL4_ANIM_4);
     }
     if (EnZl4_InMovingAnim(pthis)) {
@@ -1224,11 +1223,11 @@ void EnZl4_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
 void EnZl4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnZl4* pthis = (EnZl4*)thisx;
-    void* mouthTex[] = { gChildZeldaMouthNeutralTex, gChildZeldaMouthHappyTex, gChildZeldaMouthWorriedTex,
-                         gChildZeldaMouthSurprisedTex };
+    void* mouthTex[] = { oot::asset::texture::load(symbol::gChildZeldaMouthNeutralTex), oot::asset::texture::load(symbol::gChildZeldaMouthHappyTex), oot::asset::texture::load(symbol::gChildZeldaMouthWorriedTex),
+                         oot::asset::texture::load(symbol::gChildZeldaMouthSurprisedTex) };
     void* eyeTex[] = {
-        gChildZeldaEyeOpenTex,   gChildZeldaEyeBlinkTex, gChildZeldaEyeShutTex, gChildZeldaEyeWideTex,
-        gChildZeldaEyeSquintTex, gChildZeldaEyeOutTex,   gChildZeldaEyeInTex,
+        oot::asset::texture::load(symbol::gChildZeldaEyeOpenTex),   oot::asset::texture::load(symbol::gChildZeldaEyeBlinkTex), oot::asset::texture::load(symbol::gChildZeldaEyeShutTex), oot::asset::texture::load(symbol::gChildZeldaEyeWideTex),
+        oot::asset::texture::load(symbol::gChildZeldaEyeSquintTex), oot::asset::texture::load(symbol::gChildZeldaEyeOutTex),   oot::asset::texture::load(symbol::gChildZeldaEyeInTex),
     };
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl4.c", 2012);

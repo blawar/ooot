@@ -7,7 +7,7 @@
  */
 
 #include "z_bg_hidan_rock.h"
-#include "objects/object_hidan_objects/object_hidan_objects.h"
+#include "asset.h"
 #include "def/code_80043480.h"
 #include "def/code_800A9F30.h"
 #include "def/audio_bank.h"
@@ -112,9 +112,9 @@ void BgHidanRock_Init(Actor* thisx, GlobalContext* globalCtx) {
             pthis->actionFunc = func_8088B268;
         }
         thisx->flags |= ACTOR_FLAG_4 | ACTOR_FLAG_5;
-        CollisionHeader_GetVirtual(&gFireTempleStoneBlock1Col, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStoneBlock1Col), &colHeader);
     } else {
-        CollisionHeader_GetVirtual(&gFireTempleStoneBlock2Col, &colHeader);
+        CollisionHeader_GetVirtual(oot::asset::collision::header::load(symbol::gFireTempleStoneBlock2Col), &colHeader);
         pthis->collider.dim.pos.x = thisx->home.pos.x;
         pthis->collider.dim.pos.y = thisx->home.pos.y;
         pthis->collider.dim.pos.z = thisx->home.pos.z;
@@ -362,9 +362,9 @@ void BgHidanRock_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static void* sVerticalFlamesTexs[] = {
-    gFireTempleBigVerticalFlame0Tex, gFireTempleBigVerticalFlame1Tex, gFireTempleBigVerticalFlame2Tex,
-    gFireTempleBigVerticalFlame3Tex, gFireTempleBigVerticalFlame4Tex, gFireTempleBigVerticalFlame5Tex,
-    gFireTempleBigVerticalFlame6Tex, gFireTempleBigVerticalFlame7Tex,
+    oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame0Tex), oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame1Tex), oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame2Tex),
+    oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame3Tex), oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame4Tex), oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame5Tex),
+    oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame6Tex), oot::asset::texture::load(symbol::gFireTempleBigVerticalFlame7Tex),
 };
 
 void func_8088BC40(GlobalContext* globalCtx, BgHidanRock* pthis) {
@@ -390,7 +390,7 @@ void func_8088BC40(GlobalContext* globalCtx, BgHidanRock* pthis) {
     gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sVerticalFlamesTexs[globalCtx->gameplayFrames & 7]));
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_rock.c", 853),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPDisplayList(POLY_XLU_DISP++, gFireTempleBigVerticalFlameDL);
+    gSPDisplayList(POLY_XLU_DISP++, oot::asset::gfx::load(symbol::gFireTempleBigVerticalFlameDL));
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_rock.c", 857);
 }
@@ -400,9 +400,9 @@ void BgHidanRock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
 
     if (pthis->type == 0) {
-        Gfx_DrawDListOpa(globalCtx, gFireTempleStoneBlock1DL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFireTempleStoneBlock1DL));
     } else {
-        Gfx_DrawDListOpa(globalCtx, gFireTempleStoneBlock2DL);
+        Gfx_DrawDListOpa(globalCtx, oot::asset::gfx::load(symbol::gFireTempleStoneBlock2DL));
     }
 
     if (pthis->unk_16C > 0.0f) {
