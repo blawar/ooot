@@ -1632,8 +1632,8 @@ void FileChoose_Main(GameState* pthisx) {
     pthis->n64ddFlag = 0;
 
     gSPSegment(POLY_OPA_DISP++, 0x00, NULL);
-    gSPSegment(POLY_OPA_DISP++, 0x01, pthis->staticSegment);
-    gSPSegment(POLY_OPA_DISP++, 0x02, pthis->parameterSegment);
+    gSPSegment(POLY_OPA_DISP++, 0x01, NULL);
+    gSPSegment(POLY_OPA_DISP++, 0x02, NULL);
 
     Gfx_ClearDisplay(pthis->state.gfxCtx, 0, 0, 0);
 
@@ -1900,21 +1900,9 @@ void FileChoose_Destroy(GameState* pthisx) {
 #include <stdio.h>
 void FileChoose_Init(GameState* pthisx) {
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
-    u32 size = POINTER_SUB(_title_staticSegmentRomEnd, _title_staticSegmentRomStart);
     s32 pad;
 
     framerate_set_profile(PROFILE_FILE_CHOOSE);
-    osSyncPrintf("SIZE=%x\n", size);
-
-    pthis->staticSegment = (u8*)GameState_Alloc(&pthis->state, size, "../z_file_choose.c", 3392);
-    ASSERT(pthis->staticSegment != NULL, "pthis->staticSegment != NULL", "../z_file_choose.c", 3393);
-    //DmaMgr_SendRequest1(pthis->staticSegment, (u32)_title_staticSegmentRomStart, size, "../z_file_choose.c", 3394);
-
-    size = POINTER_SUB(_parameter_staticSegmentRomEnd, _parameter_staticSegmentRomStart);
-    pthis->parameterSegment = (u8*)GameState_Alloc(&pthis->state, size, "../z_file_choose.c", 3398);
-    ASSERT(pthis->parameterSegment != NULL, "pthis->parameterSegment != NULL", "../z_file_choose.c", 3399);
-    //DmaMgr_SendRequest1(pthis->parameterSegment, (u32)_parameter_staticSegmentRomStart, size, "../z_file_choose.c",
-    //                    3400);
 
     Matrix_Init(&pthis->state);
     View_Init(&pthis->view, pthis->state.gfxCtx);
