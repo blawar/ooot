@@ -458,7 +458,7 @@ void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* g
     KaleidoScope_SetupGrayIcons();
 
     startTime = endTime;
-    GameState_InitArena(gameState, 0x100000 * 0x30); // TODO FIX HACK
+    GameState_InitArena(gameState, 0x100000 * sizeof(uintptr_t) / 4); // TODO FIX HACK
     framerate_set_profile(PROFILE_GAMEPLAY);
     init(gameState);
 

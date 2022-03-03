@@ -281,7 +281,7 @@ void Gameplay_Init(GameState* thisx) {
     }
 
     SystemArena_Display();
-    GameState_Realloc(&globalCtx->state, 0x1D4790 * 0x20); // TODO FIX HACK
+    GameState_Realloc(&globalCtx->state, 0x1D4790 * sizeof(uintptr_t) / 4); // TODO FIX HACK
     KaleidoManager_Init(globalCtx);
     View_Init(&globalCtx->view, gfxCtx);
     Audio_SetExtraFilter(0);
