@@ -54,20 +54,20 @@ def readConvert(f, size, swap = True):
 
 	return r
 
-def readS8(f, swap = True):
-	return int.from_bytes(readConvert(f, 1, swap), byteorder='big', signed=True)
+def readS8(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 1, swap), byteorder=byteorder, signed=True)
 	
-def readU8(f, swap = True):
-	return int.from_bytes(readConvert(f, 1, swap), byteorder='big', signed=False)
+def readU8(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 1, swap), byteorder=byteorder, signed=False)
 	
-def readS16(f, swap = True):
-	return int.from_bytes(readConvert(f, 2, swap), byteorder='big', signed=True)
+def readS16(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 2, swap), byteorder=byteorder, signed=True)
 	
-def readU32(f, swap = True):
-	return int.from_bytes(readConvert(f, 4, swap), byteorder='big', signed=False)
+def readU32(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 4, swap), byteorder=byteorder, signed=False)
 	
-def readS32(f, swap = True):
-	return int.from_bytes(readConvert(f, 4, swap), byteorder='big', signed=True)
+def readS32(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 4, swap), byteorder=byteorder, signed=True)
 	
 def readFloat(f, swap = True):
 	b = readConvert(f, 4, swap)
@@ -221,7 +221,7 @@ class AdpcmLoop:
 		sstates = []
 		if self.count > 0:
 			for i in range(16):
-				s = readS16(f, swap = False)
+				s = readS16(f, swap = False, byteorder='big')
 				self.states.append(s)
 				sstates.append("{0:#0{1}x}".format(s,6))
 		registerSymbol(self.getSymbol(), 'AdpcmLoop %s = {.start = %d, .end = %d, .count = %d, .unk_0C = {%s}, .state = {%s}};' % (self.getSymbol(), self.start, self.end, self.count, ', '.join(sunks), ', '.join(sstates)), self.pos)
@@ -242,7 +242,7 @@ class AdpcmBook:
 		sbooks = []
 		self.books = [] # TODO LOOP THROUGH: size 8 * order * npredictors. 8-byte aligned
 		for i in range(self.order * self.npredictors * 8):
-			b = readS16(f, swap = False)
+			b = readS16(f, swap = False, byteorder='big')
 			self.books.append(b)
 			#sbooks.append('0x%4.4X' % b)
 			sbooks.append("{0:#0{1}x}".format(b,6))
