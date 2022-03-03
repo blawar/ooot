@@ -221,6 +221,7 @@ void func_800C1B24(PreRender* pthis, Gfx** gfxp, void* fbuf, void* cvgSave) {
 
     x = pthis->height;
     x2 = 0;
+    
     while (x > 0) {
         s32 uls = 0;
         s32 lrs = pthis->width - 1;
@@ -234,9 +235,11 @@ void func_800C1B24(PreRender* pthis, Gfx** gfxp, void* fbuf, void* cvgSave) {
         gDPLoadTextureTile(gfx++, fbuf, G_IM_FMT_IA, G_IM_SIZ_16b, pthis->width, pthis->height, uls, ult, lrs, lrt, 0,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
                            G_TX_NOLOD);
-
-        gSPTextureRectangle(gfx++, uls << 2, ult << 2, (lrs + 1) << 2, (lrt + 1) << 2, G_TX_RENDERTILE, uls << 5,
-                            ult << 5, 1 << 10, 1 << 10);
+        
+        //gSPTextureRectangle(gfx++, uls << 2, ult << 2, (lrs + 1) << 2, (lrt + 1) << 2, G_TX_RENDERTILE, uls << 5,
+                            //ult << 5, 1 << 10, 1 << 10);//!!!!!!
+        
+        
         x -= dx;
         x2 += dx;
     }
