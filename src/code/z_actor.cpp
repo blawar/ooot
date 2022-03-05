@@ -1,4 +1,5 @@
 #define INTERNAL_SRC_CODE_Z_ACTOR_C
+#include <algorithm>
 #include "global.h"
 #include "vt.h"
 #include "z64global.h"
@@ -2056,7 +2057,17 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
     unkFlag = 0;
 
     if (globalCtx->numSetupActors != 0) {
+#ifdef N64_VERSION
         actorEntry = &globalCtx->setupActorList[0];
+#else
+        u8 maxActors = ACTOR_NUMBER_MAX;
+        if (globalCtx->numSetupActors == 57)//Graveyard adult scene
+            maxActors = 48;
+
+        const u8 firstActorToLoad = std::max(globalCtx->numSetupActors, maxActors) - maxActors;
+        actorEntry = &globalCtx->setupActorList[firstActorToLoad];
+        globalCtx->numSetupActors =  std::min(globalCtx->numSetupActors, maxActors);
+#endif
         for (i = 0; i < globalCtx->numSetupActors; i++) {
             Actor_SpawnEntry(&globalCtx->actorCtx, actorEntry++, globalCtx);
         }
