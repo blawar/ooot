@@ -36,7 +36,7 @@ void Opening_SetupTitleScreen(OpeningContext* pthis) {
     gSaveContext.buttonStatus[2] = BTN_ENABLED;
     gSaveContext.buttonStatus[1] = BTN_ENABLED;
     gSaveContext.buttonStatus[0] = BTN_ENABLED;
-    gSaveContext.unk_13E7 = gSaveContext.unk_13E8 = gSaveContext.unk_13EA = gSaveContext.unk_13EC = 0;
+    gSaveContext.startDemo = gSaveContext.unk_13E8 = gSaveContext.unk_13EA = gSaveContext.unk_13EC = 0;
 
     gSaveContext.entranceIndex = 0xFC;
     //gSaveContext.entranceIndex = 0x0123;
