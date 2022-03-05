@@ -176,8 +176,8 @@ void Message_ResetOcarinaNoteState(void) {
         sOcarinaNotesAlphaValues[3] = sOcarinaNotesAlphaValues[4] = sOcarinaNotesAlphaValues[5] =
             sOcarinaNotesAlphaValues[6] = sOcarinaNotesAlphaValues[7] = sOcarinaNotesAlphaValues[8] = 0;
     sOcarinaNoteAPrimR = 80;
-    sOcarinaNoteAPrimG = 255;
-    sOcarinaNoteAPrimB = 150;
+    sOcarinaNoteAPrimG = 150;
+    sOcarinaNoteAPrimB = 255;
     sOcarinaNoteAEnvR = 10;
     sOcarinaNoteAEnvG = 10;
     sOcarinaNoteAEnvB = 10;

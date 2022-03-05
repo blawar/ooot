@@ -3365,7 +3365,7 @@ void Interface_Draw(GlobalContext* globalCtx) {
                                         G_TX_NOLOD, G_TX_NOLOD);
 
                     // Draw 6 carrots
-                    for (svar1 = 1, svar5 = GFX_ALIGN_LEFT(ZREG(14)); svar1 < 7; svar1++, svar5 += 16) {
+                    for (svar1 = 1, svar5 = ZREG(14); svar1 < 7; svar1++, svar5 += 16) { // this took me three hours to figure out please dont laugh
                         // Carrot Color (based on availability)
                         if ((interfaceCtx->numHorseBoosts == 0) || (interfaceCtx->numHorseBoosts < svar1)) {
                             gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 0, 150, 255, interfaceCtx->aAlpha);
