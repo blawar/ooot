@@ -12,7 +12,7 @@ conf = config()
 def cancel():
     input("Press Enter To Cancel...")
     sys.exit(1)
-	
+    
 def as_word(b, off=0):
     return struct.unpack(">I", b[off:off+4])[0]
 
@@ -144,11 +144,14 @@ if path.exists(romPath("baserom.z64")):
 romFileExtensions = ["z64", "n64", "v64"]
 
 def find_baserom_original():
+    searched = []
     for romFileExtLower in romFileExtensions:
         for romFileExt in (romFileExtLower, romFileExtLower.upper()):
             romFileNameCandidate = romPath("baserom_original." + romFileExt)
             if path.exists(romFileNameCandidate):
                 return romFileNameCandidate
+            searched.append(romPath("baserom_original." + romFileExt))
+    print('searched for the following roms: %s' % ', '.join(searched))
     return None
 
 romFileName = find_baserom_original()
@@ -190,10 +193,10 @@ elif fileContent[0] == 0x37:
     print("Byte swapping done.")
 
 if conf.rom.FILE_TABLE_OFFSET:
-	FILE_TABLE_OFFSET = conf.rom.FILE_TABLE_OFFSET
-	if any([b != 0 for b in fileContent[FILE_TABLE_OFFSET + 0x9C:FILE_TABLE_OFFSET + 0x9C + 0x4]]):
-		print("Decompressing rom...")
-		fileContent = decompress_rom(FILE_TABLE_OFFSET, read_dmadata(FILE_TABLE_OFFSET)).getbuffer()
+    FILE_TABLE_OFFSET = conf.rom.FILE_TABLE_OFFSET
+    if any([b != 0 for b in fileContent[FILE_TABLE_OFFSET + 0x9C:FILE_TABLE_OFFSET + 0x9C + 0x4]]):
+        print("Decompressing rom...")
+        fileContent = decompress_rom(FILE_TABLE_OFFSET, read_dmadata(FILE_TABLE_OFFSET)).getbuffer()
 
 # Check to see if the ROM is a "vanilla" Debug ROM
 str_hash = get_str_hash(bytearray(fileContent))
