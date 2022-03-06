@@ -82,11 +82,11 @@ void GameOver_Update(GlobalContext* globalCtx) {
             gSaveContext.eventInf[3] = 0;
             gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
                 gSaveContext.buttonStatus[3] = gSaveContext.buttonStatus[4] = BTN_ENABLED;
-            gSaveContext.unk_13E7 = gSaveContext.unk_13E8 = gSaveContext.unk_13EA = gSaveContext.unk_13EC = 0;
+            gSaveContext.startDemo = gSaveContext.unk_13E8 = gSaveContext.unk_13EA = gSaveContext.unk_13EC = 0;
 
             Environment_InitGameOverLights(globalCtx);
             gGameOverTimer = 20;
-            if (1) {}
+            
             v90 = VREG(90);
             v91 = VREG(91);
             v92 = VREG(92);

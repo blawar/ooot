@@ -100,7 +100,7 @@ void EnMag_Init(Actor* thisx, GlobalContext* globalCtx) {
     pthis->effectFadeInState = pthis->effectPrimLodFrac = pthis->globalState = pthis->effectAlpha = pthis->mainAlpha =
         pthis->subAlpha = pthis->copyrightAlpha = 0.0f;
 
-    if (gSaveContext.unk_13E7 != 0) {
+    if (gSaveContext.startDemo != 0) {
         pthis->mainAlpha = 210;
         pthis->subAlpha = 255;
         pthis->copyrightAlpha = 255;
@@ -124,7 +124,7 @@ void EnMag_Init(Actor* thisx, GlobalContext* globalCtx) {
 	    pthis->effectEnvColor[2]  = 0.0f;
 #endif
 
-        gSaveContext.unk_13E7 = 0;
+        gSaveContext.startDemo = 0;
         pthis->globalState = MAG_STATE_DISPLAY;
         sDelayTimer = 20;
         gSaveContext.fadeDuration = 1;

@@ -124,22 +124,14 @@ EntranceCutscene sEntranceCutsceneTable[] = {
     { 0x05E8, 2, 0xC6, gKokiriForestDekuSproutCs },
 };
 
-// Unused, seems to be an early list of dungeon entrance cutscene locations
-void* D_8011E304[] = {
-    gDekuTreeIntroCs, gJabuJabuIntroCs, gDcOpeningCs, gMinuetCs, gIceCavernSerenadeCs, gTowerBarrierCs,
-};
-
 u16 D_8015FCC0;
 u16 D_8015FCC2;
 u16 D_8015FCC4;
-s16 D_8015FCC6;
+s16 gActiveCameraIndex;
 u8 D_8015FCC8;
 s16 sQuakeIndex;
-u16 D_8015FCCC;      // only written to, never read
-char D_8015FCD0[20]; // unreferenced
-u8 D_8015FCE4;       // only written to, never read
 
-void func_80068ECC(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Demo_Update(GlobalContext* globalCtx, CutsceneContext* csCtx);
 
 void Cutscene_DrawDebugInfo(GlobalContext* globalCtx, Gfx** dlist, CutsceneContext* csCtx) {
     GfxPrint printer;
@@ -183,7 +175,7 @@ void func_80064558(GlobalContext* globalCtx, CutsceneContext* csCtx) {
     }
 }
 
-void func_800645A0(GlobalContext* globalCtx, CutsceneContext* csCtx) {
+void Cinema_Update(GlobalContext* globalCtx, CutsceneContext* csCtx) {
     Input* input = &globalCtx->state.input[0];
 
     if (CHECK_BTN_ALL(input->press.button, BTN_DLEFT) && (csCtx->state == CS_STATE_IDLE) &&
@@ -210,8 +202,8 @@ void func_800645A0(GlobalContext* globalCtx, CutsceneContext* csCtx) {
         gSaveContext.cutsceneTrigger = 1;
     }
 
-    if (gSaveContext.cutsceneIndex >= 0xFFF0) {
-        func_80068ECC(globalCtx, csCtx);
+    if (gSaveContext.cutsceneIndex >= 0xFFF0) {//On title screen?
+        Demo_Update(globalCtx, csCtx);
         sCsStateHandlers2[csCtx->state](globalCtx, csCtx);
     }
 }
@@ -545,55 +537,55 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
         osSyncPrintf("\n分岐先指定！！=[%d]番", cmd->base); // "Future fork designation=No. [%d]"
 
         if ((gSaveContext.gameMode != 0) && (csCtx->frames != cmd->startFrame)) {
-            gSaveContext.unk_13E7 = 1;
+            gSaveContext.startDemo = 1;
         }
 
         gSaveContext.cutsceneIndex = 0;
 
         switch (cmd->base) {
-            case 1:
+            case 1://Ganon riding on a horse
                 globalCtx->nextEntranceIndex = 0x00A0;
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 2:
+            case 2://Hyrule Creation Story 1
                 globalCtx->nextEntranceIndex = 0x00A0;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 10;
                 break;
-            case 3:
+            case 3://Hyrule Creation Story 2
                 globalCtx->nextEntranceIndex = 0x0117;
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 10;
                 break;
-            case 4:
+            case 4://Hyrule Creation Story 3
                 globalCtx->nextEntranceIndex = 0x013D;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 10;
                 break;
-            case 5:
+            case 5://Hyrule Creation Story 4
                 globalCtx->nextEntranceIndex = 0x00EE;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 10;
                 break;
-            case 6:
+            case 6://Hyrule Creation Story 5
                 globalCtx->nextEntranceIndex = 0x00A0;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 10;
                 break;
-            case 7:
+            case 7://Deku Tree
                 globalCtx->nextEntranceIndex = 0x00EE;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 11;
                 break;
-            case 8:
+            case 8://Ganondorf after the Temple of Time Door opened
                 gSaveContext.fw.set = 0;
                 gSaveContext.respawn[RESPAWN_MODE_TOP].data = 0;
                 if (!(gSaveContext.eventChkInf[4] & 0x20)) {
@@ -616,210 +608,212 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                     gSaveContext.nextTransition = 3;
                 }
                 break;
-            case 9:
+            case 9://Hyrule Creation Story (broken)
                 globalCtx->nextEntranceIndex = 0x0117;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 12;
                 break;
-            case 10:
+            case 10://Link wakes up
                 globalCtx->nextEntranceIndex = 0x00BB;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 11:
+            case 11://Deku Tree asking Navi for help
                 globalCtx->nextEntranceIndex = 0x00EE;
                 gSaveContext.cutsceneIndex = 0xFFF3;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 12:
+            case 12://Link getting thrown out of Hyrule Castle
                 globalCtx->nextEntranceIndex = 0x047A;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 13:
+            case 13://Outside of Jabu Jabu
                 globalCtx->nextEntranceIndex = 0x010E;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 14:
+            case 14://Trail to Goron with wrong music and fog
                 globalCtx->nextEntranceIndex = 0x0457;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 15:
+            case 15://Temple of Time about to open the door
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF4;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 16:
+            case 16://Temple of Time about to open the door 2
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF5;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 17:
+            case 17://Temple of Time about to open the door 3
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF6;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 18:
+            case 18://Wall in Zora's Domain
                 gSaveContext.eventChkInf[4] |= 0x8000;
                 globalCtx->nextEntranceIndex = 0x0324;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 19:
+            case 19://Mountain Trail with wrong music
                 globalCtx->nextEntranceIndex = 0x013D;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 4;
                 gSaveContext.cutsceneIndex = 0x8000;
                 break;
-            case 21:
+            case 21://Hyrule Lake
                 globalCtx->nextEntranceIndex = 0x0102;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 22:
+            case 22://Shiek at Spirit Temple
                 Item_Give(globalCtx, ITEM_SONG_REQUIEM);
                 globalCtx->nextEntranceIndex = 0x0123;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 23:
+            case 23://Ganondorf banished
                 globalCtx->nextEntranceIndex = 0x00A0;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF8;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 24:
+            case 24://Inside Jabu Jabu
                 globalCtx->nextEntranceIndex = 0x0028;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 25:
+            case 25://Broken cutscene
                 globalCtx->linkAgeOnLoad = 0;
                 globalCtx->nextEntranceIndex = 0x006B;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 26:
+            case 26://Temple of Time about to open the door 4
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF4;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 27:
+            case 27://Temple of Time about to open the door 5
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF5;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 28:
+            case 28://Temple of Time about to open the door 6
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF6;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 29:
+            case 29://Temple of Light
                 globalCtx->nextEntranceIndex = 0x006B;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.chamberCutsceneNum = 0;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 30:
+            case 30://Temple of Light 2
                 globalCtx->nextEntranceIndex = 0x006B;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 Item_Give(globalCtx, ITEM_MEDALLION_FIRE);
                 gSaveContext.chamberCutsceneNum = 1;
                 break;
-            case 31:
+            case 31://Temple of Light
                 globalCtx->nextEntranceIndex = 0x006B;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 gSaveContext.chamberCutsceneNum = 2;
                 break;
-            case 32:
+            case 32://Horse sounds
                 globalCtx->linkAgeOnLoad = 1;
                 globalCtx->nextEntranceIndex = 0x00CD;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->fadeTransition = 11;
                 break;
-            case 33:
+            case 33://Hyrule at night
                 globalCtx->nextEntranceIndex = 0x00CD;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 34:
+            case 34://Ganondorf after Temple of Time
                 globalCtx->nextEntranceIndex = 0x00A0;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF3;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 35:
+            case 35://Zelda is fleeing Hyrule
                 globalCtx->nextEntranceIndex = 0x00CD;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 38:
+            case 38://Cutscene about Triforce
                 globalCtx->nextEntranceIndex = 0x00A0;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF4;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 39:
+            case 39://Shiek at Temple of Time
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF9;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 40:
+            case 40://Zelda at Temple of Time
                 globalCtx->linkAgeOnLoad = 0;
                 globalCtx->nextEntranceIndex = 0x0053;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFFA;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 41:
+            case 41://TODO FIX CRASH
+#ifdef N64_VERSION
                 globalCtx->nextEntranceIndex = 0x04E6;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
+#endif
                 break;
-            case 42:
+            case 42://Well at Kakariko
                 globalCtx->nextEntranceIndex = 0x00DB;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 43:
+            case 43://Bowling
                 globalCtx->nextEntranceIndex = 0x0503;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 44:
+            case 44://Temple of Time
                 globalCtx->nextEntranceIndex = 0x0320;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 17;
                 break;
-            case 46:
+            case 46://Wall at Zora's Domain
                 gSaveContext.eventChkInf[4] |= 0x8000;
                 globalCtx->nextEntranceIndex = 0x0324;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 47:
+            case 47://Shiek at Kakariko
                 Item_Give(globalCtx, ITEM_SONG_NOCTURNE);
                 gSaveContext.eventChkInf[5] |= 0x10;
                 globalCtx->nextEntranceIndex = 0x00DB;
@@ -827,40 +821,40 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 48:
+            case 48://Spirit Temple
                 globalCtx->nextEntranceIndex = 0x01ED;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 15;
                 gSaveContext.nextTransition = 15;
                 break;
-            case 49:
+            case 49://Temple of Time
                 globalCtx->nextEntranceIndex = 0x058C;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 50:
+            case 50://Ganondorfs Tower collapsing
                 globalCtx->nextEntranceIndex = 0x0513;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 17;
                 break;
-            case 51:
+            case 51://Impa in Hyrule
                 globalCtx->nextEntranceIndex = 0x00CD;
                 gSaveContext.cutsceneIndex = 0xFFF8;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 41;
                 break;
-            case 52:
+            case 52://Zelda calling Link
                 globalCtx->nextEntranceIndex = 0x0053;
                 gSaveContext.cutsceneIndex = 0xFFF7;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 11;
                 break;
-            case 53:
+            case 53://Kakariko burning
                 globalCtx->nextEntranceIndex = 0x050F;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 54:
+            case 54://Credits
                 gSaveContext.gameMode = 3;
                 Audio_SetSoundBanksMute(0x6F);
                 globalCtx->linkAgeOnLoad = 1;
@@ -869,103 +863,105 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 55:
+            case 55://Credits 2
                 globalCtx->nextEntranceIndex = 0x0129;
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 56:
+            case 56://Credits 3
                 globalCtx->nextEntranceIndex = 0x00DB;
                 gSaveContext.cutsceneIndex = 0xFFF4;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 57:
+            case 57://Credits 4
                 globalCtx->nextEntranceIndex = 0x013D;
                 gSaveContext.cutsceneIndex = 0xFFF3;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 58:
+            case 58://Credits 5
                 globalCtx->nextEntranceIndex = 0x014D;
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 59:
+            case 59://Credits 6
                 globalCtx->nextEntranceIndex = 0x0102;
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 60:
+            case 60://Jabu Jabu (Hits assertion)
+#ifdef N64_VERSION
                 globalCtx->nextEntranceIndex = 0x010E;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
+#endif
                 break;
-            case 61:
+            case 61://Credits 7
                 globalCtx->nextEntranceIndex = 0x0108;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 62:
+            case 62://Credits 8
                 globalCtx->linkAgeOnLoad = 0;
                 globalCtx->nextEntranceIndex = 0x00EE;
                 gSaveContext.cutsceneIndex = 0xFFF6;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 63:
+            case 63://Credits 9
                 globalCtx->nextEntranceIndex = 0x00EE;
                 gSaveContext.cutsceneIndex = 0xFFF7;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 64:
+            case 64://Credits 10
                 globalCtx->nextEntranceIndex = 0x00CD;
                 gSaveContext.cutsceneIndex = 0xFFF5;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 65:
+            case 65://Credits 11
                 globalCtx->linkAgeOnLoad = 1;
                 globalCtx->nextEntranceIndex = 0x0157;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 66:
+            case 66://Lon Lon Ranch
                 globalCtx->nextEntranceIndex = 0x0554;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 67:
+            case 67://Hyrule at night
                 globalCtx->nextEntranceIndex = 0x027E;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 68:
+            case 68://Hyrule war
                 globalCtx->nextEntranceIndex = 0x00A0;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF5;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 69:
+            case 69://Spirit Temple
                 globalCtx->nextEntranceIndex = 0x05E8;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 70:
+            case 70://Credits 12
                 globalCtx->nextEntranceIndex = 0x013D;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF4;
                 globalCtx->fadeTransition = 2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 71:
+            case 71://Credits 13
                 gSaveContext.equips.equipment |= 0x0100;
                 Player_SetEquipmentData(globalCtx, player);
                 gSaveContext.equips.equipment |= 0x1000;
@@ -976,49 +972,49 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 72:
+            case 72://Link meets Zelda
                 globalCtx->nextEntranceIndex = 0x0400;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF0;
                 globalCtx->fadeTransition = 2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 73:
+            case 73://Credits 14
                 globalCtx->linkAgeOnLoad = 1;
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF2;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 74:
+            case 74://Credits 15
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF3;
                 globalCtx->fadeTransition = 3;
                 gSaveContext.nextTransition = 3;
                 break;
-            case 75:
+            case 75://Credits 16
                 globalCtx->linkAgeOnLoad = 1;
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF4;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 76:
+            case 76://Credits 17
                 globalCtx->linkAgeOnLoad = 0;
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF5;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 77:
+            case 77://Credits 18
                 globalCtx->linkAgeOnLoad = 1;
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF6;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 78:
+            case 78://Credits 19
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF7;
@@ -1038,17 +1034,17 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
             case 90:
             case 91:
             case 92:
-            case 93:
+            case 93://Lon Lon Ranch race
                 globalCtx->nextEntranceIndex = 0x0157;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 94:
+            case 94://Shadow Temple with a door to Water Temple
                 globalCtx->nextEntranceIndex = 0x02AE;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 95:
+            case 95://doesnt work
                 if ((gSaveContext.eventChkInf[4] & 0x100) && (gSaveContext.eventChkInf[4] & 0x200) &&
                     (gSaveContext.eventChkInf[4] & 0x400)) {
                     globalCtx->nextEntranceIndex = 0x0053;
@@ -1076,7 +1072,7 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                     }
                 }
                 break;
-            case 96:
+            case 96://Credits
                 if (CHECK_QUEST_ITEM(QUEST_MEDALLION_SHADOW)) {
                     globalCtx->nextEntranceIndex = 0x006B;
                     globalCtx->sceneLoadFlag = 0x14;
@@ -1090,7 +1086,7 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                     gSaveContext.nextTransition = 3;
                 }
                 break;
-            case 97:
+            case 97://Credits
                 if (CHECK_QUEST_ITEM(QUEST_MEDALLION_SPIRIT)) {
                     globalCtx->nextEntranceIndex = 0x006B;
                     globalCtx->sceneLoadFlag = 0x14;
@@ -1103,42 +1099,42 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                     gSaveContext.nextTransition = 3;
                 }
                 break;
-            case 98:
+            case 98://Graveyard out of bounds
                 globalCtx->nextEntranceIndex = 0x0564;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 gSaveContext.nextTransition = 3;
                 break;
-            case 99:
+            case 99://Stuck in air
                 globalCtx->nextEntranceIndex = 0x0608;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 100:
+            case 100://After Forest Temple
                 globalCtx->nextEntranceIndex = 0x00EE;
                 gSaveContext.cutsceneIndex = 0xFFF8;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 gSaveContext.nextTransition = 3;
                 break;
-            case 101:
+            case 101://Hyrule during cutscene
                 globalCtx->nextEntranceIndex = 0x01F5;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 15;
                 break;
-            case 102:
+            case 102://Hyrule during cutscene 2
                 globalCtx->nextEntranceIndex = 0x0590;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 103:
+            case 103://Title screen
                 globalCtx->nextEntranceIndex = 0x00CD;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF3;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 104:
+            case 104://Ganondorf on a horse
                 switch (sTitleCsState) {
                     case 0:
                         globalCtx->nextEntranceIndex = 0x008D;
@@ -1163,48 +1159,48 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                         break;
                 }
                 break;
-            case 105:
+            case 105://Learned Sun Song at Graveyard
                 globalCtx->nextEntranceIndex = 0x00E4;
                 globalCtx->sceneLoadFlag = 0x14;
                 gSaveContext.cutsceneIndex = 0xFFF1;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 106:
+            case 106://Sun Song a Fairy Fountain
                 globalCtx->nextEntranceIndex = 0x0574;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 107:
+            case 107://Ganondorfs Tower Forest Part complete
                 globalCtx->nextEntranceIndex = 0x0538;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 108:
+            case 108://Ganondorfs Tower Water Part complete
                 globalCtx->nextEntranceIndex = 0x053C;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 109:
+            case 109://Ganondorfs Tower Shadow Part complete
                 globalCtx->nextEntranceIndex = 0x0540;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 110:
+            case 110://Ganondorfs Tower Fire Part complete
                 globalCtx->nextEntranceIndex = 0x0544;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 111:
+            case 111://Ganondorfs Tower Spirit Part complete
                 globalCtx->nextEntranceIndex = 0x0548;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 112:
+            case 112://Skultulla House
                 globalCtx->nextEntranceIndex = 0x054C;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 113:
+            case 113://Riding Epona with Title Screen
                 if (Flags_GetEventChkInf(0xBB) && Flags_GetEventChkInf(0xBC) && Flags_GetEventChkInf(0xBD) &&
                     Flags_GetEventChkInf(0xBE) && Flags_GetEventChkInf(0xBF) && Flags_GetEventChkInf(0xAD)) {
                     globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(gTowerBarrierCs);
@@ -1217,18 +1213,18 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                     csCtx->state = CS_STATE_UNSKIPPABLE_INIT;
                 }
                 break;
-            case 114:
+            case 114://Hyrule Field with explosion sounds
                 globalCtx->nextEntranceIndex = 0x0185;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 break;
-            case 115:
+            case 115://Grotto
                 globalCtx->nextEntranceIndex = 0x0594;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 116:
+            case 116://Hyrule Market
                 if (gSaveContext.eventChkInf[12] & 0x100) {
                     globalCtx->nextEntranceIndex = 0x0580;
                     globalCtx->sceneLoadFlag = 0x14;
@@ -1240,7 +1236,7 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 }
                 gSaveContext.nextTransition = 3;
                 break;
-            case 117:
+            case 117://Ending
                 gSaveContext.gameMode = 3;
                 Audio_SetSoundBanksMute(0x6F);
                 globalCtx->linkAgeOnLoad = 0;
@@ -1249,13 +1245,13 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 3;
                 break;
-            case 118:
+            case 118://Ganon Tower collapsing (broken)
                 gSaveContext.respawn[RESPAWN_MODE_DOWN].entranceIndex = 0x0517;
                 Gameplay_TriggerVoidOut(globalCtx);
                 gSaveContext.respawnFlag = -2;
                 gSaveContext.nextTransition = 2;
                 break;
-            case 119:
+            case 119://Temple Of Time
                 gSaveContext.dayTime = 0x8000;
                 gSaveContext.skyboxTime = 0x8000;
                 globalCtx->nextEntranceIndex = 0x05F0;
@@ -1374,7 +1370,7 @@ s32 Cutscene_Command_CameraPositions(GlobalContext* globalCtx, CutsceneContext* 
             csCtx->unk_18 = cmdBase->startFrame;
             if (D_8015FCC8 != 0) {
                 Gameplay_CameraChangeSetting(globalCtx, csCtx->unk_14, CAM_SET_CS_0);
-                Gameplay_ChangeCameraStatus(globalCtx, D_8015FCC6, CAM_STAT_WAIT);
+                Gameplay_ChangeCameraStatus(globalCtx, gActiveCameraIndex, CAM_STAT_WAIT);
                 Gameplay_ChangeCameraStatus(globalCtx, csCtx->unk_14, CAM_STAT_ACTIVE);
                 Camera_ResetAnim(Gameplay_GetCamera(globalCtx, csCtx->unk_14));
                 Camera_SetCSParams(Gameplay_GetCamera(globalCtx, csCtx->unk_14), csCtx->cameraFocus,
@@ -1411,7 +1407,7 @@ s32 Cutscene_Command_CameraFocus(GlobalContext* globalCtx, CutsceneContext* csCt
             D_8015FCC0 = cmdBase->startFrame;
             if (D_8015FCC8 != 0) {
                 Gameplay_CameraChangeSetting(globalCtx, csCtx->unk_14, CAM_SET_CS_0);
-                Gameplay_ChangeCameraStatus(globalCtx, D_8015FCC6, CAM_STAT_WAIT);
+                Gameplay_ChangeCameraStatus(globalCtx, gActiveCameraIndex, CAM_STAT_WAIT);
                 Gameplay_ChangeCameraStatus(globalCtx, csCtx->unk_14, CAM_STAT_ACTIVE);
                 Camera_ResetAnim(Gameplay_GetCamera(globalCtx, csCtx->unk_14));
                 Camera_SetCSParams(Gameplay_GetCamera(globalCtx, csCtx->unk_14), csCtx->cameraFocus,
@@ -1939,11 +1935,7 @@ void func_80068C3C(GlobalContext* globalCtx, CutsceneContext* csCtx) {
     Gfx* displayList;
     Gfx* prevDisplayList;
 
-    if (0) {} // Necessary to match
-
     if (gSaveContext.cutsceneIndex >= 0xFFF0) {
-        if (0) {} // Also necessary to match
-
         if (BREG(0) != 0) {
             OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo.c", 4101);
 
@@ -1994,12 +1986,12 @@ void func_80068DC0(GlobalContext* globalCtx, CutsceneContext* csCtx) {
                 case 0x028E:
                 case 0x0292:
                 case 0x0476:
-                    Gameplay_CopyCamera(globalCtx, D_8015FCC6, csCtx->unk_14);
+                    Gameplay_CopyCamera(globalCtx, gActiveCameraIndex, csCtx->unk_14);
             }
 
-            Gameplay_ChangeCameraStatus(globalCtx, D_8015FCC6, CAM_STAT_ACTIVE);
+            Gameplay_ChangeCameraStatus(globalCtx, gActiveCameraIndex, CAM_STAT_ACTIVE);
             Gameplay_ClearCamera(globalCtx, csCtx->unk_14);
-            func_8005B1A4(globalCtx->cameraPtrs[D_8015FCC6]);
+            func_8005B1A4(globalCtx->cameraPtrs[gActiveCameraIndex]);
         }
 
         Audio_SetCutsceneFlag(0);
@@ -2007,7 +1999,7 @@ void func_80068DC0(GlobalContext* globalCtx, CutsceneContext* csCtx) {
     }
 }
 
-void func_80068ECC(GlobalContext* globalCtx, CutsceneContext* csCtx) {
+void Demo_Update(GlobalContext* globalCtx, CutsceneContext* csCtx) {
     u8 i;
 
     if ((gSaveContext.cutsceneTrigger != 0) && (csCtx->state == CS_STATE_IDLE) && !Player_InCsMode(globalCtx)) {
@@ -2038,7 +2030,7 @@ void func_80068ECC(GlobalContext* globalCtx, CutsceneContext* csCtx) {
             D_8015FCC4 = 0xFFFF;
             csCtx->unk_1A = 0;
             csCtx->unk_1B = 0;
-            D_8015FCC6 = globalCtx->activeCamera;
+            gActiveCameraIndex = globalCtx->activeCamera;
 
             if (D_8015FCC8 != 0) {
                 csCtx->unk_14 = Gameplay_CreateSubCamera(globalCtx);
@@ -2055,22 +2047,6 @@ void func_80068ECC(GlobalContext* globalCtx, CutsceneContext* csCtx) {
         }
 
         gSaveContext.cutsceneTrigger = 0;
-    }
-}
-
-void func_80069048(GlobalContext* globalCtx) {
-    s16 i;
-
-    D_8015FCCC = 0;
-    for (i = 0; i < 20; i++) {
-        ; // Empty Loop
-    }
-    D_8015FCE4 = 0;
-}
-
-void func_8006907C(GlobalContext* globalCtx) {
-    if (D_8015FCCC != 0) {
-        D_8015FCCC = 0;
     }
 }
 
@@ -2134,6 +2110,7 @@ void Cutscene_HandleConditionalTriggers(GlobalContext* globalCtx) {
 }
 
 void Cutscene_SetSegment(GlobalContext* globalCtx, void* segment) {
+
     if (SEGMENT_NUMBER(segment) != 0) {
         globalCtx->csCtx.segment = SEGMENTED_TO_VIRTUAL(segment);
     } else {
