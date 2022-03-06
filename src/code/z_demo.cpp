@@ -784,7 +784,7 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 gSaveContext.cutsceneIndex = 0xFFFA;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 41://CRASH
+            case 41://TODO FIX CRASH
 #ifdef N64_VERSION
                 globalCtx->nextEntranceIndex = 0x04E6;
                 globalCtx->sceneLoadFlag = 0x14;
