@@ -532,6 +532,26 @@ enum ExchangeItemID {
     /* 0x1E */ EXCH_ITEM_MAX
 };
 
+struct EquipmentPosition
+{
+	EquipmentPosition() : menu(-1), x(0), y(0)
+	{
+	}
+
+    EquipmentPosition(s16 _menu, u16 _x, u16 _y) : menu(_menu), x(_x), y(_y)
+	{
+	}
+
+    bool isValid() const
+	{
+	    return menu != -1;
+	}
+
+	s16 menu;
+	u16 x;
+	u16 y;
+};
+
 extern s16 gSpoilingItems[3];
 extern s16 gSpoilingItemReverts[3];
 extern u8 gItemSlots[56];

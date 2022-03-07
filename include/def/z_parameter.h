@@ -1,4 +1,6 @@
 #pragma once
+#include "z64item.h"
+
 struct GlobalContext;
 
 extern s16 gSpoilingItemReverts[3];
@@ -24,7 +26,11 @@ s32 Inventory_ReplaceItem(GlobalContext* globalCtx, u16 oldItem, u16 newItem);
 void Inventory_SwapAgeEquipment(void);
 void Inventory_UpdateBottleItem(GlobalContext* globalCtx, u8 item, u8 cButton);
 u8 Item_CheckObtainability(u8 item);
+bool Item_MeetsAgeRequirement(ItemID itemID);
+bool Equip_MeetsAgeRequirement(EquipmentPosition equip);
 u8 Item_Give(GlobalContext* globalCtx, u8 item);
+ItemID Item_GetFromEquipment(s16 y, s16 x);
+EquipmentPosition Item_GetEquipmentPosition(ItemID itemID);
 void Magic_Fill(GlobalContext* globalCtx);
 void Rupees_ChangeBy(s16 rupeeChange);
 void func_800849EC(GlobalContext* globalCtx);

@@ -130,12 +130,6 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx) {
                 cursorX = pauseCtx->cursorX[PAUSE_ITEM];
                 cursorY = pauseCtx->cursorY[PAUSE_ITEM];
 
-                osSyncPrintf("now=%d  ccc=%d\n", cursorPoint, cursorItem);
-
-                // Seem necessary to match
-                if (pauseCtx->cursorX[PAUSE_ITEM]) {}
-                if (gSaveContext.inventory.items[pauseCtx->cursorPoint[PAUSE_ITEM]]) {}
-
                 while (moveCursorResult == 0) {
                     if (pauseCtx->stickRelX < -30) {
                         if (pauseCtx->cursorX[PAUSE_ITEM] != 0) {

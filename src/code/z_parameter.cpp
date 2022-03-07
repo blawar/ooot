@@ -1348,6 +1348,39 @@ void func_80084BF4(GlobalContext* globalCtx, u16 flag) {
     }
 }
 
+static ItemID sEquipItemMap[4][3] = {
+    {ITEM_SWORD_KOKIRI, ITEM_SWORD_MASTER, ITEM_SWORD_BGS},
+    {ITEM_SHIELD_DEKU, ITEM_SHIELD_HYLIAN, ITEM_SHIELD_MIRROR},
+    {ITEM_TUNIC_KOKIRI, ITEM_TUNIC_GORON, ITEM_TUNIC_ZORA},
+    {ITEM_BOOTS_KOKIRI, ITEM_BOOTS_IRON, ITEM_BOOTS_HOVER}
+};
+
+ItemID Item_GetFromEquipment(s16 y, s16 x)
+{
+	if(y >= 4 || x >= 3)
+	{
+		return ITEM_NONE;
+	}
+
+	return sEquipItemMap[y][x];
+}
+
+EquipmentPosition Item_GetEquipmentPosition(ItemID itemID)
+{
+	for(int y=0; y < 4; y++)
+	{
+        for(int x=0; x < 3; x++)
+		{
+		    if(sEquipItemMap[y][x] == itemID)
+		    {
+			    return EquipmentPosition(PAUSE_EQUIP, x, y);
+		    }
+		}
+	}
+
+	return EquipmentPosition();
+}
+
 u8 Item_Give(GlobalContext* globalCtx, u8 item) {
     static s16 sAmmoRefillCounts[] = { 5, 10, 20, 30, 5, 10, 30, 0, 5, 20, 1, 5, 20, 50, 200, 10 };
     s16 i;
