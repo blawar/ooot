@@ -32,7 +32,7 @@ void BgBowlWall_SpawnBullseyes(BgBowlWall* pthis, GlobalContext* globalCtx);
 void BgBowlWall_WaitForHit(BgBowlWall* pthis, GlobalContext* globalCtx);
 void BgBowlWall_FallDoEffects(BgBowlWall* pthis, GlobalContext* globalCtx);
 void BgBowlWall_FinishFall(BgBowlWall* pthis, GlobalContext* globalCtx);
-void BgBowlWall_Reset(BgBowlWall* pthis, GlobalContext* globalCtx);
+void BgBowlWall_FinishReset(BgBowlWall* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Bowl_Wall_InitVars = {
     ACTOR_BG_BOWL_WALL,
@@ -183,11 +183,11 @@ void BgBowlWall_FinishFall(BgBowlWall* pthis, GlobalContext* globalCtx) {
         pthis->dyna.actor.world.rot.x = pthis->dyna.actor.shape.rot.x = 0;
         pthis->dyna.actor.world.pos.y = pthis->initPos.y - 450.0f;
         pthis->chuGirl->wallStatus[pthis->dyna.actor.params] = 2;
-        pthis->actionFunc = BgBowlWall_Reset;
+        pthis->actionFunc = BgBowlWall_FinishReset;
     }
 }
 
-void BgBowlWall_Reset(BgBowlWall* pthis, GlobalContext* globalCtx) {
+void BgBowlWall_FinishReset(BgBowlWall* pthis, GlobalContext* globalCtx) {
     if (pthis->chuGirl->wallStatus[pthis->dyna.actor.params] != 2) {
         Math_ApproachF(&pthis->dyna.actor.world.pos.y, pthis->initPos.y, 0.3f, 50.0f);
         if (fabsf(pthis->dyna.actor.world.pos.y - pthis->initPos.y) <= 10.0f) {
