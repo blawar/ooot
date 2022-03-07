@@ -108,19 +108,19 @@ void DemoIk_Type1PlaySound(DemoIk* pthis) {
         case 0:
             if (Animation_OnFrame(&pthis->skelAnime, 5.0f)) {
                 Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_ARMOR_LAND1_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             }
             break;
         case 1:
             if (Animation_OnFrame(&pthis->skelAnime, 10.0f)) {
                 Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_ARMOR_LAND3_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             }
             break;
         case 2:
             if (Animation_OnFrame(&pthis->skelAnime, 9.0f)) {
                 Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_ARMOR_LAND2_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             }
             break;
     }
@@ -337,7 +337,7 @@ void DemoIk_Type2Init(DemoIk* pthis, GlobalContext* globalCtx) {
 void DemoIk_Type2PlaySoundOnFrame(DemoIk* pthis, f32 frame) {
     if (Animation_OnFrame(&pthis->skelAnime, frame)) {
         Audio_PlaySoundGeneral(NA_SE_EN_IRONNACK_ARMOR_OFF_DEMO, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
 }
 

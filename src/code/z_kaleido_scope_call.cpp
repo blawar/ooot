@@ -8,6 +8,7 @@
 #include "def/z_kaleido_scope_call.h"
 #include "def/z_kaleido_setup.h"
 
+void Player_Reset();
 void (*sKaleidoScopeUpdateFunc)(GlobalContext* globalCtx);
 void (*sKaleidoScopeDrawFunc)(GlobalContext* globalCtx);
 f32 gBossMarkScale;
@@ -37,6 +38,7 @@ void KaleidoScopeCall_LoadPlayer() {
         osSyncPrintf(VT_RST);
 
         KaleidoManager_LoadOvl(playerActorOvl);
+	    Player_Reset();
     }
 }
 

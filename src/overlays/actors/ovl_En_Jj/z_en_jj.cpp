@@ -233,7 +233,7 @@ void EnJj_BeginCutscene(EnJj* pthis, GlobalContext* globalCtx) {
         func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, bodyCollisionActor->bgId);
         func_8005B1A4(GET_ACTIVE_CAM(globalCtx));
         gSaveContext.eventChkInf[3] |= 0x400;
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
     }
 }
 

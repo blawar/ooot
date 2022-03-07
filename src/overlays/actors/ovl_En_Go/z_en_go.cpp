@@ -781,7 +781,7 @@ void EnGo_FireGenericActionFunc(EnGo* pthis, GlobalContext* globalCtx) {
 void EnGo_CurledUp(EnGo* pthis, GlobalContext* globalCtx) {
     if ((DECR(pthis->unk_210) == 0) && EnGo_IsCameraModified(pthis, globalCtx)) {
         Audio_PlaySoundGeneral(NA_SE_EN_GOLON_WAKE_UP, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
 
         pthis->skelAnime.playSpeed = 0.1f;
         pthis->skelAnime.playSpeed *= (pthis->actor.params & 0xF0) == 0x90 ? 0.5f : 1.0f;
@@ -816,7 +816,7 @@ void EnGo_WakeUp(EnGo* pthis, GlobalContext* globalCtx) {
 
     if (DECR(pthis->unk_212) == 0) {
         Audio_PlaySoundGeneral(NA_SE_EN_GOLON_SIT_DOWN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         EnGo_SetupAction(pthis, func_80A405CC);
     } else if (!EnGo_IsCameraModified(pthis, globalCtx)) {
         EnGo_ReverseAnimation(pthis);
@@ -835,7 +835,7 @@ void func_80A40494(EnGo* pthis, GlobalContext* globalCtx) {
 
     if (!(frame >= 0.0f)) {
         Audio_PlaySoundGeneral(NA_SE_EN_DODO_M_GND, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         EnGo_SpawnDust(pthis, 10, 0.4f, 0.1f, 16, 26.0f, 2.0f);
         EnGo_ReverseAnimation(pthis);
         pthis->skelAnime.playSpeed = 0.0f;
@@ -927,7 +927,7 @@ void func_80A408D8(EnGo* pthis, GlobalContext* globalCtx) {
     } else if (EnGo_IsCameraModified(pthis, globalCtx)) {
         EnGo_ReverseAnimation(pthis);
         Audio_PlaySoundGeneral(NA_SE_EN_GOLON_SIT_DOWN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         pthis->skelAnime.playSpeed = 0.0f;
         EnGo_SetupAction(pthis, func_80A405CC);
     }

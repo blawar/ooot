@@ -104,7 +104,7 @@ void EnOkarinaEffect_ManageStorm(EnOkarinaEffect* pthis, GlobalContext* globalCt
         globalCtx->envCtx.unk_F2[0] = 0;
         if (globalCtx->csCtx.state == CS_STATE_IDLE) {
             func_80077684(globalCtx);
-        } else if (func_800FA0B4(SEQ_PLAYER_BGM_MAIN) == NA_BGM_NATURE_AMBIENCE) {
+        } else if (Audio_GetSequenceBeingPlayed(SEQ_PLAYER_BGM_MAIN) == NA_BGM_NATURE_AMBIENCE) {
             func_800F6D58(0xF, 1, 0);
             func_800F6D58(0xE, 1, 0);
         }

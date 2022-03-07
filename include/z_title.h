@@ -8,7 +8,6 @@
 
 struct TitleContext {
     /* 0x0000 */ GameState state;
-    /* 0x00A4 */ u8* staticSegment;
     /* 0x00A8 */ View view;
     /* 0x01D0 */ SramContext sramCtx;
     /* 0x01D4 */ u16 unk_1D4; // not used in mq dbg (some sort of timer that doesn't seem to affect anything)

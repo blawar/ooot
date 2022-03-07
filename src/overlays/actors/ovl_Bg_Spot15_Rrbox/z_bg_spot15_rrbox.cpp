@@ -296,7 +296,7 @@ void func_808B4194(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
             Audio_PlayActorSound2(actor, NA_SE_EV_WOOD_BOUND);
         }
         if (func_808B3A40(pthis, globalCtx)) {
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         }
         actor->home.pos.x = actor->world.pos.x;
         actor->home.pos.z = actor->world.pos.z;

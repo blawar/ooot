@@ -13,24 +13,10 @@ using namespace oot::hid;
 Players g_players;
 
 
-extern "C" {
-void hid_init() {
-	InputDeviceManager::get().scan();
-}
-
-void hid_update() {
-	Players::Update();
-}
-}
-
-
-
 Players& Players::get()
 {
 	return g_players;
 }
-
-
 
 void Players::Update()
 {

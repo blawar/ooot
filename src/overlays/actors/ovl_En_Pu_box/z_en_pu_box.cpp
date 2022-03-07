@@ -83,7 +83,7 @@ void EnPubox_Update(Actor* thisx, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&thisx->speedXZ, 0.0f, 1.0f, 1.0f, 0.0f);
     if (thisx->speedXZ != 0.0f) {
         Audio_PlaySoundGeneral(NA_SE_EV_ROCK_SLIDE - SFX_FLAG, &thisx->projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
     pthis->dyna.unk_154 = 0.0f;
     pthis->dyna.unk_150 = 0.0f;

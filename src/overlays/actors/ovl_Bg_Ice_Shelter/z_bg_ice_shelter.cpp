@@ -388,7 +388,7 @@ void func_808911D4(BgIceShelter* pthis, GlobalContext* globalCtx) {
         }
 
         if (type == 4) {
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         }
 
         Actor_Kill(&pthis->dyna.actor);

@@ -192,7 +192,7 @@ void BgYdanSp_UpdateFloorWebCollision(BgYdanSp* pthis) {
 void BgYdanSp_BurnWeb(BgYdanSp* pthis, GlobalContext* globalCtx) {
     pthis->timer = 30;
     pthis = pthis;
-    func_80078884(NA_SE_SY_CORRECT_CHIME);
+    Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
     Flags_SetSwitch(globalCtx, pthis->isDestroyedSwitchFlag);
     if (pthis->dyna.actor.params == WEB_FLOOR) {
         pthis->actionFunc = BgYdanSp_BurnFloorWeb;
@@ -271,7 +271,7 @@ void BgYdanSp_FloorWebBreaking(BgYdanSp* pthis, GlobalContext* globalCtx) {
     if (pthis->dyna.actor.home.pos.y - pthis->dyna.actor.world.pos.y > 190.0f) {
         func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
         pthis->timer = 40;
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         Flags_SetSwitch(globalCtx, pthis->isDestroyedSwitchFlag);
         pthis->actionFunc = BgYdanSp_FloorWebBroken;
         pos.y = pthis->dyna.actor.world.pos.y - 60.0f;

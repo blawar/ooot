@@ -1,3 +1,6 @@
 [submodule "GLideN64"]
 	path = GLideN64
 	url = https://github.com/blawar/GLideN64.git
+[submodule "AziAudio"]
+	path = AziAudio
+	url = https://github.com/blawar/AziAudio.git

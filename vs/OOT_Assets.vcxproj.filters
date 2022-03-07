@@ -1,0 +1,2950 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\assets\$(buildrom)\misc\link_animetion\link_animetion.cpp">
+      <Filter>misc\link_animetion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\gameplay_keep\gameplay_keep.cpp">
+      <Filter>objects\gameplay_keep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\gameplay_dangeon_keep\gameplay_dangeon_keep.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\gameplay_field_keep\gameplay_field_keep.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ahg\object_ahg.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_am\object_am.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ane\object_ane.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ani\object_ani.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_anubice\object_anubice.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_aob\object_aob.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bba\object_bba.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_Bb\object_Bb.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bdan_objects\object_bdan_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bdoor\object_bdoor.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bg\object_bg.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bigokuta\object_bigokuta.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bird\object_bird.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bji\object_bji.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_blkobj\object_blkobj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bl\object_bl.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bob\object_bob.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_boj\object_boj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bombf\object_bombf.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bombiwa\object_bombiwa.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bowl\object_bowl.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_box\object_box.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_brob\object_brob.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bubble\object_bubble.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bv\object_bv.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bwall\object_bwall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bw\object_bw.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_bxa\object_bxa.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_b_heart\object_b_heart.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_cne\object_cne.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_cob\object_cob.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_cow\object_cow.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_crow\object_crow.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_cs\object_cs.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_daiku\object_daiku.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ddan_objects\object_ddan_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dekubaba\object_dekubaba.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dekujr\object_dekujr.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dekunuts\object_dekunuts.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_demo_6k\object_demo_6k.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_demo_kekkai\object_demo_kekkai.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_demo_tre_lgt\object_demo_tre_lgt.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dh\object_dh.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dnk\object_dnk.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dns\object_dns.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dodojr\object_dodojr.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dodongo\object_dodongo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dog\object_dog.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_door_gerudo\object_door_gerudo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_door_killer\object_door_killer.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ds2\object_ds2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ds\object_ds.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_du\object_du.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_dy_obj\object_dy_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_d_elevator\object_d_elevator.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_d_hsblock\object_d_hsblock.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_d_lift\object_d_lift.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ec\object_ec.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_crystal_light\object_efc_crystal_light.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_doughnut\object_efc_doughnut.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_erupc\object_efc_erupc.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_fire_ball\object_efc_fire_ball.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_flash\object_efc_flash.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_lgt_shower\object_efc_lgt_shower.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_star_field\object_efc_star_field.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_efc_tw\object_efc_tw.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ei\object_ei.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fa\object_fa.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fd2\object_fd2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fd\object_fd.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fhg\object_fhg.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_firefly\object_firefly.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fire\object_fire.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fish\object_fish.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fr\object_fr.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fu\object_fu.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fw\object_fw.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_fz\object_fz.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ganon2\object_ganon2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ganon\object_ganon.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ganon_anime1\object_ganon_anime1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ganon_anime2\object_ganon_anime2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ganon_anime3\object_ganon_anime3.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ganon_objects\object_ganon_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ge1\object_ge1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_geff\object_geff.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_geldb\object_geldb.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_arrowcase\object_gi_arrowcase.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_arrow\object_gi_arrow.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bean\object_gi_bean.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bombpouch\object_gi_bombpouch.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bomb_1\object_gi_bomb_1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bomb_2\object_gi_bomb_2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_boomerang\object_gi_boomerang.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_boots_2\object_gi_boots_2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bosskey\object_gi_bosskey.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bottle\object_gi_bottle.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bottle_letter\object_gi_bottle_letter.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bow\object_gi_bow.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_bracelet\object_gi_bracelet.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_brokensword\object_gi_brokensword.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_butterfly\object_gi_butterfly.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_clothes\object_gi_clothes.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_coin\object_gi_coin.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_compass\object_gi_compass.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_dekupouch\object_gi_dekupouch.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_egg\object_gi_egg.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_eye_lotion\object_gi_eye_lotion.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_fire\object_gi_fire.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_fish\object_gi_fish.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_frog\object_gi_frog.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_gerudomask\object_gi_gerudomask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_gerudo\object_gi_gerudo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_ghost\object_gi_ghost.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_glasses\object_gi_glasses.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_gloves\object_gi_gloves.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_goddess\object_gi_goddess.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_golonmask\object_gi_golonmask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_grass\object_gi_grass.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_hammer\object_gi_hammer.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_hearts\object_gi_hearts.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_heart\object_gi_heart.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_hookshot\object_gi_hookshot.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_hoverboots\object_gi_hoverboots.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_insect\object_gi_insect.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_jewel\object_gi_jewel.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_key\object_gi_key.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_ki_tan_mask\object_gi_ki_tan_mask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_letter\object_gi_letter.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_liquid\object_gi_liquid.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_longsword\object_gi_longsword.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_magicpot\object_gi_magicpot.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_map\object_gi_map.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_medal\object_gi_medal.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_melody\object_gi_melody.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_milk\object_gi_milk.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_mushroom\object_gi_mushroom.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_m_arrow\object_gi_m_arrow.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_niwatori\object_gi_niwatori.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_nuts\object_gi_nuts.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_ocarina\object_gi_ocarina.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_ocarina_0\object_gi_ocarina_0.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_pachinko\object_gi_pachinko.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_powder\object_gi_powder.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_prescription\object_gi_prescription.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_purse\object_gi_purse.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_rabit_mask\object_gi_rabit_mask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_redead_mask\object_gi_redead_mask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_rupy\object_gi_rupy.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_saw\object_gi_saw.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_scale\object_gi_scale.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_seed\object_gi_seed.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_shield_1\object_gi_shield_1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_shield_2\object_gi_shield_2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_shield_3\object_gi_shield_3.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_skj_mask\object_gi_skj_mask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_soldout\object_gi_soldout.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_soul\object_gi_soul.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_stick\object_gi_stick.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_sutaru\object_gi_sutaru.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_sword_1\object_gi_sword_1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_ticketstone\object_gi_ticketstone.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_truth_mask\object_gi_truth_mask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gi_zoramask\object_gi_zoramask.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gjyo_objects\object_gjyo_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gj\object_gj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gla\object_gla.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gm\object_gm.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gndd\object_gndd.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gnd\object_gnd.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gnd_magic\object_gnd_magic.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_god_lgt\object_god_lgt.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gol\object_gol.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_goma\object_goma.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_goroiwa\object_goroiwa.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gr\object_gr.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gs\object_gs.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_gt\object_gt.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_hakach_objects\object_hakach_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_haka\object_haka.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_haka_door\object_haka_door.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_haka_objects\object_haka_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_hata\object_hata.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_heavy_object\object_heavy_object.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_hidan_objects\object_hidan_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_hintnuts\object_hintnuts.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_hni\object_hni.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_horse\object_horse.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_horse_ganon\object_horse_ganon.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_horse_link_child\object_horse_link_child.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_horse_normal\object_horse_normal.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_horse_zelda\object_horse_zelda.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_hs\object_hs.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_human\object_human.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ice_objects\object_ice_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ik\object_ik.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_im\object_im.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ingate\object_ingate.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_in\object_in.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_jj\object_jj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_js\object_js.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_jya_door\object_jya_door.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_jya_iron\object_jya_iron.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_jya_obj\object_jya_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_kanban\object_kanban.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ka\object_ka.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_kibako2\object_kibako2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_kingdodongo\object_kingdodongo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_km1\object_km1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_kusa\object_kusa.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_kw1\object_kw1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_kz\object_kz.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_lightbox\object_lightbox.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_lightswitch\object_lightswitch.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_light_ring\object_light_ring.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_link_boy\object_link_boy.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_link_child\object_link_child.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ma1\object_ma1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ma2\object_ma2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mag\object_mag.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mamenoki\object_mamenoki.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mastergolon\object_mastergolon.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_masterkokirihead\object_masterkokirihead.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_masterkokiri\object_masterkokiri.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_masterzoora\object_masterzoora.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mb\object_mb.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_md\object_md.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_medal\object_medal.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_menkuri_objects\object_menkuri_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mir_ray\object_mir_ray.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mizu_objects\object_mizu_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin\object_mjin.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_dark\object_mjin_dark.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_flame\object_mjin_flame.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_flash\object_mjin_flash.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_ice\object_mjin_ice.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_oka\object_mjin_oka.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_soul\object_mjin_soul.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mjin_wind\object_mjin_wind.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mk\object_mk.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mm\object_mm.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mori_hineri1a\object_mori_hineri1a.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mori_hineri1\object_mori_hineri1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mori_hineri2a\object_mori_hineri2a.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mori_hineri2\object_mori_hineri2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mori_objects\object_mori_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mori_tex\object_mori_tex.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mo\object_mo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ms\object_ms.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_mu\object_mu.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_nb\object_nb.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_niw\object_niw.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_nwc\object_nwc.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ny\object_ny.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA10\object_oA10.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA11\object_oA11.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA1\object_oA1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA2\object_oA2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA3\object_oA3.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA4\object_oA4.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA5\object_oA5.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA6\object_oA6.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA7\object_oA7.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA8\object_oA8.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oA9\object_oA9.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oB1\object_oB1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oB2\object_oB2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oB3\object_oB3.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oB4\object_oB4.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE10\object_oE10.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE11\object_oE11.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE12\object_oE12.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE1s\object_oE1s.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE1\object_oE1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE2\object_oE2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE3\object_oE3.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE4s\object_oE4s.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE4\object_oE4.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE5\object_oE5.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE6\object_oE6.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE7\object_oE7.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE8\object_oE8.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE9\object_oE9.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oE_anime\object_oE_anime.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oF1d_map\object_oF1d_map.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_oF1s\object_oF1s.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_okuta\object_okuta.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_opening_demo1\object_opening_demo1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ossan\object_ossan.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_os\object_os.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_os_anime\object_os_anime.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ouke_haka\object_ouke_haka.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_owl\object_owl.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_o_anime\object_o_anime.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_peehat\object_peehat.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_poh\object_poh.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_po_composer\object_po_composer.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_po_field\object_po_field.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_po_sisters\object_po_sisters.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ps\object_ps.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_pu_box\object_pu_box.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_rd\object_rd.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_reeba\object_reeba.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_relay_objects\object_relay_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_rl\object_rl.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_rr\object_rr.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_rs\object_rs.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ru1\object_ru1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ru2\object_ru2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_sa\object_sa.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_sb\object_sb.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_sd\object_sd.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_shopnuts\object_shopnuts.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_shop_dungen\object_shop_dungen.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_siofuki\object_siofuki.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_sk2\object_sk2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_skb\object_skb.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_skj\object_skj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot00_break\object_spot00_break.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot00_objects\object_spot00_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot01_matoyab\object_spot01_matoyab.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot01_matoya\object_spot01_matoya.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot01_objects2\object_spot01_objects2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot01_objects\object_spot01_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot02_objects\object_spot02_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot03_object\object_spot03_object.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot04_objects\object_spot04_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot05_objects\object_spot05_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot06_objects\object_spot06_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot07_object\object_spot07_object.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot08_obj\object_spot08_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot09_obj\object_spot09_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot11_obj\object_spot11_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot12_obj\object_spot12_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot15_obj\object_spot15_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot16_obj\object_spot16_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot17_obj\object_spot17_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_spot18_obj\object_spot18_obj.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ssh\object_ssh.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_sst\object_sst.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_stream\object_stream.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_st\object_st.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_syokudai\object_syokudai.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ta\object_ta.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_timeblock\object_timeblock.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_tite\object_tite.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_tk\object_tk.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_toki_objects\object_toki_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_torch2\object_torch2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_toryo\object_toryo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_tp\object_tp.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_trap\object_trap.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_triforce_spot\object_triforce_spot.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_tr\object_tr.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_tsubo\object_tsubo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ts\object_ts.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_tw\object_tw.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_umajump\object_umajump.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_vali\object_vali.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_vase\object_vase.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_vm\object_vm.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_wallmaster\object_wallmaster.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_warp1\object_warp1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_warp2\object_warp2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_wf\object_wf.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_wood02\object_wood02.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_xc\object_xc.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_yabusame_point\object_yabusame_point.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_ydan_objects\object_ydan_objects.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_yukabyun\object_yukabyun.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zf\object_zf.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zg\object_zg.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zl1\object_zl1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zl2\object_zl2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zl2_anime1\object_zl2_anime1.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zl2_anime2\object_zl2_anime2.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zl4\object_zl4.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\objects\object_zo\object_zo.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan\bdan_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan_boss\bdan_boss_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan_boss\bdan_boss_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\bdan_boss\bdan_boss_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_17.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_18.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_19.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_20.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_21.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_22.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\Bmori1\Bmori1_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan\ddan_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan_boss\ddan_boss_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan_boss\ddan_boss_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ddan_boss\ddan_boss_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\FIRE_bs\FIRE_bs_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\FIRE_bs\FIRE_bs_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\FIRE_bs\FIRE_bs_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontikasonogo\ganontikasonogo_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontikasonogo\ganontikasonogo_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontikasonogo\ganontikasonogo_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_17.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_18.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_19.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganontika\ganontika_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon\ganon_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_boss\ganon_boss_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_boss\ganon_boss_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_demo\ganon_demo_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_demo\ganon_demo_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_final\ganon_final_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_final\ganon_final_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_sonogo\ganon_sonogo_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_sonogo\ganon_sonogo_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_sonogo\ganon_sonogo_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_sonogo\ganon_sonogo_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_sonogo\ganon_sonogo_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_sonogo\ganon_sonogo_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_tou\ganon_tou_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ganon_tou\ganon_tou_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\gerudoway\gerudoway_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdanCH\HAKAdanCH_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_17.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_18.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_19.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_20.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_21.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_22.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan\HAKAdan_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan_bs\HAKAdan_bs_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan_bs\HAKAdan_bs_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HAKAdan_bs\HAKAdan_bs_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_17.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_18.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_19.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_20.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_21.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_22.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_23.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_24.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_25.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_26.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\HIDAN\HIDAN_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ice_doukutu\ice_doukutu_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinboss\jyasinboss_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinboss\jyasinboss_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinboss\jyasinboss_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinboss\jyasinboss_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinboss\jyasinboss_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_17.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_18.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_19.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_20.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_21.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_22.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_23.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_24.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_25.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_26.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_27.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_28.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\jyasinzou\jyasinzou_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\men\men_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_14.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_15.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_16.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_17.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_18.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_19.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_20.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_21.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_22.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin\MIZUsin_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin_bs\MIZUsin_bs_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin_bs\MIZUsin_bs_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\MIZUsin_bs\MIZUsin_bs_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\moribossroom\moribossroom_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\moribossroom\moribossroom_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\moribossroom\moribossroom_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan\ydan_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan_boss\ydan_boss_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan_boss\ydan_boss_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\dungeons\ydan_boss\ydan_boss_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\bowling\bowling_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\bowling\bowling_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\daiyousei_izumi\daiyousei_izumi_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\daiyousei_izumi\daiyousei_izumi_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa\hairal_niwa_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa\hairal_niwa_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa_n\hairal_niwa_n_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa_n\hairal_niwa_n_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hakasitarelay\hakasitarelay_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hut\hut_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hut\hut_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hylia_labo\hylia_labo_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hylia_labo\hylia_labo_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\impa\impa_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\impa\impa_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kakariko\kakariko_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kakariko\kakariko_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kenjyanoma\kenjyanoma_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kenjyanoma\kenjyanoma_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home3\kokiri_home3_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home3\kokiri_home3_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home4\kokiri_home4_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home4\kokiri_home4_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home5\kokiri_home5_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home5\kokiri_home5_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home\kokiri_home_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\kokiri_home\kokiri_home_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\labo\labo_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\labo\labo_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\link_home\link_home_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\link_home\link_home_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\mahouya\mahouya_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\mahouya\mahouya_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\malon_stable\malon_stable_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\malon_stable\malon_stable_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\miharigoya\miharigoya_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\miharigoya\miharigoya_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\nakaniwa\nakaniwa_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\nakaniwa\nakaniwa_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\syatekijyou\syatekijyou_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\syatekijyou\syatekijyou_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\takaraya\takaraya_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\tent\tent_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\tent\tent_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\tokinoma\tokinoma_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\tokinoma\tokinoma_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\tokinoma\tokinoma_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\yousei_izumi_tate\yousei_izumi_tate_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\yousei_izumi_tate\yousei_izumi_tate_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\yousei_izumi_yoko\yousei_izumi_yoko_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\yousei_izumi_yoko\yousei_izumi_yoko_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\enrui\enrui_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\enrui\enrui_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\entra_n\entra_n_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\entra_n\entra_n_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana2\hakaana2_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana2\hakaana2_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana\hakaana_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana\hakaana_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana_ouke\hakaana_ouke_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana_ouke\hakaana_ouke_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana_ouke\hakaana_ouke_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hakaana_ouke\hakaana_ouke_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hiral_demo\hiral_demo_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\hiral_demo\hiral_demo_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakariko3\kakariko3_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakariko3\kakariko3_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_10.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_11.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_12.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_13.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kakusiana\kakusiana_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kinsuta\kinsuta_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\kinsuta\kinsuta_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_alley\market_alley_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_alley\market_alley_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_alley_n\market_alley_n_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_alley_n\market_alley_n_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_day\market_day_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_day\market_day_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_night\market_night_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_night\market_night_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_ruins\market_ruins_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\market_ruins\market_ruins_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\shrine\shrine_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\shrine\shrine_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\shrine_n\shrine_n_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\shrine_n\shrine_n_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\shrine_r\shrine_r_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\shrine_r\shrine_r_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\turibori\turibori_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\misc\turibori\turibori_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\entra\entra_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\entra\entra_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\souko\souko_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\souko\souko_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\souko\souko_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\souko\souko_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot00\spot00_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot00\spot00_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot01\spot01_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot01\spot01_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot02\spot02_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot02\spot02_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot02\spot02_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot03\spot03_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot03\spot03_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot03\spot03_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot04\spot04_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot04\spot04_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot04\spot04_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot04\spot04_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot05\spot05_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot05\spot05_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot06\spot06_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot06\spot06_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot07\spot07_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot07\spot07_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot07\spot07_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot08\spot08_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot08\spot08_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot09\spot09_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot09\spot09_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_5.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_6.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_7.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_8.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_room_9.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot10\spot10_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot11\spot11_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot11\spot11_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot12\spot12_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot12\spot12_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot12\spot12_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot13\spot13_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot13\spot13_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot13\spot13_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot15\spot15_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot15\spot15_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot16\spot16_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot16\spot16_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot17\spot17_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot17\spot17_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot17\spot17_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot18\spot18_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot18\spot18_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot18\spot18_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot18\spot18_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot18\spot18_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot20\spot20_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\overworld\spot20\spot20_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\alley_shop\alley_shop_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\alley_shop\alley_shop_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\drag\drag_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\drag\drag_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\face_shop\face_shop_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\face_shop\face_shop_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\golon\golon_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\golon\golon_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\kokiri_shop\kokiri_shop_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\kokiri_shop\kokiri_shop_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\night_shop\night_shop_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\night_shop\night_shop_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\shop1\shop1_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\shop1\shop1_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\zoora\zoora_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\shops\zoora\zoora_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\do_action_static\do_action_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_24_static\icon_item_24_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_dungeon_static\icon_item_dungeon_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_field_static\icon_item_field_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_fra_static\icon_item_fra_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_gameover_static\icon_item_gameover_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_ger_static\icon_item_ger_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_nes_static\icon_item_nes_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\icon_item_static\icon_item_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\item_name_static\item_name_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\map_48x85_static\map_48x85_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\map_grand_static\map_grand_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\map_i_static\map_i_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\map_name_static\map_name_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\message_static\message_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\message_texture_static\message_texture_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\nes_font_static\nes_font_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\nintendo_rogo_static\nintendo_rogo_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\parameter_static\parameter_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_01.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_02.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_03.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_04.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_05.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_06.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_07.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_08.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_09.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_10.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_11.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_12.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_13.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_14.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_15.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_16.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_17.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_18.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_19.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_20.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_21.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_22.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_23.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_24.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_25.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_26.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_27.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_28.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_29.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_30.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_31.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_32.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_33.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_34.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_35.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_36.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_37.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_38.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_39.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_40.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_41.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_42.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_43.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_44.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_45.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_46.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_47.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_48.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_49.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_50.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_51.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_52.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_53.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_54.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_55.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_56.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_57.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\textures\title_static\title_static.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa2\hairal_niwa2_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa2\hairal_niwa2_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\besitu\besitu_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\besitu\besitu_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\depth_test\depth_test_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\depth_test\depth_test_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sasatest\sasatest_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sasatest\sasatest_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sutaru\sutaru_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\sutaru\sutaru_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes2\syotes2_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes2\syotes2_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes\syotes_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\syotes\syotes_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\test01\test01_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\test01\test01_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_0.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_1.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_2.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_3.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_room_4.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_scene.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\roms\$(buildrom)\text\staff_message_data_static.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\roms\$(buildrom)\text\fra_message_data_static.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\roms\$(buildrom)\text\ger_message_data_static.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\roms\$(buildrom)\text\nes_message_data_static.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="misc">
+      <UniqueIdentifier>{592bbb14-f278-4a9e-ab99-78b71dcbf48d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc\link_animetion">
+      <UniqueIdentifier>{3fca830a-f0de-4bb7-a8c8-4316e72f0676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{926a2750-c12e-4d17-a414-3b966f82da98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\gameplay_keep">
+      <UniqueIdentifier>{ad276f4f-ebee-44f0-8889-eaa9ab599916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scenes">
+      <UniqueIdentifier>{ca5a613b-cae4-4d83-992a-ce9cd8909734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="textures">
+      <UniqueIdentifier>{f8603b7e-a0ca-4932-8bb8-93d96015c745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="text">
+      <UniqueIdentifier>{052b9e41-2590-4861-8912-42823a67a420}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

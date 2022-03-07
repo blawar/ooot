@@ -1458,31 +1458,6 @@ s32 BgCheck_IsSpotScene(GlobalContext* globalCtx) {
     return false;
 }
 
-typedef struct {
-    s16 sceneId;
-    u32 memSize;
-} BgCheckSceneMemEntry;
-
-/**
- * Get custom scene memSize
- */
-s32 BgCheck_TryGetCustomMemsize(s32 sceneId, u32* memSize) {
-    static BgCheckSceneMemEntry sceneMemList[] = {
-        { SCENE_SPOT00, 0xB798 },     { SCENE_GANON_FINAL, 0x78C8 }, { SCENE_GANON_DEMO, 0x70C8 },
-        { SCENE_JYASINBOSS, 0xACC8 }, { SCENE_KENJYANOMA, 0x70C8 },  { SCENE_JYASINZOU, 0x16CC8 },
-        { SCENE_HIDAN, 0x198C8 },     { SCENE_GANON_BOSS, 0x84C8 },
-    };
-    s32 i;
-
-    for (i = 0; i < ARRAY_COUNT(sceneMemList); i++) {
-        if (sceneId == sceneMemList[i].sceneId) {
-            *memSize = sceneMemList[i].memSize;
-            return true;
-        }
-    }
-    return false;
-}
-
 /**
  * Compute subdivLength for scene mesh lookup, for a single dimension
  */
@@ -1552,16 +1527,13 @@ void BgCheck_Allocate(CollisionContext* colCtx, GlobalContext* globalCtx, Collis
         colCtx->subdivAmount.y = 4;
         colCtx->subdivAmount.z = 16;
     } else {
-        if (BgCheck_TryGetCustomMemsize(globalCtx->sceneNum, &customMemSize)) {
-            colCtx->memSize = customMemSize;
-        } else {
-            colCtx->memSize = 0x1CC00;
-        }
+        colCtx->memSize = 0x1CC00;
+
         // "/* BGCheck Normal Size %dbyte  */\n"
         osSyncPrintf("/* BGCheck Normal Size %dbyte  */\n", colCtx->memSize);
-        colCtx->dyna.polyNodesMax = 1000;
-        colCtx->dyna.polyListMax = 512;
-        colCtx->dyna.vtxListMax = 512;
+        colCtx->dyna.polyNodesMax = 1000 + 512;
+        colCtx->dyna.polyListMax  = 512  + 512;
+        colCtx->dyna.vtxListMax   = 512  + 512;
         useCustomSubdivisions = false;
 
         for (i = 0; i < ARRAY_COUNT(sceneSubdivisionList); i++) {

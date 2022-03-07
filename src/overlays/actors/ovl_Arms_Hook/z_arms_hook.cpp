@@ -197,7 +197,7 @@ void ArmsHook_Shoot(ArmsHook* pthis, GlobalContext* globalCtx) {
         }
         pthis->timer = 0;
         Audio_PlaySoundGeneral(NA_SE_IT_ARROW_STICK_CRE, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     } else if (DECRT(pthis->timer) == 0) {
         grabbed = pthis->grabbed;
         if (grabbed != NULL) {
@@ -290,11 +290,11 @@ void ArmsHook_Shoot(ArmsHook* pthis, GlobalContext* globalCtx) {
                 }
                 func_80865044(pthis);
                 Audio_PlaySoundGeneral(NA_SE_IT_HOOKSHOT_STICK_OBJ, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             } else {
                 CollisionCheck_SpawnShieldParticlesMetal(globalCtx, &pthis->actor.world.pos);
                 Audio_PlaySoundGeneral(NA_SE_IT_HOOKSHOT_REFLECT, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             }
         } else if (CHECK_BTN_ANY(globalCtx->state.input[0].press.button,
                                  (BTN_A | BTN_B | BTN_R | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN))) {

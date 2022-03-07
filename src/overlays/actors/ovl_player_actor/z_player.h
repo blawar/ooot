@@ -139,9 +139,7 @@ struct Player {
     /* 0x0164 */ Gfx**      leftHandDLists;
     /* 0x0168 */ Gfx**      sheathDLists;
     /* 0x016C */ Gfx**      waistDLists;
-    /* 0x0170 */ u8         giObjectLoading;
     /* 0x0174 */ DmaRequest giObjectDmaRequest;
-    /* 0x0194 */ OSMesgQueue giObjectLoadQueue;
     /* 0x01AC */ OSMesg     giObjectLoadMsg;
     /* 0x01B0 */ void*      giObjectSegment; // also used for title card textures
     /* 0x01B4 */ SkelAnime  skelAnime;
@@ -185,7 +183,7 @@ struct Player {
     /* 0x066C */ s32        unk_66C;
     /* 0x0670 */ s32        swordEffectIndex;
     /* 0x0674 */ PlayerFunc674 func_674;
-    /* 0x0678 */ PlayerAgeProperties* ageProperties;
+    /* 0x0678 */ const PlayerAgeProperties* ageProperties;
     /* 0x067C */ u32        stateFlags1;//0x8000000 when swimming, 0x800000 when mounted on a horse
     /* 0x0680 */ u32        stateFlags2;
     /* 0x0684 */ Actor*     unk_684;

@@ -548,7 +548,7 @@ s32 Camera_GetWaterBoxDataIdx(Camera* camera, f32* waterY) {
         return -1;
     }
 
-    if (!(camera->player->stateFlags1 & 0x8000000)) {
+    if (!(camera->player->stateFlags1 & PLAYER_STATE_SWIMMING)) {
         // player is not swimming
         *waterY = BGCHECK_Y_MIN;
         return -1;
@@ -6188,7 +6188,7 @@ s32 Camera_Demo5(Camera* camera) {
 
     pad = sDemo5PrevSfxFrame - camera->globalCtx->state.frames.whole();
     if ((pad >= 0x33) || (pad < -0x32)) {
-        func_80078884((u16)camera->data1);
+        Common_PlaySfx((u16)camera->data1);
     }
 
     sDemo5PrevSfxFrame = camera->globalCtx->state.frames.whole();
@@ -7385,11 +7385,11 @@ s32 Camera_DbgChangeMode(Camera* camera) {
     if (!gDbgCamEnabled && camera->globalCtx->activeCamera == MAIN_CAM) {
         if (CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CUP)) {
             osSyncPrintf("attention sound URGENCY\n");
-            func_80078884(NA_SE_SY_ATTENTION_URGENCY);
+            Common_PlaySfx(NA_SE_SY_ATTENTION_URGENCY);
         }
         if (CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CDOWN)) {
             osSyncPrintf("attention sound NORMAL\n");
-            func_80078884(NA_SE_SY_ATTENTION_ON);
+            Common_PlaySfx(NA_SE_SY_ATTENTION_ON);
         }
 
         if (CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CRIGHT)) {
@@ -7797,7 +7797,7 @@ s32 Camera_ChangeModeFlags(Camera* camera, s16 mode, u8 flags) {
     if (!((sCameraSettings[camera->setting].unk_00 & 0x3FFFFFFF) & (1 << mode))) {
         if (mode == CAM_MODE_FIRSTPERSON) {
             osSyncPrintf("camera: error sound\n");
-            func_80078884(NA_SE_SY_ERROR);
+            Common_PlaySfx(NA_SE_SY_ERROR);
         }
 
         if (camera->mode != CAM_MODE_NORMAL) {
@@ -7885,20 +7885,20 @@ s32 Camera_ChangeModeFlags(Camera* camera, s16 mode, u8 flags) {
         if (camera->status == CAM_STAT_ACTIVE) {
             switch (modeChangeFlags) {
                 case 1:
-                    func_80078884(0);
+                    Common_PlaySfx(0);
                     break;
                 case 2:
                     if (camera->globalCtx->roomCtx.curRoom.unk_03 == 1) {
-                        func_80078884(NA_SE_SY_ATTENTION_URGENCY);
+                        Common_PlaySfx(NA_SE_SY_ATTENTION_URGENCY);
                     } else {
-                        func_80078884(NA_SE_SY_ATTENTION_ON);
+                        Common_PlaySfx(NA_SE_SY_ATTENTION_ON);
                     }
                     break;
                 case 4:
-                    func_80078884(NA_SE_SY_ATTENTION_URGENCY);
+                    Common_PlaySfx(NA_SE_SY_ATTENTION_URGENCY);
                     break;
                 case 8:
-                    func_80078884(NA_SE_SY_ATTENTION_ON);
+                    Common_PlaySfx(NA_SE_SY_ATTENTION_ON);
                     break;
             }
         }

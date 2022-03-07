@@ -12,6 +12,11 @@
 //#include "ultra64/pi.h"
 #include "ultra64/vi.h"
 #include "ultra64/rcp.h"
+#include <thread>
+#include <chrono>
+#include "../../AziAudio/AziAudio/AudioSpec.h"
+
+HardwareRegisters hw_regs;
 
 extern u32 osTvType;
 
@@ -72,7 +77,7 @@ s32 osJamMesg(UNUSED OSMesgQueue* mq, UNUSED OSMesg msg, UNUSED s32 flag)
 
 OSTime osGetTime(void)
 {
-	return GetTickCount64();
+	return timeGetTime();
 }
 #else
 OSTime osGetTime(void)
@@ -427,20 +432,17 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize)
 
 #include "ultra64/rcp.h"
 
-void* gAudioBuffer   = nullptr;
-u32 gAudioBufferSize = 0;
-
 s32 osAiSetNextBuffer(void* buf, u32 size)
 {
-	static u8 D_80130500  = false;
-	uintptr_t bufAdjusted = (uintptr_t)buf;
+	static u8 D_80130500 = false;
+	u32 bufAdjusted	     = (u32)buf;
 	s32 status;
 
 	if(D_80130500)
 	{
-		bufAdjusted = (uintptr_t)buf - 0x2000;
+		bufAdjusted = (u32)buf - 0x2000;
 	}
-	if((((uintptr_t)buf + size) & 0x1FFF) == 0)
+	if((((u32)buf + size) & 0x1FFF) == 0)
 	{
 		D_80130500 = true;
 	}
@@ -450,22 +452,27 @@ s32 osAiSetNextBuffer(void* buf, u32 size)
 	}
 
 	// Originally a call to __osAiDeviceBusy
-	/*status = HW_REG(AI_STATUS_REG, s32);
+	status = hw_regs.AI_STATUS_REG;
 	if(status & AI_STATUS_AI_FULL)
 	{
 		return -1;
-	}*/
+	}
 
 	// OS_K0_TO_PHYSICAL replaces osVirtualToPhysical, this replacement
 	// assumes that only KSEG0 addresses are given
-	// HW_REG(AI_DRAM_ADDR_REG, uintptr_t) = bufAdjusted;
-	// HW_REG(AI_LEN_REG, u32) = size;
-	gAudioBuffer	 = (void*)bufAdjusted;
-	gAudioBufferSize = size;
+	hw_regs.AI_DRAM_ADDR_REG = bufAdjusted;
+	hw_regs.AI_LEN_REG	      = size;
+	AiLenChanged();
 	return 0;
 }
 
 extern s32 osViClock;
+
+u32 osAiGetLength()
+{
+	AiReadLength();
+	return hw_regs.AI_LEN_REG;
+}
 
 s32 osAiSetFrequency(u32 frequency)
 {
@@ -485,7 +492,87 @@ s32 osAiSetFrequency(u32 frequency)
 		bitrate = 16;
 	}
 
-	// HW_REG(AI_DACRATE_REG, u32) = dacRate - 1;
-	// HW_REG(AI_BITRATE_REG, u32) = bitrate - 1;
+	hw_regs.AI_DACRATE_REG = dacRate - 1;
+	hw_regs.AI_BITRATE_REG = bitrate - 1;
+	AiDacrateChanged(SYSTEM_NTSC);
 	return osViClock / (s32)dacRate;
+}
+
+void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 count)
+{
+	mq->mtqueue    = NULL;
+	mq->fullqueue  = NULL;
+	mq->validCount = 0;
+	mq->first      = 0;
+	mq->msgCount   = count;
+	mq->msg	       = msg;
+}
+
+s32 osSendMesg(OSMesgQueue* mq, OSMesg mesg, s32 flag)
+{
+	register u32 index;
+
+	while(mq->validCount >= mq->msgCount)
+	{
+		if(flag == OS_MESG_BLOCK)
+		{
+			int zyz = 0;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+
+	index	       = (mq->first + mq->validCount) % mq->msgCount;
+	mq->msg[index] = mesg;
+	mq->validCount++;
+
+	if(mq->mtqueue->next != NULL)
+	{
+		// osStartThread(__osPopThread(&mq->mtqueue));
+	}
+
+	return 0;
+}
+
+s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flag)
+{
+	while(mq->validCount == 0)
+	{
+		if(flag == OS_MESG_NOBLOCK)
+		{
+			return -1;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		/*else
+		{
+		    return -1; // TODO FIX HACK
+		}*/
+	}
+
+	if(msg != NULL)
+	{
+		*msg = mq->msg[mq->first];
+	}
+
+	mq->first = (mq->first + 1) % mq->msgCount;
+	mq->validCount--;
+
+	if(mq->fullqueue->next != NULL)
+	{
+		// osStartThread(__osPopThread(&mq->fullqueue));
+	}
+
+	return 0;
+}
+
+uintptr_t check_pointer(uintptr_t p, u32 sz)
+{
+	if(IsBadReadPtr((const void*)p, sz))
+	{
+		return 0;
+	}
+
+	return p;
 }

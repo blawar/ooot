@@ -42,3 +42,75 @@
 #define POINTER_ADD(a, b) ((uintptr_t)a + (uintptr_t)b)
 #define POINTER_SUB(a, b) (MAX((uintptr_t)a, (uintptr_t)b) - MIN((uintptr_t)a, (uintptr_t)b))
 #define POINTER_SUB2(a, b) (MAX((uintptr_t)a.get(), (uintptr_t)b.get()) - MIN((uintptr_t)a.get(), (uintptr_t)b.get()))
+
+struct s16be
+{
+	s16be() : value(0)
+	{
+	}
+
+	s16be(s16 v) : value((s16)BE16((u16)v))
+	{
+	}
+
+	operator s16() const
+	{
+		return (s16)BE16((u16)value);
+	}
+
+	s16 value;
+};
+
+struct u16be
+{
+	u16be() : value(0)
+	{
+	}
+
+	u16be(u16 v) : value((u16)BE16((u16)v))
+	{
+	}
+
+	operator u16() const
+	{
+		return (u16)BE16((u16)value);
+	}
+
+	u16 value;
+};
+
+struct s32be
+{
+	s32be() : value(0)
+	{
+	}
+
+	s32be(s32 v) : value((s32)BE32((u32)v))
+	{
+	}
+
+	operator s32() const
+	{
+		return (s32)BE32((u32)value);
+	}
+
+	s32 value;
+};
+
+struct u32be
+{
+	u32be() : value(0)
+	{
+	}
+
+	u32be(u32 v) : value((u32)BE32((u32)v))
+	{
+	}
+
+	operator u32() const
+	{
+		return (u32)BE32((u32)value);
+	}
+
+	u32 value;
+};

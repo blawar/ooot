@@ -15,4 +15,4 @@ void Audio_NotePortamentoInit(Note* note);
 void Audio_NoteVibratoInit(Note* note);
 void Audio_NoteVibratoUpdate(Note* note);
 void Audio_SequenceChannelProcessSound(SequenceChannel* channel, s32 recalculateVolume, s32 b);
-void Audio_SequencePlayerProcessSound(SequencePlayer* seqPlayer);
+void Audio_SequencePlayerProcessVolume(SequencePlayer* seqPlayer);

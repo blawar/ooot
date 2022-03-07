@@ -718,7 +718,7 @@ void ObjBean_GrowWaterPhase3(ObjBean* pthis, GlobalContext* globalCtx) {
             }
             pthis->stateFlags |= BEAN_STATE_BEEN_WATERED;
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BUTTERFRY_TO_FAIRY);
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         }
     } else if (pthis->timer <= 0) {
         ObjBean_SetupGrowWaterPhase4(pthis);

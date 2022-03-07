@@ -486,7 +486,7 @@ void EnGe2_SetupCapturePlayer(EnGe2* pthis, GlobalContext* globalCtx) {
     pthis->actor.speedXZ = 0.0f;
     EnGe2_ChangeAction(pthis, GE2_ACTION_CAPTURETURN);
     func_8002DF54(globalCtx, &pthis->actor, 95);
-    func_80078884(NA_SE_SY_FOUND);
+    Common_PlaySfx(NA_SE_SY_FOUND);
     Message_StartTextbox(globalCtx, 0x6000, &pthis->actor);
 }
 

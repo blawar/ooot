@@ -687,7 +687,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx) {
             if (pthis->soilActor != NULL) {
                 if (!(GET_GS_FLAGS(((pthis->soilActor->actor.params >> 8) & 0x1F) - 1) &
                       (pthis->soilActor->actor.params & 0xFF))) {
-                    func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                    Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                 }
             }
             pthis->unk_314 |= 0x80;

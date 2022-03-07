@@ -121,7 +121,7 @@ void func_80993848(DemoTreLgt* pthis, GlobalContext* globalCtx) {
     if ((currentFrame > 30.0f) && !(pthis->status & 1)) {
         pthis->status |= 1;
         Audio_PlaySoundGeneral(NA_SE_EV_TRE_BOX_FLASH, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
     if (SkelCurve_Update(globalCtx, &pthis->skelCurve)) {
         Actor_Kill(&pthis->actor);

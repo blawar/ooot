@@ -157,7 +157,7 @@ struct AnimEntryCopyTrue {
     /* 0x001 */ u8 vecCount;
     /* 0x004 */ Vec3s* dst;
     /* 0x008 */ Vec3s* src;
-    /* 0x00C */ u8* copyFlag;
+    /* 0x00C */ const u8* copyFlag;
 }; // size = 0x10
 
 struct AnimEntryCopyFalse {
@@ -165,7 +165,7 @@ struct AnimEntryCopyFalse {
     /* 0x001 */ u8 vecCount;
     /* 0x004 */ Vec3s* dst;
     /* 0x008 */ Vec3s* src;
-    /* 0x00C */ u8* copyFlag;
+    /* 0x00C */ const u8* copyFlag;
 }; // size = 0x10
 
 struct AnimEntryMoveActor {

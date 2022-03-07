@@ -163,7 +163,7 @@ void func_80ABF0CC(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
             if ((globalCtx->sceneNum != SCENE_DAIYOUSEI_IZUMI) && (globalCtx->sceneNum != SCENE_YOUSEI_IZUMI_YOKO)) {
                 globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
             }
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
             pthis->actionFunc = func_80ABEF2C;
             return;
         }
@@ -179,7 +179,7 @@ void func_80ABF0CC(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
                     Flags_SetSwitch(globalCtx, pthis->switchFlag);
                 }
                 globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
-                func_80078884(NA_SE_SY_CORRECT_CHIME);
+                Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
                 pthis->actionFunc = func_80ABEF2C;
                 return;
             }
@@ -242,7 +242,7 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
     if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_04) {
         pthis->actionFunc = func_80ABF28C;
     } else if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_03) {
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         if (pthis->switchFlag >= 0) {
             Flags_SetSwitch(globalCtx, pthis->switchFlag);
         }
@@ -254,7 +254,7 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
             case 2:
                 globalCtx->csCtx.segment = D_80ABF9D0;
                 gSaveContext.cutsceneTrigger = 1;
-                func_800F574C(1.18921f, 0x5A);
+                Audio_PlayFanfare(1.18921f, 0x5A);
                 break;
             case 4:
                 globalCtx->csCtx.segment = D_80ABFB40;
@@ -265,7 +265,7 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
                                                          : SEGMENTED_TO_VIRTUAL(&spot02_scene_Cs_005020);
                 gSaveContext.cutsceneTrigger = 1;
                 gSaveContext.eventChkInf[1] |= 0x2000;
-                func_80078884(NA_SE_SY_CORRECT_CHIME);
+                Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
                 break;
             default:
                 break;

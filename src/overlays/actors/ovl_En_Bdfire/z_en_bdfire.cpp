@@ -150,7 +150,7 @@ void func_809BC598(EnBdfire* pthis, GlobalContext* globalCtx) {
     phi_v1_2 = 0;
     if (pthis->actor.params == 0) {
         Audio_PlaySoundGeneral(NA_SE_EN_DODO_K_FIRE - SFX_FLAG, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
     }
     Math_SmoothStepToF(&pthis->actor.scale.x, pthis->unk_188, 0.3f, 0.5f, 0.0f);
     Actor_SetScale(&pthis->actor, pthis->actor.scale.x);

@@ -906,7 +906,7 @@ void AnimationContext_SetInterp(GlobalContext* globalCtx, s32 vecCount, Vec3s* b
 /**
  * Requests copying vectors from src frame table to dst frame table whose copy flag is true
  */
-void AnimationContext_SetCopyTrue(GlobalContext* globalCtx, s32 vecCount, Vec3s* dst, Vec3s* src, u8* copyFlag) {
+void AnimationContext_SetCopyTrue(GlobalContext* globalCtx, s32 vecCount, Vec3s* dst, Vec3s* src, const u8* copyFlag) {
     AnimationEntry* entry = AnimationContext_AddEntry(&globalCtx->animationCtx, ANIMENTRY_COPYTRUE);
 
     if (entry != NULL) {
@@ -921,7 +921,7 @@ void AnimationContext_SetCopyTrue(GlobalContext* globalCtx, s32 vecCount, Vec3s*
 /**
  * Requests copying vectors from src frame table to dst frame table whose copy flag is false
  */
-void AnimationContext_SetCopyFalse(GlobalContext* globalCtx, s32 vecCount, Vec3s* dst, Vec3s* src, u8* copyFlag) {
+void AnimationContext_SetCopyFalse(GlobalContext* globalCtx, s32 vecCount, Vec3s* dst, Vec3s* src, const u8* copyFlag) {
     AnimationEntry* entry = AnimationContext_AddEntry(&globalCtx->animationCtx, ANIMENTRY_COPYFALSE);
 
     if (entry != NULL) {
@@ -951,8 +951,6 @@ void AnimationContext_SetMoveActor(GlobalContext* globalCtx, Actor* actor, SkelA
  */
 void AnimationContext_LoadFrame(GlobalContext* globalCtx, AnimationEntryData* data) {
     AnimEntryLoadFrame* entry = &data->load;
-
-    osRecvMesg(&entry->msgQueue, NULL, OS_MESG_BLOCK);
 }
 
 /**
@@ -992,7 +990,7 @@ void AnimationContext_CopyTrue(GlobalContext* globalCtx, AnimationEntryData* dat
     if (!(entry->queueFlag & sDisableAnimQueueFlags)) {
         Vec3s* dst = entry->dst;
         Vec3s* src = entry->src;
-        u8* copyFlag = entry->copyFlag;
+        const u8* copyFlag = entry->copyFlag;
         s32 i;
 
         for (i = 0; i < entry->vecCount; i++, dst++, src++) {
@@ -1012,7 +1010,7 @@ void AnimationContext_CopyFalse(GlobalContext* globalCtx, AnimationEntryData* da
     if (!(entry->queueFlag & sDisableAnimQueueFlags)) {
         Vec3s* dst = entry->dst;
         Vec3s* src = entry->src;
-        u8* copyFlag = entry->copyFlag;
+        const u8* copyFlag = entry->copyFlag;
         s32 i;
 
         for (i = 0; i < entry->vecCount; i++, dst++, src++) {

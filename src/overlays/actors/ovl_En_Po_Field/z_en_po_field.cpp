@@ -343,7 +343,7 @@ void func_80AD42B0(EnPoField* pthis) {
     pthis->actor.scale.y = 0.0f;
     Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_METAL_BOX_BOUND);
     if (pthis->actor.params == EN_PO_FIELD_BIG) {
-        func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+        Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
     }
     pthis->actionFunc = func_80AD587C;
 }
@@ -397,7 +397,7 @@ void EnPoField_CorrectYPos(EnPoField* pthis, GlobalContext* globalCtx) {
 
 f32 EnPoField_SetFleeSpeed(EnPoField* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
-    f32 speed = ((player->stateFlags1 & 0x800000) && player->rideActor != NULL) ? player->rideActor->speedXZ : 12.0f;
+    f32 speed = ((player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && player->rideActor != NULL) ? player->rideActor->speedXZ : 12.0f;
 
     if (pthis->actor.xzDistToPlayer < 300.0f) {
         pthis->actor.speedXZ = speed * 1.5f + 2.0f;
@@ -426,13 +426,13 @@ void EnPoField_WaitForSpawn(EnPoField* pthis, GlobalContext* globalCtx) {
             if (fabsf(sSpawnPositions[i].x - player->actor.world.pos.x) < 150.0f &&
                 fabsf(sSpawnPositions[i].z - player->actor.world.pos.z) < 150.0f) {
                 if (Flags_GetSwitch(globalCtx, sSpawnSwitchFlags[i])) {
-                    if (player->stateFlags1 & 0x800000) { // Player riding Epona
+                    if (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) { // Player riding Epona
                         return;
                     } else {
                         pthis->actor.params = EN_PO_FIELD_SMALL;
                         spawnDist = 300.0f;
                     }
-                } else if (player->stateFlags1 & 0x800000 || Rand_ZeroOne() < 0.4f) {
+                } else if (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED || Rand_ZeroOne() < 0.4f) {
                     pthis->actor.params = EN_PO_FIELD_BIG;
                     pthis->spawnFlagIndex = i;
                     spawnDist = 480.0f;

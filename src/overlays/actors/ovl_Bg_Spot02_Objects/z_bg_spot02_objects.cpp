@@ -228,7 +228,7 @@ void func_808ACC34(BgSpot02Objects* pthis, GlobalContext* globalCtx) {
     }
 
     if (globalCtx->csCtx.frames == 245 || globalCtx->csCtx.frames == 351) {
-        func_800788CC(NA_SE_EV_LIGHTNING);
+        Common_PlaySfx2(NA_SE_EV_LIGHTNING);
     }
 }
 

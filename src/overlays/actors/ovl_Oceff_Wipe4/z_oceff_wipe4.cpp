@@ -3,7 +3,7 @@
 /*
  * File: z_oceff_wipe4.c
  * Overlay: ovl_Oceff_Wipe4
- * Description: Scarecrow's Song and an unused Ocarina Effect
+ * Description: Scarecrow's Song and an unused Ocarina Effect and used for Zelda during escape
  */
 
 #include "z_oceff_wipe4.h"
@@ -14,6 +14,7 @@
 #include "def/z_lib.h"
 #include "def/z_parameter.h"
 #include "def/z_rcp.h"
+#include "gfx_align.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
@@ -98,7 +99,8 @@ void OceffWipe4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
 
     Matrix_Translate(eye.x + vec.x, eye.y + vec.y, eye.z + vec.z, MTXMODE_NEW);
-    Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
+    const float correction_factor = (gfx_width() * 3.0f) / (gfx_height() * 4.0f); // Should be 1 on a 4:3 display
+    Matrix_Scale(0.1f * correction_factor, 0.1f, 0.1f, MTXMODE_APPLY);
     func_800D1FD4(&globalCtx->billboardMtxF);
     Matrix_Translate(0.0f, 0.0f, -z, MTXMODE_APPLY);
 

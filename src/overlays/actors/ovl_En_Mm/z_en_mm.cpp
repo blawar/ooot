@@ -299,7 +299,7 @@ void func_80AADCD0(EnMm* pthis, GlobalContext* globalCtx) {
             if (pthis->curAnimIndex != 5) {
                 if ((pthis->actor.textId == 0x202A) || (pthis->actor.textId == 0x202B)) {
                     EnMm_ChangeAnimation(pthis, RM_ANIM_EXCITED, &pthis->curAnimIndex);
-                    func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+                    Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
                 }
             }
         } else {

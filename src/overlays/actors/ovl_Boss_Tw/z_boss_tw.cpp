@@ -903,7 +903,7 @@ s32 BossTw_CheckBeamReflection(BossTw* pthis, GlobalContext* globalCtx) {
                 BossTw_AddShieldDeflectEffect(globalCtx, 10.0f, pthis->actor.params);
                 globalCtx->envCtx.unk_D8 = 1.0f;
                 pthis->timers[0] = 10;
-                func_80078884(NA_SE_IT_SHIELD_REFLECT_MG2);
+                Common_PlaySfx(NA_SE_IT_SHIELD_REFLECT_MG2);
             }
 
             sBeamDivertTimer++;
@@ -1130,7 +1130,7 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
                         }
 
                         pthis->beamShootState = 1;
-                        func_80078914(&player->actor.projectedPos, NA_SE_IT_SHIELD_REFLECT_MG);
+                        Common_PlaySfxAtPos(&player->actor.projectedPos, NA_SE_IT_SHIELD_REFLECT_MG);
                         Matrix_MtxFToYXZRotS(&player->shieldMf, &sp128, 0);
                         sp128.y += 0x8000;
                         sp128.x = -sp128.x;
@@ -1156,10 +1156,10 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
 
                 if (pthis->actor.params == 1) {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FIRE - SFX_FLAG, &pthis->unk_54C, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 } else {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FREEZE - SFX_FLAG, &pthis->unk_54C, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 }
                 break;
 
@@ -1186,14 +1186,14 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx) {
 
                 if (pthis->actor.params == 1) {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FIRE - SFX_FLAG, &pthis->unk_558, 4U, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_REFL_FIRE - SFX_FLAG, &pthis->unk_558, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 } else {
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_SHOOT_FREEZE - SFX_FLAG, &pthis->unk_558, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                     Audio_PlaySoundGeneral(NA_SE_EN_TWINROBA_REFL_FREEZE - SFX_FLAG, &pthis->unk_558, 4, &D_801333E0,
-                                           &D_801333E0, &D_801333E8);
+                                           &D_801333E0, &gReverbAdd2);
                 }
                 break;
         }
@@ -1721,7 +1721,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx) {
 
             if (pthis->timers[1] == 8) {
                 pthis->work[TW_BLINK_IDX] = 8;
-                func_80078884(NA_SE_EN_TWINROBA_YOUNG_WINK);
+                Common_PlaySfx(NA_SE_EN_TWINROBA_YOUNG_WINK);
             }
             if (pthis->timers[2] == 4) {
                 sEnvType = 0;
@@ -1799,12 +1799,12 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->csSfxTimer > 220 && pthis->csSfxTimer < 630) {
-        func_80078884(NA_SE_EN_TWINROBA_UNARI - SFX_FLAG);
+        Common_PlaySfx(NA_SE_EN_TWINROBA_UNARI - SFX_FLAG);
     }
 
     if (pthis->csSfxTimer == 180) {
-        func_80078914(&D_8094A7D0, NA_SE_EN_TWINROBA_LAUGH);
-        func_80078914(&D_8094A7D0, NA_SE_EN_TWINROBA_LAUGH2);
+        Common_PlaySfxAtPos(&D_8094A7D0, NA_SE_EN_TWINROBA_LAUGH);
+        Common_PlaySfxAtPos(&D_8094A7D0, NA_SE_EN_TWINROBA_LAUGH2);
         Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_KOTAKE_KOUME);
     }
 
@@ -1865,7 +1865,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx) {
             }
 
             if (pthis->work[CS_TIMER_1] == 180) {
-                func_80078884(NA_SE_EN_TWINROBA_APPEAR_MS);
+                Common_PlaySfx(NA_SE_EN_TWINROBA_APPEAR_MS);
             }
 
             if (pthis->work[CS_TIMER_1] > 180) {
@@ -2479,7 +2479,7 @@ void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->work[CS_TIMER_2] > 440 && pthis->work[CS_TIMER_2] < 860) {
-        func_80078884(NA_SE_EN_TWINROBA_FIGHT - SFX_FLAG);
+        Common_PlaySfx(NA_SE_EN_TWINROBA_FIGHT - SFX_FLAG);
     }
 
     if (pthis->work[CS_TIMER_2] == 430) {
@@ -2674,7 +2674,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx) {
                     Vec3f spBC;
                     Vec3f spB0;
                     Vec3f spA4 = { 0.0f, 0.0f, 0.0f };
-                    func_80078884(NA_SE_EN_TWINROBA_TRANSFORM);
+                    Common_PlaySfx(NA_SE_EN_TWINROBA_TRANSFORM);
                     for (i = 0; i < 100; i++) {
                         spB0.x = Rand_CenteredFloat(5.0f);
                         spB0.y = Rand_CenteredFloat(5.0f);
@@ -2788,7 +2788,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx) {
                 Actor_SetScale(&sKotakePtr->actor, 0.0f);
                 sKoumePtr->visible = 1;
                 sKotakePtr->visible = 1;
-                func_80078884(NA_SE_EN_TWINROBA_TRANSFORM);
+                Common_PlaySfx(NA_SE_EN_TWINROBA_TRANSFORM);
                 Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_KOTAKE_KOUME);
                 pthis->csState2 = 3;
                 pthis->work[CS_TIMER_2] = 0;
@@ -3180,8 +3180,8 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2) {
     if (sFreezeState == 1) {
         sFreezeState = 2;
         BossTw_AddPlayerFreezeEffect(globalCtx, NULL);
-        func_80078914(&player->actor.projectedPos, NA_SE_VO_LI_FREEZE);
-        func_80078914(&player->actor.projectedPos, NA_SE_PL_FREEZE);
+        Common_PlaySfxAtPos(&player->actor.projectedPos, NA_SE_VO_LI_FREEZE);
+        Common_PlaySfxAtPos(&player->actor.projectedPos, NA_SE_PL_FREEZE);
 
         if (sShieldFireCharge != 0) {
             sShieldFireCharge = 4;
@@ -3687,11 +3687,11 @@ void BossTw_ShieldChargeDraw(BossTw* pthis, GlobalContext* globalCtx) {
     temp_t0 = sShieldFireCharge | sShieldIceCharge;
 
     if (temp_t0 == 1) {
-        func_80078884(NA_SE_IT_SHIELD_CHARGE_LV1 & ~SFX_FLAG);
+        Common_PlaySfx(NA_SE_IT_SHIELD_CHARGE_LV1 & ~SFX_FLAG);
     } else if (temp_t0 == 2) {
-        func_80078884(NA_SE_IT_SHIELD_CHARGE_LV2 & ~SFX_FLAG);
+        Common_PlaySfx(NA_SE_IT_SHIELD_CHARGE_LV2 & ~SFX_FLAG);
     } else if (temp_t0 == 3) {
-        func_80078884(NA_SE_IT_SHIELD_CHARGE_LV3 & ~SFX_FLAG);
+        Common_PlaySfx(NA_SE_IT_SHIELD_CHARGE_LV3 & ~SFX_FLAG);
     }
 
     if (temp_t0 != 0 && temp_t0 < 4) {
@@ -4378,7 +4378,7 @@ s32 BossTw_BlastShieldCheck(BossTw* pthis, GlobalContext* globalCtx) {
                     sEnvType = 0;
                     sShieldIceCharge = 0;
                     sShieldFireCharge = 0;
-                    func_80078884(NA_SE_IT_SHIELD_REFLECT_MG2);
+                    Common_PlaySfx(NA_SE_IT_SHIELD_REFLECT_MG2);
                 }
 
                 ret = true;

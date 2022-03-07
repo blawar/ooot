@@ -141,7 +141,7 @@ void ObjBombiwa_Update(Actor* thisx, GlobalContext* globalCtx) {
         Flags_SetSwitch(globalCtx, pthis->actor.params & 0x3F);
         Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 80, NA_SE_EV_WALL_BROKEN);
         if (((pthis->actor.params >> 0xF) & 1) != 0) {
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         }
         Actor_Kill(&pthis->actor);
     } else {

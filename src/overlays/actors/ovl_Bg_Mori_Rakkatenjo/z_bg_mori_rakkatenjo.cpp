@@ -149,7 +149,7 @@ void BgMoriRakkatenjo_Wait(BgMoriRakkatenjo* pthis, GlobalContext* globalCtx) {
         }
     }
     if (pthis->timer < 20) {
-        func_800788CC(NA_SE_EV_BLOCKSINK - SFX_FLAG);
+        Common_PlaySfx2(NA_SE_EV_BLOCKSINK - SFX_FLAG);
     }
 }
 
@@ -171,7 +171,7 @@ void BgMoriRakkatenjo_Fall(BgMoriRakkatenjo* pthis, GlobalContext* globalCtx) {
         } else {
             if (pthis->bounceCount == 0) {
                 pthis->fallCount++;
-                func_800788CC(NA_SE_EV_STONE_BOUND);
+                Common_PlaySfx2(NA_SE_EV_STONE_BOUND);
                 Rumble_Shake(SQ(thisx->yDistToPlayer), 0xFF, 0x14, 0x96);
             }
             thisx->world.pos.y =

@@ -71,9 +71,9 @@ void Jpeg_ScheduleDecoderTask(JpegContext* ctx) {
     ctx->scTask.framebuffer = NULL;
     ctx->scTask.list.t = sJpegTask;
 
-    osSendMesg(&gSchedContext.cmdQ, (OSMesg)&ctx->scTask, OS_MESG_BLOCK);
+    //osSendMesg(&gSchedContext.cmdQ, (OSMesg)&ctx->scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext); // osScKickEntryMsg
-    osRecvMesg(&ctx->mq, NULL, OS_MESG_BLOCK);
+    //osRecvMesg(&ctx->mq, NULL, OS_MESG_BLOCK);
 }
 
 /**

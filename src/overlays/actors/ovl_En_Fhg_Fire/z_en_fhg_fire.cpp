@@ -496,7 +496,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx) {
                     if (!canBottleReflect2 && (hurtbox->toucher.dmgFlags & 0x00100000)) {
                         killMode = BALL_IMPACT;
                         Audio_PlaySoundGeneral(NA_SE_IT_SHIELD_REFLECT_MG, &player->actor.projectedPos, 4, &D_801333E0,
-                                               &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &gReverbAdd2);
                         Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xFF, 0x14, 0x96);
                     } else {
                         if (bossGnd->flyMode == GND_FLY_NEUTRAL) {
@@ -525,7 +525,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx) {
                         pthis->work[FHGFIRE_FIRE_MODE] = FHGFIRE_LIGHT_BLUE;
                         pthis->work[FHGFIRE_FX_TIMER] = 2;
                         Audio_PlaySoundGeneral(NA_SE_IT_SWORD_REFLECT_MG, &player->actor.projectedPos, 4, &D_801333E0,
-                                               &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &gReverbAdd2);
                         Rumble_Shake(pthis->actor.xyzDistToPlayerSq, 0xB4, 0x14, 0x64);
                     }
                 } else if (sqrtf(SQ(dxL) + SQ(dyL) + SQ(dzL)) <= 25.0f) {
@@ -557,9 +557,9 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx) {
                         killMode = BALL_IMPACT;
                         bossGnd->returnCount = pthis->work[FHGFIRE_RETURN_COUNT] + 1;
                         Audio_PlaySoundGeneral(NA_SE_EN_FANTOM_HIT_THUNDER, &bossGnd->actor.projectedPos, 4,
-                                               &D_801333E0, &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &D_801333E0, &gReverbAdd2);
                         Audio_PlaySoundGeneral(NA_SE_EN_FANTOM_DAMAGE, &bossGnd->actor.projectedPos, 4, &D_801333E0,
-                                               &D_801333E0, &D_801333E8);
+                                               &D_801333E0, &gReverbAdd2);
                     }
                 }
                 break;

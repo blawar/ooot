@@ -2,6 +2,7 @@
 #include "ultra64/pi.h"
 #include "ultra64/sptask.h"
 #include "z64math.h"
+#include "porting_defs.h"
 
 #define MK_CMD(b0,b1,b2,b3) ((((b0) & 0xFF) << 0x18) | (((b1) & 0xFF) << 0x10) | (((b2) & 0xFF) << 0x8) | (((b3) & 0xFF) << 0))
 
@@ -106,8 +107,16 @@ struct Portamento {
 }; // size = 0xC
 
 struct AdsrEnvelope {
-    /* 0x0 */ s16 delay;
-    /* 0x2 */ s16 arg;
+	AdsrEnvelope() : delay(0), arg(0)
+	{
+	}
+
+    AdsrEnvelope(s16 _delay, s16 _arg) : delay(_delay), arg(_arg)
+	{
+	}
+
+    /* 0x0 */ s16be delay;
+    /* 0x2 */ s16be arg;
 }; // size = 0x4
 
 struct AdpcmLoop {
@@ -142,6 +151,8 @@ struct SoundFontSample {
     /* 0x08 */ AdpcmLoop* loop;
     /* 0x0C */ AdpcmBook* book;
 }; // size = 0x10
+
+static_assert(sizeof(SoundFontSample) == 0x10, "SoundFontSample incorrect size");
 
 struct SoundFontSound {
     /* 0x00 */ SoundFontSample* sample;
@@ -249,7 +260,7 @@ struct SeqScriptState {
 
 // Also known as a Group, according to debug strings.
 struct SequencePlayer {
-#ifdef LITTLE_ENDIAN
+#ifdef LITTLE_ENDIAN2
     u8 unk_0b1 : 1;
     u8 stopScript : 1;
     u8 recalculateVolume : 1;
@@ -375,7 +386,7 @@ struct NoteAttributes {
 
 // Also known as a SubTrack, according to sm64 debug strings.
 typedef struct SequenceChannel {
-#ifdef LITTLE_ENDIAN
+#ifdef LITTLE_ENDIAN2
     u8 unused : 1;
     u8 largeNotes : 1; // notes specify duration and velocity
     u8 stereoHeadsetEffects : 1;
@@ -397,6 +408,11 @@ typedef struct SequenceChannel {
     union {
         struct {
 #ifdef LITTLE_ENDIAN
+		    u8 padding1 : 1;
+		    u8 padding2 : 1;
+		    u8 padding3 : 1;
+		    u8 padding4 : 1;
+		    u8 padding5 : 1;
             u8 pan : 1;
             u8 volume : 1;
             u8 freqScale : 1;
@@ -404,6 +420,11 @@ typedef struct SequenceChannel {
             u8 freqScale : 1;
             u8 volume : 1;
             u8 pan : 1;
+	        u8 padding1 : 1;
+	        u8 padding2 : 1;
+	        u8 padding3 : 1;
+	        u8 padding4 : 1;
+	        u8 padding5 : 1;
 #endif
         } s;
         /* 0x01 */ u8 asByte;
@@ -456,7 +477,7 @@ typedef struct SequenceChannel {
 
 // Might also be known as a Track, according to sm64 debug strings (?).
 struct SequenceLayer {
-#ifdef LITTLE_ENDIAN
+#ifdef LITTLE_ENDIAN2
     u8 notePropertiesNeedInit : 1;
     u8 bit1 : 1; // "has initialized continuous notes"?
     u8 ignoreDrumPan : 1;
@@ -566,9 +587,9 @@ struct NotePlaybackState {
     // may contain portamento, vibratoState, if those are not part of Note itself
 };
 
-typedef struct {
+struct NoteSubEu {
     struct {
-#ifdef LITTLE_ENDIAN
+#ifdef LITTLE_ENDIAN2
         u8 usesHeadsetPanEffects : 1; // ?
         u8 stereoHeadsetEffects : 1;
         u8 stereoStrongLeft : 1;
@@ -576,9 +597,9 @@ typedef struct {
         u8 unused : 1;
         u8 finished : 1; // ?
         u8 needsInit : 1;
-        volatile u8 enabled : 1;
+        u8 enabled : 1;
 #else
-        volatile u8 enabled : 1;
+        u8 enabled : 1;
         u8 needsInit : 1;
         u8 finished : 1; // ?
         u8 unused : 1;
@@ -589,7 +610,7 @@ typedef struct {
 #endif
     } bitField0;
     struct {
-#ifdef LITTLE_ENDIAN
+#ifdef LITTLE_ENDIAN2
         u8 usesHeadsetPanEffects2 : 1;
         u8 hasTwoParts : 1;
         u8 isSyntheticWave : 1;
@@ -619,7 +640,9 @@ typedef struct {
              } sound;
     /* 0x14 */ s16* filter;
     /* 0x18 */ char pad_18[0x8];
-} NoteSubEu; // size = 0x20
+}; // size = 0x20
+
+static_assert(sizeof(NoteSubEu) == 0x20, "incorrect NoteSubEu size!");
 
 struct Note {
     /* 0x00 */ AudioListItem listItem;
@@ -782,6 +805,7 @@ typedef struct {
 #endif
     };
     union {
+#ifndef LITTLE_ENDIAN
         void* data;
         f32 asFloat;
         s32 asInt;
@@ -789,6 +813,24 @@ typedef struct {
         s8 asSbyte;
         u8 asUbyte;
         u32 asUInt;
+#else
+        void* data;
+        f32 asFloat;
+        s32 asInt;
+        struct {
+            s8 padding1[2];
+            u16 asUShort;
+        };
+        struct {
+            s8 padding2[3];
+            s8 asSbyte;
+        };
+        struct {
+            s8 padding3[3];
+            u8 asUbyte;
+        };
+        u32 asUInt;
+#endif
     };
 } AudioCmd;
 
@@ -821,7 +863,6 @@ struct AudioSlowLoad {
     /* 0x18 */ s32 bytesRemaining;
     /* 0x1C */ s8* isDone;
     /* 0x20 */ SoundFontSample sample;
-    /* 0x30 */ OSMesgQueue msgqueue;
     /* 0x48 */ OSMesg msg;
     /* 0x4C */ OSIoMesg ioMesg;
 }; // size = 0x64
@@ -884,23 +925,12 @@ struct AudioContext {
     /* 0x1768 */ s32 numUsedSamples;
     /* 0x176C */ s32 preloadSampleStackTop;
     /* 0x1770 */ AudioAsyncLoad asyncLoads[0x10];
-    /* 0x1CF0 */ OSMesgQueue asyncLoadUnkMediumQueue;
     /* 0x1D08 */ char unk_1D08[0x40];
     /* 0x1D48 */ AudioAsyncLoad* curUnkMediumLoad;
     /* 0x1D4C */ u32 slowLoadPos;
     /* 0x1D50 */ AudioSlowLoad slowLoads[2];
     /* 0x1E18 */ OSPiHandle* cartHandle;
     /* 0x1E1C */ OSPiHandle* driveHandle;
-    /* 0x1E20 */ OSMesgQueue externalLoadQueue;
-    /* 0x1E38 */ OSMesg externalLoadMesgBuf[0x10];
-    /* 0x1E78 */ OSMesgQueue preloadSampleQueue;
-    /* 0x1E90 */ OSMesg preloadSampleMesgBuf[0x10];
-    /* 0x1ED0 */ OSMesgQueue currAudioFrameDmaQueue;
-    /* 0x1EE8 */ OSMesg currAudioFrameDmaMesgBuf[0x40];
-    /* 0x1FE8 */ OSIoMesg currAudioFrameDmaIoMesgBuf[0x40];
-    /* 0x25E8 */ OSMesgQueue syncDmaQueue;
-    /* 0x2600 */ OSMesg syncDmaMesg;
-    /* 0x2604 */ OSIoMesg syncDmaIoMesg;
     /* 0x261C */ SampleDma* sampleDmas;
     /* 0x2620 */ u32 sampleDmaCount;
     /* 0x2624 */ u32 sampleDmaListSize1;
@@ -1025,7 +1055,7 @@ struct unk_50_s {
     /* 0x1C */ u16 unk_1C;
 }; // size = 0x20
 
-struct unk_D_8016E750 {
+struct AudioPlayer {
     /* 0x000 */ f32 volCur;
     /* 0x004 */ f32 volTarget;
     /* 0x008 */ f32 unk_08;
@@ -1035,7 +1065,7 @@ struct unk_D_8016E750 {
     /* 0x013 */ u8 fadeVolUpdate;
     /* 0x014 */ u32 unk_14;
     /* 0x018 */ u16 unk_18;
-    /* 0x01C */ f32 unk_1C;
+    /* 0x01C */ f32 tempo;
     /* 0x020 */ f32 unk_20;
     /* 0x024 */ f32 unk_24;
     /* 0x028 */ u16 unk_28;
@@ -1046,7 +1076,7 @@ struct unk_D_8016E750 {
     /* 0x050 */ unk_50_s unk_50[0x10];
     /* 0x250 */ u16 unk_250;
     /* 0x252 */ u16 unk_252;
-    /* 0x254 */ u16 unk_254;
+    /* 0x254 */ u16 seqAndFlags;
     /* 0x256 */ u16 unk_256;
     /* 0x258 */ u16 unk_258;
     /* 0x25C */ u32 unk_25C;
@@ -1154,6 +1184,13 @@ enum OcarinaNoteIdx {
     /* -1 */ OCARINA_NOTE_INVALID = 0xFF
 };
 
+template <u32 SZ> struct VAdpcmBook
+{
+	s32 order;
+	s32 npredictors;
+	s16 book[SZ];
+};
+
 #define gTatumsPerBeat (D_8014A6C0[1])
 
 extern void(*D_801755D0)(void);
@@ -1193,15 +1230,15 @@ extern u8* gFrogsSongPtr;
 extern char D_80133390[];
 extern char D_80133398[];
 extern u8 gSfxChannelLayout;
-extern Vec3f D_801333D4;
+extern Vec3f gAudioDefaultPos;
 extern f32 D_801333E0;
-extern s8 D_801333E8;
+extern s8 gReverbAdd2;
 extern u8 D_801333F0;
 extern u8 gAudioSfxSwapOff;
-extern u8 D_80133408;
+extern u8 gAudioDisable;
 extern u8 D_8013340C;
 extern u8 gAudioSpecId;
-extern u8 D_80133418;
+extern u8 gAudioSyncMode;
 
 
 
@@ -1218,9 +1255,9 @@ extern u8 gSoundBankMuted[];
 extern u16 gAudioSfxSwapSource[10];
 extern u16 gAudioSfxSwapTarget[10];
 extern u8 gAudioSfxSwapMode[10];
-extern u8 D_8016E348[4];
+extern u8 gAudioPlayerInfoNum[4];
 extern u32 sAudioSeqCmds[0x100];
-extern unk_D_8016E750 D_8016E750[4];
+extern AudioPlayer gAudioPlayers[4];
 extern AudioContext gAudioContext;
 extern void(*D_801755D0)(void);
 

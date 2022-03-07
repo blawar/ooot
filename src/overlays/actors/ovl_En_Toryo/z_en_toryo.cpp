@@ -252,7 +252,7 @@ u32 func_80B20634(EnToryo* pthis, GlobalContext* globalCtx) {
 
     if (pthis->unk_1E0 != 0) {
         if (pthis->unk_1E0 == 10) {
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
             if (gSaveContext.infTable[23] & 2) {
                 ret = 0x606E;
             } else {

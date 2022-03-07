@@ -137,7 +137,7 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx) {
         OnePointCutscene_Attention(globalCtx, &pthis->actor);
         pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_27;
 
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         if (pthis->switchFlag >= 0) {
             Flags_SetSwitch(globalCtx, pthis->switchFlag);
         }
@@ -161,7 +161,7 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx) {
             SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ka_Skel_0065B0, &object_ka_Anim_000214, NULL, NULL,
                                0);
             OnePointCutscene_Attention(globalCtx, &pthis->actor);
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
 
             pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_27;
             pthis->actionFunc = func_80A904D8;

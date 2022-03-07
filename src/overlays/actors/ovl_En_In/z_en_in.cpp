@@ -154,7 +154,7 @@ u16 func_80A79010(GlobalContext* globalCtx) {
     }
     switch (gSaveContext.eventInf[0] & 0xF) {
         case 1:
-            if (!(player->stateFlags1 & 0x800000)) {//Not mounted on a horse?
+            if (!(player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)) {//Not mounted on a horse?
                 return 0x2036;
             } else if (gSaveContext.eventChkInf[1] & 0x800) {
                 if (gSaveContext.infTable[10] & 4) {
@@ -632,10 +632,10 @@ void func_80A7A304(EnIn* pthis, GlobalContext* globalCtx) {
         pthis->animationIdx %= 8;
         pthis->unk_1E8 = pthis->animationIdx;
         if (pthis->animationIdx == 3 || pthis->animationIdx == 4) {
-            Audio_PlaySoundGeneral(NA_SE_IT_LASH, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_IT_LASH, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             if (Rand_ZeroOne() < 0.3f) {
                 Audio_PlaySoundGeneral(NA_SE_IT_INGO_HORSE_NEIGH, &pthis->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             }
         }
         Animation_Change(&pthis->skelAnime, D_80A7B918[pthis->animationIdx], 1.0f, 0.0f,
@@ -664,11 +664,11 @@ void func_80A7A568(EnIn* pthis, GlobalContext* globalCtx) {
     s32 phi_a2;
     s32 phi_a3;
 
-    if (!(gSaveContext.eventChkInf[1] & 0x800) && (player->stateFlags1 & 0x800000)) {
+    if (!(gSaveContext.eventChkInf[1] & 0x800) && (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)) {
         gSaveContext.infTable[10] |= 0x800;
     }
     if (gSaveContext.timer1State == 10) {
-        Audio_PlaySoundGeneral(NA_SE_SY_FOUND, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_SY_FOUND, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         func_80A79C78(pthis, globalCtx);
         pthis->actionFunc = func_80A7B024;
         gSaveContext.timer1State = 0;
@@ -686,7 +686,7 @@ void func_80A7A568(EnIn* pthis, GlobalContext* globalCtx) {
             phi_a2 = 2;
             phi_a3 = 2;
         } else {
-            Audio_PlaySoundGeneral(NA_SE_SY_FOUND, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_FOUND, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
             if (!(gSaveContext.eventChkInf[1] & 0x800)) {
                 if (gSaveContext.infTable[10] & 0x800) {
                     gSaveContext.eventChkInf[1] |= 0x800;

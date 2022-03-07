@@ -187,7 +187,7 @@ void BgDdanKd_LowerStairs(BgDdanKd* pthis, GlobalContext* globalCtx) {
         }
         Camera_AddQuake(&globalCtx->mainCamera, 0, effectStrength * 0.6f, 3);
         Audio_PlaySoundGeneral(NA_SE_EV_PILLAR_SINK - SFX_FLAG, &pthis->dyna.actor.projectedPos, 4, &D_801333E0,
-                               &D_801333E0, &D_801333E8);
+                               &D_801333E0, &gReverbAdd2);
     }
 }
 

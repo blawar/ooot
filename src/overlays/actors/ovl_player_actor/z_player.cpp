@@ -321,9 +321,9 @@ static Input* sControlInput;
 
 // .data
 
-static u8 D_80853410[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+static const u8 D_80853410[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-static PlayerAgeProperties sAgeProperties[] = {
+static const PlayerAgeProperties sAgeProperties[] = {
     {
         56.0f,
         90.0f,
@@ -448,14 +448,14 @@ static s16 D_80853610 = 0;
 static s32 D_80853614 = 0;
 static s32 D_80853618 = 0;
 
-static u16 D_8085361C[] = {
+static const u16 D_8085361C[] = {
     NA_SE_VO_LI_SWEAT,
     NA_SE_VO_LI_SNEEZE,
     NA_SE_VO_LI_RELAX,
     NA_SE_VO_LI_FALL_L,
 };
 
-static GetItemEntry sGetItemTable[] = {
+static const GetItemEntry sGetItemTable[] = {
     GET_ITEM(ITEM_BOMBS_5, OBJECT_GI_BOMB_1, GID_BOMB, 0x32, 0x59, CHEST_ANIM_SHORT),
     GET_ITEM(ITEM_NUTS_5, OBJECT_GI_NUTS, GID_NUTS, 0x34, 0x0C, CHEST_ANIM_SHORT),
     GET_ITEM(ITEM_BOMBCHU, OBJECT_GI_BOMB_2, GID_BOMBCHU, 0x33, 0x80, CHEST_ANIM_SHORT),
@@ -882,17 +882,17 @@ static struct_80832924 D_80853E4C[] = {
     { NA_SE_VO_LI_RELAX, -0x2014 },
 };
 
-static struct_80832924* D_80853E50[] = {
+static const struct_80832924* D_80853E50[] = {
     D_80853DEC, D_80853DF0, D_80853DF4, D_80853DF8, D_80853DFC, D_80853E10,
     D_80853E28, D_80853E34, D_80853E44, D_80853E4C, NULL,
 };
 
-static u8 D_80853E7C[] = {
+static const u8 D_80853E7C[] = {
     0, 0, 1, 1, 2, 2, 2, 2, 10, 10, 10, 10, 10, 10, 3, 3, 4, 4, 8, 8, 5, 5, 6, 6, 7, 7, 9, 9, 0,
 };
 
 // Used to map item IDs to action params
-static s8 sItemActionParams[] = {
+static const s8 sItemActionParams[] = {
     PLAYER_AP_STICK,
     PLAYER_AP_NUT,
     PLAYER_AP_BOMB,
@@ -1254,12 +1254,12 @@ void func_80832698(Player* pthis, u16 sfxId) {
     if (pthis->actor.category == ACTORCAT_PLAYER) {
         func_8002F7DC(&pthis->actor, sfxId + pthis->ageProperties->unk_92);
     } else {
-        func_800F4190(&pthis->actor.projectedPos, sfxId);
+        Audio_PlaySoundWithPos(&pthis->actor.projectedPos, sfxId);
     }
 }
 
 void func_808326F0(Player* pthis) {
-    u16* entry = &D_8085361C[0];
+    const u16* entry = &D_8085361C[0];
     s32 i;
 
     for (i = 0; i < 4; i++) {
@@ -1325,7 +1325,7 @@ void func_808328EC(Player* pthis, u16 sfxId) {
     pthis->stateFlags2 |= 8;
 }
 
-void func_80832924(Player* pthis, struct_80832924* entry) {
+static void func_80832924(Player* pthis, const struct_80832924* entry) {
     s32 data;
     s32 flags;
     u32 cont;
@@ -1529,7 +1529,7 @@ void func_8083328C(GlobalContext* globalCtx, Player* pthis, LinkAnimationHeader*
 }
 
 s32 Player_IsSwimmingWithoutIronBoots(Player* pthis) {
-    return (pthis->stateFlags1 & 0x8000000) && (pthis->currentBoots != PLAYER_BOOTS_IRON);
+	return (pthis->stateFlags1 & PLAYER_STATE_SWIMMING) && (pthis->currentBoots != PLAYER_BOOTS_IRON);
 }
 
 s32 func_808332E4(Player* pthis) {
@@ -1537,7 +1537,7 @@ s32 func_808332E4(Player* pthis) {
 }
 
 void func_808332F4(Player* pthis, GlobalContext* globalCtx) {
-    GetItemEntry* giEntry = &sGetItemTable[pthis->getItemId - 1];
+    const GetItemEntry* giEntry = &sGetItemTable[pthis->getItemId - 1];
 
     pthis->unk_862 = ABS(giEntry->gi);
 }
@@ -1958,7 +1958,7 @@ void func_80834298(Player* pthis, GlobalContext* globalCtx) {
 s32 func_80834380(GlobalContext* globalCtx, Player* pthis, s32* itemPtr, s32* typePtr) {
     if (LINK_IS_ADULT) {
         *itemPtr = ITEM_BOW;
-        if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
+        if (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//Mounted on a horse?
             *typePtr = ARROW_NORMAL_HORSE;
         } else {
             *typePtr = pthis->heldItemActionParam - 6;
@@ -1984,7 +1984,7 @@ s32 func_8083442C(Player* pthis, GlobalContext* globalCtx) {
 
     if ((pthis->heldItemActionParam >= PLAYER_AP_BOW_FIRE) && (pthis->heldItemActionParam <= PLAYER_AP_BOW_0E) &&
         (gSaveContext.unk_13F0 != 0)) {
-        func_80078884(NA_SE_SY_ERROR);
+        Common_PlaySfx(NA_SE_SY_ERROR);
     } else {
         func_80833638(pthis, func_808351D4);
 
@@ -2213,7 +2213,7 @@ s32 func_80834D2C(Player* pthis, GlobalContext* globalCtx) {
         LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_002628);
     }
 
-    if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
+    if (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//Mounted on a horse?
         func_80832284(globalCtx, pthis, &gPlayerAnim_003380);
     } else if ((pthis->actor.bgCheckFlags & 1) && !func_80833B54(pthis)) {
         func_80832284(globalCtx, pthis, D_80853914[pthis->modelAnimType]);
@@ -2685,7 +2685,7 @@ void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item) {
                  (temp = Player_ActionToExplosive(pthis, actionParam),
                   ((temp >= 0) && ((AMMO(sExplosiveInfos[temp].itemId) == 0) ||
                                    (globalCtx->actorCtx.actorLists[ACTORCAT_EXPLOSIVE].length >= 3)))))) {
-                func_80078884(NA_SE_SY_ERROR);
+                Common_PlaySfx(NA_SE_SY_ERROR);
                 return;
             }
 
@@ -2696,9 +2696,9 @@ void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item) {
                     } else {
                         globalCtx->actorCtx.unk_03 = 1;
                     }
-                    func_80078884((globalCtx->actorCtx.unk_03 != 0) ? NA_SE_SY_GLASSMODE_ON : NA_SE_SY_GLASSMODE_OFF);
+                    Common_PlaySfx((globalCtx->actorCtx.unk_03 != 0) ? NA_SE_SY_GLASSMODE_ON : NA_SE_SY_GLASSMODE_OFF);
                 } else {
-                    func_80078884(NA_SE_SY_ERROR);
+                    Common_PlaySfx(NA_SE_SY_ERROR);
                 }
                 return;
             }
@@ -2707,7 +2707,7 @@ void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item) {
                 if (AMMO(ITEM_NUT) != 0) {
                     func_8083C61C(globalCtx, pthis);
                 } else {
-                    func_80078884(NA_SE_SY_ERROR);
+                    Common_PlaySfx(NA_SE_SY_ERROR);
                 }
                 return;
             }
@@ -2720,7 +2720,7 @@ void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item) {
                     pthis->itemActionParam = actionParam;
                     pthis->unk_6AD = 4;
                 } else {
-                    func_80078884(NA_SE_SY_ERROR);
+                    Common_PlaySfx(NA_SE_SY_ERROR);
                 }
                 return;
             }
@@ -2792,7 +2792,7 @@ void func_80836448(GlobalContext* globalCtx, Player* pthis, LinkAnimationHeader*
             pthis->unk_84F = 1;
         } else {
             globalCtx->gameOverCtx.state = GAMEOVER_DEATH_START;
-            func_800F6AB0(0);
+            Audio_FadeOutPlayers(0);
             Audio_PlayFanfare(NA_BGM_GAME_OVER);
             gSaveContext.seqId = (u8)NA_BGM_DISABLED;
             gSaveContext.natureAmbienceId = 0xFF;
@@ -2812,7 +2812,7 @@ s32 func_808365C8(Player* pthis) {
 }
 
 s32 func_80836670(Player* pthis, GlobalContext* globalCtx) {
-    if (!(pthis->stateFlags1 & 0x800000) && (pthis->actor.parent != NULL) && Player_HoldsHookshot(pthis)) {
+    if (!(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && (pthis->actor.parent != NULL) && Player_HoldsHookshot(pthis)) {
         func_80835C58(globalCtx, pthis, func_80850AEC, 1);
         pthis->stateFlags3 |= 0x80;
         func_80832264(globalCtx, pthis, &gPlayerAnim_002C90);
@@ -3614,7 +3614,7 @@ s32 func_808382DC(Player* pthis, GlobalContext* globalCtx) {
 
             func_80832698(pthis, NA_SE_VO_LI_TAKEN_AWAY);
             globalCtx->unk_11DE9 = 1;
-            func_80078884(NA_SE_OC_ABYSS);
+            Common_PlaySfx(NA_SE_OC_ABYSS);
         } else if ((pthis->unk_8A1 != 0) && ((pthis->unk_8A1 >= 2) || (pthis->invincibilityTimer == 0))) {
             u8 sp5C[] = { 2, 1, 1 };
 
@@ -3875,7 +3875,7 @@ s32 func_80838FB8(GlobalContext* globalCtx, Player* pthis) {
         func_80838F5C(globalCtx, pthis);
         func_80832284(globalCtx, pthis, &gPlayerAnim_003040);
         func_80832698(pthis, NA_SE_VO_LI_FALL_S);
-        func_800788CC(NA_SE_OC_SECRET_WARP_IN);
+        Common_PlaySfx2(NA_SE_OC_SECRET_WARP_IN);
         return 1;
     }
 
@@ -3954,8 +3954,8 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
                 ((sp34 < 100) || (pthis->actor.bgCheckFlags & 1))) {
 
                 if (temp == 11) {
-                    func_800788CC(NA_SE_OC_SECRET_HOLE_OUT);
-                    func_800F6964(5);
+                    Common_PlaySfx2(NA_SE_OC_SECRET_HOLE_OUT);
+                    Audio_FadeOutMostSFX(5);
                     gSaveContext.seqId = (u8)NA_BGM_DISABLED;
                     gSaveContext.natureAmbienceId = 0xFF;
                 } else {
@@ -4006,7 +4006,7 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
                             Gameplay_TriggerVoidOut(globalCtx);
                         }
                         globalCtx->fadeTransition = 4;
-                        func_80078884(NA_SE_OC_ABYSS);
+                        Common_PlaySfx(NA_SE_OC_ABYSS);
                     } else {
                         func_80838F5C(globalCtx, pthis);
                         pthis->unk_850 = 9999;
@@ -4613,19 +4613,9 @@ s32 func_8083ADD4(GlobalContext* globalCtx, Player* pthis) {
 
 void func_8083AE40(Player* pthis, s16 objectId) {
     s32 pad;
-    u32 size;
 
     if (objectId != 0) {
-        pthis->giObjectLoading = true;
-        //osCreateMesgQueue(&pthis->giObjectLoadQueue, &pthis->giObjectLoadMsg, 1);
-
-        size = POINTER_SUB2(gObjectTable[objectId].vromEnd, gObjectTable[objectId].vromStart);
-
-        LOG_HEX("size", size, "../z_player.c", 9090);
-        ASSERT(size <= 1024 * 8, "size <= 1024 * 8", "../z_player.c", 9091);
-
-        DmaMgr_SendRequest2(&pthis->giObjectDmaRequest, pthis->giObjectSegment, gObjectTable[objectId].vromStart,
-                            size, 0, &pthis->giObjectLoadQueue, NULL, "../z_player.c", 9099);
+        pthis->giObjectSegment = gObjectTable[objectId].vromStart.buffer();
     }
 }
 
@@ -4668,11 +4658,11 @@ static LinkAnimationHeader* D_80854548[] = {
 s32 func_8083B040(Player* pthis, GlobalContext* globalCtx) {
     s32 sp2C;
     s32 sp28;
-    GetItemEntry* giEntry;
+    const GetItemEntry* giEntry;
     Actor* targetActor;
     
     if ((pthis->unk_6AD != 0) &&
-        (Player_IsSwimmingWithoutIronBoots(pthis) || (pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x800000))) {
+        (Player_IsSwimmingWithoutIronBoots(pthis) || (pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED))) {
 
         if (!func_8083ADD4(globalCtx, pthis)) {
             if (pthis->unk_6AD == 4) {
@@ -4784,18 +4774,18 @@ s32 func_8083B040(Player* pthis, GlobalContext* globalCtx) {
                     }
                 }
             } else if (func_8083AD4C(globalCtx, pthis)) {
-                if (!(pthis->stateFlags1 & 0x800000)) {//Not mounted on a horse
+                if (!(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)) {//Not mounted on a horse
                     func_80835C58(globalCtx, pthis, func_8084B1D8, 1);
                     pthis->unk_850 = 13;
                     func_8083B010(pthis);
                 }
                 pthis->stateFlags1 |= 0x100000;
-                func_80078884(NA_SE_SY_CAMERA_ZOOM_UP);
+                Common_PlaySfx(NA_SE_SY_CAMERA_ZOOM_UP);
                 func_80832210(pthis);
                 return 1;
             } else {
                 pthis->unk_6AD = 0;
-                func_80078884(NA_SE_SY_ERROR);
+                Common_PlaySfx(NA_SE_SY_ERROR);
                 return 0;
             }
 
@@ -4836,7 +4826,7 @@ s32 func_8083B644(Player* pthis, GlobalContext* globalCtx) {
             if (!(pthis->stateFlags1 & 0x800) ||
                 ((pthis->heldActor != NULL) && (sp28 || (sp34 == pthis->heldActor) || (sp2C == pthis->heldActor) ||
                                                ((sp34 != NULL) && (sp34->flags & ACTOR_FLAG_16))))) {
-                if ((pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & 0x800000) ||
+                if ((pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) ||
                     (Player_IsSwimmingWithoutIronBoots(pthis) && !(pthis->stateFlags2 & 0x400))) {
 
                     if (sp34 != NULL) {
@@ -4907,7 +4897,7 @@ s32 func_8083B998(Player* pthis, GlobalContext* globalCtx) {
         pthis->stateFlags2 |= 0x200000;
     } else if ((pthis->naviTextId == 0) && !func_8008E9C4(pthis) && CHECK_BTN_ALL(sControlInput->press.button, BTN_CUP) &&
                (YREG(15) != 0x10) && (YREG(15) != 0x20) && !func_8083B8F4(pthis, globalCtx)) {
-        func_80078884(NA_SE_SY_ERROR);
+        Common_PlaySfx(NA_SE_SY_ERROR);
     }
 
     return 0;
@@ -5072,7 +5062,7 @@ void func_8083C148(Player* pthis, GlobalContext* globalCtx) {
 }
 
 s32 func_8083C1DC(Player* pthis, GlobalContext* globalCtx) {
-    if (!func_80833B54(pthis) && (D_808535E0 == 0) && !(pthis->stateFlags1 & 0x800000) &&
+    if (!func_80833B54(pthis) && (D_808535E0 == 0) && !(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) &&
         CHECK_BTN_ALL(sControlInput->press.button, BTN_A)) {
         if (func_8083BC7C(pthis, globalCtx)) {
             return 1;
@@ -5211,7 +5201,7 @@ s32 func_8083C6B8(GlobalContext* globalCtx, Player* pthis) {
 
             if (!(pthis->actor.bgCheckFlags & 1) || (pthis->actor.world.pos.z > 1300.0f) ||
                 BgCheck_SphVsFirstPoly(&globalCtx->colCtx, &sp24, 20.0f)) {
-                func_80078884(NA_SE_SY_ERROR);
+                Common_PlaySfx(NA_SE_SY_ERROR);
                 return 0;
             }
 
@@ -5744,7 +5734,7 @@ s32 func_8083E0FC(Player* pthis, GlobalContext* globalCtx) {
 
         func_80836898(globalCtx, pthis, func_8083A360);
 
-        pthis->stateFlags1 |= 0x800000;//Mounted on a horse
+        pthis->stateFlags1 |= PLAYER_STATE_HORSE_MOUNTED;//Mounted on a horse
         pthis->actor.bgCheckFlags &= ~0x20;
 
         if (pthis->mountSide < 0) {
@@ -5832,7 +5822,7 @@ static s32 D_80854598[] = {
     0xFFDB0871, 0xF8310000, 0x00940470, 0xF3980000, 0xFFB504A9, 0x0C9F0000, 0x08010402,
 };
 
-void func_8083E4C4(GlobalContext* globalCtx, Player* pthis, GetItemEntry* giEntry) {
+static void func_8083E4C4(GlobalContext* globalCtx, Player* pthis, const GetItemEntry* giEntry) {
     s32 sp1C = giEntry->field & 0x1F;
 
     if (!(giEntry->field & 0x80)) {
@@ -5845,7 +5835,7 @@ void func_8083E4C4(GlobalContext* globalCtx, Player* pthis, GetItemEntry* giEntr
         Item_Give(globalCtx, giEntry->itemId);
     }
 
-    func_80078884((pthis->getItemId < 0) ? NA_SE_SY_GET_BOXITEM : NA_SE_SY_GET_ITEM);
+    Common_PlaySfx((pthis->getItemId < 0) ? NA_SE_SY_GET_BOXITEM : NA_SE_SY_GET_ITEM);
 }
 
 s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx) {
@@ -5859,7 +5849,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx) {
             }
 
             if (pthis->getItemId < GI_MAX) {
-                GetItemEntry* giEntry = &sGetItemTable[pthis->getItemId - 1];
+                const GetItemEntry* giEntry = &sGetItemTable[pthis->getItemId - 1];
 
                 if ((interactedActor != &pthis->actor) && !iREG(67)) {
                     interactedActor->parent = &pthis->actor;
@@ -5888,7 +5878,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx) {
         } else if (CHECK_BTN_ALL(sControlInput->press.button, BTN_A) && !(pthis->stateFlags1 & 0x800) &&
                    !(pthis->stateFlags2 & 0x400)) {
             if (pthis->getItemId != GI_NONE) {
-                GetItemEntry* giEntry = &sGetItemTable[-pthis->getItemId - 1];
+                const GetItemEntry* giEntry = &sGetItemTable[-pthis->getItemId - 1];
                 EnBox* chest = (EnBox*)interactedActor;
 
                 if (giEntry->itemId != ITEM_NONE) {
@@ -9044,7 +9034,7 @@ void Player_Init(Actor* pthisx, GlobalContext* globalCtx2) {
     Player_SetEquipmentData(globalCtx, pthis);
     pthis->prevBoots = pthis->currentBoots;
     Player_InitCommon(pthis, globalCtx, gPlayerSkelHeaders[((void)0, gSaveContext.linkAge)]);
-    pthis->giObjectSegment = (void*)(((uintptr_t)ZeldaArena_MallocDebug(0x3008, "../z_player.c", 17175) + 8) & ~0xF);
+    pthis->giObjectSegment = nullptr;
 
     sp50 = gSaveContext.respawnFlag;
 
@@ -9225,9 +9215,9 @@ void func_808473D4(GlobalContext* globalCtx, Player* pthis) {
                     }
                 } else if (!sp1C && (pthis->stateFlags2 & 1)) {
                     doAction = DO_ACTION_GRAB;
-                } else if ((pthis->stateFlags2 & 4) || (!(pthis->stateFlags1 & 0x800000) && (pthis->rideActor != NULL))) {
+                } else if ((pthis->stateFlags2 & 4) || (!(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && (pthis->rideActor != NULL))) {
                     doAction = DO_ACTION_CLIMB;
-                } else if ((pthis->stateFlags1 & 0x800000) && !EN_HORSE_CHECK_4((EnHorse*)pthis->rideActor) &&
+                } else if ((pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && !EN_HORSE_CHECK_4((EnHorse*)pthis->rideActor) &&
                            (func_8084D3E4 != pthis->func_674)) {
                     if ((pthis->stateFlags2 & 2) && (pthis->targetActor != NULL)) {
                         if (pthis->targetActor->category == ACTORCAT_NPC) {
@@ -9245,7 +9235,7 @@ void func_808473D4(GlobalContext* globalCtx, Player* pthis) {
                         doAction = DO_ACTION_CHECK;
                     }
                 } else if ((pthis->stateFlags1 & 0x202000) ||
-                           ((pthis->stateFlags1 & 0x800000) && (pthis->stateFlags2 & 0x400000))) {
+                           ((pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && (pthis->stateFlags2 & 0x400000))) {
                     doAction = DO_ACTION_DOWN;
                 } else if (pthis->stateFlags2 & 0x10000) {
                     doAction = DO_ACTION_ENTER;
@@ -9661,7 +9651,7 @@ void Player_UpdateCamAndSeqModes(GlobalContext* globalCtx, Player* pthis) {
             } else {
                 camMode = CAM_MODE_NORMAL;
                 if ((pthis->linearVelocity == 0.0f) &&
-                    (!(pthis->stateFlags1 & 0x800000) || (pthis->rideActor->speedXZ == 0.0f))) {
+                    (!(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (pthis->rideActor->speedXZ == 0.0f))) {
                     // not moving
                     seqMode = SEQ_MODE_STILL;
                 }
@@ -9844,7 +9834,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
         pthis->unk_A86++;
         if (pthis->unk_A86 == 0) {
             pthis->unk_A86 = 1;
-            func_80078884(NA_SE_OC_REVENGE);
+            Common_PlaySfx(NA_SE_OC_REVENGE);
         }
     }
 
@@ -9926,10 +9916,10 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
             pthis->prevBoots = pthis->currentBoots;
         }
 
-        if ((pthis->actor.parent == NULL) && (pthis->stateFlags1 & 0x800000)) {
+        if ((pthis->actor.parent == NULL) && (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)) {
             pthis->actor.parent = pthis->rideActor;
             func_8083A360(globalCtx, pthis);
-            pthis->stateFlags1 |= 0x800000;//Mounted on a horse
+            pthis->stateFlags1 |= PLAYER_STATE_HORSE_MOUNTED;//Mounted on a horse
             func_80832264(globalCtx, pthis, &gPlayerAnim_0033B8);
             func_80832F54(globalCtx, pthis, 0x9B);
             pthis->unk_850 = 99;
@@ -10004,7 +9994,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
             D_808535E4 = 0;
             pthis->unk_A7A = 0;
 
-            if (!(pthis->stateFlags1 & 1) && (pthis->stateFlags1 & 0x800000)) {
+            if (!(pthis->stateFlags1 & 1) && (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)) {
                 EnHorse* rideActor = (EnHorse*)pthis->rideActor;
                 CollisionPoly* sp5C;
                 s32 sp58;
@@ -10077,7 +10067,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
             }
         }
 
-        if ((globalCtx->csCtx.state != CS_STATE_IDLE) && (pthis->csMode != 6) && !(pthis->stateFlags1 & 0x800000) &&
+        if ((globalCtx->csCtx.state != CS_STATE_IDLE) && (pthis->csMode != 6) && !(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) &&
             !(pthis->stateFlags2 & 0x80) && (pthis->actor.category == ACTORCAT_PLAYER)) {
             CsCmdActorAction* linkActionCsCmd = globalCtx->csCtx.linkAction;
 
@@ -10160,7 +10150,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
             pthis->unk_6A8 = NULL;
         }
 
-        pthis->stateFlags2 &= ~0x800000;
+        pthis->stateFlags2 &= ~PLAYER_STATE_HORSE_MOUNTED;
         pthis->unk_6A4 = FLT_MAX;
 
         temp_f0 = pthis->actor.world.pos.y - pthis->actor.prevPos.y;
@@ -10326,7 +10316,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
     }
 
     if ((pthis->currentBoots == PLAYER_BOOTS_HOVER) && !(pthis->actor.bgCheckFlags & 1) &&
-        !(pthis->stateFlags1 & 0x800000) && (pthis->hoverBootsTimer != 0)) {
+        !(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && (pthis->hoverBootsTimer != 0)) {
         s32 sp5C;
         s32 hoverBootsTimer = pthis->hoverBootsTimer;
 
@@ -10486,7 +10476,7 @@ s16 func_8084ABD8(GlobalContext* globalCtx, Player* pthis, s32 arg2, s16 arg3) {
         temp2 = CLAMP(temp2, -3000, 3000);
         pthis->actor.focus.rot.y += temp2;
     } else {
-        temp1 = (pthis->stateFlags1 & 0x800000) ? 3500 : 14000;//Riding a horse?
+	    temp1 = (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) ? 3500 : 14000; // Riding a horse?
         temp3 = ((sControlInput->rel.stick_y >= 0) ? 1 : -1) *
                 (s32)((1.0f - Math_CosS(sControlInput->rel.stick_y * 200)) * 1500.0f);
         pthis->actor.focus.rot.x += temp3;
@@ -10615,7 +10605,7 @@ void func_8084B1D8(Player* pthis, GlobalContext* globalCtx) {
           CHECK_BTN_ANY(sControlInput->press.button,
                         BTN_A | BTN_B | BTN_R | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN)))) {
         func_8083C148(pthis, globalCtx);
-        func_80078884(NA_SE_SY_CAMERA_ZOOM_UP);
+        Common_PlaySfx(NA_SE_SY_CAMERA_ZOOM_UP);
     } else if ((DECR(pthis->unk_850) == 0) || (pthis->unk_6AD != 2)) {
         if (func_8008F128(pthis)) {
             pthis->unk_6AE |= 0x43;
@@ -10678,7 +10668,7 @@ void func_8084B530(Player* pthis, GlobalContext* globalCtx) {
 
         if (!func_8084B4D4(globalCtx, pthis) && !func_8084B3CC(globalCtx, pthis) && !func_8083ADD4(globalCtx, pthis)) {
             if ((pthis->targetActor != pthis->interactRangeActor) || !func_8083E5A8(pthis, globalCtx)) {
-                if (pthis->stateFlags1 & 0x800000) {//When mounted on a horse
+                if (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//When mounted on a horse
                     s32 sp24 = pthis->unk_850;
                     func_8083A360(globalCtx, pthis);
                     pthis->unk_850 = sp24;
@@ -10694,7 +10684,7 @@ void func_8084B530(Player* pthis, GlobalContext* globalCtx) {
         return;
     }
 
-    if (pthis->stateFlags1 & 0x800000) {//When mounted on a horse
+    if (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//When mounted on a horse
         func_8084CC98(pthis, globalCtx);
     } else if (Player_IsSwimmingWithoutIronBoots(pthis)) {
         func_8084D610(pthis, globalCtx);
@@ -11483,7 +11473,7 @@ void func_8084D3E4(Player* pthis, GlobalContext* globalCtx) {
         EnHorse* rideActor = (EnHorse*)pthis->rideActor;
 
         func_8083C0E8(pthis, globalCtx);
-        pthis->stateFlags1 &= ~0x800000;
+        pthis->stateFlags1 &= ~PLAYER_STATE_HORSE_MOUNTED;
         pthis->actor.parent = NULL;
         AREG(6) = 0;
 
@@ -11753,7 +11743,7 @@ void func_8084DFAC(GlobalContext* globalCtx, Player* pthis) {
 }
 
 s32 func_8084DFF4(GlobalContext* globalCtx, Player* pthis) {
-    GetItemEntry* giEntry;
+    const GetItemEntry* giEntry;
     s32 temp1;
     s32 temp2;
 
@@ -11772,7 +11762,7 @@ s32 func_8084DFF4(GlobalContext* globalCtx, Player* pthis) {
             ((pthis->getItemId >= GI_RUPEE_PURPLE) && (pthis->getItemId <= GI_RUPEE_GOLD)) ||
             ((pthis->getItemId >= GI_RUPEE_GREEN_LOSE) && (pthis->getItemId <= GI_RUPEE_PURPLE_LOSE)) ||
             (pthis->getItemId == GI_HEART)) {
-            Audio_PlaySoundGeneral(NA_SE_SY_GET_BOXITEM, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+            Audio_PlaySoundGeneral(NA_SE_SY_GET_BOXITEM, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         } else {
             if ((pthis->getItemId == GI_HEART_CONTAINER_2) || (pthis->getItemId == GI_HEART_CONTAINER) ||
                 ((pthis->getItemId == GI_HEART_PIECE) &&
@@ -12226,7 +12216,7 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx) {
 
             func_80853148(globalCtx, targetActor);
         } else {
-            GetItemEntry* giEntry = &sGetItemTable[D_80854528[pthis->exchangeItemId - 1] - 1];
+            const GetItemEntry* giEntry = &sGetItemTable[D_80854528[pthis->exchangeItemId - 1] - 1];
 
             if (pthis->itemActionParam >= PLAYER_AP_LETTER_ZELDA) {
                 if (giEntry->gi >= 0) {
@@ -12407,7 +12397,7 @@ void func_8084F88C(Player* pthis, GlobalContext* globalCtx) {
             }
 
             globalCtx->fadeTransition = 4;
-            func_80078884(NA_SE_OC_ABYSS);
+            Common_PlaySfx(NA_SE_OC_ABYSS);
         } else {
             globalCtx->fadeTransition = 2;
             gSaveContext.nextTransition = 2;
@@ -12741,7 +12731,7 @@ void func_8085063C(Player* pthis, GlobalContext* globalCtx) {
         if (globalCtx->msgCtx.choiceIndex == 1) {
             gSaveContext.respawn[RESPAWN_MODE_TOP].data = -respawnData;
             gSaveContext.fw.set = 0;
-            func_80078914(&gSaveContext.respawn[RESPAWN_MODE_TOP].pos, NA_SE_PL_MAGIC_WIND_VANISH);
+            Common_PlaySfxAtPos(&gSaveContext.respawn[RESPAWN_MODE_TOP].pos, NA_SE_PL_MAGIC_WIND_VANISH);
         }
 
         func_80853080(pthis, globalCtx);
@@ -12761,7 +12751,7 @@ void func_8085076C(Player* pthis, GlobalContext* globalCtx) {
 
     if (pthis->unk_850++ == 20) {
         gSaveContext.respawn[RESPAWN_MODE_TOP].data = respawnData + 1;
-        func_80078914(&gSaveContext.respawn[RESPAWN_MODE_TOP].pos, NA_SE_PL_MAGIC_WIND_WARP);
+        Common_PlaySfxAtPos(&gSaveContext.respawn[RESPAWN_MODE_TOP].pos, NA_SE_PL_MAGIC_WIND_WARP);
     }
 }
 
@@ -14087,7 +14077,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor) {
             pthis->actor.textId = actor->textId;
         }
 
-        if (pthis->stateFlags1 & 0x800000) {//Mounted on a horse?
+        if (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//Mounted on a horse?
             s32 sp24 = pthis->unk_850;
 
             func_80832528(globalCtx, pthis);
@@ -14128,4 +14118,32 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor) {
         pthis->naviActor->flags |= ACTOR_FLAG_8;
         func_80835EA4(globalCtx, 0xB);
     }
+}
+
+void Player_Reset()
+{
+	D_80858AA0 = 0;
+	D_80858AA4 = 0;
+	D_80858AA8 = {0, 0, 0};
+	sControlInput = nullptr;
+
+    D_808535D0 = false;
+	D_808535D4 = 0.0f;
+	D_808535D8 = 0;
+	D_808535DC = 0;
+	D_808535E0 = 0;
+	D_808535E4 = 0;
+	D_808535E8 = 1.0f;
+	D_808535EC = 1.0f;
+	D_808535F0 = 0;
+	D_808535F4 = 0;
+	D_808535F8 = 0;
+	D_808535FC = 0;
+	D_80853600 = 0.0f;
+	D_80853604 = 0;
+	D_80853608 = 0;
+	D_8085360C = 0;
+	D_80853610 = 0;
+	D_80853614 = 0;
+	D_80853618 = 0;
 }

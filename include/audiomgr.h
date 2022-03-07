@@ -1,7 +1,8 @@
 #pragma once
-#include "z64audio.h"
 #include "sched.h"
 #include "z64math.h"
+
+struct AudioTask;
 
 struct SoundSource {
     /* 0x00 */ u16 countdown;
@@ -27,6 +28,6 @@ struct AudioMgr {
     /* 0x00E8 */ OSThread unk_E8;
 }; // size = 0x298
 
-extern Vec3f D_801333D4;
+extern Vec3f gAudioDefaultPos;
 extern f32 D_801333E0;
-extern s8 D_801333E8;
+extern s8 gReverbAdd2;

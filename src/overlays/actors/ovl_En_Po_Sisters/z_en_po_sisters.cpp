@@ -836,7 +836,7 @@ void func_80ADB17C(EnPoSisters* pthis, GlobalContext* globalCtx) {
             Flags_UnsetSwitch(globalCtx, 0x1B);
         }
         globalCtx->envCtx.unk_BF = 0xFF;
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         Actor_Kill(&pthis->actor);
     } else if (pthis->unk_19A < 32) {
         func_80AD9240(pthis, pthis->unk_19A, &pthis->actor.world.pos);

@@ -203,7 +203,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
 
     gfxCtx->schedMsgQ = &gSchedContext.cmdQ;
 
-    osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
+    //osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext);
 
     if (!oot::config().game().isGraphicsDisabled())
@@ -276,11 +276,6 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
         }
 
         if (HREG(81) < 0) {
-            LogUtils_LogHexDump((void*)&HW_REG(SP_MEM_ADDR_REG, u32), 0x20);
-            LogUtils_LogHexDump((void*)&DPC_START_REG, 0x20);
-        }
-
-        if (HREG(81) < 0) {
             HREG(81) = 0;
         }
     }
@@ -331,7 +326,7 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
         gfxCtx->fbIdx++;
     }
 
-    func_800F3054();
+    Audio_UpdateAll();
 
     {
         OSTime time = osGetTime();

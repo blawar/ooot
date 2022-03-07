@@ -412,7 +412,7 @@ void BgHidanRock_Draw(Actor* thisx, GlobalContext* globalCtx) {
             SkinMatrix_Vec3fMtxFMultXYZ(&globalCtx->viewProjectionMtxF, &pthis->dyna.actor.home.pos, &pthis->unk_170);
         }
 
-        func_80078914(&pthis->unk_170, NA_SE_EV_FIRE_PILLAR - SFX_FLAG);
+        Common_PlaySfxAtPos(&pthis->unk_170, NA_SE_EV_FIRE_PILLAR - SFX_FLAG);
         func_8088BC40(globalCtx, pthis);
     }
 }

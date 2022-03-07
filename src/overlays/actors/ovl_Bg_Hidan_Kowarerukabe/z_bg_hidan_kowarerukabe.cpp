@@ -326,7 +326,7 @@ void BgHidanKowarerukabe_Update(Actor* thisx, GlobalContext* globalCtx) {
             Audio_PlaySoundAtPosition(globalCtx, &pthis->dyna.actor.world.pos, 40, NA_SE_EV_WALL_BROKEN);
         }
 
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         Actor_Kill(&pthis->dyna.actor);
         return;
     }

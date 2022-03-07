@@ -470,7 +470,7 @@ void func_80B12460(EnSyatekiNiw* pthis, GlobalContext* globalCtx) {
 
             if ((pthis->unk_25A == 0) && ((player->actor.world.pos.z - 30.0f) < pthis->actor.world.pos.z)) {
                 Audio_PlaySoundGeneral(NA_SE_VO_LI_DOWN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                       &D_801333E8);
+                                       &gReverbAdd2);
                 pthis->unk_25E = 0x14;
                 pthis->unk_29A = 6;
                 pthis->actor.speedXZ = 0.0f;

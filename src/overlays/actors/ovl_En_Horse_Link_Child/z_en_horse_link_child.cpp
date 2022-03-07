@@ -108,7 +108,7 @@ void func_80A693D0(EnHorseLinkChild* pthis) {
     if ((pthis->skin.skelAnime.curFrame > D_80A6AF5C_34[pthis->unk_1F0]) &&
         !((pthis->unk_1F0 == 0) && (pthis->skin.skelAnime.curFrame > D_80A6AF5C_34[1]))) {
         Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_WALK, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         pthis->unk_1F0++;
         if (pthis->unk_1F0 >= ARRAY_COUNT(D_80A6AF5C_34)) {
             pthis->unk_1F0 = 0;
@@ -122,14 +122,14 @@ void func_80A6948C(EnHorseLinkChild* pthis) {
     } else if (pthis->skin.skelAnime.curFrame == 0.0f) {
         if ((pthis->animationIdx == 3) || (pthis->animationIdx == 4)) {
             Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_RUN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
         } else if (pthis->animationIdx == 1) {
             if (Rand_ZeroOne() > 0.5f) {
                 Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_GROAN, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                       &D_801333E8);
+                                       &gReverbAdd2);
             } else {
                 Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_NEIGH, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                       &D_801333E8);
+                                       &gReverbAdd2);
             }
         }
     }
@@ -371,7 +371,7 @@ void func_80A6A068(EnHorseLinkChild* pthis, GlobalContext* globalCtx) {
 
     if (gSaveContext.entranceIndex == 0x2AE) {
         Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_NEIGH, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         func_80A6A724(pthis);
         return;
     }
@@ -463,7 +463,7 @@ void func_80A6A5A4(EnHorseLinkChild* pthis, GlobalContext* globalCtx) {
     if (DREG(53) != 0) {
         DREG(53) = 0;
         Audio_PlaySoundGeneral(NA_SE_EV_KID_HORSE_NEIGH, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         func_80A6A724(pthis);
     } else {
         pthis->actor.speedXZ = 0.0f;

@@ -734,9 +734,8 @@ void Environment_UpdateSkybox(u8 skyboxId, EnvironmentContext* envCtx, SkyboxCon
             envCtx->skyboxDmaState = SKYBOX_DMA_FILE1_START;
             size = POINTER_SUB2(gSkyboxFiles[newSkybox1Index].file.vromEnd, gSkyboxFiles[newSkybox1Index].file.vromStart);
 
-            osCreateMesgQueue(&envCtx->loadQueue, &envCtx->loadMsg, 1);
             DmaMgr_SendRequest2(&envCtx->dmaRequest, skyboxCtx->staticSegments[0],
-                                gSkyboxFiles[newSkybox1Index].file.vromStart, size, 0, &envCtx->loadQueue, NULL,
+                                gSkyboxFiles[newSkybox1Index].file.vromStart, size, 0, nullptr, NULL,
                                 "../z_kankyo.c", 1264);
             //skyboxCtx->staticSegments[0] = gSkyboxFiles[newSkybox1Index].file.vromStart;
             envCtx->skybox1Index = newSkybox1Index;
@@ -746,9 +745,8 @@ void Environment_UpdateSkybox(u8 skyboxId, EnvironmentContext* envCtx, SkyboxCon
             envCtx->skyboxDmaState = SKYBOX_DMA_FILE2_START;
             size = POINTER_SUB2(gSkyboxFiles[newSkybox2Index].file.vromEnd, gSkyboxFiles[newSkybox2Index].file.vromStart);
 
-            osCreateMesgQueue(&envCtx->loadQueue, &envCtx->loadMsg, 1);
             DmaMgr_SendRequest2(&envCtx->dmaRequest, skyboxCtx->staticSegments[1],
-                                gSkyboxFiles[newSkybox2Index].file.vromStart, size, 0, &envCtx->loadQueue, NULL,
+                                gSkyboxFiles[newSkybox2Index].file.vromStart, size, 0, nullptr, NULL,
                                 "../z_kankyo.c", 1281);
             //skyboxCtx->staticSegments[1] = gSkyboxFiles[newSkybox2Index].file.vromStart;
             envCtx->skybox2Index = newSkybox2Index;
@@ -760,15 +758,13 @@ void Environment_UpdateSkybox(u8 skyboxId, EnvironmentContext* envCtx, SkyboxCon
             if ((newSkybox1Index & 1) ^ ((newSkybox1Index & 4) >> 2)) {
                 size = POINTER_SUB2(gSkyboxFiles[newSkybox1Index].palette.vromEnd, gSkyboxFiles[newSkybox1Index].palette.vromStart);
 
-                osCreateMesgQueue(&envCtx->loadQueue, &envCtx->loadMsg, 1);
                 DmaMgr_SendRequest2(&envCtx->dmaRequest, skyboxCtx->palettes,
-                                    gSkyboxFiles[newSkybox1Index].palette.vromStart, size, 0, &envCtx->loadQueue, NULL,
+                                    gSkyboxFiles[newSkybox1Index].palette.vromStart, size, 0, nullptr, NULL,
                                     "../z_kankyo.c", 1307);
             } else {
                 size = POINTER_SUB2(gSkyboxFiles[newSkybox1Index].palette.vromEnd, gSkyboxFiles[newSkybox1Index].palette.vromStart);
-                osCreateMesgQueue(&envCtx->loadQueue, &envCtx->loadMsg, 1);
                 DmaMgr_SendRequest2(&envCtx->dmaRequest, POINTER_ADD(skyboxCtx->palettes, size),
-                                    gSkyboxFiles[newSkybox1Index].palette.vromStart, size, 0, &envCtx->loadQueue, NULL,
+                                    gSkyboxFiles[newSkybox1Index].palette.vromStart, size, 0, nullptr, NULL,
                                     "../z_kankyo.c", 1320);
             }
         }
@@ -779,27 +775,22 @@ void Environment_UpdateSkybox(u8 skyboxId, EnvironmentContext* envCtx, SkyboxCon
             if ((newSkybox2Index & 1) ^ ((newSkybox2Index & 4) >> 2)) {
                 size = POINTER_SUB2(gSkyboxFiles[newSkybox2Index].palette.vromEnd, gSkyboxFiles[newSkybox2Index].palette.vromStart);
 
-                osCreateMesgQueue(&envCtx->loadQueue, &envCtx->loadMsg, 1);
                 DmaMgr_SendRequest2(&envCtx->dmaRequest, skyboxCtx->palettes,
-                                    gSkyboxFiles[newSkybox2Index].palette.vromStart, size, 0, &envCtx->loadQueue, NULL,
+                                    gSkyboxFiles[newSkybox2Index].palette.vromStart, size, 0, nullptr, NULL,
                                     "../z_kankyo.c", 1342);
             } else {
                 size = POINTER_SUB2(gSkyboxFiles[newSkybox2Index].palette.vromEnd, gSkyboxFiles[newSkybox2Index].palette.vromStart);
-                osCreateMesgQueue(&envCtx->loadQueue, &envCtx->loadMsg, 1);
+
                 DmaMgr_SendRequest2(&envCtx->dmaRequest, POINTER_ADD(skyboxCtx->palettes, size),
-                                    gSkyboxFiles[newSkybox2Index].palette.vromStart, size, 0, &envCtx->loadQueue, NULL,
+                                    gSkyboxFiles[newSkybox2Index].palette.vromStart, size, 0, nullptr, NULL,
                                     "../z_kankyo.c", 1355);
             }
         }
 
         if ((envCtx->skyboxDmaState == SKYBOX_DMA_FILE1_START) || (envCtx->skyboxDmaState == SKYBOX_DMA_FILE2_START)) {
-            if (osRecvMesg(&envCtx->loadQueue, 0, OS_MESG_NOBLOCK) == 0) {
-                envCtx->skyboxDmaState++;
-            }
+            envCtx->skyboxDmaState++;
         } else if (envCtx->skyboxDmaState >= SKYBOX_DMA_FILE1_DONE) {
-            if (osRecvMesg(&envCtx->loadQueue, 0, OS_MESG_NOBLOCK) == 0) {
-                envCtx->skyboxDmaState = SKYBOX_DMA_INACTIVE;
-            }
+            envCtx->skyboxDmaState = SKYBOX_DMA_INACTIVE;
         }
 
         envCtx->skyboxBlend = skyboxBlend;
@@ -930,10 +921,10 @@ void Environment_Update(GlobalContext* globalCtx, EnvironmentContext* envCtx, Li
             osSyncPrintf("\nnext_zelda_time=[%x]", ((void)0, gSaveContext.nextDayTime));
 
             if (((void)0, gSaveContext.nextDayTime) == 0xFF0E) {
-                func_80078884(NA_SE_EV_CHICKEN_CRY_M);
+                Common_PlaySfx(NA_SE_EV_CHICKEN_CRY_M);
                 gSaveContext.nextDayTime = 0xFFFF;
             } else if (((void)0, gSaveContext.nextDayTime) == 0xFF0D) {
-                func_800788CC(NA_SE_EV_DOG_CRY_EVENING);
+                Common_PlaySfx2(NA_SE_EV_DOG_CRY_EVENING);
                 gSaveContext.nextDayTime = 0xFFFF;
             }
         }
@@ -2001,11 +1992,11 @@ void func_800758AC(GlobalContext* globalCtx) {
         osSyncPrintf("\n\n\nBGM Configuration game_play->sound_info.BGM=[%d] old_bgm=[%d]\n\n", globalCtx->sequenceCtx.seqId,
                      ((void)0, gSaveContext.seqId));
         if (((void)0, gSaveContext.seqId) != globalCtx->sequenceCtx.seqId) {
-            func_800F5550(globalCtx->sequenceCtx.seqId);
+            Audio_PlaySequence(globalCtx->sequenceCtx.seqId);
         }
     } else if (((void)0, gSaveContext.dayTime) > 0x4AAA && ((void)0, gSaveContext.dayTime) < 0xB71D) {
         if (((void)0, gSaveContext.seqId) != globalCtx->sequenceCtx.seqId) {
-            func_800F5550(globalCtx->sequenceCtx.seqId);
+            Audio_PlaySequence(globalCtx->sequenceCtx.seqId);
         }
 
         globalCtx->envCtx.unk_E0 = 1;
@@ -2039,7 +2030,7 @@ void func_80075B44(GlobalContext* globalCtx) {
             func_800F6D58(86, 1, 0);
             if (globalCtx->envCtx.unk_EE[0] == 0 && globalCtx->envCtx.unk_F2[0] == 0) {
                 osSyncPrintf("\n\n\nNa_StartMorinigBgm\n\n");
-                func_800F5510(globalCtx->sequenceCtx.seqId);
+                Audio_PlaySequence2(globalCtx->sequenceCtx.seqId);
             }
             globalCtx->envCtx.unk_E0++;
             break;
@@ -2053,7 +2044,7 @@ void func_80075B44(GlobalContext* globalCtx) {
             break;
         case 2:
             if (gSaveContext.dayTime > 0xC000) {
-                func_800788CC(NA_SE_EV_DOG_CRY_EVENING);
+                Common_PlaySfx2(NA_SE_EV_DOG_CRY_EVENING);
                 globalCtx->envCtx.unk_E0++;
             }
             break;
@@ -2081,7 +2072,7 @@ void func_80075B44(GlobalContext* globalCtx) {
                 gSaveContext.totalDays++;
                 gSaveContext.bgsDayCount++;
                 gSaveContext.dogIsLost = true;
-                func_80078884(NA_SE_EV_CHICKEN_CRY_M);
+                Common_PlaySfx(NA_SE_EV_CHICKEN_CRY_M);
                 if ((Inventory_ReplaceItem(globalCtx, ITEM_WEIRD_EGG, ITEM_CHICKEN) ||
                      Inventory_ReplaceItem(globalCtx, ITEM_POCKET_EGG, ITEM_POCKET_CUCCO)) &&
                     globalCtx->csCtx.state == 0 && !Player_InCsMode(globalCtx)) {
@@ -2481,7 +2472,7 @@ void func_80077684(GlobalContext* globalCtx) {
     func_800F6D58(14, 1, 0);
     func_800F6D58(15, 1, 0);
 
-    if (func_800FA0B4(SEQ_PLAYER_BGM_MAIN) == NA_BGM_NATURE_AMBIENCE) {
+    if (Audio_GetSequenceBeingPlayed(SEQ_PLAYER_BGM_MAIN) == NA_BGM_NATURE_AMBIENCE) {
         gSaveContext.seqId = NA_BGM_NATURE_SFX_RAIN;
         func_800758AC(globalCtx);
     }

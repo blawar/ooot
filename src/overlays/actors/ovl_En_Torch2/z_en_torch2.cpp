@@ -348,7 +348,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2) {
                             EnTorch2_SwingSword(globalCtx, input, pthis);
                             sSwordJumpState++;
                         } else if (sSwordJumpTimer == 19) {
-                            func_800F4190(&pthis->actor.projectedPos, NA_SE_VO_LI_AUTO_JUMP);
+                            Audio_PlaySoundWithPos(&pthis->actor.projectedPos, NA_SE_VO_LI_AUTO_JUMP);
                         }
                     }
                 } else {
@@ -656,7 +656,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2) {
         }
         if (staggerThreshold < sStaggerCount) {
             pthis->skelAnime.playSpeed *= 0.6f;
-            func_800F4190(&pthis->actor.projectedPos, NA_SE_PL_DAMAGE);
+            Audio_PlaySoundWithPos(&pthis->actor.projectedPos, NA_SE_PL_DAMAGE);
             sStaggerTimer = 0;
             sStaggerCount = 0;
         }

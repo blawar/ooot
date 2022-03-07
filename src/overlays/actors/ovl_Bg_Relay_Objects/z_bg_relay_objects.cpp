@@ -72,7 +72,7 @@ void BgRelayObjects_Init(Actor* thisx, GlobalContext* globalCtx) {
         } else {
             thisx->world.rot.y = 0x80;
         }
-        func_800F5718();
+        Audio_PlayWindmill();
         thisx->room = -1;
         thisx->flags |= ACTOR_FLAG_5;
         if (D_808A9508 & 2) {
@@ -160,7 +160,7 @@ void func_808A9234(BgRelayObjects* pthis, GlobalContext* globalCtx) {
         Rumble_Shake(pthis->dyna.actor.xyzDistToPlayerSq, 180, 20, 100);
         Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_STONE_BOUND);
         if (pthis->unk_169 != globalCtx->roomCtx.curRoom.num) {
-            func_800788CC(NA_SE_EN_PO_LAUGH);
+            Common_PlaySfx2(NA_SE_EN_PO_LAUGH);
             pthis->timer = 5;
             pthis->actionFunc = func_808A932C;
             return;
@@ -183,7 +183,7 @@ void func_808A932C(BgRelayObjects* pthis, GlobalContext* globalCtx) {
     }
     if (pthis->timer == 0) {
         if (!Player_InCsMode(globalCtx)) {
-            func_80078884(NA_SE_OC_ABYSS);
+            Common_PlaySfx(NA_SE_OC_ABYSS);
             Gameplay_TriggerRespawn(globalCtx);
             pthis->actionFunc = BgRelayObjects_DoNothing;
         }

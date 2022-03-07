@@ -156,7 +156,7 @@ void EnSyatekiItm_StartRound(EnSyatekiItm* pthis, GlobalContext* globalCtx) {
 
         pthis->timer = (pthis->roundNum == 1) ? 50 : 30;
 
-        func_80078884(NA_SE_SY_FOUND);
+        Common_PlaySfx(NA_SE_SY_FOUND);
         pthis->actionFunc = EnSyatekiItm_SpawnTargets;
     }
 }

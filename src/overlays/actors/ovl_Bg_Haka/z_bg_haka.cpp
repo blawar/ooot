@@ -116,7 +116,7 @@ void func_8087B938(BgHaka* pthis, GlobalContext* globalCtx) {
         pthis->dyna.unk_150 = 0.0f;
         player->stateFlags2 &= ~0x10;
         if (pthis->dyna.actor.params == 1) {
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         } else if (!IS_DAY && globalCtx->sceneNum == SCENE_SPOT02) {
             Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_POH, pthis->dyna.actor.home.pos.x,
                         pthis->dyna.actor.home.pos.y, pthis->dyna.actor.home.pos.z, 0, pthis->dyna.actor.shape.rot.y, 0,

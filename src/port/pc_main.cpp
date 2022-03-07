@@ -1,10 +1,17 @@
 #define WIN32_LEAN_AND_MEAN
 #define ENABLE_OPENGL
 #define USE_GLIDEN64
+#define DISABLE_AUDIO
 #include "window.h"
 #include "options.h"
 #include "player/players.h"
 #include "controller/tas.h"
+#include "../../AziAudio/AziAudio/AudioSpec.h"
+#include "ultra64/rcp.h"
+#include "z64audio.h"
+#include "controller/controllers.h"
+#include "def/audio_rsp.h"
+#include "def/audioMgr.h"
 
 static std::unique_ptr<platform::window::Base> gWindow;
 
@@ -31,61 +38,8 @@ extern OSViMode osViModeNtscLan1;
 #include <filesystem>
 
 #include "nx.h"
-#include "audio/audio_api.h"
-//#include "ultra64/sptask.h"
 #include "xxhash64.h"
-#ifdef USE_F3D
-extern "C" {
-#include "n64-fast3d-engine/gfx_pc.h"
-#include "n64-fast3d-engine/gfx_opengl.h"
-#include "n64-fast3d-engine/gfx_sdl.h"
-}
-#elif defined(USE_GLIDEN64)
 #include "gfxapi.h"
-#endif
-
-#if defined(USE_CF3D)
-#include "gfx/fast64.h"
-#elif defined(USE_RDPP)
-extern "C" {
-
-#include "core/n64video.h"
-#include "output/screen.h"
-#include "output/vdac.h"
-
-#define MSG_BUFFER_LEN 256
-
-void msg_error(const char* err, ...) {
-    va_list arg;
-    va_start(arg, err);
-    char buf[MSG_BUFFER_LEN];
-    vsprintf(buf, err, arg);
-
-    va_end(arg);
-    exit(0);
-}
-
-void msg_warning(const char* err, ...) {
-    va_list arg;
-    va_start(arg, err);
-    char buf[MSG_BUFFER_LEN];
-    vsprintf(buf, err, arg);
-
-    va_end(arg);
-}
-
-void msg_debug(const char* err, ...) {
-    va_list arg;
-    va_start(arg, err);
-    char buf[MSG_BUFFER_LEN];
-    vsprintf(buf, err, arg);
-
-    va_end(arg);
-}
-
-}
-#endif
-//GfxDimensions gfx_current_dimensions;
 
 OSMesg D_80339BEC;
 OSMesgQueue gSIEventMesgQueue;
@@ -93,54 +47,7 @@ OSMesgQueue gSIEventMesgQueue;
 s8 gResetTimer;
 s8 D_8032C648;
 
-#ifndef DISABLE_AUDIO
-extern AudioAPI audio_sdl;
-AudioAPI* audio_api = nullptr;
-
-/*
-#ifdef ENABLE_SDL_AUDIO
-#else
-AudioAPI audio_sdl;
-#endif
-*/
-#endif
-
-#ifdef USE_CF3D
-sm64::gfx::Fast64* g_fast64 = nullptr;
-#endif
-
-extern "C" {
-void send_display_list(Gfx* gfx);
-}
-void game_loop_one_iteration(void);
-void dispatch_audio_sptask(struct SPTask* spTask);
-
-extern void game_init(void* arg);
-
-void dispatch_audio_sptask(struct SPTask* spTask)
-{
-}
-
 static uint8_t inited = 0;
-
-void send_display_list(Gfx* gfx) {
-	if(!inited)
-	{
-		return;
-	}
-#ifdef USE_F3D
-    gfx_start_frame();
-    gfx_run(gfx);
-    gfx_end_frame();
-#endif
-	//g_fast64->run(gfx);
-}
-
-#define printf
-
-static void save_config(void)
-{
-}
 
 bool verifyIntegrity()
 {
@@ -204,38 +111,7 @@ bool verifyIntegrity()
 }
 
 void main_func();
-
-extern "C" {
-	
-	void hid_init();
-	void hid_update();
-}
-
-extern void* gAudioBuffer;
-extern u32 gAudioBufferSize;
-
-void AudioMgr_HandleRetraceNULL();
-
-
-void audio_thread()
-{
-	int samples_left = audio_api->buffered();
-	u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? 544 : 528;
-
-	s16 audio_buffer[544 * 2 * 2];
-	for(int i = 0; i < 2; i++)
-	{
-		create_next_audio_buffer(audio_buffer + i * (num_audio_samples * 2), num_audio_samples);
-	}
-
-	AudioMgr_HandleRetraceNULL();
-
-	if(audio_api /* && !config().game().disableSound()*/)
-	{
-		//audio_api->play((const u8*)audio_buffer, 2 * num_audio_samples * 4);
-		audio_api->play((const u8*)gAudioBuffer, gAudioBufferSize);
-	}
-}
+void azi_init();
 
 void main_func(void)
 {
@@ -248,6 +124,8 @@ void main_func(void)
 	}
 #endif
 
+	azi_init();
+
 #ifdef _DEBUG//Record TAS to capture bugs and crashes
 	//oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
@@ -255,65 +133,27 @@ void main_func(void)
 		oot::config().game().recordTas(true);
 #endif
 
-	//static u64 pool[0x165000 / 8 / 4 * sizeof(void*)];
-	//main_pool_init(pool, pool + sizeof(pool) / sizeof(pool[0]));
-	//gEffectsMemoryPool = mem_pool_init(0x4000, MEMORY_POOL_LEFT);
-
-#ifdef USE_CF3D
-	g_fast64 = sm64::gfx::Fast64::createContext();
-#endif
-
-#ifndef DISABLE_AUDIO
-	audio_api = &audio_sdl;
-	if(!audio_api->init())
-	{
-		return;
-	}
-#endif
-
-	//audio_init();
-	//interface_init();
-
 	if (!oot::config().game().isGraphicsDisabled())
 		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
-	
-#ifdef USE_F3D
-	gfx_init(&gfx_sdl, &gfx_opengl_api, "Zelda OOT PC-Port", 0);
-#elif defined(USE_RDPP)
-    n64video_config config;
-    n64video_config_init(&config);
-    n64video_init(&config);
 
-	screen_init(&config);
-#elif defined(USE_GLIDEN64)
 	if (!oot::config().game().isGraphicsDisabled())
 	{
 		gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
 		//gfx_fbe_enable(0);//Uncomment to disable frame buffer emulation
 	}
-#endif
+
 	if (!oot::config().game().isGraphicsDisabled())
 		gWindow->resize(-1, -1);
 
-	hid_init();
-
-	game_init(NULL);
+	oot::hid::InputDeviceManager::get().scan();
 
 	inited = 1;
 
 	Graph_ThreadEntry(0);
 
+	AudioMgr_Shutdown();
+
 	gfx_shutdown();
-}
-
-void game_loop_one_iteration() {
-    Graph_ThreadEntry(0);
-}
-
-void process_physics() {
-}
-
-void game_init(void* arg) {
 }
 
 #if(defined(_WIN32) || defined(_WIN64)) && defined(_MSC_VER)
@@ -368,9 +208,6 @@ int main(int argc, char* argv[])
 }
 #endif
 
-void create_next_audio_buffer(s16* samples, u32 num_samples) {
-}
-
 static bool g_isRunning = true;
 
 extern "C" {
@@ -390,7 +227,17 @@ extern "C" {
 			gWindow->setTargetFrameRate(FRAMERATE_MAX / frameRateDivisor());
 			gWindow->end_frame();
 		}
-		audio_thread();
+		/*for(int i=0; i < 3; i++)
+		{
+			auto task = getAudioTask();
+
+			if(task)
+			{
+				HLEStart((AZI_OSTask*)&task->task.t);
+				AiUpdate(false);
+			}
+		}*/
+		//audio_thread();
 	}
 
 	float gfx_ar_ratio()

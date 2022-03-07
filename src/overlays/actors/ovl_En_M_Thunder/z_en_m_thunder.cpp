@@ -108,9 +108,9 @@ void EnMThunder_Init(Actor* thisx, GlobalContext* globalCtx2) {
             (((pthis->actor.params & 0xFF00) >> 8) &&
              !(func_80087708(globalCtx, (pthis->actor.params & 0xFF00) >> 8, 0)))) {
             Audio_PlaySoundGeneral(NA_SE_IT_ROLLING_CUT, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_SWING_HARD, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
             Actor_Kill(&pthis->actor);
             return;
         }
@@ -123,7 +123,7 @@ void EnMThunder_Init(Actor* thisx, GlobalContext* globalCtx2) {
         func_80A9EFE0(pthis, func_80A9F9B4);
         pthis->unk_1C4 = 8;
         Audio_PlaySoundGeneral(NA_SE_IT_ROLLING_CUT_LV1, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                               &D_801333E8);
+                               &gReverbAdd2);
         pthis->unk_1AC = 1.0f;
     } else {
         func_80A9EFE0(pthis, func_80A9F408);
@@ -153,9 +153,9 @@ void func_80A9F350(EnMThunder* pthis, GlobalContext* globalCtx) {
     if (player->stateFlags2 & 0x20000) {
         if (player->swordAnimation >= 0x18) {
             Audio_PlaySoundGeneral(NA_SE_IT_ROLLING_CUT, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
             Audio_PlaySoundGeneral(NA_SE_IT_SWORD_SWING_HARD, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
         }
 
         Actor_Kill(&pthis->actor);
@@ -203,9 +203,9 @@ void func_80A9F408(EnMThunder* pthis, GlobalContext* globalCtx) {
         if (player->unk_858 <= 0.15f) {
             if ((player->unk_858 >= 0.1f) && (player->swordAnimation >= 0x18)) {
                 Audio_PlaySoundGeneral(NA_SE_IT_ROLLING_CUT, &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                       &D_801333E8);
+                                       &gReverbAdd2);
                 Audio_PlaySoundGeneral(NA_SE_IT_SWORD_SWING_HARD, &player->actor.projectedPos, 4, &D_801333E0,
-                                       &D_801333E0, &D_801333E8);
+                                       &D_801333E0, &gReverbAdd2);
             }
             Actor_Kill(&pthis->actor);
             return;
@@ -227,7 +227,7 @@ void func_80A9F408(EnMThunder* pthis, GlobalContext* globalCtx) {
             func_80A9EFE0(pthis, func_80A9F9B4);
             pthis->unk_1C4 = 8;
             Audio_PlaySoundGeneral(sSfxIds[pthis->unk_1C6], &player->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                   &D_801333E8);
+                                   &gReverbAdd2);
             pthis->unk_1AC = 1.0f;
             return;
         }

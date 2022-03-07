@@ -7,6 +7,7 @@
  */
 
 #include "z_en_kakasi.h"
+#include "z64audio.h"
 #include "vt.h"
 #include "objects/object_ka/object_ka.h"
 #include "def/z_actor.h"

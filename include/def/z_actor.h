@@ -115,7 +115,7 @@ s32 Player_IsFacingActor(Actor* actor, s16 angle, GlobalContext* globalCtx);
 f32 Rand_CenteredFloat(f32 f);
 f32 Rand_ZeroFloat(f32 f);
 void TitleCard_InitBossName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s16 x, s16 y, u8 width, u8 height);
-void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s32 x, s32 y, s32 width, s32 height, s32 delay);
+void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void*& texture, s32 x, s32 y, s32 width, s32 height, s32 delay);
 void func_8002BE04(GlobalContext* globalCtx, Vec3f* arg1, Vec3f* arg2, f32* arg3);
 void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx);
 s32 func_8002D53C(GlobalContext* globalCtx, TitleCardContext* titleCtx);
@@ -202,3 +202,10 @@ void func_800359B8(Actor* actor, s16 arg1, Vec3s* arg2);
 u16 func_80037C30(GlobalContext* globalCtx, s16 arg1);
 s32 func_80037D98(GlobalContext* globalCtx, Actor* actor, s16 arg2, s32* arg3);
 s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, Vec3f arg4);
+
+enum PlayerState1
+{
+	PLAYER_STATE_HORSE_MOUNTED = 0x800000,
+	PLAYER_STATE_SWIMMING = 0x8000000
+};
+

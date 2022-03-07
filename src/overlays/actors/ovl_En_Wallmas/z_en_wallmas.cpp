@@ -486,7 +486,7 @@ void EnWallmas_TakePlayer(EnWallmas* pthis, GlobalContext* globalCtx) {
     Math_StepToF(&pthis->actor.world.pos.z, player->actor.world.pos.z, 3.0f);
 
     if (pthis->timer == 0x1E) {
-        func_80078884(NA_SE_OC_ABYSS);
+        Common_PlaySfx(NA_SE_OC_ABYSS);
         Gameplay_TriggerRespawn(globalCtx);
     }
 }

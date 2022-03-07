@@ -26,7 +26,7 @@ Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
 **Discord:** <https://discord.com/invite/8tktBEhbZm>
 
 ## Contributers
-The current main contributers of this project are [blawar](https://github.com/blawar), [mrneo240](https://github.com/mrneo240), and [DaMarkov](https://github.com/damarkov)
+The current main contributers of this project are [blawar](https://github.com/blawar) and [DaMarkov](https://github.com/damarkov)
 
 ## Installation
 
@@ -79,3 +79,4 @@ This software is licensed under the terms of the GPLv2, with exemptions noted be
 
 [Nintendo](https://github.com/Nintendo) is exempt from GPLv2 licensing and may (at its option) instead license any source code authored for this project under the MIT license.
 
+Only commits *after* Dec 27, 2021 [a862411](https://github.com/blawar/ooot/commit/a862411f00c536770850f2c4e9e9b2edfea8947b) are covered under this GPL v2 license, as the original [upstream repo](https://github.com/zeldaret/oot/) unfortunately did not have a license and can not be relicensed retroactively.

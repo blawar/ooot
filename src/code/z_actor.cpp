@@ -538,7 +538,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 
             lockOnSfxId = CHECK_FLAG_ALL(actorArg->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2) ? NA_SE_SY_LOCK_ON
                                                                                        : NA_SE_SY_LOCK_ON_HUMAN;
-            func_80078884(lockOnSfxId);
+            Common_PlaySfx(lockOnSfxId);
         }
 
         targetCtx->targetCenterPos.x = actorArg->world.pos.x;
@@ -722,14 +722,11 @@ void TitleCard_InitBossName(GlobalContext* globalCtx, TitleCardContext* titleCtx
     titleCtx->delayTimer = 0;
 }
 
-void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void* texture, s32 x, s32 y,
+void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCtx, void*& texture, s32 x, s32 y,
                              s32 width, s32 height, s32 delay) {
     SceneTableEntry* loadedScene = globalCtx->loadedScene;
-    size_t size = (loadedScene->titleFile.vromEnd - loadedScene->titleFile.vromStart).size();
 
-    if ((size != 0) && (size <= 0x3000)) {
-        DmaMgr_SendRequest1(texture, loadedScene->titleFile.vromStart, size, "../z_actor.c", 2765);
-    }
+    texture = loadedScene->titleFile.vromStart.buffer();
 
     titleCtx->texture = texture;
     titleCtx->x = x;
@@ -1001,7 +998,7 @@ f32 Actor_HeightDiff(Actor* actorA, Actor* actorB) {
 
 f32 Player_GetHeight(Player* player) {
     //Mounted on a horse?
-    f32 offset = (player->stateFlags1 & 0x800000) ? 32.0f : 0.0f;
+	f32 offset = (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) ? 32.0f : 0.0f;
 
     if (LINK_IS_ADULT) {
         return offset + 68.0f;
@@ -1011,9 +1008,9 @@ f32 Player_GetHeight(Player* player) {
 }
 
 f32 func_8002DCE4(Player* player) {
-    if (player->stateFlags1 & 0x800000) {//When mounted on a horse
+    if (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) {//When mounted on a horse
         return 8.0f;
-    } else if (player->stateFlags1 & 0x8000000) {//When swimming
+    } else if (player->stateFlags1 & PLAYER_STATE_SWIMMING) {//When swimming
         return (R_RUN_SPEED_LIMIT / 100.0f) * 0.6f;
     } else {
         return R_RUN_SPEED_LIMIT / 100.0f;
@@ -1065,7 +1062,7 @@ void func_8002DE74(GlobalContext* globalCtx, Player* player) {
 
 void Actor_MountHorse(GlobalContext* globalCtx, Player* player, Actor* horse) {
     player->rideActor = horse;
-    player->stateFlags1 |= 0x800000;
+	player->stateFlags1 |= PLAYER_STATE_HORSE_MOUNTED;
     horse->child = &player->actor;
 }
 
@@ -1732,11 +1729,11 @@ void func_8002F7A0(GlobalContext* globalCtx, Actor* actor, f32 arg2, s16 arg3, f
 }
 
 void func_8002F7DC(Actor* actor, u16 sfxId) {
-    Audio_PlaySoundGeneral(sfxId, &actor->projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+    Audio_PlaySoundGeneral(sfxId, &actor->projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }
 
 void Audio_PlayActorSound2(Actor* actor, u16 sfxId) {
-    func_80078914(&actor->projectedPos, sfxId);
+    Common_PlaySfxAtPos(&actor->projectedPos, sfxId);
 }
 
 void func_8002F850(GlobalContext* globalCtx, Actor* actor) {
@@ -1752,8 +1749,8 @@ void func_8002F850(GlobalContext* globalCtx, Actor* actor) {
         sfxId = SurfaceType_GetSfx(&globalCtx->colCtx, actor->floorPoly, actor->floorBgId);
     }
 
-    func_80078914(&actor->projectedPos, NA_SE_EV_BOMB_BOUND);
-    func_80078914(&actor->projectedPos, sfxId + SFX_FLAG);
+    Common_PlaySfxAtPos(&actor->projectedPos, NA_SE_EV_BOMB_BOUND);
+    Common_PlaySfxAtPos(&actor->projectedPos, sfxId + SFX_FLAG);
 }
 
 void func_8002F8F0(Actor* actor, u16 sfxId) {
@@ -2170,7 +2167,7 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
         actor = NULL;
         if (actorCtx->targetCtx.unk_4B != 0) {
             actorCtx->targetCtx.unk_4B = 0;
-            func_80078884(NA_SE_SY_LOCK_OFF);
+            Common_PlaySfx(NA_SE_SY_LOCK_OFF);
         }
     }
 
@@ -2267,15 +2264,15 @@ void Actor_Draw(GlobalContext* globalCtx, Actor* actor) {
 
 void func_80030ED8(Actor* actor) {
     if (actor->flags & ACTOR_FLAG_19) {
-        Audio_PlaySoundGeneral(actor->sfx, &actor->projectedPos, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(actor->sfx, &actor->projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (actor->flags & ACTOR_FLAG_20) {
-        func_80078884(actor->sfx);
+        Common_PlaySfx(actor->sfx);
     } else if (actor->flags & ACTOR_FLAG_21) {
-        func_800788CC(actor->sfx);
+        Common_PlaySfx2(actor->sfx);
     } else if (actor->flags & ACTOR_FLAG_28) {
-        func_800F4C58(&D_801333D4, NA_SE_SY_TIMER - SFX_FLAG, (s8)(actor->sfx - 1));
+        func_800F4C58(&gAudioDefaultPos, NA_SE_SY_TIMER - SFX_FLAG, (s8)(actor->sfx - 1));
     } else {
-        func_80078914(&actor->projectedPos, actor->sfx);
+        Common_PlaySfxAtPos(&actor->projectedPos, actor->sfx);
     }
 }
 
@@ -2890,7 +2887,7 @@ Actor* Actor_Delete(ActorContext* actorCtx, Actor* actor, GlobalContext* globalC
         actorCtx->targetCtx.bgmEnemy = NULL;
     }
 
-    /* Audio_StopSfxByPos(&actor->projectedPos); */
+    Audio_StopSfxByPos(&actor->projectedPos);
     Actor_Destroy(actor, globalCtx);
 
     newHead = Actor_RemoveFromCategory(globalCtx, actorCtx, actor);
@@ -4969,8 +4966,8 @@ void func_80036E50(u16 textId, s16 arg1) {
                     Flags_SetInfTable(0xC);
                     return;
                 case 0x1033:
-                    Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &D_801333D4, 4, &D_801333E0, &D_801333E0,
-                                           &D_801333E8);
+                    Audio_PlaySoundGeneral(NA_SE_SY_CORRECT_CHIME, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0,
+                                           &gReverbAdd2);
                     Flags_SetEventChkInf(0x4);
                     Flags_SetInfTable(0xE);
                     return;
@@ -5433,7 +5430,7 @@ s32 func_80037CB8(GlobalContext* globalCtx, Actor* actor, s16 arg2) {
         case TEXT_STATE_CHOICE:
         case TEXT_STATE_EVENT:
             if (Message_ShouldAdvance(globalCtx) && func_80037C94(globalCtx, actor, arg2)) {
-                Audio_PlaySoundGeneral(NA_SE_SY_CANCEL, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+                Audio_PlaySoundGeneral(NA_SE_SY_CANCEL, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 msgCtx->msgMode = MSGMODE_TEXT_CLOSING;
                 ret = true;
             }

@@ -11,8 +11,6 @@
 
 #include <stdarg.h>
 void osSyncPrintf(const char* fmt, ...);
-#define osRecvMesg(a, b, c) 0
-#define osSendMesg(a, b, c) 0
 
 #if defined(_MSC_VER) && 0
 #define bcopy(b1, b2, len) (memmove((b2), (b1), (len)), (void)0)

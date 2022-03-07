@@ -3,15 +3,6 @@
 #include <chrono>
 #include <memory>
 
-extern void create_next_audio_buffer(s16* samples, u32 num_samples);
-//void send_display_list(SPTask* spTask);
-void game_loop_one_iteration();
-void process_physics();
-//void dispatch_audio_sptask(SPTask* spTask);
-
-void game_init(void* arg);
-void create_next_audio_buffer(s16* samples, u32 num_samples);
-
 namespace platform::window
 {
 	class Base
@@ -30,38 +21,12 @@ namespace platform::window
 
 		void calc_sizes();
 
-		void produce_one_frame()
-		{
-			begin_frame();
-			game_loop_one_iteration();
-
-			/*int samples_left = audio_api->buffered();
-			u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? 544 : 528;
-
-#ifdef ENABLE_60FPS
-			s16 audio_buffer[544 * 2];
-			create_next_audio_buffer(audio_buffer, num_audio_samples);
-			audio_api->play((const u8*)audio_buffer, num_audio_samples * 4);
-#else
-			s16 audio_buffer[544 * 2 * 2];
-			for(int i = 0; i < 2; i++)
-			{
-				create_next_audio_buffer(audio_buffer + i * (num_audio_samples * 2), num_audio_samples);
-			}
-			audio_api->play((const u8*)audio_buffer, 2 * num_audio_samples * 4);
-#endif
-*/
-
-			end_frame();
-		}
-
 		const std::chrono::microseconds& refreshInterval() const
 		{
 			return m_refreshInterval;
 		}
 
-		bool run_paced_loop();
-		void run();
+		bool wait_frame_ready();
 
 		void setTargetFrameRate(size_t rate) { m_targetFrameRate = rate; };
 		float ar() { return m_ar; }

@@ -127,7 +127,7 @@ void ShotSun_TriggerFairy(ShotSun* pthis, GlobalContext* globalCtx) {
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_DEMO_KANKYO, pthis->actor.home.pos.x, pthis->actor.home.pos.y,
                     pthis->actor.home.pos.z, 0, 0, 0, 0x11);
 
-        func_80078914(&pthis->actor.projectedPos, NA_SE_EV_TRE_BOX_APPEAR);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EV_TRE_BOX_APPEAR);
     }
 }
 
@@ -172,7 +172,7 @@ void ShotSun_UpdateHyliaSun(ShotSun* pthis, GlobalContext* globalCtx) {
     Vec3f spawnPos;
 
     if (pthis->collider.base.acFlags & AC_HIT) {
-        func_80078884(NA_SE_SY_CORRECT_CHIME);
+        Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         osSyncPrintf(VT_FGCOL(CYAN) "SHOT_SUN HIT!!!!!!!\n" VT_RST);
         if (INV_CONTENT(ITEM_ARROW_FIRE) == ITEM_NONE) {
             Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_ITEM_ETCETERA, 700.0f, -800.0f, 7261.0f, 0, 0, 0, 7);

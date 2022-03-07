@@ -412,7 +412,7 @@ void EnXc_SetWalkingSFX(EnXc* pthis, GlobalContext* globalCtx) {
         if (pthis->actor.bgCheckFlags & 1) {
             sfxId = SFX_FLAG;
             sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
-            func_80078914(&pthis->actor.projectedPos, sfxId);
+            Common_PlaySfxAtPos(&pthis->actor.projectedPos, sfxId);
         }
     }
 }
@@ -426,11 +426,11 @@ void EnXc_SetNutThrowSFX(EnXc* pthis, GlobalContext* globalCtx) {
         if (pthis->actor.bgCheckFlags & 1) {
             sfxId = SFX_FLAG;
             sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
-            func_80078914(&pthis->actor.projectedPos, sfxId);
+            Common_PlaySfxAtPos(&pthis->actor.projectedPos, sfxId);
         }
     }
     if (Animation_OnFrame(&pthis->skelAnime, 20.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_SK_SHOUT);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_SK_SHOUT);
     }
 }
 
@@ -442,7 +442,7 @@ void EnXc_SetLandingSFX(EnXc* pthis, GlobalContext* globalCtx) {
         if (Animation_OnFrame(&pthis->skelAnime, 11.0f)) {
             sfxId = SFX_FLAG;
             sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
-            func_80078914(&pthis->actor.projectedPos, sfxId);
+            Common_PlaySfxAtPos(&pthis->actor.projectedPos, sfxId);
         }
     }
 }
@@ -461,13 +461,13 @@ void EnXc_SetColossusAppearSFX(EnXc* pthis, GlobalContext* globalCtx) {
                 Vec3f pos = { -611.0f, 728.0f, -2.0f };
 
                 SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pos, &sXyzDist_80, wDest);
-                func_80078914(&sXyzDist_80, NA_SE_EV_JUMP_CONC);
+                Common_PlaySfxAtPos(&sXyzDist_80, NA_SE_EV_JUMP_CONC);
             } else if (frameCount == 164) {
                 Vec3f pos = { -1069.0f, 38.0f, 0.0f };
                 s32 pad;
 
                 SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, &pos, &sXyzDist_80, wDest);
-                func_80078914(&sXyzDist_80, NA_SE_PL_WALK_CONCRETE);
+                Common_PlaySfxAtPos(&sXyzDist_80, NA_SE_PL_WALK_CONCRETE);
             }
         }
     }
@@ -477,7 +477,7 @@ void func_80B3D118(GlobalContext* globalCtx) {
     s16 sceneNum;
 
     if ((gSaveContext.sceneSetupIndex != 4) || (sceneNum = globalCtx->sceneNum, sceneNum != SCENE_SPOT11)) {
-        func_800788CC(NA_SE_PL_SKIP);
+        Common_PlaySfx2(NA_SE_PL_SKIP);
     }
 }
 
@@ -1394,14 +1394,14 @@ void func_80B3F3C8(EnXc* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B3F3D8() {
-    func_800788CC(NA_SE_PL_SKIP);
+    Common_PlaySfx2(NA_SE_PL_SKIP);
 }
 
 void EnXc_PlayDiveSFX(Vec3f* src, GlobalContext* globalCtx) {
     f32 wDest[2];
 
     SkinMatrix_Vec3fMtxFMultXYZW(&globalCtx->viewProjectionMtxF, src, &D_80B42DA0, wDest);
-    func_80078914(&D_80B42DA0, NA_SE_EV_DIVE_INTO_WATER);
+    Common_PlaySfxAtPos(&D_80B42DA0, NA_SE_EV_DIVE_INTO_WATER);
 }
 
 void EnXc_LakeHyliaDive(GlobalContext* globalCtx) {
@@ -1577,7 +1577,7 @@ void EnXc_PlayTriforceSFX(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80B3FAE0(EnXc* pthis) {
     if (Animation_OnFrame(&pthis->skelAnime, 38.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_SK_SHOUT);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_SK_SHOUT);
         func_80B3FA2C();
     }
 }
@@ -1780,14 +1780,14 @@ void EnXc_SetThrownAroundSFX(EnXc* pthis) {
     SkelAnime* skelAnime = &pthis->skelAnime;
 
     if (Animation_OnFrame(skelAnime, 9.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_PL_BOUND_GRASS);
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_SK_CRASH);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_PL_BOUND_GRASS);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_SK_CRASH);
     } else if (Animation_OnFrame(skelAnime, 26.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_PL_BOUND_GRASS);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_PL_BOUND_GRASS);
     } else if (Animation_OnFrame(skelAnime, 28.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_PL_WALK_GRASS);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_PL_WALK_GRASS);
     } else if (Animation_OnFrame(skelAnime, 34.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_PL_WALK_GRASS);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_PL_WALK_GRASS);
     }
 }
 
@@ -1801,9 +1801,9 @@ void EnXc_SetCrySFX(EnXc* pthis, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
 
     if (csCtx->frames == 869) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_SK_CRY_0);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_SK_CRY_0);
     } else if (csCtx->frames == 939) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_SK_CRY_1);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_SK_CRY_1);
     }
 }
 

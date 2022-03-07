@@ -1,7 +1,7 @@
 {
 	"rom": {
 		"UNCOMPRESSED_SIZE": "34D3040",
-		"hash_md5": "c02c1d79679f7ceb9a3bde55fff8aa13",
+		"hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"],
 		"FILE_TABLE_OFFSET": "7950",
 		"FILE_NAMES": [
 			"makerom",

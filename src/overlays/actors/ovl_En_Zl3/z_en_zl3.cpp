@@ -110,7 +110,7 @@ void EnZl3_Destroy(Actor* thisx, GlobalContext* globalCtx) {
     Collider_DestroyCylinder(globalCtx, &pthis->collider);
 }
 
-void func_80B53468(void) {
+void EnZl3_PlayEscapeMusic(void) {
     Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_ESCAPE);
 }
 
@@ -799,7 +799,7 @@ void func_80B54EA4(EnZl3* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B54EF4(EnZl3* pthis) {
-    func_80078914(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
+    Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
 }
 
 void func_80B54F18(EnZl3* pthis, GlobalContext* globalCtx) {
@@ -899,7 +899,7 @@ void func_80B552DC(EnZl3* pthis) {
     func_80B54EF4(pthis);
     EnZl3_setMouthIndex(pthis, 2);
     pthis->action = 4;
-    func_80B53468();
+    EnZl3_PlayEscapeMusic();
 }
 
 void func_80B55334(EnZl3* pthis, s32 arg1) {
@@ -1036,11 +1036,11 @@ void func_80B55780(EnZl3* pthis, GlobalContext* globalCtx) {
     pthis->actor.flags &= ~ACTOR_FLAG_0;
 }
 
-void func_80B55808(EnZl3* pthis) {
-    func_80078914(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
+void EnZl3_PlayInPain(EnZl3* pthis) {
+    Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
 }
 
-void func_80B5582C(EnZl3* pthis) {
+void EnZl3_PlayRandomCry(EnZl3* pthis) {
     Audio_PlaySoundRandom(&D_80B5A488, NA_SE_VO_Z1_CRY_0, NA_SE_VO_Z1_CRY_1 - NA_SE_VO_Z1_CRY_0 + 1);
 }
 
@@ -1048,7 +1048,7 @@ void func_80B5585C(EnZl3* pthis) {
     SkelAnime* skelAnime = &pthis->skelAnime;
 
     if ((skelAnime->mode == 2) && Animation_OnFrame(skelAnime, 4.0f)) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
     }
 }
 
@@ -1111,7 +1111,7 @@ void func_80B55B78(EnZl3* pthis, s32 arg1) {
 void func_80B55BAC(EnZl3* pthis) {
     func_80B54E14(pthis, &gZelda2Anime2Anim_005248, 2, -8.0f, 0);
     func_80B558A8(pthis);
-    func_80B55808(pthis);
+    EnZl3_PlayInPain(pthis);
     EnZl3_setMouthIndex(pthis, 2);
     pthis->action = 10;
 }
@@ -1217,7 +1217,7 @@ void func_80B55F6C(EnZl3* pthis, GlobalContext* globalCtx) {
 void func_80B5604C(EnZl3* pthis) {
     func_80B54E14(pthis, &gZelda2Anime2Anim_007664, 2, -8.0f, 0);
     pthis->action = 17;
-    func_80B5582C(pthis);
+    EnZl3_PlayRandomCry(pthis);
 }
 
 void func_80B56090(EnZl3* pthis, s32 arg1) {
@@ -1558,19 +1558,19 @@ void func_80B56D44(EnZl3* pthis, GlobalContext* globalCtx) {
     func_80B564A8(pthis, globalCtx);
 }
 
-void func_80B56DA4(EnZl3* pthis) {
-    func_800788CC(NA_SE_EV_ZELDA_POWER);
+void EnZl3_PlayPowerSfx(EnZl3* pthis) {
+    Common_PlaySfx2(NA_SE_EV_ZELDA_POWER);
 }
 
 void func_80B56DC8(EnZl3* pthis) {
-    func_80078914(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
+    Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_Z1_PAIN);
 }
 
 void func_80B56DEC(EnZl3* pthis) {
     SkelAnime* skelAnime = &pthis->skelAnime;
 
     if ((skelAnime->mode == 2) && Animation_OnFrame(skelAnime, 9.0f) != 0) {
-        func_80078914(&pthis->actor.projectedPos, NA_SE_VO_Z1_OPENDOOR);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_VO_Z1_OPENDOOR);
     }
 }
 
@@ -1582,7 +1582,7 @@ void func_80B56E38(EnZl3* pthis, GlobalContext* globalCtx) {
     if ((Animation_OnFrame(sp20, 6.0f) || Animation_OnFrame(sp20, 0.0f)) && (pthis->actor.bgCheckFlags & 1)) {
         sfxId = 0x800;
         sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
-        func_80078914(&pthis->actor.projectedPos, sfxId);
+        Common_PlaySfxAtPos(&pthis->actor.projectedPos, sfxId);
     }
 }
 
@@ -1838,7 +1838,7 @@ void func_80B57754(EnZl3* pthis, GlobalContext* globalCtx) {
     if (gSaveContext.unk_13F0 == 0) {
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_OCEFF_WIPE4, pthis->actor.world.pos.x,
                     pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, 1);
-        func_80B56DA4(pthis);
+        EnZl3_PlayPowerSfx(pthis);
     }
 }
 
@@ -2559,7 +2559,7 @@ void func_80B59828(EnZl3* pthis, GlobalContext* globalCtx) {
 
     if (func_80B59698(pthis, globalCtx) != 0) {
         func_80088AA0(180);
-        func_80B53468();
+        EnZl3_PlayEscapeMusic();
         gSaveContext.healthAccumulator = 320;
         Magic_Fill(globalCtx);
         if (Flags_GetSwitch(globalCtx, 0x20)) {
@@ -2593,7 +2593,7 @@ void func_80B59828(EnZl3* pthis, GlobalContext* globalCtx) {
 
 void func_80B59A80(EnZl3* pthis, GlobalContext* globalCtx) {
     if (func_80B59768(pthis, globalCtx)) {
-        Audio_PlaySoundGeneral(NA_SE_OC_REVENGE, &D_801333D4, 4, &D_801333E0, &D_801333E0, &D_801333E8);
+        Audio_PlaySoundGeneral(NA_SE_OC_REVENGE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     }
 }
 

@@ -172,7 +172,7 @@ void Title_Main(GameState* thisx) {
     OPEN_DISPS(pthis->state.gfxCtx, "../z_title.c", 494);
 
     gSPSegment(POLY_OPA_DISP++, 0, NULL);
-    gSPSegment(POLY_OPA_DISP++, 1, pthis->staticSegment);
+    gSPSegment(POLY_OPA_DISP++, 1, NULL);
     Gfx_ClearDisplay(pthis->state.gfxCtx, 0, 0, 0);
     Title_Calc(pthis);
     Title_Draw(pthis);
@@ -203,12 +203,8 @@ void Title_Destroy(GameState* thisx) {
 }
 
 void Title_Init(GameState* thisx) {
-    size_t size = POINTER_SUB(_nintendo_rogo_staticSegmentRomEnd, _nintendo_rogo_staticSegmentRomStart);
     TitleContext* pthis = (TitleContext*)thisx;
 
-    //pthis->staticSegment = GameState_Alloc(&pthis->state, size, "../z_title.c", 611);
-    osSyncPrintf("z_title.c\n");
-    pthis->staticSegment = _nintendo_rogo_staticSegmentRomStart;
     framerate_set_profile(PROFILE_TITLE);
     Matrix_Init(&pthis->state);
     View_Init(&pthis->view, pthis->state.gfxCtx);

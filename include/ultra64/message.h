@@ -36,4 +36,8 @@ struct OSMesgQueue {
     /* 0x14 */ OSMesg* msg;
 }; // size = 0x18
 
+void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 count);
+s32 osSendMesg(OSMesgQueue* mq, OSMesg mesg, s32 flag);
+s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flag);
+
 #endif

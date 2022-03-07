@@ -247,7 +247,7 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
                (pthis->actor.params == RS_UNK_5)) {
         Audio_PlaySoundRiver(&pthis->actor.projectedPos, soundPitch_23[pthis->soundPitchIndex]);
     } else if (pthis->actor.params == RS_UNK_11) {
-        func_800F4A54(90);
+        Audio_RequestBgmVolumeChange(90);
     } else if (pthis->actor.params == RS_SARIAS_SONG) {
         func_800F4E30(&pthis->actor.projectedPos, pthis->actor.xzDistToPlayer);
     } else if (pthis->actor.params == RS_UNK_13) {
@@ -256,7 +256,7 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx) {
         Audio_PlaySariaBgm(&pthis->actor.home.pos, NA_BGM_GREAT_FAIRY, 800);
     } else if ((pthis->actor.params == RS_SANDSTORM) || (pthis->actor.params == RS_CHAMBER_OF_SAGES_1) ||
                (pthis->actor.params == RS_CHAMBER_OF_SAGES_2) || (pthis->actor.params == RS_RUMBLING)) {
-        func_800788CC(soundEffects_23[pthis->actor.params]);
+        Common_PlaySfx2(soundEffects_23[pthis->actor.params]);
     } else {
         Audio_PlayActorSound2(&pthis->actor, soundEffects_23[pthis->actor.params]);
     }

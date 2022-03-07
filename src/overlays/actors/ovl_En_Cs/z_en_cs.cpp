@@ -267,7 +267,7 @@ void EnCs_HandleTalking(EnCs* pthis, GlobalContext* globalCtx) {
         }
 
         if (pthis->actor.textId == 0x2023) {
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         }
 
         pthis->talkState = 1;

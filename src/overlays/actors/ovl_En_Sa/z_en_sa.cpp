@@ -654,7 +654,7 @@ void func_80AF68E4(EnSa* pthis, GlobalContext* globalCtx) {
             }
             if (phi_v0 == 0) {
                 Audio_PlaySoundGeneral(NA_SE_PL_WALK_GROUND, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0,
-                                       &D_801333E8);
+                                       &gReverbAdd2);
                 pthis->unk_20C = 8;
             }
         }

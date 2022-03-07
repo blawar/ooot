@@ -178,10 +178,6 @@ void Audio_ProcessNotes(void) {
         noteSubEu2 = &gAudioContext.noteSubsEu[gAudioContext.noteSubEuOffset + i];
         playbackState = &note->playbackState;
         if (playbackState->parentLayer != NO_LAYER) {
-            if ((uintptr_t)playbackState->parentLayer < 0x7FFFFFFF) {
-                continue;
-            }
-
             if (note != playbackState->parentLayer->note && playbackState->unk_04 == 0) {
                 playbackState->adsr.action.s.release = true;
                 playbackState->adsr.fadeOutVel = gAudioContext.audioBufferParameters.updatesPerFrameInv;
@@ -214,7 +210,7 @@ void Audio_ProcessNotes(void) {
 
     out:
         if (playbackState->priority != 0) {
-            if (1) {}
+
             noteSubEu = &note->noteSubEu;
             if (playbackState->unk_04 >= 1 || noteSubEu->bitField0.finished) {
                 if (playbackState->adsr.action.s.state == ADSR_STATE_DISABLED || noteSubEu->bitField0.finished) {
@@ -358,9 +354,7 @@ Drum* Audio_GetDrum(s32 fontId, s32 drumId) {
         gAudioContext.audioErrorFlags = ((fontId << 8) + drumId) + 0x4000000;
         return NULL;
     }
-    if ((uintptr_t)gAudioContext.soundFonts[fontId].drums < 0x80000000) {
-        return NULL;
-    }
+
     drum = gAudioContext.soundFonts[fontId].drums[drumId];
 
     if (drum == NULL) {
@@ -384,10 +378,6 @@ SoundFontSound* Audio_GetSfx(s32 fontId, s32 sfxId) {
 
     if (sfxId >= gAudioContext.soundFonts[fontId].numSfx) {
         gAudioContext.audioErrorFlags = ((fontId << 8) + sfxId) + 0x4000000;
-        return NULL;
-    }
-
-    if ((uintptr_t)gAudioContext.soundFonts[fontId].soundEffects < 0x80000000) {
         return NULL;
     }
 

@@ -434,9 +434,9 @@ void func_808B81A0(BgSpot18Basket* pthis, GlobalContext* globalCtx) {
         }
     } else if (pthis->unk_216 == 2) {
         if (pthis->unk_218 == 2) {
-            func_80078884(NA_SE_SY_CORRECT_CHIME);
+            Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         } else {
-            func_80078884(NA_SE_SY_TRE_BOX_APPEAR);
+            Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
         }
     } else if (pthis->unk_216 == 200) {
         func_808B7BB0(pthis);

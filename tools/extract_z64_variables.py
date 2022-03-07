@@ -4,6 +4,43 @@ from oot import *
 
 conf = config()
 
+sampleBankTable = None
+
+symbols = {}
+
+class Root:
+	def __init__(self):
+		self.address = 0
+		self.offset = 0
+root = Root()
+
+class Symbol:
+	def __init__(self, name, definition, offset, static):
+		self.name = name
+		self.definition = definition
+		self.offset = offset
+		self.static = static
+		
+	def __str__(self):
+		if self.static:
+			return 'static ' + self.definition
+		return self.definition
+
+def registerSymbol(name, definition, offset, static = True):
+	global symbols
+	
+	symbols[offset] = Symbol(name, definition, offset, static = static)
+	
+def getSymbolNameByOffset(offset, ptr = False, base = -1):
+	if offset > 0:
+		for name, s in symbols.items():
+			if s.offset == offset + base:
+				if ptr:
+					return '&' + s.name
+				return s.name
+		return '0x%8.8X' % offset
+	return '0x%8.8X' % offset
+
 def reverse(s):
 	return s[::-1]
 	return int.from_bytes(s, byteorder='big').to_bytes(len(s), 'little')
@@ -17,20 +54,20 @@ def readConvert(f, size, swap = True):
 
 	return r
 
-def readS8(f, swap = True):
-	return int.from_bytes(readConvert(f, 1, swap), byteorder='big', signed=True)
+def readS8(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 1, swap), byteorder=byteorder, signed=True)
 	
-def readU8(f, swap = True):
-	return int.from_bytes(readConvert(f, 1, swap), byteorder='big', signed=False)
+def readU8(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 1, swap), byteorder=byteorder, signed=False)
 	
-def readS16(f, swap = True):
-	return int.from_bytes(readConvert(f, 2, swap), byteorder='big', signed=True)
+def readS16(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 2, swap), byteorder=byteorder, signed=True)
 	
-def readU32(f, swap = True):
-	return int.from_bytes(readConvert(f, 4, swap), byteorder='big', signed=False)
+def readU32(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 4, swap), byteorder=byteorder, signed=False)
 	
-def readS32(f, swap = True):
-	return int.from_bytes(readConvert(f, 4, swap), byteorder='big', signed=True)
+def readS32(f, swap = True, byteorder='big'):
+	return int.from_bytes(readConvert(f, 4, swap), byteorder=byteorder, signed=True)
 	
 def readFloat(f, swap = True):
 	b = readConvert(f, 4, swap)
@@ -156,8 +193,11 @@ class Reloc:
 		self.dataFile = dataFile
 		self.f = f
 		
-	def getDef(self):
-		return '';
+	def getSymbol(self):
+		return '0x%8.8X' % (self.address)
+		
+	def render(self, f):
+		pass
 		
 def OFFSET(o):
 	if o > 0x2BDC0:
@@ -166,32 +206,82 @@ def OFFSET(o):
 
 class AdpcmLoop:
 	def __init__(self, f, parent):
+		self.pos = f.tell()
+		self.parent = parent
 		self.start = readU32(f)
 		self.end = readU32(f)
 		self.count = readU32(f)
 		self.unk_0C = f.read(4, swap = False)
 		
-		self.states = []
+		sunks = []
+		for i in range(4):
+			sunks.append("{0:#0{1}x}".format(self.unk_0C[i],4))
 		
+		self.states = []
+		sstates = []
 		if self.count > 0:
 			for i in range(16):
-				self.states.append(readS16(f))
+				s = readS16(f, swap = False, byteorder='big')
+				self.states.append(s)
+				sstates.append("{0:#0{1}x}".format(s,6))
+		registerSymbol(self.getSymbol(), 'AdpcmLoop %s = {.start = %d, .end = %d, .count = %d, .unk_0C = {%s}, .state = {%s}};' % (self.getSymbol(), self.start, self.end, self.count, ', '.join(sunks), ', '.join(sstates)), self.pos)
+				
+	def render(self):
+		return ''
+		
+	def getSymbol(self):
+		return 'loop_%8.8X' % self.pos
 
 class AdpcmBook:
 	def __init__(self, f, parent):
+		self.pos = f.tell()
 		self.order = readS32(f)
 		self.npredictors = readS32(f)
-		print('order = %d, npred = %d, offset = %8.8X' % (self.order, self.npredictors, f.tell()))
+		print('.order = %d, .npred = %d, .offset = %8.8X' % (self.order, self.npredictors, f.tell()))
 
+		sbooks = []
 		self.books = [] # TODO LOOP THROUGH: size 8 * order * npredictors. 8-byte aligned
 		for i in range(self.order * self.npredictors * 8):
-			self.books.append(readS16(f))
+			b = readS16(f, swap = False, byteorder='big')
+			self.books.append(b)
+			#sbooks.append('0x%4.4X' % b)
+			sbooks.append("{0:#0{1}x}".format(b,6))
+			
+		registerSymbol(self.getSymbol(), 'VAdpcmBook<%d> %s = {.order = %d, .npredictors = %d, .book = {%s}};' % (self.order * self.npredictors * 8, self.getSymbol(), self.order, self.npredictors, ','.join(sbooks)), self.pos)
+			
+	def render(self):
+		return ''
+		
+	def getSymbol(self):
+		return 'book_%8.8X' % self.pos
 
 def RSHIFT(n, offset, length):
 	return (n >> offset) & ((0x01 << length) - 1)
 
+class BufferU8:
+	def __init__(self, parent, offset, size, dataFile = 'baserom/Audiotable', prefix = 'buffer_'):
+		self.pos = offset
+		self.prefix = prefix
+
+		data = []
+		with open(romPath('baserom.z64') if dataFile == 'baserom' else assetPath(dataFile), 'rb') as f:
+			f.seek(offset + sampleBankTable.getBankOffset(parent.shortData1 >> 8))
+			for b in f.read(size):
+				data.append(hex(b))
+
+			if len(data) != size:
+				raise IOError('did not read all of u8 buffer')
+		registerSymbol(self.getSymbol(), 'u8 %s[] = {%s};' % (self.getSymbol(), ', '.join(data)), self.pos + 0x10000000)
+
+	def getSymbol(self):
+		return '%s%8.8X' % (self.prefix, self.pos)
+
+
 class SoundFontSample:
 	def __init__(self, f, parent):
+		self.pos = f.tell()
+		modes, u2, length, address, loopOffset, bookOffset = struct.unpack(">bbHLLL", f.read(4 * 4))
+		f.seek(self.pos)
 		self.flags = readU32(f)
 		self.sampleOffset = readU32(f)
 		self.loopOffset = readU32(f)
@@ -200,12 +290,27 @@ class SoundFontSample:
 		pos = f.tell()
 		
 
-		
-		self.codec = RSHIFT(self.flags, 0, 4)
-		self.medium = RSHIFT(self.flags, 4, 2)
-		self.unk_bit26 = RSHIFT(self.flags, 6, 1)
-		self.unk_bit25 = RSHIFT(self.flags, 7, 1)
-		self.size = RSHIFT(self.flags, 8, 24)
+		#self.codec = RSHIFT(self.flags, 0, 4)
+		#self.medium = RSHIFT(self.flags, 4, 2)
+		#self.unk_bit26 = RSHIFT(self.flags, 6, 1)
+		#self.unk_bit25 = RSHIFT(self.flags, 7, 1)
+		#self.size = RSHIFT(self.flags, 8, 24)
+
+		self.size = RSHIFT(self.flags, 0, 24)
+		self.unk_bit25 = RSHIFT(self.flags, 24, 1)
+		self.unk_bit26 = RSHIFT(self.flags, 25, 1)
+		self.medium = RSHIFT(self.flags, 26, 2)
+		self.codec = RSHIFT(self.flags, 28, 4)
+
+		if self.size != length:
+			raise IOError('bad size, got %d expected %d' % (length, self.size))
+
+		if self.codec != ((modes >> 4) & 0xF):
+			raise IOError('bad codec, got %d, expected %d' % ((modes >> 4) & 0xF, self.codec))
+
+		if self.medium != ((modes & 0xC) >> 2):
+			raise IOError('bad medium, got %d expected %d' % ((modes & 0xC) >> 2, self.medium))
+
 		print('sample flags: %8.8X, size = %d, codec = %d, medium = %d, unk_bit26 = %d, unk_bit25 = %d, sampleOffset = %8.8X' % (self.flags, self.size, self.codec, self.medium, self.unk_bit26, self.unk_bit25, self.sampleOffset))
 		
 		#print('sample flags: %8.8X, size = %d' % (self.flags, RSHIFT(self.flags, 8, 24)))
@@ -224,12 +329,29 @@ class SoundFontSample:
 		if OFFSET(self.bookOffset) > 0:
 			f.seek(self.bookOffset + parent.address)
 			self.book = AdpcmBook(f, parent)
-			
+
+		sampleSymbol = '0x%8.8X' % self.sampleOffset
+
+		if self.size > 0 and self.unk_bit25 != 1:
+			if self.medium == 0 and 1 == 0:
+				self.sampleBuffer = BufferU8(parent, offset = self.sampleOffset, size = self.size, dataFile = 'baserom/Audiotable')
+				self.unk_bit25 = 1
+				sampleSymbol = self.sampleBuffer.getSymbol()
+
 		f.seek(pos)
 		
-class SoundFontSound:
-	def __init__(self, f, parent):
+		registerSymbol(self.getSymbol(), 'SoundFontSample %s = {.size = %d, .unk_bit25 = %d, .unk_bit26 = %d, .medium = %d, .codec = %d, .sampleAddr = (u8*)%s, .loop = %s, .book = (AdpcmBook*)%s};' % (self.getSymbol(), self.size, self.unk_bit25, self.unk_bit26, self.medium, self.codec, sampleSymbol, getSymbolNameByOffset(self.loopOffset, base = parent.address, ptr = True), getSymbolNameByOffset(self.bookOffset, base = parent.address, ptr = True)), self.pos)
 		
+	def render(self):
+		return ''
+		
+	def getSymbol(self):
+		return 'sf_sample_%8.8X' % self.pos
+		
+class SoundFontSound:
+	def __init__(self, f, parent, register = True):
+		self.parent = parent
+		self.pos = f.tell()
 		self.sampleOffset = readU32(f)
 		self.tuning = readFloat(f)
 		
@@ -242,9 +364,19 @@ class SoundFontSound:
 		f.seek(pos)
 
 		print('SoundFontSound: %8.8X, tuning: %f' % (self.sampleOffset, self.tuning))
+		
+		if register:
+			registerSymbol(self.getSymbol(), 'SoundFontSound %s = %s;' % (self.getSymbol(), self.render()), self.pos)
+		
+	def render(self):
+		return '{.sample = %s, .tuning = %f}' % (getSymbolNameByOffset(self.sampleOffset, base = self.parent.address, ptr = True), self.tuning)
+		
+	def getSymbol(self):
+		return 'sf_sound_%8.8X' % self.pos
 
 class Drum:
 	def __init__(self, f, parent):
+		self.pos = f.tell()
 		self.releaseRate = readU8(f)
 		self.pan = readU8(f)
 		self.loaded = readU8(f)
@@ -257,30 +389,61 @@ class Drum:
 		
 		pos = f.tell()
 
+		envelopeSymbol = '0x00000000'
 		if OFFSET(self.envelopeOffset) > 0:
 			f.seek(self.envelopeOffset + parent.address)
 			self.adsrEnvelope = AdsrEnvelope(f)
+			envelopeSymbol = self.adsrEnvelope.getSymbol()
 			
 		f.seek(pos)
 		
 		print('Drum: releaseRate: %d, pan: %d, envelopeOffset: %8.8X' % (self.releaseRate, self.pan, self.envelopeOffset))
+		registerSymbol(self.getSymbol(), 'Drum %s = {.releaseRate = %d, .pan = %d, .loaded = %d, .sound = %s, .envelope = %s};' % (self.getSymbol(), self.releaseRate, self.pan, self.loaded, self.soundFontSound.render(), envelopeSymbol), self.pos)
+		
+	def render(self):
+		return ''
+		
+	def getSymbol(self):
+		return 'drum_%8.8X' % self.pos
 
 class AdsrEnvelope:
 	def __init__(self, f):
-		self.delay = readS16(f)
-		self.arg = readS16(f)
+		self.pos = f.tell()
+
+		self.delays = []
+		self.args = []
+		lst = []
+
+		delay = 0
+
+		for i in range(32):
+			if delay < 0:
+				break
+			delay = readS16(f)
+			arg = readS16(f)
+			lst.append('AdsrEnvelope(%d, %d)' % (delay, arg))
+
+		
+		registerSymbol(self.getSymbol(), 'AdsrEnvelope %s[] = {%s};' % (self.getSymbol(), ', '.join(lst)), self.pos)
+		
+	def render(self):
+		return ''
+		
+	def getSymbol(self):
+		return 'adsrEnvelope_%8.8X' % self.pos
 
 class Instrument:
 	def __init__(self, f, parent):
+		self.pos = f.tell()
 		self.loaded = readU8(f)
 		self.normalRangeLo = readU8(f)
 		self.normalRangeHi = readU8(f)
 		self.releaseRate = readU8(f)
 		
 		self.envelopeOffset = readU32(f)
-		self.lowNotesSound = SoundFontSound(f, parent)
-		self.normalNotesSound = SoundFontSound(f, parent)
-		self.highNotesSound = SoundFontSound(f, parent)
+		self.lowNotesSound = SoundFontSound(f, parent, register = False)
+		self.normalNotesSound = SoundFontSound(f, parent, register = False)
+		self.highNotesSound = SoundFontSound(f, parent, register = False)
 		
 		pos = f.tell()
 
@@ -290,14 +453,53 @@ class Instrument:
 			
 		f.seek(pos)
 		
-		print('Instrument: normalRangeLo: %d, normalRangeHi: %d, releaseRate: %d, envelopeOffset = %8.8X (%8.8X)' % (self.normalRangeLo, self.normalRangeHi, self.releaseRate, self.envelopeOffset, parent.address))
+		#print('Instrument: normalRangeLo: %d, normalRangeHi: %d, releaseRate: %d, envelopeOffset = %8.8X (%8.8X), lowNotesSound = %s, normalNotesSound = %s, highNotesSound = %s' % (self.normalRangeLo, self.normalRangeHi, self.releaseRate, self.envelopeOffset, parent.address))
+		registerSymbol(self.getSymbol(), 'Instrument %s = {.loaded = %d, .normalRangeLo = %d, .normalRangeHi = %d, .releaseRate = %d, .envelope = %s, .lowNotesSound = %s, .normalNotesSound = %s, .highNotesSound = %s};' % (self.getSymbol(), self.loaded, self.normalRangeLo, self.normalRangeHi, self.releaseRate, getSymbolNameByOffset(self.envelopeOffset, base = parent.address, ptr = False), self.lowNotesSound.render(), self.normalNotesSound.render(), self.highNotesSound.render()), self.pos)
 		
+	def render(self):
+		return ''
+		
+	def getSymbol(self):
+		return 'instrument_%8.8X' % self.pos
 
-		
+class JumpTable:
+		def __init__(self, address, lst, parent, f, prefix = 'jmp_', datatype = 'void*'):
+			self.address = address
+			self.prefix = prefix
+			self.parent = parent
+			
+			rlst = []
+			
+			for i in lst:
+				if i is None or i == 0:
+					rlst.append('0x00000000')
+				else:
+					rlst.append('&' + getSymbolNameByOffset(i, base = parent.address))
+			
+			registerSymbol(self.getSymbol(), '%s %s[] = {%s};' % (datatype, self.getSymbol(), ', '.join(rlst)), offset = address)
+			
+		def getSymbol(self):
+			return '%s%8.8X' % (self.prefix, self.address + self.parent.address)
+			
+class Array:
+		def __init__(self, address, lst, parent, f, prefix = 'array_', datatype = 'u8'):
+			self.address = address
+			self.prefix = prefix
+			
+			rlst = []
+			
+			for i in lst:
+				rlst.append(i.render())
+			
+			registerSymbol(self.getSymbol(), 'struct %s %s[%d] = {%s};' % (datatype, self.getSymbol(), len(lst), ', '.join(rlst)), offset = address)
+			
+		def getSymbol(self):
+			return '%s%8.8X' % (self.prefix, self.address)
+
 class FontReloc(Reloc):
 	def __init__(self, address, size, medium, cachePolicy, shortData1, shortData2, shortData3, dataFile, f):
 		super(FontReloc, self).__init__(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, dataFile, f)
-		
+		self.pos = address
 		self.sampleBankId1 = (shortData1 >> 8) & 0xFF
 		self.sampleBankId2 = (shortData1) & 0xFF
 		self.numInstruments = (shortData2 >> 8) & 0xFF
@@ -314,44 +516,66 @@ class FontReloc(Reloc):
 		
 		print('bankId1 = %d, bankId2 = %d, numInstruments = %d, numDrums = %d, , numSfx = %d' % (self.sampleBankId1, self.sampleBankId2, self.numInstruments, self.numDrums, self.numSfx))
 		
-	def getName(self):
-		return 'font_%X' % self.address
-
-	def getDef(self):
-		buf = 'FontReloc %s = {' % self.getName()
-		r = []
-		for offset in self.offsets:
-			r.append('0x%8.8X' % offset)
-			
-		buf += ', '.join(r) + ' }; // data starts at 0x%8.8X\n' % (len(self.offsets) * 4)
 		
 		drums = []
 		sfxs = []
 		instruments = []
 		
 		f = self.f
+		
+		symbols = []
 
 		if self.offsets[0] > 0:
+			lst = []
+			
 			for i in range(self.numDrums):
 				f.seek(self.offsets[0] + self.address + (i * 4))
 				p = readS32(f)
 				
 				if p > 0:
 					f.seek(p + self.address)
-					drums.append(Drum(f, self))
+					lst.append(p + self.address)
+					d = Drum(f, self)
+					drums.append(d)
+				else:
+					lst.append(None)
+			if 0x00000740 == self.offsets[0]:
+				x = 1
+			tbl = JumpTable(address = self.offsets[0] + self.address, lst = lst, parent = root, f = f, prefix = 'drum_jmp_', datatype = 'Drum*')
 			
 		if self.offsets[1] > 0:
+			lst = []
 			f.seek(self.offsets[1] + self.address)
 			for i in range(self.numSfx):
-				sfxs.append(SoundFontSound(f, self))
+				sf = SoundFontSound(f, self, register = False)
+				sfxs.append(sf)
+				
+			tbl = Array(address = self.offsets[1] + self.address, lst = sfxs, parent = self, f = f, prefix = 'sfxs_', datatype = 'SoundFontSound')
 				
 		for i in range(2, self.numInstruments + 2):
 			if self.offsets[i] > 0:
 				f.seek(self.offsets[i] + self.address)
-				instruments.append(Instrument(f, self))
+				inst = Instrument(f, self)
+				instruments.append(inst)
+				
+		symlist = []
+		for offset in self.offsets:
+			symlist.append(getSymbolNameByOffset(offset, base = self.address))
+		#registerSymbol(self.getSymbol(), 'void* %s[] = {%s};' % (self.getSymbol(), ', '.join(symlist)), self.pos)
+		self.tbl = JumpTable(address = address, lst = self.offsets, parent = self, f = f)
+	
+	def getSymbol(self):
+		return self.tbl.getSymbol()
 
-		return buf
-		
+	def render(self, f):
+		if self.offsets[0] > 0:
+			instList = '0x%8.8X' % self.offsets[0]
+		else:
+			instList = 'nullptr'
+		#f.write('SoundFont %s = { .numInstruments = %d, .numDrums = %d, .sampleBankId1 = %d, .sampleBankId2 = %d, .numSfx = %d, .instruments = %s};\n' % (self.getSymbol(), self.numInstruments, self.numDrums, self.sampleBankId1, self.sampleBankId2, self.numSfx, instList, drumList))
+
+	def getName(self):
+		return 'font_%X' % self.address		
 
 		
 class Table(Section):
@@ -359,9 +583,45 @@ class Table(Section):
 		super(Table, self).__init__(name, offset, sz, 1)
 		
 		self.dataFile = dataFile
+		self.relocs = []
+
+	def getRealId(self, id):
+		if self.relocs[id].size == 0:
+			return self.relocs[id].address
+		return id
+
+	def getBankOffset(self, id):
+		id = self.getRealId(id)
+
+		return self.relocs[id].address
+
+	def load(self, z64):
+		relocs = []
+		z64.seek(self.offset)
+
+		numEntries = readS16(z64, swap = False)
+		unkMediumParam = readS16(z64, swap = False)
+		address = readU32(z64, swap = False)
+		
+		z64.read(8) # padding
+
+		with ConvFile(assetPath(self.dataFile), 'rb') as x:
+			while z64.tell() < self.offset + self.sz:
+				address = readU32(z64, swap = False)
+				size = readU32(z64, swap = False)
+				medium = readS8(z64, swap = False)
+				cachePolicy = readS8(z64, swap = False)
+				shortData1 = readS16(z64, swap = False)
+				shortData2 = readS16(z64, swap = False)
+				shortData3 = readS16(z64, swap = False)
+
+				reloc = self.getReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f = x)
+				relocs.append(reloc)
+		self.relocs = relocs
 
 		
 	def serialize(self, f, z64):
+		global symbols
 		z64.seek(self.offset)
 		
 		numEntries = readS16(z64, swap = False)
@@ -385,15 +645,23 @@ class Table(Section):
 				shortData3 = readS16(z64, swap = False)
 
 				reloc = self.getReloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f = x)
-				reloc.getDef() # reverses endian
 				relocs.append(reloc)
-				lst.append('{ .romAddr = 0x%8.8X, .size = 0x%8.8X, .medium = 0x%2.2X, .cachePolicy = %d, .shortData1 = 0x%4.4X, .shortData2 = 0x%4.4X, .shortData3 = 0x%4.4X }' % (address, size, medium, cachePolicy, shortData1, shortData2, shortData3))
+				lst.append('{ .romAddr = (uintptr_t)%s, .size = 0x%8.8X, .medium = 0x%2.2X, .cachePolicy = %d, .shortData1 = 0x%4.4X, .shortData2 = 0x%4.4X, .shortData3 = 0x%4.4X }' % (reloc.getSymbol(), size, medium, cachePolicy, shortData1, shortData2, shortData3))
+				#reloc.render(f)
+		self.relocs = relocs
 			
-		f.write('AudioTableDef %s = {\n.numEntries = 0x%4.4X, .unkMediumParam = 0x%4.4X, .romAddr = 0x%8.8X, .pad = {0}, .entries = {\n' % (self.name, numEntries, unkMediumParam, address))
+		definition = ('AudioTableDef %s = {\n.numEntries = 0x%4.4X, .unkMediumParam = 0x%4.4X, .romAddr = 0x%8.8X, .pad = {0}, .entries = {\n' % (self.name, numEntries, unkMediumParam, address))
 
-		f.write(',\n'.join(lst))
+		definition += (',\n'.join(lst))
 			
-		f.write('\n}};\n\n')
+		definition += ('\n}};')
+		
+		registerSymbol(self.name, definition, self.offset, static = False)
+		
+		for offset, definition in symbols.items():
+			f.write('%s\n\n' % (definition))
+			
+		symbols = {}
 		
 	def getReloc(self, address, size, medium, cachePolicy, shortData1, shortData2, shortData3, f):
 		return Reloc(address, size, medium, cachePolicy, shortData1, shortData2, shortData3, self.dataFile, f = f)
@@ -414,7 +682,7 @@ sections = {'misc/rsp.h': [
 		Section('gSequenceFontTable', conf.sections.gSequenceFontTable.offset, conf.sections.gSequenceFontTable.size, 2),
 		Table('gSequenceTable', conf.sections.gSequenceTable.offset, conf.sections.gSequenceTable.size, 'baserom/Audioseq'),
 		Table('gSampleBankTable', conf.sections.gSampleBankTable.offset, conf.sections.gSampleBankTable.size, 'baserom/Audiotable'),
-		Section('rspAspMainDataStart', conf.sections.rspAspMainData.offset, conf.sections.rspAspMainData.size),
+		Section('rspAspMainDataStart', conf.sections.rspAspMainData.offset, conf.sections.rspAspMainData.size, 4),
 		Section('D_80155F50', conf.sections.rspF3DZEXText.offset, conf.sections.rspF3DZEXText.size, 1),
 		Section('D_80157580', conf.sections.rspF3DZEXData.offset, conf.sections.rspF3DZEXData.size, 1),
 		Section('D_801579A0', conf.sections.rspS2DEXData.offset, conf.sections.rspS2DEXData.size, 1),
@@ -441,6 +709,9 @@ sections = {'misc/rsp.h': [
 createDir(assetPath('misc'))
 
 with open(romPath('baserom.z64'), 'rb') as z64:
+	sampleBankTable = Table('gSampleBankTable', conf.sections.gSampleBankTable.offset, conf.sections.gSampleBankTable.size, 'baserom/Audiotable')
+	sampleBankTable.load(z64)
+
 	for filename, s in sections.items():
 		with open(assetPath(filename), 'w') as f:
 			f.write('#include "global.h"\n')

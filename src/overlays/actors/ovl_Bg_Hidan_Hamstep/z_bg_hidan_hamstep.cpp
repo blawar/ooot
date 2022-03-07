@@ -391,7 +391,7 @@ void func_80888A58(BgHidanHamstep* pthis, GlobalContext* globalCtx) {
                 func_808884C8(pthis, globalCtx);
 
                 if ((pthis->dyna.actor.params & 0xFF) == 5) {
-                    func_80078884(NA_SE_SY_CORRECT_CHIME);
+                    Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
                 }
 
                 osSyncPrintf("B(%d)\n", pthis->dyna.actor.params);

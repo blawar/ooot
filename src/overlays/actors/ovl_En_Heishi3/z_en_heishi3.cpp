@@ -143,7 +143,7 @@ void EnHeishi3_StandSentinelInGrounds(EnHeishi3* pthis, GlobalContext* globalCtx
         (fabsf(player->actor.world.pos.y - pthis->actor.world.pos.y) < 100.0f) && (sPlayerCaught == 0)) {
         sPlayerCaught = 1;
         Message_StartTextbox(globalCtx, 0x702D, &pthis->actor);
-        func_80078884(NA_SE_SY_FOUND);
+        Common_PlaySfx(NA_SE_SY_FOUND);
         osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 発見！ ☆☆☆☆☆ \n" VT_RST); // "Discovered!"
         func_8002DF54(globalCtx, &pthis->actor, 1);
         pthis->actionFunc = EnHeishi3_CatchStart;
@@ -171,7 +171,7 @@ void EnHeishi3_StandSentinelInCastle(EnHeishi3* pthis, GlobalContext* globalCtx)
         }
         sPlayerCaught = 1;
         Message_StartTextbox(globalCtx, 0x702D, &pthis->actor);
-        func_80078884(NA_SE_SY_FOUND);
+        Common_PlaySfx(NA_SE_SY_FOUND);
         osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 発見！ ☆☆☆☆☆ \n" VT_RST); // "Discovered!"
         func_8002DF54(globalCtx, &pthis->actor, 1);
         pthis->actionFunc = EnHeishi3_CatchStart;

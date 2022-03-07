@@ -262,7 +262,7 @@ void BgHakaGate_FloorClosed(BgHakaGate* pthis, GlobalContext* globalCtx) {
                 sPuzzleState = SKULL_OF_TRUTH_FOUND;
                 pthis->actionFunc = BgHakaGate_DoNothing;
             } else {
-                func_80078884(NA_SE_SY_ERROR);
+                Common_PlaySfx(NA_SE_SY_ERROR);
                 Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_GROUND_GATE_OPEN);
                 func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
                 pthis->vTimer = 60;

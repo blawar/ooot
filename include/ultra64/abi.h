@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+uintptr_t check_pointer(uintptr_t p, u32 sz);
+
 /* Audio commands: */
 #define A_SPNOOP        0
 #define A_ADPCM         1
@@ -51,135 +53,318 @@
  * Data Structures.
  */
 
-struct Aadpcm {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 gain  : 16;
-    u32 addr;
+struct Aadpcm
+{
+#ifdef LITTLE_ENDIAN
+	u32 gain : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 gain : 16;
+	u32 addr;
+#endif
 };
 
-struct Apolef {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 gain  : 16;
-    u32 addr;
+struct Apolef
+{
+#ifdef LITTLE_ENDIAN
+	u32 gain : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 gain : 16;
+	u32 addr;
+#endif
 };
 
-struct Aenvelope {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 pad1  : 16;
-    u32 addr;
+struct Aenvelope
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad1 : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 pad1 : 16;
+	u32 addr;
+#endif
 };
 
-struct Aclearbuff {
-    u32 cmd   : 8;
-    u32 pad1  : 8;
-    u32 dmem  : 16;
-    u32 pad2  : 16;
-    u32 count : 16;
+struct Aclearbuff
+{
+#ifdef LITTLE_ENDIAN
+	u32 dmem : 16;
+	u32 pad1 : 8;
+	u32 cmd : 8;
+	u32 count : 16;
+	u32 pad2 : 16;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 8;
+	u32 dmem : 16;
+	u32 pad2 : 16;
+	u32 count : 16;
+#endif
 };
 
-struct Ainterleave {
-    u32 cmd  : 8;
-    u32 pad1 : 8;
-    u32 pad2 : 16;
-    u32 inL  : 16;
-    u32 inR  : 16;
+struct Ainterleave
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad2 : 16;
+	u32 pad1 : 8;
+	u32 cmd : 8;
+	u32 inR : 16;
+	u32 inL : 16;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 8;
+	u32 pad2 : 16;
+	u32 inL : 16;
+	u32 inR : 16;
+#endif
 };
 
-struct Aloadbuff {
-    u32 cmd  : 8;
-    u32 pad1 : 24;
-    u32 addr;
+struct Aloadbuff
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad1 : 24;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 24;
+	u32 addr;
+#endif
 };
 
-struct Aenvmixer {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 pad1  : 16;
-    u32 addr;
+struct Aenvmixer
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad1 : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 pad1 : 16;
+	u32 addr;
+#endif
 };
 
-struct Amixer {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 gain  : 16;
-    u32 dmemi : 16;
-    u32 dmemo : 16;
+struct Amixer
+{
+#ifdef LITTLE_ENDIAN
+	u32 gain : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 dmemo : 16;
+	u32 dmemi : 16;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 gain : 16;
+	u32 dmemi : 16;
+	u32 dmemo : 16;
+#endif
 };
 
-struct Apan {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 dmem2 : 16;
-    u32 addr;
+struct Apan
+{
+#ifdef LITTLE_ENDIAN
+	u32 dmem2 : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 dmem2 : 16;
+	u32 addr;
+#endif
 };
 
-struct Aresample {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 pitch : 16;
-    u32 addr;
+struct Aresample
+{
+#ifdef LITTLE_ENDIAN
+	u32 pitch : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 pitch : 16;
+	u32 addr;
+#endif
 };
 
-struct Areverb {
-    u32 cmd   : 8;
-    u32 flags : 8;
-    u32 pad1  : 16;
-    u32 addr;
+struct Areverb
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad1 : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 pad1 : 16;
+	u32 addr;
+#endif
 };
 
-struct Asavebuff {
-    u32 cmd  : 8;
-    u32 pad1 : 24;
-    u32 addr;
+struct Afilter
+{
+#ifdef LITTLE_ENDIAN
+	u32 count : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 count : 16;
+	u32 addr;
+#endif
 };
 
-struct Asegment {
-    u32 cmd    : 8;
-    u32 pad1   : 24;
-    u32 pad2   : 2;
+struct Asavebuff
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad1 : 24;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 24;
+	u32 addr;
+#endif
+};
+
+struct Asegment
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad1 : 24;
+	u32 cmd : 8;
+    u32 pad3 : 2;
+	u32 base : 24;
     u32 number : 4;
-    u32 base   : 24;
+	u32 pad2 : 2;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 24;
+	u32 pad2 : 2;
+	u32 number : 4;
+	u32 base : 24;
+	u32 pad3 : 2;
+#endif
 };
 
-struct Asetbuff {
-    u32 cmd     : 8;
-    u32 flags   : 8;
-    u32 dmemin  : 16;
-    u32 dmemout : 16;
-    u32 count   : 16;
+struct Asetbuff
+{
+#ifdef LITTLE_ENDIAN
+	u32 dmemin : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 count : 16;
+	u32 dmemout : 16;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 dmemin : 16;
+	u32 dmemout : 16;
+	u32 count : 16;
+#endif
 };
 
-struct Asetvol {
-    u32 cmd     : 8;
-    u32 flags   : 8;
-    u32 vol     : 16;
-    u32 voltgt  : 16;
-    u32 volrate : 16;
+struct Aduplicate
+{
+#ifdef LITTLE_ENDIAN
+	u32 dmemin : 16;
+	u32 repeats : 8;
+	u32 cmd : 8;
+	u32 size : 16;
+	u32 dmemout : 16;
+#else
+	u32 cmd : 8;
+	u32 repeats : 8;
+	u32 dmemin : 16;
+	u32 dmemout : 16;
+	u32 size : 16;
+#endif
 };
 
-struct Admemmove {
-    u32 cmd     : 8;
-    u32 pad1    : 8;
-    u32 dmemin  : 16;
-    u32 dmemout : 16;
-    u32 count   : 16;
+struct Asetvol
+{
+#ifdef LITTLE_ENDIAN
+	u32 vol : 16;
+	u32 flags : 8;
+	u32 cmd : 8;
+	u32 volrate : 16;
+	u32 voltgt : 16;
+#else
+	u32 cmd : 8;
+	u32 flags : 8;
+	u32 vol : 16;
+	u32 voltgt : 16;
+	u32 volrate : 16;
+#endif
 };
 
-struct Aloadadpcm {
-    u32 cmd   : 8;
-    u32 pad1  : 8;
-    u32 count : 16;
-    u32 addr;
+struct Admemmove
+{
+#ifdef LITTLE_ENDIAN
+	u32 dmemin : 16;
+	u32 pad1 : 8;
+	u32 cmd : 8;
+	u32 count : 16;
+	u32 dmemout : 16;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 8;
+	u32 dmemin : 16;
+	u32 dmemout : 16;
+	u32 count : 16;
+#endif
 };
 
-struct Asetloop {
-    u32 cmd  : 8;
-    u32 pad1 : 8;
-    u32 pad2 : 16;
-    u32 addr;
+struct Aloadadpcm
+{
+#ifdef LITTLE_ENDIAN
+	u32 count : 16;
+	u32 pad1 : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 8;
+	u32 count : 16;
+	u32 addr;
+#endif
+};
+
+struct Asetloop
+{
+#ifdef LITTLE_ENDIAN
+	u32 pad2 : 16;
+	u32 pad1 : 8;
+	u32 cmd : 8;
+	u32 addr;
+#else
+	u32 cmd : 8;
+	u32 pad1 : 8;
+	u32 pad2 : 16;
+	u32 addr;
+#endif
 };
 
 /*
@@ -211,6 +396,8 @@ union Acmd
     Aloadadpcm  loadadpcm;
     Amixer      mixer;
     Asetloop    setloop;
+    Afilter     filter;
+    Aduplicate	duplicate;
     long long int force_union_align; /* dummy, force alignment */
 };
 
@@ -339,7 +526,7 @@ typedef short ENVMIX_STATE[40];
                                                                        \
         _a->words.w0 = (_SHIFTL(A_LOADBUFF, 24, 8) |                   \
                         _SHIFTL((c) >> 4, 16, 8) | _SHIFTL(d, 0, 16)); \
-        _a->words.w1 = (uintptr_t)(s);                                                              \
+        _a->words.w1 = check_pointer((uintptr_t)(s), c);                                                              \
     }
 
 #define aMix(pkt, f, g, i, o)                                         \
@@ -434,7 +621,7 @@ typedef short ENVMIX_STATE[40];
         Acmd *_a = (Acmd *)pkt;                                         \
                                                                         \
         _a->words.w0 = _SHIFTL(A_LOADADPCM, 24, 8) | _SHIFTL(c, 0, 24); \
-        _a->words.w1 = (uintptr_t)d;                                    \
+        _a->words.w1 = check_pointer((uintptr_t)d, c);                                    \
     }
 
 #define aEnvSetup1(pkt, a, b, c, d)                             \

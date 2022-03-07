@@ -3,14 +3,9 @@
 #include "padmgr.h"
 #include "n64fault.h"
 #include "vt.h"
+#include "port/player/players.h"
 #include "def/padmgr.h"
 #include "def/padutils.h"
-
-extern "C"
-{
-	void hid_init();
-	void hid_update();
-}
 
 u32 gIsCtrlr2Valid = false;
 s32 D_8012D280 = 1;
@@ -53,7 +48,7 @@ void PadMgr_HandlePreNMI(PadMgr* padMgr) {
 }
 
 void PadMgr_RequestPadData(PadMgr* padMgr, Input* inputs, s32 mode) {
-    hid_update();
+	oot::hid::Players::Update();
     s32 i;
     Input* ogInput;
     Input* newInput;
