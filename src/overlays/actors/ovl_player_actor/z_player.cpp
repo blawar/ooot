@@ -111,7 +111,7 @@ s32 func_808358F0(Player* pthis, GlobalContext* globalCtx);
 s32 func_808359FC(Player* pthis, GlobalContext* globalCtx);
 s32 func_80835B60(Player* pthis, GlobalContext* globalCtx);
 s32 func_80835C08(Player* pthis, GlobalContext* globalCtx);
-void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item);
+void Player_ExecuteActionItem(GlobalContext* globalCtx, Player* pthis, s32 item);
 void func_80839F90(Player* pthis, GlobalContext* globalCtx);
 s32 func_80838A14(Player* pthis, GlobalContext* globalCtx);
 s32 func_80839800(Player* pthis, GlobalContext* globalCtx);
@@ -1214,7 +1214,7 @@ void func_80832440(GlobalContext* globalCtx, Player* pthis) {
 
 s32 func_80832528(GlobalContext* globalCtx, Player* pthis) {
     if (pthis->heldItemActionParam >= PLAYER_AP_FISHING_POLE) {
-        func_80835F44(globalCtx, pthis, ITEM_NONE);
+        Player_ExecuteActionItem(globalCtx, pthis, ITEM_NONE);
         return 1;
     } else {
         return 0;
@@ -1862,7 +1862,7 @@ void func_80833DF8(Player* pthis, GlobalContext* globalCtx) {
         if (pthis->itemActionParam >= PLAYER_AP_FISHING_POLE) {
             if (!func_80833C50(pthis, B_BTN_ITEM) && !func_80833C50(pthis, C_BTN_ITEM(0)) &&
                 !func_80833C50(pthis, C_BTN_ITEM(1)) && !func_80833C50(pthis, C_BTN_ITEM(2))) {
-                func_80835F44(globalCtx, pthis, ITEM_NONE);
+                Player_ExecuteActionItem(globalCtx, pthis, ITEM_NONE);
                 return;
             }
         }
@@ -1887,7 +1887,7 @@ void func_80833DF8(Player* pthis, GlobalContext* globalCtx) {
             }
         } else {
             pthis->heldItemButton = i;
-            func_80835F44(globalCtx, pthis, item);
+            Player_ExecuteActionItem(globalCtx, pthis, item);
         }
     }
 }
@@ -2025,7 +2025,7 @@ void func_80834594(GlobalContext* globalCtx, Player* pthis) {
         }
     }
 
-    func_80835F44(globalCtx, pthis, pthis->heldItemId);
+    Player_ExecuteActionItem(globalCtx, pthis, pthis->heldItemId);
 
     if (func_8008F2BC(pthis, pthis->heldItemActionParam) >= 0) {
         func_808328EC(pthis, NA_SE_IT_SWORD_PICKOUT);
@@ -2662,10 +2662,28 @@ void func_80835EFC(Player* pthis) {
     }
 }
 
-void func_80835F44(GlobalContext* globalCtx, Player* pthis, s32 item) {
+static bool Player_ItemIsEquipment(s32 item)
+{
+	return item >= ITEM_TUNIC_KOKIRI && item <= ITEM_BOOTS_HOVER;
+}
+
+static void Player_ExecuteActionItem(GlobalContext* globalCtx, Player* pthis, s32 item) {
     s8 actionParam;
     s32 temp;
     s32 nextType;
+
+    if(Player_ItemIsEquipment(item))
+    {
+	    auto equip = Item_GetEquipmentPosition((ItemID)item);
+
+        if(equip.isValid() && equip.menu == PAUSE_EQUIP && Equip_MeetsAgeRequirement(equip))
+	    {
+		    Inventory_ChangeEquipment(equip.y, equip.x + 1);
+		    Player_SetEquipmentData(globalCtx, pthis);
+		    func_808328EC(pthis, NA_SE_PL_CHANGE_ARMS);
+	    }
+	    return;
+    }
 
     actionParam = Player_ItemToActionParam(item);
 
@@ -5068,7 +5086,7 @@ s32 func_8083C1DC(Player* pthis, GlobalContext* globalCtx) {
             return 1;
         }
         if ((pthis->unk_837 == 0) && (pthis->heldItemActionParam >= PLAYER_AP_SWORD_MASTER)) {
-            func_80835F44(globalCtx, pthis, ITEM_NONE);
+            Player_ExecuteActionItem(globalCtx, pthis, ITEM_NONE);
         } else {
             pthis->stateFlags2 ^= 0x100000;
         }
@@ -5926,7 +5944,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx) {
                         pthis->nextModelGroup = Player_ActionToModelGroup(pthis, PLAYER_AP_LAST_USED);
                         func_8083399C(globalCtx, pthis, PLAYER_AP_LAST_USED);
                     } else {
-                        func_80835F44(globalCtx, pthis, ITEM_LAST_USED);
+                        Player_ExecuteActionItem(globalCtx, pthis, ITEM_LAST_USED);
                     }
                 } else {
                     s32 strength = Player_GetStrength();
@@ -7393,7 +7411,7 @@ void func_80842A28(GlobalContext* globalCtx, Player* pthis) {
 
 void func_80842A88(GlobalContext* globalCtx, Player* pthis) {
     Inventory_ChangeAmmo(ITEM_STICK, -1);
-    func_80835F44(globalCtx, pthis, ITEM_NONE);
+    Player_ExecuteActionItem(globalCtx, pthis, ITEM_NONE);
 }
 
 s32 func_80842AC4(GlobalContext* globalCtx, Player* pthis) {
@@ -9030,7 +9048,7 @@ void Player_Init(Actor* pthisx, GlobalContext* globalCtx2) {
     pthis->itemActionParam = pthis->heldItemActionParam = -1;
     pthis->heldItemId = ITEM_NONE;
 
-    func_80835F44(globalCtx, pthis, ITEM_NONE);
+    Player_ExecuteActionItem(globalCtx, pthis, ITEM_NONE);
     Player_SetEquipmentData(globalCtx, pthis);
     pthis->prevBoots = pthis->currentBoots;
     Player_InitCommon(pthis, globalCtx, gPlayerSkelHeaders[((void)0, gSaveContext.linkAge)]);
@@ -9684,7 +9702,7 @@ void func_80848A04(GlobalContext* globalCtx, Player* pthis) {
     f32 temp;
 
     if (pthis->unk_85C == 0.0f) {
-        func_80835F44(globalCtx, pthis, 0xFF);
+        Player_ExecuteActionItem(globalCtx, pthis, 0xFF);
         return;
     }
 
@@ -10623,7 +10641,7 @@ s32 func_8084B3CC(GlobalContext* globalCtx, Player* pthis) {
         func_80835C58(globalCtx, pthis, func_8084FA54, 0);
 
         if (!func_8002DD6C(pthis) || Player_HoldsHookshot(pthis)) {
-            func_80835F44(globalCtx, pthis, 3);
+            Player_ExecuteActionItem(globalCtx, pthis, 3);
         }
 
         pthis->stateFlags1 |= 0x100000;
@@ -14000,7 +14018,7 @@ s32 Player_StartFishing(GlobalContext* globalCtx) {
     Player* pthis = GET_PLAYER(globalCtx);
 
     func_80832564(globalCtx, pthis);
-    func_80835F44(globalCtx, pthis, ITEM_FISHING_POLE);
+    Player_ExecuteActionItem(globalCtx, pthis, ITEM_FISHING_POLE);
     return 1;
 }
 

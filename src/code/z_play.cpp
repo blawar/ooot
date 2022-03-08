@@ -955,7 +955,7 @@ void Gameplay_Update(GlobalContext* globalCtx) {
                         LOG_NUM("1", 1, "../z_play.c", 3648);
                     }
 
-                    func_800645A0(globalCtx, &globalCtx->csCtx);
+                    Cinema_Update(globalCtx, &globalCtx->csCtx);
 
                     if (1 && HREG(63)) {
                         LOG_NUM("1", 1, "../z_play.c", 3651);

@@ -1511,8 +1511,6 @@ void func_80091A24(GlobalContext* globalCtx, void* keepSegment, void* linkObject
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 3129);
 
-    { s32 pad[2]; }
-
     opaRef = POLY_OPA_DISP;
     POLY_OPA_DISP++;
 

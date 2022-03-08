@@ -467,40 +467,72 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
         KaleidoScope_SetCursorVtx(pauseCtx, cursorSlot * 4, pauseCtx->equipVtx);
 
         if ((pauseCtx->cursorSpecialPos == 0) && (cursorItem != PAUSE_ITEM_NONE) && (pauseCtx->state == 6) &&
-            (pauseCtx->unk_1E4 == 0) && CHECK_BTN_ALL(input->press.button, BTN_A) &&
+            (pauseCtx->unk_1E4 == 0) &&
             (pauseCtx->cursorX[PAUSE_EQUIP] != 0)) {
 
-            if ((gEquipAgeReqs[pauseCtx->cursorY[PAUSE_EQUIP]][pauseCtx->cursorX[PAUSE_EQUIP]] == 9) ||
-                (gEquipAgeReqs[pauseCtx->cursorY[PAUSE_EQUIP]][pauseCtx->cursorX[PAUSE_EQUIP]] ==
-                 ((void)0, gSaveContext.linkAge))) {
-                Inventory_ChangeEquipment(pauseCtx->cursorY[PAUSE_EQUIP], pauseCtx->cursorX[PAUSE_EQUIP]);
+            if(CHECK_BTN_ALL(input->press.button, BTN_A))
+		    {
+			    if((gEquipAgeReqs[pauseCtx->cursorY[PAUSE_EQUIP]][pauseCtx->cursorX[PAUSE_EQUIP]] == 9) || (gEquipAgeReqs[pauseCtx->cursorY[PAUSE_EQUIP]][pauseCtx->cursorX[PAUSE_EQUIP]] == ((void)0, gSaveContext.linkAge)))
+			    {
+				    Inventory_ChangeEquipment(pauseCtx->cursorY[PAUSE_EQUIP], pauseCtx->cursorX[PAUSE_EQUIP]);
 
-                if (pauseCtx->cursorY[PAUSE_EQUIP] == 0) {
-                    gSaveContext.infTable[29] = 0;
-                    gSaveContext.equips.buttonItems[0] = cursorItem;
+				    if(pauseCtx->cursorY[PAUSE_EQUIP] == EQUIP_SWORD)
+				    {
+					    gSaveContext.infTable[29]	   = 0;
+					    gSaveContext.equips.buttonItems[0] = cursorItem;
 
-                    if ((pauseCtx->cursorX[PAUSE_EQUIP] == 3) && (gSaveContext.bgsFlag != 0)) {
-                        gSaveContext.equips.buttonItems[0] = ITEM_SWORD_BGS;
-                        gSaveContext.swordHealth = 8;
-                    } else {
-                        if (gSaveContext.equips.buttonItems[0] == ITEM_HEART_PIECE_2) {
-                            gSaveContext.equips.buttonItems[0] = ITEM_SWORD_BGS;
-                        }
-                        if ((gSaveContext.equips.buttonItems[0] == ITEM_SWORD_BGS) && (gSaveContext.bgsFlag == 0) &&
-                            (gBitFlags[3] & gSaveContext.inventory.equipment)) {
-                            gSaveContext.equips.buttonItems[0] = ITEM_SWORD_KNIFE;
-                        }
-                    }
+					    if((pauseCtx->cursorX[PAUSE_EQUIP] == 3) && (gSaveContext.bgsFlag != 0))
+					    {
+						    gSaveContext.equips.buttonItems[0] = ITEM_SWORD_BGS;
+						    gSaveContext.swordHealth	   = 8;
+					    }
+					    else
+					    {
+						    if(gSaveContext.equips.buttonItems[0] == ITEM_HEART_PIECE_2)
+						    {
+							    gSaveContext.equips.buttonItems[0] = ITEM_SWORD_BGS;
+						    }
+						    if((gSaveContext.equips.buttonItems[0] == ITEM_SWORD_BGS) && (gSaveContext.bgsFlag == 0) && (gBitFlags[3] & gSaveContext.inventory.equipment))
+						    {
+							    gSaveContext.equips.buttonItems[0] = ITEM_SWORD_KNIFE;
+						    }
+					    }
 
-                    Interface_LoadItemIcon1(globalCtx, 0);
-                }
+					    Interface_LoadItemIcon1(globalCtx, 0);
+				    }
 
-                Audio_PlaySoundGeneral(NA_SE_SY_DECIDE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-                pauseCtx->unk_1E4 = 7;
-                sEquipTimer = 10;
-            } else {
-                Audio_PlaySoundGeneral(NA_SE_SY_ERROR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-            }
+				    Audio_PlaySoundGeneral(NA_SE_SY_DECIDE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+				    pauseCtx->unk_1E4 = 7;
+				    sEquipTimer	  = 10;
+			    }
+			    else
+			    {
+				    Audio_PlaySoundGeneral(NA_SE_SY_ERROR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+			    }
+		    }
+		    else if(CHECK_BTN_ANY(input->press.button, BTN_CLEFT | BTN_CDOWN | BTN_CRIGHT))
+		    {
+			    if(CHECK_BTN_ALL(input->press.button, BTN_CLEFT))
+			    {
+				    pauseCtx->equipTargetCBtn = 0;
+			    }
+			    else if(CHECK_BTN_ALL(input->press.button, BTN_CDOWN))
+			    {
+				    pauseCtx->equipTargetCBtn = 1;
+			    }
+			    else if(CHECK_BTN_ALL(input->press.button, BTN_CRIGHT))
+			    {
+				    pauseCtx->equipTargetCBtn = 2;
+			    }
+
+                if(Equip_MeetsAgeRequirement(EquipmentPosition(PAUSE_EQUIP, pauseCtx->cursorX[PAUSE_EQUIP] - 1, pauseCtx->cursorY[PAUSE_EQUIP])))
+			    {
+				    gSaveContext.equips.buttonItems[pauseCtx->equipTargetCBtn + 1] = cursorItem;
+				    gSaveContext.equips.cButtonSlots[pauseCtx->equipTargetCBtn]	   = SLOT_NONE;
+				    Interface_LoadItemIcon1(globalCtx, pauseCtx->equipTargetCBtn + 1);
+				    Audio_PlaySoundGeneral(NA_SE_SY_DECIDE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+			    }
+		    }
         }
 
         if (oldCursorPoint != pauseCtx->cursorPoint[PAUSE_EQUIP]) {
@@ -547,7 +579,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
 
         if (LINK_AGE_IN_YEARS == YEARS_CHILD) {
             point = CUR_UPG_VALUE(sChildUpgrades[i]);
-            if (1) {}
+
             if ((point != 0) && (CUR_UPG_VALUE(sChildUpgrades[i]) != 0)) {
                 KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx,
                                                    gItemIcons[sChildUpgradeItemBases[i] + point - 1], 32, 32, 0);

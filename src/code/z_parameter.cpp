@@ -255,7 +255,7 @@ void func_80082644(GlobalContext* globalCtx, s16 alpha) {
 void func_8008277C(GlobalContext* globalCtx, s16 maxAlpha, s16 alpha) {
     InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
-    if (gSaveContext.unk_13E7 != 0) {
+    if (gSaveContext.startDemo != 0) {
         func_80082644(globalCtx, alpha);
         return;
     }
@@ -647,12 +647,12 @@ void func_80083108(GlobalContext* globalCtx) {
 
     if ((gSaveContext.cutsceneIndex < 0xFFF0) ||
         ((globalCtx->sceneNum == SCENE_SPOT20) && (gSaveContext.cutsceneIndex == 0xFFF0))) {
-        gSaveContext.unk_13E7 = 0;
+        gSaveContext.startDemo = 0;
 
         if ((player->stateFlags1 & 0x00800000) || (globalCtx->shootingGalleryStatus > 1) ||
             ((globalCtx->sceneNum == SCENE_BOWLING) && Flags_GetSwitch(globalCtx, 0x38))) {
             if (gSaveContext.equips.buttonItems[0] != ITEM_NONE) {
-                gSaveContext.unk_13E7 = 1;
+                gSaveContext.startDemo = 1;
 
                 if (gSaveContext.buttonStatus[0] == BTN_DISABLED) {
                     gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
@@ -709,7 +709,7 @@ void func_80083108(GlobalContext* globalCtx) {
         } else if (globalCtx->sceneNum == SCENE_KENJYANOMA) {
             Interface_ChangeAlpha(1);
         } else if (globalCtx->sceneNum == SCENE_TURIBORI) {
-            gSaveContext.unk_13E7 = 2;
+            gSaveContext.startDemo = 2;
             if (globalCtx->interfaceCtx.unk_260 != 0) {
                 if (gSaveContext.equips.buttonItems[0] != ITEM_FISHING_POLE) {
                     gSaveContext.buttonStatus[0] = gSaveContext.equips.buttonItems[0];
@@ -1346,6 +1346,39 @@ void func_80084BF4(GlobalContext* globalCtx, u16 flag) {
             gSaveContext.buttonStatus[3] = BTN_ENABLED;
         func_80083108(globalCtx);
     }
+}
+
+static ItemID sEquipItemMap[4][3] = {
+    {ITEM_SWORD_KOKIRI, ITEM_SWORD_MASTER, ITEM_SWORD_BGS},
+    {ITEM_SHIELD_DEKU, ITEM_SHIELD_HYLIAN, ITEM_SHIELD_MIRROR},
+    {ITEM_TUNIC_KOKIRI, ITEM_TUNIC_GORON, ITEM_TUNIC_ZORA},
+    {ITEM_BOOTS_KOKIRI, ITEM_BOOTS_IRON, ITEM_BOOTS_HOVER}
+};
+
+ItemID Item_GetFromEquipment(s16 y, s16 x)
+{
+	if(y >= 4 || x >= 3)
+	{
+		return ITEM_NONE;
+	}
+
+	return sEquipItemMap[y][x];
+}
+
+EquipmentPosition Item_GetEquipmentPosition(ItemID itemID)
+{
+	for(int y=0; y < 4; y++)
+	{
+        for(int x=0; x < 3; x++)
+		{
+		    if(sEquipItemMap[y][x] == itemID)
+		    {
+			    return EquipmentPosition(PAUSE_EQUIP, x, y);
+		    }
+		}
+	}
+
+	return EquipmentPosition();
 }
 
 u8 Item_Give(GlobalContext* globalCtx, u8 item) {

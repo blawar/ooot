@@ -221,6 +221,16 @@ u8 gItemAgeReqs[] = {
     0, 1, 0, 0, 1, 9, 0, 9, 0, 0, 9, 0, 0, 1, 1, 1, 0, 0, 0, 9, 9, 9, 1, 0, 0, 9, 9, 0,
 };
 
+bool Item_MeetsAgeRequirement(ItemID itemID)
+{
+	return (gItemAgeReqs[itemID] == 9) || (gItemAgeReqs[itemID] == gSaveContext.linkAge);
+}
+
+bool Equip_MeetsAgeRequirement(EquipmentPosition equip)
+{
+	return (gEquipAgeReqs[equip.y][equip.x + 1] == 9) || (gEquipAgeReqs[equip.y][equip.x + 1] == gSaveContext.linkAge);
+}
+
 u8 gAreaGsFlags[] = {
     0x0F, 0x1F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x07, 0x07, 0x03,
     0x0F, 0x07, 0x0F, 0x0F, 0xFF, 0xFF, 0xFF, 0x1F, 0x0F, 0x03, 0x0F,
