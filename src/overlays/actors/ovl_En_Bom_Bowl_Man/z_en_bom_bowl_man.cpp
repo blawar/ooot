@@ -410,7 +410,7 @@ void EnBomBowMan_ChooseShowPrize(EnBomBowlMan* pthis, GlobalContext* globalCtx) 
                 prizeTemp = EXITEM_PURPLE_RUPEE_BOWLING;
                 break;
             case 2:
-                prizeTemp = EXITEM_BOMBCHUS_BOWLING;
+                prizeTemp = EXITEM_PURPLE_RUPEE_BOWLING; // TODO FIX HACK, bombchu corrupts the walls when its selected. EXITEM_BOMBCHUS_BOWLING;
                 break;
             case 3:
                 prizeTemp = EXITEM_HEART_PIECE_BOWLING;
