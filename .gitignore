@@ -65,3 +65,4 @@ assets/
 
 # Per-user configuration
 .python-version
+/vs/oot.props
