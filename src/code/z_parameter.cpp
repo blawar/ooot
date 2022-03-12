@@ -750,10 +750,13 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
                 gSaveContext.buttonStatus[0] = BTN_DISABLED;
 
                 for (i = 1; i < 4; i++) {
-			        if(Player_GetRoomTimer(globalCtx) == 2)
+			        if(Player_GetRoomTimer(globalCtx) == ROOMTIMER_DEEP_UNDERWATER)
 			        {
+                        // Disable Buttons on ROOMTIMER_DEEP_UNDERWATER
                         if ((gSaveContext.equips.buttonItems[i] != ITEM_HOOKSHOT) &&
-                            (gSaveContext.equips.buttonItems[i] != ITEM_LONGSHOT)) {
+                            (gSaveContext.equips.buttonItems[i] != ITEM_LONGSHOT) && 
+                            (gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_IRON))
+			{
                             if (gSaveContext.buttonStatus[i] == BTN_ENABLED) {
                                 sp28 = 1;
                             }
@@ -771,7 +774,9 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
                             sp28 = 1;
                         }
 
-                        gSaveContext.buttonStatus[i] = BTN_DISABLED;
+                        // Entering Water, disable unusable Items
+                        if((gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_IRON))
+                            gSaveContext.buttonStatus[i] = BTN_DISABLED;
                     }
                 }
 
@@ -4035,13 +4040,13 @@ void Interface_Update(GlobalContext* globalCtx) {
     if(D_RoomTimer == ROOMTIMER_DEEP_UNDERWATER)
     {
         if (CUR_EQUIP_VALUE(EQUIP_TUNIC) == PLAYER_TUNIC_ZORA) {
-		    D_RoomTimer = 0;
+		    D_RoomTimer = ROOMTIMER_NONE;
         }
     }
     else if((Player_GetRoomTimer(globalCtx) >= ROOMTIMER_SWIMMING) && (Player_GetRoomTimer(globalCtx) < ROOMTIMER_UNKN5))
     {
         if (CUR_EQUIP_VALUE(EQUIP_TUNIC) == 3) {
-		    D_RoomTimer = 0;
+		    D_RoomTimer = ROOMTIMER_NONE;
         }
     }
 
@@ -4148,7 +4153,7 @@ void Interface_Update(GlobalContext* globalCtx) {
     }
 
     if (gSaveContext.timer1State == 0) {
-	    if(((D_RoomTimer == 1) || (D_RoomTimer == 2) || (D_RoomTimer == 4)) && ((gSaveContext.health >> 1) != 0))
+	    if(((D_RoomTimer == ROOMTIMER_HOT) || (D_RoomTimer == ROOMTIMER_DEEP_UNDERWATER) || (D_RoomTimer == ROOMTIMER_UNKN4)) && ((gSaveContext.health >> 1) != 0))
 	    {
             gSaveContext.timer1State = 1;
             gSaveContext.timerX[0] = 140;
@@ -4156,7 +4161,7 @@ void Interface_Update(GlobalContext* globalCtx) {
             D_80125A5C = 1;
         }
     } else {
-	    if(((D_RoomTimer == 0) || (D_RoomTimer == 3)) && (gSaveContext.timer1State < 5))
+	    if(((D_RoomTimer == ROOMTIMER_NONE) || (D_RoomTimer == ROOMTIMER_SWIMMING)) && (gSaveContext.timer1State < 5))
 	    {
             gSaveContext.timer1State = 0;
         }
