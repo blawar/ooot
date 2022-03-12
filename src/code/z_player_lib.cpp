@@ -638,18 +638,19 @@ return_neg:
     return -1;
 }
 
-s32 func_8008F2F8(GlobalContext* globalCtx) {
+s32 Player_GetRoomTimer(GlobalContext* globalCtx)
+{
     Player* pthis = GET_PLAYER(globalCtx);
     TextTriggerEntry* triggerEntry;
     s32 var;
 
     if (globalCtx->roomCtx.curRoom.unk_02 == 3) { // Room is hot
-        var = 0;
+        var = SCENE_ROOMTIMER_HOT;
     } else if ((pthis->unk_840 > 80) &&
                ((pthis->currentBoots == PLAYER_BOOTS_IRON) || (pthis->unk_840 >= 300))) { // Deep underwater
-        var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & 1)) ? 1 : 3;
+	    var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & 1)) ? SCENE_ROOMTIMER_DEEP_UNDERWATER : 3;
     } else if (pthis->stateFlags1 & PLAYER_STATE_SWIMMING) { // Swimming
-        var = 2;
+	    var = SCENE_ROOMTIMER_SWIMMING;
     } else {
         return 0;
     }
@@ -657,8 +658,6 @@ s32 func_8008F2F8(GlobalContext* globalCtx) {
     // Trigger general textboxes under certain conditions, like "It's so hot in here!"
     if (!Player_InCsMode(globalCtx)) {
         triggerEntry = &sTextTriggers[var];
-
-        if (0) {}
 
         if ((triggerEntry->flag != 0) && !(gSaveContext.textTriggerFlags & triggerEntry->flag) &&
             (((var == 0) && (pthis->currentTunic != PLAYER_TUNIC_GORON)) ||
