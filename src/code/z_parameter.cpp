@@ -4039,13 +4039,14 @@ void Interface_Update(GlobalContext* globalCtx) {
     HealthMeter_UpdateBeatingHeart(globalCtx);
     D_RoomTimer = Player_GetRoomTimer(globalCtx);
 
-    if(D_RoomTimer == ROOMTIMER_DEEP_UNDERWATER)
+    if(D_RoomTimer == ROOMTIMER_HOT)
     {
-        if (CUR_EQUIP_VALUE(EQUIP_TUNIC) == PLAYER_TUNIC_ZORA) {
+	    if(CUR_EQUIP_VALUE(EQUIP_TUNIC) == 2)
+	    {
 		    D_RoomTimer = ROOMTIMER_NONE;
         }
     }
-    else if((Player_GetRoomTimer(globalCtx) >= ROOMTIMER_SWIMMING) && (Player_GetRoomTimer(globalCtx) < ROOMTIMER_UNKN5))
+    else if((Player_GetRoomTimer(globalCtx) >= ROOMTIMER_DEEP_UNDERWATER) && (Player_GetRoomTimer(globalCtx) < ROOMTIMER_UNKN5))
     {
         if (CUR_EQUIP_VALUE(EQUIP_TUNIC) == 3) {
 		    D_RoomTimer = ROOMTIMER_NONE;
