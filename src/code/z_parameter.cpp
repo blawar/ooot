@@ -755,8 +755,9 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
                         // Disable Buttons on ROOMTIMER_DEEP_UNDERWATER
                         if ((gSaveContext.equips.buttonItems[i] != ITEM_HOOKSHOT) &&
                             (gSaveContext.equips.buttonItems[i] != ITEM_LONGSHOT) && 
-                            (gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_IRON))
-			{
+                            (gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_IRON) &&
+                            (gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_HOVER))
+			            {
                             if (gSaveContext.buttonStatus[i] == BTN_ENABLED) {
                                 sp28 = 1;
                             }
@@ -775,7 +776,8 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
                         }
 
                         // Entering Water, disable unusable Items
-                        if((gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_IRON))
+                        if((gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_IRON) &&
+                            (gSaveContext.equips.buttonItems[i] != ITEM_BOOTS_HOVER))
                             gSaveContext.buttonStatus[i] = BTN_DISABLED;
                     }
                 }
