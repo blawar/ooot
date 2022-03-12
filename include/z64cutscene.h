@@ -39,15 +39,13 @@ struct CsCmdBase {
 }; // size = 0x6
 
 struct CsCmdEnvLighting {
-    /* 0x00 */ u8  unk_00;
-    /* 0x01 */ u8  setting;
+    /* 0x00 */ u16  setting;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
 }; // size = 0x6
 
 struct CsCmdMusicChange {
-    /* 0x00 */ u8  unk_00;
-    /* 0x01 */ u8  sequence;
+    /* 0x00 */ u16  sequence;
     /* 0x02 */ u16 startFrame;
     /* 0x04 */ u16 endFrame;
 }; // size = 0x6
