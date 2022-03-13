@@ -525,8 +525,19 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx) {
 				    pauseCtx->equipTargetCBtn = 2;
 			    }
 
-                if(Equip_MeetsAgeRequirement(EquipmentPosition(PAUSE_EQUIP, pauseCtx->cursorX[PAUSE_EQUIP] - 1, pauseCtx->cursorY[PAUSE_EQUIP])))
+			    EquipmentPosition equip(PAUSE_EQUIP, pauseCtx->cursorX[PAUSE_EQUIP] - 1, pauseCtx->cursorY[PAUSE_EQUIP]);
+
+                if(Equip_MeetsAgeRequirement(equip) && Inventory_IsEquipmentOwned(equip))
 			    {
+			        for(int i=0; i < 3; i++)
+				    {
+					    if(i != pauseCtx->equipTargetCBtn && gSaveContext.equips.buttonItems[i + 1] == cursorItem)
+					    {
+						    gSaveContext.equips.buttonItems[i + 1] = gSaveContext.equips.buttonItems[pauseCtx->equipTargetCBtn + 1];
+						    Interface_LoadItemIcon1(globalCtx, i + 1);
+						    break;
+					    }
+				    }
 				    gSaveContext.equips.buttonItems[pauseCtx->equipTargetCBtn + 1] = cursorItem;
 				    gSaveContext.equips.cButtonSlots[pauseCtx->equipTargetCBtn]	   = SLOT_NONE;
 				    Interface_LoadItemIcon1(globalCtx, pauseCtx->equipTargetCBtn + 1);
