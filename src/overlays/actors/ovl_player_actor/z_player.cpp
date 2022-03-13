@@ -2667,6 +2667,11 @@ static bool Player_ItemIsEquipment(s32 item)
 	return item >= ITEM_TUNIC_KOKIRI && item <= ITEM_BOOTS_HOVER;
 }
 
+static bool Player_ItemIsBoots(ItemID item)
+{
+	return item >= ITEM_BOOTS_KOKIRI && item <= ITEM_BOOTS_HOVER;
+}
+
 static void Player_ExecuteActionItem(GlobalContext* globalCtx, Player* pthis, s32 item) {
     s8 actionParam;
     s32 temp;
@@ -2678,6 +2683,14 @@ static void Player_ExecuteActionItem(GlobalContext* globalCtx, Player* pthis, s3
 
         if(equip.isValid() && equip.menu == PAUSE_EQUIP && Equip_MeetsAgeRequirement(equip))
 	    {
+		    if(Player_ItemIsBoots((ItemID)item))
+		    {
+                // Player is wearing boots and tries to execute same item again
+			    if((pthis->currentBoots == PLAYER_BOOTS_IRON && (ItemID)item == ITEM_BOOTS_IRON) ||
+                    (pthis->currentBoots == PLAYER_BOOTS_HOVER && (ItemID)item == ITEM_BOOTS_HOVER))
+				    equip = Item_GetEquipmentPosition(ITEM_BOOTS_KOKIRI);
+            }
+
 		    Inventory_ChangeEquipment(equip.y, equip.x + 1);
 		    Player_SetEquipmentData(globalCtx, pthis);
 		    func_808328EC(pthis, NA_SE_PL_CHANGE_ARMS);
