@@ -57,6 +57,7 @@ namespace oot
 			SDL_Haptic* m_haptic = nullptr;
 			std::unordered_map<SDL_GameControllerButton, Button> m_keyBindings;
 			u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
+			u8 m_lastButtonState[SDL_CONTROLLER_BUTTON_MAX];
 
 			//Haptics
 			XController xinput;

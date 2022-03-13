@@ -15,6 +15,8 @@ extern Gfx* D_80125EF8[];
 extern Gfx gCullBackDList[];
 extern Gfx gCullFrontDList[];
 
+static bool g_updateEquipment = false;
+
 /*
  * File: z_player.c
  * Overlay: ovl_player_actor
@@ -2662,6 +2664,66 @@ void func_80835EFC(Player* pthis) {
     }
 }
 
+bool Player_ToggleBoots()
+{
+	if(Inventory_ToggleEquipment(EQUIP_BOOTS))
+	{
+		g_updateEquipment = true;
+        return true;
+	}
+    return false;
+}
+
+bool Player_ToggleSword()
+{
+	if(Inventory_ToggleEquipment(EQUIP_SWORD))
+	{
+		g_updateEquipment = true;
+	    return true;
+    }
+	return false;
+}
+
+bool Player_ToggleShield()
+{
+	if(Inventory_ToggleEquipment(EQUIP_SHIELD))
+	{
+		g_updateEquipment = true;
+	    return true;
+    }
+	return false;
+}
+
+bool Player_ToggleTunic()
+{
+	if(Inventory_ToggleEquipment(EQUIP_TUNIC))
+	{
+		g_updateEquipment = true;
+        return true;
+	}
+	return false;
+}
+
+bool Player_EquipOcarina()
+{
+	return false;
+}
+
+bool Player_EquipHookshot()
+{
+	return false;
+}
+
+bool Player_EquipBow()
+{
+	return false;
+}
+
+bool Player_EquipLensOfTruth()
+{
+	return false;
+}
+
 static bool Player_ItemIsEquipment(s32 item)
 {
 	return item >= ITEM_TUNIC_KOKIRI && item <= ITEM_BOOTS_HOVER;
@@ -2681,7 +2743,7 @@ static void Player_ExecuteActionItem(GlobalContext* globalCtx, Player* pthis, s3
     {
 	    auto equip = Item_GetEquipmentPosition((ItemID)item);
 
-        if(equip.isValid() && equip.menu == PAUSE_EQUIP && Equip_MeetsAgeRequirement(equip))
+        if(equip.isValid() && equip.menu == PAUSE_EQUIP && Equip_MeetsAgeRequirement(equip) && Inventory_IsEquipmentOwned(equip))
 	    {
 		    if(Player_ItemIsBoots((ItemID)item))
 		    {
@@ -2691,7 +2753,7 @@ static void Player_ExecuteActionItem(GlobalContext* globalCtx, Player* pthis, s3
 				    equip = Item_GetEquipmentPosition(ITEM_BOOTS_KOKIRI);
             }
 
-		    Inventory_ChangeEquipment(equip.y, equip.x + 1);
+		    Inventory_ChangeEquipment(equip);
 		    Player_SetEquipmentData(globalCtx, pthis);
 		    func_808328EC(pthis, NA_SE_PL_CHANGE_ARMS);
 	    }
@@ -10291,6 +10353,13 @@ void Player_Update(Actor* pthisx, GlobalContext* globalCtx) {
         }
 
         Player_UpdateCommon(pthis, globalCtx, &sp44);
+    }
+
+    if(g_updateEquipment)
+    {
+	    g_updateEquipment = false;
+	    Player_SetEquipmentData(globalCtx, pthis);
+	    func_808328EC(pthis, NA_SE_PL_CHANGE_ARMS);
     }
 
     MREG(52) = pthis->actor.world.pos.x;

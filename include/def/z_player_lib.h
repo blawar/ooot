@@ -1,4 +1,6 @@
 #pragma once
+#include "z64animation.h"
+
 struct Player;
 struct GlobalContext;
 struct Vec3f;
@@ -8,6 +10,7 @@ struct ColliderQuad;
 struct WeaponInfo;
 struct SkelAnime;
 struct FlexSkeletonHeader;
+union Gfx;
 
 extern Gfx* D_80125DE8[];
 extern Gfx* D_80125E08[];
@@ -17,6 +20,11 @@ extern Gfx gCullBackDList[];
 extern Gfx gCullFrontDList[];
 extern u8 gPlayerModelTypes[][5];
 extern FlexSkeletonHeader* gPlayerSkelHeaders[2];
+
+namespace oot::pause
+{
+	struct Segments;
+}
 
 s32 Player_ActionToBottle(Player* player, s32 actionParam);
 s32 Player_ActionToExplosive(Player* player, s32 actionParam);
@@ -63,3 +71,11 @@ u8 func_80090480(GlobalContext* globalCtx, ColliderQuad* collider, WeaponInfo* w
 void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* data);
 u32 func_80091738(GlobalContext* globalCtx, oot::pause::Segments* segment, SkelAnime* skelAnime);
 void func_8009214C(GlobalContext* globalCtx, oot::pause::Segments* segment, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot, f32 scale, s32 sword, s32 tunic, s32 shield, s32 boots);
+bool Player_ToggleBoots();
+bool Player_ToggleSword();
+bool Player_ToggleShield();
+bool Player_ToggleTunic();
+bool Player_EquipOcarina();
+bool Player_EquipHookshot();
+bool Player_EquipBow();
+bool Player_EquipLensOfTruth();

@@ -5,6 +5,7 @@
 #include "z64global.h"
 #include "z64player.h"
 #include "gfx.h"
+#include "def/z_parameter.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"
 #include "textures/parameter_static/parameter_static.h"
@@ -203,6 +204,39 @@ u8 gItemSlots[] = {
 void Inventory_ChangeEquipment(s16 equipment, u16 value) {
     gSaveContext.equips.equipment &= gEquipNegMasks[equipment];
     gSaveContext.equips.equipment |= value << gEquipShifts[equipment];
+}
+
+void Inventory_ChangeEquipment(EquipmentPosition equip)
+{
+	Inventory_ChangeEquipment(equip.y, equip.x + 1);
+}
+
+bool Inventory_ToggleEquipment(s16 equipment)
+{
+	u16 currentX = Inventory_GetEquipment(equipment);
+	for(int i = 0; i < 3; i++)
+	{
+		EquipmentPosition equip(PAUSE_EQUIP, (currentX + i) % 3, equipment);
+
+        if(Equip_MeetsAgeRequirement(equip) && Inventory_IsEquipmentOwned(equip))
+		{
+		    Inventory_ChangeEquipment(equip);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Inventory_IsEquipmentOwned(EquipmentPosition equip)
+{
+	auto r = CHECK_OWNED_EQUIP(equip.y, equip.x);
+	return r;
+}
+
+u16 Inventory_GetEquipment(s16 equipment)
+{
+	return CUR_EQUIP_VALUE(equipment) & 0x0F;
+	//return (gSaveContext.equips.equipment >> gEquipShifts[equipment]) & 0x0F;
 }
 
 u8 Inventory_DeleteEquipment(GlobalContext* globalCtx, s16 equipment) {
