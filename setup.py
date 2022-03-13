@@ -63,8 +63,8 @@ def main():
     parser.add_argument("-b", "--buildRom", choices=validBuildOptions(), help="build rom config ex: EUR_MQD")
     parser.add_argument("-f", "--framerate", choices=['20', '30', '60', '120', '240'], help="game framerate", default='20')
     parser.add_argument("-m", "--enable-mouse", help="Enables mouse controls", action="store_true", default=True)
-    parser.add_argument("-m", "--enable-fizzle-cam", help="Enables R-Stick camera control", action="store_true", default=False)
-    parser.add_argument("-m", "--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
+    parser.add_argument("--enable-fizzle-cam", help="Enables R-Stick camera control", action="store_true", default=False)
+    parser.add_argument("--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
     args = parser.parse_args()
 
     if args.buildRom:
