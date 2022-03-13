@@ -19,12 +19,12 @@ namespace oot
 
 			static Players& get();
 			static void Update();
-			static const N64Controller* GetController();
+			static const Controller* GetController();
 
 			Players() = default;
 			const u64 size() const { return m_size; }
 			void update();
-			void attach(const std::shared_ptr<N64Controller>& controller, const u8 playerId = MAX_PLAYERS);
+			void attach(const std::shared_ptr<Controller>& controller, const u8 playerId = MAX_PLAYERS);
 
 			Player& operator[](u32 i) { return m_players[i]; }
 

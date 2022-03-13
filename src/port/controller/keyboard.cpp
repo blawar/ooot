@@ -129,7 +129,7 @@ namespace oot::hid
 		return (Button)0;
 	}
 
-	Keyboard::Keyboard() : N64Controller()
+	Keyboard::Keyboard() : Controller()
 	{
 		memset(m_lastKeyState, 0, sizeof(m_lastKeyState));
 		m_keyBindings[SDL_SCANCODE_W]	   = Button::STICK_X_UP;

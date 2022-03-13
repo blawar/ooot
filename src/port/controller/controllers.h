@@ -58,7 +58,7 @@ namespace oot
 		};
 
 
-		class InputDevice;
+		class Device;
 
 
 		class InputDeviceManager
@@ -73,33 +73,33 @@ namespace oot
 			void scan();
 			bool isRebindMode() const { return m_rebindInput != Button::NONE; }
 			void rebind(Button input) { m_rebindInput = input; }
-			std::vector<InputDevice*>& drivers() { return m_drivers; }
+			std::vector<Device*>& drivers() { return m_drivers; }
 
 		protected:
-			std::vector<InputDevice*> m_drivers;
+			std::vector<Device*> m_drivers;
 			Button m_rebindInput;
 		};
 
 
 
-		class InputDevice
+		class Device
 		{
 		public:
-			InputDevice() = default;
-			virtual ~InputDevice() {}
+			Device() = default;
+			virtual ~Device() {}
 
 			virtual void scan() = 0;
 
 			virtual const u64 size() const { return m_controllers.size(); }
-			virtual N64Controller& controller(const u64 index);
+			virtual Controller& controller(const u64 index);
 			virtual void update();
 			virtual bool updateRebind(Button input);
 			virtual bool defaultOnly() { return false; }
 
-			std::vector<std::shared_ptr<N64Controller>>& controllers() { return m_controllers; }
+			std::vector<std::shared_ptr<Controller>>& controllers() { return m_controllers; }
 
 		protected:
-			std::vector<std::shared_ptr<N64Controller>> m_controllers;
+			std::vector<std::shared_ptr<Controller>> m_controllers;
 		};
 	}
 }

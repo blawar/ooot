@@ -11,7 +11,7 @@ namespace oot
 {
 	namespace hid
 	{
-		class Joypad : public N64Controller, public InputDevice
+		class Joypad : public Controller, public Device
 		{
 		public:
 			Joypad();

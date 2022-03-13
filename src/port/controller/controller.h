@@ -8,7 +8,7 @@ namespace oot
 {
 	namespace hid
 	{
-		class N64Controller
+		class Controller
 		{
 		public:
 			class State
@@ -95,8 +95,8 @@ namespace oot
 			s64 mouse_x() const;
 			s64 mouse_y() const;
 
-			N64Controller(bool isLocal = true);
-			~N64Controller();
+			Controller(bool isLocal = true);
+			~Controller();
 
 			virtual void update() {}
 			virtual void resolveInputs();
@@ -110,7 +110,7 @@ namespace oot
 				return m_state;
 			}
 
-			virtual void merge(const N64Controller& controller);
+			virtual void merge(const Controller& controller);
 			virtual bool hasMouse() const { return m_state.has_mouse; }
 
 			virtual void SendMotorEvent(short time, short level) {}

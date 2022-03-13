@@ -11,7 +11,7 @@ namespace oot
 {
 	namespace hid
 	{
-		class Keyboard : public N64Controller, public InputDevice
+		class Keyboard : public Controller, public Device
 		{
 		public:
 			Keyboard();

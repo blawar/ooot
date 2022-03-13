@@ -14,7 +14,7 @@
 
 namespace oot::hid
 {
-	N64Controller::State::State()
+	Controller::State::State()
 	{
 		mouse_x	  = 0;
 		mouse_y	  = 0;
@@ -23,7 +23,7 @@ namespace oot::hid
 		reset();
 	}
 
-	void N64Controller::State::reset()
+	void Controller::State::reset()
 	{
 		button	  = 0;
 		stick_x	  = 0;
@@ -34,19 +34,19 @@ namespace oot::hid
 		has_mouse = false;
 	}
 
-	N64Controller::N64Controller(bool isLocal) :
+	Controller::Controller(bool isLocal) :
 	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false)
 	{
 	}
 
-	N64Controller::~N64Controller()
+	Controller::~Controller()
 	{
 		if(m_tasFile) // Tas file is open
 			fclose(m_tasFile);
 		m_tasFile = nullptr;
 	}
 
-	void N64Controller::merge(const N64Controller& controller)
+	void Controller::merge(const Controller& controller)
 	{
 		m_state.button |= controller.m_state.button;
 
@@ -86,7 +86,7 @@ namespace oot::hid
 		return g_tas;
 	}
 
-	void N64Controller::resolveInputs()
+	void Controller::resolveInputs()
 	{
 #define SRAM_SIZE 0x8000 // But this in ultra_reimplementation.h?
 
@@ -242,17 +242,17 @@ namespace oot::hid
 		}
 	}
 
-	s64 N64Controller::mouse_x() const
+	s64 Controller::mouse_x() const
 	{
 		return m_state.mouse_x * (oot::config().camera().mousexInvert() ? -1 : 1) * oot::config().camera().mousexScaler();
 	}
 
-	s64 N64Controller::mouse_y() const
+	s64 Controller::mouse_y() const
 	{
 		return m_state.mouse_y * (oot::config().camera().mouseyInvert() ? -1 : 1) * oot::config().camera().mouseyScaler();
 	}
 
-	/*bool N64Controller::updateRebind(int input)
+	/*bool Controller::updateRebind(int input)
 	{
 		return false;
 	}*/

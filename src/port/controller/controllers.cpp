@@ -21,7 +21,7 @@ InputDeviceManager& InputDeviceManager::get()
 
 
 
-N64Controller& InputDevice::controller(const u64 index)
+Controller& Device::controller(const u64 index)
 {
 	if (index >= m_controllers.size())
 		throw std::runtime_error("invalid controller index");
@@ -30,7 +30,7 @@ N64Controller& InputDevice::controller(const u64 index)
 
 
 
-bool InputDevice::updateRebind(Button input)
+bool Device::updateRebind(Button input)
 {
 	bool result = 0;
 	for (auto& controller : m_controllers)
@@ -43,7 +43,7 @@ bool InputDevice::updateRebind(Button input)
 }
 
 
-void InputDevice::update()
+void Device::update()
 {
 	for(auto& controller : m_controllers)
 	{

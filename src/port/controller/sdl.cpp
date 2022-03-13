@@ -54,7 +54,7 @@ namespace oot::hid
 		SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 	}
 
-	Joypad::Joypad() : N64Controller()
+	Joypad::Joypad() : Controller()
 	{
 		if(SDL_Init(SDL_INIT_GAMECONTROLLER) != 0)
 			fprintf(stderr, "SDL init error: %s\n", SDL_GetError());
