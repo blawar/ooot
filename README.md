@@ -6,15 +6,8 @@
 ```diff
 - WARNING! -
 
-This repository is a work in progress, and while it can be used to make certain changes, it's still
-constantly evolving.
-
 Currently assets are statically linked, however this is just until we get the game sorted.  Once its stable,
 we will switch to an external asset loader.  Stability, 60 FPS, and external asset loading are the top priorities.
-
-While it is playable in it's current state, if you are not interested in contributing, then you should
-wait until the project is further along before playing it.  This is a development branch.  We need help
-finding bugs and PR's for bug fixes and enhancements.
 
 Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
 ```
