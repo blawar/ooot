@@ -30,6 +30,10 @@
 
 #define INITIAL_PEAK 0x8000
 
+#ifdef ENABLE_GYRO
+const float GYRO_SENSITIVITY = 20.0f;
+#endif
+
 extern RumbleStruct g_Rumble;
 
 OSTime osGetTime(void);
@@ -103,6 +107,16 @@ namespace oot::hid
 
 		// Connect rumble pack callback
 		g_Rumble.onVibrate = [=](auto strength, auto time, auto decay) { onVibrate(strength, time, decay); };
+
+#ifdef ENABLE_GYRO
+		if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_GYRO) == SDL_TRUE)
+		{
+			if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_GYRO, SDL_TRUE))
+			{
+				m_hasGyro = true;
+			}
+		}
+#endif
 
 #ifndef __SWITCH__
 		loadKeyBindings();
@@ -354,10 +368,27 @@ namespace oot::hid
 		for(int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
 			m_buttonState[i] = SDL_GameControllerGetButton(m_context, (SDL_GameControllerButton)i);
 
+		
+
 		m_state.stick_x	  = stickLeftX();
 		m_state.stick_y	  = invert(stickLeftY());
 		m_state.r_stick_x = stickRightX();
 		m_state.r_stick_y = stickRightY();
+
+#ifdef ENABLE_GYRO
+		if(m_hasGyro && isGyroEnabled())
+		{
+			float values[3] = {0, 0, 0};
+
+			if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
+			{
+				s32 x = m_state.stick_x - (values[2] + values[1]) * GYRO_SENSITIVITY;
+				s32 y = m_state.stick_y - values[0]* GYRO_SENSITIVITY;
+				m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
+				m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+			}
+		}
+#endif
 
 		for(const auto& [scancode, input] : m_keyBindings)
 		{

@@ -8,6 +8,10 @@ namespace oot
 {
 	namespace hid
 	{
+		void gyroEnable();
+		void gyroDisable();
+		bool isGyroEnabled();
+
 		class Controller
 		{
 		public:
@@ -90,6 +94,10 @@ namespace oot
 			float r_stickX;	  // [-64, 64] positive is right
 			float r_stickY;	  // [-64, 64] positive is up
 			float r_stickMag; // distance from center [0, 64]
+
+#ifdef ENABLE_GYRO
+			bool m_hasGyro	   = false;
+#endif
 
 
 			s64 mouse_x() const;

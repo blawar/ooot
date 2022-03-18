@@ -11,6 +11,7 @@
 #include "quake.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
+#include "port/controller/controller.h"
 #include "def/code_800BB0A0.h"
 #include "def/audio.h"
 #include "def/math_float.h"
@@ -7785,8 +7786,17 @@ s32 func_8005A02C(Camera* camera) {
 s32 Camera_ChangeModeFlags(Camera* camera, s16 mode, u8 flags) {
     static s32 modeChangeFlags = 0;
 
-    if (QREG(89)) {
-        //osSyncPrintf("+=+(%d)+=+ recive request -> %s\n", camera->globalCtx->state.frames, sCameraModeNames[mode]);
+    switch(mode)
+    {
+	    case CAM_MODE_FIRSTPERSON:
+	    case CAM_MODE_BOWARROW:
+	    case CAM_MODE_BOWARROWZ:
+	    case CAM_MODE_HOOKSHOT:
+	    case CAM_MODE_SLINGSHOT:
+	    oot::hid::gyroEnable();
+        break;
+	    default:
+	    oot::hid::gyroDisable();
     }
 
     if (camera->unk_14C & 0x20 && flags == 0) {

@@ -65,6 +65,7 @@ def main():
     parser.add_argument("-m", "--enable-mouse", help="Enables mouse controls", action="store_true", default=True)
     parser.add_argument("--enable-fizzle-cam", help="Enables R-Stick camera control", action="store_true", default=False)
     parser.add_argument("--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
+    parser.add_argument("--enable-gyro", help="Enable gyro controls", action="store_true", default=False)
     args = parser.parse_args()
 
     if args.buildRom:
@@ -83,9 +84,12 @@ def main():
 
     if args.enable_fizzle_cam:
         defines.append('FIZZLE_CAM')
-        
+
     if args.disable_distance_culling:
         defines.append('NO_CULLING')
+
+    if args.enable_gyro:
+        defines.append('ENABLE_GYRO')
 
     if buildRom().lower()[-1] != 'd':
         defines.append('RETAIL')

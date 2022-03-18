@@ -14,6 +14,23 @@
 
 namespace oot::hid
 {
+	static bool g_gyroEnabled = false;
+
+	void gyroEnable()
+	{
+		g_gyroEnabled = true;
+	}
+
+	void gyroDisable()
+	{
+		g_gyroEnabled = false;
+	}
+
+	bool isGyroEnabled()
+	{
+		return g_gyroEnabled;
+	}
+
 	Controller::State::State()
 	{
 		mouse_x	  = 0;
