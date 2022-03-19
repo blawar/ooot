@@ -465,6 +465,9 @@ static void AudioSynth_LoadFilterCount(Acmd* cmd, s32 count, Pointer addr) {
 }
 
 Acmd* AudioSynth_LoadRingBuffer1(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s16 bufIndex) {
+	ASSERT(reverb->curFrame < 2, "curFrame < 2", __FILE__, __LINE__);
+	ASSERT(bufIndex < 5, "bufIndex < 5", __FILE__, __LINE__);
+
     ReverbRingBufferItem* ringBufferItem = &reverb->items[reverb->curFrame][bufIndex];
 
     cmd =
@@ -479,6 +482,9 @@ Acmd* AudioSynth_LoadRingBuffer1(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s
 }
 
 Acmd* AudioSynth_LoadRingBuffer2(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s16 bufIndex) {
+	ASSERT(reverb->curFrame < 2, "curFrame < 2", __FILE__, __LINE__);
+	ASSERT(bufIndex < 5, "bufIndex < 5", __FILE__, __LINE__);
+
     ReverbRingBufferItem* bufItem = &reverb->items2[reverb->curFrame][bufIndex];
 
     cmd = AudioSynth_LoadRingBufferPart(cmd, DMEM_WET_LEFT_CH, bufItem->startPos, bufItem->lengthA, reverb);
@@ -490,12 +496,14 @@ Acmd* AudioSynth_LoadRingBuffer2(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s
 }
 
 Acmd* AudioSynth_LoadRingBufferPart(Acmd* cmd, u16 dmem, u16 startPos, s32 length, SynthesisReverb* reverb) {
+	ASSERT(length < DEFAULT_LEN_1CH, "length < DEFAULT_LEN_1CH", __FILE__, __LINE__);
     aLoadBuffer(cmd++, &reverb->leftRingBuf[startPos], dmem, length);
     aLoadBuffer(cmd++, &reverb->rightRingBuf[startPos], dmem + DEFAULT_LEN_1CH, length);
     return cmd;
 }
 
 Acmd* AudioSynth_SaveRingBufferPart(Acmd* cmd, u16 dmem, u16 startPos, s32 length, SynthesisReverb* reverb) {
+	ASSERT(length < DEFAULT_LEN_1CH, "length < DEFAULT_LEN_1CH", __FILE__, __LINE__);
     aSaveBuffer(cmd++, dmem, &reverb->leftRingBuf[startPos], length);
     aSaveBuffer(cmd++, dmem + DEFAULT_LEN_1CH, &reverb->rightRingBuf[startPos], length);
     return cmd;
