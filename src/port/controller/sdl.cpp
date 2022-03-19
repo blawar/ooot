@@ -32,6 +32,7 @@
 
 #ifdef ENABLE_GYRO
 const float GYRO_SENSITIVITY = 20.0f;
+const float ACCEL_SENSITIVITY = 50.0f;
 #endif
 
 extern RumbleStruct g_Rumble;
@@ -114,6 +115,14 @@ namespace oot::hid
 			if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_GYRO, SDL_TRUE))
 			{
 				m_hasGyro = true;
+			}
+		}
+
+		if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_ACCEL) == SDL_TRUE)
+		{
+			if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_ACCEL, SDL_TRUE))
+			{
+				m_hasAccel = true;
 			}
 		}
 #endif
@@ -386,6 +395,29 @@ namespace oot::hid
 				s32 y = m_state.stick_y - values[0]* GYRO_SENSITIVITY;
 				m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
 				m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+
+				memcpy(m_state.gyro, values, sizeof(values));
+			}
+		}
+
+		if(m_hasAccel && isGyroEnabled())
+		{
+			float values[3] = {0, 0, 0};
+
+			if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_ACCEL, values, sizeof(values) / sizeof(float)))
+			{
+				float accel_x		= values[0] - m_state.accel[0];
+				float accel_y		= values[2] - m_state.accel[2];
+
+				/*if(accel_x != 0.0f || accel_y != 0.0f)
+				{
+					s32 x		= m_state.stick_x - accel_x * ACCEL_SENSITIVITY;
+					s32 y		= m_state.stick_y - accel_y * ACCEL_SENSITIVITY;
+					m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
+					m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+				}*/
+
+				memcpy(m_state.accel, values, sizeof(values));
 			}
 		}
 #endif

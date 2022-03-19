@@ -28,6 +28,11 @@ namespace oot
 				s8 r_stick_x; /* -80 <= stick_x <= 80 */
 				s8 r_stick_y; /* -80 <= stick_y <= 80 */
 
+#ifdef ENABLE_GYRO
+				float gyro[3];
+				float accel[3];
+#endif
+
 				s64 mouse_x;
 				s64 mouse_y;
 				bool has_mouse;
@@ -97,6 +102,7 @@ namespace oot
 
 #ifdef ENABLE_GYRO
 			bool m_hasGyro	   = false;
+			bool m_hasAccel = false;
 #endif
 
 

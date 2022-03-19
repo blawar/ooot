@@ -37,6 +37,11 @@ namespace oot::hid
 		mouse_y	  = 0;
 		has_mouse = false;
 
+#ifdef ENABLE_GYRO
+		memset(&gyro, 0, sizeof(gyro));
+		memset(&accel, 0, sizeof(accel));
+#endif
+
 		reset();
 	}
 
