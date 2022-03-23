@@ -1,488 +1,532 @@
-#include <string.h>
+/*
+Copyright (c) 2022 Harbour Masters
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+#include <stdbool.h>
 #include <stdint.h>
-#include <assert.h>
+#include <string.h>
 
-// Note: Some of this is stolen from Mupen64Plus rsp audio plugin.
-// See abi.h for documentation.
+#include "mixer.h"
 
-#define DMEM_BASE 0x5c0
+#pragma GCC optimize ("unroll-loops")
 
-#define A_INIT 0x01
-#define A_CONTINUE 0x00
-#define A_LOOP 0x02
-#define A_OUT 0x02
-#define A_LEFT 0x02
-#define A_RIGHT 0x00
-#define A_VOL 0x04
-#define A_RATE 0x00
-#define A_AUX 0x08
-#define A_NOAUX 0x00
-#define A_MAIN 0x00
-#define A_MIX 0x10
+#define ROUND_UP_64(v) (((v) + 63) & ~63)
+#define ROUND_UP_32(v) (((v) + 31) & ~31)
+#define ROUND_UP_16(v) (((v) + 15) & ~15)
+#define ROUND_UP_8(v) (((v) + 7) & ~7)
+#define ROUND_DOWN_16(v) ((v) & ~0xf)
 
-struct alist_audio_t
-{
-	/* main buffers */
-	uint16_t in;
-	uint16_t out;
-	uint16_t count;
+#define DMEM_BUF_SIZE (0x1000 - 0x3C0 - 0x40)
+#define BUF_U8(a) (rspa.buf.as_u8 + ((a) - 0x3C0))
+#define BUF_S16(a) (rspa.buf.as_s16 + ((a) - 0x3C0) / sizeof(int16_t))
 
-	/* auxiliary buffers */
-	uint16_t dry_right;
-	uint16_t wet_left;
-	uint16_t wet_right;
+static struct {
+    uint16_t in;
+    uint16_t out;
+    uint16_t nbytes;
 
-	/* gains */
-	int16_t dry;
-	int16_t wet;
+    uint16_t vol[2];
+    uint16_t rate[2];
+    uint16_t vol_wet;
+    uint16_t rate_wet;
 
-	/* envelopes (0:left, 1:right) */
-	int16_t vol[2];
-	int16_t target[2];
-	int32_t rate[2];
+    ADPCM_STATE *adpcm_loop_state;
 
-	/* ADPCM loop point address */
-	uint16_t* loop;
+    int16_t adpcm_table[8][2][8];
 
-	/* storage for ADPCM table and polef coefficients */
-	int16_t table[16 * 8];
+    uint16_t filter_count;
+    int16_t filter[8];
+
+    union {
+        int16_t as_s16[DMEM_BUF_SIZE / sizeof(int16_t)];
+        uint8_t as_u8[DMEM_BUF_SIZE];
+    } buf;
+} rspa;
+
+static int16_t resample_table[64][4] = {
+    {0x0c39, 0x66ad, 0x0d46, 0xffdf}, {0x0b39, 0x6696, 0x0e5f, 0xffd8},
+    {0x0a44, 0x6669, 0x0f83, 0xffd0}, {0x095a, 0x6626, 0x10b4, 0xffc8},
+    {0x087d, 0x65cd, 0x11f0, 0xffbf}, {0x07ab, 0x655e, 0x1338, 0xffb6},
+    {0x06e4, 0x64d9, 0x148c, 0xffac}, {0x0628, 0x643f, 0x15eb, 0xffa1},
+    {0x0577, 0x638f, 0x1756, 0xff96}, {0x04d1, 0x62cb, 0x18cb, 0xff8a},
+    {0x0435, 0x61f3, 0x1a4c, 0xff7e}, {0x03a4, 0x6106, 0x1bd7, 0xff71},
+    {0x031c, 0x6007, 0x1d6c, 0xff64}, {0x029f, 0x5ef5, 0x1f0b, 0xff56},
+    {0x022a, 0x5dd0, 0x20b3, 0xff48}, {0x01be, 0x5c9a, 0x2264, 0xff3a},
+    {0x015b, 0x5b53, 0x241e, 0xff2c}, {0x0101, 0x59fc, 0x25e0, 0xff1e},
+    {0x00ae, 0x5896, 0x27a9, 0xff10}, {0x0063, 0x5720, 0x297a, 0xff02},
+    {0x001f, 0x559d, 0x2b50, 0xfef4}, {0xffe2, 0x540d, 0x2d2c, 0xfee8},
+    {0xffac, 0x5270, 0x2f0d, 0xfedb}, {0xff7c, 0x50c7, 0x30f3, 0xfed0},
+    {0xff53, 0x4f14, 0x32dc, 0xfec6}, {0xff2e, 0x4d57, 0x34c8, 0xfebd},
+    {0xff0f, 0x4b91, 0x36b6, 0xfeb6}, {0xfef5, 0x49c2, 0x38a5, 0xfeb0},
+    {0xfedf, 0x47ed, 0x3a95, 0xfeac}, {0xfece, 0x4611, 0x3c85, 0xfeab},
+    {0xfec0, 0x4430, 0x3e74, 0xfeac}, {0xfeb6, 0x424a, 0x4060, 0xfeaf},
+    {0xfeaf, 0x4060, 0x424a, 0xfeb6}, {0xfeac, 0x3e74, 0x4430, 0xfec0},
+    {0xfeab, 0x3c85, 0x4611, 0xfece}, {0xfeac, 0x3a95, 0x47ed, 0xfedf},
+    {0xfeb0, 0x38a5, 0x49c2, 0xfef5}, {0xfeb6, 0x36b6, 0x4b91, 0xff0f},
+    {0xfebd, 0x34c8, 0x4d57, 0xff2e}, {0xfec6, 0x32dc, 0x4f14, 0xff53},
+    {0xfed0, 0x30f3, 0x50c7, 0xff7c}, {0xfedb, 0x2f0d, 0x5270, 0xffac},
+    {0xfee8, 0x2d2c, 0x540d, 0xffe2}, {0xfef4, 0x2b50, 0x559d, 0x001f},
+    {0xff02, 0x297a, 0x5720, 0x0063}, {0xff10, 0x27a9, 0x5896, 0x00ae},
+    {0xff1e, 0x25e0, 0x59fc, 0x0101}, {0xff2c, 0x241e, 0x5b53, 0x015b},
+    {0xff3a, 0x2264, 0x5c9a, 0x01be}, {0xff48, 0x20b3, 0x5dd0, 0x022a},
+    {0xff56, 0x1f0b, 0x5ef5, 0x029f}, {0xff64, 0x1d6c, 0x6007, 0x031c},
+    {0xff71, 0x1bd7, 0x6106, 0x03a4}, {0xff7e, 0x1a4c, 0x61f3, 0x0435},
+    {0xff8a, 0x18cb, 0x62cb, 0x04d1}, {0xff96, 0x1756, 0x638f, 0x0577},
+    {0xffa1, 0x15eb, 0x643f, 0x0628}, {0xffac, 0x148c, 0x64d9, 0x06e4},
+    {0xffb6, 0x1338, 0x655e, 0x07ab}, {0xffbf, 0x11f0, 0x65cd, 0x087d},
+    {0xffc8, 0x10b4, 0x6626, 0x095a}, {0xffd0, 0x0f83, 0x6669, 0x0a44},
+    {0xffd8, 0x0e5f, 0x6696, 0x0b39}, {0xffdf, 0x0d46, 0x66ad, 0x0c39}
 };
 
-struct ramp_t
-{
-	int64_t value;
-	int64_t step;
-	int64_t target;
-};
-
-struct env_mix_save_buffer_t
-{
-	int16_t wet, pad0, dry, pad1;
-	uint32_t ramp_targets[2];
-	uint32_t exp_rates[2];
-	uint32_t exp_seq[2];
-	uint32_t ramp_values[2];
-};
-
-static const int16_t RESAMPLE_LUT[64 * 4] = {
-    (int16_t)0x0c39, (int16_t)0x66ad, (int16_t)0x0d46, (int16_t)0xffdf, (int16_t)0x0b39, (int16_t)0x6696, (int16_t)0x0e5f, (int16_t)0xffd8, (int16_t)0x0a44, (int16_t)0x6669, (int16_t)0x0f83, (int16_t)0xffd0, (int16_t)0x095a, (int16_t)0x6626,
-    (int16_t)0x10b4, (int16_t)0xffc8, (int16_t)0x087d, (int16_t)0x65cd, (int16_t)0x11f0, (int16_t)0xffbf, (int16_t)0x07ab, (int16_t)0x655e, (int16_t)0x1338, (int16_t)0xffb6, (int16_t)0x06e4, (int16_t)0x64d9, (int16_t)0x148c, (int16_t)0xffac,
-    (int16_t)0x0628, (int16_t)0x643f, (int16_t)0x15eb, (int16_t)0xffa1, (int16_t)0x0577, (int16_t)0x638f, (int16_t)0x1756, (int16_t)0xff96, (int16_t)0x04d1, (int16_t)0x62cb, (int16_t)0x18cb, (int16_t)0xff8a, (int16_t)0x0435, (int16_t)0x61f3,
-    (int16_t)0x1a4c, (int16_t)0xff7e, (int16_t)0x03a4, (int16_t)0x6106, (int16_t)0x1bd7, (int16_t)0xff71, (int16_t)0x031c, (int16_t)0x6007, (int16_t)0x1d6c, (int16_t)0xff64, (int16_t)0x029f, (int16_t)0x5ef5, (int16_t)0x1f0b, (int16_t)0xff56,
-    (int16_t)0x022a, (int16_t)0x5dd0, (int16_t)0x20b3, (int16_t)0xff48, (int16_t)0x01be, (int16_t)0x5c9a, (int16_t)0x2264, (int16_t)0xff3a, (int16_t)0x015b, (int16_t)0x5b53, (int16_t)0x241e, (int16_t)0xff2c, (int16_t)0x0101, (int16_t)0x59fc,
-    (int16_t)0x25e0, (int16_t)0xff1e, (int16_t)0x00ae, (int16_t)0x5896, (int16_t)0x27a9, (int16_t)0xff10, (int16_t)0x0063, (int16_t)0x5720, (int16_t)0x297a, (int16_t)0xff02, (int16_t)0x001f, (int16_t)0x559d, (int16_t)0x2b50, (int16_t)0xfef4,
-    (int16_t)0xffe2, (int16_t)0x540d, (int16_t)0x2d2c, (int16_t)0xfee8, (int16_t)0xffac, (int16_t)0x5270, (int16_t)0x2f0d, (int16_t)0xfedb, (int16_t)0xff7c, (int16_t)0x50c7, (int16_t)0x30f3, (int16_t)0xfed0, (int16_t)0xff53, (int16_t)0x4f14,
-    (int16_t)0x32dc, (int16_t)0xfec6, (int16_t)0xff2e, (int16_t)0x4d57, (int16_t)0x34c8, (int16_t)0xfebd, (int16_t)0xff0f, (int16_t)0x4b91, (int16_t)0x36b6, (int16_t)0xfeb6, (int16_t)0xfef5, (int16_t)0x49c2, (int16_t)0x38a5, (int16_t)0xfeb0,
-    (int16_t)0xfedf, (int16_t)0x47ed, (int16_t)0x3a95, (int16_t)0xfeac, (int16_t)0xfece, (int16_t)0x4611, (int16_t)0x3c85, (int16_t)0xfeab, (int16_t)0xfec0, (int16_t)0x4430, (int16_t)0x3e74, (int16_t)0xfeac, (int16_t)0xfeb6, (int16_t)0x424a,
-    (int16_t)0x4060, (int16_t)0xfeaf, (int16_t)0xfeaf, (int16_t)0x4060, (int16_t)0x424a, (int16_t)0xfeb6, (int16_t)0xfeac, (int16_t)0x3e74, (int16_t)0x4430, (int16_t)0xfec0, (int16_t)0xfeab, (int16_t)0x3c85, (int16_t)0x4611, (int16_t)0xfece,
-    (int16_t)0xfeac, (int16_t)0x3a95, (int16_t)0x47ed, (int16_t)0xfedf, (int16_t)0xfeb0, (int16_t)0x38a5, (int16_t)0x49c2, (int16_t)0xfef5, (int16_t)0xfeb6, (int16_t)0x36b6, (int16_t)0x4b91, (int16_t)0xff0f, (int16_t)0xfebd, (int16_t)0x34c8,
-    (int16_t)0x4d57, (int16_t)0xff2e, (int16_t)0xfec6, (int16_t)0x32dc, (int16_t)0x4f14, (int16_t)0xff53, (int16_t)0xfed0, (int16_t)0x30f3, (int16_t)0x50c7, (int16_t)0xff7c, (int16_t)0xfedb, (int16_t)0x2f0d, (int16_t)0x5270, (int16_t)0xffac,
-    (int16_t)0xfee8, (int16_t)0x2d2c, (int16_t)0x540d, (int16_t)0xffe2, (int16_t)0xfef4, (int16_t)0x2b50, (int16_t)0x559d, (int16_t)0x001f, (int16_t)0xff02, (int16_t)0x297a, (int16_t)0x5720, (int16_t)0x0063, (int16_t)0xff10, (int16_t)0x27a9,
-    (int16_t)0x5896, (int16_t)0x00ae, (int16_t)0xff1e, (int16_t)0x25e0, (int16_t)0x59fc, (int16_t)0x0101, (int16_t)0xff2c, (int16_t)0x241e, (int16_t)0x5b53, (int16_t)0x015b, (int16_t)0xff3a, (int16_t)0x2264, (int16_t)0x5c9a, (int16_t)0x01be,
-    (int16_t)0xff48, (int16_t)0x20b3, (int16_t)0x5dd0, (int16_t)0x022a, (int16_t)0xff56, (int16_t)0x1f0b, (int16_t)0x5ef5, (int16_t)0x029f, (int16_t)0xff64, (int16_t)0x1d6c, (int16_t)0x6007, (int16_t)0x031c, (int16_t)0xff71, (int16_t)0x1bd7,
-    (int16_t)0x6106, (int16_t)0x03a4, (int16_t)0xff7e, (int16_t)0x1a4c, (int16_t)0x61f3, (int16_t)0x0435, (int16_t)0xff8a, (int16_t)0x18cb, (int16_t)0x62cb, (int16_t)0x04d1, (int16_t)0xff96, (int16_t)0x1756, (int16_t)0x638f, (int16_t)0x0577,
-    (int16_t)0xffa1, (int16_t)0x15eb, (int16_t)0x643f, (int16_t)0x0628, (int16_t)0xffac, (int16_t)0x148c, (int16_t)0x64d9, (int16_t)0x06e4, (int16_t)0xffb6, (int16_t)0x1338, (int16_t)0x655e, (int16_t)0x07ab, (int16_t)0xffbf, (int16_t)0x11f0,
-    (int16_t)0x65cd, (int16_t)0x087d, (int16_t)0xffc8, (int16_t)0x10b4, (int16_t)0x6626, (int16_t)0x095a, (int16_t)0xffd0, (int16_t)0x0f83, (int16_t)0x6669, (int16_t)0x0a44, (int16_t)0xffd8, (int16_t)0x0e5f, (int16_t)0x6696, (int16_t)0x0b39,
-    (int16_t)0xffdf, (int16_t)0x0d46, (int16_t)0x66ad, (int16_t)0x0c39};
-
-static uint8_t alist_buffer[0x1000];
-static struct alist_audio_t alist_audio;
-
-static inline size_t align(size_t x, size_t amount)
-{
-	--amount;
-	return (x + amount) & ~amount;
+static inline int16_t clamp16(int32_t v) {
+    if (v < -0x8000) {
+        return -0x8000;
+    } else if (v > 0x7fff) {
+        return 0x7fff;
+    }
+    return (int16_t)v;
 }
 
-static inline int16_t clamp_s16(int32_t v)
-{
-	return v < -32768 ? -32768 : v > 32767 ? 32767 : v;
+static inline int32_t clamp32(int64_t v) {
+    if (v < -0x7fffffff - 1) {
+        return -0x7fffffff - 1;
+    } else if (v > 0x7fffffff) {
+        return 0x7fffffff;
+    }
+    return (int32_t)v;
 }
 
-static inline int16_t sample_mix(int16_t dst, int16_t src, int16_t gain)
-{
-	int32_t src_modified = (src * gain) >> 15;
-	return clamp_s16(dst + src_modified);
+void aClearBufferImpl(uint16_t addr, int nbytes) {
+    nbytes = ROUND_UP_16(nbytes);
+    memset(BUF_U8(addr), 0, nbytes);
 }
 
-void aClearBuffer(uint64_t* cmd, uint16_t dmem, uint16_t count)
-{
-	dmem += DMEM_BASE;
-	// assert(align(count, 16) == count);
-	count = align(count, 16);
-	memset(alist_buffer + dmem, 0, count);
+void aLoadBufferImpl(const void *source_addr, uint16_t dest_addr, uint16_t nbytes) {
+    memcpy(BUF_U8(dest_addr), source_addr, ROUND_DOWN_16(nbytes));
 }
 
-void aSetBuffer(uint64_t* cmd, uint8_t flags, uint16_t dmemin, uint16_t dmemout, uint16_t count)
-{
-	if(flags & A_AUX)
-	{
-		// Parameter names are not really correct for A_AUX
-		alist_audio.dry_right = dmemin + DMEM_BASE;
-		alist_audio.wet_left  = dmemout + DMEM_BASE;
-		alist_audio.wet_right = count + DMEM_BASE;
-	}
-	else
-	{
-		alist_audio.in	  = dmemin + DMEM_BASE;
-		alist_audio.out	  = dmemout + DMEM_BASE;
-		alist_audio.count = count;
-	}
+void aSaveBufferImpl(uint16_t source_addr, int16_t *dest_addr, uint16_t nbytes) {
+    memcpy(dest_addr, BUF_S16(source_addr), ROUND_DOWN_16(nbytes));
 }
 
-void aLoadBuffer(uint64_t* cmd, uint16_t* addr)
-{
-	// addr &= ~7
-	memcpy(alist_buffer + alist_audio.in, addr, alist_audio.count);
+void aLoadADPCMImpl(int num_entries_times_16, const int16_t *book_source_addr) {
+    memcpy(rspa.adpcm_table, book_source_addr, num_entries_times_16);
 }
 
-void aSaveBuffer(uint64_t* cmd, uint16_t* addr)
-{
-	memcpy(addr, alist_buffer + alist_audio.out, alist_audio.count);
+void aSetBufferImpl(uint8_t flags, uint16_t in, uint16_t out, uint16_t nbytes) {
+    rspa.in = in;
+    rspa.out = out;
+    rspa.nbytes = nbytes;
 }
 
-void aDMEMMove(uint64_t* cmd, uint16_t dmemin, uint16_t dmemout, uint16_t count)
-{
-	dmemin += DMEM_BASE;
-	dmemout += DMEM_BASE;
-	// assert(align(count, 16) == count);
-	count = align(count, 16); // Microcode does this
-	memmove(alist_buffer + dmemout, alist_buffer + dmemin, count);
+void aInterleaveImpl(uint16_t dest, uint16_t left, uint16_t right, uint16_t c) {
+    int count = ROUND_UP_8(c) / sizeof(int16_t) / 4;
+    int16_t *l = BUF_S16(left);
+    int16_t *r = BUF_S16(right);
+    int16_t *d = BUF_S16(dest);
+    while (count > 0) {
+        int16_t l0 = *l++;
+        int16_t l1 = *l++;
+        int16_t l2 = *l++;
+        int16_t l3 = *l++;
+        int16_t r0 = *r++;
+        int16_t r1 = *r++;
+        int16_t r2 = *r++;
+        int16_t r3 = *r++;
+        *d++ = l0;
+        *d++ = r0;
+        *d++ = l1;
+        *d++ = r1;
+        *d++ = l2;
+        *d++ = r2;
+        *d++ = l3;
+        *d++ = r3;
+        --count;
+    }
 }
 
-void aMix(uint64_t* cmd, uint8_t flags, uint16_t gain, uint16_t dmemin, uint16_t dmemout)
-{
-	dmemin += DMEM_BASE;
-	dmemout += DMEM_BASE;
-
-	// originally count is rounded up to nearest 32 bytes
-
-	int16_t* dst	   = (int16_t*)(alist_buffer + dmemout);
-	const int16_t* src = (const int16_t*)(alist_buffer + dmemin);
-	size_t count	   = alist_audio.count >> 1;
-	count		   = align(count, 16);
-
-	while(count != 0)
-	{
-		*dst = sample_mix(*dst, *src, gain);
-		++dst;
-		++src;
-		--count;
-	}
+void aDMEMMoveImpl(uint16_t in_addr, uint16_t out_addr, int nbytes) {
+    nbytes = ROUND_UP_16(nbytes);
+    memmove(BUF_U8(out_addr), BUF_U8(in_addr), nbytes);
 }
 
-static inline int16_t ramp_step(struct ramp_t* ramp)
-{
-	int target_reached;
-
-	ramp->value += ramp->step;
-
-	target_reached = (ramp->step <= 0) ? (ramp->value <= ramp->target) : (ramp->value >= ramp->target);
-
-	if(target_reached)
-	{
-		ramp->value = ramp->target;
-		ramp->step  = 0;
-	}
-
-	return (int16_t)(ramp->value >> 16);
+void aSetLoopImpl(ADPCM_STATE *adpcm_loop_state) {
+    rspa.adpcm_loop_state = adpcm_loop_state;
 }
 
-void aEnvMixer(uint64_t* cmd, uint8_t flags, uint16_t* addr)
-{
-	size_t n = (flags & A_AUX) ? 4 : 2;
+void aADPCMdecImpl(uint8_t flags, ADPCM_STATE state) {
+    uint8_t *in = BUF_U8(rspa.in);
+    int16_t *out = BUF_S16(rspa.out);
+    int nbytes = ROUND_UP_32(rspa.nbytes);
+    if (flags & A_INIT) {
+        memset(out, 0, 16 * sizeof(int16_t));
+    } else if (flags & A_LOOP) {
+        memcpy(out, rspa.adpcm_loop_state, 16 * sizeof(int16_t));
+    } else {
+        memcpy(out, state, 16 * sizeof(int16_t));
+    }
+    out += 16;
 
-	const int16_t* const in = (int16_t*)(alist_buffer + alist_audio.in);
-	int16_t* const dl	= (int16_t*)(alist_buffer + alist_audio.out);
-	int16_t* const dr	= (int16_t*)(alist_buffer + alist_audio.dry_right);
-	int16_t* const wl	= (int16_t*)(alist_buffer + alist_audio.wet_left);
-	int16_t* const wr	= (int16_t*)(alist_buffer + alist_audio.wet_right);
+    while (nbytes > 0) {
+        int shift = *in >> 4; // should be in 0..12 or 0..14
+        int table_index = *in++ & 0xf; // should be in 0..7
+        int16_t (*tbl)[8] = rspa.adpcm_table[table_index];
+        int i;
 
-	struct ramp_t ramps[2];
-	int32_t exp_seq[2];
-	int32_t exp_rates[2];
-	int16_t dry;
-	int16_t wet;
-
-	uint32_t ptr = 0;
-	uint32_t x, y;
-	uint32_t count			= alist_audio.count;
-	struct env_mix_save_buffer_t* s = (struct env_mix_save_buffer_t*)addr;
-
-	if(flags & A_INIT)
-	{
-		ramps[0].value	= (alist_audio.vol[0] << 16);
-		ramps[1].value	= (alist_audio.vol[1] << 16);
-		ramps[0].target = (alist_audio.target[0] << 16);
-		ramps[1].target = (alist_audio.target[1] << 16);
-		exp_rates[0]	= alist_audio.rate[0];
-		exp_rates[1]	= alist_audio.rate[1];
-		exp_seq[0]	= (alist_audio.vol[0] * alist_audio.rate[0]);
-		exp_seq[1]	= (alist_audio.vol[1] * alist_audio.rate[1]);
-		dry		= alist_audio.dry;
-		wet		= alist_audio.wet;
-	}
-	else
-	{
-		wet		= s->wet;
-		dry		= s->dry;
-		ramps[0].target = s->ramp_targets[0];
-		ramps[1].target = s->ramp_targets[1];
-		exp_rates[0]	= s->exp_rates[0];
-		exp_rates[1]	= s->exp_rates[1];
-		exp_seq[0]	= s->exp_seq[0];
-		exp_seq[1]	= s->exp_seq[1];
-		ramps[0].value	= s->ramp_values[0];
-		ramps[1].value	= s->ramp_values[1];
-	}
-
-	/* init which ensure ramp.step != 0 iff ramp.value == ramp.target */
-	ramps[0].step = ramps[0].target - ramps[0].value;
-	ramps[1].step = ramps[1].target - ramps[1].value;
-
-	for(y = 0; y < count; y += 16)
-	{
-		if(ramps[0].step != 0)
-		{
-			exp_seq[0]    = ((int64_t)exp_seq[0] * (int64_t)exp_rates[0]) >> 16;
-			ramps[0].step = (exp_seq[0] - ramps[0].value) >> 3;
-		}
-
-		if(ramps[1].step != 0)
-		{
-			exp_seq[1]    = ((int64_t)exp_seq[1] * (int64_t)exp_rates[1]) >> 16;
-			ramps[1].step = (exp_seq[1] - ramps[1].value) >> 3;
-		}
-
-		for(x = 0; x < 8; ++x)
-		{
-			int16_t l_vol	  = ramp_step(&ramps[0]);
-			int16_t r_vol	  = ramp_step(&ramps[1]);
-			int16_t in_sample = in[ptr];
-
-			dl[ptr] = sample_mix(dl[ptr], in_sample, clamp_s16((l_vol * dry + 0x4000) >> 15));
-			dr[ptr] = sample_mix(dr[ptr], in_sample, clamp_s16((r_vol * dry + 0x4000) >> 15));
-			if(n == 4)
-			{
-				wl[ptr] = sample_mix(wl[ptr], in_sample, clamp_s16((l_vol * wet + 0x4000) >> 15));
-				wr[ptr] = sample_mix(wr[ptr], in_sample, clamp_s16((r_vol * wet + 0x4000) >> 15));
+        for (i = 0; i < 2; i++) {
+            int16_t ins[8];
+            int16_t prev1 = out[-1];
+            int16_t prev2 = out[-2];
+            int j, k;
+			if (flags & 4) {
+				for (j = 0; j < 2; j++) {
+					ins[j * 4] = (((*in >> 6) << 30) >> 30) << shift;
+					ins[j * 4 + 1] = ((((*in >> 4) & 0x3) << 30) >> 30) << shift;
+					ins[j * 4 + 2] = ((((*in >> 2) & 0x3) << 30) >> 30) << shift;
+					ins[j * 4 + 3] = (((*in++ & 0x3) << 30) >> 30) << shift;
+				}
+			} else {
+				for (j = 0; j < 4; j++) {
+					ins[j * 2] = (((*in >> 4) << 28) >> 28) << shift;
+					ins[j * 2 + 1] = (((*in++ & 0xf) << 28) >> 28) << shift;
+				}
 			}
-			++ptr;
-		}
-	}
-
-	s->wet		   = wet;
-	s->dry		   = dry;
-	s->ramp_targets[0] = ramps[0].target;
-	s->ramp_targets[1] = ramps[1].target;
-	s->exp_rates[0]	   = exp_rates[0];
-	s->exp_rates[1]	   = exp_rates[1];
-	s->exp_seq[0]	   = exp_seq[0];
-	s->exp_seq[1]	   = exp_seq[1];
-	s->ramp_values[0]  = ramps[0].value;
-	s->ramp_values[1]  = ramps[1].value;
+            for (j = 0; j < 8; j++) {
+                int32_t acc = tbl[0][j] * prev2 + tbl[1][j] * prev1 + (ins[j] << 11);
+                for (k = 0; k < j; k++) {
+                    acc += tbl[1][((j - k) - 1)] * ins[k];
+                }
+                acc >>= 11;
+                *out++ = clamp16(acc);
+            }
+        }
+        nbytes -= 16 * sizeof(int16_t);
+    }
+    memcpy(state, out - 16, 16 * sizeof(int16_t));
 }
 
-void aResample(uint64_t* cmd, uint8_t flags, uint16_t pitch, uint16_t* state_addr)
-{
-	int16_t* dst		   = (int16_t*)(alist_buffer + alist_audio.out);
-	int16_t* src		   = (int16_t*)(alist_buffer + alist_audio.in);
-	size_t count		   = alist_audio.count >> 1;
-	uint32_t pitch_accumulator = 0;
+void aResampleImpl(uint8_t flags, uint16_t pitch, RESAMPLE_STATE state) {
+    int16_t tmp[16];
+    int16_t *in_initial = BUF_S16(rspa.in);
+    int16_t *in = in_initial;
+    int16_t *out = BUF_S16(rspa.out);
+    int nbytes = ROUND_UP_16(rspa.nbytes);
+    uint32_t pitch_accumulator;
+    int i;
+    int16_t *tbl;
+    int32_t sample;
 
-	count = align(count, 8);
+    if (flags & A_INIT) {
+        memset(tmp, 0, 5 * sizeof(int16_t));
+    } else {
+        memcpy(tmp, state, 16 * sizeof(int16_t));
+    }
+    if (flags & 2) {
+        memcpy(in - 8, tmp + 8, 8 * sizeof(int16_t));
+        in -= tmp[5] / sizeof(int16_t);
+    }
+    in -= 4;
+    pitch_accumulator = (uint16_t)tmp[4];
+    memcpy(in, tmp, 4 * sizeof(int16_t));
 
-	src -= 4;
+    do {
+        for (i = 0; i < 8; i++) {
+            tbl = resample_table[pitch_accumulator * 64 >> 16];
+            sample = ((in[0] * tbl[0] + 0x4000) >> 15) +
+                     ((in[1] * tbl[1] + 0x4000) >> 15) +
+                     ((in[2] * tbl[2] + 0x4000) >> 15) +
+                     ((in[3] * tbl[3] + 0x4000) >> 15);
+            *out++ = clamp16(sample);
 
-	if(flags & A_INIT)
-	{
-		memset(src, 0, 4 * sizeof(int16_t));
-	}
-	else
-	{
-		memcpy(src, state_addr, 4 * sizeof(int16_t));
-		pitch_accumulator = state_addr[4];
-	}
+            pitch_accumulator += (pitch << 1);
+            in += pitch_accumulator >> 16;
+            pitch_accumulator %= 0x10000;
+        }
+        nbytes -= 8 * sizeof(int16_t);
+    } while (nbytes > 0);
 
-	while(count != 0)
-	{
-		const int16_t* lut = RESAMPLE_LUT + ((pitch_accumulator & 0xfc00) >> 8);
-
-		*dst++ = clamp_s16((src[0] * lut[0] + src[1] * lut[1] + src[2] * lut[2] + src[3] * lut[3]) >> 15);
-		pitch_accumulator += (pitch << 1);
-		src += pitch_accumulator >> 16;
-		pitch_accumulator &= 0xffff;
-		--count;
-	}
-
-	memcpy(state_addr, src, 4 * sizeof(int16_t));
-	state_addr[4] = pitch_accumulator;
+    state[4] = (int16_t)pitch_accumulator;
+    memcpy(state, in, 4 * sizeof(int16_t));
+    i = (in - in_initial + 4) & 7;
+    in -= i;
+    if (i != 0) {
+        i = -8 - i;
+    }
+    state[5] = i;
+    memcpy(state + 8, in, 8 * sizeof(int16_t));
 }
 
-void aInterleave(uint64_t* cmd, uint16_t inL, uint16_t inR)
-{
-	inL += DMEM_BASE;
-	inR += DMEM_BASE;
-
-	int16_t* dst  = (int16_t*)(alist_buffer + alist_audio.out);
-	int16_t* srcL = (int16_t*)(alist_buffer + inL);
-	int16_t* srcR = (int16_t*)(alist_buffer + inR);
-
-	size_t count = alist_audio.count >> 2;
-
-	count = align(count, 4);
-
-	// Unroll a bit
-	while(count != 0)
-	{
-		int16_t l1 = *srcL++;
-		int16_t l2 = *srcL++;
-		int16_t r1 = *srcR++;
-		int16_t r2 = *srcR++;
-
-		*dst++ = l1;
-		*dst++ = r1;
-		*dst++ = l2;
-		*dst++ = r2;
-
-		--count;
-	}
+void aEnvSetup1Impl(uint8_t initial_vol_wet, uint16_t rate_wet, uint16_t rate_left, uint16_t rate_right) {
+    rspa.vol_wet = (uint16_t)(initial_vol_wet << 8);
+    rspa.rate_wet = rate_wet;
+    rspa.rate[0] = rate_left;
+    rspa.rate[1] = rate_right;
 }
 
-// These two share the same opcode but parameters and what they do are different depending on flags
-void aSetVolume(uint64_t* cmd, uint8_t flags, uint16_t vol, uint16_t voltgt, uint16_t volrate)
-{
-	if(flags & A_AUX)
-	{
-		// Parameter names are not really correct for A_AUX
-		alist_audio.dry = vol;
-		alist_audio.wet = volrate;
-	}
-	else
-	{
-		size_t lr = (flags & A_LEFT) ? 0 : 1;
-
-		assert(flags & A_VOL);
-		alist_audio.vol[lr] = vol;
-	}
-}
-void aSetVolume32(uint64_t* cmd, uint8_t flags, uint16_t voltgt, uint32_t volrate)
-{
-	size_t lr = (flags & A_LEFT) ? 0 : 1;
-
-	assert(!(flags & A_VOL) && !(flags & A_AUX));
-	alist_audio.target[lr] = voltgt;
-	alist_audio.rate[lr]   = volrate;
+void aEnvSetup2Impl(uint16_t initial_vol_left, uint16_t initial_vol_right) {
+    rspa.vol[0] = initial_vol_left;
+    rspa.vol[1] = initial_vol_right;
 }
 
-void aSetLoop(uint64_t* cmd, uint16_t* addr)
+void aEnvMixerImpl(uint16_t in_addr, uint16_t n_samples, bool swap_reverb,
+				   bool neg_3, bool neg_2,
+                   bool neg_left, bool neg_right,
+                   int32_t wet_dry_addr, u32 unk)
 {
-	alist_audio.loop = addr;
+    int16_t *in = BUF_S16(in_addr);
+    int16_t *dry[2] = {BUF_S16(((wet_dry_addr >> 24) & 0xFF) << 4), BUF_S16(((wet_dry_addr >> 16) & 0xFF) << 4)};
+    int16_t *wet[2] = {BUF_S16(((wet_dry_addr >> 8) & 0xFF) << 4), BUF_S16(((wet_dry_addr) & 0xFF) << 4)};
+    int16_t negs[4] = {neg_left ? -1 : 0, neg_right ? -1 : 0, neg_3 ? -4 : 0, neg_2 ? -2 : 0};
+    int swapped[2] = {swap_reverb ? 1 : 0, swap_reverb ? 0 : 1};
+    int n = ROUND_UP_16(n_samples);
+
+    uint16_t vols[2] = {rspa.vol[0], rspa.vol[1]};
+    uint16_t rates[2] = {rspa.rate[0], rspa.rate[1]};
+    uint16_t vol_wet = rspa.vol_wet;
+    uint16_t rate_wet = rspa.rate_wet;
+
+    do {
+        for (int i = 0; i < 8; i++) {
+            int16_t samples[2] = {*in, *in}; in++;
+            for (int j = 0; j < 2; j++) {
+                samples[j] = (samples[j] * vols[j] >> 16) ^ negs[j];
+            }
+        	for (int j = 0; j < 2; j++) {
+                *dry[j] = clamp16(*dry[j] + samples[j]); dry[j]++;
+                *wet[j] = clamp16(*wet[j] + ((samples[swapped[j]] * vol_wet >> 16) ^ negs[2 + j])); wet[j]++;
+            }
+        }
+        vols[0] += rates[0];
+        vols[1] += rates[1];
+        vol_wet += rate_wet;
+
+        n -= 8;
+    } while (n > 0);
 }
 
-void aLoadADPCM(uint64_t* cmd, uint16_t count, uint16_t* addr)
-{
-	assert(align(count, 8) == count);
-	memcpy(alist_audio.table, addr, count);
+void aMixImpl(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr) {
+    int nbytes = ROUND_UP_32(ROUND_DOWN_16(count << 4));
+    int16_t *in = BUF_S16(in_addr);
+    int16_t *out = BUF_S16(out_addr);
+    int i;
+    int32_t sample;
+
+    if (gain == -0x8000) {
+        while (nbytes > 0) {
+            for (i = 0; i < 16; i++) {
+                sample = *out - *in++;
+                *out++ = clamp16(sample);
+            }
+            nbytes -= 16 * sizeof(int16_t);
+        }
+    }
+
+    while (nbytes > 0) {
+        for (i = 0; i < 16; i++) {
+            sample = ((*out * 0x7fff + *in++ * gain) + 0x4000) >> 15;
+            *out++ = clamp16(sample);
+        }
+
+        nbytes -= 16 * sizeof(int16_t);
+    }
 }
 
-static inline int16_t adpcm_predict_sample(uint8_t byte, uint8_t mask, unsigned lshift, unsigned rshift)
-{
-	int16_t sample = (uint16_t)(byte & mask) << lshift;
-	sample >>= rshift; /* signed */
-	return sample;
+void aS8DecImpl(uint8_t flags, ADPCM_STATE state) {
+    uint8_t *in = BUF_U8(rspa.in);
+    int16_t *out = BUF_S16(rspa.out);
+    int nbytes = ROUND_UP_32(rspa.nbytes);
+    if (flags & A_INIT) {
+        memset(out, 0, 16 * sizeof(int16_t));
+    } else if (flags & A_LOOP) {
+        memcpy(out, rspa.adpcm_loop_state, 16 * sizeof(int16_t));
+    } else {
+        memcpy(out, state, 16 * sizeof(int16_t));
+    }
+    out += 16;
+
+    while (nbytes > 0) {
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+        *out++ = (int16_t)(*in++ << 8);
+
+        nbytes -= 16 * sizeof(int16_t);
+    }
+
+    memcpy(state, out - 16, 16 * sizeof(int16_t));
 }
 
-static unsigned int adpcm_predict_frame_4bits(int16_t* dst, uint8_t* src, uint8_t scale)
-{
-	unsigned int i;
-	unsigned int rshift = (scale < 12) ? 12 - scale : 0;
+void aAddMixerImpl(uint16_t in_addr, uint16_t out_addr, uint16_t count) {
+    int16_t *in = BUF_S16(in_addr);
+    int16_t *out = BUF_S16(out_addr);
+    int nbytes = ROUND_UP_64(ROUND_DOWN_16(count));
 
-	for(i = 0; i < 8; ++i)
-	{
-		uint8_t byte = *src++;
+    do {
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
+        *out = clamp16(*out + *in++); out++;
 
-		*(dst++) = adpcm_predict_sample(byte, 0xf0, 8, rshift);
-		*(dst++) = adpcm_predict_sample(byte, 0x0f, 12, rshift);
-	}
-
-	return 8;
+        nbytes -= 16 * sizeof(int16_t);
+    } while (nbytes > 0);
 }
 
-static int32_t rdot(size_t n, const int16_t* x, const int16_t* y)
-{
-	int32_t accu = 0;
+void aDuplicateImpl(uint16_t count, uint16_t in_addr, uint16_t out_addr) {
+    uint8_t* in = BUF_U8(in_addr);
+    uint8_t *out = BUF_U8(out_addr);
 
-	y += n;
-
-	while(n != 0)
-	{
-		accu += *(x++) * *(--y);
-		--n;
-	}
-
-	return accu;
+    uint8_t tmp[128];
+    memcpy(tmp, in, 128);
+    do {
+        memcpy(out, tmp, 128);
+        out += 128;
+    } while (count-- > 0);
 }
 
-static void adpcm_compute_residuals(int16_t* dst, const int16_t* src, const int16_t* cb_entry, const int16_t* last_samples, size_t count)
-{
-	const int16_t* const book1 = cb_entry;
-	const int16_t* const book2 = cb_entry + 8;
+void aResampleZohImpl(uint16_t pitch, uint16_t start_fract) {
+    int16_t *in = BUF_S16(rspa.in);
+    int16_t *out = BUF_S16(rspa.out);
+    int nbytes = ROUND_UP_8(rspa.nbytes);
+    uint32_t pos = start_fract;
+    uint32_t pitch_add = pitch << 2;
 
-	const int16_t l1 = last_samples[0];
-	const int16_t l2 = last_samples[1];
+    do {
+        *out++ = in[pos >> 17]; pos += pitch_add;
+        *out++ = in[pos >> 17]; pos += pitch_add;
+        *out++ = in[pos >> 17]; pos += pitch_add;
+        *out++ = in[pos >> 17]; pos += pitch_add;
 
-	size_t i;
-
-	assert(count <= 8);
-
-	for(i = 0; i < count; ++i)
-	{
-		int32_t accu = (int32_t)src[i] << 11;
-		accu += book1[i] * l1 + book2[i] * l2 + rdot(i, book2, src);
-		dst[i] = clamp_s16(accu >> 11);
-	}
+        nbytes -= 4 * sizeof(int16_t);
+    } while (nbytes > 0);
 }
 
-void aADPCMdec(uint64_t* cmd, uint8_t flags, uint16_t* last_frame_addr)
-{
-	int16_t* dst = (int16_t*)(alist_buffer + alist_audio.out);
-	uint8_t* src = alist_buffer + alist_audio.in;
-	size_t count = alist_audio.count;
-	int16_t last_frame[16];
+void aInterlImpl(uint16_t in_addr, uint16_t out_addr, uint16_t n_samples) {
+    int16_t *in = BUF_S16(in_addr);
+    int16_t *out = BUF_S16(out_addr);
+    int n = ROUND_UP_8(n_samples);
 
-	count = align(count, 32);
-	assert((count & 0x1f) == 0);
+    do {
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
+        *out++ = *in++; in++;
 
-	if(flags & A_INIT)
-	{
-		memset(last_frame, 0, sizeof(last_frame));
-	}
-	else
-	{
-		memcpy(last_frame, ((flags & A_LOOP) ? alist_audio.loop : last_frame_addr), sizeof(last_frame));
-	}
+        n -= 8;
+    } while (n > 0);
+}
 
-	memcpy(dst, last_frame, sizeof(last_frame));
-	dst += 16;
+void aFilterImpl(uint8_t flags, uint16_t count_or_buf, int16_t *state_or_filter) {
+    if (flags > A_INIT) {
+        rspa.filter_count = ROUND_UP_16(count_or_buf);
+        memcpy(rspa.filter, state_or_filter, sizeof(rspa.filter));
+    } else {
+        int16_t tmp[16], tmp2[8];
+        int count = rspa.filter_count;
+        int16_t *buf = BUF_S16(count_or_buf);
 
-	while(count != 0)
-	{
-		int16_t frame[16];
-		uint8_t code		      = *src++;
-		uint8_t scale		      = code >> 4;
-		const int16_t* const cb_entry = alist_audio.table + ((code & 0xf) * 16);
+        if (flags == A_INIT) {
+            memset(tmp, 0, 8 * sizeof(int16_t));
+            memset(tmp2, 0, 8 * sizeof(int16_t));
+        } else {
+            memcpy(tmp, state_or_filter, 8 * sizeof(int16_t));
+            memcpy(tmp2, state_or_filter + 8, 8 * sizeof(int16_t));
+        }
+        
+        for (int i = 0; i < 8; i++) {
+            rspa.filter[i] = (tmp2[i] + rspa.filter[i]) / 2;
+        }
 
-		src += adpcm_predict_frame_4bits(frame, src, scale);
+        do {
+            memcpy(tmp + 8, buf, 8 * sizeof(int16_t));
+            for (int i = 0; i < 8; i++) {
+                int64_t sample = 0x4000; // round term
+                for (int j = 0; j < 8; j++) {
+                    sample += tmp[i + j] * rspa.filter[7 - j];
+                }
+                buf[i] = clamp16((int32_t)(sample >> 15));
+            }
+            memcpy(tmp, tmp + 8, 8 * sizeof(int16_t));
 
-		adpcm_compute_residuals(last_frame, frame, cb_entry, last_frame + 14, 8);
-		adpcm_compute_residuals(last_frame + 8, frame + 8, cb_entry, last_frame + 6, 8);
+            buf += 8;
+            count -= 8 * sizeof(int16_t);
+        } while (count > 0);
 
-		memcpy(dst, last_frame, sizeof(last_frame));
-		dst += 16;
+        memcpy(state_or_filter, tmp, 8 * sizeof(int16_t));
+        memcpy(state_or_filter + 8, rspa.filter, 8 * sizeof(int16_t));
+    }
+}
 
-		count -= 32;
-	}
+void aHiLoGainImpl(uint8_t g, uint16_t count, uint16_t addr) {
+    int16_t *samples = BUF_S16(addr);
+    int nbytes = ROUND_UP_32(count);
 
-	memcpy(last_frame_addr, last_frame, sizeof(last_frame));
+    do {
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+        *samples = clamp16((*samples * g) >> 4); samples++;
+
+        nbytes -= 8;
+    } while (nbytes > 0);
+}
+
+void aUnkCmd3Impl(uint16_t a, uint16_t b, uint16_t c) {
+}
+
+void aUnkCmd19Impl(uint8_t f, uint16_t count, uint16_t out_addr, uint16_t in_addr) {
+    int nbytes = ROUND_UP_64(count);
+    int16_t *in = BUF_S16(in_addr + f);
+    int16_t *out = BUF_S16(out_addr);
+    int16_t tbl[32];
+
+    memcpy(tbl, in, 32 * sizeof(int16_t));
+    do {
+        for (int i = 0; i < 32; i++) {
+            out[i] = clamp16(out[i] * tbl[i]);
+        }
+        out += 32;
+        nbytes -= 32 * sizeof(int16_t);
+    } while (nbytes > 0);
 }
