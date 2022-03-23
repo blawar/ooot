@@ -1469,6 +1469,7 @@ void FileChoose_LoadGame(GameState* pthisx) {
     u16 swordEquipMask;
     s32 pad;
 
+#ifdef ENABLE_DEBUG_LEVEL_SELECT
     if (pthis->buttonIndex == FS_BTN_SELECT_FILE_1) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
@@ -1476,7 +1477,10 @@ void FileChoose_LoadGame(GameState* pthisx) {
         gSaveContext.gameMode = 0;
         SET_NEXT_GAMESTATE(&pthis->state, Select_Init, SelectContext);
         pthis->state.running = false;
-    } else {
+    }
+    else
+#endif
+    {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
         Sram_OpenSave(&pthis->sramCtx);
