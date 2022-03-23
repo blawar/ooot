@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_FBDEMO_CIRCLE_C
 #include "global.h"
+#include <string.h>
 #include "gfx.h"
 #include "z64transition.h"
 #include "z64audio.h"
@@ -106,7 +107,7 @@ void TransitionCircle_Start(void* thisx) {
 void* TransitionCircle_Init(void* thisx) {
     TransitionCircle* pthis = (TransitionCircle*)thisx;
 
-    bzero(pthis, sizeof(*pthis));
+    memset(pthis, 0, sizeof(*pthis));
     return pthis;
 }
 
@@ -163,8 +164,8 @@ void TransitionCircle_Draw(void* thisx, Gfx** gfxP) {
     texScroll = Gfx_BranchTexScroll(&gfx, pthis->texX, pthis->texY, 0x10, 0x40);
     gSPSegment(gfx++, 9, texScroll);
     gSPSegment(gfx++, 8, pthis->texture);
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
-    gDPSetColor(gfx++, G_SETENVCOLOR,  pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, (u32)pthis->color);
+    gDPSetColor(gfx++, G_SETENVCOLOR, (u32)pthis->color);
     gSPMatrix(gfx++, &pthis->projection, G_MTX_PROJECTION | G_MTX_LOAD);
     gSPPerspNormalize(gfx++, pthis->normal);
     gSPMatrix(gfx++, &pthis->lookAt, G_MTX_PROJECTION | G_MTX_NOPUSH | G_MTX_MUL);

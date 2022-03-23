@@ -19,7 +19,7 @@ u8 SystemArena_IsInitalized(void);
 
 void* z_memset(void* ptr, s32 val, size_t size);
 
-void __assert(const char* exp, const char* file, s32 line);
+void oot_assert(const char* exp, const char* file, s32 line);
 
 f32 LogUtils_CheckFloatRange(const char* exp, s32 line, const char* valueName, f32 value, const char* minName, f32 min,
                              const char* maxName, f32 max);

@@ -191,6 +191,7 @@ int main(int argc, char** argv)
 	run();
 }
 
+#if defined(_MSC_VER)
 #include <string.h>
 
 void bzero(void* __s, size_t __n)
@@ -202,3 +203,4 @@ void bcopy(void* __s, void* __d, size_t __n)
 {
     memmove(__d, __s, __n);
 }
+#endif

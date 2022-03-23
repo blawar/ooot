@@ -2,7 +2,7 @@
 #include "global.h"
 #include "z64audio.h"
 #include "audiomgr.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "ultra64/message.h"
 #include "speedmeter.h"
 #include "regs.h"
@@ -14,6 +14,7 @@
 #include "../../AziAudio/AziAudio/AudioSpec.h"
 #include <thread>
 #include <memory>
+#include <string.h>
 #include "ultra64/rcp.h"
 #include "redef_msgqueue.h"
 
@@ -138,7 +139,11 @@ void azi_init()
 	hw_regs.AI_DACRATE_REG = 0x3FFF;
 	hw_regs.AI_BITRATE_REG = 0xF;
 
+#ifdef _MSC_VER
 	Audio_Info.hwnd		    = GetActiveWindow();
+#else
+	Audio_Info.hwnd = NULL;
+#endif
 	Audio_Info.AI_DRAM_ADDR_REG = &hw_regs.AI_DRAM_ADDR_REG;
 	Audio_Info.AI_LEN_REG	    = &hw_regs.AI_LEN_REG;
 	Audio_Info.AI_CONTROL_REG   = &hw_regs.AI_CONTROL_REG;
@@ -152,7 +157,7 @@ void azi_init()
 }
 
 void AudioMgr_Init(AudioMgr* audioMgr, void* stack, OSPri pri, OSId id, SchedContext* sched, IrqMgr* irqMgr) {
-	bzero(audioMgr, sizeof(AudioMgr));
+	memset(audioMgr, 0, sizeof(AudioMgr));
     g_audioMgr = audioMgr;
 	azi_init();
 
@@ -168,11 +173,11 @@ void AudioMgr_Init(AudioMgr* audioMgr, void* stack, OSPri pri, OSId id, SchedCon
 
 void AudioMgr_Shutdown()
 {
-	Sleep(500);//Wait until the audio buffer finishes playing
+	std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Wait until the audio buffer finishes playing
 
 	CloseDLL();//Shut down Azi
 
-	Sleep(1000);//Keep the audio thread open a bit longer
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // Keep the audio thread open a bit longer
 
 	g_aziInit = false;//Thread closes now
 

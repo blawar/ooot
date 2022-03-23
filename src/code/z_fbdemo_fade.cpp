@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_FBDEMO_FADE_C
 #include "global.h"
+#include <string.h>
 #include "gfx.h"
 #include "z64transition.h"
 #include "framerate.h"
@@ -43,7 +44,7 @@ void TransitionFade_Start(void* pthisx) {
 void* TransitionFade_Init(void* pthisx) {
     TransitionFade* pthis = (TransitionFade*)pthisx;
 
-    bzero(pthis, sizeof(*pthis));
+    memset(pthis, 0, sizeof(*pthis));
     return pthis;
 }
 

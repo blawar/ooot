@@ -54,7 +54,7 @@ void* SystemArena_Calloc(u32 num, u32 size) {
     ret = malloc(n);
 
     if (ret != NULL) {
-        bzero(ret, n);
+        memset(ret, 0, n);
     }
 
     SystemArena_CheckPointer(ret, n, "calloc", "Secure");

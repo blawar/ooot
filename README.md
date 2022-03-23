@@ -55,8 +55,16 @@ Not currently supported, however a makefile and porting of GLideN64 would allow 
 
 ### Linux (Native or under WSL / VM)
 
-Not currently supported, however a makefile and porting of GLideN64 would allow this and a PR is welcome.
+```
+sudo apt install gcc-multilib g++-multilib
+sudo apt install libsdl2-dev
+sudo apt install meson
 
+setup.py -b EUR_MQD
+meson setup linux
+cd linux
+ninja
+```
 
 
 ## Contributing

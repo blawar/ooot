@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_CODE_IRQMGR_C
 #include "global.h"
 #include "vt.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "ultra64/exception.h"
 #include <stdbool.h>
 #include "def/irqmgr.h"

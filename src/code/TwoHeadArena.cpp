@@ -147,5 +147,5 @@ void THA_Ct(TwoHeadArena* tha, void* ptr, u32 size) {
 }
 
 void THA_Dt(TwoHeadArena* tha) {
-    bzero(tha, sizeof(TwoHeadArena));
+    memset(tha, 0, sizeof(TwoHeadArena));
 }

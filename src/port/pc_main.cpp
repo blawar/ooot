@@ -13,6 +13,10 @@
 #include "def/audio_rsp.h"
 #include "def/audioMgr.h"
 
+#ifndef _MSC_VER
+#define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
+#endif
+
 static std::unique_ptr<platform::window::Base> gWindow;
 
 
