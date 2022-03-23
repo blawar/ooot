@@ -57,8 +57,7 @@ def config():
 	return _conf
 
 def fixSlashPath(path):
-	#return path.replace('\\', '/')
-	return path.replace('/', '\\')
+	return path.replace('/', os.path.sep).replace('\\', os.path.sep)
 	
 def validBuildOptions():
 	r = []
