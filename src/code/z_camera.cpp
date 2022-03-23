@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_CAMERA_C
 #include "ultra64.h"
+#include <string.h>
 #include "global.h"
 #include "z64global.h"
 #include "z64bgcheck.h"

@@ -2,6 +2,7 @@
 #include "ultra64.h"
 #include "global.h"
 #include <string.h>
+#include <malloc.h>
 #include "z64audio.h"
 #include "def/aisetfreq.h"
 #include "def/audio_data.h"
@@ -191,7 +192,11 @@ void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
 
 void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     pool->count++;
+#ifdef _MSC_VER
 	return _aligned_malloc(ALIGN16(size), 0x10);
+#else
+    return aligned_alloc(ALIGN16(size), 0x10);
+#endif
 	//return malloc(size);
     u32 aligned = ALIGN16(size);
     u8* ret = pool->cur;

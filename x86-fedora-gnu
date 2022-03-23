@@ -1,0 +1,27 @@
+[binaries]
+c = '/usr/bin/gcc'
+cpp = '/usr/bin/g++'
+ar = '/usr/bin/gcc-ar'
+strip = '/usr/bin/strip'
+pkgconfig = '/usr/bin/i686-redhat-linux-gnu-pkg-config'
+llvm-config = '/usr/bin/llvm-config32'
+
+[built-in options]
+c_args = ['-m32']
+c_link_args = ['-m32']
+cpp_args = ['-m32']
+cpp_link_args = ['-m32']
+prefix = '/usr'
+libdir = 'lib'
+bindir = 'bin'
+
+[properties]
+#pkg_config_libdir = '/usr/lib/pkgconfig'
+#pkg_config_path = '/usr/lib/pkgconfig'
+
+[host_machine]
+system = 'linux'
+cpu_family = 'x86'
+cpu = 'i686'
+endian = 'little'
+

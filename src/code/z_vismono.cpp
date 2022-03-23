@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_VISMONO_C
 #include "global.h"
+#include <string.h>
 #include "gfx.h"
 #include "z_vismono.h"
 #include "def/graph.h"
@@ -14,7 +15,7 @@
 static u16 D_0F000000[SCREEN_HEIGHT * SCREEN_WIDTH * 4];
 
 void VisMono_Init(VisMono* pthis) {
-    bzero(pthis, sizeof(VisMono));
+	memset(pthis, 0, sizeof(VisMono));
     pthis->unk_00 = 0;
     pthis->setScissor = false;
     pthis->primColor.r = 255;
@@ -103,8 +104,8 @@ void VisMono_Draw(VisMono* pthis, Gfx** gfxp) {
         gDPSetScissor(gfx++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->primColor.r, pthis->primColor.g, pthis->primColor.b, pthis->primColor.a);
-    gDPSetColor(gfx++, G_SETENVCOLOR,  pthis->envColor.r,  pthis->envColor.g,  pthis->envColor.b,  pthis->envColor.a);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, (u32)pthis->primColor);
+    gDPSetColor(gfx++, G_SETENVCOLOR,  (u32)pthis->envColor.r);
 
     gDPLoadTLUT_pal256(gfx++, tlut);
 

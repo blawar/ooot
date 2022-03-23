@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_PLAYER_ACTOR_Z_PLAYER_C
 #include "actor_common.h"
-#include <z64camera.h>
+#include "z64camera.h"
+#include <string.h>
 #include "z_player.h"
 #include "framerate.h"
 #include "z_scene_table.h"
@@ -10343,7 +10344,7 @@ void Player_Update(Actor* pthisx, GlobalContext* globalCtx) {
         }
 
         if (pthis->stateFlags1 & 0x20000020) {
-            bzero(&sp44, sizeof(sp44));
+            memset(&sp44, 0, sizeof(sp44));
         } else {
             sp44 = globalCtx->state.input[0];
             if (pthis->unk_88E != 0) {

@@ -2,6 +2,7 @@
 #include "port/options.h"
 #include <stdio.h>
 #include "xxhash64.h"
+#include <string.h>
 
 #ifdef __SWITCH__
 #include "pc/nx.h"

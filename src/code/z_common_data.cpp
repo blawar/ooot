@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_COMMON_DATA_C
 #include "global.h"
 #include "z64save.h"
+#include <string.h>
 #include "sequence.h"
 #include "def/z_common_data.h"
 
@@ -9,7 +10,7 @@ u32 D_8015FA88;
 u32 D_8015FA8C;
 
 void SaveContext_Init(void) {
-    bzero(&gSaveContext, sizeof(gSaveContext));
+    memset(&gSaveContext, 0, sizeof(gSaveContext));
     D_8015FA88 = 0;
     D_8015FA8C = 0;
     gSaveContext.seqId = (u8)NA_BGM_DISABLED;

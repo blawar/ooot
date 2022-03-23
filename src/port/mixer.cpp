@@ -53,7 +53,7 @@ static struct {
     } buf;
 } rspa;
 
-static int16_t resample_table[64][4] = {
+static u16 resample_table[64][4] = {
     {0x0c39, 0x66ad, 0x0d46, 0xffdf}, {0x0b39, 0x6696, 0x0e5f, 0xffd8},
     {0x0a44, 0x6669, 0x0f83, 0xffd0}, {0x095a, 0x6626, 0x10b4, 0xffc8},
     {0x087d, 0x65cd, 0x11f0, 0xffbf}, {0x07ab, 0x655e, 0x1338, 0xffb6},
@@ -241,7 +241,7 @@ void aResampleImpl(uint8_t flags, uint16_t pitch, RESAMPLE_STATE state) {
 
     do {
         for (i = 0; i < 8; i++) {
-            tbl = resample_table[pitch_accumulator * 64 >> 16];
+            tbl = (s16*)resample_table[pitch_accumulator * 64 >> 16];
             sample = ((in[0] * tbl[0] + 0x4000) >> 15) +
                      ((in[1] * tbl[1] + 0x4000) >> 15) +
                      ((in[2] * tbl[2] + 0x4000) >> 15) +

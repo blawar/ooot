@@ -121,9 +121,9 @@ MES(n30), MES(n31), MES(n32), MES(n33)}
 #ifdef NDEBUG
 #define ASSERT(cond, msg, file, line) ((void)0)
 #elif defined(REAL_ASSERT_MACRO)
-#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : __assert(#cond, __FILE__, __LINE__))
+#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : oot_assert(#cond, __FILE__, __LINE__))
 #else
-#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : __assert(msg, file, line))
+#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : oot_assert(msg, file, line))
 #endif
 
 #define gDPSetTileCustom(pkt, fmt, siz, width, height, pal, cms, cmt, masks, maskt, shifts, shiftt)                    \
@@ -149,7 +149,10 @@ MES(n30), MES(n31), MES(n32), MES(n33)}
 #define M_PI 3.14159265358979323846
 #endif
 
+#ifndef M_SQRT2
 #define M_SQRT2 1.41421356237309504880f
+#endif
+
 #define FLT_MAX 340282346638528859811704183484516925440.0f
 #define SHT_MAX 32767.0f
 #define SHT_MINV (1.0f / SHT_MAX)

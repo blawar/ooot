@@ -4,7 +4,7 @@
 
 #include "z64game.h"
 #include "z_play.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "regs.h"
 #include "speedmeter.h"
 #include "ultra64/vi.h"

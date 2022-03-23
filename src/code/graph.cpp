@@ -12,7 +12,7 @@
 #include "z_title.h"
 #include "gfx.h"
 #include "gfxapi.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "padmgr.h"
 #include "z64save.h"
 #include "speedmeter.h"
@@ -107,7 +107,7 @@ GameStateOverlay* Graph_GetNextGameState(GameState* gameState) {
 }
 
 void Graph_Init(GraphicsContext* gfxCtx) {
-    bzero(gfxCtx, sizeof(GraphicsContext));
+    memset(gfxCtx, 0, sizeof(GraphicsContext));
     gfxCtx->gfxPoolIdx = 0;
     gfxCtx->fbIdx = 0;
     gfxCtx->viMode = NULL;

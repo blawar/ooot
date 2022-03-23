@@ -5,11 +5,16 @@
 #include <filesystem>
 #include "tas.h"
 #include "../options.h"
+#include <math.h>
 
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/sm64/tas"
 #else
 #define TAS_DIR "tas"
+#endif
+
+#ifndef _MSC_VER
+#define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
 #endif
 
 namespace oot::hid
