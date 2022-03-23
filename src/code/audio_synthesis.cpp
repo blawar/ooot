@@ -9,6 +9,7 @@
 #include "def/audio_synthesis.h"
 #include "def/code_800E6840.h"
 #include "def/audio_bank.h"
+#include "mixer.h"
 
 #define DEFAULT_LEN_1CH 0x1A0
 #define DEFAULT_LEN_2CH 0x340
@@ -394,12 +395,12 @@ void func_800DBD08(void) {
 }
 
 static void AudioSynth_LoadBuffer(Acmd* cmd, s32 arg1, s32 arg2, Pointer arg3) {
-    aLoadBuffer(cmd, arg3.get(), arg1, arg2);
+    aLoadBuffer(cmd, arg3.buffer(), arg1, arg2);
 }
 
 static void AudioSynth_SaveBuffer(Acmd* cmd, s32 arg1, s32 arg2, Pointer address)
 {
-	aSaveBuffer(cmd, arg1, address.get(), arg2);
+	aSaveBuffer(cmd, arg1, (s16*)address.buffer(), arg2);
 }
 
 void AudioSynth_EnvSetup2(Acmd* cmd, s32 volLeft, s32 volRight) {
@@ -457,11 +458,11 @@ void func_800DBE6C(void) {
 }
 
 void AudioSynth_LoadFilter(Acmd* cmd, s32 flags, s32 countOrBuf, Pointer addr) {
-    aFilter(cmd, flags, countOrBuf, addr.get());
+    aFilter(cmd, flags, countOrBuf, (s16*)addr.get());
 }
 
 static void AudioSynth_LoadFilterCount(Acmd* cmd, s32 count, Pointer addr) {
-    aFilter(cmd, 2, count, addr.get());
+	aFilter(cmd, 2, count, (s16*)addr.get());
 }
 
 Acmd* AudioSynth_LoadRingBuffer1(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s16 bufIndex) {
@@ -899,7 +900,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
                 }
 
                 if (synthState->restart) {
-                    aSetLoop(cmd++, audioFontSample->loop->state);
+                    aSetLoop(cmd++, (ADPCM_STATE*)audioFontSample->loop->state);
                     flags = A_LOOP;
                     synthState->restart = false;
                 }

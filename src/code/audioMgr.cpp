@@ -109,7 +109,7 @@ void audio_thread()
 
 			if(task)
 			{
-				HLEStart((AZI_OSTask*)&task->task.t);
+				//HLEStart((AZI_OSTask*)&task->task.t);
 				AiUpdate(false);
 			}
 
