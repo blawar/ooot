@@ -64,8 +64,10 @@ sudo apt install meson
 
 Arch Linux
 
-sudo pacman -S gcc 
-sudo pacman -S sdl2
+edit /etc/pacman.conf annd go to the bottom uncomment multilib so remove the # do not touch testing.
+
+sudo pacman -S gcc lib32-gcc-libs
+sudo pacman -S sdl2 lib32-sdl2
 sudo pacman -S meson
 
 Fedora Linux
