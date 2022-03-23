@@ -1,6 +1,6 @@
 #pragma once
 #include "ultra64/types.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 
 struct JpegQuantizationTable {
     /* 0x00 */ u16 table[8 * 8];

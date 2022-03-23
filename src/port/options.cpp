@@ -4,6 +4,7 @@
 #include "xxhash64.h"
 #include <fstream>
 #include "json.h"
+#include <string.h>
 
 #ifdef __SWITCH__
 #include "pc/nx.h"

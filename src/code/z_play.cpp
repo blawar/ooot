@@ -128,7 +128,7 @@ void func_800BC590(GlobalContext* globalCtx) {
 void func_800BC5E0(GlobalContext* globalCtx, s32 transitionType) {
     TransitionContext* transitionCtx = &globalCtx->transitionCtx;
 
-    bzero(transitionCtx, sizeof(TransitionContext));
+    memset(transitionCtx, 0, sizeof(TransitionContext));
 
     transitionCtx->transitionType = transitionType;
 

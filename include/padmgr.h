@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "ultra64/controller.h"
 #include "ultra64/pfs.h"
 

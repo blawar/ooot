@@ -6,6 +6,7 @@
 #include "../options.h"
 #include "def/z_player_lib.h"
 #include "state.h"
+#include <math.h>
 
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/oot/tas"
@@ -22,6 +23,10 @@ static inline int8_t invert(const int8_t value)
 
 	return -value;
 }
+
+#ifndef _MSC_VER
+#define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
+#endif
 
 namespace oot::hid
 {

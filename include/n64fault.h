@@ -1,6 +1,6 @@
 #pragma once
 #include "ultra64/types.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "padmgr.h"
 
 struct FaultClient {

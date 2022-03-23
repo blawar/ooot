@@ -1,6 +1,10 @@
+#include <algorithm>
+#include <string.h>
 #include "players.h"
 #include "../controller/controllers.h"
-#include "z64.h";
+#include "../options.h"
+
+#include "z64.h"
 #include "padmgr.h"
 
 extern PadMgr gPadMgr;

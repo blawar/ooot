@@ -57,7 +57,7 @@ void* ZeldaArena_Calloc(u32 num, u32 size) {
     ret = malloc(n);
 
     if (ret != NULL) {
-        bzero(ret, n);
+	    memset(ret, 0, n);
     }
 
     ZeldaArena_CheckPointer(ret, n, "zelda_calloc", "確保");

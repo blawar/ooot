@@ -3,7 +3,7 @@
 #include "ultra64/printf.h"
 #include "ultra64/gbi.h"
 #include "ultra64/message.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "color.h"
 
 

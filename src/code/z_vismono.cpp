@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_VISMONO_C
 
 #include "global.h"
+#include <string.h>
 #include "gfx.h"
 #include "z_vismono.h"
 #include "def/graph.h"
@@ -20,7 +21,7 @@ void enableFbEffects();
 
 void VisMono_Init(VisMono* pthis)
 {
-	bzero(pthis, sizeof(VisMono));
+	memset(pthis, 0, sizeof(VisMono));
 	pthis->unk_00 = 0;
 	pthis->setScissor = false;
 	pthis->primColor.r = 255;

@@ -3,6 +3,7 @@
 #include "def/__osMalloc.h"
 #include "def/debug_malloc.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define LOG_SEVERITY_NOLOG 0
 #define LOG_SEVERITY_ERROR 2
@@ -51,7 +52,7 @@ void* DebugArena_Calloc(u32 num, u32 size) {
 
     ret = malloc(n);
     if (ret != NULL) {
-        bzero(ret, n);
+        memset(ret, 0, n);
     }
     return ret;
 }

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "global.h"
 #include "vt.h"
+#include <string.h>
 #include "z64global.h"
 #include "sfx.h"
 #include "framerate.h"
@@ -2003,7 +2004,7 @@ void func_800304DC(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry*
 
     savedSceneFlags = &gSaveContext.sceneFlags[globalCtx->sceneNum];
 
-    bzero(actorCtx, sizeof(*actorCtx));
+    memset(actorCtx, 0, sizeof(*actorCtx));
 
     ActorOverlayTable_Init();
     MtxF* tmp = &globalCtx->billboardMtxF;

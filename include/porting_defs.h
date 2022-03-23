@@ -2,7 +2,9 @@
 #include <stdint.h>
 #include "ultra64/types.h"
 
+#ifndef LITTLE_ENDIAN
 #define LITTLE_ENDIAN
+#endif
 
 #define SWAP16(data) \
 ( (((data) >> 8) & 0x00FF) | (((data) << 8) & 0xFF00) ) 
