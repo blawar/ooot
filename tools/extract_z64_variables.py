@@ -203,6 +203,12 @@ def OFFSET(o):
 	if o > 0x2BDC0:
 		raise IOError('bad offset: %8.8X' % o)
 	return o
+	
+def ALIGN(n, a = 8):
+	if n % a == a:
+		return n
+		
+	return ((n // a) * a) + a
 
 class AdpcmLoop:
 	def __init__(self, f, parent):
@@ -239,15 +245,16 @@ class AdpcmBook:
 		self.npredictors = readS32(f)
 		print('.order = %d, .npred = %d, .offset = %8.8X' % (self.order, self.npredictors, f.tell()))
 
+		allocLen = ALIGN(self.order * self.npredictors * 8, 8)
 		sbooks = []
 		self.books = [] # TODO LOOP THROUGH: size 8 * order * npredictors. 8-byte aligned
-		for i in range(self.order * self.npredictors * 8):
+		for i in range(allocLen):
 			b = readS16(f, swap = False, byteorder='big')
 			self.books.append(b)
 			#sbooks.append('0x%4.4X' % b)
 			sbooks.append("{0:#0{1}x}".format(b,6))
 			
-		registerSymbol(self.getSymbol(), 'VAdpcmBook<%d> %s = {.order = %d, .npredictors = %d, .book = {%s}};' % (self.order * self.npredictors * 8, self.getSymbol(), self.order, self.npredictors, ','.join(sbooks)), self.pos)
+		registerSymbol(self.getSymbol(), 'VAdpcmBook<%d> %s = {.order = %d, .npredictors = %d, .book = {%s}};' % (allocLen, self.getSymbol(), self.order, self.npredictors, ','.join(sbooks)), self.pos)
 			
 	def render(self):
 		return ''
