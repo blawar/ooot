@@ -67,9 +67,23 @@ Not currently supported, however a makefile and porting of GLideN64 would allow 
 ### Linux (Native or under WSL / VM)
 
 ```
+Debian/Ubuntu
+
 sudo apt install gcc-multilib g++-multilib
 sudo apt install libsdl2-dev
 sudo apt install meson
+
+Arch Linux
+
+sudo pacman -S gcc 
+sudo pacman -S sdl2
+sudo pacman -S meson
+
+Fedora Linux
+
+sudo dnf in gcc
+sudo dnf in sdl2-devel
+sudo dnf in meson 
 
 setup.py -b EUR_MQD
 meson setup linux
