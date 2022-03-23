@@ -366,8 +366,7 @@ void func_800DBC5C(void) {
 
 // possible fake match?
 void AudioSynth_DMemMove(Acmd* cmd, s32 dmemIn, s32 dmemOut, s32 count) {
-    cmd->words.w0 = _SHIFTL(A_DMEMMOVE, 24, 8) | _SHIFTL(dmemIn, 0, 24);
-    cmd->words.w1 = _SHIFTL(dmemOut, 16, 16) | _SHIFTL(count, 0, 16);
+	aDMEMMove(cmd, dmemIn, dmemOut, count);
 }
 
 void func_800DBC90(void) {
@@ -383,8 +382,7 @@ void func_800DBCA8(void) {
 }
 
 void AudioSynth_InterL(Acmd* cmd, s32 dmemIn, s32 dmemOut, s32 count) {
-    cmd->words.w0 = _SHIFTL(A_INTERL, 24, 8) | _SHIFTL(count, 0, 16);
-    cmd->words.w1 = _SHIFTL(dmemIn, 16, 16) | _SHIFTL(dmemOut, 0, 16);
+	aInterl(cmd, dmemIn, dmemOut, count);
 }
 
 void AudioSynth_EnvSetup1(Acmd* cmd, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -404,8 +402,7 @@ static void AudioSynth_SaveBuffer(Acmd* cmd, s32 arg1, s32 arg2, Pointer address
 }
 
 void AudioSynth_EnvSetup2(Acmd* cmd, s32 volLeft, s32 volRight) {
-    cmd->words.w0 = _SHIFTL(A_ENVSETUP2, 24, 8);
-    cmd->words.w1 = _SHIFTL(volLeft, 16, 16) | _SHIFTL(volRight, 0, 16);
+	aEnvSetup2(cmd, volLeft, volRight);
 }
 
 void func_800DBD7C(void) {
@@ -422,13 +419,11 @@ void AudioSynth_S8Dec(Acmd* cmd, s32 flags, s16* state) {
 }
 
 void AudioSynth_HiLoGain(Acmd* cmd, s32 gain, s32 dmemIn, s32 dmemOut, s32 count) {
-    cmd->words.w0 = _SHIFTL(A_HILOGAIN, 24, 8) | _SHIFTL(gain, 16, 8) | _SHIFTL(count, 0, 16);
-    cmd->words.w1 = _SHIFTL(dmemIn, 16, 16) | _SHIFTL(dmemOut, 0, 16);
+	aHiLoGain(cmd, gain, count, dmemIn, dmemOut);
 }
 
 void AudioSynth_UnkCmd19(Acmd* cmd, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    cmd->words.w0 = _SHIFTL(A_UNK19, 24, 8) | _SHIFTL(arg4, 16, 8) | _SHIFTL(arg3, 0, 16);
-    cmd->words.w1 = _SHIFTL(arg1, 16, 16) | _SHIFTL(arg2, 0, 16);
+	aUnkCmd19(cmd, arg1, arg2, arg3, arg4);
 }
 
 void func_800DBE18(void) {
@@ -444,8 +439,7 @@ void func_800DBE30(void) {
 }
 
 void AudioSynth_UnkCmd3(Acmd* cmd, s32 arg1, s32 arg2, s32 arg3) {
-    cmd->words.w0 = _SHIFTL(A_UNK3, 24, 8) | _SHIFTL(arg3, 0, 16);
-    cmd->words.w1 = _SHIFTL(arg1, 16, 16) | _SHIFTL(arg2, 0, 16);
+	aUnkCmd3(cmd, arg1, arg2, arg3);
 }
 
 void func_800DBE5C(void) {
