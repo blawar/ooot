@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_SCOPE_PAL_C
 #include "actor_common.h"
 #include "z_kaleido_scope.h"
-#include "Framerate.h"
+#include "framerate.h"
 #include "z64audio.h"
 #include "segment_symbols.h"
 #include "textures/icon_item_static/icon_item_static.h"
