@@ -56,12 +56,28 @@ Not currently supported, however a makefile and porting of GLideN64 would allow 
 ### Linux (Native or under WSL / VM)
 
 ```
+Debian/Ubuntu
+
 sudo apt install gcc-multilib g++-multilib
 sudo apt install libsdl2-dev
 sudo apt install libpng-dev
 sudo apt install python3
 sudo apt install python3-pip
 sudo apt install meson
+
+Arch Linux
+
+edit /etc/pacman.conf annd go to the bottom uncomment multilib so remove the # do not touch testing.
+
+sudo pacman -S gcc lib32-gcc-libs
+sudo pacman -S sdl2 lib32-sdl2
+sudo pacman -S meson
+
+Fedora Linux
+
+sudo dnf in gcc
+sudo dnf in sdl2-devel
+sudo dnf in meson 
 
 setup.py -b EUR_MQD
 meson setup linux
