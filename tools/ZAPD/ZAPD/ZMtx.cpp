@@ -27,12 +27,13 @@ size_t ZMtx::GetRawDataSize() const
 
 std::string ZMtx::GetBodySourceCode() const
 {
+	int i = 0;
 	std::string bodyStr = "\n";
 
 	for (const auto& row : mtx)
 	{
 		bodyStr += "    ";
-		int i = 0;
+
 		for (int32_t val : row)
 		{
 			if (i++ == 0)
