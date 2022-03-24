@@ -1124,8 +1124,15 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
         }
     }
     if (msgCtx->textDelayTimer == 0) {
-        msgCtx->textDrawPos = i + 1;
-        msgCtx->textDelayTimer = msgCtx->textDelay;
+	    u16 TEXT_SPEED_SCALER  = 100;
+
+        if(CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B))
+	    {
+		    TEXT_SPEED_SCALER = 800;
+	    }
+
+        msgCtx->textDrawPos = i + 1 * TEXT_SPEED_SCALER / 100;
+	    msgCtx->textDelayTimer = (u16)((s32)msgCtx->textDelay * 100 / TEXT_SPEED_SCALER);
     } else {
         msgCtx->textDelayTimer--;
     }
