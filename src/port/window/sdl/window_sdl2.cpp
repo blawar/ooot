@@ -240,7 +240,7 @@ namespace platform::window
 			{
 				if(strcmp(locale->language, "en") == 0)
 				{
-					Set_Language(LANGUAGE_GER);
+					Set_Language(LANGUAGE_ENG);
 					break;
 				}
 				else if(strcmp(locale->language, "ge") == 0)
