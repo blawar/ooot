@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "str.h"
 
 #define MAX_TMP_STRING 8

@@ -57,7 +57,7 @@ def config():
 	return _conf
 
 def fixSlashPath(path):
-	return path.replace('/', os.path.sep).replace('\\', os.path.sep)
+	return str(Path(path))
 	
 def validBuildOptions():
 	r = []
@@ -126,5 +126,5 @@ def relPath(path, sub = None):
 	if r[0] == '/' or r[0] == '\\':
 		return r[1:]
 	return r
-	
-basedir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__.replace('\\', '/'))), '../'))
+
+basedir = Path(__file__).absolute().parent.parent
