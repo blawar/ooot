@@ -72,12 +72,16 @@ edit /etc/pacman.conf annd go to the bottom uncomment multilib so remove the # d
 sudo pacman -S gcc lib32-gcc-libs
 sudo pacman -S sdl2 lib32-sdl2
 sudo pacman -S meson
+sudo pacman -S python-pip
+sudo pacman -S libpng
 
 Fedora Linux
 
 sudo dnf in gcc
 sudo dnf in sdl2-devel
-sudo dnf in meson 
+sudo dnf in meson
+sudo dnf in python3-pip
+sudo dnf in libpng
 
 setup.py -b EUR_MQD
 meson setup linux
