@@ -3285,6 +3285,7 @@ void Message_SetTables(void) {
     {
         case LANGUAGE_GER:
             sMessageEntryTablePtr = sGerMessageEntryTable;
+            break;
         case LANGUAGE_FRA:
             sMessageEntryTablePtr = sFraMessageEntryTable;
             break;
