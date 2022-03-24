@@ -5,6 +5,7 @@
 #include "z64save.h"
 #include "z64interface.h"
 #include "segment_symbols.h"
+#include "kaleido_macros.h"
 #include "textures/do_action_static/do_action_static.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/parameter_static/parameter_static.h"
@@ -417,7 +418,7 @@ void func_80111070(void) {
     WREG(3) = 9355;
     WREG(4) = 8;
     WREG(5) = 3;
-    WREG(6) = 8;
+    PAUSE_ANIMATION_STEPS = 8;
     WREG(7) = 0;
     WREG(8) = 100;
     WREG(9) = 109;
@@ -427,8 +428,8 @@ void func_80111070(void) {
     WREG(13) = 22;
     WREG(14) = -380;
     WREG(15) = -350;
-    WREG(16) = -175;
-    WREG(17) = 155;
+    PAUSE_LEFT_CARET = -175;
+    PAUSE_RIGHT_CARET = 155;
     WREG(18) = 10;
     WREG(19) = 10;
     WREG(20) = -50;
@@ -436,8 +437,8 @@ void func_80111070(void) {
     WREG(22) = -32;
     WREG(23) = -38;
     WREG(24) = -36;
-    WREG(25) = 40;
-    WREG(26) = -40;
+    PAUSE_LEFT_CARET_MOVE = 40;
+    PAUSE_RIGHT_CARET_MOVE = -40;
     WREG(27) = 0;
     WREG(28) = 0;
     R_OW_MINIMAP_X = 238;

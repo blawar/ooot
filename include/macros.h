@@ -82,10 +82,10 @@
         Gfx* dispRefs[4];              \
         __gfxCtx = gfxCtx;             \
         (void)__gfxCtx;                \
-        Graph_OpenDisps(dispRefs, gfxCtx, file, line)
+        Graph_OpenDisps(dispRefs, gfxCtx, __FILE__, __LINE__)
 
 #define CLOSE_DISPS(gfxCtx, file, line)                 \
-        Graph_CloseDisps(dispRefs, gfxCtx, file, line); \
+        Graph_CloseDisps(dispRefs, gfxCtx, __FILE__, __LINE__); \
     }                                                   \
     (void)0
 
@@ -100,7 +100,7 @@
  * `cbnz` blue component of color vertex, or z component of normal vertex
  * `a` alpha
  */
-#define VTX(x,y,z,s,t,crnx,cgny,cbnz,a) { { { x, y, z }, 0, { s, t }, { crnx, cgny, cbnz, a } } }
+#define VTX(x,y,z,s,t,crnx,cgny,cbnz,a) { { { (short)(x), (short)(y), (short)(z) }, 0, { (short)(s), (short)(t) }, { crnx, cgny, cbnz, a } } }
 
 #define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
 
@@ -153,4 +153,6 @@ MES(n30), MES(n31), MES(n32), MES(n33)}
 #define FLT_MAX 340282346638528859811704183484516925440.0f
 #define SHT_MAX 32767.0f
 #define SHT_MINV (1.0f / SHT_MAX)
-#define DEGTORAD(x) (x * M_PI / 180.0f)
+#define DEGTORAD(x) (x * M_PI / 180.0)
+#define RADTODEG(x) (x * 180.0 / M_PI)
+

@@ -11,7 +11,7 @@
 #include "quake.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
-#include "port/controller/controller.h"
+#include "port/player/players.h"
 #include "def/code_800BB0A0.h"
 #include "def/audio.h"
 #include "def/math_float.h"
@@ -1352,8 +1352,9 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 
 s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3) {
     f32 pitchUpdRate;
-	const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
-    s16 rStickY = (s16)sControlInput->state().r_stick_y * (s16)-100;
+	
+	const oot::hid::Controller& controller = oot::player(0).controller();
+    s16 rStickY = (s16)controller.state().r_stick_y * (s16)-100;
     if (rStickY != 0) {
         camera->startControlTimer = 250;//10s
     }
@@ -1364,8 +1365,8 @@ s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3) {
 
 s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel) {
     f32 yawUpdRate;
-	const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
-    s16 rStickX = (s16)sControlInput->state().r_stick_x * (s16)-250;
+	const oot::hid::Controller& controller = oot::player(0).controller();
+    s16 rStickX = (s16)controller.state().r_stick_x * (s16)-250;
     if (rStickX != 0) {
 	    camera->startControlTimer = 250;//10s
     }
@@ -1375,8 +1376,8 @@ s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 
 
 void StepControlTimer(Camera* camera)
 {
-	const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
-	if(camera->xzSpeed > 0.001f && (sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0)) {
+	const oot::hid::Controller& controller = oot::player(0).controller();
+	if(camera->xzSpeed > 0.001f && (controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)) {
 		camera->startControlTimer = 250;//10s
 	}
 	if(camera->startControlTimer > 0) {
@@ -1658,9 +1659,9 @@ s32 Camera_Normal1(Camera* camera) {
             Camera_CalcDefaultPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
     }
 #else
-    const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
+    const oot::hid::Controller& controller = oot::player(0).controller();
     StepControlTimer(camera);
-	if (camera->startControlTimer > 0 || sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0) {
+	if (camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0) {
         eyeAdjustment.yaw = Camera_CalcControllerYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
         eyeAdjustment.pitch = Camera_CalcControllerPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
     } else if (anim->swing.unk_18 != 0) {
@@ -2038,9 +2039,9 @@ s32 Camera_Normal3(Camera* camera) {
 	    anim->yawTimer--;
     }
 #else
-    const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
+    const oot::hid::Controller& controller = oot::player(0).controller();
     StepControlTimer(camera);
-    if(camera->startControlTimer > 0 || sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0)
+    if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
     {
 	    sp84.yaw   = Camera_CalcControllerYaw(camera, sp74.yaw, playerPosRot->rot.y, norm3->yOffset, 0.0f);
 	    sp84.pitch = Camera_CalcControllerPitch(camera, sp74.pitch, norm3->pitchTarget, 0);
@@ -2389,9 +2390,9 @@ s32 Camera_Jump1(Camera* camera) {
             Camera_CalcDefaultYaw(camera, eyeNextAtOffset.yaw, camera->playerPosRot.rot.y, jump1->maxYawUpdate, 0.0f);
     }
 #else
-    const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
+    const oot::hid::Controller& controller = oot::player(0).controller();
     StepControlTimer(camera);
-    if(camera->startControlTimer > 0 || sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0)
+    if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
     {
 	    eyeDiffSph.yaw  = Camera_CalcControllerYaw(camera, eyeNextAtOffset.yaw, playerPosRot->rot.y, 0, 0.0f);
 	    eyeDiffSph.pitch = Camera_CalcControllerPitch(camera, eyeNextAtOffset.pitch, 0, 0);
@@ -2598,9 +2599,9 @@ s32 Camera_Jump2(Camera* camera) {
 	    adjAtToEyeDir.yaw = Camera_LERPCeilS(adjAtToEyeDir.yaw, atToEyeNextDir.yaw, 0.25f, 0xA);
     }
 #else
-    const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
+    const oot::hid::Controller& controller = oot::player(0).controller();
     StepControlTimer(camera);
-    if(camera->startControlTimer > 0 || sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0)
+    if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
     {
 	    adjAtToEyeDir.yaw	= Camera_CalcControllerYaw(camera, atToEyeNextDir.yaw, playerPosRot->rot.y, 0, 0.0f);
 	    adjAtToEyeDir.pitch = Camera_CalcControllerPitch(camera, atToEyeNextDir.pitch, 0, 0);
@@ -2802,9 +2803,9 @@ s32 Camera_Jump3(Camera* camera) {
         eyeDiffSph.pitch = Camera_CalcDefaultPitch(camera, eyeNextAtOffset.pitch, jump3->pitchTarget, 0);
     }
 #else
-    const oot::hid::Controller* sControlInput = oot::hid::Players::GetController();
+    const oot::hid::Controller& controller = oot::player(0).controller();
     StepControlTimer(camera);
-    if(camera->startControlTimer > 0 || sControlInput->state().r_stick_x != 0 || sControlInput->state().r_stick_y != 0) {
+    if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0) {
 	    eyeDiffSph.yaw   = Camera_CalcControllerYaw(camera, eyeNextAtOffset.yaw, playerPosRot->rot.y, jump3->unk_14, 0.0f);
 	    eyeDiffSph.pitch = Camera_CalcControllerPitch(camera, eyeNextAtOffset.pitch, jump3->pitchTarget, 0);
     } else if(anim->swing.unk_18 != 0) {

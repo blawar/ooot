@@ -48,7 +48,7 @@ void PadMgr_HandlePreNMI(PadMgr* padMgr) {
 }
 
 void PadMgr_RequestPadData(PadMgr* padMgr, Input* inputs, s32 mode) {
-	oot::hid::Players::Update();
+	oot::players().update();
     s32 i;
     Input* ogInput;
     Input* newInput;

@@ -141,14 +141,14 @@ void ParseCommandLineArguments(const std::vector<std::string>& commands)
         auto& cmd = commands[i];
         size_left--;
 
-        if (cmd == "-tas" && size_left > 0)
+        /*if (cmd == "-tas" && size_left > 0) TODO FIX
         {
             auto tas_filename = std::move(commands[++i]);
             oot::hid::tas::setTasFileName(tas_filename);
             oot::hid::tas::playTas(true);
         }
 
-        else if (cmd == "-no-graphics")
+        else*/ if (cmd == "-no-graphics")
             oot::config().game().disableGraphics();
 
         else if (cmd == "-fast-forward")

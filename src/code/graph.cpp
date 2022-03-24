@@ -394,8 +394,8 @@ void Graph_ThreadEntry(void* arg0) {
 
         while (GameState_IsRunning(gameState) && isRunning()) {
             //Has the TAS playback completed?
-            if (oot::hid::tas::isTasPlaying() && oot::hid::tas::hasTasEnded())
-                break;
+            /*if (oot::hid::tas::isTasPlaying() && oot::hid::tas::hasTasEnded())
+                break; TODO FIX*/
 
             if (oot::config().game().isGraphicsDisabled())
             {

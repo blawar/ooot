@@ -72,6 +72,7 @@ def main():
     parser.add_argument("--pause-exit-input-clear-frames", choices=['0', '2', '3', '4', '5'], help="Number of frames to clear input state after pause menu exits (For speed-running, 0 disables)", default='2')
     parser.add_argument("--left-deadzone", help="Left analog stick deadzone", type=int, default=20)
     parser.add_argument("--right-deadzone", help="Right analog stick deadzone", type=int, default=20)
+    parser.add_argument("--disable-option-remap", help="Removes Remap option page from pause menu", type=int, default=20)
 
     args = parser.parse_args()
 
@@ -97,6 +98,9 @@ def main():
 
     if args.disable_distance_culling:
         defines.append('NO_CULLING')
+        
+    if args.disable_option_remap:
+        defines.append('DISABLE_OPTIONS_REMAP')
 
     if args.enable_gyro:
         defines.append('ENABLE_GYRO')

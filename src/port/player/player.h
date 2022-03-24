@@ -4,35 +4,34 @@
 #include <vector>
 #include <memory>
 
-
-
 namespace oot
 {
-	namespace hid
+	class Player
 	{
-		class Player
-		{
 		public:
-			Player() : m_rebindInput(0) {}
-			virtual ~Player() {}
+		Player();
+		virtual ~Player();
 
-			std::vector<std::shared_ptr<Controller> >& controllers() {
-				return m_controllers;
-			}
-			void attach(const std::shared_ptr<Controller>& controller);
-			void detachControllers() { m_controllers.resize(0); }
-			void update();
-			Controller& controller() {
-				return m_controller;
-			}
+		std::vector<std::shared_ptr<hid::Controller> >& controllers()
+		{
+			return m_controllers;
+		}
+		void resetBindings();
+		void attach(const std::shared_ptr<hid::Controller>& controller);
+		void detachControllers();
+		void update();
+		hid::Controller& controller()
+		{
+			return m_controller;
+		}
 
-			void rebind(int input) { m_rebindInput = input; }
-			bool isRebindMode() const { return m_rebindInput > 0; }
+		void rebind(int input);
+		bool isRebindMode() const;
 
 		protected:
-			std::vector<std::shared_ptr<Controller> > m_controllers;
-			Controller m_controller;
-			int m_rebindInput;
-		};
-	}
-}
+		std::vector<std::shared_ptr<hid::Controller> > m_controllers;
+		hid::Controller m_controller;
+		int m_rebindInput;
+	};
+
+} // namespace oot

@@ -164,8 +164,8 @@ void main_func(void)
 #ifdef _DEBUG//Record TAS to capture bugs and crashes
 	//oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
-	if (!oot::hid::tas::isTasPlaying())
-		oot::config().game().recordTas(true);
+	/*if (!oot::hid::tas::isTasPlaying()) TODO FIX
+		oot::config().game().recordTas(true);*/
 #endif
 
 	if (!oot::config().game().isGraphicsDisabled())
@@ -180,7 +180,7 @@ void main_func(void)
 	if (!oot::config().game().isGraphicsDisabled())
 		gWindow->resize(-1, -1);
 
-	oot::hid::InputDeviceManager::get().scan();
+	oot::hid::controllers().scan();
 
 	inited = 1;
 

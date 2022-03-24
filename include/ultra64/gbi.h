@@ -3262,7 +3262,7 @@ _DW({                                   \
 #ifdef _HW_VERSION_1
 #define G_TX_LDBLK_MAX_TXL  4095
 #else
-#define G_TX_LDBLK_MAX_TXL  2047
+#define G_TX_LDBLK_MAX_TXL  4095
 #endif /* _HW_VERSION_1 */
 
 #define TXL2WORDS(txls, b_txl)  MAX(1, ((txls)*(b_txl)/8))
@@ -3275,20 +3275,24 @@ _DW({                                   \
         (((1 << G_TX_DXT_FRAC) + TXL2WORDS_4b(width) - 1) / \
                     TXL2WORDS_4b(width))
 
+#define LRS_UPPER_SHIFT(lrs) _SHIFTL(((lrs) >> 12), 27, 5)
+#define TILE_SHIFT(tile) _SHIFTL(tile, 24, 3)
+#define LRS_SHIFT(lrs) _SHIFTL(lrs, 12, 12)
+#define LRT_SHIFT(lrt) _SHIFTL(lrt, 0, 12)
+
 #define gDPLoadTileGeneric(pkt, c, tile, uls, ult, lrs, lrt)        \
 _DW({                                   \
     Gfx *_g = (Gfx *)(pkt);                     \
                                     \
     _g->words.w0 = _SHIFTL(c, 24, 8) | _SHIFTL(uls, 12, 12) |   \
               _SHIFTL(ult, 0, 12);              \
-    _g->words.w1 = _SHIFTL(tile, 24, 3) | _SHIFTL(lrs, 12, 12) |    \
-              _SHIFTL(lrt, 0, 12);              \
+    _g->words.w1 = TILE_SHIFT(tile) | LRS_SHIFT(lrs) | LRT_SHIFT(lrt) | LRS_UPPER_SHIFT(lrs);              \
 })
 
 #define gsDPLoadTileGeneric(c, tile, uls, ult, lrs, lrt)        \
 {                                   \
     _SHIFTL(c, 24, 8) | _SHIFTL(uls, 12, 12) | _SHIFTL(ult, 0, 12), \
-    _SHIFTL(tile, 24, 3) | _SHIFTL(lrs, 12, 12) | _SHIFTL(lrt, 0, 12)\
+    TILE_SHIFT(tile) | LRS_SHIFT(lrs) | LRT_SHIFT(lrt) | LRS_UPPER_SHIFT(lrs)\
 }
 
 #define gDPSetTileSize(pkt, t, uls, ult, lrs, lrt)          \
@@ -3341,18 +3345,20 @@ _DW({                                   \
                                     \
     _g->words.w0 = (_SHIFTL(G_LOADBLOCK, 24, 8) |           \
             _SHIFTL(uls, 12, 12) | _SHIFTL(ult, 0, 12));    \
-    _g->words.w1 = (_SHIFTL(tile, 24, 3) |              \
-            _SHIFTL((MIN(lrs,G_TX_LDBLK_MAX_TXL)), 12, 12) |\
-            _SHIFTL(dxt, 0, 12));               \
+    _g->words.w1 = (TILE_SHIFT(tile) |              \
+            LRS_SHIFT((MIN(lrs,G_TX_LDBLK_MAX_TXL))) |\
+            LRS_UPPER_SHIFT((lrs)) |\
+            LRT_SHIFT(dxt));               \
 })
 
 #define gsDPLoadBlock(tile, uls, ult, lrs, dxt)             \
 {                                   \
     (_SHIFTL(G_LOADBLOCK, 24, 8) | _SHIFTL(uls, 12, 12) |       \
      _SHIFTL(ult, 0, 12)),                      \
-    (_SHIFTL(tile, 24, 3) |                     \
-     _SHIFTL((MIN(lrs,G_TX_LDBLK_MAX_TXL)), 12, 12) |       \
-     _SHIFTL(dxt, 0, 12))                       \
+    (TILE_SHIFT(tile) |                     \
+     LRS_SHIFT((MIN(lrs,G_TX_LDBLK_MAX_TXL))) |       \
+     LRS_UPPER_SHIFT((lrs)) |       \
+     LRT_SHIFT(dxt))                       \
 }
 
 #define gDPLoadTLUTCmd(pkt, tile, count)                \
