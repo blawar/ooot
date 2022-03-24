@@ -17,7 +17,7 @@ const char gBuildMakeOption[] = "";
 
 #include "global.h"
 #include "segment_symbols.h"
-#include "alloca.h"
+#include "z64alloca.h"
 #include "textures/nintendo_rogo_static/nintendo_rogo_static.h"
 #include "def/game.h"
 #include "def/gfxprint.h"
