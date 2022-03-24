@@ -58,6 +58,9 @@ Not currently supported, however a makefile and porting of GLideN64 would allow 
 ```
 sudo apt install gcc-multilib g++-multilib
 sudo apt install libsdl2-dev
+sudo apt install libpng-dev
+sudo apt install python3
+sudo apt install python3-pip
 sudo apt install meson
 
 setup.py -b EUR_MQD

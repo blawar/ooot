@@ -114,7 +114,7 @@ def main():
     args = parser.parse_args()
 
     shutil.rmtree(Path(assetPath('xml')), ignore_errors = True)
-    shutil.copytree(romPath('xml'), assetPath('xml'))
+    shutil.copytree(Path(romPath('xml')), Path(assetPath('xml')))
 
     # List of xml files for extraction
     xmlFiles = None

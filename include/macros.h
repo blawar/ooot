@@ -112,7 +112,7 @@ BE32(n30), BE32(n31), BE32(n32), BE32(n33)}
 
 #define MES(n) (((n & 0xFFFF)) << 16) | ((n >> 16) & 0xFFFF) 
 
-#define MTX(n00, n01, n02, n03, n10, n11, n12, n13, n20, n21, n22, n23, n30, n31, n32, n33) \
+#define MTX(n00, n01, n02, n03, n10, n11, n12, n13, n20, n21, n22, n23, n30, n31, n32, n33, junk) \
 {MES(n00), MES(n01), MES(n02), MES(n03),    \
 MES(n10), MES(n11), MES(n12), MES(n13),    \
 MES(n20), MES(n21), MES(n22), MES(n23),    \
