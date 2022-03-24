@@ -4,6 +4,7 @@
 #include "gfx.h"
 #include "z64game.h"
 #include "z64gu.h"
+#include "macros.h"
 #include "math.h"
 #include "z64memory.h"
 #include "z64skinmatrix.h"
