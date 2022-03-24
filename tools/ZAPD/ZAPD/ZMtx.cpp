@@ -32,9 +32,18 @@ std::string ZMtx::GetBodySourceCode() const
 	for (const auto& row : mtx)
 	{
 		bodyStr += "    ";
-
+		int i = 0;
 		for (int32_t val : row)
-			bodyStr += StringHelper::Sprintf("%-11i, ", val);
+		{
+			if (i++ == 0)
+			{
+				bodyStr += StringHelper::Sprintf("%-11i", val);
+			}
+			else
+			{
+				bodyStr += StringHelper::Sprintf(", %-11i", val);
+			}
+		}
 
 		bodyStr += "\n";
 	}
