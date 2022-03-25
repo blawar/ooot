@@ -30,7 +30,7 @@ You must use the ZAPD that is included with this repository, and not the main br
 ### PAL 1.0 RETAIL ROM
 If you are using the EUR PAL 1.0 retail rom,
 
-**make Sure baserom_original.z64 or baserom_original.n64 is inside either 
+**make Sure baserom_original.z64 or baserom_original.n64 is inside 
 \ooot\roms\PAL_1.0\ If it's not the correct "hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] it won't extract the assets and continue.**
 
 Open Git Bash Type ``git clone --recursive https://github.com/blawar/ooot.git`` let it run.
