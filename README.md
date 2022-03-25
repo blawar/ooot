@@ -31,7 +31,7 @@ You must use the ZAPD that is included with this repository, and not the main br
 If you are using the EUR PAL 1.0 retail rom,
 
 **make Sure baserom_original.z64 or baserom_original.n64 is inside either 
-C:\source\ooot\roms\PAL_1.0\ or C:\Users\Username\ooot\roms\PAL_1.0\ If it's not the correct "hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] it won't extract the assets and continue.**
+\ooot\roms\PAL_1.0\ If it's not the correct "hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] it won't extract the assets and continue.**
 
 Open Git Bash Type ``git clone --recursive https://github.com/blawar/ooot.git`` let it run.
 After it's done type cd ooot and if you have the rom placed in the location above 
@@ -45,7 +45,7 @@ setup.py -b PAL_1.0
 If you are using the EUR Master Quest Debug rom.
 
 **make Sure baserom_original.z64 or baserom_original.n64 is inside 
-C:\source\ooot\roms\EUR_MQD\ or C:\Users\Username\ooot\roms\EUR_MQD\ If it's not the correct "hash_md5": ["f0b7f35375f9cc8ca1b2d59d78e35405", "8ca71e87de4ce5e9f6ec916202a623e9", "f751d1a097764e2337b1ac9ba1e27699"], it won't extract the assets and continue.**
+\ooot\roms\EUR_MQD\ If it's not the correct "hash_md5": ["f0b7f35375f9cc8ca1b2d59d78e35405", "8ca71e87de4ce5e9f6ec916202a623e9", "f751d1a097764e2337b1ac9ba1e27699"], it won't extract the assets and continue.**
 
 Open Git Bash Type ``git clone --recursive https://github.com/blawar/ooot.git`` let it run.
 After it's done type cd ooot and if you have the rom placed in the location above 
@@ -54,7 +54,7 @@ Run this command next to extract the assets from the rom (baserom_original.z64 m
 setup.py -b EUR_MQD
 ```
 
-Open OOT.sln, you will find this in C:\Users\username\ooot\vs make sure **Debug - Win32** or **Release - Win32** is selected, then hit build.
+Open OOT.sln, you will find this in \ooot\vs make sure **Debug - Win32** or **Release - Win32** is selected, then hit build.
 
 Once the build completes, press F5 to start it if you are testing code but if you are compiling to play right click oot on the side and click build.
 
