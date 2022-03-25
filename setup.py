@@ -67,6 +67,7 @@ def main():
     parser.add_argument("--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
     parser.add_argument("--enable-gyro", help="Enable gyro controls", action="store_true", default=False)
     parser.add_argument("--enable-debug-level-select", help="Enable debug level select on save 1", action="store_true", default=False)
+    parser.add_argument("-t", "--text-speed", choices=['1', '2', '3', '4', '5', '10', '20'], help="Text scroll speed scaler", default='1')
     args = parser.parse_args()
 
     if args.buildRom:
@@ -79,6 +80,7 @@ def main():
     buffer = buffer.replace('#BUILD_ROM#', buildRom())
     defines = []
     defines.append('ENABLE_%sFPS' % args.framerate)
+    defines.append('TEXT_SPEED_SCALER=%s' % args.text_speed)
 
     if args.enable_mouse:
         defines.append('ENABLE_MOUSE')

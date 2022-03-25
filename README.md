@@ -2,16 +2,6 @@
 
 # Open Ocarina - The Master Port
 
-
-```diff
-- WARNING! -
-
-Currently assets are statically linked, however this is just until we get the game sorted.  Once its stable,
-we will switch to an external asset loader.  Stability, 60 FPS, and external asset loading are the top priorities.
-
-Though most of the work for 64-bit is done, 32-bit is being buttoned up first.
-```
-
 **Note: This repository does not include any of the assets necessary to build the ROM. A prior copy of the game is required to extract the needed assets.**
 
 **Note: Be sure to use ``git clone --recursive https://github.com/blawar/ooot.git`` when cloning the repo for the submodules.**
@@ -87,10 +77,14 @@ Most discussions happen on our [Discord Server](https://discord.com/invite/8tktB
 
 ## License
 
+Only commits *after* Dec 27, 2021 [a862411](https://github.com/blawar/ooot/commit/a862411f00c536770850f2c4e9e9b2edfea8947b) are covered under this GPL v2 license, as the original [upstream repo](https://github.com/zeldaret/oot/) unfortunately did not have a license and can not be relicensed retroactively.
+
 This software is licensed under the terms of the GPLv2, with exemptions noted below:
 
 [Nintendo](https://github.com/Nintendo) is exempt from GPLv2 licensing and may (at its option) instead license any source code authored for this project under the MIT license.
 
-[Ship of Harkinian](https://github.com/HarbourMasters/Shipwright) is exempt from GPLv2 for the ZAPD XML files and may instead license those files under the MIT license as long as they properly credit the contributors of those files in their primary readme.
+[Ship of Harkinian](https://github.com/HarbourMasters/Shipwright) is exempt from GPLv2 for the ZAPD XML files and the below commit hashes and may instead license those files/changes under the MIT license as long as they properly credit the contributors of those files in their primary readme.
 
-Only commits *after* Dec 27, 2021 [a862411](https://github.com/blawar/ooot/commit/a862411f00c536770850f2c4e9e9b2edfea8947b) are covered under this GPL v2 license, as the original [upstream repo](https://github.com/zeldaret/oot/) unfortunately did not have a license and can not be relicensed retroactively.
+[52011c3d](https://github.com/blawar/ooot/commit/52011c3d38464a75461c9eb09bf6cb86b4c171b3)
+[55765bca](https://github.com/blawar/ooot/commit/55765bca971154215348ae3eb533b0902af24d66)
+

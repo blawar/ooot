@@ -39,6 +39,8 @@
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 
+void Set_Language(u8 language_id);
+
 // TODO extract this information from the texture definitions themselves
 #define DO_ACTION_TEX_WIDTH 48
 #define DO_ACTION_TEX_HEIGHT 16
@@ -3898,13 +3900,13 @@ void Interface_Update(GlobalContext* globalCtx) {
     Input* debugInput = &globalCtx->state.input[2];
 
     if (CHECK_BTN_ALL(debugInput->press.button, BTN_DLEFT)) {
-        gSaveContext.language = LANGUAGE_ENG;
+	    Set_Language(LANGUAGE_ENG);
         osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
     } else if (CHECK_BTN_ALL(debugInput->press.button, BTN_DUP)) {
-        gSaveContext.language = LANGUAGE_GER;
+	    Set_Language(LANGUAGE_GER);
         osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
     } else if (CHECK_BTN_ALL(debugInput->press.button, BTN_DRIGHT)) {
-        gSaveContext.language = LANGUAGE_FRA;
+	    Set_Language(LANGUAGE_FRA);
         osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
     }
 

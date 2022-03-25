@@ -847,6 +847,11 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
     Font* font = &globalCtx->msgCtx.font;
     Gfx* gfx = *gfxP;
 
+#ifndef TEXT_SPEED_SCALER
+    const u16 TEXT_SPEED_SCALER = 1;
+#endif
+    const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B)) ? 8 : 1;
+
     globalCtx->msgCtx.textPosX = R_TEXT_INIT_XPOS;
 
     if (sTextIsCredits == false) {
@@ -932,8 +937,6 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                     }
                     i = j - 1;
                     msgCtx->textDrawPos = i + 1;
-
-                    if (character) {}
                 }
             case MESSAGE_QUICKTEXT_DISABLE:
                 break;
@@ -949,7 +952,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 break;
             case MESSAGE_BOX_BREAK_DELAYED:
                 if (msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING) {
-                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i];
+                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i] / MAX(TEXT_SPEED_SCALER, buttonScaler);
                     msgCtx->msgMode = MSGMODE_TEXT_DELAYED_BREAK;
                 }
                 *gfxP = gfx;
@@ -962,6 +965,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                     osSyncPrintf("タイマー (%x) (%x)", msgCtx->msgBufDecoded[i + 1], msgCtx->msgBufDecoded[i + 2]);
                     msgCtx->stateTimer = msgCtx->msgBufDecoded[++i] << 8;
                     msgCtx->stateTimer |= msgCtx->msgBufDecoded[++i];
+                    msgCtx->stateTimer /= MAX(TEXT_SPEED_SCALER, buttonScaler);
                     // "Total wct"
                     osSyncPrintf("合計wct=%x(%d)\n", msgCtx->stateTimer, msgCtx->stateTimer);
                 }
@@ -1038,7 +1042,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 msgCtx->textPosX += 32;
                 break;
             case MESSAGE_TEXT_SPEED:
-                msgCtx->textDelay = msgCtx->msgBufDecoded[++i];
+                msgCtx->textDelay = msgCtx->msgBufDecoded[++i] / MAX(TEXT_SPEED_SCALER, buttonScaler);
                 break;
             case MESSAGE_UNSKIPPABLE:
                 msgCtx->textUnskippable = true;
@@ -1086,7 +1090,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 if (msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING) {
                     msgCtx->msgMode = MSGMODE_TEXT_DONE;
                     msgCtx->textboxEndType = TEXTBOX_ENDTYPE_FADING;
-                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i];
+                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i] / MAX(TEXT_SPEED_SCALER, buttonScaler);
                     Font_LoadMessageBoxIcon(font, TEXTBOX_ICON_SQUARE);
                     if (globalCtx->csCtx.state == 0) {
                         Interface_SetDoAction(globalCtx, DO_ACTION_RETURN);
@@ -1123,11 +1127,19 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 break;
         }
     }
+
     if (msgCtx->textDelayTimer == 0) {
-        msgCtx->textDrawPos = i + 1;
-        msgCtx->textDelayTimer = msgCtx->textDelay;
+        msgCtx->textDrawPos = i + 1 * MAX(TEXT_SPEED_SCALER, buttonScaler);
+	    msgCtx->textDelayTimer = msgCtx->textDelay;
     } else {
-        msgCtx->textDelayTimer--;
+	    if(msgCtx->textDelayTimer > MAX(TEXT_SPEED_SCALER, buttonScaler))
+	    {
+		    msgCtx->textDelayTimer -= MAX(TEXT_SPEED_SCALER, buttonScaler);
+	    }
+	    else
+	    {
+		    msgCtx->textDelayTimer = 0;
+	    }
     }
     *gfxP = gfx;
 }
@@ -3285,6 +3297,7 @@ void Message_SetTables(void) {
     {
         case LANGUAGE_GER:
             sMessageEntryTablePtr = sGerMessageEntryTable;
+            break;
         case LANGUAGE_FRA:
             sMessageEntryTablePtr = sFraMessageEntryTable;
             break;
@@ -3294,6 +3307,8 @@ void Message_SetTables(void) {
     }
 }
 
+static u8 g_currentLanguage = 0;
+
 u8 Get_Language()
 {
     return gSaveContext.language;
@@ -3301,7 +3316,7 @@ u8 Get_Language()
 
 void Set_Language(u8 language_id)
 {
-    gSaveContext.language = language_id % LANGUAGE_MAX;
+	g_currentLanguage = gSaveContext.language = language_id % LANGUAGE_MAX;
     Message_SetTables();
 }
 

@@ -18,6 +18,8 @@
 #include "def/z_sram.h"
 #include "def/z_ss_sram.h"
 
+void Set_Language(u8 language_id);
+
 // these are the main substructs of save context.
 // we are going to hold off on splitting save context until later on,
 // so these temporary structs will live here for now.
@@ -851,7 +853,9 @@ void Sram_InitSram(GameState* gameState, SramContext* sramCtx) {
     for (i = 0; i < ARRAY_COUNTU(sZeldaMagic) - 3; i++) {
         if (sZeldaMagic[i + SRAM_HEADER_MAGIC] != sramCtx->readBuff[i + SRAM_HEADER_MAGIC]) {
             osSyncPrintf("SRAM Destruction!!!!!!\n"); // "SRAM destruction! ! ! ! ! !"
-            gSaveContext.language = sramCtx->readBuff[SRAM_HEADER_LANGUAGE];
+#ifdef USE_SAVE_LANGUAGE
+            Set_Language(sramCtx->readBuff[SRAM_HEADER_LANGUAGE]);
+#endif
             MemCopy(sramCtx->readBuff, sZeldaMagic, sizeof(sZeldaMagic));
             sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = gSaveContext.language;
             Sram_WriteSramHeader(sramCtx);
@@ -860,10 +864,13 @@ void Sram_InitSram(GameState* gameState, SramContext* sramCtx) {
 
     gSaveContext.audioSetting = sramCtx->readBuff[SRAM_HEADER_SOUND] & 3;
     gSaveContext.zTargetSetting = sramCtx->readBuff[SRAM_HEADER_ZTARGET] & 1;
-    gSaveContext.language = sramCtx->readBuff[SRAM_HEADER_LANGUAGE];
+
+#ifdef USE_SAVE_LANGUAGE
+    Set_Language(sramCtx->readBuff[SRAM_HEADER_LANGUAGE]);
+#endif
 
     if (gSaveContext.language >= LANGUAGE_MAX) {
-        gSaveContext.language = LANGUAGE_ENG;
+	    Set_Language(LANGUAGE_ENG);
         sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = gSaveContext.language;
         Sram_WriteSramHeader(sramCtx);
     }

@@ -8,7 +8,10 @@ SaveContext gSaveContext;
 u32 D_8015FA88;
 u32 D_8015FA8C;
 
+u8 Get_Language();
+
 void SaveContext_Init(void) {
+	u8 currentLanguage = Get_Language();
     bzero(&gSaveContext, sizeof(gSaveContext));
     D_8015FA88 = 0;
     D_8015FA8C = 0;
@@ -23,4 +26,5 @@ void SaveContext_Init(void) {
     gSaveContext.dogIsLost = true;
     gSaveContext.nextTransition = 0xFF;
     gSaveContext.unk_13EE = 50;
+    gSaveContext.language = currentLanguage;
 }

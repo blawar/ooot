@@ -205,6 +205,8 @@ copy /Y "$(OutDir)$(TargetName).*" "$(Mupen64PluginsDir_x64)")</Command>
       <ConformanceMode Condition="'$(Configuration)|$(Platform)'=='Release_mupenplus|x64'">true</ConformanceMode>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_mupenplus|x64'">stdcpp17</LanguageStandard>
       <RuntimeLibrary Condition="'$(Configuration)|$(Platform)'=='Debug_mupenplus|Win32'">MultiThreadedDebug</RuntimeLibrary>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug_mupenplus|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug_mupenplus|x64'">Disabled</Optimization>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
