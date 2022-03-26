@@ -1948,7 +1948,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p) {
     };
     static s16 sOcarinaNoteAPrimColors[][3] = {
         { 80, 150, 255 },
-        { 100, 255, 200 },
+        { 100, 200, 255 },
     };
     static s16 sOcarinaNoteAEnvColors[][3] = {
         { 10, 10, 10 },
