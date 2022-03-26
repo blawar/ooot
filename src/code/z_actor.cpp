@@ -2057,11 +2057,11 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
     unkFlag = 0;
 
     if (globalCtx->numSetupActors != 0) {
-#if 1
+#if N64_VERSION
         actorEntry = &globalCtx->setupActorList[0];
 #else
         u8 maxActors = ACTOR_NUMBER_MAX;
-        if (globalCtx->numSetupActors == 57)//Graveyard adult scene
+        if (globalCtx->sceneNum == 83 && globalCtx->numSetupActors == 57)//Graveyard adult scene
             maxActors = 48;
 
         const u8 firstActorToLoad = std::max(globalCtx->numSetupActors, maxActors) - maxActors;
