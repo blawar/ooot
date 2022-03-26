@@ -2057,7 +2057,7 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
     unkFlag = 0;
 
     if (globalCtx->numSetupActors != 0) {
-#ifdef N64_VERSION
+#if 1
         actorEntry = &globalCtx->setupActorList[0];
 #else
         u8 maxActors = ACTOR_NUMBER_MAX;
