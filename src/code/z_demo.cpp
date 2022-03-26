@@ -784,12 +784,10 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
                 gSaveContext.cutsceneIndex = 0xFFFA;
                 globalCtx->fadeTransition = 4;
                 break;
-            case 41://TODO FIX CRASH
-#ifdef N64_VERSION
+            case 41://Lake Hylia after finishing the Water Temple
                 globalCtx->nextEntranceIndex = 0x04E6;
                 globalCtx->sceneLoadFlag = 0x14;
                 globalCtx->fadeTransition = 2;
-#endif
                 break;
             case 42://Well at Kakariko
                 globalCtx->nextEntranceIndex = 0x00DB;
