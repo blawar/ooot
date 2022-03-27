@@ -952,7 +952,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 break;
             case MESSAGE_BOX_BREAK_DELAYED:
                 if (msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING) {
-                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i] / MAX(TEXT_SPEED_SCALER, buttonScaler);
+                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i];
                     msgCtx->msgMode = MSGMODE_TEXT_DELAYED_BREAK;
                 }
                 *gfxP = gfx;
@@ -965,7 +965,6 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                     osSyncPrintf("タイマー (%x) (%x)", msgCtx->msgBufDecoded[i + 1], msgCtx->msgBufDecoded[i + 2]);
                     msgCtx->stateTimer = msgCtx->msgBufDecoded[++i] << 8;
                     msgCtx->stateTimer |= msgCtx->msgBufDecoded[++i];
-                    msgCtx->stateTimer /= MAX(TEXT_SPEED_SCALER, buttonScaler);
                     // "Total wct"
                     osSyncPrintf("合計wct=%x(%d)\n", msgCtx->stateTimer, msgCtx->stateTimer);
                 }
@@ -1042,7 +1041,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 msgCtx->textPosX += 32;
                 break;
             case MESSAGE_TEXT_SPEED:
-                msgCtx->textDelay = msgCtx->msgBufDecoded[++i] / MAX(TEXT_SPEED_SCALER, buttonScaler);
+                msgCtx->textDelay = msgCtx->msgBufDecoded[++i];
                 break;
             case MESSAGE_UNSKIPPABLE:
                 msgCtx->textUnskippable = true;
@@ -1090,7 +1089,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 if (msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING) {
                     msgCtx->msgMode = MSGMODE_TEXT_DONE;
                     msgCtx->textboxEndType = TEXTBOX_ENDTYPE_FADING;
-                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i] / MAX(TEXT_SPEED_SCALER, buttonScaler);
+                    msgCtx->stateTimer = msgCtx->msgBufDecoded[++i];
                     Font_LoadMessageBoxIcon(font, TEXTBOX_ICON_SQUARE);
                     if (globalCtx->csCtx.state == 0) {
                         Interface_SetDoAction(globalCtx, DO_ACTION_RETURN);
@@ -1128,20 +1127,46 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
         }
     }
 
-    if (msgCtx->textDelayTimer == 0) {
-        msgCtx->textDrawPos = i + 1 * MAX(TEXT_SPEED_SCALER, buttonScaler);
-	    msgCtx->textDelayTimer = msgCtx->textDelay;
-    } else {
-	    if(msgCtx->textDelayTimer > MAX(TEXT_SPEED_SCALER, buttonScaler))
+    const auto loops = MAX(TEXT_SPEED_SCALER, buttonScaler);
+    msgCtx->textDrawPos = i;
+    for(int z = 0; z < loops; z++)
+    {
+	    if(msgCtx->textDelayTimer == 0)
 	    {
-		    msgCtx->textDelayTimer -= MAX(TEXT_SPEED_SCALER, buttonScaler);
+		    msgCtx->textDrawPos++;
+		    msgCtx->textDelayTimer = msgCtx->textDelay;
 	    }
 	    else
 	    {
-		    msgCtx->textDelayTimer = 0;
+		    msgCtx->textDelayTimer--;
+	    }
+	    *gfxP = gfx;
+
+        if(loops > 1)
+	    {
+ 		    if(msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING || (msgCtx->msgMode >= MSGMODE_OCARINA_STARTING && msgCtx->msgMode < MSGMODE_SCARECROW_LONG_RECORDING_START))
+		    {
+			    lookAheadCharacter = msgCtx->msgBufDecoded[msgCtx->textDrawPos];
+			    if(lookAheadCharacter == MESSAGE_SHIFT)
+			    {
+				    break;
+			    }
+			    else if(
+				(lookAheadCharacter != MESSAGE_QUICKTEXT_DISABLE) && (lookAheadCharacter != MESSAGE_PERSISTENT) && (lookAheadCharacter != MESSAGE_EVENT) && (lookAheadCharacter != MESSAGE_BOX_BREAK_DELAYED) &&
+				(lookAheadCharacter != MESSAGE_AWAIT_BUTTON_PRESS) && (lookAheadCharacter != MESSAGE_BOX_BREAK) && (lookAheadCharacter != MESSAGE_END))
+			    {
+			    }
+			    else
+			    {
+				    break;
+			    }
+		    }
+		    else
+		    {
+			    break;
+		    }
 	    }
     }
-    *gfxP = gfx;
 }
 
 void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y) {
