@@ -108,6 +108,13 @@ namespace oot::hid
 		return g_tas;
 	}
 
+	static u16 gClearButtonPressFrames = 0;
+
+	void Controller::clearPressedButtons(u16 frames)
+	{
+		gClearButtonPressFrames = frames;
+	}
+
 	void Controller::resolveInputs()
 	{
 #define SRAM_SIZE 0x8000 // But this in ultra_reimplementation.h?
@@ -197,7 +204,16 @@ namespace oot::hid
 		rawStickY     = m_state.stick_y;
 		r_rawStickX   = m_state.r_stick_x;
 		r_rawStickY   = m_state.r_stick_y;
-		buttonPressed = m_state.button & (m_state.button ^ buttonDown);
+		if(gClearButtonPressFrames)
+		{
+			gClearButtonPressFrames--;
+			buttonPressed = 0;
+			m_state.button = 0;
+		}
+		else
+		{
+			buttonPressed = m_state.button & (m_state.button ^ buttonDown);
+		}
 
 		buttonDown = m_state.button;
 

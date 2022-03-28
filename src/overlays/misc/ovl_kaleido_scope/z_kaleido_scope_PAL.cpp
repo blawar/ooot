@@ -20,6 +20,7 @@
 #include "kaleido.h"
 #include "hack.h"
 #include "z_opening.h"
+#include "port/controller/controller.h"
 #include "def/PreRender.h"
 #include "def/inventory.h"
 #include "def/audio.h"
@@ -3472,6 +3473,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
 
         case 0x13:
             pauseCtx->state = 0;
+		    oot::hid::Controller::clearPressedButtons(2);
             framerate_set_profile(PROFILE_GAMEPLAY);
             R_PAUSE_MENU_MODE = 0;
             func_800981B8(&globalCtx->objectCtx);

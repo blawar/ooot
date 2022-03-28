@@ -112,6 +112,8 @@ namespace oot
 			Controller(bool isLocal = true);
 			~Controller();
 
+			static void clearPressedButtons(u16 frames = 1);
+
 			virtual void update() {}
 			virtual void resolveInputs();
 			virtual bool isLocal() const {
