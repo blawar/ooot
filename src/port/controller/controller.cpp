@@ -210,7 +210,7 @@ namespace oot::hid
 		{
 			gClearButtonPressFrames--;
 			buttonPressed = 0;
-			m_state.button &= (u16)Button::Z_TRIG;
+			m_state.button &= ((u16)Button::Z_TRIG | (u16)Button::R_TRIG);
 		}
 		else
 		{
