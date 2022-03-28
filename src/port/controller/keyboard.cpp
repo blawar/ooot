@@ -70,10 +70,29 @@ namespace oot::hid
 				return "R_CBUTTONS";
 			case Button::R_TRIG:
 				return "R_TRIG";
+			case Button::L_TRIG:
+				return "L_TRIG";
 			case Button::START_BUTTON:
 				return "START_BUTTON";
 			case Button::WALK_BUTTON:
 				return "WALK_BUTTON";
+
+			case Button::OCARINA:
+				return "OCARINA";
+			case Button::HOOKSHOT:
+				return "HOOKSHOT";
+			case Button::BOW_ARROW:
+				return "BOW_ARROW";
+			case Button::LENS_OF_TRUTH:
+				return "LENS_OF_TRUTH";
+			case Button::BOOTS_TOGGLE:
+				return "BOOTS_TOGGLE";
+			case Button::SWORD_TOGGLE:
+				return "SWORD_TOGGLE";
+			case Button::SHIELD_TOGGLE:
+				return "SHIELD_TOGGLE";
+			case Button::TUNIC_TOGGLE:
+				return "TUNIC_TOGGLE";
 		}
 		return "";
 	}
@@ -104,6 +123,8 @@ namespace oot::hid
 			return Button::R_CBUTTONS;
 		if(input == "R_TRIG")
 			return Button::R_TRIG;
+		if(input == "L_TRIG")
+			return Button::L_TRIG;
 		if(input == "START_BUTTON")
 			return Button::START_BUTTON;
 		if(input == "WALK_BUTTON")
