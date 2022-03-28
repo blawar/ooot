@@ -6,31 +6,26 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
-
 #include <SDL2/SDL.h>
 #include "sdl.h"
 #include <unordered_map>
-#ifdef ENABLE_JSON
-#include"keyboard.h"
+#include "keyboard.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/prettywriter.h"
 #include <rapidjson/istreamwrapper.h>
-#endif
 #include <fstream>
 #include "../options.h"
 #include "../player/players.h"
 #include "tas.h"
-
-#ifndef __SWITCH__
-#define DEADZONE 20
-#define RDEADZONE 20
-#else
-#define DEADZONE 0
-#define RDEADZONE 0
-#endif
+#include "def/z_player_lib.h"
 
 #define INITIAL_PEAK 0x8000
+
+#ifdef ENABLE_GYRO
+const float GYRO_SENSITIVITY = 20.0f;
+const float ACCEL_SENSITIVITY = 50.0f;
+#endif
 
 extern RumbleStruct g_Rumble;
 
@@ -43,9 +38,7 @@ static int g_rstickY_peak = INITIAL_PEAK;
 
 namespace oot::hid
 {
-#ifdef ENABLE_JSON
 	bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
-#endif
 
 	static bool g_haptics = false;
 
@@ -58,7 +51,7 @@ namespace oot::hid
 		SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 	}
 
-	Joypad::Joypad() : N64Controller()
+	Joypad::Joypad() : Controller()
 	{
 		if(SDL_Init(SDL_INIT_GAMECONTROLLER) != 0)
 			fprintf(stderr, "SDL init error: %s\n", SDL_GetError());
@@ -105,8 +98,26 @@ namespace oot::hid
 		m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP]	   = Button::U_CBUTTONS;
 		m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN]	   = Button::D_CBUTTONS;
 
-	//Connect rumble pack callback
-	g_Rumble.onVibrate = [=](auto strength, auto time, auto decay) { onVibrate(strength, time, decay); };
+		// Connect rumble pack callback
+		g_Rumble.onVibrate = [=](auto strength, auto time, auto decay) { onVibrate(strength, time, decay); };
+
+#ifdef ENABLE_GYRO
+		if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_GYRO) == SDL_TRUE)
+		{
+			if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_GYRO, SDL_TRUE))
+			{
+				m_hasGyro = true;
+			}
+		}
+
+		if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_ACCEL) == SDL_TRUE)
+		{
+			if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_ACCEL, SDL_TRUE))
+			{
+				m_hasAccel = true;
+			}
+		}
+#endif
 
 #ifndef __SWITCH__
 		loadKeyBindings();
@@ -122,7 +133,6 @@ namespace oot::hid
 
 	void Joypad::loadKeyBindings()
 	{
-#ifdef ENABLE_JSON
 		try
 		{
 			std::ifstream ifs("gamepad1.bindings.json", std::ifstream::in);
@@ -162,12 +172,10 @@ namespace oot::hid
 		catch(...)
 		{
 		}
-#endif
 	}
 
 	void Joypad::saveKeyBindings()
 	{
-#ifdef ENABLE_JSON
 		try
 		{
 			rapidjson::Document d;
@@ -187,7 +195,6 @@ namespace oot::hid
 		catch(...)
 		{
 		}
-#endif
 	}
 
 	bool Joypad::initHaptics()
@@ -351,28 +358,100 @@ namespace oot::hid
 		bool walk = false;
 		SDL_GameControllerUpdate();
 
-	updateVibration();
+		updateVibration();
 
-	if (m_context != NULL && !SDL_GameControllerGetAttached(m_context))
-	{
-		SDL_GameControllerClose(m_context);
-		m_context = NULL;
-	}
+		if(m_context != NULL && !SDL_GameControllerGetAttached(m_context))
+		{
+			SDL_GameControllerClose(m_context);
+			m_context = NULL;
+		}
 
 		for(int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
 			m_buttonState[i] = SDL_GameControllerGetButton(m_context, (SDL_GameControllerButton)i);
+
+		
 
 		m_state.stick_x	  = stickLeftX();
 		m_state.stick_y	  = invert(stickLeftY());
 		m_state.r_stick_x = stickRightX();
 		m_state.r_stick_y = stickRightY();
 
+#ifdef ENABLE_GYRO
+		if(m_hasGyro && isGyroEnabled())
+		{
+			float values[3] = {0, 0, 0};
+
+			if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
+			{
+				s32 x = m_state.stick_x - (values[2] + values[1]) * GYRO_SENSITIVITY;
+				s32 y = m_state.stick_y - values[0]* GYRO_SENSITIVITY;
+				m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
+				m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+
+				memcpy(m_state.gyro, values, sizeof(values));
+			}
+		}
+
+		if(m_hasAccel && isGyroEnabled())
+		{
+			float values[3] = {0, 0, 0};
+
+			if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_ACCEL, values, sizeof(values) / sizeof(float)))
+			{
+				float accel_x		= values[0] - m_state.accel[0];
+				float accel_y		= values[2] - m_state.accel[2];
+
+				/*if(accel_x != 0.0f || accel_y != 0.0f)
+				{
+					s32 x		= m_state.stick_x - accel_x * ACCEL_SENSITIVITY;
+					s32 y		= m_state.stick_y - accel_y * ACCEL_SENSITIVITY;
+					m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
+					m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+				}*/
+
+				memcpy(m_state.accel, values, sizeof(values));
+			}
+		}
+#endif
+
 		for(const auto& [scancode, input] : m_keyBindings)
 		{
 			if(m_buttonState[scancode])
 			{
 				if((uint32_t)input <= 0xFFFF)
+				{
 					m_state.button |= (uint16_t)input;
+				}
+				else if((u32)input >= (u32)Button::OCARINA && (u32)input <= (u32)Button::TUNIC_TOGGLE)
+				{
+					if(!m_lastButtonState[scancode])
+					{
+						switch(input)
+						{
+							case Button::OCARINA:
+								Player_EquipOcarina();
+								break;
+							case Button::BOW_ARROW:
+								Player_EquipBow();
+								break;
+							case Button::LENS_OF_TRUTH:
+								Player_EquipLensOfTruth();
+								break;
+							case Button::BOOTS_TOGGLE:
+								Player_ToggleBoots();
+								break;
+							case Button::SWORD_TOGGLE:
+								Player_ToggleSword();
+								break;
+							case Button::SHIELD_TOGGLE:
+								Player_ToggleShield();
+								break;
+							case Button::TUNIC_TOGGLE:
+								Player_ToggleTunic();
+								break;
+						}
+					}
+				}
 				else
 				{
 					switch(input)
@@ -466,53 +545,57 @@ namespace oot::hid
 			m_state.button &= ~((uint16_t)Button::U_CBUTTONS | (uint16_t)Button::D_CBUTTONS | (uint16_t)Button::L_CBUTTONS | (uint16_t)Button::R_CBUTTONS); // Unpress the c buttons
 		}
 
-	//When the back button is pressed. Mark all dpad button as pressed. Used to open map select
-	if (m_buttonState[SDL_CONTROLLER_BUTTON_BACK])
-		m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
-}
+		// When the back button is pressed. Mark all dpad button as pressed. Used to open map select
+		if(m_buttonState[SDL_CONTROLLER_BUTTON_BACK])
+		{
+			m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+		}
 
-void Joypad::onVibrate(uint8_t strength, uint8_t vibtime, uint8_t decay)//Called from the game
-{
-	if (tas::isTasPlaying())
-		return;
-	if (strength <= 20)
-		return;
-	if (decay < 8)
-		decay = 8;
-
-	uint32_t strengthScaled = strength * strength;
-	//uint32_t strengthScaled = strength * 257;
-	//uint32_t strengthScaled = strength * 150 + 27135;
-
-	if (strengthScaled < m_VibrationStrength)//The new one is weak
-		return;//Let's not play the new one
-
-	auto current_time = osGetTime();
-
-	m_VibrationEnds = current_time + (int)(vibtime * 0.04f);
-	m_VibrationStrength = strengthScaled;
-	m_VibrationDecay = decay * 15;
-
-	xinput.Vibrate(m_VibrationStrength, m_VibrationStrength);
-}
-
-//Called once per frame
-//BUG: this should not depend on the framerate!
-void Joypad::updateVibration()
-{
-	if (m_VibrationStrength <= 0)
-		return;
-
-	auto current_time = osGetTime();
-
-	if (current_time >= m_VibrationEnds)//Ease off
-	{
-		//m_VibrationStrength -= 250;
-		m_VibrationStrength -= m_VibrationDecay;
-		m_VibrationStrength = std::max(m_VibrationStrength, 0);
+		memcpy(m_lastButtonState, m_buttonState, sizeof(m_lastButtonState));
 	}
 
-	xinput.Vibrate(m_VibrationStrength, m_VibrationStrength);
-}
+	void Joypad::onVibrate(uint8_t strength, uint8_t vibtime, uint8_t decay) // Called from the game
+	{
+		if(tas::isTasPlaying())
+			return;
+		if(strength <= 20)
+			return;
+		if(decay < 8)
+			decay = 8;
+
+		uint32_t strengthScaled = strength * strength;
+		// uint32_t strengthScaled = strength * 257;
+		// uint32_t strengthScaled = strength * 150 + 27135;
+
+		if(strengthScaled < m_VibrationStrength) // The new one is weak
+			return;				 // Let's not play the new one
+
+		auto current_time = osGetTime();
+
+		m_VibrationEnds	    = current_time + (int)(vibtime * 0.04f);
+		m_VibrationStrength = strengthScaled;
+		m_VibrationDecay    = decay * 15;
+
+		xinput.Vibrate(m_VibrationStrength, m_VibrationStrength);
+	}
+
+	// Called once per frame
+	// BUG: this should not depend on the framerate!
+	void Joypad::updateVibration()
+	{
+		if(m_VibrationStrength <= 0)
+			return;
+
+		auto current_time = osGetTime();
+
+		if(current_time >= m_VibrationEnds) // Ease off
+		{
+			// m_VibrationStrength -= 250;
+			m_VibrationStrength -= m_VibrationDecay;
+			m_VibrationStrength = std::max(m_VibrationStrength, 0);
+		}
+
+		xinput.Vibrate(m_VibrationStrength, m_VibrationStrength);
+	}
 } // namespace oot::hid
 #endif

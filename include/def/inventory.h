@@ -15,6 +15,10 @@ extern u16 gUpgradeCapacities[8][4];
 extern u32 gUpgradeMasks[8];
 extern u8 gUpgradeShifts[8];
 
+void Inventory_ChangeEquipment(EquipmentPosition equip);
 void Inventory_ChangeEquipment(s16 equipment, u16 value);
+bool Inventory_ToggleEquipment(s16 equipment);
+u16 Inventory_GetEquipment(s16 equipment);
+bool Inventory_IsEquipmentOwned(EquipmentPosition equip);
 void Inventory_ChangeUpgrade(s16 upgrade, s16 value);
 u8 Inventory_DeleteEquipment(GlobalContext* globalCtx, s16 equipment);

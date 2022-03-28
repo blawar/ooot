@@ -16,13 +16,13 @@ namespace oot
 			Player() : m_rebindInput(0) {}
 			virtual ~Player() {}
 
-			std::vector<std::shared_ptr<N64Controller> >& controllers() {
+			std::vector<std::shared_ptr<Controller> >& controllers() {
 				return m_controllers;
 			}
-			void attach(const std::shared_ptr<N64Controller>& controller);
+			void attach(const std::shared_ptr<Controller>& controller);
 			void detachControllers() { m_controllers.resize(0); }
 			void update();
-			N64Controller& controller() {
+			Controller& controller() {
 				return m_controller;
 			}
 
@@ -30,8 +30,8 @@ namespace oot
 			bool isRebindMode() const { return m_rebindInput > 0; }
 
 		protected:
-			std::vector<std::shared_ptr<N64Controller> > m_controllers;
-			N64Controller m_controller;
+			std::vector<std::shared_ptr<Controller> > m_controllers;
+			Controller m_controller;
 			int m_rebindInput;
 		};
 	}

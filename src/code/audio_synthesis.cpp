@@ -9,6 +9,7 @@
 #include "def/audio_synthesis.h"
 #include "def/code_800E6840.h"
 #include "def/audio_bank.h"
+#include "mixer.h"
 
 #define DEFAULT_LEN_1CH 0x1A0
 #define DEFAULT_LEN_2CH 0x340
@@ -365,8 +366,7 @@ void func_800DBC5C(void) {
 
 // possible fake match?
 void AudioSynth_DMemMove(Acmd* cmd, s32 dmemIn, s32 dmemOut, s32 count) {
-    cmd->words.w0 = _SHIFTL(A_DMEMMOVE, 24, 8) | _SHIFTL(dmemIn, 0, 24);
-    cmd->words.w1 = _SHIFTL(dmemOut, 16, 16) | _SHIFTL(count, 0, 16);
+	aDMEMMove(cmd, dmemIn, dmemOut, count);
 }
 
 void func_800DBC90(void) {
@@ -382,8 +382,7 @@ void func_800DBCA8(void) {
 }
 
 void AudioSynth_InterL(Acmd* cmd, s32 dmemIn, s32 dmemOut, s32 count) {
-    cmd->words.w0 = _SHIFTL(A_INTERL, 24, 8) | _SHIFTL(count, 0, 16);
-    cmd->words.w1 = _SHIFTL(dmemIn, 16, 16) | _SHIFTL(dmemOut, 0, 16);
+	aInterl(cmd, dmemIn, dmemOut, count);
 }
 
 void AudioSynth_EnvSetup1(Acmd* cmd, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -394,17 +393,16 @@ void func_800DBD08(void) {
 }
 
 static void AudioSynth_LoadBuffer(Acmd* cmd, s32 arg1, s32 arg2, Pointer arg3) {
-    aLoadBuffer(cmd, arg3.get(), arg1, arg2);
+    aLoadBuffer(cmd, arg3.buffer(), arg1, arg2);
 }
 
 static void AudioSynth_SaveBuffer(Acmd* cmd, s32 arg1, s32 arg2, Pointer address)
 {
-	aSaveBuffer(cmd, arg1, address.get(), arg2);
+	aSaveBuffer(cmd, arg1, (s16*)address.buffer(), arg2);
 }
 
 void AudioSynth_EnvSetup2(Acmd* cmd, s32 volLeft, s32 volRight) {
-    cmd->words.w0 = _SHIFTL(A_ENVSETUP2, 24, 8);
-    cmd->words.w1 = _SHIFTL(volLeft, 16, 16) | _SHIFTL(volRight, 0, 16);
+	aEnvSetup2(cmd, volLeft, volRight);
 }
 
 void func_800DBD7C(void) {
@@ -421,13 +419,11 @@ void AudioSynth_S8Dec(Acmd* cmd, s32 flags, s16* state) {
 }
 
 void AudioSynth_HiLoGain(Acmd* cmd, s32 gain, s32 dmemIn, s32 dmemOut, s32 count) {
-    cmd->words.w0 = _SHIFTL(A_HILOGAIN, 24, 8) | _SHIFTL(gain, 16, 8) | _SHIFTL(count, 0, 16);
-    cmd->words.w1 = _SHIFTL(dmemIn, 16, 16) | _SHIFTL(dmemOut, 0, 16);
+	aHiLoGain(cmd, gain, count, dmemIn, dmemOut);
 }
 
 void AudioSynth_UnkCmd19(Acmd* cmd, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    cmd->words.w0 = _SHIFTL(A_UNK19, 24, 8) | _SHIFTL(arg4, 16, 8) | _SHIFTL(arg3, 0, 16);
-    cmd->words.w1 = _SHIFTL(arg1, 16, 16) | _SHIFTL(arg2, 0, 16);
+	aUnkCmd19(cmd, arg1, arg2, arg3, arg4);
 }
 
 void func_800DBE18(void) {
@@ -443,8 +439,7 @@ void func_800DBE30(void) {
 }
 
 void AudioSynth_UnkCmd3(Acmd* cmd, s32 arg1, s32 arg2, s32 arg3) {
-    cmd->words.w0 = _SHIFTL(A_UNK3, 24, 8) | _SHIFTL(arg3, 0, 16);
-    cmd->words.w1 = _SHIFTL(arg1, 16, 16) | _SHIFTL(arg2, 0, 16);
+	aUnkCmd3(cmd, arg1, arg2, arg3);
 }
 
 void func_800DBE5C(void) {
@@ -457,14 +452,17 @@ void func_800DBE6C(void) {
 }
 
 void AudioSynth_LoadFilter(Acmd* cmd, s32 flags, s32 countOrBuf, Pointer addr) {
-    aFilter(cmd, flags, countOrBuf, addr.get());
+    aFilter(cmd, flags, countOrBuf, (s16*)addr.get());
 }
 
 static void AudioSynth_LoadFilterCount(Acmd* cmd, s32 count, Pointer addr) {
-    aFilter(cmd, 2, count, addr.get());
+	aFilter(cmd, 2, count, (s16*)addr.get());
 }
 
 Acmd* AudioSynth_LoadRingBuffer1(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s16 bufIndex) {
+	ASSERT(reverb->curFrame < 2, "curFrame < 2", __FILE__, __LINE__);
+	ASSERT(bufIndex < 5, "bufIndex < 5", __FILE__, __LINE__);
+
     ReverbRingBufferItem* ringBufferItem = &reverb->items[reverb->curFrame][bufIndex];
 
     cmd =
@@ -479,6 +477,9 @@ Acmd* AudioSynth_LoadRingBuffer1(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s
 }
 
 Acmd* AudioSynth_LoadRingBuffer2(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s16 bufIndex) {
+	ASSERT(reverb->curFrame < 2, "curFrame < 2", __FILE__, __LINE__);
+	ASSERT(bufIndex < 5, "bufIndex < 5", __FILE__, __LINE__);
+
     ReverbRingBufferItem* bufItem = &reverb->items2[reverb->curFrame][bufIndex];
 
     cmd = AudioSynth_LoadRingBufferPart(cmd, DMEM_WET_LEFT_CH, bufItem->startPos, bufItem->lengthA, reverb);
@@ -490,12 +491,14 @@ Acmd* AudioSynth_LoadRingBuffer2(Acmd* cmd, s32 arg1, SynthesisReverb* reverb, s
 }
 
 Acmd* AudioSynth_LoadRingBufferPart(Acmd* cmd, u16 dmem, u16 startPos, s32 length, SynthesisReverb* reverb) {
+	ASSERT(length <= DEFAULT_LEN_1CH, "length <= DEFAULT_LEN_1CH", __FILE__, __LINE__);
     aLoadBuffer(cmd++, &reverb->leftRingBuf[startPos], dmem, length);
     aLoadBuffer(cmd++, &reverb->rightRingBuf[startPos], dmem + DEFAULT_LEN_1CH, length);
     return cmd;
 }
 
 Acmd* AudioSynth_SaveRingBufferPart(Acmd* cmd, u16 dmem, u16 startPos, s32 length, SynthesisReverb* reverb) {
+	ASSERT(length <= DEFAULT_LEN_1CH, "length <= DEFAULT_LEN_1CH", __FILE__, __LINE__);
     aSaveBuffer(cmd++, dmem, &reverb->leftRingBuf[startPos], length);
     aSaveBuffer(cmd++, dmem + DEFAULT_LEN_1CH, &reverb->rightRingBuf[startPos], length);
     return cmd;
@@ -891,7 +894,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSubEu, NoteSynthesisS
                 }
 
                 if (synthState->restart) {
-                    aSetLoop(cmd++, audioFontSample->loop->state);
+                    aSetLoop(cmd++, (ADPCM_STATE*)audioFontSample->loop->state);
                     flags = A_LOOP;
                     synthState->restart = false;
                 }

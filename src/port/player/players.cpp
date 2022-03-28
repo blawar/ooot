@@ -25,7 +25,7 @@ void Players::Update()
 
 
 
-const N64Controller* Players::GetController()
+const Controller* Players::GetController()
 {
 	if (g_players[0].controllers().size() == 0)
 		return nullptr;
@@ -56,7 +56,7 @@ void Players::update()
 
 
 
-void Players::attach(const std::shared_ptr<N64Controller>& controller, const u8 playerId)
+void Players::attach(const std::shared_ptr<Controller>& controller, const u8 playerId)
 {
 	if (playerId == MAX_PLAYERS)
 		m_players[m_size++].attach(controller);

@@ -34,6 +34,9 @@
 #include "def/z_vr_box_draw.h"
 #include "def/z_play.h" // FORCE
 
+void Set_Language(u8 language_id);
+u8 Get_Language();
+
 extern u16 gSramSlotOffsets[];
 
 static s16 sUnused = 106;
@@ -410,7 +413,8 @@ void FileChoose_PulsateCursor(GameState* pthisx) {
     Input* debugInput = &pthis->state.input[2];
 
     if (CHECK_BTN_ALL(debugInput->press.button, BTN_DLEFT)) {
-        sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = gSaveContext.language = LANGUAGE_ENG;
+	    Set_Language(LANGUAGE_ENG);
+	    sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = Get_Language();
 #ifdef N64_VERSION
         *((u8*)0x80000002) = LANGUAGE_ENG;
 #endif
@@ -424,7 +428,8 @@ void FileChoose_PulsateCursor(GameState* pthisx) {
                      sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
                      sramCtx->readBuff[SRAM_HEADER_MAGIC]);
     } else if (CHECK_BTN_ALL(debugInput->press.button, BTN_DUP)) {
-        sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = gSaveContext.language = LANGUAGE_GER;
+	    Set_Language(LANGUAGE_GER);
+	    sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = Get_Language();
 #ifdef N64_VERSION
         *((u8*)0x80000002) = LANGUAGE_GER;
 #endif
@@ -438,7 +443,8 @@ void FileChoose_PulsateCursor(GameState* pthisx) {
                      sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
                      sramCtx->readBuff[SRAM_HEADER_MAGIC]);
     } else if (CHECK_BTN_ALL(debugInput->press.button, BTN_DRIGHT)) {
-        sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = gSaveContext.language = LANGUAGE_FRA;
+	    Set_Language(LANGUAGE_FRA);
+        sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = Get_Language();
 #ifdef N64_VERSION
         *((u8*)0x80000002) = LANGUAGE_FRA;
 #endif
@@ -1469,6 +1475,7 @@ void FileChoose_LoadGame(GameState* pthisx) {
     u16 swordEquipMask;
     s32 pad;
 
+#ifdef ENABLE_DEBUG_LEVEL_SELECT
     if (pthis->buttonIndex == FS_BTN_SELECT_FILE_1) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
@@ -1476,7 +1483,10 @@ void FileChoose_LoadGame(GameState* pthisx) {
         gSaveContext.gameMode = 0;
         SET_NEXT_GAMESTATE(&pthis->state, Select_Init, SelectContext);
         pthis->state.running = false;
-    } else {
+    }
+    else
+#endif
+    {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
         Sram_OpenSave(&pthis->sramCtx);

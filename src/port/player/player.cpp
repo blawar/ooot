@@ -6,7 +6,7 @@
 using namespace oot::hid;
 
 
-void Player::attach(const std::shared_ptr<N64Controller>& controller)
+void Player::attach(const std::shared_ptr<Controller>& controller)
 {
 	m_controllers.push_back(controller);
 }

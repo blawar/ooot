@@ -32,6 +32,7 @@ out.txt
 *.sav
 *.tas
 *.bak
+*.dbg
 
 
 # Tool artifacts
@@ -46,6 +47,7 @@ ctx.c
 tools/*dSYM/
 graphs/
 vs/Debug
+vs/Release
 vs/build
 
 # Assets
@@ -65,3 +67,5 @@ assets/
 
 # Per-user configuration
 .python-version
+/vs/oot.props
+/vs/*.bindings.json

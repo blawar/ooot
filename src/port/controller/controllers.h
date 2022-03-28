@@ -42,15 +42,23 @@ namespace oot
 			L_CBUTTONS = CONT_C,
 			R_CBUTTONS = CONT_F,
 			D_CBUTTONS = CONT_D,
-			STICK_X_LEFT = 0x10000,
-			STICK_X_RIGHT = 0x20000,
-			STICK_X_DOWN = 0x80000,
-			STICK_X_UP = 0x40000,
-			WALK_BUTTON = 0x100000
+			STICK_X_LEFT = 1 << 16,
+			STICK_X_RIGHT = 1 << 17,
+			STICK_X_DOWN = 1 << 19,
+			STICK_X_UP = 1 << 18,
+			WALK_BUTTON = 1 << 20,
+			OCARINA = 1 << 21,
+			HOOKSHOT = 1 << 22,
+			BOW_ARROW = 1 << 23,
+			LENS_OF_TRUTH = 1 << 24,
+			BOOTS_TOGGLE  = 1 << 25,
+			SWORD_TOGGLE  = 1 << 26,
+			SHIELD_TOGGLE  = 1 << 27,
+			TUNIC_TOGGLE  = 1 << 28
 		};
 
 
-		class InputDevice;
+		class Device;
 
 
 		class InputDeviceManager
@@ -65,33 +73,33 @@ namespace oot
 			void scan();
 			bool isRebindMode() const { return m_rebindInput != Button::NONE; }
 			void rebind(Button input) { m_rebindInput = input; }
-			std::vector<InputDevice*>& drivers() { return m_drivers; }
+			std::vector<Device*>& drivers() { return m_drivers; }
 
 		protected:
-			std::vector<InputDevice*> m_drivers;
+			std::vector<Device*> m_drivers;
 			Button m_rebindInput;
 		};
 
 
 
-		class InputDevice
+		class Device
 		{
 		public:
-			InputDevice() = default;
-			virtual ~InputDevice() {}
+			Device() = default;
+			virtual ~Device() {}
 
 			virtual void scan() = 0;
 
 			virtual const u64 size() const { return m_controllers.size(); }
-			virtual N64Controller& controller(const u64 index);
+			virtual Controller& controller(const u64 index);
 			virtual void update();
 			virtual bool updateRebind(Button input);
 			virtual bool defaultOnly() { return false; }
 
-			std::vector<std::shared_ptr<N64Controller>>& controllers() { return m_controllers; }
+			std::vector<std::shared_ptr<Controller>>& controllers() { return m_controllers; }
 
 		protected:
-			std::vector<std::shared_ptr<N64Controller>> m_controllers;
+			std::vector<std::shared_ptr<Controller>> m_controllers;
 		};
 	}
 }

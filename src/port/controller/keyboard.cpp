@@ -1,14 +1,13 @@
 #include "ultra64/types.h"
 #include "keyboard.h"
-#ifdef ENABLE_JSON
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/prettywriter.h"
 #include <rapidjson/istreamwrapper.h>
-#endif
 #include <fstream>
 #include <unordered_map>
 #include <algorithm>
+#include "def/z_player_lib.h"
 
 #if !defined(DISABLE_SDL_CONTROLLER)
 #include <SDL2/SDL.h>
@@ -27,7 +26,6 @@ void Set_Language(u8 language_id);
 
 namespace oot::hid
 {
-#ifdef ENABLE_JSON
 	bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath)
 	{
 		rapidjson::StringBuffer buffer;
@@ -43,7 +41,6 @@ namespace oot::hid
 
 		return true;
 	}
-#endif
 
 	const char* getInputName(Button input)
 	{
@@ -73,10 +70,29 @@ namespace oot::hid
 				return "R_CBUTTONS";
 			case Button::R_TRIG:
 				return "R_TRIG";
+			case Button::L_TRIG:
+				return "L_TRIG";
 			case Button::START_BUTTON:
 				return "START_BUTTON";
 			case Button::WALK_BUTTON:
 				return "WALK_BUTTON";
+
+			case Button::OCARINA:
+				return "OCARINA";
+			case Button::HOOKSHOT:
+				return "HOOKSHOT";
+			case Button::BOW_ARROW:
+				return "BOW_ARROW";
+			case Button::LENS_OF_TRUTH:
+				return "LENS_OF_TRUTH";
+			case Button::BOOTS_TOGGLE:
+				return "BOOTS_TOGGLE";
+			case Button::SWORD_TOGGLE:
+				return "SWORD_TOGGLE";
+			case Button::SHIELD_TOGGLE:
+				return "SHIELD_TOGGLE";
+			case Button::TUNIC_TOGGLE:
+				return "TUNIC_TOGGLE";
 		}
 		return "";
 	}
@@ -107,15 +123,34 @@ namespace oot::hid
 			return Button::R_CBUTTONS;
 		if(input == "R_TRIG")
 			return Button::R_TRIG;
+		if(input == "L_TRIG")
+			return Button::L_TRIG;
 		if(input == "START_BUTTON")
 			return Button::START_BUTTON;
 		if(input == "WALK_BUTTON")
 			return Button::WALK_BUTTON;
 
+		if(input == "OCARINA")
+			return Button::OCARINA;
+		if(input == "HOOKSHOT")
+			return Button::HOOKSHOT;
+		if(input == "BOW_ARROW")
+			return Button::BOW_ARROW;
+		if(input == "LENS_OF_TRUTH")
+			return Button::LENS_OF_TRUTH;
+		if(input == "BOOTS_TOGGLE")
+			return Button::BOOTS_TOGGLE;
+		if(input == "SWORD_TOGGLE")
+			return Button::SWORD_TOGGLE;
+		if(input == "SHIELD_TOGGLE")
+			return Button::SHIELD_TOGGLE;
+		if(input == "TUNIC_TOGGLE")
+			return Button::TUNIC_TOGGLE;
+
 		return (Button)0;
 	}
 
-	Keyboard::Keyboard() : N64Controller()
+	Keyboard::Keyboard() : Controller()
 	{
 		memset(m_lastKeyState, 0, sizeof(m_lastKeyState));
 		m_keyBindings[SDL_SCANCODE_W]	   = Button::STICK_X_UP;
@@ -141,6 +176,11 @@ namespace oot::hid
 		m_keyBindings[SDL_SCANCODE_RSHIFT] = Button::R_TRIG;
 		m_keyBindings[SDL_SCANCODE_RETURN] = Button::START_BUTTON;
 
+		m_keyBindings[SDL_SCANCODE_F1]	   = Button::BOOTS_TOGGLE;
+		m_keyBindings[SDL_SCANCODE_F2]	   = Button::SWORD_TOGGLE;
+		m_keyBindings[SDL_SCANCODE_F3]	   = Button::SHIELD_TOGGLE;
+		m_keyBindings[SDL_SCANCODE_F4]	   = Button::TUNIC_TOGGLE;
+
 #ifndef __SWITCH__
 		loadKeyBindings();
 #endif
@@ -148,7 +188,6 @@ namespace oot::hid
 
 	void Keyboard::loadKeyBindings()
 	{
-#ifdef ENABLE_JSON
 		try
 		{
 			std::ifstream ifs("keyboard1.bindings.json", std::ifstream::in);
@@ -190,12 +229,10 @@ namespace oot::hid
 		catch(...)
 		{
 		}
-#endif
 	}
 
 	void Keyboard::saveKeyBindings()
 	{
-#ifdef ENABLE_JSON
 		try
 		{
 			rapidjson::Document d;
@@ -215,7 +252,6 @@ namespace oot::hid
 		catch(...)
 		{
 		}
-#endif
 	}
 
 	bool Keyboard::hasMouse() const
@@ -321,7 +357,39 @@ namespace oot::hid
 			if(scancode < count && state[scancode])
 			{
 				if((uint32_t)input <= 0xFFFF)
+				{
 					m_state.button |= (uint32_t)input;
+				}
+				else if((u32)input >= (u32)Button::OCARINA && (u32)input <= (u32)Button::TUNIC_TOGGLE)
+				{
+					if(!m_lastKeyState[scancode])
+					{
+						switch(input)
+						{
+							case Button::OCARINA:
+								Player_EquipOcarina();
+								break;
+							case Button::BOW_ARROW:
+								Player_EquipBow();
+								break;
+							case Button::LENS_OF_TRUTH:
+								Player_EquipLensOfTruth();
+								break;
+							case Button::BOOTS_TOGGLE:
+								Player_ToggleBoots();
+								break;
+							case Button::SWORD_TOGGLE:
+								Player_ToggleSword();
+								break;
+							case Button::SHIELD_TOGGLE:
+								Player_ToggleShield();
+								break;
+							case Button::TUNIC_TOGGLE:
+								Player_ToggleTunic();
+								break;
+						}
+					}
+				}
 				else
 				{
 					switch(input)

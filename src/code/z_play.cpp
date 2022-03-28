@@ -1320,7 +1320,7 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
                 }
 
                 if ((HREG(80) != 10) || (HREG(85) != 0)) {
-                    func_800315AC(globalCtx, &globalCtx->actorCtx);
+                    Draw_Actors(globalCtx, &globalCtx->actorCtx);
                 }
 
                 if ((HREG(80) != 10) || (HREG(86) != 0)) {

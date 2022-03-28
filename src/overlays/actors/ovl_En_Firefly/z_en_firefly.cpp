@@ -172,7 +172,6 @@ void EnFirefly_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     if ((pthis->actor.params & 0x8000) != 0) {
         pthis->actor.flags |= ACTOR_FLAG_7;
-        if (1) {}
         pthis->actor.draw = EnFirefly_DrawInvisible;
         pthis->actor.params &= 0x7FFF;
     }

@@ -847,6 +847,11 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
     Font* font = &globalCtx->msgCtx.font;
     Gfx* gfx = *gfxP;
 
+#ifndef TEXT_SPEED_SCALER
+    const u16 TEXT_SPEED_SCALER = 1;
+#endif
+    const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B)) ? 8 : 1;
+
     globalCtx->msgCtx.textPosX = R_TEXT_INIT_XPOS;
 
     if (sTextIsCredits == false) {
@@ -932,8 +937,6 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                     }
                     i = j - 1;
                     msgCtx->textDrawPos = i + 1;
-
-                    if (character) {}
                 }
             case MESSAGE_QUICKTEXT_DISABLE:
                 break;
@@ -1123,13 +1126,47 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
                 break;
         }
     }
-    if (msgCtx->textDelayTimer == 0) {
-        msgCtx->textDrawPos = i + 1;
-        msgCtx->textDelayTimer = msgCtx->textDelay;
-    } else {
-        msgCtx->textDelayTimer--;
+
+    const auto loops = MAX(TEXT_SPEED_SCALER, buttonScaler);
+    msgCtx->textDrawPos = i;
+    for(int z = 0; z < loops; z++)
+    {
+	    if(msgCtx->textDelayTimer == 0)
+	    {
+		    msgCtx->textDrawPos++;
+		    msgCtx->textDelayTimer = msgCtx->textDelay;
+	    }
+	    else
+	    {
+		    msgCtx->textDelayTimer--;
+	    }
+	    *gfxP = gfx;
+
+        if(loops > 1)
+	    {
+ 		    if(msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING || (msgCtx->msgMode >= MSGMODE_OCARINA_STARTING && msgCtx->msgMode < MSGMODE_SCARECROW_LONG_RECORDING_START))
+		    {
+			    lookAheadCharacter = msgCtx->msgBufDecoded[msgCtx->textDrawPos];
+			    if(lookAheadCharacter == MESSAGE_SHIFT)
+			    {
+				    break;
+			    }
+			    else if(
+				(lookAheadCharacter != MESSAGE_QUICKTEXT_DISABLE) && (lookAheadCharacter != MESSAGE_PERSISTENT) && (lookAheadCharacter != MESSAGE_EVENT) && (lookAheadCharacter != MESSAGE_BOX_BREAK_DELAYED) &&
+				(lookAheadCharacter != MESSAGE_AWAIT_BUTTON_PRESS) && (lookAheadCharacter != MESSAGE_BOX_BREAK) && (lookAheadCharacter != MESSAGE_END))
+			    {
+			    }
+			    else
+			    {
+				    break;
+			    }
+		    }
+		    else
+		    {
+			    break;
+		    }
+	    }
     }
-    *gfxP = gfx;
 }
 
 void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y) {
@@ -1936,7 +1973,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p) {
     };
     static s16 sOcarinaNoteAPrimColors[][3] = {
         { 80, 150, 255 },
-        { 100, 255, 200 },
+        { 100, 200, 255 },
     };
     static s16 sOcarinaNoteAEnvColors[][3] = {
         { 10, 10, 10 },
@@ -3285,6 +3322,7 @@ void Message_SetTables(void) {
     {
         case LANGUAGE_GER:
             sMessageEntryTablePtr = sGerMessageEntryTable;
+            break;
         case LANGUAGE_FRA:
             sMessageEntryTablePtr = sFraMessageEntryTable;
             break;
@@ -3294,6 +3332,8 @@ void Message_SetTables(void) {
     }
 }
 
+static u8 g_currentLanguage = 0;
+
 u8 Get_Language()
 {
     return gSaveContext.language;
@@ -3301,7 +3341,7 @@ u8 Get_Language()
 
 void Set_Language(u8 language_id)
 {
-    gSaveContext.language = language_id % LANGUAGE_MAX;
+	g_currentLanguage = gSaveContext.language = language_id % LANGUAGE_MAX;
     Message_SetTables();
 }
 

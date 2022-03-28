@@ -9,6 +9,7 @@
 #include "def/z_lib.h"
 #include "def/z_olib.h"
 #include "def/z_quake.h"
+#include "gfxapi.h"
 
 QuakeRequest sQuakeRequest[4];
 s16 D_80126250 = 1;
@@ -343,6 +344,11 @@ s16 Quake_Calc(Camera* camera, QuakeCamCalc* camData) {
     camData->eyeOffset.y = 0.0f;
     camData->eyeOffset.z = 0.0f;
     camData->unk_20 = 0.0f;
+
+#ifndef N64_VERSION
+    if (gfx_force_43_enabled())
+        return 0;//Disable quake effect for all scenes with a prerendered background
+#endif
 
     if (sQuakeRequestCount == 0) {
         return 0;

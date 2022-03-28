@@ -1,4 +1,5 @@
 #define INTERNAL_SRC_CODE_Z_ACTOR_C
+#include <algorithm>
 #include "global.h"
 #include "vt.h"
 #include "z64global.h"
@@ -2056,7 +2057,17 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
     unkFlag = 0;
 
     if (globalCtx->numSetupActors != 0) {
+#if N64_VERSION
         actorEntry = &globalCtx->setupActorList[0];
+#else
+        u8 maxActors = ACTOR_NUMBER_MAX;
+        if (globalCtx->sceneNum == 83 && globalCtx->numSetupActors == 57)//Graveyard adult scene
+            maxActors = 48;
+
+        const u8 firstActorToLoad = std::max(globalCtx->numSetupActors, maxActors) - maxActors;
+        actorEntry = &globalCtx->setupActorList[firstActorToLoad];
+        globalCtx->numSetupActors =  std::min(globalCtx->numSetupActors, maxActors);
+#endif
         for (i = 0; i < globalCtx->numSetupActors; i++) {
             Actor_SpawnEntry(&globalCtx->actorCtx, actorEntry++, globalCtx);
         }
@@ -2389,7 +2400,7 @@ s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actor, Vec3f* projecte
     return false;
 }
 
-void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx) {
+void Draw_Actors(GlobalContext* globalCtx, ActorContext* actorCtx) {
     s32 invisibleActorCounter;
     Actor* invisibleActors[INVISIBLE_ACTOR_MAX];
     ActorListEntry* actorListEntry;

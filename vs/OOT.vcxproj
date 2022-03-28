@@ -61,6 +61,7 @@
   </ImportGroup>
   <PropertyGroup>
     <IntDir>$(Configuration)\$(PlatformShortName)\</IntDir>
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)$(Configuration)\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
@@ -823,6 +824,13 @@
     <ClInclude Include="..\src\port\controller\xcontroller.h" />
     <ClInclude Include="..\src\port\player\player.h" />
     <ClInclude Include="..\src\port\player\players.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OOT.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="OOT.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
