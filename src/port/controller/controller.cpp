@@ -280,6 +280,15 @@ namespace oot::hid
 			this->r_stickY *= 64 / this->r_stickMag;
 			this->r_stickMag = 64;
 		}
+
+		if(isGyroEnabled() && this->r_stickMag > 4)
+		{
+			this->stickMag = this->r_stickMag;
+			this->stickX = this->r_stickX;
+			this->stickY = this->r_stickY;
+
+			this->r_stickY = this->r_stickX = this->r_stickMag = 0;
+		}
 	}
 
 	s64 Controller::mouse_x() const
