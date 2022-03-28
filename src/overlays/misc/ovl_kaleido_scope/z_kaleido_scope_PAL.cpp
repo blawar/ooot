@@ -43,6 +43,10 @@
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 
+#ifndef PAUSE_EXIT_INPUT_CLEAR_FRAMES
+#define PAUSE_EXIT_INPUT_CLEAR_FRAMES 2
+#endif
+
 static void* sEquipmentFRATexs[] = {
     gPauseEquipment00FRATex, gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
     gPauseEquipment10FRATex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
@@ -3473,7 +3477,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx) {
 
         case 0x13:
             pauseCtx->state = 0;
-		    oot::hid::Controller::clearPressedButtons(2);
+		    oot::hid::Controller::clearPressedButtons(PAUSE_EXIT_INPUT_CLEAR_FRAMES);
             framerate_set_profile(PROFILE_GAMEPLAY);
             R_PAUSE_MENU_MODE = 0;
             func_800981B8(&globalCtx->objectCtx);

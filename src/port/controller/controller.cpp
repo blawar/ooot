@@ -5,6 +5,7 @@
 #include <filesystem>
 #include "tas.h"
 #include "../options.h"
+#include "controllers.h"
 
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/sm64/tas"
@@ -204,11 +205,12 @@ namespace oot::hid
 		rawStickY     = m_state.stick_y;
 		r_rawStickX   = m_state.r_stick_x;
 		r_rawStickY   = m_state.r_stick_y;
+
 		if(gClearButtonPressFrames)
 		{
 			gClearButtonPressFrames--;
 			buttonPressed = 0;
-			m_state.button = 0;
+			m_state.button &= (u16)Button::Z_TRIG;
 		}
 		else
 		{
