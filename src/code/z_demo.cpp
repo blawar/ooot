@@ -1602,10 +1602,12 @@ void Cutscene_ProcessCommands(GlobalContext* globalCtx, CutsceneContext* csCtx, 
         return;
     }
 
+#ifdef OOT_DEBUG_ROM
     if (CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_DRIGHT)) {
         csCtx->state = CS_STATE_UNSKIPPABLE_INIT;
         return;
     }
+#endif
 
     for (i = 0; i < totalEntries; i++) {
         MemCopy(&cmdType, cutscenePtr, sizeof(CutsceneData));
