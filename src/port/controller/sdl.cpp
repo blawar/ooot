@@ -20,14 +20,6 @@
 #include "tas.h"
 #include "def/z_player_lib.h"
 
-#ifndef __SWITCH__
-#define DEADZONE 20
-#define RDEADZONE 20
-#else
-#define DEADZONE 0
-#define RDEADZONE 0
-#endif
-
 #define INITIAL_PEAK 0x8000
 
 #ifdef ENABLE_GYRO

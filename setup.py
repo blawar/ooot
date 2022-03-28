@@ -70,6 +70,9 @@ def main():
     parser.add_argument("--enable-debug-level-select", help="Enable debug level select on save 1", action="store_true", default=False)
     parser.add_argument("-t", "--text-speed", choices=['1', '2', '3', '4', '5', '10', '20'], help="Text scroll speed scaler", default='1')
     parser.add_argument("--pause-exit-input-clear-frames", choices=['0', '2', '3', '4', '5'], help="Number of frames to clear input state after pause menu exits (For speed-running, 0 disables)", default='2')
+    parser.add_argument("--left-deadzone", help="Left analog stick deadzone", type=int, default=20)
+    parser.add_argument("--right-deadzone", help="Right analog stick deadzone", type=int, default=20)
+
     args = parser.parse_args()
 
     if args.buildRom:
@@ -83,6 +86,8 @@ def main():
     defines = []
     defines.append('ENABLE_%sFPS' % args.framerate)
     defines.append('TEXT_SPEED_SCALER=%s' % args.text_speed)
+    defines.append('DEADZONE=%s' % args.left_deadzone)
+    defines.append('RDEADZONE=%s' % args.right_deadzone)
 
     if args.enable_mouse:
         defines.append('ENABLE_MOUSE')

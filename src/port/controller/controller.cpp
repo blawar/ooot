@@ -281,12 +281,16 @@ namespace oot::hid
 			this->r_stickMag = 64;
 		}
 
-		if(isGyroEnabled() && this->r_stickMag > 4)
+		if(isGyroEnabled() && this->r_stickMag > RDEADZONE)
 		{
 			this->stickMag = this->r_stickMag;
 			this->stickX = this->r_stickX;
 			this->stickY = this->r_stickY;
 
+			this->m_state.stick_x = this->m_state.r_stick_x;
+			this->m_state.stick_y = this->m_state.r_stick_y;
+
+			this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
 			this->r_stickY = this->r_stickX = this->r_stickMag = 0;
 		}
 	}
