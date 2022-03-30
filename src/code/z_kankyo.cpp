@@ -1676,7 +1676,7 @@ void Environment_DrawRain(GlobalContext* globalCtx, View* view, GraphicsContext*
             vec.z = windDirection.z;
             length = sqrtf(SQXZ(vec));
 
-            gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+            gSPMatrix(POLY_XLU_DISP++, SEGMENT_ADDRESS(0x01000000), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             rotX = Math_Atan2F(length, -vec.y);
             rotY = Math_Atan2F(vec.z, vec.x);
             Matrix_RotateY(-rotY, MTXMODE_APPLY);
@@ -1959,7 +1959,7 @@ void Environment_DrawLightning(GlobalContext* globalCtx, s32 unused) {
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(lightningTextures[sLightningBolts[i].textureIndex]));
             func_80094C50(globalCtx->state.gfxCtx);
-            gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+            gSPMatrix(POLY_XLU_DISP++, SEGMENT_ADDRESS(0x01000000), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             gSPDisplayList(POLY_XLU_DISP++, gEffLightningDL);
         }
     }
