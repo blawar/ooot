@@ -28,7 +28,6 @@ uintptr_t gSegments[NUM_SEGMENTS];
 AudioMgr gAudioMgr;
 
 u8 osAppNmiBuffer[0x40];
-UNK_TYPE D_06000000;
 u32 osResetType = 0;
 
 //u64 osClockRate = OS_CLOCK_RATE;
