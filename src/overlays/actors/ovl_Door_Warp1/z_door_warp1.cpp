@@ -188,9 +188,11 @@ void DoorWarp1_SetupWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
                 (GET_PLAYER(globalCtx)->actor.params & 0xF00) != 0x200) {
                 Actor_Kill(&pthis->actor);
             }
+#ifdef N64_VERSION
             if (Actor_WorldDistXZToActor(&player->actor, &pthis->actor) > 100.0f) {
                 Actor_Kill(&pthis->actor);
             }
+#endif
             DoorWarp1_SetupAction(pthis, DoorWarp1_Destination);
             break;
         case WARP_UNK_7:
