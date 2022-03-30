@@ -8,6 +8,8 @@
 
 **Discord:** <https://discord.com/invite/8tktBEhbZm>
 
+MattsCreative has a great video tutorial on how to compile this project here: <https://youtu.be/swv1Tv-kjsU>
+
 ## Contributers
 The current main contributers of this project are [blawar](https://github.com/blawar) and [DaMarkov](https://github.com/damarkov)
 
