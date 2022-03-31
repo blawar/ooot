@@ -134,24 +134,17 @@ void aInterleaveImpl(uint16_t dest, uint16_t left, uint16_t right, uint16_t c) {
     int16_t *l = BUF_S16(left);
     int16_t *r = BUF_S16(right);
     int16_t *d = BUF_S16(dest);
-    while (count > 0) {
-        int16_t l0 = *l++;
-        int16_t l1 = *l++;
-        int16_t l2 = *l++;
-        int16_t l3 = *l++;
-        int16_t r0 = *r++;
-        int16_t r1 = *r++;
-        int16_t r2 = *r++;
-        int16_t r3 = *r++;
-        *d++ = l0;
-        *d++ = r0;
-        *d++ = l1;
-        *d++ = r1;
-        *d++ = l2;
-        *d++ = r2;
-        *d++ = l3;
-        *d++ = r3;
-        --count;
+
+    for(u32 x = 0; x < count; x++)
+    {
+	    *d++ = *r++;
+	    *d++ = *l++;
+	    *d++ = *r++;
+	    *d++ = *l++;
+	    *d++ = *r++;
+	    *d++ = *l++;
+	    *d++ = *r++;
+	    *d++ = *l++;
     }
 }
 
