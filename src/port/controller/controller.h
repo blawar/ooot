@@ -39,14 +39,15 @@ namespace oot::hid
 		STICK_X_DOWN = 1 << 19,
 		STICK_X_UP = 1 << 18,
 		WALK_BUTTON = 1 << 20,
-		OCARINA = 1 << 21,
-		HOOKSHOT = 1 << 22,
-		BOW_ARROW = 1 << 23,
-		LENS_OF_TRUTH = 1 << 24,
-		BOOTS_TOGGLE = 1 << 25,
-		SWORD_TOGGLE = 1 << 26,
-		SHIELD_TOGGLE = 1 << 27,
-		TUNIC_TOGGLE = 1 << 28
+		DEBUG_MENU = 1 << 21,
+		OCARINA = 1 << 22,
+		HOOKSHOT = 1 << 23,
+		BOW_ARROW = 1 << 24,
+		LENS_OF_TRUTH = 1 << 25,
+		BOOTS_TOGGLE = 1 << 26,
+		SWORD_TOGGLE = 1 << 27,
+		SHIELD_TOGGLE = 1 << 28,
+		TUNIC_TOGGLE = 1 << 29
 	};
 
 	class State

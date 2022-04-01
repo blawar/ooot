@@ -127,6 +127,8 @@ namespace oot::hid
 			if(input == "WALK_BUTTON")
 				return Button::WALK_BUTTON;
 
+			if(input == "DEBUG_MENU")
+				return Button::DEBUG_MENU;
 			if(input == "OCARINA")
 				return Button::OCARINA;
 			if(input == "HOOKSHOT")
@@ -181,6 +183,8 @@ namespace oot::hid
 				m_keyBindings[SDL_SCANCODE_F3] = Button::SHIELD_TOGGLE;
 				m_keyBindings[SDL_SCANCODE_F4] = Button::TUNIC_TOGGLE;
 
+				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
+
 #ifndef __SWITCH__
 				loadKeyBindings();
 #endif
@@ -216,6 +220,8 @@ namespace oot::hid
 				m_keyBindings[SDL_SCANCODE_F2] = Button::SWORD_TOGGLE;
 				m_keyBindings[SDL_SCANCODE_F3] = Button::SHIELD_TOGGLE;
 				m_keyBindings[SDL_SCANCODE_F4] = Button::TUNIC_TOGGLE;
+
+				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
 			}
 
 			void loadKeyBindings()
@@ -427,6 +433,9 @@ namespace oot::hid
 										break;
 									case WALK_BUTTON:
 										walk = true;
+										break;
+									case DEBUG_MENU:
+										m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
 										break;
 								}
 

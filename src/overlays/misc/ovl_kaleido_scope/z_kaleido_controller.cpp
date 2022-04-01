@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include <functional>
 #include "port/player/players.h"
+#include "port/options.h"
 #include "z_kaleido_scope.h"
 #include "def/z_lib.h"
 #include "textures/icon_item_static/icon_item_static.h"
@@ -15,6 +16,8 @@
 #include "def/z_rcp.h"
 
 extern void* sGameOverTexs[];
+class Hotspot;
+typedef std::function<void(Hotspot*)> HotspotClickHandler;
 
 #define DIRECTION_MULT 2
 #define HOTSPOT_MAX_ANGLE 60
@@ -78,7 +81,6 @@ void drawTextureRGBA32(GraphicsContext* __gfxCtx, s16 x, s16 y, u16 width, u16 h
 		gRingBufferVtx[gRingBufferIndex][2] = VTX(x + width, y + height, 0, qs105(0 + width), qs105(0), 255, 255, 255, 255);
 		gRingBufferVtx[gRingBufferIndex][3] = VTX(x, y + height, 0, qs105(0), qs105(0), 255, 255, 255, 255);
 	}
-	
 
 	gDPLoadTextureBlock(POLY_OPA_DISP++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 	gSPVertex(POLY_OPA_DISP++, gRingBufferVtx[gRingBufferIndex], 4, 0);
@@ -105,21 +107,42 @@ class Image
 class Hotspot
 {
 	public:
-	Hotspot() : m_name(nullptr), m_x(0), m_y(0), m_index(0), m_up(nullptr), m_right(nullptr), m_down(nullptr), m_left(nullptr), m_onClick(nullptr), m_image(nullptr), m_size(1), m_pageRight(false), m_pageLeft(false)
+	Hotspot() : m_name(nullptr), m_x(0), m_y(0), m_index(0), m_up(nullptr), m_right(nullptr), m_down(nullptr), m_left(nullptr), m_onClick(nullptr), m_images(), m_size(1), m_pageRight(false), m_pageLeft(false)
 	{
 	}
 
-	Hotspot(const char* name, int x, int y, const std::function<void()> onClick = nullptr, Image* image = nullptr, u8 size = 1) :
-	    m_name(name), m_x(x), m_y(y), m_index(0), m_up(nullptr), m_right(nullptr), m_down(nullptr), m_left(nullptr), m_onClick(onClick), m_image(image), m_size(size), m_pageRight(false), m_pageLeft(false)
+	Hotspot(const char* name, int x, int y, const HotspotClickHandler onClick = nullptr, Image* image = nullptr, u8 size = 1) :
+	    m_name(name), m_x(x), m_y(y), m_index(0), m_up(nullptr), m_right(nullptr), m_down(nullptr), m_left(nullptr), m_onClick(onClick), m_images(), m_size(size), m_pageRight(false), m_pageLeft(false)
 	{
-	}
-
-	void draw(GraphicsContext* __gfxCtx)
-	{
-		if(m_image && m_image->texture)
+		if(image)
 		{
-			drawTextureRGBA32(__gfxCtx, x() /*+ (m_image->width / 4)*/, y() /*- (m_image->height / 4)*/, m_image->width, m_image->height, m_image->texture, true, m_image->scale);
+			addImage(image);
 		}
+	}
+
+	virtual void addImage(Image* img)
+	{
+		m_images.push_back(std::move(std::unique_ptr<Image>(img)));
+	}
+
+	virtual void draw(GraphicsContext* __gfxCtx)
+	{
+		auto img = image();
+
+		if(img && img->texture)
+		{
+			drawTextureRGBA32(__gfxCtx, x(), y(), img->width, img->height, img->texture, true, img->scale);
+		}
+	}
+
+	Image* image(u16 i = 0)
+	{
+		if(i >= m_images.size())
+		{
+			return nullptr;
+		}
+
+		return m_images[i].get();
 	}
 
 	void markPageRight()
@@ -235,7 +258,7 @@ class Hotspot
 		return m_left;
 	}
 
-	const std::function<void()>& onClick() const
+	const HotspotClickHandler& onClick() const
 	{
 		return m_onClick;
 	}
@@ -257,11 +280,44 @@ class Hotspot
 	Hotspot* m_right;
 	Hotspot* m_down;
 	Hotspot* m_left;
-	std::function<void()> m_onClick;
-	Image* m_image;
+	HotspotClickHandler m_onClick;
+	std::vector<std::unique_ptr<Image>> m_images;
 	u8 m_size;
 	bool m_pageRight;
 	bool m_pageLeft;
+};
+
+class Checkbox : public Hotspot
+{
+	public:
+	Checkbox() : Hotspot(), imageOn(nullptr), value(nullptr)
+	{
+	}
+
+	Checkbox(const char* name, int x, int y, const HotspotClickHandler onClick = nullptr, Image* imageOff = nullptr, Image* imageOn = nullptr, u8 size = 1) : Hotspot(name, x, y, onClick, imageOff, size), imageOn(imageOn), value(nullptr)
+	{
+		addImage(imageOff);
+		addImage(imageOn);
+	}
+
+	void draw(GraphicsContext* __gfxCtx) override
+	{
+		if(!value)
+		{
+			return;
+		}
+
+		auto img = *value ? image(1) : image(0);
+
+		if(img && img->texture)
+		{
+			drawTextureRGBA32(__gfxCtx, x(), y(), img->width, img->height, img->texture, true, img->scale);
+		}
+	}
+
+	protected:
+	Image* imageOn;
+	bool* value;
 };
 
 class Hotspots
@@ -344,7 +400,7 @@ class Hotspots
 
 		if(cur->onClick() != nullptr)
 		{
-			cur->onClick()();
+			cur->onClick()(cur);
 		}
 	}
 
@@ -473,36 +529,39 @@ class ControllerHotspots : public Hotspots
 	public:
 	ControllerHotspots() : Hotspots()
 	{
-		auto start = add(new Hotspot("Remap Start", ADJUST_X(64), ADJUST_Y(45), []() { oot::player(0).rebind(oot::hid::Button::START_BUTTON); }));
-		auto a_button = add(new Hotspot("Remap A", ADJUST_X(98), ADJUST_Y(53), []() { oot::player(0).rebind(oot::hid::Button::A_BUTTON); }));
-		auto b_button = add(new Hotspot("Remap B", ADJUST_X(89), ADJUST_Y(44), []() { oot::player(0).rebind(oot::hid::Button::B_BUTTON); }));
+		auto start = add(new Hotspot("Remap Start", ADJUST_X(64), ADJUST_Y(45), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::START_BUTTON); }));
+		auto a_button = add(new Hotspot("Remap A", ADJUST_X(98), ADJUST_Y(53), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::A_BUTTON); }));
+		auto b_button = add(new Hotspot("Remap B", ADJUST_X(89), ADJUST_Y(44), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::B_BUTTON); }));
 		// auto joystick = add(new Hotspot("Joystick", ADJUST_X(65), ADJUST_Y(70)));
-		auto z_button = add(new Hotspot("Remap Z", ADJUST_X(65), ADJUST_Y(80), []() { oot::player(0).rebind(oot::hid::Button::Z_TRIG); }));
-		auto c_right = add(new Hotspot("Remap C-Right", ADJUST_X(115), ADJUST_Y(36), []() { oot::player(0).rebind(oot::hid::Button::R_CBUTTONS); }));
-		auto c_left = add(new Hotspot("Remap C-Left", ADJUST_X(100), ADJUST_Y(36), []() { oot::player(0).rebind(oot::hid::Button::L_CBUTTONS); }));
-		auto c_up = add(new Hotspot("Remap C-Up", ADJUST_X(108), ADJUST_Y(29), []() { oot::player(0).rebind(oot::hid::Button::U_CBUTTONS); }));
-		auto c_down = add(new Hotspot("Remap C-Down", ADJUST_X(108), ADJUST_Y(43), []() { oot::player(0).rebind(oot::hid::Button::D_CBUTTONS); }));
-		auto up = add(new Hotspot("Remap Up", ADJUST_X(25), ADJUST_Y(33), []() { oot::player(0).rebind(oot::hid::Button::U_JPAD); }));
-		auto down = add(new Hotspot("Remap Down", ADJUST_X(25), ADJUST_Y(48), []() { oot::player(0).rebind(oot::hid::Button::D_JPAD); }));
-		auto left = add(new Hotspot("Remap Left", ADJUST_X(18), ADJUST_Y(41), []() { oot::player(0).rebind(oot::hid::Button::L_JPAD); }));
-		auto right = add(new Hotspot("Remap Right", ADJUST_X(33), ADJUST_Y(41), []() { oot::player(0).rebind(oot::hid::Button::R_JPAD); }));
-		auto l_button = add(new Hotspot("Remap L", ADJUST_X(25), ADJUST_Y(15), []() { oot::player(0).rebind(oot::hid::Button::L_TRIG); }));
-		auto r_button = add(new Hotspot("Remap R", ADJUST_X(104), ADJUST_Y(15), []() { oot::player(0).rebind(oot::hid::Button::R_TRIG); }));
+		auto z_button = add(new Hotspot("Remap Z", ADJUST_X(65), ADJUST_Y(80), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::Z_TRIG); }));
+		auto c_right = add(new Hotspot("Remap C-Right", ADJUST_X(115), ADJUST_Y(36), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::R_CBUTTONS); }));
+		auto c_left = add(new Hotspot("Remap C-Left", ADJUST_X(100), ADJUST_Y(36), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::L_CBUTTONS); }));
+		auto c_up = add(new Hotspot("Remap C-Up", ADJUST_X(108), ADJUST_Y(29), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::U_CBUTTONS); }));
+		auto c_down = add(new Hotspot("Remap C-Down", ADJUST_X(108), ADJUST_Y(43), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::D_CBUTTONS); }));
+		auto up = add(new Hotspot("Remap Up", ADJUST_X(25), ADJUST_Y(33), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::U_JPAD); }));
+		auto down = add(new Hotspot("Remap Down", ADJUST_X(25), ADJUST_Y(48), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::D_JPAD); }));
+		auto left = add(new Hotspot("Remap Left", ADJUST_X(18), ADJUST_Y(41), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::L_JPAD); }));
+		auto right = add(new Hotspot("Remap Right", ADJUST_X(33), ADJUST_Y(41), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::R_JPAD); }));
+		auto l_button = add(new Hotspot("Remap L", ADJUST_X(25), ADJUST_Y(15), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::L_TRIG); }));
+		auto r_button = add(new Hotspot("Remap R", ADJUST_X(104), ADJUST_Y(15), [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::R_TRIG); }));
 
-		auto shield = add(new Hotspot("Remap Shield", 95 - (2 * 16), -60, []() { oot::player(0).rebind(oot::hid::Button::SHIELD_TOGGLE); }, new Image(32, 32, gDekuShieldIconTex, 0.5f), 8));
-		auto tunic = add(new Hotspot("Remap Tunic", 95 - (1 * 16), -60, []() { oot::player(0).rebind(oot::hid::Button::TUNIC_TOGGLE); }, new Image(32, 32, gKokiriTunicIconTex, 0.5f), 8));
-		auto boots = add(new Hotspot("Remap Boots", 95 - (0 * 16), -60, []() { oot::player(0).rebind(oot::hid::Button::BOOTS_TOGGLE); }, new Image(32, 32, gKokiriBootsIconTex, 0.5f), 8));
+		auto shield = add(new Hotspot(
+		    "Remap Shield", 95 - (2 * 16), -60, [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::SHIELD_TOGGLE); }, new Image(32, 32, gDekuShieldIconTex, 0.5f), 8));
+		auto tunic = add(new Hotspot(
+		    "Remap Tunic", 95 - (1 * 16), -60, [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::TUNIC_TOGGLE); }, new Image(32, 32, gKokiriTunicIconTex, 0.5f), 8));
+		auto boots = add(new Hotspot(
+		    "Remap Boots", 95 - (0 * 16), -60, [](Hotspot* hotspot) { oot::player(0).rebind(oot::hid::Button::BOOTS_TOGGLE); }, new Image(32, 32, gKokiriBootsIconTex, 0.5f), 8));
 
-		auto reset = add(new Hotspot("Reset Bindings", 95, 49, []() { oot::player(0).resetBindings(); }, new Image(32, 32, gResetTex, 0.5f), 8));
+		auto reset = add(new Hotspot(
+		    "Reset Bindings", 95, 49, [](Hotspot* hotspot) { oot::player(0).resetBindings(); }, new Image(32, 32, gResetTex, 0.5f), 8));
 
 		c_right->markPageRight();
 		left->markPageLeft();
 		boots->markPageRight();
 		reset->markPageRight();
 		l_button->markPageLeft();
-		update();
 
-		return;
+		update();
 	}
 };
 
@@ -616,8 +675,6 @@ void KaleidoScope_DrawController(GlobalContext* globalCtx, oot::pause::Page* pag
 		}
 	}
 
-	
-
 	CLOSE_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
 	return;
 }
@@ -698,4 +755,4 @@ namespace oot::pause::page
 		width = sz;
 		height = sz;
 	}
-} // namespace oot::pause
+} // namespace oot::pause::page
