@@ -1133,6 +1133,11 @@ namespace oot::pause
 			return {r.x, 0.0f, r.y};
 		}
 
+		u16 size() const
+		{
+			return m_pages.size();
+		}
+
 		void add(std::unique_ptr<Page>&& page)
 		{
 			m_pages.push_back(std::move(page));
@@ -3097,6 +3102,30 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 		}
 	}
 
+	void createPages()
+	{
+		if(sInDungeonScene)
+		{
+			gPages.add(std::make_unique<oot::pause::page::Item>());
+			gPages.add(std::make_unique<oot::pause::page::dungeon::Map>());
+			gPages.add(std::make_unique<oot::pause::page::Quest>());
+#ifndef DISABLE_EXTRA_OPTIONS
+			gPages.add(std::make_unique<oot::pause::page::Controller>());
+#endif
+			gPages.add(std::make_unique<oot::pause::page::Equip>());
+		}
+		else
+		{
+			gPages.add(std::make_unique<oot::pause::page::Item>());
+			gPages.add(std::make_unique<oot::pause::page::Map>());
+			gPages.add(std::make_unique<oot::pause::page::Quest>());
+#ifndef DISABLE_EXTRA_OPTIONS
+			gPages.add(std::make_unique<oot::pause::page::Controller>());
+#endif
+			gPages.add(std::make_unique<oot::pause::page::Equip>());
+		}
+	}
+
 	void KaleidoScope_Update(GlobalContext * globalCtx)
 	{
 		static s16 D_8082B258 = 0;
@@ -3117,6 +3146,11 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 		s16 stepB;
 		s16 stepA;
 		s32 pad;
+
+		if(gPages.size() == 0)
+		{
+			createPages();
+		}
 
 		if((R_PAUSE_MENU_MODE >= 3) && (((pauseCtx->state >= 4) && (pauseCtx->state <= 7)) || ((pauseCtx->state >= 0xA) && (pauseCtx->state <= 0x12))))
 		{
@@ -3252,26 +3286,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 				gPages.clear();
 
-				if(sInDungeonScene)
-				{
-					gPages.add(std::make_unique<oot::pause::page::Item>());
-					gPages.add(std::make_unique<oot::pause::page::dungeon::Map>());
-					gPages.add(std::make_unique<oot::pause::page::Quest>());
-#ifndef DISABLE_EXTRA_OPTIONS
-					gPages.add(std::make_unique<oot::pause::page::Controller>());
-#endif
-					gPages.add(std::make_unique<oot::pause::page::Equip>());
-				}
-				else
-				{
-					gPages.add(std::make_unique<oot::pause::page::Item>());
-					gPages.add(std::make_unique<oot::pause::page::Map>());
-					gPages.add(std::make_unique<oot::pause::page::Quest>());
-#ifndef DISABLE_EXTRA_OPTIONS
-					gPages.add(std::make_unique<oot::pause::page::Controller>());
-#endif
-					gPages.add(std::make_unique<oot::pause::page::Equip>());
-				}
+				createPages();
 
 				gPages.update();
 
@@ -3841,9 +3856,11 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 				}
 				break;
 
-			case 0xA:
+			case 0xA: // death start ?
+
 			{
 				auto map = gPages.find(PAUSE_MAP);
+
 				map->cursorSlot() = map->cursorPoint() = pauseCtx->dungeonMapSlot = VREG(30) + 3;
 			}
 				PAUSE_LEFT_CARET = PAUSE_LEFT_CARET_ORIGINAL_X;
