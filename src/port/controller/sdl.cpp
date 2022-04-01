@@ -443,6 +443,9 @@ namespace oot::hid
 							case WALK_BUTTON:
 								walk = true;
 								break;
+							case DEBUG_MENU:
+								m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+								break;
 							}
 
 							if((u32)input >= (u32)Button::OCARINA && (u32)input <= (u32)Button::TUNIC_TOGGLE)
