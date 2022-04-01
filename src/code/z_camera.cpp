@@ -7794,10 +7794,10 @@ s32 Camera_ChangeModeFlags(Camera* camera, s16 mode, u8 flags) {
 	    case CAM_MODE_BOWARROWZ:
 	    case CAM_MODE_HOOKSHOT:
 	    case CAM_MODE_SLINGSHOT:
-	    oot::hid::gyroEnable();
+	    oot::hid::firstPersonEnable();
         break;
 	    default:
-	    oot::hid::gyroDisable();
+	    oot::hid::firstPersonDisable();
     }
 
     if (camera->unk_14C & 0x20 && flags == 0) {
