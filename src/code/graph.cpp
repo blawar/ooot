@@ -20,6 +20,7 @@
 #include "def/TwoHeadArena.h"
 #include "def/audio.h"
 #include "def/createmesgqueue.h"
+#include "def/sys_cfb.h"
 #include "def/fault.h"
 #include "def/game.h"
 #include "def/gettime.h"
@@ -50,8 +51,6 @@ OSTime sGraphSetTaskTime;
 FaultClient sGraphFaultClient;
 CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
-
-uintptr_t SysCfb_GetFbPtr(s32 idx);
 
 bool isRunning();
 

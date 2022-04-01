@@ -11,7 +11,7 @@
 Gfx D_8012AFB0[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_FILL),
-    gsDPSetColorImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 0x0F000000),
+    gsDPSetColorImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, SEGMENT_ADDRESS(0x0F000000)),
     gsDPSetFillColor((GPACK_RGBA5551(65, 65, 65, 1) << 16) | GPACK_RGBA5551(65, 65, 65, 1)),
     gsDPFillRectangle(0, 0, 319, 239),
     gsDPPipeSync(),
