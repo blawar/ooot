@@ -124,8 +124,8 @@ namespace oot::hid
 	};
 
 	bool isTasPlaying();
-	void gyroEnable();
-	void gyroDisable();
-	bool isGyroEnabled();
+	void firstPersonEnable();
+	void firstPersonDisable();
+	bool isFirstPerson();
 	void clearPressedButtons(u16 frames = 1);
 } // namespace oot::hid

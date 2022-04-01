@@ -11,23 +11,33 @@
 #define TAS_DIR "tas"
 #endif
 
+static inline int8_t invert(const int8_t value)
+{
+	if(value <= -128)
+	{
+		return 127;
+	}
+
+	return -value;
+}
+
 namespace oot::hid
 {
-	static bool g_gyroEnabled = false;
+	static bool g_firstPersonEnabled = false;
 
-	void gyroEnable()
+	void firstPersonEnable()
 	{
-		g_gyroEnabled = true;
+		g_firstPersonEnabled = true;
 	}
 
-	void gyroDisable()
+	void firstPersonDisable()
 	{
-		g_gyroEnabled = false;
+		g_firstPersonEnabled = false;
 	}
 
-	bool isGyroEnabled()
+	bool isFirstPerson()
 	{
-		return g_gyroEnabled;
+		return g_firstPersonEnabled;
 	}
 
 	static u16 gClearButtonPressFrames = 0;
@@ -169,6 +179,11 @@ namespace oot::hid
 		}
 #endif
 
+		if(isFirstPerson())
+		{
+			m_state.stick_y = invert(m_state.stick_y);
+		}
+
 		rawStickX     = m_state.stick_x;
 		rawStickY     = m_state.stick_y;
 		r_rawStickX   = m_state.r_stick_x;
@@ -265,7 +280,7 @@ namespace oot::hid
 			this->r_stickMag = 64;
 		}
 
-		if(isGyroEnabled() && this->r_stickMag > RDEADZONE)
+		if(isFirstPerson() && this->r_stickMag > RDEADZONE)
 		{
 			this->stickMag = this->r_stickMag;
 			this->stickX = this->r_stickX;

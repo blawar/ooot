@@ -383,7 +383,7 @@ namespace oot::hid
 				m_state.r_stick_y = stickRightY();
 
 #ifdef ENABLE_GYRO
-				if(m_hasGyro && isGyroEnabled())
+				if(m_hasGyro && isFirstPerson())
 				{
 					float values[3] = {0, 0, 0};
 
@@ -398,7 +398,7 @@ namespace oot::hid
 					}
 				}
 
-				if(m_hasAccel && isGyroEnabled())
+				if(m_hasAccel && isFirstPerson())
 				{
 					float values[3] = {0, 0, 0};
 
