@@ -163,6 +163,11 @@ namespace oot::hid
 
 				if(!m_haptic)
 				{
+					m_haptic = SDL_HapticOpen(m_index);
+				}
+
+				if(!m_haptic)
+				{
 					return false;
 				}
 
@@ -194,12 +199,12 @@ namespace oot::hid
 			{
 				if(m_rumbleTimer)
 				{
-					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 1 * 1000 / 20);
+					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 2 * 1000 / 20);
 					m_rumbleTimer--;
 				}
 				else if(m_rumbleStrengh && m_rumbleStrengh != 255)
 				{
-					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 1 * 1000 / 20);
+					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 2 * 1000 / 20);
 
 					if(m_rumbleStrengh < m_rumbleDecay)
 					{
@@ -602,6 +607,8 @@ namespace oot::hid
 		}
 
 		g_haptics = SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0;
+
+		SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
 	}
 
 	SDL::~SDL()
