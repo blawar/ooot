@@ -48,7 +48,7 @@ namespace oot::hid
 		class SDL : public Controller
 		{
 			public:
-			SDL(SDL_GameController* controller, int index) : Controller(), m_context(controller), m_index(index), m_haptic(nullptr)
+			SDL(SDL_GameController* controller, int index) : Controller(), m_context(controller), m_index(index), m_haptic(nullptr), m_rumbleTimer(0), m_rumbleStrengh(0), m_rumbleDecay(0)
 			{
 				m_motorEnabled = initHaptics();
 
@@ -190,12 +190,39 @@ namespace oot::hid
 				}
 			}
 
+			void rumble()
+			{
+				if(m_rumbleTimer)
+				{
+					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 1 * 1000 / 20);
+					m_rumbleTimer--;
+				}
+				else if(m_rumbleStrengh && m_rumbleStrengh != 255)
+				{
+					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 1 * 1000 / 20);
+
+					if(m_rumbleStrengh < m_rumbleDecay)
+					{
+						m_rumbleStrengh = 0;
+					}
+					else
+					{
+						m_rumbleStrengh -= m_rumbleDecay;
+					}
+				}
+			}
+
 			void SendMotorEvent(short time, short level, u8 decay = 0) override
 			{
+				m_rumbleTimer = time * 0.75;
+				m_rumbleStrengh = level;
+				m_rumbleDecay = decay;
+				rumble();
+				/*auto x = SDL_GameControllerRumble(this->m_context, 0, level / 255.0f * 0xFFFF, 2 * 1000 / 20);
 				if(m_motorEnabled)
 				{
 					SDL_HapticRumblePlay(m_haptic, level / 100.0f, time * 10);
-				}
+				}*/
 			}
 
 			void ResetMotorPack() override
@@ -552,6 +579,7 @@ namespace oot::hid
 				}
 
 				memcpy(m_lastButtonState, m_buttonState, sizeof(m_lastButtonState));
+				rumble();
 			}
 
 			protected:
@@ -561,6 +589,9 @@ namespace oot::hid
 			std::unordered_map<SDL_GameControllerButton, int> m_keyBindings;
 			u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
 			u8 m_lastButtonState[SDL_CONTROLLER_BUTTON_MAX];
+			u16 m_rumbleTimer;
+			u16 m_rumbleStrengh;
+			u8 m_rumbleDecay;
 		};
 	} // namespace controller
 	SDL::SDL()
