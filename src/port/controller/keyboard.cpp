@@ -274,7 +274,6 @@ namespace oot::hid
 
 			void saveKeyBindings()
 			{
-#ifdef ENABLE_JSON
 				try
 				{
 					rapidjson::Document d;
@@ -284,7 +283,7 @@ namespace oot::hid
 
 					for(const auto i : m_keyBindings)
 					{
-						rapidjson::Value value(getInputName(i.second), allocator);
+						rapidjson::Value value(getInputName((oot::hid::Button)i.second), allocator);
 						rapidjson::Value key(SDL_GetScancodeName(i.first), allocator);
 						d.AddMember(key, value, allocator);
 					}
@@ -294,7 +293,6 @@ namespace oot::hid
 				catch(...)
 				{
 				}
-#endif
 			}
 
 			void clearRebindMode()
@@ -529,10 +527,9 @@ namespace oot::hid
 				m_state.mouse_x += mouse_delta_x * 4;
 				m_state.mouse_y += mouse_delta_y * 4;
 
-				if(mouse_delta_x > 10)
-				{
-					int yy = 0;
-				}
+
+				m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * 4, 0x7F), -0x7F);
+				m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * -4, 0x7F), -0x7F);
 #endif
 
 				if(walk)
@@ -561,9 +558,6 @@ namespace oot::hid
 	{
 		if(!size())
 		{
-#ifdef ENABLE_MOUSE
-			// SDL_SetRelativeMouseMode(SDL_TRUE);
-#endif
 			auto controller = std::make_shared<controller::Keyboard>();
 #ifdef ENABLE_MOUSE
 

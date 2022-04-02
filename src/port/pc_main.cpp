@@ -174,8 +174,14 @@ void main_func(void)
 		oot::config().game().recordTas(true);*/
 #endif
 
-	if (!oot::config().game().isGraphicsDisabled())
+	if(!oot::config().game().isGraphicsDisabled())
+	{
+#ifdef _DEBUG
 		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
+#else
+		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", true);
+#endif
+	}
 
 	if (!oot::config().game().isGraphicsDisabled())
 	{

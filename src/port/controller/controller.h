@@ -1,5 +1,6 @@
 #pragma once
 #include "ultra64/types.h"
+#include <string>
 
 namespace oot::hid
 {
@@ -129,4 +130,10 @@ namespace oot::hid
 	void firstPersonDisable();
 	bool isFirstPerson();
 	void clearPressedButtons(u16 frames = 1);
+
+	namespace controller
+	{
+		const char* getInputName(Button input);
+		Button getInputValue(const std::string& input);
+	}
 } // namespace oot::hid

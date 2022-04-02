@@ -291,6 +291,8 @@ namespace platform::window
 			{
 				on_fullscreen_changed_callback(on);
 			}
+
+			SDL_SetRelativeMouseMode(on ? SDL_TRUE : SDL_FALSE);
 #endif
 		}
 

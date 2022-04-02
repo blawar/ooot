@@ -10,12 +10,10 @@
 #include <SDL2/SDL.h>
 #include "sdl.h"
 #include <unordered_map>
-#ifdef ENABLE_JSON
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/prettywriter.h"
 #include <rapidjson/istreamwrapper.h>
-#endif
 #include <fstream>
 #include "../options.h"
 #include "../player/players.h"
@@ -39,9 +37,7 @@ static int g_rstickY_peak = INITIAL_PEAK;
 extern struct Object* gMarioObject;
 #endif
 
-#ifdef ENABLE_JSON
 bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
-#endif
 
 namespace oot::hid
 {
@@ -49,9 +45,6 @@ namespace oot::hid
 
 	namespace controller
 	{
-		const char* getInputName(int input);
-		int getInputValue(const std::string& input);
-
 		class SDL : public Controller
 		{
 			public:
@@ -99,7 +92,6 @@ namespace oot::hid
 
 			void loadKeyBindings()
 			{
-#ifdef ENABLE_JSON
 				try
 				{
 					std::ifstream ifs("gamepad1.bindings.json", std::ifstream::in);
@@ -135,12 +127,10 @@ namespace oot::hid
 				catch(...)
 				{
 				}
-#endif
 			}
 
 			void saveKeyBindings()
 			{
-#ifdef ENABLE_JSON
 				try
 				{
 					rapidjson::Document d;
@@ -150,7 +140,7 @@ namespace oot::hid
 
 					for(const auto i : m_keyBindings)
 					{
-						rapidjson::Value value(getInputName(i.second), allocator);
+						rapidjson::Value value(getInputName((oot::hid::Button)i.second), allocator);
 						rapidjson::Value key(SDL_GameControllerGetStringForButton(i.first), allocator);
 						d.AddMember(key, value, allocator);
 					}
@@ -160,7 +150,6 @@ namespace oot::hid
 				catch(...)
 				{
 				}
-#endif
 			}
 
 			bool initHaptics()
@@ -617,11 +606,6 @@ namespace oot::hid
 				}
 			}
 		}
-
-#ifdef ENABLE_MOUSE
-		// temporarily change mouse mode to not take over the cursor
-		// SDL_SetRelativeMouseMode(m_controllers.size() ? SDL_FALSE : SDL_TRUE);
-#endif
 	}
 
 	void SDL::resetBindings()
