@@ -27,6 +27,7 @@ namespace oot
 
 		void rebind(int input);
 		bool isRebindMode() const;
+		void SendMotorEvent(short time, short level, u8 decay = 0);
 
 		protected:
 		std::vector<std::shared_ptr<hid::Controller> > m_controllers;

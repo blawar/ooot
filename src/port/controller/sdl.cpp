@@ -55,7 +55,7 @@ namespace oot::hid
 		class SDL : public Controller
 		{
 			public:
-			SDL(SDL_GameController* controller) : Controller(), m_context(controller), m_haptic(nullptr)
+			SDL(SDL_GameController* controller, int index) : Controller(), m_context(controller), m_index(index), m_haptic(nullptr)
 			{
 				m_motorEnabled = initHaptics();
 
@@ -201,16 +201,12 @@ namespace oot::hid
 				}
 			}
 
-			void SendMotorEvent(short time, short level) override
+			void SendMotorEvent(short time, short level, u8 decay = 0) override
 			{
 				if(m_motorEnabled)
 				{
 					SDL_HapticRumblePlay(m_haptic, level / 100.0f, time * 10);
 				}
-			}
-
-			void SendMotorDecay(short level) override
-			{
 			}
 
 			void ResetMotorPack() override
@@ -571,6 +567,7 @@ namespace oot::hid
 
 			protected:
 			SDL_GameController* m_context;
+			int m_index;
 			SDL_Haptic* m_haptic;
 			std::unordered_map<SDL_GameControllerButton, int> m_keyBindings;
 			u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
@@ -579,7 +576,7 @@ namespace oot::hid
 	} // namespace controller
 	SDL::SDL()
 	{
-		if(SDL_Init(SDL_INIT_GAMECONTROLLER) != 0)
+		if(SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) != 0)
 		{
 			fprintf(stderr, "SDL init error: %s\n", SDL_GetError());
 		}
@@ -614,7 +611,7 @@ namespace oot::hid
 
 				if(context)
 				{
-					auto controller = std::make_shared<controller::SDL>(context);
+					auto controller = std::make_shared<controller::SDL>(context, i);
 					m_controllers.push_back(controller);
 					players().attach(controller, 0);
 				}

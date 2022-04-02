@@ -72,11 +72,7 @@ namespace oot::hid
 	{
 	}
 
-	void Controller::SendMotorEvent(short time, short level)
-	{
-	}
-
-	void Controller::SendMotorDecay(short level)
+	void Controller::SendMotorEvent(short time, short level, u8 decay)
 	{
 	}
 

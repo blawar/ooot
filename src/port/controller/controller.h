@@ -112,8 +112,7 @@ namespace oot::hid
 		virtual void merge(const Controller& controller);
 		virtual bool hasMouse() const;
 
-		virtual void SendMotorEvent(short time, short level);
-		virtual void SendMotorDecay(short level);
+		virtual void SendMotorEvent(short time, short level, u8 decay = 0);
 		virtual void ResetMotorPack();
 		virtual void SendMotorVib(int level);
 

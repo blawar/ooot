@@ -77,4 +77,12 @@ namespace oot
 	{
 		return m_rebindInput > 0;
 	}
+
+	void Player::SendMotorEvent(short time, short level, u8 decay)
+	{
+		for(auto& controller : m_controllers)
+		{
+			controller->SendMotorEvent(time, level, decay);
+		}
+	}
 } // namespace oot
