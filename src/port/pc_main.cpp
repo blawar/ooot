@@ -3,6 +3,7 @@
 #define USE_GLIDEN64
 #define DISABLE_AUDIO
 #include "window.h"
+#include "state.h"
 #include "options.h"
 #include "player/players.h"
 #include "controller/tas.h"
@@ -12,6 +13,11 @@
 #include "controller/controllers.h"
 #include "def/audio_rsp.h"
 #include "def/audioMgr.h"
+
+namespace oot
+{
+	State state;
+}
 
 static std::unique_ptr<platform::window::Base> gWindow;
 
@@ -262,7 +268,8 @@ extern "C" {
 			gWindow->setTargetFrameRate(FRAMERATE_MAX / frameRateDivisor());
 			gWindow->end_frame();
 		}
-		/*for(int i=0; i < 3; i++)
+#ifdef SINGLE_THREADED_AUDIO
+		for(int i=0; i < 3; i++)
 		{
 			auto task = getAudioTask();
 
@@ -271,8 +278,8 @@ extern "C" {
 				HLEStart((AZI_OSTask*)&task->task.t);
 				AiUpdate(false);
 			}
-		}*/
-		//audio_thread();
+		}
+#endif
 	}
 
 	float gfx_ar_ratio()

@@ -47,7 +47,8 @@ namespace oot::hid
 		BOOTS_TOGGLE = 1 << 26,
 		SWORD_TOGGLE = 1 << 27,
 		SHIELD_TOGGLE = 1 << 28,
-		TUNIC_TOGGLE = 1 << 29
+		TUNIC_TOGGLE = 1 << 29,
+		FAST_FORWARD = 1 << 30
 	};
 
 	class State

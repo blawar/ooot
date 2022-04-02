@@ -1,11 +1,16 @@
 #include "../window.h"
 #include <thread>
 #include "z64.h"
+#include "state.h"
 #include "../options.h"
+
+#define DROP_FRAME_LIMIT m_refreshInterval
 
 namespace platform::window
 {
-	Base::Base() : /*m_nextFrameTime(0), m_currentFrameStartTime(0), m_lastFrameTime(0),*/ m_lastFrameDuration(0), m_lastSwapDuration(0), dropped_frame(false), m_refreshInterval(0), m_targetFrameRate(60), m_ar_ratio(1.0f), m_ar(1.0f), m_window_width(1280), m_window_height(720)
+	Base::Base() :
+	    /*m_nextFrameTime(0), m_currentFrameStartTime(0), m_lastFrameTime(0),*/ m_lastFrameDuration(0), m_lastSwapDuration(0), dropped_frame(false), m_refreshInterval(0), m_targetFrameRate(60), m_ar_ratio(1.0f), m_ar(1.0f), m_window_width(1280),
+	    m_window_height(720)
 	{
 	}
 
@@ -17,7 +22,6 @@ namespace platform::window
 
 	bool Base::wait_frame_ready()
 	{
-		m_refreshInterval = std::chrono::microseconds(1000 * 1000 / 1);
 		// const auto frameAlignment = (m_refreshRate - (m_lastFrameDuration % m_refreshRate)) / 2;
 		// const std::chrono::time_point<std::chrono::steady_clock> targetFrameStart = m_nextFrameTime - MIN(m_lastFrameDuration + frameAlignment, m_lastSwapDuration);
 		const std::chrono::time_point<std::chrono::high_resolution_clock> targetFrameStart = m_nextFrameTime - m_lastFrameDuration;
@@ -26,7 +30,7 @@ namespace platform::window
 
 		if(timeDelta <= std::chrono::microseconds(0))
 		{
-			dropped_frame = std::chrono::high_resolution_clock::now() > targetFrameStart + m_refreshInterval + std::chrono::milliseconds(2);
+			dropped_frame = std::chrono::high_resolution_clock::now() > targetFrameStart + DROP_FRAME_LIMIT + std::chrono::milliseconds(2);
 
 #if defined(_MSC_VER) && defined(DEBUG)
 			static int dropped_frames = 0;
@@ -51,7 +55,7 @@ namespace platform::window
 
 			if(dropped_frame)
 			{
-				if(timeDelta < m_refreshInterval * -4)
+				if(timeDelta < DROP_FRAME_LIMIT * -4)
 				{
 					m_lastFrameDuration = std::chrono::duration<u64, std::micro>(0);
 					m_nextFrameTime = std::chrono::high_resolution_clock::now();
@@ -59,10 +63,8 @@ namespace platform::window
 				}
 			}
 
-			
 			m_currentFrameStartTime = std::chrono::high_resolution_clock::now();
 			return true;
-			
 		}
 		else
 		{
@@ -75,10 +77,11 @@ namespace platform::window
 	bool Base::begin_frame()
 	{
 		handle_events();
-		if (oot::config().game().isFramePacing())
+		if(oot::config().game().isFramePacing())
 		{
 			while(!wait_frame_ready())
-			{}
+			{
+			}
 		}
 		return !dropped_frame;
 	}
@@ -86,7 +89,7 @@ namespace platform::window
 	bool Base::end_frame()
 	{
 		m_lastFrameTime = std::chrono::high_resolution_clock::now();
-		m_nextFrameTime += std::chrono::microseconds(1000 * 1000 / m_targetFrameRate);
+		m_nextFrameTime += std::chrono::microseconds(1000 * 1000 / (m_targetFrameRate * oot::state.fastForward));
 
 		if(!dropped_frame)
 		{
@@ -97,4 +100,4 @@ namespace platform::window
 
 		return true;
 	}
-}
+} // namespace platform::window

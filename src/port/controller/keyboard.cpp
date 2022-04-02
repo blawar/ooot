@@ -1,5 +1,6 @@
 #include "ultra64/types.h"
 #include "keyboard.h"
+#include "state.h"
 #include "def/z_player_lib.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
@@ -73,6 +74,10 @@ namespace oot::hid
 					return "START_BUTTON";
 				case Button::WALK_BUTTON:
 					return "WALK_BUTTON";
+				case Button::DEBUG_MENU:
+					return "DEBUG_MENU";
+				case Button::FAST_FORWARD:
+					return "FAST_FORWARD";
 
 				case Button::OCARINA:
 					return "OCARINA";
@@ -129,6 +134,8 @@ namespace oot::hid
 
 			if(input == "DEBUG_MENU")
 				return Button::DEBUG_MENU;
+			if(input == "FAST_FORWARD")
+				return Button::FAST_FORWARD;
 			if(input == "OCARINA")
 				return Button::OCARINA;
 			if(input == "HOOKSHOT")
@@ -184,6 +191,7 @@ namespace oot::hid
 				m_keyBindings[SDL_SCANCODE_F4] = Button::TUNIC_TOGGLE;
 
 				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
+				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
 
 #ifndef __SWITCH__
 				loadKeyBindings();
@@ -222,6 +230,7 @@ namespace oot::hid
 				m_keyBindings[SDL_SCANCODE_F4] = Button::TUNIC_TOGGLE;
 
 				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
+				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
 			}
 
 			void loadKeyBindings()
@@ -473,6 +482,26 @@ namespace oot::hid
 							else
 							{
 								this->state().button |= input;
+							}
+						}
+
+						if(m_lastKeyState[scancode] ^ state[scancode])
+						{
+							switch(input)
+							{
+								case FAST_FORWARD:
+									if(m_lastKeyState[scancode] ^ state[scancode])
+									{
+										if(state[scancode])
+										{
+											oot::state.fastForward = 5;
+										}
+										else
+										{
+											oot::state.fastForward = 1;
+										}
+									}
+									break;
 							}
 						}
 					}

@@ -6,6 +6,7 @@
 #include "ultra64/message.h"
 #include "speedmeter.h"
 #include "regs.h"
+#include "state.h"
 #include "z64game.h"
 #include "def/audioMgr.h"
 #include "def/audio.h"
@@ -113,7 +114,7 @@ void audio_thread()
 				AiUpdate(false);
 			}
 
-            targetTime += interval;
+            targetTime += interval / oot::state.fastForward;
 		}
 		else
 		{
@@ -163,7 +164,9 @@ void AudioMgr_Init(AudioMgr* audioMgr, void* stack, OSPri pri, OSId id, SchedCon
     //AudioLoad_SetDmaHandler(DmaMgr_DmaHandler);
     Audio_InitSound();
 
+#ifndef SINGLE_THREADED_AUDIO
     t1 = std::thread(audio_thread);
+#endif
 }
 
 void AudioMgr_Shutdown()
