@@ -17,7 +17,7 @@ namespace oot::hid
 		virtual void update();
 		virtual bool updateRebind(int input);
 		virtual void scan(class Controllers* controllers);
-		virtual void resetBindings() = 0;
+		virtual void resetBindings();
 		virtual bool defaultOnly()
 		{
 			return false;

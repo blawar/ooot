@@ -73,6 +73,7 @@ def main():
     parser.add_argument("--left-deadzone", help="Left analog stick deadzone", type=int, default=20)
     parser.add_argument("--right-deadzone", help="Right analog stick deadzone", type=int, default=20)
     parser.add_argument("--disable-option-remap", help="Removes Remap option page from pause menu", type=int, default=20)
+    parser.add_argument("--disable-xinput", help="Disables XInput on windows", action="store_true", default=False)
 
     args = parser.parse_args()
 
@@ -99,6 +100,9 @@ def main():
     if args.disable_distance_culling:
         defines.append('NO_CULLING')
         
+    if args.disable_xinput:
+        defines.append('DISABLE_XINPUT')        
+
     if args.disable_option_remap:
         defines.append('DISABLE_OPTIONS_REMAP')
 

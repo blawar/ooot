@@ -2,6 +2,7 @@
 #include "tas.h"
 #include "keyboard.h"
 #include "sdl.h"
+#include "xcontroller.h"
 #include <stdexcept>
 #include "../options.h"
 
@@ -66,9 +67,21 @@ namespace oot::hid
 	{
 	}
 
+	void Driver::resetBindings()
+	{
+		for(auto& controller : m_controllers)
+		{
+			controller->resetBindings();
+		}
+	}
+
 	Controllers::Controllers() : m_rebindInput(0)
 	{
+#if defined(_MSC_VER) && !defined(DISABLE_XINPUT)
+		m_drivers.push_back(new hid::driver::XInput());
+#else
 		m_drivers.push_back(new SDL());
+#endif
 
 #ifdef ENABLE_MOUSE
 		m_drivers.push_back(new Keyboard());

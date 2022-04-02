@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
-#include "def/z_player_lib.h"
 #include <SDL2/SDL.h>
 #include "sdl.h"
 #include <unordered_map>
@@ -48,21 +47,11 @@ namespace oot::hid
 		class SDL : public Controller
 		{
 			public:
-			SDL(SDL_GameController* controller, int index) : Controller(), m_context(controller), m_index(index), m_haptic(nullptr), m_rumbleTimer(0), m_rumbleStrengh(0), m_rumbleDecay(0)
+			SDL(SDL_GameController* controller, int index) : Controller(), m_context(controller), m_index(index), m_haptic(nullptr)
 			{
 				m_motorEnabled = initHaptics();
 
-				m_keyBindings[SDL_CONTROLLER_BUTTON_START] = START_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_LEFTSHOULDER] = Z_TRIG;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_RIGHTSHOULDER] = R_TRIG;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_A] = A_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_X] = B_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_B] = A_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_Y] = B_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
+				resetBindingsImpl();
 
 #ifndef __SWITCH__
 				loadKeyBindings();
@@ -74,7 +63,7 @@ namespace oot::hid
 				closeHaptics();
 			}
 
-			void resetBindings() override
+			void resetBindingsImpl() // dont want to call virtual functions from constructor
 			{
 				m_keyBindings.clear();
 				m_keyBindings[SDL_CONTROLLER_BUTTON_START] = START_BUTTON;
@@ -88,6 +77,11 @@ namespace oot::hid
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
+			}
+
+			void resetBindings() override
+			{
+				resetBindingsImpl();
 			}
 
 			void loadKeyBindings()
@@ -195,39 +189,9 @@ namespace oot::hid
 				}
 			}
 
-			void rumble()
+			void vibrate() override
 			{
-				if(m_rumbleTimer)
-				{
-					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 2 * 1000 / 20);
-					m_rumbleTimer--;
-				}
-				else if(m_rumbleStrengh && m_rumbleStrengh != 255)
-				{
-					SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 2 * 1000 / 20);
-
-					if(m_rumbleStrengh < m_rumbleDecay)
-					{
-						m_rumbleStrengh = 0;
-					}
-					else
-					{
-						m_rumbleStrengh -= m_rumbleDecay;
-					}
-				}
-			}
-
-			void SendMotorEvent(short time, short level, u8 decay = 0) override
-			{
-				m_rumbleTimer = time * 0.75;
-				m_rumbleStrengh = level;
-				m_rumbleDecay = decay;
-				rumble();
-				/*auto x = SDL_GameControllerRumble(this->m_context, 0, level / 255.0f * 0xFFFF, 2 * 1000 / 20);
-				if(m_motorEnabled)
-				{
-					SDL_HapticRumblePlay(m_haptic, level / 100.0f, time * 10);
-				}*/
+				SDL_GameControllerRumble(this->m_context, 0, m_rumbleStrengh / 255.0f * 0xFFFF, 2 * 1000 / 20);
 			}
 
 			void ResetMotorPack() override
@@ -379,7 +343,7 @@ namespace oot::hid
 					return;
 				}
 
-				bool walk = false;
+				m_state.m_walk = false;
 				SDL_GameControllerUpdate();
 
 				if(m_context != NULL && !SDL_GameControllerGetAttached(m_context))
@@ -440,115 +404,18 @@ namespace oot::hid
 				{
 					if(m_buttonState[scancode])
 					{
-						if(input > 0xFFFF)
-						{
-							switch(input)
-							{
-								case STICK_X_DOWN:
-									m_state.stick_y = -128;
-									break;
-								case STICK_X_UP:
-									m_state.stick_y = 127;
-									break;
-								case STICK_X_LEFT:
-									m_state.stick_x = -128;
-									break;
-								case STICK_X_RIGHT:
-									m_state.stick_x = 127;
-									break;
-								case WALK_BUTTON:
-									walk = true;
-									break;
-								case DEBUG_MENU:
-									m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
-									break;
-								case FAST_FORWARD:
-									break;
-							}
-
-							if((u32)input >= (u32)Button::OCARINA && (u32)input <= (u32)Button::TUNIC_TOGGLE)
-							{
-								if(!m_lastButtonState[scancode])
-								{
-									switch(input)
-									{
-										case Button::OCARINA:
-											Player_EquipOcarina();
-											break;
-										case Button::BOW_ARROW:
-											Player_EquipBow();
-											break;
-										case Button::LENS_OF_TRUTH:
-											Player_EquipLensOfTruth();
-											break;
-										case Button::BOOTS_TOGGLE:
-											Player_ToggleBoots();
-											break;
-										case Button::SWORD_TOGGLE:
-											Player_ToggleSword();
-											break;
-										case Button::SHIELD_TOGGLE:
-											Player_ToggleShield();
-											break;
-										case Button::TUNIC_TOGGLE:
-											Player_ToggleTunic();
-											break;
-									}
-								}
-							}
-						}
-						else
-						{
-							m_state.button |= input;
-						}
+						processKey(input);
 					}
 
 					if(m_lastButtonState[scancode] ^ m_buttonState[scancode])
 					{
-						switch(input)
+						if(m_buttonState[scancode])
 						{
-							case FAST_FORWARD:
-								if(m_buttonState[scancode])
-								{
-									oot::state.fastForward = 5;
-								}
-								else
-								{
-									oot::state.fastForward = 1;
-								}
-								break;
-						}
-					}
-				}
-
-				if(oot::config().camera().useClassicCamera())
-				{
-					int16_t leftx = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTX);
-					int16_t lefty = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTY);
-					int16_t rightx = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_RIGHTX);
-					int16_t righty = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_RIGHTY);
-
-					if(abs(righty) > 0x7000)
-					{
-						if(righty > 0)
-						{
-							m_state.button |= D_CBUTTONS;
+							processKeyDown(input);
 						}
 						else
 						{
-							m_state.button |= U_CBUTTONS;
-						}
-					}
-
-					if(abs(rightx) > 0x7000)
-					{
-						if(rightx > 1)
-						{
-							m_state.button |= R_CBUTTONS;
-						}
-						else
-						{
-							m_state.button |= L_CBUTTONS;
+							processKeyUp(input);
 						}
 					}
 				}
@@ -561,7 +428,7 @@ namespace oot::hid
 				if(rtrig > 30 * 256)
 					m_state.button |= R_TRIG;
 
-				if(walk)
+				if(m_state.m_walk)
 				{
 					m_state.stick_x *= 0.25f;
 					m_state.stick_y *= 0.25f;
@@ -594,9 +461,6 @@ namespace oot::hid
 			std::unordered_map<SDL_GameControllerButton, int> m_keyBindings;
 			u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
 			u8 m_lastButtonState[SDL_CONTROLLER_BUTTON_MAX];
-			u16 m_rumbleTimer;
-			u16 m_rumbleStrengh;
-			u8 m_rumbleDecay;
 		};
 	} // namespace controller
 	SDL::SDL()
@@ -643,14 +507,6 @@ namespace oot::hid
 					players().attach(controller, 0);
 				}
 			}
-		}
-	}
-
-	void SDL::resetBindings()
-	{
-		for(auto& controller : m_controllers)
-		{
-			controller->resetBindings();
 		}
 	}
 } // namespace oot::hid

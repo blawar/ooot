@@ -1,7 +1,6 @@
 #include "ultra64/types.h"
+#include "macros.h"
 #include "keyboard.h"
-#include "state.h"
-#include "def/z_player_lib.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/prettywriter.h"
@@ -162,43 +161,13 @@ namespace oot::hid
 			Keyboard() : Controller()
 			{
 				memset(m_lastKeyState, 0, sizeof(m_lastKeyState));
-				m_keyBindings[SDL_SCANCODE_W] = Button::STICK_X_UP;
-				m_keyBindings[SDL_SCANCODE_A] = Button::STICK_X_LEFT;
-				m_keyBindings[SDL_SCANCODE_S] = Button::STICK_X_DOWN;
-				m_keyBindings[SDL_SCANCODE_D] = Button::STICK_X_RIGHT;
-				m_keyBindings[SDL_SCANCODE_SPACE] = Button::A_BUTTON;
-				m_keyBindings[SDL_SCANCODE_F] = Button::B_BUTTON;
-				m_keyBindings[SDL_SCANCODE_O] = Button::A_BUTTON;
-				m_keyBindings[SDL_SCANCODE_P] = Button::B_BUTTON;
-				m_keyBindings[SDL_SCANCODE_LSHIFT] = Button::Z_TRIG;
-				m_keyBindings[SDL_SCANCODE_C] = Button::Z_TRIG;
-				m_keyBindings[SDL_SCANCODE_I] = Button::U_JPAD;
-				m_keyBindings[SDL_SCANCODE_J] = Button::L_JPAD;
-				m_keyBindings[SDL_SCANCODE_K] = Button::D_JPAD;
-				m_keyBindings[SDL_SCANCODE_L] = Button::R_JPAD;
-				m_keyBindings[SDL_SCANCODE_UP] = Button::U_CBUTTONS;
-				m_keyBindings[SDL_SCANCODE_LEFT] = Button::L_CBUTTONS;
-				m_keyBindings[SDL_SCANCODE_DOWN] = Button::D_CBUTTONS;
-				m_keyBindings[SDL_SCANCODE_RIGHT] = Button::R_CBUTTONS;
-				m_keyBindings[SDL_SCANCODE_X] = Button::L_TRIG;
-				m_keyBindings[SDL_SCANCODE_V] = Button::R_TRIG;
-				m_keyBindings[SDL_SCANCODE_RSHIFT] = Button::R_TRIG;
-				m_keyBindings[SDL_SCANCODE_RETURN] = Button::START_BUTTON;
-
-				m_keyBindings[SDL_SCANCODE_F1] = Button::BOOTS_TOGGLE;
-				m_keyBindings[SDL_SCANCODE_F2] = Button::SWORD_TOGGLE;
-				m_keyBindings[SDL_SCANCODE_F3] = Button::SHIELD_TOGGLE;
-				m_keyBindings[SDL_SCANCODE_F4] = Button::TUNIC_TOGGLE;
-
-				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
-				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
-
+				resetBindingsImpl();
 #ifndef __SWITCH__
 				loadKeyBindings();
 #endif
 			}
 
-			void resetBindings() override
+			void resetBindingsImpl() // dont want to call virtual functions from constructor
 			{
 				m_keyBindings.clear();
 				m_keyBindings[SDL_SCANCODE_W] = Button::STICK_X_UP;
@@ -231,6 +200,11 @@ namespace oot::hid
 
 				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
 				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
+			}
+
+			void resetBindings() override
+			{
+				resetBindingsImpl();
 			}
 
 			void loadKeyBindings()
@@ -392,7 +366,7 @@ namespace oot::hid
 
 			void update()
 			{
-				bool walk = false;
+				m_state.m_walk = false;
 				int count = 0;
 				auto state = SDL_GetKeyboardState(&count);
 
@@ -418,86 +392,20 @@ namespace oot::hid
 
 				for(const auto& [scancode, input] : m_keyBindings)
 				{
-					if(scancode < count)
+					if(state[scancode])
+					{
+						processKey(input);
+					}
+
+					if(m_lastKeyState[scancode] ^ state[scancode])
 					{
 						if(state[scancode])
 						{
-							if(input > 0xFFFF)
-							{
-								switch(input)
-								{
-									case STICK_X_DOWN:
-										m_state.stick_y = -128;
-										break;
-									case STICK_X_UP:
-										m_state.stick_y = 127;
-										break;
-									case STICK_X_LEFT:
-										m_state.stick_x = -128;
-										break;
-									case STICK_X_RIGHT:
-										m_state.stick_x = 127;
-										break;
-									case WALK_BUTTON:
-										walk = true;
-										break;
-									case DEBUG_MENU:
-										m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
-										break;
-								}
-
-								if((u32)input >= (u32)Button::OCARINA && (u32)input <= (u32)Button::TUNIC_TOGGLE)
-								{
-									if(!m_lastKeyState[scancode])
-									{
-										switch(input)
-										{
-											case Button::OCARINA:
-												Player_EquipOcarina();
-												break;
-											case Button::BOW_ARROW:
-												Player_EquipBow();
-												break;
-											case Button::LENS_OF_TRUTH:
-												Player_EquipLensOfTruth();
-												break;
-											case Button::BOOTS_TOGGLE:
-												Player_ToggleBoots();
-												break;
-											case Button::SWORD_TOGGLE:
-												Player_ToggleSword();
-												break;
-											case Button::SHIELD_TOGGLE:
-												Player_ToggleShield();
-												break;
-											case Button::TUNIC_TOGGLE:
-												Player_ToggleTunic();
-												break;
-										}
-									}
-								}
-							}
-							else
-							{
-								this->state().button |= input;
-							}
+							processKeyDown(input);
 						}
-
-						if(m_lastKeyState[scancode] ^ state[scancode])
+						else
 						{
-							switch(input)
-							{
-								case FAST_FORWARD:
-									if(state[scancode])
-									{
-										oot::state.fastForward = 5;
-									}
-									else
-									{
-										oot::state.fastForward = 1;
-									}
-									break;
-							}
+							processKeyUp(input);
 						}
 					}
 				}
@@ -521,7 +429,7 @@ namespace oot::hid
 
 				if(buttons & SDL_BUTTON(SDL_BUTTON_MIDDLE))
 				{
-					walk = true;
+					m_state.m_walk = true;
 				}
 
 				m_state.mouse_x += mouse_delta_x * 4;
@@ -532,7 +440,7 @@ namespace oot::hid
 				m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * -4, 0x7F), -0x7F);
 #endif
 
-				if(walk)
+				if(m_state.m_walk)
 				{
 					m_state.stick_x *= 0.25f;
 					m_state.stick_y *= 0.25f;

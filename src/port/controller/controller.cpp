@@ -4,6 +4,8 @@
 #include <fstream>
 #include <filesystem>
 #include "../options.h"
+#include "def/z_player_lib.h"
+#include "state.h"
 
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/oot/tas"
@@ -49,30 +51,27 @@ namespace oot::hid
 
 	State::State()
 	{
-		mouse_x	      = 0;
-		mouse_y	      = 0;
-		has_mouse     = false;
+		mouse_x = 0;
+		mouse_y = 0;
+		has_mouse = false;
 
 		reset();
 	}
 
 	void State::reset()
 	{
-		button	  = 0;
-		stick_x	  = 0;
-		stick_y	  = 0;
-		errnum	  = 0;
+		button = 0;
+		stick_x = 0;
+		stick_y = 0;
+		errnum = 0;
 		r_stick_x = 0;
 		r_stick_y = 0;
 		has_mouse = false;
 	}
 
 	Controller::Controller(bool isLocal) :
-	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false)
-	{
-	}
-
-	void Controller::SendMotorEvent(short time, short level, u8 decay)
+	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false), m_rumbleTimer(0),
+	    m_rumbleStrengh(0), m_rumbleDecay(0), m_rumbleActive(0)
 	{
 	}
 
@@ -128,20 +127,19 @@ namespace oot::hid
 
 	static std::string getTasFileName()
 	{
-
 		std::error_code error;
 		std::filesystem::create_directory(TAS_DIR, error);
 
 		time_t now = time(0);
 		tm* ltm = localtime(&now);
 
-		if (!ltm)
+		if(!ltm)
 		{
-			return TAS_DIR"/record.tas";
+			return TAS_DIR "/record.tas";
 		}
 
-		char buf[64] = { 0 };
-		sprintf(buf, TAS_DIR"/%04d.%02d.%02d-%04d.tas", ltm->tm_year, ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_hour * 60 + ltm->tm_min);
+		char buf[64] = {0};
+		sprintf(buf, TAS_DIR "/%04d.%02d.%02d-%04d.tas", ltm->tm_year, ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_hour * 60 + ltm->tm_min);
 		return buf;
 	}
 
@@ -150,7 +148,7 @@ namespace oot::hid
 
 	static std::ofstream& stream()
 	{
-		if (!g_tas)
+		if(!g_tas)
 		{
 			auto name = getTasFileName();
 			g_tas = new std::ofstream(name, std::ifstream::binary);
@@ -164,11 +162,11 @@ namespace oot::hid
 	void Controller::resolveInputs()
 	{
 #ifdef ENABLE_TAS
-		if (!hid::isTasPlaying() && config().game().recordTas())
+		if(!hid::isTasPlaying() && config().game().recordTas())
 		{
 			stream().write((const char*)&m_state, sizeof(m_state));
 
-			if (m_state.button)
+			if(m_state.button)
 			{
 				int y = 0;
 			}
@@ -180,11 +178,11 @@ namespace oot::hid
 			m_state.stick_y = invert(m_state.stick_y);
 		}
 
-		rawStickX     = m_state.stick_x;
-		rawStickY     = m_state.stick_y;
-		r_rawStickX   = m_state.r_stick_x;
-		r_rawStickY   = m_state.r_stick_y;
-		
+		rawStickX = m_state.stick_x;
+		rawStickY = m_state.stick_y;
+		r_rawStickX = m_state.r_stick_x;
+		r_rawStickY = m_state.r_stick_y;
+
 		if(gClearButtonPressFrames)
 		{
 			gClearButtonPressFrames--;
@@ -200,7 +198,7 @@ namespace oot::hid
 
 		if(oot::config().game().mirror())
 		{
-			rawStickX   = -rawStickX;
+			rawStickX = -rawStickX;
 			r_rawStickX = -r_rawStickX;
 		}
 
@@ -305,7 +303,122 @@ namespace oot::hid
 		return false;
 	}
 
+	void Controller::processKey(int input)
+	{
+		if(input > 0xFFFF)
+		{
+			switch(input)
+			{
+				case STICK_X_DOWN:
+					m_state.stick_y = -128;
+					break;
+				case STICK_X_UP:
+					m_state.stick_y = 127;
+					break;
+				case STICK_X_LEFT:
+					m_state.stick_x = -128;
+					break;
+				case STICK_X_RIGHT:
+					m_state.stick_x = 127;
+					break;
+				case WALK_BUTTON:
+					m_state.m_walk = true;
+					break;
+				case DEBUG_MENU:
+					m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+					break;
+				case FAST_FORWARD:
+					break;
+			}
+		}
+		else
+		{
+			m_state.button |= input;
+		}
+	}
+
+	void Controller::processKeyDown(int input)
+	{
+		switch(input)
+		{
+			case Button::OCARINA:
+				Player_EquipOcarina();
+				break;
+			case Button::BOW_ARROW:
+				Player_EquipBow();
+				break;
+			case Button::LENS_OF_TRUTH:
+				Player_EquipLensOfTruth();
+				break;
+			case Button::BOOTS_TOGGLE:
+				Player_ToggleBoots();
+				break;
+			case Button::SWORD_TOGGLE:
+				Player_ToggleSword();
+				break;
+			case Button::SHIELD_TOGGLE:
+				Player_ToggleShield();
+				break;
+			case Button::TUNIC_TOGGLE:
+				Player_ToggleTunic();
+				break;
+			case Button::FAST_FORWARD:
+				oot::state.fastForward = 5;
+				break;
+		}
+	}
+
+	void Controller::processKeyUp(int input)
+	{
+		switch(input)
+		{
+			case Button::FAST_FORWARD:
+				oot::state.fastForward = 5;
+				break;
+		}
+	}
+
 	void Controller::resetBindings()
+	{
+	}
+
+	void Controller::rumble()
+	{
+		if(m_rumbleTimer)
+		{
+			m_rumbleActive = true;
+			vibrate();
+			m_rumbleTimer--;
+		}
+		else if(m_rumbleStrengh)
+		{
+			vibrate();
+
+			if(m_rumbleStrengh < m_rumbleDecay)
+			{
+				m_rumbleStrengh = 0;
+			}
+			else
+			{
+				m_rumbleStrengh -= m_rumbleDecay;
+			}
+		}
+		else if(m_rumbleActive) // send an empty rumble to turn it off
+		{
+			vibrate();
+			m_rumbleActive = false;
+		}
+	}
+
+	void Controller::SendMotorEvent(short time, short level, u8 decay)
+	{
+		m_rumbleTimer = time * 0.75;
+		m_rumbleStrengh = level;
+		m_rumbleDecay = decay;
+		rumble();
+	}
+
+	void Controller::vibrate()
 	{
 	}
 

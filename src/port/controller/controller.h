@@ -68,6 +68,7 @@ namespace oot::hid
 		s64 mouse_x;
 		s64 mouse_y;
 		bool has_mouse;
+		bool m_walk;
 	};
 
 	class Controller
@@ -93,6 +94,8 @@ namespace oot::hid
 		Controller(bool isLocal = true);
 		virtual void update();
 		virtual void resolveInputs();
+		virtual void rumble();
+		virtual void SendMotorEvent(short time, short level, u8 decay = 0);
 		virtual bool isLocal() const
 		{
 			return m_isLocal;
@@ -113,16 +116,23 @@ namespace oot::hid
 		virtual void merge(const Controller& controller);
 		virtual bool hasMouse() const;
 
-		virtual void SendMotorEvent(short time, short level, u8 decay = 0);
 		virtual void ResetMotorPack();
 		virtual void SendMotorVib(int level);
 
 		virtual bool updateRebind(int input);
+		virtual void processKey(int input);
+		virtual void processKeyUp(int input);
+		virtual void processKeyDown(int input);
 
 		protected:
+		virtual void vibrate();
 		State m_state;
 		bool m_isLocal;
 		bool m_motorEnabled;
+		u16 m_rumbleTimer;
+		u16 m_rumbleStrengh;
+		u8 m_rumbleDecay;
+		bool m_rumbleActive;
 	};
 
 	bool isTasPlaying();
