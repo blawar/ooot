@@ -694,20 +694,26 @@ void Sram_InitSave(FileChooseContext* fileChooseCtx, SramContext* sramCtx) {
     u16* ptr;
     u16 checksum;
 
+#ifdef ENABLE_DEBUG_LEVEL_SELECT
     if (fileChooseCtx->buttonIndex != 0) {
         Sram_InitNewSave();
-    } else {
-        Sram_InitDebugSave();
+    } else {//Selected file 1?
+        Sram_InitDebugSave();//Choose debug save
     }
+#else
+    Sram_InitNewSave();
+#endif
 
     gSaveContext.entranceIndex = 0xBB;
     gSaveContext.linkAge = 1;
     gSaveContext.dayTime = 0x6AAB;
     gSaveContext.cutsceneIndex = 0xFFF1;
 
-    if (fileChooseCtx->buttonIndex == 0) {
-        gSaveContext.cutsceneIndex = 0;
+#ifdef ENABLE_DEBUG_LEVEL_SELECT
+    if (fileChooseCtx->buttonIndex == 0) {//Selected file 1?
+        gSaveContext.cutsceneIndex = 0;//Skip cutscene
     }
+#endif
 
     for (offset = 0; offset < 8; offset++) {
         gSaveContext.playerName[offset] = fileChooseCtx->fileNames[fileChooseCtx->buttonIndex][offset];
