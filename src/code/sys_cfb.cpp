@@ -20,6 +20,7 @@ void SysCfb_Init(s32 n64dd) {
     osSyncPrintf("The final address used by the system is %08x\n", sSysCfbEnd);
     sSysCfbFbPtr[0] = (uintptr_t)cfbBuffer;
     sSysCfbFbPtr[1] = (uintptr_t)cfbBuffer + screenSize;
+    bzero(cfbBuffer, screenSize * 2);
     // "Frame buffer addresses are %08x and %08x"
     osSyncPrintf("Frame buffer addresses are %08x and %08x\n", sSysCfbFbPtr[0], sSysCfbFbPtr[1]);
 }
