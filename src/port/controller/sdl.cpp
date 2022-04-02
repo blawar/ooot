@@ -1,6 +1,7 @@
 #if !defined(DISABLE_SDL_CONTROLLER)
 
 #include "ultra64/types.h"
+#include "state.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -69,7 +70,6 @@ namespace oot::hid
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
-				
 
 #ifndef __SWITCH__
 				loadKeyBindings();
@@ -104,36 +104,35 @@ namespace oot::hid
 				{
 					std::ifstream ifs("gamepad1.bindings.json", std::ifstream::in);
 
-
-					if (ifs.is_open())
+					if(ifs.is_open())
 					{
 						rapidjson::IStreamWrapper isw(ifs);
 						rapidjson::Document d;
 						d.ParseStream(isw);
 
-						if (d.IsObject())
+						if(d.IsObject())
 						{
-							for (auto itr = d.MemberBegin(); itr != d.MemberEnd(); ++itr)
+							for(auto itr = d.MemberBegin(); itr != d.MemberEnd(); ++itr)
 							{
-								if (itr->name.IsString() && itr->value.IsString())
+								if(itr->name.IsString() && itr->value.IsString())
 								{
 									auto key = SDL_GameControllerGetButtonFromString(itr->name.GetString());
 									auto value = getInputValue(itr->value.GetString());
 
-									if (key != SDL_CONTROLLER_BUTTON_INVALID && value)
+									if(key != SDL_CONTROLLER_BUTTON_INVALID && value)
 									{
 										m_keyBindings[key] = value;
 									}
 									else
 									{
-										//oot::log("could not bind key: \"%s\" -> \"%s\"\n", itr->value.GetString(), itr->name.GetString());
+										// oot::log("could not bind key: \"%s\" -> \"%s\"\n", itr->value.GetString(), itr->name.GetString());
 									}
 								}
 							}
 						}
 					}
 				}
-				catch (...)
+				catch(...)
 				{
 				}
 #endif
@@ -149,7 +148,7 @@ namespace oot::hid
 
 					rapidjson::Document::AllocatorType& allocator = d.GetAllocator();
 
-					for (const auto i : m_keyBindings)
+					for(const auto i : m_keyBindings)
 					{
 						rapidjson::Value value(getInputName(i.second), allocator);
 						rapidjson::Value key(SDL_GameControllerGetStringForButton(i.first), allocator);
@@ -158,7 +157,7 @@ namespace oot::hid
 
 					saveJson(d, "gamepad1.bindings.json");
 				}
-				catch (...)
+				catch(...)
 				{
 				}
 #endif
@@ -299,7 +298,7 @@ namespace oot::hid
 
 			bool canRebind(SDL_GameControllerButton button, int input)
 			{
-				if (m_keyBindings.count(button) == 0)
+				if(m_keyBindings.count(button) == 0)
 				{
 					return true;
 				}
@@ -307,25 +306,25 @@ namespace oot::hid
 				auto replacingInput = m_keyBindings[button];
 				u64 count = 0;
 
-				if (replacingInput != START_BUTTON && replacingInput != A_BUTTON && replacingInput != B_BUTTON)
+				if(replacingInput != START_BUTTON && replacingInput != A_BUTTON && replacingInput != B_BUTTON)
 				{
 					return true;
 				}
 
-				if (replacingInput == input)
+				if(replacingInput == input)
 				{
 					return true;
 				}
 
-				for (auto i : m_keyBindings)
+				for(auto i : m_keyBindings)
 				{
-					if (i.second == replacingInput)
+					if(i.second == replacingInput)
 					{
 						count++;
 					}
 				}
 
-				if (count == 1)
+				if(count == 1)
 				{
 					return false;
 				}
@@ -336,16 +335,16 @@ namespace oot::hid
 			{
 				u8 state[SDL_CONTROLLER_BUTTON_MAX];
 
-				for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
+				for(int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
 				{
 					bool newState = SDL_GameControllerGetButton(m_context, (SDL_GameControllerButton)i);
 					state[i] = (m_buttonState[i] ^ newState) & newState;
 					m_buttonState[i] = newState;
 				}
 
-				for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
+				for(int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
 				{
-					if (state[i] && canRebind((SDL_GameControllerButton)i, input))
+					if(state[i] && canRebind((SDL_GameControllerButton)i, input))
 					{
 						m_keyBindings[(SDL_GameControllerButton)i] = input;
 						saveKeyBindings();
@@ -372,7 +371,7 @@ namespace oot::hid
 					m_context = NULL;
 				}
 
-				for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
+				for(int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++)
 				{
 					m_buttonState[i] = SDL_GameControllerGetButton(m_context, (SDL_GameControllerButton)i);
 				}
@@ -422,32 +421,32 @@ namespace oot::hid
 
 				for(const auto& [scancode, input] : m_keyBindings)
 				{
-					if (m_buttonState[scancode])
+					if(m_buttonState[scancode])
 					{
-						if (input > 0xFFFF)
+						if(input > 0xFFFF)
 						{
-							switch (input)
+							switch(input)
 							{
-							case STICK_X_DOWN:
-								m_state.stick_y = -128;
-								break;
-							case STICK_X_UP:
-								m_state.stick_y = 127;
-								break;
-							case STICK_X_LEFT:
-								m_state.stick_x = -128;
-								break;
-							case STICK_X_RIGHT:
-								m_state.stick_x = 127;
-								break;
-							case WALK_BUTTON:
-								walk = true;
-								break;
-							case DEBUG_MENU:
-								m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
-								break;
-							case FAST_FORWARD:
-								break;
+								case STICK_X_DOWN:
+									m_state.stick_y = -128;
+									break;
+								case STICK_X_UP:
+									m_state.stick_y = 127;
+									break;
+								case STICK_X_LEFT:
+									m_state.stick_x = -128;
+									break;
+								case STICK_X_RIGHT:
+									m_state.stick_x = 127;
+									break;
+								case WALK_BUTTON:
+									walk = true;
+									break;
+								case DEBUG_MENU:
+									m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+									break;
+								case FAST_FORWARD:
+									break;
 							}
 
 							if((u32)input >= (u32)Button::OCARINA && (u32)input <= (u32)Button::TUNIC_TOGGLE)
@@ -486,12 +485,29 @@ namespace oot::hid
 							m_state.button |= input;
 						}
 					}
+
+					if(m_lastButtonState[scancode] ^ m_buttonState[scancode])
+					{
+						switch(input)
+						{
+							case FAST_FORWARD:
+								if(m_buttonState[scancode])
+								{
+									oot::state.fastForward = 5;
+								}
+								else
+								{
+									oot::state.fastForward = 1;
+								}
+								break;
+						}
+					}
 				}
 
 				if(oot::config().camera().useClassicCamera())
 				{
-					int16_t leftx  = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTX);
-					int16_t lefty  = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTY);
+					int16_t leftx = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTX);
+					int16_t lefty = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_LEFTY);
 					int16_t rightx = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_RIGHTX);
 					int16_t righty = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_RIGHTY);
 
@@ -528,7 +544,7 @@ namespace oot::hid
 				if(rtrig > 30 * 256)
 					m_state.button |= R_TRIG;
 
-				if (walk)
+				if(walk)
 				{
 					m_state.stick_x *= 0.25f;
 					m_state.stick_y *= 0.25f;

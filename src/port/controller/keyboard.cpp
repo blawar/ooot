@@ -490,16 +490,13 @@ namespace oot::hid
 							switch(input)
 							{
 								case FAST_FORWARD:
-									if(m_lastKeyState[scancode] ^ state[scancode])
+									if(state[scancode])
 									{
-										if(state[scancode])
-										{
-											oot::state.fastForward = 5;
-										}
-										else
-										{
-											oot::state.fastForward = 1;
-										}
+										oot::state.fastForward = 5;
+									}
+									else
+									{
+										oot::state.fastForward = 1;
 									}
 									break;
 							}
