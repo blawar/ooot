@@ -373,7 +373,7 @@ namespace oot::hid
 		switch(input)
 		{
 			case Button::FAST_FORWARD:
-				oot::state.fastForward = 5;
+				oot::state.fastForward = 1;
 				break;
 		}
 	}
