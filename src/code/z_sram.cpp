@@ -17,6 +17,7 @@
 #include "def/z_parameter.h"
 #include "def/z_sram.h"
 #include "def/z_ss_sram.h"
+#include "port/options.h"
 
 void Set_Language(u8 language_id);
 
@@ -688,32 +689,43 @@ void Sram_VerifyAndLoadAllSaves(FileChooseContext* fileChooseCtx, SramContext* s
     osSyncPrintf("now_life=%d, %d, %d\n", fileChooseCtx->health[0], fileChooseCtx->health[1], fileChooseCtx->health[2]);
 }
 
-void Sram_InitSave(FileChooseContext* fileChooseCtx, SramContext* sramCtx) {
-    u16 offset;
-    u16 j;
-    u16* ptr;
-    u16 checksum;
+void Sram_InitSave(FileChooseContext* fileChooseCtx, SramContext* sramCtx)
+{
+	u16 offset;
+	u16 j;
+	u16* ptr;
+	u16 checksum;
 
-#ifdef ENABLE_DEBUG_LEVEL_SELECT
-    if (fileChooseCtx->buttonIndex != 0) {
-        Sram_InitNewSave();
-    } else {//Selected file 1?
-        Sram_InitDebugSave();//Choose debug save
-    }
-#else
-    Sram_InitNewSave();
-#endif
+	if(oot::config().game().enablDebugLevelSelect())
+	{
+		if(fileChooseCtx->buttonIndex != 0)
+		{
+			Sram_InitNewSave();
+		}
+		else
+		{			      // Selected file 1?
+			Sram_InitDebugSave(); // Choose debug save
+		}
+	}
+    else
+	{
+		Sram_InitNewSave();
+	}
+
 
     gSaveContext.entranceIndex = 0xBB;
     gSaveContext.linkAge = 1;
     gSaveContext.dayTime = 0x6AAB;
     gSaveContext.cutsceneIndex = 0xFFF1;
 
-#ifdef ENABLE_DEBUG_LEVEL_SELECT
-    if (fileChooseCtx->buttonIndex == 0) {//Selected file 1?
-        gSaveContext.cutsceneIndex = 0;//Skip cutscene
+    if(oot::config().game().enablDebugLevelSelect())
+    {
+	    if(fileChooseCtx->buttonIndex == 0)
+	    {					    // Selected file 1?
+		    gSaveContext.cutsceneIndex = 0; // Skip cutscene
+	    }
     }
-#endif
+
 
     for (offset = 0; offset < 8; offset++) {
         gSaveContext.playerName[offset] = fileChooseCtx->fileNames[fileChooseCtx->buttonIndex][offset];

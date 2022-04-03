@@ -6,15 +6,12 @@
 #include "controllers.h"
 #include "../player/players.h"
 #include <unordered_map>
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/prettywriter.h"
-#include <rapidjson/istreamwrapper.h>
+#include "json.h"
 #include <fstream>
 
 #define MAX_BUTTONS 16
 
-bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
+
 
 enum XInputButtons
 {
@@ -373,7 +370,7 @@ namespace oot::hid
 				{
 					if(state[i] && canRebind((XInputButtons)i, input))
 					{
-						m_keyBindings[(XInputButtons)i] = input;
+						m_keyBindings[(XInputButtons)i] = (Button)input;
 						saveKeyBindings();
 						return true;
 					}
@@ -437,7 +434,7 @@ namespace oot::hid
 						d.AddMember(key, value, allocator);
 					}
 
-					saveJson(d, "xinput1.bindings.json");
+					json::save(d, "xinput1.bindings.json");
 				}
 				catch(...)
 				{
@@ -522,7 +519,7 @@ namespace oot::hid
 			uint32_t m_ID;
 			uint32_t m_LastPacketNum = 0;
 
-			std::unordered_map<XInputButtons, int> m_keyBindings;
+			std::unordered_map<XInputButtons, Button> m_keyBindings;
 			u8 m_lastKeyState[MAX_BUTTONS];
 		};
 	} // namespace controller

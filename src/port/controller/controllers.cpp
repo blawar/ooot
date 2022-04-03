@@ -77,8 +77,15 @@ namespace oot::hid
 
 	Controllers::Controllers() : m_rebindInput(0)
 	{
-#if defined(_MSC_VER) && !defined(DISABLE_XINPUT)
-		m_drivers.push_back(new hid::driver::XInput());
+#if defined(_MSC_VER)
+		if(oot::config().controls().useXInput() && !oot::config().controls().enableGyro())
+		{
+			m_drivers.push_back(new hid::driver::XInput());
+		}
+		else
+		{
+			m_drivers.push_back(new SDL());
+		}
 #else
 		m_drivers.push_back(new SDL());
 #endif

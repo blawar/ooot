@@ -6,6 +6,7 @@
 #include "def/z_lib.h"
 #include "gfxprint.h"
 #include "segment_symbols.h"
+#include "port/options.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"
 #include "textures/icon_item_nes_static/icon_item_nes_static.h"
@@ -46,10 +47,6 @@
 #include "def/z_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
-
-#ifndef PAUSE_EXIT_INPUT_CLEAR_FRAMES
-#define PAUSE_EXIT_INPUT_CLEAR_FRAMES 2
-#endif
 
 #define ACCUM_INC 4.0f
 #define ACCUM_TOTAL 64.0f
@@ -3109,9 +3106,12 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 			gPages.add(std::make_unique<oot::pause::page::Item>());
 			gPages.add(std::make_unique<oot::pause::page::dungeon::Map>());
 			gPages.add(std::make_unique<oot::pause::page::Quest>());
-#ifndef DISABLE_EXTRA_OPTIONS
-			gPages.add(std::make_unique<oot::pause::page::Controller>());
-#endif
+
+			if(oot::config().game().enableExtendedOptionsMenu())
+			{
+				gPages.add(std::make_unique<oot::pause::page::Controller>());
+			}
+
 			gPages.add(std::make_unique<oot::pause::page::Equip>());
 		}
 		else
@@ -3119,9 +3119,12 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 			gPages.add(std::make_unique<oot::pause::page::Item>());
 			gPages.add(std::make_unique<oot::pause::page::Map>());
 			gPages.add(std::make_unique<oot::pause::page::Quest>());
-#ifndef DISABLE_EXTRA_OPTIONS
-			gPages.add(std::make_unique<oot::pause::page::Controller>());
-#endif
+
+			if(oot::config().game().enableExtendedOptionsMenu())
+			{
+				gPages.add(std::make_unique<oot::pause::page::Controller>());
+			}
+
 			gPages.add(std::make_unique<oot::pause::page::Equip>());
 		}
 	}
@@ -3146,6 +3149,8 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 		s16 stepB;
 		s16 stepA;
 		s32 pad;
+
+		oot::hid::firstPersonDisable();
 
 		if(gPages.size() == 0)
 		{
@@ -4185,7 +4190,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 			case 0x13:
 				pauseCtx->state = 0;
-				oot::hid::clearPressedButtons(PAUSE_EXIT_INPUT_CLEAR_FRAMES);
+				oot::hid::clearPressedButtons(oot::config().game().pauseExitInputClearFrames());
 				framerate_set_profile(PROFILE_GAMEPLAY);
 				R_PAUSE_MENU_MODE = 0;
 				func_800981B8(&globalCtx->objectCtx);

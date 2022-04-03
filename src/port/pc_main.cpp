@@ -174,23 +174,16 @@ void main_func(void)
 		oot::config().game().recordTas(true);*/
 #endif
 
-	if(!oot::config().game().isGraphicsDisabled())
+	if(oot::config().game().graphicsEnabled())
 	{
 #ifdef _DEBUG
 		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
 #else
 		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", true);
 #endif
-	}
-
-	if (!oot::config().game().isGraphicsDisabled())
-	{
 		gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
-		//gfx_fbe_enable(0);//Uncomment to disable frame buffer emulation
-	}
-
-	if (!oot::config().game().isGraphicsDisabled())
 		gWindow->resize(-1, -1);
+	}
 
 	oot::hid::controllers().scan();
 

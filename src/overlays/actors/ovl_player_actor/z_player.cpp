@@ -6,6 +6,7 @@
 #include "z_scene_table.h"
 #include "hack.h"
 #include "port/controller/controller.h"
+#include "port/options.h"
 
 extern u8 gPlayerModelTypes[][5];
 extern FlexSkeletonHeader* gPlayerSkelHeaders[2];
@@ -1068,7 +1069,7 @@ static LinkAnimationHeader* D_80854378[] = {
 static u8 D_80854380[2] = { 0x18, 0x19 };
 static u8 D_80854384[2] = { 0x1A, 0x1B };
 
-static u16 D_80854388[] = { BTN_B, BTN_CLEFT, BTN_CDOWN, BTN_CRIGHT };
+static u16 gActionIndexToButtonMap[] = { BTN_B, BTN_CLEFT, BTN_CDOWN, BTN_CRIGHT };
 
 static u8 sMagicSpellCosts[] = { 12, 24, 24, 12, 24, 12 };
 
@@ -1871,27 +1872,21 @@ void func_80833DF8(Player* pthis, GlobalContext* globalCtx) {
             }
         }
 
-#ifndef DISABLE_FP_ACTION_BTN_OVERRIDE
-        if(oot::hid::isFirstPerson())
-        {
-		    if(CHECK_BTN_ALL(sControlInput->press.button, BTN_B))
-		    {
-			    sControlInput->press.button &= ~BTN_B;
-			    sControlInput->press.button |= D_80854388[pthis->heldItemButton];
-		    }
-        }
-#endif
+	    if(oot::config().controls().enableActionButtonOverride())
+	    {
+		    oot::hid::setActionOverride((oot::hid::Button)gActionIndexToButtonMap[pthis->heldItemButton]);
+	    }
 
-        for (i = 0; i < ARRAY_COUNT(D_80854388); i++) {
-            if (CHECK_BTN_ALL(sControlInput->press.button, D_80854388[i])) {
+        for (i = 0; i < ARRAY_COUNT(gActionIndexToButtonMap); i++) {
+            if (CHECK_BTN_ALL(sControlInput->press.button, gActionIndexToButtonMap[i])) {
                 break;
             }
         }
 
         item = func_80833CDC(globalCtx, i);
         if (item >= ITEM_NONE_FE) {
-            for (i = 0; i < ARRAY_COUNT(D_80854388); i++) {
-                if (CHECK_BTN_ALL(sControlInput->cur.button, D_80854388[i])) {
+            for (i = 0; i < ARRAY_COUNT(gActionIndexToButtonMap); i++) {
+                if (CHECK_BTN_ALL(sControlInput->cur.button, gActionIndexToButtonMap[i])) {
                     break;
                 }
             }
@@ -2242,15 +2237,9 @@ s32 func_80834E44(GlobalContext* globalCtx) {
 }
 
 s32 isNockingArrow(GlobalContext* globalCtx) {
-#ifndef DISABLE_FP_ACTION_BTN_OVERRIDE
-    return (globalCtx->shootingGalleryStatus != 0 || oot::hid::isFirstPerson()) &&
+    return (globalCtx->shootingGalleryStatus != 0 || (oot::config().controls().enableActionButtonOverride() && oot::hid::isFirstPerson())) &&
            ((globalCtx->shootingGalleryStatus < 0) ||
             CHECK_BTN_ANY(sControlInput->cur.button, BTN_A | BTN_B | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN));
-#else
-    return (globalCtx->shootingGalleryStatus != 0) &&
-           ((globalCtx->shootingGalleryStatus < 0) ||
-            CHECK_BTN_ANY(sControlInput->cur.button, BTN_A | BTN_B | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN));
-#endif
 }
 
 s32 func_80834EB8(Player* pthis, GlobalContext* globalCtx) {

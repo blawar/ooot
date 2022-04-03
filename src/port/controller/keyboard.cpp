@@ -1,10 +1,7 @@
 #include "ultra64/types.h"
 #include "macros.h"
 #include "keyboard.h"
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/prettywriter.h"
-#include <rapidjson/istreamwrapper.h>
+#include "json.h"
 #include <fstream>
 #include <unordered_map>
 
@@ -64,146 +61,10 @@ static const char* getButtonName(u8 button)
 	return "UNKNOWN";
 }
 
-bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath)
-{
-	rapidjson::StringBuffer buffer;
-	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
-
-	if(!doc.Accept(writer))
-	{
-		return false;
-	}
-
-	std::ofstream out(jsonFilePath.c_str(), std::ofstream::trunc);
-	out << buffer.GetString();
-
-	return true;
-}
-
 namespace oot::hid
 {
 	namespace controller
 	{
-		const char* getInputName(Button input)
-		{
-			switch(input)
-			{
-				case Button::STICK_X_UP:
-					return "STICK_X_UP";
-				case Button::STICK_X_LEFT:
-					return "STICK_X_LEFT";
-				case Button::STICK_X_DOWN:
-					return "STICK_X_DOWN";
-				case Button::STICK_X_RIGHT:
-					return "STICK_X_RIGHT";
-				case Button::A_BUTTON:
-					return "A_BUTTON";
-				case Button::B_BUTTON:
-					return "B_BUTTON";
-				case Button::Z_TRIG:
-					return "Z_TRIG";
-				case Button::U_CBUTTONS:
-					return "U_CBUTTONS";
-				case Button::L_CBUTTONS:
-					return "L_CBUTTONS";
-				case Button::D_CBUTTONS:
-					return "D_CBUTTONS";
-				case Button::R_CBUTTONS:
-					return "R_CBUTTONS";
-				case Button::R_TRIG:
-					return "R_TRIG";
-				case Button::L_TRIG:
-					return "L_TRIG";
-				case Button::START_BUTTON:
-					return "START_BUTTON";
-				case Button::WALK_BUTTON:
-					return "WALK_BUTTON";
-				case Button::DEBUG_MENU:
-					return "DEBUG_MENU";
-				case Button::FAST_FORWARD:
-					return "FAST_FORWARD";
-				case Button::CENTER_CAMERA:
-					return "CENTER_CAMERA";
-
-				case Button::OCARINA:
-					return "OCARINA";
-				case Button::HOOKSHOT:
-					return "HOOKSHOT";
-				case Button::BOW_ARROW:
-					return "BOW_ARROW";
-				case Button::LENS_OF_TRUTH:
-					return "LENS_OF_TRUTH";
-				case Button::BOOTS_TOGGLE:
-					return "BOOTS_TOGGLE";
-				case Button::SWORD_TOGGLE:
-					return "SWORD_TOGGLE";
-				case Button::SHIELD_TOGGLE:
-					return "SHIELD_TOGGLE";
-				case Button::TUNIC_TOGGLE:
-					return "TUNIC_TOGGLE";
-			}
-			return "";
-		}
-
-		Button getInputValue(const std::string& input)
-		{
-			if(input == "STICK_X_UP")
-				return Button::STICK_X_UP;
-			if(input == "STICK_X_LEFT")
-				return Button::STICK_X_LEFT;
-			if(input == "STICK_X_DOWN")
-				return Button::STICK_X_DOWN;
-			if(input == "STICK_X_RIGHT")
-				return Button::STICK_X_RIGHT;
-			if(input == "A_BUTTON")
-				return Button::A_BUTTON;
-			if(input == "B_BUTTON")
-				return Button::B_BUTTON;
-			if(input == "Z_TRIG")
-				return Button::Z_TRIG;
-			if(input == "U_CBUTTONS")
-				return Button::U_CBUTTONS;
-			if(input == "L_CBUTTONS")
-				return Button::L_CBUTTONS;
-			if(input == "D_CBUTTONS")
-				return Button::D_CBUTTONS;
-			if(input == "R_CBUTTONS")
-				return Button::R_CBUTTONS;
-			if(input == "R_TRIG")
-				return Button::R_TRIG;
-			if(input == "L_TRIG")
-				return Button::L_TRIG;
-			if(input == "START_BUTTON")
-				return Button::START_BUTTON;
-			if(input == "WALK_BUTTON")
-				return Button::WALK_BUTTON;
-			if(input == "CENTER_CAMERA")
-				return Button::CENTER_CAMERA;
-
-			if(input == "DEBUG_MENU")
-				return Button::DEBUG_MENU;
-			if(input == "FAST_FORWARD")
-				return Button::FAST_FORWARD;
-			if(input == "OCARINA")
-				return Button::OCARINA;
-			if(input == "HOOKSHOT")
-				return Button::HOOKSHOT;
-			if(input == "BOW_ARROW")
-				return Button::BOW_ARROW;
-			if(input == "LENS_OF_TRUTH")
-				return Button::LENS_OF_TRUTH;
-			if(input == "BOOTS_TOGGLE")
-				return Button::BOOTS_TOGGLE;
-			if(input == "SWORD_TOGGLE")
-				return Button::SWORD_TOGGLE;
-			if(input == "SHIELD_TOGGLE")
-				return Button::SHIELD_TOGGLE;
-			if(input == "TUNIC_TOGGLE")
-				return Button::TUNIC_TOGGLE;
-
-			return (Button)0;
-		}
-
 		class Keyboard : public Controller
 		{
 			public:
@@ -351,7 +212,7 @@ namespace oot::hid
 						d.AddMember(key, value, allocator);
 					}
 
-					saveJson(d, "keyboard1.bindings.json");
+					json::save(d, "keyboard1.bindings.json");
 				}
 				catch(...)
 				{
@@ -371,7 +232,7 @@ namespace oot::hid
 						d.AddMember(key, value, allocator);
 					}
 
-					saveJson(d, "mouse1.bindings.json");
+					json::save(d, "mouse1.bindings.json");
 				}
 				catch(...)
 				{
@@ -463,7 +324,7 @@ namespace oot::hid
 				{
 					if(m_lastKeyState[i] && canRebind((SDL_Scancode)i, input))
 					{
-						m_keyBindings[(SDL_Scancode)i] = input;
+						m_keyBindings[(SDL_Scancode)i] = (Button)input;
 						changed++;
 						saveKeyBindings();
 					}
@@ -487,7 +348,7 @@ namespace oot::hid
 				{
 					if(m_lastMouseState[i])
 					{
-						m_mouseBindings[i] = input;
+						m_mouseBindings[i] = (Button)input;
 						changed++;
 						saveKeyBindings();
 					}
@@ -552,6 +413,9 @@ namespace oot::hid
 				u8 mouseState[MAX_BUTTONS];
 
 				auto buttons = SDL_GetRelativeMouseState(&mouse_delta_x, &mouse_delta_y);
+				mouse_delta_x = mouseScaleX(mouse_delta_x);
+				mouse_delta_y = mouseScaleY(mouse_delta_y);
+
 				this->enableMouse();
 				expandMouseButtonBits(buttons, mouseState);
 
@@ -580,11 +444,11 @@ namespace oot::hid
 					mouse_delta_y *= -1;
 				}
 
-				m_state.mouse_x += mouse_delta_x * 4;
-				m_state.mouse_y += mouse_delta_y * 4;
+				m_state.mouse_x += mouse_delta_x;
+				m_state.mouse_y += mouse_delta_y;
 
-				m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * 4, 0x7F), -0x7F);
-				m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * -4, 0x7F), -0x7F);
+				m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x, 0x7F), -0x7F);
+				m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y, 0x7F), -0x7F);
 				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
 #endif
 
@@ -598,8 +462,8 @@ namespace oot::hid
 			}
 
 			protected:
-			std::unordered_map<SDL_Scancode, int> m_keyBindings;
-			std::unordered_map<u8, int> m_mouseBindings;
+			std::unordered_map<SDL_Scancode, Button> m_keyBindings;
+			std::unordered_map<u8, Button> m_mouseBindings;
 			u8 m_lastKeyState[MAX_KEY_STATE];
 			u8 m_lastMouseState[MAX_BUTTONS];
 		};

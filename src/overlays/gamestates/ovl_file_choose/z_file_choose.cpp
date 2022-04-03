@@ -8,6 +8,7 @@
 #include "framerate.h"
 #include "file_choose.h"
 #include "segment_symbols.h"
+#include "port/options.h"
 #include "textures/title_static/title_static.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "def/code_80069420.h"
@@ -1475,8 +1476,7 @@ void FileChoose_LoadGame(GameState* pthisx) {
     u16 swordEquipMask;
     s32 pad;
 
-#ifdef ENABLE_DEBUG_LEVEL_SELECT
-    if (pthis->buttonIndex == FS_BTN_SELECT_FILE_1) {
+    if (oot::config().game().enablDebugLevelSelect() && pthis->buttonIndex == FS_BTN_SELECT_FILE_1) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
         Sram_OpenSave(&pthis->sramCtx);
@@ -1485,7 +1485,6 @@ void FileChoose_LoadGame(GameState* pthisx) {
         pthis->state.running = false;
     }
     else
-#endif
     {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;

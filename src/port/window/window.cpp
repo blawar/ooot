@@ -77,7 +77,7 @@ namespace platform::window
 	bool Base::begin_frame()
 	{
 		handle_events();
-		if(oot::config().game().isFramePacing())
+		//if(oot::config().game().isFramePacing())
 		{
 			while(!wait_frame_ready())
 			{

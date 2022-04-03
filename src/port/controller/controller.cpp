@@ -42,6 +42,13 @@ namespace oot::hid
 		return g_firstPersonEnabled;
 	}
 
+	static Button gActionOverrideButton = Button::EMPTY_BUTTON;
+
+	void setActionOverride(Button btn)
+	{
+		gActionOverrideButton = btn;
+	}
+
 	static u16 gClearButtonPressFrames = 0;
 
 	void clearPressedButtons(u16 frames)
@@ -181,6 +188,16 @@ namespace oot::hid
 		if(isFirstPerson())
 		{
 			m_state.stick_y = invert(m_state.stick_y);
+
+			if(gActionOverrideButton != Button::EMPTY_BUTTON)
+			{
+				auto btn = config().controls().actionOverrideButton();
+				if(m_state.button & btn)
+				{
+					m_state.button &= ~btn;
+					m_state.button |= gActionOverrideButton;
+				}
+			}
 		}
 
 		rawStickX = m_state.stick_x;
@@ -313,17 +330,16 @@ namespace oot::hid
 			this->m_state.r_stick_x *= scaler;
 			this->r_stickMag *= scaler;
 		}
-
 	}
 
-	s64 Controller::mouse_x() const
+	s64 Controller::mouseScaleX(s64 value)
 	{
-		return m_state.mouse_x * (oot::config().camera().mousexInvert() ? -1 : 1) * oot::config().camera().mousexScaler();
+		return value * (oot::config().controls().mousexInvert() ? -1 : 1) * oot::config().controls().mousexScaler();
 	}
 
-	s64 Controller::mouse_y() const
+	s64 Controller::mouseScaleY(s64 value)
 	{
-		return m_state.mouse_y * (oot::config().camera().mouseyInvert() ? -1 : 1) * oot::config().camera().mouseyScaler();
+		return value * (oot::config().controls().mouseyInvert() ? -1 : 1) * oot::config().controls().mouseyScaler();
 	}
 
 	bool Controller::updateRebind(int input)
@@ -456,4 +472,130 @@ namespace oot::hid
 	{
 	}
 
+	namespace controller
+	{
+		const char* getInputName(Button input)
+		{
+			switch(input)
+			{
+				case Button::STICK_X_UP:
+					return "STICK_X_UP";
+				case Button::STICK_X_LEFT:
+					return "STICK_X_LEFT";
+				case Button::STICK_X_DOWN:
+					return "STICK_X_DOWN";
+				case Button::STICK_X_RIGHT:
+					return "STICK_X_RIGHT";
+				case Button::A_BUTTON:
+					return "A_BUTTON";
+				case Button::B_BUTTON:
+					return "B_BUTTON";
+				case Button::Z_TRIG:
+					return "Z_TRIG";
+				case Button::U_CBUTTONS:
+					return "U_CBUTTONS";
+				case Button::L_CBUTTONS:
+					return "L_CBUTTONS";
+				case Button::D_CBUTTONS:
+					return "D_CBUTTONS";
+				case Button::R_CBUTTONS:
+					return "R_CBUTTONS";
+				case Button::R_TRIG:
+					return "R_TRIG";
+				case Button::L_TRIG:
+					return "L_TRIG";
+				case Button::START_BUTTON:
+					return "START_BUTTON";
+				case Button::WALK_BUTTON:
+					return "WALK_BUTTON";
+				case Button::DEBUG_MENU:
+					return "DEBUG_MENU";
+				case Button::FAST_FORWARD:
+					return "FAST_FORWARD";
+				case Button::CENTER_CAMERA:
+					return "CENTER_CAMERA";
+				case Button::CURRENT_ACTION:
+					return "CURRENT_ACTION";
+
+				case Button::OCARINA:
+					return "OCARINA";
+				case Button::HOOKSHOT:
+					return "HOOKSHOT";
+				case Button::BOW_ARROW:
+					return "BOW_ARROW";
+				case Button::LENS_OF_TRUTH:
+					return "LENS_OF_TRUTH";
+				case Button::BOOTS_TOGGLE:
+					return "BOOTS_TOGGLE";
+				case Button::SWORD_TOGGLE:
+					return "SWORD_TOGGLE";
+				case Button::SHIELD_TOGGLE:
+					return "SHIELD_TOGGLE";
+				case Button::TUNIC_TOGGLE:
+					return "TUNIC_TOGGLE";
+			}
+			return "";
+		}
+
+		Button getInputValue(const std::string& input)
+		{
+			if(input == "STICK_X_UP")
+				return Button::STICK_X_UP;
+			if(input == "STICK_X_LEFT")
+				return Button::STICK_X_LEFT;
+			if(input == "STICK_X_DOWN")
+				return Button::STICK_X_DOWN;
+			if(input == "STICK_X_RIGHT")
+				return Button::STICK_X_RIGHT;
+			if(input == "A_BUTTON")
+				return Button::A_BUTTON;
+			if(input == "B_BUTTON")
+				return Button::B_BUTTON;
+			if(input == "Z_TRIG")
+				return Button::Z_TRIG;
+			if(input == "U_CBUTTONS")
+				return Button::U_CBUTTONS;
+			if(input == "L_CBUTTONS")
+				return Button::L_CBUTTONS;
+			if(input == "D_CBUTTONS")
+				return Button::D_CBUTTONS;
+			if(input == "R_CBUTTONS")
+				return Button::R_CBUTTONS;
+			if(input == "R_TRIG")
+				return Button::R_TRIG;
+			if(input == "L_TRIG")
+				return Button::L_TRIG;
+			if(input == "START_BUTTON")
+				return Button::START_BUTTON;
+			if(input == "WALK_BUTTON")
+				return Button::WALK_BUTTON;
+			if(input == "CENTER_CAMERA")
+				return Button::CENTER_CAMERA;
+			if(input == "CURRENT_ACTION")
+				return Button::CURRENT_ACTION;
+
+			if(input == "DEBUG_MENU")
+				return Button::DEBUG_MENU;
+			if(input == "FAST_FORWARD")
+				return Button::FAST_FORWARD;
+			if(input == "OCARINA")
+				return Button::OCARINA;
+			if(input == "HOOKSHOT")
+				return Button::HOOKSHOT;
+			if(input == "BOW_ARROW")
+				return Button::BOW_ARROW;
+			if(input == "LENS_OF_TRUTH")
+				return Button::LENS_OF_TRUTH;
+			if(input == "BOOTS_TOGGLE")
+				return Button::BOOTS_TOGGLE;
+			if(input == "SWORD_TOGGLE")
+				return Button::SWORD_TOGGLE;
+			if(input == "SHIELD_TOGGLE")
+				return Button::SHIELD_TOGGLE;
+			if(input == "TUNIC_TOGGLE")
+				return Button::TUNIC_TOGGLE;
+
+			return (Button)0;
+		}
+	}
 } // namespace oot::hid

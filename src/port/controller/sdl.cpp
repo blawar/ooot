@@ -10,10 +10,7 @@
 #include <SDL2/SDL.h>
 #include "sdl.h"
 #include <unordered_map>
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/prettywriter.h"
-#include <rapidjson/istreamwrapper.h>
+#include "json.h"
 #include <fstream>
 #include "../options.h"
 #include "../player/players.h"
@@ -21,13 +18,6 @@
 static bool init_ok;
 
 #define INITIAL_PEAK 0x8000
-
-#ifdef ENABLE_GYRO
-#ifndef GYRO_SENSITIVITY
-const float GYRO_SENSITIVITY = 20.0f;
-#endif
-const float ACCEL_SENSITIVITY = 50.0f;
-#endif
 
 static int g_lstickX_peak = INITIAL_PEAK;
 static int g_lstickY_peak = INITIAL_PEAK;
@@ -38,8 +28,6 @@ static int g_rstickY_peak = INITIAL_PEAK;
 #include <time.h>
 extern struct Object* gMarioObject;
 #endif
-
-bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
 
 namespace oot::hid
 {
@@ -56,7 +44,6 @@ namespace oot::hid
 
 				resetBindingsImpl();
 
-#ifdef ENABLE_GYRO
 				if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_GYRO) == SDL_TRUE)
 				{
 					if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_GYRO, SDL_TRUE))
@@ -72,7 +59,6 @@ namespace oot::hid
 						m_hasAccel = true;
 					}
 				}
-#endif
 
 #ifndef __SWITCH__
 				loadKeyBindings();
@@ -160,7 +146,7 @@ namespace oot::hid
 						d.AddMember(key, value, allocator);
 					}
 
-					saveJson(d, "gamepad1.bindings.json");
+					json::save(d, "gamepad1.bindings.json");
 				}
 				catch(...)
 				{
@@ -348,7 +334,7 @@ namespace oot::hid
 				{
 					if(state[i] && canRebind((SDL_GameControllerButton)i, input))
 					{
-						m_keyBindings[(SDL_GameControllerButton)i] = input;
+						m_keyBindings[(SDL_GameControllerButton)i] = (Button)input;
 						saveKeyBindings();
 						return true;
 					}
@@ -383,15 +369,14 @@ namespace oot::hid
 				m_state.r_stick_x = stickRightX();
 				m_state.r_stick_y = stickRightY();
 
-#ifdef ENABLE_GYRO
 				if(m_hasGyro && isFirstPerson())
 				{
 					float values[3] = {0, 0, 0};
 
 					if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
 					{
-						s32 x = m_state.stick_x - (values[2] + values[1]) * GYRO_SENSITIVITY;
-						s32 y = m_state.stick_y + values[0] * GYRO_SENSITIVITY;
+						s32 x = m_state.stick_x - (values[2] + values[1]) * oot::config().controls().gyroxScaler();
+						s32 y = m_state.stick_y + values[0] * oot::config().controls().gyroyScaler();
 						m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
 						m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
 
@@ -419,7 +404,6 @@ namespace oot::hid
 						memcpy(m_state.accel, values, sizeof(values));
 					}
 				}
-#endif
 
 				for(const auto& [scancode, input] : m_keyBindings)
 				{
@@ -479,7 +463,7 @@ namespace oot::hid
 			SDL_GameController* m_context;
 			int m_index;
 			SDL_Haptic* m_haptic;
-			std::unordered_map<SDL_GameControllerButton, int> m_keyBindings;
+			std::unordered_map<SDL_GameControllerButton, Button> m_keyBindings;
 			u8 m_buttonState[SDL_CONTROLLER_BUTTON_MAX];
 			u8 m_lastButtonState[SDL_CONTROLLER_BUTTON_MAX];
 		};

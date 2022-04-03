@@ -146,13 +146,8 @@ void ParseCommandLineArguments(const std::vector<std::string>& commands)
             auto tas_filename = std::move(commands[++i]);
             oot::hid::tas::setTasFileName(tas_filename);
             oot::hid::tas::playTas(true);
-        }
+        }*/
 
-        else*/ if (cmd == "-no-graphics")
-            oot::config().game().disableGraphics();
-
-        else if (cmd == "-fast-forward")
-            oot::config().game().disableFramePacing();
     }
 }
 

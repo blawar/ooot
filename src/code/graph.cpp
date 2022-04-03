@@ -205,7 +205,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx) {
     //osSendMesg(&gSchedContext.cmdQ, scTask, OS_MESG_BLOCK);
     Sched_SendEntryMsg(&gSchedContext);
 
-    if (!oot::config().game().isGraphicsDisabled())
+    if (oot::config().game().graphicsEnabled())
         gfx_run(task, sizeof(OSTask_t));
 }
 
@@ -227,17 +227,16 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
     GameState_ReqPadData(gameState);
     GameState_Update(gameState);
 
-#ifndef N64_VERSION
-#ifdef ENABLE_DEBUG_LEVEL_SELECT
-    //All dpad buttons pressed on controller 1? (Same as the back button on an xinput controller)
-    if (CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_DUP | BTN_DDOWN | BTN_DLEFT | BTN_DRIGHT))
-    {//Open debug map select
-        gameState->init = Select_Init;
-        gameState->size = sizeof(SelectContext);
-        gameState->running = false;
+    if(oot::config().game().enablDebugLevelSelect())
+    {
+	    // All dpad buttons pressed on controller 1? (Same as the back button on an xinput controller)
+	    if(CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_DUP | BTN_DDOWN | BTN_DLEFT | BTN_DRIGHT))
+	    { // Open debug map select
+		    gameState->init = Select_Init;
+		    gameState->size = sizeof(SelectContext);
+		    gameState->running = false;
+	    }
     }
-#endif
-#endif
 
     OPEN_DISPS(gfxCtx, "../graph.c", 987);
 
@@ -346,14 +345,15 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState) {
         sGraphUpdateTime = time;
     }
 
-#ifdef ENABLE_DEBUG_LEVEL_SELECT
-    if (gIsCtrlr2Valid && CHECK_BTN_ALL(gameState->input[0].press.button, BTN_Z) &&
-        CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_L | BTN_R)) {
-        gSaveContext.gameMode = 0;
-        SET_NEXT_GAMESTATE(gameState, Select_Init, SelectContext);
-        gameState->running = false;
+    if(oot::config().game().enablDebugLevelSelect())
+    {
+	    if(gIsCtrlr2Valid && CHECK_BTN_ALL(gameState->input[0].press.button, BTN_Z) && CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_L | BTN_R))
+	    {
+		    gSaveContext.gameMode = 0;
+		    SET_NEXT_GAMESTATE(gameState, Select_Init, SelectContext);
+		    gameState->running = false;
+	    }
     }
-#endif
 
     if (gIsCtrlr2Valid && PreNmiBuff_IsResetting(gAppNmiBufferPtr) && !gameState->unk_A0) {
         // "To reset mode"
@@ -396,13 +396,12 @@ void Graph_ThreadEntry(void* arg0) {
             /*if (oot::hid::tas::isTasPlaying() && oot::hid::tas::hasTasEnded())
                 break; TODO FIX*/
 
-            if (oot::config().game().isGraphicsDisabled())
+            if (!oot::config().game().graphicsEnabled())
             {
                 gfx_start_frame();
                 Graph_Update(&gfxCtx, gameState);
                 gfx_end_frame();
             }
-
             else
             {
                 if (gfx_start_frame())

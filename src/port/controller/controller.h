@@ -6,6 +6,7 @@ namespace oot::hid
 {
 	enum Button
 	{
+		EMPTY_BUTTON = 0,
 		CONT_A	   = 0x8000,
 		CONT_B	   = 0x4000,
 		CONT_G	   = 0x2000,
@@ -50,7 +51,8 @@ namespace oot::hid
 		SHIELD_TOGGLE = 1 << 28,
 		TUNIC_TOGGLE = 1 << 29,
 		FAST_FORWARD = 1 << 30,
-		CENTER_CAMERA = 1 << 31
+		CENTER_CAMERA = 1 << 31,
+		CURRENT_ACTION = 1 << 32
 	};
 
 	class State
@@ -98,8 +100,8 @@ namespace oot::hid
 		bool m_hasAccel = false;
 #endif
 
-		s64 mouse_x() const;
-		s64 mouse_y() const;
+		static s64 mouseScaleX(s64 value);
+		static s64 mouseScaleY(s64 value);
 
 		Controller(bool isLocal = true);
 		virtual void update();
@@ -150,6 +152,7 @@ namespace oot::hid
 	void firstPersonDisable();
 	bool isFirstPerson();
 	void clearPressedButtons(u16 frames = 1);
+	void setActionOverride(Button btn);
 
 	namespace controller
 	{

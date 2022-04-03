@@ -218,6 +218,7 @@
     <ClCompile Include="..\src\dmadata\dmadata.cpp" />
     <ClCompile Include="..\src\elf_message\elf_message_field.cpp" />
     <ClCompile Include="..\src\elf_message\elf_message_ydan.cpp" />
+    <ClCompile Include="..\src\json.cpp" />
     <ClCompile Include="..\src\libultra\gu\cosf.cpp" />
     <ClCompile Include="..\src\libultra\gu\coss.cpp" />
     <ClCompile Include="..\src\libultra\gu\lookat.cpp" />
