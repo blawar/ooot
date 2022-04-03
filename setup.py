@@ -75,6 +75,7 @@ def main():
     parser.add_argument("--right-deadzone", help="Right analog stick deadzone", type=int, default=20)
     parser.add_argument("--disable-option-remap", help="Removes Remap option page from pause menu", type=int, default=20)
     parser.add_argument("--disable-xinput", help="Disables XInput on windows", action="store_true", default=False)
+    parser.add_argument("--disable-action-btn-override", help="Disables overriding B button to execute bow/hookshot in first person", action="store_true", default=False)
 
     args = parser.parse_args()
 
@@ -100,6 +101,9 @@ def main():
 
     if args.disable_distance_culling:
         defines.append('NO_CULLING')
+        
+    if args.disable_action_btn_override:
+        defines.append('DISABLE_FP_ACTION_BTN_OVERRIDE')
         
     if args.disable_xinput or args.enable_gyro:
         defines.append('DISABLE_XINPUT')      

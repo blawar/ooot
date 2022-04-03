@@ -5,6 +5,8 @@
 #include "framerate.h"
 #include "z_scene_table.h"
 #include "hack.h"
+#include "port/controller/controller.h"
+
 extern u8 gPlayerModelTypes[][5];
 extern FlexSkeletonHeader* gPlayerSkelHeaders[2];
 extern u8 gPlayerModelTypes[][5];
@@ -1869,6 +1871,17 @@ void func_80833DF8(Player* pthis, GlobalContext* globalCtx) {
             }
         }
 
+#ifndef DISABLE_FP_ACTION_BTN_OVERRIDE
+        if(oot::hid::isFirstPerson())
+        {
+		    if(CHECK_BTN_ALL(sControlInput->press.button, BTN_B))
+		    {
+			    sControlInput->press.button &= ~BTN_B;
+			    sControlInput->press.button |= D_80854388[pthis->heldItemButton];
+		    }
+        }
+#endif
+
         for (i = 0; i < ARRAY_COUNT(D_80854388); i++) {
             if (CHECK_BTN_ALL(sControlInput->press.button, D_80854388[i])) {
                 break;
@@ -2228,10 +2241,16 @@ s32 func_80834E44(GlobalContext* globalCtx) {
     return (globalCtx->shootingGalleryStatus > 0) && CHECK_BTN_ALL(sControlInput->press.button, BTN_B);
 }
 
-s32 func_80834E7C(GlobalContext* globalCtx) {
+s32 isNockingArrow(GlobalContext* globalCtx) {
+#ifndef DISABLE_FP_ACTION_BTN_OVERRIDE
+    return (globalCtx->shootingGalleryStatus != 0 || oot::hid::isFirstPerson()) &&
+           ((globalCtx->shootingGalleryStatus < 0) ||
+            CHECK_BTN_ANY(sControlInput->cur.button, BTN_A | BTN_B | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN));
+#else
     return (globalCtx->shootingGalleryStatus != 0) &&
            ((globalCtx->shootingGalleryStatus < 0) ||
             CHECK_BTN_ANY(sControlInput->cur.button, BTN_A | BTN_B | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN));
+#endif
 }
 
 s32 func_80834EB8(Player* pthis, GlobalContext* globalCtx) {
@@ -2310,7 +2329,7 @@ s32 func_808350A4(GlobalContext* globalCtx, Player* pthis) {
         }
 
         pthis->unk_A73 = 4;
-        pthis->heldActor->parent = NULL;
+        pthis->heldActor->parent = NULL; // release arrow
         pthis->actor.child = NULL;
         pthis->heldActor = NULL;
 
@@ -2320,7 +2339,7 @@ s32 func_808350A4(GlobalContext* globalCtx, Player* pthis) {
     return 0;
 }
 
-static u16 D_808543DC[] = { NA_SE_IT_BOW_FLICK, NA_SE_IT_SLING_FLICK };
+static u16 gOutOfArrowSound[] = { NA_SE_IT_BOW_FLICK, NA_SE_IT_SLING_FLICK };
 
 s32 func_808351D4(Player* pthis, GlobalContext* globalCtx) {
     s32 sp2C;
@@ -2350,12 +2369,12 @@ s32 func_808351D4(Player* pthis, GlobalContext* globalCtx) {
 
     func_80834EB8(pthis, globalCtx);
 
-    if ((pthis->unk_836 > 0) && ((pthis->unk_860 < 0) || (!D_80853618 && !func_80834E7C(globalCtx)))) {
+    if ((pthis->unk_836 > 0) && ((pthis->unk_860 < 0) || (!D_80853618 && !isNockingArrow(globalCtx)))) {
         func_80833638(pthis, func_808353D8);
         if (pthis->unk_860 >= 0) {
             if (sp2C == 0) {
                 if (!func_808350A4(globalCtx, pthis)) {
-                    func_8002F7DC(&pthis->actor, D_808543DC[ABS(pthis->unk_860) - 1]);
+                    func_8002F7DC(&pthis->actor, gOutOfArrowSound[ABS(pthis->unk_860) - 1]); // play bow out of ammo sound
                 }
             } else if (pthis->actor.bgCheckFlags & 1) {
                 func_808350A4(globalCtx, pthis);
@@ -2385,7 +2404,7 @@ s32 func_808353D8(Player* pthis, GlobalContext* globalCtx) {
             if (Player_HoldsHookshot(pthis)) {
                 pthis->unk_836 = 1;
             } else {
-                LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_0026B8);
+                LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_0026B8); // nock bow
             }
         }
     } else {
@@ -10704,6 +10723,7 @@ void func_8084B1D8(Player* pthis, GlobalContext* globalCtx) {
          ((pthis->unk_6AD == 1) &&
           CHECK_BTN_ANY(sControlInput->press.button,
                         BTN_A | BTN_B | BTN_R | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN)))) {
+
         func_8083C148(pthis, globalCtx);
         Common_PlaySfx(NA_SE_SY_CAMERA_ZOOM_UP);
     } else if ((DECR(pthis->unk_850) == 0) || (pthis->unk_6AD != 2)) {
