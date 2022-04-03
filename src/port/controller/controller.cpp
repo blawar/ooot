@@ -274,18 +274,41 @@ namespace oot::hid
 			this->r_stickMag = 64;
 		}
 
-		if(isFirstPerson() && this->r_stickMag > RDEADZONE)
+		if(isFirstPerson())
 		{
-			this->stickMag = this->r_stickMag;
-			this->stickX = this->r_stickX;
-			this->stickY = this->r_stickY;
+			if(this->r_stickMag > RDEADZONE)
+			{
+				this->stickMag = this->r_stickMag;
+				this->stickX = this->r_stickX;
+				this->stickY = this->r_stickY;
 
-			this->m_state.stick_x = this->m_state.r_stick_x;
-			this->m_state.stick_y = this->m_state.r_stick_y;
+				this->m_state.stick_x = this->m_state.r_stick_x;
+				this->m_state.stick_y = this->m_state.r_stick_y;
 
-			this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
-			this->r_stickY = this->r_stickX = this->r_stickMag = 0;
+				this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
+				this->r_stickY = this->r_stickX = this->r_stickMag = 0;
+			}
 		}
+		else if(oot::state.center_camera)
+		{
+			const float scaler = 0.1f;
+			this->stickX *= scaler;
+			this->m_state.stick_x *= scaler;
+			this->stickMag *= scaler;
+
+			if(this->stickY < 0)
+			{
+				this->stickY = 0;
+				this->m_state.stick_y = 0;
+				this->stickMag = sqrtf(this->stickX * this->stickX + this->stickY * this->stickY);
+			}
+
+
+			this->r_stickX *= scaler;
+			this->m_state.r_stick_x *= scaler;
+			this->r_stickMag *= scaler;
+		}
+
 	}
 
 	s64 Controller::mouse_x() const
@@ -365,6 +388,9 @@ namespace oot::hid
 			case Button::FAST_FORWARD:
 				oot::state.fastForward = 5;
 				break;
+			case Button::CENTER_CAMERA:
+				oot::state.center_camera = true;
+				break;
 		}
 	}
 
@@ -374,6 +400,9 @@ namespace oot::hid
 		{
 			case Button::FAST_FORWARD:
 				oot::state.fastForward = 1;
+				break;
+			case Button::CENTER_CAMERA:
+				oot::state.center_camera = false;
 				break;
 		}
 	}

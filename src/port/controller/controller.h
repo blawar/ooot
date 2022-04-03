@@ -49,7 +49,8 @@ namespace oot::hid
 		SWORD_TOGGLE = 1 << 27,
 		SHIELD_TOGGLE = 1 << 28,
 		TUNIC_TOGGLE = 1 << 29,
-		FAST_FORWARD = 1 << 30
+		FAST_FORWARD = 1 << 30,
+		CENTER_CAMERA = 1 << 31
 	};
 
 	class State

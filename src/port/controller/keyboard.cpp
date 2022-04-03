@@ -122,6 +122,8 @@ namespace oot::hid
 					return "DEBUG_MENU";
 				case Button::FAST_FORWARD:
 					return "FAST_FORWARD";
+				case Button::CENTER_CAMERA:
+					return "CENTER_CAMERA";
 
 				case Button::OCARINA:
 					return "OCARINA";
@@ -175,6 +177,8 @@ namespace oot::hid
 				return Button::START_BUTTON;
 			if(input == "WALK_BUTTON")
 				return Button::WALK_BUTTON;
+			if(input == "CENTER_CAMERA")
+				return Button::CENTER_CAMERA;
 
 			if(input == "DEBUG_MENU")
 				return Button::DEBUG_MENU;
@@ -247,7 +251,7 @@ namespace oot::hid
 				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
 
 				m_mouseBindings[SDL_BUTTON_LEFT] = Button::B_BUTTON;
-				m_mouseBindings[SDL_BUTTON_RIGHT] = Button::A_BUTTON;
+				m_mouseBindings[SDL_BUTTON_RIGHT] = Button::CENTER_CAMERA;
 				m_mouseBindings[SDL_BUTTON_MIDDLE] = Button::WALK_BUTTON;
 			}
 
@@ -571,6 +575,11 @@ namespace oot::hid
 					}
 				}
 
+				if(isFirstPerson())
+				{
+					mouse_delta_y *= -1;
+				}
+
 				m_state.mouse_x += mouse_delta_x * 4;
 				m_state.mouse_y += mouse_delta_y * 4;
 
@@ -584,6 +593,7 @@ namespace oot::hid
 					m_state.stick_x *= 0.25f;
 					m_state.stick_y *= 0.25f;
 				}
+
 				memcpy(m_lastKeyState, state, std::min(MAX_KEY_STATE, count));
 			}
 

@@ -2,6 +2,7 @@
 #include "ultra64.h"
 #include "global.h"
 #include "z64global.h"
+#include "state.h"
 #include "z64bgcheck.h"
 #include "z64camera.h"
 #include "z64player.h"
@@ -1364,6 +1365,11 @@ s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3) {
 }
 
 s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel) {
+	if(oot::state.center_camera)
+	{
+		return BINANG_ROT180(target);
+	}
+
     f32 yawUpdRate;
 	const oot::hid::Controller& controller = oot::player(0).controller();
     s16 rStickX = (s16)controller.state().r_stick_x * (s16)-250;
