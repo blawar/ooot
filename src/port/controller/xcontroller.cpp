@@ -6,28 +6,114 @@
 #include "controllers.h"
 #include "../player/players.h"
 #include <unordered_map>
+#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/prettywriter.h"
+#include <rapidjson/istreamwrapper.h>
+#include <fstream>
 
 #define MAX_BUTTONS 16
 
+bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath);
+
 enum XInputButtons
 {
-GAMEPAD_DPAD_UP = 0,
-GAMEPAD_DPAD_DOWN,
-GAMEPAD_DPAD_LEFT,
-GAMEPAD_DPAD_RIGHT,
-GAMEPAD_START,
-GAMEPAD_BACK,
-GAMEPAD_LEFT_THUMB,
-GAMEPAD_RIGHT_THUMB,
-GAMEPAD_LEFT_SHOULDER,
-GAMEPAD_RIGHT_SHOULDER,
-GAMEPAD_UNKNOWN_1,
-GAMEPAD_UNKNOWN_2,
-GAMEPAD_A,
-GAMEPAD_B,
-GAMEPAD_X,
-GAMEPAD_Y
+	GAMEPAD_DPAD_UP = 0,
+	GAMEPAD_DPAD_DOWN,
+	GAMEPAD_DPAD_LEFT,
+	GAMEPAD_DPAD_RIGHT,
+	GAMEPAD_START,
+	GAMEPAD_BACK,
+	GAMEPAD_LEFT_THUMB,
+	GAMEPAD_RIGHT_THUMB,
+	GAMEPAD_LEFT_SHOULDER,
+	GAMEPAD_RIGHT_SHOULDER,
+	GAMEPAD_UNKNOWN_1,
+	GAMEPAD_UNKNOWN_2,
+	GAMEPAD_A,
+	GAMEPAD_B,
+	GAMEPAD_X,
+	GAMEPAD_Y,
+	GAMEPAD_NONE = 0xFF
 };
+
+static XInputButtons getButtonId(const std::string& str)
+
+{
+	if(str == "GAMEPAD_DPAD_UP")
+		return XInputButtons::GAMEPAD_DPAD_UP;
+	if(str == "GAMEPAD_DPAD_DOWN")
+		return XInputButtons::GAMEPAD_DPAD_DOWN;
+	if(str == "GAMEPAD_DPAD_LEFT")
+		return XInputButtons::GAMEPAD_DPAD_LEFT;
+	if(str == "GAMEPAD_DPAD_RIGHT")
+		return XInputButtons::GAMEPAD_DPAD_RIGHT;
+	if(str == "GAMEPAD_START")
+		return XInputButtons::GAMEPAD_START;
+	if(str == "GAMEPAD_BACK")
+		return XInputButtons::GAMEPAD_BACK;
+	if(str == "GAMEPAD_LEFT_THUMB")
+		return XInputButtons::GAMEPAD_LEFT_THUMB;
+	if(str == "GAMEPAD_RIGHT_THUMB")
+		return XInputButtons::GAMEPAD_RIGHT_THUMB;
+	if(str == "GAMEPAD_LEFT_SHOULDER")
+		return XInputButtons::GAMEPAD_LEFT_SHOULDER;
+	if(str == "GAMEPAD_RIGHT_SHOULDER")
+		return XInputButtons::GAMEPAD_RIGHT_SHOULDER;
+	if(str == "GAMEPAD_UNKNOWN_1")
+		return XInputButtons::GAMEPAD_UNKNOWN_1;
+	if(str == "GAMEPAD_UNKNOWN_2")
+		return XInputButtons::GAMEPAD_UNKNOWN_2;
+	if(str == "GAMEPAD_A")
+		return XInputButtons::GAMEPAD_A;
+	if(str == "GAMEPAD_B")
+		return XInputButtons::GAMEPAD_B;
+	if(str == "GAMEPAD_X")
+		return XInputButtons::GAMEPAD_X;
+	if(str == "GAMEPAD_Y")
+		return XInputButtons::GAMEPAD_Y;
+	return XInputButtons::GAMEPAD_NONE;
+}
+
+static const char* getButtonName(XInputButtons button)
+{
+	switch(button)
+	{
+		case XInputButtons::GAMEPAD_DPAD_UP:
+			return "GAMEPAD_DPAD_UP";
+		case XInputButtons::GAMEPAD_DPAD_DOWN:
+			return "GAMEPAD_DPAD_DOWN";
+		case XInputButtons::GAMEPAD_DPAD_LEFT:
+			return "GAMEPAD_DPAD_LEFT";
+		case XInputButtons::GAMEPAD_DPAD_RIGHT:
+			return "GAMEPAD_DPAD_RIGHT";
+		case XInputButtons::GAMEPAD_START:
+			return "GAMEPAD_START";
+		case XInputButtons::GAMEPAD_BACK:
+			return "GAMEPAD_BACK";
+		case XInputButtons::GAMEPAD_LEFT_THUMB:
+			return "GAMEPAD_LEFT_THUMB";
+		case XInputButtons::GAMEPAD_RIGHT_THUMB:
+			return "GAMEPAD_RIGHT_THUMB";
+		case XInputButtons::GAMEPAD_LEFT_SHOULDER:
+			return "GAMEPAD_LEFT_SHOULDER";
+		case XInputButtons::GAMEPAD_RIGHT_SHOULDER:
+			return "GAMEPAD_RIGHT_SHOULDER";
+		case XInputButtons::GAMEPAD_UNKNOWN_1:
+			return "GAMEPAD_UNKNOWN_1";
+		case XInputButtons::GAMEPAD_UNKNOWN_2:
+			return "GAMEPAD_UNKNOWN_2";
+		case XInputButtons::GAMEPAD_A:
+			return "GAMEPAD_A";
+		case XInputButtons::GAMEPAD_B:
+			return "GAMEPAD_B";
+		case XInputButtons::GAMEPAD_X:
+			return "GAMEPAD_X";
+		case XInputButtons::GAMEPAD_Y:
+			return "GAMEPAD_Y";
+	}
+	return "UNKNOWN";
+}
 
 //#pragma comment(lib, "Xinput.lib")
 #pragma comment(lib, "Xinput9_1_0.lib")
@@ -50,9 +136,9 @@ static inline int8_t invert(const int8_t value)
 	return -value;
 }
 
-static u8* expandButtonBits(WORD  bits, u8* out)
+static u8* expandButtonBits(WORD bits, u8* out)
 {
-	for(int i=0; i < MAX_BUTTONS; i++)
+	for(int i = 0; i < MAX_BUTTONS; i++)
 	{
 		out[i] = (bits & (1 << i)) ? 1 : 0;
 	}
@@ -232,6 +318,130 @@ namespace oot::hid
 			void resetBindings() override
 			{
 				resetBindingsImpl();
+			}
+
+			bool canRebind(XInputButtons button, int input)
+			{
+				if(m_keyBindings.count(button) == 0)
+				{
+					return true;
+				}
+
+				auto replacingInput = m_keyBindings[button];
+				u64 count = 0;
+
+				if(replacingInput != START_BUTTON && replacingInput != A_BUTTON && replacingInput != B_BUTTON)
+				{
+					return true;
+				}
+
+				if(replacingInput == input)
+				{
+					return true;
+				}
+
+				for(auto i : m_keyBindings)
+				{
+					if(i.second == replacingInput)
+					{
+						count++;
+					}
+				}
+
+				if(count == 1)
+				{
+					return false;
+				}
+				return count != 1;
+			}
+
+			bool updateRebind(int input) override
+			{
+				u8 state[MAX_BUTTONS];
+				XINPUT_STATE xstate;
+				XInputGetState(m_ID, &xstate);
+				expandButtonBits(xstate.Gamepad.wButtons, state);
+
+				for(int i = 0; i < MAX_BUTTONS; i++)
+				{
+					bool newState = state[i];
+					state[i] = (m_lastKeyState[i] ^ newState) & newState;
+					m_lastKeyState[i] = newState;
+				}
+
+				for(int i = 0; i < MAX_BUTTONS; i++)
+				{
+					if(state[i] && canRebind((XInputButtons)i, input))
+					{
+						m_keyBindings[(XInputButtons)i] = input;
+						saveKeyBindings();
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			void loadKeyBindings()
+			{
+				try
+				{
+					std::ifstream ifs("xinput1.bindings.json", std::ifstream::in);
+
+					if(ifs.is_open())
+					{
+						rapidjson::IStreamWrapper isw(ifs);
+						rapidjson::Document d;
+						d.ParseStream(isw);
+
+						if(d.IsObject())
+						{
+							for(auto itr = d.MemberBegin(); itr != d.MemberEnd(); ++itr)
+							{
+								if(itr->name.IsString() && itr->value.IsString())
+								{
+									auto key = getButtonId(itr->name.GetString());
+									auto value = getInputValue(itr->value.GetString());
+
+									if(key != XInputButtons::GAMEPAD_NONE && value)
+									{
+										m_keyBindings[key] = value;
+									}
+									else
+									{
+										// oot::log("could not bind key: \"%s\" -> \"%s\"\n", itr->value.GetString(), itr->name.GetString());
+									}
+								}
+							}
+						}
+					}
+				}
+				catch(...)
+				{
+				}
+			}
+
+			void saveKeyBindings()
+			{
+				try
+				{
+					rapidjson::Document d;
+					d.SetObject();
+
+					rapidjson::Document::AllocatorType& allocator = d.GetAllocator();
+
+					for(const auto i : m_keyBindings)
+					{
+						rapidjson::Value value(getInputName((oot::hid::Button)i.second), allocator);
+						rapidjson::Value key(getButtonName(i.first), allocator);
+						d.AddMember(key, value, allocator);
+					}
+
+					saveJson(d, "xinput1.bindings.json");
+				}
+				catch(...)
+				{
+				}
 			}
 
 			bool IsConnected() const
