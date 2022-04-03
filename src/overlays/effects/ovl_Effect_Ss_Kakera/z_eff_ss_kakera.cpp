@@ -107,7 +107,7 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
 
     scale = pthis->rScale / 256.0f;
     colorIdx = pthis->rColorIdx;
-
+    
     OPEN_DISPS(gfxCtx, "../z_eff_kakera.c", 241);
 
     if (pthis->rObjId != KAKERA_OBJECT_DEFAULT) {

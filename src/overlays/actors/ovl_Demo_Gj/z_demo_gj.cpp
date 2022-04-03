@@ -196,9 +196,8 @@ void DemoGj_Explode(DemoGj* pthis, GlobalContext* globalCtx, Vec3f* initialPos, 
     s32 phi_s0;
     f32 aux;
     s16 theta = 0;
-    s32 i;
 
-    for (i = 0; i < 6; i++) {
+    for (s32 i = 0; i < 6; i++) {
         explosionPos.x = Math_SinS(theta) * 16.0f;
         explosionPos.y = (Rand_ZeroOne() * 5.0f) + 2.0f;
         explosionPos.z = Math_CosS(theta) * 16.0f;
@@ -489,7 +488,7 @@ void DemoGj_SetupMovement(DemoGj* pthis, GlobalContext* globalCtx) {
     Vec3s* unk_172;
     f32 xDistance;
     f32 zDistance;
-
+    
     if (pthis->ganon != NULL) {
         xDistance = actor->world.pos.x - pthis->ganon->actor.world.pos.x;
         zDistance = actor->world.pos.z - pthis->ganon->actor.world.pos.z;
@@ -1084,7 +1083,7 @@ s32 DemoGj_HasCylinderAnyExploded(DemoGj* pthis, GlobalContext* globalCtx) {
  * Kills the actor if ganon->unk_314==4 (Ganon killed), pthis rubble was hit by an explosion or killFlag==true
  * Used by DEMOGJ_TYPE_DESTRUCTABLE_RUBBLE_1
  */
-void func_8097B22C(DemoGj* pthis, GlobalContext* globalCtx) {
+void DemoGj_CheckKillFlag(DemoGj* pthis, GlobalContext* globalCtx) {
     Actor* thisx = &pthis->dyna.actor;
 
     if (func_809797E4(pthis, 4)) {
@@ -1097,7 +1096,7 @@ void func_8097B22C(DemoGj* pthis, GlobalContext* globalCtx) {
 
         Actor_Kill(thisx);
     } else if (pthis->killFlag) {
-        Vec3f vec2 = pthis->unk_26C;
+        Vec3f vec2 = pthis->explosionDirection;
         vec2.y = 0.0f;
 
         DemoGj_DropCollectible(pthis, globalCtx);
@@ -1118,7 +1117,7 @@ void DemoGj_Update15(DemoGj* pthis, GlobalContext* globalCtx) {
 
 // func_8097B370
 void DemoGj_Update18(DemoGj* pthis, GlobalContext* globalCtx) {
-    func_8097B22C(pthis, globalCtx);
+    DemoGj_CheckKillFlag(pthis, globalCtx);
     DemoGj_DoNothing1(pthis, globalCtx);
 }
 
@@ -1228,7 +1227,7 @@ void func_8097B750(DemoGj* pthis, GlobalContext* globalCtx) {
 
         Actor_Kill(thisx);
     } else if (pthis->killFlag) {
-        Vec3f vec2 = pthis->unk_26C;
+        Vec3f vec2 = pthis->explosionDirection;
         vec2.y = 0.0f;
 
         DemoGj_DropCollectible(pthis, globalCtx);
@@ -1313,7 +1312,7 @@ void func_8097BA48(DemoGj* pthis, GlobalContext* globalCtx) {
 
         Actor_Kill(thisx);
     } else if (pthis->killFlag) {
-        Vec3f vec2 = pthis->unk_26C;
+        Vec3f vec2 = pthis->explosionDirection;
         vec2.y = 0.0f;
 
         DemoGj_DropCollectible(pthis, globalCtx);
