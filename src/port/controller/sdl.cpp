@@ -23,7 +23,9 @@ static bool init_ok;
 #define INITIAL_PEAK 0x8000
 
 #ifdef ENABLE_GYRO
+#ifndef GYRO_SENSITIVITY
 const float GYRO_SENSITIVITY = 20.0f;
+#endif
 const float ACCEL_SENSITIVITY = 50.0f;
 #endif
 
@@ -389,7 +391,7 @@ namespace oot::hid
 					if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
 					{
 						s32 x = m_state.stick_x - (values[2] + values[1]) * GYRO_SENSITIVITY;
-						s32 y = m_state.stick_y - values[0] * GYRO_SENSITIVITY;
+						s32 y = m_state.stick_y + values[0] * GYRO_SENSITIVITY;
 						m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
 						m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
 

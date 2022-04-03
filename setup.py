@@ -67,6 +67,7 @@ def main():
     parser.add_argument("--disable-frizzle-cam", help="Disables R-Stick camera control", action="store_true", default=False)
     parser.add_argument("--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
     parser.add_argument("--enable-gyro", help="Enable gyro controls", action="store_true", default=False)
+    parser.add_argument("--gyro-sensitivity", help="Gyro sensitivity", type=int, default=20)
     parser.add_argument("--enable-debug-level-select", help="Enable debug level select on save 1", action="store_true", default=False)
     parser.add_argument("-t", "--text-speed", choices=['1', '2', '3', '4', '5', '10', '20'], help="Text scroll speed scaler", default='1')
     parser.add_argument("--pause-exit-input-clear-frames", choices=['0', '2', '3', '4', '5'], help="Number of frames to clear input state after pause menu exits (For speed-running, 0 disables)", default='2')
@@ -108,6 +109,7 @@ def main():
 
     if args.enable_gyro:
         defines.append('ENABLE_GYRO')
+        defines.append('GYRO_SENSITIVITY=%s' % args.gyro_sensitivity)
 
     if args.enable_debug_level_select:
         defines.append('ENABLE_DEBUG_LEVEL_SELECT')
