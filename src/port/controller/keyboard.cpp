@@ -19,6 +19,51 @@ extern "C"
 	void set_fullscreen(bool value);
 }
 
+#define MAX_BUTTONS (SDL_BUTTON_X2 + 1)
+
+static u8* expandMouseButtonBits(u32 bits, u8* out)
+{
+	for(int i = 1; i < MAX_BUTTONS; i++)
+	{
+		out[i] = (bits & (1 << (i - 1))) ? 1 : 0;
+	}
+	return out;
+}
+
+static u8 getButtonId(const std::string& str)
+
+{
+	if(str == "BUTTON_LEFT")
+		return SDL_BUTTON_LEFT;
+	if(str == "BUTTON_MIDDLE")
+		return SDL_BUTTON_MIDDLE;
+	if(str == "BUTTON_RIGHT")
+		return SDL_BUTTON_RIGHT;
+	if(str == "BUTTON_X1")
+		return SDL_BUTTON_X1;
+	if(str == "BUTTON_X2")
+		return SDL_BUTTON_X2;
+	return 0;
+}
+
+static const char* getButtonName(u8 button)
+{
+	switch(button)
+	{
+		case SDL_BUTTON_LEFT:
+			return "BUTTON_LEFT";
+		case SDL_BUTTON_RIGHT:
+			return "BUTTON_RIGHT";
+		case SDL_BUTTON_MIDDLE:
+			return "BUTTON_MIDDLE";
+		case SDL_BUTTON_X1:
+			return "BUTTON_X1";
+		case SDL_BUTTON_X2:
+			return "BUTTON_X2";
+	}
+	return "UNKNOWN";
+}
+
 bool saveJson(rapidjson::Document& doc, const std::string& jsonFilePath)
 {
 	rapidjson::StringBuffer buffer;
@@ -200,6 +245,10 @@ namespace oot::hid
 
 				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
 				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
+
+				m_mouseBindings[SDL_BUTTON_LEFT] = Button::B_BUTTON;
+				m_mouseBindings[SDL_BUTTON_RIGHT] = Button::A_BUTTON;
+				m_mouseBindings[SDL_BUTTON_MIDDLE] = Button::WALK_BUTTON;
 			}
 
 			void resetBindings() override
@@ -244,6 +293,42 @@ namespace oot::hid
 				catch(...)
 				{
 				}
+
+				try
+				{
+					std::ifstream ifs("mouse1.bindings.json", std::ifstream::in);
+
+					if(ifs.is_open())
+					{
+						rapidjson::IStreamWrapper isw(ifs);
+						rapidjson::Document d;
+						d.ParseStream(isw);
+
+						if(d.IsObject())
+						{
+							for(auto itr = d.MemberBegin(); itr != d.MemberEnd(); ++itr)
+							{
+								if(itr->name.IsString() && itr->value.IsString())
+								{
+									auto key = getButtonId(itr->name.GetString());
+									auto value = getInputValue(itr->value.GetString());
+
+									if(key != 0 && value)
+									{
+										m_mouseBindings[key] = value;
+									}
+									else
+									{
+										// TODO FIX oot::log("could not bind key: \"%s\" -> \"%s\"\n", itr->value.GetString(), itr->name.GetString());
+									}
+								}
+							}
+						}
+					}
+				}
+				catch(...)
+				{
+				}
 			}
 
 			void saveKeyBindings()
@@ -263,6 +348,26 @@ namespace oot::hid
 					}
 
 					saveJson(d, "keyboard1.bindings.json");
+				}
+				catch(...)
+				{
+				}
+
+				try
+				{
+					rapidjson::Document d;
+					d.SetObject();
+
+					rapidjson::Document::AllocatorType& allocator = d.GetAllocator();
+
+					for(const auto i : m_mouseBindings)
+					{
+						rapidjson::Value value(getInputName((oot::hid::Button)i.second), allocator);
+						rapidjson::Value key(getButtonName(i.first), allocator);
+						d.AddMember(key, value, allocator);
+					}
+
+					saveJson(d, "mouse1.bindings.json");
 				}
 				catch(...)
 				{
@@ -360,6 +465,33 @@ namespace oot::hid
 					}
 				}
 
+#ifdef ENABLE_MOUSE
+				int mouse_delta_x = 0;
+				int mouse_delta_y = 0;
+				u8 mouseState[MAX_BUTTONS];
+
+				auto buttons = SDL_GetRelativeMouseState(&mouse_delta_x, &mouse_delta_y);
+				this->enableMouse();
+				expandMouseButtonBits(buttons, mouseState);
+
+				for(int i = 1; i < MAX_BUTTONS; i++)
+				{
+					m_lastMouseState[i] = (mouseState[i] ^ m_lastMouseState[i]) & mouseState[i];
+				}
+
+				for(int i = 1; i < MAX_BUTTONS; i++)
+				{
+					if(m_lastMouseState[i])
+					{
+						m_mouseBindings[i] = input;
+						changed++;
+						saveKeyBindings();
+					}
+				}
+
+				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
+#endif
+
 				memcpy(m_lastKeyState, state, std::min(MAX_KEY_STATE, count));
 				return changed != 0;
 			}
@@ -413,31 +545,38 @@ namespace oot::hid
 #ifdef ENABLE_MOUSE
 				int mouse_delta_x = 0;
 				int mouse_delta_y = 0;
+				u8 mouseState[MAX_BUTTONS];
 
 				auto buttons = SDL_GetRelativeMouseState(&mouse_delta_x, &mouse_delta_y);
 				this->enableMouse();
+				expandMouseButtonBits(buttons, mouseState);
 
-				if(buttons & SDL_BUTTON(SDL_BUTTON_LEFT))
+				for(const auto& [btn, input] : m_mouseBindings)
 				{
-					m_state.button |= B_BUTTON;
-				}
+					if(mouseState[btn])
+					{
+						processKey(input);
+					}
 
-				if(buttons & SDL_BUTTON(SDL_BUTTON_RIGHT))
-				{
-					m_state.button |= A_BUTTON;
-				}
-
-				if(buttons & SDL_BUTTON(SDL_BUTTON_MIDDLE))
-				{
-					m_state.m_walk = true;
+					if(m_lastMouseState[btn] ^ mouseState[btn])
+					{
+						if(mouseState[btn])
+						{
+							processKeyDown(input);
+						}
+						else
+						{
+							processKeyUp(input);
+						}
+					}
 				}
 
 				m_state.mouse_x += mouse_delta_x * 4;
 				m_state.mouse_y += mouse_delta_y * 4;
 
-
 				m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * 4, 0x7F), -0x7F);
 				m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * -4, 0x7F), -0x7F);
+				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
 #endif
 
 				if(m_state.m_walk)
@@ -450,7 +589,9 @@ namespace oot::hid
 
 			protected:
 			std::unordered_map<SDL_Scancode, int> m_keyBindings;
+			std::unordered_map<u8, int> m_mouseBindings;
 			u8 m_lastKeyState[MAX_KEY_STATE];
+			u8 m_lastMouseState[MAX_BUTTONS];
 		};
 	} // namespace controller
 
