@@ -460,11 +460,11 @@ namespace oot::hid
 					return;
 				}
 
-				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0xFFFF);
-				m_state.stick_y = convertToByte(xstate.Gamepad.sThumbLY, 0xFFFF);
+				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0x7FFF);
+				m_state.stick_y = convertToByte(xstate.Gamepad.sThumbLY, 0x7FFF);
 
-				m_state.r_stick_x = convertToByte(xstate.Gamepad.sThumbRX, 0xFFFF);
-				m_state.r_stick_y = convertToByte(xstate.Gamepad.sThumbRY, 0xFFFF);
+				m_state.r_stick_x = convertToByte(xstate.Gamepad.sThumbRX, 0x7FFF);
+				m_state.r_stick_y = convertToByte(xstate.Gamepad.sThumbRY, 0x7FFF);
 
 				u8 state[MAX_BUTTONS];
 				expandButtonBits(xstate.Gamepad.wButtons, state);
