@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "json.h"
 #include <fstream>
+#include "port/options.h"
 
 #define MAX_BUTTONS 16
 
@@ -488,7 +489,7 @@ namespace oot::hid
 
 				uint32_t magnitude_sq = (uint32_t)(m_state.stick_x * m_state.stick_x) + (uint32_t)(m_state.stick_y * m_state.stick_y);
 
-				if(magnitude_sq < (uint32_t)(DEADZONE * DEADZONE))
+				if(magnitude_sq < (uint32_t)(oot::config().controls().stickLeftDeadzone() * oot::config().controls().stickLeftDeadzone()))
 				{
 					m_state.stick_x = 0;
 					m_state.stick_y = 0;
@@ -496,7 +497,7 @@ namespace oot::hid
 
 				magnitude_sq = (uint32_t)(m_state.r_stick_x * m_state.r_stick_x) + (uint32_t)(m_state.r_stick_y * m_state.r_stick_y);
 
-				if(magnitude_sq < (uint32_t)(RDEADZONE * RDEADZONE))
+				if(magnitude_sq < (uint32_t)(oot::config().controls().stickRightDeadzone() * oot::config().controls().stickRightDeadzone()))
 				{
 					m_state.r_stick_x = 0;
 					m_state.r_stick_y = 0;

@@ -68,10 +68,8 @@ namespace oot::hid
 		s8 r_stick_x; /* -80 <= stick_x <= 80 */
 		s8 r_stick_y; /* -80 <= stick_y <= 80 */
 
-#ifdef ENABLE_GYRO
 		float gyro[3];
 		float accel[3];
-#endif
 
 		s64 mouse_x;
 		s64 mouse_y;
@@ -95,10 +93,8 @@ namespace oot::hid
 		float r_stickY;	  // [-64, 64] positive is up
 		float r_stickMag; // distance from center [0, 64]
 
-#ifdef ENABLE_GYRO
 		bool m_hasGyro = false;
 		bool m_hasAccel = false;
-#endif
 
 		static s64 mouseScaleX(s64 value);
 		static s64 mouseScaleY(s64 value);

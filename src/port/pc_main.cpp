@@ -114,12 +114,12 @@ bool verifyIntegrity()
 
 	if(!hasRom)
 	{
-		sm64::log("error: unable to locate Z64 rom.\n");
+		oot::log("error: unable to locate Z64 rom.\n");
 	}
 
 	if(!hasPak)
 	{
-		sm64::log("error: unable to locate romfs/!!base.pak\n");
+		oot::log("error: unable to locate romfs/!!base.pak\n");
 	}
 
 	free(buffer);
@@ -143,7 +143,7 @@ static bool exists(const char* path)
 
 void main_func(void)
 {
-	sm64::log("initializing app\n");
+	oot::log("initializing app\n");
 
 	//Check if texture packs exist
 	if(exists("THE LEGEND OF ZELDA_HIRESTEXTURES.hts"))

@@ -303,7 +303,7 @@ namespace oot::hid
 
 		if(isFirstPerson())
 		{
-			if(this->r_stickMag > RDEADZONE)
+			if(this->r_stickMag > oot::config().controls().stickRightDeadzone())
 			{
 				this->stickMag = this->r_stickMag;
 				this->stickX = this->r_stickX;
