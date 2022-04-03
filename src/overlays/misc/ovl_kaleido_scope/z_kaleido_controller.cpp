@@ -67,6 +67,13 @@ static Vtx gRingBufferVtx[MAX_RING_BUFFER_SIZE][4];
 
 void drawTextureRGBA32(GraphicsContext* __gfxCtx, s16 x, s16 y, u16 width, u16 height, const u8* texture, bool centered = false, float scale = 1.0f)
 {
+	auto yoffset = PAGE_ACTIVE_Y;
+	if(yoffset != 0.0f)
+	{
+		y -= yoffset;
+		y += 20;
+	}
+
 	if(centered)
 	{
 		gRingBufferVtx[gRingBufferIndex][0] = VTX(width * scale / -2 + x, height * scale / -2 + y, 0, qs105(0), qs105(0 + height), 255, 255, 255, 255);
@@ -575,12 +582,7 @@ void KaleidoScope_DrawController(GlobalContext* globalCtx, oot::pause::Page* pag
 	OPEN_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATERGBA, G_CC_MODULATERGBA);
 
-	Gfx* x = POLY_OPA_DISP;
-	gDPLoadTextureBlock(POLY_OPA_DISP++, gN64ControllerTex, G_IM_FMT_RGBA, G_IM_SIZ_32b, TEX_WIDTH, TEX_HEIGHT, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-	gSPVertex(POLY_OPA_DISP++, controllerVtx, 4, 0);
-	gSP2Triangles(POLY_OPA_DISP++, 0, 2, 3, 0, 0, 1, 2, 0);
-
-	gDPPipeSync(POLY_OPA_DISP++);
+	drawTextureRGBA32(__gfxCtx, TEX_X, TEX_Y, TEX_WIDTH, TEX_HEIGHT, gN64ControllerTex, true);
 
 	hotspots.draw(__gfxCtx);
 
