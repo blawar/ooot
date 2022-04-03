@@ -100,8 +100,8 @@ def main():
     if args.disable_distance_culling:
         defines.append('NO_CULLING')
         
-    if args.disable_xinput:
-        defines.append('DISABLE_XINPUT')        
+    if args.disable_xinput or args.enable_gyro:
+        defines.append('DISABLE_XINPUT')      
 
     if args.disable_option_remap:
         defines.append('DISABLE_OPTIONS_REMAP')

@@ -2,6 +2,7 @@
 
 #include "ultra64/types.h"
 #include "state.h"
+#include "macros.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -52,6 +53,24 @@ namespace oot::hid
 				m_motorEnabled = initHaptics();
 
 				resetBindingsImpl();
+
+#ifdef ENABLE_GYRO
+				if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_GYRO) == SDL_TRUE)
+				{
+					if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_GYRO, SDL_TRUE))
+					{
+						m_hasGyro = true;
+					}
+				}
+
+				if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_ACCEL) == SDL_TRUE)
+				{
+					if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_ACCEL, SDL_TRUE))
+					{
+						m_hasAccel = true;
+					}
+				}
+#endif
 
 #ifndef __SWITCH__
 				loadKeyBindings();
@@ -472,7 +491,7 @@ namespace oot::hid
 
 		g_haptics = SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0;
 
-		SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
+		//SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
 	}
 
 	SDL::~SDL()
