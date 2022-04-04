@@ -18,7 +18,7 @@ struct EnGe3 {
     /* 0x01DC */ Vec3s jointTable[GELDB_LIMB_MAX];
     /* 0x026C */ Vec3s morphTable[GELDB_LIMB_MAX];
     /* 0x02FC */ s16 eyeIndex;
-    /* 0x02FE */ s16 blinkTimer;
+    /* 0x02FE */ Timer blinkTimer;
     /* 0x0300 */ Vec3s headRot;
     /* 0x0306 */ Vec3s unk_306;
     /* 0x030C */ u16 unk_30C;

@@ -15,7 +15,7 @@ struct BgSpot15Saku {
     /* 0x0164 */ BgSpot15SakuActionFunc actionFunc;
     /* 0x0168 */ u64 unk_168;
     /* 0x0170 */ Vec3f unk_170;
-    /* 0x017C */ s16 timer;
+    /* 0x017C */ Timer timer;
 }; 
 
 

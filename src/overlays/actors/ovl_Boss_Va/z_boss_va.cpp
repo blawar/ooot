@@ -3036,9 +3036,9 @@ void BossVa_ZapperPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
             Matrix_RotateZYX(sp3E, sp3C, 0, MTXMODE_APPLY);
             sp70.x = 0.0f;
             if (sFightPhase >= PHASE_4) {
-                sp70.z = ((pthis->timer2 - 16) & 7) * 120.0f;
+                sp70.z = ((pthis->timer2.whole() - 16) & 7) * 120.0f;
             } else {
-                sp70.z = ((pthis->timer2 - 32) & 0xF) * 80.0f;
+                sp70.z = ((pthis->timer2.whole() - 32) & 0xF) * 80.0f;
             }
             sp4C.z = sp40.z = sp70.z += 40.0f;
             sp70.z += 50.0f;

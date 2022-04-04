@@ -97,7 +97,7 @@ void DemoGo_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_8097C930(DemoGo* pthis) {
-    s16* something = &pthis->unk_192;
+    auto something = &pthis->unk_192;
     s16* other = &pthis->unk_190;
     s32 pad[3];
 

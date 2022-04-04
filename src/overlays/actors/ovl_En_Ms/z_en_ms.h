@@ -17,7 +17,7 @@ struct EnMs {
     /* 0x01C6 */ Vec3s morphTable[9];
     /* 0x01FC */ EnMsActionFunc actionFunc;
     /* 0x0200 */ ColliderCylinder collider;
-    /* 0x024C */ s16 activeTimer;
+    /* 0x024C */ Timer activeTimer;
 }; 
 
 

@@ -125,7 +125,6 @@ void Timer::update()
 
 Timer& Timer::operator++() // pre
 {
-	m_counter += COUNTER_STEP;
 	m_counterInt++;
 	update();
 	return *this;
@@ -134,7 +133,6 @@ Timer& Timer::operator++() // pre
 Timer Timer::operator++(int) // post
 {
 	auto r = *this;
-	m_counter += COUNTER_STEP;
 	m_counterInt++;
 	update();
 	return r;
@@ -142,7 +140,6 @@ Timer Timer::operator++(int) // post
 
 Timer& Timer::operator--() // pre
 {
-	m_counter -= COUNTER_STEP;
 	m_counterInt--;
 	update();
 	return *this;
@@ -151,7 +148,6 @@ Timer& Timer::operator--() // pre
 Timer Timer::operator--(int) // post
 {
 	auto r = *this;
-	m_counter -= COUNTER_STEP;
 	m_counterInt--;
 	update();
 	return r;
@@ -161,7 +157,6 @@ Timer& Timer::dec()
 {
 	if(m_counter)
 	{
-		m_counter -= COUNTER_STEP;
 		m_counterInt--;
 		update();
 	}
@@ -225,6 +220,18 @@ Timer& Timer::operator-=(const Timer f)
 	return *this;
 }
 
+Timer& Timer::operator*=(float f)
+{
+	*this = (float)*this * f;
+	return *this;
+}
+
+Timer& Timer::operator/=(float f)
+{
+	*this = (float)*this / f;
+	return *this;
+}
+
 Timer& Timer::operator&=(u64 n)
 {
 	*this = whole() & n;
@@ -234,6 +241,12 @@ Timer& Timer::operator&=(u64 n)
 Timer& Timer::operator|=(u64 n)
 {
 	*this = whole() | n;
+	return *this;
+}
+
+Timer& Timer::operator^=(u64 n)
+{
+	*this = whole() ^ n;
 	return *this;
 }
 

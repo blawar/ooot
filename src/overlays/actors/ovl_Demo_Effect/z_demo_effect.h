@@ -34,14 +34,14 @@ struct DemoEffectGodLgt {
     /* 0x00 */ u8 type;
     /* 0x01 */ u8 lightRingSpawnDelay;
     /* 0x02 */ u8 rotation;
-    /* 0x04 */ s16 lightRingSpawnTimer;
+    /* 0x04 */ Timer lightRingSpawnTimer;
 };
 
 struct DemoEffectLightRing {
     /* 0x00 */ u8 timerIncrement;
     /* 0x01 */ u8 alpha;
     /* 0x02 */ u8 pad;
-    /* 0x04 */ s16 timer;
+    /* 0x04 */ Timer timer;
 };
 
 struct DemoEffectTriforceSpot {
@@ -62,14 +62,14 @@ struct DemoEffectTimeWarp {
     /* 0x00 */ u8 pad;
     /* 0x01 */ u8 pad2;
     /* 0x02 */ u8 pad3;
-    /* 0x04 */ s16 shrinkTimer;
+    /* 0x04 */ Timer shrinkTimer;
 };
 
 struct DemoEffectJewel {
     /* 0x00 */ u8 type;
     /* 0x01 */ u8 isPositionInit;
     /* 0x02 */ u8 alpha;
-    /* 0x04 */ s16 timer;
+    /* 0x04 */ Timer timer;
 };
 
 struct DemoEffectDust {

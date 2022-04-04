@@ -58,7 +58,7 @@ struct EnKo {
     /* 0x01F0 */ struct_80034A14_arg1 unk_1E8;
     /* 0x021C */ u8 unk_210; // block trade quest sfx
     /* 0x021E */ s16 forestQuestState;
-    /* 0x0220 */ s16 blinkTimer;
+    /* 0x0220 */ Timer blinkTimer;
     /* 0x0222 */ s16 eyeTextureIndex;
     /* 0x0224 */ f32 appearDist;
     /* 0x0228 */ f32 lookDist; // distance to start looking at player

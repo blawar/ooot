@@ -20,7 +20,7 @@ struct EnWallmas {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnWallmasActionFunc actionFunc;
-    /* 0x0194 */ s16 timer;
+    /* 0x0194 */ Timer timer;
     /* 0x0196 */ s16 switchFlag;
     /* 0x0198 */ Vec3s jointTable[25];
     /* 0x022E */ Vec3s morphTable[25];

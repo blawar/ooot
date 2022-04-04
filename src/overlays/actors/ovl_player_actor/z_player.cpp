@@ -2002,7 +2002,7 @@ s32 func_8083442C(Player* pthis, GlobalContext* globalCtx) {
         pthis->unk_834 = 14;
 
         if (pthis->unk_860 >= 0) {
-            func_8002F7DC(&pthis->actor, D_80854398[ABS(pthis->unk_860) - 1]);
+            func_8002F7DC(&pthis->actor, D_80854398[ABS(pthis->unk_860.whole()) - 1]);
 
             if (!Player_HoldsHookshot(pthis) && (func_80834380(globalCtx, pthis, &item, &arrowType) > 0)) {
                 magicArrowType = arrowType - ARROW_FIRE;
@@ -2363,7 +2363,7 @@ s32 func_808351D4(Player* pthis, GlobalContext* globalCtx) {
         if (pthis->unk_860 >= 0) {
             if (sp2C == 0) {
                 if (!func_808350A4(globalCtx, pthis)) {
-                    func_8002F7DC(&pthis->actor, gOutOfArrowSound[ABS(pthis->unk_860) - 1]); // play bow out of ammo sound
+                    func_8002F7DC(&pthis->actor, gOutOfArrowSound[ABS(pthis->unk_860.whole()) - 1]); // play bow out of ammo sound
                 }
             } else if (pthis->actor.bgCheckFlags & 1) {
                 func_808350A4(globalCtx, pthis);
@@ -2387,7 +2387,7 @@ s32 func_808353D8(Player* pthis, GlobalContext* globalCtx) {
 
     if (!func_80834758(globalCtx, pthis) &&
         (D_80853614 || ((pthis->unk_860 < 0) && D_80853618) || func_80834E44(globalCtx))) {
-        pthis->unk_860 = ABS(pthis->unk_860);
+        pthis->unk_860 = ABS(pthis->unk_860.whole());
 
         if (func_8083442C(pthis, globalCtx)) {
             if (Player_HoldsHookshot(pthis)) {
@@ -5289,7 +5289,7 @@ s32 func_8083C6B8(GlobalContext* globalCtx, Player* pthis) {
                 pthis->unk_850 = 1;
             }
 
-            func_808322D0(globalCtx, pthis, D_80854554[pthis->unk_850].unk_00);
+            func_808322D0(globalCtx, pthis, D_80854554[pthis->unk_850.whole()].unk_00);
 
             func_8002F7DC(&pthis->actor, NA_SE_IT_SWORD_SWING);
             func_80832698(pthis, NA_SE_VO_LI_AUTO_JUMP);
@@ -11087,7 +11087,7 @@ void func_8084BF1C(Player* pthis, GlobalContext* globalCtx) {
     if ((pthis->unk_850 < 0) || !func_8083FBC0(pthis, globalCtx)) {
         if (LinkAnimation_Update(globalCtx, &pthis->skelAnime) != 0) {
             if (pthis->unk_850 < 0) {
-                pthis->unk_850 = ABS(pthis->unk_850) & 1;
+                pthis->unk_850 = ABS(pthis->unk_850.whole()) & 1;
                 return;
             }
 
@@ -11109,7 +11109,7 @@ void func_8084BF1C(Player* pthis, GlobalContext* globalCtx) {
                             func_8083A9B8(pthis, &gPlayerAnim_003000, globalCtx);
                             pthis->stateFlags1 |= 0x4000;
                         } else {
-                            func_8083F070(pthis, pthis->ageProperties->unk_CC[pthis->unk_850], globalCtx);
+                            func_8083F070(pthis, pthis->ageProperties->unk_CC[pthis->unk_850.whole()], globalCtx);
                         }
                     } else {
                         pthis->skelAnime.prevTransl = pthis->ageProperties->unk_4A[sp68];
@@ -11123,7 +11123,7 @@ void func_8084BF1C(Player* pthis, GlobalContext* globalCtx) {
                             if (pthis->unk_850 != 0) {
                                 pthis->skelAnime.prevTransl = pthis->ageProperties->unk_44;
                             }
-                            func_8083F070(pthis, pthis->ageProperties->unk_C4[pthis->unk_850], globalCtx);
+                            func_8083F070(pthis, pthis->ageProperties->unk_C4[pthis->unk_850.whole()], globalCtx);
                             pthis->unk_850 = 1;
                         }
                     } else {
@@ -11137,13 +11137,13 @@ void func_8084BF1C(Player* pthis, GlobalContext* globalCtx) {
                 pthis->unk_850 ^= 1;
             } else {
                 if ((pthis->unk_84F != 0) && (sp80 != 0)) {
-                    anim2 = pthis->ageProperties->unk_BC[pthis->unk_850];
+                    anim2 = pthis->ageProperties->unk_BC[pthis->unk_850.whole()];
 
                     if (sp80 > 0) {
-                        pthis->skelAnime.prevTransl = pthis->ageProperties->unk_7A[pthis->unk_850];
+                        pthis->skelAnime.prevTransl = pthis->ageProperties->unk_7A[pthis->unk_850.whole()];
                         func_80832264(globalCtx, pthis, anim2);
                     } else {
-                        pthis->skelAnime.prevTransl = pthis->ageProperties->unk_86[pthis->unk_850];
+                        pthis->skelAnime.prevTransl = pthis->ageProperties->unk_86[pthis->unk_850.whole()];
                         LinkAnimation_Change(globalCtx, &pthis->skelAnime, anim2, -1.0f, Animation_GetLastFrame(anim2),
                                              0.0f, ANIMMODE_ONCE, 0.0f);
                     }
@@ -11444,7 +11444,7 @@ void func_8084CC98(Player* pthis, GlobalContext* globalCtx) {
             }
             func_80832264(globalCtx, pthis, D_8085498C[temp]);
         } else {
-            pthis->skelAnime.animation = D_80854944[pthis->unk_850 - 2];
+            pthis->skelAnime.animation = D_80854944[pthis->unk_850.whole() - 2];
             Animation_SetMorph(globalCtx, &pthis->skelAnime, 8.0f);
             if (pthis->unk_850 < 4) {
                 func_80834644(globalCtx, pthis);
@@ -11522,7 +11522,7 @@ void func_8084CC98(Player* pthis, GlobalContext* globalCtx) {
                     anim = &gPlayerAnim_0033B0;
                 } else if (EN_HORSE_CHECK_2(rideActor)) {
                     if ((pthis->unk_850 >= 2) && (pthis->unk_850 != 99)) {
-                        anim = D_80854968[pthis->unk_850 - 2];
+                        anim = D_80854968[pthis->unk_850.whole() - 2];
                     }
                 }
 
@@ -12195,7 +12195,7 @@ void func_8084ECA4(Player* pthis, GlobalContext* globalCtx) {
     s32 temp;
     s32 i;
 
-    sp24 = &D_80854554[pthis->unk_850];
+    sp24 = &D_80854554[pthis->unk_850.whole()];
     func_8083721C(pthis);
 
     if (LinkAnimation_Update(globalCtx, &pthis->skelAnime)) {
@@ -13903,7 +13903,7 @@ static void (*D_808551FC[])(Player* pthis, GlobalContext* globalCtx) = {
 };
 
 void func_808525C0(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {
-    D_808551FC[pthis->unk_850](pthis, globalCtx);
+    D_808551FC[pthis->unk_850.whole()](pthis, globalCtx);
 }
 
 void func_80852608(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2) {

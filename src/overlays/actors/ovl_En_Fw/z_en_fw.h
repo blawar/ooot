@@ -34,12 +34,12 @@ struct EnFw {
     /* 0x0202 */ s16 runDirection;
     /* 0x0204 */ s16 bounceCnt;
     /* 0x0206 */ char unk_206[0x2];
-    /* 0x0208 */ s16 damageTimer;
-    /* 0x020A */ s16 explosionTimer;
+    /* 0x0208 */ Timer damageTimer;
+    /* 0x020A */ Timer explosionTimer;
     /* 0x020C */ char unk_20C[0x2];
-    /* 0x020E */ s16 slideTimer;
-    /* 0x0210 */ s16 slideSfxTimer;
-    /* 0x0212 */ s16 returnToParentTimer;
+    /* 0x020E */ Timer slideTimer;
+    /* 0x0210 */ Timer slideSfxTimer;
+    /* 0x0212 */ Timer returnToParentTimer;
     /* 0x0214 */ s16 turnAround;
     /* 0x0218 */ f32 runRadius;
     /* 0x021C */ Vec3s jointTable[11];

@@ -17,7 +17,7 @@ struct EnRu2 {
     /* 0x0190 */ Vec3s jointTable[23];
     /* 0x021A */ Vec3s morphTable[23];
     /* 0x02A4 */ s16 unk_2A4;
-    /* 0x02A6 */ s16 unk_2A6;
+    /* 0x02A6 */ Timer unk_2A6;
     /* 0x02A8 */ s32 action;
     /* 0x02AC */ s32 drawConfig;
     /* 0x02B0 */ f32 unk_2B0;

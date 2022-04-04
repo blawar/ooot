@@ -173,7 +173,7 @@ void func_80031A28(GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031B14(GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031C3C(ActorContext* actorCtx, GlobalContext* globalCtx);
 Actor* func_80032AF0(GlobalContext* globalCtx, ActorContext* actorCtx, Actor** actorPtr, Player* player);
-s16 func_80032CB4(s16* arg0, s16 arg1, s16 arg2, s16 arg3);
+s16 func_80032CB4(Timer* arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_80033480(GlobalContext* globalCtx, Vec3f* posBase, f32 randRangeDiameter, s32 amountMinusOne, s16 scaleBase, s16 scaleStep, u8 arg6);
 Actor* func_80033684(GlobalContext* globalCtx, Actor* explosiveActor);
 f32 func_80033AEC(Vec3f* arg0, Vec3f* arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5);

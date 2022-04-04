@@ -13,7 +13,7 @@ struct ObjMakekinsuta {
 
     /* 0x0000 */ Actor actor;
     /* 0x014C */ ObjMakekinsutaActionFunc actionFunc;
-    /* 0x150  */ s16 timer;
+    /* 0x150  */ Timer timer;
     /* 0x152  */ s16 unk_152;
 }; 
 

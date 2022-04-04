@@ -37,12 +37,12 @@ struct EnTk {
     /* 0x0210 */ Actor*     currentSpot;
     /* 0x0214 */ s32        currentReward;
     /* 0x0218 */ s16        blinkCycles;
-    /* 0x021A */ s16        rewardTimer;
-    /* 0x021C */ s16        actionCountdown;
+    /* 0x021A */ Timer rewardTimer;
+    /* 0x021C */ Timer        actionCountdown;
     /* 0x021E */ s16        h_21E;
     /* 0x0220 */ char       unk_220[0x2];
     /* 0x0222 */ s16        eyeTextureIdx;
-    /* 0x0224 */ s16        blinkCountdown;
+    /* 0x0224 */ Timer        blinkCountdown;
     /* 0x0226 */ s16        headRot;
     /* 0x0228 */ s16        currentWaypoint;
     /* 0x022A */ Vec3s      jointTable[18];

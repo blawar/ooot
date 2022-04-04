@@ -836,9 +836,9 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x0C, segMtx);
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (pthis->scrollTimer * 0) & 0x7F,
-                                (pthis->scrollTimer * 0) & 0x3F, 32, 16, 1, (pthis->scrollTimer * 0) & 0x3F,
-                                (pthis->scrollTimer * -6) & 0x7F, 32, 16));
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (pthis->scrollTimer.whole() * 0) & 0x7F,
+                                (pthis->scrollTimer.whole() * 0) & 0x3F, 32, 16, 1, (pthis->scrollTimer.whole() * 0) & 0x3F,
+                                (pthis->scrollTimer.whole() * -6) & 0x7F, 32, 16));
     Matrix_Push();
 
     Matrix_Scale((1.0f + pthis->bodySegs[RR_BASE].scaleMod.x) * pthis->bodySegs[RR_BASE].scale.x,

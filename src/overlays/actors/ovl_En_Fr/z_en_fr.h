@@ -70,7 +70,7 @@ struct EnFr {
     /* 0x0382 */ u8 songIndex; // Song index 1-7 (6 songs + custom HP Song): 5 = sos, 6 = all songs
     /* 0x0383 */ u8 isJumpingToFrogSong; // Conditional: 
     /* 0x0384 */ char unk_384[0x02];
-    /* 0x0386 */ s16 frogSongTimer; // timer #2 for frogs 2 HP
+    /* 0x0386 */ Timer frogSongTimer; // timer #2 for frogs 2 HP
     /* 0x0388 */ s32 reward; // Prize for completing a song
     /* 0x038C */ Vec3f posLogSpot; // Where the frog goes when activated
     /* 0x0398 */ f32 xzDistToLogSpot; // z position or axis

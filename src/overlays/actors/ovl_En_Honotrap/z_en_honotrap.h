@@ -28,7 +28,7 @@ struct EnHonotrap {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnHonotrapActionFunc actionFunc;
     /* 0x0150 */ EnHonotrapCollider collider;
-    /* 0x0228 */ s16 timer;
+    /* 0x0228 */ Timer timer;
     /* 0x022A */ s16 eyeState;
     /* 0x022C */ Vec3f targetPos;
     /* 0x0238 */ f32 speedMod;

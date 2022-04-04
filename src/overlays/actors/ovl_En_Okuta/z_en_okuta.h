@@ -14,7 +14,7 @@ struct EnOkuta {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnOkutaActionFunc actionFunc;
-    /* 0x0194 */ s16 timer;
+    /* 0x0194 */ Timer timer;
     /* 0x0196 */ s16 numShots;
     /* 0x0198 */ Vec3s jointTable[38];
     /* 0x027C */ Vec3s morphTable[38];

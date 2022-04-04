@@ -83,7 +83,7 @@ struct DoorShutter {
     /* 0x016B */ u8 unk_16B;
     /* 0x016C */ u8 unk_16C;
     /* 0x016D */ s32 requiredObjBankIndex;
-    /* 0x016E */ s8 unk_16E;
+    /* 0x016E */ Timer unk_16E;
     /* 0x016F */ s8 unk_16F;
     /* 0x0170 */ f32 unk_170;
     /* 0x0174 */ DoorShutterActionFunc actionFunc;

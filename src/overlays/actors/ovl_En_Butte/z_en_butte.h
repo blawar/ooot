@@ -27,11 +27,11 @@ struct EnButte {
     /* 0x01F0 */ Vec3s jointTable[8];
     /* 0x0220 */ Vec3s morphTable[8];
     /* 0x0250 */ EnButteActionFunc actionFunc;
-    /* 0x0254 */ s16 timer;
+    /* 0x0254 */ Timer timer;
     /* 0x0256 */ u8 flightParamsIdx;
     /* 0x0257 */ u8 unk_257;
     /* 0x0258 */ u8 drawSkelAnime;
-    /* 0x025A */ s16 swordDownTimer;
+    /* 0x025A */ Timer swordDownTimer;
     /* 0x025C */ s16 unk_25C;
     /* 0x025E */ s16 unk_25E;
     /* 0x0260 */ s16 unk_260;

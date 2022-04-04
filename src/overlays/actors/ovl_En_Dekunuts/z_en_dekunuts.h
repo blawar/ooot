@@ -16,7 +16,7 @@ struct EnDekunuts {
     /* 0x0190 */ EnDekunutsActionFunc actionFunc;
     /* 0x0194 */ u8 playWalkSound;
     /* 0x0195 */ u8 runAwayCount;
-    /* 0x0196 */ s16 animFlagAndTimer;
+    /* 0x0196 */ Timer animFlagAndTimer;
     /* 0x0198 */ s16 runDirection;
     /* 0x019A */ s16 shotsPerRound;
     /* 0x019C */ Vec3s jointTable[25];

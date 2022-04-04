@@ -27,7 +27,7 @@ struct EnJj {
     /* 0x0304 */ Actor* dust;
     /* 0x0308 */ s16 mouthOpenAngle;
     /* 0x030A */ u16 unk_30A;
-    /* 0x030C */ s16 cutsceneCountdownTimer;
+    /* 0x030C */ Timer cutsceneCountdownTimer;
     /* 0x030E */ u8 eyeIndex;
     /* 0x030F */ u8 blinkTimer;
     /* 0x0310 */ u8 extraBlinkCounter;

@@ -379,7 +379,7 @@ void EnBili_DischargeLightning(EnBili* pthis, GlobalContext* globalCtx) {
     s16 effectYaw;
 
     for (i = 0; i < 4; i++) {
-        if (!((pthis->timer + (i << 1)) % 4)) {
+        if (!((pthis->timer.whole() + (i << 1)) % 4)) {
             effectYaw = (s16)Rand_CenteredFloat(12288.0f) + (i * 0x4000) + 0x2000;
             effectPos.x = Rand_CenteredFloat(5.0f) + pthis->actor.world.pos.x;
             effectPos.y = (Rand_ZeroOne() * 5.0f) + pthis->actor.world.pos.y + 2.5f;

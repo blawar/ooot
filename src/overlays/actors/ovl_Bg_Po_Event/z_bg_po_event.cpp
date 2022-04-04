@@ -458,7 +458,7 @@ void BgPoEvent_BlockReset(BgPoEvent* pthis, GlobalContext* globalCtx) {
         sPuzzleState = 0;
         if (pthis->type == 1) {
             pthis->timer += 10;
-            pthis->timer = CLAMP_MAX(pthis->timer, 120);
+            pthis->timer = CLAMP_MAX((float)pthis->timer, 120.0f);
         }
     }
 }

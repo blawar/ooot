@@ -58,7 +58,7 @@ struct EnVali {
     /* 0x0190 */ EnValiActionFunc actionFunc;
     /* 0x0194 */ u8 lightningTimer;
     /* 0x0195 */ u8 slingshotReactionTimer;
-    /* 0x0196 */ s16 timer;
+    /* 0x0196 */ Timer timer;
     /* 0x0198 */ Vec3s jointTable[EN_VALI_LIMB_MAX];
     /* 0x0246 */ Vec3s morphTable[EN_VALI_LIMB_MAX];
     /* 0x02F4 */ f32 armScale;

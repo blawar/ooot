@@ -32,7 +32,7 @@ struct EnDh {
     /* 0x0259 */ u8 unused_259;
     /* 0x025A */ u8 alpha;
     /* 0x025B */ u8 curAction;
-    /* 0x025C */ s16 timer;
+    /* 0x025C */ Timer timer;
     /* 0x025E */ s16 dirtWavePhase;
     /* 0x0260 */ ColliderCylinder collider1;
     /* 0x02AC */ ColliderJntSph collider2;

@@ -21,7 +21,7 @@ struct BgSpot03Taki {
 
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ BgSpot03TakiActionFunc actionFunc;
-    /* 0x0168 */ s16 timer;
+    /* 0x0168 */ Timer timer;
     /* 0x016A */ u8 state;
     /* 0x016C */ u16 switchFlag;
     /* 0x0170 */ f32 openingAlpha;

@@ -21,7 +21,7 @@ struct BgHakaZou {
     /* 0x0164 */ BgHakaZouActionFunc actionFunc;
     /* 0x0168 */ s32 requiredObjBankIndex;
     /* 0x0169 */ u8 switchFlag;
-    /* 0x016A */ s16 timer;
+    /* 0x016A */ Timer timer;
     /* 0x016C */ ColliderCylinder collider;
 }; 
 

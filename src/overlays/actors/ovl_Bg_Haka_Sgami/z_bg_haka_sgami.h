@@ -20,7 +20,7 @@ struct BgHakaSgami {
     /* 0x014C */ BgHakaSgamiActionFunc actionFunc;
     /* 0x0150 */ s32 requiredObjBankIndex;
     /* 0x0151 */ s8 unk_151;
-    /* 0x0152 */ s16 timer;
+    /* 0x0152 */ Timer timer;
     /* 0x0154 */ s32 blureEffectIndex[2];
     /* 0x015C */ ColliderCylinder colliderScytheCenter;
     /* 0x01A8 */ ColliderTris colliderScythe;

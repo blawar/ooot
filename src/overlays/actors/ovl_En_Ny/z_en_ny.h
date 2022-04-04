@@ -16,7 +16,7 @@ struct EnNy {
     /* 0x0150 */ ColliderJntSph collider;
     /* 0x0170 */ ColliderJntSphElement elements[1];
     /* 0x01B0 */ char unk_1B0[0x18];
-    /* 0x01C8 */ s16 timer;
+    /* 0x01C8 */ Timer timer;
     /* 0x01CA */ s16 unk_1CA;
     /* 0x01CC */ s16 hitPlayer;
     /* 0x01CE */ u16 unk_1CE;

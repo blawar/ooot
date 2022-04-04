@@ -905,7 +905,7 @@ void BossSst_HeadVulnerable(BossSst* pthis, GlobalContext* globalCtx) {
     Math_StepToF(&sHandOffsets[RIGHT].x, -200.0f, 20.0f);
     if (CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_13)) {
         pthis->timer += 2;
-        pthis->timer = CLAMP_MAX(pthis->timer, 50);
+        pthis->timer = CLAMP_MAX((float)pthis->timer, 50.0f);
     } else {
         if (pthis->timer != 0) {
             pthis->timer--;
@@ -1843,7 +1843,7 @@ void BossSst_HandGrab(BossSst* pthis, GlobalContext* globalCtx) {
         pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_SHADEST_CATCH);
         BossSst_HandGrabPlayer(pthis, globalCtx);
-        pthis->timer = CLAMP_MAX(pthis->timer, 5);
+        pthis->timer = CLAMP_MAX((float)pthis->timer, 5.0f);
     }
 
     pthis->actor.world.pos.x += pthis->actor.speedXZ * Math_SinS(pthis->actor.world.rot.y);
@@ -2778,7 +2778,7 @@ s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     BossSst* pthis = (BossSst*)thisx;
     s32 shakeAmp;
     s32 pad;
-    s32 timer12;
+    Timer timer12;
     f32 shakeMod;
 
     if (!CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_7) && pthis->vVanish) {
@@ -2825,7 +2825,7 @@ s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
         if (pthis->timer > 48) {
             timer12 = pthis->timer - 36;
         } else {
-            pad = ((pthis->timer > 6) ? 6 : pthis->timer);
+            pad = ((pthis->timer > 6) ? 6.0f : (float)pthis->timer);
             timer12 = pad * 2;
         }
 

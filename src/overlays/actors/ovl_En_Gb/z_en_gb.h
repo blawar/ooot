@@ -12,7 +12,7 @@ struct EnGbCagedSoulInfo {
     /* 0x00 */ Color_RGBA8 prim;
     /* 0x04 */ Color_RGBA8 env;
     /* 0x08 */ void* texture;
-    /* 0x0C */ s16 timerMultiplier;
+    /* 0x0C */ Timer timerMultiplier;
 }; 
 
 struct EnGbCagedSoul {
@@ -42,8 +42,8 @@ struct EnGb {
     /* 0x036C */ LightNode* light;
     /* 0x0370 */ LightInfo lightInfo;
     /* 0x037E */ u16 textId;
-    /* 0x0380 */ s16 frameTimer;
-    /* 0x0382 */ s16 actionTimer;
+    /* 0x0380 */ Timer frameTimer;
+    /* 0x0382 */ Timer actionTimer;
     /* 0x0384 */ Color_RGBA8 lightColor;
     /* 0x0388 */ EnGbCagedSoul cagedSouls[4];
 }; 

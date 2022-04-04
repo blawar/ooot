@@ -20,7 +20,7 @@ struct BgHidanFwbig {
     /* 0x014C */ BgHidanFwbigActionFunc actionFunc;
     /* 0x0150 */ s8 direction;
     /* 0x0151 */ u8 moveState;
-    /* 0x0152 */ s16 timer;
+    /* 0x0152 */ Timer timer;
     /* 0x0154 */ ColliderCylinder collider;
 }; 
 

@@ -27,7 +27,7 @@ struct EnSb {
     /* 0x01F8 */ s16 fire;
     /* 0x01FA */ s16 behavior;
     /* 0x01FC */ s16 isDead;
-    /* 0x01FE */ s16 timer;
+    /* 0x01FE */ Timer timer;
     /* 0x0200 */ s16 attackYaw;
     /* 0x0202 */ s16 bouncesLeft; // amount of bounces left in the attack before going back to wait
     /* 0x0204 */ u8 hitByWindArrow;

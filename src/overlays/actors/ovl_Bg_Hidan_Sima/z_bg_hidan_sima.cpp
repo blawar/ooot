@@ -227,7 +227,7 @@ void BgHidanSima_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     pthis->actionFunc(pthis, globalCtx);
     if (pthis->dyna.actor.params != 0) {
-        s32 temp = (pthis->dyna.actor.world.rot.y == pthis->dyna.actor.shape.rot.y) ? pthis->timer : (pthis->timer + 80);
+        float temp = (pthis->dyna.actor.world.rot.y == pthis->dyna.actor.shape.rot.y) ? (float)pthis->timer : (float)(pthis->timer + 80);
 
         if (pthis->actionFunc == func_8088E7A8) {
             temp += 20;
@@ -253,7 +253,7 @@ Gfx* func_8088EB54(GlobalContext* globalCtx, BgHidanSima* pthis, Gfx* gfx) {
     cos = Math_CosS(pthis->dyna.actor.world.rot.y + 0x8000);
     sin = Math_SinS(pthis->dyna.actor.world.rot.y + 0x8000);
 
-    phi_s5 = (60 - pthis->timer) >> 1;
+    phi_s5 = (s32)(60 - pthis->timer) >> 1;
     phi_s5 = CLAMP_MAX(phi_s5, 3);
 
     v0 = 3 - (pthis->timer >> 1);
@@ -273,7 +273,7 @@ Gfx* func_8088EB54(GlobalContext* globalCtx, BgHidanSima* pthis, Gfx* gfx) {
         mtxF.yy += 0.4f;
         mtxF.zz += 0.4f;
 
-        gSPSegment(gfx++, 0x09, SEGMENTED_TO_VIRTUAL(sFireballsTexs[(pthis->timer + s3) % 7]));
+        gSPSegment(gfx++, 0x09, SEGMENTED_TO_VIRTUAL(sFireballsTexs[(s32)(pthis->timer + s3) % 7]));
         gSPMatrix(gfx++,
                   Matrix_MtxFToMtx(&mtxF,
                                    (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))),
@@ -282,7 +282,7 @@ Gfx* func_8088EB54(GlobalContext* globalCtx, BgHidanSima* pthis, Gfx* gfx) {
     }
     mtxF.xw = pthis->dyna.actor.world.pos.x + (phi_s5 * 25 + 80) * sin;
     mtxF.zw = pthis->dyna.actor.world.pos.z + (phi_s5 * 25 + 80) * cos;
-    gSPSegment(gfx++, 0x09, SEGMENTED_TO_VIRTUAL(sFireballsTexs[(pthis->timer + s3) % 7]));
+    gSPSegment(gfx++, 0x09, SEGMENTED_TO_VIRTUAL(sFireballsTexs[(s32)(pthis->timer + s3) % 7]));
     gSPMatrix(gfx++,
               Matrix_MtxFToMtx(&mtxF,
                                (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))),

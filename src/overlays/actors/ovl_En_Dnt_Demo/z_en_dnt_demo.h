@@ -18,10 +18,10 @@ struct EnDntDemo {
 
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnDntDemoActionFunc actionFunc;
-    /* 0x0150 */ s16 judgeTimer;
-    /* 0x0152 */ s16 unkTimer1;
-    /* 0x0154 */ s16 unkTimer2;
-    /* 0x0156 */ s16 debugArrowTimer;
+    /* 0x0150 */ Timer judgeTimer;
+    /* 0x0152 */ Timer unkTimer1;
+    /* 0x0154 */ Timer unkTimer2;
+    /* 0x0156 */ Timer debugArrowTimer;
     /* 0x0158 */ s16 leaderSignal;
     /* 0x015A */ s16 action;
     /* 0x015C */ s16 prize;

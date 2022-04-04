@@ -48,7 +48,7 @@ void EnRl_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80AE72D0(EnRl* pthis) {
     s32 pad[3];
-    s16* timer = &pthis->timer;
+    auto timer = &pthis->timer;
     s16* eyeTextureIndex = &pthis->eyeTextureIndex;
 
     if (DECR(*timer) == 0) {

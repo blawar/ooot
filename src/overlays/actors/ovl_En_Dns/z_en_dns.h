@@ -27,7 +27,7 @@ struct EnDns {
     /* 0x01FC */ Vec3s morphTable[18];
     /* 0x0268 */ EnDnsActionFunc actionFunc;
     /* 0x026C */ ColliderCylinder collider;
-    /* 0x02B8 */ s16 dustTimer;
+    /* 0x02B8 */ Timer dustTimer;
     /* 0x02BA */ u8 unk_2BA;
     /* 0x02BB */ u8 maintainCollider;
     /* 0x02BC */ u8 standOnGround;

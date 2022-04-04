@@ -25,13 +25,13 @@ struct EnSw {
     /* 0x0364 */ Vec3f unk_364;
     /* 0x0370 */ Vec3f unk_370;
     /* 0x037C */ Vec3f unk_37C;
-    /* 0x0388 */ s16 unk_388;
+    /* 0x0388 */ Timer unk_388;
     /* 0x038A */ s16 unk_38A;
     /* 0x038C */ s16 unk_38C;
     /* 0x038E */ s16 unk_38E;
-    /* 0x0390 */ s16 unk_390;
-    /* 0x0392 */ s16 unk_392;
-    /* 0x0394 */ s16 unk_394;
+    /* 0x0390 */ Timer unk_390;
+    /* 0x0392 */ Timer unk_392;
+    /* 0x0394 */ Timer unk_394;
     /* 0x0396 */ char unk_396[0x42];
     /* 0x03D8 */ MtxF unk_3D8;
     /* 0x0418 */ char unk_418[8];
@@ -40,8 +40,8 @@ struct EnSw {
     /* 0x042C */ u8 unk_42C;
     /* 0x0430 */ CollisionPoly* unk_430;
     /* 0x0434 */ Vec3f unk_434;
-    /* 0x0440 */ s16 unk_440;
-    /* 0x0442 */ s16 unk_442;
+    /* 0x0440 */ Timer unk_440;
+    /* 0x0442 */ Timer unk_442;
     /* 0x0444 */ s16 unk_444;
     /* 0x0446 */ s16 unk_446;
     /* 0x0448 */ Vec3f unk_448;

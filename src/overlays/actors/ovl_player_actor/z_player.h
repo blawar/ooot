@@ -146,7 +146,7 @@ struct Player {
     /* 0x01F8 */ Vec3s      jointTable[PLAYER_LIMB_BUF_COUNT];
     /* 0x0288 */ Vec3s      morphTable[PLAYER_LIMB_BUF_COUNT];
     /* 0x0318 */ Vec3s      blendTable[PLAYER_LIMB_BUF_COUNT];
-    /* 0x03A8 */ s16        unk_3A8[2];
+    /* 0x03A8 */ Timer        unk_3A8[2];
     /* 0x03AC */ Actor*     heldActor;
     /* 0x03B0 */ Vec3f      leftHandPos;
     /* 0x03BC */ Vec3s      unk_3BC;
@@ -155,7 +155,7 @@ struct Player {
     /* 0x03D4 */ char       unk_3D4[0x058];
     /* 0x042C */ s8         doorType;
     /* 0x042D */ s8         doorDirection;
-    /* 0x042E */ s16        doorTimer;
+    /* 0x042E */ Timer doorTimer;
     /* 0x0430 */ Actor*     doorActor;
     /* 0x0434 */ s8         getItemId;
     /* 0x0436 */ u16        getItemDirection;
@@ -231,11 +231,11 @@ struct Player {
     /* 0x0847 */ s8         unk_847[4];
     /* 0x084B */ s8         unk_84B[4];
     /* 0x084F */ s8         unk_84F;
-    /* 0x0850 */ s16        unk_850; // multipurpose timer
+    /* 0x0850 */ Timer        unk_850; // multipurpose timer
     /* 0x0854 */ f32        unk_854;
     /* 0x0858 */ f32        unk_858;
     /* 0x085C */ f32        unk_85C; // stick length among other things
-    /* 0x0860 */ s16        unk_860; // stick flame timer among other things
+    /* 0x0860 */ Timer        unk_860; // stick flame timer among other things
     /* 0x0862 */ s8         unk_862; // get item draw ID + 1
     /* 0x0864 */ f32        unk_864;
     /* 0x0868 */ f32        unk_868;

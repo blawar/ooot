@@ -20,8 +20,8 @@ struct EnAnubice {
     /* 0x0254 */ s16 timeAlive;
     /* 0x0256 */ s16 unk_256;
     /* 0x0258 */ s16 unk_258;
-    /* 0x025A */ s16 deathTimer;
-    /* 0x025C */ s16 knockbackTimer;
+    /* 0x025A */ Timer deathTimer;
+    /* 0x025C */ Timer knockbackTimer;
     /* 0x025E */ s16 isMirroringLink;
     /* 0x0260 */ s16 isLinkOutOfRange;
     /* 0x0262 */ s16 isKnockedback;

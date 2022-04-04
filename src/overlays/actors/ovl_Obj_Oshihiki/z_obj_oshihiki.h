@@ -35,7 +35,7 @@ struct ObjOshihiki {
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjOshihikiActionFunc actionFunc;
     /* 0x0168 */ u16 stateFlags;
-    /* 0x016A */ s16 timer;
+    /* 0x016A */ Timer timer;
     /* 0x016C */ f32 yawSin;
     /* 0x0170 */ f32 yawCos;
     /* 0x0174 */ f32 pushSpeed;
