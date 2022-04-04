@@ -65,6 +65,7 @@ Once the build completes, press F5 to start it if you are testing code but if yo
 Not currently supported, however a makefile and porting of GLideN64 would allow this and a PR is welcome.
 
 ### Linux (Native or under WSL / VM)
+Linux does not currently work.  The below steps are for development purposes.
 
 ```
 Debian/Ubuntu
