@@ -76,7 +76,7 @@ void EffectSsIcePiece_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
     gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, (s32)alpha & 0xFF);
     func_8003435C(&pthis->pos, globalCtx);
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (frames * 1) % 256, 0x20, 0x10, 1, 0, (frames * 2) % 256,
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (uintptr_t)(frames * 1) % 256, 0x20, 0x10, 1, 0, (uintptr_t)(frames * 2) % 256,
                                 0x40, 0x20));
     gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment1DL);
 

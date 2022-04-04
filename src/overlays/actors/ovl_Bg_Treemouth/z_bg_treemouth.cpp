@@ -190,10 +190,10 @@ void func_808BC9EC(BgTreemouth* pthis, GlobalContext* globalCtx) {
         }
 
         globalCtx->csCtx.frames = 0;
-        globalCtx->csCtx.unk_18 = 0xFFFF;
-        D_8015FCC0 = 0xFFFF;
-        D_8015FCC2 = 0xFFFF;
-        D_8015FCC4 = 0xFFFF;
+        globalCtx->csCtx.unk_18 = Counter::invalid();
+        D_8015FCC0 = Counter::invalid();
+        D_8015FCC2 = Counter::invalid();
+        D_8015FCC4 = Counter::invalid();
         globalCtx->csCtx.unk_1A = 0;
         globalCtx->csCtx.unk_1B = 0;
         globalCtx->csCtx.state = CS_STATE_SKIPPABLE_EXEC;

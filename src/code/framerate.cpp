@@ -3,6 +3,9 @@
 #include "z64game.h"
 #include "regs.h"
 
+#define COUNTER_STEP 20.0f / FRAMERATE_MAX
+#define COUNTER_SCALER FRAMERATE_MAX / 20
+
 static FramerateProfile g_profile = PROFILE_BOOT;
 
 #if FRAME_RATE == 20
@@ -75,4 +78,163 @@ FramerateProfile framerate_get_profile()
 u64 frameRateDivisor()
 {
 	return R_UPDATE_RATE;
+}
+
+Timer::Timer() : m_counter(0), m_counterInt(0)
+{
+}
+
+Timer::Timer(float n) : m_counter(n), m_counterInt(n * COUNTER_SCALER)
+{
+	if(n == 0xFFFF)
+	{
+		bool error = true;
+	}
+	/*if(m_counterInt == 0)
+	{
+		if(n < 1.0f && n > 0.0f)
+		{
+			m_counterInt = 1;
+			update();
+		}
+		else if(n > -1.0f && n < 0.0f)
+		{
+			m_counterInt = -1;
+			update();
+		}
+	}*/
+}
+
+Timer Timer::invalid()
+{
+	Timer r(0);
+	r--;
+	return r;
+}
+
+void Timer::update()
+{
+	m_counter = m_counterInt * COUNTER_STEP;
+}
+
+Timer& Timer::operator++() // pre
+{
+	m_counter += COUNTER_STEP;
+	m_counterInt++;
+	update();
+	return *this;
+}
+
+Timer Timer::operator++(int) // post
+{
+	auto r = *this;
+	m_counter += COUNTER_STEP;
+	m_counterInt++;
+	update();
+	return r;
+}
+
+Timer& Timer::operator--() // pre
+{
+	m_counter -= COUNTER_STEP;
+	m_counterInt--;
+	update();
+	return *this;
+}
+
+Timer Timer::operator--(int) // post
+{
+	auto r = *this;
+	m_counter -= COUNTER_STEP;
+	m_counterInt--;
+	update();
+	return r;
+}
+
+Timer& Timer::dec()
+{
+	if(m_counter)
+	{
+		m_counter -= COUNTER_STEP;
+		m_counterInt--;
+		update();
+	}
+	return *this;
+}
+
+bool Timer::isWhole() const
+{
+	return (m_counterInt % (COUNTER_SCALER)) == 0;
+}
+
+s32 Timer::whole() const
+{
+	return m_counterInt * 20 / FRAMERATE_MAX;
+}
+
+Timer::operator float() const
+{
+	return m_counter;
+}
+
+Timer& Timer::operator+=(const Timer f)
+{
+	s64 step = f.m_counterInt * COUNTER_STEP;
+
+	if(step == 0)
+	{
+		if(f.m_counterInt > 0)
+		{
+			step = 1;
+		}
+		else
+		{
+			step = -1;
+		}
+	}
+
+	m_counterInt += step;
+	update();
+	return *this;
+}
+
+Timer& Timer::operator-=(const Timer f)
+{
+	s64 step = f.m_counterInt * COUNTER_STEP;
+	
+	if(step == 0)
+	{
+		if(f.m_counterInt > 0)
+		{
+			step = 1;
+		}
+		else
+		{
+			step = -1;
+		}
+	}
+
+	m_counterInt -= step;
+	update();
+	return *this;
+}
+
+s32 Timer::operator%(s32 n) const
+{
+	return whole() % n;
+}
+
+Timer Timer::operator&(long n) const
+{
+	return Timer(whole() & n);
+}
+
+s32 Timer::operator<<(long n)
+{
+	return whole() << n;
+}
+
+s32 Timer::operator>>(long n)
+{
+	return whole() >> n;
 }

@@ -1,10 +1,11 @@
 #pragma once
+#include "framerate.h"
 struct GlobalContext;
 struct CutsceneContext;
 
-extern u16 D_8015FCC0;
-extern u16 D_8015FCC2;
-extern u16 D_8015FCC4;
+extern Counter D_8015FCC0;
+extern Counter D_8015FCC2;
+extern Counter D_8015FCC4;
 extern u8 D_8015FCC8;
 
 void Cutscene_HandleConditionalTriggers(GlobalContext* globalCtx);

@@ -215,7 +215,7 @@ static CutsceneCameraPoint sSparklesCameraPoints[] = {
 
 static s16 D_8098CF80;
 static s16 sRainScale;
-static TimerS16 D_8098CF84;
+static Timer D_8098CF84;
 
 void DemoKankyo_SetupAction(DemoKankyo* pthis, DemoKankyoActionFunc actionFunc) {
     pthis->actionFunc = actionFunc;

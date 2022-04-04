@@ -3,7 +3,7 @@
 #include "view.h"
 #include "z64dma.h"
 
-typedef struct InterfaceContext {
+struct InterfaceContext {
     /* 0x0000 */ View view;
     /* 0x0128 */ Vtx* actionVtx;
     /* 0x012C */ Vtx* beatingHeartVtx;
@@ -41,7 +41,7 @@ typedef struct InterfaceContext {
     /* 0x021A */ s16 heartsEnvR[2];
     /* 0x021E */ s16 heartsEnvG[2];
     /* 0x0222 */ s16 heartsEnvB[2];
-    /* 0x022A */ TimerS16 beatingHeartOscillator;
+    /* 0x022A */ Timer beatingHeartOscillator;
     /* 0x022C */ s16 beatingHeartOscillatorDirection;
     /* 0x022E */ s16 unk_22E;
     /* 0x0230 */ s16 unk_230;
@@ -81,4 +81,4 @@ typedef struct InterfaceContext {
         /* 0x026C */ u8 dinsNayrus; // "m_magic"; din's fire and nayru's love
         /* 0x026D */ u8 all;        // "another"; enables all item restrictions
     } restrictions;
-} InterfaceContext; // size = 0x270
+}; // size = 0x270

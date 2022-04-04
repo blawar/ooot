@@ -76,7 +76,7 @@ CameraModeValue D_8011A3A0[] = {
     { 10, 3 },     // pitchtarget
     { 12, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 35, 6 },     // unk_14
+    { 35, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -91,7 +91,7 @@ CameraModeValue D_8011A3C8[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 }     // tempo
@@ -104,7 +104,7 @@ CameraModeValue D_8011A3F4[] = {
     { 140, 2 },    // unk_08
     { 25, 13 },    // unk_0C
     { 45, 14 },    // unk_10
-    { -5, 15 },    // unk_14
+    { -5, 15 },    // cutsceneCamera
     { 15, 16 },    // unk_18
     { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
@@ -256,7 +256,7 @@ CameraModeValue D_8011A5A4[] = {
     { 300, 2 },    // distMax
     { 12, 4 },     // yawUpdateRateTarget
     { 35, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -290,7 +290,7 @@ CameraModeValue D_8011A5FC[] = {
     { 300, 2 },    // distMax
     { 15, 4 },     // yawUpdateRateTarget
     { 80, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 20, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -314,7 +314,7 @@ CameraModeValue D_8011A638[] = {
     { 10, 3 },     // pitchTarget
     { 100, 4 },    // unk_0C
     { 10, 5 },     // unk_10
-    { 100, 6 },    // unk_14
+    { 100, 6 },    // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 5, 8 },      // atLERPScaleMax
     { 0xF003, 9 }, // flags
@@ -329,7 +329,7 @@ CameraModeValue D_8011A660[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 30, 8 },     // unk_14
+    { 30, 8 },     // cutsceneCamera
     { 0x206A, 9 }, // flags
     { -20, 11 },   // unk_18
     { 30, 12 },    // tempo
@@ -342,7 +342,7 @@ CameraModeValue D_8011A68C[] = {
     { 140, 2 },    // unk_08
     { 5, 13 },     // unk_0C
     { 85, 14 },    // unk_10
-    { 10, 15 },    // unk_14
+    { 10, 15 },    // cutsceneCamera
     { 5, 16 },     // unk_18
     { 25, 17 },    // tempo
     { 45, 7 },     // unk_20
@@ -360,7 +360,7 @@ CameraModeValue sSetNorm1ModeNormVals[] = {
     { 10, 3 },     // pitchTarget
     { 12, 4 },     // unk_0C
     { 20, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -375,7 +375,7 @@ CameraModeValue sSetNorm1ModeParaVals[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x2002, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -388,7 +388,7 @@ CameraModeValue D_8011A714[] = {
     { 140, 2 },    // unk_08
     { 25, 13 },    // unk_0C
     { 45, 14 },    // unk_10
-    { -5, 15 },    // unk_14
+    { -5, 15 },    // cutsceneCamera
     { 15, 16 },    // unk_18
     { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
@@ -433,7 +433,7 @@ CameraModeValue D_8011A798[] = {
     { 400, 2 },    // distMax
     { 15, 4 },     // yawUpdateRateTarget
     { 50, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 30, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -445,7 +445,7 @@ CameraModeValue D_8011A7B8[] = {
     { 400, 2 },    // distMax
     { 30, 4 },     // yawUpdateRateTarget
     { 80, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 20, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -517,7 +517,7 @@ CameraModeValue D_8011A874[] = {
     { 10, 3 },     // pitchTarget
     { 100, 4 },    // unk_0C
     { 20, 5 },     // unk_10
-    { 100, 6 },    // unk_14
+    { 100, 6 },    // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 5, 8 },      // atLERPScaleMax
     { 0xF003, 9 }, // flags
@@ -531,7 +531,7 @@ CameraModeValue D_8011A89C[] = {
     { 5, 3 },      // pitchTarget
     { 10, 4 },     // unk_0C
     { 5, 5 },      // unk_10
-    { 30, 6 },     // unk_14
+    { 30, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -546,7 +546,7 @@ CameraModeValue D_8011A8C4[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -559,7 +559,7 @@ CameraModeValue D_8011A8F0[] = {
     { 140, 2 },    // unk_08
     { 25, 13 },    // unk_0C
     { 45, 14 },    // unk_10
-    { -5, 15 },    // unk_14
+    { -5, 15 },    // cutsceneCamera
     { 15, 16 },    // unk_18
     { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
@@ -592,7 +592,7 @@ CameraModeValue D_8011A954[] = {
     { 250, 2 },    // distMax
     { 10, 4 },     // yawUpdateRateTarget
     { 50, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -604,7 +604,7 @@ CameraModeValue D_8011A974[] = {
     { 250, 2 },    // distMax
     { 10, 4 },     // yawUpdateRateTarget
     { 80, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 20, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -676,7 +676,7 @@ CameraModeValue D_8011AA30[] = {
     { 5, 3 },      // pitchTarget
     { 100, 4 },    // unk_0C
     { 5, 5 },      // unk_10
-    { 100, 6 },    // unk_14
+    { 100, 6 },    // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 5, 8 },      // atLERPScaleMax
     { 0xF003, 9 }, // flags
@@ -690,7 +690,7 @@ CameraModeValue D_8011AA58[] = {
     { 0, 3 },      // pitchTarget
     { 10, 4 },     // unk_0C
     { 5, 5 },      // unk_10
-    { 30, 6 },     // unk_14
+    { 30, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -719,7 +719,7 @@ CameraModeValue D_8011AAB0[] = {
     { 150, 2 },    // distMax
     { 10, 4 },     // yawUpdateRateTarget
     { 50, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -731,7 +731,7 @@ CameraModeValue D_8011AAD0[] = {
     { 180, 2 },    // distMax
     { 12, 4 },     // yawUpdateRateTarget
     { 80, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 20, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -803,7 +803,7 @@ CameraModeValue D_8011AB8C[] = {
     { 0, 3 },      // pitchTarget
     { 100, 4 },    // unk_0C
     { 5, 5 },      // unk_10
-    { 100, 6 },    // unk_14
+    { 100, 6 },    // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 5, 8 },      // atLERPScaleMax
     { 0xF003, 9 }, // flags
@@ -818,7 +818,7 @@ CameraModeValue D_8011ABB4[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 60, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x206A, 9 }, // flags
     { -20, 11 },   // unk_18
     { 30, 12 },    // tempo
@@ -832,7 +832,7 @@ CameraModeValue sSetNorm3ModeNormVals[] = {
     { 20, 3 },     // pitchTarget
     { 15, 4 },     // swingUpdateRate
     { 5, 5 },      // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 100, 8 },    // tempo
     { 0x0004, 9 }, // flags
@@ -847,7 +847,7 @@ CameraModeValue D_8011AC08[] = {
     { 15, 4 },     // unk_08
     { 5, 5 },      // unk_0C
     { 60, 7 },     // fovTarget
-    { 100, 8 },    // unk_14
+    { 100, 8 },    // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -50, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -880,7 +880,7 @@ CameraModeValue sSetNorm3ModeBoomVals[] = {
     { -5, 3 },     // pitchTarget
     { 18, 4 },     // swingUpdateRate
     { 5, 5 },      // unk_10
-    { 60, 6 },     // unk_14
+    { 60, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 40, 8 },     // tempo
     { 0x0005, 9 }, // flags
@@ -932,7 +932,7 @@ CameraModeValue D_8011ACF8[] = {
     { 220, 2 },    // unk_08
     { 25, 13 },    // unk_0C
     { 45, 14 },    // unk_10
-    { -5, 15 },    // unk_14
+    { -5, 15 },    // cutsceneCamera
     { 15, 16 },    // unk_18
     { 15, 17 },    // tempo
     { 45, 7 },     // unk_20
@@ -966,7 +966,7 @@ CameraModeValue D_8011AD5C[] = {
     { 0, 3 },      // pitchTarget
     { 15, 4 },     // unk_0C
     { 5, 5 },      // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0001, 9 }, // flags
@@ -996,7 +996,7 @@ CameraModeValue D_8011ADB4[] = {
     { 0, 3 },      // pitchTarget
     { 12, 4 },     // unk_0C
     { 5, 5 },      // unk_10
-    { 70, 6 },     // unk_14
+    { 70, 6 },     // cutsceneCamera
     { 70, 7 },     // fovTarget
     { 40, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1026,7 +1026,7 @@ CameraModeValue D_8011AE0C[] = {
     { -5, 3 },     // pitchTarget
     { 15, 4 },     // unk_0C
     { 5, 5 },      // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 70, 7 },     // fovTarget
     { 70, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1056,7 +1056,7 @@ CameraModeValue D_8011AE64[] = {
     { 0, 3 },      // pitchTarget
     { 15, 4 },     // unk_0C
     { 15, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 100, 8 },    // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1086,7 +1086,7 @@ CameraModeValue D_8011AEBC[] = {
     { 10, 3 },     // pitchTarget
     { 16, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1116,7 +1116,7 @@ CameraModeValue D_8011AF14[] = {
     { 10, 3 },     // pitchTarget
     { 20, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
     { 0x0083, 9 }, // flags
@@ -1146,7 +1146,7 @@ CameraModeValue D_8011AF6C[] = {
     { 10, 3 },     // pitchTarget
     { 20, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 80, 6 },     // unk_14
+    { 80, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
     { 0x0083, 9 }, // flags
@@ -1160,7 +1160,7 @@ CameraModeValue D_8011AF94[] = {
     { -10, 3 },    // pitchTarget
     { 15, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 80, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1190,7 +1190,7 @@ CameraModeValue D_8011AFEC[] = {
     { 0, 3 },      // pitchTarget
     { 20, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1220,7 +1220,7 @@ CameraModeValue D_8011B044[] = {
     { -10, 3 },    // pitchTarget
     { 12, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 50, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1234,7 +1234,7 @@ CameraModeValue D_8011B06C[] = {
     { -5, 3 },     // pitchTarget
     { 15, 4 },     // unk_0C
     { 15, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 100, 8 },    // atLERPScaleMax
     { 0x0000, 9 }, // flags
@@ -1259,7 +1259,7 @@ CameraModeValue D_8011B0B0[] = {
     { 10, 3 },     // pitchTarget
     { 20, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 40, 6 },     // unk_14
+    { 40, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
     { 0x0003, 9 }, // flags
@@ -1289,7 +1289,7 @@ CameraModeValue D_8011B108[] = {
     { 60, 23 },    // tempo
     { 8, 4 },      // unk_0C
     { 40, 6 },     // unk_10
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 50, 8 },     // unk_18
     { 0x0000, 9 }, // flags
 };
@@ -1302,7 +1302,7 @@ CameraModeValue D_8011B12C[] = {
     { 60, 23 },    // tempo
     { 8, 4 },      // unk_0C
     { 40, 6 },     // unk_10
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 50, 8 },     // unk_18
     { 0x0080, 9 }, // flags
 };
@@ -1315,7 +1315,7 @@ CameraModeValue D_8011B150[] = {
     { 120, 23 },   // tempo
     { 8, 4 },      // unk_0C
     { 60, 6 },     // unk_10
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 100, 8 },    // unk_18
     { 0x0000, 9 }, // flags
 };
@@ -1328,7 +1328,7 @@ CameraModeValue D_8011B174[] = {
     { 120, 23 },   // tempo
     { 6, 4 },      // unk_0C
     { 60, 6 },     // unk_10
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 100, 8 },    // unk_18
     { 0x0000, 9 }, // flags
 };
@@ -1512,7 +1512,7 @@ CameraModeValue sSetMori1ModeNormVals[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 30, 8 },     // unk_14
+    { 30, 8 },     // cutsceneCamera
     { 0x000C, 9 }, // flags
     { -50, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -1544,7 +1544,7 @@ CameraModeValue D_8011B2F4[] = {
     { 50, 3 },     // pitchTarget
     { 20, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 50, 6 },     // unk_14
+    { 50, 6 },     // cutsceneCamera
     { 70, 7 },     // fovTarget
     { 40, 8 },     // atLERPScaleMax
     { 0x0002, 9 }, // flags
@@ -1559,7 +1559,7 @@ CameraModeValue D_8011B31C[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -1572,7 +1572,7 @@ CameraModeValue D_8011B348[] = {
     { 300, 2 },    // distMax
     { 12, 4 },     // yawUpdateRateTarget
     { 35, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -1607,7 +1607,7 @@ CameraModeValue D_8011B3A0[] = {
     { 50, 3 },     // pitchTarget
     { 100, 4 },    // unk_0C
     { 10, 5 },     // unk_10
-    { 100, 6 },    // unk_14
+    { 100, 6 },    // cutsceneCamera
     { 70, 7 },     // fovTarget
     { 30, 8 },     // atLERPScaleMax
     { 0xF002, 9 }, // flags
@@ -1621,7 +1621,7 @@ CameraModeValue D_8011B3C8[] = {
     { 20, 3 },     // pitchTarget
     { 16, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 50, 6 },     // unk_14
+    { 50, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 50, 8 },     // atLERPScaleMax
     { 0x0002, 9 }, // flags
@@ -1636,7 +1636,7 @@ CameraModeValue D_8011B3F0[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -1649,7 +1649,7 @@ CameraModeValue D_8011B41C[] = {
     { 250, 2 },    // distMax
     { 12, 4 },     // yawUpdateRateTarget
     { 35, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -1683,7 +1683,7 @@ CameraModeValue D_8011B474[] = {
     { 250, 2 },    // distMax
     { 20, 3 },     // unk_0C
     { 100, 4 },    // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 100, 6 },    // pitchTarget
     { 60, 7 },     // fovTarget
     { 30, 8 },     // atLERPScaleMax
@@ -1712,7 +1712,7 @@ CameraModeValue D_8011B4B8[] = {
     { 500, 2 },    // distMax
     { 35, 3 },     // unk_0C
     { 14, 4 },     // unk_10
-    { 5, 5 },      // unk_14
+    { 5, 5 },      // cutsceneCamera
     { 20, 6 },     // pitchTarget
     { 60, 7 },     // fovTarget
     { 40, 8 },     // atLERPScaleMax
@@ -1742,7 +1742,7 @@ CameraModeValue D_8011B510[] = {
     { 500, 2 },    // distMax
     { 60, 3 },     // unk_0C
     { 8, 4 },      // unk_10
-    { 5, 5 },      // unk_14
+    { 5, 5 },      // cutsceneCamera
     { 60, 6 },     // pitchTarget
     { 60, 7 },     // fovTarget
     { 30, 8 },     // atLERPScaleMax
@@ -1756,7 +1756,7 @@ CameraModeValue D_8011B538[] = {
     { 500, 2 },    // distMax
     { 80, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 70, 6 },     // pitchTarget
     { 70, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
@@ -1772,7 +1772,7 @@ CameraModeValue D_8011B560[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 80, 8 },     // unk_14
+    { 80, 8 },     // cutsceneCamera
     { 0x201A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 40, 12 },    // tempo
@@ -1787,7 +1787,7 @@ CameraModeValue D_8011B58C[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 60, 7 },     // fovTarget
-    { 80, 8 },     // unk_14
+    { 80, 8 },     // cutsceneCamera
     { 0x201A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 40, 12 },    // tempo
@@ -1800,7 +1800,7 @@ CameraModeValue D_8011B5B8[] = {
     { 500, 2 },    // distMax
     { 80, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 80, 6 },     // pitchTarget
     { 60, 7 },     // fovTarget
     { 20, 8 },     // atLERPScaleMax
@@ -1814,7 +1814,7 @@ CameraModeValue D_8011B5E0[] = {
     { 750, 2 },    // distMax
     { 80, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 70, 6 },     // pitchTarget
     { 70, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
@@ -1830,7 +1830,7 @@ CameraModeValue D_8011B608[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 80, 8 },     // unk_14
+    { 80, 8 },     // cutsceneCamera
     { 0x201A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 40, 12 },    // tempo
@@ -1845,7 +1845,7 @@ CameraModeValue D_8011B634[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 80, 8 },     // unk_14
+    { 80, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 40, 12 },    // tempo
@@ -1858,7 +1858,7 @@ CameraModeValue D_8011B660[] = {
     { 750, 2 },    // distMax
     { 80, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 80, 6 },     // pitchTarget
     { 70, 7 },     // fovTarget
     { 20, 8 },     // atLERPScaleMax
@@ -1872,7 +1872,7 @@ CameraModeValue D_8011B688[] = {
     { 500, 2 },    // distMax
     { 80, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 70, 6 },     // pitchTarget
     { 70, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
@@ -1888,7 +1888,7 @@ CameraModeValue D_8011B6B0[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 80, 8 },     // unk_14
+    { 80, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 40, 12 },    // tempo
@@ -1903,7 +1903,7 @@ CameraModeValue D_8011B6DC[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 60, 7 },     // fovTarget
-    { 80, 8 },     // unk_14
+    { 80, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 40, 12 },    // tempo
@@ -1916,7 +1916,7 @@ CameraModeValue D_8011B708[] = {
     { 500, 2 },    // distMax
     { 80, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 80, 6 },     // pitchTarget
     { 60, 7 },     // fovTarget
     { 20, 8 },     // atLERPScaleMax
@@ -1932,7 +1932,7 @@ CameraModeValue D_8011B730[] = {
     { 0, 21 },     // unk_10
     { 60, 7 },     // unk_18
     { 0x2502, 9 }, // flags
-    { 25, 4 },     // unk_14
+    { 25, 4 },     // cutsceneCamera
     { 6, 22 },     // unk_1E
 };
 
@@ -1950,7 +1950,7 @@ CameraModeValue D_8011B75C[] = {
     { 10, 3 },     // pitchTarget
     { 12, 4 },     // unk_0C
     { 10, 5 },     // unk_10
-    { 35, 6 },     // unk_14
+    { 35, 6 },     // cutsceneCamera
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
     { 0x0002, 9 }, // flags
@@ -1963,7 +1963,7 @@ CameraModeValue D_8011B784[] = {
     { 300, 2 },    // distMax
     { 20, 3 },     // unk_0C
     { 12, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 35, 6 },     // pitchTarget
     { 55, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
@@ -1979,7 +1979,7 @@ CameraModeValue D_8011B7AC[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x2F0A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -2037,7 +2037,7 @@ CameraModeValue D_8011B85C[] = {
     { 300, 2 },    // distMax
     { 12, 4 },     // yawUpdateRateTarget
     { 35, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0F00, 9 }, // flags
 };
@@ -2049,7 +2049,7 @@ CameraModeValue D_8011B87C[] = {
     { 300, 2 },    // distMax
     { 15, 4 },     // yawUpdateRateTarget
     { 80, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 20, 8 },     // atLERPScaleMax
     { 0x0F00, 9 }, // flags
 };
@@ -2088,7 +2088,7 @@ CameraModeValue D_8011B8D8[] = {
     { 300, 2 },    // distMax
     { -20, 3 },    // unk_0C
     { 15, 4 },     // unk_10
-    { 5, 26 },     // unk_14
+    { 5, 26 },     // cutsceneCamera
     { 50, 6 },     // pitchTarget
     { 70, 7 },     // fovTarget
     { 70, 8 },     // atLERPScaleMax
@@ -2118,7 +2118,7 @@ CameraModeValue D_8011B930[] = {
     { 350, 2 },    // distMax
     { 20, 3 },     // unk_0C
     { 15, 4 },     // unk_10
-    { 5, 5 },      // unk_14
+    { 5, 5 },      // cutsceneCamera
     { 30, 6 },     // pitchTarget
     { 60, 7 },     // fovTarget
     { 60, 8 },     // atLERPScaleMax
@@ -2134,7 +2134,7 @@ CameraModeValue D_8011B958[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 45, 7 },     // fovTarget
-    { 50, 8 },     // unk_14
+    { 50, 8 },     // cutsceneCamera
     { 0x200A, 9 }, // flags
     { -40, 11 },   // unk_18
     { 20, 12 },    // tempo
@@ -2163,7 +2163,7 @@ CameraModeValue D_8011B9B4[] = {
     { 350, 2 },    // distMax
     { 10, 4 },     // yawUpdateRateTarget
     { 50, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 40, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -2175,7 +2175,7 @@ CameraModeValue D_8011B9D4[] = {
     { 350, 2 },    // distMax
     { 15, 4 },     // yawUpdateRateTarget
     { 80, 6 },     // maxYawUpdate
-    { 60, 7 },     // unk_14
+    { 60, 7 },     // cutsceneCamera
     { 20, 8 },     // atLERPScaleMax
     { 0x0000, 9 }, // flags
 };
@@ -2235,7 +2235,7 @@ CameraModeValue D_8011BA74[] = {
     { 350, 2 },    // distMax
     { 20, 3 },     // unk_0C
     { 100, 4 },    // unk_10
-    { 5, 5 },      // unk_14
+    { 5, 5 },      // cutsceneCamera
     { 100, 6 },    // pitchTarget
     { 60, 7 },     // fovTarget
     { 5, 8 },      // atLERPScaleMax
@@ -2251,7 +2251,7 @@ CameraModeValue D_8011BA9C[] = {
     { 5, 4 },      // unk_08
     { 5, 5 },      // unk_0C
     { 70, 7 },     // fovTarget
-    { 30, 8 },     // unk_14
+    { 30, 8 },     // cutsceneCamera
     { 0x206A, 9 }, // flags
     { -20, 11 },   // unk_18
     { 30, 12 },    // tempo
@@ -2264,7 +2264,7 @@ CameraModeValue D_8011BAC8[] = {
     { 320, 2 },    // distMax
     { -8, 3 },     // unk_0C
     { 20, 4 },     // unk_10
-    { 10, 5 },     // unk_14
+    { 10, 5 },     // cutsceneCamera
     { 80, 6 },     // pitchTarget
     { 60, 7 },     // fovTarget
     { 80, 8 },     // atLERPScaleMax
@@ -2278,7 +2278,7 @@ CameraModeValue D_8011BAF0[] = {
     { 200, 2 },    // unk_08
     { 35, 13 },    // unk_0C
     { 45, 14 },    // unk_10
-    { 0, 15 },     // unk_14
+    { 0, 15 },     // cutsceneCamera
     { -5, 16 },    // unk_18
     { 20, 17 },    // tempo
     { 50, 7 },     // unk_20

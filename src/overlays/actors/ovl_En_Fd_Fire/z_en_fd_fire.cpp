@@ -191,7 +191,7 @@ void EnFdFire_DanceTowardsPlayer(EnFdFire* pthis, GlobalContext* globalCtx) {
     Vec3f pos;
     s16 idx;
 
-    idx = ((globalCtx->state.frames / 10) + (pthis->actor.params & 0x7FFF)) % ARRAY_COUNT(angles);
+    idx = (uintptr_t)((globalCtx->state.frames / 10) + (pthis->actor.params & 0x7FFF)) % ARRAY_COUNT(angles);
     pos = player->actor.world.pos;
     pos.x += 120.0f * sinf(angles[idx]);
     pos.z += 120.0f * cosf(angles[idx]);
@@ -282,7 +282,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x8,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                (globalCtx->state.frames * pthis->tile2Y).whole(), 0x20, 0x80));
+                                globalCtx->state.frames * pthis->tile2Y, 0x20, 0x80));
     gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, primColors[((pthis->actor.params & 0x8000) >> 0xF)].r,
                     primColors[((pthis->actor.params & 0x8000) >> 0xF)].g,
                     primColors[((pthis->actor.params & 0x8000) >> 0xF)].b,

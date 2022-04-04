@@ -572,8 +572,8 @@ void EnDh_Draw(Actor* thisx, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gDPSetEnvColor(POLY_XLU_DISP++, 85, 55, 0, 130);
         gSPSegment(POLY_XLU_DISP++, 0x08,
-                   Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->state.frames * -3) % 0x80, 0, 0x20, 0x40, 1,
-                                    (globalCtx->state.frames * -10) % 0x80, (globalCtx->state.frames * -20) % 0x100,
+                   Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (uintptr_t)(globalCtx->state.frames * -3) % 0x80, 0, 0x20, 0x40, 1,
+                                    (uintptr_t)(globalCtx->state.frames * -10) % 0x80, (uintptr_t)(globalCtx->state.frames * -20) % 0x100,
                                     0x20, 0x40));
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 0, 0, 0, pthis->dirtWaveAlpha);
 

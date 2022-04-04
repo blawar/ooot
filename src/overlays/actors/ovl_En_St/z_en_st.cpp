@@ -565,7 +565,7 @@ float EnSt_DecrStunTimer(EnSt* pthis) {
         return 0;
     }
     
-    float r = pthis->stunTimer.toFloat();
+    float r = pthis->stunTimer;
     DECRT(pthis->stunTimer);
     return r;
 }
@@ -579,7 +579,7 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
     u16 yawDir = 0;
     Vec3s rot;
     s16 yawDiff;
-    TimerS16 timer;
+    Timer timer;
     s16 yawTarget;
 
     // Shake towards the end of the stun.
@@ -757,7 +757,7 @@ void EnSt_Sway(EnSt* pthis) {
             pthis->swayAngle = 0;
         }
 
-        swayAmt = pthis->swayTimer.toFloat() * (7.0f / 15.0f);
+        swayAmt = pthis->swayTimer * (7.0f / 15.0f);
         rotAngle = Math_SinS(pthis->swayAngle.toS16()) * (swayAmt * (65536.0f / 360.0f));
 
         if (pthis->absPrevSwayAngle >= ABS(rotAngle) && pthis->playSwayFlag == 0) {
