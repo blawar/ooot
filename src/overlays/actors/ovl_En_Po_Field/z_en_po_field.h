@@ -27,11 +27,11 @@ struct EnPoField {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPoFieldActionFunc actionFunc;
-    /* 0x0194 */ u8 unk_194;
+    /* 0x0194 */ Timer unk_194;
     /* 0x0195 */ u8 spawnFlagIndex;
-    /* 0x0196 */ s16 actionTimer;
+    /* 0x0196 */ Timer actionTimer;
     /* 0x0198 */ s16 flameRotation;
-    /* 0x019A */ s16 flameTimer;
+    /* 0x019A */ Timer flameTimer;
     /* 0x019C */ Vec3s jointTable[10];
     /* 0x01D8 */ Vec3s morphTable[10];
     /* 0x0214 */ Color_RGBA8 lightColor;

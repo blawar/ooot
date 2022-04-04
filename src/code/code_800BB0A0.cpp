@@ -52,11 +52,11 @@ s32 func_800BB2B4(Vec3f* pos, f32* roll, f32* fov, CutsceneCameraPoint* point, s
     func_800BB0A0(progress, pos, roll, fov, pointData[0], pointData[1], pointData[2], pointData[3]);
 
     if (point[*keyFrame + 1].nextPointFrame != 0) {
-        speed1 = 1.0f / point[*keyFrame + 1].nextPointFrame;
+	    speed1 = FRAMERATE_SCALER / point[*keyFrame + 1].nextPointFrame;
     }
 
     if (point[*keyFrame + 2].nextPointFrame != 0) {
-        speed2 = 1.0f / point[*keyFrame + 2].nextPointFrame;
+	    speed2 = FRAMERATE_SCALER / point[*keyFrame + 2].nextPointFrame;
     }
     advance = (*curFrame * (speed2 - speed1)) + speed1;
     if (advance < 0.0f) {

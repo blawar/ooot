@@ -468,7 +468,7 @@ void EnPoField_Appear(EnPoField* pthis, GlobalContext* globalCtx) {
     } else if (pthis->skelAnime.curFrame > 10.0f) {
         pthis->lightColor.a = ((pthis->skelAnime.curFrame - 10.0f) * 0.05f) * 255.0f;
     } else {
-        pthis->actor.scale.x += pthis->scaleModifier * 0.1f;
+	    pthis->actor.scale.x += pthis->scaleModifier * 0.1f * FRAMERATE_SCALER;
         pthis->actor.scale.y = pthis->actor.scale.x;
         pthis->actor.scale.z = pthis->actor.scale.x;
     }
@@ -489,7 +489,7 @@ void EnPoField_CirclePlayer(EnPoField* pthis, GlobalContext* globalCtx) {
         pthis->actionTimer--;
     }
     if (ABS(temp_v1) < 16) {
-        pthis->actor.world.rot.y += 512.0f * fabsf(Math_SinS(pthis->unk_194 * 0x800));
+	    pthis->actor.world.rot.y += 512.0f * FRAMERATE_SCALER * fabsf(Math_SinS(pthis->unk_194 * 0x800));
     }
     Math_ApproachF(&pthis->scaleModifier, 180.0f, 0.5f, 10.0f);
     Math_ApproachF(&pthis->actor.home.pos.x, player->actor.world.pos.x, 0.2f, 6.0f);
@@ -597,7 +597,7 @@ void EnPoField_Death(EnPoField* pthis, GlobalContext* globalCtx) {
         EnPoField_SetupSoulIdle(pthis, globalCtx);
     } else if (pthis->actionTimer >= 19) {
         temp_f0 = (28 - pthis->actionTimer) * 0.001f;
-        pthis->actor.world.pos.y += 5.0f;
+	    pthis->actor.world.pos.y += 5.0f * FRAMERATE_SCALER;
         pthis->actor.scale.z = temp_f0;
         pthis->actor.scale.y = temp_f0;
         pthis->actor.scale.x = temp_f0;
@@ -612,7 +612,7 @@ void EnPoField_Disappear(EnPoField* pthis, GlobalContext* globalCtx) {
     if (pthis->actionTimer != 0) {
         pthis->actionTimer--;
     }
-    pthis->actor.shape.rot.y += 0x1000;
+    pthis->actor.shape.rot.y += 0x1000 * FRAMERATE_SCALER;
     pthis->lightColor.a = pthis->actionTimer * 15.9375f;
     pthis->actor.shape.shadowAlpha = pthis->lightColor.a;
     if (pthis->actionTimer == 0) {
@@ -658,7 +658,7 @@ void EnPoField_SoulUpdateProperties(EnPoField* pthis, s32 arg1) {
 }
 
 void func_80AD587C(EnPoField* pthis, GlobalContext* globalCtx) {
-    pthis->actor.home.pos.y += 2.0f;
+	pthis->actor.home.pos.y += 2.0f * FRAMERATE_SCALER;
     EnPoField_SoulUpdateProperties(pthis, 20);
     if (pthis->lightColor.a == 255) {
         func_80AD4384(pthis);
@@ -783,8 +783,8 @@ void EnPoField_UpdateFlame(EnPoField* pthis, GlobalContext* globalCtx) {
             return;
         }
         if (Math_StepToF(&pthis->flameScale, 0.003f, 0.0006f) != 0) {
-            pthis->flamePosition.x += 2.5f * Math_SinS(pthis->flameRotation);
-            pthis->flamePosition.z += 2.5f * Math_CosS(pthis->flameRotation);
+            pthis->flamePosition.x += 2.5f * FRAMERATE_SCALER * Math_SinS(pthis->flameRotation);
+            pthis->flamePosition.z += 2.5f * FRAMERATE_SCALER * Math_CosS(pthis->flameRotation);
         }
         pthis->flameCollider.dim.pos.x = pthis->flamePosition.x;
         pthis->flameCollider.dim.pos.y = pthis->flamePosition.y;

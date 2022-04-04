@@ -78,7 +78,7 @@ void EnMu_Interact(EnMu* pthis, GlobalContext* globalCtx) {
 
     textFlags = gSaveContext.eventInf[2] & 0x1F;
     gSaveContext.eventInf[2] &= ~0x1F;
-    randomIndex = (globalCtx->state.frames + (s32)(Rand_ZeroOne() * 5.0f)) % 5;
+    randomIndex = (uintptr_t)(globalCtx->state.frames + (s32)(Rand_ZeroOne() * 5.0f)) % 5;
 
     for (i = 0; i < 5; i++) {
 

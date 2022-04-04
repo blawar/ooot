@@ -13,7 +13,7 @@ struct EnMag {
     /* 0x014C */ char unk_14C[0x0004];
     /* 0x0150 */ Font font;
     /* 0xE2D8 */ s16 effectFadeInState;
-    /* 0xE2DA */ s16 effectFadeInTimer;
+    /* 0xE2DA */ Timer effectFadeInTimer;
     /* 0xE2DC */ s16 globalState;
     /* 0xE2E0 */ f32 effectPrimLodFrac;
     /* 0xE2E4 */ f32 effectPrimColor[3];
@@ -23,7 +23,7 @@ struct EnMag {
     /* 0xE304 */ f32 subAlpha;
     /* 0xE308 */ f32 copyrightAlpha;
     /* 0xE30C */ s16 unk_E30C;
-    /* 0xE30E */ s16 effectScroll;
+    /* 0xE30E */ Counter effectScroll;
     /* 0xE310 */ char unk_E310[0x0002];
     /* 0xE312 */ s16 copyrightAlphaStep;
     /* 0xE314 */ s16 fadeOutAlphaStep;

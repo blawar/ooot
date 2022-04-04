@@ -440,11 +440,11 @@ void BgSpot06Objects_DrawLakeHyliaWater(BgSpot06Objects* pthis, GlobalContext* g
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -gameplayFrames.whole(), gameplayFrames.whole(), 32, 32, 1, gameplayFrames.whole(),
-                                gameplayFrames.whole(), 32, 32));
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -gameplayFrames, gameplayFrames, 32, 32, 1, gameplayFrames,
+                                gameplayFrames, 32, 32));
     gSPSegment(POLY_XLU_DISP++, 0x09,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -gameplayFrames.whole(), (gameplayFrames * 6).whole(), 32, 32, 1,
-                                gameplayFrames.whole(), (gameplayFrames * 6).whole(), 32, 32));
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -gameplayFrames, (gameplayFrames * 6), 32, 32, 1,
+                                gameplayFrames, gameplayFrames * 6, 32, 32));
 
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
 

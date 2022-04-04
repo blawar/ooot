@@ -6328,7 +6328,7 @@ s32 Camera_Demo6(Camera* camera) {
     VecSph eyeOffset;
     Actor* camFocus;
     PosRot focusPosRot;
-    TimerS16 stateTimers[4];
+    Timer stateTimers[4];
     Vec3f* at = &camera->at;
 
     mainCam = Gameplay_GetCamera(camera->globalCtx, MAIN_CAM);
