@@ -83,7 +83,7 @@ void KaleidoSetup_Init(GlobalContext* globalCtx)
 	KaleidoScope_SetPage(globalCtx, PAUSE_ITEM);
 
 	pauseCtx->radius = 93.6f;
-	pauseCtx->eye.x = pauseCtx->eye.y = 0.0f;
+	pauseCtx->eye.pos.x = pauseCtx->eye.pos.y = 0.0f;
 	pauseCtx->unk_204 = -314.0f;
 
 	pauseCtx->infoPanelOffsetY = -40;

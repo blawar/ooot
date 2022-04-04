@@ -49,6 +49,20 @@ namespace oot::pause
 	};
 } // namespace oot::pause
 
+struct Eye
+{
+	Eye()
+	{
+	}
+
+	Eye(Vec3f position, bool inv) : pos(position), inverted(inv)
+	{
+	}
+
+	Vec3f pos;
+	bool inverted;
+};
+
 struct PauseContext
 {
 	/* 0x0000 */ View view;
@@ -77,7 +91,7 @@ struct PauseContext
 	/* 0x01D0 */ OSMesg loadMsg;
 	/* 0x01D4 */ u16 state;
 	/* 0x01D6 */ u16 debugState;
-	/* 0x01D8 */ Vec3f eye;
+	/* 0x01D8 */ Eye eye;
 	/* 0x01E4 */ u16 unk_1E4;
 	/* 0x01E8 */ u16 pageIndex; // "kscp_pos"
 	/* 0x01EA */ float rotAccum;

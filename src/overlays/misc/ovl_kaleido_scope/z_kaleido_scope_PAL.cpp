@@ -1124,10 +1124,11 @@ namespace oot::pause
 			return m_pages[pageId - 1].get();
 		}
 
-		Vec3f eye() const
+		Eye eye() const
 		{
-			auto r = ::rotate({0.0f, 128.0f - m_inradius}, DEGTORAD(m_rotation));
-			return {r.x, 0.0f, r.y};
+			const float d = (128.0f - m_inradius) - (15.0f * m_inradiusScaler);
+			auto r = ::rotate({0.0f, d}, DEGTORAD(m_rotation));
+			return Eye({r.x, 0.0f, r.y}, d < 0);
 		}
 
 		u16 size() const
@@ -2457,16 +2458,26 @@ void KaleidoScope_Action_Rotating(GlobalContext* globalCtx, Input* input)
 	}
 }
 
-void KaleidoScope_SetView(PauseContext* pauseCtx, f32 x, f32 y, f32 z)
+void KaleidoScope_SetView(PauseContext* pauseCtx, f32 x, f32 y, f32 z, bool inverted = false)
 {
 	Vec3f eye;
 	Vec3f lookAt;
 	Vec3f up;
 
-	eye.x = x;
-	eye.y = y;
-	eye.z = z;
-	lookAt.x = lookAt.y = lookAt.z = 0.0f;
+	if(inverted)
+	{
+		lookAt.x = x;
+		lookAt.y = y;
+		lookAt.z = z;
+		eye.x = eye.y = eye.z = 0.0f;
+	}
+	else
+	{
+		eye.x = x;
+		eye.y = y;
+		eye.z = z;
+		lookAt.x = lookAt.y = lookAt.z = 0.0f;
+	}
 	up.x = up.z = 0.0f;
 	up.y = 1.0f;
 
@@ -2876,7 +2887,7 @@ void KaleidoScope_Draw(GlobalContext* globalCtx)
 
 	if(pauseCtx->debugState == 0)
 	{
-		KaleidoScope_SetView(pauseCtx, pauseCtx->eye.x, pauseCtx->eye.y, pauseCtx->eye.z);
+		KaleidoScope_SetView(pauseCtx, pauseCtx->eye.pos.x, pauseCtx->eye.pos.y, pauseCtx->eye.pos.z, pauseCtx->eye.inverted);
 
 		func_800949A8(globalCtx->state.gfxCtx);
 		KaleidoScope_InitVertices(globalCtx, globalCtx->state.gfxCtx);
