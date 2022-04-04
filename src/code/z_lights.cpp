@@ -212,7 +212,7 @@ void LightContext_Init(GlobalContext* globalCtx, LightContext* lightCtx) {
     LightContext_InitList(globalCtx, lightCtx);
     LightContext_SetAmbientColor(lightCtx, 80, 80, 80);
     LightContext_SetFog(lightCtx, 0, 0, 0, 996, 12800);
-    bzero(&sLightsBuffer, sizeof(sLightsBuffer));
+    memset(&sLightsBuffer, 0, sizeof(sLightsBuffer));
 }
 
 void LightContext_SetAmbientColor(LightContext* lightCtx, u8 r, u8 g, u8 b) {

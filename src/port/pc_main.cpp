@@ -3,6 +3,7 @@
 #define USE_GLIDEN64
 #define DISABLE_AUDIO
 #include "window.h"
+#include "state.h"
 #include "options.h"
 #include "player/players.h"
 #include "controller/tas.h"
@@ -12,6 +13,15 @@
 #include "controller/controllers.h"
 #include "def/audio_rsp.h"
 #include "def/audioMgr.h"
+
+namespace oot
+{
+	State state;
+}
+
+#ifndef _MSC_VER
+#define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
+#endif
 
 static std::unique_ptr<platform::window::Base> gWindow;
 
@@ -104,12 +114,12 @@ bool verifyIntegrity()
 
 	if(!hasRom)
 	{
-		sm64::log("error: unable to locate Z64 rom.\n");
+		oot::log("error: unable to locate Z64 rom.\n");
 	}
 
 	if(!hasPak)
 	{
-		sm64::log("error: unable to locate romfs/!!base.pak\n");
+		oot::log("error: unable to locate romfs/!!base.pak\n");
 	}
 
 	free(buffer);
@@ -133,7 +143,7 @@ static bool exists(const char* path)
 
 void main_func(void)
 {
-	sm64::log("initializing app\n");
+	oot::log("initializing app\n");
 
 	//Check if texture packs exist
 	if(exists("THE LEGEND OF ZELDA_HIRESTEXTURES.hts"))
@@ -164,23 +174,22 @@ void main_func(void)
 #ifdef _DEBUG//Record TAS to capture bugs and crashes
 	//oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
-	if (!oot::hid::tas::isTasPlaying())
-		oot::config().game().recordTas(true);
+	/*if (!oot::hid::tas::isTasPlaying()) TODO FIX
+		oot::config().game().recordTas(true);*/
 #endif
 
-	if (!oot::config().game().isGraphicsDisabled())
-		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
-
-	if (!oot::config().game().isGraphicsDisabled())
+	if(oot::config().game().graphicsEnabled())
 	{
+#ifdef _DEBUG
+		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
+#else
+		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", true);
+#endif
 		gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
-		//gfx_fbe_enable(0);//Uncomment to disable frame buffer emulation
+		gWindow->resize(-1, -1);
 	}
 
-	if (!oot::config().game().isGraphicsDisabled())
-		gWindow->resize(-1, -1);
-
-	oot::hid::InputDeviceManager::get().scan();
+	oot::hid::controllers().scan();
 
 	inited = 1;
 
@@ -262,7 +271,8 @@ extern "C" {
 			gWindow->setTargetFrameRate(FRAMERATE_MAX / frameRateDivisor());
 			gWindow->end_frame();
 		}
-		/*for(int i=0; i < 3; i++)
+#ifdef SINGLE_THREADED_AUDIO
+		for(int i=0; i < 3; i++)
 		{
 			auto task = getAudioTask();
 
@@ -271,8 +281,8 @@ extern "C" {
 				HLEStart((AZI_OSTask*)&task->task.t);
 				AiUpdate(false);
 			}
-		}*/
-		//audio_thread();
+		}
+#endif
 	}
 
 	float gfx_ar_ratio()

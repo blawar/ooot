@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_BOOT_Z_STD_DMA_C
 #include "global.h"
 #include "vt.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "ultra64/pi.h"
 #include "z64dma.h"
 

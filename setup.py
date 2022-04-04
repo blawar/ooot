@@ -64,14 +64,6 @@ def main():
     parser.add_argument("-b", "--buildRom", choices=validBuildOptions(), help="build rom config ex: EUR_MQD")
     parser.add_argument("-f", "--framerate", choices=['20', '30', '60', '120', '240'], help="game framerate", default='20')
     parser.add_argument("-m", "--enable-mouse", help="Enables mouse controls", action="store_true", default=True)
-    parser.add_argument("--disable-frizzle-cam", help="Disables R-Stick camera control", action="store_true", default=False)
-    parser.add_argument("--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
-    parser.add_argument("--enable-gyro", help="Enable gyro controls", action="store_true", default=False)
-    parser.add_argument("--enable-debug-level-select", help="Enable debug level select on save 1", action="store_true", default=False)
-    parser.add_argument("-t", "--text-speed", choices=['1', '2', '3', '4', '5', '10', '20'], help="Text scroll speed scaler", default='1')
-    parser.add_argument("--pause-exit-input-clear-frames", choices=['0', '2', '3', '4', '5'], help="Number of frames to clear input state after pause menu exits (For speed-running, 0 disables)", default='2')
-    parser.add_argument("--left-deadzone", help="Left analog stick deadzone", type=int, default=20)
-    parser.add_argument("--right-deadzone", help="Right analog stick deadzone", type=int, default=20)
 
     args = parser.parse_args()
 
@@ -85,27 +77,9 @@ def main():
     buffer = buffer.replace('#BUILD_ROM#', buildRom())
     defines = []
     defines.append('ENABLE_%sFPS' % args.framerate)
-    defines.append('TEXT_SPEED_SCALER=%s' % args.text_speed)
-    defines.append('DEADZONE=%s' % args.left_deadzone)
-    defines.append('RDEADZONE=%s' % args.right_deadzone)
 
     if args.enable_mouse:
         defines.append('ENABLE_MOUSE')
-
-    if not args.disable_frizzle_cam:
-        defines.append('FIZZLE_CAM')
-
-    if args.disable_distance_culling:
-        defines.append('NO_CULLING')
-
-    if args.enable_gyro:
-        defines.append('ENABLE_GYRO')
-
-    if args.enable_debug_level_select:
-        defines.append('ENABLE_DEBUG_LEVEL_SELECT')
-        
-    if args.pause_exit_input_clear_frames:
-        defines.append('PAUSE_EXIT_INPUT_CLEAR_FRAMES=%s' % args.pause_exit_input_clear_frames)
 
     if buildRom().lower()[-1] != 'd':
         defines.append('RETAIL')

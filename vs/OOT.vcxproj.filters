@@ -2190,6 +2190,12 @@
     <ClCompile Include="..\src\port\controller\xcontroller.cpp">
       <Filter>Source Files\port\controller</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\overlays\misc\ovl_kaleido_scope\z_kaleido_controller.cpp">
+      <Filter>Source Files\overlays\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\json.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\segment_symbols.h">

@@ -1,68 +1,65 @@
 #include <algorithm>
+#include <string.h>
 #include "players.h"
 #include "../controller/controllers.h"
 #include "../options.h"
 
-#include "z64.h";
+#include "z64.h"
 #include "padmgr.h"
 
 extern PadMgr gPadMgr;
 
-using namespace oot::hid;
-
-Players g_players;
-
-
-Players& Players::get()
+namespace oot
 {
-	return g_players;
-}
+	Players g_players;
 
-void Players::Update()
-{
-	g_players.update();
-}
-
-
-
-const Controller* Players::GetController()
-{
-	if (g_players[0].controllers().size() == 0)
-		return nullptr;
-	return g_players[0].controllers()[0].get();
-}
-
-
-
-void Players::update()
-{
-    memset(&gPadMgr.ctrlrIsConnected[0], 0, sizeof(gPadMgr.ctrlrIsConnected));
-
-	int i = 0;
-	for (auto& player : m_players)
+	Players& players()
 	{
-		player.update();
-
-		gPadMgr.inputs[i].cur.button  = player.controller().state().button;
-		gPadMgr.inputs[i].cur.stick_x = player.controller().state().stick_x;
-		gPadMgr.inputs[i].cur.stick_y = player.controller().state().stick_y;
-
-		gPadMgr.ctrlrIsConnected[i] = true;
-		i++;
+		return g_players;
 	}
 
-	gPadMgr.nControllers = i;
-}
-
-
-
-void Players::attach(const std::shared_ptr<Controller>& controller, const u8 playerId)
-{
-	if (playerId == MAX_PLAYERS)
-		m_players[m_size++].attach(controller);
-	else
+	Player& player(const u64 i)
 	{
-		m_players[playerId].attach(controller);
-		m_size = std::max((u64)playerId + 1, m_size);
+		return g_players[i];
 	}
-}
+
+	Players::Players() : m_players(), m_size(0)
+	{
+	}
+
+	const u64 Players::size() const
+	{
+		return m_size;
+	}
+
+	void Players::update()
+	{
+		int i = 0;
+		memset(&gPadMgr.ctrlrIsConnected[0], 0, sizeof(gPadMgr.ctrlrIsConnected));
+		for(auto& player : m_players)
+		{
+			player.update();
+
+			gPadMgr.inputs[i].cur.button = player.controller().state().button;
+			gPadMgr.inputs[i].cur.stick_x = player.controller().state().stick_x;
+			gPadMgr.inputs[i].cur.stick_y = player.controller().state().stick_y;
+
+			gPadMgr.ctrlrIsConnected[i] = true;
+			i++;
+		}
+		gPadMgr.nControllers = i;
+	}
+
+	void Players::attach(const std::shared_ptr<hid::Controller>& controller, const u8 playerId)
+	{
+		if(playerId == MAX_PLAYERS)
+		{
+			m_players[m_size++].attach(controller);
+		}
+		else
+		{
+			m_players[playerId].attach(controller);
+			m_size = std::max((u64)playerId + 1, m_size);
+		}
+	}
+} // namespace oot

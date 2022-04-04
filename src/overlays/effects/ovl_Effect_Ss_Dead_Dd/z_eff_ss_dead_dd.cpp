@@ -119,7 +119,7 @@ void EffectSsDeadDd_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, pthis->rAlpha);
         gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, pthis->rAlpha);
         gSPMatrix(POLY_XLU_DISP++, mtx, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-        gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        gSPMatrix(POLY_XLU_DISP++, SEGMENT_ADDRESS(0x01000000), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gDPSetCombineLERP(POLY_XLU_DISP++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0,
                           PRIMITIVE, 0);
         gSPDisplayList(POLY_XLU_DISP++, gLensFlareCircleDL);

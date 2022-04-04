@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "ultra64/controller.h"
 #include "ultra64/pfs.h"
 
@@ -39,8 +39,6 @@ struct PadMgr {
 }; // size = 0x468
 
 struct RumbleStruct {
-    std::function<void(uint8_t, uint8_t, uint8_t)> onVibrate;//Callback, takes strength, length, decay
-
     /* 0x000 */ u8 rumbleOn[4];//0 or 1 depending if rumble is happening right now
     /* 0x004 */ u8 strengthList[0x40];//rumble pattern
     /* 0x044 */ u8 lengthList[0x40];//rumble pattern

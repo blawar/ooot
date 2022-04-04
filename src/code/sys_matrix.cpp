@@ -4,6 +4,7 @@
 #include "gfx.h"
 #include "z64game.h"
 #include "z64gu.h"
+#include "macros.h"
 #include "math.h"
 #include "z64memory.h"
 #include "z64skinmatrix.h"
@@ -621,7 +622,7 @@ Mtx* Matrix_ToMtx(Mtx* dest, const char* file, s32 line) {
 }
 
 Mtx* Matrix_NewMtx(GraphicsContext* gfxCtx, const char* file, s32 line) {
-    return Matrix_ToMtx((Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx)), file, line);
+    return Matrix_ToMtx((Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx)), __FILE__, __LINE__);
 }
 
 Mtx* Matrix_MtxFToNewMtx(MtxF* src, GraphicsContext* gfxCtx) {

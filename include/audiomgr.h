@@ -1,5 +1,5 @@
 #pragma once
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "z64math.h"
 
 struct AudioTask;

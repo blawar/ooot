@@ -27,6 +27,7 @@ size_t ZMtx::GetRawDataSize() const
 
 std::string ZMtx::GetBodySourceCode() const
 {
+	int i = 0;
 	std::string bodyStr = "\n";
 
 	for (const auto& row : mtx)
@@ -34,7 +35,16 @@ std::string ZMtx::GetBodySourceCode() const
 		bodyStr += "    ";
 
 		for (int32_t val : row)
-			bodyStr += StringHelper::Sprintf("%-11i, ", val);
+		{
+			if (i++ == 0)
+			{
+				bodyStr += StringHelper::Sprintf("%-11i", val);
+			}
+			else
+			{
+				bodyStr += StringHelper::Sprintf(", %-11i", val);
+			}
+		}
 
 		bodyStr += "\n";
 	}

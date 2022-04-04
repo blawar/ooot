@@ -1,10 +1,14 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_PLAYER_ACTOR_Z_PLAYER_C
 #include "actor_common.h"
-#include <z64camera.h>
+#include "z64camera.h"
+#include <string.h>
 #include "z_player.h"
 #include "framerate.h"
 #include "z_scene_table.h"
 #include "hack.h"
+#include "port/controller/controller.h"
+#include "port/options.h"
+
 extern u8 gPlayerModelTypes[][5];
 extern FlexSkeletonHeader* gPlayerSkelHeaders[2];
 extern u8 gPlayerModelTypes[][5];
@@ -1066,7 +1070,7 @@ static LinkAnimationHeader* D_80854378[] = {
 static u8 D_80854380[2] = { 0x18, 0x19 };
 static u8 D_80854384[2] = { 0x1A, 0x1B };
 
-static u16 D_80854388[] = { BTN_B, BTN_CLEFT, BTN_CDOWN, BTN_CRIGHT };
+static u16 gActionIndexToButtonMap[] = { BTN_B, BTN_CLEFT, BTN_CDOWN, BTN_CRIGHT };
 
 static u8 sMagicSpellCosts[] = { 12, 24, 24, 12, 24, 12 };
 
@@ -1869,16 +1873,21 @@ void func_80833DF8(Player* pthis, GlobalContext* globalCtx) {
             }
         }
 
-        for (i = 0; i < ARRAY_COUNT(D_80854388); i++) {
-            if (CHECK_BTN_ALL(sControlInput->press.button, D_80854388[i])) {
+	    if(oot::config().controls().enableActionButtonOverride())
+	    {
+		    oot::hid::setActionOverride((oot::hid::Button)gActionIndexToButtonMap[pthis->heldItemButton]);
+	    }
+
+        for (i = 0; i < ARRAY_COUNT(gActionIndexToButtonMap); i++) {
+            if (CHECK_BTN_ALL(sControlInput->press.button, gActionIndexToButtonMap[i])) {
                 break;
             }
         }
 
         item = func_80833CDC(globalCtx, i);
         if (item >= ITEM_NONE_FE) {
-            for (i = 0; i < ARRAY_COUNT(D_80854388); i++) {
-                if (CHECK_BTN_ALL(sControlInput->cur.button, D_80854388[i])) {
+            for (i = 0; i < ARRAY_COUNT(gActionIndexToButtonMap); i++) {
+                if (CHECK_BTN_ALL(sControlInput->cur.button, gActionIndexToButtonMap[i])) {
                     break;
                 }
             }
@@ -2228,8 +2237,8 @@ s32 func_80834E44(GlobalContext* globalCtx) {
     return (globalCtx->shootingGalleryStatus > 0) && CHECK_BTN_ALL(sControlInput->press.button, BTN_B);
 }
 
-s32 func_80834E7C(GlobalContext* globalCtx) {
-    return (globalCtx->shootingGalleryStatus != 0) &&
+s32 isNockingArrow(GlobalContext* globalCtx) {
+    return (globalCtx->shootingGalleryStatus != 0 || (oot::config().controls().enableActionButtonOverride() && oot::hid::isFirstPerson())) &&
            ((globalCtx->shootingGalleryStatus < 0) ||
             CHECK_BTN_ANY(sControlInput->cur.button, BTN_A | BTN_B | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN));
 }
@@ -2310,7 +2319,7 @@ s32 func_808350A4(GlobalContext* globalCtx, Player* pthis) {
         }
 
         pthis->unk_A73 = 4;
-        pthis->heldActor->parent = NULL;
+        pthis->heldActor->parent = NULL; // release arrow
         pthis->actor.child = NULL;
         pthis->heldActor = NULL;
 
@@ -2320,7 +2329,7 @@ s32 func_808350A4(GlobalContext* globalCtx, Player* pthis) {
     return 0;
 }
 
-static u16 D_808543DC[] = { NA_SE_IT_BOW_FLICK, NA_SE_IT_SLING_FLICK };
+static u16 gOutOfArrowSound[] = { NA_SE_IT_BOW_FLICK, NA_SE_IT_SLING_FLICK };
 
 s32 func_808351D4(Player* pthis, GlobalContext* globalCtx) {
     s32 sp2C;
@@ -2350,12 +2359,12 @@ s32 func_808351D4(Player* pthis, GlobalContext* globalCtx) {
 
     func_80834EB8(pthis, globalCtx);
 
-    if ((pthis->unk_836 > 0) && ((pthis->unk_860 < 0) || (!D_80853618 && !func_80834E7C(globalCtx)))) {
+    if ((pthis->unk_836 > 0) && ((pthis->unk_860 < 0) || (!D_80853618 && !isNockingArrow(globalCtx)))) {
         func_80833638(pthis, func_808353D8);
         if (pthis->unk_860 >= 0) {
             if (sp2C == 0) {
                 if (!func_808350A4(globalCtx, pthis)) {
-                    func_8002F7DC(&pthis->actor, D_808543DC[ABS(pthis->unk_860) - 1]);
+                    func_8002F7DC(&pthis->actor, gOutOfArrowSound[ABS(pthis->unk_860) - 1]); // play bow out of ammo sound
                 }
             } else if (pthis->actor.bgCheckFlags & 1) {
                 func_808350A4(globalCtx, pthis);
@@ -2385,7 +2394,7 @@ s32 func_808353D8(Player* pthis, GlobalContext* globalCtx) {
             if (Player_HoldsHookshot(pthis)) {
                 pthis->unk_836 = 1;
             } else {
-                LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_0026B8);
+                LinkAnimation_PlayOnce(globalCtx, &pthis->skelAnime2, &gPlayerAnim_0026B8); // nock bow
             }
         }
     } else {
@@ -10343,7 +10352,7 @@ void Player_Update(Actor* pthisx, GlobalContext* globalCtx) {
         }
 
         if (pthis->stateFlags1 & 0x20000020) {
-            bzero(&sp44, sizeof(sp44));
+            memset(&sp44, 0, sizeof(sp44));
         } else {
             sp44 = globalCtx->state.input[0];
             if (pthis->unk_88E != 0) {
@@ -10704,6 +10713,7 @@ void func_8084B1D8(Player* pthis, GlobalContext* globalCtx) {
          ((pthis->unk_6AD == 1) &&
           CHECK_BTN_ANY(sControlInput->press.button,
                         BTN_A | BTN_B | BTN_R | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN)))) {
+
         func_8083C148(pthis, globalCtx);
         Common_PlaySfx(NA_SE_SY_CAMERA_ZOOM_UP);
     } else if ((DECR(pthis->unk_850) == 0) || (pthis->unk_6AD != 2)) {

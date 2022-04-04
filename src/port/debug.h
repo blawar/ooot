@@ -15,7 +15,7 @@
 	{                                                                                                                                                                                                                                                      \
 		if(!g_##v)                                                                                                                                                                                                                                     \
 		{                                                                                                                                                                                                                                              \
-			g_##v = sm64::hook::geo::apply(::v, hook::geo::Id::v);                                                                                                                                                                                 \
+			g_##v = oot::hook::geo::apply(::v, hook::geo::Id::v);                                                                                                                                                                                 \
 		}                                                                                                                                                                                                                                              \
 		return g_##v;                                                                                                                                                                                                                                  \
 	}
@@ -26,7 +26,7 @@
 	{                                                                                                                                                                                                                                                      \
 		if(!g_##v)                                                                                                                                                                                                                                     \
 		{                                                                                                                                                                                                                                              \
-			g_##v = sm64::hook::bhv::apply(::v, hook::bhv::Id::v);                                                                                                                                                                                 \
+			g_##v = oot::hook::bhv::apply(::v, hook::bhv::Id::v);                                                                                                                                                                                 \
 		}                                                                                                                                                                                                                                              \
 		return g_##v;                                                                                                                                                                                                                                  \
 	}
@@ -37,11 +37,11 @@
 	{                                                                                                                                                                                                                                                      \
 		if(!g_##v)                                                                                                                                                                                                                                     \
 		{                                                                                                                                                                                                                                              \
-			g_##v = sm64::hook::macro::apply(::v, hook::macro::Id::v);                                                                                                                                                                             \
+			g_##v = oot::hook::macro::apply(::v, hook::macro::Id::v);                                                                                                                                                                             \
 		}                                                                                                                                                                                                                                              \
 		return g_##v;                                                                                                                                                                                                                                  \
 	}
-//#define EXPORT_MACRO(v) static const MacroObject* g_##v = nullptr; const MacroObject* v() { if(!g_##v) { g_##v = sm64::hook::macro::apply(nullptr, hook::macro::Id::v); } return g_##v; }
+//#define EXPORT_MACRO(v) static const MacroObject* g_##v = nullptr; const MacroObject* v() { if(!g_##v) { g_##v = oot::hook::macro::apply(nullptr, hook::macro::Id::v); } return g_##v; }
 #define EXPORT_LEVEL(v) static ExportLevel export_##v(::v, sizeof(::v), #v)
 #else
 #define EXPORT_DL(v)
@@ -74,12 +74,12 @@
 #define EXTERN_GeoLayout(X) extern const GeoLayout X[];
 #define EXTERN_LevelScript(X) extern const LevelScript X[];
 #define EXTERN_MacroObject(X)                                                                                                                                                                                                                                  \
-	namespace sm64::macro                                                                                                                                                                                                                                  \
+	namespace oot::macro                                                                                                                                                                                                                                  \
 	{                                                                                                                                                                                                                                                      \
 		const MacroObject* X();                                                                                                                                                                                                                        \
 	}
 
-namespace sm64
+namespace oot
 {
 	void log(const char* format, ...);
 	void closeExportFile();
@@ -108,6 +108,6 @@ namespace sm64
 	{
 		ExportMacro(const MacroObject* macro, const u64 len, const char* name);
 	};*/
-} // namespace sm64
+} // namespace oot
 
 #endif /* _DEBUG_H */

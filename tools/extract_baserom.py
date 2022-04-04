@@ -32,7 +32,7 @@ def write_output_file(name, offset, size):
         print('failed to write file ' + name)
 
 def ExtractFunc(i):
-    filename = assetPath('baserom/') + FILE_NAMES[i]
+    filename = str(Path(assetPath('baserom')) / FILE_NAMES[i])
     entryOffset = FILE_TABLE_OFFSET + 16 * i
 
     virtStart = read_uint32_be(entryOffset + 0)

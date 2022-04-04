@@ -412,7 +412,7 @@ void EnBox_WaitOpen(EnBox* pthis, GlobalContext* globalCtx) {
 
     pthis->alpha = 255;
     pthis->movementFlags |= ENBOX_MOVE_IMMOBILE;
-    if (pthis->unk_1F4 != 0) { // unk_1F4 is modified by player code
+    if (pthis->unk_1F4 != 0) { // itemPageAngle is modified by player code
         linkAge = gSaveContext.linkAge;
         anim = sAnimations[(pthis->unk_1F4 < 0 ? 2 : 0) + linkAge];
         frameCount = Animation_GetLastFrame(anim);

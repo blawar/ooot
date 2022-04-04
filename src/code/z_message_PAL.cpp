@@ -19,6 +19,7 @@
 #include "z64item.h"
 #include "z64global.h"
 #include "sfx.h"
+#include "port/options.h"
 
 #include "z64message.h"
 #include "sequence.h"
@@ -847,9 +848,6 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
     Font* font = &globalCtx->msgCtx.font;
     Gfx* gfx = *gfxP;
 
-#ifndef TEXT_SPEED_SCALER
-    const u16 TEXT_SPEED_SCALER = 1;
-#endif
     const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B)) ? 8 : 1;
 
     globalCtx->msgCtx.textPosX = R_TEXT_INIT_XPOS;
@@ -1127,7 +1125,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
         }
     }
 
-    const auto loops = MAX(TEXT_SPEED_SCALER, buttonScaler);
+    const auto loops = MAX(oot::config().game().textScrollSpeed(), buttonScaler);
     msgCtx->textDrawPos = i;
     for(int z = 0; z < loops; z++)
     {

@@ -62,8 +62,6 @@ static Color_RGB8 sBeamEnvColors_67[] = {
 };
 
 
-Mtx D_01000000;
-
 static void* sEffLightningTextures[] = {
     gEffLightning1Tex, gEffLightning2Tex, gEffLightning3Tex, gEffLightning4Tex,
     gEffLightning5Tex, gEffLightning6Tex, gEffLightning7Tex, gEffLightning8Tex,
@@ -725,7 +723,7 @@ void ObjectKankyo_DrawSnow(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
             gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gDust5Tex));
 
             func_80094C50(globalCtx->state.gfxCtx);
-            gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
+            gSPMatrix(POLY_XLU_DISP++, SEGMENT_ADDRESS(0x01000000), G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
 
             gDPPipeSync(POLY_XLU_DISP++);
 
@@ -780,7 +778,7 @@ void ObjectKankyo_DrawLightning(ObjectKankyo* pthis, GlobalContext* globalCtx) {
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1213), G_MTX_LOAD);
         gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEffLightningTextures[pthis->effects[0].timer]));
         func_80094C50(globalCtx->state.gfxCtx);
-        gSPMatrix(POLY_XLU_DISP++, &D_01000000, G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
+        gSPMatrix(POLY_XLU_DISP++, SEGMENT_ADDRESS(0x01000000), G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
         gDPPipeSync(POLY_XLU_DISP++);
         gSPDisplayList(POLY_XLU_DISP++, gEffLightningDL);
         gDPPipeSync(POLY_XLU_DISP++);
@@ -963,8 +961,6 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
 
 void ObjectKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx) {
     sSoundPos_53 = { 0.0f, 0.0f, 0.0f };
-
-    D_01000000 = {0};
 
     Object_Kankyo_InitVars = {
         ACTOR_OBJECT_KANKYO,

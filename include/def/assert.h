@@ -1,3 +1,3 @@
 #pragma once
 
-void __assert(const char* exp, const char* file, s32 line);
+void oot_assert(const char* exp, const char* file, s32 line);

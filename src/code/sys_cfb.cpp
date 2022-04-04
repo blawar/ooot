@@ -11,18 +11,16 @@ uintptr_t sSysCfbEnd;
 static void* cfbBuffer = NULL;
 
 void SysCfb_Init(s32 n64dd) {
-    uintptr_t screenSize;
+	const uintptr_t screenSize = SCREEN_WIDTH * SCREEN_HEIGHT * 2;
     uintptr_t tmpFbEnd;
 
-    cfbBuffer = malloc(osMemSize);
-    sSysCfbEnd = POINTER_ADD(cfbBuffer, osMemSize);
+    cfbBuffer = malloc(screenSize * 2);
 
-    screenSize = SCREEN_WIDTH * SCREEN_HEIGHT;
-    sSysCfbEnd &= ~0x3F;
     // "The final address used by the system is %08x"
     osSyncPrintf("The final address used by the system is %08x\n", sSysCfbEnd);
-    sSysCfbFbPtr[0] = sSysCfbEnd - (screenSize * 4);
-    sSysCfbFbPtr[1] = sSysCfbEnd - (screenSize * 2);
+    sSysCfbFbPtr[0] = (uintptr_t)cfbBuffer;
+    sSysCfbFbPtr[1] = (uintptr_t)cfbBuffer + screenSize;
+    bzero(cfbBuffer, screenSize * 2);
     // "Frame buffer addresses are %08x and %08x"
     osSyncPrintf("Frame buffer addresses are %08x and %08x\n", sSysCfbFbPtr[0], sSysCfbFbPtr[1]);
 }

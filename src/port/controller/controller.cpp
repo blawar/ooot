@@ -3,39 +3,68 @@
 #include <ctime>
 #include <fstream>
 #include <filesystem>
-#include "tas.h"
 #include "../options.h"
-#include "controllers.h"
+#include "def/z_player_lib.h"
+#include "state.h"
+#include <math.h>
 
 #ifdef __SWITCH__
-#define TAS_DIR "sdmc:/switch/sm64/tas"
+#define TAS_DIR "sdmc:/switch/oot/tas"
 #else
 #define TAS_DIR "tas"
 #endif
 
+static inline int8_t invert(const int8_t value)
+{
+	if(value <= -128)
+	{
+		return 127;
+	}
+
+	return -value;
+}
+
+#ifndef _MSC_VER
+#define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
+#endif
+
 namespace oot::hid
 {
-	static bool g_gyroEnabled = false;
+	static bool g_firstPersonEnabled = false;
 
-	void gyroEnable()
+	void firstPersonEnable()
 	{
-		g_gyroEnabled = true;
+		g_firstPersonEnabled = true;
 	}
 
-	void gyroDisable()
+	void firstPersonDisable()
 	{
-		g_gyroEnabled = false;
+		g_firstPersonEnabled = false;
 	}
 
-	bool isGyroEnabled()
+	bool isFirstPerson()
 	{
-		return g_gyroEnabled;
+		return g_firstPersonEnabled;
 	}
 
-	Controller::State::State()
+	static Button gActionOverrideButton = Button::EMPTY_BUTTON;
+
+	void setActionOverride(Button btn)
 	{
-		mouse_x	  = 0;
-		mouse_y	  = 0;
+		gActionOverrideButton = btn;
+	}
+
+	static u16 gClearButtonPressFrames = 0;
+
+	void clearPressedButtons(u16 frames)
+	{
+		gClearButtonPressFrames = frames;
+	}
+
+	State::State()
+	{
+		mouse_x = 0;
+		mouse_y = 0;
 		has_mouse = false;
 
 #ifdef ENABLE_GYRO
@@ -46,27 +75,33 @@ namespace oot::hid
 		reset();
 	}
 
-	void Controller::State::reset()
+	void State::reset()
 	{
-		button	  = 0;
-		stick_x	  = 0;
-		stick_y	  = 0;
-		errnum	  = 0;
+		button = 0;
+		stick_x = 0;
+		stick_y = 0;
+		errnum = 0;
 		r_stick_x = 0;
 		r_stick_y = 0;
 		has_mouse = false;
 	}
 
 	Controller::Controller(bool isLocal) :
-	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false)
+	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false), m_rumbleTimer(0),
+	    m_rumbleStrengh(0), m_rumbleDecay(0), m_rumbleActive(0)
 	{
 	}
 
-	Controller::~Controller()
+	void Controller::ResetMotorPack()
 	{
-		if(m_tasFile) // Tas file is open
-			fclose(m_tasFile);
-		m_tasFile = nullptr;
+	}
+
+	void Controller::SendMotorVib(int level)
+	{
+	}
+
+	void Controller::update()
+	{
 	}
 
 	void Controller::merge(const Controller& controller)
@@ -74,16 +109,24 @@ namespace oot::hid
 		m_state.button |= controller.m_state.button;
 
 		if(abs(m_state.stick_x) < abs(controller.m_state.stick_x))
+		{
 			m_state.stick_x = controller.m_state.stick_x;
+		}
 
 		if(abs(m_state.stick_y) < abs(controller.m_state.stick_y))
+		{
 			m_state.stick_y = controller.m_state.stick_y;
+		}
 
 		if(abs(m_state.r_stick_x) < abs(controller.m_state.r_stick_x))
+		{
 			m_state.r_stick_x = controller.m_state.r_stick_x;
+		}
 
 		if(abs(m_state.r_stick_y) < abs(controller.m_state.r_stick_y))
+		{
 			m_state.r_stick_y = controller.m_state.r_stick_y;
+		}
 
 		if(controller.hasMouse())
 		{
@@ -94,117 +137,78 @@ namespace oot::hid
 		m_state.has_mouse |= controller.m_state.has_mouse;
 	}
 
-	static std::ofstream g_tas;
+	bool Controller::hasMouse() const
+	{
+		return m_state.has_mouse;
+	}
+
+	static std::string getTasFileName()
+	{
+		std::error_code error;
+		std::filesystem::create_directory(TAS_DIR, error);
+
+		time_t now = time(0);
+		tm* ltm = localtime(&now);
+
+		if(!ltm)
+		{
+			return TAS_DIR "/record.tas";
+		}
+
+		char buf[64] = {0};
+		sprintf(buf, TAS_DIR "/%04d.%02d.%02d-%04d.tas", ltm->tm_year, ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_hour * 60 + ltm->tm_min);
+		return buf;
+	}
+
+#ifdef ENABLE_TAS
+	static std::ofstream* g_tas = nullptr;
 
 	static std::ofstream& stream()
 	{
-		/*if (!g_tas)
+		if(!g_tas)
 		{
 			auto name = getTasFileName();
-			g_tas = std::ofstream(name, std::ofstream::binary);
-			if (g_tas)
-				g_tas.write((const char*)&oot::config(), sizeof(oot::config()));
-		}*/
+			g_tas = new std::ofstream(name, std::ifstream::binary);
+			g_tas->write((const char*)&config(), sizeof(config()));
+		}
 
-		return g_tas;
+		return *g_tas;
 	}
-
-	static u16 gClearButtonPressFrames = 0;
-
-	void Controller::clearPressedButtons(u16 frames)
-	{
-		gClearButtonPressFrames = frames;
-	}
+#endif
 
 	void Controller::resolveInputs()
 	{
-#define SRAM_SIZE 0x8000 // But this in ultra_reimplementation.h?
-
-		// Recording TAS?
-		if(!tas::isTasPlaying() && oot::config().game().recordTas())
+#ifdef ENABLE_TAS
+		if(!hid::isTasPlaying() && config().game().recordTas())
 		{
-			// stream().write((const char*)&m_state, sizeof(m_state));
+			stream().write((const char*)&m_state, sizeof(m_state));
 
-			// Write TAS data
-
-			if(!m_tasFile) // Not open yet?
+			if(m_state.button)
 			{
-				fopen_s(&m_tasFile, tas::getTasFileName().c_str(), "wb");
-
-				if(!m_tasFile)
-					return;
-
-				// Write our current config
-				// fwrite(&oot::config(), sizeof(oot::config()), 1, m_tasOutput);
-
-				// Write save data
-				uint8_t* sram = new uint8_t[SRAM_SIZE];
-				FILE* save    = nullptr;
-				fopen_s(&save, "oot.sav", "rb");
-				if(save)
-				{
-					fread(sram, sizeof(uint8_t), SRAM_SIZE, save);
-					fclose(save);
-				}
-
-				fwrite(sram, sizeof(uint8_t), SRAM_SIZE, m_tasFile);
-				delete[] sram;
+				int y = 0;
 			}
-
-			if(m_tasFile) // Tas file is open
-			{
-				// fwrite(&m_state, sizeof(m_state), 1, m_tasFile);
-				StateCompressed compressed(m_state); // Compress the state
-				compressed.write(m_tasFile);	     // Write to TAS file
-#ifdef _DEBUG
-				fflush(m_tasFile); // Flush every frame to keep all the data when the game crashes
+		}
 #endif
-			}
-		}
 
-		// Playing back a TAS?
-		else if(tas::isTasPlaying())
+		if(isFirstPerson())
 		{
-			if(!m_tasFile)
+			m_state.stick_y = invert(m_state.stick_y);
+
+			if(gActionOverrideButton != Button::EMPTY_BUTTON)
 			{
-				m_tasFile = fopen(tas::getTasFileName().c_str(), "rb");
-
-				if(!m_tasFile)
-					return;
-
-				// fread(&oot::config(), 1, sizeof(oot::config()), fp);
-
-				uint8_t* sram = new uint8_t[SRAM_SIZE];
-				fread(sram, sizeof(uint8_t), SRAM_SIZE, m_tasFile);
-
-				FILE* save = nullptr;
-				fopen_s(&save, "oot.sav", "wb");
-				if(save)
+				auto btn = config().controls().actionOverrideButton();
+				if(m_state.button & btn)
 				{
-					fwrite(sram, sizeof(uint8_t), SRAM_SIZE, save);
-					fclose(save);
+					m_state.button &= ~btn;
+					m_state.button |= gActionOverrideButton;
 				}
-
-				delete[] sram;
-			}
-
-			if(m_tasFile)
-			{
-				// fread(&m_state, sizeof(m_state), 1, m_tasFile);//Uncompressed read
-				StateCompressed compressed;
-				bool end_of_file = compressed.read(m_tasFile); // Read the compressed state
-
-				if(end_of_file) // End of file reached, playback is complete
-					tas::TasEnded();
-				else
-					m_state = compressed; // Uncompress
 			}
 		}
 
-		rawStickX     = m_state.stick_x;
-		rawStickY     = m_state.stick_y;
-		r_rawStickX   = m_state.r_stick_x;
-		r_rawStickY   = m_state.r_stick_y;
+		rawStickX = m_state.stick_x;
+		rawStickY = m_state.stick_y;
+		r_rawStickX = m_state.r_stick_x;
+		r_rawStickY = m_state.r_stick_y;
 
 		if(gClearButtonPressFrames)
 		{
@@ -221,7 +225,7 @@ namespace oot::hid
 
 		if(oot::config().game().mirror())
 		{
-			rawStickX   = -rawStickX;
+			rawStickX = -rawStickX;
 			r_rawStickX = -r_rawStickX;
 		}
 
@@ -231,16 +235,24 @@ namespace oot::hid
 
 		// modulate the rawStickX and rawStickY to be the new f32 values by adding/subtracting 6.
 		if(this->rawStickX <= -8)
+		{
 			this->stickX = this->rawStickX + 6;
+		}
 
 		if(this->rawStickX >= 8)
+		{
 			this->stickX = this->rawStickX - 6;
+		}
 
 		if(this->rawStickY <= -8)
+		{
 			this->stickY = this->rawStickY + 6;
+		}
 
 		if(this->rawStickY >= 8)
+		{
 			this->stickY = this->rawStickY - 6;
+		}
 
 		// calculate f32 magnitude from the center by vector length.
 		this->stickMag = sqrtf(this->stickX * this->stickX + this->stickY * this->stickY);
@@ -258,16 +270,24 @@ namespace oot::hid
 		this->r_stickY = 0;
 
 		if(this->r_rawStickX <= -8)
+		{
 			this->r_stickX = this->r_rawStickX + 6;
+		}
 
 		if(this->r_rawStickX >= 8)
+		{
 			this->r_stickX = this->r_rawStickX - 6;
+		}
 
 		if(this->r_rawStickY <= -8)
+		{
 			this->r_stickY = this->r_rawStickY + 6;
+		}
 
 		if(this->r_rawStickY >= 8)
+		{
 			this->r_stickY = this->r_rawStickY - 6;
+		}
 
 		// calculate f32 magnitude from the center by vector length.
 		this->r_stickMag = sqrtf(this->r_stickX * this->r_stickX + this->r_stickY * this->r_stickY);
@@ -281,32 +301,306 @@ namespace oot::hid
 			this->r_stickMag = 64;
 		}
 
-		if(isGyroEnabled() && this->r_stickMag > RDEADZONE)
+		if(isFirstPerson())
 		{
-			this->stickMag = this->r_stickMag;
-			this->stickX = this->r_stickX;
-			this->stickY = this->r_stickY;
+			if(this->r_stickMag > oot::config().controls().stickRightDeadzone())
+			{
+				this->stickMag = this->r_stickMag;
+				this->stickX = this->r_stickX;
+				this->stickY = this->r_stickY;
 
-			this->m_state.stick_x = this->m_state.r_stick_x;
-			this->m_state.stick_y = this->m_state.r_stick_y;
+				this->m_state.stick_x = this->m_state.r_stick_x;
+				this->m_state.stick_y = this->m_state.r_stick_y;
 
-			this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
-			this->r_stickY = this->r_stickX = this->r_stickMag = 0;
+				this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
+				this->r_stickY = this->r_stickX = this->r_stickMag = 0;
+			}
+		}
+		else if(oot::state.center_camera)
+		{
+			const float scaler = 0.1f;
+			this->stickX *= scaler;
+			this->m_state.stick_x *= scaler;
+			this->stickMag *= scaler;
+
+			if(this->stickY < 0)
+			{
+				this->stickY = 0;
+				this->m_state.stick_y = 0;
+				this->stickMag = sqrtf(this->stickX * this->stickX + this->stickY * this->stickY);
+			}
+
+
+			this->r_stickX *= scaler;
+			this->m_state.r_stick_x *= scaler;
+			this->r_stickMag *= scaler;
 		}
 	}
 
-	s64 Controller::mouse_x() const
+	s64 Controller::mouseScaleX(s64 value)
 	{
-		return m_state.mouse_x * (oot::config().camera().mousexInvert() ? -1 : 1) * oot::config().camera().mousexScaler();
+		return value * (oot::config().controls().mousexInvert() ? -1 : 1) * oot::config().controls().mousexScaler();
 	}
 
-	s64 Controller::mouse_y() const
+	s64 Controller::mouseScaleY(s64 value)
 	{
-		return m_state.mouse_y * (oot::config().camera().mouseyInvert() ? -1 : 1) * oot::config().camera().mouseyScaler();
+		return value * (oot::config().controls().mouseyInvert() ? -1 : 1) * oot::config().controls().mouseyScaler();
 	}
 
-	/*bool Controller::updateRebind(int input)
+	bool Controller::updateRebind(int input)
 	{
 		return false;
-	}*/
+	}
+
+	void Controller::processKey(int input)
+	{
+		if(input > 0xFFFF)
+		{
+			switch(input)
+			{
+				case STICK_X_DOWN:
+					m_state.stick_y = -128;
+					break;
+				case STICK_X_UP:
+					m_state.stick_y = 127;
+					break;
+				case STICK_X_LEFT:
+					m_state.stick_x = -128;
+					break;
+				case STICK_X_RIGHT:
+					m_state.stick_x = 127;
+					break;
+				case WALK_BUTTON:
+					m_state.m_walk = true;
+					break;
+				case DEBUG_MENU:
+					m_state.button |= (uint16_t)Button::U_JPAD | (uint16_t)Button::D_JPAD | (uint16_t)Button::L_JPAD | (uint16_t)Button::R_JPAD;
+					break;
+				case FAST_FORWARD:
+					break;
+			}
+		}
+		else
+		{
+			m_state.button |= input;
+		}
+	}
+
+	void Controller::processKeyDown(int input)
+	{
+		switch(input)
+		{
+			case Button::OCARINA:
+				Player_EquipOcarina();
+				break;
+			case Button::BOW_ARROW:
+				Player_EquipBow();
+				break;
+			case Button::LENS_OF_TRUTH:
+				Player_EquipLensOfTruth();
+				break;
+			case Button::BOOTS_TOGGLE:
+				Player_ToggleBoots();
+				break;
+			case Button::SWORD_TOGGLE:
+				Player_ToggleSword();
+				break;
+			case Button::SHIELD_TOGGLE:
+				Player_ToggleShield();
+				break;
+			case Button::TUNIC_TOGGLE:
+				Player_ToggleTunic();
+				break;
+			case Button::FAST_FORWARD:
+				oot::state.fastForward = 5;
+				break;
+			case Button::CENTER_CAMERA:
+				oot::state.center_camera = true;
+				break;
+		}
+	}
+
+	void Controller::processKeyUp(int input)
+	{
+		switch(input)
+		{
+			case Button::FAST_FORWARD:
+				oot::state.fastForward = 1;
+				break;
+			case Button::CENTER_CAMERA:
+				oot::state.center_camera = false;
+				break;
+		}
+	}
+
+	void Controller::resetBindings()
+	{
+	}
+
+	void Controller::rumble()
+	{
+		if(m_rumbleTimer)
+		{
+			m_rumbleActive = true;
+			vibrate();
+			m_rumbleTimer--;
+		}
+		else if(m_rumbleStrengh)
+		{
+			vibrate();
+
+			if(m_rumbleStrengh < m_rumbleDecay)
+			{
+				m_rumbleStrengh = 0;
+			}
+			else
+			{
+				m_rumbleStrengh -= m_rumbleDecay;
+			}
+		}
+		else if(m_rumbleActive) // send an empty rumble to turn it off
+		{
+			vibrate();
+			m_rumbleActive = false;
+		}
+	}
+
+	void Controller::SendMotorEvent(short time, short level, u8 decay)
+	{
+		m_rumbleTimer = time * 0.75;
+		m_rumbleStrengh = level;
+		m_rumbleDecay = decay;
+		rumble();
+	}
+
+	void Controller::vibrate()
+	{
+	}
+
+	namespace controller
+	{
+		const char* getInputName(Button input)
+		{
+			switch(input)
+			{
+				case Button::STICK_X_UP:
+					return "STICK_X_UP";
+				case Button::STICK_X_LEFT:
+					return "STICK_X_LEFT";
+				case Button::STICK_X_DOWN:
+					return "STICK_X_DOWN";
+				case Button::STICK_X_RIGHT:
+					return "STICK_X_RIGHT";
+				case Button::A_BUTTON:
+					return "A_BUTTON";
+				case Button::B_BUTTON:
+					return "B_BUTTON";
+				case Button::Z_TRIG:
+					return "Z_TRIG";
+				case Button::U_CBUTTONS:
+					return "U_CBUTTONS";
+				case Button::L_CBUTTONS:
+					return "L_CBUTTONS";
+				case Button::D_CBUTTONS:
+					return "D_CBUTTONS";
+				case Button::R_CBUTTONS:
+					return "R_CBUTTONS";
+				case Button::R_TRIG:
+					return "R_TRIG";
+				case Button::L_TRIG:
+					return "L_TRIG";
+				case Button::START_BUTTON:
+					return "START_BUTTON";
+				case Button::WALK_BUTTON:
+					return "WALK_BUTTON";
+				case Button::DEBUG_MENU:
+					return "DEBUG_MENU";
+				case Button::FAST_FORWARD:
+					return "FAST_FORWARD";
+				case Button::CENTER_CAMERA:
+					return "CENTER_CAMERA";
+				case Button::CURRENT_ACTION:
+					return "CURRENT_ACTION";
+
+				case Button::OCARINA:
+					return "OCARINA";
+				case Button::HOOKSHOT:
+					return "HOOKSHOT";
+				case Button::BOW_ARROW:
+					return "BOW_ARROW";
+				case Button::LENS_OF_TRUTH:
+					return "LENS_OF_TRUTH";
+				case Button::BOOTS_TOGGLE:
+					return "BOOTS_TOGGLE";
+				case Button::SWORD_TOGGLE:
+					return "SWORD_TOGGLE";
+				case Button::SHIELD_TOGGLE:
+					return "SHIELD_TOGGLE";
+				case Button::TUNIC_TOGGLE:
+					return "TUNIC_TOGGLE";
+			}
+			return "";
+		}
+
+		Button getInputValue(const std::string& input)
+		{
+			if(input == "STICK_X_UP")
+				return Button::STICK_X_UP;
+			if(input == "STICK_X_LEFT")
+				return Button::STICK_X_LEFT;
+			if(input == "STICK_X_DOWN")
+				return Button::STICK_X_DOWN;
+			if(input == "STICK_X_RIGHT")
+				return Button::STICK_X_RIGHT;
+			if(input == "A_BUTTON")
+				return Button::A_BUTTON;
+			if(input == "B_BUTTON")
+				return Button::B_BUTTON;
+			if(input == "Z_TRIG")
+				return Button::Z_TRIG;
+			if(input == "U_CBUTTONS")
+				return Button::U_CBUTTONS;
+			if(input == "L_CBUTTONS")
+				return Button::L_CBUTTONS;
+			if(input == "D_CBUTTONS")
+				return Button::D_CBUTTONS;
+			if(input == "R_CBUTTONS")
+				return Button::R_CBUTTONS;
+			if(input == "R_TRIG")
+				return Button::R_TRIG;
+			if(input == "L_TRIG")
+				return Button::L_TRIG;
+			if(input == "START_BUTTON")
+				return Button::START_BUTTON;
+			if(input == "WALK_BUTTON")
+				return Button::WALK_BUTTON;
+			if(input == "CENTER_CAMERA")
+				return Button::CENTER_CAMERA;
+			if(input == "CURRENT_ACTION")
+				return Button::CURRENT_ACTION;
+
+			if(input == "DEBUG_MENU")
+				return Button::DEBUG_MENU;
+			if(input == "FAST_FORWARD")
+				return Button::FAST_FORWARD;
+			if(input == "OCARINA")
+				return Button::OCARINA;
+			if(input == "HOOKSHOT")
+				return Button::HOOKSHOT;
+			if(input == "BOW_ARROW")
+				return Button::BOW_ARROW;
+			if(input == "LENS_OF_TRUTH")
+				return Button::LENS_OF_TRUTH;
+			if(input == "BOOTS_TOGGLE")
+				return Button::BOOTS_TOGGLE;
+			if(input == "SWORD_TOGGLE")
+				return Button::SWORD_TOGGLE;
+			if(input == "SHIELD_TOGGLE")
+				return Button::SHIELD_TOGGLE;
+			if(input == "TUNIC_TOGGLE")
+				return Button::TUNIC_TOGGLE;
+
+			return (Button)0;
+		}
+	}
 } // namespace oot::hid

@@ -1,6 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_MSGEVENT_C
 #include "global.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "def/createmesgqueue.h"
 #include "def/recvmesg.h"
 #include "def/sched.h"

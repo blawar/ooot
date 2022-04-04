@@ -47,8 +47,6 @@ ActorInit Bg_Mjin_InitVars = {
     (ActorFunc)BgMjin_Reset,
 };
 
-extern UNK_TYPE D_06000000;
-
 static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 1000, ICHAIN_CONTINUE),
     ICHAIN_F32(uncullZoneForward, 4000, ICHAIN_CONTINUE),

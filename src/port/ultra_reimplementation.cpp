@@ -16,6 +16,10 @@
 #include <chrono>
 #include "../../AziAudio/AziAudio/AudioSpec.h"
 
+#ifndef _MSC_VER
+#define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
+#endif
+
 HardwareRegisters hw_regs;
 
 extern u32 osTvType;
@@ -385,6 +389,7 @@ static char buffer[0x10000];
 
 void osSyncPrintf(const char* fmt, ...)
 {
+#ifdef _MSC_VER
 	//return; // temp disable this, because osSyncPrintf is not type safe, and globalCtx->state.frames gets passed to it as an object instead of expected int and it crashes
 	memset(buffer, 0, sizeof(buffer));
 	va_list arg;
@@ -396,6 +401,7 @@ void osSyncPrintf(const char* fmt, ...)
 	auto s = utf8_to_utf16(buffer);
 	// OutputDebugStringA(buffer);
 	OutputDebugString(s.c_str());
+#endif
 }
 
 #include "jpeg_decoder.h"
@@ -569,10 +575,12 @@ s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flag)
 
 uintptr_t check_pointer(uintptr_t p, u32 sz)
 {
+#ifdef _MSC_VER
 	if(IsBadReadPtr((const void*)p, sz))
 	{
 		return 0;
 	}
+#endif
 
 	return p;
 }

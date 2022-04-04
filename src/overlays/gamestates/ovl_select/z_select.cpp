@@ -16,7 +16,7 @@
 #include "global.h"
 #include "segment_symbols.h"
 #include "vt.h"
-#include "alloca.h"
+#include "z64alloca.h"
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
 #include "def/random.h"

@@ -28,7 +28,6 @@ uintptr_t gSegments[NUM_SEGMENTS];
 AudioMgr gAudioMgr;
 
 u8 osAppNmiBuffer[0x40];
-UNK_TYPE D_06000000;
 u32 osResetType = 0;
 
 //u64 osClockRate = OS_CLOCK_RATE;
@@ -142,18 +141,13 @@ void ParseCommandLineArguments(const std::vector<std::string>& commands)
         auto& cmd = commands[i];
         size_left--;
 
-        if (cmd == "-tas" && size_left > 0)
+        /*if (cmd == "-tas" && size_left > 0) TODO FIX
         {
             auto tas_filename = std::move(commands[++i]);
             oot::hid::tas::setTasFileName(tas_filename);
             oot::hid::tas::playTas(true);
-        }
+        }*/
 
-        else if (cmd == "-no-graphics")
-            oot::config().game().disableGraphics();
-
-        else if (cmd == "-fast-forward")
-            oot::config().game().disableFramePacing();
     }
 }
 
@@ -191,6 +185,7 @@ int main(int argc, char** argv)
 	run();
 }
 
+#if defined(_MSC_VER)
 #include <string.h>
 
 void bzero(void* __s, size_t __n)
@@ -202,3 +197,4 @@ void bcopy(void* __s, void* __d, size_t __n)
 {
     memmove(__d, __s, __n);
 }
+#endif

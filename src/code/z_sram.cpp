@@ -17,6 +17,7 @@
 #include "def/z_parameter.h"
 #include "def/z_sram.h"
 #include "def/z_ss_sram.h"
+#include "port/options.h"
 
 void Set_Language(u8 language_id);
 
@@ -179,7 +180,7 @@ static u16 sNewSaveChecksum = 0;
 void Sram_InitNewSave(void) {
     SaveContext* temp = &gSaveContext;
 
-    bzero(&SAVE_INFO, sizeof(SaveInfo));
+    memset(&SAVE_INFO, 0, sizeof(SaveInfo));
     gSaveContext.totalDays = 0;
     gSaveContext.bgsDayCount = 0;
 
@@ -268,7 +269,7 @@ static u16 sDebugSaveChecksum = 0;
 void Sram_InitDebugSave(void) {
     SaveContext* temp = &gSaveContext;
 
-    bzero(&SAVE_INFO, sizeof(SaveInfo));
+    memset(&SAVE_INFO, 0, sizeof(SaveInfo));
     gSaveContext.totalDays = 0;
     gSaveContext.bgsDayCount = 0;
 
@@ -532,7 +533,7 @@ void Sram_VerifyAndLoadAllSaves(FileChooseContext* fileChooseCtx, SramContext* s
     u16 dayTime;
 
     osSyncPrintf("SRAM START-LOAD\n");
-    bzero(sramCtx->readBuff, SRAM_SIZE);
+    memset(sramCtx->readBuff, 0, SRAM_SIZE);
     SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
 
     dayTime = ((void)0, gSaveContext.dayTime);
@@ -574,14 +575,14 @@ void Sram_VerifyAndLoadAllSaves(FileChooseContext* fileChooseCtx, SramContext* s
             if (newChecksum != oldChecksum) {
                 // backup save didnt work, make new save
                 osSyncPrintf("ERROR!!! ＝ %x(%d+3)\n", gSramSlotOffsets[slotNum + 3], slotNum);
-                bzero(&gSaveContext.entranceIndex, sizeof(s32));
-                bzero(&gSaveContext.linkAge, sizeof(s32));
-                bzero(&gSaveContext.cutsceneIndex, sizeof(s32));
+                memset(&gSaveContext.entranceIndex, 0, sizeof(s32));
+                memset(&gSaveContext.linkAge, 0, sizeof(s32));
+                memset(&gSaveContext.cutsceneIndex, 0, sizeof(s32));
                 // note that gSaveContext.dayTime is not actually the sizeof(s32)
-                bzero(&gSaveContext.dayTime, sizeof(s32));
-                bzero(&gSaveContext.nightFlag, sizeof(s32));
-                bzero(&gSaveContext.totalDays, sizeof(s32));
-                bzero(&gSaveContext.bgsDayCount, sizeof(s32));
+                memset(&gSaveContext.dayTime, 0, sizeof(s32));
+                memset(&gSaveContext.nightFlag, 0, sizeof(s32));
+                memset(&gSaveContext.totalDays, 0, sizeof(s32));
+                memset(&gSaveContext.bgsDayCount, 0, sizeof(s32));
 
                 if (!slotNum) {
                     Sram_InitDebugSave();
@@ -631,7 +632,7 @@ void Sram_VerifyAndLoadAllSaves(FileChooseContext* fileChooseCtx, SramContext* s
         }
     }
 
-    bzero(sramCtx->readBuff, SRAM_SIZE);
+    memset(sramCtx->readBuff, 0, SRAM_SIZE);
     SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
     gSaveContext.dayTime = dayTime;
 
@@ -688,26 +689,43 @@ void Sram_VerifyAndLoadAllSaves(FileChooseContext* fileChooseCtx, SramContext* s
     osSyncPrintf("now_life=%d, %d, %d\n", fileChooseCtx->health[0], fileChooseCtx->health[1], fileChooseCtx->health[2]);
 }
 
-void Sram_InitSave(FileChooseContext* fileChooseCtx, SramContext* sramCtx) {
-    u16 offset;
-    u16 j;
-    u16* ptr;
-    u16 checksum;
+void Sram_InitSave(FileChooseContext* fileChooseCtx, SramContext* sramCtx)
+{
+	u16 offset;
+	u16 j;
+	u16* ptr;
+	u16 checksum;
 
-    if (fileChooseCtx->buttonIndex != 0) {
-        Sram_InitNewSave();
-    } else {
-        Sram_InitDebugSave();
-    }
+	if(oot::config().game().enablDebugLevelSelect())
+	{
+		if(fileChooseCtx->buttonIndex != 0)
+		{
+			Sram_InitNewSave();
+		}
+		else
+		{			      // Selected file 1?
+			Sram_InitDebugSave(); // Choose debug save
+		}
+	}
+    else
+	{
+		Sram_InitNewSave();
+	}
+
 
     gSaveContext.entranceIndex = 0xBB;
     gSaveContext.linkAge = 1;
     gSaveContext.dayTime = 0x6AAB;
     gSaveContext.cutsceneIndex = 0xFFF1;
 
-    if (fileChooseCtx->buttonIndex == 0) {
-        gSaveContext.cutsceneIndex = 0;
+    if(oot::config().game().enablDebugLevelSelect())
+    {
+	    if(fileChooseCtx->buttonIndex == 0)
+	    {					    // Selected file 1?
+		    gSaveContext.cutsceneIndex = 0; // Skip cutscene
+	    }
     }
+
 
     for (offset = 0; offset < 8; offset++) {
         gSaveContext.playerName[offset] = fileChooseCtx->fileNames[fileChooseCtx->buttonIndex][offset];
@@ -876,7 +894,7 @@ void Sram_InitSram(GameState* gameState, SramContext* sramCtx) {
     }
 
     if (CHECK_BTN_ANY(gameState->input[2].cur.button, BTN_DRIGHT)) {
-        bzero(sramCtx->readBuff, SRAM_SIZE);
+	    memset(sramCtx->readBuff, 0, SRAM_SIZE);
         for (i = 0; i < CHECKSUM_SIZE; i++) {
             sramCtx->readBuff[i] = i;
         }

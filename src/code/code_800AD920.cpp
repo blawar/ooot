@@ -6,9 +6,6 @@
 
 // Note : This file is related to z_vismono, the original name was probably z_vis<something after "mono" alphabetically>
 
-// z-buffer
-u16 D_0E000000[0x800000]; // TODO FIX random size set, not sure what this is
-
 // Init
 void func_800AD920(struct_80166500* pthis) {
     pthis->useRgba = false;
@@ -30,7 +27,7 @@ void func_800AD950(struct_80166500* pthis) {
 // Draw
 void func_800AD958(struct_80166500* pthis, Gfx** gfxp) {
     Gfx* gfx = *gfxp;
-    u16* tex = D_0E000000;
+    u16* tex = (u16*)SEGMENT_ADDRESS(0x0E000000);//Not sure where this is supposed to point to. Frame buffer? Z buffer?
     s32 fmt = pthis->useRgba == false ? G_IM_FMT_IA : G_IM_FMT_RGBA;
     s32 y;
     s32 height = 6;
@@ -47,8 +44,8 @@ void func_800AD958(struct_80166500* pthis, Gfx** gfxp) {
     gDPSetCombineLERP(gfx++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT,
                       PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT);
 
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->primColor.r, pthis->primColor.g, pthis->primColor.b, pthis->primColor.a);
-    gDPSetColor(gfx++, G_SETENVCOLOR,  pthis->envColor.r,  pthis->envColor.g,  pthis->envColor.b,  pthis->envColor.a);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, (u32)pthis->primColor);
+    gDPSetColor(gfx++, G_SETENVCOLOR,  (u32)pthis->envColor);
 
     for (y = 0; y <= SCREEN_HEIGHT - height; y += height) {
         gDPLoadTextureBlock(gfx++, tex, fmt, G_IM_SIZ_16b, SCREEN_WIDTH, height, 0, G_TX_NOMIRROR | G_TX_CLAMP,

@@ -82,10 +82,10 @@
         Gfx* dispRefs[4];              \
         __gfxCtx = gfxCtx;             \
         (void)__gfxCtx;                \
-        Graph_OpenDisps(dispRefs, gfxCtx, file, line)
+        Graph_OpenDisps(dispRefs, gfxCtx, __FILE__, __LINE__)
 
 #define CLOSE_DISPS(gfxCtx, file, line)                 \
-        Graph_CloseDisps(dispRefs, gfxCtx, file, line); \
+        Graph_CloseDisps(dispRefs, gfxCtx, __FILE__, __LINE__); \
     }                                                   \
     (void)0
 
@@ -100,15 +100,9 @@
  * `cbnz` blue component of color vertex, or z component of normal vertex
  * `a` alpha
  */
-#define VTX(x,y,z,s,t,crnx,cgny,cbnz,a) { { { x, y, z }, 0, { s, t }, { crnx, cgny, cbnz, a } } }
+#define VTX(x,y,z,s,t,crnx,cgny,cbnz,a) { { { (short)(x), (short)(y), (short)(z) }, 0, { (short)(s), (short)(t) }, { crnx, cgny, cbnz, a } } }
 
 #define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
-
-#define MTX_2(n00, n01, n02, n03, n10, n11, n12, n13, n20, n21, n22, n23, n30, n31, n32, n33) \
-{BE32(n00), BE32(n01), BE32(n02), BE32(n03),    \
-BE32(n10), BE32(n11), BE32(n12), BE32(n13),    \
-BE32(n20), BE32(n21), BE32(n22), BE32(n23),    \
-BE32(n30), BE32(n31), BE32(n32), BE32(n33)}
 
 #define MES(n) (((n & 0xFFFF)) << 16) | ((n >> 16) & 0xFFFF) 
 
@@ -121,9 +115,9 @@ MES(n30), MES(n31), MES(n32), MES(n33)}
 #ifdef NDEBUG
 #define ASSERT(cond, msg, file, line) ((void)0)
 #elif defined(REAL_ASSERT_MACRO)
-#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : __assert(#cond, __FILE__, __LINE__))
+#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : oot_assert(#cond, __FILE__, __LINE__))
 #else
-#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : __assert(msg, file, line))
+#define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : oot_assert(msg, file, line))
 #endif
 
 #define gDPSetTileCustom(pkt, fmt, siz, width, height, pal, cms, cmt, masks, maskt, shifts, shiftt)                    \
@@ -149,8 +143,22 @@ MES(n30), MES(n31), MES(n32), MES(n33)}
 #define M_PI 3.14159265358979323846
 #endif
 
+#ifndef M_SQRT2
 #define M_SQRT2 1.41421356237309504880f
+#endif
+
 #define FLT_MAX 340282346638528859811704183484516925440.0f
 #define SHT_MAX 32767.0f
 #define SHT_MINV (1.0f / SHT_MAX)
-#define DEGTORAD(x) (x * M_PI / 180.0f)
+#define DEGTORAD(x) (x * M_PI / 180.0)
+#define RADTODEG(x) (x * 180.0 / M_PI)
+
+#ifndef MAX
+#define MAX(a, b)               ((a) > (b) ? (a) : (b))
+#endif
+
+#ifndef MIN
+#define MIN(a, b)               ((a) < (b) ? (a) : (b))
+#endif
+
+

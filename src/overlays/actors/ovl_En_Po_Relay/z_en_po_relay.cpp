@@ -101,6 +101,8 @@ static void* sEyesTextures[] = {
     gDampeEyeClosedTex,
 };
 
+static s32 gDampeSpawnFlag = 0;//Flag to ensure that Damp is only spawned once
+
 void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnPoRelay* pthis = (EnPoRelay*)thisx;
 
@@ -114,10 +116,15 @@ void EnPoRelay_Init(Actor* thisx, GlobalContext* globalCtx) {
     Lights_PointNoGlowSetInfo(&pthis->lightInfo, pthis->actor.home.pos.x, pthis->actor.home.pos.y, pthis->actor.home.pos.z,
                               255, 255, 255, 200);
     pthis->lightColor.a = 255;
-    
-    Actor_SetTextWithPrefix(globalCtx, &pthis->actor, 65);
-    pthis->textId = pthis->actor.textId;
-    EnPoRelay_SetupIdle(pthis);
+
+    if (gDampeSpawnFlag != 0) {//Has Dampe already been spawned?
+        Actor_Kill(&pthis->actor);//Don't spawn again
+    } else {
+        gDampeSpawnFlag = 1;
+        Actor_SetTextWithPrefix(globalCtx, &pthis->actor, 65);
+        pthis->textId = pthis->actor.textId;
+        EnPoRelay_SetupIdle(pthis);
+    }
 
     pthis->actor.params &= 0x3F;
 }
@@ -464,4 +471,5 @@ void EnPoRelay_Reset(Actor* pthisx, GlobalContext* globalCtx) {
 
     D_80AD8D48 = { 0.0f, 1200.0f, 0.0f };
 
+    gDampeSpawnFlag = 0;
 }

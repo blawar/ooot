@@ -1,0 +1,1 @@
+option('x64', type : 'boolean', value : false, description : 'Build for x64 architecture', yield : true)
