@@ -123,7 +123,7 @@ void EnXc_CalculateHeadTurn(EnXc* pthis, GlobalContext* globalCtx) {
 
 void EnXc_SetEyePattern(EnXc* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyePattern = &pthis->eyeIdx;
 
     if (!DECR(*blinkTimer)) {

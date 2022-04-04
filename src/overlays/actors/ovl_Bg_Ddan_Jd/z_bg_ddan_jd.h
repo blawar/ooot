@@ -22,7 +22,7 @@ struct BgDdanJd {
     /* 0x0164 */ BgDdanJdActionFunc actionFunc;
     /* 0x0168 */ u8 state;
     /* 0x0169 */ u8 ySpeed; // also differentiates between normal and shortcut platform behavior
-    /* 0x016A */ s16 idleTimer;
+    /* 0x016A */ Timer idleTimer;
     /* 0x016C */ f32 targetY;
 }; 
 

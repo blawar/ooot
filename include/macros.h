@@ -17,8 +17,9 @@
 
 #define SQ(x) ((x)*(x))
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
-#define DECR(x) ((x) == 0 ? 0 : --(x))
-#define DECRT(x) (x.dec())
+#define DECR(x) ((x).dec())
+#define DECRI(x) ((x) == 0 ? 0 : --(x))
+#define DECRT(x) ((x).dec())
 #define CLAMP(x, min, max) ((x) < (min) ? (min) : (x) > (max) ? (max) : (x))
 #define CLAMP_MAX(x, max) ((x) > (max) ? (max) : (x))
 #define CLAMP_MIN(x, min) ((x) < (min) ? (min) : (x))

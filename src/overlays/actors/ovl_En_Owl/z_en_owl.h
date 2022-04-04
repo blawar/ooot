@@ -49,7 +49,7 @@ struct EnOwl {
     /* 0x03F0 */ s16 unk_3F0;
     /* 0x03F2 */ s16 unk_3F2;
     /* 0x03F4 */ s16 eyeTexIndex;
-    /* 0x03F6 */ s16 blinkTimer;
+    /* 0x03F6 */ Timer blinkTimer;
     /* 0x03F8 */ f32 unk_3F8;
     /* 0x03FC */ u16 actionFlags;
     /* 0x03FE */ u16 unk_3FE;

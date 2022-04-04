@@ -21,9 +21,9 @@ struct ObjTimeblock {
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjTimeblockActionFunc actionFunc;
     /* 0x0168 */ ObjTimeblockSongObserverFunc songObserverFunc;
-    /* 0x016C */ s16 demoEffectTimer;
-    /* 0x016E */ s16 songEndTimer;
-    /* 0x0170 */ s16 demoEffectFirstPartTimer;
+    /* 0x016C */ Timer demoEffectTimer;
+    /* 0x016E */ Timer songEndTimer;
+    /* 0x0170 */ Timer demoEffectFirstPartTimer;
     /* 0x0172 */ u16 unk_172;
     /* 0x0174 */ u8 unk_174;
     /* 0x0175 */ u8 unk_175;

@@ -70,7 +70,7 @@ struct FishingProp {
     /* 0x28 */ s16 lilyPadAngle;
     /* 0x2C */ f32 lilyPadOffset;
     /* 0x30 */ u8 type;
-    /* 0x32 */ s16 timer;
+    /* 0x32 */ Timer timer;
     /* 0x34 */ u8 shouldDraw;
     /* 0x38 */ f32 drawDistance;
 };
@@ -83,7 +83,7 @@ enum FishingGroupFishType {
 
 struct FishingGroupFish {
     /* 0x00 */ u8 type;
-    /* 0x02 */ s16 timer;
+    /* 0x02 */ Timer timer;
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ Vec3f unk_10;
     /* 0x1C */ Vec3f projectedPos;

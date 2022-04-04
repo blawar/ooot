@@ -56,7 +56,7 @@ struct BossSst {
     /* 0x0194 */ s8 actionVar; // head: flag for visible without lens; hand: 1 for right, -1 for left
     /* 0x0195 */ s8 ready;
     /* 0x0196 */ u8 effectMode;
-    /* 0x0198 */ s16 timer;
+    /* 0x0198 */ Timer timer;
     /* 0x019A */ s16 handAngSpeed;
     /* 0x019C */ s16 handMaxSpeed;
     /* 0x019E */ s16 handZPosMod;

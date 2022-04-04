@@ -14,7 +14,7 @@ struct EnPoDesert {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ EnPoDesertActionFunc actionFunc;
-    /* 0x0194 */ s16 actionTimer;
+    /* 0x0194 */ Timer actionTimer;
     /* 0x0196 */ s16 speedModifier;
     /* 0x0198 */ s32 currentPathPoint;
     /* 0x019C */ f32 initDistToNextPoint;

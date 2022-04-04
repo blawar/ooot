@@ -20,8 +20,8 @@ struct EnGm {
     /* 0x026C */ EnGmActionFunc actionFunc;
     /* 0x0270 */ ColliderCylinder collider;
     /* 0x02BC */ s32 objGmBankIndex;
-    /* 0x02C0 */ s16 timer;
-    /* 0x02C4 */ s16 blinkTimer;
+    /* 0x02C0 */ Timer timer;
+    /* 0x02C4 */ Timer blinkTimer;
     /* 0x02C8 */ u8 eyeTexIndex;
     /* 0x02CC */ Vec3f talkPos;
 }; 

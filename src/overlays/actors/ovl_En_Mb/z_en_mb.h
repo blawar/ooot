@@ -64,10 +64,10 @@ struct EnMb {
     /* 0x0278 */ Vec3s morphTable[28];
     /* 0x0320 */ EnMbState state;
     /* 0x0324 */ EnMbActionFunc actionFunc;
-    /* 0x0328 */ s16 iceEffectTimer;
-    /* 0x032A */ s16 timer1;
-    /* 0x032C */ s16 timer2;
-    /* 0x032E */ s16 timer3;
+    /* 0x0328 */ Timer iceEffectTimer;
+    /* 0x032A */ Timer timer1;
+    /* 0x032C */ Timer timer2;
+    /* 0x032E */ Timer timer3;
     /* 0x0330 */ s16 yawToWaypoint;
     /* 0x0332 */ s16 unk_332;
     /* 0x0334 */ s16 attack;

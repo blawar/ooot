@@ -21,7 +21,7 @@ struct EnRu1 {
     /* 0x0190 */ Vec3s jointTable[17];
     /* 0x01F6 */ Vec3s morphTable[17];
     /* 0x025C */ s16 eyeIndex;
-    /* 0x025E */ s16 blinkTimer;
+    /* 0x025E */ Timer blinkTimer;
     /* 0x0260 */ s16 mouthIndex;
     /* 0x0264 */ s32 action;
     /* 0x0268 */ s32 drawConfig;
@@ -44,7 +44,7 @@ struct EnRu1 {
     /* 0x02A0 */ char unk_2A0[0x4];
     /* 0x02A4 */ f32 unk_2A4;
     /* 0x02A8 */ s32 alpha;
-    /* 0x02AC */ s16 unk_2AC;
+    /* 0x02AC */ Timer unk_2AC;
     /* 0x02B0 */ s32 unk_2B0;
     /* 0x02B4 */ ColliderCylinder collider;
     /* 0x0300 */ ColliderCylinder collider2;

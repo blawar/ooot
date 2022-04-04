@@ -57,13 +57,13 @@ struct EnGoma {
     /* 0x2BA */ s16 eyePitch;
     /* 0x2BC */ s16 eyeYaw;
     /* 0x2BE */ s16 hatchState;
-    /* 0x2C0 */ s16 eggTimer;
-    /* 0x2C2 */ s16 hurtTimer;
+    /* 0x2C0 */ Timer eggTimer;
+    /* 0x2C2 */ Timer hurtTimer;
     /* 0x2C4 */ s16 visualState;
-    /* 0x2C6 */ s16 playerDetectionTimer;
+    /* 0x2C6 */ Timer playerDetectionTimer;
     /* 0x2C8 */ s16 spawnNum; // some debug spawn ID
-    /* 0x2CA */ s16 invincibilityTimer;
-    /* 0x2CC */ s16 actionTimer;
+    /* 0x2CA */ Timer invincibilityTimer;
+    /* 0x2CC */ Timer actionTimer;
     /* 0x2D0 */ f32 eggScale;
     /* 0x2D4 */ f32 eggPitch;
     /* 0x2D8 */ f32 eggSquishAngle;
@@ -72,7 +72,7 @@ struct EnGoma {
     /* 0x2EC */ f32 eggSquishAmount;
     /* 0x2F0 */ f32 eggYOffset;
     /* 0x2F4 */ s32 unk_2F4;
-    /* 0x2F8 */ s16 stunTimer;
+    /* 0x2F8 */ Timer stunTimer;
     /* 0x2FC */ Vec3f shieldKnockbackVel;
     /* 0x308 */ Gfx* bossLimbDl; // set by z_boss_goma
     /* 0x30C */ ColliderCylinder colCyl1;

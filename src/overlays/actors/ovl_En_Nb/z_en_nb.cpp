@@ -152,7 +152,7 @@ void func_80AB10C4(EnNb* pthis) {
 
 void EnNb_UpdateEyes(EnNb* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyeIdx = &pthis->eyeIdx;
 
     if (DECR(*blinkTimer) == 0) {

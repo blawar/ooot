@@ -112,7 +112,7 @@ struct BossVa {
     /* 0x0196 */ s8 invincibilityTimer;
     /* 0x0197 */ u8 isDead;
     /* 0x0198 */ s32 timer;
-    /* 0x019C */ s16 timer2;
+    /* 0x019C */ Timer timer2;
     /* 0x01A0 */ f32 unk_1A0; // Upper body section pulse, Bari spin radius
     /* 0x01A4 */ f32 unk_1A4; // Lower body segment pulse, Bari bob phase
     /* 0x01A8 */ f32 unk_1A8; // Death camera zoom. Always 0.

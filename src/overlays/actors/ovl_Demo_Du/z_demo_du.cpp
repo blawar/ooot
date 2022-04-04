@@ -66,11 +66,11 @@ void DemoDu_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoDu_UpdateEyes(DemoDu* pthis) {
-    s16* blinkTimer = &pthis->blinkTimer;
+    Timer* blinkTimer = &pthis->blinkTimer;
     s16* eyeTexIndex = &pthis->eyeTexIndex;
     s32 pad[3];
 
-    if (DECR(*blinkTimer) == 0) {
+    if (blinkTimer->dec() == 0) {
         *blinkTimer = Rand_S16Offset(60, 60);
     }
 

@@ -226,7 +226,7 @@ void EnRu1_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnRu1_UpdateEyes(EnRu1* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    Timer* blinkTimer = &pthis->blinkTimer;
     s16* eyeIndex = &pthis->eyeIndex;
 
     if (DECR(*blinkTimer) == 0) {
@@ -1301,7 +1301,7 @@ void func_80AED83C(EnRu1* pthis) {
 
 void func_80AED8DC(EnRu1* pthis) {
     s32 temp_hi;
-    s16* unk_2AC = &pthis->unk_2AC;
+    auto unk_2AC = &pthis->unk_2AC;
     s16* someY = &pthis->unk_374.unk_08.y;
     s16* unk_29E = &pthis->unk_29E;
     s32 pad[2];

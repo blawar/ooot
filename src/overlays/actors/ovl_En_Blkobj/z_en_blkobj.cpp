@@ -114,7 +114,7 @@ void EnBlkobj_DarkLinkFight(EnBlkobj* pthis, GlobalContext* globalCtx) {
             pthis->timer++;
         }
     } else if (pthis->timer++ > 100) {
-        alphaMod = (pthis->timer - 100) >> 2;
+        alphaMod = (pthis->timer.whole() - 100) >> 2;
         if (alphaMod > 5) {
             alphaMod = 5;
         }

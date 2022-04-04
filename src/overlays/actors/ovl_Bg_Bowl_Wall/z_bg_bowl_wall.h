@@ -18,7 +18,7 @@ struct BgBowlWall {
     /* 0x0168 */ Vec3f initPos;
     /* 0x0174 */ Vec3f bullseyeCenter;
     /* 0x0180 */ s16 isHit;
-    /* 0x0182 */ s16 timer;
+    /* 0x0182 */ Timer timer;
     /* 0x0184 */ EnBomBowlMan* chuGirl;
 }; 
 

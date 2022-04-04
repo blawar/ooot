@@ -32,8 +32,8 @@ struct MagicFire {
     /* 0x01A0 */ f32 scalingSpeed;
     /* 0x01A4 */ s16 action;
     /* 0x01A6 */ s16 screenTintBehaviour;
-    /* 0x01A8 */ s16 actionTimer;
-    /* 0x01AA */ s16 screenTintBehaviourTimer;
+    /* 0x01A8 */ Timer actionTimer;
+    /* 0x01AA */ Timer screenTintBehaviourTimer;
 }; 
 
 

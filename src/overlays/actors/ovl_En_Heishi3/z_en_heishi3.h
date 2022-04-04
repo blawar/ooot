@@ -22,7 +22,7 @@ struct EnHeishi3 {
     /* 0x0266 */ char unk_266[0x8];
     /* 0x026E */ s16 unk_26E; // All these s16 are probably part of a Vec3s
     /* 0x0270 */ char unk_270[0x2];
-    /* 0x0272 */ s16 caughtTimer;
+    /* 0x0272 */ Timer caughtTimer;
     /* 0x0274 */ s16 unk_274;
     /* 0x0276 */ u8 respawnFlag; // set to 1 when reloading area after being thrown out
     /* 0x0278 */ s16 unk_278;

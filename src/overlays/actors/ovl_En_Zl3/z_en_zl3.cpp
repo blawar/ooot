@@ -131,7 +131,7 @@ BossGanon2* func_80B53488(EnZl3* pthis, GlobalContext* globalCtx) {
 void EnZl3_UpdateEyes(EnZl3* pthis) {
     s32 pad[2];
     s16* eyeTexIndex = &pthis->eyeTexIndex;
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
 
     if (DECR(*blinkTimer) == 0) {
         *blinkTimer = Rand_S16Offset(60, 60);

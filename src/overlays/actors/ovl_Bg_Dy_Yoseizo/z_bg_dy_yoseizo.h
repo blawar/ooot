@@ -19,7 +19,7 @@ struct BgDyYoseizoParticle {
     /* 0x2B */ Color_RGB8 envColor;
     /* 0x2E */ s16 alpha;
     /* 0x30 */ f32 scale;
-    /* 0x34 */ s16 timer; // lifetime
+    /* 0x34 */ Timer timer; // lifetime
     /* 0x36 */ s16 type; // 0 is general radiance, else is directed towards Player
     /* 0x36 */ f32 pitch;
     /* 0x36 */ f32 yaw;
@@ -49,22 +49,22 @@ struct BgDyYoseizo {
     /* 0x02E4 */ u8 lightBallSpawned;
     /* 0x02E5 */ u8 giveDefenseHearts;
     /* 0x02E6 */ u8 healing;
-    /* 0x02E8 */ s16 vanishTimer;
+    /* 0x02E8 */ Timer vanishTimer;
     /* 0x02EA */ s16 givingSpell;
     /* 0x02EC */ s16 fountainType;
     /* 0x02EE */ s16 dialogState;
-    /* 0x02F0 */ s16 absoluteTimer;
+    /* 0x02F0 */ Timer absoluteTimer;
     /* 0x02F2 */ s16 eyeState;
     /* 0x02F4 */ s16 eyeState2; // Used, but does not actually change the actor's eyes
     /* 0x02F6 */ s16 mouthState;
-    /* 0x02F8 */ s16 blinkTimer;
-    /* 0x02FA */ s16 unusedTimer;
+    /* 0x02F8 */ Timer blinkTimer;
+    /* 0x02FA */ Timer unusedTimer;
     /* 0x02FC */ s16 animationChanged;
     /* 0x02FE */ s16 finishedSpinGrow;
     /* 0x02FE */ s16 itemSpawned;
-    /* 0x0302 */ s16 healingTimer;
+    /* 0x0302 */ Timer healingTimer;
     /* 0x0304 */ s16 warpEffectSpawned;
-    /* 0x0306 */ s16 refillTimer;
+    /* 0x0306 */ Timer refillTimer;
     /* 0x0308 */ f32 scale;
     /* 0x030C */ f32 grownHeight;
     /* 0x0310 */ f32 vanishHeight;

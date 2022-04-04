@@ -818,7 +818,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
             pthis->work[BFD_STOP_FLAG] = true;
             pthis->fogMode = 3;
             if (pthis->timers[0] < 18) {
-                pthis->bodyFallApart[pthis->timers[0]] = 1;
+                pthis->bodyFallApart[pthis->timers[0].whole()] = 1;
             }
             if (pthis->timers[0] == 0) {
                 pthis->work[BFD_ACTION_STATE] = BOSSFD_SKULL_PAUSE;
@@ -1585,7 +1585,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4104),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2]));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2.whole()]));
             gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustModelDL);
         }
     }
@@ -1608,7 +1608,7 @@ void BossFd_DrawEffects(BossFdEffect* effect, GlobalContext* globalCtx) {
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_fd.c", 4154),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2]));
+            gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTex_63[effect->timer2.whole()]));
             gSPDisplayList(POLY_XLU_DISP++, gVolvagiaDustModelDL);
         }
     }

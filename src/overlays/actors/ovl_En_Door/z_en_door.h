@@ -53,7 +53,7 @@ struct EnDoor {
     /* 0x0192 */ u8 unk_192;
     /* 0x0193 */ s32 requiredObjBankIndex;
     /* 0x0194 */ s8 dListIndex;
-    /* 0x0196 */ s16 lockTimer;
+    /* 0x0196 */ Timer lockTimer;
     /* 0x0198 */ Vec3s jointTable[5];
     /* 0x01B6 */ Vec3s morphTable[5];
     /* 0x01D4 */ EnDoorActionFunc actionFunc;

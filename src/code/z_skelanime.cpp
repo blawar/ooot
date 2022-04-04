@@ -1159,8 +1159,8 @@ s32 LinkAnimation_Morph(GlobalContext* globalCtx, SkelAnime* skelAnime) {
  * jointTable and morphTable
  */
 void LinkAnimation_AnimateFrame(GlobalContext* globalCtx, SkelAnime* skelAnime) {
-    AnimationContext_SetLoadFrame(globalCtx, (LinkAnimationHeader*)skelAnime->animation, skelAnime->curFrame, skelAnime->limbCount,
-                                  skelAnime->jointTable);
+    AnimationContext_SetLoadFrame(globalCtx, (LinkAnimationHeader*)skelAnime->animation, skelAnime->curFrame, skelAnime->limbCount, skelAnime->jointTable);
+
     if (skelAnime->morphWeight != 0) {
         f32 updateRate = FRAMERATE_ANIM_SCALER;
 

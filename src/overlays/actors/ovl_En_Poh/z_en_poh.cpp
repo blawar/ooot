@@ -1208,7 +1208,7 @@ void EnPoh_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                    (pthis->visibilityTimer * pthis->info->unk_8) % 512U, 0x20, 0x80));
+                                    (s32)(pthis->visibilityTimer * pthis->info->unk_8) % 512U, 0x20, 0x80));
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, pthis->info->primColor.r, pthis->info->primColor.g,
                         pthis->info->primColor.b, pthis->lightColor.a);
         gDPSetEnvColor(POLY_XLU_DISP++, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, 255);

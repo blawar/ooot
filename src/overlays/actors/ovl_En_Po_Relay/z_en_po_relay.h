@@ -16,7 +16,7 @@ struct EnPoRelay {
     /* 0x0190 */ EnPoRelayActionFunc actionFunc;
     /* 0x0194 */ u8 hookshotSlotFull;
     /* 0x0195 */ u8 unk_195;
-    /* 0x0196 */ s16 actionTimer;
+    /* 0x0196 */ Timer actionTimer;
     /* 0x0198 */ s16 pathIndex;
     /* 0x019A */ s16 unk_19A;
     /* 0x019C */ u16 textId;

@@ -21,7 +21,7 @@ struct EnTrap;
 struct EnTrap {
 
     /* 0x0000 */ Actor actor;
-    /* 0x014C */ s32 playerDmgTimer;
+    /* 0x014C */ Timer playerDmgTimer;
     /* 0x0150 */ s16 upperParams;
     /* 0x0152 */ s16 genericVar1;
     /* 0x0154 */ f32 genericVar2;

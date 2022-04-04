@@ -30,8 +30,8 @@ struct BgJyaMegami {
     /* 0x0164 */ BgJyaMegamiActionFunc actionFunc;
     /* 0x0168 */ ColliderJntSph collider;
     /* 0x0188 */ ColliderJntSphElement colliderItem;
-    /* 0x01C8 */ s16 lightTimer;
-    /* 0x01CA */ s16 explosionTimer;
+    /* 0x01C8 */ Timer lightTimer;
+    /* 0x01CA */ Timer explosionTimer;
     /* 0x01CC */ s16 crumbleIndex;
     /* 0x01D0 */ BgJyaMegamiPiece pieces[13];
 }; 

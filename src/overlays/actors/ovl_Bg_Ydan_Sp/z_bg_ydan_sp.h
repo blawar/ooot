@@ -20,7 +20,7 @@ struct BgYdanSp {
     /* 0x0164 */ BgYdanSpActionFunc actionFunc;
     /* 0x0168 */ u8 isDestroyedSwitchFlag;
     /* 0x0169 */ u8 burnSwitchFlag;
-    /* 0x016A */ s16 timer;
+    /* 0x016A */ Timer timer;
     /* 0x016C */ f32 unk16C;
     /* 0x0170 */ ColliderTris trisCollider;
     /* 0x0190 */ ColliderTrisElement trisColliderItems[2];

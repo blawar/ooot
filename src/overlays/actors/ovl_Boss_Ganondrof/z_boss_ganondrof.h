@@ -104,7 +104,7 @@ struct BossGanondrof {
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ BossGanondrofActionFunc actionFunc;
     /* 0x0194 */ s16 work[GND_SHORT_COUNT];
-    /* 0x01BC */ s16 timers[5];
+    /* 0x01BC */ Timer timers[5];
     /* 0x01C6 */ u8 killActor;
     /* 0x01C7 */ u8 returnCount;
     /* 0x01C8 */ u8 shockTimer;

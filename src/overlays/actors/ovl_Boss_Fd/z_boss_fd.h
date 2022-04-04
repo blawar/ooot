@@ -44,7 +44,7 @@ struct BossFdEffect {
     /* 0x25 */ u8 timer1;
     /* 0x26 */ Color_RGB8 color;
     /* 0x2A */ s16 alpha;
-    /* 0x2C */ s16 timer2;
+    /* 0x2C */ Timer timer2;
     /* 0x2E */ s16 kbAngle;
     /* 0x30 */ f32 scale;
     /* 0x34 */ f32 bFdFxFloat1;
@@ -170,11 +170,11 @@ struct BossFd {
     /* 0x0190 */ SkelAnime skelAnimeRightArm;
     /* 0x01D4 */ SkelAnime skelAnimeLeftArm;
     /* 0x0218 */ BossFdActionFunc actionFunc;
-    /* 0x021C */ s16 fireBreathTimer;
+    /* 0x021C */ Timer fireBreathTimer;
     /* 0x021E */ s16 skinSegments;
     /* 0x0220 */ u8 fogMode;
     /* 0x0222 */ s16 work[BFD_SHORT_COUNT];
-    /* 0x0248 */ s16 timers[6];
+    /* 0x0248 */ Timer timers[6];
     /* 0x0254 */ f32 fwork[BFD_FLOAT_COUNT];
     /* 0x02BC */ Vec3f targetPosition;
     /* 0x02C8 */ Vec3f holePosition;

@@ -20,7 +20,7 @@ struct ObjBean {
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjBeanActionFunc actionFunc;
     /* 0x0168 */ ColliderCylinder collider;
-    /* 0x01B4 */ s16 timer;
+    /* 0x01B4 */ Timer timer;
     /* 0x01B6 */ Vec3s unk_1B6;
     /* 0x01BC */ ObjBeanTransformFunc transformFunc;
     /* 0x01C0 */ s16 unk_1C0;

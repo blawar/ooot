@@ -479,7 +479,7 @@ void EnOkuta_Freeze(EnOkuta* pthis, GlobalContext* globalCtx) {
         EnOkuta_SetupDie(pthis);
     }
     if ((pthis->timer >= 64) && (pthis->timer & 1)) {
-        temp_v1 = (pthis->timer - 64) >> 1;
+        temp_v1 = (pthis->timer.whole() - 64) >> 1;
         pos.y = (pthis->actor.world.pos.y - 32.0f) + (8.0f * (8 - temp_v1));
         pos.x = pthis->actor.world.pos.x + ((temp_v1 & 2) ? 10.0f : -10.0f);
         pos.z = pthis->actor.world.pos.z + ((temp_v1 & 1) ? 10.0f : -10.0f);

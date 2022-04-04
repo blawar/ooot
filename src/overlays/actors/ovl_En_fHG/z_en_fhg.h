@@ -61,7 +61,7 @@ struct EnfHG {
     /* 0x01A8 */ f32 cameraSpeedMod;
     /* 0x01AC */ f32 cameraPanZ;
     /* 0x01B0 */ char unk_1B0[0x10];
-    /* 0x01C0 */ s16 gallopTimer;
+    /* 0x01C0 */ Timer gallopTimer;
     /* 0x01C2 */ s16 curPainting;
     /* 0x01C4 */ s16 targetPainting;
     /* 0x01C6 */ s16 turnTarget;
@@ -69,8 +69,8 @@ struct EnfHG {
     /* 0x01CA */ s16 cutsceneState;
     /* 0x01CC */ s16 cutsceneCamera;
     /* 0x01CE */ char unk_1CE[6];
-    /* 0x01D4 */ s16 timers[5];
-    /* 0x01DE */ s16 hitTimer;
+    /* 0x01D4 */ Timer timers[5];
+    /* 0x01DE */ Timer hitTimer;
     /* 0x01E0 */ s16 turnRot;
     /* 0x01E2 */ char unk_1E2[6];
     /* 0x01E8 */ f32 warpColorFilterR;

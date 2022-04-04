@@ -21,12 +21,12 @@ struct EnEncount1 {
     /* 0x0154 */ s16 spawnType;
     /* 0x0156 */ s16 maxTotalSpawns;
     /* 0x0158 */ s16 totalNumSpawn;
-    /* 0x015A */ s16 outOfRangeTimer;
-    /* 0x015C */ s16 fieldSpawnTimer;
+    /* 0x015A */ Timer outOfRangeTimer;
+    /* 0x015C */ Timer fieldSpawnTimer;
     /* 0x015E */ s16 killCount;
     /* 0x0160 */ s16 numLeeverSpawns;
     /* 0x0162 */ s16 leeverIndex;
-    /* 0x0164 */ s16 timer;
+    /* 0x0164 */ Timer timer;
     /* 0x0166 */ u8 reduceLeevers;
     /* 0x0168 */ f32 spawnRange;
     /* 0x016C */ EnReeba* bigLeever;

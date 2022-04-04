@@ -73,7 +73,7 @@ struct EnWf {
     /* 0x02DC */ EnWfActionFunc actionFunc;
     /* 0x02E0 */ s16 unk_2E0; // Used, but has no effect
     /* 0x02E2 */ s16 unk_2E2;
-    /* 0x02E4 */ s16 fireTimer;
+    /* 0x02E4 */ Timer fireTimer;
     /* 0x02E6 */ u8 damageEffect;
     /* 0x02E8 */ s32 actionTimer; // Used to make an action last for a certain amount of time
     /* 0x02EC */ f32 runSpeed;

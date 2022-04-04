@@ -15,7 +15,7 @@ struct BgHidanRock {
     /* 0x0164 */ BgHidanRockActionFunc actionFunc;
     /* 0x0168 */ u8 type;
     /* 0x0169 */ u8 unk_169;
-    /* 0x016A */ s16 timer;
+    /* 0x016A */ Timer timer;
     /* 0x016C */ f32 unk_16C;
     /* 0x0170 */ Vec3f unk_170;
     /* 0x017C */ ColliderCylinder collider;

@@ -25,7 +25,7 @@ struct BgHidanCurtain {
     /* 0x0151 */ u8 treasureFlag;
     /* 0x0152 */ u8 size;
     /* 0x0153 */ u8 alpha;
-    /* 0x0154 */ s16 timer;
+    /* 0x0154 */ Timer timer;
     /* 0x0156 */ s16 texScroll;
     /* 0x0158 */ ColliderCylinder collider;
 }; 

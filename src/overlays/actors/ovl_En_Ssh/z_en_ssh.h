@@ -47,7 +47,7 @@ struct EnSsh {
     /* 0x05CA */ u16 stateFlags;
     /* 0x05CC */ u8 hitCount;
     /* 0x05CE */ s16 blinkState;
-    /* 0x05D0 */ s16 blinkTimer;
+    /* 0x05D0 */ Timer blinkTimer;
 }; 
 
 #define ENSSH_FATHER 0

@@ -49,9 +49,9 @@ struct ObjSwitch {
 
     /* 0x0000 */ DynaPolyActor dyna;
     /* 0x0164 */ ObjSwitchActionFunc actionFunc;
-    /* 0x0168 */ s16 releaseTimer; // used for SUBTYPE_FLOOR_2 and SUBTYPE_FLOOR_3
-    /* 0x016A */ s16 disableAcTimer;
-    /* 0x016C */ s16 cooldownTimer;
+    /* 0x0168 */ Timer releaseTimer; // used for SUBTYPE_FLOOR_2 and SUBTYPE_FLOOR_3
+    /* 0x016A */ Timer disableAcTimer;
+    /* 0x016C */ Timer cooldownTimer;
     /* 0x016E */ u8 cooldownOn;
     /* 0x0170 */ s16 eyeTexIndex;
     /* 0x0174 */ void* crystalSubtype1texture;

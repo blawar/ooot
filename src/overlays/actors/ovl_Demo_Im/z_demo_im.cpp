@@ -119,7 +119,7 @@ ActorInit Demo_Im_InitVars = {
 
 void func_80984BE0(DemoIm* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyeIndex = &pthis->eyeIndex;
 
     if (DECR(*blinkTimer) == 0) {

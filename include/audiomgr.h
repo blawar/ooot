@@ -1,11 +1,12 @@
 #pragma once
 #include "ultra64/sched.h"
 #include "z64math.h"
+#include "framerate.h"
 
 struct AudioTask;
 
 struct SoundSource {
-    /* 0x00 */ u16 countdown;
+    /* 0x00 */ Timer countdown;
     /* 0x04 */ Vec3f originPos;
     /* 0x10 */ Vec3f relativePos;
 }; // size = 0x1C

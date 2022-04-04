@@ -46,7 +46,7 @@ struct EnPoh {
     /* 0x0196 */ s8 objectIdx;
     /* 0x0197 */ u8 infoIdx;
     /* 0x0198 */ s16 unk_198;
-    /* 0x019A */ s16 visibilityTimer;
+    /* 0x019A */ Timer visibilityTimer;
     /* 0x019C */ s16 unk_19C;
     /* 0x019E */ Vec3s jointTable[21];
     /* 0x021C */ Vec3s morphTable[21];

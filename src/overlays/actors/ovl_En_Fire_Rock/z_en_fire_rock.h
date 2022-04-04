@@ -30,8 +30,8 @@ struct EnFireRock {
     /* 0x016C */ f32 scale;
     /* 0x0170 */ Vec3f relativePos;
     /* 0x017C */ Vec3f unk17C; // set but unused?
-    /* 0x0188 */ s16 timer;
-    /* 0x018A */ s16 timer2;
+    /* 0x0188 */ Timer timer;
+    /* 0x018A */ Timer timer2;
     /* 0x018C */ s16 type;
     /* 0x018E */ u8 playerNearby;
     /* 0x0190 */ EnEncount2* spawner;

@@ -76,7 +76,7 @@ struct DemoEc {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelAnime;
     /* 0x0190 */ s16 eyeTexIndex;
-    /* 0x0192 */ s16 blinkTimer;
+    /* 0x0192 */ Timer blinkTimer;
     /* 0x0194 */ s32 updateMode;
     /* 0x0198 */ s32 drawConfig;
     /* 0x019C */ s32 npcAction;

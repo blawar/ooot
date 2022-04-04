@@ -61,11 +61,11 @@ struct EnPeehat {
     /* 0x02F0 */ s16 bladeRotVel; // spinning blades rotational velocity
     /* 0x02F2 */ s16 bladeRot;    // spinning blades rotation component
     /* 0x02F4 */ s16 unk2F4;
-    /* 0x02F6 */ s16 riseDelayTimer;  // countdown timer until peahat is allowed to rise up from the ground
-    /* 0x02F8 */ s16 seekPlayerTimer; // number of frames the peahat should seek the player before landing to rest
+    /* 0x02F6 */ Timer riseDelayTimer;  // countdown timer until peahat is allowed to rise up from the ground
+    /* 0x02F8 */ Timer seekPlayerTimer; // number of frames the peahat should seek the player before landing to rest
     /* 0x02FA */ s16 unk2FA;          // larva count (PEAHAT_TYPE_FLYING, PEAHAT_TYPE_GROUNDED),
                                       // shape rotation direction (PEAHAT_TYPE_GROUNDED)
-    /* 0x02FC */ s16 animTimer;
+    /* 0x02FC */ Timer animTimer;
     /* 0x0300 */ ColliderCylinder colCylinder;
     /* 0x034C */ ColliderJntSph colJntSph;
     /* 0x036C */ ColliderJntSphElement colJntSphItemList[1];
