@@ -15,6 +15,7 @@
 #include "z_parameter.h"
 #include "kaleido_macros.h"
 #include "gfx_align.h"
+#include "port/options.h"
 
 #include "textures/parameter_static/parameter_static.h"
 #include "textures/do_action_static/do_action_static.h"
@@ -2819,7 +2820,10 @@ s32 Health_ChangeBy(GlobalContext* globalCtx, s16 healthChange)
     }
 	// clang-format on
 
-	gSaveContext.health += healthChange;
+	if(!oot::config().cheats().invincible() || healthChange > 0)
+    {
+	    gSaveContext.health += healthChange;
+    }
 
 	if(gSaveContext.health > gSaveContext.healthCapacity)
 	{
