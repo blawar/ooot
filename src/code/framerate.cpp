@@ -3,8 +3,8 @@
 #include "z64game.h"
 #include "regs.h"
 
-#define COUNTER_STEP 20.0f / FRAMERATE_MAX
-#define COUNTER_SCALER FRAMERATE_MAX / 20
+#define COUNTER_STEP 20.0f / FRAME_RATE
+#define COUNTER_SCALER FRAME_RATE / 20
 
 static FramerateProfile g_profile = PROFILE_BOOT;
 
@@ -175,7 +175,7 @@ bool Timer::isWhole() const
 
 s32 Timer::whole() const
 {
-	return m_counterInt * 20 / FRAMERATE_MAX;
+	return m_counterInt * 20 / FRAME_RATE;
 }
 
 Timer::operator float() const
