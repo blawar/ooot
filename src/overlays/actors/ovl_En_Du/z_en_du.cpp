@@ -580,7 +580,7 @@ void EnDu_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.world.pos.y += pthis->actor.velocity.y;
         pthis->actor.world.pos.z += pthis->actor.velocity.z;
     } else {
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
     }
 
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);

@@ -652,7 +652,7 @@ void BossTw_TurnToPlayer(BossTw* pthis, GlobalContext* globalCtx) {
     Math_ApproachS(&pthis->actor.shape.rot.x, 0, 5, pthis->rotateSpeed);
     Math_ApproachF(&pthis->rotateSpeed, 4096.0f, 1.0f, 200.0f);
     func_8002D908(&pthis->actor);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     if (pthis->timers[0] == 0) {
         if ((otherTw->actionFunc != BossTw_ShootBeam) && pthis->work[CAN_SHOOT]) {
             pthis->work[CAN_SHOOT] = false;
@@ -721,7 +721,7 @@ void BossTw_FlyTo(BossTw* pthis, GlobalContext* globalCtx) {
     Math_ApproachF(&pthis->rotateSpeed, 4096.0f, 1.0f, 100.0f);
     Math_ApproachF(&pthis->actor.speedXZ, 10.0f, 1.0f, 1.0f);
     func_8002D908(&pthis->actor);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 
     if ((pthis->timers[0] == 0) || (xzDist < 70.0f)) {
         BossTw_SetupTurnToPlayer(pthis, globalCtx);
@@ -2388,7 +2388,7 @@ void BossTw_DeathBall(BossTw* pthis, GlobalContext* globalCtx) {
                    pthis->rotateSpeed);
     Math_ApproachS(&pthis->actor.world.rot.y, yaw, 5, pthis->rotateSpeed);
     func_8002D908(&pthis->actor);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 void BossTw_TwinrovaSetupDeathCS(BossTw* pthis, GlobalContext* globalCtx) {
@@ -3937,7 +3937,7 @@ void BossTw_BlastFire(BossTw* pthis, GlobalContext* globalCtx) {
                     pthis->blastActive = true;
                     if (pthis->timers[0] == 0) {
                         func_8002D908(&pthis->actor);
-                        func_8002D7EC(&pthis->actor);
+                        Actor_UpdatePosition(&pthis->actor);
                         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_SHOOT_FIRE & ~SFX_FLAG);
                     } else {
                         Vec3f velocity;
@@ -4127,7 +4127,7 @@ void BossTw_BlastIce(BossTw* pthis, GlobalContext* globalCtx) {
 
                     if (pthis->timers[0] == 0) {
                         func_8002D908(&pthis->actor);
-                        func_8002D7EC(&pthis->actor);
+                        Actor_UpdatePosition(&pthis->actor);
                         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_SHOOT_FREEZE - SFX_FLAG);
                     } else {
                         Vec3f velocity;

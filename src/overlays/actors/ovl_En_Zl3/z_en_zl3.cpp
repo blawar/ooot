@@ -1994,7 +1994,7 @@ void func_80B57D60(EnZl3* pthis, GlobalContext* globalCtx) {
 
 s32 func_80B57D80(EnZl3* pthis, GlobalContext* globalCtx) {
     s32 pad;
-    s16* sp32 = &pthis->actor.shape.rot.y;
+    auto sp32 = &pthis->actor.shape.rot.y;
     struct_80034A14_arg1* unk_3F8 = &pthis->unk_3F8;
     Player* player = GET_PLAYER(globalCtx);
     s32 unk_314 = pthis->unk_314;

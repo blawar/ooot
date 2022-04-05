@@ -102,7 +102,7 @@ void BgHakaGate_Init(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->params == BGHAKAGATE_SKULL) {
         if (sSkullOfTruthRotY != 0x100) {
             pthis->actionFunc = BgHakaGate_FalseSkull;
-        } else if (ABS(thisx->shape.rot.y) < 0x4000) {
+        } else if (ABS((float)thisx->shape.rot.y) < 0x4000) {
             if ((Rand_ZeroOne() * 3.0f) < sPuzzleState) {
                 pthis->vIsSkullOfTruth = true;
                 sSkullOfTruthRotY = thisx->shape.rot.y + 0x8000;

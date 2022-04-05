@@ -638,7 +638,7 @@ void EnTite_Recoil(EnTite* pthis, GlobalContext* globalCtx) {
         pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
         pthis->collider.base.atFlags &= ~AT_HIT;
         if ((pthis->actor.xzDistToPlayer > 300.0f) && (pthis->actor.yDistToPlayer > 80.0f) &&
-            (ABS(pthis->actor.shape.rot.x) < 4000) && (ABS(pthis->actor.shape.rot.z) < 4000) &&
+            (ABS((float)pthis->actor.shape.rot.x) < 4000) && (ABS((float)pthis->actor.shape.rot.z) < 4000) &&
             ((pthis->actor.bgCheckFlags & 1) ||
              ((pthis->actor.params == TEKTITE_BLUE) && (pthis->actor.bgCheckFlags & 0x20)))) {
             EnTite_SetupIdle(pthis);
@@ -710,7 +710,7 @@ void EnTite_Stunned(EnTite* pthis, GlobalContext* globalCtx) {
         } else if (pthis->flipState == TEKTITE_FLIPPED) {
             EnTite_SetupFlipUpright(pthis);
         } else if (((pthis->actor.xzDistToPlayer > 300.0f) && (pthis->actor.yDistToPlayer > 80.0f) &&
-                    (ABS(pthis->actor.shape.rot.x) < 4000) && (ABS(pthis->actor.shape.rot.z) < 4000)) &&
+                    (ABS((float)pthis->actor.shape.rot.x) < 4000) && (ABS((float)pthis->actor.shape.rot.z) < 4000)) &&
                    ((pthis->actor.bgCheckFlags & 1) ||
                     ((pthis->actor.params == TEKTITE_BLUE) && (pthis->actor.bgCheckFlags & 0x20)))) {
             EnTite_SetupIdle(pthis);

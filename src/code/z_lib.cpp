@@ -34,7 +34,8 @@ f32 Math_SinS(s16 angle) {
  * Changes pValue by step (scaled by the update rate) towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step) {
+template<class T>
+static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, const Step& _step) {
 	float step = _step.value();
     if (step != 0) {
         f32 updateScale = FRAMERATE_ANIM_SCALER;
@@ -43,7 +44,7 @@ s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step) {
             step = -step;
         }
 
-        *pValue += (s16)(step * updateScale);
+        *pValue = *pValue + (s16)(step * updateScale);
 
         if (((s16)(*pValue - target) * step) >= 0) {
             *pValue = target;
@@ -56,18 +57,29 @@ s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step) {
     return false;
 }
 
+s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step)
+{
+	return _Math_ScaledStepToS(pValue, target, _step);
+}
+
+s32 Math_ScaledStepToS(Rotation* pValue, s16 target, const Step& _step)
+{
+	return _Math_ScaledStepToS(pValue, target, _step);
+}
+
 /**
  * Changes pValue by step towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_StepToS(s16* pValue, s16 target, const Step& _step) {
+template<class T>
+static inline s32 _Math_StepToS(T* pValue, s16 target, const Step& _step) {
 	float step = _step.value();
     if (step != 0) {
         if (target < *pValue) {
             step = -step;
         }
 
-        *pValue += step;
+        *pValue = *pValue + step;
 
         if (((*pValue - target) * step) >= 0) {
             *pValue = target;
@@ -78,6 +90,16 @@ s32 Math_StepToS(s16* pValue, s16 target, const Step& _step) {
     }
 
     return false;
+}
+
+s32 Math_StepToS(s16* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToS(pValue, target, _step);
+}
+
+s32 Math_StepToS(Rotation* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToS(pValue, target, _step);
 }
 
 /**
@@ -224,10 +246,11 @@ s32 Math_StepUntilAngleS(s16* pValue, s16 limit, const Step& step) {
  * Changes pValue by step. If pvalue reaches limit, sets it equal to limit.
  * Returns true when limit is reached, false otherwise.
  */
-s32 Math_StepUntilS(s16* pValue, s16 limit, const Step& step) {
+template<class T>
+static inline s32 _Math_StepUntilS(T* pValue, s16 limit, const Step& step) {
     s16 orig = *pValue;
 
-    *pValue += step.value();
+    *pValue = *pValue + step.value();
 
     if (((*pValue - limit) * (orig - limit)) <= 0) {
         *pValue = limit;
@@ -235,6 +258,16 @@ s32 Math_StepUntilS(s16* pValue, s16 limit, const Step& step) {
     }
 
     return false;
+}
+
+s32 Math_StepUntilS(s16* pValue, s16 limit, const Step& step)
+{
+	return _Math_StepUntilS(pValue, limit, step);
+}
+
+s32 Math_StepUntilS(Rotation* pValue, s16 limit, const Step& step)
+{
+	return _Math_StepUntilS(pValue, limit, step);
 }
 
 /**
@@ -629,7 +662,8 @@ f32 Math_SmoothStepToDegF(f32* pValue, f32 target, f32 fraction, const Step& _st
  * Changes pValue by step towards target. If this step is more than 1/scale of the remaining distance, step by that
  * instead, with a minimum step of minStep. Returns remaining distance to target.
  */
-s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep) {
+template<class T>
+static inline s16 _Math_SmoothStepToS(T* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep) {
 	float step = _step.value();
 	float minStep = _minStep.value();
     s16 stepSize = 0;
@@ -647,16 +681,16 @@ s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& _step, co
                 stepSize = -step;
             }
 
-            *pValue += stepSize;
+            *pValue = *pValue + stepSize;
         } else {
             if (diff >= 0) {
-                *pValue += minStep;
+                *pValue = *pValue + minStep;
 
                 if ((s16)(target - *pValue) <= 0) {
                     *pValue = target;
                 }
             } else {
-                *pValue -= minStep;
+                *pValue = *pValue - minStep;
 
                 if ((s16)(target - *pValue) >= 0) {
                     *pValue = target;
@@ -668,22 +702,44 @@ s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& _step, co
     return diff;
 }
 
+s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep)
+{
+	return _Math_SmoothStepToS(pValue, target, scale, _step, _minStep);
+}
+
+s16 Math_SmoothStepToS(Rotation* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep)
+{
+	return _Math_SmoothStepToS(pValue, target, scale, _step, _minStep);
+}
+
 /**
  * Changes pValue by step towards target. If step is more than 1/scale of the remaining distance, step by that instead.
  */
-void Math_ApproachS(s16* pValue, s16 target, s16 scale, const Step& _maxStep) {
+template<class T>
+static inline void _Math_ApproachS(T* pValue, s16 target, s16 scale, const Step& _maxStep)
+{
 	float maxStep = _maxStep.value();
     s16 diff = target - *pValue;
 
     diff /= scale;
 
     if (diff > maxStep) {
-        *pValue += maxStep;
+	    *pValue = *pValue + maxStep;
     } else if (diff < -maxStep) {
-        *pValue -= maxStep;
+	    *pValue = *pValue - maxStep;
     } else {
-        *pValue += diff;
+	    *pValue = *pValue + diff;
     }
+}
+
+void Math_ApproachS(s16* pValue, s16 target, s16 scale, const Step& _maxStep)
+{
+	_Math_ApproachS(pValue, target, scale, _maxStep);
+}
+
+void Math_ApproachS(Rotation* pValue, s16 target, s16 scale, const Step& _maxStep)
+{
+	_Math_ApproachS(pValue, target, scale, _maxStep);
 }
 
 void Color_RGBA8_Copy(Color_RGBA8* dst, Color_RGBA8* src) {

@@ -368,7 +368,7 @@ void EnKusa_LiftedUp(EnKusa* pthis, GlobalContext* globalCtx) {
         pthis->actor.gravity = -0.1f;
         EnKusa_UpdateVelY(pthis);
         EnKusa_RandScaleVecToZero(&pthis->actor.velocity, 0.005f);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 7.5f, 35.0f, 0.0f, 0xC5);
         pthis->actor.gravity = -3.2f;
     }
@@ -428,7 +428,7 @@ void EnKusa_Fall(EnKusa* pthis, GlobalContext* globalCtx) {
     pthis->actor.shape.rot.x += rotSpeedX;
     pthis->actor.shape.rot.y += rotSpeedY;
     EnKusa_RandScaleVecToZero(&pthis->actor.velocity, 0.05f);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 7.5f, 35.0f, 0.0f, 0xC5);
     Collider_UpdateCylinder(&pthis->actor, &pthis->collider);
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);

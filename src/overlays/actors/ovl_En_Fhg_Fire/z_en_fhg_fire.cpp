@@ -442,7 +442,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx) {
         dyL = player->actor.world.pos.y + 40.0f - pthis->actor.world.pos.y;
         dzL = player->actor.world.pos.z - pthis->actor.world.pos.z;
         func_8002D908(&pthis->actor);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         if (pthis->work[FHGFIRE_VARIANCE_TIMER] & 1) {
             Actor_SetScale(&pthis->actor, 6.0f);
         } else {

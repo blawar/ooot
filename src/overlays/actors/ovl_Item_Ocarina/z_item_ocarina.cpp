@@ -87,7 +87,7 @@ void ItemOcarina_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void ItemOcarina_Fly(ItemOcarina* pthis, GlobalContext* globalCtx) {
     Vec3f ripplePos;
 
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.shape.rot.x += pthis->spinRotOffset * 2;
     pthis->actor.shape.rot.y += pthis->spinRotOffset * 3;
 
@@ -138,7 +138,7 @@ void ItemOcarina_GetThrown(ItemOcarina* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B864EC(ItemOcarina* pthis, GlobalContext* globalCtx) {
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.shape.rot.x += pthis->spinRotOffset * 2;
     pthis->actor.shape.rot.y += pthis->spinRotOffset * 3;
 

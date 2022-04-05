@@ -91,10 +91,8 @@ class Timer
 	operator float() const;
 	Timer& operator+=(const Timer f);
 	Timer& operator-=(const Timer f);
-	/*Timer operator+(const Timer f) const;
-	Timer operator-(const Timer f) const;
-	Timer operator*(const Timer f) const;
-	Timer operator/(const Timer f) const;*/
+	Timer& operator&=(u64 n);
+	Timer& operator|=(u64 n);
 	s32 operator%(s32 n) const;
 	Timer operator&(long n) const;
 	s32 operator<<(long n);

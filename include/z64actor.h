@@ -109,7 +109,7 @@ struct CollisionCheckInfo {
 }; // size = 0x1C
 
 struct ActorShape {
-    /* 0x00 */ Vec3s rot; // Current actor shape rotation
+    /* 0x00 */ VecRot rot; // Current actor shape rotation
     /* 0x06 */ s16 face; // Used to index eyebrow/eye/mouth textures. Only used by player
     /* 0x08 */ f32 yOffset; // Model y axis offset. Represents model space units
     /* 0x0C */ ActorShadowFunc shadowDraw; // Shadow draw function

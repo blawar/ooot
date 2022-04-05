@@ -945,7 +945,7 @@ void EnSt_ReturnToCeiling(EnSt* pthis, GlobalContext* globalCtx) {
  */
 void EnSt_BounceAround(EnSt* pthis, GlobalContext* globalCtx) {
     pthis->actor.colorFilterTimer = pthis->deathTimer.whole();
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     pthis->actor.world.rot.x += 0x800 * FRAMERATE_SCALER;
     pthis->actor.world.rot.z -= 0x800 * FRAMERATE_SCALER;
     pthis->actor.shape.rot = pthis->actor.world.rot;
@@ -983,7 +983,7 @@ void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx) {
 
     pthis->actor.shape.rot = pthis->actor.world.rot;
 
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     pthis->groundBounces = 2;
     EnSt_IsDoneBouncing(pthis, globalCtx);
 }
@@ -1027,7 +1027,7 @@ void EnSt_Update(Actor* pthisx, GlobalContext* globalCtx) {
         }
 
         if (pthis->swayTimer == 0 && pthis->stunTimer == 0) {
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
         }
 
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);

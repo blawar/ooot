@@ -194,7 +194,7 @@ void EnAnubiceFire_Update(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor_SetScale(&pthis->actor, pthis->scale);
     pthis->actionFunc(pthis, globalCtx);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->unk_160[0] = pthis->actor.world.pos;
 
     if (1) {}

@@ -141,7 +141,7 @@ void func_80889C18(BgHidanKousi* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80889C90(BgHidanKousi* pthis, GlobalContext* globalCtx) {
-    func_8002D7EC(&pthis->dyna.actor);
+    Actor_UpdatePosition(&pthis->dyna.actor);
     if (D_80889E40[pthis->dyna.actor.params & 0xFF] <
         Math_Vec3f_DistXYZ(&pthis->dyna.actor.home.pos, &pthis->dyna.actor.world.pos)) {
         func_80889ACC(pthis);

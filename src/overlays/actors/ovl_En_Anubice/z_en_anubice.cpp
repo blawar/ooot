@@ -449,7 +449,7 @@ void EnAnubice_Update(Actor* thisx, GlobalContext* globalCtx) {
     pthis->actionFunc(pthis, globalCtx);
 
     pthis->actor.velocity.y += pthis->actor.gravity;
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 
     if (!pthis->isLinkOutOfRange) {
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 5.0f, 5.0f, 10.0f, 0x1D);

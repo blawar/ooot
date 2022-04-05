@@ -954,7 +954,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx) {
         if (pthis->work[BFD_ACTION_STATE] < BOSSFD_SKULL_FALL) {
             func_8002D908(&pthis->actor);
         }
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
 
         pthis->work[BFD_LEAD_BODY_SEG]++;
         if (pthis->work[BFD_LEAD_BODY_SEG] >= 100) {

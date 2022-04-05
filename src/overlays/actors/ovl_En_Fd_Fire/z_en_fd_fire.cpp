@@ -204,13 +204,13 @@ void EnFdFire_DanceTowardsPlayer(EnFdFire* pthis, GlobalContext* globalCtx) {
         if (pthis->actor.speedXZ < 0.1f) {
             pthis->actor.speedXZ = 5.0f;
         }
-        func_8002D868(&pthis->actor);
+        Actor_UpdateVelocityWithGravity(&pthis->actor);
     }
 }
 
 void EnFdFire_Disappear(EnFdFire* pthis, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 0.6f, 9.0f, 0.0f);
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     Math_SmoothStepToF(&pthis->scale, 0.0f, 0.3f, 0.1f, 0.0f);
     pthis->actor.shape.shadowScale = 20.0f;
     pthis->actor.shape.shadowScale *= (pthis->scale / 3.0f);
@@ -229,7 +229,7 @@ void EnFdFire_Update(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actionFunc(pthis, globalCtx);
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 12.0f, 10.0f, 0.0f, 5);
 
