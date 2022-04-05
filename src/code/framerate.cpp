@@ -84,6 +84,12 @@ Timer::Timer() : m_counter(0), m_counterInt(0)
 {
 }
 
+Timer::Timer(const Timer& t)
+{
+	m_counter = t.m_counter;
+	m_counterInt = t.m_counterInt;
+}
+
 Timer::Timer(float n) : m_counter(n), m_counterInt(n * COUNTER_SCALER)
 {
 	if(n == 0xFFFF)
@@ -237,4 +243,24 @@ s32 Timer::operator<<(long n)
 s32 Timer::operator>>(long n)
 {
 	return whole() >> n;
+}
+
+
+Step::Step() : m_value(0)
+{
+}
+
+Step::Step(const Step& t)
+{
+	m_value = t.m_value;
+}
+
+Step::Step(float n)
+{
+	m_value = n * FRAMERATE_SCALER;
+}
+
+float Step::value() const
+{
+	return m_value;
 }
