@@ -491,65 +491,70 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx) {
         pthis->unk_304++;
     }
 
-    switch (pthis->unk_304) {
-        case 1:
-            Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_004268);
-            pthis->unk_304++;
-            globalCtx->damagePlayer(globalCtx, -8);
-            Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 1, 0xC);
-            pthis->unk_319 = 20;
-        case 0:
-            Math_SmoothStepToS(&pthis->unk_30E, 0, 1, 0x5DC, 0);
-            Math_SmoothStepToS(&pthis->unk_310, 0, 1, 0x5DC, 0);
-        case 2:
-            if (!(player->stateFlags2 & 0x80)) {
-                Animation_Change(&pthis->skelAnime, &object_rd_Anim_0046F8, 0.5f, 0.0f,
-                                 Animation_GetLastFrame(&object_rd_Anim_0046F8), ANIMMODE_ONCE_INTERP, 0.0f);
-                pthis->unk_304++;
-                pthis->unk_31B = 4;
-                return;
-            }
+    if(pthis->unk_304.isWhole())
+    {
+	    switch(pthis->unk_304.whole())
+	    {
+		    case 1:
+			    Animation_PlayLoop(&pthis->skelAnime, &object_rd_Anim_004268);
+			    pthis->unk_304++;
+			    globalCtx->damagePlayer(globalCtx, -8);
+			    Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 1, 0xC);
+			    pthis->unk_319 = 20;
+		    case 0:
+			    Math_SmoothStepToS(&pthis->unk_30E, 0, 1, 0x5DC, 0);
+			    Math_SmoothStepToS(&pthis->unk_310, 0, 1, 0x5DC, 0);
+		    case 2:
+			    if(!(player->stateFlags2 & 0x80))
+			    {
+				    Animation_Change(&pthis->skelAnime, &object_rd_Anim_0046F8, 0.5f, 0.0f, Animation_GetLastFrame(&object_rd_Anim_0046F8), ANIMMODE_ONCE_INTERP, 0.0f);
+				    pthis->unk_304++;
+				    pthis->unk_31B = 4;
+				    return;
+			    }
 
-            if (!LINK_IS_ADULT) {
-                Math_SmoothStepToF(&pthis->actor.shape.yOffset, -1500.0f, 1.0f, 150.0f, 0.0f);
-            }
+			    if(!LINK_IS_ADULT)
+			    {
+				    Math_SmoothStepToF(&pthis->actor.shape.yOffset, -1500.0f, 1.0f, 150.0f, 0.0f);
+			    }
 
-            Math_SmoothStepToF(&pthis->actor.world.pos.x,
-                               (Math_SinS(player->actor.shape.rot.y) * -25.0f) + player->actor.world.pos.x, 1.0f, 10.0f,
-                               0.0f);
-            Math_SmoothStepToF(&pthis->actor.world.pos.y, player->actor.world.pos.y, 1.0f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&pthis->actor.world.pos.z,
-                               (Math_CosS(player->actor.shape.rot.y) * -25.0f) + player->actor.world.pos.z, 1.0f, 10.0f,
-                               0.0f);
-            Math_SmoothStepToS(&pthis->actor.shape.rot.y, player->actor.shape.rot.y, 1, 0x1770, 0);
+			    Math_SmoothStepToF(&pthis->actor.world.pos.x, (Math_SinS(player->actor.shape.rot.y) * -25.0f) + player->actor.world.pos.x, 1.0f, 10.0f, 0.0f);
+			    Math_SmoothStepToF(&pthis->actor.world.pos.y, player->actor.world.pos.y, 1.0f, 10.0f, 0.0f);
+			    Math_SmoothStepToF(&pthis->actor.world.pos.z, (Math_CosS(player->actor.shape.rot.y) * -25.0f) + player->actor.world.pos.z, 1.0f, 10.0f, 0.0f);
+			    Math_SmoothStepToS(&pthis->actor.shape.rot.y, player->actor.shape.rot.y, 1, 0x1770, 0);
 
-            if (pthis->skelAnime.curFrame == 0.0f) {
-                Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_ATTACK);
-            }
-            pthis->unk_319--;
+			    if(pthis->skelAnime.curFrame == 0.0f)
+			    {
+				    Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_ATTACK);
+			    }
+			    pthis->unk_319--;
 
-            if (pthis->unk_319 == 0) {
-                globalCtx->damagePlayer(globalCtx, -8);
-                Rumble_Shake(pthis->actor.xzDistToPlayer, 0xF0, 1, 0xC);
-                pthis->unk_319 = 20;
-                func_8002F7DC(&player->actor, NA_SE_VO_LI_DAMAGE_S + player->ageProperties->unk_92);
-            }
-            break;
-        case 3:
-            if (!LINK_IS_ADULT) {
-                Math_SmoothStepToF(&pthis->actor.shape.yOffset, 0, 1.0f, 400.0f, 0.0f);
-            }
-            break;
-        case 4:
-            if (!LINK_IS_ADULT) {
-                Math_SmoothStepToF(&pthis->actor.shape.yOffset, 0, 1.0f, 400.0f, 0.0f);
-            }
-            pthis->actor.targetMode = 0;
-            pthis->actor.flags |= ACTOR_FLAG_0;
-            pthis->unk_306 = 0xA;
-            pthis->unk_307 = 0xF;
-            func_80AE2B90(pthis, globalCtx);
-            break;
+			    if(pthis->unk_319 == 0)
+			    {
+				    globalCtx->damagePlayer(globalCtx, -8);
+				    Rumble_Shake(pthis->actor.xzDistToPlayer, 0xF0, 1, 0xC);
+				    pthis->unk_319 = 20;
+				    func_8002F7DC(&player->actor, NA_SE_VO_LI_DAMAGE_S + player->ageProperties->unk_92);
+			    }
+			    break;
+		    case 3:
+			    if(!LINK_IS_ADULT)
+			    {
+				    Math_SmoothStepToF(&pthis->actor.shape.yOffset, 0, 1.0f, 400.0f, 0.0f);
+			    }
+			    break;
+		    case 4:
+			    if(!LINK_IS_ADULT)
+			    {
+				    Math_SmoothStepToF(&pthis->actor.shape.yOffset, 0, 1.0f, 400.0f, 0.0f);
+			    }
+			    pthis->actor.targetMode = 0;
+			    pthis->actor.flags |= ACTOR_FLAG_0;
+			    pthis->unk_306 = 0xA;
+			    pthis->unk_307 = 0xF;
+			    func_80AE2B90(pthis, globalCtx);
+			    break;
+	    }
     }
 }
 
@@ -921,7 +926,8 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx) {
         if (pthis->unk_31A != 0) {
             thisx->colorFilterTimer++;
             pthis->unk_31A--;
-            if (pthis->unk_31A % 4 == 0) {
+	    if(pthis->unk_31A.isWhole() && pthis->unk_31A % 4 == 0)
+	    {
                 EffectSsEnFire_SpawnVec3s(globalCtx, thisx, &pthis->firePos[pthis->unk_31A >> 2], 0x4B, 0, 0,
                                           (pthis->unk_31A >> 2));
             }
