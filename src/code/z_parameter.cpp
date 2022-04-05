@@ -4954,7 +4954,7 @@ void Interface_Update(GlobalContext* globalCtx)
 	switch(interfaceCtx->unk_1EC)
 	{
 		case 1:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 15700.0f)
 			{
 				interfaceCtx->unk_1F4 = -15700.0f;
@@ -4962,7 +4962,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case 2:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 0.0f)
 			{
 				interfaceCtx->unk_1F4 = 0.0f;
@@ -4977,7 +4977,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case 3:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 15700.0f)
 			{
 				interfaceCtx->unk_1F4 = -15700.0f;
@@ -4985,7 +4985,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case 4:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 0.0f)
 			{
 				interfaceCtx->unk_1F4 = 0.0f;
