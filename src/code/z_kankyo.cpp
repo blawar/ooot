@@ -917,7 +917,7 @@ void Environment_Update(GlobalContext* globalCtx, EnvironmentContext* envCtx, Li
         func_80075B44(globalCtx); // updates bgm/sfx and other things as the day progresses
 
         if (((void)0, gSaveContext.nextDayTime) >= 0xFF00 && ((void)0, gSaveContext.nextDayTime) != 0xFFFF) {
-            gSaveContext.nextDayTime -= 0x10;
+            gSaveContext.nextDayTime -= 0x10 * FRAMERATE_SCALER;
             osSyncPrintf("\nnext_zelda_time=[%x]", ((void)0, gSaveContext.nextDayTime));
 
             if (((void)0, gSaveContext.nextDayTime) == 0xFF0E) {
@@ -944,10 +944,10 @@ void Environment_Update(GlobalContext* globalCtx, EnvironmentContext* envCtx, Li
         }
 
         //! @bug `gTimeIncrement` is unsigned, it can't be negative
-        if (((((void)0, gSaveContext.sceneSetupIndex) >= 5 || gTimeIncrement != 0) &&
-             ((void)0, gSaveContext.dayTime) > gSaveContext.skyboxTime) ||
-            (((void)0, gSaveContext.dayTime) < 0xAAB || gTimeIncrement < 0)) {
-            gSaveContext.skyboxTime = ((void)0, gSaveContext.dayTime);
+        if (((gSaveContext.sceneSetupIndex >= 5 || gTimeIncrement != 0) &&
+             gSaveContext.dayTime > gSaveContext.skyboxTime) ||
+            (gSaveContext.dayTime < 0xAAB || gTimeIncrement < 0)) {
+            gSaveContext.skyboxTime = gSaveContext.dayTime;
         }
 
         time = gSaveContext.dayTime;
@@ -971,7 +971,7 @@ void Environment_Update(GlobalContext* globalCtx, EnvironmentContext* envCtx, Li
             gSPEndDisplayList(displayList++);
             Graph_BranchDlist(prevDisplayList, displayList);
             POLY_OPA_DISP = displayList;
-            if (1) {}
+
             CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kankyo.c", 1690);
         }
 

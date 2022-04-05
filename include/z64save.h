@@ -2,6 +2,7 @@
 
 #include "ultra64.h"
 #include "z64math.h"
+#include "framerate.h"
 
 struct ItemEquips {
     /* 0x00 */ u8 buttonItems[4];
@@ -63,7 +64,7 @@ struct SaveContext {
     /* 0x0000 */ s32 entranceIndex; // start of `save` substruct, originally called "memory"
     /* 0x0004 */ s32 linkAge; // 0: Adult; 1: Child
     /* 0x0008 */ s32 cutsceneIndex;
-    /* 0x000C */ u16 dayTime; // "zelda_time"
+    /* 0x000C */ Counter dayTime; // "zelda_time"
     /* 0x0010 */ s32 nightFlag;
     /* 0x0014 */ s32 totalDays;
     /* 0x0018 */ s32 bgsDayCount; // increments with totalDays, can be cleared with `Environment_ClearBgsDayCount`
@@ -165,7 +166,7 @@ struct SaveContext {
     /* 0x1416 */ u16 nextDayTime; // "next_zelda_time"
     /* 0x1418 */ u8 fadeDuration;
     /* 0x1419 */ u8 unk_1419; // transition related
-    /* 0x141A */ u16 skyboxTime;
+    /* 0x141A */ Counter skyboxTime;
     /* 0x141C */ u8 dogIsLost;
     /* 0x141D */ u8 nextTransition;
     /* 0x141E */ char unk_141E[0x0002];

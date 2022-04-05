@@ -117,32 +117,32 @@ struct BossGoma {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnime skelanime;
     /* 0x0190 */ BossGomaActionFunc actionFunc;
-    /* 0x0194 */ s16 frameCount; // also used as a timer
-    /* 0x0196 */ s16 patienceTimer; // when non-0: walk towards player, can be stunned
+    /* 0x0194 */ Counter frameCount; // also used as a timer
+    /* 0x0196 */ Timer patienceTimer; // when non-0: walk towards player, can be stunned
     /* 0x0198 */ s16 eyeLidBottomRotX;
     /* 0x019A */ s16 eyeLidTopRotX;
-    /* 0x019C */ s16 eyeClosedTimer; // also used as a second invincibility frames source
+    /* 0x019C */ Timer eyeClosedTimer; // also used as a second invincibility frames source
     /* 0x019E */ s16 eyeIrisRotX;
     /* 0x01A0 */ s16 eyeIrisRotY;
-    /* 0x01A2 */ s16 unusedTimer;
+    /* 0x01A2 */ Timer unusedTimer;
     /* 0x01A4 */ s16 childrenGohmaState[3]; // 0 not spawned, 1 spawned, -1 dead (-1 set by child gohma)
-    /* 0x01AA */ s16 tailLimbsScaleTimers[4];
-    /* 0x01B2 */ s16 spawnGohmasActionTimer;
+    /* 0x01AA */ Timer tailLimbsScaleTimers[4];
+    /* 0x01B2 */ Timer spawnGohmasActionTimer;
     /* 0x01B4 */ s16 eyeState;
-    /* 0x01B6 */ s16 doNotMoveThisFrame;
+    /* 0x01B6 */ Timer doNotMoveThisFrame;
     /* 0x01B8 */ s16 visualState;
-    /* 0x01BA */ s16 invincibilityFrames;
+    /* 0x01BA */ Timer invincibilityFrames;
     /* 0x01BC */ s16 subCameraId;
     /* 0x01BE */ s16 disableGameplayLogic;
     /* 0x01C0 */ s16 decayingProgress; // when defeated, textures are progressively cleared
     /* 0x01C2 */ s16 noBackfaceCulling;
-    /* 0x01C4 */ s16 blinkTimer;
-    /* 0x01C6 */ s16 lookedAtFrames;
+    /* 0x01C4 */ Timer blinkTimer;
+    /* 0x01C6 */ Timer lookedAtFrames;
     /* 0x01C8 */ char unk_1C8[0x8];
     /* 0x01D0 */ s16 actionState;
-    /* 0x01D2 */ s16 framesUntilNextAction; // not always used as named
-    /* 0x01D4 */ s16 timer;
-    /* 0x01D6 */ s16 sfxFaintTimer;
+    /* 0x01D2 */ Timer framesUntilNextAction; // not always used as named
+    /* 0x01D4 */ Timer timer;
+    /* 0x01D6 */ Timer sfxFaintTimer;
     /* 0x01D8 */ char unk_1D8[0x10];
     /* 0x01E8 */ f32 tailLimbsScale[4];
     /* 0x01F8 */ f32 eyeIrisScaleX;

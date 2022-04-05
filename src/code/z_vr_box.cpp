@@ -406,10 +406,7 @@ void Skybox_Setup(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, s16 skybox
                     globalCtx->envCtx.skybox1Index = skybox1Index = D_8011FC1C[phi_v1][i].skybox1Index;
                     globalCtx->envCtx.skybox2Index = skybox2Index = D_8011FC1C[phi_v1][i].skybox2Index;
                     if (D_8011FC1C[phi_v1][i].blend != 0) {
-                        globalCtx->envCtx.skyboxBlend =
-                            Environment_LerpWeight(D_8011FC1C[phi_v1][i].endTime, D_8011FC1C[phi_v1][i].startTime,
-                                                   ((void)0, gSaveContext.skyboxTime)) *
-                            255.0f;
+                        globalCtx->envCtx.skyboxBlend = Environment_LerpWeight(D_8011FC1C[phi_v1][i].endTime, D_8011FC1C[phi_v1][i].startTime, gSaveContext.skyboxTime) * 255.0f;
                     } else {
                         globalCtx->envCtx.skyboxBlend = 0;
                     }

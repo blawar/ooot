@@ -867,10 +867,18 @@ void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader
 
         osCreateMesgQueue(&entry->data.load.msgQueue, &entry->data.load.msg, 1);
  
-        DmaMgr_SendRequest2(&entry->data.load.req, ram,
-                            LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame.whole())),
-                            sizeof(Vec3s) * limbCount + 2, 0, &entry->data.load.msgQueue, NULL, "../z_skelanime.c",
-                            2004);
+        const auto frame1 = frame.whole();
+        const auto frame2 = (frame1 + 1);
+
+        memcpy(ram, (const void*)(Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame1)), sizeof(Vec3s) * limbCount + 2);
+
+        if(frame2 < linkAnimHeader->common.frameCount)
+	    {
+		    const float weight = (float)frame - frame1;
+		    Vec3s* limbs1 = (Vec3s*)ram;
+		    Vec3s* limbs2 = (Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame2));
+		    AnimationContext_SetInterp(globalCtx, limbCount, limbs1, limbs2, weight);
+	    }
     }
 }
 
@@ -1556,6 +1564,12 @@ static s32 SkelAnime_MorphTaper(GlobalContext* context, SkelAnime* skelAnime)
     return 0;
 }
 
+#if FRAME_RATE > 20
+#define FORCE_INTERPOL true
+#else
+#define FORCE_INTERPOL false
+#endif
+
 /**
  * Gets frame data for the current frame as modified by morphTable and advances the morph
  */
@@ -1563,7 +1577,7 @@ void SkelAnime_AnimateFrame(SkelAnime* skelAnime) {
     Vec3s nextjointTable[100];
 
     SkelAnime_GetFrameData((AnimationHeader*)skelAnime->animation, skelAnime->curFrame, skelAnime->limbCount, skelAnime->jointTable);
-    if (skelAnime->mode & ANIM_INTERP) {
+    if (FORCE_INTERPOL || (skelAnime->mode & ANIM_INTERP)) {
         s32 frame = skelAnime->curFrame;
         f32 partialFrame = skelAnime->curFrame - frame;
 
