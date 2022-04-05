@@ -115,12 +115,12 @@ void BgGjyoBridge_Draw(Actor* pthisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_XLU_DISP++, 8,
-               Gfx_TexScroll(globalCtx->state.gfxCtx, globalCtx->gameplayFrames & 127,
-                             globalCtx->gameplayFrames * -3 & 127, 32, 32));
+               Gfx_TexScroll(globalCtx->state.gfxCtx, globalCtx->gameplayFrames.whole() & 127,
+                             globalCtx->gameplayFrames.whole() * -3 & 127, 32, 32));
 
     gSPSegment(POLY_XLU_DISP++, 9,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, -globalCtx->gameplayFrames & 127, 32, 32, 1, 0,
-                                globalCtx->gameplayFrames & 127, 32, 32));
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, -globalCtx->gameplayFrames.whole() & 127, 32, 32, 1, 0,
+                                globalCtx->gameplayFrames.whole() & 127, 32, 32));
 
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 281),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

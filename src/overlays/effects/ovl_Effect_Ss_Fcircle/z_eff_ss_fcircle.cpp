@@ -68,7 +68,7 @@ void EffectSsFcircle_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) 
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames % 128, 0, 32, 64, 1, 0,
-                                ((globalCtx->gameplayFrames) * -0xF) % 256, 32, 64));
+                                ((globalCtx->gameplayFrames.whole()) * -0xF) % 256, 32, 64));
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 220, 0, (pthis->life * 12.75f));
     gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
     gSPDisplayList(POLY_XLU_DISP++, pthis->gfx);

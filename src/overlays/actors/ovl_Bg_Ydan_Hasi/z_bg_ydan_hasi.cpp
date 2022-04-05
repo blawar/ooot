@@ -195,9 +195,9 @@ void BgYdanHasi_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
         func_80093D84(globalCtx->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 0x08,
-                   Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames % 128,
-                                    globalCtx->gameplayFrames % 128, 0x20, 0x20, 1, globalCtx->gameplayFrames % 128,
-                                    globalCtx->gameplayFrames % 128, 0x20, 0x20));
+                   Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames.whole() % 128,
+                                    globalCtx->gameplayFrames.whole() % 128, 0x20, 0x20, 1, globalCtx->gameplayFrames.whole() % 128,
+                                    globalCtx->gameplayFrames.whole() % 128, 0x20, 0x20));
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ydan_hasi.c", 592),
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPDisplayList(POLY_XLU_DISP++, gDTWaterPlaneDL);

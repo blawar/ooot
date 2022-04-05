@@ -807,7 +807,7 @@ void EnVali_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TexScroll(globalCtx->state.gfxCtx, 0, (127 - (globalCtx->gameplayFrames * 12)) % 128, 32, 32));
+               Gfx_TexScroll(globalCtx->state.gfxCtx, 0, (127 - (globalCtx->gameplayFrames.whole() * 12)) % 128, 32, 32));
 
     if ((pthis->lightningTimer % 2) != 0) {
         gSPSegment(POLY_XLU_DISP++, 0x09, D_80B28998);

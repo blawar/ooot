@@ -498,7 +498,7 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_809B8118[pthis->actor.params]));
         gSPSegment(POLY_OPA_DISP++, 0x09,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 16, 1, 0,
-                                    (globalCtx->gameplayFrames * -10) % 128, 32, 32));
+                                    (globalCtx->gameplayFrames.whole() * -10) % 128, 32, 32));
         for (i = 0; i < 14; i++, mtx++) {
             Matrix_Translate(pthis->unk158[i].x, pthis->unk158[i].y, pthis->unk158[i].z, MTXMODE_NEW);
             Matrix_RotateZYX(pthis->unk2A8[i].x, pthis->unk2A8[i].y, pthis->unk2A8[i].z, MTXMODE_APPLY);
@@ -522,9 +522,9 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPDisplayList(POLY_OPA_DISP++, object_bxa_DL_000890);
     } else {
         gSPSegment(POLY_OPA_DISP++, 0x08,
-                   Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->gameplayFrames * 2) % 128,
-                                    (globalCtx->gameplayFrames * 2) % 128, 32, 32, 1,
-                                    (globalCtx->gameplayFrames * -5) % 128, (globalCtx->gameplayFrames * -5) % 128, 32,
+                   Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->gameplayFrames.whole() * 2) % 128,
+                                    (globalCtx->gameplayFrames.whole() * 2) % 128, 32, 32, 1,
+                                    (globalCtx->gameplayFrames.whole() * -5) % 128, (globalCtx->gameplayFrames.whole() * -5) % 128, 32,
                                     32));
         gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 125, 100, 255);
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ba.c", 991),

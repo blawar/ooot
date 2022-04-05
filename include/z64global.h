@@ -85,7 +85,7 @@ struct GlobalContext {
     /* 0x11D60 */ MtxF viewProjectionMtxF;
     /* 0x11DA0 */ MtxF billboardMtxF;
     /* 0x11DE0 */ Mtx* billboardMtx;
-    /* 0x11DE4 */ u32 gameplayFrames;
+    /* 0x11DE4 */ Counter gameplayFrames;
     /* 0x11DE8 */ u8 linkAgeOnLoad;
     /* 0x11DE9 */ u8 unk_11DE9;
     /* 0x11DEA */ u8 curSpawn;

@@ -9892,7 +9892,7 @@ void func_80848C74(GlobalContext* globalCtx, Player* pthis) {
             dmgCooldown = 7;
         }
 
-        if ((dmgCooldown & globalCtx->gameplayFrames) == 0) {
+        if ((dmgCooldown & globalCtx->gameplayFrames.whole()) == 0) {
             Player_InflictDamage(globalCtx, -1);
         }
     } else {
@@ -10453,7 +10453,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPSegment(POLY_XLU_DISP++, 0x08,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 32, 1, 0,
-                                        (globalCtx->gameplayFrames * -15) % 128, 16, 32));
+                                        (globalCtx->gameplayFrames.whole() * -15) % 128, 16, 32));
             gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 255, D_8085486C);
             gDPSetEnvColor(POLY_XLU_DISP++, 120, 90, 30, 128);
             gSPDisplayList(POLY_XLU_DISP++, gHoverBootsCircleDL);
@@ -10539,8 +10539,8 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2) {
             f32 scale = (pthis->unk_84F >> 1) * 22.0f;
 
             gSPSegment(POLY_XLU_DISP++, 0x08,
-                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames) % 128, 32, 32, 1,
-                                        0, (globalCtx->gameplayFrames * -2) % 128, 32, 32));
+                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32, 1,
+                                        0, (globalCtx->gameplayFrames.whole() * -2) % 128, 32, 32));
 
             Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player.c", 19459),
