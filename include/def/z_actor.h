@@ -205,6 +205,7 @@ s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* ar
 
 enum PlayerState1
 {
+	PLAYER_STATE_SWORD_CHARGE = 0x1000,
 	PLAYER_STATE_HORSE_MOUNTED = 0x800000,
 	PLAYER_STATE_SWIMMING = 0x8000000
 };
