@@ -868,9 +868,10 @@ void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader
         osCreateMesgQueue(&entry->data.load.msgQueue, &entry->data.load.msg, 1);
  
         const auto frame1 = frame.whole();
-        const auto frame2 = (frame1 + 1);
-
         memcpy(ram, (const void*)(Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame1)), sizeof(Vec3s) * limbCount + 2);
+
+#if FRAME_RATE > 20
+        const auto frame2 = (frame1 + 1);
 
         if(frame2 < linkAnimHeader->common.frameCount)
 	    {
@@ -879,6 +880,7 @@ void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader
 		    Vec3s* limbs2 = (Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame2));
 		    AnimationContext_SetInterp(globalCtx, limbCount, limbs1, limbs2, weight);
 	    }
+#endif
     }
 }
 
