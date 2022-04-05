@@ -3274,7 +3274,7 @@ void func_80837530(GlobalContext* globalCtx, Player* pthis, s32 arg2) {
         pthis->unk_858 = 0.5f;
     }
 
-    pthis->stateFlags1 |= 0x1000;
+    pthis->stateFlags1 |= PLAYER_STATE_SWORD_CHARGE;
 
     if (pthis->actor.category == ACTORCAT_PLAYER) {
         Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_M_THUNDER, pthis->bodyPartsPos[0].x,
@@ -8326,7 +8326,7 @@ void func_80844E68(Player* pthis, GlobalContext* globalCtx) {
     s16 sp32;
     s32 temp;
 
-    pthis->stateFlags1 |= 0x1000;
+    pthis->stateFlags1 |= PLAYER_STATE_SWORD_CHARGE;
 
     if (LinkAnimation_Update(globalCtx, &pthis->skelAnime)) {
         func_80832DBC(pthis);
@@ -8378,7 +8378,7 @@ void func_80845000(Player* pthis, GlobalContext* globalCtx) {
     sp5C = fabsf(pthis->linearVelocity);
     sp58 = sp5C * 1.5f;
 
-    pthis->stateFlags1 |= 0x1000;
+    pthis->stateFlags1 |= PLAYER_STATE_SWORD_CHARGE;
 
     if (sp58 < 1.5f) {
         sp58 = 1.5f;
@@ -8440,7 +8440,7 @@ void func_80845308(Player* pthis, GlobalContext* globalCtx) {
 
     sp5C = fabsf(pthis->linearVelocity);
 
-    pthis->stateFlags1 |= 0x1000;
+    pthis->stateFlags1 |= PLAYER_STATE_SWORD_CHARGE;
 
     if (sp5C == 0.0f) {
         sp5C = ABS(pthis->unk_87C) * 0.0015f;
@@ -9834,7 +9834,7 @@ void func_80848B44(GlobalContext* globalCtx, Player* pthis) {
 
 void func_80848C74(GlobalContext* globalCtx, Player* pthis) {
     s32 spawnedFlame;
-    u8* timerPtr;
+    Timer* timerPtr;
     s32 timerStep;
     f32 flameScale;
     f32 flameIntensity;
@@ -11148,7 +11148,7 @@ void func_8084BF1C(Player* pthis, GlobalContext* globalCtx) {
                                              0.0f, ANIMMODE_ONCE, 0.0f);
                     }
                 } else {
-                    pthis->stateFlags2 |= 0x1000;
+                    pthis->stateFlags2 |= PLAYER_STATE_SWORD_CHARGE;
                 }
             }
 

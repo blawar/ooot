@@ -225,7 +225,7 @@ struct Player {
     /* 0x0840 */ u16        unk_840;
     /* 0x0842 */ s8         swordAnimation;
     /* 0x0843 */ s8         swordState;
-    /* 0x0844 */ s8         unk_844;
+    /* 0x0844 */ Timer         unk_844;
     /* 0x0845 */ u8         unk_845;
     /* 0x0846 */ u8         unk_846;
     /* 0x0847 */ s8         unk_847[4];
@@ -253,9 +253,9 @@ struct Player {
     /* 0x088E */ u8         unk_88E;
     /* 0x088F */ u8         unk_88F;
     /* 0x0890 */ u8         unk_890;
-    /* 0x0891 */ u8         shockTimer;
+    /* 0x0891 */ Timer         shockTimer;
     /* 0x0892 */ u8         unk_892;
-    /* 0x0893 */ u8         hoverBootsTimer;
+    /* 0x0893 */ Timer         hoverBootsTimer;
     /* 0x0894 */ s16        fallStartHeight; // last truncated Y position before falling
     /* 0x0896 */ s16        fallDistance; // truncated Y distance the player has fallen so far (positive is down)
     /* 0x0898 */ s16        unk_898;
@@ -274,10 +274,10 @@ struct Player {
     /* 0x09E0 */ MtxF       mf_9E0;
     /* 0x0A20 */ MtxF       shieldMf;
     /* 0x0A60 */ u8         isBurning;
-    /* 0x0A61 */ u8         flameTimers[18]; // one flame per body part
+    /* 0x0A61 */ Timer         flameTimers[18]; // one flame per body part
     /* 0x0A73 */ u8         unk_A73;
     /* 0x0A74 */ PlayerFuncA74 func_A74;
-    /* 0x0A78 */ s8         invincibilityTimer; // prevents damage when nonzero (positive = visible, counts towards zero each frame)
+    /* 0x0A78 */ Timer         invincibilityTimer; // prevents damage when nonzero (positive = visible, counts towards zero each frame)
     /* 0x0A79 */ u8         unk_A79;
     /* 0x0A7A */ u8         unk_A7A;
     /* 0x0A7B */ u8         unk_A7B;
