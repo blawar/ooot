@@ -416,7 +416,6 @@ void func_80111070(void) {
     WREG(2) = -6080;
     WREG(3) = 9355;
     WREG(4) = 8;
-    WREG(5) = 3;
     PAUSE_ANIMATION_STEPS = 8;
     WREG(7) = 0;
     WREG(8) = 100;
