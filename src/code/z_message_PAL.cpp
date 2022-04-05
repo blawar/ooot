@@ -848,7 +848,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
     Font* font = &globalCtx->msgCtx.font;
     Gfx* gfx = *gfxP;
 
-    const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B)) ? 8 : 1;
+    const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B)) ? 8 : 1;
 
     globalCtx->msgCtx.textPosX = R_TEXT_INIT_XPOS;
 
@@ -1126,7 +1126,12 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
     }
 
     const auto loops = MAX(oot::config().game().textScrollSpeed(), buttonScaler);
-    msgCtx->textDrawPos = i;
+
+    if(i > ceilf((float)msgCtx->textDrawPos))
+    {
+	    msgCtx->textDrawPos = i;
+    }
+
     for(int z = 0; z < loops; z++)
     {
 	    if(msgCtx->textDelayTimer == 0)
@@ -1144,7 +1149,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP) {
 	    {
  		    if(msgCtx->msgMode == MSGMODE_TEXT_DISPLAYING || (msgCtx->msgMode >= MSGMODE_OCARINA_STARTING && msgCtx->msgMode < MSGMODE_SCARECROW_LONG_RECORDING_START))
 		    {
-			    lookAheadCharacter = msgCtx->msgBufDecoded[msgCtx->textDrawPos];
+			    lookAheadCharacter = msgCtx->msgBufDecoded[msgCtx->textDrawPos.whole()];
 			    if(lookAheadCharacter == MESSAGE_SHIFT)
 			    {
 				    break;
