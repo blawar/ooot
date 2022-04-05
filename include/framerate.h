@@ -76,6 +76,7 @@ class Timer
 {
 	public:
 	Timer();
+	Timer(const Timer& t);
 	Timer(float n);
 
 	static Timer invalid();
@@ -120,6 +121,18 @@ class Timer
 	void update();
 	float m_counter;
 	s64 m_counterInt;
+};
+
+class Step
+{
+	public:
+	Step();
+	Step(const Step& t);
+	Step(float n);
+	float value() const;
+
+	protected:
+	float m_value;
 };
 
 typedef Timer Counter;
