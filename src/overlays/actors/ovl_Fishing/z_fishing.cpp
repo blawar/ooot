@@ -4007,7 +4007,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2) {
             func_8002D908(&pthis->actor);
         }
 
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
 
         pthis->actor.world.pos.y += (pthis->unk_184 * 1.5f);
 

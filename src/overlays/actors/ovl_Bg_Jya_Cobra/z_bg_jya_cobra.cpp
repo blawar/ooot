@@ -110,9 +110,9 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 1000, ICHAIN_STOP),
 };
 
-static Vec3s D_80897538 = { 0, -0x4000, 0 };
+static VecRot D_80897538 = { 0, -0x4000, 0 };
 
-static Vec3s D_80897540 = { 0, 0x4000, 0 };
+static VecRot D_80897540 = { 0, 0x4000, 0 };
 
 static Vec3f D_80897548[] = {
     { 0.1f, 0.1f, 0.1f },
@@ -571,7 +571,7 @@ void BgJyaCobra_DrawShadow(BgJyaCobra* pthis, GlobalContext* globalCtx) {
     s32 pad;
     s16 params = pthis->dyna.actor.params & 3;
     Vec3f sp64;
-    Vec3s* phi_a3;
+    VecRot* phi_a3;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_cobra.c", 966);
 

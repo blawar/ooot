@@ -723,7 +723,7 @@ void EnSa_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.world.pos.y += pthis->actor.velocity.y;
         pthis->actor.world.pos.z += pthis->actor.velocity.z;
     } else {
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
     }
 
     if (globalCtx->sceneNum != SCENE_SPOT05) {

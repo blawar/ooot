@@ -2543,7 +2543,7 @@ s32 func_808359FC(Player* pthis, GlobalContext* globalCtx) {
     } else if (LinkAnimation_OnFrame(&pthis->skelAnime2, 6.0f)) {
         f32 posX = (Math_SinS(pthis->actor.shape.rot.y) * 10.0f) + pthis->actor.world.pos.x;
         f32 posZ = (Math_CosS(pthis->actor.shape.rot.y) * 10.0f) + pthis->actor.world.pos.z;
-        s32 yaw = (pthis->unk_664 != NULL) ? pthis->actor.shape.rot.y + 14000 : pthis->actor.shape.rot.y;
+        s32 yaw = (pthis->unk_664 != NULL) ? pthis->actor.shape.rot.y + 14000 : (float)pthis->actor.shape.rot.y;
         EnBoom* boomerang =
             (EnBoom*)Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_BOOM, posX, pthis->actor.world.pos.y + 30.0f,
                                  posZ, pthis->actor.focus.rot.x, yaw, 0, 0);
@@ -10082,7 +10082,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
                 pthis->actor.world.rot.y = pthis->currentYaw;
             }
 
-            func_8002D868(&pthis->actor);
+            Actor_UpdateVelocityWithGravity(&pthis->actor);
 
             if ((pthis->windSpeed != 0.0f) && !Player_InCsMode(globalCtx) && !(pthis->stateFlags1 & 0x206000) &&
                 (func_80845668 != pthis->playerUpdateFunct) && (func_808507F4 != pthis->playerUpdateFunct)) {
@@ -10090,7 +10090,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input) 
                 pthis->actor.velocity.z += pthis->windSpeed * Math_CosS(pthis->windDirection);
             }
 
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
             func_80847BA0(globalCtx, pthis);
         } else {
             D_808535E4 = 0;

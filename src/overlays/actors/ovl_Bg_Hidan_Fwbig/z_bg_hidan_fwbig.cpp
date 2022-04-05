@@ -220,7 +220,7 @@ void BgHidanFwbig_MoveCollider(BgHidanFwbig* pthis, GlobalContext* globalCtx) {
     pthis->collider.dim.pos.z = pthis->actor.world.pos.z - (projPos.x * sn) + (projPos.z * cs);
     pthis->collider.dim.pos.y = pthis->actor.world.pos.y;
 
-    pthis->actor.world.rot.y = (projPos.z < 0.0f) ? pthis->actor.shape.rot.y : pthis->actor.shape.rot.y + 0x8000;
+    pthis->actor.world.rot.y = (projPos.z < 0.0f) ? (float)pthis->actor.shape.rot.y : pthis->actor.shape.rot.y + 0x8000;
 }
 
 void BgHidanFwbig_Update(Actor* thisx, GlobalContext* globalCtx) {

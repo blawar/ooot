@@ -357,7 +357,7 @@ void EnTp_Fragment_SetupFade(EnTp* pthis) {
 }
 
 void EnTp_Fragment_Fade(EnTp* pthis, GlobalContext* globalCtx) {
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->alpha -= 20;
 
     if (pthis->alpha < 20) {

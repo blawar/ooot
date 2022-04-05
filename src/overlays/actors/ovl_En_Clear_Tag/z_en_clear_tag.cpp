@@ -258,7 +258,7 @@ void EnClearTag_Init(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.speedXZ = 35.0f;
         func_8002D908(&pthis->actor);
         for (j = 0; j <= 0; j++) {
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
         }
         pthis->actor.scale.x = 0.4f;
         pthis->actor.scale.y = 0.4f;
@@ -517,7 +517,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2) {
                     pthis->crashingTimer--;
                 }
 
-                func_8002D7EC(&pthis->actor);
+                Actor_UpdatePosition(&pthis->actor);
 
                 Actor_SetFocus(&pthis->actor, 0.0f);
 
@@ -562,7 +562,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2) {
                 break;
 
             case CLEAR_TAG_STATE_LASER:
-                func_8002D7EC(&pthis->actor);
+                Actor_UpdatePosition(&pthis->actor);
 
                 // Check if the laser has hit a target.
                 if (pthis->collider.base.atFlags & AT_HIT) {

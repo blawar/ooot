@@ -1059,7 +1059,7 @@ void func_80AECEB4(EnRu1* pthis, GlobalContext* globalCtx) {
 }
 
 s32 func_80AECF6C(EnRu1* pthis, GlobalContext* globalCtx) {
-    s16* shapeRotY;
+    Rotation* shapeRotY;
     Player* player = GET_PLAYER(globalCtx);
     Player* otherPlayer;
     s16 temp_f16;
@@ -1487,7 +1487,7 @@ void func_80AEE050(EnRu1* pthis) {
             }
             pthis->actor.velocity.x = Math_SinS(pthis->actor.world.rot.y) * pthis->actor.speedXZ;
             pthis->actor.velocity.z = Math_CosS(pthis->actor.world.rot.y) * pthis->actor.speedXZ;
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
         }
     } else {
         if (pthis->unk_350 == 1) {

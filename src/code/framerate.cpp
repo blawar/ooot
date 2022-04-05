@@ -225,6 +225,18 @@ Timer& Timer::operator-=(const Timer f)
 	return *this;
 }
 
+Timer& Timer::operator&=(u64 n)
+{
+	*this = whole() & n;
+	return *this;
+}
+
+Timer& Timer::operator|=(u64 n)
+{
+	*this = whole() | n;
+	return *this;
+}
+
 s32 Timer::operator%(s32 n) const
 {
 	return whole() % n;

@@ -841,7 +841,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx) {
             }
 
             func_8002D908(thisx);
-            func_8002D7EC(thisx);
+            Actor_UpdatePosition(thisx);
             Math_ApproachF(&thisx->speedXZ, 10.0f, 1.0f, 0.5f);
             if ((sqrtf(SQ(dxCenter) + SQ(dzCenter)) > 280.0f) || (thisx->xyzDistToPlayerSq < SQ(100.0f))) {
                 pthis->work[GND_ACTION_STATE] = CHARGE_FINISH;

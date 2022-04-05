@@ -529,14 +529,14 @@ void func_80A02C98(EnElf* pthis, Vec3f* targetPos, f32 arg2) {
     func_80A02BD8(pthis, targetPos, arg2);
     Math_StepToF(&pthis->actor.velocity.x, xVelTarget, 1.5f);
     Math_StepToF(&pthis->actor.velocity.z, zVelTarget, 1.5f);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 void func_80A02E30(EnElf* pthis, Vec3f* targetPos) {
     func_80A02BD8(pthis, targetPos, 0.2f);
     pthis->actor.velocity.x = (targetPos->x + pthis->unk_28C.x) - pthis->actor.world.pos.x;
     pthis->actor.velocity.z = (targetPos->z + pthis->unk_28C.z) - pthis->actor.world.pos.z;
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.world.pos.x = targetPos->x + pthis->unk_28C.x;
     pthis->actor.world.pos.z = targetPos->z + pthis->unk_28C.z;
 }
@@ -544,7 +544,7 @@ void func_80A02E30(EnElf* pthis, Vec3f* targetPos) {
 void func_80A02EC0(EnElf* pthis, Vec3f* targetPos) {
     func_80A02BD8(pthis, targetPos, 0.2f);
     pthis->actor.velocity.x = pthis->actor.velocity.z = 0.0f;
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.world.pos.x = targetPos->x + pthis->unk_28C.x;
     pthis->actor.world.pos.z = targetPos->z + pthis->unk_28C.z;
 }
@@ -619,7 +619,7 @@ void func_80A03148(EnElf* pthis, Vec3f* arg1, f32 arg2, f32 arg3, f32 arg4) {
 
     Math_StepToF(&pthis->actor.velocity.x, xVelTarget, 5.0f);
     Math_StepToF(&pthis->actor.velocity.z, zVelTarget, 5.0f);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 void func_80A0329C(EnElf* pthis, GlobalContext* globalCtx) {

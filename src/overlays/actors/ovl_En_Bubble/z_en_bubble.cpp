@@ -414,7 +414,7 @@ void EnBubble_Regrow(EnBubble* pthis, GlobalContext* globalCtx) {
 void EnBubble_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnBubble* pthis = (EnBubble*)thisx;
 
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 16.0f, 16.0f, 0.0f, 7);
     pthis->actionFunc(pthis, globalCtx);
     Actor_SetFocus(&pthis->actor, pthis->actor.shape.yOffset);

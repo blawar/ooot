@@ -889,7 +889,7 @@ void Actor_Destroy(Actor* actor, GlobalContext* globalCtx) {
     }
 }
 
-void func_8002D7EC(Actor* actor) {
+void Actor_UpdatePosition(Actor* actor) {
     const f32 speedRate = FRAMERATE_ANIM_SCALER;
 
     actor->world.pos.x += (actor->velocity.x * speedRate) + actor->colChkInfo.displacement.x;
@@ -897,7 +897,7 @@ void func_8002D7EC(Actor* actor) {
     actor->world.pos.z += (actor->velocity.z * speedRate) + actor->colChkInfo.displacement.z;
 }
 
-void func_8002D868(Actor* actor) {
+void Actor_UpdateVelocityWithGravity(Actor* actor) {
     actor->velocity.x = Math_SinS(actor->world.rot.y) * actor->speedXZ;
     actor->velocity.z = Math_CosS(actor->world.rot.y) * actor->speedXZ;
 
@@ -908,8 +908,8 @@ void func_8002D868(Actor* actor) {
 }
 
 void Actor_MoveForward(Actor* actor) {
-    func_8002D868(actor);
-    func_8002D7EC(actor);
+    Actor_UpdateVelocityWithGravity(actor);
+    Actor_UpdatePosition(actor);
 }
 
 void func_8002D908(Actor* actor) {
@@ -922,7 +922,7 @@ void func_8002D908(Actor* actor) {
 
 void func_8002D97C(Actor* actor) {
     func_8002D908(actor);
-    func_8002D7EC(actor);
+    Actor_UpdatePosition(actor);
 }
 
 void func_8002D9A4(Actor* actor, f32 arg1) {
@@ -4174,7 +4174,7 @@ Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, Vec3s* spawnRot, f32* arg3, 
     return NULL;
 }
 
-void func_800359B8(Actor* actor, s16 arg1, Vec3s* arg2) {
+void func_800359B8(Actor* actor, s16 arg1, VecRot* arg2) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;

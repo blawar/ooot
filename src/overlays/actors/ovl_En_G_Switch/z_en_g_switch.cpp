@@ -301,7 +301,7 @@ void EnGSwitch_GalleryRupee(EnGSwitch* pthis, GlobalContext* globalCtx) {
                 }
                 break;
             case GSWITCH_LEFT:
-                func_8002D7EC(&pthis->actor);
+                Actor_UpdatePosition(&pthis->actor);
                 if ((pthis->actor.velocity.x < 0.0f) && (pthis->actor.world.pos.x < pthis->targetPos.x)) {
                     gallery = ((EnSyatekiItm*)pthis->actor.parent);
                     if (gallery->actor.update != NULL) {
@@ -311,7 +311,7 @@ void EnGSwitch_GalleryRupee(EnGSwitch* pthis, GlobalContext* globalCtx) {
                 }
                 break;
             case GSWITCH_RIGHT:
-                func_8002D7EC(&pthis->actor);
+                Actor_UpdatePosition(&pthis->actor);
                 if (pthis->actor.world.pos.x > pthis->targetPos.x) {
                     gallery = ((EnSyatekiItm*)pthis->actor.parent);
                     if (gallery->actor.update != NULL) {

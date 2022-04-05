@@ -2447,7 +2447,7 @@ void ScaleRotPos_Initialize(ScaleRotPos* srp) {
 /**
  * Set ScaleRotPos
  */
-void ScaleRotPos_SetValue(ScaleRotPos* srp, Vec3f* scale, Vec3s* rot, Vec3f* pos) {
+void ScaleRotPos_SetValue(ScaleRotPos* srp, Vec3f* scale, VecRot* rot, Vec3f* pos) {
     srp->scale = *scale;
     srp->rot = *rot;
     srp->pos = *pos;
