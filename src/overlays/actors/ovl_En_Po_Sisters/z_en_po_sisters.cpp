@@ -1392,7 +1392,7 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                (globalCtx->gameplayFrames * -20) % 512, 0x20, 0x80));
+                                (globalCtx->gameplayFrames.whole() * -20) % 512, 0x20, 0x80));
     gDPSetEnvColor(POLY_XLU_DISP++, temp_s1->r, temp_s1->g, temp_s1->b, temp_s1->a);
     if (pthis->actionFunc == func_80ADB17C) {
         if (pthis->unk_19A < 32) {

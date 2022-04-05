@@ -1307,7 +1307,7 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx) {
             func_80093D84(globalCtx->state.gfxCtx);
             gSPSegment(POLY_XLU_DISP++, 0x08,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                        ((globalCtx->gameplayFrames + (pthis->flameScrollMod * 10)) *
+                                        ((globalCtx->gameplayFrames.whole() + (pthis->flameScrollMod * 10)) *
                                          (-20 - (pthis->flameScrollMod * -2))) %
                                             0x200,
                                         0x20, 0x80));
