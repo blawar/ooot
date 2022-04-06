@@ -869,7 +869,7 @@ void Sram_InitSram(GameState* gameState, SramContext* sramCtx) {
     SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
 
     for (i = 0; i < ARRAY_COUNTU(sZeldaMagic) - 3; i++) {
-        if (sZeldaMagic[i + SRAM_HEADER_MAGIC] != sramCtx->readBuff[i + SRAM_HEADER_MAGIC]) {
+        if ((u8)sZeldaMagic[i + SRAM_HEADER_MAGIC] != (u8)sramCtx->readBuff[i + SRAM_HEADER_MAGIC]) {
             osSyncPrintf("SRAM Destruction!!!!!!\n"); // "SRAM destruction! ! ! ! ! !"
 #ifdef USE_SAVE_LANGUAGE
             Set_Language(sramCtx->readBuff[SRAM_HEADER_LANGUAGE]);
