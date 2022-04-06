@@ -10,7 +10,6 @@
 #include "z_en_weather_tag.h"
 #include "vt.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 

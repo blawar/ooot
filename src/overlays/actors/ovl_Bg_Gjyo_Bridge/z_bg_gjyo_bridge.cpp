@@ -12,7 +12,6 @@
 #include "def/code_80043480.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_play.h"
 #include "def/z_rcp.h"

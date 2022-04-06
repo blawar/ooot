@@ -10,7 +10,6 @@
 #include "objects/object_spot01_objects/object_spot01_objects.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_rcp.h"
 

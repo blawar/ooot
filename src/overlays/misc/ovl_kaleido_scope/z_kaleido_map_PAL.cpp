@@ -13,7 +13,6 @@
 #include "def/inventory.h"
 #include "def/audio_bank.h"
 #include "def/sys_ucode.h"
-#include "def/z_common_data.h"
 #include "def/z_map_exp.h"
 #include "def/z_rcp.h"
 #include "def/z_room.h"

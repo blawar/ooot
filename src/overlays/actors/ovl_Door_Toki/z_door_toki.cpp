@@ -10,7 +10,6 @@
 #include "objects/object_toki_objects/object_toki_objects.h"
 #include "def/code_80043480.h"
 #include "def/z_bgcheck.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 
 #define FLAGS 0

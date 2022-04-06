@@ -8,7 +8,6 @@
 #include "def/inventory.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
-#include "def/z_common_data.h"
 #include "def/z_message_PAL.h"
 
 void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfxCtx, oot::pause::Page* page)

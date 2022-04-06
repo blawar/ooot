@@ -11,7 +11,6 @@
 #include "objects/object_ka/object_ka.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
 #include "def/z_rcp.h"

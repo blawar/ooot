@@ -19,7 +19,6 @@
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_draw.h"
 #include "def/z_eff_blure.h"
 #include "def/z_effect.h"

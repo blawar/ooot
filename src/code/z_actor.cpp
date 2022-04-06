@@ -41,7 +41,6 @@
 #include "def/z_camera.h"
 #include "def/z_camera_data.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_eff_ss_dead.h"
 #include "def/z_effect.h"
 #include "def/z_effect_soft_sprite.h"

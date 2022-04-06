@@ -14,7 +14,6 @@
 #include "objects/object_haka_door/object_haka_door.h"
 #include "def/random.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_lib.h"
 #include "def/z_player_lib.h"

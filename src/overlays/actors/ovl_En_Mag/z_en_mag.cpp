@@ -12,7 +12,6 @@
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/graph.h"
-#include "def/z_common_data.h"
 #include "def/z_kanfont.h"
 #include "def/z_rcp.h"
 

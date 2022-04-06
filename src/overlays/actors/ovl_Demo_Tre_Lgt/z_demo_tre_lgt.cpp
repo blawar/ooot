@@ -5,7 +5,6 @@
 #include "objects/object_box/object_box.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_fcurve_data_skelanime.h"
 #include "def/z_rcp.h"
 #include "def/z_skelanime.h"

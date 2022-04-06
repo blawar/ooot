@@ -9,7 +9,6 @@
 #include "textures/parameter_static/parameter_static.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_lifemeter.h"
 #include "def/z_play.h"

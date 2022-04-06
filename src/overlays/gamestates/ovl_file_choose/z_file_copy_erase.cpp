@@ -4,8 +4,6 @@
 #include "z_file_choose.h"
 #include "def/code_800A9F30.h"
 #include "def/audio_bank.h"
-#include "def/z_common_data.h"
-#include "def/z_sram.h"
 
 extern u16 gSramSlotOffsets[];
 
@@ -69,7 +67,6 @@ void FileChoose_SetupCopySource(GameState* thisx) {
  */
 void FileChoose_SelectCopySource(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
 
     if (((pthis->buttonIndex == FS_BTN_COPY_QUIT) && CHECK_BTN_ANY(input->press.button, BTN_A | BTN_START)) ||
@@ -181,7 +178,6 @@ void FileChoose_SetupCopyDest2(GameState* thisx) {
  */
 void FileChoose_SelectCopyDest(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
 
     if (((pthis->buttonIndex == FS_BTN_COPY_QUIT) && CHECK_BTN_ANY(input->press.button, BTN_A | BTN_START)) ||
@@ -271,7 +267,6 @@ void FileChoose_ExitToCopySource1(GameState* thisx) {
  */
 void FileChoose_ExitToCopySource2(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 
@@ -305,7 +300,6 @@ void FileChoose_ExitToCopySource2(GameState* thisx) {
 void FileChoose_SetupCopyConfirm1(GameState* thisx) {
     static s16 D_808124A4[] = { -56, -40, -24, 0 };
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 
@@ -366,7 +360,6 @@ void FileChoose_SetupCopyConfirm2(GameState* thisx) {
  */
 void FileChoose_CopyConfirm(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
     u16 dayTime;
 
@@ -378,7 +371,7 @@ void FileChoose_CopyConfirm(GameState* thisx) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CLOSE, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
     } else if (CHECK_BTN_ANY(input->press.button, BTN_A | BTN_START)) {
         dayTime = gSaveContext.dayTime;
-        Sram_CopySave(pthis, sramCtx);
+	    gSaveContext.copy(pthis->selectedFileIndex, pthis->copyDestFileIndex);
         gSaveContext.dayTime = dayTime;
         pthis->fileInfoAlpha[pthis->copyDestFileIndex] = pthis->nameAlpha[pthis->copyDestFileIndex] = 0;
         pthis->nextTitleLabel = FS_TITLE_COPY_COMPLETE;
@@ -398,7 +391,6 @@ void FileChoose_CopyConfirm(GameState* thisx) {
  */
 void FileChoose_ReturnToCopyDest(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 
@@ -541,7 +533,6 @@ void FileChoose_CopyAnim4(GameState* thisx) {
  */
 void FileChoose_CopyAnim5(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 
@@ -687,7 +678,6 @@ void FileChoose_SetupEraseSelect(GameState* thisx) {
  */
 void FileChoose_EraseSelect(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
 
     if (((pthis->buttonIndex == FS_BTN_COPY_QUIT) && CHECK_BTN_ANY(input->press.button, BTN_A | BTN_START)) ||
@@ -746,7 +736,6 @@ void FileChoose_EraseSelect(GameState* thisx) {
 void FileChoose_SetupEraseConfirm1(GameState* thisx) {
     static s16 D_808124AC[] = { 0, 16, 32 };
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 
@@ -873,7 +862,6 @@ void FileChoose_ExitToEraseSelect1(GameState* thisx) {
  */
 void FileChoose_ExitToEraseSelect2(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 
@@ -919,7 +907,6 @@ void FileChoose_ExitToEraseSelect2(GameState* thisx) {
 void FileChoose_EraseAnim1(GameState* thisx) {
     static s16 D_80813800;
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
 
     if (sEraseDelayTimer == 0) {
         if (pthis->actionTimer == 8) {
@@ -939,7 +926,7 @@ void FileChoose_EraseAnim1(GameState* thisx) {
         D_80813800 += 2;
 
         if (pthis->actionTimer == 0) {
-            Sram_EraseSave(pthis, sramCtx);
+		    gSaveContext.erase(pthis->selectedFileIndex);
             pthis->titleLabel = pthis->nextTitleLabel;
             pthis->titleAlpha[0] = 255;
             pthis->titleAlpha[1] = pthis->connectorAlpha[pthis->selectedFileIndex] = 0;
@@ -985,7 +972,6 @@ void FileChoose_EraseAnim2(GameState* thisx) {
  */
 void FileChoose_EraseAnim3(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
     s16 yStep;
 

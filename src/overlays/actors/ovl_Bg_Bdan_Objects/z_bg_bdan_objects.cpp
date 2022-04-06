@@ -17,7 +17,6 @@
 #include "def/z_camera.h"
 #include "def/z_cheap_proc.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
 #include "def/z_play.h"

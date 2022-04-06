@@ -10,7 +10,6 @@
 #include "misc/z_vr_box_assets.h"
 #include "z_kankyo.h"
 #include "def/game.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_std_dma.h"
 #include "def/z_vr_box.h"
