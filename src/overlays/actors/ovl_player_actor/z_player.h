@@ -216,9 +216,9 @@ struct Player {
     /* 0x079C */ Vec3s      morphTable2[PLAYER_LIMB_BUF_COUNT];
     /* 0x082C */ PlayerFunc82C func_82C;
     /* 0x0830 */ f32        unk_830;
-    /* 0x0834 */ s16        unk_834;
+    /* 0x0834 */ Timer        unk_834;
     /* 0x0836 */ s8         unk_836;
-    /* 0x0837 */ u8         unk_837;
+    /* 0x0837 */ Timer         unk_837;
     /* 0x0838 */ f32        linearVelocity;
     /* 0x083C */ s16        currentYaw;
     /* 0x083E */ s16        targetYaw;
