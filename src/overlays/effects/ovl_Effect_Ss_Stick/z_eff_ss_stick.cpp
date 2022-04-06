@@ -11,7 +11,6 @@ extern Gfx gCullBackDList[];
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"

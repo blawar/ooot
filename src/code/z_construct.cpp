@@ -10,7 +10,6 @@
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "def/game.h"
-#include "def/z_common_data.h"
 #include "def/z_construct.h"
 #include "def/z_kanfont.h"
 #include "def/z_lifemeter.h"

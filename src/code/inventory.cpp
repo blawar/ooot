@@ -10,7 +10,6 @@
 #include "textures/icon_item_24_static/icon_item_24_static.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "def/inventory.h"
-#include "def/z_common_data.h"
 #include "def/z_player_lib.h"
 
 

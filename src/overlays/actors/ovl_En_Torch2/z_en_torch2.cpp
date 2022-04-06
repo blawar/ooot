@@ -13,7 +13,6 @@
 #include "def/padutils.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_effect.h"
 #include "def/z_en_item00.h"
 #include "def/z_lib.h"

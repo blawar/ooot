@@ -23,11 +23,9 @@
 #include "def/game.h"
 #include "def/gfxprint.h"
 #include "def/xprintf.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_rcp.h"
 #include "def/z_select.h"
-#include "def/z_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 #include "def/z_play.h" // FORCE
@@ -42,7 +40,7 @@ void Select_LoadGame(SelectContext* pthis, s32 entranceIndex) {
     osSyncPrintf("\n\n\nFILE_NO=%x\n\n\n", gSaveContext.fileNum);
     osSyncPrintf(VT_RST);
     if (gSaveContext.fileNum == 0xFF) {
-        Sram_InitDebugSave();
+	    gSaveContext.createDebug();
         gSaveContext.unk_13F6 = gSaveContext.magic;
         gSaveContext.magic = 0;
         gSaveContext.unk_13F4 = 0;

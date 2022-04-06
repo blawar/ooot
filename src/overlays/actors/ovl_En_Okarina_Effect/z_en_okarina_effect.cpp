@@ -13,7 +13,6 @@
 #include "def/audio.h"
 #include "def/audio_command.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_play.h"
 

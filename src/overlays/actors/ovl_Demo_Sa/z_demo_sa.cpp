@@ -13,7 +13,6 @@
 
 #include "vt.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_parameter.h"
 #include "def/z_rcp.h"

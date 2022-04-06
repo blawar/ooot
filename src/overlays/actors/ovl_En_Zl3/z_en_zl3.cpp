@@ -24,7 +24,6 @@
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_en_item00.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"

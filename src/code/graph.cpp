@@ -33,7 +33,6 @@
 #include "def/sys_ucode.h"
 #include "def/system_malloc.h"
 #include "def/z_DLF.h"
-#include "def/z_common_data.h"
 #include "def/z_game_dlftbls.h"
 #include "def/z_prenmi_buff.h"
 #include "def/z_play.h" // FORCE

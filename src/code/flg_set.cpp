@@ -6,7 +6,6 @@
 #include "def/gfxprint.h"
 #include "def/graph.h"
 #include "def/xprintf.h"
-#include "def/z_common_data.h"
 
 typedef struct
 {

@@ -6,7 +6,6 @@
 #include "def/audio_command.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_lights.h"
 #include "def/z_message_PAL.h"

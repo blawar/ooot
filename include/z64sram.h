@@ -1,9 +1,5 @@
 #pragma once
 
-struct SramContext {
-    /* 0x00 */ u8* readBuff;
-}; // size = 0x4
-
 #define SRAM_SIZE 0x8000
 #define SRAM_HEADER_SIZE 0x10
 

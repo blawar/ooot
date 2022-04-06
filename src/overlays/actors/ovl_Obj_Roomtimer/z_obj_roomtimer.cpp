@@ -9,7 +9,6 @@
 #include "z_obj_roomtimer.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_parameter.h"
 #include "def/z_play.h"

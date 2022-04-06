@@ -12,7 +12,6 @@
 #include "vt.h"
 #include "def/audio.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
 

@@ -9,9 +9,7 @@
 #include "def/audio_bank.h"
 #include "def/graph.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_rcp.h"
-#include "def/z_sram.h"
 
 static s16 D_808124C0[] = {
     0x0002, 0x0003, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0001, 0x0002, 0x0000, 0x0001,
@@ -448,7 +446,7 @@ void FileChoose_DrawNameEntry(GameState* thisx) {
                                                    &gReverbAdd2);
                             gSaveContext.fileNum = pthis->buttonIndex;
                             dayTime = ((void)0, gSaveContext.dayTime);
-                            Sram_InitSave(pthis, &pthis->sramCtx);
+                            gSaveContext.initialize(pthis, 0);
                             gSaveContext.dayTime = dayTime;
                             pthis->configMode = CM_NAME_ENTRY_TO_MAIN;
                             pthis->nameBoxAlpha[pthis->buttonIndex] = pthis->nameAlpha[pthis->buttonIndex] = 200;
@@ -664,25 +662,16 @@ static u8 sSelectedSetting;
  */
 void FileChoose_UpdateOptionsMenu(GameState* thisx) {
     FileChooseContext* pthis = (FileChooseContext*)thisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
 
     if (CHECK_BTN_ALL(input->press.button, BTN_B)) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         pthis->configMode = CM_OPTIONS_TO_MAIN;
-        sramCtx->readBuff[0] = gSaveContext.audioSetting;
-        sramCtx->readBuff[1] = gSaveContext.zTargetSetting;
-        osSyncPrintf("SAVE");
-        Sram_WriteSramHeader(sramCtx);
-        osSyncPrintf(VT_FGCOL(YELLOW));
-        osSyncPrintf("sram->read_buff[2] = J_N = %x\n", sramCtx->readBuff[2]);
-        osSyncPrintf("sram->read_buff[2] = J_N = %x\n", &sramCtx->readBuff[2]);
-        osSyncPrintf("Na_SetSoundOutputMode = %d\n", gSaveContext.audioSetting);
-        osSyncPrintf("Na_SetSoundOutputMode = %d\n", gSaveContext.audioSetting);
-        osSyncPrintf("Na_SetSoundOutputMode = %d\n", gSaveContext.audioSetting);
-        osSyncPrintf(VT_RST);
+
+	    gSaveContext.file.header.sound = gSaveContext.audioSetting;
+        gSaveContext.file.header.ztarget = gSaveContext.zTargetSetting;
+	    gSaveContext.file.saveHeader();
         Audio_SetSettings(gSaveContext.audioSetting);
-		osSyncPrintf("Done!!!\n");
         return;
     }
 

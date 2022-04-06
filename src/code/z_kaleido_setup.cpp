@@ -10,7 +10,6 @@
 #include "def/audio.h"
 #include "def/shrink_window.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kaleido_setup.h"
 #include "def/z_play.h"
 #include "def/z_view.h"

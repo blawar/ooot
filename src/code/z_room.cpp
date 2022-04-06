@@ -21,7 +21,6 @@
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"
-#include "def/z_common_data.h"
 #include "def/z_jpeg.h"
 #include "def/z_map_exp.h"
 #include "def/z_player_lib.h"
