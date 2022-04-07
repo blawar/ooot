@@ -412,7 +412,7 @@ namespace oot::hid
 				Player_ToggleTunic();
 				break;
 			case Button::FAST_FORWARD:
-				oot::state.fastForward = 5;
+				oot::state.fastForward = config().game().fastForwardSpeed();
 				break;
 			case Button::CENTER_CAMERA:
 				oot::state.center_camera = true;
