@@ -693,9 +693,11 @@ void FileChoose_UpdateOptionsMenu(GameState* thisx) {
 	        case FS_SETTING_TARGET:
 		        gSaveContext.zTargetSetting ^= 1;
 		        break;
+#ifdef RETAIL
 	        case FS_SETTING_LANGUAGE:
-			oot::config().game().setPrevLanguage();
+			    oot::config().game().setPrevLanguage();
 		        break;
+#endif
         }
 
     } else if (pthis->stickRelX > 30) {
@@ -714,9 +716,11 @@ void FileChoose_UpdateOptionsMenu(GameState* thisx) {
 		    case FS_SETTING_TARGET:
 			    gSaveContext.zTargetSetting ^= 1;
 			    break;
+#ifdef RETAIL
 		    case FS_SETTING_LANGUAGE:
 			    oot::config().game().setNextLanguage();
 			    break;
+#endif
 	    }
     }
 
