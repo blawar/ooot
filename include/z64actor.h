@@ -408,7 +408,7 @@ struct TargetContext {
     /* 0x44 */ f32 unk_44;
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ u8 activeCategory;
-    /* 0x4B */ u8 unk_4B;
+    /* 0x4B */ Counter unk_4B;
     /* 0x4C */ s8 unk_4C;
     /* 0x4D */ char unk_4D[0x03];
     /* 0x50 */ TargetContextEntry arr_50[3];

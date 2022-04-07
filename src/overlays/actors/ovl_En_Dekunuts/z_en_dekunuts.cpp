@@ -279,7 +279,7 @@ void EnDekunuts_Wait(EnDekunuts* pthis, GlobalContext* globalCtx) {
     if (hasSlowPlaybackSpeed &&
         ((pthis->actor.xzDistToPlayer > 160.0f) && (fabsf(pthis->actor.yDistToPlayer) < 120.0f)) &&
         ((pthis->animFlagAndTimer == 0) || (pthis->actor.xzDistToPlayer < 480.0f))) {
-        pthis->skelAnime.playSpeed = 1.0f;
+        pthis->skelAnime.playSpeed = 1.0f * FRAMERATE_SCALER;
     }
 }
 
@@ -312,6 +312,12 @@ void EnDekunuts_Stand(EnDekunuts* pthis, GlobalContext* globalCtx) {
     }
 }
 
+#if FRAME_RATE == 20
+#define DEKU_NUT_SPAWN_SCALER 1.0f
+#else
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+#endif
+
 void EnDekunuts_ThrowNut(EnDekunuts* pthis, GlobalContext* globalCtx) {
     Vec3f spawnPos;
 
@@ -319,9 +325,9 @@ void EnDekunuts_ThrowNut(EnDekunuts* pthis, GlobalContext* globalCtx) {
     if (SkelAnime_Update(&pthis->skelAnime)) {
         EnDekunuts_SetupStand(pthis);
     } else if (Animation_OnFrame(&pthis->skelAnime, 6.0f)) {
-        spawnPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f);
+	    spawnPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
         spawnPos.y = pthis->actor.world.pos.y + 12.0f;
-        spawnPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f);
+	    spawnPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
         if (Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_NUTSBALL, spawnPos.x, spawnPos.y, spawnPos.z,
                         pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, 0) != NULL) {
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_THROW);

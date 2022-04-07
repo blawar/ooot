@@ -1229,7 +1229,7 @@ void EnWf_Die(EnWf* pthis, GlobalContext* globalCtx) {
 
         pthis->actionTimer--;
 
-        for (i = ((s32)pthis->skelAnime.animLength - pthis->actionTimer) >> 1; i >= 0; i--) {
+        for (i = ((s32)(pthis->skelAnime.animLength - pthis->actionTimer)) >> 1; i >= 0; i--) {
             pos.x = Rand_CenteredFloat(60.0f) + pthis->actor.world.pos.x;
             pos.z = Rand_CenteredFloat(60.0f) + pthis->actor.world.pos.z;
             pos.y = Rand_CenteredFloat(50.0f) + (pthis->actor.world.pos.y + 20.0f);

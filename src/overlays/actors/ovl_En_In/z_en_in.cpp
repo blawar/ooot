@@ -3,6 +3,7 @@
 #include "z_en_in.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
 #include "objects/object_in/object_in.h"
+#include "player_state.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/random.h"

@@ -3,7 +3,7 @@
 #include "z64game.h"
 #include "regs.h"
 
-#define COUNTER_STEP 20.0f / FRAME_RATE
+#define COUNTER_STEP 20 / FRAME_RATE
 #define COUNTER_SCALER FRAME_RATE / 20
 
 static FramerateProfile g_profile = PROFILE_BOOT;
@@ -119,7 +119,7 @@ Timer Timer::invalid()
 
 void Timer::update()
 {
-	m_counter = m_counterInt * COUNTER_STEP;
+	m_counter = (float)m_counterInt * COUNTER_STEP;
 }
 
 Timer& Timer::operator++() // pre
@@ -233,19 +233,22 @@ Timer& Timer::operator/=(float f)
 
 Timer& Timer::operator&=(u64 n)
 {
-	*this = whole() & n;
+	*this = m_counterInt & (n * COUNTER_SCALER);
+	update();
 	return *this;
 }
 
 Timer& Timer::operator|=(u64 n)
 {
-	*this = whole() | n;
+	*this = m_counterInt | (n * COUNTER_SCALER);
+	update();
 	return *this;
 }
 
 Timer& Timer::operator^=(u64 n)
 {
-	*this = whole() ^ n;
+	*this = m_counterInt ^ (n * COUNTER_SCALER);
+	update();
 	return *this;
 }
 
@@ -256,7 +259,23 @@ s32 Timer::operator%(s32 n) const
 
 Timer Timer::operator&(long n) const
 {
-	return Timer(whole() & n);
+	Timer t = *this;
+	t &= n;
+	return t;
+}
+
+Timer Timer::operator|(long n) const
+{
+	Timer t = *this;
+	t |= n;
+	return t;
+}
+
+Timer Timer::operator^(long n) const
+{
+	Timer t = *this;
+	t ^= n;
+	return t;
 }
 
 s32 Timer::operator<<(long n)
