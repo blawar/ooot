@@ -205,7 +205,45 @@ namespace oot
 		void Game::setLanguage(Language id)
 		{
 			m_language = (Language)(id % LANGUAGE_MAX);
-			Set_Language(id);
+			Set_Language(m_language);
+		}
+
+		void Game::setNextLanguage()
+		{
+			switch(m_language)
+			{
+				case LANGUAGE_ENG:
+					setLanguage(LANGUAGE_GER);
+					break;
+				case LANGUAGE_FRA:
+					setLanguage(LANGUAGE_ENG);
+					break;
+				case LANGUAGE_GER:
+					setLanguage(LANGUAGE_FRA);
+					break;
+				default:
+					setLanguage(LANGUAGE_ENG);
+			}
+			config().save();
+		}
+
+		void Game::setPrevLanguage()
+		{
+			switch(m_language)
+			{
+				case LANGUAGE_ENG:
+					setLanguage(LANGUAGE_FRA);
+					break;
+				case LANGUAGE_FRA:
+					setLanguage(LANGUAGE_GER);
+					break;
+				case LANGUAGE_GER:
+					setLanguage(LANGUAGE_ENG);
+					break;
+				default:
+					setLanguage(LANGUAGE_ENG);
+			}
+			config().save();
 		}
 
 		const bool Game::mirror() const
