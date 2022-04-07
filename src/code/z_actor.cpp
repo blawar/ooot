@@ -12,6 +12,7 @@
 #include "z64actor.h"
 #include "gfx_align.h"
 #include "port/options.h"
+#include "player_state.h"
 
 #include "overlays/actors/ovl_Arms_Hook/z_arms_hook.h"
 #include "overlays/actors/ovl_En_Part/z_en_part.h"
@@ -405,7 +406,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx) {
 
         func_8002BE64(targetCtx, targetCtx->unk_4C, spBC.x, spBC.y, spBC.z);
 
-        if ((!(player->stateFlags1 & 0x40)) || (actor != player->unk_664)) {
+        if ((!(player->stateFlags1 & PLAYER_STATE1_6)) || (actor != player->targetedActor)) {
             OVERLAY_DISP = Gfx_CallSetupDL(OVERLAY_DISP, 0x39);
 
             for (spB0 = 0, spAC = targetCtx->unk_4C; spB0 < spB8; spB0++, spAC = (spAC + 1) % 3) {
@@ -423,7 +424,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx) {
 
                     gDPSetPrimColor(OVERLAY_DISP++, 0, 0, entry->color.r, entry->color.g, entry->color.b, (u8)spCE);
 
-                    Matrix_RotateZ((targetCtx->unk_4B & 0x7F) * (M_PI / 64), MTXMODE_APPLY);
+                    Matrix_RotateZ(targetCtx->unk_4B * (M_PI / 64), MTXMODE_APPLY);
 
                     for (i = 0; i < 4; i++) {
                         Matrix_RotateZ(M_PI / 2, MTXMODE_APPLY);
@@ -480,7 +481,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 
     unkActor = NULL;
 
-    if ((player->unk_664 != NULL) && (player->unk_84B[player->unk_846] == 2)) {
+    if ((player->targetedActor != NULL) && (player->unk_84B[player->unk_846] == 2)) {
         targetCtx->unk_94 = NULL;
     } else {
         func_80032AF0(globalCtx, &globalCtx->actorCtx, &unkActor, player);
@@ -554,7 +555,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
                 targetCtx->unk_4B++;
             }
         } else {
-            targetCtx->unk_4B = (targetCtx->unk_4B + 3) | 0x80;
+		    targetCtx->unk_4B += 3;
             targetCtx->unk_44 = 120.0f;
         }
     } else {
@@ -1483,7 +1484,7 @@ f32 func_8002EFC0(Actor* actor, Player* player, s16 arg2) {
     s16 yawTemp = (s16)(actor->yawTowardsPlayer - 0x8000) - arg2;
     s16 yawTempAbs = ABS(yawTemp);
 
-    if (player->unk_664 != NULL) {
+    if (player->targetedActor != NULL) {
         if ((yawTempAbs > 0x4000) || (actor->flags & ACTOR_FLAG_27)) {
             return FLT_MAX;
         } else {
@@ -1529,7 +1530,7 @@ s32 func_8002F0C8(Actor* actor, Player* player, s32 flag) {
         s16 abs_var = ABS(var);
         f32 dist;
 
-        if ((player->unk_664 == NULL) && (abs_var > 0x2AAA)) {
+        if ((player->targetedActor == NULL) && (abs_var > 0x2AAA)) {
             dist = FLT_MAX;
         } else {
             dist = actor->xyzDistToPlayerSq;
@@ -2139,13 +2140,13 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
                 actor->flags &= ~ACTOR_FLAG_24;
 
                 if ((DECR(actor->freezeTimer) == 0) && (actor->flags & (ACTOR_FLAG_4 | ACTOR_FLAG_UNCULLED))) {
-                    if (actor == player->unk_664) {
+                    if (actor == player->targetedActor) {
                         actor->isTargeted = true;
                     } else {
                         actor->isTargeted = false;
                     }
 
-                    if ((actor->targetPriority != 0) && (player->unk_664 == NULL)) {
+                    if ((actor->targetPriority != 0) && (player->targetedActor == NULL)) {
                         actor->targetPriority = 0;
                     }
 
@@ -2168,11 +2169,11 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
         }
     }
 
-    actor = player->unk_664;
+    actor = player->targetedActor;
 
     if ((actor != NULL) && (actor->update == NULL)) {
         actor = NULL;
-        func_8008EDF0(player);
+        Player_ClearZTarget(player);
     }
 
     if ((actor == NULL) || (player->unk_66C < 5)) {
@@ -2887,8 +2888,8 @@ Actor* Actor_Delete(ActorContext* actorCtx, Actor* actor, GlobalContext* globalC
         osSyncPrintf("Actor class deleted [%s]\n", name); // "Actor class deleted [%s]"
     }
 
-    if ((player != NULL) && (actor == player->unk_664)) {
-        func_8008EDF0(player);
+    if ((player != NULL) && (actor == player->targetedActor)) {
+        Player_ClearZTarget(player);
         Camera_ChangeMode(Gameplay_GetCamera(globalCtx, Gameplay_GetActiveCamId(globalCtx)), 0);
     }
 
@@ -2950,7 +2951,7 @@ void func_800328D4(GlobalContext* globalCtx, ActorContext* actorCtx, Player* pla
     Vec3f sp70;
 
     actor = actorCtx->actorLists[actorCategory].head;
-    sp84 = player->unk_664;
+    sp84 = player->targetedActor;
 
     while (actor != NULL) {
         if ((actor->update != NULL) && ((Player*)actor != player) && CHECK_FLAG_ALL(actor->flags, ACTOR_FLAG_0)) {

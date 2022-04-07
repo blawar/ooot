@@ -98,6 +98,8 @@ class Timer
 	Timer& operator^=(u64 n);
 	s32 operator%(s32 n) const;
 	Timer operator&(long n) const;
+	Timer operator|(long n) const;
+	Timer operator^(long n) const;
 	s32 operator<<(long n);
 	s32 operator>>(long n);
 

@@ -13,6 +13,7 @@
 #include "quake.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
+#include "player_state.h"
 #include "port/player/players.h"
 #include "port/options.h"
 #include "def/code_800BB0A0.h"
