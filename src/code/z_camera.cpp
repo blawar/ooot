@@ -6954,8 +6954,8 @@ s32 Camera_Special9(Camera* camera) {
             camera->unk_14C &= ~(0x4 | 0x2);
             camera->animState++;
             anim->targetYaw = ABS(playerPosRot->rot.y - adjustedPlayerPosRot.rot.y) >= 0x4000
-                                  ? BINANG_ROT180(adjustedPlayerPosRot.rot.y)
-                                  : adjustedPlayerPosRot.rot.y;
+                                  ? BINANG_ROT180(adjustedPlayerPosRot.rot.y.whole())
+                                  : adjustedPlayerPosRot.rot.y.whole();
         case 1:
             spec9->doorParams.timer1--;
             if (spec9->doorParams.timer1 <= 0) {

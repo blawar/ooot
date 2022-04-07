@@ -9223,13 +9223,23 @@ void Player_Init(Actor* pthisx, GlobalContext* globalCtx2) {
     MREG(64) = 0;
 }
 
-void func_808471F4(s16* pValue) {
+static void func_808471F4(s16* pValue) {
     s16 step;
 
     step = (ABS(*pValue) * 100.0f) / 1000.0f;
     step = CLAMP(step, 400, 4000);
 
     Math_ScaledStepToS(pValue, 0, step);
+}
+
+static void func_808471F4(Rotation* pValue)
+{
+	s16 step;
+
+	step = (pValue->abs() * 100.0f) / 1000.0f;
+	step = CLAMP(step, 400, 4000);
+
+	Math_ScaledStepToS(pValue, 0, step);
 }
 
 void func_80847298(Player* pthis) {
@@ -10589,7 +10599,7 @@ s16 func_8084ABD8(GlobalContext* globalCtx, Player* pthis, s32 arg2, s16 arg3) {
         temp3 = ((sControlInput->rel.stick_y >= 0) ? 1 : -1) *
                 (s32)((1.0f - Math_CosS(sControlInput->rel.stick_y * 200)) * 1500.0f);
         pthis->actor.focus.rot.x += temp3;
-        pthis->actor.focus.rot.x = CLAMP(pthis->actor.focus.rot.x, -temp1, temp1);
+        pthis->actor.focus.rot.x = CLAMP((float)pthis->actor.focus.rot.x, -temp1, temp1);
 
         temp1 = 19114;
         temp2 = pthis->actor.focus.rot.y - pthis->actor.shape.rot.y;

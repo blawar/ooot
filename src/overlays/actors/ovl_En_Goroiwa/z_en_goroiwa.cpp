@@ -682,7 +682,7 @@ void EnGoroiwa_SetupWait(EnGoroiwa* pthis) {
     pthis->actionFunc = EnGoroiwa_Wait;
     pthis->actor.speedXZ = 0.0f;
     EnGoroiwa_UpdateFlags(pthis, ENGOROIWA_ENABLE_OC);
-    pthis->waitTimer = waitDurations_84[pthis->actor.home.rot.z & 1];
+    pthis->waitTimer = waitDurations_84[pthis->actor.home.rot.z.whole() & 1];
     pthis->rollRotSpeed = 0.0f;
 }
 

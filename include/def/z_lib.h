@@ -24,6 +24,7 @@ f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, const Step& step, 
 s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& step, const Step& minStep);
 s16 Math_SmoothStepToS(Rotation* pValue, s16 target, s16 scale, const Step& step, const Step& minStep);
 s32 Math_StepToAngleS(s16* pValue, s16 target, const Step& step);
+s32 Math_StepToAngleS(Rotation* pValue, s16 target, const Step& step);
 s32 Math_StepToF(f32* pValue, f32 target, const Step& step);
 s32 Math_StepRotationToF(f32* pValue, f32 target, const Step& step);
 f32 Math_AngleDiffF(f32 a, f32 b);

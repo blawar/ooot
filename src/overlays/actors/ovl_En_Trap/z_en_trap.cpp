@@ -322,7 +322,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx) {
                 // if in initial position:
             } else if ((thisx->world.pos.x == thisx->home.pos.x) && (thisx->world.pos.z == thisx->home.pos.z)) {
                 // of the available 4-way directions, get the one which is closest to the direction of player:
-                pthis->vClosestDirection = ((thisx->yawTowardsPlayer - thisx->world.rot.y) + 0x2000) & 0xC000;
+                pthis->vClosestDirection = ((thisx->yawTowardsPlayer - thisx->world.rot.y.whole()) + 0x2000) & 0xC000;
                 pthis->vMovementMetric = 0.0f;
                 if (thisx->xzDistToPlayer < 200.0f) {
                     pthis->vMovementMetric = BEGIN_MOVE_OUT;

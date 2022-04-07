@@ -108,6 +108,8 @@ class Timer
 		return m_counter;
 	}
 
+	float abs() const;
+
 	s16 toS16() const
 	{
 		return (s16)m_counter;
@@ -126,17 +128,21 @@ class Timer
 	s64 m_counterInt;
 };
 
+typedef Timer Counter;
+typedef Timer Rotation;
+
 class Step
 {
 	public:
 	Step();
 	Step(const Step& t);
 	Step(float n);
+	Step(const Rotation& r);
+
 	float value() const;
 
 	protected:
 	float m_value;
 };
 
-typedef Timer Counter;
-typedef Timer Rotation;
+

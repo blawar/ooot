@@ -107,7 +107,7 @@ void BgHidanKousi_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80889ACC(BgHidanKousi* pthis) {
     s32 pad[2];
-    Vec3s* rot = &pthis->dyna.actor.world.rot;
+    auto rot = &pthis->dyna.actor.world.rot;
     f32 temp1 = D_80889E40[pthis->dyna.actor.params & 0xFF] * Math_SinS(rot->y);
     f32 temp2 = D_80889E40[pthis->dyna.actor.params & 0xFF] * Math_CosS(rot->y);
 
