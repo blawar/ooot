@@ -16,6 +16,39 @@
 #define CONFIG_JSON_FILE "config.json"
 #endif
 
+void Set_Language(u8 language_id);
+
+std::string languageGetString(Language id)
+{
+	switch(id)
+	{
+		case LANGUAGE_ENG:
+			return "en";
+		case LANGUAGE_FRA:
+			return "fr";
+		case LANGUAGE_GER:
+			return "de";
+	}
+	return "en";
+}
+
+Language languageGetId(const std::string& s)
+{
+	if(s == "en")
+	{
+		return LANGUAGE_ENG;
+	}
+	else if(s == "fr")
+	{
+		return LANGUAGE_FRA;
+	}
+	else if(s == "de")
+	{
+		return LANGUAGE_GER;
+	}
+	return LANGUAGE_ENG;
+}
+
 namespace oot
 {
 	static Options* g_options = nullptr;
@@ -132,9 +165,11 @@ namespace oot
 			json::setBool(container, "recordTas", recordTas(), allocator);
 			json::setBool(container, "forceMouse", forceMouse(), allocator);
 			json::setBool(container, "enableExtendedOptionsMenu", enableExtendedOptionsMenu(), allocator);
-			json::setBool(container, "enablDebugLevelSelect", enablDebugLevelSelect(), allocator);
-			u64 m_pauseExitInputClearFrames;
-			u64 m_textScrollSpeed;
+			json::setBool(container, "enableDebugLevelSelect", enablDebugLevelSelect(), allocator);
+
+			json::setU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames(), allocator);
+			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
+			json::set(container, "language", languageGetString(language()), allocator);
 
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
@@ -154,8 +189,21 @@ namespace oot
 				json::getBool(container, "recordTas", recordTas());
 				json::getBool(container, "forceMouse", forceMouse());
 				json::getBool(container, "enableExtendedOptionsMenu", enableExtendedOptionsMenu());
-				json::getBool(container, "enablDebugLevelSelect", enablDebugLevelSelect());
+				json::getBool(container, "enableDebugLevelSelect", enablDebugLevelSelect());
+
+				json::getU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames());
+				json::getU64(container, "textScrollSpeed", textScrollSpeed());
+
+				std::string lang;
+				json::get(container, "language", lang);
+				setLanguage(languageGetId(lang));
 			}
+		}
+
+		void Game::setLanguage(Language id)
+		{
+			m_language = (Language)(id % LANGUAGE_MAX);
+			Set_Language(id);
 		}
 
 		const bool Game::mirror() const

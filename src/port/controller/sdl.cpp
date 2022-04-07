@@ -284,7 +284,7 @@ namespace oot::hid
 				return convertToByte(value, g_rstickY_peak);
 			}
 
-			bool canRebind(SDL_GameControllerButton button, int input)
+			bool canRebind(SDL_GameControllerButton button, hid::Button input)
 			{
 				if(m_keyBindings.count(button) == 0)
 				{
@@ -319,7 +319,7 @@ namespace oot::hid
 				return count != 1;
 			}
 
-			bool updateRebind(int input) override
+			bool updateRebind(hid::Button input) override
 			{
 				u8 state[SDL_CONTROLLER_BUTTON_MAX];
 

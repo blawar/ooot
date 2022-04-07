@@ -21,8 +21,6 @@
 
 oot::save::Context gSaveContext;
 
-void Set_Language(u8 language_id);
-
 namespace oot::save
 {
 	// these are the main substructs of save context.
@@ -594,9 +592,6 @@ namespace oot::save
 		if(!isValidMagic())
 		{
 			osSyncPrintf("SRAM Destruction!!!!!!\n"); // "SRAM destruction! ! ! ! ! !"
-#ifdef USE_SAVE_LANGUAGE
-			Set_Language(sramCtx->readBuff[SRAM_HEADER_LANGUAGE]);
-#endif
 			memcpy(header.magic, sZeldaMagic + 3, sizeof(sZeldaMagic) - 3);
 			header.language = slot.language;
 			save();
@@ -605,13 +600,8 @@ namespace oot::save
 		slot.audioSetting = header.sound & 3;
 		slot.zTargetSetting = header.ztarget & 1;
 
-#ifdef USE_SAVE_LANGUAGE
-		Set_Language(sramCtx->readBuff[SRAM_HEADER_LANGUAGE]);
-#endif
-
 		if(slot.language >= LANGUAGE_MAX)
 		{
-			Set_Language(LANGUAGE_ENG);
 			header.language = slot.language;
 			save();
 		}
@@ -794,7 +784,7 @@ namespace oot::save
 		s.minigameState = this->minigameState;
 		s.minigameScore = this->minigameScore;
 		memcpy(s.unk_1408, this->unk_1408, sizeof(unk_1408));
-		s.language = this->language;
+		s.language = this->saveLanguage;
 		s.audioSetting = this->audioSetting;
 		memcpy(s.unk_140B, this->unk_140B, sizeof(unk_140B));
 		s.zTargetSetting = this->zTargetSetting;
@@ -930,7 +920,7 @@ namespace oot::save
 		this->minigameState = s.minigameState;
 		this->minigameScore = s.minigameScore;
 		memcpy(this->unk_1408, s.unk_1408, sizeof(unk_1408));
-		this->language = s.language;
+		this->saveLanguage = s.language;
 		this->audioSetting = s.audioSetting;
 		memcpy(this->unk_140B, s.unk_140B, sizeof(unk_140B));
 		this->zTargetSetting = s.zTargetSetting;
@@ -964,7 +954,6 @@ namespace oot::save
 
 	void Context::init()
 	{
-		u8 currentLanguage = 0; // Get_Language(); TODO FIX
 		Slot emptySlot;
 		memset(&emptySlot, 0, sizeof(emptySlot));
 		load(emptySlot);
@@ -979,6 +968,6 @@ namespace oot::save
 		dogIsLost = true;
 		nextTransition = 0xFF;
 		unk_13EE = 50;
-		language = currentLanguage;
+		language = oot::config().game().language();
 	}
 } // namespace oot::save

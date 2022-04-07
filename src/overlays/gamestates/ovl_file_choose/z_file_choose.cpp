@@ -32,9 +32,6 @@
 #include "def/z_vr_box_draw.h"
 #include "def/z_play.h" // FORCE
 
-void Set_Language(u8 language_id);
-u8 Get_Language();
-
 extern u16 gSramSlotOffsets[];
 
 static s16 sUnused = 106;
