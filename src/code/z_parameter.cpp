@@ -16,6 +16,7 @@
 #include "kaleido_macros.h"
 #include "gfx_align.h"
 #include "port/options.h"
+#include "player_state.h"
 
 #include "textures/parameter_static/parameter_static.h"
 #include "textures/do_action_static/do_action_static.h"
@@ -946,7 +947,7 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
 
 				Interface_ChangeAlpha(50);
 			}
-			else if((player->stateFlags1 & 0x00200000) || (player->stateFlags2 & 0x00040000))
+			else if((player->stateFlags1 & 0x00200000) || (player->stateFlags2 & PLAYER_STATE2_CRAWL))
 			{
 				if(gSaveContext.buttonStatus[0] != BTN_DISABLED)
 				{
@@ -3523,7 +3524,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 			{
 				temp = 0;
 			}
-			else if((player->stateFlags1 & 0x00200000) || (Player_GetRoomTimer(globalCtx) == ROOMTIMER_UNKN4) || (player->stateFlags2 & 0x00040000))
+			else if((player->stateFlags1 & 0x00200000) || (Player_GetRoomTimer(globalCtx) == ROOMTIMER_UNKN4) || (player->stateFlags2 & PLAYER_STATE2_CRAWL))
 			{
 				temp = 70;
 			}
