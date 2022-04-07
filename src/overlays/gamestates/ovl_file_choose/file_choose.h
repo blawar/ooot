@@ -138,8 +138,14 @@ typedef enum {
 
 typedef enum {
     /* 0 */ FS_SETTING_AUDIO,
-    /* 1 */ FS_SETTING_TARGET
+    /* 1 */ FS_SETTING_TARGET,
+#ifdef RETAIL
+	/* 2 */ FS_SETTING_LANGUAGE,
+#endif
+            FS_SETTING_MAX
 } SettingIndex;
+
+#define FS_SETTING_MIN FS_SETTING_AUDIO
 
 typedef enum {
     /* 0 */ FS_AUDIO_STEREO,

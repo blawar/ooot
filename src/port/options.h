@@ -343,6 +343,8 @@ namespace oot
 			}
 
 			void setLanguage(Language id);
+			void setNextLanguage();
+			void setPrevLanguage();
 
 			const u64& fastForwardSpeed() const
 			{

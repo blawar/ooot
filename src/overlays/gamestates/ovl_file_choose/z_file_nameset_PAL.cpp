@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include "file_choose.h"
 #include "z_file_choose.h"
+#include "port/options.h"
 #include "textures/title_static/title_static.h"
 #include "overlays/ovl_File_Choose/ovl_file_choose.h"
 #include "def/code_800A9F30.h"
@@ -678,36 +679,81 @@ void FileChoose_UpdateOptionsMenu(GameState* thisx) {
     if (pthis->stickRelX < -30) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 
-        if (sSelectedSetting == FS_SETTING_AUDIO) {
-            gSaveContext.audioSetting--;
+        switch(sSelectedSetting)
+        {
+	        case FS_SETTING_AUDIO:
+		        gSaveContext.audioSetting--;
 
-            // because audio setting is unsigned, can't check for < 0
-            if (gSaveContext.audioSetting > 0xF0) {
-                gSaveContext.audioSetting = FS_AUDIO_SURROUND;
-            }
-        } else {
-            gSaveContext.zTargetSetting ^= 1;
+		        // because audio setting is unsigned, can't check for < 0
+		        if(gSaveContext.audioSetting > 0xF0)
+		        {
+			        gSaveContext.audioSetting = FS_AUDIO_SURROUND;
+		        }
+		        break;
+	        case FS_SETTING_TARGET:
+		        gSaveContext.zTargetSetting ^= 1;
+		        break;
+	        case FS_SETTING_LANGUAGE:
+			oot::config().game().setPrevLanguage();
+		        break;
         }
+
     } else if (pthis->stickRelX > 30) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 
-        if (sSelectedSetting == FS_SETTING_AUDIO) {
-            gSaveContext.audioSetting++;
+        switch(sSelectedSetting)
+	    {
+		    case FS_SETTING_AUDIO:
+			    gSaveContext.audioSetting++;
 
-            if (gSaveContext.audioSetting > FS_AUDIO_SURROUND) {
-                gSaveContext.audioSetting = FS_AUDIO_STEREO;
-            }
-        } else {
-            gSaveContext.zTargetSetting ^= 1;
-        }
+			    if(gSaveContext.audioSetting > FS_AUDIO_SURROUND)
+			    {
+				    gSaveContext.audioSetting = FS_AUDIO_STEREO;
+			    }
+			    break;
+		    case FS_SETTING_TARGET:
+			    gSaveContext.zTargetSetting ^= 1;
+			    break;
+		    case FS_SETTING_LANGUAGE:
+			    oot::config().game().setNextLanguage();
+			    break;
+	    }
     }
 
-    if ((pthis->stickRelY < -30) || (pthis->stickRelY > 30)) {
+    if (pthis->stickRelY > 30) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-        sSelectedSetting ^= 1;
-    } else if (CHECK_BTN_ALL(input->press.button, BTN_A)) {
+	    if(sSelectedSetting)
+	    {
+		    sSelectedSetting--;
+	    }
+	    else
+        {
+		    sSelectedSetting = FS_SETTING_MAX - 1;
+	    }
+    }
+    else if(pthis->stickRelY < -30)
+    {
+	    Audio_PlaySoundGeneral(NA_SE_SY_FSEL_CURSOR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+	    if(sSelectedSetting == FS_SETTING_MAX - 1)
+	    {
+		    sSelectedSetting = FS_SETTING_MIN;
+	    }
+	    else
+	    {
+		    sSelectedSetting++;
+	    }
+    }
+    else if(CHECK_BTN_ALL(input->press.button, BTN_A))
+    {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-        sSelectedSetting ^= 1;
+	    if(sSelectedSetting == FS_SETTING_MAX - 1)
+	    {
+		    sSelectedSetting = FS_SETTING_MIN;
+	    }
+	    else
+	    {
+		    sSelectedSetting++;
+	    }
     }
 }
 
@@ -741,6 +787,13 @@ static OptionsMenuTextureInfo gOptionsMenuHeaders[] = {
         { 128, 128, 128 },
         16,
     },
+#ifdef RETAIL
+    {
+        { gFileSelLanguageENGTex, gFileSelLanguageGERTex, gFileSelLanguageFRATex },
+        { 64, 64, 64 },
+        16,
+    },
+#endif
 };
 
 static OptionsMenuTextureInfo gOptionsMenuSettings[] = {
@@ -774,6 +827,24 @@ static OptionsMenuTextureInfo gOptionsMenuSettings[] = {
         { 48, 80, 48 },
         16,
     },
+#ifdef RETAIL
+    {
+        { gFileSelEnglishTex, gFileSelEnglishTex, gFileSelEnglishTex },
+        { 48, 48, 48 },
+        16,
+    },
+    {
+        { gFileSelDeutschTex, gFileSelDeutschTex, gFileSelDeutschTex },
+        { 48, 48, 48 },
+        16,
+    },
+    {
+        { gFileSelFrancaisTex, gFileSelFrancaisTex, gFileSelFrancaisTex },
+        { 48, 48, 48 },
+        16,
+    },
+#endif
+
 };
 
 void FileChoose_DrawOptionsImpl(GameState* thisx) {
@@ -870,7 +941,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
         gSPVertex(POLY_OPA_DISP++, D_80811D30, 32, 0);
     }
 #else
-    if(gSaveContext.language == LANGUAGE_GER)
+    if(gSaveContext.language == LANGUAGE_GER && 0)
     {
 	    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[16], 32, 0);
     }
@@ -886,7 +957,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[0]);
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 
-    for (i = 0, vtx = 0; i < 4; i++, vtx += 4) {
+    for (i = 0, vtx = 0; i < ARRAY_COUNT(gOptionsMenuHeaders); i++, vtx += 4) {
         gDPLoadTextureBlock(POLY_OPA_DISP++, gOptionsMenuHeaders[i].texture[gSaveContext.language], G_IM_FMT_IA,
                             G_IM_SIZ_8b, gOptionsMenuHeaders[i].width[gSaveContext.language],
                             gOptionsMenuHeaders[i].height, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
@@ -901,7 +972,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
         gSPVertex(POLY_OPA_DISP++, D_80811F30, 32, 0);
     }
 #else
-    if(gSaveContext.language == LANGUAGE_GER)
+    if(gSaveContext.language == LANGUAGE_GER && 0)
     {
 	    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[64], 32, 0);
     }
@@ -938,7 +1009,7 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
         gDPPipeSync(POLY_OPA_DISP++);
 
         if (i == (gSaveContext.zTargetSetting + 4)) {
-            if (sSelectedSetting != FS_SETTING_AUDIO) {
+            if (sSelectedSetting == FS_SETTING_TARGET) {
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, cursorPrimRed, cursorPrimGreen, cursorPrimBlue,
                                 pthis->titleAlpha[0]);
                 gDPSetEnvColor(POLY_OPA_DISP++, cursorEnvRed, cursorEnvGreen, cursorEnvBlue, 0xFF);
@@ -959,6 +1030,38 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     }
 
     gDPPipeSync(POLY_OPA_DISP++);
+#ifdef RETAIL
+    // language options
+
+    vtx = 0;
+    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[64], 32, 0);
+    for (; i < 9; i++, vtx += 4) {
+        gDPPipeSync(POLY_OPA_DISP++);
+
+        if (i - 6 == oot::config().game().language()) {
+            if (sSelectedSetting == FS_SETTING_LANGUAGE) {
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, cursorPrimRed, cursorPrimGreen, cursorPrimBlue,
+                                pthis->titleAlpha[0]);
+                gDPSetEnvColor(POLY_OPA_DISP++, cursorEnvRed, cursorEnvGreen, cursorEnvBlue, 255);
+            } else {
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[0]);
+                gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+            }
+        } else {
+            gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 120, 120, 120, pthis->titleAlpha[0]);
+            gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+        }
+
+        gDPLoadTextureBlock(POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA,
+                            G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language],
+                            gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
+                            G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
+    }
+
+    gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[56], 32, 0);
+    vtx = 0;
+#endif
 
     // check brightness bars
     gDPLoadTextureBlock_4b(POLY_OPA_DISP++, gFileSelBrightnessCheckTex, G_IM_FMT_IA, 96, 16, 0,
@@ -1002,6 +1105,16 @@ void FileChoose_DrawOptionsImpl(GameState* thisx) {
     gSPVertex(POLY_OPA_DISP++, gOptionsDividerMiddleVtx, 4, 0);
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
     Matrix_Pop();
+
+#ifdef RETAIL
+    Matrix_Push();
+    Matrix_Translate(0.0f, 0.3f, 0.0f, MTXMODE_APPLY);
+    gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(pthis->state.gfxCtx, "../z_file_nameset_PAL.c", 1021), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+    gSPVertex(POLY_OPA_DISP++, gOptionsDividerMiddleBottomVtx, 4, 0);
+    gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
+    Matrix_Pop();
+#endif
 
     Matrix_Push();
     Matrix_Translate(0.0f, 0.4f, 0.0f, MTXMODE_APPLY);

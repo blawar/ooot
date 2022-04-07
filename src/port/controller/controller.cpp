@@ -418,7 +418,7 @@ namespace oot::hid
 				oot::state.center_camera = true;
 				break;
 			case LANGUAGE_TOGGLE:
-				config().game().setLanguage((Language)((int)config().game().language() + 1));
+				config().game().setNextLanguage();
 				break;
 		}
 	}
