@@ -95,7 +95,7 @@ struct VecSph {
 
 struct PosRot {
     Vec3f pos;
-    Vec3s rot;
+    VecRot rot;
 }; // size = 0x14
 
 #define LERP(x, y, scale) (((y) - (x)) * (scale) + (x))

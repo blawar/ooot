@@ -322,8 +322,8 @@ void func_80AD95D8(EnPoSisters* pthis) {
     Animation_MorphToPlayOnce(&pthis->skelAnime, &gPoeSistersDamagedAnim, -3.0f);
     if (pthis->collider.base.ac != NULL) {
         pthis->actor.world.rot.y = (pthis->collider.info.acHitInfo->toucher.dmgFlags & 0x1F824)
-                                      ? pthis->collider.base.ac->world.rot.y
-                                      : Actor_WorldYawTowardActor(&pthis->actor, pthis->collider.base.ac) + 0x8000;
+                                      ? (float)pthis->collider.base.ac->world.rot.y
+                                      : (float)Actor_WorldYawTowardActor(&pthis->actor, pthis->collider.base.ac) + 0x8000;
     }
     if (pthis->unk_194 != 0) {
         pthis->actor.speedXZ = 10.0f;

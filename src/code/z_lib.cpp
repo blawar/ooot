@@ -274,7 +274,8 @@ s32 Math_StepUntilS(Rotation* pValue, s16 limit, const Step& step)
  * Changes pValue by step towards target angle, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_StepToAngleS(s16* pValue, s16 target, const Step& _step) {
+template<class T>
+static inline s32 _Math_StepToAngleS(T* pValue, s16 target, const Step& _step) {
 	float step = _step.value();
     s32 diff = target - *pValue;
 
@@ -302,6 +303,16 @@ s32 Math_StepToAngleS(s16* pValue, s16 target, const Step& _step) {
     }
 
     return false;
+}
+
+s32 Math_StepToAngleS(s16* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToAngleS(pValue, target, _step);
+}
+
+s32 Math_StepToAngleS(Rotation* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToAngleS(pValue, target, _step);
 }
 
 /**

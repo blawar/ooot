@@ -10,29 +10,29 @@ static FramerateProfile g_profile = PROFILE_BOOT;
 
 #if FRAME_RATE == 20
 static Framerate g_profileRates[] = {
-FRAMERATE_30FPS, // PROFILE_BOOT
-FRAMERATE_60FPS, // PROFILE_PAUSE
-FRAMERATE_20FPS, // PROFILE_GAMEPLAY
-FRAMERATE_60FPS, // PROFILE_UNKNOWN1
-FRAMERATE_60FPS, // PROFILE_UNKNOWN2
-FRAMERATE_60FPS, // PROFILE_SAMPLE
-FRAMERATE_60FPS, // PROFILE_OPENING
-FRAMERATE_60FPS, // PROFILE_SELECT
-FRAMERATE_60FPS, // PROFILE_TITLE
-FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
+    FRAMERATE_30FPS, // PROFILE_BOOT
+    FRAMERATE_60FPS, // PROFILE_PAUSE
+    FRAMERATE_20FPS, // PROFILE_GAMEPLAY
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
+    FRAMERATE_60FPS, // PROFILE_SAMPLE
+    FRAMERATE_60FPS, // PROFILE_OPENING
+    FRAMERATE_60FPS, // PROFILE_SELECT
+    FRAMERATE_60FPS, // PROFILE_TITLE
+    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
 };
 #else
 static Framerate g_profileRates[] = {
-FRAMERATE_30FPS, // PROFILE_BOOT
-FRAMERATE_60FPS, // PROFILE_PAUSE
-FRAMERATE_60FPS, // PROFILE_GAMEPLAY
-FRAMERATE_60FPS, // PROFILE_UNKNOWN1
-FRAMERATE_60FPS, // PROFILE_UNKNOWN2
-FRAMERATE_60FPS, // PROFILE_SAMPLE
-FRAMERATE_60FPS, // PROFILE_OPENING
-FRAMERATE_60FPS, // PROFILE_SELECT
-FRAMERATE_60FPS, // PROFILE_TITLE
-FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
+    FRAMERATE_30FPS, // PROFILE_BOOT
+    FRAMERATE_60FPS, // PROFILE_PAUSE
+    FRAMERATE_60FPS, // PROFILE_GAMEPLAY
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
+    FRAMERATE_60FPS, // PROFILE_SAMPLE
+    FRAMERATE_60FPS, // PROFILE_OPENING
+    FRAMERATE_60FPS, // PROFILE_SELECT
+    FRAMERATE_60FPS, // PROFILE_TITLE
+    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
 };
 #endif
 
@@ -122,6 +122,18 @@ void Timer::update()
 	m_counter = (float)m_counterInt * COUNTER_STEP;
 }
 
+float Timer::abs() const
+{
+	float v = toFloat();
+
+	if(v < 0.0f)
+	{
+		return -v;
+	}
+
+	return v;
+}
+
 Timer& Timer::operator++() // pre
 {
 	m_counterInt++;
@@ -201,7 +213,7 @@ Timer& Timer::operator+=(const Timer f)
 Timer& Timer::operator-=(const Timer f)
 {
 	s64 step = f.m_counterInt * COUNTER_STEP;
-	
+
 	if(step == 0)
 	{
 		if(f.m_counterInt > 0)
@@ -288,7 +300,6 @@ s32 Timer::operator>>(long n)
 	return whole() >> n;
 }
 
-
 Step::Step() : m_value(0)
 {
 }
@@ -300,7 +311,12 @@ Step::Step(const Step& t)
 
 Step::Step(float n)
 {
-	m_value = n;// * FRAMERATE_SCALER;
+	m_value = n; // * FRAMERATE_SCALER;
+}
+
+Step::Step(const Rotation& r)
+{
+	m_value = (s16)r;
 }
 
 float Step::value() const

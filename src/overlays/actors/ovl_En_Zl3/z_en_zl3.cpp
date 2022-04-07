@@ -193,7 +193,7 @@ void func_80B53764(EnZl3* pthis, GlobalContext* globalCtx) {
 
 s32 func_80B537E8(EnZl3* pthis) {
     s16 yawTowardsPlayer = pthis->actor.yawTowardsPlayer;
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
     s16* unk_3D0 = &pthis->unk_3D0;
     s16 retVal;
     s16 pad[2];
@@ -206,7 +206,7 @@ s32 func_80B537E8(EnZl3* pthis) {
 
 void func_80B538B0(EnZl3* pthis) {
     s16 yawTowardsPlayer = pthis->actor.yawTowardsPlayer;
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
 
     if (ABS((s16)(yawTowardsPlayer - *rotY)) >= 0x1556) {
         D_80B5A468 = 1;
@@ -1680,14 +1680,14 @@ s32 func_80B571FC(EnZl3* pthis) {
 
 void func_80B57240(EnZl3* pthis) {
     s32 temp_a1 = func_80B571FC(pthis);
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
 
     Math_SmoothStepToS(rotY, temp_a1, 2, 6400, 1000);
     pthis->actor.shape.rot.y = *rotY;
 }
 
 void func_80B57298(EnZl3* pthis) {
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
     s16 temp_a1 = func_80B571A8(pthis);
 
     Math_SmoothStepToS(rotY, temp_a1, 2, 6400, 1000);

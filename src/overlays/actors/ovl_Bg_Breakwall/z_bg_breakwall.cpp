@@ -171,7 +171,7 @@ Actor* BgBreakwall_SpawnFragments(GlobalContext* globalCtx, BgBreakwall* pthis, 
     }
 
     for (i = 0; i < count; angle2 += 0x4000, i++) {
-        angle1 = ABS(pthis->dyna.actor.world.rot.y) + angle2;
+        angle1 = pthis->dyna.actor.world.rot.y.abs() + angle2;
         Matrix_Translate(pthis->dyna.actor.world.pos.x, pthis->dyna.actor.world.pos.y, pthis->dyna.actor.world.pos.z,
                          MTXMODE_NEW);
         Matrix_RotateZYX(pthis->dyna.actor.world.rot.x, pthis->dyna.actor.world.rot.y, pthis->dyna.actor.world.rot.z,

@@ -4141,7 +4141,8 @@ void Actor_SetDropFlagJntSph(Actor* actor, ColliderJntSph* jntSph, s32 freezeFla
     }
 }
 
-void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3) {
+template<class T>
+static inline void _func_80035844(Vec3f* arg0, Vec3f* arg1, T* arg2, s32 arg3) {
     f32 dx = arg1->x - arg0->x;
     f32 dz = arg1->z - arg0->z;
     f32 dy = arg3 ? (arg1->y - arg0->y) : (arg0->y - arg1->y);
@@ -4150,10 +4151,20 @@ void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3) {
     arg2->x = Math_Atan2S(sqrtf(SQ(dx) + SQ(dz)), dy);
 }
 
+void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3)
+{
+	_func_80035844(arg0, arg1, arg2, arg3);
+}
+
+void func_80035844(Vec3f* arg0, Vec3f* arg1, VecRot* arg2, s32 arg3)
+{
+	_func_80035844(arg0, arg1, arg2, arg3);
+}
+
 /**
  * Spawns En_Part (Dissipating Flames) actor as a child of the given actor.
  */
-Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, Vec3s* spawnRot, f32* arg3, s32 timer, s16* unused,
+Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, VecRot* spawnRot, f32* arg3, s32 timer, s16* unused,
                      GlobalContext* globalCtx, s16 params, s32 arg8) {
     EnPart* spawnedEnPart;
 
