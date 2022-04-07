@@ -41,7 +41,7 @@ namespace oot::hid
 		return *m_controllers[index];
 	}
 
-	bool Driver::updateRebind(int input)
+	bool Driver::updateRebind(hid::Button input)
 	{
 		bool result = 0;
 		for (auto& controller : m_controllers)
@@ -75,7 +75,7 @@ namespace oot::hid
 		}
 	}
 
-	Controllers::Controllers() : m_rebindInput(0)
+	Controllers::Controllers() : m_rebindInput(Button::EMPTY_BUTTON)
 	{
 #if defined(_MSC_VER)
 		if(oot::config().controls().useXInput() && !oot::config().controls().enableGyro())
@@ -125,7 +125,7 @@ namespace oot::hid
 
 			if (result)
 			{
-				m_rebindInput = 0;
+				m_rebindInput = Button::EMPTY_BUTTON;
 			}
 		}
 		else
@@ -158,7 +158,7 @@ namespace oot::hid
 		}
 	}
 
-	void Controllers::rebind(int input)
+	void Controllers::rebind(hid::Button input)
 	{
 		m_rebindInput = input;
 	}

@@ -13,7 +13,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_face_reaction.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
@@ -78,7 +77,7 @@ void EnMu_Interact(EnMu* pthis, GlobalContext* globalCtx) {
 
     textFlags = gSaveContext.eventInf[2] & 0x1F;
     gSaveContext.eventInf[2] &= ~0x1F;
-    randomIndex = (globalCtx->state.frames + (s32)(Rand_ZeroOne() * 5.0f)) % 5;
+    randomIndex = (uintptr_t)(globalCtx->state.frames + (s32)(Rand_ZeroOne() * 5.0f)) % 5;
 
     for (i = 0; i < 5; i++) {
 

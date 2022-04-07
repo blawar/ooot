@@ -20,7 +20,7 @@ struct EnMd {
     /* 0x0209 */ u8 unk_209;
     /* 0x020A */ u8 unk_20A;
     /* 0x020B */ u8 unk_20B;
-    /* 0x020C */ s16 blinkTimer;
+    /* 0x020C */ Timer blinkTimer;
     /* 0x020E */ s16 eyeIdx;
     /* 0x0210 */ s16 alpha;
     /* 0x0212 */ s16 waypoint;

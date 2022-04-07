@@ -33,8 +33,8 @@ struct EnFz {
     /* 0x01E8 */ ColliderCylinder collider3;
     /* 0x0234 */ Vec3f posOrigin; // Spawn position for moving freezard
     /* 0x0240 */ s16 counter; // A perpetual counter
-    /* 0x0242 */ s16 unusedTimer1; 
-    /* 0x0244 */ s16 timer; // Used to time transition into next action. Can be 10, 20, 40, 60, 80, 100
+    /* 0x0242 */ Timer unusedTimer1; 
+    /* 0x0244 */ Timer timer; // Used to time transition into next action. Can be 10, 20, 40, 60, 80, 100
     /* 0x0246 */ u8 updateBgInfo; // Always true in every instance
     /* 0x0247 */ u8 isMoving; // Freezard is moving in xz plane
     /* 0x0248 */ u8 isFreezing; // Freezard shooting ice projectiles that can freeze Link

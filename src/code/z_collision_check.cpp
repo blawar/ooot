@@ -2948,7 +2948,7 @@ void CollisionCheck_ResetDamage(CollisionCheckInfo* info) {
 }
 
 /**
- * Sets up CollisionCheckInfo using the values in init. Does not set a damage table or the unused unk_14.
+ * Sets up CollisionCheckInfo using the values in init. Does not set a damage table or the unused cutsceneCamera.
  * Unused, as all actors that don't set a damage table set their CollisionCheckInfo manually
  */
 void CollisionCheck_SetInfoNoDamageTable(CollisionCheckInfo* info, CollisionCheckInfoInit* init) {
@@ -2959,7 +2959,7 @@ void CollisionCheck_SetInfoNoDamageTable(CollisionCheckInfo* info, CollisionChec
 }
 
 /**
- * Sets up CollisionCheckInfo using the values in init. Does not set the unused unk_14
+ * Sets up CollisionCheckInfo using the values in init. Does not set the unused cutsceneCamera
  */
 void CollisionCheck_SetInfo(CollisionCheckInfo* info, DamageTable* damageTable, CollisionCheckInfoInit* init) {
     info->health = init->health;
@@ -2970,7 +2970,7 @@ void CollisionCheck_SetInfo(CollisionCheckInfo* info, DamageTable* damageTable, 
 }
 
 /**
- * Sets up CollisionCheckInfo using the values in init. Sets the unused unk_14
+ * Sets up CollisionCheckInfo using the values in init. Sets the unused cutsceneCamera
  */
 void CollisionCheck_SetInfo2(CollisionCheckInfo* info, DamageTable* damageTable, CollisionCheckInfoInit2* init) {
     info->health = init->health;
@@ -2982,7 +2982,7 @@ void CollisionCheck_SetInfo2(CollisionCheckInfo* info, DamageTable* damageTable,
 }
 
 /**
- * Sets up CollisionCheckInfo using the values in Init and a preset damage table. Sets the unused unk_14.
+ * Sets up CollisionCheckInfo using the values in Init and a preset damage table. Sets the unused cutsceneCamera.
  * Unused, as all actors that use a preset damage table set their CollisionCheckInfo manually.
  */
 void CollisionCheck_SetInfoGetDamageTable(CollisionCheckInfo* info, s32 index, CollisionCheckInfoInit2* init) {

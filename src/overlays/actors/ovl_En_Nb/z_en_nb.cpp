@@ -14,7 +14,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_face_reaction.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
@@ -153,7 +152,7 @@ void func_80AB10C4(EnNb* pthis) {
 
 void EnNb_UpdateEyes(EnNb* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyeIdx = &pthis->eyeIdx;
 
     if (DECR(*blinkTimer) == 0) {

@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_CODE_SYS_MATH_C
 #include "global.h"
+#include "z64math.h"
 #include "def/coss.h"
 #include "def/sins.h"
 #include "def/sys_math.h"
@@ -48,4 +49,42 @@ f32 Math_SinF(f32 angle) {
 
 f32 Math_CosF(f32 angle) {
     return coss((s16)(angle * (32767.0f / M_PI))) * SHT_MINV;
+}
+
+VecRot::VecRot() : x(0), y(0), z(0)
+{
+}
+
+VecRot::VecRot(const Rotation& x, const Rotation& y, const Rotation& z) : x(x), y(y), z(z)
+{
+}
+
+VecRot::VecRot(const VecRot& vec) : x(vec.x), y(vec.y), z(vec.z)
+{
+}
+
+VecRot::VecRot(const Vec3s& vec) : x(vec.x), y(vec.y), z(vec.z)
+{
+}
+
+VecRot::VecRot(const Vec3f& vec) : x(vec.x), y(vec.y), z(vec.z)
+{
+}
+
+VecRot::operator Vec3s() const
+{
+	Vec3s vec;
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	return vec;
+}
+
+VecRot::operator Vec3f() const
+{
+	Vec3f vec;
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	return vec;
 }

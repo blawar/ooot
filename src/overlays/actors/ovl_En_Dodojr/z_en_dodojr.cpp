@@ -443,7 +443,7 @@ void func_809F74C4(EnDodojr* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809F758C(EnDodojr* pthis, GlobalContext* globalCtx) {
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     func_809F6730(pthis, globalCtx, &pthis->actor.world.pos);
 
     if (DECR(pthis->timer4) == 0) {
@@ -500,7 +500,7 @@ void func_809F773C(EnDodojr* pthis, GlobalContext* globalCtx) {
 void func_809F77AC(EnDodojr* pthis, GlobalContext* globalCtx) {
     pthis->rootScale = 1.2f;
     pthis->rootScale *= ((f32)pthis->actor.colorFilterTimer / 8);
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
 
     if (func_809F68B0(pthis, globalCtx) != 0) {
         pthis->timer3 = 60;
@@ -515,7 +515,7 @@ void func_809F784C(EnDodojr* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809F786C(EnDodojr* pthis, GlobalContext* globalCtx) {
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
 
     if (func_809F68B0(pthis, globalCtx) != 0) {
         func_809F6AC4(pthis);
@@ -548,7 +548,7 @@ void func_809F78EC(EnDodojr* pthis, GlobalContext* globalCtx) {
 
 void func_809F799C(EnDodojr* pthis, GlobalContext* globalCtx) {
     pthis->actor.flags |= ACTOR_FLAG_24;
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
 
     if (func_809F68B0(pthis, globalCtx) != 0) {
         func_809F6994(pthis);
@@ -572,7 +572,7 @@ void func_809F7A00(EnDodojr* pthis, GlobalContext* globalCtx) {
 }
 
 void func_809F7AB8(EnDodojr* pthis, GlobalContext* globalCtx) {
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     Math_SmoothStepToS(&pthis->actor.shape.rot.y, 0, 4, 1000, 10);
     pthis->actor.world.rot.x = pthis->actor.shape.rot.x;
 

@@ -18,10 +18,10 @@ struct EnNiwLady {
     /* 0x0250 */ EnNiwLadyActionFunc actionFunc;
     /* 0x0254 */ Vec3s unk_254;
     /* 0x025A */ Vec3s unk_25A;
-    /* 0x0260 */ s16 unusedTimer;
+    /* 0x0260 */ Timer unusedTimer;
     /* 0x0262 */ s16 unk_262; // "message_end_code"
-    /* 0x0264 */ s16 unusedTimer2;
-    /* 0x0266 */ s16 unusedRandomTimer;
+    /* 0x0264 */ Timer unusedTimer2;
+    /* 0x0266 */ Timer unusedRandomTimer;
     /* 0x0268 */ s16 cuccosInPen;
     /* 0x026A */ s16 unk_26A;
     /* 0x026C */ s16 unk_26C;

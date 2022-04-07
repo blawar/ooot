@@ -13,7 +13,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
 #include "def/z_player_lib.h"
@@ -220,7 +219,7 @@ void BgHidanFwbig_MoveCollider(BgHidanFwbig* pthis, GlobalContext* globalCtx) {
     pthis->collider.dim.pos.z = pthis->actor.world.pos.z - (projPos.x * sn) + (projPos.z * cs);
     pthis->collider.dim.pos.y = pthis->actor.world.pos.y;
 
-    pthis->actor.world.rot.y = (projPos.z < 0.0f) ? pthis->actor.shape.rot.y : pthis->actor.shape.rot.y + 0x8000;
+    pthis->actor.world.rot.y = (projPos.z < 0.0f) ? (float)pthis->actor.shape.rot.y : pthis->actor.shape.rot.y + 0x8000;
 }
 
 void BgHidanFwbig_Update(Actor* thisx, GlobalContext* globalCtx) {

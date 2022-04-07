@@ -878,7 +878,7 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2) {
                                        EnBw_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
     }
 
-    if (((globalCtx->gameplayFrames + 1) % 4) == (u32)thisx->params) {
+    if (((globalCtx->gameplayFrames.whole() + 1) % 4) == (u32)thisx->params) {
         spAC.z = thisx->scale.z * 375000.0f;
         Matrix_MultVec3f(&spAC, &pthis->unk_264);
         spAC.z = thisx->scale.z * 150000.0f;
@@ -896,7 +896,7 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2) {
 
     gSPSegment(POLY_XLU_DISP++, 0x08,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                (globalCtx->gameplayFrames * -20) % 0x200, 0x20, 0x80));
+                                (globalCtx->gameplayFrames.whole() * -20) % 0x200, 0x20, 0x80));
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 0, 255);
     Matrix_Scale(pthis->unk_248 * 0.01f, pthis->unk_248 * 0.01f, pthis->unk_248 * 0.01f, MTXMODE_APPLY);
     func_800D1FD4(&globalCtx->billboardMtxF);

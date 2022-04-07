@@ -9,7 +9,6 @@
 #include "z64game.h"
 #include "z64save.h"
 #include "z_play.h"
-#include "def/z_common_data.h"
 #include "def/z_fbdemo_fade.h"
 #include "def/z_lib.h"
 

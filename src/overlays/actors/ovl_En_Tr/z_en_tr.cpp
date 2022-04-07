@@ -13,7 +13,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
@@ -504,7 +503,7 @@ void func_80B24038(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex) {
     Math_StepToF(&pthis->actor.velocity.x, endPos.x, 1.0f);
     Math_StepToF(&pthis->actor.velocity.y, endPos.y, 1.0f);
     Math_StepToF(&pthis->actor.velocity.z, endPos.z, 1.0f);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 void EnTr_UpdateRotation(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex) {

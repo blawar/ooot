@@ -390,7 +390,7 @@ void EnIceHono_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (globalCtx->state.frames * -20) % 512,
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (uintptr_t)(globalCtx->state.frames * -20) % 512,
                                 32, 128));
 
     gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 170, 255, 255, pthis->alpha);

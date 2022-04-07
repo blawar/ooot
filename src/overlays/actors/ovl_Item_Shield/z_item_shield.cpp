@@ -210,7 +210,7 @@ void func_80B86F68(ItemShield* pthis, GlobalContext* globalCtx) {
     pthis->actor.shape.rot.y = Math_Atan2S(-shield->zz, -shield->xz);
     pthis->actor.shape.rot.x = Math_Atan2S(-shield->yz, sqrtf(shield->zz * shield->zz + shield->xz * shield->xz));
 
-    if (ABS(pthis->actor.shape.rot.x) > 0x4000) {
+    if (ABS((float)pthis->actor.shape.rot.x) > 0x4000) {
         pthis->unk_19C |= 1;
     }
 

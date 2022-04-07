@@ -20,7 +20,7 @@ struct EnKusa {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnKusaActionFunc actionFunc;
     /* 0x0150 */ ColliderCylinder collider;
-    /* 0x019C */ s16 timer;
+    /* 0x019C */ Timer timer;
     /* 0x019E */ s32 objBankIndex;
 }; 
 

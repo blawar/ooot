@@ -428,21 +428,21 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2) {
         case 1:
         case 4:
             gSPSegment(POLY_XLU_DISP++, 0x08,
-                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames & 0x7F,
-                                        -globalCtx->gameplayFrames & 0x7F, 0x20, 0x20, 1,
-                                        -globalCtx->gameplayFrames & 0x7F, globalCtx->gameplayFrames & 0x7F, 0x20,
+                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames.whole() & 0x7F,
+                                        -globalCtx->gameplayFrames.whole() & 0x7F, 0x20, 0x20, 1,
+                                        -globalCtx->gameplayFrames.whole() & 0x7F, globalCtx->gameplayFrames.whole() & 0x7F, 0x20,
                                         0x20));
             gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_0006F0);
             break;
 
         case 2:
             gSPSegment(POLY_XLU_DISP++, 0x08,
-                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames & 0xFF, 0x40, 0x40, 1,
-                                        0, -globalCtx->gameplayFrames & 0xFF, 0x40, 0x40));
+                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40, 1,
+                                        0, -globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40));
             gSPSegment(POLY_XLU_DISP++, 0x09,
-                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames & 0xFF,
-                                        globalCtx->gameplayFrames & 0xFF, 0x40, 0x40, 1,
-                                        globalCtx->gameplayFrames & 0xFF, globalCtx->gameplayFrames & 0xFF, 0x40,
+                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames.whole() & 0xFF,
+                                        globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40, 1,
+                                        globalCtx->gameplayFrames.whole() & 0xFF, globalCtx->gameplayFrames.whole() & 0xFF, 0x40,
                                         0x40));
             gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_0012A0);
             break;

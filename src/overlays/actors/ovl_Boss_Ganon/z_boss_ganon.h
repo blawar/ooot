@@ -99,10 +99,10 @@ struct BossGanon {
     /* 0x01AC */ s16 unk_1AC;
     /* 0x01AE */ s16 triforceType;
     /* 0x01B0 */ char unk_1B0[0x6];
-    /* 0x01B6 */ s16 timers[5];
+    /* 0x01B6 */ Timer timers[5];
     /* 0x01C0 */ u8 startVolley;
     /* 0x01C2 */ s16 unk_1C2;
-    /* 0x01C4 */ s16 screenFlashTimer;
+    /* 0x01C4 */ Timer screenFlashTimer;
     /* 0x01C8 */ f32 fwork[GDF_FWORK_MAX];
     /* 0x01F0 */ Vec3f unk_1F0;
     /* 0x01FC */ Vec3f unk_1FC;
@@ -141,7 +141,7 @@ struct BossGanon {
     /* 0x0610 */ ColliderCylinder collider;
     /* 0x065C */ char unk_65C[0x10];
     /* 0x066C */ u8 lensFlareMode;
-    /* 0x066E */ s16 lensFlareTimer;
+    /* 0x066E */ Timer lensFlareTimer;
     /* 0x0670 */ f32 lensFlareScale;
     /* 0x0674 */ u32 csTimer;
     /* 0x0678 */ s16 csState;

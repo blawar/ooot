@@ -6,6 +6,7 @@
 #include "z64save.h"
 #include "z64object.h"
 #include "z64item.h"
+#include "player_state.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"
@@ -19,7 +20,6 @@
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_draw.h"
 #include "def/z_eff_blure.h"
 #include "def/z_effect.h"
@@ -461,9 +461,9 @@ void Player_UpdateBottleHeld(GlobalContext* globalCtx, Player* pthis, s32 item, 
     pthis->itemActionParam = actionParam;
 }
 
-void func_8008EDF0(Player* pthis) {
-    pthis->unk_664 = NULL;
-    pthis->stateFlags2 &= ~0x2000;
+void Player_ClearZTarget(Player* pthis) {
+    pthis->targetedActor = NULL;
+	pthis->stateFlags2 &= ~PLAYER_STATE2_ZTARGET_CHANGED;
 }
 
 void func_8008EE08(Player* pthis) {
@@ -474,14 +474,14 @@ void func_8008EE08(Player* pthis) {
         pthis->stateFlags1 |= 0x80000;
     }
 
-    func_8008EDF0(pthis);
+    Player_ClearZTarget(pthis);
 }
 
 void func_8008EEAC(GlobalContext* globalCtx, Actor* actor) {
     Player* pthis = GET_PLAYER(globalCtx);
 
     func_8008EE08(pthis);
-    pthis->unk_664 = actor;
+    pthis->targetedActor = actor;
     pthis->unk_684 = actor;
     pthis->stateFlags1 |= 0x10000;
     Camera_SetParam(Gameplay_GetCamera(globalCtx, 0), 8, actor);

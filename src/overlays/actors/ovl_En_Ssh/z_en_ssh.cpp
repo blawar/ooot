@@ -7,7 +7,6 @@
 #include "def/z_bgcheck.h"
 #include "def/z_collision_btltbls.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_eff_blure.h"
 #include "def/z_effect.h"
 #include "def/z_effect_soft_sprite_old_init.h"
@@ -826,7 +825,7 @@ void EnSsh_Update(Actor* thisx, GlobalContext* globalCtx) {
         EnSsh_Damaged(pthis);
     } else {
         SkelAnime_Update(&pthis->skelAnime);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);
         pthis->actionFunc(pthis, globalCtx);
     }

@@ -5,7 +5,6 @@
 #include "objects/object_box/object_box.h"
 #include "def/audio_bank.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_fcurve_data_skelanime.h"
 #include "def/z_rcp.h"
 #include "def/z_skelanime.h"
@@ -140,8 +139,8 @@ s32 DemoTreLgt_PostLimbDraw(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve,
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_tre_lgt.c", 423);
     gSPSegment(POLY_XLU_DISP++, 0x08,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->state.frames * 2) % 256, 0, 64, 32, 1,
-                                (globalCtx->state.frames * -2) % 256, 0, 64, 32));
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (uintptr_t)(globalCtx->state.frames * 2) % 256, 0, 64, 32, 1,
+                                (uintptr_t)(globalCtx->state.frames * -2) % 256, 0, 64, 32));
 
     if (limbIndex == 1) {
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 255, 255, 180, pthis->unk_170);

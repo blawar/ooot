@@ -13,7 +13,7 @@ struct MagicWind {
 
     /* 0x0000 */ Actor actor;
     /* 0x014C */ SkelAnimeCurve skelCurve;
-    /* 0x016C */ s16 timer;
+    /* 0x016C */ Timer timer;
     /* 0x0170 */ MagicWindFunc actionFunc;
 }; 
 

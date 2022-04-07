@@ -55,8 +55,8 @@ struct EnOssan {
     /* 0x0190 */ EnOssanActionFunc actionFunc;
     /* 0x0194 */ void (*obj3ToSeg6Func)(struct EnOssan*, GlobalContext*);
     /* 0x0198 */ ColliderCylinder collider; // unused
-    /* 0x01E4 */ s16 timer;
-    /* 0x01E6 */ s16 delayTimer;
+    /* 0x01E4 */ Timer timer;
+    /* 0x01E6 */ Timer delayTimer;
     /* 0x01E8 */ s32 objBankIndex1;
     /* 0x01E9 */ s32 objBankIndex2;
     /* 0x01EA */ s32 objBankIndex3;
@@ -65,7 +65,7 @@ struct EnOssan {
     /* 0x01EE */ s16 headRot;
     /* 0x01F0 */ s16 headTargetRot;
     /* 0x01F2 */ s16 eyeTextureIdx;
-    /* 0x01F4 */ s16 blinkTimer;
+    /* 0x01F4 */ Timer blinkTimer;
     /* 0x01F8 */ void (*blinkFunc)(struct EnOssan*);
     /* 0x01FC */ s16 stateFlag;
     /* 0x01FE */ s16 tempStateFlag;

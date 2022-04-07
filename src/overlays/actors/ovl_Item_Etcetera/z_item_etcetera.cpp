@@ -9,7 +9,6 @@
 #include "z_item_etcetera.h"
 #include "def/random.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_draw.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_scene.h"

@@ -13,6 +13,7 @@
 #include "quake.h"
 #include "vt.h"
 #include "overlays/actors/ovl_En_Horse/z_en_horse.h"
+#include "player_state.h"
 #include "port/player/players.h"
 #include "port/options.h"
 #include "def/code_800BB0A0.h"
@@ -27,7 +28,6 @@
 #include "def/z_camera.h"
 #include "def/z_camera_data.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_debug.h"
 #include "def/z_demo.h"
 #include "def/z_kankyo.h"
@@ -6328,7 +6328,7 @@ s32 Camera_Demo6(Camera* camera) {
     VecSph eyeOffset;
     Actor* camFocus;
     PosRot focusPosRot;
-    TimerS16 stateTimers[4];
+    Timer stateTimers[4];
     Vec3f* at = &camera->at;
 
     mainCam = Gameplay_GetCamera(camera->globalCtx, MAIN_CAM);
@@ -6954,8 +6954,8 @@ s32 Camera_Special9(Camera* camera) {
             camera->unk_14C &= ~(0x4 | 0x2);
             camera->animState++;
             anim->targetYaw = ABS(playerPosRot->rot.y - adjustedPlayerPosRot.rot.y) >= 0x4000
-                                  ? BINANG_ROT180(adjustedPlayerPosRot.rot.y)
-                                  : adjustedPlayerPosRot.rot.y;
+                                  ? BINANG_ROT180(adjustedPlayerPosRot.rot.y.whole())
+                                  : adjustedPlayerPosRot.rot.y.whole();
         case 1:
             spec9->doorParams.timer1--;
             if (spec9->doorParams.timer1 <= 0) {

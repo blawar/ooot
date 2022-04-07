@@ -243,8 +243,8 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx) {
                   G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
         gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
         gSPDisplayList(POLY_XLU_DISP++,
-                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 511 - (stateFrames * 5) % 512, 0, 4, 32, 1,
-                                        511 - (stateFrames * 10) % 512, 511 - (stateFrames * 30) % 512, 8, 16));
+                       Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 511 - (uintptr_t)(stateFrames * 5) % 512, 0, 4, 32, 1,
+                                        511 - (uintptr_t)(stateFrames * 10) % 512, 511 - (uintptr_t)(stateFrames * 30) % 512, 8, 16));
         gSPDisplayList(POLY_XLU_DISP++, sModelDL);
 
         CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_light.c", 664);

@@ -11,7 +11,6 @@
 #include "overlays/actors/ovl_Item_Etcetera/z_item_etcetera.h"
 #include "overlays/actors/ovl_En_Ex_Item/z_en_ex_item.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 
 #define FLAGS 0
 

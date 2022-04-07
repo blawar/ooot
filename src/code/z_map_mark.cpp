@@ -12,7 +12,6 @@
 #include "def/game.h"
 #include "def/logutils.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_map_exp.h"
 #include "def/z_map_mark.h"
 #include "def/graph.h" // FORCE

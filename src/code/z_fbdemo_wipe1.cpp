@@ -8,7 +8,6 @@
 #include "def/rotate.h"
 #include "def/scale.h"
 #include "def/translate.h"
-#include "def/z_common_data.h"
 #include "def/z_fbdemo_wipe1.h"
 #include "def/z_rcp.h"
 

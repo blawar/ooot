@@ -146,7 +146,7 @@ struct Player {
     /* 0x01F8 */ Vec3s      jointTable[PLAYER_LIMB_BUF_COUNT];
     /* 0x0288 */ Vec3s      morphTable[PLAYER_LIMB_BUF_COUNT];
     /* 0x0318 */ Vec3s      blendTable[PLAYER_LIMB_BUF_COUNT];
-    /* 0x03A8 */ s16        unk_3A8[2];
+    /* 0x03A8 */ Timer        unk_3A8[2];
     /* 0x03AC */ Actor*     heldActor;
     /* 0x03B0 */ Vec3f      leftHandPos;
     /* 0x03BC */ Vec3s      unk_3BC;
@@ -155,7 +155,7 @@ struct Player {
     /* 0x03D4 */ char       unk_3D4[0x058];
     /* 0x042C */ s8         doorType;
     /* 0x042D */ s8         doorDirection;
-    /* 0x042E */ s16        doorTimer;
+    /* 0x042E */ Timer doorTimer;
     /* 0x0430 */ Actor*     doorActor;
     /* 0x0434 */ s8         getItemId;
     /* 0x0436 */ u16        getItemDirection;
@@ -178,7 +178,7 @@ struct Player {
     /* 0x0498 */ ColliderCylinder cylinder;
     /* 0x04E4 */ ColliderQuad swordQuads[2];
     /* 0x05E4 */ ColliderQuad shieldQuad;
-    /* 0x0664 */ Actor*     unk_664;
+    /* 0x0664 */ Actor*     targetedActor;
     /* 0x0668 */ char       unk_668[0x004];
     /* 0x066C */ s32        unk_66C;
     /* 0x0670 */ s32        swordEffectIndex;
@@ -216,26 +216,26 @@ struct Player {
     /* 0x079C */ Vec3s      morphTable2[PLAYER_LIMB_BUF_COUNT];
     /* 0x082C */ PlayerFunc82C func_82C;
     /* 0x0830 */ f32        unk_830;
-    /* 0x0834 */ s16        unk_834;
+    /* 0x0834 */ Timer        unk_834;
     /* 0x0836 */ s8         unk_836;
-    /* 0x0837 */ u8         unk_837;
+    /* 0x0837 */ Timer         unk_837;
     /* 0x0838 */ f32        linearVelocity;
     /* 0x083C */ s16        currentYaw;
     /* 0x083E */ s16        targetYaw;
     /* 0x0840 */ u16        unk_840;
     /* 0x0842 */ s8         swordAnimation;
     /* 0x0843 */ s8         swordState;
-    /* 0x0844 */ s8         unk_844;
+    /* 0x0844 */ Timer         unk_844;
     /* 0x0845 */ u8         unk_845;
     /* 0x0846 */ u8         unk_846;
     /* 0x0847 */ s8         unk_847[4];
     /* 0x084B */ s8         unk_84B[4];
     /* 0x084F */ s8         unk_84F;
-    /* 0x0850 */ s16        unk_850; // multipurpose timer
+    /* 0x0850 */ Timer        unk_850; // multipurpose timer
     /* 0x0854 */ f32        unk_854;
     /* 0x0858 */ f32        unk_858;
     /* 0x085C */ f32        unk_85C; // stick length among other things
-    /* 0x0860 */ s16        unk_860; // stick flame timer among other things
+    /* 0x0860 */ Timer        unk_860; // stick flame timer among other things
     /* 0x0862 */ s8         unk_862; // get item draw ID + 1
     /* 0x0864 */ f32        unk_864;
     /* 0x0868 */ f32        unk_868;
@@ -253,9 +253,9 @@ struct Player {
     /* 0x088E */ u8         unk_88E;
     /* 0x088F */ u8         unk_88F;
     /* 0x0890 */ u8         unk_890;
-    /* 0x0891 */ u8         shockTimer;
+    /* 0x0891 */ Timer         shockTimer;
     /* 0x0892 */ u8         unk_892;
-    /* 0x0893 */ u8         hoverBootsTimer;
+    /* 0x0893 */ Timer         hoverBootsTimer;
     /* 0x0894 */ s16        fallStartHeight; // last truncated Y position before falling
     /* 0x0896 */ s16        fallDistance; // truncated Y distance the player has fallen so far (positive is down)
     /* 0x0898 */ s16        unk_898;
@@ -274,10 +274,10 @@ struct Player {
     /* 0x09E0 */ MtxF       mf_9E0;
     /* 0x0A20 */ MtxF       shieldMf;
     /* 0x0A60 */ u8         isBurning;
-    /* 0x0A61 */ u8         flameTimers[18]; // one flame per body part
+    /* 0x0A61 */ Timer         flameTimers[18]; // one flame per body part
     /* 0x0A73 */ u8         unk_A73;
     /* 0x0A74 */ PlayerFuncA74 func_A74;
-    /* 0x0A78 */ s8         invincibilityTimer; // prevents damage when nonzero (positive = visible, counts towards zero each frame)
+    /* 0x0A78 */ Timer         invincibilityTimer; // prevents damage when nonzero (positive = visible, counts towards zero each frame)
     /* 0x0A79 */ u8         unk_A79;
     /* 0x0A7A */ u8         unk_A7A;
     /* 0x0A7B */ u8         unk_A7B;

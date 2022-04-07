@@ -25,7 +25,6 @@
 #include "def/z_actor.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_demo.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_kankyo.h"
@@ -3950,7 +3949,7 @@ void BossGanon_LightBall_Update(Actor* thisx, GlobalContext* globalCtx2) {
         zDistFromLink = player->actor.world.pos.z - pthis->actor.world.pos.z;
 
         func_8002D908(&pthis->actor);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
 
         switch (pthis->unk_1C2) {
             case 0:
@@ -4223,7 +4222,7 @@ void func_808E1EB4(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     func_8002D908(&pthis->actor);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 
     pthis->unk_1A6++;
 
@@ -4350,7 +4349,7 @@ void func_808E2544(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     func_8002D908(&pthis->actor);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 
     pthis->unk_1A6++;
 
@@ -4439,7 +4438,7 @@ void func_808E2544(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->unk_1C2 = 0xC;
                 pthis->actor.speedXZ = -30.0f;
                 func_8002D908(&pthis->actor);
-                func_8002D7EC(&pthis->actor);
+                Actor_UpdatePosition(&pthis->actor);
                 pthis->unk_1F0 = dorf->unk_1FC;
                 numEffects = 10;
                 break;
@@ -4456,7 +4455,7 @@ void func_808E2544(Actor* thisx, GlobalContext* globalCtx) {
                     pthis->actor.speedXZ = -30.0f;
 
                     func_8002D908(&pthis->actor);
-                    func_8002D7EC(&pthis->actor);
+                    Actor_UpdatePosition(&pthis->actor);
 
                     pthis->unk_1F0.x = Rand_CenteredFloat(700.0f) + dorf->unk_1FC.x;
                     pthis->unk_1F0.y = Rand_CenteredFloat(200.0f) + dorf->unk_1FC.y;

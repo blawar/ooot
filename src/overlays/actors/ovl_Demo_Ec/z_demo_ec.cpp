@@ -193,7 +193,7 @@ void func_8096D64C(DemoEc* pthis, GlobalContext* globalCtx) {
 
 void DemoEc_UpdateEyes(DemoEc* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyeTexIndex = &pthis->eyeTexIndex;
 
     if (DECR(*blinkTimer) == 0) {

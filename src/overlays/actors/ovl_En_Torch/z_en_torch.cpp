@@ -8,7 +8,6 @@
 
 #include "z_en_torch.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 
 #define FLAGS 0
 

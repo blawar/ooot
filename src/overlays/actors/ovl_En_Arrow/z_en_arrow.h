@@ -18,7 +18,7 @@ struct EnArrow {
     /* 0x021C */ Vec3f unk_21C;
     /* 0x0228 */ s32 effectIndex;
     /* 0x022C */ WeaponInfo weaponInfo;
-    /* 0x0248 */ u8 timer; // used for dissapearing when flying or hitting a wall
+    /* 0x0248 */ Timer timer; // used for dissapearing when flying or hitting a wall
     /* 0x0249 */ u8 hitFlags;
     /* 0x024A */ u8 touchedPoly;
     /* 0x024B */ u8 isCsNut;

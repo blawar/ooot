@@ -7,13 +7,13 @@
  */
 
 #include "z_en_ma3.h"
+#include "player_state.h"
 #include "objects/object_ma2/object_ma2.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_btltbls.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
 #include "def/z_rcp.h"

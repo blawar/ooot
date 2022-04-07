@@ -48,7 +48,7 @@ static u32 sFlags[3][2] = { { 0, 0 }, { 1, 0 }, { 0, 1 } };
 static void (*sFlagSwitchFuncs[])(GlobalContext* globalCtx, s32 flag) = { Flags_UnsetSwitch, Flags_SetSwitch };
 
 void ObjMakeoshihiki_Init(Actor* thisx, GlobalContext* globalCtx) {
-    BlockConfig* block = &sBlocks[thisx->home.rot.z & 1];
+    BlockConfig* block = &sBlocks[thisx->home.rot.z.whole() & 1];
     s32 typeIdx;
     Vec3f* spawnPos;
 
@@ -80,7 +80,7 @@ void ObjMakeoshihiki_Init(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void ObjMakeoshihiki_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    BlockConfig* block = &sBlocks[thisx->home.rot.z & 1];
+    BlockConfig* block = &sBlocks[thisx->home.rot.z.whole() & 1];
     s32 i;
     s32 sfxCond1;
     s32 sfxCond2;

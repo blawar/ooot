@@ -11,7 +11,6 @@ extern Gfx gCullBackDList[];
 #include "objects/object_link_boy/object_link_boy.h"
 #include "objects/object_link_child/object_link_child.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"
@@ -70,7 +69,7 @@ void EffectSsStick_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
         Matrix_RotateZYX(0, pthis->rYaw, 0, MTXMODE_APPLY);
     } else {
         Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
-        Matrix_RotateZYX(0, pthis->rYaw, (globalCtx->state.frames * 10000).whole(), MTXMODE_APPLY);
+        Matrix_RotateZYX(0, pthis->rYaw, globalCtx->state.frames * 10000, MTXMODE_APPLY);
     }
 
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_ss_stick.c", 176),

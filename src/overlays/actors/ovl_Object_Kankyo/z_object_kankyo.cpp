@@ -18,7 +18,6 @@
 #include "def/sys_math3d.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_object_kankyo.h"
@@ -231,24 +230,27 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx) {
 
         func_800F436C(&sSoundPos_53, NA_SE_EV_NAVY_FLY - SFX_FLAG, (0.4f * dist) + 0.6f);
 
-        switch(globalCtx->csCtx.frames)
-        {
-            case 473:
-                Common_PlaySfx2(NA_SE_VO_NA_HELLO_3);
-                break;
+        if(globalCtx->csCtx.frames.isWhole())
+	    {
+		    switch(globalCtx->csCtx.frames.whole())
+		    {
+			    case 473:
+				    Common_PlaySfx2(NA_SE_VO_NA_HELLO_3);
+				    break;
 
-            case 583:
-                func_800F4524(&gAudioDefaultPos, NA_SE_VO_NA_HELLO_2, 32);
-                break;
+			    case 583:
+				    func_800F4524(&gAudioDefaultPos, NA_SE_VO_NA_HELLO_2, 32);
+				    break;
 
-            case 763:
-                Common_PlaySfx(NA_SE_EV_NAVY_CRASH - SFX_FLAG);
-                break;
+			    case 763:
+				    Common_PlaySfx(NA_SE_EV_NAVY_CRASH - SFX_FLAG);
+				    break;
 
-            case 771:
-                Common_PlaySfx(NA_SE_VO_RT_THROW);
-                break;
-        }
+			    case 771:
+				    Common_PlaySfx(NA_SE_VO_RT_THROW);
+				    break;
+		    }
+	    }
     }
 
     if (globalCtx->envCtx.unk_EE[3] < 64 &&
@@ -587,7 +589,7 @@ void ObjectKankyo_DrawFairies(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
             }
 
             Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
-            Matrix_RotateZ(DEG_TO_RAD((globalCtx->state.frames * 20.0f).toFloat()), MTXMODE_APPLY);
+            Matrix_RotateZ(DEG_TO_RAD(globalCtx->state.frames * 20.0f), MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 913), G_MTX_LOAD);
             gSPDisplayList(POLY_XLU_DISP++, gKokiriDustMoteDL);
         }
@@ -948,9 +950,9 @@ void ObjectKankyo_DrawBeams(ObjectKankyo* pthis2, GlobalContext* globalCtx2) {
                 gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1586),
                           G_MTX_LOAD);
                 gSPSegment(POLY_XLU_DISP++, 0x08,
-                           Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->state.frames * 5).whole(),
-                                            (globalCtx->state.frames * 10).whole(), 32, 64, 1, (globalCtx->state.frames * 5).whole(),
-                                            (globalCtx->state.frames * 10).whole(), 32, 64));
+                           Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->state.frames * 5,
+                                            globalCtx->state.frames * 10, 32, 64, 1, globalCtx->state.frames * 5,
+                                            globalCtx->state.frames * 10, 32, 64));
                 gSPDisplayList(POLY_XLU_DISP++, gDemoKekkaiDL_005FF0);
             }
         }

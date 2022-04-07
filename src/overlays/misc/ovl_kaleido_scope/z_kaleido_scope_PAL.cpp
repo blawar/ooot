@@ -36,7 +36,6 @@
 #include "def/sleep.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
-#include "def/z_common_data.h"
 #include "def/z_map_exp.h"
 #include "def/z_map_mark.h"
 #include "def/z_parameter.h"
@@ -44,7 +43,6 @@
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"
 #include "def/z_scene.h"
-#include "def/z_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 
@@ -3797,7 +3795,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 								Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 								Gameplay_SaveSceneFlags(globalCtx);
 								gSaveContext.savedSceneNum = globalCtx->sceneNum;
-								Sram_WriteSave(&globalCtx->sramCtx);
+								gSaveContext.save();
 								pauseCtx->unk_1EC = 4;
 								D_8082B25C = 3;
 							}
@@ -4047,7 +4045,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						pauseCtx->promptChoice = 0;
 						Gameplay_SaveSceneFlags(globalCtx);
 						gSaveContext.savedSceneNum = globalCtx->sceneNum;
-						Sram_WriteSave(&globalCtx->sramCtx);
+						gSaveContext.save();
 						pauseCtx->state = 0xF;
 						D_8082B25C = 3;
 					}

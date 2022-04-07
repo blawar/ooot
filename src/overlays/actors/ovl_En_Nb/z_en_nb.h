@@ -82,7 +82,7 @@ struct EnNb {
     /* 0x0190 */ Vec3s jointTable[NB_LIMB_MAX];
     /* 0x0202 */ Vec3s morphTable[NB_LIMB_MAX];
     /* 0x0274 */ s16 eyeIdx;
-    /* 0x0276 */ s16 blinkTimer;
+    /* 0x0276 */ Timer blinkTimer;
     /* 0x0278 */ s32 action;
     /* 0x027C */ s32 drawMode;
     /* 0x0280 */ f32 alphaTimer;

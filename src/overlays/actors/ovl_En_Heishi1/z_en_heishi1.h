@@ -16,7 +16,7 @@ struct EnHeishi1 {
     /* 0x0190 */ Vec3s jointTable[17];
     /* 0x01F6 */ Vec3s morphTable[17];
     /* 0x025C */ EnHeishi1ActionFunc actionFunc;
-    /* 0x0260 */ s16 activeTimer; 
+    /* 0x0260 */ Timer activeTimer; 
     /* 0x0262 */ s16 headDirection;
     /* 0x0264 */ s16 headBehaviorDecided;
     /* 0x0266 */ s16 linkDetected;
@@ -24,7 +24,7 @@ struct EnHeishi1 {
     /* 0x026A */ s16 type;
     /* 0x026C */ s16 path;
     /* 0x026E */ s16 unused1;
-    /* 0x0270 */ s16 waypointTimer;
+    /* 0x0270 */ Timer waypointTimer;
     /* 0x0272 */ s16 unused2;
     /* 0x0274 */ f32 moveSpeed;
     /* 0x0278 */ f32 bodyTurnSpeed;
@@ -45,11 +45,11 @@ struct EnHeishi1 {
     };
     union {
         struct {
-            /* 0x02A4 */ s16 headTimer;
-            /* 0x02A6 */ s16 waitTimer;
-            /* 0x02A8 */ s16 kickTimer;
+            /* 0x02A4 */ Timer headTimer;
+            /* 0x02A6 */ Timer waitTimer;
+            /* 0x02A8 */ Timer kickTimer;
         };
-        s16 timers[3];
+        Timer timers[3];
     };
     /* 0x02AA */ s16 waypoint;
 } EnHeishi1; 

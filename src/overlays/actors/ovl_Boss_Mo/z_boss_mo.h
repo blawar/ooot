@@ -150,8 +150,8 @@ struct BossMo {
     /* 0x0176 */ s16 linkToLeft;
     /* 0x0178 */ s16 mashCounter;
     /* 0x017A */ s16 noBubbles;
-    /* 0x017C */ s16 sfxTimer;
-    /* 0x017E */ s16 timers[5];
+    /* 0x017C */ Timer sfxTimer;
+    /* 0x017E */ Timer timers[5];
     /* 0x0188 */ f32 fwork[MO_FLOAT_MAX];
     /* 0x01A4 */ f32 baseAlpha;
     /* 0x01A8 */ f32 cutScale;
@@ -163,7 +163,7 @@ struct BossMo {
     /* 0x01C0 */ f32 flattenRate;
     /* 0x01C4 */ f32 waterTexAlpha;
     /* 0x01C8 */ f32 waterLevelMod;
-    /* 0x01CC */ s16 baseBubblesTimer;
+    /* 0x01CC */ Timer baseBubblesTimer;
     /* 0x01CE */ s16 attackAngleMod;
     /* 0x01D0 */ u8 unk_1D0; // unused?
     /* 0x01D1 */ u8 drawActor;

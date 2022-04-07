@@ -11,7 +11,6 @@ struct FileChooseContext {
     /* 0x000A4 */ Vtx* windowVtx;
     /* 0x000B0 */ char unk_B0[0x8];
     /* 0x000B8 */ View view;
-    /* 0x001E0 */ SramContext sramCtx;
     /* 0x001E4 */ char unk_1E4[0x4];
     /* 0x001E8 */ SkyboxContext skyboxCtx;
     /* 0x00348 */ MessageContext msgCtx;

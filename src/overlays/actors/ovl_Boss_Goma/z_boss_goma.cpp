@@ -16,7 +16,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_demo.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_lib.h"
@@ -1121,9 +1120,8 @@ void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx) {
 
                 for (i = 0; i < 4; i++) {
                     BossGoma_ClearPixels(sClearPixelTableFirstPass, pthis->decayingProgress);
-                    //! @bug pthis allows pthis->decayingProgress = 0x100 = 256 which is out of bounds when accessing
-                    // sClearPixelTableFirstPass, though timers may prevent pthis from ever happening?
-                    if (pthis->decayingProgress < 0x100) {
+
+                    if (pthis->decayingProgress < 0x100 - 1) {
                         pthis->decayingProgress++;
                     }
                 }
@@ -1195,8 +1193,8 @@ void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx) {
 
             for (i = 0; i < 4; i++) {
                 BossGoma_ClearPixels(sClearPixelTableSecondPass, pthis->decayingProgress);
-                //! @bug same as sClearPixelTableFirstPass
-                if (pthis->decayingProgress < 0x100) {
+
+                if (pthis->decayingProgress < 0x100 - 1) {
                     pthis->decayingProgress++;
                 }
             }
@@ -1205,8 +1203,8 @@ void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx) {
         case 3:
             for (i = 0; i < 4; i++) {
                 BossGoma_ClearPixels(sClearPixelTableSecondPass, pthis->decayingProgress);
-                //! @bug same as sClearPixelTableFirstPass
-                if (pthis->decayingProgress < 0x100) {
+
+                if (pthis->decayingProgress < 0x100 - 1) {
                     pthis->decayingProgress++;
                 }
             }
@@ -1510,23 +1508,27 @@ void BossGoma_CeilingSpawnGohmas(BossGoma* pthis, GlobalContext* globalCtx) {
     Math_ApproachZeroF(&pthis->actor.speedXZ, 0.5f, 2.0f);
     pthis->spawnGohmasActionTimer++;
 
-    switch (pthis->spawnGohmasActionTimer) {
-        case 24:
-            // BOSSGOMA_LIMB_TAIL1, the tail limb closest to the body
-            pthis->tailLimbsScaleTimers[3] = 10;
-            break;
-        case 32:
-            // BOSSGOMA_LIMB_TAIL2
-            pthis->tailLimbsScaleTimers[2] = 10;
-            break;
-        case 40:
-            // BOSSGOMA_LIMB_TAIL3
-            pthis->tailLimbsScaleTimers[1] = 10;
-            break;
-        case 48:
-            // BOSSGOMA_LIMB_TAIL4, the furthest from the body
-            pthis->tailLimbsScaleTimers[0] = 10;
-            break;
+    if(pthis->spawnGohmasActionTimer.isWhole())
+    {
+	    switch(pthis->spawnGohmasActionTimer.whole())
+	    {
+		    case 24:
+			    // BOSSGOMA_LIMB_TAIL1, the tail limb closest to the body
+			    pthis->tailLimbsScaleTimers[3] = 10;
+			    break;
+		    case 32:
+			    // BOSSGOMA_LIMB_TAIL2
+			    pthis->tailLimbsScaleTimers[2] = 10;
+			    break;
+		    case 40:
+			    // BOSSGOMA_LIMB_TAIL3
+			    pthis->tailLimbsScaleTimers[1] = 10;
+			    break;
+		    case 48:
+			    // BOSSGOMA_LIMB_TAIL4, the furthest from the body
+			    pthis->tailLimbsScaleTimers[0] = 10;
+			    break;
+	    }
     }
 
     if (pthis->tailLimbsScaleTimers[0] == 2) {
@@ -1623,13 +1625,13 @@ void BossGoma_FloorMain(BossGoma* pthis, GlobalContext* globalCtx) {
     SkelAnime_Update(&pthis->skelanime);
 
     if (Animation_OnFrame(&pthis->skelanime, 1.0f)) {
-        pthis->doNotMoveThisFrame = true;
+        pthis->doNotMoveThisFrame = 1;
     } else if (Animation_OnFrame(&pthis->skelanime, 30.0f)) {
-        pthis->doNotMoveThisFrame = true;
+        pthis->doNotMoveThisFrame = 1;
     } else if (Animation_OnFrame(&pthis->skelanime, 15.0f)) {
-        pthis->doNotMoveThisFrame = true;
+        pthis->doNotMoveThisFrame = 1;
     } else if (Animation_OnFrame(&pthis->skelanime, 16.0f)) {
-        pthis->doNotMoveThisFrame = true;
+        pthis->doNotMoveThisFrame = 1;
     }
 
     if (Animation_OnFrame(&pthis->skelanime, 15.0f)) {
@@ -1950,7 +1952,7 @@ void BossGoma_Update(Actor* thisx, GlobalContext* globalCtx) {
     if (!pthis->doNotMoveThisFrame) {
         Actor_MoveForward(&pthis->actor);
     } else {
-        pthis->doNotMoveThisFrame = false;
+        pthis->doNotMoveThisFrame.dec();
     }
 
     if (pthis->actor.world.pos.y < -400.0f) {

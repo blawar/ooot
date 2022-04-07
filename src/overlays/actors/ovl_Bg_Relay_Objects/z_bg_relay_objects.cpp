@@ -15,7 +15,6 @@
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_play.h"
 #include "def/z_player_lib.h"

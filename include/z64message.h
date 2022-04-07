@@ -5,9 +5,20 @@
 
 struct OcarinaStaff;
 
-typedef enum { TEXTBOX_ICON_TRIANGLE, TEXTBOX_ICON_SQUARE, TEXTBOX_ICON_ARROW } TextBoxIcon;
+enum TextBoxIcon
+{
+	TEXTBOX_ICON_TRIANGLE,
+	TEXTBOX_ICON_SQUARE,
+	TEXTBOX_ICON_ARROW
+};
 
-typedef enum { LANGUAGE_ENG, LANGUAGE_GER, LANGUAGE_FRA, LANGUAGE_MAX } Language;
+enum Language
+{
+	LANGUAGE_ENG,
+	LANGUAGE_GER,
+	LANGUAGE_FRA,
+	LANGUAGE_MAX
+};
 
 // TODO get these properties from the textures themselves
 #define FONT_CHAR_TEX_WIDTH 16
@@ -129,7 +140,7 @@ struct MessageContext {
     /* 0xE306 */ u8 msgBufDecoded[200]; // decoded message buffer, may be smaller than this
     /* 0xE3CE */ u16 msgBufPos;         // original name : "rdp"
     /* 0xE3D0 */ u16 unk_E3D0;          // unused, only ever set to 0
-    /* 0xE3D2 */ u16 textDrawPos;       // draw all decoded characters up to this buffer position
+    /* 0xE3D2 */ Counter textDrawPos;       // draw all decoded characters up to this buffer position
     /* 0xE3D4 */ u16 decodedTextLen;    // decoded message buffer length
     /* 0xE3D6 */ u16 textUnskippable;
     /* 0xE3D8 */ s16 textPosX;
@@ -142,7 +153,7 @@ struct MessageContext {
     /* 0xE3E5 */ u8 choiceIndex;
     /* 0xE3E6 */ u8 choiceNum; // textboxes that are not choice textboxes have a choiceNum of 1
     /* 0xE3E7 */ u8 stateTimer;
-    /* 0xE3E8 */ u16 textDelayTimer;
+    /* 0xE3E8 */ Timer textDelayTimer;
     /* 0xE3EA */ u16 textDelay;
     /* 0xE3EA */ u16 lastPlayedSong; // original references : "Ocarina_Flog" , "Ocarina_Free"
     /* 0xE3EE */ u16 ocarinaMode;    // original name : "ocarina_mode"

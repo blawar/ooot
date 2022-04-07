@@ -16,7 +16,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_elf_message.h"
 #include "def/z_kankyo.h"
@@ -128,7 +127,7 @@ void func_80A01C38(EnElf* pthis, s32 arg1) {
             pthis->unk_2AE = 0x400;
             pthis->unk_2B0 = 0x200;
             pthis->func_2C8 = func_80A02A20;
-            pthis->unk_2C0 = 100;
+            pthis->unkTimer2C0 = 100;
             pthis->unk_2B4 = 5.0f;
             pthis->unk_2B8 = 20.0f;
             pthis->skelAnime.playSpeed = 1.0f;
@@ -137,7 +136,7 @@ void func_80A01C38(EnElf* pthis, s32 arg1) {
             pthis->unk_2AE = 0x400;
             pthis->unk_2B0 = 0x200;
             pthis->func_2C8 = func_80A02A20;
-            pthis->unk_2C0 = 100;
+            pthis->unkTimer2C0 = 100;
             pthis->unk_2B4 = 1.0f;
             pthis->unk_2B8 = 5.0f;
             pthis->skelAnime.playSpeed = 1.0f;
@@ -161,7 +160,7 @@ void func_80A01C38(EnElf* pthis, s32 arg1) {
         case 7:
             pthis->func_2C8 = func_80A02A20;
             pthis->unk_2AE = 0x1E;
-            pthis->unk_2C0 = 1;
+            pthis->unkTimer2C0 = 1;
             pthis->unk_2B4 = 0.0f;
             pthis->unk_2B8 = 0.0f;
             pthis->skelAnime.playSpeed = 1.0f;
@@ -223,7 +222,7 @@ void func_80A01C38(EnElf* pthis, s32 arg1) {
             pthis->unk_2AE = 0x400;
             pthis->unk_2B0 = 0x2000;
             pthis->func_2C8 = func_80A02A20;
-            pthis->unk_2C0 = 42;
+            pthis->unkTimer2C0 = 42;
             pthis->unk_2B4 = 5.0f;
             pthis->unk_2B8 = 1.0f;
             pthis->skelAnime.playSpeed = 1.0f;
@@ -244,8 +243,8 @@ void func_80A01FE0(EnElf* pthis, GlobalContext* globalCtx) {
         pthis->unk_2B8 = 2.0f;
     }
 
-    if (pthis->unk_2C0 > 0) {
-        pthis->unk_2C0--;
+    if (pthis->unkTimer2C0 > 0) {
+        pthis->unkTimer2C0--;
     } else {
         pthis->unk_2A8 = 1;
         pthis->unk_2AC = 0x80;
@@ -259,8 +258,8 @@ void func_80A020A4(EnElf* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (func_80A01F90(&pthis->actor.world.pos, &player->actor.world.pos, 50.0f)) {
-        if (pthis->unk_2C0 > 0) {
-            pthis->unk_2C0--;
+        if (pthis->unkTimer2C0 > 0) {
+            pthis->unkTimer2C0--;
         } else {
             pthis->unk_2A8 = 1;
             pthis->unk_2AC = 0x80;
@@ -274,8 +273,8 @@ void func_80A020A4(EnElf* pthis, GlobalContext* globalCtx) {
 void func_80A0214C(EnElf* pthis, GlobalContext* globalCtx) {
     f32 xzDistToPlayer;
 
-    if (pthis->unk_2C0 > 0) {
-        pthis->unk_2C0--;
+    if (pthis->unkTimer2C0 > 0) {
+        pthis->unkTimer2C0--;
     } else {
         xzDistToPlayer = pthis->actor.xzDistToPlayer;
         if (xzDistToPlayer < 50.0f) {
@@ -285,9 +284,9 @@ void func_80A0214C(EnElf* pthis, GlobalContext* globalCtx) {
                 pthis->unk_2B8 = 2.0f;
                 pthis->func_2C8 = func_80A020A4;
                 pthis->actor.speedXZ = 1.5f;
-                pthis->unk_2C0 = (s16)Rand_ZeroFloat(8.0f) + 4;
+                pthis->unkTimer2C0 = (s16)Rand_ZeroFloat(8.0f) + 4;
             } else {
-                pthis->unk_2C0 = 10;
+                pthis->unkTimer2C0 = 10;
             }
         } else {
             if (xzDistToPlayer > 150.0f) {
@@ -301,9 +300,9 @@ void func_80A0214C(EnElf* pthis, GlobalContext* globalCtx) {
                 pthis->unk_2AC = 0x200;
                 pthis->unk_2B8 = (xzDistToPlayer * 2.0f) + 1.0f;
                 pthis->func_2C8 = func_80A01FE0;
-                pthis->unk_2C0 = (s16)Rand_ZeroFloat(16.0f) + 0x10;
+                pthis->unkTimer2C0 = (s16)Rand_ZeroFloat(16.0f) + 0x10;
             } else {
-                pthis->unk_2C0 = 10;
+                pthis->unkTimer2C0 = 10;
             }
         }
     }
@@ -371,7 +370,7 @@ void EnElf_Init(Actor* thisx, GlobalContext* globalCtx) {
             pthis->fairyFlags |= 4;
             thisx->update = func_80A053F0;
             pthis->elfMsg = NULL;
-            pthis->unk_2C7 = 0x14;
+            pthis->unkTimer2C7 = 0x14;
 
             if ((gSaveContext.naviTimer >= 25800) || (gSaveContext.naviTimer < 3000)) {
                 gSaveContext.naviTimer = 0;
@@ -412,7 +411,7 @@ void EnElf_Init(Actor* thisx, GlobalContext* globalCtx) {
             pthis->unk_2BC = Rand_CenteredFloat(32767.0f);
             pthis->func_2C8 = func_80A0214C;
             func_80A0232C(pthis, globalCtx);
-            pthis->unk_2C0 = 0;
+            pthis->unkTimer2C0 = 0;
             pthis->disappearTimer = 240;
             break;
         case FAIRY_KOKIRI:
@@ -489,7 +488,7 @@ void func_80A02AA4(EnElf* pthis, GlobalContext* globalCtx) {
 void func_80A02B38(EnElf* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    pthis->unk_2AA = (pthis->unk_2AC * 2) & 0xFFFF;
+    pthis->unk_2AA = (pthis->unk_2AC.whole() * 2) & 0xFFFF;
     pthis->unk_28C.x = Math_SinS(pthis->unk_2AC) * pthis->unk_2B8;
     pthis->unk_28C.y = Math_SinS(pthis->unk_2AA) * pthis->unk_2B4;
     pthis->unk_28C.z = -Math_SinS(player->actor.shape.rot.y) * pthis->unk_28C.x;
@@ -529,14 +528,14 @@ void func_80A02C98(EnElf* pthis, Vec3f* targetPos, f32 arg2) {
     func_80A02BD8(pthis, targetPos, arg2);
     Math_StepToF(&pthis->actor.velocity.x, xVelTarget, 1.5f);
     Math_StepToF(&pthis->actor.velocity.z, zVelTarget, 1.5f);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 void func_80A02E30(EnElf* pthis, Vec3f* targetPos) {
     func_80A02BD8(pthis, targetPos, 0.2f);
     pthis->actor.velocity.x = (targetPos->x + pthis->unk_28C.x) - pthis->actor.world.pos.x;
     pthis->actor.velocity.z = (targetPos->z + pthis->unk_28C.z) - pthis->actor.world.pos.z;
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.world.pos.x = targetPos->x + pthis->unk_28C.x;
     pthis->actor.world.pos.z = targetPos->z + pthis->unk_28C.z;
 }
@@ -544,7 +543,7 @@ void func_80A02E30(EnElf* pthis, Vec3f* targetPos) {
 void func_80A02EC0(EnElf* pthis, Vec3f* targetPos) {
     func_80A02BD8(pthis, targetPos, 0.2f);
     pthis->actor.velocity.x = pthis->actor.velocity.z = 0.0f;
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.world.pos.x = targetPos->x + pthis->unk_28C.x;
     pthis->actor.world.pos.z = targetPos->z + pthis->unk_28C.z;
 }
@@ -589,7 +588,7 @@ void func_80A03018(EnElf* pthis, GlobalContext* globalCtx) {
             break;
     }
 
-    Math_SmoothStepToS(&pthis->unk_2BC, targetYaw, 10, pthis->unk_2AC, 0x20);
+    Math_SmoothStepToS(&pthis->unk_2BC, targetYaw, 10, pthis->unk_2AC.whole(), 0x20);
     pthis->actor.world.rot.y = pthis->unk_2BC;
     Actor_MoveForward(&pthis->actor);
 }
@@ -619,7 +618,7 @@ void func_80A03148(EnElf* pthis, Vec3f* arg1, f32 arg2, f32 arg3, f32 arg4) {
 
     Math_StepToF(&pthis->actor.velocity.x, xVelTarget, 5.0f);
     Math_StepToF(&pthis->actor.velocity.z, zVelTarget, 5.0f);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 void func_80A0329C(EnElf* pthis, GlobalContext* globalCtx) {
@@ -722,7 +721,7 @@ void func_80A03610(EnElf* pthis, GlobalContext* globalCtx) {
     pthis->unk_28C.x = Math_CosS(pthis->unk_2AC) * pthis->unk_2B8;
     pthis->unk_28C.y = pthis->unk_28C.y + pthis->unk_2B4;
 
-    switch (pthis->unk_2AA) {
+    switch (pthis->unk_2AA.whole()) {
         case 0:
             if (pthis->unk_2B4 < 2.0f) {
                 pthis->unk_2B4 += 0.1f;
@@ -917,7 +916,7 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx) {
                 xScale = Math_Vec3f_DistXYZ(&player->bodyPartsPos[8], &pthis->actor.world.pos);
 
                 if (distFromLinksHead < 7.0f) {
-                    pthis->unk_2C0 = 0;
+                    pthis->unkTimer2C0 = 0;
                     xScale = 0.0f;
                 } else if (distFromLinksHead < 25.0f) {
                     xScale = (xScale - 5.0f) * 0.05f;
@@ -947,8 +946,8 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx) {
                     pthis->unk_2B8 -= 1.0f;
                 }
 
-                if (pthis->unk_2C0 < 0x20) {
-                    pthis->unk_2B0 = (pthis->unk_2C0 * 0xF0) + 0x200;
+                if (pthis->unkTimer2C0 < 0x20) {
+                    pthis->unk_2B0 = (pthis->unkTimer2C0 * 0xF0) + 0x200;
                     func_80A0299C(pthis, 1);
                 }
                 break;
@@ -985,11 +984,11 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx) {
                         if (distFromLinksHead > 100.0f) {
                             pthis->fairyFlags |= 2;
 
-                            if (pthis->unk_2C7 == 0) {
+                            if (pthis->unkTimer2C7 == 0) {
                                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_FAIRY_DASH);
                             }
 
-                            pthis->unk_2C0 = 0x64;
+                            pthis->unkTimer2C0 = 0x64;
                         }
                         func_80A03148(pthis, &nextPos, 0.0f, pthis->unk_2A0, 0.2f);
                     }
@@ -1033,7 +1032,7 @@ void func_80A04414(EnElf* pthis, GlobalContext* globalCtx) {
         pthis->unk_2C6 = 0;
         pthis->unk_29C = 1.0f;
 
-        if (pthis->unk_2C7 == 0) {
+        if (pthis->unkTimer2C7 == 0) {
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_FAIRY_DASH);
         }
 
@@ -1058,11 +1057,11 @@ void func_80A04414(EnElf* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->fairyFlags & 1) {
-        if ((arrowPointedActor == NULL) || (player->unk_664 == NULL)) {
+        if ((arrowPointedActor == NULL) || (player->targetedActor == NULL)) {
             pthis->fairyFlags ^= 1;
         }
     } else {
-        if ((arrowPointedActor != NULL) && (player->unk_664 != NULL)) {
+        if ((arrowPointedActor != NULL) && (player->targetedActor != NULL)) {
             if (arrowPointedActor->category == ACTORCAT_NPC) {
                 targetSound = NA_SE_VO_NAVY_HELLO;
             } else {
@@ -1070,7 +1069,7 @@ void func_80A04414(EnElf* pthis, GlobalContext* globalCtx) {
                     (arrowPointedActor->category == ACTORCAT_ENEMY) ? NA_SE_VO_NAVY_ENEMY : NA_SE_VO_NAVY_HEAR;
             }
 
-            if (pthis->unk_2C7 == 0) {
+            if (pthis->unkTimer2C7 == 0) {
                 Audio_PlayActorSound2(&pthis->actor, targetSound);
             }
 
@@ -1102,7 +1101,7 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
             }
         } else {
             temp = 0;
-            pthis->unk_2C0 = 100;
+            pthis->unkTimer2C0 = 100;
         }
 
     } else {
@@ -1110,27 +1109,27 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
 
         if ((player->stateFlags1 & 0x400) || ((YREG(15) & 0x10) && func_800BC56C(globalCtx, 2))) {
             temp = 12;
-            pthis->unk_2C0 = 100;
+            pthis->unkTimer2C0 = 100;
         } else if (arrowPointedActor == NULL || arrowPointedActor->category == ACTORCAT_NPC) {
             if (arrowPointedActor != NULL) {
-                pthis->unk_2C0 = 100;
+                pthis->unkTimer2C0 = 100;
                 player->stateFlags2 |= 0x100000;
                 temp = 0;
             } else {
                 switch (pthis->unk_2A8) {
                     case 0:
-                        if (pthis->unk_2C0 != 0) {
-                            pthis->unk_2C0--;
+                        if (pthis->unkTimer2C0 != 0) {
+                            pthis->unkTimer2C0--;
                             temp = 0;
                         } else {
-                            if (pthis->unk_2C7 == 0) {
+                            if (pthis->unkTimer2C7 == 0) {
                                 Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_NAVY_VANISH);
                             }
                             temp = 7;
                         }
                         break;
                     case 7:
-                        if (pthis->unk_2C0 != 0) {
+                        if (pthis->unkTimer2C0 != 0) {
                             if (pthis->unk_2AE > 0) {
                                 pthis->unk_2AE--;
                                 temp = 7;
@@ -1148,8 +1147,8 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
                         break;
                     case 11:
                         temp = pthis->unk_2A8;
-                        if (pthis->unk_2C0 > 0) {
-                            pthis->unk_2C0--;
+                        if (pthis->unkTimer2C0 > 0) {
+                            pthis->unkTimer2C0--;
                         } else {
                             temp = 0;
                         }
@@ -1167,7 +1166,7 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
             case 0:
                 if (!(player->stateFlags2 & 0x100000)) {
                     temp = 7;
-                    if (pthis->unk_2C7 == 0) {
+                    if (pthis->unkTimer2C7 == 0) {
                         Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_NAVY_VANISH);
                     }
                 }
@@ -1175,9 +1174,9 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
             case 8:
                 if (player->stateFlags2 & 0x100000) {
                     func_80A0299C(pthis, 0x32);
-                    pthis->unk_2C0 = 42;
+                    pthis->unkTimer2C0 = 42;
                     temp = 11;
-                    if (pthis->unk_2C7 == 0) {
+                    if (pthis->unkTimer2C7 == 0) {
                         Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_FAIRY_DASH);
                     }
                 }
@@ -1241,7 +1240,7 @@ void func_80A04DE4(EnElf* pthis, GlobalContext* globalCtx) {
     if (pthis->fairyFlags & 0x10) {
         naviRefPos = globalCtx->actorCtx.targetCtx.naviRefPos;
 
-        if ((player->unk_664 == NULL) || (&player->actor == player->unk_664) || (&pthis->actor == player->unk_664)) {
+        if ((player->targetedActor == NULL) || (&player->actor == player->targetedActor) || (&pthis->actor == player->targetedActor)) {
             naviRefPos.x = player->bodyPartsPos[7].x + (Math_SinS(player->actor.shape.rot.y) * 20.0f);
             naviRefPos.y = player->bodyPartsPos[7].y + 5.0f;
             naviRefPos.z = player->bodyPartsPos[7].z + (Math_CosS(player->actor.shape.rot.y) * 20.0f);
@@ -1387,13 +1386,12 @@ void func_80A052F4(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void func_80A053F0(Actor* thisx, GlobalContext* globalCtx) {
-    u8 unk2C7;
     s32 pad;
     Player* player = GET_PLAYER(globalCtx);
     EnElf* pthis = (EnElf*)thisx;
 
     if (player->naviTextId == 0) {
-        if (player->unk_664 == NULL) {
+        if (player->targetedActor == NULL) {
             if (((gSaveContext.naviTimer >= 600) && (gSaveContext.naviTimer <= 3000)) || (nREG(89) != 0)) {
                 player->naviTextId = ElfMessage_GetCUpText(globalCtx);
 
@@ -1456,14 +1454,12 @@ void func_80A053F0(Actor* thisx, GlobalContext* globalCtx) {
                                  0.2f, 0.5f);
     }
 
-    // temp probably fake match
-    unk2C7 = pthis->unk_2C7;
-    if (unk2C7 > 0) {
-        pthis->unk_2C7--;
+    if (pthis->unkTimer2C7 > 0) {
+        pthis->unkTimer2C7--;
     }
 
-    if ((pthis->unk_2C7 == 0) && (globalCtx->csCtx.state != CS_STATE_IDLE)) {
-        pthis->unk_2C7 = 1;
+    if ((pthis->unkTimer2C7 == 0) && (globalCtx->csCtx.state != CS_STATE_IDLE)) {
+        pthis->unkTimer2C7 = 1;
     }
 
     func_80A04D90(pthis, globalCtx);
@@ -1529,7 +1525,7 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
             func_80094B58(globalCtx->state.gfxCtx);
 
-            envAlpha = (pthis->timer * 50) & 0x1FF;
+            envAlpha = (pthis->timer.whole() * 50) & 0x1FF;
             envAlpha = (envAlpha > 255) ? 511 - envAlpha : envAlpha;
 
             alphaScale = pthis->disappearTimer < 0 ? (pthis->disappearTimer * (7.0f / 6000.0f)) + 1.0f : 1.0f;

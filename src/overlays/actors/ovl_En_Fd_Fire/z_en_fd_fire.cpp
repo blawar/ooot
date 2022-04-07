@@ -191,7 +191,7 @@ void EnFdFire_DanceTowardsPlayer(EnFdFire* pthis, GlobalContext* globalCtx) {
     Vec3f pos;
     s16 idx;
 
-    idx = ((globalCtx->state.frames / 10) + (pthis->actor.params & 0x7FFF)) % ARRAY_COUNT(angles);
+    idx = (uintptr_t)((globalCtx->state.frames / 10) + (pthis->actor.params & 0x7FFF)) % ARRAY_COUNT(angles);
     pos = player->actor.world.pos;
     pos.x += 120.0f * sinf(angles[idx]);
     pos.z += 120.0f * cosf(angles[idx]);
@@ -204,13 +204,13 @@ void EnFdFire_DanceTowardsPlayer(EnFdFire* pthis, GlobalContext* globalCtx) {
         if (pthis->actor.speedXZ < 0.1f) {
             pthis->actor.speedXZ = 5.0f;
         }
-        func_8002D868(&pthis->actor);
+        Actor_UpdateVelocityWithGravity(&pthis->actor);
     }
 }
 
 void EnFdFire_Disappear(EnFdFire* pthis, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 0.6f, 9.0f, 0.0f);
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     Math_SmoothStepToF(&pthis->scale, 0.0f, 0.3f, 0.1f, 0.0f);
     pthis->actor.shape.shadowScale = 20.0f;
     pthis->actor.shape.shadowScale *= (pthis->scale / 3.0f);
@@ -229,7 +229,7 @@ void EnFdFire_Update(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actionFunc(pthis, globalCtx);
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 12.0f, 10.0f, 0.0f, 5);
 
@@ -282,7 +282,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx) {
     func_80093D84(globalCtx->state.gfxCtx);
     gSPSegment(POLY_XLU_DISP++, 0x8,
                Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                (globalCtx->state.frames * pthis->tile2Y).whole(), 0x20, 0x80));
+                                globalCtx->state.frames * pthis->tile2Y, 0x20, 0x80));
     gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, primColors[((pthis->actor.params & 0x8000) >> 0xF)].r,
                     primColors[((pthis->actor.params & 0x8000) >> 0xF)].g,
                     primColors[((pthis->actor.params & 0x8000) >> 0xF)].b,

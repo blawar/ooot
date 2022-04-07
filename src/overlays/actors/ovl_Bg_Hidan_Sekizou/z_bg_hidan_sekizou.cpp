@@ -208,9 +208,9 @@ void func_8088D434(BgHidanSekizou* pthis, GlobalContext* globalCtx) {
     phi_s4 = 0;
     for (i = 0; i < 4; i++) {
         s16 diff;
-        s16* temp = &pthis->unk_168[i];
+        auto temp = &pthis->unk_168[i];
 
-        DECR(*temp);
+        DECR((*temp));
         diff = pthis->dyna.actor.yawTowardsPlayer - i * 0x4000;
         if (isAligned[i % 2] && isClose) {
             if (ABS(diff) <= 0x4000) {

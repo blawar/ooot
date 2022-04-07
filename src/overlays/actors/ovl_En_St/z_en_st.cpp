@@ -565,7 +565,7 @@ float EnSt_DecrStunTimer(EnSt* pthis) {
         return 0;
     }
     
-    float r = pthis->stunTimer.toFloat();
+    float r = pthis->stunTimer;
     DECRT(pthis->stunTimer);
     return r;
 }
@@ -579,7 +579,7 @@ void EnSt_UpdateYaw(EnSt* pthis, GlobalContext* globalCtx) {
     u16 yawDir = 0;
     Vec3s rot;
     s16 yawDiff;
-    TimerS16 timer;
+    Timer timer;
     s16 yawTarget;
 
     // Shake towards the end of the stun.
@@ -757,7 +757,7 @@ void EnSt_Sway(EnSt* pthis) {
             pthis->swayAngle = 0;
         }
 
-        swayAmt = pthis->swayTimer.toFloat() * (7.0f / 15.0f);
+        swayAmt = pthis->swayTimer * (7.0f / 15.0f);
         rotAngle = Math_SinS(pthis->swayAngle.toS16()) * (swayAmt * (65536.0f / 360.0f));
 
         if (pthis->absPrevSwayAngle >= ABS(rotAngle) && pthis->playSwayFlag == 0) {
@@ -945,7 +945,7 @@ void EnSt_ReturnToCeiling(EnSt* pthis, GlobalContext* globalCtx) {
  */
 void EnSt_BounceAround(EnSt* pthis, GlobalContext* globalCtx) {
     pthis->actor.colorFilterTimer = pthis->deathTimer.whole();
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     pthis->actor.world.rot.x += 0x800 * FRAMERATE_SCALER;
     pthis->actor.world.rot.z -= 0x800 * FRAMERATE_SCALER;
     pthis->actor.shape.rot = pthis->actor.world.rot;
@@ -983,7 +983,7 @@ void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx) {
 
     pthis->actor.shape.rot = pthis->actor.world.rot;
 
-    func_8002D868(&pthis->actor);
+    Actor_UpdateVelocityWithGravity(&pthis->actor);
     pthis->groundBounces = 2;
     EnSt_IsDoneBouncing(pthis, globalCtx);
 }
@@ -1027,7 +1027,7 @@ void EnSt_Update(Actor* pthisx, GlobalContext* globalCtx) {
         }
 
         if (pthis->swayTimer == 0 && pthis->stunTimer == 0) {
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
         }
 
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);

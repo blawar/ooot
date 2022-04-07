@@ -110,6 +110,7 @@ namespace oot::hid
 
 				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
 				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
+				m_keyBindings[SDL_SCANCODE_F9] = Button::LANGUAGE_TOGGLE;
 
 				m_mouseBindings[SDL_BUTTON_LEFT] = Button::B_BUTTON;
 				m_mouseBindings[SDL_BUTTON_RIGHT] = Button::CENTER_CAMERA;
@@ -288,7 +289,7 @@ namespace oot::hid
 				this->state().has_mouse = true;
 			}
 
-			bool canRebind(SDL_Scancode scancode, int input)
+			bool canRebind(SDL_Scancode scancode, hid::Button input)
 			{
 				if(m_keyBindings.count(scancode) == 0)
 				{
@@ -309,7 +310,7 @@ namespace oot::hid
 				return count != 1;
 			}
 
-			bool updateRebind(int input) override
+			bool updateRebind(hid::Button input) override
 			{
 				int count = 0;
 				auto state = SDL_GetKeyboardState(&count);

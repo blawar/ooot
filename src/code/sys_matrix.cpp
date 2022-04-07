@@ -487,7 +487,8 @@ void Matrix_TranslateRotateZYX(Vec3f* translation, Vec3s* rotation) {
     }
 }
 
-void func_800D1694(f32 x, f32 y, f32 z, Vec3s* vec) {
+template<class T>
+static inline void _func_800D1694(f32 x, f32 y, f32 z, T* vec) {
     MtxF* cmf = sCurrentMatrix;
     f32 sp30 = Math_SinS(vec->y);
     f32 sp2C = Math_CosS(vec->y);
@@ -543,6 +544,16 @@ void func_800D1694(f32 x, f32 y, f32 z, Vec3s* vec) {
     } else {
         cmf->yx = 0.0f;
     }
+}
+
+void func_800D1694(f32 x, f32 y, f32 z, Vec3s* vec)
+{
+	_func_800D1694(x, y, z, vec);
+}
+
+void func_800D1694(f32 x, f32 y, f32 z, VecRot* vec)
+{
+	_func_800D1694(x, y, z, vec);
 }
 
 Mtx* Matrix_MtxFToMtx(MtxF* src, Mtx* dest) {
@@ -763,7 +774,8 @@ void func_800D1FD4(MtxF* mf) {
  * Gets the rotation the specified matrix represents, using Tait-Bryan YXZ angles.
  * The flag value doesn't matter for a rotation matrix. Not 0 does extra calculation.
  */
-void Matrix_MtxFToYXZRotS(MtxF* mf, Vec3s* rotDest, s32 flag) {
+template<class T>
+static inline void _Matrix_MtxFToYXZRotS(MtxF* mf, T* rotDest, s32 flag) {
     f32 temp;
     f32 temp2;
     f32 temp3;
@@ -812,11 +824,22 @@ void Matrix_MtxFToYXZRotS(MtxF* mf, Vec3s* rotDest, s32 flag) {
     }
 }
 
+void Matrix_MtxFToYXZRotS(MtxF* mf, Vec3s* rotDest, s32 flag)
+{
+	_Matrix_MtxFToYXZRotS(mf, rotDest, flag);
+}
+
+void Matrix_MtxFToYXZRotS(MtxF* mf, VecRot* rotDest, s32 flag)
+{
+	_Matrix_MtxFToYXZRotS(mf, rotDest, flag);
+}
+
 /**
  * Gets the rotation the specified matrix represents, using Tait-Bryan ZYX angles.
  * The flag value doesn't matter for a rotation matrix. Not 0 does extra calculation.
  */
-void Matrix_MtxFToZYXRotS(MtxF* mf, Vec3s* rotDest, s32 flag) {
+template<class T>
+static inline void _Matrix_MtxFToZYXRotS(MtxF* mf, T* rotDest, s32 flag) {
     f32 temp;
     f32 temp2;
     f32 temp3;
@@ -859,6 +882,16 @@ void Matrix_MtxFToZYXRotS(MtxF* mf, Vec3s* rotDest, s32 flag) {
             rotDest->x = Math_FAtan2F(temp, temp2) * (0x8000 / M_PI);
         }
     }
+}
+
+void Matrix_MtxFToZYXRotS(MtxF* mf, Vec3s* rotDest, s32 flag)
+{
+	_Matrix_MtxFToZYXRotS(mf, rotDest, flag);
+}
+
+void Matrix_MtxFToZYXRotS(MtxF* mf, VecRot* rotDest, s32 flag)
+{
+	_Matrix_MtxFToZYXRotS(mf, rotDest, flag);
 }
 
 /*

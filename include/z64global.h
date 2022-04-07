@@ -62,7 +62,6 @@ struct GlobalContext {
     /* 0x01C24 */ ActorContext actorCtx;
     /* 0x01D64 */ CutsceneContext csCtx; // "demo_play"
     /* 0x01DB4 */ SoundSource soundSources[16];
-    /* 0x01F74 */ SramContext sramCtx;
     /* 0x01F78 */ SkyboxContext skyboxCtx;
     /* 0x020D8 */ MessageContext msgCtx;         // "message"
     /* 0x104F0 */ InterfaceContext interfaceCtx; // "parameter"
@@ -85,7 +84,7 @@ struct GlobalContext {
     /* 0x11D60 */ MtxF viewProjectionMtxF;
     /* 0x11DA0 */ MtxF billboardMtxF;
     /* 0x11DE0 */ Mtx* billboardMtx;
-    /* 0x11DE4 */ u32 gameplayFrames;
+    /* 0x11DE4 */ Counter gameplayFrames;
     /* 0x11DE8 */ u8 linkAgeOnLoad;
     /* 0x11DE9 */ u8 unk_11DE9;
     /* 0x11DEA */ u8 curSpawn;

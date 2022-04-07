@@ -312,7 +312,7 @@ void ObjWarp2block_Update(Actor* thisx, GlobalContext* globalCtx) {
 void ObjWarp2block_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Color_RGB8* sp44;
 
-    sp44 = &sColors[thisx->home.rot.z & 7];
+    sp44 = &sColors[thisx->home.rot.z.whole() & 7];
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 584);
     func_80093D18(globalCtx->state.gfxCtx);

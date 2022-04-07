@@ -15,7 +15,7 @@ struct BgMoriHashira4 {
     /* 0x0164 */ BgMoriHashira4ActionFunc actionFunc;
     /* 0x0168 */ s32 moriTexObjIndex;
     /* 0x016C */ s8 switchFlag;
-    /* 0x0170 */ s16 gateTimer;
+    /* 0x0170 */ Timer gateTimer;
 }; 
 
 

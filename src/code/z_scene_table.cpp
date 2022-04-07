@@ -146,7 +146,6 @@ extern Gfx gEmptyDL[];
 #include "def/graph.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_play.h"
@@ -1696,16 +1695,12 @@ void func_8009BAA4(GlobalContext* globalCtx) {
 
 // Scene Draw Config 36
 void func_8009BC44(GlobalContext* globalCtx) {
-    u32 gameplayFrames;
+    auto gameplayFrames = globalCtx->gameplayFrames.whole();
     s8 sp83;
 
-    if (1) {} // Necessary to match
-
-    sp83 = coss((globalCtx->gameplayFrames * 1500) & 0xFFFF) >> 8;
+    sp83 = coss((globalCtx->gameplayFrames.whole() * 1500) & 0xFFFF) >> 8;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_scene_table.c", 5894);
-
-    gameplayFrames = globalCtx->gameplayFrames;
 
     if (globalCtx->sceneNum == SCENE_GANON_TOU) {
         gSPSegment(POLY_XLU_DISP++, 0x09,
@@ -1759,7 +1754,7 @@ void func_8009C0AC(GlobalContext* globalCtx) {
 
     if (1) {} // Necessary to match
 
-    sp7B = coss((globalCtx->gameplayFrames * 1500) & 0xFFFF) >> 8;
+    sp7B = coss((globalCtx->gameplayFrames.whole() * 1500) & 0xFFFF) >> 8;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_scene_table.c", 5968);
 
@@ -2536,8 +2531,8 @@ void func_8009F5D4(GlobalContext* globalCtx) {
 
 // Scene Draw Config 15
 void func_8009F7D4(GlobalContext* globalCtx) {
-    s8 sp6F = coss((globalCtx->gameplayFrames * 1500) & 0xFFFF) >> 8;
-    s8 sp6E = coss((globalCtx->gameplayFrames * 1500) & 0xFFFF) >> 8;
+    s8 sp6F = coss((globalCtx->gameplayFrames.whole() * 1500) & 0xFFFF) >> 8;
+    s8 sp6E = coss((globalCtx->gameplayFrames.whole() * 1500) & 0xFFFF) >> 8;
     u32 gameplayFrames;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_scene_table.c", 7512);

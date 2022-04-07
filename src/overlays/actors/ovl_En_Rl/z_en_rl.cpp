@@ -10,7 +10,6 @@
 #include "vt.h"
 #include "objects/object_rl/object_rl.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_parameter.h"
 #include "def/z_rcp.h"
@@ -49,7 +48,7 @@ void EnRl_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80AE72D0(EnRl* pthis) {
     s32 pad[3];
-    s16* timer = &pthis->timer;
+    auto timer = &pthis->timer;
     s16* eyeTextureIndex = &pthis->eyeTextureIndex;
 
     if (DECR(*timer) == 0) {

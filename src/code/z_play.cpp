@@ -43,7 +43,6 @@
 #include "def/z_camera.h"
 #include "def/z_camera_data.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_construct.h"
 #include "def/z_demo.h"
 #include "def/z_effect.h"
@@ -70,7 +69,6 @@
 #include "def/z_scene.h"
 #include "def/z_scene_table.h"
 #include "def/z_skelanime.h"
-#include "def/z_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 #include "def/z_vismono.h"
@@ -303,7 +301,6 @@ void Gameplay_Init(GameState* thisx) {
     globalCtx->cameraPtrs[MAIN_CAM]->uid = 0;
     globalCtx->activeCamera = MAIN_CAM;
     func_8005AC48(&globalCtx->mainCamera, 0xFF);
-    Sram_Init(globalCtx, &globalCtx->sramCtx);
     func_80112098(globalCtx);
     Message_Init(globalCtx);
     GameOver_Init(globalCtx);

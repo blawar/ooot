@@ -14,7 +14,6 @@
 #include "def/z_actor.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
@@ -128,7 +127,7 @@ void EnRu2_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void func_80AF2608(EnRu2* pthis) {
     s32 pad[3];
-    s16* unk_2A6 = &pthis->unk_2A6;
+    Timer* unk_2A6 = &pthis->unk_2A6;
     s16* unk_2A4 = &pthis->unk_2A4;
 
     if (!DECR(*unk_2A6)) {

@@ -414,7 +414,7 @@ void EnIshi_LiftedUp(EnIshi* pthis, GlobalContext* globalCtx) {
         EnIshi_SetupFly(pthis);
         EnIshi_Fall(pthis);
         func_80A7ED94(&pthis->actor.velocity, D_80A7FA28[pthis->actor.params & 1]);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 7.5f, 35.0f, 0.0f, 0xC5);
     }
 }
@@ -481,7 +481,7 @@ void EnIshi_Fly(EnIshi* pthis, GlobalContext* globalCtx) {
     Math_StepToF(&pthis->actor.shape.yOffset, 0.0f, 2.0f);
     EnIshi_Fall(pthis);
     func_80A7ED94(&pthis->actor.velocity, D_80A7FA28[type]);
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.shape.rot.x += sRotSpeedX;
     pthis->actor.shape.rot.y += sRotSpeedY;
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 7.5f, 35.0f, 0.0f, 0xC5);

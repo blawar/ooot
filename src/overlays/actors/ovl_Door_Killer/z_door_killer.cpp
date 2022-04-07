@@ -233,7 +233,7 @@ void DoorKiller_FallAsRubble(DoorKiller* pthis, GlobalContext* globalCtx) {
     } else {
         Actor_Kill(&pthis->actor);
     }
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
 }
 
 s32 DoorKiller_IsHit(Actor* thisx, GlobalContext* globalCtx) {

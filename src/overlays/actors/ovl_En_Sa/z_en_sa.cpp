@@ -9,7 +9,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_face_reaction.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
@@ -723,7 +722,7 @@ void EnSa_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.world.pos.y += pthis->actor.velocity.y;
         pthis->actor.world.pos.z += pthis->actor.velocity.z;
     } else {
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
     }
 
     if (globalCtx->sceneNum != SCENE_SPOT05) {

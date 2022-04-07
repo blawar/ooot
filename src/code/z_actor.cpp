@@ -12,6 +12,7 @@
 #include "z64actor.h"
 #include "gfx_align.h"
 #include "port/options.h"
+#include "player_state.h"
 
 #include "overlays/actors/ovl_Arms_Hook/z_arms_hook.h"
 #include "overlays/actors/ovl_En_Part/z_en_part.h"
@@ -41,7 +42,6 @@
 #include "def/z_camera.h"
 #include "def/z_camera_data.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_eff_ss_dead.h"
 #include "def/z_effect.h"
 #include "def/z_effect_soft_sprite.h"
@@ -406,7 +406,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx) {
 
         func_8002BE64(targetCtx, targetCtx->unk_4C, spBC.x, spBC.y, spBC.z);
 
-        if ((!(player->stateFlags1 & 0x40)) || (actor != player->unk_664)) {
+        if ((!(player->stateFlags1 & PLAYER_STATE1_6)) || (actor != player->targetedActor)) {
             OVERLAY_DISP = Gfx_CallSetupDL(OVERLAY_DISP, 0x39);
 
             for (spB0 = 0, spAC = targetCtx->unk_4C; spB0 < spB8; spB0++, spAC = (spAC + 1) % 3) {
@@ -424,7 +424,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx) {
 
                     gDPSetPrimColor(OVERLAY_DISP++, 0, 0, entry->color.r, entry->color.g, entry->color.b, (u8)spCE);
 
-                    Matrix_RotateZ((targetCtx->unk_4B & 0x7F) * (M_PI / 64), MTXMODE_APPLY);
+                    Matrix_RotateZ(targetCtx->unk_4B * (M_PI / 64), MTXMODE_APPLY);
 
                     for (i = 0; i < 4; i++) {
                         Matrix_RotateZ(M_PI / 2, MTXMODE_APPLY);
@@ -481,7 +481,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 
     unkActor = NULL;
 
-    if ((player->unk_664 != NULL) && (player->unk_84B[player->unk_846] == 2)) {
+    if ((player->targetedActor != NULL) && (player->unk_84B[player->unk_846] == 2)) {
         targetCtx->unk_94 = NULL;
     } else {
         func_80032AF0(globalCtx, &globalCtx->actorCtx, &unkActor, player);
@@ -555,7 +555,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
                 targetCtx->unk_4B++;
             }
         } else {
-            targetCtx->unk_4B = (targetCtx->unk_4B + 3) | 0x80;
+		    targetCtx->unk_4B += 3;
             targetCtx->unk_44 = 120.0f;
         }
     } else {
@@ -889,7 +889,7 @@ void Actor_Destroy(Actor* actor, GlobalContext* globalCtx) {
     }
 }
 
-void func_8002D7EC(Actor* actor) {
+void Actor_UpdatePosition(Actor* actor) {
     const f32 speedRate = FRAMERATE_ANIM_SCALER;
 
     actor->world.pos.x += (actor->velocity.x * speedRate) + actor->colChkInfo.displacement.x;
@@ -897,7 +897,7 @@ void func_8002D7EC(Actor* actor) {
     actor->world.pos.z += (actor->velocity.z * speedRate) + actor->colChkInfo.displacement.z;
 }
 
-void func_8002D868(Actor* actor) {
+void Actor_UpdateVelocityWithGravity(Actor* actor) {
     actor->velocity.x = Math_SinS(actor->world.rot.y) * actor->speedXZ;
     actor->velocity.z = Math_CosS(actor->world.rot.y) * actor->speedXZ;
 
@@ -908,8 +908,8 @@ void func_8002D868(Actor* actor) {
 }
 
 void Actor_MoveForward(Actor* actor) {
-    func_8002D868(actor);
-    func_8002D7EC(actor);
+    Actor_UpdateVelocityWithGravity(actor);
+    Actor_UpdatePosition(actor);
 }
 
 void func_8002D908(Actor* actor) {
@@ -922,7 +922,7 @@ void func_8002D908(Actor* actor) {
 
 void func_8002D97C(Actor* actor) {
     func_8002D908(actor);
-    func_8002D7EC(actor);
+    Actor_UpdatePosition(actor);
 }
 
 void func_8002D9A4(Actor* actor, f32 arg1) {
@@ -1484,7 +1484,7 @@ f32 func_8002EFC0(Actor* actor, Player* player, s16 arg2) {
     s16 yawTemp = (s16)(actor->yawTowardsPlayer - 0x8000) - arg2;
     s16 yawTempAbs = ABS(yawTemp);
 
-    if (player->unk_664 != NULL) {
+    if (player->targetedActor != NULL) {
         if ((yawTempAbs > 0x4000) || (actor->flags & ACTOR_FLAG_27)) {
             return FLT_MAX;
         } else {
@@ -1530,7 +1530,7 @@ s32 func_8002F0C8(Actor* actor, Player* player, s32 flag) {
         s16 abs_var = ABS(var);
         f32 dist;
 
-        if ((player->unk_664 == NULL) && (abs_var > 0x2AAA)) {
+        if ((player->targetedActor == NULL) && (abs_var > 0x2AAA)) {
             dist = FLT_MAX;
         } else {
             dist = actor->xyzDistToPlayerSq;
@@ -1964,13 +1964,13 @@ void Actor_DrawFaroresWindPointer(GlobalContext* globalCtx) {
             gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 255, 255, 200, alpha);
             gDPSetEnvColor(POLY_XLU_DISP++, 100, 200, 0, 255);
 
-            Matrix_RotateZ(((globalCtx->gameplayFrames * 1500) & 0xFFFF) * M_PI / 32768.0f, MTXMODE_APPLY);
+            Matrix_RotateZ(((globalCtx->gameplayFrames.whole() * 1500) & 0xFFFF) * M_PI / 32768.0f, MTXMODE_APPLY);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_actor.c", 5458),
                       G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
             gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
 
             Matrix_Pop();
-            Matrix_RotateZ(~((globalCtx->gameplayFrames * 1200) & 0xFFFF) * M_PI / 32768.0f, MTXMODE_APPLY);
+            Matrix_RotateZ(~((globalCtx->gameplayFrames.whole() * 1200) & 0xFFFF) * M_PI / 32768.0f, MTXMODE_APPLY);
 
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_actor.c", 5463),
                       G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
@@ -2140,13 +2140,13 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
                 actor->flags &= ~ACTOR_FLAG_24;
 
                 if ((DECR(actor->freezeTimer) == 0) && (actor->flags & (ACTOR_FLAG_4 | ACTOR_FLAG_UNCULLED))) {
-                    if (actor == player->unk_664) {
+                    if (actor == player->targetedActor) {
                         actor->isTargeted = true;
                     } else {
                         actor->isTargeted = false;
                     }
 
-                    if ((actor->targetPriority != 0) && (player->unk_664 == NULL)) {
+                    if ((actor->targetPriority != 0) && (player->targetedActor == NULL)) {
                         actor->targetPriority = 0;
                     }
 
@@ -2169,11 +2169,11 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
         }
     }
 
-    actor = player->unk_664;
+    actor = player->targetedActor;
 
     if ((actor != NULL) && (actor->update == NULL)) {
         actor = NULL;
-        func_8008EDF0(player);
+        Player_ClearZTarget(player);
     }
 
     if ((actor == NULL) || (player->unk_66C < 5)) {
@@ -2888,8 +2888,8 @@ Actor* Actor_Delete(ActorContext* actorCtx, Actor* actor, GlobalContext* globalC
         osSyncPrintf("Actor class deleted [%s]\n", name); // "Actor class deleted [%s]"
     }
 
-    if ((player != NULL) && (actor == player->unk_664)) {
-        func_8008EDF0(player);
+    if ((player != NULL) && (actor == player->targetedActor)) {
+        Player_ClearZTarget(player);
         Camera_ChangeMode(Gameplay_GetCamera(globalCtx, Gameplay_GetActiveCamId(globalCtx)), 0);
     }
 
@@ -2951,7 +2951,7 @@ void func_800328D4(GlobalContext* globalCtx, ActorContext* actorCtx, Player* pla
     Vec3f sp70;
 
     actor = actorCtx->actorLists[actorCategory].head;
-    sp84 = player->unk_664;
+    sp84 = player->targetedActor;
 
     while (actor != NULL) {
         if ((actor->update != NULL) && ((Player*)actor != player) && CHECK_FLAG_ALL(actor->flags, ACTOR_FLAG_0)) {
@@ -3053,7 +3053,7 @@ void Enemy_StartFinishingBlow(GlobalContext* globalCtx, Actor* actor) {
     Audio_PlaySoundAtPosition(globalCtx, &actor->world.pos, 20, NA_SE_EN_LAST_DAMAGE);
 }
 
-s16 func_80032CB4(s16* arg0, s16 arg1, s16 arg2, s16 arg3) {
+s16 func_80032CB4(Timer* arg0, s16 arg1, s16 arg2, s16 arg3) {
     if (DECR(arg0[1]) == 0) {
         arg0[1] = Rand_S16Offset(arg1, arg2);
     }
@@ -3069,7 +3069,7 @@ s16 func_80032CB4(s16* arg0, s16 arg1, s16 arg2, s16 arg3) {
     return arg0[0];
 }
 
-s16 func_80032D60(s16* arg0, s16 arg1, s16 arg2, s16 arg3) {
+s16 func_80032D60(Timer* arg0, s16 arg1, s16 arg2, s16 arg3) {
     if (DECR(arg0[1]) == 0) {
         arg0[1] = Rand_S16Offset(arg1, arg2);
         arg0[0]++;
@@ -4141,7 +4141,8 @@ void Actor_SetDropFlagJntSph(Actor* actor, ColliderJntSph* jntSph, s32 freezeFla
     }
 }
 
-void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3) {
+template<class T>
+static inline void _func_80035844(Vec3f* arg0, Vec3f* arg1, T* arg2, s32 arg3) {
     f32 dx = arg1->x - arg0->x;
     f32 dz = arg1->z - arg0->z;
     f32 dy = arg3 ? (arg1->y - arg0->y) : (arg0->y - arg1->y);
@@ -4150,10 +4151,20 @@ void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3) {
     arg2->x = Math_Atan2S(sqrtf(SQ(dx) + SQ(dz)), dy);
 }
 
+void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3)
+{
+	_func_80035844(arg0, arg1, arg2, arg3);
+}
+
+void func_80035844(Vec3f* arg0, Vec3f* arg1, VecRot* arg2, s32 arg3)
+{
+	_func_80035844(arg0, arg1, arg2, arg3);
+}
+
 /**
  * Spawns En_Part (Dissipating Flames) actor as a child of the given actor.
  */
-Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, Vec3s* spawnRot, f32* arg3, s32 timer, s16* unused,
+Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, VecRot* spawnRot, f32* arg3, s32 timer, s16* unused,
                      GlobalContext* globalCtx, s16 params, s32 arg8) {
     EnPart* spawnedEnPart;
 
@@ -4174,7 +4185,7 @@ Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, Vec3s* spawnRot, f32* arg3, 
     return NULL;
 }
 
-void func_800359B8(Actor* actor, s16 arg1, Vec3s* arg2) {
+void func_800359B8(Actor* actor, s16 arg1, VecRot* arg2) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;

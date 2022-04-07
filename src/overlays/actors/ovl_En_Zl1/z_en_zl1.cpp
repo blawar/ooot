@@ -13,7 +13,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
 #include "def/z_parameter.h"
@@ -143,7 +142,7 @@ void func_80B4AE18(EnZl1* pthis) {
         if (DECR(pthis->unk_1FC) == 0) {
             pthis->unk_1FC = Rand_S16Offset(0x1E, 0xA);
         }
-        pthis->unk_1FE = (pthis->unk_1FC < 4) ? pthis->unk_1FC : 0;
+        pthis->unk_1FE = (pthis->unk_1FC < 4) ? (float)pthis->unk_1FC : 0.0f;
 
         pthis->unk_1F4 = D_80B4E61C[pthis->unk_1FE];
         pthis->unk_1F8 = D_80B4E61C[pthis->unk_1FE];

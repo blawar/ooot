@@ -76,9 +76,9 @@ struct EnGeldB {
     /* 0x02EC */ s32 action;
     /* 0x02F0 */ char unk_2F0[4];
     /* 0x02F4 */ EnGeldBActionFunc actionFunc;
-    /* 0x02F8 */ s16 unkTimer;
-    /* 0x02FA */ s16 lookTimer;
-    /* 0x02FC */ s16 iceTimer;
+    /* 0x02F8 */ Timer unkTimer;
+    /* 0x02FA */ Timer lookTimer;
+    /* 0x02FC */ Timer iceTimer;
     /* 0x02FE */ u8 damageEffect;
     /* 0x0300 */ s32 timer;
     /* 0x0304 */ f32 approachRate;

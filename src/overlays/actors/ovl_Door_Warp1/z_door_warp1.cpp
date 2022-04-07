@@ -6,7 +6,6 @@
 #include "def/audio_command.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_lights.h"
 #include "def/z_message_PAL.h"
@@ -938,7 +937,7 @@ void DoorWarp1_DrawPurpleCrystal(DoorWarp1* pthis, GlobalContext* globalCtx) {
 void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx) {
     s32 pad;
     u32 pad1;
-    u32 spEC = (globalCtx->state.frames * 10).whole();
+    u32 spEC = globalCtx->state.frames * 10;
     f32 spE8 = (pthis->unk_194 >= 1.0f) ? 0.0f : 1.0f - pthis->unk_194;
     f32 spE4 = (pthis->unk_198 >= 1.0f) ? 0.0f : 1.0f - pthis->unk_198;
     f32 xzScale;

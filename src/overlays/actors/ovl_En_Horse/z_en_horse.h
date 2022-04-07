@@ -163,7 +163,7 @@ struct EnHorse {
     /* 0x0244 */ EnHorsePostdrawFunc postDrawFunc;
     /* 0x0248 */ f32 yFront; // The y coordinate of the floor under the front feet
     /* 0x024C */ f32 yBack;  // The y coordinate of the floor under the back feet
-    /* 0x0250 */ s16 followTimer;
+    /* 0x0250 */ Timer followTimer;
     /* 0x0252 */ s16 unk_252;
     /* 0x0254 */ EnHorseAction prevAction;
     /* 0x0258 */ Vec3f riderPos;
@@ -179,7 +179,7 @@ struct EnHorse {
     /* 0x0376 */ s16 angleToPlayer;
     /* 0x0378 */ s16 followPlayerTurnSpeed;
     /* 0x037A */ u8 blinkTimer;
-    /* 0x037C */ s16 waitTimer;
+    /* 0x037C */ Timer waitTimer;
     /* 0x037E */ s16 unk_37E;
     /* 0x0380 */ s32 cutsceneAction;
     /* 0x0384 */ u16 cutsceneFlags;

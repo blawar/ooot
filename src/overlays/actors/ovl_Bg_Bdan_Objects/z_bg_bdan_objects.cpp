@@ -17,7 +17,6 @@
 #include "def/z_camera.h"
 #include "def/z_cheap_proc.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
 #include "def/z_play.h"
@@ -328,7 +327,7 @@ void func_8086C618(BgBdanObjects* pthis, GlobalContext* globalCtx) {
         pthis->actionFunc = func_8086C6EC;
     } else {
         pthis->dyna.actor.shape.rot.y += pthis->dyna.actor.world.rot.y;
-        func_800F436C(&pthis->dyna.actor.projectedPos, 0x2063, ABS(pthis->dyna.actor.world.rot.y) / 512.0f);
+        func_800F436C(&pthis->dyna.actor.projectedPos, 0x2063, pthis->dyna.actor.world.rot.y.abs() / 512.0f);
     }
 }
 

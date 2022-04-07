@@ -9,10 +9,10 @@
 #include "z_en_ge1.h"
 #include "vt.h"
 #include "objects/object_ge1/object_ge1.h"
+#include "player_state.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_face_reaction.h"
 #include "def/z_horse.h"
 #include "def/z_lib.h"
@@ -789,8 +789,8 @@ s32 EnGe1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     // The purpose of the state flag GE1_STATE_STOP_FIDGET is to skip pthis code, which pthis actor has in lieu of an idle
     // animation.
     if ((limbIndex == GE1_LIMB_TORSO) || (limbIndex == GE1_LIMB_L_FOREARM) || (limbIndex == GE1_LIMB_R_FOREARM)) {
-        rot->y += Math_SinS((globalCtx->state.frames * (limbIndex * 50 + 0x814)).toS16()) * 200.0f;
-        rot->z += Math_CosS((globalCtx->state.frames * (limbIndex * 50 + 0x940)).toS16()) * 200.0f;
+        rot->y += Math_SinS(globalCtx->state.frames * (limbIndex * 50 + 0x814)) * 200.0f;
+        rot->z += Math_CosS(globalCtx->state.frames * (limbIndex * 50 + 0x940)) * 200.0f;
     }
     return 0;
 }

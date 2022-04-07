@@ -16,7 +16,6 @@
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_face_reaction.h"
 #include "def/z_lib.h"
@@ -227,7 +226,7 @@ void EnRu1_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnRu1_UpdateEyes(EnRu1* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    Timer* blinkTimer = &pthis->blinkTimer;
     s16* eyeIndex = &pthis->eyeIndex;
 
     if (DECR(*blinkTimer) == 0) {
@@ -1059,7 +1058,7 @@ void func_80AECEB4(EnRu1* pthis, GlobalContext* globalCtx) {
 }
 
 s32 func_80AECF6C(EnRu1* pthis, GlobalContext* globalCtx) {
-    s16* shapeRotY;
+    Rotation* shapeRotY;
     Player* player = GET_PLAYER(globalCtx);
     Player* otherPlayer;
     s16 temp_f16;
@@ -1302,7 +1301,7 @@ void func_80AED83C(EnRu1* pthis) {
 
 void func_80AED8DC(EnRu1* pthis) {
     s32 temp_hi;
-    s16* unk_2AC = &pthis->unk_2AC;
+    auto unk_2AC = &pthis->unk_2AC;
     s16* someY = &pthis->unk_374.unk_08.y;
     s16* unk_29E = &pthis->unk_29E;
     s32 pad[2];
@@ -1487,7 +1486,7 @@ void func_80AEE050(EnRu1* pthis) {
             }
             pthis->actor.velocity.x = Math_SinS(pthis->actor.world.rot.y) * pthis->actor.speedXZ;
             pthis->actor.velocity.z = Math_CosS(pthis->actor.world.rot.y) * pthis->actor.speedXZ;
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
         }
     } else {
         if (pthis->unk_350 == 1) {

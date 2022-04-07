@@ -14,7 +14,6 @@
 #include "def/mempak.h"
 #include "def/shrink_window.h"
 #include "def/z_camera.h"
-#include "def/z_common_data.h"
 #include "def/z_debug.h"
 //#include "def/z_debug_display.h"
 #include "def/z_demo.h"

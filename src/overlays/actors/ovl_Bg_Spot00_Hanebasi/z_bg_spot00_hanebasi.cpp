@@ -17,7 +17,6 @@
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_lights.h"
@@ -290,7 +289,7 @@ void BgSpot00Hanebasi_DrawTorches(Actor* thisx, GlobalContext* globalCtx2) {
     for (i = 0; i < 2; i++) {
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0,
-                                    ((globalCtx->gameplayFrames + i) * -20) & 0x1FF, 32, 128));
+                                    ((globalCtx->gameplayFrames.whole() + i) * -20) & 0x1FF, 32, 128));
 
         Matrix_Translate((i == 0) ? 260.0f : -260.0f, 128.0f, 690.0f, MTXMODE_NEW);
         Matrix_RotateY(angle, MTXMODE_APPLY);

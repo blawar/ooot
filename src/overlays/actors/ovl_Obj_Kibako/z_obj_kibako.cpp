@@ -247,7 +247,7 @@ void ObjKibako_Held(ObjKibako* pthis, GlobalContext* globalCtx) {
         } else {
             ObjKibako_SetupThrown(pthis);
             ObjKibako_ApplyGravity(pthis);
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
         }
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 19.0f, 20.0f, 0.0f, 5);
     }
@@ -276,7 +276,7 @@ void ObjKibako_Thrown(ObjKibako* pthis, GlobalContext* globalCtx) {
         Actor_Kill(&pthis->actor);
     } else {
         ObjKibako_ApplyGravity(pthis);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 19.0f, 20.0f, 0.0f, 5);
         Collider_UpdateCylinder(&pthis->actor, &pthis->collider);
         CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);

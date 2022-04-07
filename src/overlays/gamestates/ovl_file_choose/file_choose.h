@@ -8,13 +8,7 @@
 
 #define GET_NEWF(sramCtx, slotNum, index) (sramCtx->readBuff[gSramSlotOffsets[slotNum] + OFFSETOF(SaveContext, newf[index])])
 
-#define SLOT_OCCUPIED(sramCtx, slotNum) \
-    ((GET_NEWF(sramCtx, slotNum, 0) == 'Z') || \
-     (GET_NEWF(sramCtx, slotNum, 1) == 'E') || \
-     (GET_NEWF(sramCtx, slotNum, 2) == 'L') || \
-     (GET_NEWF(sramCtx, slotNum, 3) == 'D') || \
-     (GET_NEWF(sramCtx, slotNum, 4) == 'A') || \
-     (GET_NEWF(sramCtx, slotNum, 5) == 'Z'))
+#define SLOT_OCCUPIED(sramCtx, slotNum) gSaveContext.file.slots[slotNum].save.info.playerData.isMagicValid()
 
 // Init mode: Initial setup as the file select is starting up, fades and slides in various menu elements
 // Config mode: Handles the bulk of the file select, various configuration tasks like picking a file, copy/erase, and the options menu
@@ -144,8 +138,14 @@ typedef enum {
 
 typedef enum {
     /* 0 */ FS_SETTING_AUDIO,
-    /* 1 */ FS_SETTING_TARGET
+    /* 1 */ FS_SETTING_TARGET,
+#ifdef RETAIL
+	/* 2 */ FS_SETTING_LANGUAGE,
+#endif
+            FS_SETTING_MAX
 } SettingIndex;
+
+#define FS_SETTING_MIN FS_SETTING_AUDIO
 
 typedef enum {
     /* 0 */ FS_AUDIO_STEREO,

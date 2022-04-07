@@ -10,7 +10,6 @@
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/parameter_static/parameter_static.h"
 #include "def/game.h"
-#include "def/z_common_data.h"
 #include "def/z_construct.h"
 #include "def/z_kanfont.h"
 #include "def/z_lifemeter.h"
@@ -417,7 +416,6 @@ void func_80111070(void) {
     WREG(2) = -6080;
     WREG(3) = 9355;
     WREG(4) = 8;
-    WREG(5) = 3;
     PAUSE_ANIMATION_STEPS = 8;
     WREG(7) = 0;
     WREG(8) = 100;

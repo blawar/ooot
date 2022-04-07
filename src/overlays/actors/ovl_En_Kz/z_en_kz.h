@@ -19,7 +19,7 @@ struct EnKz {
     /* 0x0208 */ u8 sfxPlayed;
     /* 0x0209 */ u8 isTrading;
     /* 0x020A */ s16 waypoint;
-    /* 0x020C */ s16 blinkTimer;
+    /* 0x020C */ Timer blinkTimer;
     /* 0x020E */ char unk_20E[2];
     /* 0x0210 */ s16 eyeIdx;
     /* 0x0212 */ s16 cutsceneCamera;

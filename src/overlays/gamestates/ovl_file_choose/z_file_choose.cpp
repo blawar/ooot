@@ -21,22 +21,16 @@
 #include "def/graph.h"
 #include "def/shrink_window.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_file_choose.h"
 #include "def/z_kanfont.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_rcp.h"
-#include "def/z_sram.h"
-#include "def/z_ss_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 #include "def/z_vr_box.h"
 #include "def/z_vr_box_draw.h"
 #include "def/z_play.h" // FORCE
-
-void Set_Language(u8 language_id);
-u8 Get_Language();
 
 extern u16 gSramSlotOffsets[];
 
@@ -97,7 +91,7 @@ void FileChoose_InitModeUpdate(GameState* pthisx) {
         pthis->configMode = CM_FADE_IN_START;
         pthis->nextTitleLabel = FS_TITLE_OPEN_FILE;
         osSyncPrintf("SRAM Start-Load >>>>> ");
-        Sram_VerifyAndLoadAllSaves(pthis, &pthis->sramCtx);
+	    gSaveContext.loadAllSaves(pthis);
         osSyncPrintf("Done!!!\n");
     }
 }
@@ -112,7 +106,6 @@ void FileChoose_InitModeDraw(GameState* pthisx) {
  */
 void FileChoose_FadeInMenuElements(GameState* pthisx) {
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
 
     pthis->titleAlpha[0] += VREG(1);
@@ -208,16 +201,10 @@ void FileChoose_FinishFadeIn(GameState* pthisx) {
 void FileChoose_UpdateMainMenu(GameState* pthisx) {
     static u8 emptyName[] = { 0x3E, 0x3E, 0x3E, 0x3E, 0x3E, 0x3E, 0x3E, 0x3E };
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     Input* input = &pthis->state.input[0];
 
     if (CHECK_BTN_ALL(input->press.button, BTN_START) || CHECK_BTN_ALL(input->press.button, BTN_A)) {
         if (pthis->buttonIndex <= FS_BTN_MAIN_FILE_3) {
-            osSyncPrintf("REGCK_ALL[%x]=%x,%x,%x,%x,%x,%x\n", pthis->buttonIndex,
-                         GET_NEWF(sramCtx, pthis->buttonIndex, 0), GET_NEWF(sramCtx, pthis->buttonIndex, 1),
-                         GET_NEWF(sramCtx, pthis->buttonIndex, 2), GET_NEWF(sramCtx, pthis->buttonIndex, 3),
-                         GET_NEWF(sramCtx, pthis->buttonIndex, 4), GET_NEWF(sramCtx, pthis->buttonIndex, 5));
-
             if (!SLOT_OCCUPIED(sramCtx, pthis->buttonIndex)) {
                 Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
                 pthis->configMode = CM_ROTATE_TO_NAME_ENTRY;
@@ -410,56 +397,6 @@ void FileChoose_PulsateCursor(GameState* pthisx) {
     static s16 cursorAlphaTargets[] = { 70, 200 };
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
     s16 alphaStep;
-    SramContext* sramCtx = &pthis->sramCtx;
-    Input* debugInput = &pthis->state.input[2];
-
-    if (CHECK_BTN_ALL(debugInput->press.button, BTN_DLEFT)) {
-	    Set_Language(LANGUAGE_ENG);
-	    sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = Get_Language();
-#ifdef N64_VERSION
-        *((u8*)0x80000002) = LANGUAGE_ENG;
-#endif
-        SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, 3, OS_WRITE);
-        osSyncPrintf("1:read_buff[]=%x, %x, %x, %x\n", sramCtx->readBuff[SRAM_HEADER_SOUND],
-                     sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
-                     sramCtx->readBuff[SRAM_HEADER_MAGIC]);
-
-        SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
-        osSyncPrintf("read_buff[]=%x, %x, %x, %x\n", sramCtx->readBuff[SRAM_HEADER_SOUND],
-                     sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
-                     sramCtx->readBuff[SRAM_HEADER_MAGIC]);
-    } else if (CHECK_BTN_ALL(debugInput->press.button, BTN_DUP)) {
-	    Set_Language(LANGUAGE_GER);
-	    sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = Get_Language();
-#ifdef N64_VERSION
-        *((u8*)0x80000002) = LANGUAGE_GER;
-#endif
-
-        SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, 3, OS_WRITE);
-        osSyncPrintf("1:read_buff[]=%x, %x, %x, %x\n", sramCtx->readBuff[SRAM_HEADER_SOUND],
-                     sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
-                     sramCtx->readBuff[SRAM_HEADER_MAGIC]);
-        SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
-        osSyncPrintf("read_buff[]=%x, %x, %x, %x\n", sramCtx->readBuff[SRAM_HEADER_SOUND],
-                     sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
-                     sramCtx->readBuff[SRAM_HEADER_MAGIC]);
-    } else if (CHECK_BTN_ALL(debugInput->press.button, BTN_DRIGHT)) {
-	    Set_Language(LANGUAGE_FRA);
-        sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = Get_Language();
-#ifdef N64_VERSION
-        *((u8*)0x80000002) = LANGUAGE_FRA;
-#endif
-
-        SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, 3, OS_WRITE);
-        osSyncPrintf("1:read_buff[]=%x, %x, %x, %x\n", sramCtx->readBuff[SRAM_HEADER_SOUND],
-                     sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
-                     sramCtx->readBuff[SRAM_HEADER_MAGIC]);
-
-        SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
-        osSyncPrintf("read_buff[]=%x, %x, %x, %x\n", sramCtx->readBuff[SRAM_HEADER_SOUND],
-                     sramCtx->readBuff[SRAM_HEADER_ZTARGET], sramCtx->readBuff[SRAM_HEADER_LANGUAGE],
-                     sramCtx->readBuff[SRAM_HEADER_MAGIC]);
-    }
 
     alphaStep = ABS(pthis->highlightColor[3] - cursorAlphaTargets[pthis->highlightPulseDir]) / XREG(35);
 
@@ -549,7 +486,6 @@ void FileChoose_SetWindowContentVtx(GameState* pthisx) {
     s16 phi_a1;
     s16 phi_ra;
     s16 temp_t1;
-    SramContext* sramCtx = &pthis->sramCtx;
 
     pthis->windowContentVtx = (Vtx*)Graph_Alloc(pthis->state.gfxCtx, 0x288 * sizeof(Vtx));
 
@@ -1277,7 +1213,6 @@ void FileChoose_ConfigModeDraw(GameState* pthisx) {
  */
 void FileChoose_FadeMainToSelect(GameState* pthisx) {
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 i;
 
     for (i = 0; i < 3; i++) {
@@ -1406,7 +1341,6 @@ void FileChoose_FadeOutFileInfo(GameState* pthisx) {
  */
 void FileChoose_MoveSelectedFileToSlot(GameState* pthisx) {
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
-    SramContext* sramCtx = &pthis->sramCtx;
     s16 yStep;
     s16 i;
 
@@ -1479,7 +1413,7 @@ void FileChoose_LoadGame(GameState* pthisx) {
     if (oot::config().game().enablDebugLevelSelect() && pthis->buttonIndex == FS_BTN_SELECT_FILE_1) {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
-        Sram_OpenSave(&pthis->sramCtx);
+	    gSaveContext.open(pthis->buttonIndex);
         gSaveContext.gameMode = 0;
         SET_NEXT_GAMESTATE(&pthis->state, Select_Init, SelectContext);
         pthis->state.running = false;
@@ -1488,7 +1422,7 @@ void FileChoose_LoadGame(GameState* pthisx) {
     {
         Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
         gSaveContext.fileNum = pthis->buttonIndex;
-        Sram_OpenSave(&pthis->sramCtx);
+        gSaveContext.open(pthis->buttonIndex);
         gSaveContext.gameMode = 0;
         SET_NEXT_GAMESTATE(&pthis->state, Gameplay_Init, GlobalContext);
         pthis->state.running = false;
@@ -1736,9 +1670,6 @@ void FileChoose_Main(GameState* pthisx) {
 void FileChoose_InitContext(GameState* pthisx) {
     FileChooseContext* pthis = (FileChooseContext*)pthisx;
     EnvironmentContext* envCtx = &pthis->envCtx;
-    SramContext* sramCtx = &pthis->sramCtx;
-
-    Sram_Alloc(&pthis->state, sramCtx);
 
     ZREG(7) = 32;
     ZREG(8) = 22;
@@ -1895,13 +1826,7 @@ void FileChoose_InitContext(GameState* pthisx) {
     pthis->n64ddFlags[0] = pthis->n64ddFlags[1] = pthis->n64ddFlags[2] = pthis->defense[0] = pthis->defense[1] =
         pthis->defense[2] = 0;
 
-    SsSram_ReadWrite(OS_K1_TO_PHYSICAL(0xA8000000), sramCtx->readBuff, SRAM_SIZE, OS_READ);
-
-    gSaveContext.language = sramCtx->readBuff[SRAM_HEADER_LANGUAGE];
-
-    if (gSaveContext.language >= LANGUAGE_MAX) {
-        sramCtx->readBuff[SRAM_HEADER_LANGUAGE] = gSaveContext.language = LANGUAGE_ENG;
-    }
+    gSaveContext.init();
 }
 
 void FileChoose_Destroy(GameState* pthisx) {

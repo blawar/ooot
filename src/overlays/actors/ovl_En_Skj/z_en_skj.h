@@ -89,11 +89,11 @@ struct EnSkj {
     /* 0x0274 */ EnSkjActionFunc actionFunc;
     /* 0x0278 */ ColliderCylinder collider;
     /* 0x02C4 */ u16 textId;
-    /* 0x02C6 */ s16 timer;
+    /* 0x02C6 */ Timer timer;
     /* 0x02C8 */ s16 unk_2C8;
-    /* 0x02CA */ s16 multiuseTimer;
-    /* 0x02CC */ s16 needleShootTimer;
-    /* 0x02CE */ s16 dodgeResetTimer;
+    /* 0x02CA */ Timer multiuseTimer;
+    /* 0x02CC */ Timer needleShootTimer;
+    /* 0x02CE */ Timer dodgeResetTimer;
     /* 0x02D0 */ u8 animIndex;
     /* 0x02D1 */ u8 action;
     /* 0x02D2 */ u8 backfilpFlag;

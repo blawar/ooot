@@ -23,7 +23,7 @@ struct EnFirefly {
     /* 0x01B4 */ EnFireflyActionFunc actionFunc;
     /* 0x01B8 */ u8 auraType;
     /* 0x01B9 */ u8 onFire;
-    /* 0x01BA */ s16 timer;
+    /* 0x01BA */ Timer timer;
     /* 0x01BC */ s16 targetPitch;
     /* 0x01BE */ Vec3s jointTable[28];
     /* 0x0266 */ Vec3s morphTable[28];

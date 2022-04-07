@@ -15,6 +15,7 @@
 #include "z_parameter.h"
 #include "kaleido_macros.h"
 #include "gfx_align.h"
+#include "port/options.h"
 
 #include "textures/parameter_static/parameter_static.h"
 #include "textures/do_action_static/do_action_static.h"
@@ -28,7 +29,6 @@
 #include "def/recvmesg.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_horse.h"
 #include "def/z_kankyo.h"
 #include "def/z_lifemeter.h"
@@ -2820,7 +2820,10 @@ s32 Health_ChangeBy(GlobalContext* globalCtx, s16 healthChange)
     }
 	// clang-format on
 
-	gSaveContext.health += healthChange;
+	if(!oot::config().cheats().invincible() || healthChange > 0)
+    {
+	    gSaveContext.health += healthChange;
+    }
 
 	if(gSaveContext.health > gSaveContext.healthCapacity)
 	{
@@ -4719,23 +4722,6 @@ void Interface_Update(GlobalContext* globalCtx)
 	s16 alpha;
 	s16 alpha1;
 	u16 action;
-	Input* debugInput = &globalCtx->state.input[2];
-
-	if(CHECK_BTN_ALL(debugInput->press.button, BTN_DLEFT))
-	{
-		Set_Language(LANGUAGE_ENG);
-		osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
-	}
-	else if(CHECK_BTN_ALL(debugInput->press.button, BTN_DUP))
-	{
-		Set_Language(LANGUAGE_GER);
-		osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
-	}
-	else if(CHECK_BTN_ALL(debugInput->press.button, BTN_DRIGHT))
-	{
-		Set_Language(LANGUAGE_FRA);
-		osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
-	}
 
 	if((globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0))
 	{
@@ -4955,7 +4941,7 @@ void Interface_Update(GlobalContext* globalCtx)
 	switch(interfaceCtx->unk_1EC)
 	{
 		case 1:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 15700.0f)
 			{
 				interfaceCtx->unk_1F4 = -15700.0f;
@@ -4963,7 +4949,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case 2:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 0.0f)
 			{
 				interfaceCtx->unk_1F4 = 0.0f;
@@ -4978,7 +4964,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case 3:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 15700.0f)
 			{
 				interfaceCtx->unk_1F4 = -15700.0f;
@@ -4986,7 +4972,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case 4:
-			interfaceCtx->unk_1F4 += 31400.0f / WREG(5);
+			interfaceCtx->unk_1F4 += 31400.0f / (3.0f * FRAMERATE_SCALER_INV);
 			if(interfaceCtx->unk_1F4 >= 0.0f)
 			{
 				interfaceCtx->unk_1F4 = 0.0f;

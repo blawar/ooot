@@ -27,7 +27,7 @@ struct EnDu {
     /* 0x01EF */ u8 eyeTexIndex;
     /* 0x01F0 */ u8 mouthTexIndex;
     /* 0x01F1 */ u8 noseTexIndex;
-    /* 0x01F2 */ s16 blinkTimer;
+    /* 0x01F2 */ Timer blinkTimer;
     /* 0x01F4 */ struct_80034A14_arg1 unk_1F4;
 }; 
 

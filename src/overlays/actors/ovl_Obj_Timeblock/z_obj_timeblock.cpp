@@ -338,7 +338,7 @@ void ObjTimeblock_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void ObjTimeblock_Draw(Actor* thisx, GlobalContext* globalCtx) {
     if (((ObjTimeblock*)thisx)->isVisible) {
-        Color_RGB8* primColor = &sPrimColors[thisx->home.rot.z & 7];
+        Color_RGB8* primColor = &sPrimColors[thisx->home.rot.z.whole() & 7];
 
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_timeblock.c", 762);
 

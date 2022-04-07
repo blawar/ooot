@@ -25,7 +25,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_demo.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_lib.h"
@@ -2635,7 +2634,7 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx) {
                 pthis->actor.world.pos.y += pthis->actor.velocity.y;
                 pthis->actor.velocity.y -= 1.0f;
             }
-            func_8002D7EC(&pthis->actor);
+            Actor_UpdatePosition(&pthis->actor);
             temp = (pthis->actor.world.pos.y < -200.0f) ? 5 : 1;
             pthis->actor.world.pos.y -= 20.0f;
             Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 20.0f, 100.0f, temp);

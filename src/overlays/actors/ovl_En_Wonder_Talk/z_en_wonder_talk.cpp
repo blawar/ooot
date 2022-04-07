@@ -9,7 +9,6 @@
 #include "z_en_wonder_talk.h"
 #include "vt.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_message_PAL.h"
 
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_27)

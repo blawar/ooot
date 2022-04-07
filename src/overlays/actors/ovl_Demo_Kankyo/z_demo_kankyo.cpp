@@ -12,7 +12,6 @@
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_object_kankyo.h"
@@ -215,7 +214,7 @@ static CutsceneCameraPoint sSparklesCameraPoints[] = {
 
 static s16 D_8098CF80;
 static s16 sRainScale;
-static TimerS16 D_8098CF84;
+static Timer D_8098CF84;
 
 void DemoKankyo_SetupAction(DemoKankyo* pthis, DemoKankyoActionFunc actionFunc) {
     pthis->actionFunc = actionFunc;

@@ -9,6 +9,7 @@
 #include "z_en_po_field.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_po_field/object_po_field.h"
+#include "player_state.h"
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/sys_matrix.h"
@@ -468,7 +469,7 @@ void EnPoField_Appear(EnPoField* pthis, GlobalContext* globalCtx) {
     } else if (pthis->skelAnime.curFrame > 10.0f) {
         pthis->lightColor.a = ((pthis->skelAnime.curFrame - 10.0f) * 0.05f) * 255.0f;
     } else {
-        pthis->actor.scale.x += pthis->scaleModifier * 0.1f;
+	    pthis->actor.scale.x += pthis->scaleModifier * 0.1f * FRAMERATE_SCALER;
         pthis->actor.scale.y = pthis->actor.scale.x;
         pthis->actor.scale.z = pthis->actor.scale.x;
     }
@@ -489,7 +490,7 @@ void EnPoField_CirclePlayer(EnPoField* pthis, GlobalContext* globalCtx) {
         pthis->actionTimer--;
     }
     if (ABS(temp_v1) < 16) {
-        pthis->actor.world.rot.y += 512.0f * fabsf(Math_SinS(pthis->unk_194 * 0x800));
+	    pthis->actor.world.rot.y += 512.0f * FRAMERATE_SCALER * fabsf(Math_SinS(pthis->unk_194 * 0x800));
     }
     Math_ApproachF(&pthis->scaleModifier, 180.0f, 0.5f, 10.0f);
     Math_ApproachF(&pthis->actor.home.pos.x, player->actor.world.pos.x, 0.2f, 6.0f);
@@ -597,7 +598,7 @@ void EnPoField_Death(EnPoField* pthis, GlobalContext* globalCtx) {
         EnPoField_SetupSoulIdle(pthis, globalCtx);
     } else if (pthis->actionTimer >= 19) {
         temp_f0 = (28 - pthis->actionTimer) * 0.001f;
-        pthis->actor.world.pos.y += 5.0f;
+	    pthis->actor.world.pos.y += 5.0f * FRAMERATE_SCALER;
         pthis->actor.scale.z = temp_f0;
         pthis->actor.scale.y = temp_f0;
         pthis->actor.scale.x = temp_f0;
@@ -612,7 +613,7 @@ void EnPoField_Disappear(EnPoField* pthis, GlobalContext* globalCtx) {
     if (pthis->actionTimer != 0) {
         pthis->actionTimer--;
     }
-    pthis->actor.shape.rot.y += 0x1000;
+    pthis->actor.shape.rot.y += 0x1000 * FRAMERATE_SCALER;
     pthis->lightColor.a = pthis->actionTimer * 15.9375f;
     pthis->actor.shape.shadowAlpha = pthis->lightColor.a;
     if (pthis->actionTimer == 0) {
@@ -658,7 +659,7 @@ void EnPoField_SoulUpdateProperties(EnPoField* pthis, s32 arg1) {
 }
 
 void func_80AD587C(EnPoField* pthis, GlobalContext* globalCtx) {
-    pthis->actor.home.pos.y += 2.0f;
+	pthis->actor.home.pos.y += 2.0f * FRAMERATE_SCALER;
     EnPoField_SoulUpdateProperties(pthis, 20);
     if (pthis->lightColor.a == 255) {
         func_80AD4384(pthis);
@@ -783,8 +784,8 @@ void EnPoField_UpdateFlame(EnPoField* pthis, GlobalContext* globalCtx) {
             return;
         }
         if (Math_StepToF(&pthis->flameScale, 0.003f, 0.0006f) != 0) {
-            pthis->flamePosition.x += 2.5f * Math_SinS(pthis->flameRotation);
-            pthis->flamePosition.z += 2.5f * Math_CosS(pthis->flameRotation);
+            pthis->flamePosition.x += 2.5f * FRAMERATE_SCALER * Math_SinS(pthis->flameRotation);
+            pthis->flamePosition.z += 2.5f * FRAMERATE_SCALER * Math_CosS(pthis->flameRotation);
         }
         pthis->flameCollider.dim.pos.x = pthis->flamePosition.x;
         pthis->flameCollider.dim.pos.y = pthis->flamePosition.y;
@@ -802,7 +803,7 @@ void EnPoField_DrawFlame(EnPoField* pthis, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0,
-                                    (globalCtx->gameplayFrames * -20) % 512, 32, 128));
+                                    (globalCtx->gameplayFrames.whole() * -20) % 512, 32, 128));
         sp4C = pthis->flameScale * 85000.0f;
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 0, sp4C);
         Matrix_Translate(pthis->flamePosition.x, pthis->flamePosition.y, pthis->flamePosition.z, MTXMODE_NEW);
@@ -1009,7 +1010,7 @@ void EnPoField_DrawSoul(Actor* thisx, GlobalContext* globalCtx) {
         func_80093D84(globalCtx->state.gfxCtx);
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0,
-                                    (globalCtx->gameplayFrames * info->unk_9) & 0x1FF, 0x20, 0x80));
+                                    (globalCtx->gameplayFrames.whole() * info->unk_9) & 0x1FF, 0x20, 0x80));
         gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(info->soulTexture));
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, info->primColor.r, info->primColor.g, info->primColor.b,
                         pthis->lightColor.a);

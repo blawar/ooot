@@ -638,7 +638,7 @@ void EnTite_Recoil(EnTite* pthis, GlobalContext* globalCtx) {
         pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
         pthis->collider.base.atFlags &= ~AT_HIT;
         if ((pthis->actor.xzDistToPlayer > 300.0f) && (pthis->actor.yDistToPlayer > 80.0f) &&
-            (ABS(pthis->actor.shape.rot.x) < 4000) && (ABS(pthis->actor.shape.rot.z) < 4000) &&
+            (ABS((float)pthis->actor.shape.rot.x) < 4000) && (ABS((float)pthis->actor.shape.rot.z) < 4000) &&
             ((pthis->actor.bgCheckFlags & 1) ||
              ((pthis->actor.params == TEKTITE_BLUE) && (pthis->actor.bgCheckFlags & 0x20)))) {
             EnTite_SetupIdle(pthis);
@@ -710,7 +710,7 @@ void EnTite_Stunned(EnTite* pthis, GlobalContext* globalCtx) {
         } else if (pthis->flipState == TEKTITE_FLIPPED) {
             EnTite_SetupFlipUpright(pthis);
         } else if (((pthis->actor.xzDistToPlayer > 300.0f) && (pthis->actor.yDistToPlayer > 80.0f) &&
-                    (ABS(pthis->actor.shape.rot.x) < 4000) && (ABS(pthis->actor.shape.rot.z) < 4000)) &&
+                    (ABS((float)pthis->actor.shape.rot.x) < 4000) && (ABS((float)pthis->actor.shape.rot.z) < 4000)) &&
                    ((pthis->actor.bgCheckFlags & 1) ||
                     ((pthis->actor.params == TEKTITE_BLUE) && (pthis->actor.bgCheckFlags & 0x20)))) {
             EnTite_SetupIdle(pthis);
@@ -893,21 +893,21 @@ void EnTite_Update(Actor* thisx, GlobalContext* globalCtx) {
                 pthis->backRightFootPos.y = waterSurfaceY;
                 EffectSsGRipple_Spawn(globalCtx, &pthis->backRightFootPos, 0, 220, 0);
             }
-            if (((((globalCtx->gameplayFrames + 2) % 8) == 0) || (thisx->velocity.y < 0.0f)) &&
+            if (((((globalCtx->gameplayFrames.whole() + 2) % 8) == 0) || (thisx->velocity.y < 0.0f)) &&
                 (WaterBox_GetSurfaceImpl(globalCtx, &globalCtx->colCtx, pthis->backLeftFootPos.x,
                                          pthis->backLeftFootPos.z, &waterSurfaceY, &waterBox)) &&
                 (pthis->backLeftFootPos.y <= waterSurfaceY)) {
                 pthis->backLeftFootPos.y = waterSurfaceY;
                 EffectSsGRipple_Spawn(globalCtx, &pthis->backLeftFootPos, 0, 220, 0);
             }
-            if (((((globalCtx->gameplayFrames + 4) % 8) == 0) || (thisx->velocity.y < 0.0f)) &&
+            if (((((globalCtx->gameplayFrames.whole() + 4) % 8) == 0) || (thisx->velocity.y < 0.0f)) &&
                 (WaterBox_GetSurfaceImpl(globalCtx, &globalCtx->colCtx, pthis->frontLeftFootPos.x,
                                          pthis->frontLeftFootPos.z, &waterSurfaceY, &waterBox)) &&
                 (pthis->frontLeftFootPos.y <= waterSurfaceY)) {
                 pthis->frontLeftFootPos.y = waterSurfaceY;
                 EffectSsGRipple_Spawn(globalCtx, &pthis->frontLeftFootPos, 0, 220, 0);
             }
-            if (((((globalCtx->gameplayFrames + 1) % 8) == 0) || (thisx->velocity.y < 0.0f)) &&
+            if (((((globalCtx->gameplayFrames.whole() + 1) % 8) == 0) || (thisx->velocity.y < 0.0f)) &&
                 (WaterBox_GetSurfaceImpl(globalCtx, &globalCtx->colCtx, pthis->frontRightFootPos.x,
                                          pthis->frontRightFootPos.z, &waterSurfaceY, &waterBox)) &&
                 (pthis->frontRightFootPos.y <= waterSurfaceY)) {

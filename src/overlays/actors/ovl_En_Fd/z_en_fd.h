@@ -41,10 +41,10 @@ struct EnFd {
     /* 0x04B8 */ s16 curYawToInitPos;
     /* 0x04BA */ s16 runDir;
     /* 0x04BC */ s16 firstUpdateFlag;
-    /* 0x04BE */ s16 spinTimer;
+    /* 0x04BE */ Timer spinTimer;
     /* 0x04C0 */ s16 circlesToComplete;
-    /* 0x04C2 */ s16 invincibilityTimer;
-    /* 0x04C4 */ s16 attackTimer;
+    /* 0x04C2 */ Timer invincibilityTimer;
+    /* 0x04C4 */ Timer attackTimer;
     /* 0x04C8 */ f32 runRadius;
     /* 0x04CC */ f32 fadeAlpha;
     /* 0x04D0 */ Vec3f corePos;

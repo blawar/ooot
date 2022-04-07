@@ -10,7 +10,6 @@
 #include "def/z_camera.h"
 #include "def/z_collision_btltbls.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_face_reaction.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
@@ -580,7 +579,7 @@ void EnDu_Update(Actor* thisx, GlobalContext* globalCtx) {
         pthis->actor.world.pos.y += pthis->actor.velocity.y;
         pthis->actor.world.pos.z += pthis->actor.velocity.z;
     } else {
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
     }
 
     Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);

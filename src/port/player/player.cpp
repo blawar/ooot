@@ -3,7 +3,7 @@
 
 namespace oot
 {
-	Player::Player() : m_rebindInput(0)
+	Player::Player() : m_rebindInput(hid::Button::EMPTY_BUTTON)
 	{
 	}
 
@@ -44,12 +44,12 @@ namespace oot
 
 			if (result)
 			{
-				m_rebindInput = -10;
+				m_rebindInput = (hid::Button)-10;
 			}
 		}
-		else if (m_rebindInput < 0)
+		else if ((s64)m_rebindInput < 0)
 		{
-			m_rebindInput++;
+			m_rebindInput = (hid::Button)((s64)m_rebindInput + 1);
 		}
 		else
 		{
@@ -68,7 +68,7 @@ namespace oot
 		m_controller.resolveInputs();
 	}
 
-	void Player::rebind(int input)
+	void Player::rebind(hid::Button input)
 	{
 		m_rebindInput = input;
 	}

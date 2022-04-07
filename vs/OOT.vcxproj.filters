@@ -1872,9 +1872,6 @@
     <ClCompile Include="..\src\code\z_collision_check.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\code\z_common_data.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\code\z_construct.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
@@ -2065,9 +2062,6 @@
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_sram.cpp">
-      <Filter>Source Files\code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\code\z_ss_sram.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_view.cpp">

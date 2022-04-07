@@ -8,7 +8,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_lights.h"
@@ -390,12 +389,12 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     if (pthis->unk_1B8 >= 0.85f) {
-        phi_f14 = (D_80AA046C_41[(globalCtx->gameplayFrames & 7)] * 6.0f) + 1.0f;
+        phi_f14 = (D_80AA046C_41[(globalCtx->gameplayFrames.whole() & 7)] * 6.0f) + 1.0f;
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 255, 255, 170, pthis->unk_1C8);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 100, 0, 128);
         phi_t1 = 0x28;
     } else {
-        phi_f14 = (D_80AA046C_41[globalCtx->gameplayFrames & 7] * 2.0f) + 1.0f;
+        phi_f14 = (D_80AA046C_41[globalCtx->gameplayFrames.whole() & 7] * 2.0f) + 1.0f;
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 170, 255, 255, pthis->unk_1C8);
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 128);
         phi_t1 = 0x14;
@@ -405,8 +404,8 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2) {
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
     gSPSegment(POLY_XLU_DISP++, 0x09,
-               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->gameplayFrames * 5) & 0xFF, 0, 0x20, 0x20, 1,
-                                (globalCtx->gameplayFrames * 20) & 0xFF, (globalCtx->gameplayFrames * phi_t1) & 0xFF, 8,
+               Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->gameplayFrames.whole() * 5) & 0xFF, 0, 0x20, 0x20, 1,
+                                (globalCtx->gameplayFrames.whole() * 20) & 0xFF, (globalCtx->gameplayFrames.whole() * phi_t1) & 0xFF, 8,
                                 8));
 
     gSPDisplayList(POLY_XLU_DISP++, gSpinAttackChargingDL);

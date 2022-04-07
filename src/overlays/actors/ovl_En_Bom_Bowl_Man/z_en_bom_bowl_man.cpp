@@ -7,7 +7,6 @@
 #include "objects/object_bg/object_bg.h"
 #include "def/z_actor.h"
 #include "def/z_camera.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_message_PAL.h"
 #include "def/z_onepointdemo.h"

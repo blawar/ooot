@@ -34,7 +34,9 @@ f32 Math_SinS(s16 angle) {
  * Changes pValue by step (scaled by the update rate) towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_ScaledStepToS(s16* pValue, s16 target, s16 step) {
+template<class T>
+static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, const Step& _step) {
+	float step = _step.value();
     if (step != 0) {
         f32 updateScale = FRAMERATE_ANIM_SCALER;
 
@@ -42,7 +44,7 @@ s32 Math_ScaledStepToS(s16* pValue, s16 target, s16 step) {
             step = -step;
         }
 
-        *pValue += (s16)(step * updateScale);
+        *pValue = *pValue + (s16)(step * updateScale);
 
         if (((s16)(*pValue - target) * step) >= 0) {
             *pValue = target;
@@ -55,17 +57,29 @@ s32 Math_ScaledStepToS(s16* pValue, s16 target, s16 step) {
     return false;
 }
 
+s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step)
+{
+	return _Math_ScaledStepToS(pValue, target, _step);
+}
+
+s32 Math_ScaledStepToS(Rotation* pValue, s16 target, const Step& _step)
+{
+	return _Math_ScaledStepToS(pValue, target, _step);
+}
+
 /**
  * Changes pValue by step towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_StepToS(s16* pValue, s16 target, s16 step) {
+template<class T>
+static inline s32 _Math_StepToS(T* pValue, s16 target, const Step& _step) {
+	float step = _step.value();
     if (step != 0) {
         if (target < *pValue) {
             step = -step;
         }
 
-        *pValue += step;
+        *pValue = *pValue + step;
 
         if (((*pValue - target) * step) >= 0) {
             *pValue = target;
@@ -78,11 +92,22 @@ s32 Math_StepToS(s16* pValue, s16 target, s16 step) {
     return false;
 }
 
+s32 Math_StepToS(s16* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToS(pValue, target, _step);
+}
+
+s32 Math_StepToS(Rotation* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToS(pValue, target, _step);
+}
+
 /**
  * Changes pValue by step towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_StepToF(f32* pValue, f32 target, f32 step) {
+s32 Math_StepToF(f32* pValue, f32 target, const Step& _step) {
+	float step = _step.value();
     if (step != 0.0f) {
         if (target < *pValue) {
             step = -step;
@@ -156,8 +181,9 @@ f32 Math_AngleDiffF(f32 a, f32 b)
 	return angleDelta;
 }
 
-s32 Math_StepRotationToF(f32* pValue, f32 target, f32 step)
+s32 Math_StepRotationToF(f32* pValue, f32 target, const Step& _step)
 {
+	float step = _step.value();
 	if(step != 0.0f)
 	{
 		const float angleDelta = target - *pValue;
@@ -203,10 +229,10 @@ s32 Math_StepRotationToF(f32* pValue, f32 target, f32 step)
  *  Changes pValue by step. If pvalue reaches limit angle or its opposite, sets it equal to limit angle.
  * Returns true when limit angle or its opposite is reached, false otherwise.
  */
-s32 Math_StepUntilAngleS(s16* pValue, s16 limit, s16 step) {
+s32 Math_StepUntilAngleS(s16* pValue, s16 limit, const Step& step) {
     s16 orig = *pValue;
 
-    *pValue += step;
+    *pValue += step.value();
 
     if (((s16)(*pValue - limit) * (s16)(orig - limit)) <= 0) {
         *pValue = limit;
@@ -220,10 +246,11 @@ s32 Math_StepUntilAngleS(s16* pValue, s16 limit, s16 step) {
  * Changes pValue by step. If pvalue reaches limit, sets it equal to limit.
  * Returns true when limit is reached, false otherwise.
  */
-s32 Math_StepUntilS(s16* pValue, s16 limit, s16 step) {
+template<class T>
+static inline s32 _Math_StepUntilS(T* pValue, s16 limit, const Step& step) {
     s16 orig = *pValue;
 
-    *pValue += step;
+    *pValue = *pValue + step.value();
 
     if (((*pValue - limit) * (orig - limit)) <= 0) {
         *pValue = limit;
@@ -233,11 +260,23 @@ s32 Math_StepUntilS(s16* pValue, s16 limit, s16 step) {
     return false;
 }
 
+s32 Math_StepUntilS(s16* pValue, s16 limit, const Step& step)
+{
+	return _Math_StepUntilS(pValue, limit, step);
+}
+
+s32 Math_StepUntilS(Rotation* pValue, s16 limit, const Step& step)
+{
+	return _Math_StepUntilS(pValue, limit, step);
+}
+
 /**
  * Changes pValue by step towards target angle, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_StepToAngleS(s16* pValue, s16 target, s16 step) {
+template<class T>
+static inline s32 _Math_StepToAngleS(T* pValue, s16 target, const Step& _step) {
+	float step = _step.value();
     s32 diff = target - *pValue;
 
     if (diff < 0) {
@@ -266,14 +305,24 @@ s32 Math_StepToAngleS(s16* pValue, s16 target, s16 step) {
     return false;
 }
 
+s32 Math_StepToAngleS(s16* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToAngleS(pValue, target, _step);
+}
+
+s32 Math_StepToAngleS(Rotation* pValue, s16 target, const Step& _step)
+{
+	return _Math_StepToAngleS(pValue, target, _step);
+}
+
 /**
  * Changes pValue by step. If pvalue reaches limit, sets it equal to limit.
  * Returns true when limit is reached, false otherwise.
  */
-s32 Math_StepUntilF(f32* pValue, f32 limit, f32 step) {
+s32 Math_StepUntilF(f32* pValue, f32 limit, const Step& step) {
     f32 orig = *pValue;
 
-    *pValue += step;
+    *pValue += step.value();
 
     if (((*pValue - limit) * (orig - limit)) <= 0) {
         *pValue = limit;
@@ -287,8 +336,8 @@ s32 Math_StepUntilF(f32* pValue, f32 limit, f32 step) {
  * Changes pValue toward target by incrStep if pValue is smaller and by decrStep if it is greater, setting it equal when
  * target is reached. Returns true when target is reached, false otherwise.
  */
-s32 Math_AsymStepToF(f32* pValue, f32 target, f32 incrStep, f32 decrStep) {
-    f32 step = (target >= *pValue) ? incrStep : decrStep;
+s32 Math_AsymStepToF(f32* pValue, f32 target, const Step& incrStep, const Step& decrStep) {
+    f32 step = (target >= *pValue) ? incrStep.value() : decrStep.value();
 
     if (step != 0.0f) {
         if (target < *pValue) {
@@ -490,7 +539,9 @@ void IChain_Apply_Vec3s(u8* ptr, InitChainEntry* ichain) {
  * Changes pValue by step towards target. If this step is more than fraction of the remaining distance, step by that
  * instead, with a minimum step of minStep. Returns remaining distance to target.
  */
-f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, f32 step, f32 minStep) {
+f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep) {
+	float step = _step.value();
+	float minStep = _minStep.value();
     if (*pValue != target) {
         f32 stepSize = (target - *pValue) * fraction;
 
@@ -529,7 +580,8 @@ f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, f32 step, f32 minS
 /**
  * Changes pValue by step towards target. If step is more than fraction of the remaining distance, step by that instead.
  */
-void Math_ApproachF(f32* pValue, f32 target, f32 fraction, f32 step) {
+void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step) {
+	float step = _step.value();
     if (*pValue != target) {
         f32 stepSize = (target - *pValue) * fraction;
 
@@ -546,7 +598,8 @@ void Math_ApproachF(f32* pValue, f32 target, f32 fraction, f32 step) {
 /**
  * Changes pValue by step towards zero. If step is more than fraction of the remaining distance, step by that instead.
  */
-void Math_ApproachZeroF(f32* pValue, f32 fraction, f32 step) {
+void Math_ApproachZeroF(f32* pValue, f32 fraction, const Step& _step) {
+	float step = _step.value();
     f32 stepSize = *pValue * fraction;
 
     if (stepSize > step) {
@@ -562,7 +615,9 @@ void Math_ApproachZeroF(f32* pValue, f32 fraction, f32 step) {
  * Changes pValue by step towards target angle in degrees. If this step is more than fraction of the remaining distance,
  * step by that instead, with a minimum step of minStep. Returns the value of the step taken.
  */
-f32 Math_SmoothStepToDegF(f32* pValue, f32 target, f32 fraction, f32 step, f32 minStep) {
+f32 Math_SmoothStepToDegF(f32* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep) {
+	float step = _step.value();
+	float minStep = _minStep.value();
     f32 stepSize = 0.0f;
     f32 diff = target - *pValue;
 
@@ -618,7 +673,10 @@ f32 Math_SmoothStepToDegF(f32* pValue, f32 target, f32 fraction, f32 step, f32 m
  * Changes pValue by step towards target. If this step is more than 1/scale of the remaining distance, step by that
  * instead, with a minimum step of minStep. Returns remaining distance to target.
  */
-s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep) {
+template<class T>
+static inline s16 _Math_SmoothStepToS(T* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep) {
+	float step = _step.value();
+	float minStep = _minStep.value();
     s16 stepSize = 0;
     s16 diff = target - *pValue;
 
@@ -634,16 +692,16 @@ s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep
                 stepSize = -step;
             }
 
-            *pValue += stepSize;
+            *pValue = *pValue + stepSize;
         } else {
             if (diff >= 0) {
-                *pValue += minStep;
+                *pValue = *pValue + minStep;
 
                 if ((s16)(target - *pValue) <= 0) {
                     *pValue = target;
                 }
             } else {
-                *pValue -= minStep;
+                *pValue = *pValue - minStep;
 
                 if ((s16)(target - *pValue) >= 0) {
                     *pValue = target;
@@ -655,21 +713,44 @@ s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep
     return diff;
 }
 
+s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep)
+{
+	return _Math_SmoothStepToS(pValue, target, scale, _step, _minStep);
+}
+
+s16 Math_SmoothStepToS(Rotation* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep)
+{
+	return _Math_SmoothStepToS(pValue, target, scale, _step, _minStep);
+}
+
 /**
  * Changes pValue by step towards target. If step is more than 1/scale of the remaining distance, step by that instead.
  */
-void Math_ApproachS(s16* pValue, s16 target, s16 scale, s16 maxStep) {
+template<class T>
+static inline void _Math_ApproachS(T* pValue, s16 target, s16 scale, const Step& _maxStep)
+{
+	float maxStep = _maxStep.value();
     s16 diff = target - *pValue;
 
     diff /= scale;
 
     if (diff > maxStep) {
-        *pValue += maxStep;
+	    *pValue = *pValue + maxStep;
     } else if (diff < -maxStep) {
-        *pValue -= maxStep;
+	    *pValue = *pValue - maxStep;
     } else {
-        *pValue += diff;
+	    *pValue = *pValue + diff;
     }
+}
+
+void Math_ApproachS(s16* pValue, s16 target, s16 scale, const Step& _maxStep)
+{
+	_Math_ApproachS(pValue, target, scale, _maxStep);
+}
+
+void Math_ApproachS(Rotation* pValue, s16 target, s16 scale, const Step& _maxStep)
+{
+	_Math_ApproachS(pValue, target, scale, _maxStep);
 }
 
 void Color_RGBA8_Copy(Color_RGBA8* dst, Color_RGBA8* src) {

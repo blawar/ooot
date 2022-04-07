@@ -733,9 +733,10 @@ void func_809688C4(Actor* thisx, GlobalContext* globalCtx2) {
                            sEnvColors[pthis->unk_274[i]].b, 255);
             Matrix_Push();
             Matrix_Translate(pthis->unk_174[i], pthis->unk_1B4[i], 0.0f, MTXMODE_APPLY);
-            Matrix_Scale(pthis->unk_234[i] * D_8096931C[(frames + i) & 3],
-                         pthis->unk_234[i] * D_8096931C[(frames + i) & 3],
-                         pthis->unk_234[i] * D_8096931C[(frames + i) & 3], MTXMODE_APPLY);
+            s32 idx = ((s32)frames + i) & 3;
+            Matrix_Scale(pthis->unk_234[i] * D_8096931C[idx],
+                         pthis->unk_234[i] * D_8096931C[idx],
+                         pthis->unk_234[i] * D_8096931C[idx], MTXMODE_APPLY);
             func_800D1FD4(&globalCtx->billboardMtxF);
             gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_6k.c", 1297),
                       G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

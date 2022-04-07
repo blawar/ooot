@@ -11,10 +11,8 @@
 #include "global.h"
 #include "def/inventory.h"
 #include "def/sys_matrix.h"
-#include "def/z_common_data.h"
 #include "def/z_opening.h"
 #include "def/z_rcp.h"
-#include "def/z_sram.h"
 #include "def/z_view.h"
 #include "def/z_play.h" // FORCE
 
@@ -60,7 +58,7 @@ void Opening_SetupTitleScreen(OpeningContext* pthis) {
     gSaveContext.gameMode = 1;
     pthis->state.running = false;
     gSaveContext.linkAge = 0;
-    Sram_InitDebugSave();
+    gSaveContext.createDebug();
     gSaveContext.cutsceneIndex = 0xFFF3;
     gSaveContext.sceneSetupIndex = 7;
     //gSaveContext.sceneSetupIndex = 0xC;

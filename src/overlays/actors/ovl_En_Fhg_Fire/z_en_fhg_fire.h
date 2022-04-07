@@ -83,7 +83,7 @@ struct EnFhgFire {
     /* 0x01A0 */ LightInfo lightInfo;
     /* 0x01B0 */ ColliderCylinder collider;
     /* 0x01FC */ u8 lensFlareOn;
-    /* 0x01FE */ s16 lensFlareTimer;
+    /* 0x01FE */ Timer lensFlareTimer;
     /* 0x0200 */ f32 lensFlareScale;
 }; 
 

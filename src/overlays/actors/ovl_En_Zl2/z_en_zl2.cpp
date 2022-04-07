@@ -18,7 +18,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_parameter.h"
@@ -124,7 +123,7 @@ void EnZl2_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void EnZl2_UpdateEyes(EnZl2* pthis) {
     s32 pad[4];
     s16* eyeTexIndex2 = &pthis->eyeTexIndex2;
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyeTexIndex = &pthis->eyeTexIndex;
 
     if (DECR(*blinkTimer) == 0) {

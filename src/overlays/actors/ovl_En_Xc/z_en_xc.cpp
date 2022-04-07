@@ -23,7 +23,6 @@
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_demo.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_kankyo.h"
@@ -124,7 +123,7 @@ void EnXc_CalculateHeadTurn(EnXc* pthis, GlobalContext* globalCtx) {
 
 void EnXc_SetEyePattern(EnXc* pthis) {
     s32 pad[3];
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
     s16* eyePattern = &pthis->eyeIdx;
 
     if (!DECR(*blinkTimer)) {

@@ -318,7 +318,7 @@ namespace oot::hid
 				resetBindingsImpl();
 			}
 
-			bool canRebind(XInputButtons button, int input)
+			bool canRebind(XInputButtons button, hid::Button input)
 			{
 				if(m_keyBindings.count(button) == 0)
 				{
@@ -353,7 +353,7 @@ namespace oot::hid
 				return count != 1;
 			}
 
-			bool updateRebind(int input) override
+			bool updateRebind(hid::Button input) override
 			{
 				u8 state[MAX_BUTTONS];
 				XINPUT_STATE xstate;

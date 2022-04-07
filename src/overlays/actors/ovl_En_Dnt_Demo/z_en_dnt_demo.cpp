@@ -16,7 +16,6 @@
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
 #include "def/z_player_lib.h"

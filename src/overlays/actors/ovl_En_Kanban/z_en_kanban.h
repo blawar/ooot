@@ -54,11 +54,11 @@ struct EnKanban {
     /* 0x0000 */ Actor actor;
     /* 0x014C */ char unk_14C[4];
     /* 0x0150 */ u8 frameCount;
-    /* 0x0152 */ s16 airTimer;
+    /* 0x0152 */ Timer airTimer;
     /* 0x0154 */ u8 actionState;
     /* 0x0156 */ u16 partFlags;
     /* 0x0158 */ u8 partCount;
-    /* 0x015A */ s16 invincibilityTimer;
+    /* 0x015A */ Timer invincibilityTimer;
     /* 0x015C */ Vec3f offset;
     /* 0x0168 */ Vec3s spinRot;
     /* 0x016E */ Vec3s spinVel;
@@ -73,9 +73,9 @@ struct EnKanban {
     /* 0x0188 */ Vec3f floorRot;
     /* 0x0194 */ u8 cutType;
     /* 0x0195 */ u8 pieceType;
-    /* 0x0196 */ s16 cutMarkTimer;
+    /* 0x0196 */ Timer cutMarkTimer;
     /* 0x0198 */ s16 cutMarkAlpha;
-    /* 0x019A */ s16 zTargetTimer;
+    /* 0x019A */ Timer zTargetTimer;
     /* 0x019C */ u8 msgFlag;
     /* 0x019D */ u8 msgTimer;
     /* 0x019E */ u8 ocarinaFlag;

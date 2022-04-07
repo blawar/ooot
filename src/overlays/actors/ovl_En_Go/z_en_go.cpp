@@ -12,7 +12,6 @@
 #include "def/z_camera.h"
 #include "def/z_collision_btltbls.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_message_PAL.h"
@@ -1081,7 +1080,7 @@ void EnGo_DrawRolling(EnGo* pthis, GlobalContext* globalCtx) {
 
     Matrix_Push();
     func_80093D18(globalCtx->state.gfxCtx);
-    Matrix_RotateZYX((s16)(globalCtx->state.frames * ((s16)pthis->actor.speedXZ * 1400)).toS16(), 0, pthis->actor.shape.rot.z,
+    Matrix_RotateZYX(globalCtx->state.frames * pthis->actor.speedXZ * 1400, 0, pthis->actor.shape.rot.z,
                      MTXMODE_APPLY);
     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_go.c", 2368),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

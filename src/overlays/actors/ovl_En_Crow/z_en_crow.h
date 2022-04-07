@@ -15,7 +15,7 @@ struct EnCrow {
     /* 0x014C */ Vec3f bodyPartsPos[4];
     /* 0x017C */ SkelAnime skelAnime;
     /* 0x01C0 */ EnCrowActionFunc actionFunc;
-    /* 0x01C4 */ s16 timer;
+    /* 0x01C4 */ Timer timer;
     /* 0x01C6 */ s16 aimRotX;
     /* 0x01C8 */ s16 aimRotY;
     /* 0x01CA */ Vec3s jointTable[9];

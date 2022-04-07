@@ -14,7 +14,6 @@
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
@@ -459,7 +458,7 @@ void BgPoEvent_BlockReset(BgPoEvent* pthis, GlobalContext* globalCtx) {
         sPuzzleState = 0;
         if (pthis->type == 1) {
             pthis->timer += 10;
-            pthis->timer = CLAMP_MAX(pthis->timer, 120);
+            pthis->timer = CLAMP_MAX((float)pthis->timer, 120.0f);
         }
     }
 }

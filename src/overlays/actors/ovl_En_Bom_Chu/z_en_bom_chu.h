@@ -13,7 +13,7 @@ struct EnBomChu {
 
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnBomChuActionFunc actionFunc;
-    /* 0x0150 */ s16 timer;
+    /* 0x0150 */ Timer timer;
     /* 0x0154 */ Vec3f axisForwards;
     /* 0x0160 */ Vec3f axisUp;
     /* 0x016C */ Vec3f axisLeft;

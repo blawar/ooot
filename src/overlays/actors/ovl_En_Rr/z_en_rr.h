@@ -58,12 +58,12 @@ struct EnRr {
     /* 0x0150 */ ColliderCylinder collider1;
     /* 0x019C */ ColliderCylinder collider2;
     /* 0x01E8 */ s16 frameCount;
-    /* 0x01EA */ s16 actionTimer;
-    /* 0x01EC */ s16 scrollTimer;
-    /* 0x01EE */ s16 grabTimer;
-    /* 0x01F0 */ s16 invincibilityTimer;
-    /* 0x01F2 */ s16 effectTimer;
-    /* 0x01F4 */ s16 ocTimer;
+    /* 0x01EA */ Timer actionTimer;
+    /* 0x01EC */ Timer scrollTimer;
+    /* 0x01EE */ Timer grabTimer;
+    /* 0x01F0 */ Timer invincibilityTimer;
+    /* 0x01F2 */ Timer effectTimer;
+    /* 0x01F4 */ Timer ocTimer;
     /* 0x01F6 */ s16 segMovePhase; // phase angle for wobble and pulsing motion
     /* 0x01F8 */ f32 segPhaseVel; // rate at which motion phase changes
     /* 0x01FC */ f32 segPhaseVelTarget;

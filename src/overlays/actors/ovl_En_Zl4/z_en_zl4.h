@@ -104,9 +104,9 @@ struct EnZl4 {
     /* 0x020D */ u8 eyeExpression;
     /* 0x020E */ u8 mouthExpression;
     /* 0x020F */ u8 unk_20F;
-    /* 0x0210 */ s16 blinkTimer;
-    /* 0x0212 */ s16 talkTimer1;
-    /* 0x0214 */ s16 talkTimer2;
+    /* 0x0210 */ Timer blinkTimer;
+    /* 0x0212 */ Timer talkTimer1;
+    /* 0x0214 */ Timer talkTimer2;
     /* 0x0216 */ s16 lastAction;
     /* 0x0218 */ Vec3s jointTable[18];
     /* 0x0284 */ Vec3s morphTable[18];

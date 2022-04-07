@@ -32,7 +32,6 @@ static s32 sUnused = 0;
 #include "def/audio_bank.h"
 #include "def/random.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
@@ -67,11 +66,11 @@ void DemoDu_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DemoDu_UpdateEyes(DemoDu* pthis) {
-    s16* blinkTimer = &pthis->blinkTimer;
+    Timer* blinkTimer = &pthis->blinkTimer;
     s16* eyeTexIndex = &pthis->eyeTexIndex;
     s32 pad[3];
 
-    if (DECR(*blinkTimer) == 0) {
+    if (blinkTimer->dec() == 0) {
         *blinkTimer = Rand_S16Offset(60, 60);
     }
 

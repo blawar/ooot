@@ -22,7 +22,7 @@ struct EnExRuppy {
     /* 0x0150 */ s16 colorIdx;
     /* 0x0152 */ s16 type;
     /* 0x0154 */ s16 invisible;
-    /* 0x0156 */ s16 timer;
+    /* 0x0156 */ Timer timer;
     /* 0x0158 */ s16 rupeeValue;
     /* 0x015A */ s16 unk_15A; 
     /* 0x015C */ s16 galleryFlag;

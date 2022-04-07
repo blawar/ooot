@@ -20,7 +20,6 @@
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_demo.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 #include "def/z_en_item00.h"
@@ -906,7 +905,7 @@ void BossSst_HeadVulnerable(BossSst* pthis, GlobalContext* globalCtx) {
     Math_StepToF(&sHandOffsets[RIGHT].x, -200.0f, 20.0f);
     if (CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_13)) {
         pthis->timer += 2;
-        pthis->timer = CLAMP_MAX(pthis->timer, 50);
+        pthis->timer = CLAMP_MAX((float)pthis->timer, 50.0f);
     } else {
         if (pthis->timer != 0) {
             pthis->timer--;
@@ -1844,7 +1843,7 @@ void BossSst_HandGrab(BossSst* pthis, GlobalContext* globalCtx) {
         pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
         Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_SHADEST_CATCH);
         BossSst_HandGrabPlayer(pthis, globalCtx);
-        pthis->timer = CLAMP_MAX(pthis->timer, 5);
+        pthis->timer = CLAMP_MAX((float)pthis->timer, 5.0f);
     }
 
     pthis->actor.world.pos.x += pthis->actor.speedXZ * Math_SinS(pthis->actor.world.rot.y);
@@ -2779,7 +2778,7 @@ s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     BossSst* pthis = (BossSst*)thisx;
     s32 shakeAmp;
     s32 pad;
-    s32 timer12;
+    Timer timer12;
     f32 shakeMod;
 
     if (!CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_7) && pthis->vVanish) {
@@ -2826,7 +2825,7 @@ s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
         if (pthis->timer > 48) {
             timer12 = pthis->timer - 36;
         } else {
-            pad = ((pthis->timer > 6) ? 6 : pthis->timer);
+            pad = ((pthis->timer > 6) ? 6.0f : (float)pthis->timer);
             timer12 = pad * 2;
         }
 
@@ -3165,7 +3164,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
         if (pthis->effectMode == BONGO_ICE) {
             gSPSegment(POLY_XLU_DISP++, 0x08,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames % 256, 0x20, 0x10, 1,
-                                        0, (globalCtx->gameplayFrames * 2) % 256, 0x40, 0x20));
+                                        0, (globalCtx->gameplayFrames.whole() * 2) % 256, 0x40, 0x20));
             gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, pthis->effects[0].alpha);
             gSPDisplayList(POLY_XLU_DISP++, gBongoIceCrystalDL);
 
@@ -3195,7 +3194,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx) {
             gDPPipeSync(POLY_XLU_DISP++);
             gSPSegment(POLY_XLU_DISP++, 0x08,
                        Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames % 128, 0, 0x20, 0x40, 1,
-                                        0, (globalCtx->gameplayFrames * -15) % 256, 0x20, 0x40));
+                                        0, (globalCtx->gameplayFrames.whole() * -15) % 256, 0x20, 0x40));
 
             for (i = 0; i < 3; i++, scaleY -= 0.001f) {
                 effect = &pthis->effects[i];

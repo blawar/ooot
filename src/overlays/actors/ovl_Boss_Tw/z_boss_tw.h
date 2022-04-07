@@ -118,7 +118,7 @@ struct BossTw {
     /* 0x014C */ BossTwActionFunc actionFunc;
     /* 0x0150 */ s16 work[WORK_MAX];
     /* 0x0168 */ char unused_170[0xE]; // Likely unused Work variables
-    /* 0x0178 */ s16 timers[5];
+    /* 0x0178 */ Timer timers[5];
     /* 0x0184 */ f32 workf[FWORK_MAX];
     /* 0x01D4 */ f32 fogR;
     /* 0x01D8 */ f32 fogG;
@@ -172,7 +172,7 @@ struct BossTw {
     /* 0x05F9 */ u8 unk_5F9;
     /* 0x05FA */ s16 csState2;
     /* 0x05FC */ s16 subCamId;
-    /* 0x05FE */ s16 csSfxTimer;
+    /* 0x05FE */ Timer csSfxTimer;
     /* 0x0600 */ Vec3f subCamEye;
     /* 0x060C */ Vec3f subCamAt;
     /* 0x0618 */ char unused_618[0xC];

@@ -24,7 +24,6 @@
 #include "def/z_bgcheck.h"
 #include "def/z_camera.h"
 #include "def/z_collision_check.h"
-#include "def/z_common_data.h"
 #include "def/z_en_item00.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
@@ -132,7 +131,7 @@ BossGanon2* func_80B53488(EnZl3* pthis, GlobalContext* globalCtx) {
 void EnZl3_UpdateEyes(EnZl3* pthis) {
     s32 pad[2];
     s16* eyeTexIndex = &pthis->eyeTexIndex;
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
 
     if (DECR(*blinkTimer) == 0) {
         *blinkTimer = Rand_S16Offset(60, 60);
@@ -194,7 +193,7 @@ void func_80B53764(EnZl3* pthis, GlobalContext* globalCtx) {
 
 s32 func_80B537E8(EnZl3* pthis) {
     s16 yawTowardsPlayer = pthis->actor.yawTowardsPlayer;
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
     s16* unk_3D0 = &pthis->unk_3D0;
     s16 retVal;
     s16 pad[2];
@@ -207,7 +206,7 @@ s32 func_80B537E8(EnZl3* pthis) {
 
 void func_80B538B0(EnZl3* pthis) {
     s16 yawTowardsPlayer = pthis->actor.yawTowardsPlayer;
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
 
     if (ABS((s16)(yawTowardsPlayer - *rotY)) >= 0x1556) {
         D_80B5A468 = 1;
@@ -1681,14 +1680,14 @@ s32 func_80B571FC(EnZl3* pthis) {
 
 void func_80B57240(EnZl3* pthis) {
     s32 temp_a1 = func_80B571FC(pthis);
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
 
     Math_SmoothStepToS(rotY, temp_a1, 2, 6400, 1000);
     pthis->actor.shape.rot.y = *rotY;
 }
 
 void func_80B57298(EnZl3* pthis) {
-    s16* rotY = &pthis->actor.world.rot.y;
+    auto rotY = &pthis->actor.world.rot.y;
     s16 temp_a1 = func_80B571A8(pthis);
 
     Math_SmoothStepToS(rotY, temp_a1, 2, 6400, 1000);
@@ -1994,7 +1993,7 @@ void func_80B57D60(EnZl3* pthis, GlobalContext* globalCtx) {
 
 s32 func_80B57D80(EnZl3* pthis, GlobalContext* globalCtx) {
     s32 pad;
-    s16* sp32 = &pthis->actor.shape.rot.y;
+    auto sp32 = &pthis->actor.shape.rot.y;
     struct_80034A14_arg1* unk_3F8 = &pthis->unk_3F8;
     Player* player = GET_PLAYER(globalCtx);
     s32 unk_314 = pthis->unk_314;

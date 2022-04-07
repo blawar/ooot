@@ -9,7 +9,6 @@
 #include "z_item_ocarina.h"
 #include "scenes/overworld/spot00/spot00_scene.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_draw.h"
 #include "def/z_effect_soft_sprite_old_init.h"
 
@@ -87,7 +86,7 @@ void ItemOcarina_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void ItemOcarina_Fly(ItemOcarina* pthis, GlobalContext* globalCtx) {
     Vec3f ripplePos;
 
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.shape.rot.x += pthis->spinRotOffset * 2;
     pthis->actor.shape.rot.y += pthis->spinRotOffset * 3;
 
@@ -138,7 +137,7 @@ void ItemOcarina_GetThrown(ItemOcarina* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80B864EC(ItemOcarina* pthis, GlobalContext* globalCtx) {
-    func_8002D7EC(&pthis->actor);
+    Actor_UpdatePosition(&pthis->actor);
     pthis->actor.shape.rot.x += pthis->spinRotOffset * 2;
     pthis->actor.shape.rot.y += pthis->spinRotOffset * 3;
 

@@ -35,8 +35,8 @@ struct EnSyatekiItm {
 
     /* 0x0000 */ Actor actor;
     /* 0x014C */ EnSyatekiItmActionFunc actionFunc;
-    /* 0x0150 */ s16 timer; // timer for next round
-    /* 0x0152 */ s16 unkTimer; // unk timer
+    /* 0x0150 */ Timer timer; // timer for next round
+    /* 0x0152 */ Timer unkTimer; // unk timer
     /* 0x0154 */ s16 signal; // signal between this and shopkeeper
     /* 0x0156 */ s16 hitCount; // total rupees hit
     /* 0x0158 */ s16 roundNum; // current round

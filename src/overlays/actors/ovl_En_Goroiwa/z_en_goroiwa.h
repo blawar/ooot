@@ -18,9 +18,9 @@ struct EnGoroiwa {
     /* 0x01B0 */ Vec3f prevUnitRollAxis;
     /* 0x01BC */ f32 prevRollAngleDiff;
     /* 0x01C0 */ f32 rollRotSpeed;
-    /* 0x01C4 */ s16 waitTimer;
+    /* 0x01C4 */ Timer waitTimer;
     /* 0x01C6 */ s16 bounceCount;
-    /* 0x01C8 */ s16 collisionDisabledTimer;
+    /* 0x01C8 */ Timer collisionDisabledTimer;
     /* 0x01CA */ s16 endWaypoint;
     /* 0x01CC */ s16 currentWaypoint;
     /* 0x01CE */ s16 nextWaypoint;

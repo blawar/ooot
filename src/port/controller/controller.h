@@ -4,7 +4,7 @@
 
 namespace oot::hid
 {
-	enum Button
+	enum Button : s64
 	{
 		EMPTY_BUTTON = 0,
 		CONT_A	   = 0x8000,
@@ -36,23 +36,24 @@ namespace oot::hid
 		L_CBUTTONS   = CONT_C,
 		R_CBUTTONS   = CONT_F,
 		D_CBUTTONS   = CONT_D,
-		STICK_X_LEFT = 1 << 16,
-		STICK_X_RIGHT = 1 << 17,
-		STICK_X_DOWN = 1 << 19,
-		STICK_X_UP = 1 << 18,
-		WALK_BUTTON = 1 << 20,
-		DEBUG_MENU = 1 << 21,
-		OCARINA = 1 << 22,
-		HOOKSHOT = 1 << 23,
-		BOW_ARROW = 1 << 24,
-		LENS_OF_TRUTH = 1 << 25,
-		BOOTS_TOGGLE = 1 << 26,
-		SWORD_TOGGLE = 1 << 27,
-		SHIELD_TOGGLE = 1 << 28,
-		TUNIC_TOGGLE = 1 << 29,
-		FAST_FORWARD = 1 << 30,
-		CENTER_CAMERA = 1 << 31,
-		CURRENT_ACTION = 1 << 32
+		STICK_X_LEFT = 1ULL << 16,
+		STICK_X_RIGHT = 1ULL << 17,
+		STICK_X_DOWN = 1ULL << 19,
+		STICK_X_UP = 1ULL << 18,
+		WALK_BUTTON = 1ULL << 20,
+		DEBUG_MENU = 1ULL << 21,
+		OCARINA = 1ULL << 22,
+		HOOKSHOT = 1ULL << 23,
+		BOW_ARROW = 1ULL << 24,
+		LENS_OF_TRUTH = 1ULL << 25,
+		BOOTS_TOGGLE = 1ULL << 26,
+		SWORD_TOGGLE = 1ULL << 27,
+		SHIELD_TOGGLE = 1ULL << 28,
+		TUNIC_TOGGLE = 1ULL << 29,
+		FAST_FORWARD = 1ULL << 30,
+		CENTER_CAMERA = 1ULL << 31,
+		CURRENT_ACTION = 1ULL << 32,
+		LANGUAGE_TOGGLE = 1ULL << 33
 	};
 
 	class State
@@ -127,10 +128,10 @@ namespace oot::hid
 		virtual void ResetMotorPack();
 		virtual void SendMotorVib(int level);
 
-		virtual bool updateRebind(int input);
-		virtual void processKey(int input);
-		virtual void processKeyUp(int input);
-		virtual void processKeyDown(int input);
+		virtual bool updateRebind(hid::Button input);
+		virtual void processKey(hid::Button input);
+		virtual void processKeyUp(hid::Button input);
+		virtual void processKeyDown(hid::Button input);
 
 		protected:
 		virtual void vibrate();
@@ -152,7 +153,7 @@ namespace oot::hid
 
 	namespace controller
 	{
-		const char* getInputName(Button input);
+		const char* getInputName(hid::Button input);
 		Button getInputValue(const std::string& input);
 	}
 } // namespace oot::hid

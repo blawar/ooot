@@ -80,7 +80,7 @@ struct BossFd2 {
     /* 0x0190 */ BossFd2ActionFunc actionFunc;
     /* 0x0194 */ u8 disableAT;
     /* 0x0196 */ s16 work[FD2_SHORT_COUNT];
-    /* 0x01BC */ s16 timers[5];
+    /* 0x01BC */ Timer timers[5];
     /* 0x01C8 */ f32 fwork[FD2_FLOAT_COUNT];
     /* 0x0210 */ Vec3f headPos;
     /* 0x021C */ Vec3s headRot;

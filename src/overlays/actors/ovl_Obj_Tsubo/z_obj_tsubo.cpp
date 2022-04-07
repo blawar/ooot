@@ -298,7 +298,7 @@ void ObjTsubo_LiftedUp(ObjTsubo* pthis, GlobalContext* globalCtx) {
         pthis->actor.room = globalCtx->roomCtx.curRoom.num;
         ObjTsubo_SetupThrown(pthis);
         ObjTsubo_ApplyGravity(pthis);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 5.0f, 15.0f, 0.0f, 0x85);
     }
 }
@@ -329,7 +329,7 @@ void ObjTsubo_Thrown(ObjTsubo* pthis, GlobalContext* globalCtx) {
         Actor_Kill(&pthis->actor);
     } else {
         ObjTsubo_ApplyGravity(pthis);
-        func_8002D7EC(&pthis->actor);
+        Actor_UpdatePosition(&pthis->actor);
         Math_StepToS(&D_80BA1B54, D_80BA1B50, 0x64);
         Math_StepToS(&D_80BA1B5C, D_80BA1B58, 0x64);
         pthis->actor.shape.rot.x += D_80BA1B54;

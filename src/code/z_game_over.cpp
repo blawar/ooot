@@ -6,7 +6,6 @@
 #include "sequence.h"
 #include "def/code_800A9F30.h"
 #include "def/shrink_window.h"
-#include "def/z_common_data.h"
 #include "def/z_game_over.h"
 #include "def/z_kankyo.h"
 #include "def/z_message_PAL.h"

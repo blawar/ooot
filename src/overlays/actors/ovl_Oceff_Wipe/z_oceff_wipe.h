@@ -15,7 +15,7 @@ struct OceffWipe;
 struct OceffWipe {
 
     /* 0x0000 */ Actor actor;
-    /* 0x014C */ s16 timer;
+    /* 0x014C */ Timer timer;
 }; 
 
 

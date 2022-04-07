@@ -23,7 +23,6 @@
 #include "def/random.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_lib.h"
 #include "def/z_object_kankyo.h"
@@ -239,22 +238,25 @@ void EnViewer_UpdateImpl(EnViewer* pthis, GlobalContext* globalCtx) {
     } else if (type == ENVIEWER_TYPE_3_GANONDORF) {
         if (gSaveContext.sceneSetupIndex == 4) {
 
-            switch(globalCtx->csCtx.frames)
-            {
-                case 20:
-                case 59:
-                case 71:
-                case 129:
-                case 140:
-                case 219:
-                case 280:
-                case 320:
-                case 380:
-                case 409:
-                case 438:
-                    Audio_PlaySoundGeneral(NA_SE_SY_DEMO_CUT, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-                    break;
-            }
+            if(globalCtx->csCtx.frames.isWhole())
+		    {
+			    switch(globalCtx->csCtx.frames.whole())
+			    {
+				    case 20:
+				    case 59:
+				    case 71:
+				    case 129:
+				    case 140:
+				    case 219:
+				    case 280:
+				    case 320:
+				    case 380:
+				    case 409:
+				    case 438:
+					    Audio_PlaySoundGeneral(NA_SE_SY_DEMO_CUT, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+					    break;
+			    }
+		    }
         }
         if (gSaveContext.sceneSetupIndex == 5) {
             if (globalCtx->csCtx.frames == 1508) {
@@ -872,7 +874,7 @@ void EnViewer_DrawFireEffects(EnViewer* pthis2, GlobalContext* globalCtx) {
         Matrix_Scale(pthis->fireEffects[i].scale, pthis->fireEffects[i].scale, pthis->fireEffects[i].scale, MTXMODE_APPLY);
         gSPSegment(POLY_XLU_DISP++, 0x08,
                    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0,
-                                    (globalCtx->state.frames * (10 * i - 20)) % 512, 32, 128));
+                                    (uintptr_t)(globalCtx->state.frames * (10 * i - 20)) % 512, 32, 128));
         gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 170, 255);
         gDPSetEnvColor(POLY_XLU_DISP++, 255, 50, 00, 255);
         gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_viewer.c", 2027),

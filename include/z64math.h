@@ -1,6 +1,7 @@
 #pragma once
 #include "ultra64/types.h"
 #include <math.h>
+#include "framerate.h"
 
 #define VEC_SET(V,X,Y,Z) (V).x=(X);(V).y=(Y);(V).z=(Z)
 
@@ -28,6 +29,18 @@ struct Vec3s {
 struct Vec3i {
     s32 x, y, z;
 }; // size = 0x0C
+
+struct VecRot
+{
+	VecRot();
+	VecRot(const Rotation& x, const Rotation& y, const Rotation& z);
+	VecRot(const VecRot& vec);
+	VecRot(const Vec3s& vec);
+	VecRot(const Vec3f& vec);
+	operator Vec3s() const;
+	operator Vec3f() const;
+	Rotation x, y, z;
+};
 
 struct Sphere16 {
     Vec3s center;
@@ -82,7 +95,7 @@ struct VecSph {
 
 struct PosRot {
     Vec3f pos;
-    Vec3s rot;
+    VecRot rot;
 }; // size = 0x14
 
 #define LERP(x, y, scale) (((y) - (x)) * (scale) + (x))

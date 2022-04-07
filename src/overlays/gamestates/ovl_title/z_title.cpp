@@ -24,10 +24,8 @@ const char gBuildMakeOption[] = "";
 #include "def/sys_matrix.h"
 #include "def/xprintf.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kankyo.h"
 #include "def/z_rcp.h"
-#include "def/z_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_title.h"
 #include "def/z_view.h"
@@ -198,8 +196,7 @@ void Title_Main(GameState* thisx) {
 
 void Title_Destroy(GameState* thisx) {
     TitleContext* pthis = (TitleContext*)thisx;
-
-    Sram_InitSram(&pthis->state, &pthis->sramCtx);
+	gSaveContext.file.init(thisx);
 }
 
 void Title_Init(GameState* thisx) {
@@ -212,7 +209,6 @@ void Title_Init(GameState* thisx) {
     pthis->state.destroy = Title_Destroy;
     pthis->exit = false;
     gSaveContext.fileNum = 0xFF;
-    Sram_Alloc(&pthis->state, &pthis->sramCtx);
     pthis->ult = 0;
     pthis->unk_1D4 = 0x14;
     pthis->coverAlpha = 255;

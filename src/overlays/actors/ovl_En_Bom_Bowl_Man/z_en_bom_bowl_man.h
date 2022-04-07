@@ -29,13 +29,13 @@ struct EnBomBowlMan {
     /* 0x0218 */ Vec3s unk_218;
     /* 0x021E */ char unk_21E[0x6];
     /* 0x0224 */ Vec3s unk_224;
-    /* 0x022A */ s16 prizeRevealTimer;
-    /* 0x022C */ s16 timer;
+    /* 0x022A */ Timer prizeRevealTimer;
+    /* 0x022C */ Timer timer;
     /* 0x022E */ s16 dialogState;
     /* 0x0230 */ s16 prizeIndex;
     /* 0x0232 */ s16 startedPlaying; // set to true after starting the first round
     /* 0x0234 */ s16 eyeTextureIndex;
-    /* 0x0236 */ s16 blinkTimer;
+    /* 0x0236 */ Timer blinkTimer;
     /* 0x0238 */ s16 eyeMode;
     /* 0x023A */ s16 blinkCount;
     /* 0x023C */ s16 playingAgain; // whether player is playing again after a game

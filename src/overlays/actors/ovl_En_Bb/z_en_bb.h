@@ -78,7 +78,7 @@ struct EnBb {
     /* 0x029F */ u8 flamePrimAlpha;
     /* 0x02A0 */ Color_RGB8 flameEnvColor;
     /* 0x02A4 */ s32 blureIdx;
-    /* 0x02A8 */ s16 fireIceTimer;
+    /* 0x02A8 */ Timer fireIceTimer;
     /* 0x02AA */ u8 dmgEffect;  
     /* 0x02AC */ ColliderJntSph collider;
     /* 0x02CC */ ColliderJntSphElement elements[1];

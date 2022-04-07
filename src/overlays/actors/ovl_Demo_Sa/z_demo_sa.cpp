@@ -13,7 +13,6 @@
 
 #include "vt.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_parameter.h"
 #include "def/z_rcp.h"
@@ -100,7 +99,7 @@ void DemoSa_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void func_8098E480(DemoSa* pthis) {
     s32 pad[2];
     s16* eyeIndex = &pthis->eyeIndex;
-    s16* blinkTimer = &pthis->blinkTimer;
+    auto blinkTimer = &pthis->blinkTimer;
 
     if (DECR(*blinkTimer) == 0) {
         *blinkTimer = Rand_S16Offset(0x3C, 0x3C);

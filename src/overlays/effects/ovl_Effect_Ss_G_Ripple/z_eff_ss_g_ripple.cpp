@@ -119,7 +119,7 @@ void EffectSsGRipple_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis
     f32 primAlpha;
     f32 envAlpha;
 
-    if (DECR(pthis->rLifespan) == 0) {
+    if (DECRI(pthis->rLifespan) == 0) {
         radius = pthis->rRadius;
         Math_SmoothStepToF(&radius, pthis->rRadiusMax, 0.2f, 30.0f, 1.0f);
         pthis->rRadius = radius;
