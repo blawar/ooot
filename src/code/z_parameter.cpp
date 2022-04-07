@@ -4722,23 +4722,6 @@ void Interface_Update(GlobalContext* globalCtx)
 	s16 alpha;
 	s16 alpha1;
 	u16 action;
-	Input* debugInput = &globalCtx->state.input[2];
-
-	if(CHECK_BTN_ALL(debugInput->press.button, BTN_DLEFT))
-	{
-		Set_Language(LANGUAGE_ENG);
-		osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
-	}
-	else if(CHECK_BTN_ALL(debugInput->press.button, BTN_DUP))
-	{
-		Set_Language(LANGUAGE_GER);
-		osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
-	}
-	else if(CHECK_BTN_ALL(debugInput->press.button, BTN_DRIGHT))
-	{
-		Set_Language(LANGUAGE_FRA);
-		osSyncPrintf("J_N=%x J_N=%x\n", gSaveContext.language, &gSaveContext.language);
-	}
 
 	if((globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0))
 	{

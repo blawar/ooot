@@ -5,9 +5,20 @@
 
 struct OcarinaStaff;
 
-typedef enum { TEXTBOX_ICON_TRIANGLE, TEXTBOX_ICON_SQUARE, TEXTBOX_ICON_ARROW } TextBoxIcon;
+enum TextBoxIcon
+{
+	TEXTBOX_ICON_TRIANGLE,
+	TEXTBOX_ICON_SQUARE,
+	TEXTBOX_ICON_ARROW
+};
 
-typedef enum { LANGUAGE_ENG, LANGUAGE_GER, LANGUAGE_FRA, LANGUAGE_MAX } Language;
+enum Language
+{
+	LANGUAGE_ENG,
+	LANGUAGE_GER,
+	LANGUAGE_FRA,
+	LANGUAGE_MAX
+};
 
 // TODO get these properties from the textures themselves
 #define FONT_CHAR_TEX_WIDTH 16

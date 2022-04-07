@@ -25,14 +25,14 @@ namespace oot
 			return m_controller;
 		}
 
-		void rebind(int input);
+		void rebind(hid::Button input);
 		bool isRebindMode() const;
 		void SendMotorEvent(short time, short level, u8 decay = 0);
 
 		protected:
 		std::vector<std::shared_ptr<hid::Controller> > m_controllers;
 		hid::Controller m_controller;
-		int m_rebindInput;
+		hid::Button m_rebindInput;
 	};
 
 } // namespace oot

@@ -3334,16 +3334,9 @@ void Message_SetTables(void) {
     }
 }
 
-static u8 g_currentLanguage = 0;
-
-u8 Get_Language()
-{
-    return gSaveContext.language;
-}
-
 void Set_Language(u8 language_id)
 {
-	g_currentLanguage = gSaveContext.language = language_id % LANGUAGE_MAX;
+	gSaveContext.language = language_id % LANGUAGE_MAX;
     Message_SetTables();
 }
 

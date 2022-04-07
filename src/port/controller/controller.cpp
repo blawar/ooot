@@ -347,12 +347,12 @@ namespace oot::hid
 		return value * (oot::config().controls().mouseyInvert() ? -1 : 1) * oot::config().controls().mouseyScaler();
 	}
 
-	bool Controller::updateRebind(int input)
+	bool Controller::updateRebind(hid::Button input)
 	{
 		return false;
 	}
 
-	void Controller::processKey(int input)
+	void Controller::processKey(hid::Button input)
 	{
 		if(input > 0xFFFF)
 		{
@@ -386,7 +386,7 @@ namespace oot::hid
 		}
 	}
 
-	void Controller::processKeyDown(int input)
+	void Controller::processKeyDown(hid::Button input)
 	{
 		switch(input)
 		{
@@ -417,10 +417,13 @@ namespace oot::hid
 			case Button::CENTER_CAMERA:
 				oot::state.center_camera = true;
 				break;
+			case LANGUAGE_TOGGLE:
+				config().game().setLanguage((Language)((int)config().game().language() + 1));
+				break;
 		}
 	}
 
-	void Controller::processKeyUp(int input)
+	void Controller::processKeyUp(hid::Button input)
 	{
 		switch(input)
 		{
@@ -479,7 +482,7 @@ namespace oot::hid
 
 	namespace controller
 	{
-		const char* getInputName(Button input)
+		const char* getInputName(hid::Button input)
 		{
 			switch(input)
 			{
@@ -517,6 +520,8 @@ namespace oot::hid
 					return "DEBUG_MENU";
 				case Button::FAST_FORWARD:
 					return "FAST_FORWARD";
+				case Button::LANGUAGE_TOGGLE:
+					return "LANGUAGE_TOGGLE";
 				case Button::CENTER_CAMERA:
 					return "CENTER_CAMERA";
 				case Button::CURRENT_ACTION:
@@ -583,6 +588,8 @@ namespace oot::hid
 				return Button::DEBUG_MENU;
 			if(input == "FAST_FORWARD")
 				return Button::FAST_FORWARD;
+			if(input == "LANGUAGE_TOGGLE")
+				return Button::LANGUAGE_TOGGLE;
 			if(input == "OCARINA")
 				return Button::OCARINA;
 			if(input == "HOOKSHOT")

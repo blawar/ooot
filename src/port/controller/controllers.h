@@ -15,7 +15,7 @@ namespace oot::hid
 		virtual const u64 size() const;
 		virtual Controller& controller(const u64 index);
 		virtual void update();
-		virtual bool updateRebind(int input);
+		virtual bool updateRebind(hid::Button input);
 		virtual void scan(class Controllers* controllers);
 		virtual void resetBindings();
 		virtual bool defaultOnly()
@@ -41,7 +41,7 @@ namespace oot::hid
 		void update();
 		void scan();
 		bool isRebindMode() const;
-		void rebind(int input);
+		void rebind(hid::Button input);
 		void resetBindings();
 		std::vector<class Driver*>& drivers()
 		{
@@ -50,7 +50,7 @@ namespace oot::hid
 
 	protected:
 		std::vector<class Driver*> m_drivers;
-		int m_rebindInput;
+		Button m_rebindInput;
 	};
 
 	Controllers& controllers();
