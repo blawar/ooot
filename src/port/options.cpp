@@ -169,6 +169,7 @@ namespace oot
 
 			json::setU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames(), allocator);
 			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
+			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
 			json::set(container, "language", languageGetString(language()), allocator);
 
 
@@ -192,6 +193,7 @@ namespace oot
 				json::getBool(container, "enableDebugLevelSelect", enablDebugLevelSelect());
 
 				json::getU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames());
+				json::getU64(container, "fastForwardSpeed", fastForwardSpeed());
 				json::getU64(container, "textScrollSpeed", textScrollSpeed());
 
 				std::string lang;

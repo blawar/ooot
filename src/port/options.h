@@ -344,6 +344,16 @@ namespace oot
 
 			void setLanguage(Language id);
 
+			const u64& fastForwardSpeed() const
+			{
+				return m_fastForwardSpeed;
+			}
+
+			u64& fastForwardSpeed()
+			{
+				return m_fastForwardSpeed;
+			}
+
 			protected:
 			bool m_graphicsEnabled = true;
 			bool m_audioEnabled = true;
@@ -357,6 +367,7 @@ namespace oot
 			u64 m_pauseExitInputClearFrames = 2;
 			u64 m_textScrollSpeed = 1;
 			Language m_language = LANGUAGE_ENG;
+			u64 m_fastForwardSpeed = 5;
 		};
 
 		class Base
