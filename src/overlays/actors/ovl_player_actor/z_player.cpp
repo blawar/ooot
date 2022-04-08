@@ -9443,50 +9443,56 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis) {
     u8 spC7 = 0;
     CollisionPoly* spC0;
     Vec3f spB4;
-    f32 spB0;
-    f32 spAC;
-    f32 spA8;
-    u32 spA4;
+    f32 wallCheckRadius;
+    f32 wallCheckHeight;
+    f32 ceilingCheckHeight;
+    u32 flags;
 
     D_80853604 = pthis->unk_A7A;
 
     if (pthis->stateFlags2 & PLAYER_STATE2_CRAWL) {
-        spB0 = 10.0f;
-        spAC = 15.0f;
-        spA8 = 30.0f;
+#if FRAME_RATE > 20
+        wallCheckRadius = 10.0f * 0.5f; // TODO FIX HACK
+	    wallCheckHeight = 15.0f * 0.5f;
+        ceilingCheckHeight = 30.0f * 0.5f;
+#else
+	    wallCheckRadius = 10.0f;
+	    wallCheckHeight = 15.0f;
+	    ceilingCheckHeight = 30.0f;
+#endif
     } else {
-        spB0 = pthis->ageProperties->unk_38;
-        spAC = 26.0f;
-        spA8 = pthis->ageProperties->unk_00;
+        wallCheckRadius = pthis->ageProperties->unk_38;
+        wallCheckHeight = 26.0f;
+        ceilingCheckHeight = pthis->ageProperties->unk_00;
     }
 
     if (pthis->stateFlags1 & 0xA0000000) {
         if (pthis->stateFlags1 & 0x80000000) {
             pthis->actor.bgCheckFlags &= ~1;
-            spA4 = 0x38;
+            flags = 0x38;
         } else if ((pthis->stateFlags1 & 1) && ((pthis->unk_A84 - (s32)pthis->actor.world.pos.y) >= 100)) {
-            spA4 = 0x39;
+            flags = 0x39;
         } else if (!(pthis->stateFlags1 & 1) &&
                    ((func_80845EF8 == pthis->playerUpdateFunct) || (func_80845CA4 == pthis->playerUpdateFunct))) {
             pthis->actor.bgCheckFlags &= ~0x208;
-            spA4 = 0x3C;
+            flags = 0x3C;
         } else {
-            spA4 = 0x3F;
+            flags = 0x3F;
         }
     } else {
-        spA4 = 0x3F;
+        flags = 0x3F;
     }
 
     if (pthis->stateFlags3 & 1) {
-        spA4 &= ~6;
+        flags &= ~6;
     }
 
-    if (spA4 & 4) {
+    if (flags & 4) {
         pthis->stateFlags3 |= 0x10;
     }
 
     Math_Vec3f_Copy(&spB4, &pthis->actor.world.pos);
-    Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, spAC, spB0, spA8, spA4);
+    Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, wallCheckHeight, wallCheckRadius, ceilingCheckHeight, flags);
 
     if (pthis->actor.bgCheckFlags & 0x10) {
         pthis->actor.velocity.y = 0.0f;
@@ -9571,13 +9577,13 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis) {
 
         D_8085360C = ABS(sp9A);
 
-        spB0 = D_8085360C * 0.00008f;
-        if (!(pthis->actor.bgCheckFlags & 1) || spB0 >= 1.0f) {
+        wallCheckRadius = D_8085360C * 0.00008f;
+        if (!(pthis->actor.bgCheckFlags & 1) || wallCheckRadius >= 1.0f) {
             pthis->unk_880 = R_RUN_SPEED_LIMIT / 100.0f;
         } else {
-            spAC = (R_RUN_SPEED_LIMIT / 100.0f * spB0);
-            pthis->unk_880 = spAC;
-            if (spAC < 0.1f) {
+            wallCheckHeight = (R_RUN_SPEED_LIMIT / 100.0f * wallCheckRadius);
+            pthis->unk_880 = wallCheckHeight;
+            if (wallCheckHeight < 0.1f) {
                 pthis->unk_880 = 0.1f;
             }
         }
@@ -9600,9 +9606,9 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis) {
 
                 pthis->wallDistance = Math3D_UDistPlaneToPos(sp8C, sp88, sp84, wallPoly->dist, &pthis->actor.world.pos);
 
-                spB0 = pthis->wallDistance + 10.0f;
-                sp68.x = pthis->actor.world.pos.x - (spB0 * sp8C);
-                sp68.z = pthis->actor.world.pos.z - (spB0 * sp84);
+                wallCheckRadius = pthis->wallDistance + 10.0f;
+                sp68.x = pthis->actor.world.pos.x - (wallCheckRadius * sp8C);
+                sp68.z = pthis->actor.world.pos.z - (wallCheckRadius * sp84);
                 sp68.y = pthis->actor.world.pos.y + pthis->ageProperties->unk_0C;
 
                 sp64 = BgCheck_EntityRaycastFloor1(&globalCtx->colCtx, &sp7C, &sp68);
