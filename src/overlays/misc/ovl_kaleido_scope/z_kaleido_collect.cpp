@@ -1,13 +1,13 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_COLLECT_C
 #include "actor_common.h"
-#include "z_kaleido_scope.h"
-#include "z64audio.h"
-#include "textures/parameter_static/parameter_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
 #include "hack.h"
-#include "def/inventory.h"
+#include "textures/icon_item_static/icon_item_static.h"
+#include "textures/parameter_static/parameter_static.h"
+#include "z64audio.h"
+#include "z_kaleido_scope.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
+#include "def/inventory.h"
 #include "def/z_message_PAL.h"
 
 void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfxCtx, oot::pause::Page* page)

@@ -1,9 +1,9 @@
 #pragma once
-#include <string>
 #include <map>
+#include <string>
+#include "include/z64message.h"
 #include "json.h"
 #include "port/controller/controller.h"
-#include "include/z64message.h"
 
 namespace oot
 {

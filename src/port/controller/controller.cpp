@@ -1,12 +1,13 @@
-#include "ultra64/types.h"
-#include "controller.h"
+#include "global.h"
 #include <ctime>
-#include <fstream>
 #include <filesystem>
-#include "../options.h"
-#include "def/z_player_lib.h"
-#include "state.h"
+#include <fstream>
 #include <math.h>
+#include "../options.h"
+#include "controller.h"
+#include "state.h"
+#include "ultra64/types.h"
+#include "def/z_player_lib.h"
 
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/oot/tas"
@@ -330,7 +331,6 @@ namespace oot::hid
 				this->stickMag = sqrtf(this->stickX * this->stickX + this->stickY * this->stickY);
 			}
 
-
 			this->r_stickX *= scaler;
 			this->m_state.r_stick_x *= scaler;
 			this->r_stickMag *= scaler;
@@ -609,5 +609,5 @@ namespace oot::hid
 
 			return (Button)0;
 		}
-	}
+	} // namespace controller
 } // namespace oot::hid

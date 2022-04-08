@@ -1,32 +1,32 @@
 #define INTERNAL_SRC_CODE_Z_PARAMETER_C
 #include "global.h"
+#include "z64global.h"
+#include "gfx_align.h"
+#include "kaleido_macros.h"
+#include "player_state.h"
+#include "port/options.h"
 #include "segment_symbols.h"
+#include "sequence.h"
+#include "sfx.h"
 #include "vt.h"
-#include "z64scene.h"
 #include "z64item.h"
 #include "z64object.h"
-#include "z64save.h"
-#include "z64global.h"
 #include "z64player.h"
-#include "sfx.h"
-#include "sequence.h"
+#include "z64save.h"
+#include "z64scene.h"
 #include "z_kankyo.h"
-#include "z_play.h"
 #include "z_parameter.h"
-#include "kaleido_macros.h"
-#include "gfx_align.h"
-#include "port/options.h"
-#include "player_state.h"
+#include "z_play.h"
 
-#include "textures/parameter_static/parameter_static.h"
 #include "textures/do_action_static/do_action_static.h"
 #include "textures/icon_item_static/icon_item_static.h"
-#include "def/inventory.h"
+#include "textures/parameter_static/parameter_static.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/createmesgqueue.h"
 #include "def/flg_set.h"
 #include "def/graph.h"
+#include "def/inventory.h"
 #include "def/recvmesg.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -2822,9 +2822,9 @@ s32 Health_ChangeBy(GlobalContext* globalCtx, s16 healthChange)
 	// clang-format on
 
 	if(!oot::config().cheats().invincible() || healthChange > 0)
-    {
-	    gSaveContext.health += healthChange;
-    }
+	{
+		gSaveContext.health += healthChange;
+	}
 
 	if(gSaveContext.health > gSaveContext.healthCapacity)
 	{

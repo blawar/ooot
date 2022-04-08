@@ -31,4 +31,3 @@ void func_80088AF0(struct GlobalContext* globalCtx);
 void func_80088B34(s16 arg0);
 void Interface_Draw(struct GlobalContext* globalCtx);
 void Interface_Update(struct GlobalContext* globalCtx);
-

@@ -1,10 +1,10 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_ITEM_C
 #include "actor_common.h"
-#include "z_kaleido_scope.h"
-#include "textures/parameter_static/parameter_static.h"
 #include "gfx_align.h"
-#include "def/inventory.h"
+#include "textures/parameter_static/parameter_static.h"
+#include "z_kaleido_scope.h"
 #include "def/audio_bank.h"
+#include "def/inventory.h"
 #include "def/z_parameter.h"
 #include "def/z_rcp.h"
 

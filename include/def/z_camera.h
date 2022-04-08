@@ -1,4 +1,6 @@
 #pragma once
+#include "unk.h"
+
 struct Camera;
 struct Actor;
 struct Vec3s;

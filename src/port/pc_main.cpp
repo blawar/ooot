@@ -2,17 +2,17 @@
 #define ENABLE_OPENGL
 #define USE_GLIDEN64
 #define DISABLE_AUDIO
-#include "window.h"
-#include "state.h"
+#include "../../AziAudio/AziAudio/AudioSpec.h"
+#include "controller/controllers.h"
+#include "controller/tas.h"
 #include "options.h"
 #include "player/players.h"
-#include "controller/tas.h"
-#include "../../AziAudio/AziAudio/AudioSpec.h"
+#include "state.h"
 #include "ultra64/rcp.h"
+#include "window.h"
 #include "z64audio.h"
-#include "controller/controllers.h"
-#include "def/audio_rsp.h"
 #include "def/audioMgr.h"
+#include "def/audio_rsp.h"
 
 namespace oot
 {
@@ -24,7 +24,6 @@ namespace oot
 #endif
 
 static std::unique_ptr<platform::window::Base> gWindow;
-
 
 //#define _WINGDI_
 
@@ -47,9 +46,9 @@ extern OSViMode osViModeNtscLan1;
 //#include <cstdio>
 #include <filesystem>
 
+#include "gfxapi.h"
 #include "nx.h"
 #include "xxhash64.h"
-#include "gfxapi.h"
 
 extern "C"
 {
@@ -67,7 +66,7 @@ static uint8_t inited = 0;
 
 bool verifyIntegrity()
 {
-    return true; // TODO FIX
+	return true; // TODO FIX
 	const static u64 ROM_SIZE = 0x800000;
 	bool hasRom = false, hasPak = false;
 	auto buffer = malloc(ROM_SIZE);
@@ -83,9 +82,9 @@ bool verifyIntegrity()
 		{
 			if(!hasRom && entry.path().extension() == ".z64" && entry.file_size() == ROM_SIZE)
 			{
-                FILE* f = nullptr;
+				FILE* f = nullptr;
 
-				if (fopen_s(&f, entry.path().string().c_str(), "rb") == 0)
+				if(fopen_s(&f, entry.path().string().c_str(), "rb") == 0)
 				{
 					fread(buffer, 1, ROM_SIZE, f);
 					fclose(f);
@@ -145,7 +144,7 @@ void main_func(void)
 {
 	oot::log("initializing app\n");
 
-	//Check if texture packs exist
+	// Check if texture packs exist
 	if(exists("THE LEGEND OF ZELDA_HIRESTEXTURES.hts"))
 	{
 		gfx_switch_to_htc(false);
@@ -171,8 +170,8 @@ void main_func(void)
 
 	azi_init();
 
-#ifdef _DEBUG//Record TAS to capture bugs and crashes
-	//oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
+#ifdef _DEBUG // Record TAS to capture bugs and crashes
+	      // oot::hid::tas::playTas(true);//Uncomment to play back TAS/crash report from end-users
 
 	/*if (!oot::hid::tas::isTasPlaying()) TODO FIX
 		oot::config().game().recordTas(true);*/
@@ -204,7 +203,8 @@ void main_func(void)
 #include <windows.h>
 //#include "engine/script.h"
 
-typedef enum PROCESS_DPI_AWARENESS {
+typedef enum PROCESS_DPI_AWARENESS
+{
 	PROCESS_DPI_UNAWARE = 0,
 	PROCESS_SYSTEM_DPI_AWARE = 1,
 	PROCESS_PER_MONITOR_DPI_AWARE = 2
@@ -212,14 +212,14 @@ typedef enum PROCESS_DPI_AWARENESS {
 
 bool SetDPIAwarness(PROCESS_DPI_AWARENESS Awarness)
 {
-	HRESULT(WINAPI *SetProcessDpiAwareness)(PROCESS_DPI_AWARENESS dpiAwareness) = nullptr;
+	HRESULT(WINAPI * SetProcessDpiAwareness)(PROCESS_DPI_AWARENESS dpiAwareness) = nullptr;
 	HINSTANCE shcoreLib = LoadLibrary(L"SHCORE.DLL");
 
-	if (shcoreLib)
+	if(shcoreLib)
 	{
-		SetProcessDpiAwareness = (HRESULT(WINAPI*)(PROCESS_DPI_AWARENESS)) GetProcAddress(shcoreLib, "SetProcessDpiAwareness");
+		SetProcessDpiAwareness = (HRESULT(WINAPI*)(PROCESS_DPI_AWARENESS))GetProcAddress(shcoreLib, "SetProcessDpiAwareness");
 
-		if (SetProcessDpiAwareness)
+		if(SetProcessDpiAwareness)
 			return SetProcessDpiAwareness(Awarness) == S_OK;
 	}
 	return false;
@@ -254,7 +254,8 @@ int main(int argc, char* argv[])
 
 static bool g_isRunning = true;
 
-extern "C" {
+extern "C"
+{
 	bool gfx_start_frame()
 	{
 		if(gWindow)
@@ -272,7 +273,7 @@ extern "C" {
 			gWindow->end_frame();
 		}
 #ifdef SINGLE_THREADED_AUDIO
-		for(int i=0; i < 3; i++)
+		for(int i = 0; i < 3; i++)
 		{
 			auto task = getAudioTask();
 

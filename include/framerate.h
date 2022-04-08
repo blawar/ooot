@@ -53,16 +53,17 @@ typedef enum
 #define FRAMERATE_RATE_SCALED ((R_UPDATE_RATE / FRAMERATE_RATE_SCALER) < 1 ? 1 : (R_UPDATE_RATE / FRAMERATE_RATE_SCALER))
 #define FRAME_TIME (1.0f / (float)FRAME_RATE)
 
-typedef enum{
+typedef enum
+{
 	PROFILE_BOOT = 0,   // 30FPS
 	PROFILE_PAUSE,	    // 20FPS
 	PROFILE_GAMEPLAY,   // 20FPS
 	PROFILE_UNKNOWN1,   // 60FPS
 	PROFILE_UNKNOWN2,   // 60FPS
-	PROFILE_SAMPLE,     // 60FPS
+	PROFILE_SAMPLE,	    // 60FPS
 	PROFILE_OPENING,    // 60FPS
-	PROFILE_SELECT,     // 60FPS
-	PROFILE_TITLE,      // 60FPS
+	PROFILE_SELECT,	    // 60FPS
+	PROFILE_TITLE,	    // 60FPS
 	PROFILE_FILE_CHOOSE // 60FPS
 } FramerateProfile;
 
@@ -81,9 +82,9 @@ class Timer
 
 	static Timer invalid();
 
-	Timer& operator++(); // pre
+	Timer& operator++();   // pre
 	Timer operator++(int); // post
-	Timer& operator--(); // pre
+	Timer& operator--();   // pre
 	Timer operator--(int); // post
 	Timer& dec();
 	bool isWhole() const;
@@ -144,5 +145,3 @@ class Step
 	protected:
 	float m_value;
 };
-
-

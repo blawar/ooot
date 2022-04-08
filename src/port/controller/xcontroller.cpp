@@ -1,18 +1,16 @@
 #include "xcontroller.h"
 
 #ifdef _WIN32
+#include <fstream>
+#include <unordered_map>
 #include <windows.h>
 #include <xinput.h>
-#include "controllers.h"
 #include "../player/players.h"
-#include <unordered_map>
+#include "controllers.h"
 #include "json.h"
-#include <fstream>
 #include "port/options.h"
 
 #define MAX_BUTTONS 16
-
-
 
 enum XInputButtons
 {

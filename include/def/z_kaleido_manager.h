@@ -1,4 +1,6 @@
 #pragma once
+#include "kaleido.h"
+
 struct KaleidoMgrOverlay;
 struct GlobalContext;
 

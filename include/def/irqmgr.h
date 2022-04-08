@@ -1,4 +1,6 @@
 #pragma once
+#include "ultra64/time.h"
+
 struct IrqMgr;
 struct IrqMgrClient;
 struct OSMesgQueue;
