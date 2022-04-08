@@ -122,18 +122,18 @@ void func_80ABEF2C(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
         pthis->actor.flags &= ~ACTOR_FLAG_0;
     } else {
         if ((pthis->ocarinaSong != 6) || (gSaveContext.scarecrowSpawnSongSet)) {
-            if (player->stateFlags2 & 0x1000000) {
+            if (player->stateFlags2 & PLAYER_STATE2_24) {
                 // "North! ! ! ! !"
                 osSyncPrintf(VT_FGCOL(RED) "☆☆☆☆☆ 北！！！！！ ☆☆☆☆☆ %f\n" VT_RST, pthis->actor.xzDistToPlayer);
             }
             if ((pthis->actor.xzDistToPlayer < (90.0f + pthis->interactRange)) &&
                 (fabsf(player->actor.world.pos.y - pthis->actor.world.pos.y) < 80.0f)) {
-                if (player->stateFlags2 & 0x2000000) {
+                if (player->stateFlags2 & PLAYER_STATE2_25) {
                     ocarinaSong = pthis->ocarinaSong;
                     if (ocarinaSong == 6) {
                         ocarinaSong = 0xA;
                     }
-                    player->stateFlags2 |= 0x800000;
+                    player->stateFlags2 |= PLAYER_STATE2_23;
                     func_8010BD58(globalCtx, ocarinaSong + OCARINA_ACTION_CHECK_SARIA);
                     pthis->actionFunc = func_80ABF0CC;
                 } else if ((pthis->actor.xzDistToPlayer < (50.0f + pthis->interactRange) &&
@@ -187,7 +187,7 @@ void func_80ABF0CC(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
             globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
             pthis->actionFunc = func_80ABEF2C;
         } else if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_01) {
-            player->stateFlags2 |= 0x800000;
+            player->stateFlags2 |= PLAYER_STATE2_23;
         }
     }
 }
@@ -203,7 +203,7 @@ void func_80ABF28C(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
                    ((pthis->type != 6) || !(gSaveContext.eventChkInf[1] & 0x2000)) &&
                    (pthis->actor.xzDistToPlayer < (90.0f + pthis->interactRange)) &&
                    (fabsf(player->actor.world.pos.y - pthis->actor.world.pos.y) < 80.0f)) {
-            if (player->stateFlags2 & 0x1000000) {
+            if (player->stateFlags2 & PLAYER_STATE2_24) {
                 switch (pthis->type) {
                     case 1:
                         func_8010BD58(globalCtx, OCARINA_ACTION_CHECK_LULLABY);
@@ -224,12 +224,12 @@ void func_80ABF28C(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
                         Actor_Kill(&pthis->actor);
                         break;
                 }
-                player->stateFlags2 |= 0x800000;
+                player->stateFlags2 |= PLAYER_STATE2_23;
                 pthis->actionFunc = func_80ABF4C8;
             } else if ((pthis->actor.xzDistToPlayer < (50.0f + pthis->interactRange)) &&
                        (fabsf(player->actor.world.pos.y - pthis->actor.world.pos.y) < 40.0f)) {
                 pthis->unk_15A = 0;
-                player->stateFlags2 |= 0x800000;
+                player->stateFlags2 |= PLAYER_STATE2_23;
             }
         }
     }
@@ -280,7 +280,7 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx) {
             }
         }
         if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_01) {
-            player->stateFlags2 |= 0x800000;
+            player->stateFlags2 |= PLAYER_STATE2_23;
         }
     }
 }

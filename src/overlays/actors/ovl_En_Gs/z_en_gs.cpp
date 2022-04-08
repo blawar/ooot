@@ -179,8 +179,8 @@ void func_80A4E470(EnGs* pthis, GlobalContext* globalCtx) {
     if (pthis->actor.xzDistToPlayer <= 100.0f) {
         bREG(15) = 1;
         if (pthis->unk_19D == 0) {
-            player->stateFlags2 |= 0x800000;
-            if (player->stateFlags2 & 0x1000000) {
+            player->stateFlags2 |= PLAYER_STATE2_23;
+            if (player->stateFlags2 & PLAYER_STATE2_24) {
                 func_8010BD58(globalCtx, OCARINA_ACTION_FREE_PLAY);
                 pthis->unk_19D |= 1;
             }
@@ -203,7 +203,7 @@ void func_80A4E470(EnGs* pthis, GlobalContext* globalCtx) {
                 pthis->unk_19D = 0;
                 Flags_SetSwitch(globalCtx, (pthis->actor.params >> 8) & 0x3F);
             } else if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_01) {
-                player->stateFlags2 |= 0x800000;
+                player->stateFlags2 |= PLAYER_STATE2_23;
             }
         }
     }

@@ -7,7 +7,6 @@
  */
 
 #include "z_en_ma3.h"
-#include "player_state.h"
 #include "objects/object_ma2/object_ma2.h"
 #include "def/audio.h"
 #include "def/sys_matrix.h"

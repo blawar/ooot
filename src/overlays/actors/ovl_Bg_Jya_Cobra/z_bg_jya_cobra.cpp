@@ -460,7 +460,7 @@ void func_80896950(BgJyaCobra* pthis, GlobalContext* globalCtx) {
 
     if (fabsf(pthis->dyna.unk_150) > 0.001f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
 }
 
@@ -501,7 +501,7 @@ void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx) {
 
     if (Math_ScaledStepToS(&pthis->unk_170, pthis->unk_16A * 0x2000, pthis->unk_16E)) {
         pthis->unk_16C = (pthis->unk_16C + pthis->unk_16A) & 7;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
         func_80896918(pthis, globalCtx);
     } else {
@@ -509,7 +509,7 @@ void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx) {
             (pthis->unk_16C * 0x2000) + pthis->dyna.actor.home.rot.y + pthis->unk_170;
     }
 
-    if (player->stateFlags2 & 0x10) {
+    if (player->stateFlags2 & PLAYER_STATE2_4) {
         if (pthis->unk_172) {
             func_80895BEC(pthis, globalCtx);
         }

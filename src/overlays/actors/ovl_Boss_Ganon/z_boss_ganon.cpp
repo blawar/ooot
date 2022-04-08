@@ -2247,10 +2247,10 @@ void BossGanon_Wait(BossGanon* pthis, GlobalContext* globalCtx) {
     SkelAnime_Update(&pthis->skelAnime);
 
     if ((pthis->unk_1C2 == 0) && !(player->actor.world.pos.y < 0.0f)) {
-        if (!(player->stateFlags1 & 0x2000) && (fabsf(player->actor.world.pos.x) < 110.0f) &&
+        if (!(player->stateFlags1 & PLAYER_STATE1_13) && (fabsf(player->actor.world.pos.x) < 110.0f) &&
             (fabsf(player->actor.world.pos.z) < 110.0f)) {
             BossGanon_SetupPoundFloor(pthis, globalCtx);
-        } else if ((pthis->timers[0] == 0) && !(player->stateFlags1 & 0x2000)) {
+        } else if ((pthis->timers[0] == 0) && !(player->stateFlags1 & PLAYER_STATE1_13)) {
             pthis->timers[0] = (s16)Rand_ZeroFloat(30.0f) + 30;
 
             if ((s8)pthis->actor.colChkInfo.health >= 20) {

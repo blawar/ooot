@@ -141,7 +141,7 @@ void DoorAna_WaitOpen(DoorAna* pthis, GlobalContext* globalCtx) {
 
     player = GET_PLAYER(globalCtx);
     if (Math_StepToF(&pthis->actor.scale.x, 0.01f, 0.001f)) {
-        if ((pthis->actor.targetMode != 0) && (globalCtx->sceneLoadFlag == 0) && (player->stateFlags1 & 0x80000000) &&
+        if ((pthis->actor.targetMode != 0) && (globalCtx->sceneLoadFlag == 0) && (player->stateFlags1 & PLAYER_STATE1_31) &&
             (player->unk_84F == 0)) {
             destinationIdx = ((pthis->actor.params >> 0xC) & 7) - 1;
             Gameplay_SetupRespawnPoint(globalCtx, RESPAWN_MODE_RETURN, 0x4FF);
@@ -154,10 +154,10 @@ void DoorAna_WaitOpen(DoorAna* pthis, GlobalContext* globalCtx) {
             globalCtx->nextEntranceIndex = entrances[destinationIdx];
             DoorAna_SetupAction(pthis, DoorAna_GrabPlayer);
         } else {
-            if (!Player_InCsMode(globalCtx) && !(player->stateFlags1 & 0x8800000) &&
+            if (!Player_InCsMode(globalCtx) && !(player->stateFlags1 & (PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) &&
                 pthis->actor.xzDistToPlayer <= 15.0f && -50.0f <= pthis->actor.yDistToPlayer &&
                 pthis->actor.yDistToPlayer <= 15.0f) {
-                player->stateFlags1 |= 0x80000000;
+                player->stateFlags1 |= PLAYER_STATE1_31;
                 pthis->actor.targetMode = 1;
             } else {
                 pthis->actor.targetMode = 0;

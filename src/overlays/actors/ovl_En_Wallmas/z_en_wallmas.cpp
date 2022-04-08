@@ -322,7 +322,7 @@ void EnWallmas_WaitToDrop(EnWallmas* pthis, GlobalContext* globalCtx) {
         pthis->timer--;
     }
 
-    if ((player->stateFlags1 & 0x100000) || (player->stateFlags1 & 0x8000000) || !(player->actor.bgCheckFlags & 1) ||
+    if ((player->stateFlags1 & PLAYER_STATE1_20) || (player->stateFlags1 & PLAYER_STATE_SWIMMING) || !(player->actor.bgCheckFlags & 1) ||
         ((pthis->actor.params == 1) && (320.0f < Math_Vec3f_DistXZ(&pthis->actor.home.pos, playerPos)))) {
         Audio_StopSfxById(NA_SE_EN_FALL_AIM);
         pthis->timer = 0x82;
@@ -340,7 +340,7 @@ void EnWallmas_WaitToDrop(EnWallmas* pthis, GlobalContext* globalCtx) {
 void EnWallmas_Drop(EnWallmas* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    if (!Player_InCsMode(globalCtx) && !(player->stateFlags2 & 0x10) && (player->invincibilityTimer >= 0) &&
+    if (!Player_InCsMode(globalCtx) && !(player->stateFlags2 & PLAYER_STATE2_4) && (player->invincibilityTimer >= 0) &&
         (pthis->actor.xzDistToPlayer < 30.0f) && (pthis->actor.yDistToPlayer < -5.0f) &&
         (-(f32)(player->cylinder.dim.height + 10) < pthis->actor.yDistToPlayer)) {
         EnWallmas_SetupTakePlayer(pthis, globalCtx);

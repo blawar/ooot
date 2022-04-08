@@ -2157,7 +2157,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx) {
 
             Math_ApproachF(&D_80B7E144, 195.0f, 1.0f, 1.0f);
 
-            if (player->stateFlags1 & 0x8000000) {//Swimming?
+            if (player->stateFlags1 & PLAYER_STATE_SWIMMING) {//Swimming?
                 D_80B7E0B4 = 0;
                 player->unk_860 = 0;
             }

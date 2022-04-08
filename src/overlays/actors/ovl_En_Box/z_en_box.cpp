@@ -309,8 +309,8 @@ void func_809C9700(EnBox* pthis, GlobalContext* globalCtx) {
         pthis->unk_1FB = ENBOX_STATE_0;
     } else {
         if (pthis->unk_1FB == ENBOX_STATE_0) {
-            if (!(player->stateFlags2 & 0x1000000)) {
-                player->stateFlags2 |= 0x800000;
+            if (!(player->stateFlags2 & PLAYER_STATE2_24)) {
+                player->stateFlags2 |= PLAYER_STATE2_23;
                 return;
             }
             pthis->unk_1FB = ENBOX_STATE_1;

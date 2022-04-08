@@ -766,7 +766,7 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
 	{
 		gSaveContext.startDemo = 0;
 
-		if((player->stateFlags1 & 0x00800000) || (globalCtx->shootingGalleryStatus > 1) || ((globalCtx->sceneNum == SCENE_BOWLING) && Flags_GetSwitch(globalCtx, 0x38)))
+		if((player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (globalCtx->shootingGalleryStatus > 1) || ((globalCtx->sceneNum == SCENE_BOWLING) && Flags_GetSwitch(globalCtx, 0x38)))
 		{
 			if(gSaveContext.equips.buttonItems[0] != ITEM_NONE)
 			{
@@ -831,14 +831,14 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
 				{
 					Interface_ChangeAlpha(8);
 				}
-				else if(player->stateFlags1 & 0x00800000)
+				else if(player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)
 				{ // Mounted on a horse?
 					Interface_ChangeAlpha(12);
 				}
 			}
 			else
 			{
-				if(player->stateFlags1 & 0x00800000)
+				if(player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)
 				{ // Mounted on a horse?
 					Interface_ChangeAlpha(12);
 				}
@@ -947,7 +947,7 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
 
 				Interface_ChangeAlpha(50);
 			}
-			else if((player->stateFlags1 & 0x00200000) || (player->stateFlags2 & PLAYER_STATE2_CRAWL))
+			else if((player->stateFlags1 & PLAYER_STATE1_21) || (player->stateFlags2 & PLAYER_STATE2_CRAWL))
 			{
 				if(gSaveContext.buttonStatus[0] != BTN_DISABLED)
 				{
@@ -961,7 +961,7 @@ void Interface_SetButtonStatus(GlobalContext* globalCtx)
 			}
 			else if((gSaveContext.eventInf[0] & 0xF) == 1)
 			{
-				if(player->stateFlags1 & 0x00800000)
+				if(player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED)
 				{ // Mounted on a horse?
 					if((gSaveContext.equips.buttonItems[0] != ITEM_NONE) && (gSaveContext.equips.buttonItems[0] != ITEM_BOW))
 					{
@@ -3524,7 +3524,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 			{
 				temp = 0;
 			}
-			else if((player->stateFlags1 & 0x00200000) || (Player_GetRoomTimer(globalCtx) == ROOMTIMER_UNKN4) || (player->stateFlags2 & PLAYER_STATE2_CRAWL))
+			else if((player->stateFlags1 & PLAYER_STATE1_21) || (Player_GetRoomTimer(globalCtx) == ROOMTIMER_UNKN4) || (player->stateFlags2 & PLAYER_STATE2_CRAWL))
 			{
 				temp = 70;
 			}
@@ -3968,7 +3968,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 			{
 				Interface_DrawItemIconTexture(globalCtx, interfaceCtx->iconItemSegment1, 0);
 
-				if((player->stateFlags1 & 0x00800000) || (globalCtx->shootingGalleryStatus > 1) || ((globalCtx->sceneNum == SCENE_BOWLING) && Flags_GetSwitch(globalCtx, 0x38)))
+				if((player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (globalCtx->shootingGalleryStatus > 1) || ((globalCtx->sceneNum == SCENE_BOWLING) && Flags_GetSwitch(globalCtx, 0x38)))
 				{
 					gDPPipeSync(OVERLAY_DISP++);
 					gDPSetCombineLERP(OVERLAY_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
@@ -4213,7 +4213,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 			}
 		}
 
-		if((globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0) && (globalCtx->gameOverCtx.state == GAMEOVER_INACTIVE) && (msgCtx->msgMode == MSGMODE_NONE) && !(player->stateFlags2 & 0x01000000) &&
+		if((globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0) && (globalCtx->gameOverCtx.state == GAMEOVER_INACTIVE) && (msgCtx->msgMode == MSGMODE_NONE) && !(player->stateFlags2 & PLAYER_STATE2_24) &&
 		   (globalCtx->sceneLoadFlag == 0) && (globalCtx->transitionMode == 0) && !Gameplay_InCsMode(globalCtx) && (gSaveContext.minigameState != 1) && (globalCtx->shootingGalleryStatus <= 1) &&
 		   !((globalCtx->sceneNum == SCENE_BOWLING) && Flags_GetSwitch(globalCtx, 0x38)))
 		{
@@ -4889,7 +4889,7 @@ void Interface_Update(GlobalContext* globalCtx)
 
 	HealthMeter_Update(globalCtx);
 
-	if((gSaveContext.timer1State >= 3) && (globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0) && (msgCtx->msgMode == MSGMODE_NONE) && !(player->stateFlags2 & 0x01000000) && (globalCtx->sceneLoadFlag == 0) &&
+	if((gSaveContext.timer1State >= 3) && (globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0) && (msgCtx->msgMode == MSGMODE_NONE) && !(player->stateFlags2 & PLAYER_STATE2_24) && (globalCtx->sceneLoadFlag == 0) &&
 	   (globalCtx->transitionMode == 0) && !Gameplay_InCsMode(globalCtx))
 	{
 	}

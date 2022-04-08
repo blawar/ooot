@@ -242,7 +242,7 @@ void BgGndIceblock_Idle(BgGndIceblock* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->dyna.unk_150 != 0.0f) {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         if (pthis->dyna.unk_150 > 0.0f) {
             BgGndIceblock_SetNextPosition(pthis);
             if (Actor_WorldDistXZToPoint(&pthis->dyna.actor, &pthis->targetPos) > 1.0f) {
@@ -259,7 +259,7 @@ void BgGndIceblock_Reset(BgGndIceblock* pthis, GlobalContext* globalCtx) {
     Actor* thisx = &pthis->dyna.actor;
 
     if (pthis->dyna.unk_150 != 0.0f) {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
     }
     if (Math_StepToF(&thisx->world.pos.y, thisx->home.pos.y, 1.0f)) {

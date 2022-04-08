@@ -137,7 +137,7 @@ void EnDntJiji_Wait(EnDntJiji* pthis, GlobalContext* globalCtx) {
 
     SkelAnime_Update(&pthis->skelAnime);
     if ((pthis->timer == 1) && (pthis->actor.xzDistToPlayer < 150.0f) && !Gameplay_InCsMode(globalCtx) &&
-        !(player->stateFlags1 & 0x800)) {
+        !(player->stateFlags1 & PLAYER_STATE1_11)) {
         OnePointCutscene_Init(globalCtx, 2230, -99, &pthis->actor, MAIN_CAM);
         pthis->timer = 0;
         func_8002DF54(globalCtx, NULL, 8);

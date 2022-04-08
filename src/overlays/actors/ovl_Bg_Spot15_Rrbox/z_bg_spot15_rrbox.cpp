@@ -248,11 +248,11 @@ void func_808B40AC(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
             pthis->unk_17C = pthis->dyna.unk_150;
             func_808B4178(pthis, globalCtx);
         } else {
-            player->stateFlags2 &= ~0x10;
+            player->stateFlags2 &= ~PLAYER_STATE2_4;
             pthis->dyna.unk_150 = 0.0f;
         }
     } else {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
     }
 }
@@ -284,7 +284,7 @@ void func_808B4194(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
     if (!func_808B3F58(pthis, globalCtx)) {
         actor->home.pos.x = actor->world.pos.x;
         actor->home.pos.z = actor->world.pos.z;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
         pthis->unk_178 = 0.0f;
         pthis->unk_174 = 0.0f;
@@ -299,7 +299,7 @@ void func_808B4194(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
         }
         actor->home.pos.x = actor->world.pos.x;
         actor->home.pos.z = actor->world.pos.z;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
         pthis->unk_178 = 0.0f;
         pthis->unk_174 = 0.0f;
@@ -325,7 +325,7 @@ void func_808B43D0(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
 
     if (fabsf(pthis->dyna.unk_150) > 0.001f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
 
     Actor_MoveForward(actor);
@@ -356,7 +356,7 @@ void func_808B44B8(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
 void func_808B44CC(BgSpot15Rrbox* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    player->stateFlags2 &= ~0x10;
+    player->stateFlags2 &= ~PLAYER_STATE2_4;
     pthis->dyna.unk_150 = 0.0f;
 }
 

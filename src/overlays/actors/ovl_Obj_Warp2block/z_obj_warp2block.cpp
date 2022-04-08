@@ -165,11 +165,11 @@ s32 func_80BA2218(ObjWarp2block* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (func_80BA1ECC(pthis, globalCtx)) {
-        if (player->stateFlags2 & 0x1000000) {
+        if (player->stateFlags2 & PLAYER_STATE2_24) {
             func_8010BD58(globalCtx, OCARINA_ACTION_FREE_PLAY);
             pthis->func_168 = func_80BA228C;
         } else {
-            player->stateFlags2 |= 0x800000;
+            player->stateFlags2 |= PLAYER_STATE2_23;
         }
     }
 

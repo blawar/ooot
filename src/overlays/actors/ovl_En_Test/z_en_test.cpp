@@ -440,7 +440,7 @@ void EnTest_ChooseAction(EnTest* pthis, GlobalContext* globalCtx) {
         } else {
             if (pthis->actor.xzDistToPlayer < 110.0f) {
                 if (Rand_ZeroOne() > 0.2f) {
-                    if (player->stateFlags1 & 0x10) {
+                    if (player->stateFlags1 & PLAYER_STATE1_4) {
                         if (pthis->actor.isTargeted) {
                             EnTest_SetupSlashDown(pthis);
                         } else {
@@ -726,7 +726,7 @@ void EnTest_WalkAndBlock(EnTest* pthis, GlobalContext* globalCtx) {
 
         if (pthis->actor.xzDistToPlayer < 110.0f) {
             if (Rand_ZeroOne() > 0.2f) {
-                if (player->stateFlags1 & 0x10) {
+                if (player->stateFlags1 & PLAYER_STATE1_4) {
                     if (pthis->actor.isTargeted) {
                         EnTest_SetupSlashDown(pthis);
                     } else {
@@ -1011,7 +1011,7 @@ void EnTest_SlashDownEnd(EnTest* pthis, GlobalContext* globalCtx) {
             if ((ABS(yawDiff) > 0x3E80) && (pthis->actor.params != STALFOS_TYPE_CEILING)) {
                 pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
                 EnTest_SetupJumpBack(pthis);
-            } else if (player->stateFlags1 & 0x10) {
+            } else if (player->stateFlags1 & PLAYER_STATE1_4) {
                 if (pthis->actor.isTargeted) {
                     EnTest_SetupSlashDown(pthis);
                 } else if ((globalCtx->gameplayFrames % 2) != 0) {

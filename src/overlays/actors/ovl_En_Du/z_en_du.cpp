@@ -331,9 +331,9 @@ void func_809FE3B4(EnDu* pthis, GlobalContext* globalCtx) {
 void func_809FE3C0(EnDu* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    if (player->stateFlags2 & 0x1000000) {
+    if (player->stateFlags2 & PLAYER_STATE2_24) {
         func_8010BD88(globalCtx, OCARINA_ACTION_CHECK_SARIA);
-        player->stateFlags2 |= 0x2000000;
+        player->stateFlags2 |= PLAYER_STATE2_25;
         player->unk_6A8 = &pthis->actor;
         EnDu_SetupAction(pthis, func_809FE4A4);
         return;
@@ -343,7 +343,7 @@ void func_809FE3C0(EnDu* pthis, GlobalContext* globalCtx) {
         pthis->unk_1F4.unk_00 = 0;
     }
     if (pthis->actor.xzDistToPlayer < 116.0f + pthis->collider.dim.radius) {
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     }
 }
 
@@ -367,14 +367,14 @@ void func_809FE4A4(EnDu* pthis, GlobalContext* globalCtx) {
         EnDu_SetupAction(pthis, func_809FE890);
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
     } else {
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     }
 }
 
 void func_809FE638(EnDu* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    if (!(player->stateFlags1 & 0x20000000)) {
+    if (!(player->stateFlags1 & PLAYER_STATE1_29)) {
         OnePointCutscene_Init(globalCtx, 3330, -99, &pthis->actor, MAIN_CAM);
         player->actor.shape.rot.y = player->actor.world.rot.y = pthis->actor.world.rot.y + 0x7FFF;
         Audio_PlayFanfare(NA_BGM_APPEAR);

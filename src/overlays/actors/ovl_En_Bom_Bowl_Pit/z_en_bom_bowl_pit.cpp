@@ -189,10 +189,10 @@ void EnBomBowlPit_GivePrize(EnBomBowlPit* pthis, GlobalContext* globalCtx) {
         pthis->getItemId = GI_BOMB_BAG_40;
     }
 
-    player->stateFlags1 &= ~0x20000000;
+    player->stateFlags1 &= ~PLAYER_STATE1_29;
     pthis->actor.parent = NULL;
     func_8002F434(&pthis->actor, globalCtx, pthis->getItemId, 2000.0f, 1000.0f);
-    player->stateFlags1 |= 0x20000000;
+    player->stateFlags1 |= PLAYER_STATE1_29;
     pthis->actionFunc = EnBomBowlPit_WaitTillPrizeGiven;
 }
 

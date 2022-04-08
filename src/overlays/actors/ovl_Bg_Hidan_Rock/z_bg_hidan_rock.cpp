@@ -167,7 +167,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx) {
             pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * D_8088BFC0_42) + pthis->dyna.actor.home.pos.z;
 
             if (temp_v1) {
-                player->stateFlags2 &= ~0x10;
+                player->stateFlags2 &= ~PLAYER_STATE2_4;
                 pthis->dyna.unk_150 = 0.0f;
                 pthis->dyna.actor.home.pos.x = pthis->dyna.actor.world.pos.x;
                 pthis->dyna.actor.home.pos.z = pthis->dyna.actor.world.pos.z;
@@ -178,7 +178,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx) {
 
             func_8002F974(&pthis->dyna.actor, NA_SE_EV_ROCK_SLIDE - SFX_FLAG);
         } else {
-            player->stateFlags2 &= ~0x10;
+            player->stateFlags2 &= ~PLAYER_STATE2_4;
             pthis->dyna.unk_150 = 0.0f;
             if (pthis->timer != 0) {
                 pthis->timer--;
@@ -196,7 +196,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx) {
         pthis->dyna.actor.world.pos.z = D_8088BF60.z;
         pthis->dyna.actor.speedXZ = 0.0f;
         D_8088BFC0_42 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->actionFunc = func_8088B79C;
     }
 
@@ -316,7 +316,7 @@ void func_8088B990(BgHidanRock* pthis, GlobalContext* globalCtx) {
     pthis->timer++;
     if (pthis->dyna.unk_150 != 0.0f) {
         pthis->dyna.actor.speedXZ = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
 
     if ((pthis->type == 0 && (Math_SmoothStepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y + 1820.0f,

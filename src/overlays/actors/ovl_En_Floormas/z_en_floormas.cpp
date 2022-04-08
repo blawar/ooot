@@ -808,7 +808,7 @@ void EnFloormas_GrabLink(EnFloormas* pthis, GlobalContext* globalCtx) {
     pthis->actor.world.pos.z = Math_CosS(pthis->actor.shape.rot.y) * (xzDelta * 0.1f) + player->actor.world.pos.z;
 
     // let go
-    if (!(player->stateFlags2 & 0x80) || (player->invincibilityTimer < 0)) {
+    if (!(player->stateFlags2 & PLAYER_STATE2_7) || (player->invincibilityTimer < 0)) {
         parent = (EnFloormas*)pthis->actor.parent;
         child = (EnFloormas*)pthis->actor.child;
 

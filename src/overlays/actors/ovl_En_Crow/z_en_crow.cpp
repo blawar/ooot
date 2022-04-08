@@ -291,7 +291,7 @@ void EnCrow_FlyIdle(EnCrow* pthis, GlobalContext* globalCtx) {
     if (pthis->timer != 0) {
         pthis->timer--;
     }
-    if ((pthis->timer == 0) && (pthis->actor.xzDistToPlayer < 300.0f) && !(player->stateFlags1 & 0x00800000) &&
+    if ((pthis->timer == 0) && (pthis->actor.xzDistToPlayer < 300.0f) && !(player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) &&
         (pthis->actor.yDistToWater < -40.0f) && (Player_GetMask(globalCtx) != PLAYER_MASK_SKULL)) {
         EnCrow_SetupDiveAttack(pthis);
     }
@@ -329,7 +329,7 @@ void EnCrow_DiveAttack(EnCrow* pthis, GlobalContext* globalCtx) {
 
     if ((pthis->timer == 0) || (Player_GetMask(globalCtx) == PLAYER_MASK_SKULL) ||
         (pthis->collider.base.atFlags & AT_HIT) || (pthis->actor.bgCheckFlags & 9) ||
-        (player->stateFlags1 & 0x00800000) || (pthis->actor.yDistToWater > -40.0f)) {
+        (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (pthis->actor.yDistToWater > -40.0f)) {
         if (pthis->collider.base.atFlags & AT_HIT) {
             pthis->collider.base.atFlags &= ~AT_HIT;
             Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_KAICHO_ATTACK);

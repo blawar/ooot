@@ -419,7 +419,7 @@ void func_809EFF50(EnDns* pthis, GlobalContext* globalCtx) {
 void func_809EFF98(EnDns* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    if (player->stateFlags1 & 0x400) {
+    if (player->stateFlags1 & PLAYER_STATE1_10) {
         if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_DONE) && Message_ShouldAdvance(globalCtx)) {
             pthis->dnsItemEntry->setRupeesAndFlags(pthis);
             pthis->dropCollectible = 1;

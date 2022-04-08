@@ -370,7 +370,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx) {
                 Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->unk_236 + pthis->unk_238, 1,
                                    pthis->actor.speedXZ * 1000.0f, 0);
             }
-            if ((pthis->unk_224 == 0) || (ABS(pthis->actor.yDistToPlayer) > 60.0f) || (player2->stateFlags1 & 0x6000)) {
+            if ((pthis->unk_224 == 0) || (ABS(pthis->actor.yDistToPlayer) > 60.0f) || (player2->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14))) {
                 pthis->unk_221 = 3;
                 pthis->unk_224 = 150;
                 pthis->unk_250 = 0.0f;

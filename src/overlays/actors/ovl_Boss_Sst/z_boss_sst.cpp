@@ -392,7 +392,7 @@ void BossSst_HeadSetupIntro(BossSst* pthis, GlobalContext* globalCtx) {
     player->targetYaw = -0x8000;
     player->currentYaw = -0x8000;
     player->fallStartHeight = 0;
-    player->stateFlags1 |= 0x20;
+    player->stateFlags1 |= PLAYER_STATE1_5;
 
     func_80064520(globalCtx, &globalCtx->csCtx);
     func_8002DF54(globalCtx, &pthis->actor, 8);
@@ -426,7 +426,7 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx) {
     if (pthis->timer == 0) {
         sHands[RIGHT]->actor.flags |= ACTOR_FLAG_0;
         sHands[LEFT]->actor.flags |= ACTOR_FLAG_0;
-        player->stateFlags1 &= ~0x20;
+        player->stateFlags1 &= ~PLAYER_STATE1_5;
         func_80064534(globalCtx, &globalCtx->csCtx);
         func_8002DF54(globalCtx, &pthis->actor, 7);
         sCameraAt.y += 30.0f;
@@ -672,7 +672,7 @@ void BossSst_HeadNeutral(BossSst* pthis, GlobalContext* globalCtx) {
     }
 
     if (pthis->timer == 0) {
-        if ((GET_PLAYER(globalCtx)->actor.world.pos.y > -50.0f) && !(GET_PLAYER(globalCtx)->stateFlags1 & 0x6080)) {
+        if ((GET_PLAYER(globalCtx)->actor.world.pos.y > -50.0f) && !(GET_PLAYER(globalCtx)->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_13 | PLAYER_STATE1_14))) {
             sHands[Rand_ZeroOne() <= 0.5f]->ready = true;
             BossSst_HeadSetupWait(pthis);
         } else {
@@ -1250,7 +1250,7 @@ void BossSst_HandWait(BossSst* pthis, GlobalContext* globalCtx) {
             pthis->timer--;
         }
 
-        if ((pthis->timer == 0) && (player->actor.world.pos.y > -50.0f) && !(player->stateFlags1 & 0x6080)) {
+        if ((pthis->timer == 0) && (player->actor.world.pos.y > -50.0f) && !(player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_13 | PLAYER_STATE1_14))) {
             BossSst_HandSelectAttack(pthis);
         }
     } else if (sHead->actionFunc == BossSst_HeadNeutral) {
@@ -1732,7 +1732,7 @@ void BossSst_HandClap(BossSst* pthis, GlobalContext* globalCtx) {
         if (pthis->ready) {
             pthis->timer = 30;
             pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
-            if (!(player->stateFlags2 & 0x80)) {
+            if (!(player->stateFlags2 & PLAYER_STATE2_7)) {
                 dropFlag_270 = true;
             }
         } else {
@@ -1821,7 +1821,7 @@ void BossSst_HandGrab(BossSst* pthis, GlobalContext* globalCtx) {
         if (SkelAnime_Update(&pthis->skelAnime)) {
             pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
             pthis->actor.speedXZ = 0.0f;
-            if (player->stateFlags2 & 0x80) {
+            if (player->stateFlags2 & PLAYER_STATE2_7) {
                 if (Rand_ZeroOne() < 0.5f) {
                     BossSst_HandSetupCrush(pthis);
                 } else {
@@ -1848,7 +1848,7 @@ void BossSst_HandGrab(BossSst* pthis, GlobalContext* globalCtx) {
 
     pthis->actor.world.pos.x += pthis->actor.speedXZ * Math_SinS(pthis->actor.world.rot.y);
     pthis->actor.world.pos.z += pthis->actor.speedXZ * Math_CosS(pthis->actor.world.rot.y);
-    if (player->stateFlags2 & 0x80) {
+    if (player->stateFlags2 & PLAYER_STATE2_7) {
         player->unk_850 = 0;
         player->actor.world.pos = pthis->actor.world.pos;
         player->actor.shape.rot.y = pthis->actor.shape.rot.y;
@@ -1869,7 +1869,7 @@ void BossSst_HandCrush(BossSst* pthis, GlobalContext* globalCtx) {
         pthis->timer--;
     }
 
-    if (!(player->stateFlags2 & 0x80)) {
+    if (!(player->stateFlags2 & PLAYER_STATE2_7)) {
         BossSst_HandReleasePlayer(pthis, globalCtx, true);
         BossSst_HandSetupEndCrush(pthis);
     } else {
@@ -1942,7 +1942,7 @@ void BossSst_HandSwing(BossSst* pthis, GlobalContext* globalCtx) {
         Math_ScaledStepToS(&pthis->actor.shape.rot.z, 0, 0x800);
     }
 
-    if (player->stateFlags2 & 0x80) {
+    if (player->stateFlags2 & PLAYER_STATE2_7) {
         player->unk_850 = 0;
         Math_Vec3f_Copy(&player->actor.world.pos, &pthis->actor.world.pos);
         player->actor.shape.rot.x = pthis->actor.shape.rot.x;
@@ -1955,7 +1955,7 @@ void BossSst_HandSwing(BossSst* pthis, GlobalContext* globalCtx) {
     }
 
     if ((pthis->timer == 4) && (pthis->amplitude == 0) && SkelAnime_Update(&pthis->skelAnime) &&
-        (player->stateFlags2 & 0x80)) {
+        (player->stateFlags2 & PLAYER_STATE2_7)) {
         BossSst_HandReleasePlayer(pthis, globalCtx, false);
         player->actor.world.pos.x += 70.0f * Math_SinS(pthis->actor.shape.rot.y);
         player->actor.world.pos.z += 70.0f * Math_CosS(pthis->actor.shape.rot.y);

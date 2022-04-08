@@ -323,13 +323,13 @@ void EnMk_Update(Actor* thisx, GlobalContext* globalCtx) {
     player = GET_PLAYER(globalCtx);
 
     if (pthis->flags & 8) {
-        if (!(player->stateFlags2 & 0x400)) {
+        if (!(player->stateFlags2 & PLAYER_STATE2_10)) {
             pthis->flags &= ~8;
         }
     } else {
         if (player->currentBoots == PLAYER_BOOTS_IRON) {
             pthis->flags |= 8;
-        } else if (player->stateFlags2 & 0x400) {
+        } else if (player->stateFlags2 & PLAYER_STATE2_10) {
             swimFlag = player->actor.yDistToWater;
 
             if (swimFlag > 0) {

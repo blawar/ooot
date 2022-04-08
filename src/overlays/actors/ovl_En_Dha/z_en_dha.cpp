@@ -239,7 +239,7 @@ void EnDha_Wait(EnDha* pthis, GlobalContext* globalCtx) {
                 pthis->timer += 0x1194;
                 pthis->limbAngleY = Math_SinS(pthis->timer) * 1820.0f;
 
-                if (!(player->stateFlags2 & 0x80)) {
+                if (!(player->stateFlags2 & PLAYER_STATE2_7)) {
                     pthis->unk_1CC = 0;
                     EnDha_SetupTakeDamage(pthis);
                     return;
@@ -254,8 +254,8 @@ void EnDha_Wait(EnDha* pthis, GlobalContext* globalCtx) {
             pthis->handAngle.y -= pthis->actor.shape.rot.y + pthis->limbAngleY;
             pthis->handAngle.x -= pthis->actor.shape.rot.x + pthis->limbAngleX[0] + pthis->limbAngleX[1];
         } else {
-            if ((player->stateFlags2 & 0x80) && (&pthis->actor == player->actor.parent)) {
-                player->stateFlags2 &= ~0x80;
+            if ((player->stateFlags2 & PLAYER_STATE2_7) && (&pthis->actor == player->actor.parent)) {
+                player->stateFlags2 &= ~PLAYER_STATE2_7;
                 player->actor.parent = NULL;
                 player->unk_850 = 200;
             }
@@ -294,8 +294,8 @@ void EnDha_Wait(EnDha* pthis, GlobalContext* globalCtx) {
             pthis->limbAngleX[1] *= -2;
         }
     } else {
-        if ((player->stateFlags2 & 0x80) && (&pthis->actor == player->actor.parent)) {
-            player->stateFlags2 &= ~0x80;
+        if ((player->stateFlags2 & PLAYER_STATE2_7) && (&pthis->actor == player->actor.parent)) {
+            player->stateFlags2 &= ~PLAYER_STATE2_7;
             player->actor.parent = NULL;
             player->unk_850 = 200;
         }
@@ -315,8 +315,8 @@ void EnDha_SetupTakeDamage(EnDha* pthis) {
 void EnDha_TakeDamage(EnDha* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    if ((player->stateFlags2 & 0x80) && (&pthis->actor == player->actor.parent)) {
-        player->stateFlags2 &= ~0x80;
+    if ((player->stateFlags2 & PLAYER_STATE2_7) && (&pthis->actor == player->actor.parent)) {
+        player->stateFlags2 &= ~PLAYER_STATE2_7;
         player->actor.parent = NULL;
         player->unk_850 = 200;
     }
@@ -353,8 +353,8 @@ void EnDha_Die(EnDha* pthis, GlobalContext* globalCtx) {
     Vec3f vec;
     Player* player = GET_PLAYER(globalCtx);
 
-    if ((player->stateFlags2 & 0x80) && (&pthis->actor == player->actor.parent)) {
-        player->stateFlags2 &= ~0x80;
+    if ((player->stateFlags2 & PLAYER_STATE2_7) && (&pthis->actor == player->actor.parent)) {
+        player->stateFlags2 &= ~PLAYER_STATE2_7;
         player->actor.parent = NULL;
         player->unk_850 = 200;
     }

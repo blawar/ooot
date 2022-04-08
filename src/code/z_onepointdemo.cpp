@@ -3,6 +3,7 @@
 #include "vt.h"
 #include "z64actor.h"
 #include "sequence.h"
+#include "player_state.h"
 #include "sfx.h"
 #include "z64player.h"
 #include "z64save.h"
@@ -787,7 +788,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 
             func_8002DF54(globalCtx, NULL, 8);
             func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
-            player->stateFlags1 |= 0x20000000;
+            player->stateFlags1 |= PLAYER_STATE1_29;
             player->actor.freezeTimer = 90;
 
             i = Quake_Add(csCam, 1);
@@ -984,7 +985,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
             if (func_800C0CB8(globalCtx)) {
                 D_801231B4[0].eyeTargetInit.z = D_801231B4[1].eyeTargetInit.z = !LINK_IS_ADULT ? 100.0f : 120.0f;
 
-                if (player->stateFlags1 & 0x08000000) {//Swimming?
+                if (player->stateFlags1 & PLAYER_STATE_SWIMMING) {//Swimming?
                     D_801231B4[2].atTargetInit.z = 0.0f;
                 }
                 Actor_GetWorldPosShapeRot(&spA0, &player->actor);

@@ -219,11 +219,11 @@ void EnBom_Explode(EnBom* pthis, GlobalContext* globalCtx) {
     if (pthis->timer == 0) {
         player = GET_PLAYER(globalCtx);
 
-        if ((player->stateFlags1 & 0x800) && (player->heldActor == &pthis->actor)) {
+        if ((player->stateFlags1 & PLAYER_STATE1_11) && (player->heldActor == &pthis->actor)) {
             player->actor.child = NULL;
             player->heldActor = NULL;
             player->interactRangeActor = NULL;
-            player->stateFlags1 &= ~0x800;
+            player->stateFlags1 &= ~PLAYER_STATE1_11;
         }
 
         Actor_Kill(&pthis->actor);
