@@ -293,7 +293,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx)
 			}
 			if(pthis->timers[0] == 30)
 			{
-				bossGnd->work[GND_EYE_STATE] = GND_EYESTATE_BRIGHTEN;
+				bossGnd->GND_EYE_STATE = GND_EYESTATE_BRIGHTEN;
 			}
 			if(pthis->timers[0] == 35)
 			{
@@ -301,7 +301,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx)
 			}
 			if(pthis->timers[0] == 130)
 			{
-				bossGnd->work[GND_EYE_STATE] = GND_EYESTATE_FADE;
+				bossGnd->GND_EYE_STATE = GND_EYESTATE_FADE;
 				Common_PlaySfxAtPos(&audioVec_43, NA_SE_EN_FANTOM_ST_LAUGH);
 			}
 			if(pthis->timers[0] == 20)
@@ -772,7 +772,7 @@ void EnfHG_Draw(Actor* thisx, GlobalContext* globalCtx)
 	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg.c", 2439);
 	func_80093D18(globalCtx->state.gfxCtx);
 
-	POLY_OPA_DISP = ((bossGnd->work[GND_INVINC_TIMER] & 4) && (bossGnd->flyMode == GND_FLY_PAINTING))
+	POLY_OPA_DISP = ((bossGnd->GND_INVINC_TIMER & 4) && (bossGnd->flyMode == GND_FLY_PAINTING))
 			    ? Gfx_SetFog(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099)
 			    : Gfx_SetFog(POLY_OPA_DISP, (u32)pthis->warpColorFilterR, (u32)pthis->warpColorFilterG, (u32)pthis->warpColorFilterB, 0, (s32)pthis->warpColorFilterUnk1 + 995, (s32)pthis->warpColorFilterUnk2 + 1000);
 	func_800A6330(&pthis->actor, globalCtx, &pthis->skin, EnfHG_Noop, 0x23);

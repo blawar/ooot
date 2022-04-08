@@ -131,6 +131,12 @@ class Timer
 
 typedef Timer Counter;
 typedef Timer Rotation;
+typedef Timer Position;
+typedef Timer TimerU8;
+typedef Timer TimerU16;
+typedef Timer TimerS16;
+typedef Timer TimerS32;
+typedef Timer TimerU32;
 
 class Step
 {

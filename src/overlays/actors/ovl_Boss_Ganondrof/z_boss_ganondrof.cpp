@@ -329,7 +329,7 @@ void BossGanondrof_SetupIntro(BossGanondrof* pthis, GlobalContext* globalCtx)
 {
 	Animation_PlayLoop(&pthis->skelAnime, &gPhantomGanonRidePoseAnim);
 	pthis->actionFunc = BossGanondrof_Intro;
-	pthis->work[GND_MASK_OFF] = true;
+	pthis->GND_MASK_OFF = true;
 }
 
 void BossGanondrof_Intro(BossGanondrof* pthis, GlobalContext* globalCtx)
@@ -359,7 +359,7 @@ void BossGanondrof_Intro(BossGanondrof* pthis, GlobalContext* globalCtx)
 
 	if(pthis->timers[1] == 20)
 	{
-		pthis->work[GND_MASK_OFF] = false;
+		pthis->GND_MASK_OFF = false;
 	}
 
 	if(pthis->timers[1] == 30)
@@ -398,7 +398,7 @@ void BossGanondrof_Intro(BossGanondrof* pthis, GlobalContext* globalCtx)
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &gPhantomGanonRideSpearResetAnim, -5.0f);
 	}
 
-	switch(pthis->work[GND_EYE_STATE])
+	switch(pthis->GND_EYE_STATE)
 	{
 		case GND_EYESTATE_FADE:
 			pthis->fwork[GND_EYE_ALPHA] += 40.0f;
@@ -417,12 +417,12 @@ void BossGanondrof_Intro(BossGanondrof* pthis, GlobalContext* globalCtx)
 			break;
 	}
 
-	pthis->armRotY = Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 0x6E8) * 0;
-	pthis->armRotZ = Math_CosS(pthis->work[GND_VARIANCE_TIMER] * 0x8DC) * 300.0f;
+	pthis->armRotY = Math_SinS(pthis->GND_VARIANCE_TIMER * 0x6E8) * 0;
+	pthis->armRotZ = Math_CosS(pthis->GND_VARIANCE_TIMER * 0x8DC) * 300.0f;
 	for(i = 0; i < 30; i++)
 	{
-		pthis->rideRotY[i] = Math_SinS(pthis->work[GND_VARIANCE_TIMER] * ((i * 50) + 0x7B0)) * 100.0f;
-		pthis->rideRotZ[i] = Math_CosS(pthis->work[GND_VARIANCE_TIMER] * ((i * 50) + 0x8DC)) * 100.0f;
+		pthis->rideRotY[i] = Math_SinS(pthis->GND_VARIANCE_TIMER * ((i * 50) + 0x7B0)) * 100.0f;
+		pthis->rideRotZ[i] = Math_CosS(pthis->GND_VARIANCE_TIMER * ((i * 50) + 0x8DC)) * 100.0f;
 	}
 
 	if(horse->bossGndSignal == FHG_START_FIGHT)
@@ -548,7 +548,7 @@ void BossGanondrof_Neutral(BossGanondrof* pthis, GlobalContext* globalCtx)
 						Audio_PlayActorSound2(thisx, NA_SE_EN_FANTOM_LAUGH);
 					}
 				}
-				else if((rand01 < 0.5f) || (pthis->work[GND_THROW_COUNT] < 5))
+				else if((rand01 < 0.5f) || (pthis->GND_THROW_COUNT < 5))
 				{
 					BossGanondrof_SetupThrow(pthis, globalCtx);
 				}
@@ -578,16 +578,16 @@ void BossGanondrof_Neutral(BossGanondrof* pthis, GlobalContext* globalCtx)
 			}
 
 			targetY = playerx->world.pos.y + 100.0f + 0.0f;
-			targetX += Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 0x500) * 100.0f;
-			targetZ += Math_CosS(pthis->work[GND_VARIANCE_TIMER] * 0x700) * 100.0f;
+			targetX += Math_SinS(pthis->GND_VARIANCE_TIMER * 0x500) * 100.0f;
+			targetZ += Math_CosS(pthis->GND_VARIANCE_TIMER * 0x700) * 100.0f;
 			break;
 		case GND_FLY_VOLLEY:
 			targetX = GND_BOSSROOM_CENTER_X - 14.0f;
 			targetZ = GND_BOSSROOM_CENTER_Z + 265.0f;
 
 			targetY = playerx->world.pos.y + 100.0f + 100.0f;
-			targetX += Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 0x500) * 100.0f;
-			targetZ += Math_CosS(pthis->work[GND_VARIANCE_TIMER] * 0x700) * 100.0f;
+			targetX += Math_SinS(pthis->GND_VARIANCE_TIMER * 0x500) * 100.0f;
+			targetZ += Math_CosS(pthis->GND_VARIANCE_TIMER * 0x700) * 100.0f;
 			if(pthis->timers[0] == 0)
 			{
 				pthis->flyMode = GND_FLY_RETURN;
@@ -601,8 +601,8 @@ void BossGanondrof_Neutral(BossGanondrof* pthis, GlobalContext* globalCtx)
 			targetZ = GND_BOSSROOM_CENTER_Z + 265.0f;
 
 			targetY = playerx->world.pos.y + 100.0f + 100.0f;
-			targetX += Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 0x500) * 50.0f;
-			targetZ += Math_CosS(pthis->work[GND_VARIANCE_TIMER] * 0x700) * 50.0f;
+			targetX += Math_SinS(pthis->GND_VARIANCE_TIMER * 0x500) * 50.0f;
+			targetZ += Math_CosS(pthis->GND_VARIANCE_TIMER * 0x700) * 50.0f;
 			if(pthis->returnSuccess)
 			{
 				pthis->returnSuccess = false;
@@ -620,8 +620,8 @@ void BossGanondrof_Neutral(BossGanondrof* pthis, GlobalContext* globalCtx)
 			targetZ = GND_BOSSROOM_CENTER_Z + 215.0f;
 
 			targetY = playerx->world.pos.y + 100.0f + 50.0f;
-			targetX += Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 0x500) * 100.0f;
-			targetZ += Math_CosS(pthis->work[GND_VARIANCE_TIMER] * 0x700) * 100.0f;
+			targetX += Math_SinS(pthis->GND_VARIANCE_TIMER * 0x500) * 100.0f;
+			targetZ += Math_CosS(pthis->GND_VARIANCE_TIMER * 0x700) * 100.0f;
 			if(pthis->timers[0] == 0)
 			{
 				BossGanondrof_SetupCharge(pthis, globalCtx);
@@ -643,9 +643,9 @@ void BossGanondrof_Neutral(BossGanondrof* pthis, GlobalContext* globalCtx)
 	Math_ApproachF(&pthis->fwork[GND_FLOAT_SPEED], 50.0f, 1.0f, 0.5f);
 	thisx->velocity.x = thisx->world.pos.x - thisx->prevPos.x;
 	thisx->velocity.z = thisx->world.pos.z - thisx->prevPos.z;
-	thisx->world.pos.y += 2.0f * Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+	thisx->world.pos.y += 2.0f * Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 	Math_ApproachS(&thisx->shape.rot.y, thisx->yawTowardsPlayer, 5, 0xBB8);
-	if((pthis->work[GND_VARIANCE_TIMER] & 1) == 0)
+	if((pthis->GND_VARIANCE_TIMER & 1) == 0)
 	{
 		Vec3f pos;
 		Vec3f vel = {0.0f, 0.0f, 0.0f};
@@ -677,23 +677,23 @@ void BossGanondrof_SetupThrow(BossGanondrof* pthis, GlobalContext* globalCtx)
 	pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonThrowAnim);
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gPhantomGanonThrowAnim, -5.0f);
 	pthis->actionFunc = BossGanondrof_Throw;
-	if((Rand_ZeroOne() <= 0.1f) && (pthis->work[GND_THROW_COUNT] >= 10) && (pthis->flyMode == GND_FLY_NEUTRAL))
+	if((Rand_ZeroOne() <= 0.1f) && (pthis->GND_THROW_COUNT >= 10) && (pthis->flyMode == GND_FLY_NEUTRAL))
 	{
-		pthis->work[GND_ACTION_STATE] = THROW_SLOW;
-		pthis->work[GND_THROW_FRAME] = 1000;
+		pthis->GND_ACTION_STATE = THROW_SLOW;
+		pthis->GND_THROW_FRAME = 1000;
 		lightTime = 32;
 	}
 	else
 	{
-		pthis->work[GND_ACTION_STATE] = THROW_NORMAL;
-		pthis->work[GND_THROW_FRAME] = 25;
+		pthis->GND_ACTION_STATE = THROW_NORMAL;
+		pthis->GND_THROW_FRAME = 25;
 		lightTime = 25;
 	}
 
 	horseTemp = (EnfHG*)pthis->actor.child;
 	Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_FHG_FIRE, pthis->spearTip.x, pthis->spearTip.y, pthis->spearTip.z, lightTime, FHGFIRE_LIGHT_GREEN, 0, FHGFIRE_SPEAR_LIGHT);
 	pthis->actor.child = &horseTemp->actor;
-	pthis->work[GND_THROW_COUNT]++;
+	pthis->GND_THROW_COUNT++;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_STICK);
 }
 
@@ -701,20 +701,20 @@ void BossGanondrof_Throw(BossGanondrof* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
 	osSyncPrintf("pthis->fwork[GND_END_FRAME] = %d\n", (s16)pthis->fwork[GND_END_FRAME]);
-	osSyncPrintf("pthis->work[GND_SHOT_FRAME] = %d\n", pthis->work[GND_THROW_FRAME]);
+	osSyncPrintf("pthis->GND_SHOT_FRAME = %d\n", pthis->GND_THROW_FRAME);
 	if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[GND_END_FRAME]))
 	{
 		BossGanondrof_SetupNeutral(pthis, -6.0f);
 	}
 
-	if((pthis->work[GND_ACTION_STATE] != THROW_NORMAL) && Animation_OnFrame(&pthis->skelAnime, 21.0f))
+	if((pthis->GND_ACTION_STATE != THROW_NORMAL) && Animation_OnFrame(&pthis->skelAnime, 21.0f))
 	{
 		pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonThrowEndAnim);
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &gPhantomGanonThrowEndAnim, 0.0f);
-		pthis->work[GND_THROW_FRAME] = 10;
+		pthis->GND_THROW_FRAME = 10;
 	}
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->work[GND_THROW_FRAME]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->GND_THROW_FRAME))
 	{
 		if(pthis->flyMode <= GND_FLY_NEUTRAL)
 		{
@@ -728,11 +728,11 @@ void BossGanondrof_Throw(BossGanondrof* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_VOICE);
 	}
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->work[GND_THROW_FRAME]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->GND_THROW_FRAME))
 	{
 		EnfHG* horseTemp = (EnfHG*)pthis->actor.child;
 
-		Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_FHG_FIRE, pthis->spearTip.x, pthis->spearTip.y, pthis->spearTip.z, pthis->work[GND_ACTION_STATE], 0, 0, FHGFIRE_ENERGY_BALL);
+		Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_FHG_FIRE, pthis->spearTip.x, pthis->spearTip.y, pthis->spearTip.z, pthis->GND_ACTION_STATE, 0, 0, FHGFIRE_ENERGY_BALL);
 		pthis->actor.child = &horseTemp->actor;
 	}
 
@@ -741,7 +741,7 @@ void BossGanondrof_Throw(BossGanondrof* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.pos.z += pthis->actor.velocity.z;
 	Math_ApproachZeroF(&pthis->actor.velocity.x, 1.0f, 0.5f);
 	Math_ApproachZeroF(&pthis->actor.velocity.z, 1.0f, 0.5f);
-	pthis->actor.world.pos.y += 2.0f * Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+	pthis->actor.world.pos.y += 2.0f * Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 }
 
 void BossGanondrof_SetupReturn(BossGanondrof* pthis, GlobalContext* globalCtx)
@@ -772,7 +772,7 @@ void BossGanondrof_Return(BossGanondrof* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.pos.z += pthis->actor.velocity.z;
 	Math_ApproachZeroF(&pthis->actor.velocity.x, 1.0f, 0.5f);
 	Math_ApproachZeroF(&pthis->actor.velocity.z, 1.0f, 0.5f);
-	pthis->actor.world.pos.y += 2.0f * Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+	pthis->actor.world.pos.y += 2.0f * Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 	if(pthis->returnSuccess)
 	{
 		pthis->returnSuccess = false;
@@ -797,7 +797,7 @@ void BossGanondrof_SetupStunned(BossGanondrof* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->actionFunc = BossGanondrof_Stunned;
-	pthis->work[GND_ACTION_STATE] = STUNNED_FALL;
+	pthis->GND_ACTION_STATE = STUNNED_FALL;
 	pthis->actor.velocity.x = 0.0f;
 	pthis->actor.velocity.z = 0.0f;
 }
@@ -809,11 +809,11 @@ void BossGanondrof_Stunned(BossGanondrof* pthis, GlobalContext* globalCtx)
 	pthis->actor.gravity = -0.2f;
 	if(pthis->actor.world.pos.y <= 5.0f)
 	{
-		if(pthis->work[GND_ACTION_STATE] == STUNNED_FALL)
+		if(pthis->GND_ACTION_STATE == STUNNED_FALL)
 		{
 			pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonStunnedAnim);
 			Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonStunnedAnim, -10.0f);
-			pthis->work[GND_ACTION_STATE] = STUNNED_GROUND;
+			pthis->GND_ACTION_STATE = STUNNED_GROUND;
 		}
 
 		pthis->actor.velocity.y = 0.0f;
@@ -857,7 +857,7 @@ void BossGanondrof_Block(BossGanondrof* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.pos.z += pthis->actor.velocity.z;
 	Math_ApproachZeroF(&pthis->actor.velocity.x, 1.0f, 0.5f);
 	Math_ApproachZeroF(&pthis->actor.velocity.z, 1.0f, 0.5f);
-	pthis->actor.world.pos.y += 2.0f * Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+	pthis->actor.world.pos.y += 2.0f * Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 	if(pthis->timers[0] == 0)
 	{
 		BossGanondrof_SetupNeutral(pthis, -5.0f);
@@ -872,7 +872,7 @@ void BossGanondrof_SetupCharge(BossGanondrof* pthis, GlobalContext* globalCtx)
 	Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonChargeWindupAnim, -3.0f);
 	pthis->actionFunc = BossGanondrof_Charge;
 	pthis->timers[0] = 20;
-	pthis->work[GND_ACTION_STATE] = CHARGE_WINDUP;
+	pthis->GND_ACTION_STATE = CHARGE_WINDUP;
 }
 
 void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
@@ -885,7 +885,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 
 	pthis->colliderBody.base.colType = COLTYPE_METAL;
 	SkelAnime_Update(&pthis->skelAnime);
-	switch(pthis->work[GND_ACTION_STATE])
+	switch(pthis->GND_ACTION_STATE)
 	{
 		case CHARGE_WINDUP:
 			if(pthis->timers[0] == 218)
@@ -904,7 +904,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 			Math_ApproachZeroF(&thisx->velocity.z, 1.0f, 0.5f);
 			if(pthis->timers[0] == 0)
 			{
-				pthis->work[GND_ACTION_STATE] = CHARGE_START;
+				pthis->GND_ACTION_STATE = CHARGE_START;
 				pthis->timers[0] = 10;
 				thisx->speedXZ = 0.0f;
 				pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonChargeStartAnim);
@@ -918,7 +918,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 			{
 				pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonChargeAnim);
 				Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonChargeAnim, 0.0f);
-				pthis->work[GND_ACTION_STATE] = CHARGE_ATTACK;
+				pthis->GND_ACTION_STATE = CHARGE_ATTACK;
 			}
 		case CHARGE_ATTACK:
 			if(pthis->timers[0] != 0)
@@ -938,7 +938,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&thisx->speedXZ, 10.0f, 1.0f, 0.5f);
 			if((sqrtf(SQ(dxCenter) + SQ(dzCenter)) > 280.0f) || (thisx->xyzDistToPlayerSq < SQ(100.0f)))
 			{
-				pthis->work[GND_ACTION_STATE] = CHARGE_FINISH;
+				pthis->GND_ACTION_STATE = CHARGE_FINISH;
 				pthis->timers[0] = 20;
 			}
 			break;
@@ -975,7 +975,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 
 	if(thisx->world.pos.y > (GND_BOSSROOM_CENTER_Y + 83.0f))
 	{
-		thisx->world.pos.y += 2.0f * Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+		thisx->world.pos.y += 2.0f * Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 	}
 	{
 		s16 i;
@@ -991,7 +991,7 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 			Matrix_Push();
 			Matrix_RotateY((thisx->shape.rot.y / (f32)0x8000) * M_PI, MTXMODE_NEW);
 			Matrix_RotateX((thisx->shape.rot.x / (f32)0x8000) * M_PI, MTXMODE_APPLY);
-			Matrix_RotateZ((pthis->work[GND_PARTICLE_ANGLE] / (f32)0x8000) * M_PI, MTXMODE_APPLY);
+			Matrix_RotateZ((pthis->GND_PARTICLE_ANGLE / (f32)0x8000) * M_PI, MTXMODE_APPLY);
 			Matrix_MultVec3f(&baseOffset, &offset);
 			Matrix_Pop();
 			pos.x = pthis->spearTip.x + offset.x;
@@ -1004,11 +1004,11 @@ void BossGanondrof_Charge(BossGanondrof* pthis, GlobalContext* globalCtx)
 			accel.y = (offset.y * -50.0f) / 1000.0f;
 			accel.z = (offset.z * -50.0f) / 1000.0f;
 			EffectSsFhgFlash_SpawnLightBall(globalCtx, &pos, &vel, &accel, 150, i % 7);
-			pthis->work[GND_PARTICLE_ANGLE] += 0x1A5C;
+			pthis->GND_PARTICLE_ANGLE += 0x1A5C;
 		}
 	}
 
-	if(!(pthis->work[GND_VARIANCE_TIMER] & 7))
+	if(!(pthis->GND_VARIANCE_TIMER & 7))
 	{
 		EnfHG* horse = (EnfHG*)thisx->child;
 
@@ -1026,7 +1026,7 @@ void BossGanondrof_SetupDeath(BossGanondrof* pthis, GlobalContext* globalCtx)
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_DEAD);
 	pthis->deathState = DEATH_START;
 	pthis->actor.flags &= ~ACTOR_FLAG_0;
-	pthis->work[GND_VARIANCE_TIMER] = 0;
+	pthis->GND_VARIANCE_TIMER = 0;
 	pthis->shockTimer = 50;
 }
 
@@ -1042,8 +1042,8 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 
 	osSyncPrintf("PYP %f\n", player->actor.floorHeight);
 	SkelAnime_Update(&pthis->skelAnime);
-	pthis->work[GND_DEATH_SFX_TIMER]++;
-	if(((60 < pthis->work[GND_DEATH_SFX_TIMER]) && (pthis->work[GND_DEATH_SFX_TIMER] < 500)) || ((501 < pthis->work[GND_DEATH_SFX_TIMER]) && (pthis->work[GND_DEATH_SFX_TIMER] < 620)))
+	pthis->GND_DEATH_SFX_TIMER++;
+	if(((60 < pthis->GND_DEATH_SFX_TIMER) && (pthis->GND_DEATH_SFX_TIMER < 500)) || ((501 < pthis->GND_DEATH_SFX_TIMER) && (pthis->GND_DEATH_SFX_TIMER < 620)))
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GOMA_LAST - SFX_FLAG);
 	}
@@ -1077,20 +1077,20 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 			pthis->cameraAtVel.z = fabsf(camera->at.z - pthis->cameraNextAt.z);
 			pthis->cameraAccel = 0.02f;
 			pthis->cameraEyeMaxVel.x = pthis->cameraEyeMaxVel.y = pthis->cameraEyeMaxVel.z = 0.05f;
-			pthis->work[GND_ACTION_STATE] = DEATH_SPASM;
+			pthis->GND_ACTION_STATE = DEATH_SPASM;
 			pthis->timers[0] = 150;
 			pthis->cameraAtMaxVel.x = 0.2f;
 			pthis->cameraAtMaxVel.y = 0.2f;
 			pthis->cameraAtMaxVel.z = 0.2f;
 		case DEATH_THROES:
-			switch(pthis->work[GND_ACTION_STATE])
+			switch(pthis->GND_ACTION_STATE)
 			{
 				case DEATH_SPASM:
 					if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[GND_END_FRAME]))
 					{
 						pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonAirDamageAnim);
 						Animation_Change(&pthis->skelAnime, &gPhantomGanonAirDamageAnim, 0.5f, 0.0f, pthis->fwork[GND_END_FRAME], ANIMMODE_ONCE_INTERP, 0.0f);
-						pthis->work[GND_ACTION_STATE] = DEATH_LIMP;
+						pthis->GND_ACTION_STATE = DEATH_LIMP;
 					}
 					break;
 				case DEATH_LIMP:
@@ -1098,16 +1098,16 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 					{
 						pthis->fwork[GND_END_FRAME] = Animation_GetLastFrame(&gPhantomGanonLimpAnim);
 						Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonLimpAnim, -20.0f);
-						pthis->work[GND_ACTION_STATE] = DEATH_HUNCHED;
+						pthis->GND_ACTION_STATE = DEATH_HUNCHED;
 					}
 				case DEATH_HUNCHED:
 					bodyDecayLevel = 1;
 					break;
 			}
-			Math_ApproachS(&pthis->actor.shape.rot.y, pthis->work[GND_VARIANCE_TIMER] * -100, 5, 0xBB8);
+			Math_ApproachS(&pthis->actor.shape.rot.y, pthis->GND_VARIANCE_TIMER * -100, 5, 0xBB8);
 			Math_ApproachF(&pthis->cameraNextEye.z, pthis->targetPos.z + 60.0f, 0.02f, 0.5f);
 			Math_ApproachF(&pthis->actor.world.pos.y, GND_BOSSROOM_CENTER_Y + 133.0f, 0.05f, 100.0f);
-			pthis->actor.world.pos.y += Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+			pthis->actor.world.pos.y += Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 			pthis->cameraNextAt.x = pthis->targetPos.x;
 			pthis->cameraNextAt.y = pthis->targetPos.y - 10.0f;
 			pthis->cameraNextAt.z = pthis->targetPos.z;
@@ -1135,7 +1135,7 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 			}
 
 			pthis->actor.shape.rot.y -= 0xC8;
-			pthis->actor.world.pos.y += Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 1500);
+			pthis->actor.world.pos.y += Math_SinS(pthis->GND_VARIANCE_TIMER * 1500);
 			pthis->fwork[GND_CAMERA_ANGLE] += 0x78;
 			camX = Math_SinS(pthis->fwork[GND_CAMERA_ANGLE]) * pthis->fwork[GND_CAMERA_ZOOM];
 			camZ = Math_CosS(pthis->fwork[GND_CAMERA_ANGLE]) * pthis->fwork[GND_CAMERA_ZOOM];
@@ -1159,7 +1159,7 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 				pthis->actor.world.pos.y = GND_BOSSROOM_CENTER_Y + 83.0f;
 				pthis->actor.world.pos.z = GND_BOSSROOM_CENTER_Z;
 				pthis->actor.shape.rot.y = 0;
-				pthis->work[GND_BODY_DECAY_INDEX] = 0;
+				pthis->GND_BODY_DECAY_INDEX = 0;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_LAST);
 			}
 
@@ -1180,7 +1180,7 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 			{
 				pthis->deathState = DEATH_DISINTEGRATE;
 				Animation_MorphToPlayOnce(&pthis->skelAnime, &gPhantomGanonLastPoseAnim, -10.0f);
-				pthis->work[GND_BODY_DECAY_INDEX] = 0;
+				pthis->GND_BODY_DECAY_INDEX = 0;
 				pthis->timers[0] = 40;
 			}
 			break;
@@ -1242,31 +1242,31 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 		vel.z = pthis->actor.world.pos.z - pthis->actor.prevPos.z;
 		if(bodyDecayLevel < 10)
 		{
-			if(pthis->work[GND_DEATH_ENV_TIMER] == 0)
+			if(pthis->GND_DEATH_ENV_TIMER == 0)
 			{
 				if(globalCtx->envCtx.unk_BF == 0)
 				{
 					globalCtx->envCtx.unk_BF = 3;
-					pthis->work[GND_DEATH_ENV_TIMER] = (s16)Rand_ZeroFloat(5.0f) + 4.0f;
+					pthis->GND_DEATH_ENV_TIMER = (s16)Rand_ZeroFloat(5.0f) + 4.0f;
 					globalCtx->envCtx.unk_D6 = 0x28;
 				}
 				else
 				{
 					globalCtx->envCtx.unk_BF = 0;
-					pthis->work[GND_DEATH_ENV_TIMER] = (s16)Rand_ZeroFloat(2.0f) + 2.0f;
+					pthis->GND_DEATH_ENV_TIMER = (s16)Rand_ZeroFloat(2.0f) + 2.0f;
 					globalCtx->envCtx.unk_D6 = 0x14;
 				}
 			}
 			else
 			{
-				pthis->work[GND_DEATH_ENV_TIMER]--;
+				pthis->GND_DEATH_ENV_TIMER--;
 			}
 
 			for(i = 0; i <= 0; i++)
 			{
-				limbDecayIndex = pthis->work[GND_LIMB_DECAY_INDEX];
-				pthis->work[GND_LIMB_DECAY_INDEX]++;
-				pthis->work[GND_LIMB_DECAY_INDEX] %= 25;
+				limbDecayIndex = pthis->GND_LIMB_DECAY_INDEX;
+				pthis->GND_LIMB_DECAY_INDEX++;
+				pthis->GND_LIMB_DECAY_INDEX %= 25;
 				pos.x = pthis->bodyPartsPos[limbDecayIndex].x + Rand_CenteredFloat(5.0f);
 				pos.y = pthis->bodyPartsPos[limbDecayIndex].y + Rand_CenteredFloat(5.0f);
 				pos.z = pthis->bodyPartsPos[limbDecayIndex].z + Rand_CenteredFloat(5.0f);
@@ -1295,25 +1295,25 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 			globalCtx->envCtx.unk_D6 = 0x14;
 		}
 
-		pthis->work[GND_BODY_DECAY_FLAG] = true;
+		pthis->GND_BODY_DECAY_FLAG = true;
 		for(i = 0; i < 5; i++)
 		{
 			if(bodyDecayLevel == 1)
 			{
-				BossGanondrof_ClearPixels(sDecayMaskLow, pthis->work[GND_BODY_DECAY_INDEX]);
+				BossGanondrof_ClearPixels(sDecayMaskLow, pthis->GND_BODY_DECAY_INDEX);
 			}
 			else if(bodyDecayLevel == 2)
 			{
-				BossGanondrof_ClearPixels(sDecayMaskHigh, pthis->work[GND_BODY_DECAY_INDEX]);
+				BossGanondrof_ClearPixels(sDecayMaskHigh, pthis->GND_BODY_DECAY_INDEX);
 			}
 			else
 			{
-				BossGanondrof_ClearPixels(sDecayMaskTotal, pthis->work[GND_BODY_DECAY_INDEX]);
+				BossGanondrof_ClearPixels(sDecayMaskTotal, pthis->GND_BODY_DECAY_INDEX);
 			}
 
-			if(pthis->work[GND_BODY_DECAY_INDEX] < 0x100)
+			if(pthis->GND_BODY_DECAY_INDEX < 0x100)
 			{
-				pthis->work[GND_BODY_DECAY_INDEX]++;
+				pthis->GND_BODY_DECAY_INDEX++;
 			}
 		}
 	}
@@ -1341,9 +1341,9 @@ void BossGanondrof_CollisionCheck(BossGanondrof* pthis, GlobalContext* globalCtx
 	EnfHG* horse = (EnfHG*)pthis->actor.child;
 	ColliderInfo* hurtbox = NULL;
 
-	if(pthis->work[GND_INVINC_TIMER] != 0)
+	if(pthis->GND_INVINC_TIMER != 0)
 	{
-		pthis->work[GND_INVINC_TIMER]--;
+		pthis->GND_INVINC_TIMER--;
 		pthis->returnCount = 0;
 		pthis->colliderBody.base.acFlags &= ~AC_HIT;
 	}
@@ -1395,7 +1395,7 @@ void BossGanondrof_CollisionCheck(BossGanondrof* pthis, GlobalContext* globalCtx
 					{
 						pthis->timers[0] = 120;
 					}
-					pthis->work[GND_INVINC_TIMER] = 10;
+					pthis->GND_INVINC_TIMER = 10;
 					horse->hitTimer = 20;
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_DAMAGE);
 				}
@@ -1406,7 +1406,7 @@ void BossGanondrof_CollisionCheck(BossGanondrof* pthis, GlobalContext* globalCtx
 			}
 			else if(acHit && (hurtbox->toucher.dmgFlags & 0x0001F8A4))
 			{
-				pthis->work[GND_INVINC_TIMER] = 10;
+				pthis->GND_INVINC_TIMER = 10;
 				pthis->actor.colChkInfo.health -= 2;
 				horse->hitTimer = 20;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_DAMAGE);
@@ -1437,7 +1437,7 @@ void BossGanondrof_Update(Actor* thisx, GlobalContext* globalCtx)
 		Actor_Kill(&pthis->actor);
 		return;
 	}
-	pthis->work[GND_VARIANCE_TIMER]++;
+	pthis->GND_VARIANCE_TIMER++;
 	horse = (EnfHG*)pthis->actor.child;
 	osSyncPrintf("MOVE START EEEEEEEEEEEEEEEEEEEEEE%d\n", pthis->actor.params);
 
@@ -1450,13 +1450,13 @@ void BossGanondrof_Update(Actor* thisx, GlobalContext* globalCtx)
 			pthis->timers[i]--;
 		}
 	}
-	if(pthis->work[GND_UNKTIMER_1])
+	if(pthis->GND_UNKTIMER_1)
 	{
-		pthis->work[GND_UNKTIMER_1]--;
+		pthis->GND_UNKTIMER_1--;
 	}
-	if(pthis->work[GND_UNKTIMER_2])
+	if(pthis->GND_UNKTIMER_2)
 	{
-		pthis->work[GND_UNKTIMER_2]--;
+		pthis->GND_UNKTIMER_2--;
 	}
 
 	if(pthis->actionFunc != BossGanondrof_Death)
@@ -1497,7 +1497,7 @@ void BossGanondrof_Update(Actor* thisx, GlobalContext* globalCtx)
 	Math_ApproachF(&pthis->legRotZ, legRotTargetZ, 1.0f, 600.0f);
 	if((pthis->flyMode != GND_FLY_PAINTING) && (pthis->actionFunc != BossGanondrof_Stunned) && (pthis->deathState == NOT_DEAD))
 	{
-		legSplitTarget = (Math_SinS(pthis->work[GND_VARIANCE_TIMER] * 0x8DC) * -500.0f) - 500.0f;
+		legSplitTarget = (Math_SinS(pthis->GND_VARIANCE_TIMER * 0x8DC) * -500.0f) - 500.0f;
 	}
 	else
 	{
@@ -1532,7 +1532,7 @@ s32 BossGanondrof_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx*
 	switch(limbIndex)
 	{
 		case 15:
-			if((pthis->actionFunc == BossGanondrof_Intro) && pthis->work[GND_MASK_OFF])
+			if((pthis->actionFunc == BossGanondrof_Intro) && pthis->GND_MASK_OFF)
 			{
 				*dList = gPhantomGanonFaceDL;
 			}
@@ -1656,7 +1656,7 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	osSyncPrintf("YP %f\n", pthis->actor.world.pos.y);
 	func_80093D18(globalCtx->state.gfxCtx);
-	if(pthis->work[GND_INVINC_TIMER] & 4)
+	if(pthis->GND_INVINC_TIMER & 4)
 	{
 		POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099);
 	}
@@ -1668,7 +1668,7 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	osSyncPrintf("DRAW 11\n");
 	osSyncPrintf("EYE_COL %d\n", (s16)pthis->fwork[GND_EYE_BRIGHTNESS]);
 	gDPSetEnvColor(POLY_OPA_DISP++, (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_ALPHA]);
-	if(pthis->work[GND_BODY_DECAY_FLAG])
+	if(pthis->GND_BODY_DECAY_FLAG)
 	{
 		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetClearPixelDList(globalCtx->state.gfxCtx));
 	}

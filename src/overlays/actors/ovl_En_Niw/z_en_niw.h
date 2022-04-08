@@ -15,10 +15,10 @@ struct EnNiwFeather
 	/* 0x0010 */ Vec3f vel;
 	/* 0x001C */ Vec3f accel;
 	/* 0x0028 */ s16 life;
-	/* 0x002A */ s16 unk_2A; // Variance timer?
+	/* 0x002A */ Counter unk_2A; // Variance timer?
 	/* 0x002C */ f32 scale;
 	/* 0x0030 */ f32 unk_30;
-	/* 0x0034 */ u8 timer;
+	/* 0x0034 */ TimerU8 timer;
 };
 
 struct EnNiw
@@ -42,19 +42,19 @@ struct EnNiw
 	/* 0x026A */ Timer timer9;
 	/* 0x026C */ f32 unk_26C[10];
 	/* 0x0294 */ s16 unk_294;
-	/* 0x0296 */ s16 unk_296;
+	/* 0x0296 */ Timer unk_296;
 	/* 0x0298 */ s16 unk_298;
 	/* 0x029A */ s16 unk_29A;
 	/* 0x029C */ s16 unk_29C;
-	/* 0x029E */ s16 unk_29E;
+	/* 0x029E */ Counter unk_29E; // important for state change
 	/* 0x02A0 */ s16 unk_2A0;
 	/* 0x02A2 */ s16 unk_2A2;
-	/* 0x02A4 */ s16 unk_2A4;
-	/* 0x02A6 */ s16 unk_2A6;
+	/* 0x02A4 */ Timer jumpY;
+	/* 0x02A6 */ s16 hitSpawnFeathers;
 	/* 0x02A8 */ s16 unk_2A8;
 	/* 0x02AA */ s16 unk_2AA;
-	/* 0x02AC */ Vec3f unk_2AC;
-	/* 0x02B8 */ Vec3f unk_2B8;
+	/* 0x02AC */ VecPos unk_2AC;
+	/* 0x02B8 */ VecPos unk_2B8;
 	/* 0x02C4 */ f32 unk_2C4;
 	/* 0x02C8 */ f32 unk_2C8;
 	/* 0x02CC */ f32 unk_2CC;
@@ -63,7 +63,7 @@ struct EnNiw
 	/* 0x02D8 */ f32 unk_2D8;
 	/* 0x02DC */ f32 unk_2DC;
 	/* 0x02E0 */ f32 unk_2E0;
-	/* 0x02E4 */ s16 unk_2E4;
+	/* 0x02E4 */ s16 unk_angle_yaw_2E4;
 	/* 0x02E6 */ s16 unk_2E6;
 	/* 0x02E8 */ s16 path;
 	/* 0x02EA */ s16 waypoint;

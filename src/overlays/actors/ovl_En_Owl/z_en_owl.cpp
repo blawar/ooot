@@ -116,7 +116,7 @@ void EnOwl_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->actor.targetArrowOffset = 500.0f;
 	EnOwl_ChangeMode(pthis, EnOwl_WaitDefault, func_80ACC540, &pthis->skelAnime2, &gOwlPerchAnim, 0.0f);
 	pthis->actionFlags = pthis->unk_406 = pthis->unk_409 = 0;
-	pthis->unk_405 = 4;
+	pthis->timerUnk_405 = 4;
 	pthis->unk_404 = pthis->unk_407 = 0;
 	pthis->unk_408 = 4;
 	owlType = (pthis->actor.params & 0xFC0) >> 6;
@@ -364,7 +364,7 @@ void func_80ACA71C(EnOwl* pthis)
 	pthis->unk_408 = 4;
 	pthis->unk_404 = 0;
 	pthis->unk_406 = 0;
-	pthis->unk_405 = 4;
+	pthis->timerUnk_405 = 4;
 	pthis->unk_407 = pthis->unk_3F2;
 }
 
@@ -1030,7 +1030,7 @@ void func_80ACBD4C(EnOwl* pthis, GlobalContext* globalCtx)
 	if(pthis->actionFlags & 1)
 	{
 		EnOwl_ChangeMode(pthis, func_80ACBC0C, func_80ACC460, &pthis->skelAnime, &gOwlFlyAnim, 0.0f);
-		pthis->unk_3FE = 6;
+		pthis->timerUnk_3FE = 6;
 		if(pthis->actionFlags & 0x40)
 		{
 			pthis->unk_400 += 0x2000;
@@ -1048,7 +1048,7 @@ void func_80ACBEA0(EnOwl* pthis, GlobalContext* GlobalContext)
 {
 	if(pthis->actionFlags & 1)
 	{
-		pthis->unk_3FE = 3;
+		pthis->timerUnk_3FE = 3;
 		EnOwl_ChangeMode(pthis, func_80ACBD4C, func_80ACC540, &pthis->skelAnime, &gOwlTakeoffAnim, 0.0f);
 		pthis->unk_3F8 = pthis->actor.world.pos.y;
 		pthis->actor.velocity.y = 2.0f;
@@ -1073,7 +1073,7 @@ void func_80ACBF50(EnOwl* pthis, GlobalContext* globalCtx)
 	if(pthis->actionFlags & 1)
 	{
 		EnOwl_ChangeMode(pthis, func_80ACBC0C, func_80ACC460, &pthis->skelAnime, &gOwlFlyAnim, 0.0f);
-		pthis->unk_3FE = 6;
+		pthis->timerUnk_3FE = 6;
 		pthis->actor.velocity.y = 2.0f;
 		pthis->actor.gravity = 0.0f;
 		pthis->actor.speedXZ = 4.0f;
@@ -1129,10 +1129,10 @@ void func_80ACC00C(EnOwl* pthis, GlobalContext* globalCtx)
 
 	if(pthis->skelAnime.curFrame >= 37.0f)
 	{
-		if(pthis->unk_3FE > 0)
+		if(pthis->timerUnk_3FE > 0)
 		{
 			pthis->skelAnime.curFrame = 21.0f;
-			pthis->unk_3FE--;
+			pthis->timerUnk_3FE--;
 		}
 		else
 		{
@@ -1160,7 +1160,7 @@ void func_80ACC23C(EnOwl* pthis, GlobalContext* globalCtx)
 	{
 		pthis->skelAnime.curFrame = 21.0f;
 		pthis->actionFunc = func_80ACC00C;
-		pthis->unk_3FE = 5;
+		pthis->timerUnk_3FE = 5;
 		pthis->actor.velocity.y = 0.0f;
 		pthis->actor.gravity = 0.0f;
 		pthis->actor.speedXZ = 0.0f;
@@ -1173,7 +1173,7 @@ void func_80ACC30C(EnOwl* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->actionFlags & 1)
 	{
-		pthis->unk_3FE = 3;
+		pthis->timerUnk_3FE = 3;
 		EnOwl_ChangeMode(pthis, func_80ACC23C, func_80ACC540, &pthis->skelAnime, &gOwlTakeoffAnim, 0.0f);
 		pthis->unk_3F8 = pthis->actor.world.pos.y;
 		pthis->actor.velocity.y = 0.2f;
@@ -1186,15 +1186,15 @@ void func_80ACC390(EnOwl* pthis)
 {
 	SkelAnime_Update(pthis->curSkelAnime);
 
-	if(pthis->unk_3FE > 0)
+	if(pthis->timerUnk_3FE > 0)
 	{
-		pthis->unk_3FE--;
-		pthis->actor.shape.rot.z = Math_SinS(pthis->unk_3FE * 0x333) * 1000.0f;
+		pthis->timerUnk_3FE--;
+		pthis->actor.shape.rot.z = Math_SinS(pthis->timerUnk_3FE * 0x333) * 1000.0f;
 	}
 	else
 	{
 		pthis->unk_410 = func_80ACC460;
-		pthis->unk_3FE = 6;
+		pthis->timerUnk_3FE = 6;
 		Animation_Change(pthis->curSkelAnime, &gOwlFlyAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gOwlFlyAnim), 2, 5.0f);
 	}
 }
@@ -1203,14 +1203,14 @@ void func_80ACC460(EnOwl* pthis)
 {
 	if(SkelAnime_Update(pthis->curSkelAnime))
 	{
-		if(pthis->unk_3FE > 0)
+		if(pthis->timerUnk_3FE > 0)
 		{
-			pthis->unk_3FE--;
+			pthis->timerUnk_3FE--;
 			Animation_Change(pthis->curSkelAnime, (AnimationHeader*)pthis->curSkelAnime->animation, 1.0f, 0.0f, Animation_GetLastFrame(pthis->curSkelAnime->animation), ANIMMODE_ONCE, 0.0f);
 		}
 		else
 		{
-			pthis->unk_3FE = 0xA0;
+			pthis->timerUnk_3FE = 0xA0;
 			pthis->unk_410 = func_80ACC390;
 			Animation_Change(pthis->curSkelAnime, &gOwlGlideAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gOwlGlideAnim), 0, 5.0f);
 		}
@@ -1341,14 +1341,14 @@ void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx)
 			{
 				case 0:
 					pthis->unk_404 = 1;
-					pthis->unk_405 = 6;
+					pthis->timerUnk_405 = 6;
 					break;
 				case 1:
-					pthis->unk_405--;
+					pthis->timerUnk_405--;
 
-					if(pthis->unk_405 != 0)
+					if(pthis->timerUnk_405 != 0)
 					{
-						phi_a1 = Math_CosS(pthis->unk_405 * 8192) * 4096.0f;
+						phi_a1 = Math_CosS(pthis->timerUnk_405 * 8192) * 4096.0f;
 					}
 					else
 					{
@@ -1403,38 +1403,38 @@ void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx)
 					if(Rand_ZeroOne() < 0.3f)
 					{
 						pthis->unk_404 = 4;
-						pthis->unk_405 = 0xC;
+						pthis->timerUnk_405 = 0xC;
 					}
 					else
 					{
 						pthis->unk_404 = 1;
-						pthis->unk_405 = 4;
+						pthis->timerUnk_405 = 4;
 					}
 				}
 
-				pthis->unk_405--;
+				pthis->timerUnk_405--;
 
 				switch(pthis->unk_404)
 				{
 					case 1:
-						phi_a1 = Math_SinS((-pthis->unk_405 * 4096) + 0x4000) * 5000.0f;
-						if(pthis->unk_405 <= 0)
+						phi_a1 = Math_SinS((-pthis->timerUnk_405 * 4096) + 0x4000) * 5000.0f;
+						if(pthis->timerUnk_405 <= 0)
 						{
-							pthis->unk_405 = (s32)(Rand_ZeroFloat(15.0f) + 5.0f);
+							pthis->timerUnk_405 = (s32)(Rand_ZeroFloat(15.0f) + 5.0f);
 							pthis->unk_404 = 2;
 						}
 						break;
 					case 2:
 						phi_a1 = 0x1388;
-						if(pthis->unk_405 <= 0)
+						if(pthis->timerUnk_405 <= 0)
 						{
 							pthis->unk_404 = 3;
-							pthis->unk_405 = 4;
+							pthis->timerUnk_405 = 4;
 						}
 						break;
 					case 3:
-						phi_a1 = Math_SinS(pthis->unk_405 * 4096) * 5000.0f;
-						if(pthis->unk_405 <= 0)
+						phi_a1 = Math_SinS(pthis->timerUnk_405 * 4096) * 5000.0f;
+						if(pthis->timerUnk_405 <= 0)
 						{
 							pthis->unk_406 = (s32)Rand_ZeroFloat(20.0f) + 0x3C;
 							pthis->unk_404 = 0;
@@ -1442,8 +1442,8 @@ void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx)
 						}
 						break;
 					case 4:
-						phi_a1 = Math_SinS(pthis->unk_405 * 8192) * 5000.0f;
-						if(pthis->unk_405 <= 0)
+						phi_a1 = Math_SinS(pthis->timerUnk_405 * 8192) * 5000.0f;
+						if(pthis->timerUnk_405 <= 0)
 						{
 							pthis->unk_406 = (s32)Rand_ZeroFloat(20.0f) + 0x3C;
 							pthis->unk_404 = 0;
@@ -1467,35 +1467,38 @@ void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx)
 			else
 			{
 				pthis->unk_408--;
-				switch(pthis->unk_407)
+				if(pthis->unk_408.isWhole())
 				{
-					case 0:
-						pthis->unk_3F2 = (-pthis->unk_408 * 0x5DC) + 0x1770;
-						if(pthis->unk_408 <= 0)
-						{
-							pthis->unk_407 = 1;
-							pthis->unk_408 = (s32)(Rand_ZeroFloat(15.0f) + 5.0f);
-						}
-						break;
-					case 1:
-						pthis->unk_3F2 = 0x1770;
-						if(pthis->unk_408 <= 0)
-						{
-							pthis->unk_407 = 2;
-							pthis->unk_408 = 4;
-						}
-						break;
-					case 2:
-						pthis->unk_3F2 = pthis->unk_408 * 0x5DC;
-						if(pthis->unk_408 <= 0)
-						{
-							pthis->unk_407 = 0;
-							pthis->unk_408 = 4;
-							pthis->unk_409 = (s32)Rand_ZeroFloat(40.0f) + 0xA0;
-						}
-						break;
-					default:
-						break;
+					switch(pthis->unk_407.whole())
+					{
+						case 0:
+							pthis->unk_3F2 = (-pthis->unk_408 * 0x5DC) + 0x1770;
+							if(pthis->unk_408 <= 0)
+							{
+								pthis->unk_407 = 1;
+								pthis->unk_408 = (s32)(Rand_ZeroFloat(15.0f) + 5.0f);
+							}
+							break;
+						case 1:
+							pthis->unk_3F2 = 0x1770;
+							if(pthis->unk_408 <= 0)
+							{
+								pthis->unk_407 = 2;
+								pthis->unk_408 = 4;
+							}
+							break;
+						case 2:
+							pthis->unk_3F2 = pthis->unk_408 * 0x5DC;
+							if(pthis->unk_408 <= 0)
+							{
+								pthis->unk_407 = 0;
+								pthis->unk_408 = 4;
+								pthis->unk_409 = (s32)Rand_ZeroFloat(40.0f) + 0xA0;
+							}
+							break;
+						default:
+							break;
+					}
 				}
 			}
 		}

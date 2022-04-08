@@ -51,6 +51,8 @@ struct VecRot
 	Rotation x, y, z;
 };
 
+typedef VecRot VecPos;
+
 struct Sphere16
 {
 	Vec3s center;
