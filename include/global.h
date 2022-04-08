@@ -22,4 +22,3 @@ u64 osGetTime();
 void oot_assert(const char* exp, const char* file, s32 line);
 
 #include "z_debug_display.h"
-

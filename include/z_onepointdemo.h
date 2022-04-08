@@ -8,4 +8,3 @@ void OnePointCutscene_EnableAttention(void);
 void OnePointCutscene_DisableAttention(void);
 s32 OnePointCutscene_CheckForCategory(struct GlobalContext* globalCtx, s32 actorCategory);
 void OnePointCutscene_Noop(struct GlobalContext* globalCtx, s32 arg1);
-

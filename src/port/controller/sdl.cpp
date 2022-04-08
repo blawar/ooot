@@ -1,19 +1,19 @@
 #if !defined(DISABLE_SDL_CONTROLLER)
 
-#include "ultra64/types.h"
-#include "state.h"
-#include "macros.h"
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
 #include <SDL2/SDL.h>
-#include "sdl.h"
-#include <unordered_map>
-#include "json.h"
 #include <fstream>
+#include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <unordered_map>
 #include "../options.h"
 #include "../player/players.h"
+#include "json.h"
+#include "macros.h"
+#include "sdl.h"
+#include "state.h"
+#include "ultra64/types.h"
 
 static bool init_ok;
 
@@ -477,7 +477,7 @@ namespace oot::hid
 
 		g_haptics = SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0;
 
-		//SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
+		// SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
 	}
 
 	SDL::~SDL()

@@ -10,11 +10,11 @@
 //#include "ultra64/exception.h"
 //#include "ultra64/time.h"
 //#include "ultra64/pi.h"
-#include "ultra64/vi.h"
-#include "ultra64/rcp.h"
-#include <thread>
 #include <chrono>
+#include <thread>
 #include "../../AziAudio/AziAudio/AudioSpec.h"
+#include "ultra64/rcp.h"
+#include "ultra64/vi.h"
 
 #ifndef _MSC_VER
 #define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
@@ -30,9 +30,8 @@ extern OSViMode osViModeNtscLan1;
 
 OSViMode gViConfigMode;
 
-s8 D_80009430			= 1;
+s8 D_80009430 = 1;
 u8 gViConfigAdditionalScanLines = 0;
-
 
 typedef u32 OSEvent;
 typedef void* OSMesg;
@@ -86,7 +85,7 @@ OSTime osGetTime(void)
 #else
 OSTime osGetTime(void)
 {
-	//Don't used (uint32_t)time(NULL), it's not accurate enough for rumble!
+	// Don't used (uint32_t)time(NULL), it's not accurate enough for rumble!
 	return 0;
 }
 #endif
@@ -131,10 +130,10 @@ u32 bcmp(void* s1, void* s2, u32 size)
 	return 0;
 }
 
+#include <stdexcept>
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include <stdexcept>
 
 std::wstring utf8_to_utf16(const std::string& utf8)
 {
@@ -144,11 +143,11 @@ std::wstring utf8_to_utf16(const std::string& utf8)
 	{
 		unsigned long uni;
 		size_t todo;
-		bool error	 = false;
+		bool error = false;
 		unsigned char ch = utf8[i++];
 		if(ch <= 0x7F)
 		{
-			uni  = ch;
+			uni = ch;
 			todo = 0;
 		}
 		else if(ch <= 0xBF)
@@ -157,17 +156,17 @@ std::wstring utf8_to_utf16(const std::string& utf8)
 		}
 		else if(ch <= 0xDF)
 		{
-			uni  = ch & 0x1F;
+			uni = ch & 0x1F;
 			todo = 1;
 		}
 		else if(ch <= 0xEF)
 		{
-			uni  = ch & 0x0F;
+			uni = ch & 0x0F;
 			todo = 2;
 		}
 		else if(ch <= 0xF7)
 		{
-			uni  = ch & 0x07;
+			uni = ch & 0x07;
 			todo = 3;
 		}
 		else
@@ -213,7 +212,7 @@ static char buffer[0x10000];
 void osSyncPrintf(const char* fmt, ...)
 {
 #ifdef _MSC_VER
-	//return; // temp disable this, because osSyncPrintf is not type safe, and globalCtx->state.frames gets passed to it as an object instead of expected int and it crashes
+	// return; // temp disable this, because osSyncPrintf is not type safe, and globalCtx->state.frames gets passed to it as an object instead of expected int and it crashes
 	memset(buffer, 0, sizeof(buffer));
 	va_list arg;
 	int done;
@@ -227,9 +226,9 @@ void osSyncPrintf(const char* fmt, ...)
 #endif
 }
 
-#include "jpeg_decoder.h"
-#include "color.h"
 #include <memory>
+#include "color.h"
+#include "jpeg_decoder.h"
 #include "ultra64/gbi.h"
 
 static_assert(sizeof(Color_RGB8) == 3, "incorrect Color_RGB8 size");
@@ -244,8 +243,8 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize)
 	}
 
 	Color_RGB8* p = (Color_RGB8*)decoder->GetImage();
-	u64 sz	      = decoder->GetImageSize() / sizeof(Color_RGB8);
-	u16* out      = (u16*)zbuffer;
+	u64 sz = decoder->GetImageSize() / sizeof(Color_RGB8);
+	u16* out = (u16*)zbuffer;
 
 	for(u64 i = 0; i < sz; i++, p++, out++)
 	{
@@ -264,7 +263,7 @@ s32 Jpeg_Decode(void* data, void* zbuffer, void* work, u32 workSize)
 s32 osAiSetNextBuffer(void* buf, u32 size)
 {
 	static u8 D_80130500 = false;
-	u32 bufAdjusted	     = (u32)buf;
+	u32 bufAdjusted = (u32)buf;
 	s32 status;
 
 	if(D_80130500)
@@ -290,7 +289,7 @@ s32 osAiSetNextBuffer(void* buf, u32 size)
 	// OS_K0_TO_PHYSICAL replaces osVirtualToPhysical, this replacement
 	// assumes that only KSEG0 addresses are given
 	hw_regs.AI_DRAM_ADDR_REG = bufAdjusted;
-	hw_regs.AI_LEN_REG	      = size;
+	hw_regs.AI_LEN_REG = size;
 	AiLenChanged();
 	return 0;
 }
@@ -307,7 +306,7 @@ s32 osAiSetFrequency(u32 frequency)
 {
 	u8 bitrate;
 	f32 dacRateF = ((f32)osViClock / frequency) + 0.5f;
-	u32 dacRate  = dacRateF;
+	u32 dacRate = dacRateF;
 
 	if(dacRate < 132)
 	{
@@ -329,12 +328,12 @@ s32 osAiSetFrequency(u32 frequency)
 
 void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 count)
 {
-	mq->mtqueue    = NULL;
-	mq->fullqueue  = NULL;
+	mq->mtqueue = NULL;
+	mq->fullqueue = NULL;
 	mq->validCount = 0;
-	mq->first      = 0;
-	mq->msgCount   = count;
-	mq->msg	       = msg;
+	mq->first = 0;
+	mq->msgCount = count;
+	mq->msg = msg;
 }
 
 s32 osSendMesg(OSMesgQueue* mq, OSMesg mesg, s32 flag)
@@ -353,7 +352,7 @@ s32 osSendMesg(OSMesgQueue* mq, OSMesg mesg, s32 flag)
 		}
 	}
 
-	index	       = (mq->first + mq->validCount) % mq->msgCount;
+	index = (mq->first + mq->validCount) % mq->msgCount;
 	mq->msg[index] = mesg;
 	mq->validCount++;
 

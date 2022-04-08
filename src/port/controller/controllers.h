@@ -1,15 +1,15 @@
 #pragma once
 
-#include "ultra64/types.h"
-#include "controller.h"
-#include <vector>
 #include <memory>
+#include <vector>
+#include "controller.h"
+#include "ultra64/types.h"
 
 namespace oot::hid
 {
 	class Driver
 	{
-	public:
+		public:
 		Driver();
 		virtual ~Driver();
 		virtual const u64 size() const;
@@ -28,13 +28,13 @@ namespace oot::hid
 			return m_controllers;
 		}
 
-	protected:
+		protected:
 		std::vector<std::shared_ptr<Controller>> m_controllers;
 	};
 
 	class Controllers
 	{
-	public:
+		public:
 		Controllers();
 		virtual ~Controllers();
 		const u64 size() const;
@@ -48,7 +48,7 @@ namespace oot::hid
 			return m_drivers;
 		}
 
-	protected:
+		protected:
 		std::vector<class Driver*> m_drivers;
 		Button m_rebindInput;
 	};

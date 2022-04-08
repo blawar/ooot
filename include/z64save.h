@@ -1,70 +1,76 @@
 #pragma once
 
+#include "framerate.h"
 #include "ultra64.h"
 #include "z64math.h"
-#include "framerate.h"
 
 struct FileChooseContext;
 struct GameState;
 
-struct ItemEquips {
-    /* 0x00 */ u8 buttonItems[4];
-    /* 0x04 */ u8 cButtonSlots[3];
-    /* 0x08 */ u16 equipment;
+struct ItemEquips
+{
+	/* 0x00 */ u8 buttonItems[4];
+	/* 0x04 */ u8 cButtonSlots[3];
+	/* 0x08 */ u16 equipment;
 }; // size = 0x0A
 
-struct Inventory {
-    /* 0x00 */ u8 items[24];
-    /* 0x18 */ s8 ammo[16];
-    /* 0x28 */ u16 equipment;
-			   //u16 equipmentPadding;
-    /* 0x2C */ u32 upgrades;
-    /* 0x30 */ u32 questItems;
-    /* 0x34 */ u8 dungeonItems[20];
-    /* 0x48 */ s8 dungeonKeys[19];
-    /* 0x5B */ s8 defenseHearts;
-    /* 0x5C */ s16 gsTokens;
-			   //s16 gsTokensPadding;
+struct Inventory
+{
+	/* 0x00 */ u8 items[24];
+	/* 0x18 */ s8 ammo[16];
+	/* 0x28 */ u16 equipment;
+	// u16 equipmentPadding;
+	/* 0x2C */ u32 upgrades;
+	/* 0x30 */ u32 questItems;
+	/* 0x34 */ u8 dungeonItems[20];
+	/* 0x48 */ s8 dungeonKeys[19];
+	/* 0x5B */ s8 defenseHearts;
+	/* 0x5C */ s16 gsTokens;
+	// s16 gsTokensPadding;
 }; // size = 0x60
 
 static_assert(sizeof(Inventory) == 0x60, "Save Inventory incorrect size");
 
-struct SavedSceneFlags {
-    /* 0x00 */ u32 chest;
-    /* 0x04 */ u32 swch;
-    /* 0x08 */ u32 clear;
-    /* 0x0C */ u32 collect;
-    /* 0x10 */ u32 unk;
-    /* 0x14 */ u32 rooms;
-    /* 0x18 */ u32 floors;
+struct SavedSceneFlags
+{
+	/* 0x00 */ u32 chest;
+	/* 0x04 */ u32 swch;
+	/* 0x08 */ u32 clear;
+	/* 0x0C */ u32 collect;
+	/* 0x10 */ u32 unk;
+	/* 0x14 */ u32 rooms;
+	/* 0x18 */ u32 floors;
 }; // size = 0x1C
 
-struct HorseData {
-    /* 0x00 */ s16 scene;
-    /* 0x02 */ Vec3s pos;
-    /* 0x08 */ s16 angle;
+struct HorseData
+{
+	/* 0x00 */ s16 scene;
+	/* 0x02 */ Vec3s pos;
+	/* 0x08 */ s16 angle;
 }; // size = 0x0A
 
-struct RespawnData {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ s16 yaw;
-    /* 0x0E */ s16 playerParams;
-    /* 0x10 */ s16 entranceIndex;
-    /* 0x12 */ u8 roomIndex;
-    /* 0x13 */ s8 data;
-    /* 0x14 */ u32 tempSwchFlags;
-    /* 0x18 */ u32 tempCollectFlags;
+struct RespawnData
+{
+	/* 0x00 */ Vec3f pos;
+	/* 0x0C */ s16 yaw;
+	/* 0x0E */ s16 playerParams;
+	/* 0x10 */ s16 entranceIndex;
+	/* 0x12 */ u8 roomIndex;
+	/* 0x13 */ s8 data;
+	/* 0x14 */ u32 tempSwchFlags;
+	/* 0x18 */ u32 tempCollectFlags;
 }; // size = 0x1C
 
-struct FaroresWindData {
-    /* 0x00 */ Vec3i pos;
-    /* 0x0C */ s32 yaw;
-    /* 0x10 */ s32 playerParams;
-    /* 0x14 */ s32 entranceIndex;
-    /* 0x18 */ s32 roomIndex;
-    /* 0x1C */ s32 set;
-    /* 0x20 */ s32 tempSwchFlags;
-    /* 0x24 */ s32 tempCollectFlags;
+struct FaroresWindData
+{
+	/* 0x00 */ Vec3i pos;
+	/* 0x0C */ s32 yaw;
+	/* 0x10 */ s32 playerParams;
+	/* 0x14 */ s32 entranceIndex;
+	/* 0x18 */ s32 roomIndex;
+	/* 0x1C */ s32 set;
+	/* 0x20 */ s32 tempSwchFlags;
+	/* 0x24 */ s32 tempCollectFlags;
 }; // size = 0x28
 
 namespace oot::save
@@ -137,14 +143,14 @@ namespace oot::save
 		/* 0x04 */ s32 linkAge; // 0: Adult; 1: Child
 		/* 0x08 */ s32 cutsceneIndex;
 		/* 0x0C */ u16 dayTime; // "zelda_time"
-		           //u16 dayTimePadding;
+		// u16 dayTimePadding;
 		/* 0x10 */ s32 nightFlag;
 		/* 0x14 */ s32 totalDays;
 		/* 0x18 */ s32 bgsDayCount; // increments with totalDays, gets reset by goron for bgs and one other use
-		/* 0x1C */ Info info;  // "information"
+		/* 0x1C */ Info info;	    // "information"
 
 		u16 checksum();
-	};	
+	};
 
 	static_assert(sizeof(Save) == 0x1C + sizeof(Info), "Save incorrect size");
 
@@ -152,7 +158,7 @@ namespace oot::save
 	{
 		Save save;
 
-		/* 0x1354 */ s32 fileNum;  // "file_no"
+		/* 0x1354 */ s32 fileNum; // "file_no"
 		/* 0x1358 */ char unk_1358[0x0004];
 		/* 0x135C */ s32 gameMode;
 		/* 0x1360 */ s32 sceneSetupIndex;
@@ -262,7 +268,7 @@ namespace oot::save
 		/* 0x0004 */ s32 linkAge;	// 0: Adult; 1: Child
 		/* 0x0008 */ s32 cutsceneIndex;
 		/* 0x000C */ Counter dayTime; // "zelda_time"
-		             //u16 dayTimePadding;
+		// u16 dayTimePadding;
 		/* 0x0010 */ s32 nightFlag;
 		/* 0x0014 */ s32 totalDays;
 		/* 0x0018 */ s32 bgsDayCount; // increments with totalDays, can be cleared with `Environment_ClearBgsDayCount`
@@ -351,7 +357,7 @@ namespace oot::save
 		/* 0x1404 */ u16 minigameState;
 		/* 0x1406 */ u16 minigameScore; // "yabusame_total"
 		/* 0x1408 */ char unk_1408[0x0001];
-		/* 0x1409 */ u8 language; // NTSC 0: Japanese; 1: English | PAL 0: English; 1: German; 2: French
+		/* 0x1409 */ u8 language;     // NTSC 0: Japanese; 1: English | PAL 0: English; 1: German; 2: French
 		/* 0x1409 */ u8 saveLanguage; // NTSC 0: Japanese; 1: English | PAL 0: English; 1: German; 2: French
 		/* 0x140A */ u8 audioSetting;
 		/* 0x140B */ char unk_140B[0x0001];
@@ -373,8 +379,8 @@ namespace oot::save
 		/* 0x1422 */ s16 sunsSongState; // controls the effects of suns song
 		/* 0x1424 */ s16 healthAccumulator;
 
-
 		File file;
+
 		protected:
 		Slot slot();
 		Slot& currentSlot();
@@ -385,41 +391,46 @@ namespace oot::save
 	};
 } // namespace oot::save
 
-enum RespawnMode {
-    /* 0x00 */ RESPAWN_MODE_DOWN,   /* Normal Void Outs */
-    /* 0x01 */ RESPAWN_MODE_RETURN, /* Grotto Returnpoints */
-    /* 0x02 */ RESPAWN_MODE_TOP     /* Farore's Wind */
+enum RespawnMode
+{
+	/* 0x00 */ RESPAWN_MODE_DOWN,	/* Normal Void Outs */
+	/* 0x01 */ RESPAWN_MODE_RETURN, /* Grotto Returnpoints */
+	/* 0x02 */ RESPAWN_MODE_TOP	/* Farore's Wind */
 };
 
-enum ButtonStatus {
-    /* 0x00 */ BTN_ENABLED,
-    /* 0xFF */ BTN_DISABLED = 0xFF
+enum ButtonStatus
+{
+	/* 0x00 */ BTN_ENABLED,
+	/* 0xFF */ BTN_DISABLED = 0xFF
 };
 
-enum ChamberCutsceneNum {
-    /* 0x00 */ CHAMBER_CS_FOREST,
-    /* 0x01 */ CHAMBER_CS_FIRE,
-    /* 0x02 */ CHAMBER_CS_WATER,
-    /* 0x03 */ CHAMBER_CS_SPIRIT,
-    /* 0x04 */ CHAMBER_CS_SHADOW,
-    /* 0x05 */ CHAMBER_CS_LIGHT
+enum ChamberCutsceneNum
+{
+	/* 0x00 */ CHAMBER_CS_FOREST,
+	/* 0x01 */ CHAMBER_CS_FIRE,
+	/* 0x02 */ CHAMBER_CS_WATER,
+	/* 0x03 */ CHAMBER_CS_SPIRIT,
+	/* 0x04 */ CHAMBER_CS_SHADOW,
+	/* 0x05 */ CHAMBER_CS_LIGHT
 };
 
-enum HighScores {
-    /* 0x00 */ HS_HBA,          // horseback archery
-    /* 0x01 */ HS_POE_POINTS,
-    /* 0x02 */ HS_FISHING,
-    /* 0x03 */ HS_HORSE_RACE,
-    /* 0x04 */ HS_MARATHON,
-    /* 0x05 */ HS_UNK_05,
-    /* 0x06 */ HS_DAMPE_RACE
+enum HighScores
+{
+	/* 0x00 */ HS_HBA, // horseback archery
+	/* 0x01 */ HS_POE_POINTS,
+	/* 0x02 */ HS_FISHING,
+	/* 0x03 */ HS_HORSE_RACE,
+	/* 0x04 */ HS_MARATHON,
+	/* 0x05 */ HS_UNK_05,
+	/* 0x06 */ HS_DAMPE_RACE
 };
 
-enum SunsSongState {
-    /* 0 */ SUNSSONG_INACTIVE,
-    /* 1 */ SUNSSONG_START, // the suns ocarina effect signals that the song has finished playing
-    /* 2 */ SUNSSONG_SPEED_TIME, // suns was played where time passes, speed up the advancement of time
-    /* 3 */ SUNSSONG_SPECIAL // time does not advance, but signals the song was played. used for freezing redeads
+enum SunsSongState
+{
+	/* 0 */ SUNSSONG_INACTIVE,
+	/* 1 */ SUNSSONG_START,	     // the suns ocarina effect signals that the song has finished playing
+	/* 2 */ SUNSSONG_SPEED_TIME, // suns was played where time passes, speed up the advancement of time
+	/* 3 */ SUNSSONG_SPECIAL     // time does not advance, but signals the song was played. used for freezing redeads
 };
 
 #define LINK_IS_ADULT (gSaveContext.linkAge == 0)
@@ -448,25 +459,16 @@ enum SunsSongState {
 #define CHECK_QUEST_ITEM(item) (gBitFlags[item] & gSaveContext.inventory.questItems)
 #define CHECK_DUNGEON_ITEM(item, dungeonIndex) (gSaveContext.inventory.dungeonItems[dungeonIndex] & gBitFlags[item])
 
-#define GET_GS_FLAGS(index) \
-    ((gSaveContext.gsFlags[(index) >> 2] & gGsFlagsMasks[(index) & 3]) >> gGsFlagsShifts[(index) & 3])
-#define SET_GS_FLAGS(index, value) \
-    (gSaveContext.gsFlags[(index) >> 2] |= (value) << gGsFlagsShifts[(index) & 3])
+#define GET_GS_FLAGS(index) ((gSaveContext.gsFlags[(index) >> 2] & gGsFlagsMasks[(index)&3]) >> gGsFlagsShifts[(index)&3])
+#define SET_GS_FLAGS(index, value) (gSaveContext.gsFlags[(index) >> 2] |= (value) << gGsFlagsShifts[(index)&3])
 
 #define HIGH_SCORE(score) (gSaveContext.highScores[score])
 
-#define B_BTN_ITEM ((gSaveContext.buttonStatus[0] == ITEM_NONE)                    \
-                        ? ITEM_NONE                                                \
-                        : (gSaveContext.equips.buttonItems[0] == ITEM_SWORD_KNIFE) \
-                            ? ITEM_SWORD_BGS                                       \
-                            : gSaveContext.equips.buttonItems[0])
+#define B_BTN_ITEM ((gSaveContext.buttonStatus[0] == ITEM_NONE) ? ITEM_NONE : (gSaveContext.equips.buttonItems[0] == ITEM_SWORD_KNIFE) ? ITEM_SWORD_BGS : gSaveContext.equips.buttonItems[0])
 
-#define C_BTN_ITEM(button) ((gSaveContext.buttonStatus[(button) + 1] != BTN_DISABLED) \
-                                ? gSaveContext.equips.buttonItems[(button) + 1]       \
-                                : ITEM_NONE)
+#define C_BTN_ITEM(button) ((gSaveContext.buttonStatus[(button) + 1] != BTN_DISABLED) ? gSaveContext.equips.buttonItems[(button) + 1] : ITEM_NONE)
 
 extern oot::save::Context gSaveContext;
 extern u32 gBitFlags[32];
 extern u32 gGsFlagsShifts[4];
 extern u32 gGsFlagsMasks[4];
-

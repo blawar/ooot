@@ -1,7 +1,7 @@
-#include "z64.h"
 #include "framerate.h"
-#include "z64game.h"
 #include "regs.h"
+#include "z64.h"
+#include "z64game.h"
 
 #define COUNTER_STEP 20 / FRAME_RATE
 #define COUNTER_SCALER FRAME_RATE / 20

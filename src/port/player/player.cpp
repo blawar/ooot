@@ -1,5 +1,5 @@
-#include "player.h"
 #include "../options.h"
+#include "player.h"
 
 namespace oot
 {
@@ -33,34 +33,34 @@ namespace oot
 	{
 		m_controller.state().reset();
 
-		if (isRebindMode())
+		if(isRebindMode())
 		{
 			bool result = 0;
 
-			for (auto& controller : m_controllers)
+			for(auto& controller : m_controllers)
 			{
 				result |= controller->updateRebind(m_rebindInput);
 			}
 
-			if (result)
+			if(result)
 			{
 				m_rebindInput = (hid::Button)-10;
 			}
 		}
-		else if ((s64)m_rebindInput < 0)
+		else if((s64)m_rebindInput < 0)
 		{
 			m_rebindInput = (hid::Button)((s64)m_rebindInput + 1);
 		}
 		else
 		{
-			for (auto& controller : m_controllers)
+			for(auto& controller : m_controllers)
 			{
 				controller->state().reset();
 				controller->update();
 
 				m_controller.merge(*controller);
 			}
-			if (m_controllers.size() > 2 && !config().game().forceMouse())
+			if(m_controllers.size() > 2 && !config().game().forceMouse())
 			{
 				m_controller.state().has_mouse = false;
 			}

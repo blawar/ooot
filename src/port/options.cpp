@@ -1,10 +1,10 @@
 #include "global.h"
-#include "port/options.h"
-#include <stdio.h>
-#include "xxhash64.h"
 #include <fstream>
-#include "json.h"
+#include <stdio.h>
 #include <string.h>
+#include "json.h"
+#include "port/options.h"
+#include "xxhash64.h"
 
 #ifdef __SWITCH__
 #include "pc/nx.h"
@@ -171,7 +171,6 @@ namespace oot
 			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
 			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
 			json::set(container, "language", languageGetString(language()), allocator);
-
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
 		}

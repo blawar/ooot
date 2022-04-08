@@ -1,8 +1,8 @@
-#include "../window.h"
 #include <thread>
-#include "z64.h"
-#include "state.h"
 #include "../options.h"
+#include "../window.h"
+#include "state.h"
+#include "z64.h"
 
 #define DROP_FRAME_LIMIT m_refreshInterval
 
@@ -77,7 +77,7 @@ namespace platform::window
 	bool Base::begin_frame()
 	{
 		handle_events();
-		//if(oot::config().game().isFramePacing())
+		// if(oot::config().game().isFramePacing())
 		{
 			while(!wait_frame_ready())
 			{

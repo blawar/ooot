@@ -1,6 +1,6 @@
-#include "ultra64/types.h"
-#include "json.h"
 #include <fstream>
+#include "json.h"
+#include "ultra64/types.h"
 
 namespace oot::json
 {

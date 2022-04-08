@@ -7,4 +7,3 @@ u32 ShrinkWindow_GetCurrentVal(void);
 void ShrinkWindow_Init(void);
 void ShrinkWindow_Destroy(void);
 void ShrinkWindow_Update(s32 updateRate);
-

@@ -1,10 +1,10 @@
-#include "controllers.h"
-#include "tas.h"
-#include "keyboard.h"
-#include "sdl.h"
-#include "xcontroller.h"
 #include <stdexcept>
 #include "../options.h"
+#include "controllers.h"
+#include "keyboard.h"
+#include "sdl.h"
+#include "tas.h"
+#include "xcontroller.h"
 
 namespace oot::hid
 {
@@ -44,7 +44,7 @@ namespace oot::hid
 	bool Driver::updateRebind(hid::Button input)
 	{
 		bool result = 0;
-		for (auto& controller : m_controllers)
+		for(auto& controller : m_controllers)
 		{
 			controller->state().reset();
 			result |= controller->updateRebind(input);
@@ -93,7 +93,7 @@ namespace oot::hid
 #ifdef ENABLE_MOUSE
 		m_drivers.push_back(new Keyboard());
 #endif
-		//m_drivers.push_back(new Tas());
+		// m_drivers.push_back(new Tas());
 	}
 
 	Controllers::~Controllers()
@@ -114,23 +114,23 @@ namespace oot::hid
 
 	void Controllers::update()
 	{
-		if (isRebindMode())
+		if(isRebindMode())
 		{
 			bool result = 0;
 
-			for (auto& driver : m_drivers)
+			for(auto& driver : m_drivers)
 			{
 				result |= driver->updateRebind(m_rebindInput);
 			}
 
-			if (result)
+			if(result)
 			{
 				m_rebindInput = Button::EMPTY_BUTTON;
 			}
 		}
 		else
 		{
-			for (auto& driver : m_drivers)
+			for(auto& driver : m_drivers)
 			{
 				driver->update();
 			}
@@ -142,7 +142,7 @@ namespace oot::hid
 		u64 found = 0;
 		for(auto& driver : m_drivers)
 		{
-			//if(!driver->defaultOnly() || !found)
+			// if(!driver->defaultOnly() || !found)
 			{
 				driver->scan(this);
 				found += driver->size();

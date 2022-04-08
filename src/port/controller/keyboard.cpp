@@ -1,15 +1,16 @@
-#include "ultra64/types.h"
-#include "macros.h"
-#include "keyboard.h"
-#include "json.h"
+#include <algorithm>
 #include <fstream>
 #include <unordered_map>
+#include "json.h"
+#include "keyboard.h"
+#include "macros.h"
+#include "ultra64/types.h"
 
 #if !defined(DISABLE_SDL_CONTROLLER)
 #include <SDL2/SDL.h>
 #endif
-#include "../player/players.h"
 #include "../options.h"
+#include "../player/players.h"
 
 extern "C"
 {

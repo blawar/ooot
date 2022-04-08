@@ -1,8 +1,9 @@
 #pragma once
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/prettywriter.h"
 #include <rapidjson/istreamwrapper.h>
+#include "rapidjson/document.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
+#include "ultra64/types.h"
 
 namespace oot::json
 {
@@ -18,5 +19,4 @@ namespace oot::json
 	bool getU64(rapidjson::Value& document, const char* key, u64& value);
 	bool getBool(rapidjson::Value& document, const char* key, bool& value);
 	bool getFloat(rapidjson::Value& document, const char* key, float& value);
-}
-
+} // namespace oot::json

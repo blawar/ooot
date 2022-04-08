@@ -1,23 +1,21 @@
 #define INTERNAL_SRC_CODE_Z_SRAM_C
 #include "global.h"
+#include "z64global.h"
+#include "port/options.h"
+#include "sequence.h"
 #include "vt.h"
+#include "z64audio.h"
+#include "z64game.h"
 #include "z64item.h"
 #include "z64save.h"
 #include "z64scene.h"
-#include "z64game.h"
-#include "z64audio.h"
-#include "z64global.h"
 #include "z64sram.h"
-#include "z64save.h"
-#include "z64item.h"
 #include "z_file_choose.h"
-#include "sequence.h"
-#include "def/code_80069420.h"
-#include "def/inventory.h"
 #include "def/audio.h"
+#include "def/code_80069420.h"
 #include "def/game.h"
+#include "def/inventory.h"
 #include "def/z_parameter.h"
-#include "port/options.h"
 
 oot::save::Context gSaveContext;
 
@@ -480,7 +478,7 @@ namespace oot::save
 
 					checksum = slot().save.checksum();
 
-					file.slots[slotNum]  = file.slots[slotNum + MAX_SLOTS] = slot();
+					file.slots[slotNum] = file.slots[slotNum + MAX_SLOTS] = slot();
 					file.save();
 				}
 
@@ -500,7 +498,7 @@ namespace oot::save
 
 	void Context::setFileChooseData(FileChooseContext* fileChooseCtx, const u8 slotId)
 	{
-		//const u8 slotId = fileChooseCtx->buttonIndex;
+		// const u8 slotId = fileChooseCtx->buttonIndex;
 		auto& slot = file.slots[slotId];
 		fileChooseCtx->deaths[slotId] = slot.save.info.playerData.deaths;
 		fileChooseCtx->healthCapacities[slotId] = slot.save.info.playerData.healthCapacity;
@@ -608,7 +606,7 @@ namespace oot::save
 
 		Audio_SetSettings(slot.audioSetting);
 
-		//gSaveContext.load(slot);
+		// gSaveContext.load(slot);
 	}
 
 	static FILE* openf(bool write)
@@ -692,7 +690,7 @@ namespace oot::save
 		s.save.linkAge = this->linkAge;
 		s.save.cutsceneIndex = this->cutsceneIndex;
 		s.save.dayTime = this->dayTime;
-		//s.save.dayTimePadding = this->dayTimePadding;
+		// s.save.dayTimePadding = this->dayTimePadding;
 		s.save.nightFlag = this->nightFlag;
 		s.save.totalDays = this->totalDays;
 		s.save.bgsDayCount = this->bgsDayCount;
@@ -831,7 +829,7 @@ namespace oot::save
 		this->linkAge = s.save.linkAge;
 		this->cutsceneIndex = s.save.cutsceneIndex;
 		this->dayTime = s.save.dayTime;
-		//this->dayTimePadding = s.save.dayTimePadding;
+		// this->dayTimePadding = s.save.dayTimePadding;
 		this->nightFlag = s.save.nightFlag;
 		this->totalDays = s.save.totalDays;
 		this->bgsDayCount = s.save.bgsDayCount;
@@ -941,7 +939,7 @@ namespace oot::save
 		this->sunsSongState = s.sunsSongState;
 		this->healthAccumulator = s.healthAccumulator;
 	}
-	
+
 	const s32& Context::fileNumber() const
 	{
 		return fileNum;
