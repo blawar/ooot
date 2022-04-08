@@ -209,7 +209,7 @@ struct Normal1Anim {
     /* 0x20 */ f32 unk_20;
     /* 0x24 */ s16 slopePitchAdj;
     /* 0x26 */ s16 swingYawTarget;
-    /* 0x28 */ s16 unk_28;
+    /* 0x28 */ s16 distTimer;
     /* 0x2A */ s16 startSwingTimer;
 }; // size = 0x2C
 
@@ -281,7 +281,7 @@ struct Parallel1Anim {
     /* 0x12 */ s16 yawTarget;
     /* 0x14 */ s16 pitchTarget;
     /* 0x16 */ s16 unk_16;
-    /* 0x18 */ s16 animTimer;
+    /* 0x18 */ Timer animTimer;
 }; // size = 0x1A
 
 struct Parallel1 {
@@ -324,7 +324,7 @@ struct Jump2Anim {
     /* 0x6 */ s16 initYawDiff; // unused, set but not read.
     /* 0x8 */ s16 yawAdj;
     /* 0xA */ s16 onFloor; // unused, set but not read
-    /* 0xC */ s16 animTimer;
+    /* 0xC */ Timer animTimer;
 }; // size = 0x10
 
 struct Jump2 {
@@ -643,9 +643,9 @@ struct Unique3Params {
 struct DoorParams {
     /* 0x0 */ struct Actor* doorActor;
     /* 0x4 */ s16 camDataIdx;
-    /* 0x6 */ s16 timer1;
-    /* 0x8 */ s16 timer2;
-    /* 0xA */ s16 timer3;
+    /* 0x6 */ Timer timer1;
+    /* 0x8 */ Timer timer2;
+    /* 0xA */ Timer timer3;
 }; // size = 0xC
 
 struct Unique3 {
@@ -915,13 +915,13 @@ struct Camera {
     /* 0x15A */ s16 roll;
     /* 0x15C */ s16 paramFlags;
     /* 0x15E */ s16 animState;
-    /* 0x160 */ s16 timer;
+    /* 0x160 */ Timer timer;
     /* 0x162 */ s16 parentCamIdx;
     /* 0x164 */ s16 thisIdx;
     /* 0x166 */ s16 prevCamDataIdx;
     /* 0x168 */ s16 csId;
     /* 0x16A */ s16 unk_16A;
-    /* 0x16C */ s16 startControlTimer;
+    /* 0x16C */ Timer startControlTimer;
 }; // size = 0x16C
 
 /**
