@@ -8,6 +8,7 @@
 #include "n64fault.h"
 #include "padmgr.h"
 #include "speedmeter.h"
+#include "state.h"
 #include "title_setup.h"
 #include "ultra64/sched.h"
 #include "ultra64/time.h"
@@ -391,6 +392,7 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 		gameState->running = false;
 	}
 }
+static u64 frameCount = 0;
 
 void Graph_ThreadEntry(void* arg0)
 {
@@ -437,11 +439,15 @@ void Graph_ThreadEntry(void* arg0)
 			}
 			else
 			{
-				if(gfx_start_frame())
+				if(oot::state.fastForward == 1 || (frameCount % oot::state.fastForward) == 0)
 				{
-					Graph_Update(&gfxCtx, gameState);
-					gfx_end_frame();
+					if(gfx_start_frame())
+					{
+						Graph_Update(&gfxCtx, gameState);
+						gfx_end_frame();
+					}
 				}
+				frameCount++;
 			}
 		}
 

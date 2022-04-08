@@ -158,35 +158,35 @@ void func_809B5268(EnAttackNiw* pthis, GlobalContext* globalCtx, s16 arg2)
 
 	if(pthis->unk_288 != pthis->unk_2C0)
 	{
-		Math_ApproachF(&pthis->unk_2C0, pthis->unk_288, 0.5f, 4000.0f);
+		Math_ApproachF(&pthis->unk_2C0, pthis->unk_288, 0.5f, 4000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_264 != pthis->unk_2BC)
 	{
-		Math_ApproachF(&pthis->unk_2BC, pthis->unk_264, 0.5f, 4000.0f);
+		Math_ApproachF(&pthis->unk_2BC, pthis->unk_264, 0.5f, 4000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_26C != pthis->unk_2A4.x)
 	{
-		Math_ApproachF(&pthis->unk_2A4.x, pthis->unk_26C, 0.8f, 7000.0f);
+		Math_ApproachF(&pthis->unk_2A4.x, pthis->unk_26C, 0.8f, 7000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_280 != pthis->unk_2A4.y)
 	{
-		Math_ApproachF(&pthis->unk_2A4.y, pthis->unk_280, 0.8f, 7000.0f);
+		Math_ApproachF(&pthis->unk_2A4.y, pthis->unk_280, 0.8f, 7000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_284 != pthis->unk_2A4.z)
 	{
-		Math_ApproachF(&pthis->unk_2A4.z, pthis->unk_284, 0.8f, 7000.0f);
+		Math_ApproachF(&pthis->unk_2A4.z, pthis->unk_284, 0.8f, 7000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_268 != pthis->unk_2B0.x)
 	{
-		Math_ApproachF(&pthis->unk_2B0.x, pthis->unk_268, 0.8f, 7000.0f);
+		Math_ApproachF(&pthis->unk_2B0.x, pthis->unk_268, 0.8f, 7000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_278 != pthis->unk_2B0.y)
 	{
-		Math_ApproachF(&pthis->unk_2B0.y, pthis->unk_278, 0.8f, 7000.0f);
+		Math_ApproachF(&pthis->unk_2B0.y, pthis->unk_278, 0.8f, 7000.0f * FRAMERATE_SCALER);
 	}
 	if(pthis->unk_27C != pthis->unk_2B0.z)
 	{
-		Math_ApproachF(&pthis->unk_2B0.z, pthis->unk_27C, 0.8f, 7000.0f);
+		Math_ApproachF(&pthis->unk_2B0.z, pthis->unk_27C, 0.8f, 7000.0f * FRAMERATE_SCALER);
 	}
 }
 

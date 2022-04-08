@@ -31,29 +31,6 @@ enum BossGanondrofEyeState
 	/* 2 */ GND_EYESTATE_BRIGHTEN
 };
 
-enum BossGanondrofS16Var
-{
-	/*  0 */ GND_VARIANCE_TIMER,
-	/*  1 */ GND_US_1,
-	/*  2 */ GND_US_2,
-	/*  3 */ GND_US_3,
-	/*  4 */ GND_UNKTIMER_1,
-	/*  5 */ GND_UNKTIMER_2,
-	/*  6 */ GND_INVINC_TIMER,
-	/*  7 */ GND_ACTION_STATE,
-	/*  8 */ GND_THROW_FRAME,
-	/*  9 */ GND_THROW_COUNT,
-	/* 10 */ GND_MASK_OFF,
-	/* 11 */ GND_EYE_STATE,
-	/* 12 */ GND_PARTICLE_ANGLE,
-	/* 13 */ GND_BODY_DECAY_INDEX,
-	/* 14 */ GND_BODY_DECAY_FLAG,
-	/* 15 */ GND_LIMB_DECAY_INDEX,
-	/* 16 */ GND_DEATH_ENV_TIMER,
-	/* 17 */ GND_DEATH_SFX_TIMER,
-	/* 20 */ GND_SHORT_COUNT = 20
-};
-
 enum BossGanondrofF32Var
 {
 	/*  0 */ GND_FLOAT_SPEED,
@@ -107,11 +84,28 @@ struct BossGanondrof
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ SkelAnime skelAnime;
 	/* 0x0190 */ BossGanondrofActionFunc actionFunc;
-	/* 0x0194 */ s16 work[GND_SHORT_COUNT];
+	Timer GND_VARIANCE_TIMER;
+	s16 GND_US_1;
+	s16 GND_US_2;
+	s16 GND_US_3;
+	Timer GND_UNKTIMER_1;
+	Timer GND_UNKTIMER_2;
+	Timer GND_INVINC_TIMER;
+	s16 GND_ACTION_STATE;
+	s16 GND_THROW_FRAME;
+	s16 GND_THROW_COUNT;
+	s16 GND_MASK_OFF;
+	s16 GND_EYE_STATE;
+	Rotation GND_PARTICLE_ANGLE;
+	s16 GND_BODY_DECAY_INDEX;
+	s16 GND_BODY_DECAY_FLAG;
+	s16 GND_LIMB_DECAY_INDEX;
+	Timer GND_DEATH_ENV_TIMER;
+	Timer GND_DEATH_SFX_TIMER;
 	/* 0x01BC */ Timer timers[5];
 	/* 0x01C6 */ u8 killActor;
 	/* 0x01C7 */ u8 returnCount;
-	/* 0x01C8 */ u8 shockTimer;
+	/* 0x01C8 */ TimerU8 shockTimer;
 	/* 0x01C9 */ u8 flyMode;
 	/* 0x01CA */ u8 returnSuccess;
 	/* 0x01CC */ f32 fwork[GND_FLOAT_COUNT];

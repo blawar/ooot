@@ -58,7 +58,7 @@ struct BossSst
 	/* 0x0195 */ s8 ready;
 	/* 0x0196 */ u8 effectMode;
 	/* 0x0198 */ Timer timer;
-	/* 0x019A */ s16 handAngSpeed;
+	/* 0x019A */ Counter handAngSpeed;
 	/* 0x019C */ s16 handMaxSpeed;
 	/* 0x019E */ s16 handZPosMod;
 	/* 0x01A0 */ s16 handYRotMod;
