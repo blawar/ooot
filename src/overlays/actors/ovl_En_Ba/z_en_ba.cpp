@@ -196,7 +196,7 @@ void EnBa_Idle(EnBa* pthis, GlobalContext* globalCtx) {
     }
     pthis->unk2A8[13].x = pthis->unk2A8[12].x;
     pthis->unk2A8[13].y = pthis->unk2A8[12].y;
-    if (!(player->stateFlags1 & 0x4000000) && (pthis->actor.xzDistToPlayer <= 175.0f) &&
+    if (!(player->stateFlags1 & PLAYER_STATE1_26) && (pthis->actor.xzDistToPlayer <= 175.0f) &&
         (pthis->actor.world.pos.y == pthis->actor.home.pos.y + 100.0f)) {
         EnBa_SetupSwingAtPlayer(pthis);
     }
@@ -302,7 +302,7 @@ void EnBa_SwingAtPlayer(EnBa* pthis, GlobalContext* globalCtx) {
                     Matrix_MultVec3f(&D_809B8080, &pthis->unk158[i + 1]);
                 }
                 pthis->unk31A--;
-            } else if ((pthis->actor.xzDistToPlayer > 175.0f) || (player->stateFlags1 & 0x4000000)) {
+            } else if ((pthis->actor.xzDistToPlayer > 175.0f) || (player->stateFlags1 & PLAYER_STATE1_26)) {
                 EnBa_SetupIdle(pthis);
             } else {
                 EnBa_SetupSwingAtPlayer(pthis);
@@ -321,7 +321,7 @@ void EnBa_SwingAtPlayer(EnBa* pthis, GlobalContext* globalCtx) {
         CollisionCheck_SetAT(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
         return;
     }
-    if ((pthis->actor.xzDistToPlayer > 175.0f) || (player->stateFlags1 & 0x4000000)) {
+    if ((pthis->actor.xzDistToPlayer > 175.0f) || (player->stateFlags1 & PLAYER_STATE1_26)) {
         EnBa_SetupIdle(pthis);
     } else {
         EnBa_SetupSwingAtPlayer(pthis);

@@ -276,13 +276,13 @@ void func_80AA2018(EnMa2* pthis, GlobalContext* globalCtx) {
 void func_80AA204C(EnMa2* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
-    if (player->stateFlags2 & 0x1000000) {
+    if (player->stateFlags2 & PLAYER_STATE2_24) {
         player->unk_6A8 = &pthis->actor;
-        player->stateFlags2 |= 0x2000000;
+        player->stateFlags2 |= PLAYER_STATE2_25;
         func_8010BD58(globalCtx, OCARINA_ACTION_CHECK_EPONA);
         pthis->actionFunc = func_80AA20E4;
     } else if (pthis->actor.xzDistToPlayer < 30.0f + (f32)pthis->collider.dim.radius) {
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     }
 }
 
@@ -299,7 +299,7 @@ void func_80AA20E4(EnMa2* pthis, GlobalContext* globalCtx) {
         pthis->actionFunc = func_80AA21C8;
         globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
     } else {
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     }
 }
 
@@ -307,7 +307,7 @@ void func_80AA21C8(EnMa2* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (DECR(pthis->unk_208)) {
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     } else {
         if (pthis->unk_1E0.unk_00 == 0) {
             pthis->actor.flags |= ACTOR_FLAG_16;

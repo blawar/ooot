@@ -188,7 +188,7 @@ void EffDust_UpdateFunc_8099DFC0(EffDust* pthis, GlobalContext* globalCtx) {
     s32 i;
     s32 j;
 
-    if (parent == NULL || parent->update == NULL || !(player->stateFlags1 & 0x1000)) {
+    if (parent == NULL || parent->update == NULL || !(player->stateFlags1 & PLAYER_STATE_SWORD_CHARGE)) {
         if (pthis->life != 0) {
             pthis->life -= 1;
         } else {

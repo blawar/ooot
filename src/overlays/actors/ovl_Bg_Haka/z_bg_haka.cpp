@@ -72,7 +72,7 @@ void func_8087B758(BgHaka* pthis, Player* player) {
 
     func_8002DBD0(&pthis->dyna.actor, &sp1C, &player->actor.world.pos);
     if (fabsf(sp1C.x) < 34.6f && sp1C.z > -112.8f && sp1C.z < -36.0f) {
-        player->stateFlags2 |= 0x200;
+        player->stateFlags2 |= PLAYER_STATE2_9;
     }
 }
 
@@ -82,7 +82,7 @@ void func_8087B7E8(BgHaka* pthis, GlobalContext* globalCtx) {
     if (pthis->dyna.unk_150 != 0.0f) {
         if (globalCtx->sceneNum == SCENE_SPOT02 && !LINK_IS_ADULT && !gSaveContext.nightFlag) {
             pthis->dyna.unk_150 = 0.0f;
-            player->stateFlags2 &= ~0x10;
+            player->stateFlags2 &= ~PLAYER_STATE2_4;
             if (!Gameplay_InCsMode(globalCtx)) {
                 Message_StartTextbox(globalCtx, 0x5073, NULL);
                 pthis->dyna.actor.params = 100;
@@ -91,7 +91,7 @@ void func_8087B7E8(BgHaka* pthis, GlobalContext* globalCtx) {
         } else if (0.0f < pthis->dyna.unk_150 ||
                    (globalCtx->sceneNum == SCENE_SPOT06 && !LINK_IS_ADULT && !Flags_GetSwitch(globalCtx, 0x23))) {
             pthis->dyna.unk_150 = 0.0f;
-            player->stateFlags2 &= ~0x10;
+            player->stateFlags2 &= ~PLAYER_STATE2_4;
         } else {
             pthis->dyna.actor.world.rot.y = pthis->dyna.actor.shape.rot.y + 0x8000;
             pthis->actionFunc = func_8087B938;
@@ -113,7 +113,7 @@ void func_8087B938(BgHaka* pthis, GlobalContext* globalCtx) {
         Math_CosS(pthis->dyna.actor.world.rot.y) * pthis->dyna.actor.minVelocityY + pthis->dyna.actor.home.pos.z;
     if (sp38 != 0) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         if (pthis->dyna.actor.params == 1) {
             Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
         } else if (!IS_DAY && globalCtx->sceneNum == SCENE_SPOT02) {
@@ -131,7 +131,7 @@ void func_8087BAAC(BgHaka* pthis, GlobalContext* globalCtx) {
 
     if (pthis->dyna.unk_150 != 0.0f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
 }
 
@@ -144,7 +144,7 @@ void func_8087BAE4(BgHaka* pthis, GlobalContext* globalCtx) {
     }
     if (pthis->dyna.unk_150 != 0.0f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
     if (pthis->dyna.actor.params == 0) {
         pthis->actionFunc = func_8087B7E8;

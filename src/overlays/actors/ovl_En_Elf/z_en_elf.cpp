@@ -1107,13 +1107,13 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
     } else {
         arrowPointedActor = globalCtx->actorCtx.targetCtx.arrowPointedActor;
 
-        if ((player->stateFlags1 & 0x400) || ((YREG(15) & 0x10) && func_800BC56C(globalCtx, 2))) {
+        if ((player->stateFlags1 & PLAYER_STATE1_10) || ((YREG(15) & 0x10) && func_800BC56C(globalCtx, 2))) {
             temp = 12;
             pthis->unkTimer2C0 = 100;
         } else if (arrowPointedActor == NULL || arrowPointedActor->category == ACTORCAT_NPC) {
             if (arrowPointedActor != NULL) {
                 pthis->unkTimer2C0 = 100;
-                player->stateFlags2 |= 0x100000;
+                player->stateFlags2 |= PLAYER_STATE2_20;
                 temp = 0;
             } else {
                 switch (pthis->unk_2A8) {
@@ -1134,7 +1134,7 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
                                 pthis->unk_2AE--;
                                 temp = 7;
                             } else {
-                                player->stateFlags2 |= 0x100000;
+                                player->stateFlags2 |= PLAYER_STATE2_20;
                                 temp = 0;
                             }
                         } else {
@@ -1164,7 +1164,7 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
 
         switch (temp) {
             case 0:
-                if (!(player->stateFlags2 & 0x100000)) {
+                if (!(player->stateFlags2 & PLAYER_STATE2_20)) {
                     temp = 7;
                     if (pthis->unkTimer2C7 == 0) {
                         Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_NAVY_VANISH);
@@ -1172,7 +1172,7 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
                 }
                 break;
             case 8:
-                if (player->stateFlags2 & 0x100000) {
+                if (player->stateFlags2 & PLAYER_STATE2_20) {
                     func_80A0299C(pthis, 0x32);
                     pthis->unkTimer2C0 = 42;
                     temp = 11;
@@ -1182,10 +1182,10 @@ void func_80A0461C(EnElf* pthis, GlobalContext* globalCtx) {
                 }
                 break;
             case 7:
-                player->stateFlags2 &= ~0x100000;
+                player->stateFlags2 &= ~PLAYER_STATE2_20;
                 break;
             default:
-                player->stateFlags2 |= 0x100000;
+                player->stateFlags2 |= PLAYER_STATE2_20;
                 break;
         }
     }
@@ -1518,7 +1518,7 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if ((pthis->unk_2A8 != 8) && !(pthis->fairyFlags & 8)) {
-        if (!(player->stateFlags1 & 0x100000) || (kREG(90) < pthis->actor.projectedPos.z)) {
+        if (!(player->stateFlags1 & PLAYER_STATE1_20) || (kREG(90) < pthis->actor.projectedPos.z)) {
             dListHead = (Gfx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Gfx) * 4);
 
             OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_elf.c", 2730);

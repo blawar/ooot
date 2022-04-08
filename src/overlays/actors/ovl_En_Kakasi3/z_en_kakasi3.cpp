@@ -244,33 +244,33 @@ void func_80A91348(EnKakasi3* pthis, GlobalContext* globalCtx) {
             if (absAngleTowardsLink < 0x4300) {
                 if (!pthis->unk_194) {
 
-                    if (player->stateFlags2 & 0x1000000) {
+                    if (player->stateFlags2 & PLAYER_STATE2_24) {
                         pthis->camId = OnePointCutscene_Init(globalCtx, 2260, -99, &pthis->actor, MAIN_CAM);
                         globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
                         pthis->dialogState = TEXT_STATE_EVENT;
                         pthis->unk_1B8 = 0.0f;
                         Message_StartTextbox(globalCtx, 0x40A4, NULL);
-                        player->stateFlags2 |= 0x800000;
+                        player->stateFlags2 |= PLAYER_STATE2_23;
                         pthis->actionFunc = func_80A915B8;
                         return;
                     }
                     if (pthis->actor.xzDistToPlayer < 80.0f) {
-                        player->stateFlags2 |= 0x800000;
+                        player->stateFlags2 |= PLAYER_STATE2_23;
                     }
                 } else if (gSaveContext.scarecrowSpawnSongSet && !pthis->unk_195) {
 
-                    if (player->stateFlags2 & 0x1000000) {
+                    if (player->stateFlags2 & PLAYER_STATE2_24) {
                         pthis->camId = OnePointCutscene_Init(globalCtx, 2260, -99, &pthis->actor, MAIN_CAM);
                         globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
                         pthis->dialogState = TEXT_STATE_EVENT;
                         pthis->unk_1B8 = 0.0f;
                         Message_StartTextbox(globalCtx, 0x40A8, NULL);
-                        player->stateFlags2 |= 0x800000;
+                        player->stateFlags2 |= PLAYER_STATE2_23;
                         pthis->actionFunc = func_80A9187C;
                         return;
                     }
                     if (pthis->actor.xzDistToPlayer < 80.0f) {
-                        player->stateFlags2 |= 0x800000;
+                        player->stateFlags2 |= PLAYER_STATE2_23;
                     }
                 }
                 func_8002F2CC(&pthis->actor, globalCtx, 100.0f);
@@ -315,7 +315,7 @@ void func_80A91620(EnKakasi3* pthis, GlobalContext* globalCtx) {
 
     if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_01) {
         func_80A90EBC(pthis, globalCtx, 0);
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     }
 }
 
@@ -389,7 +389,7 @@ void func_80A918E4(EnKakasi3* pthis, GlobalContext* globalCtx) {
 
     if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_01) {
         func_80A90EBC(pthis, globalCtx, 0);
-        player->stateFlags2 |= 0x800000;
+        player->stateFlags2 |= PLAYER_STATE2_23;
     }
 }
 

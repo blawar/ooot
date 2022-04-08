@@ -9,5 +9,6 @@
 #include "sequence.h"
 #include "z64effect.h"
 #include "def/graph.h" // FORCE
+#include "player_state.h"
 
 

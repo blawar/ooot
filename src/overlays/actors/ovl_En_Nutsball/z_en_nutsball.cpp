@@ -157,7 +157,7 @@ void EnNutsball_Update(Actor* thisx, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     s32 pad;
 
-    if (!(player->stateFlags1 & 0x300000C0) || (pthis->actionFunc == func_80ABBB34)) {
+    if (!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_7 | PLAYER_STATE1_28 | PLAYER_STATE1_29)) || (pthis->actionFunc == func_80ABBB34)) {
         pthis->actionFunc(pthis, globalCtx);
 
         Actor_MoveForward(&pthis->actor);

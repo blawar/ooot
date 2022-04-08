@@ -486,11 +486,11 @@ void ObjOshihiki_OnScene(ObjOshihiki* pthis, GlobalContext* globalCtx) {
             pthis->direction = pthis->dyna.unk_150;
             ObjOshihiki_SetupPush(pthis, globalCtx);
         } else {
-            player->stateFlags2 &= ~0x10;
+            player->stateFlags2 &= ~PLAYER_STATE2_4;
             pthis->dyna.unk_150 = 0.0f;
         }
     } else {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
     }
 }
@@ -527,11 +527,11 @@ void ObjOshihiki_OnActor(ObjOshihiki* pthis, GlobalContext* globalCtx) {
                         pthis->direction = pthis->dyna.unk_150;
                         ObjOshihiki_SetupPush(pthis, globalCtx);
                     } else {
-                        player->stateFlags2 &= ~0x10;
+                        player->stateFlags2 &= ~PLAYER_STATE2_4;
                         pthis->dyna.unk_150 = 0.0f;
                     }
                 } else {
-                    player->stateFlags2 &= ~0x10;
+                    player->stateFlags2 &= ~PLAYER_STATE2_4;
                     pthis->dyna.unk_150 = 0.0f;
                 }
             } else {
@@ -579,7 +579,7 @@ void ObjOshihiki_Push(ObjOshihiki* pthis, GlobalContext* globalCtx) {
     if (!ObjOshihiki_CheckFloor(pthis, globalCtx)) {
         thisx->home.pos.x = thisx->world.pos.x;
         thisx->home.pos.z = thisx->world.pos.z;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
         pthis->pushDist = 0.0f;
         pthis->pushSpeed = 0.0f;
@@ -592,7 +592,7 @@ void ObjOshihiki_Push(ObjOshihiki* pthis, GlobalContext* globalCtx) {
 
         thisx->home.pos.x = thisx->world.pos.x;
         thisx->home.pos.z = thisx->world.pos.z;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
         pthis->pushDist = 0.0f;
         pthis->pushSpeed = 0.0f;
@@ -620,7 +620,7 @@ void ObjOshihiki_Fall(ObjOshihiki* pthis, GlobalContext* globalCtx) {
     pthis->stateFlags |= PUSHBLOCK_FALL;
     if (fabsf(pthis->dyna.unk_150) > 0.001f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
     Actor_MoveForward(&pthis->dyna.actor);
     if (ObjOshihiki_CheckGround(pthis, globalCtx)) {

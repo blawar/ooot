@@ -177,7 +177,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx) {
                 player->heldActor = NULL;
                 player->interactRangeActor = NULL;
                 pthis->actor.parent = NULL;
-                player->stateFlags1 &= ~0x800;
+                player->stateFlags1 &= ~PLAYER_STATE1_11;
             }
         } else if (pthis->bombCollider.base.acFlags & AC_HIT) {
             pthis->bombCollider.base.acFlags &= ~AC_HIT;
@@ -213,7 +213,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx) {
                     player->heldActor = NULL;
                     player->interactRangeActor = NULL;
                     pthis->actor.parent = NULL;
-                    player->stateFlags1 &= ~0x800;
+                    player->stateFlags1 &= ~PLAYER_STATE1_11;
                     pthis->actor.world.pos = pthis->actor.home.pos;
                 }
             }
@@ -231,7 +231,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx) {
             player->heldActor = NULL;
             player->interactRangeActor = NULL;
             pthis->actor.parent = NULL;
-            player->stateFlags1 &= ~0x800;
+            player->stateFlags1 &= ~PLAYER_STATE1_11;
             pthis->actor.world.pos = pthis->actor.home.pos;
         }
     }
@@ -315,11 +315,11 @@ void EnBombf_Explode(EnBombf* pthis, GlobalContext* globalCtx) {
     if (pthis->timer == 0) {
         player = GET_PLAYER(globalCtx);
 
-        if ((player->stateFlags1 & 0x800) && (player->heldActor == &pthis->actor)) {
+        if ((player->stateFlags1 & PLAYER_STATE1_11) && (player->heldActor == &pthis->actor)) {
             player->actor.child = NULL;
             player->heldActor = NULL;
             player->interactRangeActor = NULL;
-            player->stateFlags1 &= ~0x800;
+            player->stateFlags1 &= ~PLAYER_STATE1_11;
         }
 
         Actor_Kill(&pthis->actor);

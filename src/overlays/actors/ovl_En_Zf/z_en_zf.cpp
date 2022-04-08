@@ -554,7 +554,7 @@ s32 EnZf_CanAttack(GlobalContext* globalCtx, EnZf* pthis) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->actor.params >= ENZF_TYPE_LIZALFOS_MINIBOSS_A) { // miniboss
-        if (player->stateFlags1 & 0x6000) {                    // Hanging or climbing
+        if (player->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14)) {                    // Hanging or climbing
             return false;
         } else {
             return true;
@@ -1230,7 +1230,7 @@ void EnZf_Slash(EnZf* pthis, GlobalContext* globalCtx) {
                     if (yawDiff > 16000) {
                         pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
                         func_80B483E4(pthis, globalCtx);
-                    } else if (player->stateFlags1 & 0x6010) {
+                    } else if (player->stateFlags1 & (PLAYER_STATE1_4 | PLAYER_STATE1_13 | PLAYER_STATE1_14)) {
                         if (pthis->actor.isTargeted) {
                             EnZf_SetupSlash(pthis);
                         } else {

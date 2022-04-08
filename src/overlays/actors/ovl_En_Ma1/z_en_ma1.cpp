@@ -357,8 +357,8 @@ void func_80AA0F44(EnMa1* pthis, GlobalContext* globalCtx) {
     }
 
     if (gSaveContext.eventChkInf[1] & 0x40) {
-        if (player->stateFlags2 & 0x1000000) {
-            player->stateFlags2 |= 0x2000000;
+        if (player->stateFlags2 & PLAYER_STATE2_24) {
+            player->stateFlags2 |= PLAYER_STATE2_25;
             player->unk_6A8 = &pthis->actor;
             pthis->actor.textId = 0x2061;
             Message_StartTextbox(globalCtx, pthis->actor.textId, NULL);
@@ -366,13 +366,13 @@ void func_80AA0F44(EnMa1* pthis, GlobalContext* globalCtx) {
             pthis->actor.flags |= ACTOR_FLAG_16;
             pthis->actionFunc = func_80AA106C;
         } else if (pthis->actor.xzDistToPlayer < 30.0f + (f32)pthis->collider.dim.radius) {
-            player->stateFlags2 |= 0x800000;
+            player->stateFlags2 |= PLAYER_STATE2_23;
         }
     }
 }
 
 void func_80AA106C(EnMa1* pthis, GlobalContext* globalCtx) {
-    GET_PLAYER(globalCtx)->stateFlags2 |= 0x800000;
+    GET_PLAYER(globalCtx)->stateFlags2 |= PLAYER_STATE2_23;
     if (pthis->unk_1E8.unk_00 == 2) {
         Audio_OcaSetInstrument(2);
         func_8010BD58(globalCtx, OCARINA_ACTION_TEACH_EPONA);
@@ -382,7 +382,7 @@ void func_80AA106C(EnMa1* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AA10EC(EnMa1* pthis, GlobalContext* globalCtx) {
-    GET_PLAYER(globalCtx)->stateFlags2 |= 0x800000;
+    GET_PLAYER(globalCtx)->stateFlags2 |= PLAYER_STATE2_23;
     if (Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_SONG_DEMO_DONE) {
         func_8010BD58(globalCtx, OCARINA_ACTION_PLAYBACK_EPONA);
         pthis->actionFunc = func_80AA1150;
@@ -390,7 +390,7 @@ void func_80AA10EC(EnMa1* pthis, GlobalContext* globalCtx) {
 }
 
 void func_80AA1150(EnMa1* pthis, GlobalContext* globalCtx) {
-    GET_PLAYER(globalCtx)->stateFlags2 |= 0x800000;
+    GET_PLAYER(globalCtx)->stateFlags2 |= PLAYER_STATE2_23;
     if (globalCtx->msgCtx.ocarinaMode == OCARINA_MODE_03) {
         globalCtx->nextEntranceIndex = 0x157;
         gSaveContext.nextCutsceneIndex = 0xFFF1;

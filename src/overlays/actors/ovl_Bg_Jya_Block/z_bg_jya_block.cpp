@@ -68,7 +68,7 @@ void BgJyaBlock_Update(Actor* thisx, GlobalContext* globalCtx) {
     BgJyaBlock* pthis = (BgJyaBlock*)thisx;
     Player* player = GET_PLAYER(globalCtx);
 
-    player->stateFlags2 &= ~0x10;
+    player->stateFlags2 &= ~PLAYER_STATE2_4;
     pthis->dyna.unk_150 = 0.0f;
 }
 

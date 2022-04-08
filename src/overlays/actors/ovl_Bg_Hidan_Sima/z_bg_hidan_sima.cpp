@@ -133,7 +133,7 @@ void func_8088E518(BgHidanSima* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, 3.4f);
-    if (func_8004356C(&pthis->dyna) && !(player->stateFlags1 & 0x6000)) {
+    if (func_8004356C(&pthis->dyna) && !(player->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14))) {
         pthis->timer = 20;
         pthis->dyna.actor.world.rot.y = Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x4000;
         if (pthis->dyna.actor.home.pos.y <= pthis->dyna.actor.world.pos.y) {

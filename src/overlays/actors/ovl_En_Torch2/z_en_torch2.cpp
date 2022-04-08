@@ -419,7 +419,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2) {
                         sStickAngle = thisx->yawTowardsPlayer;
                         sp50 = 0.0f;
                         if ((90.0f >= pthis->actor.xzDistToPlayer) && (pthis->actor.xzDistToPlayer > 70.0f) &&
-                            (ABS(sp5A) >= 0x7800) && (pthis->actor.isTargeted || !(player->stateFlags1 & 0x00400000))) {
+                            (ABS(sp5A) >= 0x7800) && (pthis->actor.isTargeted || !(player->stateFlags1 & PLAYER_STATE1_22))) {
                             EnTorch2_SwingSword(globalCtx, input, pthis);
                         } else if (((pthis->actor.xzDistToPlayer <= 70.0f) ||
                                     ((pthis->actor.xzDistToPlayer <= 80.0f + sp50) && (player->swordState != 0))) &&
@@ -570,7 +570,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2) {
         sDeathFlag = false;
     }
     if ((pthis->invincibilityTimer == 0) && (pthis->actor.colChkInfo.health != 0) &&
-        (pthis->cylinder.base.acFlags & AC_HIT) && !(pthis->stateFlags1 & 0x04000000) &&
+        (pthis->cylinder.base.acFlags & AC_HIT) && !(pthis->stateFlags1 & PLAYER_STATE1_26) &&
         !(pthis->swordQuads[0].base.atFlags & AT_HIT) && !(pthis->swordQuads[1].base.atFlags & AT_HIT)) {
 
         if (!Actor_ApplyDamage(&pthis->actor)) {
@@ -622,7 +622,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2) {
         pthis->stateFlags3 &= ~4;
     } else {
         pthis->stateFlags3 |= 4;
-        pthis->stateFlags1 &= ~0x04000000;
+        pthis->stateFlags1 &= ~PLAYER_STATE1_26;
         pthis->invincibilityTimer = 0;
         input->press.stick_x = input->press.stick_y = 0;
         /*! @bug

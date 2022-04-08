@@ -123,7 +123,7 @@ void BgMoriKaitenkabe_Wait(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx) {
     }
     if (fabsf(pthis->dyna.unk_150) > 0.001f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
 }
 
@@ -156,7 +156,7 @@ void BgMoriKaitenkabe_Rotate(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx) 
     }
     if (fabsf(pthis->dyna.unk_150) > 0.001f) {
         pthis->dyna.unk_150 = 0.0f;
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
     Math_Vec3f_Copy(&player->actor.world.pos, &pthis->lockedPlayerPos);
 }

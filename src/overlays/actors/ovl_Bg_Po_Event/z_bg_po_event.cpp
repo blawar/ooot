@@ -377,7 +377,7 @@ void BgPoEvent_BlockIdle(BgPoEvent* pthis, GlobalContext* globalCtx) {
         }
     } else {
         if ((gSaveContext.timer1Value == 0) && (sBlocksAtRest == 5)) {
-            player->stateFlags2 &= ~0x10;
+            player->stateFlags2 &= ~PLAYER_STATE2_4;
             sPuzzleState = 0x10;
             sBlocksAtRest = 0;
         }
@@ -396,11 +396,11 @@ void BgPoEvent_BlockIdle(BgPoEvent* pthis, GlobalContext* globalCtx) {
                     pthis->direction = (pthis->dyna.unk_150 >= 0.0f) ? 1.0f : -1.0f;
                     pthis->actionFunc = BgPoEvent_BlockPush;
                 } else {
-                    player->stateFlags2 &= ~0x10;
+                    player->stateFlags2 &= ~PLAYER_STATE2_4;
                     pthis->dyna.unk_150 = 0.0f;
                 }
             } else {
-                player->stateFlags2 &= ~0x10;
+                player->stateFlags2 &= ~PLAYER_STATE2_4;
                 pthis->dyna.unk_150 = 0.0f;
                 DECR(pthis->direction);
             }
@@ -422,7 +422,7 @@ void BgPoEvent_BlockPush(BgPoEvent* pthis, GlobalContext* globalCtx) {
     pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.x;
     pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.z;
     if (blockStop) {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         if ((pthis->dyna.unk_150 > 0.0f) && (func_800435D8(globalCtx, &pthis->dyna, 0x1E, 0x32, -0x14) == 0)) {
             Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);
         }
@@ -447,7 +447,7 @@ void BgPoEvent_BlockReset(BgPoEvent* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->dyna.unk_150 != 0.0f) {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
         pthis->dyna.unk_150 = 0.0f;
     }
     if (Math_StepToF(&pthis->dyna.actor.world.pos.y, 493.0f, 1.0f) &&
@@ -467,7 +467,7 @@ void BgPoEvent_BlockSolved(BgPoEvent* pthis, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
 
     if (pthis->dyna.unk_150 != 0.0f) {
-        player->stateFlags2 &= ~0x10;
+        player->stateFlags2 &= ~PLAYER_STATE2_4;
     }
     if (Math_StepToF(&pthis->dyna.actor.world.pos.y, 369.0f, 2.0f)) {
         sPuzzleState = 0x20;
