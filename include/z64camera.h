@@ -438,7 +438,7 @@ struct Keep3Anim {
     /* 0x00 */ Vec3f eyeToAtTarget; // esentially a VecSph, but all floats.
     /* 0x0C */ struct Actor* target;
     /* 0x10 */ Vec3f atTarget;
-    /* 0x1C */ s16 animTimer;
+    /* 0x1C */ Timer animTimer;
 }; // size = 0x20
 
 struct KeepOn3 {
