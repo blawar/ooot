@@ -1468,7 +1468,7 @@ void EnZf_Slash(EnZf* pthis, GlobalContext* globalCtx)
 						pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 						func_80B483E4(pthis, globalCtx);
 					}
-					else if(player->stateFlags1 & (PLAYER_STATE1_4 | PLAYER_STATE1_13 | PLAYER_STATE1_14))
+					else if(player->stateFlags1 & (PLAYER_STATE1_TARGETING_ACTOR | PLAYER_STATE1_13 | PLAYER_STATE1_14))
 					{
 						if(pthis->actor.isTargeted)
 						{

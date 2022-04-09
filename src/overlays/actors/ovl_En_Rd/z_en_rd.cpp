@@ -387,7 +387,7 @@ void func_80AE2C1C(EnRd* pthis, GlobalContext* globalCtx)
 
 	if((ABS(sp32) < 0x1554) && (Actor_WorldDistXYZToActor(&pthis->actor, &player->actor) <= 150.0f))
 	{
-		if(!(player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_21)) && !(player->stateFlags2 & PLAYER_STATE2_7))
+		if(!(player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_21)) && !(player->stateFlags2 & PLAYER_STATE2_7))
 		{
 			if(pthis->unk_306 == 0)
 			{
@@ -482,7 +482,7 @@ void func_80AE2FD0(EnRd* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_21)) && !(player->stateFlags2 & PLAYER_STATE2_7) &&
+	if(!(player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_21)) && !(player->stateFlags2 & PLAYER_STATE2_7) &&
 	   (Actor_WorldDistXYZToPoint(&player->actor, &pthis->actor.home.pos) < 150.0f))
 	{
 		pthis->actor.targetMode = 0;

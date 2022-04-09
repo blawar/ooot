@@ -53,7 +53,7 @@ void Player_SetModels(Player* player, s32 modelGroup);
 void Player_SetModelsForHoldingShield(Player* player);
 Player* Player_UnsetMask(GlobalContext* globalCtx);
 void Player_UpdateBottleHeld(GlobalContext* globalCtx, Player* player, s32 item, s32 actionParam);
-s32 func_8008E9C4(Player* player);
+s32 Player_IsTargetingAnActor(Player* player);
 void func_8008EC70(Player* player);
 void Player_ClearZTarget(Player* player);
 void func_8008EE08(Player* player);

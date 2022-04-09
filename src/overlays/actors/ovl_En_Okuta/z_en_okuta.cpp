@@ -711,7 +711,7 @@ void EnOkuta_Update(Actor* thisx, GlobalContext* globalCtx2)
 	Vec3f sp38;
 	s32 sp34;
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_7 | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
+	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_DEAD | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
 	{
 		if(pthis->actor.params == 0)
 		{
