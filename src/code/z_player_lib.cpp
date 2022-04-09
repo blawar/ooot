@@ -357,7 +357,7 @@ void Player_SetBootData(GlobalContext* globalCtx, Player* pthis)
 
 s32 Player_InBlockingCsMode(GlobalContext* globalCtx, Player* pthis)
 {
-	return (pthis->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0) || (pthis->stateFlags3 & PLAYER_STATE3_7) ||
+	return (pthis->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0) || (pthis->stateFlags3 & PLAYER_STATE3_HOOKSHOT) ||
 	       ((gSaveContext.unk_13F0 != 0) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) >= 0));
 }
 
@@ -608,14 +608,14 @@ s32 Player_ActionToMagicSpell(Player* pthis, s32 actionParam)
 	}
 }
 
-s32 Player_HoldsHookshot(Player* pthis)
+s32 Player_CurrentActionItemIsHookshot(Player* pthis)
 {
 	return (pthis->heldItemActionParam == PLAYER_AP_HOOKSHOT) || (pthis->heldItemActionParam == PLAYER_AP_LONGSHOT);
 }
 
-s32 func_8008F128(Player* pthis)
+s32 Player_HoldingHookshot(Player* pthis)
 {
-	return Player_HoldsHookshot(pthis) && (pthis->heldActor == NULL);
+	return Player_CurrentActionItemIsHookshot(pthis) && (pthis->heldActor == NULL);
 }
 
 s32 Player_ActionToSword(s32 actionParam)
@@ -1151,7 +1151,7 @@ s32 func_800902F0(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 		}
 		else if(limbIndex == PLAYER_LIMB_R_HAND)
 		{
-			*dList = Player_HoldsHookshot(pthis) ? gLinkAdultRightHandHoldingHookshotFarDL : sHoldingFirstPersonWeaponDLs[(void)0, gSaveContext.linkAge];
+			*dList = Player_CurrentActionItemIsHookshot(pthis) ? gLinkAdultRightHandHoldingHookshotFarDL : sHoldingFirstPersonWeaponDLs[(void)0, gSaveContext.linkAge];
 		}
 		else
 		{
@@ -1464,7 +1464,7 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 
 		if(pthis->actor.scale.y >= 0.0f)
 		{
-			if(!Player_HoldsHookshot(pthis) && ((hookedActor = pthis->heldActor) != NULL))
+			if(!Player_CurrentActionItemIsHookshot(pthis) && ((hookedActor = pthis->heldActor) != NULL))
 			{
 				if(pthis->stateFlags1 & PLAYER_STATE1_9)
 				{
