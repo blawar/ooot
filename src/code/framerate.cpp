@@ -314,7 +314,8 @@ Step::Step(const Step& t)
 
 Step::Step(float n)
 {
-	m_value = n; // * FRAMERATE_SCALER;
+	//m_value = n; // * FRAMERATE_SCALER;
+	m_value = n * FRAMERATE_SCALER;
 }
 
 Step::Step(const Rotation& r)

@@ -858,7 +858,7 @@ void ObjectKankyo_DrawLightning(ObjectKankyo* pthis, GlobalContext* globalCtx)
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 128);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 255, 255, 128);
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1213), G_MTX_LOAD);
-		gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEffLightningTextures[pthis->effects[0].timer]));
+		gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEffLightningTextures[pthis->effects[0].timer.whole()]));
 		func_80094C50(globalCtx->state.gfxCtx);
 		gSPMatrix(POLY_XLU_DISP++, SEGMENT_ADDRESS(0x01000000), G_MTX_MODELVIEW | G_MTX_NOPUSH | G_MTX_MUL);
 		gDPPipeSync(POLY_XLU_DISP++);
@@ -973,7 +973,7 @@ void ObjectKankyo_DrawSunGraveSpark(ObjectKankyo* pthis2, GlobalContext* globalC
 			Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_object_kankyo.c", 1416), G_MTX_LOAD);
 
-			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_80BA5900[pthis->effects[0].timer]));
+			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_80BA5900[pthis->effects[0].timer.whole()]));
 			gDPPipeSync(POLY_XLU_DISP++);
 
 			gSPDisplayList(POLY_XLU_DISP++, object_spot02_objects_DL_009620);

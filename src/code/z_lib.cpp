@@ -395,13 +395,13 @@ s32 Math_AsymStepToF(f32* pValue, f32 target, const Step& incrStep, const Step& 
 	return 0;
 }
 
-void func_80077D10(f32* arg0, s16* arg1, Input* input)
+void func_80077D10(f32* magnitude, s16* arg1, Input* input)
 {
 	f32 relX = input->rel.stick_x;
 	f32 relY = input->rel.stick_y;
 
-	*arg0 = sqrtf(SQ(relX) + SQ(relY));
-	*arg0 = (60.0f < *arg0) ? 60.0f : *arg0;
+	*magnitude = sqrtf(SQ(relX) + SQ(relY));
+	*magnitude = (60.0f < *magnitude) ? 60.0f : *magnitude;
 
 	*arg1 = Math_Atan2S(relY, -relX);
 }
@@ -603,7 +603,8 @@ void IChain_Apply_Vec3s(u8* ptr, InitChainEntry* ichain)
  * Changes pValue by step towards target. If this step is more than fraction of the remaining distance, step by that
  * instead, with a minimum step of minStep. Returns remaining distance to target.
  */
-f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep)
+template<class T>
+static inline f32 _Math_SmoothStepToF(T* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep)
 {
 	float step = _step.value();
 	float minStep = _minStep.value();
@@ -650,6 +651,16 @@ f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, const Step& _step,
 	}
 
 	return fabsf(target - *pValue);
+}
+
+f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep)
+{
+	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
+}
+
+f32 Math_SmoothStepToF(Rotation* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep)
+{
+	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
 }
 
 /**
