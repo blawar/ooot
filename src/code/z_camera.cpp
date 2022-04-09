@@ -5114,8 +5114,15 @@ s32 Camera_Subj4(Camera* camera)
 	if(camera->animState == 0)
 	{
 		spA4 = Camera_GetCamBgDataUnderPlayer(camera, &spAA);
-		Camera_Vec3sToVec3f(&anim->unk_00.a, &spA4[1]);
-		Camera_Vec3sToVec3f(&sp98, &spA4[spAA - 2]);
+		if(spA4)
+		{
+			Camera_Vec3sToVec3f(&anim->unk_00.a, &spA4[1]);
+			Camera_Vec3sToVec3f(&sp98, &spA4[spAA - 2]);
+		}
+		else
+		{
+			int error = 1; // errr TODO FIX
+		}
 
 		sp64.r = 10.0f;
 		// 0x238C ~ 50 degrees
