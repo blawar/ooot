@@ -71,7 +71,6 @@ void ItemOcarina_Init(Actor* thisx, GlobalContext* globalCtx)
 			return;
 	}
 
-	LOG_NUM("no", params, "../z_item_ocarina.c", 210);
 	pthis->spinRotOffset = 0x400;
 }
 

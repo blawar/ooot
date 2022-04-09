@@ -208,7 +208,6 @@ void ItemEtcetera_UpdateFireArrow(ItemEtcetera* pthis, GlobalContext* globalCtx)
 {
 	if((globalCtx->csCtx.state != CS_STATE_IDLE) && (globalCtx->csCtx.npcActions[0] != NULL))
 	{
-		LOG_NUM("(game_play->demo_play.npcdemopnt[0]->dousa)", globalCtx->csCtx.npcActions[0]->action, "../z_item_etcetera.c", 441);
 		if(globalCtx->csCtx.npcActions[0]->action == 2)
 		{
 			pthis->actor.draw = ItemEtcetera_Draw;

@@ -601,8 +601,6 @@ u32 func_80096FE8(GlobalContext* globalCtx, RoomContext* roomCtx)
 		RomFile* roomList = globalCtx->roomList;
 		TransitionActorEntry* transitionActor = &globalCtx->transiActorCtx.list[0];
 
-		LOG_NUM("game_play->room_rom_address.num", globalCtx->numRooms, "../z_room.c", 912);
-
 		for(j = 0; j < globalCtx->transiActorCtx.numActors; j++)
 		{
 			frontRoom = transitionActor->sides[0].room;

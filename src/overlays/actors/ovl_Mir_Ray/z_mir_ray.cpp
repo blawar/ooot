@@ -156,7 +156,6 @@ void MirRay_Init(Actor* thisx, GlobalContext* globalCtx)
 	ActorShape_Init(&pthis->actor.shape, 0.0f, NULL, 0.0f);
 	// "Generation of reflectable light!"
 	osSyncPrintf("反射用 光の発生!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-	LOG_NUM("pthis->actor.arg_data", pthis->actor.params, "../z_mir_ray.c", 518);
 
 	if(pthis->actor.params >= 0xA)
 	{

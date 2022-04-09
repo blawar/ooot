@@ -321,13 +321,13 @@ void Message_GrowTextbox(MessageContext* msgCtx)
 	static f32 sHeightCoefficients[] = {
 	    0.6f, 0.75f, 0.9f, 1.0f, 1.05f, 1.1f, 1.05f, 1.0f,
 	};
-	f32 width = R_TEXTBOX_WIDTH_TARGET * (sWidthCoefficients[msgCtx->stateTimer] + sWidthCoefficients[msgCtx->stateTimer]);
-	f32 height = R_TEXTBOX_HEIGHT_TARGET * sHeightCoefficients[msgCtx->stateTimer];
-	f32 texWidth = R_TEXTBOX_TEXWIDTH_TARGET / (sWidthCoefficients[msgCtx->stateTimer] + sWidthCoefficients[msgCtx->stateTimer]);
-	f32 texHeight = R_TEXTBOX_TEXHEIGHT_TARGET / sHeightCoefficients[msgCtx->stateTimer];
+	f32 width = R_TEXTBOX_WIDTH_TARGET * (sWidthCoefficients[msgCtx->stateTimer.whole()] + sWidthCoefficients[msgCtx->stateTimer.whole()]);
+	f32 height = R_TEXTBOX_HEIGHT_TARGET * sHeightCoefficients[msgCtx->stateTimer.whole()];
+	f32 texWidth = R_TEXTBOX_TEXWIDTH_TARGET / (sWidthCoefficients[msgCtx->stateTimer.whole()] + sWidthCoefficients[msgCtx->stateTimer.whole()]);
+	f32 texHeight = R_TEXTBOX_TEXHEIGHT_TARGET / sHeightCoefficients[msgCtx->stateTimer.whole()];
 
 	// Adjust y pos
-	R_TEXTBOX_Y = R_TEXTBOX_Y_TARGET + (R_TEXTBOX_Y_TARGET - (s16)(R_TEXTBOX_Y_TARGET * sHeightCoefficients[msgCtx->stateTimer] + 0.5f)) / 2;
+	R_TEXTBOX_Y = R_TEXTBOX_Y_TARGET + (R_TEXTBOX_Y_TARGET - (s16)(R_TEXTBOX_Y_TARGET * sHeightCoefficients[msgCtx->stateTimer.whole()] + 0.5f)) / 2;
 
 	msgCtx->textboxColorAlphaCurrent += msgCtx->textboxColorAlphaTarget / 8;
 	msgCtx->stateTimer++;

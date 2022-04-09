@@ -98,9 +98,6 @@ void TransitionUnk_InitGraphics(TransitionUnk* pthis)
 
 	gDPPipeSync(gfx++);
 	gSPEndDisplayList(gfx++);
-
-	LOG_NUM("pthis->col * (1 + pthis->row * (1 + 7 + 1)) + 1 + 1", pthis->col * (1 + pthis->row * 9) + 2, "../z_fbdemo.c", 144);
-	LOG_NUM("gp - pthis->gfxtbl", gfx - pthis->gfx, "../z_fbdemo.c", 145);
 }
 
 void TransitionUnk_InitData(TransitionUnk* pthis)

@@ -670,7 +670,7 @@ u8 D_8016B9D8;
 u8 sAudioSpecPeakNumNotes[0x12];
 u8 D_8016B9F2;
 u8 D_8016B9F3;
-u8 gFanfareDelay;
+TimerU8 gFanfareDelay;
 u16 gFanfareLastSeqPlayed;
 
 OcarinaStaff sPlayingStaff;
