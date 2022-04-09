@@ -2,11 +2,27 @@ import sys
 import os
 import os.path
 import json
+import math
+import hashlib
 from pathlib import Path
 
 _assetPath = None
 _buildRom = None
 _conf = None
+
+def loadJson(path):
+	try:
+		with open(path, 'r') as f:
+			return json.load(f)
+	except:
+		raise
+		
+def saveJson(path, data):
+	try:
+		with open(path, 'w') as f:
+			json.dump(data, f, indent=4, sort_keys=True)
+	except:
+		raise
 
 class ConfSection:
 	def __init__(self, j):
@@ -42,9 +58,8 @@ class Conf:
 	def __init__(self, path):
 		self.path = path
 		self.sections = ConfSections()
-		
-		with open(path, 'r') as f:
-			j = json.load(f)
+		j = loadJson(path)
+
 		for k,v in j['sections'].items():
 			self.sections.__dict__[k] = ConfSection(v)
 		self.rom = ConfRom(j['rom'])
@@ -89,8 +104,10 @@ def buildRom():
 	_buildRom = sys.argv[1]
 	return _buildRom
 	
-def romPath(rom = ''):
-	return fixSlashPath('roms/%s/%s' % (buildRom(), rom))
+def romPath(rom = '', root = None):
+	if not root:
+		root = buildRom()
+	return fixSlashPath('roms/%s/%s' % (root, rom))
 	
 def getAssetPath():
 	global _assetPath
@@ -126,5 +143,44 @@ def relPath(path, sub = None):
 	if r[0] == '/' or r[0] == '\\':
 		return r[1:]
 	return r
+	
+def sha256_buffer(buffer):
+	m = hashlib.sha256()
+	m.update(buffer)
+	return m.hexdigest()
+
+def getRomHashes(path):
+	chunkSize = 0x100000 # 1MB
+	headerSize = 0x1000
+
+	r = {}
+	with open(path, 'rb') as f:
+		buffer = f.read()
+	r['complete'] = sha256_buffer(buffer)
+	r['body'] = sha256_buffer(buffer[headerSize:])
+	r['chunks'] = []
+	
+	for i in range(int(math.ceil((len(buffer) - headerSize) / chunkSize))):
+		offset = headerSize + (i * chunkSize)
+		r['chunks'].append(sha256_buffer(buffer[offset:offset + chunkSize]))
+
+	return r
+	
+def calcRomHashes():
+	for rom in validBuildOptions():
+		verified = romPath('verified', rom)
+		configPath = romPath('config.json', rom)
+		
+		config = loadJson(configPath)
+		config['sha256'] = []
+		
+		if not os.path.isdir(verified):
+			continue
+			
+		for path in Path(verified).rglob('*.z64'):
+			config['sha256'].append(getRomHashes(path))
+			
+		saveJson(configPath, config)
+		
 
 basedir = Path(__file__).absolute().parent.parent
