@@ -25,14 +25,14 @@ typedef s16 (*callback2_80A3ED24)(GlobalContext*, struct EnGo*);
 struct EnGoEffect
 {
 	/* 0x0000 */ u8 type;
-	/* 0x0001 */ u8 timer;
-	/* 0x0002 */ u8 initialTimer;
+	/* 0x0001 */ TimerU8 timer;
+	/* 0x0002 */ TimerU8 initialTimer;
 	/* 0x0004 */ f32 scale;
 	/* 0x0008 */ f32 scaleStep;
 	/* 0x000C */ Color_RGBA8 color;
 	/* 0x0010 */ char unk_10[4];
-	/* 0x0014 */ Vec3f pos;
-	/* 0x0020 */ Vec3f velocity;
+	/* 0x0014 */ VecPos pos;
+	/* 0x0020 */ VecRot velocity;
 	/* 0x002C */ Vec3f accel;
 };
 

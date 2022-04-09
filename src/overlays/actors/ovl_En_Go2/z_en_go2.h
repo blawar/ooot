@@ -60,7 +60,7 @@ struct EnGo2DataStruct2
 
 struct EnGo2DustEffectData
 {
-	u8 initialTimer;
+	TimerU8 initialTimer;
 	f32 scale;
 	f32 scaleStep;
 	s32 numDustEffects;

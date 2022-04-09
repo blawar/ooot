@@ -150,7 +150,7 @@ class Timer
 class TimerU8 : public Timer
 {
 	public:
-	TimerU8() : Timer(-0x80, 0x7F)
+	TimerU8() : Timer(0, 0xFF)
 	{
 	}
 
@@ -158,7 +158,23 @@ class TimerU8 : public Timer
 	{
 	}
 
-	TimerU8(float n) : Timer(n, -0x80, 0x7F)
+	TimerU8(float n) : Timer(n, 0, 0xFF)
+	{
+	}
+};
+
+class TimerS8 : public Timer
+{
+	public:
+	TimerS8() : Timer(-0x80, 0x7F)
+	{
+	}
+
+	TimerS8(const Timer& t) : Timer(t)
+	{
+	}
+
+	TimerS8(float n) : Timer(n, -0x80, 0x7F)
 	{
 	}
 };
@@ -166,7 +182,7 @@ class TimerU8 : public Timer
 class TimerU16 : public Timer
 {
 	public:
-	TimerU16() : Timer(-0x8000, 0x7FFF)
+	TimerU16() : Timer(0, 0xFFFF)
 	{
 	}
 
@@ -174,7 +190,7 @@ class TimerU16 : public Timer
 	{
 	}
 
-	TimerU16(float n) : Timer(n, -0x8000, 0x7FFF)
+	TimerU16(float n) : Timer(n, 0, 0xFFFF)
 	{
 	}
 };
@@ -182,8 +198,6 @@ class TimerU16 : public Timer
 typedef TimerU16 Counter;
 typedef Timer Rotation;
 typedef Timer Position;
-//typedef Timer TimerU8;
-//typedef Timer TimerU16;
 typedef Timer TimerS16;
 typedef Timer TimerS32;
 typedef Timer TimerU32;
