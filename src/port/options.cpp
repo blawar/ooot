@@ -97,6 +97,7 @@ namespace oot
 					cheats().load(d);
 					controls().load(d);
 					game().load(d);
+					//video().load(d);
 					result = true;
 				}
 			}
@@ -133,6 +134,7 @@ namespace oot
 			cheats().save(d, allocator);
 			controls().save(d, allocator);
 			game().save(d, allocator);
+			//video().save(d, allocator);
 
 			if(!json::save(d, CONFIG_JSON_FILE))
 			{
@@ -147,6 +149,31 @@ namespace oot
 			unmountSaveData();
 #endif
 			return true;
+		}
+
+		Video::Video()
+		{
+		}
+
+		void Video::save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator)
+		{
+			rapidjson::Value container(rapidjson::Type::kObjectType);
+
+			json::setS64(container, "vsync", vsync(), allocator);
+			json::setBool(container, "doubleBuffer", doubleBuffer(), allocator);
+
+			doc.AddMember(rapidjson::Value("Video", allocator), container, allocator);
+		}
+
+		void Video::load(rapidjson::Document& doc)
+		{
+			if(doc.HasMember("Video"))
+			{
+				auto& container = doc["Video"];
+
+				json::getS64(container, "vsync", vsync());
+				json::getBool(container, "doubleBuffer", doubleBuffer());
+			}
 		}
 
 		Game::Game()
