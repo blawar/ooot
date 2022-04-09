@@ -72,4 +72,15 @@ enum PlayerState2
 	PLAYER_STATE2_31 = 1 << 31,		 // 0x80000000
 };
 
-static_assert((1 << 13) == 0x2000, "bah");
+enum PlayerState3
+{
+	PLAYER_STATE3_0 = 1 << 0, // 0x00000001
+	PLAYER_STATE3_1 = 1 << 1, // 0x00000002
+	PLAYER_STATE3_2 = 1 << 2, // 0x00000004
+	PLAYER_STATE3_3 = 1 << 3, // 0x00000008
+	PLAYER_STATE3_4 = 1 << 4, // 0x00000010
+	PLAYER_STATE3_5 = 1 << 5, // 0x00000020
+	PLAYER_STATE3_6 = 1 << 6, // 0x00000040
+	PLAYER_STATE3_7 = 1 << 7, // 0x00000080
+};
+
