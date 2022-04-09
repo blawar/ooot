@@ -18,6 +18,7 @@ namespace platform::window
 		virtual void swap_buffers_begin() = 0;
 		virtual void swap_buffers_end() = 0;
 		virtual void resize(long width, long height) = 0;
+		virtual void set_vsync(long setting) = 0;
 
 		void calc_sizes();
 

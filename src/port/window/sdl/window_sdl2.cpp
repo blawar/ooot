@@ -14,6 +14,8 @@
 #include "port/window.h"
 #include "ultra64/types.h"
 #include "z64message.h"
+#include "port/options.h"
+#include "port/debug.h"
 
 void quit();
 void Set_Language(u8 language_id);
@@ -228,6 +230,7 @@ namespace platform::window
 #ifdef __SWITCH__
 			wnd = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 #else
+			//SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, oot::config().video().doubleBuffer());
 			wnd = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width(), height(), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 
 			if(start_in_fullscreen)
@@ -235,7 +238,12 @@ namespace platform::window
 				set_fullscreen(true, false);
 			}
 #endif
-			set_vsync();
+			/*if(oot::config().video().vsync())
+			{
+				set_vsync(oot::config().video().vsync());
+			}*/
+
+			set_refresh_interval();
 			resize(width(), height());
 
 			auto locale = SDL_GetPreferredLocales();
@@ -300,7 +308,17 @@ namespace platform::window
 #endif
 		}
 
-		void set_vsync()
+		void set_vsync(long setting)
+		{
+			auto result = SDL_GL_SetSwapInterval(setting);
+
+			if(result == -1)
+			{
+				oot::log("vsync failed %d, tried %d, %s\n", result, setting, SDL_GetError());
+			}
+		}
+
+		void set_refresh_interval()
 		{
 			if(SDL_GetNumVideoDisplays() > 0)
 			{

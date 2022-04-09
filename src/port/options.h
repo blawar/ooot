@@ -226,6 +226,39 @@ namespace oot
 			bool m_blindGerudoGuards = false;
 		};
 
+		class Video : public Section
+		{
+			public:
+			Video();
+
+			void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) override;
+			void load(rapidjson::Document& doc) override;
+
+			const s64& vsync() const
+			{
+				return m_vsync;
+			}
+
+			s64& vsync()
+			{
+				return m_vsync;
+			}
+
+			const bool& doubleBuffer() const
+			{
+				return m_doubleBuffer;
+			}
+
+			bool& doubleBuffer()
+			{
+				return m_doubleBuffer;
+			}
+
+			protected:
+			s64 m_vsync = 0;
+			bool m_doubleBuffer = 0;
+		};
+
 		class Game : public Section
 		{
 			public:
@@ -419,10 +452,21 @@ namespace oot
 				return m_game;
 			}
 
+			const Video& video() const
+			{
+				return m_video;
+			}
+
+			Video& video()
+			{
+				return m_video;
+			}			
+
 			protected:
 			Camera m_camera;
 			Cheats m_cheats;
 			Controls m_controls;
+			Video m_video;
 			Game m_game;
 		};
 	} // namespace options

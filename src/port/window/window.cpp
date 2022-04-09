@@ -83,6 +83,7 @@ namespace platform::window
 			{
 			}
 		}
+
 		return !dropped_frame;
 	}
 
