@@ -1843,7 +1843,7 @@ void BossSst_HandSweep(BossSst* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->handAngSpeed += 0x60;
-	pthis->handAngSpeed = CLAMP_MAX(pthis->handAngSpeed, pthis->handMaxSpeed);
+	pthis->handAngSpeed = CLAMP_MAX((float)pthis->handAngSpeed, (float)pthis->handMaxSpeed);
 
 	if(!Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->targetYaw, 4, pthis->handAngSpeed, 0x10))
 	{
@@ -2043,7 +2043,7 @@ void BossSst_HandClap(BossSst* pthis, GlobalContext* globalCtx)
 		else
 		{
 			pthis->handAngSpeed += 0x40;
-			pthis->handAngSpeed = CLAMP_MAX(pthis->handAngSpeed, pthis->handMaxSpeed);
+			pthis->handAngSpeed = CLAMP_MAX((float)pthis->handAngSpeed, (float)pthis->handMaxSpeed);
 
 			if(Math_ScaledStepToS(&pthis->actor.shape.rot.y, pthis->actor.home.rot.y, pthis->handAngSpeed))
 			{
@@ -2595,7 +2595,7 @@ void BossSst_HandThrash(BossSst* pthis, GlobalContext* globalCtx)
 		if(pthis->timer < 80.0f)
 		{
 			pthis->handAngSpeed -= 0x40;
-			pthis->handAngSpeed = CLAMP_MIN(pthis->handAngSpeed, 0x40);
+			pthis->handAngSpeed = CLAMP_MIN((float)pthis->handAngSpeed, (float)0x40);
 		}
 	}
 

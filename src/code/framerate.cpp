@@ -245,21 +245,24 @@ Timer& Timer::operator/=(float f)
 
 Timer& Timer::operator&=(u64 n)
 {
-	*this = m_counterInt & (n * COUNTER_SCALER);
+	//*this = m_counterInt & (n * COUNTER_SCALER);
+	*this = whole() & n;
 	update();
 	return *this;
 }
 
 Timer& Timer::operator|=(u64 n)
 {
-	*this = m_counterInt | (n * COUNTER_SCALER);
+	//*this = m_counterInt | (n * COUNTER_SCALER);
+	*this = whole() | n;
 	update();
 	return *this;
 }
 
 Timer& Timer::operator^=(u64 n)
 {
-	*this = m_counterInt ^ (n * COUNTER_SCALER);
+	//*this = m_counterInt ^ (n * COUNTER_SCALER);
+	*this = whole() ^ n;
 	update();
 	return *this;
 }
