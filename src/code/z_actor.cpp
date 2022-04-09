@@ -1235,7 +1235,7 @@ void Actor_MountHorse(GlobalContext* globalCtx, Player* player, Actor* horse)
 
 s32 func_8002DEEC(Player* player)
 {
-	return (player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (player->csMode != 0);
+	return (player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_29)) || (player->csMode != 0);
 }
 
 void func_8002DF18(GlobalContext* globalCtx, Player* player)
@@ -1870,7 +1870,7 @@ s32 func_8002F434(Actor* actor, GlobalContext* globalCtx, s32 getItemId, f32 xzR
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE_SWORD_CHARGE | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_20 | PLAYER_STATE1_21)) && Player_GetExplosiveHeld(player) < 0)
+	if(!(player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE_SWORD_CHARGE | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_20 | PLAYER_STATE1_21)) && Player_GetExplosiveHeld(player) < 0)
 	{
 		if((((player->heldActor != NULL) || (actor == player->targetActor)) && (getItemId > GI_NONE) && (getItemId < GI_MAX)) || (!(player->stateFlags1 & (PLAYER_STATE1_11 | PLAYER_STATE1_29))))
 		{
@@ -1958,7 +1958,7 @@ u32 Actor_SetRideActor(GlobalContext* globalCtx, Actor* horse, s32 mountSide)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_11 | PLAYER_STATE_SWORD_CHARGE | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_20 | PLAYER_STATE1_21)))
+	if(!(player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_11 | PLAYER_STATE_SWORD_CHARGE | PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_20 | PLAYER_STATE1_21)))
 	{
 		player->rideActor = horse;
 		player->mountSide = mountSide;
@@ -4000,7 +4000,7 @@ s32 Actor_IsTargeted(GlobalContext* globalCtx, Actor* actor)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if((player->stateFlags1 & PLAYER_STATE1_4) && actor->isTargeted)
+	if((player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR) && actor->isTargeted)
 	{
 		return true;
 	}
@@ -4017,7 +4017,7 @@ s32 Actor_OtherIsTargeted(GlobalContext* globalCtx, Actor* actor)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if((player->stateFlags1 & PLAYER_STATE1_4) && !actor->isTargeted)
+	if((player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR) && !actor->isTargeted)
 	{
 		return true;
 	}

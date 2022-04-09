@@ -848,7 +848,7 @@ void EnGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	s32 sp30;
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_7 | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
+	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_DEAD | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
 	{
 		if(pthis->collisionDisabledTimer > 0)
 		{

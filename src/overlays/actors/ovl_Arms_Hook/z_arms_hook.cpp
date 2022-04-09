@@ -140,7 +140,7 @@ s32 ArmsHook_CheckForCancel(ArmsHook* pthis)
 
 	if(Player_CurrentActionItemIsHookshot(player))
 	{
-		if((player->itemActionParam != player->heldItemActionParam) || (player->actor.flags & ACTOR_FLAG_8) || ((player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_26))))
+		if((player->itemActionParam != player->heldItemActionParam) || (player->actor.flags & ACTOR_FLAG_8) || ((player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_26))))
 		{
 			pthis->timer = 0;
 			ArmsHook_DetachHookFromActor(pthis);

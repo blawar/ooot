@@ -6,10 +6,10 @@ enum PlayerState1
 	PLAYER_STATE1_1 = 1 << 1,	      // 0x00000002
 	PLAYER_STATE1_2 = 1 << 2,	      // 0x00000004
 	PLAYER_STATE1_3 = 1 << 3,	      // 0x00000008
-	PLAYER_STATE1_4 = 1 << 4,	      // 0x00000010
+	PLAYER_STATE1_TARGETING_ACTOR = 1 << 4,	      // 0x00000010
 	PLAYER_STATE1_5 = 1 << 5,	      // 0x00000020
 	PLAYER_STATE1_6 = 1 << 6,	      // 0x00000040
-	PLAYER_STATE1_7 = 1 << 7,	      // 0x00000080
+	PLAYER_STATE1_DEAD = 1 << 7,	      // 0x00000080
 	PLAYER_STATE1_8 = 1 << 8,	      // 0x00000100
 	PLAYER_STATE1_9 = 1 << 9,	      // 0x00000200
 	PLAYER_STATE1_10 = 1 << 10,	      // 0x00000400

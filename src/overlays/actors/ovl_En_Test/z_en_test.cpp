@@ -450,7 +450,7 @@ void EnTest_ChooseAction(EnTest* pthis, GlobalContext* globalCtx)
 			{
 				if(Rand_ZeroOne() > 0.2f)
 				{
-					if(player->stateFlags1 & PLAYER_STATE1_4)
+					if(player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR)
 					{
 						if(pthis->actor.isTargeted)
 						{
@@ -819,7 +819,7 @@ void EnTest_WalkAndBlock(EnTest* pthis, GlobalContext* globalCtx)
 		{
 			if(Rand_ZeroOne() > 0.2f)
 			{
-				if(player->stateFlags1 & PLAYER_STATE1_4)
+				if(player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR)
 				{
 					if(pthis->actor.isTargeted)
 					{
@@ -1189,7 +1189,7 @@ void EnTest_SlashDownEnd(EnTest* pthis, GlobalContext* globalCtx)
 				pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 				EnTest_SetupJumpBack(pthis);
 			}
-			else if(player->stateFlags1 & PLAYER_STATE1_4)
+			else if(player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR)
 			{
 				if(pthis->actor.isTargeted)
 				{

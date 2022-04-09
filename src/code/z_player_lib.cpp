@@ -357,7 +357,7 @@ void Player_SetBootData(GlobalContext* globalCtx, Player* pthis)
 
 s32 Player_InBlockingCsMode(GlobalContext* globalCtx, Player* pthis)
 {
-	return (pthis->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0) || (pthis->stateFlags3 & PLAYER_STATE3_HOOKSHOT) ||
+	return (pthis->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0) || (pthis->stateFlags3 & PLAYER_STATE3_HOOKSHOT) ||
 	       ((gSaveContext.unk_13F0 != 0) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) >= 0));
 }
 
@@ -368,9 +368,9 @@ s32 Player_InCsMode(GlobalContext* globalCtx)
 	return Player_InBlockingCsMode(globalCtx, pthis) || (pthis->unk_6AD == 4);
 }
 
-s32 func_8008E9C4(Player* pthis)
+s32 Player_IsTargetingAnActor(Player* pthis)
 {
-	return (pthis->stateFlags1 & PLAYER_STATE1_4);
+	return (pthis->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR);
 }
 
 s32 Player_IsChildWithHylianShield(Player* pthis)
@@ -888,7 +888,7 @@ void func_8008F87C(GlobalContext* globalCtx, Player* pthis, SkelAnime* skelAnime
 	s16 temp2;
 	s32 temp3;
 
-	if((pthis->actor.scale.y >= 0.0f) && !(pthis->stateFlags1 & PLAYER_STATE1_7) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) < 0))
+	if((pthis->actor.scale.y >= 0.0f) && !(pthis->stateFlags1 & PLAYER_STATE1_DEAD) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) < 0))
 	{
 		s32 pad;
 
