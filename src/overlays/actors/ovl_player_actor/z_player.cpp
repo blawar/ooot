@@ -2504,7 +2504,7 @@ s32 func_80834E44(GlobalContext* globalCtx)
 	return (globalCtx->shootingGalleryStatus > 0) && CHECK_BTN_ALL(sControlInput->press.button, BTN_B);
 }
 
-s32 isNockingArrow(GlobalContext* globalCtx)
+s32 Player_IsNockingArrow(GlobalContext* globalCtx)
 {
 	return (globalCtx->shootingGalleryStatus != 0 || (oot::config().controls().enableActionButtonOverride() && oot::hid::isFirstPerson())) &&
 	       ((globalCtx->shootingGalleryStatus < 0) || CHECK_BTN_ANY(sControlInput->cur.button, BTN_A | BTN_B | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN));
@@ -2659,7 +2659,7 @@ s32 func_808351D4(Player* pthis, GlobalContext* globalCtx)
 
 	func_80834EB8(pthis, globalCtx);
 
-	if((pthis->unk_836 > 0) && ((pthis->unk_860 < 0) || (!D_80853618 && !isNockingArrow(globalCtx))))
+	if((pthis->unk_836 > 0) && ((pthis->unk_860 < 0) || (!D_80853618 && !Player_IsNockingArrow(globalCtx))))
 	{
 		func_80833638(pthis, func_808353D8);
 		if(pthis->unk_860 >= 0)

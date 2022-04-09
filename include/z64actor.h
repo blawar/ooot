@@ -199,7 +199,7 @@ struct Actor
 	/* 0x10C */ u8 isTargeted;		     // Set to true if the actor is currently being targeted by the player
 	/* 0x10D */ u8 targetPriority;		     // Lower values have higher priority. Resets to 0 when player stops targeting
 	/* 0x10E */ u16 textId;			     // Text ID to pass to link/display when interacting with the actor
-	/* 0x110 */ Timer freezeTimer;		     // Actor does not update when set. Timer decrements automatically
+	/* 0x110 */ TimerU16 freezeTimer;		     // Actor does not update when set. Timer decrements automatically
 	/* 0x112 */ u16 colorFilterParams;	     // Set color filter to red, blue, or white. Toggle opa or xlu
 	/* 0x114 */ u8 colorFilterTimer;	     // A non-zero value enables the color filter. Decrements automatically
 	/* 0x115 */ u8 isDrawn;			     // Set to true if the actor is currently being drawn. Always stays false for lens actors
@@ -409,8 +409,8 @@ struct TitleCardContext
 	/* 0x06 */ s16 y;
 	/* 0x08 */ u8 width;
 	/* 0x09 */ u8 height;
-	/* 0x0A */ Timer durationTimer; // how long the title card appears for before fading
-	/* 0x0B */ Timer delayTimer;	// how long the title card waits to appear
+	/* 0x0A */ TimerU8 durationTimer; // how long the title card appears for before fading
+	/* 0x0B */ TimerU8 delayTimer;	// how long the title card waits to appear
 	/* 0x0C */ s16 alpha;
 	/* 0x0E */ s16 intensity;
 }; // size = 0x10
@@ -444,7 +444,7 @@ struct ActorListEntry
 
 struct ActorContext
 {
-	/* 0x0000 */ Timer freezeFlashTimer;
+	/* 0x0000 */ TimerU8 freezeFlashTimer;
 	/* 0x0001 */ char unk_01[0x01];
 	/* 0x0002 */ u8 unk_02;
 	/* 0x0003 */ u8 unk_03;
@@ -474,7 +474,7 @@ struct struct_80034A14_arg1
 {
 	/* 0x00 */ s16 unk_00;
 	/* 0x02 */ s16 unk_02;
-	/* 0x04 */ Timer unk_04;
+	/* 0x04 */ TimerS16 unk_04;
 	/* 0x06 */ s16 unk_06;
 	/* 0x08 */ Vec3s unk_08;
 	/* 0x0E */ Vec3s unk_0E;
