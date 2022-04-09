@@ -2454,7 +2454,7 @@ s32 Camera_Parallel1(Camera* camera)
 			camera->animState++;
 	}
 
-	if(anim->animTimer.toS16() != 0)
+	if(anim->animTimer != 0)
 	{
 		if(para1->interfaceFlags & 2)
 		{
@@ -2535,10 +2535,10 @@ s32 Camera_Parallel1(Camera* camera)
 		func_800458D4(camera, &atToEyeNextDir, para1->unk_18, &anim->yTarget, para1->interfaceFlags & 1);
 	}
 
-	if(anim->animTimer.toS16() != 0)
+	if(anim->animTimer != 0)
 	{
 		camera->unk_14C |= 0x20;
-		tangle = (((anim->animTimer.whole() + 1) * anim->animTimer.whole()) >> 1);
+		tangle = (((anim->animTimer + 1) * anim->animTimer) >> 1);
 		spA8.yaw = atToEyeDir.yaw + ((BINANG_SUB(anim->yawTarget, atToEyeDir.yaw) / tangle) * anim->animTimer);
 		spA8.pitch = atToEyeDir.pitch;
 		spA8.r = atToEyeDir.r;
@@ -2977,7 +2977,7 @@ s32 Camera_Jump2(Camera* camera)
 		}
 
 		yawDiff = BINANG_SUB(BINANG_ROT180(playerPosRot->rot.y), adjAtToEyeDir.yaw);
-		if(anim->animTimer.toS16() != 0)
+		if(anim->animTimer != 0)
 		{
 			anim->yawTarget = BINANG_ROT180(playerPosRot->rot.y);
 			anim->animTimer--;
@@ -3156,7 +3156,7 @@ s32 Camera_Jump3(Camera* camera)
 			anim->swing.swingUpdateRateTimer = 0;
 			break;
 		default:
-			if(anim->animTimer >= 0.0f)
+			if(anim->animTimer != 0)
 			{
 				anim->animTimer--;
 			}
@@ -3386,7 +3386,7 @@ s32 Camera_Battle1(Camera* camera)
 		anim->unk_10 = Camera_LERPCeilF(PCT(OREG(12)) * 0.5f, anim->unk_10, PCT(OREG(25)), 0.1f);
 		camera->xzOffsetUpdateRate = Camera_LERPCeilF(0.2f, camera->xzOffsetUpdateRate, PCT(OREG(25)), 0.1f);
 		camera->yOffsetUpdateRate = Camera_LERPCeilF(0.2f, camera->yOffsetUpdateRate, PCT(OREG(25)), 0.1f);
-		if(anim->chargeTimer >= -19.0f)
+		if(anim->chargeTimer >= -19)
 		{
 			anim->chargeTimer--;
 		}
@@ -4133,14 +4133,14 @@ s32 Camera_KeepOn3(Camera* camera)
 		}
 		osSyncPrintf("camera: talk: BG&collision check %d time(s)\n", i);
 		camera->unk_14C &= ~0xC;
-		pad = ((anim->animTimer.whole() + 1) * anim->animTimer.whole()) >> 1;
+		pad = ((anim->animTimer + 1) * anim->animTimer) >> 1;
 		anim->eyeToAtTarget.y = (f32)BINANG_SUB(atToEyeAdj.yaw, atToEyeNextDir.yaw) / pad;
 		anim->eyeToAtTarget.z = (f32)BINANG_SUB(atToEyeAdj.pitch, atToEyeNextDir.pitch) / pad;
 		anim->eyeToAtTarget.x = (atToEyeAdj.r - atToEyeNextDir.r) / pad;
 		return 1;
 	}
 
-	if(anim->animTimer != 0.0f)
+	if(anim->animTimer != 0)
 	{
 		at->x += (anim->atTarget.x - at->x) / anim->animTimer;
 		at->y += (anim->atTarget.y - at->y) / anim->animTimer;
@@ -4469,7 +4469,7 @@ s32 Camera_KeepOn4(Camera* camera)
 		camera->unk_14C |= (0x400 | 0x10);
 		camera->unk_14C |= (0x4 | 0x2);
 		camera->unk_14C &= ~8;
-		if(camera->timer > 0.0f)
+		if(camera->timer > 0)
 		{
 			camera->timer--;
 		}
@@ -5804,7 +5804,7 @@ s32 Camera_Unique6(Camera* camera)
 		camera->dist = OLib_Vec3fDist(&camera->at, &camera->eye);
 	}
 
-	if(uniq6->interfaceFlags & 1 && camera->timer > 0.0f)
+	if(uniq6->interfaceFlags & 1 && camera->timer > 0)
 	{
 		camera->timer--;
 	}
@@ -8884,7 +8884,7 @@ void Camera_Finish(Camera* camera)
 	Camera* mainCam = camera->globalCtx->cameraPtrs[MAIN_CAM];
 	Player* player = GET_PLAYER(camera->globalCtx);
 
-	if(camera->timer == 0.0f)
+	if(camera->timer == 0)
 	{
 		Gameplay_ChangeCameraStatus(camera->globalCtx, camera->parentCamIdx, CAM_STAT_ACTIVE);
 
