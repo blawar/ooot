@@ -357,7 +357,7 @@ void Player_SetBootData(GlobalContext* globalCtx, Player* pthis)
 
 s32 Player_InBlockingCsMode(GlobalContext* globalCtx, Player* pthis)
 {
-	return (pthis->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & 1) || (pthis->stateFlags3 & 0x80) ||
+	return (pthis->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0) || (pthis->stateFlags3 & PLAYER_STATE3_7) ||
 	       ((gSaveContext.unk_13F0 != 0) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) >= 0));
 }
 

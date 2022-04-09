@@ -1692,7 +1692,7 @@ void EnSkj_WaitForOfferResponse(EnSkj* pthis, GlobalContext* globalCtx)
 		{
 			case 0: // yes
 				player = GET_PLAYER(globalCtx);
-				player->stateFlags3 |= 0x20; // makes player take ocarina out right away after closing box
+				player->stateFlags3 |= PLAYER_STATE3_5; // makes player take ocarina out right away after closing box
 				pthis->actionFunc = EnSkj_SetupWaitForOcarina;
 				break;
 			case 1: // no

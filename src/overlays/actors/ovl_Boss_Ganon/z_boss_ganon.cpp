@@ -4426,7 +4426,7 @@ void BossGanon_LightBall_Update(Actor* thisx, GlobalContext* globalCtx2)
 		switch(pthis->unk_1C2)
 		{
 			case 0:
-				if((player->stateFlags1 & 2) && (ABS((s16)(player->actor.shape.rot.y - (s16)(ganondorf->actor.yawTowardsPlayer + 0x8000))) < 0x2000) && (sqrtf(SQ(xDistFromLink) + SQ(yDistFromLink) + SQ(zDistFromLink)) <= 25.0f))
+				if((player->stateFlags1 & PLAYER_STATE1_1) && (ABS((s16)(player->actor.shape.rot.y - (s16)(ganondorf->actor.yawTowardsPlayer + 0x8000))) < 0x2000) && (sqrtf(SQ(xDistFromLink) + SQ(yDistFromLink) + SQ(zDistFromLink)) <= 25.0f))
 				{
 					hitWithBottle = true;
 				}
