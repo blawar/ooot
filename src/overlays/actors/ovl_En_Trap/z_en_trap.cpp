@@ -162,13 +162,13 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 		icePos = thisx->world.pos;
 		pthis->collider.base.acFlags &= ~AC_HIT;
 		Actor_SetColorFilter(thisx, 0, 250, 0, 250);
-		icePos.y += 10.0f;
-		icePos.z += 10.0f;
+		icePos.y += 10.0f * FRAMERATE_SCALER;
+		icePos.z += 10.0f * FRAMERATE_SCALER;
 		EffectSsEnIce_SpawnFlyingVec3f(globalCtx, thisx, &icePos, 150, 150, 150, 250, 235, 245, 255, 1.8f);
-		icePos.x += 10.0f;
-		icePos.z -= 20.0f;
+		icePos.x += 10.0f * FRAMERATE_SCALER;
+		icePos.z -= 20.0f * FRAMERATE_SCALER;
 		EffectSsEnIce_SpawnFlyingVec3f(globalCtx, thisx, &icePos, 150, 150, 150, 250, 235, 245, 255, 1.8f);
-		icePos.x -= 20.0f;
+		icePos.x -= 20.0f * FRAMERATE_SCALER;
 		EffectSsEnIce_SpawnFlyingVec3f(globalCtx, thisx, &icePos, 150, 150, 150, 250, 235, 245, 255, 1.8f);
 	}
 	// If not frozen:
@@ -236,7 +236,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 		else if(thisx->params & SPIKETRAP_MODE_CIRCULAR)
 		{
 			temp_cond = Math_SinS(pthis->vAngularPos);
-			pthis->vAngularPos += pthis->vAngularVel;
+			pthis->vAngularPos += pthis->vAngularVel * FRAMERATE_SCALER;
 			// Every full circle make a sound:
 			if((temp_cond < 0.0f) && (Math_SinS(pthis->vAngularPos) >= 0.0f))
 			{

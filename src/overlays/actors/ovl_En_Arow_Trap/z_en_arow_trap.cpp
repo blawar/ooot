@@ -34,7 +34,7 @@ void EnArowTrap_Destroy(Actor* thisx, GlobalContext* globalCtx)
 {
 }
 
-void EnArowTrap_Update(Actor* thisx, GlobalContext* globalCtx)
+void adsssssasdd(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnArowTrap* pthis = (EnArowTrap*)thisx;
 

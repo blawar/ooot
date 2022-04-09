@@ -96,7 +96,7 @@ struct EnNb
 	/* 0x02E4 */ Vec3f initialPos;
 	/* 0x02F0 */ Vec3f finalPos;
 	/* 0x02FC */ s16 pathYaw;
-	/* 0x02FE */ u16 movementTimer;
+	/* 0x02FE */ Counter movementTimer;
 	/* 0x0300 */ struct_80034A14_arg1 unk_300;
 };
 

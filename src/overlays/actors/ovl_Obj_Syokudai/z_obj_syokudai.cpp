@@ -339,7 +339,7 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 		func_80093D84(globalCtx->state.gfxCtx);
 
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (pthis->flameTexScroll * -20) & 0x1FF, 0x20, 0x80));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (pthis->flameTexScroll.whole() * -20) & 0x1FF, 0x20, 0x80));
 
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 0, 255);
 
