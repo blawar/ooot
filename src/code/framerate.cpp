@@ -79,7 +79,7 @@ u64 frameRateDivisor()
 	return R_UPDATE_RATE;
 }
 
-Timer::Timer() : m_counter(0), m_counterInt(0)
+Timer::Timer() : m_counter(0), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF)
 {
 }
 
@@ -87,27 +87,38 @@ Timer::Timer(const Timer& t)
 {
 	m_counter = t.m_counter;
 	m_counterInt = t.m_counterInt;
+	m_min = t.m_min;
+	m_max = t.m_max;
 }
 
-Timer::Timer(float n) : m_counter(n), m_counterInt(n * COUNTER_SCALER)
+
+Timer::Timer(float n) : m_counter(n), m_counterInt(n * COUNTER_SCALER), m_min(-0x8000), m_max(0x7FFF)
 {
 	if(n == 0xFFFF)
 	{
 		bool error = true;
 	}
-	/*if(m_counterInt == 0)
+}
+
+Timer::Timer(float n, s64 min, s64 max) : m_counter(n), m_counterInt(n * COUNTER_SCALER), m_min(min), m_max(max)
+{
+	if(n == 0xFFFF)
 	{
-		if(n < 1.0f && n > 0.0f)
-		{
-			m_counterInt = 1;
-			update();
-		}
-		else if(n > -1.0f && n < 0.0f)
-		{
-			m_counterInt = -1;
-			update();
-		}
-	}*/
+		bool error = true;
+	}
+}
+
+void Timer::setRange(s64 min, s64 max)
+{
+	m_min = min;
+	m_max = max;
+}
+
+float Timer::frac() const
+{
+	float integer;
+	return modf(m_counter, &integer);
+	//return (m_counterInt % (s64)FRAMERATE_SCALER_INV) / (float)FRAMERATE_SCALER_INV;
 }
 
 Timer Timer::invalid()
@@ -119,6 +130,16 @@ Timer Timer::invalid()
 
 void Timer::update()
 {
+	while(m_counterInt > m_max * COUNTER_SCALER)
+	{
+		m_counterInt = (m_min * COUNTER_SCALER) + (m_counterInt - (m_max * COUNTER_SCALER + 1));
+	}
+
+	while(m_counterInt < m_min * COUNTER_SCALER)
+	{
+		m_counterInt = (m_max * COUNTER_SCALER) + (m_counterInt - (m_min * COUNTER_SCALER - 1));
+	}
+
 	m_counter = (float)m_counterInt * COUNTER_STEP;
 }
 
