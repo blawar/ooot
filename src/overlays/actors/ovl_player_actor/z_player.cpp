@@ -436,12 +436,12 @@ static const PlayerAgeProperties sAgeProperties[] = {
 };
 
 static u32 D_808535D0 = false;
-static f32 D_808535D4 = 0.0f;
+static f32 gJoystickMagnitude = 0.0f;
 static s16 D_808535D8 = 0;
-static s16 D_808535DC = 0;
+static s16 gInputCameraYaw = 0;
 static s32 D_808535E0 = 0;
 static s32 D_808535E4 = 0;
-static f32 D_808535E8 = 1.0f;
+static f32 gMovementScaler = 1.0f;
 static f32 D_808535EC = 1.0f;
 static u32 D_808535F0 = 0;
 static u32 D_808535F4 = 0;
@@ -1220,7 +1220,7 @@ s32 func_80832594(Player* pthis, s32 arg1, s32 arg2)
 {
 	s16 temp = pthis->unk_A80 - D_808535D8;
 
-	pthis->unk_850 += arg1 + (s16)(ABS(temp) * fabsf(D_808535D4) * 2.5415802156203426e-06f);
+	pthis->unk_850 += arg1 + (s16)(ABS(temp) * fabsf(gJoystickMagnitude) * 2.5415802156203426e-06f);
 
 	if(CHECK_BTN_ANY(sControlInput->press.button, BTN_A | BTN_B))
 	{
@@ -1578,16 +1578,16 @@ void func_8083315C(GlobalContext* globalCtx, Player* pthis)
 	s8 phi_v1;
 	s8 phi_v0;
 
-	pthis->unk_A7C = D_808535D4;
+	pthis->unk_A7C = gJoystickMagnitude;
 	pthis->unk_A80 = D_808535D8;
 
-	func_80077D10(&D_808535D4, &D_808535D8, sControlInput);
+	func_80077D10(&gJoystickMagnitude, &D_808535D8, sControlInput);
 
-	D_808535DC = Camera_GetInputDirYaw(GET_ACTIVE_CAM(globalCtx)) + D_808535D8;
+	gInputCameraYaw = Camera_GetInputDirYaw(GET_ACTIVE_CAM(globalCtx)) + D_808535D8;
 
 	pthis->unk_846 = (pthis->unk_846 + 1) % 4;
 
-	if(D_808535D4 < 55.0f)
+	if(gJoystickMagnitude < 55.0f)
 	{
 		phi_v0 = -1;
 		phi_v1 = -1;
@@ -1595,7 +1595,7 @@ void func_8083315C(GlobalContext* globalCtx, Player* pthis)
 	else
 	{
 		phi_v1 = (u16)(D_808535D8 + 0x2000) >> 9;
-		phi_v0 = (u16)((s16)(D_808535DC - pthis->actor.shape.rot.y) + 0x2000) >> 14;
+		phi_v0 = (u16)((s16)(gInputCameraYaw - pthis->actor.shape.rot.y) + 0x2000) >> 14;
 	}
 
 	pthis->unk_847[pthis->unk_846] = phi_v1;
@@ -1604,7 +1604,7 @@ void func_8083315C(GlobalContext* globalCtx, Player* pthis)
 
 void func_8083328C(GlobalContext* globalCtx, Player* pthis, LinkAnimationHeader* linkAnim)
 {
-	LinkAnimation_PlayOnceSetSpeed(globalCtx, &pthis->skelAnime, linkAnim, D_808535E8);
+	LinkAnimation_PlayOnceSetSpeed(globalCtx, &pthis->skelAnime, linkAnim, gMovementScaler);
 }
 
 s32 Player_IsSwimmingWithoutIronBoots(Player* pthis)
@@ -3591,7 +3591,7 @@ s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* arg2, s16* arg3,
 	}
 	else
 	{
-		*arg2 = D_808535D4;
+		*arg2 = gJoystickMagnitude;
 		*arg3 = D_808535D8;
 
 		if(arg4 != 0.0f)
@@ -3612,7 +3612,7 @@ s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* arg2, s16* arg3,
 			*arg2 *= 0.8f;
 		}
 
-		if(D_808535D4 != 0.0f)
+		if(gJoystickMagnitude != 0.0f)
 		{
 			temp_f0 = Math_SinS(pthis->unk_898);
 			temp_f12 = pthis->unk_880;
@@ -4457,7 +4457,7 @@ void func_80838940(Player* pthis, LinkAnimationHeader* anim, f32 arg2, GlobalCon
 		func_808322D0(globalCtx, pthis, anim);
 	}
 
-	pthis->actor.velocity.y = arg2 * D_808535E8;
+	pthis->actor.velocity.y = arg2 * gMovementScaler;
 	pthis->hoverBootsTimer = 0;
 	pthis->actor.bgCheckFlags &= ~1;
 
@@ -5896,7 +5896,7 @@ s32 func_8083BBA0(Player* pthis, GlobalContext* globalCtx)
 void Player_StartRolling(Player* pthis, GlobalContext* globalCtx)
 {
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateWhenRolling, 0);
-	LinkAnimation_PlayOnceSetSpeed(globalCtx, &pthis->skelAnime, D_80853A94[pthis->modelAnimType], 1.25f * D_808535E8);
+	LinkAnimation_PlayOnceSetSpeed(globalCtx, &pthis->skelAnime, D_80853A94[pthis->modelAnimType], 1.25f * gMovementScaler);
 }
 
 s32 func_8083BC7C(Player* pthis, GlobalContext* globalCtx)
@@ -6367,7 +6367,7 @@ void func_8083CD54(GlobalContext* globalCtx, Player* pthis, s16 yaw)
 	pthis->currentYaw = yaw;
 	Player_SetUpdateFunct(globalCtx, pthis, func_80841BA8, 1);
 	pthis->unk_87E = 1200;
-	pthis->unk_87E *= D_808535E8;
+	pthis->unk_87E *= gMovementScaler;
 	LinkAnimation_Change(globalCtx, &pthis->skelAnime, D_80853B84[pthis->modelAnimType], 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -6.0f);
 }
 
@@ -8020,7 +8020,7 @@ void func_808409CC(GlobalContext* globalCtx, Player* pthis)
 		}
 	}
 
-	LinkAnimation_Change(globalCtx, &pthis->skelAnime, anim, (2.0f / 3.0f) * D_808535E8, 0.0f, Animation_GetLastFrame(anim), ANIMMODE_ONCE, -6.0f);
+	LinkAnimation_Change(globalCtx, &pthis->skelAnime, anim, (2.0f / 3.0f) * gMovementScaler, 0.0f, Animation_GetLastFrame(anim), ANIMMODE_ONCE, -6.0f);
 }
 
 void func_80840BC8(Player* pthis, GlobalContext* globalCtx)
@@ -10298,7 +10298,7 @@ void func_80845CA4(Player* pthis, GlobalContext* globalCtx)
 		}
 		else if(pthis->unk_84F == 0)
 		{
-			sp3C = 5.0f * D_808535E8;
+			sp3C = 5.0f * gMovementScaler;
 
 			if(func_80845BA0(globalCtx, pthis, &sp3C, -1) < 30)
 			{
@@ -12226,14 +12226,14 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 
 		if(pthis->stateFlags1 & PLAYER_STATE_SWIMMING)
 		{
-			D_808535E8 = 0.5f;
+			gMovementScaler = 0.5f;
 		}
 		else
 		{
-			D_808535E8 = 1.0f;
+			gMovementScaler = 1.0f;
 		}
 
-		D_808535EC = 1.0f / D_808535E8;
+		D_808535EC = 1.0f / gMovementScaler;
 		D_80853614 = D_80853618 = 0;
 		D_80858AA4 = pthis->currentMask;
 
@@ -17084,12 +17084,12 @@ void Player_Reset()
 	sControlInput = nullptr;
 
 	D_808535D0 = false;
-	D_808535D4 = 0.0f;
+	gJoystickMagnitude = 0.0f;
 	D_808535D8 = 0;
-	D_808535DC = 0;
+	gInputCameraYaw = 0;
 	D_808535E0 = 0;
 	D_808535E4 = 0;
-	D_808535E8 = 1.0f;
+	gMovementScaler = 1.0f;
 	D_808535EC = 1.0f;
 	D_808535F0 = 0;
 	D_808535F4 = 0;
