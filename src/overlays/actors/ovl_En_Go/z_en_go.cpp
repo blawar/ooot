@@ -1478,9 +1478,7 @@ void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx)
 	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_go.c", 2626);
 	firstDone = false;
 	func_80093D84(globalCtx->state.gfxCtx);
-	if(1)
-	{
-	}
+
 	for(i = 0; i < ARRAY_COUNT(pthis->dustEffects); i++, dustEffect++)
 	{
 		if(dustEffect->type)

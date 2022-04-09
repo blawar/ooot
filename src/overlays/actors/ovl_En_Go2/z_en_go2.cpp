@@ -1440,7 +1440,7 @@ s32 EnGo2_IsCameraModified(EnGo2* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void EnGo2_DefaultWakingUp(EnGo2* pthis)
+void EnGo2_Awake(EnGo2* pthis)
 {
 	if(EnGo2_IsWakingUp(pthis))
 	{
@@ -1509,7 +1509,7 @@ void EnGo2_SelectGoronWakingUp(EnGo2* pthis)
 				break;
 			}
 		default:
-			EnGo2_DefaultWakingUp(pthis);
+			EnGo2_Awake(pthis);
 	}
 }
 
