@@ -103,7 +103,6 @@ void ArrowLight_Hit(ArrowLight* pthis, GlobalContext* globalCtx)
 {
 	f32 scale;
 	f32 offset;
-	u16 timer;
 
 	if(pthis->actor.projectedW < 50.0f)
 	{
@@ -122,8 +121,7 @@ void ArrowLight_Hit(ArrowLight* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	timer = pthis->timer;
-	if(timer != 0)
+	if(pthis->timer != 0)
 	{
 		pthis->timer -= 1;
 

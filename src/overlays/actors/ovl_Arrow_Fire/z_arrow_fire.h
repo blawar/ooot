@@ -16,6 +16,6 @@ struct ArrowFire
 	/* 0x015C */ f32 unk_15C;
 	/* 0x0160 */ ArrowFireActionFunc actionFunc;
 	/* 0x0164 */ s16 radius;
-	/* 0x0166 */ u16 timer;
+	/* 0x0166 */ Timer timer;
 	/* 0x0168 */ u8 alpha;
 };
