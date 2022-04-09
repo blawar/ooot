@@ -143,7 +143,6 @@ void SpeedMeter_DrawAllocEntry(SpeedMeterAllocEntry* pthis, GraphicsContext* gfx
 	if(pthis->maxval == 0)
 	{
 		osSyncPrintf(VT_FGCOL(RED));
-		LOG_NUM("pthis->maxval", pthis->maxval, "../speed_meter.c", 313);
 		osSyncPrintf(VT_RST);
 	}
 	else

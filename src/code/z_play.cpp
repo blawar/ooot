@@ -974,56 +974,21 @@ void Gameplay_Update(GlobalContext* globalCtx)
 			}
 		}
 
-		if(1 && HREG(63))
-		{
-			LOG_NUM("1", 1, "../z_play.c", 3533);
-		}
-
 		if(1 && (gTrnsnUnkState != 3))
 		{
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3542);
-			}
-
 			if((gSaveContext.gameMode == 0) && (globalCtx->msgCtx.msgMode == MSGMODE_NONE) && (globalCtx->gameOverCtx.state == GAMEOVER_INACTIVE))
 			{
 				KaleidoSetup_Update(globalCtx);
 			}
 
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3551);
-			}
-
 			sp80 = (globalCtx->pauseCtx.state != 0) || (globalCtx->pauseCtx.debugState != 0);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3555);
-			}
 
 			AnimationContext_Reset(&globalCtx->animationCtx);
 
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3561);
-			}
-
 			Object_UpdateBank(&globalCtx->objectCtx);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3577);
-			}
 
 			if((sp80 == 0) && (IREG(72) == 0))
 			{
-				if(1 && HREG(63))
-				{
-					LOG_NUM("1", 1, "../z_play.c", 3580);
-				}
-
 				globalCtx->gameplayFrames++;
 
 				Rumble_Enable(1);
@@ -1044,83 +1009,25 @@ void Gameplay_Update(GlobalContext* globalCtx)
 				}
 				else
 				{
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3606);
-					}
-
 					func_800973FC(globalCtx, &globalCtx->roomCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3612);
-					}
 
 					CollisionCheck_AT(globalCtx, &globalCtx->colChkCtx);
 
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3618);
-					}
-
 					CollisionCheck_OC(globalCtx, &globalCtx->colChkCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3624);
-					}
 
 					CollisionCheck_Damage(globalCtx, &globalCtx->colChkCtx);
 
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3631);
-					}
-
 					CollisionCheck_ClearContext(globalCtx, &globalCtx->colChkCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3637);
-					}
 
 					if(globalCtx->unk_11DE9 == 0)
 					{
 						Actor_UpdateAll(globalCtx, &globalCtx->actorCtx);
 					}
 
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3643);
-					}
-
 					func_80064558(globalCtx, &globalCtx->csCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3648);
-					}
-
 					Cinema_Update(globalCtx, &globalCtx->csCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3651);
-					}
-
 					Effect_UpdateAll(globalCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3657);
-					}
-
 					EffectSs_UpdateAll(globalCtx);
-
-					if(1 && HREG(63))
-					{
-						LOG_NUM("1", 1, "../z_play.c", 3662);
-					}
 				}
 			}
 			else
@@ -1128,24 +1035,8 @@ void Gameplay_Update(GlobalContext* globalCtx)
 				Rumble_Enable(0);
 			}
 
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3672);
-			}
-
 			func_80095AA0(globalCtx, &globalCtx->roomCtx.curRoom, &input[1], 0);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3675);
-			}
-
 			func_80095AA0(globalCtx, &globalCtx->roomCtx.prevRoom, &input[1], 1);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3677);
-			}
 
 			if(globalCtx->unk_1242B != 0)
 			{
@@ -1173,83 +1064,28 @@ void Gameplay_Update(GlobalContext* globalCtx)
 				func_800BC450(globalCtx);
 			}
 
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3708);
-			}
-
 			SkyboxDraw_Update(&globalCtx->skyboxCtx);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3716);
-			}
 
 			if((globalCtx->pauseCtx.state != 0) || (globalCtx->pauseCtx.debugState != 0))
 			{
-				if(1 && HREG(63))
-				{
-					LOG_NUM("1", 1, "../z_play.c", 3721);
-				}
-
 				KaleidoScopeCall_Update(globalCtx);
 			}
 			else if(globalCtx->gameOverCtx.state != GAMEOVER_INACTIVE)
 			{
-				if(1 && HREG(63))
-				{
-					LOG_NUM("1", 1, "../z_play.c", 3727);
-				}
-
 				GameOver_Update(globalCtx);
 			}
 			else
 			{
-				if(1 && HREG(63))
-				{
-					LOG_NUM("1", 1, "../z_play.c", 3733);
-				}
-
 				Message_Update(globalCtx);
-			}
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3737);
-			}
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3742);
 			}
 
 			Interface_Update(globalCtx);
 
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3765);
-			}
-
 			AnimationContext_Update(globalCtx, &globalCtx->animationCtx);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3771);
-			}
 
 			func_8006BA30(globalCtx);
 
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3777);
-			}
-
 			ShrinkWindow_Update(R_UPDATE_RATE);
-
-			if(1 && HREG(63))
-			{
-				LOG_NUM("1", 1, "../z_play.c", 3783);
-			}
 
 			TransitionFade_Update(&globalCtx->transitionFade, R_UPDATE_RATE);
 		}
@@ -1259,17 +1095,7 @@ void Gameplay_Update(GlobalContext* globalCtx)
 		}
 	}
 
-	if(1 && HREG(63))
-	{
-		LOG_NUM("1", 1, "../z_play.c", 3799);
-	}
-
 skip:
-	if(1 && HREG(63))
-	{
-		LOG_NUM("1", 1, "../z_play.c", 3801);
-	}
-
 	if((sp80 == 0) || (gDbgCamEnabled))
 	{
 		s32 pad3[5];
@@ -1277,35 +1103,16 @@ skip:
 
 		globalCtx->nextCamera = globalCtx->activeCamera;
 
-		if(1 && HREG(63))
-		{
-			LOG_NUM("1", 1, "../z_play.c", 3806);
-		}
 
 		for(i = 0; i < NUM_CAMS; i++)
 		{
 			if((i != globalCtx->nextCamera) && (globalCtx->cameraPtrs[i] != NULL))
 			{
-				if(1 && HREG(63))
-				{
-					LOG_NUM("1", 1, "../z_play.c", 3809);
-				}
-
 				Camera_Update(globalCtx->cameraPtrs[i]);
 			}
 		}
 
 		Camera_Update(globalCtx->cameraPtrs[globalCtx->nextCamera]);
-
-		if(1 && HREG(63))
-		{
-			LOG_NUM("1", 1, "../z_play.c", 3814);
-		}
-	}
-
-	if(1 && HREG(63))
-	{
-		LOG_NUM("1", 1, "../z_play.c", 3816);
 	}
 
 	Environment_Update(globalCtx, &globalCtx->envCtx, &globalCtx->lightCtx, &globalCtx->pauseCtx, &globalCtx->msgCtx, &globalCtx->gameOverCtx, globalCtx->state.gfxCtx);
@@ -1633,11 +1440,6 @@ void Gameplay_Main(GameState* thisx)
 
 	D_8012D1F8 = &globalCtx->state.input[0];
 
-	if(1 && HREG(63))
-	{
-		LOG_NUM("1", 1, "../z_play.c", 4556);
-	}
-
 	if((HREG(80) == 10) && (HREG(94) != 10))
 	{
 		HREG(81) = 1;
@@ -1661,17 +1463,7 @@ void Gameplay_Main(GameState* thisx)
 		Gameplay_Update(globalCtx);
 	}
 
-	if(1 && HREG(63))
-	{
-		LOG_NUM("1", 1, "../z_play.c", 4583);
-	}
-
 	Gameplay_Draw(globalCtx);
-
-	if(1 && HREG(63))
-	{
-		LOG_NUM("1", 1, "../z_play.c", 4587);
-	}
 }
 
 // original name: "Game_play_demo_mode_check"
