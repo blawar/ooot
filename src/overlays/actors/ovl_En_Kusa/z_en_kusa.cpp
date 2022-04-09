@@ -423,9 +423,9 @@ void EnKusa_Fall(EnKusa* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	Vec3f contactPos;
 
-	if(pthis->actor.bgCheckFlags & 0xB)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1 | BG_STATE_3))
 	{
-		if(!(pthis->actor.bgCheckFlags & 0x20))
+		if(!(pthis->actor.bgCheckFlags & BG_STATE_5))
 		{
 			Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, NA_SE_EV_PLANT_BROKEN);
 		}
@@ -445,7 +445,7 @@ void EnKusa_Fall(EnKusa* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(pthis->actor.bgCheckFlags & 0x40)
+	if(pthis->actor.bgCheckFlags & BG_STATE_6)
 	{
 		contactPos.x = pthis->actor.world.pos.x;
 		contactPos.y = pthis->actor.world.pos.y + pthis->actor.yDistToWater;
@@ -459,7 +459,7 @@ void EnKusa_Fall(EnKusa* pthis, GlobalContext* globalCtx)
 		rotSpeedXtarget >>= 1;
 		rotSpeedY >>= 1;
 		rotSpeedYtarget >>= 1;
-		pthis->actor.bgCheckFlags &= ~0x40;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_6;
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 40, NA_SE_EV_DIVE_INTO_WATER_L);
 	}
 

@@ -1077,7 +1077,7 @@ void EnDekubaba_PrunedSomersault(EnDekubaba* pthis, GlobalContext* globalCtx)
 
 		EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, pthis->size * 3.0f, 0, pthis->size * 12.0f, pthis->size * 5.0f, 1, HAHEN_OBJECT_DEFAULT, 10, NULL);
 
-		if((pthis->actor.scale.x > 0.005f) && ((pthis->actor.bgCheckFlags & 2) || (pthis->actor.bgCheckFlags & 8)))
+		if((pthis->actor.scale.x > 0.005f) && ((pthis->actor.bgCheckFlags & BG_STATE_1) || (pthis->actor.bgCheckFlags & BG_STATE_3)))
 		{
 			pthis->actor.scale.x = pthis->actor.scale.y = pthis->actor.scale.z = 0.0f;
 			pthis->actor.speedXZ = 0.0f;
@@ -1085,7 +1085,7 @@ void EnDekubaba_PrunedSomersault(EnDekubaba* pthis, GlobalContext* globalCtx)
 			EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, pthis->size * 3.0f, 0, pthis->size * 12.0f, pthis->size * 5.0f, 15, HAHEN_OBJECT_DEFAULT, 10, NULL);
 		}
 
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 			pthis->timer = 1;

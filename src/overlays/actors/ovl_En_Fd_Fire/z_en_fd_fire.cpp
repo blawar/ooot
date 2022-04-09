@@ -166,11 +166,11 @@ void func_80A0E70C(EnFdFire* pthis, GlobalContext* globalCtx)
 	targetPos.x += pthis->spawnRadius * Math_SinS(pthis->actor.world.rot.y);
 	targetPos.z += pthis->spawnRadius * Math_CosS(pthis->actor.world.rot.y);
 	EnFdFire_UpdatePos(pthis, &targetPos);
-	if(pthis->actor.bgCheckFlags & 1 && (!(pthis->actor.velocity.y > 0.0f)))
+	if(pthis->actor.bgCheckFlags & BG_STATE_0 && (!(pthis->actor.velocity.y > 0.0f)))
 	{
 		pthis->actor.velocity = velocity;
 		pthis->actor.speedXZ = 0.0f;
-		pthis->actor.bgCheckFlags &= ~1;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 		if(pthis->actor.params & 0x8000)
 		{
 			pthis->deathTimer = 200;

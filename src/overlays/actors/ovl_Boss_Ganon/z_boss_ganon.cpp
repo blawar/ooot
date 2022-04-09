@@ -4590,7 +4590,7 @@ void BossGanon_LightBall_Update(Actor* thisx, GlobalContext* globalCtx2)
 			spBA = 4;
 		}
 
-		if((spBA != 0) || (pthis->actor.bgCheckFlags & 1))
+		if((spBA != 0) || (pthis->actor.bgCheckFlags & BG_STATE_0))
 		{
 			f32 sp58;
 			f32 sp54;

@@ -1703,7 +1703,7 @@ void func_80B51D24(EnZl2* pthis, GlobalContext* globalCtx)
 
 	if(Animation_OnFrame(skelAnime, 6.0f) || Animation_OnFrame(skelAnime, 0.0f))
 	{
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			sfxId = SFX_FLAG;
 			sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);

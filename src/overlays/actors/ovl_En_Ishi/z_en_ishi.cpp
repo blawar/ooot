@@ -165,13 +165,13 @@ void EnIshi_SpawnFragmentsSmall(EnIshi* pthis, GlobalContext* globalCtx)
 		pos.y = pthis->actor.world.pos.y + (Rand_ZeroOne() * 5.0f) + 5.0f;
 		pos.z = pthis->actor.world.pos.z + (Rand_ZeroOne() - 0.5f) * 8.0f;
 		Math_Vec3f_Copy(&velocity, &pthis->actor.velocity);
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			velocity.x *= 0.8f;
 			velocity.y *= -0.8f;
 			velocity.z *= 0.8f;
 		}
-		else if(pthis->actor.bgCheckFlags & 8)
+		else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			velocity.x *= -0.8f;
 			velocity.y *= 0.8f;
@@ -211,13 +211,13 @@ void EnIshi_SpawnFragmentsLarge(EnIshi* pthis, GlobalContext* globalCtx)
 		pos.y = pthis->actor.world.pos.y + (Rand_ZeroOne() * 40.0f) + 5.0f;
 		pos.z = pthis->actor.world.pos.z + (Math_CosS(angle) * rand);
 		Math_Vec3f_Copy(&velocity, &thisx->velocity);
-		if(thisx->bgCheckFlags & 1)
+		if(thisx->bgCheckFlags & BG_STATE_0)
 		{
 			velocity.x *= 0.9f;
 			velocity.y *= -0.8f;
 			velocity.z *= 0.9f;
 		}
-		else if(thisx->bgCheckFlags & 8)
+		else if(thisx->bgCheckFlags & BG_STATE_3)
 		{
 			velocity.x *= -0.9f;
 			velocity.y *= 0.8f;
@@ -251,13 +251,13 @@ void EnIshi_SpawnDustSmall(EnIshi* pthis, GlobalContext* globalCtx)
 	Vec3f pos;
 
 	Math_Vec3f_Copy(&pos, &pthis->actor.world.pos);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pos.x += 2.0f * pthis->actor.velocity.x;
 		pos.y -= 2.0f * pthis->actor.velocity.y;
 		pos.z += 2.0f * pthis->actor.velocity.z;
 	}
-	else if(pthis->actor.bgCheckFlags & 8)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pos.x -= 2.0f * pthis->actor.velocity.x;
 		pos.y += 2.0f * pthis->actor.velocity.y;
@@ -271,13 +271,13 @@ void EnIshi_SpawnDustLarge(EnIshi* pthis, GlobalContext* globalCtx)
 	Vec3f pos;
 
 	Math_Vec3f_Copy(&pos, &pthis->actor.world.pos);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pos.x += 2.0f * pthis->actor.velocity.x;
 		pos.y -= 2.0f * pthis->actor.velocity.y;
 		pos.z += 2.0f * pthis->actor.velocity.z;
 	}
-	else if(pthis->actor.bgCheckFlags & 8)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pos.x -= 2.0f * pthis->actor.velocity.x;
 		pos.y += 2.0f * pthis->actor.velocity.y;
@@ -493,11 +493,11 @@ void EnIshi_Fly(EnIshi* pthis, GlobalContext* globalCtx)
 	s32 quakeIdx;
 	Vec3f contactPos;
 
-	if(pthis->actor.bgCheckFlags & 9)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3))
 	{
 		EnIshi_DropCollectible(pthis, globalCtx);
 		sFragmentSpawnFuncs[type](pthis, globalCtx);
-		if(!(pthis->actor.bgCheckFlags & 0x20))
+		if(!(pthis->actor.bgCheckFlags & BG_STATE_5))
 		{
 			Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, sBreakSoundDurations[type], sBreakSounds[type]);
 			sDustSpawnFuncs[type](pthis, globalCtx);
@@ -513,7 +513,7 @@ void EnIshi_Fly(EnIshi* pthis, GlobalContext* globalCtx)
 		Actor_Kill(&pthis->actor);
 		return;
 	}
-	if(pthis->actor.bgCheckFlags & 0x40)
+	if(pthis->actor.bgCheckFlags & BG_STATE_6)
 	{
 		contactPos.x = pthis->actor.world.pos.x;
 		contactPos.y = pthis->actor.world.pos.y + pthis->actor.yDistToWater;
@@ -535,7 +535,7 @@ void EnIshi_Fly(EnIshi* pthis, GlobalContext* globalCtx)
 		sRotSpeedX >>= 2;
 		sRotSpeedY >>= 2;
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 40, NA_SE_EV_DIVE_INTO_WATER_L);
-		pthis->actor.bgCheckFlags &= ~0x40;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_6;
 	}
 	Math_StepToF(&pthis->actor.shape.yOffset, 0.0f, 2.0f);
 	EnIshi_Fall(pthis);

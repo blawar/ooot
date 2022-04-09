@@ -185,7 +185,7 @@ void func_80B5366C(EnZl3* pthis, GlobalContext* globalCtx)
 
 void func_80B536B4(EnZl3* pthis)
 {
-	pthis->actor.bgCheckFlags &= ~0x9;
+	pthis->actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_3);
 }
 
 void func_80B536C4(EnZl3* pthis)
@@ -1924,7 +1924,7 @@ void func_80B56E38(EnZl3* pthis, GlobalContext* globalCtx)
 	s32 sfxId;
 	SkelAnime* sp20 = &pthis->skelAnime;
 
-	if((Animation_OnFrame(sp20, 6.0f) || Animation_OnFrame(sp20, 0.0f)) && (pthis->actor.bgCheckFlags & 1))
+	if((Animation_OnFrame(sp20, 6.0f) || Animation_OnFrame(sp20, 0.0f)) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		sfxId = 0x800;
 		sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
@@ -2733,7 +2733,7 @@ s32 func_80B58938(EnZl3* pthis, GlobalContext* globalCtx)
 
 s32 func_80B5899C(EnZl3* pthis, GlobalContext* globalCtx)
 {
-	if((pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		Player* player = GET_PLAYER(globalCtx);
 		s8 invincibilityTimer = player->invincibilityTimer;

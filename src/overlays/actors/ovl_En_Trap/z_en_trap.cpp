@@ -202,7 +202,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 		{
 			pthis->vContinue = 1.0f;
 			// If physically touching a wall and wall faces towards spike trap
-			if((thisx->bgCheckFlags & 8) && (ABS(angleToWall) >= 0x6000))
+			if((thisx->bgCheckFlags & BG_STATE_3) && (ABS(angleToWall) >= 0x6000))
 			{
 				pthis->vContinue = 0.0f;
 			}
@@ -259,7 +259,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						{
 							pthis->vMovementMetric = 0.0f;
 						}
-						else if((thisx->bgCheckFlags & 8) && (ABS(angleToWall) > 0x6000))
+						else if((thisx->bgCheckFlags & BG_STATE_3) && (ABS(angleToWall) > 0x6000))
 						{
 							pthis->vMovementMetric = 0.0f;
 						}
@@ -282,7 +282,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						{
 							pthis->vMovementMetric = 0.0f;
 						}
-						else if((thisx->bgCheckFlags & 8) && (angleToWall < -0x2000) && (angleToWall > -0x6000))
+						else if((thisx->bgCheckFlags & BG_STATE_3) && (angleToWall < -0x2000) && (angleToWall > -0x6000))
 						{
 							pthis->vMovementMetric = 0.0f;
 							break;
@@ -307,7 +307,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						{
 							pthis->vMovementMetric = 0.0f;
 						}
-						else if((thisx->bgCheckFlags & 8) && (ABS(angleToWall) < 0x2000))
+						else if((thisx->bgCheckFlags & BG_STATE_3) && (ABS(angleToWall) < 0x2000))
 						{
 							pthis->vMovementMetric = 0.0f;
 							break;
@@ -332,7 +332,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						{
 							pthis->vMovementMetric = 0.0f;
 						}
-						else if((thisx->bgCheckFlags & 8) && (angleToWall > 0x2000) && (angleToWall < 0x6000))
+						else if((thisx->bgCheckFlags & BG_STATE_3) && (angleToWall > 0x2000) && (angleToWall < 0x6000))
 						{
 							pthis->vMovementMetric = 0.0f;
 							break;
@@ -378,7 +378,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 				switch(pthis->vClosestDirection)
 				{
 					case 0: // movement is closest to +z direction
-						if(thisx->bgCheckFlags & 8)
+						if(thisx->bgCheckFlags & BG_STATE_3)
 						{
 							if(ABS(thisx->wallYaw) > 0x6000)
 							{
@@ -391,7 +391,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						}
 						break;
 					case 0x4000: // movement is closest to +x direction
-						if(thisx->bgCheckFlags & 8)
+						if(thisx->bgCheckFlags & BG_STATE_3)
 						{
 							if((thisx->wallYaw < -0x2000) && (thisx->wallYaw > -0x6000))
 							{
@@ -404,7 +404,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						}
 						break;
 					case -0x8000: // movement is closest to -z direction
-						if(thisx->bgCheckFlags & 8)
+						if(thisx->bgCheckFlags & BG_STATE_3)
 						{
 							if(ABS(thisx->wallYaw) < 0x2000)
 							{
@@ -417,7 +417,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx)
 						}
 						break;
 					case -0x4000: // movement is closest to -x direction
-						if(thisx->bgCheckFlags & 8)
+						if(thisx->bgCheckFlags & BG_STATE_3)
 						{
 							if((thisx->wallYaw > 0x2000) && (thisx->wallYaw < 0x6000))
 							{

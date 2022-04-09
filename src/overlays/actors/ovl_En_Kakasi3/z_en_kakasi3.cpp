@@ -159,7 +159,7 @@ void func_80A90EBC(EnKakasi3* pthis, GlobalContext* globalCtx, s32 arg)
 	if(pthis->unk_19A != 0)
 	{
 		pthis->actor.gravity = -1.0f;
-		if(pthis->unk_19A == 8 && (pthis->actor.bgCheckFlags & 1))
+		if(pthis->unk_19A == 8 && (pthis->actor.bgCheckFlags & BG_STATE_0))
 		{
 			pthis->actor.velocity.y = 3.0f;
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_IT_KAKASHI_JUMP);

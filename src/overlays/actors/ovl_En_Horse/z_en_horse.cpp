@@ -3660,7 +3660,7 @@ void EnHorse_UpdateBgCheckInfo(EnHorse* pthis, GlobalContext* globalCtx)
 	}
 
 	// void 0 trick required to match, but is surely not real. revisit at a later time
-	if(pthis->actor.bgCheckFlags & 8 && Math_CosS(pthis->actor.wallYaw - ((void)0, pthis->actor.world).rot.y) < -0.3f)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3 && Math_CosS(pthis->actor.wallYaw - ((void)0, pthis->actor.world).rot.y) < -0.3f)
 	{
 		if(pthis->actor.speedXZ > 4.0f)
 		{

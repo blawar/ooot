@@ -204,7 +204,7 @@ void EnBoom_Fly(EnBoom* pthis, GlobalContext* globalCtx)
 				if(target->id == ACTOR_EN_ITEM00)
 				{
 					target->gravity = -0.9f;
-					target->bgCheckFlags &= ~0x03;
+					target->bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 				}
 				else
 				{

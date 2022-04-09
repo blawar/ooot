@@ -680,7 +680,7 @@ s32 EnGo_SpawnDust(EnGo* pthis, u8 initialTimer, f32 scale, f32 scaleStep, s32 n
 
 s32 EnGo_IsRollingOnGround(EnGo* pthis, s16 unkArg1, f32 unkArg2)
 {
-	if((pthis->actor.bgCheckFlags & 1) == 0 || pthis->actor.velocity.y > 0.0f)
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) == 0 || pthis->actor.velocity.y > 0.0f)
 	{
 		return false;
 	}

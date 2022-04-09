@@ -270,14 +270,14 @@ void EnBombf_Move(EnBombf* pthis, GlobalContext* globalCtx)
 
 	pthis->flowerBombScale = 1.0f;
 
-	if(!(pthis->actor.bgCheckFlags & 1))
+	if(!(pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.025f, 0.0f);
 	}
 	else
 	{
 		Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 1.5f, 0.0f);
-		if((pthis->actor.bgCheckFlags & 2) && (pthis->actor.velocity.y < -6.0f))
+		if((pthis->actor.bgCheckFlags & BG_STATE_1) && (pthis->actor.velocity.y < -6.0f))
 		{
 			func_8002F850(globalCtx, &pthis->actor);
 			pthis->actor.velocity.y *= -0.5f;
@@ -404,13 +404,13 @@ void EnBombf_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	if(thisx->params == BOMBFLOWER_BODY)
 	{
-		if((thisx->velocity.y > 0.0f) && (thisx->bgCheckFlags & 0x10))
+		if((thisx->velocity.y > 0.0f) && (thisx->bgCheckFlags & BG_STATE_4))
 		{
 			thisx->velocity.y = -thisx->velocity.y;
 		}
 
 		// rebound bomb off the wall it hits
-		if((thisx->speedXZ != 0.0f) && (thisx->bgCheckFlags & 8))
+		if((thisx->speedXZ != 0.0f) && (thisx->bgCheckFlags & BG_STATE_3))
 		{
 			if(ABS((s16)(thisx->wallYaw - thisx->world.rot.y)) > 0x4000)
 			{
@@ -425,7 +425,7 @@ void EnBombf_Update(Actor* thisx, GlobalContext* globalCtx)
 			Actor_UpdateBgCheckInfo(globalCtx, thisx, 5.0f, 10.0f, 0.0f, 0x1F);
 			DREG(6) = 0;
 			thisx->speedXZ *= 0.7f;
-			thisx->bgCheckFlags &= ~8;
+			thisx->bgCheckFlags &= ~BG_STATE_3;
 		}
 
 		if((pthis->bombCollider.base.acFlags & AC_HIT) || ((pthis->bombCollider.base.ocFlags1 & OC1_HIT) && (pthis->bombCollider.base.oc->category == ACTORCAT_ENEMY)))
@@ -534,9 +534,9 @@ void EnBombf_Update(Actor* thisx, GlobalContext* globalCtx)
 			Actor_Kill(thisx);
 			return;
 		}
-		if(thisx->bgCheckFlags & 0x40)
+		if(thisx->bgCheckFlags & BG_STATE_6)
 		{
-			thisx->bgCheckFlags &= ~0x40;
+			thisx->bgCheckFlags &= ~BG_STATE_6;
 			Audio_PlayActorSound2(thisx, NA_SE_EV_BOMB_DROP_WATER);
 		}
 	}

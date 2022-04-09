@@ -440,7 +440,7 @@ void func_80A74BA4(EnIk* pthis, GlobalContext* globalCtx)
 		sp2E = 9;
 	}
 	temp_a1 = pthis->actor.wallYaw - pthis->actor.shape.rot.y;
-	if((pthis->actor.bgCheckFlags & 8) && (ABS(temp_a1) >= 0x4000))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) && (ABS(temp_a1) >= 0x4000))
 	{
 		temp_a1 = (pthis->actor.yawTowardsPlayer > 0) ? pthis->actor.wallYaw - 0x4000 : pthis->actor.wallYaw + 0x4000;
 		Math_SmoothStepToS(&pthis->actor.world.rot.y, temp_a1, 1, phi_a3, 0);

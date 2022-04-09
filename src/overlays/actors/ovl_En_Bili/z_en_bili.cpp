@@ -354,7 +354,7 @@ void EnBili_UpdateFloating(EnBili* pthis)
 	pthis->actor.world.pos.y = pthis->actor.home.pos.y + (sinf(pthis->timer * (M_PI / 16)) * 3.0f);
 
 	// Turn around if touching wall
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->actor.world.rot.y = pthis->actor.wallYaw;
 	}
@@ -599,7 +599,7 @@ void EnBili_Stunned(EnBili* pthis, GlobalContext* globalCtx)
 		pthis->timer--;
 	}
 
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 	}
@@ -622,7 +622,7 @@ void EnBili_Frozen(EnBili* pthis, GlobalContext* globalCtx)
 		pthis->actor.gravity = -1.0f;
 	}
 
-	if((pthis->actor.bgCheckFlags & 1) || (pthis->actor.floorHeight == BGCHECK_Y_MIN))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->actor.floorHeight == BGCHECK_Y_MIN))
 	{
 		pthis->actor.colorFilterTimer = 0;
 		EnBili_SetupDie(pthis);

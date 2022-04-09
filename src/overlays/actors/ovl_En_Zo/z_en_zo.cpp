@@ -813,7 +813,7 @@ void EnZo_Dive(EnZo* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(pthis->actor.yDistToWater > 80.0f || pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.yDistToWater > 80.0f || pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_ApproachF(&pthis->actor.velocity.y, -1.0f, 0.4f, 0.6f);
 		Math_ApproachF(&pthis->alpha, 0.0f, 0.3f, 10.0f);

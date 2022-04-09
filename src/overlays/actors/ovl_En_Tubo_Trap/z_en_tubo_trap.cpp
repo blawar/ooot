@@ -186,7 +186,7 @@ void EnTuboTrap_HandleImpact(EnTuboTrap* pthis, GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 	Player* player2 = GET_PLAYER(globalCtx);
 
-	if((pthis->actor.bgCheckFlags & 0x20) && (pthis->actor.yDistToWater > 15.0f))
+	if((pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->actor.yDistToWater > 15.0f))
 	{
 		EnTuboTrap_SpawnEffectsInWater(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 40, NA_SE_EV_BOMB_DROP_WATER);
@@ -231,7 +231,7 @@ void EnTuboTrap_HandleImpact(EnTuboTrap* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((pthis->actor.bgCheckFlags & 8) || (pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		EnTuboTrap_SpawnEffectsOnLand(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 40, NA_SE_EV_POT_BROKEN);

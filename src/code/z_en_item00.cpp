@@ -5,6 +5,7 @@
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 #include "overlays/effects/ovl_Effect_Ss_Dead_Sound/z_eff_ss_dead_sound.h"
 #include "sfx.h"
+#include "player_state.h"
 #include "z64item.h"
 #include "z64player.h"
 #include "z64save.h"
@@ -623,7 +624,7 @@ void func_8001DFC8(EnItem00* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((pthis->actor.gravity != 0.0f) && !(pthis->actor.bgCheckFlags & 0x0001))
+	if((pthis->actor.gravity != 0.0f) && !(pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		EnItem00_SetupAction(pthis, func_8001E1C8);
 	}
@@ -647,7 +648,7 @@ void func_8001E1C8(EnItem00* pthis, GlobalContext* globalCtx)
 		EffectSsKiraKira_SpawnSmall(globalCtx, &effectPos, &sEffectVelocity, &sEffectAccel, &sEffectPrimColor, &sEffectEnvColor);
 	}
 
-	if(pthis->actor.bgCheckFlags & 0x0003)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 	{
 		originalVelocity = pthis->actor.velocity.y;
 		if(originalVelocity > -2.0f)
@@ -658,7 +659,7 @@ void func_8001E1C8(EnItem00* pthis, GlobalContext* globalCtx)
 		else
 		{
 			pthis->actor.velocity.y = originalVelocity * -0.8f;
-			pthis->actor.bgCheckFlags &= ~1;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 		}
 	}
 }
@@ -719,7 +720,7 @@ void func_8001E304(EnItem00* pthis, GlobalContext* globalCtx)
 		EffectSsKiraKira_SpawnSmall(globalCtx, &pos, &sEffectVelocity, &sEffectAccel, &sEffectPrimColor, &sEffectEnvColor);
 	}
 
-	if(pthis->actor.bgCheckFlags & 0x0003)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 	{
 		EnItem00_SetupAction(pthis, func_8001DFC8);
 		pthis->actor.shape.rot.z = 0;
@@ -803,7 +804,7 @@ void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx)
 
 	if(pthis->actor.gravity)
 	{
-		if(pthis->actor.bgCheckFlags & 0x0003)
+		if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 		{
 			if(*temp != globalCtx->gameplayFrames)
 			{

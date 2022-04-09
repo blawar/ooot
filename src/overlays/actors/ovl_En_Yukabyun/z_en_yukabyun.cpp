@@ -129,7 +129,7 @@ void EnYukabyun_Update(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 
 	if(((pthis->collider.base.atFlags & AT_HIT) || (pthis->collider.base.acFlags & AC_HIT) || ((pthis->collider.base.ocFlags1 & OC1_HIT) && !(pthis->collider.base.oc->id == ACTOR_EN_YUKABYUN))) ||
-	   ((pthis->actionfunc == func_80B43B6C) && (pthis->actor.bgCheckFlags & 8)))
+	   ((pthis->actionfunc == func_80B43B6C) && (pthis->actor.bgCheckFlags & BG_STATE_3)))
 	{
 		pthis->collider.base.atFlags &= ~AT_HIT;
 		pthis->collider.base.acFlags &= ~AC_HIT;

@@ -188,7 +188,7 @@ void ItemEtcetera_MoveFireArrowDown(ItemEtcetera* pthis, GlobalContext* globalCt
 {
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 10.0f, 10.0f, 0.0f, 5);
 	Actor_MoveForward(&pthis->actor);
-	if(!(pthis->actor.bgCheckFlags & 1))
+	if(!(pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		ItemEtcetera_SpawnSparkles(pthis, globalCtx);
 	}

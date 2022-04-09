@@ -119,7 +119,7 @@ void func_80ABBBA8(EnNutsball* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.home.rot.z += 0x2AA8;
 
-	if((pthis->actor.bgCheckFlags & 8) || (pthis->actor.bgCheckFlags & 1) || (pthis->collider.base.atFlags & AT_HIT) || (pthis->collider.base.acFlags & AC_HIT) || (pthis->collider.base.ocFlags1 & OC1_HIT))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->collider.base.atFlags & AT_HIT) || (pthis->collider.base.acFlags & AC_HIT) || (pthis->collider.base.ocFlags1 & OC1_HIT))
 	{
 		// Checking if the player is using a shield that reflects projectiles
 		// And if so, reflects the projectile on impact

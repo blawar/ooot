@@ -282,7 +282,7 @@ void func_80AE5270(EnReeba* pthis, GlobalContext* globalCtx)
 		pthis->actor.speedXZ = 0.0f;
 		pthis->actionfunc = func_80AE5688;
 	}
-	else if((pthis->unk_272 == 0) || (pthis->actor.xzDistToPlayer < 30.0f) || (pthis->actor.xzDistToPlayer > 400.0f) || (pthis->actor.bgCheckFlags & 8))
+	else if((pthis->unk_272 == 0) || (pthis->actor.xzDistToPlayer < 30.0f) || (pthis->actor.xzDistToPlayer > 400.0f) || (pthis->actor.bgCheckFlags & BG_STATE_3))
 	{
 		pthis->actionfunc = func_80AE5688;
 	}
@@ -315,7 +315,7 @@ void func_80AE53AC(EnReeba* pthis, GlobalContext* globalCtx)
 
 	surfaceType = func_80041D4C(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
 
-	if(((surfaceType != 4) && (surfaceType != 7)) || (pthis->actor.xzDistToPlayer > 400.0f) || (pthis->actor.bgCheckFlags & 8))
+	if(((surfaceType != 4) && (surfaceType != 7)) || (pthis->actor.xzDistToPlayer > 400.0f) || (pthis->actor.bgCheckFlags & BG_STATE_3))
 	{
 		pthis->actionfunc = func_80AE5688;
 	}

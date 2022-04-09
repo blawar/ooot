@@ -425,7 +425,7 @@ void func_80AB6100(EnNiw* pthis, GlobalContext* globalCtx, s32 arg2)
 	{
 		pthis->timer4 = 3;
 
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->actor.velocity.y = 3.5f;
 		}
@@ -446,7 +446,7 @@ void func_80AB6100(EnNiw* pthis, GlobalContext* globalCtx, s32 arg2)
 	}
 	if(arg2 == 1)
 	{
-		if(pthis->timer6 == 0 || pthis->actor.bgCheckFlags & 8)
+		if(pthis->timer6 == 0 || pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			pthis->timer6 = 150;
 			if(pthis->timer8 == 0)
@@ -493,7 +493,7 @@ void action_80AB6324(EnNiw* pthis, GlobalContext* globalCtx)
 
 void action_80AB63A8(EnNiw* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1 && pthis->actor.velocity.y < 0.0f)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0 && pthis->actor.velocity.y < 0.0f)
 	{
 		pthis->unk_2AC.x = pthis->unk_2B8.x = pthis->actor.world.pos.x;
 		pthis->unk_2AC.y = pthis->unk_2B8.y = pthis->actor.world.pos.y;
@@ -650,7 +650,7 @@ void action_80AB6570(EnNiw* pthis, GlobalContext* globalCtx)
 		else
 		{
 			pthis->timer4 = 4;
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				pthis->actor.speedXZ = 0.0f;
 				pthis->actor.velocity.y = 3.5f;
@@ -764,7 +764,7 @@ void func_80AB6D08(EnNiw* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->path == 0)
 	{
-		if(!(pthis->actor.bgCheckFlags & 1))
+		if(!(pthis->actor.bgCheckFlags & BG_STATE_0))
 		{
 			return;
 		}
@@ -788,7 +788,7 @@ void func_80AB6D08(EnNiw* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->sfxTimer1 = 0;
 			pthis->actor.velocity.y = 4.0f;
@@ -845,7 +845,7 @@ void action_bubbly_80AB6F04(EnNiw* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.speedXZ = 2.0f;
 
-	if(pthis->actor.bgCheckFlags & 0x20)
+	if(pthis->actor.bgCheckFlags & BG_STATE_5)
 	{
 		pthis->actor.gravity = 0.0f;
 
@@ -860,7 +860,7 @@ void action_bubbly_80AB6F04(EnNiw* pthis, GlobalContext* globalCtx)
 			pos.y += pthis->actor.yDistToWater;
 			EffectSsGRipple_Spawn(globalCtx, &pos, 100, 500, 30);
 		}
-		if(pthis->actor.bgCheckFlags & 8)
+		if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			pthis->actor.velocity.y = 10.0f;
 			pthis->actor.speedXZ = 1.0f;
@@ -870,7 +870,7 @@ void action_bubbly_80AB6F04(EnNiw* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.gravity = -2.0f;
 
-		if(pthis->actor.bgCheckFlags & 8)
+		if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			pthis->actor.velocity.y = 10.0f;
 			pthis->actor.speedXZ = 1.0f;
@@ -880,7 +880,7 @@ void action_bubbly_80AB6F04(EnNiw* pthis, GlobalContext* globalCtx)
 		{
 			pthis->actor.speedXZ = 4.0f;
 		}
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->actor.gravity = -2.0f;
 			pthis->timer6 = 100;
@@ -1006,7 +1006,7 @@ void action_80AB7328(EnNiw* pthis, GlobalContext* globalCtx)
 
 void action_jump(EnNiw* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->jumpY = (s16)Rand_ZeroFloat(3.99f) + 5;
 		pthis->actionFunc = EnNiw_ResetAction;
@@ -1179,7 +1179,7 @@ void EnNiw_Update(Actor* thisx, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(thisx->bgCheckFlags & 0x20 && thisx->yDistToWater > 15.0f && pthis->actionFunc != action_bubbly_80AB6F04 && thisx->params != 0xD && thisx->params != 0xE && thisx->params != 0xA)
+	if(thisx->bgCheckFlags & BG_STATE_5 && thisx->yDistToWater > 15.0f && pthis->actionFunc != action_bubbly_80AB6F04 && thisx->params != 0xD && thisx->params != 0xE && thisx->params != 0xA)
 	{
 		thisx->velocity.y = 0.0f;
 		thisx->gravity = 0.0f;

@@ -3,6 +3,7 @@
 #include "z64global.h"
 #include "sfx.h"
 #include "vt.h"
+#include "player_state.h"
 #include "def/graph.h" // FORCE
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -316,19 +317,19 @@ void EnAObj_BoulderFragment(EnAObj* pthis, GlobalContext* globalCtx)
 	pthis->dyna.actor.shape.rot.x += pthis->dyna.actor.world.rot.x >> 1;
 	pthis->dyna.actor.shape.rot.z += pthis->dyna.actor.world.rot.z >> 1;
 
-	if(pthis->dyna.actor.speedXZ != 0.0f && pthis->dyna.actor.bgCheckFlags & 0x8)
+	if(pthis->dyna.actor.speedXZ != 0.0f && pthis->dyna.actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->dyna.actor.world.rot.y = pthis->dyna.actor.wallYaw - pthis->dyna.actor.world.rot.y + pthis->dyna.actor.wallYaw - 0x8000;
-		pthis->dyna.actor.bgCheckFlags &= ~0x8;
+		pthis->dyna.actor.bgCheckFlags &= ~BG_STATE_3;
 	}
 
-	if(pthis->dyna.actor.bgCheckFlags & 0x2)
+	if(pthis->dyna.actor.bgCheckFlags & BG_STATE_1)
 	{
 		if(pthis->dyna.actor.velocity.y < -8.0f)
 		{
 			pthis->dyna.actor.velocity.y *= -0.6f;
 			pthis->dyna.actor.speedXZ *= 0.6f;
-			pthis->dyna.actor.bgCheckFlags &= ~0x3;
+			pthis->dyna.actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 		}
 		else
 		{

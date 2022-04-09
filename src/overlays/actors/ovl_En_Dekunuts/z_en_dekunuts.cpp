@@ -437,11 +437,11 @@ void EnDekunuts_Run(EnDekunuts* pthis, GlobalContext* globalCtx)
 	Math_StepToF(&pthis->actor.speedXZ, 7.5f, 1.0f);
 	if(Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->runDirection, 1, 0xE38, 0xB6) == 0)
 	{
-		if(pthis->actor.bgCheckFlags & 0x20)
+		if(pthis->actor.bgCheckFlags & BG_STATE_5)
 		{
 			pthis->runDirection = Actor_WorldYawTowardPoint(&pthis->actor, &pthis->actor.home.pos);
 		}
-		else if(pthis->actor.bgCheckFlags & 8)
+		else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			pthis->runDirection = pthis->actor.wallYaw;
 		}

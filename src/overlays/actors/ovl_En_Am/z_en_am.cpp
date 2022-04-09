@@ -200,7 +200,7 @@ s32 EnAm_CanMove(EnAm* pthis, GlobalContext* globalCtx, f32 distance, s16 yaw)
 
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->dyna.actor, 0.0f, 0.0f, 0.0f, 4);
 	pthis->dyna.actor.world.pos = curPos;
-	ret = pthis->dyna.actor.bgCheckFlags & 1;
+	ret = pthis->dyna.actor.bgCheckFlags & BG_STATE_0;
 
 	if(!ret && (pthis->dyna.actor.floorHeight >= (pthis->dyna.actor.home.pos.y - 20.0f)))
 	{
@@ -477,7 +477,7 @@ void EnAm_RotateToHome(EnAm* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->skelAnime.curFrame > 11.0f)
 	{
-		if(!(pthis->dyna.actor.bgCheckFlags & 1))
+		if(!(pthis->dyna.actor.bgCheckFlags & BG_STATE_0))
 		{
 			pthis->skelAnime.curFrame = 11;
 		}
@@ -521,7 +521,7 @@ void EnAm_RotateToInit(EnAm* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->skelAnime.curFrame > 11.0f)
 	{
-		if(!(pthis->dyna.actor.bgCheckFlags & 1))
+		if(!(pthis->dyna.actor.bgCheckFlags & BG_STATE_0))
 		{
 			pthis->skelAnime.curFrame = 11;
 		}
@@ -567,7 +567,7 @@ void EnAm_MoveToHome(EnAm* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->skelAnime.curFrame > 11.0f)
 	{
-		if(!(pthis->dyna.actor.bgCheckFlags & 1))
+		if(!(pthis->dyna.actor.bgCheckFlags & BG_STATE_0))
 		{
 			pthis->skelAnime.curFrame = 11;
 		}
@@ -575,7 +575,7 @@ void EnAm_MoveToHome(EnAm* pthis, GlobalContext* globalCtx)
 		{
 			Math_SmoothStepToS(&pthis->dyna.actor.world.rot.y, yawToHome, 1, 0xBB8, 0);
 
-			if(pthis->dyna.actor.bgCheckFlags & 2)
+			if(pthis->dyna.actor.bgCheckFlags & BG_STATE_1)
 			{
 				pthis->unk_258--;
 			}
@@ -593,7 +593,7 @@ void EnAm_MoveToHome(EnAm* pthis, GlobalContext* globalCtx)
 	}
 
 	// turn away from a wall if touching one
-	if((pthis->dyna.actor.speedXZ != 0.0f) && (pthis->dyna.actor.bgCheckFlags & 8))
+	if((pthis->dyna.actor.speedXZ != 0.0f) && (pthis->dyna.actor.bgCheckFlags & BG_STATE_3))
 	{
 		pthis->dyna.actor.world.rot.y = pthis->dyna.actor.wallYaw;
 		Actor_MoveForward(&pthis->dyna.actor);
@@ -647,7 +647,7 @@ void EnAm_Cooldown(EnAm* pthis, GlobalContext* globalCtx)
 		}
 		else if(pthis->skelAnime.curFrame > 11.0f)
 		{
-			if(!(pthis->dyna.actor.bgCheckFlags & 1))
+			if(!(pthis->dyna.actor.bgCheckFlags & BG_STATE_0))
 			{
 				pthis->skelAnime.curFrame = 11;
 			}
@@ -701,7 +701,7 @@ void EnAm_Lunge(EnAm* pthis, GlobalContext* globalCtx)
 		}
 		else if(pthis->skelAnime.curFrame > 11.0f)
 		{
-			if(!(pthis->dyna.actor.bgCheckFlags & 1))
+			if(!(pthis->dyna.actor.bgCheckFlags & BG_STATE_0))
 			{
 				pthis->skelAnime.curFrame = 11;
 			}
@@ -709,7 +709,7 @@ void EnAm_Lunge(EnAm* pthis, GlobalContext* globalCtx)
 			{
 				Math_SmoothStepToS(&pthis->dyna.actor.world.rot.y, pthis->dyna.actor.yawTowardsPlayer, 1, 0x1770, 0);
 
-				if(pthis->dyna.actor.bgCheckFlags & 2)
+				if(pthis->dyna.actor.bgCheckFlags & BG_STATE_1)
 				{
 					pthis->unk_258--;
 				}
@@ -728,11 +728,11 @@ void EnAm_Lunge(EnAm* pthis, GlobalContext* globalCtx)
 		}
 
 		// turn and move away from a wall if contact is made with one
-		if((pthis->dyna.actor.speedXZ != 0.0f) && (pthis->dyna.actor.bgCheckFlags & 8))
+		if((pthis->dyna.actor.speedXZ != 0.0f) && (pthis->dyna.actor.bgCheckFlags & BG_STATE_3))
 		{
 			pthis->dyna.actor.world.rot.y = (pthis->dyna.actor.wallYaw - pthis->dyna.actor.world.rot.y) + pthis->dyna.actor.wallYaw;
 			Actor_MoveForward(&pthis->dyna.actor);
-			pthis->dyna.actor.bgCheckFlags &= ~8;
+			pthis->dyna.actor.bgCheckFlags &= ~BG_STATE_3;
 		}
 
 		SkelAnime_Update(&pthis->skelAnime);
@@ -785,7 +785,7 @@ void EnAm_Statue(EnAm* pthis, GlobalContext* globalCtx)
 			moveDir = Math_Vec3f_Yaw(&pthis->dyna.actor.world.pos, &pthis->hurtCollider.base.oc->world.pos) - temp158f;
 		}
 
-		if((pthis->dyna.unk_150 == 0.0f) || (pthis->unk_258 == 0) || !(pthis->dyna.actor.bgCheckFlags & 1) || !func_800435D8(globalCtx, &pthis->dyna, 0x14, (Math_SinS(pthis->unk_258) * (pthis->dyna.unk_150 * 0.5f)) + 40.0f, 0xA) ||
+		if((pthis->dyna.unk_150 == 0.0f) || (pthis->unk_258 == 0) || !(pthis->dyna.actor.bgCheckFlags & BG_STATE_0) || !func_800435D8(globalCtx, &pthis->dyna, 0x14, (Math_SinS(pthis->unk_258) * (pthis->dyna.unk_150 * 0.5f)) + 40.0f, 0xA) ||
 		   ((pthis->hurtCollider.base.ocFlags1 & OC1_HIT) && (ABS(moveDir) <= 0x2000)))
 		{
 			pthis->unk_258 = 0;
@@ -798,7 +798,7 @@ void EnAm_Statue(EnAm* pthis, GlobalContext* globalCtx)
 		pthis->dyna.actor.speedXZ = Math_SinS(pthis->unk_258) * (pthis->dyna.unk_150 * 0.5f);
 	}
 
-	if(pthis->dyna.actor.bgCheckFlags & 2)
+	if(pthis->dyna.actor.bgCheckFlags & BG_STATE_1)
 	{
 		Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);
 	}

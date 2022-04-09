@@ -2400,11 +2400,11 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx)
 					Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 15.0f, 30.0f, 30.0f, 0x43);
 					pthis->actor.world.pos = sp80;
 
-					if(pthis->actor.bgCheckFlags & 0x10)
+					if(pthis->actor.bgCheckFlags & BG_STATE_4)
 					{
 						D_80B7E0E8.y = -0.5f;
 					}
-					if(pthis->actor.bgCheckFlags & 8)
+					if(pthis->actor.bgCheckFlags & BG_STATE_3)
 					{
 						if(D_80B7E0E8.y > 0.0f)
 						{
@@ -4707,12 +4707,12 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 
 			pthis->actor.velocity.y = velocityY;
 
-			if(pthis->actor.bgCheckFlags & 8)
+			if(pthis->actor.bgCheckFlags & BG_STATE_3)
 			{
 				pthis->unk_1A0 = 20;
 			}
 
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				if(pthis->actor.world.pos.y > WATER_SURFACE_Y(globalCtx))
 				{

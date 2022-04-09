@@ -441,7 +441,7 @@ void func_80A4ED34(EnGs* pthis, GlobalContext* globalCtx)
 	if(pthis->unk_19F == 4)
 	{
 		Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 20.0f, 20.0f, 60.0f, 3);
-		if(pthis->actor.bgCheckFlags & 0x18)
+		if(pthis->actor.bgCheckFlags & (BG_STATE_3 | BG_STATE_4))
 		{
 			bomb2Pos.x = pthis->actor.world.pos.x;
 			bomb2Pos.y = pthis->actor.world.pos.y;

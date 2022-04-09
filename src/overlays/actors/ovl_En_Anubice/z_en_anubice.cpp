@@ -377,7 +377,7 @@ void EnAnubice_Die(EnAnubice* pthis, GlobalContext* globalCtx)
 	Actor_SetColorFilter(&pthis->actor, 0x4000, 0x80, 0, 8);
 	EffectSsEnFire_SpawnVec3f(globalCtx, &pthis->actor, &fireEffectPos, 100, 0, 0, -1);
 
-	if(pthis->animLastFrame <= curFrame && (pthis->actor.bgCheckFlags & 1))
+	if(pthis->animLastFrame <= curFrame && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		Math_ApproachF(&pthis->actor.shape.yOffset, -4230.0f, 0.5f, 300.0f);
 		if(pthis->actor.shape.yOffset < -2000.0f)

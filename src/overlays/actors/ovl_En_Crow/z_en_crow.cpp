@@ -162,7 +162,7 @@ void EnCrow_SetupDamaged(EnCrow* pthis, GlobalContext* globalCtx)
 	Animation_Change(&pthis->skelAnime, &gGuayFlyAnim, 0.4f, 0.0f, 0.0f, ANIMMODE_LOOP_INTERP, -3.0f);
 	scale = pthis->actor.scale.x * 100.0f;
 	pthis->actor.world.pos.y += 20.0f * scale;
-	pthis->actor.bgCheckFlags &= ~1;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 	pthis->actor.shape.yOffset = 0.0f;
 	pthis->actor.targetArrowOffset = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_KAICHO_DEAD);
@@ -258,7 +258,7 @@ void EnCrow_FlyIdle(EnCrow* pthis, GlobalContext* globalCtx)
 	skelanimeUpdated = Animation_OnFrame(&pthis->skelAnime, 0.0f);
 	pthis->actor.speedXZ = (Rand_ZeroOne() * 1.5f) + 3.0f;
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->aimRotY = pthis->actor.wallYaw;
 	}
@@ -307,7 +307,7 @@ void EnCrow_FlyIdle(EnCrow* pthis, GlobalContext* globalCtx)
 		pthis->aimRotX = CLAMP(pthis->aimRotX, -0x1000, 0x1000);
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_ScaledStepToS(&pthis->actor.shape.rot.x, -0x100, 0x400);
 	}
@@ -359,7 +359,7 @@ void EnCrow_DiveAttack(EnCrow* pthis, GlobalContext* globalCtx)
 		Math_ApproachS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 4, 0xC00);
 	}
 
-	if((pthis->timer == 0) || (Player_GetMask(globalCtx) == PLAYER_MASK_SKULL) || (pthis->collider.base.atFlags & AT_HIT) || (pthis->actor.bgCheckFlags & 9) || (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (pthis->actor.yDistToWater > -40.0f))
+	if((pthis->timer == 0) || (Player_GetMask(globalCtx) == PLAYER_MASK_SKULL) || (pthis->collider.base.atFlags & AT_HIT) || (pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3)) || (player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (pthis->actor.yDistToWater > -40.0f))
 	{
 		if(pthis->collider.base.atFlags & AT_HIT)
 		{
@@ -383,7 +383,7 @@ void EnCrow_Damaged(EnCrow* pthis, GlobalContext* globalCtx)
 			Math_ScaledStepToS(&pthis->actor.shape.rot.x, 0x4000, 0x200);
 			pthis->actor.shape.rot.z += 0x1780;
 		}
-		if((pthis->actor.bgCheckFlags & 1) || (pthis->actor.floorHeight == BGCHECK_Y_MIN))
+		if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->actor.floorHeight == BGCHECK_Y_MIN))
 		{
 			EffectSsDeadDb_Spawn(globalCtx, &pthis->actor.world.pos, &sZeroVecAccel, &sZeroVecAccel, pthis->actor.scale.x * 10000.0f, 0, 255, 255, 255, 255, 255, 0, 0, 1, 9, 1);
 			EnCrow_SetupDie(pthis);
@@ -425,7 +425,7 @@ void EnCrow_TurnAway(EnCrow* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->aimRotY = pthis->actor.wallYaw;
 	}

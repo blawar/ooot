@@ -444,7 +444,7 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx)
 		}
 
 		Math_Vec3f_Copy(&sCameraAt, &player->actor.world.pos);
-		if(player->actor.bgCheckFlags & 2)
+		if(player->actor.bgCheckFlags & BG_STATE_1)
 		{
 			if(!pthis->ready)
 			{
@@ -1919,7 +1919,7 @@ void BossSst_HandPunch(BossSst* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.world.pos.x += pthis->actor.speedXZ * Math_SinS(pthis->actor.shape.rot.y);
 	pthis->actor.world.pos.z += pthis->actor.speedXZ * Math_CosS(pthis->actor.shape.rot.y);
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		BossSst_HandSetupRetreat(pthis);
 	}

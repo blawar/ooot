@@ -531,7 +531,7 @@ void EnBb_SetupDamage(EnBb* pthis)
 	if(pthis->actor.params > ENBB_GREEN)
 	{
 		pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
-		if((pthis->actor.bgCheckFlags & 8) == 0)
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) == 0)
 		{
 			pthis->actor.speedXZ = -7.0f;
 		}
@@ -682,7 +682,7 @@ void EnBb_Blue(EnBb* pthis, GlobalContext* globalCtx)
 		}
 		thisYawToWall = pthis->actor.wallYaw - pthis->actor.world.rot.y;
 		moveYawToWall = pthis->actor.wallYaw - pthis->vMoveAngleY;
-		if((pthis->targetActor == NULL) && (pthis->actor.bgCheckFlags & 8) && (ABS(thisYawToWall) > 0x4000 || ABS(moveYawToWall) > 0x4000))
+		if((pthis->targetActor == NULL) && (pthis->actor.bgCheckFlags & BG_STATE_3) && (ABS(thisYawToWall) > 0x4000 || ABS(moveYawToWall) > 0x4000))
 		{
 			pthis->vMoveAngleY = pthis->actor.wallYaw + pthis->actor.wallYaw - pthis->actor.world.rot.y - 0x8000;
 			Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->vMoveAngleY, 1, 0xBB8, 0);
@@ -741,7 +741,7 @@ void EnBb_SetupDown(EnBb* pthis)
 	pthis->action = BB_DOWN;
 	pthis->timer = 200;
 	pthis->actor.colorFilterTimer = 0;
-	pthis->actor.bgCheckFlags &= ~1;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 	pthis->actor.speedXZ = 3.0f;
 	pthis->flameScaleX = 0.0f;
 	pthis->flameScaleY = 0.0f;
@@ -755,15 +755,15 @@ void EnBb_Down(EnBb* pthis, GlobalContext* globalCtx)
 	s16 yawDiff = pthis->actor.world.rot.y - pthis->actor.wallYaw;
 
 	SkelAnime_Update(&pthis->skelAnime);
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		if(ABS(yawDiff) > 0x4000)
 		{
 			pthis->actor.world.rot.y = pthis->actor.wallYaw + pthis->actor.wallYaw - pthis->actor.world.rot.y - 0x8000;
 		}
-		pthis->actor.bgCheckFlags &= ~8;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 	}
-	if(pthis->actor.bgCheckFlags & 3)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 	{
 		if(pthis->actor.params == ENBB_RED)
 		{
@@ -789,7 +789,7 @@ void EnBb_Down(EnBb* pthis, GlobalContext* globalCtx)
 		{
 			pthis->actor.velocity.y = 10.0f;
 		}
-		pthis->actor.bgCheckFlags &= ~1;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 		Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->actor.world.pos, 7.0f, 2, 2.0f, 0, 0, 0);
 		Math_SmoothStepToS(&pthis->actor.world.rot.y, -pthis->actor.yawTowardsPlayer, 1, 0xBB8, 0);
 	}
@@ -840,7 +840,7 @@ void EnBb_SetupRed(GlobalContext* globalCtx, EnBb* pthis)
 		pthis->actionState = BBRED_ATTACK;
 		pthis->timer = 0;
 		pthis->moveMode = BBMOVE_NORMAL;
-		pthis->actor.bgCheckFlags &= ~1;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 	}
 	else
 	{
@@ -851,7 +851,7 @@ void EnBb_SetupRed(GlobalContext* globalCtx, EnBb* pthis)
 		pthis->actor.world.pos.y -= 80.0f;
 		pthis->actor.home.pos = pthis->actor.world.pos;
 		pthis->actor.velocity.y = pthis->actor.gravity = pthis->actor.speedXZ = 0.0f;
-		pthis->actor.bgCheckFlags &= ~1;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 		pthis->actor.flags &= ~ACTOR_FLAG_0;
 	}
 	pthis->action = BB_RED;
@@ -881,7 +881,7 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 				pthis->actor.velocity.y = 18.0f;
 				pthis->moveMode = BBMOVE_NOCLIP;
 				pthis->timer = 7;
-				pthis->actor.bgCheckFlags &= ~1;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 				pthis->actionState++;
 				EnBb_SpawnFlameTrail(globalCtx, pthis, false);
 			}
@@ -895,16 +895,16 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 			pthis->bobPhase += Rand_ZeroOne();
 			Math_SmoothStepToF(&pthis->flameScaleY, 80.0f, 1.0f, 10.0f, 0.0f);
 			Math_SmoothStepToF(&pthis->flameScaleX, 100.0f, 1.0f, 10.0f, 0.0f);
-			if(pthis->actor.bgCheckFlags & 8)
+			if(pthis->actor.bgCheckFlags & BG_STATE_3)
 			{
 				yawDiff = pthis->actor.world.rot.y - pthis->actor.wallYaw;
 				if(ABS(yawDiff) > 0x4000)
 				{
 					pthis->actor.world.rot.y = pthis->actor.wallYaw + pthis->actor.wallYaw - pthis->actor.world.rot.y - 0x8000;
 				}
-				pthis->actor.bgCheckFlags &= ~8;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 			}
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				floorType = func_80041D4C(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
 				if((floorType == 2) || (floorType == 3) || (floorType == 9))
@@ -923,7 +923,7 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 					}
 					pthis->actor.world.rot.y = Math_SinF(pthis->bobPhase) * 65535.0f;
 				}
-				pthis->actor.bgCheckFlags &= ~1;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 			}
 			pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
 			if(Actor_GetCollidedExplosive(globalCtx, &pthis->collider.base) != NULL)
@@ -1248,7 +1248,7 @@ void EnBb_SetupStunned(EnBb* pthis)
 			Actor_SetColorFilter(&pthis->actor, 0, 0xB4, 0, 0x50);
 			break;
 	}
-	pthis->actor.bgCheckFlags &= ~1;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 	EnBb_SetupAction(pthis, EnBb_Stunned);
 }
 
@@ -1256,15 +1256,15 @@ void EnBb_Stunned(EnBb* pthis, GlobalContext* globalCtx)
 {
 	s16 yawDiff = pthis->actor.world.rot.y - pthis->actor.wallYaw;
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		if(ABS(yawDiff) > 0x4000)
 		{
 			pthis->actor.world.rot.y = pthis->actor.wallYaw + pthis->actor.wallYaw - pthis->actor.world.rot.y - 0x8000;
 		}
-		pthis->actor.bgCheckFlags &= ~8;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 	}
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 		if(pthis->actor.velocity.y < -14.0f)
