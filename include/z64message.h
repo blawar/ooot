@@ -158,7 +158,7 @@ struct MessageContext
 	/* 0xE3E5 */ u8 choiceIndex;
 	/* 0xE3E6 */ u8 choiceNum; // textboxes that are not choice textboxes have a choiceNum of 1
 	/* 0xE3E7 */ TimerU8 stateTimer;
-	/* 0xE3E8 */ Timer textDelayTimer;
+	/* 0xE3E8 */ TimerU16 textDelayTimer;
 	/* 0xE3EA */ u16 textDelay;
 	/* 0xE3EA */ u16 lastPlayedSong; // original references : "Ocarina_Flog" , "Ocarina_Free"
 	/* 0xE3EE */ u16 ocarinaMode;	 // original name : "ocarina_mode"
