@@ -725,7 +725,7 @@ void func_80AE3A8C(EnRd* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_rd_Anim_0074F0, -6.0f);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = -2.0f;
 	}

@@ -224,7 +224,7 @@ void EnBa_SetupFallAsBlob(EnBa* pthis)
  */
 void EnBa_FallAsBlob(EnBa* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.scale.y -= 0.001f;
 		pthis->actor.scale.x += 0.0005f;

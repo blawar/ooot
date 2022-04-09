@@ -748,7 +748,7 @@ void func_80B0DB00(EnSw* pthis, GlobalContext* globalCtx)
 	pthis->actor.shape.rot.z += 0x1000;
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 20.0f, 20.0f, 0.0f, 5);
 
-	if((pthis->actor.bgCheckFlags & 1) && (!(0.0f <= pthis->actor.velocity.y)))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && (!(0.0f <= pthis->actor.velocity.y)))
 	{
 		if(pthis->actor.floorHeight <= BGCHECK_Y_MIN || pthis->actor.floorHeight >= 32000.0f)
 		{
@@ -756,7 +756,7 @@ void func_80B0DB00(EnSw* pthis, GlobalContext* globalCtx)
 			return;
 		}
 
-		pthis->actor.bgCheckFlags &= ~1;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 
 		if(pthis->unk_38A == 0)
 		{

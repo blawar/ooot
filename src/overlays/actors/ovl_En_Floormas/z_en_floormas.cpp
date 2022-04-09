@@ -566,7 +566,7 @@ void EnFloormas_BigWalk(EnFloormas* pthis, GlobalContext* globalCtx)
 	{
 		EnFloormas_SetupRun(pthis);
 	}
-	else if(pthis->actor.bgCheckFlags & 8)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		// set target rotation to the colliding wall's rotation
 		pthis->actionTarget = pthis->actor.wallYaw;
@@ -602,7 +602,7 @@ void EnFloormas_Run(EnFloormas* pthis, GlobalContext* globalCtx)
 
 	Math_ApproachS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 3, 0x71C);
 
-	if((pthis->actor.xzDistToPlayer < 280.0f) && Actor_IsFacingPlayer(&pthis->actor, 0x2000) && !(pthis->actor.bgCheckFlags & 8))
+	if((pthis->actor.xzDistToPlayer < 280.0f) && Actor_IsFacingPlayer(&pthis->actor, 0x2000) && !(pthis->actor.bgCheckFlags & BG_STATE_3))
 	{
 		EnFloormas_SetupHover(pthis, globalCtx);
 	}
@@ -708,7 +708,7 @@ void EnFloormas_Charge(EnFloormas* pthis, GlobalContext* globalCtx)
 		EnFloormas_Slide(pthis, globalCtx);
 	}
 
-	if((pthis->actor.bgCheckFlags & 8) || (pthis->actionTimer == 0))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->actionTimer == 0))
 	{
 		EnFloormas_SetupLand(pthis);
 	}
@@ -718,8 +718,8 @@ void EnFloormas_Land(EnFloormas* pthis, GlobalContext* globalCtx)
 {
 	s32 isOnGround;
 
-	isOnGround = pthis->actor.bgCheckFlags & 1;
-	if(pthis->actor.bgCheckFlags & 2)
+	isOnGround = pthis->actor.bgCheckFlags & BG_STATE_0;
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		if(pthis->actor.params != MERGE_MASTER)
 		{
@@ -738,7 +738,7 @@ void EnFloormas_Land(EnFloormas* pthis, GlobalContext* globalCtx)
 			}
 		}
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
@@ -784,7 +784,7 @@ void EnFloormas_Land(EnFloormas* pthis, GlobalContext* globalCtx)
 
 void EnFloormas_Split(EnFloormas* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(SkelAnime_Update(&pthis->skelAnime))
 		{
@@ -795,7 +795,7 @@ void EnFloormas_Split(EnFloormas* pthis, GlobalContext* globalCtx)
 		Math_StepToF(&pthis->actor.speedXZ, 0.0f, 1.0f);
 	}
 
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FLOORMASTER_SM_LAND);
 	}
@@ -815,7 +815,7 @@ void EnFloormas_SmWalk(EnFloormas* pthis, GlobalContext* globalCtx)
 	{
 		EnFloormas_SetupSmDecideAction(pthis);
 	}
-	else if(pthis->actor.bgCheckFlags & 8)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->actionTarget = pthis->actor.wallYaw;
 		EnFloormas_SetupTurn(pthis);
@@ -836,7 +836,7 @@ void EnFloormas_SmDecideAction(EnFloormas* pthis, GlobalContext* globalCtx)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FLOORMASTER_SM_WALK);
 	}
-	isAgainstWall = pthis->actor.bgCheckFlags & 8;
+	isAgainstWall = pthis->actor.bgCheckFlags & BG_STATE_3;
 	if(isAgainstWall)
 	{
 		pthis->actionTarget = pthis->actor.wallYaw;
@@ -900,7 +900,7 @@ void EnFloormas_JumpAtLink(EnFloormas* pthis, GlobalContext* globalCtx)
 		pthis->actor.speedXZ = 5.0f;
 		pthis->actor.velocity.y = 7.0f;
 	}
-	else if(pthis->actor.bgCheckFlags & 2)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actionTimer = 0x32;
 		pthis->actor.speedXZ = 0.0f;
@@ -1007,7 +1007,7 @@ void EnFloormas_SmSlaveJumpAtMaster(EnFloormas* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			pthis->actor.params = 0x10;
 			EnFloormas_SetupLand(pthis);
@@ -1028,7 +1028,7 @@ void EnFloormas_SmSlaveJumpAtMaster(EnFloormas* pthis, GlobalContext* globalCtx)
 		EnFloormas_SetupSmWait(pthis);
 		pthis->collider.base.ocFlags1 |= OC1_ON;
 	}
-	else if(pthis->actor.bgCheckFlags & 2)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FLOORMASTER_SM_LAND);

@@ -84,7 +84,7 @@ s32 EnFw_DoBounce(EnFw* pthis, s32 totalBounces, f32 yVelocity)
 {
 	s16 temp_v1;
 
-	if(!(pthis->actor.bgCheckFlags & 1) || (pthis->actor.velocity.y > 0.0f))
+	if(!(pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->actor.velocity.y > 0.0f))
 	{
 		// not on the ground or moving upwards.
 		return false;
@@ -307,7 +307,7 @@ void EnFw_Run(EnFw* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(!(pthis->actor.bgCheckFlags & 1) || pthis->actor.velocity.y > 0.0f)
+		if(!(pthis->actor.bgCheckFlags & BG_STATE_0) || pthis->actor.velocity.y > 0.0f)
 		{
 			Actor_SetColorFilter(&pthis->actor, 0x4000, 0xC8, 0, pthis->damageTimer);
 			return;
@@ -405,7 +405,7 @@ void EnFw_TurnToParentInitPos(EnFw* pthis, GlobalContext* globalCtx)
 
 void EnFw_JumpToParentInitPos(EnFw* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1 && pthis->actor.velocity.y <= 0.0f)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0 && pthis->actor.velocity.y <= 0.0f)
 	{
 		pthis->actor.parent->params |= 0x8000;
 		Actor_Kill(&pthis->actor);

@@ -760,7 +760,7 @@ void EnTp_Update(Actor* thisx, GlobalContext* globalCtx)
 		}
 
 		// Turn away from wall
-		if((pthis->actor.speedXZ != 0.0f) && (pthis->actor.bgCheckFlags & 8))
+		if((pthis->actor.speedXZ != 0.0f) && (pthis->actor.bgCheckFlags & BG_STATE_3))
 		{
 			yawToWall = pthis->actor.wallYaw - pthis->actor.world.rot.y;
 

@@ -159,7 +159,7 @@ s32 func_809F68B0(EnDodojr* pthis, GlobalContext* globalCtx)
 		return 0;
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 		pthis->dustPos = pthis->actor.world.pos;
@@ -511,7 +511,7 @@ void func_809F758C(EnDodojr* pthis, GlobalContext* globalCtx)
 		pthis->actionFunc = func_809F799C;
 	}
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_DOWN);
 		func_809F6BBC(pthis);

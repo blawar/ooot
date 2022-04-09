@@ -250,7 +250,7 @@ void EnGoma_EggFallToGround(EnGoma* pthis, GlobalContext* globalCtx)
 	switch(pthis->hatchState)
 	{
 		case 0:
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{ // floor
 				if(pthis->actor.params < 6)
 				{
@@ -310,7 +310,7 @@ void EnGoma_EggFallToGround(EnGoma* pthis, GlobalContext* globalCtx)
 			break;
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_ApproachZeroF(&pthis->actor.speedXZ, 0.2f, 0.05f);
 	}
@@ -407,7 +407,7 @@ void EnGoma_Hurt(EnGoma* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelanime);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_ApproachZeroF(&pthis->actor.speedXZ, 1.0f, 2.0f);
 	}
@@ -448,7 +448,7 @@ void EnGoma_Die(EnGoma* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelanime);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_ApproachZeroF(&pthis->actor.speedXZ, 1.0f, 2.0f);
 	}
@@ -565,7 +565,7 @@ void EnGoma_Land(EnGoma* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelanime);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_ApproachZeroF(&pthis->actor.speedXZ, 1.0f, 2.0f);
 	}
@@ -597,7 +597,7 @@ void EnGoma_Jump(EnGoma* pthis, GlobalContext* globalCtx)
 	SkelAnime_Update(&pthis->skelanime);
 	Math_ApproachF(&pthis->actor.speedXZ, 10.0f, 0.5f, 5.0f);
 
-	if(pthis->actor.velocity.y <= 0.0f && (pthis->actor.bgCheckFlags & 1))
+	if(pthis->actor.velocity.y <= 0.0f && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		EnGoma_SetupLand(pthis);
 		if(pthis->actor.params < 6)
@@ -644,7 +644,7 @@ void EnGoma_ChasePlayer(EnGoma* pthis, GlobalContext* globalCtx)
 	Math_ApproachS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 3, 2000);
 	Math_ApproachS(&pthis->actor.shape.rot.y, pthis->actor.world.rot.y, 2, 3000);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.velocity.y = 0.0f;
 	}
@@ -681,7 +681,7 @@ void EnGoma_Stunned(EnGoma* pthis, GlobalContext* globalCtx)
 		SkelAnime_Update(&pthis->skelanime);
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.velocity.y = 0.0f;
 		Math_ApproachZeroF(&pthis->actor.speedXZ, 0.5f, 2.0f);
@@ -1034,7 +1034,7 @@ void EnGoma_BossLimb(EnGoma* pthis, GlobalContext* globalCtx)
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 50.0f, 100.0f, 4);
 	pthis->actor.world.pos.y += 5.0f;
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.velocity.y = 0.0f;
 	}

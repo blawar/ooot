@@ -506,7 +506,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->actor.yDistToWater = tempYDistToWater;
 
 			osSyncPrintf(VT_RST);
-			onGround = (pthis->actor.bgCheckFlags & 1);
+			onGround = (pthis->actor.bgCheckFlags & BG_STATE_0);
 			if(pthis->spinXFlag)
 			{
 				pthis->spinRot.x += pthis->spinVel.x;
@@ -555,12 +555,12 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 			{
 				pthis->spinVel.z = -0xC00;
 			}
-			if(pthis->actor.bgCheckFlags & 8)
+			if(pthis->actor.bgCheckFlags & BG_STATE_3)
 			{
 				pthis->actor.speedXZ *= -0.5f;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_WOODPLATE_BOUND);
 			}
-			if(pthis->actor.bgCheckFlags & 0x40)
+			if(pthis->actor.bgCheckFlags & BG_STATE_6)
 			{
 				pthis->actionState = ENKANBAN_WATER;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_BOMB_DROP_WATER);
@@ -695,7 +695,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 						pthis->spinVel.y = pthis->actor.speedXZ * -1000.0f;
 					}
 				}
-				if(pthis->actor.bgCheckFlags & 1)
+				if(pthis->actor.bgCheckFlags & BG_STATE_0)
 				{
 					pthis->actor.speedXZ = 0.0f;
 				}
@@ -703,7 +703,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 				if(pthis->actor.speedXZ != 0.0f)
 				{
 					Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 10.0f, 10.0f, 50.0f, 5);
-					if(pthis->actor.bgCheckFlags & 8)
+					if(pthis->actor.bgCheckFlags & BG_STATE_3)
 					{
 						pthis->actor.speedXZ *= -0.5f;
 						if(pthis->spinVel.y > 0)

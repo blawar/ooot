@@ -315,7 +315,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx)
 			pthis->unk_222 = (Rand_ZeroOne() * 200.0f) + 200.0f;
 		}
 	}
-	else if((pthis->actor.speedXZ != 0.0f) && (pthis->actor.bgCheckFlags & 8))
+	else if((pthis->actor.speedXZ != 0.0f) && (pthis->actor.bgCheckFlags & BG_STATE_3))
 	{
 		if(pthis->unk_236 != pthis->actor.wallYaw)
 		{
@@ -331,7 +331,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx)
 				{
 					pthis->unk_238 = -0x4000;
 				}
-				pthis->actor.bgCheckFlags &= ~8;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 				pthis->unk_222 = (Rand_ZeroOne() * 20.0f) + 160.0f;
 			}
 			else
@@ -424,7 +424,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx)
 			}
 			break;
 		case 1:
-			if(((sp64 == 0) && !(pthis->actor.bgCheckFlags & 8)) || Actor_IsFacingPlayer(&pthis->actor, 0x1C70))
+			if(((sp64 == 0) && !(pthis->actor.bgCheckFlags & BG_STATE_3)) || Actor_IsFacingPlayer(&pthis->actor, 0x1C70))
 			{
 				if(Actor_IsFacingPlayer(&pthis->actor, 0x1C70))
 				{
@@ -529,7 +529,7 @@ void func_809CF984(EnBw* pthis, GlobalContext* globalCtx)
 		}
 	}
 	SkelAnime_Update(&pthis->skelAnime);
-	if(pthis->actor.bgCheckFlags & 3)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 	{
 		floorPolyType = func_80041D4C(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
 		if((floorPolyType == 2) || (floorPolyType == 3) || (floorPolyType == 9))
@@ -565,7 +565,7 @@ void func_809CFC4C(EnBw* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToS(&pthis->actor.shape.rot.z, 0x7FFF, 1, 0xFA0, 0);
 	Math_SmoothStepToF(&pthis->unk_248, 0.0f, 1.0f, 0.05f, 0.0f);
 	SkelAnime_Update(&pthis->skelAnime);
-	if(pthis->actor.bgCheckFlags & 3)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 	{
 		if((globalCtx->gameplayFrames % 0x80) == 0)
 		{
@@ -574,7 +574,7 @@ void func_809CFC4C(EnBw* pthis, GlobalContext* globalCtx)
 		pthis->unk_221 = 4;
 		pthis->unk_258 += pthis->unk_25C;
 		Math_SmoothStepToF(&pthis->unk_260, 0.075f, 1.0f, 0.005f, 0.0f);
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->actor.world.pos, 30.0f, 0xB, 4.0f, 0, 0, 0);
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
@@ -628,7 +628,7 @@ void func_809CFF10(EnBw* pthis)
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.velocity.y = 11.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BUBLEWALK_REVERSE);
-	pthis->actor.bgCheckFlags &= ~1;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 	EnBw_SetupAction(pthis, func_809CFF98);
 }
 
@@ -637,7 +637,7 @@ void func_809CFF98(EnBw* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToS(&pthis->actor.shape.rot.z, 0, 1, 0xFA0, 0);
 	Math_SmoothStepToF(&pthis->unk_248, 0.6f, 1.0f, 0.05f, 0.0f);
 	SkelAnime_Update(&pthis->skelAnime);
-	if(pthis->actor.bgCheckFlags & 3)
+	if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1))
 	{
 		Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->actor.world.pos, 30.0f, 0xB, 4.0f, 0, 0, 0);
 		pthis->unk_222 = 0xBB8;
@@ -812,7 +812,7 @@ void func_809D0424(EnBw* pthis, GlobalContext* globalCtx)
 
 void func_809D0584(EnBw* pthis, GlobalContext* globalCtx)
 {
-	if((pthis->actor.bgCheckFlags & 0x10) && (pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.bgCheckFlags & BG_STATE_4) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		pthis->unk_230 = 0;
 		pthis->actor.scale.y -= 0.009f;
@@ -875,7 +875,7 @@ void func_809D0584(EnBw* pthis, GlobalContext* globalCtx)
 				pthis->unk_248 = 0.0f;
 			}
 		}
-		if((globalCtx->actorCtx.unk_02 != 0) && (pthis->actor.xzDistToPlayer <= 400.0f) && (pthis->actor.bgCheckFlags & 1))
+		if((globalCtx->actorCtx.unk_02 != 0) && (pthis->actor.xzDistToPlayer <= 400.0f) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 		{
 			if(pthis->unk_220 == 5)
 			{

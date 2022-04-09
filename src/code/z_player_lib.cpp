@@ -491,7 +491,7 @@ void Player_ClearZTarget(Player* pthis)
 
 void func_8008EE08(Player* pthis)
 {
-	if((pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & (PLAYER_STATE1_21 | PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) ||
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->stateFlags1 & (PLAYER_STATE1_21 | PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) ||
 	   (!(pthis->stateFlags1 & (PLAYER_STATE1_18 | PLAYER_STATE1_19)) && ((pthis->actor.world.pos.y - pthis->actor.floorHeight) < 100.0f)))
 	{
 		pthis->stateFlags1 &= ~(PLAYER_STATE1_15 | PLAYER_STATE1_16 | PLAYER_STATE1_17 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_30);
@@ -723,7 +723,7 @@ s32 Player_GetRoomTimer(GlobalContext* globalCtx)
 	}
 	else if((pthis->unk_840 > 80) && ((pthis->currentBoots == PLAYER_BOOTS_IRON) || (pthis->unk_840 >= 300)))
 	{ // Deep underwater
-		var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & 1)) ? SCENE_ROOMTIMER_DEEP_UNDERWATER : 3;
+		var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & BG_STATE_0)) ? SCENE_ROOMTIMER_DEEP_UNDERWATER : 3;
 	}
 	else if(pthis->stateFlags1 & PLAYER_STATE_SWIMMING)
 	{ // Swimming

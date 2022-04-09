@@ -260,7 +260,7 @@ void EnBox_Fall(EnBox* pthis, GlobalContext* globalCtx)
 
 	pthis->alpha = 255;
 	pthis->movementFlags &= ~ENBOX_MOVE_IMMOBILE;
-	if(pthis->dyna.actor.bgCheckFlags & 1)
+	if(pthis->dyna.actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->movementFlags |= ENBOX_MOVE_UNUSED;
 		if(pthis->movementFlags & ENBOX_MOVE_FALL_ANGLE_SIDE)

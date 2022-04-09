@@ -249,7 +249,7 @@ void EnExRuppy_DropIntoWater(EnExRuppy* pthis, GlobalContext* globalCtx)
 	EnExRuppy_SpawnSparkles(pthis, globalCtx, 2, 0);
 	Common_PlaySfx(NA_SE_EV_RAINBOW_SHOWER - SFX_FLAG);
 	divingGame = (EnDivingGame*)pthis->actor.parent;
-	if((divingGame != NULL) && (divingGame->actor.update != NULL) && ((divingGame->unk_296 == 0) || (pthis->actor.bgCheckFlags & 0x20) || (pthis->timer == 0)))
+	if((divingGame != NULL) && (divingGame->actor.update != NULL) && ((divingGame->unk_296 == 0) || (pthis->actor.bgCheckFlags & BG_STATE_5) || (pthis->timer == 0)))
 	{
 		pthis->invisible = true;
 		pthis->actor.speedXZ = 0.0f;
@@ -292,7 +292,7 @@ void EnExRuppy_Sink(EnExRuppy* pthis, GlobalContext* globalCtx)
 	Vec3f pos;
 	s32 pad;
 
-	if((pthis->actor.bgCheckFlags & 0x20) && (pthis->actor.yDistToWater > 15.0f))
+	if((pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->actor.yDistToWater > 15.0f))
 	{
 		pos = pthis->actor.world.pos;
 		pos.y += pthis->actor.yDistToWater;

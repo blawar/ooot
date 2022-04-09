@@ -183,10 +183,10 @@ void BgIceTurara_Shiver(BgIceTurara* pthis, GlobalContext* globalCtx)
 
 void BgIceTurara_Fall(BgIceTurara* pthis, GlobalContext* globalCtx)
 {
-	if((pthis->collider.base.atFlags & AT_HIT) || (pthis->dyna.actor.bgCheckFlags & 1))
+	if((pthis->collider.base.atFlags & AT_HIT) || (pthis->dyna.actor.bgCheckFlags & BG_STATE_0))
 	{
 		pthis->collider.base.atFlags &= ~AT_HIT;
-		pthis->dyna.actor.bgCheckFlags &= ~1;
+		pthis->dyna.actor.bgCheckFlags &= ~BG_STATE_0;
 		if(pthis->dyna.actor.world.pos.y < pthis->dyna.actor.floorHeight)
 		{
 			pthis->dyna.actor.world.pos.y = pthis->dyna.actor.floorHeight;

@@ -293,7 +293,7 @@ void func_8088B69C(BgHidanRock* pthis, GlobalContext* globalCtx)
 void func_8088B79C(BgHidanRock* pthis, GlobalContext* globalCtx)
 {
 	pthis->timer--;
-	if(pthis->dyna.actor.bgCheckFlags & 2)
+	if(pthis->dyna.actor.bgCheckFlags & BG_STATE_1)
 	{
 		if(pthis->type == 0)
 		{

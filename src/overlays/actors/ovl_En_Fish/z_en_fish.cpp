@@ -442,12 +442,12 @@ void EnFish_Dropped_Fall(EnFish* pthis, GlobalContext* globalCtx)
 	pthis->actor.shape.rot.z = pthis->actor.world.rot.z;
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{ // On floor
 		pthis->timer = 400;
 		EnFish_Dropped_SetupFlopOnGround(pthis);
 	}
-	else if(pthis->actor.bgCheckFlags & 0x20)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_5)
 	{ // In water
 		EnFish_Dropped_SetupSwimAway(pthis);
 	}
@@ -550,11 +550,11 @@ void EnFish_Dropped_FlopOnGround(EnFish* pthis, GlobalContext* globalCtx)
 			pthis->actor.draw = NULL;
 		}
 	}
-	else if(pthis->actor.bgCheckFlags & 0x20)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_5)
 	{ // In water
 		EnFish_Dropped_SetupSwimAway(pthis);
 	}
-	else if(pthis->actor.bgCheckFlags & 1)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{ // On floor
 		EnFish_Dropped_SetupFlopOnGround(pthis);
 	}
@@ -580,7 +580,7 @@ void EnFish_Dropped_SwimAway(EnFish* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToF(&pthis->actor.speedXZ, 2.8f, 0.1f, 0.4f, 0.0f);
 
 	// If touching wall or not in water, turn back and slow down for one frame.
-	if((pthis->actor.bgCheckFlags & 8) || !(pthis->actor.bgCheckFlags & 0x20))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || !(pthis->actor.bgCheckFlags & BG_STATE_5))
 	{
 		pthis->actor.home.rot.y = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
 		pthis->actor.speedXZ *= 0.5f;
@@ -593,7 +593,7 @@ void EnFish_Dropped_SwimAway(EnFish* pthis, GlobalContext* globalCtx)
 	pthis->actor.shape.rot = pthis->actor.world.rot;
 
 	// Raise if on a floor.
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y - 4.0f, 2.0f);
 	}

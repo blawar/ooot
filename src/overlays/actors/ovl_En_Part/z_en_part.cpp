@@ -115,7 +115,7 @@ void func_80ACE13C(EnPart* pthis, GlobalContext* globalCtx)
 	{
 		Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 5.0f, 15.0f, 0.0f, 0x1D);
 
-		if((pthis->actor.bgCheckFlags & 1) || (pthis->actor.world.pos.y <= pthis->actor.floorHeight))
+		if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->actor.world.pos.y <= pthis->actor.floorHeight))
 		{
 			pthis->action = 4;
 			pthis->actor.speedXZ = 0.0f;
@@ -273,9 +273,9 @@ void EnPart_Update(Actor* thisx, GlobalContext* globalCtx)
 		if(pthis->actor.params >= 0)
 		{
 			Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
-			if(thisx->bgCheckFlags & 1)
+			if(thisx->bgCheckFlags & BG_STATE_0)
 			{
-				thisx->bgCheckFlags &= ~1;
+				thisx->bgCheckFlags &= ~BG_STATE_0;
 				thisx->velocity.y = 6.0f;
 			}
 		}

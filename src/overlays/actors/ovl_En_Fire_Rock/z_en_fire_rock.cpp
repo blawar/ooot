@@ -206,7 +206,7 @@ void EnFireRock_Fall(EnFireRock* pthis, GlobalContext* globalCtx)
 			}
 			break;
 	}
-	if((pthis->actor.bgCheckFlags & 1) && (pthis->timer == 0))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && (pthis->timer == 0))
 	{
 		switch(pthis->type)
 		{

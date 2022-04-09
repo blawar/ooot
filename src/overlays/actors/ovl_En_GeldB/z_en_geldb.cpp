@@ -309,7 +309,7 @@ s32 EnGeldB_ReactToPlayer(GlobalContext* globalCtx, EnGeldB* pthis, s16 arg2)
 	if(func_800354B4(globalCtx, thisx, 100.0f, 0x5DC0, 0x2AA8, thisx->shape.rot.y))
 	{
 		thisx->shape.rot.y = thisx->world.rot.y = thisx->yawTowardsPlayer;
-		if((thisx->bgCheckFlags & 8) && (ABS(angleToWall) < 0x2EE0) && (thisx->xzDistToPlayer < 90.0f))
+		if((thisx->bgCheckFlags & BG_STATE_3) && (ABS(angleToWall) < 0x2EE0) && (thisx->xzDistToPlayer < 90.0f))
 		{
 			EnGeldB_SetupJump(pthis);
 			return true;
@@ -333,7 +333,7 @@ s32 EnGeldB_ReactToPlayer(GlobalContext* globalCtx, EnGeldB* pthis, s16 arg2)
 	else if((bomb = Actor_FindNearby(globalCtx, thisx, -1, ACTORCAT_EXPLOSIVE, 80.0f)) != NULL)
 	{
 		thisx->shape.rot.y = thisx->world.rot.y = thisx->yawTowardsPlayer;
-		if(((thisx->bgCheckFlags & 8) && (angleToWall < 0x2EE0)) || (bomb->id == ACTOR_EN_BOM_CHU))
+		if(((thisx->bgCheckFlags & BG_STATE_3) && (angleToWall < 0x2EE0)) || (bomb->id == ACTOR_EN_BOM_CHU))
 		{
 			if((bomb->id == ACTOR_EN_BOM_CHU) && (Actor_WorldDistXYZToActor(thisx, bomb) < 80.0f) && ((s16)(thisx->shape.rot.y - (bomb->world.rot.y - 0x8000)) < 0x3E80))
 			{
@@ -385,7 +385,7 @@ void EnGeldB_SetupWait(EnGeldB* pthis)
 	pthis->timer = 10;
 	pthis->invisible = true;
 	pthis->action = GELDB_WAIT;
-	pthis->actor.bgCheckFlags &= ~3;
+	pthis->actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 	pthis->actor.gravity = -2.0f;
 	pthis->actor.flags &= ~ACTOR_FLAG_0;
 	EnGeldB_SetupAction(pthis, EnGeldB_Wait);
@@ -404,14 +404,14 @@ void EnGeldB_Wait(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->actor.shape.shadowScale = 90.0f;
 		func_800F5ACC(NA_BGM_MINI_BOSS);
 	}
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_DOWN);
 		pthis->skelAnime.playSpeed = 1.0f;
 		pthis->actor.world.pos.y = pthis->actor.floorHeight;
 		pthis->actor.flags |= ACTOR_FLAG_0;
 		pthis->actor.focus.pos = pthis->actor.world.pos;
-		pthis->actor.bgCheckFlags &= ~2;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 		pthis->actor.velocity.y = 0.0f;
 		Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->leftFootPos, 3.0f, 2, 2.0f, 0, 0, 0);
 		Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->rightFootPos, 3.0f, 2, 2.0f, 0, 0, 0);
@@ -796,9 +796,9 @@ void EnGeldB_Circle(EnGeldB* pthis, GlobalContext* globalCtx)
 				pthis->actor.speedXZ = 8.0f;
 			}
 		}
-		if((pthis->actor.bgCheckFlags & 8) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3E80))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3E80))
 		{
-			if(pthis->actor.bgCheckFlags & 8)
+			if(pthis->actor.bgCheckFlags & BG_STATE_3)
 			{
 				if(pthis->actor.speedXZ >= 0.0f)
 				{
@@ -929,9 +929,9 @@ void EnGeldB_SpinDodge(EnGeldB* pthis, GlobalContext* globalCtx)
 	s32 nextKeyFrame;
 
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer + 0x3A98;
-	if((pthis->actor.bgCheckFlags & 8) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3E80))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3E80))
 	{
-		if(pthis->actor.bgCheckFlags & 8)
+		if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			if(pthis->actor.speedXZ >= 0.0f)
 			{
@@ -1250,7 +1250,7 @@ void EnGeldB_RollBack(EnGeldB* pthis, GlobalContext* globalCtx)
 
 void EnGeldB_SetupStunned(EnGeldB* pthis)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
@@ -1269,11 +1269,11 @@ void EnGeldB_SetupStunned(EnGeldB* pthis)
 
 void EnGeldB_Stunned(EnGeldB* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(pthis->actor.speedXZ < 0.0f)
 		{
@@ -1281,7 +1281,7 @@ void EnGeldB_Stunned(EnGeldB* pthis, GlobalContext* globalCtx)
 		}
 		pthis->invisible = false;
 	}
-	if((pthis->actor.colorFilterTimer == 0) && (pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.colorFilterTimer == 0) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		if(pthis->actor.colChkInfo.health == 0)
 		{
@@ -1297,7 +1297,7 @@ void EnGeldB_Stunned(EnGeldB* pthis, GlobalContext* globalCtx)
 void EnGeldB_SetupDamaged(EnGeldB* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gGerudoRedDamageAnim, -4.0f);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->invisible = false;
 		pthis->actor.speedXZ = -4.0f;
@@ -1317,11 +1317,11 @@ void EnGeldB_Damaged(EnGeldB* pthis, GlobalContext* globalCtx)
 {
 	s16 angleToWall;
 
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(pthis->actor.speedXZ < 0.0f)
 		{
@@ -1330,10 +1330,10 @@ void EnGeldB_Damaged(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->invisible = false;
 	}
 	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 1, 0x1194, 0);
-	if(!EnGeldB_DodgeRanged(globalCtx, pthis) && !EnGeldB_ReactToPlayer(globalCtx, pthis, 0) && SkelAnime_Update(&pthis->skelAnime) && (pthis->actor.bgCheckFlags & 1))
+	if(!EnGeldB_DodgeRanged(globalCtx, pthis) && !EnGeldB_ReactToPlayer(globalCtx, pthis, 0) && SkelAnime_Update(&pthis->skelAnime) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		angleToWall = pthis->actor.wallYaw - pthis->actor.shape.rot.y;
-		if((pthis->actor.bgCheckFlags & 8) && (ABS(angleToWall) < 0x2EE0) && (pthis->actor.xzDistToPlayer < 90.0f))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) && (ABS(angleToWall) < 0x2EE0) && (pthis->actor.xzDistToPlayer < 90.0f))
 		{
 			EnGeldB_SetupJump(pthis);
 		}
@@ -1374,7 +1374,7 @@ void EnGeldB_Jump(EnGeldB* pthis, GlobalContext* globalCtx)
 		func_800355B8(globalCtx, &pthis->leftFootPos);
 		func_800355B8(globalCtx, &pthis->rightFootPos);
 	}
-	if(SkelAnime_Update(&pthis->skelAnime) && (pthis->actor.bgCheckFlags & 3))
+	if(SkelAnime_Update(&pthis->skelAnime) && (pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1)))
 	{
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
 		pthis->actor.shape.rot.x = 0;
@@ -1537,9 +1537,9 @@ void EnGeldB_Sidestep(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->actor.speedXZ -= 0.125f;
 	}
 
-	if((pthis->actor.bgCheckFlags & 8) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3E80))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3E80))
 	{
-		if(pthis->actor.bgCheckFlags & 8)
+		if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			if(pthis->actor.speedXZ >= 0.0f)
 			{
@@ -1663,7 +1663,7 @@ void EnGeldB_SetupDefeated(EnGeldB* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gGerudoRedDefeatAnim, -4.0f);
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->invisible = false;
 		pthis->actor.speedXZ = -6.0f;
@@ -1680,11 +1680,11 @@ void EnGeldB_SetupDefeated(EnGeldB* pthis)
 
 void EnGeldB_Defeated(EnGeldB* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
 		pthis->invisible = false;

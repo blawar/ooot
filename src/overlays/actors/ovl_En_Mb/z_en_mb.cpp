@@ -565,7 +565,7 @@ void EnMb_SetupSpearPatrolEndCharge(EnMb* pthis)
 {
 	Animation_PlayOnce(&pthis->skelAnime, &gEnMbSpearSlowDownAnim);
 	pthis->state = ENMB_STATE_ATTACK_END;
-	pthis->actor.bgCheckFlags &= ~1;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 	pthis->timer1 = 0;
 	pthis->timer3 = 50;
 	pthis->actor.speedXZ = -8.0f;
@@ -803,7 +803,7 @@ void EnMb_SpearPatrolEndCharge(EnMb* pthis, GlobalContext* globalCtx)
 		func_8002F71C(globalCtx, &pthis->actor, 4.0f, pthis->actor.world.rot.y, 4.0f);
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 1.5f, 0.0f);
 

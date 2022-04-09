@@ -713,7 +713,7 @@ void func_80ADA530(EnPoSisters* pthis, GlobalContext* globalCtx)
 	{
 		func_80AD9368(pthis);
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Math_ScaledStepToS(&pthis->actor.world.rot.y, Actor_WorldYawTowardPoint(&pthis->actor, &pthis->actor.home.pos), 0x71C);
 	}
@@ -865,7 +865,7 @@ void func_80ADAC70(EnPoSisters* pthis, GlobalContext* globalCtx)
 	{
 		pthis->unk_19A--;
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 		pthis->unk_199 |= 2;

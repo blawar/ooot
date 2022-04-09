@@ -706,7 +706,7 @@ void EnPoField_SoulIdle(EnPoField* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actionTimer--;
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 1, 1, 15, OBJECT_PO_FIELD, 10, gPoeFieldLanternDL);
 		func_80AD42B0(pthis);

@@ -497,7 +497,7 @@ void EnEiyer_Glide(EnEiyer* pthis, GlobalContext* globalCtx)
 		Math_StepToF(&pthis->actor.speedXZ, 1.5f, 0.03f);
 	}
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->targetYaw = pthis->actor.wallYaw;
 	}
@@ -557,7 +557,7 @@ void EnEiyer_DiveAttack(EnEiyer* pthis, GlobalContext* globalCtx)
 	SkelAnime_Update(&pthis->skelanime);
 	pthis->actor.speedXZ *= 1.1f;
 
-	if(pthis->actor.bgCheckFlags & 8 || pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3 || pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		EnEiyer_SetupLand(pthis);
 	}
@@ -578,12 +578,12 @@ void EnEiyer_Land(EnEiyer* pthis, GlobalContext* globalCtx)
 
 	if(pthis->timer == -1)
 	{
-		if(pthis->actor.bgCheckFlags & 8 || pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_3 || pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->timer = 10;
 			Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 30, NA_SE_EN_OCTAROCK_SINK);
 
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				EffectSsGSplash_Spawn(globalCtx, &pthis->actor.world.pos, NULL, NULL, 1, 700);
 			}
@@ -617,7 +617,7 @@ void EnEiyer_Hurt(EnEiyer* pthis, GlobalContext* globalCtx)
 	Math_ApproachF(&pthis->basePos.y, pthis->actor.floorHeight + 80.0f + 5.0f, 0.5f, pthis->actor.speedXZ);
 	pthis->actor.world.pos.y = pthis->basePos.y - 5.0f;
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->targetYaw = pthis->actor.wallYaw;
 	}
@@ -662,7 +662,7 @@ void EnEiyer_Die(EnEiyer* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.world.rot.x = -pthis->actor.shape.rot.x;
 
-	if(pthis->timer == 0 || pthis->actor.bgCheckFlags & 0x10)
+	if(pthis->timer == 0 || pthis->actor.bgCheckFlags & BG_STATE_4)
 	{
 		EnEiyer_SetupDead(pthis);
 	}
@@ -695,7 +695,7 @@ void EnEiyer_Stunned(EnEiyer* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_EIER_FLUTTER);
 	}
 
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 	}

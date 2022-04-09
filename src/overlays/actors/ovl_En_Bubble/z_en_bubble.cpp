@@ -284,7 +284,7 @@ void EnBubble_Fly(EnBubble* pthis, GlobalContext* globalCtx)
 		pthis->graphicRotSpeed = 128.0f;
 		pthis->graphicEccentricity = 0.48f;
 	}
-	else if(pthis->actor.bgCheckFlags & 0x20 && sp54.y < 0.0f)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_5 && sp54.y < 0.0f)
 	{
 		sp60.x = sp60.z = 0.0f;
 		sp60.y = 1.0f;

@@ -657,9 +657,9 @@ void EnSkj_Fade(EnSkj* pthis, GlobalContext* globalCtx)
 
 	if(pthis->actor.velocity.y <= 0.0f)
 	{
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
-			pthis->actor.bgCheckFlags &= ~2;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 			func_80AFF2A0(pthis);
 		}
 	}
@@ -1192,9 +1192,9 @@ void EnSkj_WaitForLanding(EnSkj* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->actor.velocity.y <= 0.0f)
 	{
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
-			pthis->actor.bgCheckFlags &= ~2;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 			pthis->actor.speedXZ = 0.0f;
 			EnSkj_SetupWaitForLandAnimFinish(pthis);
 		}

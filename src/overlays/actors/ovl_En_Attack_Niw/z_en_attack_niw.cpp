@@ -236,7 +236,7 @@ void func_809B5670(EnAttackNiw* pthis, GlobalContext* globalCtx)
 	Actor_SetFocus(&pthis->actor, pthis->unk_2E4);
 	Actor_GetScreenPos(globalCtx, &pthis->actor, &sp4E, &sp4C);
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->unk_2D4 = pthis->actor.yawTowardsPlayer;
 		pthis->unk_2D0 = pthis->actor.world.rot.x - 3000.0f;
@@ -250,7 +250,7 @@ void func_809B5670(EnAttackNiw* pthis, GlobalContext* globalCtx)
 		pthis->unk_288 = 0.0f;
 		pthis->actionFunc = func_809B59B0;
 	}
-	else if(((pthis->actor.projectedPos.z > 0.0f) && (fabsf(sp34.x - pthis->actor.world.pos.x) < 50.0f) && (fabsf(sp34.y - pthis->actor.world.pos.y) < 50.0f) && (fabsf(sp34.z - pthis->actor.world.pos.z) < 50.0f)) || (pthis->actor.bgCheckFlags & 1))
+	else if(((pthis->actor.projectedPos.z > 0.0f) && (fabsf(sp34.x - pthis->actor.world.pos.x) < 50.0f) && (fabsf(sp34.y - pthis->actor.world.pos.y) < 50.0f) && (fabsf(sp34.z - pthis->actor.world.pos.z) < 50.0f)) || (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		pthis->unk_2D4 = pthis->actor.yawTowardsPlayer;
 		pthis->unk_2D0 = pthis->actor.world.rot.x - 2000.0f;
@@ -280,7 +280,7 @@ void func_809B59B0(EnAttackNiw* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(pthis->unk_25A == 0)
 		{
@@ -305,7 +305,7 @@ void func_809B59B0(EnAttackNiw* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToS(&pthis->actor.world.rot.x, pthis->unk_2D0, 2, pthis->unk_2DC, 0);
 	Math_ApproachF(&pthis->unk_2DC, 10000.0f, 1.0f, 1000.0f);
 	Math_ApproachF(&pthis->actor.speedXZ, pthis->unk_2E0, 0.9f, 1.0f);
-	if((pthis->actor.gravity == -2.0f) && (pthis->unk_262 == 0) && ((pthis->actor.bgCheckFlags & 8) || (pthis->unk_25C == 0)))
+	if((pthis->actor.gravity == -2.0f) && (pthis->unk_262 == 0) && ((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->unk_25C == 0)))
 	{
 		pthis->unk_2E0 = 0.0f;
 		pthis->actor.gravity = 0.0f;
@@ -313,7 +313,7 @@ void func_809B59B0(EnAttackNiw* pthis, GlobalContext* globalCtx)
 		pthis->unk_2D0 = pthis->actor.world.rot.x - 5000.0f;
 		pthis->actionFunc = func_809B5C18;
 	}
-	else if(pthis->actor.bgCheckFlags & 1)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		func_809B5268(pthis, globalCtx, 5);
 	}
@@ -396,7 +396,7 @@ void EnAttackNiw_Update(Actor* thisx, GlobalContext* globalCtx)
 		return;
 	}
 
-	if((pthis->actor.bgCheckFlags & 0x20) && (pthis->actionFunc != func_809B5C18))
+	if((pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->actionFunc != func_809B5C18))
 	{
 		Math_Vec3f_Copy(&sp30, &pthis->actor.world.pos);
 		sp30.y += pthis->actor.yDistToWater;

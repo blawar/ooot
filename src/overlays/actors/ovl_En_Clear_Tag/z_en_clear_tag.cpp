@@ -582,7 +582,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2)
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_BREATH - SFX_FLAG);
 
 					// Check if the Arwing has hit the ground.
-					if(pthis->actor.bgCheckFlags & 9)
+					if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3))
 					{
 						pthis->shouldExplode = true;
 
@@ -618,7 +618,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2)
 				Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 80.0f, 100.0f, 5);
 
 				// Check if the laser has hit a target, timed out, or hit the ground.
-				if(pthis->actor.bgCheckFlags & 9 || hasAtHit || pthis->timers[CLEAR_TAG_TIMER_LASER_DEATH] == 0)
+				if(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3) || hasAtHit || pthis->timers[CLEAR_TAG_TIMER_LASER_DEATH] == 0)
 				{
 					// Kill the laser.
 					Actor_Kill(&pthis->actor);

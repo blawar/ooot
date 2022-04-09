@@ -300,7 +300,7 @@ void func_808801B8(BgHakaTrap* pthis, GlobalContext* globalCtx)
 	else if(D_80881018_47 == 3)
 	{
 		D_80881018_47 = 4;
-		player->actor.bgCheckFlags |= 0x100;
+		player->actor.bgCheckFlags |= BG_STATE_8;
 	}
 }
 

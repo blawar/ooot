@@ -874,7 +874,7 @@ void EnDodongo_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->actionFunc(pthis, globalCtx);
 		Actor_MoveForward(&pthis->actor);
 		Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 75.0f, 60.0f, 70.0f, 0x1D);
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_DOWN);
 		}

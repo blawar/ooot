@@ -321,7 +321,7 @@ void EnFhgFire_LightningShock(EnFhgFire* pthis, GlobalContext* globalCtx)
 	}
 
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 50.0f, 100.0f, 1);
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Actor_Kill(&pthis->actor);
 	}
@@ -653,7 +653,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx)
 		if(pthis->work[FHGFIRE_FX_TIMER] == 0)
 		{
 			Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 50.0f, 100.0f, 7);
-			if((pthis->actor.bgCheckFlags & 0x19) || killMode)
+			if((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3 | BG_STATE_4)) || killMode)
 			{
 				u8 lightBallColor2 = FHGFLASH_LIGHTBALL_GREEN;
 				s16 i4;

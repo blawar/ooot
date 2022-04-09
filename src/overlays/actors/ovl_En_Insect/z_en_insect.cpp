@@ -296,11 +296,11 @@ void func_80A7C3F4(EnInsect* pthis, GlobalContext* globalCtx)
 		func_80A7C598(pthis);
 	}
 
-	if(((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp2E == 2 || sp2E == 3) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 1) && D_80A7DEB8 >= 4))
+	if(((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp2E == 2 || sp2E == 3) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4))
 	{
 		func_80A7CBC8(pthis);
 	}
-	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 0x40))
+	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -348,11 +348,11 @@ void func_80A7C5EC(EnInsect* pthis, GlobalContext* globalCtx)
 		func_80A7C3A0(pthis);
 	}
 
-	if(((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp34 == 2 || sp34 == 3) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 1) && D_80A7DEB8 >= 4))
+	if(((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp34 == 2 || sp34 == 3) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4))
 	{
 		func_80A7CBC8(pthis);
 	}
-	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 0x40))
+	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -417,7 +417,7 @@ void func_80A7C86C(EnInsect* pthis, GlobalContext* globalCtx)
 	{
 		func_80A7C3A0(pthis);
 	}
-	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 0x40))
+	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -606,7 +606,7 @@ void func_80A7CEC0(EnInsect* pthis, GlobalContext* globalCtx)
 	{
 		func_80A7D1F4(pthis);
 	}
-	else if(!(pthis->actor.bgCheckFlags & 0x40))
+	else if(!(pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		if(pthis->unk_314 & 0x10)
 		{
@@ -764,7 +764,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 
 	Actor_SetScale(&pthis->actor, CLAMP_MAX(thisTemp->actor.scale.x + 0.0008f, 0.01f));
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_SmoothStepToF(&pthis->actor.speedXZ, pthis->unk_324, 0.1f, 0.5f, 0.0f);
 		Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->unk_328, 2000);
@@ -801,7 +801,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 	}
 
 	SkelAnime_Update(&pthis->skelAnime);
-	if(!(pthis->unk_314 & 0x40) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 1))
+	if(!(pthis->unk_314 & 0x40) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MUSI_LAND);
 		pthis->unk_314 |= 0x40;
@@ -826,7 +826,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 0x40))
+	if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -836,7 +836,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 		{
 			func_80A7CBC8(pthis);
 		}
-		else if(pthis->unk_31A <= 0 || pthis->unk_31C <= 0 || ((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & 1) && D_80A7DEB8 >= 4 && (sp3A == 2 || sp3A == 3)))
+		else if(pthis->unk_31A <= 0 || pthis->unk_31C <= 0 || ((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4 && (sp3A == 2 || sp3A == 3)))
 		{
 			func_80A7CBC8(pthis);
 		}
@@ -902,7 +902,7 @@ void EnInsect_Update(Actor* thisx, GlobalContext* globalCtx)
 		{
 			if(pthis->unk_314 & 1)
 			{
-				if(pthis->actor.bgCheckFlags & 1)
+				if(pthis->actor.bgCheckFlags & BG_STATE_0)
 				{
 					func_80A7C058(pthis);
 				}

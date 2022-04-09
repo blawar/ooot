@@ -136,13 +136,13 @@ void EnBom_Move(EnBom* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if((pthis->actor.velocity.y > 0.0f) && (pthis->actor.bgCheckFlags & 0x10))
+	if((pthis->actor.velocity.y > 0.0f) && (pthis->actor.bgCheckFlags & BG_STATE_4))
 	{
 		pthis->actor.velocity.y = -pthis->actor.velocity.y;
 	}
 
 	// rebound bomb off the wall it hits
-	if((pthis->actor.speedXZ != 0.0f) && (pthis->actor.bgCheckFlags & 8))
+	if((pthis->actor.speedXZ != 0.0f) && (pthis->actor.bgCheckFlags & BG_STATE_3))
 	{
 		if(ABS((s16)(pthis->actor.wallYaw - pthis->actor.world.rot.y)) > 0x4000)
 		{
@@ -151,21 +151,21 @@ void EnBom_Move(EnBom* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_BOMB_BOUND);
 		Actor_MoveForward(&pthis->actor);
 		pthis->actor.speedXZ *= 0.7f;
-		pthis->actor.bgCheckFlags &= ~8;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 	}
 
-	if(!(pthis->actor.bgCheckFlags & 1))
+	if(!(pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		Math_StepToF(&pthis->actor.speedXZ, 0.0f, 0.08f);
 	}
 	else
 	{
 		Math_StepToF(&pthis->actor.speedXZ, 0.0f, 1.0f);
-		if((pthis->actor.bgCheckFlags & 2) && (pthis->actor.velocity.y < -3.0f))
+		if((pthis->actor.bgCheckFlags & BG_STATE_1) && (pthis->actor.velocity.y < -3.0f))
 		{
 			func_8002F850(globalCtx, &pthis->actor);
 			pthis->actor.velocity.y *= -0.3f;
-			pthis->actor.bgCheckFlags &= ~2;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 		}
 		else if(pthis->timer >= 4)
 		{
@@ -398,9 +398,9 @@ void EnBom_Update(Actor* thisx, GlobalContext* globalCtx2)
 			Actor_Kill(thisx);
 			return;
 		}
-		if(thisx->bgCheckFlags & 0x40)
+		if(thisx->bgCheckFlags & BG_STATE_6)
 		{
-			thisx->bgCheckFlags &= ~0x40;
+			thisx->bgCheckFlags &= ~BG_STATE_6;
 			Audio_PlayActorSound2(thisx, NA_SE_EV_BOMB_DROP_WATER);
 		}
 	}

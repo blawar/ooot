@@ -748,7 +748,7 @@ void EnGoroiwa_SetupMoveAndFallToGround(EnGoroiwa* pthis)
 void EnGoroiwa_MoveAndFallToGround(EnGoroiwa* pthis, GlobalContext* globalCtx)
 {
 	EnGoroiwa_MoveAndFall(pthis, globalCtx);
-	if((pthis->actor.bgCheckFlags & 1) && pthis->actor.velocity.y < 0.0f)
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && pthis->actor.velocity.y < 0.0f)
 	{
 		if((pthis->stateFlags & ENGOROIWA_PLAYER_IN_THE_WAY) && (pthis->actor.home.rot.z & 1) == 1)
 		{

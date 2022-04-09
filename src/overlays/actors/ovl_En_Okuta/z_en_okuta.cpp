@@ -570,13 +570,13 @@ void EnOkuta_ProjectileFly(EnOkuta* pthis, GlobalContext* globalCtx)
 		pthis->actor.gravity = -1.0f;
 	}
 	pthis->actor.home.rot.z += 0x1554;
-	if(pthis->actor.bgCheckFlags & 0x20)
+	if(pthis->actor.bgCheckFlags & BG_STATE_5)
 	{
 		pthis->actor.gravity = -1.0f;
 		pthis->actor.speedXZ -= 0.1f;
 		pthis->actor.speedXZ = CLAMP_MIN(pthis->actor.speedXZ, 1.0f);
 	}
-	if((pthis->actor.bgCheckFlags & 8) || (pthis->actor.bgCheckFlags & 1) || (pthis->collider.base.atFlags & AT_HIT) || pthis->collider.base.acFlags & AC_HIT || pthis->collider.base.ocFlags1 & OC1_HIT || pthis->actor.floorHeight == BGCHECK_Y_MIN)
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->collider.base.atFlags & AT_HIT) || pthis->collider.base.acFlags & AC_HIT || pthis->collider.base.ocFlags1 & OC1_HIT || pthis->actor.floorHeight == BGCHECK_Y_MIN)
 	{
 		if((player->currentShield == PLAYER_SHIELD_DEKU || (player->currentShield == PLAYER_SHIELD_HYLIAN && LINK_IS_ADULT)) && pthis->collider.base.atFlags & AT_HIT && pthis->collider.base.atFlags & AT_TYPE_ENEMY &&
 		   pthis->collider.base.atFlags & AT_BOUNCED)
@@ -741,17 +741,17 @@ void EnOkuta_Update(Actor* thisx, GlobalContext* globalCtx2)
 			Actor_MoveForward(&pthis->actor);
 			Math_Vec3f_Copy(&sp38, &pthis->actor.world.pos);
 			Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 10.0f, 15.0f, 30.0f, 5);
-			if((pthis->actor.bgCheckFlags & 8) && SurfaceType_IsIgnoredByProjectiles(&globalCtx->colCtx, pthis->actor.wallPoly, pthis->actor.wallBgId))
+			if((pthis->actor.bgCheckFlags & BG_STATE_3) && SurfaceType_IsIgnoredByProjectiles(&globalCtx->colCtx, pthis->actor.wallPoly, pthis->actor.wallBgId))
 			{
 				sp34 = true;
-				pthis->actor.bgCheckFlags &= ~8;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 			}
-			if((pthis->actor.bgCheckFlags & 1) && SurfaceType_IsIgnoredByProjectiles(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId))
+			if((pthis->actor.bgCheckFlags & BG_STATE_0) && SurfaceType_IsIgnoredByProjectiles(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId))
 			{
 				sp34 = true;
-				pthis->actor.bgCheckFlags &= ~1;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 			}
-			if(sp34 && !(pthis->actor.bgCheckFlags & 9))
+			if(sp34 && !(pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3)))
 			{
 				Math_Vec3f_Copy(&pthis->actor.world.pos, &sp38);
 			}

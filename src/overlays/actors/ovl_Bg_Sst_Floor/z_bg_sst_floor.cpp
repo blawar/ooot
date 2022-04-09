@@ -102,7 +102,7 @@ void BgSstFloor_Update(BgSstFloor* thisx, GlobalContext* globalCtx)
 				{
 					distFromRim = 350.0f;
 				}
-				player->actor.bgCheckFlags &= ~1;
+				player->actor.bgCheckFlags &= ~BG_STATE_0;
 				player->actor.velocity.y = 9.0f * distFromRim * (1.0f / 350.0f);
 			}
 		}
@@ -119,7 +119,7 @@ void BgSstFloor_Update(BgSstFloor* thisx, GlobalContext* globalCtx)
 					{
 						distFromRim = 350.0f;
 					}
-					item00->bgCheckFlags &= ~3;
+					item00->bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 					item00->velocity.y = 9.0f * distFromRim * (1.0f / 350.0f);
 				}
 			}
