@@ -104,7 +104,7 @@ void ArrowFire_Hit(ArrowFire* pthis, GlobalContext* globalCtx)
 {
 	f32 scale;
 	f32 offset;
-	u16 timer;
+	Timer timer;
 
 	if(pthis->actor.projectedW < 50.0f)
 	{
@@ -123,8 +123,7 @@ void ArrowFire_Hit(ArrowFire* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	timer = pthis->timer;
-	if(timer != 0)
+	if(pthis->timer != 0)
 	{
 		pthis->timer -= 1;
 
@@ -136,9 +135,6 @@ void ArrowFire_Hit(ArrowFire* pthis, GlobalContext* globalCtx)
 			pthis->unk_158 += ((2.0f - pthis->unk_158) * 0.1f);
 			if(pthis->timer < 16)
 			{
-				if(1)
-				{
-				}
 				pthis->alpha = ((pthis->timer * 0x23) - 0x118);
 			}
 		}

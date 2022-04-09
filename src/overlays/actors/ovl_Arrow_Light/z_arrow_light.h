@@ -12,7 +12,7 @@ struct ArrowLight
 {
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ s16 radius;
-	/* 0x014E */ u16 timer;
+	/* 0x014E */ Timer timer;
 	/* 0x0150 */ u8 alpha;
 	/* 0x0154 */ Vec3f unkPos;
 	/* 0x0160 */ f32 unk_160;
