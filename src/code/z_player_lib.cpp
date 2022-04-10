@@ -1004,9 +1004,9 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 
 		if(limbIndex == PLAYER_LIMB_HEAD)
 		{
-			rot->x += pthis->unk_6BA;
-			rot->y -= pthis->unk_6B8;
-			rot->z += pthis->unk_6B6;
+			rot->x += pthis->unk_rot_vel_x_6BA;
+			rot->y -= pthis->unk_rot_vel_y_6B8;
+			rot->z += pthis->unk_rot_vel_z_6B6;
 		}
 		else if(limbIndex == PLAYER_LIMB_UPPER)
 		{
@@ -1019,13 +1019,13 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 			{
 				Matrix_RotateY(pthis->unk_6BE * (M_PI / 0x8000), MTXMODE_APPLY);
 			}
-			if(pthis->unk_6BC != 0)
+			if(pthis->unk_rot_x_6BC != 0)
 			{
-				Matrix_RotateX(pthis->unk_6BC * (M_PI / 0x8000), MTXMODE_APPLY);
+				Matrix_RotateX(pthis->unk_rot_x_6BC * (M_PI / 0x8000), MTXMODE_APPLY);
 			}
-			if(pthis->unk_6C0 != 0)
+			if(pthis->unk_rot_z_6C0 != 0)
 			{
-				Matrix_RotateZ(pthis->unk_6C0 * (M_PI / 0x8000), MTXMODE_APPLY);
+				Matrix_RotateZ(pthis->unk_rot_z_6C0 * (M_PI / 0x8000), MTXMODE_APPLY);
 			}
 		}
 		else if(limbIndex == PLAYER_LIMB_L_THIGH)
