@@ -391,7 +391,7 @@ void EnMa3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	EnMa3* pthis = (EnMa3*)thisx;
 	Vec3f vec = {900.0f, 0.0f, 0.0f};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ma3.c", 927);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ma3.c", 927);
 
 	if(limbIndex == MALON_ADULT_LIMB_HEAD)
 	{
@@ -403,7 +403,7 @@ void EnMa3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 		gSPDisplayList(POLY_OPA_DISP++, gMalonAdultBasketDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma3.c", 950);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ma3.c", 950);
 }
 
 void EnMa3_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -413,19 +413,19 @@ void EnMa3_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 someFloat;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ma3.c", 978);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ma3.c", 978);
 
 	camera = GET_ACTIVE_CAM(globalCtx);
 	someFloat = Math_Vec3f_DistXZ(&pthis->actor.world.pos, &camera->eye);
 	func_800F6268(someFloat, NA_BGM_LONLON);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthTextures_47[pthis->mouthIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures_47[pthis->eyeIndex]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnMa3_OverrideLimbDraw, EnMa3_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma3.c", 1013);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ma3.c", 1013);
 }
 
 void EnMa3_Reset(Actor* pthisx, GlobalContext* globalCtx)

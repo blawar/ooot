@@ -308,7 +308,7 @@ void DemoIk_Type1Action2(DemoIk* pthis, GlobalContext* globalCtx)
 void DemoIk_Type1PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
 	DemoIk* pthis = (DemoIk*)thisx;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ik_inArmer.c", 385);
 	if(limbIndex == 1)
@@ -331,7 +331,7 @@ void DemoIk_Type1PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 void DemoIk_Type1Draw(DemoIk* pthis, GlobalContext* globalCtx)
 {
 	s32 pad[2];
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ik_inArmer.c", 422);
@@ -483,7 +483,7 @@ s32 DemoIk_Type2OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
 void DemoIk_Type2PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
 	DemoIk* pthis = (DemoIk*)thisx;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 frame = DemoIk_GetCurFrame(pthis);
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ik_inFace.c", 268);
@@ -515,7 +515,7 @@ void DemoIk_Type2PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 void DemoIk_Type2Draw(DemoIk* pthis, GlobalContext* globalCtx)
 {
 	s32 pad[2];
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ik_inFace.c", 318);

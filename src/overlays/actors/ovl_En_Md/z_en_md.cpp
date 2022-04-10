@@ -974,7 +974,7 @@ void EnMd_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnMd* pthis = (EnMd*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_md.c", 1280);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_md.c", 1280);
 
 	if(pthis->alpha == 255)
 	{
@@ -987,7 +987,7 @@ void EnMd_Draw(Actor* thisx, GlobalContext* globalCtx)
 		func_80034CC4(globalCtx, &pthis->skelAnime, EnMd_OverrideLimbDraw, EnMd_PostLimbDraw, &pthis->actor, pthis->alpha);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_md.c", 1317);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_md.c", 1317);
 }
 
 void EnMd_Reset(Actor* pthisx, GlobalContext* globalCtx)

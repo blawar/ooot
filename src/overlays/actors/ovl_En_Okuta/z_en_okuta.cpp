@@ -873,7 +873,7 @@ void EnOkuta_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnOkuta* pthis = (EnOkuta*)thisx;
 	s32 pad;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(pthis->actor.params == 0)
 	{
@@ -881,14 +881,14 @@ void EnOkuta_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_okuta.c", 1653);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_okuta.c", 1653);
 
 		Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 		Matrix_RotateZ(pthis->actor.home.rot.z * (M_PI / 0x8000), MTXMODE_APPLY);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_okuta.c", 1657), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_okuta.c", 1657), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gOctorokProjectileDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_okuta.c", 1662);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_okuta.c", 1662);
 	}
 }
 

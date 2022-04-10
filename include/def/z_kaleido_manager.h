@@ -1,8 +1,8 @@
 #pragma once
 #include "kaleido.h"
+#include "globalctx.h"
 
 struct KaleidoMgrOverlay;
-struct GlobalContext;
 
 extern u8 gBossMarkState;
 extern KaleidoMgrOverlay* gKaleidoMgrCurOvl;

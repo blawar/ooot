@@ -304,13 +304,13 @@ Gfx* func_8088EB54(GlobalContext* globalCtx, BgHidanSima* pthis, Gfx* gfx)
 		mtxF.zz += 0.4f;
 
 		gSPSegment(gfx++, 0x09, SEGMENTED_TO_VIRTUAL(sFireballsTexs[(s32)(pthis->timer + s3) % 7]));
-		gSPMatrix(gfx++, Matrix_MtxFToMtx(&mtxF, (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(gfx++, Matrix_MtxFToMtx(&mtxF, (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(gfx++, gFireTempleFireballDL);
 	}
 	mtxF.xw = pthis->dyna.actor.world.pos.x + (phi_s5 * 25 + 80) * sin;
 	mtxF.zw = pthis->dyna.actor.world.pos.z + (phi_s5 * 25 + 80) * cos;
 	gSPSegment(gfx++, 0x09, SEGMENTED_TO_VIRTUAL(sFireballsTexs[(s32)(pthis->timer + s3) % 7]));
-	gSPMatrix(gfx++, Matrix_MtxFToMtx(&mtxF, (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(gfx++, Matrix_MtxFToMtx(&mtxF, (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(gfx++, gFireTempleFireballDL);
 	return gfx;
 }
@@ -319,9 +319,9 @@ void BgHidanSima_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	BgHidanSima* pthis = (BgHidanSima*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_sima.c", 641);
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_sima.c", 645), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_sima.c", 641);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_hidan_sima.c", 645), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	if(pthis->dyna.actor.params == 0)
 	{
 		gSPDisplayList(POLY_OPA_DISP++, gFireTempleStonePlatform1DL);
@@ -337,7 +337,7 @@ void BgHidanSima_Draw(Actor* thisx, GlobalContext* globalCtx)
 			POLY_XLU_DISP = func_8088EB54(globalCtx, pthis, POLY_XLU_DISP);
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_sima.c", 668);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_sima.c", 668);
 }
 
 void BgHidanSima_Reset(Actor* pthisx, GlobalContext* globalCtx)

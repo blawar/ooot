@@ -210,7 +210,7 @@ void Message_UpdateOcarinaGame(GlobalContext* globalCtx)
 
 u8 Message_ShouldAdvance(GlobalContext* globalCtx)
 {
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
 	if(CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_B) || CHECK_BTN_ALL(input->press.button, BTN_CUP))
 	{
@@ -221,7 +221,7 @@ u8 Message_ShouldAdvance(GlobalContext* globalCtx)
 
 u8 Message_ShouldAdvanceSilent(GlobalContext* globalCtx)
 {
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
 	return CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_B) || CHECK_BTN_ALL(input->press.button, BTN_CUP);
 }
@@ -247,7 +247,7 @@ void Message_HandleChoiceSelection(GlobalContext* globalCtx, u8 numChoices)
 {
 	static s16 sAnalogStickHeld = false;
 	MessageContext* msgCtx = &globalCtx->msgCtx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
 	if(input->rel.stick_y >= 30 && !sAnalogStickHeld)
 	{
@@ -921,7 +921,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP)
 	Font* font = &globalCtx->msgCtx.font;
 	Gfx* gfx = *gfxP;
 
-	const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->state.input[0].cur.button, BTN_B)) ? 8 : 1;
+	const u16 buttonScaler = (CHECK_BTN_ALL(globalCtx->input[0].cur.button, BTN_B)) ? 8 : 1;
 
 	globalCtx->msgCtx.textPosX = R_TEXT_INIT_XPOS;
 
@@ -2465,7 +2465,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p)
 					msgCtx->stateTimer = 10;
 					msgCtx->msgMode = MSGMODE_OCARINA_FAIL;
 				}
-				else if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B))
+				else if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B))
 				{
 					Audio_OcaSetInstrument(0);
 					globalCtx->msgCtx.ocarinaMode = OCARINA_MODE_04;
@@ -2971,7 +2971,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p)
 						sOcarinaNoteBufPos = 0;
 					}
 				}
-				if(msgCtx->ocarinaStaff->state == 0 || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B))
+				if(msgCtx->ocarinaStaff->state == 0 || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B))
 				{
 					if(sOcarinaNoteBufLen != 0)
 					{
@@ -3069,7 +3069,7 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p)
 					osSyncPrintf(VT_RST);
 					osSyncPrintf("\n====================================================================\n");
 				}
-				else if(msgCtx->ocarinaStaff->state == 0xFF || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B))
+				else if(msgCtx->ocarinaStaff->state == 0xFF || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B))
 				{
 					// "Played an existing song！！！"
 					osSyncPrintf("すでに存在する曲吹いた！！！ \n");
@@ -3387,10 +3387,10 @@ void Message_Draw(GlobalContext* globalCtx)
 	Gfx* polyOpaP;
 	s16 watchVar;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_message_PAL.c", 3554);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_message_PAL.c", 3554);
 
 	watchVar = gSaveContext.scarecrowCustomSongSet;
-	Message_DrawDebugVariableChanged(&watchVar, globalCtx->state.gfxCtx);
+	Message_DrawDebugVariableChanged(&watchVar, globalCtx->gfxCtx);
 	if(BREG(0) != 0 && globalCtx->msgCtx.textId != 0)
 	{
 		plusOne = Graph_GfxPlusOne(polyOpaP = POLY_OPA_DISP);
@@ -3406,7 +3406,7 @@ void Message_Draw(GlobalContext* globalCtx)
 	gSPEndDisplayList(plusOne++);
 	Graph_BranchDlist(polyOpaP, plusOne);
 	POLY_OPA_DISP = plusOne;
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_message_PAL.c", 3582);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_message_PAL.c", 3582);
 }
 
 void Message_Update(GlobalContext* globalCtx)
@@ -3435,7 +3435,7 @@ void Message_Update(GlobalContext* globalCtx)
 	MessageContext* msgCtx = &globalCtx->msgCtx;
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 	Player* player = GET_PLAYER(globalCtx);
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	s16 var;
 	s16 focusScreenPosX;
 	s16 averageY = 0;
@@ -3633,7 +3633,7 @@ void Message_Update(GlobalContext* globalCtx)
 			}
 			break;
 		case MSGMODE_TEXT_DISPLAYING:
-			if(msgCtx->textBoxType != TEXTBOX_TYPE_NONE_BOTTOM && YREG(31) == 0 && CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B) && !msgCtx->textUnskippable)
+			if(msgCtx->textBoxType != TEXTBOX_TYPE_NONE_BOTTOM && YREG(31) == 0 && CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B) && !msgCtx->textUnskippable)
 			{
 				sTextboxSkipped = true;
 				msgCtx->textDrawPos = msgCtx->decodedTextLen;

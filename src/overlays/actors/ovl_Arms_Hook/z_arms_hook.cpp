@@ -335,7 +335,7 @@ void ArmsHook_Shoot(ArmsHook* pthis, GlobalContext* globalCtx)
 				Audio_PlaySoundGeneral(NA_SE_IT_HOOKSHOT_REFLECT, &pthis->actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 			}
 		}
-		else if(CHECK_BTN_ANY(globalCtx->state.input[0].press.button, (BTN_A | BTN_B | BTN_R | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN)))
+		else if(CHECK_BTN_ANY(globalCtx->input[0].press.button, (BTN_A | BTN_B | BTN_R | BTN_CUP | BTN_CLEFT | BTN_CRIGHT | BTN_CDOWN)))
 		{
 			pthis->timer = 0;
 		}
@@ -363,7 +363,7 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx)
 
 	if((player->actor.draw != NULL) && (player->rightHandType == 15))
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_arms_hook.c", 850);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_arms_hook.c", 850);
 
 		if((ArmsHook_Shoot != pthis->actionFunc) || (pthis->timer <= 0))
 		{
@@ -380,8 +380,8 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		}
 
 		func_80090480(globalCtx, &pthis->collider, &pthis->hookInfo, &sp6C, &sp60);
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arms_hook.c", 895), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D18(globalCtx->gfxCtx);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_arms_hook.c", 895), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gLinkAdultHookshotTipDL);
 		Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
 		Math_Vec3f_Diff(&player->unk_3C8, &pthis->actor.world.pos, &sp78);
@@ -390,10 +390,10 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		Matrix_RotateY(Math_FAtan2F(sp78.x, sp78.z), MTXMODE_APPLY);
 		Matrix_RotateX(Math_FAtan2F(-sp78.y, sp5C), MTXMODE_APPLY);
 		Matrix_Scale(0.015f, 0.015f, sqrtf(SQ(sp78.y) + sp58) * 0.01f, MTXMODE_APPLY);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arms_hook.c", 910), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_arms_hook.c", 910), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gLinkAdultHookshotChainDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arms_hook.c", 913);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_arms_hook.c", 913);
 	}
 }
 

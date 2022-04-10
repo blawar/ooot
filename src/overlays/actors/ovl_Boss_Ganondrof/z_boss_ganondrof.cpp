@@ -1645,7 +1645,7 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BossGanondrof* pthis = (BossGanondrof*)thisx;
 	EnfHG* horse;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganondrof.c", 3716);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganondrof.c", 3716);
 	osSyncPrintf("MOVE P = %x\n", pthis->actor.update);
 	osSyncPrintf("STOP TIMER = %d ==============\n", pthis->actor.freezeTimer);
 	horse = (EnfHG*)pthis->actor.child;
@@ -1655,7 +1655,7 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	osSyncPrintf("YP %f\n", pthis->actor.world.pos.y);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	if(pthis->GND_INVINC_TIMER & 4)
 	{
 		POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099);
@@ -1670,17 +1670,17 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	gDPSetEnvColor(POLY_OPA_DISP++, (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_ALPHA]);
 	if(pthis->GND_BODY_DECAY_FLAG)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetClearPixelDList(globalCtx->state.gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetClearPixelDList(globalCtx->gfxCtx));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetNullDList(globalCtx->state.gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetNullDList(globalCtx->gfxCtx));
 	}
 
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, BossGanondrof_OverrideLimbDraw, BossGanondrof_PostLimbDraw, pthis);
 	osSyncPrintf("DRAW 22\n");
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganondrof.c", 3814);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganondrof.c", 3814);
 	osSyncPrintf("DRAW END %d\n", pthis->actor.params);
 }
 

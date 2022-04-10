@@ -40,7 +40,7 @@
 #include "def/z_quake.h"
 #include "def/z_view.h"
 
-GlobalContext* D_8015BD7C;
+GlobalContext* globalCtxAlt;
 DbCamera D_8015BD80;
 CollisionPoly* playerFloorPoly;
 
@@ -702,7 +702,7 @@ s16 func_80044ADC(Camera* camera, s16 yaw, s16 arg2)
 	rotatedPos.x = playerPos.x + (sp30 * sinYaw);
 	rotatedPos.y = playerPos.y;
 	rotatedPos.z = playerPos.z + (sp30 * cosYaw);
-	if(arg2 || (camera->globalCtx->state.frames % 2) == 0)
+	if(arg2 || (camera->globalCtx->frames % 2) == 0)
 	{
 		D_8015CE58.pos.x = playerPos.x + (sp2C * sinYaw);
 		D_8015CE58.pos.y = playerPos.y;
@@ -1982,7 +1982,7 @@ s32 Camera_Normal1(Camera* camera)
 		}
 
 		// crit wiggle
-		if(gSaveContext.health <= 16 && ((camera->globalCtx->state.frames % 256) == 0))
+		if(gSaveContext.health <= 16 && ((camera->globalCtx->frames % 256) == 0))
 		{
 			wiggleAdj = Rand_ZeroOne() * 10000.0f;
 			camera->inputDir.y = wiggleAdj + camera->inputDir.y;
@@ -4168,9 +4168,9 @@ s32 Camera_KeepOn3(Camera* camera)
 		func_80043B60(camera);
 		camera->atLERPStepScale = 0.0f;
 
-		if(camera->xzSpeed > 0.001f || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_B) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CLEFT) ||
-		   CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CRIGHT) ||
-		   CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_R) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_Z))
+		if(camera->xzSpeed > 0.001f || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CLEFT) ||
+		   CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CRIGHT) ||
+		   CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_R) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_Z))
 		{
 			camera->unk_14C |= 4;
 			camera->unk_14C &= ~8;
@@ -5590,9 +5590,9 @@ s32 Camera_Unique3(Camera* camera)
 				break;
 			}
 			uniq3->doorParams.timer3 = 5;
-			if(camera->xzSpeed > 0.001f || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_B) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CLEFT) ||
-			   CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CRIGHT) ||
-			   CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_R) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_Z))
+			if(camera->xzSpeed > 0.001f || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CLEFT) ||
+			   CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CRIGHT) ||
+			   CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_R) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_Z))
 			{
 				camera->animState++;
 			}
@@ -5707,9 +5707,9 @@ s32 Camera_Unique0(Camera* camera)
 		}
 		else if(
 		    (!(player->stateFlags1 & PLAYER_STATE1_29)) &&
-		    ((OLib_Vec3fDistXZ(&playerPosRot->pos, &anim->initalPos) >= 10.0f) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_B) ||
-		     CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CLEFT) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CUP) ||
-		     CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CRIGHT) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_R) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_Z)))
+		    ((OLib_Vec3fDistXZ(&playerPosRot->pos, &anim->initalPos) >= 10.0f) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) ||
+		     CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CLEFT) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CUP) ||
+		     CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CRIGHT) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_R) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_Z)))
 		{
 			camera->dist = OLib_Vec3fDist(&camera->at, eye);
 			camera->posOffset.x = camera->at.x - playerPosRot->pos.x;
@@ -5736,9 +5736,9 @@ s32 Camera_Unique0(Camera* camera)
 		}
 
 		if((!(player->stateFlags1 & PLAYER_STATE1_29)) &&
-		   ((0.001f < camera->xzSpeed) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_B) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CLEFT) ||
-		    CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CRIGHT) ||
-		    CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_R) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_Z)))
+		   ((0.001f < camera->xzSpeed) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CLEFT) ||
+		    CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CRIGHT) ||
+		    CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_R) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_Z)))
 		{
 			camera->dist = OLib_Vec3fDist(&camera->at, &camera->eye);
 			camera->posOffset.x = camera->at.x - playerPosRot->pos.x;
@@ -6552,7 +6552,7 @@ s32 Camera_Demo1(Camera* camera)
 			camera->animState++;
 			// "absolute" : "relative"
 			// osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: spline demo: start %s \n",
-			// camera->globalCtx->state.frames, *relativeToPlayer == 0 ? "absolute" : "relative");
+			// camera->globalCtx->frames, *relativeToPlayer == 0 ? "absolute" : "relative");
 
 			if(PREG(93))
 			{
@@ -6662,7 +6662,7 @@ s32 Camera_Demo3(Camera* camera)
 			sp68.x = anim->initialAt.x + (Math_SinS(angle) * 40.0f);
 			sp68.y = anim->initialAt.y + 40.0f;
 			sp68.z = anim->initialAt.z + (Math_CosS(angle) * 40.0f);
-			if(camera->globalCtx->state.frames & 1)
+			if(camera->globalCtx->frames & 1)
 			{
 				angle -= 0x3FFF;
 				anim->yawDir = 1;
@@ -6767,9 +6767,9 @@ s32 Camera_Demo3(Camera* camera)
 			anim->unk_0C = 0.1f;
 			sCameraInterfaceFlags = 0x3400;
 
-			if(!((anim->animFrame < 0 || camera->xzSpeed > 0.001f || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_B) ||
-			      CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CLEFT) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CUP) ||
-			      CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CRIGHT) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_R) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_Z)) &&
+			if(!((anim->animFrame < 0 || camera->xzSpeed > 0.001f || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) ||
+			      CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CLEFT) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CUP) ||
+			      CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CRIGHT) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_R) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_Z)) &&
 			     camera->unk_14C & 8))
 			{
 				goto skipeyeUpdate;
@@ -7081,7 +7081,7 @@ s32 Camera_Demo5(Camera* camera)
 		ONEPOINT_CS_INFO(camera)->keyFrameCnt = ARRAY_COUNT(D_8011D9F4);
 		if(camera->parentCamIdx != MAIN_CAM)
 		{
-			if(camera->globalCtx->state.frames & 1)
+			if(camera->globalCtx->frames & 1)
 			{
 				D_8011D9F4[0].rollTargetInit = -D_8011D9F4[0].rollTargetInit;
 				D_8011D9F4[1].rollTargetInit = -D_8011D9F4[1].rollTargetInit;
@@ -7095,13 +7095,13 @@ s32 Camera_Demo5(Camera* camera)
 		}
 	}
 
-	pad = sDemo5PrevSfxFrame - camera->globalCtx->state.frames.whole();
+	pad = sDemo5PrevSfxFrame - camera->globalCtx->frames.whole();
 	if((pad >= 0x33) || (pad < -0x32))
 	{
 		Common_PlaySfx((u16)camera->data1);
 	}
 
-	sDemo5PrevSfxFrame = camera->globalCtx->state.frames.whole();
+	sDemo5PrevSfxFrame = camera->globalCtx->frames.whole();
 
 	if(camera->player->stateFlags1 & PLAYER_STATE_SWIMMING && (player->currentBoots != PLAYER_BOOTS_IRON))
 	{
@@ -7115,7 +7115,7 @@ s32 Camera_Demo5(Camera* camera)
 		sp4A = playerhead.rot.y - playerTargetGeo.yaw;
 		if(camera->target->category == ACTORCAT_PLAYER)
 		{
-			pad = camera->globalCtx->state.frames.whole() - sDemo5PrevAction12Frame;
+			pad = camera->globalCtx->frames.whole() - sDemo5PrevAction12Frame;
 			if(player->stateFlags1 & PLAYER_STATE1_11)
 			{
 				// holding object over head.
@@ -7136,7 +7136,7 @@ s32 Camera_Demo5(Camera* camera)
 		}
 	}
 
-	sDemo5PrevAction12Frame = camera->globalCtx->state.frames.whole();
+	sDemo5PrevAction12Frame = camera->globalCtx->frames.whole();
 	Camera_ChangeSettingFlags(camera, CAM_SET_CS_C, (4 | 1));
 	Camera_Unique9(camera);
 	return true;
@@ -7885,7 +7885,7 @@ s32 Camera_Special9(Camera* camera)
 					// 0xE38 ~ 20 degrees
 					eyeAdjustment.pitch = 0xE38;
 					// 0xAAA ~ 15 degrees.
-					yaw = 0xAAA * ((camera->globalCtx->state.frames & 1) ? 1 : -1);
+					yaw = 0xAAA * ((camera->globalCtx->frames & 1) ? 1 : -1);
 					eyeAdjustment.yaw = anim->targetYaw + yaw;
 					eyeAdjustment.r = 200.0f * yNormal;
 					Camera_Vec3fVecSphGeoAdd(eyeNext, at, &eyeAdjustment);
@@ -7942,9 +7942,9 @@ s32 Camera_Special9(Camera* camera)
 			camera->unk_14C |= (0x400 | 0x10);
 			sCameraInterfaceFlags = 0;
 
-			if(camera->xzSpeed > 0.001f || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_B) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CLEFT) ||
-			   CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_CRIGHT) ||
-			   CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_R) || CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_Z) || params->interfaceFlags & 0x8)
+			if(camera->xzSpeed > 0.001f || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CLEFT) ||
+			   CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CDOWN) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CUP) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_CRIGHT) ||
+			   CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_R) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_Z) || params->interfaceFlags & 0x8)
 			{
 				Camera_ChangeSettingFlags(camera, camera->prevSetting, 2);
 				camera->unk_14C |= (0x4 | 0x2);
@@ -8013,7 +8013,7 @@ void Camera_Init(Camera* camera, View* view, CollisionContext* colCtx, GlobalCon
 		sInitRegs = false;
 		PREG(88) = -1;
 	}
-	camera->globalCtx = D_8015BD7C = globalCtx;
+	camera->globalCtx = globalCtxAlt = globalCtx;
 	DbCamera_Init(&D_8015BD80, camera);
 	curUID = sNextUID;
 	sNextUID++;
@@ -8475,22 +8475,22 @@ s32 Camera_DbgChangeMode(Camera* camera)
 
 	if(!gDbgCamEnabled && camera->globalCtx->activeCamera == MAIN_CAM)
 	{
-		if(CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CUP))
+		if(CHECK_BTN_ALL(globalCtxAlt->input[2].press.button, BTN_CUP))
 		{
 			osSyncPrintf("attention sound URGENCY\n");
 			Common_PlaySfx(NA_SE_SY_ATTENTION_URGENCY);
 		}
-		if(CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CDOWN))
+		if(CHECK_BTN_ALL(globalCtxAlt->input[2].press.button, BTN_CDOWN))
 		{
 			osSyncPrintf("attention sound NORMAL\n");
 			Common_PlaySfx(NA_SE_SY_ATTENTION_ON);
 		}
 
-		if(CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CRIGHT))
+		if(CHECK_BTN_ALL(globalCtxAlt->input[2].press.button, BTN_CRIGHT))
 		{
 			changeDir = 1;
 		}
-		if(CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_CLEFT))
+		if(CHECK_BTN_ALL(globalCtxAlt->input[2].press.button, BTN_CLEFT))
 		{
 			changeDir = -1;
 		}
@@ -8769,7 +8769,7 @@ Vec3s Camera_Update(Camera* camera)
 	}
 
 	// enable/disable debug cam
-	if(CHECK_BTN_ALL(D_8015BD7C->state.input[2].press.button, BTN_START))
+	if(CHECK_BTN_ALL(globalCtxAlt->input[2].press.button, BTN_START))
 	{
 		gDbgCamEnabled ^= 1;
 		if(gDbgCamEnabled)
@@ -8865,7 +8865,7 @@ Vec3s Camera_Update(Camera* camera)
 		osSyncPrintf("real (%d) %d(%f) %d(%f) 0(0) \n", sUpdateCameraDirection, camera->camDir.x, BINANG_TO_DEGF(camera->camDir.x), camera->camDir.y, BINANG_TO_DEGF(camera->camDir.y));
 	}
 
-	if(camera->timer != -1 && CHECK_BTN_ALL(D_8015BD7C->state.input[0].press.button, BTN_DRIGHT))
+	if(camera->timer != -1 && CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_DRIGHT))
 	{
 		camera->timer = 0;
 	}
@@ -9188,7 +9188,7 @@ s16 Camera_ChangeSettingFlags(Camera* camera, s16 setting, s16 flags)
 		Camera_CopyModeValuesToPREG(camera, camera->mode);
 	}
 
-	// osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: change camera[%d] set %s\n", camera->globalCtx->state.frames.whole(),
+	// osSyncPrintf(VT_SGR("1") "%06u:" VT_RST " camera: change camera[%d] set %s\n", camera->globalCtx->frames.whole(),
 	// camera->thisIdx, sCameraSettingNames[camera->setting]);
 
 	return setting;

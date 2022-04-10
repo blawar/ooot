@@ -518,11 +518,11 @@ void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx)
 		MirRay_SetIntensity(pthis, globalCtx);
 		if(!(pthis->reflectIntensity <= 0.0f))
 		{
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_mir_ray.c", 966);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_mir_ray.c", 966);
 
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			Matrix_Scale(1.0f, 1.0f, pthis->reflectIntensity * 5.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_mir_ray.c", 972), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_mir_ray.c", 972), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 150, (s16)(temp = pthis->reflectIntensity * 100.0f));
 			gSPDisplayList(POLY_XLU_DISP++, gShieldBeamGlowDL);
 			MirRay_SetupReflectionPolys(pthis, globalCtx, reflection);
@@ -550,7 +550,7 @@ void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx)
 					Matrix_Translate(reflection[i].pos.x, reflection[i].pos.y, reflection[i].pos.z, MTXMODE_NEW);
 					Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
 					Matrix_Mult(&reflection[i].mtx, MTXMODE_APPLY);
-					gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_mir_ray.c", 1006), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+					gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_mir_ray.c", 1006), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 					gDPSetRenderMode(POLY_XLU_DISP++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_DECAL2);
 					gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 150, reflection[0].opacity);
 					gSPDisplayList(POLY_XLU_DISP++, gShieldBeamImageDL);
@@ -559,7 +559,7 @@ void MirRay_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 			D_80B8E670 = 1;
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_mir_ray.c", 1027);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_mir_ray.c", 1027);
 		}
 	}
 }

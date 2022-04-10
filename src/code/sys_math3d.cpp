@@ -2406,10 +2406,10 @@ s32 Math3D_YZInSphere(Sphere16* sphere, f32 y, f32 z)
 	return false;
 }
 
-void Math3D_DrawSphere(struct GlobalContext* globalCtx, Sphere16* sph)
+void Math3D_DrawSphere(GlobalContext* globalCtx, Sphere16* sph)
 {
 }
 
-void Math3D_DrawCylinder(struct GlobalContext* globalCtx, Cylinder16* cyl)
+void Math3D_DrawCylinder(GlobalContext* globalCtx, Cylinder16* cyl)
 {
 }

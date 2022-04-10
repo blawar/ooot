@@ -589,13 +589,13 @@ void EnKz_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnKz* pthis = (EnKz*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_kz.c", 1259);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_kz.c", 1259);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeSegments_57[pthis->eyeIdx]));
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, pthis->skelanime.dListCount, EnKz_OverrideLimbDraw, EnKz_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_kz.c", 1281);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_kz.c", 1281);
 }
 
 void EnKz_Reset(Actor* pthisx, GlobalContext* globalCtx)

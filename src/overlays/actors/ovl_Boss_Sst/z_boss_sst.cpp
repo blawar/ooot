@@ -3242,9 +3242,9 @@ void BossSst_DrawHand(Actor* thisx, GlobalContext* globalCtx)
 {
 	BossSst* pthis = (BossSst*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6563);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_sst.c", 6563);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gDPSetPrimColor(POLY_OPA_DISP++, 0x00, 0x80, sBodyColor.r, sBodyColor.g, sBodyColor.b, 255);
 
@@ -3268,7 +3268,7 @@ void BossSst_DrawHand(Actor* thisx, GlobalContext* globalCtx)
 		s32 end;
 		s32 pad;
 
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		end = pthis->trailCount >> 1;
 		idx = (pthis->trailIndex + 4) % 7;
@@ -3293,7 +3293,7 @@ void BossSst_DrawHand(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6654);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_sst.c", 6654);
 
 	BossSst_DrawEffect(&pthis->actor, globalCtx);
 }
@@ -3418,11 +3418,11 @@ void BossSst_DrawHead(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BossSst* pthis = (BossSst*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6810);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_sst.c", 6810);
 
 	if(!CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_7))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_OPA_DISP++, 0x00, 0x80, sBodyColor.r, sBodyColor.g, sBodyColor.b, 255);
 		if(!sBodyStatic)
 		{
@@ -3436,7 +3436,7 @@ void BossSst_DrawHead(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x80, 255, 255, 255, 255);
 		gSPSegment(POLY_XLU_DISP++, 0x08, &D_80116280[2]);
 	}
@@ -3468,7 +3468,7 @@ void BossSst_DrawHead(Actor* thisx, GlobalContext* globalCtx)
 		Vec3f vanishMaskPos;
 		Vec3f vanishMaskOffset;
 
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x00, 0, 0, 18, 255);
 
 		yOffset = 113 * 8 - pthis->timer * 8;
@@ -3484,11 +3484,11 @@ void BossSst_DrawHead(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_Translate(pthis->actor.world.pos.x + vanishMaskOffset.x, pthis->actor.world.pos.y + vanishMaskOffset.y, pthis->actor.world.pos.z + vanishMaskOffset.z, MTXMODE_NEW);
 		Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6934), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_sst.c", 6934), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, sIntroVanishDList);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 6941);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_sst.c", 6941);
 
 	SkinMatrix_Vec3fMtxFMultXYZ(&globalCtx->viewProjectionMtxF, &pthis->actor.focus.pos, &pthis->center);
 	BossSst_DrawEffect(&pthis->actor, globalCtx);
@@ -3750,12 +3750,12 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->effectMode != BONGO_NULL)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7302);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_sst.c", 7302);
 
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		if(pthis->effectMode == BONGO_ICE)
 		{
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames % 256, 0x20, 0x10, 1, 0, (globalCtx->gameplayFrames.whole() * 2) % 256, 0x40, 0x20));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, globalCtx->gameplayFrames % 256, 0x20, 0x10, 1, 0, (globalCtx->gameplayFrames.whole() * 2) % 256, 0x40, 0x20));
 			gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, pthis->effects[0].alpha);
 			gSPDisplayList(POLY_XLU_DISP++, gBongoIceCrystalDL);
 
@@ -3777,7 +3777,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx)
 					Matrix_RotateZYX(effect->rot.x, effect->rot.y, effect->rot.z, MTXMODE_APPLY);
 					Matrix_Scale(effect->scale * 0.001f, effect->scale * 0.001f, effect->scale * 0.001f, MTXMODE_APPLY);
 
-					gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7350), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+					gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_sst.c", 7350), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 					gSPDisplayList(POLY_XLU_DISP++, gBongoIceShardDL);
 				}
 			}
@@ -3787,7 +3787,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx)
 			f32 scaleY = 0.005f;
 
 			gDPPipeSync(POLY_XLU_DISP++);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames % 128, 0, 0x20, 0x40, 1, 0, (globalCtx->gameplayFrames.whole() * -15) % 256, 0x20, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, globalCtx->gameplayFrames % 128, 0, 0x20, 0x40, 1, 0, (globalCtx->gameplayFrames.whole() * -15) % 256, 0x20, 0x40));
 
 			for(i = 0; i < 3; i++, scaleY -= 0.001f)
 			{
@@ -3801,7 +3801,7 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx)
 					gDPPipeSync(POLY_XLU_DISP++);
 					gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 30, 0, 30, effect->alpha * effect->move);
 					gDPSetEnvColor(POLY_XLU_DISP++, 30, 0, 30, 0);
-					gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7396), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+					gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_sst.c", 7396), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 					gSPDisplayList(POLY_XLU_DISP++, gEffFireCircleDL);
 				}
 			}
@@ -3817,13 +3817,13 @@ void BossSst_DrawEffect(Actor* thisx, GlobalContext* globalCtx)
 				Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
 				Matrix_Scale(effect->scale * 0.001f, 1.0f, effect->scale * 0.001f, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7423), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_sst.c", 7423), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, sShadowDList);
 				effect++;
 			}
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_sst.c", 7433);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_sst.c", 7433);
 	}
 }
 

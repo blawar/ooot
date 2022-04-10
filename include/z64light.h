@@ -4,6 +4,7 @@
 #include "ultra64.h"
 #include "ultra64/gbi.h"
 #include "z64math.h"
+#include "globalctx.h"
 
 struct LightPoint
 {
@@ -74,15 +75,15 @@ void Lights_DirectionalSetInfo(LightInfo* info, s8 x, s8 y, s8 z, u8 r, u8 g, u8
 void Lights_Reset(Lights* lights, u8 ambentR, u8 ambentG, u8 ambentB);
 void Lights_Draw(Lights* lights, struct GraphicsContext* gfxCtx);
 void Lights_BindAll(Lights* lights, LightNode* listHead, Vec3f* vec);
-void LightContext_Init(struct GlobalContext* globalCtx, LightContext* lightCtx);
+void LightContext_Init(GlobalContext* globalCtx, LightContext* lightCtx);
 void LightContext_SetAmbientColor(LightContext* lightCtx, u8 r, u8 g, u8 b);
 void LightContext_SetFog(LightContext* lightCtx, u8 arg1, u8 arg2, u8 arg3, s16 numLights, s16 arg5);
 Lights* LightContext_NewLights(LightContext* lightCtx, struct GraphicsContext* gfxCtx);
-void LightContext_InitList(struct GlobalContext* globalCtx, LightContext* lightCtx);
-void LightContext_DestroyList(struct GlobalContext* globalCtx, LightContext* lightCtx);
-LightNode* LightContext_InsertLight(struct GlobalContext* globalCtx, LightContext* lightCtx, LightInfo* info);
-void LightContext_RemoveLight(struct GlobalContext* globalCtx, LightContext* lightCtx, LightNode* node);
+void LightContext_InitList(GlobalContext* globalCtx, LightContext* lightCtx);
+void LightContext_DestroyList(GlobalContext* globalCtx, LightContext* lightCtx);
+LightNode* LightContext_InsertLight(GlobalContext* globalCtx, LightContext* lightCtx, LightInfo* info);
+void LightContext_RemoveLight(GlobalContext* globalCtx, LightContext* lightCtx, LightNode* node);
 Lights* Lights_NewAndDraw(struct GraphicsContext* gfxCtx, u8 ambientR, u8 ambientG, u8 ambientB, u8 numLights, u8 r, u8 g, u8 b, s8 x, s8 y, s8 z);
 Lights* Lights_New(struct GraphicsContext* gfxCtx, u8 ambientR, u8 ambientG, u8 ambientB);
-void Lights_GlowCheck(struct GlobalContext* globalCtx);
-void Lights_DrawGlow(struct GlobalContext* globalCtx);
+void Lights_GlowCheck(GlobalContext* globalCtx);
+void Lights_DrawGlow(GlobalContext* globalCtx);

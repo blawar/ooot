@@ -553,7 +553,7 @@ s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 
 	if(limbIndex == 14)
 	{
-		sp74 = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7);
+		sp74 = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx) * 7);
 		gSPSegment((*gfx)++, 0x0C, sp74);
 
 		Matrix_Push();
@@ -670,7 +670,7 @@ void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 				Matrix_Translate(180.0f, 979.0f, -375.0f, MTXMODE_APPLY);
 				Matrix_RotateZYX(-0x5DE7, -0x53E9, 0x3333, MTXMODE_APPLY);
 				Matrix_Scale(1.2f, 1.2f, 1.2f, MTXMODE_APPLY);
-				gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1253), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_zl2.c", 1253), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList((*gfx)++, gZelda2OcarinaDL);
 			}
 			Matrix_Pop();
@@ -1932,9 +1932,9 @@ void func_80B523C8(EnZl2* pthis, GlobalContext* globalCtx)
 	void* mouthTex = sMouthTextures[mouthTexIndex];
 	s32 pad1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1623);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zl2.c", 1623);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex2));
@@ -1944,7 +1944,7 @@ void func_80B523C8(EnZl2* pthis, GlobalContext* globalCtx)
 
 	POLY_OPA_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, EnZl2_OverrideLimbDraw, EnZl2_PostLimbDraw, pthis, POLY_OPA_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1648);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zl2.c", 1648);
 }
 
 void func_80B525D4(EnZl2* pthis, GlobalContext* globalCtx)
@@ -1957,9 +1957,9 @@ void func_80B525D4(EnZl2* pthis, GlobalContext* globalCtx)
 	void* mouthTex = sMouthTextures[mouthTexIndex];
 	s32 pad1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1663);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zl2.c", 1663);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex));
@@ -1969,7 +1969,7 @@ void func_80B525D4(EnZl2* pthis, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, EnZl2_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1692);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zl2.c", 1692);
 }
 
 void EnZl2_Draw(Actor* thisx, GlobalContext* globalCtx)

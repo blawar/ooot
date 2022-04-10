@@ -365,7 +365,7 @@ void EnDog_FollowPath(EnDog* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		frame = globalCtx->state.frames % 3;
+		frame = globalCtx->frames % 3;
 		pthis->nextBehavior = behaviors[frame];
 		// no clue why they're using the behavior id to calculate timer. possibly meant to use the unused array?
 		pthis->behaviorTimer = Rand_S16Offset(60, behaviors[frame]);
@@ -383,7 +383,7 @@ void EnDog_ChooseMovement(EnDog* pthis, GlobalContext* globalCtx)
 	if(DECR(pthis->behaviorTimer) == 0)
 	{
 		pthis->behaviorTimer = Rand_S16Offset(200, 100);
-		if(globalCtx->state.frames % 2)
+		if(globalCtx->frames % 2)
 		{
 			pthis->nextBehavior = DOG_WALK;
 		}
@@ -539,16 +539,16 @@ void EnDog_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnDog* pthis = (EnDog*)thisx;
 	Color_RGBA8 colors[] = {{255, 255, 200, 0}, {150, 100, 50, 0}};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dog.c", 972);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_dog.c", 972);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetEnvColor(POLY_OPA_DISP++, colors[pthis->actor.params & 0xF].r, colors[pthis->actor.params & 0xF].g, colors[pthis->actor.params & 0xF].b, colors[pthis->actor.params & 0xF].a);
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnDog_OverrideLimbDraw, EnDog_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dog.c", 994);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_dog.c", 994);
 }
 
 void EnDog_Reset(Actor* pthisx, GlobalContext* globalCtx)

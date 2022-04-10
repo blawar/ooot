@@ -32,7 +32,7 @@ void func_801109B0(GlobalContext* globalCtx)
 	gSaveContext.sunsSongState = SUNSSONG_INACTIVE;
 	gSaveContext.unk_13E8 = gSaveContext.unk_13EA = 0;
 
-	View_Init(&interfaceCtx->view, globalCtx->state.gfxCtx);
+	View_Init(&interfaceCtx->view, globalCtx->gfxCtx);
 
 	interfaceCtx->unk_1FA = interfaceCtx->unk_261 = interfaceCtx->unk_1FC = 0;
 	interfaceCtx->unk_1EC = interfaceCtx->unk_1EE = interfaceCtx->unk_1F0 = 0;
@@ -183,9 +183,9 @@ void Message_Init(GlobalContext* globalCtx)
 	msgCtx->textId = msgCtx->textboxEndType = msgCtx->choiceIndex = msgCtx->ocarinaAction = msgCtx->textUnskippable = 0;
 	msgCtx->textColorAlpha = 255;
 
-	View_Init(&msgCtx->view, globalCtx->state.gfxCtx);
+	View_Init(&msgCtx->view, globalCtx->gfxCtx);
 
-	msgCtx->textboxSegment = GameState_Alloc(&globalCtx->state, 0x2200, "../z_construct.c", 349);
+	msgCtx->textboxSegment = GameState_Alloc(globalCtx, 0x2200, "../z_construct.c", 349);
 
 	osSyncPrintf("message->fukidashiSegment=%x\n", msgCtx->textboxSegment);
 

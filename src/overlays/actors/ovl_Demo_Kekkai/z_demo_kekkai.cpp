@@ -326,27 +326,27 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx2)
 			energyVtx[i].v.cn[3] = alphas[alphaIndex[i]];
 		}
 		colorIndex = (pthis->actor.params - 1) * 6;
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 632);
-		func_80093D84(globalCtx->state.gfxCtx);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_kekkai.c", 632);
+		func_80093D84(globalCtx->gfxCtx);
 		Matrix_Push();
 		Matrix_Translate(0.0f, 1200.0f, 0.0f, MTXMODE_APPLY);
 		Matrix_Scale(pthis->orbScale, pthis->orbScale, pthis->orbScale, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, -1200.0f, 0.0f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 639), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 5, frames * -10, 0x20, 0x20, 1, frames * 5, frames * -10, 0x20, 0x20));
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_kekkai.c", 639), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, frames * 5, frames * -10, 0x20, 0x20, 1, frames * 5, frames * -10, 0x20, 0x20));
 		gSPDisplayList(POLY_XLU_DISP++, gTrialBarrierOrbDL);
 		Matrix_Pop();
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 656), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_kekkai.c", 656), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPPipeSync(POLY_XLU_DISP++);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x80, 50, 0, 100, 255);
-		gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x20, 1, frames, frames, 0x20, 0x20));
+		gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, frames, frames, 0x20, 0x20));
 		gSPDisplayList(POLY_XLU_DISP++, gTrialBarrierFloorDL);
 		gDPPipeSync(POLY_XLU_DISP++);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x80, sEnergyColors[colorIndex + 0], sEnergyColors[colorIndex + 1], sEnergyColors[colorIndex + 2], 255);
 		gDPSetEnvColor(POLY_XLU_DISP++, sEnergyColors[colorIndex + 3], sEnergyColors[colorIndex + 4], sEnergyColors[colorIndex + 5], 128);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 5, frames * -10, 0x20, 0x20, 1, frames * 5, frames * -10, 0x20, 0x40));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, frames * 5, frames * -10, 0x20, 0x20, 1, frames * 5, frames * -10, 0x20, 0x40));
 		gSPDisplayList(POLY_XLU_DISP++, gTrialBarrierEnergyDL);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 696);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_kekkai.c", 696);
 	}
 }
 
@@ -357,13 +357,13 @@ void DemoKekkai_DrawTowerBarrier(Actor* thisx, GlobalContext* globalCtx)
 	s32 scroll;
 
 	scroll = (s32)pthis->barrierScroll & 0xFFFF;
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 705);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 707), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_kekkai.c", 705);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_kekkai.c", 707), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x80, 255, 170, 255, 255);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 2, scroll * -4, 0x20, 0x40, 1, scroll * 2, scroll * -4, 0x20, 0x40));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, scroll * 2, scroll * -4, 0x20, 0x40, 1, scroll * 2, scroll * -4, 0x20, 0x40));
 	gSPDisplayList(POLY_XLU_DISP++, gTowerBarrierDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_kekkai.c", 722);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_kekkai.c", 722);
 }
 
 void DemoKekkai_Reset(Actor* pthisx, GlobalContext* globalCtx)

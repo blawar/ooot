@@ -59,22 +59,6 @@ void ZeldaArena_FreeDebug(void* ptr, const char* file, s32 line)
 	free(ptr);
 }
 
-void* ZeldaArena_Calloc(u32 num, u32 size)
-{
-	void* ret;
-	u32 n = num * size;
-
-	ret = malloc(n);
-
-	if(ret != NULL)
-	{
-		memset(ret, 0, n);
-	}
-
-	ZeldaArena_CheckPointer(ret, n, "zelda_calloc", "確保");
-	return ret;
-}
-
 void ZeldaArena_Display()
 {
 }

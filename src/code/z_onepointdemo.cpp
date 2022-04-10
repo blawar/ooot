@@ -154,9 +154,9 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 			func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
 			break;
 		case 2260:
-			D_80120ACC[0].atTargetInit.x = D_80120ACC[2].atTargetInit.x = ((mainCam->globalCtx->state.frames & 1) ? -10.0f : 10.0f) + (Rand_ZeroOne() * 8.0f);
+			D_80120ACC[0].atTargetInit.x = D_80120ACC[2].atTargetInit.x = ((mainCam->globalCtx->frames & 1) ? -10.0f : 10.0f) + (Rand_ZeroOne() * 8.0f);
 
-			D_80120ACC[0].eyeTargetInit.x = D_80120ACC[2].eyeTargetInit.x = ((mainCam->globalCtx->state.frames & 1) ? 20.0f : -20.0f) + (Rand_ZeroOne() * 5.0f);
+			D_80120ACC[0].eyeTargetInit.x = D_80120ACC[2].eyeTargetInit.x = ((mainCam->globalCtx->frames & 1) ? 20.0f : -20.0f) + (Rand_ZeroOne() * 5.0f);
 
 			csInfo->keyFrames = D_80120ACC;
 			csInfo->keyFrameCnt = 5;
@@ -178,7 +178,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 				}
 			}
 
-			D_80120B94[camIdx - 1].eyeTargetInit.y = ((mainCam->globalCtx->state.frames & 1) ? 3.0f : -3.0f) + Rand_ZeroOne();
+			D_80120B94[camIdx - 1].eyeTargetInit.y = ((mainCam->globalCtx->frames & 1) ? 3.0f : -3.0f) + Rand_ZeroOne();
 			func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
 
 			i = Quake_Add(csCam, 5);
@@ -200,7 +200,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 					D_80120D4C[i].eyeTargetInit.z = (Rand_ZeroOne() * 40.0f) + 80.0f;
 				}
 			}
-			D_80120D4C[camIdx - 1].eyeTargetInit.y = ((mainCam->globalCtx->state.frames & 1) ? 3.0f : -3.0f) + Rand_ZeroOne();
+			D_80120D4C[camIdx - 1].eyeTargetInit.y = ((mainCam->globalCtx->frames & 1) ? 3.0f : -3.0f) + Rand_ZeroOne();
 			func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
 
 			i = Quake_Add(csCam, 5);
@@ -400,7 +400,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 			break;
 		case 3020:
 			D_8012156C[1].timerInit = timer - 1;
-			if(mainCam->globalCtx->state.frames & 1)
+			if(mainCam->globalCtx->frames & 1)
 			{
 				D_8012156C[0].atTargetInit.x = -D_8012156C[0].atTargetInit.x;
 				D_8012156C[0].eyeTargetInit.x = -D_8012156C[0].eyeTargetInit.x;
@@ -966,7 +966,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 			break;
 		case 1100:
 		{
-			s32 tempDiff = (globalCtx->state.frames.whole() - sPrevFrameCs1100);
+			s32 tempDiff = (globalCtx->frames.whole() - sPrevFrameCs1100);
 
 			if((tempDiff > 3600) || (tempDiff < -3600))
 			{
@@ -975,7 +975,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 			}
 			else
 			{
-				if(globalCtx->state.frames & 1)
+				if(globalCtx->frames & 1)
 				{
 					D_8012313C[0].rollTargetInit = -D_8012313C[0].rollTargetInit;
 					D_8012313C[0].atTargetInit.y = -D_8012313C[0].atTargetInit.y;
@@ -986,7 +986,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 				csInfo->keyFrameCnt = 3;
 			}
 			func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
-			sPrevFrameCs1100 = globalCtx->state.frames.whole();
+			sPrevFrameCs1100 = globalCtx->frames.whole();
 		}
 		break;
 		case 9806:
@@ -1392,11 +1392,11 @@ s32 OnePointCutscene_Attention(GlobalContext* globalCtx, Actor* actor)
 		case ACTORCAT_BOSS:
 		default:
 			// osSyncPrintf(VT_COL(YELLOW, BLACK) "actor attention demo camera: %d: unkown part of actor %d\n" VT_RST,
-			// globalCtx->state.frames, actor->category);
+			// globalCtx->frames, actor->category);
 			timer = 30;
 			break;
 	}
-	// osSyncPrintf(VT_FGCOL(CYAN) "%06u:" VT_RST " actor attention demo camera: request %d ", globalCtx->state.frames,
+	// osSyncPrintf(VT_FGCOL(CYAN) "%06u:" VT_RST " actor attention demo camera: request %d ", globalCtx->frames,
 	// actor->category);
 
 	// If the previous attention cutscene has an actor in the same category, skip this actor.

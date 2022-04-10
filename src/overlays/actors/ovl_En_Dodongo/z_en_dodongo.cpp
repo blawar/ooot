@@ -1033,7 +1033,7 @@ void EnDodongo_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	EnDodongo* pthis = (EnDodongo*)thisx;
 	s32 index;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnDodongo_OverrideLimbDraw, EnDodongo_PostLimbDraw, pthis);
 
 	if(pthis->iceTimer != 0)

@@ -576,9 +576,9 @@ static ControllerHotspots hotspots;
 void KaleidoScope_DrawController(GlobalContext* globalCtx, oot::pause::Page* page)
 {
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
+	OPEN_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATERGBA, G_CC_MODULATERGBA);
 
 	drawTextureRGBA32(__gfxCtx, TEX_X, TEX_Y, TEX_WIDTH, TEX_HEIGHT, gN64ControllerTex, true);
@@ -676,7 +676,7 @@ void KaleidoScope_DrawController(GlobalContext* globalCtx, oot::pause::Page* pag
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
+	CLOSE_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
 	return;
 }
 

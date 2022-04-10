@@ -6,7 +6,7 @@
 
 struct EnBombf;
 
-typedef void (*EnBombfActionFunc)(struct EnBombf*, struct GlobalContext*);
+typedef void (*EnBombfActionFunc)(struct EnBombf*, GlobalContext*);
 
 struct EnBombf
 {

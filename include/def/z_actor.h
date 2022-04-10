@@ -1,7 +1,7 @@
 #pragma once
 struct Actor;
 struct Lights;
-struct GlobalContext;
+#include "globalctx.h"
 struct ActorShape;
 struct ActorContext;
 struct Collider;

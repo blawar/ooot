@@ -591,16 +591,16 @@ void EnNb_DrawTransparency(EnNb* pthis, GlobalContext* globalCtx)
 	void* eyeTex = sEyeTextures[eyeSegIdx];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inKenjyanomaDemo02.c", 263);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_nb_inKenjyanomaDemo02.c", 263);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->alpha);
 	gSPSegment(POLY_XLU_DISP++, 0x0C, &D_80116280[0]);
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inKenjyanomaDemo02.c", 290);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_nb_inKenjyanomaDemo02.c", 290);
 }
 
 void EnNb_InitKidnap(EnNb* pthis, GlobalContext* globalCtx)
@@ -1049,16 +1049,16 @@ void func_80AB2E70(EnNb* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 572);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_nb_inConfrontion.c", 572);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gNabooruEyeWideTex));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gNabooruEyeWideTex));
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 	gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, &pthis->actor);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 593);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_nb_inConfrontion.c", 593);
 }
 
 s32 func_80AB2FC0(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -1081,16 +1081,16 @@ void func_80AB2FE4(EnNb* pthis, GlobalContext* globalCtx)
 	void* eyeTexture = sEyeTextures[eyeIdx];
 	s32 pad1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 623);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_nb_inConfrontion.c", 623);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 	gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, func_80AB2FC0, NULL, &pthis->actor);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 644);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_nb_inConfrontion.c", 644);
 }
 
 void EnNb_SetupCreditsSpawn(EnNb* pthis, GlobalContext* globalCtx)
@@ -1693,16 +1693,16 @@ void EnNb_DrawDefault(EnNb* pthis, GlobalContext* globalCtx)
 	void* eyeTexture = sEyeTextures[eyeIdx];
 	s32 pad1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb.c", 992);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_nb.c", 992);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 	gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, EnNb_OverrideLimbDraw, EnNb_PostLimbDraw, &pthis->actor);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nb.c", 1013);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_nb.c", 1013);
 }
 
 static EnNbDrawFunc sDrawFuncs[] = {

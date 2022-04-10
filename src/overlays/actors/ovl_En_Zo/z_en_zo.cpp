@@ -216,9 +216,9 @@ void EnZo_DrawRipples(EnZo* pthis, GlobalContext* globalCtx)
 	u8 setup;
 
 	effect = pthis->effects;
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 217);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zo_eff.c", 217);
 	setup = false;
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	for(i = 0; i < ARRAY_COUNT(pthis->effects); i++)
 	{
 		if(effect->type == ENZO_EFFECT_RIPPLE)
@@ -237,12 +237,12 @@ void EnZo_DrawRipples(EnZo* pthis, GlobalContext* globalCtx)
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, effect->color.a);
 			Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
 			Matrix_Scale(effect->scale, 1.0f, effect->scale, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 242), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_zo_eff.c", 242), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gZoraRipplesModelDL);
 		}
 		effect++;
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 248);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zo_eff.c", 248);
 }
 
 void EnZo_DrawBubbles(EnZo* pthis, GlobalContext* globalCtx)
@@ -251,9 +251,9 @@ void EnZo_DrawBubbles(EnZo* pthis, GlobalContext* globalCtx)
 	s16 i;
 	u8 setup;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 260);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zo_eff.c", 260);
 	setup = false;
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	for(i = 0; i < ARRAY_COUNT(pthis->effects); i++)
 	{
 		if(effect->type == ENZO_EFFECT_BUBBLE)
@@ -275,12 +275,12 @@ void EnZo_DrawBubbles(EnZo* pthis, GlobalContext* globalCtx)
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->scale, effect->scale, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 281), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_zo_eff.c", 281), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gZoraBubblesModelDL);
 		}
 		effect++;
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 286);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zo_eff.c", 286);
 }
 
 void EnZo_DrawSplashes(EnZo* pthis, GlobalContext* globalCtx)
@@ -290,9 +290,9 @@ void EnZo_DrawSplashes(EnZo* pthis, GlobalContext* globalCtx)
 	u8 setup;
 
 	effect = pthis->effects;
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 298);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zo_eff.c", 298);
 	setup = false;
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	for(i = 0; i < ARRAY_COUNT(pthis->effects); i++)
 	{
 		if(effect->type == ENZO_EFFECT_SPLASH)
@@ -312,13 +312,13 @@ void EnZo_DrawSplashes(EnZo* pthis, GlobalContext* globalCtx)
 			Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->scale, effect->scale, 1.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 325), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_zo_eff.c", 325), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gZoraSplashesModelDL);
 		}
 		effect++;
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zo_eff.c", 331);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zo_eff.c", 331);
 }
 
 void EnZo_TreadWaterRipples(EnZo* pthis, f32 scale, f32 targetScale, u8 alpha)
@@ -846,7 +846,7 @@ void EnZo_Update(Actor* thisx, GlobalContext* globalCtx)
 	EnZo_Dialog(pthis, globalCtx);
 
 	// Spawn air bubbles
-	if(globalCtx->state.frames & 8)
+	if(globalCtx->frames & 8)
 	{
 		pos = pthis->actor.world.pos;
 
@@ -921,7 +921,7 @@ void EnZo_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if((s32)pthis->alpha != 0)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zo.c", 1008);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zo.c", 1008);
 
 		if(pthis->alpha == 255.0f)
 		{
@@ -934,7 +934,7 @@ void EnZo_Draw(Actor* thisx, GlobalContext* globalCtx)
 			func_80034CC4(globalCtx, &pthis->skelAnime, EnZo_OverrideLimbDraw, EnZo_PostLimbDraw, thisx, pthis->alpha);
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zo.c", 1025);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zo.c", 1025);
 	}
 }
 

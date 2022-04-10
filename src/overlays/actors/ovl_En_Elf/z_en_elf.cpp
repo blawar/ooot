@@ -1748,11 +1748,11 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		if(!(player->stateFlags1 & PLAYER_STATE1_20) || (kREG(90) < pthis->actor.projectedPos.z))
 		{
-			dListHead = (Gfx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Gfx) * 4);
+			dListHead = (Gfx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Gfx) * 4);
 
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_elf.c", 2730);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_en_elf.c", 2730);
 
-			func_80094B58(globalCtx->state.gfxCtx);
+			func_80094B58(globalCtx->gfxCtx);
 
 			envAlpha = (pthis->timer.whole() * 50) & 0x1FF;
 			envAlpha = (envAlpha > 255) ? 511 - envAlpha : envAlpha;
@@ -1776,7 +1776,7 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gDPSetEnvColor(POLY_XLU_DISP++, (u8)pthis->outerColor.r, (u8)pthis->outerColor.g, (u8)pthis->outerColor.b, (u8)(envAlpha * alphaScale));
 			POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnElf_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_elf.c", 2793);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_elf.c", 2793);
 		}
 	}
 }

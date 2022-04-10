@@ -305,7 +305,7 @@ void EnFish_Respawning_FleePlayer(EnFish* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 	s16 pad2;
-	const auto& frames = globalCtx->state.frames;
+	const auto& frames = globalCtx->frames;
 	s16 yaw;
 	s16 playerClose;
 
@@ -391,7 +391,7 @@ void EnFish_Respawning_ApproachPlayer(EnFish* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(globalCtx->state.frames & 0x40)
+		if(globalCtx->frames & 0x40)
 		{
 			temp_a0_2 = (pthis->actor.yawTowardsPlayer + 0x9000);
 		}
@@ -513,7 +513,7 @@ void EnFish_Dropped_SetupFlopOnGround(EnFish* pthis)
 void EnFish_Dropped_FlopOnGround(EnFish* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
-	const auto& frames = globalCtx->state.frames;
+	const auto& frames = globalCtx->frames;
 	s16 targetXRot;
 
 	Math_SmoothStepToF(&pthis->actor.speedXZ, Rand_ZeroOne() * 0.2f, 0.1f, 0.1f, 0.0f);
@@ -905,7 +905,7 @@ void EnFish_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFish* pthis = (EnFish*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, NULL);
 	Collider_UpdateSpheres(0, &pthis->collider);
 }

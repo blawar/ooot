@@ -109,11 +109,11 @@ void EnTkEff_Draw(EnTk* pthis, GlobalContext* globalCtx)
 	s16 alpha;
 	s16 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tk_eff.c", 114);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tk_eff.c", 114);
 
 	gfxSetup = 0;
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(1)
 	{
@@ -138,7 +138,7 @@ void EnTkEff_Draw(EnTk* pthis, GlobalContext* globalCtx)
 			Matrix_Translate(eff->pos.x, eff->pos.y, eff->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(eff->size, eff->size, 1.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tk_eff.c", 140), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tk_eff.c", 140), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			imageIdx = eff->timeLeft * ((f32)ARRAY_COUNT(dustTextures_34) / eff->timeTotal);
 			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(dustTextures_34[imageIdx]));
@@ -148,7 +148,7 @@ void EnTkEff_Draw(EnTk* pthis, GlobalContext* globalCtx)
 		eff++;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tk_eff.c", 154);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tk_eff.c", 154);
 }
 
 s32 EnTkEff_CreateDflt(EnTk* pthis, Vec3f* pos, u8 duration, f32 size, f32 growth, f32 yAccelMax)
@@ -805,11 +805,11 @@ void EnTk_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void func_80B1D200(GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1188);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tk.c", 1188);
 
 	gSPDisplayList(POLY_OPA_DISP++, gDampeShovelDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1190);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tk.c", 1190);
 }
 
 s32 EnTk_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -860,15 +860,15 @@ void EnTk_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnTkEff_Draw(pthis, globalCtx);
 	Matrix_Pop();
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1294);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tk.c", 1294);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyesSegments_62[pthis->eyeTextureIdx]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnTk_OverrideLimbDraw, EnTk_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1312);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tk.c", 1312);
 }
 
 void EnTk_Reset(Actor* pthisx, GlobalContext* globalCtx)

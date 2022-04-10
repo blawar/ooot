@@ -6,6 +6,8 @@
 #include "z64cutscene.h"
 #include "z64math.h"
 
+struct Player;
+
 #define CAM_STAT_CUT 0
 #define CAM_STAT_WAIT 1
 #define CAM_STAT_UNK3 3
@@ -950,10 +952,10 @@ struct Camera
 	/* 0x068 */ Vec3f up;
 	/* 0x074 */ Vec3f eyeNext;
 	/* 0x080 */ Vec3f skyboxOffset;
-	/* 0x08C */ struct GlobalContext* globalCtx;
-	/* 0x090 */ struct Player* player;
+	/* 0x08C */ GlobalContext* globalCtx;
+	/* 0x090 */ Player* player;
 	/* 0x094 */ PosRot playerPosRot;
-	/* 0x0A8 */ struct Actor* target;
+	/* 0x0A8 */ Actor* target;
 	/* 0x0AC */ PosRot targetPosRot;
 	/* 0x0C0 */ f32 rUpdateRateInv;
 	/* 0x0C4 */ f32 pitchUpdateRateInv;
@@ -1078,7 +1080,7 @@ struct DbCameraAnim
 }; // size = 0x30
 
 /*
-void Camera_Init(Camera* camera, struct View* view, struct CollisionContext* colCtx, struct GlobalContext* globalCtx);
+void Camera_Init(Camera* camera, struct View* view, struct CollisionContext* colCtx, GlobalContext* globalCtx);
 void Camera_InitPlayerSettings(Camera* camera, struct Player* player);
 s16 Camera_ChangeStatus(Camera* camera, s16 status);
 Vec3s Camera_Update(Camera* camera);

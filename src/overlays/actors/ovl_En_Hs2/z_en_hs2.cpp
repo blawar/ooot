@@ -182,7 +182,7 @@ void EnHs2_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnHs2* pthis = (EnHs2*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnHs2_OverrideLimbDraw, EnHs2_PostLimbDraw, pthis);
 }
 

@@ -1164,7 +1164,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 	s32 pad;
 	FishingEffect* firstEffect = effect;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 2271);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 2271);
 
 	Matrix_Push();
 
@@ -1186,7 +1186,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 			Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
 			Matrix_Scale(effect->unk_30, 1.0f, effect->unk_30, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2305), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2305), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gFishingRippleModelDL);
 		}
@@ -1212,7 +1212,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->unk_30, effect->unk_30, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2346), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2346), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gFishingDustSplashModelDL);
 		}
@@ -1234,13 +1234,13 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 40, 90, 80, effect->alpha);
 
-			gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, effect->timer + (i * 3), (effect->timer + (i * 3)) * 5, 32, 64, 1, 0, 0, 32, 32));
+			gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, effect->timer + (i * 3), (effect->timer + (i * 3)) * 5, 32, 64, 1, 0, 0, 32, 32));
 
 			Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->unk_30, effect->unk_30, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2394), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2394), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_OPA_DISP++, gFishingWaterDustModelDL);
 		}
@@ -1265,7 +1265,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->unk_30, effect->unk_30, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2423), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2423), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gFishingBubbleModelDL);
 		}
@@ -1292,14 +1292,14 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 			Matrix_RotateZ(effect->unk_3C, MTXMODE_APPLY);
 			Matrix_Scale(0.002f, 1.0f, 0.1f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2467), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2467), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gFishingRainDropModelDL);
 		}
 		effect++;
 	}
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	effect = firstEffect + 30;
 	flag = 0;
@@ -1318,7 +1318,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 			Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
 			Matrix_Scale(effect->unk_30, 1.0f, effect->unk_30, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2504), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2504), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gFishingRippleModelDL);
 		}
@@ -1352,7 +1352,7 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 			Matrix_RotateY(rotY, MTXMODE_APPLY);
 			Matrix_Scale(effect->unk_30, effect->unk_30, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2541), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2541), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gFishingRainSplashModelDL);
 		}
@@ -1369,33 +1369,33 @@ void Fishing_DrawEffects(FishingEffect* effect, GlobalContext* globalCtx)
 		Matrix_Scale(effect->unk_30, effect->unk_30, effect->unk_30, MTXMODE_APPLY);
 		Matrix_Translate(-1250.0f, 0.0f, 0.0f, MTXMODE_APPLY);
 		Matrix_RotateX(M_PI / 2, MTXMODE_APPLY);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2560), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2560), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 		gSPDisplayList(POLY_OPA_DISP++, gFishingOwnerHatDL);
 	}
 
 	Matrix_Pop();
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 2565);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 2565);
 }
 
 void Fishing_DrawStreamSplash(GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 2572);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 2572);
 
-	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames * 1, globalCtx->gameplayFrames * 8, 32, 64, 1, -(globalCtx->gameplayFrames * 2), 0, 16, 16));
+	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, globalCtx->gameplayFrames * 1, globalCtx->gameplayFrames * 8, 32, 64, 1, -(globalCtx->gameplayFrames * 2), 0, 16, 16));
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, 50);
 
 	Matrix_Translate(670.0f, -24.0f, -600.0f, MTXMODE_NEW);
 	Matrix_Scale(0.02f, 1.0f, 0.02f, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 2598), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 2598), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFishingStreamSplashDL));
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 2613);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 2613);
 }
 
 s32 func_80B6C2EC(Vec3f* vec)
@@ -1609,7 +1609,7 @@ void Fishing_DrawLureHook(GlobalContext* globalCtx, Vec3f* pos, Vec3f* refPos, u
 	Vec3f posStep;
 	Player* player = GET_PLAYER(globalCtx);
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 2963);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 2963);
 
 	Matrix_Push();
 
@@ -1658,12 +1658,12 @@ void Fishing_DrawLureHook(GlobalContext* globalCtx, Vec3f* pos, Vec3f* refPos, u
 	Matrix_Scale(0.0039999997f, 0.0039999997f, 0.005f, MTXMODE_APPLY);
 	Matrix_RotateY(M_PI, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3029), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3029), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gFishingLureHookDL);
 
 	Matrix_RotateZ(M_PI / 2, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3034), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3034), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gFishingLureHookDL);
 
 	if((hookIndex == 1) && (D_80B7A68C != 0))
@@ -1694,13 +1694,13 @@ void Fishing_DrawLureHook(GlobalContext* globalCtx, Vec3f* pos, Vec3f* refPos, u
 		Matrix_Translate(-1250.0f, 0.0f, 0.0f, MTXMODE_APPLY);
 		Matrix_RotateX(M_PI / 2, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3085), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3085), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gFishingOwnerHatDL);
 	}
 
 	Matrix_Pop();
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3098);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3098);
 }
 
 void Fishing_UpdateSinkingLure(GlobalContext* globalCtx)
@@ -1788,13 +1788,13 @@ void Fishing_DrawSinkingLure(GlobalContext* globalCtx)
 	s16 i;
 	f32 scale;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3209);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3209);
 
 	Fishing_UpdateSinkingLure(globalCtx);
 
 	if(sLurePos.y < WATER_SURFACE_Y(globalCtx))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		gSPDisplayList(POLY_OPA_DISP++, gFishingSinkingLureSegmentMaterialDL);
 
@@ -1807,14 +1807,14 @@ void Fishing_DrawSinkingLure(GlobalContext* globalCtx)
 				Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 				func_800D1FD4(&globalCtx->billboardMtxF);
 
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3239), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3239), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, gFishingSinkingLureSegmentModelDL);
 			}
 		}
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		gSPDisplayList(POLY_XLU_DISP++, gFishingSinkingLureSegmentMaterialDL);
 
@@ -1827,13 +1827,13 @@ void Fishing_DrawSinkingLure(GlobalContext* globalCtx)
 				Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 				func_800D1FD4(&globalCtx->billboardMtxF);
 
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3265), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3265), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, gFishingSinkingLureSegmentModelDL);
 			}
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3271);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3271);
 }
 
 void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* lineRot)
@@ -1846,9 +1846,9 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 	s32 pad;
 	Player* player = GET_PLAYER(globalCtx);
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3287);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3287);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	Matrix_Push();
 
 	if(D_80B7A6D4 != 0)
@@ -1899,9 +1899,9 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 		Matrix_RotateZ(M_PI / 2, MTXMODE_APPLY);
 		Matrix_RotateY(M_PI / 2, MTXMODE_APPLY);
 
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3369), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3369), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gFishingLureFloatDL);
 
 		posSrc.x = -850.0f;
@@ -1949,7 +1949,7 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 		Matrix_RotateX(rx, MTXMODE_APPLY);
 		Matrix_Scale(D_80B7E14C, 1.0f, dist, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3444), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3444), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gFishingLineModelDL);
 	}
 	else
@@ -1980,7 +1980,7 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 				Matrix_RotateX(rx, MTXMODE_APPLY);
 				Matrix_Scale(D_80B7E14C, 1.0f, dist, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3475), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3475), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, gFishingLineModelDL);
 				break;
 			}
@@ -1990,15 +1990,15 @@ void Fishing_DrawLureAndLine(GlobalContext* globalCtx, Vec3f* linePos, Vec3f* li
 			Matrix_RotateX((lineRot + i)->x, MTXMODE_APPLY);
 			Matrix_Scale(D_80B7E14C, 1.0f, 0.005f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3492), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3492), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gFishingLineModelDL);
 		}
 	}
 
 	Matrix_Pop();
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3500);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3500);
 }
 
 static f32 sRodScales[22] = {
@@ -2017,11 +2017,11 @@ void Fishing_DrawRod(GlobalContext* globalCtx)
 	f32 spC8;
 	f32 spC4;
 	f32 spC0;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	Player* player = GET_PLAYER(globalCtx);
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3600);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3600);
 
 	if(D_80B7FDA8 != 0)
 	{
@@ -2107,7 +2107,7 @@ void Fishing_DrawRod(GlobalContext* globalCtx)
 		}
 	}
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPDisplayList(POLY_OPA_DISP++, gFishingRodMaterialDL);
 
@@ -2150,7 +2150,7 @@ void Fishing_DrawRod(GlobalContext* globalCtx)
 		Matrix_Push();
 		Matrix_Scale(sRodScales[i], sRodScales[i], 0.52f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 3809), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 3809), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 		if(i < 5)
 		{
@@ -2176,7 +2176,7 @@ void Fishing_DrawRod(GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 3838);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 3838);
 }
 
 static Vec3f D_80B7AF94 = {0.0f, 0.0f, 0.0f};
@@ -2198,7 +2198,7 @@ void Fishing_UpdateLure(Fishing* pthis, GlobalContext* globalCtx)
 	Vec3f spA8;
 	Vec3f sp9C;
 	Vec3f sp90;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	Vec3f sp80;
 	f32 sp7C;
 	f32 sp78;
@@ -3170,7 +3170,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 	Fishing* pthis = (Fishing*)thisx;
 	GlobalContext* globalCtx = globalCtx2;
 	Player* player = GET_PLAYER(globalCtx);
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	f32 spD8;
 	f32 phi_f0;
 	f32 phi_f2;
@@ -4862,7 +4862,7 @@ void Fishing_DrawFish(Actor* thisx, GlobalContext* globalCtx)
 {
 	Fishing* pthis = (Fishing*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
 	Matrix_RotateY(((pthis->unk_162 + pthis->actor.shape.rot.y) / 32768.0f) * M_PI, MTXMODE_APPLY);
@@ -5010,7 +5010,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx)
 	s16 i;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 7704);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 7704);
 
 	Matrix_Push();
 
@@ -5032,7 +5032,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx)
 				Matrix_RotateX(prop->rotX, MTXMODE_APPLY);
 				Matrix_RotateY(prop->reedAngle, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7726), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 7726), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, gFishingReedModelDL);
 			}
 		}
@@ -5057,7 +5057,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx)
 				Matrix_Translate(prop->pos.x, prop->pos.y, prop->pos.z, MTXMODE_NEW);
 				Matrix_Scale(prop->scale, prop->scale, prop->scale, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7748), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 7748), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, gFishingWoodPostModelDL);
 			}
 		}
@@ -5085,7 +5085,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx)
 				Matrix_Translate(0.0f, 0.0f, 20.0f, MTXMODE_APPLY);
 				Matrix_RotateY(prop->rotY, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7774), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 7774), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, gFishingLilyPadModelDL);
 			}
 		}
@@ -5111,7 +5111,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx)
 				Matrix_Scale(prop->scale, prop->scale, prop->scale, MTXMODE_APPLY);
 				Matrix_RotateY(prop->rotY, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 7798), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 7798), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, gFishingRockModelDL);
 			}
 		}
@@ -5121,7 +5121,7 @@ void Fishing_DrawPondProps(GlobalContext* globalCtx)
 
 	Matrix_Pop();
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 7805);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 7805);
 }
 
 void Fishing_UpdateGroupFishes(GlobalContext* globalCtx)
@@ -5373,7 +5373,7 @@ void Fishing_DrawGroupFishes(GlobalContext* globalCtx)
 	{
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 8048);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 8048);
 
 	for(i = 0; i < GROUP_FISH_COUNT; i++)
 	{
@@ -5393,14 +5393,14 @@ void Fishing_DrawGroupFishes(GlobalContext* globalCtx)
 				Matrix_RotateX((-(f32)fish->unk_3C * M_PI) / 32768.0f, MTXMODE_APPLY);
 				Matrix_Scale(fish->unk_2C * scale, scale, scale, MTXMODE_APPLY);
 
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 8093), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 8093), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, gFishingGroupFishModelDL);
 			}
 		}
 		fish++;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 8099);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 8099);
 }
 
 static u16 D_80B7AFB8[] = {0x4096, 0x408D, 0x408E, 0x408F, 0x4094, 0x4095};
@@ -5884,7 +5884,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 	f32 lureDistXZ;
 	s32 pad;
 	Player* player = GET_PLAYER(globalCtx);
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
 	if(0)
 	{
@@ -6596,7 +6596,7 @@ void Fishing_OwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 {
 	if(limbIndex == 8)
 	{ // Head
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 9134);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 9134);
 		Matrix_MultVec3f(&sZeroVec, &sOwnerHeadPos);
 
 		if(D_80B7A688 == 1)
@@ -6608,7 +6608,7 @@ void Fishing_OwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 			gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gFishingOwnerHairDL));
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 9142);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 9142);
 	}
 }
 
@@ -6622,12 +6622,12 @@ void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx)
 {
 	s32 pad;
 	Fishing* pthis = (Fishing*)thisx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 9156);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 9156);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if((pthis->actor.projectedPos.z < 1500.0f) && (fabsf(pthis->actor.projectedPos.x) < (100.0f + pthis->actor.projectedPos.z)))
 	{
@@ -6683,8 +6683,8 @@ void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_Translate(130.0f, 40.0f, 1300.0f, MTXMODE_NEW);
 	Matrix_Scale(0.08f, 0.12f, 0.14f, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 9297), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_fishing.c", 9298), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 9297), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_fishing.c", 9298), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, gFishingAquariumBottomDL);
 	gSPDisplayList(POLY_XLU_DISP++, gFishingAquariumContainerDL);
@@ -6694,7 +6694,7 @@ void Fishing_DrawOwner(Actor* thisx, GlobalContext* globalCtx)
 		Fishing_DrawSinkingLure(globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_fishing.c", 9305);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_fishing.c", 9305);
 }
 
 void Fishing_Reset(Actor* pthisx, GlobalContext* globalCtx)

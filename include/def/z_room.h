@@ -1,5 +1,6 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
+
 struct Room;
 struct Input;
 struct RoomContext;

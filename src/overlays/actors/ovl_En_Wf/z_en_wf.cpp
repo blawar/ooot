@@ -1019,7 +1019,7 @@ void EnWf_BackflipAway(EnWf* pthis, GlobalContext* globalCtx)
 			EnWf_SetupWait(pthis);
 		}
 	}
-	if((globalCtx->state.frames & 95) == 0)
+	if((globalCtx->frames & 95) == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_WOLFOS_CRY);
 	}
@@ -1728,13 +1728,13 @@ void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnWf* pthis = (EnWf*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wf.c", 2157);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_wf.c", 2157);
 
 	// This conditional will always evaluate to true, since unk_300 is false whenever action is
 	// WOLFOS_ACTION_WAIT_TO_APPEAR.
 	if((pthis->action != WOLFOS_ACTION_WAIT_TO_APPEAR) || !pthis->unk_300)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		if(pthis->actor.params == WOLFOS_NORMAL)
 		{
@@ -1764,7 +1764,7 @@ void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wf.c", 2190);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_wf.c", 2190);
 }
 
 s32 EnWf_DodgeRanged(GlobalContext* globalCtx, EnWf* pthis)

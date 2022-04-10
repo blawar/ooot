@@ -2735,9 +2735,9 @@ void EnRu1_DrawOpa(EnRu1* pthis, GlobalContext* globalCtx)
 	void* mouthTex = sMouthTextures[mouthIndex];
 	s32 pad1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ru1.c", 1282);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ru1.c", 1282);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex));
@@ -2747,7 +2747,7 @@ void EnRu1_DrawOpa(EnRu1* pthis, GlobalContext* globalCtx)
 
 	POLY_OPA_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, EnRu1_OverrideLimbDraw, EnRu1_PostLimbDraw, pthis, POLY_OPA_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ru1.c", 1309);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ru1.c", 1309);
 }
 
 void EnRu1_DrawXlu(EnRu1* pthis, GlobalContext* globalCtx)
@@ -2760,9 +2760,9 @@ void EnRu1_DrawXlu(EnRu1* pthis, GlobalContext* globalCtx)
 	void* mouthTex = sMouthTextures[mouthIndex];
 	s32 pad1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ru1.c", 1324);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ru1.c", 1324);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex));
@@ -2772,7 +2772,7 @@ void EnRu1_DrawXlu(EnRu1* pthis, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, EnRu1_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ru1.c", 1353);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ru1.c", 1353);
 }
 
 void EnRu1_Draw(Actor* thisx, GlobalContext* globalCtx)

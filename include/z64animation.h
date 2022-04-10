@@ -4,8 +4,8 @@
 #include "ultra64.h"
 #include "z64dma.h"
 #include "z64math.h"
+#include "globalctx.h"
 
-struct GlobalContext;
 struct Actor;
 struct SkelAnime;
 
@@ -126,13 +126,13 @@ struct LegacyAnimationHeader
 	/* 0x08 */ JointKey* jointKey;
 }; // size = 0xC
 
-typedef s32 (*OverrideLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void*);
+typedef s32 (*OverrideLimbDrawOpa)(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void*);
 
-typedef void (*PostLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*);
+typedef void (*PostLimbDrawOpa)(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*);
 
-typedef s32 (*OverrideLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void*, Gfx** gfx);
+typedef s32 (*OverrideLimbDraw)(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void*, Gfx** gfx);
 
-typedef void (*PostLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*, Gfx** gfx);
+typedef void (*PostLimbDraw)(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*, Gfx** gfx);
 
 enum AnimationType
 {
@@ -215,7 +215,7 @@ struct AnimationContext
 	AnimationEntry entries[ANIMATION_ENTRY_MAX];
 }; // size = 0xC84
 
-typedef void (*AnimationEntryCallback)(struct GlobalContext* globalCtx, AnimationEntryData* data);
+typedef void (*AnimationEntryCallback)(GlobalContext* globalCtx, AnimationEntryData* data);
 
 // fcurve_skelanime structs
 struct TransformData
@@ -268,8 +268,8 @@ struct SkelAnimeCurve
 	/* 0x001C */ LimbTransform* transforms;
 }; // size = 0x20
 
-typedef s32 (*OverrideCurveLimbDraw)(struct GlobalContext* globalCtx, SkelAnimeCurve* skelCurve, s32 limbIndex, void*);
-typedef void (*PostCurveLimbDraw)(struct GlobalContext* globalCtx, SkelAnimeCurve* skelCurve, s32 limbIndex, void*);
+typedef s32 (*OverrideCurveLimbDraw)(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve, s32 limbIndex, void*);
+typedef void (*PostCurveLimbDraw)(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve, s32 limbIndex, void*);
 
 typedef s32 (*AnimUpdateFunc)();
 
@@ -350,7 +350,7 @@ struct PSkinAwb
 	/* 0x04C */ SkelAnime skelAnime;
 }; // size = 0x90
 
-typedef void (*SkinCallback)(struct Actor*, struct GlobalContext*, PSkinAwb*);
-typedef s32 (*SkinCallback2)(struct Actor*, struct GlobalContext*, s32, PSkinAwb*);
+typedef void (*SkinCallback)(struct Actor*, GlobalContext*, PSkinAwb*);
+typedef s32 (*SkinCallback2)(struct Actor*, GlobalContext*, s32, PSkinAwb*);
 
 #endif

@@ -181,15 +181,15 @@ void EnNutsball_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nutsball.c", 327);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_nutsball.c", 327);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 	Matrix_RotateZ(thisx->home.rot.z * 9.58738e-05f, MTXMODE_APPLY);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_nutsball.c", 333), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_nutsball.c", 333), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_OPA_DISP++, sDLists[thisx->params]);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nutsball.c", 337);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_nutsball.c", 337);
 }
 
 void EnNutsball_Reset(Actor* pthisx, GlobalContext* globalCtx)

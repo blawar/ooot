@@ -140,7 +140,7 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx)
 	{
 		if(pthis->globalState < MAG_STATE_DISPLAY)
 		{
-			if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_START) || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B))
+			if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_START) || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B))
 			{
 				Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 
@@ -177,7 +177,7 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx)
 		{
 			if(sDelayTimer == 0)
 			{
-				if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_START) || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B))
+				if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_START) || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B))
 				{
 					if(globalCtx->sceneLoadFlag != 20)
 					{
@@ -664,7 +664,7 @@ void EnMag_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Gfx* gfx;
 	Gfx* gfxRef;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mag.c", 1151);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_mag.c", 1151);
 
 	gfxRef = POLY_OPA_DISP;
 	gfx = Graph_GfxPlusOne(gfxRef);
@@ -676,7 +676,7 @@ void EnMag_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Graph_BranchDlist(gfxRef, gfx);
 	POLY_OPA_DISP = gfx;
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mag.c", 1161);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_mag.c", 1161);
 }
 
 void EnMag_Reset(Actor* pthisx, GlobalContext* globalCtx)

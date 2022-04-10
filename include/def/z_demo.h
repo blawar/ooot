@@ -1,6 +1,6 @@
 #pragma once
 #include "framerate.h"
-struct GlobalContext;
+#include "globalctx.h"
 struct CutsceneContext;
 
 extern Counter D_8015FCC0;

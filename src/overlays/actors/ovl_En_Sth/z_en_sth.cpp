@@ -426,8 +426,8 @@ s32 EnSth_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 	if((limbIndex == 8) || (limbIndex == 10) || (limbIndex == 13))
 	{
 		temp_v1 = limbIndex * 0x32;
-		rot->y += (Math_SinS(globalCtx->state.frames * (temp_v1 + 0x814)) * 200.0f);
-		rot->z += (Math_CosS(globalCtx->state.frames * (temp_v1 + 0x940)) * 200.0f);
+		rot->y += (Math_SinS(globalCtx->frames * (temp_v1 + 0x814)) * 200.0f);
+		rot->z += (Math_CosS(globalCtx->frames * (temp_v1 + 0x940)) * 200.0f);
 	}
 	return 0;
 }
@@ -441,11 +441,11 @@ void EnSth_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 		Matrix_MultVec3f(&D_80B0B49C, &pthis->actor.focus.pos);
 		if(pthis->actor.params != 0)
 		{ // Children
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2079);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_en_sth.c", 2079);
 
 			gSPDisplayList(POLY_OPA_DISP++, D_80B0A3C0);
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2081);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_sth.c", 2081);
 		}
 	}
 }
@@ -466,24 +466,24 @@ void EnSth_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnSth* pthis = (EnSth*)thisx;
 	Color_RGB8* envColor1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2133);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_sth.c", 2133);
 
 	gSegments[6] = PHYSICAL_TO_VIRTUAL(gObjectTable[pthis->objectBankIdx].vromStart.get());
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_OPA_DISP++, 0x08, EnSth_AllocColorDList(globalCtx->state.gfxCtx, sTunicColors[pthis->actor.params].r, sTunicColors[pthis->actor.params].g, sTunicColors[pthis->actor.params].b, 255));
+	gSPSegment(POLY_OPA_DISP++, 0x08, EnSth_AllocColorDList(globalCtx->gfxCtx, sTunicColors[pthis->actor.params].r, sTunicColors[pthis->actor.params].g, sTunicColors[pthis->actor.params].b, 255));
 
 	if(pthis->actor.params == 0)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x09, EnSth_AllocColorDList(globalCtx->state.gfxCtx, 190, 110, 0, 255));
+		gSPSegment(POLY_OPA_DISP++, 0x09, EnSth_AllocColorDList(globalCtx->gfxCtx, 190, 110, 0, 255));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x09, EnSth_AllocColorDList(globalCtx->state.gfxCtx, 90, 110, 130, 255));
+		gSPSegment(POLY_OPA_DISP++, 0x09, EnSth_AllocColorDList(globalCtx->gfxCtx, 90, 110, 130, 255));
 	}
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnSth_OverrideLimbDraw, EnSth_PostLimbDraw, &pthis->actor);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2176);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_sth.c", 2176);
 }
 
 void EnSth_Reset(Actor* pthisx, GlobalContext* globalCtx)

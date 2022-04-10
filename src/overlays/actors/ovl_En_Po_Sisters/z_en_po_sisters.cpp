@@ -1635,7 +1635,7 @@ void EnPoSisters_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 
 	if(pthis->actionFunc == func_80ADAFC0 && pthis->unk_19A >= 8 && limbIndex == 9)
 	{
-		gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 2876), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_po_sisters.c", 2876), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList((*gfxP)++, gPoSistersBurnDL);
 	}
 	if(limbIndex == 8 && pthis->actionFunc != func_80ADB2B8)
@@ -1688,10 +1688,10 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Color_RGBA8* temp_s7 = &D_80ADD6F0[pthis->unk_194];
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 2989);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_po_sisters.c", 2989);
 	func_80ADC55C(pthis);
-	func_80093D18(globalCtx->state.gfxCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	if(pthis->unk_22E.a == 255 || pthis->unk_22E.a == 0)
 	{
 		gDPSetEnvColor(POLY_OPA_DISP++, pthis->unk_22E.r, pthis->unk_22E.g, pthis->unk_22E.b, pthis->unk_22E.a);
@@ -1707,10 +1707,10 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx)
 	if(!(pthis->unk_199 & 0x80))
 	{
 		Matrix_Put(&pthis->unk_2F8);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3034), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_po_sisters.c", 3034), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gPoSistersTorchDL);
 	}
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (globalCtx->gameplayFrames.whole() * -20) % 512, 0x20, 0x80));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (globalCtx->gameplayFrames.whole() * -20) % 512, 0x20, 0x80));
 	gDPSetEnvColor(POLY_XLU_DISP++, temp_s1->r, temp_s1->g, temp_s1->b, temp_s1->a);
 	if(pthis->actionFunc == func_80ADB17C)
 	{
@@ -1762,10 +1762,10 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx)
 			phi_f20 = CLAMP(phi_f20, 0.5f, 0.8f) * 0.007f;
 		}
 		Matrix_Scale(phi_f20, phi_f20, phi_f20, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3132), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_po_sisters.c", 3132), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_sisters.c", 3139);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_po_sisters.c", 3139);
 }
 
 void EnPoSisters_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -97,7 +97,7 @@ void Object_InitBank(GlobalContext* globalCtx, ObjectContext* objectCtx)
 	}
 	objectCtx->spaceStart = 0;
 
-	objectCtx->spaceStart = GameState_Alloc(&globalCtx->state, spaceSize, "../z_scene.c", 219);
+	objectCtx->spaceStart = GameState_Alloc(globalCtx, spaceSize, "../z_scene.c", 219);
 	objectCtx->spaceEnd = (void*)((s32)objectCtx->spaceStart + spaceSize);
 }
 

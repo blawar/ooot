@@ -1093,9 +1093,9 @@ void EnItem00_DrawRupee(EnItem00* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	s32 texIndex;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1546);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1546);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_8002EBCC(&pthis->actor, globalCtx, 0);
 
 	if(pthis->actor.params <= ITEM00_RUPEE_RED)
@@ -1107,13 +1107,13 @@ void EnItem00_DrawRupee(EnItem00* pthis, GlobalContext* globalCtx)
 		texIndex = pthis->actor.params - 0x10;
 	}
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1562), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_item00.c", 1562), G_MTX_MODELVIEW | G_MTX_LOAD);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sRupeeTex[texIndex]));
 
 	gSPDisplayList(POLY_OPA_DISP++, gRupeeDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1568);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1568);
 }
 
 /**
@@ -1123,7 +1123,7 @@ void EnItem00_DrawCollectible(EnItem00* pthis, GlobalContext* globalCtx)
 {
 	s32 texIndex = pthis->actor.params - 3;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1594);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1594);
 
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
 
@@ -1140,10 +1140,10 @@ void EnItem00_DrawCollectible(EnItem00* pthis, GlobalContext* globalCtx)
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sItemDropTex[texIndex]));
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1607), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_item00.c", 1607), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_OPA_DISP++, gItemDropDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1611);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1611);
 }
 
 /**
@@ -1153,19 +1153,19 @@ void EnItem00_DrawHeartContainer(EnItem00* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1623);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1623);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_8002EBCC(&pthis->actor, globalCtx, 0);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1634), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_item00.c", 1634), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_OPA_DISP++, gHeartPieceExteriorDL);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	func_8002ED80(&pthis->actor, globalCtx, 0);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1644), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_item00.c", 1644), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_XLU_DISP++, gHeartContainerInteriorDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1647);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1647);
 }
 
 /**
@@ -1175,14 +1175,14 @@ void EnItem00_DrawHeartPiece(EnItem00* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1658);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1658);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	func_8002ED80(&pthis->actor, globalCtx, 0);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_item00.c", 1670), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_item00.c", 1670), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_XLU_DISP++, gHeartPieceInteriorDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_item00.c", 1673);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_item00.c", 1673);
 }
 
 /**

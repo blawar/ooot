@@ -261,7 +261,7 @@ Gfx* DemoEc_AllocColorDList(GraphicsContext* gfxCtx, u8* color)
 
 void DemoEc_DrawSkeleton(DemoEc* pthis, GlobalContext* globalCtx, void* eyeTexture, void* arg3, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 	s32 pad;
 
@@ -289,7 +289,7 @@ void DemoEc_DrawSkeleton(DemoEc* pthis, GlobalContext* globalCtx, void* eyeTextu
 void DemoEc_DrawSkeletonCustomColor(DemoEc* pthis, GlobalContext* globalCtx, Gfx* arg2, Gfx* arg3, u8* color1, u8* color2, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw)
 {
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ec.c", 609);
@@ -330,7 +330,7 @@ void DemoEc_UseDrawObject(DemoEc* pthis, GlobalContext* globalCtx)
 {
 	s32 pad[2];
 	s32 drawObjBankIndex = pthis->drawObjBankIndex;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ec.c", 662);
 

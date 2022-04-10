@@ -36,8 +36,8 @@ void FlagSet_Update(GlobalContext* globalCtx)
 	    {&gSaveContext.eventInf[0], "event_inf[0]"},	  {&gSaveContext.eventInf[1], "event_inf[1]"},		{&gSaveContext.eventInf[2], "event_inf[2]"},	      {&gSaveContext.eventInf[3], "event_inf[3]"},
 	};
 
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
-	Input* input = &globalCtx->state.input[0];
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
+	Input* input = &globalCtx->input[0];
 	Gfx* gfx;
 	Gfx* polyOpa;
 

@@ -1204,17 +1204,17 @@ s32 BossFd2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 
 	if((limbIndex == 32) || (limbIndex == 35) || (limbIndex == 36))
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2165);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2165);
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, (s8)bossFd->fwork[BFD_HEAD_TEX2_ALPHA]);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2172);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2172);
 	}
 	else
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2174);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2174);
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, (s8)bossFd->fwork[BFD_BODY_TEX2_ALPHA]);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2181);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2181);
 	}
 	if((0 < limbIndex) && (limbIndex < 16))
 	{
@@ -1253,7 +1253,7 @@ void BossFd2_UpdateMane(BossFd2* pthis, GlobalContext* globalCtx, Vec3f* head, V
 	Vec3f spB0;
 	f32 xyScale;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2389);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2389);
 	Matrix_Push();
 	gDPPipeSync(POLY_OPA_DISP++);
 
@@ -1343,11 +1343,11 @@ void BossFd2_UpdateMane(BossFd2* pthis, GlobalContext* globalCtx, Vec3f* head, V
 		xyScale = (0.01f - (i * 0.0009f)) * spE8[i] * scale[i];
 		Matrix_Scale(xyScale, xyScale, 0.01f * spE8[i], MTXMODE_APPLY);
 		Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2498), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_fd2.c", 2498), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gHoleVolvagiaManeModelDL);
 	}
 	Matrix_Pop();
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2503);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2503);
 }
 
 void BossFd2_DrawMane(BossFd2* pthis, GlobalContext* globalCtx)
@@ -1356,7 +1356,7 @@ void BossFd2_DrawMane(BossFd2* pthis, GlobalContext* globalCtx)
 	BossFd* bossFd = (BossFd*)pthis->actor.parent;
 	s16 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2515);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2515);
 	if(1)
 	{
 	}
@@ -1367,7 +1367,7 @@ void BossFd2_DrawMane(BossFd2* pthis, GlobalContext* globalCtx)
 		pthis->leftMane.scale[i] = 1.5f + 0.3f * Math_CosS(5696.0f * pthis->work[FD2_VAR_TIMER] + i * 0x3200);
 	}
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPDisplayList(POLY_XLU_DISP++, gHoleVolvagiaManeMaterialDL);
 
@@ -1380,7 +1380,7 @@ void BossFd2_DrawMane(BossFd2* pthis, GlobalContext* globalCtx)
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->fwork[BFD_MANE_COLOR_LEFT], 0, 255);
 	BossFd2_UpdateMane(pthis, globalCtx, &pthis->leftMane.head, pthis->leftMane.pos, pthis->leftMane.rot, pthis->leftMane.pull, pthis->leftMane.scale);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2601);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2601);
 }
 
 void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -1388,11 +1388,11 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BossFd2* pthis = (BossFd2*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2617);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2617);
 	osSyncPrintf("FD2 draw start \n");
 	if(pthis->actionFunc != BossFd2_Wait)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		if(pthis->work[FD2_DAMAGE_FLASH_TIMER] & 2)
 		{
 			POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 255, 255, 0, 900, 1099);
@@ -1401,7 +1401,7 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 		gSPSegment(
 		    POLY_OPA_DISP++, 0x08,
-		    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (s16)pthis->fwork[FD2_TEX1_SCROLL_X], (s16)pthis->fwork[FD2_TEX1_SCROLL_Y], 0x20, 0x20, 1, (s16)pthis->fwork[FD2_TEX2_SCROLL_X], (s16)pthis->fwork[FD2_TEX2_SCROLL_Y], 0x20, 0x20));
+		    Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s16)pthis->fwork[FD2_TEX1_SCROLL_X], (s16)pthis->fwork[FD2_TEX1_SCROLL_Y], 0x20, 0x20, 1, (s16)pthis->fwork[FD2_TEX2_SCROLL_X], (s16)pthis->fwork[FD2_TEX2_SCROLL_Y], 0x20, 0x20));
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, 128);
 
@@ -1409,7 +1409,7 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx)
 		BossFd2_DrawMane(pthis, globalCtx);
 		POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_fd2.c", 2688);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2688);
 }
 
 void BossFd2_Reset(Actor* pthisx, GlobalContext* globalCtx)

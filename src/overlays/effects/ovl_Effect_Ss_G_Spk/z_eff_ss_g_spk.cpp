@@ -84,7 +84,7 @@ void EffectSsGSpk_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	    gEffSpark3Tex,
 	    gEffSpark4Tex,
 	};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfTrans;
 	MtxF mfScale;
 	MtxF mfResult;

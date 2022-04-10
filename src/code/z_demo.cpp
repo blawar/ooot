@@ -182,7 +182,7 @@ void func_80064558(GlobalContext* globalCtx, CutsceneContext* csCtx)
 
 void Cinema_Update(GlobalContext* globalCtx, CutsceneContext* csCtx)
 {
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
 	if(CHECK_BTN_ALL(input->press.button, BTN_DLEFT) && (csCtx->state == CS_STATE_IDLE) && (gSaveContext.sceneSetupIndex >= 4))
 	{
@@ -451,7 +451,7 @@ void func_80064824(GlobalContext* globalCtx, CutsceneContext* csCtx, CsCmdBase* 
 			}
 			break;
 		case 27:
-			if(globalCtx->state.frames & 8)
+			if(globalCtx->frames & 8)
 			{
 				if(globalCtx->envCtx.adjAmbientColor[0] < 40)
 				{
@@ -589,14 +589,14 @@ void Cutscene_Command_Terminator(GlobalContext* globalCtx, CutsceneContext* csCt
 	s32 temp = 0;
 
 	if((gSaveContext.gameMode != 0) && (gSaveContext.gameMode != 3) && (globalCtx->sceneNum != SCENE_SPOT00) && (csCtx->frames > 20) &&
-	   (CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B) || CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_START)) && (gSaveContext.fileNum != 0xFEDC) &&
+	   (CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B) || CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_START)) && (gSaveContext.fileNum != 0xFEDC) &&
 	   (globalCtx->sceneLoadFlag == 0))
 	{
 		Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 		temp = 1;
 	}
 
-	if((csCtx->frames == cmd->startFrame) || (temp != 0) || ((csCtx->frames > 20) && CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_START) && (gSaveContext.fileNum != 0xFEDC)))
+	if((csCtx->frames == cmd->startFrame) || (temp != 0) || ((csCtx->frames > 20) && CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_START) && (gSaveContext.fileNum != 0xFEDC)))
 	{
 		csCtx->state = CS_STATE_UNSKIPPABLE_EXEC;
 		Audio_SetCutsceneFlag(0);
@@ -1760,7 +1760,7 @@ void Cutscene_ProcessCommands(GlobalContext* globalCtx, CutsceneContext* csCtx, 
 	}
 
 #ifdef OOT_DEBUG_ROM
-	if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_DRIGHT))
+	if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_DRIGHT))
 	{
 		csCtx->state = CS_STATE_UNSKIPPABLE_INIT;
 		return;
@@ -2133,7 +2133,7 @@ void func_80068C3C(GlobalContext* globalCtx, CutsceneContext* csCtx)
 	{
 		if(BREG(0) != 0)
 		{
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo.c", 4101);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_demo.c", 4101);
 
 			prevDisplayList = POLY_OPA_DISP;
 			displayList = Graph_GfxPlusOne(POLY_OPA_DISP);
@@ -2143,7 +2143,7 @@ void func_80068C3C(GlobalContext* globalCtx, CutsceneContext* csCtx)
 			Graph_BranchDlist(prevDisplayList, displayList);
 			POLY_OPA_DISP = displayList;
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo.c", 4108);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo.c", 4108);
 		}
 
 		csCtx->frames++;

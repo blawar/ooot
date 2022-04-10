@@ -1,8 +1,9 @@
 #pragma once
+#include "globalctx.h"
 
-typedef void (*PlayerFunc674)(struct Player*, struct GlobalContext*);
-typedef s32 (*PlayerFunc82C)(struct Player*, struct GlobalContext*);
-typedef void (*PlayerFuncA74)(struct GlobalContext*, struct Player*);
+typedef void (*PlayerFunc674)(struct Player*, GlobalContext*);
+typedef s32 (*PlayerFunc82C)(struct Player*, GlobalContext*);
+typedef void (*PlayerFuncA74)(GlobalContext*, struct Player*);
 
 struct GetItemEntry
 {

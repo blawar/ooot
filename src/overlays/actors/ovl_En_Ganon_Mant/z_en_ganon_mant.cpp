@@ -393,11 +393,11 @@ void EnGanonMant_DrawCloak(GlobalContext* globalCtx, EnGanonMant* pthis)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ganon_mant.c", 564);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ganon_mant.c", 564);
 
 	Matrix_Translate(0.0f, 0.0f, 0.0f, MTXMODE_NEW);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ganon_mant.c", 572), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ganon_mant.c", 572), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	// set texture
 	gSPDisplayList(POLY_OPA_DISP++, gMantMaterialDL);
@@ -416,7 +416,7 @@ void EnGanonMant_DrawCloak(GlobalContext* globalCtx, EnGanonMant* pthis)
 	// draw cloak
 	gSPDisplayList(POLY_OPA_DISP++, gMantDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ganon_mant.c", 584);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ganon_mant.c", 584);
 }
 
 void EnGanonMant_Draw(Actor* thisx, GlobalContext* globalCtx)

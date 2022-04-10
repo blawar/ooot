@@ -781,22 +781,22 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnFhgFire* pthis = (EnFhgFire*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1723);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fhg_fire.c", 1723);
 
 	if(pthis->actor.params == FHGFIRE_LIGHTNING_BURST)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s8)pthis->fwork[FHGFIRE_ALPHA]);
 		gDPSetEnvColor(POLY_XLU_DISP++, 165, 255, 75, 0);
 		gDPPipeSync(POLY_XLU_DISP++);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1745), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fhg_fire.c", 1745), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gPhantomLightningBlastDL));
 	}
 	else if((pthis->actor.params == FHGFIRE_SPEAR_LIGHT) || (pthis->actor.params == FHGFIRE_ENERGY_BALL))
 	{
 		osSyncPrintf("yari hikari draw 1\n");
 		func_800D1FD4(&globalCtx->billboardMtxF);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s8)pthis->fwork[FHGFIRE_ALPHA]);
 
 		if(pthis->work[FHGFIRE_FIRE_MODE] > FHGFIRE_LIGHT_GREEN)
@@ -809,36 +809,36 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 		gDPPipeSync(POLY_XLU_DISP++);
 		Matrix_RotateZ((pthis->actor.shape.rot.z / (f32)0x8000) * 3.1416f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1801), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fhg_fire.c", 1801), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gPhantomEnergyBallDL);
 	}
 	else if((pthis->actor.params == FHGFIRE_WARP_EMERGE) || (pthis->actor.params == FHGFIRE_WARP_RETREAT) || (pthis->actor.params == FHGFIRE_WARP_DEATH))
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, (u8)pthis->fwork[FHGFIRE_WARP_ALPHA]);
 		gDPSetEnvColor(POLY_XLU_DISP++, 90, 50, 95, (s8)(pthis->fwork[FHGFIRE_WARP_ALPHA] * 0.5f));
 		gDPPipeSync(POLY_XLU_DISP++);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1833), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fhg_fire.c", 1833), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPSegment(
 		    POLY_XLU_DISP++, 0x08,
 		    Gfx_TwoTexScroll(
-			globalCtx->state.gfxCtx, 0, (s16)pthis->fwork[FHGFIRE_WARP_TEX_1_X], (s16)pthis->fwork[FHGFIRE_WARP_TEX_1_Y], 0x40, 0x40, 1, (s16)pthis->fwork[FHGFIRE_WARP_TEX_2_X], (s16)pthis->fwork[FHGFIRE_WARP_TEX_2_Y], 0x40, 0x40));
+			globalCtx->gfxCtx, 0, (s16)pthis->fwork[FHGFIRE_WARP_TEX_1_X], (s16)pthis->fwork[FHGFIRE_WARP_TEX_1_Y], 0x40, 0x40, 1, (s16)pthis->fwork[FHGFIRE_WARP_TEX_2_X], (s16)pthis->fwork[FHGFIRE_WARP_TEX_2_Y], 0x40, 0x40));
 		gSPDisplayList(POLY_XLU_DISP++, gPhantomWarpDL);
 	}
 	else
 	{
 		osSyncPrintf("FF DRAW 1\n");
 		Matrix_Translate(0.0f, -100.0f, 0.0f, MTXMODE_APPLY);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s8)pthis->fwork[FHGFIRE_ALPHA]);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 255, 30, 0);
 		gDPPipeSync(POLY_XLU_DISP++);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1892), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fhg_fire.c", 1892), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gPhantomLightningDL);
 		osSyncPrintf("FF DRAW 2\n");
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg_fire.c", 1900);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fhg_fire.c", 1900);
 }
 
 void EnFhgFire_Reset(Actor* pthisx, GlobalContext* globalCtx)

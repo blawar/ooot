@@ -3564,8 +3564,8 @@ void EnHorse_StickDirection(Vec2f* curStick, f32* stickMag, s16* angle)
 void EnHorse_UpdateStick(EnHorse* pthis, GlobalContext* globalCtx)
 {
 	pthis->lastStick = pthis->curStick;
-	pthis->curStick.x = globalCtx->state.input[0].rel.stick_x;
-	pthis->curStick.y = globalCtx->state.input[0].rel.stick_y;
+	pthis->curStick.x = globalCtx->input[0].rel.stick_x;
+	pthis->curStick.y = globalCtx->input[0].rel.stick_y;
 }
 
 void EnHorse_ResolveCollision(EnHorse* pthis, GlobalContext* globalCtx, CollisionPoly* colPoly)
@@ -3872,7 +3872,7 @@ void EnHorse_CheckBoost(EnHorse* thisx, GlobalContext* globalCtx2)
 
 	if(pthis->action == ENHORSE_ACT_MOUNTED_WALK || pthis->action == ENHORSE_ACT_MOUNTED_TROT || pthis->action == ENHORSE_ACT_MOUNTED_GALLOP)
 	{
-		if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_A) && (globalCtx->interfaceCtx.unk_1EE == 8))
+		if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_A) && (globalCtx->interfaceCtx.unk_1EE == 8))
 		{
 			if(!(pthis->stateFlags & ENHORSE_BOOST) && !(pthis->stateFlags & ENHORSE_FLAG_8) && !(pthis->stateFlags & ENHORSE_FLAG_9))
 			{
@@ -4509,7 +4509,7 @@ s32 EnHorse_SkinCallback2(Actor* thisx, GlobalContext* globalCtx, s32 limbIndex,
 	EnHorse* pthis = (EnHorse*)thisx;
 	s32 drawOriginalLimb = true;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_horse.c", 8582);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_horse.c", 8582);
 	if(limbIndex == 13 && pthis->type == HORSE_EPONA)
 	{
 		u8 index = eyeBlinkIndexes_265[pthis->blinkTimer];
@@ -4518,10 +4518,10 @@ s32 EnHorse_SkinCallback2(Actor* thisx, GlobalContext* globalCtx, s32 limbIndex,
 	}
 	else if(pthis->type == HORSE_HNI && pthis->stateFlags & ENHORSE_FLAG_18 && limbIndex == 30)
 	{
-		func_800A5F60(globalCtx->state.gfxCtx, &pthis->skin, limbIndex, gHorseIngoGerudoSaddleDL, 0);
+		func_800A5F60(globalCtx->gfxCtx, &pthis->skin, limbIndex, gHorseIngoGerudoSaddleDL, 0);
 		drawOriginalLimb = false;
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_horse.c", 8601);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_horse.c", 8601);
 	return drawOriginalLimb;
 }
 
@@ -4531,7 +4531,7 @@ void EnHorse_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(!(pthis->stateFlags & ENHORSE_INACTIVE))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		pthis->stateFlags |= ENHORSE_DRAW;
 		if(pthis->stateFlags & ENHORSE_JUMPING)
 		{

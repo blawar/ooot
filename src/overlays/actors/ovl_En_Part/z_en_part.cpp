@@ -304,33 +304,33 @@ void EnPart_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnPart* pthis = (EnPart*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_part.c", 647);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_part.c", 647);
 
 	if(thisx->params > 0)
 	{
 		Matrix_RotateZ(pthis->rotZ, MTXMODE_APPLY);
 	}
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_8002EBCC(thisx, globalCtx, 0);
 
 	if(thisx->params == 5)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->state.gfxCtx, 245, 255, 205, 30, 35, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->state.gfxCtx, 185, 135, 25, 20, 20, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->state.gfxCtx, 255, 255, 255, 30, 40, 20));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->gfxCtx, 245, 255, 205, 30, 35, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->gfxCtx, 185, 135, 25, 20, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->gfxCtx, 255, 255, 255, 30, 40, 20));
 	}
 	else if(thisx->params == 6)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->state.gfxCtx, 55, 65, 55, 0, 0, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->state.gfxCtx, 205, 165, 75, 25, 20, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->state.gfxCtx, 205, 165, 75, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->gfxCtx, 55, 65, 55, 0, 0, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->gfxCtx, 205, 165, 75, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->gfxCtx, 205, 165, 75, 25, 20, 0));
 	}
 	else if(thisx->params == 7)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->state.gfxCtx, 255, 255, 255, 180, 180, 180));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->state.gfxCtx, 225, 205, 115, 25, 20, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->state.gfxCtx, 225, 205, 115, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->gfxCtx, 255, 255, 255, 180, 180, 180));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->gfxCtx, 225, 205, 115, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->gfxCtx, 225, 205, 115, 25, 20, 0));
 	}
 	else if((thisx->params == 9) && (pthis->displayList == object_tite_DL_002FF0))
 	{
@@ -347,11 +347,11 @@ void EnPart_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->displayList != NULL)
 	{
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_part.c", 696), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_part.c", 696), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, pthis->displayList);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_part.c", 700);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_part.c", 700);
 }
 
 void EnPart_Reset(Actor* pthisx, GlobalContext* globalCtx)

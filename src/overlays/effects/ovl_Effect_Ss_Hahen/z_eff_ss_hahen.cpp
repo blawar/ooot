@@ -82,7 +82,7 @@ u32 EffectSsHahen_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
 void EffectSsHahen_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale = pthis->rScale * 0.001f;
 
@@ -98,7 +98,7 @@ void EffectSsHahen_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	Matrix_RotateX(pthis->rPitch * 0.01f, MTXMODE_APPLY);
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_hahen.c", 228), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPDisplayList(POLY_OPA_DISP++, pthis->gfx);
 
 	CLOSE_DISPS(gfxCtx, "../z_eff_hahen.c", 236);
@@ -107,7 +107,7 @@ void EffectSsHahen_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 // in the original game pthis function is hardcoded to be used only by the skull pots in Shadow Temple
 void EffectSsHahen_DrawGray(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale = pthis->rScale * 0.001f;
 
@@ -123,7 +123,7 @@ void EffectSsHahen_DrawGray(GlobalContext* globalCtx, u32 index, EffectSs* pthis
 	Matrix_RotateX(pthis->rPitch * 0.01f, MTXMODE_APPLY);
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_hahen.c", 271), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetCombineLERP(POLY_OPA_DISP++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0x0, 0x01, 100, 100, 120, 255);
 	gSPDisplayList(POLY_OPA_DISP++, pthis->gfx);

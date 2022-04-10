@@ -857,9 +857,9 @@ void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	Player* pthis = (Player*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_torch2.c", 1050);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_torch2.c", 1050);
 	func_80093C80(globalCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	if(sAlpha == 255)
 	{
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 0, 0, sAlpha);
@@ -876,7 +876,7 @@ void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx2)
 		func_8002ED80(&pthis->actor, globalCtx, 0);
 		POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnTorch2_OverrideLimbDraw, EnTorch2_PostLimbDraw, pthis, POLY_XLU_DISP);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_torch2.c", 1114);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_torch2.c", 1114);
 }
 
 void EnTorch2_Reset(Actor* pthisx, GlobalContext* globalCtx)

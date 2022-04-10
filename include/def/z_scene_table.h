@@ -1,5 +1,6 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
+
 struct EntranceInfo;
 struct SceneTableEntry;
 

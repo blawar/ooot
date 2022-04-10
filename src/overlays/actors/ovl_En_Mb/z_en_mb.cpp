@@ -1741,7 +1741,7 @@ void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 bodyPartIdx;
 	EnMb* pthis = (EnMb*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, EnMb_PostLimbDraw, thisx);
 
 	if(thisx->params != ENMB_TYPE_CLUB)

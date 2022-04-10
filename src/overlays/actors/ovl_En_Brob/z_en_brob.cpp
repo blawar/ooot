@@ -390,7 +390,7 @@ void EnBrob_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBrob* pthis = (EnBrob*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	Matrix_Translate(0.0f, pthis->unk_1AE, 0.0f, MTXMODE_APPLY);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, EnBrob_PostLimbDraw, pthis);
 }

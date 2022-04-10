@@ -7,7 +7,7 @@
 
 struct EnAnubice;
 
-typedef void (*EnAnubiceActionFunc)(struct EnAnubice*, struct GlobalContext*);
+typedef void (*EnAnubiceActionFunc)(struct EnAnubice*, GlobalContext*);
 
 struct EnAnubice
 {

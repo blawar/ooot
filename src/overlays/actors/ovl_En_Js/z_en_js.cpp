@@ -272,7 +272,7 @@ void EnJs_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnJs* pthis = (EnJs*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnJs_OverrideLimbDraw, EnJs_PostLimbDraw, pthis);
 }
 

@@ -613,13 +613,13 @@ void EnBomBowlMan_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBomBowlMan* pthis = (EnBomBowlMan*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_bowl_man.c", 907);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bom_bowl_man.c", 907);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_60[pthis->eyeTextureIndex]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnBomBowlMan_OverrideLimbDraw, NULL, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_bowl_man.c", 923);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bom_bowl_man.c", 923);
 }
 
 void EnBomBowlMan_Reset(Actor* pthisx, GlobalContext* globalCtx)

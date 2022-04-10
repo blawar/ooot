@@ -7,7 +7,7 @@ struct Vec3s;
 struct Vec3f;
 struct View;
 struct CollisionContext;
-struct GlobalContext;
+#include "globalctx.h"
 struct Player;
 struct CutsceneCameraPoint;
 

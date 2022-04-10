@@ -673,8 +673,8 @@ s32 EnNiwLady_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 	{
 		if((limbIndex == 8) || (limbIndex == 10) || (limbIndex == 13))
 		{
-			rot->y += (Math_SinS(globalCtx->state.frames * ((limbIndex * 0x32) + 0x814)) * 200.0f);
-			rot->z += (Math_CosS(globalCtx->state.frames * ((limbIndex * 0x32) + 0x940)) * 200.0f);
+			rot->y += (Math_SinS(globalCtx->frames * ((limbIndex * 0x32) + 0x814)) * 200.0f);
+			rot->z += (Math_CosS(globalCtx->frames * ((limbIndex * 0x32) + 0x940)) * 200.0f);
 		}
 	}
 	return false;
@@ -685,16 +685,16 @@ void EnNiwLady_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnNiwLady* pthis = (EnNiwLady*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_lady.c", 1347);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_niw_lady.c", 1347);
 	if(pthis->unk_27E != 0)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures_60[pthis->faceState]));
-		gSPSegment(POLY_OPA_DISP++, 0x0C, func_80ABB0A0(globalCtx->state.gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x0C, func_80ABB0A0(globalCtx->gfxCtx));
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnNiwLady_OverrideLimbDraw, NULL, pthis);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_lady.c", 1370);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_niw_lady.c", 1370);
 }
 
 void EnNiwLady_Reset(Actor* pthisx, GlobalContext* globalCtx)

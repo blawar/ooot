@@ -316,10 +316,10 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	timerMax = (((pthis->actor.params >> 6) & 0xF) * 50) + 100;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 707);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_syokudai.c", 707);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 714), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_syokudai.c", 714), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, displayLists_33[(u16)pthis->actor.params >> 0xC]);
 
@@ -337,9 +337,9 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 		flameScale *= 0.0027f;
 
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (pthis->flameTexScroll.whole() * -20) & 0x1FF, 0x20, 0x80));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (pthis->flameTexScroll.whole() * -20) & 0x1FF, 0x20, 0x80));
 
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 0, 255);
 
@@ -349,11 +349,11 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_RotateY((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) - pthis->actor.shape.rot.y + 0x8000) * (M_PI / 0x8000), MTXMODE_APPLY);
 		Matrix_Scale(flameScale, flameScale, flameScale, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 745), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_syokudai.c", 745), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 		gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_syokudai.c", 749);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_syokudai.c", 749);
 }
 
 void ObjSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx)

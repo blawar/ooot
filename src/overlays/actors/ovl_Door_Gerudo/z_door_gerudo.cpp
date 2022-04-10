@@ -173,11 +173,11 @@ void DoorGerudo_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	DoorGerudo* pthis = (DoorGerudo*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_gerudo.c", 361);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_door_gerudo.c", 361);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_gerudo.c", 365), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_gerudo.c", 365), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gGerudoCellDoorDL);
 
 	if(pthis->unk_166 != 0)
@@ -186,7 +186,7 @@ void DoorGerudo_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Actor_DrawDoorLock(globalCtx, pthis->unk_166, DOORLOCK_NORMAL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_gerudo.c", 377);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_door_gerudo.c", 377);
 }
 
 void DoorGerudo_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -398,9 +398,9 @@ void EnAObj_Draw(Actor* pthisx, GlobalContext* globalCtx)
 {
 	s32 type = pthisx->params;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_a_keep.c", 701);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_a_keep.c", 701);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(type >= A_OBJ_MAX)
 	{
@@ -412,10 +412,10 @@ void EnAObj_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 1, 60, 60, 60, 50);
 	}
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_a_keep.c", 712), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_a_keep.c", 712), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_OPA_DISP++, sDLists[type]);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_a_keep.c", 715);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_a_keep.c", 715);
 }
 
 void EnAObj_Reset(Actor* pthisx, GlobalContext* globalCtx)

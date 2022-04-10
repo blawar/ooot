@@ -747,7 +747,7 @@ s32 func_80A6AD84(Actor* thisx, GlobalContext* globalCtx, s32 arg2, PSkinAwb* ar
 {
 	EnHorseLinkChild* pthis = (EnHorseLinkChild*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_horse_link_child.c", 1467);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_horse_link_child.c", 1467);
 
 	if(arg2 == 0xD)
 	{
@@ -756,7 +756,7 @@ s32 func_80A6AD84(Actor* thisx, GlobalContext* globalCtx, s32 arg2, PSkinAwb* ar
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[index]));
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_horse_link_child.c", 1479);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_horse_link_child.c", 1479);
 
 	return 1;
 }
@@ -765,7 +765,7 @@ void EnHorseLinkChild_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnHorseLinkChild* pthis = (EnHorseLinkChild*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_800A6360(&pthis->actor, globalCtx, &pthis->skin, func_80A6ABF8, func_80A6AD84, 1);
 }
 

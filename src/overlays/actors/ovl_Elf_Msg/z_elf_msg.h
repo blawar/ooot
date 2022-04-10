@@ -7,7 +7,7 @@
 
 struct ElfMsg;
 
-typedef void (*ElfMsgActionFunc)(struct ElfMsg*, struct GlobalContext*);
+typedef void (*ElfMsgActionFunc)(struct ElfMsg*, GlobalContext*);
 
 struct ElfMsg
 {

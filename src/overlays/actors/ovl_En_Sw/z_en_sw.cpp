@@ -388,7 +388,7 @@ s32 func_80B0C9F0(EnSw* pthis, GlobalContext* globalCtx)
 			if(((pthis->actor.params & 0xE000) >> 0xD) != 0)
 			{
 				pthis->skelAnime.playSpeed = 8.0f;
-				if((globalCtx->state.frames & 1) == 0)
+				if((globalCtx->frames & 1) == 0)
 				{
 					pthis->unk_420 = 0.1f;
 				}
@@ -647,7 +647,7 @@ void func_80B0D590(EnSw* pthis, GlobalContext* globalCtx)
 		if(pthis->unk_38E == 0)
 		{
 			func_80B0CEA8(pthis, globalCtx);
-			pthis->unk_420 = ((globalCtx->state.frames % 2) == 0) ? 0.1f : -0.1f;
+			pthis->unk_420 = ((globalCtx->frames % 2) == 0) ? 0.1f : -0.1f;
 			pthis->unk_38A = 1;
 			pthis->unk_38C = Rand_S16Offset(30, 60);
 			if(((pthis->actor.params & 0xE000) >> 0xD) != 0)
@@ -850,22 +850,22 @@ s32 func_80B0DFFC(EnSw* pthis, GlobalContext* globalCtx)
 		pthis->collider.base.acFlags &= ~AC_HIT;
 		sp4C = false;
 	}
-	else if(((globalCtx->state.frames % 4) == 0) && !BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_454, &sp50, &sp60, true, false, false, true, &sp5C))
+	else if(((globalCtx->frames % 4) == 0) && !BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_454, &sp50, &sp60, true, false, false, true, &sp5C))
 	{
 		sp4C = false;
 	}
-	else if(((globalCtx->state.frames % 4) == 1) && BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_460, &sp50, &sp60, true, false, false, true, &sp5C))
+	else if(((globalCtx->frames % 4) == 1) && BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_460, &sp50, &sp60, true, false, false, true, &sp5C))
 	{
 		sp4C = false;
 	}
-	else if(((globalCtx->state.frames % 4) == 2) && !BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_46C, &sp50, &sp60, true, false, false, true, &sp5C))
+	else if(((globalCtx->frames % 4) == 2) && !BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_46C, &sp50, &sp60, true, false, false, true, &sp5C))
 	{
 		if(0)
 		{
 		}
 		sp4C = false;
 	}
-	else if(((globalCtx->state.frames % 4) == 3) && BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_478, &sp50, &sp60, true, false, false, true, &sp5C))
+	else if(((globalCtx->frames % 4) == 3) && BgCheck_EntityLineTest1(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_478, &sp50, &sp60, true, false, false, true, &sp5C))
 	{
 		sp4C = false;
 	}
@@ -1071,7 +1071,7 @@ s32 EnSw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 	EnSw* pthis = (EnSw*)thisx;
 	Vec3f sp3C = {0.0f, 0.0f, 0.0f};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sw.c", 2084);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_sw.c", 2084);
 
 	if(((pthis->actor.params & 0xE000) >> 0xD) != 0)
 	{
@@ -1131,7 +1131,7 @@ s32 EnSw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 
 	Collider_UpdateSpheres(limbIndex, &pthis->collider);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sw.c", 2145);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_sw.c", 2145);
 
 	return false;
 }
@@ -1144,7 +1144,7 @@ void func_80B0EDB8(GlobalContext* globalCtx, Color_RGBA8* arg1, s16 arg2, s16 ar
 {
 	f32 temp_f2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sw.c", 2181);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_sw.c", 2181);
 
 	temp_f2 = (11500.0f / arg3) * (arg3 - arg2);
 
@@ -1155,18 +1155,18 @@ void func_80B0EDB8(GlobalContext* globalCtx, Color_RGBA8* arg1, s16 arg2, s16 ar
 
 	POLY_OPA_DISP = Gfx_SetFog2(POLY_OPA_DISP, arg1->r, arg1->g, arg1->b, arg1->a, 0, (s16)temp_f2);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sw.c", 2197);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_sw.c", 2197);
 }
 
 void func_80B0EEA4(GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sw.c", 2205);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_sw.c", 2205);
 
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_sw.c", 2207);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_sw.c", 2207);
 }
 
 void EnSw_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -1188,7 +1188,7 @@ void EnSw_Draw(Actor* thisx, GlobalContext* globalCtx)
 		func_80B0EDB8(globalCtx, &sp30, 0x14, 0x1E);
 	}
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSw_OverrideLimbDraw, EnSw_PostLimbDraw, pthis);
 	if(pthis->actionFunc == func_80B0E728)
 	{

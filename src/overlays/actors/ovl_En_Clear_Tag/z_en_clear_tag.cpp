@@ -749,10 +749,10 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnClearTag* pthis = (EnClearTag*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 983);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_clear_tag.c", 983);
 	if(pthis->drawMode != CLEAR_TAG_DRAW_MODE_EFFECT)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		if(pthis->state >= CLEAR_TAG_STATE_LASER)
 		{
@@ -760,17 +760,17 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 255, 0, 255);
 
 			Matrix_Translate(25.0f, 0.0f, 0.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1004), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_clear_tag.c", 1004), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gArwingLaserDL);
 
 			Matrix_Translate(-50.0f, 0.0f, 0.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1011), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_clear_tag.c", 1011), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gArwingLaserDL);
 		}
 		else
 		{
 			// Draw the Arwing itself.
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 			if(pthis->crashingTimer != 0)
 			{
@@ -784,7 +784,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx)
 				Matrix_RotateY(yRotation, MTXMODE_APPLY);
 			}
 			Matrix_RotateZ(pthis->roll, MTXMODE_APPLY);
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1030), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_clear_tag.c", 1030), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gArwingDL);
 
 			// Draw the Arwing Backfire
@@ -798,7 +798,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 200, 155);
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetEnvColor(POLY_XLU_DISP++, 255, 50, 0, 0);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1067), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_clear_tag.c", 1067), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gArwingBackfireDL);
 
 			// Draw the Arwing shadow.
@@ -822,7 +822,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx)
 				Matrix_RotateY(yRotation, MTXMODE_APPLY);
 			}
 			Matrix_RotateZ(pthis->roll, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1104), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_clear_tag.c", 1104), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gArwingShadowDL);
 		}
 	}
@@ -832,7 +832,7 @@ void EnClearTag_Draw(Actor* thisx, GlobalContext* globalCtx)
 		EnClearTag_DrawEffects(globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_clear_tag.c", 1119);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_clear_tag.c", 1119);
 }
 
 /**
@@ -981,14 +981,14 @@ void EnClearTag_UpdateEffects(GlobalContext* globalCtx)
 void EnClearTag_DrawEffects(GlobalContext* globalCtx)
 {
 	s16 i;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	u8 isMaterialApplied = false;
 	EnClearTagEffect* effect = (EnClearTagEffect*)globalCtx->specialEffects;
 	EnClearTagEffect* firstEffect = effect;
 
 	OPEN_DISPS(gfxCtx, "../z_en_clear_tag.c", 1288);
-	func_80093D18(globalCtx->state.gfxCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	// Draw all Debris effects.
 	for(i = 0; i < CLEAR_TAG_EFFECT_MAX_COUNT; i++, effect++)
@@ -1056,7 +1056,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetEnvColor(POLY_XLU_DISP++, (s8)effect->envColor.r, (s8)effect->envColor.g, (s8)effect->envColor.b, 128);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, (s8)effect->primColor.r, (s8)effect->primColor.g, (s8)effect->primColor.b, (s8)effect->primColor.a);
-			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, effect->random * -5, 32, 64, 1, 0, 0, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, effect->random * -5, 32, 64, 1, 0, 0, 32, 32));
 			Matrix_Translate(effect->position.x, effect->position.y, effect->position.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->scale, effect->scale, 1.0f, MTXMODE_APPLY);
@@ -1083,7 +1083,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx)
 
 			// Draw the fire effect.
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, (s8)effect->primColor.a);
-			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (effect->random * -15) & 0xFF, 32, 64, 1, 0, 0, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (effect->random * -15) & 0xFF, 32, 64, 1, 0, 0, 32, 32));
 			Matrix_Translate(effect->position.x, effect->position.y, effect->position.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(effect->scale, effect->scale, 1.0f, MTXMODE_APPLY);

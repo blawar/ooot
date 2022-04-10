@@ -1,5 +1,6 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
+
 struct GraphicsContext;
 
 void Effect_Add(GlobalContext* globalCtx, s32* pIndex, s32 type, u8 arg3, u8 arg4, void* initParams);

@@ -1190,7 +1190,7 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 	{
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2170);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_hy.c", 2170);
 
 	if(limbIndex == 15)
 	{
@@ -1230,7 +1230,7 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 		rot->z += Math_CosS(pthis->unk_23C[limbIndex]) * 200.0f;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2228);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_hy.c", 2228);
 
 	return false;
 }
@@ -1241,7 +1241,7 @@ void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 	s32 pad;
 	Vec3f sp3C = {400.0f, 0.0f, 0.0f};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2255);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_hy.c", 2255);
 
 	if(limbIndex == 7)
 	{
@@ -1259,7 +1259,7 @@ void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 		Matrix_MultVec3f(&sp3C, &pthis->actor.focus.pos);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2281);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_hy.c", 2281);
 }
 
 Gfx* EnHy_SetEnvColor(GraphicsContext* globalCtx, u8 envR, u8 envG, u8 envB, u8 envA)
@@ -1278,11 +1278,11 @@ void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Color_RGBA8 envColorSeg9;
 	Color_RGBA8 envColorSeg10;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2318);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_hy.c", 2318);
 
 	if(pthis->actionFunc != EnHy_InitImpl)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		Matrix_Translate(pthis->modelOffset.x, pthis->modelOffset.y, pthis->modelOffset.z, MTXMODE_APPLY);
 		envColorSeg8 = sModelInfo[pthis->actor.params & 0x7F].envColorSeg8;
 		envColorSeg9 = sModelInfo[pthis->actor.params & 0x7F].envColorSeg9;
@@ -1310,8 +1310,8 @@ void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx)
 			// ENHY_TYPE_BOB_18
 			case ENHY_TYPE_BJI_19:
 			case ENHY_TYPE_AHG_20:
-				gSPSegment(POLY_OPA_DISP++, 0x08, EnHy_SetEnvColor(globalCtx->state.gfxCtx, envColorSeg8.r, envColorSeg8.g, envColorSeg8.b, envColorSeg8.a));
-				gSPSegment(POLY_OPA_DISP++, 0x09, EnHy_SetEnvColor(globalCtx->state.gfxCtx, envColorSeg9.r, envColorSeg9.g, envColorSeg9.b, envColorSeg9.a));
+				gSPSegment(POLY_OPA_DISP++, 0x08, EnHy_SetEnvColor(globalCtx->gfxCtx, envColorSeg8.r, envColorSeg8.g, envColorSeg8.b, envColorSeg8.a));
+				gSPSegment(POLY_OPA_DISP++, 0x09, EnHy_SetEnvColor(globalCtx->gfxCtx, envColorSeg9.r, envColorSeg9.g, envColorSeg9.b, envColorSeg9.a));
 
 				if((pthis->actor.params & 0x7F) == ENHY_TYPE_CNE_8 || (pthis->actor.params & 0x7F) == ENHY_TYPE_CNE_11)
 				{
@@ -1324,7 +1324,7 @@ void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx)
 						envColorSeg10.r = envColorSeg10.g = envColorSeg10.b = 255;
 						envColorSeg10.a = 0;
 					}
-					gSPSegment(POLY_OPA_DISP++, 0x0A, EnHy_SetEnvColor(globalCtx->state.gfxCtx, envColorSeg10.r, envColorSeg10.g, envColorSeg10.b, envColorSeg10.a));
+					gSPSegment(POLY_OPA_DISP++, 0x0A, EnHy_SetEnvColor(globalCtx->gfxCtx, envColorSeg10.r, envColorSeg10.g, envColorSeg10.b, envColorSeg10.a));
 				}
 				break;
 		}
@@ -1332,7 +1332,7 @@ void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx)
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnHy_OverrideLimbDraw, EnHy_PostLimbDraw, &pthis->actor);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_hy.c", 2388);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_hy.c", 2388);
 }
 
 void EnHy_Reset(Actor* pthisx, GlobalContext* globalCtx)

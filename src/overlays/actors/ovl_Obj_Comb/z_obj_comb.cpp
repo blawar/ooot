@@ -241,9 +241,9 @@ void ObjComb_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	ObjComb* pthis = (ObjComb*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_comb.c", 369);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_comb.c", 369);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y + (118.0f * pthis->actor.scale.y), pthis->actor.world.pos.z, MTXMODE_NEW);
 	Matrix_RotateY(pthis->actor.shape.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
@@ -252,13 +252,13 @@ void ObjComb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_Translate(0, -(pthis->actor.scale.y * 118.0f), 0, MTXMODE_APPLY);
 	Matrix_Scale(pthis->actor.scale.x, pthis->actor.scale.y, pthis->actor.scale.z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_comb.c", 394), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_comb.c", 394), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, gFieldBeehiveDL);
 
 	Collider_UpdateSpheres(0, &pthis->collider);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_comb.c", 402);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_comb.c", 402);
 }
 
 void ObjComb_Reset(Actor* pthisx, GlobalContext* globalCtx)

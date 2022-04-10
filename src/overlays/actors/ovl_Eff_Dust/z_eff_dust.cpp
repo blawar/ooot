@@ -302,7 +302,7 @@ void EffDust_DrawFunc_8099E4F4(Actor* thisx, GlobalContext* globalCtx2)
 {
 	EffDust* pthis = (EffDust*)thisx;
 	GlobalContext* globalCtx = globalCtx2;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	Vec3f* initialPositions;
 	f32* distanceTraveled;
 	s32 i;
@@ -352,7 +352,7 @@ void EffDust_DrawFunc_8099E784(Actor* thisx, GlobalContext* globalCtx2)
 {
 	EffDust* pthis = (EffDust*)thisx;
 	GlobalContext* globalCtx = globalCtx2;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32* distanceTraveled;
 	Vec3f* initialPositions;
 	s32 i;

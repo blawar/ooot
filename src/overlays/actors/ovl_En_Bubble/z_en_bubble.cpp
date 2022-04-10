@@ -462,25 +462,25 @@ void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnBubble* pthis = (EnBubble*)thisx;
 	u32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bubble.c", 1175);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bubble.c", 1175);
 
 	if(pthis->actionFunc != EnBubble_Disappear)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		Math_SmoothStepToF(&pthis->graphicRotSpeed, 16.0f, 0.2f, 1000.0f, 0.0f);
 		Math_SmoothStepToF(&pthis->graphicEccentricity, 0.08f, 0.2f, 1000.0f, 0.0f);
 		func_800D1FD4(&globalCtx->billboardMtxF);
 
 		Matrix_Scale(pthis->expansionWidth + 1.0f, pthis->expansionHeight + 1.0f, 1.0f, MTXMODE_APPLY);
-		Matrix_RotateZ(((f32)globalCtx->state.frames.toFloat() * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
+		Matrix_RotateZ(((f32)globalCtx->frames.toFloat() * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
 		Matrix_Scale(pthis->graphicEccentricity + 1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-		Matrix_RotateZ((-(f32)globalCtx->state.frames.toFloat() * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
+		Matrix_RotateZ((-(f32)globalCtx->frames.toFloat() * (M_PI / 180.0f)) * pthis->graphicRotSpeed, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bubble.c", 1220), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bubble.c", 1220), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gBubbleDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bubble.c", 1226);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bubble.c", 1226);
 
 	if(pthis->actionFunc != EnBubble_Disappear)
 	{

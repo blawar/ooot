@@ -1264,7 +1264,7 @@ block_1:
 
 	if(*dList != NULL)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_dodongo.c", 3787);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3787);
 
 		mtxScaleZ = 1.0f;
 		mtxScaleY = 1.0f;
@@ -1288,11 +1288,11 @@ block_1:
 			Matrix_RotateX(-(pthis->unk_25C[limbIndex] * 0.115f), MTXMODE_APPLY);
 		}
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_dodongo.c", 3822), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3822), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, *dList);
 		Matrix_Pop();
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_dodongo.c", 3826);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3826);
 	}
 	{
 		s32 pad;
@@ -1327,8 +1327,8 @@ void BossDodongo_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BossDodongo* pthis = (BossDodongo*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_dodongo.c", 3922);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3922);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if((pthis->unk_1C0 >= 2) && (pthis->unk_1C0 & 1))
 	{
@@ -1346,7 +1346,7 @@ void BossDodongo_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_dodongo.c", 3981);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3981);
 
 	BossDodongo_DrawEffects(globalCtx);
 }
@@ -1947,13 +1947,13 @@ void BossDodongo_DrawEffects(GlobalContext* globalCtx)
 	s16 i;
 	u8 phi_s3 = 0;
 	BossDodongoEffect* eff;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	eff = (BossDodongoEffect*)globalCtx->specialEffects;
 
 	OPEN_DISPS(gfxCtx, "../z_boss_dodongo.c", 5228);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	unkMtx = &globalCtx->billboardMtxF;
 
 	for(i = 0; i < 80; i++, eff++)

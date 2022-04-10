@@ -355,9 +355,9 @@ void func_80AE7D94(EnRl* pthis, GlobalContext* globalCtx)
 	void* tex = D_80AE81A0[temp];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rl_inKenjyanomaDemo02.c", 304);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_rl_inKenjyanomaDemo02.c", 304);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(tex));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(tex));
@@ -366,7 +366,7 @@ void func_80AE7D94(EnRl* pthis, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_rl_inKenjyanomaDemo02.c", 331);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_rl_inKenjyanomaDemo02.c", 331);
 }
 
 static EnRlActionFunc sActionFuncs[] = {
@@ -410,9 +410,9 @@ void func_80AE7FDC(EnRl* pthis, GlobalContext* globalCtx)
 	void* tex = D_80AE81A0[temp];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rl.c", 416);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_rl.c", 416);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(tex));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(tex));
@@ -420,7 +420,7 @@ void func_80AE7FDC(EnRl* pthis, GlobalContext* globalCtx)
 	gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
 
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, &pthis->actor);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_rl.c", 437);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_rl.c", 437);
 }
 
 static EnRlDrawFunc sDrawFuncs[] = {

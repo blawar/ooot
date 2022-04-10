@@ -428,7 +428,7 @@ void func_8088BC40(GlobalContext* globalCtx, BgHidanRock* pthis)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_rock.c", 808);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_rock.c", 808);
 
 	POLY_XLU_DISP = Gfx_CallSetupDL(POLY_XLU_DISP, 0x14);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x01, 255, 255, 0, 150);
@@ -448,10 +448,10 @@ void func_8088BC40(GlobalContext* globalCtx, BgHidanRock* pthis)
 	Matrix_Scale(6.0f, pthis->unk_16C, 6.0f, MTXMODE_APPLY);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sVerticalFlamesTexs[globalCtx->gameplayFrames.whole() & 7]));
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_rock.c", 853), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_hidan_rock.c", 853), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gFireTempleBigVerticalFlameDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_rock.c", 857);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_rock.c", 857);
 }
 
 void BgHidanRock_Draw(Actor* thisx, GlobalContext* globalCtx)

@@ -60,7 +60,7 @@ void EffectSsSibuki2_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	static void* bubbleTextures[] = {
 	    gEffUnusedBubbles1Tex, gEffUnusedBubbles1Tex, gEffUnusedBubbles2Tex, gEffUnusedBubbles3Tex, gEffUnusedBubbles4Tex, gEffUnusedBubbles5Tex, gEffUnusedBubbles6Tex, gEffUnusedBubbles7Tex, gEffUnusedBubbles8Tex,
 	};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 scale = pthis->rScale / 100.0f;
 
 	OPEN_DISPS(gfxCtx, "../z_eff_ss_sibuki2.c", 158);

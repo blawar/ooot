@@ -73,7 +73,7 @@ u32 EffectSsSibuki_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 
 void EffectSsSibuki_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 scale = pthis->rScale / 100.0f;
 
 	OPEN_DISPS(gfxCtx, "../z_eff_ss_sibuki.c", 163);

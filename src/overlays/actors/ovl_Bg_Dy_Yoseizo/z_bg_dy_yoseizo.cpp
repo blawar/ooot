@@ -1025,10 +1025,10 @@ void BgDyYoseizo_Draw(Actor* pthisx, GlobalContext* globalCtx)
 {
 	BgDyYoseizo* pthis = (BgDyYoseizo*)pthisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_dy_yoseizo.c", 1609);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_dy_yoseizo.c", 1609);
 	if(pthis->actionFunc != BgDyYoseizo_Vanish)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeState]));
 
@@ -1040,7 +1040,7 @@ void BgDyYoseizo_Draw(Actor* pthisx, GlobalContext* globalCtx)
 
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, BgDyYoseizo_OverrideLimbDraw, NULL, pthis);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_dy_yoseizo.c", 1629);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_dy_yoseizo.c", 1629);
 	BgDyYoseizo_ParticleDraw(pthis, globalCtx);
 }
 
@@ -1150,13 +1150,13 @@ void BgDyYoseizo_ParticleUpdate(BgDyYoseizo* pthis, GlobalContext* globalCtx)
 
 void BgDyYoseizo_ParticleDraw(BgDyYoseizo* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	u8 phi_s3 = 0;
 	BgDyYoseizoParticle* particle = pthis->particles;
 	s16 i;
 
 	OPEN_DISPS(gfxCtx, "../z_bg_dy_yoseizo.c", 1767);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	for(i = 0; i < 200; i++, particle++)
 	{

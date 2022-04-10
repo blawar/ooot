@@ -229,17 +229,17 @@ void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->action > 0)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_magic_fire.c", 682);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_magic_fire.c", 682);
 		POLY_XLU_DISP = func_800937C0(POLY_XLU_DISP);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, (u8)(s32)(60 * pthis->screenTintIntensity), (u8)(s32)(20 * pthis->screenTintIntensity), (u8)(s32)(0 * pthis->screenTintIntensity), (u8)(s32)(120 * pthis->screenTintIntensity));
 		gDPSetAlphaDither(POLY_XLU_DISP++, G_AD_DISABLE);
 		gDPSetColorDither(POLY_XLU_DISP++, G_CD_DISABLE);
 		gDPFillRectangle(POLY_XLU_DISP++, 0, 0, 319, 239);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, 255, 200, 0, (u8)(pthis->alphaMultiplier * 255));
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, (u8)(pthis->alphaMultiplier * 255));
 		Matrix_Scale(0.15f, 0.15f, 0.15f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_magic_fire.c", 715), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_magic_fire.c", 715), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPPipeSync(POLY_XLU_DISP++);
 		gSPTexture(POLY_XLU_DISP++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
 		gDPSetTextureLUT(POLY_XLU_DISP++, G_TT_NONE);
@@ -247,9 +247,9 @@ void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gDPSetTile(POLY_XLU_DISP++, G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 6, 14, G_TX_NOMIRROR | G_TX_WRAP, 6, 14);
 		gDPSetTileSize(POLY_XLU_DISP++, 1, 0, 0, 252, 252);
 		gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
-		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (gameplayFrames * 2) % 512, 511 - ((gameplayFrames * 5) % 512), 64, 64, 1, (gameplayFrames * 2) % 256, 255 - ((gameplayFrames * 20) % 256), 32, 32));
+		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (gameplayFrames * 2) % 512, 511 - ((gameplayFrames * 5) % 512), 64, 64, 1, (gameplayFrames * 2) % 256, 255 - ((gameplayFrames * 20) % 256), 32, 32));
 		gSPDisplayList(POLY_XLU_DISP++, sModelDL);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_magic_fire.c", 750);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_magic_fire.c", 750);
 
 		alpha = (s32)(pthis->alphaMultiplier * 255);
 		for(i = 0; i < 36; i++)

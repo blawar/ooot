@@ -110,13 +110,13 @@ void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 200);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skj_needle.c", 200);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 205), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_skj_needle.c", 205), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gSKJNeedleDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 210);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skj_needle.c", 210);
 }
 
 void EnSkjneedle_Reset(Actor* pthisx, GlobalContext* globalCtx)

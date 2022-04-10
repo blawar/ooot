@@ -231,26 +231,26 @@ void BgJyaBombchuiwa_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void BgJyaBombchuiwa_DrawRock(GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 436);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 439), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_jya_bombchuiwa.c", 436);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_jya_bombchuiwa.c", 439), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBombchuiwa2DL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 443);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_jya_bombchuiwa.c", 443);
 }
 
 void BgJyaBombchuiwa_DrawLight(Actor* thisx, GlobalContext* globalCtx)
 {
 	BgJyaBombchuiwa* pthis = (BgJyaBombchuiwa*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 453);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 457), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_jya_bombchuiwa.c", 453);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_jya_bombchuiwa.c", 457), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, CLAMP_MAX((u32)(pthis->lightRayIntensity * 153.0f), 153));
 	gSPDisplayList(POLY_XLU_DISP++, gBombchuiwaLight1DL);
 	gDPPipeSync(POLY_XLU_DISP++);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, CLAMP_MAX((u32)(pthis->lightRayIntensity * 255.0f), 255));
 	gSPDisplayList(POLY_XLU_DISP++, gBombchuiwaLight2DL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_bombchuiwa.c", 472);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_jya_bombchuiwa.c", 472);
 }
 
 void BgJyaBombchuiwa_Draw(Actor* thisx, GlobalContext* globalCtx)

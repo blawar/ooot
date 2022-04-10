@@ -82,14 +82,14 @@ void BgSpot01Fusya_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void BgSpot01Fusya_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_fusya.c", 210);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot01_fusya.c", 210);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot01_fusya.c", 214), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot01_fusya.c", 214), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gKakarikoWindmillSailsDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_fusya.c", 219);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot01_fusya.c", 219);
 }
 
 void BgSpot01Fusya_Reset(Actor* pthisx, GlobalContext* globalCtx)

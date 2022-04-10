@@ -76,7 +76,7 @@ u32 EffectSsEnFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 
 void EffectSsEnFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 scale;
 	s16 camYaw;
 	s32 pad[3];
@@ -90,7 +90,7 @@ void EffectSsEnFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
 	scale = Math_SinS(pthis->life * 0x333) * (pthis->rScale * 0.00005f);
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_en_fire.c", 180), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_eff_en_fire.c", 180), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	redGreen = pthis->life - 5;
 
@@ -99,10 +99,10 @@ void EffectSsEnFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 		redGreen = 0;
 	}
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_XLU_DISP++, redGreen * 12.7f, 0, 0, 0);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x0, 0x80, redGreen * 12.7f, redGreen * 12.7f, 0, 255);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (pthis->rScroll * -0x14) & 0x1FF, 0x20, 0x80));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (pthis->rScroll * -0x14) & 0x1FF, 0x20, 0x80));
 
 	if(((pthis->rFlags & 0x7FFF) != 0) || (pthis->life < 18))
 	{

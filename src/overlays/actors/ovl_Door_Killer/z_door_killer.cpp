@@ -558,16 +558,16 @@ void DoorKiller_SetTexture(Actor* thisx, GlobalContext* globalCtx)
 	DoorKiller* pthis = (DoorKiller*)thisx;
 	void* doorTexture = pthis->texture;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_killer.c", 883);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_door_killer.c", 883);
 	gSPSegment(POLY_OPA_DISP++, 0x08, doorTexture);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_killer.c", 885);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_door_killer.c", 885);
 }
 
 void DoorKiller_DrawDoor(Actor* thisx, GlobalContext* globalCtx)
 {
 	DoorKiller* pthis = (DoorKiller*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	DoorKiller_SetTexture(&pthis->actor, globalCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, NULL);
 }

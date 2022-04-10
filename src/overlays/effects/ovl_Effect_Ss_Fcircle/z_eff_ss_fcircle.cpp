@@ -50,7 +50,7 @@ u32 EffectSsFcircle_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
 
 void EffectSsFcircle_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 yScale;
 	f32 xzScale;
@@ -66,8 +66,8 @@ void EffectSsFcircle_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	Matrix_Scale(xzScale, yScale, xzScale, MTXMODE_APPLY);
 	Matrix_RotateY(pthis->rYaw * (M_PI / 0x8000), MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_fcircle.c", 163), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames % 128, 0, 32, 64, 1, 0, ((globalCtx->gameplayFrames.whole()) * -0xF) % 256, 32, 64));
+	func_80093D84(globalCtx->gfxCtx);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, globalCtx->gameplayFrames % 128, 0, 32, 64, 1, 0, ((globalCtx->gameplayFrames.whole()) * -0xF) % 256, 32, 64));
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 220, 0, (pthis->life * 12.75f));
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
 	gSPDisplayList(POLY_XLU_DISP++, pthis->gfx);

@@ -1,5 +1,5 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
 
 extern f32 gBossMarkScale;
 extern PauseMapMarksData* gLoadedPauseMarkDataTable;

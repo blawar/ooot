@@ -239,14 +239,14 @@ void BgBowlWall_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 {
 	GlobalContext* globalCtx = globalCtx2;
 	BgBowlWall* pthis = (BgBowlWall*)pthisx;
-	const auto& frames = globalCtx->state.frames;
+	const auto& frames = globalCtx->frames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 441);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_bowl_wall.c", 441);
 
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_OPA_DISP++, 0x8, Gfx_TexScroll(globalCtx->state.gfxCtx, 0, frames * -2, 16, 16));
+	func_80093D84(globalCtx->gfxCtx);
+	gSPSegment(POLY_OPA_DISP++, 0x8, Gfx_TexScroll(globalCtx->gfxCtx, 0, frames * -2, 16, 16));
 	gDPPipeSync(POLY_OPA_DISP++);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 453), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_bowl_wall.c", 453), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(pthis->dyna.actor.params == 0)
 	{
@@ -257,7 +257,7 @@ void BgBowlWall_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		gSPDisplayList(POLY_OPA_DISP++, gBowlingRound2WallDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_bowl_wall.c", 464);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_bowl_wall.c", 464);
 }
 
 void BgBowlWall_Reset(Actor* pthisx, GlobalContext* globalCtx)

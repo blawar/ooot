@@ -991,12 +991,12 @@ void EnHeishi2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 
 void EnHeishi2_DrawKingGuard(Actor* thisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1772);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_heishi2.c", 1772);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1774), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_heishi2.c", 1774), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gHeishiKingGuardDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1777);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_heishi2.c", 1777);
 }
 
 void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -1005,9 +1005,9 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Mtx* mtx;
 	s32 linkObjBankIndex;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1792);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_heishi2.c", 1792);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi2_OverrideLimbDraw, EnHeishi2_PostLimbDraw, pthis);
 	if((pthis->type == 5) && (gSaveContext.infTable[7] & 0x80))
@@ -1018,7 +1018,7 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_Put(&pthis->mtxf_330);
 			Matrix_Translate(-570.0f, 0.0f, 0.0f, MTXMODE_APPLY);
 			Matrix_RotateZ(DEGTORAD(70.0), MTXMODE_APPLY);
-			mtx = (Mtx*)POINTER_SUB(Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1820), 7 * sizeof(float[4][4]));
+			mtx = (Mtx*)POINTER_SUB(Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_heishi2.c", 1820), 7 * sizeof(float[4][4]));
 
 			gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[linkObjBankIndex].vromStart.get());
 			gSPSegment(POLY_OPA_DISP++, 0x0D, mtx);
@@ -1027,7 +1027,7 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1834);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_heishi2.c", 1834);
 }
 
 void EnHeishi2_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -471,9 +471,9 @@ void EnGb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnGb* pthis = (EnGb*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_gb.c", 763);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_gb.c", 763);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetEnvColor(POLY_OPA_DISP++, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, 255);
@@ -481,7 +481,7 @@ void EnGb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Lights_PointNoGlowSetInfo(&pthis->lightInfo, pthis->dyna.actor.world.pos.x, pthis->dyna.actor.world.pos.y, pthis->dyna.actor.world.pos.z, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, &pthis->dyna.actor);
 	EnGb_DrawCagedSouls(pthis, globalCtx);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gb.c", 796);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_gb.c", 796);
 }
 
 void EnGb_UpdateCagedSouls(EnGb* pthis, GlobalContext* globalCtx)
@@ -578,15 +578,15 @@ void EnGb_DrawCagedSouls(EnGb* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	s32 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_gb.c", 914);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_gb.c", 914);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	for(i = 0; i < 4; i++)
 	{
 		s32 idx = pthis->cagedSouls[i].infoIdx;
 
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (u32)(sCagedSoulInfo[idx].timerMultiplier * pthis->frameTimer) % 512, 32, 128));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (u32)(sCagedSoulInfo[idx].timerMultiplier * pthis->frameTimer) % 512, 32, 128));
 		gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sCagedSoulInfo[idx].texture));
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, sCagedSoulInfo[idx].prim.r, sCagedSoulInfo[idx].prim.g, sCagedSoulInfo[idx].prim.b, sCagedSoulInfo[idx].prim.a);
 		gDPSetEnvColor(POLY_XLU_DISP++, sCagedSoulInfo[idx].env.r, sCagedSoulInfo[idx].env.g, sCagedSoulInfo[idx].env.b, sCagedSoulInfo[idx].env.a);
@@ -601,13 +601,13 @@ void EnGb_DrawCagedSouls(EnGb* pthis, GlobalContext* globalCtx)
 		}
 		Matrix_Scale(0.007f, 0.007f, 1.0f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_gb.c", 955), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_gb.c", 955), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gPoeSellerCagedSoulDL);
 
 		Matrix_Pop();
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gb.c", 962);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_gb.c", 962);
 }
 
 void EnGb_Reset(Actor* pthisx, GlobalContext* globalCtx)

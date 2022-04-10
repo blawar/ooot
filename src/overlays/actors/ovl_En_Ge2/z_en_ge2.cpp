@@ -330,7 +330,7 @@ void EnGe2_KnockedOut(EnGe2* pthis, GlobalContext* globalCtx)
 	pthis->actor.flags &= ~ACTOR_FLAG_0;
 	if(pthis->stateFlags & GE2_STATE_ANIMCOMPLETE)
 	{
-		effectAngle = globalCtx->state.frames * 0x2800;
+		effectAngle = globalCtx->frames * 0x2800;
 		effectPos.x = pthis->actor.focus.pos.x + (Math_CosS(effectAngle) * 5.0f);
 		effectPos.y = pthis->actor.focus.pos.y + 10.0f;
 		effectPos.z = pthis->actor.focus.pos.z + (Math_SinS(effectAngle) * 5.0f);
@@ -754,14 +754,14 @@ void EnGe2_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnGe2* pthis = (EnGe2*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge2.c", 1274);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ge2.c", 1274);
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_84[pthis->eyeIndex]));
 	func_8002EBCC(&pthis->actor, globalCtx, 0);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnGe2_OverrideLimbDraw, EnGe2_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge2.c", 1291);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ge2.c", 1291);
 }
 
 void EnGe2_Reset(Actor* pthisx, GlobalContext* globalCtx)

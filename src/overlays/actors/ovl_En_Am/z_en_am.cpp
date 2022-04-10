@@ -1083,9 +1083,9 @@ void EnAm_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Vec3f sp68;
 	EnAm* pthis = (EnAm*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_am.c", 1580);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_am.c", 1580);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, pthis->textureBlend);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, EnAm_PostLimbDraw, pthis);
 
@@ -1111,7 +1111,7 @@ void EnAm_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_am.c", 1605);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_am.c", 1605);
 }
 
 void EnAm_Reset(Actor* pthisx, GlobalContext* globalCtx)

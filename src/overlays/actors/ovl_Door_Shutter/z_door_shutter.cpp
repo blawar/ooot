@@ -586,7 +586,7 @@ void func_80997150(DoorShutter* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->unk_16F < 0)
 		{
-			if(globalCtx->state.frames % 2 != 0)
+			if(globalCtx->frames % 2 != 0)
 			{
 				pthis->unk_16F++;
 			}
@@ -770,7 +770,7 @@ Gfx* func_80997838(GlobalContext* globalCtx, DoorShutter* pthis, Gfx* p)
 		{
 			Matrix_Scale(1.0f, yScale, 1.0f, MTXMODE_APPLY);
 		}
-		gSPMatrix(p++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_shutter.c", 1991), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(p++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_shutter.c", 1991), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(p++, sJabuDoorDLists[i]);
 		angle -= M_PI / 4;
 		Matrix_Put(&mtx);
@@ -819,9 +819,9 @@ void DoorShutter_Draw(Actor* thisx, GlobalContext* globalCtx)
 		s32 pad[2];
 		ShutterInfo* sp70 = &sShutterInfo[pthis->unk_16C];
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_shutter.c", 2048);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_door_shutter.c", 2048);
 
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		if(pthis->unk_16C == 3)
 		{
@@ -830,11 +830,11 @@ void DoorShutter_Draw(Actor* thisx, GlobalContext* globalCtx)
 			{
 				f32 sp58 = (pthis->unk_166 * 0.01f) * pthis->unk_170;
 
-				func_80093D18(globalCtx->state.gfxCtx);
+				func_80093D18(globalCtx->gfxCtx);
 				gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255.0f * sp58);
 				Matrix_Translate(0, 0, sp70->translateZ, MTXMODE_APPLY);
 				Matrix_Scale(sp58, sp58, sp58, MTXMODE_APPLY);
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_shutter.c", 2069), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_shutter.c", 2069), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, sp70->b);
 			}
 		}
@@ -862,12 +862,12 @@ void DoorShutter_Draw(Actor* thisx, GlobalContext* globalCtx)
 			{
 				gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_809982D4[pthis->unk_168]));
 			}
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_shutter.c", 2109), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_shutter.c", 2109), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, sp70->a);
 			if(pthis->unk_170 != 0.0f && sp70->b != NULL)
 			{
 				Matrix_Translate(0, sp70->c * (1.0f - pthis->unk_170), sp70->translateZ, MTXMODE_APPLY);
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_shutter.c", 2119), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_shutter.c", 2119), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, sp70->b);
 			}
 		}
@@ -878,7 +878,7 @@ void DoorShutter_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Actor_DrawDoorLock(globalCtx, pthis->unk_16E, (pthis->doorType == SHUTTER_BOSS) ? DOORLOCK_BOSS : ((pthis->unk_16C == 6) ? DOORLOCK_NORMAL_SPIRIT : DOORLOCK_NORMAL));
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_shutter.c", 2135);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_door_shutter.c", 2135);
 	}
 }
 

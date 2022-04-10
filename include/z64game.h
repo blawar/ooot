@@ -5,10 +5,6 @@
 #include "regs.h"
 #include "ultra64/types.h"
 
-struct GameState;
-
-typedef void (*GameStateFunc)(struct GameState* gameState);
-
 struct GameAllocEntry
 {
 	/* 0x00 */ struct GameAllocEntry* next;
@@ -22,21 +18,6 @@ struct GameAlloc
 	/* 0x00 */ GameAllocEntry base;
 	/* 0x10 */ GameAllocEntry* head;
 }; // size = 0x14
-
-struct GameState
-{
-	/* 0x00 */ GraphicsContext* gfxCtx;
-	/* 0x04 */ GameStateFunc main;
-	/* 0x08 */ GameStateFunc destroy; // "cleanup"
-	/* 0x0C */ GameStateFunc init;
-	/* 0x10 */ u32 size;
-	/* 0x14 */ Input input[4];
-	/* 0x74 */ TwoHeadArena tha;
-	/* 0x84 */ GameAlloc alloc;
-	/* 0x98 */ u32 running;
-	/* 0x9C */ Counter frames;
-	/* 0xA0 */ u32 unk_A0;
-}; // size = 0xA4
 
 enum GameOverState
 {
@@ -74,21 +55,5 @@ struct GameInfo
 	/* 0x10 */ s32 repeat;
 	/* 0x14 */ s16 data[REG_GROUPS * REG_PER_GROUP]; // 0xAE0 entries
 };							 // size = 0x15D4
-
-struct GameStateOverlay
-{
-	/* 0x00 */ Pointer loadedRamAddr;
-	/* 0x04 */ Pointer vromStart; // if applicable
-	/* 0x08 */ Pointer vromEnd;   // if applicable
-	/* 0x0C */ Pointer vramStart; // if applicable
-	/* 0x10 */ Pointer vramEnd;   // if applicable
-	/* 0x14 */ UNK_PTR unk_14;
-	/* 0x18 */ void* init;	  // initializes and executes the given context
-	/* 0x1C */ void* destroy; // deconstructs the context, and sets the next context to load
-	/* 0x20 */ UNK_PTR unk_20;
-	/* 0x24 */ UNK_PTR unk_24;
-	/* 0x28 */ UNK_TYPE4 unk_28;
-	/* 0x2C */ u32 instanceSize;
-}; // size = 0x30
 
 extern GameInfo* gGameInfo;
