@@ -2634,7 +2634,7 @@ s32 func_808351D4(Player* pthis, GlobalContext* globalCtx)
 		sp2C = 1;
 	}
 
-	Math_ScaledStepToS(&pthis->unk_6C0, 1200, 400);
+	Math_ScaledStepToS(&pthis->unk_rot_z_6C0, 1200, 400);
 	pthis->unk_6AE |= 0x100;
 
 	if((pthis->unk_836 == 0) && (func_80833350(pthis) == 0) && (pthis->skelAnime.animation == &gPlayerAnim_0026E8))
@@ -3379,7 +3379,7 @@ void func_808368EC(Player* pthis, GlobalContext* globalCtx)
 	}
 	else if(!(pthis->stateFlags2 & PLAYER_STATE2_REDIRECT_CONTROL))
 	{
-		Math_ScaledStepToS(&pthis->actor.shape.rot.y, pthis->currentYaw, 2000);
+		Math_ScaledStepToS(&pthis->actor.shape.rot.y, pthis->currentYaw, REG(27) * FRAMERATE_SCALER_INV);
 	}
 
 	pthis->unk_87C = pthis->actor.shape.rot.y - previousYaw;
@@ -3418,17 +3418,17 @@ s32 func_80836AB8(Player* pthis, s32 arg1)
 	if(arg1 != 0)
 	{
 		var = pthis->actor.focus.rot.y;
-		pthis->unk_6BC = pthis->actor.focus.rot.x;
+		pthis->unk_rot_x_6BC = pthis->actor.focus.rot.x;
 		pthis->unk_6AE |= 0x41;
 	}
 	else
 	{
-		func_808369C8(&pthis->unk_6BC, func_808369C8(&pthis->unk_6B6, pthis->actor.focus.rot.x, 600, 10000, pthis->actor.focus.rot.x, 0), 200, 4000, pthis->unk_6B6, 10000);
+		func_808369C8(&pthis->unk_rot_x_6BC, func_808369C8(&pthis->unk_rot_vel_z_6B6, pthis->actor.focus.rot.x, 600, 10000, pthis->actor.focus.rot.x, 0), 200, 4000, pthis->unk_rot_vel_z_6B6, 10000);
 		sp36 = pthis->actor.focus.rot.y - var;
 		func_808369C8(&sp36, 0, 200, 24000, pthis->unk_6BE, 8000);
 		var = pthis->actor.focus.rot.y - sp36;
-		func_808369C8(&pthis->unk_6B8, sp36 - pthis->unk_6BE, 200, 8000, sp36, 8000);
-		func_808369C8(&pthis->unk_6BE, sp36, 200, 8000, pthis->unk_6B8, 8000);
+		func_808369C8(&pthis->unk_rot_vel_y_6B8, sp36 - pthis->unk_6BE, 200, 8000, sp36, 8000);
+		func_808369C8(&pthis->unk_6BE, sp36, 200, 8000, pthis->unk_rot_vel_y_6B8, 8000);
 		pthis->unk_6AE |= 0xD9;
 	}
 
@@ -3577,7 +3577,7 @@ void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
 	}
 }
 
-s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* magnitude, s16* arg3, f32 arg4)
+s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* magnitude, s16* targetYaw, f32 arg4)
 {
 	f32 temp_f2;
 	f32 temp_f0;
@@ -3587,12 +3587,12 @@ s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* magnitude, s16* 
 	if((pthis->unk_6AD != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0))
 	{
 		*magnitude = 0.0f;
-		*arg3 = pthis->actor.shape.rot.y;
+		*targetYaw = pthis->actor.shape.rot.y;
 	}
 	else
 	{
 		*magnitude = gJoystickMagnitude;
-		*arg3 = D_808535D8;
+		*targetYaw = D_808535D8;
 
 		if(arg4 != 0.0f)
 		{
@@ -5534,7 +5534,7 @@ void func_8083AF44(GlobalContext* globalCtx, Player* pthis, s32 magicSpell)
 
 void func_8083B010(Player* pthis)
 {
-	pthis->actor.focus.rot.x = pthis->actor.focus.rot.z = pthis->unk_6B6 = pthis->unk_6B8 = pthis->unk_6BA = pthis->unk_6BC = pthis->unk_6BE = pthis->unk_6C0 = 0;
+	pthis->actor.focus.rot.x = pthis->actor.focus.rot.z = pthis->unk_rot_vel_z_6B6 = pthis->unk_rot_vel_y_6B8 = pthis->unk_rot_vel_x_6BA = pthis->unk_rot_x_6BC = pthis->unk_6BE = pthis->unk_rot_z_6C0 = 0;
 
 	pthis->actor.focus.rot.y = pthis->actor.shape.rot.y;
 }
@@ -6097,7 +6097,7 @@ s32 func_8083C2B0(Player* pthis, GlobalContext* globalCtx)
 					pthis->unk_86C = 0.0f;
 					func_80833C3C(pthis);
 				}
-				pthis->unk_6BC = pthis->unk_6BE = pthis->unk_6C0 = 0;
+				pthis->unk_rot_x_6BC = pthis->unk_6BE = pthis->unk_rot_z_6C0 = 0;
 			}
 
 			frame = Animation_GetLastFrame(anim);
@@ -6799,10 +6799,10 @@ void func_8083DDC8(Player* pthis, GlobalContext* globalCtx)
 		temp2 = (s16)(pthis->currentYaw - pthis->actor.shape.rot.y) * pthis->linearVelocity * 0.1f;
 		temp1 = CLAMP(temp1, -4000, 4000);
 		temp2 = CLAMP(-temp2, -4000, 4000);
-		Math_ScaledStepToS(&pthis->unk_6BC, temp1, 900);
-		pthis->unk_6B6 = -(f32)pthis->unk_6BC * 0.5f;
-		Math_ScaledStepToS(&pthis->unk_6BA, temp2, 300);
-		Math_ScaledStepToS(&pthis->unk_6C0, temp2, 200);
+		Math_ScaledStepToS(&pthis->unk_rot_x_6BC, temp1, 900);
+		pthis->unk_rot_vel_z_6B6 = -(f32)pthis->unk_rot_x_6BC * 0.5f;
+		Math_ScaledStepToS(&pthis->unk_rot_vel_x_6BA, temp2, 300);
+		Math_ScaledStepToS(&pthis->unk_rot_z_6C0, temp2, 200);
 		pthis->unk_6AE |= 0x168;
 	}
 	else
@@ -6813,8 +6813,8 @@ void func_8083DDC8(Player* pthis, GlobalContext* globalCtx)
 
 void Player_AdjustVelocityAndYaw(Player* pthis, f32 joystickMagnitude, s16 targetYaw)
 {
-	Math_AsymStepToF(&pthis->linearVelocity, joystickMagnitude, REG(19) / 100.0f, 1.5f);
-	Math_ScaledStepToS(&pthis->currentYaw, targetYaw, REG(27));
+	Math_AsymStepToF(&pthis->linearVelocity, joystickMagnitude, (REG(19) / 100.0f), 1.5f);
+	Math_ScaledStepToS(&pthis->currentYaw, targetYaw, REG(27) * FRAMERATE_SCALER_INV);
 }
 
 void func_8083DFE0(Player* pthis, f32* arg1, s16* arg2)
@@ -9103,7 +9103,7 @@ void Player_UpdateFunc_80843188(Player* pthis, GlobalContext* globalCtx)
 		}
 
 		Math_ScaledStepToS(&pthis->actor.focus.rot.x, sp4C, sp48);
-		pthis->unk_6BC = pthis->actor.focus.rot.x;
+		pthis->unk_rot_x_6BC = pthis->actor.focus.rot.x;
 		Math_ScaledStepToS(&pthis->unk_6BE, sp4A, sp46);
 
 		if(pthis->unk_84F != 0)
@@ -10953,12 +10953,12 @@ void func_80847298(Player* pthis)
 
 	if(!(pthis->unk_6AE & 8))
 	{
-		func_808471F4(&pthis->unk_6B6);
+		func_808471F4(&pthis->unk_rot_vel_z_6B6);
 	}
 
 	if(!(pthis->unk_6AE & 0x40))
 	{
-		func_808471F4(&pthis->unk_6BC);
+		func_808471F4(&pthis->unk_rot_x_6BC);
 	}
 
 	if(!(pthis->unk_6AE & 4))
@@ -10968,12 +10968,12 @@ void func_80847298(Player* pthis)
 
 	if(!(pthis->unk_6AE & 0x10))
 	{
-		func_808471F4(&pthis->unk_6B8);
+		func_808471F4(&pthis->unk_rot_vel_y_6B8);
 	}
 
 	if(!(pthis->unk_6AE & 0x20))
 	{
-		func_808471F4(&pthis->unk_6BA);
+		func_808471F4(&pthis->unk_rot_vel_x_6BA);
 	}
 
 	if(!(pthis->unk_6AE & 0x80))
@@ -10990,7 +10990,7 @@ void func_80847298(Player* pthis)
 
 	if(!(pthis->unk_6AE & 0x100))
 	{
-		func_808471F4(&pthis->unk_6C0);
+		func_808471F4(&pthis->unk_rot_z_6C0);
 	}
 
 	pthis->unk_6AE = 0;
