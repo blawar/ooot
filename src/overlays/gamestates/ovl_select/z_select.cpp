@@ -44,7 +44,7 @@ void Select_LoadGame(SelectContext* pthis, s32 entranceIndex)
 	if(gSaveContext.fileNum == 0xFF)
 	{
 		gSaveContext.createDebug();
-		gSaveContext.unk_13F6 = gSaveContext.magic;
+		gSaveContext.magicMax = gSaveContext.magic;
 		gSaveContext.magic = 0;
 		gSaveContext.unk_13F4 = 0;
 		gSaveContext.magicLevel = gSaveContext.magic;

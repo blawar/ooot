@@ -2970,7 +2970,7 @@ void Magic_Fill(GlobalContext* globalCtx)
 	if(gSaveContext.magicAcquired)
 	{
 		gSaveContext.unk_13F2 = gSaveContext.unk_13F0;
-		gSaveContext.unk_13F6 = (gSaveContext.doubleMagic * 0x30) + 0x30;
+		gSaveContext.magicMax = (gSaveContext.doubleMagic * 0x30) + 0x30;
 		gSaveContext.unk_13F0 = 9;
 	}
 }
@@ -3154,10 +3154,10 @@ void Interface_UpdateMagicBar(GlobalContext* globalCtx)
 			}
 
 			// "Storage  MAGIC_NOW=%d (%d)"
-			osSyncPrintf("Storage  MAGIC_NOW=%d (%d)\n", gSaveContext.magic, gSaveContext.unk_13F6);
-			if(gSaveContext.magic >= gSaveContext.unk_13F6)
+			osSyncPrintf("Storage  MAGIC_NOW=%d (%d)\n", gSaveContext.magic, gSaveContext.magicMax);
+			if(gSaveContext.magic >= gSaveContext.magicMax)
 			{
-				gSaveContext.magic = gSaveContext.unk_13F6;
+				gSaveContext.magic = gSaveContext.magicMax;
 				gSaveContext.unk_13F0 = gSaveContext.unk_13F2;
 				gSaveContext.unk_13F2 = 0;
 			}
@@ -5002,7 +5002,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			osSyncPrintf("Magic Start!!!!!!!!!\n"); // "Magic Start!!!!!!!!!"
 			osSyncPrintf("MAGIC_MAX=%d\n", gSaveContext.magicLevel);
 			osSyncPrintf("MAGIC_NOW=%d\n", gSaveContext.magic);
-			osSyncPrintf("Z_MAGIC_NOW_NOW=%d\n", gSaveContext.unk_13F6);
+			osSyncPrintf("Z_MAGIC_NOW_NOW=%d\n", gSaveContext.magicMax);
 			osSyncPrintf("Z_MAGIC_NOW_MAX=%d\n", gSaveContext.unk_13F4);
 			osSyncPrintf(VT_RST);
 		}

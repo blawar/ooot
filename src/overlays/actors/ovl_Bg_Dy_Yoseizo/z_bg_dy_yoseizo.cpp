@@ -818,7 +818,7 @@ void BgDyYoseizo_Give_Reward(BgDyYoseizo* pthis, GlobalContext* globalCtx)
 		{
 			case FAIRY_UPGRADE_MAGIC:
 				gSaveContext.magicAcquired = true;
-				gSaveContext.unk_13F6 = 0x30;
+				gSaveContext.magicMax = 0x30;
 				Interface_ChangeAlpha(9);
 				break;
 			case FAIRY_UPGRADE_DOUBLE_MAGIC:
@@ -827,7 +827,7 @@ void BgDyYoseizo_Give_Reward(BgDyYoseizo* pthis, GlobalContext* globalCtx)
 					gSaveContext.magicAcquired = true;
 				}
 				gSaveContext.doubleMagic = true;
-				gSaveContext.unk_13F6 = 0x60;
+				gSaveContext.magicMax = 0x60;
 				gSaveContext.magicLevel = 0;
 				Interface_ChangeAlpha(9);
 				break;
