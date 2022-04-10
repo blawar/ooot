@@ -205,7 +205,7 @@ void EnSth_FacePlayer(EnSth* pthis, GlobalContext* globalCtx)
 	{
 		Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 6, 0xFA0, 0x64);
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
-		func_80038290(globalCtx, &pthis->actor, &pthis->headRot, &pthis->unk_2AC, pthis->actor.focus.pos);
+		func_80038290(globalCtx, &pthis->actor, &pthis->headRot, &pthis->pos, pthis->actor.focus.pos);
 	}
 	else
 	{
@@ -228,14 +228,14 @@ void EnSth_LookAtPlayer(EnSth* pthis, GlobalContext* globalCtx)
 
 	if((ABS(diffRot) <= 0x4300) && (pthis->actor.xzDistToPlayer < 100.0f))
 	{
-		func_80038290(globalCtx, &pthis->actor, &pthis->headRot, &pthis->unk_2AC, pthis->actor.focus.pos);
+		func_80038290(globalCtx, &pthis->actor, &pthis->headRot, &pthis->pos, pthis->actor.focus.pos);
 	}
 	else
 	{
 		Math_SmoothStepToS(&pthis->headRot.x, 0, 6, 0x1838, 0x64);
 		Math_SmoothStepToS(&pthis->headRot.y, 0, 6, 0x1838, 0x64);
-		Math_SmoothStepToS(&pthis->unk_2AC.x, 0, 6, 0x1838, 0x64);
-		Math_SmoothStepToS(&pthis->unk_2AC.y, 0, 6, 0x1838, 0x64);
+		Math_SmoothStepToS(&pthis->pos.x, 0, 6, 0x1838, 0x64);
+		Math_SmoothStepToS(&pthis->pos.y, 0, 6, 0x1838, 0x64);
 	}
 }
 

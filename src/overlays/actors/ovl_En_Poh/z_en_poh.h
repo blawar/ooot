@@ -43,13 +43,13 @@ struct EnPoh
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ SkelAnime skelAnime;
 	/* 0x0190 */ EnPohActionFunc actionFunc;
-	/* 0x0194 */ u8 unk_194;
-	/* 0x0195 */ u8 unk_195;
+	/* 0x0194 */ TimerU8 invisibilityTimer;
+	/* 0x0195 */ TimerU8 bouncingTimer;
 	/* 0x0196 */ s8 objectIdx;
 	/* 0x0197 */ u8 infoIdx;
-	/* 0x0198 */ s16 unk_198;
+	/* 0x0198 */ Timer spinningLampTimer;
 	/* 0x019A */ Timer visibilityTimer;
-	/* 0x019C */ s16 unk_19C;
+	/* 0x019C */ Rotation yawRotation;
 	/* 0x019E */ Vec3s jointTable[21];
 	/* 0x021C */ Vec3s morphTable[21];
 	/* 0x029A */ Color_RGBA8 lightColor;

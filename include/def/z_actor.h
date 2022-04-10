@@ -202,4 +202,4 @@ Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, VecRot* spawnRot, f32* arg3,
 void func_800359B8(Actor* actor, s16 arg1, VecRot* arg2);
 u16 func_80037C30(GlobalContext* globalCtx, s16 arg1);
 s32 func_80037D98(GlobalContext* globalCtx, Actor* actor, s16 arg2, s32* arg3);
-s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, Vec3f arg4);
+s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* rot, Vec3s* pos, Vec3f arg4);

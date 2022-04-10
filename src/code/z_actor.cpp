@@ -6738,16 +6738,16 @@ s32 func_80037D98(GlobalContext* globalCtx, Actor* actor, s16 arg2, s32* arg3)
 	return false;
 }
 
-s32 func_80037F30(Vec3s* arg0, Vec3s* arg1)
+s32 func_80037F30(Vec3s* rot, Vec3s* pos)
 {
-	Math_SmoothStepToS(&arg0->y, 0, 6, 6200, 100);
-	Math_SmoothStepToS(&arg0->x, 0, 6, 6200, 100);
-	Math_SmoothStepToS(&arg1->y, 0, 6, 6200, 100);
-	Math_SmoothStepToS(&arg1->x, 0, 6, 6200, 100);
+	Math_SmoothStepToS(&rot->y, 0, 6, 6200, 100);
+	Math_SmoothStepToS(&rot->x, 0, 6, 6200, 100);
+	Math_SmoothStepToS(&pos->y, 0, 6, 6200, 100);
+	Math_SmoothStepToS(&pos->x, 0, 6, 6200, 100);
 	return true;
 }
 
-s32 func_80037FC8(Actor* actor, Vec3f* arg1, Vec3s* arg2, Vec3s* arg3)
+s32 func_80037FC8(Actor* actor, Vec3f* arg1, Vec3s* rot, Vec3s* pos)
 {
 	s16 sp36;
 	s16 sp34;
@@ -6756,24 +6756,24 @@ s32 func_80037FC8(Actor* actor, Vec3f* arg1, Vec3s* arg2, Vec3s* arg3)
 	sp36 = Math_Vec3f_Pitch(&actor->focus.pos, arg1);
 	sp34 = Math_Vec3f_Yaw(&actor->focus.pos, arg1) - actor->world.rot.y;
 
-	Math_SmoothStepToS(&arg2->x, sp36, 6, 2000, 1);
-	arg2->x = (arg2->x < -6000) ? -6000 : ((arg2->x > 6000) ? 6000 : arg2->x);
+	Math_SmoothStepToS(&rot->x, sp36, 6, 2000, 1);
+	rot->x = (rot->x < -6000) ? -6000 : ((rot->x > 6000) ? 6000 : rot->x);
 
-	var = Math_SmoothStepToS(&arg2->y, sp34, 6, 2000, 1);
-	arg2->y = (arg2->y < -8000) ? -8000 : ((arg2->y > 8000) ? 8000 : arg2->y);
+	var = Math_SmoothStepToS(&rot->y, sp34, 6, 2000, 1);
+	rot->y = (rot->y < -8000) ? -8000 : ((rot->y > 8000) ? 8000 : rot->y);
 
-	if(var && (ABS(arg2->y) < 8000))
+	if(var && (ABS(rot->y) < 8000))
 	{
 		return false;
 	}
 
-	Math_SmoothStepToS(&arg3->y, sp34 - arg2->y, 4, 2000, 1);
-	arg3->y = (arg3->y < -12000) ? -12000 : ((arg3->y > 12000) ? 12000 : arg3->y);
+	Math_SmoothStepToS(&pos->y, sp34 - rot->y, 4, 2000, 1);
+	pos->y = (pos->y < -12000) ? -12000 : ((pos->y > 12000) ? 12000 : pos->y);
 
 	return true;
 }
 
-s32 func_80038154(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, f32 arg4)
+s32 func_80038154(GlobalContext* globalCtx, Actor* actor, Vec3s* rot, Vec3s* pos, f32 arg4)
 {
 	Player* player = GET_PLAYER(globalCtx);
 	s32 pad;
@@ -6790,7 +6790,7 @@ s32 func_80038154(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* ar
 		abs_var = ABS(var);
 		if(abs_var >= 0x4300)
 		{
-			func_80037F30(arg2, arg3);
+			func_80037F30(rot, pos);
 			return false;
 		}
 	}
@@ -6804,12 +6804,12 @@ s32 func_80038154(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* ar
 		sp2C = player->actor.focus.pos;
 	}
 
-	func_80037FC8(actor, &sp2C, arg2, arg3);
+	func_80037FC8(actor, &sp2C, rot, pos);
 
 	return true;
 }
 
-s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, Vec3f arg4)
+s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* rot, Vec3s* pos, Vec3f arg4)
 {
 	Player* player = GET_PLAYER(globalCtx);
 	s32 pad;
@@ -6825,7 +6825,7 @@ s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* ar
 		abs_var = ABS(var);
 		if(abs_var >= 0x4300)
 		{
-			func_80037F30(arg2, arg3);
+			func_80037F30(rot, pos);
 			return false;
 		}
 	}
@@ -6839,7 +6839,7 @@ s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* ar
 		sp24 = player->actor.focus.pos;
 	}
 
-	func_80037FC8(actor, &sp24, arg2, arg3);
+	func_80037FC8(actor, &sp24, rot, pos);
 
 	return true;
 }

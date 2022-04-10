@@ -83,8 +83,7 @@ void MagicDark_DiamondUpdate(Actor* thisx, GlobalContext* globalCtx)
 	MagicDark* pthis = (MagicDark*)thisx;
 	u8 phi_a0;
 	Player* player = GET_PLAYER(globalCtx);
-	s16 pad;
-	s16 nayrusLoveTimer = gSaveContext.nayrusLoveTimer;
+	auto& nayrusLoveTimer = gSaveContext.nayrusLoveTimer;
 	s32 msgMode = globalCtx->msgCtx.msgMode;
 
 	if(1)
@@ -127,14 +126,14 @@ void MagicDark_DiamondUpdate(Actor* thisx, GlobalContext* globalCtx)
 	if(nayrusLoveTimer >= 1180)
 	{
 		pthis->primAlpha = 15595 - (nayrusLoveTimer * 13);
-		if(nayrusLoveTimer & 1)
+		if(nayrusLoveTimer.whole() & 1)
 		{
 			pthis->primAlpha = pthis->primAlpha >> 1;
 		}
 	}
 	else if(nayrusLoveTimer >= 1100)
 	{
-		pthis->primAlpha = (u8)(nayrusLoveTimer << 7) + 127;
+		pthis->primAlpha = (u8)(nayrusLoveTimer.whole() << 7) + 127;
 	}
 	else
 	{
@@ -149,7 +148,8 @@ void MagicDark_DiamondUpdate(Actor* thisx, GlobalContext* globalCtx)
 	thisx->world.rot.y += 0x3E8;
 	thisx->shape.rot.y = thisx->world.rot.y + Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx));
 	pthis->timer++;
-	gSaveContext.nayrusLoveTimer = nayrusLoveTimer + 1;
+	nayrusLoveTimer++;
+	gSaveContext.nayrusLoveTimer = nayrusLoveTimer;
 
 	if(nayrusLoveTimer < 1100)
 	{
