@@ -47,8 +47,15 @@ class ConfRom:
 		except:
 			pass
 			
-		self.hash_md5 = j['hash_md5']
-		self.FILE_NAMES = j['FILE_NAMES']
+		try:
+			self.hash_md5 = j['hash_md5']
+		except:
+			pass
+		
+		try:
+			self.FILE_NAMES = j['FILE_NAMES']
+		except:
+			pass
 
 class ConfSections:
 	def __init__(self):
@@ -56,13 +63,31 @@ class ConfSections:
 
 class Conf:
 	def __init__(self, path):
+		self.name = list(Path(path).parts)[-2]
 		self.path = path
+		self.parent = Path(path).parent
 		self.sections = ConfSections()
 		j = loadJson(path)
 
-		for k,v in j['sections'].items():
-			self.sections.__dict__[k] = ConfSection(v)
+		try:
+			for k,v in j['sections'].items():
+				self.sections.__dict__[k] = ConfSection(v)
+		except:
+			pass
 		self.rom = ConfRom(j['rom'])
+		
+		try:
+			self.hashes = j['sha256']
+		except:
+			self.hashes = {}
+			
+	def romFile(self):
+		search = ['baserom_original.z64', 'baserom_original.n64', 'baserom_original.v64']
+		for i in search:
+			if os.path.exists(self.parent.joinpath(i)):
+				return self.parent.joinpath(i)
+				
+		return None
 		
 		
 def config():
@@ -87,9 +112,21 @@ def setBuildRom(p):
 	_buildRom = p
 	
 def findBuildRom():
-	if len(validBuildOptions()) == 1:
-		return validBuildOptions()[0]
-	return 'EUR_MQD'
+	priority = ['PAL_1.0', 'EUR_MQD']
+	found = {}
+	for conf in getAllConfs():
+		if conf.romFile() is not None and os.path.exists(conf.parent.joinpath('zapd/Config.xml')):
+			found[conf.name] = conf.name
+			
+	for rom in priority:
+		if rom in found:
+			return rom
+			
+	for rom in priority:
+		return rom
+
+	raise IOError('FATAL: Could not find any valid Ocarina of Time roms!')
+	return None
 
 def buildRom():
 	global _buildRom
@@ -181,6 +218,69 @@ def calcRomHashes():
 			config['sha256'].append(getRomHashes(path))
 			
 		saveJson(configPath, config)
+	
+configs = None
+
+def getAllConfs():
+	global configs
+	if configs is not None:
+		return configs
+		
+	configs = []
+	for rom in validBuildOptions():
+		configs.append(Conf(romPath('config.json', rom)))
+		
+	return configs
+
+def findRomByHash(hashes):
+	for conf in getAllConfs():
+		try:
+			for i in conf.hashes:
+				if hashes['complete'] == i['complete'] or hashes['body'] == i['body']:
+					return conf.name
+		except:
+			raise
+	return None
+	
+def findRoms(z64 = True, n64 = True, v64 = True):
+	roms = []
+	searchPath = '.'
+	if z64:
+		for path in Path(searchPath).rglob('*.z64'):
+			if 'verified' not in str(path):
+				roms.append(path)
+			
+	if v64:
+		for path in Path(searchPath).rglob('*.v64'):
+			if 'verified' not in str(path):
+				roms.append(path)
+			
+	if n64:
+		for path in Path(searchPath).rglob('*.n64'):
+			if 'verified' not in str(path):
+				roms.append(path)
+	
+	return roms
+		
+def organizeRoms():
+	print('searching for roms...')
+	for path in findRoms():
+		hashes = getRomHashes(path)
+		
+		r = findRomByHash(hashes)
+		
+		if r:
+			newPath = romPath('baserom_original' + Path(path).suffix, r)
+			
+			if Path(path).resolve() != Path(newPath).resolve():
+				try:
+					os.rename(path, newPath)
+				except:
+					pass
+				print('%s -> %s' % (path, newPath))
+				
+	print('done')
+
 		
 
 basedir = Path(__file__).absolute().parent.parent
