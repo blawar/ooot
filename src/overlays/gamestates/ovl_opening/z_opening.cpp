@@ -26,7 +26,7 @@ void Opening_SetupTitleScreen(OpeningContext* pthis)
 	gSaveContext.gameMode = 0;
 	Inventory_ChangeEquipment(EQUIP_SHIELD, 2);
 	Inventory_ChangeEquipment(EQUIP_SWORD, 2);
-	gSaveContext.unk_13F6 = gSaveContext.magic;
+	gSaveContext.magicMax = gSaveContext.magic;
 	gSaveContext.dayTime = gSaveContext.skyboxTime = 0x8000;
 	gSaveContext.unk_13F4 = 0;
 	gSaveContext.magicLevel = gSaveContext.magic = 0;

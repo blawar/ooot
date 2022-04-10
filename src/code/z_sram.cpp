@@ -21,28 +21,11 @@ oot::save::Context gSaveContext;
 
 namespace oot::save
 {
-	// these are the main substructs of save context.
-	// we are going to hold off on splitting save context until later on,
-	// so these temporary structs will live here for now.
-
-	// size = 0x1338
-
-	// size = 0x1354
-
 #define SAVE_PLAYER_DATA (*((SavePlayerData*)&gSaveFile.newf))
 #define SAVE_INFO (*((SaveInfo*)&gSaveFile.newf))
 
 #define SLOT_SIZE (sizeof(SaveSlot) + 0x28)
 #define CHECKSUM_SIZE (sizeof(Save) / 2)
-	/*
-	#define DEATHS OFFSETOF(SaveSlot, deaths)
-	#define NAME OFFSETOF(SaveSlot, playerName)
-	#define N64DD OFFSETOF(SaveSlot, n64ddFlag)
-	#define HEALTH_CAP OFFSETOF(SaveSlot, healthCapacity)
-	#define QUEST OFFSETOF(SaveSlot, inventory.questItems)
-	#define DEFENSE OFFSETOF(SaveSlot, inventory.defenseHearts)
-	#define HEALTH OFFSETOF(SaveSlot, health)
-	*/
 
 	static char sZeldaMagic[] = {'\0', '\0', '\0', '\x98', '\x09', '\x10', '\x21', 'Z', 'E', 'L', 'D', 'A'};
 	static char sZeldaMagicSwapped[] = {'\x98', '\0', '\0', '\0', 'Z', '\x21', '\x10', '\x09', 'A', 'D', 'L', 'E'};
@@ -115,6 +98,8 @@ namespace oot::save
 
 	Context::Context()
 	{
+		memset(this, 0, sizeof(*this));
+		this->fileNum = 0xFF;
 		file.load();
 	}
 
@@ -441,14 +426,14 @@ namespace oot::save
 		{
 			load(file.slots[slotNum]);
 
-			if(checksum != slot().save.checksum() || checksum == 0)
+			if(checksum != slot().save.checksum())
 			{
 				// checksum didnt match, try backup save
 				osSyncPrintf("ERROR!!! ＝ (%d)\n", slotNum);
 
 				load(slotNum + MAX_SLOTS);
 
-				if(checksum != slot().save.checksum() || checksum == 0)
+				if(checksum != slot().save.checksum())
 				{
 					// backup save didnt work, make new save
 					entranceIndex = 0;
@@ -775,7 +760,7 @@ namespace oot::save
 		s.unk_13F0 = this->unk_13F0;
 		s.unk_13F2 = this->unk_13F2;
 		s.unk_13F4 = this->unk_13F4;
-		s.unk_13F6 = this->unk_13F6;
+		s.unk_13F6 = this->magicMax;
 		s.unk_13F8 = this->unk_13F8;
 		memcpy(eventInf, this->eventInf, sizeof(eventInf));
 		s.mapIndex = this->mapIndex;
@@ -829,7 +814,6 @@ namespace oot::save
 		this->linkAge = s.save.linkAge;
 		this->cutsceneIndex = s.save.cutsceneIndex;
 		this->dayTime = s.save.dayTime;
-		// this->dayTimePadding = s.save.dayTimePadding;
 		this->nightFlag = s.save.nightFlag;
 		this->totalDays = s.save.totalDays;
 		this->bgsDayCount = s.save.bgsDayCount;
@@ -911,7 +895,7 @@ namespace oot::save
 		this->unk_13F0 = s.unk_13F0;
 		this->unk_13F2 = s.unk_13F2;
 		this->unk_13F4 = s.unk_13F4;
-		this->unk_13F6 = s.unk_13F6;
+		this->magicMax = s.unk_13F6;
 		this->unk_13F8 = s.unk_13F8;
 		memcpy(this->eventInf, eventInf, sizeof(eventInf));
 		this->mapIndex = s.mapIndex;

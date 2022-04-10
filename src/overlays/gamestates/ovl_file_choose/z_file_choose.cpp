@@ -1476,7 +1476,7 @@ void FileChoose_LoadGame(GameState* pthisx)
 
 	gSaveContext.startDemo = gSaveContext.unk_13E8 = gSaveContext.unk_13EA = gSaveContext.unk_13EC = gSaveContext.unk_13F4 = 0;
 
-	gSaveContext.unk_13F6 = gSaveContext.magic;
+	gSaveContext.magicMax = gSaveContext.magic;
 	gSaveContext.magic = 0;
 	gSaveContext.magicLevel = gSaveContext.magic;
 
@@ -1485,7 +1485,7 @@ void FileChoose_LoadGame(GameState* pthisx)
 	}
 
 	osSyncPrintf(VT_FGCOL(GREEN));
-	osSyncPrintf("Z_MAGIC_NOW_NOW=%d  MAGIC_NOW=%d\n", ((void)0, gSaveContext.unk_13F6), gSaveContext.magic);
+	osSyncPrintf("Z_MAGIC_NOW_NOW=%d  MAGIC_NOW=%d\n", ((void)0, gSaveContext.magicMax), gSaveContext.magic);
 	osSyncPrintf(VT_RST);
 
 	gSaveContext.naviTimer = 0;

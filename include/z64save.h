@@ -350,7 +350,7 @@ namespace oot::save
 		/* 0x13F0 */ s16 unk_13F0;    // magic related
 		/* 0x13F2 */ s16 unk_13F2;    // magic related
 		/* 0x13F4 */ s16 unk_13F4;    // magic related
-		/* 0x13F6 */ s16 unk_13F6;    // magic related
+		/* 0x13F6 */ s16 magicMax;    // magic related
 		/* 0x13F8 */ s16 unk_13F8;    // magic related
 		/* 0x13FA */ u16 eventInf[4]; // "event_inf"
 		/* 0x1402 */ u16 mapIndex;    // intended for maps/minimaps but commonly used as the dungeon index
