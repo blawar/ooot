@@ -1,4 +1,5 @@
 #pragma once
+#include "globalctx.h"
 
 void SystemArena_CheckPointer(void* ptr, u32 size, const char* name, const char* action);
 void* SystemArena_Malloc(u32 size);
@@ -9,7 +10,6 @@ void* SystemArena_Realloc(void* ptr, u32 newSize);
 void* SystemArena_ReallocDebug(void* ptr, u32 newSize, const char* file, s32 line);
 void SystemArena_Free(void* ptr);
 void SystemArena_FreeDebug(void* ptr, const char* file, s32 line);
-void* SystemArena_Calloc(u32 num, u32 size);
 void SystemArena_Display(void);
 void SystemArena_GetSizes(u32* outMaxFree, u32* outFree, u32* outAlloc);
 void SystemArena_Check(void);
@@ -42,12 +42,8 @@ void GameState_SetFrameBuffer(GraphicsContext* gfxCtx);
 void GameState_ReqPadData(GameState* gameState);
 void GameState_Update(GameState* gameState);
 void GameState_InitArena(GameState* gameState, size_t size);
-void GameState_Realloc(GameState* gameState, size_t size);
-void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* gfxCtx);
-void GameState_Destroy(GameState* gameState);
-GameStateFunc GameState_GetInit(GameState* gameState);
-u32 GameState_IsRunning(GameState* gameState);
 void* GameState_Alloc(GameState* gameState, size_t size, char* file, s32 line);
+void GameState_Realloc(GameState* gameState, size_t size);
 void func_800C55D0(GameAlloc* thiss);
 void* GameAlloc_MallocDebug(GameAlloc* thiss, u32 size, const char* file, s32 line);
 void* GameAlloc_Malloc(GameAlloc* thiss, u32 size);

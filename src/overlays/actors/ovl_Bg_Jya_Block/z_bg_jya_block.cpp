@@ -69,16 +69,16 @@ void BgJyaBlock_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void BgJyaBlock_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_block.c", 145);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_jya_block.c", 145);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gPushBlockGrayTex));
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_block.c", 153), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_jya_block.c", 153), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetEnvColor(POLY_OPA_DISP++, 232, 210, 176, 255);
 	gSPDisplayList(POLY_OPA_DISP++, gPushBlockDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_block.c", 158);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_jya_block.c", 158);
 }
 
 void BgJyaBlock_Reset(Actor* pthisx, GlobalContext* globalCtx)

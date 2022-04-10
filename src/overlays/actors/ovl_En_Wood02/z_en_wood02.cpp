@@ -449,7 +449,7 @@ void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnWood02* pthis = (EnWood02*)thisx;
 	s16 type;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	u8 red;
 	u8 green;
 	u8 blue;

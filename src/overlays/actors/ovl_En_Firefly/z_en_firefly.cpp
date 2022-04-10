@@ -977,8 +977,8 @@ void EnFirefly_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFirefly* pthis = (EnFirefly*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1733);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1733);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(pthis->onFire)
 	{
@@ -990,15 +990,15 @@ void EnFirefly_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	POLY_OPA_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnFirefly_OverrideLimbDraw, EnFirefly_PostLimbDraw, &pthis->actor, POLY_OPA_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1763);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1763);
 }
 
 void EnFirefly_DrawInvisible(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFirefly* pthis = (EnFirefly*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1775);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1775);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(pthis->onFire)
 	{
@@ -1010,7 +1010,7 @@ void EnFirefly_DrawInvisible(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnFirefly_OverrideLimbDraw, EnFirefly_PostLimbDraw, pthis, POLY_XLU_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1805);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1805);
 }
 
 void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx)

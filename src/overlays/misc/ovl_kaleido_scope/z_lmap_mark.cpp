@@ -69,7 +69,7 @@ void PauseMapMark_DrawForDungeon(GlobalContext* globalCtx)
 
 	mapMarkData = &gLoadedPauseMarkDataTable[R_MAP_TEX_INDEX >> 1][i];
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_lmap_mark.c", 182);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_lmap_mark.c", 182);
 
 	while(true)
 	{
@@ -166,7 +166,7 @@ void PauseMapMark_DrawForDungeon(GlobalContext* globalCtx)
 				Matrix_Push();
 				Matrix_Translate(GREG(92) + markPoint->x, GREG(93) + markPoint->y, 0.0f, MTXMODE_APPLY);
 				Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_lmap_mark.c", 272), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_lmap_mark.c", 272), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				Matrix_Pop();
 
 				gSPVertex(POLY_OPA_DISP++, mapMarkData->vtx, mapMarkData->vtxCount, 0);
@@ -180,7 +180,7 @@ void PauseMapMark_DrawForDungeon(GlobalContext* globalCtx)
 		Matrix_Pop();
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_lmap_mark.c", 286);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_lmap_mark.c", 286);
 }
 
 void PauseMapMark_Draw(GlobalContext* globalCtx)

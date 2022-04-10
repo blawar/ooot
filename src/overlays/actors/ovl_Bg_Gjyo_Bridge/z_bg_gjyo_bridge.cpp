@@ -108,19 +108,19 @@ void BgGjyoBridge_Draw(Actor* pthisx, GlobalContext* globalCtx)
 {
 	BgGjyoBridge* pthis = (BgGjyoBridge*)pthisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 260);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_gjyo_bridge.c", 260);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TexScroll(globalCtx->state.gfxCtx, globalCtx->gameplayFrames.whole() & 127, globalCtx->gameplayFrames.whole() * -3 & 127, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TexScroll(globalCtx->gfxCtx, globalCtx->gameplayFrames.whole() & 127, globalCtx->gameplayFrames.whole() * -3 & 127, 32, 32));
 
-	gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, -globalCtx->gameplayFrames.whole() & 127, 32, 32, 1, 0, globalCtx->gameplayFrames.whole() & 127, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, -globalCtx->gameplayFrames.whole() & 127, 32, 32, 1, 0, globalCtx->gameplayFrames.whole() & 127, 32, 32));
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 281), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_gjyo_bridge.c", 281), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_XLU_DISP++, gRainbowBridgeDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gjyo_bridge.c", 285);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_gjyo_bridge.c", 285);
 }
 
 void BgGjyoBridge_Reset(Actor* pthisx, GlobalContext* globalCtx)

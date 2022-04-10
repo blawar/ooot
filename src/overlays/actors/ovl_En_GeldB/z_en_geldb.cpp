@@ -1242,7 +1242,7 @@ void EnGeldB_RollBack(EnGeldB* pthis, GlobalContext* globalCtx)
 			EnGeldB_SetupReady(pthis);
 		}
 	}
-	if((globalCtx->state.frames & 0x5F) == 0)
+	if((globalCtx->frames & 0x5F) == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GERUDOFT_BREATH);
 	}
@@ -1820,7 +1820,7 @@ s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 {
 	EnGeldB* pthis = (EnGeldB*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2507);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2507);
 	if(limbIndex == GELDB_LIMB_NECK)
 	{
 		rot->z += pthis->headRot.x;
@@ -1843,7 +1843,7 @@ s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, 140, 0, 0, 255);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2529);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2529);
 	return false;
 }
 
@@ -1940,7 +1940,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnGeldB* pthis = (EnGeldB*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2672);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2672);
 	if(1)
 	{
 	}
@@ -1978,7 +1978,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if((pthis->action != GELDB_WAIT) || !pthis->invisible)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_112[pthis->blinkState]));
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnGeldB_OverrideLimbDraw, EnGeldB_PostLimbDraw, pthis);
 		if(pthis->action == GELDB_BLOCK)
@@ -2008,7 +2008,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx)
 			}
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2744);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2744);
 }
 
 s32 EnGeldB_DodgeRanged(GlobalContext* globalCtx, EnGeldB* pthis)

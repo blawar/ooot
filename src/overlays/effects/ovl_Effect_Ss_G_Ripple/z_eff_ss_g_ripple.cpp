@@ -69,7 +69,7 @@ u32 EffectSsGRipple_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
 
 void EffectSsGRipple_DrawRipple(GlobalContext* globalCtx, EffectSs* pthis, void* segment)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 radius;
 	s32 pad;
 	MtxF mfTrans;

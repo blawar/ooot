@@ -5,6 +5,7 @@
 #include "view.h"
 #include "vt.h"
 #include "z64game.h"
+#include "gamestate.h"
 #include "def/TwoHeadArena.h"
 #include "def/graph.h" // FORCE
 #include "def/irqmgr.h"

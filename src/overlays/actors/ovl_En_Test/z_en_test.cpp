@@ -2269,12 +2269,12 @@ s32 EnTest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 	}
 	else if(limbIndex == STALFOS_LIMB_HEAD)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_test.c", 3582);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_test.c", 3582);
 
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, 80 + ABS((s16)(Math_SinS(globalCtx->gameplayFrames * 2000) * 175.0f)), 0, 0, 255);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_test.c", 3587);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_test.c", 3587);
 	}
 
 	if((pthis->actor.params == STALFOS_TYPE_INVISIBLE) && !CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_7))
@@ -2391,7 +2391,7 @@ void EnTest_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnTest* pthis = (EnTest*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_8002EBCC(&pthis->actor, globalCtx, 1);
 
 	if((thisx->params <= STALFOS_TYPE_CEILING) || (thisx->child == NULL))

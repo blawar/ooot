@@ -1,5 +1,7 @@
 #pragma once
-struct GameState;
+
+#include "globalctx.h"
+
 struct GraphicsContext;
 struct Vec3s;
 struct Vec3f;

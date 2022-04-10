@@ -137,7 +137,7 @@ void BgZg_Init(Actor* thisx, GlobalContext* globalCtx)
 
 void func_808C0EEC(BgZg* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* localGfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* localGfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(localGfxCtx, "../z_bg_zg.c", 311);
 

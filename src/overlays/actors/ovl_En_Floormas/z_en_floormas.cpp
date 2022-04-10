@@ -6,6 +6,7 @@
  * Description: Floormaster
  */
 
+#include "gamestate.h"
 #include "z_en_floormas.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
@@ -1345,7 +1346,7 @@ void EnFloormas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 		Matrix_RotateY(DEGTORAD(60.0f), MTXMODE_APPLY);
 		Matrix_RotateZ(DEGTORAD(15.0f), MTXMODE_APPLY);
 		Matrix_Scale(2.0f, 2.0f, 2.0f, MTXMODE_APPLY);
-		gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_floormas.c", 2299), G_MTX_LOAD);
+		gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_floormas.c", 2299), G_MTX_LOAD);
 		gSPDisplayList((*gfx)++, gWallmasterFingerDL);
 		Matrix_Pop();
 	}
@@ -1357,9 +1358,9 @@ void EnFloormas_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFloormas* pthis = (EnFloormas*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_floormas.c", 2318);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_floormas.c", 2318);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	if(pthis->collider.base.colType == COLTYPE_HARD)
 	{
 		func_80026230(globalCtx, &sMergeColor, pthis->actionTarget % 0x28, 0x28);
@@ -1371,16 +1372,16 @@ void EnFloormas_Draw(Actor* thisx, GlobalContext* globalCtx)
 		func_80026608(globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_floormas.c", 2340);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_floormas.c", 2340);
 }
 
 void EnFloormas_DrawHighlighted(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFloormas* pthis = (EnFloormas*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_floormas.c", 2352);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_floormas.c", 2352);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	if(pthis->collider.base.colType == COLTYPE_HARD)
 	{
 		func_80026690(globalCtx, &sMergeColor, pthis->actionTarget % 0x28, 0x28);
@@ -1391,7 +1392,7 @@ void EnFloormas_DrawHighlighted(Actor* thisx, GlobalContext* globalCtx)
 		func_80026A6C(globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_floormas.c", 2374);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_floormas.c", 2374);
 }
 
 void EnFloormas_Reset(Actor* pthisx, GlobalContext* globalCtx)

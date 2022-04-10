@@ -137,7 +137,7 @@ void EnTg_Init(Actor* thisx, GlobalContext* globalCtx)
 	CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, NULL, &sColChkInfoInit);
 	pthis->actor.targetMode = 6;
 	Actor_SetScale(&pthis->actor, 0.01f);
-	pthis->nextDialogue = globalCtx->state.frames % 2;
+	pthis->nextDialogue = globalCtx->frames % 2;
 	pthis->actionFunc = EnTg_SpinIfNotTalking;
 }
 
@@ -206,17 +206,17 @@ void EnTg_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnTg* pthis = (EnTg*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tg.c", 462);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tg.c", 462);
 	Matrix_Translate(0.0f, 0.0f, -560.0f, MTXMODE_APPLY);
 
 	// Set the guy's shoes and shirt to royal blue
-	gSPSegment(POLY_OPA_DISP++, 0x08, EnTg_SetColor(globalCtx->state.gfxCtx, 0, 50, 160, 0));
+	gSPSegment(POLY_OPA_DISP++, 0x08, EnTg_SetColor(globalCtx->gfxCtx, 0, 50, 160, 0));
 
 	// Set the girl's shirt to white
-	gSPSegment(POLY_OPA_DISP++, 0x09, EnTg_SetColor(globalCtx->state.gfxCtx, 255, 255, 255, 0));
+	gSPSegment(POLY_OPA_DISP++, 0x09, EnTg_SetColor(globalCtx->gfxCtx, 255, 255, 255, 0));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnTg_OverrideLimbDraw, EnTg_PostLimbDraw, pthis);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tg.c", 480);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tg.c", 480);
 }
 
 void EnTg_Reset(Actor* pthisx, GlobalContext* globalCtx)

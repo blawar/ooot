@@ -1802,19 +1802,19 @@ s32 EnSkj_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
 void EnSkj_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2417);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2417);
 
 	if((limbIndex == 11) && (gSaveContext.itemGetInf[3] & 0x200))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		Matrix_Push();
 		Matrix_RotateZYX(-0x4000, 0, 0, MTXMODE_APPLY);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_skj.c", 2430), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_skj.c", 2430), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gSKJskullMaskDL);
 		Matrix_Pop();
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2437);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2437);
 }
 
 Gfx* EnSkj_TranslucentDL(GraphicsContext* gfxCtx, u32 alpha)
@@ -1849,22 +1849,22 @@ void EnSkj_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnSkj* pthis = (EnSkj*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2475);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2475);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(pthis->alpha < 255)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_TranslucentDL(globalCtx->state.gfxCtx, pthis->alpha));
+		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_TranslucentDL(globalCtx->gfxCtx, pthis->alpha));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_OpaqueDL(globalCtx->state.gfxCtx, pthis->alpha));
+		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_OpaqueDL(globalCtx->gfxCtx, pthis->alpha));
 	}
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnSkj_OverrideLimbDraw, EnSkj_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2495);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2495);
 }
 
 void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -1250,13 +1250,13 @@ void Collider_Draw(GlobalContext* globalCtx, Collider* collider)
 			tris = (ColliderTris*)collider;
 			for(i = 0; i < tris->count; i++)
 			{
-				Collider_DrawRedPoly(globalCtx->state.gfxCtx, &tris->elements[i].dim.vtx[0], &tris->elements[i].dim.vtx[1], &tris->elements[i].dim.vtx[2]);
+				Collider_DrawRedPoly(globalCtx->gfxCtx, &tris->elements[i].dim.vtx[0], &tris->elements[i].dim.vtx[1], &tris->elements[i].dim.vtx[2]);
 			}
 			break;
 		case COLSHAPE_QUAD:
 			quad = (ColliderQuad*)collider;
-			Collider_DrawRedPoly(globalCtx->state.gfxCtx, &quad->dim.quad[2], &quad->dim.quad[3], &quad->dim.quad[1]);
-			Collider_DrawRedPoly(globalCtx->state.gfxCtx, &quad->dim.quad[1], &quad->dim.quad[0], &quad->dim.quad[2]);
+			Collider_DrawRedPoly(globalCtx->gfxCtx, &quad->dim.quad[2], &quad->dim.quad[3], &quad->dim.quad[1]);
+			Collider_DrawRedPoly(globalCtx->gfxCtx, &quad->dim.quad[1], &quad->dim.quad[0], &quad->dim.quad[2]);
 			break;
 	}
 }

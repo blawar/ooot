@@ -102,10 +102,6 @@ Timer::Timer(float n) : m_counter(n), m_counterInt(n * COUNTER_SCALER), m_min(-0
 
 Timer::Timer(float n, s64 min, s64 max) : m_counter(n), m_counterInt(n * COUNTER_SCALER), m_min(min), m_max(max)
 {
-	if(n == 0xFFFF)
-	{
-		bool error = true;
-	}
 }
 
 void Timer::setRange(s64 min, s64 max)
@@ -130,6 +126,11 @@ Timer Timer::invalid()
 
 void Timer::update()
 {
+	if(m_min == m_max)
+	{
+		bool error = true;
+	}
+
 	while(m_counterInt > m_max * COUNTER_SCALER)
 	{
 		m_counterInt = (m_min * COUNTER_SCALER) + (m_counterInt - (m_max * COUNTER_SCALER + 1));
@@ -267,7 +268,7 @@ Timer& Timer::operator/=(float f)
 Timer& Timer::operator&=(u64 n)
 {
 	//*this = m_counterInt & (n * COUNTER_SCALER);
-	*this = whole() & n;
+	*this = (whole() & n);// + frac();
 	update();
 	return *this;
 }

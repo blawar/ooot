@@ -9,8 +9,8 @@
 struct EnElf;
 struct ElfMsg;
 
-typedef void (*EnElfActionFunc)(struct EnElf*, struct GlobalContext*);
-typedef void (*EnElfUnkFunc)(struct EnElf*, struct GlobalContext*);
+typedef void (*EnElfActionFunc)(struct EnElf*, GlobalContext*);
+typedef void (*EnElfUnkFunc)(struct EnElf*, GlobalContext*);
 
 struct FairyColorFlags
 {

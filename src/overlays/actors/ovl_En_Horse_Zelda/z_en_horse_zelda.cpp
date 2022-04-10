@@ -295,7 +295,7 @@ void EnHorseZelda_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnHorseZelda* pthis = (EnHorseZelda*)thisx;
 
 	func_80A6DE38(pthis, globalCtx);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_800A6330(&pthis->actor, globalCtx, &pthis->skin, func_80A6DFD4, 1);
 }
 

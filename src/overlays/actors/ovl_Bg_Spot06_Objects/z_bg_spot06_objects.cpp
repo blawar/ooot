@@ -476,16 +476,16 @@ void BgSpot06Objects_Update(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot06Objects_DrawLakeHyliaWater(BgSpot06Objects* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
-	const auto& gameplayFrames = globalCtx->state.frames;
+	const auto& gameplayFrames = globalCtx->frames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot06_objects.c", 844);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot06_objects.c", 844);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot06_objects.c", 850), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot06_objects.c", 850), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -gameplayFrames, gameplayFrames, 32, 32, 1, gameplayFrames, gameplayFrames, 32, 32));
-	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, -gameplayFrames, (gameplayFrames * 6), 32, 32, 1, gameplayFrames, gameplayFrames * 6, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, -gameplayFrames, gameplayFrames, 32, 32, 1, gameplayFrames, gameplayFrames, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, -gameplayFrames, (gameplayFrames * 6), 32, 32, 1, gameplayFrames, gameplayFrames * 6, 32, 32));
 
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
 
@@ -498,7 +498,7 @@ void BgSpot06Objects_DrawLakeHyliaWater(BgSpot06Objects* pthis, GlobalContext* g
 		gSPDisplayList(POLY_XLU_DISP++, gLakeHyliaHighWaterDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot06_objects.c", 879);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot06_objects.c", 879);
 }
 
 void BgSpot06Objects_Draw(Actor* thisx, GlobalContext* globalCtx)

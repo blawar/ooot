@@ -132,9 +132,9 @@ void EnButte_DrawTransformationEffect(EnButte* pthis, GlobalContext* globalCtx)
 	s32 alpha;
 	Vec3s camDir;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_choo.c", 295);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_choo.c", 295);
 
-	func_80093C14(globalCtx->state.gfxCtx);
+	func_80093C14(globalCtx->gfxCtx);
 
 	alpha = Math_SinS(sTransformationEffectAlpha) * 250;
 	alpha = CLAMP(alpha, 0, 255);
@@ -146,12 +146,12 @@ void EnButte_DrawTransformationEffect(EnButte* pthis, GlobalContext* globalCtx)
 	Matrix_MultVec3f(&D_809CE3C4_44, &sp5C);
 	func_800D1694(pthis->actor.focus.pos.x + sp5C.x, pthis->actor.focus.pos.y + sp5C.y, pthis->actor.focus.pos.z + sp5C.z, &camDir);
 	Matrix_Scale(sTransformationEffectScale, sTransformationEffectScale, sTransformationEffectScale, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_choo.c", 317), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_choo.c", 317), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 200, 200, 180, alpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 210, 255);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gEffFlash1DL));
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_choo.c", 326);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_choo.c", 326);
 }
 
 static InitChainEntry sInitChain[] = {
@@ -479,7 +479,7 @@ void EnButte_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->drawSkelAnime)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, NULL);
 		Collider_UpdateSpheres(0, &pthis->collider);
 	}

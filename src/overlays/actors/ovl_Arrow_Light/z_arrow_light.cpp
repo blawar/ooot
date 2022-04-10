@@ -228,7 +228,7 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx)
 {
 	ArrowLight* pthis = (ArrowLight*)pthisx;
 	s32 pad;
-	const auto& stateFrames = globalCtx->state.frames;
+	const auto& stateFrames = globalCtx->frames;
 	EnArrow* arrow = (EnArrow*)pthis->actor.parent;
 	Actor* tranform;
 
@@ -243,7 +243,7 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		}
 		tranform = (arrow->hitFlags & 2) ? &pthis->actor : &arrow->actor;
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_arrow_light.c", 598);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_arrow_light.c", 598);
 
 		Matrix_Translate(tranform->world.pos.x, tranform->world.pos.y, tranform->world.pos.z, MTXMODE_NEW);
 		Matrix_RotateY(tranform->shape.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
@@ -262,7 +262,7 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		}
 
 		// Draw light on the arrow
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 170, pthis->alpha);
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 0, 128);
 		Matrix_RotateZYX(0x4000, 0x0, 0x0, MTXMODE_APPLY);
@@ -276,12 +276,12 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		}
 		Matrix_Scale(pthis->radius * 0.2f, pthis->unk_160 * 4.0f, pthis->radius * 0.2f, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, -700.0f, 0.0f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arrow_light.c", 648), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_arrow_light.c", 648), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
-		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 511 - (uintptr_t)(stateFrames * 5) % 512, 0, 4, 32, 1, 511 - (uintptr_t)(stateFrames * 10) % 512, 511 - (uintptr_t)(stateFrames * 30) % 512, 8, 16));
+		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 511 - (uintptr_t)(stateFrames * 5) % 512, 0, 4, 32, 1, 511 - (uintptr_t)(stateFrames * 10) % 512, 511 - (uintptr_t)(stateFrames * 30) % 512, 8, 16));
 		gSPDisplayList(POLY_XLU_DISP++, sModelDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_light.c", 664);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_arrow_light.c", 664);
 	}
 }
 

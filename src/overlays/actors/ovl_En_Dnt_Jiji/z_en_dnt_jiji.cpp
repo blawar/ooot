@@ -513,17 +513,17 @@ void EnDntJiji_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDntJiji* pthis = (EnDntJiji*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1019);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_dnt_jiji.c", 1019);
+	func_80093D18(globalCtx->gfxCtx);
 	Matrix_Push();
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex_74[pthis->eyeState]));
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, pthis);
 	Matrix_Pop();
 	Matrix_Translate(pthis->flowerPos.x, pthis->flowerPos.y, pthis->flowerPos.z, MTXMODE_NEW);
 	Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1040), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_dnt_jiji.c", 1040), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gDntJijiFlowerDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1043);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_dnt_jiji.c", 1043);
 }
 
 void EnDntJiji_Reset(Actor* pthisx, GlobalContext* globalCtx)

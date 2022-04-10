@@ -9,17 +9,11 @@
 #include "padmgr.h"
 #include "speedmeter.h"
 #include "state.h"
-#include "title_setup.h"
 #include "ultra64/sched.h"
 #include "ultra64/time.h"
 #include "vt.h"
 #include "z64game.h"
 #include "z64save.h"
-#include "z_file_choose.h"
-#include "z_opening.h"
-#include "z_prenmi_buff.h"
-#include "z_select.h"
-#include "z_title.h"
 #include "def/TwoHeadArena.h"
 #include "def/audio.h"
 #include "def/createmesgqueue.h"
@@ -35,13 +29,12 @@
 #include "def/sys_cfb.h"
 #include "def/sys_ucode.h"
 #include "def/system_malloc.h"
-#include "def/z_DLF.h"
-#include "def/z_game_dlftbls.h"
+#include "def/title_setup.h"
+#include "def/z_file_choose.h"
+#include "def/z_opening.h"
 #include "def/z_play.h" // FORCE
-#include "def/z_prenmi_buff.h"
-
-extern GameStateOverlay gGameStateOverlayTable[6];
-extern PreNmiBuff* gAppNmiBufferPtr;
+#include "def/z_select.h"
+#include "def/z_title.h"
 
 #define GFXPOOL_HEAD_MAGIC 0x1234
 #define GFXPOOL_TAIL_MAGIC 0x5678
@@ -51,6 +44,9 @@ OSTime sGraphSetTaskTime;
 FaultClient sGraphFaultClient;
 CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
+
+static std::unique_ptr<oot::gamestate::Base> gCurrentGameState = nullptr;
+static std::unique_ptr<oot::gamestate::Base> gNextGameState = nullptr;
 
 bool isRunning();
 
@@ -82,6 +78,12 @@ void Graph_InitTHGA(GraphicsContext* gfxCtx)
 	gfxCtx->unk_014 = 0;
 }
 
+void Graph_SetNextGameState(GameState* gameState)
+{
+	gNextGameState = std::unique_ptr<GameState>(gameState);
+}
+
+/*
 GameStateOverlay* Graph_GetNextGameState(GameState* gameState)
 {
 	void* gameStateInitFunc = GameState_GetInit(gameState);
@@ -114,7 +116,7 @@ GameStateOverlay* Graph_GetNextGameState(GameState* gameState)
 	LOG_ADDRESS("game_init_func", gameStateInitFunc, "../graph.c", 696);
 	return NULL;
 }
-
+*/
 void Graph_Init(GraphicsContext* gfxCtx)
 {
 	memset(gfxCtx, 0, sizeof(GraphicsContext));
@@ -249,9 +251,9 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 		// All dpad buttons pressed on controller 1? (Same as the back button on an xinput controller)
 		if(CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_DUP | BTN_DDOWN | BTN_DLEFT | BTN_DRIGHT))
 		{ // Open debug map select
-			gameState->init = Select_Init;
-			gameState->size = sizeof(SelectContext);
 			gameState->running = false;
+			Graph_SetNextGameState(new oot::gamestate::Select(gameState->gfxCtx));
+			return;
 		}
 	}
 
@@ -373,59 +375,24 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 		}
 		sGraphUpdateTime = time;
 	}
-
-	if(oot::config().game().enablDebugLevelSelect())
-	{
-		if(gIsCtrlr2Valid && CHECK_BTN_ALL(gameState->input[0].press.button, BTN_Z) && CHECK_BTN_ALL(gameState->input[0].cur.button, BTN_L | BTN_R))
-		{
-			gSaveContext.gameMode = 0;
-			SET_NEXT_GAMESTATE(gameState, Select_Init, SelectContext);
-			gameState->running = false;
-		}
-	}
-
-	if(gIsCtrlr2Valid && PreNmiBuff_IsResetting(gAppNmiBufferPtr) && !gameState->unk_A0)
-	{
-		// "To reset mode"
-		osSyncPrintf(VT_COL(YELLOW, BLACK) "Enters reset mode via PRE-NMI \n" VT_RST);
-		SET_NEXT_GAMESTATE(gameState, PreNMI_Init, PreNMIContext);
-		gameState->running = false;
-	}
 }
+
 static u64 frameCount = 0;
 
 void Graph_ThreadEntry(void* arg0)
 {
-	GraphicsContext gfxCtx;
-	GameState* gameState;
-	u32 size;
-	GameStateOverlay* nextOvl;
-	GameStateOverlay* ovl;
-	char faultMsg[0x50];
-
-	nextOvl = &gGameStateOverlayTable[0];
+	GraphicsContext gfxCtx;	
 
 	osSyncPrintf("Start graphic thread execution\n"); // "Start graphic thread execution"
 	Graph_Init(&gfxCtx);
 
-	while(nextOvl && isRunning())
+	gCurrentGameState = std::make_unique<oot::gamestate::TitleSetup>(&gfxCtx);
+
+	while(gCurrentGameState && isRunning())
 	{
-		ovl = nextOvl;
-		Overlay_LoadGameState(ovl);
+		gCurrentGameState->start();
 
-		size = ovl->instanceSize;
-		osSyncPrintf("Class size = %d bytes\n", size); // "Class size = %d bytes"
-
-		gameState = (GameState*)SystemArena_MallocDebug(size * 2, "../graph.c", 1196);
-		memset(gameState, 0, size * 2);
-
-		if(!gameState)
-		{
-			osSyncPrintf("Failure to secure\n"); // "Failure to secure"
-		}
-		GameState_Init(gameState, (GameStateFunc)ovl->init, &gfxCtx);
-
-		while(GameState_IsRunning(gameState) && isRunning())
+		while(gCurrentGameState->running && isRunning())
 		{
 			// Has the TAS playback completed?
 			/*if (oot::hid::tas::isTasPlaying() && oot::hid::tas::hasTasEnded())
@@ -434,7 +401,7 @@ void Graph_ThreadEntry(void* arg0)
 			if(!oot::config().game().graphicsEnabled())
 			{
 				gfx_start_frame();
-				Graph_Update(&gfxCtx, gameState);
+				Graph_Update(&gfxCtx, gCurrentGameState.get());
 				gfx_end_frame();
 			}
 			else
@@ -443,7 +410,7 @@ void Graph_ThreadEntry(void* arg0)
 				{
 					if(gfx_start_frame())
 					{
-						Graph_Update(&gfxCtx, gameState);
+						Graph_Update(&gfxCtx, gCurrentGameState.get());
 						gfx_end_frame();
 					}
 				}
@@ -451,11 +418,17 @@ void Graph_ThreadEntry(void* arg0)
 			}
 		}
 
-		nextOvl = Graph_GetNextGameState(gameState);
-		GameState_Destroy(gameState);
-		SystemArena_FreeDebug(gameState, "../graph.c", 1227);
-		Overlay_FreeGameState(ovl);
+		if(gNextGameState)
+		{
+			gCurrentGameState = std::move(gNextGameState);
+			gNextGameState = nullptr;
+		}
+		else
+		{
+			gCurrentGameState = std::unique_ptr<oot::gamestate::Base>(gCurrentGameState->next());
+		}
 	}
+
 	Graph_Destroy(&gfxCtx);
 	osSyncPrintf("End of graphic thread execution\n"); // "End of graphic thread execution"
 }

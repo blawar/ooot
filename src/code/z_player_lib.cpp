@@ -788,7 +788,7 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
 	s32 eyeIndex = (jointTable[22].x & 0xF) - 1;
 	s32 mouthIndex = (jointTable[22].x >> 4) - 1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 1721);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 1721);
 
 	if(eyeIndex < 0)
 	{
@@ -847,7 +847,7 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 1803);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 1803);
 }
 
 Vec3f D_8012602C = {0.0f, 0.0f, 0.0f};
@@ -1267,7 +1267,7 @@ void Player_DrawGetItemImpl(GlobalContext* globalCtx, Player* pthis, Vec3f* refP
 {
 	f32 height = (pthis->exchangeItemId != EXCH_ITEM_NONE) ? 6.0f : 14.0f;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2401);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2401);
 
 	gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(pthis->giObjectSegment);
 
@@ -1280,7 +1280,7 @@ void Player_DrawGetItemImpl(GlobalContext* globalCtx, Player* pthis, Vec3f* refP
 
 	GetItem_Draw(globalCtx, drawIdPlusOne - 1);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2421);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2421);
 }
 
 void Player_DrawGetItem(GlobalContext* globalCtx, Player* pthis)
@@ -1325,7 +1325,7 @@ void Player_DrawHookshotReticle(GlobalContext* globalCtx, Player* pthis, f32 arg
 
 	if(BgCheck_AnyLineTest3(&globalCtx->colCtx, &sp8C, &sp80, &sp74, &sp9C, 1, 1, 1, 1, &bgId))
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2572);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2572);
 
 		OVERLAY_DISP = Gfx_CallSetupDL(OVERLAY_DISP, 0x07);
 
@@ -1336,11 +1336,11 @@ void Player_DrawHookshotReticle(GlobalContext* globalCtx, Player* pthis, f32 arg
 		Matrix_Translate(sp74.x, sp74.y, sp74.z, MTXMODE_NEW);
 		Matrix_Scale(sp60, sp60, sp60, MTXMODE_APPLY);
 
-		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2587), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player_lib.c", 2587), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPSegment(OVERLAY_DISP++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
 		gSPDisplayList(OVERLAY_DISP++, gLinkAdultHookshotReticleDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2592);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2592);
 	}
 }
 
@@ -1408,7 +1408,7 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 		{
 			Vec3f sp124[3];
 
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2633);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2633);
 
 			if(pthis->actor.scale.y >= 0.0f)
 			{
@@ -1428,10 +1428,10 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 			Matrix_RotateZYX(-0x8000, 0, 0x4000, MTXMODE_APPLY);
 			Matrix_Scale(1.0f, pthis->unk_85C, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2653), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player_lib.c", 2653), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gLinkChildLinkDekuStickDL);
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2656);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2656);
 		}
 		else if((pthis->actor.scale.y >= 0.0f) && (pthis->swordState != 0))
 		{
@@ -1453,13 +1453,13 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 		{
 			Color_RGB8* bottleColor = &sBottleColors[Player_ActionToBottle(pthis, pthis->itemActionParam)];
 
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2710);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2710);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2712), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player_lib.c", 2712), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gDPSetEnvColor(POLY_XLU_DISP++, bottleColor->r, bottleColor->g, bottleColor->b, 0);
 			gSPDisplayList(POLY_XLU_DISP++, sBottleDLists[((void)0, gSaveContext.linkAge)]);
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2717);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2717);
 		}
 
 		if(pthis->actor.scale.y >= 0.0f)
@@ -1510,7 +1510,7 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 		{
 			BowStringData* stringData = &sBowStringData[gSaveContext.linkAge];
 
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2783);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2783);
 
 			Matrix_Push();
 			Matrix_Translate(stringData->pos.x, stringData->pos.y, stringData->pos.z, MTXMODE_APPLY);
@@ -1547,12 +1547,12 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 				Matrix_RotateZ(pthis->unk_858 * -0.2f, MTXMODE_APPLY);
 			}
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player_lib.c", 2804), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player_lib.c", 2804), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, stringData->dList);
 
 			Matrix_Pop();
 
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 2809);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 2809);
 		}
 		else if((pthis->actor.scale.y >= 0.0f) && (pthis->rightHandType == 10))
 		{
@@ -1716,10 +1716,10 @@ void func_80091A24(
 	Gfx* opaRef;
 	Gfx* xluRef;
 	u16 perspNorm;
-	Mtx* perspMtx = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx));
-	Mtx* lookAtMtx = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx));
+	Mtx* perspMtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx));
+	Mtx* lookAtMtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx));
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 3129);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 3129);
 
 	opaRef = POLY_OPA_DISP;
 	POLY_OPA_DISP++;
@@ -1788,7 +1788,7 @@ void func_80091A24(
 
 	POLY_OPA_DISP = Gfx_SetFog2(POLY_OPA_DISP++, 0, 0, 0, 0, 997, 1000);
 
-	func_8002EABC(pos, &globalCtx->view.eye, &lightDir, globalCtx->state.gfxCtx);
+	func_8002EABC(pos, &globalCtx->view.eye, &lightDir, globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x0C, gCullBackDList);
 
@@ -1800,7 +1800,7 @@ void func_80091A24(
 	gSPBranchList(opaRef, POLY_OPA_DISP);
 	gSPBranchList(xluRef, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player_lib.c", 3288);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player_lib.c", 3288);
 }
 
 void func_8009214C(GlobalContext* globalCtx, oot::pause::Segments* segment, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot, f32 scale, s32 sword, s32 tunic, s32 shield, s32 boots)
@@ -1848,5 +1848,5 @@ void func_8009214C(GlobalContext* globalCtx, oot::pause::Segments* segment, Skel
 		*destTable++ = *srcTable++;
 	}
 
-	func_80091A24(globalCtx, segment->keep, segment->linkObjectSegment, skelAnime, pos, rot, scale, sword, tunic, shield, boots, 64, 112, &eye, &at, 60.0f, globalCtx->state.gfxCtx->curFrameBuffer, globalCtx->state.gfxCtx->curFrameBuffer + 0x1C00);
+	func_80091A24(globalCtx, segment->keep, segment->linkObjectSegment, skelAnime, pos, rot, scale, sword, tunic, shield, boots, 64, 112, &eye, &at, 60.0f, globalCtx->gfxCtx->curFrameBuffer, globalCtx->gfxCtx->curFrameBuffer + 0x1C00);
 }

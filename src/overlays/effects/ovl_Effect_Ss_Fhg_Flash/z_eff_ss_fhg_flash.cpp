@@ -102,7 +102,7 @@ static Color_RGB8 sColors[] = {
 
 void EffectSsFhgFlash_DrawLightBall(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale;
 	void* object;
@@ -116,7 +116,7 @@ void EffectSsFhgFlash_DrawLightBall(GlobalContext* globalCtx, u32 index, EffectS
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 	gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(object);
 	gSPSegment(POLY_XLU_DISP++, 0x06, object);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, pthis->rAlpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, sColors[pthis->rParam].r, sColors[pthis->rParam].g, sColors[pthis->rParam].b, 0);
 	gDPPipeSync(POLY_XLU_DISP++);
@@ -130,7 +130,7 @@ void EffectSsFhgFlash_DrawLightBall(GlobalContext* globalCtx, u32 index, EffectS
 
 void EffectSsFhgFlash_DrawShock(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale;
 
@@ -143,13 +143,13 @@ void EffectSsFhgFlash_DrawShock(GlobalContext* globalCtx, u32 index, EffectSs* p
 
 	if(pthis->rParam != FHGFLASH_SHOCK_NO_ACTOR)
 	{
-		func_80094044(globalCtx->state.gfxCtx);
+		func_80094044(globalCtx->gfxCtx);
 		Matrix_RotateX((pthis->rXZRot / 32768.0f) * 1.1416f, MTXMODE_APPLY);
 		gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_DECAL2);
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		func_800D1FD4(&globalCtx->billboardMtxF);
 		gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
 	}

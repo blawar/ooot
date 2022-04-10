@@ -523,20 +523,20 @@ s32 EnAnubis_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 	return false;
 }
 
-void EnAnubis_PostLimbDraw(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
+void EnAnubis_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
 	EnAnubice* pthis = (EnAnubice*)thisx;
 	Vec3f pos = {0.0f, 0.0f, 0.0f};
 
 	if(limbIndex == 13)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_anubice.c", 853);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_anubice.c", 853);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_anubice.c", 856), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_anubice.c", 856), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gAnubiceEyesDL);
 		Matrix_MultVec3f(&pos, &pthis->fireballPos);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_anubice.c", 868);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_anubice.c", 868);
 	}
 }
 
@@ -544,7 +544,7 @@ void EnAnubice_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnAnubice* pthis = (EnAnubice*)thisx;
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnAnubis_OverrideLimbDraw, EnAnubis_PostLimbDraw, pthis);
 }
 

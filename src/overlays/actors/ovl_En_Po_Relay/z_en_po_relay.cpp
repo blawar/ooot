@@ -451,7 +451,7 @@ void EnPoRelay_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 		f32 rand;
 		Vec3f vec;
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 885);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_po_relay.c", 885);
 		rand = Rand_ZeroOne();
 		pthis->lightColor.r = (s16)(rand * 30.0f) + 225;
 		pthis->lightColor.g = (s16)(rand * 100.0f) + 155;
@@ -462,16 +462,16 @@ void EnPoRelay_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 		if(1)
 		{
 		}
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 901);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_po_relay.c", 901);
 		Matrix_MultVec3f(&D_80AD8D48, &vec);
 		Lights_PointNoGlowSetInfo(&pthis->lightInfo, vec.x, vec.y, vec.z, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, 200);
 	}
 	else if(limbIndex == 8)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 916);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 918), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_po_relay.c", 916);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_po_relay.c", 918), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gDampeHaloDL);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 922);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_po_relay.c", 922);
 	}
 }
 
@@ -479,11 +479,11 @@ void EnPoRelay_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnPoRelay* pthis = (EnPoRelay*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 940);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_po_relay.c", 940);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyesTextures[pthis->eyeTextureIdx]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, EnPoRelay_PostLimbDraw, &pthis->actor);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_relay.c", 954);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_po_relay.c", 954);
 }
 
 void EnPoRelay_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -3,9 +3,10 @@
 #include "framerate.h"
 #include "ultra64.h"
 #include "z64math.h"
+#include "globalctx.h"
+#include "def/z_file_choose.h"
 
 struct FileChooseContext;
-struct GameState;
 
 struct ItemEquips
 {
@@ -257,8 +258,8 @@ namespace oot::save
 		void copy(const u8 selectedFileIndex, const u8 copyDestFileIndex);
 		void open(const u8 index);
 		void save();
-		void loadAllSaves(FileChooseContext* fileChooseCtx);
-		void initialize(FileChooseContext* fileChooseCtx, const u8 slotId);
+		void loadAllSaves(gamestate::FileChoose* fileChooseCtx);
+		void initialize(gamestate::FileChoose* fileChooseCtx, const u8 slotId);
 		void erase(const u8 slotId);
 		void init();
 		const s32& fileNumber() const;
@@ -387,7 +388,7 @@ namespace oot::save
 		Slot& currentBackupSlot();
 		void load(const u8 slotId);
 		void load(const Slot& save);
-		void setFileChooseData(FileChooseContext* fileChooseCtx, const u8 slotId = 0);
+		void setFileChooseData(gamestate::FileChoose* fileChooseCtx, const u8 slotId = 0);
 	};
 } // namespace oot::save
 

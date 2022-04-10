@@ -387,15 +387,15 @@ void func_8097D29C(DemoGo* pthis, GlobalContext* globalCtx)
 	void* eyeTexture = sEyeTextures[eyeTexIdx];
 	void* mouthTexture = gGoronCsMouthSmileTex;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_go.c", 732);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_go.c", 732);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(mouthTexture));
 
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_go.c", 746);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_go.c", 746);
 }
 
 void DemoGo_Draw(Actor* thisx, GlobalContext* globalCtx)

@@ -112,7 +112,7 @@ void EnSda_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnSda* pthis = (EnSda*)thisx;
 	Player* player;
-	u8* shadowTexture = (u8*)Graph_Alloc(globalCtx->state.gfxCtx, 0x1000);
+	u8* shadowTexture = (u8*)Graph_Alloc(globalCtx->gfxCtx, 0x1000);
 
 	osSyncPrintf("SDA DRAW \n");
 
@@ -399,12 +399,12 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx)
 	f32 tempx;
 	f32 tempz;
 	s16 phi_s1;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_en_sda.c", 826);
 
 	osSyncPrintf("SDA D 1\n");
-	func_80094044(globalCtx->state.gfxCtx);
+	func_80094044(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x00, 0x00, 0, 0, 0, (BREG(52) + 50));
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, 0);
 	Matrix_Translate(player->actor.world.pos.x, player->actor.floorHeight, player->actor.world.pos.z, MTXMODE_NEW);
@@ -414,7 +414,7 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx)
 	tempz = ((player->actor.world.pos.y - player->actor.floorHeight + BREG(54)) * (BREG(55) - 5) / 10.0f) + BREG(58) - 20.0f;
 	Matrix_Translate(tempx, 0.0f, tempz, MTXMODE_APPLY);
 	Matrix_Scale(((BREG(56) - 250) / 1000.0f) + 0.6f, 1.0f, ((BREG(59) - 250) / 1000.0f) + 0.6f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_sda.c", 860), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_sda.c", 860), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, D_80AFA3D8);
 	gDPLoadTextureBlock(POLY_XLU_DISP++, shadowTexture, G_IM_FMT_I, G_IM_SIZ_8b, 0x40, 0x40, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
 	gSPDisplayList(POLY_XLU_DISP++, D_80AFA3F8);
@@ -422,7 +422,7 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx)
 	for(phi_s1 = 0; phi_s1 < KREG(78); phi_s1++)
 	{
 		Matrix_Scale((KREG(79) / 100.0f) + 1.0f, 1.0f, (KREG(79) / 100.0f) + 1.0f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_sda.c", 877), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_sda.c", 877), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, D_80AFA3F8);
 	}
 	osSyncPrintf("SDA D 2\n");

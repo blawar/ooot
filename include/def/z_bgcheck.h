@@ -1,6 +1,6 @@
 #pragma once
 struct CollisionContext;
-struct GlobalContext;
+#include "globalctx.h"
 struct CollisionHeader;
 struct Vec3f;
 struct CollisionPoly;

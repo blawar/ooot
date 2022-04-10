@@ -62,10 +62,10 @@ void EffectSsDeadDs_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	Vec3f pos;
 	CollisionPoly* floorPoly;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead_ds.c", 157);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead_ds.c", 157);
 
 	scale = pthis->rScale * 0.01f;
-	func_80094BC4(globalCtx->state.gfxCtx);
+	func_80094BC4(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, pthis->rAlpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, 0);
 	pos = pthis->pos;
@@ -113,11 +113,11 @@ void EffectSsDeadDs_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	Matrix_RotateZYX(pthis->rRoll, pthis->rPitch, pthis->rYaw, MTXMODE_APPLY);
 	Matrix_RotateX(1.57f, MTXMODE_APPLY);
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_ss_dead_ds.c", 246), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_eff_ss_dead_ds.c", 246), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetCombineLERP(POLY_XLU_DISP++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 	gSPDisplayList(POLY_XLU_DISP++, gLensFlareCircleDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead_ds.c", 255);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead_ds.c", 255);
 }
 
 void EffectSsDeadDs_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)

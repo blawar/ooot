@@ -1295,9 +1295,9 @@ void EnNiw_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnNiw* pthis = (EnNiw*)thisx;
 	Vec3f scale = {0.15f, 0.15f, 0.15f};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnNiw_OverrideLimbDraw, NULL, pthis);
 
 	if(pthis->actionFunc == action_80AB6450)
@@ -1372,12 +1372,12 @@ void EnNiw_FeatherDraw(EnNiw* pthis, GlobalContext* globalCtx)
 	u8 flag = 0;
 	s16 i;
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	EnNiwFeather* feather = &pthis->feathers[0];
 
 	OPEN_DISPS(gfxCtx, "../z_en_niw.c", 1897);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	for(i = 0; i < ARRAY_COUNT(pthis->feathers); i++, feather++)
 	{

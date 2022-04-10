@@ -231,7 +231,7 @@ void func_80890B8C(BgIceShelter* pthis, GlobalContext* globalCtx, f32 chance, f3
 	Vec3f dustVel;
 	Vec3f dustAccel;
 
-	frames = globalCtx->state.frames & 7;
+	frames = globalCtx->frames & 7;
 
 	for(i = 0; i < 2; i++)
 	{
@@ -273,7 +273,7 @@ void func_80890E00(BgIceShelter* pthis, GlobalContext* globalCtx, f32 chance, f3
 	Vec3f posOffset;
 	s32 i;
 
-	frames = globalCtx->state.frames & 7;
+	frames = globalCtx->frames & 7;
 
 	for(i = 0; i < 2; i++)
 	{
@@ -435,11 +435,11 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	GlobalContext* globalCtx = globalCtx2;
 	BgIceShelter* pthis = (BgIceShelter*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_ice_shelter.c", 748);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_ice_shelter.c", 748);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ice_shelter.c", 751), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_ice_shelter.c", 751), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	switch((pthis->dyna.actor.params >> 8) & 7)
 	{
@@ -461,17 +461,17 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2)
 			gSPSegment(
 			    POLY_XLU_DISP++, 0x08,
 			    Gfx_TwoTexScroll(
-				globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames.whole() & 0x7F, -globalCtx->gameplayFrames.whole() & 0x7F, 0x20, 0x20, 1, -globalCtx->gameplayFrames.whole() & 0x7F, globalCtx->gameplayFrames.whole() & 0x7F, 0x20,
+				globalCtx->gfxCtx, 0, -globalCtx->gameplayFrames.whole() & 0x7F, -globalCtx->gameplayFrames.whole() & 0x7F, 0x20, 0x20, 1, -globalCtx->gameplayFrames.whole() & 0x7F, globalCtx->gameplayFrames.whole() & 0x7F, 0x20,
 				0x20));
 			gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_0006F0);
 			break;
 
 		case 2:
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40, 1, 0, -globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40, 1, 0, -globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40));
 			gSPSegment(
 			    POLY_XLU_DISP++, 0x09,
 			    Gfx_TwoTexScroll(
-				globalCtx->state.gfxCtx, 0, -globalCtx->gameplayFrames.whole() & 0xFF, globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40, 1, globalCtx->gameplayFrames.whole() & 0xFF, globalCtx->gameplayFrames.whole() & 0xFF, 0x40,
+				globalCtx->gfxCtx, 0, -globalCtx->gameplayFrames.whole() & 0xFF, globalCtx->gameplayFrames.whole() & 0xFF, 0x40, 0x40, 1, globalCtx->gameplayFrames.whole() & 0xFF, globalCtx->gameplayFrames.whole() & 0xFF, 0x40,
 				0x40));
 			gSPDisplayList(POLY_XLU_DISP++, object_ice_objects_DL_0012A0);
 			break;
@@ -481,7 +481,7 @@ void BgIceShelter_Draw(Actor* thisx, GlobalContext* globalCtx2)
 			break;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ice_shelter.c", 815);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_ice_shelter.c", 815);
 }
 
 void BgIceShelter_Reset(Actor* pthisx, GlobalContext* globalCtx)

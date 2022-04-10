@@ -51,7 +51,7 @@ void EffectSsBomb_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	    gEffBombExplosion3Tex,
 	    gEffBombExplosion4Tex,
 	};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfTrans;
 	MtxF mfScale;
 	MtxF mfResult;

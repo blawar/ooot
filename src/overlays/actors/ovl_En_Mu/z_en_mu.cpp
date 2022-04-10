@@ -70,7 +70,7 @@ void EnMu_Interact(EnMu* pthis, GlobalContext* globalCtx)
 
 	textFlags = gSaveContext.eventInf[2] & 0x1F;
 	gSaveContext.eventInf[2] &= ~0x1F;
-	randomIndex = (uintptr_t)(globalCtx->state.frames + (s32)(Rand_ZeroOne() * 5.0f)) % 5;
+	randomIndex = (uintptr_t)(globalCtx->frames + (s32)(Rand_ZeroOne() * 5.0f)) % 5;
 
 	for(i = 0; i < 5; i++)
 	{
@@ -224,14 +224,14 @@ void EnMu_Draw(Actor* thisx, GlobalContext* globalCtx)
 	u8 segmentId[] = {0x08, 0x09, 0x0A, 0x0B, 0x0C};
 	s32 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mu.c", 514);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_mu.c", 514);
 	Matrix_Translate(-1200.0f, 0.0f, -1400.0f, MTXMODE_APPLY);
 	for(i = 0; i < 5; i++)
 	{
-		gSPSegment(POLY_OPA_DISP++, segmentId[i], EnMu_DisplayListSetColor(globalCtx->state.gfxCtx, colors[pthis->actor.params][i].r, colors[pthis->actor.params][i].g, colors[pthis->actor.params][i].b, colors[pthis->actor.params][i].a));
+		gSPSegment(POLY_OPA_DISP++, segmentId[i], EnMu_DisplayListSetColor(globalCtx->gfxCtx, colors[pthis->actor.params][i].r, colors[pthis->actor.params][i].g, colors[pthis->actor.params][i].b, colors[pthis->actor.params][i].a));
 	}
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnMu_OverrideLimbDraw, EnMu_PostLimbDraw, pthis);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mu.c", 534);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_mu.c", 534);
 }
 
 void EnMu_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -330,15 +330,15 @@ static void* sLeftSideCrumbles[] = {
 
 void BgJyaMegami_DrawFace(BgJyaMegami* pthis, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 706);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_jya_megami.c", 706);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sRightSideCrumbles[pthis->crumbleIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sLeftSideCrumbles[pthis->crumbleIndex]));
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 716), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_jya_megami.c", 716), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gMegami1DL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 720);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_jya_megami.c", 720);
 }
 
 static Gfx* sDLists[] = {
@@ -351,9 +351,9 @@ void BgJyaMegami_DrawExplode(BgJyaMegami* pthis, GlobalContext* globalCtx)
 	BgJyaMegamiPiece* piece;
 	u32 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 746);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_jya_megami.c", 746);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	for(i = 0; i < ARRAY_COUNT(pthis->pieces); i++)
 	{
@@ -364,11 +364,11 @@ void BgJyaMegami_DrawExplode(BgJyaMegami* pthis, GlobalContext* globalCtx)
 		Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
 		Matrix_Translate(sPiecesInit[i].unk_00.x * -10.0f, sPiecesInit[i].unk_00.y * -10.0f, sPiecesInit[i].unk_00.z * -10.0f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 778), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_jya_megami.c", 778), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, sDLists[i]);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_jya_megami.c", 783);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_jya_megami.c", 783);
 }
 
 void BgJyaMegami_Draw(Actor* thisx, GlobalContext* globalCtx)

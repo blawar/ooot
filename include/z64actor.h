@@ -6,6 +6,7 @@
 #include "z64collision_check.h"
 #include "z64dma.h"
 #include "z64math.h"
+#include "globalctx.h"
 
 union Gfx;
 
@@ -24,13 +25,13 @@ enum DynaPolyMoveFlag
 };
 
 struct Actor;
-struct GlobalContext;
+
 struct Lights;
 
-typedef void (*ActorFunc)(struct Actor*, struct GlobalContext*);
-typedef void (*ActorShadowFunc)(struct Actor*, struct Lights*, struct GlobalContext*);
-typedef u16 (*callback1_800343CC)(struct GlobalContext*, struct Actor*);
-typedef s16 (*callback2_800343CC)(struct GlobalContext*, struct Actor*);
+typedef void (*ActorFunc)(struct Actor*, GlobalContext*);
+typedef void (*ActorShadowFunc)(struct Actor*, struct Lights*, GlobalContext*);
+typedef u16 (*callback1_800343CC)(GlobalContext*, struct Actor*);
+typedef s16 (*callback2_800343CC)(GlobalContext*, struct Actor*);
 
 struct ActorEntry
 {
@@ -306,7 +307,7 @@ enum Item00Type
 
 struct EnItem00;
 
-typedef void (*EnItem00ActionFunc)(struct EnItem00*, struct GlobalContext*);
+typedef void (*EnItem00ActionFunc)(struct EnItem00*, GlobalContext*);
 
 struct EnItem00
 {
@@ -342,7 +343,7 @@ enum AObjType
 
 struct EnAObj;
 
-typedef void (*EnAObjActionFunc)(struct EnAObj*, struct GlobalContext*);
+typedef void (*EnAObjActionFunc)(struct EnAObj*, GlobalContext*);
 
 struct EnAObj
 {
@@ -503,7 +504,7 @@ struct struct_D_80AA1678
 	/* 0x0C */ f32 transitionRate;
 }; // size = 0x10
 
-s32 func_800343CC(struct GlobalContext* globalCtx, Actor* actor, s16* arg2, f32 interactRange, u16 (*unkFunc1)(struct GlobalContext*, Actor*), s16 (*unkFunc2)(struct GlobalContext*, Actor*));
+s32 func_800343CC(GlobalContext* globalCtx, Actor* actor, s16* arg2, f32 interactRange, u16 (*unkFunc1)(GlobalContext*, Actor*), s16 (*unkFunc2)(GlobalContext*, Actor*));
 
 extern ActorOverlay gActorOverlayTable[ACTOR_ID_MAX]; // original name: "actor_dlftbls" 801162A0
 extern s32 gMaxActorId;				      // original name: "MaxProfile"

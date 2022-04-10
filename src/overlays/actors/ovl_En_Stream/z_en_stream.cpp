@@ -152,13 +152,13 @@ void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx)
 	u32 multipliedFrames;
 	u32 frames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_stream.c", 295);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_stream.c", 299), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_stream.c", 295);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_stream.c", 299), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	multipliedFrames = frames * 20;
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 30, -multipliedFrames, 0x40, 0x40, 1, multipliedFrames, -multipliedFrames, 0x40, 0x40));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, frames * 30, -multipliedFrames, 0x40, 0x40, 1, multipliedFrames, -multipliedFrames, 0x40, 0x40));
 	gSPDisplayList(POLY_XLU_DISP++, object_stream_DL_000950);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_stream.c", 310);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_stream.c", 310);
 }
 
 void EnStream_Reset(Actor* pthisx, GlobalContext* globalCtx)

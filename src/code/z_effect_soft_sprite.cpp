@@ -26,7 +26,7 @@ void EffectSs_InitInfo(GlobalContext* globalCtx, s32 tableSize)
 		osSyncPrintf("effect index %3d:size=%6dbyte romsize=%6dbyte\n", i, (uintptr_t)overlay->vramEnd - (uintptr_t)overlay->vramStart, overlay->vromEnd - overlay->vromStart);
 	}
 
-	sEffectSsInfo.table = (EffectSs*)GameState_Alloc(&globalCtx->state, tableSize * sizeof(EffectSs), "../z_effect_soft_sprite.c", 289);
+	sEffectSsInfo.table = (EffectSs*)GameState_Alloc(globalCtx, tableSize * sizeof(EffectSs), "../z_effect_soft_sprite.c", 289);
 	ASSERT(sEffectSsInfo.table != NULL, "EffectSS2Info.data_table != NULL", "../z_effect_soft_sprite.c", 290);
 
 	sEffectSsInfo.searchStartIndex = 0;
@@ -341,11 +341,11 @@ void EffectSs_Draw(GlobalContext* globalCtx, s32 index)
 // original name: "EffectSoftSprite2_disp"
 void EffectSs_DrawAll(GlobalContext* globalCtx)
 {
-	Lights* lights = LightContext_NewLights(&globalCtx->lightCtx, globalCtx->state.gfxCtx);
+	Lights* lights = LightContext_NewLights(&globalCtx->lightCtx, globalCtx->gfxCtx);
 	s32 i;
 
 	Lights_BindAll(lights, globalCtx->lightCtx.listHead, NULL);
-	Lights_Draw(lights, globalCtx->state.gfxCtx);
+	Lights_Draw(lights, globalCtx->gfxCtx);
 
 	for(i = 0; i < sEffectSsInfo.tableSize; i++)
 	{

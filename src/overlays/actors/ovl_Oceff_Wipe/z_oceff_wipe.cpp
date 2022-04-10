@@ -72,7 +72,7 @@ static u8 sAlphaIndices[] = {
 
 void OceffWipe_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	u32 scroll = globalCtx->state.frames & 0xFF;
+	u32 scroll = globalCtx->frames & 0xFF;
 	OceffWipe* pthis = (OceffWipe*)thisx;
 	f32 z;
 	s32 pad;
@@ -85,7 +85,7 @@ void OceffWipe_Draw(Actor* thisx, GlobalContext* globalCtx)
 	eye = GET_ACTIVE_CAM(globalCtx)->eye;
 	Camera_GetSkyboxOffset(&vec, GET_ACTIVE_CAM(globalCtx));
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe.c", 346);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_oceff_wipe.c", 346);
 
 	if(pthis->timer < 32)
 	{
@@ -116,14 +116,14 @@ void OceffWipe_Draw(Actor* thisx, GlobalContext* globalCtx)
 		vtxPtr[i * 2 + 1].v.cn[3] = alphaTable[sAlphaIndices[i] & 0xF];
 	}
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	Matrix_Translate(eye.x + vec.x, eye.y + vec.y, eye.z + vec.z, MTXMODE_NEW);
 	Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
 	func_800D1FD4(&globalCtx->billboardMtxF);
 	Matrix_Translate(0.0f, 0.0f, -z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_oceff_wipe.c", 375), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_oceff_wipe.c", 375), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(pthis->actor.params != OCEFF_WIPE_ZL)
 	{
@@ -137,10 +137,10 @@ void OceffWipe_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
-	gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0 - scroll, scroll * (-2), 32, 32, 1, 0 - scroll, scroll * (-2), 32, 32));
+	gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0 - scroll, scroll * (-2), 32, 32, 1, 0 - scroll, scroll * (-2), 32, 32));
 	gSPDisplayList(POLY_XLU_DISP++, sFrustumDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe.c", 398);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_oceff_wipe.c", 398);
 }
 
 void OceffWipe_Reset(Actor* pthisx, GlobalContext* globalCtx)

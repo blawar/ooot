@@ -10,11 +10,11 @@
 #include "z64save.h"
 #include "z64scene.h"
 #include "z64sram.h"
-#include "z_file_choose.h"
 #include "def/audio.h"
 #include "def/code_80069420.h"
 #include "def/game.h"
 #include "def/inventory.h"
+#include "def/z_file_choose.h"
 #include "def/z_parameter.h"
 
 oot::save::Context gSaveContext;
@@ -420,7 +420,7 @@ namespace oot::save
 	 *
 	 *  After verifying all 3 saves, pass relevant data to File Select to be displayed.
 	 */
-	void Context::loadAllSaves(FileChooseContext* fileChooseCtx)
+	void Context::loadAllSaves(gamestate::FileChoose* fileChooseCtx)
 	{
 		for(u8 slotNum = 0; slotNum < MAX_SLOTS; slotNum++)
 		{
@@ -481,7 +481,7 @@ namespace oot::save
 		}
 	}
 
-	void Context::setFileChooseData(FileChooseContext* fileChooseCtx, const u8 slotId)
+	void Context::setFileChooseData(gamestate::FileChoose* fileChooseCtx, const u8 slotId)
 	{
 		// const u8 slotId = fileChooseCtx->buttonIndex;
 		auto& slot = file.slots[slotId];
@@ -495,7 +495,7 @@ namespace oot::save
 		MemCopy(&fileChooseCtx->fileNames[slotId], slot.save.info.playerData.playerName, sizeof(fileChooseCtx->fileNames[0]));
 	}
 
-	void Context::initialize(FileChooseContext* fileChooseCtx, const u8 slotId)
+	void Context::initialize(gamestate::FileChoose* fileChooseCtx, const u8 slotId)
 	{
 		if(fileChooseCtx->buttonIndex != 0 || !oot::config().game().enablDebugLevelSelect())
 		{

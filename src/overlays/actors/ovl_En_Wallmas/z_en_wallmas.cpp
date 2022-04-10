@@ -698,9 +698,9 @@ void EnWallmas_DrawXlu(EnWallmas* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1386);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1386);
 
-	func_80094044(globalCtx->state.gfxCtx);
+	func_80094044(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, 255);
 
 	func_80038A28(pthis->actor.floorPoly, pthis->actor.world.pos.x, pthis->actor.floorHeight, pthis->actor.world.pos.z, &mf);
@@ -716,10 +716,10 @@ void EnWallmas_DrawXlu(EnWallmas* pthis, GlobalContext* globalCtx)
 	}
 
 	Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1421), G_MTX_LOAD);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_wallmas.c", 1421), G_MTX_LOAD);
 	gSPDisplayList(POLY_XLU_DISP++, gCircleShadowDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1426);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1426);
 }
 
 s32 EnWallMas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -744,7 +744,7 @@ void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 {
 	if(limbIndex == 2)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1478);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1478);
 
 		Matrix_Push();
 		Matrix_Translate(1600.0f, -700.0f, -1700.0f, MTXMODE_APPLY);
@@ -752,12 +752,12 @@ void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 		Matrix_RotateZ(DEGREE_15_RAD, MTXMODE_APPLY);
 		Matrix_Scale(2.0f, 2.0f, 2.0f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1489), G_MTX_LOAD);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_wallmas.c", 1489), G_MTX_LOAD);
 		gSPDisplayList(POLY_OPA_DISP++, gWallmasterFingerDL);
 
 		Matrix_Pop();
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1495);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1495);
 	}
 }
 
@@ -767,7 +767,7 @@ void EnWallmas_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->actionFunc != EnWallmas_WaitToDrop)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnWallMas_OverrideLimbDraw, EnWallMas_PostLimbDraw, pthis);
 	}
 

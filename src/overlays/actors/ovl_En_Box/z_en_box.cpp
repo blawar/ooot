@@ -656,7 +656,7 @@ void EnBox_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
 	if(limbIndex == 1)
 	{
-		gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_box.c", 1492), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_box.c", 1492), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		if(pthis->type != ENBOX_TYPE_DECORATED_BIG)
 		{
 			gSPDisplayList((*gfx)++, gTreasureChestChestFrontDL);
@@ -668,7 +668,7 @@ void EnBox_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	}
 	else if(limbIndex == 3)
 	{
-		gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_box.c", 1502), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_box.c", 1502), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		if(pthis->type != ENBOX_TYPE_DECORATED_BIG)
 		{
 			gSPDisplayList((*gfx)++, gTreasureChestChestSideAndLidDL);
@@ -731,7 +731,7 @@ void EnBox_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBox* pthis = (EnBox*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_box.c", 1581);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_box.c", 1581);
 
 	/*
 	pthis->dyna.actor.flags & ACTOR_FLAG_7 is set by Init (if type is 4 or 6)
@@ -741,27 +741,27 @@ void EnBox_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
-		gSPSegment(POLY_OPA_DISP++, 0x08, EnBox_EmptyDList(globalCtx->state.gfxCtx));
-		func_80093D18(globalCtx->state.gfxCtx);
+		gSPSegment(POLY_OPA_DISP++, 0x08, EnBox_EmptyDList(globalCtx->gfxCtx));
+		func_80093D18(globalCtx->gfxCtx);
 		POLY_OPA_DISP = SkelAnime_Draw(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, NULL, EnBox_PostLimbDraw, pthis, POLY_OPA_DISP);
 	}
 	else if(pthis->alpha != 0)
 	{
 		gDPPipeSync(POLY_XLU_DISP++);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->alpha);
 		if(pthis->type == ENBOX_TYPE_4 || pthis->type == ENBOX_TYPE_6)
 		{
-			gSPSegment(POLY_XLU_DISP++, 0x08, func_809CA518(globalCtx->state.gfxCtx));
+			gSPSegment(POLY_XLU_DISP++, 0x08, func_809CA518(globalCtx->gfxCtx));
 		}
 		else
 		{
-			gSPSegment(POLY_XLU_DISP++, 0x08, func_809CA4A0(globalCtx->state.gfxCtx));
+			gSPSegment(POLY_XLU_DISP++, 0x08, func_809CA4A0(globalCtx->gfxCtx));
 		}
 		POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, NULL, EnBox_PostLimbDraw, pthis, POLY_XLU_DISP);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_box.c", 1639);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_box.c", 1639);
 }
 
 void EnBox_Reset(Actor* pthisx, GlobalContext* globalCtx)

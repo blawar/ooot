@@ -75,9 +75,9 @@ void DebugDisplay_DrawObjects(GlobalContext* globalCtx)
 
 void DebugDisplay_DrawSpriteI8(DebugDispObject* dispObj, void* texture, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_debug_display.c", 169);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_debug_display.c", 169);
 
-	func_80094678(globalCtx->state.gfxCtx);
+	func_80094678(globalCtx->gfxCtx);
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, dispObj->color.r, dispObj->color.g, dispObj->color.b, dispObj->color.a);
 
@@ -88,17 +88,17 @@ void DebugDisplay_DrawSpriteI8(DebugDispObject* dispObj, void* texture, GlobalCo
 
 	gDPLoadTextureBlock(POLY_XLU_DISP++, texture, G_IM_FMT_I, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_debug_display.c", 189), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_debug_display.c", 189), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_XLU_DISP++, gDebugSpriteDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_debug_display.c", 192);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_debug_display.c", 192);
 }
 
 void DebugDisplay_DrawPolygon(DebugDispObject* dispObj, void* dlist, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_debug_display.c", 211);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_debug_display.c", 211);
 
-	func_8009435C(globalCtx->state.gfxCtx);
+	func_8009435C(globalCtx->gfxCtx);
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, dispObj->color.r, dispObj->color.g, dispObj->color.b, dispObj->color.a);
 
@@ -107,8 +107,8 @@ void DebugDisplay_DrawPolygon(DebugDispObject* dispObj, void* dlist, GlobalConte
 	func_800D1694(dispObj->pos.x, dispObj->pos.y, dispObj->pos.z, &dispObj->rot);
 	Matrix_Scale(dispObj->scale.x, dispObj->scale.y, dispObj->scale.z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_debug_display.c", 228), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_debug_display.c", 228), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPDisplayList(POLY_XLU_DISP++, dlist);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_debug_display.c", 231);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_debug_display.c", 231);
 }

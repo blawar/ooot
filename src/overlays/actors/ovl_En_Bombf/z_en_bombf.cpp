@@ -564,15 +564,15 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1034);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bombf.c", 1034);
 
 	if(thisx->params <= BOMBFLOWER_BODY)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		if(thisx->params != BOMBFLOWER_BODY)
 		{
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1041), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bombf.c", 1041), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gBombFlowerLeavesDL);
 			gSPDisplayList(POLY_OPA_DISP++, gBombFlowerBaseLeavesDL);
 
@@ -583,8 +583,8 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 200, 255, 200, 255);
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, (s16)pthis->flashIntensity, 20, 10, 0);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1054), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(EnBombf_NewMtxDList(globalCtx->state.gfxCtx, globalCtx)));
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bombf.c", 1054), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(EnBombf_NewMtxDList(globalCtx->gfxCtx, globalCtx)));
 		gSPDisplayList(POLY_OPA_DISP++, gBombFlowerBombAndSparkDL);
 	}
 	else
@@ -592,7 +592,7 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Collider_UpdateSpheres(0, &pthis->explosionCollider);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1063);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bombf.c", 1063);
 }
 
 void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx)

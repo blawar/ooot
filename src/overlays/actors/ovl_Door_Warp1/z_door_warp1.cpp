@@ -1030,16 +1030,16 @@ void DoorWarp1_DrawBlueCrystal(DoorWarp1* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2078);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_door_warp1.c", 2078);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0xFF, 0xFF, 200, 255, 255, (u8)pthis->crystalAlpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, (u8)pthis->crystalAlpha);
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, &pthis->actor, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2098);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_door_warp1.c", 2098);
 
 	SkelAnime_Update(&pthis->skelAnime);
 }
@@ -1049,21 +1049,21 @@ void DoorWarp1_DrawPurpleCrystal(DoorWarp1* pthis, GlobalContext* globalCtx)
 	s32 pad[2];
 	Vec3f eye;
 
-	eye.x = -(Math_SinS(globalCtx->state.frames.whole() * 200) * 120.0f) * 80.0f;
-	eye.y = (Math_CosS(globalCtx->state.frames.whole() * 200) * 120.0f) * 80.0f;
-	eye.z = (Math_CosS(globalCtx->state.frames.whole() * 200) * 120.0f) * 80.0f;
+	eye.x = -(Math_SinS(globalCtx->frames.whole() * 200) * 120.0f) * 80.0f;
+	eye.y = (Math_CosS(globalCtx->frames.whole() * 200) * 120.0f) * 80.0f;
+	eye.z = (Math_CosS(globalCtx->frames.whole() * 200) * 120.0f) * 80.0f;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2122);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_door_warp1.c", 2122);
 
-	func_80093D84(globalCtx->state.gfxCtx);
-	func_8002EB44(&pthis->actor.world.pos, &eye, &eye, globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
+	func_8002EB44(&pthis->actor.world.pos, &eye, &eye, globalCtx->gfxCtx);
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (u8)pthis->crystalAlpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 150, 0, 100, (u8)pthis->crystalAlpha);
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, &pthis->actor, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2152);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_door_warp1.c", 2152);
 
 	SkelAnime_Update(&pthis->skelAnime);
 }
@@ -1072,13 +1072,13 @@ void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 	u32 pad1;
-	u32 spEC = globalCtx->state.frames * 10;
+	u32 spEC = globalCtx->frames * 10;
 	f32 spE8 = (pthis->unk_194 >= 1.0f) ? 0.0f : 1.0f - pthis->unk_194;
 	f32 spE4 = (pthis->unk_198 >= 1.0f) ? 0.0f : 1.0f - pthis->unk_198;
 	f32 xzScale;
 	f32 temp_f0;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2173);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_door_warp1.c", 2173);
 
 	temp_f0 = 1.0f - (2.0f - pthis->unk_194) / 1.7f;
 	if(pthis->actor.params != WARP_YELLOW && pthis->actor.params != WARP_DESTINATION && pthis->actor.params != WARP_ORANGE && pthis->actor.params != WARP_GREEN && pthis->actor.params != WARP_RED)
@@ -1089,7 +1089,7 @@ void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx)
 	{
 		pthis->unk_19C -= (s16)(temp_f0 * 2.0f);
 	}
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	switch(pthis->actor.params)
 	{
@@ -1118,15 +1118,15 @@ void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx)
 	gDPSetColorDither(POLY_XLU_DISP++, G_AD_NOTPATTERN | G_CD_MAGICSQ);
 
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y + 1.0f, pthis->actor.world.pos.z, MTXMODE_NEW);
-	gSPSegment(POLY_XLU_DISP++, 0x0A, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2247));
+	gSPSegment(POLY_XLU_DISP++, 0x0A, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_warp1.c", 2247));
 	Matrix_Push();
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, spEC & 0xFF, -((s16)(pthis->unk_19C + pthis->unk_19C) & 511), 0x100, 0x100, 1, spEC & 0xFF, -((s16)(pthis->unk_19C + pthis->unk_19C) & 511), 0x100, 0x100));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, spEC & 0xFF, -((s16)(pthis->unk_19C + pthis->unk_19C) & 511), 0x100, 0x100, 1, spEC & 0xFF, -((s16)(pthis->unk_19C + pthis->unk_19C) & 511), 0x100, 0x100));
 
 	Matrix_Translate(0.0f, pthis->unk_194 * 230.0f, 0.0f, MTXMODE_APPLY);
 	xzScale = (((f32)pthis->unk_1AE * spE8) / 100.0f) + 1.0f;
 	Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
-	gSPSegment(POLY_XLU_DISP++, 0x09, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2267));
+	gSPSegment(POLY_XLU_DISP++, 0x09, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_warp1.c", 2267));
 	gSPDisplayList(POLY_XLU_DISP++, gWarpPortalDL);
 	Matrix_Pop();
 
@@ -1157,18 +1157,18 @@ void DoorWarp1_DrawWarp(DoorWarp1* pthis, GlobalContext* globalCtx)
 		}
 		spEC *= 2;
 
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, spEC & 0xFF, -((s16)pthis->unk_19C & 511), 0x100, 0x100, 1, spEC & 0xFF, -((s16)pthis->unk_19C & 511), 0x100, 0x100));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, spEC & 0xFF, -((s16)pthis->unk_19C & 511), 0x100, 0x100, 1, spEC & 0xFF, -((s16)pthis->unk_19C & 511), 0x100, 0x100));
 
 		Matrix_Translate(0.0f, pthis->unk_198 * 60.0f, 0.0f, MTXMODE_APPLY);
 
 		xzScale = (((f32)pthis->unk_1B0 * spE4) / 100.0f) + 1.0f;
 		Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
 
-		gSPSegment(POLY_XLU_DISP++, 0x09, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2336));
+		gSPSegment(POLY_XLU_DISP++, 0x09, Matrix_NewMtx(globalCtx->gfxCtx, "../z_door_warp1.c", 2336));
 		gSPDisplayList(POLY_XLU_DISP++, gWarpPortalDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_door_warp1.c", 2340);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_door_warp1.c", 2340);
 }
 
 void DoorWarp1_Draw(Actor* thisx, GlobalContext* globalCtx)

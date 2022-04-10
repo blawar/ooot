@@ -505,12 +505,12 @@ void EnTr_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		pthis->actor.shape.shadowDraw = ActorShadow_DrawCircle;
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tr.c", 840);
-		func_800943C8(globalCtx->state.gfxCtx);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tr.c", 840);
+		func_800943C8(globalCtx->gfxCtx);
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeIndex]));
 		func_8002EBCC(&pthis->actor, globalCtx, 0);
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnTr_OverrideLimbDraw, NULL, pthis);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tr.c", 854);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tr.c", 854);
 	}
 }
 

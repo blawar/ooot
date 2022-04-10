@@ -548,9 +548,9 @@ void func_80AF321C(EnRu2* pthis, GlobalContext* globalCtx)
 	void* tex = sEyeTextures[temp];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ru2_inKenjyanomaDemo02.c", 264);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ru2_inKenjyanomaDemo02.c", 264);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(tex));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(tex));
@@ -559,7 +559,7 @@ void func_80AF321C(EnRu2* pthis, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ru2_inKenjyanomaDemo02.c", 291);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ru2_inKenjyanomaDemo02.c", 291);
 }
 
 void func_80AF3394(EnRu2* pthis, GlobalContext* globalCtx)
@@ -932,9 +932,9 @@ void func_80AF3F20(EnRu2* pthis, GlobalContext* globalCtx)
 	void* tex = sEyeTextures[temp];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ru2.c", 642);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ru2.c", 642);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(tex));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(tex));
@@ -943,7 +943,7 @@ void func_80AF3F20(EnRu2* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ru2.c", 663);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ru2.c", 663);
 }
 
 void EnRu2_Draw(Actor* thisx, GlobalContext* globalCtx)

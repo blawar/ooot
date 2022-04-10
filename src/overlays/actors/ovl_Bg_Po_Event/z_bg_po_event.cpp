@@ -750,8 +750,8 @@ void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 sp48;
 	s32 pad2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_event.c", 1481);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_po_event.c", 1481);
+	func_80093D18(globalCtx->gfxCtx);
 	if((pthis->type == 3) || (pthis->type == 2))
 	{
 		if(pthis->actionFunc == BgPoEvent_PaintingEmpty)
@@ -768,9 +768,9 @@ void BgPoEvent_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, alpha);
 	}
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_po_event.c", 1501), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_po_event.c", 1501), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, displayLists_67[pthis->type]);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_event.c", 1508);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_po_event.c", 1508);
 
 	if((pthis->type == 0) || (pthis->type == 1))
 	{

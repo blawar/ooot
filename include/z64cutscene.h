@@ -3,6 +3,7 @@
 #include "framerate.h"
 #include "ultra64.h"
 #include "z64math.h"
+#include "globalctx.h"
 
 struct EntranceCutscene
 {
@@ -317,11 +318,11 @@ struct CutsceneContext
 	/* 0x28 */ CsCmdActorAction* npcActions[10]; // "npcdemopnt"
 };						     // size = 0x50
 
-void func_8006450C(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
-void func_80064520(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
-void func_80064534(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
-void func_80064558(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
-void Cinema_Update(struct GlobalContext* globalCtx, CutsceneContext* csCtx);
-void Cutscene_HandleEntranceTriggers(struct GlobalContext* globalCtx);
-void Cutscene_HandleConditionalTriggers(struct GlobalContext* globalCtx);
-void Cutscene_SetSegment(struct GlobalContext* globalCtx, void* segment);
+void func_8006450C(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_80064520(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_80064534(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void func_80064558(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cinema_Update(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cutscene_HandleEntranceTriggers(GlobalContext* globalCtx);
+void Cutscene_HandleConditionalTriggers(GlobalContext* globalCtx);
+void Cutscene_SetSegment(GlobalContext* globalCtx, void* segment);

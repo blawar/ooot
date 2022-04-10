@@ -910,8 +910,8 @@ void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBili* pthis = (EnBili*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bili.c", 1521);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bili.c", 1521);
+	func_80093D84(globalCtx->gfxCtx);
 
 	pthis->tentaclesTexIndex = CLAMP_MAX(pthis->tentaclesTexIndex, 7);
 
@@ -927,7 +927,7 @@ void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnBili_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bili.c", 1552);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bili.c", 1552);
 }
 
 void EnBili_Reset(Actor* pthisx, GlobalContext* globalCtx)

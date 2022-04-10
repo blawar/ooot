@@ -559,11 +559,11 @@ void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BgSpot16Bombstone* pthis = (BgSpot16Bombstone*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_bombstone.c", 1253);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_bombstone.c", 1253);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot16_bombstone.c", 1257), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot16_bombstone.c", 1257), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(pthis->actor.params == 0xFF)
 	{
@@ -577,7 +577,7 @@ void BgSpot16Bombstone_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gSPDisplayList(POLY_OPA_DISP++, pthis->dList);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_bombstone.c", 1274);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_bombstone.c", 1274);
 }
 
 void BgSpot16Bombstone_Reset(Actor* pthisx, GlobalContext* globalCtx)

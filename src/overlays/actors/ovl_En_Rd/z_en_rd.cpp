@@ -1093,11 +1093,11 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnRd* pthis = (EnRd*)thisx;
 	Vec3f thisPos = thisx->world.pos;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rd.c", 1679);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_rd.c", 1679);
 
 	if(pthis->unk_314 == 0xFF)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, pthis->unk_314);
 		gSPSegment(POLY_OPA_DISP++, 8, &D_80116280[2]);
 		POLY_OPA_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnRd_OverrideLimbDraw, EnRd_PostLimbDraw, pthis, POLY_OPA_DISP);
@@ -1114,7 +1114,7 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->unk_314);
 		gSPSegment(POLY_XLU_DISP++, 8, &D_80116280[0]);
 		POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnRd_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
@@ -1122,7 +1122,7 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx)
 		func_80033C30(&thisPos, &D_80AE4958, pthis->unk_314, globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_rd.c", 1735);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_rd.c", 1735);
 }
 
 void EnRd_Reset(Actor* pthisx, GlobalContext* globalCtx)

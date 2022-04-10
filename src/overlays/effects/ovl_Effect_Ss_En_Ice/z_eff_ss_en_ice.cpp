@@ -101,7 +101,7 @@ u32 EffectSsEnIce_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
 void EffectSsEnIce_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale;
 	Vec3f hiliteLightDir;
@@ -140,9 +140,9 @@ void EffectSsEnIce_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	hiliteLightDir.y = 0.0f;
 	hiliteLightDir.z = 89.8f;
 
-	func_80093D84(globalCtx->state.gfxCtx);
-	func_8002EB44(&pthis->pos, &globalCtx->view.eye, &hiliteLightDir, globalCtx->state.gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, gameplayFrames & 0xFF, 0x20, 0x10, 1, 0, (gameplayFrames * 2) & 0xFF, 0x40, 0x20));
+	func_80093D84(globalCtx->gfxCtx);
+	func_8002EB44(&pthis->pos, &globalCtx->view.eye, &hiliteLightDir, globalCtx->gfxCtx);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, gameplayFrames & 0xFF, 0x20, 0x10, 1, 0, (gameplayFrames * 2) & 0xFF, 0x40, 0x20));
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, pthis->rPrimColorA);
 	gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, (u32)alpha);
 	gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment2DL);

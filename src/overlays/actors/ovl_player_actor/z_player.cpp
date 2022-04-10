@@ -12393,7 +12393,7 @@ void Player_Update(Actor* pthisx, GlobalContext* globalCtx)
 		}
 		else
 		{
-			sp44 = globalCtx->state.input[0];
+			sp44 = globalCtx->input[0];
 			if(pthis->unk_88E != 0)
 			{
 				sp44.cur.button &= ~(BTN_A | BTN_B | BTN_CUP);
@@ -12430,7 +12430,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 {
 	static s32 D_8085486C = 255;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19228);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player.c", 19228);
 
 	gSPSegment(POLY_OPA_DISP++, 0x0C, cullDList);
 	gSPSegment(POLY_XLU_DISP++, 0x0C, cullDList);
@@ -12439,7 +12439,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 
 	if((overrideLimbDraw == func_80090014) && (pthis->currentMask != PLAYER_MASK_NONE))
 	{
-		Mtx* sp70 = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, 2 * sizeof(Mtx));
+		Mtx* sp70 = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, 2 * sizeof(Mtx));
 
 		if(pthis->currentMask == PLAYER_MASK_BUNNY)
 		{
@@ -12492,15 +12492,15 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 			func_800D1694(pthis->actor.world.pos.x, pthis->actor.world.pos.y + 2.0f, pthis->actor.world.pos.z, &D_80854864);
 			Matrix_Scale(4.0f, 4.0f, 4.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player.c", 19317), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -15) % 128, 16, 32));
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player.c", 19317), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -15) % 128, 16, 32));
 			gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 255, D_8085486C);
 			gDPSetEnvColor(POLY_XLU_DISP++, 120, 90, 30, 128);
 			gSPDisplayList(POLY_XLU_DISP++, gHoverBootsCircleDL);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19328);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player.c", 19328);
 }
 
 void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
@@ -12508,7 +12508,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 	GlobalContext* globalCtx = globalCtx2;
 	Player* pthis = (Player*)pthisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19346);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player.c", 19346);
 
 	if(!(pthis->stateFlags2 & PLAYER_STATE2_29))
 	{
@@ -12526,7 +12526,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		}
 
 		func_80093C80(globalCtx);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		if(pthis->invincibilityTimer > 0)
 		{
@@ -12588,10 +12588,10 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		{
 			f32 scale = (pthis->unk_84F >> 1) * 22.0f;
 
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -2) % 128, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -2) % 128, 32, 32));
 
 			Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player.c", 19459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player.c", 19459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, 255);
 			gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment3DL);
 		}
@@ -12602,7 +12602,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19473);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player.c", 19473);
 }
 
 void Player_Destroy(Actor* pthisx, GlobalContext* globalCtx)
@@ -15132,7 +15132,7 @@ void Player_UpdateFunc_8084FBF4(Player* pthis, GlobalContext* globalCtx)
 
 s32 func_8084FCAC(Player* pthis, GlobalContext* globalCtx)
 {
-	sControlInput = &globalCtx->state.input[0];
+	sControlInput = &globalCtx->input[0];
 
 	if((CHECK_BTN_ALL(sControlInput->cur.button, BTN_A | BTN_L | BTN_R) && CHECK_BTN_ALL(sControlInput->press.button, BTN_B)) || (CHECK_BTN_ALL(sControlInput->cur.button, BTN_L) && CHECK_BTN_ALL(sControlInput->press.button, BTN_DRIGHT)))
 	{

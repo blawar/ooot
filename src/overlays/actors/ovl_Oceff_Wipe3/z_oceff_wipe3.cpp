@@ -70,7 +70,7 @@ void OceffWipe3_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void OceffWipe3_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	u32 scroll = globalCtx->state.frames & 0xFFF;
+	u32 scroll = globalCtx->frames & 0xFFF;
 	OceffWipe3* pthis = (OceffWipe3*)thisx;
 	f32 z;
 	u8 alpha;
@@ -102,9 +102,9 @@ void OceffWipe3_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	vtxPtr[1].v.cn[3] = vtxPtr[3].v.cn[3] = vtxPtr[5].v.cn[3] = vtxPtr[7].v.cn[3] = vtxPtr[9].v.cn[3] = vtxPtr[11].v.cn[3] = vtxPtr[13].v.cn[3] = vtxPtr[15].v.cn[3] = vtxPtr[17].v.cn[3] = vtxPtr[19].v.cn[3] = vtxPtr[21].v.cn[3] = alpha;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe3.c", 343);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_oceff_wipe3.c", 343);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	Matrix_Translate(eye.x + vec.x, eye.y + vec.y, eye.z + vec.z, MTXMODE_NEW);
 	const float correction_factor = (gfx_width() * 3.0f) / (gfx_height() * 4.0f); // Should be 1 on a 4:3 display
@@ -112,15 +112,15 @@ void OceffWipe3_Draw(Actor* thisx, GlobalContext* globalCtx)
 	func_800D1FD4(&globalCtx->billboardMtxF);
 	Matrix_Translate(0.0f, 0.0f, -z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_oceff_wipe3.c", 353), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_oceff_wipe3.c", 353), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 170, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, 100, 200, 0, 128);
 	gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
-	gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * 12, scroll * (-12), 64, 64, 1, scroll * 8, scroll * (-8), 64, 64));
+	gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, scroll * 12, scroll * (-12), 64, 64, 1, scroll * 8, scroll * (-8), 64, 64));
 	gSPDisplayList(POLY_XLU_DISP++, sFrustumDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_oceff_wipe3.c", 370);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_oceff_wipe3.c", 370);
 }
 
 void OceffWipe3_Reset(Actor* pthisx, GlobalContext* globalCtx)

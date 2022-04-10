@@ -328,10 +328,10 @@ void BgBreakwall_Draw(Actor* pthisx, GlobalContext* globalCtx)
 
 	if(pthis->bombableWallDList != NULL)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_breakwall.c", 767);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_breakwall.c", 767);
 
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_breakwall.c", 771), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D18(globalCtx->gfxCtx);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_breakwall.c", 771), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, pthis->bombableWallDList);
 
 		if(pthis->colType >= 0)
@@ -350,7 +350,7 @@ void BgBreakwall_Draw(Actor* pthisx, GlobalContext* globalCtx)
 			CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_breakwall.c", 822);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_breakwall.c", 822);
 	}
 }
 

@@ -1,15 +1,16 @@
-﻿#include <string>
-#include "global.h"
+﻿#include "global.h"
+#include <string>
 #include <vector>
 #include "audiomgr.h"
 #include "controller/tas.h"
 #include "options.h"
+#include "padmgr.h"
 #include "ultra64/exception.h"
 #include "ultra64/rcp.h"
 #include "ultra64/types.h"
 #include "ultra64/vi.h"
 #include "z64audio.h"
-#include "z_prenmi_buff.h"
+#include "z64game.h"
 #include "def/audio.h"
 #include "def/audioMgr.h"
 #include "def/sys_cfb.h"
@@ -19,7 +20,6 @@
 f32 qNaN0x10000;
 // f32 sNaN0x3FFFFF;
 
-PreNmiBuff* gAppNmiBufferPtr;
 SchedContext gSchedContext;
 PadMgr gPadMgr;
 uintptr_t gSegments[NUM_SEGMENTS];
@@ -47,10 +47,6 @@ void xxxDebugDisplay_Init(void)
 struct DebugDispObject* xxxDebugDisplay_AddObject(f32 posX, f32 posY, f32 posZ, s16 rotX, s16 rotY, s16 rotZ, f32 scaleX, f32 scaleY, f32 scaleZ, u8 red, u8 green, u8 blue, u8 alpha, s16 type, struct GraphicsContext* gfxCtx)
 {
 	return NULL;
-}
-
-void xxxDebugDisplay_DrawObjects(struct GlobalContext* globalCtx)
-{
 }
 
 __osHwInt __osHwIntTable[4] = {0};
@@ -174,7 +170,6 @@ void run()
 	gViConfigYScale = 1.0f;
 
 	osSyncPrintf("mainproc execution start\n"); // "Start running"
-	gAppNmiBufferPtr = (PreNmiBuff*)osAppNmiBuffer;
 	SysCfb_Init(0);
 
 	func_800636C0();

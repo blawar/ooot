@@ -171,13 +171,13 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	flameParams = &D_80A9E840[pthis->actor.params & 0xF];
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_light.c", 441);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_light.c", 441);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(pthis->actor.params >= 0)
 	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->timer * -20) & 511, 32, 128));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->timer * -20) & 511, 32, 128));
 
 		dList = gEffFire1DL;
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, flameParams->primColor.r, flameParams->primColor.g, flameParams->primColor.b, flameParams->primColor.a);
@@ -185,7 +185,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 32, 1, ((pthis->timer * 2) & 63), (pthis->timer * -6) & 127 * 1, 16, 32));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 32, 1, ((pthis->timer * 2) & 63), (pthis->timer * -6) & 127 * 1, 16, 32));
 
 		dList = gUnusedCandleDL;
 		gDPSetPrimColor(POLY_XLU_DISP++, 0xC0, 0xC0, 255, 200, 0, 0);
@@ -200,10 +200,10 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_light.c", 488), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_light.c", 488), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, dList);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_light.c", 491);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_light.c", 491);
 }
 
 void EnLight_Reset(Actor* pthisx, GlobalContext* globalCtx)

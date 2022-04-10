@@ -35,7 +35,7 @@ void KaleidoScope_DrawEquipmentImage(GlobalContext* globalCtx, void* source, u32
 	s32 pad;
 	s32 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_equipment.c", 68);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_equipment.c", 68);
 
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
@@ -89,7 +89,7 @@ void KaleidoScope_DrawEquipmentImage(GlobalContext* globalCtx, void* source, u32
 		vtxIndex += 4;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_equipment.c", 122);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_equipment.c", 122);
 }
 
 void KaleidoScope_DrawPlayerWork(GlobalContext* globalCtx)
@@ -130,7 +130,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx, oot::pause::Page* page
 {
 	Vtx* equipVtx = page->auxVtx();
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	u16 i;
 	u16 j;
 	u16 k;
@@ -147,7 +147,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx, oot::pause::Page* page
 	s16 cursorY;
 	volatile s16 oldCursorPoint;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
+	OPEN_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
 
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, ZREG(39), ZREG(40), ZREG(41), pauseCtx->alpha);
@@ -696,7 +696,7 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx, oot::pause::Page* page
 		}
 	}
 
-	func_800949A8(globalCtx->state.gfxCtx);
+	func_800949A8(globalCtx->gfxCtx);
 
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
@@ -711,18 +711,18 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx, oot::pause::Page* page
 
 			if((point != 0) && (CUR_UPG_VALUE(sChildUpgrades[i]) != 0))
 			{
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIcons[sChildUpgradeItemBases[i] + point - 1], 32, 32, 0);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIcons[sChildUpgradeItemBases[i] + point - 1], 32, 32, 0);
 			}
 		}
 		else
 		{
 			if((i == 0) && (CUR_UPG_VALUE(sAdultUpgrades[i]) == 0))
 			{
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIcons[sChildUpgradeItemBases[i] + CUR_UPG_VALUE(sChildUpgrades[i]) - 1], 32, 32, 0);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIcons[sChildUpgradeItemBases[i] + CUR_UPG_VALUE(sChildUpgrades[i]) - 1], 32, 32, 0);
 			}
 			else if(CUR_UPG_VALUE(sAdultUpgrades[i]) != 0)
 			{
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[sAdultUpgradeItemBases[i] + CUR_UPG_VALUE(sAdultUpgrades[i]) - 1], 32, 32, 0);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIconsCurrent[sAdultUpgradeItemBases[i] + CUR_UPG_VALUE(sAdultUpgrades[i]) - 1], 32, 32, 0);
 			}
 		}
 
@@ -730,15 +730,15 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx, oot::pause::Page* page
 		{
 			if(((u32)i == 0) && (k == 2) && (gSaveContext.bgsFlag != 0))
 			{
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_BGS], 32, 32, point);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIconsCurrent[ITEM_SWORD_BGS], 32, 32, point);
 			}
 			else if((i == 0) && (k == 2) && (gBitFlags[bit + 1] & gSaveContext.inventory.equipment))
 			{
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_BROKEN], 32, 32, point);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIconsCurrent[ITEM_SWORD_BROKEN], 32, 32, point);
 			}
 			else if(gBitFlags[bit] & gSaveContext.inventory.equipment)
 			{
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[ITEM_SWORD_KOKIRI + temp], 32, 32, point);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIconsCurrent[ITEM_SWORD_KOKIRI + temp], 32, 32, point);
 			}
 		}
 	}
@@ -762,12 +762,12 @@ void KaleidoScope_DrawEquipment(GlobalContext* globalCtx, oot::pause::Page* page
 	gSPSegment(POLY_OPA_DISP++, 0x0B, globalCtx->interfaceCtx.mapSegment1);
 	gSPSegment(POLY_OPA_DISP++, 0x0C, pauseCtx->iconItemAltSegment);
 
-	func_800949A8(globalCtx->state.gfxCtx);
+	func_800949A8(globalCtx->gfxCtx);
 	KaleidoScope_DrawEquipmentImage(globalCtx, pauseCtx->playerSegment, 64, 112, equipVtx);
 
 	if(gUpgradeMasks[0])
 	{
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_equipment.c", 609);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_equipment.c", 609);
 }

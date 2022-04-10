@@ -455,7 +455,7 @@ void EnCow_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnCow* pthis = (EnCow*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnCow_OverrideLimbDraw, EnCow_PostLimbDraw, pthis);
 }
 
@@ -463,7 +463,7 @@ void func_809E0070(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnCow* pthis = (EnCow*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 }
 

@@ -770,9 +770,9 @@ void EnReeba_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnReeba* pthis = (EnReeba*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_reeba.c", 1062);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_reeba.c", 1062);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(pthis->isBig)
 	{
@@ -785,7 +785,7 @@ void EnReeba_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	SkelAnime_DrawOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, NULL, NULL, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_reeba.c", 1088);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_reeba.c", 1088);
 }
 
 void EnReeba_Reset(Actor* pthisx, GlobalContext* globalCtx)

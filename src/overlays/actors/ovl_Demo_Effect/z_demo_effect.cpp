@@ -1872,7 +1872,7 @@ void DemoEffect_DrawJewel(Actor* thisx, GlobalContext* globalCtx2)
 	GlobalContext* globalCtx = globalCtx2;
 	u32 frames = pthis->jewel.timer;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2543);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2543);
 
 	if(!DemoEffect_CheckCsAction(pthis, globalCtx, 1))
 	{
@@ -1885,15 +1885,15 @@ void DemoEffect_DrawJewel(Actor* thisx, GlobalContext* globalCtx2)
 			switch(pthis->jewel.type)
 			{
 				case DEMO_EFFECT_JEWEL_KOKIRI:
-					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 4) % 256, (256 - ((frames * 2) % 256)) - 1, 64, 64, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
+					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 256, (256 - ((frames * 2) % 256)) - 1, 64, 64, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
 					break;
 
 				case DEMO_EFFECT_JEWEL_GORON:
-					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 4) % 128, (256 - ((frames * 2) % 256)) - 1, 32, 64, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 8));
+					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 128, (256 - ((frames * 2) % 256)) - 1, 32, 64, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 8));
 					break;
 
 				case DEMO_EFFECT_JEWEL_ZORA:
-					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 4) % 256, (256 - ((frames * 2) % 256)) - 1, 32, 32, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
+					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 256, (256 - ((frames * 2) % 256)) - 1, 32, 32, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
 					break;
 			}
 
@@ -1901,15 +1901,15 @@ void DemoEffect_DrawJewel(Actor* thisx, GlobalContext* globalCtx2)
 			{
 			}
 
-			gSPSegment(POLY_OPA_DISP++, 8, Gfx_TexScroll(globalCtx->state.gfxCtx, (u8)frames, (u8)frames, 16, 16));
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2597), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2599), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			func_80093D84(globalCtx->state.gfxCtx);
+			gSPSegment(POLY_OPA_DISP++, 8, Gfx_TexScroll(globalCtx->gfxCtx, (u8)frames, (u8)frames, 16, 16));
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2597), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2599), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			func_80093D84(globalCtx->gfxCtx);
 			func_8002ED80(&pthis->actor, globalCtx, 0);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, pthis->primXluColor[0], pthis->primXluColor[1], pthis->primXluColor[2], 255);
 			gDPSetEnvColor(POLY_XLU_DISP++, pthis->envXluColor[0], pthis->envXluColor[1], pthis->envXluColor[2], 255);
 			gSPDisplayList(POLY_XLU_DISP++, pthis->jewelDisplayList);
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 			func_8002EBCC(&pthis->actor, globalCtx, 0);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 128, pthis->primOpaColor[0], pthis->primOpaColor[1], pthis->primOpaColor[2], 255);
 			gDPSetEnvColor(POLY_OPA_DISP++, pthis->envOpaColor[0], pthis->envOpaColor[1], pthis->envOpaColor[2], 255);
@@ -1917,7 +1917,7 @@ void DemoEffect_DrawJewel(Actor* thisx, GlobalContext* globalCtx2)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2620);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2620);
 }
 
 /**
@@ -1929,7 +1929,7 @@ void DemoEffect_DrawCrystalLight(Actor* thisx, GlobalContext* globalCtx)
 	DemoEffect* parent = (DemoEffect*)pthis->actor.parent;
 	u32 frames = globalCtx->gameplayFrames & 0xFFFF;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2634);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2634);
 
 	if(parent != NULL)
 	{
@@ -1940,31 +1940,31 @@ void DemoEffect_DrawCrystalLight(Actor* thisx, GlobalContext* globalCtx)
 		gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 255, 255, 170, 255);
 	}
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 2) % 512, 512 - (frames % 512) - 1, 128, 128, 1, 512 - ((frames * 2) % 512) - 1, 0, 64, 64));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 2) % 512, 512 - (frames % 512) - 1, 128, 128, 1, 512 - ((frames * 2) % 512) - 1, 0, 64, 64));
 	Matrix_Push();
 	Matrix_RotateY(0.0f, MTXMODE_APPLY);
 	Matrix_RotateX((11.0 * M_PI) / 180.0, MTXMODE_APPLY);
 	Matrix_Translate(0.0f, 150.0f, 0.0f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2661), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2661), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gCrystalLightDL);
 	Matrix_Pop();
 	Matrix_Push();
 	Matrix_RotateY((2.0f * M_PI) / 3.0f, MTXMODE_APPLY);
 	Matrix_RotateX((11.0 * M_PI) / 180.0, MTXMODE_APPLY);
 	Matrix_Translate(0.0f, 150.0f, 0.0f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2672), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2672), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gCrystalLightDL);
 	Matrix_Pop();
 	Matrix_Push();
 	Matrix_RotateY((4.0f * M_PI) / 3.0f, MTXMODE_APPLY);
 	Matrix_RotateX((11.0 * M_PI) / 180.0, MTXMODE_APPLY);
 	Matrix_Translate(0.0f, 150.0f, 0.0f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2683), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2683), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gCrystalLightDL);
 	Matrix_Pop();
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2688);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2688);
 }
 
 /**
@@ -1975,15 +1975,15 @@ void DemoEffect_DrawFireBall(Actor* thisx, GlobalContext* globalCtx)
 	DemoEffect* pthis = (DemoEffect*)thisx;
 	u32 frames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2701);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2701);
 	gDPSetPrimColor(POLY_XLU_DISP++, 64, 64, 255, 200, 0, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 255);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2709), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2709), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPMatrix(POLY_XLU_DISP++, globalCtx->billboardMtx, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 32, 1, 0, 128 - ((frames * 20) % 128) - 1, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 32, 1, 0, 128 - ((frames * 20) % 128) - 1, 32, 32));
 	gSPDisplayList(POLY_XLU_DISP++, gCreationFireBallDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2723);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2723);
 }
 
 /**
@@ -1996,7 +1996,7 @@ void DemoEffect_DrawGodLgt(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	u32 frames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2737);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2737);
 
 	if(!DemoEffect_CheckCsAction(pthis, globalCtx, 2))
 	{
@@ -2019,15 +2019,15 @@ void DemoEffect_DrawGodLgt(Actor* thisx, GlobalContext* globalCtx)
 			Common_PlaySfxAtPos(&pthis->actor.projectedPos, NA_SE_EV_GOD_FLYING - SFX_FLAG);
 		}
 
-		gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 4) % 512, 0, 128, 64, 1, (frames * 2) % 256, 512 - ((frames * 70) % 512) - 1, 64, 32));
-		gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 96, 1, (frames * 10) % 256, 256 - ((frames * 30) % 512) - 1, 8, 32));
+		gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 512, 0, 128, 64, 1, (frames * 2) % 256, 512 - ((frames * 70) % 512) - 1, 64, 32));
+		gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 96, 1, (frames * 10) % 256, 256 - ((frames * 30) % 512) - 1, 8, 32));
 		gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, pthis->primXluColor[0], pthis->primXluColor[1], pthis->primXluColor[2], 255);
 		gDPSetEnvColor(POLY_XLU_DISP++, pthis->envXluColor[0], pthis->envXluColor[1], pthis->envXluColor[2], 255);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		Matrix_Push();
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2801), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2801), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gGoldenGoddessAuraDL);
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		func_8002EBCC(&pthis->actor, globalCtx, 0);
 		Matrix_Pop();
 
@@ -2044,11 +2044,11 @@ void DemoEffect_DrawGodLgt(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, -140.0f, 0.0f, MTXMODE_APPLY);
 		Matrix_Scale(0.03f, 0.03f, 0.03f, MTXMODE_APPLY);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2824), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2824), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gGoldenGoddessBodyDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2829);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2829);
 }
 
 /**
@@ -2060,7 +2060,7 @@ void DemoEffect_DrawLightEffect(Actor* thisx, GlobalContext* globalCtx)
 	u8* alpha;
 	Gfx* disp;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2842);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2842);
 
 	if(!DemoEffect_CheckCsAction(pthis, globalCtx, 1))
 	{
@@ -2072,14 +2072,14 @@ void DemoEffect_DrawLightEffect(Actor* thisx, GlobalContext* globalCtx)
 		{
 			disp = gEffFlash1DL; // necessary to match, should be able to remove after fake matches are fixed
 			alpha = &pthis->light.alpha;
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, pthis->primXluColor[0], pthis->primXluColor[1], pthis->primXluColor[2], *alpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, pthis->envXluColor[0], pthis->envXluColor[1], pthis->envXluColor[2], 255);
 			Matrix_Scale(((pthis->light.scaleFlag & 1) * 0.05f) + 1.0f, ((pthis->light.scaleFlag & 1) * 0.05f) + 1.0f, ((pthis->light.scaleFlag & 1) * 0.05f) + 1.0f, MTXMODE_APPLY);
 			Matrix_Push();
 			Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 			Matrix_RotateZ(pthis->light.rotation * (M_PI / 180.0f), MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2866), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2866), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
 			if(disp)
 			{
 			};
@@ -2087,12 +2087,12 @@ void DemoEffect_DrawLightEffect(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_Pop();
 			Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 			Matrix_RotateZ(-(f32)pthis->light.rotation * (M_PI / 180.0f), MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2874), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2874), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, disp);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2881);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2881);
 }
 
 /**
@@ -2103,16 +2103,16 @@ void DemoEffect_DrawBlueOrb(Actor* thisx, GlobalContext* globalCtx)
 	DemoEffect* pthis = (DemoEffect*)thisx;
 	s32 pad2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2892);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2892);
 	gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 188, 255, 255, pthis->blueOrb.alpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 255);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 	Matrix_RotateZ(pthis->blueOrb.rotation * (M_PI / 0x8000), MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2901), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2901), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	pthis->blueOrb.rotation += 0x01F4;
 	gSPDisplayList(POLY_XLU_DISP++, gEffFlash1DL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2907);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2907);
 }
 
 /**
@@ -2124,14 +2124,14 @@ void DemoEffect_DrawLgtShower(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	u32 frames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2921);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2921);
 	gDPSetPrimColor(POLY_XLU_DISP++, 64, 64, 255, 255, 160, pthis->lgtShower.alpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 50, 200, 0, 255);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2927), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 5) % 1024, 0, 256, 64, 1, (frames * 10) % 128, 512 - ((frames * 50) % 512), 32, 16));
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2927), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 5) % 1024, 0, 256, 64, 1, (frames * 10) % 128, 512 - ((frames * 50) % 512), 32, 16));
 	gSPDisplayList(POLY_XLU_DISP++, gEnliveningLightDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2942);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2942);
 }
 
 /**
@@ -2143,16 +2143,16 @@ void DemoEffect_DrawLightRing(Actor* thisx, GlobalContext* globalCtx2)
 	GlobalContext* globalCtx = globalCtx2;
 	u32 frames = pthis->lightRing.timer;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2956);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2956);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 170, 255, 255, pthis->lightRing.alpha);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 255);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2963), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 5) % 64, 512 - ((frames * 2) % 512) - 1, 16, 128, 1, 0, 0, 8, 1024));
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2963), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 5) % 64, 512 - ((frames * 2) % 512) - 1, 16, 128, 1, 0, 0, 8, 1024));
 	gSPDisplayList(POLY_XLU_DISP++, gGoldenGoddessLightRingDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2978);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2978);
 }
 
 /**
@@ -2165,18 +2165,18 @@ void DemoEffect_DrawTriforceSpot(Actor* thisx, GlobalContext* globalCtx)
 	Vtx* vertices = SEGMENTED_TO_VIRTUAL(gTriforceVtx);
 	u32 frames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2994);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2994);
 	if(gSaveContext.entranceIndex != 0x0400 || globalCtx->csCtx.frames < 885)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		if(pthis->triforceSpot.lightColumnOpacity > 0)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_AURORA - SFX_FLAG);
 			Matrix_Push();
 			Matrix_Scale(1.0f, 2.4f, 1.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3011), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 256 - ((frames * 4) % 256) - 1, 64, 64, 1, 0, 256 - ((frames * 2) % 256) - 1, 64, 32));
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 3011), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 256 - ((frames * 4) % 256) - 1, 64, 64, 1, 0, 256 - ((frames * 2) % 256) - 1, 64, 32));
 			vertices[86].n.a = vertices[87].n.a = vertices[88].n.a = vertices[89].n.a = vertices[92].n.a = vertices[93].n.a = vertices[94].n.a = vertices[95].n.a = (s8)pthis->triforceSpot.lightColumnOpacity;
 			gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 180, 255, 255, pthis->triforceSpot.lightColumnOpacity);
 			gDPSetEnvColor(POLY_XLU_DISP++, 0, 255, 150, 255);
@@ -2187,16 +2187,16 @@ void DemoEffect_DrawTriforceSpot(Actor* thisx, GlobalContext* globalCtx)
 		if(pthis->triforceSpot.triforceSpotOpacity != 0)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_TRIFORCE - SFX_FLAG);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3042), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 3042), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			if(pthis->triforceSpot.triforceSpotOpacity < 250)
 			{
 				func_8002ED80(&pthis->actor, globalCtx, 0);
-				func_80093D84(globalCtx->state.gfxCtx);
+				func_80093D84(globalCtx->gfxCtx);
 				gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
 				Matrix_RotateY(pthis->triforceSpot.rotation * (M_PI / 0x8000), MTXMODE_APPLY);
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3053), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 16, 1, 0, 0, 16, 8));
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 3053), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 16, 1, 0, 0, 16, 8));
 				gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 255, 255, 160, pthis->triforceSpot.triforceSpotOpacity);
 				gDPSetEnvColor(POLY_XLU_DISP++, 170, 140, 0, 255);
 				gSPDisplayList(POLY_XLU_DISP++, gTriforceDL);
@@ -2204,18 +2204,18 @@ void DemoEffect_DrawTriforceSpot(Actor* thisx, GlobalContext* globalCtx)
 			else
 			{
 				func_8002EBCC(&pthis->actor, globalCtx, 0);
-				func_80093D18(globalCtx->state.gfxCtx);
+				func_80093D18(globalCtx->gfxCtx);
 				gDPSetRenderMode(POLY_OPA_DISP++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
 				Matrix_RotateY(pthis->triforceSpot.rotation * (M_PI / 0x8000), MTXMODE_APPLY);
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3085), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-				gSPSegment(POLY_OPA_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 16, 1, 0, 0, 16, 8));
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 3085), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPSegment(POLY_OPA_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 16, 1, 0, 0, 16, 8));
 				gDPSetPrimColor(POLY_OPA_DISP++, 128, 128, 255, 255, 160, 255);
 				gDPSetEnvColor(POLY_OPA_DISP++, 170, 140, 0, 255);
 				gSPDisplayList(POLY_OPA_DISP++, gTriforceDL);
 			}
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3112);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 3112);
 }
 
 /**
@@ -2247,12 +2247,12 @@ s32 DemoEffect_DrawTimewarpLimbs(GlobalContext* globalCtx, SkelAnimeCurve* skelC
 	DemoEffect* pthis = (DemoEffect*)thisx;
 	u32 frames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3154);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 3154);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, 170, 255, 255, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, pthis->envXluColor[0], pthis->envXluColor[1], pthis->envXluColor[2], 255);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (frames * 6) % 1024, 256 - ((frames * 16) % 256) - 1, 256, 64, 1, (frames * 4) % 512, 128 - ((frames * 12) % 128) - 1, 128, 32));
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 3172);
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 6) % 1024, 256 - ((frames * 16) % 256) - 1, 256, 64, 1, (frames * 4) % 512, 128 - ((frames * 12) % 128) - 1, 128, 32));
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 3172);
 
 	if(limbIndex == 0)
 	{
@@ -2271,7 +2271,7 @@ s32 DemoEffect_DrawTimewarpLimbs(GlobalContext* globalCtx, SkelAnimeCurve* skelC
 void DemoEffect_DrawTimeWarp(Actor* thisx, GlobalContext* globalCtx)
 {
 	DemoEffect* pthis = (DemoEffect*)thisx;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	u8 effectType = (pthis->actor.params & 0x00FF);
 
 	if(effectType == DEMO_EFFECT_TIMEWARP_TIMEBLOCK_LARGE || effectType == DEMO_EFFECT_TIMEWARP_TIMEBLOCK_SMALL || Flags_GetEnv(globalCtx, 1) || gSaveContext.sceneSetupIndex >= 4 || gSaveContext.entranceIndex == 0x0324)

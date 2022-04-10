@@ -94,7 +94,7 @@ enum HorseType
 	/* 1 */ HORSE_HNI
 };
 
-typedef void (*EnHorsePostdrawFunc)(struct EnHorse*, struct GlobalContext*);
+typedef void (*EnHorsePostdrawFunc)(struct EnHorse*, GlobalContext*);
 
 typedef
 

@@ -595,9 +595,9 @@ void DemoIm_DrawTranslucent(DemoIm* pthis, GlobalContext* globalCtx)
 	void* eyeTex = sEyeTextures[eyeIndex];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_im_inKenjyanomaDemo02.c", 281);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_im_inKenjyanomaDemo02.c", 281);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex));
@@ -606,7 +606,7 @@ void DemoIm_DrawTranslucent(DemoIm* pthis, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_im_inKenjyanomaDemo02.c", 308);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_im_inKenjyanomaDemo02.c", 308);
 }
 
 void func_80985E60(DemoIm* pthis, GlobalContext* globalCtx)
@@ -1374,9 +1374,9 @@ void DemoIm_DrawSolid(DemoIm* pthis, GlobalContext* globalCtx)
 	void* eyeTexture = sEyeTextures[eyeIndex];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_im.c", 904);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_im.c", 904);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTexture));
@@ -1385,7 +1385,7 @@ void DemoIm_DrawSolid(DemoIm* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, DemoIm_OverrideLimbDraw, DemoIm_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_im.c", 925);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_im.c", 925);
 }
 
 void DemoIm_Draw(Actor* thisx, GlobalContext* globalCtx)

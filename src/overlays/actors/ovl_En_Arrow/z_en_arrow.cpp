@@ -542,16 +542,16 @@ void EnArrow_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->actor.params <= ARROW_0E)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		SkelAnime_DrawLod(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, pthis, (pthis->actor.projectedPos.z < MREG(95)) ? 0 : 1);
 	}
 	else if(pthis->actor.speedXZ != 0.0f)
 	{
 		alpha = (Math_CosS(pthis->timer * 5000) * 127.5f) + 127.5f;
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_arrow.c", 1346);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_arrow.c", 1346);
 
-		func_80093C14(globalCtx->state.gfxCtx);
+		func_80093C14(globalCtx->gfxCtx);
 
 		if(pthis->actor.params == ARROW_SEED)
 		{
@@ -571,12 +571,12 @@ void EnArrow_Draw(Actor* thisx, GlobalContext* globalCtx)
 		// redundant check because pthis is contained in an if block for non-zero speed
 		Matrix_RotateZ((pthis->actor.speedXZ == 0.0f) ? 0.0f : ((globalCtx->gameplayFrames & 0xFF) * 4000) * (M_PI / 0x8000), MTXMODE_APPLY);
 		Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_arrow.c", 1374), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_arrow.c", 1374), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gEffSparklesDL);
 		Matrix_Pop();
 		Matrix_RotateY(pthis->actor.world.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_arrow.c", 1381);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_arrow.c", 1381);
 	}
 
 	func_809B4800(pthis, globalCtx);

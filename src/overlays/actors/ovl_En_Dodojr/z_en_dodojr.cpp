@@ -334,7 +334,7 @@ void func_809F6E54(EnDodojr* pthis, GlobalContext* globalCtx)
 
 	if(Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &pos) > 80.0f)
 	{
-		angleIndex = (s16)(pthis->actor.home.pos.x + pthis->actor.home.pos.y + pthis->actor.home.pos.z + globalCtx->state.frames.whole() / 30) % 12;
+		angleIndex = (s16)(pthis->actor.home.pos.x + pthis->actor.home.pos.y + pthis->actor.home.pos.z + globalCtx->frames.whole() / 30) % 12;
 		angleIndex = ABS(angleIndex);
 		pos.x += 80.0f * sinf(angles[angleIndex]);
 		pos.z += 80.0f * cosf(angles[angleIndex]);
@@ -747,7 +747,7 @@ void EnDodojr_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if((pthis->actionFunc != func_809F73AC) && (pthis->actionFunc != func_809F7BE4))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, func_809F7D50, func_809F7DFC, &pthis->actor);
 	}
 }

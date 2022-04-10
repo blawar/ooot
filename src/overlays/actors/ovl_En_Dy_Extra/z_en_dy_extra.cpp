@@ -106,7 +106,7 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDyExtra* pthis = (EnDyExtra*)thisx;
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	Vtx* vertices = SEGMENTED_TO_VIRTUAL(gGreatFairySpiralBeamVtx);
 	s32 i;
 	u8 unk[3];
@@ -125,10 +125,10 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	OPEN_DISPS(gfxCtx, "../z_en_dy_extra.c", 294);
 
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->state.frames * 2, 0, 0x20, 0x40, 1, globalCtx->state.frames, globalCtx->state.frames * -8, 0x10, 0x10));
+	func_80093D84(globalCtx->gfxCtx);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, globalCtx->frames * 2, 0, 0x20, 0x40, 1, globalCtx->frames, globalCtx->frames * -8, 0x10, 0x10));
 	gDPPipeSync(POLY_XLU_DISP++);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dy_extra.c", 307), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_dy_extra.c", 307), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, primColors_25[pthis->type].r, primColors_25[pthis->type].g, primColors_25[pthis->type].b, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, envColors_25[pthis->type].r, envColors_25[pthis->type].g, envColors_25[pthis->type].b, 128);
 	gSPDisplayList(POLY_XLU_DISP++, gGreatFairySpiralBeamDL);

@@ -613,11 +613,11 @@ s32 EnSkb_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 	{
 		if((pthis->unk_283 & 2) == 0)
 		{
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skb.c", 972);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skb.c", 972);
 			color = ABS((s16)(Math_SinS((globalCtx->gameplayFrames * 0x1770)) * 95.0f)) + 160;
 			gDPPipeSync(POLY_OPA_DISP++);
 			gDPSetEnvColor(POLY_OPA_DISP++, color, color, color, 255);
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skb.c", 978);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skb.c", 978);
 		}
 		else
 		{
@@ -650,7 +650,7 @@ void EnSkb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 void EnSkb_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnSkb* pthis = (EnSkb*)thisx;
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSkb_OverrideLimbDraw, EnSkb_PostLimbDraw, &pthis->actor);
 }
 

@@ -288,7 +288,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 	BossGanon* ganondorf;
 	f32 spBC = -30.0f;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 702);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_ganon_otyuka.c", 702);
 
 	actor = globalCtx->actorCtx.actorLists[ACTORCAT_BOSS].head;
 	while(actor != NULL)
@@ -311,7 +311,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		actor = actor->next;
 	}
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPDisplayList(POLY_OPA_DISP++, sPlatformMaterialDL);
 
 	actor = globalCtx->actorCtx.actorLists[ACTORCAT_PROP].head;
@@ -346,7 +346,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 						phi_s1 = sPlatformTopDL;
 					}
 				}
-				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 766), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_ganon_otyuka.c", 766), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_OPA_DISP++, phi_s2);
 
 				if(phi_s1 != NULL)
@@ -361,7 +361,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 						Matrix_Push();
 						Matrix_Translate(sSideCenters[i].x, 0.0f, sSideCenters[i].z, MTXMODE_APPLY);
 						Matrix_RotateY(sSideAngles[i], MTXMODE_APPLY);
-						gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 785), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+						gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_ganon_otyuka.c", 785), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 						gSPDisplayList(POLY_OPA_DISP++, sPlatformSideDL);
 						Matrix_Pop();
 					}
@@ -372,7 +372,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		actor = actor->next;
 	}
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	actor = globalCtx->actorCtx.actorLists[ACTORCAT_PROP].head;
 	while(actor != NULL)
 	{
@@ -382,7 +382,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 
 			if((platform->dyna.actor.projectedPos.z > -30.0f) && (platform->flashState != FLASH_NONE))
 			{
-				gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, platform->flashTimer * 4, 0, 32, 64, 1, platform->flashTimer * 4, 0, 32, 64));
+				gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, platform->flashTimer * 4, 0, 32, 64, 1, platform->flashTimer * 4, 0, 32, 64));
 				gDPPipeSync(POLY_XLU_DISP++);
 				gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, platform->flashPrimColorR, platform->flashPrimColorG, platform->flashPrimColorB, 0);
 				gDPSetEnvColor(POLY_XLU_DISP++, platform->flashEnvColorR, platform->flashEnvColorG, platform->flashEnvColorB, 128);
@@ -396,7 +396,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 						Matrix_Translate(sSideCenters[i].x, 0.0f, sSideCenters[i].z, MTXMODE_APPLY);
 						Matrix_RotateY(sSideAngles[i], MTXMODE_APPLY);
 						Matrix_Scale(0.3f, platform->flashYScale * 0.3f, 0.3f, MTXMODE_APPLY);
-						gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 847), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+						gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_ganon_otyuka.c", 847), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 						gSPDisplayList(POLY_XLU_DISP++, sFlashDL);
 						Matrix_Pop();
 					}
@@ -407,7 +407,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		actor = actor->next;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_ganon_otyuka.c", 857);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_ganon_otyuka.c", 857);
 }
 
 void BgGanonOtyuka_Reset(Actor* pthisx, GlobalContext* globalCtx)

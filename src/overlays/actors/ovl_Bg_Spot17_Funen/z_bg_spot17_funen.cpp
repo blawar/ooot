@@ -58,20 +58,20 @@ void func_808B7478(Actor* thisx, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot17_funen.c", 153);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot17_funen.c", 153);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	Matrix_RotateY((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) - thisx->shape.rot.y + 0x8000) * 9.58738019108e-05f, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot17_funen.c", 161), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) & 0x7F, 0x20, 0x20, 1, 0, (0 - globalCtx->gameplayFrames.whole()) & 0x7F, 0x20, 0x20));
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot17_funen.c", 161), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) & 0x7F, 0x20, 0x20, 1, 0, (0 - globalCtx->gameplayFrames.whole()) & 0x7F, 0x20, 0x20));
 	gSPDisplayList(POLY_XLU_DISP++, gCraterSmokeConeDL);
 
 	if(1)
 	{
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot17_funen.c", 176);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot17_funen.c", 176);
 }
 
 void BgSpot17Funen_Reset(Actor* pthisx, GlobalContext* globalCtx)

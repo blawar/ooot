@@ -92,7 +92,7 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx, oot::pause::Page* pag
 	static s16 magicArrowEffectsR[] = {255, 100, 255};
 	static s16 magicArrowEffectsG[] = {0, 100, 255};
 	static s16 magicArrowEffectsB[] = {0, 255, 100};
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
 	u16 i;
 	u16 j;
@@ -107,9 +107,9 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx, oot::pause::Page* pag
 
 	auto itemVtx = page->auxVtx();
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_item.c", 234);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_item.c", 234);
 
-	func_800949A8(globalCtx->state.gfxCtx);
+	func_800949A8(globalCtx->gfxCtx);
 
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
 
@@ -533,7 +533,7 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx, oot::pause::Page* pag
 			}
 
 			gSPVertex(POLY_OPA_DISP++, &itemVtx[j + 0], 4, 0);
-			KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gItemIconsCurrent[gSaveContext.inventory.items[i]], 32, 32, 0);
+			KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gItemIconsCurrent[gSaveContext.inventory.items[i]], 32, 32, 0);
 		}
 	}
 
@@ -549,11 +549,11 @@ void KaleidoScope_DrawItemSelect(GlobalContext* globalCtx, oot::pause::Page* pag
 	{
 		if((gAmmoItems[i] != ITEM_NONE) && (gSaveContext.inventory.items[i] != ITEM_NONE))
 		{
-			KaleidoScope_DrawAmmoCount(pauseCtx, globalCtx->state.gfxCtx, gSaveContext.inventory.items[i], itemVtx);
+			KaleidoScope_DrawAmmoCount(pauseCtx, globalCtx->gfxCtx, gSaveContext.inventory.items[i], itemVtx);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_item.c", 516);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_item.c", 516);
 }
 
 static float sCButtonPosX[] = {66.0f, 90.0f, 114.0f};

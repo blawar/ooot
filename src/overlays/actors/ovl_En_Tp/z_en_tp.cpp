@@ -828,22 +828,22 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnTp* pthis = (EnTp*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tp.c", 1451);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tp.c", 1451);
 
 	if(pthis->unk_150 != 2)
 	{
 		if((thisx->params <= TAILPASARAN_HEAD) || (thisx->params == TAILPASARAN_HEAD_DYING))
 		{
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tp.c", 1459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tp.c", 1459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gTailpasaranHeadDL);
 
 			Matrix_Translate(0.0f, 0.0f, 8.0f, MTXMODE_APPLY);
 		}
 		else
 		{
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, pthis->red, 0, 255, pthis->alpha);
@@ -852,12 +852,12 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gTailpasaranTailSegmentTex));
 			gDPPipeSync(POLY_XLU_DISP++);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tp.c", 1480), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tp.c", 1480), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gTailpasaranTailSegmentDL);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tp.c", 1495);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tp.c", 1495);
 
 	if((thisx->params <= TAILPASARAN_TAIL) || (thisx->params == TAILPASARAN_TAIL_DYING))
 	{

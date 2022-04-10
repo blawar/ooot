@@ -9,7 +9,6 @@ struct PauseContext;
 struct MessageContext;
 struct GameOverContext;
 struct View;
-struct GlobalContext;
 
 #define FILL_SCREEN_OPA (1 << 0)
 #define FILL_SCREEN_XLU (1 << 1)

@@ -71,19 +71,19 @@ void EffectSsExtra_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	f32 scale = pthis->rScale / 100.0f;
 	void* object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 168);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_extra.c", 168);
 
 	gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(object);
 	gSPSegment(POLY_XLU_DISP++, 0x06, object);
 	Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	func_800D1FD4(&globalCtx->billboardMtxF);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 186), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_eff_ss_extra.c", 186), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sTextures[pthis->rScoreIdx]));
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_yabusame_point_DL_000DC0));
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_extra.c", 194);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_extra.c", 194);
 }
 
 void EffectSsExtra_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)

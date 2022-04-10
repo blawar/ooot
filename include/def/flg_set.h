@@ -1,4 +1,4 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
 
 void FlagSet_Update(GlobalContext* globalCtx);

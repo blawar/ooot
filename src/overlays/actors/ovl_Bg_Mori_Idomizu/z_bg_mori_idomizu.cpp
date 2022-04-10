@@ -194,21 +194,21 @@ void BgMoriIdomizu_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BgMoriIdomizu* pthis = (BgMoriIdomizu*)thisx;
 	u32 gameplayFrames = globalCtx->gameplayFrames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_idomizu.c", 356);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mori_idomizu.c", 356);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_idomizu.c", 360), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mori_idomizu.c", 360), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, 128);
 
-	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0x7F - (gameplayFrames & 0x7F), gameplayFrames % 0x80, 0x20, 0x20, 1, gameplayFrames & 0x7F, gameplayFrames % 0x80, 0x20, 0x20));
+	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0x7F - (gameplayFrames & 0x7F), gameplayFrames % 0x80, 0x20, 0x20, 1, gameplayFrames & 0x7F, gameplayFrames % 0x80, 0x20, 0x20));
 
 	gSPDisplayList(POLY_XLU_DISP++, gMoriIdomizuWaterDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_idomizu.c", 382);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mori_idomizu.c", 382);
 }
 
 void BgMoriIdomizu_Reset(Actor* pthisx, GlobalContext* globalCtx)

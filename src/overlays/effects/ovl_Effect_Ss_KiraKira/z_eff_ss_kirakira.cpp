@@ -103,7 +103,7 @@ void EffectSsKiraKira_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	Mtx* mtx;
 
 	scale = pthis->rScale / 10000.0f;
-	gfxCtx = globalCtx->state.gfxCtx;
+	gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_eff_ss_kirakira.c", 257);
 

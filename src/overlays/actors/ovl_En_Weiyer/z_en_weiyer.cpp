@@ -755,24 +755,24 @@ void EnWeiyer_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnWeiyer* pthis = (EnWeiyer*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_weiyer.c", 1193);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_weiyer.c", 1193);
 
 	if(pthis->actionFunc != func_80B33338)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, 255);
 		POLY_OPA_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnWeiyer_OverrideLimbDraw, NULL, &pthis->actor, POLY_OPA_DISP);
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSPSegment(POLY_XLU_DISP++, 0x08, &D_80116280[0]);
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->actor.shape.shadowAlpha);
 		POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnWeiyer_OverrideLimbDraw, NULL, &pthis->actor, POLY_XLU_DISP);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_weiyer.c", 1240);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_weiyer.c", 1240);
 }
 
 void EnWeiyer_Reset(Actor* pthisx, GlobalContext* globalCtx)

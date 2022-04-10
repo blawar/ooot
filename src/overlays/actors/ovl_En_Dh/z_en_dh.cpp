@@ -612,36 +612,36 @@ void EnDh_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnDh* pthis = (EnDh*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dh.c", 1099);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_dh.c", 1099);
 	if(pthis->alpha == 255)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, pthis->alpha);
 		gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
 		POLY_OPA_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, EnDh_PostLimbDraw, &pthis->actor, POLY_OPA_DISP);
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->alpha);
 		gSPSegment(POLY_XLU_DISP++, 0x08, &D_80116280[0]);
 		POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, &pthis->actor, POLY_XLU_DISP);
 	}
 	if(pthis->drawDirtWave)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_XLU_DISP++, 85, 55, 0, 130);
 		gSPSegment(
 		    POLY_XLU_DISP++, 0x08,
-		    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (uintptr_t)(globalCtx->state.frames * -3) % 0x80, 0, 0x20, 0x40, 1, (uintptr_t)(globalCtx->state.frames * -10) % 0x80, (uintptr_t)(globalCtx->state.frames * -20) % 0x100, 0x20, 0x40));
+		    Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (uintptr_t)(globalCtx->frames * -3) % 0x80, 0, 0x20, 0x40, 1, (uintptr_t)(globalCtx->frames * -10) % 0x80, (uintptr_t)(globalCtx->frames * -20) % 0x100, 0x20, 0x40));
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 0, 0, 0, pthis->dirtWaveAlpha);
 
 		Matrix_Translate(0.0f, -pthis->actor.shape.yOffset, 0.0f, MTXMODE_APPLY);
 		Matrix_Scale(pthis->dirtWaveSpread * 0.01f, pthis->dirtWaveHeight * 0.01f, pthis->dirtWaveSpread * 0.01f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dh.c", 1160), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_dh.c", 1160), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, object_dh_DL_007FC0);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dh.c", 1166);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_dh.c", 1166);
 }
 
 void EnDh_Reset(Actor* pthisx, GlobalContext* globalCtx)

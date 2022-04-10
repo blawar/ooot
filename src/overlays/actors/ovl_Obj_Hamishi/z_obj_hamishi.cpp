@@ -220,15 +220,15 @@ void ObjHamishi_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_hamishi.c", 399);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_hamishi.c", 399);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_hamishi.c", 404), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_hamishi.c", 404), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 170, 130, 255);
 	gSPDisplayList(POLY_OPA_DISP++, gSilverRockDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_hamishi.c", 411);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_hamishi.c", 411);
 }
 
 void ObjHamishi_Reset(Actor* pthisx, GlobalContext* globalCtx)

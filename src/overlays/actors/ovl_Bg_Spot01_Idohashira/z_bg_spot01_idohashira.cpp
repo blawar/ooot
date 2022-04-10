@@ -374,7 +374,7 @@ void BgSpot01Idohashira_Init(Actor* thisx, GlobalContext* globalCtx)
 
 void func_808AB700(BgSpot01Idohashira* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* localGfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* localGfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(localGfxCtx, "../z_bg_spot01_idohashira.c", 689);
 

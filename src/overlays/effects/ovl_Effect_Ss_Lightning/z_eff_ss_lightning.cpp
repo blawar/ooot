@@ -82,7 +82,7 @@ void EffectSsLightning_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis
 	static void* lightningTextures[] = {
 	    gEffLightning1Tex, gEffLightning2Tex, gEffLightning3Tex, gEffLightning4Tex, gEffLightning5Tex, gEffLightning6Tex, gEffLightning7Tex, gEffLightning8Tex,
 	};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfResult;
 	MtxF mfTrans;
 	MtxF mfScale;

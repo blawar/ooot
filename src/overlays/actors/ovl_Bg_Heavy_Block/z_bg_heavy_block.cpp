@@ -526,7 +526,7 @@ void BgHeavyBlock_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	Player* player = GET_PLAYER(globalCtx);
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_heavy_block.c", 904);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_heavy_block.c", 904);
 
 	if(BgHeavyBlock_LiftedUp == pthis->actionFunc)
 	{
@@ -541,12 +541,12 @@ void BgHeavyBlock_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	Matrix_MultVec3f(&D_80884EC8_51, &thisx->world.pos);
 	Matrix_MultVec3f(&D_80884ED4_51, &thisx->home.pos);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_heavy_block.c", 931), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_heavy_block.c", 931), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gHeavyBlockEntirePillarDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_heavy_block.c", 935);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_heavy_block.c", 935);
 }
 
 void BgHeavyBlock_DrawPiece(Actor* thisx, GlobalContext* globalCtx)

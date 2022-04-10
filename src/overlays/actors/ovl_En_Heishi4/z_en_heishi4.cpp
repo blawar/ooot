@@ -467,7 +467,7 @@ void EnHeishi4_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnHeishi4* pthis = (EnHeishi4*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi_OverrideLimbDraw, NULL, pthis);
 }
 

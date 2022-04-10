@@ -48,7 +48,7 @@ u32 EffectSsBubble_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 
 void EffectSsBubble_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 scale = pthis->rScale / 100.0f;
 
 	OPEN_DISPS(gfxCtx, "../z_eff_ss_bubble.c", 154);

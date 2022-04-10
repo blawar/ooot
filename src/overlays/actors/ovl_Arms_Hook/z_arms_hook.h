@@ -9,7 +9,7 @@
 
 struct ArmsHook;
 
-typedef void (*ArmsHookActionFunc)(struct ArmsHook*, struct GlobalContext*);
+typedef void (*ArmsHookActionFunc)(struct ArmsHook*, GlobalContext*);
 
 struct ArmsHook
 {

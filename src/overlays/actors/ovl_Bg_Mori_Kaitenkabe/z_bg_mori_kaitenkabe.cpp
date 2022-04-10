@@ -189,16 +189,16 @@ void BgMoriKaitenkabe_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BgMoriKaitenkabe* pthis = (BgMoriKaitenkabe*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_kaitenkabe.c", 347);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mori_kaitenkabe.c", 347);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_kaitenkabe.c", 352), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mori_kaitenkabe.c", 352), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, gMoriKaitenkabeDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_kaitenkabe.c", 356);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mori_kaitenkabe.c", 356);
 }
 
 void BgMoriKaitenkabe_Reset(Actor* pthisx, GlobalContext* globalCtx)

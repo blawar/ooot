@@ -310,7 +310,7 @@ void GameState_Update(GameState* gameState)
 
 	GameState_SetFrameBuffer(gfxCtx);
 
-	gameState->main(gameState);
+	gameState->main();
 
 	func_800C4344(gameState);
 
@@ -470,108 +470,6 @@ void GameState_Realloc(GameState* gameState, size_t size)
 	}
 }
 
-void GameState_Init(GameState* gameState, GameStateFunc init, GraphicsContext* gfxCtx)
-{
-	OSTime startTime;
-	OSTime endTime;
-
-	osSyncPrintf("game constructor start\n"); // "game constructor start"
-	gameState->gfxCtx = gfxCtx;
-	gameState->frames = 0;
-	gameState->main = NULL;
-	gameState->destroy = NULL;
-	gameState->running = 1;
-	startTime = osGetTime();
-	gameState->size = 0;
-	gameState->init = NULL;
-	endTime = osGetTime();
-
-	// "game_set_next_game_null processing time %d us"
-	osSyncPrintf("game_set_next_game_null processing time %d us\n", OS_CYCLES_TO_USEC(endTime - startTime));
-	startTime = endTime;
-	GameAlloc_Init(&gameState->alloc);
-
-	endTime = osGetTime();
-	// "gamealloc_init processing time %d us"
-	osSyncPrintf("gamealloc_init processing time %d us\n", OS_CYCLES_TO_USEC(endTime - startTime));
-
-	// Generate grayscale versions of all icons
-	KaleidoScope_SetupGrayIcons();
-
-	startTime = endTime;
-	GameState_InitArena(gameState, 0x100000 * sizeof(uintptr_t) / 4); // TODO FIX HACK
-	framerate_set_profile(PROFILE_GAMEPLAY);
-	init(gameState);
-
-	endTime = osGetTime();
-	// "init processing time %d us"
-	osSyncPrintf("init processing time %d us\n", OS_CYCLES_TO_USEC(endTime - startTime));
-
-	startTime = endTime;
-	LogUtils_CheckNullPointer("this->cleanup", gameState->destroy, "../game.c", 1088);
-	func_800ACE70(&D_801664F0);
-	func_800AD920(&D_80166500);
-	VisMono_Init(&sMonoColors);
-	if(SREG(48) == 0)
-	{
-		ViMode_Init(&sViMode);
-	}
-	SpeedMeter_Init(&D_801664D0);
-	Rumble_Reset();
-	// osSendMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
-
-	endTime = osGetTime();
-	// "Other initialization processing time %d us"
-	osSyncPrintf("Other initialization processing time %d us\n", OS_CYCLES_TO_USEC(endTime - startTime));
-
-	Fault_AddClient(&sGameFaultClient, GameState_FaultPrint, NULL, NULL);
-
-	osSyncPrintf("game constructor end\n"); // "game constructor end"
-}
-
-void GameState_Destroy(GameState* gameState)
-{
-	osSyncPrintf("game destructor start\n"); // "game destructor start"
-	Audio_StopAllBanks();
-	Audio_UpdateAll();
-	// osRecvMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
-	LogUtils_CheckNullPointer("this->cleanup", gameState->destroy, "../game.c", 1139);
-	if(gameState->destroy != NULL)
-	{
-		gameState->destroy(gameState);
-	}
-	Rumble_Destroy();
-	SpeedMeter_Destroy(&D_801664D0);
-	func_800ACE90(&D_801664F0);
-	func_800AD950(&D_80166500);
-	VisMono_Destroy(&sMonoColors);
-	if(SREG(48) == 0)
-	{
-		ViMode_Destroy(&sViMode);
-	}
-	THA_Dt(&gameState->tha);
-	GameAlloc_Cleanup(&gameState->alloc);
-	SystemArena_Display();
-	Fault_RemoveClient(&sGameFaultClient);
-
-	osSyncPrintf("game destructor end\n"); // "game destructor end"
-}
-
-GameStateFunc GameState_GetInit(GameState* gameState)
-{
-	return gameState->init;
-}
-
-size_t GameState_GetSize(GameState* gameState)
-{
-	return gameState->size;
-}
-
-u32 GameState_IsRunning(GameState* gameState)
-{
-	return gameState->running;
-}
-
 void* GameState_Alloc(GameState* gameState, size_t size, const char* file, s32 line)
 {
 	void* ret;
@@ -614,3 +512,76 @@ s32 GameState_GetArenaSize(GameState* gameState)
 {
 	return THA_GetSize(&gameState->tha);
 }
+
+namespace oot::gamestate
+{
+	Base::Base(GraphicsContext* gfxCtx) : gfxCtx(gfxCtx)
+	{
+	}
+
+	void Base::start()
+	{
+		osSyncPrintf("game constructor start\n"); // "game constructor start"
+
+		frames = 0;
+		running = 1;
+
+		GameAlloc_Init(&alloc);
+
+		// Generate grayscale versions of all icons
+		KaleidoScope_SetupGrayIcons();
+
+		GameState_InitArena(this, 0x100000 * sizeof(uintptr_t) / 4); // TODO FIX HACK
+		framerate_set_profile(PROFILE_GAMEPLAY);
+
+		init();
+
+		func_800ACE70(&D_801664F0);
+		func_800AD920(&D_80166500);
+		VisMono_Init(&sMonoColors);
+
+		if(SREG(48) == 0)
+		{
+			ViMode_Init(&sViMode);
+		}
+
+		SpeedMeter_Init(&D_801664D0);
+		Rumble_Reset();
+		// osSendMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
+
+		Fault_AddClient(&sGameFaultClient, GameState_FaultPrint, NULL, NULL);
+
+		osSyncPrintf("game constructor end\n"); // "game constructor end"
+	}
+
+	Base::~Base()
+	{
+		osSyncPrintf("game destructor start\n"); // "game destructor start"
+		Audio_StopAllBanks();
+		Audio_UpdateAll();
+		// osRecvMesg(&gameState->gfxCtx->queue, NULL, OS_MESG_BLOCK);
+
+		Rumble_Destroy();
+		SpeedMeter_Destroy(&D_801664D0);
+		func_800ACE90(&D_801664F0);
+		func_800AD950(&D_80166500);
+		VisMono_Destroy(&sMonoColors);
+
+		if(SREG(48) == 0)
+		{
+			ViMode_Destroy(&sViMode);
+		}
+
+		THA_Dt(&tha);
+		GameAlloc_Cleanup(&alloc);
+		SystemArena_Display();
+		Fault_RemoveClient(&sGameFaultClient);
+
+		osSyncPrintf("game destructor end\n"); // "game destructor end"
+	}
+
+	void Base::loadNext()
+	{
+		Graph_SetNextGameState(next());
+	}
+} // namespace oot::gamestate

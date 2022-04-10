@@ -423,18 +423,18 @@ void EnFireRock_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnFireRock* pthis = (EnFireRock*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fire_rock.c", 747);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fire_rock.c", 747);
 	Matrix_Translate(thisx->world.pos.x + pthis->relativePos.x, thisx->world.pos.y + pthis->relativePos.y, thisx->world.pos.z + pthis->relativePos.z, MTXMODE_NEW);
 	Matrix_RotateX(DEG_TO_RAD(pthis->rockRotation.x), MTXMODE_APPLY);
 	Matrix_RotateY(DEG_TO_RAD(pthis->rockRotation.y), MTXMODE_APPLY);
 	Matrix_RotateZ(DEG_TO_RAD(pthis->rockRotation.z), MTXMODE_APPLY);
 	Matrix_Scale(thisx->scale.x, thisx->scale.y, thisx->scale.z, MTXMODE_APPLY);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 155, 55, 255);
 	gDPSetEnvColor(POLY_OPA_DISP++, 155, 255, 55, 255);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fire_rock.c", 768), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fire_rock.c", 768), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, object_efc_star_field_DL_000DE0);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fire_rock.c", 773);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fire_rock.c", 773);
 }
 
 void EnFireRock_Reset(Actor* pthisx, GlobalContext* globalCtx)

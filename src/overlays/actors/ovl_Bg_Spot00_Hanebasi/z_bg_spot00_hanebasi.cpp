@@ -296,9 +296,9 @@ void BgSpot00Hanebasi_DrawTorches(Actor* thisx, GlobalContext* globalCtx2)
 	f32 angle;
 	s32 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 633);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot00_hanebasi.c", 633);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(gSaveContext.sceneSetupIndex >= 4)
 	{
@@ -315,17 +315,17 @@ void BgSpot00Hanebasi_DrawTorches(Actor* thisx, GlobalContext* globalCtx2)
 
 	for(i = 0; i < 2; i++)
 	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, ((globalCtx->gameplayFrames.whole() + i) * -20) & 0x1FF, 32, 128));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, ((globalCtx->gameplayFrames.whole() + i) * -20) & 0x1FF, 32, 128));
 
 		Matrix_Translate((i == 0) ? 260.0f : -260.0f, 128.0f, 690.0f, MTXMODE_NEW);
 		Matrix_RotateY(angle, MTXMODE_APPLY);
 		Matrix_Scale(sTorchFlameScale, sTorchFlameScale, sTorchFlameScale, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 674), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot00_hanebasi.c", 674), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 681);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot00_hanebasi.c", 681);
 }
 
 void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -333,11 +333,11 @@ void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Vec3f basePos = {158.0f, 10.0f, 400.0f};
 	Vec3f newPos;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 698);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot00_hanebasi.c", 698);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 702), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot00_hanebasi.c", 702), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(thisx->params == DT_DRAWBRIDGE)
 	{
@@ -371,7 +371,7 @@ void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gSPDisplayList(POLY_OPA_DISP++, gHyruleFieldCastleDrawbridgeChainsDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot00_hanebasi.c", 733);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot00_hanebasi.c", 733);
 }
 
 void BgSpot00Hanebasi_Reset(Actor* pthisx, GlobalContext* globalCtx)

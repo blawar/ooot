@@ -321,7 +321,7 @@ void DemoGj_DrawCommon(DemoGj* pthis, GlobalContext* globalCtx, Gfx* displayList
 {
 	if(kREG(0) == 0)
 	{
-		GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+		GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 		OPEN_DISPS(gfxCtx, "../z_demo_gj.c", 1163);
 
@@ -346,7 +346,7 @@ void DemoGj_DrawRotated(DemoGj* pthis, GlobalContext* globalCtx, Gfx* displayLis
 	s32 pad2;
 	Mtx* matrix;
 
-	gfxCtx = globalCtx->state.gfxCtx;
+	gfxCtx = globalCtx->gfxCtx;
 	matrix = (Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx));
 
 	OPEN_DISPS(gfxCtx, "../z_demo_gj.c", 1187);

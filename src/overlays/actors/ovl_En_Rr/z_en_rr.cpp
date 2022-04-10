@@ -931,21 +931,21 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Vec3f zeroVec;
 	EnRr* pthis = (EnRr*)thisx;
 	s32 i;
-	Mtx* segMtx = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Mtx));
+	Mtx* segMtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, 4 * sizeof(Mtx));
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rr.c", 1478);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_rr.c", 1478);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gSPSegment(POLY_XLU_DISP++, 0x0C, segMtx);
 	gSPSegment(
 	    POLY_XLU_DISP++, 0x08,
-	    Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (pthis->scrollTimer.whole() * 0) & 0x7F, (pthis->scrollTimer.whole() * 0) & 0x3F, 32, 16, 1, (pthis->scrollTimer.whole() * 0) & 0x3F, (pthis->scrollTimer.whole() * -6) & 0x7F, 32, 16));
+	    Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (pthis->scrollTimer.whole() * 0) & 0x7F, (pthis->scrollTimer.whole() * 0) & 0x3F, 32, 16, 1, (pthis->scrollTimer.whole() * 0) & 0x3F, (pthis->scrollTimer.whole() * -6) & 0x7F, 32, 16));
 	Matrix_Push();
 
 	Matrix_Scale(
 	    (1.0f + pthis->bodySegs[RR_BASE].scaleMod.x) * pthis->bodySegs[RR_BASE].scale.x, (1.0f + pthis->bodySegs[RR_BASE].scaleMod.y) * pthis->bodySegs[RR_BASE].scale.y, (1.0f + pthis->bodySegs[RR_BASE].scaleMod.z) * pthis->bodySegs[RR_BASE].scale.z,
 	    MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_rr.c", 1501), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_rr.c", 1501), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	Matrix_Pop();
 	zeroVec.x = 0.0f;
 	zeroVec.y = 0.0f;
@@ -966,7 +966,7 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_MultVec3f(&zeroVec, &pthis->mouthPos);
 	gSPDisplayList(POLY_XLU_DISP++, gLikeLikeDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_rr.c", 1551);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_rr.c", 1551);
 	if(pthis->effectTimer != 0)
 	{
 		Vec3f effectPos;

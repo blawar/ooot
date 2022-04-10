@@ -182,20 +182,20 @@ void ElfMsg2_Update(Actor* thisx, GlobalContext* globalCtx)
 void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 #ifndef RETAIL
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 355);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_elf_msg2.c", 355);
 
 	if(R_NAVI_MSG_REGION_ALPHA == 0)
 	{
 		return;
 	}
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 100, 255, R_NAVI_MSG_REGION_ALPHA);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 362), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_elf_msg2.c", 362), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, D_809ADC38);
 	gSPDisplayList(POLY_XLU_DISP++, sCubeDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_elf_msg2.c", 367);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_elf_msg2.c", 367);
 #endif
 }
 

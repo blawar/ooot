@@ -83,12 +83,12 @@ void KaleidoScope_DrawDebugEditorText(Gfx** gfxp)
 
 void KaleidoScope_DrawDigit(GlobalContext* globalCtx, s32 digit, s32 rectLeft, s32 rectTop)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_debug.c", 208);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_debug.c", 208);
 
 	gDPLoadTextureBlock(POLY_OPA_DISP++, ((u8*)gCounterDigit0Tex + (8 * 16 * digit)), G_IM_FMT_I, G_IM_SIZ_8b, 8, 16, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 	gSPTextureRectangle(POLY_OPA_DISP++, rectLeft << 2, rectTop << 2, (rectLeft + 8) << 2, (rectTop + 16) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_debug.c", 220);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_debug.c", 220);
 }
 
 void KaleidoScope_DrawDebugEditor(GlobalContext* globalCtx)
@@ -98,7 +98,7 @@ void KaleidoScope_DrawDebugEditor(GlobalContext* globalCtx)
 	static s32 prevDBtnInput = 0;
 	static s32 heldDBtnTimer = 0;
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	Gfx* gfx;
 	Gfx* gfxRef;
 	s16 spD8[4];
@@ -109,12 +109,12 @@ void KaleidoScope_DrawDebugEditor(GlobalContext* globalCtx)
 	s16 y;
 	s32 dBtnInput = input->cur.button & (BTN_DUP | BTN_DDOWN | BTN_DLEFT | BTN_DRIGHT);
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_debug.c", 402);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_debug.c", 402);
 
 	pauseCtx->stickRelX = input->rel.stick_x;
 	pauseCtx->stickRelY = input->rel.stick_y;
 
-	func_800944C4(globalCtx->state.gfxCtx);
+	func_800944C4(globalCtx->gfxCtx);
 
 	gDPSetRenderMode(POLY_OPA_DISP++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
@@ -836,5 +836,5 @@ void KaleidoScope_DrawDebugEditor(GlobalContext* globalCtx)
 		pauseCtx->debugState = 0;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_debug.c", 861);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_debug.c", 861);
 }

@@ -359,16 +359,16 @@ void BgHidanKowarerukabe_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	BgHidanKowarerukabe* pthis = (BgHidanKowarerukabe*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_kowarerukabe.c", 565);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_kowarerukabe.c", 565);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_kowarerukabe.c", 568), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_hidan_kowarerukabe.c", 568), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, sBreakableWallDLists[pthis->dyna.actor.params & 0xFF]);
 
 	Collider_UpdateSpheres(0, &pthis->collider);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_kowarerukabe.c", 573);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_kowarerukabe.c", 573);
 }
 
 void BgHidanKowarerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx)

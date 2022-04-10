@@ -374,16 +374,16 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	f32 phi_f14;
 	s32 phi_t1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_m_thunder.c", 844);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_m_thunder.c", 844);
+	func_80093D84(globalCtx->gfxCtx);
 	Matrix_Scale(0.02f, 0.02f, 0.02f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_m_thunder.c", 853), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_m_thunder.c", 853), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	switch(pthis->unk_1C6)
 	{
 		case 0:
 		case 1:
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0xFF - ((u8)(s32)(pthis->unk_1B4 * 30) & 0xFF), 0, 0x40, 0x20, 1, 0xFF - ((u8)(s32)(pthis->unk_1B4 * 20) & 0xFF), 0, 8, 8));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0xFF - ((u8)(s32)(pthis->unk_1B4 * 30) & 0xFF), 0, 0x40, 0x20, 1, 0xFF - ((u8)(s32)(pthis->unk_1B4 * 20) & 0xFF), 0, 8, 8));
 			break;
 	}
 
@@ -437,14 +437,14 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2)
 		phi_t1 = 0x14;
 	}
 	Matrix_Scale(1.0f, phi_f14, phi_f14, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_m_thunder.c", 960), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_m_thunder.c", 960), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPSegment(
-	    POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (globalCtx->gameplayFrames.whole() * 5) & 0xFF, 0, 0x20, 0x20, 1, (globalCtx->gameplayFrames.whole() * 20) & 0xFF, (globalCtx->gameplayFrames.whole() * phi_t1) & 0xFF, 8, 8));
+	    POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (globalCtx->gameplayFrames.whole() * 5) & 0xFF, 0, 0x20, 0x20, 1, (globalCtx->gameplayFrames.whole() * 20) & 0xFF, (globalCtx->gameplayFrames.whole() * phi_t1) & 0xFF, 8, 8));
 
 	gSPDisplayList(POLY_XLU_DISP++, gSpinAttackChargingDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_m_thunder.c", 1031);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_m_thunder.c", 1031);
 }
 
 void EnMThunder_Reset(Actor* pthisx, GlobalContext* globalCtx)

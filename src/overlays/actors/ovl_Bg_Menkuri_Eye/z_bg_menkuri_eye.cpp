@@ -133,8 +133,8 @@ void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BgMenkuriEye* pthis = (BgMenkuriEye*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_menkuri_eye.c", 292);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_menkuri_eye.c", 292);
+	func_80093D84(globalCtx->gfxCtx);
 	if(Flags_GetSwitch(globalCtx, pthis->actor.params))
 	{
 		gDPSetEnvColor(POLY_XLU_DISP++, 200, 0, 0, 255);
@@ -150,10 +150,10 @@ void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
 	Matrix_RotateZYX(pthis->actor.world.rot.x, pthis->actor.world.rot.y, pthis->actor.world.rot.z, MTXMODE_APPLY);
 	Matrix_Scale(pthis->actor.scale.x, pthis->actor.scale.y, pthis->actor.scale.z, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_menkuri_eye.c", 331), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_menkuri_eye.c", 331), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_XLU_DISP++, gGTGEyeStatueEyeDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_menkuri_eye.c", 335);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_menkuri_eye.c", 335);
 }
 
 void BgMenkuriEye_Reset(Actor* pthisx, GlobalContext* globalCtx)

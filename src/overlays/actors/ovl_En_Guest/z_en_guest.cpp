@@ -224,7 +224,7 @@ s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 	EnGuest* pthis = (EnGuest*)thisx;
 	Vec3s sp3C;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_guest.c", 352);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_guest.c", 352);
 
 	if(limbIndex == 15)
 	{
@@ -249,7 +249,7 @@ s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 		rot->z += Math_CosS(pthis->unk_2EC[limbIndex]) * 200.0f;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_guest.c", 388);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_guest.c", 388);
 
 	return false;
 }
@@ -259,17 +259,17 @@ void EnGuest_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnGuest* pthis = (EnGuest*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_guest.c", 404);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_guest.c", 404);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_OPA_DISP++, 0x08, func_80A50708(globalCtx->state.gfxCtx, 0xFF, 0xFF, 0xFF, 0xFF));
-	gSPSegment(POLY_OPA_DISP++, 0x09, func_80A50708(globalCtx->state.gfxCtx, 0xA0, 0x3C, 0xDC, 0xFF));
+	gSPSegment(POLY_OPA_DISP++, 0x08, func_80A50708(globalCtx->gfxCtx, 0xFF, 0xFF, 0xFF, 0xFF));
+	gSPSegment(POLY_OPA_DISP++, 0x09, func_80A50708(globalCtx->gfxCtx, 0xA0, 0x3C, 0xDC, 0xFF));
 	gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(D_80A50BA4_39[pthis->unk_30E]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnGuest_OverrideLimbDraw, NULL, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_guest.c", 421);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_guest.c", 421);
 }
 
 void EnGuest_Reset(Actor* pthisx, GlobalContext* globalCtx)

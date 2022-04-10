@@ -285,7 +285,7 @@ s32 EnGe3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
 		// This is a hack to fix the color-changing clothes pthis Gerudo has on N64 versions
 		default:
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge3.c", 547);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ge3.c", 547);
 			switch(limbIndex)
 			{
 				case GELDB_LIMB_NECK:
@@ -305,7 +305,7 @@ s32 EnGe3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 					gDPSetEnvColor(POLY_OPA_DISP++, 140, 0, 0, 255);
 					break;
 			}
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge3.c", 566);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ge3.c", 566);
 			break;
 	}
 	return false;
@@ -327,14 +327,14 @@ void EnGe3_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	EnGe3* pthis = (EnGe3*)thisx;
 	GlobalContext* globalCtx = globalCtx2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge3.c", 614);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ge3.c", 614);
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_44[pthis->eyeIndex]));
 	func_8002EBCC(&pthis->actor, globalCtx, 0);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnGe3_OverrideLimbDraw, EnGe3_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge3.c", 631);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ge3.c", 631);
 }
 
 void EnGe3_Reset(Actor* pthisx, GlobalContext* globalCtx)

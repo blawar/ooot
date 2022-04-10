@@ -285,7 +285,7 @@ void EnHeishi3_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnHeishi3* pthis = (EnHeishi3*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi3_OverrideLimbDraw, NULL, pthis);
 }
 

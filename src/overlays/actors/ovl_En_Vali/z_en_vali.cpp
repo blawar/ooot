@@ -869,14 +869,14 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx)
 	f32 curFrame;
 	Vec3f scale = {1.0f, 1.0f, 1.0f};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1428);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1428);
 
 	Matrix_Get(&mtx);
 	curFrame = pthis->skelAnime.curFrame;
 	EnVali_PulseInsides(pthis, curFrame, &scale);
 	Matrix_Scale(scale.x, scale.y, scale.z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1436), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1436), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariInnerHoodDL);
 
 	Matrix_Put(&mtx);
@@ -885,17 +885,17 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx)
 	cos = Math_CosS(pthis->actor.shape.rot.y);
 	sin = Math_SinS(pthis->actor.shape.rot.y);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1446), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1446), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
 
 	Matrix_Translate((506.0f * cos) + (372.0f * sin), 1114.0f, (372.0f * cos) - (506.0f * sin), MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1455), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1455), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
 
 	Matrix_Translate((-964.0f * cos) - (804.0f * sin), -108.0f, (-804.0f * cos) + (964.0f * sin), MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1463), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1463), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
 
 	Matrix_Put(&mtx);
@@ -905,12 +905,12 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx)
 	EnVali_PulseOutside(pthis, curFrame, &scale);
 	Matrix_Scale(scale.x, scale.y, scale.z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1471), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1471), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariOuterHoodDL);
 
 	Matrix_Put(&mtx);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1477);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1477);
 }
 
 static Gfx D_80B28998[] = {
@@ -928,10 +928,10 @@ void EnVali_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnVali* pthis = (EnVali*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1505);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1505);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TexScroll(globalCtx->state.gfxCtx, 0, (127 - (globalCtx->gameplayFrames.whole() * 12)) % 128, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TexScroll(globalCtx->gfxCtx, 0, (127 - (globalCtx->gameplayFrames.whole() * 12)) % 128, 32, 32));
 
 	if((pthis->lightningTimer % 2) != 0)
 	{
@@ -946,7 +946,7 @@ void EnVali_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnVali_OverrideLimbDraw, EnVali_PostLimbDraw, pthis, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1538);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1538);
 }
 
 void EnVali_Reset(Actor* pthisx, GlobalContext* globalCtx)

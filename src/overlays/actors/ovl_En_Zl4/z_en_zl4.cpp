@@ -1407,13 +1407,13 @@ void EnZl4_Draw(Actor* thisx, GlobalContext* globalCtx)
 	    gChildZeldaEyeOpenTex, gChildZeldaEyeBlinkTex, gChildZeldaEyeShutTex, gChildZeldaEyeWideTex, gChildZeldaEyeSquintTex, gChildZeldaEyeOutTex, gChildZeldaEyeInTex,
 	};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl4.c", 2012);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zl4.c", 2012);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex[pthis->rightEyeState]));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex[pthis->leftEyeState]));
 	gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(mouthTex[pthis->mouthState]));
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnZl4_OverrideLimbDraw, EnZl4_PostLimbDraw, pthis);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zl4.c", 2043);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zl4.c", 2043);
 }
 
 void EnZl4_Reset(Actor* pthisx, GlobalContext* globalCtx)

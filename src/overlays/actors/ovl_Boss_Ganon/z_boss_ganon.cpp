@@ -3676,13 +3676,13 @@ void BossGanon_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 	}
 	else if(limbIndex == 11)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7191);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 7191);
 
 		Matrix_MultVec3f(&D_808E4DB8_132, &pthis->unk_208);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7196), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 7196), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_ganon_DL_00BE90));
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7198);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 7198);
 	}
 	else if(limbIndex == 6)
 	{
@@ -3772,14 +3772,14 @@ f32 BossGanon_RandZeroOne(void)
 void BossGanon_DrawShock(BossGanon* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s16 i;
 
 	OPEN_DISPS(gfxCtx, "../z_boss_ganon.c", 7350);
 
 	if((pthis->unk_2E8 != 0) || (pthis->unk_2E6 != 0))
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 0, 0);
 		gSPDisplayList(POLY_XLU_DISP++, gDorfLightBallMaterialDL);
@@ -3815,7 +3815,7 @@ void BossGanon_DrawShock(BossGanon* pthis, GlobalContext* globalCtx)
 
 				if(pthis->shockGlow)
 				{
-					gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->unk_1A2 + i) * -15, 32, 64));
+					gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->unk_1A2 + i) * -15, 32, 64));
 					gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 255, 170, 255);
 					gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 0, 128);
 					gSPDisplayList(POLY_XLU_DISP++, gDorfShockGlowDL);
@@ -3834,14 +3834,14 @@ void BossGanon_DrawShock(BossGanon* pthis, GlobalContext* globalCtx)
 void BossGanon_DrawHandLightBall(BossGanon* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 alpha;
 
 	OPEN_DISPS(gfxCtx, "../z_boss_ganon.c", 7476);
 
 	if(pthis->handLightBallScale > 0.0f)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
 
 		if((pthis->unk_1A2 % 2) != 0)
@@ -3867,7 +3867,7 @@ void BossGanon_DrawHandLightBall(BossGanon* pthis, GlobalContext* globalCtx)
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 155, alpha);
 		Matrix_Translate(pthis->unk_260.x, 0.0f, pthis->unk_260.z, MTXMODE_NEW);
 		Matrix_Scale(pthis->handLightBallScale * 0.75f, 1.0f, pthis->handLightBallScale * 0.75f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7531), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 7531), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gDorfLightCoreDL);
 
 		CLOSE_DISPS(gfxCtx, "../z_boss_ganon.c", 7534);
@@ -3878,19 +3878,19 @@ void BossGanon_DrawBigMagicCharge(BossGanon* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 	f32 yRot;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s16 i;
 
 	OPEN_DISPS(gfxCtx, "../z_boss_ganon.c", 7548);
 
 	if(pthis->unk_284 > 0.0f)
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		// light flecks
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 170, (s8)pthis->unk_290);
 		gDPSetEnvColor(POLY_XLU_DISP++, 200, 255, 0, 128);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, pthis->unk_1A2 * -2, 0, 0x40, 0x40, 1, 0, pthis->unk_1A2 * 0xA, 0x40, 0x40));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->unk_1A2 * -2, 0, 0x40, 0x40, 1, 0, pthis->unk_1A2 * 0xA, 0x40, 0x40));
 		Matrix_Translate(pthis->unk_278.x, pthis->unk_278.y, pthis->unk_278.z, MTXMODE_NEW);
 		func_800D1FD4(&globalCtx->billboardMtxF);
 		Matrix_Scale(pthis->unk_28C, pthis->unk_28C, pthis->unk_28C, MTXMODE_APPLY);
@@ -3903,12 +3903,12 @@ void BossGanon_DrawBigMagicCharge(BossGanon* pthis, GlobalContext* globalCtx)
 		Matrix_Scale(pthis->unk_284, pthis->unk_284, pthis->unk_284, MTXMODE_APPLY);
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_ganon.c", 7601), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 0, 100, (s8)pthis->unk_288);
-		gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, pthis->unk_1A2 * -4, 0x20, 0x20));
+		gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, pthis->unk_1A2 * -4, 0x20, 0x20));
 		gSPDisplayList(POLY_XLU_DISP++, gDorfBigMagicBGCircleDL);
 
 		// yellow background dot
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 150, 170, 0, (s8)pthis->unk_288);
-		gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x20, 1, pthis->unk_1A2 * 2, pthis->unk_1A2 * -0x14, 0x40, 0x40));
+		gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, pthis->unk_1A2 * 2, pthis->unk_1A2 * -0x14, 0x40, 0x40));
 		gSPDisplayList(POLY_XLU_DISP++, gDorfDotDL);
 
 		// light ball material
@@ -3958,7 +3958,7 @@ void BossGanon_DrawTriforce(BossGanon* pthis, GlobalContext* globalCtx)
 
 	if(pthis->fwork[GDF_TRIFORCE_PRIM_A] > 0.0f)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7732);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 7732);
 
 		Matrix_Push();
 
@@ -4003,12 +4003,12 @@ void BossGanon_DrawTriforce(BossGanon* pthis, GlobalContext* globalCtx)
 		}
 
 		Matrix_Scale(pthis->fwork[GDF_TRIFORCE_SCALE], pthis->fwork[GDF_TRIFORCE_SCALE], 1.0f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7779), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 7779), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gDorfTriforceDL));
 
 		Matrix_Pop();
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7782);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 7782);
 	}
 }
 
@@ -4018,11 +4018,11 @@ void BossGanon_DrawDarkVortex(BossGanon* pthis, GlobalContext* globalCtx)
 
 	if(pthis->fwork[GDF_VORTEX_ALPHA] > 0.0f)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7792);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 7792);
 
 		Matrix_Push();
 		gDPPipeSync(POLY_XLU_DISP++);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, pthis->unk_1A2 * -8, 0, 0x20, 0x40, 1, pthis->unk_1A2 * -4, pthis->unk_1A2 * -8, 0x20, 0x20));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->unk_1A2 * -8, 0, 0x20, 0x40, 1, pthis->unk_1A2 * -4, pthis->unk_1A2 * -8, 0x20, 0x20));
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 0, 200, (s8)pthis->fwork[GDF_VORTEX_ALPHA]);
 		gDPSetEnvColor(POLY_XLU_DISP++, 130, 0, 0, 128);
 
@@ -4039,12 +4039,12 @@ void BossGanon_DrawDarkVortex(BossGanon* pthis, GlobalContext* globalCtx)
 		}
 
 		Matrix_Scale(pthis->fwork[GDF_VORTEX_SCALE], pthis->fwork[GDF_VORTEX_SCALE], pthis->fwork[GDF_VORTEX_SCALE], MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7841), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 7841), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gDorfVortexDL));
 
 		Matrix_Pop();
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 7844);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 7844);
 	}
 }
 
@@ -4229,11 +4229,11 @@ void BossGanon_DrawShadowTexture(void* tex, BossGanon* pthis, GlobalContext* glo
 {
 	s32 pad;
 	f32 zOffset;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_boss_ganon.c", 8372);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 0, 0, 50);
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
@@ -4248,7 +4248,7 @@ void BossGanon_DrawShadowTexture(void* tex, BossGanon* pthis, GlobalContext* glo
 	}
 
 	Matrix_Scale(0.95000005f, 1.0f, 0.95000005f, MTXMODE_APPLY);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 8396), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 8396), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gDorfShadowSetupDL);
 	gDPLoadTextureBlock(POLY_OPA_DISP++, tex, G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
 	gSPDisplayList(POLY_OPA_DISP++, gDorfShadowModelDL);
@@ -4262,12 +4262,12 @@ void BossGanon_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BossGanon* pthis = (BossGanon*)thisx;
 	void* shadowTex;
 
-	shadowTex = Graph_Alloc(globalCtx->state.gfxCtx, 64 * 64);
+	shadowTex = Graph_Alloc(globalCtx->gfxCtx, 64 * 64);
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9138);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 9138);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if((pthis->unk_1A6 & 2) != 0)
 	{
@@ -4303,7 +4303,7 @@ void BossGanon_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BossGanon_GenShadowTexture((u8*)shadowTex, pthis, globalCtx);
 	BossGanon_DrawShadowTexture(shadowTex, pthis, globalCtx);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9393);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 9393);
 }
 
 s32 BossGanon_CheckFallingPlatforms(BossGanon* pthis, GlobalContext* globalCtx, Vec3f* checkPos)
@@ -4665,9 +4665,9 @@ void BossGanon_LightBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 alpha;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9849);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 9849);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	alpha = ((pthis->unk_1A2 % 2) != 0) ? pthis->fwork[GDF_FWORK_1] * 0.4f : pthis->fwork[GDF_FWORK_1] * 0.35f;
 
@@ -4675,7 +4675,7 @@ void BossGanon_LightBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_Push();
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.floorHeight, pthis->actor.world.pos.z, MTXMODE_NEW);
 	Matrix_Scale(pthis->actor.scale.x * 0.75f, 1.0f, pthis->actor.scale.z * 0.75f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9875), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 9875), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gDorfLightCoreDL);
 
 	Matrix_Pop();
@@ -4692,7 +4692,7 @@ void BossGanon_LightBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_Push();
 			Matrix_RotateY(i * (M_PI / 8), MTXMODE_APPLY);
 			Matrix_RotateZ(pthis->fwork[GDF_FWORK_0], MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9899), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 9899), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 			gSPDisplayList(POLY_XLU_DISP++, gDorfSquareDL);
 			Matrix_Pop();
@@ -4702,11 +4702,11 @@ void BossGanon_LightBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		func_800D1FD4(&globalCtx->billboardMtxF);
 		Matrix_RotateZ((pthis->actor.shape.rot.z / 32768.0f) * 3.1416f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9907), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 9907), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gDorfSquareDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 9911);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 9911);
 }
 
 void func_808E1EB4(Actor* thisx, GlobalContext* globalCtx2)
@@ -4827,8 +4827,8 @@ void func_808E229C(Actor* thisx, GlobalContext* globalCtx2)
 	s16 i;
 	s32 temp;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 10081);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 10081);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 0, 0);
 	gSPDisplayList(POLY_XLU_DISP++, gDorfLightBallMaterialDL);
@@ -4840,11 +4840,11 @@ void func_808E229C(Actor* thisx, GlobalContext* globalCtx2)
 		Matrix_Scale(pthis->actor.scale.x * (1.0f - (i * 0.07000001f)), pthis->actor.scale.y * (1.0f - (i * 0.07000001f)), pthis->actor.scale.z * (1.0f - (i * 0.07000001f)), MTXMODE_APPLY);
 		func_800D1FD4(&globalCtx->billboardMtxF);
 		Matrix_RotateZ(((2.0f * (i * M_PI)) / 10.0f) + BINANG_TO_RAD(pthis->actor.shape.rot.z), MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 10109), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 10109), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gDorfSquareDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 10113);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 10113);
 }
 
 void func_808E2544(Actor* thisx, GlobalContext* globalCtx)
@@ -5125,11 +5125,11 @@ void func_808E324C(Actor* thisx, GlobalContext* globalCtx)
 	s16 i;
 	s32 temp;
 
-	mtx = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, 12 * sizeof(Mtx));
+	mtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, 12 * sizeof(Mtx));
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 10489);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 10489);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 255, 255, 255, (s8)pthis->fwork[GDF_FWORK_1]);
 	gDPSetEnvColor(POLY_XLU_DISP++, 150, 255, 0, 128);
 	gSPSegment(POLY_XLU_DISP++, 0x0D, mtx);
@@ -5152,12 +5152,12 @@ void func_808E324C(Actor* thisx, GlobalContext* globalCtx)
 	func_800D1FD4(&globalCtx->billboardMtxF);
 	Matrix_Scale(10.0f, 10.0f, 10.0f, MTXMODE_APPLY);
 	Matrix_RotateZ(Rand_CenteredFloat(M_PI), MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 10534), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_ganon.c", 10534), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gDorfLightBallMaterialDL);
 
 	gSPDisplayList(POLY_XLU_DISP++, gDorfSquareDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganon.c", 10541);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganon.c", 10541);
 }
 
 void BossGanon_UpdateEffects(GlobalContext* globalCtx)
@@ -5429,12 +5429,12 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx)
 	u8 flag = 0;
 	s16 i;
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	GanondorfEffect* eff = (GanondorfEffect*)globalCtx->specialEffects;
 	GanondorfEffect* effFirst = eff;
 
 	OPEN_DISPS(gfxCtx, "../z_boss_ganon.c", 10865);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	for(i = 0; i < 200; i++, eff++)
 	{
@@ -5573,7 +5573,7 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, eff->alpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, 100, 70, 0, 128);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, eff->timer * 4, 0, 32, 64, 1, eff->timer * 2, eff->timer * -20, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, eff->timer * 4, 0, 32, 64, 1, eff->timer * 2, eff->timer * -20, 32, 32));
 			Matrix_Translate(eff->pos.x, eff->pos.y, eff->pos.z, MTXMODE_NEW);
 			Matrix_Scale(eff->scale, eff->unk_40 * eff->scale, eff->scale, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_ganon.c", 11121), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -5590,7 +5590,7 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, eff->alpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, 200, 100, 0, 128);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, eff->timer * 4, 0, 32, 64, 1, eff->timer * 2, eff->timer * -20, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, eff->timer * 4, 0, 32, 64, 1, eff->timer * 2, eff->timer * -20, 32, 32));
 			Matrix_Translate(eff->pos.x, eff->pos.y, eff->pos.z, MTXMODE_NEW);
 			Matrix_Scale(eff->scale, eff->unk_40 * eff->scale, eff->scale, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_ganon.c", 11165), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -5607,7 +5607,7 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 170, eff->alpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, 150, 255, 0, 128);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (eff->timer * 100), 0, 64, 32, 1, (eff->timer * 100), 0, 64, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (eff->timer * 100), 0, 64, 32, 1, (eff->timer * 100), 0, 64, 32));
 			Matrix_Translate(eff->pos.x, eff->pos.y, eff->pos.z, MTXMODE_NEW);
 			Matrix_Scale((eff->scale * 200.0f) / 1500.0f, (eff->unk_40 * 200.0f) / 1500.0f, (eff->scale * 200.0f) / 1500.0f, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_ganon.c", 11209), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -5624,7 +5624,7 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 150, 170, 0, eff->alpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
-			gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 32, 1, eff->timer * 2, eff->timer * -20, 64, 64));
+			gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 32, 1, eff->timer * 2, eff->timer * -20, 64, 64));
 			Matrix_Translate(eff->pos.x, eff->pos.y, eff->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(eff->scale, eff->scale, 1.0f, MTXMODE_APPLY);
