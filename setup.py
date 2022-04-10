@@ -65,12 +65,21 @@ def main():
 	parser.add_argument("-f", "--framerate", choices=['20', '30', '60', '120', '240'], help="game framerate", default='20')
 	parser.add_argument("-m", "--enable-mouse", help="Enables mouse controls", action="store_true", default=True)
 	parser.add_argument("--refresh-configs", help="Refreshes rom config files (do not use)", action="store_true", default=False)
+	parser.add_argument("-o", "--organize-roms", help="Renames and moves roms to their proper location", action="store_true", default=False)
+	parser.add_argument("-s", "--skip-organize-roms", help="Skip organizing roms", action="store_true", default=False)
 
 	args = parser.parse_args()
 	
 	if args.refresh_configs:
 		calcRomHashes()
 		exit(0)
+		
+	if args.organize_roms:
+		organizeRoms()
+		exit(0)
+		
+	if not args.props_only and not args.skip_organize_roms:
+		organizeRoms()
 
 	if args.buildRom:
 		setBuildRom(args.buildRom)
