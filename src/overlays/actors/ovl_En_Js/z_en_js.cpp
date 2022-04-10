@@ -206,7 +206,7 @@ void EnJs_Update(Actor* thisx, GlobalContext* globalCtx)
 	Actor_MoveForward(&pthis->actor);
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 0.0f, 0.0f, 0.0f, 4);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId) == 1)
 		{

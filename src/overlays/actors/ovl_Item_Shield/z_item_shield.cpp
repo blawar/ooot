@@ -119,7 +119,7 @@ void func_80B86AC8(ItemShield* pthis, GlobalContext* globalCtx)
 	}
 	func_8002F434(&pthis->actor, globalCtx, GI_SHIELD_DEKU, 30.0f, 50.0f);
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 10.0f, 10.0f, 0.0f, 5);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->timer--;
 		if(pthis->timer < 60)
@@ -192,7 +192,7 @@ void func_80B86CA8(ItemShield* pthis, GlobalContext* globalCtx)
 			pthis->unk_1A8[i].z = Rand_CenteredFloat(15.0f);
 		}
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->unk_198 -= pthis->actor.shape.rot.x >> 1;
 		pthis->unk_198 -= pthis->unk_198 >> 2;

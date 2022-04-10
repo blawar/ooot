@@ -6,10 +6,10 @@ enum PlayerState1
 	PLAYER_STATE1_1 = 1 << 1,	      // 0x00000002
 	PLAYER_STATE1_2 = 1 << 2,	      // 0x00000004
 	PLAYER_STATE1_3 = 1 << 3,	      // 0x00000008
-	PLAYER_STATE1_4 = 1 << 4,	      // 0x00000010
+	PLAYER_STATE1_TARGETING_ACTOR = 1 << 4,	      // 0x00000010
 	PLAYER_STATE1_5 = 1 << 5,	      // 0x00000020
 	PLAYER_STATE1_6 = 1 << 6,	      // 0x00000040
-	PLAYER_STATE1_7 = 1 << 7,	      // 0x00000080
+	PLAYER_STATE1_DEAD = 1 << 7,	      // 0x00000080
 	PLAYER_STATE1_8 = 1 << 8,	      // 0x00000100
 	PLAYER_STATE1_9 = 1 << 9,	      // 0x00000200
 	PLAYER_STATE1_10 = 1 << 10,	      // 0x00000400
@@ -72,4 +72,34 @@ enum PlayerState2
 	PLAYER_STATE2_31 = 1 << 31,		 // 0x80000000
 };
 
-static_assert((1 << 13) == 0x2000, "bah");
+enum PlayerState3
+{
+	PLAYER_STATE3_0 = 1 << 0, // 0x00000001
+	PLAYER_STATE3_1 = 1 << 1, // 0x00000002
+	PLAYER_STATE3_2 = 1 << 2, // 0x00000004
+	PLAYER_STATE3_3 = 1 << 3, // 0x00000008
+	PLAYER_STATE3_4 = 1 << 4, // 0x00000010
+	PLAYER_STATE3_5 = 1 << 5, // 0x00000020
+	PLAYER_STATE3_6 = 1 << 6, // 0x00000040
+	PLAYER_STATE3_HOOKSHOT = 1 << 7, // 0x00000080
+};
+
+enum BgFlag
+{
+	BG_STATE_0 = 1 << 0,   // 0x00000001
+	BG_STATE_1 = 1 << 1,   // 0x00000002
+	BG_STATE_2 = 1 << 2,   // 0x00000004
+	BG_STATE_3 = 1 << 3,   // 0x00000008
+	BG_STATE_4 = 1 << 4,   // 0x00000010
+	BG_STATE_5 = 1 << 5,   // 0x00000020
+	BG_STATE_6 = 1 << 6,   // 0x00000040
+	BG_STATE_7 = 1 << 7,   // 0x00000080
+	BG_STATE_8 = 1 << 8,   // 0x00000100
+	BG_STATE_9 = 1 << 9,   // 0x00000200
+	BG_STATE_10 = 1 << 10, // 0x00000400
+	BG_STATE_11 = 1 << 11, // 0x00000800
+	BG_STATE_12 = 1 << 12, // 0x00001000
+	BG_STATE_13 = 1 << 13, // 0x00002000
+	BG_STATE_14 = 1 << 14, // 0x00004000
+	BG_STATE_15 = 1 << 15  // 0x00008000
+};

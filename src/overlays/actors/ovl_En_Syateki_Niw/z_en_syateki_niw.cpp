@@ -261,7 +261,7 @@ void func_80B11E78(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 	f32 tmpf1;
 	s16 sp4A;
 
-	if((pthis->unk_29C != 0) && (pthis->unk_29E == 0) && (pthis->actor.bgCheckFlags & 1))
+	if((pthis->unk_29C != 0) && (pthis->unk_29E == 0) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		pthis->unk_29C = 0;
 		pthis->actionFunc = func_80B123A8;
@@ -353,7 +353,7 @@ void func_80B11E78(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 		else
 		{
 			pthis->unk_25C = 4;
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				pthis->actor.velocity.y = 2.5f;
 				if((Rand_ZeroFloat(10.0f) < 1.0f) && (pthis->unk_29E == 0))
@@ -470,7 +470,7 @@ void func_80B12460(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 				pthis->actor.speedXZ = 0.0f;
 			}
 
-			if((pthis->actor.bgCheckFlags & 1) && (pthis->actor.world.pos.z > 110.0f))
+			if((pthis->actor.bgCheckFlags & BG_STATE_0) && (pthis->actor.world.pos.z > 110.0f))
 			{
 				pthis->actor.velocity.y = 0.0f;
 				pthis->actor.gravity = 0.0f;
@@ -606,7 +606,7 @@ void func_80B129EC(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 		pthis->unk_298++;
 		pthis->unk_298 &= 1;
 		pthis->unk_25C = (s16)Rand_CenteredFloat(4.0f) + 5;
-		if((Rand_ZeroFloat(5.0f) < 1.0f) && (pthis->actor.bgCheckFlags & 1))
+		if((Rand_ZeroFloat(5.0f) < 1.0f) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 		{
 			pthis->actor.velocity.y = 4.0f;
 		}

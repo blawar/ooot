@@ -174,7 +174,7 @@ void BgJyaHaheniron_ChairCrumble(BgJyaHaheniron* pthis, GlobalContext* globalCtx
 
 	Actor_MoveForward(&pthis->actor);
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 5.0f, 8.0f, 0.0f, 0x85);
-	if((pthis->actor.bgCheckFlags & 9) || ((pthis->collider.base.atFlags & AT_HIT) && (pthis->collider.base.at != NULL) && (pthis->collider.base.at->category == ACTORCAT_PLAYER)))
+	if((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3)) || ((pthis->collider.base.atFlags & AT_HIT) && (pthis->collider.base.at != NULL) && (pthis->collider.base.at->category == ACTORCAT_PLAYER)))
 	{
 		vec.x = -Rand_ZeroOne() * pthis->actor.velocity.x;
 		vec.y = -Rand_ZeroOne() * pthis->actor.velocity.y;

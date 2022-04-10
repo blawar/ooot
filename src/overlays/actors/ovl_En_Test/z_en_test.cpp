@@ -450,7 +450,7 @@ void EnTest_ChooseAction(EnTest* pthis, GlobalContext* globalCtx)
 			{
 				if(Rand_ZeroOne() > 0.2f)
 				{
-					if(player->stateFlags1 & PLAYER_STATE1_4)
+					if(player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR)
 					{
 						if(pthis->actor.isTargeted)
 						{
@@ -819,7 +819,7 @@ void EnTest_WalkAndBlock(EnTest* pthis, GlobalContext* globalCtx)
 		{
 			if(Rand_ZeroOne() > 0.2f)
 			{
-				if(player->stateFlags1 & PLAYER_STATE1_4)
+				if(player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR)
 				{
 					if(pthis->actor.isTargeted)
 					{
@@ -987,9 +987,9 @@ void func_80860F84(EnTest* pthis, GlobalContext* globalCtx)
 			}
 		}
 
-		if((pthis->actor.bgCheckFlags & 8) || ((pthis->actor.params == STALFOS_TYPE_CEILING) && !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.world.rot.y)))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) || ((pthis->actor.params == STALFOS_TYPE_CEILING) && !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.world.rot.y)))
 		{
-			if(pthis->actor.bgCheckFlags & 8)
+			if(pthis->actor.bgCheckFlags & BG_STATE_3)
 			{
 				if(pthis->actor.speedXZ >= 0.0f)
 				{
@@ -1189,7 +1189,7 @@ void EnTest_SlashDownEnd(EnTest* pthis, GlobalContext* globalCtx)
 				pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 				EnTest_SetupJumpBack(pthis);
 			}
-			else if(player->stateFlags1 & PLAYER_STATE1_4)
+			else if(player->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR)
 			{
 				if(pthis->actor.isTargeted)
 				{
@@ -1506,7 +1506,7 @@ void func_808621D4(EnTest* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.speedXZ = 0.0f;
 
-		if((pthis->actor.bgCheckFlags & 8) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
 		{
 			EnTest_SetupJumpUp(pthis);
 		}
@@ -1522,7 +1522,7 @@ void func_808621D4(EnTest* pthis, GlobalContext* globalCtx)
 
 	if(player->swordState != 0)
 	{
-		if((pthis->actor.bgCheckFlags & 8) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
 		{
 			EnTest_SetupJumpUp(pthis);
 		}
@@ -1571,7 +1571,7 @@ void func_80862418(EnTest* pthis, GlobalContext* globalCtx)
 
 	if(player->swordState != 0)
 	{
-		if((pthis->actor.bgCheckFlags & 8) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
 		{
 			EnTest_SetupJumpUp(pthis);
 		}
@@ -1632,7 +1632,7 @@ void EnTest_Stunned(EnTest* pthis, GlobalContext* globalCtx)
 		}
 		else if(player->swordState != 0)
 		{
-			if((pthis->actor.bgCheckFlags & 8) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
+			if((pthis->actor.bgCheckFlags & BG_STATE_3) && ((ABS((s16)(pthis->actor.wallYaw - pthis->actor.shape.rot.y)) < 0x38A4) && (pthis->actor.xzDistToPlayer < 80.0f)))
 			{
 				EnTest_SetupJumpUp(pthis);
 			}
@@ -1720,9 +1720,9 @@ void func_808628C8(EnTest* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((pthis->actor.bgCheckFlags & 8) || ((pthis->actor.params == STALFOS_TYPE_CEILING) && !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3FFF)))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || ((pthis->actor.params == STALFOS_TYPE_CEILING) && !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y + 0x3FFF)))
 	{
-		if(pthis->actor.bgCheckFlags & 8)
+		if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			if(pthis->actor.speedXZ >= 0.0f)
 			{
@@ -2148,7 +2148,7 @@ void EnTest_Update(Actor* thisx, GlobalContext* globalCtx)
 				pthis->actor.floorHeight = pthis->actor.home.pos.y;
 			}
 		}
-		else if(pthis->actor.bgCheckFlags & 2)
+		else if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			floorProperty = func_80041EA4(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
 
@@ -2442,7 +2442,7 @@ s32 EnTest_ReactToProjectile(GlobalContext* globalCtx, EnTest* pthis)
 	{
 		yawToProjectile = Actor_WorldYawTowardActor(&pthis->actor, projectileActor) - (u16)pthis->actor.shape.rot.y;
 
-		if((u8)(pthis->actor.bgCheckFlags & 8))
+		if((u8)(pthis->actor.bgCheckFlags & BG_STATE_3))
 		{
 			wallYawDiff = ((u16)pthis->actor.wallYaw - (u16)pthis->actor.shape.rot.y);
 			touchingWall = true;

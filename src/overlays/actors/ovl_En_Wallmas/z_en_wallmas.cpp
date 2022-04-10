@@ -339,7 +339,7 @@ void EnWallmas_WaitToDrop(EnWallmas* pthis, GlobalContext* globalCtx)
 		pthis->timer--;
 	}
 
-	if((player->stateFlags1 & PLAYER_STATE1_20) || (player->stateFlags1 & PLAYER_STATE_SWIMMING) || !(player->actor.bgCheckFlags & 1) || ((pthis->actor.params == 1) && (320.0f < Math_Vec3f_DistXZ(&pthis->actor.home.pos, playerPos))))
+	if((player->stateFlags1 & PLAYER_STATE1_20) || (player->stateFlags1 & PLAYER_STATE_SWIMMING) || !(player->actor.bgCheckFlags & BG_STATE_0) || ((pthis->actor.params == 1) && (320.0f < Math_Vec3f_DistXZ(&pthis->actor.home.pos, playerPos))))
 	{
 		Audio_StopSfxById(NA_SE_EN_FALL_AIM);
 		pthis->timer = 0x82;
@@ -671,7 +671,7 @@ void EnWallmas_Update(Actor* thisx, GlobalContext* globalCtx)
 		Collider_UpdateCylinder(&pthis->actor, &pthis->collider);
 		CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 
-		if((pthis->actionFunc != EnWallmas_TakeDamage) && (pthis->actor.bgCheckFlags & 1) != 0 && (pthis->actor.freezeTimer == 0))
+		if((pthis->actionFunc != EnWallmas_TakeDamage) && (pthis->actor.bgCheckFlags & BG_STATE_0) != 0 && (pthis->actor.freezeTimer == 0))
 		{
 			CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 		}

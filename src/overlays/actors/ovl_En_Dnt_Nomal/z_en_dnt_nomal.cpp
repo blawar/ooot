@@ -214,7 +214,7 @@ void EnDntNomal_WaitForObject(EnDntNomal* pthis, GlobalContext* globalCtx)
 
 void EnDntNomal_SetFlower(EnDntNomal* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->flowerPos = pthis->actor.world.pos;
 		if(pthis->type == ENDNTNOMAL_TARGET)
@@ -642,7 +642,7 @@ void EnDntNomal_StageCelebrate(EnDntNomal* pthis, GlobalContext* globalCtx)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_WALK);
 	}
-	if((pthis->actor.bgCheckFlags & 8) && (pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		pthis->actor.velocity.y = 7.5f;
 	}

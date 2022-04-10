@@ -321,7 +321,7 @@ void EnFhgFire_LightningShock(EnFhgFire* pthis, GlobalContext* globalCtx)
 	}
 
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 50.0f, 100.0f, 1);
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Actor_Kill(&pthis->actor);
 	}
@@ -522,7 +522,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx)
 		switch(pthis->work[FHGFIRE_FIRE_MODE])
 		{
 			case FHGFIRE_LIGHT_GREEN:
-				canBottleReflect1 = ((player->stateFlags1 & 2) && (ABS((s16)(player->actor.shape.rot.y - (s16)(bossGnd->actor.yawTowardsPlayer + 0x8000))) < 0x2000) && (sqrtf(SQ(dxL) + SQ(dyL) + SQ(dzL)) <= 25.0f)) ? true : false;
+				canBottleReflect1 = ((player->stateFlags1 & PLAYER_STATE1_1) && (ABS((s16)(player->actor.shape.rot.y - (s16)(bossGnd->actor.yawTowardsPlayer + 0x8000))) < 0x2000) && (sqrtf(SQ(dxL) + SQ(dyL) + SQ(dzL)) <= 25.0f)) ? true : false;
 				if((pthis->collider.base.acFlags & AC_HIT) || canBottleReflect1)
 				{
 					ColliderInfo* hurtbox = pthis->collider.info.acHitInfo;
@@ -653,7 +653,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx)
 		if(pthis->work[FHGFIRE_FX_TIMER] == 0)
 		{
 			Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 50.0f, 50.0f, 100.0f, 7);
-			if((pthis->actor.bgCheckFlags & 0x19) || killMode)
+			if((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_3 | BG_STATE_4)) || killMode)
 			{
 				u8 lightBallColor2 = FHGFLASH_LIGHTBALL_GREEN;
 				s16 i4;

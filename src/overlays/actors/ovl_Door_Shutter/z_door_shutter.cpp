@@ -691,7 +691,7 @@ void func_809975C0(DoorShutter* pthis, GlobalContext* globalCtx)
 {
 	Actor_MoveForward(&pthis->dyna.actor);
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->dyna.actor, 0.0f, 0.0f, 0.0f, 4);
-	if(pthis->dyna.actor.bgCheckFlags & 1)
+	if(pthis->dyna.actor.bgCheckFlags & BG_STATE_0)
 	{
 		DoorShutter_SetupAction(pthis, func_809976B8);
 		if(!(gSaveContext.eventChkInf[7] & 1))
@@ -737,7 +737,7 @@ void DoorShutter_Update(Actor* thisx, GlobalContext* globalCtx)
 	DoorShutter* pthis = (DoorShutter*)thisx;
 	Player* player = GET_PLAYER(globalCtx);
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_7 | PLAYER_STATE1_10 | PLAYER_STATE1_28)) || (pthis->actionFunc == DoorShutter_SetupType))
+	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_DEAD | PLAYER_STATE1_10 | PLAYER_STATE1_28)) || (pthis->actionFunc == DoorShutter_SetupType))
 	{
 		pthis->actionFunc(pthis, globalCtx);
 	}

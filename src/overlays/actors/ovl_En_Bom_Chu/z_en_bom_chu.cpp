@@ -505,16 +505,16 @@ void EnBomChu_Update(Actor* thisx, GlobalContext* globalCtx2)
 
 			if(pthis->actor.yDistToWater < 0.0f)
 			{
-				if(pthis->actor.bgCheckFlags & 0x20)
+				if(pthis->actor.bgCheckFlags & BG_STATE_5)
 				{
 					EnBomChu_SpawnRipples(pthis, globalCtx, waterY);
 				}
 
-				pthis->actor.bgCheckFlags &= ~0x20;
+				pthis->actor.bgCheckFlags &= ~BG_STATE_5;
 			}
 			else
 			{
-				if(!(pthis->actor.bgCheckFlags & 0x20) && (pthis->timer != 120))
+				if(!(pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->timer != 120))
 				{
 					EnBomChu_SpawnRipples(pthis, globalCtx, waterY);
 				}
@@ -523,12 +523,12 @@ void EnBomChu_Update(Actor* thisx, GlobalContext* globalCtx2)
 					EffectSsBubble_Spawn(globalCtx, &pthis->actor.world.pos, 0.0f, 3.0f, 15.0f, 0.25f);
 				}
 
-				pthis->actor.bgCheckFlags |= 0x20;
+				pthis->actor.bgCheckFlags |= BG_STATE_5;
 			}
 		}
 		else
 		{
-			pthis->actor.bgCheckFlags &= ~0x20;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_5;
 			pthis->actor.yDistToWater = BGCHECK_Y_MIN;
 		}
 	}

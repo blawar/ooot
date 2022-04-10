@@ -155,8 +155,8 @@ void BgHidanDalm_Wait(BgHidanDalm* pthis, GlobalContext* globalCtx)
 		func_8002DF54(globalCtx, &pthis->dyna.actor, 8);
 		pthis->dyna.actor.flags |= ACTOR_FLAG_4;
 		pthis->actionFunc = BgHidanDalm_Shrink;
-		pthis->dyna.actor.bgCheckFlags &= ~2;
-		pthis->dyna.actor.bgCheckFlags &= ~8;
+		pthis->dyna.actor.bgCheckFlags &= ~BG_STATE_1;
+		pthis->dyna.actor.bgCheckFlags &= ~BG_STATE_3;
 		pthis->dyna.actor.speedXZ = 10.0f;
 		Flags_SetSwitch(globalCtx, pthis->switchFlag);
 		func_8002F7DC(&GET_PLAYER(globalCtx)->actor, NA_SE_IT_HAMMER_HIT);

@@ -441,7 +441,7 @@ void EnHorseNormal_Wander(EnHorseNormal* pthis, GlobalContext* globalCtx)
 				pthis->actor.speedXZ = 8.0f;
 				phi_t0 = 6;
 			}
-			if(Rand_ZeroOne() < 0.1f || (pthis->unk_21E == 0 && ((pthis->actor.bgCheckFlags & 8) || (pthis->bodyCollider.base.ocFlags1 & OC1_HIT) || (pthis->headCollider.base.ocFlags1 & OC1_HIT))))
+			if(Rand_ZeroOne() < 0.1f || (pthis->unk_21E == 0 && ((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->bodyCollider.base.ocFlags1 & OC1_HIT) || (pthis->headCollider.base.ocFlags1 & OC1_HIT))))
 			{
 				pthis->unk_21E += (Rand_ZeroOne() * 30.0f) - 15.0f;
 				if(pthis->unk_21E > 50)

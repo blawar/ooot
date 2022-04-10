@@ -729,7 +729,7 @@ void BossFd_Fly(BossFd* pthis, GlobalContext* globalCtx)
 			if(pthis->timers[1] == 0)
 			{
 				osSyncPrintf("BGCHECKKKKKKKKKKKKKKKKKKKKKKK\n");
-				if(pthis->actor.bgCheckFlags & 0x10)
+				if(pthis->actor.bgCheckFlags & BG_STATE_4)
 				{
 					pthis->fwork[BFD_CEILING_BOUNCE] = -18384.0f;
 					pthis->timers[1] = 10;

@@ -382,7 +382,7 @@ void func_80AFD508(EnSkb* pthis, GlobalContext* globalCtx)
 
 void EnSkb_SetupStunned(EnSkb* pthis)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
@@ -394,18 +394,18 @@ void EnSkb_SetupStunned(EnSkb* pthis)
 
 void func_80AFD59C(EnSkb* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(pthis->actor.speedXZ < 0.0f)
 		{
 			pthis->actor.speedXZ += 0.05f;
 		}
 	}
-	if((pthis->actor.colorFilterTimer == 0) && (pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.colorFilterTimer == 0) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		if(pthis->actor.colChkInfo.health == 0)
 		{
@@ -421,7 +421,7 @@ void func_80AFD59C(EnSkb* pthis, GlobalContext* globalCtx)
 void func_80AFD644(EnSkb* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gStalchildDamagedAnim, -4.0f);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = -4.0f;
 	}
@@ -443,11 +443,11 @@ void func_80AFD6CC(EnSkb* pthis, GlobalContext* globalCtx)
 		{
 			pthis->unk_283 = (*new_var) | 2;
 		}
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			pthis->actor.speedXZ = 0;
 		}
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			if(pthis->actor.speedXZ < 0.0f)
 			{
@@ -456,7 +456,7 @@ void func_80AFD6CC(EnSkb* pthis, GlobalContext* globalCtx)
 		}
 
 		Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 1, 0x1194, 0);
-		if(SkelAnime_Update(&pthis->skelAnime) && (pthis->actor.bgCheckFlags & 1))
+		if(SkelAnime_Update(&pthis->skelAnime) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 		{
 			func_80AFCD60(pthis);
 		}
@@ -468,7 +468,7 @@ void func_80AFD7B4(EnSkb* pthis, GlobalContext* globalCtx)
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gStalchildDyingAnim, -4.0f);
 	pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = -6.0f;
 	}
@@ -513,7 +513,7 @@ void func_80AFD968(EnSkb* pthis, GlobalContext* globalCtx)
 	s16 phi_v1;
 	Player* player;
 
-	if((pthis->unk_280 != 1) && (pthis->actor.bgCheckFlags & 0x60) && (pthis->actor.yDistToWater >= 40.0f))
+	if((pthis->unk_280 != 1) && (pthis->actor.bgCheckFlags & (BG_STATE_5 | BG_STATE_6)) && (pthis->actor.yDistToWater >= 40.0f))
 	{
 		pthis->actor.colChkInfo.health = 0;
 		pthis->unk_281 = 0;

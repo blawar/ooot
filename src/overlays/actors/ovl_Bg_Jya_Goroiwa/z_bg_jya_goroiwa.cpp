@@ -224,7 +224,7 @@ void BgJyaGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx)
 	s32 bgId;
 	Vec3f pos;
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_7 | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
+	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_DEAD | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
 	{
 		pthis->actionFunc(pthis, globalCtx);
 		BgJyaGoroiwa_UpdateRotation(pthis);

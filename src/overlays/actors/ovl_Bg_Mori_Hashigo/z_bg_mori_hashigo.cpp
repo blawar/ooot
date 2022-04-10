@@ -283,7 +283,7 @@ void BgMoriHashigo_LadderFall(BgMoriHashigo* pthis, GlobalContext* globalCtx)
 	Actor* thisx = &pthis->dyna.actor;
 
 	Actor_MoveForward(thisx);
-	if((thisx->bgCheckFlags & 1) && (thisx->velocity.y < 0.0f))
+	if((thisx->bgCheckFlags & BG_STATE_0) && (thisx->velocity.y < 0.0f))
 	{
 		if(pthis->bounceCounter >= ARRAY_COUNT(bounceSpeed_48))
 		{

@@ -892,7 +892,7 @@ void BossDodongo_Roll(BossDodongo* pthis, GlobalContext* globalCtx)
 		Math_SmoothStepToF(&pthis->actor.world.pos.z, sp5C->z, 1.0f, pthis->unk_1E4, 0.0f);
 		pthis->unk_1C4 += 2000;
 
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->unk_228 = 7700.0f;
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_ROLL - SFX_FLAG);

@@ -240,13 +240,13 @@ void func_80882BDC(BgHakaZou* pthis, GlobalContext* globalCtx)
 	pthis->dyna.actor.shape.rot.x += pthis->dyna.actor.world.rot.x;
 	pthis->dyna.actor.shape.rot.z += pthis->dyna.actor.world.rot.z;
 
-	if(pthis->dyna.actor.bgCheckFlags & 2)
+	if(pthis->dyna.actor.bgCheckFlags & BG_STATE_1)
 	{
 		if(pthis->dyna.actor.velocity.y < -8.0f)
 		{
 			pthis->dyna.actor.velocity.y *= -0.6f;
 			pthis->dyna.actor.velocity.y = CLAMP_MAX(pthis->dyna.actor.velocity.y, 10.0f);
-			pthis->dyna.actor.bgCheckFlags &= ~3;
+			pthis->dyna.actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 			pthis->dyna.actor.speedXZ = 2.0f;
 		}
 		else

@@ -208,7 +208,7 @@ void ObjKibako_Idle(ObjKibako* pthis, GlobalContext* globalCtx)
 	{
 		ObjKibako_SetupHeld(pthis);
 	}
-	else if((pthis->actor.bgCheckFlags & 0x20) && (pthis->actor.yDistToWater > 19.0f))
+	else if((pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->actor.yDistToWater > 19.0f))
 	{
 		ObjKibako_WaterBreak(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, NA_SE_EV_WOODBOX_BREAK);
@@ -287,14 +287,14 @@ void ObjKibako_Thrown(ObjKibako* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	s32 pad2;
 
-	if((pthis->actor.bgCheckFlags & 0xB) || (pthis->collider.base.atFlags & AT_HIT))
+	if((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1 | BG_STATE_3)) || (pthis->collider.base.atFlags & AT_HIT))
 	{
 		ObjKibako_AirBreak(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, NA_SE_EV_WOODBOX_BREAK);
 		ObjKibako_SpawnCollectible(pthis, globalCtx);
 		Actor_Kill(&pthis->actor);
 	}
-	else if(pthis->actor.bgCheckFlags & 0x40)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_6)
 	{
 		ObjKibako_WaterBreak(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, NA_SE_EV_WOODBOX_BREAK);

@@ -273,7 +273,7 @@ void ObjTsubo_Idle(ObjTsubo* pthis, GlobalContext* globalCtx)
 	{
 		ObjTsubo_SetupLiftedUp(pthis);
 	}
-	else if((pthis->actor.bgCheckFlags & 0x20) && (pthis->actor.yDistToWater > 15.0f))
+	else if((pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->actor.yDistToWater > 15.0f))
 	{
 		ObjTsubo_WaterBreak(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, NA_SE_EV_POT_BROKEN);
@@ -348,14 +348,14 @@ void ObjTsubo_Thrown(ObjTsubo* pthis, GlobalContext* globalCtx)
 {
 	s32 pad[2];
 
-	if((pthis->actor.bgCheckFlags & 0xB) || (pthis->collider.base.atFlags & AT_HIT))
+	if((pthis->actor.bgCheckFlags & (BG_STATE_0 | BG_STATE_1 | BG_STATE_3)) || (pthis->collider.base.atFlags & AT_HIT))
 	{
 		ObjTsubo_AirBreak(pthis, globalCtx);
 		ObjTsubo_SpawnCollectible(pthis, globalCtx);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 20, NA_SE_EV_POT_BROKEN);
 		Actor_Kill(&pthis->actor);
 	}
-	else if(pthis->actor.bgCheckFlags & 0x40)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_6)
 	{
 		ObjTsubo_WaterBreak(pthis, globalCtx);
 		ObjTsubo_SpawnCollectible(pthis, globalCtx);

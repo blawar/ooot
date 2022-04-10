@@ -299,13 +299,13 @@ void EnSb_TurnAround(EnSb* pthis, GlobalContext* globalCtx)
 void EnSb_Lunge(EnSb* pthis, GlobalContext* globalCtx)
 {
 	Math_StepToF(&pthis->actor.speedXZ, 0.0f, 0.2f);
-	if((pthis->actor.velocity.y <= -0.1f) || ((pthis->actor.bgCheckFlags & 2)))
+	if((pthis->actor.velocity.y <= -0.1f) || ((pthis->actor.bgCheckFlags & BG_STATE_1)))
 	{
 		if(!(pthis->actor.yDistToWater > 0.0f))
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 		}
-		pthis->actor.bgCheckFlags = pthis->actor.bgCheckFlags & ~2;
+		pthis->actor.bgCheckFlags = pthis->actor.bgCheckFlags & ~BG_STATE_1;
 		EnSb_SetupBounce(pthis);
 	}
 }
@@ -341,9 +341,9 @@ void EnSb_Bounce(EnSb* pthis, GlobalContext* globalCtx)
 			EnSb_SpawnBubbles(globalCtx, pthis);
 			EnSb_SetupLunge(pthis);
 		}
-		else if(pthis->actor.bgCheckFlags & 1)
+		else if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
-			pthis->actor.bgCheckFlags &= ~2;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 			pthis->actor.speedXZ = 0.0f;
 			pthis->timer = 1;
 			EnSb_SetupWaitClosed(pthis);
@@ -357,17 +357,17 @@ void EnSb_Cooldown(EnSb* pthis, GlobalContext* globalCtx)
 	if(pthis->timer != 0)
 	{
 		pthis->timer--;
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
-			pthis->actor.bgCheckFlags &= ~1;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 			pthis->actor.speedXZ = 0.0f;
 		}
 	}
 	else
 	{
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
-			pthis->actor.bgCheckFlags &= ~1;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_0;
 			pthis->actionFunc = EnSb_WaitClosed;
 			pthis->actor.speedXZ = 0.0f;
 		}

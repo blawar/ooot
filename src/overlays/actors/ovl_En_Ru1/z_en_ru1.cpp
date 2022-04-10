@@ -1002,7 +1002,7 @@ void func_80AEC780(EnRu1* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	Player* player = GET_PLAYER(globalCtx);
 
-	if((func_80AEC5FC(pthis, globalCtx)) && (!Gameplay_InCsMode(globalCtx)) && (!(player->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_21))) && (player->actor.bgCheckFlags & 1))
+	if((func_80AEC5FC(pthis, globalCtx)) && (!Gameplay_InCsMode(globalCtx)) && (!(player->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_21))) && (player->actor.bgCheckFlags & BG_STATE_0))
 	{
 		globalCtx->csCtx.segment = &D_80AF0880;
 		gSaveContext.cutsceneTrigger = 1;
@@ -1063,7 +1063,7 @@ void func_80AEC9C4(EnRu1* pthis)
 
 void func_80AECA18(EnRu1* pthis)
 {
-	if(!(pthis->actor.bgCheckFlags & 1))
+	if(!(pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		pthis->action = 13;
 		pthis->unk_26C = 0.0f;
@@ -1549,7 +1549,7 @@ void func_80AEDAE0(EnRu1* pthis, GlobalContext* globalCtx)
 
 	if(dynaPolyActor == NULL || dynaPolyActor->actor.id == ACTOR_EN_BOX)
 	{
-		pthis->actor.bgCheckFlags &= ~0x19;
+		pthis->actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_3 | BG_STATE_4);
 	}
 }
 
@@ -1565,7 +1565,7 @@ void func_80AEDB30(EnRu1* pthis, GlobalContext* globalCtx)
 	s32 temp_a0;
 	s32 phi_v1;
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		velocityY = &pthis->actor.velocity.y;
 		dynaPolyActor = DynaPoly_GetActor(&globalCtx->colCtx, pthis->actor.floorBgId);
@@ -1617,7 +1617,7 @@ void func_80AEDB30(EnRu1* pthis, GlobalContext* globalCtx)
 			func_80AED4FC(pthis);
 		}
 	}
-	if(pthis->actor.bgCheckFlags & 0x10)
+	if(pthis->actor.bgCheckFlags & BG_STATE_4)
 	{
 		speedXZ = &pthis->actor.speedXZ;
 		velocityY = &pthis->actor.velocity.y;
@@ -1635,7 +1635,7 @@ void func_80AEDB30(EnRu1* pthis, GlobalContext* globalCtx)
 			func_80AED4FC(pthis);
 		}
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		speedXZ = &pthis->actor.speedXZ;
 		if(*speedXZ != 0.0f)
@@ -1812,7 +1812,7 @@ void func_80AEE2F8(EnRu1* pthis, GlobalContext* globalCtx)
 	DynaPolyActor* dynaPolyActor;
 	s32 floorBgId;
 
-	if((pthis->actor.bgCheckFlags & 1) && (pthis->actor.floorBgId != BGCHECK_SCENE))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && (pthis->actor.floorBgId != BGCHECK_SCENE))
 	{
 		floorBgId = pthis->actor.floorBgId;
 		dynaPolyActor = DynaPoly_GetActor(&globalCtx->colCtx, floorBgId);
@@ -1835,7 +1835,7 @@ s32 func_80AEE394(EnRu1* pthis, GlobalContext* globalCtx)
 	DynaPolyActor* dynaPolyActor;
 	s32 floorBgId;
 
-	if((pthis->actor.bgCheckFlags & 1) && pthis->actor.floorBgId != BGCHECK_SCENE)
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && pthis->actor.floorBgId != BGCHECK_SCENE)
 	{
 		colCtx = &globalCtx->colCtx;
 		floorBgId = pthis->actor.floorBgId; // necessary match, can't move pthis out of pthis block unfortunately
@@ -1866,7 +1866,7 @@ void func_80AEE488(EnRu1* pthis, GlobalContext* globalCtx)
 		pthis->action = 31;
 		func_80AED520(pthis, globalCtx);
 	}
-	else if((!func_80AEE394(pthis, globalCtx)) && (!(pthis->actor.bgCheckFlags & 1)))
+	else if((!func_80AEE394(pthis, globalCtx)) && (!(pthis->actor.bgCheckFlags & BG_STATE_0)))
 	{
 		pthis->actor.minVelocityY = -((kREG(24) * 0.01f) + 6.8f);
 		pthis->actor.gravity = -((kREG(23) * 0.01f) + 1.3f);
@@ -1878,7 +1878,7 @@ void func_80AEE568(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	if(!func_80AEE394(pthis, globalCtx))
 	{
-		if((pthis->actor.bgCheckFlags & 1) && (pthis->actor.speedXZ == 0.0f) && (pthis->actor.minVelocityY == 0.0f))
+		if((pthis->actor.bgCheckFlags & BG_STATE_0) && (pthis->actor.speedXZ == 0.0f) && (pthis->actor.minVelocityY == 0.0f))
 		{
 			func_80AEE02C(pthis);
 			func_8002F580(&pthis->actor, globalCtx);
@@ -1997,7 +1997,7 @@ void func_80AEE7C4(EnRu1* pthis, GlobalContext* globalCtx)
 
 s32 func_80AEEAC8(EnRu1* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		func_80AEE02C(pthis);
 		func_8002F580(&pthis->actor, globalCtx);

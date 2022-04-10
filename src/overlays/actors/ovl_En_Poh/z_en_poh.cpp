@@ -867,7 +867,7 @@ void EnPoh_Death(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->spinningLampTimer--;
 	}
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		objId = (pthis->infoIdx == EN_POH_INFO_COMPOSER) ? OBJECT_PO_COMPOSER : OBJECT_POH;
 		EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 1, 1, 15, objId, 10, pthis->info->lanternDisplayList);

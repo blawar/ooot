@@ -748,7 +748,7 @@ void EnGoroiwa_SetupMoveAndFallToGround(EnGoroiwa* pthis)
 void EnGoroiwa_MoveAndFallToGround(EnGoroiwa* pthis, GlobalContext* globalCtx)
 {
 	EnGoroiwa_MoveAndFall(pthis, globalCtx);
-	if((pthis->actor.bgCheckFlags & 1) && pthis->actor.velocity.y < 0.0f)
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && pthis->actor.velocity.y < 0.0f)
 	{
 		if((pthis->stateFlags & ENGOROIWA_PLAYER_IN_THE_WAY) && (pthis->actor.home.rot.z & 1) == 1)
 		{
@@ -848,7 +848,7 @@ void EnGoroiwa_Update(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	s32 sp30;
 
-	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_7 | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
+	if(!(player->stateFlags1 & (PLAYER_STATE1_6 | PLAYER_STATE1_DEAD | PLAYER_STATE1_28 | PLAYER_STATE1_29)))
 	{
 		if(pthis->collisionDisabledTimer > 0)
 		{

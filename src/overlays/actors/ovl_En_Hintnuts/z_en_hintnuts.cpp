@@ -431,11 +431,11 @@ void EnHintnuts_Run(EnHintnuts* pthis, GlobalContext* globalCtx)
 	Math_StepToF(&pthis->actor.speedXZ, 7.5f, 1.0f);
 	if(Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->unk_196, 1, 0xE38, 0xB6) == 0)
 	{
-		if(pthis->actor.bgCheckFlags & 0x20)
+		if(pthis->actor.bgCheckFlags & BG_STATE_5)
 		{
 			pthis->unk_196 = Actor_WorldYawTowardPoint(&pthis->actor, &pthis->actor.home.pos);
 		}
-		else if(pthis->actor.bgCheckFlags & 8)
+		else if(pthis->actor.bgCheckFlags & BG_STATE_3)
 		{
 			pthis->unk_196 = pthis->actor.wallYaw;
 		}
@@ -504,7 +504,7 @@ void EnHintnuts_Leave(EnHintnuts* pthis, GlobalContext* globalCtx)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_WALK);
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		temp_a1 = pthis->actor.wallYaw;
 	}

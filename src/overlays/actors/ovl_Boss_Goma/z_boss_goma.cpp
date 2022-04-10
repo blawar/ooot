@@ -918,7 +918,7 @@ void BossGoma_Encounter(BossGoma* pthis, GlobalContext* globalCtx)
 			Math_ApproachS(&pthis->actor.shape.rot.x, 0, 2, 0xBB8);
 			Math_ApproachS(&pthis->actor.world.rot.y, Actor_WorldYawTowardActor(&pthis->actor, &GET_PLAYER(globalCtx)->actor), 2, 0x7D0);
 
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				pthis->actionState = 130;
 				pthis->actor.velocity.y = 0.0f;
@@ -1534,7 +1534,7 @@ void BossGoma_FallJump(BossGoma* pthis, GlobalContext* globalCtx)
 	Math_ApproachS(&pthis->actor.shape.rot.x, 0, 2, 0xBB8);
 	Math_ApproachS(&pthis->actor.world.rot.y, Actor_WorldYawTowardActor(&pthis->actor, &GET_PLAYER(globalCtx)->actor), 2, 0x7D0);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		BossGoma_SetupFloorLand(pthis);
 		pthis->actor.velocity.y = 0.0f;
@@ -1552,7 +1552,7 @@ void BossGoma_FallStruckDown(BossGoma* pthis, GlobalContext* globalCtx)
 	Math_ApproachS(&pthis->actor.shape.rot.x, 0, 2, 0xBB8);
 	Math_ApproachS(&pthis->actor.world.rot.y, Actor_WorldYawTowardActor(&pthis->actor, &GET_PLAYER(globalCtx)->actor), 3, 0x7D0);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		BossGoma_SetupFloorLandStruckDown(pthis);
 		pthis->actor.velocity.y = 0.0f;
@@ -1784,12 +1784,12 @@ void BossGoma_FloorMain(BossGoma* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.velocity.y = 0.0f;
 	}
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		BossGoma_SetupWallClimb(pthis);
 	}
@@ -1843,7 +1843,7 @@ void BossGoma_CeilingMoveToCenter(BossGoma* pthis, GlobalContext* globalCtx)
 	Math_ApproachS(&pthis->actor.shape.rot.x, -0x8000, 3, 0x3E8);
 
 	// avoid walking into a wall?
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		angle = pthis->actor.shape.rot.y + 0x8000;
 

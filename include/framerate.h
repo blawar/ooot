@@ -76,9 +76,23 @@ u64 frameRateDivisor();
 class Timer
 {
 	public:
+	enum class Type
+	{
+		U8 = 0xFF,
+		S8 = 0X7F,
+		U16 = 0xFFFF,
+		S16 = 0x8000
+	};
+
 	Timer();
 	Timer(const Timer& t);
 	Timer(float n);
+	Timer(float n, s64 min, s64 max);
+	Timer(s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max)
+	{
+	}
+
+	float frac() const;
 
 	static Timer invalid();
 
@@ -121,19 +135,69 @@ class Timer
 		return (u16)m_counter;
 	}
 
+	void setRange(s64 min, s64 max);
+
 	constexpr static float INVALID = -FRAMERATE_MAX / 20.0f;
 
 	protected:
 	void update();
 	float m_counter;
 	s64 m_counterInt;
+	s64 m_min;
+	s64 m_max;
 };
 
-typedef Timer Counter;
+class TimerU8 : public Timer
+{
+	public:
+	TimerU8() : Timer(0, 0xFF)
+	{
+	}
+
+	TimerU8(const Timer& t) : Timer(t)
+	{
+	}
+
+	TimerU8(float n) : Timer(n, 0, 0xFF)
+	{
+	}
+};
+
+class TimerS8 : public Timer
+{
+	public:
+	TimerS8() : Timer(-0x80, 0x7F)
+	{
+	}
+
+	TimerS8(const Timer& t) : Timer(t)
+	{
+	}
+
+	TimerS8(float n) : Timer(n, -0x80, 0x7F)
+	{
+	}
+};
+
+class TimerU16 : public Timer
+{
+	public:
+	TimerU16() : Timer(0, 0xFFFF)
+	{
+	}
+
+	TimerU16(const Timer& t) : Timer(t)
+	{
+	}
+
+	TimerU16(float n) : Timer(n, 0, 0xFFFF)
+	{
+	}
+};
+
+typedef TimerU16 Counter;
 typedef Timer Rotation;
 typedef Timer Position;
-typedef Timer TimerU8;
-typedef Timer TimerU16;
 typedef Timer TimerS16;
 typedef Timer TimerS32;
 typedef Timer TimerU32;

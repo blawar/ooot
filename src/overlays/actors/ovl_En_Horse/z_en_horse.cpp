@@ -727,7 +727,7 @@ s32 EnHorse_PlayerCanMove(EnHorse* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if((player->stateFlags1 & 1) || func_8002DD78(GET_PLAYER(globalCtx)) == 1 || (player->stateFlags1 & PLAYER_STATE1_20) || ((pthis->stateFlags & ENHORSE_FLAG_19) && !pthis->inRace) || pthis->action == ENHORSE_ACT_HBA ||
+	if((player->stateFlags1 & PLAYER_STATE1_0) || func_8002DD78(GET_PLAYER(globalCtx)) == 1 || (player->stateFlags1 & PLAYER_STATE1_20) || ((pthis->stateFlags & ENHORSE_FLAG_19) && !pthis->inRace) || pthis->action == ENHORSE_ACT_HBA ||
 	   player->actor.flags & ACTOR_FLAG_8 || globalCtx->csCtx.state != 0)
 	{
 		return false;
@@ -3660,7 +3660,7 @@ void EnHorse_UpdateBgCheckInfo(EnHorse* pthis, GlobalContext* globalCtx)
 	}
 
 	// void 0 trick required to match, but is surely not real. revisit at a later time
-	if(pthis->actor.bgCheckFlags & 8 && Math_CosS(pthis->actor.wallYaw - ((void)0, pthis->actor.world).rot.y) < -0.3f)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3 && Math_CosS(pthis->actor.wallYaw - ((void)0, pthis->actor.world).rot.y) < -0.3f)
 	{
 		if(pthis->actor.speedXZ > 4.0f)
 		{
@@ -4167,7 +4167,7 @@ void EnHorse_Update(Actor* thisx, GlobalContext* globalCtx2)
 		CollisionCheck_SetAT(globalCtx, &globalCtx->colChkCtx, &pthis->cyl1.base);
 		CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->cyl1.base);
 		CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->cyl2.base);
-		if((player->stateFlags1 & 1) && player->rideActor != NULL)
+		if((player->stateFlags1 & PLAYER_STATE1_0) && player->rideActor != NULL)
 		{
 			if(globalCtx->sceneNum != SCENE_SPOT20 || (globalCtx->sceneNum == SCENE_SPOT20 && (thisx->world.pos.z < -2400.0f)))
 			{

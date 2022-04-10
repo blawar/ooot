@@ -1183,7 +1183,7 @@ void func_808FFCFC(BossGanon2* pthis, GlobalContext* globalCtx)
 		func_80900580(pthis, globalCtx);
 		Audio_StopSfxById(NA_SE_EN_MGANON_UNARI);
 	}
-	else if((pthis->actor.bgCheckFlags & 8) && func_808FFA24(pthis, globalCtx))
+	else if((pthis->actor.bgCheckFlags & BG_STATE_3) && func_808FFA24(pthis, globalCtx))
 	{
 		pthis->unk_311 = false;
 		func_80900580(pthis, globalCtx);
@@ -2341,7 +2341,7 @@ void BossGanon2_Update(Actor* thisx, GlobalContext* globalCtx)
 	if(pthis->unk_335 != 0)
 	{
 		Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 60.0f, 60.0f, 100.0f, 5);
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			if(pthis->actor.velocity.y < -5.0f)
 			{

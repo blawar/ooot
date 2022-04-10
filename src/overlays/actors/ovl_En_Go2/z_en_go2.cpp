@@ -1189,7 +1189,7 @@ s32 EnGo2_IsWakingUp(EnGo2* pthis)
 
 s32 EnGo2_IsRollingOnGround(EnGo2* pthis, s16 arg1, f32 arg2, s16 arg3)
 {
-	if((pthis->actor.bgCheckFlags & 1) == 0 || pthis->actor.velocity.y > 0.0f)
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) == 0 || pthis->actor.velocity.y > 0.0f)
 	{
 		return false;
 	}
@@ -1440,7 +1440,7 @@ s32 EnGo2_IsCameraModified(EnGo2* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void EnGo2_DefaultWakingUp(EnGo2* pthis)
+void EnGo2_Awake(EnGo2* pthis)
 {
 	if(EnGo2_IsWakingUp(pthis))
 	{
@@ -1509,7 +1509,7 @@ void EnGo2_SelectGoronWakingUp(EnGo2* pthis)
 				break;
 			}
 		default:
-			EnGo2_DefaultWakingUp(pthis);
+			EnGo2_Awake(pthis);
 	}
 }
 

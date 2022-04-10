@@ -817,7 +817,7 @@ void func_8098652C(DemoIm* pthis, GlobalContext* globalCtx)
 
 void func_80986570(DemoIm* pthis, GlobalContext* globalCtx)
 {
-	if(Animation_OnFrame(&pthis->skelAnime, 7.0f) && (pthis->actor.bgCheckFlags & 1))
+	if(Animation_OnFrame(&pthis->skelAnime, 7.0f) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		u32 sfxId = SFX_FLAG;
 

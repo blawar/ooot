@@ -463,18 +463,18 @@ void EnFirefly_FlyIdle(EnFirefly* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			if(pthis->actor.bgCheckFlags & 1)
+			if(pthis->actor.bgCheckFlags & BG_STATE_0)
 			{
 				pthis->targetPitch = 0x954;
 			}
-			else if((pthis->actor.bgCheckFlags & 0x10) || (pthis->maxAltitude < pthis->actor.world.pos.y))
+			else if((pthis->actor.bgCheckFlags & BG_STATE_4) || (pthis->maxAltitude < pthis->actor.world.pos.y))
 			{
 				pthis->targetPitch = 0x2154;
 			}
 		}
 		Math_ScaledStepToS(&pthis->actor.shape.rot.x, pthis->targetPitch, 0x100);
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.wallYaw, 2, 0xC00, 0x300);
 	}
@@ -506,7 +506,7 @@ void EnFirefly_Fall(EnFirefly* pthis, GlobalContext* globalCtx)
 		{
 			pthis->timer--;
 		}
-		if((pthis->actor.bgCheckFlags & 1) || (pthis->timer == 0))
+		if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->timer == 0))
 		{
 			EnFirefly_SetupDie(pthis);
 		}
@@ -540,7 +540,7 @@ void EnFirefly_DiveAttack(EnFirefly* pthis, GlobalContext* globalCtx)
 		pthis->timer--;
 	}
 	Math_StepToF(&pthis->actor.speedXZ, 4.0f, 0.5f);
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.wallYaw, 2, 0xC00, 0x300);
 		Math_ScaledStepToS(&pthis->actor.shape.rot.x, pthis->targetPitch, 0x100);
@@ -565,11 +565,11 @@ void EnFirefly_DiveAttack(EnFirefly* pthis, GlobalContext* globalCtx)
 		{
 			Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 2, 0xC00, 0x300);
 		}
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->targetPitch = 0x954;
 		}
-		if((pthis->actor.bgCheckFlags & 0x10) || (pthis->maxAltitude < pthis->actor.world.pos.y))
+		if((pthis->actor.bgCheckFlags & BG_STATE_4) || (pthis->maxAltitude < pthis->actor.world.pos.y))
 		{
 			pthis->targetPitch = 0x2154;
 		}
@@ -617,11 +617,11 @@ void EnFirefly_FlyAway(EnFirefly* pthis, GlobalContext* globalCtx)
 		return;
 	}
 	Math_StepToF(&pthis->actor.speedXZ, 3.0f, 0.3f);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->targetPitch = 0x954;
 	}
-	else if((pthis->actor.bgCheckFlags & 0x10) || (pthis->maxAltitude < pthis->actor.world.pos.y))
+	else if((pthis->actor.bgCheckFlags & BG_STATE_4) || (pthis->maxAltitude < pthis->actor.world.pos.y))
 	{
 		pthis->targetPitch = 0x2154;
 	}
@@ -629,7 +629,7 @@ void EnFirefly_FlyAway(EnFirefly* pthis, GlobalContext* globalCtx)
 	{
 		pthis->targetPitch = 0x954;
 	}
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.wallYaw, 2, 0xC00, 0x300);
 	}
@@ -665,7 +665,7 @@ void EnFirefly_Stunned(EnFirefly* pthis, GlobalContext* globalCtx)
 
 void EnFirefly_FrozenFall(EnFirefly* pthis, GlobalContext* globalCtx)
 {
-	if((pthis->actor.bgCheckFlags & 1) || (pthis->actor.floorHeight == BGCHECK_Y_MIN))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->actor.floorHeight == BGCHECK_Y_MIN))
 	{
 		pthis->actor.colorFilterTimer = 0;
 		EnFirefly_SetupDie(pthis);

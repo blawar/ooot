@@ -320,7 +320,7 @@ s32 EnWf_ChangeAction(GlobalContext* globalCtx, EnWf* pthis, s16 mustChoose)
 	{
 		pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 
-		if((pthis->actor.bgCheckFlags & 8) && (ABS(wallYawDiff) < 0x2EE0) && (pthis->actor.xzDistToPlayer < 120.0f))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) && (ABS(wallYawDiff) < 0x2EE0) && (pthis->actor.xzDistToPlayer < 120.0f))
 		{
 			EnWf_SetupSomersaultAndAttack(pthis);
 			return true;
@@ -348,7 +348,7 @@ s32 EnWf_ChangeAction(GlobalContext* globalCtx, EnWf* pthis, s16 mustChoose)
 	{
 		pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 
-		if(((pthis->actor.bgCheckFlags & 8) && (wallYawDiff < 0x2EE0)) || (explosive->id == ACTOR_EN_BOM_CHU))
+		if(((pthis->actor.bgCheckFlags & BG_STATE_3) && (wallYawDiff < 0x2EE0)) || (explosive->id == ACTOR_EN_BOM_CHU))
 		{
 			if((explosive->id == ACTOR_EN_BOM_CHU) && (Actor_WorldDistXYZToActor(&pthis->actor, explosive) < 80.0f) && (s16)((pthis->actor.shape.rot.y - explosive->world.rot.y) + 0x8000) < 0x3E80)
 			{
@@ -742,12 +742,12 @@ void EnWf_RunAroundPlayer(EnWf* pthis, GlobalContext* globalCtx)
 		angle1 = player->actor.shape.rot.y + pthis->runAngle + 0x8000;
 
 		// Actor_TestFloorInDirection is useless here (see comment below)
-		if((pthis->actor.bgCheckFlags & 8) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y))
+		if((pthis->actor.bgCheckFlags & BG_STATE_3) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y))
 		{
-			angle2 = (pthis->actor.bgCheckFlags & 8) ? (pthis->actor.wallYaw - pthis->actor.yawTowardsPlayer) - pthis->runAngle : 0;
+			angle2 = (pthis->actor.bgCheckFlags & BG_STATE_3) ? (pthis->actor.wallYaw - pthis->actor.yawTowardsPlayer) - pthis->runAngle : 0;
 
 			// This is probably meant to reverse direction if the edge of a floor is encountered, but does nothing
-			// unless bgCheckFlags & 8 anyway, since angle2 = 0 otherwise
+			// unless bgCheckFlags & BG_STATE_3 anyway, since angle2 = 0 otherwise
 			if(ABS(angle2) > 0x2EE0)
 			{
 				pthis->runAngle = -pthis->runAngle;
@@ -1027,7 +1027,7 @@ void EnWf_BackflipAway(EnWf* pthis, GlobalContext* globalCtx)
 
 void EnWf_SetupStunned(EnWf* pthis)
 {
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
@@ -1040,12 +1040,12 @@ void EnWf_SetupStunned(EnWf* pthis)
 
 void EnWf_Stunned(EnWf* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(pthis->actor.speedXZ < 0.0f)
 		{
@@ -1055,7 +1055,7 @@ void EnWf_Stunned(EnWf* pthis, GlobalContext* globalCtx)
 		pthis->unk_300 = false;
 	}
 
-	if((pthis->actor.colorFilterTimer == 0) && (pthis->actor.bgCheckFlags & 1))
+	if((pthis->actor.colorFilterTimer == 0) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		if(pthis->actor.colChkInfo.health == 0)
 		{
@@ -1072,7 +1072,7 @@ void EnWf_SetupDamaged(EnWf* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gWolfosDamagedAnim, -4.0f);
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->unk_300 = false;
 		pthis->actor.speedXZ = -4.0f;
@@ -1093,12 +1093,12 @@ void EnWf_Damaged(EnWf* pthis, GlobalContext* globalCtx)
 {
 	s16 angleToWall;
 
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		if(pthis->actor.speedXZ < 0.0f)
 		{
@@ -1112,12 +1112,12 @@ void EnWf_Damaged(EnWf* pthis, GlobalContext* globalCtx)
 
 	if(!EnWf_ChangeAction(globalCtx, pthis, false) && SkelAnime_Update(&pthis->skelAnime))
 	{
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			angleToWall = pthis->actor.wallYaw - pthis->actor.shape.rot.y;
 			angleToWall = ABS(angleToWall);
 
-			if((pthis->actor.bgCheckFlags & 8) && (ABS(angleToWall) < 12000) && (pthis->actor.xzDistToPlayer < 120.0f))
+			if((pthis->actor.bgCheckFlags & BG_STATE_3) && (ABS(angleToWall) < 12000) && (pthis->actor.xzDistToPlayer < 120.0f))
 			{
 				EnWf_SetupSomersaultAndAttack(pthis);
 			}
@@ -1327,12 +1327,12 @@ void EnWf_Sidestep(EnWf* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer + pthis->runAngle, 1, 3000, 1);
 
 	// Actor_TestFloorInDirection is useless here (see comment below)
-	if((pthis->actor.bgCheckFlags & 8) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y))
+	if((pthis->actor.bgCheckFlags & BG_STATE_3) || !Actor_TestFloorInDirection(&pthis->actor, globalCtx, pthis->actor.speedXZ, pthis->actor.shape.rot.y))
 	{
-		s16 angle = (pthis->actor.bgCheckFlags & 8) ? (pthis->actor.wallYaw - pthis->actor.yawTowardsPlayer) - pthis->runAngle : 0;
+		s16 angle = (pthis->actor.bgCheckFlags & BG_STATE_3) ? (pthis->actor.wallYaw - pthis->actor.yawTowardsPlayer) - pthis->runAngle : 0;
 
 		// This is probably meant to reverse direction if the edge of a floor is encountered, but does nothing
-		// unless bgCheckFlags & 8 anyway, since angle = 0 otherwise
+		// unless bgCheckFlags & BG_STATE_3 anyway, since angle = 0 otherwise
 		if(ABS(angle) > 0x2EE0)
 		{
 			pthis->runAngle = -pthis->runAngle;
@@ -1431,7 +1431,7 @@ void EnWf_SetupDie(EnWf* pthis)
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gWolfosRearingUpFallingOverAnim, -4.0f);
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->unk_300 = false;
 		pthis->actor.speedXZ = -6.0f;
@@ -1450,12 +1450,12 @@ void EnWf_SetupDie(EnWf* pthis)
 
 void EnWf_Die(EnWf* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->actor.bgCheckFlags & 2)
+	if(pthis->actor.bgCheckFlags & BG_STATE_1)
 	{
 		pthis->actor.speedXZ = 0.0f;
 	}
 
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
 		pthis->unk_300 = false;

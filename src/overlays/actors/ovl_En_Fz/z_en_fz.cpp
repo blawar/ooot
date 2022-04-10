@@ -347,9 +347,9 @@ void EnFz_ApplyDamage(EnFz* pthis, GlobalContext* globalCtx)
 {
 	Vec3f vec;
 
-	if(pthis->isMoving && ((pthis->actor.bgCheckFlags & 8) || (Actor_TestFloorInDirection(&pthis->actor, globalCtx, 60.0f, pthis->actor.world.rot.y) == 0)))
+	if(pthis->isMoving && ((pthis->actor.bgCheckFlags & BG_STATE_3) || (Actor_TestFloorInDirection(&pthis->actor, globalCtx, 60.0f, pthis->actor.world.rot.y) == 0)))
 	{
-		pthis->actor.bgCheckFlags &= ~8;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 		pthis->isMoving = false;
 		pthis->speedXZ = 0.0f;
 		pthis->actor.speedXZ = 0.0f;

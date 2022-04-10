@@ -531,7 +531,7 @@ void action_808B5B6C(BgSpot16Bombstone* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(actor->bgCheckFlags & 8 || (actor->bgCheckFlags & 1 && actor->velocity.y < 0.0f))
+	if(actor->bgCheckFlags & BG_STATE_3 || (actor->bgCheckFlags & BG_STATE_0 && actor->velocity.y < 0.0f))
 	{
 		BgSpot16Bombstone_SpawnFragments(pthis, globalCtx);
 		BgSpot16Bombstone_SpawnDust(pthis, globalCtx);

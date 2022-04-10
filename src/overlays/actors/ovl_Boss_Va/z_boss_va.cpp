@@ -1560,9 +1560,9 @@ void BossVa_BodyPhase4(BossVa* pthis, GlobalContext* globalCtx)
 	pthis->unk_1AC += 0xC31;
 	pthis->unk_1A0 = (Math_CosS(pthis->unk_1AC) * 0.1f) + 1.0f;
 	pthis->unk_1A4 = (Math_SinS(pthis->unk_1AC) * 0.05f) + 1.0f;
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
-		pthis->actor.bgCheckFlags &= ~8;
+		pthis->actor.bgCheckFlags &= ~BG_STATE_3;
 		pthis->actor.world.rot.y = (s16)Rand_CenteredFloat(30 * (0x10000 / 360)) + pthis->actor.wallYaw;
 	}
 

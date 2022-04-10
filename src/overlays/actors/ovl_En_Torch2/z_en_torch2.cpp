@@ -343,7 +343,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 				else if(sSwordJumpState != 0)
 				{
 					sStickTilt = 0.0f;
-					player->stateFlags3 |= 4;
+					player->stateFlags3 |= PLAYER_STATE3_2;
 					Math_SmoothStepToF(&pthis->actor.world.pos.x, (Math_SinS(player->actor.shape.rot.y - 0x3E8) * 45.0f) + player->actor.world.pos.x, 1.0f, 5.0f, 0.0f);
 					Math_SmoothStepToF(&pthis->actor.world.pos.z, (Math_CosS(player->actor.shape.rot.y - 0x3E8) * 45.0f) + player->actor.world.pos.z, 1.0f, 5.0f, 0.0f);
 					sSwordJumpTimer--;
@@ -351,7 +351,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 					{
 						pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
 						input->cur.button = BTN_A;
-						player->stateFlags3 &= ~4;
+						player->stateFlags3 &= ~PLAYER_STATE3_2;
 						sStickTilt = 127.0f;
 						player->skelAnime.curFrame = 3.0f;
 						sStickAngle = pthis->actor.yawTowardsPlayer + 0x8000;
@@ -394,7 +394,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 							{
 								sStickTilt = 0.0f;
 								sSwordJumpState = 1;
-								player->stateFlags3 |= 4;
+								player->stateFlags3 |= PLAYER_STATE3_2;
 								pthis->actor.flags &= ~ACTOR_FLAG_0;
 								sSwordJumpTimer = 27;
 								player->swordState = 0;
@@ -510,7 +510,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 			{
 				input->cur.button |= BTN_B;
 			}
-			else if(!sJumpslashFlag && (pthis->actor.bgCheckFlags & 1))
+			else if(!sJumpslashFlag && (pthis->actor.bgCheckFlags & BG_STATE_0))
 			{
 				pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
 				sStickAngle = pthis->actor.yawTowardsPlayer;
@@ -546,7 +546,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 			input->cur.stick_x = input->cur.stick_y = 0;
 			if((pthis->invincibilityTimer > 0) && (pthis->actor.world.pos.y < (pthis->actor.floorHeight - 160.0f)))
 			{
-				pthis->stateFlags3 &= ~1;
+				pthis->stateFlags3 &= ~PLAYER_STATE3_0;
 				pthis->actor.flags |= ACTOR_FLAG_0;
 				pthis->invincibilityTimer = 0;
 				pthis->actor.velocity.y = 0.0f;
@@ -646,7 +646,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 			sActionState = ENTORCH2_DEATH;
 			Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 			Item_DropCollectibleRandom(globalCtx, &pthis->actor, &thisx->world.pos, 0xC0);
-			pthis->stateFlags3 &= ~4;
+			pthis->stateFlags3 &= ~PLAYER_STATE3_2;
 		}
 		else
 		{
@@ -671,8 +671,8 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 				pthis->unk_8A4 = 8.0f;
 				pthis->unk_8A2 = pthis->actor.yawTowardsPlayer + 0x8000;
 				Actor_SetDropFlag(&pthis->actor, &pthis->cylinder.info, 1);
-				pthis->stateFlags3 &= ~4;
-				pthis->stateFlags3 |= 1;
+				pthis->stateFlags3 &= ~PLAYER_STATE3_2;
+				pthis->stateFlags3 |= PLAYER_STATE3_0;
 				sActionState = ENTORCH2_DAMAGE;
 				if(sAlpha == 255)
 				{
@@ -692,11 +692,11 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 
 	if((pthis->actor.colorFilterTimer == 0) || (pthis->actor.colorFilterParams & 0x4000))
 	{
-		pthis->stateFlags3 &= ~4;
+		pthis->stateFlags3 &= ~PLAYER_STATE3_2;
 	}
 	else
 	{
-		pthis->stateFlags3 |= 4;
+		pthis->stateFlags3 |= PLAYER_STATE3_2;
 		pthis->stateFlags1 &= ~PLAYER_STATE1_26;
 		pthis->invincibilityTimer = 0;
 		input->press.stick_x = input->press.stick_y = 0;

@@ -444,7 +444,7 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx)
 		}
 
 		Math_Vec3f_Copy(&sCameraAt, &player->actor.world.pos);
-		if(player->actor.bgCheckFlags & 2)
+		if(player->actor.bgCheckFlags & BG_STATE_1)
 		{
 			if(!pthis->ready)
 			{
@@ -729,7 +729,7 @@ void BossSst_HeadNeutral(BossSst* pthis, GlobalContext* globalCtx)
 
 	if(pthis->timer == 0)
 	{
-		if((GET_PLAYER(globalCtx)->actor.world.pos.y > -50.0f) && !(GET_PLAYER(globalCtx)->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_13 | PLAYER_STATE1_14)))
+		if((GET_PLAYER(globalCtx)->actor.world.pos.y > -50.0f) && !(GET_PLAYER(globalCtx)->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_13 | PLAYER_STATE1_14)))
 		{
 			sHands[Rand_ZeroOne() <= 0.5f]->ready = true;
 			BossSst_HeadSetupWait(pthis);
@@ -1429,7 +1429,7 @@ void BossSst_HandWait(BossSst* pthis, GlobalContext* globalCtx)
 			pthis->timer--;
 		}
 
-		if((pthis->timer == 0) && (player->actor.world.pos.y > -50.0f) && !(player->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_13 | PLAYER_STATE1_14)))
+		if((pthis->timer == 0) && (player->actor.world.pos.y > -50.0f) && !(player->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_13 | PLAYER_STATE1_14)))
 		{
 			BossSst_HandSelectAttack(pthis);
 		}
@@ -1919,7 +1919,7 @@ void BossSst_HandPunch(BossSst* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.world.pos.x += pthis->actor.speedXZ * Math_SinS(pthis->actor.shape.rot.y);
 	pthis->actor.world.pos.z += pthis->actor.speedXZ * Math_CosS(pthis->actor.shape.rot.y);
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		BossSst_HandSetupRetreat(pthis);
 	}

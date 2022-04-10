@@ -547,7 +547,7 @@ void EnFd_SpinAndGrow(EnFd* pthis, GlobalContext* globalCtx)
 
 void EnFd_JumpToGround(EnFd* pthis, GlobalContext* globalCtx)
 {
-	if((pthis->actor.bgCheckFlags & 1) && !(pthis->actor.velocity.y > 0.0f))
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) && !(pthis->actor.velocity.y > 0.0f))
 	{
 		pthis->actor.velocity.y = 0.0f;
 		pthis->actor.speedXZ = 0.0f;

@@ -469,7 +469,7 @@ void EnXc_SetWalkingSFX(EnXc* pthis, GlobalContext* globalCtx)
 
 	if(Animation_OnFrame(&pthis->skelAnime, 11.0f) || Animation_OnFrame(&pthis->skelAnime, 23.0f))
 	{
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			sfxId = SFX_FLAG;
 			sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);
@@ -486,7 +486,7 @@ void EnXc_SetNutThrowSFX(EnXc* pthis, GlobalContext* globalCtx)
 
 	if(Animation_OnFrame(&pthis->skelAnime, 7.0f))
 	{
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			sfxId = SFX_FLAG;
 			sfxId += SurfaceType_GetSfx(&globalCtx->colCtx, pthis->actor.floorPoly, pthis->actor.floorBgId);

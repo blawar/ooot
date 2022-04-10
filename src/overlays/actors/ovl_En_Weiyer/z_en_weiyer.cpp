@@ -270,7 +270,7 @@ void func_80B328E8(EnWeiyer* pthis, GlobalContext* globalCtx)
 		Math_StepToF(&pthis->actor.speedXZ, 1.3f, 0.03f);
 	}
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->unk_196 = pthis->actor.wallYaw;
 		pthis->unk_194 = 30;
@@ -311,7 +311,7 @@ void func_80B328E8(EnWeiyer* pthis, GlobalContext* globalCtx)
 	{
 		Player* player = GET_PLAYER(globalCtx);
 
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			pthis->unk_280 = pthis->actor.home.pos.y - Rand_ZeroOne() * ((pthis->actor.home.pos.y - pthis->actor.floorHeight) / 2.0f);
 		}
@@ -358,7 +358,7 @@ void func_80B32C2C(EnWeiyer* pthis, GlobalContext* globalCtx)
 
 			func_80B32538(pthis);
 		}
-		else if(pthis->actor.bgCheckFlags & 1)
+		else if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			func_80B32494(pthis);
 		}
@@ -480,7 +480,7 @@ void func_80B33018(EnWeiyer* pthis, GlobalContext* globalCtx)
 		pthis->unk_194--;
 	}
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->unk_196 = pthis->actor.wallYaw;
 	}
@@ -517,7 +517,7 @@ void func_80B331CC(EnWeiyer* pthis, GlobalContext* globalCtx)
 		pthis->unk_194--;
 	}
 
-	if(pthis->actor.bgCheckFlags & 8)
+	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
 		pthis->unk_196 = pthis->actor.wallYaw;
 	}
@@ -549,7 +549,7 @@ void func_80B332B4(EnWeiyer* pthis, GlobalContext* globalCtx)
 		pthis->unk_194--;
 	}
 
-	if((pthis->unk_194 == 0) || (pthis->actor.bgCheckFlags & 0x10))
+	if((pthis->unk_194 == 0) || (pthis->actor.bgCheckFlags & BG_STATE_4))
 	{
 		func_80B327B0(pthis);
 	}
@@ -585,7 +585,7 @@ void func_80B333B8(EnWeiyer* pthis, GlobalContext* globalCtx)
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_EIER_FLUTTER);
 		}
 
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 		}
@@ -649,11 +649,11 @@ void func_80B3349C(EnWeiyer* pthis, GlobalContext* globalCtx)
 			Math_ScaledStepToS(&pthis->actor.shape.rot.x, phi_a1, 0x400);
 		}
 
-		if(pthis->actor.bgCheckFlags & 1)
+		if(pthis->actor.bgCheckFlags & BG_STATE_0)
 		{
 			func_80B32434(pthis);
 		}
-		else if((pthis->actor.bgCheckFlags & 0x20) && (pthis->actor.shape.rot.x > 0))
+		else if((pthis->actor.bgCheckFlags & BG_STATE_5) && (pthis->actor.shape.rot.x > 0))
 		{
 			EffectSsGSplash_Spawn(globalCtx, &pthis->actor.world.pos, NULL, NULL, 1, 400);
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_OCTAROCK_SINK);

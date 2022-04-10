@@ -135,7 +135,7 @@ void EffectSsFireTail_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	func_80093D84(globalCtx->state.gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, 0);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (uintptr_t)(globalCtx->state.frames * -0x14) & 0x1FF, 32, 128));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (globalCtx->state.frames.whole() * -0x14) & 0x1FF, 32, 128));
 
 	if(pthis->rType != 0)
 	{

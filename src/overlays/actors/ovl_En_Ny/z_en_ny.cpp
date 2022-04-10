@@ -282,13 +282,13 @@ void EnNy_TurnToStone(EnNy* pthis, GlobalContext* globalCtx)
 	if(phi_f0 <= 0.25f)
 	{
 		phi_f0 = 0.25f;
-		if(pthis->actor.bgCheckFlags & 2)
+		if(pthis->actor.bgCheckFlags & BG_STATE_1)
 		{
 			if(!(pthis->unk_1F0 < pthis->actor.yDistToWater))
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_GND);
 			}
-			pthis->actor.bgCheckFlags &= ~2;
+			pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 			pthis->actor.speedXZ = 0.0f;
 			pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 			func_80ABCE38(pthis);

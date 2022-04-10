@@ -432,7 +432,7 @@ void EnDh_Burrow(EnDh* pthis, GlobalContext* globalCtx)
 void EnDh_SetupDamage(EnDh* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_dh_Anim_003D6C, -6.0f);
-	if(pthis->actor.bgCheckFlags & 1)
+	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
 		pthis->actor.speedXZ = -1.0f;
 	}

@@ -501,7 +501,7 @@ void EnHonotrap_FlameChase(EnHonotrap* pthis, GlobalContext* globalCtx)
 		pthis->actor.velocity.y *= 0.1f;
 		EnHonotrap_SetupFlameVanish(pthis);
 	}
-	else if((pthis->actor.bgCheckFlags & 8) || (pthis->timer <= 0))
+	else if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->timer <= 0))
 	{
 		EnHonotrap_SetupFlameVanish(pthis);
 	}

@@ -357,7 +357,7 @@ void Player_SetBootData(GlobalContext* globalCtx, Player* pthis)
 
 s32 Player_InBlockingCsMode(GlobalContext* globalCtx, Player* pthis)
 {
-	return (pthis->stateFlags1 & (PLAYER_STATE1_7 | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & 1) || (pthis->stateFlags3 & 0x80) ||
+	return (pthis->stateFlags1 & (PLAYER_STATE1_DEAD | PLAYER_STATE1_29)) || (pthis->csMode != 0) || (globalCtx->sceneLoadFlag == 0x14) || (pthis->stateFlags1 & PLAYER_STATE1_0) || (pthis->stateFlags3 & PLAYER_STATE3_HOOKSHOT) ||
 	       ((gSaveContext.unk_13F0 != 0) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) >= 0));
 }
 
@@ -368,9 +368,9 @@ s32 Player_InCsMode(GlobalContext* globalCtx)
 	return Player_InBlockingCsMode(globalCtx, pthis) || (pthis->unk_6AD == 4);
 }
 
-s32 func_8008E9C4(Player* pthis)
+s32 Player_IsTargetingAnActor(Player* pthis)
 {
-	return (pthis->stateFlags1 & PLAYER_STATE1_4);
+	return (pthis->stateFlags1 & PLAYER_STATE1_TARGETING_ACTOR);
 }
 
 s32 Player_IsChildWithHylianShield(Player* pthis)
@@ -491,7 +491,7 @@ void Player_ClearZTarget(Player* pthis)
 
 void func_8008EE08(Player* pthis)
 {
-	if((pthis->actor.bgCheckFlags & 1) || (pthis->stateFlags1 & (PLAYER_STATE1_21 | PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) ||
+	if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->stateFlags1 & (PLAYER_STATE1_21 | PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) ||
 	   (!(pthis->stateFlags1 & (PLAYER_STATE1_18 | PLAYER_STATE1_19)) && ((pthis->actor.world.pos.y - pthis->actor.floorHeight) < 100.0f)))
 	{
 		pthis->stateFlags1 &= ~(PLAYER_STATE1_15 | PLAYER_STATE1_16 | PLAYER_STATE1_17 | PLAYER_STATE1_18 | PLAYER_STATE1_19 | PLAYER_STATE1_30);
@@ -608,14 +608,14 @@ s32 Player_ActionToMagicSpell(Player* pthis, s32 actionParam)
 	}
 }
 
-s32 Player_HoldsHookshot(Player* pthis)
+s32 Player_CurrentActionItemIsHookshot(Player* pthis)
 {
 	return (pthis->heldItemActionParam == PLAYER_AP_HOOKSHOT) || (pthis->heldItemActionParam == PLAYER_AP_LONGSHOT);
 }
 
-s32 func_8008F128(Player* pthis)
+s32 Player_HoldingHookshot(Player* pthis)
 {
-	return Player_HoldsHookshot(pthis) && (pthis->heldActor == NULL);
+	return Player_CurrentActionItemIsHookshot(pthis) && (pthis->heldActor == NULL);
 }
 
 s32 Player_ActionToSword(s32 actionParam)
@@ -723,7 +723,7 @@ s32 Player_GetRoomTimer(GlobalContext* globalCtx)
 	}
 	else if((pthis->unk_840 > 80) && ((pthis->currentBoots == PLAYER_BOOTS_IRON) || (pthis->unk_840 >= 300)))
 	{ // Deep underwater
-		var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & 1)) ? SCENE_ROOMTIMER_DEEP_UNDERWATER : 3;
+		var = ((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & BG_STATE_0)) ? SCENE_ROOMTIMER_DEEP_UNDERWATER : 3;
 	}
 	else if(pthis->stateFlags1 & PLAYER_STATE_SWIMMING)
 	{ // Swimming
@@ -888,7 +888,7 @@ void func_8008F87C(GlobalContext* globalCtx, Player* pthis, SkelAnime* skelAnime
 	s16 temp2;
 	s32 temp3;
 
-	if((pthis->actor.scale.y >= 0.0f) && !(pthis->stateFlags1 & PLAYER_STATE1_7) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) < 0))
+	if((pthis->actor.scale.y >= 0.0f) && !(pthis->stateFlags1 & PLAYER_STATE1_DEAD) && (Player_ActionToMagicSpell(pthis, pthis->itemActionParam) < 0))
 	{
 		s32 pad;
 
@@ -1004,9 +1004,9 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 
 		if(limbIndex == PLAYER_LIMB_HEAD)
 		{
-			rot->x += pthis->unk_6BA;
-			rot->y -= pthis->unk_6B8;
-			rot->z += pthis->unk_6B6;
+			rot->x += pthis->unk_rot_vel_x_6BA;
+			rot->y -= pthis->unk_rot_vel_y_6B8;
+			rot->z += pthis->unk_rot_vel_z_6B6;
 		}
 		else if(limbIndex == PLAYER_LIMB_UPPER)
 		{
@@ -1019,13 +1019,13 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 			{
 				Matrix_RotateY(pthis->unk_6BE * (M_PI / 0x8000), MTXMODE_APPLY);
 			}
-			if(pthis->unk_6BC != 0)
+			if(pthis->unk_rot_x_6BC != 0)
 			{
-				Matrix_RotateX(pthis->unk_6BC * (M_PI / 0x8000), MTXMODE_APPLY);
+				Matrix_RotateX(pthis->unk_rot_x_6BC * (M_PI / 0x8000), MTXMODE_APPLY);
 			}
-			if(pthis->unk_6C0 != 0)
+			if(pthis->unk_rot_z_6C0 != 0)
 			{
-				Matrix_RotateZ(pthis->unk_6C0 * (M_PI / 0x8000), MTXMODE_APPLY);
+				Matrix_RotateZ(pthis->unk_rot_z_6C0 * (M_PI / 0x8000), MTXMODE_APPLY);
 			}
 		}
 		else if(limbIndex == PLAYER_LIMB_L_THIGH)
@@ -1151,7 +1151,7 @@ s32 func_800902F0(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 		}
 		else if(limbIndex == PLAYER_LIMB_R_HAND)
 		{
-			*dList = Player_HoldsHookshot(pthis) ? gLinkAdultRightHandHoldingHookshotFarDL : sHoldingFirstPersonWeaponDLs[(void)0, gSaveContext.linkAge];
+			*dList = Player_CurrentActionItemIsHookshot(pthis) ? gLinkAdultRightHandHoldingHookshotFarDL : sHoldingFirstPersonWeaponDLs[(void)0, gSaveContext.linkAge];
 		}
 		else
 		{
@@ -1464,7 +1464,7 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 
 		if(pthis->actor.scale.y >= 0.0f)
 		{
-			if(!Player_HoldsHookshot(pthis) && ((hookedActor = pthis->heldActor) != NULL))
+			if(!Player_CurrentActionItemIsHookshot(pthis) && ((hookedActor = pthis->heldActor) != NULL))
 			{
 				if(pthis->stateFlags1 & PLAYER_STATE1_9)
 				{
