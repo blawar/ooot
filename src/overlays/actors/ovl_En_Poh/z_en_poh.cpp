@@ -209,8 +209,8 @@ void EnPoh_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitCylinder(globalCtx, &pthis->colliderCyl);
 	Collider_SetCylinder(globalCtx, &pthis->colliderCyl, &pthis->actor, &sCylinderInit);
 	CollisionCheck_SetInfo(&pthis->actor.colChkInfo, &sDamageTable, &sColChkInfoInit);
-	pthis->unk_194 = 0;
-	pthis->unk_195 = 32;
+	pthis->invisibilityTimer = 0;
+	pthis->bouncingTimer = 32;
 	pthis->visibilityTimer = Rand_S16Offset(700, 300);
 	pthis->lightNode = LightContext_InsertLight(globalCtx, &globalCtx->lightCtx, &pthis->lightInfo);
 	Lights_PointGlowSetInfo(&pthis->lightInfo, pthis->actor.home.pos.x, pthis->actor.home.pos.y, pthis->actor.home.pos.z, 255, 255, 255, 0);
@@ -291,7 +291,7 @@ void EnPoh_Destroy(Actor* thisx, GlobalContext* globalCtx)
 void func_80ADE114(EnPoh* pthis)
 {
 	Animation_PlayLoop(&pthis->skelAnime, pthis->info->idleAnim);
-	pthis->unk_198 = Rand_S16Offset(2, 3);
+	pthis->spinningLampTimer = Rand_S16Offset(2, 3);
 	pthis->actionFunc = func_80ADEAC4;
 	pthis->actor.speedXZ = 0.0f;
 }
@@ -299,7 +299,7 @@ void func_80ADE114(EnPoh* pthis)
 void EnPoh_SetupIdle(EnPoh* pthis)
 {
 	Animation_PlayLoop(&pthis->skelAnime, pthis->info->idleAnim2);
-	pthis->unk_198 = Rand_S16Offset(15, 3);
+	pthis->spinningLampTimer = Rand_S16Offset(15, 3);
 	pthis->actionFunc = EnPoh_Idle;
 }
 
@@ -307,7 +307,7 @@ void func_80ADE1BC(EnPoh* pthis)
 {
 	Animation_PlayLoop(&pthis->skelAnime, pthis->info->idleAnim2);
 	pthis->actionFunc = func_80ADEC9C;
-	pthis->unk_198 = 0;
+	pthis->spinningLampTimer = 0;
 	pthis->actor.speedXZ = 2.0f;
 }
 
@@ -321,7 +321,7 @@ void EnPoh_SetupAttack(EnPoh* pthis)
 	{
 		Animation_PlayLoop(&pthis->skelAnime, &gPoeComposerAttackAnim);
 	}
-	pthis->unk_198 = 12;
+	pthis->spinningLampTimer = 12;
 	pthis->actor.speedXZ = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_LAUGH);
 	pthis->actionFunc = EnPoh_Attack;
@@ -357,7 +357,7 @@ void func_80ADE368(EnPoh* pthis)
 	pthis->actor.speedXZ = 5.0f;
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y + 0x8000;
 	pthis->colliderCyl.base.acFlags |= AC_ON;
-	pthis->unk_198 = 200;
+	pthis->spinningLampTimer = 200;
 	pthis->actionFunc = func_80ADF894;
 }
 
@@ -384,7 +384,7 @@ void func_80ADE48C(EnPoh* pthis)
 {
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
-	pthis->unk_198 = 0;
+	pthis->spinningLampTimer = 0;
 	pthis->actor.naviEnemyId = 0xFF;
 	pthis->actor.flags &= ~ACTOR_FLAG_0;
 	pthis->actionFunc = func_80ADF15C;
@@ -400,14 +400,14 @@ void func_80ADE4C8(EnPoh* pthis)
 void func_80ADE514(EnPoh* pthis)
 {
 	Animation_PlayLoop(&pthis->skelAnime, pthis->info->idleAnim);
-	pthis->unk_19C = pthis->actor.world.rot.y + 0x8000;
+	pthis->yawRotation = pthis->actor.world.rot.y + 0x8000;
 	pthis->actionFunc = func_80ADF5E0;
 	pthis->actor.speedXZ = 0.0f;
 }
 
 void EnPoh_SetupDisappear(EnPoh* pthis)
 {
-	pthis->unk_194 = 32;
+	pthis->invisibilityTimer = 32;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_DISAPPEAR);
@@ -417,7 +417,7 @@ void EnPoh_SetupDisappear(EnPoh* pthis)
 
 void EnPoh_SetupAppear(EnPoh* pthis)
 {
-	pthis->unk_194 = 0;
+	pthis->invisibilityTimer = 0;
 	pthis->actor.speedXZ = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_APPEAR);
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_LAUGH);
@@ -439,7 +439,7 @@ void EnPoh_SetupDeath(EnPoh* pthis, GlobalContext* globalCtx)
 		pthis->actor.shape.rot.x = -0x8000;
 	}
 	Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, 8);
-	pthis->unk_198 = 60;
+	pthis->spinningLampTimer = 60;
 	pthis->actionFunc = EnPoh_Death;
 }
 
@@ -505,8 +505,8 @@ void EnPoh_Talk(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.textId = 0x5005;
 	}
-	pthis->unk_198 = 200;
-	pthis->unk_195 = 32;
+	pthis->spinningLampTimer = 200;
+	pthis->bouncingTimer = 32;
 	pthis->actor.flags |= ACTOR_FLAG_0;
 	pthis->actionFunc = func_80ADFE80;
 }
@@ -537,14 +537,14 @@ void EnPoh_MoveTowardsPlayerHeight(EnPoh* pthis, GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 
 	Math_StepToF(&pthis->actor.world.pos.y, player->actor.world.pos.y, 1.0f);
-	pthis->actor.world.pos.y += 2.5f * Math_SinS(pthis->unk_195 * 0x800);
-	if(pthis->unk_195 != 0)
+	pthis->actor.world.pos.y += 2.5f * Math_SinS(pthis->bouncingTimer * 0x800);
+	if(pthis->bouncingTimer != 0)
 	{
-		pthis->unk_195 -= 1;
+		pthis->bouncingTimer -= 1;
 	}
-	if(pthis->unk_195 == 0)
+	if(pthis->bouncingTimer == 0)
 	{
-		pthis->unk_195 = 32;
+		pthis->bouncingTimer = 32;
 	}
 }
 
@@ -552,24 +552,24 @@ void func_80ADEA5C(EnPoh* pthis)
 {
 	if(Actor_WorldDistXZToPoint(&pthis->actor, &pthis->actor.home.pos) > 400.0f)
 	{
-		pthis->unk_19C = Actor_WorldYawTowardPoint(&pthis->actor, &pthis->actor.home.pos);
+		pthis->yawRotation = Actor_WorldYawTowardPoint(&pthis->actor, &pthis->actor.home.pos);
 	}
-	Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->unk_19C, 0x71C);
+	Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->yawRotation, 0x71C);
 }
 
 void func_80ADEAC4(EnPoh* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
-	if(Animation_OnFrame(&pthis->skelAnime, 0.0f) && pthis->unk_198 != 0)
+	if(Animation_OnFrame(&pthis->skelAnime, 0.0f) && pthis->spinningLampTimer != 0)
 	{
-		pthis->unk_198--;
+		pthis->spinningLampTimer--;
 	}
 	EnPoh_MoveTowardsPlayerHeight(pthis, globalCtx);
 	if(pthis->actor.xzDistToPlayer < 200.0f)
 	{
 		func_80ADE1BC(pthis);
 	}
-	else if(pthis->unk_198 == 0)
+	else if(pthis->spinningLampTimer == 0)
 	{
 		EnPoh_SetupIdle(pthis);
 	}
@@ -583,17 +583,17 @@ void EnPoh_Idle(EnPoh* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
 	Math_StepToF(&pthis->actor.speedXZ, 1.0f, 0.2f);
-	if(Animation_OnFrame(&pthis->skelAnime, 0.0f) && pthis->unk_198 != 0)
+	if(Animation_OnFrame(&pthis->skelAnime, 0.0f) && pthis->spinningLampTimer != 0)
 	{
-		pthis->unk_198--;
+		pthis->spinningLampTimer--;
 	}
 	func_80ADEA5C(pthis);
 	EnPoh_MoveTowardsPlayerHeight(pthis, globalCtx);
-	if(pthis->actor.xzDistToPlayer < 200.0f && pthis->unk_198 < 19)
+	if(pthis->actor.xzDistToPlayer < 200.0f && pthis->spinningLampTimer < 19)
 	{
 		func_80ADE1BC(pthis);
 	}
-	else if(pthis->unk_198 == 0)
+	else if(pthis->spinningLampTimer == 0)
 	{
 		if(Rand_ZeroOne() < 0.1f)
 		{
@@ -617,9 +617,9 @@ void func_80ADEC9C(EnPoh* pthis, GlobalContext* globalCtx)
 
 	player = GET_PLAYER(globalCtx);
 	SkelAnime_Update(&pthis->skelAnime);
-	if(pthis->unk_198 != 0)
+	if(pthis->spinningLampTimer != 0)
 	{
-		pthis->unk_198--;
+		pthis->spinningLampTimer--;
 	}
 	facingDiff = pthis->actor.yawTowardsPlayer - player->actor.shape.rot.y;
 	if(facingDiff >= 0x3001)
@@ -639,7 +639,7 @@ void func_80ADEC9C(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		EnPoh_SetupIdle(pthis);
 	}
-	else if(pthis->unk_198 == 0 && pthis->actor.xzDistToPlayer < 140.0f && !Player_IsFacingActor(&pthis->actor, 0x2AAA, globalCtx))
+	else if(pthis->spinningLampTimer == 0 && pthis->actor.xzDistToPlayer < 140.0f && !Player_IsFacingActor(&pthis->actor, 0x2AAA, globalCtx))
 	{
 		EnPoh_SetupAttack(pthis);
 	}
@@ -655,25 +655,25 @@ void EnPoh_Attack(EnPoh* pthis, GlobalContext* globalCtx)
 	if(Animation_OnFrame(&pthis->skelAnime, 0.0f))
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_KANTERA);
-		if(pthis->unk_198 != 0)
+		if(pthis->spinningLampTimer != 0)
 		{
-			pthis->unk_198--;
+			pthis->spinningLampTimer--;
 		}
 	}
 	EnPoh_MoveTowardsPlayerHeight(pthis, globalCtx);
-	if(pthis->unk_198 >= 10)
+	if(pthis->spinningLampTimer >= 10)
 	{
 		Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 0xE38);
 	}
-	else if(pthis->unk_198 == 9)
+	else if(pthis->spinningLampTimer == 9)
 	{
 		pthis->actor.speedXZ = 5.0f;
 		pthis->skelAnime.playSpeed = 2.0f;
 	}
-	else if(pthis->unk_198 == 0)
+	else if(pthis->spinningLampTimer == 0)
 	{
 		EnPoh_SetupIdle(pthis);
-		pthis->unk_198 = 23;
+		pthis->spinningLampTimer = 23;
 	}
 }
 
@@ -736,47 +736,47 @@ void func_80ADF15C(EnPoh* pthis, GlobalContext* globalCtx)
 	s32 pad;
 	s32 pad1;
 
-	pthis->unk_198++;
-	if(pthis->unk_198 < 8)
+	pthis->spinningLampTimer++;
+	if(pthis->spinningLampTimer < 8)
 	{
-		if(pthis->unk_198 < 5)
+		if(pthis->spinningLampTimer < 5)
 		{
-			vec.y = Math_SinS((pthis->unk_198 * 0x1000) - 0x4000) * 23.0f + (pthis->actor.world.pos.y + 40.0f);
-			multiplier = Math_CosS((pthis->unk_198 * 0x1000) - 0x4000) * 23.0f;
+			vec.y = Math_SinS((pthis->spinningLampTimer * 0x1000) - 0x4000) * 23.0f + (pthis->actor.world.pos.y + 40.0f);
+			multiplier = Math_CosS((pthis->spinningLampTimer * 0x1000) - 0x4000) * 23.0f;
 			vec.x = Math_SinS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x4800) * multiplier + pthis->actor.world.pos.x;
 			vec.z = Math_CosS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x4800) * multiplier + pthis->actor.world.pos.z;
 		}
 		else
 		{
-			vec.y = (pthis->actor.world.pos.y + 40.0f) + (15.0f * (pthis->unk_198 - 5));
+			vec.y = (pthis->actor.world.pos.y + 40.0f) + (15.0f * (pthis->spinningLampTimer - 5));
 			vec.x = Math_SinS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x4800) * 23.0f + pthis->actor.world.pos.x;
 			vec.z = Math_CosS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x4800) * 23.0f + pthis->actor.world.pos.z;
 		}
-		EffectSsDeadDb_Spawn(globalCtx, &vec, &D_80AE1B60, &D_80AE1B6C, pthis->unk_198 * 10 + 80, 0, 255, 255, 255, 255, 0, 0, 255, 1, 9, 1);
+		EffectSsDeadDb_Spawn(globalCtx, &vec, &D_80AE1B60, &D_80AE1B6C, pthis->spinningLampTimer * 10 + 80, 0, 255, 255, 255, 255, 0, 0, 255, 1, 9, 1);
 		vec.x = (pthis->actor.world.pos.x + pthis->actor.world.pos.x) - vec.x;
 		vec.z = (pthis->actor.world.pos.z + pthis->actor.world.pos.z) - vec.z;
-		EffectSsDeadDb_Spawn(globalCtx, &vec, &D_80AE1B60, &D_80AE1B6C, pthis->unk_198 * 10 + 80, 0, 255, 255, 255, 255, 0, 0, 255, 1, 9, 1);
+		EffectSsDeadDb_Spawn(globalCtx, &vec, &D_80AE1B60, &D_80AE1B6C, pthis->spinningLampTimer * 10 + 80, 0, 255, 255, 255, 255, 0, 0, 255, 1, 9, 1);
 		vec.x = pthis->actor.world.pos.x;
 		vec.z = pthis->actor.world.pos.z;
-		EffectSsDeadDb_Spawn(globalCtx, &vec, &D_80AE1B60, &D_80AE1B6C, pthis->unk_198 * 10 + 80, 0, 255, 255, 255, 255, 0, 0, 255, 1, 9, 1);
-		if(pthis->unk_198 == 1)
+		EffectSsDeadDb_Spawn(globalCtx, &vec, &D_80AE1B60, &D_80AE1B6C, pthis->spinningLampTimer * 10 + 80, 0, 255, 255, 255, 255, 0, 0, 255, 1, 9, 1);
+		if(pthis->spinningLampTimer == 1)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_EXTINCT);
 		}
 	}
-	else if(pthis->unk_198 == 28)
+	else if(pthis->spinningLampTimer == 28)
 	{
 		EnPoh_SetupDeath(pthis, globalCtx);
 	}
-	else if(pthis->unk_198 >= 19)
+	else if(pthis->spinningLampTimer >= 19)
 	{
-		newScale = (28 - pthis->unk_198) * 0.001f;
+		newScale = (28 - pthis->spinningLampTimer) * 0.001f;
 		pthis->actor.world.pos.y += 5.0f;
 		pthis->actor.scale.z = newScale;
 		pthis->actor.scale.y = newScale;
 		pthis->actor.scale.x = newScale;
 	}
-	if(pthis->unk_198 == 18)
+	if(pthis->spinningLampTimer == 18)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PO_DEAD2);
 	}
@@ -788,7 +788,7 @@ void func_80ADF574(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 		EnPoh_SetupIdle(pthis);
-		pthis->unk_198 = 23;
+		pthis->spinningLampTimer = 23;
 	}
 	else
 	{
@@ -800,7 +800,7 @@ void func_80ADF574(EnPoh* pthis, GlobalContext* globalCtx)
 void func_80ADF5E0(EnPoh* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
-	if(Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->unk_19C, 1820) != 0)
+	if(Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->yawRotation, 1820) != 0)
 	{
 		EnPoh_SetupIdle(pthis);
 	}
@@ -813,14 +813,14 @@ void func_80ADF5E0(EnPoh* pthis, GlobalContext* globalCtx)
 
 void EnPoh_Disappear(EnPoh* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->unk_194 != 0)
+	if(pthis->invisibilityTimer != 0)
 	{
-		pthis->unk_194--;
+		pthis->invisibilityTimer--;
 	}
 	pthis->actor.world.rot.y += 0x1000;
 	EnPoh_MoveTowardsPlayerHeight(pthis, globalCtx);
-	pthis->lightColor.a = pthis->unk_194 * 7.96875f;
-	if(pthis->unk_194 == 0)
+	pthis->lightColor.a = pthis->invisibilityTimer * 7.96875f;
+	if(pthis->invisibilityTimer == 0)
 	{
 		pthis->visibilityTimer = Rand_S16Offset(100, 50);
 		EnPoh_SetupIdle(pthis);
@@ -829,14 +829,14 @@ void EnPoh_Disappear(EnPoh* pthis, GlobalContext* globalCtx)
 
 void EnPoh_Appear(EnPoh* pthis, GlobalContext* globalCtx)
 {
-	pthis->unk_194++;
+	pthis->invisibilityTimer++;
 	pthis->actor.world.rot.y -= 0x1000;
 	EnPoh_MoveTowardsPlayerHeight(pthis, globalCtx);
-	pthis->lightColor.a = pthis->unk_194 * 7.96875f;
-	if(pthis->unk_194 == 32)
+	pthis->lightColor.a = pthis->invisibilityTimer * 7.96875f;
+	if(pthis->invisibilityTimer == 32)
 	{
 		pthis->visibilityTimer = Rand_S16Offset(700, 300);
-		pthis->unk_194 = 0;
+		pthis->invisibilityTimer = 0;
 		EnPoh_SetupIdle(pthis);
 	}
 }
@@ -846,12 +846,12 @@ void func_80ADF894(EnPoh* pthis, GlobalContext* globalCtx)
 	f32 multiplier;
 
 	SkelAnime_Update(&pthis->skelAnime);
-	multiplier = Math_SinS(pthis->unk_195 * 0x800) * 3.0f;
+	multiplier = Math_SinS(pthis->bouncingTimer * 0x800) * 3.0f;
 	pthis->actor.world.pos.x -= multiplier * Math_CosS(pthis->actor.shape.rot.y);
 	pthis->actor.world.pos.z += multiplier * Math_SinS(pthis->actor.shape.rot.y);
 	Math_ScaledStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer + 0x8000, 0x71C);
 	EnPoh_MoveTowardsPlayerHeight(pthis, globalCtx);
-	if(pthis->unk_198 == 0 || pthis->actor.xzDistToPlayer > 250.0f)
+	if(pthis->spinningLampTimer == 0 || pthis->actor.xzDistToPlayer > 250.0f)
 	{
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 		EnPoh_SetupIdle(pthis);
@@ -863,9 +863,9 @@ void EnPoh_Death(EnPoh* pthis, GlobalContext* globalCtx)
 {
 	s32 objId;
 
-	if(pthis->unk_198 != 0)
+	if(pthis->spinningLampTimer != 0)
 	{
-		pthis->unk_198--;
+		pthis->spinningLampTimer--;
 	}
 	if(pthis->actor.bgCheckFlags & BG_STATE_0)
 	{
@@ -873,7 +873,7 @@ void EnPoh_Death(EnPoh* pthis, GlobalContext* globalCtx)
 		EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 6.0f, 0, 1, 1, 15, objId, 10, pthis->info->lanternDisplayList);
 		func_80ADE6D4(pthis);
 	}
-	else if(pthis->unk_198 == 0)
+	else if(pthis->spinningLampTimer == 0)
 	{
 		Actor_Kill(&pthis->actor);
 		return;
@@ -917,9 +917,9 @@ void func_80ADFE28(EnPoh* pthis, GlobalContext* globalCtx)
 
 void func_80ADFE80(EnPoh* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->unk_198 != 0)
+	if(pthis->spinningLampTimer != 0)
 	{
-		pthis->unk_198--;
+		pthis->spinningLampTimer--;
 	}
 	if(Actor_ProcessTalkRequest(&pthis->actor, globalCtx))
 	{
@@ -933,7 +933,7 @@ void func_80ADFE80(EnPoh* pthis, GlobalContext* globalCtx)
 		}
 		return;
 	}
-	if(pthis->unk_198 == 0)
+	if(pthis->spinningLampTimer == 0)
 	{
 		func_80ADE950(pthis, 1);
 		pthis->actor.flags &= ~ACTOR_FLAG_16;
@@ -949,14 +949,14 @@ void func_80ADFE80(EnPoh* pthis, GlobalContext* globalCtx)
 		pthis->actor.flags &= ~ACTOR_FLAG_16;
 		CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->colliderCyl.base);
 	}
-	pthis->actor.world.pos.y = Math_SinS(pthis->unk_195 * 0x800) * 5.0f + pthis->actor.home.pos.y;
-	if(pthis->unk_195 != 0)
+	pthis->actor.world.pos.y = Math_SinS(pthis->bouncingTimer * 0x800) * 5.0f + pthis->actor.home.pos.y;
+	if(pthis->bouncingTimer != 0)
 	{
-		pthis->unk_195 -= 1;
+		pthis->bouncingTimer -= 1;
 	}
-	if(pthis->unk_195 == 0)
+	if(pthis->bouncingTimer == 0)
 	{
-		pthis->unk_195 = 32;
+		pthis->bouncingTimer = 32;
 	}
 	pthis->colliderCyl.dim.pos.y = pthis->actor.world.pos.y - 20.0f;
 	Actor_SetFocus(&pthis->actor, -10.0f);
@@ -1091,14 +1091,14 @@ void EnPoh_UpdateVisibility(EnPoh* pthis)
 		{
 			if(pthis->actor.isTargeted)
 			{
-				pthis->unk_194++;
-				pthis->unk_194 = CLAMP_MAX(pthis->unk_194, 20);
+				pthis->invisibilityTimer++;
+				pthis->invisibilityTimer = CLAMP_MAX((u8)pthis->invisibilityTimer, 20);
 			}
 			else
 			{
-				pthis->unk_194 = 0;
+				pthis->invisibilityTimer = 0;
 			}
-			if((pthis->unk_194 == 20 || pthis->visibilityTimer == 0) &&
+			if((pthis->invisibilityTimer == 20 || pthis->visibilityTimer == 0) &&
 			   (pthis->actionFunc == func_80ADEAC4 || pthis->actionFunc == EnPoh_Idle || pthis->actionFunc == func_80ADEC9C || pthis->actionFunc == func_80ADF894 || pthis->actionFunc == func_80ADF5E0))
 			{
 				EnPoh_SetupDisappear(pthis);
@@ -1226,7 +1226,7 @@ void EnPoh_UpdateLiving(Actor* thisx, GlobalContext* globalCtx)
 	EnPoh_UpdateVisibility(pthis);
 	pthis->actionFunc(pthis, globalCtx);
 	Actor_MoveForward(&pthis->actor);
-	if(pthis->actionFunc == EnPoh_Attack && pthis->unk_198 < 10)
+	if(pthis->actionFunc == EnPoh_Attack && pthis->spinningLampTimer < 10)
 	{
 		pthis->actor.flags |= ACTOR_FLAG_24;
 		CollisionCheck_SetAT(globalCtx, &globalCtx->colChkCtx, &pthis->colliderSph.base);
@@ -1262,7 +1262,7 @@ s32 EnPoh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 {
 	EnPoh* pthis = (EnPoh*)thisx;
 
-	if((pthis->lightColor.a == 0 || limbIndex == pthis->info->unk_6) || (pthis->actionFunc == func_80ADF15C && pthis->unk_198 >= 2))
+	if((pthis->lightColor.a == 0 || limbIndex == pthis->info->unk_6) || (pthis->actionFunc == func_80ADF15C && pthis->spinningLampTimer >= 2))
 	{
 		*dList = NULL;
 	}
@@ -1284,20 +1284,20 @@ void EnPoh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	EnPoh* pthis = (EnPoh*)thisx;
 
 	Collider_UpdateSpheres(limbIndex, &pthis->colliderSph);
-	if(pthis->actionFunc == func_80ADF15C && pthis->unk_198 >= 2 && limbIndex == pthis->info->unk_7)
+	if(pthis->actionFunc == func_80ADF15C && pthis->spinningLampTimer >= 2 && limbIndex == pthis->info->unk_7)
 	{
 		gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2460), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList((*gfxP)++, pthis->info->burnDisplayList);
 	}
 	if(limbIndex == pthis->info->unk_6)
 	{
-		if(pthis->actionFunc == func_80ADF15C && pthis->unk_198 >= 19 && 0.0f != pthis->actor.scale.x)
+		if(pthis->actionFunc == func_80ADF15C && pthis->spinningLampTimer >= 19 && 0.0f != pthis->actor.scale.x)
 		{
 			f32 mtxScale = 0.01f / pthis->actor.scale.x;
 			Matrix_Scale(mtxScale, mtxScale, mtxScale, MTXMODE_APPLY);
 		}
 		Matrix_Get(&pthis->unk_368);
-		if(pthis->actionFunc == func_80ADF15C && pthis->unk_198 == 27)
+		if(pthis->actionFunc == func_80ADF15C && pthis->spinningLampTimer == 27)
 		{
 			pthis->actor.world.pos.x = pthis->unk_368.xw;
 			pthis->actor.world.pos.y = pthis->unk_368.yw;

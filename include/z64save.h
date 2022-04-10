@@ -282,7 +282,7 @@ namespace oot::save
 		/* 0x0033 */ s8 magic;
 		/* 0x0034 */ s16 rupees;
 		/* 0x0036 */ u16 swordHealth;
-		/* 0x0038 */ u16 naviTimer;
+		/* 0x0038 */ TimerU16 naviTimer;
 		/* 0x003A */ u8 magicAcquired;
 		/* 0x003B */ char unk_3B;
 		/* 0x003C */ u8 doubleMagic;
@@ -329,13 +329,13 @@ namespace oot::save
 		/* 0x13C4 */ s16 dogParams;
 		/* 0x13C6 */ u8 textTriggerFlags;
 		/* 0x13C7 */ u8 showTitleCard;
-		/* 0x13C8 */ s16 nayrusLoveTimer;
+		/* 0x13C8 */ TimerS16 nayrusLoveTimer;
 		/* 0x13CA */ char unk_13CA[0x0002];
 		/* 0x13CC */ s16 rupeeAccumulator;
 		/* 0x13CE */ s16 timer1State;
-		/* 0x13D0 */ s16 timer1Value;
+		/* 0x13D0 */ TimerS16 timer1Value;
 		/* 0x13D2 */ s16 timer2State;
-		/* 0x13D4 */ s16 timer2Value;
+		/* 0x13D4 */ TimerS16 timer2Value;
 		/* 0x13D6 */ s16 timerX[2];
 		/* 0x13DA */ s16 timerY[2];
 		/* 0x13DE */ char unk_13DE[0x0002];
