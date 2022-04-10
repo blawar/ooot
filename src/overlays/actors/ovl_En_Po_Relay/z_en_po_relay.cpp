@@ -128,7 +128,7 @@ void EnPoRelay_Destroy(Actor* thisx, GlobalContext* globalCtx)
 
 void EnPoRelay_SetupIdle(EnPoRelay* pthis)
 {
-	pthis->unk_195 = 32;
+	pthis->bouncingTimer = 32;
 	pthis->pathIndex = 0;
 	pthis->actor.room = -1;
 	pthis->actor.shape.rot.y = 0;
@@ -169,7 +169,7 @@ void EnPoRelay_SetupEndRace(EnPoRelay* pthis)
 void EnPoRelay_CorrectY(EnPoRelay* pthis)
 {
 	Math_StepToF(&pthis->actor.home.pos.y, D_80AD8C30[(pthis->pathIndex >= 28) ? 27 : pthis->pathIndex].y + 45.0f, 2.0f);
-	pthis->actor.world.pos.y = Math_SinS(pthis->unk_195 * 0x800) * 8.0f + pthis->actor.home.pos.y;
+	pthis->actor.world.pos.y = Math_SinS(pthis->bouncingTimer * 0x800) * 8.0f + pthis->actor.home.pos.y;
 }
 
 void EnPoRelay_Idle(EnPoRelay* pthis, GlobalContext* globalCtx)
@@ -427,13 +427,13 @@ void EnPoRelay_Update(Actor* thisx, GlobalContext* globalCtx)
 	Collider_UpdateCylinder(&pthis->actor, &pthis->collider);
 	CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 	Actor_SetFocus(&pthis->actor, 50.0f);
-	if(pthis->unk_195 != 0)
+	if(pthis->bouncingTimer != 0)
 	{
-		pthis->unk_195 -= 1;
+		pthis->bouncingTimer -= 1;
 	}
-	if(pthis->unk_195 == 0)
+	if(pthis->bouncingTimer == 0)
 	{
-		pthis->unk_195 = 32;
+		pthis->bouncingTimer = 32;
 	}
 	pthis->eyeTextureIdx++;
 	if(pthis->eyeTextureIdx == 3)

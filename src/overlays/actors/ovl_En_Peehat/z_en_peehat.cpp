@@ -242,7 +242,7 @@ void EnPeehat_Destroy(Actor* thisx, GlobalContext* globalCtx)
 		parent = (EnPeehat*)pthis->actor.parent;
 		if(parent != NULL && parent->actor.update != NULL)
 		{
-			parent->unk2FA--;
+			parent->larvaCount--;
 		}
 	}
 }
@@ -287,7 +287,7 @@ void EnPeehat_HitWhenGrounded(EnPeehat* pthis, GlobalContext* globalCtx)
 		s32 i;
 
 		pthis->colCylinder.base.acFlags &= ~AC_HIT;
-		for(i = MAX_LARVA - pthis->unk2FA; i > 0; i--)
+		for(i = MAX_LARVA - pthis->larvaCount; i > 0; i--)
 		{
 			Actor* larva = Actor_SpawnAsChild(
 			    &globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_PEEHAT, Rand_CenteredFloat(25.0f) + pthis->actor.world.pos.x, Rand_CenteredFloat(25.0f) + (pthis->actor.world.pos.y + 50.0f),
@@ -297,7 +297,7 @@ void EnPeehat_HitWhenGrounded(EnPeehat* pthis, GlobalContext* globalCtx)
 			{
 				larva->velocity.y = 6.0f;
 				larva->shape.rot.y = larva->world.rot.y = Rand_CenteredFloat(0xFFFF);
-				pthis->unk2FA++;
+				pthis->larvaCount++;
 			}
 		}
 		pthis->unk2D4 = 8;
@@ -310,7 +310,7 @@ void EnPeehat_Ground_SetStateGround(EnPeehat* pthis)
 	Animation_Change(&pthis->skelAnime, &gPeehatRisingAnim, 0.0f, 3.0f, Animation_GetLastFrame(&gPeehatRisingAnim), ANIMMODE_ONCE, 0.0f);
 	pthis->seekPlayerTimer = 600;
 	pthis->unk2D4 = 0;
-	pthis->unk2FA = 0;
+	pthis->larvaCount = 0;
 	pthis->state = PEAHAT_STATE_3;
 	pthis->colCylinder.base.acFlags &= ~AC_HIT;
 	EnPeehat_SetupAction(pthis, EnPeehat_Ground_StateGround);
@@ -362,7 +362,7 @@ void EnPeehat_Flying_SetStateGround(EnPeehat* pthis)
 	Animation_Change(&pthis->skelAnime, &gPeehatRisingAnim, 0.0f, 3.0f, Animation_GetLastFrame(&gPeehatRisingAnim), ANIMMODE_ONCE, 0.0f);
 	pthis->seekPlayerTimer = 400;
 	pthis->unk2D4 = 0;
-	pthis->unk2FA = 0; //! @bug: overwrites number of child larva spawned, allowing for more than MAX_LARVA spawns
+	pthis->larvaCount = 0; //! @bug: overwrites number of child larva spawned, allowing for more than MAX_LARVA spawns
 	pthis->state = PEAHAT_STATE_4;
 	EnPeehat_SetupAction(pthis, EnPeehat_Flying_StateGrounded);
 }
@@ -415,7 +415,7 @@ void EnPeehat_Flying_StateFly(EnPeehat* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->actor.xzDistToPlayer < pthis->xzDistMax)
 	{
-		if(pthis->unk2FA < MAX_LARVA && (globalCtx->gameplayFrames & 7) == 0)
+		if(pthis->larvaCount < MAX_LARVA && (globalCtx->gameplayFrames & 7) == 0)
 		{
 			Actor* larva = Actor_SpawnAsChild(
 			    &globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_PEEHAT, Rand_CenteredFloat(25.0f) + pthis->actor.world.pos.x, Rand_CenteredFloat(5.0f) + pthis->actor.world.pos.y, Rand_CenteredFloat(25.0f) + pthis->actor.world.pos.z, 0,
@@ -423,7 +423,7 @@ void EnPeehat_Flying_StateFly(EnPeehat* pthis, GlobalContext* globalCtx)
 			if(larva != NULL)
 			{
 				larva->shape.rot.y = larva->world.rot.y = Rand_CenteredFloat(0xFFFF);
-				pthis->unk2FA++;
+				pthis->larvaCount++;
 			}
 		}
 	}
@@ -516,7 +516,7 @@ void EnPeehat_Flying_StateRise(EnPeehat* pthis, GlobalContext* globalCtx)
 		if(SkelAnime_Update(&pthis->skelAnime) || pthis->animTimer == 0)
 		{
 			//! @bug: overwrites number of child larva spawned, allowing for more than MAX_LARVA spawns
-			pthis->unk2FA = 0;
+			pthis->larvaCount = 0;
 			EnPeehat_Flying_SetStateFly(pthis);
 		}
 		else
@@ -561,7 +561,7 @@ void EnPeehat_Ground_StateSeekPlayer(EnPeehat* pthis, GlobalContext* globalCtx)
 	if(IS_DAY && (Math_Vec3f_DistXZ(&pthis->actor.home.pos, &player->actor.world.pos) < pthis->xzDistMax))
 	{
 		Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 1, 1000, 0);
-		if(pthis->unk2FA != 0)
+		if(pthis->larvaCount != 0)
 		{
 			pthis->actor.shape.rot.y += 0x1C2;
 		}
@@ -783,7 +783,7 @@ void EnPeehat_Ground_StateHover(EnPeehat* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 		EnPeehat_Ground_SetStateSeekPlayer(pthis);
-		pthis->unk2FA = globalCtx->gameplayFrames & 1;
+		pthis->larvaCount = globalCtx->gameplayFrames & 1;
 	}
 	else
 	{
@@ -834,7 +834,7 @@ void EnPeehat_Ground_StateReturnHome(EnPeehat* pthis, GlobalContext* globalCtx)
 	{
 		pthis->seekPlayerTimer = 400;
 		EnPeehat_Ground_SetStateSeekPlayer(pthis);
-		pthis->unk2FA = (globalCtx->gameplayFrames & 1);
+		pthis->larvaCount = (globalCtx->gameplayFrames & 1);
 	}
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_PIHAT_FLY - SFX_FLAG);
 }
@@ -876,7 +876,7 @@ void EnPeehat_StateAttackRecoil(EnPeehat* pthis, GlobalContext* globalCtx)
 			// Is PEAHAT_TYPE_GROUNDED
 			if(pthis->actor.params < 0)
 			{
-				pthis->unk2FA = (pthis->unk2FA != 0) ? 0 : 1;
+				pthis->larvaCount = (pthis->larvaCount != 0) ? 0 : 1;
 			}
 		}
 	}
@@ -1094,9 +1094,9 @@ void EnPeehat_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->actionFunc(pthis, globalCtx);
 		if((globalCtx->gameplayFrames & 0x7F) == 0)
 		{
-			pthis->jiggleRotInc = (Rand_ZeroOne() * 0.25f) + 0.5f;
+			pthis->jiggleTimer = (Rand_ZeroOne() * 0.25f) + 0.5f;
 		}
-		pthis->jiggleRot += pthis->jiggleRotInc;
+		pthis->jiggleRot += pthis->jiggleTimer;
 	}
 	// if PEAHAT_TYPE_GROUNDED
 	if(thisx->params < 0)

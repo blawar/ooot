@@ -263,7 +263,7 @@ void EnPoField_SetupCirclePlayer(EnPoField* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.flags |= ACTOR_FLAG_0;
 		pthis->actionTimer = 600;
-		pthis->unk_194 = 32;
+		pthis->bouncingTimer = 32;
 	}
 	pthis->actionFunc = EnPoField_CirclePlayer;
 }
@@ -279,7 +279,7 @@ void EnPoField_SetupFlee(EnPoField* pthis)
 		pthis->actor.flags |= ACTOR_FLAG_0;
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y + 0x8000;
 		pthis->actionTimer = 2000;
-		pthis->unk_194 = 32;
+		pthis->bouncingTimer = 32;
 	}
 }
 
@@ -373,7 +373,7 @@ void func_80AD4384(EnPoField* pthis)
 	pthis->collider.base.ocFlags1 = OC1_ON | OC1_TYPE_PLAYER;
 	pthis->actor.textId = 0x5005;
 	pthis->actionTimer = 400;
-	pthis->unk_194 = 32;
+	pthis->bouncingTimer = 32;
 	pthis->actor.flags |= ACTOR_FLAG_0;
 	pthis->actionFunc = func_80AD58D4;
 }
@@ -393,13 +393,13 @@ void EnPoField_CorrectYPos(EnPoField* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if(pthis->unk_194 == 0)
+	if(pthis->bouncingTimer == 0)
 	{
-		pthis->unk_194 = 32;
+		pthis->bouncingTimer = 32;
 	}
-	if(pthis->unk_194 != 0)
+	if(pthis->bouncingTimer != 0)
 	{
-		pthis->unk_194 -= 1;
+		pthis->bouncingTimer -= 1;
 	}
 	if(pthis->actor.floorHeight == BGCHECK_Y_MIN)
 	{
@@ -407,7 +407,7 @@ void EnPoField_CorrectYPos(EnPoField* pthis, GlobalContext* globalCtx)
 		return;
 	}
 	Math_ApproachF(&pthis->actor.home.pos.y, ((player->actor.world.pos.y > pthis->actor.floorHeight) ? player->actor.world.pos.y : pthis->actor.floorHeight) + 13.0f, 0.2f, 5.0f);
-	pthis->actor.world.pos.y = Math_SinS(pthis->unk_194 * 0x800) * 13.0f + pthis->actor.home.pos.y;
+	pthis->actor.world.pos.y = Math_SinS(pthis->bouncingTimer * 0x800) * 13.0f + pthis->actor.home.pos.y;
 }
 
 f32 EnPoField_SetFleeSpeed(EnPoField* pthis, GlobalContext* globalCtx)
@@ -530,7 +530,7 @@ void EnPoField_Appear(EnPoField* pthis, GlobalContext* globalCtx)
 void EnPoField_CirclePlayer(EnPoField* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
-	s32 temp_v1 = 16 - pthis->unk_194;
+	s32 temp_v1 = 16 - pthis->bouncingTimer;
 
 	SkelAnime_Update(&pthis->skelAnime);
 	if(pthis->actionTimer != 0)
@@ -539,7 +539,7 @@ void EnPoField_CirclePlayer(EnPoField* pthis, GlobalContext* globalCtx)
 	}
 	if(ABS(temp_v1) < 16)
 	{
-		pthis->actor.world.rot.y += 512.0f * FRAMERATE_SCALER * fabsf(Math_SinS(pthis->unk_194 * 0x800));
+		pthis->actor.world.rot.y += 512.0f * FRAMERATE_SCALER * fabsf(Math_SinS(pthis->bouncingTimer * 0x800));
 	}
 	Math_ApproachF(&pthis->scaleModifier, 180.0f, 0.5f, 10.0f);
 	Math_ApproachF(&pthis->actor.home.pos.x, player->actor.world.pos.x, 0.2f, 6.0f);
@@ -781,14 +781,14 @@ void func_80AD58D4(EnPoField* pthis, GlobalContext* globalCtx)
 		pthis->actor.flags &= ~ACTOR_FLAG_16;
 		CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 	}
-	pthis->actor.world.pos.y = Math_SinS(pthis->unk_194 * 0x800) * 5.0f + pthis->actor.home.pos.y;
-	if(pthis->unk_194 != 0)
+	pthis->actor.world.pos.y = Math_SinS(pthis->bouncingTimer * 0x800) * 5.0f + pthis->actor.home.pos.y;
+	if(pthis->bouncingTimer != 0)
 	{
-		pthis->unk_194 -= 1;
+		pthis->bouncingTimer -= 1;
 	}
-	if(pthis->unk_194 == 0)
+	if(pthis->bouncingTimer == 0)
 	{
-		pthis->unk_194 = 32;
+		pthis->bouncingTimer = 32;
 	}
 	pthis->collider.dim.pos.y = pthis->actor.world.pos.y - 20.0f;
 	Actor_SetFocus(&pthis->actor, -10.0f);

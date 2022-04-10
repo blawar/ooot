@@ -1506,7 +1506,7 @@ void EnPoSisters_Update(Actor* thisx, GlobalContext* globalCtx)
 		if(pthis->actionFunc == func_80ADA8C0 || pthis->actionFunc == func_80ADA7F0)
 		{
 			pthis->unk_198++;
-			pthis->unk_198 = CLAMP_MAX(pthis->unk_198, 8);
+			pthis->unk_198 = CLAMP_MAX((u8)pthis->unk_198, 8);
 		}
 		else if(pthis->actionFunc != func_80ADAFC0)
 		{
