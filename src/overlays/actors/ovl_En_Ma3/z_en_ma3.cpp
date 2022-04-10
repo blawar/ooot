@@ -74,13 +74,13 @@ static struct_D_80AA1678 sAnimationInfo[] = {
 u16 func_80AA2AA0(GlobalContext* globalCtx, Actor* thisx)
 {
 	Player* player = GET_PLAYER(globalCtx);
-	s16* timer1ValuePtr; // weirdness with pthis necessary to match
+	auto* timer1ValuePtr = &gSaveContext.timer1Value; // weirdness with pthis necessary to match
 
 	if(!(gSaveContext.infTable[11] & 0x100))
 	{
 		return 0x2000;
 	}
-	timer1ValuePtr = &gSaveContext.timer1Value;
+
 	if(gSaveContext.eventInf[0] & 0x400)
 	{
 		gSaveContext.timer1Value = gSaveContext.timer1Value;
