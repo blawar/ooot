@@ -456,6 +456,16 @@ namespace oot::hid
 					return;
 				}
 
+				if(config().controls().invertLeftStickY())
+				{
+					xstate.Gamepad.sThumbLY *= -1;
+				}
+
+				if(config().controls().invertRightStickY())
+				{
+					xstate.Gamepad.sThumbRY *= -1;
+				}
+
 				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0x7FFF);
 				m_state.stick_y = convertToByte(xstate.Gamepad.sThumbLY, 0x7FFF);
 
