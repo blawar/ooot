@@ -373,6 +373,9 @@ namespace oot
 			json::setBool(container, "enableGyro", enableGyro(), allocator);
 			json::setBool(container, "useXInput", useXInput(), allocator);
 
+			json::setBool(container, "invertLeftStickY", invertLeftStickY(), allocator);
+			json::setBool(container, "invertRightStickY", invertRightStickY(), allocator);
+
 			doc.AddMember(rapidjson::Value("controls", allocator), container, allocator);
 		}
 
@@ -402,6 +405,9 @@ namespace oot
 				json::getBool(container, "enableGyro", enableGyro());
 
 				json::getBool(container, "useXInput", useXInput());
+
+				json::getBool(container, "invertLeftStickY", invertLeftStickY());
+				json::getBool(container, "invertRightStickY", invertRightStickY());
 			}
 		}
 	} // namespace options
