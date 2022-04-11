@@ -208,7 +208,7 @@ void Player_UpdateFunc_8084E30C(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_DeathDrown(Player* pthis, GlobalContext* globalCtx);
 void func_8084E3C4(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084E604(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_ChestOpen(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084E9AC(Player* pthis, GlobalContext* globalCtx);
 void func_8084EAC0(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084ECA4(Player* pthis, GlobalContext* globalCtx);
@@ -1617,11 +1617,11 @@ s32 func_808332E4(Player* pthis)
 	return (pthis->stateFlags1 & PLAYER_STATE1_24);
 }
 
-void func_808332F4(Player* pthis, GlobalContext* globalCtx)
+void Player_LoadChestItem(Player* pthis, GlobalContext* globalCtx)
 {
 	const GetItemEntry* giEntry = &sGetItemTable[pthis->getItemId - 1];
 
-	pthis->unk_862 = ABS(giEntry->gi);
+	pthis->drawItemID = ABS(giEntry->gi);
 }
 
 static LinkAnimationHeader* func_80833338(Player* pthis)
@@ -5227,7 +5227,7 @@ void func_8083A40C(GlobalContext* globalCtx, Player* pthis)
 
 void func_8083A434(GlobalContext* globalCtx, Player* pthis)
 {
-	Player_SetUpdateFunctWithMove0(globalCtx, pthis, Player_UpdateFunc_8084E6D4, 0);
+	Player_SetUpdateFunctWithMove0(globalCtx, pthis, Player_UpdateFunc_ChestOpen, 0);
 
 	pthis->stateFlags1 |= (PLAYER_STATE1_10 | PLAYER_STATE1_29);
 
@@ -12596,7 +12596,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 			gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment3DL);
 		}
 
-		if(pthis->unk_862 > 0)
+		if(pthis->drawItemID > 0)
 		{
 			Player_DrawGetItem(globalCtx, pthis);
 		}
@@ -14173,7 +14173,7 @@ void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx)
 
 void func_8084DF6C(GlobalContext* globalCtx, Player* pthis)
 {
-	pthis->unk_862 = 0;
+	pthis->drawItemID = 0;
 	pthis->stateFlags1 &= ~(PLAYER_STATE1_10 | PLAYER_STATE1_11);
 	pthis->getItemId = GI_NONE;
 	func_8005B1A4(Gameplay_GetCamera(globalCtx, 0));
@@ -14261,7 +14261,7 @@ void Player_UpdateFunc_8084E1EC(Player* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->stateFlags1 & PLAYER_STATE1_10) && LinkAnimation_OnFrame(&pthis->skelAnime, 10.0f))
 		{
-			func_808332F4(pthis, globalCtx);
+			Player_LoadChestItem(pthis, globalCtx);
 			func_80832340(globalCtx, pthis);
 			func_80835EA4(globalCtx, 8);
 		}
@@ -14393,7 +14393,7 @@ static struct_80832924 D_808549E0[] = {
     {0, -0x287B},
 };
 
-void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_ChestOpen(Player* pthis, GlobalContext* globalCtx)
 {
 	s32 cond;
 
@@ -14401,7 +14401,7 @@ void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->unk_850 != 0)
 		{
-			if(pthis->unk_850 >= 2)
+			if(pthis->unk_850 > 1)
 			{
 				pthis->unk_850--;
 			}
@@ -14481,7 +14481,7 @@ void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx)
 
 		if(LinkAnimation_OnFrame(&pthis->skelAnime, 21.0f))
 		{
-			func_808332F4(pthis, globalCtx);
+			Player_LoadChestItem(pthis, globalCtx);
 		}
 	}
 }
@@ -14781,7 +14781,7 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx)
 		{
 			Actor* targetActor = pthis->targetActor;
 
-			pthis->unk_862 = 0;
+			pthis->drawItemID = 0;
 			if(targetActor->textId != 0xFFFF)
 			{
 				pthis->actor.flags |= ACTOR_FLAG_8;
@@ -14797,11 +14797,11 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx)
 			{
 				if(giEntry->gi >= 0)
 				{
-					pthis->unk_862 = giEntry->gi;
+					pthis->drawItemID = giEntry->gi;
 				}
 				else
 				{
-					pthis->unk_862 = -giEntry->gi;
+					pthis->drawItemID = -giEntry->gi;
 				}
 			}
 
@@ -14819,7 +14819,7 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx)
 			else if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 			{
 				pthis->actor.flags &= ~ACTOR_FLAG_8;
-				pthis->unk_862 = 0;
+				pthis->drawItemID = 0;
 
 				if(pthis->unk_84F == 1)
 				{
