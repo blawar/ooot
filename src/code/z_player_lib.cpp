@@ -1285,7 +1285,7 @@ void Player_DrawGetItemImpl(GlobalContext* globalCtx, Player* pthis, Vec3f* refP
 
 void Player_DrawGetItem(GlobalContext* globalCtx, Player* pthis)
 {
-	Player_DrawGetItemImpl(globalCtx, pthis, &sGetItemRefPos, ABS(pthis->unk_862));
+	Player_DrawGetItemImpl(globalCtx, pthis, &sGetItemRefPos, ABS(pthis->drawItemID));
 }
 
 void func_80090A28(Player* pthis, Vec3f* vecs)
@@ -1585,9 +1585,9 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 				}
 			}
 
-			if((pthis->unk_862 != 0) || ((func_8002DD6C(pthis) == 0) && (heldActor != NULL)))
+			if((pthis->drawItemID != 0) || ((func_8002DD6C(pthis) == 0) && (heldActor != NULL)))
 			{
-				if(!(pthis->stateFlags1 & PLAYER_STATE1_10) && (pthis->unk_862 != 0) && (pthis->exchangeItemId != EXCH_ITEM_NONE))
+				if(!(pthis->stateFlags1 & PLAYER_STATE1_10) && (pthis->drawItemID != 0) && (pthis->exchangeItemId != EXCH_ITEM_NONE))
 				{
 					Math_Vec3f_Copy(&sGetItemRefPos, &pthis->leftHandPos);
 				}
@@ -1598,7 +1598,7 @@ void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* 
 					sGetItemRefPos.z = (pthis->bodyPartsPos[15].z + pthis->leftHandPos.z) * 0.5f;
 				}
 
-				if(pthis->unk_862 == 0)
+				if(pthis->drawItemID == 0)
 				{
 					Math_Vec3f_Copy(&heldActor->world.pos, &sGetItemRefPos);
 				}
