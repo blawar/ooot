@@ -21,7 +21,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_rr/object_rr.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_10)
 
 #define RR_MESSAGE_SHIELD (1 << 0)
 #define RR_MESSAGE_TUNIC (1 << 1)
@@ -239,7 +239,7 @@ void EnRr_SetupGrabPlayer(EnRr* pthis, Player* player)
 	s32 i;
 
 	pthis->grabTimer = 100;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->ocTimer = 8;
 	pthis->hasPlayer = true;
 	pthis->reachState = 0;
@@ -279,7 +279,7 @@ void EnRr_SetupReleasePlayer(EnRr* pthis, GlobalContext* globalCtx)
 	u8 shield;
 	u8 tunic;
 
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->hasPlayer = false;
 	pthis->ocTimer = 110;
 	pthis->segMoveRate = 0.0f;
@@ -387,7 +387,7 @@ void EnRr_SetupDeath(EnRr* pthis)
 	}
 	pthis->actionFunc = EnRr_Death;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_LIKE_DEAD);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void EnRr_SetupStunned(EnRr* pthis)

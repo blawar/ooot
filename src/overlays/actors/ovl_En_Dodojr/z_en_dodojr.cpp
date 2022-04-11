@@ -22,7 +22,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dodojr/object_dodojr.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -83,7 +83,7 @@ void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx)
 	CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(4), &sColChkInit);
 
 	pthis->actor.naviEnemyId = 0xE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	Actor_SetScale(&pthis->actor, 0.02f);
 
@@ -226,7 +226,7 @@ void func_809F6B38(EnDodojr* pthis)
 void func_809F6BBC(EnDodojr* pthis)
 {
 	pthis->actor.shape.shadowDraw = NULL;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.home.pos = pthis->actor.world.pos;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.gravity = -0.8f;
@@ -359,7 +359,7 @@ s32 func_809F706C(EnDodojr* pthis)
 void func_809F709C(EnDodojr* pthis)
 {
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_DEAD);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	func_809F6A20(pthis);
 	pthis->actionFunc = func_809F7AB8;
 }
@@ -455,7 +455,7 @@ void func_809F73AC(EnDodojr* pthis, GlobalContext* globalCtx)
 			Animation_Change(&pthis->skelAnime, &object_dodojr_Anim_000860, 1.8f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, -10.0f);
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_M_UP);
 			pthis->actor.world.pos.y -= 60.0f;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->actor.world.rot.x -= 0x4000;
 			pthis->actor.shape.rot.x = pthis->actor.world.rot.x;
 			pthis->dustPos = pthis->actor.world.pos;
@@ -544,7 +544,7 @@ void func_809F773C(EnDodojr* pthis, GlobalContext* globalCtx)
 	if(DECR(pthis->timer3) == 0)
 	{
 		func_809F64D0(pthis);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		func_809F6A20(pthis);
 		pthis->actionFunc = func_809F77AC;
 	}

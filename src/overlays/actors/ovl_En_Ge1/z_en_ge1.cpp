@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ge1/object_ge1.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 #define GE1_STATE_TALKING (1 << 0)
 #define GE1_STATE_GIVE_QUIVER (1 << 1)

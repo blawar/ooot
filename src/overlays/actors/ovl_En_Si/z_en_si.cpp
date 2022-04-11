@@ -16,7 +16,7 @@
 #include "def/z_parameter.h"
 #include "def/z_player_lib.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_9)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_9)
 
 void EnSi_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSi_Reset(Actor* pthisx, GlobalContext* globalCtx);

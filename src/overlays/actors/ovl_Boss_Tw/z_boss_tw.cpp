@@ -23,7 +23,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_tw/object_tw.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossTw_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossTw_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -491,7 +491,7 @@ void BossTw_Init(Actor* thisx, GlobalContext* globalCtx2)
 		Actor_SetScale(&pthis->actor, 0.01f);
 		pthis->actor.update = BossTw_BlastUpdate;
 		pthis->actor.draw = BossTw_BlastDraw;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 		Collider_InitCylinder(globalCtx, &pthis->collider);
 		Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInitBlasts);
@@ -711,7 +711,7 @@ void BossTw_SetupFlyTo(BossTw* pthis, GlobalContext* globalCtx)
 	BossTw* otherTw = (BossTw*)pthis->actor.parent;
 
 	pthis->unk_5F8 = 1;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = BossTw_FlyTo;
 	pthis->rotateSpeed = 0.0f;
 	Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_006F28, -10.0f);
@@ -1645,7 +1645,7 @@ void BossTw_SetupWait(BossTw* pthis, GlobalContext* globalCtx)
 	pthis->actionFunc = BossTw_Wait;
 	pthis->visible = false;
 	pthis->actor.world.pos.y = -2000.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void BossTw_Wait(BossTw* pthis, GlobalContext* globalCtx)
@@ -1819,7 +1819,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 
 					pthis->csState1 = 1;
 					pthis->visible = true;
-					pthis->actor.flags |= ACTOR_FLAG_0;
+					pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 					pthis->actor.shape.rot.y = 0;
 					BossTw_SetupWait(sKotakePtr, globalCtx);
 					BossTw_SetupWait(sKoumePtr, globalCtx);
@@ -1954,7 +1954,7 @@ void BossTw_SetupCSWait(BossTw* pthis, GlobalContext* globalCtx)
 	pthis->actionFunc = BossTw_CSWait;
 	pthis->visible = false;
 	pthis->actor.world.pos.y = -2000.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 /**
@@ -1969,7 +1969,7 @@ void BossTw_TwinrovaSetupIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 	pthis->actionFunc = BossTw_TwinrovaIntroCS;
 	pthis->visible = false;
 	pthis->actor.world.pos.y = -2000.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
@@ -2643,7 +2643,7 @@ void BossTw_TwinrovaSetupDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 	pthis->actionFunc = BossTw_TwinrovaDeathCS;
 	Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_024374, -3.0f);
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->csState2 = pthis->csState1 = 0;
 	pthis->work[CS_TIMER_1] = pthis->work[CS_TIMER_2] = 0;
 	pthis->work[INVINC_TIMER] = 10000;
@@ -2986,7 +2986,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 					pthis->actor.scale.x = 0.0f;
 					Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_BOSS_TW, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, TW_DEATHBALL_KOUME);
 					Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_BOSS_TW, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, TW_DEATHBALL_KOTAKE);
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				}
 			}
 			Actor_SetScale(&pthis->actor, pthis->actor.scale.x);
@@ -3040,7 +3040,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 				sKoumePtr->actor.world.pos.z = sKotakePtr->actor.world.pos.z;
 				sKoumePtr->work[YAW_TGT] = sKotakePtr->work[YAW_TGT] = sKoumePtr->actor.shape.rot.x = sKotakePtr->actor.shape.rot.x = sKoumePtr->actor.shape.rot.y = sKotakePtr->actor.shape.rot.y = 0;
 				func_8002DF54(globalCtx, &sKoumePtr->actor, 1);
-				sKoumePtr->actor.flags |= ACTOR_FLAG_0;
+				sKoumePtr->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 			break;
 		case 2:

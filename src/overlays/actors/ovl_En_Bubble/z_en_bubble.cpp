@@ -15,7 +15,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_bubble/object_bubble.h"
 
-#define FLAGS ACTOR_FLAG_0
+#define FLAGS ACTOR_FLAG_VISIBLE
 
 void EnBubble_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBubble_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -86,7 +86,7 @@ void EnBubble_SetDimensions(EnBubble* pthis, f32 dim)
 	f32 c;
 	f32 d;
 
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	Actor_SetScale(&pthis->actor, 1.0f);
 	pthis->actor.shape.yOffset = 16.0f;
 	pthis->graphicRotSpeed = 16.0f;
@@ -160,7 +160,7 @@ s32 EnBubble_Explosion(EnBubble* pthis, GlobalContext* globalCtx)
 		EffectSsDtBubble_SpawnCustomColor(globalCtx, &effectPos, &effectVel, &effectAccel, &sEffectPrimColor, &sEffectEnvColor, Rand_S16Offset(100, 50), 0x19, 0);
 	}
 	Item_DropCollectibleRandom(globalCtx, NULL, &pthis->actor.world.pos, 0x50);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	return Rand_S16Offset(90, 60);
 }
 

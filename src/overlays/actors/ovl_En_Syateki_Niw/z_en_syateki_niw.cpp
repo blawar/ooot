@@ -74,7 +74,7 @@ void EnSyatekiNiw_Init(Actor* thisx, GlobalContext* globalCtx)
 	EnSyatekiNiw* pthis = (EnSyatekiNiw*)thisx;
 
 	Actor_ProcessInitChain(&pthis->actor, sInitChain);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
 	SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoSkel, &gCuccoAnim, pthis->jointTable, pthis->morphTable, 16);
 

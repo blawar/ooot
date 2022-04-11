@@ -17,7 +17,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_sb/object_sb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnSb_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSb_Reset(Actor* pthisx, GlobalContext* globalCtx);

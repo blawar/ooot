@@ -11,7 +11,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_fz/object_fz.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
 
 void EnFz_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFz_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -182,7 +182,7 @@ void EnFz_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	Actor_SetScale(&pthis->actor, 0.008f);
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->unusedTimer1 = 0;
 	pthis->unusedCounter = 0;
 	pthis->updateBgInfo = true;
@@ -428,7 +428,7 @@ void EnFz_SetupDisappear(EnFz* pthis)
 {
 	pthis->state = 2;
 	pthis->isFreezing = false;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_Disappear;
 }
 
@@ -498,7 +498,7 @@ void EnFz_SetupAimForMove(EnFz* pthis)
 	pthis->timer = 40;
 	pthis->updateBgInfo = true;
 	pthis->isFreezing = true;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_AimForMove;
 	pthis->actor.gravity = -1.0f;
 }
@@ -617,7 +617,7 @@ void EnFz_SetupDespawn(EnFz* pthis, GlobalContext* globalCtx)
 	pthis->updateBgInfo = true;
 	pthis->isFreezing = false;
 	pthis->isDespawning = true;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->isActive = false;
 	pthis->timer = 60;
 	pthis->speedXZ = 0.0f;
@@ -642,7 +642,7 @@ void EnFz_SetupMelt(EnFz* pthis)
 	pthis->state = 3;
 	pthis->isFreezing = false;
 	pthis->isDespawning = true;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_Melt;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->speedXZ = 0.0f;
@@ -679,7 +679,7 @@ void EnFz_SetupBlowSmokeStationary(EnFz* pthis)
 	pthis->timer = 40;
 	pthis->updateBgInfo = true;
 	pthis->isFreezing = true;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_BlowSmokeStationary;
 	pthis->actor.gravity = -1.0f;
 }

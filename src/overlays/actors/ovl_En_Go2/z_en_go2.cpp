@@ -23,7 +23,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_oF1d_map/object_oF1d_map.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 /*
 FLAGS
@@ -1164,12 +1164,12 @@ s32 EnGo2_IsWakingUp(EnGo2* pthis)
 	{
 		if((pthis->collider.base.ocFlags2 & 1) == 0)
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			return false;
 		}
 		else
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			return true;
 		}
 	}
@@ -1587,7 +1587,7 @@ void EnGo2_RollingAnimation(EnGo2* pthis, GlobalContext* globalCtx)
 {
 	if((pthis->actor.params & 0x1F) == GORON_DMT_BIGGORON)
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		func_80034EC0(&pthis->skelAnime, sAnimations, 10);
 		pthis->skelAnime.playSpeed = -0.5f;
 	}
@@ -1942,7 +1942,7 @@ void EnGo2_Init(Actor* thisx, GlobalContext* globalCtx)
 			break;
 		case GORON_DMT_BIGGORON:
 			pthis->actor.shape.shadowDraw = NULL;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			if((INV_CONTENT(ITEM_TRADE_ADULT) >= ITEM_SWORD_BROKEN) && (INV_CONTENT(ITEM_TRADE_ADULT) <= ITEM_EYEDROPS))
 			{
 				pthis->eyeMouthTexState = 1;
@@ -2039,7 +2039,7 @@ void func_80A46B40(EnGo2* pthis, GlobalContext* globalCtx)
 		{
 			if((pthis->actor.params & 0x1F) == GORON_DMT_BIGGORON)
 			{
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 			func_80A454CC(pthis);
 			pthis->unk_211 = true;
@@ -2217,7 +2217,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 	{
 		case 0:
 			func_80034EC0(&pthis->skelAnime, sAnimations, 5);
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actor.shape.rot.y += 0x5B0;
 			pthis->unk_26E = 1;
 			pthis->animTimer = pthis->skelAnime.endFrame + 60.0f + 60.0f; // eyeDrops animation timer
@@ -2254,7 +2254,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* pthis, GlobalContext* globalCtx)
 			if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 			{
 				func_80034EC0(&pthis->skelAnime, sAnimations, 1);
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->unk_26E = 2;
 				pthis->skelAnime.playSpeed = 0.0f;
 				pthis->skelAnime.curFrame = pthis->skelAnime.endFrame;

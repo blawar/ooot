@@ -133,7 +133,7 @@ void EnWonderItem_Init(Actor* thisx, GlobalContext* globalCtx)
 	osSyncPrintf("\n\n");
 	// "Mysterious mystery, very mysterious"
 	osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 不思議不思議まか不思議 \t   ☆☆☆☆☆ %x\n" VT_RST, pthis->actor.params);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	pthis->wonderMode = (pthis->actor.params >> 0xB) & 0x1F;
 	pthis->itemDrop = (pthis->actor.params >> 6) & 0x1F;

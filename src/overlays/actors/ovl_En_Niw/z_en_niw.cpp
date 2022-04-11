@@ -160,7 +160,7 @@ void EnNiw_Init(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	Actor_ProcessInitChain(&pthis->actor, sInitChain);
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
 	SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoSkel, &gCuccoAnim, pthis->jointTable, pthis->morphTable, 16);
 
@@ -231,7 +231,7 @@ void EnNiw_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->actor.gravity = 0.0f;
 		case 0xE:
 			pthis->actor.colChkInfo.mass = 0;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			break;
 		case 4:
 			pthis->actor.gravity = 0.0f;
@@ -527,7 +527,7 @@ void action_80AB6450(EnNiw* pthis, GlobalContext* globalCtx)
 		pthis->sfxTimer1 = 30;
 		pthis->path = 0;
 		pthis->timer4 = 30;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = 0.0f;
 		pthis->actionFunc = action_80AB6BF8;
 	}
@@ -554,7 +554,7 @@ void action_80AB6570(EnNiw* pthis, GlobalContext* globalCtx)
 			pthis->sfxTimer1 = 30;
 			pthis->path = 0;
 			pthis->timer4 = 30;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actor.speedXZ = 0.0f;
 			pthis->actionFunc = action_80AB6BF8;
 			return;
@@ -754,7 +754,7 @@ void action_80AB6BF8(EnNiw* pthis, GlobalContext* globalCtx)
 		pthis->actor.shape.rot.z = 0;
 		pthis->actor.shape.rot.y = pthis->actor.shape.rot.z;
 		pthis->actor.shape.rot.x = pthis->actor.shape.rot.z;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = func_80AB6D08;
 	}
 	func_80AB5BF8(pthis, globalCtx, 2);
@@ -810,7 +810,7 @@ void func_80AB6D08(EnNiw* pthis, GlobalContext* globalCtx)
 		pthis->sfxTimer1 = 30;
 		pthis->path = 0;
 		pthis->timer4 = 30;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = 0.0f;
 		pthis->actionFunc = action_80AB6BF8;
 	}
@@ -945,7 +945,7 @@ void action_cucco_death_timer_cry_then_execute(EnNiw* pthis, GlobalContext* glob
 	{
 		pthis->timer7 = 10;
 		pthis->unk_angle_yaw_2E4 = pthis->actor.yawTowardsPlayer;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = action_spawn_death_cuccos;
 	}
 

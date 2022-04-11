@@ -26,7 +26,7 @@
 #include "objects/object_po_composer/object_po_composer.h"
 #include "objects/object_poh/object_poh.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
 
 void EnPoh_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -364,7 +364,7 @@ void func_80ADE368(EnPoh* pthis)
 void EnPoh_SetupInitialAction(EnPoh* pthis)
 {
 	pthis->lightColor.a = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(pthis->infoIdx == EN_POH_INFO_NORMAL)
 	{
 		Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gPoeAppearAnim, 0.0f);
@@ -386,7 +386,7 @@ void func_80ADE48C(EnPoh* pthis)
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	pthis->spinningLampTimer = 0;
 	pthis->actor.naviEnemyId = 0xFF;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80ADF15C;
 }
 
@@ -507,7 +507,7 @@ void EnPoh_Talk(EnPoh* pthis, GlobalContext* globalCtx)
 	}
 	pthis->spinningLampTimer = 200;
 	pthis->bouncingTimer = 32;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80ADFE80;
 }
 
@@ -699,7 +699,7 @@ void func_80ADEF38(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->lightColor.a = 255;
 		pthis->visibilityTimer = Rand_S16Offset(700, 300);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		EnPoh_SetupIdle(pthis);
 	}
 	else if(pthis->skelAnime.curFrame > 10.0f)
@@ -719,7 +719,7 @@ void EnPoh_ComposerAppear(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->lightColor.a = 255;
 		pthis->visibilityTimer = Rand_S16Offset(700, 300);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		EnPoh_SetupIdle(pthis);
 	}
 	else

@@ -87,7 +87,7 @@ void func_80B43A94(EnYukabyun* pthis, GlobalContext* globalCtx)
 	}
 	if(pthis->unk_150 == 0)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_12;
 		pthis->actionfunc = func_80B43AD4;
 	}
 }
@@ -134,7 +134,7 @@ void EnYukabyun_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->collider.base.atFlags &= ~AT_HIT;
 		pthis->collider.base.acFlags &= ~AC_HIT;
 		pthis->collider.base.ocFlags1 &= ~OC1_HIT;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 30, NA_SE_EN_OCTAROCK_ROCK);
 		pthis->actionfunc = EnYukabyun_Break;
 	}

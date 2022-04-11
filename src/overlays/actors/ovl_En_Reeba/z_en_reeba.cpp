@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_reeba/object_reeba.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
 void EnReeba_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnReeba_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -295,7 +295,7 @@ void func_80AE5270(EnReeba* pthis, GlobalContext* globalCtx)
 
 void func_80AE538C(EnReeba* pthis, GlobalContext* globalCtx)
 {
-	pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 	pthis->actionfunc = func_80AE53AC;
 }
 
@@ -372,7 +372,7 @@ void func_80AE5688(EnReeba* pthis, GlobalContext* globalCtx)
 	pthis->unk_27E = 0;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_AKINDONUTS_HIDE);
 	pthis->actor.flags |= ACTOR_FLAG_27;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	pthis->actionfunc = func_80AE56E0;
 }
 
@@ -436,7 +436,7 @@ void func_80AE58EC(EnReeba* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 	pthis->actor.speedXZ = -8.0f;
 	pthis->actor.flags |= ACTOR_FLAG_27;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	pthis->actionfunc = func_80AE5938;
 }
 
@@ -520,7 +520,7 @@ void func_80AE5BC4(EnReeba* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 	Actor_SetColorFilter(&pthis->actor, 0x4000, 0xFF, 0, 8);
 	pthis->unk_278 = 14;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionfunc = func_80AE5C38;
 }
 

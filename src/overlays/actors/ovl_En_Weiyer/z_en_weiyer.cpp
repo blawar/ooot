@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ei/object_ei.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnWeiyer_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnWeiyer_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -686,7 +686,7 @@ void func_80B3368C(EnWeiyer* pthis, GlobalContext* globalCtx)
 			{
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_EIER_DEAD);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				func_80B32724(pthis);
 			}
 			else

@@ -14,7 +14,7 @@
 #define DEKU_NUT_SPAWN_SCALER 1.2f
 #endif
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnShopnuts_Reset(Actor* pthisx, GlobalContext* globalCtx);

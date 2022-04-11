@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_wf/object_wf.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnWf_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnWf_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -399,7 +399,7 @@ void EnWf_SetupWaitToAppear(EnWf* pthis)
 	pthis->actionTimer = 20;
 	pthis->unk_300 = false;
 	pthis->action = WOLFOS_ACTION_WAIT_TO_APPEAR;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.scale.y = 0.0f;
 	pthis->actor.gravity = 0.0f;
 	EnWf_SetupAction(pthis, EnWf_WaitToAppear);
@@ -414,7 +414,7 @@ void EnWf_WaitToAppear(EnWf* pthis, GlobalContext* globalCtx)
 		if(pthis->actor.xzDistToPlayer < 240.0f)
 		{
 			pthis->actionTimer = 5;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 			if((pthis->actor.params != WOLFOS_NORMAL) && (pthis->switchFlag != 0xFF))
 			{
@@ -1442,7 +1442,7 @@ void EnWf_SetupDie(EnWf* pthis)
 	}
 
 	pthis->action = WOLFOS_ACTION_DIE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionTimer = pthis->skelAnime.animLength;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_WOLFOS_DEAD);
 	EnWf_SetupAction(pthis, EnWf_Die);

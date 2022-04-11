@@ -28,7 +28,7 @@
 #include "objects/object_rs/object_rs.h"
 #include "objects/object_zo/object_zo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnOssan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnOssan_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -2538,7 +2538,7 @@ void EnOssan_InitActionFunc(EnOssan* pthis, GlobalContext* globalCtx)
 		pthis->blinkTimer = 20;
 		pthis->eyeTextureIdx = 0;
 		pthis->blinkFunc = EnOssan_WaitForBlink;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		EnOssan_SetupAction(pthis, EnOssan_MainActionFunc);
 	}
 }

@@ -19,7 +19,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_wallmaster/object_wallmaster.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_10)
 
 #define SPAWN_INVISIBLE 0x8000
 #define SPAWN_SMALL 0x10
@@ -157,7 +157,7 @@ void EnFloormas_Init(Actor* thisx, GlobalContext* globalCtx2)
 	if(pthis->actor.params == SPAWN_SMALL)
 	{
 		pthis->actor.draw = NULL;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnFloormas_SmWait;
 	}
 	else
@@ -388,7 +388,7 @@ void EnFloormas_SetupGrabLink(EnFloormas* pthis, Player* player)
 	f32 xzDelta;
 
 	Animation_Change(&pthis->skelAnime, &gWallmasterJumpAnim, 1.0f, 36.0f, 45.0f, ANIMMODE_ONCE, -3.0f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.velocity.y = 0.0f;
 	EnFloormas_MakeInvulnerable(pthis);
@@ -433,7 +433,7 @@ void EnFloormas_SetupSmWait(EnFloormas* pthis)
 	}
 	pthis->actor.draw = NULL;
 	pthis->actionFunc = EnFloormas_SmWait;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_4);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4);
 }
 
 void EnFloormas_SetupTakeDamage(EnFloormas* pthis)
@@ -789,7 +789,7 @@ void EnFloormas_Split(EnFloormas* pthis, GlobalContext* globalCtx)
 	{
 		if(SkelAnime_Update(&pthis->skelAnime))
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->smActionTimer = 50;
 			EnFloormas_SetupStand(pthis);
 		}
@@ -969,7 +969,7 @@ void EnFloormas_GrabLink(EnFloormas* pthis, GlobalContext* globalCtx)
 
 		pthis->actor.shape.rot.x = 0;
 		pthis->actor.velocity.y = 6.0f;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = -3.0f;
 		EnFloormas_SetupLand(pthis);
 	}
@@ -1224,7 +1224,7 @@ void EnFloormas_ColliderCheck(EnFloormas* pthis, GlobalContext* globalCtx)
 						Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FALL_DEAD);
 					}
 					Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				}
 				else if(pthis->actor.colChkInfo.damage != 0)
 				{

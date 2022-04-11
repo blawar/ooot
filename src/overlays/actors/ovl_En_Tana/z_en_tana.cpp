@@ -12,7 +12,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_shop_dungen/object_shop_dungen.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnTana_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTana_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -57,7 +57,7 @@ void EnTana_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	osSyncPrintf("☆☆☆ %s ☆☆☆\n", sShelfTypes[thisx->params]);
 	Actor_SetScale(thisx, 1.0f);
-	thisx->flags &= ~ACTOR_FLAG_0;
+	thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 	thisx->draw = sDrawFuncs[thisx->params];
 }
 

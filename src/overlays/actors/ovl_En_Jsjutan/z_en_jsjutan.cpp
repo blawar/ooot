@@ -16,7 +16,7 @@
 #include "def/z_lib.h"
 #include "def/z_rcp.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnJsjutan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnJsjutan_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -43,7 +43,7 @@ void EnJsjutan_Init(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	CollisionHeader* header = NULL;
 
-	pthis->dyna.actor.flags &= ~ACTOR_FLAG_0;
+	pthis->dyna.actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
 	CollisionHeader_GetVirtual(&sCol, &header);
 	pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, header);

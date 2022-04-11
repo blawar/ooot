@@ -82,7 +82,7 @@ void EnYabusameMark_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	osSyncPrintf("\n\n");
 	osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ やぶさめまと ☆☆☆☆☆ %x\n" VT_RST, pthis->actor.params);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->typeIndex = pthis->actor.params;
 	pthis->actor.targetMode = 5;
 	osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 種類インデックス \t   ☆☆☆☆☆ %d\n" VT_RST, pthis->typeIndex);

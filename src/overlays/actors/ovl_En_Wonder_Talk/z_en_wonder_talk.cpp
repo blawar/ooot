@@ -11,7 +11,7 @@
 #include "def/z_actor.h"
 #include "def/z_message_PAL.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_27)
 
 void EnWonderTalk_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnWonderTalk_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -160,7 +160,7 @@ void func_80B3943C(EnWonderTalk* pthis, GlobalContext* globalCtx)
 			{
 				if(pthis->switchFlag >= 0)
 				{
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					Flags_SetSwitch(globalCtx, pthis->switchFlag);
 				}
 				pthis->actionFunc = func_80B391CC;
@@ -199,7 +199,7 @@ void func_80B395F0(EnWonderTalk* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->switchFlag >= 0)
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			Flags_SetSwitch(globalCtx, pthis->switchFlag);
 		}
 		switch(pthis->unk_150)

@@ -37,7 +37,7 @@
 #include "objects/object_ganon_anime1/object_ganon_anime1.h"
 #include "objects/object_ganon_anime2/object_ganon_anime2.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossGanon_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossGanon_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -455,7 +455,7 @@ void BossGanon_Init(Actor* thisx, GlobalContext* globalCtx2)
 	}
 	else
 	{
-		thisx->flags &= ~ACTOR_FLAG_0;
+		thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->fwork[GDF_FWORK_1] = 255.0f;
 
 		if(thisx->params >= 0xC8)
@@ -2820,7 +2820,7 @@ void BossGanon_Vulnerable(BossGanon* pthis, GlobalContext* globalCtx)
 
 	if(pthis->timers[3] == 0)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	}
 
 	SkelAnime_Update(&pthis->skelAnime);
@@ -2988,7 +2988,7 @@ void BossGanon_SetupDamaged(BossGanon* pthis, GlobalContext* globalCtx)
 
 void BossGanon_Damaged(BossGanon* pthis, GlobalContext* globalCtx)
 {
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 	SkelAnime_Update(&pthis->skelAnime);
 
@@ -3180,7 +3180,7 @@ void BossGanon_Update(Actor* thisx, GlobalContext* globalCtx2)
 	pthis->collider.base.colType = 3;
 	sCape->gravity = -3.0f;
 	pthis->shockGlow = false;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->unk_1A2++;
 	pthis->unk_1A4++;
 

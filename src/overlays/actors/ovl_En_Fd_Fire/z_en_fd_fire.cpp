@@ -11,7 +11,7 @@
 #include "def/z_rcp.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnFdFire_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFdFire_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -141,7 +141,7 @@ void EnFdFire_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitCylinder(globalCtx, &pthis->collider);
 	Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
 	CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, &sDamageTable, &sColChkInit);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.gravity = -0.6f;
 	pthis->actor.speedXZ = 5.0f;
 	pthis->actor.velocity.y = 12.0f;

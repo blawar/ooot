@@ -29,7 +29,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_gnd/object_gnd.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossGanondrof_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossGanondrof_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -295,7 +295,7 @@ void BossGanondrof_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitCylinder(globalCtx, &pthis->colliderSpear);
 	Collider_SetCylinder(globalCtx, &pthis->colliderBody, &pthis->actor, &sCylinderInitBody);
 	Collider_SetCylinder(globalCtx, &pthis->colliderSpear, &pthis->actor, &sCylinderInitSpear);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(Flags_GetClear(globalCtx, globalCtx->roomCtx.curRoom.num))
 	{
 		Actor_Kill(&pthis->actor);
@@ -456,7 +456,7 @@ void BossGanondrof_Paintings(BossGanondrof* pthis, GlobalContext* globalCtx)
 		EnfHG* horseTemp;
 
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &gPhantomGanonRideSpearRaiseAnim, -2.0f);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		horseTemp = (EnfHG*)pthis->actor.child;
 		Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_FHG_FIRE, pthis->spearTip.x, pthis->spearTip.y, pthis->spearTip.z, 30, FHGFIRE_LIGHT_GREEN, 0, FHGFIRE_SPEAR_LIGHT);
 		pthis->actor.child = &horseTemp->actor;
@@ -472,7 +472,7 @@ void BossGanondrof_Paintings(BossGanondrof* pthis, GlobalContext* globalCtx)
 	else if(horse->bossGndSignal == FHG_RIDE)
 	{
 		Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonRideAnim, -2.0f);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 
 	osSyncPrintf("RUN 3\n");
@@ -503,7 +503,7 @@ void BossGanondrof_SetupNeutral(BossGanondrof* pthis, f32 arg1)
 {
 	Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonNeutralAnim, arg1);
 	pthis->actionFunc = BossGanondrof_Neutral;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->fwork[GND_FLOAT_SPEED] = 0.0f;
 	pthis->timers[0] = (s16)(Rand_ZeroOne() * 64.0f) + 30;
 }
@@ -1025,7 +1025,7 @@ void BossGanondrof_SetupDeath(BossGanondrof* pthis, GlobalContext* globalCtx)
 	Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_DEAD);
 	pthis->deathState = DEATH_START;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->GND_VARIANCE_TIMER = 0;
 	pthis->shockTimer = 50;
 }

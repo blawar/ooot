@@ -200,7 +200,7 @@ void EnDoor_SetupType(EnDoor* pthis, GlobalContext* globalCtx)
 			else
 			{
 				pthis->actionFunc = EnDoor_WaitForCheck;
-				pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_27;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_27;
 			}
 		}
 		// Replace the door type it was loaded with by the new type

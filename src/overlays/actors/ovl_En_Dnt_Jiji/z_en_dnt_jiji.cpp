@@ -25,7 +25,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dns/object_dns.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnDntJiji_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDntJiji_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -93,7 +93,7 @@ void EnDntJiji_Init(Actor* thisx, GlobalContext* globalCtx)
 	osSyncPrintf("\n\n");
 	// "Deku Scrub mask show elder"
 	osSyncPrintf(VT_FGCOL(YELLOW) "☆☆☆☆☆ デグナッツお面品評会長老 ☆☆☆☆☆ %x\n" VT_RST, pthis->stage);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.colChkInfo.mass = 0xFF;
 	pthis->actor.targetMode = 6;
 	pthis->actionFunc = EnDntJiji_SetFlower;
@@ -260,7 +260,7 @@ void EnDntJiji_SetupCower(EnDntJiji* pthis, GlobalContext* globalCtx)
 	{
 		pthis->getItemId = GI_NUT_UPGRADE_40;
 	}
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.textId = 0x10DB;
 	pthis->unused = 5;
 	pthis->actionFunc = EnDntJiji_Cower;
@@ -362,7 +362,7 @@ void EnDntJiji_GivePrize(EnDntJiji* pthis, GlobalContext* globalCtx)
 				pthis->stage->leaderSignal = DNT_SIGNAL_RETURN;
 			}
 		}
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		if(!pthis->unburrow)
 		{
 			pthis->actionFunc = EnDntJiji_SetupHide;

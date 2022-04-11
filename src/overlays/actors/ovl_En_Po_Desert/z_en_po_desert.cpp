@@ -231,13 +231,13 @@ void EnPoDesert_Update(Actor* thisx, GlobalContext* globalCtx)
 	CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 	if(globalCtx->actorCtx.unk_03)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_7;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_7;
 		pthis->actor.shape.shadowDraw = ActorShadow_DrawCircle;
 	}
 	else
 	{
 		pthis->actor.shape.shadowDraw = NULL;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_7);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_7);
 	}
 }
 

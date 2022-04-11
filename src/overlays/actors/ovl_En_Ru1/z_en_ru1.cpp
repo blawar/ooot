@@ -25,7 +25,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ru1/object_ru1.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_26)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4 | ACTOR_FLAG_26)
 
 void EnRu1_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnRu1_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -1786,7 +1786,7 @@ s32 func_80AEE264(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	if(!Actor_ProcessTalkRequest(&pthis->actor, globalCtx))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		if((gSaveContext.infTable[20] & 8))
 		{
 			pthis->actor.textId = 0x404E;
@@ -2161,7 +2161,7 @@ s32 func_80AEF0BC(EnRu1* pthis, GlobalContext* globalCtx)
 		Animation_Change(&pthis->skelAnime, &gRutoChildSitAnim, 1.0f, 0, frameCount, ANIMMODE_ONCE, -8.0f);
 		globalCtx->msgCtx.msgMode = MSGMODE_PAUSED;
 		pthis->action = 26;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 		return true;
 	}
 	return false;
@@ -2208,7 +2208,7 @@ void func_80AEF2AC(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	pthis->action = 24;
 	pthis->drawConfig = 1;
-	pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 }
 
 void func_80AEF2D0(EnRu1* pthis, GlobalContext* globalCtx)
@@ -2386,7 +2386,7 @@ void func_80AEF930(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	if(func_80AEB104(pthis) == 3)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		pthis->actor.textId = 0x4048;
 		Message_ContinueTextbox(globalCtx, pthis->actor.textId);
 		func_80AEF4A8(pthis, globalCtx);
@@ -2483,7 +2483,7 @@ void func_80AEFC54(EnRu1* pthis, GlobalContext* globalCtx)
 		pthis->action = 41;
 		pthis->unk_28C = EnRu1_FindSwitch(globalCtx);
 		func_80AEB0EC(pthis, 1);
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 	}
 	else
 	{
@@ -2521,7 +2521,7 @@ s32 func_80AEFDC0(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	if(!Actor_ProcessTalkRequest(&pthis->actor, globalCtx))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		pthis->actor.textId = Text_GetFaceReaction(globalCtx, 0x1F);
 		if(pthis->actor.textId == 0)
 		{
@@ -2537,7 +2537,7 @@ s32 func_80AEFE38(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 		return true;
 	}
 	return false;

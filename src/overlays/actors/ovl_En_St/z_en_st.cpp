@@ -10,7 +10,7 @@
 #include "z_en_st.h"
 #include "objects/object_st/object_st.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx);
 void EnSt_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -500,7 +500,7 @@ s32 EnSt_CheckHitBackside(EnSt* pthis, GlobalContext* globalCtx)
 		return false;
 	}
 	Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->groundBounces = 3;
 	pthis->deathTimer = 20;
 	pthis->actor.gravity = -1.0f;

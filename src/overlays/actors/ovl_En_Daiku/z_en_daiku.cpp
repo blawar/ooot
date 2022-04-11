@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_daiku/object_daiku.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 // state flags
 
@@ -427,7 +427,7 @@ void EnDaiku_Jailed(EnDaiku* pthis, GlobalContext* globalCtx)
 	else if(!(pthis->stateFlags & ENDAIKU_STATEFLAG_GERUDOFIGHTING) && !gerudo->invisible)
 	{
 		pthis->stateFlags |= ENDAIKU_STATEFLAG_GERUDOFIGHTING;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 	}
 }
 
@@ -441,7 +441,7 @@ void EnDaiku_WaitFreedom(EnDaiku* pthis, GlobalContext* globalCtx)
 
 	if(Flags_GetSwitch(globalCtx, pthis->actor.params >> 8 & 0x3F))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		EnDaiku_UpdateText(pthis, globalCtx);
 	}
 }

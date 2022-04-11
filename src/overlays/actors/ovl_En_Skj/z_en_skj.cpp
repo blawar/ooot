@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_skj/object_skj.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -329,7 +329,7 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->actor.destroy = NULL;
 			pthis->actor.draw = NULL;
 			pthis->actor.update = EnSkj_SariasSongShortStumpUpdate;
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 			pthis->actor.flags |= 0;
 			Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_PROP);
 			break;
@@ -340,7 +340,7 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->actor.destroy = NULL;
 			pthis->actor.draw = NULL;
 			pthis->actor.update = EnSkj_OcarinaMinigameShortStumpUpdate;
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 			pthis->actor.flags |= 0;
 			Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_PROP);
 			pthis->actor.focus.pos.x = 1230.0f;
@@ -364,8 +364,8 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2)
 			SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSkullKidSkel, &gSkullKidPlayFluteAnim, pthis->jointTable, pthis->morphTable, 19);
 			if((type >= 0) && (type < 3))
 			{
-				pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
-				pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+				pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 				Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_NPC);
 			}
 
@@ -1335,7 +1335,7 @@ void EnSkj_SariasSongWaitForTextClear(EnSkj* pthis, GlobalContext* globalCtx)
 
 void EnSkj_OcarinaGameSetupWaitForPlayer(EnSkj* pthis)
 {
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnSkj_ChangeAnim(pthis, SKJ_ANIM_WAIT);
 	EnSkj_SetupAction(pthis, SKJ_ACTION_OCARINA_GAME_WAIT_FOR_PLAYER);
 }
@@ -1344,7 +1344,7 @@ void EnSkj_OcarinaGameWaitForPlayer(EnSkj* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->playerInRange)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		EnSkj_SetupAction(pthis, SKJ_ACTION_OCARINA_GAME_IDLE);
 	}
 }

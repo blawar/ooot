@@ -17,7 +17,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_bxa/object_bxa.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnBa_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBa_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -162,7 +162,7 @@ void EnBa_Idle(EnBa* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y + 100.0f, 1.0f, 10.0f, 0.0f);
 	}
 	pthis->unk2FC = pthis->actor.world.pos;
@@ -449,7 +449,7 @@ void func_809B75A0(EnBa* pthis, GlobalContext* globalCtx2)
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
 	Matrix_RotateZYX(pthis->actor.shape.rot.x - 0x8000, pthis->actor.shape.rot.y, 0, MTXMODE_APPLY);
 	Matrix_MultVec3f(&D_809B8080, &pthis->unk158[0]);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	for(i = 5; i < 13; i++)
 	{
 		Math_SmoothStepToS(&pthis->unk2A8[i].x, pthis->unk2A8[5].x, 1, pthis->unk31C, 0);

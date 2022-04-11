@@ -18,7 +18,7 @@
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "objects/object_fr/object_fr.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnFr_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFr_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -227,7 +227,7 @@ void EnFr_Init(Actor* thisx, GlobalContext* globalCtx)
 		pthis->actor.destroy = NULL;
 		pthis->actor.draw = NULL;
 		pthis->actor.update = EnFr_UpdateIdle;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_4);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4);
 		pthis->actor.flags &= ~0;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_PROP);
 		pthis->actor.textId = 0x40AC;
@@ -317,7 +317,7 @@ void EnFr_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->posButterflyLight.x = pthis->posButterfly.x = pthis->posLogSpot.x;
 		pthis->posButterflyLight.y = pthis->posButterfly.y = pthis->posLogSpot.y + 50.0f;
 		pthis->posButterflyLight.z = pthis->posButterfly.z = pthis->posLogSpot.z;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 }
 

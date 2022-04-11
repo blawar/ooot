@@ -13,7 +13,7 @@
 #include "def/z_onepointdemo.h"
 #include "def/z_rcp.h"
 #include "objects/object_jya_obj/object_jya_obj.h"
-#define FLAGS ACTOR_FLAG_0
+#define FLAGS ACTOR_FLAG_VISIBLE
 
 void BgJyaBombchuiwa_Init(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -191,7 +191,7 @@ void BgJyaBombchuiwa_CleanUpAfterExplosion(BgJyaBombchuiwa* pthis, GlobalContext
 	BgJyaBombchuiwa_SetDrawFlags(pthis, 4);
 	pthis->lightRayIntensity = 0.3f;
 	pthis->timer = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void func_808949B8(BgJyaBombchuiwa* pthis, GlobalContext* globalCtx)

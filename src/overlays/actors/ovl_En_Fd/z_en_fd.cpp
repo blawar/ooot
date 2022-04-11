@@ -21,7 +21,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_fw/object_fw.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9)
 
 #define FLG_COREDEAD (0x4000)
 #define FLG_COREDONE (0x8000)
@@ -307,7 +307,7 @@ s32 EnFd_ColliderCheck(EnFd* pthis, GlobalContext* globalCtx)
 			return false;
 		}
 		pthis->invincibilityTimer = 30;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FLAME_DAMAGE);
 		Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 		return true;
@@ -495,7 +495,7 @@ void EnFd_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitJntSph(globalCtx, &pthis->collider);
 	Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colSphs);
 	CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, DamageTable_Get(0xF), &sColChkInit);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.flags |= ACTOR_FLAG_24;
 	Actor_SetScale(&pthis->actor, 0.01f);
 	pthis->firstUpdateFlag = true;
@@ -532,7 +532,7 @@ void EnFd_SpinAndGrow(EnFd* pthis, GlobalContext* globalCtx)
 		pthis->actor.velocity.y = 6.0f;
 		pthis->actor.scale.y = 0.01f;
 		pthis->actor.world.rot.y ^= 0x8000;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = 8.0f;
 		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
 		pthis->actionFunc = EnFd_JumpToGround;
@@ -750,7 +750,7 @@ void EnFd_Update(Actor* thisx, GlobalContext* globalCtx)
 		// has been hookshoted
 		if(EnFd_SpawnCore(pthis, globalCtx))
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->invincibilityTimer = 30;
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FLAME_DAMAGE);
 			Enemy_StartFinishingBlow(globalCtx, &pthis->actor);

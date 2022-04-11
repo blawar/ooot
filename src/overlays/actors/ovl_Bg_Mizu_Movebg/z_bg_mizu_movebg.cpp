@@ -371,7 +371,7 @@ void func_8089E318(BgMizuMovebg* pthis, GlobalContext* globalCtx)
 				pthis->dyna.actor.child->world.pos.x = pthis->dyna.actor.world.pos.x + sp28.x;
 				pthis->dyna.actor.child->world.pos.y = pthis->dyna.actor.world.pos.y + sp28.y;
 				pthis->dyna.actor.child->world.pos.z = pthis->dyna.actor.world.pos.z + sp28.z;
-				pthis->dyna.actor.child->flags &= ~ACTOR_FLAG_0;
+				pthis->dyna.actor.child->flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			break;
 	}

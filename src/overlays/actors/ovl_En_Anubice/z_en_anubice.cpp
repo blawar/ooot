@@ -22,7 +22,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_anubice/object_anubice.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnAnubice_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnAnubice_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -147,7 +147,7 @@ void EnAnubice_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
 	pthis->actor.shape.yOffset = -4230.0f;
 	pthis->focusHeightOffset = 0.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->home = pthis->actor.world.pos;
 	pthis->actor.targetMode = 3;
 	pthis->actionFunc = EnAnubice_FindFlameCircles;
@@ -206,7 +206,7 @@ void EnAnubice_FindFlameCircles(EnAnubice* pthis, GlobalContext* globalCtx)
 			}
 			pthis->hasSearchedForFlameCircles = true;
 		}
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnAnubice_SetupIdle;
 	}
 }
@@ -407,7 +407,7 @@ void EnAnubice_Update(Actor* thisx, GlobalContext* globalCtx)
 			if(flameCircle != NULL && fabsf(flameCircle->actor.world.pos.x - pthis->actor.world.pos.x) < 60.0f && fabsf(pthis->flameCircles[i]->actor.world.pos.z - pthis->actor.world.pos.z) < 60.0f && flameCircle->timer != 0)
 			{
 				Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_PROP);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_ANUBIS_DEAD);
 				pthis->actionFunc = EnAnubice_SetupDie;
@@ -421,7 +421,7 @@ void EnAnubice_Update(Actor* thisx, GlobalContext* globalCtx)
 			if(pthis->actor.colChkInfo.damageEffect == 2)
 			{
 				Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_PROP);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_ANUBIS_DEAD);
 				pthis->actionFunc = EnAnubice_SetupDie;

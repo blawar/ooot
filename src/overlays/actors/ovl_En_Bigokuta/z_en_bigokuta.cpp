@@ -17,7 +17,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_bigokuta/object_bigokuta.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnBigokuta_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBigokuta_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -435,7 +435,7 @@ void func_809BD768(EnBigokuta* pthis)
 {
 	pthis->unk_194 = Rand_ZeroOne() < 0.5f ? -1 : 1;
 	pthis->unk_19A = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->cylinder[0].base.atFlags &= ~AT_ON;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DAIOCTA_SINK);
 	pthis->actionFunc = func_809BE4A4;
@@ -818,7 +818,7 @@ void func_809BE518(EnBigokuta* pthis, GlobalContext* globalCtx)
 {
 	if(Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y, 10.0f))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		func_809BD3F8(pthis);
 	}
 }

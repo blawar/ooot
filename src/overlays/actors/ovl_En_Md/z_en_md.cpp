@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_md/object_md.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnMd_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnMd_Reset(Actor* pthisx, GlobalContext* globalCtx);

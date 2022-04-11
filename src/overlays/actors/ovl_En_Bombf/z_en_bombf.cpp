@@ -20,7 +20,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_bombf/object_bombf.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4)
 
 void EnBombf_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -127,7 +127,7 @@ void EnBombf_Init(Actor* thisx, GlobalContext* globalCtx)
 		thisx->gravity = -1.5f;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_EXPLOSIVE);
 		thisx->colChkInfo.mass = 200;
-		thisx->flags &= ~ACTOR_FLAG_0;
+		thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 		EnBombf_SetupAction(pthis, EnBombf_Move);
 	}
 	else
@@ -174,7 +174,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 				pthis->timer = 180;
 				pthis->flowerBombScale = 0.0f;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_PL_PULL_UP_ROCK);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			else
 			{
@@ -197,7 +197,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 					bombFlower->unk_200 = 1;
 					bombFlower->timer = 0;
 					pthis->timer = 180;
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					pthis->flowerBombScale = 0.0f;
 				}
 			}
@@ -211,7 +211,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 				{
 					bombFlower->timer = 100;
 					pthis->timer = 180;
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					pthis->flowerBombScale = 0.0f;
 				}
 			}
@@ -240,7 +240,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 			pthis->flowerBombScale += 0.05f;
 			if(pthis->flowerBombScale >= 1.0f)
 			{
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 		}
 

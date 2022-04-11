@@ -22,7 +22,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ps/object_ps.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnGb_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGb_Reset(Actor* pthisx, GlobalContext* globalCtx);

@@ -22,7 +22,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_kanban/object_kanban.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 #define PART_UPPER_LEFT (1 << 0)
 #define PART_LEFT_UPPER (1 << 1)
@@ -164,7 +164,7 @@ void EnKanban_Init(Actor* thisx, GlobalContext* globalCtx)
 	if(pthis->actor.params != ENKANBAN_PIECE)
 	{
 		pthis->actor.targetMode = 0;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		Collider_InitCylinder(globalCtx, &pthis->collider);
 		Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
 		osSyncPrintf("KANBAN ARG    %x\n", pthis->actor.params);
@@ -262,7 +262,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 			}
 			if(pthis->zTargetTimer == 1)
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			if(pthis->partFlags == 0xFFFF)
 			{
@@ -439,7 +439,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 						piece->direction = -1;
 					}
 					piece->airTimer = 100;
-					piece->actor.flags &= ~ACTOR_FLAG_0;
+					piece->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					piece->actor.flags |= ACTOR_FLAG_25;
 					pthis->cutMarkTimer = 5;
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_IT_SWORD_STRIKE);
@@ -452,7 +452,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 			CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 			if(pthis->actor.xzDistToPlayer > 500.0f)
 			{
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->partFlags = 0xFFFF;
 			}
 			if(pthis->cutMarkTimer != 0)
@@ -889,7 +889,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2)
 			if(((distX + distY + distZ) == 0.0f) && ((pDiff + yDiff + rDiff + pthis->spinRot.x + pthis->spinRot.z) == 0) && (pthis->floorRot.x == 0.0f) && (pthis->floorRot.z == 0.0f))
 			{
 				signpost->partFlags |= pthis->partFlags;
-				signpost->actor.flags |= ACTOR_FLAG_0;
+				signpost->actor.flags |= ACTOR_FLAG_VISIBLE;
 				Actor_Kill(&pthis->actor);
 			}
 		}

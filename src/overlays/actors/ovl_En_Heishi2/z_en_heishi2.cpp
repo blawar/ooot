@@ -27,7 +27,7 @@
 #include "objects/object_link_child/object_link_child.h"
 #include "objects/object_sd/object_sd.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnHeishi2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -102,7 +102,7 @@ void EnHeishi2_Init(Actor* thisx, GlobalContext* globalCtx)
 	if((pthis->type == 6) || (pthis->type == 9))
 	{
 		pthis->actor.draw = EnHeishi2_DrawKingGuard;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, 6);
 		if(pthis->type == 6)
 		{
@@ -124,7 +124,7 @@ void EnHeishi2_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
 			Collider_DestroyCylinder(globalCtx, &pthis->collider);
 			func_8002DF54(globalCtx, 0, 8);
-			pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_4;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4;
 			pthis->actionFunc = func_80A544AC;
 		}
 	}
@@ -156,7 +156,7 @@ void EnHeishi2_Init(Actor* thisx, GlobalContext* globalCtx)
 				// "Peep hole soldier!"
 				osSyncPrintf(VT_FGCOL(GREEN) " ☆☆☆☆☆ 覗き穴奥兵士ふぃ〜 ☆☆☆☆☆ \n" VT_RST);
 				Collider_DestroyCylinder(globalCtx, collider);
-				pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+				pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 				pthis->actionFunc = EnHeishi_DoNothing2;
 				break;
 		}

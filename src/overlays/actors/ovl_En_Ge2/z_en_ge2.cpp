@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_gla/object_gla.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 #define GE2_STATE_ANIMCOMPLETE (1 << 1)
 #define GE2_STATE_KO (1 << 2)
@@ -327,7 +327,7 @@ void EnGe2_KnockedOut(EnGe2* pthis, GlobalContext* globalCtx)
 	s32 effectAngle;
 	Vec3f effectPos;
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(pthis->stateFlags & GE2_STATE_ANIMCOMPLETE)
 	{
 		effectAngle = globalCtx->frames * 0x2800;

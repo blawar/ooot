@@ -350,7 +350,7 @@ void ObjSwitch_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	if(type == OBJSWITCH_TYPE_CRYSTAL_TARGETABLE)
 	{
-		pthis->dyna.actor.flags |= ACTOR_FLAG_0;
+		pthis->dyna.actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->dyna.actor.targetMode = 4;
 	}
 

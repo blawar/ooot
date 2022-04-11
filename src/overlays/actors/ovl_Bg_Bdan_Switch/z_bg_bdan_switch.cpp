@@ -178,7 +178,7 @@ void BgBdanSwitch_Init(Actor* pthisx, GlobalContext* globalCtx)
 		case YELLOW_TALL_1:
 		case YELLOW_TALL_2:
 			BgBdanSwitch_InitCollision(pthis, globalCtx);
-			pthis->dyna.actor.flags |= ACTOR_FLAG_0;
+			pthis->dyna.actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->dyna.actor.targetMode = 4;
 			break;
 	}

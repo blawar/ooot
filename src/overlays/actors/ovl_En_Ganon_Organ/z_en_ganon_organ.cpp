@@ -31,7 +31,7 @@ static u64 sForceAlignment = 0;
 
 void EnGanonOrgan_Init(Actor* thisx, GlobalContext* globalCtx)
 {
-	thisx->flags &= ~ACTOR_FLAG_0;
+	thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void EnGanonOrgan_Destroy(Actor* thisx, GlobalContext* globalCtx)

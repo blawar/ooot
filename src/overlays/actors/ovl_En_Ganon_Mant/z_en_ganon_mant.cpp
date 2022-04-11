@@ -96,7 +96,7 @@ void EnGanonMant_Init(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnGanonMant* pthis = (EnGanonMant*)thisx;
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void EnGanonMant_Destroy(Actor* thisx, GlobalContext* globalCtx)

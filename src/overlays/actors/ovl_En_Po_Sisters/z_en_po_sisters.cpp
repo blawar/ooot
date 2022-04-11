@@ -26,7 +26,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_po_sisters/object_po_sisters.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnPoSisters_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnPoSisters_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -212,7 +212,7 @@ void EnPoSisters_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->unk_198 = 1;
 	pthis->unk_199 = 32;
 	pthis->unk_294 = 110.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(pthis->actor.params & 0x1000)
 	{
 		func_80ADA094(pthis, globalCtx);
@@ -422,7 +422,7 @@ void func_80AD99D4(EnPoSisters* pthis, GlobalContext* globalCtx)
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.world.pos.y += 42.0f;
 	pthis->actor.shape.yOffset = -6000.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->unk_199 = 0;
 	pthis->actionFunc = func_80ADAFC0;
 	OnePointCutscene_Init(globalCtx, 3190, 999, &pthis->actor, MAIN_CAM);
@@ -478,7 +478,7 @@ void func_80AD9C24(EnPoSisters* pthis, GlobalContext* globalCtx)
 	Vec3f vec;
 
 	pthis->actor.draw = NULL;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->unk_19C = 100;
 	pthis->unk_199 = 32;
 	pthis->collider.base.colType = COLTYPE_HIT3;
@@ -547,7 +547,7 @@ void func_80AD9F1C(EnPoSisters* pthis)
 	pthis->unk_19A = 300;
 	pthis->unk_19C = 3;
 	pthis->unk_199 |= 9;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80ADB770;
 }
 
@@ -574,7 +574,7 @@ void func_80ADA028(EnPoSisters* pthis)
 	Animation_MorphToLoop(&pthis->skelAnime, &gPoeSistersSwayAnim, -3.0f);
 	pthis->unk_22E.a = 255;
 	pthis->unk_199 |= 0x15;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80ADBBF4;
 	pthis->actor.speedXZ = 0.0f;
 }
@@ -1229,7 +1229,7 @@ void func_80ADB9F0(EnPoSisters* pthis, GlobalContext* globalCtx)
 		pthis->unk_22E.a = 255;
 		if(pthis->unk_194 == 3)
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->actor.home.pos.x = 1992.0f;
 			pthis->actor.home.pos.z = -1440.0f;
 			pthis->unk_199 |= 0x18;

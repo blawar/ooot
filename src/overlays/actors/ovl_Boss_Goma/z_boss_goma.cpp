@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_goma/object_goma.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 // IRIS_FOLLOW: gohma looks towards the player (iris rotation)
 // BONUS_IFRAMES: gain invincibility frames when the player does something (throwing things?), or
@@ -424,7 +424,7 @@ void BossGoma_SetupDefeated(BossGoma* pthis, GlobalContext* globalCtx)
 	pthis->noBackfaceCulling = false;
 	pthis->framesUntilNextAction = 1200;
 	pthis->actionState = 0;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.shape.shadowScale = 0.0f;
 	Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
@@ -655,7 +655,7 @@ void BossGoma_SetupEncounterState4(BossGoma* pthis, GlobalContext* globalCtx)
 	camera = Gameplay_GetCamera(globalCtx, 0);
 	player = GET_PLAYER(globalCtx);
 	pthis->actionState = 4;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	func_80064520(globalCtx, &globalCtx->csCtx);
 	func_8002DF54(globalCtx, &pthis->actor, 1);
 	pthis->subCameraId = Gameplay_CreateSubCamera(globalCtx);
@@ -748,7 +748,7 @@ void BossGoma_Encounter(BossGoma* pthis, GlobalContext* globalCtx)
 			pthis->framesUntilNextAction = 50;
 			pthis->timer = 80;
 			pthis->frameCount = 0;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			// fall-through
 		case 2: // zoom on player from room center
 			// room entrance, towards center

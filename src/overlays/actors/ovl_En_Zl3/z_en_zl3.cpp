@@ -1273,7 +1273,7 @@ void func_80B55780(EnZl3* pthis, GlobalContext* globalCtx)
 	pthis->drawConfig = 1;
 	osSyncPrintf("ゼルダ姫のEn_Zl3_Actor_inFinal2_Initは通った!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	EnZl3_setMouthIndex(pthis, 1);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void EnZl3_PlayInPain(EnZl3* pthis)
@@ -1389,8 +1389,8 @@ void func_80B55C70(EnZl3* pthis)
 {
 	func_80B54E14(pthis, &gZelda2Anime2Anim_008684, 2, -8.0f, 0);
 	pthis->action = 12;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void func_80B55CCC(EnZl3* pthis, s32 arg1)
@@ -1409,15 +1409,15 @@ void func_80B55D00(EnZl3* pthis, GlobalContext* globalCtx)
 	}
 	else if(ABS((s16)(pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y)) <= 0x4300)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.textId = 0x70D5;
 		func_8002F2F4(&pthis->actor, globalCtx);
 	}
 	else
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 }
 
@@ -1425,8 +1425,8 @@ void func_80B55DB0(EnZl3* pthis, GlobalContext* globalCtx)
 {
 	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->action = 12;
 	}
 }
@@ -1486,16 +1486,16 @@ void func_80B55F6C(EnZl3* pthis, GlobalContext* globalCtx)
 
 		if((bossGanon2 != NULL) && (bossGanon2->unk_324 <= (10.0f / 81.0f)))
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->actor.textId = 0x7059;
 			func_8002F2F4(&pthis->actor, globalCtx);
 		}
 	}
 	else
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 }
 
@@ -1526,8 +1526,8 @@ void func_80B56108(EnZl3* pthis, GlobalContext* globalCtx)
 {
 	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->action = 16;
 	}
 }
@@ -1566,8 +1566,8 @@ void func_80B56214(EnZl3* pthis, GlobalContext* globalCtx)
 		{
 			if(bossGanon2->unk_324 <= (10.0f / 81.0f))
 			{
-				pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->actor.textId = 0x7059;
 				func_8002F2F4(&pthis->actor, globalCtx);
 			}
@@ -1575,8 +1575,8 @@ void func_80B56214(EnZl3* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 }
 
@@ -1584,8 +1584,8 @@ void func_80B562F4(EnZl3* pthis, GlobalContext* globalCtx)
 {
 	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->action = 20;
 	}
 }
@@ -2101,7 +2101,7 @@ void func_80B57350(EnZl3* pthis, GlobalContext* globalCtx)
 
 	if(ABS(temp_v0) <= 0x4300)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		pthis->actor.textId = func_80B572F0(globalCtx);
 		func_8002F2F4(&pthis->actor, globalCtx);
 	}
@@ -3089,7 +3089,7 @@ void func_80B59828(EnZl3* pthis, GlobalContext* globalCtx)
 		s16 newRotY;
 
 		func_80B54E14(pthis, &gZelda2Anime2Anim_009FBC, 0, 0.0f, 0);
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		func_80B56F10(pthis, globalCtx);
 		newRotY = func_80B571A8(pthis);
 		pthis->actor.shape.rot.y = newRotY;

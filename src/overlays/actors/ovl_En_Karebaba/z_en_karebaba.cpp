@@ -21,7 +21,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_dekubaba/object_dekubaba.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnKarebaba_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnKarebaba_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -380,7 +380,7 @@ void EnKarebaba_Dying(EnKarebaba* pthis, GlobalContext* globalCtx)
 		{
 			pthis->actor.scale.x = pthis->actor.scale.y = pthis->actor.scale.z = 0.0f;
 			pthis->actor.speedXZ = 0.0f;
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 			EffectSsHahen_SpawnBurst(globalCtx, &pthis->actor.world.pos, 3.0f, 0, 12, 5, 15, HAHEN_OBJECT_DEFAULT, 10, NULL);
 		}
 
@@ -468,7 +468,7 @@ void EnKarebaba_Regrow(EnKarebaba* pthis, GlobalContext* globalCtx)
 	if(pthis->actor.params == 20)
 	{
 		pthis->actor.flags &= ~ACTOR_FLAG_4;
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_ENEMY);
 		EnKarebaba_SetupIdle(pthis);
 	}

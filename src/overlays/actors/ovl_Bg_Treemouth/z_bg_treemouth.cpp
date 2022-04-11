@@ -172,10 +172,10 @@ void func_808BC8B8(BgTreemouth* pthis, GlobalContext* globalCtx)
 			{
 				if(Actor_IsFacingAndNearPlayer(&pthis->dyna.actor, 1658.0f, 0x7530))
 				{
-					pthis->dyna.actor.flags |= ACTOR_FLAG_0;
+					pthis->dyna.actor.flags |= ACTOR_FLAG_VISIBLE;
 					if(pthis->dyna.actor.isTargeted)
 					{
-						pthis->dyna.actor.flags &= ~ACTOR_FLAG_0;
+						pthis->dyna.actor.flags &= ~ACTOR_FLAG_VISIBLE;
 						globalCtx->csCtx.segment = D_808BD2A0;
 						gSaveContext.cutsceneTrigger = 1;
 						BgTreemouth_SetupAction(pthis, func_808BC9EC);

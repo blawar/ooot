@@ -23,7 +23,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_wallmaster/object_wallmaster.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 #define TIMER_SCALE ((f32)OS_CLOCK_RATE / 10000000000)
 #define DEGREE_60_RAD (60.0f * M_PI / 180.0f)
@@ -170,7 +170,7 @@ void EnWallmas_TimerInit(EnWallmas* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.flags |= ACTOR_FLAG_5;
 	pthis->timer = 0x82;
 	pthis->actor.velocity.y = 0.0f;
@@ -191,7 +191,7 @@ void EnWallmas_SetupDrop(EnWallmas* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.pos.y = player->actor.world.pos.y + 300.0f;
 	pthis->actor.world.rot.y = player->actor.shape.rot.y + 0x8000;
 	pthis->actor.floorHeight = player->actor.floorHeight;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.flags &= ~ACTOR_FLAG_5;
 	pthis->actionFunc = EnWallmas_Drop;
 }
@@ -295,7 +295,7 @@ void EnWallmas_ProximityOrSwitchInit(EnWallmas* pthis)
 {
 	pthis->timer = 0;
 	pthis->actor.draw = NULL;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(pthis->actor.params == WMT_PROXIMITY)
 	{
 		pthis->actionFunc = EnWallmas_WaitForProximity;
@@ -607,7 +607,7 @@ void EnWallmas_ColUpdate(EnWallmas* pthis, GlobalContext* globalCtx)
 			{
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FALL_DEAD);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			else
 			{

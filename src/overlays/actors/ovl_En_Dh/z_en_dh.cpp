@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dh/object_dh.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
 
 void EnDh_Init(Actor* pthis, GlobalContext* globalCtx);
 void EnDh_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -146,7 +146,7 @@ void EnDh_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->actor.colChkInfo.mass = MASS_HEAVY;
 	pthis->actor.colChkInfo.health = LINK_IS_ADULT ? 14 : 20;
 	pthis->alpha = pthis->unk_258 = 255;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	Collider_InitCylinder(globalCtx, &pthis->collider1);
 	Collider_SetCylinder(globalCtx, &pthis->collider1, &pthis->actor, &sCylinderInit);
 	Collider_InitJntSph(globalCtx, &pthis->collider2);
@@ -212,7 +212,7 @@ void EnDh_Wait(EnDh* pthis, GlobalContext* globalCtx)
 		switch(pthis->actionState)
 		{
 			case 0:
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
 				pthis->actor.flags &= ~ACTOR_FLAG_7;
 				pthis->actionState++;
@@ -392,7 +392,7 @@ void EnDh_SetupBurrow(EnDh* pthis)
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	pthis->dirtWavePhase = 0;
 	pthis->actionState = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DEADHAND_HIDE);
 	EnDh_SetupAction(pthis, EnDh_Burrow);
 }
@@ -475,7 +475,7 @@ void EnDh_SetupDeath(EnDh* pthis)
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_dh_Anim_0032BC, -1.0f);
 	pthis->curAction = DH_DEATH;
 	pthis->timer = 300;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	func_800F5B58();
 	pthis->actor.params = ENDH_DEATH;

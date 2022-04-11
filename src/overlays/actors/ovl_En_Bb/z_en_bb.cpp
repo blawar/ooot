@@ -24,7 +24,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_Bb/object_Bb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_24)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_24)
 
 #define vBombHopPhase actionVar1
 #define vTrailIdx actionVar1
@@ -396,7 +396,7 @@ void EnBb_SetupFlameTrail(EnBb* pthis)
 {
 	pthis->action = BB_FLAME_TRAIL;
 	pthis->moveMode = BBMOVE_NOCLIP;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.velocity.y = 0.0f;
 	pthis->actor.gravity = 0.0f;
 	pthis->actor.speedXZ = 0.0f;
@@ -774,7 +774,7 @@ void EnBb_Down(EnBb* pthis, GlobalContext* globalCtx)
 				pthis->moveMode = BBMOVE_HIDDEN;
 				pthis->timer = 10;
 				pthis->actionState++;
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->action = BB_RED;
 				EnBb_SetupAction(pthis, EnBb_Red);
 				return;
@@ -852,7 +852,7 @@ void EnBb_SetupRed(GlobalContext* globalCtx, EnBb* pthis)
 		pthis->actor.home.pos = pthis->actor.world.pos;
 		pthis->actor.velocity.y = pthis->actor.gravity = pthis->actor.speedXZ = 0.0f;
 		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	pthis->action = BB_RED;
 	EnBb_SetupAction(pthis, EnBb_Red);
@@ -890,7 +890,7 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 			if(pthis->timer == 0)
 			{
 				pthis->moveMode = BBMOVE_NORMAL;
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 			pthis->bobPhase += Rand_ZeroOne();
 			Math_SmoothStepToF(&pthis->flameScaleY, 80.0f, 1.0f, 10.0f, 0.0f);
@@ -912,7 +912,7 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 					pthis->moveMode = BBMOVE_HIDDEN;
 					pthis->timer = 10;
 					pthis->actionState++;
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				}
 				else
 				{
@@ -1298,7 +1298,7 @@ void EnBb_Stunned(EnBb* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			EnBb_SetupDeath(pthis, globalCtx);
 		}
 	}
@@ -1378,7 +1378,7 @@ void EnBb_CollisionCheck(EnBb* pthis, GlobalContext* globalCtx)
 				}
 				if(pthis->actor.colChkInfo.health == 0)
 				{
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					if(pthis->actor.params == ENBB_RED)
 					{
 						EnBb_KillFlameTrail(pthis);

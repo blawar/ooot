@@ -22,7 +22,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_bw/object_bw.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnBw_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBw_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -679,7 +679,7 @@ void func_809D00F4(EnBw* pthis)
 {
 	pthis->unk_220 = 0;
 	pthis->unk_222 = 40;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BUBLEWALK_DEAD);
 	EnBw_SetupAction(pthis, func_809D014C);
