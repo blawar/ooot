@@ -1218,7 +1218,7 @@ namespace oot::pause
 			const float targetRotation = (m_pageIndexTarget * m_pageAngle);
 			const float originalRotation = (m_pageIndex * m_pageAngle);
 
-			if(Math_StepRotationToF(&m_rotation, targetRotation, 4.0f * 30.0f / framerate_get()))
+			if(Math_StepRotationToF(&m_rotation, targetRotation, 4.0f * 30.0f * FRAMERATE_SCALER_INV / framerate_get()))
 			{
 				m_pageIndex = m_pageIndexTarget;
 				globalCtx->pauseCtx.pageIndex = m_pageIndexTarget;
