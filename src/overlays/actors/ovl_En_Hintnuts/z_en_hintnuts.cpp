@@ -17,6 +17,12 @@
 #include "def/z_skelanime.h"
 #include "objects/object_hintnuts/object_hintnuts.h"
 
+#if FRAME_RATE == 20
+#define DEKU_NUT_SPAWN_SCALER 1.0f
+#else
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+#endif
+
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -343,9 +349,9 @@ void EnHintnuts_ThrowNut(EnHintnuts* pthis, GlobalContext* globalCtx)
 	}
 	else if(Animation_OnFrame(&pthis->skelAnime, 6.0f))
 	{
-		nutPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f);
+		nutPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		nutPos.y = pthis->actor.world.pos.y + 12.0f;
-		nutPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f);
+		nutPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		if(Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_NUTSBALL, nutPos.x, nutPos.y, nutPos.z, pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, 1) != NULL)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_THROW);

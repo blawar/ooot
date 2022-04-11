@@ -8,6 +8,12 @@
 #include "def/z_skelanime.h"
 #include "objects/object_shopnuts/object_shopnuts.h"
 
+#if FRAME_RATE == 20
+#define DEKU_NUT_SPAWN_SCALER 1.0f
+#else
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+#endif
+
 #define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
 
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -232,9 +238,9 @@ void EnShopnuts_ThrowNut(EnShopnuts* pthis, GlobalContext* globalCtx)
 	}
 	else if(Animation_OnFrame(&pthis->skelAnime, 6.0f))
 	{
-		spawnPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f);
+		spawnPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		spawnPos.y = pthis->actor.world.pos.y + 12.0f;
-		spawnPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f);
+		spawnPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		if(Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_NUTSBALL, spawnPos.x, spawnPos.y, spawnPos.z, pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, 2) != NULL)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_THROW);
