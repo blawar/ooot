@@ -376,6 +376,9 @@ namespace oot
 			json::setBool(container, "invertLeftStickY", invertLeftStickY(), allocator);
 			json::setBool(container, "invertRightStickY", invertRightStickY(), allocator);
 
+			json::setBool(container, "invertLeftStickFirstPersonY", invertLeftStickFirstPersonY(), allocator);
+			json::setBool(container, "invertRightStickFirstPersonY", invertRightStickFirstPersonY(), allocator);
+
 			doc.AddMember(rapidjson::Value("controls", allocator), container, allocator);
 		}
 
@@ -408,6 +411,9 @@ namespace oot
 
 				json::getBool(container, "invertLeftStickY", invertLeftStickY());
 				json::getBool(container, "invertRightStickY", invertRightStickY());
+
+				json::getBool(container, "invertLeftStickFirstPersonY", invertLeftStickFirstPersonY());
+				json::getBool(container, "invertRightStickFirstPersonY", invertRightStickFirstPersonY());
 			}
 		}
 	} // namespace options

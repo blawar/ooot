@@ -262,6 +262,11 @@ namespace oot::hid
 					value *= -1;
 				}
 
+				if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
+				{
+					value *= -1;
+				}
+
 				return convertToByte(value, g_lstickY_peak);
 			}
 
@@ -287,6 +292,11 @@ namespace oot::hid
 				}
 
 				if(config().controls().invertRightStickY())
+				{
+					value *= -1;
+				}
+
+				if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
 				{
 					value *= -1;
 				}
