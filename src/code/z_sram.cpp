@@ -861,6 +861,7 @@ namespace oot::save
 		memcpy(this->unk_1346, s.save.info.unk_1346, sizeof(unk_1346));
 		this->horseData = s.save.info.horseData;
 		this->checksum = s.save.info.checksum;
+
 		this->fileNum = s.fileNum;
 		memcpy(this->unk_1358, s.unk_1358, sizeof(unk_1358));
 		this->gameMode = s.gameMode;

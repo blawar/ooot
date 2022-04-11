@@ -1732,8 +1732,6 @@ namespace oot::gamestate
 		gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] = gSaveContext.buttonStatus[3] = gSaveContext.buttonStatus[4] = BTN_ENABLED;
 
 		pthis->n64ddFlags[0] = pthis->n64ddFlags[1] = pthis->n64ddFlags[2] = pthis->defense[0] = pthis->defense[1] = pthis->defense[2] = 0;
-
-		gSaveContext.init();
 	}
 
 	FileChoose::FileChoose(GraphicsContext* gfxCtx) : Base(gfxCtx)

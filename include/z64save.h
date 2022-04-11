@@ -8,6 +8,8 @@
 
 struct FileChooseContext;
 
+#define SLOT_SIZE 0x1450
+
 struct ItemEquips
 {
 	/* 0x00 */ u8 buttonItems[4];
@@ -136,6 +138,7 @@ namespace oot::save
 		/* 0x1336 */ u16 checksum; // "check_sum"
 	};
 
+	static_assert(offsetof(Info, inventory) == 0x58, "Inventory out of alignment");
 	static_assert(sizeof(Info) == 0x1338, "Save Info incorrect size");
 
 	struct Save
@@ -153,6 +156,8 @@ namespace oot::save
 		u16 checksum();
 	};
 
+	static_assert(offsetof(Save, dayTime) == 0x0C, "dayTime out of alignment");
+	static_assert(offsetof(Save, nightFlag) == 0x10, "nightFlag out of alignment");
 	static_assert(sizeof(Save) == 0x1C + sizeof(Info), "Save incorrect size");
 
 	struct Slot
@@ -220,9 +225,12 @@ namespace oot::save
 		/* 0x1420 */ s16 worldMapArea;
 		/* 0x1422 */ s16 sunsSongState; // controls the effects of suns song
 		/* 0x1424 */ s16 healthAccumulator;
+		u8 padding[0x28];
 	}; // size = 0x1428
 
-	static_assert(sizeof(Slot) == 0x1428, "Save Slot incorrect size");
+	static_assert(sizeof(Slot) == SLOT_SIZE, "Save Slot incorrect size");
+	static_assert(offsetof(Slot, healthAccumulator) == 0x1424, "healthAccumulator out of alignment");
+	static_assert(offsetof(Slot, fileNum) == 0x1354, "healthAccumulator out of alignment");
 
 	struct Header
 	{
@@ -248,7 +256,7 @@ namespace oot::save
 		void load();
 	};
 
-	static_assert(sizeof(File) == 0x20 + 0x1428 * (MAX_SLOTS * 2), "Save File incorrect size");
+	static_assert(sizeof(File) == 0x20 + SLOT_SIZE * (MAX_SLOTS * 2), "Save File incorrect size");
 
 	struct Context
 	{
