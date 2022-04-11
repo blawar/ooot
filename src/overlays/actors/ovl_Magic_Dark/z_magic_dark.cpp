@@ -126,14 +126,14 @@ void MagicDark_DiamondUpdate(Actor* thisx, GlobalContext* globalCtx)
 	if(nayrusLoveTimer >= 1180)
 	{
 		pthis->primAlpha = 15595 - (nayrusLoveTimer * 13);
-		if(nayrusLoveTimer.whole() & 1)
+		if(nayrusLoveTimer & 1)
 		{
 			pthis->primAlpha = pthis->primAlpha >> 1;
 		}
 	}
 	else if(nayrusLoveTimer >= 1100)
 	{
-		pthis->primAlpha = (u8)(nayrusLoveTimer.whole() << 7) + 127;
+		pthis->primAlpha = (u8)(nayrusLoveTimer << 7) + 127;
 	}
 	else
 	{
