@@ -16,7 +16,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_peehat/object_peehat.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_24)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_24)
 
 #define GROUND_HOVER_HEIGHT 75.0f
 #define MAX_LARVA 3
@@ -211,7 +211,7 @@ void EnPeehat_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->xzDistToRise = 2800.0f;
 			pthis->xzDistMax = 1400.0f;
 			EnPeehat_Flying_SetStateGround(pthis);
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			break;
 		case PEAHAT_TYPE_LARVA:
 			pthis->actor.scale.x = pthis->actor.scale.z = 0.006f;
@@ -320,7 +320,7 @@ void EnPeehat_Ground_StateGround(EnPeehat* pthis, GlobalContext* globalCtx)
 {
 	if(IS_DAY)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		if(pthis->riseDelayTimer == 0)
 		{
 			if(pthis->actor.xzDistToPlayer < pthis->xzDistToRise)
@@ -336,7 +336,7 @@ void EnPeehat_Ground_StateGround(EnPeehat* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		Math_SmoothStepToF(&pthis->actor.shape.yOffset, -1000.0f, 1.0f, 50.0f, 0.0f);
 		if(pthis->unk2D4 != 0)
 		{

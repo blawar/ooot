@@ -24,7 +24,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_po_field/object_po_field.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_12)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_12)
 
 void EnPoField_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnPoField_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -206,7 +206,7 @@ void EnPoField_SetupWaitForSpawn(EnPoField* pthis, GlobalContext* globalCtx)
 	Lights_PointSetColorAndRadius(&pthis->lightInfo, 0, 0, 0, 0);
 	pthis->actionTimer = 200;
 	Actor_SetScale(&pthis->actor, 0.0f);
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_16);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_16);
 	pthis->collider.base.acFlags &= ~AC_ON;
 	pthis->collider.base.ocFlags1 = OC1_ON | OC1_TYPE_ALL;
 	pthis->actor.colChkInfo.health = D_80AD70D8.health;
@@ -261,7 +261,7 @@ void EnPoField_SetupCirclePlayer(EnPoField* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 	if(pthis->actionFunc != EnPoField_Damage)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionTimer = 600;
 		pthis->bouncingTimer = 32;
 	}
@@ -276,7 +276,7 @@ void EnPoField_SetupFlee(EnPoField* pthis)
 	pthis->actor.speedXZ = 12.0f;
 	if(pthis->actionFunc != EnPoField_Damage)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.world.rot.y = pthis->actor.shape.rot.y + 0x8000;
 		pthis->actionTimer = 2000;
 		pthis->bouncingTimer = 32;
@@ -303,7 +303,7 @@ void EnPoField_SetupDamage(EnPoField* pthis)
 void EnPoField_SetupDeath(EnPoField* pthis)
 {
 	pthis->actionTimer = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	pthis->actor.naviEnemyId = 0xFF;
@@ -374,7 +374,7 @@ void func_80AD4384(EnPoField* pthis)
 	pthis->actor.textId = 0x5005;
 	pthis->actionTimer = 400;
 	pthis->bouncingTimer = 32;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80AD58D4;
 }
 

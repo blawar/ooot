@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_geldb/object_geldb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnGeldB_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGeldB_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -387,7 +387,7 @@ void EnGeldB_SetupWait(EnGeldB* pthis)
 	pthis->action = GELDB_WAIT;
 	pthis->actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 	pthis->actor.gravity = -2.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnGeldB_SetupAction(pthis, EnGeldB_Wait);
 }
 
@@ -409,7 +409,7 @@ void EnGeldB_Wait(EnGeldB* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_DOWN);
 		pthis->skelAnime.playSpeed = 1.0f;
 		pthis->actor.world.pos.y = pthis->actor.floorHeight;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.focus.pos = pthis->actor.world.pos;
 		pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 		pthis->actor.velocity.y = 0.0f;
@@ -1673,7 +1673,7 @@ void EnGeldB_SetupDefeated(EnGeldB* pthis)
 		pthis->invisible = true;
 	}
 	pthis->action = GELDB_DEFEAT;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GERUDOFT_DEAD);
 	EnGeldB_SetupAction(pthis, EnGeldB_Defeated);
 }

@@ -29,7 +29,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_bv/object_bv.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 #define GET_BODY(pthis) ((BossVa*)(pthis)->actor.parent)
 #define vaGorePulse offset.x
@@ -726,7 +726,7 @@ void BossVa_SetupIntro(BossVa* pthis)
 
 	Animation_Change(&pthis->skelAnime, &gBarinadeBodyAnim, 1.0f, lastFrame, lastFrame, ANIMMODE_ONCE, 0.0f);
 	pthis->actor.shape.yOffset = -450.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_BodyIntro);
 }
 
@@ -1050,7 +1050,7 @@ void BossVa_SetupBodyPhase1(BossVa* pthis)
 
 	Animation_Change(&pthis->skelAnime, &gBarinadeBodyAnim, 1.0f, lastFrame, lastFrame, ANIMMODE_ONCE, 0.0f);
 	pthis->actor.shape.yOffset = -450.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->timer = 25;
 	sBodyState = 0x80;
 	BossVa_SetupAction(pthis, BossVa_BodyPhase1);
@@ -1126,7 +1126,7 @@ void BossVa_SetupBodyPhase2(BossVa* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->invincibilityTimer = 0;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_BodyPhase2);
 }
 
@@ -1208,12 +1208,12 @@ void BossVa_BodyPhase2(BossVa* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToF(&pthis->actor.shape.yOffset, -1000.0f, 1.0f, 20.0f, 0.0f);
 	if(!(sPhase2Timer & 0x100))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = 1.0f;
 	}
 	else
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actor.speedXZ = 0.0f;
 	}
 
@@ -1284,7 +1284,7 @@ void BossVa_BodyPhase3(BossVa* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BALINADE_FAINT);
 		sBodyState = 1;
 		pthis->timer = 131;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
@@ -1299,7 +1299,7 @@ void BossVa_BodyPhase3(BossVa* pthis, GlobalContext* globalCtx)
 				}
 				Math_SmoothStepToF(&pthis->actor.speedXZ, 3.0f, 1.0f, 0.15f, 0.0f);
 			}
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		}
 		else
 		{
@@ -1392,7 +1392,7 @@ void BossVa_BodyPhase3(BossVa* pthis, GlobalContext* globalCtx)
 void BossVa_SetupBodyPhase4(BossVa* pthis, GlobalContext* globalCtx)
 {
 	pthis->unk_1AC = 0;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->vaBodySpinRate = pthis->unk_1AC;
 	pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 	pthis->timer2 = (s16)(Rand_ZeroOne() * 150.0f) + 300;
@@ -1617,7 +1617,7 @@ void BossVa_BodyPhase4(BossVa* pthis, GlobalContext* globalCtx)
 void BossVa_SetupBodyDeath(BossVa* pthis, GlobalContext* globalCtx)
 {
 	func_800F436C(&pthis->actor.projectedPos, NA_SE_EN_BALINADE_LEVEL - SFX_FLAG, 1.0f);
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 	pthis->vaCamRotMod = 0xC31;
 	sCsState = DEATH_START;
@@ -1932,7 +1932,7 @@ void BossVa_SupportCut(BossVa* pthis, GlobalContext* globalCtx)
 	{
 		lastFrame = Animation_GetLastFrame(&gBarinadeSupportDetachedAnim);
 		Animation_Change(&pthis->skelAnime, &gBarinadeSupportDetachedAnim, 1.0f, 0.0f, lastFrame, ANIMMODE_LOOP_INTERP, 0.0f);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 
 	if((pthis->timer == 0) && (sCsState < DEATH_START))
@@ -1995,7 +1995,7 @@ void BossVa_SupportCut(BossVa* pthis, GlobalContext* globalCtx)
 void BossVa_SetupStump(BossVa* pthis, GlobalContext* globalCtx)
 {
 	Animation_Change(&pthis->skelAnime, &gBarinadeStumpAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gBarinadeStumpAnim), ANIMMODE_ONCE, 0.0f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_Stump);
 }
 
@@ -2017,7 +2017,7 @@ void BossVa_SetupZapperIntro(BossVa* pthis, GlobalContext* globalCtx)
 	f32 lastFrame = Animation_GetLastFrame(&gBarinadeZapperIdleAnim);
 
 	Animation_Change(&pthis->skelAnime, &gBarinadeZapperIdleAnim, 1.0f, lastFrame - 1.0f, lastFrame, ANIMMODE_LOOP_INTERP, -6.0f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_ZapperIntro);
 }
 
@@ -2046,7 +2046,7 @@ void BossVa_SetupZapperAttack(BossVa* pthis, GlobalContext* globalCtx)
 	f32 lastFrame = Animation_GetLastFrame(&gBarinadeZapperIdleAnim);
 
 	Animation_Change(&pthis->skelAnime, &gBarinadeZapperIdleAnim, 1.0f, lastFrame - 1.0f, lastFrame, ANIMMODE_LOOP_INTERP, -6.0f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_ZapperAttack);
 }
 
@@ -2621,7 +2621,7 @@ void BossVa_SetupBariIntro(BossVa* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.pos.y = sInitPosOffsets[pthis->actor.params + 10].y + pthis->actor.home.pos.y;
 	pthis->actor.world.pos.z = sInitPosOffsets[pthis->actor.params + 10].z + pthis->actor.home.pos.z;
 	pthis->timer = 45;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_BariIntro);
 }
 
@@ -2769,7 +2769,7 @@ void BossVa_SetupBariPhase3Attack(BossVa* pthis, GlobalContext* globalCtx)
 	pthis->unk_1F0 = 0x78;
 	pthis->unk_1A0 = 60.0f;
 	pthis->unk_1A8 = 0.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_BariPhase3Attack);
 }
 
@@ -2871,7 +2871,7 @@ void BossVa_SetupBariPhase2Attack(BossVa* pthis, GlobalContext* globalCtx)
 	pthis->unk_1F0 = 0x78;
 	pthis->unk_1A0 = 60.0f;
 	pthis->unk_1A8 = 0.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_BariPhase2Attack);
 }
 
@@ -2928,7 +2928,7 @@ void BossVa_BariPhase2Attack(BossVa* pthis, GlobalContext* globalCtx)
 	{
 		sp4C = 200.0f;
 		BossVa_Spark(globalCtx, pthis, 1, 125, 15.0f, 7.0f, SPARK_TETHER, 1.0f, true);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		if(pthis->actor.params & 1)
 		{
 			sp4C = -200.0f;
@@ -2956,7 +2956,7 @@ void BossVa_BariPhase2Attack(BossVa* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		Math_SmoothStepToS(&pthis->unk_1AC, sp50 + 150, 1, 0x3C, 0);
 		if(GET_BODY(pthis)->actor.colorFilterTimer == 0)
 		{
@@ -3008,7 +3008,7 @@ void BossVa_BariPhase2Attack(BossVa* pthis, GlobalContext* globalCtx)
 
 void BossVa_SetupBariPhase3Stunned(BossVa* pthis, GlobalContext* globalCtx)
 {
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->timer = GET_BODY(pthis)->timer;
 	Actor_SetColorFilter(&pthis->actor, 0, 255, 0x2000, pthis->timer);
 	BossVa_SetupAction(pthis, BossVa_BariPhase3Stunned);
@@ -3049,7 +3049,7 @@ void BossVa_BariPhase3Stunned(BossVa* pthis, GlobalContext* globalCtx)
 			BossVa_Spark(globalCtx, pthis, 1, 85, 15.0f, 0.0f, SPARK_TETHER, 1.0f, true);
 			if(pthis->timer2 >= 0x10)
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->timer2 = 0x80;
 				BossVa_SetupAction(pthis, BossVa_BariPhase3Attack);
 			}
@@ -3059,7 +3059,7 @@ void BossVa_BariPhase3Stunned(BossVa* pthis, GlobalContext* globalCtx)
 
 void BossVa_SetupBariDeath(BossVa* pthis)
 {
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->timer = 30;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BALINADE_BL_DEAD);
 	pthis->isDead++;
@@ -3081,7 +3081,7 @@ void BossVa_SetupDoor(BossVa* pthis, GlobalContext* globalCtx)
 	{
 		sDoorState = 100;
 	}
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BossVa_SetupAction(pthis, BossVa_Door);
 }
 

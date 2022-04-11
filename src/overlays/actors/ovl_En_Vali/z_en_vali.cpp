@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_vali/object_vali.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
 
 void EnVali_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnVali_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -166,7 +166,7 @@ void EnVali_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	EnVali_SetupLurk(pthis);
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.floorHeight = BgCheck_EntityRaycastFloor4(&globalCtx->colCtx, &pthis->actor.floorPoly, &bgId, &pthis->actor, &pthis->actor.world.pos);
 	pthis->actor.params = BARI_TYPE_NORMAL;
 
@@ -196,7 +196,7 @@ void EnVali_SetupLurk(EnVali* pthis)
 void EnVali_SetupDropAppear(EnVali* pthis)
 {
 	pthis->actor.draw = EnVali_Draw;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.velocity.y = 1.0f;
 	pthis->actionFunc = EnVali_DropAppear;
 }
@@ -223,7 +223,7 @@ void EnVali_SetupFloatIdle(EnVali* pthis)
 void EnVali_SetupAttacked(EnVali* pthis)
 {
 	pthis->lightningTimer = 20;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->bodyCollider.base.acFlags &= ~AC_ON;
 	pthis->actionFunc = EnVali_Attacked;
 }
@@ -266,7 +266,7 @@ void EnVali_SetupDivideAndDie(EnVali* pthis, GlobalContext* globalCtx)
 	pthis->timer = Rand_S16Offset(10, 10);
 	pthis->bodyCollider.base.acFlags &= ~AC_ON;
 	Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 40, NA_SE_EN_BARI_SPLIT);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.draw = NULL;
 	pthis->actionFunc = EnVali_DivideAndDie;
 }
@@ -296,7 +296,7 @@ void EnVali_SetupReturnToLurk(EnVali* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gBariLurkingAnim, 10.0f);
 	pthis->actor.flags |= ACTOR_FLAG_4;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnVali_ReturnToLurk;
 }
 
@@ -397,7 +397,7 @@ void EnVali_Attacked(EnVali* pthis, GlobalContext* globalCtx)
 
 	if(pthis->lightningTimer == 0)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->bodyCollider.base.acFlags |= AC_ON;
 		if(pthis->actor.params == BARI_TYPE_SWORD_DAMAGE)
 		{
@@ -579,7 +579,7 @@ void EnVali_UpdateDamage(EnVali* pthis, GlobalContext* globalCtx)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BARI_DEAD);
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			else if((pthis->actor.colChkInfo.damageEffect != BARI_DMGEFF_STUN) && (pthis->actor.colChkInfo.damageEffect != BARI_DMGEFF_SLINGSHOT))
 			{

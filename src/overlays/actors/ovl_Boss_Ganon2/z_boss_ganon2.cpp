@@ -27,7 +27,7 @@
 #include "objects/object_ganon_anime3/object_ganon_anime3.h"
 #include "objects/object_geff/object_geff.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossGanon2_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossGanon2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -204,7 +204,7 @@ void func_808FD4D4(BossGanon2* pthis, GlobalContext* globalCtx, s16 arg2, s16 ar
 void func_808FD5C4(BossGanon2* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = func_808FD5F4;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.world.pos.y = -3000.0f;
 }
 
@@ -1003,7 +1003,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx)
 				pthis->unk_337 = 1;
 				func_808FFDB0(pthis, globalCtx);
 				pthis->unk_1A2[1] = 50;
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				sZelda->unk_3C8 = 7;
 			}
 			break;
@@ -1212,7 +1212,7 @@ void func_808FFDB0(BossGanon2* pthis, GlobalContext* globalCtx)
 		}
 
 		pthis->unk_336 = 1;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->unk_228 = 1.0f;
 		pthis->unk_224 = 1.0f;
 	}

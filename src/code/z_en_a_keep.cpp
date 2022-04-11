@@ -149,7 +149,7 @@ void EnAObj_Init(Actor* pthisx, GlobalContext* globalCtx)
 			break;
 		case A_OBJ_UNKNOWN_6:
 			// clang-format off
-            pthisx->flags |= ACTOR_FLAG_0; pthis->dyna.bgId = 5; pthis->focusYoffset = 10.0f;
+            pthisx->flags |= ACTOR_FLAG_VISIBLE; pthis->dyna.bgId = 5; pthis->focusYoffset = 10.0f;
 			// clang-format on
 			pthisx->gravity = -2.0f;
 			EnAObj_SetupWaitTalk(pthis, pthisx->params);
@@ -163,7 +163,7 @@ void EnAObj_Init(Actor* pthisx, GlobalContext* globalCtx)
 		case A_OBJ_SIGNPOST_ARROW:
 			pthisx->textId = (pthis->textId & 0xFF) | 0x300;
 			// clang-format off
-            pthisx->flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3; pthisx->targetArrowOffset = 500.0f;
+            pthisx->flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3; pthisx->targetArrowOffset = 500.0f;
 			// clang-format on
 			pthis->focusYoffset = 45.0f;
 			EnAObj_SetupWaitTalk(pthis, pthisx->params);

@@ -742,7 +742,7 @@ void Fishing_Init(Actor* thisx, GlobalContext* globalCtx2)
 
 		thisx->focus.pos = thisx->world.pos;
 		thisx->focus.pos.y += 75.0f;
-		thisx->flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		thisx->flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 
 		if(sLinkAge != 1)
 		{
@@ -916,7 +916,7 @@ void Fishing_Init(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->unk_158 = 100;
 			Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_PROP);
 			thisx->targetMode = 0;
-			thisx->flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+			thisx->flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 			pthis->lightNode = LightContext_InsertLight(globalCtx, &globalCtx->lightCtx, &pthis->lightInfo);
 		}
 		else
@@ -3120,7 +3120,7 @@ void Fishing_HandleAquariumDialog(Fishing* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->unk_1D4 == 0)
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 			if(Actor_ProcessTalkRequest(&pthis->actor, globalCtx))
 			{
@@ -3135,7 +3135,7 @@ void Fishing_HandleAquariumDialog(Fishing* pthis, GlobalContext* globalCtx)
 		else
 		{
 			pthis->unk_1D4--;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		}
 	}
 	else if(Actor_TextboxIsClosing(&pthis->actor, globalCtx))
@@ -3198,11 +3198,11 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 
 	if((D_80B7E0B0 != 0) || (sCameraId != 0) || ((player->actor.world.pos.z > 1150.0f) && (pthis->unk_158 != 100)))
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		if(D_80B7A694 != 0)
 		{
 			if(D_80B7E0B2 == 0)
@@ -3459,7 +3459,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 			}
 			else
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			break;
 
@@ -3506,7 +3506,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 				}
 				else
 				{
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				}
 			}
 			break;
@@ -3559,7 +3559,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 				pthis->unk_1B4.z = Rand_ZeroFloat(50.0f);
 			}
 
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			break;
 
 		case -2:
@@ -3602,7 +3602,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 				}
 
 				Math_ApproachF(&pthis->unk_1B0, 2048.0f, 1.0f, 128.0f);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			break;
 
@@ -5913,11 +5913,11 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 
 	if((D_80B7A684 != 0) || (Message_GetState(&globalCtx->msgCtx) != TEXT_STATE_NONE))
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_5;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_5;
 	}
 
 	if((pthis->actor.xzDistToPlayer < 120.0f) || (Message_GetState(&globalCtx->msgCtx) != TEXT_STATE_NONE))

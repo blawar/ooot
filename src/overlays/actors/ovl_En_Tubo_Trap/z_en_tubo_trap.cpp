@@ -256,7 +256,7 @@ void EnTuboTrap_WaitForProximity(EnTuboTrap* pthis, GlobalContext* globalCtx)
 	if(pthis->actor.xzDistToPlayer < 200.0f && pthis->actor.world.pos.y <= player->actor.world.pos.y)
 	{
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_ENEMY);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		targetHeight = 40.0f + -10.0f * gSaveContext.linkAge;
 
 		pthis->targetY = player->actor.world.pos.y + targetHeight;

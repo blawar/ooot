@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_firefly/object_firefly.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnFirefly_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -757,7 +757,7 @@ void EnFirefly_UpdateDamage(EnFirefly* pthis, GlobalContext* globalCtx)
 			if(Actor_ApplyDamage(&pthis->actor) == 0)
 			{
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 
 			damageEffect = pthis->actor.colChkInfo.damageEffect;

@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_zo/object_zo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnZo_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnZo_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -685,7 +685,7 @@ void EnZo_Init(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnZo_Submerged;
 	}
 }
@@ -740,7 +740,7 @@ void EnZo_Surface(EnZo* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_OUT_OF_WATER);
 		EnZo_SpawnSplashes(pthis);
 		func_80034EC0(&pthis->skelAnime, sAnimations, 3);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnZo_TreadWater;
 		pthis->actor.velocity.y = 0.0f;
 		pthis->alpha = 255.0f;
@@ -803,7 +803,7 @@ void EnZo_Dive(EnZo* pthis, GlobalContext* globalCtx)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_DIVE_WATER);
 		EnZo_SpawnSplashes(pthis);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actor.velocity.y = -4.0f;
 		pthis->skelAnime.playSpeed = 0.0f;
 	}

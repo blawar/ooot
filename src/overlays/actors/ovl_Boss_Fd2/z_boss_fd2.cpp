@@ -24,7 +24,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_fd2/object_fd2.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossFd2_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossFd2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -720,7 +720,7 @@ void BossFd2_SetupDeath(BossFd2* pthis, GlobalContext* globalCtx)
 	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaDamagedAnim);
 	Animation_Change(&pthis->skelAnime, &gHoleVolvagiaDamagedAnim, 1.0f, 0.0f, pthis->fwork[FD2_END_FRAME], ANIMMODE_ONCE_INTERP, -3.0f);
 	pthis->actionFunc = BossFd2_Death;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->deathState = DEATH_START;
 }
 
@@ -1169,11 +1169,11 @@ void BossFd2_Update(Actor* thisx, GlobalContext* globalCtx2)
 	pthis->fwork[FD2_TEX2_SCROLL_Y] -= 2.0f;
 	if(pthis->actor.focus.pos.y < 90.0f)
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	}
 }
 

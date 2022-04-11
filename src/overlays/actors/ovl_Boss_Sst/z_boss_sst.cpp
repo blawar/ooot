@@ -29,7 +29,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_sst/object_sst.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_10)
 
 #define vParity actionVar
 #define vVanish actionVar
@@ -301,7 +301,7 @@ void BossSst_Init(Actor* thisx, GlobalContext* globalCtx2)
 			sHands[LEFT]->actor.child = &sHands[RIGHT]->actor;
 			sHands[RIGHT]->actor.child = &sHands[LEFT]->actor;
 
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actor.update = BossSst_UpdateHead;
 			pthis->actor.draw = BossSst_DrawHead;
 			pthis->radius = -650.0f;
@@ -329,7 +329,7 @@ void BossSst_Init(Actor* thisx, GlobalContext* globalCtx2)
 		ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 95.0f);
 		pthis->handZPosMod = -3500;
 		pthis->actor.targetArrowOffset = 5000.0f;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		BossSst_HandSetupWait(pthis);
 	}
 }
@@ -412,8 +412,8 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx)
 
 	if(pthis->timer == 0)
 	{
-		sHands[RIGHT]->actor.flags |= ACTOR_FLAG_0;
-		sHands[LEFT]->actor.flags |= ACTOR_FLAG_0;
+		sHands[RIGHT]->actor.flags |= ACTOR_FLAG_VISIBLE;
+		sHands[LEFT]->actor.flags |= ACTOR_FLAG_VISIBLE;
 		player->stateFlags1 &= ~PLAYER_STATE1_5;
 		func_80064534(globalCtx, &globalCtx->csCtx);
 		func_8002DF54(globalCtx, &pthis->actor, 7);
@@ -1633,7 +1633,7 @@ void BossSst_HandSetupRetreat(BossSst* pthis)
 	Animation_MorphToPlayOnce(&pthis->skelAnime, sHandHangPoses[pthis->actor.params], 10.0f);
 	pthis->colliderJntSph.base.atFlags &= ~(AT_ON | AT_HIT);
 	pthis->colliderJntSph.base.acFlags |= AC_ON;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	BossSst_HandSetInvulnerable(pthis, false);
 	pthis->timer = 0;
 	pthis->actionFunc = BossSst_HandRetreat;
@@ -2435,7 +2435,7 @@ void BossSst_HandShake(BossSst* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->timer == 0)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		BossSst_HandSetupSlam(pthis);
 	}
 }
@@ -3019,7 +3019,7 @@ void BossSst_HandCollisionCheck(BossSst* pthis, GlobalContext* globalCtx)
 				BossSst_HandSetupRetreat(OTHER_HAND(pthis));
 			}
 
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			if(pthis->actor.colChkInfo.damageEffect == 3)
 			{
 				BossSst_HandSetupFrozen(pthis);
@@ -3192,11 +3192,11 @@ void BossSst_UpdateHead(Actor* thisx, GlobalContext* globalCtx)
 	if((!pthis->vVanish || CHECK_FLAG_ALL(pthis->actor.flags, ACTOR_FLAG_7)) && ((pthis->actionFunc == BossSst_HeadReadyCharge) || (pthis->actionFunc == BossSst_HeadCharge) || (pthis->actionFunc == BossSst_HeadFrozenHand) ||
 										     (pthis->actionFunc == BossSst_HeadStunned) || (pthis->actionFunc == BossSst_HeadVulnerable) || (pthis->actionFunc == BossSst_HeadDamage)))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 
 	if(pthis->actionFunc == BossSst_HeadCharge)

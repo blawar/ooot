@@ -17,7 +17,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_timeblock/object_timeblock.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
 void ObjTimeblock_Init(Actor* thisx, GlobalContext* globalCtx);
 void ObjTimeblock_Reset(Actor* pthisx, GlobalContext* globalCtx);

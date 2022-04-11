@@ -56,7 +56,7 @@ void EnAttackNiw_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->unk_298.y = Rand_CenteredFloat(10.0f);
 	pthis->unk_298.z = Rand_CenteredFloat(100.0f);
 	Actor_SetScale(&pthis->actor, 0.01f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.shape.rot.y = pthis->actor.world.rot.y = (Rand_ZeroOne() - 0.5f) * 60000.0f;
 	pthis->actionFunc = func_809B5670;
 }

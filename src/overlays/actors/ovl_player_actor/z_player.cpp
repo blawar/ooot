@@ -1945,7 +1945,7 @@ s32 func_80833B2C(Player* pthis)
 
 s32 func_80833B54(Player* pthis)
 {
-	if((pthis->targetedActor != NULL) && CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2))
+	if((pthis->targetedActor != NULL) && CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2))
 	{
 		pthis->stateFlags1 |= PLAYER_STATE1_TARGETING_ACTOR;
 		return 1;
@@ -3554,7 +3554,7 @@ void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
 		if(pthis->targetedActor != NULL)
 		{
 			pthis->stateFlags1 &= ~(PLAYER_STATE1_16 | PLAYER_STATE1_17);
-			if((pthis->stateFlags1 & PLAYER_STATE1_11) || !CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2))
+			if((pthis->stateFlags1 & PLAYER_STATE1_11) || !CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2))
 			{
 				pthis->stateFlags1 |= PLAYER_STATE1_16;
 			}
@@ -5730,7 +5730,7 @@ s32 func_8083B644(Player* pthis, GlobalContext* globalCtx)
 	s32 sp28 = 0;
 	s32 sp24;
 
-	sp24 = (sp30 != NULL) && (CHECK_FLAG_ALL(sp30->flags, ACTOR_FLAG_0 | ACTOR_FLAG_18) || (sp30->naviEnemyId != 0xFF));
+	sp24 = (sp30 != NULL) && (CHECK_FLAG_ALL(sp30->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_18) || (sp30->naviEnemyId != 0xFF));
 
 	if(sp24 || (pthis->naviTextId != 0))
 	{
@@ -5839,7 +5839,7 @@ s32 func_8083B998(Player* pthis, GlobalContext* globalCtx)
 		return 1;
 	}
 
-	if((pthis->targetedActor != NULL) && (CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_18) || (pthis->targetedActor->naviEnemyId != 0xFF)))
+	if((pthis->targetedActor != NULL) && (CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_18) || (pthis->targetedActor->naviEnemyId != 0xFF)))
 	{
 		pthis->stateFlags2 |= PLAYER_STATE2_21;
 	}
@@ -12858,7 +12858,7 @@ void Player_UpdateFunc_8084B530(Player* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.flags &= ~ACTOR_FLAG_8;
 
-		if(!CHECK_FLAG_ALL(pthis->targetActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2))
+		if(!CHECK_FLAG_ALL(pthis->targetActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2))
 		{
 			pthis->stateFlags2 &= ~PLAYER_STATE2_ZTARGET_CHANGED;
 		}
@@ -16985,7 +16985,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor)
 	Player* pthis = GET_PLAYER(globalCtx);
 	s32 pad;
 
-	if((pthis->targetActor != NULL) || (actor == pthis->naviActor) || CHECK_FLAG_ALL(actor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_18))
+	if((pthis->targetActor != NULL) || (actor == pthis->naviActor) || CHECK_FLAG_ALL(actor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_18))
 	{
 		actor->flags |= ACTOR_FLAG_8;
 	}

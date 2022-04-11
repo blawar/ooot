@@ -2,6 +2,7 @@
 #include "actor_common.h"
 
 #include "z64actor.h"
+#include "port/options.h"
 /*
  * File: z_en_ko.c
  * Overlay: ovl_En_Ko
@@ -27,7 +28,7 @@
 #include "objects/object_kw1/object_kw1.h"
 #include "objects/object_os_anime/object_os_anime.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 #define ENKO_TYPE (pthis->actor.params & 0xFF)
 #define ENKO_PATH ((pthis->actor.params & 0xFF00) >> 8)
@@ -1166,23 +1167,32 @@ void func_80A98DB4(EnKo* pthis, GlobalContext* globalCtx)
 		pthis->modelAlpha = 255.0f;
 		return;
 	}
-	if(globalCtx->csCtx.state != 0 || gDbgCamEnabled != 0)
-	{
-		dist = Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &globalCtx->view.eye) * 0.25f;
-	}
-	else
-	{
-		dist = pthis->actor.xzDistToPlayer;
-	}
 
-	Math_SmoothStepToF(&pthis->modelAlpha, (pthis->appearDist < dist) ? 0.0f : 255.0f, 0.3f, 40.0f, 1.0f);
-	if(pthis->modelAlpha < 10.0f)
+	if(!oot::config().camera().disableDistanceClip())
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		if(globalCtx->csCtx.state != 0 || gDbgCamEnabled != 0)
+		{
+			dist = Math_Vec3f_DistXYZ(&pthis->actor.world.pos, &globalCtx->view.eye) * 0.25f;
+		}
+		else
+		{
+			dist = pthis->actor.xzDistToPlayer;
+		}
+
+		Math_SmoothStepToF(&pthis->modelAlpha, (pthis->appearDist < dist) ? 0.0f : 255.0f, 0.3f, 40.0f, 1.0f);
+		if(pthis->modelAlpha < 10.0f)
+		{
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
+		}
+		else
+		{
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
+		}
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->modelAlpha = 255.0f;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	}
 }
 

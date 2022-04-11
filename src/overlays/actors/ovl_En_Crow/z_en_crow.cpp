@@ -14,7 +14,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_crow/object_crow.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnCrow_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnCrow_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -470,7 +470,7 @@ void EnCrow_Respawn(EnCrow* pthis, GlobalContext* globalCtx)
 		}
 		if(Math_StepToF(&pthis->actor.scale.x, target, target * 0.1f))
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->actor.flags &= ~ACTOR_FLAG_4;
 			pthis->actor.colChkInfo.health = 1;
 			EnCrow_SetupFlyIdle(pthis);
@@ -494,7 +494,7 @@ void EnCrow_UpdateDamage(EnCrow* pthis, GlobalContext* globalCtx)
 			else
 			{
 				Actor_ApplyDamage(&pthis->actor);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				EnCrow_SetupDamaged(pthis, globalCtx);
 			}

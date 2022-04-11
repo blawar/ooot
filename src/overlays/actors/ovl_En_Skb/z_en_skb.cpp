@@ -13,7 +13,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_skb/object_skb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnSkb_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSkb_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -219,7 +219,7 @@ void func_80AFCDF8(EnSkb* pthis)
 {
 	Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gStalchildUncurlingAnim, 1.0f);
 	pthis->unk_280 = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIVA_APPEAR);
 	EnSkb_SetupAction(pthis, func_80AFCE5C);
 }
@@ -233,7 +233,7 @@ void func_80AFCE5C(EnSkb* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	}
 	Math_SmoothStepToF(&pthis->actor.shape.yOffset, 0.0f, 1.0f, 800.0f, 0.0f);
 	Math_SmoothStepToF(&pthis->actor.shape.shadowScale, 25.0f, 1.0f, 2.5f, 0.0f);
@@ -252,7 +252,7 @@ void func_80AFCF48(EnSkb* pthis)
 	Animation_Change(&pthis->skelAnime, &gStalchildUncurlingAnim, -1.0f, Animation_GetLastFrame(&gStalchildUncurlingAnim), 0.0f, ANIMMODE_ONCE, -4.0f);
 	pthis->unk_280 = 0;
 	pthis->unk_281 = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_AKINDONUTS_HIDE);
 	EnSkb_SetupAction(pthis, func_80AFCFF0);
@@ -473,7 +473,7 @@ void func_80AFD7B4(EnSkb* pthis, GlobalContext* globalCtx)
 		pthis->actor.speedXZ = -6.0f;
 	}
 	pthis->unk_280 = 1;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	BodyBreak_Alloc(&pthis->bodyBreak, 18, globalCtx);
 	pthis->unk_283 |= 4;
 	EffectSsDeadSound_SpawnStationary(globalCtx, &pthis->actor.projectedPos, NA_SE_EN_STALKID_DEAD, 1, 1, 0x28);

@@ -134,7 +134,7 @@ void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->unk_15A = pthis->actor.world.rot.z;
 			pthis->actor.world.rot.z = 0;
 			pthis->timer = 30;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actionFunc = EnExRuppy_DropIntoWater;
 			break;
 
@@ -155,7 +155,7 @@ void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
 			osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ わーなーコイン ☆☆☆☆☆ \n" VT_RST);
 			pthis->actor.shape.shadowScale = 6.0f;
 			pthis->actor.shape.yOffset = 700.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actionFunc = EnExRuppy_WaitToBlowUp;
 			break;
 
@@ -178,13 +178,13 @@ void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
 			osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ ノーマルルピー ☆☆☆☆☆ \n" VT_RST);
 			pthis->actor.shape.shadowScale = 6.0f;
 			pthis->actor.shape.yOffset = 700.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actionFunc = EnExRuppy_WaitAsCollectible;
 			break;
 
 		case 4: // Progress markers in the shooting gallery
 			pthis->actor.gravity = -3.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			Actor_SetScale(&pthis->actor, 0.01f);
 			pthis->actor.shape.shadowScale = 6.0f;
 			pthis->actor.shape.yOffset = -700.0f;

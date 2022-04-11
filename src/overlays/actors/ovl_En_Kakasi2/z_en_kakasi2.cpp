@@ -16,7 +16,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ka/object_ka.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
 static ColliderCylinderInit sCylinderInit = {
     {
@@ -131,7 +131,7 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx)
 		Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
 		SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &object_ka_Skel_0065B0, &object_ka_Anim_000214, NULL, NULL, 0);
 		OnePointCutscene_Attention(globalCtx, &pthis->actor);
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_27;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_27;
 
 		Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
 		if(pthis->switchFlag >= 0)
@@ -160,7 +160,7 @@ void func_80A90264(EnKakasi2* pthis, GlobalContext* globalCtx)
 			OnePointCutscene_Attention(globalCtx, &pthis->actor);
 			Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
 
-			pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_27;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_27;
 			pthis->actionFunc = func_80A904D8;
 		}
 	}

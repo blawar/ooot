@@ -141,7 +141,7 @@ s32 BgMoriHashigo_SpawnLadder(BgMoriHashigo* pthis, GlobalContext* globalCtx)
 s32 BgMoriHashigo_InitClasp(BgMoriHashigo* pthis, GlobalContext* globalCtx)
 {
 	Actor_ProcessInitChain(&pthis->dyna.actor, sInitChainClasp);
-	pthis->dyna.actor.flags |= ACTOR_FLAG_0;
+	pthis->dyna.actor.flags |= ACTOR_FLAG_VISIBLE;
 	Actor_SetFocus(&pthis->dyna.actor, 55.0f);
 	BgMoriHashigo_InitCollider(pthis, globalCtx);
 	if((pthis->dyna.actor.params == HASHIGO_CLASP) && !BgMoriHashigo_SpawnLadder(pthis, globalCtx))

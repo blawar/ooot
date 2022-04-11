@@ -18,7 +18,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_brob/object_brob.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnBrob_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBrob_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -104,7 +104,7 @@ void EnBrob_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->colliders[1].dim.height *= thisx->scale.y;
 	pthis->colliders[1].dim.yShift *= thisx->scale.y;
 	pthis->actionFunc = NULL;
-	thisx->flags &= ~ACTOR_FLAG_0;
+	thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 	func_809CADDC(pthis, globalCtx);
 }
 

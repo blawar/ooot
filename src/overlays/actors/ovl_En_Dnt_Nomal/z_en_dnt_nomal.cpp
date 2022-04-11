@@ -132,7 +132,7 @@ void EnDntNomal_Init(Actor* thisx, GlobalContext* globalCtx)
 	{
 		pthis->type = ENDNTNOMAL_TARGET;
 	}
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.colChkInfo.mass = 0xFF;
 	pthis->objId = -1;
 	if(pthis->type == ENDNTNOMAL_TARGET)

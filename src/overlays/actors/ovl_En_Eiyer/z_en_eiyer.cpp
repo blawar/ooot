@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ei/object_ei.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnEiyer_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnEiyer_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -227,7 +227,7 @@ void EnEiyer_SetupAppearFromGround(EnEiyer* pthis)
 
 	pthis->collider.base.atFlags &= ~AT_ON;
 	pthis->collider.base.acFlags &= ~AC_ON;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_12);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_12);
 	pthis->actor.shape.shadowScale = 0.0f;
 	pthis->actor.shape.yOffset = 0.0f;
 	pthis->actionFunc = EnEiyer_AppearFromGround;
@@ -247,12 +247,12 @@ void EnEiyer_SetupUnderground(EnEiyer* pthis)
 
 	pthis->collider.base.acFlags |= AC_ON;
 	pthis->actor.flags &= ~ACTOR_FLAG_4;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 }
 
 void EnEiyer_SetupInactive(EnEiyer* pthis)
 {
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	pthis->actionFunc = EnEiyer_Inactive;
 }
@@ -722,7 +722,7 @@ void EnEiyer_UpdateDamage(EnEiyer* pthis, GlobalContext* globalCtx)
 			{
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_EIER_DEAD);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 
 			// If underground, one hit kill
@@ -804,7 +804,7 @@ void EnEiyer_Update(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	if(pthis->actor.flags & ACTOR_FLAG_0)
+	if(pthis->actor.flags & ACTOR_FLAG_VISIBLE)
 	{
 		pthis->actor.focus.pos.x = pthis->actor.world.pos.x + Math_SinS(pthis->actor.shape.rot.y) * 12.5f;
 		pthis->actor.focus.pos.z = pthis->actor.world.pos.z + Math_CosS(pthis->actor.shape.rot.y) * 12.5f;

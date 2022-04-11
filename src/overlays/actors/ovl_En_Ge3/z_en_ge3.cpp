@@ -16,7 +16,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_geldb/object_geldb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnGe3_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGe3_Reset(Actor* pthisx, GlobalContext* globalCtx);

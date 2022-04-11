@@ -18,7 +18,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dekunuts/object_dekunuts.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 #define DEKUNUTS_FLOWER 10
 
@@ -118,7 +118,7 @@ void EnDekunuts_Init(Actor* thisx, GlobalContext* globalCtx)
 	Actor_ProcessInitChain(&pthis->actor, sInitChain);
 	if(thisx->params == DEKUNUTS_FLOWER)
 	{
-		thisx->flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+		thisx->flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	}
 	else
 	{

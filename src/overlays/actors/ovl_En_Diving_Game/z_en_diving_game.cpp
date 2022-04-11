@@ -24,7 +24,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_zo/object_zo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnDivingGame_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDivingGame_Reset(Actor* pthisx, GlobalContext* globalCtx);

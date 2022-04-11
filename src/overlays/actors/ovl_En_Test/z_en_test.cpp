@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_sk2/object_sk2.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnTest_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTest_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -486,7 +486,7 @@ void EnTest_SetupWaitGround(EnTest* pthis)
 	pthis->timer = 15;
 	pthis->actor.scale.y = 0.0f;
 	pthis->actor.world.pos.y = pthis->actor.home.pos.y - 3.5f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnTest_SetupAction(pthis, EnTest_WaitGround);
 }
 
@@ -523,7 +523,7 @@ void EnTest_SetupWaitAbove(EnTest* pthis)
 	pthis->unk_7C8 = 0;
 	pthis->actor.world.pos.y = pthis->actor.home.pos.y + 150.0f;
 	Actor_SetScale(&pthis->actor, 0.0f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnTest_SetupAction(pthis, EnTest_WaitAbove);
 }
 
@@ -535,7 +535,7 @@ void EnTest_WaitAbove(EnTest* pthis, GlobalContext* globalCtx)
 	if((pthis->actor.xzDistToPlayer < 200.0f) && (ABS(pthis->actor.yDistToPlayer) < 450.0f))
 	{
 		EnTest_SetupAction(pthis, EnTest_Fall);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 		Actor_SetScale(&pthis->actor, 0.015f);
 	}
@@ -1319,7 +1319,7 @@ void EnTest_JumpBack(EnTest* pthis, GlobalContext* globalCtx)
 					pthis->timer = (Rand_ZeroOne() * 5.0f) + 5.0f;
 				}
 			}
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		}
 	}
 	else if(pthis->skelAnime.curFrame == (pthis->skelAnime.endFrame - 4.0f))
@@ -1851,7 +1851,7 @@ void func_80862DBC(EnTest* pthis, GlobalContext* globalCtx)
 		pthis->swordState = -1;
 	}
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	if(pthis->actor.params == STALFOS_TYPE_5)
 	{
@@ -1891,7 +1891,7 @@ void func_80862E6C(EnTest* pthis, GlobalContext* globalCtx)
 			}
 
 			pthis->actor.child = NULL;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			EnTest_SetupJumpBack(pthis);
 		}
 		else if((pthis->actor.params == STALFOS_TYPE_5) && !Actor_FindNearby(globalCtx, &pthis->actor, ACTOR_EN_TEST, ACTORCAT_ENEMY, 8000.0f))
@@ -1913,7 +1913,7 @@ void func_80862FA8(EnTest* pthis, GlobalContext* globalCtx)
 	Animation_PlayOnce(&pthis->skelAnime, &gStalfosFallOverBackwardsAnim);
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_STAL_DEAD);
 	pthis->unk_7DE = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.colorFilterTimer = 0;
 	pthis->actor.speedXZ = 0.0f;
 
@@ -1955,7 +1955,7 @@ void func_808630F0(EnTest* pthis, GlobalContext* globalCtx)
 
 	if(pthis->actor.params <= STALFOS_TYPE_CEILING)
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		EnTest_SetupAction(pthis, func_8086318C);
 	}
 	else
@@ -2245,12 +2245,12 @@ void EnTest_Update(Actor* thisx, GlobalContext* globalCtx)
 	{
 		if(globalCtx->actorCtx.unk_03 != 0)
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_7;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_7;
 			pthis->actor.shape.shadowDraw = ActorShadow_DrawFeet;
 		}
 		else
 		{
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_7);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_7);
 			pthis->actor.shape.shadowDraw = NULL;
 		}
 	}

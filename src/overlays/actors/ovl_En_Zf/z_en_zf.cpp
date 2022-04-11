@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_zf/object_zf.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnZf_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -727,7 +727,7 @@ void EnZf_SetupDropIn(EnZf* pthis)
 	pthis->hopAnimIndex = 1;
 	pthis->action = ENZF_ACTION_DROP_IN;
 	pthis->actor.bgCheckFlags &= ~BG_STATE_1;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 	EnZf_SetupAction(pthis, EnZf_DropIn);
 }
@@ -737,7 +737,7 @@ void EnZf_DropIn(EnZf* pthis, GlobalContext* globalCtx)
 	if(pthis->unk_3F0 == 1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_CRY);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 		if(pthis->actor.params == ENZF_TYPE_LIZALFOS_MINIBOSS_A)
 		{
@@ -754,7 +754,7 @@ void EnZf_DropIn(EnZf* pthis, GlobalContext* globalCtx)
 		else if(pthis->actor.xzDistToPlayer <= 160.0f)
 		{
 			pthis->unk_3F0 = 0;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_CRY);
 		}
 
@@ -2340,7 +2340,7 @@ void EnZf_SetupDie(EnZf* pthis)
 	}
 
 	pthis->action = ENZF_ACTION_DIE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	if(D_80B4A1B4 != -1)
 	{

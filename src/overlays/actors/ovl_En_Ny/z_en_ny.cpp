@@ -13,7 +13,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_ny/object_ny.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnNy_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnNy_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -377,7 +377,7 @@ s32 EnNy_CollisionCheck(EnNy* pthis, GlobalContext* globalCtx)
 			if(pthis->actor.colChkInfo.health == 0)
 			{
 				pthis->actor.shape.shadowAlpha = 0;
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->unk_1D0 = sp3F;
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				return 1;

@@ -15,7 +15,7 @@
 #include "objects/object_ane/object_ane.h"
 #include "objects/object_os_anime/object_os_anime.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnNiwLady_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnNiwLady_Reset(Actor* pthisx, GlobalContext* globalCtx);

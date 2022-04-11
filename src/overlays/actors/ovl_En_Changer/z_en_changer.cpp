@@ -194,7 +194,7 @@ void EnChanger_Init(Actor* thisx, GlobalContext* globalCtx2)
 		    ((pthis->rightChestNum & 0x1F) << 8) + (rightChestItem & 0xFF));
 	}
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnChanger_Wait;
 }
 

@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_okuta/object_okuta.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnOkuta_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnOkuta_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -168,7 +168,7 @@ void EnOkuta_Init(Actor* thisx, GlobalContext* globalCtx)
 	else
 	{
 		ActorShape_Init(&thisx->shape, 1100.0f, ActorShadow_DrawCircle, 18.0f);
-		thisx->flags &= ~ACTOR_FLAG_0;
+		thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 		thisx->flags |= ACTOR_FLAG_4;
 		Collider_InitCylinder(globalCtx, &pthis->collider);
 		Collider_SetCylinder(globalCtx, &pthis->collider, thisx, &sProjectileColliderInit);
@@ -223,7 +223,7 @@ void EnOkuta_SpawnRipple(EnOkuta* pthis, GlobalContext* globalCtx)
 void EnOkuta_SetupWaitToAppear(EnOkuta* pthis)
 {
 	pthis->actor.draw = NULL;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnOkuta_WaitToAppear;
 	pthis->actor.world.pos.y = pthis->actor.home.pos.y;
 }
@@ -232,7 +232,7 @@ void EnOkuta_SetupAppear(EnOkuta* pthis, GlobalContext* globalCtx)
 {
 	pthis->actor.draw = EnOkuta_Draw;
 	pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	Animation_PlayOnce(&pthis->skelAnime, &gOctorokAppearAnim);
 	EnOkuta_SpawnBubbles(pthis, globalCtx);
 	pthis->actionFunc = EnOkuta_Appear;
@@ -688,7 +688,7 @@ void EnOkuta_ColliderCheck(EnOkuta* pthis, GlobalContext* globalCtx)
 		{
 			Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 			pthis->actor.colChkInfo.health = 0;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			if(pthis->actor.colChkInfo.damageEffect == 3)
 			{
 				EnOkuta_SetupFreeze(pthis);

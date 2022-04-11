@@ -10,7 +10,7 @@
 #include "def/z_actor.h"
 #include "def/z_draw.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void ItemInbox_Init(Actor* thisx, GlobalContext* globalCtx);
 void ItemInbox_Reset(Actor* pthisx, GlobalContext* globalCtx);

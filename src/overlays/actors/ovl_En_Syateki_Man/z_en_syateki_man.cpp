@@ -14,7 +14,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ossan/object_ossan.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
 void EnSyatekiMan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiMan_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -462,7 +462,7 @@ void EnSyatekiMan_FinishPrize(EnSyatekiMan* pthis, GlobalContext* globalCtx)
 		}
 		pthis->gameResult = SYATEKI_RESULT_NONE;
 		pthis->actor.parent = pthis->tempGallery;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnSyatekiMan_SetupIdle;
 	}
 }

@@ -7,7 +7,7 @@
 
 #include "z_en_oe2.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnOE2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnOE2_Reset(Actor* pthisx, GlobalContext* globalCtx);

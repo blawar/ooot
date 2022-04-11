@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_shopnuts/object_shopnuts.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnDns_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDns_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -487,7 +487,7 @@ void func_809EFF98(EnDns* pthis, GlobalContext* globalCtx)
 			pthis->dnsItemEntry->setRupeesAndFlags(pthis);
 			pthis->dropCollectible = 1;
 			pthis->maintainCollider = 0;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			EnDns_Change(pthis, 1);
 			pthis->actionFunc = EnDns_SetupBurrow;
 		}
@@ -497,7 +497,7 @@ void func_809EFF98(EnDns* pthis, GlobalContext* globalCtx)
 		pthis->dnsItemEntry->setRupeesAndFlags(pthis);
 		pthis->dropCollectible = 1;
 		pthis->maintainCollider = 0;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		EnDns_Change(pthis, 1);
 		pthis->actionFunc = EnDns_SetupBurrow;
 	}
@@ -508,7 +508,7 @@ void func_809F008C(EnDns* pthis, GlobalContext* globalCtx)
 	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_DONE) && Message_ShouldAdvance(globalCtx))
 	{
 		pthis->maintainCollider = 0;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		EnDns_Change(pthis, 1);
 		pthis->actionFunc = EnDns_SetupBurrow;
 	}

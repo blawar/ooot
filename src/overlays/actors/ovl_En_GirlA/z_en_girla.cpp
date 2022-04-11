@@ -17,7 +17,7 @@
 #include "def/z_scene.h"
 #include "def/z_skelanime.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnGirlA_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGirlA_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -1171,7 +1171,7 @@ void EnGirlA_InitializeItemAction(EnGirlA* pthis, GlobalContext* globalCtx)
 		pthis->hiliteFunc = itemEntry->hiliteFunc;
 		pthis->giDrawId = itemEntry->giDrawId;
 		osSyncPrintf("%s(%2d)\n", sShopItemDescriptions[params], params);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		Actor_SetScale(&pthis->actor, 0.25f);
 		pthis->actor.shape.yOffset = 24.0f;
 		pthis->actor.shape.shadowScale = 4.0f;

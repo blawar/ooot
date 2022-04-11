@@ -28,7 +28,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_fd/object_fd.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossFd_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossFd_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -1409,11 +1409,11 @@ void BossFd_Effects(BossFd* pthis, GlobalContext* globalCtx)
 
 	if((pthis->actor.world.pos.y < 90.0f) || (700.0f < pthis->actor.world.pos.y) || (pthis->actionFunc == BossFd_Wait))
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	}
 }
 

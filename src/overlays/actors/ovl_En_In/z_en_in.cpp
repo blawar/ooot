@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_in/object_in.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnIn_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnIn_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -563,7 +563,7 @@ void func_80A79C78(EnIn* pthis, GlobalContext* globalCtx)
 		player->rideActor->freezeTimer = 10;
 	}
 	player->actor.freezeTimer = 10;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	ShrinkWindow_SetVal(0x20);
 	Interface_ChangeAlpha(2);
 }

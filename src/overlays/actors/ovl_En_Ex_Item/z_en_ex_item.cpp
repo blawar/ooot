@@ -59,7 +59,7 @@ void EnExItem_Init(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnExItem* pthis = (EnExItem*)thisx;
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->type = pthis->actor.params & 0xFF;
 	pthis->unusedParam = (pthis->actor.params >> 8) & 0xFF;
 	osSyncPrintf("\n\n");

@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_zl1/object_zl1.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnZl1_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnZl1_Reset(Actor* pthisx, GlobalContext* globalCtx);

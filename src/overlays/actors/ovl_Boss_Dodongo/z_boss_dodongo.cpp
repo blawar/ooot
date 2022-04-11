@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_kingdodongo/object_kingdodongo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossDodongo_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -280,7 +280,7 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void BossDodongo_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -570,7 +570,7 @@ void BossDodongo_SetupWalk(BossDodongo* pthis)
 	pthis->unk_1AA = 0;
 	pthis->actionFunc = BossDodongo_Walk;
 	pthis->unk_1DA = 0;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->unk_1E4 = 0.0f;
 }
 
@@ -1508,7 +1508,7 @@ void BossDodongo_SetupDeathCutscene(BossDodongo* pthis)
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DEAD);
 	pthis->unk_1DA = 0;
 	pthis->csState = 0;
-	pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	pthis->unk_1BC = 1;
 	Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 }

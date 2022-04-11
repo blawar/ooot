@@ -354,7 +354,7 @@ void func_80A747C0(EnIk* pthis, GlobalContext* globalCtx)
 	}
 	if(SkelAnime_Update(&pthis->skelAnime))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 		func_80A74AAC(pthis);
 	}
 }
@@ -363,7 +363,7 @@ void func_80A7489C(EnIk* pthis)
 {
 	f32 frames = Animation_GetLastFrame(&object_ik_Anim_00DD50);
 
-	pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 	pthis->unk_2F8 = 4;
 	pthis->actor.speedXZ = 0.0f;
 	Animation_Change(&pthis->skelAnime, &object_ik_Anim_00DD50, 0.0f, 0.0f, frames, ANIMMODE_LOOP, 4.0f);
@@ -1667,7 +1667,7 @@ void func_80A78160(EnIk* pthis, GlobalContext* globalCtx)
 {
 	pthis->actor.update = func_80A75FA0;
 	pthis->actor.draw = func_80A76798;
-	pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 	gSaveContext.eventChkInf[3] |= 0x800;
 	Actor_SetScale(&pthis->actor, 0.012f);
 	func_80A7489C(pthis);

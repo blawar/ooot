@@ -2585,7 +2585,7 @@ void EnXc_SetupDialogueAction(EnXc* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		if(INV_CONTENT(ITEM_HOOKSHOT) != ITEM_NONE)
 		{
 			pthis->actor.textId = 0x7010;
@@ -2603,7 +2603,7 @@ void func_80B41798(EnXc* pthis, GlobalContext* globalCtx)
 	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 	{
 		pthis->action = SHEIK_ACTION_BLOCK_PEDESTAL;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 	}
 }
 

@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_am/object_am.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_26)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_26)
 
 void EnAm_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnAm_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -300,7 +300,7 @@ void EnAm_SetupStatue(EnAm* pthis)
 	f32 lastFrame = Animation_GetLastFrame(&gArmosRicochetAnim);
 
 	Animation_Change(&pthis->skelAnime, &gArmosRicochetAnim, 0.0f, lastFrame, lastFrame, ANIMMODE_LOOP, 0.0f);
-	pthis->dyna.actor.flags &= ~ACTOR_FLAG_0;
+	pthis->dyna.actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->behavior = AM_BEHAVIOR_DO_NOTHING;
 	pthis->dyna.actor.speedXZ = 0.0f;
 	EnAm_SetupAction(pthis, EnAm_Statue);
@@ -411,7 +411,7 @@ void EnAm_Sleep(EnAm* pthis, GlobalContext* globalCtx)
 		{
 			pthis->attackTimer = 200;
 			pthis->textureBlend = 255;
-			pthis->dyna.actor.flags |= ACTOR_FLAG_0;
+			pthis->dyna.actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->dyna.actor.shape.yOffset = 0.0f;
 			EnAm_SetupLunge(pthis);
 		}
@@ -439,7 +439,7 @@ void EnAm_Sleep(EnAm* pthis, GlobalContext* globalCtx)
 		else
 		{
 			pthis->textureBlend = 0;
-			pthis->dyna.actor.flags &= ~ACTOR_FLAG_0;
+			pthis->dyna.actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 			if(pthis->dyna.bgId < 0)
 			{

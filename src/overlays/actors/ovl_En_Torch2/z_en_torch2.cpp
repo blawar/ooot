@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_torch2/object_torch2.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnTorch2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -356,7 +356,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 						player->skelAnime.curFrame = 3.0f;
 						sStickAngle = pthis->actor.yawTowardsPlayer + 0x8000;
 						sSwordJumpTimer = sSwordJumpState = 0;
-						pthis->actor.flags |= ACTOR_FLAG_0;
+						pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 					}
 					else if(sSwordJumpState == 1)
 					{
@@ -395,7 +395,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 								sStickTilt = 0.0f;
 								sSwordJumpState = 1;
 								player->stateFlags3 |= PLAYER_STATE3_2;
-								pthis->actor.flags &= ~ACTOR_FLAG_0;
+								pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 								sSwordJumpTimer = 27;
 								player->swordState = 0;
 								player->linearVelocity = 0.0f;
@@ -547,7 +547,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 			if((pthis->invincibilityTimer > 0) && (pthis->actor.world.pos.y < (pthis->actor.floorHeight - 160.0f)))
 			{
 				pthis->stateFlags3 &= ~PLAYER_STATE3_0;
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->invincibilityTimer = 0;
 				pthis->actor.velocity.y = 0.0f;
 				pthis->actor.world.pos.y = sSpawnPoint.y + 40.0f;
@@ -636,7 +636,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 		if(!Actor_ApplyDamage(&pthis->actor))
 		{
 			func_800F5B58();
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 			pthis->unk_8A1 = 2;
 			pthis->unk_8A4 = 6.0f;
 			pthis->unk_8A8 = 6.0f;
@@ -664,7 +664,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2)
 			}
 			else
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->unk_8A0 = pthis->actor.colChkInfo.damage;
 				pthis->unk_8A1 = 1;
 				pthis->unk_8A8 = 6.0f;

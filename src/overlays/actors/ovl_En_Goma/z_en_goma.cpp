@@ -20,7 +20,7 @@
 #include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
 #include "objects/object_gol/object_gol.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnGoma_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGoma_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -138,12 +138,12 @@ void EnGoma_Init(Actor* thisx, GlobalContext* globalCtx)
 		pthis->gomaType = ENGOMA_BOSSLIMB;
 		ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
 		pthis->actionTimer = pthis->actor.params + 150;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else if(params >= 10)
 	{ // Debris when hatching
 		pthis->actor.gravity = -1.3f;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		pthis->actionTimer = 50;
 		pthis->gomaType = ENGOMA_HATCH_DEBRIS;
 		pthis->eggScale = 1.0f;
@@ -441,7 +441,7 @@ void EnGoma_SetupDie(EnGoma* pthis)
 	}
 
 	pthis->invincibilityTimer = 100;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void EnGoma_Die(EnGoma* pthis, GlobalContext* globalCtx)

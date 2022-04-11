@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ts/object_ts.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_27)
 
 void EnTakaraMan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTakaraMan_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -136,14 +136,14 @@ void func_80B1778C(EnTakaraMan* pthis, GlobalContext* globalCtx)
 		{
 			if(globalCtx->roomCtx.curRoom.num != pthis->originalRoomNum)
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->unk_218 = 0;
 			}
 			else
 			{
 				if(!pthis->unk_218)
 				{
-					pthis->actor.flags |= ACTOR_FLAG_0;
+					pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 					pthis->unk_218 = 1;
 				}
 				func_8002F2CC(&pthis->actor, globalCtx, 100.0f);

@@ -16,7 +16,7 @@
 #include "def/z_play.h"
 #include "def/z_rcp.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnClearTag_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnClearTag_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -275,7 +275,7 @@ void EnClearTag_Init(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{ // Initialize the Arwing.
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.targetMode = 5;
 		Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sArwingCylinderInit);
 		pthis->actor.colChkInfo.health = 3;
@@ -590,7 +590,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2)
 						{
 							pthis->drawMode = CLEAR_TAG_DRAW_MODE_EFFECT;
 							pthis->deathTimer = 70;
-							pthis->actor.flags &= ~ACTOR_FLAG_0;
+							pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 						}
 						else
 						{

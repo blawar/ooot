@@ -34,7 +34,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_mo/object_mo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 #define MO_WATER_LEVEL(globalCtx) globalCtx->colCtx.colHeader->waterBoxes[0].ySurface
 
@@ -1084,7 +1084,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx)
 	switch(pthis->work[MO_TENT_ACTION_STATE])
 	{
 		case MO_TENT_WAIT:
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			if(pthis == sMorphaTent2)
 			{
 				pthis->work[MO_TENT_ACTION_STATE] = MO_TENT_SPAWN;
@@ -1509,7 +1509,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&pthis->tentSpeed, 320.0f, 1.0f, 50.0f);
 			if(pthis->timers[0] == 0)
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				Math_ApproachF(&pthis->baseAlpha, 0.0, 1.0f, 5.0f);
 				for(indS1 = 0; indS1 < 40; indS1++)
 				{
@@ -1558,7 +1558,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx)
 			}
 			break;
 		case MO_TENT_DESPAWN:
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			Math_ApproachF(&pthis->baseAlpha, 0, 1.0f, 5.0f);
 			if((pthis->baseAlpha <= 0.5f) && (pthis->timers[0] == 0))
 			{
@@ -1586,7 +1586,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx)
 		case MO_TENT_DEATH_3:
 			pthis->baseBubblesTimer = 20;
 			Math_ApproachF(&sMorphaCore->waterLevel, -300.0f, 0.1f, 0.8f);
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			for(indS1 = 0; indS1 < 41; indS1++)
 			{
 				sin = Math_SinS(((s16)pthis->fwork[MO_TENT_SWING_LAG_X] * indS1) + pthis->xSwing);
@@ -1989,8 +1989,8 @@ void BossMo_IntroCs(BossMo* pthis, GlobalContext* globalCtx)
 				pthis->cameraZoom = 60.0f;
 				pthis->actor.world.pos = sMorphaTent1->actor.world.pos;
 				pthis->work[MO_TENT_ACTION_STATE] = MO_CORE_INTRO_REVEAL;
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
-				sMorphaTent1->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
+				sMorphaTent1->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 			else
 			{
@@ -2221,7 +2221,7 @@ void BossMo_DeathCs(BossMo* pthis, GlobalContext* globalCtx)
 					BossMo_SpawnDroplet(MO_FX_DROPLET, (BossMoEffect*)globalCtx->specialEffects, &pos, &velocity, Rand_ZeroFloat(0.08f) + 0.13f);
 				}
 				pthis->drawActor = false;
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MOFER_CORE_JUMP);
 				Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 70, NA_SE_EN_MOFER_LASTVOICE);
 			}
@@ -2500,7 +2500,7 @@ void BossMo_CoreCollisionCheck(BossMo* pthis, GlobalContext* globalCtx)
 					sMorphaTent1->cutScale = 1.0f;
 					sMorphaTent1->work[MO_TENT_ACTION_STATE] = MO_TENT_CUT;
 					sMorphaTent1->timers[0] = 40;
-					sMorphaTent1->actor.flags &= ~ACTOR_FLAG_0;
+					sMorphaTent1->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					if(player->actor.parent == &sMorphaTent1->actor)
 					{
 						player->unk_850 = 0x65;
@@ -2575,7 +2575,7 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 		BossMo_IntroCs(pthis, globalCtx);
 		if(pthis->work[MO_TENT_ACTION_STATE] == MO_CORE_INTRO_WAIT)
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			return;
 		}
 	}
@@ -2615,7 +2615,7 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 	switch(pthis->work[MO_TENT_ACTION_STATE])
 	{
 		case MO_CORE_MOVE:
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			if((pthis->timers[0] == 0) && ((sMorphaTent1->work[MO_TENT_ACTION_STATE] == MO_TENT_WAIT) || (sMorphaTent1->work[MO_TENT_ACTION_STATE] == MO_TENT_READY)) && (pthis->actor.world.pos.y < MO_WATER_LEVEL(globalCtx)))
 			{
 				pthis->actor.speedXZ = 0.0f;
@@ -2656,7 +2656,7 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 			}
 			break;
 		case MO_CORE_STUNNED:
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			if(pthis->timers[0] == 0)
 			{
 				pthis->work[MO_TENT_ACTION_STATE] = MO_CORE_MOVE;
@@ -2677,7 +2677,7 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 		switch(pthis->work[MO_TENT_ACTION_STATE])
 		{
 			case MO_CORE_ATTACK:
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->work[MO_CORE_POS_IN_TENT]++;
 				if(sMorphaTent1->work[MO_TENT_ACTION_STATE] == MO_TENT_ATTACK)
 				{
@@ -2705,7 +2705,7 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 				pthis->timers[0] = 0;
 				break;
 			case MO_CORE_INTRO_REVEAL:
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->work[MO_CORE_POS_IN_TENT]++;
 				temp = (s16)(Math_SinS(pthis->work[MO_TENT_MOVE_TIMER] * 0x500) * 10.0f) + 15;
 				if(pthis->work[MO_CORE_POS_IN_TENT] >= temp)
@@ -3012,7 +3012,7 @@ void BossMo_UpdateCore(Actor* thisx, GlobalContext* globalCtx)
 	BossMo_UpdateEffects(pthis, globalCtx);
 	if(player->actor.parent != NULL)
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	BossMo_Unknown();
 }

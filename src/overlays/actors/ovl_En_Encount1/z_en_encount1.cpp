@@ -66,7 +66,7 @@ void EnEncount1_Init(Actor* thisx, GlobalContext* globalCtx)
 	osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 発生チェック範囲   ☆☆☆☆☆ %f\n" VT_RST, pthis->spawnRange);
 	osSyncPrintf("\n\n");
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	switch(pthis->spawnType)
 	{
 		case SPAWNER_LEEVER:
