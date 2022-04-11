@@ -202,6 +202,27 @@ namespace oot
 				return m_invertRightStickY;
 			}
 
+
+			const bool& invertLeftStickFirstPersonY() const
+			{
+				return m_invertLeftStickY;
+			}
+
+			bool& invertLeftStickFirstPersonY()
+			{
+				return m_invertLeftStickY;
+			}
+
+			const bool& invertRightStickFirstPersonY() const
+			{
+				return m_invertRightStickY;
+			}
+
+			bool& invertRightStickFirstPersonY()
+			{
+				return m_invertRightStickY;
+			}
+
 			protected:
 			bool m_mousexInvert = false;
 			bool m_mouseyInvert = true;
@@ -218,6 +239,9 @@ namespace oot
 
 			bool m_invertLeftStickY = false;
 			bool m_invertRightStickY = false;
+
+			bool m_invertLeftStickFirstPersonY = false;
+			bool m_invertRightStickFirstPersonY = false;
 		};
 
 		class Cheats : public Section

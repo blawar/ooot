@@ -461,7 +461,17 @@ namespace oot::hid
 					xstate.Gamepad.sThumbLY *= -1;
 				}
 
+				if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
+				{
+					xstate.Gamepad.sThumbLY *= -1;
+				}
+
 				if(config().controls().invertRightStickY())
+				{
+					xstate.Gamepad.sThumbRY *= -1;
+				}
+
+				if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
 				{
 					xstate.Gamepad.sThumbRY *= -1;
 				}
