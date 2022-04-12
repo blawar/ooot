@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <memory>
+#include "framerate.h"
 #include "ultra64/types.h"
 
 namespace platform::window
@@ -31,7 +32,7 @@ namespace platform::window
 
 		void setTargetFrameRate(size_t rate)
 		{
-			m_targetFrameRate = rate;
+			m_targetFrameRate = rate * UPDATE_SCALER;
 		};
 		float ar()
 		{
