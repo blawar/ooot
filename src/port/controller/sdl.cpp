@@ -389,39 +389,42 @@ namespace oot::hid
 				m_state.r_stick_x = stickRightX();
 				m_state.r_stick_y = stickRightY();
 
-				if(m_hasGyro && isFirstPerson())
+				if(config().controls().enableGyro())
 				{
-					float values[3] = {0, 0, 0};
-
-					if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
+					if(m_hasGyro && isFirstPerson())
 					{
-						s32 x = m_state.stick_x - (values[2] + values[1]) * oot::config().controls().gyroxScaler();
-						s32 y = m_state.stick_y + values[0] * oot::config().controls().gyroyScaler();
-						m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
-						m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+						float values[3] = {0, 0, 0};
 
-						memcpy(m_state.gyro, values, sizeof(values));
-					}
-				}
-
-				if(m_hasAccel && isFirstPerson())
-				{
-					float values[3] = {0, 0, 0};
-
-					if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_ACCEL, values, sizeof(values) / sizeof(float)))
-					{
-						float accel_x = values[0] - m_state.accel[0];
-						float accel_y = values[2] - m_state.accel[2];
-
-						/*if(accel_x != 0.0f || accel_y != 0.0f)
+						if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
 						{
-							s32 x		= m_state.stick_x - accel_x * ACCEL_SENSITIVITY;
-							s32 y		= m_state.stick_y - accel_y * ACCEL_SENSITIVITY;
+							s32 x = m_state.stick_x - (values[2] + values[1]) * oot::config().controls().gyroxScaler();
+							s32 y = m_state.stick_y + values[0] * oot::config().controls().gyroyScaler();
 							m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
 							m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
-						}*/
 
-						memcpy(m_state.accel, values, sizeof(values));
+							memcpy(m_state.gyro, values, sizeof(values));
+						}
+					}
+
+					if(m_hasAccel && isFirstPerson())
+					{
+						float values[3] = {0, 0, 0};
+
+						if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_ACCEL, values, sizeof(values) / sizeof(float)))
+						{
+							float accel_x = values[0] - m_state.accel[0];
+							float accel_y = values[2] - m_state.accel[2];
+
+							/*if(accel_x != 0.0f || accel_y != 0.0f)
+							{
+								s32 x		= m_state.stick_x - accel_x * ACCEL_SENSITIVITY;
+								s32 y		= m_state.stick_y - accel_y * ACCEL_SENSITIVITY;
+								m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
+								m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+							}*/
+
+							memcpy(m_state.accel, values, sizeof(values));
+						}
 					}
 				}
 
