@@ -5454,20 +5454,20 @@ UNSKIPPABLE  SFX("\x38\x82") "How did you know our secret?!\n"
 )
 
 DEFINE_MESSAGE(0x109D, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-"In the vast, deep forest of Hyrule..." BOX_BREAK_DELAYED("\x28")  SHIFT("\x16") "Long have I served as the\n"
-SHIFT("\x33") "guardian spirit...\n"
-SHIFT("\x0C") "I am known as the Deku Tree..." FADE("\x46")
+"En el profundo bosque de Hyrule" BOX_BREAK_DELAYED("\x28")  SHIFT("\x16") "Por mucho tiempo he sido\n"
+SHIFT("\x33") "el espíritu guardián...\n"
+SHIFT("\x0C") "Soy conocido como el Árbol Deku..." FADE("\x46")
 )
 
 DEFINE_MESSAGE(0x109E, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-SHIFT("\x0B") "The children of the forest, the\n"
-SHIFT("\x19") "Kokiri, live here with me." BOX_BREAK_DELAYED("\x3C")  SHIFT("\x0B") "Each Kokiri has his or her own\n"
-SHIFT("\x38") "guardian fairy." FADE("\x3C")
+SHIFT("\x0B") "Los niños del bosque, los\n"
+SHIFT("\x19") "Kokiri, viven aquí conmigo." BOX_BREAK_DELAYED("\x3C")  SHIFT("\x0B") "Cada Kokiri tiene su propia"
+SHIFT("\x38") "hada guardiana." FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x109F, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-SHIFT("\x0B") "However, there is one boy" COLOR(RED) " " COLOR(DEFAULT) "who\n"
-SHIFT("\x20") "does not have a fairy..." FADE("\x3C")
+SHIFT("\x0B") "Sin embargo, hay un niño" COLOR(RED) " " COLOR(DEFAULT) "quien\n"
+SHIFT("\x20") "no tiene un hada..." FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x10A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -13904,63 +13904,63 @@ DEFINE_MESSAGE(0x71A7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x71A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hurry up, " NAME "!\n"
-"Any second now, the tower is \n"
-"going to collapse!!"
+"Apresúrate, " NAME "!\n"
+"¡¡En cualquier momento \n"
+"la torre va a colapsar!!"
 )
 
 DEFINE_MESSAGE(0x71A9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Watch out for falling rubble!"
+"¡Ten cuidado con los escombros!"
 )
 
 DEFINE_MESSAGE(0x71AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-NAME "!\n"
-"Help me!"
+"¡" NAME "!\n"
+"¡Ayudame!"
 )
 
 DEFINE_MESSAGE(0x71AB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 NAME "!\n"
-"The exit is just over there!"
+"¡La salida está por ahí!"
 )
 
 DEFINE_MESSAGE(0x71AC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Thank you, " NAME ".\n"
-"Now, let's hurry!"
+"Gracias, " NAME ".\n"
+"Ahora, apresuremonos"
 )
 
 DEFINE_MESSAGE(0x71AD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Too bad!" BOX_BREAK "Practice hard and come back!" EVENT
+"¡Muy mal!" BOX_BREAK "¡Regresa cuando hayas practicado!" EVENT
 )
 
 DEFINE_MESSAGE(0x71AE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Almost!!" BOX_BREAK "Well...all right!\n"
-"I'll let you try one more time for\n"
-"free...\n"
-"This time, you gotta do it!" EVENT
+"¡¡Casi!!" BOX_BREAK "Bueno... ¡Esta bien!\n"
+"Te dejaré intentarlo de nuevo\n"
+"gratis...\n"
+"¡Esta vez debes lograrlo!" EVENT
 )
 
 DEFINE_MESSAGE(0x71AF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Wonderful!!!\n"
-"Bravo!!!\n"
-"Perfect!!!" BOX_BREAK "Here's a fantastic present!" EVENT
+"¡¡¡Maravilloso!!!\n"
+"¡¡¡Bravo!!!\n"
+"¡¡¡Perfecto!!!" BOX_BREAK "¡Aquí tienes un fantástico premio!" EVENT
 )
 
 DEFINE_MESSAGE(0x71B0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Oh, no! " COLOR(RED) "Time's up!\n"
-COLOR(LIGHTBLUE) "The thing you were going to \n"
-"deliver has spoiled!\n"
-"Let's try again!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Oh, no! " COLOR(RED) "Se acabó el tiempo\n"
+COLOR(LIGHTBLUE) "¡Lo que ibas a entregar se ha \n"
+"vencido!\n"
+"¡Intentemoslo de nuevo!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x71B1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
 QUICKTEXT_ENABLE "BOINNG! BOINNG!\n"
-"The current time is: " TIME "!" QUICKTEXT_DISABLE  FADE("\x28")
+"La hora actual es: " TIME "!" QUICKTEXT_DISABLE  FADE("\x28")
 )
 
 DEFINE_MESSAGE(0x71B2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You heard about us from the\n"
-"guard at Death Mountain gate?\n"
-"Well, I have to give\n"
-"you a good deal then!"
+"¿Escuchaste de nosotros por el\n"
+"guardia de la montaña de la muerte?\n"
+"Bueno, entonces ¡deberia\n"
+"darte una buena oferta!"
 )
 
