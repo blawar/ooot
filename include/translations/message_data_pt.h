@@ -1,102 +1,102 @@
 DEFINE_MESSAGE(0x0001, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Pocket Egg" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A Pocket Cucco will hatch from\n"
-"it overnight. Be sure to give it\n"
-"back when you are done with it."
+UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "Pediste um " COLOR(RED) "Pocket Egg" COLOR(DEFAULT) " emprestado!" QUICKTEXT_DISABLE "\n"
+"Um Cucco de Bolso irá nascer\n"
+"dele durante a noite. Certifica-te que o\n"
+"devolves assim que o acabares de usar."
 )
 
 DEFINE_MESSAGE(0x0002, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "You returned the Pocket Cucco\n"
-"and got " COLOR(RED) "Cojiro" COLOR(DEFAULT) " in return!" QUICKTEXT_DISABLE "\n"
-"Unlike other Cuccos, Cojiro\n"
-"rarely crows."
+UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "Devolveste o Cucco de Bolso\n"
+"e recebeste o " COLOR(RED) "Cojiro" COLOR(DEFAULT) " de volta!" QUICKTEXT_DISABLE "\n"
+"Ao contrário dos outros Cuccos, Cojiro\n"
+"raramente canta."
 )
 
 DEFINE_MESSAGE(0x0003, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "You got an " COLOR(RED) "Odd Mushroom" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A fresh mushroom like this is\n"
-"sure to spoil quickly! Take it to\n"
-"the Kakariko Potion Shop, quickly!"
+UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "Recebeste um " COLOR(RED) "Cogumelo Estranho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Um cogumelo fresco como este\n"
+"estragar-se-á rapidamente de certeza! Leva-o para\n"
+"a Loja de Poções de Kakariko, rápido!"
 )
 
 DEFINE_MESSAGE(0x0004, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "You received an " COLOR(RED) "Odd Potion" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"You don't know what's going on\n"
-"between this lady and that guy,\n"
-"but take it to the Lost Woods!"
+UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "Recebeste uma " COLOR(RED) "Poção Estranha" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Tu não sabes o que se está a passar\n"
+"entre esta senhora e este homem,\n"
+"mas leva-a para a Floresta Perdida!"
 )
 
 DEFINE_MESSAGE(0x0005, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "You returned the Odd Potion \n"
-"and got the " COLOR(RED) "Poacher's Saw" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"The young punk guy must have\n"
-"left this behind."
+UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "Devolveste a Poção Estranha \n"
+"e recebeste o " COLOR(RED) "Serrote do Caçador" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"O jovem punk deve ter\n"
+"deixado isto para trás."
 )
 
 DEFINE_MESSAGE(0x0006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombs   20 Pieces   80 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bombas   20 Unidades   80 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
+"Não comprar" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0007, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "You got a \n"
-COLOR(RED) "Deku Seeds Bullet Bag" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"This bag can hold up to " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
-"slingshot bullets."
+UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "Recebeste um \n"
+COLOR(RED) "Saco de Balas de Sementes Deku" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Este saco pode guardar até " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
+"balas de fisga."
 )
 
 DEFINE_MESSAGE(0x0008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "You traded the Poacher's Saw \n"
-"for a " COLOR(RED) "Broken Goron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Visit Biggoron to get it repaired!"
+UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "Trocaste o Serrote do Caçador \n"
+"pela " COLOR(RED) "Espada Goron Partida" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Visita o Biggoron para repará-la!"
 )
 
 DEFINE_MESSAGE(0x0009, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "You checked in the Broken \n"
-"Goron's Sword and received a \n"
-COLOR(RED) "Prescription" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Go see King Zora!"
+UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "Tu deixaste a Espada \n"
+"Goron Partida e recebeste uma \n"
+COLOR(RED) "Prescrição" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Vai ver o Rei Zora!"
 )
 
 DEFINE_MESSAGE(0x000A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "The Biggoron's Sword..." QUICKTEXT_DISABLE "\n"
-"You got a " COLOR(RED) "Claim Check " COLOR(DEFAULT) "for it!\n"
-"You can't wait for the sword\n"
-"to be completed!"
+UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "A Espada Biggoron..." QUICKTEXT_DISABLE "\n"
+"Recebeste um " COLOR(RED) "Comprovativo " COLOR(DEFAULT) "por ela!\n"
+"Tu mal podes esperar para que a espada\n"
+"fique completa!"
 )
 
 DEFINE_MESSAGE(0x000B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "You traded the Giant's Knife \n"
-"for the " COLOR(RED) "Biggoron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This blade was forged by a \n"
-"master smith and won't break!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Trocaste a Espada do Gigante \n"
+"pela " COLOR(RED) "Espada Biggoron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"A sua lâmina foi forjada por um \n"
+"mestre ferreiro, logo não quebrará!"
 )
 
 DEFINE_MESSAGE(0x000C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "You handed in the Claim Check\n"
-"and got the " COLOR(RED) "Biggoron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This blade was forged by a \n"
-"master smith and won't break!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Devolveste o Comprovativo\n"
+"e recebeste a " COLOR(RED) "Espada Biggoron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"A sua lâmina foi forjada por um \n"
+"mestre ferreiro, logo não quebrará!"
 )
 
 DEFINE_MESSAGE(0x000D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "You used the Prescription and\n"
-"received an " COLOR(RED) "Eyeball Frog" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Be quick and deliver it to Lake \n"
-"Hylia while it's cold!"
+UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "Tu usaste a Prescrição e\n"
+"recebeste um " COLOR(RED) "Sapo-Olho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Rápido, entrega-o no Lago \n"
+"Hylia enquanto ainda está frio!"
 )
 
 DEFINE_MESSAGE(0x000E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "You traded the Eyeball Frog \n"
-"for the " COLOR(RED) "World's Finest Eye Drops" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Hurry! Take them to Biggoron\n"
-"before they go bad!"
+UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "Trocaste o Sapo-Olho \n"
+"pelo " COLOR(RED) "Melhor Colírio do Mundo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Despacha-te! Leva-o até Biggoron\n"
+"antes que se estrague!"
 )
 
 DEFINE_MESSAGE(0x000F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x41")  COLOR(RED) "WINNER!!" COLOR(DEFAULT)  EVENT
+SHIFT("\x41")  COLOR(RED) "VENCEDOR!!" COLOR(DEFAULT)  EVENT
 )
 
 DEFINE_MESSAGE(0x0010, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
