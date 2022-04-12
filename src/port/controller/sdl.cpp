@@ -221,16 +221,6 @@ namespace oot::hid
 				return result;
 			}
 
-			static inline int8_t invert(const int8_t value)
-			{
-				if(value <= -128)
-				{
-					return 127;
-				}
-
-				return -value;
-			}
-
 			inline int16_t readAxis(SDL_GameControllerAxis axis)
 			{
 				return SDL_GameControllerGetAxis(m_context, axis);
