@@ -8,7 +8,7 @@ static s16 D_8082A6E0[] = {100, 255};
 void KaleidoScope_UpdatePrompt(GlobalContext* globalCtx)
 {
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	s8 relStickX = input->rel.stick_x;
 	s16 step;
 

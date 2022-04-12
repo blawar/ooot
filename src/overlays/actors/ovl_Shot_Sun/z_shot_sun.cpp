@@ -19,7 +19,7 @@
 #include "def/z_message_PAL.h"
 #include "def/z_onepointdemo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void ShotSun_Init(Actor* thisx, GlobalContext* globalCtx);
 void ShotSun_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -76,7 +76,7 @@ void ShotSun_Init(Actor* thisx, GlobalContext* globalCtx)
 		Collider_InitCylinder(globalCtx, &pthis->collider);
 		Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
 		pthis->actionFunc = ShotSun_UpdateHyliaSun;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 }
 

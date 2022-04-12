@@ -10,7 +10,7 @@
 #include "z_en_st.h"
 #include "objects/object_st/object_st.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnSt_Init(Actor* pthisx, GlobalContext* globalCtx);
 void EnSt_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -500,7 +500,7 @@ s32 EnSt_CheckHitBackside(EnSt* pthis, GlobalContext* globalCtx)
 		return false;
 	}
 	Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->groundBounces = 3;
 	pthis->deathTimer = 20;
 	pthis->actor.gravity = -1.0f;
@@ -767,7 +767,7 @@ void EnSt_Bob(EnSt* pthis, GlobalContext* globalCtx)
 {
 	f32 ySpeedTarget = 0.5f;
 
-	if((globalCtx->state.frames & 8) != 0)
+	if((globalCtx->frames & 8) != 0)
 	{
 		ySpeedTarget *= -1.0f;
 	}
@@ -1212,7 +1212,7 @@ void EnSt_Update(Actor* pthisx, GlobalContext* globalCtx)
 
 		if(pthis->actionFunc == EnSt_WaitOnGround)
 		{
-			if((globalCtx->state.frames & 0x10) != 0)
+			if((globalCtx->frames & 0x10) != 0)
 			{
 				color.r = 255;
 			}
@@ -1228,7 +1228,7 @@ s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP,
 {
 	EnSt* pthis = (EnSt*)pthisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_st.c", 2260);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_st.c", 2260);
 	switch(limbIndex)
 	{
 		case 1:
@@ -1250,7 +1250,7 @@ s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP,
 			gDPSetEnvColor(POLY_OPA_DISP++, pthis->teethR, pthis->teethG, pthis->teethB, 0);
 			break;
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_st.c", 2295);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_st.c", 2295);
 	return false;
 }
 
@@ -1266,7 +1266,7 @@ void EnSt_Draw(Actor* pthisx, GlobalContext* globalCtx)
 	EnSt* pthis = (EnSt*)pthisx;
 
 	EnSt_CheckBodyStickHit(pthis, globalCtx);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSt_OverrideLimbDraw, EnSt_PostLimbDraw, pthis);
 }
 

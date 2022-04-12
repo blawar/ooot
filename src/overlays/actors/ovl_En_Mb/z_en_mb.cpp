@@ -27,7 +27,7 @@
  * - "Spear Patrol" (variable 0xPP00 PP=pathId): uses a spear, patrols following a path, charges
  */
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 #define ENMB_ATTACK_NONE 0
 #define ENMB_ATTACK_SPEAR 1
@@ -304,7 +304,7 @@ void EnMb_Init(Actor* thisx, GlobalContext* globalCtx)
 			}
 
 			ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawFeet, 90.0f);
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actor.naviEnemyId += 1;
 			EnMb_SetupClubWaitPlayerNear(pthis);
 			break;
@@ -319,7 +319,7 @@ void EnMb_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->actor.colChkInfo.mass = MASS_HEAVY;
 			pthis->maxHomeDist = 350.0f;
 			pthis->playerDetectionRange = 1750.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			EnMb_SetupSpearPatrolTurnTowardsWaypoint(pthis, globalCtx);
 			break;
 	}
@@ -608,7 +608,7 @@ void EnMb_SetupClubDead(EnMb* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gEnMbClubFallOnItsBackAnim, -4.0f);
 	pthis->state = ENMB_STATE_CLUB_DEAD;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->hitbox.dim.height = 80;
 	pthis->hitbox.dim.radius = 95;
 	pthis->timer1 = 30;
@@ -1301,7 +1301,7 @@ void EnMb_SpearGuardWalk(EnMb* pthis, GlobalContext* globalCtx)
 	if(pthis->timer3 == 0 && Math_Vec3f_DistXZ(&pthis->actor.home.pos, &player->actor.world.pos) < pthis->playerDetectionRange)
 	{
 		Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 1, 0x2EE, 0);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		if(pthis->actor.xzDistToPlayer < 500.0f && relYawTowardsPlayer < 0x1388)
 		{
 			EnMb_SetupSpearPrepareAndCharge(pthis);
@@ -1309,7 +1309,7 @@ void EnMb_SpearGuardWalk(EnMb* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		if(Math_Vec3f_DistXZ(&pthis->actor.world.pos, &pthis->actor.home.pos) > pthis->maxHomeDist || pthis->timer2 != 0)
 		{
 			yawTowardsHome = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
@@ -1488,7 +1488,7 @@ void EnMb_SetupSpearDead(EnMb* pthis)
 	pthis->timer1 = 30;
 	pthis->state = ENMB_STATE_SPEAR_SPEARPATH_DAMAGED;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MORIBLIN_DEAD);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnMb_SetupAction(pthis, EnMb_SpearDead);
 }
 
@@ -1741,7 +1741,7 @@ void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 bodyPartIdx;
 	EnMb* pthis = (EnMb*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, EnMb_PostLimbDraw, thisx);
 
 	if(thisx->params != ENMB_TYPE_CLUB)

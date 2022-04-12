@@ -24,7 +24,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_Bb/object_Bb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_24)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_24)
 
 #define vBombHopPhase actionVar1
 #define vTrailIdx actionVar1
@@ -396,7 +396,7 @@ void EnBb_SetupFlameTrail(EnBb* pthis)
 {
 	pthis->action = BB_FLAME_TRAIL;
 	pthis->moveMode = BBMOVE_NOCLIP;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.velocity.y = 0.0f;
 	pthis->actor.gravity = 0.0f;
 	pthis->actor.speedXZ = 0.0f;
@@ -774,7 +774,7 @@ void EnBb_Down(EnBb* pthis, GlobalContext* globalCtx)
 				pthis->moveMode = BBMOVE_HIDDEN;
 				pthis->timer = 10;
 				pthis->actionState++;
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->action = BB_RED;
 				EnBb_SetupAction(pthis, EnBb_Red);
 				return;
@@ -852,7 +852,7 @@ void EnBb_SetupRed(GlobalContext* globalCtx, EnBb* pthis)
 		pthis->actor.home.pos = pthis->actor.world.pos;
 		pthis->actor.velocity.y = pthis->actor.gravity = pthis->actor.speedXZ = 0.0f;
 		pthis->actor.bgCheckFlags &= ~BG_STATE_0;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	pthis->action = BB_RED;
 	EnBb_SetupAction(pthis, EnBb_Red);
@@ -890,7 +890,7 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 			if(pthis->timer == 0)
 			{
 				pthis->moveMode = BBMOVE_NORMAL;
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 			pthis->bobPhase += Rand_ZeroOne();
 			Math_SmoothStepToF(&pthis->flameScaleY, 80.0f, 1.0f, 10.0f, 0.0f);
@@ -912,7 +912,7 @@ void EnBb_Red(EnBb* pthis, GlobalContext* globalCtx)
 					pthis->moveMode = BBMOVE_HIDDEN;
 					pthis->timer = 10;
 					pthis->actionState++;
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				}
 				else
 				{
@@ -1298,7 +1298,7 @@ void EnBb_Stunned(EnBb* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			EnBb_SetupDeath(pthis, globalCtx);
 		}
 	}
@@ -1378,7 +1378,7 @@ void EnBb_CollisionCheck(EnBb* pthis, GlobalContext* globalCtx)
 				}
 				if(pthis->actor.colChkInfo.health == 0)
 				{
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					if(pthis->actor.params == ENBB_RED)
 					{
 						EnBb_KillFlameTrail(pthis);
@@ -1475,7 +1475,7 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Vec3f blureVtx1;
 	Vec3f blureVtx2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bb.c", 2044);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bb.c", 2044);
 
 	blureBase1.z = pthis->maxSpeed * 80.0f;
 	blureBase2.z = pthis->maxSpeed * 80.0f;
@@ -1483,7 +1483,7 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		if(pthis->actor.params <= ENBB_BLUE)
 		{
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 			SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, EnBb_PostLimbDraw, pthis);
 
 			if(pthis->fireIceTimer != 0)
@@ -1526,14 +1526,14 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 		if(pthis->actor.params != ENBB_WHITE)
 		{
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			gSPSegment(
-			    POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, ((globalCtx->gameplayFrames.whole() + (pthis->flameScrollMod * 10)) * (-20 - (pthis->flameScrollMod * -2))) % 0x200, 0x20, 0x80));
+			    POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, ((globalCtx->gameplayFrames.whole() + (pthis->flameScrollMod * 10)) * (-20 - (pthis->flameScrollMod * -2))) % 0x200, 0x20, 0x80));
 			gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, pthis->flamePrimBlue, pthis->flamePrimAlpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, pthis->flameEnvColor.r, pthis->flameEnvColor.g, pthis->flameEnvColor.b, 0);
 			Matrix_RotateY(((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) - pthis->actor.shape.rot.y + 0x8000)) * (M_PI / 0x8000), MTXMODE_APPLY);
 			Matrix_Scale(pthis->flameScaleX * 0.01f, pthis->flameScaleY * 0.01f, 1.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bb.c", 2106), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bb.c", 2106), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 		}
 		else
@@ -1550,7 +1550,7 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx)
 			}
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bb.c", 2127);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bb.c", 2127);
 }
 
 void EnBb_Reset(Actor* pthisx, GlobalContext* globalCtx)

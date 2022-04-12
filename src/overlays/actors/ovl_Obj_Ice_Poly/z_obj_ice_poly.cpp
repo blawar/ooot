@@ -215,17 +215,17 @@ void ObjIcePoly_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	ObjIcePoly* pthis = (ObjIcePoly*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_ice_poly.c", 421);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_ice_poly.c", 421);
+	func_80093D84(globalCtx->gfxCtx);
 	func_8002ED80(&pthis->actor, globalCtx, 0);
 	Matrix_RotateZYX(0x500, 0, -0x500, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_ice_poly.c", 428), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->gameplayFrames % 0x100, 0x20, 0x10, 1, 0, (globalCtx->gameplayFrames.whole() * 2) % 0x100, 0x40, 0x20));
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_ice_poly.c", 428), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, globalCtx->gameplayFrames % 0x100, 0x20, 0x10, 1, 0, (globalCtx->gameplayFrames.whole() * 2) % 0x100, 0x40, 0x20));
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, pthis->alpha);
 	gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment3DL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_ice_poly.c", 444);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_ice_poly.c", 444);
 }
 
 void ObjIcePoly_Reset(Actor* pthisx, GlobalContext* globalCtx)

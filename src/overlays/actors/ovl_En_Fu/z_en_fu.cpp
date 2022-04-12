@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_fu/object_fu.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 #define FU_RESET_LOOK_ANGLE (1 << 0)
 #define FU_WAIT (1 << 1)
@@ -330,8 +330,8 @@ s32 EnFu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 
 	if(limbIndex == FU_LIMB_CHEST_MUSIC_BOX)
 	{
-		rot->y += (Math_SinS(globalCtx->state.frames * (limbIndex * 50 + 0x814)) * 200.0f);
-		rot->z += (Math_CosS(globalCtx->state.frames * (limbIndex * 50 + 0x940)) * 200.0f);
+		rot->y += (Math_SinS(globalCtx->frames * (limbIndex * 50 + 0x814)) * 200.0f);
+		rot->z += (Math_CosS(globalCtx->frames * (limbIndex * 50 + 0x940)) * 200.0f);
 	}
 	return false;
 }
@@ -351,14 +351,14 @@ void EnFu_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnFu* pthis = (EnFu*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fu.c", 773);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fu.c", 773);
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyesSegments_53[pthis->facialExpression]));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthSegments_53[pthis->facialExpression]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, pthis->skelanime.dListCount, EnFu_OverrideLimbDraw, EnFu_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fu.c", 791);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fu.c", 791);
 }
 
 void EnFu_Reset(Actor* pthisx, GlobalContext* globalCtx)

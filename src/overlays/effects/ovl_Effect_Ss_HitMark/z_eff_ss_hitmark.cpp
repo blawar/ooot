@@ -76,7 +76,7 @@ u32 EffectSsHitMark_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, v
 
 void EffectSsHitMark_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfTrans;
 	MtxF mfScale;
 	MtxF mfResult;

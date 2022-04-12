@@ -19,7 +19,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_timeblock/object_timeblock.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
 void ObjWarp2block_Init(Actor* thisx, GlobalContext* globalCtx);
 void ObjWarp2block_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -346,14 +346,14 @@ void ObjWarp2block_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	sp44 = &sColors[thisx->home.rot.z.whole() & 7];
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 584);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_warp2block.c", 584);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 588), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_warp2block.c", 588), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sp44->r, sp44->g, sp44->b, 255);
 	gSPDisplayList(POLY_OPA_DISP++, gSongOfTimeBlockDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_warp2block.c", 594);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_warp2block.c", 594);
 }
 
 void ObjWarp2block_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -24,7 +24,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ta/object_ta.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnTa_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTa_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -489,7 +489,7 @@ void func_80B14754(EnTa* pthis, GlobalContext* globalCtx)
 
 void func_80B14818(EnTa* pthis, GlobalContext* globalCtx)
 {
-	s32 framesMod12 = globalCtx->state.frames % 12;
+	s32 framesMod12 = globalCtx->frames % 12;
 
 	if(framesMod12 == 0 || framesMod12 == 6)
 	{
@@ -1480,8 +1480,8 @@ s32 EnTa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 	{
 		s32 limbIdx50 = limbIndex * 50;
 
-		rot->y += Math_SinS((globalCtx->state.frames * (s16)(limbIdx50 + 0x814))) * 200.0f;
-		rot->z += Math_CosS((globalCtx->state.frames * (s16)(limbIdx50 + 0x940))) * 200.0f;
+		rot->y += Math_SinS((globalCtx->frames * (s16)(limbIdx50 + 0x814))) * 200.0f;
+		rot->z += Math_CosS((globalCtx->frames * (s16)(limbIdx50 + 0x940))) * 200.0f;
 	}
 
 	return false;
@@ -1502,16 +1502,16 @@ void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnTa* pthis = (EnTa*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ta.c", 2381);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ta.c", 2381);
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(eyeTextures_112[pthis->eyeIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x9, SEGMENTED_TO_VIRTUAL(gTalonHeadSkinTex));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnTa_OverrideLimbDraw, EnTa_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ta.c", 2400);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ta.c", 2400);
 }
 
 void EnTa_Reset(Actor* pthisx, GlobalContext* globalCtx)

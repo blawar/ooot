@@ -168,11 +168,11 @@ void ObjHsblock_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Color_RGB8* color;
 	Color_RGB8 defaultColor;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_hsblock.c", 365);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_hsblock.c", 365);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_hsblock.c", 369), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_hsblock.c", 369), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(globalCtx->sceneNum == SCENE_HIDAN)
 	{
@@ -189,7 +189,7 @@ void ObjHsblock_Draw(Actor* thisx, GlobalContext* globalCtx)
 	gDPSetEnvColor(POLY_OPA_DISP++, color->r, color->g, color->b, 255);
 	gSPDisplayList(POLY_OPA_DISP++, sDLists[thisx->params & 3]);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_hsblock.c", 399);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_hsblock.c", 399);
 }
 
 void ObjHsblock_Reset(Actor* pthisx, GlobalContext* globalCtx)

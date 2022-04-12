@@ -734,13 +734,13 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnHorseNormal* pthis = (EnHorseNormal*)thisx;
 	Mtx* mtx2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_horse_normal.c", 2224);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_horse_normal.c", 2224);
 
 	if(globalCtx->sceneNum != SCENE_SPOT20 || globalCtx->sceneNum != SCENE_MALON_STABLE)
 	{
 		func_80A6C8E0(pthis, globalCtx);
 	}
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_800A6330(&pthis->actor, globalCtx, &pthis->skin, func_80A6CAFC, 1);
 
 	if(pthis->action == HORSE_WAIT_CLONE)
@@ -789,7 +789,7 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx)
 		func_80A6CC88(globalCtx, pthis, &clonePos);
 		SkinMatrix_SetTranslateRotateYXZScale(
 		    &skinMtx, pthis->actor.scale.x, pthis->actor.scale.y, pthis->actor.scale.z, pthis->actor.shape.rot.x, cloneRotY, pthis->actor.shape.rot.z, clonePos.x, (pthis->actor.shape.yOffset * pthis->actor.scale.y) + clonePos.y, clonePos.z);
-		mtx1 = SkinMatrix_MtxFToNewMtx(globalCtx->state.gfxCtx, &skinMtx);
+		mtx1 = SkinMatrix_MtxFToNewMtx(globalCtx->gfxCtx, &skinMtx);
 		if(mtx1 == NULL)
 		{
 			return;
@@ -801,13 +801,13 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx)
 		pthis->cloneCollider.dim.pos.y = clonePos.y;
 		pthis->cloneCollider.dim.pos.z = clonePos.z;
 		CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->cloneCollider.base);
-		func_80094044(globalCtx->state.gfxCtx);
+		func_80094044(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, 255);
 		Matrix_Translate(clonePos.x, clonePos.y, clonePos.z, MTXMODE_NEW);
 		temp_f0_4 = (1.0f - (distFromGround * 0.01f)) * pthis->actor.shape.shadowScale;
 		Matrix_Scale(pthis->actor.scale.x * temp_f0_4, 1.0f, pthis->actor.scale.z * temp_f0_4, MTXMODE_APPLY);
 		Matrix_RotateY(cloneRotY * (2.0f * M_PI / 0x10000), MTXMODE_APPLY);
-		mtx2 = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_horse_normal.c", 2329);
+		mtx2 = Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_horse_normal.c", 2329);
 		if(mtx2 != NULL)
 		{
 			gSPMatrix(POLY_XLU_DISP++, mtx2, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -815,7 +815,7 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_horse_normal.c", 2339);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_horse_normal.c", 2339);
 }
 
 void EnHorseNormal_Reset(Actor* pthisx, GlobalContext* globalCtx)

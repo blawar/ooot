@@ -10,39 +10,22 @@
 #include "z64save.h"
 #include "z64scene.h"
 #include "z64sram.h"
-#include "z_file_choose.h"
 #include "def/audio.h"
 #include "def/code_80069420.h"
 #include "def/game.h"
 #include "def/inventory.h"
+#include "def/z_file_choose.h"
 #include "def/z_parameter.h"
 
 oot::save::Context gSaveContext;
 
 namespace oot::save
 {
-	// these are the main substructs of save context.
-	// we are going to hold off on splitting save context until later on,
-	// so these temporary structs will live here for now.
-
-	// size = 0x1338
-
-	// size = 0x1354
-
 #define SAVE_PLAYER_DATA (*((SavePlayerData*)&gSaveFile.newf))
 #define SAVE_INFO (*((SaveInfo*)&gSaveFile.newf))
 
 #define SLOT_SIZE (sizeof(SaveSlot) + 0x28)
 #define CHECKSUM_SIZE (sizeof(Save) / 2)
-	/*
-	#define DEATHS OFFSETOF(SaveSlot, deaths)
-	#define NAME OFFSETOF(SaveSlot, playerName)
-	#define N64DD OFFSETOF(SaveSlot, n64ddFlag)
-	#define HEALTH_CAP OFFSETOF(SaveSlot, healthCapacity)
-	#define QUEST OFFSETOF(SaveSlot, inventory.questItems)
-	#define DEFENSE OFFSETOF(SaveSlot, inventory.defenseHearts)
-	#define HEALTH OFFSETOF(SaveSlot, health)
-	*/
 
 	static char sZeldaMagic[] = {'\0', '\0', '\0', '\x98', '\x09', '\x10', '\x21', 'Z', 'E', 'L', 'D', 'A'};
 	static char sZeldaMagicSwapped[] = {'\x98', '\0', '\0', '\0', 'Z', '\x21', '\x10', '\x09', 'A', 'D', 'L', 'E'};
@@ -115,6 +98,8 @@ namespace oot::save
 
 	Context::Context()
 	{
+		memset(this, 0, sizeof(*this));
+		this->fileNum = 0xFF;
 		file.load();
 	}
 
@@ -435,20 +420,20 @@ namespace oot::save
 	 *
 	 *  After verifying all 3 saves, pass relevant data to File Select to be displayed.
 	 */
-	void Context::loadAllSaves(FileChooseContext* fileChooseCtx)
+	void Context::loadAllSaves(gamestate::FileChoose* fileChooseCtx)
 	{
 		for(u8 slotNum = 0; slotNum < MAX_SLOTS; slotNum++)
 		{
 			load(file.slots[slotNum]);
 
-			if(checksum != slot().save.checksum() || checksum == 0)
+			if(checksum != slot().save.checksum())
 			{
 				// checksum didnt match, try backup save
 				osSyncPrintf("ERROR!!! ＝ (%d)\n", slotNum);
 
 				load(slotNum + MAX_SLOTS);
 
-				if(checksum != slot().save.checksum() || checksum == 0)
+				if(checksum != slot().save.checksum())
 				{
 					// backup save didnt work, make new save
 					entranceIndex = 0;
@@ -496,7 +481,7 @@ namespace oot::save
 		}
 	}
 
-	void Context::setFileChooseData(FileChooseContext* fileChooseCtx, const u8 slotId)
+	void Context::setFileChooseData(gamestate::FileChoose* fileChooseCtx, const u8 slotId)
 	{
 		// const u8 slotId = fileChooseCtx->buttonIndex;
 		auto& slot = file.slots[slotId];
@@ -510,7 +495,7 @@ namespace oot::save
 		MemCopy(&fileChooseCtx->fileNames[slotId], slot.save.info.playerData.playerName, sizeof(fileChooseCtx->fileNames[0]));
 	}
 
-	void Context::initialize(FileChooseContext* fileChooseCtx, const u8 slotId)
+	void Context::initialize(gamestate::FileChoose* fileChooseCtx, const u8 slotId)
 	{
 		if(fileChooseCtx->buttonIndex != 0 || !oot::config().game().enablDebugLevelSelect())
 		{
@@ -775,7 +760,7 @@ namespace oot::save
 		s.unk_13F0 = this->unk_13F0;
 		s.unk_13F2 = this->unk_13F2;
 		s.unk_13F4 = this->unk_13F4;
-		s.unk_13F6 = this->unk_13F6;
+		s.unk_13F6 = this->magicMax;
 		s.unk_13F8 = this->unk_13F8;
 		memcpy(eventInf, this->eventInf, sizeof(eventInf));
 		s.mapIndex = this->mapIndex;
@@ -829,7 +814,6 @@ namespace oot::save
 		this->linkAge = s.save.linkAge;
 		this->cutsceneIndex = s.save.cutsceneIndex;
 		this->dayTime = s.save.dayTime;
-		// this->dayTimePadding = s.save.dayTimePadding;
 		this->nightFlag = s.save.nightFlag;
 		this->totalDays = s.save.totalDays;
 		this->bgsDayCount = s.save.bgsDayCount;
@@ -877,6 +861,7 @@ namespace oot::save
 		memcpy(this->unk_1346, s.save.info.unk_1346, sizeof(unk_1346));
 		this->horseData = s.save.info.horseData;
 		this->checksum = s.save.info.checksum;
+
 		this->fileNum = s.fileNum;
 		memcpy(this->unk_1358, s.unk_1358, sizeof(unk_1358));
 		this->gameMode = s.gameMode;
@@ -911,7 +896,7 @@ namespace oot::save
 		this->unk_13F0 = s.unk_13F0;
 		this->unk_13F2 = s.unk_13F2;
 		this->unk_13F4 = s.unk_13F4;
-		this->unk_13F6 = s.unk_13F6;
+		this->magicMax = s.unk_13F6;
 		this->unk_13F8 = s.unk_13F8;
 		memcpy(this->eventInf, eventInf, sizeof(eventInf));
 		this->mapIndex = s.mapIndex;

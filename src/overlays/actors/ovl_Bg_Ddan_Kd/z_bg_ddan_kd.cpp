@@ -160,11 +160,11 @@ void BgDdanKd_LowerStairs(BgDdanKd* pthis, GlobalContext* globalCtx)
 	{
 		effectStrength = (pthis->dyna.actor.prevPos.y - pthis->dyna.actor.world.pos.y) + (pthis->dyna.actor.speedXZ * 0.25f);
 
-		if(globalCtx->state.frames & 1)
+		if(globalCtx->frames & 1)
 		{
 			pos1 = pos2 = pthis->dyna.actor.world.pos;
 
-			if(globalCtx->state.frames & 2)
+			if(globalCtx->frames & 2)
 			{
 				pos1.z += 210.0f + Rand_ZeroOne() * 230.0f;
 				pos2.z += 210.0f + Rand_ZeroOne() * 230.0f;

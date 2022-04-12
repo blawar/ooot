@@ -1,5 +1,5 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
 
 extern u32 gBitFlags[32];
 extern u16 gEquipMasks[4];

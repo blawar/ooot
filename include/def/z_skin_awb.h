@@ -1,5 +1,5 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
 struct PSkinAwb;
 struct SkeletonHeader;
 struct AnimationHeader;

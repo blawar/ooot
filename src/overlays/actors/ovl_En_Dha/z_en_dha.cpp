@@ -18,7 +18,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dh/object_dh.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnDha_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDha_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -170,7 +170,7 @@ void EnDha_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->limbAngleX[0] = -0x4000;
 	Collider_InitJntSph(globalCtx, &pthis->collider);
 	Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->colliderItem);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	EnDha_SetupWait(pthis);
 }
@@ -526,7 +526,7 @@ void EnDha_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnDha* pthis = (EnDha*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnDha_OverrideLimbDraw, EnDha_OverridePostDraw, pthis);
 }
 

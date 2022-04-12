@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_kz/object_kz.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnKz_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnKz_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -254,11 +254,11 @@ s32 func_80A9C95C(GlobalContext* globalCtx, EnKz* pthis, s16* arg2, f32 unkf, ca
 	yaw -= pthis->actor.shape.rot.y;
 	if((fabsf(yaw) > 1638.0f) || (pthis->actor.xzDistToPlayer < 265.0f))
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		return 0;
 	}
 
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 	Actor_GetScreenPos(globalCtx, &pthis->actor, &sp32, &sp30);
 	if(!((sp32 >= -30) && (sp32 < 361) && (sp30 >= -10) && (sp30 < 241)))
@@ -589,13 +589,13 @@ void EnKz_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnKz* pthis = (EnKz*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_kz.c", 1259);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_kz.c", 1259);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeSegments_57[pthis->eyeIdx]));
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, pthis->skelanime.dListCount, EnKz_OverrideLimbDraw, EnKz_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_kz.c", 1281);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_kz.c", 1281);
 }
 
 void EnKz_Reset(Actor* pthisx, GlobalContext* globalCtx)

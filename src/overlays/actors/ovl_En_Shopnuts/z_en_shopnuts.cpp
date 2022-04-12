@@ -8,7 +8,13 @@
 #include "def/z_skelanime.h"
 #include "objects/object_shopnuts/object_shopnuts.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#if FRAME_RATE == 20
+#define DEKU_NUT_SPAWN_SCALER 1.0f
+#else
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+#endif
+
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnShopnuts_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -232,9 +238,9 @@ void EnShopnuts_ThrowNut(EnShopnuts* pthis, GlobalContext* globalCtx)
 	}
 	else if(Animation_OnFrame(&pthis->skelAnime, 6.0f))
 	{
-		spawnPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f);
+		spawnPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		spawnPos.y = pthis->actor.world.pos.y + 12.0f;
-		spawnPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f);
+		spawnPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		if(Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_NUTSBALL, spawnPos.x, spawnPos.y, spawnPos.z, pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, 2) != NULL)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_THROW);
@@ -333,7 +339,7 @@ void EnShopnuts_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 
 	if((limbIndex == 9) && (pthis->actionFunc == EnShopnuts_ThrowNut))
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_shopnuts.c", 682);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_shopnuts.c", 682);
 		curFrame = pthis->skelAnime.curFrame;
 		if(curFrame <= 6.0f)
 		{
@@ -360,9 +366,9 @@ void EnShopnuts_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 		if(1)
 		{
 		}
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_shopnuts.c", 714), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_shopnuts.c", 714), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gBusinessScrubNoseDL);
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_shopnuts.c", 717);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_shopnuts.c", 717);
 	}
 }
 

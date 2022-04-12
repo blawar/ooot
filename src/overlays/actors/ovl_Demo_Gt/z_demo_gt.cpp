@@ -753,7 +753,7 @@ void DemoGt_Update8(DemoGt* pthis, GlobalContext* globalCtx)
 void DemoGt_Draw1(DemoGt* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	u32 gameplayFrames = globalCtx->gameplayFrames;
 	s16 pad2[2];
 	s16 spC6;
@@ -991,7 +991,7 @@ void DemoGt_Update9(DemoGt* pthis, GlobalContext* globalCtx)
 
 void DemoGt_Draw2(DemoGt* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32* unk198;
 	s32* unk178;
 	s32 pad;
@@ -1351,7 +1351,7 @@ void DemoGt_Update10(DemoGt* pthis, GlobalContext* globalCtx)
 
 void DemoGt_Draw3(DemoGt* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_gt_part3.c", 1026);
 
@@ -1465,7 +1465,7 @@ void DemoGt_Draw4(DemoGt* pthis, GlobalContext* globalCtx2)
 		sp6C = kREG(61);
 		sp68 = (s16)((s32)kREG(58)) + 0x4000;
 		sp6A = kREG(58);
-		gfxCtx = globalCtx->state.gfxCtx;
+		gfxCtx = globalCtx->gfxCtx;
 		sp60 = (Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx));
 		sp44 = 1.0f - Math_CosS(sp76);
 
@@ -1599,7 +1599,7 @@ void DemoGt_Draw5(DemoGt* pthis, GlobalContext* globalCtx)
 	sp6C = kREG(62);
 	sp6A = kREG(59) - 0x4000;
 	sp68 = (s16)(kREG(59) - 0x4000) + 0x4000;
-	gfxCtx = globalCtx->state.gfxCtx;
+	gfxCtx = globalCtx->gfxCtx;
 	sp60 = (Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx));
 	sp44 = 1 - Math_CosS(sp76);
 
@@ -1708,7 +1708,7 @@ void DemoGt_Draw6(DemoGt* pthis, GlobalContext* globalCtx)
 	sp6E = kREG(60) + 0x4000;
 	sp6C = kREG(60) + 0x4000;
 	sp6C += 0x4000;
-	gfxCtx = globalCtx->state.gfxCtx;
+	gfxCtx = globalCtx->gfxCtx;
 	sp64 = (Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx));
 	sp48 = 1.0f - Math_CosS(sp78);
 
@@ -1794,7 +1794,7 @@ void DemoGt_Update14(DemoGt* pthis, GlobalContext* globalCtx)
 void DemoGt_Draw7(DemoGt* pthis, GlobalContext* globalCtx)
 {
 	DemoGt* pthis2 = pthis;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s16 sp6E;
 	f32 sp68;
 	f32 sp64;
@@ -1895,7 +1895,7 @@ void DemoGt_Update15(DemoGt* pthis, GlobalContext* globalCtx)
 void DemoGt_Draw8(DemoGt* pthis, GlobalContext* globalCtx)
 {
 	DemoGt* pthis2 = pthis;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s16 sp6E;
 	f32 sp68;
 	f32 sp64;

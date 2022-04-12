@@ -59,7 +59,7 @@ void EnExItem_Init(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnExItem* pthis = (EnExItem*)thisx;
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->type = pthis->actor.params & 0xFF;
 	pthis->unusedParam = (pthis->actor.params >> 8) & 0xFF;
 	osSyncPrintf("\n\n");
@@ -575,14 +575,14 @@ void EnExItem_DrawMagic(EnExItem* pthis, GlobalContext* globalCtx, s16 magicInde
 
 void EnExItem_DrawKey(EnExItem* pthis, GlobalContext* globalCtx, s32 index)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 880);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ex_item.c", 880);
 
-	func_8009460C(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 887), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_8009460C(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ex_item.c", 887), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(keySegments_53[index]));
 	gSPDisplayList(POLY_OPA_DISP++, gItemDropDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_item.c", 893);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ex_item.c", 893);
 }
 
 void EnExItem_DrawRupee(EnExItem* pthis, GlobalContext* globalCtx)

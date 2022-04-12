@@ -108,7 +108,7 @@ f32 func_809A9818(f32 arg0, f32 arg1)
 void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
 	static Color_RGB8 colors[] = {{255, 255, 255}, {235, 170, 130}};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale;
 	s32 colorIdx;
@@ -138,7 +138,7 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	if((((pthis->rReg4 >> 7) & 1) << 7) == 0x80)
 	{
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_kakera.c", 268), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		if(colorIdx >= 0)
 		{
@@ -150,7 +150,7 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	else
 	{
 		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_kakera.c", 286), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		if(colorIdx >= 0)
 		{

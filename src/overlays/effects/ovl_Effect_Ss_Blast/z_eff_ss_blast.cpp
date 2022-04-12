@@ -64,7 +64,7 @@ u32 EffectSsBlast_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
 void EffectSsBlast_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mf;
 	s32 pad;
 	f32 radius;
@@ -73,7 +73,7 @@ void EffectSsBlast_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
 	radius = pthis->rScale * 0.0025f;
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, pthis->rEnvColorA);
 	func_800BFCB8(globalCtx, &mf, &pthis->pos);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, pthis->rPrimColorA);

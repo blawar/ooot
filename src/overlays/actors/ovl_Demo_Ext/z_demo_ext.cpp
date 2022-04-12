@@ -214,7 +214,7 @@ void DemoExt_DrawVortex(Actor* thisx, GlobalContext* globalCtx)
 	Vec3f* scale;
 
 	scale = &pthis->scale;
-	gfxCtx = globalCtx->state.gfxCtx;
+	gfxCtx = globalCtx->gfxCtx;
 	mtx = (Mtx*)Graph_Alloc(gfxCtx, sizeof(Mtx));
 
 	OPEN_DISPS(gfxCtx, "../z_demo_ext.c", 460);

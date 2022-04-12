@@ -319,14 +319,14 @@ void BgMoriElevator_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BgMoriElevator* pthis = (BgMoriElevator*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_elevator.c", 575);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mori_elevator.c", 575);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_elevator.c", 580), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mori_elevator.c", 580), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gMoriElevatorDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_elevator.c", 584);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mori_elevator.c", 584);
 }
 
 void BgMoriElevator_Reset(Actor* pthisx, GlobalContext* globalCtx)

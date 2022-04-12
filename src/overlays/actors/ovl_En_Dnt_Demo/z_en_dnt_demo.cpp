@@ -95,7 +95,7 @@ void EnDntDemo_Init(Actor* thisx, GlobalContext* globalCtx2)
 		osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ じじじじじじじじじじい ☆☆☆☆☆ %x\n" VT_RST, pthis->leader);
 	}
 	pthis->subCamera = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnDntDemo_Judge;
 }
 

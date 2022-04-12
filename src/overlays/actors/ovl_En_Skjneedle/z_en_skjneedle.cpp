@@ -14,7 +14,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_skj/object_skj.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_9)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_9)
 
 void EnSkjneedle_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSkjneedle_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -60,7 +60,7 @@ void EnSkjneedle_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitCylinder(globalCtx, &pthis->collider);
 	Collider_SetCylinderType1(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
 	ActorShape_Init(&pthis->actor.shape, 0, ActorShadow_DrawCircle, 20.0f);
-	thisx->flags &= ~ACTOR_FLAG_0;
+	thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 	Actor_SetScale(&pthis->actor, 0.01f);
 }
 
@@ -110,13 +110,13 @@ void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 200);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skj_needle.c", 200);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 205), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_skj_needle.c", 205), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gSKJNeedleDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj_needle.c", 210);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skj_needle.c", 210);
 }
 
 void EnSkjneedle_Reset(Actor* pthisx, GlobalContext* globalCtx)

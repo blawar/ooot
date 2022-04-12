@@ -13,7 +13,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_ny/object_ny.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnNy_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnNy_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -377,7 +377,7 @@ s32 EnNy_CollisionCheck(EnNy* pthis, GlobalContext* globalCtx)
 			if(pthis->actor.colChkInfo.health == 0)
 			{
 				pthis->actor.shape.shadowAlpha = 0;
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				pthis->unk_1D0 = sp3F;
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				return 1;
@@ -606,11 +606,11 @@ void EnNy_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnNy* pthis = (EnNy*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ny.c", 837);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ny.c", 837);
 	Collider_UpdateSpheres(0, &pthis->collider);
 	func_8002ED80(&pthis->actor, globalCtx, 1);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ny.c", 845), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ny.c", 845), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPPipeSync(POLY_XLU_DISP++);
 	gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->unk_1D8);
@@ -623,11 +623,11 @@ void EnNy_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		Matrix_Scale(pthis->unk_1E0, pthis->unk_1E0, pthis->unk_1E0, MTXMODE_APPLY);
 		func_8002EBCC(&pthis->actor, globalCtx, 1);
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ny.c", 868), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D18(globalCtx->gfxCtx);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ny.c", 868), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gEnNySpikeDL);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ny.c", 872);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ny.c", 872);
 	if(pthis->unk_1CA != 0)
 	{
 		Vec3f tempVec;
@@ -654,8 +654,8 @@ void EnNy_DrawDeathEffect(Actor* thisx, GlobalContext* globalCtx)
 	f32 scale;
 	s32 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ny.c", 900);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ny.c", 900);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_OPA_DISP++, 0x00, 0x00, 0x00, 0xFF);
 	gDPSetRenderMode(POLY_OPA_DISP++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2);
 	gDPPipeSync(POLY_OPA_DISP++);
@@ -667,11 +667,11 @@ void EnNy_DrawDeathEffect(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_Translate(temp->x, temp->y, temp->z, MTXMODE_NEW);
 			scale = pthis->actor.scale.x * 0.4f * (1.0f + (i * 0.04f));
 			Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ny.c", 912), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ny.c", 912), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gEnNyRockBodyDL);
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ny.c", 919);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ny.c", 919);
 	if(pthis->unk_1CA != 0)
 	{
 		Vec3f tempVec;

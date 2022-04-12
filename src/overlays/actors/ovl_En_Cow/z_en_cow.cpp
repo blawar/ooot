@@ -17,7 +17,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_cow/object_cow.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnCow_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnCow_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -150,7 +150,7 @@ void EnCow_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->actor.draw = func_809E0070;
 			pthis->actionFunc = func_809DFA84;
 			func_809DEF94(pthis);
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->unk_278 = ((u32)(Rand_ZeroFloat(1000.0f)) & 0xFFFF) + 40.0f;
 			break;
 	}
@@ -455,7 +455,7 @@ void EnCow_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnCow* pthis = (EnCow*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnCow_OverrideLimbDraw, EnCow_PostLimbDraw, pthis);
 }
 
@@ -463,7 +463,7 @@ void func_809E0070(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnCow* pthis = (EnCow*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 }
 

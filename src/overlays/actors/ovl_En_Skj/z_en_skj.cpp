@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_skj/object_skj.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -329,7 +329,7 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->actor.destroy = NULL;
 			pthis->actor.draw = NULL;
 			pthis->actor.update = EnSkj_SariasSongShortStumpUpdate;
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 			pthis->actor.flags |= 0;
 			Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_PROP);
 			break;
@@ -340,7 +340,7 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->actor.destroy = NULL;
 			pthis->actor.draw = NULL;
 			pthis->actor.update = EnSkj_OcarinaMinigameShortStumpUpdate;
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 			pthis->actor.flags |= 0;
 			Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_PROP);
 			pthis->actor.focus.pos.x = 1230.0f;
@@ -364,8 +364,8 @@ void EnSkj_Init(Actor* thisx, GlobalContext* globalCtx2)
 			SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gSkullKidSkel, &gSkullKidPlayFluteAnim, pthis->jointTable, pthis->morphTable, 19);
 			if((type >= 0) && (type < 3))
 			{
-				pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
-				pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+				pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 				Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_NPC);
 			}
 
@@ -1335,7 +1335,7 @@ void EnSkj_SariasSongWaitForTextClear(EnSkj* pthis, GlobalContext* globalCtx)
 
 void EnSkj_OcarinaGameSetupWaitForPlayer(EnSkj* pthis)
 {
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnSkj_ChangeAnim(pthis, SKJ_ANIM_WAIT);
 	EnSkj_SetupAction(pthis, SKJ_ACTION_OCARINA_GAME_WAIT_FOR_PLAYER);
 }
@@ -1344,7 +1344,7 @@ void EnSkj_OcarinaGameWaitForPlayer(EnSkj* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->playerInRange)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		EnSkj_SetupAction(pthis, SKJ_ACTION_OCARINA_GAME_IDLE);
 	}
 }
@@ -1802,19 +1802,19 @@ s32 EnSkj_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
 void EnSkj_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2417);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2417);
 
 	if((limbIndex == 11) && (gSaveContext.itemGetInf[3] & 0x200))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		Matrix_Push();
 		Matrix_RotateZYX(-0x4000, 0, 0, MTXMODE_APPLY);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_skj.c", 2430), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_skj.c", 2430), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gSKJskullMaskDL);
 		Matrix_Pop();
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2437);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2437);
 }
 
 Gfx* EnSkj_TranslucentDL(GraphicsContext* gfxCtx, u32 alpha)
@@ -1849,22 +1849,22 @@ void EnSkj_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnSkj* pthis = (EnSkj*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2475);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2475);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(pthis->alpha < 255)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_TranslucentDL(globalCtx->state.gfxCtx, pthis->alpha));
+		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_TranslucentDL(globalCtx->gfxCtx, pthis->alpha));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_OpaqueDL(globalCtx->state.gfxCtx, pthis->alpha));
+		gSPSegment(POLY_OPA_DISP++, 0x0C, EnSkj_OpaqueDL(globalCtx->gfxCtx, pthis->alpha));
 	}
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnSkj_OverrideLimbDraw, EnSkj_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2495);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_skj.c", 2495);
 }
 
 void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx)

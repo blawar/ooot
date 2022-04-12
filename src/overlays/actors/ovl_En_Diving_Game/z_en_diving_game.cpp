@@ -24,7 +24,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_zo/object_zo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnDivingGame_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDivingGame_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -659,8 +659,8 @@ s32 EnDivingGame_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
 
 	if(pthis->notPlayingMinigame && (limbIndex == 8 || limbIndex == 9 || limbIndex == 12))
 	{
-		rot->y += Math_SinS((globalCtx->state.frames * (limbIndex * 50 + 0x814))) * 200.0f;
-		rot->z += Math_CosS((globalCtx->state.frames * (limbIndex * 50 + 0x940))) * 200.0f;
+		rot->y += Math_SinS((globalCtx->frames * (limbIndex * 50 + 0x814))) * 200.0f;
+		rot->z += Math_CosS((globalCtx->frames * (limbIndex * 50 + 0x940))) * 200.0f;
 	}
 
 	return 0;
@@ -669,16 +669,16 @@ s32 EnDivingGame_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
 void EnDivingGame_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDivingGame* pthis = (EnDivingGame*)thisx;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_diving_game.c", 1212);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_diving_game.c", 1212);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
-	gSPSegment(POLY_OPA_DISP++, 0x0C, EnDivingGame_EmptyDList(globalCtx->state.gfxCtx));
+	gSPSegment(POLY_OPA_DISP++, 0x0C, EnDivingGame_EmptyDList(globalCtx->gfxCtx));
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeTexIndex]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnDivingGame_OverrideLimbDraw, NULL, pthis);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_diving_game.c", 1232);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_diving_game.c", 1232);
 }
 
 void EnDivingGame_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -1,8 +1,9 @@
 #pragma once
+#include "globalctx.h"
 
-typedef void (*PlayerFunc674)(struct Player*, struct GlobalContext*);
-typedef s32 (*PlayerFunc82C)(struct Player*, struct GlobalContext*);
-typedef void (*PlayerFuncA74)(struct GlobalContext*, struct Player*);
+typedef void (*PlayerFunc674)(struct Player*, GlobalContext*);
+typedef s32 (*PlayerFunc82C)(struct Player*, GlobalContext*);
+typedef void (*PlayerFuncA74)(GlobalContext*, struct Player*);
 
 struct GetItemEntry
 {
@@ -238,7 +239,7 @@ struct Player
 	/* 0x0858 */ f32 unk_858;
 	/* 0x085C */ f32 unk_85C;   // stick length among other things
 	/* 0x0860 */ Timer unk_860; // stick flame timer among other things
-	/* 0x0862 */ s8 unk_862;    // get item draw ID + 1
+	/* 0x0862 */ s8 drawItemID;    // get item draw ID + 1
 	/* 0x0864 */ f32 unk_864;
 	/* 0x0868 */ f32 unk_868;
 	/* 0x086C */ f32 unk_86C;

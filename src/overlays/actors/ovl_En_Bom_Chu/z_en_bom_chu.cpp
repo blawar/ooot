@@ -269,7 +269,7 @@ void EnBomChu_WaitForRelease(EnBomChu* pthis, GlobalContext* globalCtx)
 		//! @bug there is no NULL check on the floor poly.  If the player is out of bounds the floor poly will be NULL
 		//! and will cause a crash inside pthis function.
 		EnBomChu_UpdateFloorPoly(pthis, pthis->actor.floorPoly, globalCtx);
-		pthis->actor.flags |= ACTOR_FLAG_0; // make chu targetable
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE; // make chu targetable
 		func_8002F850(globalCtx, &pthis->actor);
 		pthis->actionFunc = EnBomChu_Move;
 	}
@@ -542,9 +542,9 @@ void EnBomChu_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 blinkHalfPeriod;
 	s32 blinkTime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_chu.c", 921);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bom_chu.c", 921);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	func_8002EBCC(&pthis->actor, globalCtx, 0);
 
 	if(pthis->timer >= 40)
@@ -572,10 +572,10 @@ void EnBomChu_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	gDPSetEnvColor(POLY_OPA_DISP++, 9.0f + (colorIntensity * 209.0f), 9.0f + (colorIntensity * 34.0f), 35.0f + (colorIntensity * -35.0f), 255);
 	Matrix_Translate(pthis->visualJitter * (1.0f / BOMBCHU_SCALE), 0.0f, 0.0f, MTXMODE_APPLY);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bom_chu.c", 956), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bom_chu.c", 956), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gBombchuDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_chu.c", 961);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bom_chu.c", 961);
 }
 
 void EnBomChu_Reset(Actor* pthisx, GlobalContext* globalCtx)

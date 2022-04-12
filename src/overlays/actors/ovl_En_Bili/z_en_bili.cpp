@@ -22,7 +22,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_bl/object_bl.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnBili_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBili_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -249,7 +249,7 @@ void EnBili_SetupBurnt(EnBili* pthis)
 void EnBili_SetupDie(EnBili* pthis)
 {
 	pthis->timer = 18;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnBili_Die;
 	pthis->actor.speedXZ = 0.0f;
 }
@@ -648,7 +648,7 @@ void EnBili_UpdateDamage(EnBili* pthis, GlobalContext* globalCtx)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BIRI_DEAD);
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 
 			damageEffect = pthis->actor.colChkInfo.damageEffect;
@@ -910,8 +910,8 @@ void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBili* pthis = (EnBili*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bili.c", 1521);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bili.c", 1521);
+	func_80093D84(globalCtx->gfxCtx);
 
 	pthis->tentaclesTexIndex = CLAMP_MAX(pthis->tentaclesTexIndex, 7);
 
@@ -927,7 +927,7 @@ void EnBili_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnBili_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bili.c", 1552);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bili.c", 1552);
 }
 
 void EnBili_Reset(Actor* pthisx, GlobalContext* globalCtx)

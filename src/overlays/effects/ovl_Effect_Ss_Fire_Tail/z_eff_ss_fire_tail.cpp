@@ -75,7 +75,7 @@ u32 EffectSsFireTail_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, 
 
 void EffectSsFireTail_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	s16 yaw;
 	Vec3f scale;
@@ -131,11 +131,11 @@ void EffectSsFireTail_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
 	Matrix_Scale(1.0f, temp1, 1.0f / temp1, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_fire_tail.c", 238), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	func_80093D84(globalCtx->state.gfxCtx);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_eff_fire_tail.c", 238), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, pthis->rPrimColorR, pthis->rPrimColorG, pthis->rPrimColorB, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, pthis->rEnvColorR, pthis->rEnvColorG, pthis->rEnvColorB, 0);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (globalCtx->state.frames.whole() * -0x14) & 0x1FF, 32, 128));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (globalCtx->frames.whole() * -0x14) & 0x1FF, 32, 128));
 
 	if(pthis->rType != 0)
 	{

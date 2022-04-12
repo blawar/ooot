@@ -1,5 +1,6 @@
 #pragma once
-struct GlobalContext;
+#include "globalctx.h"
+
 struct Actor;
 
 s32 OnePointCutscene_Attention(GlobalContext* globalCtx, Actor* actor);

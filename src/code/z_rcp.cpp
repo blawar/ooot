@@ -892,7 +892,7 @@ void func_80093C14(GraphicsContext* gfxCtx)
 
 void func_80093C80(GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	func_80093D18(gfxCtx);
 

@@ -19,7 +19,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_gr/object_gr.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnNiwGirl_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnNiwGirl_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -108,7 +108,7 @@ void EnNiwGirl_Jump(EnNiwGirl* pthis, GlobalContext* globalCtx)
 {
 	f32 frameCount = Animation_GetLastFrame(&gNiwGirlRunAnim);
 	Animation_Change(&pthis->skelAnime, &gNiwGirlRunAnim, 1.0f, 0.0f, frameCount, 0, -10.0f);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80AB9210;
 }
 
@@ -154,7 +154,7 @@ void func_80AB9210(EnNiwGirl* pthis, GlobalContext* globalCtx)
 void EnNiwGirl_Talk(EnNiwGirl* pthis, GlobalContext* globalCtx)
 {
 	Animation_Change(&pthis->skelAnime, &gNiwGirlJumpAnim, 1.0f, 0.0f, Animation_GetLastFrame(&gNiwGirlJumpAnim), 0, -10.0f);
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.textId = 0x7000;
 	if((gSaveContext.eventChkInf[8] & 1) && (pthis->unk_27A == 0))
 	{
@@ -288,14 +288,14 @@ void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	Vec3f sp4C = sConstVec3f;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_girl.c", 573);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_niw_girl.c", 573);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_37[pthis->eyeIndex]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnNiwGirlOverrideLimbDraw, NULL, pthis);
 	func_80033C30(&pthis->actor.world.pos, &sp4C, 255, globalCtx);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_niw_girl.c", 592);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_niw_girl.c", 592);
 }
 
 void EnNiwGirl_Reset(Actor* pthisx, GlobalContext* globalCtx)

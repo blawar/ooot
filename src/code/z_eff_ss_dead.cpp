@@ -12,7 +12,7 @@ void func_80026230(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 	Gfx* displayListHead;
 	f32 absCos;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 113);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 113);
 
 	displayListHead = POLY_OPA_DISP;
 	cos = Math_CosS((0x8000 / arg3) * arg2);
@@ -33,7 +33,7 @@ void func_80026230(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	POLY_OPA_DISP = displayListHead;
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 129);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 129);
 }
 
 void func_80026400(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 arg3)
@@ -43,7 +43,7 @@ void func_80026400(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	if(arg3 != 0)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 141);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 141);
 
 		cos = Math_CosS((0x4000 / arg3) * arg2);
 		displayListHead = POLY_OPA_DISP;
@@ -54,7 +54,7 @@ void func_80026400(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 		POLY_OPA_DISP = displayListHead;
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 153);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 153);
 	}
 }
 
@@ -62,12 +62,12 @@ void func_80026608(GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 159);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 159);
 
 	gDPPipeSync(POLY_OPA_DISP++);
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 164);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 164);
 }
 
 void func_80026690(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 arg3)
@@ -76,7 +76,7 @@ void func_80026690(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 	Gfx* displayListHead;
 	f32 absCos;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 178);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 178);
 
 	displayListHead = POLY_XLU_DISP;
 	cos = Math_CosS((0x8000 / arg3) * arg2);
@@ -97,7 +97,7 @@ void func_80026690(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	POLY_XLU_DISP = displayListHead;
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 194);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 194);
 }
 
 void func_80026860(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 arg3)
@@ -105,7 +105,7 @@ void func_80026860(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 	f32 cos;
 	Gfx* displayListHead;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 201);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 201);
 
 	displayListHead = POLY_XLU_DISP;
 	cos = Math_CosS((0x4000 / arg3) * arg2);
@@ -116,17 +116,17 @@ void func_80026860(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	POLY_XLU_DISP = displayListHead;
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 212);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 212);
 }
 
 void func_80026A6C(GlobalContext* globalCtx)
 {
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 217);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 217);
 
 	gDPPipeSync(POLY_XLU_DISP++);
 	POLY_XLU_DISP = Gameplay_SetFog(globalCtx, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_dead.c", 222);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_dead.c", 222);
 }

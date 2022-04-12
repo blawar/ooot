@@ -76,19 +76,19 @@ void BgSpot01Idomizu_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void BgSpot01Idomizu_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	const auto& frames = globalCtx->state.frames;
+	const auto& frames = globalCtx->frames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idomizu.c", 228);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot01_idomizu.c", 228);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot01_idomizu.c", 232), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot01_idomizu.c", 232), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 127 - frames % 128, frames & 0x7F, 32, 32, 1, frames % 128, frames & 0x7F, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 127 - frames % 128, frames & 0x7F, 32, 32, 1, frames % 128, frames & 0x7F, 32, 32));
 
 	gSPDisplayList(POLY_XLU_DISP++, gKakarikoWellWaterDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idomizu.c", 244);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot01_idomizu.c", 244);
 }
 
 void BgSpot01Idomizu_Reset(Actor* pthisx, GlobalContext* globalCtx)

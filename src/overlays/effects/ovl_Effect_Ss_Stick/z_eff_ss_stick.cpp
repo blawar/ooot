@@ -60,7 +60,7 @@ u32 EffectSsStick_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
 void EffectSsStick_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 
 	OPEN_DISPS(gfxCtx, "../z_eff_ss_stick.c", 153);
@@ -75,7 +75,7 @@ void EffectSsStick_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	else
 	{
 		Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
-		Matrix_RotateZYX(0, pthis->rYaw, globalCtx->state.frames * 10000, MTXMODE_APPLY);
+		Matrix_RotateZYX(0, pthis->rYaw, globalCtx->frames * 10000, MTXMODE_APPLY);
 	}
 
 	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_ss_stick.c", 176), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

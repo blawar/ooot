@@ -225,17 +225,17 @@ void EnBx_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBx* pthis = (EnBx*)thisx;
 	s32 pad;
-	Mtx* mtx = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Mtx));
+	Mtx* mtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, 4 * sizeof(Mtx));
 	s16 i;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bx.c", 464);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bx.c", 464);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x0C, mtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_809D2560_26[pthis->actor.params & 0x7F]));
-	gSPSegment(POLY_OPA_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 16, 1, 0, (globalCtx->gameplayFrames.whole() * -10) % 128, 32, 32));
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bx.c", 478), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPSegment(POLY_OPA_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 16, 1, 0, (globalCtx->gameplayFrames.whole() * -10) % 128, 32, 32));
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bx.c", 478), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(pthis->actor.params & 0x80)
 	{
@@ -265,7 +265,7 @@ void EnBx_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	gSPDisplayList(POLY_OPA_DISP++, object_bxa_DL_0022F0);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bx.c", 511);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bx.c", 511);
 }
 
 void EnBx_Reset(Actor* pthisx, GlobalContext* globalCtx)

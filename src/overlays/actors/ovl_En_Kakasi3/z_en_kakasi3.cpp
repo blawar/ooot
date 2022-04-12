@@ -19,7 +19,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ka/object_ka.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnKakasi3_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnKakasi3_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -507,7 +507,7 @@ void EnKakasi3_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnKakasi3* pthis = (EnKakasi3*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 }
 

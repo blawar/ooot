@@ -137,19 +137,19 @@ void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EfcErupc* pthis = (EfcErupc*)thisx;
 	u16 csAction;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_efc_erupc.c", 282);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_efc_erupc.c", 282);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, pthis->unk14C * 1, pthis->unk14E * -4, 32, 64, 1, pthis->unk14C * 4, pthis->unk14E * -20, 64, 64));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->unk14C * 1, pthis->unk14E * -4, 32, 64, 1, pthis->unk14C * 4, pthis->unk14E * -20, 64, 64));
 
-	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, pthis->unk150 * -4, 16, 128, 1, 0, pthis->unk150 * 12, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, pthis->unk150 * -4, 16, 128, 1, 0, pthis->unk150 * 12, 32, 32));
 
-	gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, pthis->unk150 * -4, 16, 128, 1, 0, pthis->unk150 * 12, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, pthis->unk150 * -4, 16, 128, 1, 0, pthis->unk150 * 12, 32, 32));
 
 	Matrix_Push();
 	Matrix_Scale(0.8f, 0.8f, 0.8f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_efc_erupc.c", 321), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_efc_erupc.c", 321), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(globalCtx->csCtx.state != 0)
 	{
@@ -160,7 +160,7 @@ void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	Matrix_Pop();
 	Matrix_Scale(3.4f, 3.4f, 3.4f, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_efc_erupc.c", 333), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_efc_erupc.c", 333), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	if(globalCtx->csCtx.state != 0)
 	{
 		CsCmdActorAction* csActorAction = globalCtx->csCtx.npcActions[2];
@@ -175,13 +175,13 @@ void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx)
 			}
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_efc_erupc.c", 356);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_efc_erupc.c", 356);
 	EfcErupc_DrawParticles(pthis->particles, globalCtx);
 }
 
 void EfcErupc_DrawParticles(EfcErupcParticles* particles, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s16 i;
 	s32 pad;
 
@@ -190,7 +190,7 @@ void EfcErupc_DrawParticles(EfcErupcParticles* particles, GlobalContext* globalC
 	{
 		if(particles->isActive)
 		{
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			gSPDisplayList(POLY_XLU_DISP++, object_efc_erupc_DL_002760);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, particles->color.r, particles->color.g, particles->color.b, particles->alpha);
 			gDPSetEnvColor(POLY_XLU_DISP++, 150, 0, 0, 0);

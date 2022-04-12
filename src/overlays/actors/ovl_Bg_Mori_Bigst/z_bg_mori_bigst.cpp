@@ -288,15 +288,15 @@ void BgMoriBigst_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BgMoriBigst* pthis = (BgMoriBigst*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 541);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mori_bigst.c", 541);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 548), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mori_bigst.c", 548), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, gMoriBigstDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_bigst.c", 553);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mori_bigst.c", 553);
 }
 
 void BgMoriBigst_Reset(Actor* pthisx, GlobalContext* globalCtx)

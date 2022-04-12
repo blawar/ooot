@@ -87,7 +87,7 @@ void func_80B43A94(EnYukabyun* pthis, GlobalContext* globalCtx)
 	}
 	if(pthis->unk_150 == 0)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_12;
 		pthis->actionfunc = func_80B43AD4;
 	}
 }
@@ -134,7 +134,7 @@ void EnYukabyun_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->collider.base.atFlags &= ~AT_HIT;
 		pthis->collider.base.acFlags &= ~AC_HIT;
 		pthis->collider.base.ocFlags1 &= ~OC1_HIT;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 		Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 30, NA_SE_EN_OCTAROCK_ROCK);
 		pthis->actionfunc = EnYukabyun_Break;
 	}
@@ -160,14 +160,14 @@ void EnYukabyun_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnYukabyun* pthis = (EnYukabyun*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_yukabyun.c", 366);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_yukabyun.c", 366);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_80B43F64[pthis->unk_152]));
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_yukabyun.c", 373), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_yukabyun.c", 373), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gFloorTileEnemyDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_yukabyun.c", 378);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_yukabyun.c", 378);
 }
 
 void EnYukabyun_Reset(Actor* pthisx, GlobalContext* globalCtx)

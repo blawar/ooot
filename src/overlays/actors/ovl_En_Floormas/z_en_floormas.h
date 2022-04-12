@@ -3,9 +3,9 @@
 
 #include "global.h"
 #include "ultra64.h"
+#include "globalctx.h"
 
 struct EnFloormas;
-struct GlobalContext;
 
 typedef void (*EnFloormasActionFunc)(EnFloormas* pthis, GlobalContext* globalCtx);
 

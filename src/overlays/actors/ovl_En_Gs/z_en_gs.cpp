@@ -22,7 +22,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_gs/object_gs.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnGs_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGs_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -674,10 +674,10 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(!(pthis->unk_19E & 8))
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_gs.c", 1046);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_gs.c", 1046);
 
 		frames = globalCtx->gameplayFrames;
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		Matrix_Push();
 		if(pthis->unk_19E & 1)
 		{
@@ -690,7 +690,7 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_RotateZ(pthis->unk_1A0[1].z * (M_PI / 0x8000), MTXMODE_APPLY);
 		}
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_gs.c", 1064), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_gs.c", 1064), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gGossipStoneMaterialDL);
 
 		if(pthis->unk_19E & 4)
@@ -708,18 +708,18 @@ void EnGs_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_Pop();
 		if(pthis->unk_19E & 2)
 		{
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(0.05f, -0.05f, 1.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_gs.c", 1087), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, -frames * 0x14, 0x20, 0x80));
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_gs.c", 1087), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, -frames * 0x14, 0x20, 0x80));
 			gDPSetPrimColor(POLY_XLU_DISP++, 128, 128, 255, 255, 0, 255);
 			gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
 			gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gs.c", 1101);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_gs.c", 1101);
 	}
 }
 

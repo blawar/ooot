@@ -187,15 +187,15 @@ void BgMoriHashira4_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BgMoriHashira4* pthis = (BgMoriHashira4*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 339);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mori_hashira4.c", 339);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 344), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mori_hashira4.c", 344), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, sDisplayLists[pthis->dyna.actor.params]);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashira4.c", 348);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mori_hashira4.c", 348);
 }
 
 void BgMoriHashira4_Reset(Actor* pthisx, GlobalContext* globalCtx)

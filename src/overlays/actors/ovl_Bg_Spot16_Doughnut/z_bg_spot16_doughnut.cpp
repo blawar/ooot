@@ -144,18 +144,18 @@ void BgSpot16Doughnut_Draw(Actor* thisx, GlobalContext* globalCtx)
 	u32 scroll = globalCtx->gameplayFrames & 0xFFFF;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 210);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 210);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(1)
 	{
 	}
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 213), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 213), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	if(pthis->fireFlag & 1)
 	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * (-1), 0, 16, 32, 1, scroll, scroll * (-2), 16, 32));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, scroll * (-1), 0, 16, 32, 1, scroll, scroll * (-2), 16, 32));
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, pthis->envColorAlpha);
 		gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleFieryDL);
 	}
@@ -166,7 +166,7 @@ void BgSpot16Doughnut_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 238);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 238);
 }
 
 // Draw function for outwardly expanding and dissipating
@@ -174,16 +174,16 @@ void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx)
 {
 	BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 245);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 245);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 248), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 248), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
 	gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 256);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 256);
 }
 
 void BgSpot16Doughnut_Reset(Actor* pthisx, GlobalContext* globalCtx)

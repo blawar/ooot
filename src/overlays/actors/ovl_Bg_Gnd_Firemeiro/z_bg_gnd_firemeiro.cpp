@@ -173,13 +173,13 @@ void BgGndFiremeiro_Update(Actor* pthisx, GlobalContext* globalCtx)
 
 void BgGndFiremeiro_Draw(Actor* pthisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_firemeiro.c", 280);
-	func_800943C8(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_gnd_firemeiro.c", 280);
+	func_800943C8(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_gnd_firemeiro.c", 282), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_gnd_firemeiro.c", 282), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gFireTrialPlatformDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_gnd_firemeiro.c", 285);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_gnd_firemeiro.c", 285);
 }
 
 void BgGndFiremeiro_Reset(Actor* pthisx, GlobalContext* globalCtx)

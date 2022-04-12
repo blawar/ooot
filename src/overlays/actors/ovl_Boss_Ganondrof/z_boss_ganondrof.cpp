@@ -29,7 +29,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_gnd/object_gnd.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void BossGanondrof_Init(Actor* thisx, GlobalContext* globalCtx);
 void BossGanondrof_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -295,7 +295,7 @@ void BossGanondrof_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitCylinder(globalCtx, &pthis->colliderSpear);
 	Collider_SetCylinder(globalCtx, &pthis->colliderBody, &pthis->actor, &sCylinderInitBody);
 	Collider_SetCylinder(globalCtx, &pthis->colliderSpear, &pthis->actor, &sCylinderInitSpear);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(Flags_GetClear(globalCtx, globalCtx->roomCtx.curRoom.num))
 	{
 		Actor_Kill(&pthis->actor);
@@ -456,7 +456,7 @@ void BossGanondrof_Paintings(BossGanondrof* pthis, GlobalContext* globalCtx)
 		EnfHG* horseTemp;
 
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &gPhantomGanonRideSpearRaiseAnim, -2.0f);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		horseTemp = (EnfHG*)pthis->actor.child;
 		Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_FHG_FIRE, pthis->spearTip.x, pthis->spearTip.y, pthis->spearTip.z, 30, FHGFIRE_LIGHT_GREEN, 0, FHGFIRE_SPEAR_LIGHT);
 		pthis->actor.child = &horseTemp->actor;
@@ -472,7 +472,7 @@ void BossGanondrof_Paintings(BossGanondrof* pthis, GlobalContext* globalCtx)
 	else if(horse->bossGndSignal == FHG_RIDE)
 	{
 		Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonRideAnim, -2.0f);
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 
 	osSyncPrintf("RUN 3\n");
@@ -503,7 +503,7 @@ void BossGanondrof_SetupNeutral(BossGanondrof* pthis, f32 arg1)
 {
 	Animation_MorphToLoop(&pthis->skelAnime, &gPhantomGanonNeutralAnim, arg1);
 	pthis->actionFunc = BossGanondrof_Neutral;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->fwork[GND_FLOAT_SPEED] = 0.0f;
 	pthis->timers[0] = (s16)(Rand_ZeroOne() * 64.0f) + 30;
 }
@@ -1025,7 +1025,7 @@ void BossGanondrof_SetupDeath(BossGanondrof* pthis, GlobalContext* globalCtx)
 	Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FANTOM_DEAD);
 	pthis->deathState = DEATH_START;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->GND_VARIANCE_TIMER = 0;
 	pthis->shockTimer = 50;
 }
@@ -1645,7 +1645,7 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BossGanondrof* pthis = (BossGanondrof*)thisx;
 	EnfHG* horse;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganondrof.c", 3716);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_ganondrof.c", 3716);
 	osSyncPrintf("MOVE P = %x\n", pthis->actor.update);
 	osSyncPrintf("STOP TIMER = %d ==============\n", pthis->actor.freezeTimer);
 	horse = (EnfHG*)pthis->actor.child;
@@ -1655,7 +1655,7 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	osSyncPrintf("YP %f\n", pthis->actor.world.pos.y);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	if(pthis->GND_INVINC_TIMER & 4)
 	{
 		POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099);
@@ -1670,17 +1670,17 @@ void BossGanondrof_Draw(Actor* thisx, GlobalContext* globalCtx)
 	gDPSetEnvColor(POLY_OPA_DISP++, (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_BRIGHTNESS], (s16)pthis->fwork[GND_EYE_ALPHA]);
 	if(pthis->GND_BODY_DECAY_FLAG)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetClearPixelDList(globalCtx->state.gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetClearPixelDList(globalCtx->gfxCtx));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetNullDList(globalCtx->state.gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x08, BossGanondrof_GetNullDList(globalCtx->gfxCtx));
 	}
 
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, BossGanondrof_OverrideLimbDraw, BossGanondrof_PostLimbDraw, pthis);
 	osSyncPrintf("DRAW 22\n");
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_boss_ganondrof.c", 3814);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_ganondrof.c", 3814);
 	osSyncPrintf("DRAW END %d\n", pthis->actor.params);
 }
 

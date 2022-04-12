@@ -570,24 +570,24 @@ void BgMizuBwall_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	GlobalContext* globalCtx = globalCtx2;
 	u32 frames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_bwall.c", 1095);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mizu_bwall.c", 1095);
 	if(1)
 	{
 	}
 	frames = globalCtx->gameplayFrames;
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, 1 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha1));
-	gSPSegment(POLY_OPA_DISP++, 0x09, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, 1 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha2));
-	gSPSegment(POLY_OPA_DISP++, 0x0A, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, 1 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha3));
-	gSPSegment(POLY_OPA_DISP++, 0x0B, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, 3 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha4));
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mizu_bwall.c", 1129), 2);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, 1 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha1));
+	gSPSegment(POLY_OPA_DISP++, 0x09, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, 1 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha2));
+	gSPSegment(POLY_OPA_DISP++, 0x0A, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, 1 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha3));
+	gSPSegment(POLY_OPA_DISP++, 0x0B, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, 3 * frames, 0, 0x20, 0x20, 1, 0, 0, 0x20, 0x20, 0, 0, 0, pthis->scrollAlpha4));
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mizu_bwall.c", 1129), 2);
 
 	if(pthis->dList != NULL)
 	{
 		gSPDisplayList(POLY_OPA_DISP++, pthis->dList);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_bwall.c", 1136);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mizu_bwall.c", 1136);
 }
 
 void BgMizuBwall_Reset(Actor* pthisx, GlobalContext* globalCtx)

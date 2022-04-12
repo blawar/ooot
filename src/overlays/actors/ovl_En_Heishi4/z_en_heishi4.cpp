@@ -10,7 +10,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_sd/object_sd.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnHeishi4_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnHeishi4_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -467,7 +467,7 @@ void EnHeishi4_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnHeishi4* pthis = (EnHeishi4*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnHeishi_OverrideLimbDraw, NULL, pthis);
 }
 

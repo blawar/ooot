@@ -371,7 +371,7 @@ void func_8089E318(BgMizuMovebg* pthis, GlobalContext* globalCtx)
 				pthis->dyna.actor.child->world.pos.x = pthis->dyna.actor.world.pos.x + sp28.x;
 				pthis->dyna.actor.child->world.pos.y = pthis->dyna.actor.world.pos.y + sp28.y;
 				pthis->dyna.actor.child->world.pos.z = pthis->dyna.actor.world.pos.z + sp28.z;
-				pthis->dyna.actor.child->flags &= ~ACTOR_FLAG_0;
+				pthis->dyna.actor.child->flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			break;
 	}
@@ -434,27 +434,27 @@ void BgMizuMovebg_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	{
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_movebg.c", 754);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mizu_movebg.c", 754);
 
 	frames = globalCtx->gameplayFrames;
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, frames * 1, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha1));
+	gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, frames * 1, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha1));
 
-	gSPSegment(POLY_OPA_DISP++, 0x09, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, frames * 1, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha2));
+	gSPSegment(POLY_OPA_DISP++, 0x09, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, frames * 1, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha2));
 
-	gSPSegment(POLY_OPA_DISP++, 0x0A, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, frames * 1, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha3));
+	gSPSegment(POLY_OPA_DISP++, 0x0A, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, frames * 1, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha3));
 
-	gSPSegment(POLY_OPA_DISP++, 0x0B, Gfx_TwoTexScrollEnvColor(globalCtx->state.gfxCtx, 0, frames * 3, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha4));
+	gSPSegment(POLY_OPA_DISP++, 0x0B, Gfx_TwoTexScrollEnvColor(globalCtx->gfxCtx, 0, frames * 3, 0, 32, 32, 1, 0, 0, 32, 32, 0, 0, 0, pthis->scrollAlpha4));
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mizu_movebg.c", 788), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mizu_movebg.c", 788), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(pthis->dlist != NULL)
 	{
 		gSPDisplayList(POLY_OPA_DISP++, pthis->dlist);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mizu_movebg.c", 795);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mizu_movebg.c", 795);
 }
 
 void BgMizuMovebg_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -185,7 +185,7 @@ void func_800A60D8(Actor* actor, GlobalContext* globalCtx, PSkinAwb* skin, SkinC
 	s32 i;
 	s32 dataType;
 	SkinLimb** skeleton;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 
 	OPEN_DISPS(gfxCtx, "../z_skin.c", 471);

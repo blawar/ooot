@@ -347,16 +347,16 @@ void BgDodoago_Update(Actor* pthisx, GlobalContext* globalCtx)
 
 void BgDodoago_Draw(Actor* pthisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_dodoago.c", 672);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_dodoago.c", 672);
 
 	if(Flags_GetEventChkInf(0xB0))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_dodoago.c", 677), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D18(globalCtx->gfxCtx);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_dodoago.c", 677), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, gDodongoLowerJawDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_dodoago.c", 681);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_dodoago.c", 681);
 }
 
 void BgDodoago_Reset(Actor* pthisx, GlobalContext* globalCtx)

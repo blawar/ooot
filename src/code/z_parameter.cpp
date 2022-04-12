@@ -2970,7 +2970,7 @@ void Magic_Fill(GlobalContext* globalCtx)
 	if(gSaveContext.magicAcquired)
 	{
 		gSaveContext.unk_13F2 = gSaveContext.unk_13F0;
-		gSaveContext.unk_13F6 = (gSaveContext.doubleMagic * 0x30) + 0x30;
+		gSaveContext.magicMax = (gSaveContext.doubleMagic * 0x30) + 0x30;
 		gSaveContext.unk_13F0 = 9;
 	}
 }
@@ -3154,10 +3154,10 @@ void Interface_UpdateMagicBar(GlobalContext* globalCtx)
 			}
 
 			// "Storage  MAGIC_NOW=%d (%d)"
-			osSyncPrintf("Storage  MAGIC_NOW=%d (%d)\n", gSaveContext.magic, gSaveContext.unk_13F6);
-			if(gSaveContext.magic >= gSaveContext.unk_13F6)
+			osSyncPrintf("Storage  MAGIC_NOW=%d (%d)\n", gSaveContext.magic, gSaveContext.magicMax);
+			if(gSaveContext.magic >= gSaveContext.magicMax)
 			{
-				gSaveContext.magic = gSaveContext.unk_13F6;
+				gSaveContext.magic = gSaveContext.magicMax;
 				gSaveContext.unk_13F0 = gSaveContext.unk_13F2;
 				gSaveContext.unk_13F2 = 0;
 			}
@@ -3327,7 +3327,7 @@ void Interface_DrawMagicBar(GlobalContext* globalCtx)
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 	s16 magicBarY;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 2650);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 2650);
 
 	if(gSaveContext.magicLevel != 0)
 	{
@@ -3340,7 +3340,7 @@ void Interface_DrawMagicBar(GlobalContext* globalCtx)
 			magicBarY = R_MAGIC_BAR_SMALL_Y;
 		}
 
-		func_80094520(globalCtx->state.gfxCtx);
+		func_80094520(globalCtx->gfxCtx);
 
 		gDPSetPrimColor(OVERLAY_DISP++, 0, 0, sMagicBorderR, sMagicBorderG, sMagicBorderB, interfaceCtx->magicAlpha);
 		gDPSetEnvColor(OVERLAY_DISP++, 100, 50, 50, 255);
@@ -3384,7 +3384,7 @@ void Interface_DrawMagicBar(GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 2731);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 2731);
 }
 
 void func_80088AA0(s16 arg0)
@@ -3459,7 +3459,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 	s16 width;
 	s16 height;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 2900);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 2900);
 
 	// B Button Color & Texture
 	// Also loads the Item Button Texture reused by other buttons afterwards
@@ -3580,12 +3580,12 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3071);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3071);
 }
 
 void Interface_DrawItemIconTexture(GlobalContext* globalCtx, void* texture, s16 button)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3079);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3079);
 
 	gDPLoadTextureBlock(OVERLAY_DISP++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
@@ -3593,7 +3593,7 @@ void Interface_DrawItemIconTexture(GlobalContext* globalCtx, void* texture, s16 
 	    OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_ITEM_ICON_X(button)) << 2, R_ITEM_ICON_Y(button) << 2, (GFX_ALIGN_RIGHT(R_ITEM_ICON_X(button)) + R_ITEM_ICON_WIDTH(button)) << 2, (R_ITEM_ICON_Y(button) + R_ITEM_ICON_WIDTH(button)) << 2, G_TX_RENDERTILE, 0, 0,
 	    R_ITEM_ICON_DD(button) << 1, R_ITEM_ICON_DD(button) << 1);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3094);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3094);
 }
 
 void Interface_DrawAmmoCount(GlobalContext* globalCtx, s16 button, s16 alpha)
@@ -3601,7 +3601,7 @@ void Interface_DrawAmmoCount(GlobalContext* globalCtx, s16 button, s16 alpha)
 	s16 i;
 	s16 ammo;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3105);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3105);
 
 	i = gSaveContext.equips.buttonItems[button];
 
@@ -3657,27 +3657,27 @@ void Interface_DrawAmmoCount(GlobalContext* globalCtx, s16 button, s16 alpha)
 		OVERLAY_DISP = Gfx_TextureIA8(OVERLAY_DISP, ((u8*)gAmmoDigit0Tex + ((8 * 8) * ammo)), 8, 8, GFX_ALIGN_RIGHT(R_ITEM_AMMO_X(button)) + 6, R_ITEM_AMMO_Y(button), 8, 8, 1 << 10, 1 << 10);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3158);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3158);
 }
 
 void Interface_DrawActionButton(GlobalContext* globalCtx)
 {
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3172);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3172);
 
 	Matrix_Translate(0.0f, 0.0f, XREG(18) / 10.0f, MTXMODE_NEW);
 	Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
 	Matrix_RotateX(interfaceCtx->unk_1F4 / 10000.0f, MTXMODE_APPLY);
 
-	gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_parameter.c", 3177), G_MTX_MODELVIEW | G_MTX_LOAD);
+	gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_parameter.c", 3177), G_MTX_MODELVIEW | G_MTX_LOAD);
 	gSPVertex(OVERLAY_DISP++, &interfaceCtx->actionVtx[0], 4, 0);
 
 	gDPLoadTextureBlock(OVERLAY_DISP++, gButtonBackgroundTex, G_IM_FMT_IA, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
 	gSP1Quadrangle(OVERLAY_DISP++, 0, 2, 3, 1, 0);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3187);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3187);
 }
 
 void Interface_InitVertices(GlobalContext* globalCtx)
@@ -3685,7 +3685,7 @@ void Interface_InitVertices(GlobalContext* globalCtx)
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 	s16 i;
 
-	interfaceCtx->actionVtx = (Vtx*)Graph_Alloc(globalCtx->state.gfxCtx, 8 * sizeof(Vtx));
+	interfaceCtx->actionVtx = (Vtx*)Graph_Alloc(globalCtx->gfxCtx, 8 * sizeof(Vtx));
 
 	// clang-format off
     interfaceCtx->actionVtx[0].v.ob[0] =
@@ -3734,7 +3734,7 @@ void Interface_InitVertices(GlobalContext* globalCtx)
     interfaceCtx->actionVtx[5].v.tc[0] = interfaceCtx->actionVtx[7].v.tc[0] = 1536;
     interfaceCtx->actionVtx[6].v.tc[1] = interfaceCtx->actionVtx[7].v.tc[1] = 512;
 
-    interfaceCtx->beatingHeartVtx = (Vtx*)Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Vtx));
+    interfaceCtx->beatingHeartVtx = (Vtx*)Graph_Alloc(globalCtx->gfxCtx, 4 * sizeof(Vtx));
 
     interfaceCtx->beatingHeartVtx[0].v.ob[0] = interfaceCtx->beatingHeartVtx[2].v.ob[0] = -8;
     interfaceCtx->beatingHeartVtx[1].v.ob[0] = interfaceCtx->beatingHeartVtx[3].v.ob[0] = 8;
@@ -3826,7 +3826,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 	s16 svar5;
 	s16 svar6;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 3405);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 3405);
 
 	gSPSegment(OVERLAY_DISP++, 0x02, interfaceCtx->parameterSegment);
 	gSPSegment(OVERLAY_DISP++, 0x07, interfaceCtx->doActionSegment1);
@@ -3839,7 +3839,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 		func_8008A994(interfaceCtx);
 		HealthMeter_Draw(globalCtx);
 
-		func_80094520(globalCtx->state.gfxCtx);
+		func_80094520(globalCtx->gfxCtx);
 
 		// Rupee Icon
 		gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 200, 255, 100, interfaceCtx->magicAlpha);
@@ -3953,7 +3953,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 			func_8002C124(&globalCtx->actorCtx.targetCtx, globalCtx); // Draw Z-Target
 		}
 
-		func_80094520(globalCtx->state.gfxCtx);
+		func_80094520(globalCtx->gfxCtx);
 
 		Interface_DrawItemButtons(globalCtx);
 
@@ -4032,7 +4032,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 		}
 
 		// A Button
-		func_80094A14(globalCtx->state.gfxCtx);
+		func_80094A14(globalCtx->gfxCtx);
 		func_8008A8B8(globalCtx, R_A_BTN_Y, R_A_BTN_Y + 45, GFX_ALIGN_RIGHT(R_A_BTN_X), GFX_ALIGN_RIGHT(R_A_BTN_X) + 45);
 		gSPClearGeometryMode(OVERLAY_DISP++, G_CULL_BOTH);
 		gDPSetCombineMode(OVERLAY_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
@@ -4047,16 +4047,16 @@ void Interface_Draw(GlobalContext* globalCtx)
 		Matrix_Translate(0.0f, 0.0f, WREG(46 + gSaveContext.language) / 10.0f, MTXMODE_NEW);
 		Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
 		Matrix_RotateX(interfaceCtx->unk_1F4 / 10000.0f * FRAMERATE_SCALER, MTXMODE_APPLY);
-		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_parameter.c", 3701), G_MTX_MODELVIEW | G_MTX_LOAD);
+		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_parameter.c", 3701), G_MTX_MODELVIEW | G_MTX_LOAD);
 		gSPVertex(OVERLAY_DISP++, &interfaceCtx->actionVtx[4], 4, 0);
 
 		if((interfaceCtx->unk_1EC < 2) || (interfaceCtx->unk_1EC == 3))
 		{
-			Interface_DrawActionLabel(globalCtx->state.gfxCtx, interfaceCtx->doActionSegment1);
+			Interface_DrawActionLabel(globalCtx->gfxCtx, interfaceCtx->doActionSegment1);
 		}
 		else
 		{
-			Interface_DrawActionLabel(globalCtx->state.gfxCtx, interfaceCtx->doActionSegment2);
+			Interface_DrawActionLabel(globalCtx->gfxCtx, interfaceCtx->doActionSegment2);
 		}
 
 		gDPPipeSync(OVERLAY_DISP++);
@@ -4068,7 +4068,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 		{
 			// Inventory Equip Effects
 			gSPSegment(OVERLAY_DISP++, 0x08, pauseCtx->iconItemSegment);
-			func_80094A14(globalCtx->state.gfxCtx);
+			func_80094A14(globalCtx->gfxCtx);
 			gDPSetCombineMode(OVERLAY_DISP++, G_CC_MODULATERGBA_PRIM, G_CC_MODULATERGBA_PRIM);
 			gSPMatrix(OVERLAY_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 
@@ -4108,7 +4108,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 			gSP1Quadrangle(OVERLAY_DISP++, 0, 2, 3, 1, 0);
 		}
 
-		func_80094520(globalCtx->state.gfxCtx);
+		func_80094520(globalCtx->gfxCtx);
 
 		if((globalCtx->pauseCtx.state == 0) && (globalCtx->pauseCtx.debugState == 0))
 		{
@@ -4710,7 +4710,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 		gDPFillRectangle(OVERLAY_DISP++, 0, 0, gScreenWidth - 1, gScreenHeight - 1);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_parameter.c", 4269);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_parameter.c", 4269);
 }
 
 void Interface_Update(GlobalContext* globalCtx)
@@ -5002,7 +5002,7 @@ void Interface_Update(GlobalContext* globalCtx)
 			osSyncPrintf("Magic Start!!!!!!!!!\n"); // "Magic Start!!!!!!!!!"
 			osSyncPrintf("MAGIC_MAX=%d\n", gSaveContext.magicLevel);
 			osSyncPrintf("MAGIC_NOW=%d\n", gSaveContext.magic);
-			osSyncPrintf("Z_MAGIC_NOW_NOW=%d\n", gSaveContext.unk_13F6);
+			osSyncPrintf("Z_MAGIC_NOW_NOW=%d\n", gSaveContext.magicMax);
 			osSyncPrintf("Z_MAGIC_NOW_MAX=%d\n", gSaveContext.unk_13F4);
 			osSyncPrintf(VT_RST);
 		}

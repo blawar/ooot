@@ -148,10 +148,10 @@ void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 	u8 green;
 	u8 blue;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 315);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_po_syokudai.c", 315);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 319), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_po_syokudai.c", 319), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gGoldenTorchDL);
 
 	if(Flags_GetSwitch(globalCtx, pthis->actor.params))
@@ -167,8 +167,8 @@ void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 		Lights_PointSetColorAndRadius(&pthis->lightInfo, red, green, blue, 200);
 
-		func_80093D84(globalCtx->state.gfxCtx);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->flameTextureScroll * -20) & 0x1FF, 32, 128));
+		func_80093D84(globalCtx->gfxCtx);
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->flameTextureScroll * -20) & 0x1FF, 32, 128));
 
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, primColor->r, primColor->g, primColor->b, 255);
 		gDPSetEnvColor(POLY_XLU_DISP++, envColor->r, envColor->g, envColor->b, 255);
@@ -177,10 +177,10 @@ void BgPoSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_RotateY((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) - pthis->actor.shape.rot.y + 0x8000) * (M_PI / 0x8000), MTXMODE_APPLY);
 		Matrix_Scale(0.0027f, 0.0027f, 0.0027f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 368), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_po_syokudai.c", 368), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_po_syokudai.c", 373);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_po_syokudai.c", 373);
 }
 
 void BgPoSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx)

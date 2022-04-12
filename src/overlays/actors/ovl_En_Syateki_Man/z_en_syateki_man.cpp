@@ -14,7 +14,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ossan/object_ossan.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_27)
 
 void EnSyatekiMan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSyatekiMan_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -462,7 +462,7 @@ void EnSyatekiMan_FinishPrize(EnSyatekiMan* pthis, GlobalContext* globalCtx)
 		}
 		pthis->gameResult = SYATEKI_RESULT_NONE;
 		pthis->actor.parent = pthis->tempGallery;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actionFunc = EnSyatekiMan_SetupIdle;
 	}
 }
@@ -570,7 +570,7 @@ void EnSyatekiMan_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnSyatekiMan* pthis = (EnSyatekiMan*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnSyatekiMan_OverrideLimbDraw, NULL, pthis);
 }
 

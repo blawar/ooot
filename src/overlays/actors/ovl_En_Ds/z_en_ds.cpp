@@ -18,7 +18,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ds/object_ds.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnDs_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDs_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -49,7 +49,7 @@ void EnDs_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->actionFunc = EnDs_Wait;
 	pthis->actor.targetMode = 1;
 	pthis->unk_1E8 = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->unk_1E4 = 0.0f;
 }
 
@@ -347,7 +347,7 @@ void EnDs_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDs* pthis = (EnDs*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnDs_OverrideLimbDraw, EnDs_PostLimbDraw, pthis);
 }
 

@@ -279,7 +279,7 @@ void HealthMeter_Draw(GlobalContext* globalCtx)
 	f32 heartCenterY;
 	f32 heartTexCoordPerPixel;
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	Vtx* beatingHeartVtx = interfaceCtx->beatingHeartVtx;
 	s32 curHeartFraction = gSaveContext.health % 0x10;
 	s16 totalHeartCount = gSaveContext.healthCapacity / 0x10;

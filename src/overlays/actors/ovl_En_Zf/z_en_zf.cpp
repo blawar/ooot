@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_zf/object_zf.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnZf_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -727,7 +727,7 @@ void EnZf_SetupDropIn(EnZf* pthis)
 	pthis->hopAnimIndex = 1;
 	pthis->action = ENZF_ACTION_DROP_IN;
 	pthis->actor.bgCheckFlags &= ~BG_STATE_1;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 	EnZf_SetupAction(pthis, EnZf_DropIn);
 }
@@ -737,7 +737,7 @@ void EnZf_DropIn(EnZf* pthis, GlobalContext* globalCtx)
 	if(pthis->unk_3F0 == 1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_CRY);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 		if(pthis->actor.params == ENZF_TYPE_LIZALFOS_MINIBOSS_A)
 		{
@@ -754,7 +754,7 @@ void EnZf_DropIn(EnZf* pthis, GlobalContext* globalCtx)
 		else if(pthis->actor.xzDistToPlayer <= 160.0f)
 		{
 			pthis->unk_3F0 = 0;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_CRY);
 		}
 
@@ -1561,7 +1561,7 @@ void EnZf_JumpBack(EnZf* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((globalCtx->state.frames & 0x5F) == 0)
+	if((globalCtx->frames & 0x5F) == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_CRY);
 	}
@@ -2340,7 +2340,7 @@ void EnZf_SetupDie(EnZf* pthis)
 	}
 
 	pthis->action = ENZF_ACTION_DIE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	if(D_80B4A1B4 != -1)
 	{
@@ -2736,7 +2736,7 @@ void EnZf_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnZf* pthis = (EnZf*)thisx;
 	; // Extra ";" required for matching. Cannot be if (1) {} or the like. Typo?
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zf.c", 3533);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_zf.c", 3533);
 
 	func_8002EBCC(thisx, globalCtx, 1);
 
@@ -2746,7 +2746,7 @@ void EnZf_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->alpha == 255)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, pthis->alpha);
 		gSPSegment(POLY_OPA_DISP++, 0x09, &D_80116280[2]);
 
@@ -2770,13 +2770,13 @@ void EnZf_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{ // fades out when dead
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPPipeSync(POLY_XLU_DISP++);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->alpha);
 		gSPSegment(POLY_XLU_DISP++, 0x09, &D_80116280[0]);
 		POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnZf_OverrideLimbDraw, EnZf_PostLimbDraw, pthis, POLY_XLU_DISP);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_zf.c", 3601);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_zf.c", 3601);
 }
 
 void EnZf_SetupCircleAroundPlayer(EnZf* pthis, f32 speed)

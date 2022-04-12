@@ -141,7 +141,7 @@ s32 BgMoriHashigo_SpawnLadder(BgMoriHashigo* pthis, GlobalContext* globalCtx)
 s32 BgMoriHashigo_InitClasp(BgMoriHashigo* pthis, GlobalContext* globalCtx)
 {
 	Actor_ProcessInitChain(&pthis->dyna.actor, sInitChainClasp);
-	pthis->dyna.actor.flags |= ACTOR_FLAG_0;
+	pthis->dyna.actor.flags |= ACTOR_FLAG_VISIBLE;
 	Actor_SetFocus(&pthis->dyna.actor, 55.0f);
 	BgMoriHashigo_InitCollider(pthis, globalCtx);
 	if((pthis->dyna.actor.params == HASHIGO_CLASP) && !BgMoriHashigo_SpawnLadder(pthis, globalCtx))
@@ -330,14 +330,14 @@ void BgMoriHashigo_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	BgMoriHashigo* pthis = (BgMoriHashigo*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 516);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_mori_hashigo.c", 516);
+	func_80093D18(globalCtx->gfxCtx);
 	if(1)
 	{
 	}
 	gSPSegment(POLY_OPA_DISP++, 0x08, gObjectTable[pthis->moriTexObjIndex].vromStart.get());
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 521), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_mori_hashigo.c", 521), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	switch(pthis->dyna.actor.params)
 	{
@@ -348,7 +348,7 @@ void BgMoriHashigo_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gSPDisplayList(POLY_OPA_DISP++, gMoriHashigoLadderDL);
 			break;
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_mori_hashigo.c", 531);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_mori_hashigo.c", 531);
 }
 
 void BgMoriHashigo_Reset(Actor* pthisx, GlobalContext* globalCtx)

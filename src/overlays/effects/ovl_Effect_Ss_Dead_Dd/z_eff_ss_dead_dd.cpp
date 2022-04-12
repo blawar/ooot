@@ -108,7 +108,7 @@ u32 EffectSsDeadDd_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 
 void EffectSsDeadDd_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfTrans;
 	MtxF mfScale;
 	MtxF mfResult;

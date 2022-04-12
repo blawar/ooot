@@ -26,7 +26,7 @@
 #include "objects/object_po_composer/object_po_composer.h"
 #include "objects/object_poh/object_poh.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
 
 void EnPoh_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -364,7 +364,7 @@ void func_80ADE368(EnPoh* pthis)
 void EnPoh_SetupInitialAction(EnPoh* pthis)
 {
 	pthis->lightColor.a = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(pthis->infoIdx == EN_POH_INFO_NORMAL)
 	{
 		Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gPoeAppearAnim, 0.0f);
@@ -386,7 +386,7 @@ void func_80ADE48C(EnPoh* pthis)
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	pthis->spinningLampTimer = 0;
 	pthis->actor.naviEnemyId = 0xFF;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80ADF15C;
 }
 
@@ -507,7 +507,7 @@ void EnPoh_Talk(EnPoh* pthis, GlobalContext* globalCtx)
 	}
 	pthis->spinningLampTimer = 200;
 	pthis->bouncingTimer = 32;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = func_80ADFE80;
 }
 
@@ -699,7 +699,7 @@ void func_80ADEF38(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->lightColor.a = 255;
 		pthis->visibilityTimer = Rand_S16Offset(700, 300);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		EnPoh_SetupIdle(pthis);
 	}
 	else if(pthis->skelAnime.curFrame > 10.0f)
@@ -719,7 +719,7 @@ void EnPoh_ComposerAppear(EnPoh* pthis, GlobalContext* globalCtx)
 	{
 		pthis->lightColor.a = 255;
 		pthis->visibilityTimer = Rand_S16Offset(700, 300);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		EnPoh_SetupIdle(pthis);
 	}
 	else
@@ -1286,7 +1286,7 @@ void EnPoh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	Collider_UpdateSpheres(limbIndex, &pthis->colliderSph);
 	if(pthis->actionFunc == func_80ADF15C && pthis->spinningLampTimer >= 2 && limbIndex == pthis->info->unk_7)
 	{
-		gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2460), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_poh.c", 2460), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList((*gfxP)++, pthis->info->burnDisplayList);
 	}
 	if(limbIndex == pthis->info->unk_6)
@@ -1313,10 +1313,10 @@ void EnPoh_DrawRegular(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnPoh* pthis = (EnPoh*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2629);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_poh.c", 2629);
 	func_80AE067C(pthis);
-	func_80093D18(globalCtx->state.gfxCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	if(pthis->lightColor.a == 255 || pthis->lightColor.a == 0)
 	{
 		gDPSetEnvColor(POLY_OPA_DISP++, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a);
@@ -1332,9 +1332,9 @@ void EnPoh_DrawRegular(Actor* thisx, GlobalContext* globalCtx)
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetEnvColor(POLY_OPA_DISP++, pthis->envColor.r, pthis->envColor.g, pthis->envColor.b, 255);
 	Matrix_Put(&pthis->unk_368);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2676), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_poh.c", 2676), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, pthis->info->lanternDisplayList);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2681);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_poh.c", 2681);
 }
 
 void EnPoh_DrawComposer(Actor* thisx, GlobalContext* globalCtx)
@@ -1343,7 +1343,7 @@ void EnPoh_DrawComposer(Actor* thisx, GlobalContext* globalCtx)
 	Color_RGBA8* sp90;
 	Color_RGBA8* phi_t0;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2694);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_poh.c", 2694);
 	func_80AE067C(pthis);
 	if(pthis->actor.params == EN_POH_SHARP)
 	{
@@ -1357,33 +1357,33 @@ void EnPoh_DrawComposer(Actor* thisx, GlobalContext* globalCtx)
 	}
 	if(pthis->lightColor.a == 255 || pthis->lightColor.a == 0)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_EnvColor(globalCtx->state.gfxCtx, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, Gfx_EnvColor(globalCtx->state.gfxCtx, sp90->r, sp90->g, sp90->b, pthis->lightColor.a));
-		gSPSegment(POLY_OPA_DISP++, 0x0B, Gfx_EnvColor(globalCtx->state.gfxCtx, phi_t0->r, phi_t0->g, phi_t0->b, pthis->lightColor.a));
+		func_80093D18(globalCtx->gfxCtx);
+		gSPSegment(POLY_OPA_DISP++, 0x08, Gfx_EnvColor(globalCtx->gfxCtx, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, Gfx_EnvColor(globalCtx->gfxCtx, sp90->r, sp90->g, sp90->b, pthis->lightColor.a));
+		gSPSegment(POLY_OPA_DISP++, 0x0B, Gfx_EnvColor(globalCtx->gfxCtx, phi_t0->r, phi_t0->g, phi_t0->b, pthis->lightColor.a));
 		gSPSegment(POLY_OPA_DISP++, 0x0C, D_80116280 + 2);
 		POLY_OPA_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnPoh_OverrideLimbDraw, EnPoh_PostLimbDraw, &pthis->actor, POLY_OPA_DISP);
 	}
 	else
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
-		func_80093D84(globalCtx->state.gfxCtx);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_EnvColor(globalCtx->state.gfxCtx, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a));
-		gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_EnvColor(globalCtx->state.gfxCtx, sp90->r, sp90->g, sp90->b, pthis->lightColor.a));
-		gSPSegment(POLY_XLU_DISP++, 0x0B, Gfx_EnvColor(globalCtx->state.gfxCtx, phi_t0->r, phi_t0->g, phi_t0->b, pthis->lightColor.a));
+		func_80093D18(globalCtx->gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_EnvColor(globalCtx->gfxCtx, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a));
+		gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_EnvColor(globalCtx->gfxCtx, sp90->r, sp90->g, sp90->b, pthis->lightColor.a));
+		gSPSegment(POLY_XLU_DISP++, 0x0B, Gfx_EnvColor(globalCtx->gfxCtx, phi_t0->r, phi_t0->g, phi_t0->b, pthis->lightColor.a));
 		gSPSegment(POLY_XLU_DISP++, 0x0C, D_80116280);
 		POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnPoh_OverrideLimbDraw, EnPoh_PostLimbDraw, &pthis->actor, POLY_XLU_DISP);
 	}
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetEnvColor(POLY_OPA_DISP++, pthis->envColor.r, pthis->envColor.g, pthis->envColor.b, 255);
 	Matrix_Put(&pthis->unk_368);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2787), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_poh.c", 2787), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, pthis->info->lanternDisplayList);
 	gSPDisplayList(POLY_OPA_DISP++, gPoeComposerLanternBottomDL);
 	gDPPipeSync(POLY_OPA_DISP++);
 	gDPSetEnvColor(POLY_OPA_DISP++, sp90->r, sp90->g, sp90->b, 255);
 	gSPDisplayList(POLY_OPA_DISP++, gPoeComposerLanternTopDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2802);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_poh.c", 2802);
 }
 
 void EnPoh_UpdateDead(Actor* thisx, GlobalContext* globalCtx)
@@ -1402,14 +1402,14 @@ void EnPoh_DrawSoul(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnPoh* pthis = (EnPoh*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2833);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_poh.c", 2833);
 
 	if(pthis->actionFunc == EnPoh_Death)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, pthis->envColor.r, pthis->envColor.g, pthis->envColor.b, 255);
 		Lights_PointGlowSetInfo(&pthis->lightInfo, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, pthis->envColor.r, pthis->envColor.g, pthis->envColor.b, 200);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2854), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_poh.c", 2854), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, pthis->info->lanternDisplayList);
 		if(pthis->infoIdx == EN_POH_INFO_COMPOSER)
 		{
@@ -1424,15 +1424,15 @@ void EnPoh_DrawSoul(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (s32)(pthis->visibilityTimer * pthis->info->unk_8) % 512U, 0x20, 0x80));
+		func_80093D84(globalCtx->gfxCtx);
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (s32)(pthis->visibilityTimer * pthis->info->unk_8) % 512U, 0x20, 0x80));
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, pthis->info->primColor.r, pthis->info->primColor.g, pthis->info->primColor.b, pthis->lightColor.a);
 		gDPSetEnvColor(POLY_XLU_DISP++, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, 255);
 		Matrix_RotateY((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) + 0x8000) * 9.58738e-05f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_poh.c", 2910), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_poh.c", 2910), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, pthis->info->soulDisplayList);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_poh.c", 2916);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_poh.c", 2916);
 }
 
 void EnPoh_Reset(Actor* pthisx, GlobalContext* globalCtx)

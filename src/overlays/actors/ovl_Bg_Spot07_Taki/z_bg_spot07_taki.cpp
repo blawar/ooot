@@ -78,12 +78,12 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BgSpot07Taki* pthis = (BgSpot07Taki*)thisx;
 	u32 frames;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 169);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot07_taki.c", 169);
 	frames = globalCtx->gameplayFrames;
 	if(LINK_IS_ADULT)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 177), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D18(globalCtx->gfxCtx);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot07_taki.c", 177), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		if(pthis->dyna.actor.params == 0)
 		{
 			gSPDisplayList(POLY_OPA_DISP++, object_spot07_object_DL_001CF0);
@@ -93,25 +93,25 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gSPDisplayList(POLY_OPA_DISP++, object_spot07_object_DL_003210);
 		}
 	}
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 191), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot07_taki.c", 191), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, ((frames * -1) & 0x7F), ((frames * 1) & 0x7F), 32, 32, 1, ((frames * 1) & 0x7F), ((frames * 1) & 0x7F), 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, ((frames * -1) & 0x7F), ((frames * 1) & 0x7F), 32, 32, 1, ((frames * 1) & 0x7F), ((frames * 1) & 0x7F), 32, 32));
 
 	if(!LINK_IS_ADULT)
 	{
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
 		if(pthis->dyna.actor.params == 0)
 		{
-			gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, ((frames * -1) & 0x7F), ((frames * -3) & 0xFF), 64, 64, 1, ((frames * 1) & 0x7F), ((frames * -3) & 0xFF), 64, 64));
-			gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 0, ((frames * 3) & 0x1FF), 32, 128, 1, frames * 0, ((frames * 3) & 0x1FF), 32, 128));
+			gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, ((frames * -1) & 0x7F), ((frames * -3) & 0xFF), 64, 64, 1, ((frames * 1) & 0x7F), ((frames * -3) & 0xFF), 64, 64));
+			gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, frames * 0, ((frames * 3) & 0x1FF), 32, 128, 1, frames * 0, ((frames * 3) & 0x1FF), 32, 128));
 			gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_000460);
 		}
 		else
 		{
-			gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 0, ((frames * -1) & 0x7F), 32, 32, 1, frames * 0, ((frames * -1) & 0x7F), 32, 32));
-			gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, frames * 0, ((frames * 3) & 0x1FF), 32, 128, 1, frames * 0, ((frames * 3) & 0x1FF), 32, 128));
+			gSPSegment(POLY_XLU_DISP++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, frames * 0, ((frames * -1) & 0x7F), 32, 32, 1, frames * 0, ((frames * -1) & 0x7F), 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, frames * 0, ((frames * 3) & 0x1FF), 32, 128, 1, frames * 0, ((frames * 3) & 0x1FF), 32, 128));
 			gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_000BE0);
 		}
 	}
@@ -123,7 +123,7 @@ void BgSpot07Taki_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		gSPDisplayList(POLY_XLU_DISP++, object_spot07_object_DL_0032D8);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot07_taki.c", 272);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot07_taki.c", 272);
 }
 
 void BgSpot07Taki_Reset(Actor* pthisx, GlobalContext* globalCtx)

@@ -375,7 +375,7 @@ void func_80A7C86C(EnInsect* pthis, GlobalContext* globalCtx)
 	s32 pad1;
 	s32 pad2;
 	s16 pad3;
-	const auto& frames = globalCtx->state.frames;
+	const auto& frames = globalCtx->frames;
 	s16 yaw;
 	s16 sp38 = pthis->actor.xzDistToPlayer < 40.0f;
 
@@ -968,7 +968,7 @@ void EnInsect_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnInsect* pthis = (EnInsect*)thisx;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, NULL);
 	Collider_UpdateSpheres(0, &pthis->collider);
 	D_80A7DEB4 = 0;

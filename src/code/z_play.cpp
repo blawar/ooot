@@ -5,6 +5,7 @@
 #include <string>
 #include "audiomgr.h"
 #include "framerate.h"
+#include "gamestate.h"
 #include "gfxapi.h"
 #include "n64fault.h"
 #include "padmgr.h"
@@ -15,10 +16,9 @@
 #include "z64item.h"
 #include "z64player.h"
 #include "z64save.h"
+#include "z64memory.h"
 #include "z64transition.h"
 #include "z_fbdemo_circle.h"
-#include "z_file_choose.h"
-#include "z_opening.h"
 #include "z_scene_table.h"
 #include "z_vismono.h"
 #include "def/PreRender.h"
@@ -49,6 +49,7 @@
 #include "def/z_effect_soft_sprite.h"
 #include "def/z_fbdemo.h"
 #include "def/z_fbdemo_fade.h"
+#include "def/z_file_choose.h"
 #include "def/z_frame_advance.h"
 #include "def/z_game_over.h"
 #include "def/z_kaleido_manager.h"
@@ -60,6 +61,7 @@
 #include "def/z_message_PAL.h"
 #include "def/z_msgevent.h"
 #include "def/z_onepointdemo.h"
+#include "def/z_opening.h"
 #include "def/z_parameter.h"
 #include "def/z_play.h"
 #include "def/z_player_lib.h"
@@ -76,7 +78,6 @@
 #include "def/z_vr_box_draw.h"
 #include "def/zbuffer.h"
 
-void Gameplay_Main(GameState* thisx);
 void Gameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn);
 
 void* D_8012D1F0 = NULL;
@@ -229,322 +230,330 @@ Gfx* Gameplay_SetFog(GlobalContext* globalCtx, Gfx* gfx)
 	return Gfx_SetFog2(gfx, globalCtx->lightCtx.fogColor[0], globalCtx->lightCtx.fogColor[1], globalCtx->lightCtx.fogColor[2], 0, globalCtx->lightCtx.fogNear, 1000);
 }
 
-void Gameplay_Destroy(GameState* thisx)
+namespace oot::gamestate
 {
-	GlobalContext* globalCtx = (GlobalContext*)thisx;
-	Player* player = GET_PLAYER(globalCtx);
-
-	globalCtx->state.gfxCtx->callback = NULL;
-	globalCtx->state.gfxCtx->callbackParam = 0;
-	SREG(91) = 0;
-	R_PAUSE_MENU_MODE = 0;
-
-	PreRender_Destroy(&globalCtx->pauseBgPreRender);
-	Effect_DeleteAll(globalCtx);
-	EffectSs_ClearAll(globalCtx);
-	CollisionCheck_DestroyContext(globalCtx, &globalCtx->colChkCtx);
-
-	if(gTrnsnUnkState == 3)
+	Global::~Global()
 	{
-		TransitionUnk_Destroy(&sTrnsnUnk);
-		gTrnsnUnkState = 0;
-	}
+		GlobalContext* globalCtx = this;
+		Player* player = GET_PLAYER(globalCtx);
 
-	if(globalCtx->transitionMode == 3)
-	{
-		globalCtx->transitionCtx.destroy(&globalCtx->transitionCtx.data);
-		func_800BC88C(globalCtx);
-		globalCtx->transitionMode = 0;
-	}
+		globalCtx->gfxCtx->callback = NULL;
+		globalCtx->gfxCtx->callbackParam = 0;
+		SREG(91) = 0;
+		R_PAUSE_MENU_MODE = 0;
 
-	ShrinkWindow_Destroy();
-	TransitionFade_Destroy(&globalCtx->transitionFade);
-	VisMono_Destroy(&D_80161498);
+		PreRender_Destroy(&globalCtx->pauseBgPreRender);
+		Effect_DeleteAll(globalCtx);
+		EffectSs_ClearAll(globalCtx);
+		CollisionCheck_DestroyContext(globalCtx, &globalCtx->colChkCtx);
 
-	if(gSaveContext.linkAge != globalCtx->linkAgeOnLoad)
-	{
-		Inventory_SwapAgeEquipment();
-		Player_SetEquipmentData(globalCtx, player);
-	}
-
-	func_80031C3C(&globalCtx->actorCtx, globalCtx);
-	func_80110990(globalCtx);
-	KaleidoScopeCall_Destroy(globalCtx);
-	KaleidoManager_Destroy();
-	ZeldaArena_Cleanup();
-	Fault_RemoveClient(&D_801614B8);
-}
-
-void Gameplay_Init(GameState* thisx)
-{
-	GlobalContext* globalCtx = (GlobalContext*)thisx;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
-	Player* player;
-	s32 playerStartCamId;
-	s32 i;
-	u8 tempSetupIndex;
-	s32 pad[2];
-
-	if(gSaveContext.entranceIndex == -1)
-	{
-		gSaveContext.entranceIndex = 0;
-		globalCtx->state.running = false;
-		SET_NEXT_GAMESTATE(&globalCtx->state, Opening_Init, OpeningContext);
-		return;
-	}
-
-	SystemArena_Display();
-	GameState_Realloc(&globalCtx->state, 0x1D4790 * sizeof(uintptr_t) / 4); // TODO FIX HACK
-	KaleidoManager_Init(globalCtx);
-	View_Init(&globalCtx->view, gfxCtx);
-	Audio_SetExtraFilter(0);
-	Quake_Init();
-
-	for(i = 0; i < NUM_CAMS; i++)
-	{
-		globalCtx->cameraPtrs[i] = NULL;
-	}
-
-	Camera_Init(&globalCtx->mainCamera, &globalCtx->view, &globalCtx->colCtx, globalCtx);
-	Camera_ChangeStatus(&globalCtx->mainCamera, CAM_STAT_ACTIVE);
-
-	for(i = 0; i < 3; i++)
-	{
-		Camera_Init(&globalCtx->subCameras[i], &globalCtx->view, &globalCtx->colCtx, globalCtx);
-		Camera_ChangeStatus(&globalCtx->subCameras[i], CAM_STAT_UNK100);
-	}
-
-	globalCtx->cameraPtrs[MAIN_CAM] = &globalCtx->mainCamera;
-	globalCtx->cameraPtrs[MAIN_CAM]->uid = 0;
-	globalCtx->activeCamera = MAIN_CAM;
-	func_8005AC48(&globalCtx->mainCamera, 0xFF);
-	func_80112098(globalCtx);
-	Message_Init(globalCtx);
-	GameOver_Init(globalCtx);
-	func_8006BA00(globalCtx);
-	Effect_InitContext(globalCtx);
-	EffectSs_InitInfo(globalCtx, 0x55);
-	CollisionCheck_InitContext(globalCtx, &globalCtx->colChkCtx);
-	AnimationContext_Reset(&globalCtx->animationCtx);
-	func_8006450C(globalCtx, &globalCtx->csCtx);
-
-	if(gSaveContext.nextCutsceneIndex != 0xFFEF)
-	{
-		gSaveContext.cutsceneIndex = gSaveContext.nextCutsceneIndex;
-		gSaveContext.nextCutsceneIndex = 0xFFEF;
-	}
-
-	if(gSaveContext.cutsceneIndex == 0xFFFD)
-	{
-		gSaveContext.cutsceneIndex = 0;
-	}
-
-	if(gSaveContext.nextDayTime != 0xFFFF)
-	{
-		gSaveContext.dayTime = gSaveContext.nextDayTime;
-		gSaveContext.skyboxTime = gSaveContext.nextDayTime;
-	}
-
-	if(gSaveContext.dayTime > 0xC000 || gSaveContext.dayTime < 0x4555)
-	{
-		gSaveContext.nightFlag = 1;
-	}
-	else
-	{
-		gSaveContext.nightFlag = 0;
-	}
-
-	Cutscene_HandleConditionalTriggers(globalCtx);
-
-	if(gSaveContext.gameMode != 0 || gSaveContext.cutsceneIndex >= 0xFFF0)
-	{
-		gSaveContext.nayrusLoveTimer = 0;
-		func_800876C8(globalCtx);
-		gSaveContext.sceneSetupIndex = (gSaveContext.cutsceneIndex & 0xF) + 4;
-	}
-	else if(!LINK_IS_ADULT && IS_DAY)
-	{
-		gSaveContext.sceneSetupIndex = 0;
-	}
-	else if(!LINK_IS_ADULT && !IS_DAY)
-	{
-		gSaveContext.sceneSetupIndex = 1;
-	}
-	else if(LINK_IS_ADULT && IS_DAY)
-	{
-		gSaveContext.sceneSetupIndex = 2;
-	}
-	else
-	{
-		gSaveContext.sceneSetupIndex = 3;
-	}
-
-	tempSetupIndex = gSaveContext.sceneSetupIndex;
-	if((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT00) && !LINK_IS_ADULT && gSaveContext.sceneSetupIndex < 4)
-	{
-		if(CHECK_QUEST_ITEM(QUEST_KOKIRI_EMERALD) && CHECK_QUEST_ITEM(QUEST_GORON_RUBY) && CHECK_QUEST_ITEM(QUEST_ZORA_SAPPHIRE))
+		if(gTrnsnUnkState == 3)
 		{
-			gSaveContext.sceneSetupIndex = 1;
+			TransitionUnk_Destroy(&sTrnsnUnk);
+			gTrnsnUnkState = 0;
+		}
+
+		if(globalCtx->transitionMode == 3)
+		{
+			globalCtx->transitionCtx.destroy(&globalCtx->transitionCtx.data);
+			func_800BC88C(globalCtx);
+			globalCtx->transitionMode = 0;
+		}
+
+		ShrinkWindow_Destroy();
+		TransitionFade_Destroy(&globalCtx->transitionFade);
+		VisMono_Destroy(&D_80161498);
+
+		if(gSaveContext.linkAge != globalCtx->linkAgeOnLoad)
+		{
+			Inventory_SwapAgeEquipment();
+			Player_SetEquipmentData(globalCtx, player);
+		}
+
+		func_80031C3C(&globalCtx->actorCtx, globalCtx);
+		func_80110990(globalCtx);
+		KaleidoScopeCall_Destroy(globalCtx);
+		KaleidoManager_Destroy();
+		ZeldaArena_Cleanup();
+		Fault_RemoveClient(&D_801614B8);
+	}
+} // namespace oot::gamestate
+
+namespace oot::gamestate
+{
+	Global::Global(GraphicsContext* gfxCtx) : Base(gfxCtx)
+	{
+		memset((GlobalData*)this, 0, sizeof(GlobalData));
+	}
+
+	void Global::init()
+	{
+		GlobalContext* globalCtx = this;
+		Player* player;
+		s32 playerStartCamId;
+		s32 i;
+		u8 tempSetupIndex;
+		s32 pad[2];
+
+		if(gSaveContext.entranceIndex == -1)
+		{
+			gSaveContext.entranceIndex = 0;
+			globalCtx->running = false;
+			Graph_SetNextGameState(new oot::gamestate::Opening(globalCtx->gfxCtx));
+			return;
+		}
+
+		SystemArena_Display();
+		GameState_Realloc(globalCtx, 0x1D4790 * sizeof(uintptr_t) / 4);
+		KaleidoManager_Init(globalCtx);
+		View_Init(&globalCtx->view, gfxCtx);
+		Audio_SetExtraFilter(0);
+		Quake_Init();
+
+		for(i = 0; i < NUM_CAMS; i++)
+		{
+			globalCtx->cameraPtrs[i] = NULL;
+		}
+
+		Camera_Init(&globalCtx->mainCamera, &globalCtx->view, &globalCtx->colCtx, globalCtx);
+		Camera_ChangeStatus(&globalCtx->mainCamera, CAM_STAT_ACTIVE);
+
+		for(i = 0; i < 3; i++)
+		{
+			Camera_Init(&globalCtx->subCameras[i], &globalCtx->view, &globalCtx->colCtx, globalCtx);
+			Camera_ChangeStatus(&globalCtx->subCameras[i], CAM_STAT_UNK100);
+		}
+
+		globalCtx->cameraPtrs[MAIN_CAM] = &globalCtx->mainCamera;
+		globalCtx->cameraPtrs[MAIN_CAM]->uid = 0;
+		globalCtx->activeCamera = MAIN_CAM;
+		func_8005AC48(&globalCtx->mainCamera, 0xFF);
+		func_80112098(globalCtx);
+		Message_Init(globalCtx);
+		GameOver_Init(globalCtx);
+		func_8006BA00(globalCtx);
+		Effect_InitContext(globalCtx);
+		EffectSs_InitInfo(globalCtx, 0x55);
+		CollisionCheck_InitContext(globalCtx, &globalCtx->colChkCtx);
+		AnimationContext_Reset(&globalCtx->animationCtx);
+		func_8006450C(globalCtx, &globalCtx->csCtx);
+
+		if(gSaveContext.nextCutsceneIndex != 0xFFEF)
+		{
+			gSaveContext.cutsceneIndex = gSaveContext.nextCutsceneIndex;
+			gSaveContext.nextCutsceneIndex = 0xFFEF;
+		}
+
+		if(gSaveContext.cutsceneIndex == 0xFFFD)
+		{
+			gSaveContext.cutsceneIndex = 0;
+		}
+
+		if(gSaveContext.nextDayTime != 0xFFFF)
+		{
+			gSaveContext.dayTime = gSaveContext.nextDayTime;
+			gSaveContext.skyboxTime = gSaveContext.nextDayTime;
+		}
+
+		if(gSaveContext.dayTime > 0xC000 || gSaveContext.dayTime < 0x4555)
+		{
+			gSaveContext.nightFlag = 1;
 		}
 		else
+		{
+			gSaveContext.nightFlag = 0;
+		}
+
+		Cutscene_HandleConditionalTriggers(globalCtx);
+
+		if(gSaveContext.gameMode != 0 || gSaveContext.cutsceneIndex >= 0xFFF0)
+		{
+			gSaveContext.nayrusLoveTimer = 0;
+			func_800876C8(globalCtx);
+			gSaveContext.sceneSetupIndex = (gSaveContext.cutsceneIndex & 0xF) + 4;
+		}
+		else if(!LINK_IS_ADULT && IS_DAY)
 		{
 			gSaveContext.sceneSetupIndex = 0;
 		}
-	}
-	else if((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT04) && LINK_IS_ADULT && gSaveContext.sceneSetupIndex < 4)
-	{
-		gSaveContext.sceneSetupIndex = (gSaveContext.eventChkInf[4] & 0x100) ? 3 : 2;
-	}
-
-	Gameplay_SpawnScene(globalCtx, gEntranceTable[((void)0, gSaveContext.entranceIndex) + ((void)0, gSaveContext.sceneSetupIndex)].scene, gEntranceTable[((void)0, gSaveContext.sceneSetupIndex) + ((void)0, gSaveContext.entranceIndex)].spawn);
-	osSyncPrintf("\nSCENE_NO=%d COUNTER=%d\n", ((void)0, gSaveContext.entranceIndex), gSaveContext.sceneSetupIndex);
-
-	// When entering Gerudo Valley in the right setup, trigger the GC emulator to play the ending movie.
-	// The emulator constantly checks whether PC is 0x81000000, so this works even though it's not a valid address.
-	if((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT09) && gSaveContext.sceneSetupIndex == 6)
-	{
-		osSyncPrintf("エンディングはじまるよー\n"); // "The ending starts"
-#ifdef N64_VERSION
-		((void (*)())0x81000000)();
-#endif
-		osSyncPrintf("出戻り？\n"); // "Return?"
-	}
-
-	Cutscene_HandleEntranceTriggers(globalCtx);
-	KaleidoScopeCall_Init(globalCtx);
-	func_801109B0(globalCtx);
-
-	if(gSaveContext.nextDayTime != 0xFFFF)
-	{
-		if(gSaveContext.nextDayTime == 0x8001)
+		else if(!LINK_IS_ADULT && !IS_DAY)
 		{
-			gSaveContext.totalDays++;
-			gSaveContext.bgsDayCount++;
-			gSaveContext.dogIsLost = true;
-			if(Inventory_ReplaceItem(globalCtx, ITEM_WEIRD_EGG, ITEM_CHICKEN) || Inventory_ReplaceItem(globalCtx, ITEM_POCKET_EGG, ITEM_POCKET_CUCCO))
+			gSaveContext.sceneSetupIndex = 1;
+		}
+		else if(LINK_IS_ADULT && IS_DAY)
+		{
+			gSaveContext.sceneSetupIndex = 2;
+		}
+		else
+		{
+			gSaveContext.sceneSetupIndex = 3;
+		}
+
+		tempSetupIndex = gSaveContext.sceneSetupIndex;
+		if((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT00) && !LINK_IS_ADULT && gSaveContext.sceneSetupIndex < 4)
+		{
+			if(CHECK_QUEST_ITEM(QUEST_KOKIRI_EMERALD) && CHECK_QUEST_ITEM(QUEST_GORON_RUBY) && CHECK_QUEST_ITEM(QUEST_ZORA_SAPPHIRE))
 			{
-				Message_StartTextbox(globalCtx, 0x3066, NULL);
+				gSaveContext.sceneSetupIndex = 1;
 			}
-			gSaveContext.nextDayTime = 0xFFFE;
+			else
+			{
+				gSaveContext.sceneSetupIndex = 0;
+			}
 		}
-		else
+		else if((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT04) && LINK_IS_ADULT && gSaveContext.sceneSetupIndex < 4)
 		{
-			gSaveContext.nextDayTime = 0xFFFD;
+			gSaveContext.sceneSetupIndex = (gSaveContext.eventChkInf[4] & 0x100) ? 3 : 2;
 		}
-	}
 
-	SREG(91) = -1;
-	R_PAUSE_MENU_MODE = 0;
-	PreRender_Init(&globalCtx->pauseBgPreRender);
-	PreRender_SetValuesSave(&globalCtx->pauseBgPreRender, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0);
-	PreRender_SetValues(&globalCtx->pauseBgPreRender, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
-	gTrnsnUnkState = 0;
-	globalCtx->transitionMode = 0;
-	FrameAdvance_Init(&globalCtx->frameAdvCtx);
+		Gameplay_SpawnScene(globalCtx, gEntranceTable[((void)0, gSaveContext.entranceIndex) + ((void)0, gSaveContext.sceneSetupIndex)].scene, gEntranceTable[((void)0, gSaveContext.sceneSetupIndex) + ((void)0, gSaveContext.entranceIndex)].spawn);
+		osSyncPrintf("\nSCENE_NO=%d COUNTER=%d\n", ((void)0, gSaveContext.entranceIndex), gSaveContext.sceneSetupIndex);
+
+		// When entering Gerudo Valley in the right setup, trigger the GC emulator to play the ending movie.
+		// The emulator constantly checks whether PC is 0x81000000, so this works even though it's not a valid address.
+		if((gEntranceTable[((void)0, gSaveContext.entranceIndex)].scene == SCENE_SPOT09) && gSaveContext.sceneSetupIndex == 6)
+		{
+			osSyncPrintf("エンディングはじまるよー\n"); // "The ending starts"
 #ifdef N64_VERSION
-	Rand_Seed((u32)osGetTime());
-#else
-	using namespace std::string_literals;
-	Rand_Seed((u32)std::hash<std::string>{}("Open Ocarina Team"s));
+			((void (*)())0x81000000)();
 #endif
-	Matrix_Init(&globalCtx->state);
-	globalCtx->state.main = Gameplay_Main;
-	globalCtx->state.destroy = Gameplay_Destroy;
-	globalCtx->sceneLoadFlag = -0x14;
-	globalCtx->unk_11E16 = 0xFF;
-	globalCtx->unk_11E18 = 0;
-	globalCtx->unk_11DE9 = 0;
+			osSyncPrintf("出戻り？\n"); // "Return?"
+		}
 
-	if(gSaveContext.gameMode != 1)
-	{
-		if(gSaveContext.nextTransition == 0xFF)
+		Cutscene_HandleEntranceTriggers(globalCtx);
+		KaleidoScopeCall_Init(globalCtx);
+		func_801109B0(globalCtx);
+
+		if(gSaveContext.nextDayTime != 0xFFFF)
 		{
-			globalCtx->fadeTransition = (gEntranceTable[((void)0, gSaveContext.entranceIndex) + tempSetupIndex].field >> 7) & 0x7F; // Fade In
+			if(gSaveContext.nextDayTime == 0x8001)
+			{
+				gSaveContext.totalDays++;
+				gSaveContext.bgsDayCount++;
+				gSaveContext.dogIsLost = true;
+				if(Inventory_ReplaceItem(globalCtx, ITEM_WEIRD_EGG, ITEM_CHICKEN) || Inventory_ReplaceItem(globalCtx, ITEM_POCKET_EGG, ITEM_POCKET_CUCCO))
+				{
+					Message_StartTextbox(globalCtx, 0x3066, NULL);
+				}
+				gSaveContext.nextDayTime = 0xFFFE;
+			}
+			else
+			{
+				gSaveContext.nextDayTime = 0xFFFD;
+			}
+		}
+
+		SREG(91) = -1;
+		R_PAUSE_MENU_MODE = 0;
+		PreRender_Init(&globalCtx->pauseBgPreRender);
+		PreRender_SetValuesSave(&globalCtx->pauseBgPreRender, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0);
+		PreRender_SetValues(&globalCtx->pauseBgPreRender, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
+		gTrnsnUnkState = 0;
+		globalCtx->transitionMode = 0;
+		FrameAdvance_Init(&globalCtx->frameAdvCtx);
+#ifdef N64_VERSION
+		Rand_Seed((u32)osGetTime());
+#else
+		using namespace std::string_literals;
+		Rand_Seed((u32)std::hash<std::string>{}("Open Ocarina Team"s));
+#endif
+		Matrix_Init(globalCtx);
+		globalCtx->sceneLoadFlag = -0x14;
+		globalCtx->unk_11E16 = 0xFF;
+		globalCtx->unk_11E18 = 0;
+		globalCtx->unk_11DE9 = 0;
+
+		if(gSaveContext.gameMode != 1)
+		{
+			if(gSaveContext.nextTransition == 0xFF)
+			{
+				globalCtx->fadeTransition = (gEntranceTable[((void)0, gSaveContext.entranceIndex) + tempSetupIndex].field >> 7) & 0x7F; // Fade In
+			}
+			else
+			{
+				globalCtx->fadeTransition = gSaveContext.nextTransition;
+				gSaveContext.nextTransition = 0xFF;
+			}
 		}
 		else
 		{
-			globalCtx->fadeTransition = gSaveContext.nextTransition;
-			gSaveContext.nextTransition = 0xFF;
+			globalCtx->fadeTransition = 6;
+		}
+
+		ShrinkWindow_Init();
+		TransitionFade_Init(&globalCtx->transitionFade);
+		TransitionFade_SetType(&globalCtx->transitionFade, 3);
+		TransitionFade_SetColor(&globalCtx->transitionFade, Color_RGBA8(160, 160, 160, 255));
+		TransitionFade_Start(&globalCtx->transitionFade);
+		VisMono_Init(&D_80161498);
+		D_801614B0.a = 0;
+		Flags_UnsetAllEnv(globalCtx);
+
+		Fault_AddClient(&D_801614B8, ZeldaArena_Display, NULL, NULL);
+		func_800304DC(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);
+
+		while(!func_800973FC(globalCtx, &globalCtx->roomCtx))
+		{
+			; // Empty Loop
+		}
+
+		// Check if the room in our scene has a prerendered background
+		Room* currentRoom = &globalCtx->roomCtx.curRoom;
+		PolygonType1* polygon1 = &currentRoom->mesh->polygon1;
+		// Switch GLideN64 to 4:3 if necessary
+		gfx_force_43(currentRoom->mesh->polygon.type == 1 && (polygon1->format == 1 || polygon1->format == 2));
+
+		player = GET_PLAYER(globalCtx);
+		Camera_InitPlayerSettings(&globalCtx->mainCamera, player);
+		Camera_ChangeMode(&globalCtx->mainCamera, CAM_MODE_NORMAL);
+
+		playerStartCamId = player->actor.params & 0xFF;
+		if(playerStartCamId != 0xFF)
+		{
+			osSyncPrintf("player has start camera ID (" VT_FGCOL(BLUE) "%d" VT_RST ")\n", playerStartCamId);
+			Camera_ChangeDataIdx(&globalCtx->mainCamera, playerStartCamId);
+		}
+
+		if(YREG(15) == 32)
+		{
+			globalCtx->unk_1242B = 2;
+		}
+		else if(YREG(15) == 16)
+		{
+			globalCtx->unk_1242B = 1;
+		}
+		else
+		{
+			globalCtx->unk_1242B = 0;
+		}
+
+		Interface_SetSceneRestrictions(globalCtx);
+		func_800758AC(globalCtx);
+		gSaveContext.seqId = globalCtx->sequenceCtx.seqId;
+		gSaveContext.natureAmbienceId = globalCtx->sequenceCtx.natureAmbienceId;
+		func_8002DF18(globalCtx, GET_PLAYER(globalCtx));
+		AnimationContext_Update(globalCtx, &globalCtx->animationCtx);
+		gSaveContext.respawnFlag = 0;
+
+		if(dREG(95) != 0)
+		{
+			D_8012D1F0 = D_801614D0;
+			osSyncPrintf("\nkawauso_data=[%x]", D_8012D1F0);
+			/* Unsure what this is for, possibly a cutscene. */
+			/* DmaMgr_DmaRomToRam(0x03FEB000, D_8012D1F0, sizeof(D_801614D0)); */
 		}
 	}
-	else
-	{
-		globalCtx->fadeTransition = 6;
-	}
-
-	ShrinkWindow_Init();
-	TransitionFade_Init(&globalCtx->transitionFade);
-	TransitionFade_SetType(&globalCtx->transitionFade, 3);
-	TransitionFade_SetColor(&globalCtx->transitionFade, Color_RGBA8(160, 160, 160, 255));
-	TransitionFade_Start(&globalCtx->transitionFade);
-	VisMono_Init(&D_80161498);
-	D_801614B0.a = 0;
-	Flags_UnsetAllEnv(globalCtx);
-
-	Fault_AddClient(&D_801614B8, ZeldaArena_Display, NULL, NULL);
-	func_800304DC(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);
-
-	while(!func_800973FC(globalCtx, &globalCtx->roomCtx))
-	{
-		; // Empty Loop
-	}
-
-	// Check if the room in our scene has a prerendered background
-	Room* currentRoom = &globalCtx->roomCtx.curRoom;
-	PolygonType1* polygon1 = &currentRoom->mesh->polygon1;
-	// Switch GLideN64 to 4:3 if necessary
-	gfx_force_43(currentRoom->mesh->polygon.type == 1 && (polygon1->format == 1 || polygon1->format == 2));
-
-	player = GET_PLAYER(globalCtx);
-	Camera_InitPlayerSettings(&globalCtx->mainCamera, player);
-	Camera_ChangeMode(&globalCtx->mainCamera, CAM_MODE_NORMAL);
-
-	playerStartCamId = player->actor.params & 0xFF;
-	if(playerStartCamId != 0xFF)
-	{
-		osSyncPrintf("player has start camera ID (" VT_FGCOL(BLUE) "%d" VT_RST ")\n", playerStartCamId);
-		Camera_ChangeDataIdx(&globalCtx->mainCamera, playerStartCamId);
-	}
-
-	if(YREG(15) == 32)
-	{
-		globalCtx->unk_1242B = 2;
-	}
-	else if(YREG(15) == 16)
-	{
-		globalCtx->unk_1242B = 1;
-	}
-	else
-	{
-		globalCtx->unk_1242B = 0;
-	}
-
-	Interface_SetSceneRestrictions(globalCtx);
-	func_800758AC(globalCtx);
-	gSaveContext.seqId = globalCtx->sequenceCtx.seqId;
-	gSaveContext.natureAmbienceId = globalCtx->sequenceCtx.natureAmbienceId;
-	func_8002DF18(globalCtx, GET_PLAYER(globalCtx));
-	AnimationContext_Update(globalCtx, &globalCtx->animationCtx);
-	gSaveContext.respawnFlag = 0;
-
-	if(dREG(95) != 0)
-	{
-		D_8012D1F0 = D_801614D0;
-		osSyncPrintf("\nkawauso_data=[%x]", D_8012D1F0);
-		/* Unsure what this is for, possibly a cutscene. */
-		/* DmaMgr_DmaRomToRam(0x03FEB000, D_8012D1F0, sizeof(D_801614D0)); */
-	}
-}
+} // namespace oot::gamestate
 
 void Gameplay_Update(GlobalContext* globalCtx)
 {
 	s32 pad1;
-	s32 sp80;
+	s32 pauseGamePlay;
 	Input* input;
 	u32 i;
 	s32 pad2;
 
-	input = globalCtx->state.input;
+	input = globalCtx->input;
 
 	if((SREG(1) < 0) || (DREG(0) != 0))
 	{
@@ -747,10 +756,10 @@ void Gameplay_Update(GlobalContext* globalCtx)
 						}
 						else if(globalCtx->sceneLoadFlag != -0x14)
 						{
-							globalCtx->state.running = 0;
+							globalCtx->running = 0;
 							if(gSaveContext.gameMode != 2)
 							{
-								SET_NEXT_GAMESTATE(&globalCtx->state, Gameplay_Init, GlobalContext);
+								Graph_SetNextGameState(new oot::gamestate::Global(globalCtx->gfxCtx));
 								gSaveContext.entranceIndex = globalCtx->nextEntranceIndex;
 								if(gSaveContext.minigameState == 1)
 								{
@@ -759,7 +768,7 @@ void Gameplay_Update(GlobalContext* globalCtx)
 							}
 							else
 							{
-								SET_NEXT_GAMESTATE(&globalCtx->state, FileChoose_Init, FileChooseContext);
+								Graph_SetNextGameState(new oot::gamestate::FileChoose(globalCtx->gfxCtx));
 							}
 						}
 						else
@@ -807,8 +816,8 @@ void Gameplay_Update(GlobalContext* globalCtx)
 					globalCtx->envCtx.screenFillColor[3] = (D_801614C8 / 20.0f) * 255.0f;
 					if(D_801614C8 >= 20 && 1)
 					{
-						globalCtx->state.running = 0;
-						SET_NEXT_GAMESTATE(&globalCtx->state, Gameplay_Init, GlobalContext);
+						globalCtx->running = 0;
+						Graph_SetNextGameState(new oot::gamestate::Global(globalCtx->gfxCtx));
 						gSaveContext.entranceIndex = globalCtx->nextEntranceIndex;
 						globalCtx->sceneLoadFlag = 0;
 						globalCtx->transitionMode = 0;
@@ -856,8 +865,8 @@ void Gameplay_Update(GlobalContext* globalCtx)
 				case 10:
 					if(globalCtx->sceneLoadFlag != -0x14)
 					{
-						globalCtx->state.running = 0;
-						SET_NEXT_GAMESTATE(&globalCtx->state, Gameplay_Init, GlobalContext);
+						globalCtx->running = 0;
+						Graph_SetNextGameState(new oot::gamestate::Global(globalCtx->gfxCtx));
 						gSaveContext.entranceIndex = globalCtx->nextEntranceIndex;
 						globalCtx->sceneLoadFlag = 0;
 						globalCtx->transitionMode = 0;
@@ -909,8 +918,8 @@ void Gameplay_Update(GlobalContext* globalCtx)
 					{
 						if(globalCtx->envCtx.sandstormEnvA == 255)
 						{
-							globalCtx->state.running = 0;
-							SET_NEXT_GAMESTATE(&globalCtx->state, Gameplay_Init, GlobalContext);
+							globalCtx->running = 0;
+							Graph_SetNextGameState(new oot::gamestate::Global(globalCtx->gfxCtx));
 							gSaveContext.entranceIndex = globalCtx->nextEntranceIndex;
 							globalCtx->sceneLoadFlag = 0;
 							globalCtx->transitionMode = 0;
@@ -981,13 +990,13 @@ void Gameplay_Update(GlobalContext* globalCtx)
 				KaleidoSetup_Update(globalCtx);
 			}
 
-			sp80 = (globalCtx->pauseCtx.state != 0) || (globalCtx->pauseCtx.debugState != 0);
+			pauseGamePlay = (globalCtx->pauseCtx.state != 0) || (globalCtx->pauseCtx.debugState != 0);
 
 			AnimationContext_Reset(&globalCtx->animationCtx);
 
 			Object_UpdateBank(&globalCtx->objectCtx);
 
-			if((sp80 == 0) && (IREG(72) == 0))
+			if((pauseGamePlay == 0) && (IREG(72) == 0))
 			{
 				globalCtx->gameplayFrames++;
 
@@ -1096,13 +1105,12 @@ void Gameplay_Update(GlobalContext* globalCtx)
 	}
 
 skip:
-	if((sp80 == 0) || (gDbgCamEnabled))
+	if((pauseGamePlay == 0) || (gDbgCamEnabled))
 	{
 		s32 pad3[5];
 		s32 i;
 
 		globalCtx->nextCamera = globalCtx->activeCamera;
-
 
 		for(i = 0; i < NUM_CAMS; i++)
 		{
@@ -1115,7 +1123,7 @@ skip:
 		Camera_Update(globalCtx->cameraPtrs[globalCtx->nextCamera]);
 	}
 
-	Environment_Update(globalCtx, &globalCtx->envCtx, &globalCtx->lightCtx, &globalCtx->pauseCtx, &globalCtx->msgCtx, &globalCtx->gameOverCtx, globalCtx->state.gfxCtx);
+	Environment_Update(globalCtx, &globalCtx->envCtx, &globalCtx->lightCtx, &globalCtx->pauseCtx, &globalCtx->msgCtx, &globalCtx->gameOverCtx, globalCtx->gfxCtx);
 }
 
 void Gameplay_DrawOverlayElements(GlobalContext* globalCtx)
@@ -1140,7 +1148,7 @@ void Gameplay_DrawOverlayElements(GlobalContext* globalCtx)
 
 void Gameplay_Draw(GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	Lights* sp228;
 	Vec3f sp21C;
 
@@ -1434,37 +1442,53 @@ void Gameplay_Draw(GlobalContext* globalCtx)
 	CLOSE_DISPS(gfxCtx, "../z_play.c", 4508);
 }
 
-void Gameplay_Main(GameState* thisx)
+namespace oot::gamestate
 {
-	GlobalContext* globalCtx = (GlobalContext*)thisx;
-
-	D_8012D1F8 = &globalCtx->state.input[0];
-
-	if((HREG(80) == 10) && (HREG(94) != 10))
+	namespace factory
 	{
-		HREG(81) = 1;
-		HREG(82) = 1;
-		HREG(83) = 1;
-		HREG(84) = 3;
-		HREG(85) = 1;
-		HREG(86) = 1;
-		HREG(87) = 1;
-		HREG(88) = 1;
-		HREG(89) = 1;
-		HREG(90) = 15;
-		HREG(91) = 1;
-		HREG(92) = 1;
-		HREG(93) = 1;
-		HREG(94) = 10;
+		Base* Global(GraphicsContext* gfxCtx)
+		{
+			return new gamestate::Global(gfxCtx);
+		}
 	}
 
-	if((HREG(80) != 10) || (HREG(81) != 0))
+	Base* Global::next()
 	{
-		Gameplay_Update(globalCtx);
+		return new Global(gfxCtx);
 	}
 
-	Gameplay_Draw(globalCtx);
-}
+	void Global::main()
+	{
+		GlobalContext* globalCtx = this;
+
+		D_8012D1F8 = &globalCtx->input[0];
+
+		if((HREG(80) == 10) && (HREG(94) != 10))
+		{
+			HREG(81) = 1;
+			HREG(82) = 1;
+			HREG(83) = 1;
+			HREG(84) = 3;
+			HREG(85) = 1;
+			HREG(86) = 1;
+			HREG(87) = 1;
+			HREG(88) = 1;
+			HREG(89) = 1;
+			HREG(90) = 15;
+			HREG(91) = 1;
+			HREG(92) = 1;
+			HREG(93) = 1;
+			HREG(94) = 10;
+		}
+
+		if((HREG(80) != 10) || (HREG(81) != 0))
+		{
+			Gameplay_Update(globalCtx);
+		}
+
+		Gameplay_Draw(globalCtx);
+	}
+} // namespace oot::gamestate
 
 // original name: "Game_play_demo_mode_check"
 s32 Gameplay_InCsMode(GlobalContext* globalCtx)
@@ -1552,7 +1576,7 @@ void* Gameplay_LoadFile(GlobalContext* globalCtx, RomFile* file)
 
 void Gameplay_InitEnvironment(GlobalContext* globalCtx, s16 skyboxId)
 {
-	Skybox_Init(&globalCtx->state, &globalCtx->skyboxCtx, skyboxId);
+	Skybox_Init(globalCtx, &globalCtx->skyboxCtx, skyboxId);
 	Environment_Init(globalCtx, &globalCtx->envCtx, 0);
 }
 
@@ -1568,7 +1592,7 @@ void Gameplay_InitScene(GlobalContext* globalCtx, s32 spawn)
 	globalCtx->numSetupActors = 0;
 	Object_InitBank(globalCtx, &globalCtx->objectCtx);
 	LightContext_Init(globalCtx, &globalCtx->lightCtx);
-	TransitionActor_InitContext(&globalCtx->state, &globalCtx->transiActorCtx);
+	TransitionActor_InitContext(globalCtx, &globalCtx->transiActorCtx);
 	func_80096FD4(globalCtx, &globalCtx->roomCtx.curRoom);
 	YREG(15) = 0;
 	gSaveContext.worldMapArea = 0;

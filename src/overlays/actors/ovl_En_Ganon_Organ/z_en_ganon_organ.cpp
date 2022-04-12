@@ -31,7 +31,7 @@ static u64 sForceAlignment = 0;
 
 void EnGanonOrgan_Init(Actor* thisx, GlobalContext* globalCtx)
 {
-	thisx->flags &= ~ACTOR_FLAG_0;
+	thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 }
 
 void EnGanonOrgan_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -108,29 +108,29 @@ void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	BossGanon* dorf = (BossGanon*)thisx->parent;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ganon_organ.c", 205);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ganon_organ.c", 205);
 
 	osSyncPrintf("ORGAN DRAW  1\n");
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	if((thisx->params == 1) && (dorf->organAlpha != 255))
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A280BC(globalCtx->state.gfxCtx, dorf));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A28148(globalCtx->state.gfxCtx, dorf));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A280BC(globalCtx->gfxCtx, dorf));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A28148(globalCtx->gfxCtx, dorf));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, EnGanonOrgan_EmptyDList(globalCtx->state.gfxCtx));
-		gSPSegment(POLY_OPA_DISP++, 0x09, EnGanonOrgan_EmptyDList(globalCtx->state.gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x08, EnGanonOrgan_EmptyDList(globalCtx->gfxCtx));
+		gSPSegment(POLY_OPA_DISP++, 0x09, EnGanonOrgan_EmptyDList(globalCtx->gfxCtx));
 	}
 	Matrix_Translate(0.0f, 0.0f, 0.0f, MTXMODE_NEW);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ganon_organ.c", 221), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ganon_organ.c", 221), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(POLY_OPA_DISP++, sRoomOrganAndFloorDL);
 	gSPDisplayList(POLY_OPA_DISP++, sRoomStatuesDL);
 
 	osSyncPrintf("ORGAN DRAW  2\n");
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ganon_organ.c", 230);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ganon_organ.c", 230);
 }
 
 void EnGanonOrgan_Reset(Actor* pthisx, GlobalContext* globalCtx)

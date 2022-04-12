@@ -22,7 +22,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_tite/object_tite.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 // EnTite_Idle
 #define vIdleTimer actionVar1
@@ -1139,8 +1139,8 @@ void EnTite_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnTite* pthis = (EnTite*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tite.c", 1704);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tite.c", 1704);
+	func_80093D18(globalCtx->gfxCtx);
 	Collider_UpdateSpheres(0, &pthis->collider);
 	if(pthis->actor.params == TEKTITE_BLUE)
 	{
@@ -1155,7 +1155,7 @@ void EnTite_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(object_tite_Tex_002100));
 	}
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, EnTite_PostLimbDraw, thisx);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tite.c", 1735);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tite.c", 1735);
 
 	if(pthis->spawnIceTimer != 0)
 	{

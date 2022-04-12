@@ -55,22 +55,6 @@ void SystemArena_FreeDebug(void* ptr, const char* file, s32 line)
 	free(ptr);
 }
 
-void* SystemArena_Calloc(u32 num, u32 size)
-{
-	void* ret;
-	u32 n = num * size;
-
-	ret = malloc(n);
-
-	if(ret != NULL)
-	{
-		memset(ret, 0, n);
-	}
-
-	SystemArena_CheckPointer(ret, n, "calloc", "Secure");
-	return ret;
-}
-
 void SystemArena_Display(void)
 {
 }

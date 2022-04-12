@@ -4,9 +4,9 @@
 #include "global.h"
 #include "ultra64.h"
 #include "z64actor.h"
+#include "globalctx.h"
 
 struct EnDivingGame;
-struct GlobalContext;
 
 typedef void (*EnDivingGameActionFunc)(struct EnDivingGame*, GlobalContext*);
 

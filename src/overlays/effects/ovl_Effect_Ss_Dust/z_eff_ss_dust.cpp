@@ -92,7 +92,7 @@ void EffectSsDust_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	static void* dustTextures[] = {
 	    gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
 	};
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfTrans;
 	MtxF mfScale;
 	MtxF mfResult;

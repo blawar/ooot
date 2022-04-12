@@ -53,7 +53,7 @@ u32 EffectSsStone1_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
 
 void EffectSsStone1_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	EffStoneDrawInfo* drawParams = &sDrawInfo[pthis->life];
 	Vec3f mfVec;
 	f32 mfW;

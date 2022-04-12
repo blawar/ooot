@@ -17,7 +17,13 @@
 #include "def/z_skelanime.h"
 #include "objects/object_hintnuts/object_hintnuts.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2)
+#if FRAME_RATE == 20
+#define DEKU_NUT_SPAWN_SCALER 1.0f
+#else
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+#endif
+
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnHintnuts_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -80,7 +86,7 @@ void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx)
 	Actor_ProcessInitChain(&pthis->actor, sInitChain);
 	if(pthis->actor.params == 0xA)
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
 	}
 	else
 	{
@@ -120,8 +126,8 @@ void EnHintnuts_HitByScrubProjectile1(EnHintnuts* pthis, GlobalContext* globalCt
 {
 	if(pthis->actor.textId != 0 && pthis->actor.category == ACTORCAT_ENEMY && ((pthis->actor.params == 0) || (sPuzzleCounter == 2)))
 	{
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_2);
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_BG);
 	}
 }
@@ -234,7 +240,7 @@ void EnHintnuts_SetupLeave(EnHintnuts* pthis, GlobalContext* globalCtx)
 void EnHintnuts_SetupFreeze(EnHintnuts* pthis)
 {
 	Animation_PlayLoop(&pthis->skelAnime, &gHintNutsFreezeAnim);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	Actor_SetColorFilter(&pthis->actor, 0, 0xFF, 0, 100);
 	pthis->actor.colorFilterTimer = 1;
 	pthis->animFlagAndTimer = 0;
@@ -343,9 +349,9 @@ void EnHintnuts_ThrowNut(EnHintnuts* pthis, GlobalContext* globalCtx)
 	}
 	else if(Animation_OnFrame(&pthis->skelAnime, 6.0f))
 	{
-		nutPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f);
+		nutPos.x = pthis->actor.world.pos.x + (Math_SinS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		nutPos.y = pthis->actor.world.pos.y + 12.0f;
-		nutPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f);
+		nutPos.z = pthis->actor.world.pos.z + (Math_CosS(pthis->actor.shape.rot.y) * 23.0f * DEKU_NUT_SPAWN_SCALER);
 		if(Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_NUTSBALL, nutPos.x, nutPos.y, nutPos.z, pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, 1) != NULL)
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_THROW);
@@ -469,8 +475,8 @@ void EnHintnuts_Run(EnHintnuts* pthis, GlobalContext* globalCtx)
 		pthis->actor.speedXZ = 0.0f;
 		if(pthis->actor.category == ACTORCAT_BG)
 		{
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_16);
-			pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_16);
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 			Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_ENEMY);
 		}
 		EnHintnuts_SetupBurrow(pthis);
@@ -569,7 +575,7 @@ void EnHintnuts_Freeze(EnHintnuts* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			pthis->actor.flags &= ~ACTOR_FLAG_4;
 			pthis->actor.colChkInfo.health = sColChkInfoInit.health;
 			pthis->actor.colorFilterTimer = 0;

@@ -107,14 +107,14 @@ void BgSpot15Saku_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void BgSpot15Saku_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot15_saku.c", 259);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot15_saku.c", 259);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot15_saku.c", 263), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot15_saku.c", 263), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gLonLonCorralFenceDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot15_saku.c", 268);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot15_saku.c", 268);
 }
 
 void BgSpot15Saku_Reset(Actor* pthisx, GlobalContext* globalCtx)

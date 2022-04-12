@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_vali/object_vali.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_12)
 
 void EnVali_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnVali_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -166,7 +166,7 @@ void EnVali_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	EnVali_SetupLurk(pthis);
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.floorHeight = BgCheck_EntityRaycastFloor4(&globalCtx->colCtx, &pthis->actor.floorPoly, &bgId, &pthis->actor, &pthis->actor.world.pos);
 	pthis->actor.params = BARI_TYPE_NORMAL;
 
@@ -196,7 +196,7 @@ void EnVali_SetupLurk(EnVali* pthis)
 void EnVali_SetupDropAppear(EnVali* pthis)
 {
 	pthis->actor.draw = EnVali_Draw;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.velocity.y = 1.0f;
 	pthis->actionFunc = EnVali_DropAppear;
 }
@@ -223,7 +223,7 @@ void EnVali_SetupFloatIdle(EnVali* pthis)
 void EnVali_SetupAttacked(EnVali* pthis)
 {
 	pthis->lightningTimer = 20;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->bodyCollider.base.acFlags &= ~AC_ON;
 	pthis->actionFunc = EnVali_Attacked;
 }
@@ -266,7 +266,7 @@ void EnVali_SetupDivideAndDie(EnVali* pthis, GlobalContext* globalCtx)
 	pthis->timer = Rand_S16Offset(10, 10);
 	pthis->bodyCollider.base.acFlags &= ~AC_ON;
 	Audio_PlaySoundAtPosition(globalCtx, &pthis->actor.world.pos, 40, NA_SE_EN_BARI_SPLIT);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.draw = NULL;
 	pthis->actionFunc = EnVali_DivideAndDie;
 }
@@ -296,7 +296,7 @@ void EnVali_SetupReturnToLurk(EnVali* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gBariLurkingAnim, 10.0f);
 	pthis->actor.flags |= ACTOR_FLAG_4;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnVali_ReturnToLurk;
 }
 
@@ -397,7 +397,7 @@ void EnVali_Attacked(EnVali* pthis, GlobalContext* globalCtx)
 
 	if(pthis->lightningTimer == 0)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->bodyCollider.base.acFlags |= AC_ON;
 		if(pthis->actor.params == BARI_TYPE_SWORD_DAMAGE)
 		{
@@ -579,7 +579,7 @@ void EnVali_UpdateDamage(EnVali* pthis, GlobalContext* globalCtx)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BARI_DEAD);
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			else if((pthis->actor.colChkInfo.damageEffect != BARI_DMGEFF_STUN) && (pthis->actor.colChkInfo.damageEffect != BARI_DMGEFF_SLINGSHOT))
 			{
@@ -869,14 +869,14 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx)
 	f32 curFrame;
 	Vec3f scale = {1.0f, 1.0f, 1.0f};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1428);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1428);
 
 	Matrix_Get(&mtx);
 	curFrame = pthis->skelAnime.curFrame;
 	EnVali_PulseInsides(pthis, curFrame, &scale);
 	Matrix_Scale(scale.x, scale.y, scale.z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1436), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1436), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariInnerHoodDL);
 
 	Matrix_Put(&mtx);
@@ -885,17 +885,17 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx)
 	cos = Math_CosS(pthis->actor.shape.rot.y);
 	sin = Math_SinS(pthis->actor.shape.rot.y);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1446), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1446), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
 
 	Matrix_Translate((506.0f * cos) + (372.0f * sin), 1114.0f, (372.0f * cos) - (506.0f * sin), MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1455), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1455), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
 
 	Matrix_Translate((-964.0f * cos) - (804.0f * sin), -108.0f, (-804.0f * cos) + (964.0f * sin), MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1463), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1463), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariNucleusDL);
 
 	Matrix_Put(&mtx);
@@ -905,12 +905,12 @@ void EnVali_DrawBody(EnVali* pthis, GlobalContext* globalCtx)
 	EnVali_PulseOutside(pthis, curFrame, &scale);
 	Matrix_Scale(scale.x, scale.y, scale.z, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vali.c", 1471), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vali.c", 1471), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBariOuterHoodDL);
 
 	Matrix_Put(&mtx);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1477);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1477);
 }
 
 static Gfx D_80B28998[] = {
@@ -928,10 +928,10 @@ void EnVali_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnVali* pthis = (EnVali*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1505);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1505);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TexScroll(globalCtx->state.gfxCtx, 0, (127 - (globalCtx->gameplayFrames.whole() * 12)) % 128, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TexScroll(globalCtx->gfxCtx, 0, (127 - (globalCtx->gameplayFrames.whole() * 12)) % 128, 32, 32));
 
 	if((pthis->lightningTimer % 2) != 0)
 	{
@@ -946,7 +946,7 @@ void EnVali_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnVali_OverrideLimbDraw, EnVali_PostLimbDraw, pthis, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vali.c", 1538);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_vali.c", 1538);
 }
 
 void EnVali_Reset(Actor* pthisx, GlobalContext* globalCtx)

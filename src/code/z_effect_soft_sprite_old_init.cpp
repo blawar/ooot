@@ -58,7 +58,7 @@ static Vec3f sZeroVec = {0.0f, 0.0f, 0.0f};
 
 void EffectSs_DrawGEffect(GlobalContext* globalCtx, EffectSs* pthis, void* texture)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	f32 scale;
 	MtxF mfTrans;
 	MtxF mfScale;

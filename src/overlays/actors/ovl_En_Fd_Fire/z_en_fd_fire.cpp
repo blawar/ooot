@@ -11,7 +11,7 @@
 #include "def/z_rcp.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnFdFire_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFdFire_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -141,7 +141,7 @@ void EnFdFire_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitCylinder(globalCtx, &pthis->collider);
 	Collider_SetCylinder(globalCtx, &pthis->collider, &pthis->actor, &sCylinderInit);
 	CollisionCheck_SetInfo2(&pthis->actor.colChkInfo, &sDamageTable, &sColChkInit);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.gravity = -0.6f;
 	pthis->actor.speedXZ = 5.0f;
 	pthis->actor.velocity.y = 12.0f;
@@ -201,7 +201,7 @@ void EnFdFire_DanceTowardsPlayer(EnFdFire* pthis, GlobalContext* globalCtx)
 	Vec3f pos;
 	s16 idx;
 
-	idx = (uintptr_t)((globalCtx->state.frames / 10) + (pthis->actor.params & 0x7FFF)) % ARRAY_COUNT(angles);
+	idx = (uintptr_t)((globalCtx->frames / 10) + (pthis->actor.params & 0x7FFF)) % ARRAY_COUNT(angles);
 	pos = player->actor.world.pos;
 	pos.x += 120.0f * sinf(angles[idx]);
 	pos.z += 120.0f * cosf(angles[idx]);
@@ -279,7 +279,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 sp84;
 	f32 sp80;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fd_fire.c", 572);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fd_fire.c", 572);
 
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, MTXMODE_NEW);
 	sp8E = Math_Vec3f_Yaw(&scale, &pthis->actor.velocity) - Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx));
@@ -305,9 +305,9 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 		sp84 = 0.1f;
 	}
 	Matrix_Scale(1.0f, sp84, 1.0f / sp84, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fd_fire.c", 623), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x8, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, globalCtx->state.frames * pthis->tile2Y, 0x20, 0x80));
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fd_fire.c", 623), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPSegment(POLY_XLU_DISP++, 0x8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, globalCtx->frames * pthis->tile2Y, 0x20, 0x80));
 	gDPSetPrimColor(
 	    POLY_XLU_DISP++, 128, 128, primColors[((pthis->actor.params & 0x8000) >> 0xF)].r, primColors[((pthis->actor.params & 0x8000) >> 0xF)].g, primColors[((pthis->actor.params & 0x8000) >> 0xF)].b,
 	    primColors[((pthis->actor.params & 0x8000) >> 0xF)].a);
@@ -315,7 +315,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 	gDPPipeSync(POLY_XLU_DISP++);
 	gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fd_fire.c", 672);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fd_fire.c", 672);
 }
 
 void EnFdFire_Reset(Actor* pthisx, GlobalContext* globalCtx)

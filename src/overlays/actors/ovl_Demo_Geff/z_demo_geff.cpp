@@ -72,7 +72,7 @@ void DemoGeff_Init(Actor* thisx, GlobalContext* globalCtx)
 
 void func_80977EA8(GlobalContext* globalCtx, Gfx* dlist)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_geff.c", 181);
 
@@ -89,7 +89,7 @@ void func_80977F80(DemoGeff* pthis, GlobalContext* globalCtx)
 {
 	s32 pad[2];
 	s32 objBankIndex = pthis->objBankIndex;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_geff.c", 204);
 

@@ -292,7 +292,7 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Vec3f vec1;
 	Vec3f vec2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_boom.c", 567);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_boom.c", 567);
 
 	Matrix_RotateY(pthis->actor.world.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
 	Matrix_RotateZ(0x1F40 * (M_PI / 0x8000), MTXMODE_APPLY);
@@ -305,13 +305,13 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx)
 		EffectBlure_AddVertex((EffectBlure*)Effect_GetByIndex(pthis->effectIndex), &vec1, &vec2);
 	}
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	Matrix_RotateY((pthis->activeTimer * 12000) * (M_PI / 0x8000), MTXMODE_APPLY);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_boom.c", 601), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_boom.c", 601), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gBoomerangRefDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_boom.c", 604);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_boom.c", 604);
 }
 
 void EnBoom_Reset(Actor* pthisx, GlobalContext* globalCtx)

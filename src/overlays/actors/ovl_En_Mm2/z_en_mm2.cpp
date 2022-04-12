@@ -18,7 +18,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_mm/object_mm.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnMm2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnMm2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -366,11 +366,11 @@ void EnMm2_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnMm2* pthis = (EnMm2*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mm2.c", 634);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_mm2.c", 634);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(mouthTextures_46[pthis->mouthTexIndex]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnMm2_OverrideLimbDraw, EnMm2_PostLimbDraw, pthis);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mm2.c", 654);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_mm2.c", 654);
 }
 
 s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)

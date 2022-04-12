@@ -48,7 +48,7 @@ u32 EffectSsKFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 
 void EffectSsKFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 xzScale;
 	f32 yScale;
@@ -60,8 +60,8 @@ void EffectSsKFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
 	Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);
 	Matrix_Scale(xzScale, yScale, xzScale, MTXMODE_APPLY);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, globalCtx->state.frames * pthis->rScroll, 0x20, 0x80));
+	func_80093D84(globalCtx->gfxCtx);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, globalCtx->frames * pthis->rScroll, 0x20, 0x80));
 
 	if(pthis->rType >= 100)
 	{
@@ -86,7 +86,7 @@ void EffectSsKFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 		Matrix_RotateY(M_PI, MTXMODE_APPLY);
 	}
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_k_fire.c", 215), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_eff_k_fire.c", 215), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 
 	CLOSE_DISPS(gfxCtx, "../z_eff_k_fire.c", 220);

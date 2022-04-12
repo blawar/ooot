@@ -18,7 +18,7 @@
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 #include "objects/object_fr/object_fr.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_25)
 
 void EnFr_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFr_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -227,7 +227,7 @@ void EnFr_Init(Actor* thisx, GlobalContext* globalCtx)
 		pthis->actor.destroy = NULL;
 		pthis->actor.draw = NULL;
 		pthis->actor.update = EnFr_UpdateIdle;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_4);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4);
 		pthis->actor.flags &= ~0;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, &pthis->actor, ACTORCAT_PROP);
 		pthis->actor.textId = 0x40AC;
@@ -317,7 +317,7 @@ void EnFr_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->posButterflyLight.x = pthis->posButterfly.x = pthis->posLogSpot.x;
 		pthis->posButterflyLight.y = pthis->posButterfly.y = pthis->posLogSpot.y + 50.0f;
 		pthis->posButterflyLight.z = pthis->posButterfly.z = pthis->posLogSpot.z;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 }
 
@@ -1010,7 +1010,7 @@ void EnFr_ContinueFrogSong(EnFr* pthis, GlobalContext* globalCtx)
 					counter++;
 				}
 			}
-			if(counter == 0 && CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_B))
+			if(counter == 0 && CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_B))
 			{
 				EnFr_OcarinaMistake(pthis, globalCtx);
 				return;
@@ -1227,13 +1227,13 @@ void EnFr_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 
 	if((limbIndex == 7) || (limbIndex == 8))
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fr.c", 1735);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fr.c", 1735);
 		Matrix_Push();
 		func_800D1FD4(&globalCtx->billboardMtxF);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fr.c", 1738), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fr.c", 1738), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_OPA_DISP++, *dList);
 		Matrix_Pop();
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fr.c", 1741);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fr.c", 1741);
 	}
 }
 
@@ -1243,8 +1243,8 @@ void EnFr_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnFr* pthis = (EnFr*)thisx;
 	s16 frogIndex = pthis->actor.params - 1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fr.c", 1754);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fr.c", 1754);
+	func_80093D18(globalCtx->gfxCtx);
 	// For the frogs 2 HP, the frog with the next note and the butterfly lights up
 	lightRadius = pthis->isButterflyDrawn ? 95 : -1;
 	gDPPipeSync(POLY_OPA_DISP++);
@@ -1261,7 +1261,7 @@ void EnFr_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_RotateZYX(pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, MTXMODE_APPLY);
 		SkelAnime_DrawOpa(globalCtx, pthis->skelAnimeButterfly.skeleton, pthis->skelAnimeButterfly.jointTable, NULL, NULL, NULL);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fr.c", 1816);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fr.c", 1816);
 }
 
 void EnFr_Reset(Actor* pthisx, GlobalContext* globalCtx)

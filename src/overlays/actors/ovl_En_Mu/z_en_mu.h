@@ -6,7 +6,7 @@
 
 struct EnMu;
 
-typedef void (*EnMuActionFunc)(struct EnMu*, struct GlobalContext*);
+typedef void (*EnMuActionFunc)(struct EnMu*, GlobalContext*);
 
 struct EnMu
 {

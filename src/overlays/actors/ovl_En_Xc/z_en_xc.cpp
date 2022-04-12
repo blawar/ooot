@@ -1295,7 +1295,7 @@ void EnXc_DrawPullingOutHarp(Actor* thisx, GlobalContext* globalCtx)
 	s16 eyePattern = pthis->eyeIdx;
 	void* eyeTexture = sEyeTextures[eyePattern];
 	SkelAnime* skelAnime = &pthis->skelAnime;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad2;
 
 	OPEN_DISPS(gfxCtx, "../z_en_oA2_inSpot05.c", 1444);
@@ -1317,7 +1317,7 @@ void EnXc_DrawHarp(Actor* thisx, GlobalContext* globalCtx)
 	s16 eyePattern = pthis->eyeIdx;
 	void* eyeTexture = sEyeTextures[eyePattern];
 	SkelAnime* skelAnime = &pthis->skelAnime;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad2;
 
 	OPEN_DISPS(gfxCtx, "../z_en_oA2_inSpot05.c", 1511);
@@ -2046,7 +2046,7 @@ void EnXc_DrawTriforce(Actor* thisx, GlobalContext* globalCtx)
 	s16 eyeIdx = pthis->eyeIdx;
 	void* eyeTexture = sEyeTextures[eyeIdx];
 	SkelAnime* skelAnime = &pthis->skelAnime;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad2;
 
 	OPEN_DISPS(gfxCtx, "../z_en_oA2_inMetamol.c", 565);
@@ -2071,7 +2071,7 @@ void EnXc_DrawTriforce(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	func_8002EBCC(thisx, globalCtx, 0);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTexture));
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, EnXc_TriforceOverrideLimbDraw, EnXc_TriforcePostLimbDraw, pthis);
@@ -2533,7 +2533,7 @@ void EnXc_DrawSquintingEyes(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnXc* pthis = (EnXc*)thisx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_en_oA2_inStalker.c", 839);
 	func_80093D18(gfxCtx);
@@ -2585,7 +2585,7 @@ void EnXc_SetupDialogueAction(EnXc* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		if(INV_CONTENT(ITEM_HOOKSHOT) != ITEM_NONE)
 		{
 			pthis->actor.textId = 0x7010;
@@ -2603,7 +2603,7 @@ void func_80B41798(EnXc* pthis, GlobalContext* globalCtx)
 	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 	{
 		pthis->action = SHEIK_ACTION_BLOCK_PEDESTAL;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 	}
 }
 
@@ -2821,7 +2821,7 @@ void EnXc_DrawDefault(Actor* thisx, GlobalContext* globalCtx)
 	s16 eyeIdx = pthis->eyeIdx;
 	void* eyeSegment = sEyeTextures[eyeIdx];
 	SkelAnime* skelAnime = &pthis->skelAnime;
-	GraphicsContext* localGfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* localGfxCtx = globalCtx->gfxCtx;
 	GraphicsContext* gfxCtx = localGfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_en_oA2.c", 1164);

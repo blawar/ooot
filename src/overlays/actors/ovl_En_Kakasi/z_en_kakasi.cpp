@@ -19,7 +19,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ka/object_ka.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnKakasi_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnKakasi_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -404,7 +404,7 @@ void EnKakasi_Draw(Actor* thisx, GlobalContext* globalCtx)
 		// "flag!"
 		osSyncPrintf(VT_FGCOL(YELLOW) "☆☆☆☆☆ フラグ！ ☆☆☆☆☆ %d\n" VT_RST, gSaveContext.scarecrowCustomSongSet);
 	}
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelanime.skeleton, pthis->skelanime.jointTable, pthis->skelanime.dListCount, NULL, NULL, pthis);
 }
 

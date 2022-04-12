@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_firefly/object_firefly.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_12 | ACTOR_FLAG_14)
 
 void EnFirefly_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -757,7 +757,7 @@ void EnFirefly_UpdateDamage(EnFirefly* pthis, GlobalContext* globalCtx)
 			if(Actor_ApplyDamage(&pthis->actor) == 0)
 			{
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 
 			damageEffect = pthis->actor.colChkInfo.damageEffect;
@@ -977,8 +977,8 @@ void EnFirefly_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFirefly* pthis = (EnFirefly*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1733);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1733);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if(pthis->onFire)
 	{
@@ -990,15 +990,15 @@ void EnFirefly_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	POLY_OPA_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnFirefly_OverrideLimbDraw, EnFirefly_PostLimbDraw, &pthis->actor, POLY_OPA_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1763);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1763);
 }
 
 void EnFirefly_DrawInvisible(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnFirefly* pthis = (EnFirefly*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1775);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1775);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(pthis->onFire)
 	{
@@ -1010,7 +1010,7 @@ void EnFirefly_DrawInvisible(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnFirefly_OverrideLimbDraw, EnFirefly_PostLimbDraw, pthis, POLY_XLU_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_firefly.c", 1805);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_firefly.c", 1805);
 }
 
 void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx)

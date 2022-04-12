@@ -11,7 +11,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_fz/object_fz.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
 
 void EnFz_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFz_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -182,7 +182,7 @@ void EnFz_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	Actor_SetScale(&pthis->actor, 0.008f);
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->unusedTimer1 = 0;
 	pthis->unusedCounter = 0;
 	pthis->updateBgInfo = true;
@@ -428,7 +428,7 @@ void EnFz_SetupDisappear(EnFz* pthis)
 {
 	pthis->state = 2;
 	pthis->isFreezing = false;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_Disappear;
 }
 
@@ -498,7 +498,7 @@ void EnFz_SetupAimForMove(EnFz* pthis)
 	pthis->timer = 40;
 	pthis->updateBgInfo = true;
 	pthis->isFreezing = true;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_AimForMove;
 	pthis->actor.gravity = -1.0f;
 }
@@ -617,7 +617,7 @@ void EnFz_SetupDespawn(EnFz* pthis, GlobalContext* globalCtx)
 	pthis->updateBgInfo = true;
 	pthis->isFreezing = false;
 	pthis->isDespawning = true;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->isActive = false;
 	pthis->timer = 60;
 	pthis->speedXZ = 0.0f;
@@ -642,7 +642,7 @@ void EnFz_SetupMelt(EnFz* pthis)
 	pthis->state = 3;
 	pthis->isFreezing = false;
 	pthis->isDespawning = true;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_Melt;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->speedXZ = 0.0f;
@@ -679,7 +679,7 @@ void EnFz_SetupBlowSmokeStationary(EnFz* pthis)
 	pthis->timer = 40;
 	pthis->updateBgInfo = true;
 	pthis->isFreezing = true;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actionFunc = EnFz_BlowSmokeStationary;
 	pthis->actor.gravity = -1.0f;
 }
@@ -806,7 +806,7 @@ void EnFz_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	index = (6 - pthis->actor.colChkInfo.health) >> 1;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fz.c", 1167);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fz.c", 1167);
 
 	if(1)
 	{
@@ -820,16 +820,16 @@ void EnFz_Draw(Actor* thisx, GlobalContext* globalCtx)
 	if(pthis->isActive)
 	{
 		func_8002ED80(&pthis->actor, globalCtx, 0);
-		func_80093D84(globalCtx->state.gfxCtx);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, globalCtx->state.frames & 0x7F, 32, 32, 1, 0, (uintptr_t)(globalCtx->state.frames * 2) & 0x7F, 32, 32));
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fz.c", 1183), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D84(globalCtx->gfxCtx);
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, globalCtx->frames & 0x7F, 32, 32, 1, 0, (uintptr_t)(globalCtx->frames * 2) & 0x7F, 32, 32));
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fz.c", 1183), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPSetCombineLERP(POLY_XLU_DISP++, TEXEL1, PRIMITIVE, PRIM_LOD_FRAC, TEXEL0, TEXEL1, TEXEL0, PRIMITIVE, TEXEL0, PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, COMBINED, 0, ENVIRONMENT, 0);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, 155, 255, 255, 255);
 		gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 200, pthis->envAlpha);
 		gSPDisplayList(POLY_XLU_DISP++, displayLists_88[index]);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fz.c", 1200);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fz.c", 1200);
 	EnFz_DrawIceSmoke(pthis, globalCtx);
 }
 
@@ -971,12 +971,12 @@ void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx)
 {
 	EnFzEffectSsIceSmoke* iceSmoke = pthis->iceSmoke;
 	s16 i;
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	u8 texLoaded = false;
 
 	OPEN_DISPS(gfxCtx, "../z_en_fz.c", 1384);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	for(i = 0; i < ARRAY_COUNT(pthis->iceSmoke); i++)
 	{
@@ -991,7 +991,7 @@ void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx)
 			}
 
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, iceSmoke->primAlpha);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 3 * (iceSmoke->timer + (3 * i)), 15 * (iceSmoke->timer + (3 * i)), 32, 64, 1, 0, 0, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 3 * (iceSmoke->timer + (3 * i)), 15 * (iceSmoke->timer + (3 * i)), 32, 64, 1, 0, 0, 32, 32));
 			Matrix_Translate(iceSmoke->pos.x, iceSmoke->pos.y, iceSmoke->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(iceSmoke->xyScale, iceSmoke->xyScale, 1.0f, MTXMODE_APPLY);

@@ -17,7 +17,7 @@
 #include "objects/object_cs/object_cs.h"
 #include "objects/object_link_child/object_link_child.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnCs_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnCs_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -541,9 +541,9 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnCs* pthis = (EnCs*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_cs.c", 968);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_cs.c", 968);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_48[pthis->eyeIndex]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnCs_OverrideLimbDraw, EnCs_PostLimbDraw, &pthis->actor);
@@ -558,7 +558,7 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Mtx* mtx;
 
 			Matrix_Put(&pthis->spookyMaskMtx);
-			mtx = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_cs.c", 1000);
+			mtx = Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_cs.c", 1000);
 			gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[childLinkObjectIndex].vromStart.get());
 			gSPSegment(POLY_OPA_DISP++, 0x0D, mtx - 7);
 			gSPDisplayList(POLY_OPA_DISP++, gLinkChildSpookyMaskDL);
@@ -566,7 +566,7 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_cs.c", 1015);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_cs.c", 1015);
 }
 
 s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)

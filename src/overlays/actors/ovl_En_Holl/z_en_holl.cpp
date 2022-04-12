@@ -392,7 +392,7 @@ void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx)
 	// Only draw the plane if not invisible
 	if(pthis->planeAlpha != 0)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_holl.c", 805);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_holl.c", 805);
 
 		if(pthis->planeAlpha == 255)
 		{
@@ -410,7 +410,7 @@ void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_RotateY(M_PI, MTXMODE_APPLY);
 		}
 
-		gSPMatrix(gfxP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_holl.c", 824), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(gfxP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_holl.c", 824), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPSetPrimColor(gfxP++, 0, 0, 0, 0, 0, (u8)pthis->planeAlpha);
 		gSPDisplayList(gfxP++, sPlaneDL);
 
@@ -423,7 +423,7 @@ void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx)
 			POLY_XLU_DISP = gfxP;
 		}
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_holl.c", 831);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_holl.c", 831);
 	}
 }
 

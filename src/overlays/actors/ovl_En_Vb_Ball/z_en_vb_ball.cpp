@@ -336,12 +336,12 @@ void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnVbBall* pthis = (EnVbBall*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 604);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_vb_ball.c", 604);
 	if(1)
 	{
 	} // needed for match
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 607), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vb_ball.c", 607), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if(pthis->actor.params >= 200)
 	{
@@ -350,16 +350,16 @@ void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 	else
 	{
 		gSPDisplayList(POLY_OPA_DISP++, SEGMENTED_TO_VIRTUAL(gVolvagiaRockDL));
-		func_80094044(globalCtx->state.gfxCtx);
+		func_80094044(globalCtx->gfxCtx);
 
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, (s8)pthis->shadowOpacity);
 		Matrix_Translate(pthis->actor.world.pos.x, 100.0f, pthis->actor.world.pos.z, MTXMODE_NEW);
 		Matrix_Scale(pthis->shadowSize, 1.0f, pthis->shadowSize, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 626), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_vb_ball.c", 626), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gCircleShadowDL));
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_vb_ball.c", 632);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_vb_ball.c", 632);
 }
 
 void EnVbBall_Reset(Actor* pthisx, GlobalContext* globalCtx)

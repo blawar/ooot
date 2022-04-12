@@ -23,7 +23,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_geldb/object_geldb.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnGeldB_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGeldB_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -387,7 +387,7 @@ void EnGeldB_SetupWait(EnGeldB* pthis)
 	pthis->action = GELDB_WAIT;
 	pthis->actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 	pthis->actor.gravity = -2.0f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnGeldB_SetupAction(pthis, EnGeldB_Wait);
 }
 
@@ -409,7 +409,7 @@ void EnGeldB_Wait(EnGeldB* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_RIZA_DOWN);
 		pthis->skelAnime.playSpeed = 1.0f;
 		pthis->actor.world.pos.y = pthis->actor.floorHeight;
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		pthis->actor.focus.pos = pthis->actor.world.pos;
 		pthis->actor.bgCheckFlags &= ~BG_STATE_1;
 		pthis->actor.velocity.y = 0.0f;
@@ -1242,7 +1242,7 @@ void EnGeldB_RollBack(EnGeldB* pthis, GlobalContext* globalCtx)
 			EnGeldB_SetupReady(pthis);
 		}
 	}
-	if((globalCtx->state.frames & 0x5F) == 0)
+	if((globalCtx->frames & 0x5F) == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GERUDOFT_BREATH);
 	}
@@ -1673,7 +1673,7 @@ void EnGeldB_SetupDefeated(EnGeldB* pthis)
 		pthis->invisible = true;
 	}
 	pthis->action = GELDB_DEFEAT;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_GERUDOFT_DEAD);
 	EnGeldB_SetupAction(pthis, EnGeldB_Defeated);
 }
@@ -1820,7 +1820,7 @@ s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 {
 	EnGeldB* pthis = (EnGeldB*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2507);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2507);
 	if(limbIndex == GELDB_LIMB_NECK)
 	{
 		rot->z += pthis->headRot.x;
@@ -1843,7 +1843,7 @@ s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, 140, 0, 0, 255);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2529);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2529);
 	return false;
 }
 
@@ -1940,7 +1940,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnGeldB* pthis = (EnGeldB*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2672);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2672);
 	if(1)
 	{
 	}
@@ -1978,7 +1978,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if((pthis->action != GELDB_WAIT) || !pthis->invisible)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_112[pthis->blinkState]));
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnGeldB_OverrideLimbDraw, EnGeldB_PostLimbDraw, pthis);
 		if(pthis->action == GELDB_BLOCK)
@@ -2008,7 +2008,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx)
 			}
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_geldB.c", 2744);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_geldB.c", 2744);
 }
 
 s32 EnGeldB_DodgeRanged(GlobalContext* globalCtx, EnGeldB* pthis)

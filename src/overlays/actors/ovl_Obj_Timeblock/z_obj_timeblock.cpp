@@ -17,7 +17,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_timeblock/object_timeblock.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4 | ACTOR_FLAG_25 | ACTOR_FLAG_27)
 
 void ObjTimeblock_Init(Actor* thisx, GlobalContext* globalCtx);
 void ObjTimeblock_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -256,7 +256,7 @@ void ObjTimeblock_Normal(ObjTimeblock* pthis, GlobalContext* globalCtx)
 		// Possibly points the camera to pthis actor
 		OnePointCutscene_Attention(globalCtx, &pthis->dyna.actor);
 		// "◯◯◯◯ Time Block Attention Camera (frame counter  %d)\n"
-		// osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->state.frames);
+		// osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->frames);
 
 		pthis->demoEffectFirstPartTimer = 12;
 
@@ -329,7 +329,7 @@ void ObjTimeblock_AltBehaviorVisible(ObjTimeblock* pthis, GlobalContext* globalC
 		pthis->demoEffectTimer = 160;
 		OnePointCutscene_Attention(globalCtx, &pthis->dyna.actor);
 		// "Time Block Attention Camera (frame counter)"
-		// osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->state.frames);
+		// osSyncPrintf("◯◯◯◯ Time Block 注目カメラ (frame counter  %d)\n", globalCtx->frames);
 		ObjTimeblock_ToggleSwitchFlag(globalCtx, pthis->dyna.actor.params & 0x3F);
 	}
 
@@ -401,14 +401,14 @@ void ObjTimeblock_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 		Color_RGB8* primColor = &sPrimColors[thisx->home.rot.z.whole() & 7];
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_obj_timeblock.c", 762);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_obj_timeblock.c", 762);
 
-		func_80093D18(globalCtx->state.gfxCtx);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_obj_timeblock.c", 766), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		func_80093D18(globalCtx->gfxCtx);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_obj_timeblock.c", 766), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, primColor->r, primColor->g, primColor->b, 255);
 		gSPDisplayList(POLY_OPA_DISP++, gSongOfTimeBlockDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_obj_timeblock.c", 772);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_obj_timeblock.c", 772);
 	}
 }
 

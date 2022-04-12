@@ -376,7 +376,7 @@ Gfx* func_8088D9F4(GlobalContext* globalCtx, BgHidanSekizou* pthis, s16 arg2, Mt
 	arg3->xw = (temp_f2 * arg4) + pthis->dyna.actor.world.pos.x;
 	arg3->yw = pthis->dyna.actor.world.pos.y + 30.0f + (.7f * phi_f12);
 	arg3->zw = (temp_f2 * arg5) + pthis->dyna.actor.world.pos.z;
-	gSPMatrix(arg7++, Matrix_MtxFToMtx(arg3, (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(arg7++, Matrix_MtxFToMtx(arg3, (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx))), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gSPDisplayList(arg7++, gFireTempleFireballDL);
 
@@ -468,9 +468,9 @@ void BgHidanSekizou_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	s32 i;
 	s32 sp6C[4];
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_sekizou.c", 827);
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_hidan_sekizou.c", 831), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_sekizou.c", 827);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_hidan_sekizou.c", 831), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	if(pthis->dyna.actor.params == 0)
 	{
 		gSPDisplayList(POLY_OPA_DISP++, gFireTempleStationaryFlamethrowerShortDL);
@@ -509,7 +509,7 @@ void BgHidanSekizou_Draw(Actor* thisx, GlobalContext* globalCtx2)
 			}
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_hidan_sekizou.c", 899);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_hidan_sekizou.c", 899);
 }
 
 void BgHidanSekizou_Reset(Actor* pthisx, GlobalContext* globalCtx)

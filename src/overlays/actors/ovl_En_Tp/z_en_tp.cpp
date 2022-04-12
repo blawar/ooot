@@ -150,7 +150,7 @@ void EnTp_Init(Actor* thisx, GlobalContext* globalCtx2)
 		pthis->collider.elements->dim.modelSphere.radius = pthis->collider.elements->dim.worldSphere.radius = 8;
 		EnTp_Head_SetupWait(pthis);
 		pthis->actor.focus.pos = pthis->actor.world.pos;
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4;
 		Actor_SetScale(&pthis->actor, 1.5f);
 
 		for(i = 0; i <= 6; i++)
@@ -170,7 +170,7 @@ void EnTp_Init(Actor* thisx, GlobalContext* globalCtx2)
 
 				if(i == 2)
 				{
-					next->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4;
+					next->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4;
 					next->unk_150 = 1; // Why?
 				}
 
@@ -224,7 +224,7 @@ void EnTp_Tail_FollowHead(EnTp* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->unk_150 != 0)
 		{
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		}
 
 		if(pthis->head->unk_150 != 0)
@@ -232,7 +232,7 @@ void EnTp_Tail_FollowHead(EnTp* pthis, GlobalContext* globalCtx)
 			pthis->actor.speedXZ = pthis->red = pthis->actor.velocity.y = pthis->heightPhase = 0.0f;
 			if(pthis->actor.world.pos.y < pthis->head->actor.home.pos.y)
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 
 			pthis->actor.world.pos = pthis->actor.parent->prevPos;
@@ -381,7 +381,7 @@ void EnTp_Fragment_SetupFade(EnTp* pthis)
 	pthis->actor.velocity.x = (Rand_ZeroOne() - 0.5f) * 1.5f;
 	pthis->actor.velocity.y = (Rand_ZeroOne() - 0.5f) * 1.5f;
 	pthis->actor.velocity.z = (Rand_ZeroOne() - 0.5f) * 1.5f;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	EnTp_SetupAction(pthis, EnTp_Fragment_Fade);
 }
 
@@ -658,7 +658,7 @@ void EnTp_UpdateDamage(EnTp* pthis, GlobalContext* globalCtx)
 
 			if(pthis->actor.colChkInfo.health == 0)
 			{
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 				head = pthis->head;
 
 				if(head->actor.params <= TAILPASARAN_HEAD)
@@ -828,22 +828,22 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnTp* pthis = (EnTp*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tp.c", 1451);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tp.c", 1451);
 
 	if(pthis->unk_150 != 2)
 	{
 		if((thisx->params <= TAILPASARAN_HEAD) || (thisx->params == TAILPASARAN_HEAD_DYING))
 		{
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tp.c", 1459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tp.c", 1459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gTailpasaranHeadDL);
 
 			Matrix_Translate(0.0f, 0.0f, 8.0f, MTXMODE_APPLY);
 		}
 		else
 		{
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, pthis->red, 0, 255, pthis->alpha);
@@ -852,12 +852,12 @@ void EnTp_Draw(Actor* thisx, GlobalContext* globalCtx)
 			gDPPipeSync(POLY_XLU_DISP++);
 			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(gTailpasaranTailSegmentTex));
 			gDPPipeSync(POLY_XLU_DISP++);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tp.c", 1480), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tp.c", 1480), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gTailpasaranTailSegmentDL);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tp.c", 1495);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tp.c", 1495);
 
 	if((thisx->params <= TAILPASARAN_TAIL) || (thisx->params == TAILPASARAN_TAIL_DYING))
 	{

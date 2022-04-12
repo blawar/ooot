@@ -20,7 +20,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ge1/object_ge1.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 #define GE1_STATE_TALKING (1 << 0)
 #define GE1_STATE_GIVE_QUIVER (1 << 1)
@@ -953,8 +953,8 @@ s32 EnGe1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 	// animation.
 	if((limbIndex == GE1_LIMB_TORSO) || (limbIndex == GE1_LIMB_L_FOREARM) || (limbIndex == GE1_LIMB_R_FOREARM))
 	{
-		rot->y += Math_SinS(globalCtx->state.frames * (limbIndex * 50 + 0x814)) * 200.0f;
-		rot->z += Math_CosS(globalCtx->state.frames * (limbIndex * 50 + 0x940)) * 200.0f;
+		rot->y += Math_SinS(globalCtx->frames * (limbIndex * 50 + 0x814)) * 200.0f;
+		rot->z += Math_CosS(globalCtx->frames * (limbIndex * 50 + 0x940)) * 200.0f;
 	}
 	return 0;
 }
@@ -963,7 +963,7 @@ void EnGe1_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 {
 	EnGe1* pthis = (EnGe1*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge1.c", 1419);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ge1.c", 1419);
 
 	if(limbIndex == GE1_LIMB_HEAD)
 	{
@@ -971,7 +971,7 @@ void EnGe1_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 		Matrix_MultVec3f(&D_80A327A8, &pthis->actor.focus.pos);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge1.c", 1427);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ge1.c", 1427);
 }
 
 void EnGe1_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -979,13 +979,13 @@ void EnGe1_Draw(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	EnGe1* pthis = (EnGe1*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge1.c", 1442);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ge1.c", 1442);
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeIndex]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnGe1_OverrideLimbDraw, EnGe1_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ge1.c", 1459);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ge1.c", 1459);
 }
 
 void EnGe1_Reset(Actor* pthisx, GlobalContext* globalCtx)

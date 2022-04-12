@@ -361,11 +361,11 @@ void Minimap_DrawCompassIcons(GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 	s16 tempX, tempZ;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_map_exp.c", 565);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_map_exp.c", 565);
 
 	if(globalCtx->interfaceCtx.minimapAlpha >= 0xAA)
 	{
-		func_80094A14(globalCtx->state.gfxCtx);
+		func_80094A14(globalCtx->gfxCtx);
 
 		gSPMatrix(OVERLAY_DISP++, &gMtxClear, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPSetCombineLERP(OVERLAY_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
@@ -381,7 +381,7 @@ void Minimap_DrawCompassIcons(GlobalContext* globalCtx)
 		Matrix_RotateX(-1.6f, MTXMODE_APPLY);
 		tempX = (0x7FFF - player->actor.shape.rot.y) / 0x400;
 		Matrix_RotateY(tempX / 10.0f, MTXMODE_APPLY);
-		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_map_exp.c", 585), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_map_exp.c", 585), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 		gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 200, 255, 0, 255);
 		gSPDisplayList(OVERLAY_DISP++, gCompassArrowDL);
@@ -394,13 +394,13 @@ void Minimap_DrawCompassIcons(GlobalContext* globalCtx)
 		Matrix_Scale(VREG(9) / 100.0f, VREG(9) / 100.0f, VREG(9) / 100.0f, MTXMODE_APPLY);
 		Matrix_RotateX(VREG(52) / 10.0f, MTXMODE_APPLY);
 		Matrix_RotateY(sPlayerInitialDirection / 10.0f, MTXMODE_APPLY);
-		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_map_exp.c", 603), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_map_exp.c", 603), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 		gDPSetPrimColor(OVERLAY_DISP++, 0, 0xFF, 200, 0, 0, 255);
 		gSPDisplayList(OVERLAY_DISP++, gCompassArrowDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_map_exp.c", 607);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_map_exp.c", 607);
 }
 
 void Minimap_Draw(GlobalContext* globalCtx)
@@ -409,7 +409,7 @@ void Minimap_Draw(GlobalContext* globalCtx)
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 	s32 mapIndex = gSaveContext.mapIndex;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_map_exp.c", 626);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_map_exp.c", 626);
 
 	if(globalCtx->pauseCtx.state < 4)
 	{
@@ -427,7 +427,7 @@ void Minimap_Draw(GlobalContext* globalCtx)
 			case SCENE_ICE_DOUKUTO:
 				if(!R_MINIMAP_DISABLED)
 				{
-					func_80094520(globalCtx->state.gfxCtx);
+					func_80094520(globalCtx->gfxCtx);
 					gDPSetCombineLERP(OVERLAY_DISP++, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0);
 
 					if(CHECK_DUNGEON_ITEM(DUNGEON_MAP, mapIndex))
@@ -443,12 +443,12 @@ void Minimap_Draw(GlobalContext* globalCtx)
 					if(CHECK_DUNGEON_ITEM(DUNGEON_COMPASS, mapIndex))
 					{
 						Minimap_DrawCompassIcons(globalCtx); // Draw icons for the player spawn and current position
-						func_80094520(globalCtx->state.gfxCtx);
+						func_80094520(globalCtx->gfxCtx);
 						MapMark_Draw(globalCtx);
 					}
 				}
 
-				if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_L) && !Gameplay_InCsMode(globalCtx))
+				if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_L) && !Gameplay_InCsMode(globalCtx))
 				{
 					osSyncPrintf("Game_play_demo_mode_check=%d\n", Gameplay_InCsMode(globalCtx));
 					// clang-format off
@@ -483,7 +483,7 @@ void Minimap_Draw(GlobalContext* globalCtx)
 			case SCENE_GANON_TOU:
 				if(!R_MINIMAP_DISABLED)
 				{
-					func_80094520(globalCtx->state.gfxCtx);
+					func_80094520(globalCtx->gfxCtx);
 
 					gDPSetCombineMode(OVERLAY_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
 					gDPSetPrimColor(OVERLAY_DISP++, 0, 0, R_MINIMAP_COLOR(0), R_MINIMAP_COLOR(1), R_MINIMAP_COLOR(2), interfaceCtx->minimapAlpha);
@@ -519,7 +519,7 @@ void Minimap_Draw(GlobalContext* globalCtx)
 					Minimap_DrawCompassIcons(globalCtx); // Draw icons for the player spawn and current position
 				}
 
-				if(CHECK_BTN_ALL(globalCtx->state.input[0].press.button, BTN_L) && !Gameplay_InCsMode(globalCtx))
+				if(CHECK_BTN_ALL(globalCtx->input[0].press.button, BTN_L) && !Gameplay_InCsMode(globalCtx))
 				{
 					// clang-format off
                     if (!R_MINIMAP_DISABLED) { Audio_PlaySoundGeneral(NA_SE_SY_CAMERA_ZOOM_UP, &gAudioDefaultPos, 4,
@@ -534,7 +534,7 @@ void Minimap_Draw(GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_map_exp.c", 782);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_map_exp.c", 782);
 }
 
 s16 Map_GetFloorTextIndexOffset(s32 mapIndex, s32 floor)

@@ -1,8 +1,8 @@
 #pragma once
 #include "z64animation.h"
+#include "globalctx.h"
 
 struct Player;
-struct GlobalContext;
 struct Vec3f;
 struct Actor;
 struct Vec3s;

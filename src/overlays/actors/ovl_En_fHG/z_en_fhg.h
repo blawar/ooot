@@ -7,7 +7,7 @@
 
 struct EnfHG;
 
-typedef void (*EnfHGActionFunc)(struct EnfHG*, struct GlobalContext*);
+typedef void (*EnfHGActionFunc)(struct EnfHG*, GlobalContext*);
 
 enum EnfHGSignal
 {

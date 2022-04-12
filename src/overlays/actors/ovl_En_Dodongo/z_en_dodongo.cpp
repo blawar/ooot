@@ -17,7 +17,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dodongo/object_dodongo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnDodongo_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDodongo_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -614,7 +614,7 @@ void EnDodongo_Walk(EnDodongo* pthis, GlobalContext* globalCtx)
 	if(Math_Vec3f_DistXZ(&pthis->actor.home.pos, &player->actor.world.pos) < 400.0f)
 	{
 		Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 1, 0x1F4, 0);
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		if((pthis->actor.xzDistToPlayer < 100.0f) && (yawDiff < 0x1388) && (pthis->actor.yDistToPlayer < 60.0f))
 		{
 			EnDodongo_SetupBreatheFire(pthis);
@@ -622,7 +622,7 @@ void EnDodongo_Walk(EnDodongo* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		if((Math_Vec3f_DistXZ(&pthis->actor.world.pos, &pthis->actor.home.pos) > 150.0f) || (pthis->retreatTimer != 0))
 		{
 			s16 yawToHome = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
@@ -736,7 +736,7 @@ void EnDodongo_SetupDeath(EnDodongo* pthis, GlobalContext* globalCtx)
 	pthis->timer = 0;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_J_DEAD);
 	pthis->actionState = DODONGO_DEATH;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	EnDodongo_SetupAction(pthis, EnDodongo_Death);
 }
@@ -1033,7 +1033,7 @@ void EnDodongo_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	EnDodongo* pthis = (EnDodongo*)thisx;
 	s32 index;
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnDodongo_OverrideLimbDraw, EnDodongo_PostLimbDraw, pthis);
 
 	if(pthis->iceTimer != 0)

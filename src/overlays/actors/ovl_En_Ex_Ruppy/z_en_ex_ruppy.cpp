@@ -134,7 +134,7 @@ void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->unk_15A = pthis->actor.world.rot.z;
 			pthis->actor.world.rot.z = 0;
 			pthis->timer = 30;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actionFunc = EnExRuppy_DropIntoWater;
 			break;
 
@@ -155,7 +155,7 @@ void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
 			osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ わーなーコイン ☆☆☆☆☆ \n" VT_RST);
 			pthis->actor.shape.shadowScale = 6.0f;
 			pthis->actor.shape.yOffset = 700.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actionFunc = EnExRuppy_WaitToBlowUp;
 			break;
 
@@ -178,13 +178,13 @@ void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
 			osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ ノーマルルピー ☆☆☆☆☆ \n" VT_RST);
 			pthis->actor.shape.shadowScale = 6.0f;
 			pthis->actor.shape.yOffset = 700.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->actionFunc = EnExRuppy_WaitAsCollectible;
 			break;
 
 		case 4: // Progress markers in the shooting gallery
 			pthis->actor.gravity = -3.0f;
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			Actor_SetScale(&pthis->actor, 0.01f);
 			pthis->actor.shape.shadowScale = 6.0f;
 			pthis->actor.shape.yOffset = -700.0f;
@@ -448,15 +448,15 @@ void EnExRuppy_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(!pthis->invisible)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_ruppy.c", 774);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ex_ruppy.c", 774);
 
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		func_8002EBCC(thisx, globalCtx, 0);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ex_ruppy.c", 780), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ex_ruppy.c", 780), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(rupeeTextures_47[pthis->colorIdx]));
 		gSPDisplayList(POLY_OPA_DISP++, gRupeeDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ex_ruppy.c", 784);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ex_ruppy.c", 784);
 	}
 }
 

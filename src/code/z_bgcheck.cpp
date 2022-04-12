@@ -119,7 +119,7 @@ void DynaSSNodeList_Initialize(GlobalContext* globalCtx, DynaSSNodeList* nodeLis
  */
 void DynaSSNodeList_Alloc(GlobalContext* globalCtx, DynaSSNodeList* nodeList, s32 max)
 {
-	nodeList->tbl = (SSNode*)THA_AllocEndAlign(&globalCtx->state.tha, max * sizeof(SSNode), -2);
+	nodeList->tbl = (SSNode*)THA_AllocEndAlign(&globalCtx->tha, max * sizeof(SSNode), -2);
 
 	ASSERT(nodeList->tbl != NULL, "psst->tbl != NULL", "../z_bgcheck.c", 1811);
 
@@ -1695,7 +1695,7 @@ void BgCheck_Allocate(CollisionContext* colCtx, GlobalContext* globalCtx, Collis
 			colCtx->subdivAmount.z = 16;
 		}
 	}
-	colCtx->lookupTbl = (StaticLookup*)THA_AllocEndAlign(&globalCtx->state.tha, colCtx->subdivAmount.x * sizeof(StaticLookup) * colCtx->subdivAmount.y * colCtx->subdivAmount.z, ~1);
+	colCtx->lookupTbl = (StaticLookup*)THA_AllocEndAlign(&globalCtx->tha, colCtx->subdivAmount.x * sizeof(StaticLookup) * colCtx->subdivAmount.y * colCtx->subdivAmount.z, ~1);
 	if(colCtx->lookupTbl == NULL)
 	{
 		LogUtils_HungupThread("../z_bgcheck.c", 4176);
@@ -2570,11 +2570,11 @@ void SSNodeList_Alloc(GlobalContext* globalCtx, SSNodeList* pthis, s32 tblMax, s
 {
 	pthis->max = tblMax;
 	pthis->count = 0;
-	pthis->tbl = (SSNode*)THA_AllocEndAlign(&globalCtx->state.tha, tblMax * sizeof(SSNode), -2);
+	pthis->tbl = (SSNode*)THA_AllocEndAlign(&globalCtx->tha, tblMax * sizeof(SSNode), -2);
 
 	ASSERT(pthis->tbl != NULL, "pthis->short_slist_node_tbl != NULL", "../z_bgcheck.c", 5975);
 
-	pthis->polyCheckTbl = (u8*)GameState_Alloc(&globalCtx->state, numPolys, "../z_bgcheck.c", 5979);
+	pthis->polyCheckTbl = (u8*)GameState_Alloc(globalCtx, numPolys, "../z_bgcheck.c", 5979);
 
 	ASSERT(pthis->polyCheckTbl != NULL, "pthis->polygon_check != NULL", "../z_bgcheck.c", 5981);
 }
@@ -2717,7 +2717,7 @@ void DynaPoly_NullPolyList(CollisionPoly** polyList)
  */
 void DynaPoly_AllocPolyList(GlobalContext* globalCtx, CollisionPoly** polyList, s32 numPolys)
 {
-	*polyList = (CollisionPoly*)THA_AllocEndAlign(&globalCtx->state.tha, numPolys * sizeof(CollisionPoly), -2);
+	*polyList = (CollisionPoly*)THA_AllocEndAlign(&globalCtx->tha, numPolys * sizeof(CollisionPoly), -2);
 	ASSERT(*polyList != NULL, "ptbl->pbuf != NULL", "../z_bgcheck.c", 6247);
 }
 
@@ -2734,7 +2734,7 @@ void DynaPoly_NullVtxList(Vec3s** vtxList)
  */
 void DynaPoly_AllocVtxList(GlobalContext* globalCtx, Vec3s** vtxList, s32 numVtx)
 {
-	*vtxList = (Vec3s*)THA_AllocEndAlign(&globalCtx->state.tha, numVtx * sizeof(Vec3s), -2);
+	*vtxList = (Vec3s*)THA_AllocEndAlign(&globalCtx->tha, numVtx * sizeof(Vec3s), -2);
 	ASSERT(*vtxList != NULL, "ptbl->pbuf != NULL", "../z_bgcheck.c", 6277);
 }
 
@@ -4832,7 +4832,7 @@ void BgCheck_DrawDynaPolyList(GlobalContext* globalCtx, CollisionContext* colCtx
 				vC.y += AREG(26) * ny;
 				vC.z += AREG(26) * nz;
 			}
-			Collider_DrawPoly(globalCtx->state.gfxCtx, &vA, &vB, &vC, r, g, b);
+			Collider_DrawPoly(globalCtx->gfxCtx, &vA, &vB, &vC, r, g, b);
 			if(curNode->next == SS_NULL)
 			{
 				break;
@@ -4909,7 +4909,7 @@ void BgCheck_DrawStaticPoly(GlobalContext* globalCtx, CollisionContext* colCtx, 
 		vC.y += AREG(26) * ny;
 		vC.z += AREG(26) * nz;
 	}
-	Collider_DrawPoly(globalCtx->state.gfxCtx, &vA, &vB, &vC, r, g, b);
+	Collider_DrawPoly(globalCtx->gfxCtx, &vA, &vB, &vC, r, g, b);
 }
 
 /**

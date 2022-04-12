@@ -17,7 +17,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_hs/object_hs.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnHs2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnHs2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -182,7 +182,7 @@ void EnHs2_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnHs2* pthis = (EnHs2*)thisx;
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnHs2_OverrideLimbDraw, EnHs2_PostLimbDraw, pthis);
 }
 

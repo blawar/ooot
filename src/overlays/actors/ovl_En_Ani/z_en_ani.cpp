@@ -16,7 +16,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ani/object_ani.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnAni_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnAni_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -396,15 +396,15 @@ void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnAni* pthis = (EnAni*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ani.c", 719);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ani.c", 719);
 
-	func_800943C8(globalCtx->state.gfxCtx);
+	func_800943C8(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_51[pthis->eyeIndex]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnAni_OverrideLimbDraw, EnAni_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ani.c", 736);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ani.c", 736);
 }
 
 void EnAni_Reset(Actor* pthisx, GlobalContext* globalCtx)

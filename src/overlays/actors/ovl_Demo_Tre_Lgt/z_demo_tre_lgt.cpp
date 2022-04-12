@@ -143,8 +143,8 @@ s32 DemoTreLgt_PostLimbDraw(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve,
 	s32 pad;
 	DemoTreLgt* pthis = (DemoTreLgt*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_tre_lgt.c", 423);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, (uintptr_t)(globalCtx->state.frames * 2) % 256, 0, 64, 32, 1, (uintptr_t)(globalCtx->state.frames * -2) % 256, 0, 64, 32));
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_tre_lgt.c", 423);
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (uintptr_t)(globalCtx->frames * 2) % 256, 0, 64, 32, 1, (uintptr_t)(globalCtx->frames * -2) % 256, 0, 64, 32));
 
 	if(limbIndex == 1)
 	{
@@ -155,13 +155,13 @@ s32 DemoTreLgt_PostLimbDraw(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve,
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 255, 255, 180, pthis->unk_174);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_tre_lgt.c", 448);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_tre_lgt.c", 448);
 	return 1;
 }
 
 void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	DemoTreLgt* pthis = (DemoTreLgt*)thisx;
 
 	OPEN_DISPS(gfxCtx, "../z_demo_tre_lgt.c", 461);

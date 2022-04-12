@@ -182,6 +182,47 @@ namespace oot
 				return m_useXInput;
 			}
 
+			const bool& invertLeftStickY() const
+			{
+				return m_invertLeftStickY;
+			}
+
+			bool& invertLeftStickY()
+			{
+				return m_invertLeftStickY;
+			}
+
+			const bool& invertRightStickY() const
+			{
+				return m_invertRightStickY;
+			}
+
+			bool& invertRightStickY()
+			{
+				return m_invertRightStickY;
+			}
+
+
+			const bool& invertLeftStickFirstPersonY() const
+			{
+				return m_invertLeftStickY;
+			}
+
+			bool& invertLeftStickFirstPersonY()
+			{
+				return m_invertLeftStickY;
+			}
+
+			const bool& invertRightStickFirstPersonY() const
+			{
+				return m_invertRightStickY;
+			}
+
+			bool& invertRightStickFirstPersonY()
+			{
+				return m_invertRightStickY;
+			}
+
 			protected:
 			bool m_mousexInvert = false;
 			bool m_mouseyInvert = true;
@@ -195,6 +236,12 @@ namespace oot
 			float m_gyroyScaler = 20.0f;
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
+
+			bool m_invertLeftStickY = false;
+			bool m_invertRightStickY = false;
+
+			bool m_invertLeftStickFirstPersonY = false;
+			bool m_invertRightStickFirstPersonY = false;
 		};
 
 		class Cheats : public Section

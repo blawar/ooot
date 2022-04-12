@@ -354,7 +354,7 @@ void func_80A747C0(EnIk* pthis, GlobalContext* globalCtx)
 	}
 	if(SkelAnime_Update(&pthis->skelAnime))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 		func_80A74AAC(pthis);
 	}
 }
@@ -363,7 +363,7 @@ void func_80A7489C(EnIk* pthis)
 {
 	f32 frames = Animation_GetLastFrame(&object_ik_Anim_00DD50);
 
-	pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 	pthis->unk_2F8 = 4;
 	pthis->actor.speedXZ = 0.0f;
 	Animation_Change(&pthis->skelAnime, &object_ik_Anim_00DD50, 0.0f, 0.0f, frames, ANIMMODE_LOOP, 4.0f);
@@ -1047,7 +1047,7 @@ void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	Vec3f spE8;
 	EnIk* pthis = (EnIk*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1201);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1201);
 
 	if(pthis->unk_2FB & 1)
 	{
@@ -1055,7 +1055,7 @@ void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	}
 	if(limbIndex == 12)
 	{
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1217), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1217), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		if(pthis->actor.params != 0)
 		{
 			gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_019E08);
@@ -1103,68 +1103,68 @@ void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	switch(limbIndex)
 	{
 		case 22:
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1270), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1270), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016F88);
 			break;
 		case 24:
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1275), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1275), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016EE8);
 			break;
 		case 26:
 			if(!(pthis->unk_2FA & 1))
 			{
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1281), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1281), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016BE0);
 			}
 			break;
 		case 27:
 			if(!(pthis->unk_2FA & 1))
 			{
-				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1288), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1288), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 				gSPDisplayList(POLY_XLU_DISP++, object_ik_DL_016CD8);
 			}
 			break;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1294);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1294);
 }
 
 void func_80A76798(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnIk* pthis = (EnIk*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1309);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1309);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(pthis->actor.params == 0)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->state.gfxCtx, 245, 225, 155, 30, 30, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->state.gfxCtx, 255, 40, 0, 40, 0, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->state.gfxCtx, 255, 255, 255, 20, 40, 30));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->gfxCtx, 245, 225, 155, 30, 30, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->gfxCtx, 255, 40, 0, 40, 0, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->gfxCtx, 255, 255, 255, 20, 40, 30));
 	}
 	else if(pthis->actor.params == 1)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->state.gfxCtx, 245, 255, 205, 30, 35, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->state.gfxCtx, 185, 135, 25, 20, 20, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->state.gfxCtx, 255, 255, 255, 30, 40, 20));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->gfxCtx, 245, 255, 205, 30, 35, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->gfxCtx, 185, 135, 25, 20, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->gfxCtx, 255, 255, 255, 30, 40, 20));
 	}
 	else if(pthis->actor.params == 2)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->state.gfxCtx, 55, 65, 55, 0, 0, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->state.gfxCtx, 205, 165, 75, 25, 20, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->state.gfxCtx, 205, 165, 75, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->gfxCtx, 55, 65, 55, 0, 0, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->gfxCtx, 205, 165, 75, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->gfxCtx, 205, 165, 75, 25, 20, 0));
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->state.gfxCtx, 255, 255, 255, 180, 180, 180));
-		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->state.gfxCtx, 225, 205, 115, 25, 20, 0));
-		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->state.gfxCtx, 225, 205, 115, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x08, func_80A761B0(globalCtx->gfxCtx, 255, 255, 255, 180, 180, 180));
+		gSPSegment(POLY_OPA_DISP++, 0x09, func_80A761B0(globalCtx->gfxCtx, 225, 205, 115, 25, 20, 0));
+		gSPSegment(POLY_OPA_DISP++, 0x0A, func_80A761B0(globalCtx->gfxCtx, 225, 205, 115, 25, 20, 0));
 	}
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnIk_OverrideLimbDraw3, EnIk_PostLimbDraw3, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ik_inFight.c", 1351);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ik_inFight.c", 1351);
 }
 
 void EnIk_StartMusic(void)
@@ -1393,7 +1393,7 @@ s32 EnIk_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
 void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_en_ik_inAwake.c", 207);
 
@@ -1446,7 +1446,7 @@ void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
 void func_80A77844(EnIk* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 	s32 pad[2];
 
@@ -1575,7 +1575,7 @@ s32 EnIk_OverrideLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
 
 void EnIk_PostLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_en_ik_inConfrontion.c", 571);
 
@@ -1612,7 +1612,7 @@ void func_80A77ED0(EnIk* pthis, GlobalContext* globalCtx)
 
 void func_80A77EDC(EnIk* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	SkelAnime* skelAnime = &pthis->skelAnime;
 	s32 pad[2];
 
@@ -1667,7 +1667,7 @@ void func_80A78160(EnIk* pthis, GlobalContext* globalCtx)
 {
 	pthis->actor.update = func_80A75FA0;
 	pthis->actor.draw = func_80A76798;
-	pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_2;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2;
 	gSaveContext.eventChkInf[3] |= 0x800;
 	Actor_SetScale(&pthis->actor, 0.012f);
 	func_80A7489C(pthis);

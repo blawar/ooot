@@ -268,7 +268,7 @@ void func_808ACCB8(Actor* thisx, GlobalContext* globalCtx)
 	u8 greenEnv;
 	u8 blueEnv;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 600);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot02_objects.c", 600);
 
 	if(globalCtx->csCtx.state != 0 && globalCtx->csCtx.npcActions[0] != NULL && globalCtx->csCtx.npcActions[0]->action == 2)
 	{
@@ -296,19 +296,19 @@ void func_808ACCB8(Actor* thisx, GlobalContext* globalCtx)
 		Matrix_RotateY(globalCtx->csCtx.npcActions[0]->urot.y * (M_PI / (f32)0x8000), MTXMODE_APPLY);
 		Matrix_RotateZ(globalCtx->csCtx.npcActions[0]->urot.z * (M_PI / (f32)0x8000), MTXMODE_APPLY);
 		Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		gDPPipeSync(POLY_XLU_DISP++);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, redPrim, greenPrim, bluePrim, 255);
 		gDPSetEnvColor(POLY_XLU_DISP++, redEnv, greenEnv, blueEnv, 255);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 679), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot02_objects.c", 679), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(D_808AD850[pthis->unk_16A]));
 		gDPPipeSync(POLY_XLU_DISP++);
 		gSPDisplayList(POLY_XLU_DISP++, object_spot02_objects_DL_0126F0);
 		gDPPipeSync(POLY_XLU_DISP++);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 692);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot02_objects.c", 692);
 }
 
 void func_808AD3D4(BgSpot02Objects* pthis, GlobalContext* globalCtx)
@@ -337,7 +337,7 @@ void func_808AD450(Actor* thisx, GlobalContext* globalCtx)
 	s32 pad;
 	f32 lerp;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 736);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot02_objects.c", 736);
 
 	if(globalCtx->csCtx.state != 0 && globalCtx->csCtx.npcActions[2] != NULL)
 	{
@@ -366,20 +366,20 @@ void func_808AD450(Actor* thisx, GlobalContext* globalCtx)
 			Matrix_RotateX(globalCtx->csCtx.npcActions[2]->urot.x * (M_PI / (f32)0x8000), MTXMODE_APPLY);
 			Matrix_RotateY(globalCtx->csCtx.npcActions[2]->urot.y * (M_PI / (f32)0x8000), MTXMODE_APPLY);
 			Matrix_Scale(0.9f, 0.9f, (((pthis->unk_170 - pthis->unk_172) * lerp) + pthis->unk_172) * 0.1f, MTXMODE_APPLY);
-			func_80093D84(globalCtx->state.gfxCtx);
+			func_80093D84(globalCtx->gfxCtx);
 
 			gDPPipeSync(POLY_XLU_DISP++);
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 170, 128);
 			gDPSetEnvColor(POLY_XLU_DISP++, 150, 120, 0, 128);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 795), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 2 * pthis->timer, -3 * pthis->timer, 32, 64, 1, 4 * pthis->timer, -6 * pthis->timer, 32, 64));
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot02_objects.c", 795), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 2 * pthis->timer, -3 * pthis->timer, 32, 64, 1, 4 * pthis->timer, -6 * pthis->timer, 32, 64));
 			gDPPipeSync(POLY_XLU_DISP++);
 			gSPDisplayList(POLY_XLU_DISP++, object_spot02_objects_DL_0013F0);
 			gDPPipeSync(POLY_XLU_DISP++);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot02_objects.c", 818);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot02_objects.c", 818);
 }
 
 void BgSpot02Objects_Reset(Actor* pthisx, GlobalContext* globalCtx)

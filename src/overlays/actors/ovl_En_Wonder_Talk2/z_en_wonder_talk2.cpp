@@ -12,7 +12,7 @@
 #include "def/z_message_PAL.h"
 #include "def/z_play.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_27)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_27)
 
 void EnWonderTalk2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnWonderTalk2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -128,7 +128,7 @@ void func_80B3A15C(EnWonderTalk2* pthis, GlobalContext* globalCtx)
 	{
 		if(!pthis->unk_15A)
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->unk_15A = true;
 		}
 	}
@@ -222,7 +222,7 @@ void func_80B3A3D4(EnWonderTalk2* pthis, GlobalContext* globalCtx)
 			{
 				pthis->unk_15A = true;
 			}
-			pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_4);
+			pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4);
 			func_8002DF54(globalCtx, NULL, 7);
 			pthis->unk_156 = true;
 			pthis->actionFunc = func_80B3A4F8;
@@ -240,7 +240,7 @@ void func_80B3A4F8(EnWonderTalk2* pthis, GlobalContext* globalCtx)
 	{
 		if(!pthis->unk_15A)
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			pthis->unk_15A = true;
 		}
 	}
@@ -291,7 +291,7 @@ void func_80B3A4F8(EnWonderTalk2* pthis, GlobalContext* globalCtx)
 			{
 				Message_StartTextbox(globalCtx, pthis->actor.textId, NULL);
 				func_8002DF54(globalCtx, NULL, 8);
-				pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_4;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4;
 				pthis->actionFunc = func_80B3A3D4;
 			}
 		}

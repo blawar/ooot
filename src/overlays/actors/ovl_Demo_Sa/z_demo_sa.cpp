@@ -513,9 +513,9 @@ void DemoSa_DrawXlu(DemoSa* pthis, GlobalContext* globalCtx)
 	void* sp6C = sMouthTextures[mouthIndex];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_sa_inKenjyanomaDemo02.c", 296);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_sa_inKenjyanomaDemo02.c", 296);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sp78));
 	gSPSegment(POLY_XLU_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sp78));
@@ -525,7 +525,7 @@ void DemoSa_DrawXlu(DemoSa* pthis, GlobalContext* globalCtx)
 
 	POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_sa_inKenjyanomaDemo02.c", 325);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_sa_inKenjyanomaDemo02.c", 325);
 }
 
 void func_8098F390(DemoSa* pthis, GlobalContext* globalCtx)
@@ -905,9 +905,9 @@ void DemoSa_DrawOpa(DemoSa* pthis, GlobalContext* globalCtx)
 	void* mouthTex = sMouthTextures[mouthIndex];
 	SkelAnime* skelAnime = &pthis->skelAnime;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_sa.c", 602);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_sa.c", 602);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTex));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(eyeTex));
@@ -917,7 +917,7 @@ void DemoSa_DrawOpa(DemoSa* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_DrawFlexOpa(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, DemoSa_OverrideLimbDraw, NULL, &pthis->actor);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_sa.c", 626);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_sa.c", 626);
 }
 
 void DemoSa_Draw(Actor* thisx, GlobalContext* globalCtx)

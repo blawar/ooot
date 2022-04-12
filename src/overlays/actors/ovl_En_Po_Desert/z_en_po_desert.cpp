@@ -231,13 +231,13 @@ void EnPoDesert_Update(Actor* thisx, GlobalContext* globalCtx)
 	CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 	if(globalCtx->actorCtx.unk_03)
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_7;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_7;
 		pthis->actor.shape.shadowDraw = ActorShadow_DrawCircle;
 	}
 	else
 	{
 		pthis->actor.shape.shadowDraw = NULL;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_7);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_7);
 	}
 }
 
@@ -276,7 +276,7 @@ void EnPoDesert_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 		{
 			gDPPipeSync((*gfxP)++);
 			gDPSetEnvColor((*gfxP)++, color.r, color.g, color.b, 255);
-			gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_po_desert.c", 523), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix((*gfxP)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_po_desert.c", 523), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList((*gfxP)++, gPoeFieldLanternDL);
 			gSPDisplayList((*gfxP)++, gPoeFieldLanternTopDL);
 			gDPPipeSync((*gfxP)++);
@@ -290,10 +290,10 @@ void EnPoDesert_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnPoDesert* pthis = (EnPoDesert*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_po_desert.c", 559);
-	func_80093D84(globalCtx->state.gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_EnvColor(globalCtx->state.gfxCtx, 255, 85, 0, 255));
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_EnvColor(globalCtx->state.gfxCtx, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a));
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_po_desert.c", 559);
+	func_80093D84(globalCtx->gfxCtx);
+	gSPSegment(POLY_XLU_DISP++, 0x0A, Gfx_EnvColor(globalCtx->gfxCtx, 255, 85, 0, 255));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_EnvColor(globalCtx->gfxCtx, pthis->lightColor.r, pthis->lightColor.g, pthis->lightColor.b, pthis->lightColor.a));
 	if(pthis->actionFunc == EnPoDesert_Disappear)
 	{
 		gSPSegment(POLY_XLU_DISP++, 0x0C, D_80116280);
@@ -303,7 +303,7 @@ void EnPoDesert_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gSPSegment(POLY_XLU_DISP++, 0x0C, D_80116280 + 2);
 	}
 	POLY_XLU_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnPoDesert_OverrideLimbDraw, EnPoDesert_PostLimbDraw, &pthis->actor, POLY_XLU_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_po_desert.c", 597);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_po_desert.c", 597);
 }
 
 void EnPoDesert_Reset(Actor* pthisx, GlobalContext* globalCtx)

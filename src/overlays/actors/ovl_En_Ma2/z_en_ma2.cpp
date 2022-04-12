@@ -14,7 +14,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ma2/object_ma2.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 
 void EnMa2_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnMa2_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -422,7 +422,7 @@ void EnMa2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 	EnMa2* pthis = (EnMa2*)thisx;
 	Vec3f vec = {900.0f, 0.0f, 0.0f};
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ma2.c", 904);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ma2.c", 904);
 
 	if(limbIndex == MALON_ADULT_HEAD_LIMB)
 	{
@@ -433,7 +433,7 @@ void EnMa2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 		gSPDisplayList(POLY_OPA_DISP++, gMalonAdultBasketDL);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma2.c", 927);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ma2.c", 927);
 }
 
 void EnMa2_Draw(Actor* thisx, GlobalContext* globalCtx)
@@ -443,19 +443,19 @@ void EnMa2_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 someFloat;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ma2.c", 955);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ma2.c", 955);
 
 	camera = GET_ACTIVE_CAM(globalCtx);
 	someFloat = Math_Vec3f_DistXZ(&pthis->actor.world.pos, &camera->eye);
 	func_800F6268(someFloat, NA_BGM_LONLON);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthTextures_53[pthis->mouthIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures_53[pthis->eyeIndex]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnMa2_OverrideLimbDraw, EnMa2_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma2.c", 990);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ma2.c", 990);
 }
 
 void EnMa2_Reset(Actor* pthisx, GlobalContext* globalCtx)

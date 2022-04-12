@@ -50,10 +50,10 @@ u32 EffectSsIcePiece_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, 
 
 void EffectSsIcePiece_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s32 pad;
 	f32 scale;
-	const auto& frames = globalCtx->state.frames;
+	const auto& frames = globalCtx->frames;
 	f32 alpha;
 
 	scale = pthis->rScale * 0.01f;
@@ -75,10 +75,10 @@ void EffectSsIcePiece_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	Matrix_RotateY(pthis->rYaw * (M_PI / 0x8000), MTXMODE_APPLY);
 	Matrix_RotateX(pthis->rPitch * (M_PI / 0x8000), MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_eff_ice_piece.c", 185), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, (s32)alpha & 0xFF);
 	func_8003435C(&pthis->pos, globalCtx);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (uintptr_t)(frames * 1) % 256, 0x20, 0x10, 1, 0, (uintptr_t)(frames * 2) % 256, 0x40, 0x20));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (uintptr_t)(frames * 1) % 256, 0x20, 0x10, 1, 0, (uintptr_t)(frames * 2) % 256, 0x40, 0x20));
 	gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment1DL);
 
 	CLOSE_DISPS(gfxCtx, "../z_eff_ice_piece.c", 209);

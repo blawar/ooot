@@ -769,15 +769,15 @@ void EnfHG_Draw(Actor* thisx, GlobalContext* globalCtx)
 	BossGanondrof* bossGnd = (BossGanondrof*)pthis->actor.parent;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg.c", 2439);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fhg.c", 2439);
+	func_80093D18(globalCtx->gfxCtx);
 
 	POLY_OPA_DISP = ((bossGnd->GND_INVINC_TIMER & 4) && (bossGnd->flyMode == GND_FLY_PAINTING))
 			    ? Gfx_SetFog(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099)
 			    : Gfx_SetFog(POLY_OPA_DISP, (u32)pthis->warpColorFilterR, (u32)pthis->warpColorFilterG, (u32)pthis->warpColorFilterB, 0, (s32)pthis->warpColorFilterUnk1 + 995, (s32)pthis->warpColorFilterUnk2 + 1000);
 	func_800A6330(&pthis->actor, globalCtx, &pthis->skin, EnfHG_Noop, 0x23);
 	POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fhg.c", 2480);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fhg.c", 2480);
 }
 
 void EnfHG_Reset(Actor* pthisx, GlobalContext* globalCtx)

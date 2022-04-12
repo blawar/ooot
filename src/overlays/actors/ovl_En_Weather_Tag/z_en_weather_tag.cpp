@@ -55,7 +55,7 @@ void EnWeatherTag_Init(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnWeatherTag* pthis = (EnWeatherTag*)thisx;
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 
 	switch(pthis->actor.params & 0xF)
 	{

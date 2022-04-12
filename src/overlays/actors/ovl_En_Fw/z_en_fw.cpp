@@ -22,7 +22,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_fw/object_fw.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_9)
 
 void EnFw_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnFw_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -468,7 +468,7 @@ void EnFw_Draw(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_Push();
 	EnFw_DrawDust(pthis, globalCtx);
 	Matrix_Pop();
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnFw_OverrideLimbDraw, EnFw_PostLimbDraw, pthis);
 }
 
@@ -527,10 +527,10 @@ void EnFw_DrawDust(EnFw* pthis, GlobalContext* globalCtx)
 	s16 i;
 	s16 idx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_fw.c", 1191);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_fw.c", 1191);
 
 	firstDone = false;
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	if(1)
 	{
 	}
@@ -553,14 +553,14 @@ void EnFw_DrawDust(EnFw* pthis, GlobalContext* globalCtx)
 			Matrix_Translate(eff->pos.x, eff->pos.y, eff->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 			Matrix_Scale(eff->scale, eff->scale, 1.0f, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_fw.c", 1229), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_fw.c", 1229), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			idx = eff->timer * (8.0f / eff->initialTimer);
 			gSPSegment(POLY_XLU_DISP++, 0x8, SEGMENTED_TO_VIRTUAL(dustTextures_54[idx]));
 			gSPDisplayList(POLY_XLU_DISP++, gFlareDancerSquareParticleDL);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_fw.c", 1243);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fw.c", 1243);
 }
 
 void EnFw_Reset(Actor* pthisx, GlobalContext* globalCtx)

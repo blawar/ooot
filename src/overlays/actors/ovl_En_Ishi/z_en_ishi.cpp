@@ -562,14 +562,14 @@ void EnIshi_DrawSmall(EnIshi* pthis, GlobalContext* globalCtx)
 
 void EnIshi_DrawLarge(EnIshi* pthis, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ishi.c", 1050);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ishi.c", 1050);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ishi.c", 1055), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ishi.c", 1055), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 	gSPDisplayList(POLY_OPA_DISP++, gSilverRockDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ishi.c", 1062);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ishi.c", 1062);
 }
 
 static EnIshiDrawFunc sDrawFuncs[] = {EnIshi_DrawSmall, EnIshi_DrawLarge};

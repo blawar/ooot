@@ -68,7 +68,7 @@ void func_80095AB4(GlobalContext* globalCtx, Room* room, u32 flags)
 	PolygonType0* polygon0;
 	PolygonDlist* polygonDlist;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 193);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_room.c", 193);
 
 	if(flags & 1)
 	{
@@ -82,7 +82,7 @@ void func_80095AB4(GlobalContext* globalCtx, Room* room, u32 flags)
 	{
 		func_8003435C(&D_801270A0, globalCtx);
 		gSPSegment(POLY_XLU_DISP++, 0x03, room->segment);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSPMatrix(POLY_XLU_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 	}
 
@@ -103,7 +103,7 @@ void func_80095AB4(GlobalContext* globalCtx, Room* room, u32 flags)
 		polygonDlist++;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 239);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_room.c", 239);
 }
 
 #define SHAPE_SORT_MAX 64
@@ -137,7 +137,7 @@ void func_80095D04(GlobalContext* globalCtx, Room* room, u32 flags)
 	PolygonDlist2* temp;
 	f32 temp_f2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 287);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_room.c", 287);
 	if(flags & 1)
 	{
 		func_800342EC(&D_801270A0, globalCtx);
@@ -149,7 +149,7 @@ void func_80095D04(GlobalContext* globalCtx, Room* room, u32 flags)
 	{
 		func_8003435C(&D_801270A0, globalCtx);
 		gSPSegment(POLY_XLU_DISP++, 0x03, room->segment);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSPMatrix(POLY_XLU_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 	}
 
@@ -280,7 +280,7 @@ void func_80095D04(GlobalContext* globalCtx, Room* room, u32 flags)
 
 	iREG(88) = sp9C - 1;
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 430);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_room.c", 430);
 }
 
 #define JPEG_MARKER BE32(0xFFD8FFE0)
@@ -392,7 +392,7 @@ void func_80096680(GlobalContext* globalCtx, Room* room, u32 flags)
 	u32 sp94;
 	u32 sp90;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 628);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_room.c", 628);
 
 	camera = GET_ACTIVE_CAM(globalCtx);
 	sp9C = (camera->setting == CAM_SET_PREREND_FIXED);
@@ -408,7 +408,7 @@ void func_80096680(GlobalContext* globalCtx, Room* room, u32 flags)
 
 		if(sp94)
 		{
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 			gSPMatrix(POLY_OPA_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 			gSPDisplayList(POLY_OPA_DISP++, polygonDlist->opa);
 		}
@@ -436,12 +436,12 @@ void func_80096680(GlobalContext* globalCtx, Room* room, u32 flags)
 	if(sp90)
 	{
 		gSPSegment(POLY_XLU_DISP++, 0x03, room->segment);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSPMatrix(POLY_XLU_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 		gSPDisplayList(POLY_XLU_DISP++, polygonDlist->xlu);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 691);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_room.c", 691);
 }
 
 BgImage* func_80096A74(PolygonType1* polygon1, GlobalContext* globalCtx)
@@ -495,7 +495,7 @@ void func_80096B6C(GlobalContext* globalCtx, Room* room, u32 flags)
 	u32 sp90;
 	u32 sp8C;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 752);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_room.c", 752);
 
 	camera = GET_ACTIVE_CAM(globalCtx);
 	sp98 = (camera->setting == CAM_SET_PREREND_FIXED);
@@ -512,7 +512,7 @@ void func_80096B6C(GlobalContext* globalCtx, Room* room, u32 flags)
 
 		if(sp90)
 		{
-			func_80093D18(globalCtx->state.gfxCtx);
+			func_80093D18(globalCtx->gfxCtx);
 			gSPMatrix(POLY_OPA_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 			gSPDisplayList(POLY_OPA_DISP++, polygonDlist->opa);
 		}
@@ -540,12 +540,12 @@ void func_80096B6C(GlobalContext* globalCtx, Room* room, u32 flags)
 	if(sp8C)
 	{
 		gSPSegment(POLY_XLU_DISP++, 0x03, room->segment);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSPMatrix(POLY_XLU_DISP++, &gMtxClear, G_MTX_MODELVIEW | G_MTX_LOAD);
 		gSPDisplayList(POLY_XLU_DISP++, polygonDlist->xlu);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_room.c", 819);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_room.c", 819);
 }
 
 // Room Draw Polygon Type 1

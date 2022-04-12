@@ -17,7 +17,7 @@
 #include "objects/object_haka_objects/object_haka_objects.h"
 #include "objects/object_ice_objects/object_ice_objects.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4)
 
 #define SCYTHE_SPIN_TIME 32
 
@@ -184,7 +184,7 @@ void BgHakaSgami_Init(Actor* thisx, GlobalContext* globalCtx)
 	if(thisx->params == SCYTHE_TRAP_SHADOW_TEMPLE)
 	{
 		pthis->requiredObjBankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_HAKA_OBJECTS);
-		thisx->flags &= ~ACTOR_FLAG_0;
+		thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{

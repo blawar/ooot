@@ -14,7 +14,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ssh/object_ssh.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 #define SSH_STATE_STUNNED (1 << 0)
 #define SSH_STATE_GROUND_START (1 << 2)
@@ -385,7 +385,7 @@ void EnSsh_Bob(EnSsh* pthis, GlobalContext* globalCtx)
 {
 	f32 bobVel = 0.5f;
 
-	if((globalCtx->state.frames & 8) != 0)
+	if((globalCtx->frames & 8) != 0)
 	{
 		bobVel *= -1.0f;
 	}
@@ -1076,9 +1076,9 @@ void EnSsh_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	EnSsh_CheckBodyStickHit(pthis, globalCtx);
 	EnSsh_Sway(pthis);
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ssh.c", 2333);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ssh.c", 2333);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex_85[pthis->blinkState]));
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ssh.c", 2336);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ssh.c", 2336);
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnSsh_OverrideLimbDraw, EnSsh_PostLimbDraw, &pthis->actor);
 }
 

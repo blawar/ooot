@@ -21,7 +21,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_wf/object_wf.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnWf_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnWf_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -399,7 +399,7 @@ void EnWf_SetupWaitToAppear(EnWf* pthis)
 	pthis->actionTimer = 20;
 	pthis->unk_300 = false;
 	pthis->action = WOLFOS_ACTION_WAIT_TO_APPEAR;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.scale.y = 0.0f;
 	pthis->actor.gravity = 0.0f;
 	EnWf_SetupAction(pthis, EnWf_WaitToAppear);
@@ -414,7 +414,7 @@ void EnWf_WaitToAppear(EnWf* pthis, GlobalContext* globalCtx)
 		if(pthis->actor.xzDistToPlayer < 240.0f)
 		{
 			pthis->actionTimer = 5;
-			pthis->actor.flags |= ACTOR_FLAG_0;
+			pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 
 			if((pthis->actor.params != WOLFOS_NORMAL) && (pthis->switchFlag != 0xFF))
 			{
@@ -1019,7 +1019,7 @@ void EnWf_BackflipAway(EnWf* pthis, GlobalContext* globalCtx)
 			EnWf_SetupWait(pthis);
 		}
 	}
-	if((globalCtx->state.frames & 95) == 0)
+	if((globalCtx->frames & 95) == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_WOLFOS_CRY);
 	}
@@ -1442,7 +1442,7 @@ void EnWf_SetupDie(EnWf* pthis)
 	}
 
 	pthis->action = WOLFOS_ACTION_DIE;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actionTimer = pthis->skelAnime.animLength;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_WOLFOS_DEAD);
 	EnWf_SetupAction(pthis, EnWf_Die);
@@ -1728,13 +1728,13 @@ void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnWf* pthis = (EnWf*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wf.c", 2157);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_wf.c", 2157);
 
 	// This conditional will always evaluate to true, since unk_300 is false whenever action is
 	// WOLFOS_ACTION_WAIT_TO_APPEAR.
 	if((pthis->action != WOLFOS_ACTION_WAIT_TO_APPEAR) || !pthis->unk_300)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		if(pthis->actor.params == WOLFOS_NORMAL)
 		{
@@ -1764,7 +1764,7 @@ void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wf.c", 2190);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_wf.c", 2190);
 }
 
 s32 EnWf_DodgeRanged(GlobalContext* globalCtx, EnWf* pthis)

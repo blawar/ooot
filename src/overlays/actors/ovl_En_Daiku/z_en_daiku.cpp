@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_daiku/object_daiku.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 // state flags
 
@@ -427,7 +427,7 @@ void EnDaiku_Jailed(EnDaiku* pthis, GlobalContext* globalCtx)
 	else if(!(pthis->stateFlags & ENDAIKU_STATEFLAG_GERUDOFIGHTING) && !gerudo->invisible)
 	{
 		pthis->stateFlags |= ENDAIKU_STATEFLAG_GERUDOFIGHTING;
-		pthis->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
+		pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3);
 	}
 }
 
@@ -441,7 +441,7 @@ void EnDaiku_WaitFreedom(EnDaiku* pthis, GlobalContext* globalCtx)
 
 	if(Flags_GetSwitch(globalCtx, pthis->actor.params >> 8 & 0x3F))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3;
 		EnDaiku_UpdateText(pthis, globalCtx);
 	}
 }
@@ -681,9 +681,9 @@ void EnDaiku_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDaiku* pthis = (EnDaiku*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1227);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_daiku.c", 1227);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	if((thisx->params & 3) == 0)
 	{
@@ -704,7 +704,7 @@ void EnDaiku_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnDaiku_OverrideLimbDraw, EnDaiku_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1255);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_daiku.c", 1255);
 }
 
 s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -730,7 +730,7 @@ void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s
 {
 	EnDaiku* pthis = (EnDaiku*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1323);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_daiku.c", 1323);
 
 	if(limb == 15)
 	{ // head
@@ -738,7 +738,7 @@ void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s
 		gSPDisplayList(POLY_OPA_DISP++, hairDLists_80[pthis->actor.params & 3]);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1330);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_daiku.c", 1330);
 }
 
 void EnDaiku_Reset(Actor* pthisx, GlobalContext* globalCtx)

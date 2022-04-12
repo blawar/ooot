@@ -74,7 +74,7 @@ void EnSyatekiNiw_Init(Actor* thisx, GlobalContext* globalCtx)
 	EnSyatekiNiw* pthis = (EnSyatekiNiw*)thisx;
 
 	Actor_ProcessInitChain(&pthis->actor, sInitChain);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 25.0f);
 	SkelAnime_InitFlex(globalCtx, &pthis->skelAnime, &gCuccoSkel, &gCuccoAnim, pthis->jointTable, pthis->morphTable, 16);
 
@@ -805,7 +805,7 @@ void EnSyatekiNiw_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->actionFunc != func_80B128F8)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		if(pthis->unk_260 != 0)
 		{
 			func_80026230(globalCtx, &sp30, 0, 0x14);
@@ -877,14 +877,14 @@ void func_80B132A8(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 
 void func_80B13464(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	s16 i;
 	EnSyatekiNiw_1* ptr = &pthis->unk_348[0];
 	u8 flag = 0;
 
 	OPEN_DISPS(gfxCtx, "../z_en_syateki_niw.c", 1234);
 
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 
 	for(i = 0; i < 5; i++, ptr++)
 	{

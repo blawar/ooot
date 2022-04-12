@@ -208,7 +208,7 @@ void Player_UpdateFunc_8084E30C(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_DeathDrown(Player* pthis, GlobalContext* globalCtx);
 void func_8084E3C4(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084E604(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_ChestOpen(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084E9AC(Player* pthis, GlobalContext* globalCtx);
 void func_8084EAC0(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084ECA4(Player* pthis, GlobalContext* globalCtx);
@@ -1617,11 +1617,11 @@ s32 func_808332E4(Player* pthis)
 	return (pthis->stateFlags1 & PLAYER_STATE1_24);
 }
 
-void func_808332F4(Player* pthis, GlobalContext* globalCtx)
+void Player_LoadChestItem(Player* pthis, GlobalContext* globalCtx)
 {
 	const GetItemEntry* giEntry = &sGetItemTable[pthis->getItemId - 1];
 
-	pthis->unk_862 = ABS(giEntry->gi);
+	pthis->drawItemID = ABS(giEntry->gi);
 }
 
 static LinkAnimationHeader* func_80833338(Player* pthis)
@@ -1945,7 +1945,7 @@ s32 func_80833B2C(Player* pthis)
 
 s32 func_80833B54(Player* pthis)
 {
-	if((pthis->targetedActor != NULL) && CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2))
+	if((pthis->targetedActor != NULL) && CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2))
 	{
 		pthis->stateFlags1 |= PLAYER_STATE1_TARGETING_ACTOR;
 		return 1;
@@ -3554,7 +3554,7 @@ void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
 		if(pthis->targetedActor != NULL)
 		{
 			pthis->stateFlags1 &= ~(PLAYER_STATE1_16 | PLAYER_STATE1_17);
-			if((pthis->stateFlags1 & PLAYER_STATE1_11) || !CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2))
+			if((pthis->stateFlags1 & PLAYER_STATE1_11) || !CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2))
 			{
 				pthis->stateFlags1 |= PLAYER_STATE1_16;
 			}
@@ -5227,7 +5227,7 @@ void func_8083A40C(GlobalContext* globalCtx, Player* pthis)
 
 void func_8083A434(GlobalContext* globalCtx, Player* pthis)
 {
-	Player_SetUpdateFunctWithMove0(globalCtx, pthis, Player_UpdateFunc_8084E6D4, 0);
+	Player_SetUpdateFunctWithMove0(globalCtx, pthis, Player_UpdateFunc_ChestOpen, 0);
 
 	pthis->stateFlags1 |= (PLAYER_STATE1_10 | PLAYER_STATE1_29);
 
@@ -5730,7 +5730,7 @@ s32 func_8083B644(Player* pthis, GlobalContext* globalCtx)
 	s32 sp28 = 0;
 	s32 sp24;
 
-	sp24 = (sp30 != NULL) && (CHECK_FLAG_ALL(sp30->flags, ACTOR_FLAG_0 | ACTOR_FLAG_18) || (sp30->naviEnemyId != 0xFF));
+	sp24 = (sp30 != NULL) && (CHECK_FLAG_ALL(sp30->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_18) || (sp30->naviEnemyId != 0xFF));
 
 	if(sp24 || (pthis->naviTextId != 0))
 	{
@@ -5839,7 +5839,7 @@ s32 func_8083B998(Player* pthis, GlobalContext* globalCtx)
 		return 1;
 	}
 
-	if((pthis->targetedActor != NULL) && (CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_18) || (pthis->targetedActor->naviEnemyId != 0xFF)))
+	if((pthis->targetedActor != NULL) && (CHECK_FLAG_ALL(pthis->targetedActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_18) || (pthis->targetedActor->naviEnemyId != 0xFF)))
 	{
 		pthis->stateFlags2 |= PLAYER_STATE2_21;
 	}
@@ -12393,7 +12393,7 @@ void Player_Update(Actor* pthisx, GlobalContext* globalCtx)
 		}
 		else
 		{
-			sp44 = globalCtx->state.input[0];
+			sp44 = globalCtx->input[0];
 			if(pthis->unk_88E != 0)
 			{
 				sp44.cur.button &= ~(BTN_A | BTN_B | BTN_CUP);
@@ -12430,7 +12430,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 {
 	static s32 D_8085486C = 255;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19228);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player.c", 19228);
 
 	gSPSegment(POLY_OPA_DISP++, 0x0C, cullDList);
 	gSPSegment(POLY_XLU_DISP++, 0x0C, cullDList);
@@ -12439,7 +12439,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 
 	if((overrideLimbDraw == func_80090014) && (pthis->currentMask != PLAYER_MASK_NONE))
 	{
-		Mtx* sp70 = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, 2 * sizeof(Mtx));
+		Mtx* sp70 = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, 2 * sizeof(Mtx));
 
 		if(pthis->currentMask == PLAYER_MASK_BUNNY)
 		{
@@ -12492,15 +12492,15 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 			func_800D1694(pthis->actor.world.pos.x, pthis->actor.world.pos.y + 2.0f, pthis->actor.world.pos.z, &D_80854864);
 			Matrix_Scale(4.0f, 4.0f, 4.0f, MTXMODE_APPLY);
 
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player.c", 19317), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 16, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -15) % 128, 16, 32));
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player.c", 19317), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -15) % 128, 16, 32));
 			gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 255, D_8085486C);
 			gDPSetEnvColor(POLY_XLU_DISP++, 120, 90, 30, 128);
 			gSPDisplayList(POLY_XLU_DISP++, gHoverBootsCircleDL);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19328);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player.c", 19328);
 }
 
 void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
@@ -12508,7 +12508,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 	GlobalContext* globalCtx = globalCtx2;
 	Player* pthis = (Player*)pthisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19346);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_player.c", 19346);
 
 	if(!(pthis->stateFlags2 & PLAYER_STATE2_29))
 	{
@@ -12526,7 +12526,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		}
 
 		func_80093C80(globalCtx);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 
 		if(pthis->invincibilityTimer > 0)
 		{
@@ -12588,21 +12588,21 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		{
 			f32 scale = (pthis->unk_84F >> 1) * 22.0f;
 
-			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -2) % 128, 32, 32));
+			gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32, 1, 0, (globalCtx->gameplayFrames.whole() * -2) % 128, 32, 32));
 
 			Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_player.c", 19459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_player.c", 19459), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gDPSetEnvColor(POLY_XLU_DISP++, 0, 50, 100, 255);
 			gSPDisplayList(POLY_XLU_DISP++, gEffIceFragment3DL);
 		}
 
-		if(pthis->unk_862 > 0)
+		if(pthis->drawItemID > 0)
 		{
 			Player_DrawGetItem(globalCtx, pthis);
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_player.c", 19473);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_player.c", 19473);
 }
 
 void Player_Destroy(Actor* pthisx, GlobalContext* globalCtx)
@@ -12858,7 +12858,7 @@ void Player_UpdateFunc_8084B530(Player* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.flags &= ~ACTOR_FLAG_8;
 
-		if(!CHECK_FLAG_ALL(pthis->targetActor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_2))
+		if(!CHECK_FLAG_ALL(pthis->targetActor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2))
 		{
 			pthis->stateFlags2 &= ~PLAYER_STATE2_ZTARGET_CHANGED;
 		}
@@ -14173,7 +14173,7 @@ void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx)
 
 void func_8084DF6C(GlobalContext* globalCtx, Player* pthis)
 {
-	pthis->unk_862 = 0;
+	pthis->drawItemID = 0;
 	pthis->stateFlags1 &= ~(PLAYER_STATE1_10 | PLAYER_STATE1_11);
 	pthis->getItemId = GI_NONE;
 	func_8005B1A4(Gameplay_GetCamera(globalCtx, 0));
@@ -14261,7 +14261,7 @@ void Player_UpdateFunc_8084E1EC(Player* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->stateFlags1 & PLAYER_STATE1_10) && LinkAnimation_OnFrame(&pthis->skelAnime, 10.0f))
 		{
-			func_808332F4(pthis, globalCtx);
+			Player_LoadChestItem(pthis, globalCtx);
 			func_80832340(globalCtx, pthis);
 			func_80835EA4(globalCtx, 8);
 		}
@@ -14393,7 +14393,7 @@ static struct_80832924 D_808549E0[] = {
     {0, -0x287B},
 };
 
-void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_ChestOpen(Player* pthis, GlobalContext* globalCtx)
 {
 	s32 cond;
 
@@ -14401,7 +14401,7 @@ void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx)
 	{
 		if(pthis->unk_850 != 0)
 		{
-			if(pthis->unk_850 >= 2)
+			if(pthis->unk_850 > 1)
 			{
 				pthis->unk_850--;
 			}
@@ -14481,7 +14481,7 @@ void Player_UpdateFunc_8084E6D4(Player* pthis, GlobalContext* globalCtx)
 
 		if(LinkAnimation_OnFrame(&pthis->skelAnime, 21.0f))
 		{
-			func_808332F4(pthis, globalCtx);
+			Player_LoadChestItem(pthis, globalCtx);
 		}
 	}
 }
@@ -14781,7 +14781,7 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx)
 		{
 			Actor* targetActor = pthis->targetActor;
 
-			pthis->unk_862 = 0;
+			pthis->drawItemID = 0;
 			if(targetActor->textId != 0xFFFF)
 			{
 				pthis->actor.flags |= ACTOR_FLAG_8;
@@ -14797,11 +14797,11 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx)
 			{
 				if(giEntry->gi >= 0)
 				{
-					pthis->unk_862 = giEntry->gi;
+					pthis->drawItemID = giEntry->gi;
 				}
 				else
 				{
-					pthis->unk_862 = -giEntry->gi;
+					pthis->drawItemID = -giEntry->gi;
 				}
 			}
 
@@ -14819,7 +14819,7 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx)
 			else if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CLOSING)
 			{
 				pthis->actor.flags &= ~ACTOR_FLAG_8;
-				pthis->unk_862 = 0;
+				pthis->drawItemID = 0;
 
 				if(pthis->unk_84F == 1)
 				{
@@ -15132,7 +15132,7 @@ void Player_UpdateFunc_8084FBF4(Player* pthis, GlobalContext* globalCtx)
 
 s32 func_8084FCAC(Player* pthis, GlobalContext* globalCtx)
 {
-	sControlInput = &globalCtx->state.input[0];
+	sControlInput = &globalCtx->input[0];
 
 	if((CHECK_BTN_ALL(sControlInput->cur.button, BTN_A | BTN_L | BTN_R) && CHECK_BTN_ALL(sControlInput->press.button, BTN_B)) || (CHECK_BTN_ALL(sControlInput->cur.button, BTN_L) && CHECK_BTN_ALL(sControlInput->press.button, BTN_DRIGHT)))
 	{
@@ -16985,7 +16985,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor)
 	Player* pthis = GET_PLAYER(globalCtx);
 	s32 pad;
 
-	if((pthis->targetActor != NULL) || (actor == pthis->naviActor) || CHECK_FLAG_ALL(actor->flags, ACTOR_FLAG_0 | ACTOR_FLAG_18))
+	if((pthis->targetActor != NULL) || (actor == pthis->naviActor) || CHECK_FLAG_ALL(actor->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_18))
 	{
 		actor->flags |= ACTOR_FLAG_8;
 	}

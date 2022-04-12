@@ -106,7 +106,7 @@ void EnIceHono_InitCapturableFlame(Actor* thisx, GlobalContext* globalCtx)
 
 	Actor_ProcessInitChain(&pthis->actor, sInitChainCapturableFlame);
 	Actor_SetScale(&pthis->actor, 0.0074f);
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	Actor_SetFocus(&pthis->actor, 10.0f);
 
 	Collider_InitCylinder(globalCtx, &pthis->collider);
@@ -415,10 +415,10 @@ void EnIceHono_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnIceHono* pthis = (EnIceHono*)thisx;
 	u32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ice_hono.c", 695);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ice_hono.c", 695);
+	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 32, 64, 1, 0, (uintptr_t)(globalCtx->state.frames * -20) % 512, 32, 128));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (uintptr_t)(globalCtx->frames * -20) % 512, 32, 128));
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 170, 255, 255, pthis->alpha);
 
@@ -426,10 +426,10 @@ void EnIceHono_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	Matrix_RotateY((s16)(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)) - pthis->actor.shape.rot.y + 0x8000) * (M_PI / 0x8000), MTXMODE_APPLY);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_ice_hono.c", 718), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_ice_hono.c", 718), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ice_hono.c", 722);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ice_hono.c", 722);
 }
 
 void EnIceHono_Reset(Actor* pthisx, GlobalContext* globalCtx)

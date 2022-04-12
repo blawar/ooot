@@ -19,7 +19,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_ma1/object_ma1.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25)
 
 void EnMa1_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnMa1_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -538,19 +538,19 @@ void EnMa1_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 distFromCamera;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ma1.c", 1226);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_ma1.c", 1226);
 
 	camera = GET_ACTIVE_CAM(globalCtx);
 	distFromCamera = Math_Vec3f_DistXZ(&pthis->actor.world.pos, &camera->eye);
 	func_800F6268(distFromCamera, NA_BGM_LONLON);
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(sMouthTextures[pthis->mouthIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sEyeTextures[pthis->eyeIndex]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnMa1_OverrideLimbDraw, EnMa1_PostLimbDraw, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_ma1.c", 1261);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_ma1.c", 1261);
 }
 
 void EnMa1_Reset(Actor* pthisx, GlobalContext* globalCtx)

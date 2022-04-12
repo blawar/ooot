@@ -7,7 +7,7 @@
 #include "def/z_kaleido_scope_call.h"
 #include "def/z_player_call.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25 | ACTOR_FLAG_26)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_25 | ACTOR_FLAG_26)
 
 void (*sPlayerCallInitFunc)(Actor* thisx, GlobalContext* globalCtx);
 void (*sPlayerCallDestroyFunc)(Actor* thisx, GlobalContext* globalCtx);

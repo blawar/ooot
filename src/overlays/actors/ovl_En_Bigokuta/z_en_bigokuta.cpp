@@ -17,7 +17,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_bigokuta/object_bigokuta.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
 void EnBigokuta_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBigokuta_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -435,7 +435,7 @@ void func_809BD768(EnBigokuta* pthis)
 {
 	pthis->unk_194 = Rand_ZeroOne() < 0.5f ? -1 : 1;
 	pthis->unk_19A = 0;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->cylinder[0].base.atFlags &= ~AT_ON;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DAIOCTA_SINK);
 	pthis->actionFunc = func_809BE4A4;
@@ -818,7 +818,7 @@ void func_809BE518(EnBigokuta* pthis, GlobalContext* globalCtx)
 {
 	if(Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y, 10.0f))
 	{
-		pthis->actor.flags |= ACTOR_FLAG_0;
+		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 		func_809BD3F8(pthis);
 	}
 }
@@ -983,7 +983,7 @@ s32 EnBigokuta_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
 	{
 		if(pthis->actionFunc == func_809BE058 || pthis->actionFunc == func_809BE180)
 		{
-			OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 1914);
+			OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bigokuta.c", 1914);
 
 			if(pthis->actionFunc == func_809BE058)
 			{
@@ -1014,12 +1014,12 @@ s32 EnBigokuta_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
 			gDPPipeSync(POLY_OPA_DISP++);
 
 			gDPSetEnvColor(POLY_OPA_DISP++, temp_f0, temp_f0, temp_f0, 255);
-			CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 1945);
+			CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bigokuta.c", 1945);
 		}
 	}
 	else if(limbIndex == 10)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 1950);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bigokuta.c", 1950);
 		if(pthis->actionFunc == func_809BE26C)
 		{
 			intensity = pthis->unk_196 * (255.0f / 38);
@@ -1031,7 +1031,7 @@ s32 EnBigokuta_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, intensity, intensity, intensity, intensity);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 1972);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bigokuta.c", 1972);
 	}
 	else if(limbIndex == 17 && pthis->actionFunc == func_809BE26C)
 	{
@@ -1057,11 +1057,11 @@ void EnBigokuta_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBigokuta* pthis = (EnBigokuta*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 2017);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bigokuta.c", 2017);
 
 	if((pthis->actionFunc != func_809BE26C) || (pthis->unk_196 != 0) || (pthis->unk_198 != 0))
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gSPSegment(POLY_OPA_DISP++, 0x0C, &D_80116280[2]);
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, 255);
 		if(pthis->unk_196 & 1)
@@ -1082,12 +1082,12 @@ void EnBigokuta_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSPSegment(POLY_XLU_DISP++, 0x0C, D_80116280);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, (pthis->actor.scale.y * (255 / 0.033f)));
 		POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, NULL, POLY_XLU_DISP);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bigokuta.c", 2076);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bigokuta.c", 2076);
 }
 
 void EnBigokuta_Reset(Actor* pthisx, GlobalContext* globalCtx)

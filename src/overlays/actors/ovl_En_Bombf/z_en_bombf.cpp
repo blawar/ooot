@@ -20,7 +20,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_bombf/object_bombf.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_4)
 
 void EnBombf_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -127,7 +127,7 @@ void EnBombf_Init(Actor* thisx, GlobalContext* globalCtx)
 		thisx->gravity = -1.5f;
 		Actor_ChangeCategory(globalCtx, &globalCtx->actorCtx, thisx, ACTORCAT_EXPLOSIVE);
 		thisx->colChkInfo.mass = 200;
-		thisx->flags &= ~ACTOR_FLAG_0;
+		thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 		EnBombf_SetupAction(pthis, EnBombf_Move);
 	}
 	else
@@ -174,7 +174,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 				pthis->timer = 180;
 				pthis->flowerBombScale = 0.0f;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_PL_PULL_UP_ROCK);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			else
 			{
@@ -197,7 +197,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 					bombFlower->unk_200 = 1;
 					bombFlower->timer = 0;
 					pthis->timer = 180;
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					pthis->flowerBombScale = 0.0f;
 				}
 			}
@@ -211,7 +211,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 				{
 					bombFlower->timer = 100;
 					pthis->timer = 180;
-					pthis->actor.flags &= ~ACTOR_FLAG_0;
+					pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 					pthis->flowerBombScale = 0.0f;
 				}
 			}
@@ -240,7 +240,7 @@ void EnBombf_GrowBomb(EnBombf* pthis, GlobalContext* globalCtx)
 			pthis->flowerBombScale += 0.05f;
 			if(pthis->flowerBombScale >= 1.0f)
 			{
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 		}
 
@@ -564,15 +564,15 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1034);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bombf.c", 1034);
 
 	if(thisx->params <= BOMBFLOWER_BODY)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 
 		if(thisx->params != BOMBFLOWER_BODY)
 		{
-			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1041), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bombf.c", 1041), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_OPA_DISP++, gBombFlowerLeavesDL);
 			gSPDisplayList(POLY_OPA_DISP++, gBombFlowerBaseLeavesDL);
 
@@ -583,8 +583,8 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 200, 255, 200, 255);
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetEnvColor(POLY_OPA_DISP++, (s16)pthis->flashIntensity, 20, 10, 0);
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1054), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(EnBombf_NewMtxDList(globalCtx->state.gfxCtx, globalCtx)));
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bombf.c", 1054), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(EnBombf_NewMtxDList(globalCtx->gfxCtx, globalCtx)));
 		gSPDisplayList(POLY_OPA_DISP++, gBombFlowerBombAndSparkDL);
 	}
 	else
@@ -592,7 +592,7 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 		Collider_UpdateSpheres(0, &pthis->explosionCollider);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bombf.c", 1063);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bombf.c", 1063);
 }
 
 void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx)

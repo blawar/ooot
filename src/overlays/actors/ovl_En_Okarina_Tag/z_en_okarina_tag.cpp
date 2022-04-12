@@ -47,7 +47,7 @@ void EnOkarinaTag_Init(Actor* thisx, GlobalContext* globalCtx)
 	osSyncPrintf("\n\n");
 	// "Ocarina tag outbreak"
 	osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ オカリナタグ発生 ☆☆☆☆☆ %x\n" VT_RST, pthis->actor.params);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->type = (pthis->actor.params >> 0xA) & 0x3F;
 	pthis->ocarinaSong = (pthis->actor.params >> 6) & 0xF;
 	pthis->switchFlag = pthis->actor.params & 0x3F;
@@ -122,7 +122,7 @@ void func_80ABEF2C(EnOkarinaTag* pthis, GlobalContext* globalCtx)
 	pthis->unk_15A++;
 	if((pthis->switchFlag >= 0) && (Flags_GetSwitch(globalCtx, pthis->switchFlag)))
 	{
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	}
 	else
 	{
@@ -220,7 +220,7 @@ void func_80ABF28C(EnOkarinaTag* pthis, GlobalContext* globalCtx)
 	{
 		if((pthis->switchFlag >= 0) && Flags_GetSwitch(globalCtx, pthis->switchFlag))
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		}
 		else if(
 		    ((pthis->type != 4) || !(gSaveContext.eventChkInf[4] & 0x800)) && ((pthis->type != 6) || !(gSaveContext.eventChkInf[1] & 0x2000)) && (pthis->actor.xzDistToPlayer < (90.0f + pthis->interactRange)) &&

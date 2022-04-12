@@ -23,7 +23,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_wallmaster/object_wallmaster.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 #define TIMER_SCALE ((f32)OS_CLOCK_RATE / 10000000000)
 #define DEGREE_60_RAD (60.0f * M_PI / 180.0f)
@@ -170,7 +170,7 @@ void EnWallmas_TimerInit(EnWallmas* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.flags |= ACTOR_FLAG_5;
 	pthis->timer = 0x82;
 	pthis->actor.velocity.y = 0.0f;
@@ -191,7 +191,7 @@ void EnWallmas_SetupDrop(EnWallmas* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.pos.y = player->actor.world.pos.y + 300.0f;
 	pthis->actor.world.rot.y = player->actor.shape.rot.y + 0x8000;
 	pthis->actor.floorHeight = player->actor.floorHeight;
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.flags &= ~ACTOR_FLAG_5;
 	pthis->actionFunc = EnWallmas_Drop;
 }
@@ -295,7 +295,7 @@ void EnWallmas_ProximityOrSwitchInit(EnWallmas* pthis)
 {
 	pthis->timer = 0;
 	pthis->actor.draw = NULL;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	if(pthis->actor.params == WMT_PROXIMITY)
 	{
 		pthis->actionFunc = EnWallmas_WaitForProximity;
@@ -607,7 +607,7 @@ void EnWallmas_ColUpdate(EnWallmas* pthis, GlobalContext* globalCtx)
 			{
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_FALL_DEAD);
-				pthis->actor.flags &= ~ACTOR_FLAG_0;
+				pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			}
 			else
 			{
@@ -698,9 +698,9 @@ void EnWallmas_DrawXlu(EnWallmas* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1386);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1386);
 
-	func_80094044(globalCtx->state.gfxCtx);
+	func_80094044(globalCtx->gfxCtx);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 0, 0, 0, 255);
 
 	func_80038A28(pthis->actor.floorPoly, pthis->actor.world.pos.x, pthis->actor.floorHeight, pthis->actor.world.pos.z, &mf);
@@ -716,10 +716,10 @@ void EnWallmas_DrawXlu(EnWallmas* pthis, GlobalContext* globalCtx)
 	}
 
 	Matrix_Scale(xzScale, 1.0f, xzScale, MTXMODE_APPLY);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1421), G_MTX_LOAD);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_wallmas.c", 1421), G_MTX_LOAD);
 	gSPDisplayList(POLY_XLU_DISP++, gCircleShadowDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1426);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1426);
 }
 
 s32 EnWallMas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -744,7 +744,7 @@ void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 {
 	if(limbIndex == 2)
 	{
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1478);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1478);
 
 		Matrix_Push();
 		Matrix_Translate(1600.0f, -700.0f, -1700.0f, MTXMODE_APPLY);
@@ -752,12 +752,12 @@ void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 		Matrix_RotateZ(DEGREE_15_RAD, MTXMODE_APPLY);
 		Matrix_Scale(2.0f, 2.0f, 2.0f, MTXMODE_APPLY);
 
-		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1489), G_MTX_LOAD);
+		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_wallmas.c", 1489), G_MTX_LOAD);
 		gSPDisplayList(POLY_OPA_DISP++, gWallmasterFingerDL);
 
 		Matrix_Pop();
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1495);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_wallmas.c", 1495);
 	}
 }
 
@@ -767,7 +767,7 @@ void EnWallmas_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->actionFunc != EnWallmas_WaitToDrop)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnWallMas_OverrideLimbDraw, EnWallMas_PostLimbDraw, pthis);
 	}
 

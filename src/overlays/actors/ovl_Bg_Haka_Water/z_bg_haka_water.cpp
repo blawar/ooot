@@ -132,8 +132,8 @@ void BgHakaWater_Draw(Actor* thisx, GlobalContext* globalCtx)
 	f32 temp;
 	s32 pad2;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_water.c", 287);
-	func_80093D84(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_haka_water.c", 287);
+	func_80093D84(globalCtx->gfxCtx);
 
 	if(pthis->isLowered)
 	{
@@ -145,9 +145,9 @@ void BgHakaWater_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (u8)(0.765f * temp));
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, globalCtx->gameplayFrames % 128, globalCtx->gameplayFrames % 128, 32, 32, 1, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, globalCtx->gameplayFrames % 128, globalCtx->gameplayFrames % 128, 32, 32, 1, 0, (0 - globalCtx->gameplayFrames.whole()) % 128, 32, 32));
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_water.c", 312), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_haka_water.c", 312), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBotwWaterRingDL);
 
 	Matrix_Translate(0.0f, 92.0f, -1680.0f, MTXMODE_NEW);
@@ -160,10 +160,10 @@ void BgHakaWater_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	gDPPipeSync(POLY_XLU_DISP++);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (u8)(5.1f * temp));
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_haka_water.c", 328), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_haka_water.c", 328), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gBotwWaterFallDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_haka_water.c", 332);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_haka_water.c", 332);
 }
 
 void BgHakaWater_Reset(Actor* pthisx, GlobalContext* globalCtx)

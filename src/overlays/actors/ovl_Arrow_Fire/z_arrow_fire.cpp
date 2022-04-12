@@ -228,7 +228,7 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 {
 	ArrowFire* pthis = (ArrowFire*)pthisx;
 	GlobalContext* globalCtx = globalCtx2;
-	const auto& stateFrames = globalCtx->state.frames;
+	const auto& stateFrames = globalCtx->frames;
 	EnArrow* arrow;
 	Actor* tranform;
 
@@ -244,7 +244,7 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		}
 		tranform = (arrow->hitFlags & 2) ? &pthis->actor : &arrow->actor;
 
-		OPEN_DISPS(globalCtx->state.gfxCtx, "../z_arrow_fire.c", 618);
+		OPEN_DISPS(globalCtx->gfxCtx, "../z_arrow_fire.c", 618);
 
 		Matrix_Translate(tranform->world.pos.x, tranform->world.pos.y, tranform->world.pos.z, MTXMODE_NEW);
 		Matrix_RotateY(tranform->shape.rot.y * (M_PI / 0x8000), MTXMODE_APPLY);
@@ -263,7 +263,7 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		}
 
 		// Draw fire on the arrow
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 200, 0, pthis->alpha);
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 128);
 		Matrix_RotateZYX(0x4000, 0x0, 0x0, MTXMODE_APPLY);
@@ -277,12 +277,12 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		}
 		Matrix_Scale(pthis->radius * 0.2f, pthis->unk_158 * 4.0f, pthis->radius * 0.2f, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, -700.0f, 0.0f, MTXMODE_APPLY);
-		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_arrow_fire.c", 666), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_arrow_fire.c", 666), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
-		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 255 - (uintptr_t)(stateFrames * 2) % 256, 0, 64, 32, 1, 255 - (uintptr_t)stateFrames % 256, 511 - (uintptr_t)(stateFrames * 10) % 512, 64, 64));
+		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 255 - (uintptr_t)(stateFrames * 2) % 256, 0, 64, 32, 1, 255 - (uintptr_t)stateFrames % 256, 511 - (uintptr_t)(stateFrames * 10) % 512, 64, 64));
 		gSPDisplayList(POLY_XLU_DISP++, sModelDL);
 
-		CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_arrow_fire.c", 682);
+		CLOSE_DISPS(globalCtx->gfxCtx, "../z_arrow_fire.c", 682);
 	}
 }
 

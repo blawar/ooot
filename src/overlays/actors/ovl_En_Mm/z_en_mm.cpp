@@ -24,7 +24,7 @@
 #include "objects/object_link_child/object_link_child.h"
 #include "objects/object_mm/object_mm.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnMm_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnMm_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -578,9 +578,9 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx)
 	{
 	}
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mm.c", 1065);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_mm.c", 1065);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(mouthTextures_61[pthis->mouthTexIndex]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnMm_OverrideLimbDraw, EnMm_PostLimbDraw, pthis);
 
@@ -594,10 +594,10 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx)
 			Vec3s sp50;
 			Mtx* mtx2;
 
-			mtx = (Mtx*)Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 2);
+			mtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx) * 2);
 
 			Matrix_Put(&pthis->unk_208);
-			mtx2 = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_mm.c", 1111);
+			mtx2 = Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_mm.c", 1111);
 
 			gSPSegment(POLY_OPA_DISP++, 0x06, gObjectTable[linkChildObjBankIndex].vromStart.get());
 			gSPSegment(POLY_OPA_DISP++, 0x0B, mtx);
@@ -622,7 +622,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mm.c", 1141);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_mm.c", 1141);
 }
 
 s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)

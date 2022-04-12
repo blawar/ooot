@@ -21,7 +21,7 @@
 #include "objects/object_gm/object_gm.h"
 #include "objects/object_oF1d_map/object_oF1d_map.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnGm_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnGm_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -381,14 +381,14 @@ void EnGm_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnGm* pthis = (EnGm*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_gm.c", 613);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_gm.c", 613);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_53[pthis->eyeTexIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gGoronCsMouthNeutralTex));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, &pthis->actor);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_gm.c", 629);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_gm.c", 629);
 
 	func_80A3E090(pthis);
 }

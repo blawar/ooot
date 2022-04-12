@@ -421,7 +421,7 @@ void Lights_DrawGlow(GlobalContext* globalCtx)
 
 	node = globalCtx->lightCtx.listHead;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_lights.c", 887);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_lights.c", 887);
 
 	POLY_XLU_DISP = func_800947AC(POLY_XLU_DISP++);
 	gDPSetAlphaDither(POLY_XLU_DISP++, G_AD_NOISE);
@@ -445,12 +445,12 @@ void Lights_DrawGlow(GlobalContext* globalCtx)
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, params->color[0], params->color[1], params->color[2], 50);
 			Matrix_Translate(params->x, params->y, params->z, MTXMODE_NEW);
 			Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
-			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_lights.c", 918), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_lights.c", 918), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, gGlowCircleDL);
 		}
 
 		node = node->next;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_lights.c", 927);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_lights.c", 927);
 }

@@ -16,7 +16,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_du/object_du.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_25)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_25)
 
 void EnDu_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDu_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -733,7 +733,7 @@ void EnDu_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDu* pthis = (EnDu*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_du.c", 1470);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_du.c", 1470);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_67[pthis->eyeTexIndex]));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(mouthTextures_67[pthis->mouthTexIndex]));
@@ -741,7 +741,7 @@ void EnDu_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	func_80034BA0(globalCtx, &pthis->skelAnime, EnDu_OverrideLimbDraw, EnDu_PostLimbDraw, &pthis->actor, 255);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_du.c", 1487);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_du.c", 1487);
 }
 
 void EnDu_Reset(Actor* pthisx, GlobalContext* globalCtx)

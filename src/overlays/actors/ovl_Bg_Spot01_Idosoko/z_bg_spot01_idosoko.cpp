@@ -80,14 +80,14 @@ void BgSpot01Idosoko_Update(Actor* thisx, GlobalContext* globalCtx)
 
 void BgSpot01Idosoko_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idosoko.c", 162);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot01_idosoko.c", 162);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot01_idosoko.c", 166), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot01_idosoko.c", 166), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gKakarikoBOTWStoneDL);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot01_idosoko.c", 171);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot01_idosoko.c", 171);
 }
 
 void BgSpot01Idosoko_Reset(Actor* pthisx, GlobalContext* globalCtx)

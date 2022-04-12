@@ -25,7 +25,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_dns/object_dns.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnDntJiji_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDntJiji_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -93,7 +93,7 @@ void EnDntJiji_Init(Actor* thisx, GlobalContext* globalCtx)
 	osSyncPrintf("\n\n");
 	// "Deku Scrub mask show elder"
 	osSyncPrintf(VT_FGCOL(YELLOW) "☆☆☆☆☆ デグナッツお面品評会長老 ☆☆☆☆☆ %x\n" VT_RST, pthis->stage);
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.colChkInfo.mass = 0xFF;
 	pthis->actor.targetMode = 6;
 	pthis->actionFunc = EnDntJiji_SetFlower;
@@ -260,7 +260,7 @@ void EnDntJiji_SetupCower(EnDntJiji* pthis, GlobalContext* globalCtx)
 	{
 		pthis->getItemId = GI_NUT_UPGRADE_40;
 	}
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->actor.textId = 0x10DB;
 	pthis->unused = 5;
 	pthis->actionFunc = EnDntJiji_Cower;
@@ -362,7 +362,7 @@ void EnDntJiji_GivePrize(EnDntJiji* pthis, GlobalContext* globalCtx)
 				pthis->stage->leaderSignal = DNT_SIGNAL_RETURN;
 			}
 		}
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		if(!pthis->unburrow)
 		{
 			pthis->actionFunc = EnDntJiji_SetupHide;
@@ -513,17 +513,17 @@ void EnDntJiji_Draw(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnDntJiji* pthis = (EnDntJiji*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1019);
-	func_80093D18(globalCtx->state.gfxCtx);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_dnt_jiji.c", 1019);
+	func_80093D18(globalCtx->gfxCtx);
 	Matrix_Push();
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(blinkTex_74[pthis->eyeState]));
 	SkelAnime_DrawOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, NULL, NULL, pthis);
 	Matrix_Pop();
 	Matrix_Translate(pthis->flowerPos.x, pthis->flowerPos.y, pthis->flowerPos.z, MTXMODE_NEW);
 	Matrix_Scale(0.01f, 0.01f, 0.01f, MTXMODE_APPLY);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1040), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_dnt_jiji.c", 1040), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gDntJijiFlowerDL);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1043);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_dnt_jiji.c", 1043);
 }
 
 void EnDntJiji_Reset(Actor* pthisx, GlobalContext* globalCtx)

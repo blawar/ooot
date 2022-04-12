@@ -68,26 +68,26 @@ void EffectSsIceSmoke_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 
 	object = gObjectTable[pthis->rObjBankIdx].vromStart.buffer();
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_ice_smoke.c", 155);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_eff_ss_ice_smoke.c", 155);
 
 	objBankIdx = Object_GetIndex(&globalCtx->objectCtx, OBJECT_FZ);
 
 	if((objBankIdx > -1) && Object_IsLoaded(&globalCtx->objectCtx, objBankIdx))
 	{
 		gDPPipeSync(POLY_XLU_DISP++);
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gSegments[6] = (uintptr_t)VIRTUAL_TO_PHYSICAL(object);
 		gSPSegment(POLY_XLU_DISP++, 0x06, object);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(gFreezardSteamStartDL));
 		gDPPipeSync(POLY_XLU_DISP++);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 235, 235, pthis->rAlpha);
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, pthis->life * 3, pthis->life * 15, 32, 64, 1, 0, 0, 32, 32));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->life * 3, pthis->life * 15, 32, 64, 1, 0, 0, 32, 32));
 		Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);
 		func_800D1FD4(&globalCtx->billboardMtxF);
 		scale = pthis->rScale * 0.0001f;
 		Matrix_Scale(scale, scale, 1.0f, MTXMODE_APPLY);
 
-		mtx = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_eff_ss_ice_smoke.c", 196);
+		mtx = Matrix_NewMtx(globalCtx->gfxCtx, "../z_eff_ss_ice_smoke.c", 196);
 
 		if(mtx != NULL)
 		{
@@ -100,7 +100,7 @@ void EffectSsIceSmoke_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 		pthis->life = -1;
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_eff_ss_ice_smoke.c", 210);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_eff_ss_ice_smoke.c", 210);
 }
 
 void EffectSsIceSmoke_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)

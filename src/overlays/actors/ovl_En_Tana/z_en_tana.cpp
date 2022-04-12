@@ -12,7 +12,7 @@
 #include "def/z_rcp.h"
 #include "objects/object_shop_dungen/object_shop_dungen.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3)
 
 void EnTana_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTana_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -57,7 +57,7 @@ void EnTana_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	osSyncPrintf("☆☆☆ %s ☆☆☆\n", sShelfTypes[thisx->params]);
 	Actor_SetScale(thisx, 1.0f);
-	thisx->flags &= ~ACTOR_FLAG_0;
+	thisx->flags &= ~ACTOR_FLAG_VISIBLE;
 	thisx->draw = sDrawFuncs[thisx->params];
 }
 
@@ -73,27 +73,27 @@ void EnTana_DrawWoodenShelves(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnTana* pthis = (EnTana*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tana.c", 148);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tana.c", 148);
 
-	func_80093D18(globalCtx->state.gfxCtx);
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tana.c", 152), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	func_80093D18(globalCtx->gfxCtx);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tana.c", 152), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, sShelfDLists[thisx->params]);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tana.c", 157);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tana.c", 157);
 }
 
 void EnTana_DrawStoneShelves(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnTana* pthis = (EnTana*)thisx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_tana.c", 163);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_tana.c", 163);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sStoneTextures[thisx->params]));
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_tana.c", 169), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_tana.c", 169), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, sShelfDLists[thisx->params]);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tana.c", 174);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_tana.c", 174);
 }
 
 void EnTana_Reset(Actor* pthisx, GlobalContext* globalCtx)

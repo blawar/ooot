@@ -22,7 +22,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_bw/object_bw.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4)
 
 void EnBw_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBw_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -679,7 +679,7 @@ void func_809D00F4(EnBw* pthis)
 {
 	pthis->unk_220 = 0;
 	pthis->unk_222 = 40;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BUBLEWALK_DEAD);
 	EnBw_SetupAction(pthis, func_809D014C);
@@ -979,7 +979,7 @@ s32 EnBw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 
 	if(limbIndex == 1)
 	{
-		gSPSegment((*gfx)++, 0x09, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, pthis->unk_23A, 0x20, 0x20));
+		gSPSegment((*gfx)++, 0x09, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, pthis->unk_23A, 0x20, 0x20));
 		if((pthis->unk_220 == 1) || (pthis->unk_220 == 5))
 		{
 			Matrix_Push();
@@ -991,7 +991,7 @@ s32 EnBw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 			Matrix_RotateZ(-(pthis->unk_258 * 0.1f), MTXMODE_APPLY);
 			Matrix_RotateY(-(pthis->unk_258 * 0.13f), MTXMODE_APPLY);
 			Matrix_RotateX(-(pthis->unk_258 * 0.115f), MTXMODE_APPLY);
-			gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bw.c", 1388), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+			gSPMatrix((*gfx)++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bw.c", 1388), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList((*gfx)++, *dList);
 			Matrix_Pop();
 			return 1;
@@ -1012,18 +1012,18 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	Vec3f icePos;
 	s32 iceIndex;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bw.c", 1423);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bw.c", 1423);
 
 	if(pthis->color1.a == 0xFF)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, pthis->color1.r, pthis->color1.g, pthis->color1.b, pthis->color1.a);
 		gSPSegment(POLY_OPA_DISP++, 0x08, &D_80116280[2]);
 		POLY_OPA_DISP = SkelAnime_Draw(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, EnBw_OverrideLimbDraw, NULL, pthis, POLY_OPA_DISP);
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPPipeSync(POLY_XLU_DISP++);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 0, 0, 0, pthis->color1.a);
 		gDPSetEnvColor(POLY_XLU_DISP++, pthis->color1.r, pthis->color1.g, pthis->color1.b, pthis->color1.a);
@@ -1044,14 +1044,14 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	}
 
 	Matrix_Translate(thisx->world.pos.x, thisx->world.pos.y + ((thisx->scale.y - 0.013f) * 1000.0f), thisx->world.pos.z, MTXMODE_NEW);
-	func_80093D84(globalCtx->state.gfxCtx);
+	func_80093D84(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, 0);
 
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (globalCtx->gameplayFrames.whole() * -20) % 0x200, 0x20, 0x80));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, 0, (globalCtx->gameplayFrames.whole() * -20) % 0x200, 0x20, 0x80));
 	gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, 255, 255, 0, 255);
 	Matrix_Scale(pthis->unk_248 * 0.01f, pthis->unk_248 * 0.01f, pthis->unk_248 * 0.01f, MTXMODE_APPLY);
 	func_800D1FD4(&globalCtx->billboardMtxF);
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_bw.c", 1500), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_bw.c", 1500), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, gEffFire1DL);
 
 	if(pthis->iceTimer != 0)
@@ -1068,7 +1068,7 @@ void EnBw_Draw(Actor* thisx, GlobalContext* globalCtx2)
 			EffectSsEnIce_SpawnFlyingVec3f(globalCtx, thisx, &icePos, 0x96, 0x96, 0x96, 0xFA, 0xEB, 0xF5, 0xFF, 1.3f);
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_bw.c", 1521);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_bw.c", 1521);
 }
 
 void EnBw_Reset(Actor* pthisx, GlobalContext* globalCtx)

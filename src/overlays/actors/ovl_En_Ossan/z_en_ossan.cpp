@@ -28,7 +28,7 @@
 #include "objects/object_rs/object_rs.h"
 #include "objects/object_zo/object_zo.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_3 | ACTOR_FLAG_4)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_3 | ACTOR_FLAG_4)
 
 void EnOssan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnOssan_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -776,7 +776,7 @@ void EnOssan_State_Idle(EnOssan* pthis, GlobalContext* globalCtx, Player* player
 
 void EnOssan_UpdateJoystickInputState(GlobalContext* globalCtx, EnOssan* pthis)
 {
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 	s8 stickX = input->rel.stick_x;
 	s8 stickY = input->rel.stick_y;
 
@@ -970,7 +970,7 @@ void EnOssan_State_StartConversation(EnOssan* pthis, GlobalContext* globalCtx, P
 
 	if(pthis->actor.params == OSSAN_TYPE_MASK && dialogState == TEXT_STATE_CHOICE)
 	{
-		if(!EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->state.input[0]) && Message_ShouldAdvance(globalCtx))
+		if(!EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->input[0]) && Message_ShouldAdvance(globalCtx))
 		{
 			switch(globalCtx->msgCtx.choiceIndex)
 			{
@@ -1009,7 +1009,7 @@ void EnOssan_State_StartConversation(EnOssan* pthis, GlobalContext* globalCtx, P
 				return;
 		}
 
-		if(!EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->state.input[0]))
+		if(!EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->input[0]))
 		{
 			// "Shop around by moving the stick left and right"
 			osSyncPrintf("「スティック左右で品物みてくれ！」\n");
@@ -1041,7 +1041,7 @@ void EnOssan_State_FacingShopkeeper(EnOssan* pthis, GlobalContext* globalCtx, Pl
 {
 	u8 nextIndex;
 
-	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE) && !EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->state.input[0]))
+	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE) && !EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->input[0]))
 	{
 		if(Message_ShouldAdvance(globalCtx) && EnOssan_FacingShopkeeperDialogResult(pthis, globalCtx))
 		{
@@ -1335,7 +1335,7 @@ void EnOssan_State_BrowseLeftShelf(EnOssan* pthis, GlobalContext* globalCtx, Pla
 	pthis->drawCursor = 0xFF;
 	pthis->stickRightPrompt.isEnabled = true;
 	EnOssan_UpdateCursorPos(globalCtx, pthis);
-	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && !EnOssan_HasPlayerSelectedItem(globalCtx, pthis, &globalCtx->state.input[0]))
+	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && !EnOssan_HasPlayerSelectedItem(globalCtx, pthis, &globalCtx->input[0]))
 	{
 		if(pthis->moveHorizontal)
 		{
@@ -1415,7 +1415,7 @@ void EnOssan_State_BrowseRightShelf(EnOssan* pthis, GlobalContext* globalCtx, Pl
 	pthis->drawCursor = 0xFF;
 	pthis->stickLeftPrompt.isEnabled = true;
 	EnOssan_UpdateCursorPos(globalCtx, pthis);
-	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && !EnOssan_HasPlayerSelectedItem(globalCtx, pthis, &globalCtx->state.input[0]))
+	if((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && !EnOssan_HasPlayerSelectedItem(globalCtx, pthis, &globalCtx->input[0]))
 	{
 		if(pthis->moveHorizontal)
 		{
@@ -1702,7 +1702,7 @@ void EnOssan_State_ItemSelected(EnOssan* pthis, GlobalContext* globalCtx2, Playe
 		osSyncPrintf("%s[%d]:" VT_FGCOL(GREEN) "ズーム中！！" VT_RST "\n", "../z_en_oB1.c", 2654);
 		return;
 	}
-	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->state.input[0]) && Message_ShouldAdvance(globalCtx))
+	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->input[0]) && Message_ShouldAdvance(globalCtx))
 	{
 		switch(globalCtx->msgCtx.choiceIndex)
 		{
@@ -1726,7 +1726,7 @@ void EnOssan_State_SelectMilkBottle(EnOssan* pthis, GlobalContext* globalCtx2, P
 		osSyncPrintf("%s[%d]:" VT_FGCOL(GREEN) "ズーム中！！" VT_RST "\n", "../z_en_oB1.c", 2693);
 		return;
 	}
-	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->state.input[0]) && Message_ShouldAdvance(globalCtx))
+	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->input[0]) && Message_ShouldAdvance(globalCtx))
 	{
 		switch(globalCtx->msgCtx.choiceIndex)
 		{
@@ -1750,7 +1750,7 @@ void EnOssan_State_SelectWeirdEgg(EnOssan* pthis, GlobalContext* globalCtx2, Pla
 		osSyncPrintf("%s[%d]:" VT_FGCOL(GREEN) "ズーム中！！" VT_RST "\n", "../z_en_oB1.c", 2732);
 		return;
 	}
-	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->state.input[0]) && Message_ShouldAdvance(globalCtx))
+	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->input[0]) && Message_ShouldAdvance(globalCtx))
 	{
 		switch(globalCtx->msgCtx.choiceIndex)
 		{
@@ -1792,7 +1792,7 @@ void EnOssan_State_SelectBombs(EnOssan* pthis, GlobalContext* globalCtx, Player*
 		EnOssan_State_ItemSelected(pthis, globalCtx, player);
 		return;
 	}
-	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->state.input[0]) && Message_ShouldAdvance(globalCtx))
+	if(Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->input[0]) && Message_ShouldAdvance(globalCtx))
 	{
 		switch(globalCtx->msgCtx.choiceIndex)
 		{
@@ -1825,7 +1825,7 @@ void EnOssan_State_SelectMaskItem(EnOssan* pthis, GlobalContext* globalCtx, Play
 			Message_ContinueTextbox(globalCtx, pthis->shelfSlots[pthis->cursorIndex]->actor.textId);
 		}
 	}
-	else if(talkState == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->state.input[0]) && Message_ShouldAdvance(globalCtx))
+	else if(talkState == TEXT_STATE_CHOICE && !EnOssan_TestCancelOption(pthis, globalCtx, &globalCtx->input[0]) && Message_ShouldAdvance(globalCtx))
 	{
 		switch(globalCtx->msgCtx.choiceIndex)
 		{
@@ -1946,7 +1946,7 @@ void EnOssan_State_ContinueShoppingPrompt(EnOssan* pthis, GlobalContext* globalC
 			EnOssan_ResetItemPosition(pthis);
 			selectedItem = pthis->shelfSlots[pthis->cursorIndex];
 			selectedItem->updateStockedItemFunc(globalCtx, selectedItem);
-			if(!EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->state.input[0]))
+			if(!EnOssan_TestEndInteraction(pthis, globalCtx, &globalCtx->input[0]))
 			{
 				switch(globalCtx->msgCtx.choiceIndex)
 				{
@@ -2538,7 +2538,7 @@ void EnOssan_InitActionFunc(EnOssan* pthis, GlobalContext* globalCtx)
 		pthis->blinkTimer = 20;
 		pthis->eyeTextureIdx = 0;
 		pthis->blinkFunc = EnOssan_WaitForBlink;
-		pthis->actor.flags &= ~ACTOR_FLAG_0;
+		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 		EnOssan_SetupAction(pthis, EnOssan_MainActionFunc);
 	}
 }
@@ -2603,10 +2603,10 @@ void EnOssan_DrawCursor(GlobalContext* globalCtx, EnOssan* pthis, f32 x, f32 y, 
 	f32 w;
 	s32 dsdx;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4192);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4192);
 	if(drawCursor != 0)
 	{
-		func_80094520(globalCtx->state.gfxCtx);
+		func_80094520(globalCtx->gfxCtx);
 		gDPSetPrimColor(OVERLAY_DISP++, 0, 0, pthis->cursorColorR, pthis->cursorColorG, pthis->cursorColorB, pthis->cursorColorA);
 		gDPLoadTextureBlock_4b(OVERLAY_DISP++, gSelectionCursorTex, G_IM_FMT_IA, 16, 16, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
 		w = 16.0f * z;
@@ -2617,7 +2617,7 @@ void EnOssan_DrawCursor(GlobalContext* globalCtx, EnOssan* pthis, f32 x, f32 y, 
 		dsdx = (1.0f / z) * 1024.0f;
 		gSPTextureRectangle(OVERLAY_DISP++, ulx, uly, lrx, lry, G_TX_RENDERTILE, 0, 0, dsdx, dsdx);
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4215);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4215);
 }
 
 void EnOssan_DrawTextRec(GlobalContext* globalCtx, s32 r, s32 g, s32 b, s32 a, f32 x, f32 y, f32 z, s32 s, s32 t, f32 dx, f32 dy)
@@ -2627,7 +2627,7 @@ void EnOssan_DrawTextRec(GlobalContext* globalCtx, s32 r, s32 g, s32 b, s32 a, f
 	f32 w, h;
 	s32 dsdx, dtdy;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4228);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4228);
 	gDPPipeSync(OVERLAY_DISP++);
 	gDPSetPrimColor(OVERLAY_DISP++, 0, 0, r, g, b, a);
 
@@ -2642,7 +2642,7 @@ void EnOssan_DrawTextRec(GlobalContext* globalCtx, s32 r, s32 g, s32 b, s32 a, f
 	lrx = (x + w) * 4.0f;
 	lry = (y + h) * 4.0f;
 	gSPTextureRectangle(OVERLAY_DISP++, ulx, uly, lrx, lry, G_TX_RENDERTILE, s, t, dsdx, dtdy);
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4242);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4242);
 }
 
 void EnOssan_DrawStickDirectionPrompts(GlobalContext* globalCtx, EnOssan* pthis)
@@ -2650,10 +2650,10 @@ void EnOssan_DrawStickDirectionPrompts(GlobalContext* globalCtx, EnOssan* pthis)
 	s32 drawStickLeftPrompt = pthis->stickLeftPrompt.isEnabled;
 	s32 drawStickRightPrompt = pthis->stickRightPrompt.isEnabled;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4252);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4252);
 	if(drawStickLeftPrompt || drawStickRightPrompt)
 	{
-		func_80094520(globalCtx->state.gfxCtx);
+		func_80094520(globalCtx->gfxCtx);
 		gDPSetCombineMode(OVERLAY_DISP++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
 		gDPLoadTextureBlock(OVERLAY_DISP++, gArrowCursorTex, G_IM_FMT_IA, G_IM_SIZ_8b, 16, 24, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 		if(drawStickLeftPrompt)
@@ -2682,7 +2682,7 @@ void EnOssan_DrawStickDirectionPrompts(GlobalContext* globalCtx, EnOssan* pthis)
 			    pthis->stickRightPrompt.z, 0, 0, 1.0f, 1.0f);
 		}
 	}
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4300);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4300);
 }
 
 void EnOssan_DrawBazaarShopkeeper(Actor* thisx, GlobalContext* globalCtx)
@@ -2690,15 +2690,15 @@ void EnOssan_DrawBazaarShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4320);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4320);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sBazaarShopkeeperEyeTextures_238[pthis->eyeTextureIdx]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnOssan_OverrideLimbDrawDefaultShopkeeper, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4340);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4340);
 }
 
 s32 EnOssan_OverrideLimbDrawKokiriShopkeeper(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -2706,7 +2706,7 @@ s32 EnOssan_OverrideLimbDrawKokiriShopkeeper(GlobalContext* globalCtx, s32 limbI
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4354);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4354);
 
 	if(limbIndex == 15)
 	{
@@ -2716,7 +2716,7 @@ s32 EnOssan_OverrideLimbDrawKokiriShopkeeper(GlobalContext* globalCtx, s32 limbI
 		gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(sKokiriShopkeeperEyeTextures_239[pthis->eyeTextureIdx]));
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4374);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4374);
 
 	return 0;
 }
@@ -2743,19 +2743,19 @@ void EnOssan_DrawKokiriShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4409);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4409);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
-	gSPSegment(POLY_OPA_DISP++, 0x08, EnOssan_SetEnvColor(globalCtx->state.gfxCtx, 0, 130, 70, 255));
-	gSPSegment(POLY_OPA_DISP++, 0x09, EnOssan_SetEnvColor(globalCtx->state.gfxCtx, 110, 170, 20, 255));
-	gSPSegment(POLY_OPA_DISP++, 0x0C, EnOssan_EndDList(globalCtx->state.gfxCtx));
+	gSPSegment(POLY_OPA_DISP++, 0x08, EnOssan_SetEnvColor(globalCtx->gfxCtx, 0, 130, 70, 255));
+	gSPSegment(POLY_OPA_DISP++, 0x09, EnOssan_SetEnvColor(globalCtx->gfxCtx, 110, 170, 20, 255));
+	gSPSegment(POLY_OPA_DISP++, 0x0C, EnOssan_EndDList(globalCtx->gfxCtx));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnOssan_OverrideLimbDrawKokiriShopkeeper, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4434);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4434);
 }
 
 void EnOssan_DrawGoronShopkeeper(Actor* thisx, GlobalContext* globalCtx)
@@ -2763,16 +2763,16 @@ void EnOssan_DrawGoronShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4455);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4455);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sGoronShopkeeperEyeTextures_243[pthis->eyeTextureIdx]));
 	gSPSegment(POLY_OPA_DISP++, 0x09, SEGMENTED_TO_VIRTUAL(gGoronCsMouthNeutralTex));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4476);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4476);
 }
 
 s32 EnOssan_OverrideLimbDrawZoraShopkeeper(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx)
@@ -2791,18 +2791,18 @@ void EnOssan_DrawZoraShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4506);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4506);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
-	gSPSegment(POLY_OPA_DISP++, 0x0C, EnOssan_EndDList(globalCtx->state.gfxCtx));
+	gSPSegment(POLY_OPA_DISP++, 0x0C, EnOssan_EndDList(globalCtx->gfxCtx));
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sZoraShopkeeperEyeTextures_245[pthis->eyeTextureIdx]));
 
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnOssan_OverrideLimbDrawZoraShopkeeper, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4531);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4531);
 }
 
 void EnOssan_DrawPotionShopkeeper(Actor* thisx, GlobalContext* globalCtx)
@@ -2810,15 +2810,15 @@ void EnOssan_DrawPotionShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4544);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4544);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sPotionShopkeeperEyeTextures_246[pthis->eyeTextureIdx]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4564);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4564);
 }
 
 void EnOssan_DrawHappyMaskShopkeeper(Actor* thisx, GlobalContext* globalCtx)
@@ -2826,16 +2826,16 @@ void EnOssan_DrawHappyMaskShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4578);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4578);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sHappyMaskShopkeeperEyeTextures_247[pthis->happyMaskShopkeeperEyeIdx]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4598);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4598);
 }
 
 void EnOssan_DrawBombchuShopkeeper(Actor* thisx, GlobalContext* globalCtx)
@@ -2843,16 +2843,16 @@ void EnOssan_DrawBombchuShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 	EnOssan* pthis = (EnOssan*)thisx;
 	s32 pad;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4611);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4611);
 
-	func_80093D18(globalCtx->state.gfxCtx);
+	func_80093D18(globalCtx->gfxCtx);
 
 	gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sBombchuShopkeeperEyeTextures_248[pthis->eyeTextureIdx]));
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, NULL, pthis);
 	EnOssan_DrawCursor(globalCtx, pthis, pthis->cursorX, pthis->cursorY, pthis->cursorZ, pthis->drawCursor);
 	EnOssan_DrawStickDirectionPrompts(globalCtx, pthis);
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_oB1.c", 4631);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_oB1.c", 4631);
 }
 
 void EnOssan_Reset(Actor* pthisx, GlobalContext* globalCtx)

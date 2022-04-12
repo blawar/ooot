@@ -51,7 +51,7 @@ u32 EffectSsDFire_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, voi
 		pthis->rObjBankIdx = objBankIndex;
 		pthis->draw = EffectSsDFire_Draw;
 		pthis->update = EffectSsDFire_Update;
-		pthis->rTexIdx = ((s16)(globalCtx->state.frames % 4) ^ 3);
+		pthis->rTexIdx = ((s16)(globalCtx->frames % 4) ^ 3);
 		pthis->rPrimColorR = 255;
 		pthis->rPrimColorG = 255;
 		pthis->rPrimColorB = 50;
@@ -68,7 +68,7 @@ static void* sTextures[] = {gDodongoFire0Tex, gDodongoFire1Tex, gDodongoFire2Tex
 
 void EffectSsDFire_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
 	MtxF mfTrans;
 	MtxF mfScale;
 	MtxF mfResult;

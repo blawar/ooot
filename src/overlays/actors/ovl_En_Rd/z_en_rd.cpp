@@ -14,7 +14,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_rd/object_rd.h"
 
-#define FLAGS (ACTOR_FLAG_0 | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
+#define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2 | ACTOR_FLAG_4 | ACTOR_FLAG_10)
 
 void EnRd_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnRd_Reset(Actor* pthisx, GlobalContext* globalCtx);
@@ -418,7 +418,7 @@ void func_80AE2C1C(EnRd* pthis, GlobalContext* globalCtx)
 		player->actor.freezeTimer = 0;
 		if(globalCtx->grabPlayer(globalCtx, player))
 		{
-			pthis->actor.flags &= ~ACTOR_FLAG_0;
+			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 			func_80AE33F0(pthis);
 		}
 	}
@@ -647,7 +647,7 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx)
 					Math_SmoothStepToF(&pthis->actor.shape.yOffset, 0, 1.0f, 400.0f, 0.0f);
 				}
 				pthis->actor.targetMode = 0;
-				pthis->actor.flags |= ACTOR_FLAG_0;
+				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->unk_306 = 0xA;
 				pthis->unk_307 = 0xF;
 				func_80AE2B90(pthis, globalCtx);
@@ -730,7 +730,7 @@ void func_80AE3A8C(EnRd* pthis)
 		pthis->actor.speedXZ = -2.0f;
 	}
 
-	pthis->actor.flags |= ACTOR_FLAG_0;
+	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_DAMAGE);
 	pthis->unk_31B = 9;
 	EnRd_SetupAction(pthis, func_80AE3B18);
@@ -774,7 +774,7 @@ void func_80AE3C20(EnRd* pthis)
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_rd_Anim_006E88, -1.0f);
 	pthis->unk_31B = 10;
 	pthis->unk_30C = 300;
-	pthis->actor.flags &= ~ACTOR_FLAG_0;
+	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->actor.speedXZ = 0.0f;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_DEAD);
 	EnRd_SetupAction(pthis, func_80AE3C98);
@@ -1093,11 +1093,11 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnRd* pthis = (EnRd*)thisx;
 	Vec3f thisPos = thisx->world.pos;
 
-	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rd.c", 1679);
+	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_rd.c", 1679);
 
 	if(pthis->unk_314 == 0xFF)
 	{
-		func_80093D18(globalCtx->state.gfxCtx);
+		func_80093D18(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, pthis->unk_314);
 		gSPSegment(POLY_OPA_DISP++, 8, &D_80116280[2]);
 		POLY_OPA_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnRd_OverrideLimbDraw, EnRd_PostLimbDraw, pthis, POLY_OPA_DISP);
@@ -1114,7 +1114,7 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		func_80093D84(globalCtx->state.gfxCtx);
+		func_80093D84(globalCtx->gfxCtx);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, pthis->unk_314);
 		gSPSegment(POLY_XLU_DISP++, 8, &D_80116280[0]);
 		POLY_XLU_DISP = SkelAnime_DrawFlex(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnRd_OverrideLimbDraw, NULL, pthis, POLY_XLU_DISP);
@@ -1122,7 +1122,7 @@ void EnRd_Draw(Actor* thisx, GlobalContext* globalCtx)
 		func_80033C30(&thisPos, &D_80AE4958, pthis->unk_314, globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_rd.c", 1735);
+	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_rd.c", 1735);
 }
 
 void EnRd_Reset(Actor* pthisx, GlobalContext* globalCtx)
