@@ -15,16 +15,6 @@
 #define TAS_DIR "tas"
 #endif
 
-static inline int8_t invert(const int8_t value)
-{
-	if(value <= -128)
-	{
-		return 127;
-	}
-
-	return -value;
-}
-
 #ifndef _MSC_VER
 #define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
 #endif

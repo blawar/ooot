@@ -156,4 +156,30 @@ namespace oot::hid
 		const char* getInputName(hid::Button input);
 		Button getInputValue(const std::string& input);
 	} // namespace controller
+
+	static constexpr inline int8_t convertToByte(int value, int max)
+	{
+		if(value > 0)
+		{
+			return value * 0x7F / max;
+		}
+		else
+		{
+			return value * 0x80 / (max+1);
+		}
+	}
+
+	static inline int8_t invert(const int8_t value)
+	{
+		if(value == -128)
+		{
+			return 0x7F;
+		}
+		if(value == 127)
+		{
+			return -0x80;
+		}
+
+		return -value;
+	}
 } // namespace oot::hid
