@@ -48,7 +48,7 @@ static void* sEyesSegments_53[] = {gWindmillManEyeClosedTex, gWindmillManEyeAngr
 static void* sMouthSegments_53[] = {gWindmillManMouthOpenTex, gWindmillManMouthAngryTex};
 
 ActorInit En_Fu_InitVars = {
-    ACTOR_EN_FU, ACTORCAT_NPC, FLAGS, OBJECT_FU, sizeof(EnFu), (ActorFunc)EnFu_Init, (ActorFunc)EnFu_Destroy, (ActorFunc)EnFu_Update, (ActorFunc)EnFu_Draw, (ActorFunc)EnFu_Reset,
+    ACTOR_EN_FU, ACTORCAT_NPC, FLAGS, OBJECT_FU, ACTOR_FACTORY(EnFu), (ActorFunc)EnFu_Init, (ActorFunc)EnFu_Destroy, (ActorFunc)EnFu_Update, (ActorFunc)EnFu_Draw, (ActorFunc)EnFu_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -366,7 +366,7 @@ void EnFu_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	yawDiff_49 = 0;
 
 	En_Fu_InitVars = {
-	    ACTOR_EN_FU, ACTORCAT_NPC, FLAGS, OBJECT_FU, sizeof(EnFu), (ActorFunc)EnFu_Init, (ActorFunc)EnFu_Destroy, (ActorFunc)EnFu_Update, (ActorFunc)EnFu_Draw, (ActorFunc)EnFu_Reset,
+	    ACTOR_EN_FU, ACTORCAT_NPC, FLAGS, OBJECT_FU, ACTOR_FACTORY(EnFu), (ActorFunc)EnFu_Init, (ActorFunc)EnFu_Destroy, (ActorFunc)EnFu_Update, (ActorFunc)EnFu_Draw, (ActorFunc)EnFu_Reset,
 	};
 
 	sCylinderInit = {

@@ -50,7 +50,7 @@ static s16 D_80BA1B58 = 0;
 static s16 D_80BA1B5C = 0;
 
 ActorInit Obj_Tsubo_InitVars = {
-    ACTOR_OBJ_TSUBO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjTsubo), (ActorFunc)ObjTsubo_Init, (ActorFunc)ObjTsubo_Destroy, (ActorFunc)ObjTsubo_Update, NULL, (ActorFunc)ObjTsubo_Reset,
+    ACTOR_OBJ_TSUBO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjTsubo), (ActorFunc)ObjTsubo_Init, (ActorFunc)ObjTsubo_Destroy, (ActorFunc)ObjTsubo_Update, NULL, (ActorFunc)ObjTsubo_Reset,
 };
 
 static s16 sObjectIds[] = {OBJECT_GAMEPLAY_DANGEON_KEEP, OBJECT_TSUBO};
@@ -400,7 +400,7 @@ void ObjTsubo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80BA1B5C = 0;
 
 	Obj_Tsubo_InitVars = {
-	    ACTOR_OBJ_TSUBO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjTsubo), (ActorFunc)ObjTsubo_Init, (ActorFunc)ObjTsubo_Destroy, (ActorFunc)ObjTsubo_Update, NULL, (ActorFunc)ObjTsubo_Reset,
+	    ACTOR_OBJ_TSUBO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjTsubo), (ActorFunc)ObjTsubo_Init, (ActorFunc)ObjTsubo_Destroy, (ActorFunc)ObjTsubo_Update, NULL, (ActorFunc)ObjTsubo_Reset,
 	};
 
 	sCylinderInit = {

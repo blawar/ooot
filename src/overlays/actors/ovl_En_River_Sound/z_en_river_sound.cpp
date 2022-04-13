@@ -48,7 +48,7 @@ static s16 soundEffects_23[] = {
 static f32 soundPitch_23[] = {0.7f, 1.0f, 1.4f};
 
 ActorInit En_River_Sound_InitVars = {
-    ACTOR_EN_RIVER_SOUND, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnRiverSound), (ActorFunc)EnRiverSound_Init, (ActorFunc)EnRiverSound_Destroy, (ActorFunc)EnRiverSound_Update, (ActorFunc)EnRiverSound_Draw, (ActorFunc)EnRiverSound_Reset,
+    ACTOR_EN_RIVER_SOUND, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnRiverSound), (ActorFunc)EnRiverSound_Init, (ActorFunc)EnRiverSound_Destroy, (ActorFunc)EnRiverSound_Update, (ActorFunc)EnRiverSound_Draw, (ActorFunc)EnRiverSound_Reset,
 };
 
 void EnRiverSound_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -313,6 +313,6 @@ void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnRiverSound_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_River_Sound_InitVars = {
-	    ACTOR_EN_RIVER_SOUND, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnRiverSound), (ActorFunc)EnRiverSound_Init, (ActorFunc)EnRiverSound_Destroy, (ActorFunc)EnRiverSound_Update, (ActorFunc)EnRiverSound_Draw, (ActorFunc)EnRiverSound_Reset,
+	    ACTOR_EN_RIVER_SOUND, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnRiverSound), (ActorFunc)EnRiverSound_Init, (ActorFunc)EnRiverSound_Destroy, (ActorFunc)EnRiverSound_Update, (ActorFunc)EnRiverSound_Draw, (ActorFunc)EnRiverSound_Reset,
 	};
 }

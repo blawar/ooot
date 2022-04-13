@@ -119,7 +119,7 @@ static unkSkjStruct sSmallStumpSkullKid = {0, NULL};
 static unkSkjStruct sOcarinaMinigameSkullKids[] = {{0, NULL}, {0, NULL}};
 
 ActorInit En_Skj_InitVars = {
-    ACTOR_EN_SKJ, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, sizeof(EnSkj), (ActorFunc)EnSkj_Init, (ActorFunc)EnSkj_Destroy, (ActorFunc)EnSkj_Update, (ActorFunc)EnSkj_Draw, (ActorFunc)EnSkj_Reset,
+    ACTOR_EN_SKJ, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, ACTOR_FACTORY(EnSkj), (ActorFunc)EnSkj_Init, (ActorFunc)EnSkj_Destroy, (ActorFunc)EnSkj_Update, (ActorFunc)EnSkj_Draw, (ActorFunc)EnSkj_Reset,
 };
 
 static ColliderCylinderInitType1 D_80B01678 = {
@@ -1872,7 +1872,7 @@ void EnSkj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sSmallStumpSkullKid = {0, NULL};
 
 	En_Skj_InitVars = {
-	    ACTOR_EN_SKJ, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, sizeof(EnSkj), (ActorFunc)EnSkj_Init, (ActorFunc)EnSkj_Destroy, (ActorFunc)EnSkj_Update, (ActorFunc)EnSkj_Draw, (ActorFunc)EnSkj_Reset,
+	    ACTOR_EN_SKJ, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, ACTOR_FACTORY(EnSkj), (ActorFunc)EnSkj_Init, (ActorFunc)EnSkj_Destroy, (ActorFunc)EnSkj_Update, (ActorFunc)EnSkj_Draw, (ActorFunc)EnSkj_Reset,
 	};
 
 	D_80B01678 = {

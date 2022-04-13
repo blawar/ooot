@@ -37,7 +37,7 @@ void DoorKiller_DrawRubble(Actor* thisx, GlobalContext* globalCtx);
 static Gfx* dLists_66[] = {object_door_killer_DL_001250, object_door_killer_DL_001550, object_door_killer_DL_0017B8, object_door_killer_DL_001A58};
 
 ActorInit Door_Killer_InitVars = {
-    ACTOR_DOOR_KILLER, ACTORCAT_BG, FLAGS, OBJECT_DOOR_KILLER, sizeof(DoorKiller), (ActorFunc)DoorKiller_Init, (ActorFunc)DoorKiller_Destroy, (ActorFunc)DoorKiller_Update, NULL, (ActorFunc)DoorKiller_Reset,
+    ACTOR_DOOR_KILLER, ACTORCAT_BG, FLAGS, OBJECT_DOOR_KILLER, ACTOR_FACTORY(DoorKiller), (ActorFunc)DoorKiller_Init, (ActorFunc)DoorKiller_Destroy, (ActorFunc)DoorKiller_Update, NULL, (ActorFunc)DoorKiller_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -587,7 +587,7 @@ void DoorKiller_DrawRubble(Actor* thisx, GlobalContext* globalCtx)
 void DoorKiller_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Door_Killer_InitVars = {
-	    ACTOR_DOOR_KILLER, ACTORCAT_BG, FLAGS, OBJECT_DOOR_KILLER, sizeof(DoorKiller), (ActorFunc)DoorKiller_Init, (ActorFunc)DoorKiller_Destroy, (ActorFunc)DoorKiller_Update, NULL, (ActorFunc)DoorKiller_Reset,
+	    ACTOR_DOOR_KILLER, ACTORCAT_BG, FLAGS, OBJECT_DOOR_KILLER, ACTOR_FACTORY(DoorKiller), (ActorFunc)DoorKiller_Init, (ActorFunc)DoorKiller_Destroy, (ActorFunc)DoorKiller_Update, NULL, (ActorFunc)DoorKiller_Reset,
 	};
 
 	sCylinderInit = {

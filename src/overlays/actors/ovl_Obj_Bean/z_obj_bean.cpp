@@ -90,7 +90,7 @@ void ObjBean_WaitForStepOff(ObjBean* pthis, GlobalContext* globalCtx);
 static ObjBean* D_80B90E30 = NULL;
 
 ActorInit Obj_Bean_InitVars = {
-    ACTOR_OBJ_BEAN, ACTORCAT_BG, FLAGS, OBJECT_MAMENOKI, sizeof(ObjBean), (ActorFunc)ObjBean_Init, (ActorFunc)ObjBean_Destroy, (ActorFunc)ObjBean_Update, (ActorFunc)ObjBean_Draw, (ActorFunc)ObjBean_Reset,
+    ACTOR_OBJ_BEAN, ACTORCAT_BG, FLAGS, OBJECT_MAMENOKI, ACTOR_FACTORY(ObjBean), (ActorFunc)ObjBean_Init, (ActorFunc)ObjBean_Destroy, (ActorFunc)ObjBean_Update, (ActorFunc)ObjBean_Draw, (ActorFunc)ObjBean_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1112,7 +1112,7 @@ void ObjBean_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80B90E30 = NULL;
 
 	Obj_Bean_InitVars = {
-	    ACTOR_OBJ_BEAN, ACTORCAT_BG, FLAGS, OBJECT_MAMENOKI, sizeof(ObjBean), (ActorFunc)ObjBean_Init, (ActorFunc)ObjBean_Destroy, (ActorFunc)ObjBean_Update, (ActorFunc)ObjBean_Draw, (ActorFunc)ObjBean_Reset,
+	    ACTOR_OBJ_BEAN, ACTORCAT_BG, FLAGS, OBJECT_MAMENOKI, ACTOR_FACTORY(ObjBean), (ActorFunc)ObjBean_Init, (ActorFunc)ObjBean_Destroy, (ActorFunc)ObjBean_Update, (ActorFunc)ObjBean_Draw, (ActorFunc)ObjBean_Reset,
 	};
 
 	sCylinderInit = {

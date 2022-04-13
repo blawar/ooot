@@ -36,7 +36,7 @@ void BgHakaTubo_DropCollectible(BgHakaTubo* pthis, GlobalContext* globalCtx);
 static Vec3f sZeroVector_34 = {0.0f, 0.0f, 0.0f};
 
 ActorInit Bg_Haka_Tubo_InitVars = {
-    ACTOR_BG_HAKA_TUBO, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaTubo), (ActorFunc)BgHakaTubo_Init, (ActorFunc)BgHakaTubo_Destroy, (ActorFunc)BgHakaTubo_Update, (ActorFunc)BgHakaTubo_Draw, (ActorFunc)BgHakaTubo_Reset,
+    ACTOR_BG_HAKA_TUBO, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaTubo), (ActorFunc)BgHakaTubo_Init, (ActorFunc)BgHakaTubo_Destroy, (ActorFunc)BgHakaTubo_Update, (ActorFunc)BgHakaTubo_Draw, (ActorFunc)BgHakaTubo_Reset,
 };
 
 static ColliderCylinderInit sPotColliderInit = {
@@ -290,7 +290,7 @@ void BgHakaTubo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sZeroVector_34 = {0.0f, 0.0f, 0.0f};
 
 	Bg_Haka_Tubo_InitVars = {
-	    ACTOR_BG_HAKA_TUBO, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaTubo), (ActorFunc)BgHakaTubo_Init, (ActorFunc)BgHakaTubo_Destroy, (ActorFunc)BgHakaTubo_Update, (ActorFunc)BgHakaTubo_Draw, (ActorFunc)BgHakaTubo_Reset,
+	    ACTOR_BG_HAKA_TUBO, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaTubo), (ActorFunc)BgHakaTubo_Init, (ActorFunc)BgHakaTubo_Destroy, (ActorFunc)BgHakaTubo_Update, (ActorFunc)BgHakaTubo_Draw, (ActorFunc)BgHakaTubo_Reset,
 	};
 
 	sPotColliderInit = {

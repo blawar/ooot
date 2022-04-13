@@ -30,7 +30,7 @@ void func_8088D434(BgHidanSekizou* pthis, GlobalContext* globalCtx);
 void func_8088D720(BgHidanSekizou* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Hidan_Sekizou_InitVars = {
-    ACTOR_BG_HIDAN_SEKIZOU,	     ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanSekizou), (ActorFunc)BgHidanSekizou_Init, (ActorFunc)BgHidanSekizou_Destroy, (ActorFunc)BgHidanSekizou_Update, (ActorFunc)BgHidanSekizou_Draw,
+    ACTOR_BG_HIDAN_SEKIZOU,	     ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanSekizou), (ActorFunc)BgHidanSekizou_Init, (ActorFunc)BgHidanSekizou_Destroy, (ActorFunc)BgHidanSekizou_Update, (ActorFunc)BgHidanSekizou_Draw,
     (ActorFunc)BgHidanSekizou_Reset,
 };
 
@@ -515,7 +515,7 @@ void BgHidanSekizou_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void BgHidanSekizou_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Hidan_Sekizou_InitVars = {
-	    ACTOR_BG_HIDAN_SEKIZOU,	     ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanSekizou), (ActorFunc)BgHidanSekizou_Init, (ActorFunc)BgHidanSekizou_Destroy, (ActorFunc)BgHidanSekizou_Update, (ActorFunc)BgHidanSekizou_Draw,
+	    ACTOR_BG_HIDAN_SEKIZOU,	     ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanSekizou), (ActorFunc)BgHidanSekizou_Init, (ActorFunc)BgHidanSekizou_Destroy, (ActorFunc)BgHidanSekizou_Update, (ActorFunc)BgHidanSekizou_Draw,
 	    (ActorFunc)BgHidanSekizou_Reset,
 	};
 

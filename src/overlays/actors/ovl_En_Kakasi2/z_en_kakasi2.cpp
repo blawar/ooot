@@ -51,7 +51,7 @@ void func_80A90578(EnKakasi2* pthis, GlobalContext* globalCtx);
 void func_80A906C4(EnKakasi2* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Kakasi2_InitVars = {
-    ACTOR_EN_KAKASI2, ACTORCAT_PROP, FLAGS, OBJECT_KA, sizeof(EnKakasi2), (ActorFunc)EnKakasi2_Init, (ActorFunc)EnKakasi2_Destroy, (ActorFunc)EnKakasi2_Update, NULL, (ActorFunc)EnKakasi2_Reset,
+    ACTOR_EN_KAKASI2, ACTORCAT_PROP, FLAGS, OBJECT_KA, ACTOR_FACTORY(EnKakasi2), (ActorFunc)EnKakasi2_Init, (ActorFunc)EnKakasi2_Destroy, (ActorFunc)EnKakasi2_Update, NULL, (ActorFunc)EnKakasi2_Reset,
 };
 
 void EnKakasi2_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -264,6 +264,6 @@ void EnKakasi2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Kakasi2_InitVars = {
-	    ACTOR_EN_KAKASI2, ACTORCAT_PROP, FLAGS, OBJECT_KA, sizeof(EnKakasi2), (ActorFunc)EnKakasi2_Init, (ActorFunc)EnKakasi2_Destroy, (ActorFunc)EnKakasi2_Update, NULL, (ActorFunc)EnKakasi2_Reset,
+	    ACTOR_EN_KAKASI2, ACTORCAT_PROP, FLAGS, OBJECT_KA, ACTOR_FACTORY(EnKakasi2), (ActorFunc)EnKakasi2_Init, (ActorFunc)EnKakasi2_Destroy, (ActorFunc)EnKakasi2_Update, NULL, (ActorFunc)EnKakasi2_Reset,
 	};
 }

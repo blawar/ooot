@@ -34,7 +34,7 @@ void func_808B3274(BgSpot12Gate* pthis);
 void func_808B3298(BgSpot12Gate* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot12_Gate_InitVars = {
-    ACTOR_BG_SPOT12_GATE, ACTORCAT_BG, FLAGS, OBJECT_SPOT12_OBJ, sizeof(BgSpot12Gate), (ActorFunc)BgSpot12Gate_Init, (ActorFunc)BgSpot12Gate_Destroy, (ActorFunc)BgSpot12Gate_Update, (ActorFunc)BgSpot12Gate_Draw, (ActorFunc)BgSpot12Gate_Reset,
+    ACTOR_BG_SPOT12_GATE, ACTORCAT_BG, FLAGS, OBJECT_SPOT12_OBJ, ACTOR_FACTORY(BgSpot12Gate), (ActorFunc)BgSpot12Gate_Init, (ActorFunc)BgSpot12Gate_Destroy, (ActorFunc)BgSpot12Gate_Update, (ActorFunc)BgSpot12Gate_Draw, (ActorFunc)BgSpot12Gate_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -167,6 +167,6 @@ void BgSpot12Gate_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot12Gate_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot12_Gate_InitVars = {
-	    ACTOR_BG_SPOT12_GATE, ACTORCAT_BG, FLAGS, OBJECT_SPOT12_OBJ, sizeof(BgSpot12Gate), (ActorFunc)BgSpot12Gate_Init, (ActorFunc)BgSpot12Gate_Destroy, (ActorFunc)BgSpot12Gate_Update, (ActorFunc)BgSpot12Gate_Draw, (ActorFunc)BgSpot12Gate_Reset,
+	    ACTOR_BG_SPOT12_GATE, ACTORCAT_BG, FLAGS, OBJECT_SPOT12_OBJ, ACTOR_FACTORY(BgSpot12Gate), (ActorFunc)BgSpot12Gate_Init, (ActorFunc)BgSpot12Gate_Destroy, (ActorFunc)BgSpot12Gate_Update, (ActorFunc)BgSpot12Gate_Draw, (ActorFunc)BgSpot12Gate_Reset,
 	};
 }

@@ -128,7 +128,7 @@ static Gfx* doorPieceDispList_214[] = {
 static s16 doorPieceLength_214[] = {836, 900, 836, 1016, 800, 1016, 836, 900};
 
 ActorInit Boss_Va_InitVars = {
-    ACTOR_BOSS_VA, ACTORCAT_BOSS, FLAGS, OBJECT_BV, sizeof(BossVa), (ActorFunc)BossVa_Init, (ActorFunc)BossVa_Destroy, (ActorFunc)BossVa_Update, (ActorFunc)BossVa_Draw, (ActorFunc)BossVa_Reset,
+    ACTOR_BOSS_VA, ACTORCAT_BOSS, FLAGS, OBJECT_BV, ACTOR_FACTORY(BossVa), (ActorFunc)BossVa_Init, (ActorFunc)BossVa_Destroy, (ActorFunc)BossVa_Update, (ActorFunc)BossVa_Draw, (ActorFunc)BossVa_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -4466,7 +4466,7 @@ void BossVa_DrawDoor(GlobalContext* globalCtx, s16 scale)
 void BossVa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Boss_Va_InitVars = {
-	    ACTOR_BOSS_VA, ACTORCAT_BOSS, FLAGS, OBJECT_BV, sizeof(BossVa), (ActorFunc)BossVa_Init, (ActorFunc)BossVa_Destroy, (ActorFunc)BossVa_Update, (ActorFunc)BossVa_Draw, (ActorFunc)BossVa_Reset,
+	    ACTOR_BOSS_VA, ACTORCAT_BOSS, FLAGS, OBJECT_BV, ACTOR_FACTORY(BossVa), (ActorFunc)BossVa_Init, (ActorFunc)BossVa_Destroy, (ActorFunc)BossVa_Update, (ActorFunc)BossVa_Draw, (ActorFunc)BossVa_Reset,
 	};
 
 	sCylinderInit = {

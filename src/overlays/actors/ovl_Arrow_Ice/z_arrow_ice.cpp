@@ -30,7 +30,7 @@ void ArrowIce_Hit(ArrowIce* pthis, GlobalContext* globalCtx);
 #include "def/z_rcp.h"
 
 ActorInit Arrow_Ice_InitVars = {
-    ACTOR_ARROW_ICE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ArrowIce), (ActorFunc)ArrowIce_Init, (ActorFunc)ArrowIce_Destroy, (ActorFunc)ArrowIce_Update, (ActorFunc)ArrowIce_Draw, (ActorFunc)ArrowIce_Reset,
+    ACTOR_ARROW_ICE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ArrowIce), (ActorFunc)ArrowIce_Init, (ActorFunc)ArrowIce_Destroy, (ActorFunc)ArrowIce_Update, (ActorFunc)ArrowIce_Draw, (ActorFunc)ArrowIce_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -290,6 +290,6 @@ void ArrowIce_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void ArrowIce_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Arrow_Ice_InitVars = {
-	    ACTOR_ARROW_ICE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ArrowIce), (ActorFunc)ArrowIce_Init, (ActorFunc)ArrowIce_Destroy, (ActorFunc)ArrowIce_Update, (ActorFunc)ArrowIce_Draw, (ActorFunc)ArrowIce_Reset,
+	    ACTOR_ARROW_ICE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ArrowIce), (ActorFunc)ArrowIce_Init, (ActorFunc)ArrowIce_Destroy, (ActorFunc)ArrowIce_Update, (ActorFunc)ArrowIce_Draw, (ActorFunc)ArrowIce_Reset,
 	};
 }

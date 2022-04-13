@@ -244,7 +244,7 @@ static Color_RGBA8 sStaticColor = {0, 0, 0, 255};
 static s32 sHandState[] = {HAND_WAIT, HAND_WAIT};
 
 ActorInit Boss_Sst_InitVars = {
-    ACTOR_BOSS_SST, ACTORCAT_BOSS, FLAGS, OBJECT_SST, sizeof(BossSst), (ActorFunc)BossSst_Init, (ActorFunc)BossSst_Destroy, (ActorFunc)BossSst_UpdateHand, (ActorFunc)BossSst_DrawHand, (ActorFunc)BossSst_Reset,
+    ACTOR_BOSS_SST, ACTORCAT_BOSS, FLAGS, OBJECT_SST, ACTOR_FACTORY(BossSst), (ActorFunc)BossSst_Init, (ActorFunc)BossSst_Destroy, (ActorFunc)BossSst_UpdateHand, (ActorFunc)BossSst_DrawHand, (ActorFunc)BossSst_Reset,
 };
 
 #include "z_boss_sst_colchk.cpp"
@@ -3864,6 +3864,6 @@ void BossSst_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sStaticColor = {0, 0, 0, 255};
 
 	Boss_Sst_InitVars = {
-	    ACTOR_BOSS_SST, ACTORCAT_BOSS, FLAGS, OBJECT_SST, sizeof(BossSst), (ActorFunc)BossSst_Init, (ActorFunc)BossSst_Destroy, (ActorFunc)BossSst_UpdateHand, (ActorFunc)BossSst_DrawHand, (ActorFunc)BossSst_Reset,
+	    ACTOR_BOSS_SST, ACTORCAT_BOSS, FLAGS, OBJECT_SST, ACTOR_FACTORY(BossSst), (ActorFunc)BossSst_Init, (ActorFunc)BossSst_Destroy, (ActorFunc)BossSst_UpdateHand, (ActorFunc)BossSst_DrawHand, (ActorFunc)BossSst_Reset,
 	};
 }

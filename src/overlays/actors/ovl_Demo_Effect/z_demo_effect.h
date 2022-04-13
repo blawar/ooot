@@ -87,7 +87,7 @@ struct DemoEffectDust
 	/* 0x00 */ u8 timer;
 };
 
-typedef struct DemoEffect
+struct DemoEffect
 {
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ SkelAnimeCurve skelCurve;
@@ -98,8 +98,8 @@ typedef struct DemoEffect
 	/* 0x017B */ u8 envXluColor[3];
 	/* 0x017E */ u8 primOpaColor[3];
 	/* 0x0181 */ u8 envOpaColor[3];
-	/* 0x0184 */ union
-	{
+	/*union TODO FIX POSSIBLE BUG, these may depend on overlapping each other
+	{*/
 		DemoEffectFireBall fireBall;
 		DemoEffectBlueOrb blueOrb;
 		DemoEffectLight light;
@@ -111,14 +111,14 @@ typedef struct DemoEffect
 		DemoEffectTimeWarp timeWarp;
 		DemoEffectJewel jewel;
 		DemoEffectDust dust;
-	};
+	/*};*/
 	/* 0x018A */ s16 effectFlags;
 	/* 0x018C */ s16 csActionId;
 	/* 0x018E */ Vec3s jewelCsRotation;
 	/* 0x0194 */ DemoEffectFunc initUpdateFunc;
 	/* 0x0198 */ ActorFunc initDrawFunc;
 	/* 0x019C */ DemoEffectFunc updateFunc;
-} DemoEffect;
+};
 
 // These names come from the objects that correspond to this actor type.
 enum DemoEffectType

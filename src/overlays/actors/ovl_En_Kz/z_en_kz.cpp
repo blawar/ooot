@@ -44,7 +44,7 @@ static void* sEyeSegments_57[] = {
 };
 
 ActorInit En_Kz_InitVars = {
-    ACTOR_EN_KZ, ACTORCAT_NPC, FLAGS, OBJECT_KZ, sizeof(EnKz), (ActorFunc)EnKz_Init, (ActorFunc)EnKz_Destroy, (ActorFunc)EnKz_Update, (ActorFunc)EnKz_Draw, (ActorFunc)EnKz_Reset,
+    ACTOR_EN_KZ, ACTORCAT_NPC, FLAGS, OBJECT_KZ, ACTOR_FACTORY(EnKz), (ActorFunc)EnKz_Init, (ActorFunc)EnKz_Destroy, (ActorFunc)EnKz_Update, (ActorFunc)EnKz_Draw, (ActorFunc)EnKz_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -601,7 +601,7 @@ void EnKz_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnKz_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Kz_InitVars = {
-	    ACTOR_EN_KZ, ACTORCAT_NPC, FLAGS, OBJECT_KZ, sizeof(EnKz), (ActorFunc)EnKz_Init, (ActorFunc)EnKz_Destroy, (ActorFunc)EnKz_Update, (ActorFunc)EnKz_Draw, (ActorFunc)EnKz_Reset,
+	    ACTOR_EN_KZ, ACTORCAT_NPC, FLAGS, OBJECT_KZ, ACTOR_FACTORY(EnKz), (ActorFunc)EnKz_Init, (ActorFunc)EnKz_Destroy, (ActorFunc)EnKz_Update, (ActorFunc)EnKz_Draw, (ActorFunc)EnKz_Reset,
 	};
 
 	sCylinderInit = {

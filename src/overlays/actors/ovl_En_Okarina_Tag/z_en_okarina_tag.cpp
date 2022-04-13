@@ -30,7 +30,7 @@ void func_80ABF4C8(EnOkarinaTag* pthis, GlobalContext* globalCtx);
 void func_80ABF7CC(EnOkarinaTag* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Okarina_Tag_InitVars = {
-    ACTOR_EN_OKARINA_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnOkarinaTag), (ActorFunc)EnOkarinaTag_Init, (ActorFunc)EnOkarinaTag_Destroy, (ActorFunc)EnOkarinaTag_Update, NULL, (ActorFunc)EnOkarinaTag_Reset,
+    ACTOR_EN_OKARINA_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnOkarinaTag), (ActorFunc)EnOkarinaTag_Init, (ActorFunc)EnOkarinaTag_Destroy, (ActorFunc)EnOkarinaTag_Update, NULL, (ActorFunc)EnOkarinaTag_Reset,
 };
 
 extern CutsceneData D_80ABF9D0[];
@@ -376,6 +376,6 @@ void EnOkarinaTag_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnOkarinaTag_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Okarina_Tag_InitVars = {
-	    ACTOR_EN_OKARINA_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnOkarinaTag), (ActorFunc)EnOkarinaTag_Init, (ActorFunc)EnOkarinaTag_Destroy, (ActorFunc)EnOkarinaTag_Update, NULL, (ActorFunc)EnOkarinaTag_Reset,
+	    ACTOR_EN_OKARINA_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnOkarinaTag), (ActorFunc)EnOkarinaTag_Init, (ActorFunc)EnOkarinaTag_Destroy, (ActorFunc)EnOkarinaTag_Update, NULL, (ActorFunc)EnOkarinaTag_Reset,
 	};
 }

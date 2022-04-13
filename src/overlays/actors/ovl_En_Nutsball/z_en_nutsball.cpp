@@ -33,7 +33,7 @@ void func_80ABBB34(EnNutsball* pthis, GlobalContext* globalCtx);
 void func_80ABBBA8(EnNutsball* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Nutsball_InitVars = {
-    ACTOR_EN_NUTSBALL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnNutsball), (ActorFunc)EnNutsball_Init, (ActorFunc)EnNutsball_Destroy, (ActorFunc)EnNutsball_Update, (ActorFunc)NULL, (ActorFunc)EnNutsball_Reset,
+    ACTOR_EN_NUTSBALL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnNutsball), (ActorFunc)EnNutsball_Init, (ActorFunc)EnNutsball_Destroy, (ActorFunc)EnNutsball_Update, (ActorFunc)NULL, (ActorFunc)EnNutsball_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -195,7 +195,7 @@ void EnNutsball_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnNutsball_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Nutsball_InitVars = {
-	    ACTOR_EN_NUTSBALL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnNutsball), (ActorFunc)EnNutsball_Init, (ActorFunc)EnNutsball_Destroy, (ActorFunc)EnNutsball_Update, (ActorFunc)NULL, (ActorFunc)EnNutsball_Reset,
+	    ACTOR_EN_NUTSBALL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnNutsball), (ActorFunc)EnNutsball_Init, (ActorFunc)EnNutsball_Destroy, (ActorFunc)EnNutsball_Update, (ActorFunc)NULL, (ActorFunc)EnNutsball_Reset,
 	};
 
 	sCylinderInit = {

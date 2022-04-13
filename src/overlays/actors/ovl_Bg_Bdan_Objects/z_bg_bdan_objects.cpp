@@ -48,7 +48,7 @@ void func_8086CB10(BgBdanObjects* pthis, GlobalContext* globalCtx);
 void func_8086CB8C(BgBdanObjects* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Bdan_Objects_InitVars = {
-    ACTOR_BG_BDAN_OBJECTS, ACTORCAT_BG, FLAGS, OBJECT_BDAN_OBJECTS, sizeof(BgBdanObjects), (ActorFunc)BgBdanObjects_Init, (ActorFunc)BgBdanObjects_Destroy, (ActorFunc)BgBdanObjects_Update, (ActorFunc)BgBdanObjects_Draw, (ActorFunc)BgBdanObjects_Reset,
+    ACTOR_BG_BDAN_OBJECTS, ACTORCAT_BG, FLAGS, OBJECT_BDAN_OBJECTS, ACTOR_FACTORY(BgBdanObjects), (ActorFunc)BgBdanObjects_Init, (ActorFunc)BgBdanObjects_Destroy, (ActorFunc)BgBdanObjects_Update, (ActorFunc)BgBdanObjects_Draw, (ActorFunc)BgBdanObjects_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -579,7 +579,7 @@ void BgBdanObjects_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgBdanObjects_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Bdan_Objects_InitVars = {
-	    ACTOR_BG_BDAN_OBJECTS,	    ACTORCAT_BG, FLAGS, OBJECT_BDAN_OBJECTS, sizeof(BgBdanObjects), (ActorFunc)BgBdanObjects_Init, (ActorFunc)BgBdanObjects_Destroy, (ActorFunc)BgBdanObjects_Update, (ActorFunc)BgBdanObjects_Draw,
+	    ACTOR_BG_BDAN_OBJECTS,	    ACTORCAT_BG, FLAGS, OBJECT_BDAN_OBJECTS, ACTOR_FACTORY(BgBdanObjects), (ActorFunc)BgBdanObjects_Init, (ActorFunc)BgBdanObjects_Destroy, (ActorFunc)BgBdanObjects_Update, (ActorFunc)BgBdanObjects_Draw,
 	    (ActorFunc)BgBdanObjects_Reset,
 	};
 

@@ -27,7 +27,7 @@ void EnOkarinaEffect_TriggerStorm(EnOkarinaEffect* pthis, GlobalContext* globalC
 void EnOkarinaEffect_ManageStorm(EnOkarinaEffect* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Okarina_Effect_InitVars = {
-    ACTOR_EN_OKARINA_EFFECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnOkarinaEffect), (ActorFunc)EnOkarinaEffect_Init, (ActorFunc)EnOkarinaEffect_Destroy, (ActorFunc)EnOkarinaEffect_Update, NULL, (ActorFunc)EnOkarinaEffect_Reset,
+    ACTOR_EN_OKARINA_EFFECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnOkarinaEffect), (ActorFunc)EnOkarinaEffect_Init, (ActorFunc)EnOkarinaEffect_Destroy, (ActorFunc)EnOkarinaEffect_Update, NULL, (ActorFunc)EnOkarinaEffect_Reset,
 };
 
 void EnOkarinaEffect_SetupAction(EnOkarinaEffect* pthis, EnOkarinaEffectActionFunc actionFunc)
@@ -138,6 +138,6 @@ void EnOkarinaEffect_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnOkarinaEffect_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Okarina_Effect_InitVars = {
-	    ACTOR_EN_OKARINA_EFFECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnOkarinaEffect), (ActorFunc)EnOkarinaEffect_Init, (ActorFunc)EnOkarinaEffect_Destroy, (ActorFunc)EnOkarinaEffect_Update, NULL, (ActorFunc)EnOkarinaEffect_Reset,
+	    ACTOR_EN_OKARINA_EFFECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnOkarinaEffect), (ActorFunc)EnOkarinaEffect_Init, (ActorFunc)EnOkarinaEffect_Destroy, (ActorFunc)EnOkarinaEffect_Update, NULL, (ActorFunc)EnOkarinaEffect_Reset,
 	};
 }

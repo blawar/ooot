@@ -29,7 +29,7 @@ void EnVbBall_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Vb_Ball_InitVars = {
-    0, ACTORCAT_BOSS, FLAGS, OBJECT_FD, sizeof(EnVbBall), (ActorFunc)EnVbBall_Init, (ActorFunc)EnVbBall_Destroy, (ActorFunc)EnVbBall_Update, (ActorFunc)EnVbBall_Draw, (ActorFunc)EnVbBall_Reset,
+    0, ACTORCAT_BOSS, FLAGS, OBJECT_FD, ACTOR_FACTORY(EnVbBall), (ActorFunc)EnVbBall_Init, (ActorFunc)EnVbBall_Destroy, (ActorFunc)EnVbBall_Update, (ActorFunc)EnVbBall_Draw, (ActorFunc)EnVbBall_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -365,7 +365,7 @@ void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnVbBall_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Vb_Ball_InitVars = {
-	    0, ACTORCAT_BOSS, FLAGS, OBJECT_FD, sizeof(EnVbBall), (ActorFunc)EnVbBall_Init, (ActorFunc)EnVbBall_Destroy, (ActorFunc)EnVbBall_Update, (ActorFunc)EnVbBall_Draw, (ActorFunc)EnVbBall_Reset,
+	    0, ACTORCAT_BOSS, FLAGS, OBJECT_FD, ACTOR_FACTORY(EnVbBall), (ActorFunc)EnVbBall_Init, (ActorFunc)EnVbBall_Destroy, (ActorFunc)EnVbBall_Update, (ActorFunc)EnVbBall_Draw, (ActorFunc)EnVbBall_Reset,
 	};
 
 	sCylinderInit = {

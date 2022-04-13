@@ -39,7 +39,7 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 ActorInit En_It_InitVars = {
-    ACTOR_EN_IT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnIt), (ActorFunc)EnIt_Init, (ActorFunc)EnIt_Destroy, (ActorFunc)EnIt_Update, (ActorFunc)NULL, (ActorFunc)EnIt_Reset,
+    ACTOR_EN_IT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnIt), (ActorFunc)EnIt_Init, (ActorFunc)EnIt_Destroy, (ActorFunc)EnIt_Update, (ActorFunc)NULL, (ActorFunc)EnIt_Reset,
 };
 
 void EnIt_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -93,6 +93,6 @@ void EnIt_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sColChkInfoInit = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 	En_It_InitVars = {
-	    ACTOR_EN_IT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnIt), (ActorFunc)EnIt_Init, (ActorFunc)EnIt_Destroy, (ActorFunc)EnIt_Update, (ActorFunc)NULL, (ActorFunc)EnIt_Reset,
+	    ACTOR_EN_IT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnIt), (ActorFunc)EnIt_Init, (ActorFunc)EnIt_Destroy, (ActorFunc)EnIt_Update, (ActorFunc)NULL, (ActorFunc)EnIt_Reset,
 	};
 }

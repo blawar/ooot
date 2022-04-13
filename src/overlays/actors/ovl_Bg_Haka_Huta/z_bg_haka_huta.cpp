@@ -48,7 +48,7 @@ static Vec3f D_8087D958_40 = {30.0f, 0.0f, 0.0f};
 static Vec3f D_8087D964_40 = {0.03258f, 0.3258f, -0.9449f};
 
 ActorInit Bg_Haka_Huta_InitVars = {
-    ACTOR_BG_HAKA_HUTA, ACTORCAT_BG, FLAGS, OBJECT_HAKACH_OBJECTS, sizeof(BgHakaHuta), (ActorFunc)BgHakaHuta_Init, (ActorFunc)BgHakaHuta_Destroy, (ActorFunc)BgHakaHuta_Update, (ActorFunc)BgHakaHuta_Draw, (ActorFunc)BgHakaHuta_Reset,
+    ACTOR_BG_HAKA_HUTA, ACTORCAT_BG, FLAGS, OBJECT_HAKACH_OBJECTS, ACTOR_FACTORY(BgHakaHuta), (ActorFunc)BgHakaHuta_Init, (ActorFunc)BgHakaHuta_Destroy, (ActorFunc)BgHakaHuta_Update, (ActorFunc)BgHakaHuta_Draw, (ActorFunc)BgHakaHuta_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -252,6 +252,6 @@ void BgHakaHuta_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_8087D964_40 = {0.03258f, 0.3258f, -0.9449f};
 
 	Bg_Haka_Huta_InitVars = {
-	    ACTOR_BG_HAKA_HUTA, ACTORCAT_BG, FLAGS, OBJECT_HAKACH_OBJECTS, sizeof(BgHakaHuta), (ActorFunc)BgHakaHuta_Init, (ActorFunc)BgHakaHuta_Destroy, (ActorFunc)BgHakaHuta_Update, (ActorFunc)BgHakaHuta_Draw, (ActorFunc)BgHakaHuta_Reset,
+	    ACTOR_BG_HAKA_HUTA, ACTORCAT_BG, FLAGS, OBJECT_HAKACH_OBJECTS, ACTOR_FACTORY(BgHakaHuta), (ActorFunc)BgHakaHuta_Init, (ActorFunc)BgHakaHuta_Destroy, (ActorFunc)BgHakaHuta_Update, (ActorFunc)BgHakaHuta_Draw, (ActorFunc)BgHakaHuta_Reset,
 	};
 }

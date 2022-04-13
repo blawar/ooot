@@ -36,7 +36,7 @@ static void* D_809B3270_33[] = {
 };
 
 ActorInit En_Anubice_Fire_InitVars = {
-    ACTOR_EN_ANUBICE_FIRE, ACTORCAT_ENEMY, FLAGS, OBJECT_ANUBICE, sizeof(EnAnubiceFire), (ActorFunc)EnAnubiceFire_Init, (ActorFunc)EnAnubiceFire_Destroy, (ActorFunc)EnAnubiceFire_Update, (ActorFunc)EnAnubiceFire_Draw, (ActorFunc)EnAnubiceFire_Reset,
+    ACTOR_EN_ANUBICE_FIRE, ACTORCAT_ENEMY, FLAGS, OBJECT_ANUBICE, ACTOR_FACTORY(EnAnubiceFire), (ActorFunc)EnAnubiceFire_Init, (ActorFunc)EnAnubiceFire_Destroy, (ActorFunc)EnAnubiceFire_Update, (ActorFunc)EnAnubiceFire_Draw, (ActorFunc)EnAnubiceFire_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -298,7 +298,7 @@ void EnAnubiceFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnAnubiceFire_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Anubice_Fire_InitVars = {
-	    ACTOR_EN_ANUBICE_FIRE,	    ACTORCAT_ENEMY, FLAGS, OBJECT_ANUBICE, sizeof(EnAnubiceFire), (ActorFunc)EnAnubiceFire_Init, (ActorFunc)EnAnubiceFire_Destroy, (ActorFunc)EnAnubiceFire_Update, (ActorFunc)EnAnubiceFire_Draw,
+	    ACTOR_EN_ANUBICE_FIRE,	    ACTORCAT_ENEMY, FLAGS, OBJECT_ANUBICE, ACTOR_FACTORY(EnAnubiceFire), (ActorFunc)EnAnubiceFire_Init, (ActorFunc)EnAnubiceFire_Destroy, (ActorFunc)EnAnubiceFire_Update, (ActorFunc)EnAnubiceFire_Draw,
 	    (ActorFunc)EnAnubiceFire_Reset,
 	};
 

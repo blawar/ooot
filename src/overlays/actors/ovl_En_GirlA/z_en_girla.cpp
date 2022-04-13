@@ -79,7 +79,7 @@ void EnGirlA_BuyEvent_GoronTunic(GlobalContext* globalCtx, EnGirlA* pthis);
 void EnGirlA_BuyEvent_ZoraTunic(GlobalContext* globalCtx, EnGirlA* pthis);
 
 ActorInit En_GirlA_InitVars = {
-    ACTOR_EN_GIRLA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnGirlA), (ActorFunc)EnGirlA_Init, (ActorFunc)EnGirlA_Destroy, (ActorFunc)EnGirlA_Update, NULL, (ActorFunc)EnGirlA_Reset,
+    ACTOR_EN_GIRLA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnGirlA), (ActorFunc)EnGirlA_Init, (ActorFunc)EnGirlA_Destroy, (ActorFunc)EnGirlA_Update, NULL, (ActorFunc)EnGirlA_Reset,
 };
 
 static const char* sShopItemDescriptions[] = {
@@ -1236,6 +1236,6 @@ void EnGirlA_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnGirlA_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_GirlA_InitVars = {
-	    ACTOR_EN_GIRLA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnGirlA), (ActorFunc)EnGirlA_Init, (ActorFunc)EnGirlA_Destroy, (ActorFunc)EnGirlA_Update, NULL, (ActorFunc)EnGirlA_Reset,
+	    ACTOR_EN_GIRLA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnGirlA), (ActorFunc)EnGirlA_Init, (ActorFunc)EnGirlA_Destroy, (ActorFunc)EnGirlA_Update, NULL, (ActorFunc)EnGirlA_Reset,
 	};
 }

@@ -50,7 +50,7 @@ void EnNiw_FeatherDraw(EnNiw* pthis, GlobalContext* globalCtx);
 static s16 D_80AB85E0 = 0;
 
 ActorInit En_Niw_InitVars = {
-    ACTOR_EN_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, sizeof(EnNiw), (ActorFunc)EnNiw_Init, (ActorFunc)EnNiw_Destroy, (ActorFunc)EnNiw_Update, (ActorFunc)EnNiw_Draw, (ActorFunc)EnNiw_Reset,
+    ACTOR_EN_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, ACTOR_FACTORY(EnNiw), (ActorFunc)EnNiw_Init, (ActorFunc)EnNiw_Destroy, (ActorFunc)EnNiw_Update, (ActorFunc)EnNiw_Draw, (ActorFunc)EnNiw_Reset,
 };
 
 static f32 D_80AB8604[] = {
@@ -1406,7 +1406,7 @@ void EnNiw_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80AB85E0 = 0;
 
 	En_Niw_InitVars = {
-	    ACTOR_EN_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, sizeof(EnNiw), (ActorFunc)EnNiw_Init, (ActorFunc)EnNiw_Destroy, (ActorFunc)EnNiw_Update, (ActorFunc)EnNiw_Draw, (ActorFunc)EnNiw_Reset,
+	    ACTOR_EN_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, ACTOR_FACTORY(EnNiw), (ActorFunc)EnNiw_Init, (ActorFunc)EnNiw_Destroy, (ActorFunc)EnNiw_Update, (ActorFunc)EnNiw_Draw, (ActorFunc)EnNiw_Reset,
 	};
 
 	sLowerRiverSpawned = false;

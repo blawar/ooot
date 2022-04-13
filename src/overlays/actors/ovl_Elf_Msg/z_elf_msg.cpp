@@ -26,7 +26,7 @@ void ElfMsg_CallNaviCuboid(ElfMsg* pthis, GlobalContext* globalCtx);
 void ElfMsg_CallNaviCylinder(ElfMsg* pthis, GlobalContext* globalCtx);
 
 ActorInit Elf_Msg_InitVars = {
-    ACTOR_ELF_MSG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ElfMsg), (ActorFunc)ElfMsg_Init, (ActorFunc)ElfMsg_Destroy, (ActorFunc)ElfMsg_Update, (ActorFunc)ElfMsg_Draw, (ActorFunc)ElfMsg_Reset,
+    ACTOR_ELF_MSG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ElfMsg), (ActorFunc)ElfMsg_Init, (ActorFunc)ElfMsg_Destroy, (ActorFunc)ElfMsg_Update, (ActorFunc)ElfMsg_Draw, (ActorFunc)ElfMsg_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -238,6 +238,6 @@ void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ElfMsg_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Elf_Msg_InitVars = {
-	    ACTOR_ELF_MSG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ElfMsg), (ActorFunc)ElfMsg_Init, (ActorFunc)ElfMsg_Destroy, (ActorFunc)ElfMsg_Update, (ActorFunc)ElfMsg_Draw, (ActorFunc)ElfMsg_Reset,
+	    ACTOR_ELF_MSG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ElfMsg), (ActorFunc)ElfMsg_Init, (ActorFunc)ElfMsg_Destroy, (ActorFunc)ElfMsg_Update, (ActorFunc)ElfMsg_Draw, (ActorFunc)ElfMsg_Reset,
 	};
 }

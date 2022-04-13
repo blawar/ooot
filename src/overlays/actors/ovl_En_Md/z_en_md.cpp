@@ -41,7 +41,7 @@ static void* sEyeTextures_70[] = {
 };
 
 ActorInit En_Md_InitVars = {
-    ACTOR_EN_MD, ACTORCAT_NPC, FLAGS, OBJECT_MD, sizeof(EnMd), (ActorFunc)EnMd_Init, (ActorFunc)EnMd_Destroy, (ActorFunc)EnMd_Update, (ActorFunc)EnMd_Draw, (ActorFunc)EnMd_Reset,
+    ACTOR_EN_MD, ACTORCAT_NPC, FLAGS, OBJECT_MD, ACTOR_FACTORY(EnMd), (ActorFunc)EnMd_Init, (ActorFunc)EnMd_Destroy, (ActorFunc)EnMd_Update, (ActorFunc)EnMd_Draw, (ActorFunc)EnMd_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -993,7 +993,7 @@ void EnMd_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnMd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Md_InitVars = {
-	    ACTOR_EN_MD, ACTORCAT_NPC, FLAGS, OBJECT_MD, sizeof(EnMd), (ActorFunc)EnMd_Init, (ActorFunc)EnMd_Destroy, (ActorFunc)EnMd_Update, (ActorFunc)EnMd_Draw, (ActorFunc)EnMd_Reset,
+	    ACTOR_EN_MD, ACTORCAT_NPC, FLAGS, OBJECT_MD, ACTOR_FACTORY(EnMd), (ActorFunc)EnMd_Init, (ActorFunc)EnMd_Destroy, (ActorFunc)EnMd_Update, (ActorFunc)EnMd_Draw, (ActorFunc)EnMd_Reset,
 	};
 
 	sCylinderInit = {

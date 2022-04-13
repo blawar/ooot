@@ -39,7 +39,7 @@ static Color_RGBA8 primColor_36 = {255, 255, 255, 0};
 static Color_RGBA8 envColor_36 = {255, 50, 50, 0};
 
 ActorInit Item_Etcetera_InitVars = {
-    ACTOR_ITEM_ETCETERA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ItemEtcetera), (ActorFunc)ItemEtcetera_Init, (ActorFunc)ItemEtcetera_Destroy, (ActorFunc)ItemEtcetera_Update, NULL, (ActorFunc)ItemEtcetera_Reset,
+    ACTOR_ITEM_ETCETERA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ItemEtcetera), (ActorFunc)ItemEtcetera_Init, (ActorFunc)ItemEtcetera_Destroy, (ActorFunc)ItemEtcetera_Update, NULL, (ActorFunc)ItemEtcetera_Reset,
 };
 
 static s16 sObjectIds[] = {
@@ -261,6 +261,6 @@ void ItemEtcetera_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	envColor_36 = {255, 50, 50, 0};
 
 	Item_Etcetera_InitVars = {
-	    ACTOR_ITEM_ETCETERA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ItemEtcetera), (ActorFunc)ItemEtcetera_Init, (ActorFunc)ItemEtcetera_Destroy, (ActorFunc)ItemEtcetera_Update, NULL, (ActorFunc)ItemEtcetera_Reset,
+	    ACTOR_ITEM_ETCETERA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ItemEtcetera), (ActorFunc)ItemEtcetera_Init, (ActorFunc)ItemEtcetera_Destroy, (ActorFunc)ItemEtcetera_Update, NULL, (ActorFunc)ItemEtcetera_Reset,
 	};
 }

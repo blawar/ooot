@@ -31,7 +31,7 @@ void ObjIcePoly_Melt(ObjIcePoly* pthis, GlobalContext* globalCtx);
 static Vec3f zeroVec_31 = {0.0f, 0.0f, 0.0f};
 
 ActorInit Obj_Ice_Poly_InitVars = {
-    ACTOR_OBJ_ICE_POLY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjIcePoly), (ActorFunc)ObjIcePoly_Init, (ActorFunc)ObjIcePoly_Destroy, (ActorFunc)ObjIcePoly_Update, (ActorFunc)ObjIcePoly_Draw, (ActorFunc)ObjIcePoly_Reset,
+    ACTOR_OBJ_ICE_POLY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjIcePoly), (ActorFunc)ObjIcePoly_Init, (ActorFunc)ObjIcePoly_Destroy, (ActorFunc)ObjIcePoly_Update, (ActorFunc)ObjIcePoly_Draw, (ActorFunc)ObjIcePoly_Reset,
 };
 
 static ColliderCylinderInit sCylinderInitIce = {
@@ -233,7 +233,7 @@ void ObjIcePoly_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_31 = {0.0f, 0.0f, 0.0f};
 
 	Obj_Ice_Poly_InitVars = {
-	    ACTOR_OBJ_ICE_POLY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjIcePoly), (ActorFunc)ObjIcePoly_Init, (ActorFunc)ObjIcePoly_Destroy, (ActorFunc)ObjIcePoly_Update, (ActorFunc)ObjIcePoly_Draw, (ActorFunc)ObjIcePoly_Reset,
+	    ACTOR_OBJ_ICE_POLY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjIcePoly), (ActorFunc)ObjIcePoly_Init, (ActorFunc)ObjIcePoly_Destroy, (ActorFunc)ObjIcePoly_Update, (ActorFunc)ObjIcePoly_Draw, (ActorFunc)ObjIcePoly_Reset,
 	};
 
 	sCylinderInitIce = {

@@ -24,7 +24,7 @@ void EnGanonMant_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonMant_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Ganon_Mant_InitVars = {
-    ACTOR_EN_GANON_MANT, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnGanonMant), (ActorFunc)EnGanonMant_Init, (ActorFunc)EnGanonMant_Destroy, (ActorFunc)EnGanonMant_Update, (ActorFunc)EnGanonMant_Draw, (ActorFunc)EnGanonMant_Reset,
+    ACTOR_EN_GANON_MANT, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnGanonMant), (ActorFunc)EnGanonMant_Init, (ActorFunc)EnGanonMant_Destroy, (ActorFunc)EnGanonMant_Update, (ActorFunc)EnGanonMant_Draw, (ActorFunc)EnGanonMant_Reset,
 };
 
 static s16 sTearSizesMedium[] = {
@@ -516,7 +516,7 @@ void EnGanonMant_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnGanonMant_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ganon_Mant_InitVars = {
-	    ACTOR_EN_GANON_MANT, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnGanonMant), (ActorFunc)EnGanonMant_Init, (ActorFunc)EnGanonMant_Destroy, (ActorFunc)EnGanonMant_Update, (ActorFunc)EnGanonMant_Draw, (ActorFunc)EnGanonMant_Reset,
+	    ACTOR_EN_GANON_MANT, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnGanonMant), (ActorFunc)EnGanonMant_Init, (ActorFunc)EnGanonMant_Destroy, (ActorFunc)EnGanonMant_Update, (ActorFunc)EnGanonMant_Draw, (ActorFunc)EnGanonMant_Reset,
 	};
 
 	sForceAlignment = 0;

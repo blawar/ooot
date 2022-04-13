@@ -178,7 +178,7 @@ static DamageTable sDamageTableWhite = {
 };
 
 ActorInit En_Bb_InitVars = {
-    ACTOR_EN_BB, ACTORCAT_ENEMY, FLAGS, OBJECT_BB, sizeof(EnBb), (ActorFunc)EnBb_Init, (ActorFunc)EnBb_Destroy, (ActorFunc)EnBb_Update, (ActorFunc)EnBb_Draw, (ActorFunc)EnBb_Reset,
+    ACTOR_EN_BB, ACTORCAT_ENEMY, FLAGS, OBJECT_BB, ACTOR_FACTORY(EnBb), (ActorFunc)EnBb_Init, (ActorFunc)EnBb_Destroy, (ActorFunc)EnBb_Update, (ActorFunc)EnBb_Draw, (ActorFunc)EnBb_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementInit[1] = {
@@ -1661,7 +1661,7 @@ void EnBb_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Bb_InitVars = {
-	    ACTOR_EN_BB, ACTORCAT_ENEMY, FLAGS, OBJECT_BB, sizeof(EnBb), (ActorFunc)EnBb_Init, (ActorFunc)EnBb_Destroy, (ActorFunc)EnBb_Update, (ActorFunc)EnBb_Draw, (ActorFunc)EnBb_Reset,
+	    ACTOR_EN_BB, ACTORCAT_ENEMY, FLAGS, OBJECT_BB, ACTOR_FACTORY(EnBb), (ActorFunc)EnBb_Init, (ActorFunc)EnBb_Destroy, (ActorFunc)EnBb_Update, (ActorFunc)EnBb_Draw, (ActorFunc)EnBb_Reset,
 	};
 
 	sJntSphInit = {

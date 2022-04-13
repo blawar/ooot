@@ -31,7 +31,7 @@ void EnShopnuts_Burrow(EnShopnuts* pthis, GlobalContext* globalCtx);
 void EnShopnuts_SpawnSalesman(EnShopnuts* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Shopnuts_InitVars = {
-    ACTOR_EN_SHOPNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_SHOPNUTS, sizeof(EnShopnuts), (ActorFunc)EnShopnuts_Init, (ActorFunc)EnShopnuts_Destroy, (ActorFunc)EnShopnuts_Update, (ActorFunc)EnShopnuts_Draw, (ActorFunc)EnShopnuts_Reset,
+    ACTOR_EN_SHOPNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_SHOPNUTS, ACTOR_FACTORY(EnShopnuts), (ActorFunc)EnShopnuts_Init, (ActorFunc)EnShopnuts_Destroy, (ActorFunc)EnShopnuts_Update, (ActorFunc)EnShopnuts_Draw, (ActorFunc)EnShopnuts_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -382,7 +382,7 @@ void EnShopnuts_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnShopnuts_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Shopnuts_InitVars = {
-	    ACTOR_EN_SHOPNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_SHOPNUTS, sizeof(EnShopnuts), (ActorFunc)EnShopnuts_Init, (ActorFunc)EnShopnuts_Destroy, (ActorFunc)EnShopnuts_Update, (ActorFunc)EnShopnuts_Draw, (ActorFunc)EnShopnuts_Reset,
+	    ACTOR_EN_SHOPNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_SHOPNUTS, ACTOR_FACTORY(EnShopnuts), (ActorFunc)EnShopnuts_Init, (ActorFunc)EnShopnuts_Destroy, (ActorFunc)EnShopnuts_Update, (ActorFunc)EnShopnuts_Draw, (ActorFunc)EnShopnuts_Reset,
 	};
 
 	sCylinderInit = {

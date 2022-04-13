@@ -42,7 +42,7 @@ static void* effectMaskTextures_28[] = {
 };
 
 ActorInit En_Mag_InitVars = {
-    ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, sizeof(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
+    ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, ACTOR_FACTORY(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
 };
 
 static Timer sDelayTimer = 0;
@@ -688,7 +688,7 @@ void EnMag_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	textFadeTimer_28 = 0;
 
 	En_Mag_InitVars = {
-	    ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, sizeof(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
+	    ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, ACTOR_FACTORY(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
 	};
 
 	sDelayTimer = 0;

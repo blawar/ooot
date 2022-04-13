@@ -58,7 +58,7 @@ void EnDntJiji_Return(EnDntJiji* pthis, GlobalContext* globalCtx);
 static void* blinkTex_74[] = {gDntJijiEyeOpenTex, gDntJijiEyeHalfTex, gDntJijiEyeShutTex};
 
 ActorInit En_Dnt_Jiji_InitVars = {
-    ACTOR_EN_DNT_JIJI, ACTORCAT_NPC, FLAGS, OBJECT_DNS, sizeof(EnDntJiji), (ActorFunc)EnDntJiji_Init, (ActorFunc)EnDntJiji_Destroy, (ActorFunc)EnDntJiji_Update, (ActorFunc)EnDntJiji_Draw, (ActorFunc)EnDntJiji_Reset,
+    ACTOR_EN_DNT_JIJI, ACTORCAT_NPC, FLAGS, OBJECT_DNS, ACTOR_FACTORY(EnDntJiji), (ActorFunc)EnDntJiji_Init, (ActorFunc)EnDntJiji_Destroy, (ActorFunc)EnDntJiji_Update, (ActorFunc)EnDntJiji_Draw, (ActorFunc)EnDntJiji_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -529,7 +529,7 @@ void EnDntJiji_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDntJiji_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dnt_Jiji_InitVars = {
-	    ACTOR_EN_DNT_JIJI, ACTORCAT_NPC, FLAGS, OBJECT_DNS, sizeof(EnDntJiji), (ActorFunc)EnDntJiji_Init, (ActorFunc)EnDntJiji_Destroy, (ActorFunc)EnDntJiji_Update, (ActorFunc)EnDntJiji_Draw, (ActorFunc)EnDntJiji_Reset,
+	    ACTOR_EN_DNT_JIJI, ACTORCAT_NPC, FLAGS, OBJECT_DNS, ACTOR_FACTORY(EnDntJiji), (ActorFunc)EnDntJiji_Init, (ActorFunc)EnDntJiji_Destroy, (ActorFunc)EnDntJiji_Update, (ActorFunc)EnDntJiji_Draw, (ActorFunc)EnDntJiji_Reset,
 	};
 
 	sCylinderInit = {

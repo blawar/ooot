@@ -32,7 +32,7 @@ static Color_RGBA8 colorYellow_27 = {255, 255, 0, 255};
 static Color_RGBA8 colorRed_27 = {255, 10, 0, 255};
 
 ActorInit Bg_Vb_Sima_InitVars = {
-    ACTOR_BG_VB_SIMA, ACTORCAT_BG, FLAGS, OBJECT_FD, sizeof(BgVbSima), (ActorFunc)BgVbSima_Init, (ActorFunc)BgVbSima_Destroy, (ActorFunc)BgVbSima_Update, (ActorFunc)BgVbSima_Draw, (ActorFunc)BgVbSima_Reset,
+    ACTOR_BG_VB_SIMA, ACTORCAT_BG, FLAGS, OBJECT_FD, ACTOR_FACTORY(BgVbSima), (ActorFunc)BgVbSima_Init, (ActorFunc)BgVbSima_Destroy, (ActorFunc)BgVbSima_Update, (ActorFunc)BgVbSima_Draw, (ActorFunc)BgVbSima_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -184,6 +184,6 @@ void BgVbSima_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	colorRed_27 = {255, 10, 0, 255};
 
 	Bg_Vb_Sima_InitVars = {
-	    ACTOR_BG_VB_SIMA, ACTORCAT_BG, FLAGS, OBJECT_FD, sizeof(BgVbSima), (ActorFunc)BgVbSima_Init, (ActorFunc)BgVbSima_Destroy, (ActorFunc)BgVbSima_Update, (ActorFunc)BgVbSima_Draw, (ActorFunc)BgVbSima_Reset,
+	    ACTOR_BG_VB_SIMA, ACTORCAT_BG, FLAGS, OBJECT_FD, ACTOR_FACTORY(BgVbSima), (ActorFunc)BgVbSima_Init, (ActorFunc)BgVbSima_Destroy, (ActorFunc)BgVbSima_Update, (ActorFunc)BgVbSima_Draw, (ActorFunc)BgVbSima_Reset,
 	};
 }

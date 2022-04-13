@@ -22,7 +22,7 @@ void EnGanonOrgan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Ganon_Organ_InitVars = {
-    ACTOR_EN_GANON_ORGAN, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, sizeof(EnGanonOrgan), (ActorFunc)EnGanonOrgan_Init, (ActorFunc)EnGanonOrgan_Destroy, (ActorFunc)EnGanonOrgan_Update, (ActorFunc)EnGanonOrgan_Draw, (ActorFunc)EnGanonOrgan_Reset,
+    ACTOR_EN_GANON_ORGAN, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, ACTOR_FACTORY(EnGanonOrgan), (ActorFunc)EnGanonOrgan_Init, (ActorFunc)EnGanonOrgan_Destroy, (ActorFunc)EnGanonOrgan_Update, (ActorFunc)EnGanonOrgan_Draw, (ActorFunc)EnGanonOrgan_Reset,
 };
 
 static u64 sForceAlignment = 0;
@@ -136,7 +136,7 @@ void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnGanonOrgan_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ganon_Organ_InitVars = {
-	    ACTOR_EN_GANON_ORGAN, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, sizeof(EnGanonOrgan), (ActorFunc)EnGanonOrgan_Init, (ActorFunc)EnGanonOrgan_Destroy, (ActorFunc)EnGanonOrgan_Update, (ActorFunc)EnGanonOrgan_Draw, (ActorFunc)EnGanonOrgan_Reset,
+	    ACTOR_EN_GANON_ORGAN, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, ACTOR_FACTORY(EnGanonOrgan), (ActorFunc)EnGanonOrgan_Init, (ActorFunc)EnGanonOrgan_Destroy, (ActorFunc)EnGanonOrgan_Update, (ActorFunc)EnGanonOrgan_Draw, (ActorFunc)EnGanonOrgan_Reset,
 	};
 
 	sForceAlignment = 0;

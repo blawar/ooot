@@ -24,7 +24,7 @@ void EnFdFire_DanceTowardsPlayer(EnFdFire* pthis, GlobalContext* globalCtx);
 void EnFdFire_WaitToDie(EnFdFire* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Fd_Fire_InitVars = {
-    ACTOR_EN_FD_FIRE, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(EnFdFire), (ActorFunc)EnFdFire_Init, (ActorFunc)EnFdFire_Destroy, (ActorFunc)EnFdFire_Update, (ActorFunc)EnFdFire_Draw, (ActorFunc)EnFdFire_Reset,
+    ACTOR_EN_FD_FIRE, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(EnFdFire), (ActorFunc)EnFdFire_Init, (ActorFunc)EnFdFire_Destroy, (ActorFunc)EnFdFire_Update, (ActorFunc)EnFdFire_Draw, (ActorFunc)EnFdFire_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -321,7 +321,7 @@ void EnFdFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnFdFire_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Fd_Fire_InitVars = {
-	    ACTOR_EN_FD_FIRE, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(EnFdFire), (ActorFunc)EnFdFire_Init, (ActorFunc)EnFdFire_Destroy, (ActorFunc)EnFdFire_Update, (ActorFunc)EnFdFire_Draw, (ActorFunc)EnFdFire_Reset,
+	    ACTOR_EN_FD_FIRE, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(EnFdFire), (ActorFunc)EnFdFire_Init, (ActorFunc)EnFdFire_Destroy, (ActorFunc)EnFdFire_Update, (ActorFunc)EnFdFire_Draw, (ActorFunc)EnFdFire_Reset,
 	};
 
 	sCylinderInit = {

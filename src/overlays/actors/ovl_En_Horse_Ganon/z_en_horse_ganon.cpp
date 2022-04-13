@@ -33,7 +33,7 @@ void func_80A68AF0(EnHorseGanon* pthis, GlobalContext* globalCtx);
 void func_80A68DB0(EnHorseGanon* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Horse_Ganon_InitVars = {
-    ACTOR_EN_HORSE_GANON, ACTORCAT_BG, FLAGS, OBJECT_HORSE_GANON, sizeof(EnHorseGanon), (ActorFunc)EnHorseGanon_Init, (ActorFunc)EnHorseGanon_Destroy, (ActorFunc)EnHorseGanon_Update, (ActorFunc)EnHorseGanon_Draw, (ActorFunc)EnHorseGanon_Reset,
+    ACTOR_EN_HORSE_GANON, ACTORCAT_BG, FLAGS, OBJECT_HORSE_GANON, ACTOR_FACTORY(EnHorseGanon), (ActorFunc)EnHorseGanon_Init, (ActorFunc)EnHorseGanon_Destroy, (ActorFunc)EnHorseGanon_Update, (ActorFunc)EnHorseGanon_Draw, (ActorFunc)EnHorseGanon_Reset,
 };
 
 static AnimationHeader* sAnimations[] = {
@@ -373,7 +373,7 @@ void EnHorseGanon_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHorseGanon_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Horse_Ganon_InitVars = {
-	    ACTOR_EN_HORSE_GANON, ACTORCAT_BG, FLAGS, OBJECT_HORSE_GANON, sizeof(EnHorseGanon), (ActorFunc)EnHorseGanon_Init, (ActorFunc)EnHorseGanon_Destroy, (ActorFunc)EnHorseGanon_Update, (ActorFunc)EnHorseGanon_Draw, (ActorFunc)EnHorseGanon_Reset,
+	    ACTOR_EN_HORSE_GANON, ACTORCAT_BG, FLAGS, OBJECT_HORSE_GANON, ACTOR_FACTORY(EnHorseGanon), (ActorFunc)EnHorseGanon_Init, (ActorFunc)EnHorseGanon_Destroy, (ActorFunc)EnHorseGanon_Update, (ActorFunc)EnHorseGanon_Draw, (ActorFunc)EnHorseGanon_Reset,
 	};
 
 	sCylinderInit = {

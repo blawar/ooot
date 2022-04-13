@@ -54,7 +54,7 @@ static s16 sRotSpeedX = 0;
 static s16 sRotSpeedY = 0;
 
 ActorInit En_Ishi_InitVars = {
-    ACTOR_EN_ISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(EnIshi), (ActorFunc)EnIshi_Init, (ActorFunc)EnIshi_Destroy, (ActorFunc)EnIshi_Update, (ActorFunc)EnIshi_Draw, (ActorFunc)EnIshi_Reset,
+    ACTOR_EN_ISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(EnIshi), (ActorFunc)EnIshi_Init, (ActorFunc)EnIshi_Destroy, (ActorFunc)EnIshi_Update, (ActorFunc)EnIshi_Draw, (ActorFunc)EnIshi_Reset,
 };
 
 static f32 sRockScales[] = {0.1f, 0.4f};
@@ -588,7 +588,7 @@ void EnIshi_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sRotSpeedY = 0;
 
 	En_Ishi_InitVars = {
-	    ACTOR_EN_ISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(EnIshi), (ActorFunc)EnIshi_Init, (ActorFunc)EnIshi_Destroy, (ActorFunc)EnIshi_Update, (ActorFunc)EnIshi_Draw, (ActorFunc)EnIshi_Reset,
+	    ACTOR_EN_ISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(EnIshi), (ActorFunc)EnIshi_Init, (ActorFunc)EnIshi_Destroy, (ActorFunc)EnIshi_Update, (ActorFunc)EnIshi_Draw, (ActorFunc)EnIshi_Reset,
 	};
 
 	sColChkInfoInit = {0, 12, 60, MASS_IMMOVABLE};

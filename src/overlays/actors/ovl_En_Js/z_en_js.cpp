@@ -31,7 +31,7 @@ void func_80A89304(EnJs* pthis, GlobalContext* globalCtx);
 static Vec3f D_80A896DC_39 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Js_InitVars = {
-    ACTOR_EN_JS, ACTORCAT_NPC, FLAGS, OBJECT_JS, sizeof(EnJs), (ActorFunc)EnJs_Init, (ActorFunc)EnJs_Destroy, (ActorFunc)EnJs_Update, (ActorFunc)EnJs_Draw, (ActorFunc)EnJs_Reset,
+    ACTOR_EN_JS, ACTORCAT_NPC, FLAGS, OBJECT_JS, ACTOR_FACTORY(EnJs), (ActorFunc)EnJs_Init, (ActorFunc)EnJs_Destroy, (ActorFunc)EnJs_Update, (ActorFunc)EnJs_Draw, (ActorFunc)EnJs_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -281,7 +281,7 @@ void EnJs_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80A896DC_39 = {0.0f, 0.0f, 0.0f};
 
 	En_Js_InitVars = {
-	    ACTOR_EN_JS, ACTORCAT_NPC, FLAGS, OBJECT_JS, sizeof(EnJs), (ActorFunc)EnJs_Init, (ActorFunc)EnJs_Destroy, (ActorFunc)EnJs_Update, (ActorFunc)EnJs_Draw, (ActorFunc)EnJs_Reset,
+	    ACTOR_EN_JS, ACTORCAT_NPC, FLAGS, OBJECT_JS, ACTOR_FACTORY(EnJs), (ActorFunc)EnJs_Init, (ActorFunc)EnJs_Destroy, (ActorFunc)EnJs_Update, (ActorFunc)EnJs_Draw, (ActorFunc)EnJs_Reset,
 	};
 
 	sCylinderInit = {

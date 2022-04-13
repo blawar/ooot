@@ -77,7 +77,7 @@ static s16 sRupeeTypes[] = {
 };
 
 ActorInit En_G_Switch_InitVars = {
-    ACTOR_EN_G_SWITCH, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnGSwitch), (ActorFunc)EnGSwitch_Init, (ActorFunc)EnGSwitch_Destroy, (ActorFunc)EnGSwitch_Update, NULL, (ActorFunc)EnGSwitch_Reset,
+    ACTOR_EN_G_SWITCH, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnGSwitch), (ActorFunc)EnGSwitch_Init, (ActorFunc)EnGSwitch_Destroy, (ActorFunc)EnGSwitch_Update, NULL, (ActorFunc)EnGSwitch_Reset,
 };
 
 void EnGSwitch_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -671,6 +671,6 @@ void EnGSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_G_Switch_InitVars = {
-	    ACTOR_EN_G_SWITCH, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnGSwitch), (ActorFunc)EnGSwitch_Init, (ActorFunc)EnGSwitch_Destroy, (ActorFunc)EnGSwitch_Update, NULL, (ActorFunc)EnGSwitch_Reset,
+	    ACTOR_EN_G_SWITCH, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnGSwitch), (ActorFunc)EnGSwitch_Init, (ActorFunc)EnGSwitch_Destroy, (ActorFunc)EnGSwitch_Update, NULL, (ActorFunc)EnGSwitch_Reset,
 	};
 }

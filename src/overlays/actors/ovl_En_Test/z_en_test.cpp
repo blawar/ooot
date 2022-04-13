@@ -171,7 +171,7 @@ static u8 sJointCopyFlags[] = {
 };
 
 ActorInit En_Test_InitVars = {
-    ACTOR_EN_TEST, ACTORCAT_ENEMY, FLAGS, OBJECT_SK2, sizeof(EnTest), (ActorFunc)EnTest_Init, (ActorFunc)EnTest_Destroy, (ActorFunc)EnTest_Update, (ActorFunc)EnTest_Draw, (ActorFunc)EnTest_Reset,
+    ACTOR_EN_TEST, ACTORCAT_ENEMY, FLAGS, OBJECT_SK2, ACTOR_FACTORY(EnTest), (ActorFunc)EnTest_Init, (ActorFunc)EnTest_Destroy, (ActorFunc)EnTest_Update, (ActorFunc)EnTest_Draw, (ActorFunc)EnTest_Reset,
 };
 
 static ColliderCylinderInit sBodyColliderInit = {
@@ -2562,7 +2562,7 @@ void EnTest_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	unused7_143 = {1900.0f, 1900.0f, 800.0f};
 
 	En_Test_InitVars = {
-	    ACTOR_EN_TEST, ACTORCAT_ENEMY, FLAGS, OBJECT_SK2, sizeof(EnTest), (ActorFunc)EnTest_Init, (ActorFunc)EnTest_Destroy, (ActorFunc)EnTest_Update, (ActorFunc)EnTest_Draw, (ActorFunc)EnTest_Reset,
+	    ACTOR_EN_TEST, ACTORCAT_ENEMY, FLAGS, OBJECT_SK2, ACTOR_FACTORY(EnTest), (ActorFunc)EnTest_Init, (ActorFunc)EnTest_Destroy, (ActorFunc)EnTest_Update, (ActorFunc)EnTest_Draw, (ActorFunc)EnTest_Reset,
 	};
 
 	sBodyColliderInit = {

@@ -31,7 +31,7 @@ void EnDog_FaceLink(EnDog* pthis, GlobalContext* globalCtx);
 void EnDog_Wait(EnDog* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Dog_InitVars = {
-    ACTOR_EN_DOG, ACTORCAT_NPC, FLAGS, OBJECT_DOG, sizeof(EnDog), (ActorFunc)EnDog_Init, (ActorFunc)EnDog_Destroy, (ActorFunc)EnDog_Update, (ActorFunc)EnDog_Draw, (ActorFunc)EnDog_Reset,
+    ACTOR_EN_DOG, ACTORCAT_NPC, FLAGS, OBJECT_DOG, ACTOR_FACTORY(EnDog), (ActorFunc)EnDog_Init, (ActorFunc)EnDog_Destroy, (ActorFunc)EnDog_Update, (ActorFunc)EnDog_Draw, (ActorFunc)EnDog_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -554,7 +554,7 @@ void EnDog_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDog_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dog_InitVars = {
-	    ACTOR_EN_DOG, ACTORCAT_NPC, FLAGS, OBJECT_DOG, sizeof(EnDog), (ActorFunc)EnDog_Init, (ActorFunc)EnDog_Destroy, (ActorFunc)EnDog_Update, (ActorFunc)EnDog_Draw, (ActorFunc)EnDog_Reset,
+	    ACTOR_EN_DOG, ACTORCAT_NPC, FLAGS, OBJECT_DOG, ACTOR_FACTORY(EnDog), (ActorFunc)EnDog_Init, (ActorFunc)EnDog_Destroy, (ActorFunc)EnDog_Update, (ActorFunc)EnDog_Draw, (ActorFunc)EnDog_Reset,
 	};
 
 	sCylinderInit = {

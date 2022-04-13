@@ -6,9 +6,9 @@
 
 struct EnHeishi1;
 
-typedef void (*EnHeishi1ActionFunc)(struct EnHeishi1*, GlobalContext*);
+typedef void (*EnHeishi1ActionFunc)(EnHeishi1*, GlobalContext*);
 
-typedef struct EnHeishi1
+struct EnHeishi1
 {
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ SkelAnime skelAnime;
@@ -29,30 +29,18 @@ typedef struct EnHeishi1
 	/* 0x0278 */ f32 bodyTurnSpeed;
 	/* 0x027C */ f32 headAngle;
 	/* 0x0280 */ f32 headAngleTarget;
-	union
-	{
-		struct
-		{
-			/* 0x0284 */ f32 animSpeed;
-			/* 0x0288 */ f32 transitionRate;
-			/* 0x028C */ f32 moveSpeedTarget;
-			/* 0x0290 */ f32 moveSpeedMax;
-			/* 0x0294 */ f32 bodyTurnSpeedTarget;
-			/* 0x0298 */ f32 bodyTurnSpeedMax;
-			/* 0x029C */ f32 headTurnSpeedScale;
-			/* 0x02A0 */ f32 headTurnSpeedMax;
-		};
-		f32 animParams[8];
-	};
-	union
-	{
-		struct
-		{
-			/* 0x02A4 */ Timer headTimer;
-			/* 0x02A6 */ Timer waitTimer;
-			/* 0x02A8 */ Timer kickTimer;
-		};
-		Timer timers[3];
-	};
+
+	/* 0x0284 */ f32 animSpeed;
+	/* 0x0288 */ f32 transitionRate;
+	/* 0x028C */ f32 moveSpeedTarget;
+	/* 0x0290 */ f32 moveSpeedMax;
+	/* 0x0294 */ f32 bodyTurnSpeedTarget;
+	/* 0x0298 */ f32 bodyTurnSpeedMax;
+	/* 0x029C */ f32 headTurnSpeedScale;
+	/* 0x02A0 */ f32 headTurnSpeedMax;
+
+	/* 0x02A4 */ Timer headTimer;
+	/* 0x02A6 */ Timer waitTimer;
+	/* 0x02A8 */ Timer kickTimer;
 	/* 0x02AA */ s16 waypoint;
-} EnHeishi1;
+};

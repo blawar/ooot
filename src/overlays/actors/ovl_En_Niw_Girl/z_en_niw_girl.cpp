@@ -34,7 +34,7 @@ void func_80AB9210(EnNiwGirl* pthis, GlobalContext* globalCtx);
 static void* eyeTextures_37[] = {gNiwGirlEyeOpenTex, gNiwGirlEyeHalfTex, gNiwGirlEyeClosedTex};
 
 ActorInit En_Niw_Girl_InitVars = {
-    ACTOR_EN_NIW_GIRL, ACTORCAT_NPC, FLAGS, OBJECT_GR, sizeof(EnNiwGirl), (ActorFunc)EnNiwGirl_Init, (ActorFunc)EnNiwGirl_Destroy, (ActorFunc)EnNiwGirl_Update, (ActorFunc)EnNiwGirl_Draw, (ActorFunc)EnNiwGirl_Reset,
+    ACTOR_EN_NIW_GIRL, ACTORCAT_NPC, FLAGS, OBJECT_GR, ACTOR_FACTORY(EnNiwGirl), (ActorFunc)EnNiwGirl_Init, (ActorFunc)EnNiwGirl_Destroy, (ActorFunc)EnNiwGirl_Update, (ActorFunc)EnNiwGirl_Draw, (ActorFunc)EnNiwGirl_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -301,7 +301,7 @@ void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnNiwGirl_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Niw_Girl_InitVars = {
-	    ACTOR_EN_NIW_GIRL, ACTORCAT_NPC, FLAGS, OBJECT_GR, sizeof(EnNiwGirl), (ActorFunc)EnNiwGirl_Init, (ActorFunc)EnNiwGirl_Destroy, (ActorFunc)EnNiwGirl_Update, (ActorFunc)EnNiwGirl_Draw, (ActorFunc)EnNiwGirl_Reset,
+	    ACTOR_EN_NIW_GIRL, ACTORCAT_NPC, FLAGS, OBJECT_GR, ACTOR_FACTORY(EnNiwGirl), (ActorFunc)EnNiwGirl_Init, (ActorFunc)EnNiwGirl_Destroy, (ActorFunc)EnNiwGirl_Update, (ActorFunc)EnNiwGirl_Draw, (ActorFunc)EnNiwGirl_Reset,
 	};
 
 	sCylinderInit = {

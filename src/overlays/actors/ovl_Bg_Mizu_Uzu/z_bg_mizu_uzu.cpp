@@ -24,7 +24,7 @@ void BgMizuUzu_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_8089F788(BgMizuUzu* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mizu_Uzu_InitVars = {
-    ACTOR_BG_MIZU_UZU, ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuUzu), (ActorFunc)BgMizuUzu_Init, (ActorFunc)BgMizuUzu_Destroy, (ActorFunc)BgMizuUzu_Update, (ActorFunc)BgMizuUzu_Draw, (ActorFunc)BgMizuUzu_Reset,
+    ACTOR_BG_MIZU_UZU, ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuUzu), (ActorFunc)BgMizuUzu_Init, (ActorFunc)BgMizuUzu_Destroy, (ActorFunc)BgMizuUzu_Update, (ActorFunc)BgMizuUzu_Draw, (ActorFunc)BgMizuUzu_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -84,6 +84,6 @@ void BgMizuUzu_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMizuUzu_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mizu_Uzu_InitVars = {
-	    ACTOR_BG_MIZU_UZU, ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuUzu), (ActorFunc)BgMizuUzu_Init, (ActorFunc)BgMizuUzu_Destroy, (ActorFunc)BgMizuUzu_Update, (ActorFunc)BgMizuUzu_Draw, (ActorFunc)BgMizuUzu_Reset,
+	    ACTOR_BG_MIZU_UZU, ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuUzu), (ActorFunc)BgMizuUzu_Init, (ActorFunc)BgMizuUzu_Destroy, (ActorFunc)BgMizuUzu_Update, (ActorFunc)BgMizuUzu_Draw, (ActorFunc)BgMizuUzu_Reset,
 	};
 }

@@ -26,7 +26,7 @@ void EnFireRock_Fall(EnFireRock* pthis, GlobalContext* globalCtx);
 void EnFireRock_SpawnMoreBrokenPieces(EnFireRock* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Fire_Rock_InitVars = {
-    ACTOR_EN_FIRE_ROCK, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, sizeof(EnFireRock), (ActorFunc)EnFireRock_Init, (ActorFunc)EnFireRock_Destroy, (ActorFunc)EnFireRock_Update, (ActorFunc)EnFireRock_Draw, (ActorFunc)EnFireRock_Reset,
+    ACTOR_EN_FIRE_ROCK, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, ACTOR_FACTORY(EnFireRock), (ActorFunc)EnFireRock_Init, (ActorFunc)EnFireRock_Destroy, (ActorFunc)EnFireRock_Update, (ActorFunc)EnFireRock_Draw, (ActorFunc)EnFireRock_Reset,
 };
 
 static ColliderCylinderInit D_80A12CA0 = {
@@ -440,7 +440,7 @@ void EnFireRock_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnFireRock_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Fire_Rock_InitVars = {
-	    ACTOR_EN_FIRE_ROCK, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, sizeof(EnFireRock), (ActorFunc)EnFireRock_Init, (ActorFunc)EnFireRock_Destroy, (ActorFunc)EnFireRock_Update, (ActorFunc)EnFireRock_Draw, (ActorFunc)EnFireRock_Reset,
+	    ACTOR_EN_FIRE_ROCK, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, ACTOR_FACTORY(EnFireRock), (ActorFunc)EnFireRock_Init, (ActorFunc)EnFireRock_Destroy, (ActorFunc)EnFireRock_Update, (ActorFunc)EnFireRock_Draw, (ActorFunc)EnFireRock_Reset,
 	};
 
 	D_80A12CA0 = {

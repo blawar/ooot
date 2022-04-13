@@ -45,7 +45,7 @@ extern CutsceneData D_808BD520[];
 extern CutsceneData D_808BD790[];
 
 ActorInit Bg_Treemouth_InitVars = {
-    ACTOR_BG_TREEMOUTH, ACTORCAT_BG, FLAGS, OBJECT_SPOT04_OBJECTS, sizeof(BgTreemouth), (ActorFunc)BgTreemouth_Init, (ActorFunc)BgTreemouth_Destroy, (ActorFunc)BgTreemouth_Update, (ActorFunc)BgTreemouth_Draw, (ActorFunc)BgTreemouth_Reset,
+    ACTOR_BG_TREEMOUTH, ACTORCAT_BG, FLAGS, OBJECT_SPOT04_OBJECTS, ACTOR_FACTORY(BgTreemouth), (ActorFunc)BgTreemouth_Init, (ActorFunc)BgTreemouth_Destroy, (ActorFunc)BgTreemouth_Update, (ActorFunc)BgTreemouth_Draw, (ActorFunc)BgTreemouth_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -307,6 +307,6 @@ void BgTreemouth_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgTreemouth_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Treemouth_InitVars = {
-	    ACTOR_BG_TREEMOUTH, ACTORCAT_BG, FLAGS, OBJECT_SPOT04_OBJECTS, sizeof(BgTreemouth), (ActorFunc)BgTreemouth_Init, (ActorFunc)BgTreemouth_Destroy, (ActorFunc)BgTreemouth_Update, (ActorFunc)BgTreemouth_Draw, (ActorFunc)BgTreemouth_Reset,
+	    ACTOR_BG_TREEMOUTH, ACTORCAT_BG, FLAGS, OBJECT_SPOT04_OBJECTS, ACTOR_FACTORY(BgTreemouth), (ActorFunc)BgTreemouth_Init, (ActorFunc)BgTreemouth_Destroy, (ActorFunc)BgTreemouth_Update, (ActorFunc)BgTreemouth_Draw, (ActorFunc)BgTreemouth_Reset,
 	};
 }

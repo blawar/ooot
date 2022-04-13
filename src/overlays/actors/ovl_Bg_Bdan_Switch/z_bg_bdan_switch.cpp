@@ -57,7 +57,7 @@ void func_8086DDA8(BgBdanSwitch* pthis);
 void func_8086DDC0(BgBdanSwitch* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Bdan_Switch_InitVars = {
-    ACTOR_BG_BDAN_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_BDAN_OBJECTS, sizeof(BgBdanSwitch), (ActorFunc)BgBdanSwitch_Init, (ActorFunc)BgBdanSwitch_Destroy, (ActorFunc)BgBdanSwitch_Update, (ActorFunc)BgBdanSwitch_Draw, (ActorFunc)BgBdanSwitch_Reset,
+    ACTOR_BG_BDAN_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_BDAN_OBJECTS, ACTOR_FACTORY(BgBdanSwitch), (ActorFunc)BgBdanSwitch_Init, (ActorFunc)BgBdanSwitch_Destroy, (ActorFunc)BgBdanSwitch_Update, (ActorFunc)BgBdanSwitch_Draw, (ActorFunc)BgBdanSwitch_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -642,7 +642,7 @@ void BgBdanSwitch_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgBdanSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Bdan_Switch_InitVars = {
-	    ACTOR_BG_BDAN_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_BDAN_OBJECTS, sizeof(BgBdanSwitch), (ActorFunc)BgBdanSwitch_Init, (ActorFunc)BgBdanSwitch_Destroy, (ActorFunc)BgBdanSwitch_Update, (ActorFunc)BgBdanSwitch_Draw, (ActorFunc)BgBdanSwitch_Reset,
+	    ACTOR_BG_BDAN_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_BDAN_OBJECTS, ACTOR_FACTORY(BgBdanSwitch), (ActorFunc)BgBdanSwitch_Init, (ActorFunc)BgBdanSwitch_Destroy, (ActorFunc)BgBdanSwitch_Update, (ActorFunc)BgBdanSwitch_Draw, (ActorFunc)BgBdanSwitch_Reset,
 	};
 
 	sJntSphInit = {

@@ -23,7 +23,7 @@ void BgMenkuriEye_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Bg_Menkuri_Eye_InitVars = {
-    ACTOR_BG_MENKURI_EYE, ACTORCAT_BG, FLAGS, OBJECT_MENKURI_OBJECTS, sizeof(BgMenkuriEye), (ActorFunc)BgMenkuriEye_Init, (ActorFunc)BgMenkuriEye_Destroy, (ActorFunc)BgMenkuriEye_Update, (ActorFunc)BgMenkuriEye_Draw, (ActorFunc)BgMenkuriEye_Reset,
+    ACTOR_BG_MENKURI_EYE, ACTORCAT_BG, FLAGS, OBJECT_MENKURI_OBJECTS, ACTOR_FACTORY(BgMenkuriEye), (ActorFunc)BgMenkuriEye_Init, (ActorFunc)BgMenkuriEye_Destroy, (ActorFunc)BgMenkuriEye_Update, (ActorFunc)BgMenkuriEye_Draw, (ActorFunc)BgMenkuriEye_Reset,
 };
 
 static s32 D_8089C1A0;
@@ -159,7 +159,7 @@ void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMenkuriEye_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Menkuri_Eye_InitVars = {
-	    ACTOR_BG_MENKURI_EYE, ACTORCAT_BG, FLAGS, OBJECT_MENKURI_OBJECTS, sizeof(BgMenkuriEye), (ActorFunc)BgMenkuriEye_Init, (ActorFunc)BgMenkuriEye_Destroy, (ActorFunc)BgMenkuriEye_Update, (ActorFunc)BgMenkuriEye_Draw, (ActorFunc)BgMenkuriEye_Reset,
+	    ACTOR_BG_MENKURI_EYE, ACTORCAT_BG, FLAGS, OBJECT_MENKURI_OBJECTS, ACTOR_FACTORY(BgMenkuriEye), (ActorFunc)BgMenkuriEye_Init, (ActorFunc)BgMenkuriEye_Destroy, (ActorFunc)BgMenkuriEye_Update, (ActorFunc)BgMenkuriEye_Draw, (ActorFunc)BgMenkuriEye_Reset,
 	};
 
 	D_8089C1A0 = 0;

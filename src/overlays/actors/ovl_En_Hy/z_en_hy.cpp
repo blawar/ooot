@@ -52,7 +52,7 @@ void EnHy_DoNothing(EnHy* pthis, GlobalContext* globalCtx);
 void func_80A714C4(EnHy* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Hy_InitVars = {
-    ACTOR_EN_HY, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnHy), (ActorFunc)EnHy_Init, (ActorFunc)EnHy_Destroy, (ActorFunc)EnHy_Update, (ActorFunc)EnHy_Draw, (ActorFunc)EnHy_Reset,
+    ACTOR_EN_HY, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnHy), (ActorFunc)EnHy_Init, (ActorFunc)EnHy_Destroy, (ActorFunc)EnHy_Update, (ActorFunc)EnHy_Draw, (ActorFunc)EnHy_Reset,
 };
 
 static ColliderCylinderInit sColCylInit = {
@@ -1338,7 +1338,7 @@ void EnHy_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHy_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Hy_InitVars = {
-	    ACTOR_EN_HY, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnHy), (ActorFunc)EnHy_Init, (ActorFunc)EnHy_Destroy, (ActorFunc)EnHy_Update, (ActorFunc)EnHy_Draw, (ActorFunc)EnHy_Reset,
+	    ACTOR_EN_HY, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnHy), (ActorFunc)EnHy_Init, (ActorFunc)EnHy_Destroy, (ActorFunc)EnHy_Update, (ActorFunc)EnHy_Draw, (ActorFunc)EnHy_Reset,
 	};
 
 	sColCylInit = {

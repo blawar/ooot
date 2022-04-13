@@ -35,7 +35,7 @@ void func_8089E650(BgMizuMovebg* pthis, GlobalContext* globalCtx);
 s32 func_8089E108(Path* pathList, Vec3f* pos, s32 pathId, s32 pointId);
 
 ActorInit Bg_Mizu_Movebg_InitVars = {
-    ACTOR_BG_MIZU_MOVEBG, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuMovebg), (ActorFunc)BgMizuMovebg_Init, (ActorFunc)BgMizuMovebg_Destroy, (ActorFunc)BgMizuMovebg_Update, (ActorFunc)BgMizuMovebg_Draw, (ActorFunc)BgMizuMovebg_Reset,
+    ACTOR_BG_MIZU_MOVEBG, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuMovebg), (ActorFunc)BgMizuMovebg_Init, (ActorFunc)BgMizuMovebg_Destroy, (ActorFunc)BgMizuMovebg_Update, (ActorFunc)BgMizuMovebg_Draw, (ActorFunc)BgMizuMovebg_Reset,
 };
 
 static f32 D_8089EB40[] = {-115.200005f, -115.200005f, -115.200005f, 0.0f};
@@ -460,7 +460,7 @@ void BgMizuMovebg_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void BgMizuMovebg_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mizu_Movebg_InitVars = {
-	    ACTOR_BG_MIZU_MOVEBG, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuMovebg), (ActorFunc)BgMizuMovebg_Init, (ActorFunc)BgMizuMovebg_Destroy, (ActorFunc)BgMizuMovebg_Update, (ActorFunc)BgMizuMovebg_Draw, (ActorFunc)BgMizuMovebg_Reset,
+	    ACTOR_BG_MIZU_MOVEBG, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuMovebg), (ActorFunc)BgMizuMovebg_Init, (ActorFunc)BgMizuMovebg_Destroy, (ActorFunc)BgMizuMovebg_Update, (ActorFunc)BgMizuMovebg_Draw, (ActorFunc)BgMizuMovebg_Reset,
 	};
 
 	D_8089EBA0 = {0.0f, 80.0f, 23.0f};

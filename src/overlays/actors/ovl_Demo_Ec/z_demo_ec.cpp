@@ -1453,12 +1453,12 @@ void DemoEc_Draw(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit Demo_Ec_InitVars = {
-    ACTOR_DEMO_EC, ACTORCAT_NPC, FLAGS, OBJECT_EC, sizeof(DemoEc), (ActorFunc)DemoEc_Init, (ActorFunc)DemoEc_Destroy, (ActorFunc)DemoEc_Update, (ActorFunc)DemoEc_Draw, (ActorFunc)DemoEc_Reset,
+    ACTOR_DEMO_EC, ACTORCAT_NPC, FLAGS, OBJECT_EC, ACTOR_FACTORY(DemoEc), (ActorFunc)DemoEc_Init, (ActorFunc)DemoEc_Destroy, (ActorFunc)DemoEc_Update, (ActorFunc)DemoEc_Draw, (ActorFunc)DemoEc_Reset,
 };
 
 void DemoEc_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Ec_InitVars = {
-	    ACTOR_DEMO_EC, ACTORCAT_NPC, FLAGS, OBJECT_EC, sizeof(DemoEc), (ActorFunc)DemoEc_Init, (ActorFunc)DemoEc_Destroy, (ActorFunc)DemoEc_Update, (ActorFunc)DemoEc_Draw, (ActorFunc)DemoEc_Reset,
+	    ACTOR_DEMO_EC, ACTORCAT_NPC, FLAGS, OBJECT_EC, ACTOR_FACTORY(DemoEc), (ActorFunc)DemoEc_Init, (ActorFunc)DemoEc_Destroy, (ActorFunc)DemoEc_Update, (ActorFunc)DemoEc_Draw, (ActorFunc)DemoEc_Reset,
 	};
 }

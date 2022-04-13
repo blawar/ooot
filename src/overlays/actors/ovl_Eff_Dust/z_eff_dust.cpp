@@ -32,7 +32,7 @@ void EffDust_DrawFunc_8099E4F4(Actor* thisx, GlobalContext* globalCtx);
 void EffDust_DrawFunc_8099E784(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Eff_Dust_InitVars = {
-    ACTOR_EFF_DUST, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EffDust), (ActorFunc)EffDust_Init, (ActorFunc)EffDust_Destroy, (ActorFunc)EffDust_Update, (ActorFunc)EffDust_Draw, (ActorFunc)EffDust_Reset,
+    ACTOR_EFF_DUST, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EffDust), (ActorFunc)EffDust_Init, (ActorFunc)EffDust_Destroy, (ActorFunc)EffDust_Update, (ActorFunc)EffDust_Draw, (ActorFunc)EffDust_Reset,
 };
 
 static Gfx sEmptyDL[] = {
@@ -421,6 +421,6 @@ void EffDust_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EffDust_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Eff_Dust_InitVars = {
-	    ACTOR_EFF_DUST, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EffDust), (ActorFunc)EffDust_Init, (ActorFunc)EffDust_Destroy, (ActorFunc)EffDust_Update, (ActorFunc)EffDust_Draw, (ActorFunc)EffDust_Reset,
+	    ACTOR_EFF_DUST, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EffDust), (ActorFunc)EffDust_Init, (ActorFunc)EffDust_Destroy, (ActorFunc)EffDust_Update, (ActorFunc)EffDust_Draw, (ActorFunc)EffDust_Reset,
 	};
 }

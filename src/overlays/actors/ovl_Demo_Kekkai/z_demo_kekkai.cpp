@@ -44,7 +44,7 @@ static Color_RGBA8 darkRed_31 = {200, 0, 0, 0};
 static u16 csFrames_34[] = {0, 280, 280, 280, 280, 280, 280};
 
 ActorInit Demo_Kekkai_InitVars = {
-    ACTOR_DEMO_KEKKAI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(DemoKekkai), (ActorFunc)DemoKekkai_Init, (ActorFunc)DemoKekkai_Destroy, (ActorFunc)DemoKekkai_Update, (ActorFunc)DemoKekkai_DrawTowerBarrier, (ActorFunc)DemoKekkai_Reset,
+    ACTOR_DEMO_KEKKAI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(DemoKekkai), (ActorFunc)DemoKekkai_Init, (ActorFunc)DemoKekkai_Destroy, (ActorFunc)DemoKekkai_Update, (ActorFunc)DemoKekkai_DrawTowerBarrier, (ActorFunc)DemoKekkai_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -377,7 +377,7 @@ void DemoKekkai_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	darkRed_31 = {200, 0, 0, 0};
 
 	Demo_Kekkai_InitVars = {
-	    ACTOR_DEMO_KEKKAI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(DemoKekkai), (ActorFunc)DemoKekkai_Init, (ActorFunc)DemoKekkai_Destroy, (ActorFunc)DemoKekkai_Update, (ActorFunc)DemoKekkai_DrawTowerBarrier, (ActorFunc)DemoKekkai_Reset,
+	    ACTOR_DEMO_KEKKAI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(DemoKekkai), (ActorFunc)DemoKekkai_Init, (ActorFunc)DemoKekkai_Destroy, (ActorFunc)DemoKekkai_Update, (ActorFunc)DemoKekkai_DrawTowerBarrier, (ActorFunc)DemoKekkai_Reset,
 	};
 
 	sCylinderInit = {

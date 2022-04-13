@@ -31,7 +31,7 @@ void BgMoriIdomizu_Main(BgMoriIdomizu* pthis, GlobalContext* globalCtx);
 static s16 sIsSpawned = false;
 
 ActorInit Bg_Mori_Idomizu_InitVars = {
-    ACTOR_BG_MORI_IDOMIZU, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriIdomizu), (ActorFunc)BgMoriIdomizu_Init, (ActorFunc)BgMoriIdomizu_Destroy, (ActorFunc)BgMoriIdomizu_Update, NULL, (ActorFunc)BgMoriIdomizu_Reset,
+    ACTOR_BG_MORI_IDOMIZU, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriIdomizu), (ActorFunc)BgMoriIdomizu_Init, (ActorFunc)BgMoriIdomizu_Destroy, (ActorFunc)BgMoriIdomizu_Update, NULL, (ActorFunc)BgMoriIdomizu_Reset,
 };
 
 void BgMoriIdomizu_SetupAction(BgMoriIdomizu* pthis, BgMoriIdomizuActionFunc actionFunc)
@@ -216,6 +216,6 @@ void BgMoriIdomizu_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sIsSpawned = false;
 
 	Bg_Mori_Idomizu_InitVars = {
-	    ACTOR_BG_MORI_IDOMIZU, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriIdomizu), (ActorFunc)BgMoriIdomizu_Init, (ActorFunc)BgMoriIdomizu_Destroy, (ActorFunc)BgMoriIdomizu_Update, NULL, (ActorFunc)BgMoriIdomizu_Reset,
+	    ACTOR_BG_MORI_IDOMIZU, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriIdomizu), (ActorFunc)BgMoriIdomizu_Init, (ActorFunc)BgMoriIdomizu_Destroy, (ActorFunc)BgMoriIdomizu_Update, NULL, (ActorFunc)BgMoriIdomizu_Reset,
 	};
 }

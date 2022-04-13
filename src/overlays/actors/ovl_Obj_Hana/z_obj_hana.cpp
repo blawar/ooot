@@ -22,7 +22,7 @@ void ObjHana_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHana_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Obj_Hana_InitVars = {
-    ACTOR_OBJ_HANA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(ObjHana), (ActorFunc)ObjHana_Init, (ActorFunc)ObjHana_Destroy, (ActorFunc)ObjHana_Update, (ActorFunc)ObjHana_Draw, (ActorFunc)ObjHana_Reset,
+    ACTOR_OBJ_HANA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(ObjHana), (ActorFunc)ObjHana_Init, (ActorFunc)ObjHana_Destroy, (ActorFunc)ObjHana_Update, (ActorFunc)ObjHana_Draw, (ActorFunc)ObjHana_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -113,7 +113,7 @@ void ObjHana_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjHana_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Hana_InitVars = {
-	    ACTOR_OBJ_HANA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(ObjHana), (ActorFunc)ObjHana_Init, (ActorFunc)ObjHana_Destroy, (ActorFunc)ObjHana_Update, (ActorFunc)ObjHana_Draw, (ActorFunc)ObjHana_Reset,
+	    ACTOR_OBJ_HANA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(ObjHana), (ActorFunc)ObjHana_Init, (ActorFunc)ObjHana_Destroy, (ActorFunc)ObjHana_Update, (ActorFunc)ObjHana_Draw, (ActorFunc)ObjHana_Reset,
 	};
 
 	sCylinderInit = {

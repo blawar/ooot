@@ -35,7 +35,7 @@ void ObjOshihiki_SetupFall(ObjOshihiki* pthis, GlobalContext* globalCtx);
 void ObjOshihiki_Fall(ObjOshihiki* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Oshihiki_InitVars = {
-    ACTOR_OBJ_OSHIHIKI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjOshihiki), (ActorFunc)ObjOshihiki_Init, (ActorFunc)ObjOshihiki_Destroy, (ActorFunc)ObjOshihiki_Update, (ActorFunc)ObjOshihiki_Draw, (ActorFunc)ObjOshihiki_Reset,
+    ACTOR_OBJ_OSHIHIKI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjOshihiki), (ActorFunc)ObjOshihiki_Init, (ActorFunc)ObjOshihiki_Destroy, (ActorFunc)ObjOshihiki_Update, (ActorFunc)ObjOshihiki_Draw, (ActorFunc)ObjOshihiki_Reset,
 };
 
 static f32 sScales[] = {
@@ -797,6 +797,6 @@ void ObjOshihiki_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjOshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Oshihiki_InitVars = {
-	    ACTOR_OBJ_OSHIHIKI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjOshihiki), (ActorFunc)ObjOshihiki_Init, (ActorFunc)ObjOshihiki_Destroy, (ActorFunc)ObjOshihiki_Update, (ActorFunc)ObjOshihiki_Draw, (ActorFunc)ObjOshihiki_Reset,
+	    ACTOR_OBJ_OSHIHIKI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjOshihiki), (ActorFunc)ObjOshihiki_Init, (ActorFunc)ObjOshihiki_Destroy, (ActorFunc)ObjOshihiki_Update, (ActorFunc)ObjOshihiki_Draw, (ActorFunc)ObjOshihiki_Reset,
 	};
 }

@@ -31,7 +31,7 @@ void EnDs_Wait(EnDs* pthis, GlobalContext* globalCtx);
 static Vec3f sMultVec_42 = {1100.0f, 500.0f, 0.0f};
 
 ActorInit En_Ds_InitVars = {
-    ACTOR_EN_DS, ACTORCAT_NPC, FLAGS, OBJECT_DS, sizeof(EnDs), (ActorFunc)EnDs_Init, (ActorFunc)EnDs_Destroy, (ActorFunc)EnDs_Update, (ActorFunc)EnDs_Draw, (ActorFunc)EnDs_Reset,
+    ACTOR_EN_DS, ACTORCAT_NPC, FLAGS, OBJECT_DS, ACTOR_FACTORY(EnDs), (ActorFunc)EnDs_Init, (ActorFunc)EnDs_Destroy, (ActorFunc)EnDs_Update, (ActorFunc)EnDs_Draw, (ActorFunc)EnDs_Reset,
 };
 
 void EnDs_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -356,6 +356,6 @@ void EnDs_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sMultVec_42 = {1100.0f, 500.0f, 0.0f};
 
 	En_Ds_InitVars = {
-	    ACTOR_EN_DS, ACTORCAT_NPC, FLAGS, OBJECT_DS, sizeof(EnDs), (ActorFunc)EnDs_Init, (ActorFunc)EnDs_Destroy, (ActorFunc)EnDs_Update, (ActorFunc)EnDs_Draw, (ActorFunc)EnDs_Reset,
+	    ACTOR_EN_DS, ACTORCAT_NPC, FLAGS, OBJECT_DS, ACTOR_FACTORY(EnDs), (ActorFunc)EnDs_Init, (ActorFunc)EnDs_Destroy, (ActorFunc)EnDs_Update, (ActorFunc)EnDs_Draw, (ActorFunc)EnDs_Reset,
 	};
 }

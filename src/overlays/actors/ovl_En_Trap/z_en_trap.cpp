@@ -44,7 +44,7 @@ void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTrap_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Trap_InitVars = {
-    ACTOR_EN_TRAP, ACTORCAT_BG, FLAGS, OBJECT_TRAP, sizeof(EnTrap), (ActorFunc)EnTrap_Init, (ActorFunc)EnTrap_Destroy, (ActorFunc)EnTrap_Update, (ActorFunc)EnTrap_Draw, (ActorFunc)EnTrap_Reset,
+    ACTOR_EN_TRAP, ACTORCAT_BG, FLAGS, OBJECT_TRAP, ACTOR_FACTORY(EnTrap), (ActorFunc)EnTrap_Init, (ActorFunc)EnTrap_Destroy, (ActorFunc)EnTrap_Update, (ActorFunc)EnTrap_Draw, (ActorFunc)EnTrap_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -467,7 +467,7 @@ void EnTrap_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnTrap_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Trap_InitVars = {
-	    ACTOR_EN_TRAP, ACTORCAT_BG, FLAGS, OBJECT_TRAP, sizeof(EnTrap), (ActorFunc)EnTrap_Init, (ActorFunc)EnTrap_Destroy, (ActorFunc)EnTrap_Update, (ActorFunc)EnTrap_Draw, (ActorFunc)EnTrap_Reset,
+	    ACTOR_EN_TRAP, ACTORCAT_BG, FLAGS, OBJECT_TRAP, ACTOR_FACTORY(EnTrap), (ActorFunc)EnTrap_Init, (ActorFunc)EnTrap_Destroy, (ActorFunc)EnTrap_Update, (ActorFunc)EnTrap_Draw, (ActorFunc)EnTrap_Reset,
 	};
 
 	sCylinderInit = {

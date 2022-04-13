@@ -42,7 +42,7 @@ extern CutsceneData D_80B4C5D0[];
 #include "z_en_zl1_camera_data.cpp"
 
 ActorInit En_Zl1_InitVars = {
-    ACTOR_EN_ZL1, ACTORCAT_NPC, FLAGS, OBJECT_ZL1, sizeof(EnZl1), (ActorFunc)EnZl1_Init, (ActorFunc)EnZl1_Destroy, (ActorFunc)EnZl1_Update, (ActorFunc)EnZl1_Draw, (ActorFunc)EnZl1_Reset,
+    ACTOR_EN_ZL1, ACTORCAT_NPC, FLAGS, OBJECT_ZL1, ACTOR_FACTORY(EnZl1), (ActorFunc)EnZl1_Init, (ActorFunc)EnZl1_Destroy, (ActorFunc)EnZl1_Update, (ActorFunc)EnZl1_Draw, (ActorFunc)EnZl1_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -721,7 +721,7 @@ void EnZl1_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnZl1_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Zl1_InitVars = {
-	    ACTOR_EN_ZL1, ACTORCAT_NPC, FLAGS, OBJECT_ZL1, sizeof(EnZl1), (ActorFunc)EnZl1_Init, (ActorFunc)EnZl1_Destroy, (ActorFunc)EnZl1_Update, (ActorFunc)EnZl1_Draw, (ActorFunc)EnZl1_Reset,
+	    ACTOR_EN_ZL1, ACTORCAT_NPC, FLAGS, OBJECT_ZL1, ACTOR_FACTORY(EnZl1), (ActorFunc)EnZl1_Init, (ActorFunc)EnZl1_Destroy, (ActorFunc)EnZl1_Update, (ActorFunc)EnZl1_Draw, (ActorFunc)EnZl1_Reset,
 	};
 
 	sCylinderInit = {

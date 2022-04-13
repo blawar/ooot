@@ -39,7 +39,7 @@ static Color_RGBA8 primColor_44 = {255, 255, 255, 255};
 static Color_RGBA8 envColor_44 = {200, 255, 255, 255};
 
 ActorInit En_Brob_InitVars = {
-    ACTOR_EN_BROB, ACTORCAT_ENEMY, FLAGS, OBJECT_BROB, sizeof(EnBrob), (ActorFunc)EnBrob_Init, (ActorFunc)EnBrob_Destroy, (ActorFunc)EnBrob_Update, (ActorFunc)EnBrob_Draw, (ActorFunc)EnBrob_Reset,
+    ACTOR_EN_BROB, ACTORCAT_ENEMY, FLAGS, OBJECT_BROB, ACTOR_FACTORY(EnBrob), (ActorFunc)EnBrob_Init, (ActorFunc)EnBrob_Destroy, (ActorFunc)EnBrob_Update, (ActorFunc)EnBrob_Draw, (ActorFunc)EnBrob_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -402,7 +402,7 @@ void EnBrob_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	envColor_44 = {200, 255, 255, 255};
 
 	En_Brob_InitVars = {
-	    ACTOR_EN_BROB, ACTORCAT_ENEMY, FLAGS, OBJECT_BROB, sizeof(EnBrob), (ActorFunc)EnBrob_Init, (ActorFunc)EnBrob_Destroy, (ActorFunc)EnBrob_Update, (ActorFunc)EnBrob_Draw, (ActorFunc)EnBrob_Reset,
+	    ACTOR_EN_BROB, ACTORCAT_ENEMY, FLAGS, OBJECT_BROB, ACTOR_FACTORY(EnBrob), (ActorFunc)EnBrob_Init, (ActorFunc)EnBrob_Destroy, (ActorFunc)EnBrob_Update, (ActorFunc)EnBrob_Draw, (ActorFunc)EnBrob_Reset,
 	};
 
 	sCylinderInit = {

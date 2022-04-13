@@ -64,7 +64,7 @@ void EnBox_WaitOpen(EnBox*, GlobalContext*);
 void EnBox_Open(EnBox*, GlobalContext*);
 
 ActorInit En_Box_InitVars = {
-    ACTOR_EN_BOX, ACTORCAT_CHEST, FLAGS, OBJECT_BOX, sizeof(EnBox), (ActorFunc)EnBox_Init, (ActorFunc)EnBox_Destroy, (ActorFunc)EnBox_Update, (ActorFunc)EnBox_Draw, (ActorFunc)EnBox_Reset,
+    ACTOR_EN_BOX, ACTORCAT_CHEST, FLAGS, OBJECT_BOX, ACTOR_FACTORY(EnBox), (ActorFunc)EnBox_Init, (ActorFunc)EnBox_Destroy, (ActorFunc)EnBox_Update, (ActorFunc)EnBox_Draw, (ActorFunc)EnBox_Reset,
 };
 
 static AnimationHeader* sAnimations[4] = {&gTreasureChestAnim_00024C, &gTreasureChestAnim_000128, &gTreasureChestAnim_00043C, &gTreasureChestAnim_00043C};
@@ -767,7 +767,7 @@ void EnBox_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBox_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Box_InitVars = {
-	    ACTOR_EN_BOX, ACTORCAT_CHEST, FLAGS, OBJECT_BOX, sizeof(EnBox), (ActorFunc)EnBox_Init, (ActorFunc)EnBox_Destroy, (ActorFunc)EnBox_Update, (ActorFunc)EnBox_Draw, (ActorFunc)EnBox_Reset,
+	    ACTOR_EN_BOX, ACTORCAT_CHEST, FLAGS, OBJECT_BOX, ACTOR_FACTORY(EnBox), (ActorFunc)EnBox_Init, (ActorFunc)EnBox_Destroy, (ActorFunc)EnBox_Update, (ActorFunc)EnBox_Draw, (ActorFunc)EnBox_Reset,
 	};
 
 	sUnused = {0};

@@ -28,7 +28,7 @@ void MagicDark_DiamondDraw(Actor* thisx, GlobalContext* globalCtx);
 void MagicDark_DimLighting(GlobalContext* globalCtx, f32 intensity);
 
 ActorInit Magic_Dark_InitVars = {
-    ACTOR_MAGIC_DARK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(MagicDark), (ActorFunc)MagicDark_Init, (ActorFunc)MagicDark_Destroy, (ActorFunc)MagicDark_OrbUpdate, (ActorFunc)MagicDark_OrbDraw, (ActorFunc)MagicDark_Reset,
+    ACTOR_MAGIC_DARK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(MagicDark), (ActorFunc)MagicDark_Init, (ActorFunc)MagicDark_Destroy, (ActorFunc)MagicDark_OrbUpdate, (ActorFunc)MagicDark_OrbDraw, (ActorFunc)MagicDark_Reset,
 };
 
 #include "overlays/ovl_Magic_Dark/ovl_Magic_Dark.cpp"
@@ -333,6 +333,6 @@ void MagicDark_OrbDraw(Actor* thisx, GlobalContext* globalCtx)
 void MagicDark_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Magic_Dark_InitVars = {
-	    ACTOR_MAGIC_DARK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(MagicDark), (ActorFunc)MagicDark_Init, (ActorFunc)MagicDark_Destroy, (ActorFunc)MagicDark_OrbUpdate, (ActorFunc)MagicDark_OrbDraw, (ActorFunc)MagicDark_Reset,
+	    ACTOR_MAGIC_DARK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(MagicDark), (ActorFunc)MagicDark_Init, (ActorFunc)MagicDark_Destroy, (ActorFunc)MagicDark_OrbUpdate, (ActorFunc)MagicDark_OrbDraw, (ActorFunc)MagicDark_Reset,
 	};
 }

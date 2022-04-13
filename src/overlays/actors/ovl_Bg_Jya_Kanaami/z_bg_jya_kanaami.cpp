@@ -31,7 +31,7 @@ void func_80899950(BgJyaKanaami* pthis, GlobalContext* globalCtx);
 void func_80899A08(BgJyaKanaami* pthis);
 
 ActorInit Bg_Jya_Kanaami_InitVars = {
-    ACTOR_BG_JYA_KANAAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaKanaami), (ActorFunc)BgJyaKanaami_Init, (ActorFunc)BgJyaKanaami_Destroy, (ActorFunc)BgJyaKanaami_Update, (ActorFunc)BgJyaKanaami_Draw, (ActorFunc)BgJyaKanaami_Reset,
+    ACTOR_BG_JYA_KANAAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaKanaami), (ActorFunc)BgJyaKanaami_Init, (ActorFunc)BgJyaKanaami_Destroy, (ActorFunc)BgJyaKanaami_Update, (ActorFunc)BgJyaKanaami_Draw, (ActorFunc)BgJyaKanaami_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -150,6 +150,6 @@ void BgJyaKanaami_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgJyaKanaami_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Jya_Kanaami_InitVars = {
-	    ACTOR_BG_JYA_KANAAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaKanaami), (ActorFunc)BgJyaKanaami_Init, (ActorFunc)BgJyaKanaami_Destroy, (ActorFunc)BgJyaKanaami_Update, (ActorFunc)BgJyaKanaami_Draw, (ActorFunc)BgJyaKanaami_Reset,
+	    ACTOR_BG_JYA_KANAAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaKanaami), (ActorFunc)BgJyaKanaami_Init, (ActorFunc)BgJyaKanaami_Destroy, (ActorFunc)BgJyaKanaami_Update, (ActorFunc)BgJyaKanaami_Draw, (ActorFunc)BgJyaKanaami_Reset,
 	};
 }

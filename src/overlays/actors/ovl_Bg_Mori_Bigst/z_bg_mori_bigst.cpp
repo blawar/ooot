@@ -42,7 +42,7 @@ void BgMoriBigst_StalfosPairFight(BgMoriBigst* pthis, GlobalContext* globalCtx);
 void BgMoriBigst_SetupDone(BgMoriBigst* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mori_Bigst_InitVars = {
-    ACTOR_BG_MORI_BIGST, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriBigst), (ActorFunc)BgMoriBigst_Init, (ActorFunc)BgMoriBigst_Destroy, (ActorFunc)BgMoriBigst_Update, NULL, (ActorFunc)BgMoriBigst_Reset,
+    ACTOR_BG_MORI_BIGST, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriBigst), (ActorFunc)BgMoriBigst_Init, (ActorFunc)BgMoriBigst_Destroy, (ActorFunc)BgMoriBigst_Update, NULL, (ActorFunc)BgMoriBigst_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -302,6 +302,6 @@ void BgMoriBigst_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMoriBigst_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mori_Bigst_InitVars = {
-	    ACTOR_BG_MORI_BIGST, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriBigst), (ActorFunc)BgMoriBigst_Init, (ActorFunc)BgMoriBigst_Destroy, (ActorFunc)BgMoriBigst_Update, NULL, (ActorFunc)BgMoriBigst_Reset,
+	    ACTOR_BG_MORI_BIGST, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriBigst), (ActorFunc)BgMoriBigst_Init, (ActorFunc)BgMoriBigst_Destroy, (ActorFunc)BgMoriBigst_Update, NULL, (ActorFunc)BgMoriBigst_Reset,
 	};
 }

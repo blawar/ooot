@@ -28,7 +28,7 @@ void EnBomBowlPit_Reset(EnBomBowlPit* pthis, GlobalContext* globalCtx);
 static s32 sGetItemIds[] = {GI_BOMB_BAG_30, GI_HEART_PIECE, GI_BOMBCHUS_10, GI_BOMBS_1, GI_RUPEE_PURPLE};
 
 ActorInit En_Bom_Bowl_Pit_InitVars = {
-    ACTOR_EN_BOM_BOWL_PIT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBomBowlPit), (ActorFunc)EnBomBowlPit_Init, (ActorFunc)EnBomBowlPit_Destroy, (ActorFunc)EnBomBowlPit_Update, NULL, (ActorFunc)EnBomBowlPit_Reset,
+    ACTOR_EN_BOM_BOWL_PIT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBomBowlPit), (ActorFunc)EnBomBowlPit_Init, (ActorFunc)EnBomBowlPit_Destroy, (ActorFunc)EnBomBowlPit_Update, NULL, (ActorFunc)EnBomBowlPit_Reset,
 };
 
 void EnBomBowlPit_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -251,6 +251,6 @@ void EnBomBowlPit_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnBomBowlPit_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bom_Bowl_Pit_InitVars = {
-	    ACTOR_EN_BOM_BOWL_PIT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBomBowlPit), (ActorFunc)EnBomBowlPit_Init, (ActorFunc)EnBomBowlPit_Destroy, (ActorFunc)EnBomBowlPit_Update, NULL, (ActorFunc)EnBomBowlPit_Reset,
+	    ACTOR_EN_BOM_BOWL_PIT, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBomBowlPit), (ActorFunc)EnBomBowlPit_Init, (ActorFunc)EnBomBowlPit_Destroy, (ActorFunc)EnBomBowlPit_Update, NULL, (ActorFunc)EnBomBowlPit_Reset,
 	};
 }

@@ -32,7 +32,7 @@ void BgMizuBwall_Break(BgMizuBwall* pthis, GlobalContext* globalCtx);
 void BgMizuBwall_DoNothing(BgMizuBwall* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mizu_Bwall_InitVars = {
-    ACTOR_BG_MIZU_BWALL, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuBwall), (ActorFunc)BgMizuBwall_Init, (ActorFunc)BgMizuBwall_Destroy, (ActorFunc)BgMizuBwall_Update, (ActorFunc)BgMizuBwall_Draw, (ActorFunc)BgMizuBwall_Reset,
+    ACTOR_BG_MIZU_BWALL, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuBwall), (ActorFunc)BgMizuBwall_Init, (ActorFunc)BgMizuBwall_Destroy, (ActorFunc)BgMizuBwall_Update, (ActorFunc)BgMizuBwall_Draw, (ActorFunc)BgMizuBwall_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementInitFloor[2] = {
@@ -593,7 +593,7 @@ void BgMizuBwall_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void BgMizuBwall_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mizu_Bwall_InitVars = {
-	    ACTOR_BG_MIZU_BWALL, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuBwall), (ActorFunc)BgMizuBwall_Init, (ActorFunc)BgMizuBwall_Destroy, (ActorFunc)BgMizuBwall_Update, (ActorFunc)BgMizuBwall_Draw, (ActorFunc)BgMizuBwall_Reset,
+	    ACTOR_BG_MIZU_BWALL, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuBwall), (ActorFunc)BgMizuBwall_Init, (ActorFunc)BgMizuBwall_Destroy, (ActorFunc)BgMizuBwall_Update, (ActorFunc)BgMizuBwall_Draw, (ActorFunc)BgMizuBwall_Reset,
 	};
 
 	sTrisInitFloor = {

@@ -20,7 +20,7 @@ void ObjBlockstop_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Obj_Blockstop_InitVars = {
-    ACTOR_OBJ_BLOCKSTOP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjBlockstop), (ActorFunc)ObjBlockstop_Init, (ActorFunc)ObjBlockstop_Destroy, (ActorFunc)ObjBlockstop_Update, NULL, (ActorFunc)ObjBlockstop_Reset,
+    ACTOR_OBJ_BLOCKSTOP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjBlockstop), (ActorFunc)ObjBlockstop_Init, (ActorFunc)ObjBlockstop_Destroy, (ActorFunc)ObjBlockstop_Update, NULL, (ActorFunc)ObjBlockstop_Reset,
 };
 
 void ObjBlockstop_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -73,6 +73,6 @@ void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx)
 void ObjBlockstop_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Blockstop_InitVars = {
-	    ACTOR_OBJ_BLOCKSTOP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjBlockstop), (ActorFunc)ObjBlockstop_Init, (ActorFunc)ObjBlockstop_Destroy, (ActorFunc)ObjBlockstop_Update, NULL, (ActorFunc)ObjBlockstop_Reset,
+	    ACTOR_OBJ_BLOCKSTOP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjBlockstop), (ActorFunc)ObjBlockstop_Init, (ActorFunc)ObjBlockstop_Destroy, (ActorFunc)ObjBlockstop_Update, NULL, (ActorFunc)ObjBlockstop_Reset,
 	};
 }

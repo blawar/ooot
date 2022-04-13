@@ -29,7 +29,7 @@ void BgGndIceblock_Idle(BgGndIceblock* pthis, GlobalContext* globalCtx);
 void BgGndIceblock_Slide(BgGndIceblock* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Gnd_Iceblock_InitVars = {
-    ACTOR_BG_GND_ICEBLOCK, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndIceblock), (ActorFunc)BgGndIceblock_Init, (ActorFunc)BgGndIceblock_Destroy, (ActorFunc)BgGndIceblock_Update, (ActorFunc)BgGndIceblock_Draw, (ActorFunc)BgGndIceblock_Reset,
+    ACTOR_BG_GND_ICEBLOCK, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndIceblock), (ActorFunc)BgGndIceblock_Init, (ActorFunc)BgGndIceblock_Destroy, (ActorFunc)BgGndIceblock_Update, (ActorFunc)BgGndIceblock_Draw, (ActorFunc)BgGndIceblock_Reset,
 };
 
 static Color_RGBA8 sWhite = {250, 250, 250, 255};
@@ -410,7 +410,7 @@ void BgGndIceblock_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgGndIceblock_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gnd_Iceblock_InitVars = {
-	    ACTOR_BG_GND_ICEBLOCK,	    ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndIceblock), (ActorFunc)BgGndIceblock_Init, (ActorFunc)BgGndIceblock_Destroy, (ActorFunc)BgGndIceblock_Update, (ActorFunc)BgGndIceblock_Draw,
+	    ACTOR_BG_GND_ICEBLOCK,	    ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndIceblock), (ActorFunc)BgGndIceblock_Init, (ActorFunc)BgGndIceblock_Destroy, (ActorFunc)BgGndIceblock_Update, (ActorFunc)BgGndIceblock_Draw,
 	    (ActorFunc)BgGndIceblock_Reset,
 	};
 

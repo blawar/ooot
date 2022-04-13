@@ -44,7 +44,7 @@ void EnMb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Mb_InitVars = {
-    ACTOR_EN_MB, ACTORCAT_ENEMY, FLAGS, OBJECT_MB, sizeof(EnMb), (ActorFunc)EnMb_Init, (ActorFunc)EnMb_Destroy, (ActorFunc)EnMb_Update, (ActorFunc)EnMb_Draw, (ActorFunc)EnMb_Reset,
+    ACTOR_EN_MB, ACTORCAT_ENEMY, FLAGS, OBJECT_MB, ACTOR_FACTORY(EnMb), (ActorFunc)EnMb_Init, (ActorFunc)EnMb_Destroy, (ActorFunc)EnMb_Update, (ActorFunc)EnMb_Draw, (ActorFunc)EnMb_Reset,
 };
 
 void EnMb_SetupSpearPatrolTurnTowardsWaypoint(EnMb* pthis, GlobalContext* globalCtx);
@@ -1790,7 +1790,7 @@ void EnMb_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_127 = {0.0f, 0.0f, 0.0f};
 
 	En_Mb_InitVars = {
-	    ACTOR_EN_MB, ACTORCAT_ENEMY, FLAGS, OBJECT_MB, sizeof(EnMb), (ActorFunc)EnMb_Init, (ActorFunc)EnMb_Destroy, (ActorFunc)EnMb_Update, (ActorFunc)EnMb_Draw, (ActorFunc)EnMb_Reset,
+	    ACTOR_EN_MB, ACTORCAT_ENEMY, FLAGS, OBJECT_MB, ACTOR_FACTORY(EnMb), (ActorFunc)EnMb_Init, (ActorFunc)EnMb_Destroy, (ActorFunc)EnMb_Update, (ActorFunc)EnMb_Draw, (ActorFunc)EnMb_Reset,
 	};
 
 	sHitboxInit = {

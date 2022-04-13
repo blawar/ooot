@@ -31,7 +31,7 @@ void func_808BF108(BgYdanMaruta* pthis, GlobalContext* globalCtx);
 void func_808BF1EC(BgYdanMaruta* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Ydan_Maruta_InitVars = {
-    ACTOR_BG_YDAN_MARUTA, ACTORCAT_PROP, FLAGS, OBJECT_YDAN_OBJECTS, sizeof(BgYdanMaruta), (ActorFunc)BgYdanMaruta_Init, (ActorFunc)BgYdanMaruta_Destroy, (ActorFunc)BgYdanMaruta_Update, (ActorFunc)BgYdanMaruta_Draw, (ActorFunc)BgYdanMaruta_Reset,
+    ACTOR_BG_YDAN_MARUTA, ACTORCAT_PROP, FLAGS, OBJECT_YDAN_OBJECTS, ACTOR_FACTORY(BgYdanMaruta), (ActorFunc)BgYdanMaruta_Init, (ActorFunc)BgYdanMaruta_Destroy, (ActorFunc)BgYdanMaruta_Update, (ActorFunc)BgYdanMaruta_Draw, (ActorFunc)BgYdanMaruta_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -245,7 +245,7 @@ void BgYdanMaruta_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgYdanMaruta_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Ydan_Maruta_InitVars = {
-	    ACTOR_BG_YDAN_MARUTA, ACTORCAT_PROP, FLAGS, OBJECT_YDAN_OBJECTS, sizeof(BgYdanMaruta), (ActorFunc)BgYdanMaruta_Init, (ActorFunc)BgYdanMaruta_Destroy, (ActorFunc)BgYdanMaruta_Update, (ActorFunc)BgYdanMaruta_Draw, (ActorFunc)BgYdanMaruta_Reset,
+	    ACTOR_BG_YDAN_MARUTA, ACTORCAT_PROP, FLAGS, OBJECT_YDAN_OBJECTS, ACTOR_FACTORY(BgYdanMaruta), (ActorFunc)BgYdanMaruta_Init, (ActorFunc)BgYdanMaruta_Destroy, (ActorFunc)BgYdanMaruta_Update, (ActorFunc)BgYdanMaruta_Draw, (ActorFunc)BgYdanMaruta_Reset,
 	};
 
 	sTrisInit = {

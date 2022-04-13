@@ -37,7 +37,7 @@ static EnNwcChickFunc chickActionFuncs_36[] = {EnNwc_ChickNoop, EnNwc_ChickFall}
 #define CHICK_BG_WALL (1 << 1)
 
 ActorInit En_Nwc_InitVars = {
-    ACTOR_EN_NWC, ACTORCAT_PROP, FLAGS, OBJECT_NWC, sizeof(EnNwc), (ActorFunc)EnNwc_Init, (ActorFunc)EnNwc_Destroy, (ActorFunc)EnNwc_Update, (ActorFunc)EnNwc_Draw, (ActorFunc)EnNwc_Reset,
+    ACTOR_EN_NWC, ACTORCAT_PROP, FLAGS, OBJECT_NWC, ACTOR_FACTORY(EnNwc), (ActorFunc)EnNwc_Init, (ActorFunc)EnNwc_Destroy, (ActorFunc)EnNwc_Update, (ActorFunc)EnNwc_Draw, (ActorFunc)EnNwc_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementInit = {
@@ -280,7 +280,7 @@ void EnNwc_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnNwc_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Nwc_InitVars = {
-	    ACTOR_EN_NWC, ACTORCAT_PROP, FLAGS, OBJECT_NWC, sizeof(EnNwc), (ActorFunc)EnNwc_Init, (ActorFunc)EnNwc_Destroy, (ActorFunc)EnNwc_Update, (ActorFunc)EnNwc_Draw, (ActorFunc)EnNwc_Reset,
+	    ACTOR_EN_NWC, ACTORCAT_PROP, FLAGS, OBJECT_NWC, ACTOR_FACTORY(EnNwc), (ActorFunc)EnNwc_Init, (ActorFunc)EnNwc_Destroy, (ActorFunc)EnNwc_Update, (ActorFunc)EnNwc_Draw, (ActorFunc)EnNwc_Reset,
 	};
 
 	sJntSphElementInit = {

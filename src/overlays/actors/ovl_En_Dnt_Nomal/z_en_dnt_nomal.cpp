@@ -75,7 +75,7 @@ void EnDntNomal_StageReturn(EnDntNomal* pthis, GlobalContext* globalCtx);
 static void* blinkTex_104[] = {gDntStageEyeOpenTex, gDntStageEyeHalfTex, gDntStageEyeShutTex};
 
 ActorInit En_Dnt_Nomal_InitVars = {
-    ACTOR_EN_DNT_NOMAL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnDntNomal), (ActorFunc)EnDntNomal_Init, (ActorFunc)EnDntNomal_Destroy, (ActorFunc)EnDntNomal_Update, NULL, (ActorFunc)EnDntNomal_Reset,
+    ACTOR_EN_DNT_NOMAL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnDntNomal), (ActorFunc)EnDntNomal_Init, (ActorFunc)EnDntNomal_Destroy, (ActorFunc)EnDntNomal_Update, NULL, (ActorFunc)EnDntNomal_Reset,
 };
 
 static ColliderCylinderInit sBodyCylinderInit = {
@@ -1049,7 +1049,7 @@ void EnDntNomal_DrawTargetScrub(Actor* thisx, GlobalContext* globalCtx)
 void EnDntNomal_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dnt_Nomal_InitVars = {
-	    ACTOR_EN_DNT_NOMAL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnDntNomal), (ActorFunc)EnDntNomal_Init, (ActorFunc)EnDntNomal_Destroy, (ActorFunc)EnDntNomal_Update, NULL, (ActorFunc)EnDntNomal_Reset,
+	    ACTOR_EN_DNT_NOMAL, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnDntNomal), (ActorFunc)EnDntNomal_Init, (ActorFunc)EnDntNomal_Destroy, (ActorFunc)EnDntNomal_Update, NULL, (ActorFunc)EnDntNomal_Reset,
 	};
 
 	sBodyCylinderInit = {

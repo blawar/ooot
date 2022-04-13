@@ -31,7 +31,7 @@ void EnBom_Move(EnBom* pthis, GlobalContext* globalCtx);
 void EnBom_WaitForRelease(EnBom* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Bom_InitVars = {
-    ACTOR_EN_BOM, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBom), (ActorFunc)EnBom_Init, (ActorFunc)EnBom_Destroy, (ActorFunc)EnBom_Update, (ActorFunc)EnBom_Draw, (ActorFunc)EnBom_Reset,
+    ACTOR_EN_BOM, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBom), (ActorFunc)EnBom_Init, (ActorFunc)EnBom_Destroy, (ActorFunc)EnBom_Update, (ActorFunc)EnBom_Draw, (ActorFunc)EnBom_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -440,7 +440,7 @@ void EnBom_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBom_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bom_InitVars = {
-	    ACTOR_EN_BOM, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBom), (ActorFunc)EnBom_Init, (ActorFunc)EnBom_Destroy, (ActorFunc)EnBom_Update, (ActorFunc)EnBom_Draw, (ActorFunc)EnBom_Reset,
+	    ACTOR_EN_BOM, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBom), (ActorFunc)EnBom_Init, (ActorFunc)EnBom_Destroy, (ActorFunc)EnBom_Update, (ActorFunc)EnBom_Draw, (ActorFunc)EnBom_Reset,
 	};
 
 	sCylinderInit = {

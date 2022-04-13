@@ -68,7 +68,7 @@ static f32 sTargetEyeEnvColors_90[][3] = {
 };
 
 ActorInit En_Goma_InitVars = {
-    ACTOR_BOSS_GOMA, ACTORCAT_ENEMY, FLAGS, OBJECT_GOL, sizeof(EnGoma), (ActorFunc)EnGoma_Init, (ActorFunc)EnGoma_Destroy, (ActorFunc)EnGoma_Update, (ActorFunc)EnGoma_Draw, (ActorFunc)EnGoma_Reset,
+    ACTOR_BOSS_GOMA, ACTORCAT_ENEMY, FLAGS, OBJECT_GOL, ACTOR_FACTORY(EnGoma), (ActorFunc)EnGoma_Init, (ActorFunc)EnGoma_Destroy, (ActorFunc)EnGoma_Update, (ActorFunc)EnGoma_Draw, (ActorFunc)EnGoma_Reset,
 };
 
 static ColliderCylinderInit D_80A4B7A0 = {
@@ -1071,7 +1071,7 @@ void EnGoma_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sShieldKnockbackVel_89 = {0.0f, 0.0f, 20.0f};
 
 	En_Goma_InitVars = {
-	    ACTOR_BOSS_GOMA, ACTORCAT_ENEMY, FLAGS, OBJECT_GOL, sizeof(EnGoma), (ActorFunc)EnGoma_Init, (ActorFunc)EnGoma_Destroy, (ActorFunc)EnGoma_Update, (ActorFunc)EnGoma_Draw, (ActorFunc)EnGoma_Reset,
+	    ACTOR_BOSS_GOMA, ACTORCAT_ENEMY, FLAGS, OBJECT_GOL, ACTOR_FACTORY(EnGoma), (ActorFunc)EnGoma_Init, (ActorFunc)EnGoma_Destroy, (ActorFunc)EnGoma_Update, (ActorFunc)EnGoma_Draw, (ActorFunc)EnGoma_Reset,
 	};
 
 	D_80A4B7A0 = {

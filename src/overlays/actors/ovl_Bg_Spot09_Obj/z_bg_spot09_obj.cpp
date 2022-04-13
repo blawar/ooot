@@ -29,7 +29,7 @@ s32 func_808B1BA0(BgSpot09Obj* pthis, GlobalContext* globalCtx);
 s32 func_808B1BEC(BgSpot09Obj* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot09_Obj_InitVars = {
-    ACTOR_BG_SPOT09_OBJ, ACTORCAT_BG, FLAGS, OBJECT_SPOT09_OBJ, sizeof(BgSpot09Obj), (ActorFunc)BgSpot09Obj_Init, (ActorFunc)BgSpot09Obj_Destroy, (ActorFunc)BgSpot09Obj_Update, (ActorFunc)BgSpot09Obj_Draw, (ActorFunc)BgSpot09Obj_Reset,
+    ACTOR_BG_SPOT09_OBJ, ACTORCAT_BG, FLAGS, OBJECT_SPOT09_OBJ, ACTOR_FACTORY(BgSpot09Obj), (ActorFunc)BgSpot09Obj_Init, (ActorFunc)BgSpot09Obj_Destroy, (ActorFunc)BgSpot09Obj_Update, (ActorFunc)BgSpot09Obj_Draw, (ActorFunc)BgSpot09Obj_Reset,
 };
 
 static CollisionHeader* D_808B1F90[] = {
@@ -213,6 +213,6 @@ void BgSpot09Obj_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot09Obj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot09_Obj_InitVars = {
-	    ACTOR_BG_SPOT09_OBJ, ACTORCAT_BG, FLAGS, OBJECT_SPOT09_OBJ, sizeof(BgSpot09Obj), (ActorFunc)BgSpot09Obj_Init, (ActorFunc)BgSpot09Obj_Destroy, (ActorFunc)BgSpot09Obj_Update, (ActorFunc)BgSpot09Obj_Draw, (ActorFunc)BgSpot09Obj_Reset,
+	    ACTOR_BG_SPOT09_OBJ, ACTORCAT_BG, FLAGS, OBJECT_SPOT09_OBJ, ACTOR_FACTORY(BgSpot09Obj), (ActorFunc)BgSpot09Obj_Init, (ActorFunc)BgSpot09Obj_Destroy, (ActorFunc)BgSpot09Obj_Update, (ActorFunc)BgSpot09Obj_Draw, (ActorFunc)BgSpot09Obj_Reset,
 	};
 }

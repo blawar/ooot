@@ -26,7 +26,7 @@ void EnHata_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHata_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Hata_InitVars = {
-    ACTOR_EN_HATA, ACTORCAT_PROP, FLAGS, OBJECT_HATA, sizeof(EnHata), (ActorFunc)EnHata_Init, (ActorFunc)EnHata_Destroy, (ActorFunc)EnHata_Update, (ActorFunc)EnHata_Draw, (ActorFunc)EnHata_Reset,
+    ACTOR_EN_HATA, ACTORCAT_PROP, FLAGS, OBJECT_HATA, ACTOR_FACTORY(EnHata), (ActorFunc)EnHata_Init, (ActorFunc)EnHata_Destroy, (ActorFunc)EnHata_Update, (ActorFunc)EnHata_Draw, (ActorFunc)EnHata_Reset,
 };
 
 // Unused Collider and CollisionCheck data
@@ -159,7 +159,7 @@ void EnHata_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHata_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Hata_InitVars = {
-	    ACTOR_EN_HATA, ACTORCAT_PROP, FLAGS, OBJECT_HATA, sizeof(EnHata), (ActorFunc)EnHata_Init, (ActorFunc)EnHata_Destroy, (ActorFunc)EnHata_Update, (ActorFunc)EnHata_Draw, (ActorFunc)EnHata_Reset,
+	    ACTOR_EN_HATA, ACTORCAT_PROP, FLAGS, OBJECT_HATA, ACTOR_FACTORY(EnHata), (ActorFunc)EnHata_Init, (ActorFunc)EnHata_Destroy, (ActorFunc)EnHata_Update, (ActorFunc)EnHata_Draw, (ActorFunc)EnHata_Reset,
 	};
 
 	sCylinderInit = {

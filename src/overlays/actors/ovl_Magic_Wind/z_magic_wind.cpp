@@ -27,7 +27,7 @@ void MagicWind_WaitAtFullSize(MagicWind* pthis, GlobalContext* globalCtx);
 void MagicWind_Grow(MagicWind* pthis, GlobalContext* globalCtx);
 
 ActorInit Magic_Wind_InitVars = {
-    ACTOR_MAGIC_WIND, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(MagicWind), (ActorFunc)MagicWind_Init, (ActorFunc)MagicWind_Destroy, (ActorFunc)MagicWind_Update, (ActorFunc)MagicWind_Draw, (ActorFunc)MagicWind_Reset,
+    ACTOR_MAGIC_WIND, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(MagicWind), (ActorFunc)MagicWind_Init, (ActorFunc)MagicWind_Destroy, (ActorFunc)MagicWind_Update, (ActorFunc)MagicWind_Draw, (ActorFunc)MagicWind_Reset,
 };
 
 #include "overlays/ovl_Magic_Wind/ovl_Magic_Wind.cpp"
@@ -208,6 +208,6 @@ void MagicWind_Draw(Actor* thisx, GlobalContext* globalCtx)
 void MagicWind_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Magic_Wind_InitVars = {
-	    ACTOR_MAGIC_WIND, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(MagicWind), (ActorFunc)MagicWind_Init, (ActorFunc)MagicWind_Destroy, (ActorFunc)MagicWind_Update, (ActorFunc)MagicWind_Draw, (ActorFunc)MagicWind_Reset,
+	    ACTOR_MAGIC_WIND, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(MagicWind), (ActorFunc)MagicWind_Init, (ActorFunc)MagicWind_Destroy, (ActorFunc)MagicWind_Update, (ActorFunc)MagicWind_Draw, (ActorFunc)MagicWind_Reset,
 	};
 }

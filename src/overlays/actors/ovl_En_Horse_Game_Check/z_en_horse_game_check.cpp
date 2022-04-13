@@ -42,7 +42,7 @@ void EnHorseGameCheck_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHorseGameCheck_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Horse_Game_Check_InitVars = {
-    ACTOR_EN_HORSE_GAME_CHECK,	       ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnHorseGameCheck), (ActorFunc)EnHorseGameCheck_Init, (ActorFunc)EnHorseGameCheck_Destroy, (ActorFunc)EnHorseGameCheck_Update, (ActorFunc)EnHorseGameCheck_Draw,
+    ACTOR_EN_HORSE_GAME_CHECK,	       ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnHorseGameCheck), (ActorFunc)EnHorseGameCheck_Init, (ActorFunc)EnHorseGameCheck_Destroy, (ActorFunc)EnHorseGameCheck_Update, (ActorFunc)EnHorseGameCheck_Draw,
     (ActorFunc)EnHorseGameCheck_Reset,
 };
 
@@ -541,7 +541,7 @@ void EnHorseGameCheck_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHorseGameCheck_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Horse_Game_Check_InitVars = {
-	    ACTOR_EN_HORSE_GAME_CHECK,	       ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnHorseGameCheck), (ActorFunc)EnHorseGameCheck_Init, (ActorFunc)EnHorseGameCheck_Destroy, (ActorFunc)EnHorseGameCheck_Update, (ActorFunc)EnHorseGameCheck_Draw,
+	    ACTOR_EN_HORSE_GAME_CHECK,	       ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnHorseGameCheck), (ActorFunc)EnHorseGameCheck_Init, (ActorFunc)EnHorseGameCheck_Destroy, (ActorFunc)EnHorseGameCheck_Update, (ActorFunc)EnHorseGameCheck_Draw,
 	    (ActorFunc)EnHorseGameCheck_Reset,
 	};
 

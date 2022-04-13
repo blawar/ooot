@@ -33,7 +33,7 @@ void BgJyaLift_Move(BgJyaLift* pthis, GlobalContext* globalCtx);
 static s16 sIsSpawned = false;
 
 ActorInit Bg_Jya_Lift_InitVars = {
-    ACTOR_BG_JYA_LIFT, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaLift), (ActorFunc)BgJyaLift_Init, (ActorFunc)BgJyaLift_Destroy, (ActorFunc)BgJyaLift_Update, (ActorFunc)BgJyaLift_Draw, (ActorFunc)BgJyaLift_Reset,
+    ACTOR_BG_JYA_LIFT, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaLift), (ActorFunc)BgJyaLift_Init, (ActorFunc)BgJyaLift_Destroy, (ActorFunc)BgJyaLift_Update, (ActorFunc)BgJyaLift_Draw, (ActorFunc)BgJyaLift_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -184,6 +184,6 @@ void BgJyaLift_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sIsSpawned = false;
 
 	Bg_Jya_Lift_InitVars = {
-	    ACTOR_BG_JYA_LIFT, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaLift), (ActorFunc)BgJyaLift_Init, (ActorFunc)BgJyaLift_Destroy, (ActorFunc)BgJyaLift_Update, (ActorFunc)BgJyaLift_Draw, (ActorFunc)BgJyaLift_Reset,
+	    ACTOR_BG_JYA_LIFT, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaLift), (ActorFunc)BgJyaLift_Init, (ActorFunc)BgJyaLift_Destroy, (ActorFunc)BgJyaLift_Update, (ActorFunc)BgJyaLift_Draw, (ActorFunc)BgJyaLift_Reset,
 	};
 }

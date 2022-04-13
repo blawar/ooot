@@ -44,7 +44,7 @@ void EnfHG_Noop(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* skin);
 static Vec3f audioVec_43 = {0.0f, 0.0f, 50.0f};
 
 ActorInit En_fHG_InitVars = {
-    ACTOR_EN_FHG, ACTORCAT_BG, FLAGS, OBJECT_FHG, sizeof(EnfHG), (ActorFunc)EnfHG_Init, (ActorFunc)EnfHG_Destroy, (ActorFunc)EnfHG_Update, (ActorFunc)EnfHG_Draw, (ActorFunc)EnfHG_Reset,
+    ACTOR_EN_FHG, ACTORCAT_BG, FLAGS, OBJECT_FHG, ACTOR_FACTORY(EnfHG), (ActorFunc)EnfHG_Init, (ActorFunc)EnfHG_Destroy, (ActorFunc)EnfHG_Update, (ActorFunc)EnfHG_Draw, (ActorFunc)EnfHG_Reset,
 };
 
 static EnfHGPainting sPaintings[] = {
@@ -785,6 +785,6 @@ void EnfHG_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	audioVec_43 = {0.0f, 0.0f, 50.0f};
 
 	En_fHG_InitVars = {
-	    ACTOR_EN_FHG, ACTORCAT_BG, FLAGS, OBJECT_FHG, sizeof(EnfHG), (ActorFunc)EnfHG_Init, (ActorFunc)EnfHG_Destroy, (ActorFunc)EnfHG_Update, (ActorFunc)EnfHG_Draw, (ActorFunc)EnfHG_Reset,
+	    ACTOR_EN_FHG, ACTORCAT_BG, FLAGS, OBJECT_FHG, ACTOR_FACTORY(EnfHG), (ActorFunc)EnfHG_Init, (ActorFunc)EnfHG_Destroy, (ActorFunc)EnfHG_Update, (ActorFunc)EnfHG_Draw, (ActorFunc)EnfHG_Reset,
 	};
 }

@@ -50,7 +50,7 @@ void EnRr_Stunned(EnRr* pthis, GlobalContext* globalCtx);
 static f32 segmentHeights_51[] = {0.0f, 500.0f, 750.0f, 1000.0f, 1000.0f};
 
 ActorInit En_Rr_InitVars = {
-    ACTOR_EN_RR, ACTORCAT_ENEMY, FLAGS, OBJECT_RR, sizeof(EnRr), (ActorFunc)EnRr_Init, (ActorFunc)EnRr_Destroy, (ActorFunc)EnRr_Update, (ActorFunc)EnRr_Draw, (ActorFunc)EnRr_Reset,
+    ACTOR_EN_RR, ACTORCAT_ENEMY, FLAGS, OBJECT_RR, ACTOR_FACTORY(EnRr), (ActorFunc)EnRr_Init, (ActorFunc)EnRr_Destroy, (ActorFunc)EnRr_Update, (ActorFunc)EnRr_Draw, (ActorFunc)EnRr_Reset,
 };
 
 static const char* sDropNames[] = {
@@ -996,7 +996,7 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnRr_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Rr_InitVars = {
-	    ACTOR_EN_RR, ACTORCAT_ENEMY, FLAGS, OBJECT_RR, sizeof(EnRr), (ActorFunc)EnRr_Init, (ActorFunc)EnRr_Destroy, (ActorFunc)EnRr_Update, (ActorFunc)EnRr_Draw, (ActorFunc)EnRr_Reset,
+	    ACTOR_EN_RR, ACTORCAT_ENEMY, FLAGS, OBJECT_RR, ACTOR_FACTORY(EnRr), (ActorFunc)EnRr_Init, (ActorFunc)EnRr_Destroy, (ActorFunc)EnRr_Update, (ActorFunc)EnRr_Draw, (ActorFunc)EnRr_Reset,
 	};
 
 	sCylinderInit1 = {

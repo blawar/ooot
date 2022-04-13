@@ -33,7 +33,7 @@ void func_8087E2D8(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
 void func_8087E34C(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Haka_MeganeBG_InitVars = {
-    ACTOR_BG_HAKA_MEGANEBG,	     ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaMeganeBG), (ActorFunc)BgHakaMeganeBG_Init, (ActorFunc)BgHakaMeganeBG_Destroy, (ActorFunc)BgHakaMeganeBG_Update, (ActorFunc)BgHakaMeganeBG_Draw,
+    ACTOR_BG_HAKA_MEGANEBG,	     ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaMeganeBG), (ActorFunc)BgHakaMeganeBG_Init, (ActorFunc)BgHakaMeganeBG_Destroy, (ActorFunc)BgHakaMeganeBG_Update, (ActorFunc)BgHakaMeganeBG_Draw,
     (ActorFunc)BgHakaMeganeBG_Reset,
 };
 
@@ -266,7 +266,7 @@ void BgHakaMeganeBG_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHakaMeganeBG_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Haka_MeganeBG_InitVars = {
-	    ACTOR_BG_HAKA_MEGANEBG,	     ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaMeganeBG), (ActorFunc)BgHakaMeganeBG_Init, (ActorFunc)BgHakaMeganeBG_Destroy, (ActorFunc)BgHakaMeganeBG_Update, (ActorFunc)BgHakaMeganeBG_Draw,
+	    ACTOR_BG_HAKA_MEGANEBG,	     ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaMeganeBG), (ActorFunc)BgHakaMeganeBG_Init, (ActorFunc)BgHakaMeganeBG_Destroy, (ActorFunc)BgHakaMeganeBG_Update, (ActorFunc)BgHakaMeganeBG_Draw,
 	    (ActorFunc)BgHakaMeganeBG_Reset,
 	};
 }

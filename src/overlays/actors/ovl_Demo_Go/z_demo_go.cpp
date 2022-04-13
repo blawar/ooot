@@ -48,7 +48,7 @@ static DemoGoDrawFunc D_8097D468[] = {
 };
 
 ActorInit Demo_Go_InitVars = {
-    ACTOR_DEMO_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(DemoGo), (ActorFunc)DemoGo_Init, (ActorFunc)DemoGo_Destroy, (ActorFunc)DemoGo_Update, (ActorFunc)DemoGo_Draw, (ActorFunc)DemoGo_Reset,
+    ACTOR_DEMO_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(DemoGo), (ActorFunc)DemoGo_Init, (ActorFunc)DemoGo_Destroy, (ActorFunc)DemoGo_Update, (ActorFunc)DemoGo_Draw, (ActorFunc)DemoGo_Reset,
 };
 
 s32 func_8097C870(DemoGo* pthis)
@@ -413,6 +413,6 @@ void DemoGo_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DemoGo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Go_InitVars = {
-	    ACTOR_DEMO_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(DemoGo), (ActorFunc)DemoGo_Init, (ActorFunc)DemoGo_Destroy, (ActorFunc)DemoGo_Update, (ActorFunc)DemoGo_Draw, (ActorFunc)DemoGo_Reset,
+	    ACTOR_DEMO_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(DemoGo), (ActorFunc)DemoGo_Init, (ActorFunc)DemoGo_Destroy, (ActorFunc)DemoGo_Update, (ActorFunc)DemoGo_Draw, (ActorFunc)DemoGo_Reset,
 	};
 }

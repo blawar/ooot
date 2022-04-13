@@ -21,7 +21,7 @@ void EndTitle_DrawFull(Actor* thisx, GlobalContext* globalCtx);
 void EndTitle_DrawNintendoLogo(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit End_Title_InitVars = {
-    ACTOR_END_TITLE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EndTitle), (ActorFunc)EndTitle_Init, (ActorFunc)EndTitle_Destroy, (ActorFunc)EndTitle_Update, (ActorFunc)EndTitle_DrawFull, (ActorFunc)EndTitle_Reset,
+    ACTOR_END_TITLE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EndTitle), (ActorFunc)EndTitle_Init, (ActorFunc)EndTitle_Destroy, (ActorFunc)EndTitle_Update, (ActorFunc)EndTitle_DrawFull, (ActorFunc)EndTitle_Reset,
 };
 
 #include "overlays/ovl_End_Title/ovl_End_Title.cpp"
@@ -133,6 +133,6 @@ void EndTitle_DrawNintendoLogo(Actor* thisx, GlobalContext* globalCtx)
 void EndTitle_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	End_Title_InitVars = {
-	    ACTOR_END_TITLE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EndTitle), (ActorFunc)EndTitle_Init, (ActorFunc)EndTitle_Destroy, (ActorFunc)EndTitle_Update, (ActorFunc)EndTitle_DrawFull, (ActorFunc)EndTitle_Reset,
+	    ACTOR_END_TITLE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EndTitle), (ActorFunc)EndTitle_Init, (ActorFunc)EndTitle_Destroy, (ActorFunc)EndTitle_Update, (ActorFunc)EndTitle_DrawFull, (ActorFunc)EndTitle_Reset,
 	};
 }

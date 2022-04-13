@@ -48,7 +48,7 @@ static Color_RGBA8 sEffectEnvColor = {100, 255, 255, 255};
 static Vec3f sEffectPosAccel = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Bigokuta_InitVars = {
-    ACTOR_EN_BIGOKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_BIGOKUTA, sizeof(EnBigokuta), (ActorFunc)EnBigokuta_Init, (ActorFunc)EnBigokuta_Destroy, (ActorFunc)EnBigokuta_Update, (ActorFunc)EnBigokuta_Draw, (ActorFunc)EnBigokuta_Reset,
+    ACTOR_EN_BIGOKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_BIGOKUTA, ACTOR_FACTORY(EnBigokuta), (ActorFunc)EnBigokuta_Init, (ActorFunc)EnBigokuta_Destroy, (ActorFunc)EnBigokuta_Update, (ActorFunc)EnBigokuta_Draw, (ActorFunc)EnBigokuta_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementInit[1] = {
@@ -1099,7 +1099,7 @@ void EnBigokuta_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sEffectPosAccel = {0.0f, 0.0f, 0.0f};
 
 	En_Bigokuta_InitVars = {
-	    ACTOR_EN_BIGOKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_BIGOKUTA, sizeof(EnBigokuta), (ActorFunc)EnBigokuta_Init, (ActorFunc)EnBigokuta_Destroy, (ActorFunc)EnBigokuta_Update, (ActorFunc)EnBigokuta_Draw, (ActorFunc)EnBigokuta_Reset,
+	    ACTOR_EN_BIGOKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_BIGOKUTA, ACTOR_FACTORY(EnBigokuta), (ActorFunc)EnBigokuta_Init, (ActorFunc)EnBigokuta_Destroy, (ActorFunc)EnBigokuta_Update, (ActorFunc)EnBigokuta_Draw, (ActorFunc)EnBigokuta_Reset,
 	};
 
 	sJntSphInit = {

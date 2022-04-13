@@ -60,7 +60,7 @@ static Vec3f sLoachMouthOffset_218 = {500.0f, 500.0f, 0.0f};
 #define SINKING_LURE_SEG_COUNT 20
 
 ActorInit Fishing_InitVars = {
-    ACTOR_FISHING, ACTORCAT_NPC, FLAGS, OBJECT_FISH, sizeof(Fishing), (ActorFunc)Fishing_Init, (ActorFunc)Fishing_Destroy, (ActorFunc)Fishing_UpdateFish, (ActorFunc)Fishing_DrawFish, (ActorFunc)Fishing_Reset,
+    ACTOR_FISHING, ACTORCAT_NPC, FLAGS, OBJECT_FISH, ACTOR_FACTORY(Fishing), (ActorFunc)Fishing_Init, (ActorFunc)Fishing_Destroy, (ActorFunc)Fishing_UpdateFish, (ActorFunc)Fishing_DrawFish, (ActorFunc)Fishing_Reset,
 };
 
 static f32 D_80B7A650 = 0.0f;
@@ -6702,7 +6702,7 @@ void Fishing_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sLoachMouthOffset_218 = {500.0f, 500.0f, 0.0f};
 
 	Fishing_InitVars = {
-	    ACTOR_FISHING, ACTORCAT_NPC, FLAGS, OBJECT_FISH, sizeof(Fishing), (ActorFunc)Fishing_Init, (ActorFunc)Fishing_Destroy, (ActorFunc)Fishing_UpdateFish, (ActorFunc)Fishing_DrawFish, (ActorFunc)Fishing_Reset,
+	    ACTOR_FISHING, ACTORCAT_NPC, FLAGS, OBJECT_FISH, ACTOR_FACTORY(Fishing), (ActorFunc)Fishing_Init, (ActorFunc)Fishing_Destroy, (ActorFunc)Fishing_UpdateFish, (ActorFunc)Fishing_DrawFish, (ActorFunc)Fishing_Reset,
 	};
 
 	D_80B7A650 = 0.0f;

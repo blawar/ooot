@@ -38,7 +38,7 @@ static ObjMure2SetPosFunc setPosFunc_33[] = {
 };
 
 ActorInit Obj_Mure2_InitVars = {
-    ACTOR_OBJ_MURE2, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjMure2), (ActorFunc)ObjMure2_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMure2_Update, NULL, (ActorFunc)ObjMure2_Reset,
+    ACTOR_OBJ_MURE2, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjMure2), (ActorFunc)ObjMure2_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMure2_Update, NULL, (ActorFunc)ObjMure2_Reset,
 };
 
 static f32 sDistSquared1[] = {SQ(1600.0f), SQ(1600.0f), SQ(1600.0f)};
@@ -251,6 +251,6 @@ void ObjMure2_Update(Actor* thisx, GlobalContext* globalCtx)
 void ObjMure2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Mure2_InitVars = {
-	    ACTOR_OBJ_MURE2, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjMure2), (ActorFunc)ObjMure2_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMure2_Update, NULL, (ActorFunc)ObjMure2_Reset,
+	    ACTOR_OBJ_MURE2, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjMure2), (ActorFunc)ObjMure2_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMure2_Update, NULL, (ActorFunc)ObjMure2_Reset,
 	};
 }

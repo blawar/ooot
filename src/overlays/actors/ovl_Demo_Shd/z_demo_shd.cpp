@@ -23,7 +23,7 @@ void DemoShd_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80991298(DemoShd* pthis, GlobalContext* globalCtx);
 
 ActorInit Demo_Shd_InitVars = {
-    ACTOR_DEMO_SHD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DemoShd), (ActorFunc)DemoShd_Init, (ActorFunc)DemoShd_Destroy, (ActorFunc)DemoShd_Update, (ActorFunc)DemoShd_Draw, (ActorFunc)DemoShd_Reset,
+    ACTOR_DEMO_SHD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DemoShd), (ActorFunc)DemoShd_Init, (ActorFunc)DemoShd_Destroy, (ActorFunc)DemoShd_Update, (ActorFunc)DemoShd_Draw, (ActorFunc)DemoShd_Reset,
 };
 
 #include "overlays/ovl_Demo_Shd/ovl_Demo_Shd.cpp"
@@ -148,6 +148,6 @@ void DemoShd_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DemoShd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Shd_InitVars = {
-	    ACTOR_DEMO_SHD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DemoShd), (ActorFunc)DemoShd_Init, (ActorFunc)DemoShd_Destroy, (ActorFunc)DemoShd_Update, (ActorFunc)DemoShd_Draw, (ActorFunc)DemoShd_Reset,
+	    ACTOR_DEMO_SHD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DemoShd), (ActorFunc)DemoShd_Init, (ActorFunc)DemoShd_Destroy, (ActorFunc)DemoShd_Update, (ActorFunc)DemoShd_Draw, (ActorFunc)DemoShd_Reset,
 	};
 }

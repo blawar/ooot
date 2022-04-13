@@ -56,7 +56,7 @@ static s16 rotSpeedYtarget = 0;
 static s16 rotSpeedY = 0;
 
 ActorInit En_Kusa_InitVars = {
-    ACTOR_EN_KUSA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnKusa), (ActorFunc)EnKusa_Init, (ActorFunc)EnKusa_Destroy, (ActorFunc)EnKusa_Update, NULL, (ActorFunc)EnKusa_Reset,
+    ACTOR_EN_KUSA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnKusa), (ActorFunc)EnKusa_Init, (ActorFunc)EnKusa_Destroy, (ActorFunc)EnKusa_Update, NULL, (ActorFunc)EnKusa_Reset,
 };
 
 static s16 sObjectIds[] = {OBJECT_GAMEPLAY_FIELD_KEEP, OBJECT_KUSA, OBJECT_KUSA};
@@ -591,7 +591,7 @@ void EnKusa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	rotSpeedY = 0;
 
 	En_Kusa_InitVars = {
-	    ACTOR_EN_KUSA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnKusa), (ActorFunc)EnKusa_Init, (ActorFunc)EnKusa_Destroy, (ActorFunc)EnKusa_Update, NULL, (ActorFunc)EnKusa_Reset,
+	    ACTOR_EN_KUSA, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnKusa), (ActorFunc)EnKusa_Init, (ActorFunc)EnKusa_Destroy, (ActorFunc)EnKusa_Update, NULL, (ActorFunc)EnKusa_Reset,
 	};
 
 	sCylinderInit = {

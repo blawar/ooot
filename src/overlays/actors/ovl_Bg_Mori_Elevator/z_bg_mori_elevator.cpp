@@ -32,7 +32,7 @@ void BgMoriElevator_MoveAboveGround(BgMoriElevator* pthis, GlobalContext* global
 static s16 sIsSpawned = false;
 
 ActorInit Bg_Mori_Elevator_InitVars = {
-    ACTOR_BG_MORI_ELEVATOR, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriElevator), (ActorFunc)BgMoriElevator_Init, (ActorFunc)BgMoriElevator_Destroy, (ActorFunc)BgMoriElevator_Update, NULL, (ActorFunc)BgMoriElevator_Reset,
+    ACTOR_BG_MORI_ELEVATOR, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriElevator), (ActorFunc)BgMoriElevator_Init, (ActorFunc)BgMoriElevator_Destroy, (ActorFunc)BgMoriElevator_Update, NULL, (ActorFunc)BgMoriElevator_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -334,6 +334,6 @@ void BgMoriElevator_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sIsSpawned = false;
 
 	Bg_Mori_Elevator_InitVars = {
-	    ACTOR_BG_MORI_ELEVATOR, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriElevator), (ActorFunc)BgMoriElevator_Init, (ActorFunc)BgMoriElevator_Destroy, (ActorFunc)BgMoriElevator_Update, NULL, (ActorFunc)BgMoriElevator_Reset,
+	    ACTOR_BG_MORI_ELEVATOR, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriElevator), (ActorFunc)BgMoriElevator_Init, (ActorFunc)BgMoriElevator_Destroy, (ActorFunc)BgMoriElevator_Update, NULL, (ActorFunc)BgMoriElevator_Reset,
 	};
 }

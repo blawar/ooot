@@ -33,7 +33,7 @@ void BgHidanDalm_Shrink(BgHidanDalm* pthis, GlobalContext* globalCtx);
 static Vec3f accel_31 = {0, 0, 0};
 
 ActorInit Bg_Hidan_Dalm_InitVars = {
-    ACTOR_BG_HIDAN_DALM, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanDalm), (ActorFunc)BgHidanDalm_Init, (ActorFunc)BgHidanDalm_Destroy, (ActorFunc)BgHidanDalm_Update, (ActorFunc)BgHidanDalm_Draw, (ActorFunc)BgHidanDalm_Reset,
+    ACTOR_BG_HIDAN_DALM, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanDalm), (ActorFunc)BgHidanDalm_Init, (ActorFunc)BgHidanDalm_Destroy, (ActorFunc)BgHidanDalm_Update, (ActorFunc)BgHidanDalm_Draw, (ActorFunc)BgHidanDalm_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementInit[4] = {
@@ -252,7 +252,7 @@ void BgHidanDalm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	accel_31 = {0, 0, 0};
 
 	Bg_Hidan_Dalm_InitVars = {
-	    ACTOR_BG_HIDAN_DALM, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanDalm), (ActorFunc)BgHidanDalm_Init, (ActorFunc)BgHidanDalm_Destroy, (ActorFunc)BgHidanDalm_Update, (ActorFunc)BgHidanDalm_Draw, (ActorFunc)BgHidanDalm_Reset,
+	    ACTOR_BG_HIDAN_DALM, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanDalm), (ActorFunc)BgHidanDalm_Init, (ActorFunc)BgHidanDalm_Destroy, (ActorFunc)BgHidanDalm_Update, (ActorFunc)BgHidanDalm_Draw, (ActorFunc)BgHidanDalm_Reset,
 	};
 
 	sTrisInit = {

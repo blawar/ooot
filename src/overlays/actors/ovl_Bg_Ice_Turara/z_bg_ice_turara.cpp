@@ -59,7 +59,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 ActorInit Bg_Ice_Turara_InitVars = {
-    ACTOR_BG_ICE_TURARA, ACTORCAT_PROP, FLAGS, OBJECT_ICE_OBJECTS, sizeof(BgIceTurara), (ActorFunc)BgIceTurara_Init, (ActorFunc)BgIceTurara_Destroy, (ActorFunc)BgIceTurara_Update, (ActorFunc)BgIceTurara_Draw, (ActorFunc)BgIceTurara_Reset,
+    ACTOR_BG_ICE_TURARA, ACTORCAT_PROP, FLAGS, OBJECT_ICE_OBJECTS, ACTOR_FACTORY(BgIceTurara), (ActorFunc)BgIceTurara_Init, (ActorFunc)BgIceTurara_Destroy, (ActorFunc)BgIceTurara_Update, (ActorFunc)BgIceTurara_Draw, (ActorFunc)BgIceTurara_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -265,6 +265,6 @@ void BgIceTurara_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	Bg_Ice_Turara_InitVars = {
-	    ACTOR_BG_ICE_TURARA, ACTORCAT_PROP, FLAGS, OBJECT_ICE_OBJECTS, sizeof(BgIceTurara), (ActorFunc)BgIceTurara_Init, (ActorFunc)BgIceTurara_Destroy, (ActorFunc)BgIceTurara_Update, (ActorFunc)BgIceTurara_Draw, (ActorFunc)BgIceTurara_Reset,
+	    ACTOR_BG_ICE_TURARA, ACTORCAT_PROP, FLAGS, OBJECT_ICE_OBJECTS, ACTOR_FACTORY(BgIceTurara), (ActorFunc)BgIceTurara_Init, (ActorFunc)BgIceTurara_Destroy, (ActorFunc)BgIceTurara_Update, (ActorFunc)BgIceTurara_Draw, (ActorFunc)BgIceTurara_Reset,
 	};
 }

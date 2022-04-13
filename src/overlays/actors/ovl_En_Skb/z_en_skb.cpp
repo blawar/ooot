@@ -113,7 +113,7 @@ static DamageTable sDamageTable = {
 };
 
 ActorInit En_Skb_InitVars = {
-    ACTOR_EN_SKB, ACTORCAT_ENEMY, FLAGS, OBJECT_SKB, sizeof(EnSkb), (ActorFunc)EnSkb_Init, (ActorFunc)EnSkb_Destroy, (ActorFunc)EnSkb_Update, (ActorFunc)EnSkb_Draw, (ActorFunc)EnSkb_Reset,
+    ACTOR_EN_SKB, ACTORCAT_ENEMY, FLAGS, OBJECT_SKB, ACTOR_FACTORY(EnSkb), (ActorFunc)EnSkb_Init, (ActorFunc)EnSkb_Destroy, (ActorFunc)EnSkb_Update, (ActorFunc)EnSkb_Draw, (ActorFunc)EnSkb_Reset,
 };
 
 void EnSkb_SetupAction(EnSkb* pthis, EnSkbActionFunc actionFunc)
@@ -705,6 +705,6 @@ void EnSkb_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Skb_InitVars = {
-	    ACTOR_EN_SKB, ACTORCAT_ENEMY, FLAGS, OBJECT_SKB, sizeof(EnSkb), (ActorFunc)EnSkb_Init, (ActorFunc)EnSkb_Destroy, (ActorFunc)EnSkb_Update, (ActorFunc)EnSkb_Draw, (ActorFunc)EnSkb_Reset,
+	    ACTOR_EN_SKB, ACTORCAT_ENEMY, FLAGS, OBJECT_SKB, ACTOR_FACTORY(EnSkb), (ActorFunc)EnSkb_Init, (ActorFunc)EnSkb_Destroy, (ActorFunc)EnSkb_Update, (ActorFunc)EnSkb_Draw, (ActorFunc)EnSkb_Reset,
 	};
 }

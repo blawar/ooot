@@ -53,7 +53,7 @@ static Vec3f effectVelocity_82 = {0.0f, 0.0f, 0.0f};
 static Vec3f effectAccel_82 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Bili_InitVars = {
-    ACTOR_EN_BILI, ACTORCAT_ENEMY, FLAGS, OBJECT_BL, sizeof(EnBili), (ActorFunc)EnBili_Init, (ActorFunc)EnBili_Destroy, (ActorFunc)EnBili_Update, (ActorFunc)EnBili_Draw, (ActorFunc)EnBili_Reset,
+    ACTOR_EN_BILI, ACTORCAT_ENEMY, FLAGS, OBJECT_BL, ACTOR_FACTORY(EnBili), (ActorFunc)EnBili_Init, (ActorFunc)EnBili_Destroy, (ActorFunc)EnBili_Update, (ActorFunc)EnBili_Draw, (ActorFunc)EnBili_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -941,7 +941,7 @@ void EnBili_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	effectAccel_82 = {0.0f, 0.0f, 0.0f};
 
 	En_Bili_InitVars = {
-	    ACTOR_EN_BILI, ACTORCAT_ENEMY, FLAGS, OBJECT_BL, sizeof(EnBili), (ActorFunc)EnBili_Init, (ActorFunc)EnBili_Destroy, (ActorFunc)EnBili_Update, (ActorFunc)EnBili_Draw, (ActorFunc)EnBili_Reset,
+	    ACTOR_EN_BILI, ACTORCAT_ENEMY, FLAGS, OBJECT_BL, ACTOR_FACTORY(EnBili), (ActorFunc)EnBili_Init, (ActorFunc)EnBili_Destroy, (ActorFunc)EnBili_Update, (ActorFunc)EnBili_Draw, (ActorFunc)EnBili_Reset,
 	};
 
 	sCylinderInit = {

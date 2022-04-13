@@ -72,7 +72,7 @@ static Vec3f D_809B4E94_44 = {0.0f, -400.0f, 1500.0f};
 static Vec3f D_809B4EA0_44 = {0.0f, 0.0f, -300.0f};
 
 ActorInit En_Arrow_InitVars = {
-    ACTOR_EN_ARROW, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnArrow), (ActorFunc)EnArrow_Init, (ActorFunc)EnArrow_Destroy, (ActorFunc)EnArrow_Update, (ActorFunc)EnArrow_Draw, (ActorFunc)EnArrow_Reset,
+    ACTOR_EN_ARROW, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnArrow), (ActorFunc)EnArrow_Init, (ActorFunc)EnArrow_Destroy, (ActorFunc)EnArrow_Update, (ActorFunc)EnArrow_Draw, (ActorFunc)EnArrow_Reset,
 };
 
 static ColliderQuadInit sColliderInit = {
@@ -615,7 +615,7 @@ void EnArrow_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_809B4EA0_44 = {0.0f, 0.0f, -300.0f};
 
 	En_Arrow_InitVars = {
-	    ACTOR_EN_ARROW, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnArrow), (ActorFunc)EnArrow_Init, (ActorFunc)EnArrow_Destroy, (ActorFunc)EnArrow_Update, (ActorFunc)EnArrow_Draw, (ActorFunc)EnArrow_Reset,
+	    ACTOR_EN_ARROW, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnArrow), (ActorFunc)EnArrow_Init, (ActorFunc)EnArrow_Destroy, (ActorFunc)EnArrow_Update, (ActorFunc)EnArrow_Draw, (ActorFunc)EnArrow_Reset,
 	};
 
 	sColliderInit = {

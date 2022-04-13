@@ -129,7 +129,7 @@ static s32 sRandSeed1_143;
 static s32 sRandSeed2_143;
 
 ActorInit Boss_Tw_InitVars = {
-    ACTOR_BOSS_TW, ACTORCAT_BOSS, FLAGS, OBJECT_TW, sizeof(BossTw), (ActorFunc)BossTw_Init, (ActorFunc)BossTw_Destroy, (ActorFunc)BossTw_Update, (ActorFunc)BossTw_Draw, (ActorFunc)BossTw_Reset,
+    ACTOR_BOSS_TW, ACTORCAT_BOSS, FLAGS, OBJECT_TW, ACTOR_FACTORY(BossTw), (ActorFunc)BossTw_Init, (ActorFunc)BossTw_Destroy, (ActorFunc)BossTw_Update, (ActorFunc)BossTw_Draw, (ActorFunc)BossTw_Reset,
 };
 
 static Vec3f D_8094A7D0 = {0.0f, 0.0f, 1000.0f};
@@ -6080,7 +6080,7 @@ void BossTw_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sRandSeed2_143 = 0;
 
 	Boss_Tw_InitVars = {
-	    ACTOR_BOSS_TW, ACTORCAT_BOSS, FLAGS, OBJECT_TW, sizeof(BossTw), (ActorFunc)BossTw_Init, (ActorFunc)BossTw_Destroy, (ActorFunc)BossTw_Update, (ActorFunc)BossTw_Draw, (ActorFunc)BossTw_Reset,
+	    ACTOR_BOSS_TW, ACTORCAT_BOSS, FLAGS, OBJECT_TW, ACTOR_FACTORY(BossTw), (ActorFunc)BossTw_Init, (ActorFunc)BossTw_Destroy, (ActorFunc)BossTw_Update, (ActorFunc)BossTw_Draw, (ActorFunc)BossTw_Reset,
 	};
 
 	D_8094A7D0 = {0.0f, 0.0f, 1000.0f};

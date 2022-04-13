@@ -36,7 +36,7 @@ void func_80A6A724(EnHorseLinkChild* pthis);
 static s32 D_80A6AF5C_34[] = {1, 19};
 
 ActorInit En_Horse_Link_Child_InitVars = {
-    ACTOR_EN_HORSE_LINK_CHILD,	       ACTORCAT_BG, FLAGS, OBJECT_HORSE_LINK_CHILD, sizeof(EnHorseLinkChild), (ActorFunc)EnHorseLinkChild_Init, (ActorFunc)EnHorseLinkChild_Destroy, (ActorFunc)EnHorseLinkChild_Update, (ActorFunc)EnHorseLinkChild_Draw,
+    ACTOR_EN_HORSE_LINK_CHILD,	       ACTORCAT_BG, FLAGS, OBJECT_HORSE_LINK_CHILD, ACTOR_FACTORY(EnHorseLinkChild), (ActorFunc)EnHorseLinkChild_Init, (ActorFunc)EnHorseLinkChild_Destroy, (ActorFunc)EnHorseLinkChild_Update, (ActorFunc)EnHorseLinkChild_Draw,
     (ActorFunc)EnHorseLinkChild_Reset,
 };
 
@@ -776,7 +776,7 @@ void EnHorseLinkChild_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	    ACTORCAT_BG,
 	    FLAGS,
 	    OBJECT_HORSE_LINK_CHILD,
-	    sizeof(EnHorseLinkChild),
+	    ACTOR_FACTORY(EnHorseLinkChild),
 	    (ActorFunc)EnHorseLinkChild_Init,
 	    (ActorFunc)EnHorseLinkChild_Destroy,
 	    (ActorFunc)EnHorseLinkChild_Update,

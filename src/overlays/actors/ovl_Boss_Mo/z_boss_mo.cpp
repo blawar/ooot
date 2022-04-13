@@ -614,7 +614,7 @@ static u16 unkSfx_109[] = {
 };
 
 ActorInit Boss_Mo_InitVars = {
-    ACTOR_BOSS_MO, ACTORCAT_BOSS, FLAGS, OBJECT_MO, sizeof(BossMo), (ActorFunc)BossMo_Init, (ActorFunc)BossMo_Destroy, (ActorFunc)BossMo_UpdateTent, (ActorFunc)BossMo_DrawTent, (ActorFunc)BossMo_Reset,
+    ACTOR_BOSS_MO, ACTORCAT_BOSS, FLAGS, OBJECT_MO, ACTOR_FACTORY(BossMo), (ActorFunc)BossMo_Init, (ActorFunc)BossMo_Destroy, (ActorFunc)BossMo_UpdateTent, (ActorFunc)BossMo_DrawTent, (ActorFunc)BossMo_Reset,
 };
 
 static BossMo* sMorphaCore = NULL;
@@ -3926,7 +3926,7 @@ void BossMo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_109 = {0.0f, 0.0f, 0.0f};
 
 	Boss_Mo_InitVars = {
-	    ACTOR_BOSS_MO, ACTORCAT_BOSS, FLAGS, OBJECT_MO, sizeof(BossMo), (ActorFunc)BossMo_Init, (ActorFunc)BossMo_Destroy, (ActorFunc)BossMo_UpdateTent, (ActorFunc)BossMo_DrawTent, (ActorFunc)BossMo_Reset,
+	    ACTOR_BOSS_MO, ACTORCAT_BOSS, FLAGS, OBJECT_MO, ACTOR_FACTORY(BossMo), (ActorFunc)BossMo_Init, (ActorFunc)BossMo_Destroy, (ActorFunc)BossMo_UpdateTent, (ActorFunc)BossMo_DrawTent, (ActorFunc)BossMo_Reset,
 	};
 
 	sMorphaCore = NULL;

@@ -20,7 +20,7 @@ void ObjMakeoshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx);
 void ObjMakeoshihiki_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Obj_Makeoshihiki_InitVars = {
-    ACTOR_OBJ_MAKEOSHIHIKI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjMakeoshihiki), (ActorFunc)ObjMakeoshihiki_Init, (ActorFunc)Actor_Noop, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakeoshihiki_Draw, (ActorFunc)ObjMakeoshihiki_Reset,
+    ACTOR_OBJ_MAKEOSHIHIKI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjMakeoshihiki), (ActorFunc)ObjMakeoshihiki_Init, (ActorFunc)Actor_Noop, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakeoshihiki_Draw, (ActorFunc)ObjMakeoshihiki_Reset,
 };
 
 static BlockConfig sBlocks[] = {
@@ -140,7 +140,7 @@ void ObjMakeoshihiki_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjMakeoshihiki_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Makeoshihiki_InitVars = {
-	    ACTOR_OBJ_MAKEOSHIHIKI,	      ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjMakeoshihiki), (ActorFunc)ObjMakeoshihiki_Init, (ActorFunc)Actor_Noop, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakeoshihiki_Draw,
+	    ACTOR_OBJ_MAKEOSHIHIKI,	      ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjMakeoshihiki), (ActorFunc)ObjMakeoshihiki_Init, (ActorFunc)Actor_Noop, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakeoshihiki_Draw,
 	    (ActorFunc)ObjMakeoshihiki_Reset,
 	};
 }

@@ -46,7 +46,7 @@ static Vec3f legOffsets_69[3] = {
 };
 
 ActorInit En_Dodongo_InitVars = {
-    ACTOR_EN_DODONGO, ACTORCAT_ENEMY, FLAGS, OBJECT_DODONGO, sizeof(EnDodongo), (ActorFunc)EnDodongo_Init, (ActorFunc)EnDodongo_Destroy, (ActorFunc)EnDodongo_Update, (ActorFunc)EnDodongo_Draw, (ActorFunc)EnDodongo_Reset,
+    ACTOR_EN_DODONGO, ACTORCAT_ENEMY, FLAGS, OBJECT_DODONGO, ACTOR_FACTORY(EnDodongo), (ActorFunc)EnDodongo_Init, (ActorFunc)EnDodongo_Destroy, (ActorFunc)EnDodongo_Update, (ActorFunc)EnDodongo_Draw, (ActorFunc)EnDodongo_Reset,
 };
 
 static ColliderJntSphElementInit sBodyElementsInit[6] = {
@@ -1095,7 +1095,7 @@ s32 EnDodongo_AteBomb(EnDodongo* pthis, GlobalContext* globalCtx)
 void EnDodongo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dodongo_InitVars = {
-	    ACTOR_EN_DODONGO, ACTORCAT_ENEMY, FLAGS, OBJECT_DODONGO, sizeof(EnDodongo), (ActorFunc)EnDodongo_Init, (ActorFunc)EnDodongo_Destroy, (ActorFunc)EnDodongo_Update, (ActorFunc)EnDodongo_Draw, (ActorFunc)EnDodongo_Reset,
+	    ACTOR_EN_DODONGO, ACTORCAT_ENEMY, FLAGS, OBJECT_DODONGO, ACTOR_FACTORY(EnDodongo), (ActorFunc)EnDodongo_Init, (ActorFunc)EnDodongo_Destroy, (ActorFunc)EnDodongo_Update, (ActorFunc)EnDodongo_Draw, (ActorFunc)EnDodongo_Reset,
 	};
 
 	sBodyJntSphInit = {

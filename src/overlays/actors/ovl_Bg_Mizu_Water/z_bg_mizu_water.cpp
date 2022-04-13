@@ -35,7 +35,7 @@ static WaterLevel sWaterLevels[] = {
 };
 
 ActorInit Bg_Mizu_Water_InitVars = {
-    ACTOR_BG_MIZU_WATER, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuWater), (ActorFunc)BgMizuWater_Init, (ActorFunc)BgMizuWater_Destroy, (ActorFunc)BgMizuWater_Update, (ActorFunc)BgMizuWater_Draw, (ActorFunc)BgMizuWater_Reset,
+    ACTOR_BG_MIZU_WATER, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuWater), (ActorFunc)BgMizuWater_Init, (ActorFunc)BgMizuWater_Destroy, (ActorFunc)BgMizuWater_Update, (ActorFunc)BgMizuWater_Draw, (ActorFunc)BgMizuWater_Reset,
 };
 
 static f32 sUnused1 = 0;
@@ -408,7 +408,7 @@ void BgMizuWater_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMizuWater_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mizu_Water_InitVars = {
-	    ACTOR_BG_MIZU_WATER, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuWater), (ActorFunc)BgMizuWater_Init, (ActorFunc)BgMizuWater_Destroy, (ActorFunc)BgMizuWater_Update, (ActorFunc)BgMizuWater_Draw, (ActorFunc)BgMizuWater_Reset,
+	    ACTOR_BG_MIZU_WATER, ACTORCAT_BG, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuWater), (ActorFunc)BgMizuWater_Init, (ActorFunc)BgMizuWater_Destroy, (ActorFunc)BgMizuWater_Update, (ActorFunc)BgMizuWater_Draw, (ActorFunc)BgMizuWater_Reset,
 	};
 
 	sUnused1 = 0;

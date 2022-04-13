@@ -97,7 +97,7 @@ static Vec3f blockTrisOffsets1_112[3] = {
 static void* eyeTextures_112[] = {gGerudoRedEyeOpenTex, gGerudoRedEyeHalfTex, gGerudoRedEyeShutTex, gGerudoRedEyeHalfTex};
 
 ActorInit En_GeldB_InitVars = {
-    ACTOR_EN_GELDB, ACTORCAT_ENEMY, FLAGS, OBJECT_GELDB, sizeof(EnGeldB), (ActorFunc)EnGeldB_Init, (ActorFunc)EnGeldB_Destroy, (ActorFunc)EnGeldB_Update, (ActorFunc)EnGeldB_Draw, (ActorFunc)EnGeldB_Reset,
+    ACTOR_EN_GELDB, ACTORCAT_ENEMY, FLAGS, OBJECT_GELDB, ACTOR_FACTORY(EnGeldB), (ActorFunc)EnGeldB_Init, (ActorFunc)EnGeldB_Destroy, (ActorFunc)EnGeldB_Update, (ActorFunc)EnGeldB_Draw, (ActorFunc)EnGeldB_Reset,
 };
 
 static ColliderCylinderInit sBodyCylInit = {
@@ -2075,7 +2075,7 @@ void EnGeldB_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_111 = {0.0f, 0.0f, 0.0f};
 
 	En_GeldB_InitVars = {
-	    ACTOR_EN_GELDB, ACTORCAT_ENEMY, FLAGS, OBJECT_GELDB, sizeof(EnGeldB), (ActorFunc)EnGeldB_Init, (ActorFunc)EnGeldB_Destroy, (ActorFunc)EnGeldB_Update, (ActorFunc)EnGeldB_Draw, (ActorFunc)EnGeldB_Reset,
+	    ACTOR_EN_GELDB, ACTORCAT_ENEMY, FLAGS, OBJECT_GELDB, ACTOR_FACTORY(EnGeldB), (ActorFunc)EnGeldB_Init, (ActorFunc)EnGeldB_Destroy, (ActorFunc)EnGeldB_Update, (ActorFunc)EnGeldB_Draw, (ActorFunc)EnGeldB_Reset,
 	};
 
 	sBodyCylInit = {

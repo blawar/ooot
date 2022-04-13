@@ -26,7 +26,7 @@ void BgSpot16Doughnut_UpdateExpanding(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot16_Doughnut_InitVars = {
-    ACTOR_BG_SPOT16_DOUGHNUT,	       ACTORCAT_PROP, FLAGS, OBJECT_EFC_DOUGHNUT, sizeof(BgSpot16Doughnut), (ActorFunc)BgSpot16Doughnut_Init, (ActorFunc)BgSpot16Doughnut_Destroy, (ActorFunc)BgSpot16Doughnut_Update, (ActorFunc)BgSpot16Doughnut_Draw,
+    ACTOR_BG_SPOT16_DOUGHNUT,	       ACTORCAT_PROP, FLAGS, OBJECT_EFC_DOUGHNUT, ACTOR_FACTORY(BgSpot16Doughnut), (ActorFunc)BgSpot16Doughnut_Init, (ActorFunc)BgSpot16Doughnut_Destroy, (ActorFunc)BgSpot16Doughnut_Update, (ActorFunc)BgSpot16Doughnut_Draw,
     (ActorFunc)BgSpot16Doughnut_Reset,
 };
 
@@ -189,7 +189,7 @@ void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot16Doughnut_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot16_Doughnut_InitVars = {
-	    ACTOR_BG_SPOT16_DOUGHNUT,	       ACTORCAT_PROP, FLAGS, OBJECT_EFC_DOUGHNUT, sizeof(BgSpot16Doughnut), (ActorFunc)BgSpot16Doughnut_Init, (ActorFunc)BgSpot16Doughnut_Destroy, (ActorFunc)BgSpot16Doughnut_Update, (ActorFunc)BgSpot16Doughnut_Draw,
+	    ACTOR_BG_SPOT16_DOUGHNUT,	       ACTORCAT_PROP, FLAGS, OBJECT_EFC_DOUGHNUT, ACTOR_FACTORY(BgSpot16Doughnut), (ActorFunc)BgSpot16Doughnut_Init, (ActorFunc)BgSpot16Doughnut_Destroy, (ActorFunc)BgSpot16Doughnut_Update, (ActorFunc)BgSpot16Doughnut_Draw,
 	    (ActorFunc)BgSpot16Doughnut_Reset,
 	};
 }

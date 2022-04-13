@@ -25,7 +25,7 @@ void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx);
 s32 EnSkjNeedle_CollisionCheck(EnSkjneedle* pthis);
 
 ActorInit En_Skjneedle_InitVars = {
-    ACTOR_EN_SKJNEEDLE, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, sizeof(EnSkjneedle), (ActorFunc)EnSkjneedle_Init, (ActorFunc)EnSkjneedle_Destroy, (ActorFunc)EnSkjneedle_Update, (ActorFunc)EnSkjneedle_Draw, (ActorFunc)EnSkjneedle_Reset,
+    ACTOR_EN_SKJNEEDLE, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, ACTOR_FACTORY(EnSkjneedle), (ActorFunc)EnSkjneedle_Init, (ActorFunc)EnSkjneedle_Destroy, (ActorFunc)EnSkjneedle_Update, (ActorFunc)EnSkjneedle_Draw, (ActorFunc)EnSkjneedle_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -122,7 +122,7 @@ void EnSkjneedle_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnSkjneedle_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Skjneedle_InitVars = {
-	    ACTOR_EN_SKJNEEDLE, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, sizeof(EnSkjneedle), (ActorFunc)EnSkjneedle_Init, (ActorFunc)EnSkjneedle_Destroy, (ActorFunc)EnSkjneedle_Update, (ActorFunc)EnSkjneedle_Draw, (ActorFunc)EnSkjneedle_Reset,
+	    ACTOR_EN_SKJNEEDLE, ACTORCAT_ENEMY, FLAGS, OBJECT_SKJ, ACTOR_FACTORY(EnSkjneedle), (ActorFunc)EnSkjneedle_Init, (ActorFunc)EnSkjneedle_Destroy, (ActorFunc)EnSkjneedle_Update, (ActorFunc)EnSkjneedle_Draw, (ActorFunc)EnSkjneedle_Reset,
 	};
 
 	sCylinderInit = {

@@ -32,7 +32,7 @@ void BgJyaGoroiwa_UpdateRotation(BgJyaGoroiwa* pthis);
 void BgJyaGoroiwa_UpdateCollider(BgJyaGoroiwa* pthis);
 
 ActorInit Bg_Jya_Goroiwa_InitVars = {
-    ACTOR_BG_JYA_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, sizeof(BgJyaGoroiwa), (ActorFunc)BgJyaGoroiwa_Init, (ActorFunc)BgJyaGoroiwa_Destroy, (ActorFunc)BgJyaGoroiwa_Update, (ActorFunc)BgJyaGoroiwa_Draw, (ActorFunc)BgJyaGoroiwa_Reset,
+    ACTOR_BG_JYA_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, ACTOR_FACTORY(BgJyaGoroiwa), (ActorFunc)BgJyaGoroiwa_Init, (ActorFunc)BgJyaGoroiwa_Destroy, (ActorFunc)BgJyaGoroiwa_Update, (ActorFunc)BgJyaGoroiwa_Draw, (ActorFunc)BgJyaGoroiwa_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -249,7 +249,7 @@ void BgJyaGoroiwa_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgJyaGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Jya_Goroiwa_InitVars = {
-	    ACTOR_BG_JYA_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, sizeof(BgJyaGoroiwa), (ActorFunc)BgJyaGoroiwa_Init, (ActorFunc)BgJyaGoroiwa_Destroy, (ActorFunc)BgJyaGoroiwa_Update, (ActorFunc)BgJyaGoroiwa_Draw, (ActorFunc)BgJyaGoroiwa_Reset,
+	    ACTOR_BG_JYA_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, ACTOR_FACTORY(BgJyaGoroiwa), (ActorFunc)BgJyaGoroiwa_Init, (ActorFunc)BgJyaGoroiwa_Destroy, (ActorFunc)BgJyaGoroiwa_Update, (ActorFunc)BgJyaGoroiwa_Draw, (ActorFunc)BgJyaGoroiwa_Reset,
 	};
 
 	sJntSphInit = {

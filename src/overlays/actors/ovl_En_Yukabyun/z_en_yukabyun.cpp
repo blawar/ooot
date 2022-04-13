@@ -29,7 +29,7 @@ void func_80B43AD4(EnYukabyun* pthis, GlobalContext* globalCtx);
 void func_80B43B6C(EnYukabyun* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Yukabyun_InitVars = {
-    ACTOR_EN_YUKABYUN, ACTORCAT_ENEMY, FLAGS, OBJECT_YUKABYUN, sizeof(EnYukabyun), (ActorFunc)EnYukabyun_Init, (ActorFunc)EnYukabyun_Destroy, (ActorFunc)EnYukabyun_Update, (ActorFunc)EnYukabyun_Draw, (ActorFunc)EnYukabyun_Reset,
+    ACTOR_EN_YUKABYUN, ACTORCAT_ENEMY, FLAGS, OBJECT_YUKABYUN, ACTOR_FACTORY(EnYukabyun), (ActorFunc)EnYukabyun_Init, (ActorFunc)EnYukabyun_Destroy, (ActorFunc)EnYukabyun_Update, (ActorFunc)EnYukabyun_Draw, (ActorFunc)EnYukabyun_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -173,7 +173,7 @@ void EnYukabyun_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnYukabyun_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Yukabyun_InitVars = {
-	    ACTOR_EN_YUKABYUN, ACTORCAT_ENEMY, FLAGS, OBJECT_YUKABYUN, sizeof(EnYukabyun), (ActorFunc)EnYukabyun_Init, (ActorFunc)EnYukabyun_Destroy, (ActorFunc)EnYukabyun_Update, (ActorFunc)EnYukabyun_Draw, (ActorFunc)EnYukabyun_Reset,
+	    ACTOR_EN_YUKABYUN, ACTORCAT_ENEMY, FLAGS, OBJECT_YUKABYUN, ACTOR_FACTORY(EnYukabyun), (ActorFunc)EnYukabyun_Init, (ActorFunc)EnYukabyun_Destroy, (ActorFunc)EnYukabyun_Update, (ActorFunc)EnYukabyun_Draw, (ActorFunc)EnYukabyun_Reset,
 	};
 
 	sCylinderInit = {

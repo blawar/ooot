@@ -175,7 +175,7 @@ void Timer::update()
 {
 	if(m_min == m_max)
 	{
-		bool error = true;
+ 		bool error = true;
 	}
 
 	while(m_counterInt > m_max * COUNTER_SCALER)
@@ -288,7 +288,7 @@ Timer& Timer::operator-=(const Timer f)
 {
 	s64 step = f.m_counterInt * COUNTER_STEP;
 
-	if(step == 0)
+	/*if(step == 0)
 	{
 		if(f.m_counterInt > 0)
 		{
@@ -298,7 +298,7 @@ Timer& Timer::operator-=(const Timer f)
 		{
 			step = -1;
 		}
-	}
+	}*/
 
 	m_counterInt -= step;
 	update();

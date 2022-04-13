@@ -28,7 +28,7 @@ void BgGndFiremeiro_Shake(BgGndFiremeiro* pthis, GlobalContext* globalCtx);
 void BgGndFiremeiro_Rise(BgGndFiremeiro* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Gnd_Firemeiro_InitVars = {
-    ACTOR_BG_GND_FIREMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndFiremeiro), (ActorFunc)BgGndFiremeiro_Init, (ActorFunc)BgGndFiremeiro_Destroy, (ActorFunc)BgGndFiremeiro_Update, (ActorFunc)BgGndFiremeiro_Draw,
+    ACTOR_BG_GND_FIREMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndFiremeiro), (ActorFunc)BgGndFiremeiro_Init, (ActorFunc)BgGndFiremeiro_Destroy, (ActorFunc)BgGndFiremeiro_Update, (ActorFunc)BgGndFiremeiro_Draw,
     (ActorFunc)BgGndFiremeiro_Reset,
 };
 
@@ -185,7 +185,7 @@ void BgGndFiremeiro_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgGndFiremeiro_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gnd_Firemeiro_InitVars = {
-	    ACTOR_BG_GND_FIREMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndFiremeiro), (ActorFunc)BgGndFiremeiro_Init, (ActorFunc)BgGndFiremeiro_Destroy, (ActorFunc)BgGndFiremeiro_Update, (ActorFunc)BgGndFiremeiro_Draw,
+	    ACTOR_BG_GND_FIREMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndFiremeiro), (ActorFunc)BgGndFiremeiro_Init, (ActorFunc)BgGndFiremeiro_Destroy, (ActorFunc)BgGndFiremeiro_Update, (ActorFunc)BgGndFiremeiro_Draw,
 	    (ActorFunc)BgGndFiremeiro_Reset,
 	};
 }

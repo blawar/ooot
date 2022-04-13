@@ -58,7 +58,7 @@ static Color_RGBA8 D_8088103C_59 = {0, 0, 0, 0};
 static UNK_TYPE D_80880F30 = 0;
 
 ActorInit Bg_Haka_Trap_InitVars = {
-    ACTOR_BG_HAKA_TRAP, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaTrap), (ActorFunc)BgHakaTrap_Init, (ActorFunc)BgHakaTrap_Destroy, (ActorFunc)BgHakaTrap_Update, (ActorFunc)BgHakaTrap_Draw, (ActorFunc)BgHakaTrap_Reset,
+    ACTOR_BG_HAKA_TRAP, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaTrap), (ActorFunc)BgHakaTrap_Init, (ActorFunc)BgHakaTrap_Destroy, (ActorFunc)BgHakaTrap_Update, (ActorFunc)BgHakaTrap_Draw, (ActorFunc)BgHakaTrap_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -665,7 +665,7 @@ void BgHakaTrap_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80880F30 = 0;
 
 	Bg_Haka_Trap_InitVars = {
-	    ACTOR_BG_HAKA_TRAP, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaTrap), (ActorFunc)BgHakaTrap_Init, (ActorFunc)BgHakaTrap_Destroy, (ActorFunc)BgHakaTrap_Update, (ActorFunc)BgHakaTrap_Draw, (ActorFunc)BgHakaTrap_Reset,
+	    ACTOR_BG_HAKA_TRAP, ACTORCAT_BG, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaTrap), (ActorFunc)BgHakaTrap_Init, (ActorFunc)BgHakaTrap_Destroy, (ActorFunc)BgHakaTrap_Update, (ActorFunc)BgHakaTrap_Draw, (ActorFunc)BgHakaTrap_Reset,
 	};
 
 	sCylinderInit = {

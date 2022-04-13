@@ -35,7 +35,7 @@ void BgDodoago_DoNothing(BgDodoago* pthis, GlobalContext* globalCtx);
 void BgDodoago_LightOneEye(BgDodoago* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Dodoago_InitVars = {
-    ACTOR_BG_DODOAGO, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, sizeof(BgDodoago), (ActorFunc)BgDodoago_Init, (ActorFunc)BgDodoago_Destroy, (ActorFunc)BgDodoago_Update, (ActorFunc)BgDodoago_Draw, (ActorFunc)BgDodoago_Reset,
+    ACTOR_BG_DODOAGO, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, ACTOR_FACTORY(BgDodoago), (ActorFunc)BgDodoago_Init, (ActorFunc)BgDodoago_Destroy, (ActorFunc)BgDodoago_Update, (ActorFunc)BgDodoago_Draw, (ActorFunc)BgDodoago_Reset,
 };
 
 static ColliderCylinderInit sColCylinderInitMain = {
@@ -362,7 +362,7 @@ void BgDodoago_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgDodoago_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Dodoago_InitVars = {
-	    ACTOR_BG_DODOAGO, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, sizeof(BgDodoago), (ActorFunc)BgDodoago_Init, (ActorFunc)BgDodoago_Destroy, (ActorFunc)BgDodoago_Update, (ActorFunc)BgDodoago_Draw, (ActorFunc)BgDodoago_Reset,
+	    ACTOR_BG_DODOAGO, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, ACTOR_FACTORY(BgDodoago), (ActorFunc)BgDodoago_Init, (ActorFunc)BgDodoago_Destroy, (ActorFunc)BgDodoago_Update, (ActorFunc)BgDodoago_Draw, (ActorFunc)BgDodoago_Reset,
 	};
 
 	sColCylinderInitMain = {

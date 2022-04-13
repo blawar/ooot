@@ -67,7 +67,7 @@ void func_80A541FC(EnHeishi2* pthis, GlobalContext* globalCtx);
 void func_80A53DF8(EnHeishi2* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Heishi2_InitVars = {
-    ACTOR_EN_HEISHI2, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi2), (ActorFunc)EnHeishi2_Init, (ActorFunc)EnHeishi2_Destroy, (ActorFunc)EnHeishi2_Update, (ActorFunc)EnHeishi2_Draw, (ActorFunc)EnHeishi2_Reset,
+    ACTOR_EN_HEISHI2, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi2), (ActorFunc)EnHeishi2_Init, (ActorFunc)EnHeishi2_Destroy, (ActorFunc)EnHeishi2_Update, (ActorFunc)EnHeishi2_Draw, (ActorFunc)EnHeishi2_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1033,7 +1033,7 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHeishi2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Heishi2_InitVars = {
-	    ACTOR_EN_HEISHI2, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi2), (ActorFunc)EnHeishi2_Init, (ActorFunc)EnHeishi2_Destroy, (ActorFunc)EnHeishi2_Update, (ActorFunc)EnHeishi2_Draw, (ActorFunc)EnHeishi2_Reset,
+	    ACTOR_EN_HEISHI2, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi2), (ActorFunc)EnHeishi2_Init, (ActorFunc)EnHeishi2_Destroy, (ActorFunc)EnHeishi2_Update, (ActorFunc)EnHeishi2_Draw, (ActorFunc)EnHeishi2_Reset,
 	};
 
 	sCylinderInit = {

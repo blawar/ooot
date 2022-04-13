@@ -29,7 +29,7 @@ void ObjBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx);
 void ObjBombiwa_Break(ObjBombiwa* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Bombiwa_InitVars = {
-    ACTOR_OBJ_BOMBIWA, ACTORCAT_PROP, FLAGS, OBJECT_BOMBIWA, sizeof(ObjBombiwa), (ActorFunc)ObjBombiwa_Init, (ActorFunc)ObjBombiwa_Destroy, (ActorFunc)ObjBombiwa_Update, (ActorFunc)ObjBombiwa_Draw, (ActorFunc)ObjBombiwa_Reset,
+    ACTOR_OBJ_BOMBIWA, ACTORCAT_PROP, FLAGS, OBJECT_BOMBIWA, ACTOR_FACTORY(ObjBombiwa), (ActorFunc)ObjBombiwa_Init, (ActorFunc)ObjBombiwa_Destroy, (ActorFunc)ObjBombiwa_Update, (ActorFunc)ObjBombiwa_Draw, (ActorFunc)ObjBombiwa_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -165,7 +165,7 @@ void ObjBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjBombiwa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Bombiwa_InitVars = {
-	    ACTOR_OBJ_BOMBIWA, ACTORCAT_PROP, FLAGS, OBJECT_BOMBIWA, sizeof(ObjBombiwa), (ActorFunc)ObjBombiwa_Init, (ActorFunc)ObjBombiwa_Destroy, (ActorFunc)ObjBombiwa_Update, (ActorFunc)ObjBombiwa_Draw, (ActorFunc)ObjBombiwa_Reset,
+	    ACTOR_OBJ_BOMBIWA, ACTORCAT_PROP, FLAGS, OBJECT_BOMBIWA, ACTOR_FACTORY(ObjBombiwa), (ActorFunc)ObjBombiwa_Init, (ActorFunc)ObjBombiwa_Destroy, (ActorFunc)ObjBombiwa_Update, (ActorFunc)ObjBombiwa_Draw, (ActorFunc)ObjBombiwa_Reset,
 	};
 
 	sCylinderInit = {

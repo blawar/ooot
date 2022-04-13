@@ -27,7 +27,7 @@ void func_809C1D60(EnBird* pthis, GlobalContext* globalCtx);
 void func_809C1CAC(EnBird* pthis, s16 params);
 
 ActorInit En_Bird_InitVars = {
-    ACTOR_EN_BIRD, ACTORCAT_PROP, FLAGS, OBJECT_BIRD, sizeof(EnBird), (ActorFunc)EnBird_Init, (ActorFunc)EnBird_Destroy, (ActorFunc)EnBird_Update, (ActorFunc)EnBird_Draw, (ActorFunc)EnBird_Reset,
+    ACTOR_EN_BIRD, ACTORCAT_PROP, FLAGS, OBJECT_BIRD, ACTOR_FACTORY(EnBird), (ActorFunc)EnBird_Init, (ActorFunc)EnBird_Destroy, (ActorFunc)EnBird_Update, (ActorFunc)EnBird_Draw, (ActorFunc)EnBird_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -147,6 +147,6 @@ void EnBird_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBird_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bird_InitVars = {
-	    ACTOR_EN_BIRD, ACTORCAT_PROP, FLAGS, OBJECT_BIRD, sizeof(EnBird), (ActorFunc)EnBird_Init, (ActorFunc)EnBird_Destroy, (ActorFunc)EnBird_Update, (ActorFunc)EnBird_Draw, (ActorFunc)EnBird_Reset,
+	    ACTOR_EN_BIRD, ACTORCAT_PROP, FLAGS, OBJECT_BIRD, ACTOR_FACTORY(EnBird), (ActorFunc)EnBird_Init, (ActorFunc)EnBird_Destroy, (ActorFunc)EnBird_Update, (ActorFunc)EnBird_Draw, (ActorFunc)EnBird_Reset,
 	};
 }

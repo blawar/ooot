@@ -62,7 +62,7 @@ static Gfx* displayLists_88[] = {
 };
 
 ActorInit En_Fz_InitVars = {
-    ACTOR_EN_FZ, ACTORCAT_ENEMY, FLAGS, OBJECT_FZ, sizeof(EnFz), (ActorFunc)EnFz_Init, (ActorFunc)EnFz_Destroy, (ActorFunc)EnFz_Update, (ActorFunc)EnFz_Draw, (ActorFunc)EnFz_Reset,
+    ACTOR_EN_FZ, ACTORCAT_ENEMY, FLAGS, OBJECT_FZ, ACTOR_FACTORY(EnFz), (ActorFunc)EnFz_Init, (ActorFunc)EnFz_Destroy, (ActorFunc)EnFz_Update, (ActorFunc)EnFz_Draw, (ActorFunc)EnFz_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit1 = {
@@ -1008,7 +1008,7 @@ void EnFz_DrawIceSmoke(EnFz* pthis, GlobalContext* globalCtx)
 void EnFz_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Fz_InitVars = {
-	    ACTOR_EN_FZ, ACTORCAT_ENEMY, FLAGS, OBJECT_FZ, sizeof(EnFz), (ActorFunc)EnFz_Init, (ActorFunc)EnFz_Destroy, (ActorFunc)EnFz_Update, (ActorFunc)EnFz_Draw, (ActorFunc)EnFz_Reset,
+	    ACTOR_EN_FZ, ACTORCAT_ENEMY, FLAGS, OBJECT_FZ, ACTOR_FACTORY(EnFz), (ActorFunc)EnFz_Init, (ActorFunc)EnFz_Destroy, (ActorFunc)EnFz_Update, (ActorFunc)EnFz_Draw, (ActorFunc)EnFz_Reset,
 	};
 
 	sCylinderInit1 = {

@@ -134,7 +134,7 @@ static void* sBombchuShopkeeperEyeTextures_248[] = {gBombchuShopkeeperEyeOpenTex
 #define CURSOR_INVALID 0xFF
 
 ActorInit En_Ossan_InitVars = {
-    ACTOR_EN_OSSAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnOssan), (ActorFunc)EnOssan_Init, (ActorFunc)EnOssan_Destroy, (ActorFunc)EnOssan_Update, NULL, (ActorFunc)EnOssan_Reset,
+    ACTOR_EN_OSSAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnOssan), (ActorFunc)EnOssan_Init, (ActorFunc)EnOssan_Destroy, (ActorFunc)EnOssan_Update, NULL, (ActorFunc)EnOssan_Reset,
 };
 
 // Unused collider
@@ -2858,7 +2858,7 @@ void EnOssan_DrawBombchuShopkeeper(Actor* thisx, GlobalContext* globalCtx)
 void EnOssan_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ossan_InitVars = {
-	    ACTOR_EN_OSSAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnOssan), (ActorFunc)EnOssan_Init, (ActorFunc)EnOssan_Destroy, (ActorFunc)EnOssan_Update, NULL, (ActorFunc)EnOssan_Reset,
+	    ACTOR_EN_OSSAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnOssan), (ActorFunc)EnOssan_Init, (ActorFunc)EnOssan_Destroy, (ActorFunc)EnOssan_Update, NULL, (ActorFunc)EnOssan_Reset,
 	};
 
 	sCylinderInit = {

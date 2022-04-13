@@ -29,7 +29,7 @@ void func_8087DBF0(BgHakaMegane* pthis, GlobalContext* globalCtx);
 void BgHakaMegane_DoNothing(BgHakaMegane* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Haka_Megane_InitVars = {
-    ACTOR_BG_HAKA_MEGANE, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaMegane), (ActorFunc)BgHakaMegane_Init, (ActorFunc)BgHakaMegane_Destroy, (ActorFunc)BgHakaMegane_Update, NULL, (ActorFunc)BgHakaMegane_Reset,
+    ACTOR_BG_HAKA_MEGANE, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgHakaMegane), (ActorFunc)BgHakaMegane_Init, (ActorFunc)BgHakaMegane_Destroy, (ActorFunc)BgHakaMegane_Update, NULL, (ActorFunc)BgHakaMegane_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -157,6 +157,6 @@ void BgHakaMegane_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHakaMegane_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Haka_Megane_InitVars = {
-	    ACTOR_BG_HAKA_MEGANE, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaMegane), (ActorFunc)BgHakaMegane_Init, (ActorFunc)BgHakaMegane_Destroy, (ActorFunc)BgHakaMegane_Update, NULL, (ActorFunc)BgHakaMegane_Reset,
+	    ACTOR_BG_HAKA_MEGANE, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgHakaMegane), (ActorFunc)BgHakaMegane_Init, (ActorFunc)BgHakaMegane_Destroy, (ActorFunc)BgHakaMegane_Update, NULL, (ActorFunc)BgHakaMegane_Reset,
 	};
 }

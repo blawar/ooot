@@ -47,7 +47,7 @@ static Vec3f D_80884EC8_51 = {0.0f, 0.0f, 0.0f};
 static Vec3f D_80884ED4_51 = {0.0f, 400.0f, 0.0f};
 
 ActorInit Bg_Heavy_Block_InitVars = {
-    ACTOR_BG_HEAVY_BLOCK, ACTORCAT_BG, FLAGS, OBJECT_HEAVY_OBJECT, sizeof(BgHeavyBlock), (ActorFunc)BgHeavyBlock_Init, (ActorFunc)BgHeavyBlock_Destroy, (ActorFunc)BgHeavyBlock_Update, (ActorFunc)BgHeavyBlock_Draw, (ActorFunc)BgHeavyBlock_Reset,
+    ACTOR_BG_HEAVY_BLOCK, ACTORCAT_BG, FLAGS, OBJECT_HEAVY_OBJECT, ACTOR_FACTORY(BgHeavyBlock), (ActorFunc)BgHeavyBlock_Init, (ActorFunc)BgHeavyBlock_Destroy, (ActorFunc)BgHeavyBlock_Update, (ActorFunc)BgHeavyBlock_Draw, (ActorFunc)BgHeavyBlock_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -571,6 +571,6 @@ void BgHeavyBlock_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80884ED4_51 = {0.0f, 400.0f, 0.0f};
 
 	Bg_Heavy_Block_InitVars = {
-	    ACTOR_BG_HEAVY_BLOCK, ACTORCAT_BG, FLAGS, OBJECT_HEAVY_OBJECT, sizeof(BgHeavyBlock), (ActorFunc)BgHeavyBlock_Init, (ActorFunc)BgHeavyBlock_Destroy, (ActorFunc)BgHeavyBlock_Update, (ActorFunc)BgHeavyBlock_Draw, (ActorFunc)BgHeavyBlock_Reset,
+	    ACTOR_BG_HEAVY_BLOCK, ACTORCAT_BG, FLAGS, OBJECT_HEAVY_OBJECT, ACTOR_FACTORY(BgHeavyBlock), (ActorFunc)BgHeavyBlock_Init, (ActorFunc)BgHeavyBlock_Destroy, (ActorFunc)BgHeavyBlock_Update, (ActorFunc)BgHeavyBlock_Draw, (ActorFunc)BgHeavyBlock_Reset,
 	};
 }

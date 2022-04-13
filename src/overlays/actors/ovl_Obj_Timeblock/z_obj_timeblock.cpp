@@ -37,7 +37,7 @@ void ObjTimeblock_AltBehaviorVisible(ObjTimeblock* pthis, GlobalContext* globalC
 void ObjTimeblock_AltBehaviourNotVisible(ObjTimeblock* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Timeblock_InitVars = {
-    ACTOR_OBJ_TIMEBLOCK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, sizeof(ObjTimeblock), (ActorFunc)ObjTimeblock_Init, (ActorFunc)ObjTimeblock_Destroy, (ActorFunc)ObjTimeblock_Update, (ActorFunc)ObjTimeblock_Draw, (ActorFunc)ObjTimeblock_Reset,
+    ACTOR_OBJ_TIMEBLOCK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, ACTOR_FACTORY(ObjTimeblock), (ActorFunc)ObjTimeblock_Init, (ActorFunc)ObjTimeblock_Destroy, (ActorFunc)ObjTimeblock_Update, (ActorFunc)ObjTimeblock_Draw, (ActorFunc)ObjTimeblock_Reset,
 };
 
 static ObjTimeblockSizeOptions sSizeOptions[] = {
@@ -415,6 +415,6 @@ void ObjTimeblock_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjTimeblock_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Timeblock_InitVars = {
-	    ACTOR_OBJ_TIMEBLOCK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, sizeof(ObjTimeblock), (ActorFunc)ObjTimeblock_Init, (ActorFunc)ObjTimeblock_Destroy, (ActorFunc)ObjTimeblock_Update, (ActorFunc)ObjTimeblock_Draw, (ActorFunc)ObjTimeblock_Reset,
+	    ACTOR_OBJ_TIMEBLOCK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, ACTOR_FACTORY(ObjTimeblock), (ActorFunc)ObjTimeblock_Init, (ActorFunc)ObjTimeblock_Destroy, (ActorFunc)ObjTimeblock_Update, (ActorFunc)ObjTimeblock_Draw, (ActorFunc)ObjTimeblock_Reset,
 	};
 }

@@ -31,7 +31,7 @@ void BgJyaMegami_Explode(BgJyaMegami* pthis, GlobalContext* globalCtx);
 static Vec3f sVec_46 = {0.0f, 0.0f, 0.0f};
 
 ActorInit Bg_Jya_Megami_InitVars = {
-    ACTOR_BG_JYA_MEGAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaMegami), (ActorFunc)BgJyaMegami_Init, (ActorFunc)BgJyaMegami_Destroy, (ActorFunc)BgJyaMegami_Update, (ActorFunc)BgJyaMegami_Draw, (ActorFunc)BgJyaMegami_Reset,
+    ACTOR_BG_JYA_MEGAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaMegami), (ActorFunc)BgJyaMegami_Init, (ActorFunc)BgJyaMegami_Destroy, (ActorFunc)BgJyaMegami_Update, (ActorFunc)BgJyaMegami_Draw, (ActorFunc)BgJyaMegami_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -391,7 +391,7 @@ void BgJyaMegami_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sVec_46 = {0.0f, 0.0f, 0.0f};
 
 	Bg_Jya_Megami_InitVars = {
-	    ACTOR_BG_JYA_MEGAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaMegami), (ActorFunc)BgJyaMegami_Init, (ActorFunc)BgJyaMegami_Destroy, (ActorFunc)BgJyaMegami_Update, (ActorFunc)BgJyaMegami_Draw, (ActorFunc)BgJyaMegami_Reset,
+	    ACTOR_BG_JYA_MEGAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaMegami), (ActorFunc)BgJyaMegami_Init, (ActorFunc)BgJyaMegami_Destroy, (ActorFunc)BgJyaMegami_Update, (ActorFunc)BgJyaMegami_Draw, (ActorFunc)BgJyaMegami_Reset,
 	};
 
 	sJntSphInit = {

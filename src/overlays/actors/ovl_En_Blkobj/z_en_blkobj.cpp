@@ -29,7 +29,7 @@ void EnBlkobj_DarkLinkFight(EnBlkobj* pthis, GlobalContext* globalCtx);
 void EnBlkobj_DoNothing(EnBlkobj* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Blkobj_InitVars = {
-    ACTOR_EN_BLKOBJ, ACTORCAT_PROP, FLAGS, OBJECT_BLKOBJ, sizeof(EnBlkobj), (ActorFunc)EnBlkobj_Init, (ActorFunc)EnBlkobj_Destroy, (ActorFunc)EnBlkobj_Update, (ActorFunc)EnBlkobj_Draw, (ActorFunc)EnBlkobj_Reset,
+    ACTOR_EN_BLKOBJ, ACTORCAT_PROP, FLAGS, OBJECT_BLKOBJ, ACTOR_FACTORY(EnBlkobj), (ActorFunc)EnBlkobj_Init, (ActorFunc)EnBlkobj_Destroy, (ActorFunc)EnBlkobj_Update, (ActorFunc)EnBlkobj_Draw, (ActorFunc)EnBlkobj_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -199,6 +199,6 @@ void EnBlkobj_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBlkobj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Blkobj_InitVars = {
-	    ACTOR_EN_BLKOBJ, ACTORCAT_PROP, FLAGS, OBJECT_BLKOBJ, sizeof(EnBlkobj), (ActorFunc)EnBlkobj_Init, (ActorFunc)EnBlkobj_Destroy, (ActorFunc)EnBlkobj_Update, (ActorFunc)EnBlkobj_Draw, (ActorFunc)EnBlkobj_Reset,
+	    ACTOR_EN_BLKOBJ, ACTORCAT_PROP, FLAGS, OBJECT_BLKOBJ, ACTOR_FACTORY(EnBlkobj), (ActorFunc)EnBlkobj_Init, (ActorFunc)EnBlkobj_Destroy, (ActorFunc)EnBlkobj_Update, (ActorFunc)EnBlkobj_Draw, (ActorFunc)EnBlkobj_Reset,
 	};
 }

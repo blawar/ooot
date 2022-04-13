@@ -26,7 +26,7 @@ void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx);
 void EnEncount2_ParticleUpdate(EnEncount2* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Encount2_InitVars = {
-    ACTOR_EN_ENCOUNT2, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, sizeof(EnEncount2), (ActorFunc)EnEncount2_Init, NULL, (ActorFunc)EnEncount2_Update, (ActorFunc)EnEncount2_Draw, (ActorFunc)EnEncount2_Reset,
+    ACTOR_EN_ENCOUNT2, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, ACTOR_FACTORY(EnEncount2), (ActorFunc)EnEncount2_Init, NULL, (ActorFunc)EnEncount2_Update, (ActorFunc)EnEncount2_Draw, (ActorFunc)EnEncount2_Reset,
 };
 
 void EnEncount2_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -417,6 +417,6 @@ void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx)
 void EnEncount2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Encount2_InitVars = {
-	    ACTOR_EN_ENCOUNT2, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, sizeof(EnEncount2), (ActorFunc)EnEncount2_Init, NULL, (ActorFunc)EnEncount2_Update, (ActorFunc)EnEncount2_Draw, (ActorFunc)EnEncount2_Reset,
+	    ACTOR_EN_ENCOUNT2, ACTORCAT_ENEMY, FLAGS, OBJECT_EFC_STAR_FIELD, ACTOR_FACTORY(EnEncount2), (ActorFunc)EnEncount2_Init, NULL, (ActorFunc)EnEncount2_Update, (ActorFunc)EnEncount2_Draw, (ActorFunc)EnEncount2_Reset,
 	};
 }

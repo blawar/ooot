@@ -24,7 +24,7 @@ void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx);
 void ObjDekujr_ComeUp(ObjDekujr* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Dekujr_InitVars = {
-    ACTOR_OBJ_DEKUJR, ACTORCAT_NPC, FLAGS, OBJECT_DEKUJR, sizeof(ObjDekujr), (ActorFunc)ObjDekujr_Init, (ActorFunc)ObjDekujr_Destroy, (ActorFunc)ObjDekujr_Update, (ActorFunc)ObjDekujr_Draw, (ActorFunc)ObjDekujr_Reset,
+    ACTOR_OBJ_DEKUJR, ACTORCAT_NPC, FLAGS, OBJECT_DEKUJR, ACTOR_FACTORY(ObjDekujr), (ActorFunc)ObjDekujr_Init, (ActorFunc)ObjDekujr_Destroy, (ActorFunc)ObjDekujr_Update, (ActorFunc)ObjDekujr_Draw, (ActorFunc)ObjDekujr_Reset,
 };
 
 static ColliderCylinderInitToActor sCylinderInit = {
@@ -192,7 +192,7 @@ void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjDekujr_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Dekujr_InitVars = {
-	    ACTOR_OBJ_DEKUJR, ACTORCAT_NPC, FLAGS, OBJECT_DEKUJR, sizeof(ObjDekujr), (ActorFunc)ObjDekujr_Init, (ActorFunc)ObjDekujr_Destroy, (ActorFunc)ObjDekujr_Update, (ActorFunc)ObjDekujr_Draw, (ActorFunc)ObjDekujr_Reset,
+	    ACTOR_OBJ_DEKUJR, ACTORCAT_NPC, FLAGS, OBJECT_DEKUJR, ACTOR_FACTORY(ObjDekujr), (ActorFunc)ObjDekujr_Init, (ActorFunc)ObjDekujr_Destroy, (ActorFunc)ObjDekujr_Update, (ActorFunc)ObjDekujr_Draw, (ActorFunc)ObjDekujr_Reset,
 	};
 
 	sCylinderInit = {

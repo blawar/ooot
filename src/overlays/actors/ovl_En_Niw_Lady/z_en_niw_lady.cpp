@@ -40,7 +40,7 @@ void func_80ABAD7C(EnNiwLady* pthis, GlobalContext* globalCtx);
 static void* sEyeTextures_60[] = {gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex};
 
 ActorInit En_Niw_Lady_InitVars = {
-    ACTOR_EN_NIW_LADY, ACTORCAT_NPC, FLAGS, OBJECT_ANE, sizeof(EnNiwLady), (ActorFunc)EnNiwLady_Init, (ActorFunc)EnNiwLady_Destroy, (ActorFunc)EnNiwLady_Update, NULL, (ActorFunc)EnNiwLady_Reset,
+    ACTOR_EN_NIW_LADY, ACTORCAT_NPC, FLAGS, OBJECT_ANE, ACTOR_FACTORY(EnNiwLady), (ActorFunc)EnNiwLady_Init, (ActorFunc)EnNiwLady_Destroy, (ActorFunc)EnNiwLady_Update, NULL, (ActorFunc)EnNiwLady_Reset,
 };
 
 static s16 sMissingCuccoTextIds[] = {
@@ -700,7 +700,7 @@ void EnNiwLady_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnNiwLady_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Niw_Lady_InitVars = {
-	    ACTOR_EN_NIW_LADY, ACTORCAT_NPC, FLAGS, OBJECT_ANE, sizeof(EnNiwLady), (ActorFunc)EnNiwLady_Init, (ActorFunc)EnNiwLady_Destroy, (ActorFunc)EnNiwLady_Update, NULL, (ActorFunc)EnNiwLady_Reset,
+	    ACTOR_EN_NIW_LADY, ACTORCAT_NPC, FLAGS, OBJECT_ANE, ACTOR_FACTORY(EnNiwLady), (ActorFunc)EnNiwLady_Init, (ActorFunc)EnNiwLady_Destroy, (ActorFunc)EnNiwLady_Update, NULL, (ActorFunc)EnNiwLady_Reset,
 	};
 
 	sCylinderInit = {

@@ -59,7 +59,7 @@ static Vec3f D_80B28970_80 = {3000.0f, 0.0f, 0.0f};
 static Vec3f D_80B2897C_80 = {-1000.0f, 0.0f, 0.0f};
 
 ActorInit En_Vali_InitVars = {
-    ACTOR_EN_VALI, ACTORCAT_ENEMY, FLAGS, OBJECT_VALI, sizeof(EnVali), (ActorFunc)EnVali_Init, (ActorFunc)EnVali_Destroy, (ActorFunc)EnVali_Update, (ActorFunc)EnVali_Draw, (ActorFunc)EnVali_Reset,
+    ACTOR_EN_VALI, ACTORCAT_ENEMY, FLAGS, OBJECT_VALI, ACTOR_FACTORY(EnVali), (ActorFunc)EnVali_Init, (ActorFunc)EnVali_Destroy, (ActorFunc)EnVali_Update, (ActorFunc)EnVali_Draw, (ActorFunc)EnVali_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -964,7 +964,7 @@ void EnVali_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80B2897C_80 = {-1000.0f, 0.0f, 0.0f};
 
 	En_Vali_InitVars = {
-	    ACTOR_EN_VALI, ACTORCAT_ENEMY, FLAGS, OBJECT_VALI, sizeof(EnVali), (ActorFunc)EnVali_Init, (ActorFunc)EnVali_Destroy, (ActorFunc)EnVali_Update, (ActorFunc)EnVali_Draw, (ActorFunc)EnVali_Reset,
+	    ACTOR_EN_VALI, ACTORCAT_ENEMY, FLAGS, OBJECT_VALI, ACTOR_FACTORY(EnVali), (ActorFunc)EnVali_Init, (ActorFunc)EnVali_Destroy, (ActorFunc)EnVali_Update, (ActorFunc)EnVali_Draw, (ActorFunc)EnVali_Reset,
 	};
 
 	sQuadInit = {

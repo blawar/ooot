@@ -55,7 +55,7 @@ void BgDyYoseizo_ParticleDraw(BgDyYoseizo* pthis, GlobalContext* globalCtx);
 static s32 sUnusedGetItemIds[] = {GI_FARORES_WIND, GI_NAYRUS_LOVE, GI_DINS_FIRE};
 
 ActorInit Bg_Dy_Yoseizo_InitVars = {
-    ACTOR_BG_DY_YOSEIZO, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, sizeof(BgDyYoseizo), (ActorFunc)BgDyYoseizo_Init, (ActorFunc)BgDyYoseizo_Destroy, (ActorFunc)BgDyYoseizo_Update, NULL, (ActorFunc)BgDyYoseizo_Reset,
+    ACTOR_BG_DY_YOSEIZO, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, ACTOR_FACTORY(BgDyYoseizo), (ActorFunc)BgDyYoseizo_Init, (ActorFunc)BgDyYoseizo_Destroy, (ActorFunc)BgDyYoseizo_Update, NULL, (ActorFunc)BgDyYoseizo_Reset,
 };
 
 void BgDyYoseizo_Init(Actor* pthisx, GlobalContext* globalCtx2)
@@ -1189,6 +1189,6 @@ void BgDyYoseizo_ParticleDraw(BgDyYoseizo* pthis, GlobalContext* globalCtx)
 void BgDyYoseizo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Dy_Yoseizo_InitVars = {
-	    ACTOR_BG_DY_YOSEIZO, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, sizeof(BgDyYoseizo), (ActorFunc)BgDyYoseizo_Init, (ActorFunc)BgDyYoseizo_Destroy, (ActorFunc)BgDyYoseizo_Update, NULL, (ActorFunc)BgDyYoseizo_Reset,
+	    ACTOR_BG_DY_YOSEIZO, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, ACTOR_FACTORY(BgDyYoseizo), (ActorFunc)BgDyYoseizo_Init, (ActorFunc)BgDyYoseizo_Destroy, (ActorFunc)BgDyYoseizo_Update, NULL, (ActorFunc)BgDyYoseizo_Reset,
 	};
 }

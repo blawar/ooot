@@ -26,7 +26,7 @@ void ElfMsg2_WaitUntilActivated(ElfMsg2* pthis, GlobalContext* globalCtx);
 void ElfMsg2_WaitForTextRead(ElfMsg2* pthis, GlobalContext* globalCtx);
 
 ActorInit Elf_Msg2_InitVars = {
-    ACTOR_ELF_MSG2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ElfMsg2), (ActorFunc)ElfMsg2_Init, (ActorFunc)ElfMsg2_Destroy, (ActorFunc)ElfMsg2_Update, (ActorFunc)ElfMsg2_Draw, (ActorFunc)ElfMsg2_Reset,
+    ACTOR_ELF_MSG2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ElfMsg2), (ActorFunc)ElfMsg2_Init, (ActorFunc)ElfMsg2_Destroy, (ActorFunc)ElfMsg2_Update, (ActorFunc)ElfMsg2_Draw, (ActorFunc)ElfMsg2_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -202,6 +202,6 @@ void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ElfMsg2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Elf_Msg2_InitVars = {
-	    ACTOR_ELF_MSG2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ElfMsg2), (ActorFunc)ElfMsg2_Init, (ActorFunc)ElfMsg2_Destroy, (ActorFunc)ElfMsg2_Update, (ActorFunc)ElfMsg2_Draw, (ActorFunc)ElfMsg2_Reset,
+	    ACTOR_ELF_MSG2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ElfMsg2), (ActorFunc)ElfMsg2_Init, (ActorFunc)ElfMsg2_Destroy, (ActorFunc)ElfMsg2_Update, (ActorFunc)ElfMsg2_Draw, (ActorFunc)ElfMsg2_Reset,
 	};
 }

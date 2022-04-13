@@ -19,7 +19,7 @@ void EnVase_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnVase_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Vase_InitVars = {
-    ACTOR_EN_VASE, ACTORCAT_PROP, FLAGS, OBJECT_VASE, sizeof(EnVase), (ActorFunc)EnVase_Init, (ActorFunc)EnVase_Destroy, (ActorFunc)Actor_Noop, (ActorFunc)EnVase_Draw, (ActorFunc)EnVase_Reset,
+    ACTOR_EN_VASE, ACTORCAT_PROP, FLAGS, OBJECT_VASE, ACTOR_FACTORY(EnVase), (ActorFunc)EnVase_Init, (ActorFunc)EnVase_Destroy, (ActorFunc)Actor_Noop, (ActorFunc)EnVase_Draw, (ActorFunc)EnVase_Reset,
 };
 
 void EnVase_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -43,6 +43,6 @@ void EnVase_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnVase_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Vase_InitVars = {
-	    ACTOR_EN_VASE, ACTORCAT_PROP, FLAGS, OBJECT_VASE, sizeof(EnVase), (ActorFunc)EnVase_Init, (ActorFunc)EnVase_Destroy, (ActorFunc)Actor_Noop, (ActorFunc)EnVase_Draw, (ActorFunc)EnVase_Reset,
+	    ACTOR_EN_VASE, ACTORCAT_PROP, FLAGS, OBJECT_VASE, ACTOR_FACTORY(EnVase), (ActorFunc)EnVase_Init, (ActorFunc)EnVase_Destroy, (ActorFunc)Actor_Noop, (ActorFunc)EnVase_Draw, (ActorFunc)EnVase_Reset,
 	};
 }

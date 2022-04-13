@@ -78,7 +78,7 @@ static DamageTable sDamageTable = {
 };
 
 ActorInit En_Reeba_InitVars = {
-    ACTOR_EN_REEBA, ACTORCAT_MISC, FLAGS, OBJECT_REEBA, sizeof(EnReeba), (ActorFunc)EnReeba_Init, (ActorFunc)EnReeba_Destroy, (ActorFunc)EnReeba_Update, (ActorFunc)EnReeba_Draw, (ActorFunc)EnReeba_Reset,
+    ACTOR_EN_REEBA, ACTORCAT_MISC, FLAGS, OBJECT_REEBA, ACTOR_FACTORY(EnReeba), (ActorFunc)EnReeba_Init, (ActorFunc)EnReeba_Destroy, (ActorFunc)EnReeba_Update, (ActorFunc)EnReeba_Draw, (ActorFunc)EnReeba_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -826,7 +826,7 @@ void EnReeba_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Reeba_InitVars = {
-	    ACTOR_EN_REEBA, ACTORCAT_MISC, FLAGS, OBJECT_REEBA, sizeof(EnReeba), (ActorFunc)EnReeba_Init, (ActorFunc)EnReeba_Destroy, (ActorFunc)EnReeba_Update, (ActorFunc)EnReeba_Draw, (ActorFunc)EnReeba_Reset,
+	    ACTOR_EN_REEBA, ACTORCAT_MISC, FLAGS, OBJECT_REEBA, ACTOR_FACTORY(EnReeba), (ActorFunc)EnReeba_Init, (ActorFunc)EnReeba_Destroy, (ActorFunc)EnReeba_Update, (ActorFunc)EnReeba_Draw, (ActorFunc)EnReeba_Reset,
 	};
 
 	sCylinderInit = {

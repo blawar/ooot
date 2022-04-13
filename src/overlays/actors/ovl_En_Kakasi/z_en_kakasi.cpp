@@ -55,7 +55,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 ActorInit En_Kakasi_InitVars = {
-    ACTOR_EN_KAKASI, ACTORCAT_NPC, FLAGS, OBJECT_KA, sizeof(EnKakasi), (ActorFunc)EnKakasi_Init, (ActorFunc)EnKakasi_Destroy, (ActorFunc)EnKakasi_Update, (ActorFunc)EnKakasi_Draw, (ActorFunc)EnKakasi_Reset,
+    ACTOR_EN_KAKASI, ACTORCAT_NPC, FLAGS, OBJECT_KA, ACTOR_FACTORY(EnKakasi), (ActorFunc)EnKakasi_Init, (ActorFunc)EnKakasi_Destroy, (ActorFunc)EnKakasi_Update, (ActorFunc)EnKakasi_Draw, (ActorFunc)EnKakasi_Reset,
 };
 
 void EnKakasi_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -431,6 +431,6 @@ void EnKakasi_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Kakasi_InitVars = {
-	    ACTOR_EN_KAKASI, ACTORCAT_NPC, FLAGS, OBJECT_KA, sizeof(EnKakasi), (ActorFunc)EnKakasi_Init, (ActorFunc)EnKakasi_Destroy, (ActorFunc)EnKakasi_Update, (ActorFunc)EnKakasi_Draw, (ActorFunc)EnKakasi_Reset,
+	    ACTOR_EN_KAKASI, ACTORCAT_NPC, FLAGS, OBJECT_KA, ACTOR_FACTORY(EnKakasi), (ActorFunc)EnKakasi_Init, (ActorFunc)EnKakasi_Destroy, (ActorFunc)EnKakasi_Update, (ActorFunc)EnKakasi_Draw, (ActorFunc)EnKakasi_Reset,
 	};
 }

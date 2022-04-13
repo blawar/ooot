@@ -36,7 +36,7 @@ void func_80B96678(ObjLift* pthis, GlobalContext* globalCtx);
 void func_80B96840(ObjLift* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Lift_InitVars = {
-    ACTOR_OBJ_LIFT, ACTORCAT_BG, FLAGS, OBJECT_D_LIFT, sizeof(ObjLift), (ActorFunc)ObjLift_Init, (ActorFunc)ObjLift_Destroy, (ActorFunc)ObjLift_Update, (ActorFunc)ObjLift_Draw, (ActorFunc)ObjLift_Reset,
+    ACTOR_OBJ_LIFT, ACTORCAT_BG, FLAGS, OBJECT_D_LIFT, ACTOR_FACTORY(ObjLift), (ActorFunc)ObjLift_Init, (ActorFunc)ObjLift_Destroy, (ActorFunc)ObjLift_Update, (ActorFunc)ObjLift_Draw, (ActorFunc)ObjLift_Reset,
 };
 
 static s16 sFallTimerDurations[] = {0, 10, 20, 30, 40, 50, 60};
@@ -247,6 +247,6 @@ void ObjLift_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjLift_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Lift_InitVars = {
-	    ACTOR_OBJ_LIFT, ACTORCAT_BG, FLAGS, OBJECT_D_LIFT, sizeof(ObjLift), (ActorFunc)ObjLift_Init, (ActorFunc)ObjLift_Destroy, (ActorFunc)ObjLift_Update, (ActorFunc)ObjLift_Draw, (ActorFunc)ObjLift_Reset,
+	    ACTOR_OBJ_LIFT, ACTORCAT_BG, FLAGS, OBJECT_D_LIFT, ACTOR_FACTORY(ObjLift), (ActorFunc)ObjLift_Init, (ActorFunc)ObjLift_Destroy, (ActorFunc)ObjLift_Update, (ActorFunc)ObjLift_Draw, (ActorFunc)ObjLift_Reset,
 	};
 }

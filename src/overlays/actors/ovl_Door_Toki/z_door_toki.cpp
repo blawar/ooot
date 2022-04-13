@@ -20,7 +20,7 @@ void DoorToki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorToki_Update(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Door_Toki_InitVars = {
-    ACTOR_DOOR_TOKI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, sizeof(DoorToki), (ActorFunc)DoorToki_Init, (ActorFunc)DoorToki_Destroy, (ActorFunc)DoorToki_Update, NULL, (ActorFunc)DoorToki_Reset,
+    ACTOR_DOOR_TOKI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, ACTOR_FACTORY(DoorToki), (ActorFunc)DoorToki_Init, (ActorFunc)DoorToki_Destroy, (ActorFunc)DoorToki_Update, NULL, (ActorFunc)DoorToki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -63,6 +63,6 @@ void DoorToki_Update(Actor* thisx, GlobalContext* globalCtx)
 void DoorToki_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Door_Toki_InitVars = {
-	    ACTOR_DOOR_TOKI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, sizeof(DoorToki), (ActorFunc)DoorToki_Init, (ActorFunc)DoorToki_Destroy, (ActorFunc)DoorToki_Update, NULL, (ActorFunc)DoorToki_Reset,
+	    ACTOR_DOOR_TOKI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, ACTOR_FACTORY(DoorToki), (ActorFunc)DoorToki_Init, (ActorFunc)DoorToki_Destroy, (ActorFunc)DoorToki_Update, NULL, (ActorFunc)DoorToki_Reset,
 	};
 }

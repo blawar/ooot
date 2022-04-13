@@ -33,7 +33,7 @@ void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx);
  *  */
 
 ActorInit En_Wood02_InitVars = {
-    ACTOR_EN_WOOD02, ACTORCAT_PROP, FLAGS, OBJECT_WOOD02, sizeof(EnWood02), (ActorFunc)EnWood02_Init, (ActorFunc)EnWood02_Destroy, (ActorFunc)EnWood02_Update, (ActorFunc)EnWood02_Draw, (ActorFunc)EnWood02_Reset,
+    ACTOR_EN_WOOD02, ACTORCAT_PROP, FLAGS, OBJECT_WOOD02, ACTOR_FACTORY(EnWood02), (ActorFunc)EnWood02_Init, (ActorFunc)EnWood02_Destroy, (ActorFunc)EnWood02_Update, (ActorFunc)EnWood02_Draw, (ActorFunc)EnWood02_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -502,7 +502,7 @@ void EnWood02_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnWood02_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Wood02_InitVars = {
-	    ACTOR_EN_WOOD02, ACTORCAT_PROP, FLAGS, OBJECT_WOOD02, sizeof(EnWood02), (ActorFunc)EnWood02_Init, (ActorFunc)EnWood02_Destroy, (ActorFunc)EnWood02_Update, (ActorFunc)EnWood02_Draw, (ActorFunc)EnWood02_Reset,
+	    ACTOR_EN_WOOD02, ACTORCAT_PROP, FLAGS, OBJECT_WOOD02, ACTOR_FACTORY(EnWood02), (ActorFunc)EnWood02_Init, (ActorFunc)EnWood02_Destroy, (ActorFunc)EnWood02_Update, (ActorFunc)EnWood02_Draw, (ActorFunc)EnWood02_Reset,
 	};
 
 	sCylinderInit = {

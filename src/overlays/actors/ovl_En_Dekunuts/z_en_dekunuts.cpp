@@ -44,7 +44,7 @@ void EnDekunuts_Die(EnDekunuts* pthis, GlobalContext* globalCtx);
 static Vec3f effectVelAndAccel_63 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Dekunuts_InitVars = {
-    ACTOR_EN_DEKUNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUNUTS, sizeof(EnDekunuts), (ActorFunc)EnDekunuts_Init, (ActorFunc)EnDekunuts_Destroy, (ActorFunc)EnDekunuts_Update, (ActorFunc)EnDekunuts_Draw, (ActorFunc)EnDekunuts_Reset,
+    ACTOR_EN_DEKUNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUNUTS, ACTOR_FACTORY(EnDekunuts), (ActorFunc)EnDekunuts_Init, (ActorFunc)EnDekunuts_Destroy, (ActorFunc)EnDekunuts_Update, (ActorFunc)EnDekunuts_Draw, (ActorFunc)EnDekunuts_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -424,14 +424,15 @@ void EnDekunuts_Run(EnDekunuts* pthis, GlobalContext* globalCtx)
 	{
 		pthis->animFlagAndTimer--;
 	}
-	if(pthis->playWalkSound)
+
+	if(pthis->playWalkSound == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_WALK);
-		pthis->playWalkSound = false;
+		pthis->playWalkSound = 1;
 	}
 	else
 	{
-		pthis->playWalkSound = true;
+		pthis->playWalkSound--;
 	}
 
 	Math_StepToF(&pthis->actor.speedXZ, 7.5f, 1.0f);
@@ -671,7 +672,7 @@ void EnDekunuts_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	effectVelAndAccel_63 = {0.0f, 0.0f, 0.0f};
 
 	En_Dekunuts_InitVars = {
-	    ACTOR_EN_DEKUNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUNUTS, sizeof(EnDekunuts), (ActorFunc)EnDekunuts_Init, (ActorFunc)EnDekunuts_Destroy, (ActorFunc)EnDekunuts_Update, (ActorFunc)EnDekunuts_Draw, (ActorFunc)EnDekunuts_Reset,
+	    ACTOR_EN_DEKUNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUNUTS, ACTOR_FACTORY(EnDekunuts), (ActorFunc)EnDekunuts_Init, (ActorFunc)EnDekunuts_Destroy, (ActorFunc)EnDekunuts_Update, (ActorFunc)EnDekunuts_Draw, (ActorFunc)EnDekunuts_Reset,
 	};
 
 	sCylinderInit = {

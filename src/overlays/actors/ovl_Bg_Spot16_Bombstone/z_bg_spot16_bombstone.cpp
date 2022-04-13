@@ -101,7 +101,7 @@ static s16 D_808B5EB0[][7] = {
 };
 
 ActorInit Bg_Spot16_Bombstone_InitVars = {
-    ACTOR_BG_SPOT16_BOMBSTONE,		ACTORCAT_PROP, FLAGS, OBJECT_SPOT16_OBJ, sizeof(BgSpot16Bombstone), (ActorFunc)BgSpot16Bombstone_Init, (ActorFunc)BgSpot16Bombstone_Destroy, (ActorFunc)BgSpot16Bombstone_Update, (ActorFunc)BgSpot16Bombstone_Draw,
+    ACTOR_BG_SPOT16_BOMBSTONE,		ACTORCAT_PROP, FLAGS, OBJECT_SPOT16_OBJ, ACTOR_FACTORY(BgSpot16Bombstone), (ActorFunc)BgSpot16Bombstone_Init, (ActorFunc)BgSpot16Bombstone_Destroy, (ActorFunc)BgSpot16Bombstone_Update, (ActorFunc)BgSpot16Bombstone_Draw,
     (ActorFunc)BgSpot16Bombstone_Reset,
 };
 
@@ -624,7 +624,7 @@ void BgSpot16Bombstone_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	    ACTORCAT_PROP,
 	    FLAGS,
 	    OBJECT_SPOT16_OBJ,
-	    sizeof(BgSpot16Bombstone),
+	    ACTOR_FACTORY(BgSpot16Bombstone),
 	    (ActorFunc)BgSpot16Bombstone_Init,
 	    (ActorFunc)BgSpot16Bombstone_Destroy,
 	    (ActorFunc)BgSpot16Bombstone_Update,

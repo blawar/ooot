@@ -1669,7 +1669,7 @@ void DemoGj_Draw(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit Demo_Gj_InitVars = {
-    ACTOR_DEMO_GJ, ACTORCAT_PROP, FLAGS, OBJECT_GJ, sizeof(DemoGj), (ActorFunc)DemoGj_Init, (ActorFunc)DemoGj_Destroy, (ActorFunc)DemoGj_Update, (ActorFunc)DemoGj_Draw, (ActorFunc)DemoGj_Reset,
+    ACTOR_DEMO_GJ, ACTORCAT_PROP, FLAGS, OBJECT_GJ, ACTOR_FACTORY(DemoGj), (ActorFunc)DemoGj_Init, (ActorFunc)DemoGj_Destroy, (ActorFunc)DemoGj_Update, (ActorFunc)DemoGj_Draw, (ActorFunc)DemoGj_Reset,
 };
 
 void DemoGj_Reset(Actor* pthisx, GlobalContext* globalCtx)
@@ -1746,6 +1746,6 @@ void DemoGj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	Demo_Gj_InitVars = {
-	    ACTOR_DEMO_GJ, ACTORCAT_PROP, FLAGS, OBJECT_GJ, sizeof(DemoGj), (ActorFunc)DemoGj_Init, (ActorFunc)DemoGj_Destroy, (ActorFunc)DemoGj_Update, (ActorFunc)DemoGj_Draw, (ActorFunc)DemoGj_Reset,
+	    ACTOR_DEMO_GJ, ACTORCAT_PROP, FLAGS, OBJECT_GJ, ACTOR_FACTORY(DemoGj), (ActorFunc)DemoGj_Init, (ActorFunc)DemoGj_Destroy, (ActorFunc)DemoGj_Update, (ActorFunc)DemoGj_Draw, (ActorFunc)DemoGj_Reset,
 	};
 }

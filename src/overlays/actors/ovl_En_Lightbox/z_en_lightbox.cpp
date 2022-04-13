@@ -23,7 +23,7 @@ void EnLightbox_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnLightbox_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Lightbox_InitVars = {
-    ACTOR_EN_LIGHTBOX, ACTORCAT_PROP, FLAGS, OBJECT_LIGHTBOX, sizeof(EnLightbox), (ActorFunc)EnLightbox_Init, (ActorFunc)EnLightbox_Destroy, (ActorFunc)EnLightbox_Update, (ActorFunc)EnLightbox_Draw, (ActorFunc)EnLightbox_Reset,
+    ACTOR_EN_LIGHTBOX, ACTORCAT_PROP, FLAGS, OBJECT_LIGHTBOX, ACTOR_FACTORY(EnLightbox), (ActorFunc)EnLightbox_Init, (ActorFunc)EnLightbox_Destroy, (ActorFunc)EnLightbox_Update, (ActorFunc)EnLightbox_Draw, (ActorFunc)EnLightbox_Reset,
 };
 
 void EnLightbox_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -131,6 +131,6 @@ void EnLightbox_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnLightbox_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Lightbox_InitVars = {
-	    ACTOR_EN_LIGHTBOX, ACTORCAT_PROP, FLAGS, OBJECT_LIGHTBOX, sizeof(EnLightbox), (ActorFunc)EnLightbox_Init, (ActorFunc)EnLightbox_Destroy, (ActorFunc)EnLightbox_Update, (ActorFunc)EnLightbox_Draw, (ActorFunc)EnLightbox_Reset,
+	    ACTOR_EN_LIGHTBOX, ACTORCAT_PROP, FLAGS, OBJECT_LIGHTBOX, ACTOR_FACTORY(EnLightbox), (ActorFunc)EnLightbox_Init, (ActorFunc)EnLightbox_Destroy, (ActorFunc)EnLightbox_Update, (ActorFunc)EnLightbox_Draw, (ActorFunc)EnLightbox_Reset,
 	};
 }

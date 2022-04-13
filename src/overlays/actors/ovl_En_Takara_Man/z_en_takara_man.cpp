@@ -36,7 +36,7 @@ static void* eyeTextures_37[] = {
 };
 
 ActorInit En_Takara_Man_InitVars = {
-    ACTOR_EN_TAKARA_MAN, ACTORCAT_NPC, FLAGS, OBJECT_TS, sizeof(EnTakaraMan), (ActorFunc)EnTakaraMan_Init, (ActorFunc)EnTakaraMan_Destroy, (ActorFunc)EnTakaraMan_Update, (ActorFunc)EnTakaraMan_Draw, (ActorFunc)EnTakaraMan_Reset,
+    ACTOR_EN_TAKARA_MAN, ACTORCAT_NPC, FLAGS, OBJECT_TS, ACTOR_FACTORY(EnTakaraMan), (ActorFunc)EnTakaraMan_Init, (ActorFunc)EnTakaraMan_Destroy, (ActorFunc)EnTakaraMan_Update, (ActorFunc)EnTakaraMan_Draw, (ActorFunc)EnTakaraMan_Reset,
 };
 
 static u8 sTakaraIsInitialized = false;
@@ -273,7 +273,7 @@ void EnTakaraMan_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnTakaraMan_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Takara_Man_InitVars = {
-	    ACTOR_EN_TAKARA_MAN, ACTORCAT_NPC, FLAGS, OBJECT_TS, sizeof(EnTakaraMan), (ActorFunc)EnTakaraMan_Init, (ActorFunc)EnTakaraMan_Destroy, (ActorFunc)EnTakaraMan_Update, (ActorFunc)EnTakaraMan_Draw, (ActorFunc)EnTakaraMan_Reset,
+	    ACTOR_EN_TAKARA_MAN, ACTORCAT_NPC, FLAGS, OBJECT_TS, ACTOR_FACTORY(EnTakaraMan), (ActorFunc)EnTakaraMan_Init, (ActorFunc)EnTakaraMan_Destroy, (ActorFunc)EnTakaraMan_Update, (ActorFunc)EnTakaraMan_Draw, (ActorFunc)EnTakaraMan_Reset,
 	};
 
 	sTakaraIsInitialized = false;

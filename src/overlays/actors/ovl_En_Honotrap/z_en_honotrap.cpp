@@ -65,7 +65,7 @@ static void* eyeTextures_77[] = {
 };
 
 ActorInit En_Honotrap_InitVars = {
-    ACTOR_EN_HONOTRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(EnHonotrap), (ActorFunc)EnHonotrap_Init, (ActorFunc)EnHonotrap_Destroy, (ActorFunc)EnHonotrap_Update, (ActorFunc)EnHonotrap_Draw, (ActorFunc)EnHonotrap_Reset,
+    ACTOR_EN_HONOTRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(EnHonotrap), (ActorFunc)EnHonotrap_Init, (ActorFunc)EnHonotrap_Destroy, (ActorFunc)EnHonotrap_Update, (ActorFunc)EnHonotrap_Draw, (ActorFunc)EnHonotrap_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -625,7 +625,7 @@ void EnHonotrap_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	accel_76 = {0.0f, 0.1f, 0.0f};
 
 	En_Honotrap_InitVars = {
-	    ACTOR_EN_HONOTRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(EnHonotrap), (ActorFunc)EnHonotrap_Init, (ActorFunc)EnHonotrap_Destroy, (ActorFunc)EnHonotrap_Update, (ActorFunc)EnHonotrap_Draw, (ActorFunc)EnHonotrap_Reset,
+	    ACTOR_EN_HONOTRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(EnHonotrap), (ActorFunc)EnHonotrap_Init, (ActorFunc)EnHonotrap_Destroy, (ActorFunc)EnHonotrap_Update, (ActorFunc)EnHonotrap_Draw, (ActorFunc)EnHonotrap_Reset,
 	};
 
 	sTrisInit = {

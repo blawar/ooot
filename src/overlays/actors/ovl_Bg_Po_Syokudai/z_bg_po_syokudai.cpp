@@ -63,7 +63,7 @@ static Color_RGBA8 sEnvColors[] = {
 };
 
 ActorInit Bg_Po_Syokudai_InitVars = {
-    ACTOR_BG_PO_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, sizeof(BgPoSyokudai), (ActorFunc)BgPoSyokudai_Init, (ActorFunc)BgPoSyokudai_Destroy, (ActorFunc)BgPoSyokudai_Update, (ActorFunc)BgPoSyokudai_Draw, (ActorFunc)BgPoSyokudai_Reset,
+    ACTOR_BG_PO_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, ACTOR_FACTORY(BgPoSyokudai), (ActorFunc)BgPoSyokudai_Init, (ActorFunc)BgPoSyokudai_Destroy, (ActorFunc)BgPoSyokudai_Update, (ActorFunc)BgPoSyokudai_Draw, (ActorFunc)BgPoSyokudai_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -206,6 +206,6 @@ void BgPoSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	Bg_Po_Syokudai_InitVars = {
-	    ACTOR_BG_PO_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, sizeof(BgPoSyokudai), (ActorFunc)BgPoSyokudai_Init, (ActorFunc)BgPoSyokudai_Destroy, (ActorFunc)BgPoSyokudai_Update, (ActorFunc)BgPoSyokudai_Draw, (ActorFunc)BgPoSyokudai_Reset,
+	    ACTOR_BG_PO_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, ACTOR_FACTORY(BgPoSyokudai), (ActorFunc)BgPoSyokudai_Init, (ActorFunc)BgPoSyokudai_Destroy, (ActorFunc)BgPoSyokudai_Update, (ActorFunc)BgPoSyokudai_Draw, (ActorFunc)BgPoSyokudai_Reset,
 	};
 }

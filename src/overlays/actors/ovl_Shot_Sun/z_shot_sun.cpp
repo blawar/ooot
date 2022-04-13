@@ -32,7 +32,7 @@ void func_80BADF0C(ShotSun* pthis, GlobalContext* globalCtx);
 void ShotSun_UpdateHyliaSun(ShotSun* pthis, GlobalContext* globalCtx);
 
 ActorInit Shot_Sun_InitVars = {
-    ACTOR_SHOT_SUN, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ShotSun), (ActorFunc)ShotSun_Init, (ActorFunc)ShotSun_Destroy, (ActorFunc)ShotSun_Update, NULL, (ActorFunc)ShotSun_Reset,
+    ACTOR_SHOT_SUN, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ShotSun), (ActorFunc)ShotSun_Init, (ActorFunc)ShotSun_Destroy, (ActorFunc)ShotSun_Update, NULL, (ActorFunc)ShotSun_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -240,7 +240,7 @@ void ShotSun_Update(Actor* thisx, GlobalContext* globalCtx)
 void ShotSun_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Shot_Sun_InitVars = {
-	    ACTOR_SHOT_SUN, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ShotSun), (ActorFunc)ShotSun_Init, (ActorFunc)ShotSun_Destroy, (ActorFunc)ShotSun_Update, NULL, (ActorFunc)ShotSun_Reset,
+	    ACTOR_SHOT_SUN, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ShotSun), (ActorFunc)ShotSun_Init, (ActorFunc)ShotSun_Destroy, (ActorFunc)ShotSun_Update, NULL, (ActorFunc)ShotSun_Reset,
 	};
 
 	sCylinderInit = {

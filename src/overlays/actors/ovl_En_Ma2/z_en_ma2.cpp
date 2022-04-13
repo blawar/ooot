@@ -39,7 +39,7 @@ static void* sMouthTextures_53[] = {gMalonAdultMouthNeutralTex, gMalonAdultMouth
 static void* sEyeTextures_53[] = {gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex};
 
 ActorInit En_Ma2_InitVars = {
-    ACTOR_EN_MA2, ACTORCAT_NPC, FLAGS, OBJECT_MA2, sizeof(EnMa2), (ActorFunc)EnMa2_Init, (ActorFunc)EnMa2_Destroy, (ActorFunc)EnMa2_Update, (ActorFunc)EnMa2_Draw, (ActorFunc)EnMa2_Reset,
+    ACTOR_EN_MA2, ACTORCAT_NPC, FLAGS, OBJECT_MA2, ACTOR_FACTORY(EnMa2), (ActorFunc)EnMa2_Init, (ActorFunc)EnMa2_Destroy, (ActorFunc)EnMa2_Update, (ActorFunc)EnMa2_Draw, (ActorFunc)EnMa2_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -461,7 +461,7 @@ void EnMa2_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnMa2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ma2_InitVars = {
-	    ACTOR_EN_MA2, ACTORCAT_NPC, FLAGS, OBJECT_MA2, sizeof(EnMa2), (ActorFunc)EnMa2_Init, (ActorFunc)EnMa2_Destroy, (ActorFunc)EnMa2_Update, (ActorFunc)EnMa2_Draw, (ActorFunc)EnMa2_Reset,
+	    ACTOR_EN_MA2, ACTORCAT_NPC, FLAGS, OBJECT_MA2, ACTOR_FACTORY(EnMa2), (ActorFunc)EnMa2_Init, (ActorFunc)EnMa2_Destroy, (ActorFunc)EnMa2_Update, (ActorFunc)EnMa2_Draw, (ActorFunc)EnMa2_Reset,
 	};
 
 	sCylinderInit = {

@@ -76,7 +76,7 @@ static DemoSaDrawFunc sDrawFuncs[] = {
 };
 
 ActorInit Demo_Sa_InitVars = {
-    ACTOR_DEMO_SA, ACTORCAT_NPC, FLAGS, OBJECT_SA, sizeof(DemoSa), (ActorFunc)DemoSa_Init, (ActorFunc)DemoSa_Destroy, (ActorFunc)DemoSa_Update, (ActorFunc)DemoSa_Draw, (ActorFunc)DemoSa_Reset,
+    ACTOR_DEMO_SA, ACTORCAT_NPC, FLAGS, OBJECT_SA, ACTOR_FACTORY(DemoSa), (ActorFunc)DemoSa_Init, (ActorFunc)DemoSa_Destroy, (ActorFunc)DemoSa_Update, (ActorFunc)DemoSa_Draw, (ActorFunc)DemoSa_Reset,
 };
 
 void DemoSa_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -937,6 +937,6 @@ void DemoSa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80990108 = 0;
 
 	Demo_Sa_InitVars = {
-	    ACTOR_DEMO_SA, ACTORCAT_NPC, FLAGS, OBJECT_SA, sizeof(DemoSa), (ActorFunc)DemoSa_Init, (ActorFunc)DemoSa_Destroy, (ActorFunc)DemoSa_Update, (ActorFunc)DemoSa_Draw, (ActorFunc)DemoSa_Reset,
+	    ACTOR_DEMO_SA, ACTORCAT_NPC, FLAGS, OBJECT_SA, ACTOR_FACTORY(DemoSa), (ActorFunc)DemoSa_Init, (ActorFunc)DemoSa_Destroy, (ActorFunc)DemoSa_Update, (ActorFunc)DemoSa_Draw, (ActorFunc)DemoSa_Reset,
 	};
 }

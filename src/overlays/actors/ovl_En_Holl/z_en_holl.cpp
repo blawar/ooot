@@ -33,7 +33,7 @@ void func_80A59520(EnHoll* pthis, GlobalContext* globalCtx);
 void func_80A59618(EnHoll* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Holl_InitVars = {
-    ACTOR_EN_HOLL, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnHoll), (ActorFunc)EnHoll_Init, (ActorFunc)EnHoll_Destroy, (ActorFunc)EnHoll_Update, (ActorFunc)EnHoll_Draw, (ActorFunc)EnHoll_Reset,
+    ACTOR_EN_HOLL, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnHoll), (ActorFunc)EnHoll_Init, (ActorFunc)EnHoll_Destroy, (ActorFunc)EnHoll_Update, (ActorFunc)EnHoll_Draw, (ActorFunc)EnHoll_Reset,
 };
 
 static EnHollActionFunc sActionFuncs[] = {
@@ -430,6 +430,6 @@ void EnHoll_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHoll_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Holl_InitVars = {
-	    ACTOR_EN_HOLL, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnHoll), (ActorFunc)EnHoll_Init, (ActorFunc)EnHoll_Destroy, (ActorFunc)EnHoll_Update, (ActorFunc)EnHoll_Draw, (ActorFunc)EnHoll_Reset,
+	    ACTOR_EN_HOLL, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnHoll), (ActorFunc)EnHoll_Init, (ActorFunc)EnHoll_Destroy, (ActorFunc)EnHoll_Update, (ActorFunc)EnHoll_Draw, (ActorFunc)EnHoll_Reset,
 	};
 }

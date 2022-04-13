@@ -53,6 +53,7 @@ struct VecRot
 };
 
 typedef VecRot VecPos;
+typedef Vec3f VecPosF;
 
 struct Sphere16
 {
@@ -116,7 +117,7 @@ struct VecSph
 
 struct PosRot
 {
-	Vec3f pos;
+	VecPosF pos;
 	VecRot rot;
 }; // size = 0x14
 

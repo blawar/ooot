@@ -41,7 +41,7 @@ void func_80BA2600(ObjWarp2block* pthis);
 void func_80BA2610(ObjWarp2block* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Warp2block_InitVars = {
-    ACTOR_OBJ_WARP2BLOCK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, sizeof(ObjWarp2block), (ActorFunc)ObjWarp2block_Init, (ActorFunc)ObjWarp2block_Destroy, (ActorFunc)ObjWarp2block_Update, (ActorFunc)ObjWarp2block_Draw, (ActorFunc)ObjWarp2block_Reset,
+    ACTOR_OBJ_WARP2BLOCK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, ACTOR_FACTORY(ObjWarp2block), (ActorFunc)ObjWarp2block_Init, (ActorFunc)ObjWarp2block_Destroy, (ActorFunc)ObjWarp2block_Update, (ActorFunc)ObjWarp2block_Draw, (ActorFunc)ObjWarp2block_Reset,
 };
 
 static Warp2BlockSpawnData sSpawnData[] = {
@@ -359,7 +359,7 @@ void ObjWarp2block_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjWarp2block_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Warp2block_InitVars = {
-	    ACTOR_OBJ_WARP2BLOCK,	    ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, sizeof(ObjWarp2block), (ActorFunc)ObjWarp2block_Init, (ActorFunc)ObjWarp2block_Destroy, (ActorFunc)ObjWarp2block_Update, (ActorFunc)ObjWarp2block_Draw,
+	    ACTOR_OBJ_WARP2BLOCK,	    ACTORCAT_ITEMACTION, FLAGS, OBJECT_TIMEBLOCK, ACTOR_FACTORY(ObjWarp2block), (ActorFunc)ObjWarp2block_Init, (ActorFunc)ObjWarp2block_Destroy, (ActorFunc)ObjWarp2block_Update, (ActorFunc)ObjWarp2block_Draw,
 	    (ActorFunc)ObjWarp2block_Reset,
 	};
 }

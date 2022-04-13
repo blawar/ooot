@@ -47,7 +47,7 @@ static void* sEyesSegments_62[] = {
 };
 
 ActorInit En_Tk_InitVars = {
-    ACTOR_EN_TK, ACTORCAT_NPC, FLAGS, OBJECT_TK, sizeof(EnTk), (ActorFunc)EnTk_Init, (ActorFunc)EnTk_Destroy, (ActorFunc)EnTk_Update, (ActorFunc)EnTk_Draw, (ActorFunc)EnTk_Reset,
+    ACTOR_EN_TK, ACTORCAT_NPC, FLAGS, OBJECT_TK, ACTOR_FACTORY(EnTk), (ActorFunc)EnTk_Init, (ActorFunc)EnTk_Destroy, (ActorFunc)EnTk_Update, (ActorFunc)EnTk_Draw, (ActorFunc)EnTk_Reset,
 };
 
 void EnTkEff_Create(EnTk* pthis, Vec3f* pos, Vec3f* speed, Vec3f* accel, u8 duration, f32 size, f32 growth)
@@ -874,7 +874,7 @@ void EnTk_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnTk_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Tk_InitVars = {
-	    ACTOR_EN_TK, ACTORCAT_NPC, FLAGS, OBJECT_TK, sizeof(EnTk), (ActorFunc)EnTk_Init, (ActorFunc)EnTk_Destroy, (ActorFunc)EnTk_Update, (ActorFunc)EnTk_Draw, (ActorFunc)EnTk_Reset,
+	    ACTOR_EN_TK, ACTORCAT_NPC, FLAGS, OBJECT_TK, ACTOR_FACTORY(EnTk), (ActorFunc)EnTk_Init, (ActorFunc)EnTk_Destroy, (ActorFunc)EnTk_Update, (ActorFunc)EnTk_Draw, (ActorFunc)EnTk_Reset,
 	};
 
 	sCylinderInit = {

@@ -24,7 +24,7 @@ void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnStream_WaitForPlayer(EnStream* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Stream_InitVars = {
-    ACTOR_EN_STREAM, ACTORCAT_BG, FLAGS, OBJECT_STREAM, sizeof(EnStream), (ActorFunc)EnStream_Init, (ActorFunc)EnStream_Destroy, (ActorFunc)EnStream_Update, (ActorFunc)EnStream_Draw, (ActorFunc)EnStream_Reset,
+    ACTOR_EN_STREAM, ACTORCAT_BG, FLAGS, OBJECT_STREAM, ACTOR_FACTORY(EnStream), (ActorFunc)EnStream_Init, (ActorFunc)EnStream_Destroy, (ActorFunc)EnStream_Update, (ActorFunc)EnStream_Draw, (ActorFunc)EnStream_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -164,6 +164,6 @@ void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnStream_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Stream_InitVars = {
-	    ACTOR_EN_STREAM, ACTORCAT_BG, FLAGS, OBJECT_STREAM, sizeof(EnStream), (ActorFunc)EnStream_Init, (ActorFunc)EnStream_Destroy, (ActorFunc)EnStream_Update, (ActorFunc)EnStream_Draw, (ActorFunc)EnStream_Reset,
+	    ACTOR_EN_STREAM, ACTORCAT_BG, FLAGS, OBJECT_STREAM, ACTOR_FACTORY(EnStream), (ActorFunc)EnStream_Init, (ActorFunc)EnStream_Destroy, (ActorFunc)EnStream_Update, (ActorFunc)EnStream_Draw, (ActorFunc)EnStream_Reset,
 	};
 }

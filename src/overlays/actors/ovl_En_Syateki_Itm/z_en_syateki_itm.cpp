@@ -24,7 +24,7 @@ void EnSyatekiItm_CleanupGame(EnSyatekiItm* pthis, GlobalContext* globalCtx);
 void EnSyatekiItm_EndGame(EnSyatekiItm* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Syateki_Itm_InitVars = {
-    ACTOR_EN_SYATEKI_ITM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnSyatekiItm), (ActorFunc)EnSyatekiItm_Init, (ActorFunc)EnSyatekiItm_Destroy, (ActorFunc)EnSyatekiItm_Update, NULL, (ActorFunc)EnSyatekiItm_Reset,
+    ACTOR_EN_SYATEKI_ITM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnSyatekiItm), (ActorFunc)EnSyatekiItm_Init, (ActorFunc)EnSyatekiItm_Destroy, (ActorFunc)EnSyatekiItm_Update, NULL, (ActorFunc)EnSyatekiItm_Reset,
 };
 
 static Vec3f sGreenAppearHome = {0.0f, -10.0f, -270.0f};
@@ -376,7 +376,7 @@ void EnSyatekiItm_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnSyatekiItm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Syateki_Itm_InitVars = {
-	    ACTOR_EN_SYATEKI_ITM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnSyatekiItm), (ActorFunc)EnSyatekiItm_Init, (ActorFunc)EnSyatekiItm_Destroy, (ActorFunc)EnSyatekiItm_Update, NULL, (ActorFunc)EnSyatekiItm_Reset,
+	    ACTOR_EN_SYATEKI_ITM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnSyatekiItm), (ActorFunc)EnSyatekiItm_Init, (ActorFunc)EnSyatekiItm_Destroy, (ActorFunc)EnSyatekiItm_Update, NULL, (ActorFunc)EnSyatekiItm_Reset,
 	};
 
 	sGreenAppearHome = {0.0f, -10.0f, -270.0f};

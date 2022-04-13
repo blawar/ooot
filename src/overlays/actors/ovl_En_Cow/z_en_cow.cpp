@@ -37,7 +37,7 @@ void func_809DF96C(EnCow* pthis, GlobalContext* globalCtx);
 void func_809DFA84(EnCow* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Cow_InitVars = {
-    ACTOR_EN_COW, ACTORCAT_NPC, FLAGS, OBJECT_COW, sizeof(EnCow), (ActorFunc)EnCow_Init, (ActorFunc)EnCow_Destroy, (ActorFunc)EnCow_Update, (ActorFunc)EnCow_Draw, (ActorFunc)EnCow_Reset,
+    ACTOR_EN_COW, ACTORCAT_NPC, FLAGS, OBJECT_COW, ACTOR_FACTORY(EnCow), (ActorFunc)EnCow_Init, (ActorFunc)EnCow_Destroy, (ActorFunc)EnCow_Update, (ActorFunc)EnCow_Draw, (ActorFunc)EnCow_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -470,7 +470,7 @@ void func_809E0070(Actor* thisx, GlobalContext* globalCtx)
 void EnCow_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Cow_InitVars = {
-	    ACTOR_EN_COW, ACTORCAT_NPC, FLAGS, OBJECT_COW, sizeof(EnCow), (ActorFunc)EnCow_Init, (ActorFunc)EnCow_Destroy, (ActorFunc)EnCow_Update, (ActorFunc)EnCow_Draw, (ActorFunc)EnCow_Reset,
+	    ACTOR_EN_COW, ACTORCAT_NPC, FLAGS, OBJECT_COW, ACTOR_FACTORY(EnCow), (ActorFunc)EnCow_Init, (ActorFunc)EnCow_Destroy, (ActorFunc)EnCow_Update, (ActorFunc)EnCow_Draw, (ActorFunc)EnCow_Reset,
 	};
 
 	sCylinderInit = {

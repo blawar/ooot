@@ -31,7 +31,7 @@ void EnMk_Wait(EnMk* pthis, GlobalContext* globalCtx);
 static Vec3f D_80AAD64C_42 = {1000.0f, -100.0f, 0.0f};
 
 ActorInit En_Mk_InitVars = {
-    ACTOR_EN_MK, ACTORCAT_NPC, FLAGS, OBJECT_MK, sizeof(EnMk), (ActorFunc)EnMk_Init, (ActorFunc)EnMk_Destroy, (ActorFunc)EnMk_Update, (ActorFunc)EnMk_Draw, (ActorFunc)EnMk_Reset,
+    ACTOR_EN_MK, ACTORCAT_NPC, FLAGS, OBJECT_MK, ACTOR_FACTORY(EnMk), (ActorFunc)EnMk_Init, (ActorFunc)EnMk_Destroy, (ActorFunc)EnMk_Update, (ActorFunc)EnMk_Draw, (ActorFunc)EnMk_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -459,7 +459,7 @@ void EnMk_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80AAD64C_42 = {1000.0f, -100.0f, 0.0f};
 
 	En_Mk_InitVars = {
-	    ACTOR_EN_MK, ACTORCAT_NPC, FLAGS, OBJECT_MK, sizeof(EnMk), (ActorFunc)EnMk_Init, (ActorFunc)EnMk_Destroy, (ActorFunc)EnMk_Update, (ActorFunc)EnMk_Draw, (ActorFunc)EnMk_Reset,
+	    ACTOR_EN_MK, ACTORCAT_NPC, FLAGS, OBJECT_MK, ACTOR_FACTORY(EnMk), (ActorFunc)EnMk_Init, (ActorFunc)EnMk_Destroy, (ActorFunc)EnMk_Update, (ActorFunc)EnMk_Draw, (ActorFunc)EnMk_Reset,
 	};
 
 	sCylinderInit = {

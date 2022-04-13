@@ -41,7 +41,7 @@ void func_80B33338(EnWeiyer* pthis, GlobalContext* globalCtx);
 void func_80B3349C(EnWeiyer* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Weiyer_InitVars = {
-    ACTOR_EN_WEIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, sizeof(EnWeiyer), (ActorFunc)EnWeiyer_Init, (ActorFunc)EnWeiyer_Destroy, (ActorFunc)EnWeiyer_Update, (ActorFunc)EnWeiyer_Draw, (ActorFunc)EnWeiyer_Reset,
+    ACTOR_EN_WEIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, ACTOR_FACTORY(EnWeiyer), (ActorFunc)EnWeiyer_Init, (ActorFunc)EnWeiyer_Destroy, (ActorFunc)EnWeiyer_Update, (ActorFunc)EnWeiyer_Draw, (ActorFunc)EnWeiyer_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -778,7 +778,7 @@ void EnWeiyer_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnWeiyer_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Weiyer_InitVars = {
-	    ACTOR_EN_WEIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, sizeof(EnWeiyer), (ActorFunc)EnWeiyer_Init, (ActorFunc)EnWeiyer_Destroy, (ActorFunc)EnWeiyer_Update, (ActorFunc)EnWeiyer_Draw, (ActorFunc)EnWeiyer_Reset,
+	    ACTOR_EN_WEIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, ACTOR_FACTORY(EnWeiyer), (ActorFunc)EnWeiyer_Init, (ActorFunc)EnWeiyer_Destroy, (ActorFunc)EnWeiyer_Update, (ActorFunc)EnWeiyer_Draw, (ActorFunc)EnWeiyer_Reset,
 	};
 
 	sCylinderInit = {

@@ -62,7 +62,7 @@ static Gfx* displayLists_67[] = {
 };
 
 ActorInit Bg_Po_Event_InitVars = {
-    ACTOR_BG_PO_EVENT, ACTORCAT_BG, FLAGS, OBJECT_PO_SISTERS, sizeof(BgPoEvent), (ActorFunc)BgPoEvent_Init, (ActorFunc)BgPoEvent_Destroy, (ActorFunc)BgPoEvent_Update, (ActorFunc)BgPoEvent_Draw, (ActorFunc)BgPoEvent_Reset,
+    ACTOR_BG_PO_EVENT, ACTORCAT_BG, FLAGS, OBJECT_PO_SISTERS, ACTOR_FACTORY(BgPoEvent), (ActorFunc)BgPoEvent_Init, (ActorFunc)BgPoEvent_Destroy, (ActorFunc)BgPoEvent_Update, (ActorFunc)BgPoEvent_Draw, (ActorFunc)BgPoEvent_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[2] = {
@@ -794,7 +794,7 @@ void BgPoEvent_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	blockPushDist_55 = 0.0f;
 
 	Bg_Po_Event_InitVars = {
-	    ACTOR_BG_PO_EVENT, ACTORCAT_BG, FLAGS, OBJECT_PO_SISTERS, sizeof(BgPoEvent), (ActorFunc)BgPoEvent_Init, (ActorFunc)BgPoEvent_Destroy, (ActorFunc)BgPoEvent_Update, (ActorFunc)BgPoEvent_Draw, (ActorFunc)BgPoEvent_Reset,
+	    ACTOR_BG_PO_EVENT, ACTORCAT_BG, FLAGS, OBJECT_PO_SISTERS, ACTOR_FACTORY(BgPoEvent), (ActorFunc)BgPoEvent_Init, (ActorFunc)BgPoEvent_Destroy, (ActorFunc)BgPoEvent_Update, (ActorFunc)BgPoEvent_Draw, (ActorFunc)BgPoEvent_Reset,
 	};
 
 	sTrisInit = {

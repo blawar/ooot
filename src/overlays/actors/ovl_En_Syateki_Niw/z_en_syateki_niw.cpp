@@ -40,7 +40,7 @@ void func_80B128D8(EnSyatekiNiw* pthis, GlobalContext* globalCtx);
 void func_80B131B8(EnSyatekiNiw* pthis, Vec3f* arg1, Vec3f* arg2, Vec3f* arg3, f32 arg4);
 
 ActorInit En_Syateki_Niw_InitVars = {
-    ACTOR_EN_SYATEKI_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, sizeof(EnSyatekiNiw), (ActorFunc)EnSyatekiNiw_Init, (ActorFunc)EnSyatekiNiw_Destroy, (ActorFunc)EnSyatekiNiw_Update, (ActorFunc)EnSyatekiNiw_Draw, (ActorFunc)EnSyatekiNiw_Reset,
+    ACTOR_EN_SYATEKI_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, ACTOR_FACTORY(EnSyatekiNiw), (ActorFunc)EnSyatekiNiw_Init, (ActorFunc)EnSyatekiNiw_Destroy, (ActorFunc)EnSyatekiNiw_Update, (ActorFunc)EnSyatekiNiw_Draw, (ActorFunc)EnSyatekiNiw_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -913,7 +913,7 @@ void func_80B13464(EnSyatekiNiw* pthis, GlobalContext* globalCtx)
 void EnSyatekiNiw_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Syateki_Niw_InitVars = {
-	    ACTOR_EN_SYATEKI_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, sizeof(EnSyatekiNiw), (ActorFunc)EnSyatekiNiw_Init, (ActorFunc)EnSyatekiNiw_Destroy, (ActorFunc)EnSyatekiNiw_Update, (ActorFunc)EnSyatekiNiw_Draw, (ActorFunc)EnSyatekiNiw_Reset,
+	    ACTOR_EN_SYATEKI_NIW, ACTORCAT_PROP, FLAGS, OBJECT_NIW, ACTOR_FACTORY(EnSyatekiNiw), (ActorFunc)EnSyatekiNiw_Init, (ActorFunc)EnSyatekiNiw_Destroy, (ActorFunc)EnSyatekiNiw_Update, (ActorFunc)EnSyatekiNiw_Draw, (ActorFunc)EnSyatekiNiw_Reset,
 	};
 
 	sCylinderInit = {

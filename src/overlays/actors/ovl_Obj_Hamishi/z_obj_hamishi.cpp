@@ -26,7 +26,7 @@ void ObjHamishi_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Obj_Hamishi_InitVars = {
-    ACTOR_OBJ_HAMISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(ObjHamishi), (ActorFunc)ObjHamishi_Init, (ActorFunc)ObjHamishi_Destroy, (ActorFunc)ObjHamishi_Update, (ActorFunc)ObjHamishi_Draw, (ActorFunc)ObjHamishi_Reset,
+    ACTOR_OBJ_HAMISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(ObjHamishi), (ActorFunc)ObjHamishi_Init, (ActorFunc)ObjHamishi_Destroy, (ActorFunc)ObjHamishi_Update, (ActorFunc)ObjHamishi_Draw, (ActorFunc)ObjHamishi_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -234,7 +234,7 @@ void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjHamishi_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Hamishi_InitVars = {
-	    ACTOR_OBJ_HAMISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(ObjHamishi), (ActorFunc)ObjHamishi_Init, (ActorFunc)ObjHamishi_Destroy, (ActorFunc)ObjHamishi_Update, (ActorFunc)ObjHamishi_Draw, (ActorFunc)ObjHamishi_Reset,
+	    ACTOR_OBJ_HAMISHI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(ObjHamishi), (ActorFunc)ObjHamishi_Init, (ActorFunc)ObjHamishi_Destroy, (ActorFunc)ObjHamishi_Update, (ActorFunc)ObjHamishi_Draw, (ActorFunc)ObjHamishi_Reset,
 	};
 
 	sCylinderInit = {

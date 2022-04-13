@@ -33,7 +33,7 @@ static void* D_809BCB10_30[] = {
 };
 
 ActorInit En_Bdfire_InitVars = {
-    0, ACTORCAT_ENEMY, FLAGS, OBJECT_KINGDODONGO, sizeof(EnBdfire), (ActorFunc)EnBdfire_Init, (ActorFunc)EnBdfire_Destroy, (ActorFunc)EnBdfire_Update, (ActorFunc)EnBdfire_Draw, (ActorFunc)EnBdfire_Reset,
+    0, ACTORCAT_ENEMY, FLAGS, OBJECT_KINGDODONGO, ACTOR_FACTORY(EnBdfire), (ActorFunc)EnBdfire_Init, (ActorFunc)EnBdfire_Destroy, (ActorFunc)EnBdfire_Update, (ActorFunc)EnBdfire_Draw, (ActorFunc)EnBdfire_Reset,
 };
 
 void EnBdfire_SetupAction(EnBdfire* pthis, EnBdfireActionFunc actionFunc)
@@ -272,6 +272,6 @@ void EnBdfire_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBdfire_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bdfire_InitVars = {
-	    0, ACTORCAT_ENEMY, FLAGS, OBJECT_KINGDODONGO, sizeof(EnBdfire), (ActorFunc)EnBdfire_Init, (ActorFunc)EnBdfire_Destroy, (ActorFunc)EnBdfire_Update, (ActorFunc)EnBdfire_Draw, (ActorFunc)EnBdfire_Reset,
+	    0, ACTORCAT_ENEMY, FLAGS, OBJECT_KINGDODONGO, ACTOR_FACTORY(EnBdfire), (ActorFunc)EnBdfire_Init, (ActorFunc)EnBdfire_Destroy, (ActorFunc)EnBdfire_Update, (ActorFunc)EnBdfire_Draw, (ActorFunc)EnBdfire_Reset,
 	};
 }

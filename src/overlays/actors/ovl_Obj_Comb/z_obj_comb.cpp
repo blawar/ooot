@@ -32,7 +32,7 @@ void ObjComb_SetupWait(ObjComb* pthis);
 void ObjComb_Wait(ObjComb* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Comb_InitVars = {
-    ACTOR_OBJ_COMB, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(ObjComb), (ActorFunc)ObjComb_Init, (ActorFunc)ObjComb_Destroy, (ActorFunc)ObjComb_Update, (ActorFunc)ObjComb_Draw, (ActorFunc)ObjComb_Reset,
+    ACTOR_OBJ_COMB, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(ObjComb), (ActorFunc)ObjComb_Init, (ActorFunc)ObjComb_Destroy, (ActorFunc)ObjComb_Update, (ActorFunc)ObjComb_Draw, (ActorFunc)ObjComb_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -264,7 +264,7 @@ void ObjComb_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjComb_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Comb_InitVars = {
-	    ACTOR_OBJ_COMB, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(ObjComb), (ActorFunc)ObjComb_Init, (ActorFunc)ObjComb_Destroy, (ActorFunc)ObjComb_Update, (ActorFunc)ObjComb_Draw, (ActorFunc)ObjComb_Reset,
+	    ACTOR_OBJ_COMB, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(ObjComb), (ActorFunc)ObjComb_Init, (ActorFunc)ObjComb_Destroy, (ActorFunc)ObjComb_Update, (ActorFunc)ObjComb_Draw, (ActorFunc)ObjComb_Reset,
 	};
 
 	sJntSphInit = {

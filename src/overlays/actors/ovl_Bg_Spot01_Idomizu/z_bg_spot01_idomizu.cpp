@@ -24,7 +24,7 @@ void BgSpot01Idomizu_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_808ABB84(BgSpot01Idomizu* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot01_Idomizu_InitVars = {
-    ACTOR_BG_SPOT01_IDOMIZU,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, sizeof(BgSpot01Idomizu), (ActorFunc)BgSpot01Idomizu_Init, (ActorFunc)BgSpot01Idomizu_Destroy, (ActorFunc)BgSpot01Idomizu_Update, (ActorFunc)BgSpot01Idomizu_Draw,
+    ACTOR_BG_SPOT01_IDOMIZU,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, ACTOR_FACTORY(BgSpot01Idomizu), (ActorFunc)BgSpot01Idomizu_Init, (ActorFunc)BgSpot01Idomizu_Destroy, (ActorFunc)BgSpot01Idomizu_Update, (ActorFunc)BgSpot01Idomizu_Draw,
     (ActorFunc)BgSpot01Idomizu_Reset,
 };
 
@@ -94,7 +94,7 @@ void BgSpot01Idomizu_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot01Idomizu_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot01_Idomizu_InitVars = {
-	    ACTOR_BG_SPOT01_IDOMIZU,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, sizeof(BgSpot01Idomizu), (ActorFunc)BgSpot01Idomizu_Init, (ActorFunc)BgSpot01Idomizu_Destroy, (ActorFunc)BgSpot01Idomizu_Update, (ActorFunc)BgSpot01Idomizu_Draw,
+	    ACTOR_BG_SPOT01_IDOMIZU,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, ACTOR_FACTORY(BgSpot01Idomizu), (ActorFunc)BgSpot01Idomizu_Init, (ActorFunc)BgSpot01Idomizu_Destroy, (ActorFunc)BgSpot01Idomizu_Update, (ActorFunc)BgSpot01Idomizu_Draw,
 	    (ActorFunc)BgSpot01Idomizu_Reset,
 	};
 }

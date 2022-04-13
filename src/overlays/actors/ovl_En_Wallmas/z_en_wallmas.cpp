@@ -59,7 +59,7 @@ void EnWallmas_Walk(EnWallmas* pthis, GlobalContext* globalCtx);
 static Vec3f zeroVec_66 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Wallmas_InitVars = {
-    ACTOR_EN_WALLMAS, ACTORCAT_ENEMY, FLAGS, OBJECT_WALLMASTER, sizeof(EnWallmas), (ActorFunc)EnWallmas_Init, (ActorFunc)EnWallmas_Destroy, (ActorFunc)EnWallmas_Update, (ActorFunc)EnWallmas_Draw, (ActorFunc)EnWallmas_Reset,
+    ACTOR_EN_WALLMAS, ACTORCAT_ENEMY, FLAGS, OBJECT_WALLMASTER, ACTOR_FACTORY(EnWallmas), (ActorFunc)EnWallmas_Init, (ActorFunc)EnWallmas_Destroy, (ActorFunc)EnWallmas_Update, (ActorFunc)EnWallmas_Draw, (ActorFunc)EnWallmas_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -779,7 +779,7 @@ void EnWallmas_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_66 = {0.0f, 0.0f, 0.0f};
 
 	En_Wallmas_InitVars = {
-	    ACTOR_EN_WALLMAS, ACTORCAT_ENEMY, FLAGS, OBJECT_WALLMASTER, sizeof(EnWallmas), (ActorFunc)EnWallmas_Init, (ActorFunc)EnWallmas_Destroy, (ActorFunc)EnWallmas_Update, (ActorFunc)EnWallmas_Draw, (ActorFunc)EnWallmas_Reset,
+	    ACTOR_EN_WALLMAS, ACTORCAT_ENEMY, FLAGS, OBJECT_WALLMASTER, ACTOR_FACTORY(EnWallmas), (ActorFunc)EnWallmas_Init, (ActorFunc)EnWallmas_Destroy, (ActorFunc)EnWallmas_Update, (ActorFunc)EnWallmas_Draw, (ActorFunc)EnWallmas_Reset,
 	};
 
 	sCylinderInit = {

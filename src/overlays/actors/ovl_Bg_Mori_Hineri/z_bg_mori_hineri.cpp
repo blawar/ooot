@@ -42,7 +42,7 @@ void func_808A3D58(BgMoriHineri* pthis, GlobalContext* globalCtx);
 static s16 sNextCamIdx = SUBCAM_NONE;
 
 ActorInit Bg_Mori_Hineri_InitVars = {
-    ACTOR_BG_MORI_HINERI, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgMoriHineri), (ActorFunc)BgMoriHineri_Init, (ActorFunc)BgMoriHineri_Destroy, (ActorFunc)BgMoriHineri_Update, NULL, (ActorFunc)BgMoriHineri_Reset,
+    ACTOR_BG_MORI_HINERI, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgMoriHineri), (ActorFunc)BgMoriHineri_Init, (ActorFunc)BgMoriHineri_Destroy, (ActorFunc)BgMoriHineri_Update, NULL, (ActorFunc)BgMoriHineri_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -336,6 +336,6 @@ void BgMoriHineri_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sNextCamIdx = SUBCAM_NONE;
 
 	Bg_Mori_Hineri_InitVars = {
-	    ACTOR_BG_MORI_HINERI, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgMoriHineri), (ActorFunc)BgMoriHineri_Init, (ActorFunc)BgMoriHineri_Destroy, (ActorFunc)BgMoriHineri_Update, NULL, (ActorFunc)BgMoriHineri_Reset,
+	    ACTOR_BG_MORI_HINERI, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgMoriHineri), (ActorFunc)BgMoriHineri_Init, (ActorFunc)BgMoriHineri_Destroy, (ActorFunc)BgMoriHineri_Update, NULL, (ActorFunc)BgMoriHineri_Reset,
 	};
 }

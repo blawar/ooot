@@ -64,7 +64,7 @@ static Vec3f D_80A343B0_83 = {600.0f, 700.0f, 0.0f};
 static void* eyeTextures_84[] = {gGerudoPurpleEyeOpenTex, gGerudoPurpleEyeHalfTex, gGerudoPurpleEyeClosedTex};
 
 ActorInit En_Ge2_InitVars = {
-    ACTOR_EN_GE2, ACTORCAT_NPC, FLAGS, OBJECT_GLA, sizeof(EnGe2), (ActorFunc)EnGe2_Init, (ActorFunc)EnGe2_Destroy, (ActorFunc)EnGe2_Update, (ActorFunc)EnGe2_Draw, (ActorFunc)EnGe2_Reset,
+    ACTOR_EN_GE2, ACTORCAT_NPC, FLAGS, OBJECT_GLA, ACTOR_FACTORY(EnGe2), (ActorFunc)EnGe2_Init, (ActorFunc)EnGe2_Destroy, (ActorFunc)EnGe2_Update, (ActorFunc)EnGe2_Draw, (ActorFunc)EnGe2_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -777,7 +777,7 @@ void EnGe2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80A343B0_83 = {600.0f, 700.0f, 0.0f};
 
 	En_Ge2_InitVars = {
-	    ACTOR_EN_GE2, ACTORCAT_NPC, FLAGS, OBJECT_GLA, sizeof(EnGe2), (ActorFunc)EnGe2_Init, (ActorFunc)EnGe2_Destroy, (ActorFunc)EnGe2_Update, (ActorFunc)EnGe2_Draw, (ActorFunc)EnGe2_Reset,
+	    ACTOR_EN_GE2, ACTORCAT_NPC, FLAGS, OBJECT_GLA, ACTOR_FACTORY(EnGe2), (ActorFunc)EnGe2_Init, (ActorFunc)EnGe2_Destroy, (ActorFunc)EnGe2_Update, (ActorFunc)EnGe2_Draw, (ActorFunc)EnGe2_Reset,
 	};
 
 	sCylinderInit = {

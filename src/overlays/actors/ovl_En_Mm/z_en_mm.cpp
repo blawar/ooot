@@ -46,7 +46,7 @@ static void* mouthTextures_61[] = {gRunningManMouthOpenTex, gRunningManMouthClos
 static Vec3f headOffset_63 = {200.0f, 800.0f, 0.0f};
 
 ActorInit En_Mm_InitVars = {
-    ACTOR_EN_MM, ACTORCAT_NPC, FLAGS, OBJECT_MM, sizeof(EnMm), (ActorFunc)EnMm_Init, (ActorFunc)EnMm_Destroy, (ActorFunc)EnMm_Update, (ActorFunc)EnMm_Draw, (ActorFunc)EnMm_Reset,
+    ACTOR_EN_MM, ACTORCAT_NPC, FLAGS, OBJECT_MM, ACTOR_FACTORY(EnMm), (ActorFunc)EnMm_Init, (ActorFunc)EnMm_Destroy, (ActorFunc)EnMm_Update, (ActorFunc)EnMm_Draw, (ActorFunc)EnMm_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -670,7 +670,7 @@ void EnMm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	headOffset_63 = {200.0f, 800.0f, 0.0f};
 
 	En_Mm_InitVars = {
-	    ACTOR_EN_MM, ACTORCAT_NPC, FLAGS, OBJECT_MM, sizeof(EnMm), (ActorFunc)EnMm_Init, (ActorFunc)EnMm_Destroy, (ActorFunc)EnMm_Update, (ActorFunc)EnMm_Draw, (ActorFunc)EnMm_Reset,
+	    ACTOR_EN_MM, ACTORCAT_NPC, FLAGS, OBJECT_MM, ACTOR_FACTORY(EnMm), (ActorFunc)EnMm_Init, (ActorFunc)EnMm_Destroy, (ActorFunc)EnMm_Update, (ActorFunc)EnMm_Draw, (ActorFunc)EnMm_Reset,
 	};
 
 	sCylinderInit = {

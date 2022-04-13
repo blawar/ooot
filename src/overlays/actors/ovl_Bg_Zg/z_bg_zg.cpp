@@ -46,7 +46,7 @@ static BgZgDrawFunc sDrawFuncs[] = {
 };
 
 ActorInit Bg_Zg_InitVars = {
-    ACTOR_BG_ZG, ACTORCAT_NPC, FLAGS, OBJECT_ZG, sizeof(BgZg), (ActorFunc)BgZg_Init, (ActorFunc)BgZg_Destroy, (ActorFunc)BgZg_Update, (ActorFunc)BgZg_Draw, (ActorFunc)BgZg_Reset,
+    ACTOR_BG_ZG, ACTORCAT_NPC, FLAGS, OBJECT_ZG, ACTOR_FACTORY(BgZg), (ActorFunc)BgZg_Init, (ActorFunc)BgZg_Destroy, (ActorFunc)BgZg_Update, (ActorFunc)BgZg_Draw, (ActorFunc)BgZg_Reset,
 };
 
 void BgZg_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -167,6 +167,6 @@ void BgZg_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgZg_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Zg_InitVars = {
-	    ACTOR_BG_ZG, ACTORCAT_NPC, FLAGS, OBJECT_ZG, sizeof(BgZg), (ActorFunc)BgZg_Init, (ActorFunc)BgZg_Destroy, (ActorFunc)BgZg_Update, (ActorFunc)BgZg_Draw, (ActorFunc)BgZg_Reset,
+	    ACTOR_BG_ZG, ACTORCAT_NPC, FLAGS, OBJECT_ZG, ACTOR_FACTORY(BgZg), (ActorFunc)BgZg_Init, (ActorFunc)BgZg_Destroy, (ActorFunc)BgZg_Update, (ActorFunc)BgZg_Draw, (ActorFunc)BgZg_Reset,
 	};
 }

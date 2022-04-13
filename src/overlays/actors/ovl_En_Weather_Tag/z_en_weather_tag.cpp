@@ -39,7 +39,7 @@ void EnWeatherTag_EnabledRainThunder(EnWeatherTag* pthis, GlobalContext* globalC
 #define WEATHER_TAG_RANGE100(x) ((x >> 8) * 100.0f)
 
 ActorInit En_Weather_Tag_InitVars = {
-    ACTOR_EN_WEATHER_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnWeatherTag), (ActorFunc)EnWeatherTag_Init, (ActorFunc)EnWeatherTag_Destroy, (ActorFunc)EnWeatherTag_Update, NULL, (ActorFunc)EnWeatherTag_Reset,
+    ACTOR_EN_WEATHER_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnWeatherTag), (ActorFunc)EnWeatherTag_Init, (ActorFunc)EnWeatherTag_Destroy, (ActorFunc)EnWeatherTag_Update, NULL, (ActorFunc)EnWeatherTag_Reset,
 };
 
 void EnWeatherTag_SetupAction(EnWeatherTag* pthis, EnWeatherTagActionFunc actionFunc)
@@ -378,6 +378,6 @@ void EnWeatherTag_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnWeatherTag_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Weather_Tag_InitVars = {
-	    ACTOR_EN_WEATHER_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnWeatherTag), (ActorFunc)EnWeatherTag_Init, (ActorFunc)EnWeatherTag_Destroy, (ActorFunc)EnWeatherTag_Update, NULL, (ActorFunc)EnWeatherTag_Reset,
+	    ACTOR_EN_WEATHER_TAG, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnWeatherTag), (ActorFunc)EnWeatherTag_Init, (ActorFunc)EnWeatherTag_Destroy, (ActorFunc)EnWeatherTag_Update, NULL, (ActorFunc)EnWeatherTag_Reset,
 	};
 }

@@ -40,7 +40,7 @@ void func_808B81A0(BgSpot18Basket* pthis, GlobalContext* globalCtx);
 static s16 D_808B85D0_40 = 0;
 
 ActorInit Bg_Spot18_Basket_InitVars = {
-    ACTOR_BG_SPOT18_BASKET,	     ACTORCAT_PROP, FLAGS, OBJECT_SPOT18_OBJ, sizeof(BgSpot18Basket), (ActorFunc)BgSpot18Basket_Init, (ActorFunc)BgSpot18Basket_Destroy, (ActorFunc)BgSpot18Basket_Update, (ActorFunc)BgSpot18Basket_Draw,
+    ACTOR_BG_SPOT18_BASKET,	     ACTORCAT_PROP, FLAGS, OBJECT_SPOT18_OBJ, ACTOR_FACTORY(BgSpot18Basket), (ActorFunc)BgSpot18Basket_Init, (ActorFunc)BgSpot18Basket_Destroy, (ActorFunc)BgSpot18Basket_Update, (ActorFunc)BgSpot18Basket_Draw,
     (ActorFunc)BgSpot18Basket_Reset,
 };
 
@@ -539,7 +539,7 @@ void BgSpot18Basket_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_808B85D0_40 = 0;
 
 	Bg_Spot18_Basket_InitVars = {
-	    ACTOR_BG_SPOT18_BASKET,	     ACTORCAT_PROP, FLAGS, OBJECT_SPOT18_OBJ, sizeof(BgSpot18Basket), (ActorFunc)BgSpot18Basket_Init, (ActorFunc)BgSpot18Basket_Destroy, (ActorFunc)BgSpot18Basket_Update, (ActorFunc)BgSpot18Basket_Draw,
+	    ACTOR_BG_SPOT18_BASKET,	     ACTORCAT_PROP, FLAGS, OBJECT_SPOT18_OBJ, ACTOR_FACTORY(BgSpot18Basket), (ActorFunc)BgSpot18Basket_Init, (ActorFunc)BgSpot18Basket_Destroy, (ActorFunc)BgSpot18Basket_Update, (ActorFunc)BgSpot18Basket_Draw,
 	    (ActorFunc)BgSpot18Basket_Reset,
 	};
 

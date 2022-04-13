@@ -56,7 +56,7 @@ static Vec3s D_80A4FE34_46 = {0, 0, 0};
 static Vec3f D_80A4FE3C_46 = {1.0f, 1.0f, 1.0f};
 
 ActorInit En_Gs_InitVars = {
-    ACTOR_EN_GS, ACTORCAT_PROP, FLAGS, OBJECT_GS, sizeof(EnGs), (ActorFunc)EnGs_Init, (ActorFunc)EnGs_Destroy, (ActorFunc)EnGs_Update, (ActorFunc)EnGs_Draw, (ActorFunc)EnGs_Reset,
+    ACTOR_EN_GS, ACTORCAT_PROP, FLAGS, OBJECT_GS, ACTOR_FACTORY(EnGs), (ActorFunc)EnGs_Init, (ActorFunc)EnGs_Destroy, (ActorFunc)EnGs_Update, (ActorFunc)EnGs_Draw, (ActorFunc)EnGs_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -746,7 +746,7 @@ void EnGs_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80A4FE3C_46 = {1.0f, 1.0f, 1.0f};
 
 	En_Gs_InitVars = {
-	    ACTOR_EN_GS, ACTORCAT_PROP, FLAGS, OBJECT_GS, sizeof(EnGs), (ActorFunc)EnGs_Init, (ActorFunc)EnGs_Destroy, (ActorFunc)EnGs_Update, (ActorFunc)EnGs_Draw, (ActorFunc)EnGs_Reset,
+	    ACTOR_EN_GS, ACTORCAT_PROP, FLAGS, OBJECT_GS, ACTOR_FACTORY(EnGs), (ActorFunc)EnGs_Init, (ActorFunc)EnGs_Destroy, (ActorFunc)EnGs_Update, (ActorFunc)EnGs_Draw, (ActorFunc)EnGs_Reset,
 	};
 
 	sCylinderInit = {

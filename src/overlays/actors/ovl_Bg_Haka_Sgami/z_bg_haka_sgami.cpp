@@ -49,7 +49,7 @@ static Vec3f blureEffectVertices1_34[] = {
 };
 
 ActorInit Bg_Haka_Sgami_InitVars = {
-    ACTOR_BG_HAKA_SGAMI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaSgami), (ActorFunc)BgHakaSgami_Init, (ActorFunc)BgHakaSgami_Destroy, (ActorFunc)BgHakaSgami_Update, NULL, (ActorFunc)BgHakaSgami_Reset,
+    ACTOR_BG_HAKA_SGAMI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgHakaSgami), (ActorFunc)BgHakaSgami_Init, (ActorFunc)BgHakaSgami_Destroy, (ActorFunc)BgHakaSgami_Update, NULL, (ActorFunc)BgHakaSgami_Reset,
 };
 
 static ColliderTrisElementInit sTrisElementsInit[4] = {
@@ -330,7 +330,7 @@ void BgHakaSgami_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHakaSgami_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Haka_Sgami_InitVars = {
-	    ACTOR_BG_HAKA_SGAMI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaSgami), (ActorFunc)BgHakaSgami_Init, (ActorFunc)BgHakaSgami_Destroy, (ActorFunc)BgHakaSgami_Update, NULL, (ActorFunc)BgHakaSgami_Reset,
+	    ACTOR_BG_HAKA_SGAMI, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgHakaSgami), (ActorFunc)BgHakaSgami_Init, (ActorFunc)BgHakaSgami_Destroy, (ActorFunc)BgHakaSgami_Update, NULL, (ActorFunc)BgHakaSgami_Reset,
 	};
 
 	sTrisInit = {

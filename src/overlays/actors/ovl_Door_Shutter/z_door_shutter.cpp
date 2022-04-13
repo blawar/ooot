@@ -67,7 +67,7 @@ void func_809976B8(DoorShutter* pthis, GlobalContext* globalCtx);
 void func_80997744(DoorShutter* pthis, GlobalContext* globalCtx);
 
 ActorInit Door_Shutter_InitVars = {
-    ACTOR_DOOR_SHUTTER, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DoorShutter), (ActorFunc)DoorShutter_Init, (ActorFunc)DoorShutter_Destroy, (ActorFunc)DoorShutter_Update, (ActorFunc)DoorShutter_Draw, (ActorFunc)DoorShutter_Reset,
+    ACTOR_DOOR_SHUTTER, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DoorShutter), (ActorFunc)DoorShutter_Init, (ActorFunc)DoorShutter_Destroy, (ActorFunc)DoorShutter_Update, (ActorFunc)DoorShutter_Draw, (ActorFunc)DoorShutter_Reset,
 };
 
 static ShutterObjectInfo sObjectInfo[] = {
@@ -895,6 +895,6 @@ void func_8099803C(GlobalContext* globalCtx, s16 y, s16 countdown, s16 camId)
 void DoorShutter_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Door_Shutter_InitVars = {
-	    ACTOR_DOOR_SHUTTER, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DoorShutter), (ActorFunc)DoorShutter_Init, (ActorFunc)DoorShutter_Destroy, (ActorFunc)DoorShutter_Update, (ActorFunc)DoorShutter_Draw, (ActorFunc)DoorShutter_Reset,
+	    ACTOR_DOOR_SHUTTER, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DoorShutter), (ActorFunc)DoorShutter_Init, (ActorFunc)DoorShutter_Destroy, (ActorFunc)DoorShutter_Update, (ActorFunc)DoorShutter_Draw, (ActorFunc)DoorShutter_Reset,
 	};
 }

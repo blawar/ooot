@@ -32,7 +32,7 @@ void func_8089B870(BgJyaZurerukabe* pthis, GlobalContext* globalCtx);
 static f32 D_8089B9C0[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
 ActorInit Bg_Jya_Zurerukabe_InitVars = {
-    ACTOR_BG_JYA_ZURERUKABE,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaZurerukabe), (ActorFunc)BgJyaZurerukabe_Init, (ActorFunc)BgJyaZurerukabe_Destroy, (ActorFunc)BgJyaZurerukabe_Update, (ActorFunc)BgJyaZurerukabe_Draw,
+    ACTOR_BG_JYA_ZURERUKABE,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaZurerukabe), (ActorFunc)BgJyaZurerukabe_Init, (ActorFunc)BgJyaZurerukabe_Destroy, (ActorFunc)BgJyaZurerukabe_Update, (ActorFunc)BgJyaZurerukabe_Draw,
     (ActorFunc)BgJyaZurerukabe_Reset,
 };
 
@@ -212,7 +212,7 @@ void BgJyaZurerukabe_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgJyaZurerukabe_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Jya_Zurerukabe_InitVars = {
-	    ACTOR_BG_JYA_ZURERUKABE,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaZurerukabe), (ActorFunc)BgJyaZurerukabe_Init, (ActorFunc)BgJyaZurerukabe_Destroy, (ActorFunc)BgJyaZurerukabe_Update, (ActorFunc)BgJyaZurerukabe_Draw,
+	    ACTOR_BG_JYA_ZURERUKABE,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaZurerukabe), (ActorFunc)BgJyaZurerukabe_Init, (ActorFunc)BgJyaZurerukabe_Destroy, (ActorFunc)BgJyaZurerukabe_Update, (ActorFunc)BgJyaZurerukabe_Draw,
 	    (ActorFunc)BgJyaZurerukabe_Reset,
 	};
 }

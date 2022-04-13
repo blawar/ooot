@@ -36,7 +36,7 @@ void BgHidanFwbig_WaitForPlayer(BgHidanFwbig* pthis, GlobalContext* globalCtx);
 void BgHidanFwbig_Move(BgHidanFwbig* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Hidan_Fwbig_InitVars = {
-    ACTOR_BG_HIDAN_FWBIG, ACTORCAT_PROP, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanFwbig), (ActorFunc)BgHidanFwbig_Init, (ActorFunc)BgHidanFwbig_Destroy, (ActorFunc)BgHidanFwbig_Update, (ActorFunc)BgHidanFwbig_Draw, (ActorFunc)BgHidanFwbig_Reset,
+    ACTOR_BG_HIDAN_FWBIG, ACTORCAT_PROP, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanFwbig), (ActorFunc)BgHidanFwbig_Init, (ActorFunc)BgHidanFwbig_Destroy, (ActorFunc)BgHidanFwbig_Update, (ActorFunc)BgHidanFwbig_Draw, (ActorFunc)BgHidanFwbig_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -324,7 +324,7 @@ void BgHidanFwbig_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHidanFwbig_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Hidan_Fwbig_InitVars = {
-	    ACTOR_BG_HIDAN_FWBIG, ACTORCAT_PROP, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanFwbig), (ActorFunc)BgHidanFwbig_Init, (ActorFunc)BgHidanFwbig_Destroy, (ActorFunc)BgHidanFwbig_Update, (ActorFunc)BgHidanFwbig_Draw, (ActorFunc)BgHidanFwbig_Reset,
+	    ACTOR_BG_HIDAN_FWBIG, ACTORCAT_PROP, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanFwbig), (ActorFunc)BgHidanFwbig_Init, (ActorFunc)BgHidanFwbig_Destroy, (ActorFunc)BgHidanFwbig_Update, (ActorFunc)BgHidanFwbig_Draw, (ActorFunc)BgHidanFwbig_Reset,
 	};
 
 	sCylinderInit = {

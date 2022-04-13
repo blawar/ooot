@@ -92,7 +92,7 @@ static EnRu2DrawFunc sDrawFuncs[] = {
 };
 
 ActorInit En_Ru2_InitVars = {
-    ACTOR_EN_RU2, ACTORCAT_NPC, FLAGS, OBJECT_RU2, sizeof(EnRu2), (ActorFunc)EnRu2_Init, (ActorFunc)EnRu2_Destroy, (ActorFunc)EnRu2_Update, (ActorFunc)EnRu2_Draw, (ActorFunc)EnRu2_Reset,
+    ACTOR_EN_RU2, ACTORCAT_NPC, FLAGS, OBJECT_RU2, ACTOR_FACTORY(EnRu2), (ActorFunc)EnRu2_Init, (ActorFunc)EnRu2_Destroy, (ActorFunc)EnRu2_Update, (ActorFunc)EnRu2_Draw, (ActorFunc)EnRu2_Reset,
 };
 
 void func_80AF2550(Actor* thisx, GlobalContext* globalCtx)
@@ -976,6 +976,6 @@ void EnRu2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80AF4118 = 0;
 
 	En_Ru2_InitVars = {
-	    ACTOR_EN_RU2, ACTORCAT_NPC, FLAGS, OBJECT_RU2, sizeof(EnRu2), (ActorFunc)EnRu2_Init, (ActorFunc)EnRu2_Destroy, (ActorFunc)EnRu2_Update, (ActorFunc)EnRu2_Draw, (ActorFunc)EnRu2_Reset,
+	    ACTOR_EN_RU2, ACTORCAT_NPC, FLAGS, OBJECT_RU2, ACTOR_FACTORY(EnRu2), (ActorFunc)EnRu2_Init, (ActorFunc)EnRu2_Destroy, (ActorFunc)EnRu2_Update, (ActorFunc)EnRu2_Draw, (ActorFunc)EnRu2_Reset,
 	};
 }

@@ -36,7 +36,7 @@ void EnZl4_Idle(EnZl4* pthis, GlobalContext* globalCtx);
 void EnZl4_TheEnd(EnZl4* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Zl4_InitVars = {
-    ACTOR_EN_ZL4, ACTORCAT_NPC, FLAGS, OBJECT_ZL4, sizeof(EnZl4), (ActorFunc)EnZl4_Init, (ActorFunc)EnZl4_Destroy, (ActorFunc)EnZl4_Update, (ActorFunc)EnZl4_Draw, (ActorFunc)EnZl4_Reset,
+    ACTOR_EN_ZL4, ACTORCAT_NPC, FLAGS, OBJECT_ZL4, ACTOR_FACTORY(EnZl4), (ActorFunc)EnZl4_Init, (ActorFunc)EnZl4_Destroy, (ActorFunc)EnZl4_Update, (ActorFunc)EnZl4_Draw, (ActorFunc)EnZl4_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1419,7 +1419,7 @@ void EnZl4_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnZl4_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Zl4_InitVars = {
-	    ACTOR_EN_ZL4, ACTORCAT_NPC, FLAGS, OBJECT_ZL4, sizeof(EnZl4), (ActorFunc)EnZl4_Init, (ActorFunc)EnZl4_Destroy, (ActorFunc)EnZl4_Update, (ActorFunc)EnZl4_Draw, (ActorFunc)EnZl4_Reset,
+	    ACTOR_EN_ZL4, ACTORCAT_NPC, FLAGS, OBJECT_ZL4, ACTOR_FACTORY(EnZl4), (ActorFunc)EnZl4_Init, (ActorFunc)EnZl4_Destroy, (ActorFunc)EnZl4_Update, (ActorFunc)EnZl4_Draw, (ActorFunc)EnZl4_Reset,
 	};
 
 	sCylinderInit = {

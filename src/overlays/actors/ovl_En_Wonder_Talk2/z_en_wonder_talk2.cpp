@@ -26,7 +26,7 @@ void func_80B3A3D4(EnWonderTalk2* pthis, GlobalContext* globalCtx);
 void EnWonderTalk2_DoNothing(EnWonderTalk2* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Wonder_Talk2_InitVars = {
-    ACTOR_EN_WONDER_TALK2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnWonderTalk2), (ActorFunc)EnWonderTalk2_Init, (ActorFunc)EnWonderTalk2_Destroy, (ActorFunc)EnWonderTalk2_Update, NULL, (ActorFunc)EnWonderTalk2_Reset,
+    ACTOR_EN_WONDER_TALK2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnWonderTalk2), (ActorFunc)EnWonderTalk2_Init, (ActorFunc)EnWonderTalk2_Destroy, (ActorFunc)EnWonderTalk2_Update, NULL, (ActorFunc)EnWonderTalk2_Reset,
 };
 
 static s16 D_80B3A8E0[] = {6, 0, 1, 2, 3, 4, 5};
@@ -320,6 +320,6 @@ void EnWonderTalk2_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnWonderTalk2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Wonder_Talk2_InitVars = {
-	    ACTOR_EN_WONDER_TALK2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnWonderTalk2), (ActorFunc)EnWonderTalk2_Init, (ActorFunc)EnWonderTalk2_Destroy, (ActorFunc)EnWonderTalk2_Update, NULL, (ActorFunc)EnWonderTalk2_Reset,
+	    ACTOR_EN_WONDER_TALK2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnWonderTalk2), (ActorFunc)EnWonderTalk2_Init, (ActorFunc)EnWonderTalk2_Destroy, (ActorFunc)EnWonderTalk2_Update, NULL, (ActorFunc)EnWonderTalk2_Reset,
 	};
 }

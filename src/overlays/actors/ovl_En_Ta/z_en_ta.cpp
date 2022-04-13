@@ -61,7 +61,7 @@ static void* eyeTextures_112[] = {
 };
 
 ActorInit En_Ta_InitVars = {
-    ACTOR_EN_TA, ACTORCAT_NPC, FLAGS, OBJECT_TA, sizeof(EnTa), (ActorFunc)EnTa_Init, (ActorFunc)EnTa_Destroy, (ActorFunc)EnTa_Update, (ActorFunc)EnTa_Draw, (ActorFunc)EnTa_Reset,
+    ACTOR_EN_TA, ACTORCAT_NPC, FLAGS, OBJECT_TA, ACTOR_FACTORY(EnTa), (ActorFunc)EnTa_Init, (ActorFunc)EnTa_Destroy, (ActorFunc)EnTa_Update, (ActorFunc)EnTa_Draw, (ActorFunc)EnTa_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1523,7 +1523,7 @@ void EnTa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Ta_InitVars = {
-	    ACTOR_EN_TA, ACTORCAT_NPC, FLAGS, OBJECT_TA, sizeof(EnTa), (ActorFunc)EnTa_Init, (ActorFunc)EnTa_Destroy, (ActorFunc)EnTa_Update, (ActorFunc)EnTa_Draw, (ActorFunc)EnTa_Reset,
+	    ACTOR_EN_TA, ACTORCAT_NPC, FLAGS, OBJECT_TA, ACTOR_FACTORY(EnTa), (ActorFunc)EnTa_Init, (ActorFunc)EnTa_Destroy, (ActorFunc)EnTa_Update, (ActorFunc)EnTa_Draw, (ActorFunc)EnTa_Reset,
 	};
 
 	sCylinderInit = {

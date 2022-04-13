@@ -27,7 +27,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnLight_UpdateSwitch(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Light_InitVars = {
-    ACTOR_EN_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnLight), (ActorFunc)EnLight_Init, (ActorFunc)EnLight_Destroy, (ActorFunc)EnLight_Update, (ActorFunc)EnLight_Draw, (ActorFunc)EnLight_Reset,
+    ACTOR_EN_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnLight), (ActorFunc)EnLight_Init, (ActorFunc)EnLight_Destroy, (ActorFunc)EnLight_Update, (ActorFunc)EnLight_Draw, (ActorFunc)EnLight_Reset,
 };
 
 static FlameParams D_80A9E840[] = {
@@ -209,6 +209,6 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnLight_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Light_InitVars = {
-	    ACTOR_EN_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnLight), (ActorFunc)EnLight_Init, (ActorFunc)EnLight_Destroy, (ActorFunc)EnLight_Update, (ActorFunc)EnLight_Draw, (ActorFunc)EnLight_Reset,
+	    ACTOR_EN_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnLight), (ActorFunc)EnLight_Init, (ActorFunc)EnLight_Destroy, (ActorFunc)EnLight_Update, (ActorFunc)EnLight_Draw, (ActorFunc)EnLight_Reset,
 	};
 }

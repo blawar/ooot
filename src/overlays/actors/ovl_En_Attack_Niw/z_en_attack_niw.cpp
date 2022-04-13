@@ -29,7 +29,7 @@ void func_809B5C18(EnAttackNiw* pthis, GlobalContext* globalCtx);
 void func_809B59B0(EnAttackNiw* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Attack_Niw_InitVars = {
-    ACTOR_EN_ATTACK_NIW, ACTORCAT_ENEMY, FLAGS, OBJECT_NIW, sizeof(EnAttackNiw), (ActorFunc)EnAttackNiw_Init, (ActorFunc)EnAttackNiw_Destroy, (ActorFunc)EnAttackNiw_Update, (ActorFunc)EnAttackNiw_Draw, (ActorFunc)EnAttackNiw_Reset,
+    ACTOR_EN_ATTACK_NIW, ACTORCAT_ENEMY, FLAGS, OBJECT_NIW, ACTOR_FACTORY(EnAttackNiw), (ActorFunc)EnAttackNiw_Init, (ActorFunc)EnAttackNiw_Destroy, (ActorFunc)EnAttackNiw_Update, (ActorFunc)EnAttackNiw_Draw, (ActorFunc)EnAttackNiw_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -470,6 +470,6 @@ void EnAttackNiw_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnAttackNiw_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Attack_Niw_InitVars = {
-	    ACTOR_EN_ATTACK_NIW, ACTORCAT_ENEMY, FLAGS, OBJECT_NIW, sizeof(EnAttackNiw), (ActorFunc)EnAttackNiw_Init, (ActorFunc)EnAttackNiw_Destroy, (ActorFunc)EnAttackNiw_Update, (ActorFunc)EnAttackNiw_Draw, (ActorFunc)EnAttackNiw_Reset,
+	    ACTOR_EN_ATTACK_NIW, ACTORCAT_ENEMY, FLAGS, OBJECT_NIW, ACTOR_FACTORY(EnAttackNiw), (ActorFunc)EnAttackNiw_Init, (ActorFunc)EnAttackNiw_Destroy, (ActorFunc)EnAttackNiw_Update, (ActorFunc)EnAttackNiw_Draw, (ActorFunc)EnAttackNiw_Reset,
 	};
 }

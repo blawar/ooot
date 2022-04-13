@@ -260,12 +260,12 @@ void DemoExt_Draw(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit Demo_Ext_InitVars = {
-    ACTOR_DEMO_EXT, ACTORCAT_NPC, FLAGS, OBJECT_FHG, sizeof(DemoExt), (ActorFunc)DemoExt_Init, (ActorFunc)DemoExt_Destroy, (ActorFunc)DemoExt_Update, (ActorFunc)DemoExt_Draw, (ActorFunc)DemoExt_Reset,
+    ACTOR_DEMO_EXT, ACTORCAT_NPC, FLAGS, OBJECT_FHG, ACTOR_FACTORY(DemoExt), (ActorFunc)DemoExt_Init, (ActorFunc)DemoExt_Destroy, (ActorFunc)DemoExt_Update, (ActorFunc)DemoExt_Draw, (ActorFunc)DemoExt_Reset,
 };
 
 void DemoExt_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Ext_InitVars = {
-	    ACTOR_DEMO_EXT, ACTORCAT_NPC, FLAGS, OBJECT_FHG, sizeof(DemoExt), (ActorFunc)DemoExt_Init, (ActorFunc)DemoExt_Destroy, (ActorFunc)DemoExt_Update, (ActorFunc)DemoExt_Draw, (ActorFunc)DemoExt_Reset,
+	    ACTOR_DEMO_EXT, ACTORCAT_NPC, FLAGS, OBJECT_FHG, ACTOR_FACTORY(DemoExt), (ActorFunc)DemoExt_Init, (ActorFunc)DemoExt_Destroy, (ActorFunc)DemoExt_Update, (ActorFunc)DemoExt_Draw, (ActorFunc)DemoExt_Reset,
 	};
 }

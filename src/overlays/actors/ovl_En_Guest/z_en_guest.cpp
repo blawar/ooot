@@ -39,7 +39,7 @@ static void* D_80A50BA4_39[] = {
 };
 
 ActorInit En_Guest_InitVars = {
-    ACTOR_EN_GUEST, ACTORCAT_NPC, FLAGS, OBJECT_BOJ, sizeof(EnGuest), (ActorFunc)EnGuest_Init, (ActorFunc)EnGuest_Destroy, (ActorFunc)EnGuest_Update, NULL, (ActorFunc)EnGuest_Reset,
+    ACTOR_EN_GUEST, ACTORCAT_NPC, FLAGS, OBJECT_BOJ, ACTOR_FACTORY(EnGuest), (ActorFunc)EnGuest_Init, (ActorFunc)EnGuest_Destroy, (ActorFunc)EnGuest_Update, NULL, (ActorFunc)EnGuest_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -275,7 +275,7 @@ void EnGuest_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnGuest_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Guest_InitVars = {
-	    ACTOR_EN_GUEST, ACTORCAT_NPC, FLAGS, OBJECT_BOJ, sizeof(EnGuest), (ActorFunc)EnGuest_Init, (ActorFunc)EnGuest_Destroy, (ActorFunc)EnGuest_Update, NULL, (ActorFunc)EnGuest_Reset,
+	    ACTOR_EN_GUEST, ACTORCAT_NPC, FLAGS, OBJECT_BOJ, ACTOR_FACTORY(EnGuest), (ActorFunc)EnGuest_Init, (ActorFunc)EnGuest_Destroy, (ActorFunc)EnGuest_Update, NULL, (ActorFunc)EnGuest_Reset,
 	};
 
 	sCylinderInit = {

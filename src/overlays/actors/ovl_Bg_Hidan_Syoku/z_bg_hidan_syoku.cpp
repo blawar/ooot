@@ -29,7 +29,7 @@ void func_8088F514(BgHidanSyoku* pthis, GlobalContext* globalCtx);
 void func_8088F62C(BgHidanSyoku* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Hidan_Syoku_InitVars = {
-    ACTOR_BG_HIDAN_SYOKU, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanSyoku), (ActorFunc)BgHidanSyoku_Init, (ActorFunc)BgHidanSyoku_Destroy, (ActorFunc)BgHidanSyoku_Update, (ActorFunc)BgHidanSyoku_Draw, (ActorFunc)BgHidanSyoku_Reset,
+    ACTOR_BG_HIDAN_SYOKU, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanSyoku), (ActorFunc)BgHidanSyoku_Init, (ActorFunc)BgHidanSyoku_Destroy, (ActorFunc)BgHidanSyoku_Update, (ActorFunc)BgHidanSyoku_Draw, (ActorFunc)BgHidanSyoku_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -158,6 +158,6 @@ void BgHidanSyoku_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHidanSyoku_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Hidan_Syoku_InitVars = {
-	    ACTOR_BG_HIDAN_SYOKU, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanSyoku), (ActorFunc)BgHidanSyoku_Init, (ActorFunc)BgHidanSyoku_Destroy, (ActorFunc)BgHidanSyoku_Update, (ActorFunc)BgHidanSyoku_Draw, (ActorFunc)BgHidanSyoku_Reset,
+	    ACTOR_BG_HIDAN_SYOKU, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanSyoku), (ActorFunc)BgHidanSyoku_Init, (ActorFunc)BgHidanSyoku_Destroy, (ActorFunc)BgHidanSyoku_Update, (ActorFunc)BgHidanSyoku_Draw, (ActorFunc)BgHidanSyoku_Reset,
 	};
 }

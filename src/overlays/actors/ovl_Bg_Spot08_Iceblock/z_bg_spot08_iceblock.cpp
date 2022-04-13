@@ -35,7 +35,7 @@ void BgSpot08Iceblock_FloatOrbitingTwins(BgSpot08Iceblock* pthis, GlobalContext*
 void BgSpot08Iceblock_SetupNoAction(BgSpot08Iceblock* pthis);
 
 ActorInit Bg_Spot08_Iceblock_InitVars = {
-    ACTOR_BG_SPOT08_ICEBLOCK,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT08_OBJ, sizeof(BgSpot08Iceblock), (ActorFunc)BgSpot08Iceblock_Init, (ActorFunc)BgSpot08Iceblock_Destroy, (ActorFunc)BgSpot08Iceblock_Update, (ActorFunc)BgSpot08Iceblock_Draw,
+    ACTOR_BG_SPOT08_ICEBLOCK,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT08_OBJ, ACTOR_FACTORY(BgSpot08Iceblock), (ActorFunc)BgSpot08Iceblock_Init, (ActorFunc)BgSpot08Iceblock_Destroy, (ActorFunc)BgSpot08Iceblock_Update, (ActorFunc)BgSpot08Iceblock_Draw,
     (ActorFunc)BgSpot08Iceblock_Reset,
 };
 
@@ -497,7 +497,7 @@ void BgSpot08Iceblock_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot08Iceblock_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot08_Iceblock_InitVars = {
-	    ACTOR_BG_SPOT08_ICEBLOCK,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT08_OBJ, sizeof(BgSpot08Iceblock), (ActorFunc)BgSpot08Iceblock_Init, (ActorFunc)BgSpot08Iceblock_Destroy, (ActorFunc)BgSpot08Iceblock_Update, (ActorFunc)BgSpot08Iceblock_Draw,
+	    ACTOR_BG_SPOT08_ICEBLOCK,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT08_OBJ, ACTOR_FACTORY(BgSpot08Iceblock), (ActorFunc)BgSpot08Iceblock_Init, (ActorFunc)BgSpot08Iceblock_Destroy, (ActorFunc)BgSpot08Iceblock_Update, (ActorFunc)BgSpot08Iceblock_Draw,
 	    (ActorFunc)BgSpot08Iceblock_Reset,
 	};
 

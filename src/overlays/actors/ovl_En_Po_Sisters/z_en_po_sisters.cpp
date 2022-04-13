@@ -81,7 +81,7 @@ static Color_RGBA8 D_80ADD700[4] = {
 };
 
 ActorInit En_Po_Sisters_InitVars = {
-    ACTOR_EN_PO_SISTERS, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_SISTERS, sizeof(EnPoSisters), (ActorFunc)EnPoSisters_Init, (ActorFunc)EnPoSisters_Destroy, (ActorFunc)EnPoSisters_Update, (ActorFunc)EnPoSisters_Draw, (ActorFunc)EnPoSisters_Reset,
+    ACTOR_EN_PO_SISTERS, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_SISTERS, ACTOR_FACTORY(EnPoSisters), (ActorFunc)EnPoSisters_Init, (ActorFunc)EnPoSisters_Destroy, (ActorFunc)EnPoSisters_Update, (ActorFunc)EnPoSisters_Draw, (ActorFunc)EnPoSisters_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1771,7 +1771,7 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnPoSisters_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Po_Sisters_InitVars = {
-	    ACTOR_EN_PO_SISTERS, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_SISTERS, sizeof(EnPoSisters), (ActorFunc)EnPoSisters_Init, (ActorFunc)EnPoSisters_Destroy, (ActorFunc)EnPoSisters_Update, (ActorFunc)EnPoSisters_Draw, (ActorFunc)EnPoSisters_Reset,
+	    ACTOR_EN_PO_SISTERS, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_SISTERS, ACTOR_FACTORY(EnPoSisters), (ActorFunc)EnPoSisters_Init, (ActorFunc)EnPoSisters_Destroy, (ActorFunc)EnPoSisters_Update, (ActorFunc)EnPoSisters_Draw, (ActorFunc)EnPoSisters_Reset,
 	};
 
 	sCylinderInit = {

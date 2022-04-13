@@ -21,7 +21,7 @@ void ItemInbox_Draw(Actor* thisx, GlobalContext* globalCtx);
 void ItemInbox_Wait(ItemInbox* pthis, GlobalContext* globalCtx);
 
 ActorInit Item_Inbox_InitVars = {
-    ACTOR_ITEM_INBOX, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ItemInbox), (ActorFunc)ItemInbox_Init, (ActorFunc)ItemInbox_Destroy, (ActorFunc)ItemInbox_Update, (ActorFunc)ItemInbox_Draw, (ActorFunc)ItemInbox_Reset,
+    ACTOR_ITEM_INBOX, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ItemInbox), (ActorFunc)ItemInbox_Init, (ActorFunc)ItemInbox_Destroy, (ActorFunc)ItemInbox_Update, (ActorFunc)ItemInbox_Draw, (ActorFunc)ItemInbox_Reset,
 };
 
 void ItemInbox_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -63,6 +63,6 @@ void ItemInbox_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ItemInbox_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Item_Inbox_InitVars = {
-	    ACTOR_ITEM_INBOX, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ItemInbox), (ActorFunc)ItemInbox_Init, (ActorFunc)ItemInbox_Destroy, (ActorFunc)ItemInbox_Update, (ActorFunc)ItemInbox_Draw, (ActorFunc)ItemInbox_Reset,
+	    ACTOR_ITEM_INBOX, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ItemInbox), (ActorFunc)ItemInbox_Init, (ActorFunc)ItemInbox_Destroy, (ActorFunc)ItemInbox_Update, (ActorFunc)ItemInbox_Draw, (ActorFunc)ItemInbox_Reset,
 	};
 }

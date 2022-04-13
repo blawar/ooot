@@ -51,7 +51,7 @@ static void* D_808AD850[] = {
 };
 
 ActorInit Bg_Spot02_Objects_InitVars = {
-    ACTOR_BG_SPOT02_OBJECTS,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT02_OBJECTS, sizeof(BgSpot02Objects), (ActorFunc)BgSpot02Objects_Init, (ActorFunc)BgSpot02Objects_Destroy, (ActorFunc)BgSpot02Objects_Update, (ActorFunc)BgSpot02Objects_Draw,
+    ACTOR_BG_SPOT02_OBJECTS,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT02_OBJECTS, ACTOR_FACTORY(BgSpot02Objects), (ActorFunc)BgSpot02Objects_Init, (ActorFunc)BgSpot02Objects_Destroy, (ActorFunc)BgSpot02Objects_Update, (ActorFunc)BgSpot02Objects_Draw,
     (ActorFunc)BgSpot02Objects_Reset,
 };
 
@@ -387,7 +387,7 @@ void BgSpot02Objects_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_38 = {0.0f, 0.0f, 0.0f};
 
 	Bg_Spot02_Objects_InitVars = {
-	    ACTOR_BG_SPOT02_OBJECTS,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT02_OBJECTS, sizeof(BgSpot02Objects), (ActorFunc)BgSpot02Objects_Init, (ActorFunc)BgSpot02Objects_Destroy, (ActorFunc)BgSpot02Objects_Update, (ActorFunc)BgSpot02Objects_Draw,
+	    ACTOR_BG_SPOT02_OBJECTS,	      ACTORCAT_BG, FLAGS, OBJECT_SPOT02_OBJECTS, ACTOR_FACTORY(BgSpot02Objects), (ActorFunc)BgSpot02Objects_Init, (ActorFunc)BgSpot02Objects_Destroy, (ActorFunc)BgSpot02Objects_Update, (ActorFunc)BgSpot02Objects_Draw,
 	    (ActorFunc)BgSpot02Objects_Reset,
 	};
 }

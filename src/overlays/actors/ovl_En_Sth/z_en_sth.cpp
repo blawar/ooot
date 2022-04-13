@@ -35,7 +35,7 @@ void EnSth_RewardUnobtainedWait(EnSth* pthis, GlobalContext* globalCtx);
 void EnSth_ChildRewardObtainedWait(EnSth* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Sth_InitVars = {
-    ACTOR_EN_STH, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnSth), (ActorFunc)EnSth_Init, (ActorFunc)EnSth_Destroy, (ActorFunc)EnSth_Update, NULL, (ActorFunc)EnSth_Reset,
+    ACTOR_EN_STH, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnSth), (ActorFunc)EnSth_Init, (ActorFunc)EnSth_Destroy, (ActorFunc)EnSth_Update, NULL, (ActorFunc)EnSth_Reset,
 };
 
 #include "overlays/ovl_En_Sth/ovl_En_Sth.cpp"
@@ -489,7 +489,7 @@ void EnSth_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnSth_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Sth_InitVars = {
-	    ACTOR_EN_STH, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnSth), (ActorFunc)EnSth_Init, (ActorFunc)EnSth_Destroy, (ActorFunc)EnSth_Update, NULL, (ActorFunc)EnSth_Reset,
+	    ACTOR_EN_STH, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnSth), (ActorFunc)EnSth_Init, (ActorFunc)EnSth_Destroy, (ActorFunc)EnSth_Update, NULL, (ActorFunc)EnSth_Reset,
 	};
 
 	sCylinderInit = {

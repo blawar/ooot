@@ -15,6 +15,12 @@
 #include "def/z_skelanime.h"
 #include "objects/object_okuta/object_okuta.h"
 
+#if FRAME_RATE == 20
+#define DEKU_NUT_SPAWN_SCALER 1.0f
+#else
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+#endif
+
 #define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnOkuta_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -47,7 +53,7 @@ static Color_RGBA8 primColor_59 = {255, 255, 255, 255};
 static Color_RGBA8 envColor_59 = {150, 150, 150, 0};
 
 ActorInit En_Okuta_InitVars = {
-    ACTOR_EN_OKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_OKUTA, sizeof(EnOkuta), (ActorFunc)EnOkuta_Init, (ActorFunc)EnOkuta_Destroy, (ActorFunc)EnOkuta_Update, (ActorFunc)EnOkuta_Draw, (ActorFunc)EnOkuta_Reset,
+    ACTOR_EN_OKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_OKUTA, ACTOR_FACTORY(EnOkuta), (ActorFunc)EnOkuta_Init, (ActorFunc)EnOkuta_Destroy, (ActorFunc)EnOkuta_Update, (ActorFunc)EnOkuta_Draw, (ActorFunc)EnOkuta_Reset,
 };
 
 static ColliderCylinderInit sProjectileColliderInit = {
@@ -302,9 +308,9 @@ void EnOkuta_SpawnProjectile(EnOkuta* pthis, GlobalContext* globalCtx)
 	f32 sin = Math_SinS(pthis->actor.shape.rot.y);
 	f32 cos = Math_CosS(pthis->actor.shape.rot.y);
 
-	pos.x = pthis->actor.world.pos.x + (25.0f * sin);
+	pos.x = pthis->actor.world.pos.x + (25.0f * DEKU_NUT_SPAWN_SCALER * sin);
 	pos.y = pthis->actor.world.pos.y - 6.0f;
-	pos.z = pthis->actor.world.pos.z + (25.0f * cos);
+	pos.z = pthis->actor.world.pos.z + (25.0f * DEKU_NUT_SPAWN_SCALER * cos);
 	if(Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_OKUTA, pos.x, pos.y, pos.z, pthis->actor.shape.rot.x, pthis->actor.shape.rot.y, pthis->actor.shape.rot.z, 0x10) != NULL)
 	{
 		pos.x = pthis->actor.world.pos.x + (40.0f * sin);
@@ -907,7 +913,7 @@ void EnOkuta_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	envColor_59 = {150, 150, 150, 0};
 
 	En_Okuta_InitVars = {
-	    ACTOR_EN_OKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_OKUTA, sizeof(EnOkuta), (ActorFunc)EnOkuta_Init, (ActorFunc)EnOkuta_Destroy, (ActorFunc)EnOkuta_Update, (ActorFunc)EnOkuta_Draw, (ActorFunc)EnOkuta_Reset,
+	    ACTOR_EN_OKUTA, ACTORCAT_ENEMY, FLAGS, OBJECT_OKUTA, ACTOR_FACTORY(EnOkuta), (ActorFunc)EnOkuta_Init, (ActorFunc)EnOkuta_Destroy, (ActorFunc)EnOkuta_Update, (ActorFunc)EnOkuta_Draw, (ActorFunc)EnOkuta_Reset,
 	};
 
 	sProjectileColliderInit = {

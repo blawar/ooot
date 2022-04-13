@@ -45,7 +45,7 @@ void EnHintnuts_Leave(EnHintnuts* pthis, GlobalContext* globalCtx);
 void EnHintnuts_Freeze(EnHintnuts* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Hintnuts_InitVars = {
-    ACTOR_EN_HINTNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_HINTNUTS, sizeof(EnHintnuts), (ActorFunc)EnHintnuts_Init, (ActorFunc)EnHintnuts_Destroy, (ActorFunc)EnHintnuts_Update, (ActorFunc)EnHintnuts_Draw, (ActorFunc)EnHintnuts_Reset,
+    ACTOR_EN_HINTNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_HINTNUTS, ACTOR_FACTORY(EnHintnuts), (ActorFunc)EnHintnuts_Init, (ActorFunc)EnHintnuts_Destroy, (ActorFunc)EnHintnuts_Update, (ActorFunc)EnHintnuts_Draw, (ActorFunc)EnHintnuts_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -696,7 +696,7 @@ void EnHintnuts_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHintnuts_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Hintnuts_InitVars = {
-	    ACTOR_EN_HINTNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_HINTNUTS, sizeof(EnHintnuts), (ActorFunc)EnHintnuts_Init, (ActorFunc)EnHintnuts_Destroy, (ActorFunc)EnHintnuts_Update, (ActorFunc)EnHintnuts_Draw, (ActorFunc)EnHintnuts_Reset,
+	    ACTOR_EN_HINTNUTS, ACTORCAT_ENEMY, FLAGS, OBJECT_HINTNUTS, ACTOR_FACTORY(EnHintnuts), (ActorFunc)EnHintnuts_Init, (ActorFunc)EnHintnuts_Destroy, (ActorFunc)EnHintnuts_Update, (ActorFunc)EnHintnuts_Draw, (ActorFunc)EnHintnuts_Reset,
 	};
 
 	sCylinderInit = {

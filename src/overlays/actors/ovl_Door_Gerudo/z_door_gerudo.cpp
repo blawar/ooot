@@ -29,7 +29,7 @@ void func_8099496C(DoorGerudo* pthis, GlobalContext* globalCtx);
 void func_809949C8(DoorGerudo* pthis, GlobalContext* globalCtx);
 
 ActorInit Door_Gerudo_InitVars = {
-    ACTOR_DOOR_GERUDO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DOOR_GERUDO, sizeof(DoorGerudo), (ActorFunc)DoorGerudo_Init, (ActorFunc)DoorGerudo_Destroy, (ActorFunc)DoorGerudo_Update, (ActorFunc)DoorGerudo_Draw, (ActorFunc)DoorGerudo_Reset,
+    ACTOR_DOOR_GERUDO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DOOR_GERUDO, ACTOR_FACTORY(DoorGerudo), (ActorFunc)DoorGerudo_Init, (ActorFunc)DoorGerudo_Destroy, (ActorFunc)DoorGerudo_Update, (ActorFunc)DoorGerudo_Draw, (ActorFunc)DoorGerudo_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -192,6 +192,6 @@ void DoorGerudo_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DoorGerudo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Door_Gerudo_InitVars = {
-	    ACTOR_DOOR_GERUDO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DOOR_GERUDO, sizeof(DoorGerudo), (ActorFunc)DoorGerudo_Init, (ActorFunc)DoorGerudo_Destroy, (ActorFunc)DoorGerudo_Update, (ActorFunc)DoorGerudo_Draw, (ActorFunc)DoorGerudo_Reset,
+	    ACTOR_DOOR_GERUDO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_DOOR_GERUDO, ACTOR_FACTORY(DoorGerudo), (ActorFunc)DoorGerudo_Init, (ActorFunc)DoorGerudo_Destroy, (ActorFunc)DoorGerudo_Update, (ActorFunc)DoorGerudo_Draw, (ActorFunc)DoorGerudo_Reset,
 	};
 }

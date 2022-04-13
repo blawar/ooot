@@ -35,7 +35,7 @@ static void* eyeTextures_44[] = {
 };
 
 ActorInit En_Ge3_InitVars = {
-    ACTOR_EN_GE3, ACTORCAT_NPC, FLAGS, OBJECT_GELDB, sizeof(EnGe3), (ActorFunc)EnGe3_Init, (ActorFunc)EnGe3_Destroy, (ActorFunc)EnGe3_Update, (ActorFunc)EnGe3_Draw, (ActorFunc)EnGe3_Reset,
+    ACTOR_EN_GE3, ACTORCAT_NPC, FLAGS, OBJECT_GELDB, ACTOR_FACTORY(EnGe3), (ActorFunc)EnGe3_Init, (ActorFunc)EnGe3_Destroy, (ActorFunc)EnGe3_Update, (ActorFunc)EnGe3_Draw, (ActorFunc)EnGe3_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -340,7 +340,7 @@ void EnGe3_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void EnGe3_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ge3_InitVars = {
-	    ACTOR_EN_GE3, ACTORCAT_NPC, FLAGS, OBJECT_GELDB, sizeof(EnGe3), (ActorFunc)EnGe3_Init, (ActorFunc)EnGe3_Destroy, (ActorFunc)EnGe3_Update, (ActorFunc)EnGe3_Draw, (ActorFunc)EnGe3_Reset,
+	    ACTOR_EN_GE3, ACTORCAT_NPC, FLAGS, OBJECT_GELDB, ACTOR_FACTORY(EnGe3), (ActorFunc)EnGe3_Init, (ActorFunc)EnGe3_Destroy, (ActorFunc)EnGe3_Update, (ActorFunc)EnGe3_Draw, (ActorFunc)EnGe3_Reset,
 	};
 
 	sCylinderInit = {

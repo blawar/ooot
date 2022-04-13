@@ -47,7 +47,7 @@ void EnGe1_CueUpAnimation(EnGe1* pthis);
 void EnGe1_StopFidget(EnGe1* pthis);
 
 ActorInit En_Ge1_InitVars = {
-    ACTOR_EN_GE1, ACTORCAT_NPC, FLAGS, OBJECT_GE1, sizeof(EnGe1), (ActorFunc)EnGe1_Init, (ActorFunc)EnGe1_Destroy, (ActorFunc)EnGe1_Update, (ActorFunc)EnGe1_Draw, (ActorFunc)EnGe1_Reset,
+    ACTOR_EN_GE1, ACTORCAT_NPC, FLAGS, OBJECT_GE1, ACTOR_FACTORY(EnGe1), (ActorFunc)EnGe1_Init, (ActorFunc)EnGe1_Destroy, (ActorFunc)EnGe1_Update, (ActorFunc)EnGe1_Draw, (ActorFunc)EnGe1_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -991,7 +991,7 @@ void EnGe1_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnGe1_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ge1_InitVars = {
-	    ACTOR_EN_GE1, ACTORCAT_NPC, FLAGS, OBJECT_GE1, sizeof(EnGe1), (ActorFunc)EnGe1_Init, (ActorFunc)EnGe1_Destroy, (ActorFunc)EnGe1_Update, (ActorFunc)EnGe1_Draw, (ActorFunc)EnGe1_Reset,
+	    ACTOR_EN_GE1, ACTORCAT_NPC, FLAGS, OBJECT_GE1, ACTOR_FACTORY(EnGe1), (ActorFunc)EnGe1_Init, (ActorFunc)EnGe1_Destroy, (ActorFunc)EnGe1_Update, (ActorFunc)EnGe1_Draw, (ActorFunc)EnGe1_Reset,
 	};
 
 	sCylinderInit = {

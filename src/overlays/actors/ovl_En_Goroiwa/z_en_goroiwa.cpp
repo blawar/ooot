@@ -72,7 +72,7 @@ static EnGoroiwaUnkFunc2 onHitSetupFuncs_81[] = {EnGoroiwa_SetupWait, EnGoroiwa_
 static s16 waitDurations_84[] = {20, 6};
 
 ActorInit En_Goroiwa_InitVars = {
-    ACTOR_EN_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, sizeof(EnGoroiwa), (ActorFunc)EnGoroiwa_Init, (ActorFunc)EnGoroiwa_Destroy, (ActorFunc)EnGoroiwa_Update, (ActorFunc)EnGoroiwa_Draw, (ActorFunc)EnGoroiwa_Reset,
+    ACTOR_EN_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, ACTOR_FACTORY(EnGoroiwa), (ActorFunc)EnGoroiwa_Init, (ActorFunc)EnGoroiwa_Destroy, (ActorFunc)EnGoroiwa_Update, (ActorFunc)EnGoroiwa_Draw, (ActorFunc)EnGoroiwa_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[] = {
@@ -894,7 +894,7 @@ void EnGoroiwa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	unitY_74 = {0.0f, 1.0f, 0.0f};
 
 	En_Goroiwa_InitVars = {
-	    ACTOR_EN_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, sizeof(EnGoroiwa), (ActorFunc)EnGoroiwa_Init, (ActorFunc)EnGoroiwa_Destroy, (ActorFunc)EnGoroiwa_Update, (ActorFunc)EnGoroiwa_Draw, (ActorFunc)EnGoroiwa_Reset,
+	    ACTOR_EN_GOROIWA, ACTORCAT_PROP, FLAGS, OBJECT_GOROIWA, ACTOR_FACTORY(EnGoroiwa), (ActorFunc)EnGoroiwa_Init, (ActorFunc)EnGoroiwa_Destroy, (ActorFunc)EnGoroiwa_Update, (ActorFunc)EnGoroiwa_Draw, (ActorFunc)EnGoroiwa_Reset,
 	};
 
 	sJntSphInit = {

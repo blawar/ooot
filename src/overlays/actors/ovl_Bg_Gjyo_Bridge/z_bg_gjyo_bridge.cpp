@@ -29,7 +29,7 @@ void BgGjyoBridge_TriggerCutscene(BgGjyoBridge* pthis, GlobalContext* globalCtx)
 void BgGjyoBridge_SpawnBridge(BgGjyoBridge* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Gjyo_Bridge_InitVars = {
-    ACTOR_BG_GJYO_BRIDGE, ACTORCAT_PROP, FLAGS, OBJECT_GJYO_OBJECTS, sizeof(BgGjyoBridge), (ActorFunc)BgGjyoBridge_Init, (ActorFunc)BgGjyoBridge_Destroy, (ActorFunc)BgGjyoBridge_Update, (ActorFunc)BgGjyoBridge_Draw, (ActorFunc)BgGjyoBridge_Reset,
+    ACTOR_BG_GJYO_BRIDGE, ACTORCAT_PROP, FLAGS, OBJECT_GJYO_OBJECTS, ACTOR_FACTORY(BgGjyoBridge), (ActorFunc)BgGjyoBridge_Init, (ActorFunc)BgGjyoBridge_Destroy, (ActorFunc)BgGjyoBridge_Update, (ActorFunc)BgGjyoBridge_Draw, (ActorFunc)BgGjyoBridge_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -126,6 +126,6 @@ void BgGjyoBridge_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgGjyoBridge_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gjyo_Bridge_InitVars = {
-	    ACTOR_BG_GJYO_BRIDGE, ACTORCAT_PROP, FLAGS, OBJECT_GJYO_OBJECTS, sizeof(BgGjyoBridge), (ActorFunc)BgGjyoBridge_Init, (ActorFunc)BgGjyoBridge_Destroy, (ActorFunc)BgGjyoBridge_Update, (ActorFunc)BgGjyoBridge_Draw, (ActorFunc)BgGjyoBridge_Reset,
+	    ACTOR_BG_GJYO_BRIDGE, ACTORCAT_PROP, FLAGS, OBJECT_GJYO_OBJECTS, ACTOR_FACTORY(BgGjyoBridge), (ActorFunc)BgGjyoBridge_Init, (ActorFunc)BgGjyoBridge_Destroy, (ActorFunc)BgGjyoBridge_Update, (ActorFunc)BgGjyoBridge_Draw, (ActorFunc)BgGjyoBridge_Reset,
 	};
 }

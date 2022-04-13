@@ -81,7 +81,7 @@ static Color_RGBA8 dustPrimColor_95 = {255, 255, 100, 255};
 static Color_RGBA8 dustEnvColor_95 = {255, 100, 0, 255};
 
 ActorInit Boss_Dodongo_InitVars = {
-    ACTOR_EN_DODONGO, ACTORCAT_BOSS, FLAGS, OBJECT_KINGDODONGO, sizeof(BossDodongo), (ActorFunc)BossDodongo_Init, (ActorFunc)BossDodongo_Destroy, (ActorFunc)BossDodongo_Update, (ActorFunc)BossDodongo_Draw, (ActorFunc)BossDodongo_Reset,
+    ACTOR_EN_DODONGO, ACTORCAT_BOSS, FLAGS, OBJECT_KINGDODONGO, ACTOR_FACTORY(BossDodongo), (ActorFunc)BossDodongo_Init, (ActorFunc)BossDodongo_Destroy, (ActorFunc)BossDodongo_Update, (ActorFunc)BossDodongo_Draw, (ActorFunc)BossDodongo_Reset,
 };
 
 #include "z_boss_dodongo_data.cpp"
@@ -2007,6 +2007,6 @@ void BossDodongo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	dustEnvColor_95 = {255, 100, 0, 255};
 
 	Boss_Dodongo_InitVars = {
-	    ACTOR_EN_DODONGO, ACTORCAT_BOSS, FLAGS, OBJECT_KINGDODONGO, sizeof(BossDodongo), (ActorFunc)BossDodongo_Init, (ActorFunc)BossDodongo_Destroy, (ActorFunc)BossDodongo_Update, (ActorFunc)BossDodongo_Draw, (ActorFunc)BossDodongo_Reset,
+	    ACTOR_EN_DODONGO, ACTORCAT_BOSS, FLAGS, OBJECT_KINGDODONGO, ACTOR_FACTORY(BossDodongo), (ActorFunc)BossDodongo_Init, (ActorFunc)BossDodongo_Destroy, (ActorFunc)BossDodongo_Update, (ActorFunc)BossDodongo_Draw, (ActorFunc)BossDodongo_Reset,
 	};
 }

@@ -49,7 +49,7 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 ActorInit En_Tg_InitVars = {
-    ACTOR_EN_TG, ACTORCAT_NPC, FLAGS, OBJECT_MU, sizeof(EnTg), (ActorFunc)EnTg_Init, (ActorFunc)EnTg_Destroy, (ActorFunc)EnTg_Update, (ActorFunc)EnTg_Draw, (ActorFunc)EnTg_Reset,
+    ACTOR_EN_TG, ACTORCAT_NPC, FLAGS, OBJECT_MU, ACTOR_FACTORY(EnTg), (ActorFunc)EnTg_Init, (ActorFunc)EnTg_Destroy, (ActorFunc)EnTg_Update, (ActorFunc)EnTg_Draw, (ActorFunc)EnTg_Reset,
 };
 
 u16 EnTg_GetTextId(GlobalContext* globalCtx, Actor* thisx)
@@ -244,6 +244,6 @@ void EnTg_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sColChkInfoInit = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 	En_Tg_InitVars = {
-	    ACTOR_EN_TG, ACTORCAT_NPC, FLAGS, OBJECT_MU, sizeof(EnTg), (ActorFunc)EnTg_Init, (ActorFunc)EnTg_Destroy, (ActorFunc)EnTg_Update, (ActorFunc)EnTg_Draw, (ActorFunc)EnTg_Reset,
+	    ACTOR_EN_TG, ACTORCAT_NPC, FLAGS, OBJECT_MU, ACTOR_FACTORY(EnTg), (ActorFunc)EnTg_Init, (ActorFunc)EnTg_Destroy, (ActorFunc)EnTg_Update, (ActorFunc)EnTg_Draw, (ActorFunc)EnTg_Reset,
 	};
 }

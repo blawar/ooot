@@ -35,7 +35,7 @@ static Vec3f kzIceScale_33 = {0.18f, 0.27f, 0.24f};
 static f32 D_808917B4_38[] = {-1.0f, 1.0f};
 
 ActorInit Bg_Ice_Shelter_InitVars = {
-    ACTOR_BG_ICE_SHELTER, ACTORCAT_BG, FLAGS, OBJECT_ICE_OBJECTS, sizeof(BgIceShelter), (ActorFunc)BgIceShelter_Init, (ActorFunc)BgIceShelter_Destroy, (ActorFunc)BgIceShelter_Update, (ActorFunc)BgIceShelter_Draw, (ActorFunc)BgIceShelter_Reset,
+    ACTOR_BG_ICE_SHELTER, ACTORCAT_BG, FLAGS, OBJECT_ICE_OBJECTS, ACTOR_FACTORY(BgIceShelter), (ActorFunc)BgIceShelter_Init, (ActorFunc)BgIceShelter_Destroy, (ActorFunc)BgIceShelter_Update, (ActorFunc)BgIceShelter_Draw, (ActorFunc)BgIceShelter_Reset,
 };
 
 static f32 sScales[] = {0.1f, 0.06f, 0.1f, 0.1f, 0.25f};
@@ -489,7 +489,7 @@ void BgIceShelter_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	kzIceScale_33 = {0.18f, 0.27f, 0.24f};
 
 	Bg_Ice_Shelter_InitVars = {
-	    ACTOR_BG_ICE_SHELTER, ACTORCAT_BG, FLAGS, OBJECT_ICE_OBJECTS, sizeof(BgIceShelter), (ActorFunc)BgIceShelter_Init, (ActorFunc)BgIceShelter_Destroy, (ActorFunc)BgIceShelter_Update, (ActorFunc)BgIceShelter_Draw, (ActorFunc)BgIceShelter_Reset,
+	    ACTOR_BG_ICE_SHELTER, ACTORCAT_BG, FLAGS, OBJECT_ICE_OBJECTS, ACTOR_FACTORY(BgIceShelter), (ActorFunc)BgIceShelter_Init, (ActorFunc)BgIceShelter_Destroy, (ActorFunc)BgIceShelter_Update, (ActorFunc)BgIceShelter_Draw, (ActorFunc)BgIceShelter_Reset,
 	};
 
 	sDustPrimColor = {250, 250, 250, 255};

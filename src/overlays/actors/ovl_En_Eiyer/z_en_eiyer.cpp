@@ -51,7 +51,7 @@ void EnEiyer_Dead(EnEiyer* pthis, GlobalContext* globalCtx);
 void EnEiyer_Stunned(EnEiyer* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Eiyer_InitVars = {
-    ACTOR_EN_EIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, sizeof(EnEiyer), (ActorFunc)EnEiyer_Init, (ActorFunc)EnEiyer_Destroy, (ActorFunc)EnEiyer_Update, (ActorFunc)EnEiyer_Draw, (ActorFunc)EnEiyer_Reset,
+    ACTOR_EN_EIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, ACTOR_FACTORY(EnEiyer), (ActorFunc)EnEiyer_Init, (ActorFunc)EnEiyer_Destroy, (ActorFunc)EnEiyer_Update, (ActorFunc)EnEiyer_Draw, (ActorFunc)EnEiyer_Reset,
 };
 
 static ColliderCylinderInit sColCylInit = {
@@ -856,7 +856,7 @@ void EnEiyer_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnEiyer_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Eiyer_InitVars = {
-	    ACTOR_EN_EIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, sizeof(EnEiyer), (ActorFunc)EnEiyer_Init, (ActorFunc)EnEiyer_Destroy, (ActorFunc)EnEiyer_Update, (ActorFunc)EnEiyer_Draw, (ActorFunc)EnEiyer_Reset,
+	    ACTOR_EN_EIYER, ACTORCAT_ENEMY, FLAGS, OBJECT_EI, ACTOR_FACTORY(EnEiyer), (ActorFunc)EnEiyer_Init, (ActorFunc)EnEiyer_Destroy, (ActorFunc)EnEiyer_Update, (ActorFunc)EnEiyer_Draw, (ActorFunc)EnEiyer_Reset,
 	};
 
 	sColCylInit = {

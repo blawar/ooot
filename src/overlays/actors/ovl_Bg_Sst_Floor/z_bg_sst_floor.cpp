@@ -28,7 +28,7 @@ void BgSstFloor_Draw(BgSstFloor* pthis, GlobalContext* globalCtx);
 static s32 sUnkValues[] = {0, 0, 0}; // Unused, probably a zero vector
 
 ActorInit Bg_Sst_Floor_InitVars = {
-    ACTOR_BG_SST_FLOOR, ACTORCAT_BG, FLAGS, OBJECT_SST, sizeof(BgSstFloor), (ActorFunc)BgSstFloor_Init, (ActorFunc)BgSstFloor_Destroy, (ActorFunc)BgSstFloor_Update, (ActorFunc)BgSstFloor_Draw, (ActorFunc)BgSstFloor_Reset,
+    ACTOR_BG_SST_FLOOR, ACTORCAT_BG, FLAGS, OBJECT_SST, ACTOR_FACTORY(BgSstFloor), (ActorFunc)BgSstFloor_Init, (ActorFunc)BgSstFloor_Destroy, (ActorFunc)BgSstFloor_Update, (ActorFunc)BgSstFloor_Draw, (ActorFunc)BgSstFloor_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -160,6 +160,6 @@ void BgSstFloor_Draw(BgSstFloor* thisx, GlobalContext* globalCtx)
 void BgSstFloor_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Sst_Floor_InitVars = {
-	    ACTOR_BG_SST_FLOOR, ACTORCAT_BG, FLAGS, OBJECT_SST, sizeof(BgSstFloor), (ActorFunc)BgSstFloor_Init, (ActorFunc)BgSstFloor_Destroy, (ActorFunc)BgSstFloor_Update, (ActorFunc)BgSstFloor_Draw, (ActorFunc)BgSstFloor_Reset,
+	    ACTOR_BG_SST_FLOOR, ACTORCAT_BG, FLAGS, OBJECT_SST, ACTOR_FACTORY(BgSstFloor), (ActorFunc)BgSstFloor_Init, (ActorFunc)BgSstFloor_Destroy, (ActorFunc)BgSstFloor_Update, (ActorFunc)BgSstFloor_Draw, (ActorFunc)BgSstFloor_Reset,
 	};
 }

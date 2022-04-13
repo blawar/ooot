@@ -24,7 +24,7 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx);
 void func_80AF8F60(Player* player, u8* shadowTexture, f32 arg2);
 
 ActorInit En_Sda_InitVars = {
-    ACTOR_EN_SDA, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnSda), (ActorFunc)EnSda_Init, (ActorFunc)EnSda_Destroy, (ActorFunc)EnSda_Update, (ActorFunc)EnSda_Draw, (ActorFunc)EnSda_Reset,
+    ACTOR_EN_SDA, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnSda), (ActorFunc)EnSda_Init, (ActorFunc)EnSda_Destroy, (ActorFunc)EnSda_Update, (ActorFunc)EnSda_Draw, (ActorFunc)EnSda_Reset,
 };
 
 static Vec3f D_80AFA0D0 = {0.0f, 0.0f, 0.0f};
@@ -432,7 +432,7 @@ void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx)
 void EnSda_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Sda_InitVars = {
-	    ACTOR_EN_SDA, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnSda), (ActorFunc)EnSda_Init, (ActorFunc)EnSda_Destroy, (ActorFunc)EnSda_Update, (ActorFunc)EnSda_Draw, (ActorFunc)EnSda_Reset,
+	    ACTOR_EN_SDA, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnSda), (ActorFunc)EnSda_Init, (ActorFunc)EnSda_Destroy, (ActorFunc)EnSda_Update, (ActorFunc)EnSda_Draw, (ActorFunc)EnSda_Reset,
 	};
 
 	D_80AFA0D0 = {0.0f, 0.0f, 0.0f};

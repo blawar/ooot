@@ -59,7 +59,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 ActorInit En_Kakasi3_InitVars = {
-    ACTOR_EN_KAKASI3, ACTORCAT_NPC, FLAGS, OBJECT_KA, sizeof(EnKakasi3), (ActorFunc)EnKakasi3_Init, (ActorFunc)EnKakasi3_Destroy, (ActorFunc)EnKakasi3_Update, (ActorFunc)EnKakasi3_Draw, (ActorFunc)EnKakasi3_Reset,
+    ACTOR_EN_KAKASI3, ACTORCAT_NPC, FLAGS, OBJECT_KA, ACTOR_FACTORY(EnKakasi3), (ActorFunc)EnKakasi3_Init, (ActorFunc)EnKakasi3_Destroy, (ActorFunc)EnKakasi3_Update, (ActorFunc)EnKakasi3_Draw, (ActorFunc)EnKakasi3_Reset,
 };
 
 void EnKakasi3_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -534,6 +534,6 @@ void EnKakasi3_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Kakasi3_InitVars = {
-	    ACTOR_EN_KAKASI3, ACTORCAT_NPC, FLAGS, OBJECT_KA, sizeof(EnKakasi3), (ActorFunc)EnKakasi3_Init, (ActorFunc)EnKakasi3_Destroy, (ActorFunc)EnKakasi3_Update, (ActorFunc)EnKakasi3_Draw, (ActorFunc)EnKakasi3_Reset,
+	    ACTOR_EN_KAKASI3, ACTORCAT_NPC, FLAGS, OBJECT_KA, ACTOR_FACTORY(EnKakasi3), (ActorFunc)EnKakasi3_Init, (ActorFunc)EnKakasi3_Destroy, (ActorFunc)EnKakasi3_Update, (ActorFunc)EnKakasi3_Draw, (ActorFunc)EnKakasi3_Reset,
 	};
 }
