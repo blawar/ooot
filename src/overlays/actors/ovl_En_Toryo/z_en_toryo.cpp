@@ -423,9 +423,9 @@ void EnToryo_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	if((pthis->stateFlags & 8))
 	{
-		pthis->unk_1EC.unk_18.x = player->actor.focus.pos.x;
-		pthis->unk_1EC.unk_18.y = player->actor.focus.pos.y;
-		pthis->unk_1EC.unk_18.z = player->actor.focus.pos.z;
+		pthis->unk_1EC.position.x = player->actor.focus.pos.x;
+		pthis->unk_1EC.position.y = player->actor.focus.pos.y;
+		pthis->unk_1EC.position.z = player->actor.focus.pos.z;
 
 		if((pthis->stateFlags & 0x10))
 		{

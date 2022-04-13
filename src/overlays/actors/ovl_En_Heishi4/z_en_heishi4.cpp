@@ -430,10 +430,10 @@ void EnHeishi4_Update(Actor* thisx, GlobalContext* globalCtx)
 	Actor_SetFocus(thisx, pthis->height);
 	if(pthis->type != HEISHI4_AT_MARKET_DYING)
 	{
-		pthis->unk_28C.unk_18 = player->actor.world.pos;
+		pthis->unk_28C.position = player->actor.world.pos;
 		if(!LINK_IS_ADULT)
 		{
-			pthis->unk_28C.unk_18.y = (player->actor.world.pos.y - 10.0f);
+			pthis->unk_28C.position.y = (player->actor.world.pos.y - 10.0f);
 		}
 		func_80034A14(thisx, &pthis->unk_28C, 2, 4);
 		pthis->unk_260 = pthis->unk_28C.unk_08;

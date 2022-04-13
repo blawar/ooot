@@ -183,8 +183,8 @@ void DemoIm_UpdateCollider(DemoIm* pthis, GlobalContext* globalCtx)
 void func_80984DB8(DemoIm* pthis)
 {
 	s32 pad[2];
-	Vec3s* vec1 = &pthis->unk_2D4.unk_08;
-	Vec3s* vec2 = &pthis->unk_2D4.unk_0E;
+	auto vec1 = &pthis->unk_2D4.unk_08;
+	auto vec2 = &pthis->unk_2D4.unk_0E;
 
 	Math_SmoothStepToS(&vec1->x, 0, 20, 6200, 100);
 	Math_SmoothStepToS(&vec1->y, 0, 20, 6200, 100);
@@ -199,8 +199,8 @@ void func_80984E58(DemoIm* pthis, GlobalContext* globalCtx)
 	s16 yawDiff;
 	s16 phi_a3;
 
-	pthis->unk_2D4.unk_18 = player->actor.world.pos;
-	pthis->unk_2D4.unk_14 = kREG(16) + 4.0f;
+	pthis->unk_2D4.position = player->actor.world.pos;
+	pthis->unk_2D4.height = kREG(16) + 4.0f;
 
 	yawDiff = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
 	phi_a3 = (ABS(yawDiff) < 0x18E3) ? 2 : 1;
@@ -211,8 +211,8 @@ void func_80984F10(DemoIm* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_2D4.unk_18 = player->actor.world.pos;
-	pthis->unk_2D4.unk_14 = kREG(16) + 12.0f;
+	pthis->unk_2D4.position = player->actor.world.pos;
+	pthis->unk_2D4.height = kREG(16) + 12.0f;
 
 	func_80034A14(&pthis->actor, &pthis->unk_2D4, kREG(17) + 0xC, 2);
 }
@@ -221,8 +221,8 @@ void func_80984F94(DemoIm* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_2D4.unk_18 = player->actor.world.pos;
-	pthis->unk_2D4.unk_14 = kREG(16) + 4.0f;
+	pthis->unk_2D4.position = player->actor.world.pos;
+	pthis->unk_2D4.height = kREG(16) + 4.0f;
 	func_80034A14(&pthis->actor, &pthis->unk_2D4, kREG(17) + 0xC, 4);
 }
 
@@ -1320,8 +1320,8 @@ s32 DemoIm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
 
 	if(pthis->unk_280 != 0)
 	{
-		Vec3s* unk_2D4_unk_0E = &pthis->unk_2D4.unk_0E;
-		Vec3s* unk_2D4_unk_08 = &pthis->unk_2D4.unk_08;
+		auto unk_2D4_unk_0E = &pthis->unk_2D4.unk_0E;
+		auto unk_2D4_unk_08 = &pthis->unk_2D4.unk_08;
 
 		switch(limbIndex)
 		{

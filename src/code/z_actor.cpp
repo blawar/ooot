@@ -4301,49 +4301,49 @@ static struct_80116130 D_80116130[] = {
     {{0x18E2, 0xF1C8, 0x0E38, 0x0E38, 0x0000, 0x0000, 1}, 0.0f, 0x0000},
 };
 
-void func_800344BC(Actor* actor, struct_80034A14_arg1* arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, u8 arg8)
+void func_800344BC(Actor* actor, struct_80034A14_arg1* arg1, s16 maxYaw1, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, u8 rotateActor)
 {
 	s16 sp46;
 	s16 sp44;
 	s16 temp2;
-	s16 sp40;
-	s16 temp1;
+	Rotation yaw1;
+	Rotation clamped;
 	Vec3f sp30;
 
 	sp30.x = actor->world.pos.x;
-	sp30.y = actor->world.pos.y + arg1->unk_14;
+	sp30.y = actor->world.pos.y + arg1->height;
 	sp30.z = actor->world.pos.z;
 
-	sp46 = Math_Vec3f_Pitch(&sp30, &arg1->unk_18);
-	sp44 = Math_Vec3f_Yaw(&sp30, &arg1->unk_18);
-	sp40 = Math_Vec3f_Yaw(&actor->world.pos, &arg1->unk_18) - actor->shape.rot.y;
+	sp46 = Math_Vec3f_Pitch(&sp30, &arg1->position);
+	sp44 = Math_Vec3f_Yaw(&sp30, &arg1->position);
+	yaw1 = Math_Vec3f_Yaw(&actor->world.pos, &arg1->position) - actor->shape.rot.y;
 
-	temp1 = CLAMP(sp40, -arg2, arg2);
-	Math_SmoothStepToS(&arg1->unk_08.y, temp1, 6, 2000, 1);
+	clamped = CLAMP((float)yaw1, (float)-maxYaw1, (float)maxYaw1);
+	Math_SmoothStepToS(&arg1->unk_08.y, clamped, 6, 2000, 1);
 
-	temp1 = (ABS(sp40) >= 0x8000) ? 0 : ABS(sp40);
-	arg1->unk_08.y = CLAMP(arg1->unk_08.y, -temp1, temp1);
+	clamped = (yaw1.abs() >= 0x8000) ? 0 : yaw1.abs();
+	arg1->unk_08.y = CLAMP((float)arg1->unk_08.y, (float)-clamped, (float)clamped);
 
-	sp40 -= arg1->unk_08.y;
+	yaw1 -= arg1->unk_08.y;
 
-	temp1 = CLAMP(sp40, -arg5, arg5);
-	Math_SmoothStepToS(&arg1->unk_0E.y, temp1, 6, 2000, 1);
+	clamped = CLAMP((float)yaw1, (float)-arg5, (float)arg5);
+	Math_SmoothStepToS(&arg1->unk_0E.y, clamped, 6, 2000, 1);
 
-	temp1 = (ABS(sp40) >= 0x8000) ? 0 : ABS(sp40);
-	arg1->unk_0E.y = CLAMP(arg1->unk_0E.y, -temp1, temp1);
+	clamped = (yaw1.abs() >= 0x8000) ? 0 : yaw1.abs();
+	arg1->unk_0E.y = CLAMP((float)arg1->unk_0E.y, (float)-clamped, (float)clamped);
 
-	if(arg8)
+	if(rotateActor)
 	{
 		Math_SmoothStepToS(&actor->shape.rot.y, sp44, 6, 2000, 1);
 	}
 
-	temp1 = CLAMP(sp46, arg4, (s16)(u16)arg3);
-	Math_SmoothStepToS(&arg1->unk_08.x, temp1, 6, 2000, 1);
+	clamped = CLAMP(sp46, arg4, (s16)(u16)arg3);
+	Math_SmoothStepToS(&arg1->unk_08.x, clamped, 6, 2000, 1);
 
 	temp2 = sp46 - arg1->unk_08.x;
 
-	temp1 = CLAMP(temp2, arg7, arg6);
-	Math_SmoothStepToS(&arg1->unk_0E.x, temp1, 6, 2000, 1);
+	clamped = CLAMP(temp2, arg7, arg6);
+	Math_SmoothStepToS(&arg1->unk_0E.x, clamped, 6, 2000, 1);
 }
 
 s16 func_800347E8(s16 arg0)
@@ -4367,14 +4367,14 @@ s16 func_80034810(Actor* actor, struct_80034A14_arg1* arg1, f32 arg2, s16 arg3, 
 		return 4;
 	}
 
-	if(arg2 < Math_Vec3f_DistXYZ(&actor->world.pos, &arg1->unk_18))
+	if(arg2 < Math_Vec3f_DistXYZ(&actor->world.pos, &arg1->position))
 	{
 		arg1->unk_04 = 0;
 		arg1->unk_06 = 0;
 		return 1;
 	}
 
-	var = Math_Vec3f_Yaw(&actor->world.pos, &arg1->unk_18);
+	var = Math_Vec3f_Yaw(&actor->world.pos, &arg1->position);
 	abs_var = ABS((s16)((f32)var - actor->shape.rot.y));
 	if(arg3 >= abs_var)
 	{
@@ -4532,7 +4532,7 @@ void func_80034EC0(SkelAnime* skelAnime, struct_80034EC0_Entry* animations, s32 
 
 void func_80034F54(GlobalContext* globalCtx, s16* arg1, s16* arg2, s32 arg3)
 {
-	u32 frames = globalCtx->gameplayFrames;
+	auto frames = globalCtx->gameplayFrames;
 	s32 i;
 
 	for(i = 0; i < arg3; i++)

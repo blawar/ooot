@@ -3,51 +3,47 @@
 #include "ultra64/types.h"
 
 #if defined(ENABLE_240FPS)
-#define FRAME_RATE 240
-#define ENABLE_HIGH_FRAMERATE
+#define FRAME_RATE 60
+#define UPDATE_SCALER 4
+#elif defined(ENABLE_180FPS)
+#define FRAME_RATE 60
+#define UPDATE_SCALER 3
 #elif defined(ENABLE_120FPS)
-#define FRAME_RATE 120
-#define ENABLE_HIGH_FRAMERATE
+#define FRAME_RATE 60
+#define UPDATE_SCALER 2
 #elif defined(ENABLE_60FPS)
 #define FRAME_RATE 60
+#define UPDATE_SCALER 1
+#elif defined(ENABLE_40FPS)
+#define FRAME_RATE 40
+#define UPDATE_SCALER 1
 #elif defined(ENABLE_30FPS)
-#define FRAME_RATE 30
+#define FRAME_RATE 40
+#define UPDATE_SCALER (40.0f / 30.0f)
+#elif defined(ENABLE_25FPS)
+#define FRAME_RATE 20
+#define UPDATE_SCALER (30.0f / 20.0f)
 #else
 #define FRAME_RATE 20
+#define UPDATE_SCALER 1
 #endif
 
-#ifdef ENABLE_HIGH_FRAMERATE
-typedef enum
+enum Framerate
 {
 	FRAMERATE_NONE = 0,
-	FRAMERATE_240FPS = 1,
-	FRAMERATE_120FPS = 2,
-	FRAMERATE_60FPS = 4,
-	FRAMERATE_40FPS = 6,
-	FRAMERATE_30FPS = 8,
-	FRAMERATE_20FPS = 12
-} Framerate;
-
-#define FRAMERATE_SCALER R_UPDATE_RATE / 12.0f
-#define FRAMERATE_RATE_SCALER 4
-#define FRAMERATE_MAX 240
-
-#else
-typedef enum
-{
-	FRAMERATE_NONE = 0,
-	FRAMERATE_60FPS = 1,
-	FRAMERATE_30FPS = 2,
-	FRAMERATE_20FPS = 3
-} Framerate;
+	FRAMERATE_240FPS = 2,
+	FRAMERATE_120FPS = 5,
+	FRAMERATE_60FPS = 10,
+	FRAMERATE_40FPS = 15,
+	FRAMERATE_30FPS = 20,
+	FRAMERATE_20FPS = 30
+};
 
 #define FRAMERATE_SCALER (20.0f / (float)FRAME_RATE)
 #define FRAMERATE_SCALER_INV ((float)FRAME_RATE / 20.0f)
 #define FRAMERATE_ANIM_SCALER (R_UPDATE_RATE * 0.5f)
 #define FRAMERATE_RATE_SCALER 1
 #define FRAMERATE_MAX 60
-
-#endif
 
 #define FRAMERATE_RATE_SCALE(x) ((x / FRAMERATE_RATE_SCALER) < 1 ? 1 : (x / FRAMERATE_RATE_SCALER))
 #define FRAMERATE_RATE_SCALED ((R_UPDATE_RATE / FRAMERATE_RATE_SCALER) < 1 ? 1 : (R_UPDATE_RATE / FRAMERATE_RATE_SCALER))
@@ -71,7 +67,7 @@ void framerate_init();
 u32 framerate_get();
 void framerate_set_profile(FramerateProfile profile);
 FramerateProfile framerate_get_profile();
-u64 frameRateDivisor();
+float frameRateDivisor();
 
 class Timer
 {
@@ -124,6 +120,7 @@ class Timer
 	}
 
 	float abs() const;
+	void clamp(float min, float max);
 
 	s16 toS16() const
 	{
@@ -214,4 +211,13 @@ class Step
 
 	protected:
 	float m_value;
+};
+
+class FStep : public Step
+{
+	public:
+	FStep();
+	FStep(const Step& t);
+	FStep(float n);
+	FStep(const Rotation& r);
 };

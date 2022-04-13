@@ -90,7 +90,7 @@ CameraModeValue D_8011A3C8[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12}	 // tempo
 };
 
@@ -102,7 +102,7 @@ CameraModeValue D_8011A3F4[] = {
     {25, 13},	 // unk_0C
     {45, 14},	 // unk_10
     {-5, 15},	 // cutsceneCamera
-    {15, 16},	 // unk_18
+    {15, 16},	 // position
     {15, 17},	 // tempo
     {45, 7},	 // unk_20
     {50, 8},	 // unk_24
@@ -328,7 +328,7 @@ CameraModeValue D_8011A660[] = {
     {70, 7},	 // fovTarget
     {30, 8},	 // cutsceneCamera
     {0x206A, 9}, // flags
-    {-20, 11},	 // unk_18
+    {-20, 11},	 // position
     {30, 12},	 // tempo
 };
 
@@ -340,7 +340,7 @@ CameraModeValue D_8011A68C[] = {
     {5, 13},	 // unk_0C
     {85, 14},	 // unk_10
     {10, 15},	 // cutsceneCamera
-    {5, 16},	 // unk_18
+    {5, 16},	 // position
     {25, 17},	 // tempo
     {45, 7},	 // unk_20
     {50, 8},	 // unk_24
@@ -374,7 +374,7 @@ CameraModeValue sSetNorm1ModeParaVals[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x2002, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -386,7 +386,7 @@ CameraModeValue D_8011A714[] = {
     {25, 13},	 // unk_0C
     {45, 14},	 // unk_10
     {-5, 15},	 // cutsceneCamera
-    {15, 16},	 // unk_18
+    {15, 16},	 // position
     {15, 17},	 // tempo
     {45, 7},	 // unk_20
     {50, 8},	 // unk_24
@@ -545,7 +545,7 @@ CameraModeValue D_8011A8C4[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -557,7 +557,7 @@ CameraModeValue D_8011A8F0[] = {
     {25, 13},	 // unk_0C
     {45, 14},	 // unk_10
     {-5, 15},	 // cutsceneCamera
-    {15, 16},	 // unk_18
+    {15, 16},	 // position
     {15, 17},	 // tempo
     {45, 7},	 // unk_20
     {50, 8},	 // unk_24
@@ -817,7 +817,7 @@ CameraModeValue D_8011ABB4[] = {
     {60, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x206A, 9}, // flags
-    {-20, 11},	 // unk_18
+    {-20, 11},	 // position
     {30, 12},	 // tempo
 };
 
@@ -846,7 +846,7 @@ CameraModeValue D_8011AC08[] = {
     {60, 7},	 // fovTarget
     {100, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-50, 11},	 // unk_18
+    {-50, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -930,7 +930,7 @@ CameraModeValue D_8011ACF8[] = {
     {25, 13},	 // unk_0C
     {45, 14},	 // unk_10
     {-5, 15},	 // cutsceneCamera
-    {15, 16},	 // unk_18
+    {15, 16},	 // position
     {15, 17},	 // tempo
     {45, 7},	 // unk_20
     {50, 8},	 // unk_24
@@ -1287,7 +1287,7 @@ CameraModeValue D_8011B108[] = {
     {8, 4},	 // unk_0C
     {40, 6},	 // unk_10
     {60, 7},	 // cutsceneCamera
-    {50, 8},	 // unk_18
+    {50, 8},	 // position
     {0x0000, 9}, // flags
 };
 
@@ -1300,7 +1300,7 @@ CameraModeValue D_8011B12C[] = {
     {8, 4},	 // unk_0C
     {40, 6},	 // unk_10
     {60, 7},	 // cutsceneCamera
-    {50, 8},	 // unk_18
+    {50, 8},	 // position
     {0x0080, 9}, // flags
 };
 
@@ -1313,7 +1313,7 @@ CameraModeValue D_8011B150[] = {
     {8, 4},	 // unk_0C
     {60, 6},	 // unk_10
     {60, 7},	 // cutsceneCamera
-    {100, 8},	 // unk_18
+    {100, 8},	 // position
     {0x0000, 9}, // flags
 };
 
@@ -1326,7 +1326,7 @@ CameraModeValue D_8011B174[] = {
     {6, 4},	 // unk_0C
     {60, 6},	 // unk_10
     {60, 7},	 // cutsceneCamera
-    {100, 8},	 // unk_18
+    {100, 8},	 // position
     {0x0000, 9}, // flags
 };
 
@@ -1511,7 +1511,7 @@ CameraModeValue sSetMori1ModeNormVals[] = {
     {70, 7},	 // fovTarget
     {30, 8},	 // cutsceneCamera
     {0x000C, 9}, // flags
-    {-50, 11},	 // unk_18
+    {-50, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -1558,7 +1558,7 @@ CameraModeValue D_8011B31C[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -1635,7 +1635,7 @@ CameraModeValue D_8011B3F0[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -1771,7 +1771,7 @@ CameraModeValue D_8011B560[] = {
     {70, 7},	 // fovTarget
     {80, 8},	 // cutsceneCamera
     {0x201A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {40, 12},	 // tempo
 };
 
@@ -1786,7 +1786,7 @@ CameraModeValue D_8011B58C[] = {
     {60, 7},	 // fovTarget
     {80, 8},	 // cutsceneCamera
     {0x201A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {40, 12},	 // tempo
 };
 
@@ -1829,7 +1829,7 @@ CameraModeValue D_8011B608[] = {
     {70, 7},	 // fovTarget
     {80, 8},	 // cutsceneCamera
     {0x201A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {40, 12},	 // tempo
 };
 
@@ -1844,7 +1844,7 @@ CameraModeValue D_8011B634[] = {
     {70, 7},	 // fovTarget
     {80, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {40, 12},	 // tempo
 };
 
@@ -1887,7 +1887,7 @@ CameraModeValue D_8011B6B0[] = {
     {70, 7},	 // fovTarget
     {80, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {40, 12},	 // tempo
 };
 
@@ -1902,7 +1902,7 @@ CameraModeValue D_8011B6DC[] = {
     {60, 7},	 // fovTarget
     {80, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {40, 12},	 // tempo
 };
 
@@ -1927,7 +1927,7 @@ CameraModeValue D_8011B730[] = {
     {-10, 3},	 // unk_08
     {170, 10},	 // unk_0C
     {0, 21},	 // unk_10
-    {60, 7},	 // unk_18
+    {60, 7},	 // position
     {0x2502, 9}, // flags
     {25, 4},	 // cutsceneCamera
     {6, 22},	 // unk_1E
@@ -1978,7 +1978,7 @@ CameraModeValue D_8011B7AC[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x2F0A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -2133,7 +2133,7 @@ CameraModeValue D_8011B958[] = {
     {45, 7},	 // fovTarget
     {50, 8},	 // cutsceneCamera
     {0x200A, 9}, // flags
-    {-40, 11},	 // unk_18
+    {-40, 11},	 // position
     {20, 12},	 // tempo
 };
 
@@ -2250,7 +2250,7 @@ CameraModeValue D_8011BA9C[] = {
     {70, 7},	 // fovTarget
     {30, 8},	 // cutsceneCamera
     {0x206A, 9}, // flags
-    {-20, 11},	 // unk_18
+    {-20, 11},	 // position
     {30, 12},	 // tempo
 };
 
@@ -2276,7 +2276,7 @@ CameraModeValue D_8011BAF0[] = {
     {35, 13},	 // unk_0C
     {45, 14},	 // unk_10
     {0, 15},	 // cutsceneCamera
-    {-5, 16},	 // unk_18
+    {-5, 16},	 // position
     {20, 17},	 // tempo
     {50, 7},	 // unk_20
     {50, 8},	 // unk_24

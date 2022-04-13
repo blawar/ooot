@@ -186,14 +186,14 @@ void func_80A505CC(Actor* thisx, GlobalContext* globalCtx)
 	func_80A5046C(pthis);
 	pthis->actionFunc(pthis, globalCtx);
 
-	pthis->unk_2A0.unk_18 = player->actor.world.pos;
+	pthis->unk_2A0.position = player->actor.world.pos;
 	if(LINK_IS_ADULT)
 	{
-		pthis->unk_2A0.unk_14 = 10.0f;
+		pthis->unk_2A0.height = 10.0f;
 	}
 	else
 	{
-		pthis->unk_2A0.unk_14 = 20.0f;
+		pthis->unk_2A0.height = 20.0f;
 	}
 	func_80034A14(&pthis->actor, &pthis->unk_2A0, 6, 2);
 

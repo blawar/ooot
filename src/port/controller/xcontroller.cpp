@@ -115,23 +115,6 @@ static const char* getButtonName(XInputButtons button)
 #pragma comment(lib, "Xinput9_1_0.lib")
 #endif
 
-static inline int8_t convertToByte(int value, int max)
-{
-	int8_t result = value * 0x7F / max;
-
-	return result;
-}
-
-static inline int8_t invert(const int8_t value)
-{
-	if(value <= -128)
-	{
-		return 127;
-	}
-
-	return -value;
-}
-
 static u8* expandButtonBits(WORD bits, u8* out)
 {
 	for(int i = 0; i < MAX_BUTTONS; i++)

@@ -9,8 +9,8 @@
 namespace platform::window
 {
 	Base::Base() :
-	    /*m_nextFrameTime(0), m_currentFrameStartTime(0), m_lastFrameTime(0),*/ m_lastFrameDuration(0), m_lastSwapDuration(0), dropped_frame(false), m_refreshInterval(0), m_targetFrameRate(60), m_ar_ratio(1.0f), m_ar(1.0f), m_window_width(1280),
-	    m_window_height(720)
+	    /*m_nextFrameTime(0), m_currentFrameStartTime(0), m_lastFrameTime(0),*/ m_lastFrameDuration(0), m_lastSwapDuration(0), dropped_frame(false), m_refreshInterval(0), m_targetFrameRate(60 * UPDATE_SCALER), m_ar_ratio(1.0f), m_ar(1.0f),
+	    m_window_width(1280), m_window_height(720)
 	{
 	}
 

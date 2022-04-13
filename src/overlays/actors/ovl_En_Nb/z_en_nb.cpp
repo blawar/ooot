@@ -132,8 +132,8 @@ void func_80AB0FBC(EnNb* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_300.unk_18 = player->actor.world.pos;
-	pthis->unk_300.unk_14 = kREG(16) + 9.0f;
+	pthis->unk_300.position = player->actor.world.pos;
+	pthis->unk_300.height = kREG(16) + 9.0f;
 	func_80034A14(&pthis->actor, &pthis->unk_300, kREG(17) + 0xC, 2);
 }
 
@@ -141,21 +141,20 @@ void func_80AB1040(EnNb* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_300.unk_18 = player->actor.world.pos;
-	pthis->unk_300.unk_14 = kREG(16) + 9.0f;
+	pthis->unk_300.position = player->actor.world.pos;
+	pthis->unk_300.height = kREG(16) + 9.0f;
 	func_80034A14(&pthis->actor, &pthis->unk_300, kREG(17) + 0xC, 4);
 }
 
 void func_80AB10C4(EnNb* pthis)
 {
 	s32 pad2[2];
-	Vec3s* tempPtr;
-	Vec3s* tempPtr2;
+	auto tempPtr = &pthis->unk_300.unk_08;
+	auto tempPtr2 = &pthis->unk_300.unk_0E;
 
-	tempPtr = &pthis->unk_300.unk_08;
 	Math_SmoothStepToS(&tempPtr->x, 0, 20, 6200, 100);
 	Math_SmoothStepToS(&tempPtr->y, 0, 20, 6200, 100);
-	tempPtr2 = &pthis->unk_300.unk_0E;
+
 	Math_SmoothStepToS(&tempPtr2->x, 0, 20, 6200, 100);
 	Math_SmoothStepToS(&tempPtr2->y, 0, 20, 6200, 100);
 }

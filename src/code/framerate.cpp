@@ -6,13 +6,42 @@
 #define COUNTER_STEP 20 / FRAME_RATE
 #define COUNTER_SCALER FRAME_RATE / 20
 
+float R_UPDATE_RATE = 1.0f;
 static FramerateProfile g_profile = PROFILE_BOOT;
+
+#define REAL_FRAME_RATE 30
 
 #if FRAME_RATE == 20
 static Framerate g_profileRates[] = {
     FRAMERATE_30FPS, // PROFILE_BOOT
     FRAMERATE_60FPS, // PROFILE_PAUSE
     FRAMERATE_20FPS, // PROFILE_GAMEPLAY
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
+    FRAMERATE_60FPS, // PROFILE_SAMPLE
+    FRAMERATE_60FPS, // PROFILE_OPENING
+    FRAMERATE_60FPS, // PROFILE_SELECT
+    FRAMERATE_60FPS, // PROFILE_TITLE
+    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
+};
+#elif FRAME_RATE == 30
+static Framerate g_profileRates[] = {
+    FRAMERATE_30FPS, // PROFILE_BOOT
+    FRAMERATE_60FPS, // PROFILE_PAUSE
+    FRAMERATE_30FPS, // PROFILE_GAMEPLAY
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
+    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
+    FRAMERATE_60FPS, // PROFILE_SAMPLE
+    FRAMERATE_60FPS, // PROFILE_OPENING
+    FRAMERATE_60FPS, // PROFILE_SELECT
+    FRAMERATE_60FPS, // PROFILE_TITLE
+    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
+};
+#elif FRAME_RATE == 40
+static Framerate g_profileRates[] = {
+    FRAMERATE_30FPS, // PROFILE_BOOT
+    FRAMERATE_60FPS, // PROFILE_PAUSE
+    FRAMERATE_40FPS, // PROFILE_GAMEPLAY
     FRAMERATE_60FPS, // PROFILE_UNKNOWN1
     FRAMERATE_60FPS, // PROFILE_UNKNOWN2
     FRAMERATE_60FPS, // PROFILE_SAMPLE
@@ -44,16 +73,14 @@ u32 framerate_get()
 {
 	switch(g_profileRates[g_profile])
 	{
-#ifdef ENABLE_HIGH_FRAMERATE
 		case FRAMERATE_240FPS:
 			return 240;
 		case FRAMERATE_120FPS:
 			return 120;
-		case FRAMERATE_40FPS:
-			return 40;
-#endif
 		case FRAMERATE_60FPS:
 			return 60;
+		case FRAMERATE_40FPS:
+			return 40;
 		case FRAMERATE_30FPS:
 			return 30;
 		case FRAMERATE_20FPS:
@@ -62,11 +89,31 @@ u32 framerate_get()
 	return 20; // ERROR?
 }
 
+static inline float framerate_divider()
+{
+	switch(g_profileRates[g_profile])
+	{
+		case FRAMERATE_240FPS:
+			return 0.25f;
+		case FRAMERATE_120FPS:
+			return 0.5f;
+		case FRAMERATE_60FPS:
+			return 1.0f;
+		case FRAMERATE_40FPS:
+			return 2.0f;
+		case FRAMERATE_30FPS:
+			return 1.5f;
+		case FRAMERATE_20FPS:
+			return 3.0f;
+	}
+	return 20; // ERROR?
+}
+
 void framerate_set_profile(FramerateProfile profile)
 {
 	u64 i = 1 * REG_PER_GROUP + 30;
 	g_profile = profile;
-	R_UPDATE_RATE = g_profileRates[g_profile];
+	R_UPDATE_RATE = framerate_divider();
 }
 
 FramerateProfile framerate_get_profile()
@@ -74,7 +121,7 @@ FramerateProfile framerate_get_profile()
 	return g_profile;
 }
 
-u64 frameRateDivisor()
+float frameRateDivisor()
 {
 	return R_UPDATE_RATE;
 }
@@ -156,6 +203,11 @@ float Timer::abs() const
 	return v;
 }
 
+void Timer::clamp(float min, float max)
+{
+	*this = CLAMP(toFloat(), min, max);
+}
+
 Timer& Timer::operator++() // pre
 {
 	m_counterInt++;
@@ -215,7 +267,7 @@ Timer& Timer::operator+=(const Timer f)
 {
 	s64 step = f.m_counterInt * COUNTER_STEP;
 
-	if(step == 0)
+	/*if(step == 0) TODO DELETE THIS, just sanity check for division by zero
 	{
 		if(f.m_counterInt > 0)
 		{
@@ -225,7 +277,7 @@ Timer& Timer::operator+=(const Timer f)
 		{
 			step = -1;
 		}
-	}
+	}*/
 
 	m_counterInt += step;
 	update();
@@ -337,7 +389,7 @@ Step::Step(const Step& t)
 Step::Step(float n)
 {
 	//m_value = n; // * FRAMERATE_SCALER;
-	m_value = n * FRAMERATE_SCALER;
+	m_value = n * COUNTER_STEP;
 }
 
 Step::Step(const Rotation& r)
@@ -348,4 +400,24 @@ Step::Step(const Rotation& r)
 float Step::value() const
 {
 	return m_value;
+}
+
+
+FStep::FStep() : Step()
+{
+}
+
+FStep::FStep(const Step& t)
+{
+	m_value = t.value();
+}
+
+FStep::FStep(float n)
+{
+	m_value = n;
+}
+
+FStep::FStep(const Rotation& r)
+{
+	m_value = (s16)r;
 }

@@ -272,8 +272,8 @@ void func_80AA0AF4(EnMa1* pthis, GlobalContext* globalCtx)
 		phi_a3 = 0;
 	}
 
-	pthis->unk_1E8.unk_18 = player->actor.world.pos;
-	pthis->unk_1E8.unk_18.y -= -10.0f;
+	pthis->unk_1E8.position = player->actor.world.pos;
+	pthis->unk_1E8.position.y -= -10.0f;
 
 	func_80034A14(&pthis->actor, &pthis->unk_1E8, 0, phi_a3);
 }

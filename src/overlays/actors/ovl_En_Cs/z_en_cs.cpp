@@ -477,9 +477,9 @@ void EnCs_Talk(EnCs* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->flag |= 1;
-	pthis->npcInfo.unk_18.x = player->actor.focus.pos.x;
-	pthis->npcInfo.unk_18.y = player->actor.focus.pos.y;
-	pthis->npcInfo.unk_18.z = player->actor.focus.pos.z;
+	pthis->npcInfo.position.x = player->actor.focus.pos.x;
+	pthis->npcInfo.position.y = player->actor.focus.pos.y;
+	pthis->npcInfo.position.z = player->actor.focus.pos.z;
 	func_80034A14(&pthis->actor, &pthis->npcInfo, 0, 4);
 
 	if(pthis->talkState == 0)

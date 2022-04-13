@@ -76,7 +76,7 @@ struct EnGo2
 	/* 0x0194 */ struct_80034A14_arg1 unk_194;
 	/* 0x01BC */ ColliderCylinder collider;
 	/* 0x0208 */ Path* path;
-	/* 0x020C */ u8 unk_20C; // counter for GORON_CITY_LINK animation
+	/* 0x020C */ TimerU8 unk_20C; // counter for GORON_CITY_LINK animation
 	/* 0x020D */ u8 dialogState;
 	/* 0x020E */ u8 reverse;
 	/* 0x020F */ u8 isAwake; // Conditional

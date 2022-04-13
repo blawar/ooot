@@ -201,8 +201,8 @@ void func_809FDE24(EnDu* pthis, GlobalContext* globalCtx)
 	{
 		phi_a3 = 1;
 	}
-	pthis->unk_1F4.unk_18 = player->actor.world.pos;
-	pthis->unk_1F4.unk_14 = 10.0f;
+	pthis->unk_1F4.position = player->actor.world.pos;
+	pthis->unk_1F4.height = 10.0f;
 	func_80034A14(&pthis->actor, &pthis->unk_1F4, 3, phi_a3);
 }
 

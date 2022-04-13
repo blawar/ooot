@@ -631,14 +631,14 @@ void func_80AAB158(EnMd* pthis, GlobalContext* globalCtx)
 
 	if((globalCtx->csCtx.state != CS_STATE_IDLE) || gDbgCamEnabled)
 	{
-		pthis->unk_1E0.unk_18 = globalCtx->view.eye;
-		pthis->unk_1E0.unk_14 = 40.0f;
+		pthis->unk_1E0.position = globalCtx->view.eye;
+		pthis->unk_1E0.height = 40.0f;
 		temp = 2;
 	}
 	else
 	{
-		pthis->unk_1E0.unk_18 = player->actor.world.pos;
-		pthis->unk_1E0.unk_14 = (gSaveContext.linkAge > 0) ? 0.0f : -18.0f;
+		pthis->unk_1E0.position = player->actor.world.pos;
+		pthis->unk_1E0.height = (gSaveContext.linkAge > 0) ? 0.0f : -18.0f;
 	}
 
 	func_80034A14(&pthis->actor, &pthis->unk_1E0, 2, temp);
