@@ -172,98 +172,100 @@ QUICKTEXT_ENABLE  SHIFT("\x3C") "OK!!" QUICKTEXT_DISABLE  BOX_BREAK "Mire no bur
 )
 
 DEFINE_MESSAGE(0x001A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want to play again?\n"
+"Você quer jogar de novo?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
+"Não" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, I almost forgot!\n"
-"Here is what you can win!" EVENT
+"Ah, eu quase esqueci!\n"
+"Aqui está o que você pode ganhar!" EVENT
 )
 
 DEFINE_MESSAGE(0x001C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombs   (20 pieces)   80 Rupees\n"
-COLOR(DEFAULT) "Take it out with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
-"buy them without a bomb bag." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (20 peças)   80 Rupees\n"
+COLOR(DEFAULT) "Use-a com o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e aperte \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " novamente para lançá-la. Você não pode\n"
+"comprá-las sem um saco de bomba." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombs   (30 pieces)   120 Rupees\n"
-COLOR(DEFAULT) "Take it out with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
-"buy them without a bomb bag." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (30 peças)   120 Rupees\n"
+COLOR(DEFAULT) "Use-a com o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e aperte \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " novamente para lançá-la. Você não pode\n"
+"comprá-las sem um saco de bomba." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombs   30 Pieces   120 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bombas   30 Peças   120 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
 TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
 "Não comprar" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I'm so happy everyone is \n"
-"back to normal!"
+"Estou tão feliz que todos \n"
+"voltaram ao normal"
 )
 
 DEFINE_MESSAGE(0x0020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Please save my other brothers\n"
-"too! I'm sure they will give you\n"
-"something a lot better!" BOX_BREAK "Will you do it?!"
+"Por favor salve meus outros irmãos\n"
+"também! Eu tenho certeza de que eles vão te\n"
+"dar algo muito melhor!" BOX_BREAK "Você vai fazer isso?!"
 )
 
 DEFINE_MESSAGE(0x0021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "The curse has been broken!\n"
-"Thank you!\n"
-"Here's a reward for you!" EVENT
+UNSKIPPABLE "A maldiçaõ foi quebrada!\n"
+"Obrigado!!\n"
+"Aqui está uma recompensa para você!" EVENT
 )
 
 DEFINE_MESSAGE(0x0022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Yeaaarrgh! I'm cursed!!"
+"Yeaaarrgh! Estou amaldiçoado!!"
 )
 
 DEFINE_MESSAGE(0x0023, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We'll be careful not to get\n"
-"cursed again!"
+"Nós vamos tomar cuidado para não sermos\n"
+"amaldiçoados de novo!"
 )
 
 DEFINE_MESSAGE(0x0024, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Since you've destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Spiders of the Curse, the curse\n"
-"is starting to weaken!" BOX_BREAK "Did the kids who returned to\n"
-"normal give you any rewards?" BOX_BREAK "You should know that the only\n"
-"way to become " COLOR(RED) "very rich " COLOR(DEFAULT) "is to\n"
-"destroy as many Spiders of the\n"
-"Curse as possible!" BOX_BREAK "There are some tricks to finding\n"
-"them all! First of all, you'll have\n"
-"to hunt at night. Secondly, keep in\n"
-"mind that they love soft soil..." BOX_BREAK "Pay close attention to your\n"
-"surroundings!\n"
-"Please, we're counting on you!"
+"Já que você destruiu " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
+"Aranhas da Maldição, a maldição\n"
+"está começando a enfraquecer!" BOX_BREAK "As crianças que voltaram ao\n"
+"normal te deram alguma recompensa?" BOX_BREAK "Saiba que a única\n"
+"forma de ficar " COLOR(RED) "muito rico " COLOR(DEFAULT) "é\n"
+"destruindo quantas Aranhas da\n"
+"Maldição forem possíveis!" BOX_BREAK "Existem alguns truques para encontrar\n"
+"todas elas! Primeiro de tudo,você precisa\n"
+"caçá-las de noite. Segundo, saiba que\n"
+"elas adoram um solo macio..." BOX_BREAK "Preste muita atenção à\n"
+"sua volta!\n"
+"Por favor, estamos contando com você!"
 )
 
 DEFINE_MESSAGE(0x0025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "We look like this because of \n"
-"the spider's curse. But..." TEXTID("\x00\x24")
+UNSKIPPABLE "Nós nos parecemos assim por causa \n"
+"da maldição da aranha. Porém..." TEXTID("\x00\x24")
 )
 
 DEFINE_MESSAGE(0x0026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We all look like this because of\n"
-"the spider's curse." BOX_BREAK "If every " COLOR(RED) "Spider of the Curse " COLOR(DEFAULT) "in\n"
-"the entire world were destroyed,\n"
-"the curse would be broken." BOX_BREAK "When you destroy a Spider of the \n"
-"Curse, a token will appear. Collect\n"
-"it as proof of your achievement." BOX_BREAK ITEM_ICON("\x71") "The number next to this " COLOR(YELLOW) "icon" COLOR(DEFAULT) " on\n"
-"the " COLOR(LIGHTBLUE) "Quest Status Subtela" COLOR(BLUE) " \n"
-COLOR(DEFAULT) "indicates how many Spiders of the \n"
-"Curse you have destroyed so far." BOX_BREAK ITEM_ICON("\x71") "When this " COLOR(YELLOW) "icon" COLOR(DEFAULT) " is displayed \n"
-"next to the name of the area on\n"
-"the " COLOR(RED) "Map Subtela" COLOR(DEFAULT) ", there are no\n"
-"more Spiders in that area." TEXTID("\x00\xFE")
+"Nós nos parecemos assim por causa\n"
+"da maldição da aranha." BOX_BREAK "Se cada " COLOR(RED) "Aranha da Maldição " COLOR(DEFAULT) "do\n"
+"mundo todo fosse destruída,\n"
+"a maldição seria quebrada." BOX_BREAK "Quando você destrói uma Aranha da \n"
+"Maldiçao, um token vai aparecer. Colecione-o\n"
+"como uma prova de sua conquista." BOX_BREAK ITEM_ICON("\x71") "O número ao lado deste " COLOR(YELLOW) "ícone" COLOR(DEFAULT) " que\n"
+"está na " COLOR(LIGHTBLUE) "Subtela de Status da Missão" COLOR(BLUE) " \n"
+COLOR(DEFAULT) "indica quantas Aranhas da \n"
+"Maldição você destruiu até agora." BOX_BREAK ITEM_ICON("\x71") "Quando este " COLOR(YELLOW) "ícone" COLOR(DEFAULT) " é exibido \n"
+"ao lado do nome da área que\n"
+"está na " COLOR(RED) "Subtela do Mapa" COLOR(DEFAULT) ", então não tem\n"
+"mais Aranhas nessa área." TEXTID("\x00\xFE")
 )
+
+/*parei aqui na tradução.*/
 
 DEFINE_MESSAGE(0x0027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "If you break the curse on my\n"
