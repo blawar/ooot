@@ -662,9 +662,9 @@ void EnDaiku_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->stateFlags & ENDAIKU_STATEFLAG_1)
 	{
-		pthis->unk_244.unk_18.x = player->actor.focus.pos.x;
-		pthis->unk_244.unk_18.y = player->actor.focus.pos.y;
-		pthis->unk_244.unk_18.z = player->actor.focus.pos.z;
+		pthis->unk_244.position.x = player->actor.focus.pos.x;
+		pthis->unk_244.position.y = player->actor.focus.pos.y;
+		pthis->unk_244.position.z = player->actor.focus.pos.z;
 
 		if(pthis->stateFlags & ENDAIKU_STATEFLAG_2)
 		{

@@ -616,8 +616,8 @@ void EnDivingGame_Update(Actor* thisx, GlobalContext* globalCtx2)
 	}
 	pthis->actionFunc(pthis, globalCtx);
 	Actor_SetFocus(&pthis->actor, 80.0f);
-	pthis->unk_324.unk_18 = player->actor.world.pos;
-	pthis->unk_324.unk_18.y = player->actor.world.pos.y;
+	pthis->unk_324.position = player->actor.world.pos;
+	pthis->unk_324.position.y = player->actor.world.pos.y;
 	func_80034A14(&pthis->actor, &pthis->unk_324, 2, 4);
 	pthis->vec_284 = pthis->unk_324.unk_08;
 	pthis->vec_28A = pthis->unk_324.unk_0E;

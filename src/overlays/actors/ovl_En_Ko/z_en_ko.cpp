@@ -981,8 +981,8 @@ void func_80A9877C(EnKo* pthis, GlobalContext* globalCtx)
 
 	if((globalCtx->csCtx.state != 0) || (gDbgCamEnabled != 0))
 	{
-		pthis->unk_1E8.unk_18 = globalCtx->view.eye;
-		pthis->unk_1E8.unk_14 = 40.0f;
+		pthis->unk_1E8.position = globalCtx->view.eye;
+		pthis->unk_1E8.height = 40.0f;
 		if(ENKO_TYPE != ENKO_TYPE_CHILD_0)
 		{
 			func_80034A14(&pthis->actor, &pthis->unk_1E8, 2, 2);
@@ -990,8 +990,8 @@ void func_80A9877C(EnKo* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->unk_1E8.unk_18 = player->actor.world.pos;
-		pthis->unk_1E8.unk_14 = func_80A97BC0(pthis);
+		pthis->unk_1E8.position = player->actor.world.pos;
+		pthis->unk_1E8.height = func_80A97BC0(pthis);
 		if((func_80A98ECC(pthis, globalCtx) == 0) && (pthis->unk_1E8.unk_00 == 0))
 		{
 			return;

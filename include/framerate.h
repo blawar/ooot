@@ -120,6 +120,7 @@ class Timer
 	}
 
 	float abs() const;
+	void clamp(float min, float max);
 
 	s16 toS16() const
 	{
@@ -210,4 +211,13 @@ class Step
 
 	protected:
 	float m_value;
+};
+
+class FStep : public Step
+{
+	public:
+	FStep();
+	FStep(const Step& t);
+	FStep(float n);
+	FStep(const Rotation& r);
 };

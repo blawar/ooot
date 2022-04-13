@@ -264,7 +264,7 @@ void func_80B5BB78(EnZl4* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_1E0.unk_18 = player->actor.world.pos;
+	pthis->unk_1E0.position = player->actor.world.pos;
 	func_80034A14(&pthis->actor, &pthis->unk_1E0, 2, 2);
 }
 
@@ -1289,7 +1289,7 @@ void EnZl4_Cutscene(EnZl4* pthis, GlobalContext* globalCtx)
 			}
 			break;
 	}
-	pthis->unk_1E0.unk_18 = player->actor.world.pos;
+	pthis->unk_1E0.position = player->actor.world.pos;
 	func_80034A14(&pthis->actor, &pthis->unk_1E0, 2, (pthis->csState == ZL4_CS_WINDOW) ? 2 : 1);
 	if(EnZl4_InMovingAnim(pthis))
 	{

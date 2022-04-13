@@ -516,8 +516,8 @@ void func_80A3F060(EnGo* pthis, GlobalContext* globalCtx)
 		unkVal = 1;
 	}
 
-	pthis->unk_1E0.unk_18 = player->actor.world.pos;
-	pthis->unk_1E0.unk_14 = EnGo_GetGoronSize(pthis);
+	pthis->unk_1E0.position = player->actor.world.pos;
+	pthis->unk_1E0.height = EnGo_GetGoronSize(pthis);
 	func_80034A14(&pthis->actor, &pthis->unk_1E0, 4, unkVal);
 }
 

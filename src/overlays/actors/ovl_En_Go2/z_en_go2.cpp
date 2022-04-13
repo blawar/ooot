@@ -71,7 +71,7 @@ void EnGo2_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnGo2_StopRolling(EnGo2* pthis, GlobalContext* globalCtx);
 void EnGo2_CurledUp(EnGo2* pthis, GlobalContext* globalCtx);
 
-void func_80A46B40(EnGo2* pthis, GlobalContext* globalCtx);
+void EnGo2_ActionAwake(EnGo2* pthis, GlobalContext* globalCtx);
 void EnGo2_GoronDmtBombFlowerAnimation(EnGo2* pthis, GlobalContext* globalCtx);
 void EnGo2_GoronRollingBigContinueRolling(EnGo2* pthis, GlobalContext* globalCtx);
 void EnGo2_ContinueRolling(EnGo2* pthis, GlobalContext* globalCtx);
@@ -1042,9 +1042,8 @@ void EnGo2_CheckCollision(EnGo2* pthis, GlobalContext* globalCtx)
 
 void EnGo2_SwapInitialFrameAnimFrameCount(EnGo2* pthis)
 {
-	f32 initialFrame;
+	f32 initialFrame = pthis->skelAnime.startFrame;
 
-	initialFrame = pthis->skelAnime.startFrame;
 	pthis->skelAnime.startFrame = pthis->skelAnime.endFrame;
 	pthis->skelAnime.endFrame = initialFrame;
 }
@@ -1330,9 +1329,9 @@ void func_80A45288(EnGo2* pthis, GlobalContext* globalCtx)
 
 	if(pthis->actionFunc != EnGo2_GoronFireGenericAction)
 	{
-		pthis->unk_194.unk_18 = player->actor.world.pos;
+		pthis->unk_194.position = player->actor.world.pos;
 		linkAge = gSaveContext.linkAge;
-		pthis->unk_194.unk_14 = D_80A482D8[pthis->actor.params & 0x1F][linkAge];
+		pthis->unk_194.height = D_80A482D8[pthis->actor.params & 0x1F][linkAge];
 		func_80034A14(&pthis->actor, &pthis->unk_194, 4, pthis->unk_26E);
 	}
 	if((pthis->actionFunc != EnGo2_SetGetItem) && (pthis->isAwake == true))
@@ -1627,14 +1626,14 @@ void EnGo2_WakeUp(EnGo2* pthis, GlobalContext* globalCtx)
 		func_80034EC0(&pthis->skelAnime, sAnimations, 1);
 		pthis->skelAnime.playSpeed = 1.0f;
 	}
-	pthis->actionFunc = func_80A46B40;
+	pthis->actionFunc = EnGo2_ActionAwake;
 }
 
 void EnGo2_GetItemAnimation(EnGo2* pthis, GlobalContext* globalCtx)
 {
 	func_80034EC0(&pthis->skelAnime, sAnimations, 1);
 	pthis->unk_211 = true;
-	pthis->actionFunc = func_80A46B40;
+	pthis->actionFunc = EnGo2_ActionAwake;
 	pthis->skelAnime.playSpeed = 0.0f;
 	pthis->actor.speedXZ = 0.0f;
 	pthis->skelAnime.curFrame = pthis->skelAnime.endFrame;
@@ -1990,7 +1989,7 @@ void EnGo2_CurledUp(EnGo2* pthis, GlobalContext* globalCtx)
 		pthis->skelAnime.playSpeed = 0.0f;
 	}
 
-	if((s32)pthis->skelAnime.curFrame == 0)
+	if(pthis->skelAnime.curFrame == 0)
 	{
 		pthis->collider.dim.height = (D_80A4816C[index].height * 0.6f);
 	}
@@ -2010,7 +2009,7 @@ void EnGo2_CurledUp(EnGo2* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void func_80A46B40(EnGo2* pthis, GlobalContext* globalCtx)
+void EnGo2_ActionAwake(EnGo2* pthis, GlobalContext* globalCtx)
 {
 	u8 index = (pthis->actor.params & 0x1F);
 	f32 height;
@@ -2207,7 +2206,7 @@ void EnGo2_SetGetItem(EnGo2* pthis, GlobalContext* globalCtx)
 				pthis->actionFunc = EnGo2_GoronRollingBigContinueRolling;
 				return;
 		}
-		pthis->actionFunc = func_80A46B40;
+		pthis->actionFunc = EnGo2_ActionAwake;
 	}
 }
 
@@ -2398,6 +2397,7 @@ void EnGo2_Update(Actor* thisx, GlobalContext* globalCtx)
 	{
 		func_80A44AB0(pthis, globalCtx);
 	}
+
 	pthis->actionFunc(pthis, globalCtx);
 	if(pthis->unk_211 == true)
 	{

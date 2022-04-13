@@ -571,15 +571,15 @@ void EnZo_Dialog(EnZo* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_194.unk_18 = player->actor.world.pos;
+	pthis->unk_194.position = player->actor.world.pos;
 	if(pthis->actionFunc == EnZo_Standing)
 	{
 		// Look down at link if young, look up if old
-		pthis->unk_194.unk_14 = !LINK_IS_ADULT ? 10.0f : -10.0f;
+		pthis->unk_194.height = !LINK_IS_ADULT ? 10.0f : -10.0f;
 	}
 	else
 	{
-		pthis->unk_194.unk_18.y = pthis->actor.world.pos.y;
+		pthis->unk_194.position.y = pthis->actor.world.pos.y;
 	}
 	func_80034A14(&pthis->actor, &pthis->unk_194, 11, pthis->unk_64C);
 	if(pthis->canSpeak == true)

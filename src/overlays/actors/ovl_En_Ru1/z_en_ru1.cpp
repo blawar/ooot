@@ -1488,13 +1488,12 @@ void func_80AED738(EnRu1* pthis, GlobalContext* globalCtx)
 void func_80AED83C(EnRu1* pthis)
 {
 	s32 pad[2];
-	Vec3s* tempPtr;
-	Vec3s* tempPtr2;
+	auto tempPtr = &pthis->unk_374.unk_08;
+	auto tempPtr2 = &pthis->unk_374.unk_0E;
 
-	tempPtr = &pthis->unk_374.unk_08;
 	Math_SmoothStepToS(&tempPtr->x, 0, 0x14, 0x1838, 0x64);
 	Math_SmoothStepToS(&tempPtr->y, 0, 0x14, 0x1838, 0x64);
-	tempPtr2 = &pthis->unk_374.unk_0E;
+
 	Math_SmoothStepToS(&tempPtr2->x, 0, 0x14, 0x1838, 0x64);
 	Math_SmoothStepToS(&tempPtr2->y, 0, 0x14, 0x1838, 0x64);
 }
@@ -1503,7 +1502,7 @@ void func_80AED8DC(EnRu1* pthis)
 {
 	s32 temp_hi;
 	auto unk_2AC = &pthis->unk_2AC;
-	s16* someY = &pthis->unk_374.unk_08.y;
+	auto someY = &pthis->unk_374.unk_08.y;
 	s16* unk_29E = &pthis->unk_29E;
 	s32 pad[2];
 
@@ -2125,8 +2124,8 @@ void func_80AEEF68(EnRu1* pthis, GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 	s16 something;
 
-	pthis->unk_374.unk_18 = player->actor.world.pos;
-	pthis->unk_374.unk_14 = kREG(16) - 3.0f;
+	pthis->unk_374.position = player->actor.world.pos;
+	pthis->unk_374.height = kREG(16) - 3.0f;
 	something = kREG(17) + 0xC;
 	func_80034A14(&pthis->actor, &pthis->unk_374, something, 2);
 }
@@ -2136,8 +2135,8 @@ void func_80AEEFEC(EnRu1* pthis, GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 	s16 something;
 
-	pthis->unk_374.unk_18 = player->actor.world.pos;
-	pthis->unk_374.unk_14 = kREG(16) - 3.0f;
+	pthis->unk_374.position = player->actor.world.pos;
+	pthis->unk_374.height = kREG(16) - 3.0f;
 	something = kREG(17) + 0xC;
 	func_80034A14(&pthis->actor, &pthis->unk_374, something, 4);
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -2670,8 +2669,8 @@ void EnRu1_Init(Actor* thisx, GlobalContext* globalCtx)
 
 void func_80AF0278(EnRu1* pthis, GlobalContext* globalCtx, s32 limbIndex, Vec3s* rot)
 {
-	Vec3s* vec1 = &pthis->unk_374.unk_0E;
-	Vec3s* vec2 = &pthis->unk_374.unk_08;
+	auto vec1 = &pthis->unk_374.unk_0E;
+	auto vec2 = &pthis->unk_374.unk_08;
 
 	switch(limbIndex)
 	{

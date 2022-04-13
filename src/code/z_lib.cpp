@@ -70,7 +70,7 @@ s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step)
 	return _Math_ScaledStepToS(pValue, target, _step);
 }
 
-s32 Math_ScaledStepToS(Rotation* pValue, s16 target, const Step& _step)
+s32 Math_ScaledStepToS(Rotation* pValue, s16 target, const FStep& _step)
 {
 	return _Math_ScaledStepToS(pValue, target, _step);
 }
@@ -110,7 +110,7 @@ s32 Math_StepToS(s16* pValue, s16 target, const Step& _step)
 	return _Math_StepToS(pValue, target, _step);
 }
 
-s32 Math_StepToS(Rotation* pValue, s16 target, const Step& _step)
+s32 Math_StepToS(Rotation* pValue, s16 target, const FStep& _step)
 {
 	return _Math_StepToS(pValue, target, _step);
 }
@@ -287,7 +287,7 @@ s32 Math_StepUntilS(s16* pValue, s16 limit, const Step& step)
 	return _Math_StepUntilS(pValue, limit, step);
 }
 
-s32 Math_StepUntilS(Rotation* pValue, s16 limit, const Step& step)
+s32 Math_StepUntilS(Rotation* pValue, s16 limit, const FStep& step)
 {
 	return _Math_StepUntilS(pValue, limit, step);
 }
@@ -340,7 +340,7 @@ s32 Math_StepToAngleS(s16* pValue, s16 target, const Step& _step)
 	return _Math_StepToAngleS(pValue, target, _step);
 }
 
-s32 Math_StepToAngleS(Rotation* pValue, s16 target, const Step& _step)
+s32 Math_StepToAngleS(Rotation* pValue, s16 target, const FStep& _step)
 {
 	return _Math_StepToAngleS(pValue, target, _step);
 }
@@ -658,7 +658,7 @@ f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, const Step& _step,
 	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
 }
 
-f32 Math_SmoothStepToF(Rotation* pValue, f32 target, f32 fraction, const Step& _step, const Step& _minStep)
+f32 Math_SmoothStepToF(Rotation* pValue, f32 target, f32 fraction, const FStep& _step, const FStep& _minStep)
 {
 	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
 }
@@ -840,7 +840,7 @@ s16 Math_SmoothStepToS(s16* pValue, s16 target, s16 scale, const Step& _step, co
 	return _Math_SmoothStepToS(pValue, target, scale, _step, _minStep);
 }
 
-s16 Math_SmoothStepToS(Rotation* pValue, s16 target, s16 scale, const Step& _step, const Step& _minStep)
+s16 Math_SmoothStepToS(Rotation* pValue, s16 target, s16 scale, const FStep& _step, const FStep& _minStep)
 {
 	return _Math_SmoothStepToS(pValue, target, scale, _step, _minStep);
 }
@@ -874,7 +874,7 @@ void Math_ApproachS(s16* pValue, s16 target, s16 scale, const Step& _maxStep)
 	_Math_ApproachS(pValue, target, scale, _maxStep);
 }
 
-void Math_ApproachS(Rotation* pValue, s16 target, s16 scale, const Step& _maxStep)
+void Math_ApproachS(Rotation* pValue, s16 target, s16 scale, const FStep& _maxStep)
 {
 	_Math_ApproachS(pValue, target, scale, _maxStep);
 }

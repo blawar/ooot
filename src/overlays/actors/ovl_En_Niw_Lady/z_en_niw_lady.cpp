@@ -591,10 +591,10 @@ void EnNiwLady_Update(Actor* thisx, GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 
 	Actor_SetFocus(thisx, 60.0f);
-	pthis->unk_288.unk_18 = player->actor.world.pos;
+	pthis->unk_288.position = player->actor.world.pos;
 	if(!LINK_IS_ADULT)
 	{
-		pthis->unk_288.unk_18.y = player->actor.world.pos.y - 10.0f;
+		pthis->unk_288.position.y = player->actor.world.pos.y - 10.0f;
 	}
 	func_80034A14(thisx, &pthis->unk_288, 2, 4);
 	pthis->unk_254 = pthis->unk_288.unk_08;
