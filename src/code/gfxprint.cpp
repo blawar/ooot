@@ -193,9 +193,9 @@ void GfxPrint_SetPos(GfxPrint* pthis, s32 x, s32 y) {
     GfxPrint_SetPosPx(pthis, x * 8, y * 8);
 }
 
-void GfxPrint_SetBasePosPx(GfxPrint* pthis, s32 x, s32 y) {
-    pthis->baseX = x * 4;
-    pthis->baseY = y * 4;
+void GfxPrint_SetBasePosPx(GfxPrint* pthis, s32 x, s32 y, u8 multiplier) {
+	pthis->baseX = x * multiplier;
+	pthis->baseY = y * multiplier;
 }
 
 void GfxPrint_PrintCharImpl(GfxPrint* pthis, u8 c) {
@@ -299,6 +299,11 @@ void GfxPrint_PrintStringWithSize(GfxPrint* pthis, const void* buffer, u32 charS
     const char* str = (const char*)buffer;
     u32 count = charSize * charCount;
 
+    if(pthis->flags & GFXP_FLAG_CENTER)
+    {
+	    pthis->posX -= ((count / 2.0f) * 32.0f);
+    }
+
     while (count != 0) {
         GfxPrint_PrintChar(pthis, *(str++));
         count--;
@@ -320,7 +325,7 @@ void* GfxPrint_Callback(void* arg, const char* str, u32 size) {
 }
 
 void GfxPrint_Init(GfxPrint* pthis) {
-    pthis->flags &= ~GFXP_FLAG_OPEN;
+    pthis->flags &= ~(GFXP_FLAG_OPEN | GFXP_FLAG_CENTER);
 
     pthis->callback = GfxPrint_Callback;
     pthis->dList = NULL;

@@ -128,7 +128,7 @@ void func_800BC590(GlobalContext* globalCtx) {
 void func_800BC5E0(GlobalContext* globalCtx, s32 transitionType) {
     TransitionContext* transitionCtx = &globalCtx->transitionCtx;
 
-    bzero(transitionCtx, sizeof(TransitionContext));
+    memset(transitionCtx, 0, sizeof(TransitionContext));
 
     transitionCtx->transitionType = transitionType;
 
@@ -1166,6 +1166,7 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
     gSPSegment(OVERLAY_DISP++, 0x02, globalCtx->sceneSegment);
 
     Gfx_ClearDisplay(gfxCtx, 0, 0, 0);
+    //gfx_filter_sepia_disable();
 
     if ((HREG(80) != 10) || (HREG(82) != 0)) {
         POLY_OPA_DISP = Gameplay_SetFog(globalCtx, POLY_OPA_DISP);
@@ -1214,7 +1215,8 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
 
             if (D_801614B0.a > 0) {
                 D_80161498.primColor = D_801614B0;
-                VisMono_Draw(&D_80161498, &gfxP);
+		        gfx_filter_sepia_set(D_801614B0.r, D_801614B0.g, D_801614B0.b, D_801614B0.a);
+                //VisMono_Draw(&D_80161498, &gfxP);
             }
 
             gSPEndDisplayList(gfxP++);
@@ -1320,7 +1322,7 @@ void Gameplay_Draw(GlobalContext* globalCtx) {
                 }
 
                 if ((HREG(80) != 10) || (HREG(85) != 0)) {
-                    func_800315AC(globalCtx, &globalCtx->actorCtx);
+                    Draw_Actors(globalCtx, &globalCtx->actorCtx);
                 }
 
                 if ((HREG(80) != 10) || (HREG(86) != 0)) {

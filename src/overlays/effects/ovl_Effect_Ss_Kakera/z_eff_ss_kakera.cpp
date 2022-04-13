@@ -28,6 +28,10 @@
 #define rObjBankIdx regs[11]
 #define rColorIdx regs[12]
 
+#define RADS_TO_S32(x) (x * 100)
+#define S32_TO_RADS(x) (x * 0.01f)
+#define MAX_ROTATION_VALUE ((s32)(M_PI * 2 * 100))
+
 u32 EffectSsKakera_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx);
 void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis);
 void EffectSsKakera_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis);
@@ -70,8 +74,8 @@ u32 EffectSsKakera_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, vo
     pthis->vec = initParams->unk_18;
     pthis->rReg0 = initParams->unk_2C;
     pthis->rGravity = initParams->gravity;
-    pthis->rPitch = Rand_ZeroOne() * 32767.0f;
-    pthis->rYaw = Rand_ZeroOne() * 32767.0f;
+    pthis->rPitch = Rand_ZeroOne() * MAX_ROTATION_VALUE;
+    pthis->rYaw = Rand_ZeroOne() * MAX_ROTATION_VALUE;
     pthis->rReg4 = initParams->unk_26;
     pthis->rReg5 = initParams->unk_28;
     pthis->rReg6 = initParams->unk_2A;
@@ -103,7 +107,7 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
 
     scale = pthis->rScale / 256.0f;
     colorIdx = pthis->rColorIdx;
-
+    
     OPEN_DISPS(gfxCtx, "../z_eff_kakera.c", 241);
 
     if (pthis->rObjId != KAKERA_OBJECT_DEFAULT) {
@@ -115,8 +119,8 @@ void EffectSsKakera_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     }
 
     Matrix_Translate(pthis->pos.x, pthis->pos.y, pthis->pos.z, MTXMODE_NEW);
-    Matrix_RotateY(pthis->rYaw * 0.01f, MTXMODE_APPLY);
-    Matrix_RotateX(pthis->rPitch * 0.01f, MTXMODE_APPLY);
+    Matrix_RotateY(S32_TO_RADS(pthis->rYaw), MTXMODE_APPLY);
+    Matrix_RotateX(S32_TO_RADS(pthis->rPitch), MTXMODE_APPLY);
     Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 
     if ((((pthis->rReg4 >> 7) & 1) << 7) == 0x80) {
@@ -402,17 +406,27 @@ void func_809AA230(EffectSs* pthis, GlobalContext* globalCtx) {
 void EffectSsKakera_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
     switch (((pthis->rReg4 >> 5) & 3) << 5) {
         case 0x20:
-            pthis->rPitch += 0xB;
-            pthis->rYaw += 3;
+            pthis->rPitch += RADS_TO_S32(0.11f);
+            pthis->rYaw += RADS_TO_S32(0.03f);
             break;
         case 0x40:
-            pthis->rPitch += 0x41;
-            pthis->rYaw += 0xB;
+            pthis->rPitch += RADS_TO_S32(0.65f);
+            pthis->rYaw += RADS_TO_S32(0.11f);
             break;
         case 0x60:
-            pthis->rPitch += 0x9B;
-            pthis->rYaw += 0x1F;
+            pthis->rPitch += RADS_TO_S32(1.55f);
+            pthis->rYaw += RADS_TO_S32(0.31f);
             break;
+    }
+
+    if(pthis->rPitch > MAX_ROTATION_VALUE)
+    {
+	    pthis->rPitch %= MAX_ROTATION_VALUE;
+    }
+
+    if(pthis->rYaw > MAX_ROTATION_VALUE)
+    {
+	    pthis->rYaw %= MAX_ROTATION_VALUE;
     }
 
     func_809A9C10(pthis);

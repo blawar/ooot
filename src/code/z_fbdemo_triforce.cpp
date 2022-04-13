@@ -1,5 +1,6 @@
 #define INTERNAL_SRC_CODE_Z_FBDEMO_TRIFORCE_C
 #include "global.h"
+#include <string.h>
 #include "z64transition.h"
 #include "code/fbdemo_triforce/z_fbdemo_triforce.cpp"
 #include "def/ortho.h"
@@ -23,7 +24,7 @@ void TransitionTriforce_Start(void* pthisx) {
 void* TransitionTriforce_Init(void* pthisx) {
     TransitionTriforce* pthis = (TransitionTriforce*)pthisx;
 
-    bzero(pthis, sizeof(*pthis));
+    memset(pthis, 0, sizeof(*pthis));
     guOrtho(&pthis->projection, -160.0f, 160.0f, -120.0f, 120.0f, -1000.0f, 1000.0f, 1.0f);
     pthis->transPos = 1.0f;
     pthis->state = 2;
@@ -89,7 +90,7 @@ void TransitionTriforce_Draw(void* pthisx, Gfx** gfxP) {
     guTranslate(&modelView[2], 0.0f, 0.0f, 0.0f);
     gDPPipeSync(gfx++);
     gSPDisplayList(gfx++, sTriforceWipeDL);
-    gDPSetColor(gfx++, G_SETPRIMCOLOR, pthis->color.r, pthis->color.g, pthis->color.b, pthis->color.a);
+    gDPSetColor(gfx++, G_SETPRIMCOLOR, (u32)pthis->color);
     gDPSetCombineMode(gfx++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gSPMatrix(gfx++, &pthis->projection, G_MTX_LOAD | G_MTX_PROJECTION);
     gSPMatrix(gfx++, &modelView[0], G_MTX_LOAD);

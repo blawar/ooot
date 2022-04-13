@@ -1,6 +1,6 @@
 #define INTERNAL_SRC_CODE_PRERENDER_C
 #include "global.h"
-#include "alloca.h"
+#include "z64alloca.h"
 #include "z64render.h"
 #include "gfx.h"
 #include "regs.h"
@@ -24,7 +24,7 @@ void PreRender_SetValuesSave(PreRender* pthis, u32 width, u32 height, void* fbuf
 }
 
 void PreRender_Init(PreRender* pthis) {
-    bzero(pthis, sizeof(PreRender));
+    memset(pthis, 0, sizeof(PreRender));
     ListAlloc_Init(&pthis->alloc);
 }
 

@@ -1,7 +1,7 @@
 #define INTERNAL_SRC_CODE_FAULT_C
 #include "global.h"
 #include "vt.h"
-#include "alloca.h"
+#include "z64alloca.h"
 #include "padmgr.h"
 #include "n64fault.h"
 #include "ultra64/convert.h"

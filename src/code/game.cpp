@@ -234,9 +234,11 @@ void GameState_Draw(GameState* gameState, GraphicsContext* gfxCtx) {
     }
 
     sLastButtonPressed = gameState->input[0].press.button | gameState->input[0].cur.button;
+#ifdef OOT_DEBUG_ROM
     if (R_DISABLE_INPUT_DISPLAY == 0) {
         GameState_DrawInputDisplay(sLastButtonPressed, &newDList);
     }
+#endif
 
     gSPEndDisplayList(newDList++);
     Graph_BranchDlist(polyOpaP, newDList);

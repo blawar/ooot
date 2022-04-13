@@ -1,0 +1,31 @@
+[binaries]
+c = '/usr/bin/i686-w64-mingw32-gcc'
+cpp = '/usr/bin/i686-w64-mingw32-g++'
+ar = '/usr/bin/i686-w64-mingw32-gcc-ar'
+strip = '/usr/bin/i686-w64-mingw32-strip'
+windres = '/usr/bin/i686-w64-mingw32-windres'
+pkgconfig = '/usr/bin/mingw32-pkg-config'
+#llvm-config = '/usr/bin/llvm-config32'
+
+[built-in options]
+c_args = ['-m32']
+c_link_args = ['-m32']
+cpp_args = ['-m32']
+cpp_link_args = ['-m32']
+pkg_config_path = ['/usr/i686-w64-mingw32/sys-root/mingw/lib/pkgconfig']
+prefix = '/usr'
+libdir = 'lib'
+bindir = 'bin'
+c_std = 'gnu11'
+cpp_std = 'gnu++17'
+
+[properties]
+pkg_config_libdir = ['/usr/i686-w64-mingw32/sys-root/mingw/lib']
+sys_root = '/usr/i686-w64-mingw32/sys-root/mingw/'
+
+[host_machine]
+system = 'windows'
+cpu_family = 'x86'
+cpu = 'i686'
+endian = 'little'
+

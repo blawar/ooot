@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_COMMON_DATA_C
 #include "global.h"
 #include "z64save.h"
+#include <string.h>
 #include "sequence.h"
 #include "def/z_common_data.h"
 
@@ -8,8 +9,11 @@ SaveContext gSaveContext;
 u32 D_8015FA88;
 u32 D_8015FA8C;
 
+u8 Get_Language();
+
 void SaveContext_Init(void) {
-    bzero(&gSaveContext, sizeof(gSaveContext));
+    u8 currentLanguage = Get_Language();
+    memset(&gSaveContext, 0, sizeof(gSaveContext));
     D_8015FA88 = 0;
     D_8015FA8C = 0;
     gSaveContext.seqId = (u8)NA_BGM_DISABLED;
@@ -23,4 +27,5 @@ void SaveContext_Init(void) {
     gSaveContext.dogIsLost = true;
     gSaveContext.nextTransition = 0xFF;
     gSaveContext.unk_13EE = 50;
+    gSaveContext.language = currentLanguage;
 }

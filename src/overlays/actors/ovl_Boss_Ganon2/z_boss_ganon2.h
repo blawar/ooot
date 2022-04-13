@@ -41,7 +41,7 @@ struct BossGanon2 {
     /* 0x030C */ f32 unk_30C;
     /* 0x0310 */ u8 unk_310;
     /* 0x0311 */ u8 unk_311;
-    /* 0x0312 */ u8 unk_312;
+    /* 0x0312 */ u8 startAttack;
     /* 0x0313 */ u8 unk_313; // "look_on"
     /* 0x0314 */ u8 unk_314;
     /* 0x0316 */ s16 unk_316; // "no_hit_time"
@@ -79,7 +79,7 @@ struct BossGanon2 {
     /* 0x0390 */ s16 unk_390;
     /* 0x0392 */ s16 unk_392;
     /* 0x0394 */ f32 unk_394;
-    /* 0x0398 */ u32 unk_398;
+    /* 0x0398 */ u32 timer;
     /* 0x039C */ s16 unk_39C;
     /* 0x039E */ s16 unk_39E;
     /* 0x03A0 */ char unk_3A0[0x4];

@@ -1,4 +1,4 @@
-#define INTERNAL_SRC_CODE_Z_LIB_C
+﻿#define INTERNAL_SRC_CODE_Z_LIB_C
 #include "global.h"
 #include "ichain.h"
 #include "regs.h"
@@ -99,6 +99,104 @@ s32 Math_StepToF(f32* pValue, f32 target, f32 step) {
     }
 
     return false;
+}
+
+f32 Math_NormalizeAngleF(f32 angle)
+{
+	while(angle < 0.0f)
+	{
+		angle += 360.0f;
+	}
+
+    while(angle >= 360.0f)
+	{
+		angle -= 360.0f;
+	}
+
+	return angle;
+}
+
+f32 Math_AngleF(Vec2f v)
+{
+	if(v.x == 0)
+	{
+		return (v.y > 0) ? 90 : (v.y == 0) ? 0 : 270;
+	}
+	else if(v.y == 0)
+	{
+		return (v.x >= 0) ? 0 : 180;
+	}
+
+	int ret = RADTODEG(atan2f(v.y, v.x));
+
+	if(v.x < 0 && v.y < 0)
+	{
+		ret = 180 + ret;
+	}
+	else if(v.x < 0)
+	{
+		ret = 180 + ret;
+	}
+	else if(v.y < 0)
+	{
+		ret = 270 + (90 + ret);
+	}
+	return ret;
+}
+
+f32 Math_AngleDiffF(f32 a, f32 b)
+{
+	const float angleDelta = Math_NormalizeAngleF(a - b);
+
+	if(angleDelta > 180.0f)
+	{
+		return 360.0f - angleDelta;
+	}
+
+	return angleDelta;
+}
+
+s32 Math_StepRotationToF(f32* pValue, f32 target, f32 step)
+{
+	if(step != 0.0f)
+	{
+		const float angleDelta = target - *pValue;
+
+		if(angleDelta > 180.0f) // value > target
+		{
+			step = -step;
+
+            if(target < *pValue)
+			{
+				step = -step;
+			}
+		}
+		else if(angleDelta < -180.0f) // target > value
+		{
+			step = step;
+		}
+		else
+		{
+			if(target < *pValue)
+			{
+				step = -step;
+			}
+		}
+
+		*pValue = Math_NormalizeAngleF(*pValue + step);
+
+		if(fabsf(*pValue - target) < fabs(step))
+		{
+			*pValue = target;
+			return true;
+		}
+	}
+	else if(target == *pValue)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 /**

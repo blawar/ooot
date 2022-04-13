@@ -270,7 +270,7 @@ static Vec3f D_80907050[] = {
 
 static s16 D_80907074[] = { 0, 1, 2, 2, 1, 0 };
 
-static s16 D_80907080 = 0;
+static s16 gGanon_AttackTimer = 0;
 
 static u8 D_80907084[] = { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
 

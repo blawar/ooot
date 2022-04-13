@@ -35,7 +35,11 @@
 
 extern bool (*gSceneCmdHandlers[26])(GlobalContext*, const SceneCmd*);
 
-RomFile sNaviMsgFiles[];
+RomFile sNaviMsgFiles[] = {
+    ROM_FILE(elf_message_field),
+    ROM_FILE(elf_message_ydan),
+    ROM_FILE_UNSET,
+};
 
 s32 Object_Spawn(ObjectContext* objectCtx, s16 objectId) {
     objectCtx->num++;
@@ -429,12 +433,6 @@ static bool (*gSceneCmdHandlers[])(GlobalContext*, const SceneCmd*) = {
     cmd_special_files, cmd_room_behavior, cmd_09_unused, cmd_mesh_header, cmd_object_list, cmd_light_list, cmd_path_list,
     cmd_transition_actor_list, cmd_light_setting_list, cmd_time_settings, cmd_skybox_settings, cmd_skybox_disables, cmd_exit_list, NULL,
     cmd_sound_settings, cmd_echo_settings, cmd_cutscene_data, cmd_alternate_headers, cmd_misc_settings,
-};
-
-RomFile sNaviMsgFiles[] = {
-    ROM_FILE(elf_message_field),
-    ROM_FILE(elf_message_ydan),
-    ROM_FILE_UNSET,
 };
 
 s16 gLinkObjectIds[] = { OBJECT_LINK_BOY, OBJECT_LINK_CHILD };

@@ -17,3 +17,4 @@
 #define GFXP_FLAG_UPDATE (1 << 3)
 #define GFXP_FLAG_ENLARGE (1 << 6)
 #define GFXP_FLAG_OPEN (1 << 7)
+#define GFXP_FLAG_CENTER (1 << 8)

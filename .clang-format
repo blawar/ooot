@@ -2,7 +2,7 @@
 BasedOnStyle: Microsoft
 AccessModifierOffset: '0'
 AlignAfterOpenBracket: AlwaysBreak
-AlignConsecutiveAssignments: 'true'
+AlignConsecutiveAssignments: 'false'
 AlignConsecutiveDeclarations: 'false'
 AlignOperands: 'true'
 AlignTrailingComments: 'true'

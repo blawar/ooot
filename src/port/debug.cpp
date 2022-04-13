@@ -35,7 +35,7 @@
 #include "geo_commands.h"
 */
 
-namespace sm64
+namespace oot
 {
 /*
 	ExportDl::ExportDl(const Gfx* gfx, const char* name)
@@ -46,7 +46,7 @@ namespace sm64
 	{
 		auto hash = XXHash64::hash(name, strlen(name), 0);
 
-		sm64::hook::geo::reg(geo, hash);
+		oot::hook::geo::reg(geo, hash);
 	}
 
 	ExportBhv::ExportBhv(const BehaviorScript* bhv, const char* name)
@@ -58,7 +58,7 @@ namespace sm64
 
 	ExportMacro::ExportMacro(const MacroObject* macro, const u64 len, const char* name)
 	{
-		auto hash = sm64::hook::macro::fingerprint(macro);
+		auto hash = oot::hook::macro::fingerprint(macro);
 
 		hook::macro::reg((const MacroObject*)macro, hash);
 	}
@@ -77,7 +77,7 @@ namespace sm64
 	{
 		if(!g_logHandle)
 		{
-			g_logHandle = fopen("sm64.log", "w");
+			g_logHandle = fopen("oot.log", "w");
 		}
 		return g_logHandle;
 	}
@@ -94,4 +94,4 @@ namespace sm64
 
 		va_end(args);
 	}
-} // namespace sm64
+} // namespace oot

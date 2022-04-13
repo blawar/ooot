@@ -1,6 +1,7 @@
 #define INTERNAL_SRC_CODE_Z_FBDEMO_C
 #include "global.h"
 #include "gfx.h"
+#include <string.h>
 #include "z64transition.h"
 #include "def/mtxf2l.h"
 #include "def/ortho.h"
@@ -11,7 +12,7 @@
 Gfx D_8012AFB0[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_FILL),
-    gsDPSetColorImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 0x0F000000),
+    gsDPSetColorImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, SEGMENT_ADDRESS(0x0F000000)),
     gsDPSetFillColor((GPACK_RGBA5551(65, 65, 65, 1) << 16) | GPACK_RGBA5551(65, 65, 65, 1)),
     gsDPFillRectangle(0, 0, 319, 239),
     gsDPPipeSync(),
@@ -138,7 +139,7 @@ void TransitionUnk_Destroy(TransitionUnk* pthis) {
 
 TransitionUnk* TransitionUnk_Init(TransitionUnk* pthis, s32 row, s32 col) {
     osSyncPrintf("fbdemo_init(%08x, %d, %d)\n", pthis, row, col);
-    bzero(pthis, sizeof(*pthis));
+    memset(pthis, 0, sizeof(*pthis));
     pthis->frame = 0;
     pthis->row = row;
     pthis->col = col;

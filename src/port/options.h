@@ -1,15 +1,27 @@
 #pragma once
 #include <string>
 #include <map>
+#include "json.h"
+#include "port/controller/controller.h"
 
 namespace oot
 {
 	namespace options
 	{
-		class Camera
+		class Section
+		{
+			public:
+			virtual void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) = 0;
+			virtual void load(rapidjson::Document& doc) = 0;
+		};
+
+		class Camera : public Section
 		{
 			public:
 			Camera();
+
+			void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) override;
+			void load(rapidjson::Document& doc) override;
 
 			const float& distanceScaler() const
 			{
@@ -18,15 +30,6 @@ namespace oot
 			float& distanceScaler()
 			{
 				return m_distanceScaler;
-			}
-
-			const float& yawReturnScaler() const
-			{
-				return m_yawReturnScaler;
-			}
-			float& yawReturnScaler()
-			{
-				return m_yawReturnScaler;
 			}
 
 			const bool disableDistanceClip() const;
@@ -44,6 +47,20 @@ namespace oot
 			{
 				return m_useClassicCamera;
 			}
+
+			protected:
+			float m_distanceScaler = 1.0f;
+			bool m_disableDistanceClip = false;
+			bool m_useClassicCamera = false;
+		};
+
+		class Controls : public Section
+		{
+			public:
+			Controls();
+
+			void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) override;
+			void load(rapidjson::Document& doc) override;
 
 			const bool& mousexInvert() const
 			{
@@ -84,41 +101,112 @@ namespace oot
 				return m_mouseyScaler;
 			}
 
-			const bool levelLoaded() const;
-			void setLevelLoaded();
-			void unsetLevelLoaded();
+			const float& gyroxScaler() const
+			{
+				return m_gyroxScaler;
+			}
+
+			float& gyroxScaler()
+			{
+				return m_gyroxScaler;
+			}
+
+			const float& gyroyScaler() const
+			{
+				return m_gyroyScaler;
+			}
+
+			float& gyroyScaler()
+			{
+				return m_gyroyScaler;
+			}
+
+			const hid::Button& actionOverrideButton() const
+			{
+				return m_actionOverrideButton;
+			}
+
+			hid::Button& actionOverrideButton()
+			{
+				return m_actionOverrideButton;
+			}
+
+			const bool& enableActionButtonOverride() const
+			{
+				return m_enableActionButtonOverride;
+			}
+
+			bool& enableActionButtonOverride()
+			{
+				return m_enableActionButtonOverride;
+			}
+
+			const u64& stickLeftDeadzone() const
+			{
+				return m_stickLeftDeadzone;
+			}
+
+			u64& stickLeftDeadzone()
+			{
+				return m_stickLeftDeadzone;
+			}
+
+			const u64& stickRightDeadzone() const
+			{
+				return m_stickLeftDeadzone;
+			}
+
+			u64& stickRightDeadzone()
+			{
+				return m_stickLeftDeadzone;
+			}
+
+			const bool& enableGyro() const
+			{
+				return m_enableGyro;
+			}
+
+			bool& enableGyro()
+			{
+				return m_enableGyro;
+			}
+
+			const bool& useXInput() const
+			{
+				return m_useXInput;
+			}
+
+			bool& useXInput()
+			{
+				return m_useXInput;
+			}
 
 			protected:
-			float m_distanceScaler;
-			float m_yawReturnScaler;
-			bool m_disableDistanceClip;
-			bool m_useClassicCamera;
-			bool m_mousexInvert;
-			bool m_mouseyInvert;
-			float m_mousexScaler;
-			float m_mouseyScaler;
-
-			u8 junk[0x40 - 20];
+			bool m_mousexInvert = false;
+			bool m_mouseyInvert = true;
+			float m_mousexScaler = 4.0f;
+			float m_mouseyScaler = 4.0f;
+			hid::Button m_actionOverrideButton = hid::Button::B_BUTTON;
+			bool m_enableActionButtonOverride = true;
+			u64 m_stickLeftDeadzone = 20;
+			u64 m_stickRightDeadzone = 20;
+			float m_gyroxScaler = 20.0f;
+			float m_gyroyScaler = 20.0f;
+			bool m_enableGyro = true;
+			bool m_useXInput = true;
 		};
 
-		static_assert(sizeof(Camera) == 0x40, "Camera size incorrect");
-
-		class Cheats
+		class Cheats : public Section
 		{
 			public:
 			Cheats();
 
+			void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) override;
+			void load(rapidjson::Document& doc) override;
+
 			bool& invincible()
 			{
 				return m_invincible;
-			}
-			bool& moonJump()
-			{
-				return m_moonJump;
-			}
-			float& bowserAimAssist()
-			{
-				return m_bowserAimAssist;
 			}
 
 			float& speed()
@@ -130,84 +218,137 @@ namespace oot
 			{
 				return m_blindGerudoGuards;
 			}
-			
-			protected:
-			bool m_invincible;
-			bool m_moonJump;
-			u8 padding[2];
-			float m_bowserAimAssist;
-			float m_speed;
-			bool m_blindGerudoGuards;
-
-			u8 junk[0x40 - (2 + 7 + 4 + 1)];
-		};
-
-		static_assert(sizeof(Cheats) == 0x40, "Cheats size incorrect");
-
-#define MAX_MODS 16
-		struct Mod
-		{
-			u64 hash;
-			u8 enabled;
-			u8 padding[7];
-		};
-
-		static_assert(sizeof(Mod) == 16, "Mod incorrect size");
-
-		class Mods
-		{
-			public:
-			void save();
-			bool isEnabled(const std::string& name) const;
-			void cleanup();
-			static void set(const std::string& name, const u8 value);
-			static std::map<std::string, bool>& dirs();
 
 			protected:
-			Mod m_mods[MAX_MODS];
-			u8 m_padding[0x40];
+			bool m_invincible = false;
+			float m_speed = 1.0f;
+			bool m_blindGerudoGuards = false;
 		};
 
-		class Game
+		class Game : public Section
 		{
 			public:
 			Game();
-			u8& overclock();
-			u8 framerate();
-			u8& setFramerate();
-			float framerateScaler() const;
-			u8 framerateScalerInv() const;
 
-			bool& isGraphicsDisabled();
-			void disableGraphics();
-			bool& disableSound();
-			bool& fullscreen();
+			void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) override;
+			void load(rapidjson::Document& doc) override;
+
 			const bool mirror() const;
 			bool& setMirror();
-			bool& blindOwl();
 
-			bool isFramePacing();
-			void disableFramePacing();
+			const bool& graphicsEnabled() const
+			{
+				return m_graphicsEnabled;
+			}
 
-			bool& recordTas();
-			void  recordTas(bool enable);
-			bool& forceMouse();
+			bool& graphicsEnabled()
+			{
+				return m_graphicsEnabled;
+			}
+
+			const bool& audioEnabled() const
+			{
+				return m_audioEnabled;
+			}
+
+			bool& audioEnabled()
+			{
+				return m_audioEnabled;
+			}
+
+			const bool& fullscreen() const
+			{
+				return m_fullscreen;
+			}
+
+			bool& fullscreen()
+			{
+				return m_fullscreen;
+			}
+
+			const bool& blindOwl() const
+			{
+				return m_blindOwl;
+			}
+
+			bool& blindOwl()
+			{
+				return m_blindOwl;
+			}
+
+			const bool& recordTas() const
+			{
+				return m_recordTas;
+			}
+
+			bool& recordTas()
+			{
+				return m_recordTas;
+			}
+
+			const bool& forceMouse() const
+			{
+				return m_forceMouse;
+			}
+
+			bool& forceMouse()
+			{
+				return m_forceMouse;
+			}
+
+			const bool& enableExtendedOptionsMenu() const
+			{
+				return m_enableExtendedOptionsMenu;
+			}
+
+			bool& enableExtendedOptionsMenu()
+			{
+				return m_enableExtendedOptionsMenu;
+			}
+
+			const bool& enablDebugLevelSelect() const
+			{
+				return m_enablDebugLevelSelect;
+			}
+
+			bool& enablDebugLevelSelect()
+			{
+				return m_enablDebugLevelSelect;
+			}
+
+			const u64& pauseExitInputClearFrames() const
+			{
+				return m_pauseExitInputClearFrames;
+			}
+
+			u64& pauseExitInputClearFrames()
+			{
+				return m_pauseExitInputClearFrames;
+			}
+
+			const u64& textScrollSpeed() const
+			{
+				return m_textScrollSpeed;
+			}
+
+			u64& textScrollSpeed()
+			{
+				return m_textScrollSpeed;
+			}
 
 			protected:
-			u8 m_overclock;
-			u8 m_framerate;
-			bool m_disableGraphics;
-			bool m_disableSound;
-			bool m_fullscreen;
-			bool m_mirror;
-			bool m_blindowl;
-			bool m_paceFramesDisabled;
-			bool m_recordTas;
-			bool m_forceMouse;
-			u8 m_padding[0x40 - 10];
+			bool m_graphicsEnabled = true;
+			bool m_audioEnabled = true;
+			bool m_fullscreen = true;
+			bool m_mirror = false;
+			bool m_blindOwl = false;
+			bool m_recordTas = false;
+			bool m_forceMouse = true;
+			bool m_enableExtendedOptionsMenu = true;
+			bool m_enablDebugLevelSelect = false;
+			u64 m_pauseExitInputClearFrames = 2;
+			u64 m_textScrollSpeed = 1;
 		};
-
-		static_assert(sizeof(Game) == 0x40, "Game Incorrect Size");
 
 		class Base
 		{
@@ -220,6 +361,7 @@ namespace oot
 			{
 				return m_camera;
 			}
+
 			Camera& camera()
 			{
 				return m_camera;
@@ -229,24 +371,27 @@ namespace oot
 			{
 				return m_cheats;
 			}
+
 			Cheats& cheats()
 			{
 				return m_cheats;
 			}
 
-			const Mods& mods() const
+			const Controls& controls() const
 			{
-				return m_mods;
+				return m_controls;
 			}
-			Mods& mods()
+
+			Controls& controls()
 			{
-				return m_mods;
+				return m_controls;
 			}
 
 			const Game& game() const
 			{
 				return m_game;
 			}
+
 			Game& game()
 			{
 				return m_game;
@@ -255,13 +400,9 @@ namespace oot
 			protected:
 			Camera m_camera;
 			Cheats m_cheats;
-			Mods m_mods;
+			Controls m_controls;
 			Game m_game;
-
-			u8 junk[0x400 - 0x80 - sizeof(Mods) - sizeof(Game)];
 		};
-
-		static_assert(sizeof(Base) == 0x400, "Option size incorrect");
 	} // namespace options
 
 	typedef options::Base Options;

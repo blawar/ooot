@@ -64,7 +64,7 @@ void TransitionWipe_Start(void* pthisx) {
 void* TransitionWipe_Init(void* pthisx) {
     TransitionWipe* pthis = (TransitionWipe*)pthisx;
 
-    bzero(pthis, sizeof(*pthis));
+    memset(pthis, 0, sizeof(*pthis));
     return pthis;
 }
 

@@ -1,6 +1,8 @@
 #define INTERNAL_SRC_CODE_Z_ACTOR_C
+#include <algorithm>
 #include "global.h"
 #include "vt.h"
+#include <string.h>
 #include "z64global.h"
 #include "sfx.h"
 #include "framerate.h"
@@ -9,6 +11,7 @@
 #include "z64item.h"
 #include "z64actor.h"
 #include "gfx_align.h"
+#include "port/options.h"
 
 #include "overlays/actors/ovl_Arms_Hook/z_arms_hook.h"
 #include "overlays/actors/ovl_En_Part/z_en_part.h"
@@ -2001,7 +2004,7 @@ void func_800304DC(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry*
 
     savedSceneFlags = &gSaveContext.sceneFlags[globalCtx->sceneNum];
 
-    bzero(actorCtx, sizeof(*actorCtx));
+    memset(actorCtx, 0, sizeof(*actorCtx));
 
     ActorOverlayTable_Init();
     MtxF* tmp = &globalCtx->billboardMtxF;
@@ -2056,7 +2059,17 @@ void Actor_UpdateAll(GlobalContext* globalCtx, ActorContext* actorCtx) {
     unkFlag = 0;
 
     if (globalCtx->numSetupActors != 0) {
+#if N64_VERSION
         actorEntry = &globalCtx->setupActorList[0];
+#else
+        u8 maxActors = ACTOR_NUMBER_MAX;
+        if (globalCtx->sceneNum == 83 && globalCtx->numSetupActors == 57)//Graveyard adult scene
+            maxActors = 48;
+
+        const u8 firstActorToLoad = std::max(globalCtx->numSetupActors, maxActors) - maxActors;
+        actorEntry = &globalCtx->setupActorList[firstActorToLoad];
+        globalCtx->numSetupActors =  std::min(globalCtx->numSetupActors, maxActors);
+#endif
         for (i = 0; i < globalCtx->numSetupActors; i++) {
             Actor_SpawnEntry(&globalCtx->actorCtx, actorEntry++, globalCtx);
         }
@@ -2368,28 +2381,33 @@ s32 Actor_UncullCheck(GlobalContext* globalCtx, Actor* actor) {
 
 //Takes a position (projectedPos, projectedW) and check if its in the uncull zone of actor
 //Returns true if the position is in the uncull zone otherwise false
-s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actor, Vec3f* projectedPos, f32 projectedW) {
-#ifdef NO_CULLING
-    return true;
-#else
-    projectedW *= gfx_ar_ratio();
+s32 Actor_IsInUncullZone(GlobalContext* globalCtx, Actor* actor, Vec3f* projectedPos, f32 projectedW)
+{
 
-    f32 var;
+	if(oot::config().camera().disableDistanceClip())
+	{
+		return true;
+	}
+	else
+	{
+		projectedW *= gfx_ar_ratio();
 
-    if ((projectedPos->z > -actor->uncullZoneScale) && (projectedPos->z < (actor->uncullZoneForward + actor->uncullZoneScale))) {
-        var = (projectedW < 1.0f) ? 1.0f : 1.0f / projectedW;
+		f32 var;
 
-        if ((((fabsf(projectedPos->x) - actor->uncullZoneScale) * var) < 1.0f) &&
-            (((projectedPos->y + actor->uncullZoneDownward) * var) > -1.0f) &&
-            (((projectedPos->y - actor->uncullZoneScale) * var) < 1.0f)) {
-            return true;
-        }
-    }
-#endif
+		if((projectedPos->z > -actor->uncullZoneScale) && (projectedPos->z < (actor->uncullZoneForward + actor->uncullZoneScale)))
+		{
+			var = (projectedW < 1.0f) ? 1.0f : 1.0f / projectedW;
+
+			if((((fabsf(projectedPos->x) - actor->uncullZoneScale) * var) < 1.0f) && (((projectedPos->y + actor->uncullZoneDownward) * var) > -1.0f) && (((projectedPos->y - actor->uncullZoneScale) * var) < 1.0f))
+			{
+				return true;
+			}
+		}
+	}
     return false;
 }
 
-void func_800315AC(GlobalContext* globalCtx, ActorContext* actorCtx) {
+void Draw_Actors(GlobalContext* globalCtx, ActorContext* actorCtx) {
     s32 invisibleActorCounter;
     Actor* invisibleActors[INVISIBLE_ACTOR_MAX];
     ActorListEntry* actorListEntry;

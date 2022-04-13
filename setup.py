@@ -59,14 +59,12 @@ def main():
     # Command Line Interface
     parser = argparse.ArgumentParser(description="Setup")
     parser.add_argument("-c", "--clean", help="Cleans environment before asset extraction", action="store_true", default=False)
+    parser.add_argument("-p", "--props-only", help="Only sets project properties / options (does not extract assets)", action="store_true", default=False)
     parser.add_argument("-co", "--clean-only", help="Cleans environment without asset extraction", action="store_true", default=False)
     parser.add_argument("-b", "--buildRom", choices=validBuildOptions(), help="build rom config ex: EUR_MQD")
     parser.add_argument("-f", "--framerate", choices=['20', '30', '60', '120', '240'], help="game framerate", default='20')
     parser.add_argument("-m", "--enable-mouse", help="Enables mouse controls", action="store_true", default=True)
-    parser.add_argument("--disable-frizzle-cam", help="Disables R-Stick camera control", action="store_true", default=False)
-    parser.add_argument("--disable-distance-culling", help="Disables culling distant objects", action="store_true", default=False)
-    parser.add_argument("--enable-gyro", help="Enable gyro controls", action="store_true", default=False)
-    parser.add_argument("--enable-debug-level-select", help="Enable debug level select on save 1", action="store_true", default=False)
+
     args = parser.parse_args()
 
     if args.buildRom:
@@ -83,18 +81,6 @@ def main():
     if args.enable_mouse:
         defines.append('ENABLE_MOUSE')
 
-    if not args.disable_frizzle_cam:
-        defines.append('FIZZLE_CAM')
-
-    if args.disable_distance_culling:
-        defines.append('NO_CULLING')
-
-    if args.enable_gyro:
-        defines.append('ENABLE_GYRO')
-
-    if args.enable_debug_level_select:
-        defines.append('ENABLE_DEBUG_LEVEL_SELECT')
-
     if buildRom().lower()[-1] != 'd':
         defines.append('RETAIL')
     defines.append(re.sub(r'[^A-Z0-9_]+', '', buildRom()))
@@ -106,13 +92,14 @@ def main():
     with open('vs/oot.props', 'w') as f:
         f.write(buffer)
 
-    if args.clean == True:
-        clean()
-        build()
-    elif args.clean_only == True:
-        clean()
-    else:
-        build()
+    if not args.props_only:
+        if args.clean == True:
+            clean()
+            build()
+        elif args.clean_only == True:
+            clean()
+        else:
+            build()
 
 if __name__ == "__main__":
     main()

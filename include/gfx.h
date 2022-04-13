@@ -3,7 +3,7 @@
 #include "ultra64/printf.h"
 #include "ultra64/gbi.h"
 #include "ultra64/message.h"
-#include "sched.h"
+#include "ultra64/sched.h"
 #include "color.h"
 
 
@@ -75,30 +75,12 @@ struct GfxPrint {
     /* 0x08 */ u16 posX;
     /* 0x0A */ u16 posY;
     /* 0x0C */ u16 baseX;
-    /* 0x0E */ u8 baseY;
-    /* 0x0F */ u8 flags;
+    /* 0x0E */ u16 baseY;
+    /* 0x0F */ u16 flags;
     /* 0x10 */ Color_RGBA8 color;
     /* 0x14 */ char unk_14[0x1C]; // unused
 };                       // size = 0x30
 
-/*
-void Graph_InitTHGA(struct GraphicsContext* gfxCtx);
-struct GameStateOverlay* Graph_GetNextGameState(struct GameState* gameState);
-void Graph_Init(struct GraphicsContext* gfxCtx);
-void Graph_Destroy(struct GraphicsContext* gfxCtx);
-void Graph_TaskSet00(struct GraphicsContext* gfxCtx);
-void Graph_Update(struct GraphicsContext* gfxCtx, struct GameState* gameState);
-void Graph_ThreadEntry(void*);
-void* Graph_Alloc(struct GraphicsContext* gfxCtx, size_t size);
-void* Graph_Alloc2(struct GraphicsContext* gfxCtx, size_t size);
-void Graph_OpenDisps(Gfx** dispRefs, struct GraphicsContext* gfxCtx, const char* file, s32 line);
-void Graph_CloseDisps(Gfx** dispRefs, struct GraphicsContext* gfxCtx, const char* file, s32 line);
-Gfx* Graph_GfxPlusOne(Gfx* gfx);
-Gfx* Graph_BranchDlist(Gfx* gfx, Gfx* dst);
-void* Graph_DlistAlloc(Gfx** gfx, u32 size);
-*/
-
-extern GraphicsContext* __gfxCtx;
 extern u16 gZBuffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 extern GfxPool gGfxPools[2];
 extern u8 gGfxSPTaskStack[0x400];

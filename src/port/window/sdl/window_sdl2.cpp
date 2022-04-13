@@ -13,9 +13,11 @@
 #include <stdio.h>
 #include <chrono>
 #include <memory>
+#include "z64message.h"
 
 
 void quit();
+void Set_Language(u8 language_id);
 
 /*
 #ifdef _WIN32
@@ -231,6 +233,29 @@ namespace platform::window
 #endif
 			set_vsync();
 			resize(width(), height());
+
+			auto locale = SDL_GetPreferredLocales();
+
+			while(locale != nullptr)
+			{
+				if(strcmp(locale->language, "en") == 0)
+				{
+					Set_Language(LANGUAGE_ENG);
+					break;
+				}
+				else if(strcmp(locale->language, "ge") == 0)
+				{
+					Set_Language(LANGUAGE_GER);
+					break;
+				}
+				else if(strcmp(locale->language, "fr") == 0)
+				{
+					Set_Language(LANGUAGE_FRA);
+					break;
+				}
+
+				locale++;
+			}
 		}
 
 		void set_fullscreen(bool on, bool call_callback)
@@ -266,6 +291,8 @@ namespace platform::window
 			{
 				on_fullscreen_changed_callback(on);
 			}
+
+			SDL_SetRelativeMouseMode(on ? SDL_TRUE : SDL_FALSE);
 #endif
 		}
 
