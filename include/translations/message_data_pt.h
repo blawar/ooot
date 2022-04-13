@@ -1,5 +1,5 @@
 DEFINE_MESSAGE(0x0001, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "Pediste um " COLOR(RED) "Pocket Egg" COLOR(DEFAULT) " emprestado!" QUICKTEXT_DISABLE "\n"
+UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "Pediste um " COLOR(RED) "Ovo de Bolso" COLOR(DEFAULT) " emprestado!" QUICKTEXT_DISABLE "\n"
 "Um Cucco de Bolso irá nascer\n"
 "dele durante a noite. Certifica-te que o\n"
 "devolves assim que o acabares de usar."
@@ -100,228 +100,228 @@ SHIFT("\x41")  COLOR(RED) "VENCEDOR!!" COLOR(DEFAULT)  EVENT
 )
 
 DEFINE_MESSAGE(0x0010, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x25")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Skull Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it off!\n"
-"You feel like a monster while you\n"
-"wear this mask !"
+ITEM_ICON("\x25")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara de Caveira" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Tu sentes-te como um monstro enquanto\n"
+"usas esta máscara!"
 )
 
 DEFINE_MESSAGE(0x0011, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x26")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Spooky Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! You can scare many people\n"
-"with this mask!"
+ITEM_ICON("\x26")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Assustadora" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Tu podes assustar muita gente\n"
+"com esta máscara!"
 )
 
 DEFINE_MESSAGE(0x0012, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x24")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Keaton Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! You'll be a popular guy with\n"
-"this mask on!"
+ITEM_ICON("\x24")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Keaton" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Tu vais ser um rapaz bem popular\n"
+"com esta máscara!"
 )
 
 DEFINE_MESSAGE(0x0013, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x27")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Bunny Hood" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! The hood's long ears are so\n"
-"cute!"
+ITEM_ICON("\x27")  QUICKTEXT_ENABLE "Pediste o " COLOR(RED) "Capuz de Coelho" COLOR(DEFAULT) " emprestado." QUICKTEXT_DISABLE "\n"
+"Usa-o com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para o exibires!\n"
+"As longas orelhas deste capuz\n"
+"são tão fofas!"
 )
 
 DEFINE_MESSAGE(0x0014, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x28")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Goron Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! It will make your head look\n"
-"big, though."
+ITEM_ICON("\x28")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Goron" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Ela faz a tua cabeça\n"
+"parecer enorme."
 )
 
 DEFINE_MESSAGE(0x0015, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x29")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Zora Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! With this mask, you can\n"
-"become one of the Zoras!"
+ITEM_ICON("\x29")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Zora" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Com esta máscara, tu podes\n"
+"te tornar num dos Zoras!"
 )
 
 DEFINE_MESSAGE(0x0016, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Gerudo Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it off!\n"
-"This mask will make you look\n"
-"like...a girl?"
+ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Gerudo" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Esta máscara faz-te parecer\n"
+"uma... rapariga?"
 )
 
 DEFINE_MESSAGE(0x0017, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Mask of Truth" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! Show it to many people!"
+ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara da Verdade" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
+"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
+"Mostra-a a toda a gente!"
 )
 
 DEFINE_MESSAGE(0x0018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Welcome to our cutting-edge \n"
-"amusement center:" BOX_BREAK SHIFT("\x15")  COLOR(RED) "The Bombchu Bowling Alley!" COLOR(DEFAULT)  BOX_BREAK "Do you want to know what you \n"
-"can win? Well, it's a " TEXT_SPEED("\x03") "secret." TEXT_SPEED("\x00") "\n"
-"I can't tell you until you've\n"
-"paid to play." BOX_BREAK "It's " COLOR(RED) "30 Rupees" COLOR(DEFAULT) " per game.\n"
-"Do you want to play?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Bem-vindo ao nosso centro \n"
+"de diversão de ponta:" BOX_BREAK SHIFT("\x15")  COLOR(RED) "Pista de Bowling com Bombchu!" COLOR(DEFAULT)  BOX_BREAK "Queres saber o que tu \n"
+"podes ganhar? Bem, é um " TEXT_SPEED("\x03") "segredo." TEXT_SPEED("\x00") "\n"
+"Eu não te posso dizer até tu tiveres\n"
+"pago para jogar." BOX_BREAK "São " COLOR(RED) "30 Rupees" COLOR(DEFAULT) " por jogo.\n"
+"Queres jogar?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
+"Não" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C") "OKAY!!" QUICKTEXT_DISABLE  BOX_BREAK "Aim for the hole in the center \n"
-"and let " COLOR(RED) "Bombchu " COLOR(DEFAULT) "go!\n"
-"You get " COLOR(RED) "ten tries" COLOR(DEFAULT) ". Ready..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "LET'S BOWL!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x3C") "OK!!" QUICKTEXT_DISABLE  BOX_BREAK "Mira no buraco no meio \n"
+"e larga o " COLOR(RED) "Bombchu!" COLOR(DEFAULT)
+"Tens " COLOR(RED) "dez tentativas" COLOR(DEFAULT) ". Pronto..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "VAMOS JOGAR!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x001A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want to play again?\n"
+"Queres jogar outra vez?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
+"Não" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, I almost forgot!\n"
-"Here is what you can win!" EVENT
+"Oh, quase que me esquecia!\n"
+"Aqui está o que podes ganhar!" EVENT
 )
 
 DEFINE_MESSAGE(0x001C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombs   (20 pieces)   80 Rupees\n"
-COLOR(DEFAULT) "Take it out with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
-"buy them without a bomb bag." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (20 unidades)   80 Rupees\n"
+COLOR(DEFAULT) "Desequipa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " novamente para atirá-la. Não podes\n"
+"comprá-las sem um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombs   (30 pieces)   120 Rupees\n"
-COLOR(DEFAULT) "Take it out with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
-"buy them without a bomb bag." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (30 unidades)   120 Rupees\n"
+COLOR(DEFAULT) "Desequipa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " novamente para atirá-la. Não podes\n"
+"comprá-las sem um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombs   30 Pieces   120 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bombas   30 Unidades   120 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
+"Não comprar" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I'm so happy everyone is \n"
-"back to normal!"
+"Estou tão feliz que toda a gente \n"
+"tenha voltado ao normal!"
 )
 
 DEFINE_MESSAGE(0x0020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Please save my other brothers\n"
-"too! I'm sure they will give you\n"
-"something a lot better!" BOX_BREAK "Will you do it?!"
+"Por favor salva também os\n"
+"meus outros irmãos! Tenho a certeza que eles\n"
+"dar-te-ão algo muito melhor!" BOX_BREAK "Vais fazer isso?!"
 )
 
 DEFINE_MESSAGE(0x0021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "The curse has been broken!\n"
-"Thank you!\n"
-"Here's a reward for you!" EVENT
+UNSKIPPABLE "O feitiço foi quebrado\n"
+"Obrigado!\n"
+"Aqui está a tua recompensa!" EVENT
 )
 
 DEFINE_MESSAGE(0x0022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Yeaaarrgh! I'm cursed!!"
+"Aaaarggghh! Estou amaldiçoado!!"
 )
 
 DEFINE_MESSAGE(0x0023, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We'll be careful not to get\n"
-"cursed again!"
+"Nós teremos cuidado para não sermos\n"
+"amaldiçoados novamente!"
 )
 
 DEFINE_MESSAGE(0x0024, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Since you've destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Spiders of the Curse, the curse\n"
-"is starting to weaken!" BOX_BREAK "Did the kids who returned to\n"
-"normal give you any rewards?" BOX_BREAK "You should know that the only\n"
-"way to become " COLOR(RED) "very rich " COLOR(DEFAULT) "is to\n"
-"destroy as many Spiders of the\n"
-"Curse as possible!" BOX_BREAK "There are some tricks to finding\n"
-"them all! First of all, you'll have\n"
-"to hunt at night. Secondly, keep in\n"
-"mind that they love soft soil..." BOX_BREAK "Pay close attention to your\n"
-"surroundings!\n"
-"Please, we're counting on you!"
+"Desde que tu destruíste " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
+"Aranhas da Maldição, o feitiço\n"
+"está a começar a enfraquecer!" BOX_BREAK "As crianças que voltaram ao\n"
+"normal deram-te alguma recompensa?" BOX_BREAK "Deves saber que a única\n"
+"forma de te tornares " COLOR(RED) "muito rico " COLOR(DEFAULT) "é\n"
+"destruir o máximo de Aranhas da\n"
+"Maldição possível!" BOX_BREAK "Há alguns truques para\n"
+"encontrá-las todas! Primeiro, terás\n"
+"de as caçar de noite. Segundo, tem em\n"
+"conta que elas adoram solo macio..." BOX_BREAK "Tem muita atenção ao que \n"
+"te rodeia!\n"
+"Por favor, estamos a contar contigo!"
 )
 
 DEFINE_MESSAGE(0x0025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "We look like this because of \n"
-"the spider's curse. But..." TEXTID("\x00\x24")
+UNSKIPPABLE "Nós todos temos este aspeto por causa \n"
+"do feitiço da aranha. Mas..." TEXTID("\x00\x24")
 )
 
 DEFINE_MESSAGE(0x0026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We all look like this because of\n"
-"the spider's curse." BOX_BREAK "If every " COLOR(RED) "Spider of the Curse " COLOR(DEFAULT) "in\n"
-"the entire world were destroyed,\n"
-"the curse would be broken." BOX_BREAK "When you destroy a Spider of the \n"
-"Curse, a token will appear. Collect\n"
-"it as proof of your achievement." BOX_BREAK ITEM_ICON("\x71") "The number next to this " COLOR(YELLOW) "icon" COLOR(DEFAULT) " on\n"
-"the " COLOR(LIGHTBLUE) "Quest Status Subscreen" COLOR(BLUE) " \n"
-COLOR(DEFAULT) "indicates how many Spiders of the \n"
-"Curse you have destroyed so far." BOX_BREAK ITEM_ICON("\x71") "When this " COLOR(YELLOW) "icon" COLOR(DEFAULT) " is displayed \n"
-"next to the name of the area on\n"
-"the " COLOR(RED) "Map Subscreen" COLOR(DEFAULT) ", there are no\n"
-"more Spiders in that area." TEXTID("\x00\xFE")
+"Nós todos temos este aspeto por causa\n"
+"do feitiço da aranha." BOX_BREAK "Se todas as " COLOR(RED) "Aranhas da Maldição " COLOR(DEFAULT) "no\n"
+"mundo inteiro fossem destruídas,\n"
+"a maldição seria quebrada." BOX_BREAK "Quando tu destróis uma Aranha da \n"
+"Maldição, um símbolo irá aparecer. Apanha-o\n"
+"como prova do teu feito." BOX_BREAK ITEM_ICON("\x71") "O número à frente deste " COLOR(YELLOW) "ícone" COLOR(DEFAULT) " no\n"
+COLOR(LIGHTBLUE) "Sub-ecrã de Estado da Missão" COLOR(BLUE) " \n"
+COLOR(DEFAULT) "indica quantas Aranhas da \n"
+"Maldição tu destruíste até agora." BOX_BREAK ITEM_ICON("\x71") "Quando este " COLOR(YELLOW) "ícone" COLOR(DEFAULT) " está \n"
+"à frente do nome da área no\n"
+COLOR(RED) "Sub-ecrã do Mapa" COLOR(DEFAULT) ", não existem\n"
+"mais Aranhas nessa área." TEXTID("\x00\xFE")
 )
 
 DEFINE_MESSAGE(0x0027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you break the curse on my\n"
-"family, we will make you " COLOR(RED) "very\n"
-"rich" COLOR(DEFAULT) "..."
+"Se quebrares a maldição na minha\n"
+"família, nós iremos tornar-te " COLOR(RED) "muito\n"
+"rico" COLOR(DEFAULT) "..."
 )
 
 DEFINE_MESSAGE(0x0028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Since you've destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) " Spiders\n"
-"of the Curse, the curse on me \n"
-"has been broken." BOX_BREAK UNSKIPPABLE "Thank you! Here is a token of my\n"
-"appreciation! Please take it." EVENT
+UNSKIPPABLE "Desde que tu destruíste " COLOR(RED)  TOKENS  COLOR(DEFAULT) " Aranhas\n"
+"da Maldição, o meu feitiço \n"
+"foi quebrado." BOX_BREAK UNSKIPPABLE "Obrigado! Aqui está um símbolo do meu\n"
+"agradecimento! Por favor aceita-o." EVENT
 )
 
 DEFINE_MESSAGE(0x0029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Thank you for saving my kids." BOX_BREAK "What? Me? Oh, that's OK..." BOX_BREAK "You have already destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Spiders of the Curse so far, so...\n"
-"that's fine...don't worry about me..."
+"Muito obrigado por salvares os meus filhos." BOX_BREAK "O quê? Eu? Oh, não faz mal..." BOX_BREAK "Já destruíste " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
+"Aranhas da Maldição até agora, portanto...\n"
+"está tudo bem...não te preocupes comigo..."
 )
 
 DEFINE_MESSAGE(0x002A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombchu   20 Pieces   180 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bombchu   20 Unidades   180 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
+"Não comprar" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to play a game?\n"
-"It's " COLOR(RED) "20 Rupees " COLOR(DEFAULT) "per play.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"Nope" COLOR(DEFAULT)
+"Queres jogar um jogo?\n"
+"São " COLOR(RED) "20 Rupees " COLOR(DEFAULT) "por jogo.\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
+"Não" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"You can't! You need a bow!" EVENT
+"Não podes! Precisas de um arco!" EVENT
 )
 
 DEFINE_MESSAGE(0x002D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"All right. You don't have to play\n"
-"if you don't want to." EVENT
+"Tudo bem. Não tens de jogar\n"
+"se não quiseres." EVENT
 )
 
 DEFINE_MESSAGE(0x002E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "OKAY!!" QUICKTEXT_DISABLE "\n"
-"This is a game for grownups!\n"
-"Hyrule's famous " COLOR(RED) "Shooting Gallery" COLOR(DEFAULT) "!" BOX_BREAK "Take aim at the targets from that \n"
-"platform over there! Can you hit\n"
-COLOR(RED) "ten targets" COLOR(DEFAULT) "? You get " COLOR(RED) "fifteen \n"
-COLOR(DEFAULT) "shots!" BOX_BREAK "Draw your weapon with " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". \n"
-"Are you ready?\n"
-"Go for a perfect score!\n"
-"Good Luck!" EVENT
+QUICKTEXT_ENABLE "OK!!" QUICKTEXT_DISABLE "\n"
+"Isto é um jogo para crescidos!\n"
+"A famosa " COLOR(RED) "Carreira de Tiro" COLOR(DEFAULT) "de Hyrule!" BOX_BREAK "Mira nos alvos a partir \n"
+"dessa plataforma aí! Consegues acertar em\n"
+COLOR(RED) "dez alvos" COLOR(DEFAULT) "? Tens " COLOR(RED) "quinze \n"
+COLOR(DEFAULT) "tiros!" BOX_BREAK "Saca a tua arma com " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". \n"
+"Estás pronto?\n"
+"Tenta uma pontuação perfeita!\n"
+"Boa sorte!" EVENT
 )
 
 DEFINE_MESSAGE(0x002F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You see a small mound of soft\n"
-"soil here."
+"Tu vês um pequeno monte de\n"
+"solo macio aqui."
 )
 
 DEFINE_MESSAGE(0x0030, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
