@@ -14,6 +14,7 @@ MattsCreative has a great video tutorial on how to compile this project here: <h
 ## Features
 
 - 60 FPS support (experimental) (defaults to original 20 FPS)
+- Right joystick free camera control (can be disabled)
 - Ability to load high resolution GLideN64 texture packs such as [oot-reloaded](https://evilgames.eu/texture-packs/oot-reloaded.htm).
 - The ability to assign equipment (boots, tunic, etc) to C-Buttons.
 - The ability to assign equipment (boots, tunic, etc) to keyboard keys and gamepad buttons.
