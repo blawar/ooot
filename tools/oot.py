@@ -3,6 +3,7 @@ import os
 import os.path
 import json
 import math
+import struct
 import hashlib
 from pathlib import Path
 
@@ -106,6 +107,13 @@ def validBuildOptions():
 		if os.path.exists(Path(base).joinpath(f).joinpath('zapd/Config.xml')):
 			r.append(f)
 	return r
+	
+def allBuildOptions():
+	r = []
+	base = 'roms'
+	for f in os.listdir(Path(base)):
+		r.append(f)
+	return r
 
 def setBuildRom(p):
 	global _buildRom
@@ -203,9 +211,14 @@ def getRomHashes(path):
 
 	return r
 	
+def rename(path, newPath):
+	print('renaming %s -> %s' % (path, newPath))
+	os.rename(path, newPath)
+	
 def calcRomHashes():
-	for rom in validBuildOptions():
+	for rom in allBuildOptions():
 		verified = romPath('verified', rom)
+
 		configPath = romPath('config.json', rom)
 		
 		config = loadJson(configPath)
@@ -214,7 +227,53 @@ def calcRomHashes():
 		if not os.path.isdir(verified):
 			continue
 			
-		for path in Path(verified).rglob('*.z64'):
+		for path in findRoms(verified, skipVerified = False):
+			path = ensureFilename(path)
+			ext = os.path.splitext(path)[1].lower()
+			
+			z64fileName = changeExt(path, '.z64').resolve()
+			v64fileName = changeExt(path, '.v64').resolve()
+			n64fileName = changeExt(path, '.n64').resolve()
+
+			z64buffer = None
+			
+			print('converting %s' % path)
+			
+			with open(path, mode="rb") as f:
+				buffer = bytearray(f.read())
+
+			if ext == '.v64':
+				z64buffer = convertToZ64(buffer)
+				if not os.path.exists(z64fileName):
+					with open(z64fileName, 'wb') as f:
+						f.write(z64buffer)
+					
+				if not os.path.exists(n64fileName):
+					with open(n64fileName, 'wb') as f:
+						f.write(convertToN64(z64buffer))
+			elif ext == '.n64':
+				z64buffer = convertToZ64(buffer)
+				if not os.path.exists(z64fileName):
+					with open(z64fileName, 'wb') as f:
+						f.write(z64buffer)
+					
+				if not os.path.exists(v64fileName):
+					with open(v64fileName, 'wb') as f:
+						f.write(convertToV64(z64buffer))
+			elif ext == '.z64':
+				if not os.path.exists(n64fileName):
+					with open(n64fileName, 'wb') as f:
+						f.write(convertToN64(buffer))
+					
+				with open(z64fileName, mode="rb") as f:
+					buffer = bytearray(f.read())
+
+				if not os.path.exists(v64fileName):
+					with open(v64fileName, 'wb') as f:
+						f.write(convertToV64(buffer))
+			
+			
+		for path in findRoms(verified, skipVerified = False):
 			config['sha256'].append(getRomHashes(path))
 			
 		saveJson(configPath, config)
@@ -231,6 +290,29 @@ def getAllConfs():
 		configs.append(Conf(romPath('config.json', rom)))
 		
 	return configs
+	
+def changeExt(path, ext):
+	return Path(os.path.splitext(path)[0] + ext)
+	
+def ensureFilename(path):
+	ext = getRomExtension(path)
+	if not str(path).endswith(ext):
+		newPath = changeExt(path, ext)
+		rename(path, newPath)
+		return Path(newPath)
+		
+	return Path(path)
+	
+def getRomExtension(path):
+	with open(path, 'rb') as f:
+		f.seek(0)
+		b = f.read(1)
+	
+	if b == b'\x40':
+		return '.n64'
+	if b == b'\x37':
+		return '.v64'
+	return '.z64'
 
 def findRomByHash(hashes):
 	for conf in getAllConfs():
@@ -242,22 +324,68 @@ def findRomByHash(hashes):
 			raise
 	return None
 	
-def findRoms(z64 = True, n64 = True, v64 = True):
+def convertToZ64(buffer):
+	sz = len(buffer)
+	if buffer[0] == 0x40: # word swap
+		words = str(int(sz/4))
+		little_byte_format = "<" + words + "I"
+		big_byte_format = ">" + words + "I"
+		tmp = struct.unpack_from(little_byte_format, buffer, 0)
+		struct.pack_into(big_byte_format, buffer, 0, *tmp)
+		return buffer
+	elif buffer[0] == 0x37: # byte swap
+		halfwords = str(int(sz/2))
+		little_byte_format = "<" + halfwords + "H"
+		big_byte_format = ">" + halfwords + "H"
+		tmp = struct.unpack_from(little_byte_format, buffer, 0)
+		struct.pack_into(big_byte_format, buffer, 0, *tmp)
+		return buffer
+	else:
+		return buffer
+		
+def convertToV64(buffer):
+	sz = len(buffer)
+	if buffer[0] == 0x40: # word swap
+		raise IOError('Z64 required to convert to V64')
+	elif buffer[0] == 0x37: # byte swap
+		raise IOError('Z64 required to convert to V64')
+		
+	halfwords = str(int(sz/2))
+	little_byte_format = "<" + halfwords + "H"
+	big_byte_format = ">" + halfwords + "H"
+	tmp = struct.unpack_from(little_byte_format, buffer, 0)
+	struct.pack_into(big_byte_format, buffer, 0, *tmp)
+	return buffer
+	
+def convertToN64(buffer):
+	sz = len(buffer)
+	if buffer[0] == 0x40: # word swap
+		raise IOError('Z64 required to convert to N64')
+	elif buffer[0] == 0x37: # byte swap
+		raise IOError('Z64 required to convert to N64')
+		
+	words = str(int(sz/4))
+	little_byte_format = "<" + words + "I"
+	big_byte_format = ">" + words + "I"
+	tmp = struct.unpack_from(little_byte_format, buffer, 0)
+	struct.pack_into(big_byte_format, buffer, 0, *tmp)
+	return buffer
+	
+def findRoms(searchPath = '.', z64 = True, n64 = True, v64 = True, skipVerified = True):
 	roms = []
-	searchPath = '.'
 	if z64:
 		for path in Path(searchPath).rglob('*.z64'):
-			if 'verified' not in str(path):
+			if not skipVerified or 'verified' not in str(path):
 				roms.append(path)
 			
 	if v64:
 		for path in Path(searchPath).rglob('*.v64'):
-			if 'verified' not in str(path):
+			if not skipVerified or 'verified' not in str(path):
 				roms.append(path)
 			
 	if n64:
 		for path in Path(searchPath).rglob('*.n64'):
-			if 'verified' not in str(path):
+			if not skipVerified or 'verified' not in str(path):
 				roms.append(path)
 	
 	return roms
@@ -270,11 +398,12 @@ def organizeRoms():
 		r = findRomByHash(hashes)
 		
 		if r:
-			newPath = romPath('baserom_original' + Path(path).suffix, r)
+			
+			newPath = romPath('baserom_original' + getRomExtension(Path(path)), r)
 			
 			if Path(path).resolve() != Path(newPath).resolve():
 				try:
-					os.rename(path, newPath)
+					rename(path, newPath)
 				except:
 					pass
 				print('%s -> %s' % (path, newPath))
