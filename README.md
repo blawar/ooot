@@ -10,6 +10,25 @@
 
 MattsCreative has a great video tutorial on how to compile this project here: <https://youtu.be/swv1Tv-kjsU>
 
+
+## Features
+
+- 60 FPS support (experimental) (defaults to original 20 FPS)
+- Right joystick free camera control (can be disabled)
+- Ability to load high resolution GLideN64 texture packs such as [oot-reloaded](https://evilgames.eu/texture-packs/oot-reloaded.htm).
+- The ability to assign equipment (boots, tunic, etc) to C-Buttons.
+- The ability to assign equipment (boots, tunic, etc) to keyboard keys and gamepad buttons.
+- Using B/Attack to execute the currently equiped C-Button equipment in first person mode (so you can fire the hookshot with either the C-Button or B).
+- Gryo aiming.
+- Keyboard and mouse aiming support.
+- Fast text option (hold B during dialog).
+- Fast forward gameplay keybind.
+- Multilanguage supported (F9 to toggle).  Currently supports English, German and French (more languages on the way!).
+- Pause menu keyboard/gamepad rebind screen.
+- Ability to disable the Owl prompts in config.json
+- Cheats in config.json
+- Ability to invert gryo, mouse, left stick, and right stick in config.json
+
 ## Contributers
 The current main contributers of this project are [blawar](https://github.com/blawar) and [DaMarkov](https://github.com/damarkov)
 
