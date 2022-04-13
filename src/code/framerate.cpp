@@ -262,7 +262,7 @@ Timer& Timer::operator+=(const Timer f)
 {
 	s64 step = f.m_counterInt * COUNTER_STEP;
 
-	if(step == 0)
+	/*if(step == 0) TODO DELETE THIS, just sanity check for division by zero
 	{
 		if(f.m_counterInt > 0)
 		{
@@ -272,7 +272,7 @@ Timer& Timer::operator+=(const Timer f)
 		{
 			step = -1;
 		}
-	}
+	}*/
 
 	m_counterInt += step;
 	update();
