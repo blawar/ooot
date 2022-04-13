@@ -790,15 +790,15 @@ void func_80A70978(EnHy* pthis, GlobalContext* globalCtx)
 			break;
 	}
 
-	pthis->unk_1E8.unk_18 = player->actor.world.pos;
+	pthis->unk_1E8.position = player->actor.world.pos;
 
 	if(LINK_IS_ADULT)
 	{
-		pthis->unk_1E8.unk_14 = sInit1Info[pthis->actor.params & 0x7F].unkValueAdult;
+		pthis->unk_1E8.height = sInit1Info[pthis->actor.params & 0x7F].unkValueAdult;
 	}
 	else
 	{
-		pthis->unk_1E8.unk_14 = sInit1Info[pthis->actor.params & 0x7F].unkValueChild;
+		pthis->unk_1E8.height = sInit1Info[pthis->actor.params & 0x7F].unkValueChild;
 	}
 
 	func_80034A14(&pthis->actor, &pthis->unk_1E8, sInit1Info[pthis->actor.params & 0x7F].unkPresetIndex, phi_a3);

@@ -119,8 +119,8 @@ void EnXc_CalculateHeadTurn(EnXc* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->npcInfo.unk_18 = player->actor.world.pos;
-	pthis->npcInfo.unk_14 = kREG(16) - 3.0f;
+	pthis->npcInfo.position = player->actor.world.pos;
+	pthis->npcInfo.height = kREG(16) - 3.0f;
 	func_80034A14(&pthis->actor, &pthis->npcInfo, kREG(17) + 0xC, 2);
 }
 

@@ -561,9 +561,9 @@ void EnDaikuKakariko_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	pthis->actionFunc(pthis, globalCtx);
 
-	pthis->npcInfo.unk_18.x = player->actor.focus.pos.x;
-	pthis->npcInfo.unk_18.y = player->actor.focus.pos.y;
-	pthis->npcInfo.unk_18.z = player->actor.focus.pos.z;
+	pthis->npcInfo.position.x = player->actor.focus.pos.x;
+	pthis->npcInfo.position.y = player->actor.focus.pos.y;
+	pthis->npcInfo.position.z = player->actor.focus.pos.z;
 
 	if(pthis->flags & 0x100)
 	{

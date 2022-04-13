@@ -191,8 +191,8 @@ void func_80B536B4(EnZl3* pthis)
 void func_80B536C4(EnZl3* pthis)
 {
 	s32 pad[2];
-	Vec3s* vec1 = &pthis->unk_3F8.unk_08;
-	Vec3s* vec2 = &pthis->unk_3F8.unk_0E;
+	auto vec1 = &pthis->unk_3F8.unk_08;
+	auto vec2 = &pthis->unk_3F8.unk_0E;
 
 	Math_SmoothStepToS(&vec1->x, 0, 20, 6200, 100);
 	Math_SmoothStepToS(&vec1->y, 0, 20, 6200, 100);
@@ -204,8 +204,8 @@ void func_80B53764(EnZl3* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	pthis->unk_3F8.unk_18 = player->actor.world.pos;
-	pthis->unk_3F8.unk_14 = kREG(16) - 16.0f;
+	pthis->unk_3F8.position = player->actor.world.pos;
+	pthis->unk_3F8.height = kREG(16) - 16.0f;
 	func_80034A14(&pthis->actor, &pthis->unk_3F8, kREG(17) + 0xC, 2);
 }
 
@@ -801,8 +801,8 @@ s32 func_80B5458C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 	Mtx* sp78;
 	MtxF sp38;
 	Vec3s sp30;
-	Vec3s* unk_3F8_unk_08 = &pthis->unk_3F8.unk_08;
-	Vec3s* unk_3F8_unk_0E = &pthis->unk_3F8.unk_0E;
+	auto unk_3F8_unk_08 = &pthis->unk_3F8.unk_08;
+	auto unk_3F8_unk_0E = &pthis->unk_3F8.unk_0E;
 
 	if(limbIndex == 14)
 	{
@@ -2445,10 +2445,10 @@ s32 func_80B57D80(EnZl3* pthis, GlobalContext* globalCtx)
 	s32 pad2;
 	s16 phi_v1;
 
-	unk_3F8->unk_18.y = player->actor.world.pos.y;
-	unk_3F8->unk_18.x = (Math_SinS(temp_v0) * pthis->actor.xzDistToPlayer) + pthis->actor.world.pos.x;
-	unk_3F8->unk_18.z = (Math_CosS(temp_v0) * pthis->actor.xzDistToPlayer) + pthis->actor.world.pos.z;
-	unk_3F8->unk_14 = kREG(16) - 16.0f;
+	unk_3F8->position.y = player->actor.world.pos.y;
+	unk_3F8->position.x = (Math_SinS(temp_v0) * pthis->actor.xzDistToPlayer) + pthis->actor.world.pos.x;
+	unk_3F8->position.z = (Math_CosS(temp_v0) * pthis->actor.xzDistToPlayer) + pthis->actor.world.pos.z;
+	unk_3F8->height = kREG(16) - 16.0f;
 	func_80034A14(&pthis->actor, unk_3F8, kREG(17) + 0xC, 4);
 
 	phi_v1 = ABS(temp_v0 - *sp32);
@@ -3016,7 +3016,7 @@ s32 func_80B5944C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 	{
 		Mtx* mtx = (Mtx*)Graph_Alloc(globalCtx->gfxCtx, sizeof(Mtx) * 7);
 		EnZl3* pthis = (EnZl3*)thisx;
-		Vec3s* vec = &pthis->unk_3F8.unk_08;
+		auto vec = &pthis->unk_3F8.unk_08;
 
 		gSPSegment(gfx[0]++, 0x0C, mtx);
 

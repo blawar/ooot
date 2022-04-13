@@ -438,8 +438,8 @@ void func_80AF5F34(EnSa* pthis, GlobalContext* globalCtx)
 	{
 		phi_a3 = 1;
 	}
-	pthis->unk_1E0.unk_18 = player->actor.world.pos;
-	pthis->unk_1E0.unk_14 = 4.0f;
+	pthis->unk_1E0.position = player->actor.world.pos;
+	pthis->unk_1E0.height = 4.0f;
 	func_80034A14(&pthis->actor, &pthis->unk_1E0, 2, phi_a3);
 }
 

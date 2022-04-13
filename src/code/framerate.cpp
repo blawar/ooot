@@ -203,6 +203,11 @@ float Timer::abs() const
 	return v;
 }
 
+void Timer::clamp(float min, float max)
+{
+	*this = CLAMP(toFloat(), min, max);
+}
+
 Timer& Timer::operator++() // pre
 {
 	m_counterInt++;
@@ -395,4 +400,24 @@ Step::Step(const Rotation& r)
 float Step::value() const
 {
 	return m_value;
+}
+
+
+FStep::FStep() : Step()
+{
+}
+
+FStep::FStep(const Step& t)
+{
+	m_value = t.value();
+}
+
+FStep::FStep(float n)
+{
+	m_value = n;
+}
+
+FStep::FStep(const Rotation& r)
+{
+	m_value = (s16)r;
 }

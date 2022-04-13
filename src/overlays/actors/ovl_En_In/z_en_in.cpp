@@ -396,13 +396,13 @@ void func_80A795C8(EnIn* pthis, GlobalContext* globalCtx)
 	}
 	if(pthis->actionFunc == func_80A7B024)
 	{
-		pthis->unk_308.unk_18 = globalCtx->view.eye;
-		pthis->unk_308.unk_14 = 60.0f;
+		pthis->unk_308.position = globalCtx->view.eye;
+		pthis->unk_308.height = 60.0f;
 	}
 	else
 	{
-		pthis->unk_308.unk_18 = player->actor.world.pos;
-		pthis->unk_308.unk_14 = 16.0f;
+		pthis->unk_308.position = player->actor.world.pos;
+		pthis->unk_308.height = 16.0f;
 	}
 	func_80034A14(&pthis->actor, &pthis->unk_308, 1, phi_a3);
 }
