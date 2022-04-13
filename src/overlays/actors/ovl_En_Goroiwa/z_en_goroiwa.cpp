@@ -155,12 +155,12 @@ void EnGoroiwa_SetSpeed(EnGoroiwa* pthis, GlobalContext* globalCtx)
 	if(globalCtx->sceneNum == SCENE_SPOT04)
 	{
 		pthis->isInKokiri = true;
-		R_EN_GOROIWA_SPEED = 920 * FRAMERATE_SCALER;
+		R_EN_GOROIWA_SPEED = 920;
 	}
 	else
 	{
 		pthis->isInKokiri = false;
-		R_EN_GOROIWA_SPEED = 1000 * FRAMERATE_SCALER;
+		R_EN_GOROIWA_SPEED = 1000;
 	}
 }
 
