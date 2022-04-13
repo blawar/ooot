@@ -34,7 +34,7 @@ void ObjKibako_SetupThrown(ObjKibako* pthis);
 void ObjKibako_Thrown(ObjKibako* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Kibako_InitVars = {
-    ACTOR_OBJ_KIBAKO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjKibako), (ActorFunc)ObjKibako_Init, (ActorFunc)ObjKibako_Destroy, (ActorFunc)ObjKibako_Update, (ActorFunc)ObjKibako_Draw, (ActorFunc)ObjKibako_Reset,
+    ACTOR_OBJ_KIBAKO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjKibako), (ActorFunc)ObjKibako_Init, (ActorFunc)ObjKibako_Destroy, (ActorFunc)ObjKibako_Update, (ActorFunc)ObjKibako_Draw, (ActorFunc)ObjKibako_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -331,7 +331,7 @@ void ObjKibako_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjKibako_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Kibako_InitVars = {
-	    ACTOR_OBJ_KIBAKO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjKibako), (ActorFunc)ObjKibako_Init, (ActorFunc)ObjKibako_Destroy, (ActorFunc)ObjKibako_Update, (ActorFunc)ObjKibako_Draw, (ActorFunc)ObjKibako_Reset,
+	    ACTOR_OBJ_KIBAKO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjKibako), (ActorFunc)ObjKibako_Init, (ActorFunc)ObjKibako_Destroy, (ActorFunc)ObjKibako_Update, (ActorFunc)ObjKibako_Draw, (ActorFunc)ObjKibako_Reset,
 	};
 
 	sCylinderInit = {

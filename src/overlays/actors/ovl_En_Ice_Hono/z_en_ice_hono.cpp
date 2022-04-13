@@ -36,7 +36,7 @@ void EnIceHono_SetupActionSpreadFlames(EnIceHono* pthis);
 void EnIceHono_SetupActionSmallFlame(EnIceHono* pthis);
 
 ActorInit En_Ice_Hono_InitVars = {
-    ACTOR_EN_ICE_HONO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnIceHono), (ActorFunc)EnIceHono_Init, (ActorFunc)EnIceHono_Destroy, (ActorFunc)EnIceHono_Update, (ActorFunc)EnIceHono_Draw, (ActorFunc)EnIceHono_Reset,
+    ACTOR_EN_ICE_HONO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnIceHono), (ActorFunc)EnIceHono_Init, (ActorFunc)EnIceHono_Destroy, (ActorFunc)EnIceHono_Update, (ActorFunc)EnIceHono_Draw, (ActorFunc)EnIceHono_Reset,
 };
 
 static ColliderCylinderInit sCylinderInitCapturableFlame = {
@@ -435,7 +435,7 @@ void EnIceHono_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnIceHono_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ice_Hono_InitVars = {
-	    ACTOR_EN_ICE_HONO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnIceHono), (ActorFunc)EnIceHono_Init, (ActorFunc)EnIceHono_Destroy, (ActorFunc)EnIceHono_Update, (ActorFunc)EnIceHono_Draw, (ActorFunc)EnIceHono_Reset,
+	    ACTOR_EN_ICE_HONO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnIceHono), (ActorFunc)EnIceHono_Init, (ActorFunc)EnIceHono_Destroy, (ActorFunc)EnIceHono_Update, (ActorFunc)EnIceHono_Draw, (ActorFunc)EnIceHono_Reset,
 	};
 
 	sCylinderInitCapturableFlame = {

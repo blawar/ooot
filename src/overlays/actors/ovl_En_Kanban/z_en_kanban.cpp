@@ -49,7 +49,7 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Kanban_InitVars = {
-    ACTOR_EN_KANBAN, ACTORCAT_PROP, FLAGS, OBJECT_KANBAN, sizeof(EnKanban), (ActorFunc)EnKanban_Init, (ActorFunc)EnKanban_Destroy, (ActorFunc)EnKanban_Update, (ActorFunc)EnKanban_Draw, (ActorFunc)EnKanban_Reset,
+    ACTOR_EN_KANBAN, ACTORCAT_PROP, FLAGS, OBJECT_KANBAN, ACTOR_FACTORY(EnKanban), (ActorFunc)EnKanban_Init, (ActorFunc)EnKanban_Destroy, (ActorFunc)EnKanban_Update, (ActorFunc)EnKanban_Draw, (ActorFunc)EnKanban_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1050,7 +1050,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnKanban_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Kanban_InitVars = {
-	    ACTOR_EN_KANBAN, ACTORCAT_PROP, FLAGS, OBJECT_KANBAN, sizeof(EnKanban), (ActorFunc)EnKanban_Init, (ActorFunc)EnKanban_Destroy, (ActorFunc)EnKanban_Update, (ActorFunc)EnKanban_Draw, (ActorFunc)EnKanban_Reset,
+	    ACTOR_EN_KANBAN, ACTORCAT_PROP, FLAGS, OBJECT_KANBAN, ACTOR_FACTORY(EnKanban), (ActorFunc)EnKanban_Init, (ActorFunc)EnKanban_Destroy, (ActorFunc)EnKanban_Update, (ActorFunc)EnKanban_Draw, (ActorFunc)EnKanban_Reset,
 	};
 
 	sCylinderInit = {

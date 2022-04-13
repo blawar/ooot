@@ -35,7 +35,7 @@ void EnDha_Die(EnDha* pthis, GlobalContext* globalCtx);
 void EnDha_UpdateHealth(EnDha* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Dha_InitVars = {
-    ACTOR_EN_DHA, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, sizeof(EnDha), (ActorFunc)EnDha_Init, (ActorFunc)EnDha_Destroy, (ActorFunc)EnDha_Update, (ActorFunc)EnDha_Draw, (ActorFunc)EnDha_Reset,
+    ACTOR_EN_DHA, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, ACTOR_FACTORY(EnDha), (ActorFunc)EnDha_Init, (ActorFunc)EnDha_Destroy, (ActorFunc)EnDha_Update, (ActorFunc)EnDha_Draw, (ActorFunc)EnDha_Reset,
 };
 
 static DamageTable sDamageTable = {
@@ -533,7 +533,7 @@ void EnDha_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDha_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dha_InitVars = {
-	    ACTOR_EN_DHA, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, sizeof(EnDha), (ActorFunc)EnDha_Init, (ActorFunc)EnDha_Destroy, (ActorFunc)EnDha_Update, (ActorFunc)EnDha_Draw, (ActorFunc)EnDha_Reset,
+	    ACTOR_EN_DHA, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, ACTOR_FACTORY(EnDha), (ActorFunc)EnDha_Init, (ActorFunc)EnDha_Destroy, (ActorFunc)EnDha_Update, (ActorFunc)EnDha_Draw, (ActorFunc)EnDha_Reset,
 	};
 
 	sDamageTable = {

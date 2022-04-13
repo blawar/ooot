@@ -48,7 +48,7 @@ static f32 D_8088BFC0_42 = 0.0f;
 static Vec3f D_8088BF60 = {3310.0f, 120.0f, 0.0f};
 
 ActorInit Bg_Hidan_Rock_InitVars = {
-    ACTOR_BG_HIDAN_ROCK, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanRock), (ActorFunc)BgHidanRock_Init, (ActorFunc)BgHidanRock_Destroy, (ActorFunc)BgHidanRock_Update, (ActorFunc)BgHidanRock_Draw, (ActorFunc)BgHidanRock_Reset,
+    ACTOR_BG_HIDAN_ROCK, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanRock), (ActorFunc)BgHidanRock_Init, (ActorFunc)BgHidanRock_Destroy, (ActorFunc)BgHidanRock_Update, (ActorFunc)BgHidanRock_Draw, (ActorFunc)BgHidanRock_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -491,7 +491,7 @@ void BgHidanRock_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_8088BF60 = {3310.0f, 120.0f, 0.0f};
 
 	Bg_Hidan_Rock_InitVars = {
-	    ACTOR_BG_HIDAN_ROCK, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanRock), (ActorFunc)BgHidanRock_Init, (ActorFunc)BgHidanRock_Destroy, (ActorFunc)BgHidanRock_Update, (ActorFunc)BgHidanRock_Draw, (ActorFunc)BgHidanRock_Reset,
+	    ACTOR_BG_HIDAN_ROCK, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanRock), (ActorFunc)BgHidanRock_Init, (ActorFunc)BgHidanRock_Destroy, (ActorFunc)BgHidanRock_Update, (ActorFunc)BgHidanRock_Draw, (ActorFunc)BgHidanRock_Reset,
 	};
 
 	sCylinderInit = {

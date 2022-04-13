@@ -33,7 +33,7 @@ static Vec3f sMultVec1_30 = {-960.0f, 0.0f, 0.0f};
 static Vec3f sMultVec2_30 = {960.0f, 0.0f, 0.0f};
 
 ActorInit En_Boom_InitVars = {
-    ACTOR_EN_BOOM, ACTORCAT_MISC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBoom), (ActorFunc)EnBoom_Init, (ActorFunc)EnBoom_Destroy, (ActorFunc)EnBoom_Update, (ActorFunc)EnBoom_Draw, (ActorFunc)EnBoom_Reset,
+    ACTOR_EN_BOOM, ACTORCAT_MISC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBoom), (ActorFunc)EnBoom_Init, (ActorFunc)EnBoom_Destroy, (ActorFunc)EnBoom_Update, (ActorFunc)EnBoom_Draw, (ActorFunc)EnBoom_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -321,7 +321,7 @@ void EnBoom_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sMultVec2_30 = {960.0f, 0.0f, 0.0f};
 
 	En_Boom_InitVars = {
-	    ACTOR_EN_BOOM, ACTORCAT_MISC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBoom), (ActorFunc)EnBoom_Init, (ActorFunc)EnBoom_Destroy, (ActorFunc)EnBoom_Update, (ActorFunc)EnBoom_Draw, (ActorFunc)EnBoom_Reset,
+	    ACTOR_EN_BOOM, ACTORCAT_MISC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBoom), (ActorFunc)EnBoom_Init, (ActorFunc)EnBoom_Destroy, (ActorFunc)EnBoom_Update, (ActorFunc)EnBoom_Draw, (ActorFunc)EnBoom_Reset,
 	};
 
 	sQuadInit = {

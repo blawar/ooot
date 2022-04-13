@@ -43,7 +43,7 @@ static f32 bounceVel_44[] = {4.0f, 1.5f, 0.4f, 0.1f};
 static s16 sCamSetting = 0;
 
 ActorInit Bg_Mori_Rakkatenjo_InitVars = {
-    ACTOR_BG_MORI_RAKKATENJO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriRakkatenjo), (ActorFunc)BgMoriRakkatenjo_Init, (ActorFunc)BgMoriRakkatenjo_Destroy, (ActorFunc)BgMoriRakkatenjo_Update, NULL, (ActorFunc)BgMoriRakkatenjo_Reset,
+    ACTOR_BG_MORI_RAKKATENJO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriRakkatenjo), (ActorFunc)BgMoriRakkatenjo_Init, (ActorFunc)BgMoriRakkatenjo_Destroy, (ActorFunc)BgMoriRakkatenjo_Update, NULL, (ActorFunc)BgMoriRakkatenjo_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -285,6 +285,6 @@ void BgMoriRakkatenjo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sCamSetting = 0;
 
 	Bg_Mori_Rakkatenjo_InitVars = {
-	    ACTOR_BG_MORI_RAKKATENJO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriRakkatenjo), (ActorFunc)BgMoriRakkatenjo_Init, (ActorFunc)BgMoriRakkatenjo_Destroy, (ActorFunc)BgMoriRakkatenjo_Update, NULL, (ActorFunc)BgMoriRakkatenjo_Reset,
+	    ACTOR_BG_MORI_RAKKATENJO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriRakkatenjo), (ActorFunc)BgMoriRakkatenjo_Init, (ActorFunc)BgMoriRakkatenjo_Destroy, (ActorFunc)BgMoriRakkatenjo_Update, NULL, (ActorFunc)BgMoriRakkatenjo_Reset,
 	};
 }

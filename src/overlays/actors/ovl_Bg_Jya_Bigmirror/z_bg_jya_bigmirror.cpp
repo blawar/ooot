@@ -37,7 +37,7 @@ static Vec3s D_80893F4C_28 = {0, 0, 0};
 static u8 sIsSpawned = false;
 
 ActorInit Bg_Jya_Bigmirror_InitVars = {
-    ACTOR_BG_JYA_BIGMIRROR, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaBigmirror), (ActorFunc)BgJyaBigmirror_Init, (ActorFunc)BgJyaBigmirror_Destroy, (ActorFunc)BgJyaBigmirror_Update, (ActorFunc)BgJyaBigmirror_Draw, (ActorFunc)BgJyaBigmirror_Reset,
+    ACTOR_BG_JYA_BIGMIRROR, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaBigmirror), (ActorFunc)BgJyaBigmirror_Init, (ActorFunc)BgJyaBigmirror_Destroy, (ActorFunc)BgJyaBigmirror_Update, (ActorFunc)BgJyaBigmirror_Draw, (ActorFunc)BgJyaBigmirror_Reset,
 };
 
 static BigMirrorDataEntry sCobraSpawnData[] = {
@@ -300,7 +300,7 @@ void BgJyaBigmirror_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sIsSpawned = false;
 
 	Bg_Jya_Bigmirror_InitVars = {
-	    ACTOR_BG_JYA_BIGMIRROR,	     ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaBigmirror), (ActorFunc)BgJyaBigmirror_Init, (ActorFunc)BgJyaBigmirror_Destroy, (ActorFunc)BgJyaBigmirror_Update, (ActorFunc)BgJyaBigmirror_Draw,
+	    ACTOR_BG_JYA_BIGMIRROR,	     ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaBigmirror), (ActorFunc)BgJyaBigmirror_Init, (ActorFunc)BgJyaBigmirror_Destroy, (ActorFunc)BgJyaBigmirror_Update, (ActorFunc)BgJyaBigmirror_Draw,
 	    (ActorFunc)BgJyaBigmirror_Reset,
 	};
 }

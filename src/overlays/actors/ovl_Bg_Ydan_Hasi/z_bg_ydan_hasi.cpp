@@ -36,7 +36,7 @@ void BgYdanHasi_UpdateThreeBlocks(BgYdanHasi* pthis, GlobalContext* globalCtx);
 static Gfx* dLists_38[] = {gDTSlidingPlatformDL, gDTWaterPlaneDL, gDTRisingPlatformsDL};
 
 ActorInit Bg_Ydan_Hasi_InitVars = {
-    ACTOR_BG_YDAN_HASI, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, sizeof(BgYdanHasi), (ActorFunc)BgYdanHasi_Init, (ActorFunc)BgYdanHasi_Destroy, (ActorFunc)BgYdanHasi_Update, (ActorFunc)BgYdanHasi_Draw, (ActorFunc)BgYdanHasi_Reset,
+    ACTOR_BG_YDAN_HASI, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, ACTOR_FACTORY(BgYdanHasi), (ActorFunc)BgYdanHasi_Init, (ActorFunc)BgYdanHasi_Destroy, (ActorFunc)BgYdanHasi_Update, (ActorFunc)BgYdanHasi_Draw, (ActorFunc)BgYdanHasi_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -234,6 +234,6 @@ void BgYdanHasi_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgYdanHasi_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Ydan_Hasi_InitVars = {
-	    ACTOR_BG_YDAN_HASI, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, sizeof(BgYdanHasi), (ActorFunc)BgYdanHasi_Init, (ActorFunc)BgYdanHasi_Destroy, (ActorFunc)BgYdanHasi_Update, (ActorFunc)BgYdanHasi_Draw, (ActorFunc)BgYdanHasi_Reset,
+	    ACTOR_BG_YDAN_HASI, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, ACTOR_FACTORY(BgYdanHasi), (ActorFunc)BgYdanHasi_Init, (ActorFunc)BgYdanHasi_Destroy, (ActorFunc)BgYdanHasi_Update, (ActorFunc)BgYdanHasi_Draw, (ActorFunc)BgYdanHasi_Reset,
 	};
 }

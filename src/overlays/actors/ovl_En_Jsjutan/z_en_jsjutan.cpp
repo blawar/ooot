@@ -25,7 +25,7 @@ void EnJsjutan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Jsjutan_InitVars = {
-    ACTOR_EN_JSJUTAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnJsjutan), (ActorFunc)EnJsjutan_Init, (ActorFunc)EnJsjutan_Destroy, (ActorFunc)EnJsjutan_Update, (ActorFunc)EnJsjutan_Draw, (ActorFunc)EnJsjutan_Reset,
+    ACTOR_EN_JSJUTAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnJsjutan), (ActorFunc)EnJsjutan_Init, (ActorFunc)EnJsjutan_Destroy, (ActorFunc)EnJsjutan_Update, (ActorFunc)EnJsjutan_Draw, (ActorFunc)EnJsjutan_Reset,
 };
 
 // Shadow texture. 32x64 I8.
@@ -517,6 +517,6 @@ void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void EnJsjutan_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Jsjutan_InitVars = {
-	    ACTOR_EN_JSJUTAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnJsjutan), (ActorFunc)EnJsjutan_Init, (ActorFunc)EnJsjutan_Destroy, (ActorFunc)EnJsjutan_Update, (ActorFunc)EnJsjutan_Draw, (ActorFunc)EnJsjutan_Reset,
+	    ACTOR_EN_JSJUTAN, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnJsjutan), (ActorFunc)EnJsjutan_Init, (ActorFunc)EnJsjutan_Destroy, (ActorFunc)EnJsjutan_Update, (ActorFunc)EnJsjutan_Draw, (ActorFunc)EnJsjutan_Reset,
 	};
 }

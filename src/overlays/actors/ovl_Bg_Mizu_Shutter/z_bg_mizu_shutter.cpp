@@ -28,7 +28,7 @@ void BgMizuShutter_Move(BgMizuShutter* pthis, GlobalContext* globalCtx);
 void BgMizuShutter_WaitForCutscene(BgMizuShutter* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mizu_Shutter_InitVars = {
-    ACTOR_BG_MIZU_SHUTTER, ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuShutter), (ActorFunc)BgMizuShutter_Init, (ActorFunc)BgMizuShutter_Destroy, (ActorFunc)BgMizuShutter_Update, (ActorFunc)BgMizuShutter_Draw, (ActorFunc)BgMizuShutter_Reset,
+    ACTOR_BG_MIZU_SHUTTER, ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuShutter), (ActorFunc)BgMizuShutter_Init, (ActorFunc)BgMizuShutter_Destroy, (ActorFunc)BgMizuShutter_Update, (ActorFunc)BgMizuShutter_Draw, (ActorFunc)BgMizuShutter_Reset,
 };
 
 static Gfx* sDisplayLists[] = {gObjectMizuObjectsShutterDL_007130, gObjectMizuObjectsShutterDL_0072D0};
@@ -196,7 +196,7 @@ void BgMizuShutter_Draw(BgMizuShutter* thisx, GlobalContext* globalCtx)
 void BgMizuShutter_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mizu_Shutter_InitVars = {
-	    ACTOR_BG_MIZU_SHUTTER,	    ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, sizeof(BgMizuShutter), (ActorFunc)BgMizuShutter_Init, (ActorFunc)BgMizuShutter_Destroy, (ActorFunc)BgMizuShutter_Update, (ActorFunc)BgMizuShutter_Draw,
+	    ACTOR_BG_MIZU_SHUTTER,	    ACTORCAT_PROP, FLAGS, OBJECT_MIZU_OBJECTS, ACTOR_FACTORY(BgMizuShutter), (ActorFunc)BgMizuShutter_Init, (ActorFunc)BgMizuShutter_Destroy, (ActorFunc)BgMizuShutter_Update, (ActorFunc)BgMizuShutter_Draw,
 	    (ActorFunc)BgMizuShutter_Reset,
 	};
 }

@@ -81,7 +81,7 @@ extern CutsceneData gChildWarpInToTCS[];
 extern CutsceneData gChildWarpOutToTCS[];
 
 ActorInit Demo_Kankyo_InitVars = {
-    ACTOR_DEMO_KANKYO, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DemoKankyo), (ActorFunc)DemoKankyo_Init, (ActorFunc)DemoKankyo_Destroy, (ActorFunc)DemoKankyo_Update, (ActorFunc)DemoKankyo_Draw, (ActorFunc)DemoKankyo_Reset,
+    ACTOR_DEMO_KANKYO, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DemoKankyo), (ActorFunc)DemoKankyo_Init, (ActorFunc)DemoKankyo_Destroy, (ActorFunc)DemoKankyo_Update, (ActorFunc)DemoKankyo_Draw, (ActorFunc)DemoKankyo_Reset,
 };
 
 static s16 sObjIds[] = {
@@ -1104,7 +1104,7 @@ void DemoKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_8098CFB8_91 = {0, 0, 0};
 
 	Demo_Kankyo_InitVars = {
-	    ACTOR_DEMO_KANKYO, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DemoKankyo), (ActorFunc)DemoKankyo_Init, (ActorFunc)DemoKankyo_Destroy, (ActorFunc)DemoKankyo_Update, (ActorFunc)DemoKankyo_Draw, (ActorFunc)DemoKankyo_Reset,
+	    ACTOR_DEMO_KANKYO, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DemoKankyo), (ActorFunc)DemoKankyo_Init, (ActorFunc)DemoKankyo_Destroy, (ActorFunc)DemoKankyo_Update, (ActorFunc)DemoKankyo_Draw, (ActorFunc)DemoKankyo_Reset,
 	};
 
 	D_8098CF80 = 0;

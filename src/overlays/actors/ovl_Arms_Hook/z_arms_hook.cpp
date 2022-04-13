@@ -27,7 +27,7 @@ void ArmsHook_Wait(ArmsHook* pthis, GlobalContext* globalCtx);
 void ArmsHook_Shoot(ArmsHook* pthis, GlobalContext* globalCtx);
 
 ActorInit Arms_Hook_InitVars = {
-    ACTOR_ARMS_HOOK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_BOY, sizeof(ArmsHook), (ActorFunc)ArmsHook_Init, (ActorFunc)ArmsHook_Destroy, (ActorFunc)ArmsHook_Update, (ActorFunc)ArmsHook_Draw, (ActorFunc)ArmsHook_Reset,
+    ACTOR_ARMS_HOOK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_BOY, ACTOR_FACTORY(ArmsHook), (ActorFunc)ArmsHook_Init, (ActorFunc)ArmsHook_Destroy, (ActorFunc)ArmsHook_Update, (ActorFunc)ArmsHook_Draw, (ActorFunc)ArmsHook_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -400,7 +400,7 @@ void ArmsHook_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void ArmsHook_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Arms_Hook_InitVars = {
-	    ACTOR_ARMS_HOOK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_BOY, sizeof(ArmsHook), (ActorFunc)ArmsHook_Init, (ActorFunc)ArmsHook_Destroy, (ActorFunc)ArmsHook_Update, (ActorFunc)ArmsHook_Draw, (ActorFunc)ArmsHook_Reset,
+	    ACTOR_ARMS_HOOK, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_BOY, ACTOR_FACTORY(ArmsHook), (ActorFunc)ArmsHook_Init, (ActorFunc)ArmsHook_Destroy, (ActorFunc)ArmsHook_Update, (ActorFunc)ArmsHook_Draw, (ActorFunc)ArmsHook_Reset,
 	};
 
 	sQuadInit = {

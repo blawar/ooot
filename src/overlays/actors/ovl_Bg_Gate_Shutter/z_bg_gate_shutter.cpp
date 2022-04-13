@@ -30,7 +30,7 @@ void func_808783AC(BgGateShutter* pthis, GlobalContext* globalCtx);
 void func_808783D4(BgGateShutter* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Gate_Shutter_InitVars = {
-    ACTOR_BG_GATE_SHUTTER,	    ACTORCAT_ITEMACTION, FLAGS, OBJECT_SPOT01_MATOYAB, sizeof(BgGateShutter), (ActorFunc)BgGateShutter_Init, (ActorFunc)BgGateShutter_Destroy, (ActorFunc)BgGateShutter_Update, (ActorFunc)BgGateShutter_Draw,
+    ACTOR_BG_GATE_SHUTTER,	    ACTORCAT_ITEMACTION, FLAGS, OBJECT_SPOT01_MATOYAB, ACTOR_FACTORY(BgGateShutter), (ActorFunc)BgGateShutter_Init, (ActorFunc)BgGateShutter_Destroy, (ActorFunc)BgGateShutter_Update, (ActorFunc)BgGateShutter_Draw,
     (ActorFunc)BgGateShutter_Reset,
 };
 
@@ -157,7 +157,7 @@ void BgGateShutter_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgGateShutter_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gate_Shutter_InitVars = {
-	    ACTOR_BG_GATE_SHUTTER,	    ACTORCAT_ITEMACTION, FLAGS, OBJECT_SPOT01_MATOYAB, sizeof(BgGateShutter), (ActorFunc)BgGateShutter_Init, (ActorFunc)BgGateShutter_Destroy, (ActorFunc)BgGateShutter_Update, (ActorFunc)BgGateShutter_Draw,
+	    ACTOR_BG_GATE_SHUTTER,	    ACTORCAT_ITEMACTION, FLAGS, OBJECT_SPOT01_MATOYAB, ACTOR_FACTORY(BgGateShutter), (ActorFunc)BgGateShutter_Init, (ActorFunc)BgGateShutter_Destroy, (ActorFunc)BgGateShutter_Update, (ActorFunc)BgGateShutter_Draw,
 	    (ActorFunc)BgGateShutter_Reset,
 	};
 }

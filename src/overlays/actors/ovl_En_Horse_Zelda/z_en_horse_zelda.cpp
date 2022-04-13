@@ -33,7 +33,7 @@ void func_80A6DDFC(EnHorseZelda* pthis, GlobalContext* globalCtx);
 void func_80A6DC7C(EnHorseZelda* pthis);
 
 ActorInit En_Horse_Zelda_InitVars = {
-    ACTOR_EN_HORSE_ZELDA, ACTORCAT_BG, FLAGS, OBJECT_HORSE_ZELDA, sizeof(EnHorseZelda), (ActorFunc)EnHorseZelda_Init, (ActorFunc)EnHorseZelda_Destroy, (ActorFunc)EnHorseZelda_Update, (ActorFunc)EnHorseZelda_Draw, (ActorFunc)EnHorseZelda_Reset,
+    ACTOR_EN_HORSE_ZELDA, ACTORCAT_BG, FLAGS, OBJECT_HORSE_ZELDA, ACTOR_FACTORY(EnHorseZelda), (ActorFunc)EnHorseZelda_Init, (ActorFunc)EnHorseZelda_Destroy, (ActorFunc)EnHorseZelda_Update, (ActorFunc)EnHorseZelda_Draw, (ActorFunc)EnHorseZelda_Reset,
 };
 
 static AnimationHeader* sAnimationHeaders[] = {&gHorseZeldaGallopingAnim};
@@ -302,7 +302,7 @@ void EnHorseZelda_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHorseZelda_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Horse_Zelda_InitVars = {
-	    ACTOR_EN_HORSE_ZELDA, ACTORCAT_BG, FLAGS, OBJECT_HORSE_ZELDA, sizeof(EnHorseZelda), (ActorFunc)EnHorseZelda_Init, (ActorFunc)EnHorseZelda_Destroy, (ActorFunc)EnHorseZelda_Update, (ActorFunc)EnHorseZelda_Draw, (ActorFunc)EnHorseZelda_Reset,
+	    ACTOR_EN_HORSE_ZELDA, ACTORCAT_BG, FLAGS, OBJECT_HORSE_ZELDA, ACTOR_FACTORY(EnHorseZelda), (ActorFunc)EnHorseZelda_Init, (ActorFunc)EnHorseZelda_Destroy, (ActorFunc)EnHorseZelda_Update, (ActorFunc)EnHorseZelda_Draw, (ActorFunc)EnHorseZelda_Reset,
 	};
 
 	sCylinderInit = {

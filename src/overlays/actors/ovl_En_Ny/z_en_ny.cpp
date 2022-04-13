@@ -37,7 +37,7 @@ void EnNy_DrawDeathEffect(Actor* thisx, GlobalContext* GlobalContext);
 void func_80ABD3B8(EnNy* pthis, f32, f32);
 
 ActorInit En_Ny_InitVars = {
-    ACTOR_EN_NY, ACTORCAT_ENEMY, FLAGS, OBJECT_NY, sizeof(EnNy), (ActorFunc)EnNy_Init, (ActorFunc)EnNy_Destroy, (ActorFunc)EnNy_Update, (ActorFunc)EnNy_Draw, (ActorFunc)EnNy_Reset,
+    ACTOR_EN_NY, ACTORCAT_ENEMY, FLAGS, OBJECT_NY, ACTOR_FACTORY(EnNy), (ActorFunc)EnNy_Init, (ActorFunc)EnNy_Destroy, (ActorFunc)EnNy_Update, (ActorFunc)EnNy_Draw, (ActorFunc)EnNy_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -694,7 +694,7 @@ void EnNy_DrawDeathEffect(Actor* thisx, GlobalContext* globalCtx)
 void EnNy_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ny_InitVars = {
-	    ACTOR_EN_NY, ACTORCAT_ENEMY, FLAGS, OBJECT_NY, sizeof(EnNy), (ActorFunc)EnNy_Init, (ActorFunc)EnNy_Destroy, (ActorFunc)EnNy_Update, (ActorFunc)EnNy_Draw, (ActorFunc)EnNy_Reset,
+	    ACTOR_EN_NY, ACTORCAT_ENEMY, FLAGS, OBJECT_NY, ACTOR_FACTORY(EnNy), (ActorFunc)EnNy_Init, (ActorFunc)EnNy_Destroy, (ActorFunc)EnNy_Update, (ActorFunc)EnNy_Draw, (ActorFunc)EnNy_Reset,
 	};
 
 	sColliderInit = {

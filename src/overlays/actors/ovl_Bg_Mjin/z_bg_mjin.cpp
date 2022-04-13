@@ -35,7 +35,7 @@ void func_808A0850(BgMjin* pthis, GlobalContext* globalCtx);
 void BgMjin_DoNothing(BgMjin* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mjin_InitVars = {
-    ACTOR_BG_MJIN, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgMjin), (ActorFunc)BgMjin_Init, (ActorFunc)BgMjin_Destroy, (ActorFunc)BgMjin_Update, NULL, (ActorFunc)BgMjin_Reset,
+    ACTOR_BG_MJIN, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgMjin), (ActorFunc)BgMjin_Init, (ActorFunc)BgMjin_Destroy, (ActorFunc)BgMjin_Update, NULL, (ActorFunc)BgMjin_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -142,6 +142,6 @@ void BgMjin_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMjin_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mjin_InitVars = {
-	    ACTOR_BG_MJIN, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgMjin), (ActorFunc)BgMjin_Init, (ActorFunc)BgMjin_Destroy, (ActorFunc)BgMjin_Update, NULL, (ActorFunc)BgMjin_Reset,
+	    ACTOR_BG_MJIN, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgMjin), (ActorFunc)BgMjin_Init, (ActorFunc)BgMjin_Destroy, (ActorFunc)BgMjin_Update, NULL, (ActorFunc)BgMjin_Reset,
 	};
 }

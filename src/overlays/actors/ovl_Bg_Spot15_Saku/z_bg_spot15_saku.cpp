@@ -27,7 +27,7 @@ void func_808B4978(BgSpot15Saku* pthis, GlobalContext* globalCtx);
 void func_808B4A04(BgSpot15Saku* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot15_Saku_InitVars = {
-    ACTOR_BG_SPOT15_SAKU, ACTORCAT_ITEMACTION, FLAGS, OBJECT_SPOT15_OBJ, sizeof(BgSpot15Saku), (ActorFunc)BgSpot15Saku_Init, (ActorFunc)BgSpot15Saku_Destroy, (ActorFunc)BgSpot15Saku_Update, (ActorFunc)BgSpot15Saku_Draw, (ActorFunc)BgSpot15Saku_Reset,
+    ACTOR_BG_SPOT15_SAKU, ACTORCAT_ITEMACTION, FLAGS, OBJECT_SPOT15_OBJ, ACTOR_FACTORY(BgSpot15Saku), (ActorFunc)BgSpot15Saku_Init, (ActorFunc)BgSpot15Saku_Destroy, (ActorFunc)BgSpot15Saku_Update, (ActorFunc)BgSpot15Saku_Draw, (ActorFunc)BgSpot15Saku_Reset,
 };
 
 void BgSpot15Saku_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -120,7 +120,7 @@ void BgSpot15Saku_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot15Saku_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot15_Saku_InitVars = {
-	    ACTOR_BG_SPOT15_SAKU,	  ACTORCAT_ITEMACTION,		 FLAGS, OBJECT_SPOT15_OBJ, sizeof(BgSpot15Saku), (ActorFunc)BgSpot15Saku_Init, (ActorFunc)BgSpot15Saku_Destroy, (ActorFunc)BgSpot15Saku_Update,
+	    ACTOR_BG_SPOT15_SAKU,	  ACTORCAT_ITEMACTION,		 FLAGS, OBJECT_SPOT15_OBJ, ACTOR_FACTORY(BgSpot15Saku), (ActorFunc)BgSpot15Saku_Init, (ActorFunc)BgSpot15Saku_Destroy, (ActorFunc)BgSpot15Saku_Update,
 	    (ActorFunc)BgSpot15Saku_Draw, (ActorFunc)BgSpot15Saku_Reset,
 	};
 }

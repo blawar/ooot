@@ -30,7 +30,7 @@ static EnEgActionFunc sActionFuncs[] = {
 };
 
 ActorInit En_Eg_InitVars = {
-    ACTOR_EN_EG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ZL2, sizeof(EnEg), (ActorFunc)EnEg_Init, (ActorFunc)EnEg_Destroy, (ActorFunc)EnEg_Update, (ActorFunc)EnEg_Draw, (ActorFunc)EnEg_Reset,
+    ACTOR_EN_EG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ZL2, ACTOR_FACTORY(EnEg), (ActorFunc)EnEg_Init, (ActorFunc)EnEg_Destroy, (ActorFunc)EnEg_Update, (ActorFunc)EnEg_Draw, (ActorFunc)EnEg_Reset,
 };
 
 void EnEg_PlayVoidOutSFX()
@@ -88,6 +88,6 @@ void EnEg_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	voided = false;
 
 	En_Eg_InitVars = {
-	    ACTOR_EN_EG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ZL2, sizeof(EnEg), (ActorFunc)EnEg_Init, (ActorFunc)EnEg_Destroy, (ActorFunc)EnEg_Update, (ActorFunc)EnEg_Draw, (ActorFunc)EnEg_Reset,
+	    ACTOR_EN_EG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ZL2, ACTOR_FACTORY(EnEg), (ActorFunc)EnEg_Init, (ActorFunc)EnEg_Destroy, (ActorFunc)EnEg_Update, (ActorFunc)EnEg_Draw, (ActorFunc)EnEg_Reset,
 	};
 }

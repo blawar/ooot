@@ -59,7 +59,7 @@ void EnTite_FlipOnBack(EnTite* pthis, GlobalContext* globalCtx);
 void EnTite_FlipUpright(EnTite* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Tite_InitVars = {
-    ACTOR_EN_TITE, ACTORCAT_ENEMY, FLAGS, OBJECT_TITE, sizeof(EnTite), (ActorFunc)EnTite_Init, (ActorFunc)EnTite_Destroy, (ActorFunc)EnTite_Update, (ActorFunc)EnTite_Draw, (ActorFunc)EnTite_Reset,
+    ACTOR_EN_TITE, ACTORCAT_ENEMY, FLAGS, OBJECT_TITE, ACTOR_FACTORY(EnTite), (ActorFunc)EnTite_Init, (ActorFunc)EnTite_Destroy, (ActorFunc)EnTite_Update, (ActorFunc)EnTite_Draw, (ActorFunc)EnTite_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -1178,7 +1178,7 @@ void EnTite_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnTite_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Tite_InitVars = {
-	    ACTOR_EN_TITE, ACTORCAT_ENEMY, FLAGS, OBJECT_TITE, sizeof(EnTite), (ActorFunc)EnTite_Init, (ActorFunc)EnTite_Destroy, (ActorFunc)EnTite_Update, (ActorFunc)EnTite_Draw, (ActorFunc)EnTite_Reset,
+	    ACTOR_EN_TITE, ACTORCAT_ENEMY, FLAGS, OBJECT_TITE, ACTOR_FACTORY(EnTite), (ActorFunc)EnTite_Init, (ActorFunc)EnTite_Destroy, (ActorFunc)EnTite_Update, (ActorFunc)EnTite_Draw, (ActorFunc)EnTite_Reset,
 	};
 
 	sJntSphInit = {

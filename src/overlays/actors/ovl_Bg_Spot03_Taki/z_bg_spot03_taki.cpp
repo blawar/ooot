@@ -28,7 +28,7 @@ void BgSpot03Taki_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_808ADEF0(BgSpot03Taki* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot03_Taki_InitVars = {
-    ACTOR_BG_SPOT03_TAKI, ACTORCAT_BG, FLAGS, OBJECT_SPOT03_OBJECT, sizeof(BgSpot03Taki), (ActorFunc)BgSpot03Taki_Init, (ActorFunc)BgSpot03Taki_Destroy, (ActorFunc)BgSpot03Taki_Update, (ActorFunc)BgSpot03Taki_Draw, (ActorFunc)BgSpot03Taki_Reset,
+    ACTOR_BG_SPOT03_TAKI, ACTORCAT_BG, FLAGS, OBJECT_SPOT03_OBJECT, ACTOR_FACTORY(BgSpot03Taki), (ActorFunc)BgSpot03Taki_Init, (ActorFunc)BgSpot03Taki_Destroy, (ActorFunc)BgSpot03Taki_Update, (ActorFunc)BgSpot03Taki_Draw, (ActorFunc)BgSpot03Taki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -187,6 +187,6 @@ void BgSpot03Taki_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot03Taki_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot03_Taki_InitVars = {
-	    ACTOR_BG_SPOT03_TAKI, ACTORCAT_BG, FLAGS, OBJECT_SPOT03_OBJECT, sizeof(BgSpot03Taki), (ActorFunc)BgSpot03Taki_Init, (ActorFunc)BgSpot03Taki_Destroy, (ActorFunc)BgSpot03Taki_Update, (ActorFunc)BgSpot03Taki_Draw, (ActorFunc)BgSpot03Taki_Reset,
+	    ACTOR_BG_SPOT03_TAKI, ACTORCAT_BG, FLAGS, OBJECT_SPOT03_OBJECT, ACTOR_FACTORY(BgSpot03Taki), (ActorFunc)BgSpot03Taki_Init, (ActorFunc)BgSpot03Taki_Destroy, (ActorFunc)BgSpot03Taki_Update, (ActorFunc)BgSpot03Taki_Draw, (ActorFunc)BgSpot03Taki_Reset,
 	};
 }

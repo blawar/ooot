@@ -50,7 +50,7 @@ void func_809EEA90(EnDivingGame* pthis, GlobalContext* globalCtx);
 void func_809EEAF8(EnDivingGame* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Diving_Game_InitVars = {
-    ACTOR_EN_DIVING_GAME, ACTORCAT_NPC, FLAGS, OBJECT_ZO, sizeof(EnDivingGame), (ActorFunc)EnDivingGame_Init, (ActorFunc)EnDivingGame_Destroy, (ActorFunc)EnDivingGame_Update, (ActorFunc)EnDivingGame_Draw, (ActorFunc)EnDivingGame_Reset,
+    ACTOR_EN_DIVING_GAME, ACTORCAT_NPC, FLAGS, OBJECT_ZO, ACTOR_FACTORY(EnDivingGame), (ActorFunc)EnDivingGame_Init, (ActorFunc)EnDivingGame_Destroy, (ActorFunc)EnDivingGame_Update, (ActorFunc)EnDivingGame_Draw, (ActorFunc)EnDivingGame_Reset,
 };
 
 // used to ensure there's only one instance of pthis actor.
@@ -684,7 +684,7 @@ void EnDivingGame_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDivingGame_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Diving_Game_InitVars = {
-	    ACTOR_EN_DIVING_GAME, ACTORCAT_NPC, FLAGS, OBJECT_ZO, sizeof(EnDivingGame), (ActorFunc)EnDivingGame_Init, (ActorFunc)EnDivingGame_Destroy, (ActorFunc)EnDivingGame_Update, (ActorFunc)EnDivingGame_Draw, (ActorFunc)EnDivingGame_Reset,
+	    ACTOR_EN_DIVING_GAME, ACTORCAT_NPC, FLAGS, OBJECT_ZO, ACTOR_FACTORY(EnDivingGame), (ActorFunc)EnDivingGame_Init, (ActorFunc)EnDivingGame_Destroy, (ActorFunc)EnDivingGame_Update, (ActorFunc)EnDivingGame_Draw, (ActorFunc)EnDivingGame_Reset,
 	};
 
 	D_809EF0B0 = false;

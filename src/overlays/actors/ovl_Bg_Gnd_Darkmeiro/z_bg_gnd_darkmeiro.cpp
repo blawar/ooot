@@ -30,7 +30,7 @@ void BgGndDarkmeiro_UpdateStaticBlock(BgGndDarkmeiro* pthis, GlobalContext* glob
 void BgGndDarkmeiro_UpdateSwitchBlock(BgGndDarkmeiro* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Gnd_Darkmeiro_InitVars = {
-    ACTOR_BG_GND_DARKMEIRO, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndDarkmeiro), (ActorFunc)BgGndDarkmeiro_Init, (ActorFunc)BgGndDarkmeiro_Destroy, (ActorFunc)BgGndDarkmeiro_Update, NULL, (ActorFunc)BgGndDarkmeiro_Reset,
+    ACTOR_BG_GND_DARKMEIRO, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndDarkmeiro), (ActorFunc)BgGndDarkmeiro_Init, (ActorFunc)BgGndDarkmeiro_Destroy, (ActorFunc)BgGndDarkmeiro_Update, NULL, (ActorFunc)BgGndDarkmeiro_Reset,
 };
 
 void BgGndDarkmeiro_ToggleBlock(BgGndDarkmeiro* pthis, GlobalContext* globalCtx)
@@ -273,6 +273,6 @@ void BgGndDarkmeiro_DrawStaticBlock(Actor* pthisx, GlobalContext* globalCtx)
 void BgGndDarkmeiro_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gnd_Darkmeiro_InitVars = {
-	    ACTOR_BG_GND_DARKMEIRO, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndDarkmeiro), (ActorFunc)BgGndDarkmeiro_Init, (ActorFunc)BgGndDarkmeiro_Destroy, (ActorFunc)BgGndDarkmeiro_Update, NULL, (ActorFunc)BgGndDarkmeiro_Reset,
+	    ACTOR_BG_GND_DARKMEIRO, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndDarkmeiro), (ActorFunc)BgGndDarkmeiro_Init, (ActorFunc)BgGndDarkmeiro_Destroy, (ActorFunc)BgGndDarkmeiro_Update, NULL, (ActorFunc)BgGndDarkmeiro_Reset,
 	};
 }

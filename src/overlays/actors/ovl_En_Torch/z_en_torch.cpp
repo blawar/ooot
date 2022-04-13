@@ -15,7 +15,7 @@ void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx);
 
 ActorInit En_Torch_InitVars = {
-    ACTOR_EN_TORCH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnTorch), (ActorFunc)EnTorch_Init, NULL, NULL, NULL, (ActorFunc)EnTorch_Reset,
+    ACTOR_EN_TORCH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnTorch), (ActorFunc)EnTorch_Init, NULL, NULL, NULL, (ActorFunc)EnTorch_Reset,
 };
 
 static u8 sChestContents[] = {
@@ -38,6 +38,6 @@ void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx)
 void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Torch_InitVars = {
-	    ACTOR_EN_TORCH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnTorch), (ActorFunc)EnTorch_Init, NULL, NULL, NULL, (ActorFunc)EnTorch_Reset,
+	    ACTOR_EN_TORCH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnTorch), (ActorFunc)EnTorch_Init, NULL, NULL, NULL, (ActorFunc)EnTorch_Reset,
 	};
 }

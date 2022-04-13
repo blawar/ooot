@@ -35,7 +35,7 @@ void BgBreakwall_Wait(BgBreakwall* pthis, GlobalContext* globalCtx);
 void BgBreakwall_LavaCoverMove(BgBreakwall* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Breakwall_InitVars = {
-    ACTOR_BG_BREAKWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgBreakwall), (ActorFunc)BgBreakwall_Init, (ActorFunc)BgBreakwall_Destroy, (ActorFunc)BgBreakwall_Update, NULL, (ActorFunc)BgBreakwall_Reset,
+    ACTOR_BG_BREAKWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgBreakwall), (ActorFunc)BgBreakwall_Init, (ActorFunc)BgBreakwall_Destroy, (ActorFunc)BgBreakwall_Update, NULL, (ActorFunc)BgBreakwall_Reset,
 };
 
 static ColliderQuadInit sQuadInit = {
@@ -357,7 +357,7 @@ void BgBreakwall_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgBreakwall_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Breakwall_InitVars = {
-	    ACTOR_BG_BREAKWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgBreakwall), (ActorFunc)BgBreakwall_Init, (ActorFunc)BgBreakwall_Destroy, (ActorFunc)BgBreakwall_Update, NULL, (ActorFunc)BgBreakwall_Reset,
+	    ACTOR_BG_BREAKWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgBreakwall), (ActorFunc)BgBreakwall_Init, (ActorFunc)BgBreakwall_Destroy, (ActorFunc)BgBreakwall_Update, NULL, (ActorFunc)BgBreakwall_Reset,
 	};
 
 	sQuadInit = {

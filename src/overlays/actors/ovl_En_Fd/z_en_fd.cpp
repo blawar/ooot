@@ -49,7 +49,7 @@ static void* dustTextures_81[] = {
 };
 
 ActorInit En_Fd_InitVars = {
-    ACTOR_EN_FD, ACTORCAT_ENEMY, FLAGS, OBJECT_FW, sizeof(EnFd), (ActorFunc)EnFd_Init, (ActorFunc)EnFd_Destroy, (ActorFunc)EnFd_Update, (ActorFunc)EnFd_Draw, (ActorFunc)EnFd_Reset,
+    ACTOR_EN_FD, ACTORCAT_ENEMY, FLAGS, OBJECT_FW, ACTOR_FACTORY(EnFd), (ActorFunc)EnFd_Init, (ActorFunc)EnFd_Destroy, (ActorFunc)EnFd_Update, (ActorFunc)EnFd_Draw, (ActorFunc)EnFd_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[12] = {
@@ -1058,7 +1058,7 @@ void EnFd_DrawDots(EnFd* pthis, GlobalContext* globalCtx)
 void EnFd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Fd_InitVars = {
-	    ACTOR_EN_FD, ACTORCAT_ENEMY, FLAGS, OBJECT_FW, sizeof(EnFd), (ActorFunc)EnFd_Init, (ActorFunc)EnFd_Destroy, (ActorFunc)EnFd_Update, (ActorFunc)EnFd_Draw, (ActorFunc)EnFd_Reset,
+	    ACTOR_EN_FD, ACTORCAT_ENEMY, FLAGS, OBJECT_FW, ACTOR_FACTORY(EnFd), (ActorFunc)EnFd_Init, (ActorFunc)EnFd_Destroy, (ActorFunc)EnFd_Update, (ActorFunc)EnFd_Draw, (ActorFunc)EnFd_Reset,
 	};
 
 	sJntSphInit = {

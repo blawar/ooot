@@ -32,7 +32,7 @@ static Vec3f D_80894F88_42 = {-920.0f, 480.0f, -889.0f};
 static Vec3s D_80894F94_42 = {0, 0, 0};
 
 ActorInit Bg_Jya_Bombchuiwa_InitVars = {
-    ACTOR_BG_JYA_BOMBCHUIWA,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaBombchuiwa), (ActorFunc)BgJyaBombchuiwa_Init, (ActorFunc)BgJyaBombchuiwa_Destroy, (ActorFunc)BgJyaBombchuiwa_Update, (ActorFunc)BgJyaBombchuiwa_Draw,
+    ACTOR_BG_JYA_BOMBCHUIWA,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaBombchuiwa), (ActorFunc)BgJyaBombchuiwa_Init, (ActorFunc)BgJyaBombchuiwa_Destroy, (ActorFunc)BgJyaBombchuiwa_Update, (ActorFunc)BgJyaBombchuiwa_Draw,
     (ActorFunc)BgJyaBombchuiwa_Reset,
 };
 
@@ -285,7 +285,7 @@ void BgJyaBombchuiwa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80894F94_42 = {0, 0, 0};
 
 	Bg_Jya_Bombchuiwa_InitVars = {
-	    ACTOR_BG_JYA_BOMBCHUIWA,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaBombchuiwa), (ActorFunc)BgJyaBombchuiwa_Init, (ActorFunc)BgJyaBombchuiwa_Destroy, (ActorFunc)BgJyaBombchuiwa_Update, (ActorFunc)BgJyaBombchuiwa_Draw,
+	    ACTOR_BG_JYA_BOMBCHUIWA,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaBombchuiwa), (ActorFunc)BgJyaBombchuiwa_Init, (ActorFunc)BgJyaBombchuiwa_Destroy, (ActorFunc)BgJyaBombchuiwa_Update, (ActorFunc)BgJyaBombchuiwa_Draw,
 	    (ActorFunc)BgJyaBombchuiwa_Reset,
 	};
 

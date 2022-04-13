@@ -76,7 +76,7 @@ static ColliderJntSphInit sColliderInit = {
 };
 
 ActorInit En_Butte_InitVars = {
-    ACTOR_EN_BUTTE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(EnButte), (ActorFunc)EnButte_Init, (ActorFunc)EnButte_Destroy, (ActorFunc)EnButte_Update, (ActorFunc)EnButte_Draw, (ActorFunc)EnButte_Reset,
+    ACTOR_EN_BUTTE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(EnButte), (ActorFunc)EnButte_Init, (ActorFunc)EnButte_Destroy, (ActorFunc)EnButte_Update, (ActorFunc)EnButte_Draw, (ActorFunc)EnButte_Reset,
 };
 
 static EnButteFlightParams sFlyAroundParams[] = {
@@ -510,7 +510,7 @@ void EnButte_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Butte_InitVars = {
-	    ACTOR_EN_BUTTE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(EnButte), (ActorFunc)EnButte_Init, (ActorFunc)EnButte_Destroy, (ActorFunc)EnButte_Update, (ActorFunc)EnButte_Draw, (ActorFunc)EnButte_Reset,
+	    ACTOR_EN_BUTTE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(EnButte), (ActorFunc)EnButte_Init, (ActorFunc)EnButte_Destroy, (ActorFunc)EnButte_Update, (ActorFunc)EnButte_Draw, (ActorFunc)EnButte_Reset,
 	};
 
 	sTransformationEffectScale = 0.0f;

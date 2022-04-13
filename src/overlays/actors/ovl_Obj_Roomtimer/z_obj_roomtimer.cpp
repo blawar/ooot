@@ -24,7 +24,7 @@ void func_80B9D054(ObjRoomtimer* pthis, GlobalContext* globalCtx);
 void func_80B9D0B0(ObjRoomtimer* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Roomtimer_InitVars = {
-    ACTOR_OBJ_ROOMTIMER, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjRoomtimer), (ActorFunc)ObjRoomtimer_Init, (ActorFunc)ObjRoomtimer_Destroy, (ActorFunc)ObjRoomtimer_Update, (ActorFunc)NULL, (ActorFunc)ObjRoomtimer_Reset,
+    ACTOR_OBJ_ROOMTIMER, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjRoomtimer), (ActorFunc)ObjRoomtimer_Init, (ActorFunc)ObjRoomtimer_Destroy, (ActorFunc)ObjRoomtimer_Update, (ActorFunc)NULL, (ActorFunc)ObjRoomtimer_Reset,
 };
 
 void ObjRoomtimer_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -106,6 +106,6 @@ void ObjRoomtimer_Update(Actor* thisx, GlobalContext* globalCtx)
 void ObjRoomtimer_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Roomtimer_InitVars = {
-	    ACTOR_OBJ_ROOMTIMER, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjRoomtimer), (ActorFunc)ObjRoomtimer_Init, (ActorFunc)ObjRoomtimer_Destroy, (ActorFunc)ObjRoomtimer_Update, (ActorFunc)NULL, (ActorFunc)ObjRoomtimer_Reset,
+	    ACTOR_OBJ_ROOMTIMER, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjRoomtimer), (ActorFunc)ObjRoomtimer_Init, (ActorFunc)ObjRoomtimer_Destroy, (ActorFunc)ObjRoomtimer_Update, (ActorFunc)NULL, (ActorFunc)ObjRoomtimer_Reset,
 	};
 }

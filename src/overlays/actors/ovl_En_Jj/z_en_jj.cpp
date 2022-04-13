@@ -39,7 +39,7 @@ static Vec3f feedingSpot_45 = {-1589.0f, 53.0f, -43.0f};
 static void* eyeTextures_51[] = {gJabuJabuEyeOpenTex, gJabuJabuEyeHalfTex, gJabuJabuEyeClosedTex};
 
 ActorInit En_Jj_InitVars = {
-    ACTOR_EN_JJ, ACTORCAT_ITEMACTION, FLAGS, OBJECT_JJ, sizeof(EnJj), (ActorFunc)EnJj_Init, (ActorFunc)EnJj_Destroy, (ActorFunc)EnJj_Update, (ActorFunc)EnJj_Draw, (ActorFunc)EnJj_Reset,
+    ACTOR_EN_JJ, ACTORCAT_ITEMACTION, FLAGS, OBJECT_JJ, ACTOR_FACTORY(EnJj), (ActorFunc)EnJj_Init, (ActorFunc)EnJj_Destroy, (ActorFunc)EnJj_Update, (ActorFunc)EnJj_Draw, (ActorFunc)EnJj_Reset,
 };
 
 static s32 sUnused = 0;
@@ -364,7 +364,7 @@ void EnJj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	feedingSpot_45 = {-1589.0f, 53.0f, -43.0f};
 
 	En_Jj_InitVars = {
-	    ACTOR_EN_JJ, ACTORCAT_ITEMACTION, FLAGS, OBJECT_JJ, sizeof(EnJj), (ActorFunc)EnJj_Init, (ActorFunc)EnJj_Destroy, (ActorFunc)EnJj_Update, (ActorFunc)EnJj_Draw, (ActorFunc)EnJj_Reset,
+	    ACTOR_EN_JJ, ACTORCAT_ITEMACTION, FLAGS, OBJECT_JJ, ACTOR_FACTORY(EnJj), (ActorFunc)EnJj_Init, (ActorFunc)EnJj_Destroy, (ActorFunc)EnJj_Update, (ActorFunc)EnJj_Draw, (ActorFunc)EnJj_Reset,
 	};
 
 	sUnused = 0;

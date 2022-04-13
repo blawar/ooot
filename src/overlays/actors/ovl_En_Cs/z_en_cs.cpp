@@ -42,7 +42,7 @@ static void* eyeTextures_48[] = {
 static Vec3f D_809E2970_50 = {500.0f, 800.0f, 0.0f};
 
 ActorInit En_Cs_InitVars = {
-    ACTOR_EN_CS, ACTORCAT_NPC, FLAGS, OBJECT_CS, sizeof(EnCs), (ActorFunc)EnCs_Init, (ActorFunc)EnCs_Destroy, (ActorFunc)EnCs_Update, (ActorFunc)EnCs_Draw, (ActorFunc)EnCs_Reset,
+    ACTOR_EN_CS, ACTORCAT_NPC, FLAGS, OBJECT_CS, ACTOR_FACTORY(EnCs), (ActorFunc)EnCs_Init, (ActorFunc)EnCs_Destroy, (ActorFunc)EnCs_Update, (ActorFunc)EnCs_Draw, (ActorFunc)EnCs_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -611,7 +611,7 @@ void EnCs_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_809E2970_50 = {500.0f, 800.0f, 0.0f};
 
 	En_Cs_InitVars = {
-	    ACTOR_EN_CS, ACTORCAT_NPC, FLAGS, OBJECT_CS, sizeof(EnCs), (ActorFunc)EnCs_Init, (ActorFunc)EnCs_Destroy, (ActorFunc)EnCs_Update, (ActorFunc)EnCs_Draw, (ActorFunc)EnCs_Reset,
+	    ACTOR_EN_CS, ACTORCAT_NPC, FLAGS, OBJECT_CS, ACTOR_FACTORY(EnCs), (ActorFunc)EnCs_Init, (ActorFunc)EnCs_Destroy, (ActorFunc)EnCs_Update, (ActorFunc)EnCs_Draw, (ActorFunc)EnCs_Reset,
 	};
 
 	sCylinderInit = {

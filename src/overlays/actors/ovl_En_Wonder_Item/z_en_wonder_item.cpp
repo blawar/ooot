@@ -61,7 +61,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 ActorInit En_Wonder_Item_InitVars = {
-    ACTOR_EN_WONDER_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnWonderItem), (ActorFunc)EnWonderItem_Init, (ActorFunc)EnWonderItem_Destroy, (ActorFunc)EnWonderItem_Update, NULL, (ActorFunc)EnWonderItem_Reset,
+    ACTOR_EN_WONDER_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnWonderItem), (ActorFunc)EnWonderItem_Init, (ActorFunc)EnWonderItem_Destroy, (ActorFunc)EnWonderItem_Update, NULL, (ActorFunc)EnWonderItem_Reset,
 };
 
 static Vec3f sTagPointsFree[9];
@@ -425,6 +425,6 @@ void EnWonderItem_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Wonder_Item_InitVars = {
-	    ACTOR_EN_WONDER_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnWonderItem), (ActorFunc)EnWonderItem_Init, (ActorFunc)EnWonderItem_Destroy, (ActorFunc)EnWonderItem_Update, NULL, (ActorFunc)EnWonderItem_Reset,
+	    ACTOR_EN_WONDER_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnWonderItem), (ActorFunc)EnWonderItem_Init, (ActorFunc)EnWonderItem_Destroy, (ActorFunc)EnWonderItem_Update, NULL, (ActorFunc)EnWonderItem_Reset,
 	};
 }

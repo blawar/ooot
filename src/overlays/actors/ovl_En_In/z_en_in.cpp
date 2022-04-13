@@ -46,7 +46,7 @@ void func_80A7A4BC(EnIn* pthis, GlobalContext* globalCtx);
 static void* eyeTextures_84[] = {gIngoEyeOpenTex, gIngoEyeHalfTex, gIngoEyeClosedTex, gIngoEyeClosed2Tex};
 
 ActorInit En_In_InitVars = {
-    ACTOR_EN_IN, ACTORCAT_NPC, FLAGS, OBJECT_IN, sizeof(EnIn), (ActorFunc)EnIn_Init, (ActorFunc)EnIn_Destroy, (ActorFunc)EnIn_Update, (ActorFunc)EnIn_Draw, (ActorFunc)EnIn_Reset,
+    ACTOR_EN_IN, ACTORCAT_NPC, FLAGS, OBJECT_IN, ACTOR_FACTORY(EnIn), (ActorFunc)EnIn_Init, (ActorFunc)EnIn_Destroy, (ActorFunc)EnIn_Update, (ActorFunc)EnIn_Draw, (ActorFunc)EnIn_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1193,7 +1193,7 @@ void EnIn_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnIn_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_In_InitVars = {
-	    ACTOR_EN_IN, ACTORCAT_NPC, FLAGS, OBJECT_IN, sizeof(EnIn), (ActorFunc)EnIn_Init, (ActorFunc)EnIn_Destroy, (ActorFunc)EnIn_Update, (ActorFunc)EnIn_Draw, (ActorFunc)EnIn_Reset,
+	    ACTOR_EN_IN, ACTORCAT_NPC, FLAGS, OBJECT_IN, ACTOR_FACTORY(EnIn), (ActorFunc)EnIn_Init, (ActorFunc)EnIn_Destroy, (ActorFunc)EnIn_Update, (ActorFunc)EnIn_Draw, (ActorFunc)EnIn_Reset,
 	};
 
 	sCylinderInit = {

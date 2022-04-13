@@ -30,7 +30,7 @@ void BgHidanFirewall_Collide(BgHidanFirewall* pthis, GlobalContext* globalCtx);
 void BgHidanFirewall_ColliderFollowPlayer(BgHidanFirewall* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Hidan_Firewall_InitVars = {
-    ACTOR_BG_HIDAN_FIREWALL, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanFirewall), (ActorFunc)BgHidanFirewall_Init, (ActorFunc)BgHidanFirewall_Destroy, (ActorFunc)BgHidanFirewall_Update, NULL, (ActorFunc)BgHidanFirewall_Reset,
+    ACTOR_BG_HIDAN_FIREWALL, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanFirewall), (ActorFunc)BgHidanFirewall_Init, (ActorFunc)BgHidanFirewall_Destroy, (ActorFunc)BgHidanFirewall_Update, NULL, (ActorFunc)BgHidanFirewall_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -252,7 +252,7 @@ void BgHidanFirewall_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHidanFirewall_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Hidan_Firewall_InitVars = {
-	    ACTOR_BG_HIDAN_FIREWALL, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanFirewall), (ActorFunc)BgHidanFirewall_Init, (ActorFunc)BgHidanFirewall_Destroy, (ActorFunc)BgHidanFirewall_Update, NULL, (ActorFunc)BgHidanFirewall_Reset,
+	    ACTOR_BG_HIDAN_FIREWALL, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanFirewall), (ActorFunc)BgHidanFirewall_Init, (ActorFunc)BgHidanFirewall_Destroy, (ActorFunc)BgHidanFirewall_Update, NULL, (ActorFunc)BgHidanFirewall_Reset,
 	};
 
 	sCylinderInit = {

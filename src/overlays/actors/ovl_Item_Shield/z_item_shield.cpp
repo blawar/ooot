@@ -55,7 +55,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 ActorInit Item_Shield_InitVars = {
-    ACTOR_ITEM_SHIELD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_CHILD, sizeof(ItemShield), (ActorFunc)ItemShield_Init, (ActorFunc)ItemShield_Destroy, (ActorFunc)ItemShield_Update, (ActorFunc)ItemShield_Draw, (ActorFunc)ItemShield_Reset,
+    ACTOR_ITEM_SHIELD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_CHILD, ACTOR_FACTORY(ItemShield), (ActorFunc)ItemShield_Init, (ActorFunc)ItemShield_Destroy, (ActorFunc)ItemShield_Update, (ActorFunc)ItemShield_Draw, (ActorFunc)ItemShield_Reset,
 };
 
 static Color_RGBA8 unused = {255, 255, 0, 255};
@@ -287,7 +287,7 @@ void ItemShield_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	Item_Shield_InitVars = {
-	    ACTOR_ITEM_SHIELD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_CHILD, sizeof(ItemShield), (ActorFunc)ItemShield_Init, (ActorFunc)ItemShield_Destroy, (ActorFunc)ItemShield_Update, (ActorFunc)ItemShield_Draw, (ActorFunc)ItemShield_Reset,
+	    ACTOR_ITEM_SHIELD, ACTORCAT_ITEMACTION, FLAGS, OBJECT_LINK_CHILD, ACTOR_FACTORY(ItemShield), (ActorFunc)ItemShield_Init, (ActorFunc)ItemShield_Destroy, (ActorFunc)ItemShield_Update, (ActorFunc)ItemShield_Draw, (ActorFunc)ItemShield_Reset,
 	};
 
 	unused = {255, 255, 0, 255};

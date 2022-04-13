@@ -49,7 +49,7 @@ static DemoGeffDrawFunc sDrawFuncs[] = {
 };
 
 ActorInit Demo_Geff_InitVars = {
-    ACTOR_DEMO_GEFF, ACTORCAT_BOSS, FLAGS, OBJECT_GEFF, sizeof(DemoGeff), (ActorFunc)DemoGeff_Init, (ActorFunc)DemoGeff_Destroy, (ActorFunc)DemoGeff_Update, (ActorFunc)DemoGeff_Draw, (ActorFunc)DemoGeff_Reset,
+    ACTOR_DEMO_GEFF, ACTORCAT_BOSS, FLAGS, OBJECT_GEFF, ACTOR_FACTORY(DemoGeff), (ActorFunc)DemoGeff_Init, (ActorFunc)DemoGeff_Destroy, (ActorFunc)DemoGeff_Update, (ActorFunc)DemoGeff_Draw, (ActorFunc)DemoGeff_Reset,
 };
 
 void DemoGeff_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -261,6 +261,6 @@ void DemoGeff_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DemoGeff_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Geff_InitVars = {
-	    ACTOR_DEMO_GEFF, ACTORCAT_BOSS, FLAGS, OBJECT_GEFF, sizeof(DemoGeff), (ActorFunc)DemoGeff_Init, (ActorFunc)DemoGeff_Destroy, (ActorFunc)DemoGeff_Update, (ActorFunc)DemoGeff_Draw, (ActorFunc)DemoGeff_Reset,
+	    ACTOR_DEMO_GEFF, ACTORCAT_BOSS, FLAGS, OBJECT_GEFF, ACTOR_FACTORY(DemoGeff), (ActorFunc)DemoGeff_Init, (ActorFunc)DemoGeff_Destroy, (ActorFunc)DemoGeff_Update, (ActorFunc)DemoGeff_Draw, (ActorFunc)DemoGeff_Reset,
 	};
 }

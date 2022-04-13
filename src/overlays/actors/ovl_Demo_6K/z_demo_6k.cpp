@@ -82,7 +82,7 @@ static u8 skipIndices_71[] = {6, 7, 11, 16, 20, 24, 28, 33, 35, 41, 45, 50, 57, 
 static u8 D_809693CC_75[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1};
 
 ActorInit Demo_6K_InitVars = {
-    ACTOR_DEMO_6K, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(Demo6K), (ActorFunc)Demo6K_Init, (ActorFunc)Demo6K_Destroy, (ActorFunc)Demo6K_Update, NULL, (ActorFunc)Demo6K_Reset,
+    ACTOR_DEMO_6K, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(Demo6K), (ActorFunc)Demo6K_Init, (ActorFunc)Demo6K_Destroy, (ActorFunc)Demo6K_Update, NULL, (ActorFunc)Demo6K_Reset,
 };
 
 static s16 sObjectIds[] = {
@@ -955,6 +955,6 @@ void Demo6K_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	envColor_66 = {255, 200, 0, 0};
 
 	Demo_6K_InitVars = {
-	    ACTOR_DEMO_6K, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(Demo6K), (ActorFunc)Demo6K_Init, (ActorFunc)Demo6K_Destroy, (ActorFunc)Demo6K_Update, NULL, (ActorFunc)Demo6K_Reset,
+	    ACTOR_DEMO_6K, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(Demo6K), (ActorFunc)Demo6K_Init, (ActorFunc)Demo6K_Destroy, (ActorFunc)Demo6K_Update, NULL, (ActorFunc)Demo6K_Reset,
 	};
 }

@@ -25,7 +25,7 @@ void ObjMure_ActiveState(ObjMure* pthis, GlobalContext* globalCtx);
 s32 ObjMure_GetMaxChildSpawns(ObjMure* pthis);
 
 ActorInit Obj_Mure_InitVars = {
-    ACTOR_OBJ_MURE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjMure), (ActorFunc)ObjMure_Init, (ActorFunc)ObjMure_Destroy, (ActorFunc)ObjMure_Update, NULL, (ActorFunc)ObjMure_Reset,
+    ACTOR_OBJ_MURE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjMure), (ActorFunc)ObjMure_Init, (ActorFunc)ObjMure_Destroy, (ActorFunc)ObjMure_Update, NULL, (ActorFunc)ObjMure_Reset,
 };
 
 static f32 sZClip[] = {1600.0f, 1600.0f, 1000.0f, 1000.0f, 1000.0f};
@@ -495,6 +495,6 @@ void ObjMure_Update(Actor* thisx, GlobalContext* globalCtx)
 void ObjMure_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Mure_InitVars = {
-	    ACTOR_OBJ_MURE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjMure), (ActorFunc)ObjMure_Init, (ActorFunc)ObjMure_Destroy, (ActorFunc)ObjMure_Update, NULL, (ActorFunc)ObjMure_Reset,
+	    ACTOR_OBJ_MURE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjMure), (ActorFunc)ObjMure_Init, (ActorFunc)ObjMure_Destroy, (ActorFunc)ObjMure_Update, NULL, (ActorFunc)ObjMure_Reset,
 	};
 }

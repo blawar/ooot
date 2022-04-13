@@ -47,7 +47,7 @@ void func_809F7C48(EnDodojr* pthis, GlobalContext* globalCtx);
 void func_809F768C(EnDodojr* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Dodojr_InitVars = {
-    ACTOR_EN_DODOJR, ACTORCAT_ENEMY, FLAGS, OBJECT_DODOJR, sizeof(EnDodojr), (ActorFunc)EnDodojr_Init, (ActorFunc)EnDodojr_Destroy, (ActorFunc)EnDodojr_Update, (ActorFunc)EnDodojr_Draw, (ActorFunc)EnDodojr_Reset,
+    ACTOR_EN_DODOJR, ACTORCAT_ENEMY, FLAGS, OBJECT_DODOJR, ACTOR_FACTORY(EnDodojr), (ActorFunc)EnDodojr_Init, (ActorFunc)EnDodojr_Destroy, (ActorFunc)EnDodojr_Update, (ActorFunc)EnDodojr_Draw, (ActorFunc)EnDodojr_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -755,7 +755,7 @@ void EnDodojr_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDodojr_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dodojr_InitVars = {
-	    ACTOR_EN_DODOJR, ACTORCAT_ENEMY, FLAGS, OBJECT_DODOJR, sizeof(EnDodojr), (ActorFunc)EnDodojr_Init, (ActorFunc)EnDodojr_Destroy, (ActorFunc)EnDodojr_Update, (ActorFunc)EnDodojr_Draw, (ActorFunc)EnDodojr_Reset,
+	    ACTOR_EN_DODOJR, ACTORCAT_ENEMY, FLAGS, OBJECT_DODOJR, ACTOR_FACTORY(EnDodojr), (ActorFunc)EnDodojr_Init, (ActorFunc)EnDodojr_Destroy, (ActorFunc)EnDodojr_Update, (ActorFunc)EnDodojr_Draw, (ActorFunc)EnDodojr_Reset,
 	};
 
 	sCylinderInit = {

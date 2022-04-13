@@ -32,7 +32,7 @@ void func_808934FC(BgJyaAmishutter* pthis);
 void func_8089350C(BgJyaAmishutter* pthis);
 
 ActorInit Bg_Jya_Amishutter_InitVars = {
-    ACTOR_BG_JYA_AMISHUTTER,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaAmishutter), (ActorFunc)BgJyaAmishutter_Init, (ActorFunc)BgJyaAmishutter_Destroy, (ActorFunc)BgJyaAmishutter_Update, (ActorFunc)BgJyaAmishutter_Draw,
+    ACTOR_BG_JYA_AMISHUTTER,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaAmishutter), (ActorFunc)BgJyaAmishutter_Init, (ActorFunc)BgJyaAmishutter_Destroy, (ActorFunc)BgJyaAmishutter_Update, (ActorFunc)BgJyaAmishutter_Draw,
     (ActorFunc)BgJyaAmishutter_Reset,
 };
 
@@ -151,7 +151,7 @@ void BgJyaAmishutter_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgJyaAmishutter_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Jya_Amishutter_InitVars = {
-	    ACTOR_BG_JYA_AMISHUTTER,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaAmishutter), (ActorFunc)BgJyaAmishutter_Init, (ActorFunc)BgJyaAmishutter_Destroy, (ActorFunc)BgJyaAmishutter_Update, (ActorFunc)BgJyaAmishutter_Draw,
+	    ACTOR_BG_JYA_AMISHUTTER,	      ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaAmishutter), (ActorFunc)BgJyaAmishutter_Init, (ActorFunc)BgJyaAmishutter_Destroy, (ActorFunc)BgJyaAmishutter_Update, (ActorFunc)BgJyaAmishutter_Draw,
 	    (ActorFunc)BgJyaAmishutter_Reset,
 	};
 }

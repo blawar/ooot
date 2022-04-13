@@ -38,7 +38,7 @@ void BgMoriHashigo_SetupLadderRest(BgMoriHashigo* pthis);
 static f32 bounceSpeed_48[3] = {4.0f, 2.7f, 1.7f};
 
 ActorInit Bg_Mori_Hashigo_InitVars = {
-    ACTOR_BG_MORI_HASHIGO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriHashigo), (ActorFunc)BgMoriHashigo_Init, (ActorFunc)BgMoriHashigo_Destroy, (ActorFunc)BgMoriHashigo_Update, NULL, (ActorFunc)BgMoriHashigo_Reset,
+    ACTOR_BG_MORI_HASHIGO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriHashigo), (ActorFunc)BgMoriHashigo_Init, (ActorFunc)BgMoriHashigo_Destroy, (ActorFunc)BgMoriHashigo_Update, NULL, (ActorFunc)BgMoriHashigo_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -354,7 +354,7 @@ void BgMoriHashigo_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMoriHashigo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mori_Hashigo_InitVars = {
-	    ACTOR_BG_MORI_HASHIGO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriHashigo), (ActorFunc)BgMoriHashigo_Init, (ActorFunc)BgMoriHashigo_Destroy, (ActorFunc)BgMoriHashigo_Update, NULL, (ActorFunc)BgMoriHashigo_Reset,
+	    ACTOR_BG_MORI_HASHIGO, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriHashigo), (ActorFunc)BgMoriHashigo_Init, (ActorFunc)BgMoriHashigo_Destroy, (ActorFunc)BgMoriHashigo_Update, NULL, (ActorFunc)BgMoriHashigo_Reset,
 	};
 
 	sJntSphInit = {

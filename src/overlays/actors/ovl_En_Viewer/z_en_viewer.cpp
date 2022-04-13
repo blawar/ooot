@@ -53,7 +53,7 @@ static s16 yOscillationPhase_74 = 0;
 static u8 sHorseSfxPlayed = false;
 
 ActorInit En_Viewer_InitVars = {
-    ACTOR_EN_VIEWER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnViewer), (ActorFunc)EnViewer_Init, (ActorFunc)EnViewer_Destroy, (ActorFunc)EnViewer_Update, (ActorFunc)EnViewer_Draw, (ActorFunc)EnViewer_Reset,
+    ACTOR_EN_VIEWER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnViewer), (ActorFunc)EnViewer_Init, (ActorFunc)EnViewer_Destroy, (ActorFunc)EnViewer_Update, (ActorFunc)EnViewer_Draw, (ActorFunc)EnViewer_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -1061,7 +1061,7 @@ void EnViewer_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sHorseSfxPlayed = false;
 
 	En_Viewer_InitVars = {
-	    ACTOR_EN_VIEWER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnViewer), (ActorFunc)EnViewer_Init, (ActorFunc)EnViewer_Destroy, (ActorFunc)EnViewer_Update, (ActorFunc)EnViewer_Draw, (ActorFunc)EnViewer_Reset,
+	    ACTOR_EN_VIEWER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnViewer), (ActorFunc)EnViewer_Init, (ActorFunc)EnViewer_Destroy, (ActorFunc)EnViewer_Update, (ActorFunc)EnViewer_Draw, (ActorFunc)EnViewer_Reset,
 	};
 
 	sGanondorfCape = 0;

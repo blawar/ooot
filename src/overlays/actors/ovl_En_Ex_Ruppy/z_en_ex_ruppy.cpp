@@ -48,7 +48,7 @@ static s16 sRupeeValues[] = {
 };
 
 ActorInit En_Ex_Ruppy_InitVars = {
-    ACTOR_EN_EX_RUPPY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnExRuppy), (ActorFunc)EnExRuppy_Init, (ActorFunc)EnExRuppy_Destroy, (ActorFunc)EnExRuppy_Update, (ActorFunc)EnExRuppy_Draw, (ActorFunc)EnExRuppy_Reset,
+    ACTOR_EN_EX_RUPPY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnExRuppy), (ActorFunc)EnExRuppy_Init, (ActorFunc)EnExRuppy_Destroy, (ActorFunc)EnExRuppy_Update, (ActorFunc)EnExRuppy_Draw, (ActorFunc)EnExRuppy_Reset,
 };
 
 void EnExRuppy_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -463,6 +463,6 @@ void EnExRuppy_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnExRuppy_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ex_Ruppy_InitVars = {
-	    ACTOR_EN_EX_RUPPY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnExRuppy), (ActorFunc)EnExRuppy_Init, (ActorFunc)EnExRuppy_Destroy, (ActorFunc)EnExRuppy_Update, (ActorFunc)EnExRuppy_Draw, (ActorFunc)EnExRuppy_Reset,
+	    ACTOR_EN_EX_RUPPY, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnExRuppy), (ActorFunc)EnExRuppy_Init, (ActorFunc)EnExRuppy_Destroy, (ActorFunc)EnExRuppy_Update, (ActorFunc)EnExRuppy_Draw, (ActorFunc)EnExRuppy_Reset,
 	};
 }

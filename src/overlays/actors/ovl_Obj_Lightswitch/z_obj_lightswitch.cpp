@@ -42,7 +42,7 @@ void ObjLightswitch_SetupDisappear(ObjLightswitch* pthis);
 void ObjLightswitch_Disappear(ObjLightswitch* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Lightswitch_InitVars = {
-    ACTOR_OBJ_LIGHTSWITCH,	     ACTORCAT_SWITCH, FLAGS, OBJECT_LIGHTSWITCH, sizeof(ObjLightswitch), (ActorFunc)ObjLightswitch_Init, (ActorFunc)ObjLightswitch_Destroy, (ActorFunc)ObjLightswitch_Update, (ActorFunc)ObjLightswitch_Draw,
+    ACTOR_OBJ_LIGHTSWITCH,	     ACTORCAT_SWITCH, FLAGS, OBJECT_LIGHTSWITCH, ACTOR_FACTORY(ObjLightswitch), (ActorFunc)ObjLightswitch_Init, (ActorFunc)ObjLightswitch_Destroy, (ActorFunc)ObjLightswitch_Update, (ActorFunc)ObjLightswitch_Draw,
     (ActorFunc)ObjLightswitch_Reset,
 };
 
@@ -566,7 +566,7 @@ void ObjLightswitch_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjLightswitch_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Lightswitch_InitVars = {
-	    ACTOR_OBJ_LIGHTSWITCH,	     ACTORCAT_SWITCH, FLAGS, OBJECT_LIGHTSWITCH, sizeof(ObjLightswitch), (ActorFunc)ObjLightswitch_Init, (ActorFunc)ObjLightswitch_Destroy, (ActorFunc)ObjLightswitch_Update, (ActorFunc)ObjLightswitch_Draw,
+	    ACTOR_OBJ_LIGHTSWITCH,	     ACTORCAT_SWITCH, FLAGS, OBJECT_LIGHTSWITCH, ACTOR_FACTORY(ObjLightswitch), (ActorFunc)ObjLightswitch_Init, (ActorFunc)ObjLightswitch_Destroy, (ActorFunc)ObjLightswitch_Update, (ActorFunc)ObjLightswitch_Draw,
 	    (ActorFunc)ObjLightswitch_Reset,
 	};
 

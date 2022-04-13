@@ -21,7 +21,7 @@ void EnSceneChange_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnSceneChange_DoNothing(EnSceneChange* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Scene_Change_InitVars = {
-    ACTOR_EN_SCENE_CHANGE, ACTORCAT_PROP, FLAGS, OBJECT_JJ, sizeof(EnSceneChange), (ActorFunc)EnSceneChange_Init, (ActorFunc)EnSceneChange_Destroy, (ActorFunc)EnSceneChange_Update, (ActorFunc)EnSceneChange_Draw, (ActorFunc)EnSceneChange_Reset,
+    ACTOR_EN_SCENE_CHANGE, ACTORCAT_PROP, FLAGS, OBJECT_JJ, ACTOR_FACTORY(EnSceneChange), (ActorFunc)EnSceneChange_Init, (ActorFunc)EnSceneChange_Destroy, (ActorFunc)EnSceneChange_Update, (ActorFunc)EnSceneChange_Draw, (ActorFunc)EnSceneChange_Reset,
 };
 
 void EnSceneChange_SetupAction(EnSceneChange* pthis, EnSceneChangeActionFunc actionFunc)
@@ -73,6 +73,6 @@ void EnSceneChange_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnSceneChange_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Scene_Change_InitVars = {
-	    ACTOR_EN_SCENE_CHANGE, ACTORCAT_PROP, FLAGS, OBJECT_JJ, sizeof(EnSceneChange), (ActorFunc)EnSceneChange_Init, (ActorFunc)EnSceneChange_Destroy, (ActorFunc)EnSceneChange_Update, (ActorFunc)EnSceneChange_Draw, (ActorFunc)EnSceneChange_Reset,
+	    ACTOR_EN_SCENE_CHANGE, ACTORCAT_PROP, FLAGS, OBJECT_JJ, ACTOR_FACTORY(EnSceneChange), (ActorFunc)EnSceneChange_Init, (ActorFunc)EnSceneChange_Destroy, (ActorFunc)EnSceneChange_Update, (ActorFunc)EnSceneChange_Draw, (ActorFunc)EnSceneChange_Reset,
 	};
 }

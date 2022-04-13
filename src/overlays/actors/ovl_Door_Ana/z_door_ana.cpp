@@ -32,7 +32,7 @@ void DoorAna_WaitOpen(DoorAna* pthis, GlobalContext* globalCtx);
 void DoorAna_GrabPlayer(DoorAna* pthis, GlobalContext* globalCtx);
 
 ActorInit Door_Ana_InitVars = {
-    ACTOR_DOOR_ANA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(DoorAna), (ActorFunc)DoorAna_Init, (ActorFunc)DoorAna_Destroy, (ActorFunc)DoorAna_Update, (ActorFunc)DoorAna_Draw, (ActorFunc)DoorAna_Reset,
+    ACTOR_DOOR_ANA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(DoorAna), (ActorFunc)DoorAna_Init, (ActorFunc)DoorAna_Destroy, (ActorFunc)DoorAna_Update, (ActorFunc)DoorAna_Draw, (ActorFunc)DoorAna_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -218,7 +218,7 @@ void DoorAna_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DoorAna_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Door_Ana_InitVars = {
-	    ACTOR_DOOR_ANA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(DoorAna), (ActorFunc)DoorAna_Init, (ActorFunc)DoorAna_Destroy, (ActorFunc)DoorAna_Update, (ActorFunc)DoorAna_Draw, (ActorFunc)DoorAna_Reset,
+	    ACTOR_DOOR_ANA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(DoorAna), (ActorFunc)DoorAna_Init, (ActorFunc)DoorAna_Destroy, (ActorFunc)DoorAna_Update, (ActorFunc)DoorAna_Draw, (ActorFunc)DoorAna_Reset,
 	};
 
 	sCylinderInit = {

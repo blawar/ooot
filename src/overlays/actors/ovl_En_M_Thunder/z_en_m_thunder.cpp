@@ -30,7 +30,7 @@ void func_80A9F9B4(EnMThunder* pthis, GlobalContext* globalCtx);
 static f32 D_80AA046C_41[] = {0.1f, 0.15f, 0.2f, 0.25f, 0.3f, 0.25f, 0.2f, 0.15f};
 
 ActorInit En_M_Thunder_InitVars = {
-    ACTOR_EN_M_THUNDER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnMThunder), (ActorFunc)EnMThunder_Init, (ActorFunc)EnMThunder_Destroy, (ActorFunc)EnMThunder_Update, (ActorFunc)EnMThunder_Draw, (ActorFunc)EnMThunder_Reset,
+    ACTOR_EN_M_THUNDER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnMThunder), (ActorFunc)EnMThunder_Init, (ActorFunc)EnMThunder_Destroy, (ActorFunc)EnMThunder_Update, (ActorFunc)EnMThunder_Draw, (ActorFunc)EnMThunder_Reset,
 };
 
 static ColliderCylinderInit D_80AA0420 = {
@@ -450,7 +450,7 @@ void EnMThunder_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void EnMThunder_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_M_Thunder_InitVars = {
-	    ACTOR_EN_M_THUNDER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnMThunder), (ActorFunc)EnMThunder_Init, (ActorFunc)EnMThunder_Destroy, (ActorFunc)EnMThunder_Update, (ActorFunc)EnMThunder_Draw, (ActorFunc)EnMThunder_Reset,
+	    ACTOR_EN_M_THUNDER, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnMThunder), (ActorFunc)EnMThunder_Init, (ActorFunc)EnMThunder_Destroy, (ActorFunc)EnMThunder_Update, (ActorFunc)EnMThunder_Draw, (ActorFunc)EnMThunder_Reset,
 	};
 
 	D_80AA0420 = {

@@ -40,7 +40,7 @@ void EnSyatekiMan_Blink(EnSyatekiMan* pthis);
 void EnSyatekiMan_SetBgm(void);
 
 ActorInit En_Syateki_Man_InitVars = {
-    ACTOR_EN_SYATEKI_MAN, ACTORCAT_NPC, FLAGS, OBJECT_OSSAN, sizeof(EnSyatekiMan), (ActorFunc)EnSyatekiMan_Init, (ActorFunc)EnSyatekiMan_Destroy, (ActorFunc)EnSyatekiMan_Update, (ActorFunc)EnSyatekiMan_Draw, (ActorFunc)EnSyatekiMan_Reset,
+    ACTOR_EN_SYATEKI_MAN, ACTORCAT_NPC, FLAGS, OBJECT_OSSAN, ACTOR_FACTORY(EnSyatekiMan), (ActorFunc)EnSyatekiMan_Init, (ActorFunc)EnSyatekiMan_Destroy, (ActorFunc)EnSyatekiMan_Update, (ActorFunc)EnSyatekiMan_Draw, (ActorFunc)EnSyatekiMan_Reset,
 };
 
 static u16 sBgmList[] = {
@@ -586,6 +586,6 @@ void EnSyatekiMan_SetBgm(void)
 void EnSyatekiMan_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Syateki_Man_InitVars = {
-	    ACTOR_EN_SYATEKI_MAN, ACTORCAT_NPC, FLAGS, OBJECT_OSSAN, sizeof(EnSyatekiMan), (ActorFunc)EnSyatekiMan_Init, (ActorFunc)EnSyatekiMan_Destroy, (ActorFunc)EnSyatekiMan_Update, (ActorFunc)EnSyatekiMan_Draw, (ActorFunc)EnSyatekiMan_Reset,
+	    ACTOR_EN_SYATEKI_MAN, ACTORCAT_NPC, FLAGS, OBJECT_OSSAN, ACTOR_FACTORY(EnSyatekiMan), (ActorFunc)EnSyatekiMan_Init, (ActorFunc)EnSyatekiMan_Destroy, (ActorFunc)EnSyatekiMan_Update, (ActorFunc)EnSyatekiMan_Draw, (ActorFunc)EnSyatekiMan_Reset,
 	};
 }

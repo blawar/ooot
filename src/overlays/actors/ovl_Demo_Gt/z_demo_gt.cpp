@@ -2021,7 +2021,7 @@ void DemoGt_Draw(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit Demo_Gt_InitVars = {
-    ACTOR_DEMO_GT, ACTORCAT_PROP, FLAGS, OBJECT_GT, sizeof(DemoGt), (ActorFunc)DemoGt_Init, (ActorFunc)DemoGt_Destroy, (ActorFunc)DemoGt_Update, (ActorFunc)DemoGt_Draw, (ActorFunc)DemoGt_Reset,
+    ACTOR_DEMO_GT, ACTORCAT_PROP, FLAGS, OBJECT_GT, ACTOR_FACTORY(DemoGt), (ActorFunc)DemoGt_Init, (ActorFunc)DemoGt_Destroy, (ActorFunc)DemoGt_Update, (ActorFunc)DemoGt_Draw, (ActorFunc)DemoGt_Reset,
 };
 
 void DemoGt_Reset(Actor* pthisx, GlobalContext* globalCtx)
@@ -2051,6 +2051,6 @@ void DemoGt_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	cloudRing_82 = NULL;
 
 	Demo_Gt_InitVars = {
-	    ACTOR_DEMO_GT, ACTORCAT_PROP, FLAGS, OBJECT_GT, sizeof(DemoGt), (ActorFunc)DemoGt_Init, (ActorFunc)DemoGt_Destroy, (ActorFunc)DemoGt_Update, (ActorFunc)DemoGt_Draw, (ActorFunc)DemoGt_Reset,
+	    ACTOR_DEMO_GT, ACTORCAT_PROP, FLAGS, OBJECT_GT, ACTOR_FACTORY(DemoGt), (ActorFunc)DemoGt_Init, (ActorFunc)DemoGt_Destroy, (ActorFunc)DemoGt_Update, (ActorFunc)DemoGt_Draw, (ActorFunc)DemoGt_Reset,
 	};
 }

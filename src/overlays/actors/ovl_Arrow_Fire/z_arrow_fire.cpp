@@ -30,7 +30,7 @@ void ArrowFire_Hit(ArrowFire* pthis, GlobalContext* globalCtx);
 #include "def/z_rcp.h"
 
 ActorInit Arrow_Fire_InitVars = {
-    ACTOR_ARROW_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ArrowFire), (ActorFunc)ArrowFire_Init, (ActorFunc)ArrowFire_Destroy, (ActorFunc)ArrowFire_Update, (ActorFunc)ArrowFire_Draw, (ActorFunc)ArrowFire_Reset,
+    ACTOR_ARROW_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ArrowFire), (ActorFunc)ArrowFire_Init, (ActorFunc)ArrowFire_Destroy, (ActorFunc)ArrowFire_Update, (ActorFunc)ArrowFire_Draw, (ActorFunc)ArrowFire_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -289,6 +289,6 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 void ArrowFire_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Arrow_Fire_InitVars = {
-	    ACTOR_ARROW_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ArrowFire), (ActorFunc)ArrowFire_Init, (ActorFunc)ArrowFire_Destroy, (ActorFunc)ArrowFire_Update, (ActorFunc)ArrowFire_Draw, (ActorFunc)ArrowFire_Reset,
+	    ACTOR_ARROW_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ArrowFire), (ActorFunc)ArrowFire_Init, (ActorFunc)ArrowFire_Destroy, (ActorFunc)ArrowFire_Update, (ActorFunc)ArrowFire_Draw, (ActorFunc)ArrowFire_Reset,
 	};
 }

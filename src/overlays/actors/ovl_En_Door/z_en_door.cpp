@@ -44,7 +44,7 @@ void EnDoor_AjarClose(EnDoor* pthis, GlobalContext* globalCtx);
 void EnDoor_Open(EnDoor* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Door_InitVars = {
-    ACTOR_EN_DOOR, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnDoor), (ActorFunc)EnDoor_Init, (ActorFunc)EnDoor_Destroy, (ActorFunc)EnDoor_Update, (ActorFunc)EnDoor_Draw, (ActorFunc)EnDoor_Reset,
+    ACTOR_EN_DOOR, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnDoor), (ActorFunc)EnDoor_Init, (ActorFunc)EnDoor_Destroy, (ActorFunc)EnDoor_Update, (ActorFunc)EnDoor_Draw, (ActorFunc)EnDoor_Reset,
 };
 
 /**
@@ -421,6 +421,6 @@ void EnDoor_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDoor_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Door_InitVars = {
-	    ACTOR_EN_DOOR, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnDoor), (ActorFunc)EnDoor_Init, (ActorFunc)EnDoor_Destroy, (ActorFunc)EnDoor_Update, (ActorFunc)EnDoor_Draw, (ActorFunc)EnDoor_Reset,
+	    ACTOR_EN_DOOR, ACTORCAT_DOOR, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnDoor), (ActorFunc)EnDoor_Init, (ActorFunc)EnDoor_Destroy, (ActorFunc)EnDoor_Update, (ActorFunc)EnDoor_Draw, (ActorFunc)EnDoor_Reset,
 	};
 }

@@ -52,7 +52,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 ActorInit En_Tubo_Trap_InitVars = {
-    ACTOR_EN_TUBO_TRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(EnTuboTrap), (ActorFunc)EnTuboTrap_Init, (ActorFunc)EnTuboTrap_Destroy, (ActorFunc)EnTuboTrap_Update, (ActorFunc)EnTuboTrap_Draw, (ActorFunc)EnTuboTrap_Reset,
+    ACTOR_EN_TUBO_TRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(EnTuboTrap), (ActorFunc)EnTuboTrap_Init, (ActorFunc)EnTuboTrap_Destroy, (ActorFunc)EnTuboTrap_Update, (ActorFunc)EnTuboTrap_Draw, (ActorFunc)EnTuboTrap_Reset,
 };
 
 void EnTuboTrap_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -343,6 +343,6 @@ void EnTuboTrap_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Tubo_Trap_InitVars = {
-	    ACTOR_EN_TUBO_TRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(EnTuboTrap), (ActorFunc)EnTuboTrap_Init, (ActorFunc)EnTuboTrap_Destroy, (ActorFunc)EnTuboTrap_Update, (ActorFunc)EnTuboTrap_Draw, (ActorFunc)EnTuboTrap_Reset,
+	    ACTOR_EN_TUBO_TRAP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(EnTuboTrap), (ActorFunc)EnTuboTrap_Init, (ActorFunc)EnTuboTrap_Destroy, (ActorFunc)EnTuboTrap_Update, (ActorFunc)EnTuboTrap_Draw, (ActorFunc)EnTuboTrap_Reset,
 	};
 }

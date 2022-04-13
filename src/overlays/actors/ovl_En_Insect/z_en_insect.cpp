@@ -52,7 +52,7 @@ static s16 D_80A7DEB4 = 0;
 static s16 D_80A7DEB8 = 0;
 
 ActorInit En_Insect_InitVars = {
-    ACTOR_EN_INSECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnInsect), (ActorFunc)EnInsect_Init, (ActorFunc)EnInsect_Destroy, (ActorFunc)EnInsect_Update, (ActorFunc)EnInsect_Draw, (ActorFunc)EnInsect_Reset,
+    ACTOR_EN_INSECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnInsect), (ActorFunc)EnInsect_Init, (ActorFunc)EnInsect_Destroy, (ActorFunc)EnInsect_Update, (ActorFunc)EnInsect_Draw, (ActorFunc)EnInsect_Reset,
 };
 
 static ColliderJntSphElementInit sColliderItemInit[1] = {
@@ -987,7 +987,7 @@ void EnInsect_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80A7DEB8 = 0;
 
 	En_Insect_InitVars = {
-	    ACTOR_EN_INSECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnInsect), (ActorFunc)EnInsect_Init, (ActorFunc)EnInsect_Destroy, (ActorFunc)EnInsect_Update, (ActorFunc)EnInsect_Draw, (ActorFunc)EnInsect_Reset,
+	    ACTOR_EN_INSECT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnInsect), (ActorFunc)EnInsect_Init, (ActorFunc)EnInsect_Destroy, (ActorFunc)EnInsect_Update, (ActorFunc)EnInsect_Draw, (ActorFunc)EnInsect_Reset,
 	};
 
 	sColliderInit = {

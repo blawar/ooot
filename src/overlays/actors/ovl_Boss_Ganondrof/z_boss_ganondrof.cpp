@@ -61,7 +61,7 @@ static Vec3f zeroVec_99 = {0.0f, 0.0f, 0.0f};
 static Vec3f spearVec_99 = {0.0f, 0.0f, 6000.0f};
 
 ActorInit Boss_Ganondrof_InitVars = {
-    ACTOR_BOSS_GANONDROF, ACTORCAT_BOSS, FLAGS, OBJECT_GND, sizeof(BossGanondrof), (ActorFunc)BossGanondrof_Init, (ActorFunc)BossGanondrof_Destroy, (ActorFunc)BossGanondrof_Update, (ActorFunc)BossGanondrof_Draw, (ActorFunc)BossGanondrof_Reset,
+    ACTOR_BOSS_GANONDROF, ACTORCAT_BOSS, FLAGS, OBJECT_GND, ACTOR_FACTORY(BossGanondrof), (ActorFunc)BossGanondrof_Init, (ActorFunc)BossGanondrof_Destroy, (ActorFunc)BossGanondrof_Update, (ActorFunc)BossGanondrof_Draw, (ActorFunc)BossGanondrof_Reset,
 };
 
 static ColliderCylinderInit sCylinderInitBody = {
@@ -1691,7 +1691,7 @@ void BossGanondrof_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	spearVec_99 = {0.0f, 0.0f, 6000.0f};
 
 	Boss_Ganondrof_InitVars = {
-	    ACTOR_BOSS_GANONDROF, ACTORCAT_BOSS, FLAGS, OBJECT_GND, sizeof(BossGanondrof), (ActorFunc)BossGanondrof_Init, (ActorFunc)BossGanondrof_Destroy, (ActorFunc)BossGanondrof_Update, (ActorFunc)BossGanondrof_Draw, (ActorFunc)BossGanondrof_Reset,
+	    ACTOR_BOSS_GANONDROF, ACTORCAT_BOSS, FLAGS, OBJECT_GND, ACTOR_FACTORY(BossGanondrof), (ActorFunc)BossGanondrof_Init, (ActorFunc)BossGanondrof_Destroy, (ActorFunc)BossGanondrof_Update, (ActorFunc)BossGanondrof_Draw, (ActorFunc)BossGanondrof_Reset,
 	};
 
 	sCylinderInitBody = {

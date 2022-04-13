@@ -27,7 +27,7 @@ void BgDdanJd_Idle(BgDdanJd* pthis, GlobalContext* globalCtx);
 void BgDdanJd_Move(BgDdanJd* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Ddan_Jd_InitVars = {
-    ACTOR_BG_DDAN_JD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, sizeof(BgDdanJd), (ActorFunc)BgDdanJd_Init, (ActorFunc)BgDdanJd_Destroy, (ActorFunc)BgDdanJd_Update, (ActorFunc)BgDdanJd_Draw, (ActorFunc)BgDdanJd_Reset,
+    ACTOR_BG_DDAN_JD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, ACTOR_FACTORY(BgDdanJd), (ActorFunc)BgDdanJd_Init, (ActorFunc)BgDdanJd_Destroy, (ActorFunc)BgDdanJd_Update, (ActorFunc)BgDdanJd_Draw, (ActorFunc)BgDdanJd_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -206,6 +206,6 @@ void BgDdanJd_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgDdanJd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Ddan_Jd_InitVars = {
-	    ACTOR_BG_DDAN_JD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, sizeof(BgDdanJd), (ActorFunc)BgDdanJd_Init, (ActorFunc)BgDdanJd_Destroy, (ActorFunc)BgDdanJd_Update, (ActorFunc)BgDdanJd_Draw, (ActorFunc)BgDdanJd_Reset,
+	    ACTOR_BG_DDAN_JD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, ACTOR_FACTORY(BgDdanJd), (ActorFunc)BgDdanJd_Init, (ActorFunc)BgDdanJd_Destroy, (ActorFunc)BgDdanJd_Update, (ActorFunc)BgDdanJd_Draw, (ActorFunc)BgDdanJd_Reset,
 	};
 }

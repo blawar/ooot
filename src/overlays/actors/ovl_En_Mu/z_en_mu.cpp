@@ -52,7 +52,7 @@ static ColliderCylinderInit D_80AB0BD0 = {
 static CollisionCheckInfoInit2 D_80AB0BFC = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 ActorInit En_Mu_InitVars = {
-    ACTOR_EN_MU, ACTORCAT_NPC, FLAGS, OBJECT_MU, sizeof(EnMu), (ActorFunc)EnMu_Init, (ActorFunc)EnMu_Destroy, (ActorFunc)EnMu_Update, (ActorFunc)EnMu_Draw, (ActorFunc)EnMu_Reset,
+    ACTOR_EN_MU, ACTORCAT_NPC, FLAGS, OBJECT_MU, ACTOR_FACTORY(EnMu), (ActorFunc)EnMu_Init, (ActorFunc)EnMu_Destroy, (ActorFunc)EnMu_Update, (ActorFunc)EnMu_Draw, (ActorFunc)EnMu_Reset,
 };
 
 void EnMu_SetupAction(EnMu* pthis, EnMuActionFunc actionFunc)
@@ -259,6 +259,6 @@ void EnMu_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80AB0BFC = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 	En_Mu_InitVars = {
-	    ACTOR_EN_MU, ACTORCAT_NPC, FLAGS, OBJECT_MU, sizeof(EnMu), (ActorFunc)EnMu_Init, (ActorFunc)EnMu_Destroy, (ActorFunc)EnMu_Update, (ActorFunc)EnMu_Draw, (ActorFunc)EnMu_Reset,
+	    ACTOR_EN_MU, ACTORCAT_NPC, FLAGS, OBJECT_MU, ACTOR_FACTORY(EnMu), (ActorFunc)EnMu_Init, (ActorFunc)EnMu_Destroy, (ActorFunc)EnMu_Update, (ActorFunc)EnMu_Draw, (ActorFunc)EnMu_Reset,
 	};
 }

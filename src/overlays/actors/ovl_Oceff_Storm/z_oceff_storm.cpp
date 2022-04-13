@@ -27,7 +27,7 @@ void OceffStorm_DefaultAction(OceffStorm* pthis, GlobalContext* globalCtx);
 void OceffStorm_UnkAction(OceffStorm* pthis, GlobalContext* globalCtx);
 
 ActorInit Oceff_Storm_InitVars = {
-    ACTOR_OCEFF_STORM, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(OceffStorm), (ActorFunc)OceffStorm_Init, (ActorFunc)OceffStorm_Destroy, (ActorFunc)OceffStorm_Update, (ActorFunc)OceffStorm_Draw, (ActorFunc)OceffStorm_Reset,
+    ACTOR_OCEFF_STORM, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(OceffStorm), (ActorFunc)OceffStorm_Init, (ActorFunc)OceffStorm_Destroy, (ActorFunc)OceffStorm_Update, (ActorFunc)OceffStorm_Draw, (ActorFunc)OceffStorm_Reset,
 };
 
 void OceffStorm_SetupAction(OceffStorm* pthis, OceffStormActionFunc actionFunc)
@@ -206,6 +206,6 @@ void OceffStorm_Draw(Actor* thisx, GlobalContext* globalCtx)
 void OceffStorm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Oceff_Storm_InitVars = {
-	    ACTOR_OCEFF_STORM, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(OceffStorm), (ActorFunc)OceffStorm_Init, (ActorFunc)OceffStorm_Destroy, (ActorFunc)OceffStorm_Update, (ActorFunc)OceffStorm_Draw, (ActorFunc)OceffStorm_Reset,
+	    ACTOR_OCEFF_STORM, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(OceffStorm), (ActorFunc)OceffStorm_Init, (ActorFunc)OceffStorm_Destroy, (ActorFunc)OceffStorm_Update, (ActorFunc)OceffStorm_Draw, (ActorFunc)OceffStorm_Reset,
 	};
 }

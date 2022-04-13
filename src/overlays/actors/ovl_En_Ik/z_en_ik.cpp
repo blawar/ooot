@@ -1708,7 +1708,7 @@ void EnIk_Init(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit En_Ik_InitVars = {
-    ACTOR_EN_IK, ACTORCAT_BOSS, FLAGS, OBJECT_IK, sizeof(EnIk), (ActorFunc)EnIk_Init, (ActorFunc)EnIk_Destroy, (ActorFunc)EnIk_Update, (ActorFunc)EnIk_Draw, (ActorFunc)EnIk_Reset,
+    ACTOR_EN_IK, ACTORCAT_BOSS, FLAGS, OBJECT_IK, ACTOR_FACTORY(EnIk), (ActorFunc)EnIk_Init, (ActorFunc)EnIk_Destroy, (ActorFunc)EnIk_Update, (ActorFunc)EnIk_Draw, (ActorFunc)EnIk_Reset,
 };
 
 void EnIk_Reset(Actor* pthisx, GlobalContext* globalCtx)
@@ -1806,6 +1806,6 @@ void EnIk_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80A78470 = {300.0f, 0.0f, 0.0f};
 
 	En_Ik_InitVars = {
-	    ACTOR_EN_IK, ACTORCAT_BOSS, FLAGS, OBJECT_IK, sizeof(EnIk), (ActorFunc)EnIk_Init, (ActorFunc)EnIk_Destroy, (ActorFunc)EnIk_Update, (ActorFunc)EnIk_Draw, (ActorFunc)EnIk_Reset,
+	    ACTOR_EN_IK, ACTORCAT_BOSS, FLAGS, OBJECT_IK, ACTOR_FACTORY(EnIk), (ActorFunc)EnIk_Init, (ActorFunc)EnIk_Destroy, (ActorFunc)EnIk_Update, (ActorFunc)EnIk_Draw, (ActorFunc)EnIk_Reset,
 	};
 }

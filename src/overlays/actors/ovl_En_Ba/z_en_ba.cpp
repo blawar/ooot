@@ -35,7 +35,7 @@ void EnBa_Die(EnBa* pthis, GlobalContext* globalCtx);
 void EnBa_SetupSwingAtPlayer(EnBa* pthis);
 
 ActorInit En_Ba_InitVars = {
-    ACTOR_EN_BA, ACTORCAT_ENEMY, FLAGS, OBJECT_BXA, sizeof(EnBa), (ActorFunc)EnBa_Init, (ActorFunc)EnBa_Destroy, (ActorFunc)EnBa_Update, (ActorFunc)EnBa_Draw, (ActorFunc)EnBa_Reset,
+    ACTOR_EN_BA, ACTORCAT_ENEMY, FLAGS, OBJECT_BXA, ACTOR_FACTORY(EnBa), (ActorFunc)EnBa_Init, (ActorFunc)EnBa_Destroy, (ActorFunc)EnBa_Update, (ActorFunc)EnBa_Draw, (ActorFunc)EnBa_Reset,
 };
 
 static Vec3f D_809B8080 = {0.0f, 0.0f, 32.0f};
@@ -596,7 +596,7 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBa_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ba_InitVars = {
-	    ACTOR_EN_BA, ACTORCAT_ENEMY, FLAGS, OBJECT_BXA, sizeof(EnBa), (ActorFunc)EnBa_Init, (ActorFunc)EnBa_Destroy, (ActorFunc)EnBa_Update, (ActorFunc)EnBa_Draw, (ActorFunc)EnBa_Reset,
+	    ACTOR_EN_BA, ACTORCAT_ENEMY, FLAGS, OBJECT_BXA, ACTOR_FACTORY(EnBa), (ActorFunc)EnBa_Init, (ActorFunc)EnBa_Destroy, (ActorFunc)EnBa_Update, (ActorFunc)EnBa_Draw, (ActorFunc)EnBa_Reset,
 	};
 
 	D_809B8080 = {0.0f, 0.0f, 32.0f};

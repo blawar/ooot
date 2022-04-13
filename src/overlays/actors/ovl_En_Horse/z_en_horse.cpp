@@ -92,7 +92,7 @@ static f32 sPlaybackSpeeds[] = {2.0f / 3.0f, 2.0f / 3.0f, 1.0f, 1.0f, 1.0f, 1.0f
 static SkeletonHeader* sSkeletonHeaders[] = {&gEponaSkel, &gHorseIngoSkel};
 
 ActorInit En_Horse_InitVars = {
-    ACTOR_EN_HORSE, ACTORCAT_BG, FLAGS, OBJECT_HORSE, sizeof(EnHorse), (ActorFunc)EnHorse_Init, (ActorFunc)EnHorse_Destroy, (ActorFunc)EnHorse_Update, (ActorFunc)EnHorse_Draw, (ActorFunc)EnHorse_Reset,
+    ACTOR_EN_HORSE, ACTORCAT_BG, FLAGS, OBJECT_HORSE, ACTOR_FACTORY(EnHorse), (ActorFunc)EnHorse_Init, (ActorFunc)EnHorse_Destroy, (ActorFunc)EnHorse_Update, (ActorFunc)EnHorse_Draw, (ActorFunc)EnHorse_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit1 = {
@@ -4551,7 +4551,7 @@ void EnHorse_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHorse_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Horse_InitVars = {
-	    ACTOR_EN_HORSE, ACTORCAT_BG, FLAGS, OBJECT_HORSE, sizeof(EnHorse), (ActorFunc)EnHorse_Init, (ActorFunc)EnHorse_Destroy, (ActorFunc)EnHorse_Update, (ActorFunc)EnHorse_Draw, (ActorFunc)EnHorse_Reset,
+	    ACTOR_EN_HORSE, ACTORCAT_BG, FLAGS, OBJECT_HORSE, ACTOR_FACTORY(EnHorse), (ActorFunc)EnHorse_Init, (ActorFunc)EnHorse_Destroy, (ActorFunc)EnHorse_Update, (ActorFunc)EnHorse_Draw, (ActorFunc)EnHorse_Reset,
 	};
 
 	sCylinderInit1 = {

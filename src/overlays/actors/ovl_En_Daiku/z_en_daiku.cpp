@@ -51,7 +51,7 @@ static Gfx* hairDLists_80[] = {object_daiku_DL_005BD0, object_daiku_DL_005AC0, o
 static Vec3f targetPosHeadLocal_80 = {700, 1100, 0};
 
 ActorInit En_Daiku_InitVars = {
-    ACTOR_EN_DAIKU, ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, sizeof(EnDaiku), (ActorFunc)EnDaiku_Init, (ActorFunc)EnDaiku_Destroy, (ActorFunc)EnDaiku_Update, (ActorFunc)EnDaiku_Draw, (ActorFunc)EnDaiku_Reset,
+    ACTOR_EN_DAIKU, ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, ACTOR_FACTORY(EnDaiku), (ActorFunc)EnDaiku_Init, (ActorFunc)EnDaiku_Destroy, (ActorFunc)EnDaiku_Update, (ActorFunc)EnDaiku_Draw, (ActorFunc)EnDaiku_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -748,7 +748,7 @@ void EnDaiku_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	targetPosHeadLocal_80 = {700, 1100, 0};
 
 	En_Daiku_InitVars = {
-	    ACTOR_EN_DAIKU, ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, sizeof(EnDaiku), (ActorFunc)EnDaiku_Init, (ActorFunc)EnDaiku_Destroy, (ActorFunc)EnDaiku_Update, (ActorFunc)EnDaiku_Draw, (ActorFunc)EnDaiku_Reset,
+	    ACTOR_EN_DAIKU, ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, ACTOR_FACTORY(EnDaiku), (ActorFunc)EnDaiku_Init, (ActorFunc)EnDaiku_Destroy, (ActorFunc)EnDaiku_Update, (ActorFunc)EnDaiku_Draw, (ActorFunc)EnDaiku_Reset,
 	};
 
 	sCylinderInit = {

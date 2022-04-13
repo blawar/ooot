@@ -42,7 +42,7 @@ void func_80A3DF60(EnGm* pthis, GlobalContext* globalCtx);
 static void* eyeTextures_53[] = {gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex};
 
 ActorInit En_Gm_InitVars = {
-    ACTOR_EN_GM, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(EnGm), (ActorFunc)EnGm_Init, (ActorFunc)EnGm_Destroy, (ActorFunc)EnGm_Update, NULL, (ActorFunc)EnGm_Reset,
+    ACTOR_EN_GM, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(EnGm), (ActorFunc)EnGm_Init, (ActorFunc)EnGm_Destroy, (ActorFunc)EnGm_Update, NULL, (ActorFunc)EnGm_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -396,7 +396,7 @@ void EnGm_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnGm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Gm_InitVars = {
-	    ACTOR_EN_GM, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(EnGm), (ActorFunc)EnGm_Init, (ActorFunc)EnGm_Destroy, (ActorFunc)EnGm_Update, NULL, (ActorFunc)EnGm_Reset,
+	    ACTOR_EN_GM, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(EnGm), (ActorFunc)EnGm_Init, (ActorFunc)EnGm_Destroy, (ActorFunc)EnGm_Update, NULL, (ActorFunc)EnGm_Reset,
 	};
 
 	sCylinderInit = {

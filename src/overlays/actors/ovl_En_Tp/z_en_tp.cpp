@@ -49,7 +49,7 @@ static Color_RGBA8 bubblePrimColor_65 = {255, 255, 255, 255};
 static Color_RGBA8 bubbleEnvColor_65 = {150, 150, 150, 0};
 
 ActorInit En_Tp_InitVars = {
-    ACTOR_EN_TP, ACTORCAT_ENEMY, FLAGS, OBJECT_TP, sizeof(EnTp), (ActorFunc)EnTp_Init, (ActorFunc)EnTp_Destroy, (ActorFunc)EnTp_Update, (ActorFunc)EnTp_Draw, (ActorFunc)EnTp_Reset,
+    ACTOR_EN_TP, ACTORCAT_ENEMY, FLAGS, OBJECT_TP, ACTOR_FACTORY(EnTp), (ActorFunc)EnTp_Init, (ActorFunc)EnTp_Destroy, (ActorFunc)EnTp_Update, (ActorFunc)EnTp_Draw, (ActorFunc)EnTp_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -874,7 +874,7 @@ void EnTp_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	bubbleEnvColor_65 = {150, 150, 150, 0};
 
 	En_Tp_InitVars = {
-	    ACTOR_EN_TP, ACTORCAT_ENEMY, FLAGS, OBJECT_TP, sizeof(EnTp), (ActorFunc)EnTp_Init, (ActorFunc)EnTp_Destroy, (ActorFunc)EnTp_Update, (ActorFunc)EnTp_Draw, (ActorFunc)EnTp_Reset,
+	    ACTOR_EN_TP, ACTORCAT_ENEMY, FLAGS, OBJECT_TP, ACTOR_FACTORY(EnTp), (ActorFunc)EnTp_Init, (ActorFunc)EnTp_Destroy, (ActorFunc)EnTp_Update, (ActorFunc)EnTp_Draw, (ActorFunc)EnTp_Reset,
 	};
 
 	sJntSphInit = {

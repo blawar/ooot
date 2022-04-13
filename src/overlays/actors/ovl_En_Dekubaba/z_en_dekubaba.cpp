@@ -49,7 +49,7 @@ static Gfx* stemDLists_55[] = {gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuB
 static Vec3f sZeroVec = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Dekubaba_InitVars = {
-    ACTOR_EN_DEKUBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, sizeof(EnDekubaba), (ActorFunc)EnDekubaba_Init, (ActorFunc)EnDekubaba_Destroy, (ActorFunc)EnDekubaba_Update, (ActorFunc)EnDekubaba_Draw, (ActorFunc)EnDekubaba_Reset,
+    ACTOR_EN_DEKUBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, ACTOR_FACTORY(EnDekubaba), (ActorFunc)EnDekubaba_Init, (ActorFunc)EnDekubaba_Destroy, (ActorFunc)EnDekubaba_Update, (ActorFunc)EnDekubaba_Draw, (ActorFunc)EnDekubaba_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[7] = {
@@ -1522,7 +1522,7 @@ void EnDekubaba_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sZeroVec = {0.0f, 0.0f, 0.0f};
 
 	En_Dekubaba_InitVars = {
-	    ACTOR_EN_DEKUBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, sizeof(EnDekubaba), (ActorFunc)EnDekubaba_Init, (ActorFunc)EnDekubaba_Destroy, (ActorFunc)EnDekubaba_Update, (ActorFunc)EnDekubaba_Draw, (ActorFunc)EnDekubaba_Reset,
+	    ACTOR_EN_DEKUBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, ACTOR_FACTORY(EnDekubaba), (ActorFunc)EnDekubaba_Init, (ActorFunc)EnDekubaba_Destroy, (ActorFunc)EnDekubaba_Update, (ActorFunc)EnDekubaba_Draw, (ActorFunc)EnDekubaba_Reset,
 	};
 
 	sJntSphInit = {

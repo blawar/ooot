@@ -37,7 +37,7 @@ void func_80B24038(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex);
 void EnTr_SetStartPosRot(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex);
 
 ActorInit En_Tr_InitVars = {
-    ACTOR_EN_TR, ACTORCAT_NPC, FLAGS, OBJECT_TR, sizeof(EnTr), (ActorFunc)EnTr_Init, (ActorFunc)EnTr_Destroy, (ActorFunc)EnTr_Update, (ActorFunc)EnTr_Draw, (ActorFunc)EnTr_Reset,
+    ACTOR_EN_TR, ACTORCAT_NPC, FLAGS, OBJECT_TR, ACTOR_FACTORY(EnTr), (ActorFunc)EnTr_Init, (ActorFunc)EnTr_Destroy, (ActorFunc)EnTr_Update, (ActorFunc)EnTr_Draw, (ActorFunc)EnTr_Reset,
 };
 
 // The first elements of these animation arrays are for Koume, the second for Kotake
@@ -606,6 +606,6 @@ void EnTr_SetStartPosRot(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex)
 void EnTr_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Tr_InitVars = {
-	    ACTOR_EN_TR, ACTORCAT_NPC, FLAGS, OBJECT_TR, sizeof(EnTr), (ActorFunc)EnTr_Init, (ActorFunc)EnTr_Destroy, (ActorFunc)EnTr_Update, (ActorFunc)EnTr_Draw, (ActorFunc)EnTr_Reset,
+	    ACTOR_EN_TR, ACTORCAT_NPC, FLAGS, OBJECT_TR, ACTOR_FACTORY(EnTr), (ActorFunc)EnTr_Init, (ActorFunc)EnTr_Destroy, (ActorFunc)EnTr_Update, (ActorFunc)EnTr_Draw, (ActorFunc)EnTr_Reset,
 	};
 }

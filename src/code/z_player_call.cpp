@@ -25,8 +25,8 @@ void Player_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void Player_Update(Actor* thisx, GlobalContext* globalCtx);
 void Player_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-/* TODO FIX const*/ ActorInit Player_InitVars = {
-    ACTOR_PLAYER, ACTORCAT_PLAYER, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(Player), (ActorFunc)PlayerCall_Init, (ActorFunc)PlayerCall_Destroy, (ActorFunc)PlayerCall_Update, (ActorFunc)PlayerCall_Draw, (ActorFunc)PlayerCall_Reset,
+    /* TODO FIX const*/ ActorInit Player_InitVars = {
+    ACTOR_PLAYER, ACTORCAT_PLAYER, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(Player), (ActorFunc)PlayerCall_Init, (ActorFunc)PlayerCall_Destroy, (ActorFunc)PlayerCall_Update, (ActorFunc)PlayerCall_Draw, (ActorFunc)PlayerCall_Reset,
 };
 
 void PlayerCall_InitFuncPtrs(void)
@@ -65,6 +65,6 @@ void PlayerCall_Draw(Actor* thisx, GlobalContext* globalCtx)
 void PlayerCall_Reset(Actor* thisx, GlobalContext* globalCtx)
 {
 	Player_InitVars = {
-	    ACTOR_PLAYER, ACTORCAT_PLAYER, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(Player), (ActorFunc)PlayerCall_Init, (ActorFunc)PlayerCall_Destroy, (ActorFunc)PlayerCall_Update, (ActorFunc)PlayerCall_Draw, (ActorFunc)PlayerCall_Reset,
+	    ACTOR_PLAYER, ACTORCAT_PLAYER, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(Player), (ActorFunc)PlayerCall_Init, (ActorFunc)PlayerCall_Destroy, (ActorFunc)PlayerCall_Update, (ActorFunc)PlayerCall_Draw, (ActorFunc)PlayerCall_Reset,
 	};
 }

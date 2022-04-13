@@ -3207,11 +3207,6 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
 				actorInit->reset(nullptr, nullptr);
 			}
 		}
-
-		/*actorInit = (void*)(u32)((overlayEntry->initInfo != NULL)
-					     ? (void*)((u32)overlayEntry->initInfo -
-						       (s32)((u32)overlayEntry->vramStart - (u32)overlayEntry->loadedRamAddr))
-					     : NULL);*/
 	}
 
 	objBankIndex = Object_GetIndex(&globalCtx->objectCtx, actorInit->objectId);
@@ -3224,17 +3219,17 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
 		return NULL;
 	}
 
-	actor = (Actor*)ZeldaArena_MallocDebug(actorInit->instanceSize, name, 1);
+	actor = actorInit->factory();
 
 	if(actor == NULL)
 	{
 		// "Actor class cannot be reserved! %s <size＝%d bytes>"
-		osSyncPrintf(VT_COL(RED, WHITE) "Actor class cannot be reserved! %s <size＝%d bytes>\n", VT_RST, name, actorInit->instanceSize);
+		osSyncPrintf(VT_COL(RED, WHITE) "Actor class cannot be reserved! %s\n", VT_RST, name);
 		Actor_FreeOverlay(overlayEntry);
 		return NULL;
 	}
 
-	ASSERT(overlayEntry->numLoaded < 255, "actor_dlftbl->clients < 255", "../z_actor.c", 7031);
+	ASSERT(overlayEntry->numLoaded < 255, "actor_dlftbl->clients < 255", __FILE__, __LINE__);
 
 	overlayEntry->numLoaded++;
 
@@ -3244,7 +3239,6 @@ Actor* Actor_Spawn(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId
 		osSyncPrintf("Actor client No. %d\n", overlayEntry->numLoaded);
 	}
 
-	Lib_MemSet((u8*)actor, actorInit->instanceSize, 0);
 	actor->overlayEntry = overlayEntry;
 	actor->id = actorInit->id;
 	actor->flags = actorInit->flags;
@@ -3374,7 +3368,7 @@ Actor* Actor_Delete(ActorContext* actorCtx, Actor* actor, GlobalContext* globalC
 
 	newHead = Actor_RemoveFromCategory(globalCtx, actorCtx, actor);
 
-	ZeldaArena_FreeDebug(actor, "../z_actor.c", 7242);
+	delete actor;
 
 	if(overlayEntry->vramStart == 0)
 	{

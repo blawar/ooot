@@ -44,7 +44,7 @@ void EnHeishi1_WaitNight(EnHeishi1* pthis, GlobalContext* globalCtx);
 static s32 sPlayerIsCaught = false;
 
 ActorInit En_Heishi1_InitVars = {
-    0, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi1), (ActorFunc)EnHeishi1_Init, (ActorFunc)EnHeishi1_Destroy, (ActorFunc)EnHeishi1_Update, (ActorFunc)EnHeishi1_Draw, (ActorFunc)EnHeishi1_Reset,
+    0, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi1), (ActorFunc)EnHeishi1_Init, (ActorFunc)EnHeishi1_Destroy, (ActorFunc)EnHeishi1_Update, (ActorFunc)EnHeishi1_Draw, (ActorFunc)EnHeishi1_Reset,
 };
 
 static f32 sAnimParamsInit[][8] = {
@@ -79,10 +79,14 @@ void EnHeishi1_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->type = (pthis->actor.params >> 8) & 0xFF;
 	pthis->path = pthis->actor.params & 0xFF;
 
-	for(i = 0; i < ARRAY_COUNT(sAnimParamsInit[0]); i++)
-	{
-		pthis->animParams[i] = sAnimParamsInit[pthis->type][i];
-	}
+	pthis->animSpeed = sAnimParamsInit[pthis->type][0];
+	pthis->transitionRate = sAnimParamsInit[pthis->type][1];
+	pthis->moveSpeedTarget = sAnimParamsInit[pthis->type][2];
+	pthis->moveSpeedMax = sAnimParamsInit[pthis->type][3];
+	pthis->bodyTurnSpeedTarget = sAnimParamsInit[pthis->type][4];
+	pthis->bodyTurnSpeedMax = sAnimParamsInit[pthis->type][5];
+	pthis->headTurnSpeedScale = sAnimParamsInit[pthis->type][6];
+	pthis->headTurnSpeedMax = sAnimParamsInit[pthis->type][7];
 
 	// "type"
 	osSyncPrintf(VT_FGCOL(GREEN) " 種類☆☆☆☆☆☆☆☆☆☆☆☆☆ %d\n" VT_RST, pthis->type);
@@ -445,13 +449,9 @@ void EnHeishi1_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	pthis->activeTimer++;
 
-	for(i = 0; i < ARRAY_COUNT(pthis->timers); i++)
-	{
-		if(pthis->timers[i] != 0)
-		{
-			pthis->timers[i]--;
-		}
-	}
+	pthis->headTimer.dec();
+	pthis->waitTimer.dec();
+	pthis->kickTimer.dec();
 
 	if(pthis->waypointTimer != 0)
 	{
@@ -568,6 +568,6 @@ void EnHeishi1_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sPlayerIsCaught = false;
 
 	En_Heishi1_InitVars = {
-	    0, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi1), (ActorFunc)EnHeishi1_Init, (ActorFunc)EnHeishi1_Destroy, (ActorFunc)EnHeishi1_Update, (ActorFunc)EnHeishi1_Draw, (ActorFunc)EnHeishi1_Reset,
+	    0, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi1), (ActorFunc)EnHeishi1_Init, (ActorFunc)EnHeishi1_Destroy, (ActorFunc)EnHeishi1_Update, (ActorFunc)EnHeishi1_Draw, (ActorFunc)EnHeishi1_Reset,
 	};
 }

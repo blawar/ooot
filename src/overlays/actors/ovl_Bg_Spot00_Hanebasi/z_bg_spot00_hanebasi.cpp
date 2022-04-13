@@ -36,7 +36,7 @@ void BgSpot00Hanebasi_DrawbridgeRiseAndFall(BgSpot00Hanebasi* pthis, GlobalConte
 void BgSpot00Hanebasi_SetTorchLightInfo(BgSpot00Hanebasi* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot00_Hanebasi_InitVars = {
-    ACTOR_BG_SPOT00_HANEBASI,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT00_OBJECTS, sizeof(BgSpot00Hanebasi), (ActorFunc)BgSpot00Hanebasi_Init, (ActorFunc)BgSpot00Hanebasi_Destroy, (ActorFunc)BgSpot00Hanebasi_Update, (ActorFunc)BgSpot00Hanebasi_Draw,
+    ACTOR_BG_SPOT00_HANEBASI,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT00_OBJECTS, ACTOR_FACTORY(BgSpot00Hanebasi), (ActorFunc)BgSpot00Hanebasi_Init, (ActorFunc)BgSpot00Hanebasi_Destroy, (ActorFunc)BgSpot00Hanebasi_Update, (ActorFunc)BgSpot00Hanebasi_Draw,
     (ActorFunc)BgSpot00Hanebasi_Reset,
 };
 
@@ -377,7 +377,7 @@ void BgSpot00Hanebasi_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot00Hanebasi_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot00_Hanebasi_InitVars = {
-	    ACTOR_BG_SPOT00_HANEBASI,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT00_OBJECTS, sizeof(BgSpot00Hanebasi), (ActorFunc)BgSpot00Hanebasi_Init, (ActorFunc)BgSpot00Hanebasi_Destroy, (ActorFunc)BgSpot00Hanebasi_Update, (ActorFunc)BgSpot00Hanebasi_Draw,
+	    ACTOR_BG_SPOT00_HANEBASI,	       ACTORCAT_BG, FLAGS, OBJECT_SPOT00_OBJECTS, ACTOR_FACTORY(BgSpot00Hanebasi), (ActorFunc)BgSpot00Hanebasi_Init, (ActorFunc)BgSpot00Hanebasi_Destroy, (ActorFunc)BgSpot00Hanebasi_Update, (ActorFunc)BgSpot00Hanebasi_Draw,
 	    (ActorFunc)BgSpot00Hanebasi_Reset,
 	};
 

@@ -27,7 +27,7 @@ void func_80892890(BgInGate* pthis, GlobalContext* globalCtx);
 void BgInGate_DoNothing(BgInGate* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Ingate_InitVars = {
-    ACTOR_BG_INGATE, ACTORCAT_PROP, FLAGS, OBJECT_INGATE, sizeof(BgInGate), (ActorFunc)BgInGate_Init, (ActorFunc)BgInGate_Destroy, (ActorFunc)BgInGate_Update, (ActorFunc)BgInGate_Draw, (ActorFunc)BgInGate_Reset,
+    ACTOR_BG_INGATE, ACTORCAT_PROP, FLAGS, OBJECT_INGATE, ACTOR_FACTORY(BgInGate), (ActorFunc)BgInGate_Init, (ActorFunc)BgInGate_Destroy, (ActorFunc)BgInGate_Update, (ActorFunc)BgInGate_Draw, (ActorFunc)BgInGate_Reset,
 };
 
 void BgInGate_SetupAction(BgInGate* pthis, BgInGateActionFunc actionFunc)
@@ -134,6 +134,6 @@ void BgInGate_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgInGate_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Ingate_InitVars = {
-	    ACTOR_BG_INGATE, ACTORCAT_PROP, FLAGS, OBJECT_INGATE, sizeof(BgInGate), (ActorFunc)BgInGate_Init, (ActorFunc)BgInGate_Destroy, (ActorFunc)BgInGate_Update, (ActorFunc)BgInGate_Draw, (ActorFunc)BgInGate_Reset,
+	    ACTOR_BG_INGATE, ACTORCAT_PROP, FLAGS, OBJECT_INGATE, ACTOR_FACTORY(BgInGate), (ActorFunc)BgInGate_Init, (ActorFunc)BgInGate_Destroy, (ActorFunc)BgInGate_Update, (ActorFunc)BgInGate_Draw, (ActorFunc)BgInGate_Reset,
 	};
 }

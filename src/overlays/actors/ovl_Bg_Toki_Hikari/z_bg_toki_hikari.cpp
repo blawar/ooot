@@ -29,7 +29,7 @@ void func_808BA274(BgTokiHikari* pthis, GlobalContext* globalCtx);
 void func_808BA2CC(BgTokiHikari* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Toki_Hikari_InitVars = {
-    ACTOR_BG_TOKI_HIKARI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, sizeof(BgTokiHikari), (ActorFunc)BgTokiHikari_Init, (ActorFunc)BgTokiHikari_Destroy, (ActorFunc)BgTokiHikari_Update, (ActorFunc)BgTokiHikari_Draw, (ActorFunc)BgTokiHikari_Reset,
+    ACTOR_BG_TOKI_HIKARI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, ACTOR_FACTORY(BgTokiHikari), (ActorFunc)BgTokiHikari_Init, (ActorFunc)BgTokiHikari_Destroy, (ActorFunc)BgTokiHikari_Update, (ActorFunc)BgTokiHikari_Draw, (ActorFunc)BgTokiHikari_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -198,6 +198,6 @@ void func_808BA2CC(BgTokiHikari* pthis, GlobalContext* globalCtx)
 void BgTokiHikari_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Toki_Hikari_InitVars = {
-	    ACTOR_BG_TOKI_HIKARI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, sizeof(BgTokiHikari), (ActorFunc)BgTokiHikari_Init, (ActorFunc)BgTokiHikari_Destroy, (ActorFunc)BgTokiHikari_Update, (ActorFunc)BgTokiHikari_Draw, (ActorFunc)BgTokiHikari_Reset,
+	    ACTOR_BG_TOKI_HIKARI, ACTORCAT_BG, FLAGS, OBJECT_TOKI_OBJECTS, ACTOR_FACTORY(BgTokiHikari), (ActorFunc)BgTokiHikari_Init, (ActorFunc)BgTokiHikari_Destroy, (ActorFunc)BgTokiHikari_Update, (ActorFunc)BgTokiHikari_Draw, (ActorFunc)BgTokiHikari_Reset,
 	};
 }

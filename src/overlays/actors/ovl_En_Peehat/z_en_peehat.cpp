@@ -59,7 +59,7 @@ static Vec3f peahatBladeTip_101[] = {{0.0f, 0.0f, 5500.0f}, {0.0f, 0.0f, -5500.0
 static Vec3f D_80AD285C_102[] = {{0.0f, 0.0f, -4500.0f}, {-4500.0f, 0.0f, 0.0f}, {4500.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 4500.0f}};
 
 ActorInit En_Peehat_InitVars = {
-    ACTOR_EN_PEEHAT, ACTORCAT_ENEMY, FLAGS, OBJECT_PEEHAT, sizeof(EnPeehat), (ActorFunc)EnPeehat_Init, (ActorFunc)EnPeehat_Destroy, (ActorFunc)EnPeehat_Update, (ActorFunc)EnPeehat_Draw, (ActorFunc)EnPeehat_Reset,
+    ACTOR_EN_PEEHAT, ACTORCAT_ENEMY, FLAGS, OBJECT_PEEHAT, ACTOR_FACTORY(EnPeehat), (ActorFunc)EnPeehat_Init, (ActorFunc)EnPeehat_Destroy, (ActorFunc)EnPeehat_Update, (ActorFunc)EnPeehat_Draw, (ActorFunc)EnPeehat_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1260,7 +1260,7 @@ void EnPeehat_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnPeehat_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Peehat_InitVars = {
-	    ACTOR_EN_PEEHAT, ACTORCAT_ENEMY, FLAGS, OBJECT_PEEHAT, sizeof(EnPeehat), (ActorFunc)EnPeehat_Init, (ActorFunc)EnPeehat_Destroy, (ActorFunc)EnPeehat_Update, (ActorFunc)EnPeehat_Draw, (ActorFunc)EnPeehat_Reset,
+	    ACTOR_EN_PEEHAT, ACTORCAT_ENEMY, FLAGS, OBJECT_PEEHAT, ACTOR_FACTORY(EnPeehat), (ActorFunc)EnPeehat_Init, (ActorFunc)EnPeehat_Destroy, (ActorFunc)EnPeehat_Update, (ActorFunc)EnPeehat_Draw, (ActorFunc)EnPeehat_Reset,
 	};
 
 	sCylinderInit = {

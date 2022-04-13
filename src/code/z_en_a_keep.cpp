@@ -33,7 +33,7 @@ void EnAObj_SetupBoulderFragment(EnAObj* pthis, s16 type);
 void EnAObj_SetupBlock(EnAObj* pthis, s16 type);
 
 ActorInit En_A_Obj_InitVars = {
-    ACTOR_EN_A_OBJ, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnAObj), (ActorFunc)EnAObj_Init, (ActorFunc)EnAObj_Destroy, (ActorFunc)EnAObj_Update, (ActorFunc)EnAObj_Draw, (ActorFunc)EnAObj_Reset,
+    ACTOR_EN_A_OBJ, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnAObj), (ActorFunc)EnAObj_Init, (ActorFunc)EnAObj_Destroy, (ActorFunc)EnAObj_Update, (ActorFunc)EnAObj_Draw, (ActorFunc)EnAObj_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -421,7 +421,7 @@ void EnAObj_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void EnAObj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_A_Obj_InitVars = {
-	    ACTOR_EN_A_OBJ, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnAObj), (ActorFunc)EnAObj_Init, (ActorFunc)EnAObj_Destroy, (ActorFunc)EnAObj_Update, (ActorFunc)EnAObj_Draw, (ActorFunc)EnAObj_Reset,
+	    ACTOR_EN_A_OBJ, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnAObj), (ActorFunc)EnAObj_Init, (ActorFunc)EnAObj_Destroy, (ActorFunc)EnAObj_Update, (ActorFunc)EnAObj_Draw, (ActorFunc)EnAObj_Reset,
 	};
 
 	sCylinderInit = {

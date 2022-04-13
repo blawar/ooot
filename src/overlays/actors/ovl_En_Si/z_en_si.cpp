@@ -52,7 +52,7 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 D_80AFBADC = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 ActorInit En_Si_InitVars = {
-    ACTOR_EN_SI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ST, sizeof(EnSi), (ActorFunc)EnSi_Init, (ActorFunc)EnSi_Destroy, (ActorFunc)EnSi_Update, (ActorFunc)EnSi_Draw, (ActorFunc)EnSi_Reset,
+    ACTOR_EN_SI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ST, ACTOR_FACTORY(EnSi), (ActorFunc)EnSi_Init, (ActorFunc)EnSi_Destroy, (ActorFunc)EnSi_Update, (ActorFunc)EnSi_Draw, (ActorFunc)EnSi_Reset,
 };
 
 void EnSi_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -201,6 +201,6 @@ void EnSi_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80AFBADC = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 	En_Si_InitVars = {
-	    ACTOR_EN_SI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ST, sizeof(EnSi), (ActorFunc)EnSi_Init, (ActorFunc)EnSi_Destroy, (ActorFunc)EnSi_Update, (ActorFunc)EnSi_Draw, (ActorFunc)EnSi_Reset,
+	    ACTOR_EN_SI, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ST, ACTOR_FACTORY(EnSi), (ActorFunc)EnSi_Init, (ActorFunc)EnSi_Destroy, (ActorFunc)EnSi_Update, (ActorFunc)EnSi_Draw, (ActorFunc)EnSi_Reset,
 	};
 }

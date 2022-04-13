@@ -73,7 +73,7 @@ static f32 sStatueDistToPlayer = 0;
 static s16 sStatueRotY;
 
 ActorInit Bg_Haka_Gate_InitVars = {
-    ACTOR_BG_HAKA_GATE, ACTORCAT_PROP, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaGate), (ActorFunc)BgHakaGate_Init, (ActorFunc)BgHakaGate_Destroy, (ActorFunc)BgHakaGate_Update, (ActorFunc)BgHakaGate_Draw, (ActorFunc)BgHakaGate_Reset,
+    ACTOR_BG_HAKA_GATE, ACTORCAT_PROP, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaGate), (ActorFunc)BgHakaGate_Init, (ActorFunc)BgHakaGate_Destroy, (ActorFunc)BgHakaGate_Update, (ActorFunc)BgHakaGate_Draw, (ActorFunc)BgHakaGate_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -473,6 +473,6 @@ void BgHakaGate_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sStatueRotY = 0;
 
 	Bg_Haka_Gate_InitVars = {
-	    ACTOR_BG_HAKA_GATE, ACTORCAT_PROP, FLAGS, OBJECT_HAKA_OBJECTS, sizeof(BgHakaGate), (ActorFunc)BgHakaGate_Init, (ActorFunc)BgHakaGate_Destroy, (ActorFunc)BgHakaGate_Update, (ActorFunc)BgHakaGate_Draw, (ActorFunc)BgHakaGate_Reset,
+	    ACTOR_BG_HAKA_GATE, ACTORCAT_PROP, FLAGS, OBJECT_HAKA_OBJECTS, ACTOR_FACTORY(BgHakaGate), (ActorFunc)BgHakaGate_Init, (ActorFunc)BgHakaGate_Destroy, (ActorFunc)BgHakaGate_Update, (ActorFunc)BgHakaGate_Draw, (ActorFunc)BgHakaGate_Reset,
 	};
 }

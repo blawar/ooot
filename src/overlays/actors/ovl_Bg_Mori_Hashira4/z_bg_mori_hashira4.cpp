@@ -33,7 +33,7 @@ void BgMoriHashira4_GateWait(BgMoriHashira4* pthis, GlobalContext* globalCtx);
 void BgMoriHashira4_GateOpen(BgMoriHashira4* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mori_Hashira4_InitVars = {
-    ACTOR_BG_MORI_HASHIRA4, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriHashira4), (ActorFunc)BgMoriHashira4_Init, (ActorFunc)BgMoriHashira4_Destroy, (ActorFunc)BgMoriHashira4_Update, NULL, (ActorFunc)BgMoriHashira4_Reset,
+    ACTOR_BG_MORI_HASHIRA4, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriHashira4), (ActorFunc)BgMoriHashira4_Init, (ActorFunc)BgMoriHashira4_Destroy, (ActorFunc)BgMoriHashira4_Update, NULL, (ActorFunc)BgMoriHashira4_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -201,7 +201,7 @@ void BgMoriHashira4_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMoriHashira4_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mori_Hashira4_InitVars = {
-	    ACTOR_BG_MORI_HASHIRA4, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriHashira4), (ActorFunc)BgMoriHashira4_Init, (ActorFunc)BgMoriHashira4_Destroy, (ActorFunc)BgMoriHashira4_Update, NULL, (ActorFunc)BgMoriHashira4_Reset,
+	    ACTOR_BG_MORI_HASHIRA4, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriHashira4), (ActorFunc)BgMoriHashira4_Init, (ActorFunc)BgMoriHashira4_Destroy, (ActorFunc)BgMoriHashira4_Update, NULL, (ActorFunc)BgMoriHashira4_Reset,
 	};
 
 	sUnkTimer = 0;

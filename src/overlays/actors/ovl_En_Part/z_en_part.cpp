@@ -26,7 +26,7 @@ void EnPart_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPart_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Part_InitVars = {
-    ACTOR_EN_PART, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnPart), (ActorFunc)EnPart_Init, (ActorFunc)EnPart_Destroy, (ActorFunc)EnPart_Update, (ActorFunc)EnPart_Draw, (ActorFunc)EnPart_Reset,
+    ACTOR_EN_PART, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnPart), (ActorFunc)EnPart_Init, (ActorFunc)EnPart_Destroy, (ActorFunc)EnPart_Update, (ActorFunc)EnPart_Draw, (ActorFunc)EnPart_Reset,
 };
 
 void EnPart_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -357,6 +357,6 @@ void EnPart_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnPart_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Part_InitVars = {
-	    ACTOR_EN_PART, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnPart), (ActorFunc)EnPart_Init, (ActorFunc)EnPart_Destroy, (ActorFunc)EnPart_Update, (ActorFunc)EnPart_Draw, (ActorFunc)EnPart_Reset,
+	    ACTOR_EN_PART, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnPart), (ActorFunc)EnPart_Init, (ActorFunc)EnPart_Destroy, (ActorFunc)EnPart_Update, (ActorFunc)EnPart_Draw, (ActorFunc)EnPart_Reset,
 	};
 }

@@ -35,7 +35,7 @@ void EnClearTag_CreateFlashEffect(GlobalContext* globalCtx, Vec3f* position, f32
 void EnClearTag_CalculateFloorTangent(EnClearTag* pthis);
 
 ActorInit En_Clear_Tag_InitVars = {
-    ACTOR_EN_CLEAR_TAG, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnClearTag), (ActorFunc)EnClearTag_Init, (ActorFunc)EnClearTag_Destroy, (ActorFunc)EnClearTag_Update, (ActorFunc)EnClearTag_Draw, (ActorFunc)EnClearTag_Reset,
+    ACTOR_EN_CLEAR_TAG, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnClearTag), (ActorFunc)EnClearTag_Init, (ActorFunc)EnClearTag_Destroy, (ActorFunc)EnClearTag_Update, (ActorFunc)EnClearTag_Draw, (ActorFunc)EnClearTag_Reset,
 };
 
 static u8 sIsEffectsInitialized = false;
@@ -1123,7 +1123,7 @@ void EnClearTag_DrawEffects(GlobalContext* globalCtx)
 void EnClearTag_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Clear_Tag_InitVars = {
-	    ACTOR_EN_CLEAR_TAG, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnClearTag), (ActorFunc)EnClearTag_Init, (ActorFunc)EnClearTag_Destroy, (ActorFunc)EnClearTag_Update, (ActorFunc)EnClearTag_Draw, (ActorFunc)EnClearTag_Reset,
+	    ACTOR_EN_CLEAR_TAG, ACTORCAT_BOSS, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnClearTag), (ActorFunc)EnClearTag_Init, (ActorFunc)EnClearTag_Destroy, (ActorFunc)EnClearTag_Update, (ActorFunc)EnClearTag_Draw, (ActorFunc)EnClearTag_Reset,
 	};
 
 	sIsEffectsInitialized = false;

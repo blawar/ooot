@@ -56,7 +56,7 @@ static Vec3f effAccel_75 = {0.0f, 0.5f, 0.0f};
 static Vec3f limbSrc_75 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Firefly_InitVars = {
-    ACTOR_EN_FIREFLY, ACTORCAT_ENEMY, FLAGS, OBJECT_FIREFLY, sizeof(EnFirefly), (ActorFunc)EnFirefly_Init, (ActorFunc)EnFirefly_Destroy, (ActorFunc)EnFirefly_Update, (ActorFunc)EnFirefly_Draw, (ActorFunc)EnFirefly_Reset,
+    ACTOR_EN_FIREFLY, ACTORCAT_ENEMY, FLAGS, OBJECT_FIREFLY, ACTOR_FACTORY(EnFirefly), (ActorFunc)EnFirefly_Init, (ActorFunc)EnFirefly_Destroy, (ActorFunc)EnFirefly_Update, (ActorFunc)EnFirefly_Draw, (ActorFunc)EnFirefly_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -1030,7 +1030,7 @@ void EnFirefly_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	limbSrc_75 = {0.0f, 0.0f, 0.0f};
 
 	En_Firefly_InitVars = {
-	    ACTOR_EN_FIREFLY, ACTORCAT_ENEMY, FLAGS, OBJECT_FIREFLY, sizeof(EnFirefly), (ActorFunc)EnFirefly_Init, (ActorFunc)EnFirefly_Destroy, (ActorFunc)EnFirefly_Update, (ActorFunc)EnFirefly_Draw, (ActorFunc)EnFirefly_Reset,
+	    ACTOR_EN_FIREFLY, ACTORCAT_ENEMY, FLAGS, OBJECT_FIREFLY, ACTOR_FACTORY(EnFirefly), (ActorFunc)EnFirefly_Init, (ActorFunc)EnFirefly_Destroy, (ActorFunc)EnFirefly_Update, (ActorFunc)EnFirefly_Draw, (ActorFunc)EnFirefly_Reset,
 	};
 
 	sJntSphInit = {

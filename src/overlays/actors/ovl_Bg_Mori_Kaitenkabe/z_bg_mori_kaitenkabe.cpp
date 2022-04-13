@@ -32,7 +32,7 @@ void BgMoriKaitenkabe_SetupRotate(BgMoriKaitenkabe* pthis);
 void BgMoriKaitenkabe_Rotate(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Mori_Kaitenkabe_InitVars = {
-    ACTOR_BG_MORI_KAITENKABE, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriKaitenkabe), (ActorFunc)BgMoriKaitenkabe_Init, (ActorFunc)BgMoriKaitenkabe_Destroy, (ActorFunc)BgMoriKaitenkabe_Update, NULL, (ActorFunc)BgMoriKaitenkabe_Reset,
+    ACTOR_BG_MORI_KAITENKABE, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriKaitenkabe), (ActorFunc)BgMoriKaitenkabe_Init, (ActorFunc)BgMoriKaitenkabe_Destroy, (ActorFunc)BgMoriKaitenkabe_Update, NULL, (ActorFunc)BgMoriKaitenkabe_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -204,6 +204,6 @@ void BgMoriKaitenkabe_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgMoriKaitenkabe_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Mori_Kaitenkabe_InitVars = {
-	    ACTOR_BG_MORI_KAITENKABE, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, sizeof(BgMoriKaitenkabe), (ActorFunc)BgMoriKaitenkabe_Init, (ActorFunc)BgMoriKaitenkabe_Destroy, (ActorFunc)BgMoriKaitenkabe_Update, NULL, (ActorFunc)BgMoriKaitenkabe_Reset,
+	    ACTOR_BG_MORI_KAITENKABE, ACTORCAT_BG, FLAGS, OBJECT_MORI_OBJECTS, ACTOR_FACTORY(BgMoriKaitenkabe), (ActorFunc)BgMoriKaitenkabe_Init, (ActorFunc)BgMoriKaitenkabe_Destroy, (ActorFunc)BgMoriKaitenkabe_Update, NULL, (ActorFunc)BgMoriKaitenkabe_Reset,
 	};
 }

@@ -83,7 +83,7 @@ static Vec3f sparkleAccel_105 = {0.0f, -0.025f, 0.0f};
 static Vec3f zeroVec_121 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Elf_InitVars = {
-    ACTOR_EN_ELF, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnElf), (ActorFunc)EnElf_Init, (ActorFunc)EnElf_Destroy, (ActorFunc)EnElf_Update, (ActorFunc)EnElf_Draw, (ActorFunc)EnElf_Reset,
+    ACTOR_EN_ELF, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_CLASS_FACTORY(EnElf), (ActorFunc)EnElf_Init, (ActorFunc)EnElf_Destroy, (ActorFunc)EnElf_Update, (ActorFunc)EnElf_Draw, (ActorFunc)EnElf_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -1812,6 +1812,6 @@ void EnElf_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_121 = {0.0f, 0.0f, 0.0f};
 
 	En_Elf_InitVars = {
-	    ACTOR_EN_ELF, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnElf), (ActorFunc)EnElf_Init, (ActorFunc)EnElf_Destroy, (ActorFunc)EnElf_Update, (ActorFunc)EnElf_Draw, (ActorFunc)EnElf_Reset,
+	    ACTOR_EN_ELF, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_CLASS_FACTORY(EnElf), (ActorFunc)EnElf_Init, (ActorFunc)EnElf_Destroy, (ActorFunc)EnElf_Update, (ActorFunc)EnElf_Draw, (ActorFunc)EnElf_Reset,
 	};
 }

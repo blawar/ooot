@@ -30,7 +30,7 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Torch2_InitVars = {
-    ACTOR_EN_TORCH2, ACTORCAT_BOSS, FLAGS, OBJECT_TORCH2, sizeof(Player), (ActorFunc)EnTorch2_Init, (ActorFunc)EnTorch2_Destroy, (ActorFunc)EnTorch2_Update, (ActorFunc)EnTorch2_Draw, (ActorFunc)EnTorch2_Reset,
+    ACTOR_EN_TORCH2, ACTORCAT_BOSS, FLAGS, OBJECT_TORCH2, ACTOR_FACTORY(Player), (ActorFunc)EnTorch2_Init, (ActorFunc)EnTorch2_Destroy, (ActorFunc)EnTorch2_Update, (ActorFunc)EnTorch2_Draw, (ActorFunc)EnTorch2_Reset,
 };
 
 static f32 sStickTilt = 0.0f;
@@ -882,7 +882,7 @@ void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void EnTorch2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Torch2_InitVars = {
-	    ACTOR_EN_TORCH2, ACTORCAT_BOSS, FLAGS, OBJECT_TORCH2, sizeof(Player), (ActorFunc)EnTorch2_Init, (ActorFunc)EnTorch2_Destroy, (ActorFunc)EnTorch2_Update, (ActorFunc)EnTorch2_Draw, (ActorFunc)EnTorch2_Reset,
+	    ACTOR_EN_TORCH2, ACTORCAT_BOSS, FLAGS, OBJECT_TORCH2, ACTOR_FACTORY(Player), (ActorFunc)EnTorch2_Init, (ActorFunc)EnTorch2_Destroy, (ActorFunc)EnTorch2_Update, (ActorFunc)EnTorch2_Draw, (ActorFunc)EnTorch2_Reset,
 	};
 
 	sStickTilt = 0.0f;

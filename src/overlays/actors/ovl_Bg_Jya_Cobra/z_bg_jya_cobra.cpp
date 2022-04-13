@@ -29,7 +29,7 @@ void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx);
 #include "def/z_rcp.h"
 
 ActorInit Bg_Jya_Cobra_InitVars = {
-    ACTOR_BG_JYA_COBRA, ACTORCAT_PROP, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaCobra), (ActorFunc)BgJyaCobra_Init, (ActorFunc)BgJyaCobra_Destroy, (ActorFunc)BgJyaCobra_Update, (ActorFunc)BgJyaCobra_Draw, (ActorFunc)BgJyaCobra_Reset,
+    ACTOR_BG_JYA_COBRA, ACTORCAT_PROP, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaCobra), (ActorFunc)BgJyaCobra_Init, (ActorFunc)BgJyaCobra_Destroy, (ActorFunc)BgJyaCobra_Update, (ActorFunc)BgJyaCobra_Draw, (ActorFunc)BgJyaCobra_Reset,
 };
 
 static s16 D_80897308[] = {0, 0, 0, 0};
@@ -686,7 +686,7 @@ void BgJyaCobra_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgJyaCobra_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Jya_Cobra_InitVars = {
-	    ACTOR_BG_JYA_COBRA, ACTORCAT_PROP, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaCobra), (ActorFunc)BgJyaCobra_Init, (ActorFunc)BgJyaCobra_Destroy, (ActorFunc)BgJyaCobra_Update, (ActorFunc)BgJyaCobra_Draw, (ActorFunc)BgJyaCobra_Reset,
+	    ACTOR_BG_JYA_COBRA, ACTORCAT_PROP, FLAGS, OBJECT_JYA_OBJ, ACTOR_FACTORY(BgJyaCobra), (ActorFunc)BgJyaCobra_Init, (ActorFunc)BgJyaCobra_Destroy, (ActorFunc)BgJyaCobra_Update, (ActorFunc)BgJyaCobra_Draw, (ActorFunc)BgJyaCobra_Reset,
 	};
 
 	D_80897538 = {0, -0x4000, 0};

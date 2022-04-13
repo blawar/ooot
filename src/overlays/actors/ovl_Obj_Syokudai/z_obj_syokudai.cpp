@@ -35,7 +35,7 @@ static u8 sColTypesStand_30[] = {0x09, 0x0B, 0x0B};
 static Gfx* displayLists_33[] = {gGoldenTorchDL, gTimedTorchDL, gWoodenTorchDL};
 
 ActorInit Obj_Syokudai_InitVars = {
-    ACTOR_OBJ_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, sizeof(ObjSyokudai), (ActorFunc)ObjSyokudai_Init, (ActorFunc)ObjSyokudai_Destroy, (ActorFunc)ObjSyokudai_Update, (ActorFunc)ObjSyokudai_Draw, (ActorFunc)ObjSyokudai_Reset,
+    ACTOR_OBJ_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, ACTOR_FACTORY(ObjSyokudai), (ActorFunc)ObjSyokudai_Init, (ActorFunc)ObjSyokudai_Destroy, (ActorFunc)ObjSyokudai_Update, (ActorFunc)ObjSyokudai_Draw, (ActorFunc)ObjSyokudai_Reset,
 };
 
 static ColliderCylinderInit sCylInitStand = {
@@ -359,7 +359,7 @@ void ObjSyokudai_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjSyokudai_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Syokudai_InitVars = {
-	    ACTOR_OBJ_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, sizeof(ObjSyokudai), (ActorFunc)ObjSyokudai_Init, (ActorFunc)ObjSyokudai_Destroy, (ActorFunc)ObjSyokudai_Update, (ActorFunc)ObjSyokudai_Draw, (ActorFunc)ObjSyokudai_Reset,
+	    ACTOR_OBJ_SYOKUDAI, ACTORCAT_PROP, FLAGS, OBJECT_SYOKUDAI, ACTOR_FACTORY(ObjSyokudai), (ActorFunc)ObjSyokudai_Init, (ActorFunc)ObjSyokudai_Destroy, (ActorFunc)ObjSyokudai_Update, (ActorFunc)ObjSyokudai_Draw, (ActorFunc)ObjSyokudai_Reset,
 	};
 
 	sCylInitStand = {

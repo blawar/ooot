@@ -30,7 +30,7 @@ s32 EnToryo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
 
 ActorInit En_Toryo_InitVars = {
-    ACTOR_EN_TORYO, ACTORCAT_NPC, FLAGS, OBJECT_TORYO, sizeof(EnToryo), (ActorFunc)EnToryo_Init, (ActorFunc)EnToryo_Destroy, (ActorFunc)EnToryo_Update, (ActorFunc)EnToryo_Draw, (ActorFunc)EnToryo_Reset,
+    ACTOR_EN_TORYO, ACTORCAT_NPC, FLAGS, OBJECT_TORYO, ACTOR_FACTORY(EnToryo), (ActorFunc)EnToryo_Init, (ActorFunc)EnToryo_Destroy, (ActorFunc)EnToryo_Update, (ActorFunc)EnToryo_Draw, (ActorFunc)EnToryo_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -489,7 +489,7 @@ void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
 void EnToryo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Toryo_InitVars = {
-	    ACTOR_EN_TORYO, ACTORCAT_NPC, FLAGS, OBJECT_TORYO, sizeof(EnToryo), (ActorFunc)EnToryo_Init, (ActorFunc)EnToryo_Destroy, (ActorFunc)EnToryo_Update, (ActorFunc)EnToryo_Draw, (ActorFunc)EnToryo_Reset,
+	    ACTOR_EN_TORYO, ACTORCAT_NPC, FLAGS, OBJECT_TORYO, ACTOR_FACTORY(EnToryo), (ActorFunc)EnToryo_Init, (ActorFunc)EnToryo_Destroy, (ActorFunc)EnToryo_Update, (ActorFunc)EnToryo_Draw, (ActorFunc)EnToryo_Reset,
 	};
 
 	sCylinderInit = {

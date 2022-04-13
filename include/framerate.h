@@ -198,6 +198,7 @@ typedef Timer Position;
 typedef Timer TimerS16;
 typedef Timer TimerS32;
 typedef Timer TimerU32;
+typedef float CounterF;
 
 class Step
 {

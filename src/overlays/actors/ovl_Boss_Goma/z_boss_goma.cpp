@@ -85,7 +85,7 @@ static Vec3f focusEyeLocalPos_189 = {0.0f, 300.0f, 2650.0f};
 static Vec3f zero_189 = {0.0f, 0.0f, 0.0f};
 
 ActorInit Boss_Goma_InitVars = {
-    ACTOR_BOSS_GOMA, ACTORCAT_BOSS, FLAGS, OBJECT_GOMA, sizeof(BossGoma), (ActorFunc)BossGoma_Init, (ActorFunc)BossGoma_Destroy, (ActorFunc)BossGoma_Update, (ActorFunc)BossGoma_Draw, (ActorFunc)BossGoma_Reset,
+    ACTOR_BOSS_GOMA, ACTORCAT_BOSS, FLAGS, OBJECT_GOMA, ACTOR_FACTORY(BossGoma), (ActorFunc)BossGoma_Init, (ActorFunc)BossGoma_Destroy, (ActorFunc)BossGoma_Update, (ActorFunc)BossGoma_Draw, (ActorFunc)BossGoma_Reset,
 };
 
 static ColliderJntSphElementInit sColliderJntSphElementInit[13] = {
@@ -2389,7 +2389,7 @@ void BossGoma_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zero_189 = {0.0f, 0.0f, 0.0f};
 
 	Boss_Goma_InitVars = {
-	    ACTOR_BOSS_GOMA, ACTORCAT_BOSS, FLAGS, OBJECT_GOMA, sizeof(BossGoma), (ActorFunc)BossGoma_Init, (ActorFunc)BossGoma_Destroy, (ActorFunc)BossGoma_Update, (ActorFunc)BossGoma_Draw, (ActorFunc)BossGoma_Reset,
+	    ACTOR_BOSS_GOMA, ACTORCAT_BOSS, FLAGS, OBJECT_GOMA, ACTOR_FACTORY(BossGoma), (ActorFunc)BossGoma_Init, (ActorFunc)BossGoma_Destroy, (ActorFunc)BossGoma_Update, (ActorFunc)BossGoma_Draw, (ActorFunc)BossGoma_Reset,
 	};
 
 	sColliderJntSphInit = {

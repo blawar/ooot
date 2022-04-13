@@ -51,7 +51,7 @@ void EnPoField_SoulInteract(EnPoField* pthis, GlobalContext* globalCtx);
 void EnPoField_SpawnFlame(EnPoField* pthis);
 
 ActorInit En_Po_Field_InitVars = {
-    ACTOR_EN_PO_FIELD, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_FIELD, sizeof(EnPoField), (ActorFunc)EnPoField_Init, (ActorFunc)EnPoField_Destroy, (ActorFunc)EnPoField_Update, (ActorFunc)EnPoField_Draw, (ActorFunc)EnPoField_Reset,
+    ACTOR_EN_PO_FIELD, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_FIELD, ACTOR_FACTORY(EnPoField), (ActorFunc)EnPoField_Init, (ActorFunc)EnPoField_Destroy, (ActorFunc)EnPoField_Update, (ActorFunc)EnPoField_Draw, (ActorFunc)EnPoField_Reset,
 };
 
 static ColliderCylinderInit D_80AD7080 = {
@@ -1181,7 +1181,7 @@ void EnPoField_DrawSoul(Actor* thisx, GlobalContext* globalCtx)
 void EnPoField_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Po_Field_InitVars = {
-	    ACTOR_EN_PO_FIELD, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_FIELD, sizeof(EnPoField), (ActorFunc)EnPoField_Init, (ActorFunc)EnPoField_Destroy, (ActorFunc)EnPoField_Update, (ActorFunc)EnPoField_Draw, (ActorFunc)EnPoField_Reset,
+	    ACTOR_EN_PO_FIELD, ACTORCAT_ENEMY, FLAGS, OBJECT_PO_FIELD, ACTOR_FACTORY(EnPoField), (ActorFunc)EnPoField_Init, (ActorFunc)EnPoField_Destroy, (ActorFunc)EnPoField_Update, (ActorFunc)EnPoField_Draw, (ActorFunc)EnPoField_Reset,
 	};
 
 	D_80AD7080 = {

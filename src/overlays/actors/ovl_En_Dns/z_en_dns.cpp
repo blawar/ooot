@@ -57,7 +57,7 @@ void EnDns_SetupBurrow(EnDns* pthis, GlobalContext* globalCtx);
 void EnDns_Burrow(EnDns* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Dns_InitVars = {
-    ACTOR_EN_DNS, ACTORCAT_BG, FLAGS, OBJECT_SHOPNUTS, sizeof(EnDns), (ActorFunc)EnDns_Init, (ActorFunc)EnDns_Destroy, (ActorFunc)EnDns_Update, (ActorFunc)EnDns_Draw, (ActorFunc)EnDns_Reset,
+    ACTOR_EN_DNS, ACTORCAT_BG, FLAGS, OBJECT_SHOPNUTS, ACTOR_FACTORY(EnDns), (ActorFunc)EnDns_Init, (ActorFunc)EnDns_Destroy, (ActorFunc)EnDns_Update, (ActorFunc)EnDns_Draw, (ActorFunc)EnDns_Reset,
 };
 
 static ColliderCylinderInitType1 sCylinderInit = {
@@ -593,7 +593,7 @@ void EnDns_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDns_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dns_InitVars = {
-	    ACTOR_EN_DNS, ACTORCAT_BG, FLAGS, OBJECT_SHOPNUTS, sizeof(EnDns), (ActorFunc)EnDns_Init, (ActorFunc)EnDns_Destroy, (ActorFunc)EnDns_Update, (ActorFunc)EnDns_Draw, (ActorFunc)EnDns_Reset,
+	    ACTOR_EN_DNS, ACTORCAT_BG, FLAGS, OBJECT_SHOPNUTS, ACTOR_FACTORY(EnDns), (ActorFunc)EnDns_Init, (ActorFunc)EnDns_Destroy, (ActorFunc)EnDns_Update, (ActorFunc)EnDns_Draw, (ActorFunc)EnDns_Reset,
 	};
 
 	sCylinderInit = {

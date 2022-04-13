@@ -24,7 +24,7 @@ void ItemBHeart_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80B85264(ItemBHeart* pthis, GlobalContext* globalCtx);
 
 ActorInit Item_B_Heart_InitVars = {
-    ACTOR_ITEM_B_HEART, ACTORCAT_MISC, FLAGS, OBJECT_GI_HEARTS, sizeof(ItemBHeart), (ActorFunc)ItemBHeart_Init, (ActorFunc)ItemBHeart_Destroy, (ActorFunc)ItemBHeart_Update, (ActorFunc)ItemBHeart_Draw, (ActorFunc)ItemBHeart_Reset,
+    ACTOR_ITEM_B_HEART, ACTORCAT_MISC, FLAGS, OBJECT_GI_HEARTS, ACTOR_FACTORY(ItemBHeart), (ActorFunc)ItemBHeart_Init, (ActorFunc)ItemBHeart_Destroy, (ActorFunc)ItemBHeart_Update, (ActorFunc)ItemBHeart_Draw, (ActorFunc)ItemBHeart_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -125,6 +125,6 @@ void ItemBHeart_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ItemBHeart_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Item_B_Heart_InitVars = {
-	    ACTOR_ITEM_B_HEART, ACTORCAT_MISC, FLAGS, OBJECT_GI_HEARTS, sizeof(ItemBHeart), (ActorFunc)ItemBHeart_Init, (ActorFunc)ItemBHeart_Destroy, (ActorFunc)ItemBHeart_Update, (ActorFunc)ItemBHeart_Draw, (ActorFunc)ItemBHeart_Reset,
+	    ACTOR_ITEM_B_HEART, ACTORCAT_MISC, FLAGS, OBJECT_GI_HEARTS, ACTOR_FACTORY(ItemBHeart), (ActorFunc)ItemBHeart_Init, (ActorFunc)ItemBHeart_Destroy, (ActorFunc)ItemBHeart_Update, (ActorFunc)ItemBHeart_Draw, (ActorFunc)ItemBHeart_Reset,
 	};
 }

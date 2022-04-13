@@ -25,7 +25,7 @@ void OceffWipe2_Update(Actor* thisx, GlobalContext* globalCtx);
 void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Oceff_Wipe2_InitVars = {
-    ACTOR_OCEFF_WIPE2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(OceffWipe2), (ActorFunc)OceffWipe2_Init, (ActorFunc)OceffWipe2_Destroy, (ActorFunc)OceffWipe2_Update, (ActorFunc)OceffWipe2_Draw, (ActorFunc)OceffWipe2_Reset,
+    ACTOR_OCEFF_WIPE2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(OceffWipe2), (ActorFunc)OceffWipe2_Init, (ActorFunc)OceffWipe2_Destroy, (ActorFunc)OceffWipe2_Update, (ActorFunc)OceffWipe2_Draw, (ActorFunc)OceffWipe2_Reset,
 };
 
 void OceffWipe2_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -125,6 +125,6 @@ void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx)
 void OceffWipe2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Oceff_Wipe2_InitVars = {
-	    ACTOR_OCEFF_WIPE2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(OceffWipe2), (ActorFunc)OceffWipe2_Init, (ActorFunc)OceffWipe2_Destroy, (ActorFunc)OceffWipe2_Update, (ActorFunc)OceffWipe2_Draw, (ActorFunc)OceffWipe2_Reset,
+	    ACTOR_OCEFF_WIPE2, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(OceffWipe2), (ActorFunc)OceffWipe2_Init, (ActorFunc)OceffWipe2_Destroy, (ActorFunc)OceffWipe2_Update, (ActorFunc)OceffWipe2_Draw, (ActorFunc)OceffWipe2_Reset,
 	};
 }

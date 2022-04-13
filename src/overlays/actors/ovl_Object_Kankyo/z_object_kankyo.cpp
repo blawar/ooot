@@ -68,7 +68,7 @@ static void* D_80BA5900[] = {
 };
 
 ActorInit Object_Kankyo_InitVars = {
-    ACTOR_OBJECT_KANKYO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjectKankyo), (ActorFunc)ObjectKankyo_Init, (ActorFunc)ObjectKankyo_Destroy, (ActorFunc)ObjectKankyo_Update, (ActorFunc)ObjectKankyo_Draw, (ActorFunc)ObjectKankyo_Reset,
+    ACTOR_OBJECT_KANKYO, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjectKankyo), (ActorFunc)ObjectKankyo_Init, (ActorFunc)ObjectKankyo_Destroy, (ActorFunc)ObjectKankyo_Update, (ActorFunc)ObjectKankyo_Draw, (ActorFunc)ObjectKankyo_Reset,
 };
 
 static u8 sIsSpawned = false;
@@ -1071,7 +1071,7 @@ void ObjectKankyo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sSoundPos_53 = {0.0f, 0.0f, 0.0f};
 
 	Object_Kankyo_InitVars = {
-	    ACTOR_OBJECT_KANKYO,	  ACTORCAT_ITEMACTION,		 FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjectKankyo), (ActorFunc)ObjectKankyo_Init, (ActorFunc)ObjectKankyo_Destroy, (ActorFunc)ObjectKankyo_Update,
+	    ACTOR_OBJECT_KANKYO,	  ACTORCAT_ITEMACTION,		 FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjectKankyo), (ActorFunc)ObjectKankyo_Init, (ActorFunc)ObjectKankyo_Destroy, (ActorFunc)ObjectKankyo_Update,
 	    (ActorFunc)ObjectKankyo_Draw, (ActorFunc)ObjectKankyo_Reset,
 	};
 

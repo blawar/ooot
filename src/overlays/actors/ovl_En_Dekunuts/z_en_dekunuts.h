@@ -13,7 +13,7 @@ struct EnDekunuts
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ SkelAnime skelAnime;
 	/* 0x0190 */ EnDekunutsActionFunc actionFunc;
-	/* 0x0194 */ u8 playWalkSound;
+	/* 0x0194 */ TimerU8 playWalkSound;
 	/* 0x0195 */ Timer runAwayCount;
 	/* 0x0196 */ Timer animFlagAndTimer;
 	/* 0x0198 */ s16 runDirection;

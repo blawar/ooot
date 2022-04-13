@@ -48,7 +48,7 @@ static Vec3s D_80AD8C30[] = {
 };
 
 ActorInit En_Po_Relay_InitVars = {
-    ACTOR_EN_PO_RELAY, ACTORCAT_NPC, FLAGS, OBJECT_TK, sizeof(EnPoRelay), (ActorFunc)EnPoRelay_Init, (ActorFunc)EnPoRelay_Destroy, (ActorFunc)EnPoRelay_Update, (ActorFunc)EnPoRelay_Draw, (ActorFunc)EnPoRelay_Reset,
+    ACTOR_EN_PO_RELAY, ACTORCAT_NPC, FLAGS, OBJECT_TK, ACTOR_FACTORY(EnPoRelay), (ActorFunc)EnPoRelay_Init, (ActorFunc)EnPoRelay_Destroy, (ActorFunc)EnPoRelay_Update, (ActorFunc)EnPoRelay_Draw, (ActorFunc)EnPoRelay_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -489,7 +489,7 @@ void EnPoRelay_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnPoRelay_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Po_Relay_InitVars = {
-	    ACTOR_EN_PO_RELAY, ACTORCAT_NPC, FLAGS, OBJECT_TK, sizeof(EnPoRelay), (ActorFunc)EnPoRelay_Init, (ActorFunc)EnPoRelay_Destroy, (ActorFunc)EnPoRelay_Update, (ActorFunc)EnPoRelay_Draw, (ActorFunc)EnPoRelay_Reset,
+	    ACTOR_EN_PO_RELAY, ACTORCAT_NPC, FLAGS, OBJECT_TK, ACTOR_FACTORY(EnPoRelay), (ActorFunc)EnPoRelay_Init, (ActorFunc)EnPoRelay_Destroy, (ActorFunc)EnPoRelay_Update, (ActorFunc)EnPoRelay_Draw, (ActorFunc)EnPoRelay_Reset,
 	};
 
 	sCylinderInit = {

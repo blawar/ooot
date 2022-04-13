@@ -45,7 +45,7 @@ static void* eyeTextures_51[] = {
 };
 
 ActorInit En_Ani_InitVars = {
-    ACTOR_EN_ANI, ACTORCAT_NPC, FLAGS, OBJECT_ANI, sizeof(EnAni), (ActorFunc)EnAni_Init, (ActorFunc)EnAni_Destroy, (ActorFunc)EnAni_Update, (ActorFunc)EnAni_Draw, (ActorFunc)EnAni_Reset,
+    ACTOR_EN_ANI, ACTORCAT_NPC, FLAGS, OBJECT_ANI, ACTOR_FACTORY(EnAni), (ActorFunc)EnAni_Init, (ActorFunc)EnAni_Destroy, (ActorFunc)EnAni_Update, (ActorFunc)EnAni_Draw, (ActorFunc)EnAni_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -412,7 +412,7 @@ void EnAni_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sMultVec_50 = {800.0f, 500.0f, 0.0f};
 
 	En_Ani_InitVars = {
-	    ACTOR_EN_ANI, ACTORCAT_NPC, FLAGS, OBJECT_ANI, sizeof(EnAni), (ActorFunc)EnAni_Init, (ActorFunc)EnAni_Destroy, (ActorFunc)EnAni_Update, (ActorFunc)EnAni_Draw, (ActorFunc)EnAni_Reset,
+	    ACTOR_EN_ANI, ACTORCAT_NPC, FLAGS, OBJECT_ANI, ACTOR_FACTORY(EnAni), (ActorFunc)EnAni_Init, (ActorFunc)EnAni_Destroy, (ActorFunc)EnAni_Update, (ActorFunc)EnAni_Draw, (ActorFunc)EnAni_Reset,
 	};
 
 	sCylinderInit = {

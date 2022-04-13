@@ -68,7 +68,7 @@ static ColliderCylinderInit sCylinderInit = {
 static Vec3f sZeroVec = {0.0f, 0.0f, 0.0f};
 
 ActorInit Bg_Haka_Zou_InitVars = {
-    ACTOR_BG_HAKA_ZOU, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaZou), (ActorFunc)BgHakaZou_Init, (ActorFunc)BgHakaZou_Destroy, (ActorFunc)BgHakaZou_Update, NULL, (ActorFunc)BgHakaZou_Reset,
+    ACTOR_BG_HAKA_ZOU, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgHakaZou), (ActorFunc)BgHakaZou_Init, (ActorFunc)BgHakaZou_Destroy, (ActorFunc)BgHakaZou_Update, NULL, (ActorFunc)BgHakaZou_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -507,6 +507,6 @@ void BgHakaZou_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sZeroVec = {0.0f, 0.0f, 0.0f};
 
 	Bg_Haka_Zou_InitVars = {
-	    ACTOR_BG_HAKA_ZOU, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaZou), (ActorFunc)BgHakaZou_Init, (ActorFunc)BgHakaZou_Destroy, (ActorFunc)BgHakaZou_Update, NULL, (ActorFunc)BgHakaZou_Reset,
+	    ACTOR_BG_HAKA_ZOU, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgHakaZou), (ActorFunc)BgHakaZou_Init, (ActorFunc)BgHakaZou_Destroy, (ActorFunc)BgHakaZou_Update, NULL, (ActorFunc)BgHakaZou_Reset,
 	};
 }

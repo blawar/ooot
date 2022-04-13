@@ -80,7 +80,7 @@ static ColliderTrisInit sTrisInit = {
 };
 
 ActorInit Bg_Bombwall_InitVars = {
-    ACTOR_BG_BOMBWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(BgBombwall), (ActorFunc)BgBombwall_Init, (ActorFunc)BgBombwall_Destroy, (ActorFunc)BgBombwall_Update, (ActorFunc)BgBombwall_Draw, (ActorFunc)BgBombwall_Reset,
+    ACTOR_BG_BOMBWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(BgBombwall), (ActorFunc)BgBombwall_Init, (ActorFunc)BgBombwall_Destroy, (ActorFunc)BgBombwall_Update, (ActorFunc)BgBombwall_Draw, (ActorFunc)BgBombwall_Reset,
 };
 
 void BgBombwall_InitDynapoly(BgBombwall* pthis, GlobalContext* globalCtx)
@@ -304,6 +304,6 @@ void BgBombwall_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	Bg_Bombwall_InitVars = {
-	    ACTOR_BG_BOMBWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, sizeof(BgBombwall), (ActorFunc)BgBombwall_Init, (ActorFunc)BgBombwall_Destroy, (ActorFunc)BgBombwall_Update, (ActorFunc)BgBombwall_Draw, (ActorFunc)BgBombwall_Reset,
+	    ACTOR_BG_BOMBWALL, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_FIELD_KEEP, ACTOR_FACTORY(BgBombwall), (ActorFunc)BgBombwall_Init, (ActorFunc)BgBombwall_Destroy, (ActorFunc)BgBombwall_Update, (ActorFunc)BgBombwall_Draw, (ActorFunc)BgBombwall_Reset,
 	};
 }

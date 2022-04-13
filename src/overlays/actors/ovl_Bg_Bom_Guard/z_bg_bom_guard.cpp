@@ -23,7 +23,7 @@ void BgBomGuard_Update(Actor* pthisx, GlobalContext* globalCtx);
 void func_8086E638(BgBomGuard* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Bom_Guard_InitVars = {
-    ACTOR_BG_BOM_GUARD, ACTORCAT_PROP, FLAGS, OBJECT_BOWL, sizeof(BgBomGuard), (ActorFunc)BgBomGuard_Init, (ActorFunc)BgBomGuard_Destroy, (ActorFunc)BgBomGuard_Update, NULL, (ActorFunc)BgBomGuard_Reset,
+    ACTOR_BG_BOM_GUARD, ACTORCAT_PROP, FLAGS, OBJECT_BOWL, ACTOR_FACTORY(BgBomGuard), (ActorFunc)BgBomGuard_Init, (ActorFunc)BgBomGuard_Destroy, (ActorFunc)BgBomGuard_Update, NULL, (ActorFunc)BgBomGuard_Reset,
 };
 
 void BgBomGuard_SetupAction(BgBomGuard* pthis, BgBomGuardActionFunc actionFunc)
@@ -98,6 +98,6 @@ void BgBomGuard_Update(Actor* pthisx, GlobalContext* globalCtx)
 void BgBomGuard_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Bom_Guard_InitVars = {
-	    ACTOR_BG_BOM_GUARD, ACTORCAT_PROP, FLAGS, OBJECT_BOWL, sizeof(BgBomGuard), (ActorFunc)BgBomGuard_Init, (ActorFunc)BgBomGuard_Destroy, (ActorFunc)BgBomGuard_Update, NULL, (ActorFunc)BgBomGuard_Reset,
+	    ACTOR_BG_BOM_GUARD, ACTORCAT_PROP, FLAGS, OBJECT_BOWL, ACTOR_FACTORY(BgBomGuard), (ActorFunc)BgBomGuard_Init, (ActorFunc)BgBomGuard_Destroy, (ActorFunc)BgBomGuard_Update, NULL, (ActorFunc)BgBomGuard_Reset,
 	};
 }

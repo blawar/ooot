@@ -33,7 +33,7 @@ void BgGanonOtyuka_Fall(BgGanonOtyuka* pthis, GlobalContext* globalCtx);
 void BgGanonOtyuka_DoNothing(Actor* pthisx, GlobalContext* globalCtx);
 
 ActorInit Bg_Ganon_Otyuka_InitVars = {
-    ACTOR_BG_GANON_OTYUKA, ACTORCAT_PROP, FLAGS, OBJECT_GANON, sizeof(BgGanonOtyuka), (ActorFunc)BgGanonOtyuka_Init, (ActorFunc)BgGanonOtyuka_Destroy, (ActorFunc)BgGanonOtyuka_Update, (ActorFunc)BgGanonOtyuka_Draw, (ActorFunc)BgGanonOtyuka_Reset,
+    ACTOR_BG_GANON_OTYUKA, ACTORCAT_PROP, FLAGS, OBJECT_GANON, ACTOR_FACTORY(BgGanonOtyuka), (ActorFunc)BgGanonOtyuka_Init, (ActorFunc)BgGanonOtyuka_Destroy, (ActorFunc)BgGanonOtyuka_Update, (ActorFunc)BgGanonOtyuka_Draw, (ActorFunc)BgGanonOtyuka_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -413,7 +413,7 @@ void BgGanonOtyuka_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgGanonOtyuka_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Ganon_Otyuka_InitVars = {
-	    ACTOR_BG_GANON_OTYUKA, ACTORCAT_PROP, FLAGS, OBJECT_GANON, sizeof(BgGanonOtyuka), (ActorFunc)BgGanonOtyuka_Init, (ActorFunc)BgGanonOtyuka_Destroy, (ActorFunc)BgGanonOtyuka_Update, (ActorFunc)BgGanonOtyuka_Draw, (ActorFunc)BgGanonOtyuka_Reset,
+	    ACTOR_BG_GANON_OTYUKA, ACTORCAT_PROP, FLAGS, OBJECT_GANON, ACTOR_FACTORY(BgGanonOtyuka), (ActorFunc)BgGanonOtyuka_Init, (ActorFunc)BgGanonOtyuka_Destroy, (ActorFunc)BgGanonOtyuka_Update, (ActorFunc)BgGanonOtyuka_Draw, (ActorFunc)BgGanonOtyuka_Reset,
 	};
 
 	sDustPrimColor = {60, 60, 0, 0};

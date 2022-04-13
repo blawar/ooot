@@ -28,7 +28,7 @@ void func_808AE5B4(BgSpot05Soko* pthis, GlobalContext* globalCtx);
 void func_808AE630(BgSpot05Soko* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot05_Soko_InitVars = {
-    ACTOR_BG_SPOT05_SOKO, ACTORCAT_PROP, FLAGS, OBJECT_SPOT05_OBJECTS, sizeof(BgSpot05Soko), (ActorFunc)BgSpot05Soko_Init, (ActorFunc)BgSpot05Soko_Destroy, (ActorFunc)BgSpot05Soko_Update, (ActorFunc)BgSpot05Soko_Draw, (ActorFunc)BgSpot05Soko_Reset,
+    ACTOR_BG_SPOT05_SOKO, ACTORCAT_PROP, FLAGS, OBJECT_SPOT05_OBJECTS, ACTOR_FACTORY(BgSpot05Soko), (ActorFunc)BgSpot05Soko_Init, (ActorFunc)BgSpot05Soko_Destroy, (ActorFunc)BgSpot05Soko_Update, (ActorFunc)BgSpot05Soko_Draw, (ActorFunc)BgSpot05Soko_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -126,6 +126,6 @@ void BgSpot05Soko_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot05Soko_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot05_Soko_InitVars = {
-	    ACTOR_BG_SPOT05_SOKO, ACTORCAT_PROP, FLAGS, OBJECT_SPOT05_OBJECTS, sizeof(BgSpot05Soko), (ActorFunc)BgSpot05Soko_Init, (ActorFunc)BgSpot05Soko_Destroy, (ActorFunc)BgSpot05Soko_Update, (ActorFunc)BgSpot05Soko_Draw, (ActorFunc)BgSpot05Soko_Reset,
+	    ACTOR_BG_SPOT05_SOKO, ACTORCAT_PROP, FLAGS, OBJECT_SPOT05_OBJECTS, ACTOR_FACTORY(BgSpot05Soko), (ActorFunc)BgSpot05Soko_Init, (ActorFunc)BgSpot05Soko_Destroy, (ActorFunc)BgSpot05Soko_Update, (ActorFunc)BgSpot05Soko_Draw, (ActorFunc)BgSpot05Soko_Reset,
 	};
 }

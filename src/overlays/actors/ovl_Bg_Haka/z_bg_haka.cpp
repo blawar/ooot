@@ -32,7 +32,7 @@ void func_8087BAAC(BgHaka* pthis, GlobalContext* globalCtx);
 void func_8087BAE4(BgHaka* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Haka_InitVars = {
-    ACTOR_BG_HAKA, ACTORCAT_BG, FLAGS, OBJECT_HAKA, sizeof(BgHaka), (ActorFunc)BgHaka_Init, (ActorFunc)BgHaka_Destroy, (ActorFunc)BgHaka_Update, (ActorFunc)BgHaka_Draw, (ActorFunc)BgHaka_Reset,
+    ACTOR_BG_HAKA, ACTORCAT_BG, FLAGS, OBJECT_HAKA, ACTOR_FACTORY(BgHaka), (ActorFunc)BgHaka_Init, (ActorFunc)BgHaka_Destroy, (ActorFunc)BgHaka_Update, (ActorFunc)BgHaka_Draw, (ActorFunc)BgHaka_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -187,6 +187,6 @@ void BgHaka_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHaka_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Haka_InitVars = {
-	    ACTOR_BG_HAKA, ACTORCAT_BG, FLAGS, OBJECT_HAKA, sizeof(BgHaka), (ActorFunc)BgHaka_Init, (ActorFunc)BgHaka_Destroy, (ActorFunc)BgHaka_Update, (ActorFunc)BgHaka_Draw, (ActorFunc)BgHaka_Reset,
+	    ACTOR_BG_HAKA, ACTORCAT_BG, FLAGS, OBJECT_HAKA, ACTOR_FACTORY(BgHaka), (ActorFunc)BgHaka_Init, (ActorFunc)BgHaka_Destroy, (ActorFunc)BgHaka_Update, (ActorFunc)BgHaka_Draw, (ActorFunc)BgHaka_Reset,
 	};
 }

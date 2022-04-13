@@ -62,7 +62,7 @@ void EnPoh_TalkComposer(EnPoh* pthis, GlobalContext* globalCtx);
 static s16 D_80AE1A50 = 0;
 
 ActorInit En_Poh_InitVars = {
-    ACTOR_EN_POH, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnPoh), (ActorFunc)EnPoh_Init, (ActorFunc)EnPoh_Destroy, (ActorFunc)EnPoh_Update, NULL, (ActorFunc)EnPoh_Reset,
+    ACTOR_EN_POH, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnPoh), (ActorFunc)EnPoh_Init, (ActorFunc)EnPoh_Destroy, (ActorFunc)EnPoh_Update, NULL, (ActorFunc)EnPoh_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1440,7 +1440,7 @@ void EnPoh_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80AE1A50 = 0;
 
 	En_Poh_InitVars = {
-	    ACTOR_EN_POH, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnPoh), (ActorFunc)EnPoh_Init, (ActorFunc)EnPoh_Destroy, (ActorFunc)EnPoh_Update, NULL, (ActorFunc)EnPoh_Reset,
+	    ACTOR_EN_POH, ACTORCAT_ENEMY, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnPoh), (ActorFunc)EnPoh_Init, (ActorFunc)EnPoh_Destroy, (ActorFunc)EnPoh_Update, NULL, (ActorFunc)EnPoh_Reset,
 	};
 
 	sCylinderInit = {

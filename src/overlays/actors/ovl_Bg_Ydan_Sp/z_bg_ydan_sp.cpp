@@ -46,7 +46,7 @@ static Vec3f zeroVec_40 = {0};
 static Vec3f accel_42 = {0};
 
 ActorInit Bg_Ydan_Sp_InitVars = {
-    ACTOR_BG_YDAN_SP, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, sizeof(BgYdanSp), (ActorFunc)BgYdanSp_Init, (ActorFunc)BgYdanSp_Destroy, (ActorFunc)BgYdanSp_Update, (ActorFunc)BgYdanSp_Draw, (ActorFunc)BgYdanSp_Reset,
+    ACTOR_BG_YDAN_SP, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, ACTOR_FACTORY(BgYdanSp), (ActorFunc)BgYdanSp_Init, (ActorFunc)BgYdanSp_Destroy, (ActorFunc)BgYdanSp_Update, (ActorFunc)BgYdanSp_Draw, (ActorFunc)BgYdanSp_Reset,
 };
 
 static ColliderTrisElementInit sTrisItemsInit[2] = {
@@ -534,7 +534,7 @@ void BgYdanSp_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	accel_42 = {0};
 
 	Bg_Ydan_Sp_InitVars = {
-	    ACTOR_BG_YDAN_SP, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, sizeof(BgYdanSp), (ActorFunc)BgYdanSp_Init, (ActorFunc)BgYdanSp_Destroy, (ActorFunc)BgYdanSp_Update, (ActorFunc)BgYdanSp_Draw, (ActorFunc)BgYdanSp_Reset,
+	    ACTOR_BG_YDAN_SP, ACTORCAT_BG, FLAGS, OBJECT_YDAN_OBJECTS, ACTOR_FACTORY(BgYdanSp), (ActorFunc)BgYdanSp_Init, (ActorFunc)BgYdanSp_Destroy, (ActorFunc)BgYdanSp_Update, (ActorFunc)BgYdanSp_Draw, (ActorFunc)BgYdanSp_Reset,
 	};
 
 	sTrisInit = {

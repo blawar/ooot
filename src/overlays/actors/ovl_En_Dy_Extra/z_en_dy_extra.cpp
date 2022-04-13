@@ -32,7 +32,7 @@ static Color_RGBA8 envColors_25[] = {{255, 100, 255, 255}, {100, 255, 255, 255}}
 static u8 D_809FFC50_25[] = {0x02, 0x01, 0x01, 0x02, 0x00, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x02, 0x01, 0x00, 0x01, 0x02};
 
 ActorInit En_Dy_Extra_InitVars = {
-    ACTOR_EN_DY_EXTRA, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, sizeof(EnDyExtra), (ActorFunc)EnDyExtra_Init, (ActorFunc)EnDyExtra_Destroy, (ActorFunc)EnDyExtra_Update, (ActorFunc)EnDyExtra_Draw, (ActorFunc)EnDyExtra_Reset,
+    ACTOR_EN_DY_EXTRA, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, ACTOR_FACTORY(EnDyExtra), (ActorFunc)EnDyExtra_Init, (ActorFunc)EnDyExtra_Destroy, (ActorFunc)EnDyExtra_Update, (ActorFunc)EnDyExtra_Draw, (ActorFunc)EnDyExtra_Reset,
 };
 
 void EnDyExtra_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -139,6 +139,6 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDyExtra_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dy_Extra_InitVars = {
-	    ACTOR_EN_DY_EXTRA, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, sizeof(EnDyExtra), (ActorFunc)EnDyExtra_Init, (ActorFunc)EnDyExtra_Destroy, (ActorFunc)EnDyExtra_Update, (ActorFunc)EnDyExtra_Draw, (ActorFunc)EnDyExtra_Reset,
+	    ACTOR_EN_DY_EXTRA, ACTORCAT_PROP, FLAGS, OBJECT_DY_OBJ, ACTOR_FACTORY(EnDyExtra), (ActorFunc)EnDyExtra_Init, (ActorFunc)EnDyExtra_Destroy, (ActorFunc)EnDyExtra_Update, (ActorFunc)EnDyExtra_Draw, (ActorFunc)EnDyExtra_Reset,
 	};
 }

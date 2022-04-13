@@ -38,7 +38,7 @@ static Gfx* dLists_35[] = {
 };
 
 ActorInit Bg_Gnd_Soulmeiro_InitVars = {
-    ACTOR_BG_GND_SOULMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndSoulmeiro), (ActorFunc)BgGndSoulmeiro_Init, (ActorFunc)BgGndSoulmeiro_Destroy, (ActorFunc)BgGndSoulmeiro_Update, (ActorFunc)BgGndSoulmeiro_Draw,
+    ACTOR_BG_GND_SOULMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndSoulmeiro), (ActorFunc)BgGndSoulmeiro_Init, (ActorFunc)BgGndSoulmeiro_Destroy, (ActorFunc)BgGndSoulmeiro_Update, (ActorFunc)BgGndSoulmeiro_Draw,
     (ActorFunc)BgGndSoulmeiro_Reset,
 };
 
@@ -254,7 +254,7 @@ void BgGndSoulmeiro_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgGndSoulmeiro_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gnd_Soulmeiro_InitVars = {
-	    ACTOR_BG_GND_SOULMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndSoulmeiro), (ActorFunc)BgGndSoulmeiro_Init, (ActorFunc)BgGndSoulmeiro_Destroy, (ActorFunc)BgGndSoulmeiro_Update, (ActorFunc)BgGndSoulmeiro_Draw,
+	    ACTOR_BG_GND_SOULMEIRO,	     ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndSoulmeiro), (ActorFunc)BgGndSoulmeiro_Init, (ActorFunc)BgGndSoulmeiro_Destroy, (ActorFunc)BgGndSoulmeiro_Update, (ActorFunc)BgGndSoulmeiro_Draw,
 	    (ActorFunc)BgGndSoulmeiro_Reset,
 	};
 

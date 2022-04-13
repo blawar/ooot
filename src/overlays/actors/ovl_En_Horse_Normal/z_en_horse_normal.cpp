@@ -46,7 +46,7 @@ static s32 D_80A6D4F4_62[] = {0, 1, 4, 5, 6, 2, 3};
 static s32 D_80A6D510_62[] = {0, 0, 2, 2, 1, 1, 1, 3, 3};
 
 ActorInit En_Horse_Normal_InitVars = {
-    ACTOR_EN_HORSE_NORMAL, ACTORCAT_BG, FLAGS, OBJECT_HORSE_NORMAL, sizeof(EnHorseNormal), (ActorFunc)EnHorseNormal_Init, (ActorFunc)EnHorseNormal_Destroy, (ActorFunc)EnHorseNormal_Update, (ActorFunc)EnHorseNormal_Draw, (ActorFunc)EnHorseNormal_Reset,
+    ACTOR_EN_HORSE_NORMAL, ACTORCAT_BG, FLAGS, OBJECT_HORSE_NORMAL, ACTOR_FACTORY(EnHorseNormal), (ActorFunc)EnHorseNormal_Init, (ActorFunc)EnHorseNormal_Destroy, (ActorFunc)EnHorseNormal_Update, (ActorFunc)EnHorseNormal_Draw, (ActorFunc)EnHorseNormal_Reset,
 };
 
 static AnimationHeader* sAnimations[] = {
@@ -821,7 +821,7 @@ void EnHorseNormal_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHorseNormal_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Horse_Normal_InitVars = {
-	    ACTOR_EN_HORSE_NORMAL,	    ACTORCAT_BG, FLAGS, OBJECT_HORSE_NORMAL, sizeof(EnHorseNormal), (ActorFunc)EnHorseNormal_Init, (ActorFunc)EnHorseNormal_Destroy, (ActorFunc)EnHorseNormal_Update, (ActorFunc)EnHorseNormal_Draw,
+	    ACTOR_EN_HORSE_NORMAL,	    ACTORCAT_BG, FLAGS, OBJECT_HORSE_NORMAL, ACTOR_FACTORY(EnHorseNormal), (ActorFunc)EnHorseNormal_Init, (ActorFunc)EnHorseNormal_Destroy, (ActorFunc)EnHorseNormal_Update, (ActorFunc)EnHorseNormal_Draw,
 	    (ActorFunc)EnHorseNormal_Reset,
 	};
 

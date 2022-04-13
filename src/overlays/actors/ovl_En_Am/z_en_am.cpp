@@ -63,7 +63,7 @@ static Color_RGBA8 dustPrimColor_83 = {150, 150, 150, 255};
 static Color_RGBA8 dustEnvColor_83 = {100, 100, 100, 150};
 
 ActorInit En_Am_InitVars = {
-    ACTOR_EN_AM, ACTORCAT_ENEMY, FLAGS, OBJECT_AM, sizeof(EnAm), (ActorFunc)EnAm_Init, (ActorFunc)EnAm_Destroy, (ActorFunc)EnAm_Update, (ActorFunc)EnAm_Draw, (ActorFunc)EnAm_Reset,
+    ACTOR_EN_AM, ACTORCAT_ENEMY, FLAGS, OBJECT_AM, ACTOR_FACTORY(EnAm), (ActorFunc)EnAm_Init, (ActorFunc)EnAm_Destroy, (ActorFunc)EnAm_Update, (ActorFunc)EnAm_Draw, (ActorFunc)EnAm_Reset,
 };
 
 static ColliderCylinderInit sHurtCylinderInit = {
@@ -1135,7 +1135,7 @@ void EnAm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	dustEnvColor_83 = {100, 100, 100, 150};
 
 	En_Am_InitVars = {
-	    ACTOR_EN_AM, ACTORCAT_ENEMY, FLAGS, OBJECT_AM, sizeof(EnAm), (ActorFunc)EnAm_Init, (ActorFunc)EnAm_Destroy, (ActorFunc)EnAm_Update, (ActorFunc)EnAm_Draw, (ActorFunc)EnAm_Reset,
+	    ACTOR_EN_AM, ACTORCAT_ENEMY, FLAGS, OBJECT_AM, ACTOR_FACTORY(EnAm), (ActorFunc)EnAm_Init, (ActorFunc)EnAm_Destroy, (ActorFunc)EnAm_Update, (ActorFunc)EnAm_Draw, (ActorFunc)EnAm_Reset,
 	};
 
 	sHurtCylinderInit = {

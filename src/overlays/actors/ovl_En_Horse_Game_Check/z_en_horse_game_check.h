@@ -70,6 +70,8 @@ struct EnHorseGameCheckMalonRace
 
 union EnHorseGameCheck
 {
+	EnHorseGameCheck() { memset(this, 0, sizeof(*this)); }
+
 	EnHorseGameCheckIngoRace ingo;
 	EnHorseGameCheckGerudoArchery gerudo;
 	EnHorseGameCheck3 type3;

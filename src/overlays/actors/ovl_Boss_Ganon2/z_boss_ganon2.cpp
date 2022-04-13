@@ -54,7 +54,7 @@ void BossGanon2_GenShadowTexture(void* shadowTexture, BossGanon2* pthis, GlobalC
 void BossGanon2_DrawShadowTexture(void* shadowTexture, BossGanon2* pthis, GlobalContext* globalCtx);
 
 ActorInit Boss_Ganon2_InitVars = {
-    ACTOR_BOSS_GANON2, ACTORCAT_BOSS, FLAGS, OBJECT_GANON2, sizeof(BossGanon2), (ActorFunc)BossGanon2_Init, (ActorFunc)BossGanon2_Destroy, (ActorFunc)BossGanon2_Update, (ActorFunc)BossGanon2_Draw, (ActorFunc)BossGanon2_Reset,
+    ACTOR_BOSS_GANON2, ACTORCAT_BOSS, FLAGS, OBJECT_GANON2, ACTOR_FACTORY(BossGanon2), (ActorFunc)BossGanon2_Init, (ActorFunc)BossGanon2_Destroy, (ActorFunc)BossGanon2_Update, (ActorFunc)BossGanon2_Draw, (ActorFunc)BossGanon2_Reset,
 };
 
 #include "z_boss_ganon2_data.cpp"
@@ -3583,6 +3583,6 @@ void BossGanon2_DrawShadowTexture(void* shadowTexture, BossGanon2* pthis, Global
 void BossGanon2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Boss_Ganon2_InitVars = {
-	    ACTOR_BOSS_GANON2, ACTORCAT_BOSS, FLAGS, OBJECT_GANON2, sizeof(BossGanon2), (ActorFunc)BossGanon2_Init, (ActorFunc)BossGanon2_Destroy, (ActorFunc)BossGanon2_Update, (ActorFunc)BossGanon2_Draw, (ActorFunc)BossGanon2_Reset,
+	    ACTOR_BOSS_GANON2, ACTORCAT_BOSS, FLAGS, OBJECT_GANON2, ACTOR_FACTORY(BossGanon2), (ActorFunc)BossGanon2_Init, (ActorFunc)BossGanon2_Destroy, (ActorFunc)BossGanon2_Update, (ActorFunc)BossGanon2_Draw, (ActorFunc)BossGanon2_Reset,
 	};
 }

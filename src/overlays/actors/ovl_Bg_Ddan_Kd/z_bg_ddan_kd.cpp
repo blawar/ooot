@@ -33,7 +33,7 @@ void BgDdanKd_LowerStairs(BgDdanKd* pthis, GlobalContext* globalCtx);
 void BgDdanKd_DoNothing(BgDdanKd* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Ddan_Kd_InitVars = {
-    ACTOR_BG_DDAN_KD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, sizeof(BgDdanKd), (ActorFunc)BgDdanKd_Init, (ActorFunc)BgDdanKd_Destroy, (ActorFunc)BgDdanKd_Update, (ActorFunc)BgDdanKd_Draw, (ActorFunc)BgDdanKd_Reset,
+    ACTOR_BG_DDAN_KD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, ACTOR_FACTORY(BgDdanKd), (ActorFunc)BgDdanKd_Init, (ActorFunc)BgDdanKd_Destroy, (ActorFunc)BgDdanKd_Update, (ActorFunc)BgDdanKd_Draw, (ActorFunc)BgDdanKd_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -220,7 +220,7 @@ void BgDdanKd_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void BgDdanKd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Ddan_Kd_InitVars = {
-	    ACTOR_BG_DDAN_KD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, sizeof(BgDdanKd), (ActorFunc)BgDdanKd_Init, (ActorFunc)BgDdanKd_Destroy, (ActorFunc)BgDdanKd_Update, (ActorFunc)BgDdanKd_Draw, (ActorFunc)BgDdanKd_Reset,
+	    ACTOR_BG_DDAN_KD, ACTORCAT_BG, FLAGS, OBJECT_DDAN_OBJECTS, ACTOR_FACTORY(BgDdanKd), (ActorFunc)BgDdanKd_Init, (ActorFunc)BgDdanKd_Destroy, (ActorFunc)BgDdanKd_Update, (ActorFunc)BgDdanKd_Draw, (ActorFunc)BgDdanKd_Reset,
 	};
 
 	sCylinderInit = {

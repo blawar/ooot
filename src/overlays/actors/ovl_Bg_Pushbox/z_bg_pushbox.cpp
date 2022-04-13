@@ -31,7 +31,7 @@ ActorInit Bg_Pushbox_InitVars = {
     FLAGS,
     //! @bug fixing pthis actor would involve using OBJECT_PU_BOX
     OBJECT_GAMEPLAY_DANGEON_KEEP,
-    sizeof(BgPushbox),
+    ACTOR_FACTORY(BgPushbox),
     (ActorFunc)BgPushbox_Init,
     (ActorFunc)BgPushbox_Destroy,
     (ActorFunc)BgPushbox_Update,
@@ -109,7 +109,7 @@ void BgPushbox_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	    FLAGS,
 	    //! @bug fixing pthis actor would involve using OBJECT_PU_BOX
 	    OBJECT_GAMEPLAY_DANGEON_KEEP,
-	    sizeof(BgPushbox),
+	    ACTOR_FACTORY(BgPushbox),
 	    (ActorFunc)BgPushbox_Init,
 	    (ActorFunc)BgPushbox_Destroy,
 	    (ActorFunc)BgPushbox_Update,

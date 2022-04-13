@@ -30,7 +30,7 @@ void ArrowLight_Hit(ArrowLight* pthis, GlobalContext* globalCtx);
 #include "def/z_rcp.h"
 
 ActorInit Arrow_Light_InitVars = {
-    ACTOR_ARROW_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ArrowLight), (ActorFunc)ArrowLight_Init, (ActorFunc)ArrowLight_Destroy, (ActorFunc)ArrowLight_Update, (ActorFunc)ArrowLight_Draw, (ActorFunc)ArrowLight_Reset,
+    ACTOR_ARROW_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ArrowLight), (ActorFunc)ArrowLight_Init, (ActorFunc)ArrowLight_Destroy, (ActorFunc)ArrowLight_Update, (ActorFunc)ArrowLight_Draw, (ActorFunc)ArrowLight_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -288,6 +288,6 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void ArrowLight_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Arrow_Light_InitVars = {
-	    ACTOR_ARROW_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ArrowLight), (ActorFunc)ArrowLight_Init, (ActorFunc)ArrowLight_Destroy, (ActorFunc)ArrowLight_Update, (ActorFunc)ArrowLight_Draw, (ActorFunc)ArrowLight_Reset,
+	    ACTOR_ARROW_LIGHT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ArrowLight), (ActorFunc)ArrowLight_Init, (ActorFunc)ArrowLight_Destroy, (ActorFunc)ArrowLight_Update, (ActorFunc)ArrowLight_Draw, (ActorFunc)ArrowLight_Reset,
 	};
 }

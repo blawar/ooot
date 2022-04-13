@@ -82,7 +82,7 @@ void DemoEffect_MoveToCsEndpoint(DemoEffect* pthis, GlobalContext* globalCtx, s3
 void DemoEffect_MoveGetItem(DemoEffect* pthis, GlobalContext* globalCtx, s32 csActionId, f32 speed);
 
 ActorInit Demo_Effect_InitVars = {
-    ACTOR_DEMO_EFFECT, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DemoEffect), (ActorFunc)DemoEffect_Init, (ActorFunc)DemoEffect_Destroy, (ActorFunc)DemoEffect_Update, NULL, (ActorFunc)DemoEffect_Reset,
+    ACTOR_DEMO_EFFECT, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DemoEffect), (ActorFunc)DemoEffect_Init, (ActorFunc)DemoEffect_Destroy, (ActorFunc)DemoEffect_Update, NULL, (ActorFunc)DemoEffect_Reset,
 };
 
 // This variable assures only one jewel will play SFX
@@ -2357,6 +2357,6 @@ void DemoEffect_InitPositionFromCsAction(DemoEffect* pthis, GlobalContext* globa
 void DemoEffect_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Effect_InitVars = {
-	    ACTOR_DEMO_EFFECT, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(DemoEffect), (ActorFunc)DemoEffect_Init, (ActorFunc)DemoEffect_Destroy, (ActorFunc)DemoEffect_Update, NULL, (ActorFunc)DemoEffect_Reset,
+	    ACTOR_DEMO_EFFECT, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(DemoEffect), (ActorFunc)DemoEffect_Init, (ActorFunc)DemoEffect_Destroy, (ActorFunc)DemoEffect_Update, NULL, (ActorFunc)DemoEffect_Reset,
 	};
 }

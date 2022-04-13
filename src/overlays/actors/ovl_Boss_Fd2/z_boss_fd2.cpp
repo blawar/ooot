@@ -59,7 +59,7 @@ static Vec3f leftManeMod_77 = {4000.0f, -1600.0, -2000.0f};
 static void* eyeTextures_80[] = {gHoleVolvagiaEyeOpenTex, gHoleVolvagiaEyeHalfTex, gHoleVolvagiaEyeClosedTex};
 
 ActorInit Boss_Fd2_InitVars = {
-    ACTOR_BOSS_FD2, ACTORCAT_BOSS, FLAGS, OBJECT_FD2, sizeof(BossFd2), (ActorFunc)BossFd2_Init, (ActorFunc)BossFd2_Destroy, (ActorFunc)BossFd2_Update, (ActorFunc)BossFd2_Draw, (ActorFunc)BossFd2_Reset,
+    ACTOR_BOSS_FD2, ACTORCAT_BOSS, FLAGS, OBJECT_FD2, ACTOR_FACTORY(BossFd2), (ActorFunc)BossFd2_Init, (ActorFunc)BossFd2_Destroy, (ActorFunc)BossFd2_Update, (ActorFunc)BossFd2_Draw, (ActorFunc)BossFd2_Reset,
 };
 
 #include "z_boss_fd2_colchk.cpp"
@@ -1425,7 +1425,7 @@ void BossFd2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	leftManeMod_77 = {4000.0f, -1600.0, -2000.0f};
 
 	Boss_Fd2_InitVars = {
-	    ACTOR_BOSS_FD2, ACTORCAT_BOSS, FLAGS, OBJECT_FD2, sizeof(BossFd2), (ActorFunc)BossFd2_Init, (ActorFunc)BossFd2_Destroy, (ActorFunc)BossFd2_Update, (ActorFunc)BossFd2_Draw, (ActorFunc)BossFd2_Reset,
+	    ACTOR_BOSS_FD2, ACTORCAT_BOSS, FLAGS, OBJECT_FD2, ACTOR_FACTORY(BossFd2), (ActorFunc)BossFd2_Init, (ActorFunc)BossFd2_Destroy, (ActorFunc)BossFd2_Update, (ActorFunc)BossFd2_Draw, (ActorFunc)BossFd2_Reset,
 	};
 
 	sUnkVec = {0.0f, 0.0f, 50.0f};

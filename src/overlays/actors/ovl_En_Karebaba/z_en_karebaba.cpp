@@ -51,7 +51,7 @@ static Gfx* stemDLists_66[] = {gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuB
 static Vec3f zeroVec_66 = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Karebaba_InitVars = {
-    ACTOR_EN_KAREBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, sizeof(EnKarebaba), (ActorFunc)EnKarebaba_Init, (ActorFunc)EnKarebaba_Destroy, (ActorFunc)EnKarebaba_Update, (ActorFunc)EnKarebaba_Draw, (ActorFunc)EnKarebaba_Reset,
+    ACTOR_EN_KAREBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, ACTOR_FACTORY(EnKarebaba), (ActorFunc)EnKarebaba_Init, (ActorFunc)EnKarebaba_Destroy, (ActorFunc)EnKarebaba_Update, (ActorFunc)EnKarebaba_Draw, (ActorFunc)EnKarebaba_Reset,
 };
 
 static ColliderCylinderInit sBodyColliderInit = {
@@ -633,7 +633,7 @@ void EnKarebaba_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	zeroVec_66 = {0.0f, 0.0f, 0.0f};
 
 	En_Karebaba_InitVars = {
-	    ACTOR_EN_KAREBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, sizeof(EnKarebaba), (ActorFunc)EnKarebaba_Init, (ActorFunc)EnKarebaba_Destroy, (ActorFunc)EnKarebaba_Update, (ActorFunc)EnKarebaba_Draw, (ActorFunc)EnKarebaba_Reset,
+	    ACTOR_EN_KAREBABA, ACTORCAT_ENEMY, FLAGS, OBJECT_DEKUBABA, ACTOR_FACTORY(EnKarebaba), (ActorFunc)EnKarebaba_Init, (ActorFunc)EnKarebaba_Destroy, (ActorFunc)EnKarebaba_Update, (ActorFunc)EnKarebaba_Draw, (ActorFunc)EnKarebaba_Reset,
 	};
 
 	sBodyColliderInit = {

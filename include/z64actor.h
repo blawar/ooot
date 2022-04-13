@@ -9,6 +9,7 @@
 #include "globalctx.h"
 
 union Gfx;
+struct CollisionPoly;
 
 #define ACTOR_NUMBER_MAX 200
 #define INVISIBLE_ACTOR_MAX 20
@@ -28,10 +29,16 @@ struct Actor;
 
 struct Lights;
 
-typedef void (*ActorFunc)(struct Actor*, GlobalContext*);
-typedef void (*ActorShadowFunc)(struct Actor*, struct Lights*, GlobalContext*);
-typedef u16 (*callback1_800343CC)(GlobalContext*, struct Actor*);
-typedef s16 (*callback2_800343CC)(GlobalContext*, struct Actor*);
+typedef void (*ActorFunc)(Actor*, GlobalContext*);
+typedef Actor* (*ActorCreateFunc)();
+typedef void (*ActorShadowFunc)(Actor*, Lights*, GlobalContext*);
+typedef u16 (*callback1_800343CC)(GlobalContext*, Actor*);
+typedef s16 (*callback2_800343CC)(GlobalContext*, Actor*);
+
+
+#define ACTOR_FACTORY(name) []() { return (Actor*)new name(); }
+#define ACTOR_POD_FACTORY(name) []() { auto r = (Actor*)::operator new(sizeof(name)); memset(r, 0, sizeof(name)); return r; }
+#define ACTOR_CLASS_FACTORY(name) []() { return (Actor*)new name (); }
 
 struct ActorEntry
 {
@@ -43,8 +50,8 @@ struct ActorEntry
 
 struct ActorInit
 {
-	constexpr ActorInit(s16 id, u8 category, u32 flags, s16 objectId, u32 instanceSize, ActorFunc init, ActorFunc destroy, ActorFunc update, ActorFunc draw, ActorFunc reset) :
-	    id(id), category(category), flags(flags), objectId(objectId), instanceSize(instanceSize), init(init), destroy(destroy), update(update), draw(draw), reset(reset)
+	constexpr ActorInit(s16 id, u8 category, u32 flags, s16 objectId, const ActorCreateFunc& factory, ActorFunc init, ActorFunc destroy, ActorFunc update, ActorFunc draw, ActorFunc reset) :
+	    id(id), category(category), flags(flags), objectId(objectId), factory(factory), init(init), destroy(destroy), update(update), draw(draw), reset(reset)
 	{
 	}
 
@@ -52,7 +59,7 @@ struct ActorInit
 	/* 0x02 */ u8 category; // Classifies actor and determines when it will update or draw
 	/* 0x04 */ u32 flags;
 	/* 0x08 */ s16 objectId;
-	/* 0x0C */ u32 instanceSize;
+	/* 0x0C */ ActorCreateFunc factory;
 	/* 0x10 */ ActorFunc init;    // Constructor
 	/* 0x14 */ ActorFunc destroy; // Destructor
 	/* 0x18 */ ActorFunc update;  // Update Function
@@ -172,13 +179,13 @@ struct Actor
 	/* 0x024 */ PosRot world;		     // Position/rotation in the world
 	/* 0x038 */ PosRot focus;		     // Target reticle focuses on this position. For player this represents head pos and rot
 	/* 0x04C */ f32 targetArrowOffset;	     // Height offset of the target arrow relative to `focus` position
-	/* 0x050 */ Vec3f scale;		     // Scale of the actor in each axis
-	/* 0x05C */ Vec3f velocity;		     // Velocity of the actor in each axis
-	/* 0x068 */ f32 speedXZ;		     // How fast the actor is traveling along the XZ plane
-	/* 0x06C */ f32 gravity;		     // Acceleration due to gravity. Value is added to Y velocity every frame
+	/* 0x050 */ VecPosF scale;		     // Scale of the actor in each axis
+	/* 0x05C */ VecPosF velocity;		     // Velocity of the actor in each axis
+	/* 0x068 */ CounterF speedXZ;		     // How fast the actor is traveling along the XZ plane
+	/* 0x06C */ CounterF gravity;		     // Acceleration due to gravity. Value is added to Y velocity every frame
 	/* 0x070 */ f32 minVelocityY;		     // Sets the lower bounds cap on velocity along the Y axis
-	/* 0x074 */ struct CollisionPoly* wallPoly;  // Wall polygon the actor is touching
-	/* 0x078 */ struct CollisionPoly* floorPoly; // Floor polygon directly below the actor
+	/* 0x074 */ CollisionPoly* wallPoly;  // Wall polygon the actor is touching
+	/* 0x078 */ CollisionPoly* floorPoly; // Floor polygon directly below the actor
 	/* 0x07C */ u8 wallBgId;		     // Bg ID of the wall polygon the actor is touching
 	/* 0x07D */ u8 floorBgId;		     // Bg ID of the floor polygon directly below the actor
 	/* 0x07E */ s16 wallYaw;		     // Y rotation of the wall polygon the actor is touching
@@ -191,7 +198,7 @@ struct Actor
 	/* 0x094 */ f32 yDistToPlayer;		     // Dist is negative if the actor is above the player
 	/* 0x098 */ CollisionCheckInfo colChkInfo;   // Variables related to the Collision Check system
 	/* 0x0B4 */ ActorShape shape;		     // Variables related to the physical shape of the actor
-	/* 0x0E4 */ Vec3f projectedPos;		     // Position of the actor in projected space
+	/* 0x0E4 */ VecPosF projectedPos;		     // Position of the actor in projected space
 	/* 0x0F0 */ f32 projectedW;		     // w component of the projected actor position
 	/* 0x0F4 */ f32 uncullZoneForward;	     // Amount to increase the uncull zone forward by (in projected space)
 	/* 0x0F8 */ f32 uncullZoneScale;	     // Amount to increase the uncull zone scale by (in projected space)
@@ -206,10 +213,10 @@ struct Actor
 	/* 0x115 */ u8 isDrawn;			     // Set to true if the actor is currently being drawn. Always stays false for lens actors
 	/* 0x116 */ u8 dropFlag;		     // Configures what item is dropped by the actor from `Item_DropCollectibleRandom`
 	/* 0x117 */ u8 naviEnemyId;		     // Sets what 0600 dialog to display when talking to navi. Default 0xFF
-	/* 0x118 */ struct Actor* parent;	     // Usage is actor specific. Set if actor is spawned via `Actor_SpawnAsChild`
-	/* 0x11C */ struct Actor* child;	     // Usage is actor specific. Set if actor is spawned via `Actor_SpawnAsChild`
-	/* 0x120 */ struct Actor* prev;		     // Previous actor of this category
-	/* 0x124 */ struct Actor* next;		     // Next actor of this category
+	/* 0x118 */ Actor* parent;	     // Usage is actor specific. Set if actor is spawned via `Actor_SpawnAsChild`
+	/* 0x11C */ Actor* child;	     // Usage is actor specific. Set if actor is spawned via `Actor_SpawnAsChild`
+	/* 0x120 */ Actor* prev;		     // Previous actor of this category
+	/* 0x124 */ Actor* next;		     // Next actor of this category
 	/* 0x128 */ ActorFunc init;		     // Initialization Routine. Called by `Actor_Init` or `Actor_UpdateAll`
 	/* 0x12C */ ActorFunc destroy;		     // Destruction Routine. Called by `Actor_Destroy`
 	/* 0x130 */ ActorFunc update;		     // Update Routine. Called by `Actor_UpdateAll`

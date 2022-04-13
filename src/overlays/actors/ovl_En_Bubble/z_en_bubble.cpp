@@ -28,7 +28,7 @@ void EnBubble_Pop(EnBubble* pthis, GlobalContext* globalCtx);
 void EnBubble_Regrow(EnBubble* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Bubble_InitVars = {
-    ACTOR_EN_BUBBLE, ACTORCAT_ENEMY, FLAGS, OBJECT_BUBBLE, sizeof(EnBubble), (ActorFunc)EnBubble_Init, (ActorFunc)EnBubble_Destroy, (ActorFunc)EnBubble_Update, (ActorFunc)EnBubble_Draw, (ActorFunc)EnBubble_Reset,
+    ACTOR_EN_BUBBLE, ACTORCAT_ENEMY, FLAGS, OBJECT_BUBBLE, ACTOR_FACTORY(EnBubble), (ActorFunc)EnBubble_Init, (ActorFunc)EnBubble_Destroy, (ActorFunc)EnBubble_Update, (ActorFunc)EnBubble_Draw, (ActorFunc)EnBubble_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[2] = {
@@ -492,7 +492,7 @@ void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBubble_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bubble_InitVars = {
-	    ACTOR_EN_BUBBLE, ACTORCAT_ENEMY, FLAGS, OBJECT_BUBBLE, sizeof(EnBubble), (ActorFunc)EnBubble_Init, (ActorFunc)EnBubble_Destroy, (ActorFunc)EnBubble_Update, (ActorFunc)EnBubble_Draw, (ActorFunc)EnBubble_Reset,
+	    ACTOR_EN_BUBBLE, ACTORCAT_ENEMY, FLAGS, OBJECT_BUBBLE, ACTOR_FACTORY(EnBubble), (ActorFunc)EnBubble_Init, (ActorFunc)EnBubble_Destroy, (ActorFunc)EnBubble_Update, (ActorFunc)EnBubble_Draw, (ActorFunc)EnBubble_Reset,
 	};
 
 	sJntSphInit = {

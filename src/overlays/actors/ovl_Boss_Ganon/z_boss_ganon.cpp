@@ -115,7 +115,7 @@ static s16 D_808E4E38_140[] = {1, -1, 1, 1, 3, 4, 1, 6, 7, 2, 9, 10, 2, 12, 13};
 static u8 D_808E4E58_140[] = {3, 2, 2, 1, 3, 3, 1, 3, 3, 1, 0, 3, 1, 0, 3};
 
 ActorInit Boss_Ganon_InitVars = {
-    ACTOR_BOSS_GANON, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, sizeof(BossGanon), (ActorFunc)BossGanon_Init, (ActorFunc)BossGanon_Destroy, (ActorFunc)BossGanon_Update, (ActorFunc)BossGanon_Draw, (ActorFunc)BossGanon_Reset,
+    ACTOR_BOSS_GANON, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, ACTOR_FACTORY(BossGanon), (ActorFunc)BossGanon_Init, (ActorFunc)BossGanon_Destroy, (ActorFunc)BossGanon_Update, (ActorFunc)BossGanon_Draw, (ActorFunc)BossGanon_Reset,
 };
 
 static ColliderCylinderInit sDorfCylinderInit = {
@@ -5659,7 +5659,7 @@ void BossGanon_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_808E4DE8_132 = {600.0f, 420.0f, 100.0f};
 
 	Boss_Ganon_InitVars = {
-	    ACTOR_BOSS_GANON, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, sizeof(BossGanon), (ActorFunc)BossGanon_Init, (ActorFunc)BossGanon_Destroy, (ActorFunc)BossGanon_Update, (ActorFunc)BossGanon_Draw, (ActorFunc)BossGanon_Reset,
+	    ACTOR_BOSS_GANON, ACTORCAT_BOSS, FLAGS, OBJECT_GANON, ACTOR_FACTORY(BossGanon), (ActorFunc)BossGanon_Init, (ActorFunc)BossGanon_Destroy, (ActorFunc)BossGanon_Update, (ActorFunc)BossGanon_Draw, (ActorFunc)BossGanon_Reset,
 	};
 
 	sDorfCylinderInit = {

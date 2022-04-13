@@ -354,7 +354,7 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInit = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 ActorInit En_Zo_InitVars = {
-    ACTOR_EN_ZO, ACTORCAT_NPC, FLAGS, OBJECT_ZO, sizeof(EnZo), (ActorFunc)EnZo_Init, (ActorFunc)EnZo_Destroy, (ActorFunc)EnZo_Update, (ActorFunc)EnZo_Draw, (ActorFunc)EnZo_Reset,
+    ACTOR_EN_ZO, ACTORCAT_NPC, FLAGS, OBJECT_ZO, ACTOR_FACTORY(EnZo), (ActorFunc)EnZo_Init, (ActorFunc)EnZo_Destroy, (ActorFunc)EnZo_Update, (ActorFunc)EnZo_Draw, (ActorFunc)EnZo_Reset,
 };
 
 static struct_80034EC0_Entry sAnimations[] = {
@@ -963,6 +963,6 @@ void EnZo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sColChkInit = {0, 0, 0, 0, MASS_IMMOVABLE};
 
 	En_Zo_InitVars = {
-	    ACTOR_EN_ZO, ACTORCAT_NPC, FLAGS, OBJECT_ZO, sizeof(EnZo), (ActorFunc)EnZo_Init, (ActorFunc)EnZo_Destroy, (ActorFunc)EnZo_Update, (ActorFunc)EnZo_Draw, (ActorFunc)EnZo_Reset,
+	    ACTOR_EN_ZO, ACTORCAT_NPC, FLAGS, OBJECT_ZO, ACTOR_FACTORY(EnZo), (ActorFunc)EnZo_Init, (ActorFunc)EnZo_Destroy, (ActorFunc)EnZo_Update, (ActorFunc)EnZo_Draw, (ActorFunc)EnZo_Reset,
 	};
 }

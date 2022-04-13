@@ -116,7 +116,7 @@ static CollisionCheckInfoInit2 sColChkInfoInit = {
 };
 
 ActorInit En_Go2_InitVars = {
-    ACTOR_EN_GO2, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(EnGo2), (ActorFunc)EnGo2_Init, (ActorFunc)EnGo2_Destroy, (ActorFunc)EnGo2_Update, (ActorFunc)EnGo2_Draw, (ActorFunc)EnGo2_Reset,
+    ACTOR_EN_GO2, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(EnGo2), (ActorFunc)EnGo2_Init, (ActorFunc)EnGo2_Destroy, (ActorFunc)EnGo2_Update, (ActorFunc)EnGo2_Draw, (ActorFunc)EnGo2_Reset,
 };
 
 static EnGo2DataStruct1 D_80A4816C[14] = {
@@ -2552,7 +2552,7 @@ void EnGo2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Go2_InitVars = {
-	    ACTOR_EN_GO2, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(EnGo2), (ActorFunc)EnGo2_Init, (ActorFunc)EnGo2_Destroy, (ActorFunc)EnGo2_Update, (ActorFunc)EnGo2_Draw, (ActorFunc)EnGo2_Reset,
+	    ACTOR_EN_GO2, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(EnGo2), (ActorFunc)EnGo2_Init, (ActorFunc)EnGo2_Destroy, (ActorFunc)EnGo2_Update, (ActorFunc)EnGo2_Draw, (ActorFunc)EnGo2_Reset,
 	};
 
 	sZeroVec = {0.0f, 0.0f, 0.0f};

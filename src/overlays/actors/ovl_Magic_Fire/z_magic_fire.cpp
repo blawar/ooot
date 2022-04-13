@@ -25,7 +25,7 @@ void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx);
 void MagicFire_UpdateBeforeCast(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Magic_Fire_InitVars = {
-    ACTOR_MAGIC_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(MagicFire), (ActorFunc)MagicFire_Init, (ActorFunc)MagicFire_Destroy, (ActorFunc)MagicFire_Update, (ActorFunc)MagicFire_Draw, (ActorFunc)MagicFire_Reset,
+    ACTOR_MAGIC_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(MagicFire), (ActorFunc)MagicFire_Init, (ActorFunc)MagicFire_Destroy, (ActorFunc)MagicFire_Update, (ActorFunc)MagicFire_Draw, (ActorFunc)MagicFire_Reset,
 };
 
 #include "overlays/ovl_Magic_Fire/ovl_Magic_Fire.cpp"
@@ -268,7 +268,7 @@ void MagicFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 void MagicFire_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Magic_Fire_InitVars = {
-	    ACTOR_MAGIC_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(MagicFire), (ActorFunc)MagicFire_Init, (ActorFunc)MagicFire_Destroy, (ActorFunc)MagicFire_Update, (ActorFunc)MagicFire_Draw, (ActorFunc)MagicFire_Reset,
+	    ACTOR_MAGIC_FIRE, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(MagicFire), (ActorFunc)MagicFire_Init, (ActorFunc)MagicFire_Destroy, (ActorFunc)MagicFire_Update, (ActorFunc)MagicFire_Draw, (ActorFunc)MagicFire_Reset,
 	};
 
 	sCylinderInit = {

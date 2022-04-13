@@ -41,7 +41,7 @@ void EnSt_FinishBouncing(EnSt* pthis, GlobalContext* globalCtx);
 #include "def/z_skelanime.h"
 
 ActorInit En_St_InitVars = {
-    ACTOR_EN_ST, ACTORCAT_ENEMY, FLAGS, OBJECT_ST, sizeof(EnSt), (ActorFunc)EnSt_Init, (ActorFunc)EnSt_Destroy, (ActorFunc)EnSt_Update, (ActorFunc)EnSt_Draw, (ActorFunc)EnSt_Reset,
+    ACTOR_EN_ST, ACTORCAT_ENEMY, FLAGS, OBJECT_ST, ACTOR_FACTORY(EnSt), (ActorFunc)EnSt_Init, (ActorFunc)EnSt_Destroy, (ActorFunc)EnSt_Update, (ActorFunc)EnSt_Draw, (ActorFunc)EnSt_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1273,7 +1273,7 @@ void EnSt_Draw(Actor* pthisx, GlobalContext* globalCtx)
 void EnSt_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_St_InitVars = {
-	    ACTOR_EN_ST, ACTORCAT_ENEMY, FLAGS, OBJECT_ST, sizeof(EnSt), (ActorFunc)EnSt_Init, (ActorFunc)EnSt_Destroy, (ActorFunc)EnSt_Update, (ActorFunc)EnSt_Draw, (ActorFunc)EnSt_Reset,
+	    ACTOR_EN_ST, ACTORCAT_ENEMY, FLAGS, OBJECT_ST, ACTOR_FACTORY(EnSt), (ActorFunc)EnSt_Init, (ActorFunc)EnSt_Destroy, (ActorFunc)EnSt_Update, (ActorFunc)EnSt_Draw, (ActorFunc)EnSt_Reset,
 	};
 
 	sCylinderInit = {

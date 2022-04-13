@@ -31,7 +31,7 @@ s32 MirRay_CheckInFrustum(Vec3f* vecA, Vec3f* vecB, f32 pointx, f32 pointy, f32 
 // Locations of light beams in sMirRayData
 
 ActorInit Mir_Ray_InitVars = {
-    ACTOR_MIR_RAY, ACTORCAT_ITEMACTION, FLAGS, OBJECT_MIR_RAY, sizeof(MirRay), (ActorFunc)MirRay_Init, (ActorFunc)MirRay_Destroy, (ActorFunc)MirRay_Update, (ActorFunc)MirRay_Draw, (ActorFunc)MirRay_Reset,
+    ACTOR_MIR_RAY, ACTORCAT_ITEMACTION, FLAGS, OBJECT_MIR_RAY, ACTOR_FACTORY(MirRay), (ActorFunc)MirRay_Init, (ActorFunc)MirRay_Destroy, (ActorFunc)MirRay_Update, (ActorFunc)MirRay_Draw, (ActorFunc)MirRay_Reset,
 };
 
 static u8 D_80B8E670 = 0;
@@ -637,7 +637,7 @@ s32 MirRay_CheckInFrustum(Vec3f* vecA, Vec3f* vecB, f32 pointx, f32 pointy, f32 
 void MirRay_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Mir_Ray_InitVars = {
-	    ACTOR_MIR_RAY, ACTORCAT_ITEMACTION, FLAGS, OBJECT_MIR_RAY, sizeof(MirRay), (ActorFunc)MirRay_Init, (ActorFunc)MirRay_Destroy, (ActorFunc)MirRay_Update, (ActorFunc)MirRay_Draw, (ActorFunc)MirRay_Reset,
+	    ACTOR_MIR_RAY, ACTORCAT_ITEMACTION, FLAGS, OBJECT_MIR_RAY, ACTOR_FACTORY(MirRay), (ActorFunc)MirRay_Init, (ActorFunc)MirRay_Destroy, (ActorFunc)MirRay_Update, (ActorFunc)MirRay_Draw, (ActorFunc)MirRay_Reset,
 	};
 
 	D_80B8E670 = 0;

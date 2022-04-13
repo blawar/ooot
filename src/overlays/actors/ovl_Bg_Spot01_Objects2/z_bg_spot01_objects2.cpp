@@ -28,7 +28,7 @@ void func_808AC474(BgSpot01Objects2* pthis, GlobalContext* globalCtx);
 void func_808AC4A4(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot01_Objects2_InitVars = {
-    ACTOR_BG_SPOT01_OBJECTS2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgSpot01Objects2), (ActorFunc)BgSpot01Objects2_Init, (ActorFunc)BgSpot01Objects2_Destroy, (ActorFunc)BgSpot01Objects2_Update, NULL, (ActorFunc)BgSpot01Objects2_Reset,
+    ACTOR_BG_SPOT01_OBJECTS2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgSpot01Objects2), (ActorFunc)BgSpot01Objects2_Init, (ActorFunc)BgSpot01Objects2_Destroy, (ActorFunc)BgSpot01Objects2_Update, NULL, (ActorFunc)BgSpot01Objects2_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -155,6 +155,6 @@ void func_808AC4A4(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot01Objects2_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot01_Objects2_InitVars = {
-	    ACTOR_BG_SPOT01_OBJECTS2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgSpot01Objects2), (ActorFunc)BgSpot01Objects2_Init, (ActorFunc)BgSpot01Objects2_Destroy, (ActorFunc)BgSpot01Objects2_Update, NULL, (ActorFunc)BgSpot01Objects2_Reset,
+	    ACTOR_BG_SPOT01_OBJECTS2, ACTORCAT_BG, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(BgSpot01Objects2), (ActorFunc)BgSpot01Objects2_Init, (ActorFunc)BgSpot01Objects2_Destroy, (ActorFunc)BgSpot01Objects2_Update, NULL, (ActorFunc)BgSpot01Objects2_Reset,
 	};
 }

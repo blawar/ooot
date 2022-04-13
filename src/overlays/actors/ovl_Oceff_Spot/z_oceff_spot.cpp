@@ -29,7 +29,7 @@ void OceffSpot_Draw(Actor* thisx, GlobalContext* globalCtx);
 void OceffSpot_GrowCylinder(OceffSpot* pthis, GlobalContext* globalCtx);
 
 ActorInit Oceff_Spot_InitVars = {
-    ACTOR_OCEFF_SPOT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(OceffSpot), (ActorFunc)OceffSpot_Init, (ActorFunc)OceffSpot_Destroy, (ActorFunc)OceffSpot_Update, (ActorFunc)OceffSpot_Draw, (ActorFunc)OceffSpot_Reset,
+    ACTOR_OCEFF_SPOT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(OceffSpot), (ActorFunc)OceffSpot_Init, (ActorFunc)OceffSpot_Destroy, (ActorFunc)OceffSpot_Update, (ActorFunc)OceffSpot_Draw, (ActorFunc)OceffSpot_Reset,
 };
 
 #include "overlays/ovl_Oceff_Spot/ovl_Oceff_Spot.cpp"
@@ -186,6 +186,6 @@ void OceffSpot_Draw(Actor* thisx, GlobalContext* globalCtx)
 void OceffSpot_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Oceff_Spot_InitVars = {
-	    ACTOR_OCEFF_SPOT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(OceffSpot), (ActorFunc)OceffSpot_Init, (ActorFunc)OceffSpot_Destroy, (ActorFunc)OceffSpot_Update, (ActorFunc)OceffSpot_Draw, (ActorFunc)OceffSpot_Reset,
+	    ACTOR_OCEFF_SPOT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(OceffSpot), (ActorFunc)OceffSpot_Init, (ActorFunc)OceffSpot_Destroy, (ActorFunc)OceffSpot_Update, (ActorFunc)OceffSpot_Draw, (ActorFunc)OceffSpot_Reset,
 	};
 }

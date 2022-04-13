@@ -43,7 +43,7 @@ void EnGb_DrawCagedSouls(EnGb* pthis, GlobalContext* globalCtx);
 void EnGb_UpdateCagedSouls(EnGb* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Gb_InitVars = {
-    ACTOR_EN_GB, ACTORCAT_NPC, FLAGS, OBJECT_PS, sizeof(EnGb), (ActorFunc)EnGb_Init, (ActorFunc)EnGb_Destroy, (ActorFunc)EnGb_Update, (ActorFunc)EnGb_Draw, (ActorFunc)EnGb_Reset,
+    ACTOR_EN_GB, ACTORCAT_NPC, FLAGS, OBJECT_PS, ACTOR_FACTORY(EnGb), (ActorFunc)EnGb_Init, (ActorFunc)EnGb_Destroy, (ActorFunc)EnGb_Update, (ActorFunc)EnGb_Draw, (ActorFunc)EnGb_Reset,
 };
 
 static EnGbCagedSoulInfo sCagedSoulInfo[] = {
@@ -613,7 +613,7 @@ void EnGb_DrawCagedSouls(EnGb* pthis, GlobalContext* globalCtx)
 void EnGb_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Gb_InitVars = {
-	    ACTOR_EN_GB, ACTORCAT_NPC, FLAGS, OBJECT_PS, sizeof(EnGb), (ActorFunc)EnGb_Init, (ActorFunc)EnGb_Destroy, (ActorFunc)EnGb_Update, (ActorFunc)EnGb_Draw, (ActorFunc)EnGb_Reset,
+	    ACTOR_EN_GB, ACTORCAT_NPC, FLAGS, OBJECT_PS, ACTOR_FACTORY(EnGb), (ActorFunc)EnGb_Init, (ActorFunc)EnGb_Destroy, (ActorFunc)EnGb_Update, (ActorFunc)EnGb_Draw, (ActorFunc)EnGb_Reset,
 	};
 
 	sCylinderInit = {

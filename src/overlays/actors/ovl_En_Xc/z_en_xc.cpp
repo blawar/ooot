@@ -2853,7 +2853,7 @@ void EnXc_Draw(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit En_Xc_InitVars = {
-    ACTOR_EN_XC, ACTORCAT_NPC, FLAGS, OBJECT_XC, sizeof(EnXc), (ActorFunc)EnXc_Init, (ActorFunc)EnXc_Destroy, (ActorFunc)EnXc_Update, (ActorFunc)EnXc_Draw, (ActorFunc)EnXc_Reset,
+    ACTOR_EN_XC, ACTORCAT_NPC, FLAGS, OBJECT_XC, ACTOR_FACTORY(EnXc), (ActorFunc)EnXc_Init, (ActorFunc)EnXc_Destroy, (ActorFunc)EnXc_Update, (ActorFunc)EnXc_Draw, (ActorFunc)EnXc_Reset,
 };
 
 void EnXc_Reset(Actor* pthisx, GlobalContext* globalCtx)
@@ -2896,6 +2896,6 @@ void EnXc_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80B42DA0 = {0, 0, 0};
 
 	En_Xc_InitVars = {
-	    ACTOR_EN_XC, ACTORCAT_NPC, FLAGS, OBJECT_XC, sizeof(EnXc), (ActorFunc)EnXc_Init, (ActorFunc)EnXc_Destroy, (ActorFunc)EnXc_Update, (ActorFunc)EnXc_Draw, (ActorFunc)EnXc_Reset,
+	    ACTOR_EN_XC, ACTORCAT_NPC, FLAGS, OBJECT_XC, ACTOR_FACTORY(EnXc), (ActorFunc)EnXc_Init, (ActorFunc)EnXc_Destroy, (ActorFunc)EnXc_Update, (ActorFunc)EnXc_Draw, (ActorFunc)EnXc_Reset,
 	};
 }

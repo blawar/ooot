@@ -55,7 +55,7 @@ static Vec3f targetMod_72 = {4500.0f, 0.0f, 0.0f};
 static Vec3f headMod_72 = {4000.0f, 0.0f, 0.0f};
 
 ActorInit Boss_Fd_InitVars = {
-    ACTOR_BOSS_FD, ACTORCAT_BOSS, FLAGS, OBJECT_FD, sizeof(BossFd), (ActorFunc)BossFd_Init, (ActorFunc)BossFd_Destroy, (ActorFunc)BossFd_Update, (ActorFunc)BossFd_Draw, (ActorFunc)BossFd_Reset,
+    ACTOR_BOSS_FD, ACTORCAT_BOSS, FLAGS, OBJECT_FD, ACTOR_FACTORY(BossFd), (ActorFunc)BossFd_Init, (ActorFunc)BossFd_Destroy, (ActorFunc)BossFd_Update, (ActorFunc)BossFd_Draw, (ActorFunc)BossFd_Reset,
 };
 
 #include "z_boss_fd_colchk.cpp"
@@ -2197,7 +2197,7 @@ void BossFd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	headMod_72 = {4000.0f, 0.0f, 0.0f};
 
 	Boss_Fd_InitVars = {
-	    ACTOR_BOSS_FD, ACTORCAT_BOSS, FLAGS, OBJECT_FD, sizeof(BossFd), (ActorFunc)BossFd_Init, (ActorFunc)BossFd_Destroy, (ActorFunc)BossFd_Update, (ActorFunc)BossFd_Draw, (ActorFunc)BossFd_Reset,
+	    ACTOR_BOSS_FD, ACTORCAT_BOSS, FLAGS, OBJECT_FD, ACTOR_FACTORY(BossFd), (ActorFunc)BossFd_Init, (ActorFunc)BossFd_Destroy, (ActorFunc)BossFd_Update, (ActorFunc)BossFd_Draw, (ActorFunc)BossFd_Reset,
 	};
 
 	sFireAudioVec = {0.0f, 0.0f, 50.0f};

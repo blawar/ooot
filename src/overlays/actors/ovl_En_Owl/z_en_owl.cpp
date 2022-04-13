@@ -68,7 +68,7 @@ static Vec3f D_80ACD62C_110 = {0.0f, 0.0f, 0.0f};
 static void* eyeTextures_130[] = {gObjOwlEyeOpenTex, gObjOwlEyeHalfTex, gObjOwlEyeClosedTex};
 
 ActorInit En_Owl_InitVars = {
-    ACTOR_EN_OWL, ACTORCAT_NPC, FLAGS, OBJECT_OWL, sizeof(EnOwl), (ActorFunc)EnOwl_Init, (ActorFunc)EnOwl_Destroy, (ActorFunc)EnOwl_Update, (ActorFunc)EnOwl_Draw, (ActorFunc)EnOwl_Reset,
+    ACTOR_EN_OWL, ACTORCAT_NPC, FLAGS, OBJECT_OWL, ACTOR_FACTORY(EnOwl), (ActorFunc)EnOwl_Init, (ActorFunc)EnOwl_Destroy, (ActorFunc)EnOwl_Update, (ActorFunc)EnOwl_Draw, (ActorFunc)EnOwl_Reset,
 };
 
 static ColliderCylinderInit sOwlCylinderInit = {
@@ -1698,7 +1698,7 @@ void EnOwl_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80ACD62C_110 = {0.0f, 0.0f, 0.0f};
 
 	En_Owl_InitVars = {
-	    ACTOR_EN_OWL, ACTORCAT_NPC, FLAGS, OBJECT_OWL, sizeof(EnOwl), (ActorFunc)EnOwl_Init, (ActorFunc)EnOwl_Destroy, (ActorFunc)EnOwl_Update, (ActorFunc)EnOwl_Draw, (ActorFunc)EnOwl_Reset,
+	    ACTOR_EN_OWL, ACTORCAT_NPC, FLAGS, OBJECT_OWL, ACTOR_FACTORY(EnOwl), (ActorFunc)EnOwl_Init, (ActorFunc)EnOwl_Destroy, (ActorFunc)EnOwl_Update, (ActorFunc)EnOwl_Draw, (ActorFunc)EnOwl_Reset,
 	};
 
 	sOwlCylinderInit = {

@@ -35,7 +35,7 @@ void func_80A55BD4(EnHeishi3* pthis, GlobalContext* globalCtx);
 static s16 sPlayerCaught = 0;
 
 ActorInit En_Heishi3_InitVars = {
-    ACTOR_EN_HEISHI3, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi3), (ActorFunc)EnHeishi3_Init, (ActorFunc)EnHeishi3_Destroy, (ActorFunc)EnHeishi3_Update, (ActorFunc)EnHeishi3_Draw, (ActorFunc)EnHeishi3_Reset,
+    ACTOR_EN_HEISHI3, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi3), (ActorFunc)EnHeishi3_Init, (ActorFunc)EnHeishi3_Destroy, (ActorFunc)EnHeishi3_Update, (ActorFunc)EnHeishi3_Draw, (ActorFunc)EnHeishi3_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -294,7 +294,7 @@ void EnHeishi3_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sPlayerCaught = 0;
 
 	En_Heishi3_InitVars = {
-	    ACTOR_EN_HEISHI3, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi3), (ActorFunc)EnHeishi3_Init, (ActorFunc)EnHeishi3_Destroy, (ActorFunc)EnHeishi3_Update, (ActorFunc)EnHeishi3_Draw, (ActorFunc)EnHeishi3_Reset,
+	    ACTOR_EN_HEISHI3, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi3), (ActorFunc)EnHeishi3_Init, (ActorFunc)EnHeishi3_Destroy, (ActorFunc)EnHeishi3_Update, (ActorFunc)EnHeishi3_Draw, (ActorFunc)EnHeishi3_Reset,
 	};
 
 	sCylinderInit = {

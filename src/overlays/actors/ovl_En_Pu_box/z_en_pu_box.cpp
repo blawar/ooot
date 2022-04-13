@@ -23,7 +23,7 @@ void EnPubox_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPubox_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit En_Pu_box_InitVars = {
-    ACTOR_EN_PU_BOX, ACTORCAT_BG, FLAGS, OBJECT_PU_BOX, sizeof(EnPubox), (ActorFunc)EnPubox_Init, (ActorFunc)EnPubox_Destroy, (ActorFunc)EnPubox_Update, (ActorFunc)EnPubox_Draw, (ActorFunc)EnPubox_Reset,
+    ACTOR_EN_PU_BOX, ACTORCAT_BG, FLAGS, OBJECT_PU_BOX, ACTOR_FACTORY(EnPubox), (ActorFunc)EnPubox_Init, (ActorFunc)EnPubox_Destroy, (ActorFunc)EnPubox_Update, (ActorFunc)EnPubox_Draw, (ActorFunc)EnPubox_Reset,
 };
 
 void EnPubox_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -95,6 +95,6 @@ void EnPubox_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnPubox_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Pu_box_InitVars = {
-	    ACTOR_EN_PU_BOX, ACTORCAT_BG, FLAGS, OBJECT_PU_BOX, sizeof(EnPubox), (ActorFunc)EnPubox_Init, (ActorFunc)EnPubox_Destroy, (ActorFunc)EnPubox_Update, (ActorFunc)EnPubox_Draw, (ActorFunc)EnPubox_Reset,
+	    ACTOR_EN_PU_BOX, ACTORCAT_BG, FLAGS, OBJECT_PU_BOX, ACTOR_FACTORY(EnPubox), (ActorFunc)EnPubox_Init, (ActorFunc)EnPubox_Destroy, (ActorFunc)EnPubox_Update, (ActorFunc)EnPubox_Draw, (ActorFunc)EnPubox_Reset,
 	};
 }

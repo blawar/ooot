@@ -37,7 +37,7 @@ void func_8088E7A8(BgHidanSima* pthis, GlobalContext* globalCtx);
 void func_8088E90C(BgHidanSima* pthis);
 
 ActorInit Bg_Hidan_Sima_InitVars = {
-    ACTOR_BG_HIDAN_SIMA, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanSima), (ActorFunc)BgHidanSima_Init, (ActorFunc)BgHidanSima_Destroy, (ActorFunc)BgHidanSima_Update, (ActorFunc)BgHidanSima_Draw, (ActorFunc)BgHidanSima_Reset,
+    ACTOR_BG_HIDAN_SIMA, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanSima), (ActorFunc)BgHidanSima_Init, (ActorFunc)BgHidanSima_Destroy, (ActorFunc)BgHidanSima_Update, (ActorFunc)BgHidanSima_Draw, (ActorFunc)BgHidanSima_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[2] = {
@@ -343,7 +343,7 @@ void BgHidanSima_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgHidanSima_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Hidan_Sima_InitVars = {
-	    ACTOR_BG_HIDAN_SIMA, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, sizeof(BgHidanSima), (ActorFunc)BgHidanSima_Init, (ActorFunc)BgHidanSima_Destroy, (ActorFunc)BgHidanSima_Update, (ActorFunc)BgHidanSima_Draw, (ActorFunc)BgHidanSima_Reset,
+	    ACTOR_BG_HIDAN_SIMA, ACTORCAT_BG, FLAGS, OBJECT_HIDAN_OBJECTS, ACTOR_FACTORY(BgHidanSima), (ActorFunc)BgHidanSima_Init, (ActorFunc)BgHidanSima_Destroy, (ActorFunc)BgHidanSima_Update, (ActorFunc)BgHidanSima_Draw, (ActorFunc)BgHidanSima_Reset,
 	};
 
 	sJntSphInit = {

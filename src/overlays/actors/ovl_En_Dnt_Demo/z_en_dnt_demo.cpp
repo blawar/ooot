@@ -32,7 +32,7 @@ void EnDntDemo_Results(EnDntDemo* pthis, GlobalContext* globalCtx);
 void EnDntDemo_Prize(EnDntDemo* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Dnt_Demo_InitVars = {
-    ACTOR_EN_DNT_DEMO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnDntDemo), (ActorFunc)EnDntDemo_Init, (ActorFunc)EnDntDemo_Destroy, (ActorFunc)EnDntDemo_Update, NULL, (ActorFunc)EnDntDemo_Reset,
+    ACTOR_EN_DNT_DEMO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnDntDemo), (ActorFunc)EnDntDemo_Init, (ActorFunc)EnDntDemo_Destroy, (ActorFunc)EnDntDemo_Update, NULL, (ActorFunc)EnDntDemo_Reset,
 };
 
 //! @bug
@@ -375,6 +375,6 @@ void EnDntDemo_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnDntDemo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dnt_Demo_InitVars = {
-	    ACTOR_EN_DNT_DEMO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnDntDemo), (ActorFunc)EnDntDemo_Init, (ActorFunc)EnDntDemo_Destroy, (ActorFunc)EnDntDemo_Update, NULL, (ActorFunc)EnDntDemo_Reset,
+	    ACTOR_EN_DNT_DEMO, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnDntDemo), (ActorFunc)EnDntDemo_Init, (ActorFunc)EnDntDemo_Destroy, (ActorFunc)EnDntDemo_Update, NULL, (ActorFunc)EnDntDemo_Reset,
 	};
 }

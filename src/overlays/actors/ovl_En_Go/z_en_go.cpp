@@ -53,7 +53,7 @@ void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx);
 static void* dustTex_95[] = {gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex};
 
 ActorInit En_Go_InitVars = {
-    ACTOR_EN_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(EnGo), (ActorFunc)EnGo_Init, (ActorFunc)EnGo_Destroy, (ActorFunc)EnGo_Update, (ActorFunc)EnGo_Draw, (ActorFunc)EnGo_Reset,
+    ACTOR_EN_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(EnGo), (ActorFunc)EnGo_Init, (ActorFunc)EnGo_Destroy, (ActorFunc)EnGo_Update, (ActorFunc)EnGo_Draw, (ActorFunc)EnGo_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1510,7 +1510,7 @@ void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx)
 void EnGo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Go_InitVars = {
-	    ACTOR_EN_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, sizeof(EnGo), (ActorFunc)EnGo_Init, (ActorFunc)EnGo_Destroy, (ActorFunc)EnGo_Update, (ActorFunc)EnGo_Draw, (ActorFunc)EnGo_Reset,
+	    ACTOR_EN_GO, ACTORCAT_NPC, FLAGS, OBJECT_OF1D_MAP, ACTOR_FACTORY(EnGo), (ActorFunc)EnGo_Init, (ActorFunc)EnGo_Destroy, (ActorFunc)EnGo_Update, (ActorFunc)EnGo_Draw, (ActorFunc)EnGo_Reset,
 	};
 
 	sCylinderInit = {

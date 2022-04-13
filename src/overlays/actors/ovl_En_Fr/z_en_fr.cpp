@@ -131,7 +131,7 @@ static s32 sSongToFrog[] = {
 };
 
 ActorInit En_Fr_InitVars = {
-    ACTOR_EN_FR, ACTORCAT_NPC, FLAGS, OBJECT_FR, sizeof(EnFr), (ActorFunc)EnFr_Init, (ActorFunc)EnFr_Destroy, (ActorFunc)EnFr_Update, NULL, (ActorFunc)EnFr_Reset,
+    ACTOR_EN_FR, ACTORCAT_NPC, FLAGS, OBJECT_FR, ACTOR_FACTORY(EnFr), (ActorFunc)EnFr_Init, (ActorFunc)EnFr_Destroy, (ActorFunc)EnFr_Update, NULL, (ActorFunc)EnFr_Reset,
 };
 
 static Color_RGBA8 sEnFrColor[] = {
@@ -1278,6 +1278,6 @@ void EnFr_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Fr_InitVars = {
-	    ACTOR_EN_FR, ACTORCAT_NPC, FLAGS, OBJECT_FR, sizeof(EnFr), (ActorFunc)EnFr_Init, (ActorFunc)EnFr_Destroy, (ActorFunc)EnFr_Update, NULL, (ActorFunc)EnFr_Reset,
+	    ACTOR_EN_FR, ACTORCAT_NPC, FLAGS, OBJECT_FR, ACTOR_FACTORY(EnFr), (ActorFunc)EnFr_Init, (ActorFunc)EnFr_Destroy, (ActorFunc)EnFr_Update, NULL, (ActorFunc)EnFr_Reset,
 	};
 }

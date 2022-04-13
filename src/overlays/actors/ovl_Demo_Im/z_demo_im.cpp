@@ -102,7 +102,7 @@ static DemoImDrawFunc sDrawFuncs[] = {
 };
 
 ActorInit Demo_Im_InitVars = {
-    ACTOR_DEMO_IM, ACTORCAT_NPC, FLAGS, OBJECT_IM, sizeof(DemoIm), (ActorFunc)DemoIm_Init, (ActorFunc)DemoIm_Destroy, (ActorFunc)DemoIm_Update, (ActorFunc)DemoIm_Draw, (ActorFunc)DemoIm_Reset,
+    ACTOR_DEMO_IM, ACTORCAT_NPC, FLAGS, OBJECT_IM, ACTOR_FACTORY(DemoIm), (ActorFunc)DemoIm_Init, (ActorFunc)DemoIm_Destroy, (ActorFunc)DemoIm_Update, (ActorFunc)DemoIm_Draw, (ActorFunc)DemoIm_Reset,
 };
 
 void func_80984BE0(DemoIm* pthis)
@@ -1419,6 +1419,6 @@ void DemoIm_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_809887D8 = {0.0f, 10.0f, 0.0f};
 
 	Demo_Im_InitVars = {
-	    ACTOR_DEMO_IM, ACTORCAT_NPC, FLAGS, OBJECT_IM, sizeof(DemoIm), (ActorFunc)DemoIm_Init, (ActorFunc)DemoIm_Destroy, (ActorFunc)DemoIm_Update, (ActorFunc)DemoIm_Draw, (ActorFunc)DemoIm_Reset,
+	    ACTOR_DEMO_IM, ACTORCAT_NPC, FLAGS, OBJECT_IM, ACTOR_FACTORY(DemoIm), (ActorFunc)DemoIm_Init, (ActorFunc)DemoIm_Destroy, (ActorFunc)DemoIm_Update, (ActorFunc)DemoIm_Draw, (ActorFunc)DemoIm_Reset,
 	};
 }

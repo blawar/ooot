@@ -41,7 +41,7 @@ static void* blinkTex_85[] = {
 #include "overlays/ovl_En_Ssh/ovl_En_Ssh.cpp"
 
 ActorInit En_Ssh_InitVars = {
-    ACTOR_EN_SSH, ACTORCAT_NPC, FLAGS, OBJECT_SSH, sizeof(EnSsh), (ActorFunc)EnSsh_Init, (ActorFunc)EnSsh_Destroy, (ActorFunc)EnSsh_Update, (ActorFunc)EnSsh_Draw, (ActorFunc)EnSsh_Reset,
+    ACTOR_EN_SSH, ACTORCAT_NPC, FLAGS, OBJECT_SSH, ACTOR_FACTORY(EnSsh), (ActorFunc)EnSsh_Init, (ActorFunc)EnSsh_Destroy, (ActorFunc)EnSsh_Update, (ActorFunc)EnSsh_Draw, (ActorFunc)EnSsh_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit1 = {
@@ -1085,7 +1085,7 @@ void EnSsh_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnSsh_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ssh_InitVars = {
-	    ACTOR_EN_SSH, ACTORCAT_NPC, FLAGS, OBJECT_SSH, sizeof(EnSsh), (ActorFunc)EnSsh_Init, (ActorFunc)EnSsh_Destroy, (ActorFunc)EnSsh_Update, (ActorFunc)EnSsh_Draw, (ActorFunc)EnSsh_Reset,
+	    ACTOR_EN_SSH, ACTORCAT_NPC, FLAGS, OBJECT_SSH, ACTOR_FACTORY(EnSsh), (ActorFunc)EnSsh_Init, (ActorFunc)EnSsh_Destroy, (ActorFunc)EnSsh_Update, (ActorFunc)EnSsh_Draw, (ActorFunc)EnSsh_Reset,
 	};
 
 	sCylinderInit1 = {

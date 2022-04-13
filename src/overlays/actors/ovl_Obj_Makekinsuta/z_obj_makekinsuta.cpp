@@ -20,7 +20,7 @@ void func_80B98320(ObjMakekinsuta* pthis, GlobalContext* globalCtx);
 void ObjMakekinsuta_DoNothing(ObjMakekinsuta* pthis, GlobalContext* globalCtx);
 
 ActorInit Obj_Makekinsuta_InitVars = {
-    ACTOR_OBJ_MAKEKINSUTA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjMakekinsuta), (ActorFunc)ObjMakekinsuta_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakekinsuta_Update, NULL, (ActorFunc)ObjMakekinsuta_Reset,
+    ACTOR_OBJ_MAKEKINSUTA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjMakekinsuta), (ActorFunc)ObjMakekinsuta_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakekinsuta_Update, NULL, (ActorFunc)ObjMakekinsuta_Reset,
 };
 
 void ObjMakekinsuta_Init(Actor* thisx, GlobalContext* globalCtx)
@@ -78,6 +78,6 @@ void ObjMakekinsuta_Update(Actor* thisx, GlobalContext* globalCtx)
 void ObjMakekinsuta_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Makekinsuta_InitVars = {
-	    ACTOR_OBJ_MAKEKINSUTA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjMakekinsuta), (ActorFunc)ObjMakekinsuta_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakekinsuta_Update, NULL, (ActorFunc)ObjMakekinsuta_Reset,
+	    ACTOR_OBJ_MAKEKINSUTA, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(ObjMakekinsuta), (ActorFunc)ObjMakekinsuta_Init, (ActorFunc)Actor_Noop, (ActorFunc)ObjMakekinsuta_Update, NULL, (ActorFunc)ObjMakekinsuta_Reset,
 	};
 }

@@ -45,7 +45,7 @@ void EnFhgFire_EnergyBall(EnFhgFire* pthis, GlobalContext* globalCtx);
 void EnFhgFire_PhantomWarp(EnFhgFire* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Fhg_Fire_InitVars = {
-    0, ACTORCAT_BOSS, FLAGS, OBJECT_FHG, sizeof(EnFhgFire), (ActorFunc)EnFhgFire_Init, (ActorFunc)EnFhgFire_Destroy, (ActorFunc)EnFhgFire_Update, (ActorFunc)EnFhgFire_Draw, (ActorFunc)EnFhgFire_Reset,
+    0, ACTORCAT_BOSS, FLAGS, OBJECT_FHG, ACTOR_FACTORY(EnFhgFire), (ActorFunc)EnFhgFire_Init, (ActorFunc)EnFhgFire_Destroy, (ActorFunc)EnFhgFire_Update, (ActorFunc)EnFhgFire_Draw, (ActorFunc)EnFhgFire_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -844,7 +844,7 @@ void EnFhgFire_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnFhgFire_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Fhg_Fire_InitVars = {
-	    0, ACTORCAT_BOSS, FLAGS, OBJECT_FHG, sizeof(EnFhgFire), (ActorFunc)EnFhgFire_Init, (ActorFunc)EnFhgFire_Destroy, (ActorFunc)EnFhgFire_Update, (ActorFunc)EnFhgFire_Draw, (ActorFunc)EnFhgFire_Reset,
+	    0, ACTORCAT_BOSS, FLAGS, OBJECT_FHG, ACTOR_FACTORY(EnFhgFire), (ActorFunc)EnFhgFire_Init, (ActorFunc)EnFhgFire_Destroy, (ActorFunc)EnFhgFire_Update, (ActorFunc)EnFhgFire_Draw, (ActorFunc)EnFhgFire_Reset,
 	};
 
 	sCylinderInit = {

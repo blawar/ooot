@@ -37,7 +37,7 @@ void EnDh_Damage(EnDh* pthis, GlobalContext* globalCtx);
 void EnDh_Death(EnDh* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Dh_InitVars = {
-    ACTOR_EN_DH, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, sizeof(EnDh), (ActorFunc)EnDh_Init, (ActorFunc)EnDh_Destroy, (ActorFunc)EnDh_Update, (ActorFunc)EnDh_Draw, (ActorFunc)EnDh_Reset,
+    ACTOR_EN_DH, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, ACTOR_FACTORY(EnDh), (ActorFunc)EnDh_Init, (ActorFunc)EnDh_Destroy, (ActorFunc)EnDh_Update, (ActorFunc)EnDh_Draw, (ActorFunc)EnDh_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -647,7 +647,7 @@ void EnDh_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnDh_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Dh_InitVars = {
-	    ACTOR_EN_DH, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, sizeof(EnDh), (ActorFunc)EnDh_Init, (ActorFunc)EnDh_Destroy, (ActorFunc)EnDh_Update, (ActorFunc)EnDh_Draw, (ActorFunc)EnDh_Reset,
+	    ACTOR_EN_DH, ACTORCAT_ENEMY, FLAGS, OBJECT_DH, ACTOR_FACTORY(EnDh), (ActorFunc)EnDh_Init, (ActorFunc)EnDh_Destroy, (ActorFunc)EnDh_Update, (ActorFunc)EnDh_Draw, (ActorFunc)EnDh_Reset,
 	};
 
 	sCylinderInit = {

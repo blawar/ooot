@@ -33,7 +33,7 @@ void func_80AFC544(EnSiofuki* pthis, GlobalContext* globalCtx);
 void func_80AFC478(EnSiofuki* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Siofuki_InitVars = {
-    ACTOR_EN_SIOFUKI, ACTORCAT_BG, FLAGS, OBJECT_SIOFUKI, sizeof(EnSiofuki), (ActorFunc)EnSiofuki_Init, (ActorFunc)EnSiofuki_Destroy, (ActorFunc)EnSiofuki_Update, (ActorFunc)EnSiofuki_Draw, (ActorFunc)EnSiofuki_Reset,
+    ACTOR_EN_SIOFUKI, ACTORCAT_BG, FLAGS, OBJECT_SIOFUKI, ACTOR_FACTORY(EnSiofuki), (ActorFunc)EnSiofuki_Init, (ActorFunc)EnSiofuki_Destroy, (ActorFunc)EnSiofuki_Update, (ActorFunc)EnSiofuki_Draw, (ActorFunc)EnSiofuki_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -366,6 +366,6 @@ void EnSiofuki_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnSiofuki_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Siofuki_InitVars = {
-	    ACTOR_EN_SIOFUKI, ACTORCAT_BG, FLAGS, OBJECT_SIOFUKI, sizeof(EnSiofuki), (ActorFunc)EnSiofuki_Init, (ActorFunc)EnSiofuki_Destroy, (ActorFunc)EnSiofuki_Update, (ActorFunc)EnSiofuki_Draw, (ActorFunc)EnSiofuki_Reset,
+	    ACTOR_EN_SIOFUKI, ACTORCAT_BG, FLAGS, OBJECT_SIOFUKI, ACTOR_FACTORY(EnSiofuki), (ActorFunc)EnSiofuki_Init, (ActorFunc)EnSiofuki_Destroy, (ActorFunc)EnSiofuki_Update, (ActorFunc)EnSiofuki_Draw, (ActorFunc)EnSiofuki_Reset,
 	};
 }

@@ -48,7 +48,7 @@ void DoorWarp1_ChooseInitialAction(DoorWarp1* pthis, GlobalContext* globalCtx);
 void DoorWarp1_FloatPlayer(DoorWarp1* pthis, GlobalContext* globalCtx);
 
 ActorInit Door_Warp1_InitVars = {
-    ACTOR_DOOR_WARP1, ACTORCAT_ITEMACTION, FLAGS, OBJECT_WARP1, sizeof(DoorWarp1), (ActorFunc)DoorWarp1_Init, (ActorFunc)DoorWarp1_Destroy, (ActorFunc)DoorWarp1_Update, (ActorFunc)DoorWarp1_Draw, (ActorFunc)DoorWarp1_Reset,
+    ACTOR_DOOR_WARP1, ACTORCAT_ITEMACTION, FLAGS, OBJECT_WARP1, ACTOR_FACTORY(DoorWarp1), (ActorFunc)DoorWarp1_Init, (ActorFunc)DoorWarp1_Destroy, (ActorFunc)DoorWarp1_Update, (ActorFunc)DoorWarp1_Draw, (ActorFunc)DoorWarp1_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -1205,7 +1205,7 @@ void DoorWarp1_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DoorWarp1_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Door_Warp1_InitVars = {
-	    ACTOR_DOOR_WARP1, ACTORCAT_ITEMACTION, FLAGS, OBJECT_WARP1, sizeof(DoorWarp1), (ActorFunc)DoorWarp1_Init, (ActorFunc)DoorWarp1_Destroy, (ActorFunc)DoorWarp1_Update, (ActorFunc)DoorWarp1_Draw, (ActorFunc)DoorWarp1_Reset,
+	    ACTOR_DOOR_WARP1, ACTORCAT_ITEMACTION, FLAGS, OBJECT_WARP1, ACTOR_FACTORY(DoorWarp1), (ActorFunc)DoorWarp1_Init, (ActorFunc)DoorWarp1_Destroy, (ActorFunc)DoorWarp1_Update, (ActorFunc)DoorWarp1_Draw, (ActorFunc)DoorWarp1_Reset,
 	};
 
 	sWarpTimerTarget = 0;

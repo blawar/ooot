@@ -28,7 +28,7 @@ static DemoTreLgtInfo sDemoTreLgtInfo[] = {
 };
 
 ActorInit Demo_Tre_Lgt_InitVars = {
-    ACTOR_DEMO_TRE_LGT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_BOX, sizeof(DemoTreLgt), (ActorFunc)DemoTreLgt_Init, (ActorFunc)DemoTreLgt_Destroy, (ActorFunc)DemoTreLgt_Update, (ActorFunc)DemoTreLgt_Draw, (ActorFunc)DemoTreLgt_Reset,
+    ACTOR_DEMO_TRE_LGT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_BOX, ACTOR_FACTORY(DemoTreLgt), (ActorFunc)DemoTreLgt_Init, (ActorFunc)DemoTreLgt_Destroy, (ActorFunc)DemoTreLgt_Update, (ActorFunc)DemoTreLgt_Draw, (ActorFunc)DemoTreLgt_Reset,
 };
 
 static TransformUpdateIndex* sTransformUpdIdx[] = {&gTreasureChestCurveAnim_4B60, &gTreasureChestCurveAnim_4F70};
@@ -181,6 +181,6 @@ void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx)
 void DemoTreLgt_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Demo_Tre_Lgt_InitVars = {
-	    ACTOR_DEMO_TRE_LGT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_BOX, sizeof(DemoTreLgt), (ActorFunc)DemoTreLgt_Init, (ActorFunc)DemoTreLgt_Destroy, (ActorFunc)DemoTreLgt_Update, (ActorFunc)DemoTreLgt_Draw, (ActorFunc)DemoTreLgt_Reset,
+	    ACTOR_DEMO_TRE_LGT, ACTORCAT_ITEMACTION, FLAGS, OBJECT_BOX, ACTOR_FACTORY(DemoTreLgt), (ActorFunc)DemoTreLgt_Init, (ActorFunc)DemoTreLgt_Destroy, (ActorFunc)DemoTreLgt_Update, (ActorFunc)DemoTreLgt_Draw, (ActorFunc)DemoTreLgt_Reset,
 	};
 }

@@ -35,7 +35,7 @@ void EnBombf_Explode(EnBombf* pthis, GlobalContext* globalCtx);
 void EnBombf_SetupGrowBomb(EnBombf* pthis, s16 params);
 
 ActorInit En_Bombf_InitVars = {
-    ACTOR_EN_BOMBF, ACTORCAT_PROP, FLAGS, OBJECT_BOMBF, sizeof(EnBombf), (ActorFunc)EnBombf_Init, (ActorFunc)EnBombf_Destroy, (ActorFunc)EnBombf_Update, (ActorFunc)EnBombf_Draw, (ActorFunc)EnBombf_Reset,
+    ACTOR_EN_BOMBF, ACTORCAT_PROP, FLAGS, OBJECT_BOMBF, ACTOR_FACTORY(EnBombf), (ActorFunc)EnBombf_Init, (ActorFunc)EnBombf_Destroy, (ActorFunc)EnBombf_Update, (ActorFunc)EnBombf_Draw, (ActorFunc)EnBombf_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -598,7 +598,7 @@ void EnBombf_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBombf_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bombf_InitVars = {
-	    ACTOR_EN_BOMBF, ACTORCAT_PROP, FLAGS, OBJECT_BOMBF, sizeof(EnBombf), (ActorFunc)EnBombf_Init, (ActorFunc)EnBombf_Destroy, (ActorFunc)EnBombf_Update, (ActorFunc)EnBombf_Draw, (ActorFunc)EnBombf_Reset,
+	    ACTOR_EN_BOMBF, ACTORCAT_PROP, FLAGS, OBJECT_BOMBF, ACTOR_FACTORY(EnBombf), (ActorFunc)EnBombf_Init, (ActorFunc)EnBombf_Destroy, (ActorFunc)EnBombf_Update, (ActorFunc)EnBombf_Draw, (ActorFunc)EnBombf_Reset,
 	};
 
 	sCylinderInit = {

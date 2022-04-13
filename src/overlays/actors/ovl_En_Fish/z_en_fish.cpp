@@ -80,7 +80,7 @@ static ColliderJntSphInit sJntSphInit = {
 };
 
 ActorInit En_Fish_InitVars = {
-    ACTOR_EN_FISH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnFish), (ActorFunc)EnFish_Init, (ActorFunc)EnFish_Destroy, (ActorFunc)EnFish_Update, (ActorFunc)EnFish_Draw, (ActorFunc)EnFish_Reset,
+    ACTOR_EN_FISH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnFish), (ActorFunc)EnFish_Init, (ActorFunc)EnFish_Destroy, (ActorFunc)EnFish_Update, (ActorFunc)EnFish_Draw, (ActorFunc)EnFish_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -932,6 +932,6 @@ void EnFish_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Fish_InitVars = {
-	    ACTOR_EN_FISH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnFish), (ActorFunc)EnFish_Init, (ActorFunc)EnFish_Destroy, (ActorFunc)EnFish_Update, (ActorFunc)EnFish_Draw, (ActorFunc)EnFish_Reset,
+	    ACTOR_EN_FISH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnFish), (ActorFunc)EnFish_Init, (ActorFunc)EnFish_Destroy, (ActorFunc)EnFish_Update, (ActorFunc)EnFish_Draw, (ActorFunc)EnFish_Reset,
 	};
 }

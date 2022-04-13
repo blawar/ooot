@@ -3349,7 +3349,7 @@ void EnZl3_Draw(Actor* thisx, GlobalContext* globalCtx)
 }
 
 ActorInit En_Zl3_InitVars = {
-    ACTOR_EN_ZL3, ACTORCAT_NPC, FLAGS, OBJECT_ZL2, sizeof(EnZl3), (ActorFunc)EnZl3_Init, (ActorFunc)EnZl3_Destroy, (ActorFunc)EnZl3_Update, (ActorFunc)EnZl3_Draw, (ActorFunc)EnZl3_Reset,
+    ACTOR_EN_ZL3, ACTORCAT_NPC, FLAGS, OBJECT_ZL2, ACTOR_FACTORY(EnZl3), (ActorFunc)EnZl3_Init, (ActorFunc)EnZl3_Destroy, (ActorFunc)EnZl3_Update, (ActorFunc)EnZl3_Draw, (ActorFunc)EnZl3_Reset,
 };
 
 void EnZl3_Reset(Actor* pthisx, GlobalContext* globalCtx)
@@ -3394,6 +3394,6 @@ void EnZl3_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80B5A4BC = 0;
 
 	En_Zl3_InitVars = {
-	    ACTOR_EN_ZL3, ACTORCAT_NPC, FLAGS, OBJECT_ZL2, sizeof(EnZl3), (ActorFunc)EnZl3_Init, (ActorFunc)EnZl3_Destroy, (ActorFunc)EnZl3_Update, (ActorFunc)EnZl3_Draw, (ActorFunc)EnZl3_Reset,
+	    ACTOR_EN_ZL3, ACTORCAT_NPC, FLAGS, OBJECT_ZL2, ACTOR_FACTORY(EnZl3), (ActorFunc)EnZl3_Init, (ActorFunc)EnZl3_Destroy, (ActorFunc)EnZl3_Update, (ActorFunc)EnZl3_Draw, (ActorFunc)EnZl3_Reset,
 	};
 }

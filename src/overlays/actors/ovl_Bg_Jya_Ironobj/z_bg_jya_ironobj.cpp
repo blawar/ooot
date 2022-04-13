@@ -40,7 +40,7 @@ static BgJyaIronobjIkFunc particleFunc_53[] = {BgJyaIronobj_SpawnPillarParticles
 static int sUnused = 0;
 
 ActorInit Bg_Jya_Ironobj_InitVars = {
-    ACTOR_BG_JYA_IRONOBJ, ACTORCAT_PROP, FLAGS, OBJECT_JYA_IRON, sizeof(BgJyaIronobj), (ActorFunc)BgJyaIronobj_Init, (ActorFunc)BgJyaIronobj_Destroy, (ActorFunc)BgJyaIronobj_Update, (ActorFunc)BgJyaIronobj_Draw, (ActorFunc)BgJyaIronobj_Reset,
+    ACTOR_BG_JYA_IRONOBJ, ACTORCAT_PROP, FLAGS, OBJECT_JYA_IRON, ACTOR_FACTORY(BgJyaIronobj), (ActorFunc)BgJyaIronobj_Init, (ActorFunc)BgJyaIronobj_Destroy, (ActorFunc)BgJyaIronobj_Update, (ActorFunc)BgJyaIronobj_Draw, (ActorFunc)BgJyaIronobj_Reset,
 };
 
 static Gfx* sOpaDL[] = {gPillarDL, gThroneDL};
@@ -314,7 +314,7 @@ void BgJyaIronobj_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sUnused = 0;
 
 	Bg_Jya_Ironobj_InitVars = {
-	    ACTOR_BG_JYA_IRONOBJ, ACTORCAT_PROP, FLAGS, OBJECT_JYA_IRON, sizeof(BgJyaIronobj), (ActorFunc)BgJyaIronobj_Init, (ActorFunc)BgJyaIronobj_Destroy, (ActorFunc)BgJyaIronobj_Update, (ActorFunc)BgJyaIronobj_Draw, (ActorFunc)BgJyaIronobj_Reset,
+	    ACTOR_BG_JYA_IRONOBJ, ACTORCAT_PROP, FLAGS, OBJECT_JYA_IRON, ACTOR_FACTORY(BgJyaIronobj), (ActorFunc)BgJyaIronobj_Init, (ActorFunc)BgJyaIronobj_Destroy, (ActorFunc)BgJyaIronobj_Update, (ActorFunc)BgJyaIronobj_Draw, (ActorFunc)BgJyaIronobj_Reset,
 	};
 
 	sCylinderInit = {

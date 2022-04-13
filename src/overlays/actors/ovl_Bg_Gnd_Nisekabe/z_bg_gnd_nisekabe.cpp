@@ -20,7 +20,7 @@ void BgGndNisekabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgGndNisekabe_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Bg_Gnd_Nisekabe_InitVars = {
-    ACTOR_BG_GND_NISEKABE, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndNisekabe), (ActorFunc)BgGndNisekabe_Init, (ActorFunc)BgGndNisekabe_Destroy, (ActorFunc)BgGndNisekabe_Update, (ActorFunc)BgGndNisekabe_Draw, (ActorFunc)BgGndNisekabe_Reset,
+    ACTOR_BG_GND_NISEKABE, ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndNisekabe), (ActorFunc)BgGndNisekabe_Init, (ActorFunc)BgGndNisekabe_Destroy, (ActorFunc)BgGndNisekabe_Update, (ActorFunc)BgGndNisekabe_Draw, (ActorFunc)BgGndNisekabe_Reset,
 };
 
 static Gfx* dLists[] = {
@@ -73,7 +73,7 @@ void BgGndNisekabe_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgGndNisekabe_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Gnd_Nisekabe_InitVars = {
-	    ACTOR_BG_GND_NISEKABE,	    ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, sizeof(BgGndNisekabe), (ActorFunc)BgGndNisekabe_Init, (ActorFunc)BgGndNisekabe_Destroy, (ActorFunc)BgGndNisekabe_Update, (ActorFunc)BgGndNisekabe_Draw,
+	    ACTOR_BG_GND_NISEKABE,	    ACTORCAT_PROP, FLAGS, OBJECT_DEMO_KEKKAI, ACTOR_FACTORY(BgGndNisekabe), (ActorFunc)BgGndNisekabe_Init, (ActorFunc)BgGndNisekabe_Destroy, (ActorFunc)BgGndNisekabe_Update, (ActorFunc)BgGndNisekabe_Draw,
 	    (ActorFunc)BgGndNisekabe_Reset,
 	};
 }

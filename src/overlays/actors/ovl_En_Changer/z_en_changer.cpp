@@ -24,7 +24,7 @@ void EnChanger_OpenChests(EnChanger* pthis, GlobalContext* globalCtx);
 void EnChanger_SetHeartPieceFlag(EnChanger* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Changer_InitVars = {
-    ACTOR_EN_CHANGER, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnChanger), (ActorFunc)EnChanger_Init, (ActorFunc)EnChanger_Destroy, (ActorFunc)EnChanger_Update, NULL, (ActorFunc)EnChanger_Reset,
+    ACTOR_EN_CHANGER, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnChanger), (ActorFunc)EnChanger_Init, (ActorFunc)EnChanger_Destroy, (ActorFunc)EnChanger_Update, NULL, (ActorFunc)EnChanger_Reset,
 };
 
 static Vec3f sLeftChestPos[] = {
@@ -304,6 +304,6 @@ void EnChanger_Update(Actor* thisx, GlobalContext* globalCtx)
 void EnChanger_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Changer_InitVars = {
-	    ACTOR_EN_CHANGER, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnChanger), (ActorFunc)EnChanger_Init, (ActorFunc)EnChanger_Destroy, (ActorFunc)EnChanger_Update, NULL, (ActorFunc)EnChanger_Reset,
+	    ACTOR_EN_CHANGER, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnChanger), (ActorFunc)EnChanger_Init, (ActorFunc)EnChanger_Destroy, (ActorFunc)EnChanger_Update, NULL, (ActorFunc)EnChanger_Reset,
 	};
 }

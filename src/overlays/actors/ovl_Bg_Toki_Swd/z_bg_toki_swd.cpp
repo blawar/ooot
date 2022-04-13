@@ -35,7 +35,7 @@ extern CutsceneData D_808BB7A0[];
 extern CutsceneData D_808BBD90[];
 
 ActorInit Bg_Toki_Swd_InitVars = {
-    ACTOR_BG_TOKI_SWD, ACTORCAT_PROP, FLAGS, OBJECT_TOKI_OBJECTS, sizeof(BgTokiSwd), (ActorFunc)BgTokiSwd_Init, (ActorFunc)BgTokiSwd_Destroy, (ActorFunc)BgTokiSwd_Update, (ActorFunc)BgTokiSwd_Draw, (ActorFunc)BgTokiSwd_Reset,
+    ACTOR_BG_TOKI_SWD, ACTORCAT_PROP, FLAGS, OBJECT_TOKI_OBJECTS, ACTOR_FACTORY(BgTokiSwd), (ActorFunc)BgTokiSwd_Init, (ActorFunc)BgTokiSwd_Destroy, (ActorFunc)BgTokiSwd_Update, (ActorFunc)BgTokiSwd_Draw, (ActorFunc)BgTokiSwd_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -212,7 +212,7 @@ void BgTokiSwd_Draw(Actor* thisx, GlobalContext* globalCtx2)
 void BgTokiSwd_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Toki_Swd_InitVars = {
-	    ACTOR_BG_TOKI_SWD, ACTORCAT_PROP, FLAGS, OBJECT_TOKI_OBJECTS, sizeof(BgTokiSwd), (ActorFunc)BgTokiSwd_Init, (ActorFunc)BgTokiSwd_Destroy, (ActorFunc)BgTokiSwd_Update, (ActorFunc)BgTokiSwd_Draw, (ActorFunc)BgTokiSwd_Reset,
+	    ACTOR_BG_TOKI_SWD, ACTORCAT_PROP, FLAGS, OBJECT_TOKI_OBJECTS, ACTOR_FACTORY(BgTokiSwd), (ActorFunc)BgTokiSwd_Init, (ActorFunc)BgTokiSwd_Destroy, (ActorFunc)BgTokiSwd_Update, (ActorFunc)BgTokiSwd_Draw, (ActorFunc)BgTokiSwd_Reset,
 	};
 
 	sCylinderInit = {

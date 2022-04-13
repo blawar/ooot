@@ -33,7 +33,7 @@ void EnCrow_Damaged(EnCrow* pthis, GlobalContext* globalCtx);
 static Vec3f sZeroVecAccel = {0.0f, 0.0f, 0.0f};
 
 ActorInit En_Crow_InitVars = {
-    ACTOR_EN_CROW, ACTORCAT_ENEMY, FLAGS, OBJECT_CROW, sizeof(EnCrow), (ActorFunc)EnCrow_Init, (ActorFunc)EnCrow_Destroy, (ActorFunc)EnCrow_Update, (ActorFunc)EnCrow_Draw, (ActorFunc)EnCrow_Reset,
+    ACTOR_EN_CROW, ACTORCAT_ENEMY, FLAGS, OBJECT_CROW, ACTOR_FACTORY(EnCrow), (ActorFunc)EnCrow_Init, (ActorFunc)EnCrow_Destroy, (ActorFunc)EnCrow_Update, (ActorFunc)EnCrow_Draw, (ActorFunc)EnCrow_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElementsInit[1] = {
@@ -610,7 +610,7 @@ void EnCrow_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	sZeroVecAccel = {0.0f, 0.0f, 0.0f};
 
 	En_Crow_InitVars = {
-	    ACTOR_EN_CROW, ACTORCAT_ENEMY, FLAGS, OBJECT_CROW, sizeof(EnCrow), (ActorFunc)EnCrow_Init, (ActorFunc)EnCrow_Destroy, (ActorFunc)EnCrow_Update, (ActorFunc)EnCrow_Draw, (ActorFunc)EnCrow_Reset,
+	    ACTOR_EN_CROW, ACTORCAT_ENEMY, FLAGS, OBJECT_CROW, ACTOR_FACTORY(EnCrow), (ActorFunc)EnCrow_Init, (ActorFunc)EnCrow_Destroy, (ActorFunc)EnCrow_Update, (ActorFunc)EnCrow_Draw, (ActorFunc)EnCrow_Reset,
 	};
 
 	sJntSphInit = {

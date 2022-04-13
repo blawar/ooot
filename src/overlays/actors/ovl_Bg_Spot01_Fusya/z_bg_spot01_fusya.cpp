@@ -24,7 +24,7 @@ void BgSpot01Fusya_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_808AAA50(BgSpot01Fusya* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot01_Fusya_InitVars = {
-    ACTOR_BG_SPOT01_FUSYA, ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, sizeof(BgSpot01Fusya), (ActorFunc)BgSpot01Fusya_Init, (ActorFunc)BgSpot01Fusya_Destroy, (ActorFunc)BgSpot01Fusya_Update, (ActorFunc)BgSpot01Fusya_Draw, (ActorFunc)BgSpot01Fusya_Reset,
+    ACTOR_BG_SPOT01_FUSYA, ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, ACTOR_FACTORY(BgSpot01Fusya), (ActorFunc)BgSpot01Fusya_Init, (ActorFunc)BgSpot01Fusya_Destroy, (ActorFunc)BgSpot01Fusya_Update, (ActorFunc)BgSpot01Fusya_Draw, (ActorFunc)BgSpot01Fusya_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -95,7 +95,7 @@ void BgSpot01Fusya_Draw(Actor* thisx, GlobalContext* globalCtx)
 void BgSpot01Fusya_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Bg_Spot01_Fusya_InitVars = {
-	    ACTOR_BG_SPOT01_FUSYA,	    ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, sizeof(BgSpot01Fusya), (ActorFunc)BgSpot01Fusya_Init, (ActorFunc)BgSpot01Fusya_Destroy, (ActorFunc)BgSpot01Fusya_Update, (ActorFunc)BgSpot01Fusya_Draw,
+	    ACTOR_BG_SPOT01_FUSYA,	    ACTORCAT_BG, FLAGS, OBJECT_SPOT01_OBJECTS, ACTOR_FACTORY(BgSpot01Fusya), (ActorFunc)BgSpot01Fusya_Init, (ActorFunc)BgSpot01Fusya_Destroy, (ActorFunc)BgSpot01Fusya_Update, (ActorFunc)BgSpot01Fusya_Draw,
 	    (ActorFunc)BgSpot01Fusya_Reset,
 	};
 }

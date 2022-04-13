@@ -39,7 +39,7 @@ static Gfx* carpenterHeadDLists_42[] = {object_daiku_DL_005BD0, object_daiku_DL_
 static Vec3f unkVec_42 = {700.0f, 1100.0f, 0.0f};
 
 ActorInit En_Daiku_Kakariko_InitVars = {
-    ACTOR_EN_DAIKU_KAKARIKO,	      ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, sizeof(EnDaikuKakariko), (ActorFunc)EnDaikuKakariko_Init, (ActorFunc)EnDaikuKakariko_Destroy, (ActorFunc)EnDaikuKakariko_Update, (ActorFunc)EnDaikuKakariko_Draw,
+    ACTOR_EN_DAIKU_KAKARIKO,	      ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, ACTOR_FACTORY(EnDaikuKakariko), (ActorFunc)EnDaikuKakariko_Init, (ActorFunc)EnDaikuKakariko_Destroy, (ActorFunc)EnDaikuKakariko_Update, (ActorFunc)EnDaikuKakariko_Draw,
     (ActorFunc)EnDaikuKakariko_Reset,
 };
 
@@ -666,7 +666,7 @@ void EnDaikuKakariko_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	unkVec_42 = {700.0f, 1100.0f, 0.0f};
 
 	En_Daiku_Kakariko_InitVars = {
-	    ACTOR_EN_DAIKU_KAKARIKO,	      ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, sizeof(EnDaikuKakariko), (ActorFunc)EnDaikuKakariko_Init, (ActorFunc)EnDaikuKakariko_Destroy, (ActorFunc)EnDaikuKakariko_Update, (ActorFunc)EnDaikuKakariko_Draw,
+	    ACTOR_EN_DAIKU_KAKARIKO,	      ACTORCAT_NPC, FLAGS, OBJECT_DAIKU, ACTOR_FACTORY(EnDaikuKakariko), (ActorFunc)EnDaikuKakariko_Init, (ActorFunc)EnDaikuKakariko_Destroy, (ActorFunc)EnDaikuKakariko_Update, (ActorFunc)EnDaikuKakariko_Draw,
 	    (ActorFunc)EnDaikuKakariko_Reset,
 	};
 

@@ -133,7 +133,7 @@ static s16 D_80B4A1B0 = 0;
 static s16 D_80B4A1B4 = 1;
 
 ActorInit En_Zf_InitVars = {
-    ACTOR_EN_ZF, ACTORCAT_ENEMY, FLAGS, OBJECT_ZF, sizeof(EnZf), (ActorFunc)EnZf_Init, (ActorFunc)EnZf_Destroy, (ActorFunc)EnZf_Update, (ActorFunc)EnZf_Draw, (ActorFunc)EnZf_Reset,
+    ACTOR_EN_ZF, ACTORCAT_ENEMY, FLAGS, OBJECT_ZF, ACTOR_FACTORY(EnZf), (ActorFunc)EnZf_Init, (ActorFunc)EnZf_Destroy, (ActorFunc)EnZf_Update, (ActorFunc)EnZf_Draw, (ActorFunc)EnZf_Reset,
 };
 
 static ColliderCylinderInit sBodyCylinderInit = {
@@ -2990,7 +2990,7 @@ void EnZf_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_80B4A1B4 = 1;
 
 	En_Zf_InitVars = {
-	    ACTOR_EN_ZF, ACTORCAT_ENEMY, FLAGS, OBJECT_ZF, sizeof(EnZf), (ActorFunc)EnZf_Init, (ActorFunc)EnZf_Destroy, (ActorFunc)EnZf_Update, (ActorFunc)EnZf_Draw, (ActorFunc)EnZf_Reset,
+	    ACTOR_EN_ZF, ACTORCAT_ENEMY, FLAGS, OBJECT_ZF, ACTOR_FACTORY(EnZf), (ActorFunc)EnZf_Init, (ActorFunc)EnZf_Destroy, (ActorFunc)EnZf_Update, (ActorFunc)EnZf_Draw, (ActorFunc)EnZf_Reset,
 	};
 
 	sBodyCylinderInit = {

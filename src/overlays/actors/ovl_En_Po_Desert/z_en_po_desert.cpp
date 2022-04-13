@@ -36,7 +36,7 @@ void EnPoDesert_Disappear(EnPoDesert* pthis, GlobalContext* globalCtx);
 static Vec3f baseLightPos_41 = {0.0f, 1400.0f, 0.0f};
 
 ActorInit En_Po_Desert_InitVars = {
-    ACTOR_EN_PO_DESERT, ACTORCAT_BG, FLAGS, OBJECT_PO_FIELD, sizeof(EnPoDesert), (ActorFunc)EnPoDesert_Init, (ActorFunc)EnPoDesert_Destroy, (ActorFunc)EnPoDesert_Update, (ActorFunc)EnPoDesert_Draw, (ActorFunc)EnPoDesert_Reset,
+    ACTOR_EN_PO_DESERT, ACTORCAT_BG, FLAGS, OBJECT_PO_FIELD, ACTOR_FACTORY(EnPoDesert), (ActorFunc)EnPoDesert_Init, (ActorFunc)EnPoDesert_Destroy, (ActorFunc)EnPoDesert_Update, (ActorFunc)EnPoDesert_Draw, (ActorFunc)EnPoDesert_Reset,
 };
 
 static ColliderCylinderInit sColliderInit = {
@@ -311,7 +311,7 @@ void EnPoDesert_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	baseLightPos_41 = {0.0f, 1400.0f, 0.0f};
 
 	En_Po_Desert_InitVars = {
-	    ACTOR_EN_PO_DESERT, ACTORCAT_BG, FLAGS, OBJECT_PO_FIELD, sizeof(EnPoDesert), (ActorFunc)EnPoDesert_Init, (ActorFunc)EnPoDesert_Destroy, (ActorFunc)EnPoDesert_Update, (ActorFunc)EnPoDesert_Draw, (ActorFunc)EnPoDesert_Reset,
+	    ACTOR_EN_PO_DESERT, ACTORCAT_BG, FLAGS, OBJECT_PO_FIELD, ACTOR_FACTORY(EnPoDesert), (ActorFunc)EnPoDesert_Init, (ActorFunc)EnPoDesert_Destroy, (ActorFunc)EnPoDesert_Update, (ActorFunc)EnPoDesert_Draw, (ActorFunc)EnPoDesert_Reset,
 	};
 
 	sColliderInit = {

@@ -35,7 +35,7 @@ void func_808B44CC(BgSpot15Rrbox* pthis, GlobalContext* globalCtx);
 static s16 D_808B4590 = 0;
 
 ActorInit Bg_Spot15_Rrbox_InitVars = {
-    ACTOR_BG_SPOT15_RRBOX, ACTORCAT_BG, FLAGS, OBJECT_SPOT15_OBJ, sizeof(BgSpot15Rrbox), (ActorFunc)BgSpot15Rrbox_Init, (ActorFunc)BgSpot15Rrbox_Destroy, (ActorFunc)BgSpot15Rrbox_Update, (ActorFunc)BgSpot15Rrbox_Draw, (ActorFunc)BgSpot15Rrbox_Reset,
+    ACTOR_BG_SPOT15_RRBOX, ACTORCAT_BG, FLAGS, OBJECT_SPOT15_OBJ, ACTOR_FACTORY(BgSpot15Rrbox), (ActorFunc)BgSpot15Rrbox_Init, (ActorFunc)BgSpot15Rrbox_Destroy, (ActorFunc)BgSpot15Rrbox_Update, (ActorFunc)BgSpot15Rrbox_Draw, (ActorFunc)BgSpot15Rrbox_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -422,7 +422,7 @@ void BgSpot15Rrbox_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	D_808B4590 = 0;
 
 	Bg_Spot15_Rrbox_InitVars = {
-	    ACTOR_BG_SPOT15_RRBOX,	    ACTORCAT_BG, FLAGS, OBJECT_SPOT15_OBJ, sizeof(BgSpot15Rrbox), (ActorFunc)BgSpot15Rrbox_Init, (ActorFunc)BgSpot15Rrbox_Destroy, (ActorFunc)BgSpot15Rrbox_Update, (ActorFunc)BgSpot15Rrbox_Draw,
+	    ACTOR_BG_SPOT15_RRBOX,	    ACTORCAT_BG, FLAGS, OBJECT_SPOT15_OBJ, ACTOR_FACTORY(BgSpot15Rrbox), (ActorFunc)BgSpot15Rrbox_Init, (ActorFunc)BgSpot15Rrbox_Destroy, (ActorFunc)BgSpot15Rrbox_Update, (ActorFunc)BgSpot15Rrbox_Draw,
 	    (ActorFunc)BgSpot15Rrbox_Reset,
 	};
 }

@@ -49,7 +49,7 @@ void func_80A99560(EnKo* pthis, GlobalContext* globalCtx);
 s32 func_80A98ECC(EnKo* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Ko_InitVars = {
-    ACTOR_EN_KO, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnKo), (ActorFunc)EnKo_Init, (ActorFunc)EnKo_Destroy, (ActorFunc)EnKo_Update, (ActorFunc)EnKo_Draw, (ActorFunc)EnKo_Reset,
+    ACTOR_EN_KO, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnKo), (ActorFunc)EnKo_Init, (ActorFunc)EnKo_Destroy, (ActorFunc)EnKo_Update, (ActorFunc)EnKo_Draw, (ActorFunc)EnKo_Reset,
 };
 
 static ColliderCylinderInit sCylinderInit = {
@@ -1523,7 +1523,7 @@ void EnKo_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnKo_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ko_InitVars = {
-	    ACTOR_EN_KO, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnKo), (ActorFunc)EnKo_Init, (ActorFunc)EnKo_Destroy, (ActorFunc)EnKo_Update, (ActorFunc)EnKo_Draw, (ActorFunc)EnKo_Reset,
+	    ACTOR_EN_KO, ACTORCAT_NPC, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnKo), (ActorFunc)EnKo_Init, (ActorFunc)EnKo_Destroy, (ActorFunc)EnKo_Update, (ActorFunc)EnKo_Draw, (ActorFunc)EnKo_Reset,
 	};
 
 	sCylinderInit = {

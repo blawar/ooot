@@ -78,7 +78,7 @@ static Gfx* xluDLists_105[] = {gCrystalSwitchCoreXluDL, gCrystalSwitchDiamondXlu
 static Gfx* opaDLists_105[] = {gCrystalSwitchCoreOpaDL, gCrystalSwitchDiamondOpaDL, NULL, NULL, gCrystalSwitchCoreOpaDL};
 
 ActorInit Obj_Switch_InitVars = {
-    ACTOR_OBJ_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjSwitch), (ActorFunc)ObjSwitch_Init, (ActorFunc)ObjSwitch_Destroy, (ActorFunc)ObjSwitch_Update, (ActorFunc)ObjSwitch_Draw, (ActorFunc)ObjSwitch_Reset,
+    ACTOR_OBJ_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjSwitch), (ActorFunc)ObjSwitch_Init, (ActorFunc)ObjSwitch_Destroy, (ActorFunc)ObjSwitch_Update, (ActorFunc)ObjSwitch_Draw, (ActorFunc)ObjSwitch_Reset,
 };
 
 static f32 sHeights[] = {10, 10, 0, 30, 30};
@@ -929,7 +929,7 @@ void ObjSwitch_Draw(Actor* thisx, GlobalContext* globalCtx)
 void ObjSwitch_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	Obj_Switch_InitVars = {
-	    ACTOR_OBJ_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, sizeof(ObjSwitch), (ActorFunc)ObjSwitch_Init, (ActorFunc)ObjSwitch_Destroy, (ActorFunc)ObjSwitch_Update, (ActorFunc)ObjSwitch_Draw, (ActorFunc)ObjSwitch_Reset,
+	    ACTOR_OBJ_SWITCH, ACTORCAT_SWITCH, FLAGS, OBJECT_GAMEPLAY_DANGEON_KEEP, ACTOR_FACTORY(ObjSwitch), (ActorFunc)ObjSwitch_Init, (ActorFunc)ObjSwitch_Destroy, (ActorFunc)ObjSwitch_Update, (ActorFunc)ObjSwitch_Draw, (ActorFunc)ObjSwitch_Reset,
 	};
 
 	sRustyFloorTrisInit = {

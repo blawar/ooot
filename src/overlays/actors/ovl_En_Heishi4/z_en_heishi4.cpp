@@ -31,7 +31,7 @@ void func_80A56A50(EnHeishi4* pthis, GlobalContext* globalCtx);
 void func_80A56ACC(EnHeishi4* pthis, GlobalContext* globalCtx);
 
 ActorInit En_Heishi4_InitVars = {
-    ACTOR_EN_HEISHI4, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi4), (ActorFunc)EnHeishi4_Init, (ActorFunc)EnHeishi4_Destroy, (ActorFunc)EnHeishi4_Update, (ActorFunc)EnHeishi4_Draw, (ActorFunc)EnHeishi4_Reset,
+    ACTOR_EN_HEISHI4, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi4), (ActorFunc)EnHeishi4_Init, (ActorFunc)EnHeishi4_Destroy, (ActorFunc)EnHeishi4_Update, (ActorFunc)EnHeishi4_Draw, (ActorFunc)EnHeishi4_Reset,
 };
 
 static u32 sFaceReactionSets[] = {6, 7};
@@ -474,7 +474,7 @@ void EnHeishi4_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnHeishi4_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Heishi4_InitVars = {
-	    ACTOR_EN_HEISHI4, ACTORCAT_NPC, FLAGS, OBJECT_SD, sizeof(EnHeishi4), (ActorFunc)EnHeishi4_Init, (ActorFunc)EnHeishi4_Destroy, (ActorFunc)EnHeishi4_Update, (ActorFunc)EnHeishi4_Draw, (ActorFunc)EnHeishi4_Reset,
+	    ACTOR_EN_HEISHI4, ACTORCAT_NPC, FLAGS, OBJECT_SD, ACTOR_FACTORY(EnHeishi4), (ActorFunc)EnHeishi4_Init, (ActorFunc)EnHeishi4_Destroy, (ActorFunc)EnHeishi4_Update, (ActorFunc)EnHeishi4_Draw, (ActorFunc)EnHeishi4_Reset,
 	};
 
 	sCylinderInit = {

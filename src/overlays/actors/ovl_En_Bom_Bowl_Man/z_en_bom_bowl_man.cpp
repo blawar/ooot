@@ -47,7 +47,7 @@ static f32 cuccoScales_39[] = {0.01f, 0.03f};
 static void* eyeTextures_60[] = {gChuGirlEyeOpenTex, gChuGirlEyeHalfTex, gChuGirlEyeClosedTex};
 
 ActorInit En_Bom_Bowl_Man_InitVars = {
-    ACTOR_EN_BOM_BOWL_MAN, ACTORCAT_NPC, FLAGS, OBJECT_BG, sizeof(EnBomBowlMan), (ActorFunc)EnBomBowlMan_Init, (ActorFunc)EnBomBowlMan_Destroy, (ActorFunc)EnBomBowlMan_Update, (ActorFunc)EnBomBowlMan_Draw, (ActorFunc)EnBomBowlMan_Reset,
+    ACTOR_EN_BOM_BOWL_MAN, ACTORCAT_NPC, FLAGS, OBJECT_BG, ACTOR_FACTORY(EnBomBowlMan), (ActorFunc)EnBomBowlMan_Init, (ActorFunc)EnBomBowlMan_Destroy, (ActorFunc)EnBomBowlMan_Update, (ActorFunc)EnBomBowlMan_Draw, (ActorFunc)EnBomBowlMan_Reset,
 };
 
 void EnBomBowlMan_Init(Actor* thisx, GlobalContext* globalCtx2)
@@ -625,6 +625,6 @@ void EnBomBowlMan_Draw(Actor* thisx, GlobalContext* globalCtx)
 void EnBomBowlMan_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Bom_Bowl_Man_InitVars = {
-	    ACTOR_EN_BOM_BOWL_MAN, ACTORCAT_NPC, FLAGS, OBJECT_BG, sizeof(EnBomBowlMan), (ActorFunc)EnBomBowlMan_Init, (ActorFunc)EnBomBowlMan_Destroy, (ActorFunc)EnBomBowlMan_Update, (ActorFunc)EnBomBowlMan_Draw, (ActorFunc)EnBomBowlMan_Reset,
+	    ACTOR_EN_BOM_BOWL_MAN, ACTORCAT_NPC, FLAGS, OBJECT_BG, ACTOR_FACTORY(EnBomBowlMan), (ActorFunc)EnBomBowlMan_Init, (ActorFunc)EnBomBowlMan_Destroy, (ActorFunc)EnBomBowlMan_Update, (ActorFunc)EnBomBowlMan_Draw, (ActorFunc)EnBomBowlMan_Reset,
 	};
 }

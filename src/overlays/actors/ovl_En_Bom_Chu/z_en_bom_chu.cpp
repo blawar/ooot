@@ -46,7 +46,7 @@ static Vec3f blureP2LeftModel_45 = {12.0f, 0.0f, -5.0f};
 static Vec3f blureP2RightModel_45 = {-12.0f, 0.0f, -5.0f};
 
 ActorInit En_Bom_Chu_InitVars = {
-    ACTOR_EN_BOM_CHU, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBomChu), (ActorFunc)EnBomChu_Init, (ActorFunc)EnBomChu_Destroy, (ActorFunc)EnBomChu_Update, (ActorFunc)EnBomChu_Draw, (ActorFunc)EnBomChu_Reset,
+    ACTOR_EN_BOM_CHU, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBomChu), (ActorFunc)EnBomChu_Init, (ActorFunc)EnBomChu_Destroy, (ActorFunc)EnBomChu_Update, (ActorFunc)EnBomChu_Draw, (ActorFunc)EnBomChu_Reset,
 };
 
 static ColliderJntSphElementInit sJntSphElemInit[] = {
@@ -587,7 +587,7 @@ void EnBomChu_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	blureP2RightModel_45 = {-12.0f, 0.0f, -5.0f};
 
 	En_Bom_Chu_InitVars = {
-	    ACTOR_EN_BOM_CHU, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnBomChu), (ActorFunc)EnBomChu_Init, (ActorFunc)EnBomChu_Destroy, (ActorFunc)EnBomChu_Update, (ActorFunc)EnBomChu_Draw, (ActorFunc)EnBomChu_Reset,
+	    ACTOR_EN_BOM_CHU, ACTORCAT_EXPLOSIVE, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnBomChu), (ActorFunc)EnBomChu_Init, (ActorFunc)EnBomChu_Destroy, (ActorFunc)EnBomChu_Update, (ActorFunc)EnBomChu_Draw, (ActorFunc)EnBomChu_Reset,
 	};
 
 	sJntSphInit = {

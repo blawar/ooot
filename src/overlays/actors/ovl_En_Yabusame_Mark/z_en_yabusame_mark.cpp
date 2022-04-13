@@ -44,7 +44,7 @@ static ColliderQuadInit sQuadInit = {
 };
 
 ActorInit En_Yabusame_Mark_InitVars = {
-    ACTOR_EN_YABUSAME_MARK, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnYabusameMark), (ActorFunc)EnYabusameMark_Init, (ActorFunc)EnYabusameMark_Destroy, (ActorFunc)EnYabusameMark_Update, NULL, (ActorFunc)EnYabusameMark_Reset,
+    ACTOR_EN_YABUSAME_MARK, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnYabusameMark), (ActorFunc)EnYabusameMark_Init, (ActorFunc)EnYabusameMark_Destroy, (ActorFunc)EnYabusameMark_Update, NULL, (ActorFunc)EnYabusameMark_Reset,
 };
 
 static Vec3f sCollisionVertices[] = {
@@ -249,6 +249,6 @@ void EnYabusameMark_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	};
 
 	En_Yabusame_Mark_InitVars = {
-	    ACTOR_EN_YABUSAME_MARK, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnYabusameMark), (ActorFunc)EnYabusameMark_Init, (ActorFunc)EnYabusameMark_Destroy, (ActorFunc)EnYabusameMark_Update, NULL, (ActorFunc)EnYabusameMark_Reset,
+	    ACTOR_EN_YABUSAME_MARK, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnYabusameMark), (ActorFunc)EnYabusameMark_Init, (ActorFunc)EnYabusameMark_Destroy, (ActorFunc)EnYabusameMark_Update, NULL, (ActorFunc)EnYabusameMark_Reset,
 	};
 }

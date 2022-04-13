@@ -47,7 +47,7 @@ static s16 sgiDrawIds_52[] = {GID_DINS_FIRE, GID_FARORES_WIND, GID_NAYRUS_LOVE};
 static void* keySegments_53[] = {gDropKeySmallTex};
 
 ActorInit En_Ex_Item_InitVars = {
-    ACTOR_EN_EX_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnExItem), (ActorFunc)EnExItem_Init, (ActorFunc)EnExItem_Destroy, (ActorFunc)EnExItem_Update, (ActorFunc)EnExItem_Draw, (ActorFunc)EnExItem_Reset,
+    ACTOR_EN_EX_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnExItem), (ActorFunc)EnExItem_Init, (ActorFunc)EnExItem_Destroy, (ActorFunc)EnExItem_Update, (ActorFunc)EnExItem_Draw, (ActorFunc)EnExItem_Reset,
 };
 
 void EnExItem_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -601,6 +601,6 @@ void EnExItem_DrawRupee(EnExItem* pthis, GlobalContext* globalCtx)
 void EnExItem_Reset(Actor* pthisx, GlobalContext* globalCtx)
 {
 	En_Ex_Item_InitVars = {
-	    ACTOR_EN_EX_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnExItem), (ActorFunc)EnExItem_Init, (ActorFunc)EnExItem_Destroy, (ActorFunc)EnExItem_Update, (ActorFunc)EnExItem_Draw, (ActorFunc)EnExItem_Reset,
+	    ACTOR_EN_EX_ITEM, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, ACTOR_FACTORY(EnExItem), (ActorFunc)EnExItem_Init, (ActorFunc)EnExItem_Destroy, (ActorFunc)EnExItem_Update, (ActorFunc)EnExItem_Draw, (ActorFunc)EnExItem_Reset,
 	};
 }
