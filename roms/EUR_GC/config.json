@@ -1515,6 +1515,97 @@
         "FILE_TABLE_OFFSET": "7170",
         "UNCOMPRESSED_SIZE": null
     },
+    "sections": {
+        "D_800093F0": {
+            "offset": "6C90",
+            "size": "20"
+        },
+        "MAP_MARK_RAM": {
+            "offset": "80855470"
+        },
+        "OVL_KALEIDO_SCOPE_RAM": {
+            "offset": "80812260"
+        },
+        "fra_message_entry_table_addr": {
+            "offset": "B84C48"
+        },
+        "gMapMarkDataTable": {
+            "offset": "8085BF5C"
+        },
+        "gPauseMapMarkDataTable": {
+            "offset": "8082B2C0"
+        },
+        "gSampleBankTable": {
+            "offset": "B880B0",
+            "size": "80"
+        },
+        "gSequenceFontTable": {
+            "offset": "B87800",
+            "size": "1C0"
+        },
+        "gSequenceTable": {
+            "offset": "B879C0",
+            "size": "6F0"
+        },
+        "gSoundFontTable": {
+            "offset": "BCC270",
+            "size": "270"
+        },
+        "ger_message_entry_table_addr": {
+            "offset": "B82B38"
+        },
+        "nes_message_entry_table_addr": {
+            "offset": "B7E910"
+        },
+        "rspAspMainData": {
+            "offset": "B88130",
+            "size": "2E0"
+        },
+        "rspAspMainText": {
+            "offset": "B582C0",
+            "size": "FB0"
+        },
+        "rspBootText": {
+            "offset": "6BC0",
+            "size": "D0"
+        },
+        "rspF3DZEXData": {
+            "offset": "B89A40",
+            "size": "420"
+        },
+        "rspF3DZEXText": {
+            "offset": "B88410",
+            "size": "1630"
+        },
+        "rspJpegData": {
+            "offset": "B8A1F0",
+            "size": "60"
+        },
+        "rspJpegText": {
+            "offset": "B5AB30",
+            "size": "AF0"
+        },
+        "rspS2DEXData": {
+            "offset": "B89E60",
+            "size": "390"
+        },
+        "rspS2DEXText": {
+            "offset": "B59270",
+            "size": "18C0"
+        },
+        "sMarkBossVtxPointer": {
+            "offset": "8082D4A0"
+        },
+        "sMarkChestVtxPointer": {
+            "offset": "8082D4E0"
+        },
+        "staff_message_entry_table_addr": {
+            "offset": "B86D58"
+        },
+        "staff_message_entry_table_addr_end": {
+            "offset": "B86EE0"
+        }
+    },
     "sha256": [
         {
             "body": "0bf82698ee1eef65ba1318f47dd93f9ac9253c1194acdb8554ec03457f8aa000",
