@@ -447,6 +447,11 @@ namespace oot::hid
 					return;
 				}
 
+				if(xstate.Gamepad.bLeftTrigger > 0x7F)
+					m_state.button |= Z_TRIG;
+				if(xstate.Gamepad.bRightTrigger > 0x7F)
+					m_state.button |= R_TRIG;
+
 				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0x7FFF);
 				m_state.stick_y = convertToByte(xstate.Gamepad.sThumbLY, 0x7FFF);
 
