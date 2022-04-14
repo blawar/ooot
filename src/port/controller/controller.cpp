@@ -334,7 +334,7 @@ namespace oot::hid
 			this->r_stickMag = 64;
 		}
 
-		if(isFirstPerson())
+		if(isFirstPerson() && !config().camera().useClassicCamera())
 		{
 			if(this->r_stickMag > oot::config().controls().stickRightDeadzone())
 			{
@@ -366,6 +366,18 @@ namespace oot::hid
 			this->r_stickX *= scaler;
 			this->m_state.r_stick_x *= scaler;
 			this->r_stickMag *= scaler;
+		}
+
+		if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera())
+		{
+			if(m_state.r_stick_y < -0x20)
+				m_state.button |= U_CBUTTONS;
+			if(m_state.r_stick_y > 0x20)
+				m_state.button |= D_CBUTTONS;
+			if(m_state.r_stick_x < -0x20)
+				m_state.button |= L_CBUTTONS;
+			if(m_state.r_stick_x > 0x20)
+				m_state.button |= R_CBUTTONS;
 		}
 	}
 
