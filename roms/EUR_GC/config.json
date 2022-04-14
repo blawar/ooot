@@ -1513,7 +1513,10 @@
             "softsprite_matrix_static"
         ],
         "FILE_TABLE_OFFSET": "7170",
-        "UNCOMPRESSED_SIZE": null
+        "UNCOMPRESSED_SIZE": "34AD3E0",
+        "hash_md5": [
+            "204fa4f55aba1001a352649a80aa0cf7"
+        ]
     },
     "sections": {
         "D_800093F0": {
