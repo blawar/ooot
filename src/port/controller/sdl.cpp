@@ -440,7 +440,17 @@ namespace oot::hid
 
 				int16_t ltrig = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
 				int16_t rtrig = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+				int16_t rstickx = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_RIGHTX);
+				int16_t rsticky = SDL_GameControllerGetAxis(m_context, SDL_CONTROLLER_AXIS_RIGHTY);
 
+				if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera() && rstickx > 30 * 256)
+					m_state.button = R_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera() && rstickx < -30 * 256)
+					m_state.button = L_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera() && rsticky > 30 * 256)
+					m_state.button = D_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera() && rsticky < -30 * 256)
+					m_state.button = U_CBUTTONS;
 				if(ltrig > 30 * 256)
 					m_state.button |= Z_TRIG;
 				if(rtrig > 30 * 256)

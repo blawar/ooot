@@ -162,6 +162,15 @@ namespace oot
 				return m_stickLeftDeadzone;
 			}
 
+			const bool& cButtonsOnRightStick() const
+			{
+				return m_cButtonsOnRightStick;
+			}
+			
+			bool& cButtonsOnRightStick()
+			{
+				return m_cButtonsOnRightStick;
+			}
 			const bool& enableGyro() const
 			{
 				return m_enableGyro;
@@ -234,6 +243,7 @@ namespace oot
 			u64 m_stickRightDeadzone = 20;
 			float m_gyroxScaler = 20.0f;
 			float m_gyroyScaler = 20.0f;
+			bool m_cButtonsOnRightStick = false;
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
 
