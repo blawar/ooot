@@ -171,7 +171,7 @@ namespace oot::hid
 		}
 	}
 
-	static inline int8_t invert(const int8_t value)
+	static inline int8_t invertAnalog(const int8_t value)
 	{
 		if(value == -128)
 		{

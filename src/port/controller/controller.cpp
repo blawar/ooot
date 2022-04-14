@@ -37,7 +37,7 @@ namespace oot::hid
 		{
 			if(f_framerates[i - 1] < framerate && f_framerates[i - 1] <= maxFramerate)
 			{
-				return f_framerates[i-1];
+				return f_framerates[i - 1];
 			}
 		}
 
@@ -222,11 +222,41 @@ namespace oot::hid
 			}
 		}
 #endif
+		bool invertLeftY = false;
+		bool invertRightY = false;
+
+		if(config().controls().invertLeftStickY())
+		{
+			invertLeftY = !invertLeftY;
+		}
+
+		if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
+		{
+			invertLeftY = !invertLeftY;
+		}
+
+		if(config().controls().invertRightStickY())
+		{
+			invertRightY = !invertRightY;
+		}
+
+		if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
+		{
+			invertRightY = !invertRightY;
+		}
+
+		if(invertLeftY)
+		{
+			m_state.stick_y = invertAnalog(m_state.stick_y);
+		}
+
+		if(invertRightY)
+		{
+			m_state.r_stick_y = invertAnalog(m_state.r_stick_y);
+		}
 
 		if(isFirstPerson())
 		{
-			m_state.stick_y = invert(m_state.stick_y);
-
 			if(gActionOverrideButton != Button::EMPTY_BUTTON)
 			{
 				auto btn = config().controls().actionOverrideButton();

@@ -98,6 +98,12 @@ namespace oot
 					controls().load(d);
 					game().load(d);
 					//video().load(d);
+
+					if(controls().cButtonsOnRightStick())
+					{
+						camera().useClassicCamera() = true;
+					}
+
 					result = true;
 				}
 			}

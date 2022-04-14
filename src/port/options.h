@@ -166,11 +166,12 @@ namespace oot
 			{
 				return m_cButtonsOnRightStick;
 			}
-			
+
 			bool& cButtonsOnRightStick()
 			{
 				return m_cButtonsOnRightStick;
 			}
+
 			const bool& enableGyro() const
 			{
 				return m_enableGyro;
@@ -211,25 +212,24 @@ namespace oot
 				return m_invertRightStickY;
 			}
 
-
 			const bool& invertLeftStickFirstPersonY() const
 			{
-				return m_invertLeftStickY;
+				return m_invertLeftStickFirstPersonY;
 			}
 
 			bool& invertLeftStickFirstPersonY()
 			{
-				return m_invertLeftStickY;
+				return m_invertLeftStickFirstPersonY;
 			}
 
 			const bool& invertRightStickFirstPersonY() const
 			{
-				return m_invertRightStickY;
+				return m_invertRightStickFirstPersonY;
 			}
 
 			bool& invertRightStickFirstPersonY()
 			{
-				return m_invertRightStickY;
+				return m_invertRightStickFirstPersonY;
 			}
 
 			protected:
@@ -247,10 +247,10 @@ namespace oot
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
 
-			bool m_invertLeftStickY = false;
+			bool m_invertLeftStickY = true;
 			bool m_invertRightStickY = false;
 
-			bool m_invertLeftStickFirstPersonY = false;
+			bool m_invertLeftStickFirstPersonY = true;
 			bool m_invertRightStickFirstPersonY = false;
 		};
 
@@ -523,7 +523,7 @@ namespace oot
 			Video& video()
 			{
 				return m_video;
-			}			
+			}
 
 			protected:
 			Camera m_camera;
