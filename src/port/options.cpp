@@ -380,6 +380,7 @@ namespace oot
 
 			json::setFloat(container, "gyroxScaler", gyroxScaler(), allocator);
 			json::setFloat(container, "gyroyScaler", gyroyScaler(), allocator);
+			json::setBool(container, "cButtonsOnRightStick", cButtonsOnRightStick(), allocator);
 			json::setBool(container, "enableGyro", enableGyro(), allocator);
 			json::setBool(container, "useXInput", useXInput(), allocator);
 
@@ -415,8 +416,8 @@ namespace oot
 
 				json::getFloat(container, "gyroxScaler", gyroxScaler());
 				json::getFloat(container, "gyroyScaler", gyroyScaler());
+				json::getBool(container, "cButtonsOnRightStick", cButtonsOnRightStick());
 				json::getBool(container, "enableGyro", enableGyro());
-
 				json::getBool(container, "useXInput", useXInput());
 
 				json::getBool(container, "invertLeftStickY", invertLeftStickY());

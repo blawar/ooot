@@ -288,10 +288,18 @@ namespace oot::hid
 				m_keyBindings[GAMEPAD_X] = B_BUTTON;
 				m_keyBindings[GAMEPAD_B] = A_BUTTON;
 				m_keyBindings[GAMEPAD_Y] = B_BUTTON;
-				m_keyBindings[GAMEPAD_DPAD_LEFT] = L_CBUTTONS;
-				m_keyBindings[GAMEPAD_DPAD_RIGHT] = R_CBUTTONS;
-				m_keyBindings[GAMEPAD_DPAD_UP] = U_CBUTTONS;
-				m_keyBindings[GAMEPAD_DPAD_DOWN] = D_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick()){
+					m_keyBindings[GAMEPAD_DPAD_LEFT] = L_JPAD;
+					m_keyBindings[GAMEPAD_DPAD_RIGHT] = R_JPAD;
+					m_keyBindings[GAMEPAD_DPAD_UP] = U_JPAD;
+					m_keyBindings[GAMEPAD_DPAD_DOWN] = D_JPAD;
+				}
+				else{
+					m_keyBindings[GAMEPAD_DPAD_LEFT] = L_CBUTTONS;
+					m_keyBindings[GAMEPAD_DPAD_RIGHT] = R_CBUTTONS;
+					m_keyBindings[GAMEPAD_DPAD_UP] = U_CBUTTONS;
+					m_keyBindings[GAMEPAD_DPAD_DOWN] = D_CBUTTONS;
+				}
 			}
 
 			void resetBindings() override
