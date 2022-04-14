@@ -3,15 +3,17 @@
 #include "z64.h"
 #include "z64game.h"
 
-#define COUNTER_STEP 20 / FRAME_RATE
-#define COUNTER_SCALER FRAME_RATE / 20
+#define GAME_SPEED_RATIO2 4
+
+#define COUNTER_STEP (s32)(20 * GAME_SPEED_RATIO) / TICK_RATE
+#define COUNTER_SCALER TICK_RATE / (s32)(20 * GAME_SPEED_RATIO)
 
 float R_UPDATE_RATE = 1.0f;
 static FramerateProfile g_profile = PROFILE_BOOT;
 
 #define REAL_FRAME_RATE 30
 
-#if FRAME_RATE == 20
+#if TICK_RATE == 20
 static Framerate g_profileRates[] = {
     FRAMERATE_30FPS, // PROFILE_BOOT
     FRAMERATE_60FPS, // PROFILE_PAUSE
@@ -24,7 +26,7 @@ static Framerate g_profileRates[] = {
     FRAMERATE_60FPS, // PROFILE_TITLE
     FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
 };
-#elif FRAME_RATE == 30
+#elif TICK_RATE == 30
 static Framerate g_profileRates[] = {
     FRAMERATE_30FPS, // PROFILE_BOOT
     FRAMERATE_60FPS, // PROFILE_PAUSE
@@ -37,7 +39,7 @@ static Framerate g_profileRates[] = {
     FRAMERATE_60FPS, // PROFILE_TITLE
     FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
 };
-#elif FRAME_RATE == 40
+#elif TICK_RATE == 40
 static Framerate g_profileRates[] = {
     FRAMERATE_30FPS, // PROFILE_BOOT
     FRAMERATE_60FPS, // PROFILE_PAUSE
@@ -173,11 +175,6 @@ Timer Timer::invalid()
 
 void Timer::update()
 {
-	if(m_min == m_max)
-	{
- 		bool error = true;
-	}
-
 	while(m_counterInt > m_max * COUNTER_SCALER)
 	{
 		m_counterInt = (m_min * COUNTER_SCALER) + (m_counterInt - (m_max * COUNTER_SCALER + 1));
@@ -188,7 +185,18 @@ void Timer::update()
 		m_counterInt = (m_max * COUNTER_SCALER) + (m_counterInt - (m_min * COUNTER_SCALER - 1));
 	}
 
+#if TICK_RATE == 30
+	if((m_counterInt - 2) % 3 == 0)
+	{
+		m_counter = (s32)(m_counterInt * COUNTER_STEP);
+	}
+	else
+	{
+		m_counter = (float)m_counterInt * COUNTER_STEP;
+	}
+#else
 	m_counter = (float)m_counterInt * COUNTER_STEP;
+#endif
 }
 
 float Timer::abs() const
@@ -250,12 +258,17 @@ Timer& Timer::dec()
 
 bool Timer::isWhole() const
 {
-	return (m_counterInt % (COUNTER_SCALER)) == 0;
+#if TICK_RATE == 30
+	return fabs(ceilf(m_counter) - m_counter) < 0.001f;
+#else
+	return (m_counterInt % COUNTER_SCALER) == 0;
+#endif
 }
 
 s32 Timer::whole() const
 {
-	return m_counterInt * 20 / FRAME_RATE;
+	return (s32)m_counter;
+	//return m_counterInt * 20 / TICK_RATE;
 }
 
 Timer::operator float() const
@@ -267,18 +280,6 @@ Timer& Timer::operator+=(const Timer f)
 {
 	s64 step = f.m_counterInt * COUNTER_STEP;
 
-	/*if(step == 0) TODO DELETE THIS, just sanity check for division by zero
-	{
-		if(f.m_counterInt > 0)
-		{
-			step = 1;
-		}
-		else
-		{
-			step = -1;
-		}
-	}*/
-
 	m_counterInt += step;
 	update();
 	return *this;
@@ -287,18 +288,6 @@ Timer& Timer::operator+=(const Timer f)
 Timer& Timer::operator-=(const Timer f)
 {
 	s64 step = f.m_counterInt * COUNTER_STEP;
-
-	/*if(step == 0)
-	{
-		if(f.m_counterInt > 0)
-		{
-			step = 1;
-		}
-		else
-		{
-			step = -1;
-		}
-	}*/
 
 	m_counterInt -= step;
 	update();

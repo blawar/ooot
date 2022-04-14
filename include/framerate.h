@@ -3,29 +3,37 @@
 #include "ultra64/types.h"
 
 #if defined(ENABLE_240FPS)
-#define FRAME_RATE 60
+#define TICK_RATE 60
 #define UPDATE_SCALER 4
+#define GAME_SPEED_RATIO 0.25f
 #elif defined(ENABLE_180FPS)
-#define FRAME_RATE 60
+#define TICK_RATE 60
 #define UPDATE_SCALER 3
+#define GAME_SPEED_RATIO (1.0f / 3.0f)
 #elif defined(ENABLE_120FPS)
-#define FRAME_RATE 60
+#define TICK_RATE 60
 #define UPDATE_SCALER 2
+#define GAME_SPEED_RATIO 0.5f
 #elif defined(ENABLE_60FPS)
-#define FRAME_RATE 60
+#define TICK_RATE 60
 #define UPDATE_SCALER 1
+#define GAME_SPEED_RATIO 1
 #elif defined(ENABLE_40FPS)
-#define FRAME_RATE 40
+#define TICK_RATE 40
 #define UPDATE_SCALER 1
+#define GAME_SPEED_RATIO 1
 #elif defined(ENABLE_30FPS)
-#define FRAME_RATE 40
-#define UPDATE_SCALER (40.0f / 30.0f)
-#elif defined(ENABLE_25FPS)
-#define FRAME_RATE 20
-#define UPDATE_SCALER (30.0f / 20.0f)
-#else
-#define FRAME_RATE 20
+#define TICK_RATE 60
 #define UPDATE_SCALER 1
+#define GAME_SPEED_RATIO 0.5f
+#elif defined(ENABLE_25FPS)
+#define TICK_RATE 20
+#define UPDATE_SCALER (25.0f / 20.0f)
+#define GAME_SPEED_RATIO 1
+#else
+#define TICK_RATE 20
+#define UPDATE_SCALER 1
+#define GAME_SPEED_RATIO 1
 #endif
 
 enum Framerate
@@ -39,15 +47,15 @@ enum Framerate
 	FRAMERATE_20FPS = 30
 };
 
-#define FRAMERATE_SCALER (20.0f / (float)FRAME_RATE)
-#define FRAMERATE_SCALER_INV ((float)FRAME_RATE / 20.0f)
-#define FRAMERATE_ANIM_SCALER (R_UPDATE_RATE * 0.5f)
+#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
+#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
+#define FRAMERATE_ANIM_SCALER (R_UPDATE_RATE * 0.5f * GAME_SPEED_RATIO)
 #define FRAMERATE_RATE_SCALER 1
 #define FRAMERATE_MAX 60
 
 #define FRAMERATE_RATE_SCALE(x) ((x / FRAMERATE_RATE_SCALER) < 1 ? 1 : (x / FRAMERATE_RATE_SCALER))
 #define FRAMERATE_RATE_SCALED ((R_UPDATE_RATE / FRAMERATE_RATE_SCALER) < 1 ? 1 : (R_UPDATE_RATE / FRAMERATE_RATE_SCALER))
-#define FRAME_TIME (1.0f / (float)FRAME_RATE)
+#define FRAME_TIME (1.0f / (float)TICK_RATE)
 
 typedef enum
 {

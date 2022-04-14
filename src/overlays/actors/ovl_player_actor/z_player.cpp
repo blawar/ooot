@@ -11221,7 +11221,7 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 
 	if(pthis->stateFlags2 & PLAYER_STATE2_CRAWL)
 	{
-#if FRAME_RATE > 20
+#if TICK_RATE > 20
 		wallCheckRadius = 10.0f * 0.5f; // TODO FIX HACK
 		wallCheckHeight = 15.0f * 0.5f;
 		ceilingCheckHeight = 30.0f * 0.5f;

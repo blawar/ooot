@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "objects/object_okuta/object_okuta.h"
 
-#if FRAME_RATE == 20
+#if TICK_RATE == 20
 #define DEKU_NUT_SPAWN_SCALER 1.0f
 #else
 #define DEKU_NUT_SPAWN_SCALER 1.2f

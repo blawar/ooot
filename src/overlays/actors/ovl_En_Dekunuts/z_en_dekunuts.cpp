@@ -349,7 +349,7 @@ void EnDekunuts_Stand(EnDekunuts* pthis, GlobalContext* globalCtx)
 	}
 }
 
-#if FRAME_RATE == 20
+#if TICK_RATE == 20
 #define DEKU_NUT_SPAWN_SCALER 1.0f
 #else
 #define DEKU_NUT_SPAWN_SCALER 1.2f
