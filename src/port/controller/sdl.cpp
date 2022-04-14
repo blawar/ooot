@@ -80,10 +80,19 @@ namespace oot::hid
 				m_keyBindings[SDL_CONTROLLER_BUTTON_X] = B_BUTTON;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_B] = A_BUTTON;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_Y] = B_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick()){
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_JPAD;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_JPAD;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_JPAD;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_JPAD;
+				}
+				else{
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_CBUTTONS;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
+				}
+
 			}
 
 			void resetBindings() override
