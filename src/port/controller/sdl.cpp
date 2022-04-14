@@ -249,7 +249,7 @@ namespace oot::hid
 
 			inline int8_t stickLeftY()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_LEFTY);
+				auto value = -readAxis(SDL_CONTROLLER_AXIS_LEFTY);
 
 				if(abs(value) > g_lstickY_peak)
 				{
@@ -273,7 +273,7 @@ namespace oot::hid
 
 			inline int8_t stickRightY()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
+				auto value = -readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
 
 				if(abs(value) > g_rstickY_peak)
 				{
