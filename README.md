@@ -20,6 +20,7 @@ MattsCreative has a great video tutorial on how to compile this project here: <h
 - The ability to assign equipment (boots, tunic, etc) to keyboard keys and gamepad buttons.
 - Using B/Attack to execute the currently equiped C-Button equipment in first person mode (so you can fire the hookshot with either the C-Button or B).
 - Gryo aiming.
+- Controller rumble support.
 - Keyboard and mouse aiming support.
 - Fast text option (hold B during dialog).
 - Fast forward gameplay keybind.
