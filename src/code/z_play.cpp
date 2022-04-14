@@ -281,9 +281,8 @@ namespace oot::gamestate
 
 namespace oot::gamestate
 {
-	Global::Global(GraphicsContext* gfxCtx) : Base(gfxCtx)
+	Global::Global(GraphicsContext* gfxCtx) : Base(gfxCtx), GlobalData()
 	{
-		memset((GlobalData*)this, 0, sizeof(GlobalData));
 	}
 
 	void Global::init()
