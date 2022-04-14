@@ -1524,22 +1524,6 @@
             "offset": "9FF0",
             "size": "20"
         },
-        "D_80133408": {
-            "offset": "0",
-            "size": "0"
-        },
-        "D_8013340C": {
-            "offset": "0",
-            "size": "0"
-        },
-        "D_80133410": {
-            "offset": "0",
-            "size": "0"
-        },
-        "D_80133418": {
-            "offset": "0",
-            "size": "0"
-        },
         "MAP_MARK_RAM": {
             "offset": "80857380"
         },
@@ -1548,10 +1532,6 @@
         },
         "fra_message_entry_table_addr": {
             "offset": "00B86514"
-        },
-        "gAudioSpecId": {
-            "offset": "0",
-            "size": "0"
         },
         "gMapMarkDataTable": {
             "offset": "8085DE6C"
@@ -1605,7 +1585,7 @@
             "offset": "B8A490",
             "size": "60"
         },
-        "rspJpegTextStart": {
+        "rspJpegText": {
             "offset": "B5C430",
             "size": "AF0"
         },
@@ -1622,14 +1602,6 @@
         },
         "sMarkChestVtxPointer": {
             "offset": "8082F450"
-        },
-        "sSeqCmdRdPos": {
-            "offset": "0",
-            "size": "0"
-        },
-        "sSeqCmdWrPos": {
-            "offset": "0",
-            "size": "0"
         },
         "staff_message_entry_table_addr": {
             "offset": "00B88624"

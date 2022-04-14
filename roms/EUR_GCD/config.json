@@ -1519,22 +1519,6 @@
             "offset": "9FF0",
             "size": "20"
         },
-        "D_80133408": {
-            "offset": "BAA5A8",
-            "size": "1"
-        },
-        "D_8013340C": {
-            "offset": "BAA5AC",
-            "size": "1"
-        },
-        "D_80133410": {
-            "offset": "BAA5B0",
-            "size": "4"
-        },
-        "D_80133418": {
-            "offset": "BAA5B8",
-            "size": "1"
-        },
         "MAP_MARK_RAM": {
             "offset": "80858B70"
         },
@@ -1543,10 +1527,6 @@
         },
         "fra_message_entry_table_addr": {
             "offset": "00BC87F8"
-        },
-        "gAudioSpecId": {
-            "offset": "BAA5B4",
-            "size": "1"
         },
         "gMapMarkDataTable": {
             "offset": "8085F5E8"
@@ -1600,7 +1580,7 @@
             "offset": "BCEED0",
             "size": "60"
         },
-        "rspJpegTextStart": {
+        "rspJpegText": {
             "offset": "B8BAD0",
             "size": "AF0"
         },
@@ -1617,14 +1597,6 @@
         },
         "sMarkChestVtxPointer": {
             "offset": "80830650"
-        },
-        "sSeqCmdRdPos": {
-            "offset": "BAA5A4",
-            "size": "4"
-        },
-        "sSeqCmdWrPos": {
-            "offset": "BAA5A0",
-            "size": "4"
         },
         "staff_message_entry_table_addr": {
             "offset": "00BCA908"

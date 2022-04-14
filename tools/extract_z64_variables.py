@@ -689,28 +689,19 @@ sections = {'misc/rsp.h': [
 		Section('gSequenceFontTable', conf.sections.gSequenceFontTable.offset, conf.sections.gSequenceFontTable.size, 2),
 		Table('gSequenceTable', conf.sections.gSequenceTable.offset, conf.sections.gSequenceTable.size, 'baserom/Audioseq'),
 		Table('gSampleBankTable', conf.sections.gSampleBankTable.offset, conf.sections.gSampleBankTable.size, 'baserom/Audiotable'),
-		Section('rspAspMainDataStart', conf.sections.rspAspMainData.offset, conf.sections.rspAspMainData.size, 4),
-		Section('D_80155F50', conf.sections.rspF3DZEXText.offset, conf.sections.rspF3DZEXText.size, 1),
-		Section('D_80157580', conf.sections.rspF3DZEXData.offset, conf.sections.rspF3DZEXData.size, 1),
-		Section('D_801579A0', conf.sections.rspS2DEXData.offset, conf.sections.rspS2DEXData.size, 1),
-		Section('gJpegUCodeData', conf.sections.rspJpegData.offset, conf.sections.rspJpegData.size),
-		Section('D_801120C0', conf.sections.rspAspMainText.offset, conf.sections.rspAspMainText.size, 8),
-		Section('D_80113070', conf.sections.rspS2DEXText.offset, conf.sections.rspS2DEXText.size, 1),
-		Section('gJpegUCode', conf.sections.rspJpegTextStart.offset, conf.sections.rspJpegTextStart.size, 8)
+		Section('rspAspMainData', conf.sections.rspAspMainData.offset, conf.sections.rspAspMainData.size, 4),
+		Section('rspF3DZEXText', conf.sections.rspF3DZEXText.offset, conf.sections.rspF3DZEXText.size, 1),
+		Section('rspF3DZEXData', conf.sections.rspF3DZEXData.offset, conf.sections.rspF3DZEXData.size, 1),
+		Section('rspS2DEXData', conf.sections.rspS2DEXData.offset, conf.sections.rspS2DEXData.size, 1),
+		Section('rspJpegData', conf.sections.rspJpegData.offset, conf.sections.rspJpegData.size),
+		Section('rspAspMainText', conf.sections.rspAspMainText.offset, conf.sections.rspAspMainText.size, 8),
+		Section('rspS2DEXText', conf.sections.rspS2DEXText.offset, conf.sections.rspS2DEXText.size, 1),
+		Section('rspJpegText', conf.sections.rspJpegText.offset, conf.sections.rspJpegText.size, 8)
 	],
 	'misc/rsp_boot.h': [
-		Section('D_80009320', conf.sections.rspBootText.offset, conf.sections.rspBootText.size, 1),
+		Section('rspBootText', conf.sections.rspBootText.offset, conf.sections.rspBootText.size, 1),
 		Section('D_800093F0', conf.sections.D_800093F0.offset, conf.sections.D_800093F0.size, 1)
 	],
-	'misc/code_800F9280.h': [
-		Section('sSeqCmdWrPos', conf.sections.sSeqCmdWrPos.offset, conf.sections.sSeqCmdWrPos.size, 1),
-		Section('sSeqCmdRdPos', conf.sections.sSeqCmdRdPos.offset, conf.sections.sSeqCmdRdPos.size, 1),
-		Section('D_80133408', conf.sections.D_80133408.offset, conf.sections.D_80133408.size, 1),
-		Section('D_8013340C', conf.sections.D_8013340C.offset, conf.sections.D_8013340C.size, 1),
-		Section('D_80133410', conf.sections.D_80133410.offset, conf.sections.D_80133410.size, 1),
-		Section('gAudioSpecId', conf.sections.gAudioSpecId.offset, conf.sections.gAudioSpecId.size, 1),
-		Section('D_80133418', conf.sections.D_80133418.offset, conf.sections.D_80133418.size, 1),
-	]
 }
 
 createDir(assetPath('misc'))
