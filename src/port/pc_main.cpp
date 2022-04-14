@@ -304,6 +304,18 @@ extern "C"
 	{
 		gWindow->set_fullscreen(value, false);
 	}
+
+	u64 get_display_refresh_rate()
+	{
+		u64 r = 1000000 / gWindow->refreshInterval().count();
+
+		if(r < 60)
+		{
+			r = 60;
+		}
+
+		return r;
+	}
 }
 
 bool isRunning()

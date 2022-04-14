@@ -19,9 +19,53 @@
 #define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
 #endif
 
+extern "C"
+{
+	u64 get_display_refresh_rate();
+}
+
 namespace oot::hid
 {
 	static bool g_firstPersonEnabled = false;
+	static float f_framerates[] = {20, 30, 60, 120, 240};
+
+	static float getPrevFramerate(float framerate)
+	{
+		float maxFramerate = get_display_refresh_rate();
+
+		for(int i = ARRAY_COUNT(f_framerates); i > 0; i--)
+		{
+			if(f_framerates[i - 1] < framerate && f_framerates[i - 1] <= maxFramerate)
+			{
+				return f_framerates[i-1];
+			}
+		}
+
+		return f_framerates[0];
+	}
+
+	static float getNextFramerate(float framerate)
+	{
+		float maxFramerate = get_display_refresh_rate();
+
+		for(int i = 0; i < ARRAY_COUNT(f_framerates); i++)
+		{
+			if(f_framerates[i] > framerate && f_framerates[i - 1] <= maxFramerate)
+			{
+				return f_framerates[i];
+			}
+		}
+
+		for(int i = ARRAY_COUNT(f_framerates); i > 0; i--)
+		{
+			if(f_framerates[i - 1] <= maxFramerate)
+			{
+				return f_framerates[i - 1];
+			}
+		}
+
+		return f_framerates[0];
+	}
 
 	void firstPersonEnable()
 	{
@@ -408,6 +452,12 @@ namespace oot::hid
 			case LANGUAGE_TOGGLE:
 				config().game().setNextLanguage();
 				break;
+			case FRAMERATE_DECREASE:
+				setMaxFramerate(getPrevFramerate(getMaxFramerate()));
+				break;
+			case FRAMERATE_INCREASE:
+				setMaxFramerate(getNextFramerate(getMaxFramerate()));
+				break;
 		}
 	}
 
@@ -510,6 +560,10 @@ namespace oot::hid
 					return "FAST_FORWARD";
 				case Button::LANGUAGE_TOGGLE:
 					return "LANGUAGE_TOGGLE";
+				case Button::FRAMERATE_DECREASE:
+					return "FRAMERATE_DECREASE";
+				case Button::FRAMERATE_INCREASE:
+					return "FRAMERATE_INCREASE";
 				case Button::CENTER_CAMERA:
 					return "CENTER_CAMERA";
 				case Button::CURRENT_ACTION:
@@ -578,6 +632,10 @@ namespace oot::hid
 				return Button::FAST_FORWARD;
 			if(input == "LANGUAGE_TOGGLE")
 				return Button::LANGUAGE_TOGGLE;
+			if(input == "FRAMERATE_DECREASE")
+				return Button::FRAMERATE_DECREASE;
+			if(input == "FRAMERATE_INCREASE")
+				return Button::FRAMERATE_INCREASE;
 			if(input == "OCARINA")
 				return Button::OCARINA;
 			if(input == "HOOKSHOT")
