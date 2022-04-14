@@ -247,7 +247,7 @@ namespace oot
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
 
-			bool m_invertLeftStickY = true;
+			bool m_invertLeftStickY = false;
 			bool m_invertRightStickY = false;
 
 			bool m_invertLeftStickFirstPersonY = true;
