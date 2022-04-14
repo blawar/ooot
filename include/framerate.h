@@ -24,8 +24,8 @@
 #define GAME_SPEED_RATIO 1
 #elif defined(ENABLE_30FPS)
 #define TICK_RATE 60
-#define UPDATE_SCALER 1
-#define GAME_SPEED_RATIO 0.5f
+#define UPDATE_SCALER 0.5f
+#define GAME_SPEED_RATIO 2
 #elif defined(ENABLE_25FPS)
 #define TICK_RATE 20
 #define UPDATE_SCALER (25.0f / 20.0f)
