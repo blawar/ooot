@@ -11221,15 +11221,18 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 
 	if(pthis->stateFlags2 & PLAYER_STATE2_CRAWL)
 	{
-#if TICK_RATE > 20
-		wallCheckRadius = 10.0f * 0.5f; // TODO FIX HACK
-		wallCheckHeight = 15.0f * 0.5f;
-		ceilingCheckHeight = 30.0f * 0.5f;
-#else
-		wallCheckRadius = 10.0f;
-		wallCheckHeight = 15.0f;
-		ceilingCheckHeight = 30.0f;
-#endif
+		if(TICK_RATE > 20)
+		{
+			wallCheckRadius = 10.0f * 0.5f; // TODO FIX HACK
+			wallCheckHeight = 15.0f * 0.5f;
+			ceilingCheckHeight = 30.0f * 0.5f;
+		}
+		else
+		{
+			wallCheckRadius = 10.0f;
+			wallCheckHeight = 15.0f;
+			ceilingCheckHeight = 30.0f;
+		}
 	}
 	else
 	{

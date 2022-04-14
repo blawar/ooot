@@ -436,10 +436,16 @@ namespace oot
 				return m_fastForwardSpeed;
 			}
 
+			float framerate() const;
+
 			protected:
 			bool m_graphicsEnabled = true;
 			bool m_audioEnabled = true;
+#ifdef _DEBUG
+			bool m_fullscreen = false;
+#else
 			bool m_fullscreen = true;
+#endif
 			bool m_mirror = false;
 			bool m_blindOwl = false;
 			bool m_recordTas = false;

@@ -2,6 +2,7 @@
 #include <math.h>
 #include "ultra64/types.h"
 
+/*
 #if defined(ENABLE_240FPS)
 #define TICK_RATE 60
 #define UPDATE_SCALER 4
@@ -35,6 +36,7 @@
 #define UPDATE_SCALER 1
 #define GAME_SPEED_RATIO 1
 #endif
+*/
 
 enum Framerate
 {
@@ -47,8 +49,16 @@ enum Framerate
 	FRAMERATE_20FPS = 30
 };
 
-#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
-#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
+extern float TICK_RATE;
+extern float UPDATE_SCALER;
+extern float GAME_SPEED_RATIO;
+extern float FRAMERATE_SCALER;
+extern float FRAMERATE_SCALER_INV;
+extern float DEKU_NUT_SPAWN_SCALER;
+extern bool INTERPOLATE_ANIM;
+
+//#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
+//#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
 #define FRAMERATE_ANIM_SCALER (R_UPDATE_RATE * 0.5f * GAME_SPEED_RATIO)
 #define FRAMERATE_RATE_SCALER 1
 #define FRAMERATE_MAX 60
@@ -92,9 +102,7 @@ class Timer
 	Timer(const Timer& t);
 	Timer(float n);
 	Timer(float n, s64 min, s64 max);
-	Timer(s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max)
-	{
-	}
+	Timer(s64 min, s64 max);
 
 	float frac() const;
 
@@ -145,11 +153,13 @@ class Timer
 	constexpr static float INVALID = -FRAMERATE_MAX / 20.0f;
 
 	protected:
+	void preUpdate();
 	void update();
 	float m_counter;
 	s64 m_counterInt;
 	s64 m_min;
 	s64 m_max;
+	float m_counterScaler;
 };
 
 class TimerU8 : public Timer
@@ -230,3 +240,9 @@ class FStep : public Step
 	FStep(float n);
 	FStep(const Rotation& r);
 };
+
+namespace oot
+{
+	void setMaxFramerate(float framerate);
+	float getMaxFramerate();
+}

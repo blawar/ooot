@@ -198,6 +198,7 @@ namespace oot
 			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
 			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
 			json::set(container, "language", languageGetString(language()), allocator);
+			json::setU64(container, "framerate", getMaxFramerate(), allocator);
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
 		}
@@ -225,7 +226,16 @@ namespace oot
 				std::string lang;
 				json::get(container, "language", lang);
 				setLanguage(languageGetId(lang));
+
+				u64 framerate = 0;
+				json::getU64(container, "framerate", framerate);
+				setMaxFramerate(framerate);
 			}
+		}
+
+		float Game::framerate() const
+		{
+			return getMaxFramerate();
 		}
 
 		void Game::setLanguage(Language id)

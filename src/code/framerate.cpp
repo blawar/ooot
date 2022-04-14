@@ -1,19 +1,21 @@
 #include "framerate.h"
+#include "port/options.h"
 #include "regs.h"
 #include "z64.h"
 #include "z64game.h"
 
-#define GAME_SPEED_RATIO2 4
-
-#define COUNTER_STEP (s32)(20 * GAME_SPEED_RATIO) / TICK_RATE
-#define COUNTER_SCALER TICK_RATE / (s32)(20 * GAME_SPEED_RATIO)
-
+float TICK_RATE = 20;
+float UPDATE_SCALER = 1.0f;
+float GAME_SPEED_RATIO = 1.0f;
+float FRAMERATE_SCALER = (20.0f * GAME_SPEED_RATIO / TICK_RATE);
+float FRAMERATE_SCALER_INV = TICK_RATE / (20.0f * GAME_SPEED_RATIO);
+float SET_FRAMERATE = 20.0f;
 float R_UPDATE_RATE = 1.0f;
+float DEKU_NUT_SPAWN_SCALER = 1.0f;
+bool INTERPOLATE_ANIM = false;
+
 static FramerateProfile g_profile = PROFILE_BOOT;
 
-#define REAL_FRAME_RATE 30
-
-#if TICK_RATE == 20
 static Framerate g_profileRates[] = {
     FRAMERATE_30FPS, // PROFILE_BOOT
     FRAMERATE_60FPS, // PROFILE_PAUSE
@@ -26,46 +28,6 @@ static Framerate g_profileRates[] = {
     FRAMERATE_60FPS, // PROFILE_TITLE
     FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
 };
-#elif TICK_RATE == 30
-static Framerate g_profileRates[] = {
-    FRAMERATE_30FPS, // PROFILE_BOOT
-    FRAMERATE_60FPS, // PROFILE_PAUSE
-    FRAMERATE_30FPS, // PROFILE_GAMEPLAY
-    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
-    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
-    FRAMERATE_60FPS, // PROFILE_SAMPLE
-    FRAMERATE_60FPS, // PROFILE_OPENING
-    FRAMERATE_60FPS, // PROFILE_SELECT
-    FRAMERATE_60FPS, // PROFILE_TITLE
-    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
-};
-#elif TICK_RATE == 40
-static Framerate g_profileRates[] = {
-    FRAMERATE_30FPS, // PROFILE_BOOT
-    FRAMERATE_60FPS, // PROFILE_PAUSE
-    FRAMERATE_40FPS, // PROFILE_GAMEPLAY
-    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
-    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
-    FRAMERATE_60FPS, // PROFILE_SAMPLE
-    FRAMERATE_60FPS, // PROFILE_OPENING
-    FRAMERATE_60FPS, // PROFILE_SELECT
-    FRAMERATE_60FPS, // PROFILE_TITLE
-    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
-};
-#else
-static Framerate g_profileRates[] = {
-    FRAMERATE_30FPS, // PROFILE_BOOT
-    FRAMERATE_60FPS, // PROFILE_PAUSE
-    FRAMERATE_60FPS, // PROFILE_GAMEPLAY
-    FRAMERATE_60FPS, // PROFILE_UNKNOWN1
-    FRAMERATE_60FPS, // PROFILE_UNKNOWN2
-    FRAMERATE_60FPS, // PROFILE_SAMPLE
-    FRAMERATE_60FPS, // PROFILE_OPENING
-    FRAMERATE_60FPS, // PROFILE_SELECT
-    FRAMERATE_60FPS, // PROFILE_TITLE
-    FRAMERATE_60FPS, // PROFILE_FILE_CHOOSE
-};
-#endif
 
 void framerate_init()
 {
@@ -111,9 +73,91 @@ static inline float framerate_divider()
 	return 20; // ERROR?
 }
 
+#define COUNTER_SCALER FRAMERATE_SCALER_INV
+
+namespace oot
+{
+	float getMaxFramerate()
+	{
+		return SET_FRAMERATE;
+	}
+
+	void setMaxFramerate(float framerate)
+	{
+		if(framerate == SET_FRAMERATE)
+		{
+			return;
+		}
+
+		switch((s32)framerate)
+		{
+			case 240:
+				SET_FRAMERATE = 240.0f;
+				TICK_RATE = 60.0f;
+				UPDATE_SCALER = 4.0f;
+				GAME_SPEED_RATIO = 1.0f / 4.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.2f;
+				INTERPOLATE_ANIM = true;
+				g_profileRates[2] = FRAMERATE_60FPS;
+				break;
+			case 120:
+				SET_FRAMERATE = 120.0f;
+				TICK_RATE = 60.0f;
+				UPDATE_SCALER = 2.0f;
+				GAME_SPEED_RATIO = 0.5f;
+				DEKU_NUT_SPAWN_SCALER = 1.2f;
+				INTERPOLATE_ANIM = true;
+				g_profileRates[2] = FRAMERATE_60FPS;
+				break;
+			case 60:
+				SET_FRAMERATE = 60.0f;
+				TICK_RATE = 60.0f;
+				UPDATE_SCALER = 1.0f;
+				GAME_SPEED_RATIO = 1.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.2f;
+				INTERPOLATE_ANIM = true;
+				g_profileRates[2] = FRAMERATE_60FPS;
+				break;
+			case 30:
+				SET_FRAMERATE = 30.0f;
+				TICK_RATE = 60.0f;
+				UPDATE_SCALER = 0.5f;
+				GAME_SPEED_RATIO = 2.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.2f;
+				INTERPOLATE_ANIM = true;
+				g_profileRates[2] = FRAMERATE_60FPS;
+				break;
+			case 25:
+				SET_FRAMERATE = 25.0f;
+				TICK_RATE = 20.0f;
+				UPDATE_SCALER = 25.0f / 20.0f;
+				GAME_SPEED_RATIO = 1.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.0f;
+				INTERPOLATE_ANIM = false;
+				g_profileRates[2] = FRAMERATE_20FPS;
+				break;
+			case 20:
+			default:
+				SET_FRAMERATE = 20.0f;
+				TICK_RATE = 20.0f;
+				UPDATE_SCALER = 1.0f;
+				GAME_SPEED_RATIO = 1.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.0f;
+				INTERPOLATE_ANIM = false;
+				g_profileRates[2] = FRAMERATE_20FPS;
+				break;
+		}
+
+		FRAMERATE_SCALER = (20.0f * GAME_SPEED_RATIO / TICK_RATE);
+		FRAMERATE_SCALER_INV = TICK_RATE / (20.0f * GAME_SPEED_RATIO);
+		R_UPDATE_RATE = framerate_divider();
+
+		config().save();
+	}
+} // namespace oot
+
 void framerate_set_profile(FramerateProfile profile)
 {
-	u64 i = 1 * REG_PER_GROUP + 30;
 	g_profile = profile;
 	R_UPDATE_RATE = framerate_divider();
 }
@@ -128,8 +172,9 @@ float frameRateDivisor()
 	return R_UPDATE_RATE;
 }
 
-Timer::Timer() : m_counter(0), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF)
+Timer::Timer() : m_counter(0), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
 {
+	m_counterScaler = COUNTER_SCALER;
 }
 
 Timer::Timer(const Timer& t)
@@ -138,19 +183,28 @@ Timer::Timer(const Timer& t)
 	m_counterInt = t.m_counterInt;
 	m_min = t.m_min;
 	m_max = t.m_max;
+	m_counterScaler = t.m_counterScaler;
 }
 
-
-Timer::Timer(float n) : m_counter(n), m_counterInt(n * COUNTER_SCALER), m_min(-0x8000), m_max(0x7FFF)
+Timer::Timer(float n) : m_counter(0), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
 {
-	if(n == 0xFFFF)
-	{
-		bool error = true;
-	}
+	m_counterScaler = COUNTER_SCALER;
+	preUpdate();
+	m_counterInt = n * m_counterScaler;
+	update();
 }
 
-Timer::Timer(float n, s64 min, s64 max) : m_counter(n), m_counterInt(n * COUNTER_SCALER), m_min(min), m_max(max)
+Timer::Timer(float n, s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max), m_counterScaler(0)
 {
+	m_counterScaler = COUNTER_SCALER;
+	preUpdate();
+	m_counterInt = n * m_counterScaler;
+	update();
+}
+
+Timer::Timer(s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max)
+{
+	m_counterScaler = COUNTER_SCALER;
 }
 
 void Timer::setRange(s64 min, s64 max)
@@ -163,7 +217,7 @@ float Timer::frac() const
 {
 	float integer;
 	return modf(m_counter, &integer);
-	//return (m_counterInt % (s64)FRAMERATE_SCALER_INV) / (float)FRAMERATE_SCALER_INV;
+	// return (m_counterInt % (s64)FRAMERATE_SCALER_INV) / (float)FRAMERATE_SCALER_INV;
 }
 
 Timer Timer::invalid()
@@ -173,30 +227,28 @@ Timer Timer::invalid()
 	return r;
 }
 
+void Timer::preUpdate()
+{
+	if(m_counterScaler != COUNTER_SCALER)
+	{
+		m_counterInt = m_counterInt * COUNTER_SCALER / m_counterScaler;
+		m_counterScaler = COUNTER_SCALER;
+	}
+}
+
 void Timer::update()
 {
-	while(m_counterInt > m_max * COUNTER_SCALER)
+	while(m_counterInt > m_max * m_counterScaler)
 	{
-		m_counterInt = (m_min * COUNTER_SCALER) + (m_counterInt - (m_max * COUNTER_SCALER + 1));
+		m_counterInt = (m_min * m_counterScaler) + (m_counterInt - (m_max * m_counterScaler + 1));
 	}
 
-	while(m_counterInt < m_min * COUNTER_SCALER)
+	while(m_counterInt < m_min * m_counterScaler)
 	{
-		m_counterInt = (m_max * COUNTER_SCALER) + (m_counterInt - (m_min * COUNTER_SCALER - 1));
+		m_counterInt = (m_max * m_counterScaler) + (m_counterInt - (m_min * m_counterScaler - 1));
 	}
 
-#if TICK_RATE == 30
-	if((m_counterInt - 2) % 3 == 0)
-	{
-		m_counter = (s32)(m_counterInt * COUNTER_STEP);
-	}
-	else
-	{
-		m_counter = (float)m_counterInt * COUNTER_STEP;
-	}
-#else
-	m_counter = (float)m_counterInt * COUNTER_STEP;
-#endif
+	m_counter = (float)m_counterInt / m_counterScaler;
 }
 
 float Timer::abs() const
@@ -218,6 +270,7 @@ void Timer::clamp(float min, float max)
 
 Timer& Timer::operator++() // pre
 {
+	preUpdate();
 	m_counterInt++;
 	update();
 	return *this;
@@ -226,6 +279,7 @@ Timer& Timer::operator++() // pre
 Timer Timer::operator++(int) // post
 {
 	auto r = *this;
+	preUpdate();
 	m_counterInt++;
 	update();
 	return r;
@@ -233,6 +287,7 @@ Timer Timer::operator++(int) // post
 
 Timer& Timer::operator--() // pre
 {
+	preUpdate();
 	m_counterInt--;
 	update();
 	return *this;
@@ -241,6 +296,7 @@ Timer& Timer::operator--() // pre
 Timer Timer::operator--(int) // post
 {
 	auto r = *this;
+	preUpdate();
 	m_counterInt--;
 	update();
 	return r;
@@ -250,6 +306,7 @@ Timer& Timer::dec()
 {
 	if(m_counter)
 	{
+		preUpdate();
 		m_counterInt--;
 		update();
 	}
@@ -258,17 +315,13 @@ Timer& Timer::dec()
 
 bool Timer::isWhole() const
 {
-#if TICK_RATE == 30
-	return fabs(ceilf(m_counter) - m_counter) < 0.001f;
-#else
-	return (m_counterInt % COUNTER_SCALER) == 0;
-#endif
+	return (m_counterInt % (s32)m_counterScaler) == 0;
 }
 
 s32 Timer::whole() const
 {
 	return (s32)m_counter;
-	//return m_counterInt * 20 / TICK_RATE;
+	// return m_counterInt * 20 / TICK_RATE;
 }
 
 Timer::operator float() const
@@ -278,8 +331,9 @@ Timer::operator float() const
 
 Timer& Timer::operator+=(const Timer f)
 {
-	s64 step = f.m_counterInt * COUNTER_STEP;
+	s64 step = f.m_counterInt / m_counterScaler;
 
+	preUpdate();
 	m_counterInt += step;
 	update();
 	return *this;
@@ -287,8 +341,9 @@ Timer& Timer::operator+=(const Timer f)
 
 Timer& Timer::operator-=(const Timer f)
 {
-	s64 step = f.m_counterInt * COUNTER_STEP;
+	s64 step = f.m_counterInt / m_counterScaler;
 
+	preUpdate();
 	m_counterInt -= step;
 	update();
 	return *this;
@@ -308,15 +363,17 @@ Timer& Timer::operator/=(float f)
 
 Timer& Timer::operator&=(u64 n)
 {
-	//*this = m_counterInt & (n * COUNTER_SCALER);
-	*this = (whole() & n);// + frac();
+	//*this = m_counterInt & (n * m_counterScaler);
+	preUpdate();
+	*this = (whole() & n); // + frac();
 	update();
 	return *this;
 }
 
 Timer& Timer::operator|=(u64 n)
 {
-	//*this = m_counterInt | (n * COUNTER_SCALER);
+	//*this = m_counterInt | (n * m_counterScaler);
+	preUpdate();
 	*this = whole() | n;
 	update();
 	return *this;
@@ -324,7 +381,8 @@ Timer& Timer::operator|=(u64 n)
 
 Timer& Timer::operator^=(u64 n)
 {
-	//*this = m_counterInt ^ (n * COUNTER_SCALER);
+	//*this = m_counterInt ^ (n * m_counterScaler);
+	preUpdate();
 	*this = whole() ^ n;
 	update();
 	return *this;
@@ -377,8 +435,8 @@ Step::Step(const Step& t)
 
 Step::Step(float n)
 {
-	//m_value = n; // * FRAMERATE_SCALER;
-	m_value = n * COUNTER_STEP;
+	// m_value = n; // * FRAMERATE_SCALER;
+	m_value = n / COUNTER_SCALER;
 }
 
 Step::Step(const Rotation& r)
@@ -390,7 +448,6 @@ float Step::value() const
 {
 	return m_value;
 }
-
 
 FStep::FStep() : Step()
 {

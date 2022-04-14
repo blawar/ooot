@@ -179,11 +179,7 @@ void main_func(void)
 
 	if(oot::config().game().graphicsEnabled())
 	{
-#ifdef _DEBUG
-		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
-#else
-		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", true);
-#endif
+		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", oot::config().game().fullscreen());
 		gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
 		gWindow->resize(-1, -1);
 	}

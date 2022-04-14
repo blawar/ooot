@@ -384,6 +384,21 @@ namespace oot::hid
 					}
 				}
 
+				if(state[SDL_SCANCODE_F6] && (m_lastKeyState[SDL_SCANCODE_F6] ^ state[SDL_SCANCODE_F6]))
+				{
+					setMaxFramerate(20);
+				}
+
+				if(state[SDL_SCANCODE_F7] && (m_lastKeyState[SDL_SCANCODE_F7] ^ state[SDL_SCANCODE_F7]))
+				{
+					setMaxFramerate(30);
+				}
+
+				if(state[SDL_SCANCODE_F8] && (m_lastKeyState[SDL_SCANCODE_F8] ^ state[SDL_SCANCODE_F8]))
+				{
+					setMaxFramerate(60);
+				}
+
 				if(hid::isTasPlaying())
 				{
 					return;

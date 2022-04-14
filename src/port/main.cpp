@@ -163,6 +163,7 @@ void ParseCommandLineArguments(const std::vector<std::string>& commands)
 
 void run()
 {
+	oot::setMaxFramerate(oot::config().game().framerate());
 	s16* msg;
 
 	gViConfigFeatures = OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON;

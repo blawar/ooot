@@ -349,12 +349,6 @@ void EnDekunuts_Stand(EnDekunuts* pthis, GlobalContext* globalCtx)
 	}
 }
 
-#if TICK_RATE == 20
-#define DEKU_NUT_SPAWN_SCALER 1.0f
-#else
-#define DEKU_NUT_SPAWN_SCALER 1.2f
-#endif
-
 void EnDekunuts_ThrowNut(EnDekunuts* pthis, GlobalContext* globalCtx)
 {
 	Vec3f spawnPos;
