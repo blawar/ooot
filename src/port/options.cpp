@@ -104,6 +104,11 @@ namespace oot
 						camera().useClassicCamera() = true;
 					}
 
+					if(controls().enableGyro())
+					{
+						controls().useXInput() = false;
+					}
+
 					result = true;
 				}
 			}
