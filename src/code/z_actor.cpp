@@ -2314,8 +2314,7 @@ void func_800304B0(GlobalContext* globalCtx)
 	}
 }
 
-// Actor_InitContext
-void func_800304DC(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry* actorEntry)
+void Actor_InitContext(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry* actorEntry)
 {
 	ActorOverlay* overlayEntry;
 	SavedSceneFlags* savedSceneFlags;
@@ -2323,7 +2322,9 @@ void func_800304DC(GlobalContext* globalCtx, ActorContext* actorCtx, ActorEntry*
 
 	savedSceneFlags = &gSaveContext.sceneFlags[globalCtx->sceneNum];
 
-	memset(actorCtx, 0, sizeof(*actorCtx));
+	//memset(actorCtx, 0, sizeof(*actorCtx));
+
+	*actorCtx = ActorContext();
 
 	ActorOverlayTable_Init();
 	MtxF* tmp = &globalCtx->billboardMtxF;

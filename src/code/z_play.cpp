@@ -489,7 +489,7 @@ namespace oot::gamestate
 		Flags_UnsetAllEnv(globalCtx);
 
 		Fault_AddClient(&D_801614B8, ZeldaArena_Display, NULL, NULL);
-		func_800304DC(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);
+		Actor_InitContext(globalCtx, &globalCtx->actorCtx, globalCtx->linkActorEntry);
 
 		while(!func_800973FC(globalCtx, &globalCtx->roomCtx))
 		{
