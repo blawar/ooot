@@ -13,13 +13,14 @@ MattsCreative has a great video tutorial on how to compile this project here: <h
 
 ## Features
 
-- 60 FPS support (experimental) (defaults to original 20 FPS)
+- 20, 30, 60, and 120 FPS support (experimental) (defaults to original bug free 20 FPS)
 - Right joystick free camera control (can be disabled)
 - Ability to load high resolution GLideN64 texture packs such as [oot-reloaded](https://evilgames.eu/texture-packs/oot-reloaded.htm).
 - The ability to assign equipment (boots, tunic, etc) to C-Buttons.
 - The ability to assign equipment (boots, tunic, etc) to keyboard keys and gamepad buttons.
 - Using B/Attack to execute the currently equiped C-Button equipment in first person mode (so you can fire the hookshot with either the C-Button or B).
 - Gryo aiming.
+- Controller rumble support.
 - Keyboard and mouse aiming support.
 - Fast text option (hold B during dialog).
 - Fast forward gameplay keybind.

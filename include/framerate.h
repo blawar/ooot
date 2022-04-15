@@ -2,30 +2,63 @@
 #include <math.h>
 #include "ultra64/types.h"
 
-#if defined(ENABLE_240FPS)
-#define FRAME_RATE 60
+#ifdef STATIC_FRAMERATE
+#if STATIC_FRAMERATE == 240
+#define TICK_RATE 60
 #define UPDATE_SCALER 4
-#elif defined(ENABLE_180FPS)
-#define FRAME_RATE 60
+#define GAME_SPEED_RATIO 0.25f
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 180
+#define TICK_RATE 60
 #define UPDATE_SCALER 3
-#elif defined(ENABLE_120FPS)
-#define FRAME_RATE 60
+#define GAME_SPEED_RATIO (1.0f / 3.0f)
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 120
+#define TICK_RATE 60
 #define UPDATE_SCALER 2
-#elif defined(ENABLE_60FPS)
-#define FRAME_RATE 60
+#define GAME_SPEED_RATIO 0.5f
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 60
+#define TICK_RATE 60
 #define UPDATE_SCALER 1
-#elif defined(ENABLE_40FPS)
-#define FRAME_RATE 40
+#define GAME_SPEED_RATIO 1
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 40
+#define TICK_RATE 40
 #define UPDATE_SCALER 1
-#elif defined(ENABLE_30FPS)
-#define FRAME_RATE 40
-#define UPDATE_SCALER (40.0f / 30.0f)
-#elif defined(ENABLE_25FPS)
-#define FRAME_RATE 20
-#define UPDATE_SCALER (30.0f / 20.0f)
+#define GAME_SPEED_RATIO 1
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 30
+#define TICK_RATE 60
+#define UPDATE_SCALER 0.5f
+#define GAME_SPEED_RATIO 2
+#define INTERPOLATE_ANIM 0
+#elif STATIC_FRAMERATE == 25
+#define TICK_RATE 20
+#define UPDATE_SCALER (25.0f / 20.0f)
+#define GAME_SPEED_RATIO 1
+#define INTERPOLATE_ANIM 0
 #else
-#define FRAME_RATE 20
+#define TICK_RATE 20
 #define UPDATE_SCALER 1
+#define GAME_SPEED_RATIO 1
+#define INTERPOLATE_ANIM 0
+#endif
+
+#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
+#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+
+#else
+
+extern double TICK_RATE;
+extern double UPDATE_SCALER;
+extern double GAME_SPEED_RATIO;
+extern double FRAMERATE_SCALER;
+extern double FRAMERATE_SCALER_INV;
+extern float DEKU_NUT_SPAWN_SCALER;
+extern bool INTERPOLATE_ANIM;
+
 #endif
 
 enum Framerate
@@ -39,15 +72,15 @@ enum Framerate
 	FRAMERATE_20FPS = 30
 };
 
-#define FRAMERATE_SCALER (20.0f / (float)FRAME_RATE)
-#define FRAMERATE_SCALER_INV ((float)FRAME_RATE / 20.0f)
-#define FRAMERATE_ANIM_SCALER (R_UPDATE_RATE * 0.5f)
+//#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
+//#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
+#define FRAMERATE_ANIM_SCALER (R_UPDATE_RATE * 0.5f * GAME_SPEED_RATIO)
 #define FRAMERATE_RATE_SCALER 1
 #define FRAMERATE_MAX 60
 
 #define FRAMERATE_RATE_SCALE(x) ((x / FRAMERATE_RATE_SCALER) < 1 ? 1 : (x / FRAMERATE_RATE_SCALER))
 #define FRAMERATE_RATE_SCALED ((R_UPDATE_RATE / FRAMERATE_RATE_SCALER) < 1 ? 1 : (R_UPDATE_RATE / FRAMERATE_RATE_SCALER))
-#define FRAME_TIME (1.0f / (float)FRAME_RATE)
+#define FRAME_TIME (1.0f / (float)TICK_RATE)
 
 typedef enum
 {
@@ -84,9 +117,7 @@ class Timer
 	Timer(const Timer& t);
 	Timer(float n);
 	Timer(float n, s64 min, s64 max);
-	Timer(s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max)
-	{
-	}
+	Timer(s64 min, s64 max);
 
 	float frac() const;
 
@@ -137,8 +168,10 @@ class Timer
 	constexpr static float INVALID = -FRAMERATE_MAX / 20.0f;
 
 	protected:
+	void preUpdate();
 	void update();
 	float m_counter;
+	float m_counterScaler;
 	s64 m_counterInt;
 	s64 m_min;
 	s64 m_max;
@@ -222,3 +255,9 @@ class FStep : public Step
 	FStep(float n);
 	FStep(const Rotation& r);
 };
+
+namespace oot
+{
+	void setMaxFramerate(float framerate);
+	float getMaxFramerate();
+} // namespace oot

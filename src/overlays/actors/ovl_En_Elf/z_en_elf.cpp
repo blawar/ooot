@@ -545,7 +545,7 @@ void func_80A02BD8(EnElf* pthis, Vec3f* targetPos, f32 arg2)
 	Math_StepToF(&pthis->actor.velocity.y, yVelTarget, 32.0f);
 }
 
-void func_80A02C98(EnElf* pthis, Vec3f* targetPos, f32 arg2)
+void EnElf_DoLoopAroundLink(EnElf* pthis, Vec3f* targetPos, f32 arg2)
 {
 	f32 xVelTarget;
 	f32 zVelTarget;
@@ -763,7 +763,7 @@ void func_80A0353C(EnElf* pthis, GlobalContext* globalCtx)
 	{
 		parentPos = pthis->actor.parent->world.pos;
 		parentPos.y += ((1500.0f * pthis->actor.scale.y) + 40.0f);
-		func_80A02C98(pthis, &parentPos, 0.2f);
+		EnElf_DoLoopAroundLink(pthis, &parentPos, 0.2f);
 	}
 	else
 	{
@@ -808,7 +808,7 @@ void func_80A03610(EnElf* pthis, GlobalContext* globalCtx)
 
 	pthis->unk_28C.z = Math_SinS(pthis->unk_2AC) * -pthis->unk_2B8;
 	pthis->unk_2AC += pthis->unk_2B0;
-	func_80A02C98(pthis, &player->actor.world.pos, 0.2f);
+	EnElf_DoLoopAroundLink(pthis, &player->actor.world.pos, 0.2f);
 
 	if(pthis->unk_2B4 < 0.0f)
 	{
@@ -964,9 +964,6 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx)
 
 		if(globalCtx->csCtx.npcActions[8]->action == 5)
 		{
-			if(1)
-			{
-			}
 			EnElf_SpawnSparkles(pthis, globalCtx, 16);
 		}
 
@@ -978,7 +975,7 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			func_80A02C98(pthis, &nextPos, 0.2f);
+			EnElf_DoLoopAroundLink(pthis, &nextPos, 0.2f);
 		}
 
 		if((globalCtx->sceneNum == SCENE_LINK_HOME) && (gSaveContext.sceneSetupIndex == 4))
@@ -1020,7 +1017,7 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx)
 		switch(pthis->unk_2A8)
 		{
 			case 7:
-				func_80A02C98(pthis, &player->bodyPartsPos[8], 1.0f - pthis->unk_2AE * (1.0f / 30.0f));
+				EnElf_DoLoopAroundLink(pthis, &player->bodyPartsPos[8], 1.0f - pthis->unk_2AE * (1.0f / 30.0f));
 				xScale = Math_Vec3f_DistXYZ(&player->bodyPartsPos[8], &pthis->actor.world.pos);
 
 				if(distFromLinksHead < 7.0f)
@@ -1041,7 +1038,7 @@ void func_80A03CF8(EnElf* pthis, GlobalContext* globalCtx)
 				EnElf_SpawnSparkles(pthis, globalCtx, 16);
 				break;
 			case 8:
-				func_80A02C98(pthis, &player->bodyPartsPos[8], 0.2f);
+				EnElf_DoLoopAroundLink(pthis, &player->bodyPartsPos[8], 0.2f);
 				pthis->actor.world.pos = player->bodyPartsPos[8];
 				func_80A029A8(pthis, 1);
 				break;

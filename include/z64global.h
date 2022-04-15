@@ -24,7 +24,7 @@ struct FrameAdvanceContext
 	/* 0x04 */ s32 timer;
 }; // size = 0x8
 
-typedef struct
+struct TransitionContext
 {
 	union
 	{
@@ -44,7 +44,7 @@ typedef struct
 	/* 0x244 */ void (*setColor)(void* transition, Color_RGBA8 color);
 	/* 0x248 */ void (*setEnvColor)(void* transition, Color_RGBA8 color);
 	/* 0x24C */ s32 (*isDone)(void* transition);
-} TransitionContext; // size = 0x250
+} ; // size = 0x250
 
 namespace oot::gamestate
 {

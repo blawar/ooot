@@ -19,9 +19,53 @@
 #define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
 #endif
 
+extern "C"
+{
+	u64 get_display_refresh_rate();
+}
+
 namespace oot::hid
 {
 	static bool g_firstPersonEnabled = false;
+	static float f_framerates[] = {20, 30, 60, 120, 240};
+
+	static float getPrevFramerate(float framerate)
+	{
+		float maxFramerate = get_display_refresh_rate();
+
+		for(int i = ARRAY_COUNT(f_framerates); i > 0; i--)
+		{
+			if(f_framerates[i - 1] < framerate && f_framerates[i - 1] <= maxFramerate)
+			{
+				return f_framerates[i - 1];
+			}
+		}
+
+		return f_framerates[0];
+	}
+
+	static float getNextFramerate(float framerate)
+	{
+		float maxFramerate = get_display_refresh_rate();
+
+		for(int i = 0; i < ARRAY_COUNT(f_framerates); i++)
+		{
+			if(f_framerates[i] > framerate && f_framerates[i - 1] <= maxFramerate)
+			{
+				return f_framerates[i];
+			}
+		}
+
+		for(int i = ARRAY_COUNT(f_framerates); i > 0; i--)
+		{
+			if(f_framerates[i - 1] <= maxFramerate)
+			{
+				return f_framerates[i - 1];
+			}
+		}
+
+		return f_framerates[0];
+	}
 
 	void firstPersonEnable()
 	{
@@ -178,11 +222,45 @@ namespace oot::hid
 			}
 		}
 #endif
+		bool invertLeftY = false;
+		bool invertRightY = false;
+
+		if(config().controls().invertLeftStickY())
+		{
+			invertLeftY = !invertLeftY;
+		}
+
+		if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
+		{
+			invertLeftY = !invertLeftY;
+		}
+
+		if(!config().controls().cButtonsOnRightStick())
+		{
+			if(config().controls().invertRightStickY())
+			{
+				invertRightY = !invertRightY;
+			}
+
+			if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
+			{
+				invertRightY = !invertRightY;
+			}
+		}
+
+
+		if(invertLeftY)
+		{
+			m_state.stick_y = invertAnalog(m_state.stick_y);
+		}
+
+		if(invertRightY)
+		{
+			m_state.r_stick_y = invertAnalog(m_state.r_stick_y);
+		}
 
 		if(isFirstPerson())
 		{
-			m_state.stick_y = invert(m_state.stick_y);
-
 			if(gActionOverrideButton != Button::EMPTY_BUTTON)
 			{
 				auto btn = config().controls().actionOverrideButton();
@@ -290,7 +368,7 @@ namespace oot::hid
 			this->r_stickMag = 64;
 		}
 
-		if(isFirstPerson())
+		if(isFirstPerson() && !config().camera().useClassicCamera())
 		{
 			if(this->r_stickMag > oot::config().controls().stickRightDeadzone())
 			{
@@ -322,6 +400,18 @@ namespace oot::hid
 			this->r_stickX *= scaler;
 			this->m_state.r_stick_x *= scaler;
 			this->r_stickMag *= scaler;
+		}
+
+		if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera())
+		{
+			if(m_state.r_stick_y > 0x20)
+				m_state.button |= U_CBUTTONS;
+			if(m_state.r_stick_y < -0x20)
+				m_state.button |= D_CBUTTONS;
+			if(m_state.r_stick_x < -0x20)
+				m_state.button |= L_CBUTTONS;
+			if(m_state.r_stick_x > 0x20)
+				m_state.button |= R_CBUTTONS;
 		}
 	}
 
@@ -407,6 +497,12 @@ namespace oot::hid
 				break;
 			case LANGUAGE_TOGGLE:
 				config().game().setNextLanguage();
+				break;
+			case FRAMERATE_DECREASE:
+				setMaxFramerate(getPrevFramerate(getMaxFramerate()));
+				break;
+			case FRAMERATE_INCREASE:
+				setMaxFramerate(getNextFramerate(getMaxFramerate()));
 				break;
 		}
 	}
@@ -510,6 +606,10 @@ namespace oot::hid
 					return "FAST_FORWARD";
 				case Button::LANGUAGE_TOGGLE:
 					return "LANGUAGE_TOGGLE";
+				case Button::FRAMERATE_DECREASE:
+					return "FRAMERATE_DECREASE";
+				case Button::FRAMERATE_INCREASE:
+					return "FRAMERATE_INCREASE";
 				case Button::CENTER_CAMERA:
 					return "CENTER_CAMERA";
 				case Button::CURRENT_ACTION:
@@ -578,6 +678,10 @@ namespace oot::hid
 				return Button::FAST_FORWARD;
 			if(input == "LANGUAGE_TOGGLE")
 				return Button::LANGUAGE_TOGGLE;
+			if(input == "FRAMERATE_DECREASE")
+				return Button::FRAMERATE_DECREASE;
+			if(input == "FRAMERATE_INCREASE")
+				return Button::FRAMERATE_INCREASE;
 			if(input == "OCARINA")
 				return Button::OCARINA;
 			if(input == "HOOKSHOT")

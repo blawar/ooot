@@ -8,12 +8,6 @@
 #include "def/z_skelanime.h"
 #include "objects/object_shopnuts/object_shopnuts.h"
 
-#if FRAME_RATE == 20
-#define DEKU_NUT_SPAWN_SCALER 1.0f
-#else
-#define DEKU_NUT_SPAWN_SCALER 1.2f
-#endif
-
 #define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);

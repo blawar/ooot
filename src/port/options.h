@@ -162,6 +162,16 @@ namespace oot
 				return m_stickLeftDeadzone;
 			}
 
+			const bool& cButtonsOnRightStick() const
+			{
+				return m_cButtonsOnRightStick;
+			}
+
+			bool& cButtonsOnRightStick()
+			{
+				return m_cButtonsOnRightStick;
+			}
+
 			const bool& enableGyro() const
 			{
 				return m_enableGyro;
@@ -202,25 +212,24 @@ namespace oot
 				return m_invertRightStickY;
 			}
 
-
 			const bool& invertLeftStickFirstPersonY() const
 			{
-				return m_invertLeftStickY;
+				return m_invertLeftStickFirstPersonY;
 			}
 
 			bool& invertLeftStickFirstPersonY()
 			{
-				return m_invertLeftStickY;
+				return m_invertLeftStickFirstPersonY;
 			}
 
 			const bool& invertRightStickFirstPersonY() const
 			{
-				return m_invertRightStickY;
+				return m_invertRightStickFirstPersonY;
 			}
 
 			bool& invertRightStickFirstPersonY()
 			{
-				return m_invertRightStickY;
+				return m_invertRightStickFirstPersonY;
 			}
 
 			protected:
@@ -234,13 +243,14 @@ namespace oot
 			u64 m_stickRightDeadzone = 20;
 			float m_gyroxScaler = 20.0f;
 			float m_gyroyScaler = 20.0f;
+			bool m_cButtonsOnRightStick = false;
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
 
 			bool m_invertLeftStickY = false;
 			bool m_invertRightStickY = false;
 
-			bool m_invertLeftStickFirstPersonY = false;
+			bool m_invertLeftStickFirstPersonY = true;
 			bool m_invertRightStickFirstPersonY = false;
 		};
 
@@ -436,10 +446,16 @@ namespace oot
 				return m_fastForwardSpeed;
 			}
 
+			float framerate() const;
+
 			protected:
 			bool m_graphicsEnabled = true;
 			bool m_audioEnabled = true;
+#ifdef _DEBUG
+			bool m_fullscreen = false;
+#else
 			bool m_fullscreen = true;
+#endif
 			bool m_mirror = false;
 			bool m_blindOwl = false;
 			bool m_recordTas = false;
@@ -507,7 +523,7 @@ namespace oot
 			Video& video()
 			{
 				return m_video;
-			}			
+			}
 
 			protected:
 			Camera m_camera;

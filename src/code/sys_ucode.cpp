@@ -3,17 +3,17 @@
 #include "rsp.h"
 #include "def/sys_ucode.h"
 
-u64* D_8012DBA0 = (u64*)&D_80155F50;
-u64* D_8012DBA4 = (u64*)&D_80157580;
+u64* D_8012DBA0 = (u64*)&rspF3DZEXText;
+u64* D_8012DBA4 = (u64*)&rspF3DZEXData;
 
 u64* SysUcode_GetUCodeBoot(void)
 {
-	return (u64*)&D_80009320;
+	return (u64*)&rspBootText;
 }
 
 u64 SysUcode_GetUCodeBootSize(void)
 {
-	return sizeof(D_80009320);
+	return sizeof(rspBootText);
 }
 
 u64* SysUcode_GetUCode(void)
@@ -23,7 +23,7 @@ u64* SysUcode_GetUCode(void)
 
 u64 SysUcode_GetUCodeSize(void)
 {
-	return sizeof(D_80155F50);
+	return sizeof(rspF3DZEXText);
 }
 
 u64* SysUcode_GetUCodeData(void)
@@ -33,5 +33,5 @@ u64* SysUcode_GetUCodeData(void)
 
 u64 SysUcode_GetUCodeDataSize(void)
 {
-	return sizeof(D_80157580);
+	return sizeof(rspF3DZEXData);
 }

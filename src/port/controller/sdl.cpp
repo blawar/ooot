@@ -80,10 +80,19 @@ namespace oot::hid
 				m_keyBindings[SDL_CONTROLLER_BUTTON_X] = B_BUTTON;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_B] = A_BUTTON;
 				m_keyBindings[SDL_CONTROLLER_BUTTON_Y] = B_BUTTON;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
-				m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick()){
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_JPAD;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_JPAD;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_JPAD;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_JPAD;
+				}
+				else{
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_LEFT] = L_CBUTTONS;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_RIGHT] = R_CBUTTONS;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_UP] = U_CBUTTONS;
+					m_keyBindings[SDL_CONTROLLER_BUTTON_DPAD_DOWN] = D_CBUTTONS;
+				}
+
 			}
 
 			void resetBindings() override
@@ -240,21 +249,11 @@ namespace oot::hid
 
 			inline int8_t stickLeftY()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_LEFTY);
+				auto value = -readAxis(SDL_CONTROLLER_AXIS_LEFTY);
 
 				if(abs(value) > g_lstickY_peak)
 				{
 					g_lstickY_peak = abs(value);
-				}
-
-				if(config().controls().invertLeftStickY())
-				{
-					value *= -1;
-				}
-
-				if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
-				{
-					value *= -1;
 				}
 
 				return convertToByte(value, g_lstickY_peak);
@@ -274,21 +273,11 @@ namespace oot::hid
 
 			inline int8_t stickRightY()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
+				auto value = -readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
 
 				if(abs(value) > g_rstickY_peak)
 				{
 					g_rstickY_peak = abs(value);
-				}
-
-				if(config().controls().invertRightStickY())
-				{
-					value *= -1;
-				}
-
-				if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
-				{
-					value *= -1;
 				}
 
 				return convertToByte(value, g_rstickY_peak);
@@ -375,7 +364,7 @@ namespace oot::hid
 				}
 
 				m_state.stick_x = stickLeftX();
-				m_state.stick_y = invert(stickLeftY());
+				m_state.stick_y = stickLeftY();
 				m_state.r_stick_x = stickRightX();
 				m_state.r_stick_y = stickRightY();
 

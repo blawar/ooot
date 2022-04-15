@@ -53,7 +53,9 @@ namespace oot::hid
 		FAST_FORWARD = 1ULL << 30,
 		CENTER_CAMERA = 1ULL << 31,
 		CURRENT_ACTION = 1ULL << 32,
-		LANGUAGE_TOGGLE = 1ULL << 33
+		LANGUAGE_TOGGLE = 1ULL << 33,
+		FRAMERATE_INCREASE = 1ULL << 34,
+		FRAMERATE_DECREASE = 1ULL << 35
 	};
 
 	class State
@@ -169,7 +171,7 @@ namespace oot::hid
 		}
 	}
 
-	static inline int8_t invert(const int8_t value)
+	static inline int8_t invertAnalog(const int8_t value)
 	{
 		if(value == -128)
 		{

@@ -98,6 +98,17 @@ namespace oot
 					controls().load(d);
 					game().load(d);
 					//video().load(d);
+
+					if(controls().cButtonsOnRightStick())
+					{
+						camera().useClassicCamera() = true;
+					}
+
+					if(controls().enableGyro())
+					{
+						controls().useXInput() = false;
+					}
+
 					result = true;
 				}
 			}
@@ -198,6 +209,7 @@ namespace oot
 			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
 			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
 			json::set(container, "language", languageGetString(language()), allocator);
+			json::setU64(container, "framerate", getMaxFramerate(), allocator);
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
 		}
@@ -225,7 +237,16 @@ namespace oot
 				std::string lang;
 				json::get(container, "language", lang);
 				setLanguage(languageGetId(lang));
+
+				u64 framerate = 0;
+				json::getU64(container, "framerate", framerate);
+				setMaxFramerate(framerate);
 			}
+		}
+
+		float Game::framerate() const
+		{
+			return getMaxFramerate();
 		}
 
 		void Game::setLanguage(Language id)
@@ -370,6 +391,7 @@ namespace oot
 
 			json::setFloat(container, "gyroxScaler", gyroxScaler(), allocator);
 			json::setFloat(container, "gyroyScaler", gyroyScaler(), allocator);
+			json::setBool(container, "cButtonsOnRightStick", cButtonsOnRightStick(), allocator);
 			json::setBool(container, "enableGyro", enableGyro(), allocator);
 			json::setBool(container, "useXInput", useXInput(), allocator);
 
@@ -405,8 +427,8 @@ namespace oot
 
 				json::getFloat(container, "gyroxScaler", gyroxScaler());
 				json::getFloat(container, "gyroyScaler", gyroyScaler());
+				json::getBool(container, "cButtonsOnRightStick", cButtonsOnRightStick());
 				json::getBool(container, "enableGyro", enableGyro());
-
 				json::getBool(container, "useXInput", useXInput());
 
 				json::getBool(container, "invertLeftStickY", invertLeftStickY());

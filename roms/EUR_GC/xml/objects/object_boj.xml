@@ -1,5 +1,6 @@
 <Root>
-    <File Name="object_boj" Segment="6"> 
+    <File Name="object_boj" Segment="6">
+        <!-- The textures used by these limbs aren't 64-bit aligned -->
         <Limb Name="object_boj_Limb_000000" LimbType="Standard" Offset="0x0"/>
         <Limb Name="object_boj_Limb_00000C" LimbType="Standard" Offset="0xC"/>
         <Limb Name="object_boj_Limb_000018" LimbType="Standard" Offset="0x18"/>
@@ -17,7 +18,8 @@
         <Limb Name="object_boj_Limb_0000A8" LimbType="Standard" Offset="0xA8"/>
 
         <Skeleton Name="object_boj_Skel_0000F0" Type="Flex" LimbType="Standard" Offset="0xF0"/>
-        
+
+        <!-- 32-bit aligned textures. -->
         <Texture Name="object_boj_TLUT_0000FC" OutName="tlut_000000FC" Format="rgba16" Width="16" Height="16" Offset="0xFC"/>
         <Texture Name="object_boj_Tex_0002FC" OutName="tex_000002FC" Format="ci8" Width="8" Height="16" Offset="0x2FC"/>
         <Texture Name="object_boj_Tex_00037C" OutName="tex_0000037C" Format="ci8" Width="8" Height="8" Offset="0x37C"/>
@@ -46,6 +48,7 @@
         <DList Name="object_boj_DL_0038A8" Offset="0x38A8"/>
         <DList Name="object_boj_DL_0039B0" Offset="0x39B0"/>
 
+        <!-- <Blob Name="object_boj_Blob_003B98" Size="0x1F8" Offset="0x3B98"/> -->
         <Texture Name="object_boj_Tex_003D90" OutName="tex_00003D90" Format="ci8" Width="8" Height="8" Offset="0x3D90"/>
         <Texture Name="object_boj_Tex_003DD0" OutName="tex_00003DD0" Format="ci8" Width="16" Height="16" Offset="0x3DD0"/>
         <Texture Name="object_boj_Tex_003ED0" OutName="tex_00003ED0" Format="ci8" Width="16" Height="16" Offset="0x3ED0"/>

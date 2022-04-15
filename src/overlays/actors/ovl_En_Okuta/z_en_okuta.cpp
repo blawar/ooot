@@ -15,12 +15,6 @@
 #include "def/z_skelanime.h"
 #include "objects/object_okuta/object_okuta.h"
 
-#if FRAME_RATE == 20
-#define DEKU_NUT_SPAWN_SCALER 1.0f
-#else
-#define DEKU_NUT_SPAWN_SCALER 1.2f
-#endif
-
 #define FLAGS (ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2)
 
 void EnOkuta_Init(Actor* thisx, GlobalContext* globalCtx);

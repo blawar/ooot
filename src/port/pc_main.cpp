@@ -179,11 +179,7 @@ void main_func(void)
 
 	if(oot::config().game().graphicsEnabled())
 	{
-#ifdef _DEBUG
-		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", false);
-#else
-		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", true);
-#endif
+		gWindow = platform::window::create("The Legend of Zelda - Ocarina of Time", oot::config().game().fullscreen());
 		gfx_init("THE LEGEND OF ZELDA", &osViModeNtscLan1);
 		gWindow->resize(-1, -1);
 	}
@@ -307,6 +303,18 @@ extern "C"
 	void set_fullscreen(bool value)
 	{
 		gWindow->set_fullscreen(value, false);
+	}
+
+	u64 get_display_refresh_rate()
+	{
+		u64 r = 1000000 / gWindow->refreshInterval().count();
+
+		if(r < 60)
+		{
+			r = 60;
+		}
+
+		return r;
 	}
 }
 

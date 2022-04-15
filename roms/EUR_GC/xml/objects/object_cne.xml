@@ -1,5 +1,6 @@
 <Root>
     <File Name="object_cne" Segment="6">
+        <!-- The textures used by these limbs aren't 64-bit aligned -->
         <Limb Name="object_cne_Limb_000000" LimbType="Standard" Offset="0x0"/>
         <Limb Name="object_cne_Limb_00000C" LimbType="Standard" Offset="0xC"/>
         <Limb Name="object_cne_Limb_000018" LimbType="Standard" Offset="0x18"/>
@@ -18,6 +19,7 @@
 
         <Skeleton Name="object_cne_Skel_0000F0" Type="Flex" LimbType="Standard" Offset="0xF0"/>
 
+        <!-- 32-bit aligned textures. -->
         <Texture Name="object_cne_TLUT_0000FC" OutName="tlut_000000FC" Format="rgba16" Width="16" Height="16" Offset="0xFC"/>
         <Texture Name="object_cne_Tex_0002FC" OutName="tex_000002FC" Format="ci8" Width="8" Height="8" Offset="0x2FC"/>
         <Texture Name="object_cne_Tex_00033C" OutName="tex_0000033C" Format="ci8" Width="8" Height="8" Offset="0x33C"/>

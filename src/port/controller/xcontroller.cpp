@@ -288,10 +288,18 @@ namespace oot::hid
 				m_keyBindings[GAMEPAD_X] = B_BUTTON;
 				m_keyBindings[GAMEPAD_B] = A_BUTTON;
 				m_keyBindings[GAMEPAD_Y] = B_BUTTON;
-				m_keyBindings[GAMEPAD_DPAD_LEFT] = L_CBUTTONS;
-				m_keyBindings[GAMEPAD_DPAD_RIGHT] = R_CBUTTONS;
-				m_keyBindings[GAMEPAD_DPAD_UP] = U_CBUTTONS;
-				m_keyBindings[GAMEPAD_DPAD_DOWN] = D_CBUTTONS;
+				if(config().controls().cButtonsOnRightStick()){
+					m_keyBindings[GAMEPAD_DPAD_LEFT] = L_JPAD;
+					m_keyBindings[GAMEPAD_DPAD_RIGHT] = R_JPAD;
+					m_keyBindings[GAMEPAD_DPAD_UP] = U_JPAD;
+					m_keyBindings[GAMEPAD_DPAD_DOWN] = D_JPAD;
+				}
+				else{
+					m_keyBindings[GAMEPAD_DPAD_LEFT] = L_CBUTTONS;
+					m_keyBindings[GAMEPAD_DPAD_RIGHT] = R_CBUTTONS;
+					m_keyBindings[GAMEPAD_DPAD_UP] = U_CBUTTONS;
+					m_keyBindings[GAMEPAD_DPAD_DOWN] = D_CBUTTONS;
+				}
 			}
 
 			void resetBindings() override
@@ -439,25 +447,10 @@ namespace oot::hid
 					return;
 				}
 
-				if(config().controls().invertLeftStickY())
-				{
-					xstate.Gamepad.sThumbLY *= -1;
-				}
-
-				if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
-				{
-					xstate.Gamepad.sThumbLY *= -1;
-				}
-
-				if(config().controls().invertRightStickY())
-				{
-					xstate.Gamepad.sThumbRY *= -1;
-				}
-
-				if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
-				{
-					xstate.Gamepad.sThumbRY *= -1;
-				}
+				if(xstate.Gamepad.bLeftTrigger > 0x7F)
+					m_state.button |= Z_TRIG;
+				if(xstate.Gamepad.bRightTrigger > 0x7F)
+					m_state.button |= R_TRIG;
 
 				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0x7FFF);
 				m_state.stick_y = convertToByte(xstate.Gamepad.sThumbLY, 0x7FFF);

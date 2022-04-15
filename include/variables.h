@@ -11,7 +11,7 @@ extern u32 osResetType;
 extern u32 osMemSize;
 extern u8 osAppNmiBuffer[0x40];
 
-extern u8 D_80009320[];
+extern u8 rspBootText[];
 extern u8 D_800093F0[];
 extern s8 D_80009430;
 extern u32 D_80009460;
@@ -55,9 +55,9 @@ extern u32 __osBaseCounter;
 extern u32 __osViIntrCount;
 extern u32 __osTimerCounter;
 extern DmaEntry gDmaDataTable[0x60C];
-extern u64 D_801120C0[];
-extern u8 D_80113070[];
-extern u64 gJpegUCode[];
+extern u64 rspAspMainText[];
+extern u8 rspS2DEXText[];
+extern u64 rspJpegText[];
 extern EffectSsOverlay gEffectSsOverlayTable[EFFECT_SS_TYPE_MAX];
 extern Gfx D_80116280[];
 extern ActorOverlay gActorOverlayTable[ACTOR_ID_MAX]; // original name: "actor_dlftbls" 801162A0
@@ -157,10 +157,10 @@ extern u8 gSoundFontTable[];
 extern u8 gSequenceFontTable[];
 extern u8 gSequenceTable[];
 extern u8 gSampleBankTable[];
-extern u8 D_80155F50[];
-extern u8 D_80157580[];
-extern u8 D_801579A0[];
-extern u64 gJpegUCodeData[];
+extern u8 rspF3DZEXText[];
+extern u8 rspF3DZEXData[];
+extern u8 rspS2DEXData[];
+extern u64 rspJpegData[];
 
 extern SaveContext gSaveContext;
 extern GameInfo* gGameInfo;

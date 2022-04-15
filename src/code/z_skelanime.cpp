@@ -15,7 +15,7 @@
 #include "def/z_skelanime.h"
 #include "def/z_std_dma.h"
 
-#define FMV2 (R_UPDATE_RATE * 1.0f / 3.0)
+#define FMV2 (R_UPDATE_RATE * GAME_SPEED_RATIO / 3.0)
 
 #define LINK_ANIMATION_OFFSET2(addr, offset) (((uintptr_t)_link_animetionSegmentRomStart) + ((uintptr_t)offset))
 
@@ -934,17 +934,18 @@ void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader
 		const auto frame1 = frame.whole();
 		memcpy(ram, (const void*)(Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame1)), sizeof(Vec3s) * limbCount + 2);
 
-#if FRAME_RATE > 40
-		const auto frame2 = (frame1 + 1);
-
-		if(frame2 < linkAnimHeader->common.frameCount)
+		if(INTERPOLATE_ANIM)
 		{
-			const float weight = (float)frame - frame1;
-			Vec3s* limbs1 = (Vec3s*)ram;
-			Vec3s* limbs2 = (Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame2));
-			AnimationContext_SetInterp(globalCtx, limbCount, limbs1, limbs2, weight);
+			const auto frame2 = (frame1 + 1);
+
+			if(frame2 < linkAnimHeader->common.frameCount)
+			{
+				const float weight = (float)frame - frame1;
+				Vec3s* limbs1 = (Vec3s*)ram;
+				Vec3s* limbs2 = (Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame2));
+				AnimationContext_SetInterp(globalCtx, limbCount, limbs1, limbs2, weight);
+			}
 		}
-#endif
 	}
 }
 
@@ -1720,12 +1721,6 @@ static s32 SkelAnime_MorphTaper(GlobalContext* context, SkelAnime* skelAnime)
 	return 0;
 }
 
-#if FRAME_RATE > 40
-#define FORCE_INTERPOL true
-#else
-#define FORCE_INTERPOL false
-#endif
-
 /**
  * Gets frame data for the current frame as modified by morphTable and advances the morph
  */
@@ -1734,7 +1729,7 @@ void SkelAnime_AnimateFrame(SkelAnime* skelAnime)
 	Vec3s nextjointTable[100];
 
 	SkelAnime_GetFrameData((AnimationHeader*)skelAnime->animation, skelAnime->curFrame, skelAnime->limbCount, skelAnime->jointTable);
-	if(FORCE_INTERPOL || (skelAnime->mode & ANIM_INTERP))
+	if(INTERPOLATE_ANIM || (skelAnime->mode & ANIM_INTERP))
 	{
 		s32 frame = skelAnime->curFrame;
 		f32 partialFrame = skelAnime->curFrame - frame;

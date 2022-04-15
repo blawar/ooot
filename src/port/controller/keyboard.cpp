@@ -110,6 +110,8 @@ namespace oot::hid
 				m_keyBindings[SDL_SCANCODE_F4] = Button::TUNIC_TOGGLE;
 
 				m_keyBindings[SDL_SCANCODE_F5] = Button::DEBUG_MENU;
+				m_keyBindings[SDL_SCANCODE_F7] = Button::FRAMERATE_DECREASE;
+				m_keyBindings[SDL_SCANCODE_F8] = Button::FRAMERATE_INCREASE;
 				m_keyBindings[SDL_SCANCODE_G] = Button::FAST_FORWARD;
 				m_keyBindings[SDL_SCANCODE_F9] = Button::LANGUAGE_TOGGLE;
 
@@ -448,9 +450,10 @@ namespace oot::hid
 
 				m_state.mouse_x += mouse_delta_x;
 				m_state.mouse_y += mouse_delta_y;
-
-				m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x, 0x7F), -0x7F);
-				m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y, 0x7F), -0x7F);
+				if(!config().camera().useClassicCamera()){
+					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x, 0x7F), -0x7F);
+					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y, 0x7F), -0x7F);
+				}
 				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
 #endif
 

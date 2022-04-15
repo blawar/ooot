@@ -273,7 +273,7 @@
         <DList Name="object_tw_DL_02DEB0" Offset="0x2DEB0"/>
         <DList Name="object_tw_DL_02DFB0" Offset="0x2DFB0"/>
         <DList Name="object_tw_DL_02E098" Offset="0x2E098"/>
-        <Texture Name="gTwinrovaTitleCardTex" OutName="title_card" Format="i8" Width="128" Height="120" Offset="0x2E170"/>
+        <Blob Name="object_tw_Blob_02E170" Size="0x3C00" Offset="0x2E170"/> <!-- boss title card -->
         <Limb Name="object_tw_Limb_031D70" LimbType="Standard" Offset="0x31D70"/>
         <Limb Name="object_tw_Limb_031D7C" LimbType="Standard" Offset="0x31D7C"/>
         <Limb Name="object_tw_Limb_031D88" LimbType="Standard" Offset="0x31D88"/>
