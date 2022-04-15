@@ -1,0 +1,33 @@
+[
+    {
+      "attack": "Atacar",
+      "check": "Ver",
+      "climb": "Escalar",
+      "decide": "Decidir",
+      "dive": "Nadar",
+      "down": "Descer",
+      "drop": "Soltar",
+      "enter": "Entrar",
+      "faster": "Acelerar",
+      "grab": "Pegar",
+      "jump": "Saltar",
+      "navi_unused": "Navi",
+      "next": "Continuar",
+      "num_1": "1",
+      "num_2": "2",
+      "num_3": "3",
+      "num_4": "4",
+      "num_5": "5",
+      "num_6": "6",
+      "num_7": "7",
+      "num_8": "8",
+      "open": "Abrir",
+      "put_away": "Guardar",
+      "reel": "Bobinar",
+      "return": "Voltar",
+      "save": "Salvar",
+      "speak": "Falar",
+      "stop": "Parar",
+      "throw": "Atirar"
+    }
+  ]
