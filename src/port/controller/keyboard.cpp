@@ -451,8 +451,8 @@ namespace oot::hid
 				m_state.mouse_x += mouse_delta_x;
 				m_state.mouse_y += mouse_delta_y;
 				if(!config().camera().useClassicCamera()){
-					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x, 0x7F), -0x7F);
-					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y, 0x7F), -0x7F);
+					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 0x7F), -0x7F);
+					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 0x7F), -0x7F);
 				}
 				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
 #endif
