@@ -400,9 +400,19 @@ namespace oot::hid
 
 		if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera())
 		{
-			if(m_state.r_stick_y < -0x20)
-				m_state.button |= U_CBUTTONS;
+			if(config().controls().invertRightStickY() && !isFirstPerson())
+			{
+				this->r_stickY = -this->r_stickY;
+				this->m_state.r_stick_y = -this->m_state.r_stick_y;
+			}
+			else if(config().controls().invertRightStickFirstPersonY() && isFirstPerson())
+			{
+				this->r_stickY = -this->r_stickY;
+				this->m_state.r_stick_y = -this->m_state.r_stick_y;
+			}
 			if(m_state.r_stick_y > 0x20)
+				m_state.button |= U_CBUTTONS;
+			if(m_state.r_stick_y < -0x20)
 				m_state.button |= D_CBUTTONS;
 			if(m_state.r_stick_x < -0x20)
 				m_state.button |= L_CBUTTONS;
