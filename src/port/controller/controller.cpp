@@ -235,15 +235,19 @@ namespace oot::hid
 			invertLeftY = !invertLeftY;
 		}
 
-		if(config().controls().invertRightStickY())
+		if(!config().controls().cButtonsOnRightStick())
 		{
-			invertRightY = !invertRightY;
+			if(config().controls().invertRightStickY())
+			{
+				invertRightY = !invertRightY;
+			}
+
+			if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
+			{
+				invertRightY = !invertRightY;
+			}
 		}
 
-		if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
-		{
-			invertRightY = !invertRightY;
-		}
 
 		if(invertLeftY)
 		{
@@ -400,9 +404,9 @@ namespace oot::hid
 
 		if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera())
 		{
-			if(m_state.r_stick_y < -0x20)
-				m_state.button |= U_CBUTTONS;
 			if(m_state.r_stick_y > 0x20)
+				m_state.button |= U_CBUTTONS;
+			if(m_state.r_stick_y < -0x20)
 				m_state.button |= D_CBUTTONS;
 			if(m_state.r_stick_x < -0x20)
 				m_state.button |= L_CBUTTONS;
