@@ -235,15 +235,19 @@ namespace oot::hid
 			invertLeftY = !invertLeftY;
 		}
 
-		if(config().controls().invertRightStickY())
+		if(!config().controls().cButtonsOnRightStick())
 		{
-			invertRightY = !invertRightY;
+			if(config().controls().invertRightStickY())
+			{
+				invertRightY = !invertRightY;
+			}
+
+			if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
+			{
+				invertRightY = !invertRightY;
+			}
 		}
 
-		if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
-		{
-			invertRightY = !invertRightY;
-		}
 
 		if(invertLeftY)
 		{
@@ -400,16 +404,6 @@ namespace oot::hid
 
 		if(config().controls().cButtonsOnRightStick() && config().camera().useClassicCamera())
 		{
-			if(config().controls().invertRightStickY() && !isFirstPerson())
-			{
-				this->r_stickY = -this->r_stickY;
-				this->m_state.r_stick_y = -this->m_state.r_stick_y;
-			}
-			else if(config().controls().invertRightStickFirstPersonY() && isFirstPerson())
-			{
-				this->r_stickY = -this->r_stickY;
-				this->m_state.r_stick_y = -this->m_state.r_stick_y;
-			}
 			if(m_state.r_stick_y > 0x20)
 				m_state.button |= U_CBUTTONS;
 			if(m_state.r_stick_y < -0x20)
