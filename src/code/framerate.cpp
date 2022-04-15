@@ -4,15 +4,20 @@
 #include "z64.h"
 #include "z64game.h"
 
-float TICK_RATE = 20;
-float UPDATE_SCALER = 1.0f;
-float GAME_SPEED_RATIO = 1.0f;
-float FRAMERATE_SCALER = (20.0f * GAME_SPEED_RATIO / TICK_RATE);
-float FRAMERATE_SCALER_INV = TICK_RATE / (20.0f * GAME_SPEED_RATIO);
+#ifdef STATIC_FRAMERATE
+float SET_FRAMERATE = STATIC_FRAMERATE;
+float R_UPDATE_RATE = 1.0f;
+#else
+double TICK_RATE = 20;
+double UPDATE_SCALER = 1.0f;
+double GAME_SPEED_RATIO = 1.0f;
+double FRAMERATE_SCALER = (20.0f * GAME_SPEED_RATIO / TICK_RATE);
+double FRAMERATE_SCALER_INV = TICK_RATE / (20.0f * GAME_SPEED_RATIO);
 float SET_FRAMERATE = 20.0f;
 float R_UPDATE_RATE = 1.0f;
 float DEKU_NUT_SPAWN_SCALER = 1.0f;
 bool INTERPOLATE_ANIM = false;
+#endif
 
 static FramerateProfile g_profile = PROFILE_BOOT;
 
@@ -88,7 +93,7 @@ namespace oot
 		{
 			return;
 		}
-
+#ifndef STATIC_FRAMERATE
 		switch((s32)framerate)
 		{
 			case 240:
@@ -153,6 +158,7 @@ namespace oot
 		R_UPDATE_RATE = framerate_divider();
 
 		config().save();
+#endif
 	}
 } // namespace oot
 

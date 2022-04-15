@@ -2,41 +2,64 @@
 #include <math.h>
 #include "ultra64/types.h"
 
-/*
-#if defined(ENABLE_240FPS)
+#ifdef STATIC_FRAMERATE
+#if STATIC_FRAMERATE == 240
 #define TICK_RATE 60
 #define UPDATE_SCALER 4
 #define GAME_SPEED_RATIO 0.25f
-#elif defined(ENABLE_180FPS)
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 180
 #define TICK_RATE 60
 #define UPDATE_SCALER 3
 #define GAME_SPEED_RATIO (1.0f / 3.0f)
-#elif defined(ENABLE_120FPS)
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 120
 #define TICK_RATE 60
 #define UPDATE_SCALER 2
 #define GAME_SPEED_RATIO 0.5f
-#elif defined(ENABLE_60FPS)
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 60
 #define TICK_RATE 60
 #define UPDATE_SCALER 1
 #define GAME_SPEED_RATIO 1
-#elif defined(ENABLE_40FPS)
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 40
 #define TICK_RATE 40
 #define UPDATE_SCALER 1
 #define GAME_SPEED_RATIO 1
-#elif defined(ENABLE_30FPS)
+#define INTERPOLATE_ANIM 1
+#elif STATIC_FRAMERATE == 30
 #define TICK_RATE 60
 #define UPDATE_SCALER 0.5f
 #define GAME_SPEED_RATIO 2
-#elif defined(ENABLE_25FPS)
+#define INTERPOLATE_ANIM 0
+#elif STATIC_FRAMERATE == 25
 #define TICK_RATE 20
 #define UPDATE_SCALER (25.0f / 20.0f)
 #define GAME_SPEED_RATIO 1
+#define INTERPOLATE_ANIM 0
 #else
 #define TICK_RATE 20
 #define UPDATE_SCALER 1
 #define GAME_SPEED_RATIO 1
+#define INTERPOLATE_ANIM 0
 #endif
-*/
+
+#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
+#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
+#define DEKU_NUT_SPAWN_SCALER 1.2f
+
+#else
+
+extern double TICK_RATE;
+extern double UPDATE_SCALER;
+extern double GAME_SPEED_RATIO;
+extern double FRAMERATE_SCALER;
+extern double FRAMERATE_SCALER_INV;
+extern float DEKU_NUT_SPAWN_SCALER;
+extern bool INTERPOLATE_ANIM;
+
+#endif
 
 enum Framerate
 {
@@ -48,14 +71,6 @@ enum Framerate
 	FRAMERATE_30FPS = 20,
 	FRAMERATE_20FPS = 30
 };
-
-extern float TICK_RATE;
-extern float UPDATE_SCALER;
-extern float GAME_SPEED_RATIO;
-extern float FRAMERATE_SCALER;
-extern float FRAMERATE_SCALER_INV;
-extern float DEKU_NUT_SPAWN_SCALER;
-extern bool INTERPOLATE_ANIM;
 
 //#define FRAMERATE_SCALER (20.0f * GAME_SPEED_RATIO / (float)TICK_RATE)
 //#define FRAMERATE_SCALER_INV ((float)TICK_RATE / (20.0f * GAME_SPEED_RATIO))
@@ -156,10 +171,10 @@ class Timer
 	void preUpdate();
 	void update();
 	float m_counter;
+	float m_counterScaler;
 	s64 m_counterInt;
 	s64 m_min;
 	s64 m_max;
-	float m_counterScaler;
 };
 
 class TimerU8 : public Timer
@@ -245,4 +260,4 @@ namespace oot
 {
 	void setMaxFramerate(float framerate);
 	float getMaxFramerate();
-}
+} // namespace oot
