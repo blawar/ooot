@@ -450,7 +450,7 @@ namespace oot::gamestate
 							{
 								Audio_PlaySoundGeneral(NA_SE_SY_FSEL_DECIDE_L, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 								gSaveContext.fileNum = pthis->buttonIndex;
-								dayTime = ((void)0, gSaveContext.dayTime);
+								dayTime =  gSaveContext.dayTime;
 								gSaveContext.initialize(pthis, 0);
 								gSaveContext.dayTime = dayTime;
 								pthis->configMode = CM_NAME_ENTRY_TO_MAIN;
