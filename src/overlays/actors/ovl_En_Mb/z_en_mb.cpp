@@ -931,7 +931,7 @@ void EnMb_ClubAttack(EnMb* pthis, GlobalContext* globalCtx)
 		pthis->attackCollider.base.atFlags &= ~AT_HIT;
 		if(pthis->attackCollider.base.at == &player->actor)
 		{
-			u8 prevPlayerInvincibilityTimer = player->invincibilityTimer;
+			auto prevPlayerInvincibilityTimer = player->invincibilityTimer;
 
 			if(player->invincibilityTimer < 0)
 			{

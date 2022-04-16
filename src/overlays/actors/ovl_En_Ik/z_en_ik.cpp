@@ -915,7 +915,7 @@ void func_80A75FA0(Actor* thisx, GlobalContext* globalCtx)
 	EnIk* pthis = (EnIk*)thisx;
 	s32 pad;
 	Player* player = GET_PLAYER(globalCtx);
-	u8 prevInvincibilityTimer;
+	TimerU8 prevInvincibilityTimer;
 
 	pthis->unk_2FA = pthis->unk_2FB;
 	func_80A75C38(pthis, globalCtx);

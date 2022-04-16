@@ -36,21 +36,21 @@ ActorInit En_Torch2_InitVars = {
 static f32 sStickTilt = 0.0f;
 static s16 sStickAngle = 0;
 static f32 sSwordJumpHeight = 0.0f;
-static s32 sHoldShieldTimer = 0;
+static TimerS32 sHoldShieldTimer = 0;
 static u8 sZTargetFlag = false;
 static u8 sDeathFlag = false;
 
 static Input sInput;
 static u8 sSwordJumpState;
 static Vec3f sSpawnPoint;
-static u8 sJumpslashTimer;
+static TimerU8 sJumpslashTimer;
 static u8 sJumpslashFlag;
 static u8 sActionState;
-static u8 sSwordJumpTimer;
+static TimerU8 sSwordJumpTimer;
 static u8 sCounterState;
 static u8 sDodgeRollState;
 static u8 sStaggerCount;
-static u8 sStaggerTimer;
+static TimerU8 sStaggerTimer;
 static s8 sLastSwordAnim;
 static u8 sAlpha;
 

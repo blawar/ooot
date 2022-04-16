@@ -77,7 +77,7 @@ struct EnKanban
 	/* 0x0198 */ s16 cutMarkAlpha;
 	/* 0x019A */ Timer zTargetTimer;
 	/* 0x019C */ u8 msgFlag;
-	/* 0x019D */ u8 msgTimer;
+	/* 0x019D */ TimerU8 msgTimer;
 	/* 0x019E */ u8 ocarinaFlag;
 	/* 0x01A0 */ ColliderCylinder collider;
 };
