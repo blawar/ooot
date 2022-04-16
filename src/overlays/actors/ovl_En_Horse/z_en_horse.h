@@ -144,7 +144,7 @@ struct EnHorse
 {
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ EnHorseAction action;
-	/* 0x0150 */ s32 noInputTimer;
+	/* 0x0150 */ TimerS32 noInputTimer;
 	/* 0x0154 */ s32 noInputTimerMax;
 	/* 0x0158 */ s32 type;
 	/* 0x015C */ s32 bankIndex;

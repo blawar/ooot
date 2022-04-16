@@ -81,7 +81,7 @@ struct EnGeldB
 	/* 0x02FA */ Timer lookTimer;
 	/* 0x02FC */ Timer iceTimer;
 	/* 0x02FE */ u8 damageEffect;
-	/* 0x0300 */ s32 timer;
+	/* 0x0300 */ TimerS32 timer;
 	/* 0x0304 */ f32 approachRate;
 	/* 0x0308 */ char unk_308[4];
 	/* 0x030C */ f32 unkFloat;

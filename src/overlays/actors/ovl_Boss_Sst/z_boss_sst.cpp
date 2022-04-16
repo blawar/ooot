@@ -397,8 +397,8 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 	s32 tempo;
-	s32 introStateTimer;
-	s32 revealStateTimer;
+	TimerS32 introStateTimer;
+	TimerS32 revealStateTimer;
 
 	if(pthis->timer != 0)
 	{

@@ -17,7 +17,7 @@ struct EnVm
 	/* 0x0214 */ EnVmActionFunc actionFunc;
 	/* 0x0218 */ f32 beamSightRange;
 	/* 0x021C */ s32 unk_21C;
-	/* 0x0220 */ s32 timer;
+	/* 0x0220 */ TimerS32 timer;
 	/* 0x0224 */ Vec3f beamPos1;
 	/* 0x0230 */ Vec3f beamPos2;
 	/* 0x023C */ Vec3f beamPos3;

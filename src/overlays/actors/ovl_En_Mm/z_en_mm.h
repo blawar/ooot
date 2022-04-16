@@ -61,7 +61,7 @@ struct EnMm
 	/* 0x024E */ Vec3s unk_24E;
 	/* 0x0254 */ s32 unk_254;
 	/* 0x0258 */ s32 curAnimIndex;
-	/* 0x025C */ s32 sitTimer;
+	/* 0x025C */ TimerS32 sitTimer;
 	/* 0x0260 */ Vec3s jointTable[16];
 	/* 0x02C0 */ Vec3s morphTable[16];
 };

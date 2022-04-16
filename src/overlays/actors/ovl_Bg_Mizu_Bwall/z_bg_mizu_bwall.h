@@ -19,7 +19,7 @@ struct BgMizuBwall
 	/* 0x02A4 */ s32 scrollAlpha2;
 	/* 0x02A8 */ s32 scrollAlpha3;
 	/* 0x02AC */ s32 scrollAlpha4;
-	/* 0x02B0 */ s32 breakTimer;
+	/* 0x02B0 */ TimerS32 breakTimer;
 	/* 0x02B4 */ char unk_2B4[4];
 	/* 0x02B8 */ Gfx* dList;
 };

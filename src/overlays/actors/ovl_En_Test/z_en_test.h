@@ -103,7 +103,7 @@ struct EnTest
 	/* 0x7E0 */ Timer iceTimer;
 	/* 0x7E2 */ u8 lastDamageEffect;
 	/* 0x7E4 */ s32 unk_7E4;
-	/* 0x7E8 */ s32 timer;
+	/* 0x7E8 */ TimerS32 timer;
 	/* 0x7EC */ f32 unk_7EC;
 	/* 0x7F0 */ BodyBreak bodyBreak;
 	/* 0x808 */ s8 swordState;

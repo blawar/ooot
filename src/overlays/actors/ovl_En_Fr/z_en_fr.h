@@ -55,8 +55,8 @@ struct EnFr
 	/* 0x0358 */ LightNode* lightNode; // Frogs light up during the Frog Song, specifically the frog with the next note.
 	/* 0x035C */ LightInfo lightInfo;
 	/* 0x036A */ s32 objBankIndex;
-	/* 0x036C */ s32 jumpCounter;		    // cyclic clock used to time celebratory frog jumps every 4 frames when child song is played.
-	/* 0x0370 */ s32 blinkTimer;		    // blinking timer
+	/* 0x036C */ TimerS32 jumpCounter;		    // cyclic clock used to time celebratory frog jumps every 4 frames when child song is played.
+	/* 0x0370 */ TimerS32 blinkTimer;		    // blinking timer
 	/* 0x0374 */ EnFrBlinkFunc blinkFunc;	    // unique case of using a function pointer for blinking
 	/* 0x0378 */ u8 eyeTexIndex;		    // index for blinking graphics
 	/* 0x0379 */ u8 isJumpingUp;		    // Conditional for jumping up from the log back onto the log
