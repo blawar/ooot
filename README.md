@@ -60,7 +60,7 @@ After it's done type cd ooot and if you have the rom placed in the location abov
 Run this command next to extract the assets from the rom (baserom_original.z64 must exist in the directory)
 
 ```
-setup.py -b PAL_1.0
+.\setup.py -b PAL_1.0
 ```
 
 ### EUR Masterquest Debug ROM
@@ -73,7 +73,7 @@ Open Git Bash Type ``git clone --recursive https://github.com/blawar/ooot.git`` 
 After it's done type cd ooot and if you have the rom placed in the location above 
 Run this command next to extract the assets from the rom (baserom_original.z64 must exist in the directory)
 ```
-setup.py -b EUR_MQD
+.\setup.py -b EUR_MQD
 ```
 
 Open OOT.sln, you will find this in \ooot\vs make sure **Debug - Win32** or **Release - Win32** is selected, then hit build.
