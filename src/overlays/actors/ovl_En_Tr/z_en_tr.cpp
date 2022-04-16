@@ -276,7 +276,7 @@ void EnTr_ShrinkVanish(EnTr* pthis, GlobalContext* globalCtx)
 		}
 		else if(pthis->timer > 0)
 		{
-			s32 temp_hi = (pthis->timer * 2) % 7;
+			s32 temp_hi = (s32)(pthis->timer * 2) % 7;
 
 			func_80B23254(pthis, globalCtx, temp_hi, 5.0f, 0.2f);
 			func_80B23254(pthis, globalCtx, (temp_hi + 1) % 7, 5.0f, 0.2f);
@@ -305,7 +305,7 @@ void EnTr_Reappear(EnTr* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->timer >= 31)
 	{
-		s32 temp_hi = (pthis->timer * 2) % 7;
+		s32 temp_hi = (s32)(pthis->timer * 2) % 7;
 
 		func_80B23254(pthis, globalCtx, temp_hi, 5.0f, 1.0f);
 		func_80B23254(pthis, globalCtx, (temp_hi + 1) % 7, 5.0f, 1.0f);

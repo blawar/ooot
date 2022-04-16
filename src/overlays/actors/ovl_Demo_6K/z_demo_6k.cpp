@@ -301,7 +301,7 @@ void func_80966F84(Demo6K* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->timer1 < 5)
 	{
-		pthis->unk_168 = D_8096930C[pthis->timer1 & 3];
+		pthis->unk_168 = D_8096930C[pthis->timer1.whole() & 3];
 	}
 	else if(pthis->timer1 < 15)
 	{
@@ -317,7 +317,7 @@ void func_80966F84(Demo6K* pthis, GlobalContext* globalCtx)
 			Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EFF_DUST, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, 0, 0, EFF_DUST_TYPE_1);
 		}
 		Math_StepToF(&pthis->unk_16C, 1.0f, 0.02f);
-		pthis->unk_168 = D_8096930C[pthis->timer1 & 1];
+		pthis->unk_168 = D_8096930C[pthis->timer1.whole() & 1];
 	}
 
 	pthis->timer1++;
@@ -666,13 +666,13 @@ void func_80967FFC(Actor* thisx, GlobalContext* globalCtx)
 {
 	Demo6K* pthis = (Demo6K*)thisx;
 	s32 pad;
-	u16 timer1 = pthis->timer1;
+	auto timer1 = pthis->timer1;
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_6k.c", 1070);
 
 	func_80093D84(globalCtx->gfxCtx);
 	Matrix_RotateX(-M_PI / 2, MTXMODE_APPLY);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0x7FFF - ((timer1 * 8) & 0x7FFF), 16, 512, 1, 0, 0x7FFF - ((timer1 * 8) & 0x7FFF), 16, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0x7FFF - ((s32)(timer1 * 8) & 0x7FFF), 16, 512, 1, 0, 0x7FFF - ((s32)(timer1 * 8) & 0x7FFF), 16, 32));
 
 	{
 		s32 i;
@@ -706,7 +706,7 @@ void func_80968298(Actor* thisx, GlobalContext* globalCtx)
 {
 	Demo6K* pthis = (Demo6K*)thisx;
 	s32 pad;
-	u32 timer1 = pthis->timer1;
+	auto timer1 = pthis->timer1;
 	f32 scale = pthis->unk_164 * pthis->unk_168;
 	Vtx* vertices = SEGMENTED_TO_VIRTUAL(object_demo_6kVtx_0035E0);
 	s32 i;
@@ -740,7 +740,7 @@ void func_80968298(Actor* thisx, GlobalContext* globalCtx)
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_6k.c", 1170), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 210, 210, 210, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, 100, 100, 100, 255);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (0xFFF - (timer1 * 6)) & 0xFFF, (timer1 * 12) & 0xFFF, 128, 64, 1, (0xFFF - (timer1 * 6)) & 0xFFF, (timer1 * 12) & 0xFFF, 64, 32));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (0xFFF - (s32)(timer1 * 6)) & 0xFFF, (s32)(timer1 * 12) & 0xFFF, 128, 64, 1, (0xFFF - (s32)(timer1 * 6)) & 0xFFF, (s32)(timer1 * 12) & 0xFFF, 64, 32));
 	gSPDisplayList(POLY_XLU_DISP++, object_demo_6k_DL_0039D0);
 	Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_6k.c", 1189), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -827,7 +827,7 @@ void func_80968B70(Actor* thisx, GlobalContext* globalCtx)
 {
 	s32 pad;
 	Demo6K* pthis = (Demo6K*)thisx;
-	u32 timer2 = pthis->timer2;
+	auto timer2 = pthis->timer2;
 	u8 primColor[4];
 	u8 envColor[3];
 
@@ -841,7 +841,7 @@ void func_80968B70(Actor* thisx, GlobalContext* globalCtx)
 	Matrix_Mult(&globalCtx->billboardMtxF, MTXMODE_APPLY);
 	Matrix_RotateX(M_PI / 2, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_6k.c", 1322), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0xFF - ((timer2 * 2) & 0xFF), 0, 32, 32, 1, 0xFF - ((timer2 * 2) & 0xFF), (timer2 * 15) & 0x3FF, 16, 64));
+	gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0xFF - ((s32)(timer2 * 2) & 0xFF), 0, 32, 32, 1, 0xFF - ((s32)(timer2 * 2) & 0xFF), (s32)(timer2 * 15) & 0x3FF, 16, 64));
 
 	if(pthis->timer2 < 40)
 	{

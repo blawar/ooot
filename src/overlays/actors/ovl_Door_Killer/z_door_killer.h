@@ -37,7 +37,7 @@ struct DoorKiller
 	/* 0x01C8 */ ColliderCylinder colliderCylinder;
 	/* 0x0214 */ void* texture;
 	/* 0x0218 */ u16 hasHitPlayerOrGround;
-	/* 0x021A */ u16 timer;
+	/* 0x021A */ TimerU16 timer;
 	/* 0x021C */ s32 doorObjBankIndex;
 	/* 0x021D */ u8 textureEntryIndex;
 	/* 0x0220 */ ColliderJntSph colliderJntSph;

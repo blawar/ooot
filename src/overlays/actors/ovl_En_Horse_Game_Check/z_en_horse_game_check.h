@@ -48,7 +48,7 @@ struct EnHorseGameCheckGerudoArchery
 {
 	/* 0x0000 */ EnHorseGameCheckBase base;
 	/* 0x0150 */ s32 unk_150;
-	/* 0x0154 */ u32 startTimer;
+	/* 0x0154 */ TimerU32 startTimer;
 };
 
 struct EnHorseGameCheck3

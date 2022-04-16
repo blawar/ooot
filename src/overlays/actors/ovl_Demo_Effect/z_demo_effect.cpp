@@ -1870,7 +1870,7 @@ void DemoEffect_DrawJewel(Actor* thisx, GlobalContext* globalCtx2)
 {
 	DemoEffect* pthis = (DemoEffect*)thisx;
 	GlobalContext* globalCtx = globalCtx2;
-	u32 frames = pthis->jewel.timer;
+	auto frames = pthis->jewel.timer;
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2543);
 
@@ -1885,15 +1885,15 @@ void DemoEffect_DrawJewel(Actor* thisx, GlobalContext* globalCtx2)
 			switch(pthis->jewel.type)
 			{
 				case DEMO_EFFECT_JEWEL_KOKIRI:
-					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 256, (256 - ((frames * 2) % 256)) - 1, 64, 64, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
+					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(frames * 4) % 256, (256 - ((s32)(frames * 2) % 256)) - 1, 64, 64, 1, (s32)(frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
 					break;
 
 				case DEMO_EFFECT_JEWEL_GORON:
-					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 128, (256 - ((frames * 2) % 256)) - 1, 32, 64, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 8));
+					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(frames * 4) % 128, (256 - ((s32)(frames * 2) % 256)) - 1, 32, 64, 1, (s32)(frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 8));
 					break;
 
 				case DEMO_EFFECT_JEWEL_ZORA:
-					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 4) % 256, (256 - ((frames * 2) % 256)) - 1, 32, 32, 1, (frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
+					gSPSegment(POLY_XLU_DISP++, 9, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(frames * 4) % 256, (256 - ((s32)(frames * 2) % 256)) - 1, 32, 32, 1, (s32)(frames * 2) % 256, (256 - (frames % 256)) - 1, 16, 16));
 					break;
 			}
 
@@ -1927,7 +1927,7 @@ void DemoEffect_DrawCrystalLight(Actor* thisx, GlobalContext* globalCtx)
 {
 	DemoEffect* pthis = (DemoEffect*)thisx;
 	DemoEffect* parent = (DemoEffect*)pthis->actor.parent;
-	u32 frames = globalCtx->gameplayFrames & 0xFFFF;
+	auto frames = globalCtx->gameplayFrames & 0xFFFF;
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2634);
 
@@ -1942,7 +1942,7 @@ void DemoEffect_DrawCrystalLight(Actor* thisx, GlobalContext* globalCtx)
 
 	func_80093D84(globalCtx->gfxCtx);
 
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (frames * 2) % 512, 512 - (frames % 512) - 1, 128, 128, 1, 512 - ((frames * 2) % 512) - 1, 0, 64, 64));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(frames * 2) % 512, 512 - (frames % 512) - 1, 128, 128, 1, 512 - ((s32)(frames * 2) % 512) - 1, 0, 64, 64));
 	Matrix_Push();
 	Matrix_RotateY(0.0f, MTXMODE_APPLY);
 	Matrix_RotateX((11.0 * M_PI) / 180.0, MTXMODE_APPLY);
@@ -1973,7 +1973,7 @@ void DemoEffect_DrawCrystalLight(Actor* thisx, GlobalContext* globalCtx)
 void DemoEffect_DrawFireBall(Actor* thisx, GlobalContext* globalCtx)
 {
 	DemoEffect* pthis = (DemoEffect*)thisx;
-	u32 frames = globalCtx->gameplayFrames;
+	auto frames = globalCtx->gameplayFrames;
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2701);
 	gDPSetPrimColor(POLY_XLU_DISP++, 64, 64, 255, 200, 0, 255);
@@ -1981,7 +1981,7 @@ void DemoEffect_DrawFireBall(Actor* thisx, GlobalContext* globalCtx)
 	func_80093D84(globalCtx->gfxCtx);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_demo_effect.c", 2709), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPMatrix(POLY_XLU_DISP++, globalCtx->billboardMtx, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 32, 1, 0, 128 - ((frames * 20) % 128) - 1, 32, 32));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 32, 1, 0, 128 - ((s32)(frames * 20) % 128) - 1, 32, 32));
 	gSPDisplayList(POLY_XLU_DISP++, gCreationFireBallDL);
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_demo_effect.c", 2723);
 }
