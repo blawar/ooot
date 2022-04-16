@@ -4315,7 +4315,7 @@ void Fishing_UpdateFish(Actor* thisx, GlobalContext* globalCtx2)
 				player->unk_860 = 3;
 				Rumble_Shake2(0.0f, 1, 3, 1);
 				D_80B7E084++;
-				func_80064520(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 				D_80B7A6CC = 100;
 				D_80B7FEC8 = 45.0f;
 				D_80B7A694 = 5;
@@ -6194,7 +6194,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 			camera->eyeNext = sCameraEye;
 			camera->at = sCameraAt;
 			func_800C08AC(globalCtx, sCameraId, 0);
-			func_80064534(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 			D_80B7A6CC = 0;
 			sCameraId = 0;
 			Environment_EnableUnderwaterLights(globalCtx, 0);
@@ -6208,7 +6208,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 		{
 			Camera* camera;
 
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			sCameraId = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 			Gameplay_ChangeCameraStatus(globalCtx, sCameraId, CAM_STAT_ACTIVE);
@@ -6238,7 +6238,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 				camera->eyeNext = sCameraEye;
 				camera->at = sCameraAt;
 				func_800C08AC(globalCtx, sCameraId, 0);
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				D_80B7A6CC = 0;
 				sCameraId = 0;
@@ -6252,7 +6252,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 		{
 			Camera* camera;
 
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			sCameraId = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 			Gameplay_ChangeCameraStatus(globalCtx, sCameraId, CAM_STAT_ACTIVE);
@@ -6355,7 +6355,7 @@ void Fishing_UpdateOwner(Actor* thisx, GlobalContext* globalCtx2)
 						camera->eyeNext = sCameraEye;
 						camera->at = sCameraAt;
 						func_800C08AC(globalCtx, sCameraId, 0);
-						func_80064534(globalCtx, &globalCtx->csCtx);
+						Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 						func_8002DF54(globalCtx, &pthis->actor, 7);
 						D_80B7A6CC = 0;
 						sCameraId = 0;

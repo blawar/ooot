@@ -318,10 +318,10 @@ struct CutsceneContext
 	/* 0x28 */ CsCmdActorAction* npcActions[10]; // "npcdemopnt"
 };						     // size = 0x50
 
-void func_8006450C(GlobalContext* globalCtx, CutsceneContext* csCtx);
-void func_80064520(GlobalContext* globalCtx, CutsceneContext* csCtx);
-void func_80064534(GlobalContext* globalCtx, CutsceneContext* csCtx);
-void func_80064558(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cutscene_Stop(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cutscene_SetUnskipableInitNoLinkAction(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cutscene_SetUnskipableInitIfNotExec(GlobalContext* globalCtx, CutsceneContext* csCtx);
+void Cutscene_CallStateHandler(GlobalContext* globalCtx, CutsceneContext* csCtx);
 void Cinema_Update(GlobalContext* globalCtx, CutsceneContext* csCtx);
 void Cutscene_HandleEntranceTriggers(GlobalContext* globalCtx);
 void Cutscene_HandleConditionalTriggers(GlobalContext* globalCtx);

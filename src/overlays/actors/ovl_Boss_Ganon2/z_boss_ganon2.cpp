@@ -227,7 +227,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx)
 			objectIdx = Object_GetIndex(&globalCtx->objectCtx, OBJECT_GANON_ANIME3);
 			if(Object_IsLoaded(&globalCtx->objectCtx, objectIdx))
 			{
-				func_80064520(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 8);
 				pthis->unk_39E = Gameplay_CreateSubCamera(globalCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -370,7 +370,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx)
 				camera->at = pthis->unk_3B0;
 				func_800C08AC(globalCtx, pthis->unk_39E, 0);
 				pthis->unk_39E = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->unk_39C = 5;
 				pthis->timer = 0;
@@ -383,7 +383,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx)
 				Message_CloseTextbox(globalCtx);
 				pthis->unk_39C = 10;
 				pthis->timer = 0;
-				func_80064520(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 				pthis->unk_39E = Gameplay_CreateSubCamera(globalCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 				Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_39E, CAM_STAT_ACTIVE);
@@ -997,7 +997,7 @@ void func_808FD5F4(BossGanon2* pthis, GlobalContext* globalCtx)
 				camera->at = pthis->unk_3B0;
 				func_800C08AC(globalCtx, pthis->unk_39E, 0);
 				pthis->unk_39E = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->unk_39C = 0;
 				pthis->unk_337 = 1;
@@ -1511,7 +1511,7 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx)
 	switch(pthis->unk_39C)
 	{
 		case 0:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			pthis->unk_39E = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 			Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_39E, CAM_STAT_ACTIVE);
@@ -1566,13 +1566,13 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx)
 				temp_v0->at = pthis->unk_3B0;
 				func_800C08AC(globalCtx, pthis->unk_39E, 0);
 				pthis->unk_39E = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->unk_39C = 3;
 			}
 			break;
 		case 10:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			pthis->unk_39E = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 			Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_39E, CAM_STAT_ACTIVE);
@@ -1599,7 +1599,7 @@ void func_80900890(BossGanon2* pthis, GlobalContext* globalCtx)
 				pthis->unk_39C = 3;
 				func_800C08AC(globalCtx, pthis->unk_39E, 0);
 				pthis->unk_39E = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 			}
 			break;
@@ -1713,7 +1713,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx)
 	switch(pthis->unk_39C)
 	{
 		case 0:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			pthis->unk_39E = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 			Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_39E, CAM_STAT_ACTIVE);
@@ -1880,7 +1880,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx)
 				temp_v0_2->at = pthis->unk_3B0;
 				func_800C08AC(globalCtx, pthis->unk_39E, 0);
 				pthis->unk_39E = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->unk_39C = 6;
 			}
@@ -1892,7 +1892,7 @@ void func_8090120C(BossGanon2* pthis, GlobalContext* globalCtx)
 			temp_a0_2 = Math_Atan2S(temp_f12, temp_f14) - player->actor.shape.rot.y;
 			if((ABS(temp_a0_2) < 0x2000) && (sqrtf(SQ(temp_f14) + SQ(temp_f12)) < 70.0f) && (player->swordState != 0) && (player->heldItemActionParam == PLAYER_AP_SWORD_MASTER))
 			{
-				func_80064520(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 				pthis->unk_39E = Gameplay_CreateSubCamera(globalCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 				Gameplay_ChangeCameraStatus(globalCtx, pthis->unk_39E, CAM_STAT_ACTIVE);

@@ -377,7 +377,7 @@ void BossSst_HeadSetupIntro(BossSst* pthis, GlobalContext* globalCtx)
 	player->fallStartHeight = 0;
 	player->stateFlags1 |= PLAYER_STATE1_5;
 
-	func_80064520(globalCtx, &globalCtx->csCtx);
+	Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 	func_8002DF54(globalCtx, &pthis->actor, 8);
 	sCutsceneCamera = Gameplay_CreateSubCamera(globalCtx);
 	Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -415,7 +415,7 @@ void BossSst_HeadIntro(BossSst* pthis, GlobalContext* globalCtx)
 		sHands[RIGHT]->actor.flags |= ACTOR_FLAG_VISIBLE;
 		sHands[LEFT]->actor.flags |= ACTOR_FLAG_VISIBLE;
 		player->stateFlags1 &= ~PLAYER_STATE1_5;
-		func_80064534(globalCtx, &globalCtx->csCtx);
+		Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 		func_8002DF54(globalCtx, &pthis->actor, 7);
 		sCameraAt.y += 30.0f;
 		sCameraAt.z += 300.0f;
@@ -831,11 +831,11 @@ void BossSst_HeadCharge(BossSst* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->actor.speedXZ *= 1.25f;
-	pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 45.0f);
+	pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 45.0f);
 
 	if(pthis->ready)
 	{
-		if(Math_SmoothStepToF(&pthis->radius, 650.0f, 0.4f, pthis->actor.speedXZ, 1.0f) < 10.0f)
+		if(Math_SmoothStepToF(&pthis->radius, 650.0f, 0.4f, (float)pthis->actor.speedXZ, 1.0f) < 10.0f)
 		{
 			pthis->radius = 650.0f;
 			BossSst_HeadSetupEndCharge(pthis);
@@ -859,7 +859,7 @@ void BossSst_HeadCharge(BossSst* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		Math_ApproachF(&pthis->radius, -700.0f, 0.4f, pthis->actor.speedXZ);
+		Math_ApproachF(&pthis->radius, -700.0f, 0.4f, (float)pthis->actor.speedXZ);
 		Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y - 180.0f, 20.0f);
 		sHandOffsets[LEFT].y += 5.0f;
 		sHandOffsets[RIGHT].y += 5.0f;
@@ -1087,13 +1087,13 @@ void BossSst_HeadRecover(BossSst* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.y += 10.0f;
 		sHandOffsets[LEFT].y -= 10.0f;
 		sHandOffsets[RIGHT].y -= 10.0f;
-		Math_SmoothStepToF(&pthis->radius, -750.0f, 1.0f, pthis->actor.speedXZ, 2.0f);
+		Math_SmoothStepToF(&pthis->radius, -750.0f, 1.0f, (float)pthis->actor.speedXZ, 2.0f);
 	}
 	else
 	{
 		pthis->actor.speedXZ *= 1.25f;
-		pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 50.0f);
-		diff = Math_SmoothStepToF(&pthis->radius, -650.0f, 1.0f, pthis->actor.speedXZ, 2.0f);
+		pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 50.0f);
+		diff = Math_SmoothStepToF(&pthis->radius, -650.0f, 1.0f, (float)pthis->actor.speedXZ, 2.0f);
 		diff += Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y, 0.5f, 30.0f, 3.0f);
 	}
 	if(animFinish && (diff < 10.0f))
@@ -1171,7 +1171,7 @@ void BossSst_HeadSetupDeath(BossSst* pthis, GlobalContext* globalCtx)
 	Gameplay_ChangeCameraStatus(globalCtx, sCutsceneCamera, CAM_STAT_ACTIVE);
 	Gameplay_CopyCamera(globalCtx, sCutsceneCamera, MAIN_CAM);
 	func_8002DF54(globalCtx, &player->actor, 8);
-	func_80064520(globalCtx, &globalCtx->csCtx);
+	Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 	Math_Vec3f_Copy(&sCameraEye, &GET_ACTIVE_CAM(globalCtx)->eye);
 	pthis->actionFunc = BossSst_HeadDeath;
 }
@@ -1301,7 +1301,7 @@ void BossSst_HeadSetupFall(BossSst* pthis)
 void BossSst_HeadFall(BossSst* pthis, GlobalContext* globalCtx)
 {
 	pthis->actor.speedXZ *= 1.5f;
-	if(Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y - 230.0f, pthis->actor.speedXZ))
+	if(Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.home.pos.y - 230.0f, (float)pthis->actor.speedXZ))
 	{
 		BossSst_HeadSetupMelt(pthis);
 	}
@@ -1366,7 +1366,7 @@ void BossSst_HeadFinish(BossSst* pthis, GlobalContext* globalCtx)
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_ACTIVE);
 			Gameplay_ClearCamera(globalCtx, sCutsceneCamera);
 			func_8002DF54(globalCtx, &GET_PLAYER(globalCtx)->actor, 7);
-			func_80064534(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 			Actor_Kill(&pthis->actor);
 			Actor_Kill(&sHands[LEFT]->actor);
 			Actor_Kill(&sHands[RIGHT]->actor);
@@ -1647,10 +1647,10 @@ void BossSst_HandRetreat(BossSst* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->actor.speedXZ = pthis->actor.speedXZ * 1.2f;
-	pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 50.0f);
+	pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 50.0f);
 
-	diff = Math_SmoothStepToF(&pthis->actor.world.pos.x, pthis->actor.home.pos.x, 0.3f, pthis->actor.speedXZ, 1.0f);
-	diff += Math_SmoothStepToF(&pthis->actor.world.pos.z, pthis->actor.home.pos.z, 0.3f, pthis->actor.speedXZ, 1.0f);
+	diff = Math_SmoothStepToF(&pthis->actor.world.pos.x, pthis->actor.home.pos.x, 0.3f, (float)pthis->actor.speedXZ, 1.0f);
+	diff += Math_SmoothStepToF(&pthis->actor.world.pos.z, pthis->actor.home.pos.z, 0.3f, (float)pthis->actor.speedXZ, 1.0f);
 	if(pthis->timer != 0)
 	{
 		if(pthis->timer != 0)
@@ -1915,7 +1915,7 @@ void BossSst_HandPunch(BossSst* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->actor.speedXZ *= 1.25f;
-	pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 50.0f);
+	pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 50.0f);
 
 	pthis->actor.world.pos.x += pthis->actor.speedXZ * Math_SinS(pthis->actor.shape.rot.y);
 	pthis->actor.world.pos.z += pthis->actor.speedXZ * Math_CosS(pthis->actor.shape.rot.y);
@@ -2163,7 +2163,7 @@ void BossSst_HandGrab(BossSst* pthis, GlobalContext* globalCtx)
 	else
 	{
 		pthis->actor.speedXZ *= 1.26f;
-		pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 70.0f);
+		pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 70.0f);
 		func_8002F974(&pthis->actor, NA_SE_EN_SHADEST_HAND_FLY - SFX_FLAG);
 	}
 
@@ -2815,9 +2815,9 @@ void BossSst_HandBreakIce(BossSst* pthis, GlobalContext* globalCtx)
 	if((pthis->timer % 2) != 0)
 	{
 		pthis->actor.speedXZ *= 1.5f;
-		pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 60.0f);
+		pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 60.0f);
 
-		if(Math_StepToF(&pthis->radius, 100.0f, pthis->actor.speedXZ))
+		if(Math_StepToF(&pthis->radius, 100.0f, (float)pthis->actor.speedXZ))
 		{
 			BossSst_SpawnIceShard(pthis);
 			if(pthis->timer != 0)
@@ -2836,7 +2836,7 @@ void BossSst_HandBreakIce(BossSst* pthis, GlobalContext* globalCtx)
 	else
 	{
 		pthis->actor.speedXZ *= 0.8f;
-		Math_StepToF(&pthis->radius, 500.0f, pthis->actor.speedXZ);
+		Math_StepToF(&pthis->radius, 500.0f, (float)pthis->actor.speedXZ);
 		if(pthis->actor.speedXZ < 2.0f)
 		{
 			if(pthis->timer != 0)

@@ -349,7 +349,7 @@ void EnAObj_Block(EnAObj* pthis, GlobalContext* globalCtx)
 {
 	pthis->dyna.actor.speedXZ += pthis->dyna.unk_150;
 	pthis->dyna.actor.world.rot.y = pthis->dyna.unk_158;
-	pthis->dyna.actor.speedXZ = CLAMP(pthis->dyna.actor.speedXZ, -2.5f, 2.5f);
+	pthis->dyna.actor.speedXZ = CLAMP((float)pthis->dyna.actor.speedXZ, -2.5f, 2.5f);
 
 	Math_SmoothStepToF(&pthis->dyna.actor.speedXZ, 0.0f, 1.0f, 1.0f, 0.0f);
 

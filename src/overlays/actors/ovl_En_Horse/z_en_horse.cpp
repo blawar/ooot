@@ -1093,7 +1093,7 @@ void EnHorse_UpdateSpeed(EnHorse* pthis, GlobalContext* globalCtx, f32 brakeDece
 	if(Math_CosS(stickAngle) <= brakeAngle)
 	{
 		pthis->actor.speedXZ -= brakeDecel;
-		pthis->actor.speedXZ = pthis->actor.speedXZ < 0.0f ? 0.0f : pthis->actor.speedXZ;
+		pthis->actor.speedXZ = (float)pthis->actor.speedXZ < 0.0f ? 0.0f : (float)pthis->actor.speedXZ;
 		return;
 	}
 

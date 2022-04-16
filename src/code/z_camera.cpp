@@ -8778,7 +8778,7 @@ Vec3s Camera_Update(Camera* camera)
 		}
 		else if(camera->globalCtx->csCtx.state != CS_STATE_IDLE)
 		{
-			func_80064534(camera->globalCtx, &camera->globalCtx->csCtx);
+			Cutscene_SetUnskipableInitIfNotExec(camera->globalCtx, &camera->globalCtx->csCtx);
 		}
 	}
 

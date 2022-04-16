@@ -271,7 +271,7 @@ void ObjBean_FollowPath(ObjBean* pthis, GlobalContext* globalCtx)
 
 	Math_Vec3f_Diff(&pathPointsFloat, &pthis->pathPoints, &acell);
 	mag = Math3D_Vec3fMagnitude(&acell);
-	speed = CLAMP_MIN(pthis->dyna.actor.speedXZ, 0.5f);
+	speed = CLAMP_MIN((float)pthis->dyna.actor.speedXZ, 0.5f);
 	if(speed > mag)
 	{
 		currentPoint = &((Vec3s*)SEGMENTED_TO_VIRTUAL(path->points))[pthis->currentPointIndex];

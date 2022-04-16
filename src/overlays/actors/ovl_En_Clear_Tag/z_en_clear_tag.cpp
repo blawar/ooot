@@ -650,7 +650,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2)
 					case CLEAR_TAG_CUTSCENE_MODE_SETUP:
 						// Initializes Arwing cutscene camera data.
 						pthis->cutsceneMode = CLEAR_TAG_CUTSCENE_MODE_PLAY;
-						func_80064520(globalCtx, &globalCtx->csCtx);
+						Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 						pthis->cameraId = Gameplay_CreateSubCamera(globalCtx);
 						Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 						Gameplay_ChangeCameraStatus(globalCtx, pthis->cameraId, CAM_STAT_ACTIVE);
@@ -683,7 +683,7 @@ void EnClearTag_Update(Actor* thisx, GlobalContext* globalCtx2)
 				{
 					func_800C08AC(globalCtx, pthis->cameraId, 0);
 					pthis->cutsceneMode = pthis->cameraId = SUBCAM_FREE;
-					func_80064534(globalCtx, &globalCtx->csCtx);
+					Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				}
 			}
 		}

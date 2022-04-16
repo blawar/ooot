@@ -493,8 +493,8 @@ void BgPoEvent_BlockPush(BgPoEvent* pthis, GlobalContext* globalCtx)
 	Player* player = GET_PLAYER(globalCtx);
 
 	pthis->dyna.actor.speedXZ += 0.1f;
-	pthis->dyna.actor.speedXZ = CLAMP_MAX(pthis->dyna.actor.speedXZ, 2.0f);
-	blockStop = Math_StepToF(&blockPushDist_55, 20.0f, pthis->dyna.actor.speedXZ);
+	pthis->dyna.actor.speedXZ = CLAMP_MAX((float)pthis->dyna.actor.speedXZ, 2.0f);
+	blockStop = Math_StepToF(&blockPushDist_55, 20.0f, (float)pthis->dyna.actor.speedXZ);
 	displacement = pthis->direction * blockPushDist_55;
 	pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.x;
 	pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.z;

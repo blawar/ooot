@@ -1077,7 +1077,7 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx)
 	BossTw* otherTw = (BossTw*)pthis->actor.parent;
 	Input* input = &globalCtx->input[0];
 
-	Math_ApproachF(&pthis->actor.world.pos.y, 400.0f, 0.05f, pthis->actor.speedXZ);
+	Math_ApproachF(&pthis->actor.world.pos.y, 400.0f, 0.05f, (float)pthis->actor.speedXZ);
 	Math_ApproachF(&pthis->actor.speedXZ, 5.0f, 1.0f, 0.25f);
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->beamRoll += -0.3f;
@@ -1538,7 +1538,7 @@ void BossTw_HitByBeam(BossTw* pthis, GlobalContext* globalCtx)
 		Math_ApproachF(&pthis->fogFar, 1099.0f, 1.0f, 30.0f);
 	}
 
-	Math_ApproachF(&pthis->actor.world.pos.y, ((Math_SinS(pthis->CS_TIMER_1 * 1500) * 20.0f) + 350.0f) + 50.0f, 0.1f, pthis->actor.speedXZ);
+	Math_ApproachF(&pthis->actor.world.pos.y, ((Math_SinS(pthis->CS_TIMER_1 * 1500) * 20.0f) + 350.0f) + 50.0f, 0.1f, (float)pthis->actor.speedXZ);
 	Math_ApproachF(&pthis->actor.speedXZ, 5.0f, 1.0f, 1.0f);
 
 	pthis->actor.world.pos.y -= 50.0f;
@@ -1676,7 +1676,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 	{
 		case 0:
 			pthis->csState2 = 1;
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 0x39);
 			pthis->subCamId = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, 0, CAM_STAT_WAIT);
@@ -1911,7 +1911,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 				func_800C08AC(globalCtx, pthis->subCamId, 0);
 				pthis->subCamId = 0;
 				pthis->csState2 = pthis->subCamId;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->TW_PLLR_IDX = 0;
 				pthis->targetPos = sTwinrovaPillarPos[0];
@@ -2003,7 +2003,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			{
 				player->actor.world.pos.x = player->actor.world.pos.z = .0f;
 				pthis->csState2 = 1;
-				func_80064520(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 0x39);
 				pthis->subCamId = Gameplay_CreateSubCamera(globalCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, 0, CAM_STAT_WAIT);
@@ -2159,7 +2159,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			updateCam = 1;
 			SkelAnime_Update(&sKoumePtr->skelAnime);
 			pthis->subCamAtTarget.y = 20.0f + sKoumePtr->actor.world.pos.y;
-			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 350, 0.1f, pthis->actor.speedXZ);
+			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 350, 0.1f, (float)pthis->actor.speedXZ);
 			Math_ApproachF(&pthis->actor.speedXZ, 9.0f, 1.0f, 0.9f);
 			Math_ApproachF(&pthis->subCamUpdateRate, 1.0f, 1.0f, 0.02f);
 
@@ -2343,7 +2343,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			updateCam = 1;
 			SkelAnime_Update(&sKotakePtr->skelAnime);
 			pthis->subCamAtTarget.y = sKotakePtr->actor.world.pos.y + 20.0f;
-			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 350, 0.1f, pthis->actor.speedXZ);
+			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 350, 0.1f, (float)pthis->actor.speedXZ);
 			Math_ApproachF(&pthis->actor.speedXZ, 9.0f, 1.0f, 0.9f);
 			Math_ApproachF(&pthis->subCamUpdateRate, 1.0f, 1.0f, 0.02f);
 
@@ -2540,7 +2540,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				func_800C08AC(globalCtx, pthis->subCamId, 0);
 				pthis->subCamId = 0;
 				pthis->csState2 = pthis->subCamId;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				BossTw_SetupWait(pthis, globalCtx);
 			}
@@ -2890,8 +2890,8 @@ void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx)
 
 		if(pthis->CS_TIMER_2 >= 880)
 		{
-			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 2000.0f, 1.0f, pthis->actor.speedXZ);
-			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 2000.0f, 1.0f, pthis->actor.speedXZ);
+			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 2000.0f, 1.0f, (float)pthis->actor.speedXZ);
+			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 2000.0f, 1.0f, (float)pthis->actor.speedXZ);
 			Math_ApproachF(&pthis->actor.speedXZ, 10.0f, 1.0f, 0.25f);
 
 			if(pthis->CS_TIMER_2 >= 930)
@@ -2905,9 +2905,9 @@ void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx)
 		else
 		{
 			f32 yTarget = Math_CosS(pthis->CS_TIMER_2 * 1700) * 4.0f;
-			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 20.0f + (263.0f + yTarget), 0.1f, pthis->actor.speedXZ);
+			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 20.0f + (263.0f + yTarget), 0.1f, (float)pthis->actor.speedXZ);
 			yTarget = Math_SinS(pthis->CS_TIMER_2 * 1500) * 4.0f;
-			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 20.0f + (263.0f + yTarget), 0.1f, pthis->actor.speedXZ);
+			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 20.0f + (263.0f + yTarget), 0.1f, (float)pthis->actor.speedXZ);
 			Math_ApproachF(&pthis->actor.speedXZ, 1.0f, 1.0f, 0.05f);
 		}
 	}
@@ -2999,7 +2999,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 	{
 		case 0:
 			pthis->csState2 = 1;
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 8);
 			pthis->subCamId = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, 0, CAM_STAT_WAIT);
@@ -3140,7 +3140,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 				func_800C08AC(globalCtx, pthis->subCamId, 0);
 				pthis->csState2 = 4;
 				pthis->subCamId = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_BOSS_CLEAR);
 				Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_DOOR_WARP1, 600.0f, 230.0f, 0.0f, 0, 0, 0, WARP_DUNGEON_ADULT);

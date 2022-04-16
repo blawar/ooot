@@ -1348,7 +1348,7 @@ void func_80B463E4(EnZf* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->unk_408;
 		}
 
-		if(ABS(pthis->actor.speedXZ) >= ABS(pthis->unk_408))
+		if(pthis->actor.speedXZ.abs() >= ABS(pthis->unk_408))
 		{
 			pthis->skelAnime.playSpeed = pthis->actor.speedXZ * 0.75f;
 		}
@@ -2231,7 +2231,7 @@ void EnZf_CircleAroundPlayer(EnZf* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->unk_408;
 	}
 
-	if(ABS(pthis->actor.speedXZ) >= ABS(pthis->unk_408))
+	if(pthis->actor.speedXZ.abs() >= ABS(pthis->unk_408))
 	{
 		pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.75f;
 	}

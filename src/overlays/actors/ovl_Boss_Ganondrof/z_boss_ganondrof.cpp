@@ -1051,7 +1051,7 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 	switch(pthis->deathState)
 	{
 		case DEATH_START:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 1);
 			pthis->deathCamera = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -1217,7 +1217,7 @@ void BossGanondrof_Death(BossGanondrof* pthis, GlobalContext* globalCtx)
 				camera->at = pthis->cameraAt;
 				func_800C08AC(globalCtx, pthis->deathCamera, 0);
 				pthis->deathCamera = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_ITEM_B_HEART, GND_BOSSROOM_CENTER_X, GND_BOSSROOM_CENTER_Y, GND_BOSSROOM_CENTER_Z + 200.0f, 0, 0, 0, 0);
 				pthis->actor.child = &horse->actor;

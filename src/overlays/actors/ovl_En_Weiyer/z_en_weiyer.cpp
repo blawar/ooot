@@ -132,7 +132,7 @@ void func_80B32384(EnWeiyer* pthis)
 	pthis->unk_27C = (cosf(-M_PI / 8) * 3.0f) + pthis->actor.world.pos.y;
 	Animation_MorphToLoop(&pthis->skelAnime, &gStingerHitAnim, -5.0f);
 	pthis->unk_194 = 30;
-	pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 2.5f);
+	pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 2.5f);
 	pthis->collider.base.atFlags &= ~AT_ON;
 	pthis->unk_280 = pthis->actor.floorHeight;
 	pthis->actionFunc = func_80B328E8;
@@ -168,7 +168,7 @@ void func_80B32538(EnWeiyer* pthis)
 	pthis->unk_194 = 200;
 	pthis->unk_196 = pthis->actor.yawTowardsPlayer + 0x8000;
 	pthis->unk_27C = pthis->actor.world.pos.y;
-	pthis->actor.speedXZ = CLAMP_MAX(pthis->actor.speedXZ, 4.0f);
+	pthis->actor.speedXZ = CLAMP_MAX((float)pthis->actor.speedXZ, 4.0f);
 	pthis->collider.base.atFlags &= ~AT_ON;
 	pthis->skelAnime.playSpeed = 1.0f;
 	pthis->actionFunc = func_80B33018;

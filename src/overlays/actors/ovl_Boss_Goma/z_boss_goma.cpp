@@ -656,7 +656,7 @@ void BossGoma_SetupEncounterState4(BossGoma* pthis, GlobalContext* globalCtx)
 	player = GET_PLAYER(globalCtx);
 	pthis->actionState = 4;
 	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
-	func_80064520(globalCtx, &globalCtx->csCtx);
+	Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 	func_8002DF54(globalCtx, &pthis->actor, 1);
 	pthis->subCameraId = Gameplay_CreateSubCamera(globalCtx);
 	Gameplay_ChangeCameraStatus(globalCtx, 0, 3);
@@ -724,7 +724,7 @@ void BossGoma_Encounter(BossGoma* pthis, GlobalContext* globalCtx)
 			break;
 
 		case 1: // player entered the room
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			pthis->subCameraId = Gameplay_CreateSubCamera(globalCtx);
 			osSyncPrintf("MAKE CAMERA !!!   1   !!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 			Gameplay_ChangeCameraStatus(globalCtx, 0, 1);
@@ -799,7 +799,7 @@ void BossGoma_Encounter(BossGoma* pthis, GlobalContext* globalCtx)
 				cam->at = pthis->subCameraAt;
 				func_800C08AC(globalCtx, pthis->subCameraId, 0);
 				pthis->subCameraId = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->actionState = 3;
 			}
@@ -1001,7 +1001,7 @@ void BossGoma_Encounter(BossGoma* pthis, GlobalContext* globalCtx)
 				BossGoma_SetupFloorMain(pthis);
 				pthis->disableGameplayLogic = false;
 				pthis->patienceTimer = 200;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 			}
 			break;
@@ -1102,7 +1102,7 @@ void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx)
 	{
 		case 0:
 			pthis->actionState = 1;
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 1);
 			pthis->subCameraId = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, 0, 3);
@@ -1242,7 +1242,7 @@ void BossGoma_Defeated(BossGoma* pthis, GlobalContext* globalCtx)
 					camera->at = pthis->subCameraAt;
 					func_800C08AC(globalCtx, pthis->subCameraId, 0);
 					pthis->subCameraId = 0;
-					func_80064534(globalCtx, &globalCtx->csCtx);
+					Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 					func_8002DF54(globalCtx, &pthis->actor, 7);
 					Actor_Kill(&pthis->actor);
 				}

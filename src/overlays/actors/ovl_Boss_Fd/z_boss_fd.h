@@ -95,61 +95,6 @@ struct BossFdCam
 	/* 0x84 */ f32 shake;
 };
 
-enum BossFdS16Var
-{
-	/*  0 */ BFD_ACTION_STATE,
-	/*  1 */ BFD_MOVE_TIMER,
-	/*  2 */ BFD_VAR_TIMER,
-	/*  3 */ BFD_LEAD_BODY_SEG,
-	/*  4 */ BFD_LEAD_MANE_SEG,
-	/*  5 */ BFD_BLINK_TIMER,
-	/*  6 */ BFD_ROAR_TIMER,
-	/*  7 */ BFD_DAMAGE_FLASH_TIMER,
-	/*  8 */ BFD_START_ATTACK,
-	/*  9 */ BFD_UNK_234,
-	/* 10 */ BFD_UNK_236,
-	/* 11 */ BFD_MANE_EMBERS_TIMER,
-	/* 12 */ BFD_ROCK_TIMER,
-	/* 13 */ BFD_CEILING_TARGET,
-	/* 14 */ BFD_INVINC_TIMER,
-	/* 15 */ BFD_SPLASH_TIMER,
-	/* 16 */ BFD_CAM_SHAKE_TIMER,
-	/* 17 */ BFD_STOP_FLAG,
-	/* 18 */ BFD_FLY_COUNT,
-	/* 19 */ BFD_SHORT_COUNT
-};
-
-enum BossFdF32Var
-{
-	/*  0 */ BFD_TEX1_SCROLL_X,
-	/*  1 */ BFD_TEX1_SCROLL_Y,
-	/*  2 */ BFD_TEX2_SCROLL_X,
-	/*  3 */ BFD_TEX2_SCROLL_Y,
-	/*  4 */ BFD_UNUSED_F4,
-	/*  5 */ BFD_UNUSED_F5,
-	/*  6 */ BFD_UNUSED_F6,
-	/*  7 */ BFD_BODY_TEX2_ALPHA,
-	/*  8 */ BFD_HEAD_TEX2_ALPHA,
-	/*  9 */ BFD_TARGET_Y_OFFSET,
-	/* 10 */ BFD_CEILING_BOUNCE,
-	/* 11 */ BFD_BODY_PULSE,
-	/* 12 */ BFD_MANE_COLOR_CENTER,
-	/* 13 */ BFD_MANE_COLOR_RIGHT,
-	/* 14 */ BFD_MANE_COLOR_LEFT,
-	/* 15 */ BFD_MANE_EMBER_SPEED,
-	/* 16 */ BFD_MANE_EMBER_RATE,
-	/* 17 */ BFD_UNUSED_F17,
-	/* 18 */ BFD_UNUSED_F18,
-	/* 19 */ BFD_UNUSED_F19,
-	/* 20 */ BFD_FLY_SPEED,
-	/* 21 */ BFD_TURN_RATE,
-	/* 22 */ BFD_TURN_RATE_MAX,
-	/* 23 */ BFD_FLY_WOBBLE_AMP,
-	/* 24 */ BFD_FLY_WOBBLE_RATE,
-	/* 25 */ BFD_UNUSED_F25,
-	/* 26 */ BFD_FLOAT_COUNT
-};
-
 enum BossFdIntroFlyState
 {
 	/* 0 */ INTRO_FLY_EMERGE,
@@ -181,9 +126,57 @@ struct BossFd
 	/* 0x021C */ Timer fireBreathTimer;
 	/* 0x021E */ s16 skinSegments;
 	/* 0x0220 */ u8 fogMode;
-	/* 0x0222 */ s16 work[BFD_SHORT_COUNT];
-	/* 0x0248 */ Timer timers[6];
-	/* 0x0254 */ f32 fwork[BFD_FLOAT_COUNT];
+	s16 BFD_ACTION_STATE;
+	TimerS16 BFD_MOVE_TIMER;
+	TimerS16 BFD_VAR_TIMER;
+	s16 BFD_LEAD_BODY_SEG;
+	s16 BFD_LEAD_MANE_SEG;
+	TimerS16 BFD_BLINK_TIMER;
+	TimerS16 BFD_ROAR_TIMER;
+	TimerS16 BFD_DAMAGE_FLASH_TIMER;
+	s16 BFD_START_ATTACK;
+	s16 BFD_UNK_234;
+	s16 BFD_UNK_236;
+	TimerS16 BFD_MANE_EMBERS_TIMER;
+	TimerS16 BFD_ROCK_TIMER;
+	s16 BFD_CEILING_TARGET;
+	TimerS16 BFD_INVINC_TIMER;
+	TimerS16 BFD_SPLASH_TIMER;
+	TimerS16 BFD_CAM_SHAKE_TIMER;
+	s16 BFD_STOP_FLAG;
+	s16 BFD_FLY_COUNT;
+	Timer timer0;
+	Timer timer1;
+	Timer timer2;
+	Timer timer3;
+	Timer timer4;
+	Timer timer5;
+	f32 BFD_TEX1_SCROLL_X;
+	f32 BFD_TEX1_SCROLL_Y;
+	f32 BFD_TEX2_SCROLL_X;
+	f32 BFD_TEX2_SCROLL_Y;
+	f32 BFD_UNUSED_F4;
+	f32 BFD_UNUSED_F5;
+	f32 BFD_UNUSED_F6;
+	f32 BFD_BODY_TEX2_ALPHA;
+	f32 BFD_HEAD_TEX2_ALPHA;
+	f32 BFD_TARGET_Y_OFFSET;
+	f32 BFD_CEILING_BOUNCE;
+	f32 BFD_BODY_PULSE;
+	f32 BFD_MANE_COLOR_CENTER;
+	f32 BFD_MANE_COLOR_RIGHT;
+	f32 BFD_MANE_COLOR_LEFT;
+	f32 BFD_MANE_EMBER_SPEED;
+	f32 BFD_MANE_EMBER_RATE;
+	f32 BFD_UNUSED_F17;
+	f32 BFD_UNUSED_F18;
+	f32 BFD_UNUSED_F19;
+	f32 BFD_FLY_SPEED;
+	f32 BFD_TURN_RATE;
+	f32 BFD_TURN_RATE_MAX;
+	f32 BFD_FLY_WOBBLE_AMP;
+	f32 BFD_FLY_WOBBLE_RATE;
+	f32 BFD_UNUSED_F25;
 	/* 0x02BC */ Vec3f targetPosition;
 	/* 0x02C8 */ Vec3f holePosition;
 	/* 0x02D4 */ u8 holeIndex;
@@ -191,11 +184,11 @@ struct BossFd
 	/* 0x02D6 */ u8 platformSignal;
 	/* 0x02D7 */ u8 faceExposed;
 	/* 0x02D8 */ u8 handoffSignal;
-	/* 0x02DC */ Vec3f bodySegsRot[100];
-	/* 0x078C */ Vec3f bodySegsPos[100];
-	/* 0x0C3C */ Vec3f rightArmRot[4];
-	/* 0x0C6C */ Vec3f leftArmRot[4];
-	/* 0x0C9C */ Vec3f fireManeRot[30];
+	/* 0x02DC */ VecRotF bodySegsRot[100];
+	/* 0x078C */ VecPosF bodySegsPos[100];
+	/* 0x0C3C */ VecRotF rightArmRot[4];
+	/* 0x0C6C */ VecRotF leftArmRot[4];
+	/* 0x0C9C */ VecRotF fireManeRot[30];
 	/* 0x0E04 */ BossFdMane centerMane;
 	/* 0x0FF0 */ BossFdMane rightMane;
 	/* 0x11DC */ BossFdMane leftMane;

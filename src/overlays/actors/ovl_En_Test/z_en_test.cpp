@@ -704,7 +704,7 @@ void EnTest_WalkAndBlock(EnTest* pthis, GlobalContext* globalCtx)
 			pthis->actor.speedXZ *= -1.0f;
 		}
 
-		if(ABS(pthis->actor.speedXZ) < 3.0f)
+		if(pthis->actor.speedXZ.abs() < 3.0f)
 		{
 			Animation_Change(&pthis->skelAnime, &gStalfosSlowAdvanceAnim, 0.0f, pthis->skelAnime.curFrame, Animation_GetLastFrame(&gStalfosSlowAdvanceAnim), 0, -6.0f);
 			playSpeed = pthis->actor.speedXZ * 10.0f;

@@ -152,19 +152,19 @@ void Cutscene_DrawDebugInfo(GlobalContext* globalCtx, Gfx** dlist, CutsceneConte
 	GfxPrint_Destroy(&printer);
 }
 
-void func_8006450C(GlobalContext* globalCtx, CutsceneContext* csCtx)
+void Cutscene_Stop(GlobalContext* globalCtx, CutsceneContext* csCtx)
 {
 	csCtx->state = CS_STATE_IDLE;
 	csCtx->unk_0C = 0.0f;
 }
 
-void func_80064520(GlobalContext* globalCtx, CutsceneContext* csCtx)
+void Cutscene_SetUnskipableInitNoLinkAction(GlobalContext* globalCtx, CutsceneContext* csCtx)
 {
 	csCtx->state = CS_STATE_SKIPPABLE_INIT;
 	csCtx->linkAction = NULL;
 }
 
-void func_80064534(GlobalContext* globalCtx, CutsceneContext* csCtx)
+void Cutscene_SetUnskipableInitIfNotExec(GlobalContext* globalCtx, CutsceneContext* csCtx)
 {
 	if(csCtx->state != CS_STATE_UNSKIPPABLE_EXEC)
 	{
@@ -172,7 +172,7 @@ void func_80064534(GlobalContext* globalCtx, CutsceneContext* csCtx)
 	}
 }
 
-void func_80064558(GlobalContext* globalCtx, CutsceneContext* csCtx)
+void Cutscene_CallStateHandler(GlobalContext* globalCtx, CutsceneContext* csCtx)
 {
 	if(gSaveContext.cutsceneIndex < 0xFFF0)
 	{
