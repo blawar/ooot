@@ -242,16 +242,16 @@ void func_8086ED70(BgBombwall* pthis, GlobalContext* globalCtx)
 void func_8086EDFC(BgBombwall* pthis, GlobalContext* globalCtx)
 {
 	pthis->dList = gBgBombwallNormalDL;
-	pthis->unk_2A0 = 1;
+	pthis->animTimer = 1;
 	func_8086EB5C(pthis, globalCtx);
 	pthis->actionFunc = func_8086EE40;
 }
 
 void func_8086EE40(BgBombwall* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->unk_2A0 > 0)
+	if(pthis->animTimer > 0)
 	{
-		pthis->unk_2A0--;
+		pthis->animTimer--;
 	}
 	else
 	{

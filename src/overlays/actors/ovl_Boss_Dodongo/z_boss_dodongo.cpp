@@ -64,7 +64,7 @@ static Vec3f D_808CA450_86 = {5000.0f, -2500.0f, 0.0f};
 
 static Vec3f D_808CA45C_86 = {0.0f, 0.0f, 0.0f};
 
-static Vec3f D_808CA468_86 = {11500.0f, -3000.0f, 0.0f};
+static VecPosF D_808CA468_86 = {11500.0f, -3000.0f, 0.0f};
 
 static Vec3f D_808CA474_86 = {5000.0f, -2000.0f, 0.0f};
 
@@ -155,9 +155,9 @@ void func_808C12C4(u8* arg1, s16 arg2)
 	func_808C1278((s16*)SEGMENTED_TO_VIRTUAL(object_kingdodongo_Tex_016E10), arg1, arg2);
 }
 
-void func_808C1554(void* arg0, void* floorTex, s32 arg2, f32 arg3)
+void TransitionLavaFloorTex(void* bossFloorTex, void* floorTex, TimerS16 timer, f32 multiplier)
 {
-	u16* temp_s3 = (u16*)SEGMENTED_TO_VIRTUAL(arg0);
+	u16* temp_s3 = (u16*)SEGMENTED_TO_VIRTUAL(bossFloorTex);
 	u16* temp_s1 = (u16*)SEGMENTED_TO_VIRTUAL(floorTex);
 	s16 i;
 	s16 i2;
@@ -167,7 +167,7 @@ void func_808C1554(void* arg0, void* floorTex, s32 arg2, f32 arg3)
 
 	for(i = 0; i < 2048; i += 32)
 	{
-		temp = sinf((((i / 32) + (s16)((arg2 * 50.0f) / 100.0f)) & 0x1F) * (M_PI / 16)) * arg3;
+		temp = sinf((((i / 32) + (s16)((timer * 50.0f) / 100.0f)) & 0x1F) * (M_PI / 16)) * multiplier;
 		for(i2 = 0; i2 < 32; i2++)
 		{
 			sp54[i + ((temp + i2) & 0x1F)] = temp_s1[i + i2];
@@ -175,7 +175,7 @@ void func_808C1554(void* arg0, void* floorTex, s32 arg2, f32 arg3)
 	}
 	for(i = 0; i < 32; i++)
 	{
-		temp = sinf(((i + (s16)((arg2 * 80.0f) / 100.0f)) & 0x1F) * (M_PI / 16)) * arg3;
+		temp = sinf(((i + (s16)((timer * 80.0f) / 100.0f)) & 0x1F) * (M_PI / 16)) * multiplier;
 		temp *= 32;
 		for(i2 = 0; i2 < 2048; i2 += 32)
 		{
@@ -258,7 +258,7 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->colorFilterMin = 995.0f;
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
 	pthis->colorFilterMax = 1000.0f;
-	pthis->unk_224 = 2.0f;
+	pthis->floorTexTransitionMultiplier = 2.0f;
 	pthis->unk_228 = 9200.0f;
 	Collider_InitJntSph(globalCtx, &pthis->collider);
 	Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->items);
@@ -298,7 +298,7 @@ void BossDodongo_SetupIntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00F0D8, 1.0f, 0.0f, frames, ANIMMODE_LOOP, -10.0f);
 	pthis->actionFunc = BossDodongo_IntroCutscene;
 	pthis->csState = 0;
-	pthis->unk_1BC = 1;
+	pthis->walkingState = 1;
 }
 
 void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
@@ -313,19 +313,14 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 	player = GET_PLAYER(globalCtx);
 	camera = Gameplay_GetCamera(globalCtx, MAIN_CAM);
 
-	if(pthis->unk_196 != 0)
+	if(pthis->timer1 != 0)
 	{
-		pthis->unk_196--;
+		pthis->timer1--;
 	}
 
-	if(pthis->unk_198 != 0)
+	if(pthis->timer2 != 0)
 	{
-		pthis->unk_198--;
-	}
-
-	if(pthis->unk_19A != 0)
-	{
-		pthis->unk_19A--;
+		pthis->timer2--;
 	}
 
 	switch(pthis->csState)
@@ -347,12 +342,12 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			Gameplay_ChangeCameraStatus(globalCtx, 0, 1);
 			Gameplay_ChangeCameraStatus(globalCtx, pthis->cutsceneCamera, 7);
 			pthis->csState = 2;
-			pthis->unk_196 = 0x3C;
-			pthis->unk_198 = 160;
+			pthis->timer1 = 0x3C;
+			pthis->timer2 = 160;
 			player->actor.world.pos.y = -1023.76f;
 			pthis->cameraEye.y = player->actor.world.pos.y - 480.0f + 50.0f;
 		case 2:
-			if(pthis->unk_198 >= 131)
+			if(pthis->timer2 >= 131)
 			{
 				player->actor.world.pos.x = -890.0f;
 				player->actor.world.pos.z = -2804.0f;
@@ -368,17 +363,17 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				pthis->cameraAt.z = player->actor.world.pos.z;
 			}
 
-			if(pthis->unk_198 == 110)
+			if(pthis->timer2 == 110)
 			{
 				func_8002DF54(globalCtx, &pthis->actor, 9);
 			}
 
-			if(pthis->unk_198 == 5)
+			if(pthis->timer2 == 5)
 			{
 				func_8002DF54(globalCtx, &pthis->actor, 12);
 			}
 
-			if(pthis->unk_198 < 6)
+			if(pthis->timer2 < 6)
 			{
 				player->actor.shape.rot.y = -0x4001;
 			}
@@ -387,23 +382,23 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				player->actor.shape.rot.y = 0x3FFF;
 			}
 
-			if(pthis->unk_198 < 60)
+			if(pthis->timer2 < 60)
 			{
-				pthis->unk_1BC = 1;
+				pthis->walkingState = 1;
 			}
 			else
 			{
-				pthis->unk_1BC = 2;
+				pthis->walkingState = 2;
 			}
 
 			BossDodongo_Walk(pthis, globalCtx);
 
-			if(pthis->unk_196 == 1)
+			if(pthis->timer1 == 1)
 			{
 				Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 			}
 
-			if(pthis->unk_196 == 0)
+			if(pthis->timer1 == 0)
 			{
 				Math_SmoothStepToF(&pthis->cameraEye.x, pthis->vec.x + 30.0f, 0.2f, pthis->unk_204 * 20.0f, 0.0f);
 				Math_SmoothStepToF(&pthis->cameraEye.y, pthis->vec.y, 0.2f, pthis->unk_204 * 20.0f, 0.0f);
@@ -419,7 +414,7 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 
 			if(gSaveContext.eventChkInf[7] & 2)
 			{
-				if(pthis->unk_198 == 100)
+				if(pthis->timer2 == 100)
 				{
 					pthis->actor.world.pos.x = -1114.0f;
 					pthis->actor.world.pos.z = -2804.0f;
@@ -427,23 +422,23 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 					pthis->unk_1A2 = 0;
 					pthis->unk_1A0 = 2;
 					pthis->csState = 4;
-					pthis->unk_196 = 30;
-					pthis->unk_198 = 150;
+					pthis->timer1 = 30;
+					pthis->timer2 = 150;
 					pthis->unk_204 = 0.0f;
 					Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_008EEC, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_008EEC), ANIMMODE_ONCE, 0.0f);
 					SkelAnime_Update(&pthis->skelAnime);
 				}
 			}
-			else if(pthis->unk_198 == 0)
+			else if(pthis->timer2 == 0)
 			{
 				pthis->csState = 3;
-				pthis->unk_19E = 0x14;
+				pthis->lavaFloorTimer = 0x14;
 				pthis->unk_204 = 0.0f;
 			}
 			break;
 		case 3:
 			BossDodongo_Walk(pthis, globalCtx);
-			Math_SmoothStepToF(&pthis->unk_20C, sinf(pthis->unk_19E * 0.05f) * 0.1f, 1.0f, 0.01f, 0.0f);
+			Math_SmoothStepToF(&pthis->unk_20C, sinf(pthis->lavaFloorTimer * 0.05f) * 0.1f, 1.0f, 0.01f, 0.0f);
 			Math_SmoothStepToF(&pthis->cameraEye.x, pthis->vec.x + 90.0f, 0.2f, pthis->unk_204 * 20.0f, 0.0f);
 			Math_SmoothStepToF(&pthis->cameraEye.y, pthis->vec.y + 50.0f, 0.2f, pthis->unk_204 * 20.0f, 0.0f);
 			Math_SmoothStepToF(&pthis->cameraEye.z, pthis->vec.z, 0.2f, pthis->unk_204 * 20.0f, 0.0f);
@@ -452,8 +447,8 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			if(fabsf(player->actor.world.pos.x - pthis->actor.world.pos.x) < 200.0f)
 			{
 				pthis->csState = 4;
-				pthis->unk_196 = 0x1E;
-				pthis->unk_198 = 0x96;
+				pthis->timer1 = 0x1E;
+				pthis->timer2 = 0x96;
 				pthis->unk_204 = 0.0f;
 				Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_008EEC, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_008EEC), ANIMMODE_ONCE, -5.0f);
 			}
@@ -479,18 +474,18 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			Math_SmoothStepToF(&pthis->cameraAt.z, pthis->vec.z, 0.2f, pthis->unk_204 * 20.0f, 0.0f);
 			Math_SmoothStepToF(&pthis->unk_204, 1.0f, 1.0f, 0.02f, 0.0f);
 
-			if(pthis->unk_196 == 0)
+			if(pthis->timer1 == 0)
 			{
 				SkelAnime_Update(&pthis->skelAnime);
 				Math_SmoothStepToF(&pthis->unk_208, 0.05f, 1.0f, 0.005f, 0.0f);
 			}
 
-			if(pthis->unk_198 == 0x64)
+			if(pthis->timer2 == 0x64)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_OTAKEBI);
 			}
 
-			if(pthis->unk_198 == 0x5A)
+			if(pthis->timer2 == 0x5A)
 			{
 				if(!(gSaveContext.eventChkInf[7] & 2))
 				{
@@ -499,7 +494,7 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_FIRE_BOSS);
 			}
 
-			if(pthis->unk_198 == 0)
+			if(pthis->timer2 == 0)
 			{
 				camera->eye = pthis->cameraEye;
 				camera->eyeNext = pthis->cameraEye;
@@ -509,8 +504,8 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				func_80064534(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				BossDodongo_SetupWalk(pthis);
-				pthis->unk_1DA = 50;
-				pthis->unk_1BC = 0;
+				pthis->blowFireTimer = 50;
+				pthis->walkingState = 0;
 				player->actor.shape.rot.y = -0x4002;
 				gSaveContext.eventChkInf[7] |= 2;
 			}
@@ -519,19 +514,19 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 
 	if(pthis->cutsceneCamera != 0)
 	{
-		if(pthis->unk_1B6 != 0)
+		if(pthis->cutsceneCameraBounceTimer != 0)
 		{
-			pthis->unk_1B6--;
+			pthis->cutsceneCameraBounceTimer--;
 		}
 
 		sp60.x = pthis->cameraEye.x;
-		phi_f0 = sinf((pthis->unk_1B6 * 3.1415f * 90.0f) / 180.0f);
-		sp60.y = (pthis->unk_1B6 * phi_f0 * 0.7f) + pthis->cameraEye.y;
+		phi_f0 = sinf((pthis->cutsceneCameraBounceTimer * 3.1415f * 90.0f) / 180.0f);
+		sp60.y = (pthis->cutsceneCameraBounceTimer * phi_f0 * 0.7f) + pthis->cameraEye.y;
 		sp60.z = pthis->cameraEye.z;
 
 		sp54.x = pthis->cameraAt.x;
-		phi_f0 = sinf((pthis->unk_1B6 * 3.1415f * 90.0f) / 180.0f);
-		sp54.y = (pthis->unk_1B6 * phi_f0 * 0.7f) + pthis->cameraAt.y;
+		phi_f0 = sinf((pthis->cutsceneCameraBounceTimer * 3.1415f * 90.0f) / 180.0f);
+		sp54.y = (pthis->cutsceneCameraBounceTimer * phi_f0 * 0.7f) + pthis->cameraAt.y;
 		sp54.z = pthis->cameraAt.z;
 
 		sp48.x = pthis->unk_20C;
@@ -550,18 +545,15 @@ void BossDodongo_SetupDamaged(BossDodongo* pthis)
 		pthis->actionFunc = BossDodongo_Damaged;
 	}
 
-	pthis->unk_1DA = 100;
+	pthis->blowFireTimer = 100;
 }
 
 void BossDodongo_SetupExplode(BossDodongo* pthis)
 {
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00E848, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_00E848), ANIMMODE_ONCE, -5.0f);
 	pthis->actionFunc = BossDodongo_Explode;
-	pthis->unk_1B0 = 10;
-	pthis->unk_1C0 = 2;
-	pthis->unk_1DA = 35;
-	pthis->unk_1FC = 50.0f;
-	pthis->unk_200 = 300.0f;
+	pthis->whiteFlashFogTimer = 2;
+	pthis->blowFireTimer = 35;
 }
 
 void BossDodongo_SetupWalk(BossDodongo* pthis)
@@ -569,7 +561,7 @@ void BossDodongo_SetupWalk(BossDodongo* pthis)
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_01D934, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_01D934), ANIMMODE_ONCE, -10.0f);
 	pthis->unk_1AA = 0;
 	pthis->actionFunc = BossDodongo_Walk;
-	pthis->unk_1DA = 0;
+	pthis->blowFireTimer = 0;
 	pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 	pthis->unk_1E4 = 0.0f;
 }
@@ -579,7 +571,7 @@ void BossDodongo_SetupRoll(BossDodongo* pthis)
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_00DF38, 1.0f, 0.0f, 59.0f, ANIMMODE_ONCE, -5.0f);
 	pthis->actionFunc = BossDodongo_Roll;
 	pthis->numWallCollisions = 0;
-	pthis->unk_1DA = 27;
+	pthis->blowFireTimer = 27;
 }
 
 void BossDodongo_SetupBlowFire(BossDodongo* pthis)
@@ -588,8 +580,8 @@ void BossDodongo_SetupBlowFire(BossDodongo* pthis)
 	pthis->unk_1E4 = 0.0f;
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_0061D4, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_0061D4), ANIMMODE_ONCE, 0.0f);
 	pthis->actionFunc = BossDodongo_BlowFire;
-	pthis->unk_1DA = 50;
-	pthis->unk_1AE = 0;
+	pthis->blowFireTimer = 50;
+	pthis->fireBallParams = 0;
 }
 
 void BossDodongo_SetupInhale(BossDodongo* pthis)
@@ -597,8 +589,8 @@ void BossDodongo_SetupInhale(BossDodongo* pthis)
 	pthis->actor.speedXZ = 0.0f;
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_008EEC, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_008EEC), ANIMMODE_ONCE, -5.0f);
 	pthis->actionFunc = BossDodongo_Inhale;
-	pthis->unk_1DA = 100;
-	pthis->unk_1AC = 0;
+	pthis->blowFireTimer = 100;
+	pthis->eatExplosiveTimer = 0;
 	pthis->unk_1E2 = 1;
 }
 
@@ -625,7 +617,7 @@ void BossDodongo_Explode(BossDodongo* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToF(&pthis->unk_208, 0.05f, 1.0f, 0.005f, 0.0f);
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(pthis->unk_1DA == 0)
+	if(pthis->blowFireTimer == 0)
 	{
 		for(i = 0; i < 30; i++)
 		{
@@ -661,7 +653,7 @@ void BossDodongo_Explode(BossDodongo* pthis, GlobalContext* globalCtx)
 
 void BossDodongo_LayDown(BossDodongo* pthis, GlobalContext* globalCtx)
 {
-	pthis->unk_1BE = 10;
+	pthis->colorFilterTransitionTimer = 10;
 	Math_SmoothStepToF(&pthis->unk_1F8, 1.3f, 1.0f, 0.1f, 0.001f);
 	SkelAnime_Update(&pthis->skelAnime);
 
@@ -669,19 +661,19 @@ void BossDodongo_LayDown(BossDodongo* pthis, GlobalContext* globalCtx)
 	{
 		Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_0042A8, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_0042A8), ANIMMODE_LOOP, -5.0f);
 		pthis->actionFunc = BossDodongo_Vulnerable;
-		pthis->unk_1DA = 100;
+		pthis->blowFireTimer = 100;
 	}
 }
 
 void BossDodongo_Vulnerable(BossDodongo* pthis, GlobalContext* globalCtx)
 {
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DOWN - SFX_FLAG);
-	pthis->unk_1BE = 10;
+	pthis->colorFilterTransitionTimer = 10;
 	Math_SmoothStepToF(&pthis->unk_1F8, 1.0f, 0.5f, 0.02f, 0.001f);
 	Math_SmoothStepToF(&pthis->unk_208, 0.05f, 1.0f, 0.005f, 0.0f);
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(pthis->unk_1DA == 0)
+	if(pthis->blowFireTimer == 0)
 	{
 		Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_009D10, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_009D10), ANIMMODE_ONCE, -5.0f);
 		pthis->actionFunc = BossDodongo_GetUp;
@@ -718,12 +710,12 @@ void BossDodongo_BlowFire(BossDodongo* pthis, GlobalContext* globalCtx)
 
 	if((pthis->skelAnime.curFrame > 17.0f) && (pthis->skelAnime.curFrame < 35.0f))
 	{
-		BossDodongo_SpawnFire(pthis, globalCtx, pthis->unk_1AE);
-		pthis->unk_1AE++;
+		BossDodongo_SpawnFire(pthis, globalCtx, pthis->fireBallParams);
+		pthis->fireBallParams++;
 		Math_SmoothStepToF(&pthis->unk_244, 0.0f, 1.0f, 8.0f, 0.0f);
 	}
 
-	if(pthis->unk_1DA == 0)
+	if(pthis->blowFireTimer == 0)
 	{
 		BossDodongo_SetupRoll(pthis);
 	}
@@ -733,7 +725,7 @@ void BossDodongo_Inhale(BossDodongo* pthis, GlobalContext* GlobalContext)
 {
 	pthis->unk_1E2 = 1;
 
-	if(pthis->unk_1AC > 20)
+	if(pthis->eatExplosiveTimer > 20)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_BREATH - SFX_FLAG);
 	}
@@ -741,15 +733,15 @@ void BossDodongo_Inhale(BossDodongo* pthis, GlobalContext* GlobalContext)
 	Math_SmoothStepToF(&pthis->unk_208, 0.05f, 1.0f, 0.005f, 0.0f);
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(pthis->unk_1DA == 0)
+	if(pthis->blowFireTimer == 0)
 	{
 		BossDodongo_SetupBlowFire(pthis);
 	}
 	else
 	{
-		pthis->unk_1AC++;
+		pthis->eatExplosiveTimer++;
 
-		if((pthis->unk_1AC > 20) && (pthis->unk_1AC < 82) && BossDodongo_AteExplosive(pthis, GlobalContext))
+		if((pthis->eatExplosiveTimer > 20) && (pthis->eatExplosiveTimer < 82) && BossDodongo_AteExplosive(pthis, GlobalContext))
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DRINK);
 			BossDodongo_SetupExplode(pthis);
@@ -778,7 +770,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx)
 			pthis->unk_1AA = 1;
 		}
 	}
-	else if(pthis->unk_1BC != 2)
+	else if(pthis->walkingState != 2)
 	{
 		if(((s32)pthis->skelAnime.curFrame == 1) || ((s32)pthis->skelAnime.curFrame == 31))
 		{
@@ -791,7 +783,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx)
 				Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->unk_404, 25.0f, 0xA, 8.0f, 0x1F4, 0xA, 0);
 			}
 
-			if(pthis->unk_1BC != 0)
+			if(pthis->walkingState != 0)
 			{
 				Common_PlaySfx(NA_SE_EN_DODO_K_WALK);
 			}
@@ -806,7 +798,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx)
 			}
 			else
 			{
-				pthis->unk_1B6 = 10;
+				pthis->cutsceneCameraBounceTimer = 10;
 				Rumble_Shake2(0.0f, 180, 20, 100);
 			}
 		}
@@ -846,7 +838,7 @@ void BossDodongo_Walk(BossDodongo* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((pthis->unk_1DA == 0) && (pthis->unk_1BC == 0))
+	if((pthis->blowFireTimer == 0) && (pthis->walkingState == 0))
 	{
 		if((pthis->actor.xzDistToPlayer < 500.0f) && (pthis->unk_1A4 != 0) && !pthis->playerPosInRange)
 		{
@@ -871,13 +863,13 @@ void BossDodongo_Roll(BossDodongo* pthis, GlobalContext* globalCtx)
 	pthis->actor.flags |= ACTOR_FLAG_24;
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(pthis->unk_1DA == 10)
+	if(pthis->blowFireTimer == 10)
 	{
 		pthis->actor.velocity.y = 15.0f;
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_CRY);
 	}
 
-	if(pthis->unk_1DA == 1)
+	if(pthis->blowFireTimer == 1)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_COLI2);
 	}
@@ -885,7 +877,7 @@ void BossDodongo_Roll(BossDodongo* pthis, GlobalContext* globalCtx)
 	sp5C = &sCornerPositions[pthis->unk_1A0];
 	pthis->unk_1EC = 3.0f;
 
-	if(pthis->unk_1DA == 0)
+	if(pthis->blowFireTimer == 0)
 	{
 		Math_SmoothStepToF(&pthis->unk_1E4, pthis->unk_1EC * 5.0f, 1.0f, pthis->unk_1EC * 0.25f, 0.0f);
 		Math_SmoothStepToF(&pthis->actor.world.pos.x, sp5C->x, 1.0f, pthis->unk_1E4, 0.0f);
@@ -897,12 +889,12 @@ void BossDodongo_Roll(BossDodongo* pthis, GlobalContext* globalCtx)
 			pthis->unk_228 = 7700.0f;
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_ROLL - SFX_FLAG);
 
-			if((pthis->unk_19E & 7) == 0)
+			if((pthis->lavaFloorTimer & 7) == 0)
 			{
 				Camera_AddQuake(&globalCtx->mainCamera, 2, 1, 8);
 			}
 
-			if(!(pthis->unk_19E & 1))
+			if(!(pthis->lavaFloorTimer & 1))
 			{
 				Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->actor.world.pos, 40.0f, 3, 8.0f, 0x1F4, 0xA, 0);
 			}
@@ -974,26 +966,16 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 	s32 pad;
 
 	pthis->unk_1E2 = 0;
-	pthis->unk_19E++;
+	pthis->lavaFloorTimer++;
 
-	if(pthis->unk_1DA != 0)
+	if(pthis->blowFireTimer != 0)
 	{
-		pthis->unk_1DA--;
+		pthis->blowFireTimer--;
 	}
 
-	if(pthis->unk_1DC != 0)
+	if(pthis->whiteFlashFogTimer != 0)
 	{
-		pthis->unk_1DC--;
-	}
-
-	if(pthis->unk_1DE != 0)
-	{
-		pthis->unk_1DE--;
-	}
-
-	if(pthis->unk_1C0 != 0)
-	{
-		pthis->unk_1C0--;
+		pthis->whiteFlashFogTimer--;
 	}
 
 	if(pthis->unk_1C8 != 0)
@@ -1037,17 +1019,17 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 	Math_SmoothStepToF(&pthis->unk_208, 0, 1, 0.001f, 0.0);
 	Math_SmoothStepToF(&pthis->unk_20C, 0, 1, 0.001f, 0.0);
 
-	if((pthis->unk_19E % 128) == 0)
+	if((pthis->lavaFloorTimer % 128) == 0)
 	{
 		for(i = 0; i < 50; i++)
 		{
-			pthis->unk_324[i] = (Rand_ZeroOne() * 0.25f) + 0.5f;
+			pthis->limbRndRot[i] = (Rand_ZeroOne() * 0.25f) + 0.5f;
 		}
 	}
 
 	for(i = 0; i < 50; i++)
 	{
-		pthis->unk_25C[i] += pthis->unk_324[i];
+		pthis->limbRot[i] += pthis->limbRndRot[i];
 	}
 
 	if(pthis->unk_1C8 != 0)
@@ -1070,16 +1052,16 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 		}
 	}
 
-	if(pthis->unk_1BE != 0)
+	if(pthis->colorFilterTransitionTimer != 0)
 	{
-		if(pthis->unk_1BE >= 1000)
+		if(pthis->colorFilterTransitionTimer >= 1000)
 		{
 			Math_SmoothStepToF(&pthis->colorFilterR, 30.0f, 1, 20.0f, 0.0);
 			Math_SmoothStepToF(&pthis->colorFilterG, 10.0f, 1, 20.0f, 0.0);
 		}
 		else
 		{
-			pthis->unk_1BE--;
+			pthis->colorFilterTransitionTimer--;
 			Math_SmoothStepToF(&pthis->colorFilterR, 255.0f, 1, 20.0f, 0.0);
 			Math_SmoothStepToF(&pthis->colorFilterG, 0.0f, 1, 20.0f, 0.0);
 		}
@@ -1104,13 +1086,13 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 		s16 magma2DrawMode;
 		s16 magmaScale = 0;
 
-		if(pthis->unk_224 > 1.9f)
+		if(pthis->floorTexTransitionMultiplier > 1.9f)
 		{
 			phi_s0_3 = 1;
 			magma2DrawMode = 0;
 			sp90 = 0;
 		}
-		else if(pthis->unk_224 > 1.7f)
+		else if(pthis->floorTexTransitionMultiplier > 1.7f)
 		{
 			phi_s0_3 = 3;
 			sp90 = 1;
@@ -1119,13 +1101,13 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 			}
 			magma2DrawMode = 0;
 		}
-		else if(pthis->unk_224 > 1.4f)
+		else if(pthis->floorTexTransitionMultiplier > 1.4f)
 		{
 			phi_s0_3 = 7;
 			sp90 = 3;
 			magma2DrawMode = Rand_ZeroOne() * 1.9f;
 		}
-		else if(pthis->unk_224 > 1.1f)
+		else if(pthis->floorTexTransitionMultiplier > 1.1f)
 		{
 			phi_s0_3 = 7;
 			sp90 = 4095;
@@ -1144,7 +1126,7 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 			phi_s0_3 = -1;
 		}
 
-		if((pthis->unk_19E & phi_s0_3) == 0)
+		if((pthis->lavaFloorTimer & phi_s0_3) == 0)
 		{
 			Vec3f sp84;
 			f32 temp_f12;
@@ -1158,7 +1140,7 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 			EffectSsGMagma2_Spawn(globalCtx, &sp84, &magmaPrimColor_84[magma2DrawMode], &magmaEnvColor_84[magma2DrawMode], 10 - (magma2DrawMode * 5), magma2DrawMode, magmaScale + 100);
 		}
 
-		if((pthis->unk_19E & sp90) == 0)
+		if((pthis->lavaFloorTimer & sp90) == 0)
 		{
 			Vec3f sp6C = {0.0f, 0.0f, 0.0f};
 			Vec3f sp60 = {0.0f, 0.0f, 0.0f};
@@ -1184,14 +1166,14 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 			}
 		}
 
-		func_808C1554(gDodongosCavernBossLavaFloorTex, sLavaFloorLavaTex, pthis->unk_19E, pthis->unk_224);
+		TransitionLavaFloorTex(gDodongosCavernBossLavaFloorTex, sLavaFloorLavaTex, pthis->lavaFloorTimer, pthis->floorTexTransitionMultiplier);
 	}
 
 	if(pthis->unk_1C6 != 0)
 	{
 		u16* ptr1 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorLavaTex);
 		u16* ptr2 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorRockTex);
-		s16 i2;
+		TimerS16 i2;
 
 		for(i2 = 0; i2 < 20; i2++)
 		{
@@ -1200,10 +1182,10 @@ void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx2)
 			ptr1[new_var] = ptr2[new_var];
 			pthis->unk_1C2 += 37;
 		}
-		Math_SmoothStepToF(&pthis->unk_224, 0.0f, 1.0f, 0.01f, 0.0f);
+		Math_SmoothStepToF(&pthis->floorTexTransitionMultiplier, 0.0f, 1.0f, 0.01f, 0.0f);
 	}
 
-	if(pthis->unk_1BC == 0)
+	if(pthis->walkingState == 0)
 	{
 		if(pthis->actionFunc != BossDodongo_DeathCutscene)
 		{
@@ -1254,7 +1236,7 @@ s32 BossDodongo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
 	// required for matching
 	if((limbIndex == 6) || (limbIndex == 7))
 	{
-		if(pthis->unk_25C)
+		if(pthis->limbRot)
 		{
 		}
 		goto block_1;
@@ -1279,13 +1261,13 @@ block_1:
 
 		if((limbIndex != 6) && (limbIndex != 7))
 		{
-			Matrix_RotateX(pthis->unk_25C[limbIndex] * 0.115f, MTXMODE_APPLY);
-			Matrix_RotateY(pthis->unk_25C[limbIndex] * 0.13f, MTXMODE_APPLY);
-			Matrix_RotateZ(pthis->unk_25C[limbIndex] * 0.1f, MTXMODE_APPLY);
+			Matrix_RotateX(pthis->limbRot[limbIndex] * 0.115f, MTXMODE_APPLY);
+			Matrix_RotateY(pthis->limbRot[limbIndex] * 0.13f, MTXMODE_APPLY);
+			Matrix_RotateZ(pthis->limbRot[limbIndex] * 0.1f, MTXMODE_APPLY);
 			Matrix_Scale(1.0f - pthis->unk_208, pthis->unk_208 + 1.0f, 1.0f - pthis->unk_208, MTXMODE_APPLY);
-			Matrix_RotateZ(-(pthis->unk_25C[limbIndex] * 0.1f), MTXMODE_APPLY);
-			Matrix_RotateY(-(pthis->unk_25C[limbIndex] * 0.13f), MTXMODE_APPLY);
-			Matrix_RotateX(-(pthis->unk_25C[limbIndex] * 0.115f), MTXMODE_APPLY);
+			Matrix_RotateZ(-(pthis->limbRot[limbIndex] * 0.1f), MTXMODE_APPLY);
+			Matrix_RotateY(-(pthis->limbRot[limbIndex] * 0.13f), MTXMODE_APPLY);
+			Matrix_RotateX(-(pthis->limbRot[limbIndex] * 0.115f), MTXMODE_APPLY);
 		}
 
 		gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3822), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -1330,7 +1312,7 @@ void BossDodongo_Draw(Actor* thisx, GlobalContext* globalCtx)
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_dodongo.c", 3922);
 	func_80093D18(globalCtx->gfxCtx);
 
-	if((pthis->unk_1C0 >= 2) && (pthis->unk_1C0 & 1))
+	if((pthis->whiteFlashFogTimer >= 2) && (pthis->whiteFlashFogTimer & 1))
 	{
 		POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 255, 255, 0, 900, 1099);
 	}
@@ -1456,7 +1438,7 @@ void BossDodongo_UpdateDamage(BossDodongo* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(pthis->unk_1C0 == 0)
+	if(pthis->whiteFlashFogTimer == 0)
 	{
 		if(pthis->actionFunc == BossDodongo_Inhale)
 		{
@@ -1470,9 +1452,9 @@ void BossDodongo_UpdateDamage(BossDodongo* pthis, GlobalContext* globalCtx)
 					if((item2->toucher.dmgFlags & 0x10) || (item2->toucher.dmgFlags & 4))
 					{
 						pthis->collider.elements[i].info.bumperFlags &= ~2;
-						pthis->unk_1C0 = 2;
+						pthis->whiteFlashFogTimer = 2;
 						BossDodongo_SetupWalk(pthis);
-						pthis->unk_1DA = 0x32;
+						pthis->blowFireTimer = 0x32;
 						return;
 					}
 				}
@@ -1491,7 +1473,7 @@ void BossDodongo_UpdateDamage(BossDodongo* pthis, GlobalContext* globalCtx)
 				{
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DAMAGE);
 					BossDodongo_SetupDamaged(pthis);
-					pthis->unk_1C0 = 5;
+					pthis->whiteFlashFogTimer = 5;
 					pthis->health -= swordDamage;
 				}
 			}
@@ -1506,10 +1488,10 @@ void BossDodongo_SetupDeathCutscene(BossDodongo* pthis)
 	Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_002D0C, 1.0f, 0.0f, Animation_GetLastFrame(&object_kingdodongo_Anim_002D0C), ANIMMODE_ONCE, -5.0f);
 	pthis->actionFunc = BossDodongo_DeathCutscene;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_DEAD);
-	pthis->unk_1DA = 0;
+	pthis->blowFireTimer = 0;
 	pthis->csState = 0;
 	pthis->actor.flags &= ~(ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2);
-	pthis->unk_1BC = 1;
+	pthis->walkingState = 1;
 	Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 }
 
@@ -1579,7 +1561,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				pthis->unk_204 = 0.0f;
 				pthis->unk_1E4 = 0.0f;
 				pthis->numWallCollisions = 0;
-				pthis->unk_19E = 0;
+				pthis->lavaFloorTimer = 0;
 			}
 			break;
 		case 7:
@@ -1590,19 +1572,19 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			Math_SmoothStepToF(&pthis->cameraEye.x, -890.0f, 0.1f, pthis->unk_204 * 5.0f, 0.1f);
 			Math_SmoothStepToF(&pthis->cameraEye.z, -3304.0f, 0.1f, pthis->unk_204 * 5.0f, 0.1f);
 			Math_SmoothStepToF(&pthis->unk_204, 1.0f, 1.0f, 0.1f, 0.0f);
-			if(pthis->unk_1DA == 1)
+			if(pthis->blowFireTimer == 1)
 			{
 				pthis->csState = 8;
 				pthis->actor.speedXZ = pthis->unk_1E4 / 1.5f;
 				if(pthis->unk_1A2 == 0)
 				{
-					pthis->unk_238 = 250.0f;
+					pthis->endSceneCameraRotation = 250.0f;
 				}
 				else
 				{
-					pthis->unk_238 = -250.0f;
+					pthis->endSceneCameraRotation = -250.0f;
 				}
-				pthis->unk_1DA = 1000;
+				pthis->blowFireTimer = 1000;
 				pthis->unk_234 = 2000.0f;
 			}
 			else
@@ -1613,14 +1595,14 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				tempSin = cornerPos->x - pthis->actor.world.pos.x;
 				tempCos = cornerPos->z - pthis->actor.world.pos.z;
 				sp178 = sqrtf(SQ(tempSin) + SQ(tempCos)) - 200.0f;
-				if((sqrtf(SQ(tempSin) + SQ(tempCos)) < 200.0f) || (pthis->unk_1DA != 0))
+				if((sqrtf(SQ(tempSin) + SQ(tempCos)) < 200.0f) || (pthis->blowFireTimer != 0))
 				{
 					sp178 = 0.0f;
 				}
 				sp178 = CLAMP_MAX(sp178, 70.0f);
-				pthis->unk_23C = (Math_SinS(pthis->unk_19E * 1000) * -50.0f) / 100.0f;
+				pthis->unk_23C = (Math_SinS(pthis->lavaFloorTimer * 1000) * -50.0f) / 100.0f;
 
-				sp198.x = Math_SinS(pthis->unk_19E * 1000) * sp178;
+				sp198.x = Math_SinS(pthis->lavaFloorTimer * 1000) * sp178;
 				sp198.y = sp198.z = 0.0f;
 
 				Matrix_RotateY(pthis->actor.shape.rot.y * (M_PI / 0x8000), MTXMODE_NEW);
@@ -1629,11 +1611,11 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				Math_SmoothStepToF(&pthis->actor.world.pos.x, cornerPos->x + sp184.x, 1.0f, pthis->unk_1E4, 0.0f);
 				Math_SmoothStepToF(&pthis->actor.world.pos.z, cornerPos->z + sp184.z, 1.0f, pthis->unk_1E4, 0.0f);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_ROLL - SFX_FLAG);
-				if((pthis->unk_19E & 7) == 0)
+				if((pthis->lavaFloorTimer & 7) == 0)
 				{
 					Camera_AddQuake(&globalCtx->mainCamera, 2, 1, 8);
 				}
-				if(!(pthis->unk_19E & 1))
+				if(!(pthis->lavaFloorTimer & 1))
 				{
 					Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->actor.world.pos, 40.0f, 3, 8.0f, 0x1F4, 0xA, 0);
 				}
@@ -1664,7 +1646,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 							pthis->unk_1A0 = 3;
 						}
 					}
-					pthis->unk_1DA = 0xA;
+					pthis->blowFireTimer = 0xA;
 					dustPos.x = pthis->actor.world.pos.x;
 					dustPos.y = pthis->actor.world.pos.y + 60.0f;
 					dustPos.z = pthis->actor.world.pos.z;
@@ -1674,17 +1656,16 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			break;
 		case 8:
 		case 9:
-			if(pthis->unk_1DA == 884)
+			if(pthis->blowFireTimer == 884)
 			{
 				Animation_Change(&pthis->skelAnime, &object_kingdodongo_Anim_0042A8, 1.0f, 0.0f, (f32)Animation_GetLastFrame(&object_kingdodongo_Anim_0042A8), ANIMMODE_LOOP, -20.0f);
 				tempSin = pthis->cameraEye.x - pthis->actor.world.pos.x;
 				tempCos = pthis->cameraEye.z - pthis->actor.world.pos.z;
 				pthis->unk_22C = sqrtf(SQ(tempSin) + SQ(tempCos));
 				pthis->unk_230 = Math_FAtan2F(tempSin, tempCos);
-				pthis->unk_1DC = 350;
 				pthis->csState = 9;
 			}
-			if(pthis->unk_1DA < 854)
+			if(pthis->blowFireTimer < 854)
 			{
 				for(i = 0; i < 2; i++)
 				{
@@ -1695,28 +1676,28 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 					}
 				}
 			}
-			if(pthis->unk_1DA < 984)
+			if(pthis->blowFireTimer < 984)
 			{
 				Math_SmoothStepToS(&pthis->unk_1C4, -0x4000, 0xA, 0x12C, 0);
 			}
-			if(pthis->unk_1DA == 904)
+			if(pthis->blowFireTimer == 904)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_END);
 			}
-			if(pthis->unk_1DA < 854)
+			if(pthis->blowFireTimer < 854)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_LAST - SFX_FLAG);
 			}
-			if(pthis->unk_1DA == 960)
+			if(pthis->blowFireTimer == 960)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_LAVA);
 			}
-			if(pthis->unk_1DA < 960)
+			if(pthis->blowFireTimer < 960)
 			{
 				Math_SmoothStepToF(&pthis->actor.shape.shadowScale, 0.0f, 1.0f, 10.0f, 0.0f);
-				if(pthis->unk_1DA >= 710)
+				if(pthis->blowFireTimer >= 710)
 				{
-					if(pthis->unk_1DA == 710)
+					if(pthis->blowFireTimer == 710)
 					{
 						Vec3f sp124[] = {
 						    {-440.0f, 0.0f, -3304.0f},
@@ -1745,7 +1726,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 						player->actor.world.pos.z = phi_v0_2->z;
 						pthis->unk_204 = 0.0f;
 					}
-					if(pthis->unk_1DA >= 885)
+					if(pthis->blowFireTimer >= 885)
 					{
 						Math_SmoothStepToF(&pthis->unk_228, 200.0, 0.2f, 100.0f, 0.0f);
 					}
@@ -1773,31 +1754,31 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			else
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DODO_K_ROLL - SFX_FLAG);
-				if(!(pthis->unk_19E & 1))
+				if(!(pthis->lavaFloorTimer & 1))
 				{
 					Actor_SpawnFloorDustRing(globalCtx, &pthis->actor, &pthis->actor.world.pos, 40.0f, 3, 8.0f, 0x1F4, 0xA, 0);
 				}
 			}
 			Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 0.2f, 0.1f, 0.0f);
-			pthis->actor.world.rot.y += (s16)pthis->unk_238;
-			pthis->unk_1C4 += (s16)pthis->unk_234;
-			if(pthis->unk_1DA >= 0x367)
+			pthis->actor.world.rot.y += pthis->endSceneCameraRotation;
+			pthis->unk_1C4 += pthis->unk_234;
+			if(pthis->blowFireTimer >= 0x367)
 			{
 				if(pthis->unk_1A2 == 0)
 				{
-					if(pthis->unk_238 < 450.0f)
+					if(pthis->endSceneCameraRotation < 450.0f)
 					{
-						pthis->unk_238 += 10.0f;
+						pthis->endSceneCameraRotation += 10.0f;
 					}
 				}
-				else if(-450.0f < pthis->unk_238)
+				else if(-450.0f < pthis->endSceneCameraRotation)
 				{
-					pthis->unk_238 -= 10.0f;
+					pthis->endSceneCameraRotation -= 10.0f;
 				}
 			}
 			else
 			{
-				Math_SmoothStepToF(&pthis->unk_238, 0.0f, 0.05f, 40.0f, 0.0f);
+				Math_SmoothStepToF(&pthis->endSceneCameraRotation, 0.0f, 0.05f, 40.0f, 0.0f);
 			}
 			Math_SmoothStepToF(&pthis->unk_234, 0.0f, 0.2f, 17.0f, 0.0f);
 			Math_SmoothStepToF(&pthis->cameraAt.x, pthis->actor.world.pos.x, 0.2f, 30.0f, 0.0f);
@@ -1805,7 +1786,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			Math_SmoothStepToF(&pthis->cameraAt.z, pthis->actor.world.pos.z, 0.2f, 30.0f, 0.0f);
 			if(pthis->csState == 9)
 			{
-				if(pthis->unk_1DA < 0x2C6)
+				if(pthis->blowFireTimer < 0x2C6)
 				{
 					Vec3f spAC[] = {{-390.0f, 0.0f, -3304.0f}, {-890.0f, 0.0f, -3804.0f}, {-1390.0f, 0.0f, -3304.0f}, {-890.0f, 0.0f, -2804.0f}};
 
@@ -1862,21 +1843,21 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				Math_SmoothStepToF(&pthis->unk_204, 1.0f, 1.0f, 0.05f, 0.0f);
 			}
 
-			if(pthis->unk_1DA == 820)
+			if(pthis->blowFireTimer == 820)
 			{
 				Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_BOSS_CLEAR);
 				Actor_Spawn(
 				    &globalCtx->actorCtx, globalCtx, ACTOR_ITEM_B_HEART, Math_SinS(pthis->actor.shape.rot.y) * -50.0f + pthis->actor.world.pos.x, pthis->actor.world.pos.y,
 				    Math_CosS(pthis->actor.shape.rot.y) * -50.0f + pthis->actor.world.pos.z, 0, 0, 0, 0);
 			}
-			if(pthis->unk_1DA == 600)
+			if(pthis->blowFireTimer == 600)
 			{
 				camera = Gameplay_GetCamera(globalCtx, MAIN_CAM);
 				camera->eye = pthis->cameraEye;
 				camera->eyeNext = pthis->cameraEye;
 				camera->at = pthis->cameraAt;
 				func_800C08AC(globalCtx, pthis->cutsceneCamera, 0);
-				pthis->unk_1BC = 0;
+				pthis->walkingState = 0;
 				pthis->cutsceneCamera = MAIN_CAM;
 				pthis->csState = 100;
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_ACTIVE);
@@ -1887,7 +1868,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				Flags_SetClear(globalCtx, globalCtx->roomCtx.curRoom.num);
 			}
 		case 100:
-			if((pthis->unk_1DA < 0x2C6) && (Rand_ZeroOne() < 0.5f))
+			if((pthis->blowFireTimer < 0x2C6) && (Rand_ZeroOne() < 0.5f))
 			{
 				Vec3f sp68;
 				Color_RGBA8 D_808CA568 = {0, 0, 0, 100};

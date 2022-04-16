@@ -84,7 +84,7 @@ static u8 sDisableBombCatcher;
 
 static u8 sUnused[90]; // unknown length
 
-static s32 sTimer;
+static TimerS32 sTimer;
 
 static Vec3f velocity = {0.0f, -1.5f, 0.0f};
 static Vec3f acceleration = {0.0f, -0.2f, 0.0f};
