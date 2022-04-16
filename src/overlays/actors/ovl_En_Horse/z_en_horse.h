@@ -144,7 +144,7 @@ struct EnHorse
 {
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ EnHorseAction action;
-	/* 0x0150 */ s32 noInputTimer;
+	/* 0x0150 */ TimerS32 noInputTimer;
 	/* 0x0154 */ s32 noInputTimerMax;
 	/* 0x0158 */ s32 type;
 	/* 0x015C */ s32 bankIndex;
@@ -163,7 +163,7 @@ struct EnHorse
 	/* 0x0234 */ s32 unk_234;
 	/* 0x0238 */ u8 numBoosts;
 	/* 0x023C */ s32 boostRegenTime;
-	/* 0x0240 */ s32 boostTimer;
+	/* 0x0240 */ TimerS32 boostTimer;
 	/* 0x0244 */ EnHorsePostdrawFunc postDrawFunc;
 	/* 0x0248 */ f32 yFront; // The y coordinate of the floor under the front feet
 	/* 0x024C */ f32 yBack;	 // The y coordinate of the floor under the back feet
@@ -182,7 +182,7 @@ struct EnHorse
 	/* 0x0374 */ s16 unk_374;
 	/* 0x0376 */ s16 angleToPlayer;
 	/* 0x0378 */ s16 followPlayerTurnSpeed;
-	/* 0x037A */ u8 blinkTimer;
+	/* 0x037A */ TimerU8 blinkTimer;
 	/* 0x037C */ Timer waitTimer;
 	/* 0x037E */ s16 unk_37E;
 	/* 0x0380 */ s32 cutsceneAction;
@@ -197,10 +197,10 @@ struct EnHorse
 	/* 0x039C */ s32 unk_39C; // probably hbaAction
 	/* 0x03A0 */ s32 hbaStarted;
 	/* 0x03A4 */ s32 hbaFlags;
-	/* 0x03A8 */ s32 hbaTimer;
+	/* 0x03A8 */ TimerS32 hbaTimer;
 	/* 0x03AC */ u8 bridgeJumpIdx;
 	/* 0x03B0 */ Vec3f bridgeJumpStart;
-	/* 0x03BC */ s32 bridgeJumpTimer;
+	/* 0x03BC */ TimerS32 bridgeJumpTimer;
 	/* 0x03C0 */ f32 bridgeJumpYVel;
 	/* 0x03C4 */ s16 bridgeJumpRelAngle;
 	/* 0x03C6 */ s16 unk_3C6; // pad

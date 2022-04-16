@@ -26,8 +26,8 @@ struct Demo6K
 	/* 0x0284 */ ActorFunc drawFunc;
 	/* 0x0288 */ Demo6KActionFunc actionFunc;
 	/* 0x028C */ u16 flags;
-	/* 0x028E */ u16 timer1;
-	/* 0x0290 */ u16 timer2;
+	/* 0x028E */ TimerU16 timer1;
+	/* 0x0290 */ TimerU16 timer2;
 	/* 0x0292 */ s32 objBankIndex;
 	/* 0x0293 */ u8 unk_293;
 };

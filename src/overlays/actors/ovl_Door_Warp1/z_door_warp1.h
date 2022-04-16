@@ -40,7 +40,7 @@ struct DoorWarp1
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ SkelAnime skelAnime;
 	/* 0x0190 */ char unk_190[0x2];
-	/* 0x0192 */ u16 warpTimer;
+	/* 0x0192 */ TimerU16 warpTimer;
 	/* 0x0194 */ f32 unk_194;
 	/* 0x0198 */ f32 unk_198;
 	/* 0x019C */ f32 unk_19C;

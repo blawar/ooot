@@ -12,6 +12,6 @@ struct BgGndFiremeiro
 {
 	/* 0x0000 */ DynaPolyActor dyna;
 	/* 0x0164 */ Vec3f initPos;
-	/* 0x0170 */ u16 timer;
+	/* 0x0170 */ TimerU16 timer;
 	/* 0x0174 */ BgGndFiremeiroActionFunc actionFunc;
 };

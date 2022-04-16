@@ -12469,7 +12469,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 	if((pthis->currentBoots == PLAYER_BOOTS_HOVER) && !(pthis->actor.bgCheckFlags & BG_STATE_0) && !(pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && (pthis->hoverBootsTimer != 0))
 	{
 		s32 sp5C;
-		s32 hoverBootsTimer = pthis->hoverBootsTimer;
+		auto hoverBootsTimer = pthis->hoverBootsTimer;
 
 		if(pthis->hoverBootsTimer < 19)
 		{

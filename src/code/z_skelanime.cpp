@@ -945,6 +945,13 @@ void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader
 				Vec3s* limbs2 = (Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * frame2));
 				AnimationContext_SetInterp(globalCtx, limbCount, limbs1, limbs2, weight);
 			}
+			else if(frame2 == linkAnimHeader->common.frameCount)
+			{
+				const float weight = (float)frame - frame1;
+				Vec3s* limbs1 = (Vec3s*)ram;
+				Vec3s* limbs2 = (Vec3s*)LINK_ANIMATION_OFFSET(linkAnimHeader->segment, ((sizeof(Vec3s) * limbCount + 2) * 0));
+				AnimationContext_SetInterp(globalCtx, limbCount, limbs1, limbs2, weight);
+			}
 		}
 	}
 }
@@ -1359,7 +1366,7 @@ void LinkAnimation_Change(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAn
 		else
 		{
 			skelAnime->update = LinkAnimation_Morph;
-			AnimationContext_SetLoadFrame(globalCtx, animation, (s32)startFrame, skelAnime->limbCount, skelAnime->morphTable);
+			AnimationContext_SetLoadFrame(globalCtx, animation, startFrame, skelAnime->limbCount, skelAnime->morphTable);
 		}
 		skelAnime->morphWeight = 1.0f;
 		skelAnime->morphRate = 1.0f / morphFrames;
@@ -1367,7 +1374,7 @@ void LinkAnimation_Change(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAn
 	else
 	{
 		LinkAnimation_SetUpdateFunction(skelAnime);
-		AnimationContext_SetLoadFrame(globalCtx, animation, (s32)startFrame, skelAnime->limbCount, skelAnime->jointTable);
+		AnimationContext_SetLoadFrame(globalCtx, animation, startFrame, skelAnime->limbCount, skelAnime->jointTable);
 		skelAnime->morphWeight = 0.0f;
 	}
 
@@ -1434,7 +1441,7 @@ void LinkAnimation_CopyMorphToJoint(GlobalContext* globalCtx, SkelAnime* skelAni
  */
 void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation, f32 frame)
 {
-	AnimationContext_SetLoadFrame(globalCtx, animation, (s32)frame, skelAnime->limbCount, skelAnime->morphTable);
+	AnimationContext_SetLoadFrame(globalCtx, animation, frame, skelAnime->limbCount, skelAnime->morphTable);
 }
 
 /**
@@ -1442,7 +1449,7 @@ void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, L
  */
 void LinkAnimation_LoadToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation, f32 frame)
 {
-	AnimationContext_SetLoadFrame(globalCtx, animation, (s32)frame, skelAnime->limbCount, skelAnime->jointTable);
+	AnimationContext_SetLoadFrame(globalCtx, animation, frame, skelAnime->limbCount, skelAnime->jointTable);
 }
 
 /**
@@ -1460,11 +1467,11 @@ void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, 
 {
 	Vec3s* alignedBlendTable;
 
-	AnimationContext_SetLoadFrame(globalCtx, animation1, (s32)frame1, skelAnime->limbCount, skelAnime->jointTable);
+	AnimationContext_SetLoadFrame(globalCtx, animation1, frame1, skelAnime->limbCount, skelAnime->jointTable);
 
 	alignedBlendTable = (Vec3s*)ALIGN16((uintptr_t)blendTable);
 
-	AnimationContext_SetLoadFrame(globalCtx, animation2, (s32)frame2, skelAnime->limbCount, alignedBlendTable);
+	AnimationContext_SetLoadFrame(globalCtx, animation2, frame2, skelAnime->limbCount, alignedBlendTable);
 	AnimationContext_SetInterp(globalCtx, skelAnime->limbCount, skelAnime->jointTable, alignedBlendTable, blendWeight);
 }
 
@@ -1475,11 +1482,11 @@ void LinkAnimation_BlendToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, 
 {
 	Vec3s* alignedBlendTable;
 
-	AnimationContext_SetLoadFrame(globalCtx, animation1, (s32)frame1, skelAnime->limbCount, skelAnime->morphTable);
+	AnimationContext_SetLoadFrame(globalCtx, animation1, frame1, skelAnime->limbCount, skelAnime->morphTable);
 
 	alignedBlendTable = (Vec3s*)ALIGN16((u32)blendTable);
 
-	AnimationContext_SetLoadFrame(globalCtx, animation2, (s32)frame2, skelAnime->limbCount, alignedBlendTable);
+	AnimationContext_SetLoadFrame(globalCtx, animation2, frame2, skelAnime->limbCount, alignedBlendTable);
 	AnimationContext_SetInterp(globalCtx, skelAnime->limbCount, skelAnime->morphTable, alignedBlendTable, blendWeight);
 }
 

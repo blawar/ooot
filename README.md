@@ -142,3 +142,8 @@ This software is licensed under the terms of the GPLv2, with exemptions noted be
 [52011c3d](https://github.com/blawar/ooot/commit/52011c3d38464a75461c9eb09bf6cb86b4c171b3)
 [55765bca](https://github.com/blawar/ooot/commit/55765bca971154215348ae3eb533b0902af24d66)
 
+## Special Thanks
+- damarkov: Programming
+- frizzle101101: Free Camera and high framerate fixes
+- lehpumeh: Endless Testing
+- mattscreative: Videos, Tutorials, and Wiki

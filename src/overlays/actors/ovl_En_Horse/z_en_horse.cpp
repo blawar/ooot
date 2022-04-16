@@ -4512,7 +4512,7 @@ s32 EnHorse_SkinCallback2(Actor* thisx, GlobalContext* globalCtx, s32 limbIndex,
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_horse.c", 8582);
 	if(limbIndex == 13 && pthis->type == HORSE_EPONA)
 	{
-		u8 index = eyeBlinkIndexes_265[pthis->blinkTimer];
+		u8 index = eyeBlinkIndexes_265[pthis->blinkTimer.whole()];
 
 		gSPSegment(POLY_OPA_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(eyeTextures_265[index]));
 	}

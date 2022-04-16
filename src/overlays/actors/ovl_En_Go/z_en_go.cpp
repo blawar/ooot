@@ -46,7 +46,7 @@ void func_80A40C78(EnGo* pthis, GlobalContext* globalCtx);
 void EnGo_Eyedrops(EnGo* pthis, GlobalContext* globalCtx);
 void func_80A40DCC(EnGo* pthis, GlobalContext* globalCtx);
 
-void EnGo_AddDust(EnGo* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 initialTimer, f32 scale, f32 scaleStep);
+void EnGo_AddDust(EnGo* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, TimerU8 initialTimer, f32 scale, f32 scaleStep);
 void EnGo_UpdateDust(EnGo* pthis);
 void EnGo_DrawDust(EnGo* pthis, GlobalContext* globalCtx);
 
@@ -653,7 +653,7 @@ s32 EnGo_SetMovedPos(EnGo* pthis, GlobalContext* globalCtx)
 	}
 }
 
-s32 EnGo_SpawnDust(EnGo* pthis, u8 initialTimer, f32 scale, f32 scaleStep, s32 numDustEffects, f32 radius, f32 xzAccel)
+s32 EnGo_SpawnDust(EnGo* pthis, TimerU8 initialTimer, f32 scale, f32 scaleStep, s32 numDustEffects, f32 radius, f32 xzAccel)
 {
 	Vec3f pos = {0.0f, 0.0f, 0.0f};
 	Vec3f velocity = {0.0f, 0.0f, 0.0f};
@@ -1410,11 +1410,11 @@ void EnGo_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 }
 
-void EnGo_AddDust(EnGo* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 initialTimer, f32 scale, f32 scaleStep)
+void EnGo_AddDust(EnGo* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, TimerU8 initialTimer, f32 scale, f32 scaleStep)
 {
 	EnGoEffect* dustEffect = pthis->dustEffects;
 	s16 i;
-	s16 timer;
+	TimerS16 timer;
 
 	for(i = 0; i < ARRAY_COUNT(pthis->dustEffects); i++, dustEffect++)
 	{

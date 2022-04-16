@@ -63,8 +63,8 @@ struct BossMoEffect
 	/* 0x0C */ Vec3f vel;
 	/* 0x18 */ Vec3f accel;
 	/* 0x24 */ u8 type;
-	/* 0x25 */ u8 timer;
-	/* 0x26 */ u8 stopTimer;
+	/* 0x25 */ TimerU8 timer;
+	/* 0x26 */ TimerU8 stopTimer;
 	/* 0x28 */ s16 unk_28; // unused?
 	/* 0x2A */ s16 alpha;
 	/* 0x2C */ s16 rippleMode;
@@ -141,7 +141,7 @@ struct BossMo
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ Actor* otherTent;
 	/* 0x0150 */ BossMoActionFunc actionFunc;
-	/* 0x0154 */ u8 tent2KillTimer;
+	/* 0x0154 */ TimerU8 tent2KillTimer;
 	/* 0x0155 */ u8 hitCount;
 	/* 0x0156 */ u8 tentSpawnPos;
 	/* 0x0158 */ s16 work[MO_SHORT_MAX];
@@ -171,7 +171,7 @@ struct BossMo
 	/* 0x01CE */ s16 attackAngleMod;
 	/* 0x01D0 */ u8 unk_1D0; // unused?
 	/* 0x01D1 */ u8 drawActor;
-	/* 0x01D2 */ u8 linkHitTimer;
+	/* 0x01D2 */ TimerU8 linkHitTimer;
 	/* 0x01D4 */ Vec3f targetPos;
 	/* 0x01E0 */ f32 tentRippleSize;
 	/* 0x01E4 */ PosRot grabPosRot;

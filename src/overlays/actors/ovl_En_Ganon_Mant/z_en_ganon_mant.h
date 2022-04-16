@@ -31,9 +31,9 @@ struct EnGanonMant
 	/* 0x16B0 */ f32 backPush;	       // larger values push the cloak further outwards, negative is away from the actor
 	/* 0x16B4 */ f32 backSwayMagnitude;    // magnitude of backwards/forwards swaying
 	/* 0x16B8 */ f32 sideSwayMagnitude;    // magnitude of sideways swaying
-	/* 0x16BC */ f32 attachRightArmTimer;  // timer for the duration of which the cloak is attached to right forearm and left shoulder
-	/* 0x16C0 */ f32 attachLeftArmTimer;   // timer for the duration of which the cloak is attached to left forearm and right shoulder
-	/* 0x16C4 */ f32 attachShouldersTimer; // timer for the duration of which the cloak is attached to both shoulders
+	/* 0x16BC */ TimerF32 attachRightArmTimer;  // timer for the duration of which the cloak is attached to right forearm and left shoulder
+	/* 0x16C0 */ TimerF32 attachLeftArmTimer;   // timer for the duration of which the cloak is attached to left forearm and right shoulder
+	/* 0x16C4 */ TimerF32 attachShouldersTimer; // timer for the duration of which the cloak is attached to both shoulders
 	/* 0x16C8 */ f32 gravity;	       // strand gravity
 	/* 0x16CC */ f32 baseYaw;
 	/* 0x16D0 */ f32 minDist; // closest distance the cloak can get to the attached actor without being pushed away
@@ -41,7 +41,7 @@ struct EnGanonMant
 	/* 0x16E0 */ Vec3f leftForearmPos;
 	/* 0x16EC */ Vec3f rightShoulderPos;
 	/* 0x16F8 */ Vec3f leftShoulderPos;
-	/* 0x1704 */ u8 tearTimer; // tear the cloak for x many frames
+	/* 0x1704 */ TimerU8 tearTimer; // tear the cloak for x many frames
 	/* 0x1705 */ u8 updateHasRun;
-	/* 0x1706 */ u8 frameTimer;
+	/* 0x1706 */ TimerU8 frameTimer;
 };

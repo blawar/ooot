@@ -23,7 +23,7 @@ struct EnNy
 	/* 0x01D1 */ s8 unk_1D1;
 	/* 0x01D4 */ s32 unk_1D4;
 	/* 0x01D8 */ s32 unk_1D8;
-	/* 0x01DC */ s32 stoneTimer; // Delay for when to attempt to change forms
+	/* 0x01DC */ TimerS32 stoneTimer; // Delay for when to attempt to change forms
 	/* 0x01E0 */ f32 unk_1E0;
 	/* 0x01E4 */ f32 unk_1E4; // This, unk_1E8, and unk_1EC have to do with movement speed
 	/* 0x01E8 */ f32 unk_1E8;

@@ -51,7 +51,7 @@ struct EnDaiku
 	/* 0x01F4 */ s32 currentAnimIndex;
 	/* 0x01F8 */ char unk_1F8[4];
 	/* 0x01FC */ s32 subCamActive;
-	/* 0x0200 */ s32 escapeSubCamTimer;
+	/* 0x0200 */ TimerS32 escapeSubCamTimer;
 	/* 0x0204 */ s32 subCamId;
 	/* 0x0208 */ s16 rotYtowardsPath;
 	/* 0x020C */ Vec3f subCamEyeInit;

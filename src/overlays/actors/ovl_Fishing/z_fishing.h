@@ -33,7 +33,7 @@ struct FishingEffect
 	/* 0x0C */ Vec3f vel;
 	/* 0x18 */ Vec3f accel;
 	/* 0x24 */ u8 type;
-	/* 0x25 */ u8 timer;
+	/* 0x25 */ TimerU8 timer;
 	/* 0x26 */ char unk_26[0x04];
 	/* 0x2A */ s16 alpha;
 	/* 0x2C */ s16 unk_2C;

@@ -18,6 +18,6 @@ struct EnDs
 	/* 0x01DE */ Vec3s unk_1DE;
 	/* 0x01E4 */ f32 unk_1E4;
 	/* 0x01E8 */ u16 unk_1E8;
-	/* 0x01EA */ u16 brewTimer;
+	/* 0x01EA */ TimerU16 brewTimer;
 	/* 0x01EC */ EnDsActionFunc actionFunc;
 };

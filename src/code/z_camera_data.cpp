@@ -3278,7 +3278,7 @@ s32 Camera_Battle0(Camera* camera);
 s32 Camera_Battle1(Camera* camera);
 s32 Camera_Battle2(Camera* camera);
 s32 Camera_Battle3(Camera* camera);
-s32 Camera_Battle4(Camera* camera);
+s32 Camera_BattleChargeSpinAttack(Camera* camera);
 s32 Camera_Fixed0(Camera* camera);
 s32 Camera_Fixed1(Camera* camera);
 s32 Camera_Fixed2(Camera* camera);
@@ -3323,7 +3323,7 @@ s32 Camera_Special9(Camera* camera);
 s32 (*sCameraFunctions[])(Camera*) = {
     NULL,	    Camera_Normal0,  Camera_Normal1,  Camera_Normal2,  Camera_Normal3,	Camera_Normal4,	 Camera_Parallel0, Camera_Parallel1, Camera_Parallel2, Camera_Parallel3, Camera_Parallel4, Camera_KeepOn0,
     Camera_KeepOn1, Camera_KeepOn2,  Camera_KeepOn3,  Camera_KeepOn4,  Camera_Subj0,	Camera_Subj1,	 Camera_Subj2,	   Camera_Subj3,     Camera_Subj4,     Camera_Jump0,	 Camera_Jump1,	   Camera_Jump2,
-    Camera_Jump3,   Camera_Jump4,    Camera_Battle0,  Camera_Battle1,  Camera_Battle2,	Camera_Battle3,	 Camera_Battle4,   Camera_Fixed0,    Camera_Fixed1,    Camera_Fixed2,	 Camera_Fixed3,	   Camera_Fixed4,
+    Camera_Jump3,   Camera_Jump4,    Camera_Battle0,  Camera_Battle1,  Camera_Battle2,	Camera_Battle3,	 Camera_BattleChargeSpinAttack,   Camera_Fixed0,    Camera_Fixed1,    Camera_Fixed2,	 Camera_Fixed3,	   Camera_Fixed4,
     Camera_Data0,   Camera_Data1,    Camera_Data2,    Camera_Data3,    Camera_Data4,	Camera_Unique0,	 Camera_Unique1,   Camera_Unique2,   Camera_Unique3,   Camera_Unique4,	 Camera_Unique5,   Camera_Unique6,
     Camera_Unique7, Camera_Unique8,  Camera_Unique9,  Camera_Demo0,    Camera_Demo1,	Camera_Demo2,	 Camera_Demo3,	   Camera_Demo4,     Camera_Demo5,     Camera_Demo6,	 Camera_Demo7,	   Camera_Demo8,
     Camera_Demo9,   Camera_Special0, Camera_Special1, Camera_Special2, Camera_Special3, Camera_Special4, Camera_Special5,  Camera_Special6,  Camera_Special7,  Camera_Special8,	 Camera_Special9,

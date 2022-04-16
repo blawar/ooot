@@ -324,6 +324,8 @@ namespace oot
 			json::setBool(container, "disableDistanceClip", disableDistanceClip(), allocator);
 			json::setBool(container, "useClassicCamera", useClassicCamera(), allocator);
 			json::setFloat(container, "distanceScaler", distanceScaler(), allocator);
+			json::setFloat(container, "scalerX", scalerX(), allocator);
+			json::setFloat(container, "scalerY", scalerY(), allocator);
 
 			doc.AddMember(rapidjson::Value("camera", allocator), container, allocator);
 		}
@@ -336,6 +338,8 @@ namespace oot
 				json::getBool(container, "disableDistanceClip", setDisableDistanceClip());
 				json::getBool(container, "useClassicCamera", useClassicCamera());
 				json::getFloat(container, "distanceScaler", distanceScaler());
+				json::getFloat(container, "scalerX", scalerX());
+				json::getFloat(container, "scalerY", scalerY());
 			}
 		}
 

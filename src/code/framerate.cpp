@@ -74,6 +74,14 @@ static inline float framerate_divider()
 			return 1.5f;
 		case FRAMERATE_20FPS:
 			return 3.0f;
+		case FRAMERATE_15FPS:
+			return 4.0f;
+		case FRAMERATE_12FPS:
+			return 5.0f;
+		case FRAMERATE_10FPS:
+			return 6.0f;
+		case FRAMERATE_7FPS:
+			return 7.0f;
 	}
 	return 20; // ERROR?
 }
@@ -103,7 +111,17 @@ namespace oot
 				GAME_SPEED_RATIO = 1.0f / 4.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.2f;
 				INTERPOLATE_ANIM = true;
-				g_profileRates[2] = FRAMERATE_60FPS;
+
+				g_profileRates[0] = FRAMERATE_7FPS;  // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_15FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_60FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_15FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_15FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_15FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_15FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_15FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_15FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_15FPS; // PROFILE_FILE_CHOOSE
 				break;
 			case 120:
 				SET_FRAMERATE = 120.0f;
@@ -112,7 +130,17 @@ namespace oot
 				GAME_SPEED_RATIO = 0.5f;
 				DEKU_NUT_SPAWN_SCALER = 1.2f;
 				INTERPOLATE_ANIM = true;
-				g_profileRates[2] = FRAMERATE_60FPS;
+
+				g_profileRates[0] = FRAMERATE_15FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_30FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_60FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_30FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_30FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_30FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_30FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_30FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_30FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_30FPS; // PROFILE_FILE_CHOOSE
 				break;
 			case 60:
 				SET_FRAMERATE = 60.0f;
@@ -121,7 +149,17 @@ namespace oot
 				GAME_SPEED_RATIO = 1.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.2f;
 				INTERPOLATE_ANIM = true;
-				g_profileRates[2] = FRAMERATE_60FPS;
+
+				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_60FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_60FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_60FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_60FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_60FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_60FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
 				break;
 			case 30:
 				SET_FRAMERATE = 30.0f;
@@ -130,7 +168,17 @@ namespace oot
 				GAME_SPEED_RATIO = 2.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.2f;
 				INTERPOLATE_ANIM = true;
-				g_profileRates[2] = FRAMERATE_60FPS;
+
+				g_profileRates[0] = FRAMERATE_60FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_120FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_60FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_120FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_120FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_120FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_120FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_120FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_120FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_120FPS; // PROFILE_FILE_CHOOSE
 				break;
 			case 25:
 				SET_FRAMERATE = 25.0f;
@@ -139,7 +187,17 @@ namespace oot
 				GAME_SPEED_RATIO = 1.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.0f;
 				INTERPOLATE_ANIM = false;
-				g_profileRates[2] = FRAMERATE_20FPS;
+
+				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_20FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_60FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_60FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_60FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_60FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_60FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
 				break;
 			case 20:
 			default:
@@ -149,7 +207,17 @@ namespace oot
 				GAME_SPEED_RATIO = 1.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.0f;
 				INTERPOLATE_ANIM = false;
-				g_profileRates[2] = FRAMERATE_20FPS;
+
+				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_20FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_60FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_60FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_60FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_60FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_60FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
 				break;
 		}
 
@@ -244,14 +312,24 @@ void Timer::preUpdate()
 
 void Timer::update()
 {
-	while(m_counterInt > m_max * m_counterScaler)
+	if(m_counterInt > m_max * m_counterScaler)
 	{
 		m_counterInt = (m_min * m_counterScaler) + (m_counterInt - (m_max * m_counterScaler + 1));
+
+		if(m_counterInt > m_max * m_counterScaler)
+		{
+			m_counterInt = 0;
+		}
 	}
 
-	while(m_counterInt < m_min * m_counterScaler)
+	if(m_counterInt < m_min * m_counterScaler)
 	{
 		m_counterInt = (m_max * m_counterScaler) + (m_counterInt - (m_min * m_counterScaler - 1));
+
+		if(m_counterInt < m_min * m_counterScaler)
+		{
+			m_counterInt = 0;
+		}
 	}
 
 	m_counter = (float)m_counterInt / m_counterScaler;

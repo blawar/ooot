@@ -329,7 +329,7 @@ void Message_GrowTextbox(MessageContext* msgCtx)
 	// Adjust y pos
 	R_TEXTBOX_Y = R_TEXTBOX_Y_TARGET + (R_TEXTBOX_Y_TARGET - (s16)(R_TEXTBOX_Y_TARGET * sHeightCoefficients[msgCtx->stateTimer.whole()] + 0.5f)) / 2;
 
-	msgCtx->textboxColorAlphaCurrent += msgCtx->textboxColorAlphaTarget / 8;
+	msgCtx->textboxColorAlphaCurrent += msgCtx->textboxColorAlphaTarget * FRAMERATE_SCALER / 8;
 	msgCtx->stateTimer++;
 	if(msgCtx->stateTimer == 8)
 	{
@@ -522,7 +522,7 @@ void Message_DrawTextboxIcon(GlobalContext* globalCtx, Gfx** p, s16 x, s16 y)
 	static s16 sIconPrimR = 0;
 	static s16 sIconPrimG = 200;
 	static s16 sIconPrimB = 80;
-	static s16 sIconFlashTimer = 12;
+	static TimerS16 sIconFlashTimer = 12;
 	static s16 sIconFlashColorIdx = 0;
 	static s16 sIconEnvR = 0;
 	static s16 sIconEnvG = 0;

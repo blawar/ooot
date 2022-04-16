@@ -195,7 +195,7 @@ void func_80ACE5C8(EnPart* pthis, GlobalContext* globalCtx)
 
 		if(sqrt(pthis->actor.xyzDistToPlayerSq) <= 40.0f)
 		{
-			u8 prevInvincibilityTimer = player->invincibilityTimer;
+			auto prevInvincibilityTimer = player->invincibilityTimer;
 
 			if(player->invincibilityTimer <= 0)
 			{

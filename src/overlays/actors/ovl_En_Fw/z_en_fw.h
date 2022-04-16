@@ -11,8 +11,8 @@ typedef void (*EnFwActionFunc)(struct EnFw* pthis, GlobalContext* globalCtx);
 struct EnFwEffect
 {
 	/* 0x0000 */ u8 type;
-	/* 0x0001 */ u8 timer;
-	/* 0x0002 */ u8 initialTimer;
+	/* 0x0001 */ TimerU8 timer;
+	/* 0x0002 */ TimerU8 initialTimer;
 	/* 0x0004 */ f32 scale;
 	/* 0x0008 */ f32 scaleStep;
 	/* 0x000C */ Color_RGBA8 color;

@@ -3317,7 +3317,7 @@ void BossGanon_Update(Actor* thisx, GlobalContext* globalCtx2)
 			BossGanonEff_SpawnLightning(globalCtx, 1.0f, 0.0f, 0.0f);
 		}
 
-		BossGanonEff_SpawnLightning(globalCtx, 1.0f, D_808E4D44[pthis->unk_26C] * (M_PI / 5) + pthis->unk_270, Rand_CenteredFloat(M_PI / 5) + (M_PI / 2));
+		BossGanonEff_SpawnLightning(globalCtx, 1.0f, D_808E4D44[pthis->unk_26C.whole()] * (M_PI / 5) + pthis->unk_270, Rand_CenteredFloat(M_PI / 5) + (M_PI / 2));
 	}
 
 	// see if light ball hit and should knock platform down?
@@ -5551,15 +5551,15 @@ void BossGanon_DrawEffects(GlobalContext* globalCtx)
 		if(eff->type == GDF_EFF_LIGHTNING)
 		{
 			gDPPipeSync(POLY_XLU_DISP++);
-			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, sLightningPrimColors[(eff->timer * 3) + 0], sLightningPrimColors[(eff->timer * 3) + 1], sLightningPrimColors[(eff->timer * 3) + 2], 255);
-			gDPSetEnvColor(POLY_XLU_DISP++, sLightningEnvColors[(eff->timer * 3) + 0], sLightningEnvColors[(eff->timer * 3) + 1], sLightningEnvColors[(eff->timer * 3) + 2], 0);
+			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, sLightningPrimColors[(s32)(eff->timer * 3) + 0], sLightningPrimColors[(s32)(eff->timer * 3) + 1], sLightningPrimColors[(s32)(eff->timer * 3) + 2], 255);
+			gDPSetEnvColor(POLY_XLU_DISP++, sLightningEnvColors[(s32)(eff->timer * 3) + 0], sLightningEnvColors[(s32)(eff->timer * 3) + 1], sLightningEnvColors[(s32)(eff->timer * 3) + 2], 0);
 			Matrix_Translate(sGanondorf->unk_260.x, sGanondorf->unk_260.y, sGanondorf->unk_260.z, MTXMODE_NEW);
 			Matrix_RotateY(eff->unk_48, MTXMODE_APPLY);
 			Matrix_RotateZ(eff->unk_3C, MTXMODE_APPLY);
 			Matrix_Scale(eff->scale, eff->scale, eff->scale, MTXMODE_APPLY);
 			Matrix_RotateY(eff->unk_44, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_ganon.c", 11074), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sLightningTextures[eff->timer]));
+			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(sLightningTextures[(s32)eff->timer]));
 			gSPDisplayList(POLY_XLU_DISP++, gDorfLightningDL);
 		}
 	}

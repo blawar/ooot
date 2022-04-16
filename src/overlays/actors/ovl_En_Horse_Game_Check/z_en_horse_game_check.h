@@ -37,9 +37,9 @@ struct EnHorseGameCheckIngoRace
 	/* 0x0154 */ s32 playerCheck[3];
 	/* 0x0160 */ s32 ingoCheck[3];
 	/* 0x016C */ Actor* ingoHorse;
-	/* 0x0170 */ s32 startTimer;
+	/* 0x0170 */ TimerS32 startTimer;
 	/* 0x0174 */ s32 result;
-	/* 0x0178 */ s32 finishTimer;
+	/* 0x0178 */ TimerS32 finishTimer;
 	/* 0x017C */ s32 playerFinish;
 	/* 0x0180 */ s32 ingoFinish;
 };
@@ -48,7 +48,7 @@ struct EnHorseGameCheckGerudoArchery
 {
 	/* 0x0000 */ EnHorseGameCheckBase base;
 	/* 0x0150 */ s32 unk_150;
-	/* 0x0154 */ u32 startTimer;
+	/* 0x0154 */ TimerU32 startTimer;
 };
 
 struct EnHorseGameCheck3
@@ -60,10 +60,10 @@ struct EnHorseGameCheck3
 struct EnHorseGameCheckMalonRace
 {
 	/* 0x0000 */ EnHorseGameCheckBase base;
-	/* 0x0150 */ s32 startTimer;
+	/* 0x0150 */ TimerS32 startTimer;
 	/* 0x0154 */ s32 raceFlags;
 	/* 0x0158 */ s32 fenceCheck[16];
-	/* 0x0198 */ s32 finishTimer;
+	/* 0x0198 */ TimerS32 finishTimer;
 	/* 0x019C */ s32 result;
 	/* 0x01A0 */ s32 lapCount;
 };
