@@ -44,7 +44,7 @@ struct BossFdEffect
 	/* 0x0C */ Vec3f velocity;
 	/* 0x18 */ Vec3f accel;
 	/* 0x24 */ u8 type;
-	/* 0x25 */ u8 timer1;
+	/* 0x25 */ TimerU8 timer1;
 	/* 0x26 */ Color_RGB8 color;
 	/* 0x2A */ s16 alpha;
 	/* 0x2C */ Timer timer2;

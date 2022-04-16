@@ -61,7 +61,7 @@ enum GanondorfTriforceType
 struct GanondorfEffect
 {
 	/* 0x00 */ u8 type;
-	/* 0x01 */ u8 timer;
+	/* 0x01 */ TimerU8 timer;
 	/* 0x04 */ Vec3f pos;
 	/* 0x10 */ Vec3f velocity;
 	/* 0x1C */ Vec3f accel;
@@ -91,7 +91,7 @@ struct BossGanon
 	/* 0x0198 */ u8 unk_198;
 	/* 0x0199 */ u8 legSwayEnabled;
 	/* 0x019A */ u8 unk_19A;
-	/* 0x019C */ s16 unk_19C; // timer
+	/* 0x019C */ TimerS16 unk_19C; // timer
 	/* 0x019E */ u8 unk_19E;
 	/* 0x019F */ u8 unk_19F;
 	/* 0x01A0 */ s8 envLightMode;
@@ -120,7 +120,7 @@ struct BossGanon
 	/* 0x0258 */ f32 unk_258;
 	/* 0x025C */ u8 unk_25C;
 	/* 0x0260 */ Vec3f unk_260; // hand position?
-	/* 0x026C */ s16 unk_26C;   // timer?
+	/* 0x026C */ TimerS16 unk_26C;   // timer?
 	/* 0x0270 */ f32 unk_270;
 	/* 0x0274 */ u8 unk_274;
 	/* 0x0278 */ Vec3f unk_278;
@@ -130,11 +130,11 @@ struct BossGanon
 	/* 0x0290 */ f32 unk_290;
 	/* 0x0294 */ f32 unk_294[15];
 	/* 0x02D0 */ f32 unk_2D0; // scale for something
-	/* 0x02D4 */ s16 unk_2D4; // timer
+	/* 0x02D4 */ TimerS16 unk_2D4; // timer
 	/* 0x02D8 */ Vec3f triforcePos;
 	/* 0x02E4 */ u8 shockGlow;
-	/* 0x02E6 */ s16 unk_2E6;	// timer
-	/* 0x02E8 */ s16 unk_2E8;	// timer
+	/* 0x02E6 */ TimerS16 unk_2E6;	// timer
+	/* 0x02E8 */ TimerS16 unk_2E8;	// timer
 	/* 0x02EC */ Vec3f unk_2EC[18]; // body parts pos for ganondorf, used for other things as well
 	/* 0x03C4 */ Vec3f unk_3C4[18];
 	/* 0x049C */ f32 unk_49C[18];
@@ -147,7 +147,7 @@ struct BossGanon
 	/* 0x066C */ u8 lensFlareMode;
 	/* 0x066E */ Timer lensFlareTimer;
 	/* 0x0670 */ f32 lensFlareScale;
-	/* 0x0674 */ u32 csTimer;
+	/* 0x0674 */ TimerU32 csTimer;
 	/* 0x0678 */ s16 csState;
 	/* 0x067A */ s16 csCamIndex;
 	/* 0x067C */ char unk_67C[0x4];

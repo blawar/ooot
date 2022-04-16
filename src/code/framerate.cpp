@@ -312,14 +312,24 @@ void Timer::preUpdate()
 
 void Timer::update()
 {
-	while(m_counterInt > m_max * m_counterScaler)
+	if(m_counterInt > m_max * m_counterScaler)
 	{
 		m_counterInt = (m_min * m_counterScaler) + (m_counterInt - (m_max * m_counterScaler + 1));
+
+		if(m_counterInt > m_max * m_counterScaler)
+		{
+			m_counterInt = 0;
+		}
 	}
 
-	while(m_counterInt < m_min * m_counterScaler)
+	if(m_counterInt < m_min * m_counterScaler)
 	{
 		m_counterInt = (m_max * m_counterScaler) + (m_counterInt - (m_min * m_counterScaler - 1));
+
+		if(m_counterInt < m_min * m_counterScaler)
+		{
+			m_counterInt = 0;
+		}
 	}
 
 	m_counter = (float)m_counterInt / m_counterScaler;

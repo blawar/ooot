@@ -185,7 +185,7 @@ s32 EnFw_CheckCollider(EnFw* pthis, GlobalContext* globalCtx)
 	}
 }
 
-s32 EnFw_SpawnDust(EnFw* pthis, u8 timer, f32 scale, f32 scaleStep, s32 dustCnt, f32 radius, f32 xzAccel, f32 yAccel)
+s32 EnFw_SpawnDust(EnFw* pthis, TimerU8 timer, f32 scale, f32 scaleStep, s32 dustCnt, f32 radius, f32 xzAccel, f32 yAccel)
 {
 	Vec3f pos = {0.0f, 0.0f, 0.0f};
 	Vec3f velocity = {0.0f, 0.0f, 0.0f};

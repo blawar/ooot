@@ -10,7 +10,7 @@ typedef void (*DemoEffectFunc)(struct DemoEffect*, GlobalContext*);
 
 struct DemoEffectFireBall
 {
-	/* 0x00 */ u8 timer;
+	/* 0x00 */ TimerU8 timer;
 };
 
 struct DemoEffectBlueOrb
@@ -84,7 +84,7 @@ struct DemoEffectJewel
 
 struct DemoEffectDust
 {
-	/* 0x00 */ u8 timer;
+	/* 0x00 */ TimerU8 timer;
 };
 
 struct DemoEffect
