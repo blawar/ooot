@@ -177,7 +177,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->actor.params >= 0)
 	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->timer * -20) & 511, 32, 128));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 32, 64, 1, 0, (pthis->timer.whole() * -20) & 511, 32, 128));
 
 		dList = gEffFire1DL;
 		gDPSetPrimColor(POLY_XLU_DISP++, 0x80, 0x80, flameParams->primColor.r, flameParams->primColor.g, flameParams->primColor.b, flameParams->primColor.a);
@@ -185,7 +185,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx)
 	}
 	else
 	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 32, 1, ((pthis->timer * 2) & 63), (pthis->timer * -6) & 127 * 1, 16, 32));
+		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 16, 32, 1, ((pthis->timer.whole() * 2) & 63), (pthis->timer.whole() * -6) & 127 * 1, 16, 32));
 
 		dList = gUnusedCandleDL;
 		gDPSetPrimColor(POLY_XLU_DISP++, 0xC0, 0xC0, 255, 200, 0, 0);

@@ -15,7 +15,7 @@ struct FlameParams
 struct EnLight
 {
 	/* 0x0000 */ Actor actor;
-	/* 0x014C */ u8 timer;
+	/* 0x014C */ TimerU8 timer;
 	/* 0x0150 */ LightNode* lightNode;
 	/* 0x0154 */ LightInfo lightInfo;
 };
