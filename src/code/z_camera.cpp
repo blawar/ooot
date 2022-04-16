@@ -1543,13 +1543,14 @@ s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3)
 
 	const oot::hid::Controller& controller = oot::player(0).controller();
 	s16 rStickY = (s16)controller.state().r_stick_y * (s16)-100;
+
 	if(rStickY != 0)
 	{
 		camera->startControlTimer = 250; // 10s
 	}
 
 	pitchUpdRate = 1.0f / camera->pitchUpdateRateInv;
-	return cur + (s16)(rStickY * pitchUpdRate);
+	return cur + (s16)(rStickY * pitchUpdRate * oot::config().camera().scalerY() * FRAMERATE_SCALER);
 }
 
 s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel)
@@ -1567,7 +1568,7 @@ s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 
 		camera->startControlTimer = 250; // 10s
 	}
 	yawUpdRate = 1.0f / camera->yawUpdateRateInv;
-	return cur + (s16)(rStickX * yawUpdRate);
+	return cur + (s16)(rStickX * yawUpdRate * oot::config().camera().scalerX() * FRAMERATE_SCALER);
 }
 
 void StepControlTimer(Camera* camera)
@@ -3605,7 +3606,7 @@ s32 Camera_Battle3(Camera* camera)
  * Camera zooms out slowly for 50 frames, then tilts up to a specified
  * setting value.
  */
-s32 Camera_Battle4(Camera* camera)
+s32 Camera_BattleChargeSpinAttack(Camera* camera)
 {
 	Vec3f* eye = &camera->eye;
 	Vec3f* at = &camera->at;

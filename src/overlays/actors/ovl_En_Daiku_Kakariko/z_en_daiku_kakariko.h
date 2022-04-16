@@ -33,7 +33,7 @@ struct EnDaikuKakariko
 	/* 0x0204 */ struct_80034A14_arg1 npcInfo; // Info related to NPCs and turning their head towards the player
 	/* 0x022C */ Vec3s jointTable[17];
 	/* 0x0292 */ Vec3s morphTable[17];
-	/* 0x02F8 */ s32 timer;
+	/* 0x02F8 */ TimerS32 timer;
 	/* 0x02FC */ Vec3s neckAngle;
 	/* 0x0302 */ Vec3s neckAngleTarget;
 };

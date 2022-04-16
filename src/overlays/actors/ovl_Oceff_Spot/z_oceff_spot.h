@@ -16,6 +16,6 @@ struct OceffSpot
 	/* 0x0160 */ LightNode* lightNode2;
 	/* 0x0164 */ LightInfo lightInfo2;
 	/* 0x0174 */ f32 unk_174;
-	/* 0x0178 */ u16 timer;
+	/* 0x0178 */ TimerU16 timer;
 	/* 0x017C */ OceffSpotActionFunc actionFunc;
 };

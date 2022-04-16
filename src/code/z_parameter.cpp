@@ -4328,33 +4328,36 @@ void Interface_Draw(GlobalContext* globalCtx)
 
 							D_8015FFE0 = 20;
 
-							if(gSaveContext.timer1Value == 0)
+							if(gSaveContext.timer1Value.isWhole())
 							{
-								gSaveContext.timer1State = 10;
-								if(D_80125A5C != 0)
+								if(gSaveContext.timer1Value == 0)
 								{
-									gSaveContext.health = 0;
-									globalCtx->damagePlayer(globalCtx, -(gSaveContext.health + 2));
+									gSaveContext.timer1State = 10;
+									if(D_80125A5C != 0)
+									{
+										gSaveContext.health = 0;
+										globalCtx->damagePlayer(globalCtx, -(gSaveContext.health + 2));
+									}
+									D_80125A5C = 0;
 								}
-								D_80125A5C = 0;
-							}
-							else if(gSaveContext.timer1Value > 60)
-							{
-								if(timerDigits[4] == 1)
+								else if(gSaveContext.timer1Value > 60)
 								{
-									Audio_PlaySoundGeneral(NA_SE_SY_MESSAGE_WOMAN, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+									if(timerDigits[4] == 1)
+									{
+										Audio_PlaySoundGeneral(NA_SE_SY_MESSAGE_WOMAN, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+									}
 								}
-							}
-							else if(gSaveContext.timer1Value >= 11)
-							{
-								if(timerDigits[4] & 1)
+								else if(gSaveContext.timer1Value >= 11)
 								{
-									Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+									if(timerDigits[4] & 1)
+									{
+										Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+									}
 								}
-							}
-							else
-							{
-								Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+								else
+								{
+									Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+								}
 							}
 						}
 					}

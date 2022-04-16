@@ -43,9 +43,9 @@ struct EnGe2
 	/* 0x02F8 */ s16 yawTowardsPlayer;
 	/* 0x02FC */ f32 yDetectRange;
 	/* 0x0300 */ u16 walkDuration;
-	/* 0x0302 */ u16 walkTimer;
+	/* 0x0302 */ TimerU16 walkTimer;
 	/* 0x0304 */ u8 unk_304;
-	/* 0x0305 */ u8 timer;
+	/* 0x0305 */ TimerU8 timer;
 	/* 0x0306 */ u8 playerSpottedParam;
 	/* 0x0308 */ EnGe2ActionFunc actionFunc;
 };

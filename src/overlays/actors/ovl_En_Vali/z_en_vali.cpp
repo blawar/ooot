@@ -312,7 +312,7 @@ void EnVali_DischargeLightning(EnVali* pthis, GlobalContext* globalCtx)
 	{
 		cos = -Math_CosS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)));
 		sin = Math_SinS(Camera_GetCamDirYaw(GET_ACTIVE_CAM(globalCtx)));
-		if(!((pthis->lightningTimer + (i << 1)) % 4))
+		if(!((s32)(pthis->lightningTimer + (i << 1)) % 4))
 		{
 			yaw = (s16)Rand_CenteredFloat(12288.0f) + (i * 0x4000) + 0x2000;
 			pos.x = pthis->actor.world.pos.x + (Math_SinS(yaw) * 12.0f * cos);

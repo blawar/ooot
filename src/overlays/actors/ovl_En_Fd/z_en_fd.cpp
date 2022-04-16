@@ -39,7 +39,7 @@ void EnFd_JumpToGround(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_WaitForCore(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_UpdateFlames(EnFd* pthis);
 void EnFd_UpdateDots(EnFd* pthis);
-void EnFd_AddEffect(EnFd*, u8, Vec3f*, Vec3f*, Vec3f*, u8, f32, f32);
+void EnFd_AddEffect(EnFd*, u8, Vec3f*, Vec3f*, Vec3f*, TimerU8, f32, f32);
 void EnFd_DrawDots(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_DrawFlames(EnFd* pthis, GlobalContext* globalCtx);
 void EnFd_Land(EnFd* pthis, GlobalContext* globalCtx);
@@ -887,7 +887,7 @@ void EnFd_Draw(Actor* thisx, GlobalContext* globalCtx)
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_fd.c", 1822);
 }
 
-void EnFd_AddEffect(EnFd* pthis, u8 type, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 timer, f32 scale, f32 scaleStep)
+void EnFd_AddEffect(EnFd* pthis, u8 type, Vec3f* pos, Vec3f* velocity, Vec3f* accel, TimerU8 timer, f32 scale, f32 scaleStep)
 {
 	EnFdEffect* eff = pthis->effects;
 	s16 i;

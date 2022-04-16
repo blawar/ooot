@@ -76,7 +76,7 @@ struct EnWf
 	/* 0x02E2 */ s16 unk_2E2;
 	/* 0x02E4 */ Timer fireTimer;
 	/* 0x02E6 */ u8 damageEffect;
-	/* 0x02E8 */ s32 actionTimer; // Used to make an action last for a certain amount of time
+	/* 0x02E8 */ TimerS32 actionTimer; // Used to make an action last for a certain amount of time
 	/* 0x02EC */ f32 runSpeed;
 	/* 0x02F0 */ char unk_2F0[4];
 	/* 0x02F4 */ f32 unk_2F4;     // Set and not used

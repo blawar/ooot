@@ -17,7 +17,7 @@ struct DemoKekkai
 	/* 0x01E8 */ f32 orbScale;
 	/* 0x01EC */ f32 barrierScroll;
 	/* 0x01F0 */ f32 barrierScrollRate;
-	/* 0x01F4 */ u16 timer;
+	/* 0x01F4 */ TimerU16 timer;
 	/* 0x01F6 */ u16 sfxFlag;
 	/* 0x01F8 */ DemoKekkaiUpdateFunc updateFunc;
 };

@@ -22,7 +22,7 @@ struct BgHakaTrap
 {
 	/* 0x0000 */ DynaPolyActor dyna;
 	/* 0x0164 */ BgHakaTrapActionFunc actionFunc;
-	/* 0x0168 */ u8 timer;
+	/* 0x0168 */ TimerU8 timer;
 	/* 0x0169 */ u8 unk_169;
 	/* 0x016A */ s16 unk_16A; // used as boolean for HAKA_TRAP_GUILLOTINE_SLOW/FAST, s16 for HAKA_TRAP_SPIKED_BOX
 	/* 0x016C */ Vec3f unk_16C;

@@ -31,7 +31,7 @@ void EnFw_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnFw_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnFw_UpdateDust(EnFw* pthis);
 void EnFw_DrawDust(EnFw* pthis, GlobalContext* globalCtx);
-void EnFw_AddDust(EnFw* pthis, Vec3f* initialPos, Vec3f* initialSpeed, Vec3f* accel, u8 initialTimer, f32 scale, f32 scaleStep);
+void EnFw_AddDust(EnFw* pthis, Vec3f* initialPos, Vec3f* initialSpeed, Vec3f* accel, TimerU8 initialTimer, f32 scale, f32 scaleStep);
 void EnFw_Bounce(EnFw* pthis, GlobalContext* globalCtx);
 void EnFw_Run(EnFw* pthis, GlobalContext* globalCtx);
 void EnFw_JumpToParentInitPos(EnFw* pthis, GlobalContext* globalCtx);
@@ -185,7 +185,7 @@ s32 EnFw_CheckCollider(EnFw* pthis, GlobalContext* globalCtx)
 	}
 }
 
-s32 EnFw_SpawnDust(EnFw* pthis, u8 timer, f32 scale, f32 scaleStep, s32 dustCnt, f32 radius, f32 xzAccel, f32 yAccel)
+s32 EnFw_SpawnDust(EnFw* pthis, TimerU8 timer, f32 scale, f32 scaleStep, s32 dustCnt, f32 radius, f32 xzAccel, f32 yAccel)
 {
 	Vec3f pos = {0.0f, 0.0f, 0.0f};
 	Vec3f velocity = {0.0f, 0.0f, 0.0f};
@@ -472,7 +472,7 @@ void EnFw_Draw(Actor* thisx, GlobalContext* globalCtx)
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, EnFw_OverrideLimbDraw, EnFw_PostLimbDraw, pthis);
 }
 
-void EnFw_AddDust(EnFw* pthis, Vec3f* initialPos, Vec3f* initialSpeed, Vec3f* accel, u8 initialTimer, f32 scale, f32 scaleStep)
+void EnFw_AddDust(EnFw* pthis, Vec3f* initialPos, Vec3f* initialSpeed, Vec3f* accel, TimerU8 initialTimer, f32 scale, f32 scaleStep)
 {
 	EnFwEffect* eff = pthis->effects;
 	s16 i;

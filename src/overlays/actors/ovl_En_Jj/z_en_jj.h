@@ -29,8 +29,8 @@ struct EnJj
 	/* 0x030A */ u16 unk_30A;
 	/* 0x030C */ Timer cutsceneCountdownTimer;
 	/* 0x030E */ u8 eyeIndex;
-	/* 0x030F */ u8 blinkTimer;
-	/* 0x0310 */ u8 extraBlinkCounter;
+	/* 0x030F */ TimerU8 blinkTimer;
+	/* 0x0310 */ TimerU8 extraBlinkCounter;
 	/* 0x0311 */ u8 extraBlinkTotal;
 };
 

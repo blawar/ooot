@@ -1289,7 +1289,7 @@ s32 EnNb_GetNoticedStatus(EnNb* pthis, GlobalContext* globalCtx)
 
 void func_80AB36DC(EnNb* pthis, GlobalContext* globalCtx)
 {
-	u16 moveTime = pthis->movementTimer;
+	auto moveTime = pthis->movementTimer;
 
 	if((((u16)((u16)(kREG(17) + 25) - 4))) > moveTime)
 	{
@@ -1437,7 +1437,7 @@ void EnNb_SetTextIdAsChild(EnNb* pthis, GlobalContext* globalCtx)
 
 void func_80AB3A7C(EnNb* pthis, GlobalContext* globalCtx, s32 animFinished)
 {
-	u16 movementTimer = pthis->movementTimer;
+	auto movementTimer = pthis->movementTimer;
 
 	if((u16)(kREG(17) + 25) > movementTimer)
 	{

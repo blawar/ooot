@@ -157,7 +157,7 @@ static EnGo2DustEffectData sDustEffectData[2][4] = {
 
 static Vec3f sZeroVec = {0.0f, 0.0f, 0.0f};
 
-void EnGo2_AddDust(EnGo2* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 initialTimer, f32 scale, f32 scaleStep)
+void EnGo2_AddDust(EnGo2* pthis, Vec3f* pos, Vec3f* velocity, Vec3f* accel, TimerU8 initialTimer, f32 scale, f32 scaleStep)
 {
 	EnGoEffect* dustEffect = pthis->dustEffects;
 	s16 i;
@@ -257,7 +257,7 @@ void EnGo2_DrawDust(EnGo2* pthis, GlobalContext* globalCtx)
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_go2_eff.c", 151);
 }
 
-s32 EnGo2_SpawnDust(EnGo2* pthis, u8 initialTimer, f32 scale, f32 scaleStep, s32 numDustEffects, f32 radius, f32 yAccel)
+s32 EnGo2_SpawnDust(EnGo2* pthis, TimerU8 initialTimer, f32 scale, f32 scaleStep, s32 numDustEffects, f32 radius, f32 yAccel)
 {
 	Vec3f pos = sPos;
 	Vec3f velocity = sVelocity;

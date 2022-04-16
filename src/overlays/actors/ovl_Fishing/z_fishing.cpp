@@ -4902,7 +4902,7 @@ void Fishing_HandleReedContact(FishingProp* prop, Vec3f* entityPos)
 	}
 }
 
-void Fishing_HandleLilyPadContact(FishingProp* prop, Vec3f* entityPos, u8 fishTimer)
+void Fishing_HandleLilyPadContact(FishingProp* prop, Vec3f* entityPos, TimerU8 fishTimer)
 {
 	f32 dx = prop->pos.x - entityPos->x;
 	f32 dz = prop->pos.z - entityPos->z;

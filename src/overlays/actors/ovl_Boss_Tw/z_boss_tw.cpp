@@ -225,7 +225,7 @@ static u8 sFixedBlatSeq;
 static u8 sFreezeState;
 static Vec3f sShieldHitPos;
 static s16 sShieldHitYaw;
-static u8 sBeamDivertTimer;
+static TimerS8 sBeamDivertTimer;
 static u8 D_8094C86F;
 static u8 D_8094C870;
 static s16 D_8094C872;
@@ -250,10 +250,10 @@ void BossTw_AddDotEffect(GlobalContext* globalCtx, Vec3f* initalPos, Vec3f* init
 			eff->pos = *initalPos;
 			eff->curSpeed = *initalSpeed;
 			eff->accel = *accel;
-			eff->workf[EFF_SCALE] = scale / 1000.0f;
+			eff->EFF_SCALE = scale / 1000.0f;
 			eff->alpha = 255;
 			eff->frame = (s16)Rand_ZeroFloat(10.0f);
-			eff->work[EFF_ARGS] = args;
+			eff->EFF_ARGS = args;
 			break;
 		}
 	}
@@ -272,8 +272,8 @@ void BossTw_AddDmgCloud(GlobalContext* globalCtx, s16 type, Vec3f* initialPos, V
 			eff->pos = *initialPos;
 			eff->curSpeed = *initalSpeed;
 			eff->accel = *accel;
-			eff->workf[EFF_SCALE] = scale / 1000.0f;
-			eff->work[EFF_ARGS] = args;
+			eff->EFF_SCALE = scale / 1000.0f;
+			eff->EFF_ARGS = args;
 			eff->alpha = alpha;
 			eff->frame = (s16)Rand_ZeroFloat(100.0f);
 			break;
@@ -294,12 +294,12 @@ void BossTw_AddRingEffect(GlobalContext* globalCtx, Vec3f* initalPos, f32 scale,
 			eff->pos = *initalPos;
 			eff->curSpeed = sZeroVector;
 			eff->accel = sZeroVector;
-			eff->workf[EFF_SCALE] = scale * 0.0025f;
-			eff->workf[EFF_DIST] = arg3 * 0.0025f;
-			eff->work[EFF_ARGS] = args;
-			eff->work[EFF_UNKS1] = arg6;
+			eff->EFF_SCALE = scale * 0.0025f;
+			eff->EFF_DIST = arg3 * 0.0025f;
+			eff->EFF_ARGS = args;
+			eff->EFF_UNKS1 = arg6;
 			eff->alpha = alpha;
-			eff->workf[EFF_ROLL] = Rand_ZeroFloat(M_PI);
+			eff->EFF_ROLL = Rand_ZeroFloat(M_PI);
 			eff->frame = 0;
 			break;
 		}
@@ -320,16 +320,16 @@ void BossTw_AddPlayerFreezeEffect(GlobalContext* globalCtx, Actor* target)
 			eff->accel = sZeroVector;
 			eff->frame = 0;
 			eff->target = target;
-			eff->workf[EFF_DIST] = 0.0f;
-			eff->workf[EFF_SCALE] = 0.0f;
-			eff->workf[EFF_ROLL] = 0.0f;
+			eff->EFF_DIST = 0.0f;
+			eff->EFF_SCALE = 0.0f;
+			eff->EFF_ROLL = 0.0f;
 			if(target == NULL)
 			{
-				eff->work[EFF_ARGS] = 100;
+				eff->EFF_ARGS = 100;
 			}
 			else
 			{
-				eff->work[EFF_ARGS] = 20;
+				eff->EFF_ARGS = 20;
 			}
 			break;
 		}
@@ -349,9 +349,9 @@ void BossTw_AddFlameEffect(GlobalContext* globalCtx, Vec3f* initalPos, Vec3f* in
 			eff->pos = *initalPos;
 			eff->curSpeed = *initalSpeed;
 			eff->accel = *accel;
-			eff->workf[EFF_SCALE] = scale / 1000.0f;
-			eff->work[EFF_ARGS] = args;
-			eff->work[EFF_UNKS1] = 0;
+			eff->EFF_SCALE = scale / 1000.0f;
+			eff->EFF_ARGS = args;
+			eff->EFF_UNKS1 = 0;
 			eff->alpha = 0;
 			eff->frame = (s16)Rand_ZeroFloat(1000.0f);
 			break;
@@ -372,11 +372,11 @@ void BossTw_AddMergeFlameEffect(GlobalContext* globalCtx, Vec3f* initialPos, f32
 			eff->pos = *initialPos;
 			eff->curSpeed = sZeroVector;
 			eff->accel = sZeroVector;
-			eff->workf[EFF_SCALE] = scale / 1000.0f;
-			eff->work[EFF_ARGS] = args;
-			eff->work[EFF_UNKS1] = 0;
-			eff->workf[EFF_DIST] = dist;
-			eff->workf[EFF_ROLL] = Rand_ZeroFloat(2.0f * M_PI);
+			eff->EFF_SCALE = scale / 1000.0f;
+			eff->EFF_ARGS = args;
+			eff->EFF_UNKS1 = 0;
+			eff->EFF_DIST = dist;
+			eff->EFF_ROLL = Rand_ZeroFloat(2.0f * M_PI);
 			eff->alpha = 0;
 			eff->frame = (s16)Rand_ZeroFloat(1000.0f);
 			break;
@@ -397,10 +397,10 @@ void BossTw_AddShieldBlastEffect(GlobalContext* globalCtx, Vec3f* initalPos, Vec
 			eff->pos = *initalPos;
 			eff->curSpeed = *initalSpeed;
 			eff->accel = *accel;
-			eff->workf[EFF_SCALE] = scale / 1000.0f;
-			eff->workf[EFF_DIST] = arg5 / 1000.0f;
-			eff->work[EFF_ARGS] = args;
-			eff->work[EFF_UNKS1] = 0;
+			eff->EFF_SCALE = scale / 1000.0f;
+			eff->EFF_DIST = arg5 / 1000.0f;
+			eff->EFF_ARGS = args;
+			eff->EFF_UNKS1 = 0;
 			eff->alpha = alpha;
 			eff->frame = (s16)Rand_ZeroFloat(1000.0f);
 			break;
@@ -428,12 +428,12 @@ void BossTw_AddShieldDeflectEffect(GlobalContext* globalCtx, f32 arg1, s16 arg2)
 				eff->pos = sShieldHitPos;
 				eff->curSpeed = sZeroVector;
 				eff->accel = sZeroVector;
-				eff->workf[EFF_ROLL] = i * (M_PI / 4.0f);
-				eff->workf[EFF_YAW] = M_PI / 2.0f;
-				eff->workf[EFF_DIST] = 0.0f;
-				eff->workf[EFF_SCALE] = arg1 / 1000.0f;
-				eff->work[EFF_ARGS] = arg2;
-				eff->work[EFF_UNKS1] = 0;
+				eff->EFF_ROLL = i * (M_PI / 4.0f);
+				eff->EFF_YAW = M_PI / 2.0f;
+				eff->EFF_DIST = 0.0f;
+				eff->EFF_SCALE = arg1 / 1000.0f;
+				eff->EFF_ARGS = arg2;
+				eff->EFF_UNKS1 = 0;
 				eff->alpha = 255;
 				eff->frame = (s16)Rand_ZeroFloat(1000.0f);
 				break;
@@ -462,12 +462,12 @@ void BossTw_AddShieldHitEffect(GlobalContext* globalCtx, f32 arg1, s16 arg2)
 				eff->pos = sShieldHitPos;
 				eff->curSpeed = sZeroVector;
 				eff->accel = sZeroVector;
-				eff->workf[EFF_ROLL] = i * (M_PI / 4.0f);
-				eff->workf[EFF_YAW] = M_PI / 2.0f;
-				eff->workf[EFF_DIST] = 0.0f;
-				eff->workf[EFF_SCALE] = arg1 / 1000.0f;
-				eff->work[EFF_ARGS] = arg2;
-				eff->work[EFF_UNKS1] = 0;
+				eff->EFF_ROLL = i * (M_PI / 4.0f);
+				eff->EFF_YAW = M_PI / 2.0f;
+				eff->EFF_DIST = 0.0f;
+				eff->EFF_SCALE = arg1 / 1000.0f;
+				eff->EFF_ARGS = arg2;
+				eff->EFF_UNKS1 = 0;
 				eff->alpha = 255;
 				eff->frame = (s16)Rand_ZeroFloat(1000.0f);
 				break;
@@ -509,7 +509,7 @@ void BossTw_Init(Actor* thisx, GlobalContext* globalCtx2)
 		{
 			pthis->actionFunc = BossTw_DeathBall;
 			pthis->actor.draw = BossTw_DrawDeathBall;
-			pthis->workf[TAIL_ALPHA] = 128.0f;
+			pthis->TAIL_ALPHA = 128.0f;
 
 			if(thisx->params == TW_DEATHBALL_KOTAKE)
 			{
@@ -693,9 +693,9 @@ void BossTw_TurnToPlayer(BossTw* pthis, GlobalContext* globalCtx)
 	Actor_UpdatePosition(&pthis->actor);
 	if(pthis->timers[0] == 0)
 	{
-		if((otherTw->actionFunc != BossTw_ShootBeam) && pthis->work[CAN_SHOOT])
+		if((otherTw->actionFunc != BossTw_ShootBeam) && pthis->CAN_SHOOT)
 		{
-			pthis->work[CAN_SHOOT] = false;
+			pthis->CAN_SHOOT = false;
 			BossTw_SetupShootBeam(pthis, globalCtx);
 			pthis->actor.speedXZ = 0.0f;
 		}
@@ -738,7 +738,7 @@ void BossTw_SetupFlyTo(BossTw* pthis, GlobalContext* globalCtx)
 
 		pthis->targetPos = sPillarPositions_134[idx];
 		pthis->timers[0] = 200;
-		pthis->work[CAN_SHOOT] = true;
+		pthis->CAN_SHOOT = true;
 	}
 }
 
@@ -784,7 +784,7 @@ void BossTw_SetupShootBeam(BossTw* pthis, GlobalContext* globalCtx)
 
 	pthis->actionFunc = BossTw_ShootBeam;
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_007688, -5.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_007688);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_007688);
 	pthis->timers[1] = 70;
 	pthis->targetPos = player->actor.world.pos;
 	pthis->csState1 = 0;
@@ -835,9 +835,9 @@ void BossTw_SpawnGroundBlast(BossTw* pthis, GlobalContext* globalCtx, s16 blastT
 			{
 				groundBlast->timers[0] = 50;
 			}
-			sKoumePtr->workf[KM_GD_FLM_A] = sKoumePtr->workf[KM_GD_SMOKE_A] = sKoumePtr->workf[KM_GRND_CRTR_A] = 255.0f;
-			sKoumePtr->workf[KM_GD_FLM_SCL] = 1.0f;
-			sKoumePtr->workf[KM_GD_CRTR_SCL] = 0.005f;
+			sKoumePtr->KM_GD_FLM_A = sKoumePtr->KM_GD_SMOKE_A = sKoumePtr->KM_GRND_CRTR_A = 255.0f;
+			sKoumePtr->KM_GD_FLM_SCL = 1.0f;
+			sKoumePtr->KM_GD_CRTR_SCL = 0.005f;
 			sKoumePtr->groundBlastPos2 = groundBlast->actor.world.pos;
 			sEnvType = 4;
 		}
@@ -857,11 +857,11 @@ void BossTw_SpawnGroundBlast(BossTw* pthis, GlobalContext* globalCtx, s16 blastT
 				groundBlast->timers[0] = 50;
 			}
 
-			sKotakePtr->workf[UNK_F11] = 50.0f;
-			sKotakePtr->workf[UNK_F9] = 250.0f;
-			sKotakePtr->workf[UNK_F12] = 0.005f;
-			sKotakePtr->workf[UNK_F14] = 1.0f;
-			sKotakePtr->workf[UNK_F16] = 70.0f;
+			sKotakePtr->UNK_F11 = 50.0f;
+			sKotakePtr->UNK_F9 = 250.0f;
+			sKotakePtr->UNK_F12 = 0.005f;
+			sKotakePtr->UNK_F14 = 1.0f;
+			sKotakePtr->UNK_F16 = 70.0f;
 			sKotakePtr->groundBlastPos2 = groundBlast->actor.world.pos;
 			sEnvType = 3;
 		}
@@ -1169,16 +1169,16 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&pthis->updateRate1, 50.0f, 1.0f, 2.0f);
 		}
 
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 		{
 			Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_009398, 0.0f);
-			pthis->workf[ANIM_SW_TGT] = 10000.0f;
+			pthis->ANIM_SW_TGT = 10000.0f;
 		}
 
 		if(pthis->timers[1] == 1)
 		{
 			Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_003614, 0.0f);
-			pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_003614);
+			pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_003614);
 			pthis->unk_4DC = 0.0f;
 			pthis->spawnPortalAlpha = 0.0f;
 			pthis->flameAlpha = 0.0f;
@@ -1187,19 +1187,19 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 		{
 			Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_003E34, 0.0f);
-			pthis->workf[ANIM_SW_TGT] = 10000.0f;
+			pthis->ANIM_SW_TGT = 10000.0f;
 		}
 
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT] - 5.0f))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT - 5.0f))
 		{
 			pthis->beamShootState = 0;
 			sEnvType = pthis->actor.params + 1;
 		}
 
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT] - 13.0f))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT - 13.0f))
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_THROW_MASIC);
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_SHOOT_VOICE);
@@ -1282,7 +1282,7 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx)
 					Math_ApproachF(&pthis->targetPos.x, player->bodyPartsPos[15].x, 1.0f, 400.0f);
 					Math_ApproachF(&pthis->targetPos.y, player->bodyPartsPos[15].y, 1.0f, 400.0f);
 					Math_ApproachF(&pthis->targetPos.z, player->bodyPartsPos[15].z, 1.0f, 400.0f);
-					if((pthis->work[CS_TIMER_1] % 4) == 0)
+					if((pthis->CS_TIMER_1 % 4) == 0)
 					{
 						BossTw_AddRingEffect(globalCtx, &player->bodyPartsPos[15], 0.5f, 3.0f, 0xFF, pthis->actor.params, 1, 150);
 					}
@@ -1428,7 +1428,7 @@ void BossTw_ShootBeam(BossTw* pthis, GlobalContext* globalCtx)
 			}
 		}
 
-		if(BossTw_BeamReflHitCheck(pthis, &pthis->actor.world.pos) && (pthis->work[CS_TIMER_1] % 4) == 0)
+		if(BossTw_BeamReflHitCheck(pthis, &pthis->actor.world.pos) && (pthis->CS_TIMER_1 % 4) == 0)
 		{
 			BossTw_AddRingEffect(globalCtx, &pthis->unk_530, 0.5f, 3.0f, 255, pthis->actor.params, 1, 150);
 		}
@@ -1468,7 +1468,7 @@ void BossTw_SetupFinishBeamShoot(BossTw* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = BossTw_FinishBeamShoot;
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_004548, 0.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_004548);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_004548);
 }
 
 void BossTw_FinishBeamShoot(BossTw* pthis, GlobalContext* globalCtx)
@@ -1476,7 +1476,7 @@ void BossTw_FinishBeamShoot(BossTw* pthis, GlobalContext* globalCtx)
 	SkelAnime_Update(&pthis->skelAnime);
 	Math_ApproachF(&pthis->scepterAlpha, 0.0f, 1.0f, 10.0f);
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
 		if(sTwinrovaPtr->timers[2] == 0)
 		{
@@ -1500,7 +1500,7 @@ void BossTw_SetupHitByBeam(BossTw* pthis, GlobalContext* globalCtx)
 
 	if(pthis->actor.params == 0)
 	{
-		pthis->work[FOG_TIMER] = 20;
+		pthis->FOG_TIMER = 20;
 	}
 }
 
@@ -1508,7 +1508,7 @@ void BossTw_HitByBeam(BossTw* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if((pthis->work[CS_TIMER_1] % 4) == 0)
+	if((pthis->CS_TIMER_1 % 4) == 0)
 	{
 		Vec3f pos;
 		Vec3f velocity;
@@ -1538,7 +1538,7 @@ void BossTw_HitByBeam(BossTw* pthis, GlobalContext* globalCtx)
 		Math_ApproachF(&pthis->fogFar, 1099.0f, 1.0f, 30.0f);
 	}
 
-	Math_ApproachF(&pthis->actor.world.pos.y, ((Math_SinS(pthis->work[CS_TIMER_1] * 1500) * 20.0f) + 350.0f) + 50.0f, 0.1f, pthis->actor.speedXZ);
+	Math_ApproachF(&pthis->actor.world.pos.y, ((Math_SinS(pthis->CS_TIMER_1 * 1500) * 20.0f) + 350.0f) + 50.0f, 0.1f, pthis->actor.speedXZ);
 	Math_ApproachF(&pthis->actor.speedXZ, 5.0f, 1.0f, 1.0f);
 
 	pthis->actor.world.pos.y -= 50.0f;
@@ -1553,10 +1553,10 @@ void BossTw_HitByBeam(BossTw* pthis, GlobalContext* globalCtx)
 	if(pthis->timers[0] == 1)
 	{
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_006530, 0.0f);
-		pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_006530);
+		pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_006530);
 	}
 
-	if((pthis->timers[0] == 0) && Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if((pthis->timers[0] == 0) && Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
 		BossTw_SetupFlyTo(pthis, globalCtx);
 	}
@@ -1566,7 +1566,7 @@ void BossTw_SetupLaugh(BossTw* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = BossTw_Laugh;
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_0088C8, 0.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0088C8);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_0088C8);
 	pthis->actor.speedXZ = 0.0f;
 }
 
@@ -1586,7 +1586,7 @@ void BossTw_Laugh(BossTw* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
 		BossTw_SetupFlyTo(pthis, globalCtx);
 	}
@@ -1596,7 +1596,7 @@ void BossTw_SetupSpin(BossTw* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = BossTw_Spin;
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_007CA8, -3.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_007CA8);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_007CA8);
 	pthis->actor.speedXZ = 0.0f;
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->timers[0] = 20;
@@ -1619,7 +1619,7 @@ void BossTw_Spin(BossTw* pthis, GlobalContext* globalCtx)
 		SkelAnime_Update(&pthis->skelAnime);
 		Math_ApproachS(&pthis->actor.shape.rot.y, pthis->actor.world.rot.y, 3, 0x2000);
 
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 		{
 			BossTw_SetupFlyTo(pthis, globalCtx);
 		}
@@ -1687,19 +1687,19 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 			sKoumePtr->actor.shape.rot.x = 0;
 			sKotakePtr->actor.world.rot.x = 0;
 			sKotakePtr->actor.shape.rot.x = 0;
-			pthis->workf[UNK_F9] = 0.0f;
-			pthis->workf[UNK_F10] = 0.0f;
-			pthis->workf[UNK_F11] = 600.0f;
+			pthis->UNK_F9 = 0.0f;
+			pthis->UNK_F10 = 0.0f;
+			pthis->UNK_F11 = 600.0f;
 			Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0xC800FF);
-			pthis->work[CS_TIMER_2] = 0;
+			pthis->CS_TIMER_2 = 0;
 			// fallthrough
 		case 1:
-			if(pthis->work[CS_TIMER_2] == 20)
+			if(pthis->CS_TIMER_2 == 20)
 			{
 				Message_StartTextbox(globalCtx, 0x6059, NULL);
 			}
 
-			if(pthis->work[CS_TIMER_2] == 80)
+			if(pthis->CS_TIMER_2 == 80)
 			{
 				Message_StartTextbox(globalCtx, 0x605A, NULL);
 			}
@@ -1756,28 +1756,28 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 		case 0:
 			Audio_PlayActorSound2(&sKotakePtr->actor, NA_SE_EN_TWINROBA_FLY - SFX_FLAG);
 			Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_FLY - SFX_FLAG);
-			spB0.x = pthis->workf[UNK_F11];
+			spB0.x = pthis->UNK_F11;
 			spB0.y = 400.0f;
 			spB0.z = 0.0f;
-			Matrix_RotateY(pthis->workf[UNK_F9], MTXMODE_NEW);
+			Matrix_RotateY(pthis->UNK_F9, MTXMODE_NEW);
 			Matrix_MultVec3f(&spB0, &spA4);
 			sKoumePtr->actor.world.pos.x = spA4.x;
 			sKoumePtr->actor.world.pos.y = spA4.y;
 			sKoumePtr->actor.world.pos.z = spA4.z;
-			sKoumePtr->actor.shape.rot.y = (pthis->workf[UNK_F9] / M_PI) * 32768.0f;
+			sKoumePtr->actor.shape.rot.y = (pthis->UNK_F9 / M_PI) * 32768.0f;
 			sKotakePtr->actor.world.pos.x = -spA4.x;
 			sKotakePtr->actor.world.pos.y = spA4.y;
 			sKotakePtr->actor.world.pos.z = -spA4.z;
-			sKotakePtr->actor.shape.rot.y = ((pthis->workf[UNK_F9] / M_PI) * 32768.0f) + 32768.0f;
-			Math_ApproachF(&pthis->workf[UNK_F11], 0.0f, 0.1f, 7.0f);
-			pthis->workf[UNK_F9] -= pthis->workf[UNK_F10];
-			Math_ApproachF(&pthis->workf[UNK_F10], 0.5f, 1, 0.0039999997f);
-			if(pthis->workf[UNK_F11] < 10.0f)
+			sKotakePtr->actor.shape.rot.y = ((pthis->UNK_F9 / M_PI) * 32768.0f) + 32768.0f;
+			Math_ApproachF(&pthis->UNK_F11, 0.0f, 0.1f, 7.0f);
+			pthis->UNK_F9 -= pthis->UNK_F10;
+			Math_ApproachF(&pthis->UNK_F10, 0.5f, 1, 0.0039999997f);
+			if(pthis->UNK_F11 < 10.0f)
 			{
-				if(!pthis->work[PLAYED_CHRG_SFX])
+				if(!pthis->PLAYED_CHRG_SFX)
 				{
 					Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_POWERUP);
-					pthis->work[PLAYED_CHRG_SFX] = true;
+					pthis->PLAYED_CHRG_SFX = true;
 				}
 
 				Math_ApproachF(&sKoumePtr->actor.scale.x, 0.005000001f, 1, 0.0003750001f);
@@ -1825,7 +1825,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 					BossTw_SetupWait(sKoumePtr, globalCtx);
 					Actor_SetScale(&pthis->actor, 0.0f);
 					Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_038E2C, 0.0f);
-					pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_038E2C);
+					pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_038E2C);
 					pthis->timers[0] = 50;
 					func_8002DF54(globalCtx, &pthis->actor, 2);
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_TRANSFORM);
@@ -1837,7 +1837,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 			break;
 
 		case 1:
-			if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+			if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 			{
 				Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, -15.0f);
 			}
@@ -1892,7 +1892,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 
 			if(pthis->timers[1] == 8)
 			{
-				pthis->work[TW_BLINK_IDX] = 8;
+				pthis->TW_BLINK_IDX = 8;
 				Common_PlaySfx(NA_SE_EN_TWINROBA_YOUNG_WINK);
 			}
 			if(pthis->timers[2] == 4)
@@ -1913,7 +1913,7 @@ void BossTw_TwinrovaMergeCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->csState2 = pthis->subCamId;
 				func_80064534(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
-				pthis->work[TW_PLLR_IDX] = 0;
+				pthis->TW_PLLR_IDX = 0;
 				pthis->targetPos = sTwinrovaPillarPos[0];
 				BossTw_TwinrovaSetupFly(pthis, globalCtx);
 			}
@@ -1926,7 +1926,7 @@ void BossTw_SetupDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 	pthis->actionFunc = BossTw_DeathCS;
 	Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_0004A4, -3.0f);
 	pthis->unk_5F8 = 0;
-	pthis->work[CS_TIMER_2] = Rand_ZeroFloat(20.0f);
+	pthis->CS_TIMER_2 = Rand_ZeroFloat(20.0f);
 }
 
 void BossTw_DeathCS(BossTw* pthis, GlobalContext* globalCtx)
@@ -1936,10 +1936,10 @@ void BossTw_DeathCS(BossTw* pthis, GlobalContext* globalCtx)
 		SkelAnime_Update(&pthis->skelAnime);
 	}
 
-	Math_ApproachS(&pthis->actor.shape.rot.y, pthis->work[YAW_TGT], 5, pthis->rotateSpeed);
+	Math_ApproachS(&pthis->actor.shape.rot.y, pthis->YAW_TGT, 5, pthis->rotateSpeed);
 	Math_ApproachF(&pthis->rotateSpeed, 20480.0f, 1.0f, 1000.0f);
 
-	if(sTwinrovaPtr->work[CS_TIMER_2] > 140)
+	if(sTwinrovaPtr->CS_TIMER_2 > 140)
 	{
 		Math_ApproachF(&pthis->fogR, 100.0f, 1.0f, 15.0f);
 		Math_ApproachF(&pthis->fogG, 255.0f, 1.0f, 15.0f);
@@ -2032,37 +2032,37 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->subCamAtStep.z = fabsf(pthis->subCamAtTarget.z - pthis->subCamAt.z);
 
 				pthis->subCamDistStep = 0.05f;
-				pthis->work[CS_TIMER_1] = 0;
+				pthis->CS_TIMER_1 = 0;
 			}
 			break;
 
 		case 1:
 			updateCam = 1;
 
-			if(pthis->work[CS_TIMER_1] == 30)
+			if(pthis->CS_TIMER_1 == 30)
 			{
 				Message_StartTextbox(globalCtx, 0x6048, NULL);
 			}
 
 			Math_ApproachF(&pthis->subCamUpdateRate, 0.01f, 1.0f, 0.0001f);
 
-			if(pthis->work[CS_TIMER_1] > 100)
+			if(pthis->CS_TIMER_1 > 100)
 			{
 				globalCtx->envCtx.unk_BD = 0;
 				Math_ApproachF(&globalCtx->envCtx.unk_D8, 1.0f, 1.0f, 0.03f);
 			}
 
-			if(pthis->work[CS_TIMER_1] == 180)
+			if(pthis->CS_TIMER_1 == 180)
 			{
 				Common_PlaySfx(NA_SE_EN_TWINROBA_APPEAR_MS);
 			}
 
-			if(pthis->work[CS_TIMER_1] > 180)
+			if(pthis->CS_TIMER_1 > 180)
 			{
 				pthis->spawnPortalScale = 0.05f;
 				Math_ApproachF(&pthis->spawnPortalAlpha, 255.0f, 1.0f, 5.f);
 
-				if(pthis->work[CS_TIMER_1] >= 236)
+				if(pthis->CS_TIMER_1 >= 236)
 				{
 					pthis->csState2 = 2;
 					sKoumePtr->visible = 1;
@@ -2080,7 +2080,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					pthis->subCamAt.y = 270;
 					pthis->subCamAt.z = 600.0F;
 
-					pthis->work[CS_TIMER_1] = 0;
+					pthis->CS_TIMER_1 = 0;
 
 					Actor_SetScale(&sKoumePtr->actor, 0.014999999f);
 				}
@@ -2093,7 +2093,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			pthis->subCamEye.x -= 0.2f;
 			pthis->subCamEye.z += 0.2f;
 
-			if(pthis->work[CS_TIMER_1] > 50)
+			if(pthis->CS_TIMER_1 > 50)
 			{
 				pthis->csState2 = 3;
 
@@ -2113,7 +2113,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->subCamAtStep.z = fabsf(pthis->subCamAtTarget.z - pthis->subCamAt.z);
 				pthis->subCamUpdateRate = 0;
 				pthis->subCamDistStep = 0.1f;
-				pthis->work[CS_TIMER_1] = 0;
+				pthis->CS_TIMER_1 = 0;
 			}
 			break;
 
@@ -2123,12 +2123,12 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 240.0f, 0.05f, 5.0f);
 			Math_ApproachF(&pthis->subCamUpdateRate, 1.0f, 1.0f, 0.02f);
 
-			if(pthis->work[CS_TIMER_1] == 30)
+			if(pthis->CS_TIMER_1 == 30)
 			{
 				Message_StartTextbox(globalCtx, 0x6049, NULL);
 			}
 
-			if(pthis->work[CS_TIMER_1] > 80)
+			if(pthis->CS_TIMER_1 > 80)
 			{
 				pthis->csState2 = 4;
 				pthis->actor.speedXZ = 0;
@@ -2150,8 +2150,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->subCamUpdateRate = 0.0f;
 				pthis->subCamDistStep = 0.05f;
 				Animation_MorphToPlayOnce(&sKoumePtr->skelAnime, &object_tw_Anim_000AAC, 0.0f);
-				pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_000AAC);
-				pthis->work[CS_TIMER_1] = 0;
+				pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_000AAC);
+				pthis->CS_TIMER_1 = 0;
 			}
 			break;
 
@@ -2163,9 +2163,9 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&pthis->actor.speedXZ, 9.0f, 1.0f, 0.9f);
 			Math_ApproachF(&pthis->subCamUpdateRate, 1.0f, 1.0f, 0.02f);
 
-			if(pthis->work[CS_TIMER_1] >= 30)
+			if(pthis->CS_TIMER_1 >= 30)
 			{
-				if(pthis->work[CS_TIMER_1] < 45)
+				if(pthis->CS_TIMER_1 < 45)
 				{
 					globalCtx->envCtx.unk_BE = 0;
 					globalCtx->envCtx.unk_BD = 2;
@@ -2176,7 +2176,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					Math_ApproachZeroF(&globalCtx->envCtx.unk_D8, 1.0f, 0.1f);
 				}
 
-				if(pthis->work[CS_TIMER_1] == 30)
+				if(pthis->CS_TIMER_1 == 30)
 				{
 					for(i = 0; i < 50; i++)
 					{
@@ -2196,29 +2196,29 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					globalCtx->envCtx.unk_D8 = 0;
 				}
 
-				if(pthis->work[CS_TIMER_1] >= 35)
+				if(pthis->CS_TIMER_1 >= 35)
 				{
-					if(pthis->work[CS_TIMER_1] < 50)
+					if(pthis->CS_TIMER_1 < 50)
 					{
-						Math_ApproachF(&sKoumePtr->actor.scale.x, ((Math_SinS(pthis->work[CS_TIMER_1] * 0x4200) * 20.0f) / 10000.0f) + 0.024999999f, 1.0f, 0.005f);
+						Math_ApproachF(&sKoumePtr->actor.scale.x, ((Math_SinS(pthis->CS_TIMER_1 * 0x4200) * 20.0f) / 10000.0f) + 0.024999999f, 1.0f, 0.005f);
 					}
 					else
 					{
-						if(pthis->work[CS_TIMER_1] == 50)
+						if(pthis->CS_TIMER_1 == 50)
 						{
 							Animation_MorphToPlayOnce(&sKoumePtr->skelAnime, &object_tw_Anim_0088C8, -5);
-							pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0088C8);
+							pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_0088C8);
 						}
 
-						if(pthis->work[CS_TIMER_1] == 60)
+						if(pthis->CS_TIMER_1 == 60)
 						{
 							Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_LAUGH);
 						}
 
-						if(Animation_OnFrame(&sKoumePtr->skelAnime, pthis->workf[ANIM_SW_TGT]))
+						if(Animation_OnFrame(&sKoumePtr->skelAnime, pthis->ANIM_SW_TGT))
 						{
 							Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_006F28, 0.f);
-							pthis->workf[ANIM_SW_TGT] = 1000.0f;
+							pthis->ANIM_SW_TGT = 1000.0f;
 						}
 
 						Math_ApproachF(&sKoumePtr->actor.scale.x, 0.024999999f, 0.1f, 0.005f);
@@ -2228,10 +2228,10 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					sKoumePtr->actor.shape.rot.y = -0x8000;
 					sKoumePtr->unk_5F8 = 1;
 
-					if(pthis->work[CS_TIMER_1] == 0x64)
+					if(pthis->CS_TIMER_1 == 0x64)
 					{
 						pthis->csState2 = 10;
-						pthis->work[CS_TIMER_1] = 0;
+						pthis->CS_TIMER_1 = 0;
 						pthis->subCamYawStep = 0.0f;
 						sKotakePtr->visible = 1;
 						Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_0004A4, 0.0f);
@@ -2239,7 +2239,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 						sKotakePtr->actor.world.pos.y = 80.0f;
 						sKotakePtr->actor.world.pos.z = -600.0f;
 						sKotakePtr->actor.shape.rot.y = sKotakePtr->actor.world.rot.y = 0;
-						pthis->work[CS_TIMER_1] = 0;
+						pthis->CS_TIMER_1 = 0;
 
 						pthis->subCamEye.x = -30.0f;
 						pthis->subCamEye.y = 260.0f;
@@ -2258,7 +2258,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			}
 			else
 			{
-				if((pthis->work[CS_TIMER_1] % 8) == 0)
+				if((pthis->CS_TIMER_1 % 8) == 0)
 				{
 					Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_ROLL);
 				}
@@ -2266,10 +2266,10 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				sKoumePtr->actor.shape.rot.y = sKoumePtr->actor.shape.rot.y + (s16)pthis->subCamYawStep;
 				Math_ApproachF(&pthis->subCamYawStep, 12288.0f, 1.0f, 384.0f);
 
-				if(Animation_OnFrame(&sKoumePtr->skelAnime, pthis->workf[ANIM_SW_TGT]))
+				if(Animation_OnFrame(&sKoumePtr->skelAnime, pthis->ANIM_SW_TGT))
 				{
 					Animation_MorphToLoop(&sKoumePtr->skelAnime, &object_tw_Anim_006F28, 0.0f);
-					pthis->workf[ANIM_SW_TGT] = 1000.0f;
+					pthis->ANIM_SW_TGT = 1000.0f;
 				}
 			}
 			break;
@@ -2280,7 +2280,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			pthis->subCamEye.x -= 0.2f;
 			pthis->subCamEye.z -= 0.2f;
 
-			if(pthis->work[CS_TIMER_1] >= 0x33)
+			if(pthis->CS_TIMER_1 >= 0x33)
 			{
 				pthis->csState2 = 11;
 				pthis->subCamEyeTarget.x = -30;
@@ -2297,7 +2297,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->subCamAtStep.z = fabsf(pthis->subCamAtTarget.z - pthis->subCamAt.z);
 				pthis->subCamUpdateRate = 0;
 				pthis->subCamDistStep = 0.1f;
-				pthis->work[CS_TIMER_1] = 0;
+				pthis->CS_TIMER_1 = 0;
 			}
 			break;
 
@@ -2307,12 +2307,12 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 240.0f, 0.05f, 5.0f);
 			Math_ApproachF(&pthis->subCamUpdateRate, 1.0f, 1.0f, 0.02f);
 
-			if(pthis->work[CS_TIMER_1] == 30)
+			if(pthis->CS_TIMER_1 == 30)
 			{
 				Message_StartTextbox(globalCtx, 0x604A, NULL);
 			}
 
-			if(pthis->work[CS_TIMER_1] > 80)
+			if(pthis->CS_TIMER_1 > 80)
 			{
 				pthis->csState2 = 12;
 				pthis->actor.speedXZ = 0;
@@ -2334,8 +2334,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->subCamUpdateRate = 0;
 				pthis->subCamDistStep = 0.05f;
 				Animation_MorphToPlayOnce(&sKotakePtr->skelAnime, &object_tw_Anim_000AAC, 0);
-				pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_000AAC);
-				pthis->work[CS_TIMER_1] = 0;
+				pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_000AAC);
+				pthis->CS_TIMER_1 = 0;
 			}
 			break;
 
@@ -2347,9 +2347,9 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&pthis->actor.speedXZ, 9.0f, 1.0f, 0.9f);
 			Math_ApproachF(&pthis->subCamUpdateRate, 1.0f, 1.0f, 0.02f);
 
-			if(pthis->work[CS_TIMER_1] >= 30)
+			if(pthis->CS_TIMER_1 >= 30)
 			{
-				if(pthis->work[CS_TIMER_1] < 45)
+				if(pthis->CS_TIMER_1 < 45)
 				{
 					globalCtx->envCtx.unk_BD = 3;
 					globalCtx->envCtx.unk_D8 = 1.0f;
@@ -2359,7 +2359,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					Math_ApproachZeroF(&globalCtx->envCtx.unk_D8, 1.0f, 0.1f);
 				}
 
-				if(pthis->work[CS_TIMER_1] == 30)
+				if(pthis->CS_TIMER_1 == 30)
 				{
 					for(i = 0; i < 50; i++)
 					{
@@ -2378,29 +2378,29 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					globalCtx->envCtx.unk_D8 = 0.0f;
 				}
 
-				if(pthis->work[CS_TIMER_1] >= 35)
+				if(pthis->CS_TIMER_1 >= 35)
 				{
-					if(pthis->work[CS_TIMER_1] < 50)
+					if(pthis->CS_TIMER_1 < 50)
 					{
-						Math_ApproachF(&sKotakePtr->actor.scale.x, ((Math_SinS(pthis->work[CS_TIMER_1] * 0x4200) * 20.0f) / 10000.0f) + 0.024999999f, 1.0f, 0.005f);
+						Math_ApproachF(&sKotakePtr->actor.scale.x, ((Math_SinS(pthis->CS_TIMER_1 * 0x4200) * 20.0f) / 10000.0f) + 0.024999999f, 1.0f, 0.005f);
 					}
 					else
 					{
-						if(pthis->work[CS_TIMER_1] == 50)
+						if(pthis->CS_TIMER_1 == 50)
 						{
 							Animation_MorphToPlayOnce(&sKotakePtr->skelAnime, &object_tw_Anim_0088C8, -5.0f);
-							pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0088C8);
+							pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_0088C8);
 						}
 
-						if(pthis->work[CS_TIMER_1] == 60)
+						if(pthis->CS_TIMER_1 == 60)
 						{
 							Audio_PlayActorSound2(&sKotakePtr->actor, NA_SE_EN_TWINROBA_LAUGH2);
 						}
 
-						if(Animation_OnFrame(&sKotakePtr->skelAnime, pthis->workf[ANIM_SW_TGT]))
+						if(Animation_OnFrame(&sKotakePtr->skelAnime, pthis->ANIM_SW_TGT))
 						{
 							Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_006F28, 0.0f);
-							pthis->workf[ANIM_SW_TGT] = 1000.0f;
+							pthis->ANIM_SW_TGT = 1000.0f;
 						}
 
 						Math_ApproachF(&sKotakePtr->actor.scale.x, 0.024999999f, 0.1f, 0.005f);
@@ -2410,12 +2410,12 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 					sKotakePtr->actor.shape.rot.y = 0;
 					sKotakePtr->unk_5F8 = 1;
 
-					if(pthis->work[CS_TIMER_1] == 100)
+					if(pthis->CS_TIMER_1 == 100)
 					{
 						pthis->csState2 = 20;
-						pthis->work[CS_TIMER_1] = 0;
+						pthis->CS_TIMER_1 = 0;
 
-						pthis->workf[UNK_F11] = 600.0f;
+						pthis->UNK_F11 = 600.0f;
 
 						pthis->subCamEye.x = 800.0f;
 						pthis->subCamEye.y = 300.0f;
@@ -2425,8 +2425,8 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 						pthis->subCamAt.y = 400.0f;
 						pthis->subCamAt.z = 0;
 
-						pthis->workf[UNK_F9] = -M_PI / 2.0f;
-						pthis->workf[UNK_F10] = 0.0f;
+						pthis->UNK_F9 = -M_PI / 2.0f;
+						pthis->UNK_F10 = 0.0f;
 
 						pthis->subCamEyeStep.x = 0.0f;
 						pthis->spawnPortalAlpha = 0.0f;
@@ -2439,7 +2439,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 			}
 			else
 			{
-				if((pthis->work[CS_TIMER_1] % 8) == 0)
+				if((pthis->CS_TIMER_1 % 8) == 0)
 				{
 					Audio_PlayActorSound2(&sKotakePtr->actor, NA_SE_EN_TWINROBA_ROLL);
 				}
@@ -2447,27 +2447,27 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				sKotakePtr->actor.shape.rot.y = sKotakePtr->actor.shape.rot.y + (s16)pthis->subCamYawStep;
 				Math_ApproachF(&pthis->subCamYawStep, 12288.0f, 1.0f, 384.0f);
 
-				if(Animation_OnFrame(&sKotakePtr->skelAnime, pthis->workf[ANIM_SW_TGT]))
+				if(Animation_OnFrame(&sKotakePtr->skelAnime, pthis->ANIM_SW_TGT))
 				{
 					Animation_MorphToLoop(&sKotakePtr->skelAnime, &object_tw_Anim_006F28, 0.0f);
-					pthis->workf[ANIM_SW_TGT] = 1000.0f;
+					pthis->ANIM_SW_TGT = 1000.0f;
 				}
 			}
 			break;
 
 		case 20:
-			if(pthis->work[CS_TIMER_1] > 20 && pthis->work[CS_TIMER_1] < 120)
+			if(pthis->CS_TIMER_1 > 20 && pthis->CS_TIMER_1 < 120)
 			{
 				globalCtx->envCtx.unk_BD = 1;
 				Math_ApproachF(&globalCtx->envCtx.unk_D8, 1.0f, 1.0f, 0.015f);
 			}
 
-			if(pthis->work[CS_TIMER_1] == 90)
+			if(pthis->CS_TIMER_1 == 90)
 			{
 				Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x5A00FF);
 			}
 
-			if(pthis->work[CS_TIMER_1] == 120)
+			if(pthis->CS_TIMER_1 == 120)
 			{
 				sEnvType = 0;
 				globalCtx->envCtx.unk_BE = 1;
@@ -2478,9 +2478,9 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_BOSS);
 			}
 
-			if(pthis->work[CS_TIMER_1] >= 160)
+			if(pthis->CS_TIMER_1 >= 160)
 			{
-				if(pthis->work[CS_TIMER_1] == 160)
+				if(pthis->CS_TIMER_1 == 160)
 				{
 					pthis->subCamEyeStep.x = 0.0f;
 				}
@@ -2494,29 +2494,29 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				Math_ApproachF(&pthis->subCamEyeStep.x, 5.0f, 1.0f, 0.5f);
 			}
 
-			if(pthis->work[CS_TIMER_1] < 200)
+			if(pthis->CS_TIMER_1 < 200)
 			{
 				Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_FLY - SFX_FLAG);
 				Audio_PlayActorSound2(&sKotakePtr->actor, NA_SE_EN_TWINROBA_FLY - SFX_FLAG);
-				sp90.x = pthis->workf[UNK_F11];
+				sp90.x = pthis->UNK_F11;
 				sp90.y = 400.0f;
 				sp90.z = 0.0f;
-				Matrix_RotateY(pthis->workf[UNK_F9], MTXMODE_NEW);
+				Matrix_RotateY(pthis->UNK_F9, MTXMODE_NEW);
 				Matrix_MultVec3f(&sp90, &sp84);
 				sKoumePtr->actor.world.pos.x = sp84.x;
 				sKoumePtr->actor.world.pos.y = sp84.y;
 				sKoumePtr->actor.world.pos.z = sp84.z;
-				sKoumePtr->actor.world.rot.y = sKoumePtr->actor.shape.rot.y = (pthis->workf[UNK_F9] / M_PI) * 32768.0f;
+				sKoumePtr->actor.world.rot.y = sKoumePtr->actor.shape.rot.y = (pthis->UNK_F9 / M_PI) * 32768.0f;
 				sKotakePtr->actor.world.pos.x = -sp84.x;
 				sKotakePtr->actor.world.pos.y = sp84.y;
 				sKotakePtr->actor.world.pos.z = -sp84.z;
-				sKotakePtr->actor.shape.rot.y = sKotakePtr->actor.world.rot.y = ((pthis->workf[UNK_F9] / M_PI) * 32768.0f) + 32768.0f;
-				Math_ApproachF(&pthis->workf[UNK_F11], 80.0f, 0.1f, 5.0f);
-				pthis->workf[UNK_F9] -= pthis->workf[UNK_F10];
-				Math_ApproachF(&pthis->workf[UNK_F10], 0.19999999f, 1.0f, 0.0019999994f);
+				sKotakePtr->actor.shape.rot.y = sKotakePtr->actor.world.rot.y = ((pthis->UNK_F9 / M_PI) * 32768.0f) + 32768.0f;
+				Math_ApproachF(&pthis->UNK_F11, 80.0f, 0.1f, 5.0f);
+				pthis->UNK_F9 -= pthis->UNK_F10;
+				Math_ApproachF(&pthis->UNK_F10, 0.19999999f, 1.0f, 0.0019999994f);
 			}
 
-			if(pthis->work[CS_TIMER_1] == 200)
+			if(pthis->CS_TIMER_1 == 200)
 			{
 				sKoumePtr->actionFunc = BossTw_FlyTo;
 				sKotakePtr->actionFunc = BossTw_FlyTo;
@@ -2530,7 +2530,7 @@ void BossTw_TwinrovaIntroCS(BossTw* pthis, GlobalContext* globalCtx)
 				sKotakePtr->timers[0] = 100;
 			}
 
-			if(pthis->work[CS_TIMER_1] == 260)
+			if(pthis->CS_TIMER_1 == 260)
 			{
 				Camera* cam = Gameplay_GetCamera(globalCtx, MAIN_CAM);
 
@@ -2572,7 +2572,7 @@ void BossTw_DeathBall(BossTw* pthis, GlobalContext* globalCtx)
 	s16 i;
 	s16 yaw;
 
-	if((pthis->work[CS_TIMER_1] % 16) == 0)
+	if((pthis->CS_TIMER_1 % 16) == 0)
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_FB_FLY);
 	}
@@ -2645,12 +2645,12 @@ void BossTw_TwinrovaSetupDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
 	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->csState2 = pthis->csState1 = 0;
-	pthis->work[CS_TIMER_1] = pthis->work[CS_TIMER_2] = 0;
-	pthis->work[INVINC_TIMER] = 10000;
+	pthis->CS_TIMER_1 = pthis->CS_TIMER_2 = 0;
+	pthis->INVINC_TIMER = 10000;
 	BossTw_SetupDeathCS(sKoumePtr, globalCtx);
 	BossTw_SetupDeathCS(sKotakePtr, globalCtx);
 	sKotakePtr->timers[0] = 8;
-	pthis->workf[UNK_F19] = 1.0f;
+	pthis->UNK_F19 = 1.0f;
 }
 
 void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx)
@@ -2670,161 +2670,161 @@ void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx)
 	koumeAnim = 0;
 	sp35 = 0;
 
-	if(pthis->work[CS_TIMER_2] == 80)
+	if(pthis->CS_TIMER_2 == 80)
 	{
 		koumeAnim = 1;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 80)
+	if(pthis->CS_TIMER_2 == 80)
 	{
 		msgId2 = 0x604B;
 		sp35 = 50;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 140)
+	if(pthis->CS_TIMER_2 == 140)
 	{
 		kotakeAnim = koumeAnim = 2;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 170)
+	if(pthis->CS_TIMER_2 == 170)
 	{
 		kotakeAnim = 3;
-		sKotakePtr->work[YAW_TGT] = -0x4000;
+		sKotakePtr->YAW_TGT = -0x4000;
 		sKotakePtr->rotateSpeed = 0.0f;
 		Audio_PlayActorSound2(&sKotakePtr->actor, NA_SE_EN_TWINROBA_SENSE);
 		msgId2 = 0x604C;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 210)
+	if(pthis->CS_TIMER_2 == 210)
 	{
 		D_8094C874 = 30;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 270)
+	if(pthis->CS_TIMER_2 == 270)
 	{
 		koumeAnim = 3;
-		sKoumePtr->work[YAW_TGT] = 0x4000;
+		sKoumePtr->YAW_TGT = 0x4000;
 		sKoumePtr->rotateSpeed = 0.0f;
 		Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_SENSE);
 	}
 
-	if(pthis->work[CS_TIMER_2] == 290)
+	if(pthis->CS_TIMER_2 == 290)
 	{
 		msgId2 = 0x604D;
 		sp35 = 35;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 350)
+	if(pthis->CS_TIMER_2 == 350)
 	{
 		koumeAnim = kotakeAnim = 2;
-		sKoumePtr->work[YAW_TGT] = sKotakePtr->work[YAW_TGT] = 0;
+		sKoumePtr->YAW_TGT = sKotakePtr->YAW_TGT = 0;
 		sKoumePtr->rotateSpeed = sKotakePtr->rotateSpeed = 0.0f;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 380)
+	if(pthis->CS_TIMER_2 == 380)
 	{
 		koumeAnim = kotakeAnim = 3;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 400)
+	if(pthis->CS_TIMER_2 == 400)
 	{
 		koumeAnim = kotakeAnim = 2;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 430)
+	if(pthis->CS_TIMER_2 == 430)
 	{
 		koumeAnim = 4;
 		D_8094C874 = 435;
 		D_8094C878 = 1;
 	}
 
-	if(pthis->work[CS_TIMER_2] > 440 && pthis->work[CS_TIMER_2] < 860)
+	if(pthis->CS_TIMER_2 > 440 && pthis->CS_TIMER_2 < 860)
 	{
 		Common_PlaySfx(NA_SE_EN_TWINROBA_FIGHT - SFX_FLAG);
 	}
 
-	if(pthis->work[CS_TIMER_2] == 430)
+	if(pthis->CS_TIMER_2 == 430)
 	{
 		msgId2 = 0x604E;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 480)
+	if(pthis->CS_TIMER_2 == 480)
 	{
 		kotakeAnim = 4;
-		sKotakePtr->work[YAW_TGT] = -0x4000;
+		sKotakePtr->YAW_TGT = -0x4000;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 500)
+	if(pthis->CS_TIMER_2 == 500)
 	{
 		koumeAnim = 2;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 480)
+	if(pthis->CS_TIMER_2 == 480)
 	{
 		msgId1 = 0x604F;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 530)
+	if(pthis->CS_TIMER_2 == 530)
 	{
 		koumeAnim = 4;
-		sKoumePtr->work[YAW_TGT] = 0x4000;
+		sKoumePtr->YAW_TGT = 0x4000;
 		D_8094C87A = 335;
 		D_8094C87E = 1;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 530)
+	if(pthis->CS_TIMER_2 == 530)
 	{
 		msgId2 = 0x6050;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 580)
+	if(pthis->CS_TIMER_2 == 580)
 	{
 		msgId1 = 0x6051;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 620)
+	if(pthis->CS_TIMER_2 == 620)
 	{
 		msgId2 = 0x6052;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 660)
+	if(pthis->CS_TIMER_2 == 660)
 	{
 		msgId1 = 0x6053;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 700)
+	if(pthis->CS_TIMER_2 == 700)
 	{
 		msgId2 = 0x6054;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 740)
+	if(pthis->CS_TIMER_2 == 740)
 	{
 		msgId1 = 0x6055;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 780)
+	if(pthis->CS_TIMER_2 == 780)
 	{
 		msgId2 = 0x6056;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 820)
+	if(pthis->CS_TIMER_2 == 820)
 	{
 		msgId1 = 0x6057;
 		Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x5000FF);
 	}
 
-	if(pthis->work[CS_TIMER_2] == 860)
+	if(pthis->CS_TIMER_2 == 860)
 	{
 		koumeAnim = kotakeAnim = 3;
 	}
 
-	if(pthis->work[CS_TIMER_2] == 900)
+	if(pthis->CS_TIMER_2 == 900)
 	{
 		Audio_PlayActorSound2(&sKoumePtr->actor, NA_SE_EN_TWINROBA_DIE);
 		Audio_PlayActorSound2(&sKotakePtr->actor, NA_SE_EN_TWINROBA_DIE);
 	}
 
-	if(pthis->work[CS_TIMER_2] == 930)
+	if(pthis->CS_TIMER_2 == 930)
 	{
 		msgId2 = 0x6058;
 	}
@@ -2878,35 +2878,35 @@ void BossTw_DeathCSMsgSfx(BossTw* pthis, GlobalContext* globalCtx)
 			break;
 	}
 
-	if(pthis->work[CS_TIMER_2] >= 120 && pthis->work[CS_TIMER_2] < 500)
+	if(pthis->CS_TIMER_2 >= 120 && pthis->CS_TIMER_2 < 500)
 	{
-		Math_ApproachF(&pthis->workf[UNK_F18], 255.0f, 0.1f, 5.0f);
+		Math_ApproachF(&pthis->UNK_F18, 255.0f, 0.1f, 5.0f);
 	}
 
-	if(pthis->work[CS_TIMER_2] >= 150)
+	if(pthis->CS_TIMER_2 >= 150)
 	{
-		Math_ApproachF(&sKoumePtr->workf[UNK_F17], (Math_SinS(pthis->work[CS_TIMER_1] * 2000) * 0.05f) + 0.4f, 0.1f, 0.01f);
-		Math_ApproachF(&sKotakePtr->workf[UNK_F17], (Math_CosS(pthis->work[CS_TIMER_1] * 1700) * 0.05f) + 0.4f, 0.1f, 0.01f);
+		Math_ApproachF(&sKoumePtr->UNK_F17, (Math_SinS(pthis->CS_TIMER_1 * 2000) * 0.05f) + 0.4f, 0.1f, 0.01f);
+		Math_ApproachF(&sKotakePtr->UNK_F17, (Math_CosS(pthis->CS_TIMER_1 * 1700) * 0.05f) + 0.4f, 0.1f, 0.01f);
 
-		if(pthis->work[CS_TIMER_2] >= 880)
+		if(pthis->CS_TIMER_2 >= 880)
 		{
 			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 2000.0f, 1.0f, pthis->actor.speedXZ);
 			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 2000.0f, 1.0f, pthis->actor.speedXZ);
 			Math_ApproachF(&pthis->actor.speedXZ, 10.0f, 1.0f, 0.25f);
 
-			if(pthis->work[CS_TIMER_2] >= 930)
+			if(pthis->CS_TIMER_2 >= 930)
 			{
-				Math_ApproachF(&pthis->workf[UNK_F19], 5.0f, 1.0f, 0.05f);
-				Math_ApproachF(&pthis->workf[UNK_F18], 0.0f, 1.0f, 3.0f);
+				Math_ApproachF(&pthis->UNK_F19, 5.0f, 1.0f, 0.05f);
+				Math_ApproachF(&pthis->UNK_F18, 0.0f, 1.0f, 3.0f);
 			}
 
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_GOTO_HEAVEN - SFX_FLAG);
 		}
 		else
 		{
-			f32 yTarget = Math_CosS(pthis->work[CS_TIMER_2] * 1700) * 4.0f;
+			f32 yTarget = Math_CosS(pthis->CS_TIMER_2 * 1700) * 4.0f;
 			Math_ApproachF(&sKotakePtr->actor.world.pos.y, 20.0f + (263.0f + yTarget), 0.1f, pthis->actor.speedXZ);
-			yTarget = Math_SinS(pthis->work[CS_TIMER_2] * 1500) * 4.0f;
+			yTarget = Math_SinS(pthis->CS_TIMER_2 * 1500) * 4.0f;
 			Math_ApproachF(&sKoumePtr->actor.world.pos.y, 20.0f + (263.0f + yTarget), 0.1f, pthis->actor.speedXZ);
 			Math_ApproachF(&pthis->actor.speedXZ, 1.0f, 1.0f, 0.05f);
 		}
@@ -2921,32 +2921,32 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 	Camera* mainCam = Gameplay_GetCamera(globalCtx, MAIN_CAM);
 
 	SkelAnime_Update(&pthis->skelAnime);
-	pthis->work[UNK_S8] += 20;
+	pthis->UNK_S8 += 20;
 
-	if(pthis->work[UNK_S8] > 255)
+	if(pthis->UNK_S8 > 255)
 	{
-		pthis->work[UNK_S8] = 255;
+		pthis->UNK_S8 = 255;
 	}
 
-	Math_ApproachF(&pthis->workf[UNK_F12], 0.0f, 1.0f, 0.05f);
+	Math_ApproachF(&pthis->UNK_F12, 0.0f, 1.0f, 0.05f);
 	pthis->unk_5F8 = 1;
 
 	switch(pthis->csState1)
 	{
 		case 0:
-			if(pthis->work[CS_TIMER_1] == 15)
+			if(pthis->CS_TIMER_1 == 15)
 			{
 				Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_0216DC, -3.0f);
 			}
 
-			if(pthis->work[CS_TIMER_1] >= 15)
+			if(pthis->CS_TIMER_1 >= 15)
 			{
 				Math_ApproachF(&pthis->actor.world.pos.y, 400.0f, 0.05f, 10.0f);
 			}
 
-			if(pthis->work[CS_TIMER_1] >= 55)
+			if(pthis->CS_TIMER_1 >= 55)
 			{
-				if(pthis->work[CS_TIMER_1] == 55)
+				if(pthis->CS_TIMER_1 == 55)
 				{
 					globalCtx->envCtx.unk_D8 = 0;
 				}
@@ -2957,14 +2957,14 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 				Math_ApproachF(&globalCtx->envCtx.unk_D8, 1.0f, 1.0f, 0.015f);
 				Math_ApproachF(&pthis->actor.scale.x, 0.00024999998f, 0.1f, 0.00005f);
 				pthis->actor.shape.rot.y += (s16)pthis->actor.speedXZ;
-				pthis->workf[UNK_F13] += pthis->actor.speedXZ;
-				if(pthis->workf[UNK_F13] > 65536.0f)
+				pthis->UNK_F13 += pthis->actor.speedXZ;
+				if(pthis->UNK_F13 > 65536.0f)
 				{
-					pthis->workf[UNK_F13] -= 65536.0f;
+					pthis->UNK_F13 -= 65536.0f;
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_ROLL);
 				}
 				Math_ApproachF(&pthis->actor.speedXZ, 12288.0f, 1.0f, 256.0f);
-				if(pthis->work[CS_TIMER_1] == 135)
+				if(pthis->CS_TIMER_1 == 135)
 				{
 					Vec3f spBC;
 					Vec3f spB0;
@@ -3017,10 +3017,10 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&pthis->subCamAt.x, pthis->actor.world.pos.x, 0.1f, 50.0f);
 			Math_ApproachF(&pthis->subCamAt.y, pthis->actor.world.pos.y, 0.1f, 50.0f);
 			Math_ApproachF(&pthis->subCamAt.z, pthis->actor.world.pos.z, 0.1f, 50.0f);
-			if(pthis->work[CS_TIMER_1] == 170)
+			if(pthis->CS_TIMER_1 == 170)
 			{
 				pthis->csState2 = 2;
-				pthis->work[CS_TIMER_2] = 0;
+				pthis->CS_TIMER_2 = 0;
 				pthis->subCamEye.z = 170.0f;
 				pthis->subCamDist = 170.0f;
 				pthis->subCamEye.x = 0.0f;
@@ -3038,13 +3038,13 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 				pthis->subCamAt.y = sKoumePtr->actor.world.pos.y + 17.0f;
 				sKotakePtr->actor.world.pos.z = 0.0f;
 				sKoumePtr->actor.world.pos.z = sKotakePtr->actor.world.pos.z;
-				sKoumePtr->work[YAW_TGT] = sKotakePtr->work[YAW_TGT] = sKoumePtr->actor.shape.rot.x = sKotakePtr->actor.shape.rot.x = sKoumePtr->actor.shape.rot.y = sKotakePtr->actor.shape.rot.y = 0;
+				sKoumePtr->YAW_TGT = sKotakePtr->YAW_TGT = sKoumePtr->actor.shape.rot.x = sKotakePtr->actor.shape.rot.x = sKoumePtr->actor.shape.rot.y = sKotakePtr->actor.shape.rot.y = 0;
 				func_8002DF54(globalCtx, &sKoumePtr->actor, 1);
 				sKoumePtr->actor.flags |= ACTOR_FLAG_VISIBLE;
 			}
 			break;
 		case 2:
-			if(pthis->work[CS_TIMER_2] == 100)
+			if(pthis->CS_TIMER_2 == 100)
 			{
 				Vec3f pos;
 				Vec3f velocity;
@@ -3088,13 +3088,13 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 				Common_PlaySfx(NA_SE_EN_TWINROBA_TRANSFORM);
 				Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_KOTAKE_KOUME);
 				pthis->csState2 = 3;
-				pthis->work[CS_TIMER_2] = 0;
+				pthis->CS_TIMER_2 = 0;
 				pthis->subCamYaw = pthis->subCamYawStep = pthis->actor.speedXZ = pthis->subCamDistStep = 0.0f;
 			}
 			break;
 		case 3:
 			BossTw_DeathCSMsgSfx(pthis, globalCtx);
-			if(pthis->work[CS_TIMER_2] < 150)
+			if(pthis->CS_TIMER_2 < 150)
 			{
 				globalCtx->envCtx.unk_BE = 1;
 				globalCtx->envCtx.unk_BD = 0;
@@ -3104,21 +3104,21 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 			{
 				globalCtx->envCtx.unk_BE = 1;
 				globalCtx->envCtx.unk_BD = 6;
-				Math_ApproachF(&globalCtx->envCtx.unk_D8, (Math_SinS(pthis->work[CS_TIMER_2] * 4096) / 4.0f) + 0.75f, 1.0f, 0.1f);
+				Math_ApproachF(&globalCtx->envCtx.unk_D8, (Math_SinS(pthis->CS_TIMER_2 * 4096) / 4.0f) + 0.75f, 1.0f, 0.1f);
 			}
 
 			Math_ApproachF(&pthis->subCamAt.y, sKoumePtr->actor.world.pos.y + 17.0f, 0.05f, 10.0f);
 
-			if(pthis->work[CS_TIMER_2] >= 50)
+			if(pthis->CS_TIMER_2 >= 50)
 			{
 				Math_ApproachF(&pthis->subCamDist, 110.0f, 0.05f, pthis->subCamDistStep);
 				Math_ApproachF(&pthis->subCamDistStep, 1.0f, 1.0f, 0.025f);
 				pthis->subCamEye.x = pthis->subCamDist * sinf(pthis->subCamYaw);
 				pthis->subCamEye.z = pthis->subCamDist * cosf(pthis->subCamYaw);
-				if(pthis->work[CS_TIMER_2] >= 151)
+				if(pthis->CS_TIMER_2 >= 151)
 				{
 					pthis->subCamYaw += pthis->subCamYawStep;
-					if(pthis->work[CS_TIMER_2] >= 800)
+					if(pthis->CS_TIMER_2 >= 800)
 					{
 						Math_ApproachF(&pthis->subCamYawStep, 0.0f, 1.0f, 0.0001f);
 					}
@@ -3131,7 +3131,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 			Math_ApproachF(&sKoumePtr->actor.scale.x, 0.009999999f, 0.1f, 0.001f);
 			Actor_SetScale(&sKoumePtr->actor, sKoumePtr->actor.scale.x);
 			Actor_SetScale(&sKotakePtr->actor, sKoumePtr->actor.scale.x);
-			if(pthis->work[CS_TIMER_2] >= 1020)
+			if(pthis->CS_TIMER_2 >= 1020)
 			{
 				mainCam = Gameplay_GetCamera(globalCtx, MAIN_CAM);
 				mainCam->eye = pthis->subCamEye;
@@ -3146,7 +3146,7 @@ void BossTw_TwinrovaDeathCS(BossTw* pthis, GlobalContext* globalCtx)
 				Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_DOOR_WARP1, 600.0f, 230.0f, 0.0f, 0, 0, 0, WARP_DUNGEON_ADULT);
 				Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_ITEM_B_HEART, -600.0f, 230.f, 0.0f, 0, 0, 0, 0);
 				pthis->actor.world.pos.y = -2000.0f;
-				pthis->workf[UNK_F18] = 0.0f;
+				pthis->UNK_F18 = 0.0f;
 				sKoumePtr->visible = sKotakePtr->visible = false;
 				if(&pthis->subCamEye)
 				{
@@ -3181,16 +3181,16 @@ void BossTw_Update(Actor* thisx, GlobalContext* globalCtx)
 	Math_ApproachF(&pthis->fogB, globalCtx->lightCtx.fogColor[2], 1.0f, 10.0f);
 	Math_ApproachF(&pthis->fogNear, globalCtx->lightCtx.fogNear, 1.0f, 10.0f);
 	Math_ApproachF(&pthis->fogFar, 1000.0f, 1.0f, 10.0f);
-	pthis->work[CS_TIMER_1]++;
-	pthis->work[CS_TIMER_2]++;
-	pthis->work[TAIL_IDX]++;
+	pthis->CS_TIMER_1++;
+	pthis->CS_TIMER_2++;
+	pthis->TAIL_IDX++;
 
-	if(pthis->work[TAIL_IDX] >= ARRAY_COUNT(pthis->blastTailPos))
+	if(pthis->TAIL_IDX >= ARRAY_COUNT(pthis->blastTailPos))
 	{
-		pthis->work[TAIL_IDX] = 0;
+		pthis->TAIL_IDX = 0;
 	}
 
-	pthis->blastTailPos[pthis->work[TAIL_IDX]] = pthis->actor.world.pos;
+	pthis->blastTailPos[pthis->TAIL_IDX] = pthis->actor.world.pos;
 
 	if(1)
 	{
@@ -3207,14 +3207,14 @@ void BossTw_Update(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	if(pthis->work[INVINC_TIMER] != 0)
+	if(pthis->INVINC_TIMER != 0)
 	{
-		pthis->work[INVINC_TIMER]--;
+		pthis->INVINC_TIMER--;
 	}
 
-	if(pthis->work[FOG_TIMER] != 0)
+	if(pthis->FOG_TIMER != 0)
 	{
-		pthis->work[FOG_TIMER]--;
+		pthis->FOG_TIMER--;
 	}
 
 	if(pthis->actionFunc == BossTw_FlyTo || pthis->actionFunc == BossTw_Spin || pthis->actionFunc == BossTw_TurnToPlayer)
@@ -3239,7 +3239,7 @@ void BossTw_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->collider.dim.height = 120;
 		pthis->collider.dim.yShift = -30;
 
-		if(pthis->work[INVINC_TIMER] == 0)
+		if(pthis->INVINC_TIMER == 0)
 		{
 			if(pthis->collider.base.acFlags & AC_HIT)
 			{
@@ -3253,28 +3253,28 @@ void BossTw_Update(Actor* thisx, GlobalContext* globalCtx)
 
 		if(pthis->actor.params == 0)
 		{
-			pthis->workf[OUTR_CRWN_TX_X2] += 1.0f;
-			pthis->workf[OUTR_CRWN_TX_Y2] -= 7.0f;
-			pthis->workf[INNR_CRWN_TX_Y1] += 1.0f;
+			pthis->OUTR_CRWN_TX_X2 += 1.0f;
+			pthis->OUTR_CRWN_TX_Y2 -= 7.0f;
+			pthis->INNR_CRWN_TX_Y1 += 1.0f;
 		}
 		else
 		{
-			pthis->workf[OUTR_CRWN_TX_X2] += 0.0f;
-			pthis->workf[INNR_CRWN_TX_X2] += 0.0f;
-			pthis->workf[OUTR_CRWN_TX_Y2] += -15.0f;
-			pthis->workf[INNR_CRWN_TX_Y2] += -10.0f;
+			pthis->OUTR_CRWN_TX_X2 += 0.0f;
+			pthis->INNR_CRWN_TX_X2 += 0.0f;
+			pthis->OUTR_CRWN_TX_Y2 += -15.0f;
+			pthis->INNR_CRWN_TX_Y2 += -10.0f;
 		}
 
-		if(((pthis->work[CS_TIMER_2] % 32) == 0) && (Rand_ZeroOne() < 0.3f))
+		if(((pthis->CS_TIMER_2 % 32) == 0) && (Rand_ZeroOne() < 0.3f))
 		{
-			pthis->work[BLINK_IDX] = 4;
+			pthis->BLINK_IDX = 4;
 		}
 
-		pthis->eyeTexIdx = D_8094A900_143[pthis->work[BLINK_IDX]];
+		pthis->eyeTexIdx = D_8094A900_143[pthis->BLINK_IDX];
 
-		if(pthis->work[BLINK_IDX] != 0)
+		if(pthis->BLINK_IDX != 0)
 		{
-			pthis->work[BLINK_IDX]--;
+			pthis->BLINK_IDX--;
 		}
 
 		if(pthis->actionFunc != BossTw_MergeCS && pthis->unk_5F8 != 0)
@@ -3330,8 +3330,8 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 	Math_ApproachF(&pthis->fogNear, globalCtx->lightCtx.fogNear, 1.0f, 10.0f);
 	Math_ApproachF(&pthis->fogFar, 1000.0f, 1.0f, 10.0f);
 
-	pthis->work[CS_TIMER_1]++;
-	pthis->work[CS_TIMER_2]++;
+	pthis->CS_TIMER_1++;
+	pthis->CS_TIMER_2++;
 
 	for(i = 0; i < 5; i++)
 	{
@@ -3341,14 +3341,14 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 		}
 	}
 
-	if(pthis->work[INVINC_TIMER] != 0)
+	if(pthis->INVINC_TIMER != 0)
 	{
-		pthis->work[INVINC_TIMER]--;
+		pthis->INVINC_TIMER--;
 	}
 
-	if(pthis->work[FOG_TIMER] != 0)
+	if(pthis->FOG_TIMER != 0)
 	{
-		pthis->work[FOG_TIMER]--;
+		pthis->FOG_TIMER--;
 	}
 
 	pthis->actionFunc(pthis, globalCtx);
@@ -3359,29 +3359,29 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 		BossTw_TwinrovaSetupSpin(pthis, globalCtx);
 	}
 
-	pthis->eyeTexIdx = D_8094A900_143[pthis->work[BLINK_IDX]];
-	if(pthis->work[BLINK_IDX] != 0)
+	pthis->eyeTexIdx = D_8094A900_143[pthis->BLINK_IDX];
+	if(pthis->BLINK_IDX != 0)
 	{
-		pthis->work[BLINK_IDX]--;
+		pthis->BLINK_IDX--;
 	}
 
-	if((pthis->work[CS_TIMER_2] % 32) == 0)
+	if((pthis->CS_TIMER_2 % 32) == 0)
 	{
 		if(pthis->actionFunc != BossTw_TwinrovaMergeCS)
 		{
 			if(Rand_ZeroOne() < 0.3f)
 			{
-				pthis->work[BLINK_IDX] = 4;
+				pthis->BLINK_IDX = 4;
 			}
 		}
 	}
 
 	if(pthis->actionFunc == BossTw_TwinrovaMergeCS)
 	{
-		pthis->leftEyeTexIdx = D_8094A90C_143[pthis->work[TW_BLINK_IDX]];
-		if(pthis->work[TW_BLINK_IDX] != 0)
+		pthis->leftEyeTexIdx = D_8094A90C_143[pthis->TW_BLINK_IDX.whole()];
+		if(pthis->TW_BLINK_IDX != 0)
 		{
-			pthis->work[TW_BLINK_IDX]--;
+			pthis->TW_BLINK_IDX--;
 		}
 	}
 	else
@@ -3405,16 +3405,16 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 		Vec3f velocity = {0.0f, 0.0f, 0.0f};
 		Vec3f accel;
 
-		if(pthis->work[UNK_S8] != 0)
+		if(pthis->UNK_S8 != 0)
 		{
-			pthis->work[UNK_S8] -= 20;
-			if(pthis->work[UNK_S8] < 0)
+			pthis->UNK_S8 -= 20;
+			if(pthis->UNK_S8 < 0)
 			{
-				pthis->work[UNK_S8] = 0;
+				pthis->UNK_S8 = 0;
 			}
 		}
 
-		Math_ApproachF(&pthis->workf[UNK_F12], 1.0f, 1.0f, 0.05f);
+		Math_ApproachF(&pthis->UNK_F12, 1.0f, 1.0f, 0.05f);
 		accel.y = 0.4f;
 
 		for(i = 0; i < 2; i++)
@@ -3451,14 +3451,14 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 	pthis->collider.dim.yShift = -60;
 	Collider_UpdateCylinder(&pthis->actor, &pthis->collider);
 
-	if(pthis->work[INVINC_TIMER] == 0)
+	if(pthis->INVINC_TIMER == 0)
 	{
 		if(pthis->actionFunc != BossTw_TwinrovaStun)
 		{
 			if(pthis->twinrovaStun != 0)
 			{
 				pthis->twinrovaStun = 0;
-				pthis->work[FOG_TIMER] = 10;
+				pthis->FOG_TIMER = 10;
 				BossTw_TwinrovaDamage(pthis, globalCtx, 0);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_YOUNG_DAMAGE);
 			}
@@ -3520,7 +3520,7 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 			break;
 		case 2:
 			globalCtx->envCtx.unk_BD = 2;
-			Math_ApproachF(&globalCtx->envCtx.unk_D8, (Math_SinS(pthis->work[CS_TIMER_1] * 0x3000) * 0.03f) + 0.5f, 1.0f, 0.05f);
+			Math_ApproachF(&globalCtx->envCtx.unk_D8, (Math_SinS(pthis->CS_TIMER_1 * 0x3000) * 0.03f) + 0.5f, 1.0f, 0.05f);
 			break;
 		case 3:
 			globalCtx->envCtx.unk_BD = 3;
@@ -3528,7 +3528,7 @@ void BossTw_TwinrovaUpdate(Actor* thisx, GlobalContext* globalCtx2)
 			break;
 		case 4:
 			globalCtx->envCtx.unk_BD = 2;
-			Math_ApproachF(&globalCtx->envCtx.unk_D8, (Math_SinS(pthis->work[CS_TIMER_1] * 0x3E00) * 0.05f) + 0.95f, 1.0f, 0.1f);
+			Math_ApproachF(&globalCtx->envCtx.unk_D8, (Math_SinS(pthis->CS_TIMER_1 * 0x3E00) * 0.05f) + 0.95f, 1.0f, 0.1f);
 			break;
 		case 5:
 			globalCtx->envCtx.unk_BD = 0;
@@ -3665,22 +3665,22 @@ void func_80941BC0(BossTw* pthis, GlobalContext* globalCtx)
 	Matrix_Push();
 	func_80093D84(globalCtx->gfxCtx);
 	Matrix_Translate(pthis->groundBlastPos2.x, pthis->groundBlastPos2.y, pthis->groundBlastPos2.z, MTXMODE_NEW);
-	Matrix_Scale(pthis->workf[UNK_F12], pthis->workf[UNK_F12], pthis->workf[UNK_F12], MTXMODE_APPLY);
+	Matrix_Scale(pthis->UNK_F12, pthis->UNK_F12, pthis->UNK_F12, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6358), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->workf[UNK_F11]);
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->UNK_F11);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 40, 30, 80);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01BC00));
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 215, 215, 215, (s16)pthis->workf[UNK_F11] * pthis->workf[UNK_F14]);
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 215, 215, 215, (s16)pthis->UNK_F11 * pthis->UNK_F14);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, (u32)pthis->workf[UNK_F16] & 0x3F, (pthis->work[CS_TIMER_2] * 4) & 0x3F, 0x10, 0x10));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x40, 1, (u32)pthis->UNK_F16 & 0x3F, (s32)(pthis->CS_TIMER_2 * 4) & 0x3F, 0x10, 0x10));
 	Matrix_Push();
-	Matrix_RotateY(pthis->workf[UNK_F15], MTXMODE_APPLY);
+	Matrix_RotateY(pthis->UNK_F15, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6423), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01C1C0));
 	Matrix_Pop();
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6427), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-	gSPSegment(POLY_XLU_DISP++, 0xD, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->work[CS_TIMER_2] & 0x7F, (pthis->work[CS_TIMER_2] * 8) & 0xFF, 0x20, 0x40, 1, (-pthis->work[CS_TIMER_2] * 2) & 0x3F, 0, 0x10, 0x10));
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s16)pthis->workf[UNK_F9]);
+	gSPSegment(POLY_XLU_DISP++, 0xD, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->CS_TIMER_2 & 0x7F, (s32)(pthis->CS_TIMER_2 * 8) & 0xFF, 0x20, 0x40, 1, (s32)(-pthis->CS_TIMER_2 * 2) & 0x3F, 0, 0x10, 0x10));
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s16)pthis->UNK_F9);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, 128);
 	gDPSetRenderMode(POLY_XLU_DISP++, Z_CMP | IM_RD | CVG_DST_SAVE | ZMODE_DEC | FORCE_BL | GBL_c1(G_BL_CLR_FOG, G_BL_A_SHADE, G_BL_CLR_IN, G_BL_1MA), G_RM_ZB_OVL_SURF2);
 	gSPSetGeometryMode(POLY_XLU_DISP++, G_CULL_BACK | G_FOG);
@@ -3700,10 +3700,10 @@ void func_80942180(BossTw* pthis, GlobalContext* globalCtx)
 
 	func_80093D84(globalCtx->gfxCtx);
 	Matrix_Translate(pthis->groundBlastPos2.x, pthis->groundBlastPos2.y, pthis->groundBlastPos2.z, MTXMODE_NEW);
-	Matrix_Scale(pthis->workf[KM_GD_CRTR_SCL], pthis->workf[KM_GD_CRTR_SCL], pthis->workf[KM_GD_CRTR_SCL], MTXMODE_APPLY);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (-pthis->work[CS_TIMER_1]) & 0x7F, 0, 0x20, 0x20, 1, (pthis->work[CS_TIMER_1] * 2) & 0x7F, 0, 0x20, 0x20));
+	Matrix_Scale(pthis->KM_GD_CRTR_SCL, pthis->KM_GD_CRTR_SCL, pthis->KM_GD_CRTR_SCL, MTXMODE_APPLY);
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(-pthis->CS_TIMER_1) & 0x7F, 0, 0x20, 0x20, 1, (s32)(pthis->CS_TIMER_1 * 2) & 0x7F, 0, 0x20, 0x20));
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6497), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 40, 00, (s16)pthis->workf[KM_GRND_CRTR_A]);
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 40, 00, (s16)pthis->KM_GRND_CRTR_A);
 	gDPPipeSync(POLY_XLU_DISP++);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 245, 255, 128);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_019D40));
@@ -3711,17 +3711,17 @@ void func_80942180(BossTw* pthis, GlobalContext* globalCtx)
 	func_800D1FD4(&globalCtx->billboardMtxF);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6514), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
 	gSPSegment(
-	    POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, pthis->work[CS_TIMER_1] & 0x7F, (-pthis->work[CS_TIMER_1] * 6) & 0xFF, 0x20, 0x40, 1, (pthis->work[CS_TIMER_1] * 2) & 0x7F, (-pthis->work[CS_TIMER_1] * 6) & 0xFF, 0x20, 0x40));
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 80, 0, 0, (s16)pthis->workf[KM_GD_SMOKE_A]);
+	    POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)pthis->CS_TIMER_1 & 0x7F, (s32)(-pthis->CS_TIMER_1 * 6) & 0xFF, 0x20, 0x40, 1, (s32)(pthis->CS_TIMER_1 * 2) & 0x7F, (s32)(-pthis->CS_TIMER_1 * 6) & 0xFF, 0x20, 0x40));
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 80, 0, 0, (s16)pthis->KM_GD_SMOKE_A);
 	gDPPipeSync(POLY_XLU_DISP++);
 	gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, 100);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_018FC0));
 
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (-pthis->work[CS_TIMER_1] * 3) & 0x7F, 0, 0x20, 0x20, 1, 0, (-pthis->work[CS_TIMER_1] * 10) & 0xFF, 0x20, 0x40));
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 50, 0, (s16)(pthis->workf[KM_GD_FLM_A] * 0.7f));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(-pthis->CS_TIMER_1 * 3) & 0x7F, 0, 0x20, 0x20, 1, 0, (s32)(-pthis->CS_TIMER_1 * 10) & 0xFF, 0x20, 0x40));
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 50, 0, (s16)(pthis->KM_GD_FLM_A * 0.7f));
 	gDPPipeSync(POLY_XLU_DISP++);
 	gDPSetEnvColor(POLY_XLU_DISP++, 200, 235, 240, 128);
-	Matrix_Scale(pthis->workf[KM_GD_FLM_SCL], pthis->workf[KM_GD_FLM_SCL], pthis->workf[KM_GD_FLM_SCL], MTXMODE_APPLY);
+	Matrix_Scale(pthis->KM_GD_FLM_SCL, pthis->KM_GD_FLM_SCL, pthis->KM_GD_FLM_SCL, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6575), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_019938));
 
@@ -3737,7 +3737,7 @@ void func_809426F0(BossTw* pthis, GlobalContext* globalCtx)
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_tw.c", 6587);
 
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (u8)(-pthis->work[CS_TIMER_2] * 15), 0x20, 0x40, 1, 0, 0, 0x40, 0x40));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (u8)(-pthis->CS_TIMER_2 * 15), 0x20, 0x40, 1, 0, 0, 0x40, 0x40));
 	Matrix_Push();
 	Matrix_Translate(0.0f, 0.0f, 5000.0f, MTXMODE_APPLY);
 	Matrix_Scale(pthis->spawnPortalScale / 2000.0f, pthis->spawnPortalScale / 2000.0f, pthis->spawnPortalScale / 2000.0f, MTXMODE_APPLY);
@@ -3774,7 +3774,7 @@ void func_809426F0(BossTw* pthis, GlobalContext* globalCtx)
 		Matrix_Translate(0.0f, 0.0f, 5000.0f, MTXMODE_APPLY);
 		Matrix_RotateZ(((i * M_PI) * 2.0f * 0.125f) + pthis->flameRotation, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, pthis->spawnPortalScale * 1.5f, 0.0f, MTXMODE_APPLY);
-		gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, ((pthis->work[CS_TIMER_2] * 3) + (i * 10)) & 0x7F, (u8)((-pthis->work[CS_TIMER_2] * 15) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
+		gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)((pthis->CS_TIMER_2 * 3) + (i * 10)) & 0x7F, (u8)((-pthis->CS_TIMER_2 * 15) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
 		Matrix_Scale(0.4f, 0.4f, 0.4f, MTXMODE_APPLY);
 		func_800D1FD4(&globalCtx->billboardMtxF);
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6751), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
@@ -3795,7 +3795,7 @@ void func_80942C70(Actor* thisx, GlobalContext* globalCtx)
 	if(pthis->beamDist != 0.0f)
 	{
 		Matrix_Push();
-		gSPSegment(POLY_XLU_DISP++, 0xC, Gfx_TexScroll(globalCtx->gfxCtx, 0, (u8)(pthis->work[CS_TIMER_1] * -0xF), 0x20, 0x40));
+		gSPSegment(POLY_XLU_DISP++, 0xC, Gfx_TexScroll(globalCtx->gfxCtx, 0, (u8)(pthis->CS_TIMER_1 * -0xF), 0x20, 0x40));
 		alpha = pthis->beamScale * 100.0f * 255.0f;
 
 		if(pthis->actor.params == 1)
@@ -3842,7 +3842,7 @@ void func_80943028(Actor* thisx, GlobalContext* globalCtx)
 
 	Matrix_Push();
 	Matrix_Translate(pthis->actor.world.pos.x, pthis->actor.world.pos.y + 57.0f, pthis->actor.world.pos.z, MTXMODE_NEW);
-	Matrix_Scale(pthis->workf[UNK_F17], pthis->workf[UNK_F17], pthis->workf[UNK_F17], MTXMODE_APPLY);
+	Matrix_Scale(pthis->UNK_F17, pthis->UNK_F17, pthis->UNK_F17, MTXMODE_APPLY);
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 6908), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01F608));
@@ -3872,25 +3872,25 @@ void BossTw_Draw(Actor* thisx, GlobalContext* globalCtx2)
 		gSPSegment(
 		    POLY_XLU_DISP++, 8,
 		    Gfx_TwoTexScroll(
-			globalCtx->gfxCtx, 0, (s16)pthis->workf[OUTR_CRWN_TX_X1] & 0x7F, (s16)pthis->workf[OUTR_CRWN_TX_Y1] & 0x7F, 0x20, 0x20, 1, (s16)pthis->workf[OUTR_CRWN_TX_X2] & 0x7F, (s16)pthis->workf[OUTR_CRWN_TX_Y2] & 0xFF, 0x20, 0x40));
+			globalCtx->gfxCtx, 0, (s16)pthis->OUTR_CRWN_TX_X1 & 0x7F, (s16)pthis->OUTR_CRWN_TX_Y1 & 0x7F, 0x20, 0x20, 1, (s16)pthis->OUTR_CRWN_TX_X2 & 0x7F, (s16)pthis->OUTR_CRWN_TX_Y2 & 0xFF, 0x20, 0x40));
 
 		if(pthis->actor.params == TW_KOTAKE)
 		{
-			gSPSegment(POLY_XLU_DISP++, 9, Gfx_TexScroll(globalCtx->gfxCtx, (s16)pthis->workf[INNR_CRWN_TX_X1] & 0x7F, (s16)pthis->workf[INNR_CRWN_TX_Y1] & 0xFF, 0x20, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 9, Gfx_TexScroll(globalCtx->gfxCtx, (s16)pthis->INNR_CRWN_TX_X1 & 0x7F, (s16)pthis->INNR_CRWN_TX_Y1 & 0xFF, 0x20, 0x40));
 		}
 		else
 		{
 			gSPSegment(
 			    POLY_XLU_DISP++, 9,
 			    Gfx_TwoTexScroll(
-				globalCtx->gfxCtx, 0, (s16)pthis->workf[INNR_CRWN_TX_X1] & 0x7F, (s16)pthis->workf[INNR_CRWN_TX_Y1] & 0x7F, 0x20, 0x20, 1, (s16)pthis->workf[INNR_CRWN_TX_X2] & 0x7F, (s16)pthis->workf[INNR_CRWN_TX_Y2] & 0xFF, 0x20,
+				globalCtx->gfxCtx, 0, (s16)pthis->INNR_CRWN_TX_X1 & 0x7F, (s16)pthis->INNR_CRWN_TX_Y1 & 0x7F, 0x20, 0x20, 1, (s16)pthis->INNR_CRWN_TX_X2 & 0x7F, (s16)pthis->INNR_CRWN_TX_Y2 & 0xFF, 0x20,
 				0x40));
 		}
 
 		func_80093D18(globalCtx->gfxCtx);
 		func_80093D84(globalCtx->gfxCtx);
 
-		if(pthis->work[FOG_TIMER] & 2)
+		if(pthis->FOG_TIMER & 2)
 		{
 			POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099);
 		}
@@ -3907,16 +3907,16 @@ void BossTw_Draw(Actor* thisx, GlobalContext* globalCtx2)
 
 	if(pthis->actor.params == TW_KOTAKE)
 	{
-		if(pthis->workf[UNK_F9] > 0.0f)
+		if(pthis->UNK_F9 > 0.0f)
 		{
-			if(pthis->workf[UNK_F11] > 0.0f)
+			if(pthis->UNK_F11 > 0.0f)
 			{
 				Vec3f diff;
 				diff.x = pthis->groundBlastPos2.x - player->actor.world.pos.x;
 				diff.y = pthis->groundBlastPos2.y - player->actor.world.pos.y;
 				diff.z = pthis->groundBlastPos2.z - player->actor.world.pos.z;
 
-				if((fabsf(diff.y) < 10.0f) && (player->actor.bgCheckFlags & BG_STATE_0) && (sqrtf(SQ(diff.x) + SQ(diff.z)) < (pthis->workf[UNK_F12] * 4600.0f)) && (sFreezeState == 0) && (pthis->workf[UNK_F11] > 200.0f))
+				if((fabsf(diff.y) < 10.0f) && (player->actor.bgCheckFlags & BG_STATE_0) && (sqrtf(SQ(diff.x) + SQ(diff.z)) < (pthis->UNK_F12 * 4600.0f)) && (sFreezeState == 0) && (pthis->UNK_F11 > 200.0f))
 				{
 					sFreezeState = 1;
 					sTwinrovaPtr->timers[2] = 100;
@@ -3963,30 +3963,30 @@ s32 BossTw_TwinrovaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx
 	switch(limbIndex)
 	{
 		case 21:
-			gSPSegment(POLY_OPA_DISP++, 0xC, Gfx_TexScroll(globalCtx->gfxCtx, 0, (s16)(f32)pthis->work[CS_TIMER_1], 8, 8));
+			gSPSegment(POLY_OPA_DISP++, 0xC, Gfx_TexScroll(globalCtx->gfxCtx, 0, (s16)(f32)pthis->CS_TIMER_1, 8, 8));
 			gSPSegment(POLY_OPA_DISP++, 8, SEGMENTED_TO_VIRTUAL(D_8094A9B0[pthis->eyeTexIdx]));
 			gSPSegment(POLY_OPA_DISP++, 9, SEGMENTED_TO_VIRTUAL(D_8094A9B0[pthis->leftEyeTexIdx]));
-			gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, pthis->work[UNK_S8]);
+			gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, pthis->UNK_S8);
 			break;
 		case 17:
 		case 41:
 			*dList = NULL;
-			gSPSegment(POLY_XLU_DISP++, 0xA, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, -pthis->work[CS_TIMER_1] * 0xF, 0x20, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 0xA, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, -pthis->CS_TIMER_1 * 0xF, 0x20, 0x40));
 			break;
 		case 18:
 		case 42:
 			*dList = NULL;
-			gSPSegment(POLY_XLU_DISP++, 0xB, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, -pthis->work[CS_TIMER_1] * 0xA, 0x20, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 0xB, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, 0, -pthis->CS_TIMER_1 * 0xA, 0x20, 0x40));
 			break;
 		case 16:
 		case 32:
 			*dList = NULL;
-			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, pthis->work[CS_TIMER_1], -pthis->work[CS_TIMER_1] * 7, 0x20, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, 0, 0x20, 0x20, 1, pthis->CS_TIMER_1, -pthis->CS_TIMER_1 * 7, 0x20, 0x40));
 			break;
 		case 15:
 		case 31:
 			*dList = NULL;
-			gSPSegment(POLY_XLU_DISP++, 9, Gfx_TexScroll(globalCtx->gfxCtx, 0, pthis->work[CS_TIMER_1], 0x20, 0x40));
+			gSPSegment(POLY_XLU_DISP++, 9, Gfx_TexScroll(globalCtx->gfxCtx, 0, pthis->CS_TIMER_1, 0x20, 0x40));
 			break;
 		case 19:
 			if(pthis->unk_5F8 != 0)
@@ -4040,7 +4040,7 @@ void BossTw_TwinrovaPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
 		case 41:
 		case 42:
 			Matrix_Push();
-			Matrix_Scale(pthis->workf[UNK_F12], pthis->workf[UNK_F12], pthis->workf[UNK_F12], MTXMODE_APPLY);
+			Matrix_Scale(pthis->UNK_F12, pthis->UNK_F12, pthis->UNK_F12, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 7295), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
 			Matrix_Pop();
 			gSPDisplayList(POLY_XLU_DISP++, *dList);
@@ -4107,12 +4107,12 @@ void BossTw_ShieldChargeDraw(BossTw* pthis, GlobalContext* globalCtx)
 			Matrix_Mult(&player->shieldMf, MTXMODE_NEW);
 			Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 7362), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
-			temp_a0 = (Math_SinS(pthis->work[CS_TIMER_1] * 2730 * temp_t0) * D_8094C854 * 0.5f) + (D_8094C854 * 0.5f);
+			temp_a0 = (Math_SinS(pthis->CS_TIMER_1 * 2730 * temp_t0) * D_8094C854 * 0.5f) + (D_8094C854 * 0.5f);
 			if(sShieldFireCharge != 0)
 			{
 				gDPSetEnvColor(POLY_XLU_DISP++, 255, 245, 255, temp_a0);
 				gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E0E0));
-				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (pthis->work[CS_TIMER_1] * 2) * temp_t0, 0, 0x20, 0x20, 1, (-pthis->work[CS_TIMER_1] * 2) * temp_t0, 0, 0x20, 0x20));
+				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (pthis->CS_TIMER_1 * 2) * temp_t0, 0, 0x20, 0x20, 1, (-pthis->CS_TIMER_1 * 2) * temp_t0, 0, 0x20, 0x20));
 				gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 20, 0, (s16)D_8094C854);
 				gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E020));
 			}
@@ -4120,7 +4120,7 @@ void BossTw_ShieldChargeDraw(BossTw* pthis, GlobalContext* globalCtx)
 			{
 				gDPSetEnvColor(POLY_XLU_DISP++, 225, 255, 255, temp_a0);
 				gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E3A0));
-				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (-pthis->work[CS_TIMER_1] * 5) * temp_t0, 0x20, 0x40, 1, (pthis->work[CS_TIMER_1] * 4) * temp_t0, 0, 0x20, 0x20));
+				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, (-pthis->CS_TIMER_1 * 5) * temp_t0, 0x20, 0x40, 1, (pthis->CS_TIMER_1 * 4) * temp_t0, 0, 0x20, 0x20));
 				gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 175, 205, 195, (s16)D_8094C854);
 				gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E2C0));
 			}
@@ -4160,7 +4160,7 @@ void BossTw_ShieldChargeDraw(BossTw* pthis, GlobalContext* globalCtx)
 			gDPSetEnvColor(POLY_XLU_DISP++, 185, 225, 205, 150);
 		}
 
-		gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, pthis->work[CS_TIMER_1] * D_8094C872, 0x20, 0x40, 1, 0, pthis->work[CS_TIMER_1] * D_8094C872, 0x20, 0x20));
+		gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, pthis->CS_TIMER_1 * D_8094C872, 0x20, 0x40, 1, 0, pthis->CS_TIMER_1 * D_8094C872, 0x20, 0x20));
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01E9F0));
 	}
 
@@ -4176,7 +4176,7 @@ void BossTw_SpawnPortalDraw(BossTw* pthis, GlobalContext* globalCtx)
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_tw.c", 7546);
 
 	func_80093D84(globalCtx->gfxCtx);
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, -pthis->work[CS_TIMER_1] * 15, 0x20, 0x40, 1, 0, 0, 0x40, 0x40));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 0, -pthis->CS_TIMER_1 * 15, 0x20, 0x40, 1, 0, 0, 0x40, 0x40));
 
 	Matrix_Push();
 
@@ -4220,20 +4220,20 @@ void func_80944C50(BossTw* pthis, GlobalContext* globalCtx)
 	Matrix_Translate(0.0f, 750.0f, 0.0f, MTXMODE_NEW);
 	Matrix_Scale(0.35f, 0.35f, 0.35f, MTXMODE_APPLY);
 	Matrix_Push();
-	Matrix_Scale(pthis->workf[UNK_F19], pthis->workf[UNK_F19], pthis->workf[UNK_F19], MTXMODE_APPLY);
+	Matrix_Scale(pthis->UNK_F19, pthis->UNK_F19, pthis->UNK_F19, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 7671), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01F390));
 
 	Matrix_Pop();
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, -sKoumePtr->work[CS_TIMER_1] * 2, 0, 0x20, 0x20, 1, -sKoumePtr->work[CS_TIMER_1] * 2, 0, 0x20, 0x40));
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->workf[UNK_F18] / 2);
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, -sKoumePtr->CS_TIMER_1 * 2, 0, 0x20, 0x20, 1, -sKoumePtr->CS_TIMER_1 * 2, 0, 0x20, 0x40));
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)pthis->UNK_F18 / 2);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 7694), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);
 	gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01F238));
 
-	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, -sKoumePtr->work[CS_TIMER_1] * 5, -sKoumePtr->work[CS_TIMER_1] * 2, 0x20, 0x40, 1, 0, -sKoumePtr->work[CS_TIMER_1] * 2, 0x10, 0x10));
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)(pthis->workf[UNK_F18] * 0.3f));
+	gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, -sKoumePtr->CS_TIMER_1 * 5, -sKoumePtr->CS_TIMER_1 * 2, 0x20, 0x40, 1, 0, -sKoumePtr->CS_TIMER_1 * 2, 0x10, 0x10));
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)(pthis->UNK_F18 * 0.3f));
 
-	scale = pthis->workf[UNK_F18] / 150.0f;
+	scale = pthis->UNK_F18 / 150.0f;
 	scale = CLAMP_MAX(scale, 1.0f);
 
 	Matrix_Scale(scale, 1.0f, scale, MTXMODE_APPLY);
@@ -4256,7 +4256,7 @@ void BossTw_TwinrovaDraw(Actor* thisx, GlobalContext* globalCtx2)
 		func_80093D18(globalCtx->gfxCtx);
 		func_80093D84(globalCtx->gfxCtx);
 
-		POLY_OPA_DISP = (pthis->work[FOG_TIMER] & 2) ? Gfx_SetFog2(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099) : Gfx_SetFog2(POLY_OPA_DISP, (u32)pthis->fogR, (u32)pthis->fogG, (u32)pthis->fogB, 0, pthis->fogNear, pthis->fogFar);
+		POLY_OPA_DISP = (pthis->FOG_TIMER & 2) ? Gfx_SetFog2(POLY_OPA_DISP, 255, 50, 0, 0, 900, 1099) : Gfx_SetFog2(POLY_OPA_DISP, (u32)pthis->fogR, (u32)pthis->fogG, (u32)pthis->fogB, 0, pthis->fogNear, pthis->fogFar);
 
 		Matrix_Push();
 		SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, BossTw_TwinrovaOverrideLimbDraw, BossTw_TwinrovaPostLimbDraw, thisx);
@@ -4274,7 +4274,7 @@ void BossTw_TwinrovaDraw(Actor* thisx, GlobalContext* globalCtx2)
 		BossTw_SpawnPortalDraw(pthis, globalCtx);
 	}
 
-	if(pthis->workf[UNK_F18] > 0.0f)
+	if(pthis->UNK_F18 > 0.0f)
 	{
 		func_80944C50(pthis, globalCtx);
 	}
@@ -4314,7 +4314,7 @@ void BossTw_BlastFire(BossTw* pthis, GlobalContext* globalCtx)
 					{
 						pthis->blastTailPos[i] = pthis->actor.world.pos;
 					}
-					pthis->workf[TAIL_ALPHA] = 255.0f;
+					pthis->TAIL_ALPHA = 255.0f;
 					// fallthrough
 				case 1:
 				case 10:
@@ -4425,7 +4425,7 @@ void BossTw_BlastFire(BossTw* pthis, GlobalContext* globalCtx)
 					}
 					break;
 				case 2:
-					Math_ApproachF(&pthis->workf[TAIL_ALPHA], 0.0f, 1.0f, 15.0f);
+					Math_ApproachF(&pthis->TAIL_ALPHA, 0.0f, 1.0f, 15.0f);
 					if(pthis->timers[0] == 0)
 					{
 						Actor_Kill(&pthis->actor);
@@ -4453,7 +4453,7 @@ void BossTw_BlastFire(BossTw* pthis, GlobalContext* globalCtx)
 				yDiff = sKoumePtr->groundBlastPos2.y - player->actor.world.pos.y;
 				zDiff = sKoumePtr->groundBlastPos2.z - player->actor.world.pos.z;
 
-				if(!player->isBurning && (player->actor.bgCheckFlags & BG_STATE_0) && (fabsf(yDiff) < 10.0f) && (sqrtf(SQ(xDiff) + SQ(zDiff)) < (sKoumePtr->workf[UNK_F13] * 4550.0f)))
+				if(!player->isBurning && (player->actor.bgCheckFlags & BG_STATE_0) && (fabsf(yDiff) < 10.0f) && (sqrtf(SQ(xDiff) + SQ(zDiff)) < (sKoumePtr->UNK_F13 * 4550.0f)))
 				{
 					s16 j;
 
@@ -4464,29 +4464,29 @@ void BossTw_BlastFire(BossTw* pthis, GlobalContext* globalCtx)
 
 					player->isBurning = 1;
 
-					if(pthis->work[BURN_TMR] == 0)
+					if(pthis->BURN_TMR == 0)
 					{
 						func_8002F7DC(&player->actor, player->ageProperties->unk_92 + NA_SE_VO_LI_DEMO_DAMAGE);
-						pthis->work[BURN_TMR] = 40;
+						pthis->BURN_TMR = 40;
 					}
 
 					sTwinrovaPtr->timers[2] = 100;
 				}
 
-				Math_ApproachF(&sKoumePtr->workf[UNK_F13], 0.04f, 0.1f, 0.002f);
+				Math_ApproachF(&sKoumePtr->UNK_F13, 0.04f, 0.1f, 0.002f);
 				break;
 			}
 
 			{
 				f32 sp4C = sGroundBlastType == 2 ? 3.0f : 1.0f;
 
-				Math_ApproachF(&sKoumePtr->workf[UNK_F9], 0.0f, 1.0f, 10.0f * sp4C);
-				Math_ApproachF(&sKoumePtr->workf[UNK_F12], 0.0f, 1.0f, 0.03f * sp4C);
-				Math_ApproachF(&sKoumePtr->workf[TAIL_ALPHA], 0.0f, 1.0f, 3.0f * sp4C);
-				Math_ApproachF(&sKoumePtr->workf[UNK_F11], 0.0f, 1.0f, 6.0f * sp4C);
+				Math_ApproachF(&sKoumePtr->UNK_F9, 0.0f, 1.0f, 10.0f * sp4C);
+				Math_ApproachF(&sKoumePtr->UNK_F12, 0.0f, 1.0f, 0.03f * sp4C);
+				Math_ApproachF(&sKoumePtr->TAIL_ALPHA, 0.0f, 1.0f, 3.0f * sp4C);
+				Math_ApproachF(&sKoumePtr->UNK_F11, 0.0f, 1.0f, 6.0f * sp4C);
 			}
 
-			if(sKoumePtr->workf[TAIL_ALPHA] <= 0.0f)
+			if(sKoumePtr->TAIL_ALPHA <= 0.0f)
 			{
 				Actor_Kill(&pthis->actor);
 			}
@@ -4525,7 +4525,7 @@ void BossTw_BlastIce(BossTw* pthis, GlobalContext* globalCtx)
 						pthis->blastTailPos[i] = pthis->actor.world.pos;
 					}
 
-					pthis->workf[TAIL_ALPHA] = 255.0f;
+					pthis->TAIL_ALPHA = 255.0f;
 					// fallthrough
 				case 1:
 				case 10:
@@ -4638,7 +4638,7 @@ void BossTw_BlastIce(BossTw* pthis, GlobalContext* globalCtx)
 					break;
 
 				case 2:
-					Math_ApproachF(&pthis->workf[TAIL_ALPHA], 0.0f, 1.0f, 15.0f);
+					Math_ApproachF(&pthis->TAIL_ALPHA, 0.0f, 1.0f, 15.0f);
 					if(pthis->timers[0] == 0)
 					{
 						Actor_Kill(&pthis->actor);
@@ -4687,19 +4687,19 @@ void BossTw_BlastIce(BossTw* pthis, GlobalContext* globalCtx)
 					BossTw_AddDmgCloud(globalCtx, 3, &pos, &velocity, &accel, Rand_ZeroFloat(5.0f) + 15.0f, 255, 2, 130);
 				}
 
-				Math_ApproachF(&sKotakePtr->workf[UNK_F9], 80.0f, 1.0f, 3.0f);
-				Math_ApproachF(&sKotakePtr->workf[UNK_F11], 255.0f, 1.0f, 10.0f);
-				Math_ApproachF(&sKotakePtr->workf[UNK_F12], 0.04f, 0.1f, 0.002f);
-				Math_ApproachF(&sKotakePtr->workf[UNK_F16], 70.0f, 1.0f, 5.0f);
+				Math_ApproachF(&sKotakePtr->UNK_F9, 80.0f, 1.0f, 3.0f);
+				Math_ApproachF(&sKotakePtr->UNK_F11, 255.0f, 1.0f, 10.0f);
+				Math_ApproachF(&sKotakePtr->UNK_F12, 0.04f, 0.1f, 0.002f);
+				Math_ApproachF(&sKotakePtr->UNK_F16, 70.0f, 1.0f, 5.0f);
 
 				if((pthis->timers[0] == 70) || (pthis->timers[0] == 30))
 				{
-					sKotakePtr->workf[UNK_F16] = 10.0f;
+					sKotakePtr->UNK_F16 = 10.0f;
 				}
 
 				if((pthis->timers[0] % 4) == 0)
 				{
-					sKotakePtr->workf[UNK_F15] = (2.0f * (s16)Rand_ZeroFloat(9.9f) * M_PI) / 10.0f;
+					sKotakePtr->UNK_F15 = (2.0f * (s16)Rand_ZeroFloat(9.9f) * M_PI) / 10.0f;
 				}
 			}
 			else
@@ -4708,7 +4708,7 @@ void BossTw_BlastIce(BossTw* pthis, GlobalContext* globalCtx)
 
 				if(sGroundBlastType == 1)
 				{
-					if(sKotakePtr->workf[UNK_F11] > 1.0f)
+					if(sKotakePtr->UNK_F11 > 1.0f)
 					{
 						for(i = 0; i < 3; i++)
 						{
@@ -4734,11 +4734,11 @@ void BossTw_BlastIce(BossTw* pthis, GlobalContext* globalCtx)
 					sp80 = 1.0f;
 				}
 
-				Math_ApproachF(&sKotakePtr->workf[UNK_F14], 0.0f, 1.0f, 0.2f * sp80);
-				Math_ApproachF(&sKotakePtr->workf[UNK_F11], 0.0f, 1.0f, 5.0f * sp80);
-				Math_ApproachF(&sKotakePtr->workf[UNK_F9], 0.0f, 1.0f, sp80);
+				Math_ApproachF(&sKotakePtr->UNK_F14, 0.0f, 1.0f, 0.2f * sp80);
+				Math_ApproachF(&sKotakePtr->UNK_F11, 0.0f, 1.0f, 5.0f * sp80);
+				Math_ApproachF(&sKotakePtr->UNK_F9, 0.0f, 1.0f, sp80);
 
-				if(sKotakePtr->workf[UNK_F9] <= 0.0f)
+				if(sKotakePtr->UNK_F9 <= 0.0f)
 				{
 					Actor_Kill(&pthis->actor);
 				}
@@ -4767,7 +4767,7 @@ s32 BossTw_BlastShieldCheck(BossTw* pthis, GlobalContext* globalCtx)
 
 			if(info->toucher.dmgFlags & DMG_SHIELD)
 			{
-				pthis->work[INVINC_TIMER] = 7;
+				pthis->INVINC_TIMER = 7;
 				globalCtx->envCtx.unk_D8 = 1.0f;
 				Rumble_Shake(0.0f, 100, 5, 4);
 
@@ -4848,16 +4848,16 @@ void BossTw_BlastUpdate(Actor* thisx, GlobalContext* globalCtx)
 	ColliderCylinder* collider;
 	s16 i;
 
-	pthis->work[CS_TIMER_1]++;
-	pthis->work[CS_TIMER_2]++;
-	pthis->work[TAIL_IDX]++;
+	pthis->CS_TIMER_1++;
+	pthis->CS_TIMER_2++;
+	pthis->TAIL_IDX++;
 
-	if(pthis->work[TAIL_IDX] > 29)
+	if(pthis->TAIL_IDX > 29)
 	{
-		pthis->work[TAIL_IDX] = 0;
+		pthis->TAIL_IDX = 0;
 	}
 
-	pthis->blastTailPos[pthis->work[TAIL_IDX]] = pthis->actor.world.pos;
+	pthis->blastTailPos[pthis->TAIL_IDX] = pthis->actor.world.pos;
 
 	pthis->actionFunc(pthis, globalCtx);
 
@@ -4869,21 +4869,21 @@ void BossTw_BlastUpdate(Actor* thisx, GlobalContext* globalCtx)
 		}
 	}
 
-	if(pthis->work[INVINC_TIMER] != 0)
+	if(pthis->INVINC_TIMER != 0)
 	{
-		pthis->work[INVINC_TIMER]--;
+		pthis->INVINC_TIMER--;
 	}
 
-	if(pthis->work[BURN_TMR] != 0)
+	if(pthis->BURN_TMR != 0)
 	{
-		pthis->work[BURN_TMR]--;
+		pthis->BURN_TMR--;
 	}
 
 	pthis->actor.focus.pos = pthis->actor.world.pos;
 	collider = &pthis->collider;
 	Collider_UpdateCylinder(&pthis->actor, collider);
 
-	if(pthis->blastActive && pthis->work[INVINC_TIMER] == 0 && !BossTw_BlastShieldCheck(pthis, globalCtx))
+	if(pthis->blastActive && pthis->INVINC_TIMER == 0 && !BossTw_BlastShieldCheck(pthis, globalCtx))
 	{
 		CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &collider->base);
 		CollisionCheck_SetAT(globalCtx, &globalCtx->colChkCtx, &collider->base);
@@ -4907,12 +4907,12 @@ void BossTw_BlastDraw(Actor* thisx, GlobalContext* globalCtx2)
 	switch(pthis->actor.params)
 	{
 		case TW_FIRE_BLAST:
-			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, (s8)pthis->workf[TAIL_ALPHA]);
+			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, (s8)pthis->TAIL_ALPHA);
 			gDPSetEnvColor(POLY_XLU_DISP++, 255, 215, 255, 128);
 			for(i = 9; i >= 0; i--)
 			{
-				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, ((pthis->work[CS_TIMER_1] * 3) + (i * 10)) & 0x7F, ((-pthis->work[CS_TIMER_1] * 15) + (i * 50)) & 0xFF, 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
-				tailIdx = ((pthis->work[TAIL_IDX] - i) + 30) % 30;
+				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)((pthis->CS_TIMER_1 * 3) + (i * 10)) & 0x7F, (s32)((-pthis->CS_TIMER_1 * 15) + (i * 50)) & 0xFF, 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
+				tailIdx = ((pthis->TAIL_IDX - i) + 30) % 30;
 				Matrix_Translate(pthis->blastTailPos[tailIdx].x, pthis->blastTailPos[tailIdx].y, pthis->blastTailPos[tailIdx].z, MTXMODE_NEW);
 				scaleFactor = 1.0f - (i * 0.09f);
 				Matrix_Scale(pthis->actor.scale.x * scaleFactor, pthis->actor.scale.y * scaleFactor, pthis->actor.scale.z * scaleFactor, MTXMODE_APPLY);
@@ -4926,12 +4926,12 @@ void BossTw_BlastDraw(Actor* thisx, GlobalContext* globalCtx2)
 			break;
 
 		case TW_ICE_BLAST:
-			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s8)pthis->workf[TAIL_ALPHA]);
+			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s8)pthis->TAIL_ALPHA);
 			gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
 			for(i = 9; i >= 0; i--)
 			{
-				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, ((pthis->work[CS_TIMER_1] * 3) + (i * 0xA)) & 0x7F, (u8)((-pthis->work[CS_TIMER_1] * 0xF) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
-				tailIdx = ((pthis->work[TAIL_IDX] - i) + 30) % 30;
+				gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)((pthis->CS_TIMER_1 * 3) + (i * 0xA)) & 0x7F, (u8)((-pthis->CS_TIMER_1 * 0xF) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
+				tailIdx = ((pthis->TAIL_IDX - i) + 30) % 30;
 				Matrix_Translate(pthis->blastTailPos[tailIdx].x, pthis->blastTailPos[tailIdx].y, pthis->blastTailPos[tailIdx].z, MTXMODE_NEW);
 				scaleFactor = 1.0f - (i * 0.09f);
 				Matrix_Scale(pthis->actor.scale.x * scaleFactor, pthis->actor.scale.y * scaleFactor, pthis->actor.scale.z * scaleFactor, MTXMODE_APPLY);
@@ -4962,13 +4962,13 @@ void BossTw_DrawDeathBall(Actor* thisx, GlobalContext* globalCtx2)
 
 	if(pthis->actor.params == TW_DEATHBALL_KOUME)
 	{
-		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, (s8)pthis->workf[TAIL_ALPHA]);
+		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 200, 20, 0, (s8)pthis->TAIL_ALPHA);
 		gDPSetEnvColor(POLY_XLU_DISP++, 255, 215, 255, 128);
 
 		for(i = 9; i >= 0; i--)
 		{
-			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (((pthis->work[CS_TIMER_1] * 3) + (i * 0xA))) & 0x7F, (u8)((-pthis->work[CS_TIMER_1] * 0xF) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
-			tailIdx = ((pthis->work[TAIL_IDX] - i) + 30) % 30;
+			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(((pthis->CS_TIMER_1 * 3) + (i * 0xA))) & 0x7F, (u8)((-pthis->CS_TIMER_1 * 0xF) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
+			tailIdx = ((pthis->TAIL_IDX - i) + 30) % 30;
 			Matrix_Translate(pthis->blastTailPos[tailIdx].x, pthis->blastTailPos[tailIdx].y, pthis->blastTailPos[tailIdx].z, MTXMODE_NEW);
 			scaleFactor = (1.0f - (i * 0.09f));
 			Matrix_Scale(pthis->actor.scale.x * scaleFactor, pthis->actor.scale.y * scaleFactor, pthis->actor.scale.z * scaleFactor, MTXMODE_APPLY);
@@ -4979,13 +4979,13 @@ void BossTw_DrawDeathBall(Actor* thisx, GlobalContext* globalCtx2)
 	}
 	else
 	{
-		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s8)pthis->workf[TAIL_ALPHA]);
+		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, (s8)pthis->TAIL_ALPHA);
 		gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
 
 		for(i = 9; i >= 0; i--)
 		{
-			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (((pthis->work[CS_TIMER_1] * 3) + (i * 0xA))) & 0x7F, (u8)((-pthis->work[CS_TIMER_1] * 0xF) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
-			tailIdx = ((pthis->work[TAIL_IDX] - i) + 30) % 30;
+			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s32)(((pthis->CS_TIMER_1 * 3) + (i * 0xA))) & 0x7F, (u8)((-pthis->CS_TIMER_1 * 0xF) + (i * 50)), 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
+			tailIdx = ((pthis->TAIL_IDX - i) + 30) % 30;
 			Matrix_Translate(pthis->blastTailPos[tailIdx].x, pthis->blastTailPos[tailIdx].y, pthis->blastTailPos[tailIdx].z, MTXMODE_NEW);
 			scaleFactor = (1.0f - (i * 0.09f));
 			Matrix_Scale(pthis->actor.scale.x * scaleFactor, pthis->actor.scale.y * scaleFactor, pthis->actor.scale.z * scaleFactor, MTXMODE_APPLY);
@@ -5036,7 +5036,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 			{
 				colorIdx = eff->frame % 4;
 
-				if(eff->work[EFF_ARGS] == 0)
+				if(eff->EFF_ARGS == 0)
 				{
 					colorIdx += 4;
 				}
@@ -5054,7 +5054,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 			}
 			else if((eff->type == 3) || (eff->type == 2))
 			{
-				if(eff->work[EFF_ARGS] == 2)
+				if(eff->EFF_ARGS == 2)
 				{
 					eff->alpha -= 20;
 					if(eff->alpha <= 0)
@@ -5063,12 +5063,12 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 						eff->type = TWEFF_NONE;
 					}
 				}
-				else if(eff->work[EFF_ARGS] == 0)
+				else if(eff->EFF_ARGS == 0)
 				{
 					eff->alpha += 10;
 					if(eff->alpha >= 100)
 					{
-						eff->work[EFF_ARGS]++;
+						eff->EFF_ARGS++;
 					}
 				}
 				else
@@ -5083,7 +5083,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 			}
 			else if(eff->type == TWEFF_FLAME)
 			{
-				if(eff->work[EFF_UNKS1] != 0)
+				if(eff->EFF_UNKS1 != 0)
 				{
 					eff->alpha = (eff->alpha - (i & 7)) - 0xD;
 					if(eff->alpha <= 0)
@@ -5098,15 +5098,15 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					if(eff->alpha >= 255)
 					{
 						eff->alpha = 255;
-						eff->work[EFF_UNKS1]++;
+						eff->EFF_UNKS1++;
 					}
 				}
 			}
 			else if(eff->type == TWEFF_SHLD_BLST)
 			{
 				D_8094C870 = 1;
-				eff->work[EFF_UNKS1]++;
-				if(eff->work[EFF_UNKS1] > 30)
+				eff->EFF_UNKS1++;
+				if(eff->EFF_UNKS1 > 30)
 				{
 					eff->alpha -= 10;
 					if(eff->alpha <= 0)
@@ -5116,7 +5116,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					}
 				}
 
-				Math_ApproachF(&eff->workf[EFF_SCALE], eff->workf[EFF_DIST], 0.1f, 0.003f);
+				Math_ApproachF(&eff->EFF_SCALE, eff->EFF_DIST, 0.1f, 0.003f);
 				off.x = sTwinrovaPtr->actor.world.pos.x - eff->pos.x;
 				off.y = (sTwinrovaPtr->actor.world.pos.y - eff->pos.y) * 0.5f;
 				off.z = sTwinrovaPtr->actor.world.pos.z - eff->pos.z;
@@ -5136,7 +5136,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 							spDC.x = 0.0f;
 							spDC.y = 0.0f;
 							spDC.z = 0.0f;
-							BossTw_AddFlameEffect(globalCtx, &spF4, &spE8, &spDC, Rand_ZeroFloat(10.0f) + 25.0f, eff->work[EFF_ARGS]);
+							BossTw_AddFlameEffect(globalCtx, &spF4, &spE8, &spDC, Rand_ZeroFloat(10.0f) + 25.0f, eff->EFF_ARGS);
 						}
 
 						sTwinrovaPtr->twinrovaStun = 1;
@@ -5149,11 +5149,11 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 			{
 				sp11C.x = 0.0f;
 				sp11C.y = eff->pos.y;
-				sp11C.z = eff->workf[EFF_DIST];
-				Matrix_RotateY(sTwinrovaPtr->workf[UNK_F9] + eff->workf[EFF_ROLL], MTXMODE_NEW);
+				sp11C.z = eff->EFF_DIST;
+				Matrix_RotateY(sTwinrovaPtr->UNK_F9 + eff->EFF_ROLL, MTXMODE_NEW);
 				Matrix_MultVec3f(&sp11C, &eff->pos);
 
-				if(eff->work[EFF_UNKS1] != 0)
+				if(eff->EFF_UNKS1 != 0)
 				{
 					eff->alpha -= 60;
 					if(eff->alpha <= 0)
@@ -5168,36 +5168,36 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					if(eff->alpha >= 255)
 					{
 						eff->alpha = 255;
-						eff->work[EFF_UNKS1]++;
+						eff->EFF_UNKS1++;
 					}
 				}
 			}
 			else if(eff->type == TWEFF_SHLD_DEFL)
 			{
-				eff->work[EFF_UNKS1]++;
+				eff->EFF_UNKS1++;
 				sp11C.x = 0.0f;
 				sp11C.y = 0.0f;
-				sp11C.z = -eff->workf[EFF_DIST];
+				sp11C.z = -eff->EFF_DIST;
 				Matrix_RotateY((sShieldHitYaw / 32768.0f) * M_PI, MTXMODE_NEW);
 				Matrix_RotateX(-0.2f, MTXMODE_APPLY);
-				Matrix_RotateZ(eff->workf[EFF_ROLL], MTXMODE_APPLY);
-				Matrix_RotateY(eff->workf[EFF_YAW], MTXMODE_APPLY);
+				Matrix_RotateZ(eff->EFF_ROLL, MTXMODE_APPLY);
+				Matrix_RotateY(eff->EFF_YAW, MTXMODE_APPLY);
 				Matrix_MultVec3f(&sp11C, &eff->pos);
 				eff->pos.x += sShieldHitPos.x;
 				eff->pos.y += sShieldHitPos.y;
 				eff->pos.z += sShieldHitPos.z;
 
-				if(eff->work[EFF_UNKS1] < 10)
+				if(eff->EFF_UNKS1 < 10)
 				{
-					Math_ApproachF(&eff->workf[EFF_DIST], 50.0f, 0.5f, 100.0f);
+					Math_ApproachF(&eff->EFF_DIST, 50.0f, 0.5f, 100.0f);
 				}
 				else
 				{
-					Math_ApproachF(&eff->workf[EFF_YAW], 0.0f, 0.5f, 10.0f);
-					Math_ApproachF(&eff->workf[EFF_DIST], 1000.0f, 1.0f, 10.0f);
-					if(eff->work[EFF_UNKS1] >= 0x10)
+					Math_ApproachF(&eff->EFF_YAW, 0.0f, 0.5f, 10.0f);
+					Math_ApproachF(&eff->EFF_DIST, 1000.0f, 1.0f, 10.0f);
+					if(eff->EFF_UNKS1 >= 0x10)
 					{
-						if((eff->work[EFF_UNKS1] == 16) && (sp113 == 0))
+						if((eff->EFF_UNKS1 == 16) && (sp113 == 0))
 						{
 							sp113 = 1;
 							spD0 = eff->pos;
@@ -5216,7 +5216,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 								{
 									sTwinrovaPtr->groundBlastPos.x = eff->pos.x;
 									sTwinrovaPtr->groundBlastPos.z = eff->pos.z;
-									BossTw_SpawnGroundBlast(sTwinrovaPtr, globalCtx, eff->work[EFF_ARGS]);
+									BossTw_SpawnGroundBlast(sTwinrovaPtr, globalCtx, eff->EFF_ARGS);
 								}
 							}
 						}
@@ -5229,31 +5229,31 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					}
 				}
 
-				BossTw_AddFlameEffect(globalCtx, &eff->pos, &sZeroVector, &sZeroVector, 10, eff->work[EFF_ARGS]);
+				BossTw_AddFlameEffect(globalCtx, &eff->pos, &sZeroVector, &sZeroVector, 10, eff->EFF_ARGS);
 			}
 			else if(eff->type == TWEFF_SHLD_HIT)
 			{
-				eff->work[EFF_UNKS1]++;
+				eff->EFF_UNKS1++;
 				sp11C.x = 0.0f;
 				sp11C.y = 0.0f;
-				sp11C.z = -eff->workf[EFF_DIST];
+				sp11C.z = -eff->EFF_DIST;
 				Matrix_RotateY((sShieldHitYaw / 32768.0f) * M_PI, MTXMODE_NEW);
 				Matrix_RotateX(-0.2f, MTXMODE_APPLY);
-				Matrix_RotateZ(eff->workf[EFF_ROLL], MTXMODE_APPLY);
-				Matrix_RotateY(eff->workf[EFF_YAW], MTXMODE_APPLY);
+				Matrix_RotateZ(eff->EFF_ROLL, MTXMODE_APPLY);
+				Matrix_RotateY(eff->EFF_YAW, MTXMODE_APPLY);
 				Matrix_MultVec3f(&sp11C, &eff->pos);
 				eff->pos.x += sShieldHitPos.x;
 				eff->pos.y += sShieldHitPos.y;
 				eff->pos.z += sShieldHitPos.z;
 
-				if(eff->work[EFF_UNKS1] < 5)
+				if(eff->EFF_UNKS1 < 5)
 				{
-					Math_ApproachF(&eff->workf[EFF_DIST], 40.0f, 0.5f, 100.0f);
+					Math_ApproachF(&eff->EFF_DIST, 40.0f, 0.5f, 100.0f);
 				}
 				else
 				{
-					Math_ApproachF(&eff->workf[EFF_DIST], 0.0f, 0.2f, 5.0f);
-					if(eff->work[EFF_UNKS1] >= 11)
+					Math_ApproachF(&eff->EFF_DIST, 0.0f, 0.2f, 5.0f);
+					if(eff->EFF_UNKS1 >= 11)
 					{
 						eff->alpha -= 30;
 						if(eff->alpha <= 0)
@@ -5264,13 +5264,13 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					}
 				}
 
-				BossTw_AddFlameEffect(globalCtx, &eff->pos, &sZeroVector, &sZeroVector, 10, eff->work[EFF_ARGS]);
+				BossTw_AddFlameEffect(globalCtx, &eff->pos, &sZeroVector, &sZeroVector, 10, eff->EFF_ARGS);
 			}
 			else if(eff->type == 4)
 			{
-				if(eff->work[EFF_UNKS1] == 0)
+				if(eff->EFF_UNKS1 == 0)
 				{
-					Math_ApproachF(&eff->workf[EFF_SCALE], eff->workf[EFF_DIST], 0.05f, 1.0f);
+					Math_ApproachF(&eff->EFF_SCALE, eff->EFF_DIST, 0.05f, 1.0f);
 
 					if(eff->frame >= 16)
 					{
@@ -5284,7 +5284,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 				}
 				else
 				{
-					Math_ApproachF(&eff->workf[EFF_SCALE], eff->workf[EFF_DIST], 0.1f, 2.0f);
+					Math_ApproachF(&eff->EFF_SCALE, eff->EFF_DIST, 0.1f, 2.0f);
 					eff->alpha -= 15;
 
 					if(eff->alpha <= 0)
@@ -5296,7 +5296,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 			}
 			else if(eff->type == TWEFF_PLYR_FRZ)
 			{
-				if(eff->work[EFF_ARGS] < eff->frame)
+				if(eff->EFF_ARGS < eff->frame)
 				{
 					phi_f0 = 1.0f;
 
@@ -5305,9 +5305,9 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 						phi_f0 *= 3.0f;
 					}
 
-					Math_ApproachF(&eff->workf[EFF_SCALE], 0.0f, 1.0f, 0.0005f * phi_f0);
+					Math_ApproachF(&eff->EFF_SCALE, 0.0f, 1.0f, 0.0005f * phi_f0);
 
-					if(eff->workf[EFF_SCALE] == 0.0f)
+					if(eff->EFF_SCALE == 0.0f)
 					{
 						eff->type = TWEFF_NONE;
 						if(eff->target == NULL)
@@ -5323,16 +5323,16 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					{
 						eff->frame = 100;
 					}
-					Math_ApproachF(&eff->workf[EFF_DIST], 0.8f, 0.2f, 0.04f);
+					Math_ApproachF(&eff->EFF_DIST, 0.8f, 0.2f, 0.04f);
 
 					if(eff->target == NULL)
 					{
-						Math_ApproachF(&eff->workf[EFF_SCALE], 0.012f, 1.0f, 0.002f);
-						eff->workf[EFF_ROLL] += eff->workf[EFF_DIST];
+						Math_ApproachF(&eff->EFF_SCALE, 0.012f, 1.0f, 0.002f);
+						eff->EFF_ROLL += eff->EFF_DIST;
 
-						if(eff->workf[EFF_ROLL] >= 0.8f)
+						if(eff->EFF_ROLL >= 0.8f)
 						{
-							eff->workf[EFF_ROLL] -= 0.8f;
+							eff->EFF_ROLL -= 0.8f;
 							player->stateFlags2 |= PLAYER_STATE2_15;
 						}
 						else
@@ -5340,7 +5340,7 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 							player->stateFlags2 &= ~PLAYER_STATE2_15;
 						}
 
-						if((sKotakePtr->workf[UNK_F11] > 10.0f) && (sKotakePtr->workf[UNK_F11] < 200.0f))
+						if((sKotakePtr->UNK_F11 > 10.0f) && (sKotakePtr->UNK_F11 < 200.0f))
 						{
 							eff->frame = 100;
 						}
@@ -5352,10 +5352,10 @@ void BossTw_UpdateEffects(GlobalContext* globalCtx)
 					}
 					else
 					{
-						Math_ApproachF(&eff->workf[EFF_SCALE], 0.042f, 1.0f, 0.002f);
+						Math_ApproachF(&eff->EFF_SCALE, 0.042f, 1.0f, 0.002f);
 					}
 
-					if((eff->workf[EFF_DIST] > 0.4f) && ((eff->frame & 7) == 0))
+					if((eff->EFF_DIST > 0.4f) && ((eff->frame & 7) == 0))
 					{
 						spA6 = Rand_ZeroFloat(17.9f);
 
@@ -5447,7 +5447,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 			gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, currentEffect->color.r, currentEffect->color.g, currentEffect->color.b, currentEffect->alpha);
 			Matrix_Translate(currentEffect->pos.x, currentEffect->pos.y, currentEffect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
-			Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
+			Matrix_Scale(currentEffect->EFF_SCALE, currentEffect->EFF_SCALE, 1.0f, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9617), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, object_tw_DL_01A5A8);
 		}
@@ -5472,7 +5472,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (currentEffect->frame * 3) & 0x7F, (currentEffect->frame * 15) & 0xFF, 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
 			Matrix_Translate(currentEffect->pos.x, currentEffect->pos.y, currentEffect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
-			Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
+			Matrix_Scale(currentEffect->EFF_SCALE, currentEffect->EFF_SCALE, 1.0f, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9660), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
 		}
@@ -5497,7 +5497,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (currentEffect->frame * 3) & 0x7F, (currentEffect->frame * 15) & 0xFF, 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
 			Matrix_Translate(currentEffect->pos.x, currentEffect->pos.y, currentEffect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
-			Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
+			Matrix_Scale(currentEffect->EFF_SCALE, currentEffect->EFF_SCALE, 1.0f, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9709), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A430));
 		}
@@ -5519,7 +5519,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 
 			gSPSegment(POLY_XLU_DISP++, 0xD, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, currentEffect->frame & 0x7F, (currentEffect->frame * 8) & 0xFF, 0x20, 0x40, 1, (currentEffect->frame * -2) & 0x7F, 0, 0x10, 0x10));
 
-			if(currentEffect->work[EFF_ARGS] == 1)
+			if(currentEffect->EFF_ARGS == 1)
 			{
 				gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 65, 0, currentEffect->alpha);
 				gDPPipeSync(POLY_XLU_DISP++);
@@ -5534,7 +5534,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 			Matrix_Translate(currentEffect->pos.x, currentEffect->pos.y, currentEffect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
 
-			if(currentEffect->work[EFF_UNKS1] == 0)
+			if(currentEffect->EFF_UNKS1 == 0)
 			{
 				Matrix_Translate(0.0f, 0.0f, 60.0f, MTXMODE_APPLY);
 			}
@@ -5543,9 +5543,9 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 				Matrix_Translate(0.0f, 0.0f, 0.0f, MTXMODE_APPLY);
 			}
 
-			Matrix_RotateZ(currentEffect->workf[EFF_ROLL], MTXMODE_APPLY);
+			Matrix_RotateZ(currentEffect->EFF_ROLL, MTXMODE_APPLY);
 			Matrix_RotateX(M_PI / 2.0f, MTXMODE_APPLY);
-			Matrix_Scale(currentEffect->workf[EFF_SCALE], 1.0f, currentEffect->workf[EFF_SCALE], MTXMODE_APPLY);
+			Matrix_Scale(currentEffect->EFF_SCALE, 1.0f, currentEffect->EFF_SCALE, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9775), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 			gDPSetRenderMode(POLY_XLU_DISP++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
 			gSPClearGeometryMode(POLY_XLU_DISP++, G_CULL_BACK | G_FOG);
@@ -5580,7 +5580,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 			for(j = 0; j < phi_s4; j++)
 			{
 				off.x = (BossTw_RandZeroOne() - 0.5f) * 30.0f;
-				off.y = currentEffect->workf[EFF_DIST] * j;
+				off.y = currentEffect->EFF_DIST * j;
 				off.z = (BossTw_RandZeroOne() - 0.5f) * 30.0f;
 
 				if(actor != NULL)
@@ -5592,7 +5592,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 					Matrix_Translate(player->actor.world.pos.x + off.x, player->actor.world.pos.y + off.y, player->actor.world.pos.z + off.z, MTXMODE_NEW);
 				}
 
-				Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], MTXMODE_APPLY);
+				Matrix_Scale(currentEffect->EFF_SCALE, currentEffect->EFF_SCALE, currentEffect->EFF_SCALE, MTXMODE_APPLY);
 				Matrix_RotateY(BossTw_RandZeroOne() * M_PI, MTXMODE_APPLY);
 				Matrix_RotateX((BossTw_RandZeroOne() - 0.5f) * M_PI * 0.5f, MTXMODE_APPLY);
 				gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9855), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -5610,7 +5610,7 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 	{
 		if(currentEffect->type >= 6)
 		{
-			if(currentEffect->work[EFF_ARGS] == 0)
+			if(currentEffect->EFF_ARGS == 0)
 			{
 				gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, currentEffect->alpha);
 				gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01A998));
@@ -5625,10 +5625,10 @@ void BossTw_DrawEffects(GlobalContext* globalCtx)
 			gSPSegment(POLY_XLU_DISP++, 8, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (currentEffect->frame * 3) & 0x7F, (-currentEffect->frame * 15) & 0xFF, 0x20, 0x40, 1, 0, 0, 0x20, 0x20));
 			Matrix_Translate(currentEffect->pos.x, currentEffect->pos.y, currentEffect->pos.z, MTXMODE_NEW);
 			func_800D1FD4(&globalCtx->billboardMtxF);
-			Matrix_Scale(currentEffect->workf[EFF_SCALE], currentEffect->workf[EFF_SCALE], 1.0f, MTXMODE_APPLY);
+			Matrix_Scale(currentEffect->EFF_SCALE, currentEffect->EFF_SCALE, 1.0f, MTXMODE_APPLY);
 			gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(gfxCtx, "../z_boss_tw.c", 9911), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-			if(currentEffect->work[EFF_ARGS] == 0)
+			if(currentEffect->EFF_ARGS == 0)
 			{
 				gSPDisplayList(POLY_XLU_DISP++, SEGMENTED_TO_VIRTUAL(object_tw_DL_01AB00));
 			}
@@ -5648,7 +5648,7 @@ void BossTw_TwinrovaSetupArriveAtTarget(BossTw* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = BossTw_TwinrovaArriveAtTarget;
 	Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, -3.0f);
-	pthis->work[CS_TIMER_1] = Rand_ZeroFloat(100.0f);
+	pthis->CS_TIMER_1 = Rand_ZeroFloat(100.0f);
 	pthis->timers[1] = 25;
 	pthis->rotateSpeed = 0.0f;
 }
@@ -5674,7 +5674,7 @@ void BossTw_TwinrovaSetupChargeBlast(BossTw* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = BossTw_TwinrovaChargeBlast;
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_036FBC, -5.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_036FBC);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_036FBC);
 	pthis->csState1 = 0;
 }
 
@@ -5687,7 +5687,7 @@ void BossTw_TwinrovaChargeBlast(BossTw* pthis, GlobalContext* globalCtx)
 	Math_ApproachF(&pthis->actor.world.pos.z, pthis->targetPos.z, 0.03f, fabsf(pthis->actor.velocity.z) * 1.5f);
 	Math_ApproachS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 5, 0x1000);
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
 		if((s8)pthis->actor.colChkInfo.health < 10)
 		{
@@ -5721,7 +5721,7 @@ void BossTw_TwinrovaSetupShootBlast(BossTw* pthis, GlobalContext* globalCtx)
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_023750, 0.0f);
 	}
 
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_023750);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_023750);
 }
 
 void BossTw_TwinrovaShootBlast(BossTw* pthis, GlobalContext* globalCtx)
@@ -5775,7 +5775,7 @@ void BossTw_TwinrovaShootBlast(BossTw* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
 		BossTw_TwinrovaSetupDoneBlastShoot(pthis, globalCtx);
 	}
@@ -5822,10 +5822,10 @@ void BossTw_TwinrovaDamage(BossTw* pthis, GlobalContext* globalCtx, u8 damage)
 	}
 	else
 	{
-		pthis->work[FOG_TIMER] = 10;
-		pthis->work[INVINC_TIMER] = 20;
+		pthis->FOG_TIMER = 10;
+		pthis->INVINC_TIMER = 20;
 		Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_024374, -3.0f);
-		pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_024374);
+		pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_024374);
 		pthis->csState1 = 1;
 
 		if((s8)(pthis->actor.colChkInfo.health -= damage) < 0)
@@ -5857,7 +5857,7 @@ void BossTw_TwinrovaStun(BossTw* pthis, GlobalContext* globalCtx)
 
 	cloudType = sTwinrovaBlastType == 0 ? 3 : 2;
 
-	if((pthis->work[CS_TIMER_1] % 8) == 0)
+	if((pthis->CS_TIMER_1 % 8) == 0)
 	{
 		Vec3f pos;
 		Vec3f velocity;
@@ -5875,14 +5875,14 @@ void BossTw_TwinrovaStun(BossTw* pthis, GlobalContext* globalCtx)
 	}
 
 	SkelAnime_Update(&pthis->skelAnime);
-	pthis->work[UNK_S8] += 20;
+	pthis->UNK_S8 += 20;
 
-	if(pthis->work[UNK_S8] > 255)
+	if(pthis->UNK_S8 > 255)
 	{
-		pthis->work[UNK_S8] = 255;
+		pthis->UNK_S8 = 255;
 	}
 
-	Math_ApproachF(&pthis->workf[UNK_F12], 0.0f, 1.0f, 0.05f);
+	Math_ApproachF(&pthis->UNK_F12, 0.0f, 1.0f, 0.05f);
 	pthis->actor.world.pos.y += pthis->actor.velocity.y;
 	Math_ApproachF(&pthis->actor.velocity.y, -5.0f, 1.0f, 0.5f);
 	pthis->actor.world.pos.y -= 30.0f;
@@ -5894,13 +5894,13 @@ void BossTw_TwinrovaStun(BossTw* pthis, GlobalContext* globalCtx)
 		if(pthis->timers[1] == 0)
 		{
 			pthis->csState1 = 1;
-			pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_0343B4);
-			Animation_Change(&pthis->skelAnime, &object_tw_Anim_0343B4, 1.0f, 0.0f, pthis->workf[ANIM_SW_TGT], 3, 0.0f);
+			pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_0343B4);
+			Animation_Change(&pthis->skelAnime, &object_tw_Anim_0343B4, 1.0f, 0.0f, pthis->ANIM_SW_TGT, 3, 0.0f);
 		}
 	}
-	else if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	else if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
-		pthis->workf[ANIM_SW_TGT] = 1000.0f;
+		pthis->ANIM_SW_TGT = 1000.0f;
 		Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_035030, 0.0f);
 	}
 
@@ -5918,7 +5918,7 @@ void BossTw_TwinrovaStun(BossTw* pthis, GlobalContext* globalCtx)
 void BossTw_TwinrovaSetupGetUp(BossTw* pthis, GlobalContext* globalCtx)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_035988, 0.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_035988);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_035988);
 	pthis->actionFunc = BossTw_TwinrovaGetUp;
 	pthis->timers[0] = 50;
 }
@@ -5928,9 +5928,9 @@ void BossTw_TwinrovaGetUp(BossTw* pthis, GlobalContext* globalCtx)
 	SkelAnime_Update(&pthis->skelAnime);
 	Math_ApproachF(&pthis->actor.world.pos.y, pthis->targetPos.y, 0.05f, 5.0f);
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
-		pthis->workf[ANIM_SW_TGT] = 1000.0f;
+		pthis->ANIM_SW_TGT = 1000.0f;
 		Animation_MorphToLoop(&pthis->skelAnime, &object_tw_Anim_032BF8, 0.0f);
 	}
 
@@ -5950,9 +5950,9 @@ void BossTw_TwinrovaSetupFly(BossTw* pthis, GlobalContext* globalCtx)
 
 	do
 	{
-		pthis->work[TW_PLLR_IDX] += (s16)(((s16)Rand_ZeroFloat(2.99f)) + 1);
-		pthis->work[TW_PLLR_IDX] %= 4;
-		pthis->targetPos = sTwinrovaPillarPos[pthis->work[TW_PLLR_IDX]];
+		pthis->TW_PLLR_IDX += (s16)(((s16)Rand_ZeroFloat(2.99f)) + 1);
+		pthis->TW_PLLR_IDX %= 4;
+		pthis->targetPos = sTwinrovaPillarPos[pthis->TW_PLLR_IDX];
 		xDiff = pthis->targetPos.x - player->actor.world.pos.x;
 		zDiff = pthis->targetPos.z - player->actor.world.pos.z;
 		xzDist = SQ(xDiff) + SQ(zDiff);
@@ -6036,7 +6036,7 @@ void BossTw_TwinrovaSetupLaugh(BossTw* pthis, GlobalContext* globalCtx)
 {
 	pthis->actionFunc = BossTw_TwinrovaLaugh;
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_tw_Anim_03A2D0, 0.0f);
-	pthis->workf[ANIM_SW_TGT] = Animation_GetLastFrame(&object_tw_Anim_03A2D0);
+	pthis->ANIM_SW_TGT = Animation_GetLastFrame(&object_tw_Anim_03A2D0);
 	pthis->actor.speedXZ = 0.0f;
 }
 
@@ -6049,7 +6049,7 @@ void BossTw_TwinrovaLaugh(BossTw* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_TWINROBA_YOUNG_LAUGH);
 	}
 
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->workf[ANIM_SW_TGT]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->ANIM_SW_TGT))
 	{
 		BossTw_TwinrovaSetupFly(pthis, globalCtx);
 	}

@@ -28,6 +28,7 @@ namespace oot
 			{
 				return m_distanceScaler;
 			}
+
 			float& distanceScaler()
 			{
 				return m_distanceScaler;
@@ -44,15 +45,38 @@ namespace oot
 			{
 				return m_useClassicCamera;
 			}
+
 			bool& useClassicCamera()
 			{
 				return m_useClassicCamera;
+			}
+
+			const float& scalerX() const
+			{
+				return m_scalerX;
+			}
+
+			float& scalerX()
+			{
+				return m_scalerX;
+			}
+
+			const float& scalerY() const
+			{
+				return m_scalerY;
+			}
+
+			float& scalerY()
+			{
+				return m_scalerY;
 			}
 
 			protected:
 			float m_distanceScaler = 1.0f;
 			bool m_disableDistanceClip = false;
 			bool m_useClassicCamera = false;
+			float m_scalerX = 1.0f;
+			float m_scalerY = 1.0f;
 		};
 
 		class Controls : public Section

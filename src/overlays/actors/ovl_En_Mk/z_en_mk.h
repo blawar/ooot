@@ -18,6 +18,6 @@ struct EnMk
 	/* 0x0278 */ Vec3s headRotation; // Used to rotate the man's head towards Link
 	/* 0x027E */ u16 flags;
 	/* 0x0280 */ s16 swimFlag;
-	/* 0x0282 */ u16 timer;
+	/* 0x0282 */ TimerU16 timer;
 	/* 0x0284 */ EnMkActionFunc actionFunc;
 };
