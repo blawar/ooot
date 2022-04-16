@@ -8,55 +8,6 @@ struct BossTw;
 
 typedef void (*BossTwActionFunc)(BossTw* pthis, GlobalContext* globalCtx);
 
-enum TwWork
-{
-	/*  0 */ CS_TIMER_1,
-	/*  1 */ CS_TIMER_2,
-	/*  2 */ TW_PLLR_IDX,
-	/*  3 */ TAIL_IDX,
-	/*  4 */ BLINK_IDX,
-	/*  5 */ INVINC_TIMER,
-	/*  6 */ FOG_TIMER,
-	/*  7 */ CAN_SHOOT,
-	/*  8 */ UNK_S8,
-	/*  9 */ TW_BLINK_IDX,
-	/* 10 */ YAW_TGT,
-	/* 11 */ PLAYED_CHRG_SFX,
-	/* 12 */ BURN_TMR,
-	/* 13 */ WORK_MAX
-};
-
-enum TwFwork
-{
-	/*  0 */ OUTR_CRWN_TX_X1,
-	/*  1 */ OUTR_CRWN_TX_X2,
-	/*  2 */ INNR_CRWN_TX_X1,
-	/*  3 */ INNR_CRWN_TX_X2,
-	/*  4 */ OUTR_CRWN_TX_Y1,
-	/*  5 */ OUTR_CRWN_TX_Y2,
-	/*  6 */ INNR_CRWN_TX_Y1,
-	/*  7 */ INNR_CRWN_TX_Y2,
-	/*  8 */ ANIM_SW_TGT,
-	/*  9 */ UNK_F9,
-	/*  9 */ KM_GD_FLM_A = 9,
-	/* 10 */ UNK_F10 = 10,
-	/* 10 */ TAIL_ALPHA = 10,
-	/* 10 */ KM_GD_SMOKE_A = 10,
-	/* 14 */ UNK_F11 = 11,
-	/* 15 */ KM_GRND_CRTR_A = 11,
-	/* 16 */ UNK_F12 = 12,
-	/* 17 */ KM_GD_FLM_SCL = 12,
-	/* 18 */ UNK_F13 = 13,
-	/* 19 */ KM_GD_CRTR_SCL = 13,
-	/* 20 */ UNK_F14,
-	/* 21 */ UNK_F15,
-	/* 22 */ UNK_F16,
-	/* 23 */ UNK_F17,
-	/* 24 */ UNK_F18,
-	/* 25 */ UNK_F19,
-	/* 26 */ FWORK_MAX
-};
-
 enum TwEffType
 {
 	/*  0 */ TWEFF_NONE,
@@ -70,22 +21,6 @@ enum TwEffType
 	/*  8 */ TWEFF_SHLD_BLST,
 	/*  9 */ TWEFF_SHLD_DEFL,
 	/* 10 */ TWEFF_SHLD_HIT
-};
-
-enum EffectWork
-{
-	/* 0 */ EFF_ARGS,
-	/* 1 */ EFF_UNKS1,
-	/* 2 */ EFF_WORK_MAX
-};
-
-enum EffectFWork
-{
-	/* 0 */ EFF_SCALE,
-	/* 1 */ EFF_DIST,
-	/* 2 */ EFF_ROLL,
-	/* 3 */ EFF_YAW,
-	/* 4 */ EFF_FWORK_MAX
 };
 
 enum TwinrovaType
@@ -110,18 +45,59 @@ struct BossTwEffect
 	/* 0x001C */ Vec3f accel;
 	/* 0x0028 */ Color_RGB8 color;
 	/* 0x002C */ s16 alpha;
-	/* 0x002E */ s16 work[EFF_WORK_MAX];
-	/* 0x0034 */ f32 workf[EFF_FWORK_MAX];
+	s16 EFF_ARGS;
+	s16 EFF_UNKS1;
+	f32 EFF_SCALE;
+	f32 EFF_DIST;
+	f32 EFF_ROLL;
+	f32 EFF_YAW;
 	/* 0x0044 */ Actor* target;
 };
 struct BossTw
 {
 	/* 0x0000 */ Actor actor;
 	/* 0x014C */ BossTwActionFunc actionFunc;
-	/* 0x0150 */ s16 work[WORK_MAX];
+	TimerS16 CS_TIMER_1;
+	TimerS16 CS_TIMER_2;
+	s16 TW_PLLR_IDX;
+	s16 TAIL_IDX;
+	s16 BLINK_IDX;
+	TimerS16 INVINC_TIMER;
+	TimerS16 FOG_TIMER;
+	s16 CAN_SHOOT;
+	s16 UNK_S8;
+	TimerS16 TW_BLINK_IDX;
+	s16 YAW_TGT;
+	s16 PLAYED_CHRG_SFX;
+	TimerS16 BURN_TMR;
 	/* 0x0168 */ char unused_170[0xE]; // Likely unused Work variables
 	/* 0x0178 */ Timer timers[5];
-	/* 0x0184 */ f32 workf[FWORK_MAX];
+	f32 OUTR_CRWN_TX_X1;
+	f32 OUTR_CRWN_TX_X2;
+	f32 INNR_CRWN_TX_X1;
+	f32 INNR_CRWN_TX_X2;
+	f32 OUTR_CRWN_TX_Y1;
+	f32 OUTR_CRWN_TX_Y2;
+	f32 INNR_CRWN_TX_Y1;
+	f32 INNR_CRWN_TX_Y2;
+	f32 ANIM_SW_TGT;
+	f32 UNK_F9;
+	f32 KM_GD_FLM_A = 9;
+	f32 UNK_F10 = 10;
+	f32 TAIL_ALPHA = 10;
+	f32 KM_GD_SMOKE_A = 10;
+	f32 UNK_F11 = 11;
+	f32 KM_GRND_CRTR_A = 11;
+	f32 UNK_F12 = 12;
+	f32 KM_GD_FLM_SCL = 12;
+	f32 UNK_F13 = 13;
+	f32 KM_GD_CRTR_SCL = 13;
+	f32 UNK_F14;
+	f32 UNK_F15;
+	f32 UNK_F16;
+	f32 UNK_F17;
+	f32 UNK_F18;
+	f32 UNK_F19;
 	/* 0x01D4 */ f32 fogR;
 	/* 0x01D8 */ f32 fogG;
 	/* 0x01DC */ f32 fogB;
