@@ -318,7 +318,7 @@ static Vec3f sCameraAtMaxVel;
 static s16 sDoorState;
 static u8 sPhase3StopMoving;
 static Vec3s sZapperRot;
-static u16 sPhase2Timer;
+static TimerU16 sPhase2Timer;
 static s8 sPhase4HP;
 
 void BossVa_SetupAction(BossVa* pthis, BossVaActionFunc func)
@@ -1181,7 +1181,7 @@ void BossVa_BodyPhase2(BossVa* pthis, GlobalContext* globalCtx)
 	{
 		pthis->colliderBody.base.atFlags &= ~AT_HIT;
 
-		sPhase2Timer = (sPhase2Timer + 0x18) & 0xFFF0;
+		sPhase2Timer = (s32)(sPhase2Timer + 0x18) & 0xFFF0;
 		if(pthis->colliderBody.base.at == &player->actor)
 		{
 			func_8002F71C(globalCtx, &pthis->actor, 8.0f, pthis->actor.yawTowardsPlayer, 8.0f);

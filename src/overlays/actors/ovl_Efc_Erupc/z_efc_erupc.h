@@ -14,7 +14,7 @@ struct EfcErupcParticles
 	/* 0x0C */ Vec3f vel;
 	/* 0x18 */ Vec3f accel;
 	/* 0x24 */ u8 isActive;
-	/* 0x25 */ u8 animTimer;
+	/* 0x25 */ TimerU8 animTimer;
 	/* 0x28 */ Color_RGB8 color;
 	/* 0x2C */ s16 alpha;
 	/* 0x30 */ char unk_2C[4];

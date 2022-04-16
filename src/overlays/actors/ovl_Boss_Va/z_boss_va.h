@@ -14,7 +14,7 @@ struct BossVaEffect
 	/* 0x0C */ Vec3f velocity;
 	/* 0x18 */ Vec3f accel;
 	/* 0x24 */ u8 type;
-	/* 0x26 */ u16 timer;
+	/* 0x26 */ TimerU16 timer;
 	/* 0x28 */ s16 mode;
 	/* 0x2A */ Vec3s rot;
 	/* 0x30 */ s16 primColor[4];
@@ -22,7 +22,7 @@ struct BossVaEffect
 	/* 0x40 */ f32 scale;
 	/* 0x44 */ f32 scaleMod;
 	/* 0x48 */ Vec3f offset;
-	/* 0x54 */ struct BossVa* parent;
+	/* 0x54 */ BossVa* parent;
 };
 
 enum BossVaEffectType
