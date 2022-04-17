@@ -245,7 +245,7 @@ void func_80882BDC(BgHakaZou* pthis, GlobalContext* globalCtx)
 		if(pthis->dyna.actor.velocity.y < -8.0f)
 		{
 			pthis->dyna.actor.velocity.y *= -0.6f;
-			pthis->dyna.actor.velocity.y = CLAMP_MAX(pthis->dyna.actor.velocity.y, 10.0f);
+			pthis->dyna.actor.velocity.y = pthis->dyna.actor.velocity.y.clampMax(10.0f);
 			pthis->dyna.actor.bgCheckFlags &= ~(BG_STATE_0 | BG_STATE_1);
 			pthis->dyna.actor.speedXZ = 2.0f;
 		}

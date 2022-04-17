@@ -106,7 +106,7 @@ void EnPoDesert_SetNextPathPoint(EnPoDesert* pthis, GlobalContext* globalCtx)
 	pthis->actor.home.pos.y = pathPoint->y;
 	pthis->actor.home.pos.z = pathPoint->z;
 	pthis->initDistToNextPoint = Actor_WorldDistXZToPoint(&pthis->actor, &pthis->actor.home.pos);
-	pthis->initDistToNextPoint = CLAMP_MIN(pthis->initDistToNextPoint, 1.0f);
+	pthis->initDistToNextPoint = pthis->initDistToNextPoint.clampMin(1.0f);
 	pthis->currentPathPoint++;
 	pthis->yDiff = pthis->actor.home.pos.y - pthis->actor.world.pos.y;
 	pthis->actor.speedXZ = 0.0f;

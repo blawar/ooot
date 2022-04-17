@@ -72,8 +72,8 @@ struct TransitionCircle
 struct TransitionTriforce
 {
 	/* 0x000 */ Color_RGBA8 color;
-	/* 0x004 */ f32 transPos;
-	/* 0x008 */ f32 step;
+	/* 0x004 */ F32 transPos;
+	/* 0x008 */ F32 step;
 	/* 0x00C */ s32 state;
 	/* 0x010 */ s32 fadeDirection;
 	/* 0x018 */ Mtx projection;

@@ -203,13 +203,13 @@ void EnButte_Destroy(Actor* thisx, GlobalContext* globalCtx2)
 void func_809CD56C(EnButte* pthis)
 {
 	pthis->actor.shape.yOffset += Math_SinS(pthis->unk_25C) * D_809CE3E0_48[pthis->flightParamsIdx] + Math_SinS(pthis->unk_25E) * D_809CE3EC_48[pthis->flightParamsIdx];
-	pthis->actor.shape.yOffset = CLAMP(pthis->actor.shape.yOffset, -2000.0f, 2000.0f);
+	pthis->actor.shape.yOffset = pthis->actor.shape.yOffset.clamp(-2000.0f, 2000.0f);
 }
 
 void func_809CD634(EnButte* pthis)
 {
 	pthis->actor.shape.yOffset += Math_SinS(pthis->unk_25C) * D_809CE3F8_49[pthis->flightParamsIdx] + Math_SinS(pthis->unk_25E) * D_809CE404_49[pthis->flightParamsIdx];
-	pthis->actor.shape.yOffset = CLAMP(pthis->actor.shape.yOffset, -500.0f, 500.0f);
+	pthis->actor.shape.yOffset = pthis->actor.shape.yOffset.clamp(-500.0f, 500.0f);
 }
 
 void EnButte_Turn(EnButte* pthis)
@@ -288,7 +288,7 @@ void EnButte_FlyAround(EnButte* pthis, GlobalContext* globalCtx)
 	EnButte_Turn(pthis);
 
 	animSpeed = pthis->actor.speedXZ / 2.0f + Rand_ZeroOne() * 0.2f + (1.0f - Math_SinS(pthis->unk_260)) * 0.15f + (1.0f - Math_SinS(pthis->unk_25E)) * 0.3f + minAnimSpeed;
-	pthis->skelAnime.playSpeed = CLAMP(animSpeed, 0.2f, 1.5f);
+	pthis->skelAnime.playSpeed = animSpeed.clamp(0.2f, 1.5f);
 	SkelAnime_Update(&pthis->skelAnime);
 
 	if(pthis->timer <= 0)
@@ -353,12 +353,12 @@ void EnButte_FollowLink(EnButte* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	pthis->posYTarget = MAX(player->actor.world.pos.y + 30.0f, player->swordInfo[0].tip.y);
+	pthis->posYTarget = MAX(player->actor.world.pos.y + 30.0f, (F32)player->swordInfo[0].tip.y);
 
 	EnButte_Turn(pthis);
 
 	animSpeed = pthis->actor.speedXZ / 2.0f + Rand_ZeroOne() * 0.2f + (1.0f - Math_SinS(pthis->unk_260)) * 0.15f + (1.0f - Math_SinS(pthis->unk_25E)) * 0.3f + minAnimSpeed;
-	pthis->skelAnime.playSpeed = CLAMP(animSpeed, 0.2f, 1.5f);
+	pthis->skelAnime.playSpeed = animSpeed.clamp(0.2f, 1.5f);
 	SkelAnime_Update(&pthis->skelAnime);
 
 	if(pthis->timer <= 0)

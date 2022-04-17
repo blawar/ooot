@@ -758,7 +758,7 @@ void EnPeehat_Ground_StateHover(EnPeehat* pthis, GlobalContext* globalCtx)
 	}
 	pthis->actor.world.pos.y += Math_CosF(pthis->unk2E0) * 1.4f;
 	cos = Math_CosF(pthis->unk2E0) * 0.18f;
-	pthis->unk2E0 += ((0.0f <= cos) ? cos : -cos) + 0.07f;
+	pthis->unk2E0 += ((0.0f <= cos) ? (F32)cos : (F32)-cos) + 0.07f;
 	pthis->unk2D4--;
 	if(pthis->unk2D4 <= 0)
 	{
@@ -819,7 +819,7 @@ void EnPeehat_Ground_StateReturnHome(EnPeehat* pthis, GlobalContext* globalCtx)
 	}
 	pthis->actor.world.pos.y += Math_CosF(pthis->unk2E0) * 1.4f;
 	cos = Math_CosF(pthis->unk2E0) * 0.18f;
-	pthis->unk2E0 += ((0.0f <= cos) ? cos : -cos) + 0.07f;
+	pthis->unk2E0 += ((0.0f <= cos) ? (F32)cos : (F32)-cos) + 0.07f;
 	yRot = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->actor.home.pos);
 	Math_SmoothStepToS(&pthis->actor.world.rot.y, yRot, 1, 600, 0);
 	Math_SmoothStepToS(&pthis->actor.shape.rot.x, 4500, 1, 600, 0);

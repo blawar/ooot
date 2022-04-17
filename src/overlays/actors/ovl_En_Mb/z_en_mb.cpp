@@ -397,14 +397,14 @@ s32 EnMb_IsPlayerInCorridor(EnMb* pthis, GlobalContext* globalCtx)
 
 	cos = Math_CosS(alignedYaw);
 	sin = Math_SinS(alignedYaw);
-	cos = ABS(cos);
-	sin = ABS(sin);
+	cos = cos.abs();
+	sin = sin.abs();
 	xFromPlayer = pthis->actor.world.pos.x - player->actor.world.pos.x;
 	zFromPlayer = pthis->actor.world.pos.z - player->actor.world.pos.z;
-	xFromPlayerAbs = ABS(xFromPlayer);
+	xFromPlayerAbs = xFromPlayer.abs();
 	if(xFromPlayerAbs < (cos * 37.0f + sin * 400.0f))
 	{
-		zFromPlayerAbs = ABS(zFromPlayer);
+		zFromPlayerAbs = zFromPlayer.abs();
 		if(zFromPlayerAbs < (sin * 37.0f + cos * 400.0f))
 		{
 			return true;
@@ -723,7 +723,7 @@ void EnMb_SpearPatrolTurnTowardsWaypoint(EnMb* pthis, GlobalContext* globalCtx)
 		Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.home.rot.y, 1, 0x3E8, 0);
 	}
 
-	if(ABS(pthis->actor.yDistToPlayer) <= 20.0f && EnMb_IsPlayerInCorridor(pthis, globalCtx))
+	if(pthis->actor.yDistToPlayer.abs() <= 20.0f && EnMb_IsPlayerInCorridor(pthis, globalCtx))
 	{
 		relYawFromPlayer = pthis->actor.shape.rot.y - pthis->actor.yawTowardsPlayer;
 		if(ABS(relYawFromPlayer) <= 0x4000 || (func_8002DDE4(globalCtx) && pthis->actor.xzDistToPlayer < 160.0f))
@@ -819,7 +819,7 @@ void EnMb_SpearPatrolEndCharge(EnMb* pthis, GlobalContext* globalCtx)
 			{
 				relYawFromPlayer = pthis->actor.shape.rot.y - pthis->actor.yawTowardsPlayer;
 
-				if(ABS(pthis->actor.yDistToPlayer) <= 20.0f && EnMb_IsPlayerInCorridor(pthis, globalCtx) && ABS(relYawFromPlayer) <= 0x4000 && pthis->actor.xzDistToPlayer <= 200.0f)
+				if(pthis->actor.yDistToPlayer.abs() <= 20.0f && EnMb_IsPlayerInCorridor(pthis, globalCtx) && ABS(relYawFromPlayer) <= 0x4000 && pthis->actor.xzDistToPlayer <= 200.0f)
 				{
 					EnMb_SetupSpearPrepareAndCharge(pthis);
 				}
@@ -1295,9 +1295,9 @@ void EnMb_SpearGuardWalk(EnMb* pthis, GlobalContext* globalCtx)
 	prevFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
 
-	playSpeedAbs = ABS(pthis->skelAnime.playSpeed);
+	playSpeedAbs = pthis->skelAnime.playSpeed.abs();
 	beforeCurFrame = pthis->skelAnime.curFrame - playSpeedAbs;
-	playSpeedAbs = ABS(pthis->skelAnime.playSpeed);
+	playSpeedAbs = pthis->skelAnime.playSpeed.abs();
 	if(pthis->timer3 == 0 && Math_Vec3f_DistXZ(&pthis->actor.home.pos, &player->actor.world.pos) < pthis->playerDetectionRange)
 	{
 		Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->actor.yawTowardsPlayer, 1, 0x2EE, 0);
@@ -1374,7 +1374,7 @@ void EnMb_SpearPatrolWalkTowardsWaypoint(EnMb* pthis, GlobalContext* globalCtx)
 	pthis->yawToWaypoint = Math_Vec3f_Yaw(&pthis->actor.world.pos, &pthis->waypointPos);
 	Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->yawToWaypoint, 1, 0x5DC, 0);
 
-	yDistToPlayerAbs = (pthis->actor.yDistToPlayer >= 0.0f) ? pthis->actor.yDistToPlayer : -pthis->actor.yDistToPlayer;
+	yDistToPlayerAbs = (pthis->actor.yDistToPlayer >= 0.0f) ? (F32)pthis->actor.yDistToPlayer : (F32)-pthis->actor.yDistToPlayer;
 	if(yDistToPlayerAbs <= 20.0f && EnMb_IsPlayerInCorridor(pthis, globalCtx))
 	{
 		relYawTowardsPlayer = (pthis->actor.shape.rot.y - pthis->actor.yawTowardsPlayer);
@@ -1403,9 +1403,9 @@ void EnMb_SpearPatrolWalkTowardsWaypoint(EnMb* pthis, GlobalContext* globalCtx)
 
 	prevFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
-	playSpeedABS = ABS(pthis->skelAnime.playSpeed);
+	playSpeedABS = pthis->skelAnime.playSpeed.abs();
 	beforeCurFrame = pthis->skelAnime.curFrame - playSpeedABS;
-	playSpeedABS = (pthis->skelAnime.playSpeed >= 0.0f) ? pthis->skelAnime.playSpeed : -pthis->skelAnime.playSpeed;
+	playSpeedABS = (pthis->skelAnime.playSpeed >= 0.0f) ? (F32)pthis->skelAnime.playSpeed : (F32)-pthis->skelAnime.playSpeed;
 	if(prevFrame != (s32)pthis->skelAnime.curFrame)
 	{
 		if((beforeCurFrame <= 1 && (s32)playSpeedABS + prevFrame >= 1) || (beforeCurFrame <= 20 && (s32)playSpeedABS + prevFrame >= 20))

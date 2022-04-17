@@ -217,7 +217,7 @@ s32 Ge2_DetectPlayerInUpdate(GlobalContext* globalCtx, EnGe2* pthis, Vec3f* pos,
 		return 0;
 	}
 
-	if(yDetectRange < ABS(pthis->actor.yDistToPlayer))
+	if(yDetectRange < pthis->actor.yDistToPlayer.abs())
 	{
 		return 0;
 	}

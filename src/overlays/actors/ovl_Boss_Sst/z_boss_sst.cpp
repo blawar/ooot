@@ -985,7 +985,7 @@ void BossSst_HeadStunned(BossSst* pthis, GlobalContext* globalCtx)
 		pthis->radius += pthis->actor.speedXZ;
 	}
 
-	pthis->radius = CLAMP_MAX(pthis->radius, 400.0f);
+	pthis->radius = pthis->radius.clampMax(400.0f);
 
 	pthis->actor.world.pos.y += pthis->actor.velocity.y;
 	if(animFinish)

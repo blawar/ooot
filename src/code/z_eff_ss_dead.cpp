@@ -16,7 +16,7 @@ void func_80026230(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	displayListHead = POLY_OPA_DISP;
 	cos = Math_CosS((0x8000 / arg3) * arg2);
-	absCos = ABS(cos);
+	absCos = cos.abs();
 
 	gDPPipeSync(displayListHead++);
 
@@ -50,7 +50,7 @@ void func_80026400(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 		gDPPipeSync(displayListHead++);
 		gDPSetFogColor(displayListHead++, color->r, color->g, color->b, color->a);
-		gSPFogPosition(displayListHead++, 0, (s16)(2800.0f * ABS(cos)) + 1700);
+		gSPFogPosition(displayListHead++, 0, (s16)(2800.0f * cos.abs()) + 1700);
 
 		POLY_OPA_DISP = displayListHead;
 
@@ -80,7 +80,7 @@ void func_80026690(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	displayListHead = POLY_XLU_DISP;
 	cos = Math_CosS((0x8000 / arg3) * arg2);
-	absCos = ABS(cos);
+	absCos = cos.abs();
 
 	gDPPipeSync(displayListHead++);
 
@@ -112,7 +112,7 @@ void func_80026860(GlobalContext* globalCtx, Color_RGBA8* color, s16 arg2, s16 a
 
 	gDPPipeSync(displayListHead++);
 	gDPSetFogColor(displayListHead++, color->r, color->g, color->b, color->a);
-	gSPFogPosition(displayListHead++, 0, (s16)(2800.0f * ABS(cos)) + 1700);
+	gSPFogPosition(displayListHead++, 0, (s16)(2800.0f * cos.abs()) + 1700);
 
 	POLY_XLU_DISP = displayListHead;
 

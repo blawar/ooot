@@ -8,7 +8,8 @@ struct EnHonotrap;
 
 typedef void (*EnHonotrapActionFunc)(struct EnHonotrap*, GlobalContext*);
 
-typedef union
+
+struct EnHonotrapCollider
 {
 	struct
 	{
@@ -16,7 +17,8 @@ typedef union
 		ColliderTrisElement elements[2];
 	};
 	ColliderCylinder cyl;
-} EnHonotrapCollider;
+};
+
 
 enum EnHonotrapEyeState
 {

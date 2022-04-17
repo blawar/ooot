@@ -109,8 +109,7 @@ void Audio_InitNoteSub(Note* note, NoteSubEu* sub, NoteSubAttributes* attrs)
 		volRight = gDefaultPanVolume[0x7F - pan];
 	}
 
-	vel = 0.0f > vel ? 0.0f : vel;
-	vel = 1.0f < vel ? 1.0f : vel;
+	vel = vel.clamp(0.0f, 1.0f);
 
 	sub->targetVolLeft = (s32)((vel * volLeft) * (0x1000 - 0.001f));
 	sub->targetVolRight = (s32)((vel * volRight) * (0x1000 - 0.001f));

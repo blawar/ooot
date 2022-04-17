@@ -165,7 +165,7 @@ struct AnimEntryInterp
 	/* 0x001 */ u8 vecCount;
 	/* 0x004 */ Vec3s* base;
 	/* 0x008 */ Vec3s* mod;
-	/* 0x00C */ f32 weight;
+	/* 0x00C */ F32 weight;
 }; // size = 0x10
 
 struct AnimEntryCopyTrue
@@ -190,7 +190,7 @@ struct AnimEntryMoveActor
 {
 	/* 0x000 */ struct Actor* actor;
 	/* 0x004 */ struct SkelAnime* skelAnime;
-	/* 0x008 */ f32 unk_08;
+	/* 0x008 */ F32 unk_08;
 }; // size = 0xC
 
 union AnimationEntryData

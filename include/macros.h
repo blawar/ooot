@@ -23,6 +23,11 @@
 #define CLAMP(x, min, max) ((x) < (min) ? (min) : (x) > (max) ? (max) : (x))
 #define CLAMP_MAX(x, max) ((x) > (max) ? (max) : (x))
 #define CLAMP_MIN(x, min) ((x) < (min) ? (min) : (x))
+
+#define CLAMPF(x, min, max) (((float)x) < ((float)min) ? ((float)min) : ((float)x) > ((float)max) ? ((float)max) : ((float)x))
+#define CLAMPF_MAX(x, max) (((float)x) > ((float)max) ? ((float)max) : ((float)x))
+#define CLAMPF_MIN(x, min) (((float)x) < ((float)min) ? ((float)min) : ((float)x))
+
 #define MEDIAN3(a1, a2, a3) (((a2) >= (a1)) ? (((a3) >= (a2)) ? (a2) : (((a1) >= (a3)) ? (a1) : (a3))) : (((a2) >= (a3)) ? (a2) : (((a3) >= (a1)) ? (a1) : (a3))))
 
 #ifdef LITTLE_ENDIAN

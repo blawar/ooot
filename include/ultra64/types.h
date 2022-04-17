@@ -26,8 +26,175 @@ typedef volatile s16 vs16;
 typedef volatile s32 vs32;
 typedef volatile s64 vs64;
 
-typedef float f32;
+extern double FRAMERATE_SCALER;
+
+class f32
+{
+	public:
+	constexpr f32() : m_counter(0)
+	{
+	}
+
+	constexpr f32(float f) : m_counter(f)
+	{
+	}
+
+	const float& value() const
+	{
+		return m_counter;
+	}
+
+	float& value()
+	{
+		return m_counter;
+	}
+
+	operator const float() const
+	{
+		return m_counter;
+	}
+
+	f32& operator++() // pre
+	{
+		m_counter++;
+		return *this;
+	}
+
+	f32& operator++(int) // post
+	{
+		auto r = *this;
+		m_counter++;
+		return r;
+	}
+
+	f32& operator--() // pre
+	{
+		m_counter--;
+		return *this;
+	}
+
+	f32& operator--(int) // post
+	{
+		auto r = *this;
+		m_counter--;
+		return r;
+	}
+
+	f32& operator +=(float f)
+	{
+		m_counter += f;// * FRAMERATE_SCALER;
+		return *this;
+	}
+
+	f32& operator-=(float f)
+	{
+		m_counter -= f;// * FRAMERATE_SCALER;
+		return *this;
+	}
+
+	f32& operator*=(float f)
+	{
+		m_counter *= f;
+		return *this;
+	}
+
+	f32& operator/=(float f)
+	{
+		m_counter /= f;
+		return *this;
+	}
+
+	f32 clamp(float min, float max) const
+	{
+		if(value() < min)
+		{
+			return min;
+		}
+
+		if(value() > max)
+		{
+			return max;
+		}
+
+		return value();
+	}
+
+	f32 clampMin(float min) const
+	{
+		if(value() < min)
+		{
+			return min;
+		}
+
+		return value();
+	}
+
+	f32 clampMax(float max) const
+	{
+		if(value() > max)
+		{
+			return max;
+		}
+
+		return value();
+	}
+
+	float abs() const
+	{
+		const float v = value();
+
+		if(v < 0.0f)
+		{
+			return -v;
+		}
+
+		return v;
+	}
+
+	bool isWhole() const;
+
+	s32 whole() const
+	{
+		return (s32)m_counter;
+	}
+
+	float frac() const
+	{
+		return m_counter - (s32)m_counter;
+	}
+
+	s32 operator<<(long n)
+	{
+		return whole() << n;
+	}
+
+	s32 operator>>(long n)
+	{
+		return whole() >> n;
+	}
+
+	float toFloat() const
+	{
+		return m_counter;
+	}
+
+	s16 toS16() const
+	{
+		return (s16)m_counter;
+	}
+
+	u16 toU16() const
+	{
+		return (u16)m_counter;
+	}
+
+	protected:
+	float m_counter;
+};
+
+typedef float F32;
 typedef double f64;
+typedef double F64;
 
 #ifndef GBI_FLOATS
 typedef s32 Mtx_t[4][4];

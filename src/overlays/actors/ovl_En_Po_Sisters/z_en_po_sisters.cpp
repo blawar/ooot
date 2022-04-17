@@ -1759,7 +1759,7 @@ void EnPoSisters_Draw(Actor* thisx, GlobalContext* globalCtx)
 		if(pthis->actionFunc == func_80ADAFC0)
 		{
 			phi_f20 = (pthis->unk_19A - i) * 0.025f + 0.5f;
-			phi_f20 = CLAMP(phi_f20, 0.5f, 0.8f) * 0.007f;
+			phi_f20 = phi_f20.clamp(0.5f, 0.8f) * 0.007f;
 		}
 		Matrix_Scale(phi_f20, phi_f20, phi_f20, MTXMODE_APPLY);
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_po_sisters.c", 3132), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

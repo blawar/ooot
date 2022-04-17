@@ -100,7 +100,7 @@ void func_808A18FC(BgMoriElevator* pthis, f32 distTo)
 	f32 temp;
 
 	temp = fabsf(distTo) * 0.09f;
-	func_800F436C(&pthis->dyna.actor.projectedPos, NA_SE_EV_ELEVATOR_MOVE2 - SFX_FLAG, CLAMP(temp, 0.0f, 1.0f));
+	func_800F436C(&pthis->dyna.actor.projectedPos, NA_SE_EV_ELEVATOR_MOVE2 - SFX_FLAG, temp.clamp(0.0f, 1.0f));
 }
 
 void BgMoriElevator_Init(Actor* thisx, GlobalContext* globalCtx)

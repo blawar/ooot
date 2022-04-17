@@ -655,7 +655,7 @@ void ObjOshihiki_Push(ObjOshihiki* pthis, GlobalContext* globalCtx)
 
 	pthis->pushSpeed += 0.5f;
 	pthis->stateFlags |= PUSHBLOCK_PUSH;
-	pthis->pushSpeed = CLAMP_MAX(pthis->pushSpeed, 2.0f);
+	pthis->pushSpeed = pthis->pushSpeed.clampMax(2.0f);
 	stopFlag = Math_StepToF(&pthis->pushDist, 20.0f, pthis->pushSpeed);
 	pushDistSigned = ((pthis->direction >= 0.0f) ? 1.0f : -1.0f) * pthis->pushDist;
 	thisx->world.pos.x = thisx->home.pos.x + (pushDistSigned * pthis->yawSin);

@@ -274,7 +274,7 @@ void EnBom_Update(Actor* thisx, GlobalContext* globalCtx2)
 		Actor_SetScale(thisx, 0.01f);
 	}
 
-	if((thisx->xzDistToPlayer >= 20.0f) || (ABS(thisx->yDistToPlayer) >= 80.0f))
+	if((thisx->xzDistToPlayer >= 20.0f) || (thisx->yDistToPlayer.abs() >= 80.0f))
 	{
 		pthis->bumpOn = true;
 	}

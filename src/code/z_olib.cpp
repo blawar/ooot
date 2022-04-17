@@ -45,7 +45,7 @@ f32 OLib_Vec3fDistXZ(Vec3f* a, Vec3f* b)
  */
 f32 OLib_ClampMinDist(f32 val, f32 min)
 {
-	return (min <= fabsf(val)) ? val : ((val >= 0) ? min : -min);
+	return (min <= fabsf(val)) ? (F32)val : ((val >= 0) ? (F32)min : (F32)-min);
 }
 
 /**
@@ -54,7 +54,7 @@ f32 OLib_ClampMinDist(f32 val, f32 min)
  */
 f32 OLib_ClampMaxDist(f32 val, f32 max)
 {
-	return (fabsf(val) <= max) ? val : ((val >= 0) ? max : -max);
+	return (fabsf(val) <= max) ? (F32)val : ((val >= 0) ? (F32)max : (F32)-max);
 }
 
 /**

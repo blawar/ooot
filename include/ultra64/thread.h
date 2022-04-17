@@ -27,8 +27,8 @@ typedef union
 {
 	struct
 	{
-		/* 0x00 */ f32 f_odd;
-		/* 0x04 */ f32 f_even;
+		/* 0x00 */ F32 f_odd;
+		/* 0x04 */ F32 f_even;
 	} f;
 } __OSfp; // size = 0x08
 

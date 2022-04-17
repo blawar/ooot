@@ -51,7 +51,7 @@ s32 Camera_CheckWater(Camera* camera);
 
 #define RELOAD_PARAMS (camera->animState == 0 || camera->animState == 0xA || camera->animState == 0x14 || R_RELOAD_CAM_PARAMS)
 
-#define PCT(x) ((x)*0.01f)
+#define PCT(x) ((f32)((x)*0.01f))
 #define NEXTSETTING ((values++)->val)
 #define NEXTPCT PCT(NEXTSETTING)
 
@@ -1859,7 +1859,7 @@ s32 Camera_Normal1(Camera* camera)
 		}
 	}
 
-	spA0 = ((anim->swing.unk_18 != 0) && (norm1->yOffset > -40.0f)) ? (sp9C = Math_SinS(anim->swing.unk_14), ((-40.0f * sp9C) + (norm1->yOffset * (1.0f - sp9C)))) : norm1->yOffset;
+	spA0 = ((anim->swing.unk_18 != 0) && (norm1->yOffset > -40.0f)) ? (sp9C = Math_SinS(anim->swing.unk_14), ((-40.0f * sp9C) + (norm1->yOffset * (1.0f - sp9C)))) : (F32)norm1->yOffset;
 
 	if(norm1->interfaceFlags & 0x80)
 	{
@@ -2068,7 +2068,7 @@ s32 Camera_Normal2(Camera* camera)
 			anim->unk_20 = BGCAM_ROT(bgData).x;
 			anim->unk_22 = BGCAM_ROT(bgData).y;
 			anim->unk_24 = playerPosRot->pos.y;
-			anim->unk_1C = BGCAM_FOV(bgData) == -1 ? norm2->unk_14 : BGCAM_FOV(bgData) >= 0x169 ? PCT(BGCAM_FOV(bgData)) : BGCAM_FOV(bgData);
+			anim->unk_1C = BGCAM_FOV(bgData) == -1 ? (F32)norm2->unk_14 : (F32)BGCAM_FOV(bgData) >= 0x169 ? (F32)PCT(BGCAM_FOV(bgData)) : (F32)BGCAM_FOV(bgData);
 
 			anim->unk_28 = BGCAM_JFIFID(bgData) == -1 ? 0 : BGCAM_JFIFID(bgData);
 
@@ -5276,7 +5276,7 @@ s32 Camera_Data4(Camera* camera)
 		initParams->fov = fov;
 		if(fov != -1)
 		{
-			data4->fov = initParams->fov < 361 ? initParams->fov : PCT(initParams->fov);
+			data4->fov = initParams->fov < 361 ? (F32)initParams->fov : (F32)PCT(initParams->fov);
 		}
 
 		initParams->jfifId = BGCAM_JFIFID(sceneCamData);
@@ -5471,7 +5471,7 @@ s32 Camera_Unique2(Camera* camera)
 	}
 
 	playerPos = camera->playerPosRot.pos;
-	lerpRateFactor = (uniq2->interfaceFlags & 1 ? 1.0f : camera->speedRatio);
+	lerpRateFactor = (uniq2->interfaceFlags & 1 ? 1.0f : (F32)camera->speedRatio);
 	at->x = F32_LERPIMP(at->x, playerPos.x, lerpRateFactor * 0.6f);
 	at->y = F32_LERPIMP(at->y, playerPos.y + playerHeight + uniq2->yOffset, 0.4f);
 	at->z = F32_LERPIMP(at->z, playerPos.z, lerpRateFactor * 0.6f);
@@ -5678,7 +5678,7 @@ s32 Camera_Unique0(Camera* camera)
 		fov = BGCAM_FOV(sceneCamData);
 		if(fov != -1)
 		{
-			camera->fov = fov < 361 ? fov : PCT(fov);
+			camera->fov = fov < 361 ? (F32)fov : (F32)PCT(fov);
 		}
 		anim->animTimer = BGCAM_JFIFID(sceneCamData);
 		if(anim->animTimer == -1)

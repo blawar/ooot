@@ -50,7 +50,7 @@ struct ObjSwitchTris
 	/* 0x20 */ ColliderTrisElement items[2];
 };
 
-typedef struct ObjSwitch
+struct ObjSwitch
 {
 	/* 0x0000 */ DynaPolyActor dyna;
 	/* 0x0164 */ ObjSwitchActionFunc actionFunc;
@@ -66,9 +66,9 @@ typedef struct ObjSwitch
 	/* 0x017B */ u8 y2TexScroll;
 	/* 0x017C */ Color_RGB8 crystalColor;
 	/* 0x017F */ u8 unk_17F; // used for different purposes between floor and eye switch
-	union
-	{
+	/*union TODO VERIFY
+	{*/
 		/* 0x0180 */ ObjSwitchJntSph jntSph;
 		/* 0x0180 */ ObjSwitchTris tris;
-	};
-} ObjSwitch;
+	//};
+};

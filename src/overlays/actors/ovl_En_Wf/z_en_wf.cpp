@@ -598,8 +598,8 @@ void EnWf_RunAtPlayer(EnWf* pthis, GlobalContext* globalCtx)
 
 		animPrevFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		sp58 = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		playSpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		sp58 = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		playSpeed = pthis->skelAnime.playSpeed.abs();
 
 		if(!Actor_IsFacingPlayer(&pthis->actor, 0x11C7))
 		{
@@ -668,12 +668,12 @@ void EnWf_SearchForPlayer(EnWf* pthis, GlobalContext* globalCtx)
 		if(yawDiff > 0)
 		{
 			phi_f2 = phi_v1 * 0.5f;
-			phi_f2 = CLAMP_MAX(phi_f2, 1.0f);
+			phi_f2 = phi_f2.clampMax(1.0f);
 		}
 		else
 		{
 			phi_f2 = phi_v1 * 0.5f;
-			phi_f2 = CLAMP_MIN(phi_f2, -1.0f);
+			phi_f2 = phi_f2.clampMin(-1.0f);
 		}
 
 		pthis->skelAnime.playSpeed = -phi_f2;
@@ -778,7 +778,7 @@ void EnWf_RunAroundPlayer(EnWf* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->runSpeed;
 		}
 
-		if(ABS(pthis->runSpeed) < pthis->actor.speedXZ.abs())
+		if(pthis->runSpeed.abs() < pthis->actor.speedXZ.abs())
 		{
 			pthis->skelAnime.playSpeed = pthis->actor.speedXZ * 0.175f;
 		}
@@ -787,11 +787,11 @@ void EnWf_RunAroundPlayer(EnWf* pthis, GlobalContext* globalCtx)
 			pthis->skelAnime.playSpeed = pthis->runSpeed * 0.175f;
 		}
 
-		pthis->skelAnime.playSpeed = CLAMP(pthis->skelAnime.playSpeed, -3.0f, 3.0f);
+		pthis->skelAnime.playSpeed = pthis->skelAnime.playSpeed.clamp(-3.0f, 3.0f);
 		animPrevFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		animFrameSpeedDiff = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		animSpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		animFrameSpeedDiff = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		animSpeed = pthis->skelAnime.playSpeed.abs();
 
 		if((animPrevFrame != (s32)pthis->skelAnime.curFrame) && (animFrameSpeedDiff <= 0) && (animSpeed + animPrevFrame > 0))
 		{
@@ -1221,7 +1221,7 @@ void EnWf_Blocking(EnWf* pthis, GlobalContext* globalCtx)
 	{
 		s16 yawDiff = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
 
-		if((ABS(yawDiff) <= 0x4000) && (pthis->actor.xzDistToPlayer < 60.0f) && (ABS(pthis->actor.yDistToPlayer) < 50.0f))
+		if((ABS(yawDiff) <= 0x4000) && (pthis->actor.xzDistToPlayer < 60.0f) && (pthis->actor.yDistToPlayer.abs() < 50.0f))
 		{
 			if(func_800354B4(globalCtx, &pthis->actor, 100.0f, 10000, 0x4000, pthis->actor.shape.rot.y))
 			{
@@ -1365,7 +1365,7 @@ void EnWf_Sidestep(EnWf* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->runSpeed;
 	}
 
-	if(ABS(pthis->runSpeed) < pthis->actor.speedXZ.abs())
+	if(pthis->runSpeed.abs() < pthis->actor.speedXZ.abs())
 	{
 		pthis->skelAnime.playSpeed = pthis->actor.speedXZ * 0.175f;
 	}
@@ -1374,12 +1374,12 @@ void EnWf_Sidestep(EnWf* pthis, GlobalContext* globalCtx)
 		pthis->skelAnime.playSpeed = pthis->runSpeed * 0.175f;
 	}
 
-	pthis->skelAnime.playSpeed = CLAMP(pthis->skelAnime.playSpeed, -3.0f, 3.0f);
+	pthis->skelAnime.playSpeed = pthis->skelAnime.playSpeed.clamp(-3.0f, 3.0f);
 
 	animPrevFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
-	animFrameSpeedDiff = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-	animSpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+	animFrameSpeedDiff = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+	animSpeed = pthis->skelAnime.playSpeed.abs();
 
 	if(!EnWf_ChangeAction(globalCtx, pthis, false))
 	{

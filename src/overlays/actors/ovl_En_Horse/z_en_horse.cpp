@@ -1301,7 +1301,7 @@ void EnHorse_MountedTurn(EnHorse* pthis, GlobalContext* globalCtx)
 		}
 		else if(Math_CosS(stickAngle) <= 0.7071)
 		{ // cos(45 degrees)
-			clampedYaw = CLAMP(stickAngle, -800.0f, 800.0f);
+			clampedYaw = CLAMP(stickAngle, -800, 800);
 			pthis->actor.world.rot.y = pthis->actor.world.rot.y + clampedYaw;
 			pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
 		}
@@ -1767,7 +1767,7 @@ void EnHorse_Reverse(EnHorse* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.speedXZ = -2.0f;
 	turnAmount = 0x7FFF - stickAngle;
-	turnAmount = CLAMP(turnAmount, -1200.0f, 1200.0f);
+	turnAmount = CLAMP(turnAmount, -1200, 1200);
 	pthis->actor.world.rot.y += turnAmount;
 	pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
 

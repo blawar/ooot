@@ -259,7 +259,7 @@ void EnOkuta_SetupShoot(EnOkuta* pthis, GlobalContext* globalCtx)
 		pthis->timer = pthis->numShots;
 	}
 	pthis->jumpHeight = pthis->actor.yDistToPlayer + 20.0f;
-	pthis->jumpHeight = CLAMP_MIN(pthis->jumpHeight, 10.0f);
+	pthis->jumpHeight = pthis->jumpHeight.clampMin(10.0f);
 	if(pthis->jumpHeight > 50.0f)
 	{
 		EnOkuta_SpawnSplash(pthis, globalCtx);

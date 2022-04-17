@@ -175,7 +175,7 @@ void func_80A7C058(EnInsect* pthis)
 
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MUSI_WALK);
 
-	pthis->unk_31E = 3.0f / CLAMP_MIN(pthis->skelAnime.playSpeed, 0.1f);
+	pthis->unk_31E = 3.0f / pthis->skelAnime.playSpeed.clampMin(0.1f);
 	if(pthis->unk_31E < 2)
 	{
 		pthis->unk_31E = 2;
@@ -287,7 +287,7 @@ void func_80A7C3F4(EnInsect* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 0.1f, 0.5f, 0.0f);
 
 	playSpeed = (Rand_ZeroOne() * 0.8f) + (pthis->actor.speedXZ * 1.2f);
-	pthis->skelAnime.playSpeed = CLAMP(playSpeed, 0.0f, 1.9f);
+	pthis->skelAnime.playSpeed = playSpeed.clamp(0.0f, 1.9f);
 
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->actor.shape.rot.y = pthis->actor.world.rot.y;

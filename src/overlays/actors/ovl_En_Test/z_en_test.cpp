@@ -494,7 +494,7 @@ void EnTest_WaitGround(EnTest* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if((pthis->timer == 0) && (ABS(pthis->actor.yDistToPlayer) < 150.0f))
+	if((pthis->timer == 0) && (pthis->actor.yDistToPlayer.abs() < 150.0f))
 	{
 		pthis->unk_7C8 = 3;
 		EnTest_SetupAction(pthis, EnTest_Rise);
@@ -532,7 +532,7 @@ void EnTest_WaitAbove(EnTest* pthis, GlobalContext* globalCtx)
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->actor.world.pos.y = pthis->actor.home.pos.y + 150.0f;
 
-	if((pthis->actor.xzDistToPlayer < 200.0f) && (ABS(pthis->actor.yDistToPlayer) < 450.0f))
+	if((pthis->actor.xzDistToPlayer < 200.0f) && (pthis->actor.yDistToPlayer.abs() < 450.0f))
 	{
 		EnTest_SetupAction(pthis, EnTest_Fall);
 		pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
@@ -722,12 +722,12 @@ void EnTest_WalkAndBlock(EnTest* pthis, GlobalContext* globalCtx)
 				pthis->unk_7DE++;
 			}
 
-			playSpeed = CLAMP_MAX(playSpeed, 2.5f);
+			playSpeed = playSpeed.clampMax(2.5f);
 			pthis->skelAnime.playSpeed = playSpeed;
 		}
 		else
 		{
-			playSpeed = CLAMP_MIN(playSpeed, -2.5f);
+			playSpeed = playSpeed.clampMin(-2.5f);
 			pthis->skelAnime.playSpeed = playSpeed;
 		}
 
@@ -755,8 +755,8 @@ void EnTest_WalkAndBlock(EnTest* pthis, GlobalContext* globalCtx)
 		prevFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
 
-		temp_f16 = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		absPlaySpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		temp_f16 = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		absPlaySpeed = pthis->skelAnime.playSpeed.abs();
 
 		if((s32)pthis->skelAnime.curFrame != prevFrame)
 		{
@@ -887,20 +887,20 @@ void func_80860C24(EnTest* pthis, GlobalContext* globalCtx)
 		if(yawDiff > 0)
 		{
 			playSpeed = yawChange * 0.02f;
-			playSpeed = CLAMP_MAX(playSpeed, 1.0f);
+			playSpeed = playSpeed.clampMax(1.0f);
 			pthis->skelAnime.playSpeed = playSpeed;
 		}
 		else
 		{
 			playSpeed = yawChange * 0.02f;
-			playSpeed = CLAMP_MIN(playSpeed, -1.0f);
+			playSpeed = playSpeed.clampMin(-1.0f);
 			pthis->skelAnime.playSpeed = playSpeed;
 		}
 
 		prevFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		temp1 = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		absPlaySpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		temp1 = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		absPlaySpeed = pthis->skelAnime.playSpeed.abs();
 
 		if((s32)pthis->skelAnime.curFrame != prevFrame)
 		{
@@ -1051,8 +1051,8 @@ void func_80860F84(EnTest* pthis, GlobalContext* globalCtx)
 
 		prevFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		temp_f16 = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		absPlaySpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		temp_f16 = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		absPlaySpeed = pthis->skelAnime.playSpeed.abs();
 
 		if((s32)pthis->skelAnime.curFrame != prevFrame)
 		{
@@ -1786,8 +1786,8 @@ void func_808628C8(EnTest* pthis, GlobalContext* globalCtx)
 	prevFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
 
-	temp_f16 = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-	absPlaySpeed = ABS(pthis->skelAnime.playSpeed);
+	temp_f16 = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+	absPlaySpeed = pthis->skelAnime.playSpeed.abs();
 
 	if((pthis->timer % 32) == 0)
 	{

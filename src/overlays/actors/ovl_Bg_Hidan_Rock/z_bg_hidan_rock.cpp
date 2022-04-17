@@ -232,12 +232,12 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx)
 	else
 	{
 		pthis->unk_16C -= 1.0f;
-		pthis->unk_16C = CLAMP_MIN(pthis->unk_16C, 0.0f);
+		pthis->unk_16C = pthis->unk_16C.clampMin(0.0f);
 	}
 
 	if(sp2C < 100.0f)
 	{
-		pthis->unk_16C = CLAMP_MAX(pthis->unk_16C, 6.125f);
+		pthis->unk_16C = pthis->unk_16C.clampMax(6.125f);
 	}
 }
 
@@ -312,7 +312,7 @@ void func_8088B79C(BgHidanRock* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->unk_16C -= 0.5f;
-	pthis->unk_16C = CLAMP_MIN(pthis->unk_16C, 0.0f);
+	pthis->unk_16C = pthis->unk_16C.clampMin(0.0f);
 
 	if(pthis->type == 0)
 	{

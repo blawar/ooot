@@ -1374,7 +1374,7 @@ void func_80A995CC(EnKo* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			phi_f0 = CLAMP_MAX(temp_f2, 3.0f);
+			phi_f0 = temp_f2.clampMax(3.0f);
 			pthis->skelAnime.playSpeed = phi_f0;
 		}
 	}

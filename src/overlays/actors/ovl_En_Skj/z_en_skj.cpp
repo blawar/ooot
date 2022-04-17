@@ -857,7 +857,7 @@ void EnSkj_Fight(EnSkj* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.z = pthis->center.z + pos2.z;
 
 		phi_f14 = sqrtf(SQ(pthis->actor.world.pos.x - prevPosX) + SQ(pthis->actor.world.pos.z - prevPosZ));
-		phi_f14 = CLAMP_MAX(phi_f14, 10.0f);
+		phi_f14 = phi_f14.clampMax(10.0f);
 		phi_f14 /= 10.0f;
 
 		pthis->skelAnime.playSpeed = (yawDistToPlayer < 0) ? -(1.0f + phi_f14) : (1.0f + phi_f14);

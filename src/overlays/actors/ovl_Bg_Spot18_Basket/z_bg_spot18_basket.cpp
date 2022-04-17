@@ -324,7 +324,7 @@ void func_808B7D50(BgSpot18Basket* pthis, GlobalContext* globalCtx)
 
 	tempValue2 = (pthis->unk_210 - 500) * 0.0006f;
 
-	tempValue = CLAMP(tempValue2, 0.0f, 1.5f);
+	tempValue = tempValue2.clamp(0.0f, 1.5f);
 
 	func_800F436C(&pthis->dyna.actor.projectedPos, NA_SE_EV_WALL_MOVE_SP - SFX_FLAG, tempValue);
 }
@@ -401,7 +401,7 @@ void func_808B7FC0(BgSpot18Basket* pthis, GlobalContext* globalCtx)
 
 	tempUnk210 = (pthis->unk_210 - 500) * 0.0006f;
 
-	clampedTempUnk210 = CLAMP(tempUnk210, 0.0f, 1.5f);
+	clampedTempUnk210 = tempUnk210.clamp(0.0f, 1.5f);
 
 	func_800F436C(&pthis->dyna.actor.projectedPos, NA_SE_EV_WALL_MOVE_SP - SFX_FLAG, clampedTempUnk210);
 }

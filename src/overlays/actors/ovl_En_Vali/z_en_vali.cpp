@@ -338,7 +338,7 @@ void EnVali_DropAppear(EnVali* pthis, GlobalContext* globalCtx)
 {
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->actor.velocity.y *= 1.5f;
-	pthis->actor.velocity.y = CLAMP_MAX(pthis->actor.velocity.y, 40.0f);
+	pthis->actor.velocity.y = pthis->actor.velocity.y.clampMax(40.0f);
 
 	if(Math_StepToF(&pthis->actor.world.pos.y, pthis->actor.floorHeight, pthis->actor.velocity.y))
 	{

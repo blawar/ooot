@@ -1270,10 +1270,10 @@ namespace oot::pause
 		std::vector<std::unique_ptr<Page>> m_pages;
 		u16 m_pageIndex;
 		u16 m_pageIndexTarget;
-		float m_rotation;
-		float m_pageAngle;
-		float m_inradius;
-		float m_inradiusScaler;
+		f32 m_rotation;
+		f32 m_pageAngle;
+		f32 m_inradius;
+		f32 m_inradiusScaler;
 	};
 
 	class OotMenu : public Pages

@@ -375,7 +375,7 @@ void func_80A7492C(EnIk* pthis, GlobalContext* globalCtx)
 	s32 phi_a0 = (pthis->unk_2FB == 0) ? 0xAAA : 0x3FFC;
 	s16 yawDiff = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
 
-	if((ABS(yawDiff) <= phi_a0) && (pthis->actor.xzDistToPlayer < 100.0f) && (ABS(pthis->actor.yDistToPlayer) < 150.0f))
+	if((ABS(yawDiff) <= phi_a0) && (pthis->actor.xzDistToPlayer < 100.0f) && (pthis->actor.yDistToPlayer.abs() < 150.0f))
 	{
 		if((globalCtx->gameplayFrames & 1))
 		{
@@ -386,7 +386,7 @@ void func_80A7492C(EnIk* pthis, GlobalContext* globalCtx)
 			func_80A751C8(pthis);
 		}
 	}
-	else if((ABS(yawDiff) <= 0x4000) && (ABS(pthis->actor.yDistToPlayer) < 150.0f))
+	else if((ABS(yawDiff) <= 0x4000) && (pthis->actor.yDistToPlayer.abs() < 150.0f))
 	{
 		func_80A74AAC(pthis);
 	}
@@ -453,7 +453,7 @@ void func_80A74BA4(EnIk* pthis, GlobalContext* globalCtx)
 	yawDiff = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
 	if((ABS(yawDiff) <= temp_t0) && (pthis->actor.xzDistToPlayer < 100.0f))
 	{
-		if(ABS(pthis->actor.yDistToPlayer) < 150.0f)
+		if(pthis->actor.yDistToPlayer.abs() < 150.0f)
 		{
 			if((globalCtx->gameplayFrames & 1))
 			{
@@ -595,7 +595,7 @@ void func_80A75260(EnIk* pthis, GlobalContext* globalCtx)
 
 	pthis->unk_300 += 0x1C2;
 	temp_f0 = Math_SinS(pthis->unk_300);
-	pthis->skelAnime.playSpeed = ABS(temp_f0);
+	pthis->skelAnime.playSpeed = temp_f0.abs();
 
 	if(pthis->skelAnime.curFrame > 11.0f)
 	{
@@ -693,7 +693,7 @@ void func_80A7567C(EnIk* pthis, GlobalContext* globalCtx)
 	CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &pthis->shieldCollider.base);
 	if(SkelAnime_Update(&pthis->skelAnime))
 	{
-		if((ABS((s16)(pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y)) <= 0x4000) && (pthis->actor.xzDistToPlayer < 100.0f) && (ABS(pthis->actor.yDistToPlayer) < 150.0f))
+		if((ABS((s16)(pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y)) <= 0x4000) && (pthis->actor.xzDistToPlayer < 100.0f) && (pthis->actor.yDistToPlayer.abs() < 150.0f))
 		{
 			if((globalCtx->gameplayFrames & 1))
 			{

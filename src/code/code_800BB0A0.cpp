@@ -10,7 +10,7 @@ void func_800BB0A0(f32 u, Vec3f* pos, f32* roll, f32* viewAngle, f32* point0, f3
 {
 	f32 coeff[4];
 
-	u = CLAMP_MAX(u, 1.0f);
+	u = u.clampMax(1.0f);
 
 	coeff[0] = (1.0f - u) * (1.0f - u) * (1.0f - u) / 6.0f;
 	coeff[1] = u * u * u / 2.0f - u * u + 2.0f / 3.0f;

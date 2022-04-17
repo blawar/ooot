@@ -2989,7 +2989,7 @@ u8 func_800F37B8(f32 behindScreenZ, SoundBankEntry* arg1, s8 arg2)
 			break;
 	}
 
-	phi_f12 = CLAMP_MAX(arg1->dist, 10000.0f / 5.2f);
+	phi_f12 = CLAMPF_MAX(arg1->dist, 10000.0f / 5.2f);
 
 	return (phi_v1 * 0x10) + (u8)((phi_f0 * phi_f12) / (10000.0f / 5.2f));
 }

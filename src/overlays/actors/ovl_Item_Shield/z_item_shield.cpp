@@ -171,7 +171,7 @@ void func_80B86CA8(ItemShield* pthis, GlobalContext* globalCtx)
 
 	Actor_MoveForward(&pthis->actor);
 	Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 10.0f, 10.0f, 0.0f, 5);
-	pthis->actor.shape.yOffset = ABS(Math_SinS(pthis->actor.shape.rot.x)) * 1500.0f;
+	pthis->actor.shape.yOffset = Math_SinS(pthis->actor.shape.rot.x).abs() * 1500.0f;
 
 	for(i = 0; i < 8; i++)
 	{

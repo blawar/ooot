@@ -1,4 +1,5 @@
 #define INTERNAL_SRC_CODE_CODE_800E4FE0_C
+#define HAVE_FLOAT_TYPES
 #include "global.h"
 #include <string.h>
 #include "AziAudio/AziAudio/AudioSpec.h"

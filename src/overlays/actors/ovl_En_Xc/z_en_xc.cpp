@@ -584,7 +584,7 @@ void EnXc_SetColossusWindSFX(GlobalContext* globalCtx)
 
 					osSyncPrintf("MAX speed = %f\n", sMaxSpeed_83);
 
-					speed = CLAMP_MAX(speed, 2.0f);
+					speed = speed.clampMax(2.0f);
 					func_800F436C(&sPos_83, NA_SE_EV_FLYING_AIR - SFX_FLAG, 0.6f + (0.4f * speed));
 				}
 

@@ -250,7 +250,7 @@ void func_80A89A6C(EnJsjutan* pthis, GlobalContext* globalCtx)
 			}
 
 			spA8 = 100.0f * distVtx * 0.01f;
-			spA8 = CLAMP_MAX(spA8, 100.0f);
+			spA8 = spA8.clampMax(100.0f);
 		}
 		else
 		{
@@ -292,7 +292,7 @@ void func_80A89A6C(EnJsjutan* pthis, GlobalContext* globalCtx)
 				}
 
 				maxAmp = 100.0f * distVtx * 0.01f;
-				maxAmp = CLAMP_MAX(maxAmp, 100.0f);
+				maxAmp = maxAmp.clampMax(100.0f);
 
 				offset = CLAMP_MAX(offset, maxOffset);
 

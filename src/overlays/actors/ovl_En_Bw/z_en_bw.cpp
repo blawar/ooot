@@ -220,25 +220,25 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx)
 	sp5C = Math_CosF(pthis->unk_240);
 	if(pthis->unk_232 == 0)
 	{
-		if(ABS(sp58) < ABS(sp5C))
+		if(sp58.abs() < sp5C.abs())
 		{
 			pthis->unk_232++;
 		}
 	}
 	else
 	{
-		if(ABS(sp58) > ABS(sp5C))
+		if(sp58.abs() > sp5C.abs())
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_BUBLEWALK_WALK);
 			pthis->unk_232 = 0;
 		}
 	}
 	sp5C *= pthis->unk_24C * (10.0f * pthis->unk_244);
-	pthis->actor.speedXZ = ABS(sp5C);
+	pthis->actor.speedXZ = sp5C.abs();
 	if(pthis->unk_221 != 1)
 	{
 		sp58 = Math_SinF(pthis->unk_240);
-		sp60 = ABS(sp58) * 85.0f;
+		sp60 = sp58.abs() * 85.0f;
 		pthis->color1.g = sp60;
 	}
 	if((((globalCtx->gameplayFrames % 4) == (u32)pthis->actor.params) && (pthis->actor.speedXZ != 0.0f) && (sp64 = BgCheck_AnyLineTest2(&globalCtx->colCtx, &pthis->actor.world.pos, &pthis->unk_264, &sp68, &sp74, 1, 0, 0, 1))) || (pthis->unk_222 == 0))
@@ -392,7 +392,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx)
 	{
 		case 3:
 			Math_SmoothStepToF(&pthis->unk_248, 0.6f, 1.0f, 0.05f, 0.0f);
-			if((pthis->unk_224 == 0) && (pthis->actor.xzDistToPlayer < 200.0f) && (ABS(pthis->actor.yDistToPlayer) < 50.0f) && Actor_IsFacingPlayer(&pthis->actor, 0x1C70))
+			if((pthis->unk_224 == 0) && (pthis->actor.xzDistToPlayer < 200.0f) && (pthis->actor.yDistToPlayer.abs() < 50.0f) && Actor_IsFacingPlayer(&pthis->actor, 0x1C70))
 			{
 				func_809CF72C(pthis);
 			}
@@ -416,7 +416,7 @@ void func_809CEA24(EnBw* pthis, GlobalContext* globalCtx)
 			{
 				Math_SmoothStepToS(&pthis->actor.world.rot.y, pthis->unk_236 + pthis->unk_238, 1, pthis->actor.speedXZ * 1000.0f, 0);
 			}
-			if((pthis->unk_224 == 0) || (ABS(pthis->actor.yDistToPlayer) > 60.0f) || (player2->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14)))
+			if((pthis->unk_224 == 0) || (pthis->actor.yDistToPlayer.abs() > 60.0f) || (player2->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14)))
 			{
 				pthis->unk_221 = 3;
 				pthis->unk_224 = 150;

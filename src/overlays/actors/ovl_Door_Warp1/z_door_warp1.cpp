@@ -322,7 +322,7 @@ void func_80999214(DoorWarp1* pthis, GlobalContext* globalCtx)
 	Math_SmoothStepToF(&pthis->crystalAlpha, 255.0f, 0.2f, 5.0f, 0.1f);
 
 	darkness = (f32)(40 - pthis->warpTimer) / 40.0f;
-	darkness = CLAMP_MIN(darkness, 0);
+	darkness = darkness.clampMin(0);
 
 	for(i = 0; i < 3; i++)
 	{

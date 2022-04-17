@@ -394,12 +394,12 @@ void EnFloormas_SetupGrabLink(EnFloormas* pthis, Player* player)
 	EnFloormas_MakeInvulnerable(pthis);
 	if(!LINK_IS_ADULT)
 	{
-		yDelta = CLAMP(-pthis->actor.yDistToPlayer, 20.0f, 30.0f);
+		yDelta = -pthis->actor.yDistToPlayer.clamp(20.0f, 30.0f);
 		xzDelta = -10.0f;
 	}
 	else
 	{
-		yDelta = CLAMP(-pthis->actor.yDistToPlayer, 25.0f, 45.0f);
+		yDelta = -pthis->actor.yDistToPlayer.clamp(25.0f, 45.0f);
 		xzDelta = -70.0f;
 	}
 	pthis->actor.world.pos.y = player->actor.world.pos.y + yDelta;
@@ -941,12 +941,12 @@ void EnFloormas_GrabLink(EnFloormas* pthis, GlobalContext* globalCtx)
 
 	if(!LINK_IS_ADULT)
 	{
-		yDelta = CLAMP(-pthis->actor.yDistToPlayer, 20.0f, 30.0f);
+		yDelta = -pthis->actor.yDistToPlayer.clamp(20.0f, 30.0f);
 		xzDelta = -10.0f;
 	}
 	else
 	{
-		yDelta = CLAMP(-pthis->actor.yDistToPlayer, 25.0f, 45.0f);
+		yDelta = -pthis->actor.yDistToPlayer.clamp(25.0f, 45.0f);
 		xzDelta = -30.0f;
 	}
 

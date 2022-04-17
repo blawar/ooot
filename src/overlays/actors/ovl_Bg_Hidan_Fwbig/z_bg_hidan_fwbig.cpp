@@ -240,11 +240,11 @@ void BgHidanFwbig_MoveCollider(BgHidanFwbig* pthis, GlobalContext* globalCtx)
 	projPos.z = ((projPos.z >= 0.0f) ? 1.0f : -1.0f) * 25.0f * -1.0f;
 	if(pthis->direction == 0)
 	{
-		projPos.x = CLAMP(projPos.x, -360.0f, 360.0f);
+		projPos.x = projPos.x.clamp(-360.0f, 360.0f);
 	}
 	else
 	{
-		projPos.x = CLAMP(projPos.x, -500.0f, 500.0f);
+		projPos.x = projPos.x.clamp(-500.0f, 500.0f);
 	}
 
 	sn = Math_SinS(pthis->actor.shape.rot.y);

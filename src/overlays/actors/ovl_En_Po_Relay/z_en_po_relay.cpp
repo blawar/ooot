@@ -264,7 +264,7 @@ void EnPoRelay_Race(EnPoRelay* pthis, GlobalContext* globalCtx)
 			speed = 3.5f;
 		}
 		multiplier = 250.0f - pthis->actor.xzDistToPlayer;
-		multiplier = CLAMP_MIN(multiplier, 0.0f);
+		multiplier = multiplier.clampMin(0.0f);
 		speed += multiplier * 0.02f + 1.0f;
 		Math_ApproachF(&pthis->actor.speedXZ, speed, 0.5f, 1.5f);
 	}

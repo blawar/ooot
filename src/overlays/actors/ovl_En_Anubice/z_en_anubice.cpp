@@ -365,7 +365,7 @@ void EnAnubice_Die(EnAnubice* pthis, GlobalContext* globalCtx)
 
 	curFrame = pthis->skelAnime.curFrame;
 	phi_f2 = curFrame * -3000.0f;
-	phi_f2 = CLAMP_MIN(phi_f2, -11000.0f);
+	phi_f2 = phi_f2.clampMin(-11000.0f);
 
 	Matrix_RotateY(BINANG_TO_RAD(pthis->actor.shape.rot.y), MTXMODE_NEW);
 	Matrix_RotateX(BINANG_TO_RAD(phi_f2), MTXMODE_APPLY);

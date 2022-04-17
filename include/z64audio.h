@@ -112,7 +112,7 @@ struct Portamento
 	/* 0x00 */ u8 mode; // bit 0x80 denotes something; the rest are an index 0-5
 	/* 0x02 */ u16 cur;
 	/* 0x04 */ u16 speed;
-	/* 0x08 */ f32 extent;
+	/* 0x08 */ F32 extent;
 }; // size = 0xC
 
 struct AdsrEnvelope
@@ -170,7 +170,7 @@ static_assert(sizeof(SoundFontSample) == 0x10, "SoundFontSample incorrect size")
 struct SoundFontSound
 {
 	/* 0x00 */ SoundFontSample* sample;
-	/* 0x04 */ f32 tuning; // frequency scale factor
+	/* 0x04 */ F32 tuning; // frequency scale factor
 };			       // size = 0x8
 
 enum AudioCacheLoadType
@@ -316,13 +316,13 @@ struct SequencePlayer
 	/* 0x012 */ u16 fadeTimer;
 	/* 0x014 */ u16 fadeTimerUnkEu;
 	/* 0x018 */ u8* seqData;
-	/* 0x01C */ f32 fadeVolume;
-	/* 0x020 */ f32 fadeVelocity;
-	/* 0x024 */ f32 volume;
-	/* 0x028 */ f32 muteVolumeScale;
-	/* 0x02C */ f32 fadeVolumeScale;
-	/* 0x030 */ f32 appliedFadeVolume;
-	/* 0x034 */ f32 unk_34;
+	/* 0x01C */ F32 fadeVolume;
+	/* 0x020 */ F32 fadeVelocity;
+	/* 0x024 */ F32 volume;
+	/* 0x028 */ F32 muteVolumeScale;
+	/* 0x02C */ F32 fadeVolumeScale;
+	/* 0x030 */ F32 appliedFadeVolume;
+	/* 0x034 */ F32 unk_34;
 	/* 0x038 */ struct SequenceChannel* channels[16];
 	/* 0x078 */ SeqScriptState scriptState;
 	/* 0x094 */ u8* shortNoteVelocityTable;
@@ -365,11 +365,11 @@ struct AdsrState
 	} action;
 	/* 0x01 */ u8 envIndex;
 	/* 0x02 */ s16 delay;
-	/* 0x04 */ f32 sustain;
-	/* 0x08 */ f32 velocity;
-	/* 0x0C */ f32 fadeOutVel;
-	/* 0x10 */ f32 current;
-	/* 0x14 */ f32 target;
+	/* 0x04 */ F32 sustain;
+	/* 0x08 */ F32 velocity;
+	/* 0x0C */ F32 fadeOutVel;
+	/* 0x10 */ F32 current;
+	/* 0x14 */ F32 target;
 	/* 0x18 */ char unk_18[4];
 	/* 0x1C */ AdsrEnvelope* envelope;
 };
@@ -407,8 +407,8 @@ struct NoteAttributes
 	/* 0x03 */ Stereo stereo;
 	/* 0x04 */ u8 unk_4;
 	/* 0x06 */ u16 unk_6;
-	/* 0x08 */ f32 freqScale;
-	/* 0x0C */ f32 velocity;
+	/* 0x08 */ F32 freqScale;
+	/* 0x0C */ F32 velocity;
 	/* 0x10 */ s16* filter;
 	/* 0x14 */ s16 filterBuf[8];
 }; // size = 0x24
@@ -488,11 +488,11 @@ typedef struct SequenceChannel
 	/* 0x24 */ s16 instOrWave; // either 0 (none), instrument index + 1, or
 				   // 0x80..0x83 for sawtooth/triangle/sine/square waves.
 	/* 0x26 */ s16 transposition;
-	/* 0x28 */ f32 volumeScale;
-	/* 0x2C */ f32 volume;
+	/* 0x28 */ F32 volumeScale;
+	/* 0x2C */ F32 volume;
 	/* 0x30 */ s32 pan;
-	/* 0x34 */ f32 appliedVolume;
-	/* 0x38 */ f32 freqScale;
+	/* 0x34 */ F32 appliedVolume;
+	/* 0x38 */ F32 freqScale;
 	/* 0x3C */ u8 (*dynTable)[][2];
 	/* 0x40 */ struct Note* noteUnused;
 	/* 0x44 */ struct SequenceLayer* layerUnused;
@@ -548,12 +548,12 @@ struct SequenceLayer
 	/* 0x18 */ AdsrSettings adsr;
 	/* 0x20 */ Portamento portamento;
 	/* 0x2C */ struct Note* note;
-	/* 0x30 */ f32 freqScale;
-	/* 0x34 */ f32 unk_34;
-	/* 0x38 */ f32 velocitySquare2;
-	/* 0x3C */ f32 velocitySquare; // not sure which one of those corresponds to the sm64 original
-	/* 0x40 */ f32 noteVelocity;
-	/* 0x44 */ f32 noteFreqScale;
+	/* 0x30 */ F32 freqScale;
+	/* 0x34 */ F32 unk_34;
+	/* 0x38 */ F32 velocitySquare2;
+	/* 0x3C */ F32 velocitySquare; // not sure which one of those corresponds to the sm64 original
+	/* 0x40 */ F32 noteVelocity;
+	/* 0x44 */ F32 noteFreqScale;
 	/* 0x48 */ Instrument* instrument;
 	/* 0x4C */ SoundFontSound* sound;
 	/* 0x50 */ SequenceChannel* channel;
@@ -597,8 +597,8 @@ struct VibratoState
 	/* 0x00 */ struct SequenceChannel* channel;
 	/* 0x04 */ u32 time;
 	/* 0x08 */ s16* curve;
-	/* 0x0C */ f32 extent;
-	/* 0x10 */ f32 rate;
+	/* 0x0C */ F32 extent;
+	/* 0x10 */ F32 rate;
 	/* 0x14 */ u8 active;
 	/* 0x16 */ u16 rateChangeTimer;
 	/* 0x18 */ u16 extentChangeTimer;
@@ -614,8 +614,8 @@ struct NotePlaybackState
 	/* 0x04 */ u8 unk_04;
 	/* 0x05 */ u8 stereoHeadsetEffects;
 	/* 0x06 */ s16 adsrVolScaleUnused;
-	/* 0x08 */ f32 portamentoFreqScale;
-	/* 0x0C */ f32 vibratoFreqScale;
+	/* 0x08 */ F32 portamentoFreqScale;
+	/* 0x0C */ F32 vibratoFreqScale;
 	/* 0x10 */ SequenceLayer* prevParentLayer;
 	/* 0x14 */ SequenceLayer* parentLayer;
 	/* 0x18 */ SequenceLayer* wantedParentLayer;
@@ -749,10 +749,10 @@ struct AudioBufferParameters
 	/* 0x10 */ s16 samplesPerUpdateMax;
 	/* 0x12 */ s16 samplesPerUpdateMin;
 	/* 0x14 */ s16 numSequencePlayers;
-	/* 0x18 */ f32 resampleRate;
-	/* 0x1C */ f32 updatesPerFrameInv;
-	/* 0x20 */ f32 unkUpdatesPerFrameScaled;
-	/* 0x24 */ f32 unk_24;
+	/* 0x18 */ F32 resampleRate;
+	/* 0x1C */ F32 updatesPerFrameInv;
+	/* 0x20 */ F32 unkUpdatesPerFrameScaled;
+	/* 0x24 */ F32 unk_24;
 };
 
 struct AudioAllocPool
@@ -867,7 +867,7 @@ typedef struct
 	{
 #ifndef LITTLE_ENDIAN
 		void* data;
-		f32 asFloat;
+		F32 asFloat;
 		s32 asInt;
 		u16 asUShort;
 		s8 asSbyte;
@@ -875,7 +875,7 @@ typedef struct
 		u32 asUInt;
 #else
 		void* data;
-		f32 asFloat;
+		F32 asFloat;
 		s32 asInt;
 		struct
 		{
@@ -1067,7 +1067,7 @@ struct AudioContext
 	/* 0x3438 */ u8 sampleFontLoadStatus[0x30];
 	/* 0x3468 */ u8 fontLoadStatus[0x30];
 	/* 0x3498 */ u8 seqLoadStatus[0x80];
-	/* 0x3518 */ volatile u8 resetStatus;
+	/* 0x3518 */ u8 resetStatus;
 	/* 0x3519 */ u8 audioResetSpecIdToLoad;
 	/* 0x351C */ s32 audioResetFadeOutFramesLeft;
 	/* 0x3520 */ f32* unk_3520;
@@ -1102,8 +1102,8 @@ struct NoteSubAttributes
 	/* 0x01 */ u8 unk_1;
 	/* 0x02 */ u8 pan;
 	/* 0x03 */ Stereo stereo;
-	/* 0x04 */ f32 frequency;
-	/* 0x08 */ f32 velocity;
+	/* 0x04 */ F32 frequency;
+	/* 0x08 */ F32 velocity;
 	/* 0x0C */ char unk_0C[0x4];
 	/* 0x10 */ s16* filter;
 	/* 0x14 */ u8 unk_14;
@@ -1119,30 +1119,30 @@ struct AudioContextInitSizes
 
 struct unk_50_s
 {
-	/* 0x00 */ f32 unk_00;
-	/* 0x04 */ f32 unk_04;
-	/* 0x08 */ f32 unk_08;
+	/* 0x00 */ F32 unk_00;
+	/* 0x04 */ F32 unk_04;
+	/* 0x08 */ F32 unk_08;
 	/* 0x0C */ u16 unk_0C;
-	/* 0x10 */ f32 unk_10;
-	/* 0x14 */ f32 unk_14;
-	/* 0x18 */ f32 unk_18;
+	/* 0x10 */ F32 unk_10;
+	/* 0x14 */ F32 unk_14;
+	/* 0x18 */ F32 unk_18;
 	/* 0x1C */ u16 unk_1C;
 }; // size = 0x20
 
 struct AudioPlayer
 {
-	/* 0x000 */ f32 volCur;
-	/* 0x004 */ f32 volTarget;
-	/* 0x008 */ f32 unk_08;
+	/* 0x000 */ F32 volCur;
+	/* 0x004 */ F32 volTarget;
+	/* 0x008 */ F32 unk_08;
 	/* 0x00C */ u16 unk_0C;
 	/* 0x00E */ u8 volScales[0x4];
 	/* 0x012 */ u8 volFadeTimer;
 	/* 0x013 */ u8 fadeVolUpdate;
 	/* 0x014 */ u32 unk_14;
 	/* 0x018 */ u16 unk_18;
-	/* 0x01C */ f32 tempo;
-	/* 0x020 */ f32 unk_20;
-	/* 0x024 */ f32 unk_24;
+	/* 0x01C */ F32 tempo;
+	/* 0x020 */ F32 unk_20;
+	/* 0x024 */ F32 unk_24;
 	/* 0x028 */ u16 unk_28;
 	/* 0x02C */ u32 unk_2C[8];
 	/* 0x04C */ u8 unk_4C;

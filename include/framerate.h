@@ -107,7 +107,7 @@ void framerate_set_profile(FramerateProfile profile);
 FramerateProfile framerate_get_profile();
 float frameRateDivisor();
 
-class Timer
+class Timer : public f32
 {
 	public:
 	enum class Type
@@ -118,12 +118,12 @@ class Timer
 		S16 = 0x8000
 	};
 
-	Timer() : m_counter(0), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
+	Timer() : f32(), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
 	{
 		m_counterScaler = FRAMERATE_SCALER_INV;
 	}
 
-	Timer(const Timer& t)
+	Timer(const Timer& t) : f32()
 	{
 		m_counter = t.m_counter;
 		m_counterInt = t.m_counterInt;
@@ -132,7 +132,7 @@ class Timer
 		m_counterScaler = t.m_counterScaler;
 	}
 
-	Timer(float n) : m_counter(0), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
+	Timer(float n) : f32(), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
 	{
 		m_counterScaler = FRAMERATE_SCALER_INV;
 		preUpdate();
@@ -140,7 +140,15 @@ class Timer
 		update();
 	}
 
-	Timer(float n, s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max), m_counterScaler(0)
+	Timer(f32 n) : f32(), m_counterInt(0), m_min(-0x8000), m_max(0x7FFF), m_counterScaler(0)
+	{
+		m_counterScaler = FRAMERATE_SCALER_INV;
+		preUpdate();
+		m_counterInt = n.value() * m_counterScaler;
+		update();
+	}
+
+	Timer(float n, s64 min, s64 max) : f32(), m_counterInt(0), m_min(min), m_max(max), m_counterScaler(0)
 	{
 		m_counterScaler = FRAMERATE_SCALER_INV;
 		preUpdate();
@@ -148,7 +156,7 @@ class Timer
 		update();
 	}
 
-	Timer(s64 min, s64 max) : m_counter(0), m_counterInt(0), m_min(min), m_max(max)
+	Timer(s64 min, s64 max) : f32(), m_counterInt(0), m_min(min), m_max(max)
 	{
 		m_counterScaler = FRAMERATE_SCALER_INV;
 	}
@@ -241,17 +249,6 @@ class Timer
 		return (m_counterInt % (s32)m_counterScaler) == 0;
 	}
 
-	s32 whole() const
-	{
-		return (s32)m_counter;
-		// return m_counterInt * 20 / TICK_RATE;
-	}
-
-	operator float() const
-	{
-		return m_counter;
-	}
-
 	Timer& operator+=(const Timer& f)
 	{
 		s64 step = f.m_counterInt / m_counterScaler;
@@ -274,13 +271,13 @@ class Timer
 
 	Timer& operator*=(float f)
 	{
-		*this = (float)*this * f;
+		*this = value() * f;
 		return *this;
 	}
 
 	Timer& operator/=(float f)
 	{
-		*this = (float)*this / f;
+		*this = value() / f;
 		return *this;
 	}
 
@@ -337,31 +334,6 @@ class Timer
 		return t;
 	}
 
-	s32 operator<<(long n)
-	{
-		return whole() << n;
-	}
-
-	s32 operator>>(long n)
-	{
-		return whole() >> n;
-	}
-
-	float toFloat() const
-	{
-		return m_counter;
-	}
-
-	s16 toS16() const
-	{
-		return (s16)m_counter;
-	}
-
-	u16 toU16() const
-	{
-		return (u16)m_counter;
-	}
-
 	constexpr static float INVALID = -FRAMERATE_MAX / 20.0f;
 
 	protected:
@@ -399,7 +371,6 @@ class Timer
 		m_counter = (float)m_counterInt / m_counterScaler;
 	}
 
-	float m_counter;
 	float m_counterScaler;
 	s64 m_counterInt;
 	s64 m_min;
@@ -420,6 +391,10 @@ class TimerU8 : public Timer
 	TimerU8(float n) : Timer(n, 0, 0xFF)
 	{
 	}
+
+	TimerU8(f32 f) : Timer(f.value(), 0, 0xFF)
+	{
+	}
 };
 
 class TimerS8 : public Timer
@@ -434,6 +409,10 @@ class TimerS8 : public Timer
 	}
 
 	TimerS8(float n) : Timer(n, -0x80, 0x7F)
+	{
+	}
+
+	TimerS8(f32 f) : Timer(f.value(), -0x80, 0x7F)
 	{
 	}
 };
@@ -452,36 +431,30 @@ class TimerU16 : public Timer
 	TimerU16(float n) : Timer(n, 0, 0xFFFF)
 	{
 	}
+
+	TimerU16(f32 f) : Timer(f.value(), 0, 0xFFFF)
+	{
+	}
 };
 
 #define FLOAT_STEP m_counterScaler
-
-class CounterF
+typedef f32 CounterF;
+/*
+class CounterF : public f32
 {
 	public:
-	CounterF() : m_counter(0), m_counterScaler(0)
+	CounterF() : f32(), m_counterScaler(0)
 	{
 		m_counterScaler = FRAMERATE_SCALER_INV;
 	}
 
-	CounterF(const CounterF& t)
+	CounterF(const CounterF& t) : f32(t.m_counter), m_counterScaler(t.m_counterScaler)
 	{
-		m_counter = t.m_counter;
-		m_counterScaler = t.m_counterScaler;
 	}
 
-	CounterF(float n) : m_counter(0), m_counterScaler(0)
+	CounterF(float n) : f32(n), m_counterScaler(0)
 	{
 		m_counterScaler = FRAMERATE_SCALER_INV;
-		m_counter = n;
-	}
-
-	float frac() const
-	{
-		return m_counter - (s32)m_counter;
-		//float integer;
-		//return modf(m_counter, &integer);
-		// return (m_counterInt % (s64)FRAMERATE_SCALER_INV) / (float)FRAMERATE_SCALER_INV;
 	}
 
 	CounterF invalid()
@@ -489,23 +462,6 @@ class CounterF
 		CounterF r(0);
 		r--;
 		return r;
-	}
-
-	float abs() const
-	{
-		float v = toFloat();
-
-		if(v < 0.0f)
-		{
-			return -v;
-		}
-
-		return v;
-	}
-
-	void clamp(float min, float max)
-	{
-		*this = CLAMP(toFloat(), min, max);
 	}
 
 	CounterF& operator++() // pre
@@ -543,21 +499,6 @@ class CounterF
 		return *this;
 	}
 
-	bool isWhole() const
-	{
-		return fabsf(roundf(m_counter) - m_counter) <= 0.00001f;
-	}
-
-	s32 whole() const
-	{
-		return (s32)m_counter;
-	}
-
-	operator float() const
-	{
-		return m_counter;
-	}
-
 	CounterF& operator+=(float f)
 	{
 		m_counter += f * m_counterScaler;
@@ -572,7 +513,7 @@ class CounterF
 
 	CounterF& operator*=(float f)
 	{
-		*this = (float)*this * f;
+		*this = value() * f;
 		return *this;
 	}
 
@@ -651,17 +592,12 @@ class CounterF
 		return (u16)m_counter;
 	}
 
-	/*operator Step() const
-	{
-		return Step((float)*this);
-	}*/
-
 	constexpr static float INVALID = -FRAMERATE_MAX / 20.0f;
 
 	protected:
-	float m_counter;
 	float m_counterScaler;
 };
+*/
 
 typedef TimerU16 Counter;
 typedef Timer Rotation;
@@ -686,6 +622,11 @@ class Step
 	Step(float n)
 	{
 		m_value = n / FRAMERATE_SCALER_INV;
+	}
+
+	Step(const f32& t)
+	{
+		m_value = t.value() / FRAMERATE_SCALER_INV;
 	}
 
 	Step(const Rotation& r)
@@ -717,6 +658,11 @@ class FStep : public Step
 	FStep(float n)
 	{
 		m_value = n;
+	}
+
+	FStep(const f32& t)
+	{
+		m_value = t.value();
 	}
 
 	FStep(const Rotation& r)

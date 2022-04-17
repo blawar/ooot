@@ -4234,7 +4234,7 @@ void func_80944C50(BossTw* pthis, GlobalContext* globalCtx)
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, (s16)(pthis->UNK_F18 * 0.3f));
 
 	scale = pthis->UNK_F18 / 150.0f;
-	scale = CLAMP_MAX(scale, 1.0f);
+	scale = scale.clampMax(1.0f);
 
 	Matrix_Scale(scale, 1.0f, scale, MTXMODE_APPLY);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_boss_tw.c", 7728), G_MTX_LOAD | G_MTX_MODELVIEW | G_MTX_NOPUSH);

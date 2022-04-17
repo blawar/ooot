@@ -652,9 +652,9 @@ s32 func_800ABE74(f32 eyeX, f32 eyeY, f32 eyeZ)
 	}
 	else
 	{
-		f32 absEyeX = ABS(eyeX);
-		f32 absEyeY = ABS(eyeY);
-		f32 absEyeZ = ABS(eyeZ);
+		f32 absEyeX = eyeX.abs();
+		f32 absEyeY = eyeY.abs();
+		f32 absEyeZ = eyeZ.abs();
 
 		if(((18900.0f < absEyeX) || (18900.0f < absEyeY)) || (18900.0f < absEyeZ))
 		{

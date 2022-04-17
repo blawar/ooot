@@ -179,8 +179,8 @@ void func_80AFBE8C(EnSiofuki* pthis, GlobalContext* globalCtx)
 			{
 				pthis->appliedYaw = player->actor.world.rot.y ^ 0x8000;
 				speedScale = dist2d / (pthis->dyna.actor.scale.x * 40.0f * 10.0f);
-				speedScale = CLAMP_MIN(speedScale, 0.0f);
-				speedScale = CLAMP_MAX(speedScale, 1.0f);
+				speedScale = speedScale.clampMin(0.0f);
+				speedScale = speedScale.clampMax(1.0f);
 				player->linearVelocity *= speedScale;
 				Math_ApproachF(&pthis->targetAppliedSpeed, 3.0f, 1.0f, 1.0f);
 				Math_ApproachF(&pthis->appliedSpeed, pthis->targetAppliedSpeed, 1.0f, 0.3f * speedScale);

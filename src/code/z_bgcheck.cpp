@@ -1596,7 +1596,7 @@ void BgCheck_SetSubdivisionDimension(f32 min, s32 subdivAmount, f32* max, f32* s
 	f32 length = (*max - min);
 
 	*subdivLength = (s32)(length / subdivAmount) + 1;
-	*subdivLength = CLAMP_MIN(*subdivLength, BGCHECK_SUBDIV_MIN);
+	*subdivLength = subdivLength->clampMin(BGCHECK_SUBDIV_MIN);
 	*subdivLengthInv = 1.0f / *subdivLength;
 
 	*max = *subdivLength * subdivAmount + min;

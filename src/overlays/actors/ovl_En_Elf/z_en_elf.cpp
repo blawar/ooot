@@ -541,7 +541,7 @@ void func_80A02BD8(EnElf* pthis, Vec3f* targetPos, f32 arg2)
 	yVelTarget = ((targetPos->y + pthis->unk_28C.y) - pthis->actor.world.pos.y) * arg2;
 	yVelDirection = (yVelTarget >= 0.0f) ? 1.0f : -1.0f;
 	yVelTarget = fabsf(yVelTarget);
-	yVelTarget = CLAMP(yVelTarget, 0.0f, 20.0f) * yVelDirection;
+	yVelTarget = yVelTarget.clamp(0.0f, 20.0f) * yVelDirection;
 	Math_StepToF(&pthis->actor.velocity.y, yVelTarget, 32.0f);
 }
 
@@ -561,8 +561,8 @@ void EnElf_DoLoopAroundLink(EnElf* pthis, Vec3f* targetPos, f32 arg2)
 	xVelTarget = fabsf(xVelTarget);
 	zVelTarget = fabsf(zVelTarget);
 
-	xVelTarget = CLAMP(xVelTarget, 0.0f, 20.0f) * xVelDirection;
-	zVelTarget = CLAMP(zVelTarget, 0.0f, 20.0f) * zVelDirection;
+	xVelTarget = xVelTarget.clamp(0.0f, 20.0f) * xVelDirection;
+	zVelTarget = zVelTarget.clamp(0.0f, 20.0f) * zVelDirection;
 
 	func_80A02BD8(pthis, targetPos, arg2);
 	Math_StepToF(&pthis->actor.velocity.x, xVelTarget, 1.5f);
@@ -598,7 +598,7 @@ void func_80A02F2C(EnElf* pthis, Vec3f* targetPos)
 	yVelDirection = (yVelTarget >= 0.0f) ? 1.0f : -1.0f;
 	pthis->unk_2AA += pthis->unk_2AE;
 	yVelTarget = fabsf(yVelTarget);
-	yVelTarget = CLAMP(yVelTarget, 0.0f, 20.0f) * yVelDirection;
+	yVelTarget = yVelTarget.clamp(0.0f, 20.0f) * yVelDirection;
 	Math_StepToF(&pthis->actor.velocity.y, yVelTarget, 1.5f);
 }
 

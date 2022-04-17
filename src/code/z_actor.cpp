@@ -91,7 +91,7 @@ void ActorShadow_Draw(Actor* actor, Lights* lights, GlobalContext* globalCtx, Gf
 
 			gDPSetCombineLERP(POLY_OPA_DISP++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, COMBINED, 0, 0, 0, COMBINED);
 
-			temp1 = (temp1 < 0.0f) ? 0.0f : ((temp1 > 150.0f) ? 150.0f : temp1);
+			temp1 = temp1.clamp(0.0f, 150.0f);
 			temp2 = 1.0f - (temp1 * (1.0f / 350));
 
 			if(color != NULL)
@@ -151,7 +151,7 @@ void ActorShadow_DrawFoot(GlobalContext* globalCtx, Light* light, MtxF* arg2, s3
 
 	sp58 = Math_FAtan2F(light->l.dir[0], light->l.dir[2]);
 	arg6 *= (4.5f - (light->l.dir[1] * 0.035f));
-	arg6 = (arg6 < 1.0f) ? 1.0f : arg6;
+	arg6 = (arg6 < 1.0f) ? 1.0f : (F32)arg6;
 	Matrix_Put(arg2);
 	Matrix_RotateY(sp58, MTXMODE_APPLY);
 	Matrix_Scale(arg5, 1.0f, arg5 * arg6, MTXMODE_APPLY);
@@ -174,7 +174,7 @@ void ActorShadow_DrawFeet(Actor* actor, Lights* lights, GlobalContext* globalCtx
 
 		actor->shape.shadowScale *= 0.3f;
 		alphaRatio = (distToFloor - 20.0f) * 0.02f;
-		actor->shape.shadowAlpha = (f32)actor->shape.shadowAlpha * CLAMP_MAX(alphaRatio, 1.0f);
+		actor->shape.shadowAlpha = (f32)actor->shape.shadowAlpha * alphaRatio.clampMax(1.0f);
 		ActorShadow_DrawCircle(actor, lights, globalCtx);
 		actor->shape.shadowScale = shadowScale;
 		actor->shape.shadowAlpha = shadowAlpha;
@@ -218,9 +218,9 @@ void ActorShadow_DrawFeet(Actor* actor, Lights* lights, GlobalContext* globalCtx
 				{
 					actor->shape.feetFloorFlags++;
 				}
-				distToFloor = CLAMP_MAX(distToFloor, 30.0f);
+				distToFloor = distToFloor.clampMax(30.0f);
 				shadowAlpha = (f32)actor->shape.shadowAlpha * (1.0f - (distToFloor * (1.0f / 30.0f)));
-				distToFloor = CLAMP_MAX(distToFloor, 30.0f);
+				distToFloor = distToFloor.clampMax(30.0f);
 				shadowScaleZ = 1.0f - (distToFloor * (1.0f / (30.0f + 40.0f)));
 				shadowScaleX = shadowScaleZ * actor->shape.shadowScale * actor->scale.x;
 				lightNumMax = 0;
@@ -427,10 +427,10 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx)
 		func_8002BE04(globalCtx, &targetCtx->targetCenterPos, &spBC, &spB4);
 
 		spBC.x = (160 * (spBC.x * spB4)) * var1;
-		spBC.x = CLAMP(spBC.x, -320.0f, 320.0f);
+		spBC.x = spBC.x.clamp(-320.0f, 320.0f);
 
 		spBC.y = (120 * (spBC.y * spB4)) * var1;
-		spBC.y = CLAMP(spBC.y, -240.0f, 240.0f);
+		spBC.y = spBC.y.clamp(-240.0f, 240.0f);
 
 		spBC.z = spBC.z * var1;
 
@@ -612,7 +612,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 		if(targetCtx->unk_4B == 0)
 		{
 			temp5 = (500.0f - targetCtx->unk_44) * 3.0f;
-			temp6 = (temp5 < 30.0f) ? 30.0f : ((100.0f < temp5) ? 100.0f : temp5);
+			temp6 = (temp5 < 30.0f) ? 30.0f : ((100.0f < temp5) ? 100.0f : (F32)temp5);
 			if(Math_StepToF(&targetCtx->unk_44, 80.0f, temp6) != 0)
 			{
 				targetCtx->unk_4B++;
@@ -1573,7 +1573,7 @@ Mtx D_8015BBA8;
 Gfx* func_8002E830(Vec3f* object, Vec3f* eye, Vec3f* lightDir, GraphicsContext* gfxCtx, Gfx* gfx, Hilite** hilite)
 {
 	LookAt* lookAt = (LookAt*)Graph_Alloc(gfxCtx, sizeof(LookAt));
-	f32 correctedEyeX = (eye->x == object->x) && (eye->z == object->z) ? eye->x + 0.001f : eye->x;
+	f32 correctedEyeX = (eye->x == object->x) && (eye->z == object->z) ? eye->x + 0.001f : (F32)eye->x;
 
 	*hilite = (Hilite*)Graph_Alloc(gfxCtx, sizeof(Hilite));
 
@@ -2199,7 +2199,7 @@ void Actor_DrawFaroresWindPointer(GlobalContext* globalCtx)
 			{
 				length = diff * (1.0f / D_8015BC18);
 				speed = 20.0f / length;
-				speed = CLAMP_MIN(speed, 0.05f);
+				speed = speed.clampMin(0.05f);
 				Math_StepToF(&D_8015BC18, 0.0f, speed);
 				factor = (diff * (D_8015BC18 / prevNum)) / diff;
 				curPos->x = nextPos->x + (dist.x * factor);

@@ -99,7 +99,7 @@ struct ColliderJntSphElementDim
 {
 	/* 0x00 */ Sphere16 modelSphere; // model space sphere
 	/* 0x08 */ Sphere16 worldSphere; // world space sphere
-	/* 0x10 */ f32 scale;		 // world space sphere = model * scale * 0.01
+	/* 0x10 */ F32 scale;		 // world space sphere = model * scale * 0.01
 	/* 0x14 */ u8 limb;		 // attached limb
 };					 // size = 0x18
 

@@ -377,7 +377,7 @@ void func_808911D4(BgIceShelter* pthis, GlobalContext* globalCtx)
 	pthis->alpha = CLAMP(pthis->alpha, 0, 255);
 
 	pthis->dyna.actor.scale.y += D_808917BC[type];
-	pthis->dyna.actor.scale.y = CLAMP_MIN(pthis->dyna.actor.scale.y, 0.0001f);
+	pthis->dyna.actor.scale.y = pthis->dyna.actor.scale.y.clampMin(0.0001f);
 
 	if(pthis->alpha > 80)
 	{

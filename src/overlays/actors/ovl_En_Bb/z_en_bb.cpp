@@ -1005,9 +1005,9 @@ void EnBb_White(EnBb* pthis, GlobalContext* globalCtx)
 
 		vx = Math_SinS(pthis->actor.shape.rot.y) * vxz;
 		vz = Math_CosS(pthis->actor.shape.rot.y) * vxz;
-		distL1 = Math_SmoothStepToF(&pthis->actor.world.pos.x, pthis->waypointPos.x, 1.0f, ABS(vx), 0.0f);
-		distL1 += Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->waypointPos.y, 1.0f, ABS(vy), 0.0f);
-		distL1 += Math_SmoothStepToF(&pthis->actor.world.pos.z, pthis->waypointPos.z, 1.0f, ABS(vz), 0.0f);
+		distL1 = Math_SmoothStepToF(&pthis->actor.world.pos.x, pthis->waypointPos.x, 1.0f, vx.abs(), 0.0f);
+		distL1 += Math_SmoothStepToF(&pthis->actor.world.pos.y, pthis->waypointPos.y, 1.0f, vy.abs(), 0.0f);
+		distL1 += Math_SmoothStepToF(&pthis->actor.world.pos.z, pthis->waypointPos.z, 1.0f, vz.abs(), 0.0f);
 		pthis->bobPhase += (0.05f + (Rand_ZeroOne() * 0.01f));
 		if(distL1 == 0.0f)
 		{
@@ -1125,9 +1125,9 @@ void EnBb_Green(EnBb* pthis, GlobalContext* globalCtx)
 			Math_SmoothStepToS(&pthis->actor.world.rot.y, yaw, 1, 0x3E8, 0);
 			vx = Math_SinS(pthis->actor.world.rot.y) * vxz;
 			distL1 = Math_CosS(pthis->actor.world.rot.y) * vxz;
-			vz = Math_SmoothStepToF(&pthis->actor.home.pos.x, pthis->waypointPos.x, 1.0f, ABS(vx), 0.0f);
-			vz += Math_SmoothStepToF(&pthis->actor.home.pos.y, pthis->waypointPos.y, 1.0f, ABS(vy), 0.0f);
-			vz += Math_SmoothStepToF(&pthis->actor.home.pos.z, pthis->waypointPos.z, 1.0f, ABS(distL1), 0.0f);
+			vz = Math_SmoothStepToF(&pthis->actor.home.pos.x, pthis->waypointPos.x, 1.0f, vx.abs(), 0.0f);
+			vz += Math_SmoothStepToF(&pthis->actor.home.pos.y, pthis->waypointPos.y, 1.0f, vy.abs(), 0.0f);
+			vz += Math_SmoothStepToF(&pthis->actor.home.pos.z, pthis->waypointPos.z, 1.0f, distL1.abs(), 0.0f);
 			pthis->bobPhase += (0.05f + (Rand_ZeroOne() * 0.01f));
 			if(vz == 0.0f)
 			{

@@ -169,8 +169,8 @@ void MagicDark_DimLighting(GlobalContext* globalCtx, f32 intensity)
 
 	if(globalCtx->roomCtx.curRoom.unk_03 != 5)
 	{
-		intensity = CLAMP_MIN(intensity, 0.0f);
-		intensity = CLAMP_MAX(intensity, 1.0f);
+		intensity = intensity.clampMin(0.0f);
+		intensity = intensity.clampMax(1.0f);
 		fogScale = intensity - 0.2f;
 
 		if(intensity < 0.2f)

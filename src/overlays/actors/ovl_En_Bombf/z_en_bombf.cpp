@@ -383,7 +383,7 @@ void EnBombf_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->timer--;
 	}
 
-	if((!pthis->bumpOn) && (!Actor_HasParent(thisx, globalCtx)) && ((thisx->xzDistToPlayer >= 20.0f) || (ABS(thisx->yDistToPlayer) >= 80.0f)))
+	if((!pthis->bumpOn) && (!Actor_HasParent(thisx, globalCtx)) && ((thisx->xzDistToPlayer >= 20.0f) || (thisx->yDistToPlayer.abs() >= 80.0f)))
 	{
 		pthis->bumpOn = true;
 	}

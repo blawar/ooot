@@ -254,13 +254,13 @@ void func_8087FFC0(BgHakaTrap* pthis, GlobalContext* globalCtx)
 	cosine = Math_CosS(pthis->dyna.actor.shape.rot.y);
 	if(pthis->dyna.actor.params == HAKA_TRAP_GUILLOTINE_SLOW)
 	{
-		sp28.x = CLAMP(sp28.x, -50.0f, 50.0f);
+		sp28.x = sp28.x.clamp(-50.0f, 50.0f);
 		zNonNegative = (sp28.z >= 0.0f) ? 1.0f : -1.0f;
 		sp28.z = zNonNegative * -15.0f;
 	}
 	else
 	{
-		sp28.x = -CLAMP(sp28.x, -162.0f, 162.0f);
+		sp28.x = -sp28.x.clamp(-162.0f, 162.0f);
 		zNonNegative = (sp28.z >= 0.0f) ? 1.0f : -1.0f;
 		sp28.z = zNonNegative * 15.0f;
 	}
@@ -470,7 +470,7 @@ void func_808806BC(BgHakaTrap* pthis, GlobalContext* globalCtx)
 		pthis->dyna.actor.velocity.y = 0.0f;
 		pthis->timer = 30;
 		pthis->unk_16A = (s16)pthis->dyna.actor.world.pos.y + 50.0f;
-		pthis->unk_16A = CLAMP_MAX(pthis->unk_16A, pthis->dyna.actor.home.pos.y);
+		pthis->unk_16A = CLAMP_MAX(pthis->unk_16A, pthis->dyna.actor.home.pos.y.toS16());
 
 		pthis->actionFunc = func_808808F4;
 	}

@@ -220,3 +220,8 @@ f32 Math_FAcosF(f32 x)
 {
 	return M_PI / 2 - Math_FAsinF(x);
 }
+
+bool f32::isWhole() const
+{
+	return fabsf(roundf(m_counter) - m_counter) <= 0.00001f;
+}

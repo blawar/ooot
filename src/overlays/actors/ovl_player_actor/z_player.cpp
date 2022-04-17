@@ -2347,7 +2347,7 @@ void func_808348EC(GlobalContext* globalCtx, Player* pthis)
 	f32 temp;
 
 	temp = ptr->unk_04;
-	temp = (pthis->skelAnime2.playSpeed < 0.0f) ? temp - 1.0f : temp;
+	temp = (pthis->skelAnime2.playSpeed < 0.0f) ? temp - 1.0f : (F32)temp;
 
 	if(LinkAnimation_OnFrame(&pthis->skelAnime2, temp))
 	{
@@ -3616,7 +3616,7 @@ s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* magnitude, s16* 
 		{
 			temp_f0 = Math_SinS(pthis->unk_898);
 			temp_f12 = pthis->unk_880;
-			temp_f14 = CLAMP(temp_f0, 0.0f, 0.6f);
+			temp_f14 = temp_f0.clamp(0.0f, 0.6f);
 
 			if(pthis->unk_6C4 != 0.0f)
 			{
@@ -3628,7 +3628,7 @@ s32 func_80836FAC(GlobalContext* globalCtx, Player* pthis, f32* magnitude, s16* 
 			}
 
 			*magnitude = (*magnitude * 0.14f) - (8.0f * temp_f14 * temp_f14);
-			*magnitude = CLAMP(*magnitude, 0.0f, temp_f12);
+			*magnitude = magnitude->clamp(0.0f, temp_f12);
 
 			return 1;
 		}
@@ -6658,7 +6658,7 @@ void func_8083D6EC(GlobalContext* globalCtx, Player* pthis)
 		if(pthis->currentBoots != PLAYER_BOOTS_HOVER)
 		{
 			temp3 = (temp2 - pthis->unk_6C4) * 0.02f;
-			temp3 = CLAMP(temp3, 0.0f, 300.0f);
+			temp3 = temp3.clamp(0.0f, 300.0f);
 			if(pthis->currentBoots == PLAYER_BOOTS_IRON)
 			{
 				temp3 += temp3;
@@ -6666,7 +6666,7 @@ void func_8083D6EC(GlobalContext* globalCtx, Player* pthis)
 		}
 
 		pthis->unk_6C4 += temp3 - temp1;
-		pthis->unk_6C4 = CLAMP(pthis->unk_6C4, 0.0f, temp2);
+		pthis->unk_6C4 = pthis->unk_6C4.clamp(0.0f, temp2);
 
 		pthis->actor.gravity -= pthis->unk_6C4 * 0.004f;
 	}
@@ -6823,7 +6823,7 @@ void func_8083DFE0(Player* pthis, f32* arg1, s16* arg2)
 
 	if(pthis->swordState == 0)
 	{
-		pthis->linearVelocity = CLAMP(pthis->linearVelocity, -(R_RUN_SPEED_LIMIT / 100.0f), (R_RUN_SPEED_LIMIT / 100.0f));
+		pthis->linearVelocity = pthis->linearVelocity.clamp(-(R_RUN_SPEED_LIMIT / 100.0f), (R_RUN_SPEED_LIMIT / 100.0f));
 	}
 
 	if(ABS(yawDiff) > 0x6000)
@@ -11796,7 +11796,7 @@ void func_80848C74(GlobalContext* globalCtx, Player* pthis)
 			if(*timerPtr > 20.0f)
 			{
 				flameIntensity = (*timerPtr - 20.0f) * 0.01f;
-				flameScale = CLAMP(flameIntensity, 0.19999999f, 0.2f);
+				flameScale = flameIntensity.clamp(0.19999999f, 0.2f);
 			}
 			else
 			{
@@ -11804,7 +11804,7 @@ void func_80848C74(GlobalContext* globalCtx, Player* pthis)
 			}
 
 			flameIntensity = (*timerPtr - 25.0f) * 0.02f;
-			flameIntensity = CLAMP(flameIntensity, 0.0f, 1.0f);
+			flameIntensity = flameIntensity.clamp(0.0f, 1.0f);
 			EffectSsFireTail_SpawnFlameOnPlayer(globalCtx, flameScale, i, flameIntensity);
 		}
 	}
@@ -12240,7 +12240,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 
 		if(pthis->skelAnime.moveFlags & 8)
 		{
-			AnimationContext_SetMoveActor(globalCtx, &pthis->actor, &pthis->skelAnime, (pthis->skelAnime.moveFlags & 4) ? 1.0f : pthis->ageProperties->unk_08);
+			AnimationContext_SetMoveActor(globalCtx, &pthis->actor, &pthis->skelAnime, (pthis->skelAnime.moveFlags & 4) ? 1.0f : (F32)pthis->ageProperties->unk_08);
 		}
 
 		func_808368EC(pthis, globalCtx);
@@ -14904,7 +14904,7 @@ void Player_UpdateFunc_8084F390(Player* pthis, GlobalContext* globalCtx)
 		}
 
 		sp50 = (1.0f - sp38.y) * 40.0f;
-		sp50 = CLAMP(sp50, 0, 10.0f);
+		sp50 = sp50.clamp(0, 10.0f);
 		sp4C = (sp50 * sp50) * 0.015f;
 		sp48 = sp38.y * 0.01f;
 
@@ -15224,10 +15224,10 @@ void func_8084FF7C(Player* pthis)
 	pthis->unk_85C -= pthis->unk_858 * 5.0f;
 	pthis->unk_85C *= 0.3f;
 
-	if(ABS(pthis->unk_85C) < 0.00001f)
+	if(pthis->unk_85C.abs() < 0.00001f)
 	{
 		pthis->unk_85C = 0.0f;
-		if(ABS(pthis->unk_858) < 0.00001f)
+		if(pthis->unk_858.abs() < 0.00001f)
 		{
 			pthis->unk_858 = 0.0f;
 		}

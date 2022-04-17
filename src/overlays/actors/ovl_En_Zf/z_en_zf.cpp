@@ -370,7 +370,7 @@ void EnZf_Init(Actor* thisx, GlobalContext* globalCtx)
 	{ // Minibosses
 		posDiff = player->actor.world.pos.y - thisx->world.pos.y;
 
-		if((ABS(posDiff) <= 100.0f) && !Flags_GetSwitch(globalCtx, pthis->clearFlag))
+		if((posDiff.abs() <= 100.0f) && !Flags_GetSwitch(globalCtx, pthis->clearFlag))
 		{
 			pthis->homePlatform = pthis->curPlatform = EnZf_FindPlatform(&thisx->world.pos, 0);
 			EnZf_SetupDropIn(pthis);
@@ -994,8 +994,8 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 
 		sp54 = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		sp50 = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		sp30 = (f32)ABS(pthis->skelAnime.playSpeed);
+		sp50 = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		sp30 = pthis->skelAnime.playSpeed.abs();
 
 		if(sp48 == pthis->curPlatform)
 		{
@@ -1348,7 +1348,7 @@ void func_80B463E4(EnZf* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->unk_408;
 		}
 
-		if(pthis->actor.speedXZ.abs() >= ABS(pthis->unk_408))
+		if(pthis->actor.speedXZ.abs() >= pthis->unk_408.abs())
 		{
 			pthis->skelAnime.playSpeed = pthis->actor.speedXZ * 0.75f;
 		}
@@ -1363,8 +1363,8 @@ void func_80B463E4(EnZf* pthis, GlobalContext* globalCtx)
 
 		curKeyFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		prevKeyFrame = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		playSpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		prevKeyFrame = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		playSpeed = pthis->skelAnime.playSpeed.abs();
 
 		if(curKeyFrame != (s32)pthis->skelAnime.curFrame)
 		{
@@ -2231,7 +2231,7 @@ void EnZf_CircleAroundPlayer(EnZf* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->unk_408;
 	}
 
-	if(pthis->actor.speedXZ.abs() >= ABS(pthis->unk_408))
+	if(pthis->actor.speedXZ.abs() >= pthis->unk_408.abs())
 	{
 		pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.75f;
 	}
@@ -2246,8 +2246,8 @@ void EnZf_CircleAroundPlayer(EnZf* pthis, GlobalContext* globalCtx)
 
 	curKeyFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
-	prevKeyFrame = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-	playSpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+	prevKeyFrame = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+	playSpeed = pthis->skelAnime.playSpeed.abs();
 
 	pthis->curPlatform = EnZf_FindPlatform(&pthis->actor.world.pos, pthis->curPlatform);
 

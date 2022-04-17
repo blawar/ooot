@@ -590,8 +590,8 @@ void EnGeldB_Advance(EnGeldB* pthis, GlobalContext* globalCtx)
 		}
 		thisKeyFrame = (s32)pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
-		prevKeyFrame = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		playSpeed = (f32)ABS(pthis->skelAnime.playSpeed);
+		prevKeyFrame = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		playSpeed = (f32)pthis->skelAnime.playSpeed.abs();
 		if(!Actor_IsFacingPlayer(&pthis->actor, 0x11C7))
 		{
 			if(Rand_ZeroOne() > 0.5f)
@@ -724,12 +724,12 @@ void EnGeldB_Pivot(EnGeldB* pthis, GlobalContext* globalCtx)
 		if(angleToLink > 0)
 		{
 			playSpeed = turnRate * 0.5f;
-			playSpeed = CLAMP_MAX(playSpeed, 1.0f);
+			playSpeed = playSpeed.clampMax(1.0f);
 		}
 		else
 		{
 			playSpeed = turnRate * 0.5f;
-			playSpeed = CLAMP_MIN(playSpeed, -1.0f);
+			playSpeed = playSpeed.clampMin(-1.0f);
 		}
 		pthis->skelAnime.playSpeed = -playSpeed;
 		SkelAnime_Update(&pthis->skelAnime);
@@ -845,7 +845,7 @@ void EnGeldB_Circle(EnGeldB* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.pos.x += Math_SinS(pthis->actor.shape.rot.y) * pthis->approachRate;
 			pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->approachRate;
 		}
-		if(ABS(pthis->approachRate) < pthis->actor.speedXZ.abs())
+		if(pthis->approachRate.abs() < pthis->actor.speedXZ.abs())
 		{
 			pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
 		}
@@ -853,13 +853,13 @@ void EnGeldB_Circle(EnGeldB* pthis, GlobalContext* globalCtx)
 		{
 			pthis->skelAnime.playSpeed = -pthis->approachRate * 0.5f;
 		}
-		pthis->skelAnime.playSpeed = CLAMP(pthis->skelAnime.playSpeed, -3.0f, 3.0f);
+		pthis->skelAnime.playSpeed = pthis->skelAnime.playSpeed.clamp(-3.0f, 3.0f);
 
 		thisKeyFrame = pthis->skelAnime.curFrame;
 		SkelAnime_Update(&pthis->skelAnime);
 
-		prevKeyFrame = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-		nextKeyFrame = (s32)ABS(pthis->skelAnime.playSpeed) + thisKeyFrame;
+		prevKeyFrame = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+		nextKeyFrame = (s32)pthis->skelAnime.playSpeed.abs() + thisKeyFrame;
 		if((thisKeyFrame != (s32)pthis->skelAnime.curFrame) && ((prevKeyFrame < 0 && 0 < nextKeyFrame) || (prevKeyFrame < 5 && 5 < nextKeyFrame)))
 		{
 			Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MUSI_LAND);
@@ -971,7 +971,7 @@ void EnGeldB_SpinDodge(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.x += Math_SinS(pthis->actor.yawTowardsPlayer) * pthis->approachRate;
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.yawTowardsPlayer) * pthis->approachRate;
 	}
-	if(ABS(pthis->approachRate) < pthis->actor.speedXZ.abs())
+	if(pthis->approachRate.abs() < pthis->actor.speedXZ.abs())
 	{
 		pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
 	}
@@ -979,11 +979,11 @@ void EnGeldB_SpinDodge(EnGeldB* pthis, GlobalContext* globalCtx)
 	{
 		pthis->skelAnime.playSpeed = -pthis->approachRate * 0.5f;
 	}
-	pthis->skelAnime.playSpeed = CLAMP(pthis->skelAnime.playSpeed, -3.0f, 3.0f);
+	pthis->skelAnime.playSpeed = pthis->skelAnime.playSpeed.clamp(-3.0f, 3.0f);
 	thisKeyFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
-	lastKeyFrame = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
-	nextKeyFrame = (s32)ABS(pthis->skelAnime.playSpeed) + thisKeyFrame;
+	lastKeyFrame = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
+	nextKeyFrame = (s32)pthis->skelAnime.playSpeed.abs() + thisKeyFrame;
 	if((thisKeyFrame != (s32)pthis->skelAnime.curFrame) && ((lastKeyFrame < 0 && 0 < nextKeyFrame) || (lastKeyFrame < 5 && 5 < nextKeyFrame)))
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MUSI_LAND);
@@ -1425,7 +1425,7 @@ void EnGeldB_Block(EnGeldB* pthis, GlobalContext* globalCtx)
 	if(SkelAnime_Update(&pthis->skelAnime))
 	{
 		angleToLink = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
-		if((ABS(angleToLink) <= 0x4000) && (pthis->actor.xzDistToPlayer < 40.0f) && (ABS(pthis->actor.yDistToPlayer) < 50.0f))
+		if((ABS(angleToLink) <= 0x4000) && (pthis->actor.xzDistToPlayer < 40.0f) && (pthis->actor.yDistToPlayer.abs() < 50.0f))
 		{
 			if(func_800354B4(globalCtx, &pthis->actor, 100.0f, 0x2710, 0x4000, pthis->actor.shape.rot.y))
 			{
@@ -1594,7 +1594,7 @@ void EnGeldB_Sidestep(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.x += Math_SinS(pthis->actor.shape.rot.y) * pthis->approachRate;
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->approachRate;
 	}
-	if(ABS(pthis->approachRate) < pthis->actor.speedXZ.abs())
+	if(pthis->approachRate.abs() < pthis->actor.speedXZ.abs())
 	{
 		pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
 	}
@@ -1602,12 +1602,12 @@ void EnGeldB_Sidestep(EnGeldB* pthis, GlobalContext* globalCtx)
 	{
 		pthis->skelAnime.playSpeed = -pthis->approachRate * 0.5f;
 	}
-	pthis->skelAnime.playSpeed = CLAMP(pthis->skelAnime.playSpeed, -3.0f, 3.0f);
+	pthis->skelAnime.playSpeed = pthis->skelAnime.playSpeed.clamp(-3.0f, 3.0f);
 	thisKeyFrame = pthis->skelAnime.curFrame;
 	SkelAnime_Update(&pthis->skelAnime);
-	prevKeyFrame = pthis->skelAnime.curFrame - ABS(pthis->skelAnime.playSpeed);
+	prevKeyFrame = pthis->skelAnime.curFrame - pthis->skelAnime.playSpeed.abs();
 
-	playSpeed = ((void)0, ABS(pthis->skelAnime.playSpeed)); // Needed to match for some reason
+	playSpeed = pthis->skelAnime.playSpeed.abs();
 
 	if(!EnGeldB_DodgeRanged(globalCtx, pthis) && !EnGeldB_ReactToPlayer(globalCtx, pthis, 0))
 	{

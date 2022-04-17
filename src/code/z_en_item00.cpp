@@ -851,7 +851,7 @@ void EnItem00_Update(Actor* pthisx, GlobalContext* globalCtx)
 	if((pthis->actor.params == ITEM00_SHIELD_DEKU) || (pthis->actor.params == ITEM00_SHIELD_HYLIAN) || (pthis->actor.params == ITEM00_TUNIC_ZORA) || (pthis->actor.params == ITEM00_TUNIC_GORON))
 	{
 		pthis->actor.shape.yOffset = Math_CosS(pthis->actor.shape.rot.x) * 37.0f;
-		pthis->actor.shape.yOffset = ABS(pthis->actor.shape.yOffset);
+		pthis->actor.shape.yOffset = pthis->actor.shape.yOffset.abs();
 	}
 
 	if(pthis->unk_154 > 0)

@@ -1616,7 +1616,7 @@ f32 func_80ACD1C4(GlobalContext* globalCtx, s32 idx)
 {
 	f32 ret = Environment_LerpWeight(globalCtx->csCtx.npcActions[idx]->endFrame, globalCtx->csCtx.npcActions[idx]->startFrame, globalCtx->csCtx.frames);
 
-	ret = CLAMP_MAX(ret, 1.0f);
+	ret = ret.clampMax(1.0f);
 	return ret;
 }
 

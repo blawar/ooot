@@ -12,6 +12,7 @@
 //#include "ultra64/pi.h"
 #include <chrono>
 #include <thread>
+#define HAVE_FLOAT_TYPES
 #include "../../AziAudio/AziAudio/AudioSpec.h"
 #include "ultra64/rcp.h"
 #include "ultra64/vi.h"

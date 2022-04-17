@@ -179,7 +179,7 @@ void EnFish_Destroy(Actor* thisx, GlobalContext* globalCtx2)
 void EnFish_SetYOffset(EnFish* pthis)
 {
 	pthis->actor.shape.yOffset += (Math_SinS(pthis->slowPhase) * 10.0f + Math_SinS(pthis->fastPhase) * 5.0f);
-	pthis->actor.shape.yOffset = CLAMP(pthis->actor.shape.yOffset, -200.0f, 200.0f);
+	pthis->actor.shape.yOffset = pthis->actor.shape.yOffset.clamp(-200.0f, 200.0f);
 }
 
 s32 EnFish_InBottleRange(EnFish* pthis, GlobalContext* globalCtx)
@@ -680,7 +680,7 @@ void EnFish_Unique_SwimIdle(EnFish* pthis, GlobalContext* globalCtx)
 
 	pthis->actor.shape.rot.y = pthis->actor.world.rot.y;
 	playSpeed = (pthis->actor.speedXZ * 1.2f) + 0.2f + extraPlaySpeed;
-	pthis->skelAnime.playSpeed = CLAMP(playSpeed, 1.5f, 0.5);
+	pthis->skelAnime.playSpeed = playSpeed.clamp(1.5f, 0.5f);
 	SkelAnime_Update(&pthis->skelAnime);
 
 	if(pthis->timer <= 0)

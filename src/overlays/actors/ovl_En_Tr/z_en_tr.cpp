@@ -517,7 +517,7 @@ void EnTr_Draw(Actor* thisx, GlobalContext* globalCtx)
 f32 func_80B23FDC(GlobalContext* globalCtx, s32 actionIndex)
 {
 	f32 phi_f2 = Environment_LerpWeight(globalCtx->csCtx.npcActions[actionIndex]->endFrame, globalCtx->csCtx.npcActions[actionIndex]->startFrame, globalCtx->csCtx.frames);
-	phi_f2 = CLAMP_MAX(phi_f2, 1.0f);
+	phi_f2 = phi_f2.clampMax(1.0f);
 	return phi_f2;
 }
 
@@ -548,7 +548,7 @@ void func_80B24038(EnTr* pthis, GlobalContext* globalCtx, s32 actionIndex)
 	endPos.z = (startPos.z - pthis->actor.world.pos.z) * 0.1f;
 
 	temp_f0_2 = sqrtf(SQ(endPos.x) + SQ(endPos.y) + SQ(endPos.z));
-	phi_f12 = CLAMP(temp_f0_2, 0.0f, 20.0f);
+	phi_f12 = temp_f0_2.clamp(0.0f, 20.0f);
 
 	if((temp_f0_2 != phi_f12) && (temp_f0_2 != 0.0f))
 	{

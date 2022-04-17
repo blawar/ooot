@@ -298,7 +298,7 @@ void func_808B4194(BgSpot15Rrbox* pthis, GlobalContext* globalCtx)
 
 	pthis->unk_174 += 0.5f;
 
-	pthis->unk_174 = CLAMP_MAX(pthis->unk_174, 2.0f);
+	pthis->unk_174 = pthis->unk_174.clampMax(2.0f);
 
 	approxFResult = Math_StepToF(&pthis->unk_178, 20.0f, pthis->unk_174);
 

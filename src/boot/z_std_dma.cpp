@@ -8,7 +8,6 @@
 StackEntry sDmaMgrStackInfo;
 OSMesgQueue sDmaMgrMsgQueue;
 OSMesg sDmaMgrMsgs[0x20];
-OSThread sDmaMgrThread;
 u8 sDmaMgrStack[0x500];
 const char* sDmaMgrCurFileName;
 s32 sDmaMgrCurFileLine;

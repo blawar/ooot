@@ -1617,7 +1617,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				{
 					sp178 = 0.0f;
 				}
-				sp178 = CLAMP_MAX(sp178, 70.0f);
+				sp178 = sp178.clampMax(70.0f);
 				pthis->unk_23C = (Math_SinS(pthis->unk_19E * 1000) * -50.0f) / 100.0f;
 
 				sp198.x = Math_SinS(pthis->unk_19E * 1000) * sp178;

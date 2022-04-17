@@ -901,7 +901,7 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 				{
 					cameraShake = 20.0f;
 				}
-				pthis->camData.yMod = (bossFd->BFD_CAM_SHAKE_TIMER & 1) ? cameraShake : -cameraShake;
+				pthis->camData.yMod = (bossFd->BFD_CAM_SHAKE_TIMER & 1) ? (F32)cameraShake : (F32)-cameraShake;
 			}
 			if(bossFd->BFD_ACTION_STATE == BOSSFD_SKULL_BURN)
 			{

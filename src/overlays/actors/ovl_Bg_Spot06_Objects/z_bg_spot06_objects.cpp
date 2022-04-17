@@ -420,7 +420,7 @@ void BgSpot06Objects_LockSwimToSurface(BgSpot06Objects* pthis, GlobalContext* gl
 			pthis->dyna.actor.velocity.y += 0.02f;
 			pthis->dyna.actor.world.pos.x = Rand_CenteredFloat(1.0f) + pthis->dyna.actor.home.pos.x;
 			pthis->dyna.actor.world.pos.z = Rand_CenteredFloat(1.0f) + pthis->dyna.actor.home.pos.z;
-			pthis->dyna.actor.velocity.y = (pthis->dyna.actor.velocity.y > 10.0f) ? (10.0f) : (pthis->dyna.actor.velocity.y);
+			pthis->dyna.actor.velocity.y = (pthis->dyna.actor.velocity.y > 10.0f) ? (10.0f) : (F32)(pthis->dyna.actor.velocity.y);
 			BgSpot06Objects_LockSpawnBubbles(pthis, globalCtx, 0);
 		}
 		else

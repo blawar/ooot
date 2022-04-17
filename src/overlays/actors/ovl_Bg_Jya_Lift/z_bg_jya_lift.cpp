@@ -125,7 +125,7 @@ void BgJyaLift_Move(BgJyaLift* pthis, GlobalContext* globalCtx)
 	f32 tempVelocity;
 
 	Math_SmoothStepToF(&pthis->dyna.actor.velocity.y, 4.0f, 0.1f, 1.0f, 0.0f);
-	tempVelocity = (pthis->dyna.actor.velocity.y < 0.2f) ? 0.2f : pthis->dyna.actor.velocity.y;
+	tempVelocity = (pthis->dyna.actor.velocity.y < 0.2f) ? 0.2f : (F32)pthis->dyna.actor.velocity.y;
 	distFromBottom = Math_SmoothStepToF(&pthis->dyna.actor.world.pos.y, 973.0f, 0.1f, tempVelocity, 0.2f);
 	if((pthis->dyna.actor.world.pos.y < 1440.0f) && (1440.0f <= pthis->dyna.actor.prevPos.y))
 	{

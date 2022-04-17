@@ -1,4 +1,5 @@
 ﻿#define INTERNAL_SRC_CODE_AUDIOMGR_C
+#define HAVE_FLOAT_TYPES
 #include "global.h"
 #include <memory>
 #include <string.h>

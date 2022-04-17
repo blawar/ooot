@@ -151,11 +151,6 @@ s32 Math_StepToF(f32* pValue, f32 target, const Step& _step)
 	return _Math_StepToF(pValue, target, _step);
 }
 
-s32 Math_StepToF(CounterF* pValue, f32 target, const Step& _step)
-{
-	return _Math_StepToF(pValue, target, _step);
-}
-
 f32 Math_NormalizeAngleF(f32 angle)
 {
 	while(angle < 0.0f)
@@ -412,7 +407,7 @@ void func_80077D10(f32* magnitude, s16* arg1, Input* input)
 	f32 relY = input->rel.stick_y;
 
 	*magnitude = sqrtf(SQ(relX) + SQ(relY));
-	*magnitude = (60.0f < *magnitude) ? 60.0f : *magnitude;
+	*magnitude = (60.0f < *magnitude) ? 60.0f : magnitude->value();
 
 	*arg1 = Math_Atan2S(relY, -relX);
 }
@@ -674,11 +669,6 @@ f32 Math_SmoothStepToF(Rotation* pValue, f32 target, f32 fraction, const FStep& 
 	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
 }
 
-f32 Math_SmoothStepToF(CounterF* pValue, f32 target, f32 fraction, const FStep& _step, const FStep& _minStep)
-{
-	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
-}
-
 /**
  * Changes pValue by step towards target. If step is more than fraction of the remaining distance, step by that instead.
  */
@@ -708,32 +698,10 @@ void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step)
 	_Math_ApproachF(pValue, target, fraction, _step);
 }
 
-void Math_ApproachF(CounterF* pValue, f32 target, f32 fraction, const Step& _step)
-{
-	_Math_ApproachF(pValue, target, fraction, _step);
-}
-
 /**
  * Changes pValue by step towards zero. If step is more than fraction of the remaining distance, step by that instead.
  */
 void Math_ApproachZeroF(f32* pValue, f32 fraction, const Step& _step)
-{
-	float step = _step.value();
-	f32 stepSize = *pValue * fraction;
-
-	if(stepSize > step)
-	{
-		stepSize = step;
-	}
-	else if(stepSize < -step)
-	{
-		stepSize = -step;
-	}
-
-	*pValue -= stepSize;
-}
-
-void Math_ApproachZeroF(CounterF* pValue, f32 fraction, const Step& _step)
 {
 	float step = _step.value();
 	f32 stepSize = *pValue * fraction;

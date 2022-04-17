@@ -2,7 +2,7 @@
 #define ENABLE_OPENGL
 #define USE_GLIDEN64
 #define DISABLE_AUDIO
-#include "../../AziAudio/AziAudio/AudioSpec.h"
+#define HAVE_FLOAT_TYPES
 #include "controller/controllers.h"
 #include "controller/tas.h"
 #include "options.h"
@@ -13,6 +13,7 @@
 #include "z64audio.h"
 #include "def/audioMgr.h"
 #include "def/audio_rsp.h"
+#include "../../AziAudio/AziAudio/AudioSpec.h"
 
 namespace oot
 {

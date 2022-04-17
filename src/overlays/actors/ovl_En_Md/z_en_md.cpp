@@ -812,7 +812,7 @@ void func_80AAB948(EnMd* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.z += 60.0f * Math_CosS(yaw);
 
 		temp = fabsf((f32)pthis->actor.yawTowardsPlayer - yaw) * 0.001f * 3.0f;
-		pthis->skelAnime.playSpeed = CLAMP(temp, 1.0f, 3.0f);
+		pthis->skelAnime.playSpeed = temp.clamp(1.0f, 3.0f);
 	}
 
 	if(pthis->unk_1E0.unk_00 == 2)

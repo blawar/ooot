@@ -1500,13 +1500,13 @@ void Environment_DrawSunAndMoon(GlobalContext* globalCtx)
 		Matrix_Translate(globalCtx->view.eye.x - globalCtx->envCtx.sunPos.x, globalCtx->view.eye.y - globalCtx->envCtx.sunPos.y, globalCtx->view.eye.z - globalCtx->envCtx.sunPos.z, MTXMODE_NEW);
 
 		color = -y / 120.0f;
-		color = CLAMP_MIN(color, 0.0f);
+		color = color.clampMin(0.0f);
 
 		scale = -15.0f * color + 25.0f;
 		Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
 
 		temp = -y / 80.0f;
-		temp = CLAMP_MAX(temp, 1.0f);
+		temp = temp.clampMax(1.0f);
 
 		alpha = temp * 255.0f;
 
@@ -1618,7 +1618,7 @@ void Environment_DrawLensFlare(GlobalContext* globalCtx, EnvironmentContext* env
 	cosAngle = (lookDirX * posDirX + lookDirY * posDirY + lookDirZ * posDirZ) / sqrtf((SQ(lookDirX) + SQ(lookDirY) + SQ(lookDirZ)) * (SQ(posDirX) + SQ(posDirY) + SQ(posDirZ)));
 
 	unk88Target = cosAngle * 3.5f;
-	unk88Target = CLAMP_MAX(unk88Target, 1.0f);
+	unk88Target = unk88Target.clampMax(1.0f);
 
 	if(arg9 == 0)
 	{
@@ -1647,7 +1647,7 @@ void Environment_DrawLensFlare(GlobalContext* globalCtx, EnvironmentContext* env
 
 			if(arg9)
 			{
-				temp = Environment_LerpWeight(60, 15, globalCtx->view.fovy);
+				temp = Environment_LerpWeight(60, 15, (u16)globalCtx->view.fovy);
 			}
 
 			Matrix_Translate(-posDirX * i * dist, -posDirY * i * dist, -posDirZ * i * dist, MTXMODE_APPLY);
@@ -1665,13 +1665,13 @@ void Environment_DrawLensFlare(GlobalContext* globalCtx, EnvironmentContext* env
 			Matrix_Scale(adjScale, adjScale, adjScale, MTXMODE_APPLY);
 
 			alpha = colorIntensity / 10.0f;
-			alpha = CLAMP_MAX(alpha, 1.0f);
+			alpha = alpha.clampMax(1.0f);
 			alpha = alpha * lensFlareAlphas[i];
-			alpha = CLAMP_MIN(alpha, 0.0f);
+			alpha = alpha.clampMin(0.0f);
 
 			fogInfluence = (996 - globalCtx->lightCtx.fogNear) / 50.0f;
 
-			fogInfluence = CLAMP_MAX(fogInfluence, 1.0f);
+			fogInfluence = fogInfluence.clampMax(1.0f);
 
 			alpha *= 1.0f - fogInfluence;
 
@@ -1713,13 +1713,13 @@ void Environment_DrawLensFlare(GlobalContext* globalCtx, EnvironmentContext* env
 				POLY_XLU_DISP = func_800937C0(POLY_XLU_DISP);
 
 				alpha = colorIntensity / 10.0f;
-				alpha = CLAMP_MAX(alpha, 1.0f);
+				alpha = alpha.clampMax(1.0f);
 				alpha = alpha * screenFillAlpha;
-				alpha = CLAMP_MIN(alpha, 0.0f);
+				alpha = alpha.clampMin(0.0f);
 
 				fogInfluence = (996 - globalCtx->lightCtx.fogNear) / 50.0f;
 
-				fogInfluence = CLAMP_MAX(fogInfluence, 1.0f);
+				fogInfluence = fogInfluence.clampMax(1.0f);
 
 				alpha *= 1.0f - fogInfluence;
 
@@ -1736,7 +1736,7 @@ void Environment_DrawLensFlare(GlobalContext* globalCtx, EnvironmentContext* env
 				}
 
 				temp = colorIntensity / 120.0f;
-				temp = CLAMP_MIN(temp, 0.0f);
+				temp = temp.clampMin(0.0f);
 
 				gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, (u8)(temp * 75.0f) + 180, (u8)(temp * 155.0f) + 100, (u8)envCtx->unk_84);
 				gDPFillRectangle(POLY_XLU_DISP++, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
@@ -2646,8 +2646,8 @@ void Environment_AdjustLights(GlobalContext* globalCtx, f32 arg1, f32 arg2, f32 
 
 	if(globalCtx->roomCtx.curRoom.unk_03 != 5 && func_800C0CB8(globalCtx))
 	{
-		arg1 = CLAMP_MIN(arg1, 0.0f);
-		arg1 = CLAMP_MAX(arg1, 1.0f);
+		arg1 = arg1.clampMin(0.0f);
+		arg1 = arg1.clampMax(1.0f);
 
 		temp = arg1 - arg3;
 		if(arg1 < arg3)
@@ -2667,7 +2667,7 @@ void Environment_AdjustLights(GlobalContext* globalCtx, f32 arg1, f32 arg2, f32 
 		else
 		{
 			temp = arg1 * 5.0f;
-			temp = CLAMP_MAX(temp, 1.0f);
+			temp = temp.clampMax(1.0f);
 
 			for(i = 0; i < 3; i++)
 			{
