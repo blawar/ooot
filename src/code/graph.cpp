@@ -220,7 +220,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx)
 	Sched_SendEntryMsg(&gSchedContext);
 
 	if(oot::config().game().graphicsEnabled())
-		gfx_run(task, sizeof(OSTask_t));
+		gfx_schedule(task, sizeof(OSTask_t));
 }
 
 void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
@@ -377,7 +377,7 @@ static u64 frameCount = 0;
 
 void Graph_ThreadEntry(void* arg0)
 {
-	GraphicsContext gfxCtx;	
+	GraphicsContext gfxCtx;
 
 	osSyncPrintf("Start graphic thread execution\n"); // "Start graphic thread execution"
 	Graph_Init(&gfxCtx);
@@ -413,6 +413,8 @@ void Graph_ThreadEntry(void* arg0)
 				frameCount++;
 			}
 		}
+
+		gfx_wait_ready();
 
 		if(gNextGameState)
 		{
