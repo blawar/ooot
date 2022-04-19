@@ -427,6 +427,9 @@ void Graph_ThreadEntry(void* arg0)
 		}
 	}
 
+	gfx_wait_ready();
+	gCurrentGameState.reset();
+
 	Graph_Destroy(&gfxCtx);
 	osSyncPrintf("End of graphic thread execution\n"); // "End of graphic thread execution"
 }
