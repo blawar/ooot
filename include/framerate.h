@@ -59,6 +59,7 @@ extern double FRAMERATE_SCALER;
 extern double FRAMERATE_SCALER_INV;
 extern float DEKU_NUT_SPAWN_SCALER;
 extern bool INTERPOLATE_ANIM;
+extern u8 SKIP_GFX_FRAME_MASK;
 
 #endif
 
