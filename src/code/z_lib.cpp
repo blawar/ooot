@@ -37,7 +37,7 @@ f32 Math_SinS(s16 angle)
  * Changes pValue by step (scaled by the update rate) towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-template <class T> static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, const Step& _step)
+template <class T> static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, const FStep& _step)
 {
 	float step = _step.value();
 	if(step != 0)
@@ -65,7 +65,7 @@ template <class T> static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, 
 	return false;
 }
 
-s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step)
+s32 Math_ScaledStepToS(s16* pValue, s16 target, const FStep& _step)
 {
 	return _Math_ScaledStepToS(pValue, target, _step);
 }

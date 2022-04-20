@@ -990,10 +990,10 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 
 		pos->y -= pthis->unk_6C4;
 
-		if(pthis->unk_6C2 != 0)
+		if(pthis->rotationX != 0)
 		{
-			Matrix_Translate(pos->x, ((Math_CosS(pthis->unk_6C2) - 1.0f) * 200.0f) + pos->y, pos->z, MTXMODE_APPLY);
-			Matrix_RotateX(pthis->unk_6C2 * (M_PI / 0x8000), MTXMODE_APPLY);
+			Matrix_Translate(pos->x, ((Math_CosS(pthis->rotationX) - 1.0f) * 200.0f) + pos->y, pos->z, MTXMODE_APPLY);
+			Matrix_RotateX(pthis->rotationX * (M_PI / 0x8000), MTXMODE_APPLY);
 			Matrix_RotateZYX(rot->x, rot->y, rot->z, MTXMODE_APPLY);
 			pos->x = pos->y = pos->z = 0.0f;
 			rot->x = rot->y = rot->z = 0;

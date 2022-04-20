@@ -19,7 +19,7 @@ void Math_ApproachZeroF(CounterF* pValue, f32 fraction, const Step& step);
 s32 Math_AsymStepToF(f32* pValue, f32 target, const Step& incrStep, const Step& decrStep);
 s32 Math_AsymStepToF(CounterF* pValue, f32 target, const Step& incrStep, const Step& decrStep);
 f32 Math_CosS(s16 angle);
-s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& step);
+s32 Math_ScaledStepToS(s16* pValue, s16 target, const FStep& step);
 s32 Math_ScaledStepToS(Rotation* pValue, s16 target, const FStep& step);
 f32 Math_SinS(s16 angle);
 f32 Math_SmoothStepToDegF(f32* pValue, f32 target, f32 fraction, const Step& step, const Step& minStep);
