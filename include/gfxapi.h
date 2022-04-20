@@ -17,4 +17,7 @@ extern "C"
 	void gfx_filter_sepia_set(u8 r, u8 g, u8 b, u8 a);
 	void gfx_filter_sepia_enabled();
 	void gfx_filter_sepia_disable();
+	bool gfx_busy();
+	void gfx_wait_ready();
+	bool gfx_schedule(OSTask_t* task, u32 sz);
 }

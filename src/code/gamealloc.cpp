@@ -80,6 +80,11 @@ void GameAlloc_Cleanup(GameAlloc* pthis)
 	GameAllocEntry* next = pthis->base.next;
 	GameAllocEntry* cur;
 
+	if(!next)
+	{
+		return;
+	}
+
 	while(&pthis->base != next)
 	{
 		cur = next;
