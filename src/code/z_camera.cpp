@@ -1524,14 +1524,7 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 	velFactor = Camera_InterpolateCurve(0.5f, camera->speedRatio);
 	yawUpdRate = 1.0f / camera->yawUpdateRateInv;
 
-	if(oot::config().camera().useClassicCamera())
-	{
-		return cur + (s16)(angDelta * velocity * velFactor * yawUpdRate);
-	}
-	else
-	{
-		return cur + (s16)(angDelta * yawUpdRate);
-	}
+	return cur + (s16)(angDelta * velocity * velFactor * yawUpdRate);
 }
 
 #include "../port/controller/controller.h"
