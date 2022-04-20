@@ -12429,7 +12429,7 @@ static Gfx* sMaskDlists[PLAYER_MASK_MAX - 1] = {
 
 static Vec3s D_80854864 = {0, 0, 0};
 
-void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDList, OverrideLimbDrawOpa overrideLimbDraw)
+static void Player_DrawLOD(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDList, OverrideLimbDrawOpa overrideLimbDraw)
 {
 	static s32 D_8085486C = 255;
 
@@ -12438,7 +12438,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 	gSPSegment(POLY_OPA_DISP++, 0x0C, cullDList);
 	gSPSegment(POLY_XLU_DISP++, 0x0C, cullDList);
 
-	func_8008F470(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, lod, pthis->currentTunic, pthis->currentBoots, pthis->actor.shape.face, overrideLimbDraw, func_80090D20, pthis);
+	Player_DrawSkelWithEquipment(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, lod, pthis->currentTunic, pthis->currentBoots, pthis->actor.shape.face, overrideLimbDraw, func_80090D20, pthis);
 
 	if((overrideLimbDraw == func_80090014) && (pthis->currentMask != PLAYER_MASK_NONE))
 	{
@@ -12516,8 +12516,8 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 	if(!(pthis->stateFlags2 & PLAYER_STATE2_29))
 	{
 		OverrideLimbDrawOpa overrideLimbDraw = func_80090014;
+#ifdef ENABLE_LOD
 		s32 lod;
-		s32 pad;
 
 		if((pthis->csMode != 0) || (Player_IsTargetingAnActor(pthis) && 0) || (pthis->actor.projectedPos.z < 160.0f))
 		{
@@ -12527,6 +12527,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		{
 			lod = 1;
 		}
+#endif
 
 		func_80093C80(globalCtx);
 		func_80093D84(globalCtx->gfxCtx);
@@ -12572,7 +12573,11 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 			Matrix_Scale(1.1f, 0.95f, 1.05f, MTXMODE_APPLY);
 			Matrix_RotateY(-sp74, MTXMODE_APPLY);
 			Matrix_RotateX(-sp78, MTXMODE_APPLY);
-			func_8084A0E8(globalCtx, pthis, lod, gCullFrontDList, overrideLimbDraw);
+#ifdef ENABLE_LOD
+			Player_DrawLOD(globalCtx, pthis, lod, gCullFrontDList, overrideLimbDraw);
+#else
+			Player_DrawLOD(globalCtx, pthis, 0, gCullFrontDList, overrideLimbDraw);
+#endif
 			pthis->actor.scale.y = -pthis->actor.scale.y;
 			Matrix_Pop();
 		}
@@ -12580,7 +12585,11 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		gSPClearGeometryMode(POLY_OPA_DISP++, G_CULL_BOTH);
 		gSPClearGeometryMode(POLY_XLU_DISP++, G_CULL_BOTH);
 
-		func_8084A0E8(globalCtx, pthis, lod, gCullBackDList, overrideLimbDraw);
+#ifdef ENABLE_LOD
+		Player_DrawLOD(globalCtx, pthis, lod, gCullBackDList, overrideLimbDraw);
+#else
+		Player_DrawLOD(globalCtx, pthis, 0, gCullBackDList, overrideLimbDraw);
+#endif
 
 		if(pthis->invincibilityTimer > 0)
 		{

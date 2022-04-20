@@ -782,7 +782,7 @@ Gfx* sBootDListGroups[][2] = {
     {gLinkAdultLeftHoverBootDL, gLinkAdultRightHoverBootDL},
 };
 
-void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots, s32 face, OverrideLimbDrawOpa overrideLimbDraw, PostLimbDrawOpa postLimbDraw, void* data)
+void Player_DrawSkelWithEquipment(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots, s32 face, OverrideLimbDrawOpa overrideLimbDraw, PostLimbDrawOpa postLimbDraw, void* data)
 {
 	Color_RGB8* color;
 	s32 eyeIndex = (jointTable[22].x & 0xF) - 1;
@@ -807,9 +807,13 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
 	color = &sTunicColors[tunic];
 	gDPSetEnvColor(POLY_OPA_DISP++, color->r, color->g, color->b, 0);
 
+#ifdef ENABLE_LOD
 	sDListsLodOffset = lod * 2;
-
 	SkelAnime_DrawFlexLod(globalCtx, skeleton, jointTable, dListCount, overrideLimbDraw, postLimbDraw, data, lod);
+#else
+	sDListsLodOffset = 0;
+	SkelAnime_DrawFlexLod(globalCtx, skeleton, jointTable, dListCount, overrideLimbDraw, postLimbDraw, data, 0);
+#endif
 
 	if((overrideLimbDraw != func_800902F0) && (overrideLimbDraw != func_80090440) && (gSaveContext.gameMode != 3))
 	{
@@ -1792,7 +1796,7 @@ void func_80091A24(
 
 	gSPSegment(POLY_OPA_DISP++, 0x0C, gCullBackDList);
 
-	func_8008F470(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, 0, tunic, boots, 0, func_80091880, NULL, &sp12C);
+	Player_DrawSkelWithEquipment(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, 0, tunic, boots, 0, func_80091880, NULL, &sp12C);
 
 	gSPEndDisplayList(POLY_OPA_DISP++);
 	gSPEndDisplayList(POLY_XLU_DISP++);
