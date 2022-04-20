@@ -9,6 +9,8 @@
 #include "ultra64/types.h"
 #include "def/z_player_lib.h"
 
+#define ENABLE_30FPS
+
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/oot/tas"
 #else

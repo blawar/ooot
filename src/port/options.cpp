@@ -104,7 +104,7 @@ namespace oot
 						camera().useClassicCamera() = true;
 					}
 
-					if(controls().enableGyro())
+					if(controls().enableGyro() || controls().useDInput())
 					{
 						controls().useXInput() = false;
 					}
@@ -398,6 +398,7 @@ namespace oot
 			json::setBool(container, "cButtonsOnRightStick", cButtonsOnRightStick(), allocator);
 			json::setBool(container, "enableGyro", enableGyro(), allocator);
 			json::setBool(container, "useXInput", useXInput(), allocator);
+			json::setBool(container, "useDInput", useDInput(), allocator);
 
 			json::setBool(container, "invertLeftStickY", invertLeftStickY(), allocator);
 			json::setBool(container, "invertRightStickY", invertRightStickY(), allocator);
@@ -434,6 +435,7 @@ namespace oot
 				json::getBool(container, "cButtonsOnRightStick", cButtonsOnRightStick());
 				json::getBool(container, "enableGyro", enableGyro());
 				json::getBool(container, "useXInput", useXInput());
+				json::getBool(container, "useDInput", useDInput());
 
 				json::getBool(container, "invertLeftStickY", invertLeftStickY());
 				json::getBool(container, "invertRightStickY", invertRightStickY());
