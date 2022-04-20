@@ -246,4 +246,7 @@ float frameRateDivisor()
 	return R_UPDATE_RATE;
 }
 
-
+float Round(float value)
+{
+	return roundf(value * 100) / 100.0f;
+}

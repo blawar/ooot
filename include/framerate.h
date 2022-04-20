@@ -730,3 +730,5 @@ namespace oot
 	void setMaxFramerate(float framerate);
 	float getMaxFramerate();
 } // namespace oot
+
+float Round(float value);
