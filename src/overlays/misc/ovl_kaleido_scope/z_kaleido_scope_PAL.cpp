@@ -1113,7 +1113,7 @@ namespace oot::pause
 
 		Page* next(u16 pageId)
 		{
-			if(pageId == m_pages.size() - 1)
+			if(pageId >= m_pages.size() - 1)
 			{
 				return m_pages[0].get();
 			}
@@ -1123,7 +1123,7 @@ namespace oot::pause
 
 		Page* prev(u16 pageId)
 		{
-			if(pageId == 0)
+			if(pageId == 0 || pageId >= m_pages.size())
 			{
 				return m_pages[m_pages.size() - 1].get();
 			}
@@ -1148,8 +1148,12 @@ namespace oot::pause
 			m_pages.push_back(std::move(page));
 		}
 
-		void setDefaultCursor(const u16 pageId, u16& slot, u16& item, u16& namedItem)
+		void setDefaultCursor(u16 pageId, u16& slot, u16& item, u16& namedItem)
 		{
+			if(pageId >= m_pages.size())
+			{
+				pageId = 0;
+			}
 			m_pages[pageId]->setDefaultCursor(slot, item, namedItem);
 		}
 
