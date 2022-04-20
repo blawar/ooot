@@ -135,7 +135,7 @@ void func_80891D6C(BgIceShutter* pthis, GlobalContext* globalCtx)
 void func_80891DD4(BgIceShutter* pthis, GlobalContext* globalCtx)
 {
 	Math_StepToF(&pthis->dyna.actor.speedXZ, 30.0f, 2.0f);
-	if(Math_StepToF(&pthis->dyna.actor.velocity.y, 210.0f, pthis->dyna.actor.speedXZ))
+	if(Math_StepToF(&pthis->dyna.actor.velocity.y, 210.0f, (float)pthis->dyna.actor.speedXZ))
 	{
 		Actor_Kill(&pthis->dyna.actor);
 		return;

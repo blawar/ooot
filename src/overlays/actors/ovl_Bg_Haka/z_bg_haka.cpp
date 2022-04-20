@@ -108,8 +108,8 @@ void func_8087B938(BgHaka* pthis, GlobalContext* globalCtx)
 	s32 sp38;
 
 	pthis->dyna.actor.speedXZ += 0.05f;
-	pthis->dyna.actor.speedXZ = CLAMP_MAX(pthis->dyna.actor.speedXZ, 1.5f);
-	sp38 = Math_StepToF(&pthis->dyna.actor.minVelocityY, 60.0f, pthis->dyna.actor.speedXZ);
+	pthis->dyna.actor.speedXZ = CLAMP_MAX((float)pthis->dyna.actor.speedXZ, 1.5f);
+	sp38 = Math_StepToF(&pthis->dyna.actor.minVelocityY, 60.0f, (float)pthis->dyna.actor.speedXZ);
 	pthis->dyna.actor.world.pos.x = Math_SinS(pthis->dyna.actor.world.rot.y) * pthis->dyna.actor.minVelocityY + pthis->dyna.actor.home.pos.x;
 	pthis->dyna.actor.world.pos.z = Math_CosS(pthis->dyna.actor.world.rot.y) * pthis->dyna.actor.minVelocityY + pthis->dyna.actor.home.pos.z;
 	if(sp38 != 0)

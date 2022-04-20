@@ -161,15 +161,15 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx)
 			}
 
 			pthis->dyna.actor.speedXZ += 0.05f;
-			pthis->dyna.actor.speedXZ = CLAMP_MAX(pthis->dyna.actor.speedXZ, 2.0f);
+			pthis->dyna.actor.speedXZ = CLAMP_MAX((float)pthis->dyna.actor.speedXZ, 2.0f);
 
 			if(D_8088BFC0_42 > 0.0f)
 			{
-				temp_v1 = Math_StepToF(&D_8088BFC0_42, 20.0f, pthis->dyna.actor.speedXZ);
+				temp_v1 = Math_StepToF(&D_8088BFC0_42, 20.0f, (float)pthis->dyna.actor.speedXZ);
 			}
 			else
 			{
-				temp_v1 = Math_StepToF(&D_8088BFC0_42, -20.0f, pthis->dyna.actor.speedXZ);
+				temp_v1 = Math_StepToF(&D_8088BFC0_42, -20.0f, (float)pthis->dyna.actor.speedXZ);
 			}
 
 			pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.unk_158) * D_8088BFC0_42) + pthis->dyna.actor.home.pos.x;

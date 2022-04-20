@@ -335,7 +335,7 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 			}
 			break;
 		case 1:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 1);
 			Gameplay_ClearAllSubCameras(globalCtx);
 			pthis->cutsceneCamera = Gameplay_CreateSubCamera(globalCtx);
@@ -501,7 +501,7 @@ void BossDodongo_IntroCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				camera->at = pthis->cameraAt;
 				func_800C08AC(globalCtx, pthis->cutsceneCamera, 0);
 				pthis->cutsceneCamera = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				BossDodongo_SetupWalk(pthis);
 				pthis->blowFireTimer = 50;
@@ -1514,7 +1514,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 	{
 		case 0:
 			pthis->csState = 5;
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 1);
 			pthis->cutsceneCamera = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_UNK3);
@@ -1861,7 +1861,7 @@ void BossDodongo_DeathCutscene(BossDodongo* pthis, GlobalContext* globalCtx)
 				pthis->cutsceneCamera = MAIN_CAM;
 				pthis->csState = 100;
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_ACTIVE);
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_DOOR_WARP1, -890.0f, -1523.76f, -3304.0f, 0, 0, 0, WARP_DUNGEON_CHILD);
 				pthis->skelAnime.playSpeed = 0.0f;

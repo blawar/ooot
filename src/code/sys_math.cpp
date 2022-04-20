@@ -98,3 +98,43 @@ VecRot::operator Vec3f() const
 	vec.z = z;
 	return vec;
 }
+
+/*
+VecPosF::VecPosF() : x(0), y(0), z(0)
+{
+}
+
+VecPosF::VecPosF(const Rotation& x, const Rotation& y, const Rotation& z) : x(x), y(y), z(z)
+{
+}
+
+VecPosF::VecPosF(const VecPosF& vec) : x(vec.x), y(vec.y), z(vec.z)
+{
+}
+
+VecPosF::VecPosF(const Vec3s& vec) : x(vec.x), y(vec.y), z(vec.z)
+{
+}
+
+VecPosF::VecPosF(const Vec3f& vec) : x(vec.x), y(vec.y), z(vec.z)
+{
+}
+
+VecPosF::operator Vec3s() const
+{
+	Vec3s vec;
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	return vec;
+}
+
+VecPosF::operator Vec3f() const
+{
+	Vec3f vec;
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	return vec;
+}
+*/

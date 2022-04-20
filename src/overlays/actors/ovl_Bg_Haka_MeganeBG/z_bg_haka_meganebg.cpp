@@ -226,7 +226,7 @@ void func_8087E2D8(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 {
 	Math_StepToF(&pthis->dyna.actor.speedXZ, 30.0f, 2.0f);
 
-	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, pthis->dyna.actor.speedXZ))
+	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, (float)pthis->dyna.actor.speedXZ))
 	{
 		Actor_SetFocus(&pthis->dyna.actor, 50.0f);
 		pthis->actionFunc = func_8087E34C;

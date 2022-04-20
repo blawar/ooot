@@ -1,1352 +1,1351 @@
 DEFINE_MESSAGE(0x0001, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "Pediste um " COLOR(RED) "Ovo de Bolso" COLOR(DEFAULT) " emprestado!" QUICKTEXT_DISABLE "\n"
-"Um Cucco de Bolso irá nascer dele\n"
-"durante a noite. Certifica-te que o\n"
-"devolves depois de o usares."
+UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "Du lånade ett " COLOR(RED) "Fick-ägg" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"En fick-Cucco kommer att kläckas ur\n"
+"det över natten. Se till att ge tillbaka\n"
+"den då du är klar med den."
 )
 
 DEFINE_MESSAGE(0x0002, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "Devolveste o Cucco de Bolso\n"
-"e recebeste o " COLOR(RED) "Cojiro" COLOR(DEFAULT) " de volta!" QUICKTEXT_DISABLE "\n"
-"Ao contrário dos outros Cuccos,\n"
-"Cojiro raramente canta."
+UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "Du lämnade tillbaka fick-Cucco'n\n"
+"och fick " COLOR(RED) "Cojiro" COLOR(DEFAULT) " istället!" QUICKTEXT_DISABLE "\n"
+"Till skillnad från andra Cuccos,\n"
+"så galer Cojiro sällan."
 )
 
 DEFINE_MESSAGE(0x0003, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "Recebeste um " COLOR(RED) "Cogumelo Estranho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Um cogumelo fresco como este\n"
-"estragar-se-à rapidamente! Leva-o\n"
-"para a Loja de Poções de Kakariko,\n"
-"rápido!"
+UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Märklig Svamp" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"En färsk svamp som den här blir\n"
+"snart för gammal! Ta den till\n"
+"brygdbutiken i Kakariko, fort!"
 )
 
 DEFINE_MESSAGE(0x0004, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "Recebeste uma " COLOR(RED) "Poção Estranha" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Tu não sabes o que se está a passar\n"
-"entre a senhora e o homem, mas\n"
-"leva-a para os Bosques Perdidos!"
+UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Märklig Brygd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du vet inte vad den här\n"
+"kvinnan och mannen håller på med,\n"
+"men ta den till den Förlorade Skogen!"
 )
 
 DEFINE_MESSAGE(0x0005, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "Devolveste a Poção Estranha \n"
-"e recebeste o " COLOR(RED) "Serrote do Caçador" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"O jovem punk deve ter\n"
-"deixado isto para trás."
+UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "Du återlämnade den Märkliga Brygden \n"
+"och fick " COLOR(RED) "Tjuvjägaren's såg" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den där rackaren måste\n"
+"ha lämnat kvar den här."
 )
 
 DEFINE_MESSAGE(0x0006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombas   20 Unidades   80 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bomber   20 Stycken   80 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0007, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "Recebeste um \n"
-COLOR(RED) "Saco de Balas de Sementes Deku" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Este saco pode guardar até " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
-"balas de fisga."
+UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "Du fick en \n"
+COLOR(RED) "Dekufrö-Kulpåse" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Den här påsen kan bära upp till " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
+"slangbell-kulor."
 )
 
 DEFINE_MESSAGE(0x0008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "Trocaste o Serrote do Caçador \n"
-"pela " COLOR(RED) "Espada Goron Partida" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Visita o Biggoron para repará-la!"
+UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "Du bytte Tjuvjägaren's såg \n"
+"emot ett " COLOR(RED) "trasigt Goron-Svärd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Besök Storgoron för att få det reparerat!"
 )
 
 DEFINE_MESSAGE(0x0009, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "Tu deixaste a Espada \n"
-"Goron Partida e recebeste uma \n"
-COLOR(RED) "Prescrição" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Vai ver o Rei Zora!"
+UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "Du lämnade in det trasiga \n"
+"Goron-Svärdet och fick ett \n"
+COLOR(RED) "Läkemedelsrecept" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Besök Kung Zora!"
 )
 
 DEFINE_MESSAGE(0x000A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "A Espada Biggoron..." QUICKTEXT_DISABLE "\n"
-"Recebeste um " COLOR(RED) "Comprovativo " COLOR(DEFAULT) "por ela!\n"
-"Tu mal podes esperar para que\n"
-"a espada fique completa!"
+UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "Storgoron's Svärd..." QUICKTEXT_DISABLE "\n"
+"du fick en " COLOR(RED) "Anspråksblankett " COLOR(DEFAULT) "för det!\n"
+"Du klarar knappt av att vänta på\n"
+"att svärdet ska bli färdigt!"
 )
 
 DEFINE_MESSAGE(0x000B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Trocaste a Espada do Gigante \n"
-"pela " COLOR(RED) "Espada Biggoron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A sua lâmina foi forjada por um \n"
-"mestre ferreiro, logo não quebrará!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Du bytte Jätten's Kniv \n"
+"emot " COLOR(RED) "Storgoron's Svärd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här klingan smiddes utav en \n"
+"mästersmed och går aldrig sönder!"
 )
 
 DEFINE_MESSAGE(0x000C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Devolveste o Comprovativo\n"
-"e recebeste a " COLOR(RED) "Espada Biggoron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A sua lâmina foi forjada por um \n"
-"mestre ferreiro, logo não quebrará!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Du lämnade in Anspråksblanketten\n"
+"och fick " COLOR(RED) "Storgoron's Svärd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här klingan smiddes utav en \n"
+"mästarsmed och går aldrig sönder!"
 )
 
 DEFINE_MESSAGE(0x000D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "Tu usaste a Prescrição e\n"
-"recebeste um " COLOR(RED) "Sapo-Olho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Rápido, entrega-o no Lago \n"
-"Hylia enquanto ainda está frio!"
+UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "Du använde Läkemedelsreceptet och\n"
+"fick en " COLOR(RED) "Ögonglobsgroda" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Leverera den till Hyliasjön \n"
+"medans den är kall!"
 )
 
 DEFINE_MESSAGE(0x000E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "Trocaste o Sapo-Olho \n"
-"pelo " COLOR(RED) "Melhor Colírio do Mundo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Despacha-te! Leva-o até Biggoron\n"
-"antes que se estrague!"
+UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "Du bytte Ögonglobsgrodan \n"
+"emot " COLOR(RED) "Världens Bästa Ögondroppar" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Skynda! Ta dem till Storgoron\n"
+"innan de blir dåliga!"
 )
 
 DEFINE_MESSAGE(0x000F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x41")  COLOR(RED) "VENCEDOR!!" COLOR(DEFAULT)  EVENT
+SHIFT("\x41")  COLOR(RED) "VINNARE!!" COLOR(DEFAULT)  EVENT
 )
 
 DEFINE_MESSAGE(0x0010, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x25")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara de Caveira" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Tu sentes-te como um monstro quando\n"
-"usas esta máscara!"
+ITEM_ICON("\x25")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Dödskallemask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp den!\n"
+"Du känner dig som ett monster medans\n"
+"du har på dig den här masken!"
 )
 
 DEFINE_MESSAGE(0x0011, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x26")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Medonha" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Tu podes assustar muita gente\n"
-"com esta máscara!"
+ITEM_ICON("\x26")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Spökmask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp\n"
+"den! Du kan skrämma många människor\n"
+"med den här masken!"
 )
 
 DEFINE_MESSAGE(0x0012, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x24")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Keaton" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Tu vais ser um rapaz bem popular\n"
-"com esta máscara!"
+ITEM_ICON("\x24")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Keaton-mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp\n"
+"den! Du kommer att bli en populär grabb\n"
+"med den här masken på!"
 )
 
 DEFINE_MESSAGE(0x0013, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x27")  QUICKTEXT_ENABLE "Pediste o " COLOR(RED) "Capuz de Coelho" COLOR(DEFAULT) " emprestado." QUICKTEXT_DISABLE "\n"
-"Usa-o com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para o exibires!\n"
-"As longas orelhas deste capuz\n"
-"são tão fofas!"
+ITEM_ICON("\x27")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Kaninhuva" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp\n"
+"den! Huvan's långa öron är så\n"
+"söta!"
 )
 
 DEFINE_MESSAGE(0x0014, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x28")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Goron" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Ela faz a tua cabeça\n"
-"parecer enorme."
+ITEM_ICON("\x28")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Goronmask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp\n"
+"den! Den kommer att få ditt huvud att\n"
+"se stort ut däremot."
 )
 
 DEFINE_MESSAGE(0x0015, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x29")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Zora" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Com esta máscara, podes\n"
-"tornar-te num dos Zoras!"
+ITEM_ICON("\x29")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Zora Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp\n"
+"den! Med den här masken på så\n"
+"kommer du att bli en Zora!"
 )
 
 DEFINE_MESSAGE(0x0016, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara Gerudo" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Esta máscara faz-te parecer\n"
-"uma... rapariga?"
+ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Gerudomask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp den!\n"
+"den! Med den här masken på kommer du\n"
+"att se ut som en...flicka?"
 )
 
 DEFINE_MESSAGE(0x0017, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "Pediste a " COLOR(RED) "Máscara da Verdade" COLOR(DEFAULT) " emprestada." QUICKTEXT_DISABLE "\n"
-"Usa-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a exibires!\n"
-"Mostra-a a toda a gente!"
+ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "Du lånade en " COLOR(RED) "Sanningen's Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
+"Ta på dig den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att visa upp den!\n"
+"den! Visa upp den för så många du kan!"
 )
 
 DEFINE_MESSAGE(0x0018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Bem-vindo ao nosso centro \n"
-"de diversão de ponta:" BOX_BREAK SHIFT("\x15")  COLOR(RED) "Pista de Bowling com Bombchu!" COLOR(DEFAULT)  BOX_BREAK "Queres saber o que tu \n"
-"podes ganhar? Bem, é um " TEXT_SPEED("\x03") "segredo." TEXT_SPEED("\x00") "\n"
-"Eu não te posso dizer até tu\n"
-"tiveres pago para jogar." BOX_BREAK "São " COLOR(RED) "30 Rupees" COLOR(DEFAULT) " por jogo.\n"
-"Queres jogar?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+"Välkommen till vårat banbrytande \n"
+"underhållningscenter:" BOX_BREAK SHIFT("\x15")  COLOR(RED) "Bombchu-Bowlinghallen!" COLOR(DEFAULT)  BOX_BREAK "Vill du veta vad du \n"
+"Kan vinna? Ptja, det är en " TEXT_SPEED("\x03") "hemlighet." TEXT_SPEED("\x00") "\n"
+"Jag kan inte berätta det förrän du har\n"
+"betalt för att spela." BOX_BREAK "Det kostar " COLOR(RED) "30 Rupees" COLOR(DEFAULT) " per spel.\n"
+"Vill du spela?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C") "OK!!" QUICKTEXT_DISABLE  BOX_BREAK "Mira no buraco no meio \n"
-"e larga o " COLOR(RED) "Bombchu!" COLOR(DEFAULT)
-"Tens " COLOR(RED) "dez tentativas" COLOR(DEFAULT) ". Pronto..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "VAMOS JOGAR!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x3C") "OKEJ!!" QUICKTEXT_DISABLE  BOX_BREAK "Sikta emot hålet i mitten \n"
+"och släpp " COLOR(RED) "Bombchun " COLOR(DEFAULT) "kör!\n"
+"Du har " COLOR(RED) "tio försök" COLOR(DEFAULT) ". Redo..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "DÅ BOWLAR VI!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x001A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Queres jogar outra vez?\n"
+"Vill du spela igen?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, quase que me esquecia!\n"
-"Aqui está o que podes ganhar!" EVENT
+"Åh, Jag höll visst på att glömma!\n"
+"Det här kan du vinna!" EVENT
 )
 
 DEFINE_MESSAGE(0x001C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (20 unidades)   80 Rupees\n"
-COLOR(DEFAULT) "Tira-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " novamente para atirá-la. Não podes\n"
-"comprá-las sem um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bomber  (20 stycken)   80 Rupees\n"
+COLOR(DEFAULT) "Ta ut dem med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck på \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " igen för att kasta. Du kan inte\n"
+"köpa ut dem utan en bombväska." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (30 unidades)   120 Rupees\n"
-COLOR(DEFAULT) "Tira-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " novamente para atirá-la. Não podes\n"
-"comprá-las sem um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bomber  (30 stycken)   120 Rupees\n"
+COLOR(DEFAULT) "Ta ut dem med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck på \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " igen för att kasta. Du kan inte\n"
+"köpa ut dem utan en bombväska." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombas   30 Unidades   120 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bomber  30 Stycken   120 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Estou tão feliz que toda a gente \n"
-"tenha voltado ao normal!"
+"Jag är så glad att alla har blivit\n"
+"återställda till det vanliga igen!"
 )
 
 DEFINE_MESSAGE(0x0020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Por favor salva também os meus\n"
-"outros irmãos! Tenho a certeza que\n"
-"eles dar-te-ão algo muito melhor!" BOX_BREAK "Vais fazer isso?!"
+"Snälla rädda mina andra bröder\n"
+"också! De kommer säkerligen att\n"
+"ge dig något mycket bättre!" BOX_BREAK "Kan du göra det?!"
 )
 
 DEFINE_MESSAGE(0x0021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "O feitiço foi quebrado\n"
-"Obrigado!\n"
-"Aqui está a tua recompensa!" EVENT
+UNSKIPPABLE "Färbannelsen har blivit bruten!\n"
+"Tack så mycket!\n"
+"Här får du en belöning!" EVENT
 )
 
 DEFINE_MESSAGE(0x0022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Aaaarggghh! Estou amaldiçoado!!"
+"Aaaah! Det vilar en förbannelse över mig!!"
 )
 
 DEFINE_MESSAGE(0x0023, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Nós teremos cuidado para não sermos\n"
-"amaldiçoados novamente!"
+"Vi ska vara försiktiga så att vi inte\n"
+"får en förbannelse på oss igen!"
 )
 
 DEFINE_MESSAGE(0x0024, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Desde que tu destruíste " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Aranhas da Maldição, o feitiço\n"
-"está a começar a enfraquecer!" BOX_BREAK "As crianças que voltaram ao\n"
-"normal deram-te alguma recompensa?" BOX_BREAK "Deves saber que a única\n"
-"forma de te tornares " COLOR(RED) "muito rico " COLOR(DEFAULT) "é\n"
-"destruir o máximo de Aranhas da\n"
-"Maldição possível!" BOX_BREAK "Há alguns truques para encontrá-las\n"
-"todas! Primeiro, terás de\n"
-"as caçar de noite. Segundo, tem em\n"
-"conta que elas adoram solo macio..." BOX_BREAK "Tem muita atenção ao que \n"
-"te rodeia!\n"
-"Por favor, contamos contigo!"
+"Efter att du besegrade " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
+"Förbannelse-spindlar, så har förbannelsen\n"
+"börjat försvagas!" BOX_BREAK "Gav barnen dig någon belöning\n"
+"efter att de blev återstållda?" BOX_BREAK "Något du borde känna till, är att\n"
+"det enda sättet att bli " COLOR(RED) "väldigt rik " COLOR(DEFAULT) "är att\n"
+"besegra så många Förbannelse-spindlar\n"
+"som möjligt!" BOX_BREAK "Det finns ett par trick för att finna\n"
+"dem alla! För det första så måste du\n"
+"jaga nattetid. För det andra, tänk på\n"
+"att de tycker om mjuk jord..." BOX_BREAK "Var uppmärksam på din\n"
+"omgivning!\n"
+"Snälla, vi räknar med din hjälp!"
 )
 
 DEFINE_MESSAGE(0x0025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Nós todos temos este aspeto devido \n"
-"ao feitiço da aranha. Mas..." TEXTID("\x00\x24")
+UNSKIPPABLE "Vi ser ut såhär på grund utav \n"
+"spindeln's förbannelse. men..." TEXTID("\x00\x24")
 )
 
 DEFINE_MESSAGE(0x0026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Nós todos temos este aspeto devido\n"
-"ao feitiço da aranha." BOX_BREAK "Se todas as " COLOR(RED) "Aranhas da Maldição " COLOR(DEFAULT) "no\n"
-"mundo inteiro fossem destruídas,\n"
-"a maldição seria quebrada." BOX_BREAK "Quando tu destróis uma Aranha da \n"
-"Maldição, um símbolo irá aparecer. \n"
-"Apanha-o como prova do teu feito." BOX_BREAK ITEM_ICON("\x71") "O número à frente deste " COLOR(YELLOW) "ícone" COLOR(DEFAULT) " no\n"
-COLOR(LIGHTBLUE) "Ecrã de Estado da Missão" COLOR(BLUE) " \n"
-COLOR(DEFAULT) "indica quantas Aranhas da \n"
-"Maldição tu destruíste até agora." BOX_BREAK ITEM_ICON("\x71") "Quando este " COLOR(YELLOW) "ícone" COLOR(DEFAULT) " está \n"
-"à frente do nome da área no\n"
-COLOR(RED) "Ecrã do Mapa" COLOR(DEFAULT) ", não existem\n"
-"mais Aranhas nessa área." TEXTID("\x00\xFE")
+"Vi alla ser ut såhär på grund utav\n"
+"spindeln's förbannelse." BOX_BREAK "Om varje " COLOR(RED) "Förbannelse-spindel " COLOR(DEFAULT) "i\n"
+"hela världen blev besegrad,\n"
+"så skulle förbannelsen lyftas." BOX_BREAK "Då du besegrar en Förbannelse-spindel \n"
+"så kommer en amulett att framträda. Samla\n"
+"in den som bevis för din prestation." BOX_BREAK ITEM_ICON("\x71") "Siffran jämte den här " COLOR(YELLOW) "ikonen" COLOR(DEFAULT) " på\n"
+" " COLOR(LIGHTBLUE) "Uppdrags-skärmen" COLOR(BLUE) " \n"
+COLOR(DEFAULT) "visar hur många Förbannelse-spindlar \n"
+"du har besegrat såhär långt." BOX_BREAK ITEM_ICON("\x71") "Då denna " COLOR(YELLOW) "ikon" COLOR(DEFAULT) " visas \n"
+"jämsides med namnet på platsen\n"
+"på " COLOR(RED) "Kart-fönstret" COLOR(DEFAULT) ", så finns där inga\n"
+"mer Spindlar kvar på den platsen." TEXTID("\x00\xFE")
 )
 
 DEFINE_MESSAGE(0x0027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Se quebrares a maldição na minha\n"
-"família, nós iremos tornar-te " COLOR(RED) "muito\n"
-"rico" COLOR(DEFAULT) "..."
+"Om du bryter förbannelsen över min\n"
+"familj, så kommer vi att belöna dig " COLOR(RED) "mycket\n"
+"rikt" COLOR(DEFAULT) "..."
 )
 
 DEFINE_MESSAGE(0x0028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Desde que tu destruíste " COLOR(RED)  TOKENS  COLOR(DEFAULT) " Aranhas\n"
-"da Maldição, o meu feitiço \n"
-"foi quebrado." BOX_BREAK UNSKIPPABLE "Obrigado! Aqui está um símbolo do meu\n"
-"agradecimento! Por favor aceita-o." EVENT
+UNSKIPPABLE "Efter " COLOR(RED)  TOKENS  COLOR(DEFAULT) " besegrade Förbannelse-spindlar\n"
+"så har förbannelsen över mig \n"
+"blivit bruten." BOX_BREAK UNSKIPPABLE "Tack så mycket! Här får du en belöning\n"
+"som bevis för min uppskattning! Snälla ta emot den." EVENT
 )
 
 DEFINE_MESSAGE(0x0029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Muito obrigado por \n" 
-"salvares os meus filhos." BOX_BREAK "O quê? Eu? Oh, não faz mal..." BOX_BREAK "Já destruíste " COLOR(RED)  TOKENS  COLOR(DEFAULT) " Aranhas\n"
-"da Maldição até agora, portanto...\n"
-"está tudo bem...\n"
-"não te preocupes comigo..."
+"Tack för att du räddade mina barn." BOX_BREAK "Va? Jag? Åh, Det är Okej..." BOX_BREAK "Du har redan besegrat " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
+"Förbannelse-spindlar, så...\n"
+"det är okej...oroa dig inte för mig..."
 )
 
 DEFINE_MESSAGE(0x002A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombchu   20 Unidades   180 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bombchu   20 Stycken   180 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Queres jogar um jogo?\n"
-"São " COLOR(RED) "20 Rupees " COLOR(DEFAULT) "por jogo.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+"Vill du spela?\n"
+"Det kostar " COLOR(RED) "20 Rupees " COLOR(DEFAULT) "per spel.\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Não podes! Precisas de um arco!" EVENT
+"Du kan inte! Du behöver en pilbåge!" EVENT
 )
 
 DEFINE_MESSAGE(0x002D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Tudo bem. Não tens de jogar\n"
-"se não quiseres." EVENT
+"Okej. Du behöver inte spela\n"
+"Om du inte vill." EVENT
 )
 
 DEFINE_MESSAGE(0x002E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "OK!!" QUICKTEXT_DISABLE "\n"
-"Isto é um jogo para crescidos!\n"
-"A famosa " COLOR(RED) "Carreira de Tiro" COLOR(DEFAULT) "de Hyrule!" BOX_BREAK "Mira nos alvos a partir dessa \n"
-"plataforma aí! Consegues acertar em\n"
-COLOR(RED) "dez alvos" COLOR(DEFAULT) "? Tens " COLOR(RED) "quinze \n"
-COLOR(DEFAULT) "tiros!" BOX_BREAK "Saca a tua arma com " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". \n"
-"Estás pronto?\n"
-"Tenta uma pontuação perfeita!\n"
-"Boa sorte!" EVENT
+QUICKTEXT_ENABLE "OKEJ!!" QUICKTEXT_DISABLE "\n"
+"Detta spelet är för vuxna!\n"
+"Hyrule's berömda " COLOR(RED) "Skyttegalleri" COLOR(DEFAULT) "!" BOX_BREAK "Sikta på måltavlorna ifrån \n"
+"plattformen där borta! Kan du träffa\n"
+COLOR(RED) "tio stycken" COLOR(DEFAULT) "? Du får " COLOR(RED) "femton \n"
+COLOR(DEFAULT) "skott!" BOX_BREAK "Dra ditt vapen med " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". \n"
+"Är du redo?\n"
+"Försök att få en fullpoängare!\n"
+"Lycka till!" EVENT
 )
 
 DEFINE_MESSAGE(0x002F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Tu vês um pequeno monte de\n"
-"solo macio aqui."
+"Du ser en liten hög med\n"
+"mjuk jord här."
 )
 
 DEFINE_MESSAGE(0x0030, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x06")  QUICKTEXT_ENABLE "Encontraste a " COLOR(RED) "Fisga de Fada" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-la no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Pressiona " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para sacá-la e segura-o.\n"
-"Enquanto pressionas " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "podes mirar \n"
-"com " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Larga " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para atirar \n"
-"uma " COLOR(RED) "Semente Deku" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Se quiseres disparar logo, \n"
-"assim que pressionares " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", \n"
-"segura " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "por mais um pouco para \n"
-"ter uma semente pronta."
+UNSKIPPABLE  ITEM_ICON("\x06")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Älvslangbellan" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Tryck " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att ta ut och hålla\n"
+"den. Medan du håller inne " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "så kan du sikta \n"
+"med " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Släpp " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att skjuta \n"
+"ett " COLOR(RED) "Dekufrö" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Om du vill skjuta på\n"
+"en gång då du trycker " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", \n"
+"håll nere " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "lite längre för att \n"
+"redogöra ett frö."
 )
 
 DEFINE_MESSAGE(0x0031, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x03")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Arco de Fada" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x03") "Pressiona " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para equipá-lo\n"
-"e segura-o. Enquanto seguras\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " podes mirar com " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "." COLOR(YELLOW) " " COLOR(DEFAULT) "Larga\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para atirares uma " COLOR(RED) "flecha" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x03")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Älvpilbågen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x03") "Tryck " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att ta ut\n"
+"och hålla den. Medan du håller inne\n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " så kan du sikta med " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "." COLOR(YELLOW) " " COLOR(DEFAULT) "Släpp\n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att skjuta iväg en " COLOR(RED) "pil" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0032, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x02")  QUICKTEXT_ENABLE "Obtiveste " COLOR(RED) "Bombas" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-las no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x02") "Usa " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para levantar e\n"
-"colocá-la. Pressiona " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " enquanto corres\n"
-"para a atirar. Se vires algo\n"
-"suspeito, bombeia-o!"
+ITEM_ICON("\x02")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Bomber" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera dem på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x02") "Använd " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att lyfta och placera\n"
+"en. Tryck " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " medans du springer för att\n"
+"kasta den. Om du ser något\n"
+"misstänksamt, bomba det!"
 )
 
 DEFINE_MESSAGE(0x0033, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x09")  QUICKTEXT_ENABLE "Obtiveste " COLOR(RED) "Bombchu" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-las no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x09") " Carrega-a e coloca-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ".\n"
-"Este é um novo tipo de bomba que\n"
-"consegue até escalar paredes.\n"
-"Mira bem e larga-a!"
+ITEM_ICON("\x09")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Bombchu" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera dem på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x09") " Lyft och placera med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ".\n"
+"Det här är en ny typ utav bomb\n"
+"som kan krypa upp för väggar.\n"
+"Sikta smart och släpp lös den!"
 )
 
 DEFINE_MESSAGE(0x0034, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Noz Deku" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-la no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x01") "Seleciona-a com " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "e tenta \n"
-"atirá-la! Ela irá encandear e \n"
-"atordoar o inimigo!"
+ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Dekunötter" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera dem på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x01") "Sätt den på " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "och prova att \n"
+"kasta den! Den kommer att blixtra till \n"
+"och bedöva fienden!"
 )
 
 DEFINE_MESSAGE(0x0035, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0E")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Bumerangue" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0E") "Pressiona " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para usá-lo para \n"
-"atacar inimigos à distância!"
+UNSKIPPABLE  ITEM_ICON("\x0E")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Bumerang" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera dem på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0E") "Tryck " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att kasta den \n"
+"på avlägsna fiender!"
 )
 
 DEFINE_MESSAGE(0x0036, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0A")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Gancho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"É uma corrente com mola que podes\n"
-"lançar para te prenderes a coisas." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "Podes usá-lo para\n"
-"puxar itens distantes até ti, ou\n"
-"podes usá-lo para te puxares\n"
-"até algo." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "Enquanto seguras " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", podes\n"
-"mirar com " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Atira-o ao\n"
-"largar " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x0A")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Krokskottet" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det är en fjäderladdad kedja som\n"
+"du kan ta fram för att kroka fast saker." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "Du kan använda den för att dra\n"
+"till dig avlägsna föremål, eller\n"
+"så kan du använda den för att dra\n"
+"dig själv emot någonting." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "Medan du håller inne " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", så kan du\n"
+"sikta med " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Skjut genom att\n"
+"släppa " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0037, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Galho Deku" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x00") "Seleciona-o com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e balançá-lo\n"
-"com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x00") "Quando quiseres guardá-lo, \n"
-"fica parado e pressiona " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". \n"
-"Podes carregar até 10 galhos,\n"
-"mas não os desperdices."
+ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Dekukäpp" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera dem på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x00") "Sätt den på " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och svinga den\n"
+"med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x00") "Då du vill stoppa undan den, \n"
+"stå still och tryck " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". \n"
+"Du kan bära upp till 10 käppar,\n"
+"men slösa inte bort dem."
 )
 
 DEFINE_MESSAGE(0x0038, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x11")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Martelo Megaton" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Pressiona " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n para partir e esmagar tralha!\n"
-"É tão pesado, que precisas de \n"
-"usar duas mãos para o balançares!"
+UNSKIPPABLE  ITEM_ICON("\x11")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Megatonhammaren" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Tryck " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to krossa och förstöra \n"
+"skrot! Den är så tung, att du behöver \n"
+"använda två händer för att svinga den!"
 )
 
 DEFINE_MESSAGE(0x0039, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0F")  QUICKTEXT_ENABLE "Encontraste a " COLOR(RED) "Lente da Verdade" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Seleciona-a no " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para \n"
-"veres com ela! Coisas misteriosas\n"
-"escondem-se em todo o lado!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0F") "Lembra-te de usá-la fora\n"
-"do poço. Ver a verdade irá custar\n"
-"poder de magia, então pressiona " COLOR(YELLOW) "[C]\n"
-COLOR(DEFAULT) "novamente para parar de a usar."
+UNSKIPPABLE  ITEM_ICON("\x0F")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Sanningslinsen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Sätt den på " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att \n"
+"titta genom den! Mystiska \n"
+"saker är dolda överallt!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0F") "Försök att även använda den\n"
+"utanför brunnen. Att se sanningen\n"
+"kostar dig magisk kraft, tryck " COLOR(YELLOW) "[C]\n"
+COLOR(DEFAULT) "igen för att sluta använda den."
 )
 
 DEFINE_MESSAGE(0x003A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x08")  QUICKTEXT_ENABLE "Encontraste a " COLOR(RED) "Ocarina do Tempo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Este é o tesouro escondido \n"
-"da Família Real que \n"
-"a Zelda deixou para trás.\n"
-"Ela brilha com uma luz mística..."
+UNSKIPPABLE  ITEM_ICON("\x08")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Tidsokarinan" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Detta är en utav den Kungliga Familjens \n"
+"dolda skatter som Zelda lämnade efter sig.\n"
+"Den skimrar med ett mystiskt ljus..."
 )
 
 DEFINE_MESSAGE(0x003B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Lançaste o Vento de Farore!\n"
-THREE_CHOICE  COLOR(ADJUSTABLE) "Volta para o Ponto de Salto\n"
-"Anular o Salto\n"
-"Sair" COLOR(DEFAULT)
+"Du kastar Farore's Vind!\n"
+THREE_CHOICE  COLOR(ADJUSTABLE) "Återvänd till Warp-Punkten\n"
+"Avskingra Warp-Punkten\n"
+"Lämna" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x003C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x67")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(RED) "Medalhão\n"
-"de Fogo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Darunia desperta como um Sábio e\n"
-"junta o seu poder ao teu!"
+UNSKIPPABLE  ITEM_ICON("\x67")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Eldmedaljen\n"
+" " COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Darunia vaknade upp som en Vise och\n"
+"skänker dig härmed sina krafter!"
 )
 
 DEFINE_MESSAGE(0x003D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x68")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(BLUE) "Medalhão\n"
-"de Água" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Ruto desperta como uma Sábia e\n"
-"junta o seu poder ao teu!"
+UNSKIPPABLE  ITEM_ICON("\x68")  QUICKTEXT_ENABLE "Du fick " COLOR(BLUE) "Vattenmedaljen\n"
+" " COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Ruto vaknade upp som en Vise och\n"
+"skänker dig härmed sina krafter!"
 )
 
 DEFINE_MESSAGE(0x003E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x66")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(ADJUSTABLE) "Medalhão\n"
-"da Floresta" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Saria desperta como uma Sábia e\n"
-"junta o seu poder ao teu!"
+UNSKIPPABLE  ITEM_ICON("\x66")  QUICKTEXT_ENABLE "Du fick " COLOR(ADJUSTABLE) "Skogsmedaljen\n"
+" " COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Saria vaknade upp som en Vise och\n"
+"skänker dig härmed sina krafter!"
 )
 
 DEFINE_MESSAGE(0x003F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x69")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(YELLOW) "Medalhão\n"
-"do Espírito" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Nabooru desperta como uma Sábia e\n"
-"junta o seu poder ao teu!"
+UNSKIPPABLE  ITEM_ICON("\x69")  QUICKTEXT_ENABLE "Du fick " COLOR(YELLOW) "Själamedaljen\n"
+" " COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nabooru vaknade upp som en Vise och\n"
+"skänker dig härmed sina krafter!"
 )
 
 DEFINE_MESSAGE(0x0040, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x6B")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(LIGHTBLUE) "Medalhão\n"
-"de Luz" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Rauru, o Sábio, junta o seu poder\n"
-"ao teu!"
+UNSKIPPABLE  ITEM_ICON("\x6B")  QUICKTEXT_ENABLE "Du fick " COLOR(LIGHTBLUE) "Ljusmedaljen\n"
+" " COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Rauru den Vise skänker dig\n"
+"härmed sina krafter!"
 )
 
 DEFINE_MESSAGE(0x0041, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x6A")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(PURPLE) "Medalhão\n"
-"das Sombras" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Impa desperta como uma Sábia e\n"
-"junta o seu poder ao teu!"
+UNSKIPPABLE  ITEM_ICON("\x6A")  QUICKTEXT_ENABLE "Du fick " COLOR(PURPLE) "Skuggmedaljen\n"
+" " COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Impa vaknade upp som en Vise och\n"
+"skänker dig härmed sina krafter!"
 )
 
 DEFINE_MESSAGE(0x0042, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x14")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Frasco Vazio" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Após colocares algo neste\n"
-"frasco, seleciona-o no " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " quanto\n"
-"quiseres usar o item dentro."
+UNSKIPPABLE  ITEM_ICON("\x14")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Tom Flaska" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Då du har något i den här\n"
+"flaskan så kan du placera den på " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " då du\n"
+"vill använda föremålet inuti."
 )
 
 DEFINE_MESSAGE(0x0043, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x15")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Poção Vermelha" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"seleciona-o no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x15") "Bebe-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para recuperar\n"
-"a tua vida.\n"
-"Levas esta poção num\n"
-"dos teus frascos."
+ITEM_ICON("\x15")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Röd Brygd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x15") "Drick den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att återhämta\n"
+"din livsenergi.\n"
+"Du bär den här brygden i\n"
+"en utav dina flaskor."
 )
 
 DEFINE_MESSAGE(0x0044, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x16")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(ADJUSTABLE) "Poção Verde" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"seleciona-o no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x15") "Bebe-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para recuperar\n"
-"o teu poder de magia.\n"
-"Levas esta poção num\n"
-"dos teus frascos."
+ITEM_ICON("\x16")  QUICKTEXT_ENABLE "Du fick en " COLOR(ADJUSTABLE) "Grön Brygd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x16") "Drick den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att återhämta\n"
+"din magiska kraft.\n"
+"Du bär den här brygden i\n"
+"en utav dina flaskor."
 )
 
 DEFINE_MESSAGE(0x0045, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x17")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(BLUE) "Poção Azul" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Bebe-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para recuperar\n"
-"a tua vida e poder de magia."
+ITEM_ICON("\x17")  QUICKTEXT_ENABLE "Du fick en " COLOR(BLUE) "Blå Brygd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Drick den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att återhämta\n"
+"din livsenergi och din magiska kraft."
 )
 
 DEFINE_MESSAGE(0x0046, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x18")  QUICKTEXT_ENABLE "Apanhaste uma " COLOR(RED) "Fada" COLOR(DEFAULT) " num frasco!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-la no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x18") "Esta pequena fada é uma fiel \n"
-"companheira que te reviverá\n"
-"no momento em que ficares sem vida."
-BOX_BREAK ITEM_ICON("\x18") "Assim que a selecionares com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ",\n"
-"podes pedir pela sua ajuda\n"
-"em qualquer altura."
+ITEM_ICON("\x18")  QUICKTEXT_ENABLE "Du fångade en " COLOR(RED) "Älva" COLOR(DEFAULT) " i en flaska!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x18") "Den här lilla älvan är en pålitlig \n"
+"partner som återhämtar dig\n"
+"så fort din livsenergi tar \n"
+"slut." BOX_BREAK ITEM_ICON("\x18") "Då du placerar den på " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ",\n"
+"så kan du be om dess hjälp\n"
+"när du vill."
 )
 
 DEFINE_MESSAGE(0x0047, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x19")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Peixe" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Usa-o com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e algo \n"
-"poderá acontecer... Parece tão \n"
-"fresco e delicioso!" BOX_BREAK ITEM_ICON("\x19") "No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "\n"
-"ou " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", depois pressiona o mesmo\n"
-COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para o usar."
+ITEM_ICON("\x19")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Fisk" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Använd den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " så kanske \n"
+"någonting händer... Den ser \n"
+"färsk och mumsig ut!" BOX_BREAK ITEM_ICON("\x19") "På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "\n"
+"eller " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", tryck sedan\n"
+COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att använda den."
 )
 
 DEFINE_MESSAGE(0x0048, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x10")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Feijão Mágico" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Encontra um sítio ideal para um\n"
-"jardim e planta-o com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ".\n"
-"Depois, espera por algo\ndivertido acontecer!" BOX_BREAK ITEM_ICON("\x10") "No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "\n"
-"ou " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", e depois usar o mesmo\n"
-COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para o plantar."
+ITEM_ICON("\x10")  QUICKTEXT_ENABLE "You got a " COLOR(RED) "Magic Bean" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Find a suitable spot for a garden\n"
+"and plant it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ". Then, wait\n"
+"for something fun to happen!" BOX_BREAK ITEM_ICON("\x10") "On the " COLOR(YELLOW) "Select Item Subscreen" COLOR(DEFAULT) ",\n"
+"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "\n"
+"or " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", and then use that\n"
+COLOR(YELLOW) "[C] " COLOR(DEFAULT) "to plant it."
 )
 
 DEFINE_MESSAGE(0x0049, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Desculpa por isso...OK, bem..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x3D")  COLOR(RED) "VAMOS JOGAR" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE  EVENT
+"Ursäkta mig...okej..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x3D")  COLOR(RED) "DÅ BOWLAR VI" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x004A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x07")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(RED) "Ocarina de Fada" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Isto é uma lembrança de Saria.\n"
-"Seleciona-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n"
-"para começares a tocar!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x07") "No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-la no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "\n"
-"ou " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", e depois usar o mesmo\n"
-COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para começar a tocar." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x07") "Podes tocar diferentes notas\n"
-"com " COLOR(BLUE) "[A]" COLOR(DEFAULT) " e os quatro " COLOR(YELLOW) "botões [C]" COLOR(DEFAULT) ". \n"
-"Pressiona " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " para parar de tocar, ou \n"
-"para começar a canção de novo."
+UNSKIPPABLE  ITEM_ICON("\x07")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Älvokarinan" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det här är ett minne ifrån Saria.\n"
+"Placera den på " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n"
+"för att börja spela på den!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x07") "På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "\n"
+"eller " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", använd sedan\n"
+COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att börja spela." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x07") "Du kan spela olika noter\n"
+"med " COLOR(BLUE) "[A]" COLOR(DEFAULT) " och de fyra " COLOR(YELLOW) "[C] Knapparna" COLOR(DEFAULT) ". \n"
+"Tryck " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " för att sluta spela, eller \n"
+"för att spela din sång från början."
 )
 
 DEFINE_MESSAGE(0x004B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(ADJUSTABLE) "Faca do Gigante" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Segura-a com ambas as mãos e usa \n"
-COLOR(ADJUSTABLE) "[B] " COLOR(DEFAULT) "para atacar! É tão longa, que tu\n"
-"não consegues usá-la com um " COLOR(LIGHTBLUE) "escudo" COLOR(DEFAULT) "."
+ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Du fick " COLOR(ADJUSTABLE) "Jätten's Kniv" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Håll den med båda händerna och använd \n"
+COLOR(ADJUSTABLE) "[B] " COLOR(DEFAULT) "för att attackera! Den är så lång, så att\n"
+"du inte kan använda den med en " COLOR(LIGHTBLUE) "sköld" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x004C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x3E")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(LIGHTBLUE) "Escudo Deku" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Muda para o " COLOR(BLUE) "Ecrã \n"
-"de Equipamento" COLOR(RED) " " COLOR(DEFAULT) "e seleciona\n"
-"o escudo. Pressiona " COLOR(BLUE) "[A] " COLOR(DEFAULT) "para o equipar." BOX_BREAK ITEM_ICON("\x3E") "Pressiona " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) " para agachar e\n"
-"defender. Se pressionares " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) " ao \n"
-COLOR(LIGHTBLUE) "Focar com [Z]" COLOR(DEFAULT) ", podes te mover\n"
-"enquanto defendes."
+ITEM_ICON("\x3E")  QUICKTEXT_ENABLE "Du fick en " COLOR(LIGHTBLUE) "Dekusköld" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Byt till " COLOR(BLUE) "Utrustnings-skärmen \n"
+" " COLOR(RED) " " COLOR(DEFAULT) "och välj den här\n"
+"skölden. Tryck " COLOR(BLUE) "[A] " COLOR(DEFAULT) "för att utrusta dig med den." BOX_BREAK ITEM_ICON("\x3E") "Tryck " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) " för att huka\n"
+"och försvara dig. Om du trycker " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) " medan du \n"
+COLOR(LIGHTBLUE) "[Z] Siktar" COLOR(DEFAULT) ", så kan du röra dig\n"
+"medan du försvarar dig."
 )
 
 DEFINE_MESSAGE(0x004D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x3F")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(LIGHTBLUE) "Escudo Hyliano" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Muda para o " COLOR(BLUE) "Ecrã \n"
-"de Equipamento" COLOR(DEFAULT) "e seleciona\n"
-"o escudo, depois equipa-o com " COLOR(BLUE) "[A]" COLOR(DEFAULT) "."
+ITEM_ICON("\x3F")  QUICKTEXT_ENABLE "Du fick en " COLOR(LIGHTBLUE) "Hyliansk Sköld" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Byt till " COLOR(BLUE) "Utrustnings-skärmen \n"
+" " COLOR(DEFAULT) " och välj den här\n"
+"skölden, utrusta dig sedan med den genom att trycka " COLOR(BLUE) "[A]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x004E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x40")  QUICKTEXT_ENABLE "Encontraste o " COLOR(LIGHTBLUE) "Escudo Espelho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A superfície polida deste escudo\n"
-"reflete luz ou energia. Pressiona " COLOR(LIGHTBLUE) "[R]\n"
-COLOR(DEFAULT) "para usá-lo."
+UNSKIPPABLE  ITEM_ICON("\x40")  QUICKTEXT_ENABLE "Du hittade " COLOR(LIGHTBLUE) "Spegelskölden" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Skölden's polerade yta\n"
+"reflekterar ljus eller energi. Tryck " COLOR(LIGHTBLUE) "[R]\n"
+COLOR(DEFAULT) "för att använda den."
 )
 
 DEFINE_MESSAGE(0x004F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0B")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Gancho Longo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"É um Gancho melhorado.\n"
-"Ele extende " COLOR(RED) "o dobro" COLOR(DEFAULT) " da distância!"
+UNSKIPPABLE  ITEM_ICON("\x0B")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Långskottet" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det här är ett uppgraderat Krokskott.\n"
+"Den sträcker sig " COLOR(RED) "dubbelt" COLOR(DEFAULT) " så långt!"
 )
 
 DEFINE_MESSAGE(0x0050, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x42")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(RED) "Túnica Goron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Esta túnica resistente ao calor é\n"
-"para adultos, não serve a um miúdo.\n"
-"Vais algures quente? Sem problema!\n"            
+ITEM_ICON("\x42")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Goron-tunika" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Denna värme-resistanta tunika är\n"
+"i vuxenstorlek, så den passar inte ett barn...\n"
+"Är du på väg till en varm plats? Oroa dig inte!"
 )
 
 DEFINE_MESSAGE(0x0051, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x43")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Túnica Zora" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Este fato de nadar é para adultos\n"
-"então não serve a um miúdo.\n"
-"Veste-o, e não te afogarás."
+ITEM_ICON("\x43")  QUICKTEXT_ENABLE "Du fick en " COLOR(BLUE) "Zora-tunika" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här dykar-uniformen är i vuxenstorlek,\n"
+"så den passar inte ett barn. Klä dig i den,\n"
+"så att du inte drunknar under vattnet."
 )
 
 DEFINE_MESSAGE(0x0052, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(ADJUSTABLE) "Jarro Mágico" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"O teu Contador de Magia está cheio!"
+QUICKTEXT_ENABLE "Du fick en " COLOR(ADJUSTABLE) "Magisk Kruka" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Din Magi-meter fylldes på!"
 )
 
 DEFINE_MESSAGE(0x0053, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x45")  QUICKTEXT_ENABLE "Obtiveste as " COLOR(RED) "Botas de Ferro" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Tão pesadas que não podes correr.\n"
-"Tão pesadas que não podes flutuar."
+UNSKIPPABLE  ITEM_ICON("\x45")  QUICKTEXT_ENABLE "Du fick ett par " COLOR(RED) "Järnskor" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Så tunga, att du inte kan springa.\n"
+"Så tunga, att du inte kan flyta."
 )
 
 DEFINE_MESSAGE(0x0054, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x46")  QUICKTEXT_ENABLE "Obtiveste as " COLOR(RED) "Botas Flutuantes" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Com estas botas misteriosas\n"
-"podes andar suspenso no ar.\n"
-"O problema? Não há tração!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x46") "Podes até usá-las para\n"
-"andar por curtos períodos onde\n"
-"não há terra firme. Sê corajoso,\n"
-"confia nestas botas!"
+UNSKIPPABLE  ITEM_ICON("\x46")  QUICKTEXT_ENABLE "Du fick ett par " COLOR(RED) "Svävarskor" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Med dessa mystiska skor\n"
+"så kan du sväva över marken.\n"
+"Nackdelen? Ingen dragkraft!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x46") "You can even use these to\n"
+"Gå korta perioder över mark\n"
+"som inte är fast. Var modig\n"
+"och lita på skorna!"
 )
 
 DEFINE_MESSAGE(0x0055, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(PURPLE) "Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Your life energy is recovered!"
+QUICKTEXT_ENABLE "Du fick ett " COLOR(PURPLE) "Återhämtningshjärta" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Din livsenergi har blivit återhämtad!"
 )
 
 DEFINE_MESSAGE(0x0056, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x4B")  QUICKTEXT_ENABLE "Melhoraste a tua aljava para a\n"
-COLOR(RED) "Aljava Grande" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes levar mais flechas-\n"
-COLOR(YELLOW) "40 " COLOR(DEFAULT) "no total!"
+UNSKIPPABLE  ITEM_ICON("\x4B")  QUICKTEXT_ENABLE "Du uppgraderade ditt kågor till\n"
+COLOR(RED) "Stort Koger" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du bära fler pilar-\n"
+COLOR(YELLOW) "40 " COLOR(DEFAULT) "totalt!"
 )
 
 DEFINE_MESSAGE(0x0057, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x4B")  QUICKTEXT_ENABLE "Melhoraste a tua aljava para a\n"
-COLOR(RED) "Aljava Enorme" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes levar mais\n"
-"flechas, um máximo de " COLOR(YELLOW) "50" COLOR(DEFAULT) "!"
+UNSKIPPABLE  ITEM_ICON("\x4B")  QUICKTEXT_ENABLE "Du uppgraderade ditt kågor till\n"
+"det " COLOR(RED) "Största Kogert" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du till och med bära ännu fler \n"
+"pilar, ända upp till " COLOR(YELLOW) "50" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0058, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x4D")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Saco de Bombas" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Este saco leva bombas e é feito a \n"
-"partir de um estômago de Dodongo!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x02")  QUICKTEXT_ENABLE "Encontraste " COLOR(RED) "20 Bombas" COLOR(DEFAULT) " dentro!" QUICKTEXT_DISABLE "\n"
-"Agora podes colocar Bombas com " COLOR(YELLOW) "[C]\n"
-COLOR(DEFAULT) "explodir com coisas! Que rapaz \n"
-"sortudo!"
+UNSKIPPABLE  ITEM_ICON("\x4D")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Bombväska" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här specialgjorda bombväskan är tillverkad \n"
+"utav magen från en Dodongo!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x02")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "20 Bomber" COLOR(DEFAULT) " inuti!" QUICKTEXT_DISABLE "\n"
+"Nu kan du placera Bomber på " COLOR(YELLOW) "[C]\n"
+COLOR(DEFAULT) "och spränga saker! Du är lyckligt \n"
+"lottad!"
 )
 
 DEFINE_MESSAGE(0x0059, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x4E")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(RED) "Saco de Bombas Grande" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes carregar ainda mais \n"
-"Bombas, um máximo de " COLOR(YELLOW) "30" COLOR(DEFAULT) "!"
+UNSKIPPABLE  ITEM_ICON("\x4E")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Stor Bombväska" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du bära fler \n"
+"Bomber, up till hela " COLOR(YELLOW) "30" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x005A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x4F")  QUICKTEXT_ENABLE "Obtiveste o \n"
-COLOR(RED) "Saco de Bombas Enorme" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora, podes carregar até \n"
-COLOR(YELLOW) "40" COLOR(DEFAULT) " Bombas!"
+UNSKIPPABLE  ITEM_ICON("\x4F")  QUICKTEXT_ENABLE "Du fick den \n"
+COLOR(RED) "Största Bombväskan" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du bära upp till \n"
+COLOR(YELLOW) "40" COLOR(DEFAULT) " Bomber!"
 )
 
 DEFINE_MESSAGE(0x005B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x51")  QUICKTEXT_ENABLE "Encontraste as " COLOR(BLUE) "Manoplas de Prata" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Se tu as usasses, irias sentir\n"
-"o poder nos teus braços, o poder\n"
-"de pegar em coisas grandes com " COLOR(BLUE) "[A]" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x51") "Mas estas Manoplas não servem\n"
-"a uma criança... E tu prometeste\n"
-"dá-las à " COLOR(RED) "Nabooru" COLOR(DEFAULT) ". Deves manter\n"
-"a tua palavra..."
+UNSKIPPABLE  ITEM_ICON("\x51")  QUICKTEXT_ENABLE "Du hittade " COLOR(BLUE) "Silverhandskarna" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Då du har dem på dig, så känner\n"
+"du kraften i dina armar att \n"
+"orka lyfta stora saker " COLOR(BLUE) "[A]" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x51") "Men, dessa handskar passar inte\n"
+"ett barn... Dessutom så lovade du\n"
+"att ge dem till " COLOR(RED) "Nabooru" COLOR(DEFAULT) ". Du borde\n"
+"stå vid ditt ord..."
 )
 
 DEFINE_MESSAGE(0x005C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x52")  QUICKTEXT_ENABLE "Encontraste as " COLOR(BLUE) "Manoplas de Ouro" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Tu sentes ainda mais poder a\n"
-"circular nos teus braços!\n"
-"Pega com " COLOR(BLUE) "[A]" COLOR(DEFAULT) "\n, levanta tudo o que puderes!"
+UNSKIPPABLE  ITEM_ICON("\x52")  QUICKTEXT_ENABLE "Du hittade de " COLOR(BLUE) "Gyllene Handskarna" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du kan till och med känna mer\n"
+"kraft strömma genom dina armar!\n"
+"Greppa tag med " COLOR(BLUE) "[A] " COLOR(DEFAULT) "och lyft upp saker!"
 )
 
 DEFINE_MESSAGE(0x005D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x1C")  QUICKTEXT_ENABLE "Apanhaste um" COLOR(LIGHTBLUE) "Fogo Azul" COLOR(DEFAULT) "\n"
-"num frasco!" QUICKTEXT_DISABLE "\n"
-"Podes usar esta\n"
-"bela chama com " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) "," COLOR(YELLOW) " [C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "."
+ITEM_ICON("\x1C")  QUICKTEXT_ENABLE "Du stoppade en " COLOR(LIGHTBLUE) "Blå Eld" COLOR(DEFAULT) "\n"
+"in i Flaskan!" QUICKTEXT_DISABLE "\n"
+"Detta här en häftig flamma som du kan\n"
+"använda med " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) "," COLOR(YELLOW) " [C-Down]" COLOR(DEFAULT) " eller" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x005E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x56")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Carteira de Adulto" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Os adultos podem carregar montes\n"
-"de dinheiro. Agora podes levar \n"
-"até " COLOR(YELLOW) "200" COLOR(DEFAULT) " " COLOR(YELLOW) "Rupees" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x56")  QUICKTEXT_ENABLE "Du fick en " COLOR(BLUE) "Vuxen's Plånbok" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Vuxna får lov att ha mycket pengar \n"
+"på sig. Nu så kan du bära \n"
+"upp till " COLOR(YELLOW) "200" COLOR(DEFAULT) " " COLOR(YELLOW) "Rupees" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x005F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x57")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Carteira de Gigante" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Mas que grande carteira! Agora \n"
-"podes levar até " COLOR(YELLOW) "500" COLOR(DEFAULT) " " COLOR(YELLOW) "Rupees" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x57")  QUICKTEXT_ENABLE "Du fick en " COLOR(BLUE) "Jätte's Plånbok" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Vilken enorm plånbok! Nu kan \n"
+"du bära upp till " COLOR(YELLOW) "500" COLOR(DEFAULT) " " COLOR(YELLOW) "Rupees" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0060, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x77")  QUICKTEXT_ENABLE "Encontraste uma " COLOR(RED) "Chave Pequena" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Esta chave abre uma porta \n"
-"trancada. Só podes usá-la\n"
-"nesta masmorra."
+ITEM_ICON("\x77")  QUICKTEXT_ENABLE "Du hittade en " COLOR(RED) "Liten Nyckel" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här nyckeln kan öppna en låst \n"
+"dörr. Du kan endast använda den\n"
+"i det här området."
 )
 
 DEFINE_MESSAGE(0x0061, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombchu  (20 unidades)  180 Rupees\n"
-COLOR(DEFAULT) "Parece um ratinho de brincar, mas\n"
-"é uma bomba-relógio automática!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bombchu  (20 Stycken)  180 Rupees\n"
+COLOR(DEFAULT) "Det ser ut som en leksaksmus, men\n"
+"är i själva verket en självgående tidsinställd\n"
+"bomb!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0062, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Poção Vermelha   40 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Röd Brygd    40 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0063, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Poção Vermelha   50 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Röd Brygd    50 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0064, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Poção Vermelha   40 Rupees\n"
-COLOR(DEFAULT) "Se beberes isto, irás\n"
-"recuperar a tua vida.\n"
-"É uma dose única." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Röd Brygd    40 Rupees\n"
+COLOR(DEFAULT) "Om du dricker denna, så kommer du\n"
+"att återhämta din livsenergi.\n"
+"Detta är en enstaka dos." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0065, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Poção Vermelha   50 Rupees\n"
-COLOR(DEFAULT) "Se beberes isto, irás\n"
-"recuperar a tua vida.\n"
-"É uma dose única." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Röd Brygd    50 Rupees\n"
+COLOR(DEFAULT) "Om du dricker denna, så kommer du\n"
+"att återhämta din livsenergi.\n"
+"Detta är en enstaka dos." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0066, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x76")  QUICKTEXT_ENABLE "Encontraste o " COLOR(RED) "Mapa da Masmorra" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Pressiona " COLOR(RED) "START " COLOR(DEFAULT) ", vai aos \n"
-"Ecrãs e olha para o\n"
-COLOR(RED) "Ecrã do Mapa" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x76")  COLOR(BLUE) "Salas azuis" COLOR(DEFAULT) " são sítios \n"
-"que já visitaste. \n"
-"A tua localização atual é \n"
-"a " COLOR(LIGHTBLUE) "sala a piscar" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x76") "Move o " COLOR(LIGHTBLUE) "[Control-Pad] para cima e para baixo\n" COLOR(DEFAULT)
-"para selecionar um andar."
+ITEM_ICON("\x76")  QUICKTEXT_ENABLE "Du fann en " COLOR(RED) "Områdeskarta" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Tryck " COLOR(RED) "START " COLOR(DEFAULT) "För att komma in i \n"
+"Skärmval och titta sedan på\n"
+COLOR(RED) "Kartskärmen" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x76")  COLOR(BLUE) "Blå kammare" COLOR(DEFAULT) " är platser \n"
+"du inte har besökt tidigare. \n"
+"Din nuvarande plats är \n"
+"det " COLOR(LIGHTBLUE) "blinkande rummet" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x76") "Rör " COLOR(LIGHTBLUE) "[Control-Pad] upp och ned" COLOR(DEFAULT) " för att \n"
+"för att välja våning."
 )
 
 DEFINE_MESSAGE(0x0067, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x75")  QUICKTEXT_ENABLE "Encontraste a " COLOR(RED) "Bússola" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes ver a localização\n"
-"de todas as coisas escondidas\n"
-"nesta masmorra!"
+ITEM_ICON("\x75")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Kompassen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du se vart många\n"
+"dolda ting är placerade i den här\n"
+"platsen!"
 )
 
 DEFINE_MESSAGE(0x0068, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x6F")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(RED) "Pedra da Agonia" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Se equipares um " COLOR(LIGHTBLUE) "Rumble Pak" COLOR(DEFAULT) ", ela\n"
-"irá reagir a...segredos próximos."
+UNSKIPPABLE  ITEM_ICON("\x6F")  QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "Smärtan's Sten" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Om du kopplar in en " COLOR(LIGHTBLUE) "Rumble Pak" COLOR(DEFAULT) ", så\n"
+"reagerar den då hemligheter är i närheten."
 )
 
 DEFINE_MESSAGE(0x0069, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x23")  QUICKTEXT_ENABLE "Recebeste uma " COLOR(RED) "Carta da Zelda" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Uau! Esta carta tem o autógrafo\n"
-"da Princesa Zelda! \n Seleciona-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n"
-"e mostra-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x23") "No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-la no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "or " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ",\n"
-"e usar esse " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para a\n"
-"mostrares a pessoas."
+UNSKIPPABLE  ITEM_ICON("\x23")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Zelda's Brev" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Wow! Det här brevet har Prinsessan\n"
+"Zelda's autograf! Sätt det på " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n"
+"och visa upp den med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x23") "På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"du kan placera det på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "eller " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ",\n"
+"och sedan använda det med " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att visa upp\n"
+"det för folk."
 )
 
 DEFINE_MESSAGE(0x006A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bem-vindo! Como posso ajudar?" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Välkommen! Hur kan jag stå till tjänst?" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Quero comprar\n"
-"Estou só a ver" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Jag vill handla\n"
+"Bara tittar" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x006B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Gostarias de comprar algo\n"
-"mais?" QUICKTEXT_DISABLE "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+QUICKTEXT_ENABLE "Vill du köpa någonting\n"
+"annat?" QUICKTEXT_DISABLE "\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x006C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x49")  QUICKTEXT_ENABLE "O teu " COLOR(RED) "Saco de Balas de Sementes Deku \n"
-COLOR(DEFAULT) "cresceu!" QUICKTEXT_DISABLE "\n"
-"Agora podes levar mais balas!\n"
-"Este saco pode carregar " COLOR(YELLOW) "50" COLOR(RED) " " COLOR(DEFAULT) "balas!"
+ITEM_ICON("\x49")  QUICKTEXT_ENABLE "Din " COLOR(RED) "Dekufrö-kulpåse \n"
+COLOR(DEFAULT) "har blivit större!" QUICKTEXT_DISABLE "\n"
+"Nu kan du bära fler kulor!\n"
+"Den här väska kan bära upp till " COLOR(YELLOW) "50" COLOR(RED) " " COLOR(DEFAULT) "kulor!"
 )
 
 DEFINE_MESSAGE(0x006D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Abre o baú e...Surpresa!\n"
-"Se encontrares uma chave dentro, \n"
-"poderás avançar. Esquerda ou\n"
-"direita--tenta a tua sorte!" BOX_BREAK COLOR(RED) "10 Rupees " COLOR(DEFAULT) "para jogar. Queres \n"
-"tentar?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+"Öppna kistan och...Överraskning!\n"
+"Om du hittar en nyckel inuti, Så får\n"
+"möjlighet att fortsätta. Vänster eller\n"
+"höger--testa lyckan!" BOX_BREAK COLOR(RED) "10 Rupees " COLOR(DEFAULT) "för att spela. Vill du göra \n"
+"ett försök?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x006E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Excelente! És um grande jogador!"
+"Kanon! Du är en riktig hasardspelare!"
 )
 
 DEFINE_MESSAGE(0x006F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(ADJUSTABLE) "Rupee Verde" COLOR(DEFAULT) "!\n"
-"Vale " COLOR(ADJUSTABLE) "um Rupee" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Du fick en " COLOR(ADJUSTABLE) "Grön Rupee" COLOR(DEFAULT) "!\n"
+"Det är " COLOR(ADJUSTABLE) "en Rupee" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0070, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x04")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(RED) "Flecha de Fogo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Usa-a no " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "e as tuas flechas\n"
-"serão energizadas! Se acertares\n"
-"no teu alvo, ele irá arder."
+UNSKIPPABLE  ITEM_ICON("\x04")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Eldpilen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Sätt den på " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "så kommer dina pilar\n"
+"att få kraften! Om du träffar\n"
+"ditt mål, så kommer det att börja brinna."
 )
 
 DEFINE_MESSAGE(0x0071, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0C")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Flecha de Gelo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Usa-a no " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "e as tuas flechas\n"
-"serão energizadas! Se acertares\n"
-"no teu alvo, ele irá congelar." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0C") "Esta magia de flecha é dada\n"
-"apenas aos que completam o \n"
-"duro treino das Gerudo,\n"
-"então usa-a com orgulho!"
+UNSKIPPABLE  ITEM_ICON("\x0C")  QUICKTEXT_ENABLE "Du fick " COLOR(BLUE) "Ispilen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Sätt den på " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "så kommer dina pilar\n"
+"att få kraften! Om du träffar \n"
+"ditt mål, så kommer det att frysa." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0C") "Den här pilmagin tillägnas\n"
+"endast de som klarar att fullfölja \n"
+"Gerudostammen's tuffa träning,\n"
+"så använd den med stolthet!"
 )
 
 DEFINE_MESSAGE(0x0072, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x12")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(LIGHTBLUE) "Flecha de Luz" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Usa-a no " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "e as tuas flechas\n"
-"serão energizadas! A luz da justiça\n"
-"irá punir o mal!"
+UNSKIPPABLE  ITEM_ICON("\x12")  QUICKTEXT_ENABLE "Du fick " COLOR(LIGHTBLUE) "Ljuspilen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Sätt den på " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "så kommer dina pilar\n"
+"att få kraften! Rättvisan's ljus\n"
+"kommer att besegra all ondska!"
 )
 
 DEFINE_MESSAGE(0x0073, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x28") "Aprendeste o\n"
-SHIFT("\x2F")  COLOR(ADJUSTABLE) "Minueto da Floresta" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x28") "Du har lärt dig \n"
+SHIFT("\x2F")  COLOR(ADJUSTABLE) "Skogs-Menuetten" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0074, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x28") "Aprendeste o\n"
-SHIFT("\x37")  COLOR(RED) "Bolero do Fogo" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x28") "Du har lärt dig \n"
+SHIFT("\x37")  COLOR(RED) "Eld's-Bolero" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0075, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x28") "Aprendeste a\n"
-SHIFT("\x29")  COLOR(BLUE) "Serenata da Água" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x28") "Du har lärt dig \n"
+SHIFT("\x29")  COLOR(BLUE) "Vatten-Serenaden" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0076, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x28") "Aprendeste o\n"
-SHIFT("\x2D")  COLOR(YELLOW) "Réquiem do Espírito" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x28") "Du har lärt dig \n"
+SHIFT("\x2D")  COLOR(YELLOW) "Själen's Klagosång" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0077, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x28") "Aprendeste o\n"
-SHIFT("\x28")  COLOR(PURPLE) "Noturno das Sombras" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x28") "Du har lärt dig \n"
+SHIFT("\x28")  COLOR(PURPLE) "Skuggan's Nocturne" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0078, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x28") "Aprendeste o\n"
-SHIFT("\x32")  COLOR(LIGHTBLUE) "Prelúdio da Luz" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x28") "Du har lärt dig \n"
+SHIFT("\x32")  COLOR(LIGHTBLUE) "Ljuset's Preludium" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0079, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x50")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(RED) "Bracelete Goron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes pegar em Flores \n"
-"Bomba. Põe-te à frente de uma\n"
-"e usa " COLOR(BLUE) "[A]" COLOR(DEFAULT) " para levantá-la!"
+UNSKIPPABLE  ITEM_ICON("\x50")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Goron's Armband" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du rycka upp \n"
+"Bomb-Blommor. Stå vid sidan om en och\n"
+"använd " COLOR(BLUE) "[A]" COLOR(DEFAULT) " för att rycka upp den!"
 )
 
 DEFINE_MESSAGE(0x007A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x1D")  QUICKTEXT_ENABLE "Apanhaste um " COLOR(RED) "Inseto " COLOR(DEFAULT) "num frasco!" QUICKTEXT_DISABLE "\n"
-"Podes soltá-lo ao pressionar\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) ". Este tipo de inseto prefere\n"
-"viver em pequenos buracos no solo."
+ITEM_ICON("\x1D")  QUICKTEXT_ENABLE "Du stoppade ett " COLOR(RED) "Kryp " COLOR(DEFAULT) "i flaskan!" QUICKTEXT_DISABLE "\n"
+"Du kan släppa lös den genom att trycka\n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) ". Denna typen utav kryp tycker om att\n"
+"leva i små hål i marken."
 )
 
 DEFINE_MESSAGE(0x007B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x70")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(RED) "Cartão de Membro \n"
-"Gerudo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes entrar no Campo de\n"
-"Treino Gerudo no seu esconderijo."
+UNSKIPPABLE  ITEM_ICON("\x70")  QUICKTEXT_ENABLE "Du har fått " COLOR(RED) "Gerudo's \n"
+"Medlemskort" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du har nu tillträde till Gerudo's\n"
+"träningsområde i deras gömställe."
 )
 
 DEFINE_MESSAGE(0x007C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombas  10 unidades  50 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bomber  10 stycken  50 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x007D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Flechas  50 unidades  90 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Pilar  50 stycken  90 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x007E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Peixe   200 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Fisk   200 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x007F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Nozes Deku   5 unidades   15 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Dekunötter   5 stycken   15 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0080, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x6C")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(ADJUSTABLE) "Esmeralda Kokiri" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Esta é a Pedra Espiritual da \n"
-"Floresta, agora confiada a ti \n"
-"pela Grande Árvore Deku."
+UNSKIPPABLE  ITEM_ICON("\x6C")  QUICKTEXT_ENABLE "Du fick " COLOR(ADJUSTABLE) "Kokiri's Smaragd" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det här är Skogen's Själasten \n"
+"som hädanefter har anförtrotts \n"
+"dig utav det Stora Dekuträdet."
 )
 
 DEFINE_MESSAGE(0x0081, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x6D")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(RED) "Ruby Goron" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Esta é a Pedra Espiritual do \n"
-"Fogo transmitida pelos Gorons!"
+UNSKIPPABLE  ITEM_ICON("\x6D")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Goron's Rubin" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det här är Elden's själasten som \n"
+"Goronstammen nu har anförtrott dig!"
 )
 
 DEFINE_MESSAGE(0x0082, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x6E")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Safira Zora" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Esta é a Pedra Espiritual da \n"
-"Água transmitida pelos\n"
-"Zoras!"
+UNSKIPPABLE  ITEM_ICON("\x6E")  QUICKTEXT_ENABLE "Du fick " COLOR(BLUE) "Zora's Safir" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det här är Vattnet's Själasten som\n"
+"Zorastammen nu har anförtrott dig!"
 )
 
 DEFINE_MESSAGE(0x0083, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Vai comprando ao mexer o \n"
-COLOR(LIGHTBLUE) "[Control-Pad] " COLOR(DEFAULT) "para a esquerda e direita.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Falar com o dono\n"
-"Sair" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Handla genom att flytta \n"
+COLOR(LIGHTBLUE) "[Control-Pad] " COLOR(DEFAULT) "vänster eller höger.\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Tala med ägaren\n"
+"Avsluta" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
+
 DEFINE_MESSAGE(0x0084, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Muito obrigado!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE "Tack så mycket!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0085, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Não tens Rupees suficientes!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE "Du har inte tillräckligt med Rupees!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0086, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Não podes obter isto agora." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE "Du kan inte få det nu." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0087, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Nozes Deku   10 unidades  30 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Dekunötter   10 stycken  30 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0088, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Galho Deku  1 unidade   10 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Dekukäpp  1 styck   10 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0089, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Escudo Deku   40 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Dekusköld   40 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x008A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Flecha   10 unidades   20 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Pilar   10 stycken   20 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x008B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bomba   5 unidades   25 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bomber   5 stycken   25 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x008C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombchu  10 unidades   100 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bombchu  10 stycken   100 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x008D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Não podes usar um Poe grande aqui!\n"
-"Vende-o ao homem no portão da Vila\n"
-"do Castelo de Hyrule!"
+"Du kan inte använda en Stor-Poe här!\n"
+"Sälj den till mannen vid Slottet\n"
+"Hyrule's portar!"
 )
 
 DEFINE_MESSAGE(0x008E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Poção Vermelha   30 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Röd Brygd   30 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x008F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Poção Verde   30 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Grön Brygd   30 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0090, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Agora podes apanhar \n"
-"vários " COLOR(RED) "Galhos Deku" COLOR(DEFAULT) "!\n"
-"Podes levar até " COLOR(YELLOW) "20" COLOR(DEFAULT) " unidades!" QUICKTEXT_DISABLE
+UNSKIPPABLE  ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Nu kan du samla på dig \n"
+"ännu fler " COLOR(RED) "Dekukäppar" COLOR(DEFAULT) "!\n"
+"Du kan nu bära upp till " COLOR(YELLOW) "20" COLOR(DEFAULT) " stycken!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0091, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Agora podes apanhar \n"
-"ainda mais " COLOR(RED) "Galhos Deku" COLOR(DEFAULT) "!\n"
-"Podes levar até " COLOR(YELLOW) "30" COLOR(DEFAULT) " unidades!" QUICKTEXT_DISABLE
+UNSKIPPABLE  ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Nu kan du samla på dig \n"
+"ännu fler " COLOR(RED) "Dekukäppar" COLOR(DEFAULT) "!\n"
+"Du kan nu bära upp till " COLOR(YELLOW) "30" COLOR(DEFAULT) " stycken!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0092, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Escudo Hyliano   80 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Hyliansk Sköld   80 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0093, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Túnica Goron   200 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Gorontunika   200 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0094, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Túnica Zora   300 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Zoratunika   300 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0095, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Coração   10 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Återhämtningshjärta   10 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0096, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Desculpa...não te posso vender isto\n"
-"a não ser que tenhas um frasco \n"
-"para o colocar." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE "Jag är ledsen...men jag kan inte sälja den till\n"
+"dig så länge du inte har en flaska att \n"
+"stoppa den i." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0097, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x20")  QUICKTEXT_ENABLE "Apanhaste um " COLOR(RED) "Poe " COLOR(DEFAULT) "num frasco!" QUICKTEXT_DISABLE "\n"
-"Algo bom poderá acontecer!"
+ITEM_ICON("\x20")  QUICKTEXT_ENABLE "Du fångade en " COLOR(RED) "Poe " COLOR(DEFAULT) "i din flaska!" QUICKTEXT_DISABLE "\n"
+"Någonting bra kanske kan hända nu!"
 )
 
 DEFINE_MESSAGE(0x0098, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x1A")  QUICKTEXT_ENABLE "Obtiveste " COLOR(RED) "Leite Lon Lon" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Este leite é bem nutritivo!\n"
-"Usa-o com " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para recuperar \n"
-"vida!" BOX_BREAK ITEM_ICON("\x1A") "Irás recuperar " COLOR(RED) "cinco corações" COLOR(DEFAULT) "\n"
-"por dose. Há duas doses por frasco.\n"
-BOX_BREAK ITEM_ICON("\x1A") "No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ", podes\n"
-"selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "ou " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ",\n"
-"e usar esse " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para beber.\n"
+ITEM_ICON("\x1A")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Lon Lon-Mjölk" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här mjölken är väldigt näringsrik!\n"
+"Använd den med " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att återhämta din \n"
+"livsenergi!" BOX_BREAK ITEM_ICON("\x1A") "Du återställer " COLOR(RED) "fem hjärtan" COLOR(DEFAULT) "\n"
+"per slurk. Det finns två\n"
+"slurkar per flaska." BOX_BREAK ITEM_ICON("\x1A") "På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "eller " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ",\n"
+"använd sedan med " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att ta \n"
+"en slurk."
 )
 
 DEFINE_MESSAGE(0x0099, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x1B")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Frasco Vazio" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Põe algo dentro e \n"
-"pressiona " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para usá-lo... Quê?\n"
-"Há algo dentro!?"
+UNSKIPPABLE  ITEM_ICON("\x1B")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Tom Flaska" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Stoppa någonting i den och \n"
+"tryck " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att använda den... Va?\n"
+"Det finns redan något där i!?"
 )
 
 DEFINE_MESSAGE(0x009A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x21")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Ovo Estranho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Parece que algo se está a mexer\n"
-"dentro! Seleciona-o no " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "e vê o que \n"
-"acontece!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x21") "No " COLOR(YELLOW) "Ecrã de Seleção de Item" COLOR(DEFAULT) ",\n"
-"podes selecioná-lo no " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "ou " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ",\n"
-"e pressionar esse " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para o usar."
+UNSKIPPABLE  ITEM_ICON("\x21")  QUICKTEXT_ENABLE "Du fick ett " COLOR(RED) "Konstigt Ägg" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det känns som att det är någonting som\n"
+"rör sig på insidan! Placera den på " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "och \n"
+"se vad som händer!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x21") "På " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"så kan du placera den på " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "eller " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ",\n"
+"tryck sedan " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "för att använda."
 )
 
 DEFINE_MESSAGE(0x009B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Flechas   30 unidades   60 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Pilar   30 stycken   60 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x009C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"O meu produto mais vendido é o \n"
-COLOR(LIGHTBLUE) "Escudo Hyliano" COLOR(DEFAULT) ", mas ele deve ser \n"
-"muito grande para ti, miúdo." EVENT
+"Min nuvarande storsäljare är den\n"
+COLOR(LIGHTBLUE) "Hylianska Skölden" COLOR(DEFAULT) ", men det finns risk för att \n"
+"den är för stor för dig, grabben." EVENT
 )
 
 DEFINE_MESSAGE(0x009D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Nós viemos da vila do castelo.\n"
-"Eu sei que os tempos são difíceis,\n"
-"mas eu espero que tu venhas a ser \n"
-"nosso cliente habitual!" EVENT
+"Vi flyttade hit från Slottstaden. \n"
+"Jag vet att det är tuffa tider, men\n"
+"Jag hoppas på att du kommer att bli en \n"
+"stamkund hos oss!" EVENT
 )
 
 DEFINE_MESSAGE(0x009E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  SHIFT("\x47") "Bem-vindo!" QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x47") "Välkommen!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x009F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Escudo Deku   40 Rupees\n"
-COLOR(DEFAULT) "Quando equipado, podes defender \n"
-"com " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) ". Se pegar fogo, ele\n"
-"irá queimar!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Dekusköld   40 Rupees\n"
+COLOR(DEFAULT) "Då du har den i handen så kan du försvara dig \n"
+"med " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) ". Eld får den att börja\n"
+"brinna!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Flecha   (10 unidades)   20 Rupees\n"
-COLOR(DEFAULT) "Precisas de um arco para as usar.\n"
-"Não as podes comprar a não ser\n"
-"que tenhas um arco." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Pilar   (10 stycken)   20 Rupees\n"
+COLOR(DEFAULT) "Du behöver en pilbåge för att skjuta dem.\n"
+"Du kan inte köpa dem så länge du inte\n"
+"har en pilbåge." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Galho Deku  (1 unidade)  10 Rupees\n"
-COLOR(DEFAULT) "Um longo ramo colhido da\n"
-"Grande Árvore Deku. Podes usá-lo\n"
-"como uma arma, mas ele irá partir." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Dekukäpp  (1 styck)  10 Rupees\n"
+COLOR(DEFAULT) "En lång gren från det\n"
+"Stora Dekuträder. Du kan använda den som\n"
+"ett vapen, men den kommer att gå sönder." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Nozes Deku  (10 unidades) 30 Rupees\n"
-COLOR(DEFAULT) "Atira-as para atordoar inimigos.\n"
-"Podes apenas comprar a quantidade\n"
-"que consegues levar." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Dekunötter  (10 stycken) 30 Rupees\n"
+COLOR(DEFAULT) "Kasta för att bedöva dina fiender.\n"
+"Du kan bara köpa så många\n"
+"du faktiskt kan bära." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (5 unidades)   25 Rupees\n"
-COLOR(DEFAULT) "Tira-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a atirar. Apenas podes comprar\n"
-"se tiveres um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bomber   (5 stycken)   25 Rupees\n"
+COLOR(DEFAULT) "Ta ut dem med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " för att kasta. Du kan endast köpa\n"
+"dem om du har en Bombväska." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A4, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3B")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(ADJUSTABLE) "Espada Kokiri" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"No " COLOR(BLUE) "Ecrã de Equipamento" COLOR(DEFAULT) ",\n"
-"seleciona-a com o cursor e\n"
-"equipa-a com " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x3B") "Este é um tesouro escondido\n"
-"dos Kokiri, mas tu podes ficar com\n"
-"ela por um bocado. Lembra-te de \n"
-"praticar com ela antes de lutar!"
+UNSKIPPABLE  ITEM_ICON("\x3B")  QUICKTEXT_ENABLE "Du fick " COLOR(ADJUSTABLE) "Kokiri-Svärdet" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"På " COLOR(BLUE) "Föremåls-skärmen" COLOR(DEFAULT) ",\n"
+"välj det med markören och\n"
+"beväpna dig med " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x3B") "Detta är en utav Kokiri's\n"
+"dolda skatter, men du kan låna det\n"
+"ett tag. Se till att öva \n"
+"med det före du slåss på riktigt!"
 )
 
 DEFINE_MESSAGE(0x00A5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Poção Vermelha   30 Rupees\n"
-COLOR(DEFAULT) "Bebe para recuperar a tua vida.\n"
-"É uma dose única." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Röd Brygd   30 Rupees\n"
+COLOR(DEFAULT) "Drick för att återhåmta din livsenergi.\n"
+"Innehåller bara en dos." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Green Potion   30 Rupees\n"
-COLOR(DEFAULT) "Bebe para recuperar o teu poder\n"
-"de magia. É uma dose única." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Grön Nrygd   30 Rupees\n"
+COLOR(DEFAULT) "Drick för att återhåmta din magikraft.\n"
+"Innehåller bara en dos." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00A7, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Agora podes levar\n"
-"várias " COLOR(RED) "Nozes Deku" COLOR(DEFAULT) "!\n"
-"Podes carregar até " COLOR(YELLOW) "30" COLOR(DEFAULT) " nozes!" QUICKTEXT_DISABLE
+UNSKIPPABLE  ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Nu kan du bära\n"
+"fler " COLOR(RED) "Dekunötter" COLOR(DEFAULT) "!\n"
+"Du kan bära upp till " COLOR(YELLOW) "30" COLOR(DEFAULT) " nötter!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00A8, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Agora podes levar ainda\n"
-"mais " COLOR(RED) "Nozes Deku" COLOR(DEFAULT) "! Podes carregar\n"
-"até " COLOR(YELLOW) "40" COLOR(RED) " " COLOR(DEFAULT) "nozes!" QUICKTEXT_DISABLE " "
+UNSKIPPABLE  ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Nu kan du bära\n"
+"ännu fler " COLOR(RED) "Dekunötter" COLOR(DEFAULT) "! Du kan bära\n"
+"upp till " COLOR(YELLOW) "40" COLOR(RED) " " COLOR(DEFAULT) "nötter!" QUICKTEXT_DISABLE " "
 )
 
 DEFINE_MESSAGE(0x00A9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Escudo Hyliano   80 Rupees\n"
-COLOR(DEFAULT) "Este é um escudo grande e pesado \n"
-"tal como os dos Soldados Hylianos.\n"
-"Resiste até a ataques de chamas!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Hyliansk Sköld   80 Rupees\n"
+COLOR(DEFAULT) "Detta är en stor, tung sköld \n"
+"precis som de Hylianska riddarna använder.\n"
+"Den klarar till och med av eldattacker!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Túnica Goron   200 Rupees\n"
-COLOR(DEFAULT) "Uma túnica feita por Gorons.\n"
-"Tamanho adulto. Protege-te do dano\n"
-"do calor." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Gorontunika   200 Rupees\n"
+COLOR(DEFAULT) "En tunika skapad utav Gorons.\n"
+"Vuxenstorlek. Skyddar dig från \n"
+"värmeskador." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00AB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Túnica Zora   300 Rupees\n"
-COLOR(DEFAULT) "Uma túnica feita por Zoras.\n"
-"Tamanho adulto. Impede-te de te\n"
-"afogares." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Zoratunika   300 Rupees\n"
+COLOR(DEFAULT) "En tunika skapad utav Zoras. Vuxenstorlek.\n"
+"Skyddar dig från att drunkna\n"
+"under vatten." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00AC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Coração   10 Rupees\n"
-COLOR(DEFAULT) "Irá encher instantaneamente um\n"
-"Recipiente de Coração." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Återhämtningshjärta   10 Rupees\n"
+COLOR(DEFAULT) "Återställer direkt en utav dina\n"
+"hjärtbehållare." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00AD, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x05")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(RED) "Fogo de Din" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A sua bola de fogo engole tudo!\n"
-"Podes usar a sua magia de ataque\n"
-"com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x05")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Din's Eld" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Dess eldboll uppslukar allt!\n"
+"Använd den här magin\n"
+"med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x00AE, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0D")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(ADJUSTABLE) "Vento de Farore" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Podes usar a sua magia de salto \n"
-"com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ". Salta quando estiveres \n"
-"em perigo!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0D") "Irás teleportar-te para o " COLOR(ADJUSTABLE) "Ponto\n"
-"de Salto" COLOR(DEFAULT) ". Quando usares a magia\n"
-"pela primeira vez, irás criar um\n"
-"Ponto de Salto." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0D") "Quando usares a magia \n"
-"de novo, podes anular o último\n"
-"Ponto de Salto que criaste\n"
-"ou saltar para esse ponto."
+UNSKIPPABLE  ITEM_ICON("\x0D")  QUICKTEXT_ENABLE "Du fick " COLOR(ADJUSTABLE) "Farore's Vind" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Den här warpmagin kan du använda \n"
+"med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ". Warpa då du är \n"
+"i fara!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0D") "Du kommer att teleporteras till " COLOR(ADJUSTABLE) " \n"
+"Warp-punkten" COLOR(DEFAULT) ". Då du först använder\n"
+"magin, så skapar du en \n"
+"Warp-punkt." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0D") "Då du använder magin \n"
+"igen, så kan du antingen avskingra\n"
+"Warp-punkten du skapade senast\n"
+"eller warpa till den."
 )
 
 DEFINE_MESSAGE(0x00AF, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x13")  QUICKTEXT_ENABLE "Obtiveste o " COLOR(BLUE) "Amor de Nayru" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Lança-o para criar uma poderosa\n"
-"barreira de proteção. Podes usar a \n"
-"sua magia protetora com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x13")  QUICKTEXT_ENABLE "Du fick " COLOR(BLUE) "Nayru's Kärlek" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Kasta den här för att skapa en\n"
+"skyddande barriär. Detta är en defensiv \n"
+"magi som du kan använda med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x00B0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Flechas  (50 pieces)  90 Rupees\n"
-COLOR(DEFAULT) "Dispara-as com um arco. Não podes\n"
-"comprá-las se não tiveres um arco." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Pilar  (50 stycken)  90 Rupees\n"
+COLOR(DEFAULT) "Skjut dessa med en pilbåge. Du kan inte\n"
+"köpa dem så länge du inte har en pilbåge." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00B1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombas  (10 unidades)  50 Rupees\n"
-COLOR(DEFAULT) "Tira-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a atirar. Não as podes comprar\n"
-"se não tiveres um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bomber  (10 stycken)  50 Rupees\n"
+COLOR(DEFAULT) "Ta ut dem med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " igen för att kasta. Du kan inte\n"
+"köpa dem utan en Bombsäck." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00B2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Nozes Deku  (5 unidades)  15 Rupees\n"
-COLOR(DEFAULT) "Atira-as para atordoar inimigos.\n"
-"Só podes carregar um número \n"
-"limitado delas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Dekunötter  (5 stycken)  15 Rupees\n"
+COLOR(DEFAULT) "Kasta dem för att bedöva fiender.\n"
+"Du kan endast bära ett begränsat \n"
+"antal utav dem." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00B3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Peixe   200 Rupees\n"
-COLOR(DEFAULT) "Acabado de apanhar, tão fresco!\n"
-"Podes guardá-lo num frasco." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Fisk   200 Rupees\n"
+COLOR(DEFAULT) "Precis fångad och så färsk!\n"
+"Du kan ha den i en flaska." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00B4, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Destruíste uma " COLOR(RED) "Skulltula de Ouro" COLOR(DEFAULT) ".\n"
-"Obtiveste um símbolo para provar \n"
-"que a destruíste!"
+"Du besegrade en " COLOR(RED) "Gyllene Dödskalltella" COLOR(DEFAULT) ".\n"
+"Du fick en amulett som bevis \n"
+"för att du har besgrat den!"
 )
 
 DEFINE_MESSAGE(0x00B5, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Destruíste uma " COLOR(RED) "Skulltula de Ouro" COLOR(DEFAULT) ".\n"
-"Obtiveste um símbolo para provar \n"
-"que a destruíste!"
+"Du besegrade en " COLOR(RED) "Gyllene Dödskalltella" COLOR(DEFAULT) ".\n"
+"Du fick en amulett som bevis \n"
+"för att du har besgrat den!"
 )
 
 DEFINE_MESSAGE(0x00B6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Espírito de Fada    50 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Fairy's Spirit    50 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não Comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
+"Don't buy" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00B7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Espírito de Fada   50 Rupees\n"
-COLOR(DEFAULT) "Precisas de um frasco vazio\n"
-"para a colocares. Não vás para uma \n"
-"batalha sem isto!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Älva's Själ   50 Rupees\n"
+COLOR(DEFAULT) "Du behöver en tom flaska att stoppa\n"
+"den i. Gå inte in i strid \n"
+"utan en!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00B8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Fogo Azul    300 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Blå Eld    300 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não Comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00B9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Fogo Azul   300 Rupees\n"
-COLOR(DEFAULT) "Precisas de um frasco vazio\n"
-"para o colocares. Usa-o para \n"
-"te sentires fresco." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Blå Eld   300 Rupees\n"
+COLOR(DEFAULT) "Du behöver en tom flaska att stoppa\n"
+"den i. Använd för att \n"
+"kyla ned dig." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00BA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Inseto Engarrafado   50 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Kryp i flaska   50 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não Comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00BB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Inseto Engarrafado    50 Rupees\n"
-COLOR(DEFAULT) "Precisas de um frasco vazio\n"
-"para o colocares. Parece apenas\n"
-"um inseto comum..." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Kryp i flaska    50 Rupees\n"
+COLOR(DEFAULT) "Du behöver en tom flaska att stoppa\n"
+"den i. Det ser ut som ett helt\n"
+"vanligt kryp..." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00BC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombchu  (10 unidades)  100 Rupees\n"
-COLOR(DEFAULT) "Parece um ratinho de brincar, mas\n"
-"é uma bomba-relógio automática!" QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bombchu  (10 stycken)  100 Rupees\n"
+COLOR(DEFAULT) "Det ser ut som en leksaksmus, men\n"
+"är i själva verket en självgående tidsinställd\n"
+"bomb!" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00BD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Estamos temporariamente sem\n"
-"stock desse artigo." COLOR(DEFAULT)  QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Den varan är tyvärr\n"
+"tillfälligt slut på lagret." COLOR(DEFAULT)  QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00BE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Então, pá! Estás muito velho para \n"
-"este jogo!" EVENT
+"Kom igen! Du är för gammal för \n"
+"det här spelet!" EVENT
 )
 
 DEFINE_MESSAGE(0x00BF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SHIFT("\x40") "Huh? Quê--!" BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x50") "A-ou!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x3E") "Um cliente!" QUICKTEXT_DISABLE  EVENT
+SHIFT("\x40") "Va? Vad i--!" BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x50") "Uh-oh!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x3E") "En kund!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x00C0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -1354,324 +1353,324 @@ SHIFT("\x39") "zzzzz...zzzzz..." EVENT
 )
 
 DEFINE_MESSAGE(0x00C1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Flechas   (30 unidades)   60 Rupees\n"
-COLOR(DEFAULT) "Precisas de um arco para as usar.\n"
-"Dispara-as até ficares sem elas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Pilar   (30 stycken)   60 Rupees\n"
+COLOR(DEFAULT) "Du behöver en pilbåge för att skjuta dem.\n"
+"Om du använder dem så tar de slut." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00C2, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Apanha quatro partes no total para\n"
-"obter outro Recipiente de Coração.\n"
-"Mais recipientes, mais vida!"
+ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Samla fyra bitar totalt för att få\n"
+"ytterligare en Hjärtbehållare. Fler\n"
+"behållare betyder mer livsenergi!"
 )
 
 DEFINE_MESSAGE(0x00C3, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Até agora, apanhaste duas \n"
-"partes. Com mais duas, \n"
-"irás ganhar mais vida!"
+ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du har hittills samlat ihop två \n"
+"bitar. Med två ytterligare bitar, \n"
+"så får du mer livsenergi!"
 )
 
 DEFINE_MESSAGE(0x00C4, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora tens três \n"
-"partes! Com mais uma, a tua \n"
-"vida irá ser aumentada!"
+ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du har nu samlat ihop tre \n"
+"bitar! Med ytterligare en bit så \n"
+"kommer din livsenergi att öka!"
 )
 
 DEFINE_MESSAGE(0x00C5, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Completaste outro Recipiente de\n"
-"Coração! A tua vida máxima\n"
-"aumentou!"
+ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du har nu färdigställt en hel\n"
+"Hjärtbehållare! Din maximala livsenergi\n"
+"har därmed ökat!"
 )
 
 DEFINE_MESSAGE(0x00C6, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x72")  QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Recipiente de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A tua vida máxima aumentou \n"
-"por um coração. A tua vida irá\n"
-"ser enchida por completo."
+ITEM_ICON("\x72")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbehållare" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Din maximala livsenergi har \n"
+"ökat med ett hjärta. Din totala\n"
+"livsenergi fylls upp."
 )
 
 DEFINE_MESSAGE(0x00C7, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x74")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(RED) "Chave do Chefe" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora podes entrar na \n"
-"sala onde o chefe se esconde."
+ITEM_ICON("\x74")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Bossnyckeln" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Nu kan du ta dig in i \n"
+"kammaren där bossen lurar."
 )
 
 DEFINE_MESSAGE(0x00C8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Não, não tens Rupees\n"
-"suficientes!" EVENT
+"Nej, du har inte tillräckligt med\n"
+"Rupees!" EVENT
 )
 
 DEFINE_MESSAGE(0x00C9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  SHIFT("\x24") "Tudo bem, acabaste!" QUICKTEXT_DISABLE "\n"
-"Por favor espera lá fora enquanto \n"
-"eu preparo o teu próximo desafio!" EVENT
+QUICKTEXT_ENABLE  SHIFT("\x24") "Okej, du är färdig!" QUICKTEXT_DISABLE "\n"
+"Var snäll och vänta utanför medan jag \n"
+"färdigställer nästa utmaning!" EVENT
 )
 
 DEFINE_MESSAGE(0x00CA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombas   5 unidades   35 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Bomber   5 stycken   35 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não Comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00CB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombas   (5 unidades)   35 Rupees\n"
-COLOR(DEFAULT) "Tira-a com " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e pressiona \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para a atirar. Não as podes comprar\n"
-"se não tiveres um saco de bombas." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Bomber   (5 stycken)   35 Rupees\n"
+COLOR(DEFAULT) "Ta ut dem med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och tryck \n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " igen för att kasta. Du kan inte\n"
+"köpa dem utan en bombväska." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00CC, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(BLUE) "Rupee Azul" COLOR(DEFAULT) "!\n"
-"Vale " COLOR(BLUE) "cinco Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Du fick en " COLOR(BLUE) "Blå Rupee" COLOR(DEFAULT) "!\n"
+"Det blir " COLOR(BLUE) "fem Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00CD, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x53")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Escama de Prata" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Salta para a água e pressiona \n"
-COLOR(BLUE) "[A]" COLOR(DEFAULT) ". Podes mergulhar mais fundo\n"
-"do que antes."
+UNSKIPPABLE  ITEM_ICON("\x53")  QUICKTEXT_ENABLE "Du fick " COLOR(BLUE) "Silverfjället" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Hoppa i vattnet och tryck \n"
+COLOR(BLUE) "[A]" COLOR(DEFAULT) ". Du kan nu dyka djupare\n"
+"än vad du kunde innan."
 )
 
 DEFINE_MESSAGE(0x00CE, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x54")  QUICKTEXT_ENABLE "Obtiveste a " COLOR(BLUE) "Escama de Ouro" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Salta para a água e pressiona \n"
-COLOR(BLUE) "[A]" COLOR(DEFAULT) ". Podes mergulhar muito mais\n"
-"fundo do que antes."
+UNSKIPPABLE  ITEM_ICON("\x54")  QUICKTEXT_ENABLE "Du fick " COLOR(BLUE) "Guldfjället" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Hoppa i vattnet och tryck \n"
+COLOR(BLUE) "[A]" COLOR(DEFAULT) ". Du kan nu dyka ännu djupare\n"
+"än vad du kunde innan!"
 )
 
 DEFINE_MESSAGE(0x00CF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Parece que este item não \n"
-"funciona aqui..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Det verkar som att detta föremålet inte \n"
+"fungerar här..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00D0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Não dá para abrir!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Det går inte att öppna!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00D1, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x14") "Aprendeste a " COLOR(ADJUSTABLE) "Canção da Saria" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x14") "Du har lärt dig " COLOR(ADJUSTABLE) "Saria's Visa" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00D2, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x11") "Aprendeste a " COLOR(RED) "Canção da Epona" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x11") "Du har lärt dig " COLOR(RED) "Epona's Visa" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00D3, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x0B") "Aprendeste a " COLOR(YELLOW) "Canção do Sol" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x0B") "Du har lärt dig " COLOR(YELLOW) "Solen's Visa" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00D4, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x15") "Aprendeste o " COLOR(BLUE) "Embalar da Zelda" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x15") "Du har lärt dig " COLOR(BLUE) "Zelda's Vaggvisa" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00D5, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x05") "Aprendeste a " COLOR(LIGHTBLUE) "Canção do Tempo" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x05") "Du har lärt dig " COLOR(LIGHTBLUE) "Tids-Visan" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00D6, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Aprendeste a " COLOR(PURPLE) "Canção das Tempestades" COLOR(DEFAULT) "!"
+UNSKIPPABLE "Du har lärt dig " COLOR(PURPLE) "Storm-Visan" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00D7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Bem-vindo " NAME "!\n"
-"Eu sou a Grande Fada do Poder!" BOX_BREAK UNSKIPPABLE "Dar-te-ei uma " COLOR(ADJUSTABLE) "técnica de\n"
-"espada" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Recebe-a agora!"
+UNSKIPPABLE "Välkommen " NAME "!\n"
+"Jag är Kraften's Stora Älva!" BOX_BREAK UNSKIPPABLE "Jag ska bevilja dig en " COLOR(ADJUSTABLE) "svärdsteknik\n"
+"" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Mottag den nu!"
 )
 
 DEFINE_MESSAGE(0x00D8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Bem-vindo " NAME "!\n"
-"Eu sou a Grande Fada da Sabedoria!" BOX_BREAK UNSKIPPABLE "Irei melhorar o teu " COLOR(ADJUSTABLE) "poder \n"
-"de magia" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Recebe-o agora!"
+UNSKIPPABLE "Välkommen " NAME "!\n"
+"Jag är Visdomen's Stora Älva!" BOX_BREAK UNSKIPPABLE "Jag ska förbättra din " COLOR(ADJUSTABLE) "magikraft\n"
+"" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Mottag den nu!"
 )
 
 DEFINE_MESSAGE(0x00D9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Bem-vindo " NAME "!\n"
-"Eu sou a Grande Fada da Coragem!" BOX_BREAK UNSKIPPABLE "Irei melhorar o teu \n"
-COLOR(LIGHTBLUE) "poder defensivo" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Recebe-o agora!"
+UNSKIPPABLE "Välkommen " NAME "!\n"
+"Jag är Modigheten's Stora Älva!" BOX_BREAK UNSKIPPABLE "Jag ska förbättra din \n"
+COLOR(LIGHTBLUE) "defensiva kraft" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Mottag den nu!"
 )
 
 DEFINE_MESSAGE(0x00DA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Quando estiveres exausto de uma\n"
-"batalha, por favor visita-me!" EVENT
+"Var snäll och besök mig igen,\n"
+"då du är trött efter strid!" EVENT
 )
 
 DEFINE_MESSAGE(0x00DB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Bem-vindo " NAME "!\n"
-"Irei curar as tuas feridas." EVENT
+"Välkommen " NAME "!\n"
+"Jag ska lindra dina sår." EVENT
 )
 
 DEFINE_MESSAGE(0x00DC, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x58")  QUICKTEXT_ENABLE "Obtiveste " COLOR(RED) "Sementes Deku" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Estas são sementes pequenas e duras\n"
-"que podes usar como balas\n"
-"para a tua Fisga."
+ITEM_ICON("\x58")  QUICKTEXT_ENABLE "Du fick " COLOR(RED) "Dekufrön" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Det här är små, hårda frön\n"
+"som du kan använda som kulor\n"
+"till din Slangbella."
 )
 
 DEFINE_MESSAGE(0x00DD, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  UNSKIPPABLE "Dominaste a técnica de espada\n"
-"secreta do " COLOR(RED) "Ataque Rotativo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Segura " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " para carregar a tua arma!\n"
-"Solta " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " para soltar uma onda\n"
-"de energia com a tua rotação!" BOX_BREAK UNSKIPPABLE "Se quiseres soltar energia\n"
-"sem carregar a tua arma, roda \n"
-COLOR(LIGHTBLUE) "[Control-Pad] apenas uma vez " COLOR(DEFAULT) "e pressiona " COLOR(ADJUSTABLE) "[B] " COLOR(DEFAULT) "para" COLOR(ADJUSTABLE) "\n"
-COLOR(DEFAULT) "um ataque rápido bem eficaz!"
+QUICKTEXT_ENABLE  UNSKIPPABLE "Du bemästrade den hemliga\n"
+"svärdstekniken " COLOR(RED) "Snurr-Attack" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Håll inne " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " för att ladda upp ditt vapen!\n"
+"Släpp " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " för att släppa lös en våg\n"
+"en våg utav snurrande energi!" BOX_BREAK UNSKIPPABLE "Om du vill släppa lös energin\n"
+"utan att ladda upp ditt vapen, så \n"
+COLOR(LIGHTBLUE) "rotera [Control-Pad] en gång " COLOR(DEFAULT) "och tryck " COLOR(ADJUSTABLE) "[B] " COLOR(DEFAULT) "för" COLOR(ADJUSTABLE) "\n"
+COLOR(DEFAULT) "a mycket kraftfull snabb snurr!"
 )
 
 DEFINE_MESSAGE(0x00DE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Sementes Deku 30 unidades 30 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Dekufrön 30 stycken 30 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
-"Não Comprar" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00DF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Semente Deku (30 unidades) 30 Rupees\n"
-COLOR(DEFAULT) "Podes usá-las como balas para\n"
-"a tua Fisga. Não as podes comprar \n"
-"se não tiveres uma Fisga." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "Dekufrön (30 stycken) 30 Rupees\n"
+COLOR(DEFAULT) "Du kan använda dem som kulor till\n"
+"din slangbella. Du kan inte köpa ut \n"
+"dem om du inte har en Slangbella." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00E0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Tu queres falar com a Saria, certo?\n"
+COLOR(LIGHTBLUE) "Du vill prata med Saria, eller?\n"
 COLOR(DEFAULT) "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Falar com a Saria\n"
-"Não" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Prata med Saria\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00E1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "A sério? Então tu queres falar \n"
-"comigo?\n"
-COLOR(DEFAULT)  TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Nähä? Men vill du prata \n"
+"med mig?\n"
+COLOR(DEFAULT)  TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00E2, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 SHIFT("\x3C")  NAME "...?\n"
-SHIFT("\x0D") "Sou eu, " COLOR(ADJUSTABLE) "Saria" COLOR(DEFAULT) ". Consegues ouvir-me?" EVENT
+SHIFT("\x0D") "Det är " COLOR(ADJUSTABLE) "Saria" COLOR(DEFAULT) ". Kan du höra mig?" EVENT
 )
 
 DEFINE_MESSAGE(0x00E3, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Queres falar com a Saria\n"
-"novamente?" COLOR(DEFAULT) "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Sim\n"
-"Não" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Vill du prata med Saria\n"
+"igen?" COLOR(DEFAULT) "\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x00E4, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "O teu " COLOR(ADJUSTABLE) "Contador de Magia" COLOR(DEFAULT) " foi melhorado!" QUICKTEXT_DISABLE
+UNSKIPPABLE  QUICKTEXT_ENABLE "Din " COLOR(ADJUSTABLE) "Magimätare" COLOR(DEFAULT) " har förbättrats!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00E5, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "O teu " COLOR(LIGHTBLUE) "poder defensivo" COLOR(DEFAULT) " foi melhorado!" QUICKTEXT_DISABLE
+UNSKIPPABLE  QUICKTEXT_ENABLE "Din " COLOR(LIGHTBLUE) "defensiva kraft" COLOR(DEFAULT) " har förbättrats!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00E6, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "Obtiveste um " COLOR(YELLOW) "maço de flechas" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
+UNSKIPPABLE  QUICKTEXT_ENABLE "Du fick en " COLOR(YELLOW) "bunt med pilar" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00E7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Quando carregas poder para um\n"
-"Ataque Rotativo, poder de magia irá\n"
-"ser consumido. Toma atenção ao teu\n"
-COLOR(ADJUSTABLE) "Contador de Magia" COLOR(DEFAULT) "verde!" BOX_BREAK UNSKIPPABLE "Ei, miúdo! Tu és um mensageiro\n"
-"da Família Real, não és?" BOX_BREAK UNSKIPPABLE "Para a próxima vez que estiveres\n"
-"por lá, deves passar por uma amiga\n"
-"minha que vive perto do\n"
-"Castelo de Hyrule." BOX_BREAK UNSKIPPABLE "Ela certamente te dará outro\n"
-"novo poder!"
+UNSKIPPABLE "Då du laddar upp kraft för en\n"
+"Snurr-Attack, så kommer magisk kraft att\n"
+"förbrukas. Håll ett öga på din\n"
+"gröna " COLOR(ADJUSTABLE) "Magimätare" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Hallå, pojke! Du är budbärare till\n"
+"den Kungliga familjen, eller hur?" BOX_BREAK UNSKIPPABLE "Nästa gång du är i deras\n"
+"trakter, så stanna till vid\n"
+"min vän som bor vid\n"
+"Slottet Hyrule." BOX_BREAK UNSKIPPABLE "Hon kommer garanterat att ge dig\n"
+"en ny kraft!"
 )
 
 DEFINE_MESSAGE(0x00E8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "O teu poder de magia foi \n"
-"melhorado! Agora tens o dobro\n"
-"do " COLOR(RED) "Poder de Magia" COLOR(DEFAULT) "!"
+UNSKIPPABLE "Din magiska kraft har blivit \n"
+"förbättrad! Nu har du dubbelt\n"
+"så mycket " COLOR(RED) "Magikraft" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x00E9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "O teu poder defensivo foi \n"
-"melhorado! Dano dado por inimigos \n"
-"será " COLOR(RED) "reduzido a metade" COLOR(DEFAULT) "."
+UNSKIPPABLE "Din defensiva kraft har blivit \n"
+"förbättrad! Skada som \n"
+"orsakas utav fiender " COLOR(RED) "kommer att halveras" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x00EA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Bem-vindo " NAME "!\n"
-"Eu sou a Grande Fada da Magia!" BOX_BREAK UNSKIPPABLE "Irei dar-te um " COLOR(RED) "feitiço mágico" COLOR(DEFAULT) ".\n"
-"Por favor aceita-o."
+UNSKIPPABLE "Välkommen " NAME "!\n"
+"Jag är magin's Stora älva!" BOX_BREAK UNSKIPPABLE "Jag ska ge dig en ny " COLOR(RED) "trollformel" COLOR(DEFAULT) ".\n"
+"Var snäll och ta emot den."
 )
 
 DEFINE_MESSAGE(0x00EB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Desculpa, mas ainda não podes pedir\n"
-"essa máscara emprestada." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE "Jag är ledsen, men du kan inte låna\n"
+"den här masken ännu." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x00EC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Podes usar o " COLOR(RED) "Fogo de Din" COLOR(DEFAULT) " tanto para\n"
-"atacar como para queimar coisas!"
+UNSKIPPABLE "Du kan använda " COLOR(RED) "Din's Fire" COLOR(DEFAULT) " inte enbart för att\n"
+"attackera utan även för att bränna saker!"
 )
 
 DEFINE_MESSAGE(0x00ED, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Lembra-te, só podes usar o " COLOR(ADJUSTABLE) "Vento\n"
-"de Farore" COLOR(DEFAULT) " em masmorras que tenham um\n"
-"mapa escondido, OK?"
+UNSKIPPABLE "Kom ihåg, du kan endast använda " COLOR(ADJUSTABLE) "Farore's\n"
+"Vind" COLOR(DEFAULT) " i områden\n"
+"där det finns en gömd karta, okej?"
 )
 
 DEFINE_MESSAGE(0x00EE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(BLUE) "Amor de Nayru" COLOR(LIGHTBLUE) " " COLOR(DEFAULT) "só tem efeito por um\n"
-"tempo limitado, usa-o com cuidado."
+UNSKIPPABLE  COLOR(BLUE) "Nayru's Kärlek" COLOR(LIGHTBLUE) " " COLOR(DEFAULT) "är endast i effekt under\n"
+"en kort stund, så använd den försiktigt."
 )
 
 DEFINE_MESSAGE(0x00EF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Quando estiveres exausto de uma\n"
-"batalha, por favor visita-me!"
+"Var snäll och besök mig igen,\n"
+"då du är trött efter strid!"
 )
 
 DEFINE_MESSAGE(0x00F0, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(RED) "Rupee Vermelho" COLOR(DEFAULT) "!\n"
-"Vale " COLOR(RED) "vinte Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Röd Rupee" COLOR(DEFAULT) "!\n"
+"That's " COLOR(RED) "tjugo Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F1, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(PURPLE) "Rupee Roxo" COLOR(DEFAULT) "!\n"
-"Vale " COLOR(PURPLE) "cinquenta Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Du fick en " COLOR(PURPLE) "Lila Rupee" COLOR(DEFAULT) "!\n"
+"That's " COLOR(PURPLE) "femtio Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F2, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Obtiveste um " COLOR(YELLOW) "Rupee Enorme" COLOR(DEFAULT) "!\n"
-"Este Rupee vale uns valentes\n"
-COLOR(YELLOW) "duzentos Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Du fick en " COLOR(YELLOW) "Enorm Rupee" COLOR(DEFAULT) "!\n"
+"Denna Rupee är värd hejdundrande\n"
+COLOR(YELLOW) "tvåhundra Rupees" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F3, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x77")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Chave da Porta" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Usa esta chave para continuar para\n"
-"a próxima sala. Escolhe um baú \n"
-"e vê o quão sortudo tu és!"
+ITEM_ICON("\x77")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Dörrnyckel" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Använd den här nyckeln för att fortsätta\n"
+"till nästa run. Välj en skattkista \n"
+"och se om turen är med dig!"
 )
 
 DEFINE_MESSAGE(0x00F4, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Perdedor!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Só encontraste " COLOR(ADJUSTABLE) "um Rupee" COLOR(DEFAULT) ".\n"
-"Não és lá muito sortudo." QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Förlorare!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Du hittade bara " COLOR(ADJUSTABLE) "en Rupee" COLOR(DEFAULT) ".\n"
+"Turen är inte med dig." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F5, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Perdedor!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Encontraste " COLOR(BLUE) "cinco Rupees" COLOR(DEFAULT) ".\n"
-"Mesmo assim, não tiveste muita sorte." QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Förlorare!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Du hittade " COLOR(BLUE) "fem Rupees" COLOR(DEFAULT) ".\n"
+"Trots det, så har du inte så värst tur." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F6, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Perdedor!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Encontraste " COLOR(RED) "vinte Rupees" COLOR(DEFAULT) ".\n"
-"A tua última escolha foi um erro,\n"
-"não foi! Que frustrante!" QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Förlorare!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Du hittade " COLOR(RED) "tjugo Rupees" COLOR(DEFAULT) ".\n"
+"Ditt senaste val var ett misstag,\n"
+"eller hur! Så frustrerande!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F7, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-COLOR(RED) "Vencedor!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Encontraste " COLOR(YELLOW) "cinquenta Rupees" COLOR(DEFAULT) ".\n"
-"És um rapaz bem sortudo!" QUICKTEXT_DISABLE
+COLOR(RED) "Vinnare!" COLOR(DEFAULT)  BOX_BREAK QUICKTEXT_ENABLE "Du hittade " COLOR(YELLOW) "femtio Rupees" COLOR(DEFAULT) ".\n"
+"Turen är helt enkelt på din sida grabben!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00F8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -1679,108 +1678,108 @@ DEFINE_MESSAGE(0x00F8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x00F9, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x1E")  QUICKTEXT_ENABLE "Apanhaste um " COLOR(RED) "Poe Grande " COLOR(DEFAULT) "num frasco!" QUICKTEXT_DISABLE "\n"
-"Vende-o na " COLOR(RED) "Loja de Fantasmas" COLOR(DEFAULT) "!\n"
-"Algo bom poderá acontecer!"
+ITEM_ICON("\x1E")  QUICKTEXT_ENABLE "Du stoppade en " COLOR(RED) "Stor-Poe " COLOR(DEFAULT) "i en flaska!" QUICKTEXT_DISABLE "\n"
+"Vi säljer den i " COLOR(RED) "Spökbutiken" COLOR(DEFAULT) "!\n"
+"Någonting bra kan hända!"
 )
 
 DEFINE_MESSAGE(0x00FA, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-SHIFT("\x49")  COLOR(RED) "VENCEDOR" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Apanha quatro partes no total para\n"
-"obter outro Recipiente de Coração.\n"
-"Mais recipientes, mais vida!"
+SHIFT("\x49")  COLOR(RED) "VINNARE" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Samla fyra bitar totalt för att få\n"
+"en ytterligare Hjärtbehållare. Fler\n"
+"behållare betyder mer livsenergi!"
 )
 
 DEFINE_MESSAGE(0x00FB, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-SHIFT("\x49")  COLOR(RED) "VENCEDOR" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Até agora, apanhaste duas \n"
-"partes. Com mais duas, \n"
-"irás ganhar mais vida!"
+SHIFT("\x49")  COLOR(RED) "VINNARE" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Hittills så har du samlat två \n"
+"bitar. Med två till så kommer, \n"
+"din livsenergi att öka!"
 )
 
 DEFINE_MESSAGE(0x00FC, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-SHIFT("\x49")  COLOR(RED) "VENCEDOR" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Agora tens três \n"
-"partes! Com mais uma, a tua \n"
-"vida irá ser aumentada!"
+SHIFT("\x49")  COLOR(RED) "VINNARE" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du har samlat tre bitar!\n"
+"Med ytterligare en bit, så kommer \n"
+"din livsenergi att öka!"
 )
 
 DEFINE_MESSAGE(0x00FD, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-SHIFT("\x49")  COLOR(RED) "VENCEDOR" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Obtiveste uma " COLOR(RED) "Parte de Coração" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Completaste outro Recipiente de\n"
-"Coração! A tua vida máxima\n"
-"aumentou!"
+SHIFT("\x49")  COLOR(RED) "WINNER" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x73")  QUICKTEXT_ENABLE "Du fick en " COLOR(RED) "Hjärtbit" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Du har färdigställt ytterligare en\n"
+"Hjärtbehållare! Din maximala\n"
+"livsenergi har ökat!"
 )
 
 DEFINE_MESSAGE(0x00FE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Procura-os não só lá fora,\n"
-"mas também dentro de masmorras." BOX_BREAK "Claro, isto é só o nosso sonho...\n"
-"Não tens de o fazer\n"
-"se não quiseres..." TEXTID("\x00\x27")
+"Leta inte bara efter dem utomhus,\n"
+"utan även i ruiner, hålor och andra platser." BOX_BREAK "Fast det är klart, det här är bara vår dröm...\n"
+"Du behöver inte göra det\n"
+"om du inte vill..." TEXTID("\x00\x27")
 )
 
 DEFINE_MESSAGE(0x0100, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "O que é isso?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Vad är det?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0101, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Olha, olha, " NAME "!\n"
-"Podes ver abaixo desta " COLOR(DEFAULT) "teia" COLOR(LIGHTBLUE) "\n"
-"com " COLOR(YELLOW) "[C-Up]" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Titta, titta, " NAME "!\n"
+"Du kan se ned under " COLOR(DEFAULT) "spindelväven" COLOR(LIGHTBLUE) "\n"
+"med hjälp utav " COLOR(YELLOW) "[C-Up]" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0102, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Olha para esta parede!\n"
-"As trepadeiras dão-lhe uma\n"
-"superfície rugosa... Talvez possas \n"
-"escalá-la, " NAME "!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Se på den här väggen! Vinrankorna\n"
+"som växer upp för väggen skapar en ojämn\n"
+"yta... du kanske kan klättra på \n"
+"den, " NAME "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0103, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Podes abrir uma " COLOR(DEFAULT) "porta" COLOR(LIGHTBLUE) " ao ficar\n"
-"à frente dela e pressionar " COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Presta atenção ao que o\n"
-COLOR(BLUE) "Ícone de" COLOR(LIGHTBLUE) " " COLOR(BLUE) "Ação" COLOR(LIGHTBLUE) " diz.\n"
-"É o " COLOR(BLUE) "ícone azul" COLOR(LIGHTBLUE) " no topo\n"
-"do ecrã!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Du kan öppna en " COLOR(DEFAULT) "dörr" COLOR(LIGHTBLUE) " genom att stå\n"
+"framför den och trycka på " COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Håll koll på vad som står på\n"
+COLOR(BLUE) "Action" COLOR(LIGHTBLUE) " " COLOR(BLUE) "Ikonen" COLOR(LIGHTBLUE) ".\n"
+"Det är den " COLOR(BLUE) "blå ikonen" COLOR(LIGHTBLUE) " högst upp på\n"
+"skärmen!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0104, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Olha! Está algo pendurado\n"
-"ali! Parece um " COLOR(DEFAULT) "escadote" COLOR(LIGHTBLUE) "velho!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Titta! Någonting hänger där\n"
+"uppe! Det ser ut som en gammal " COLOR(DEFAULT) "stege" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0105, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Ei...\n"
-"Isso não tem o mesmo desenho\n"
-"que está na " COLOR(DEFAULT) "Porta do Tempo" COLOR(LIGHTBLUE) "?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Vänta...\n"
+"Är inte det samma design som är\n"
+"på " COLOR(DEFAULT) "Tidsdörren" COLOR(LIGHTBLUE) "?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0106, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Parece que essa tocha não deixou de\n"
-"queimar há muito tempo..." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det ser ut som att den där facklan\n"
+"har brunnit för inte allt för längesedan..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0107, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "A partir daqui, iremos\n"
-"passar por caminhos estreitos!\n"
-"Se fores devagar, talvez\n"
-"possas passar por alguns inimigos." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "" COLOR(DEFAULT) "Mira com [Z] " COLOR(LIGHTBLUE) "para olhares sempre\n"
-"na direção certa. Ajeita a visão\n"
-"para que consigas ver o próximo\n"
-"corredor antes que vires a esquina." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Assim que estejas pronto, segura\n"
-COLOR(DEFAULT) "[Z] " COLOR(LIGHTBLUE) "para " COLOR(DEFAULT) "contornar " COLOR(LIGHTBLUE) "a esquina.\n"
-"Assim não serás surpreendido por um\n"
-"inimigo à espera de uma embuscada." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Härifrån, så kommer vi att gå\n"
+"genom ett par trånga passager!\n"
+"Om du tar det försiktigt, så kanske\n"
+"du kan smyga dig på några fiender." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Använd " COLOR(DEFAULT) "[Z] Markering " COLOR(LIGHTBLUE) "för att alltid titta\n"
+"i rätt riktning. Sätt din\n"
+"vy så att du kan se ned genom nästa\n"
+"korridor före du börjar gå." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Då du har ställt in din vy, håll inne\n"
+COLOR(DEFAULT) "[Z] " COLOR(LIGHTBLUE) "för att " COLOR(DEFAULT) "gå på sidan " COLOR(LIGHTBLUE) "runt kröken.\n"
+"På det viset så behöver du inte bli överraskad\n"
+"utav en fiende som väntar på dig i ett bakhåll." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0108, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Põe-te à frente deste " COLOR(DEFAULT) "bloco" COLOR(LIGHTBLUE) " e\n"
-"agarra-o com " COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) ". Enquanto seguras no\n"
-COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) ", podes empurrar ou puxar." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Se estiveres à frente do " COLOR(DEFAULT) "bloco" COLOR(LIGHTBLUE) "\n"
-"e pressionares " COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) " enquanto usas o " COLOR(DEFAULT) "[Control-Pad]" COLOR(LIGHTBLUE) "\n"
-"em direção ao " COLOR(DEFAULT) "bloco" COLOR(LIGHTBLUE) ", podes subir\n"
-"para cima dele." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Toma atenção ao que o " COLOR(BLUE) "Ícone\n"
-"de Ação " COLOR(LIGHTBLUE) "diz!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Stå jämsides med " COLOR(DEFAULT) "blocket" COLOR(LIGHTBLUE) " och ta\n"
+"tag i det med " COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) ". Medan du håller inne\n"
+COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) ", så kan du knuffa eller dra." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Om du står jämsides med " COLOR(DEFAULT) "blocket" COLOR(LIGHTBLUE) "\n"
+"och trycker " COLOR(BLUE) "[A]" COLOR(LIGHTBLUE) " medan du trycker " COLOR(DEFAULT) "[Control-Pad]" COLOR(LIGHTBLUE) "\n"
+"emot " COLOR(DEFAULT) "blocket" COLOR(LIGHTBLUE) ", så kan du klättra\n"
+"upp på det." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Håll utkik på vad " COLOR(BLUE) "Action\n"
+"Ikonen " COLOR(LIGHTBLUE) "säger!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0109, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1796,10 +1795,10 @@ DEFINE_MESSAGE(0x010B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x010C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Após ires para a água, se\n"
-"segurares" COLOR(BLUE) " [A]" COLOR(LIGHTBLUE) ", podes mergulhar!\n"
-"Aposto que há coisas bem\n"
-"interessantes lá em baixo!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Då du är i vattnet, om\n"
+"du håller nere" COLOR(BLUE) " [A]" COLOR(LIGHTBLUE) ", så kan du dyka!\n"
+"Jag slår vad om att det kan finnas en\n"
+"hel del intressant under vattnet!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x010D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1831,21 +1830,21 @@ DEFINE_MESSAGE(0x0113, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0114, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Uau! Olha para todas essas \n"
-COLOR(DEFAULT) "Flores Bomba" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Haverá alguma forma de as acender\n"
-"a todas de uma vez?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Wow! Se på alla dessa \n"
+COLOR(DEFAULT) "Bomb-blommor" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Finns det något sätt som du kan sätta\n"
+"eld på dem allihop på samma gång?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0115, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Parece que há vários " COLOR(DEFAULT) "poços\n"
-"de lava " COLOR(LIGHTBLUE) "por aqui, então\n"
-"cuidado com o que pisas!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det ser ut som att det finns många " COLOR(DEFAULT) "lavagropar\n"
+" " COLOR(LIGHTBLUE) "här omkring, se upp vart\n"
+"du går!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0116, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Com esse interruptor ligado, a\n"
-COLOR(DEFAULT) "plataforma móvel " COLOR(LIGHTBLUE) "sobe mais. Agora\n"
-"chegas rapidamente ao segundo piso!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Med den brytaren på, så rör sig\n"
+COLOR(DEFAULT) "plattformen " COLOR(LIGHTBLUE) "högre upp. Nu kan du\n"
+"snabbt nå andra våningen!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0117, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1857,11 +1856,11 @@ DEFINE_MESSAGE(0x0118, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0119, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Nunca se sabe o que estará ao \n"
-"virar da esquina nestes caminhos\n"
-"apertados...." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "" COLOR(DEFAULT) "Mira com [Z] " COLOR(LIGHTBLUE) "para olhares sempre\n"
-"na direção certa. Esta técnica é\n"
-"útil, não é?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Man vet aldrig vad som rör sig\n"
+"bakom nästa hörn i dessa trånga\n"
+"gångar...." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Använd " COLOR(DEFAULT) "[Z] Markering " COLOR(LIGHTBLUE) "för att alltid se\n"
+"i rätt riktning. Det här är en\n"
+"användbar teknik, eller hur?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x011A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1885,8 +1884,8 @@ DEFINE_MESSAGE(0x011E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x011F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME ", para onde \n"
-"é que estás a olhar?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME ", vad tittar \n"
+"du på?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0120, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1906,8 +1905,8 @@ DEFINE_MESSAGE(0x0123, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0124, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "A cara do Colosso do Deserto... \n"
-"parece mesmo maléfica!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Ökenkolossen's ansikte...det \n"
+"ser verkligen ondskefullt ut!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0125, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1915,9 +1914,9 @@ DEFINE_MESSAGE(0x0125, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0126, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Consigo ouvir os espíritos \n"
-"a sussurrar nesta sala..." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE "\"Procura o olho da verdade...\"\n"
-COLOR(LIGHTBLUE) "É o que eles estão a dizer!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Jag kan höra andeväsen viska \n"
+"i det här rummet..." BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE "\"Håll utkik efter sanningen's öga...\"\n"
+COLOR(LIGHTBLUE) "Det är vad de säger!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0127, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1925,28 +1924,28 @@ DEFINE_MESSAGE(0x0127, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0128, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Aqui...Consigo ouvir os espíritos\n"
-"a sussurrar nesta sala..." COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE "\"Aqueles que têm " COLOR(RED) "pés sagrados " COLOR(DEFAULT) "\n"
-"devem deixar o vento guiá-los.\n"
-"Assim, eles serão levados para o \n"
-"caminho secreto.\"" BOX_BREAK COLOR(LIGHTBLUE) "É o que eles estão a dizer!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Här...jag kan höra andeväsen\n"
+"viska i det här rummet..." COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE "\"De som har " COLOR(RED) "heliga fötter " COLOR(DEFAULT) "\n"
+"bör låta vinden vägleda dem.\n"
+"De kommer då att ledas in på den \n"
+"hemliga vägen.\"" BOX_BREAK COLOR(LIGHTBLUE) "Det är vad de säger!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0129, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esta parede...diz algo aqui...\n"
-COLOR(DEFAULT) "\"Perigo acima...\"" COLOR(LIGHTBLUE) "\n"
-"É o que ela diz." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här väggen...det står någonting här...\n"
+COLOR(DEFAULT) "\"Fara ovanför...\"" COLOR(LIGHTBLUE) "\n"
+"Det är vad som står skrivet." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x012A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esta parede...diz algo aqui...\n"
-COLOR(DEFAULT) "\"Perigo abaixo...\"\n"
-COLOR(LIGHTBLUE) "É o que ela diz." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här väggen...det står någonting här...\n"
+COLOR(DEFAULT) "\"Fara underifrån...\"\n"
+COLOR(LIGHTBLUE) "Det är vad som står skrivet." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x012B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "A água que sai desta \n"
-"estátua está a inundar o chão todo." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Vattnet som flödar ut ur den här \n"
+"statyn översvämmar hela rummet." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x012C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1962,9 +1961,9 @@ DEFINE_MESSAGE(0x012E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x012F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Cuidado, " NAME "!\n"
-"A eletricidade passa por esta\n"
-COLOR(ADJUSTABLE) "coisa verde e viscosa" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Se upp, " NAME "!\n"
+"Elektricitet flödar genom\n"
+"den här " COLOR(ADJUSTABLE) "gröna slimiga saken" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0130, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -1972,21 +1971,21 @@ DEFINE_MESSAGE(0x0130, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0131, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Cuidado " NAME "!\n"
-"A eletricidade passa por esta\n"
-COLOR(RED) "coisa vermelha e viscosa" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Se upp " NAME "!\n"
+"Elektricitet flödar genom\n"
+"den här " COLOR(RED) "röda slimiga saken" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0132, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Cuidado " NAME "!\n"
-"A eletricidade passa por esta\n"
-COLOR(BLUE) "coisa azul e viscosa" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Se upp " NAME "!\n"
+"Elektricitet flödar genom\n"
+"den här " COLOR(BLUE) "blå slimiga saken" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0133, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Este " COLOR(DEFAULT) "interruptor" COLOR(LIGHTBLUE) "...\n"
-"Não parece que possas pressioná-lo\n"
-"só com o teu peso,\n"
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "brytaren" COLOR(LIGHTBLUE) "...\n"
+"Det ser inte ut som att du kan trycka\n"
+"ned den med enbart din vikt,\n"
 NAME "..." COLOR(DEFAULT)
 )
 
@@ -2003,10 +2002,10 @@ DEFINE_MESSAGE(0x0136, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0137, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "A " COLOR(RED) "coisa vermelha e viscosa " COLOR(LIGHTBLUE) "foi-se! \n"
-"Deve ter sido porque cortaste a\n"
-COLOR(RED) "cauda vermelha" COLOR(LIGHTBLUE) "! Será que funcionará \n"
-"com os outros também?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den " COLOR(RED) "röda slämmiga saken " COLOR(LIGHTBLUE) "är borta! \n"
+"Det måste vara för att du skar av den\n"
+COLOR(RED) "röda svansen" COLOR(LIGHTBLUE) "! Kan det fungera med \n"
+"de andra också?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0138, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2014,13 +2013,13 @@ DEFINE_MESSAGE(0x0138, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0139, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Há um interruptor do outro \n"
-"lado da parede!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det finns en knapp bortom den här\n"
+"väggen!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x013A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Parece que há algo ali\n"
-"em cima da plataforma!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det ser ut att finnas någonting\n"
+"där uppe på plattformen!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x013B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2032,9 +2031,9 @@ DEFINE_MESSAGE(0x013C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x013D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x42")  COLOR(LIGHTBLUE) "O QUÊÊÊ!?" BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Olha-me todas essas " COLOR(DEFAULT) "bandeiras" COLOR(LIGHTBLUE) "!\n"
-"Consegues descobrir quais são\n"
-"reais?" COLOR(DEFAULT)
+UNSKIPPABLE  SHIFT("\x42")  COLOR(LIGHTBLUE) "VAAA!?" BOX_BREAK COLOR(DEFAULT)  UNSKIPPABLE  COLOR(LIGHTBLUE) "Kolla på alla de där " COLOR(DEFAULT) "flaggorna" COLOR(LIGHTBLUE) "!\n"
+"Kan du lista ut vilka som är\n"
+"riktiga?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x013E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2046,89 +2045,88 @@ DEFINE_MESSAGE(0x013F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0140, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "A " COLOR(DEFAULT) "Grande Árvore Deku" COLOR(RED) " " COLOR(LIGHTBLUE) "\n"
-"convocou-te!\n"
-"Por favor vem comigo!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Det " COLOR(DEFAULT) "Stora Deku Trädet" COLOR(RED) " " COLOR(LIGHTBLUE) "har \n"
+"kallat på dig!\n"
+"Följ efter mig, är du snäll!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0141, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Anda lá! Sê corajoso!\n"
-"Vamos entrar na \n"
-"Grande Árvore Deku!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Kom igen! Var modig!\n"
+"Vi går in i det \n"
+"Stora Deku Trädet!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0142, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "A Grande Árvore Deku queria que\n"
-"nós visitássemos a princesa no\n"
-COLOR(DEFAULT) "Castelo de Hyrule" COLOR(LIGHTBLUE) ".... Não deveríamos\n"
-"ir?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Det Stora Deku Trädet ville att\n"
+"vi skulle besöka prinsessan i\n"
+COLOR(DEFAULT) "Hyrules Slott" COLOR(LIGHTBLUE) ".... Borde vi inte\n"
+"börja ta oss dit?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0143, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "A miúda da quinta pediu-nos para\n"
-"encontrar o " COLOR(DEFAULT) "pai" COLOR(LIGHTBLUE) " dela...Pergunto-me\n"
-"onde estará ele?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Flickan från ranchen begärde oss\n"
+"att hitta hennes " COLOR(DEFAULT) "pappa" COLOR(LIGHTBLUE) "...Jag undrar var\n"
+"han är?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0144, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Imagino onde iremos encontrar a \n"
-COLOR(DEFAULT) "princesa " COLOR(LIGHTBLUE) "neste grande castelo?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Undras var vi kan hitta \n"
+COLOR(DEFAULT) "prinsessan " COLOR(LIGHTBLUE) "i det här stora gamla slottet?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0145, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "O que diria " COLOR(DEFAULT) "Saria" COLOR(RED) "\n"
-COLOR(LIGHTBLUE) "se nós lhe disséssemos que vamos\n"
-"salvar Hyrule?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Vad skulle " COLOR(DEFAULT) "Saria" COLOR(RED) " " COLOR(LIGHTBLUE) "säga om vi berättade\n"
+"för henne att vi ska rädda Hyrule?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0146, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Impa " COLOR(LIGHTBLUE) "disse que a Pedra Espiritual\n"
-"do Fogo está algures na " COLOR(DEFAULT) "Montanha\n"
-"da Morte" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)
+"Impa " COLOR(LIGHTBLUE) "sa att Själastenen\n"
+"av Eld finns någonstans på " COLOR(DEFAULT) "Det Döda\n"
+"Berget" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0147, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Vamos entrar na Caverna\n"
-"Dodongo usando uma " COLOR(DEFAULT) "Flor Bomba" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Vi tar oss in i Dodongos\n"
+"Grotta med hjälp av en " COLOR(DEFAULT) "Bomb Blomma" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0148, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Darunia disse que uma " COLOR(DEFAULT) "fada\n"
-COLOR(LIGHTBLUE) "vive no cume da Montanha da Morte,\n"
-"não disse?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Darunia sa att det bor en " COLOR(DEFAULT) "Älva\n"
+COLOR(LIGHTBLUE) "på toppen av Det Döda Berget,\n"
+"gjorde han inte?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0149, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Pergunto-me se a " COLOR(DEFAULT) "Saria " COLOR(LIGHTBLUE) "sabe algo\n"
-"sobre a outra Pedra Espiritual?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Jag undrar om " COLOR(DEFAULT) "Saria " COLOR(LIGHTBLUE) "vet någonting\n"
+"om de andra Själatenarna?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x014A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Parece que a " COLOR(DEFAULT) "Princesa Ruto " COLOR(LIGHTBLUE) "de alguma forma " COLOR(DEFAULT) "\n"
-COLOR(LIGHTBLUE) "entrou na barriga de Jabu-Jabu..." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Det verkar  som att " COLOR(DEFAULT) "Prinsessan Ruto " COLOR(LIGHTBLUE) "på något sätt " COLOR(DEFAULT) "\n"
+COLOR(LIGHTBLUE) "har hamnat inne i Jabu-Jabu's mage..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x014B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Obtiveste três Pedras\n"
-"Espirituais! Vamos voltar ao " COLOR(DEFAULT) "Castelo\n"
-"de Hyrule" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Du samlade ihop tre Själastenar!\n"
+"Låt oss återvända till " COLOR(DEFAULT) "Hyrule\n"
+"Slottet" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x014C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Aquelas pessoas no cavalo branco...\n"
-"eram Zelda e Impa, não\n"
-"eram? Parece que elas atiraram \n"
-"algo para o " COLOR(DEFAULT) "fosso" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "De där två, på den vita hästen...\n"
+"det var Zelda och Impa, eller hur?\n"
+"Det såg ut som att hon kastade \n"
+"någonting i " COLOR(DEFAULT) "vallgraven" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x014D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Vamos ver dentro do \n"
-COLOR(DEFAULT) "Templo do Tempo" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Vi går och tittar i \n"
+COLOR(DEFAULT) "Tidens Tempel" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x014E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Será que devemos acreditar no que\n"
-"Sheik disse e ir à \n" COLOR(DEFAULT) "Vila Kakariko" COLOR(LIGHTBLUE) "?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Borde vi lita på vad Sheik sa \n"
+"och gå till " COLOR(DEFAULT) "Kakariko Byn" COLOR(LIGHTBLUE) "?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x014F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2136,57 +2134,57 @@ DEFINE_MESSAGE(0x014F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0150, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Imagino o que se está a passar na\n"
-"floresta agora... estou preocupada\n"
-"com a " COLOR(DEFAULT) "Saria" COLOR(LIGHTBLUE) ", também!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Jag undrar vad som är på gång i \n"
+"skogen just nu... Jag är orolig\n"
+"för " COLOR(DEFAULT) "Saria" COLOR(LIGHTBLUE) ", också!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0151, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Aquela nuvem por cima da \n" 
-COLOR(DEFAULT) "Montanha da Morte" COLOR(LIGHTBLUE) "... há algo\n"
-"estranho sobre ela..." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Det där molnet över " COLOR(DEFAULT) "Det Döda Berget" COLOR(LIGHTBLUE) "...\n"
+"det är någonting oroande med \n"
+"det..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0152, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Um vento ártico sopra vindo do\n"
-COLOR(DEFAULT) "Rio Zora" COLOR(LIGHTBLUE) "...tu sentes?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "En isande vind blåser in från\n"
+COLOR(DEFAULT) "Zora's Flod" COLOR(LIGHTBLUE) "...kan du känna den?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0153, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Essas " COLOR(DEFAULT) "Botas de Ferro " COLOR(LIGHTBLUE) "parecem\n"
-"pesar imenso! Se as\n"
-"calçares, poderás ser capaz de\n"
-"caminhar no fundo do lago." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "De där " COLOR(DEFAULT) "Järn Kängorna " COLOR(LIGHTBLUE) "ser ut\n"
+"att väga ett ton! Om du tar\n"
+"dem på dig, kan du säkert\n"
+"gå på botten av en sjö." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0154, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Vamos procurar alguém que possa\n"
-"saber algo sobre os outros\n"
-COLOR(DEFAULT) "Sábios" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Låt oss leta efter någon som kanske\n"
+"vet någonting om de andra\n"
+COLOR(DEFAULT) "Vise Männen" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0155, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Aquele monstro! Ele saiu do \n"
-COLOR(DEFAULT) "poço na vila" COLOR(LIGHTBLUE) "! Vamos lá \n"
-"verificar o poço!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Det där monstret! Det kom upp ur \n"
+COLOR(DEFAULT) "brunnen i byn" COLOR(LIGHTBLUE) "! Vi går och \n"
+"undersöker brunnen!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0156, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Imagino quem construiu o " COLOR(DEFAULT) "Templo" COLOR(LIGHTBLUE) "\n"
-COLOR(DEFAULT) "do Espírito" COLOR(LIGHTBLUE) ", e com que finalidade?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Jag undrar vem som byggde " COLOR(DEFAULT) "Templet" COLOR(LIGHTBLUE) "\n"
+COLOR(DEFAULT) "av Själar" COLOR(LIGHTBLUE) ", och till vilket ändamål?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0157, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Alguma vez já tocaste o \n"
-COLOR(PURPLE) "Noturno das Sombras" COLOR(LIGHTBLUE) " que Sheik\n"
-"te ensinou?" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Har du ännu provat att spela \n"
+COLOR(PURPLE) "Skuggans Nokturna" COLOR(LIGHTBLUE) " som Sheik\n"
+"lärde dig?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0158, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "O " COLOR(DEFAULT) "deserto" COLOR(LIGHTBLUE) "...foi onde\n"
-"o Rei do Mal Ganondorf nasceu.\n"
-"Se formos lá, poderemos encontrar\n"
-"algo..." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "I " COLOR(DEFAULT) "öknen" COLOR(LIGHTBLUE) "... det är där\n"
+"den Onda Kungen Ganondorf föddes.\n"
+"Om vi går dit, kanske vi finner\n"
+"någonting..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0159, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2194,20 +2192,20 @@ DEFINE_MESSAGE(0x0159, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x015A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Equipa as " COLOR(DEFAULT) "Manoplas de Prata \n"
-COLOR(LIGHTBLUE) "e tenta mover coisas que antes\n"
-"não conseguias!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Ta på " COLOR(DEFAULT) "Silver Handskarna \n"
+COLOR(LIGHTBLUE) "och försök att lyfta saker som \n"
+"du inte ens kunde rubba tidigare!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x015B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Aquele que está à nossa espera no\n"
-"Templo do Tempo...será que..." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Personen som väntar på oss vid\n"
+"Tidens Tempel... det måste vara..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x015C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Temos que salvar a Princesa Zelda\n"
-"da sua prisão no Castelo\n"
-"do Ganon!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Vi måste befria Prinsessan Zelda\n"
+"från hennes fångenskap i Ganons\n"
+"Slott!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x015D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2220,121 +2218,121 @@ DEFINE_MESSAGE(0x015E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 
 DEFINE_MESSAGE(0x015F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 COLOR(LIGHTBLUE)  NAME "...\n"
-"Tenta te manter em movimento!!" COLOR(DEFAULT)
+"Try to keep moving!!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0160, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Eu não me importo de falar contigo \n"
-"usando a magia da Ocarina, mas\n"
-"gostava mesmo de falar contigo\n"
-"cara-a-cara!" EVENT
+"Jag har inget emot att prata med \n"
+"dig genom Okarinans magi, men\n"
+"jag skulle föredra att se \n"
+"dig ansikte mot ansikte!" EVENT
 )
 
 DEFINE_MESSAGE(0x0161, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"A floresta está conectada a vários \n"
-"sítios! Se conseguires\n"
-"ouvir a minha canção, estás algures\n"
-"conectado à floresta!" EVENT
+"Skogen är kopplad till många \n"
+"olika ställen! Om du kan höra min sång,\n"
+"så måste du vara någonstans som har\n"
+"förbindelse med skogen!" EVENT
 )
 
 DEFINE_MESSAGE(0x0162, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Fiquei tão feliz de ouvir que o\n"
-"Sr. Darunia adorou a minha música!\n"
-BOX_BREAK "Fiquei ainda mais por saber\n"
-"que te ajudou na tua missão,\n"
+"Jag blev så  glad när jag hörde att\n"
+"Herr Darunia älskade min sång väldigt mycket!\n"
+BOX_BREAK "Ännu gladare blev jag när fick veta att\n"
+"den hjälpte dig på ditt uppdrag,\n"
 NAME "!\n"
-"Hi hi hi!" EVENT
+"Hii hi hi!" EVENT
 )
 
 DEFINE_MESSAGE(0x0163, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Estás a colecionar Pedras\n"
-"Espirituais? Tens mais uma para\n"
-"encontrar? Queres dizer a " COLOR(BLUE) "Pedra \n"
-"Espiritual da Água" COLOR(DEFAULT) ", não queres?" BOX_BREAK "A Grande Árvore Deku uma vez\n"
-"disse-me que o " COLOR(BLUE) "Rei Zora, regente\n"
-"do Domínio dos Zora, " COLOR(DEFAULT) "a possui..." EVENT
+"Samlar du ihop Själastenarna?\n"
+"Du har ännu en kvar att finna?\n"
+"Du menar " COLOR(BLUE) "Vattnets \n"
+"Stjälasten" COLOR(DEFAULT) ", eller hur?" BOX_BREAK "Det Stora Deku Trädet berättade en gång\n"
+"för mig att " COLOR(BLUE) "Kung Zora, härskaren över Zoras \n"
+"Domän, " COLOR(DEFAULT) "har den..." EVENT
 )
 
 DEFINE_MESSAGE(0x0164, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Estás a colecionar Pedras\n"
-"Espirituais? Tens mais uma para\n"
-"encontrar? Queres dizer a " COLOR(RED) "Pedra \n"
-"Espiritual do Fogo" COLOR(DEFAULT) ", não queres?" BOX_BREAK "A Grande Árvore Deku uma vez\n"
-"disse-me que o " COLOR(RED) "Sr. Darunia dos Gorons\n"
-COLOR(DEFAULT) "a possui..." EVENT
+"Samlar du ihop Själastenarna?\n"
+"Du har ännu en kvar att finna?\n"
+"Du menar " COLOR(RED) "Eldens \n"
+"Stjälasten" COLOR(DEFAULT) ", eller hur?" BOX_BREAK "Det Stora Deku Trädet berättade en gång\n"
+"för mig att" COLOR(RED) "Herr Darunia av Goron folket\n"
+COLOR(DEFAULT) "har den..." EVENT
 )
 
 DEFINE_MESSAGE(0x0165, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 NAME "...\n"
-"Eu não sei o que é...\n"
-"Tenho este sentimento de terror..." BOX_BREAK "O Castelo...\n"
-"Sim, algo mau está a acontecer\n"
-"no Castelo!" EVENT
+"Jag vet inte vad det är...\n"
+"Jag känner av något fruktansvärt..." BOX_BREAK "Slottet...\n"
+"någonting jätte hemsk är på gång\n"
+"vid Slottet!" EVENT
 )
 
 DEFINE_MESSAGE(0x0166, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"O quê? A tua ocarina soa...\n"
-"diferente de certa forma... \n"
-"Tens praticado bastante,\n"
+"Hmm? Din okarina låter...\n"
+"annorlunda på något sätt... \n"
+"Du har tränat väldigt mycket, eller hur,\n"
 NAME "?" EVENT
 )
 
 DEFINE_MESSAGE(0x0167, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Estás à procura de um templo? Um pássaro\n"
-"misterioso uma vez disse-me..." BOX_BREAK "\"" COLOR(LIGHTBLUE) "Olhos que podem ver através da \n"
-"escuridão abrirão numa tempestade." COLOR(DEFAULT) "\"\n"
-"Tens alguma ideia do que ele \n"
-"quis dizer com isto?" EVENT
+"Söker du efter ett tempel?\n"
+"Jag hörde en gång, från en mystisk fågel..." BOX_BREAK "\"" COLOR(LIGHTBLUE) "Ögonen som ser genom\n"
+"mörkret, kan öppnas av en storm." COLOR(DEFAULT) "\"\n"
+"Har du någon aning vad han kan\n"
+"ha menat med det?" EVENT
 )
 
 DEFINE_MESSAGE(0x0168, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Onde estás, " NAME "?\n"
-"Estás à procura de um templo?\n"
-"Uma vez ouvi um pássaro misterioso \n"
-"dizer..." BOX_BREAK "\"" COLOR(LIGHTBLUE) "Vai, rapaz. Vai para a\n"
-"Deusa do Deserto com uma ocarina." COLOR(DEFAULT) "\"\n"
-"Tens alguma ideia do que ele \n"
-"quis dizer com isto?" EVENT
+"Var är du, " NAME "?\n"
+"Söker du efter ett tempel?\n"
+"Jag hörde en gång, från en mystisk fågel...\n"
+BOX_BREAK "\"" COLOR(LIGHTBLUE) "Gå, unge man. Gå till\n"
+"Öken Gudinnan med en okarina." COLOR(DEFAULT) "\"\n"
+"Har du någon aning vad han kan\n"
+"ha menat med det?" EVENT
 )
 
 DEFINE_MESSAGE(0x0169, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Já encontraste todos os templos?" EVENT
+"Har du hittat alla templen ännu?" EVENT
 )
 
 DEFINE_MESSAGE(0x016A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Ótimo! Estás safo!\n"
-"Eu sabia que te iria ouvir\n"
-"de novo!" BOX_BREAK "Eu estou no " COLOR(ADJUSTABLE) "Templo da Floresta" COLOR(DEFAULT) "!\n"
-"Os espíritos da floresta estavam\n"
-"a pedir ajuda, então eu fui\n"
-"conferir..." BOX_BREAK "Mas está cheio de monstros!\n"
-"Ajuda-me, " NAME "!" EVENT
+"Så bra! Du är i säkerhet!\n"
+"Jag visste att jag skulle höra\n"
+"från dig igen!" BOX_BREAK "Jag är i " COLOR(ADJUSTABLE) "Skogstemplet" COLOR(DEFAULT) "!\n"
+"Skogsandarna behövde hjälp och kallade på mig,\n"
+"så jag kom hit för att titta till dem...\n"
+BOX_BREAK "Men stället är fullt av onda monster!\n"
+"Hjälp mig, " NAME "!" EVENT
 )
 
 DEFINE_MESSAGE(0x016B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 NAME "...\n"
-"No início, eu não queria tornar-me \n"
-"na " COLOR(ADJUSTABLE) "Sábia da Floresta" COLOR(DEFAULT) "...." BOX_BREAK "Mas estou feliz agora." BOX_BREAK "Porque te estou a ajudar a salvar\n"
+"Från början, ville jag inte bli\n"
+COLOR(ADJUSTABLE) "Skogens Vise" COLOR(DEFAULT) "...." BOX_BREAK "Men nu känner jag mig lättad." BOX_BREAK "Eftersom jag  hjälper dig att rädda\n"
 "Hyrule, " NAME "!\n"
-"Sim, estou!" EVENT
+"Ja, det är jag!" EVENT
 )
 
 DEFINE_MESSAGE(0x016C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Se todos os seis " COLOR(RED) "Sábios" COLOR(DEFAULT) " se juntarem, \n"
-"podemos aprisionar Ganondorf, o \n"
-"Rei do Mal, no Reino Sagrado." BOX_BREAK "Mas para fazer o selo\n"
-"perfeito, precisamos do " COLOR(RED) "sétimo \n"
-"Sábio" COLOR(DEFAULT) "." BOX_BREAK "Alguém que tu conheças deve ser\n"
-"esse Sábio, " NAME "..." BOX_BREAK "De agora em diante, deves viajar \n"
-"entre o passado e o futuro para\n"
-"despertar os Sábios restantes!" BOX_BREAK "Mantém o bom trabalho,\n"
+"Om alla sex " COLOR(RED) "Vise" COLOR(DEFAULT) " står tillsammans, \n"
+"kan vi fängsla Ganondorf,\n"
+"Ondskans Konung, i det Heliga Riket." BOX_BREAK "Men, för att skapa en perfekt\n"
+"försägling, behöver vi den" COLOR(RED) "sjunde \n"
+"Sage" COLOR(DEFAULT) "." BOX_BREAK "Någon som du känner måste vara den\n"
+"Sage, " NAME "..." BOX_BREAK "Från och med nu, måste du färdas \n"
+"mellan framtiden och det förflutna för att\n"
+"väcka de återstående Visa!" BOX_BREAK "Fortsätt i den här stilen,\n"
 NAME "!" EVENT
 )
 
 DEFINE_MESSAGE(0x016D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"Nós, os Seis Sábios, estamos a\n"
-"passar o nosso poder para ti!" BOX_BREAK "O destino de Hyrule depende \n"
-"de ti!" EVENT
+"Vi, de Sex Visa, delar\n"
+"vår kraft med dig!" BOX_BREAK "Hyrules öde vilar på\n"
+"dina axlar!" EVENT
 )
 
 DEFINE_MESSAGE(0x016E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -2346,15 +2344,15 @@ DEFINE_MESSAGE(0x016F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x0180, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Consigo ouvir uma voz de\n"
-"algum lado..." COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Ela diz:\n"
-COLOR(DEFAULT)  SHIFT("\x11") "\"Junta cinco Rupees prateados...\""
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Jag hör en röst...\n"
+"någonstans ifrån..." COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Den säger:\n"
+COLOR(DEFAULT)  SHIFT("\x11") "\"Samla ihop fem silver Rupees...\""
 )
 
 DEFINE_MESSAGE(0x0181, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esta parede...está a dizer algo!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Ela diz:\n"
-COLOR(DEFAULT) "Se tu queres ver um barco para\n"
-SHIFT("\x1E") "o outro mundo, vem cá..."
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här väggen... den talar!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Den säger:\n"
+COLOR(DEFAULT) "Om du vill se färjan som går till \n"
+SHIFT("\x1E") "den andra världen, kom hit..."
 )
 
 DEFINE_MESSAGE(0x0182, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2362,14 +2360,14 @@ DEFINE_MESSAGE(0x0182, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0183, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Se quiseres andar nesse " COLOR(DEFAULT) "barco" COLOR(LIGHTBLUE) ", tem \n"
-"cuidado! Parece muito antigo... Quem\n"
-"sabe quando poderá afundar?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Om du vill färdas med " COLOR(DEFAULT) "båten" COLOR(LIGHTBLUE) ", var \n"
+"försiktig! Den ser väldigt gammal ut... Vem\n"
+"vet när den plötsligt sjunker?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0184, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Está aqui uma " COLOR(DEFAULT) "porta" COLOR(LIGHTBLUE) "... Há \n"
-"alguma forma de atravessar?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det finns en " COLOR(DEFAULT) "dörr " COLOR(LIGHTBLUE) "här borta... Finns \n"
+"det något sätt att ta sig över?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0185, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2377,8 +2375,7 @@ DEFINE_MESSAGE(0x0185, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0186, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esse " COLOR(DEFAULT) "gelo vermelho" COLOR(LIGHTBLUE) "...\n"
-"É tão estranho!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den där " COLOR(DEFAULT) "röda isen" COLOR(LIGHTBLUE) "...den är så konstig!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0187, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2390,9 +2387,9 @@ DEFINE_MESSAGE(0x0188, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0189, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esse " COLOR(DEFAULT) "fogo azul" COLOR(LIGHTBLUE) "...não parece\n"
-"natural. Talvez possas usá-lo\n"
-"para algo?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "blåa elden" COLOR(LIGHTBLUE) "...den verkar inte\n"
+"naturlig. Kanske du kan använda den till\n"
+"någonting?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x018A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2404,15 +2401,15 @@ DEFINE_MESSAGE(0x018B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x018C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "O " COLOR(DEFAULT) "fogo nas tochas " COLOR(LIGHTBLUE) "foi-se.\n"
-"Parece que os fantasmas \n"
-"levaram-no!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(DEFAULT) "Facklornas Lågor " COLOR(LIGHTBLUE) "är borta.\n"
+"Det verkar som om spökena tog dem \n"
+"med sig!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x018D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Olha, " NAME "! Uma " COLOR(DEFAULT) "tocha" COLOR(LIGHTBLUE) "\n"
-"acendeu! Isso é porque\n"
-"derrotaste um fantasma, não foi?!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Titta, " NAME "! En " COLOR(DEFAULT) "fackla" COLOR(LIGHTBLUE) "\n"
+"är tänd! Det måste vara för att\n"
+"du besegrade ett spöke, eller hur?!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x018E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2420,22 +2417,20 @@ DEFINE_MESSAGE(0x018E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x018F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Há " COLOR(DEFAULT) "setas " COLOR(LIGHTBLUE) "pintadas no \n"
-"chão!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det finns " COLOR(DEFAULT) "pilar " COLOR(LIGHTBLUE) "målade på marken" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0190, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Este " COLOR(DEFAULT) "corredor " COLOR(LIGHTBLUE) "está todo torcido!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "korridoren " COLOR(LIGHTBLUE) "är helt förvriden!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0191, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Cuidado com as " COLOR(DEFAULT) "sombras dos\n"
-"monstros " COLOR(LIGHTBLUE) "pendurados no\n"
-"teto." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Se upp för " COLOR(DEFAULT) "skuggorna av\n"
+"monster " COLOR(LIGHTBLUE) "som hänger i taket" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0192, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Há um " COLOR(DEFAULT) "baú do tesouro" COLOR(LIGHTBLUE) " aqui." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Här finns en " COLOR(DEFAULT) "skattkista." COLOR(LIGHTBLUE)
 )
 
 DEFINE_MESSAGE(0x0193, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2443,14 +2438,13 @@ DEFINE_MESSAGE(0x0193, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0194, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esta...esta é a mesma " COLOR(DEFAULT) "tocha" COLOR(LIGHTBLUE) " que\n"
-"nós vimos na entrada do templo,\n"
-"não é?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det här... det är samma " COLOR(DEFAULT) "fackla" COLOR(LIGHTBLUE) " som\n"
+"vi såg vid ingånden av templet,\n"
+"eller hur?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0195, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esta " COLOR(DEFAULT) "tocha" COLOR(LIGHTBLUE) " está acesa...\n"
-"Quer dizer que..." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "facklan" COLOR(LIGHTBLUE) " är tänd... det betyder att..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0196, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2458,12 +2452,12 @@ DEFINE_MESSAGE(0x0196, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x0197, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Este " COLOR(DEFAULT) "interruptor" COLOR(LIGHTBLUE) " está congelado!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "knappen" COLOR(LIGHTBLUE) " är helt frusen!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0198, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME ", cuidado!\n"
-"O teto está a cair!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME ", se upp!\n"
+"Taket faller ned!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0199, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2507,8 +2501,8 @@ DEFINE_MESSAGE(0x01A2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x01A3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME ", eu ouço " COLOR(DEFAULT) "vozes \n"
-"de Goron " COLOR(LIGHTBLUE) "lá em baixo." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME ", jag hör " COLOR(DEFAULT) "Goron \n"
+"röster " COLOR(LIGHTBLUE) "från nedan." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x01A4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2516,8 +2510,8 @@ DEFINE_MESSAGE(0x01A4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x01A5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Dá para ver para baixo daqui...\n"
-"Não é essa a sala onde vimos o\n"
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Du kan se ner härifrån...\n"
+"Är inte det där rummet var vi såg\n"
 COLOR(DEFAULT) "Darunia" COLOR(LIGHTBLUE) "?" COLOR(DEFAULT)
 )
 
@@ -2526,8 +2520,8 @@ DEFINE_MESSAGE(0x01A6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x01A7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Esta " COLOR(DEFAULT) "estátua" COLOR(LIGHTBLUE) "...não a vimos\n"
-"antes em algum sítio?" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "statyn" COLOR(LIGHTBLUE) "...har vi inte sett\n"
+"den någonstans tidigare?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x01A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2535,7 +2529,7 @@ DEFINE_MESSAGE(0x01A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x01A9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Este " COLOR(DEFAULT) "interruptor " COLOR(LIGHTBLUE) "está enferrujado." COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Den här " COLOR(DEFAULT) "knappen " COLOR(LIGHTBLUE) "ser rostig ut." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x01AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2543,9 +2537,9 @@ DEFINE_MESSAGE(0x01AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x01AB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME "! Tem cuidado!\n"
-"Não sejas engolido pelos \n"
-"vórtices!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE)  NAME "! Var försiktig!\n"
+"Låt dig inte sväljas upp av \n"
+"virvelströmmarna!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x01AC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2573,355 +2567,351 @@ DEFINE_MESSAGE(0x01B1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x0200, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SHIFT("\x0F") "Olá! Eu sou uma porta falante!"
+SHIFT("\x0F") "Hej där! Jag är en talande dörr!"
 )
 
 DEFINE_MESSAGE(0x0201, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x06")  COLOR(LIGHTBLUE) "Estranho...esta porta não abre..." COLOR(DEFAULT)
+SHIFT("\x06")  COLOR(LIGHTBLUE) "Underligt...den här dörren vägrar öppnas..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0202, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x04")  COLOR(LIGHTBLUE) "Fortes " COLOR(DEFAULT) "barras de ferro " COLOR(LIGHTBLUE) "estão a\n"
-COLOR(DEFAULT)  SHIFT("\x0B")  COLOR(LIGHTBLUE) "bloquear a porta. Não as consegues\n"
-COLOR(DEFAULT)  SHIFT("\x40")  COLOR(LIGHTBLUE) "com as tuas mãos!" COLOR(DEFAULT)
+SHIFT("\x04")  COLOR(LIGHTBLUE) "Starka " COLOR(DEFAULT) "järn galler " COLOR(LIGHTBLUE) "blockerar dörren.\n"
+COLOR(DEFAULT)  SHIFT("\x0B")  COLOR(LIGHTBLUE) "Du kan inte öppna dem\n"
+COLOR(DEFAULT)  SHIFT("\x40")  COLOR(LIGHTBLUE) "med dina händer!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0203, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x09")  COLOR(LIGHTBLUE) "Precisas de uma " COLOR(DEFAULT) "Chave" COLOR(LIGHTBLUE) " para abrir\n"
-COLOR(DEFAULT)  SHIFT("\x14")  COLOR(LIGHTBLUE) "a porta trancada e acorrentada." COLOR(DEFAULT)
+SHIFT("\x09")  COLOR(LIGHTBLUE) "Du behöver en " COLOR(DEFAULT) "Nyckel" COLOR(LIGHTBLUE) " för att öppna en dörr\n"
+COLOR(DEFAULT)  SHIFT("\x14")  COLOR(LIGHTBLUE) "under lås och bom." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0204, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x21")  COLOR(LIGHTBLUE) "Precisas de uma " COLOR(DEFAULT) "chave especial\n"
-SHIFT("\x28")  COLOR(LIGHTBLUE) "para abrir esta porta." COLOR(DEFAULT)
+SHIFT("\x21")  COLOR(LIGHTBLUE) "Du behöver en " COLOR(DEFAULT) "speciell nyckel\n"
+SHIFT("\x28")  COLOR(LIGHTBLUE) "för att kunna öppna den här dörren." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0205, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE "Está quieto!" QUICKTEXT_DISABLE  BOX_BREAK "São só " TIME "!\n"
-"Eu, " COLOR(RED) "Dampé " COLOR(DEFAULT) "o coveiro, estou\n"
-"na cama agora!" BOX_BREAK "Sai daqui e vai brincar! Talvez\n"
-"encontres um fantasma de dia?"
+QUICKTEXT_ENABLE "Var tyst!" QUICKTEXT_DISABLE  BOX_BREAK "Klockan är ju bara " TIME "!\n"
+"Jag, " COLOR(RED) "Dampé " COLOR(DEFAULT) "gravskötaren, har\n"
+"gått till sängs!" BOX_BREAK "Försvinn och lek någon annanstans! Kanske du\n"
+"kan hitta dig ett spöke under dagstid?"
 )
 
 DEFINE_MESSAGE(0x0206, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"São " TIME " agora.\n"
-"A " COLOR(RED) "Excursão de Escavação" COLOR(DEFAULT) "\n"
-"acabou!" BOX_BREAK "Eu, " COLOR(RED) "Dampé" COLOR(DEFAULT) " o coveiro, estou\n"
-"na cama!" BOX_BREAK "Sai daqui e vai brincar! Talvez\n"
-"encontres um fantasma!"
+"Klockan är nu " TIME ".\n"
+COLOR(RED) "Gravgrävarturnén" COLOR(DEFAULT) " är nu över \n"
+BOX_BREAK "Jag, " COLOR(RED) "Dampé" COLOR(DEFAULT) " gravskötaren, försöker\n"
+"att såva!" BOX_BREAK "Försvinn och lek någon annanstans! Kanske du\n"
+"kan hitta dig ett spöke!"
 )
 
 DEFINE_MESSAGE(0x0207, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Loja da Máscara Feliz\n"
-COLOR(DEFAULT) "Por favor leia este letreiro antes\n"
-"de usar esta loja." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  COLOR(RED) "Como Esta Loja Funciona\n"
-COLOR(DEFAULT) "Não vendemos máscaras nesta loja.\n"
-"Nós apenas " COLOR(RED) "emprestamo-las" COLOR(DEFAULT) " a si." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Venda as máscaras emprestadas\n"
-"por si só." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Pague de volta o " COLOR(RED) "dinheiro" COLOR(DEFAULT) " pela\n"
-"máscara, e nós emprestaremos um \n"
-"novo modelo." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Pode pedir máscaras emprestadas\n"
-"que já tenha vendido de novo; \n"
-"contudo, só pode vender cada modelo\n"
-"de máscara uma vez." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Experimente a nossa loja!\n"
-SHIFT("\x14") "--Dono da Loja da Máscara Feliz" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Glada Mask Butiken\n"
+COLOR(DEFAULT) "Var god och läs denna skylt innan\n"
+"du använder digav min butik." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  COLOR(RED) "Hur Butiken Fungerar\n"
+COLOR(DEFAULT) "Vi säljer inte masker i den här butiken.\n"
+"Vi " COLOR(RED) "lånar" COLOR(DEFAULT) " endast ut dem till dig." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Du kan sälja de lånade maskerna\n"
+"på egen hand." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Du betalar sedan tillbaka " COLOR(RED) "pengarna" COLOR(DEFAULT) " för masken\n"
+"och vi lånar dig en\n"
+"nyare modell." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Du kan låna masker som du redan\n"
+"har sålt tidigare igen; men du \n"
+"kan endast sälja en mask av varje modell\n"
+"en gång." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Var god och pröva på min butik!\n"
+SHIFT("\x14") "--Ägaren Av Glada Mask Butiken" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0208, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Templo das Sombras...\n"
-"Aqui está reunida a história \n"
-"sangrenta de ganância\n"
-"e ódio de Hyrule..." EVENT
+"Skuggornas Tempel...\n"
+"Här finns samlat Hyrules blodiga \n"
+"förflutna av girighet och hat..." EVENT
 )
 
 DEFINE_MESSAGE(0x0209, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"O que se esconde na escuridão...\n"
-"Truques cheios de má fé...\n"
-"Não consegues ver adiante..." EVENT
+"Det som gömmer sig i mörkret...\n"
+"Knep fulla av illvilja...\n"
+"Vägen frammåt är dold..." EVENT
 )
 
 DEFINE_MESSAGE(0x020A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Aquele que ganha o " COLOR(RED) "olho da verdade\n"
-COLOR(DEFAULT) "será capaz de ver o que se esconde\n"
-"na escuridão." EVENT
+"Han som finner sig " COLOR(RED) "sanningens öga\n"
+COLOR(DEFAULT) "bär förmågan att se vad som gömmer\n"
+"sig i mörkret." EVENT
 )
 
 DEFINE_MESSAGE(0x020B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "Algo estranho está a tapar\n"
-"a entrada. Deves resolver o\n"
-COLOR(DEFAULT) "puzzle" COLOR(LIGHTBLUE) " nesta sala para fazer a\n"
-"entrada abrir." COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Ingången är täckt av någonting\n"
+"främmande. Du måste lösa\n"
+COLOR(DEFAULT) "pusslet" COLOR(LIGHTBLUE) " i rummet för att få\n"
+"ingången att öppnas." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x020C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Dodongo gigante morto...\n"
-"quando ele vê vermelho,\n"
-"um novo caminho \n"
-"será aberto." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Gigantisk död Dodongo...\n"
+"när dess ögon ser rött,\n"
+"kommer en ny väg att\n"
+"uppenbara sig." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x020D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-SHIFT("\x1E")  COLOR(LIGHTBLUE) "Concurso do Tesouro\n"
-COLOR(DEFAULT)  SHIFT("\x2D") "Fechado Temporariamente\n"
-SHIFT("\x38") "Aberto Esta Noite!"
+SHIFT("\x1E")  COLOR(LIGHTBLUE) "Skattkiste Tävling\n"
+COLOR(DEFAULT)  SHIFT("\x2D") "Tillfälligt Stängd\n"
+SHIFT("\x38") "Öppen Inatt!"
 )
 
 DEFINE_MESSAGE(0x020E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-COLOR(LIGHTBLUE) "Loja dos Remédios\n"
-COLOR(DEFAULT) "Fechada até de manhã"
+COLOR(LIGHTBLUE) "Medicin Butik\n"
+COLOR(DEFAULT) "Stängd för idag"
 )
 
 DEFINE_MESSAGE(0x020F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-COLOR(LIGHTBLUE) "Carreira de Tiro\n"
-COLOR(DEFAULT) "Aberta só durante o dia"
+COLOR(LIGHTBLUE) "Skytte Galleria\n"
+COLOR(DEFAULT) "Endast öppen under dagstid"
 )
 
 DEFINE_MESSAGE(0x0210, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-COLOR(LIGHTBLUE) "Loja da Máscara Feliz\n"
-COLOR(DEFAULT) "Contratamos a meio-período\n"
-"Candidata-te durante o dia"
+COLOR(LIGHTBLUE) "Glada Mask Butiken\n"
+COLOR(DEFAULT) "Söker deltidsanställda\n"
+"Ansök under dagstid"
 )
 
 DEFINE_MESSAGE(0x0211, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-COLOR(LIGHTBLUE) "Bazar\n"
-COLOR(DEFAULT) "Aberto só durante o dia"
+COLOR(LIGHTBLUE) "Basar\n"
+COLOR(DEFAULT) "Öppen endast under dagstid"
 )
 
 DEFINE_MESSAGE(0x0212, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"Mostra-me a luz!"
+"Visa mig ljuset!"
 )
 
 DEFINE_MESSAGE(0x0213, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "One with the " COLOR(RED) "eye of truth " COLOR(DEFAULT) "shall\n"
-"be guided to the Spirit Temple by\n"
-"an inviting ghost." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Han som bär " COLOR(RED) "sanningens öga " COLOR(DEFAULT) "blir\n"
+"ledd till Själarnas Tempel av\n"
+"ett inbjudande spöke." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0214, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Those who wish to open the path\n"
-"sleeping at the bottom of the lake\n"
-"must play the " COLOR(RED) "song passed down\n"
-"by the Royal Family" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "De som önskar sig öppna vägen\n"
+"som såver på sjöns botten\n"
+"måste spela " COLOR(RED) "sången som gått i arv\n"
+"av Kungafamiljen" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0215, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Those who wish to open the gate\n"
-"on the far heights, play the " COLOR(RED) "song\n"
-"passed down by the Royal Family" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "De som önskar sig öppna porten\n"
+"bortom de avlägsna höjderna, spela " COLOR(RED) "sången\n"
+"som gått i arv av Kungafamiljen" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0216, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"Those who find a " COLOR(RED) "Small Key" COLOR(DEFAULT) " can\n"
-"advance to the next room. Those\n"
-"who don't can go home!"
+"De som finner sig en " COLOR(RED) "Liten Nyckel" COLOR(DEFAULT) " kan\n"
+"göra framsteg till nästa rum. Om de inte\n"
+"kan, får de gå hem igen!"
 )
 
 DEFINE_MESSAGE(0x0217, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you wish to speak to me,\n"
-"do so from the platform." EVENT
+"Om du önskar du tala till mig,\n"
+"gör då det från plattformen." EVENT
 )
 
 DEFINE_MESSAGE(0x0218, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SFX("\x68\x6D")  QUICKTEXT_ENABLE "Hi, " NAME "!" QUICKTEXT_DISABLE "\n"
-"Look this way!" BOX_BREAK "Look over here with " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) ", and talk \n"
-"to me with " COLOR(BLUE) "[A]" COLOR(DEFAULT) "."
+UNSKIPPABLE  SFX("\x68\x6D")  QUICKTEXT_ENABLE "Hallå, " NAME "!" QUICKTEXT_DISABLE "\n"
+"Titta hitåt!" BOX_BREAK "Titta hit med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "knappen, och prata \n"
+"med mig genom att trycka " COLOR(BLUE) "[A]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0219, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"The current time is: " COLOR(RED)  TIME  COLOR(DEFAULT) "."
+"Klockan är för tillfället: " COLOR(RED)  TIME  COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x021A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"Shine light on the living dead..."
+"Skin ett ljus över de levande döda..."
 )
 
 DEFINE_MESSAGE(0x021B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"Those who break into the Royal \n"
-"Tomb will be obstructed by the\n"
-COLOR(RED) "lurkers in the dark" COLOR(DEFAULT) "."
+"Han som bryter sig in i den Kungliga \n"
+"Graven möter förhinder av\n"
+COLOR(RED) "de som lurar i mörkret" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x021C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-"Hey, you! Young man, over there!\n"
-"Look over here, inside the cell!" EVENT
+"Hallå där! Unge man, här borta!\n"
+"Titta hitåt, inne i fängelsecellen!" EVENT
 )
 
 DEFINE_MESSAGE(0x021D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"My little boy isn't here right \n"
-"now...\n"
-"I think he went to play in the \n"
-"graveyard..."
+"Min lilla pojke är inte här just nu \n"
+"Jag tror han begav sig till gravgården \n"
+"för att leka..."
 )
 
 DEFINE_MESSAGE(0x021E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Oh, my boy is asleep right now.\n"
-"Please come back some other time\n"
-"to play with him!"
+"Oj, min pojke såver för tillfället.\n"
+"Var snäll och kom tillbaka någon annan gång\n"
+"om du vill leka med honom!"
 )
 
 DEFINE_MESSAGE(0x021F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "When water fills the lake, \n"
-"shoot for the morning light." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "När sjön fylls av vattnets brus, \n"
+"skjut din pil mot morgonens ljus." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0220, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "If you want to travel to the \n"
-"future, you should return here \n"
-"with the " COLOR(BLUE) "power of silver " COLOR(DEFAULT) "from the \n"
-"past." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Om du vill färdas till \n"
+"framtiden, återvänd då hit \n"
+"med " COLOR(BLUE) "kraften av silver " COLOR(DEFAULT) "från det \n"
+"förflutna." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0221, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "If you want to proceed to the \n"
-"past, you should return here\n"
-"with the pure heart of a child." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Om du vill ta dig till det \n"
+"förflutna, återvänd hit med ett\n"
+"barns rena hjärta." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0222, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "This door is currently being\n"
-"refurbished." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Denna dör är för tillfället under\n"
+"renovering." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0223, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "It looks like something used to\n"
-"be set in this stand..." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Det ser ut som att det brukade finnas\n"
+"något i den här ställningen..." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0224, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x20") "Make my beak face the\n"
-SHIFT("\x3A")  COLOR(RED) "skull of truth" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x0C") "The alternative is descent into\n"
-SHIFT("\x2D") "the deep darkness." QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x20") "Få min näbb att peka ut den\n"
+SHIFT("\x3A")  COLOR(RED) "sanna dödskallen" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x0C") "Ditt andra val är att att sjunka ned i\n"
+SHIFT("\x2D") "mörkrets djup." QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x0225, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(LIGHTBLUE) "This is not the correct " COLOR(DEFAULT) "key" COLOR(LIGHTBLUE) "...\n"
-"The door won't open!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Detta är inte den korrekta " COLOR(DEFAULT) "nyckeln" COLOR(LIGHTBLUE) "...\n"
+"Dörren vägrar öppnas!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0226, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x27")  COLOR(LIGHTBLUE) "Granny's Potion Shop\n"
-COLOR(DEFAULT)  SHIFT("\x4F") "Closed" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x28") "Gone for Field Study\n"
-SHIFT("\x28") "Please come again!\n"
-SHIFT("\x4A") "--Granny" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x27")  COLOR(LIGHTBLUE) "Farmors Häxbrygd Butik\n"
+COLOR(DEFAULT)  SHIFT("\x4F") "Stängd" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x28") "Borta på Fältstudier\n"
+SHIFT("\x28") "Välkommen åter!\n"
+SHIFT("\x4A") "--Farmor" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0227, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE "Who's there? What a bad kid,\n"
-"trying to enter from the rear\n"
-"door!" QUICKTEXT_DISABLE  BOX_BREAK TEXT_SPEED("\x02") "Such a bad kid..." TEXT_SPEED("\x00") "\n"
-"I have to tell you some juicy\n"
-"gossip!" BOX_BREAK "The boss carpenter has a son...\n"
-"He's the guy who sits under the\n"
-"tree every night..." BOX_BREAK "Don't tell the boss I told you \n"
-"that!"
+QUICKTEXT_ENABLE "Vem där? En sån oförskämd unge,\n"
+"försöker ta sig in genom bakdörren!\n"
+QUICKTEXT_DISABLE  BOX_BREAK TEXT_SPEED("\x02") "Så oförskämt..." TEXT_SPEED("\x00") "\n"
+"Jag har saftigt skvaller!" BOX_BREAK "Byggarbetarnas chef har en son...\n"
+"Det är killen som sitter under trädet\n"
+"i mitten av byn varje natt..." BOX_BREAK "Säg inte åt Byggmästaren att\n"
+"jag berättade det!"
 )
 
 DEFINE_MESSAGE(0x0228, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-COLOR(LIGHTBLUE) "Look at this!" COLOR(DEFAULT)
+COLOR(LIGHTBLUE) "Titta på det här!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0229, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-"Malon's gone to sleep!\n"
-"I'm goin' to sleep now, too.\n"
-"Come back again when it's\n"
-"light out!"
+"Malon har gått och såva!\n"
+"Jag är också påväg till sängs.\n"
+"Kom tillbaka när det är\n"
+"ljust ute!"
 )
 
 DEFINE_MESSAGE(0x022A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE  COLOR(RED)  NAME "'s Records!\n"
-COLOR(DEFAULT) "Spiders squished: " TOKENS "\n"
-"Largest fish caught: " HIGHSCORE(HS_LARGEST_FISH) " pounds" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Marathon time: " HIGHSCORE(HS_MARATHON) "\n"
-"Horse race time: " HIGHSCORE(HS_HORSE_RACE) "\n"
-"Horseback archery: " HIGHSCORE(HS_HORSE_ARCHERY) " points" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(RED)  NAME "s Rekord!\n"
+COLOR(DEFAULT) "Antal spindlar mosade: " TOKENS "\n"
+"Största fiskfångsten: " HIGHSCORE(HS_LARGEST_FISH) " pund" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Maraton tid: " HIGHSCORE(HS_MARATHON) "\n"
+"Kapplöpningstid: " HIGHSCORE(HS_HORSE_RACE) "\n"
+"Bågskytte från hästrygg: " HIGHSCORE(HS_HORSE_ARCHERY) " poäng" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x022B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x06") "The crest of the Royal Family of\n"
-SHIFT("\x1E") "Hyrule is inscribed here." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x06") "Kungafamiljen av Hyrules vapen\n"
+SHIFT("\x1E") "är inskrivet här." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x022C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
 QUICKTEXT_ENABLE  SHIFT("\x54") "R.I.P.\n"
-SHIFT("\x08") "Here lie the souls of those who\n"
-SHIFT("\x2A") "swore fealty to the\n"
-SHIFT("\x23") "Royal Family of Hyrule" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x0F") "The Sheikah, guardians of the\n"
-SHIFT("\x11") "Royal Family and founders of\n"
-SHIFT("\x02") "Kakariko, watch over these spirits\n"
-SHIFT("\x1E") "in their eternal slumber." QUICKTEXT_DISABLE
+SHIFT("\x08") "Här vilar själarna av dem\n"
+SHIFT("\x2A") "som svor trohet till\n"
+SHIFT("\x23") "Kungafamiljen av Hyrule" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x0F") "Sheikah folket, väktarna av\n"
+SHIFT("\x11") "Kungafamiljen och Kakarikos\n"
+SHIFT("\x02") "grundare, vaka över dessa själar\n"
+SHIFT("\x1E") "i deras eviga sömn." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x022D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(BLUE) "Sleepless Waterfall\n"
-COLOR(DEFAULT)  SHIFT("\x05") "The flow of this waterfall serves\n"
-SHIFT("\x02") "the King of Hyrule. When the King\n"
-SHIFT("\x09") "slumbers, so too do these falls." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(BLUE) "Sömnlösa Vattenfall\n"
+COLOR(DEFAULT)  SHIFT("\x05") "Flödet från detta vattenfall tjänar\n"
+SHIFT("\x02") "Kungen av Hyrule. När Kungen\n"
+SHIFT("\x09") "är i vila, går fallen i följe." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x022E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"Some frogs are looking at you\n"
-"from underwater..."
+"Några grodor tittar på dig\n"
+"under vattnet ifrån..."
 )
 
 DEFINE_MESSAGE(0x022F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"You're standing on a soft carpet\n"
-"for guests...\n"
-"It feels so plush under your feet!"
+"Du står på en mjuk matta\n"
+"för gäster...\n"
+"Den känns underbar under dina fötter!"
 )
 
 DEFINE_MESSAGE(0x0230, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"If you can overcome the " COLOR(RED) "trials " COLOR(DEFAULT) "in\n"
-"the chambers ahead, then and only\n"
-"then will you be qualified to hold\n"
-"our secret treasure!"
+"Om du kan övervinna " COLOR(RED) "utmaningarna " COLOR(DEFAULT) "i\n"
+"kamrarna framför, då och endast då\n"
+"är du kvalificerad innehavet av\n"
+"vår hemliga klenod!"
 )
 
 DEFINE_MESSAGE(0x0231, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"If you desire to acquire our\n"
-"hidden treasure, you must strive\n"
-"to obtain the " COLOR(RED) "keys " COLOR(DEFAULT) "hidden in each\n"
-"chamber!"
+"Om du åtrår att förvärva vår\n"
+"gömda skatt, måste du sträva\n"
+"efter att beslagta " COLOR(RED) "nycklarna " COLOR(DEFAULT) "som finns gömda\n"
+"i varje kammare!"
 )
 
 DEFINE_MESSAGE(0x0232, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Defeat all the enemies in a " COLOR(RED) "limited\n"
-"time" COLOR(DEFAULT) "!"
+"Besegra alla fiender inom " COLOR(RED) "utsatt tid" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0233, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Collect the " COLOR(RED) "underwater gems" COLOR(DEFAULT) "!"
+"Samla ihop " COLOR(RED) "ädelstenarna under vattnet" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0234, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Cross the sea of fire!"
+"Korsa havet av eld!"
 )
 
 DEFINE_MESSAGE(0x0235, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Find a secret passage in this\n"
-"room!"
+"Finn den hemliga öppningen\n"
+"i rummet!"
 )
 
 DEFINE_MESSAGE(0x0236, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Blind the " COLOR(RED) "eyes of the statue" COLOR(DEFAULT) "!"
+"Förblinda " COLOR(RED) "statyns ögon" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0237, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"One with " COLOR(RED) "silver hands" COLOR(DEFAULT) " shall move\n"
-"a giant block!"
+"Den som bär " COLOR(RED) "händer av silver" COLOR(DEFAULT) " bör förflytta\n"
+"ett gigantiskt block!"
 )
 
 DEFINE_MESSAGE(0x0238, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Without the necessary items, one\n"
-"will be confounded by impossible\n"
-"mysteries."
+"Utan de nödvändiga föremålen, blir\n"
+"du konfunderad över omöjliga\n"
+"mysterier."
 )
 
 DEFINE_MESSAGE(0x0239, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-"Gather the " COLOR(RED) "jewels of white" COLOR(DEFAULT) ", while\n"
-"avoiding traps and danger!"
+"Samla ihop de " COLOR(RED) "vita juvelerna" COLOR(DEFAULT) ", och\n"
+"undvik de farliga fällorna!"
 )
 
 DEFINE_MESSAGE(0x023A, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3F")  COLOR(LIGHTBLUE) "Fishing Pond" COLOR(DEFAULT) "\n"
-SHIFT("\x07") "The fish are really biting today!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x3F")  COLOR(LIGHTBLUE) "Fiskedamm" COLOR(DEFAULT) "\n"
+SHIFT("\x07") "Fiskarna nappar verkligen bra idag!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x023B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -2929,9 +2919,9 @@ SHIFT("\x4E")  COLOR(LIGHTBLUE) "....???" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x023C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x05") "The Shadow will yield only to one\n"
-SHIFT("\x0E") "with the " COLOR(RED) "eye of truth" COLOR(DEFAULT) ", handed\n"
-SHIFT("\x1C") "down in Kakariko Village." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x05") "Skuggan viker undan endast för den\n"
+SHIFT("\x0E") "som bär " COLOR(RED) "sanningens öga" COLOR(DEFAULT) ", efterlämnat\n"
+SHIFT("\x1C") " i Kakariko Byn." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0300, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
@@ -2939,235 +2929,234 @@ BACKGROUND("\x00", "\x01", "\x10")
 )
 
 DEFINE_MESSAGE(0x0301, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(LIGHTBLUE) "Hyrule Field" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(LIGHTBLUE) "Hyrules Slättmarker" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0302, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x2C")  COLOR(LIGHTBLUE) "Hyrule Castle Town" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x2C")  COLOR(LIGHTBLUE) "Hyrule Slottsstad" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0303, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x2D")  COLOR(LIGHTBLUE) "The Temple of Time" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x2D")  COLOR(LIGHTBLUE) "Tidens Tempel" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0304, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x47")  COLOR(RED) "Dead End" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x47")  COLOR(RED) "Återvändsgränd" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0305, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(PURPLE) "Kakariko Village\n"
-COLOR(DEFAULT)  SHIFT("\x28") "Death Mountain Trail\n"
-SHIFT("\x3C") "Starting Point" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(PURPLE) "Kakariko Byn\n"
+COLOR(DEFAULT)  SHIFT("\x28") "Döda Bergets Led\n"
+SHIFT("\x3C") "Start Punkt" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0306, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x17")  COLOR(PURPLE) "Kakariko Village Graveyard" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x17")  COLOR(PURPLE) "Kakariko Byns Gravgård" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0307, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x23") "Dark! Narrow! Scary!\n"
-COLOR(PURPLE)  SHIFT("\x1E") "Well of Three Features" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x23") "Mörk! Trång! Läskig!\n"
+COLOR(PURPLE)  SHIFT("\x1E") "De Tre Särdragens Brunn" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0308, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x36")  COLOR(RED) "Death Mountain\n"
-COLOR(DEFAULT)  SHIFT("\x25") "No passage without a\n"
-SHIFT("\x3A") "Royal Decree!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x36")  COLOR(RED) "Döda Berget\n"
+COLOR(DEFAULT)  SHIFT("\x25") "Ingen slipper förbi utan ett\n"
+SHIFT("\x3A") "Kungligt Påbud!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0309, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(RED) "Death Mountain Trail" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(RED) "Döda Bergets Led" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x030A, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x36")  COLOR(YELLOW) "Dodongo's Cavern\n"
-COLOR(DEFAULT)  SHIFT("\x0A") "Don't enter without permission!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x36")  COLOR(YELLOW) "Dodongos Grotta\n"
+COLOR(DEFAULT)  SHIFT("\x0A") "Gå inte in utan tillåtelse!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x030B, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x28") "Land of the Gorons\n"
-SHIFT("\x41")  COLOR(RED) "Goron City" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x28") "Goron Landet\n"
+SHIFT("\x41")  COLOR(RED) "Goron Stad" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x030C, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x48")  COLOR(BLUE) "Zora's River\n"
-COLOR(DEFAULT)  SHIFT("\x0F") "Watch out for swift current \n"
-SHIFT("\x23") "and strong undertow." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x48")  COLOR(BLUE) "Zoras Flod\n"
+COLOR(DEFAULT)  SHIFT("\x0F") "Se upp för snabba strömmar \n"
+SHIFT("\x23") "och stark underström." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x030D, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x05") "The Shadow will yield only to one\n"
-SHIFT("\x0E") "with the eye of truth, handed\n"
-SHIFT("\x1C") "down in Kakariko Village." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x05") "Skuggan viker undan endast för den\n"
+SHIFT("\x0E") "som bär sanningens öga, efterlämnat\n"
+SHIFT("\x1C") "i Kakariko Byn." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x030E, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(BLUE) "Zora's Domain" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(BLUE) "Zoras Domän" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x030F, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(BLUE) "Zora's Fountain\n"
-COLOR(DEFAULT)  SHIFT("\x08") "Don't disturb Lord Jabu-Jabu! \n"
-SHIFT("\x32") "--King Zora XVI" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(BLUE) "Zoras Fontän\n"
+COLOR(DEFAULT)  SHIFT("\x08") "Besvära inte Herr Jabu-Jabu! \n"
+SHIFT("\x32") "--Kung Zora XVI" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0310, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x23")  COLOR(PURPLE) "Forest Training Center\n"
-COLOR(DEFAULT)  SHIFT("\x15") "Don't recklessly cut signs--\n"
-SHIFT("\x28") "read them carefully!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x23")  COLOR(PURPLE) "Skogens Träningscenter\n"
+COLOR(DEFAULT)  SHIFT("\x15") "Hugg inte ned skyltar hänsynslöst--\n"
+SHIFT("\x28") "läs dem först noggrant!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0311, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x12") "All those reckless enough to\n"
-SHIFT("\x0B") "venture into the desert--please\n"
-SHIFT("\x2F") "drop by our shop." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x33")  COLOR(YELLOW) "Carpet Merchant" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x12") "Alla de övermodiga nog att\n"
+SHIFT("\x0B") "bege sig ut i öknen -- Var vänliga\n"
+SHIFT("\x2F") "och kom ett varv förbi vår butik." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x33")  COLOR(YELLOW) "Matthandlare" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0312, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x41") "Just ahead:\n"
-SHIFT("\x17")  COLOR(ADJUSTABLE) "Great Deku Tree's Meadow" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x41") "Just framför:\n"
+SHIFT("\x17")  COLOR(ADJUSTABLE) "Stora Deku Trädets Äng" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0313, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x39")  COLOR(ADJUSTABLE) "Forest Temple" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x39")  COLOR(ADJUSTABLE) "Skogens Tempel" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0314, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x35")  COLOR(ADJUSTABLE) "The Lost Woods" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x35")  COLOR(ADJUSTABLE) "Den Förlorade Skogen" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0315, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x2E") "Talon and Malon's\n"
+QUICKTEXT_ENABLE  SHIFT("\x2E") "Talon och Malons\n"
 SHIFT("\x3C")  COLOR(YELLOW) "Lon Lon Ranch" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0316, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x33") "The Great Ingo's\n"
+QUICKTEXT_ENABLE  SHIFT("\x33") "Den Store Ingos\n"
 SHIFT("\x46")  COLOR(YELLOW) "Ingo Ranch" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0317, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(BLUE) "Lake Hylia" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(BLUE) "Hyliasjön" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0318, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1E")  COLOR(BLUE) "Lakeside Laboratory\n"
-COLOR(DEFAULT)  SHIFT("\x04") "Daily trying to get to the bottom\n"
-SHIFT("\x09") "of the mysteries of Lake Hylia!\n"
-SHIFT("\x36") "--Lake Scientist" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x1E")  COLOR(BLUE) "Laboratoriet vid sjön\n"
+COLOR(DEFAULT)  SHIFT("\x04") "Försöker dagligen ta mig till botten\n"
+SHIFT("\x09") "av Hyliasjöns mysterier!\n"
+SHIFT("\x36") "--Sjöforskaren" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0319, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(YELLOW) "Gerudo Valley" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x37")  COLOR(YELLOW) "Gerudo Dalen" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x031A, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x19")  COLOR(YELLOW) "Horseback Archery Range" COLOR(DEFAULT) "\n"
-SHIFT("\x12") "Skilled players are welcome!\n"
-SHIFT("\x12") "Current record: " COLOR(RED)  HIGHSCORE(HS_HORSE_ARCHERY)  COLOR(DEFAULT) " Points" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x15")  COLOR(YELLOW) "Bana för Bågskytte från Hästrygg " COLOR(DEFAULT) "\n"
+SHIFT("\x12") "Skickliga spelare hjärtligt välkomna!\n"
+SHIFT("\x12") "Nuvarande Rekord: " COLOR(RED)  HIGHSCORE(HS_HORSE_ARCHERY)  COLOR(DEFAULT) " Poäng" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x031B, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x21")  COLOR(YELLOW) "Gerudo Training Ground\n"
-COLOR(DEFAULT)  SHIFT("\x11") "Only registered members are\n"
-SHIFT("\x4B") "allowed!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x21")  COLOR(YELLOW) "Gerudo Övningsfält\n"
+COLOR(DEFAULT)  SHIFT("\x11") "Endast registrerade medlemmar\n"
+SHIFT("\x4B") "tillåtna!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x031C, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x2D")  COLOR(YELLOW) "Haunted Wasteland" COLOR(DEFAULT) "\n"
-SHIFT("\x17") "If you chase a mirage, the\n"
-SHIFT("\x1F") "desert will swallow you.\n"
-SHIFT("\x21") "Only one path is true!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x2D")  COLOR(YELLOW) "Hemsökta Ödemarken" COLOR(DEFAULT) "\n"
+SHIFT("\x17") "Om du jagar efter hägringar kommer\n"
+SHIFT("\x1F") "du sväljas av öknen.\n"
+SHIFT("\x21") "Endast en väg är den sanna!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x031D, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(YELLOW) "Spirit Temple" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(YELLOW) "Själarnas Tempel" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x031E, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(ADJUSTABLE) "Kokiri Shop\n"
-COLOR(DEFAULT)  SHIFT("\x0B") "We have original forest goods!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(ADJUSTABLE) "Kokiri Butiken\n"
+COLOR(DEFAULT)  SHIFT("\x0B") "Vi säljer närproducerade produkter!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x031F, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1E")  NAME "'s House" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x1E")  NAME "s Hus" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0320, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(ADJUSTABLE) "Forest folk shall not\n"
-COLOR(DEFAULT)  SHIFT("\x2D")  COLOR(ADJUSTABLE) "leave these woods." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(ADJUSTABLE) "Trädens folk kan ej\n"
+COLOR(DEFAULT)  SHIFT("\x2D")  COLOR(ADJUSTABLE) "lämna dessa skogar." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0321, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x03") "Follow the trail along the edge of\n"
-SHIFT("\x15") "the cliff and you will reach\n"
-SHIFT("\x06")  COLOR(RED) "Goron City" COLOR(DEFAULT) ", home of the Gorons." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x03") "Följ bergsledet längs med klippans kant\n"
+SHIFT("\x15") "för att nå" SHIFT("\x06")  COLOR(RED) "Goron Staden" COLOR(DEFAULT) ",\n Goron folkets hem." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0322, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x36") "Natural Wonder\n"
-SHIFT("\x3F")  COLOR(RED) "Bomb Flower" COLOR(DEFAULT) "\n"
-SHIFT("\x1E") "Danger! Do not uproot!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x36") "Ett av Naturens Under\n"
+SHIFT("\x3F")  COLOR(RED) "Bomb Blomma" COLOR(DEFAULT) "\n"
+SHIFT("\x1E") "Fara! Ryck inte lös från marken!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0323, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x26")  COLOR(RED) "Death Mountain Summit\n"
-COLOR(DEFAULT)  SHIFT("\x10") "Entrance to the crater ahead\n"
-SHIFT("\x1E") "Beware of intense heat!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x26")  COLOR(RED) "Döda Bergets Topp\n"
+COLOR(DEFAULT)  SHIFT("\x10") "Infart till kratern framför\n"
+SHIFT("\x1E") "Var beredd på överväldigande hätta!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0324, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1D")  COLOR(BLUE) "King Zora's Throne Room\n"
-COLOR(DEFAULT)  SHIFT("\x1E") "To hear the King's royal\n"
-SHIFT("\x15") "proclamations, stand on the\n"
-SHIFT("\x17") "platform and speak to him." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x1D")  COLOR(BLUE) "Kung Zoras Tronsal\n"
+COLOR(DEFAULT)  SHIFT("\x1E") "För att höra Kungens ädla\n"
+SHIFT("\x15") "tillkännagivande, ställ dig inför\n"
+SHIFT("\x17") "honom på plattformen och tala." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0325, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0A") "If you can stop my wild rolling,\n"
-SHIFT("\x0B") "you might get something great.\n"
-SHIFT("\x29") "--" COLOR(RED) "Hot Rodder Goron" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x0A") "Får du stop på mitt vilda rullande,\n"
+SHIFT("\x0B") "kanske jag ger dig något häftigt.\n"
+SHIFT("\x29") "--" COLOR(RED) "Het Rodder Goron" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0326, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0A") "Only one with the eye of truth\n"
-SHIFT("\x15") "will find the stone umbrella\n"
-SHIFT("\x1A") "that protects against the\n"
-SHIFT("\x39") "rain of blades." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x0A") "Endast han med ett öga som ser sanningen\n"
+SHIFT("\x15") "kan finna paraplyet av sten\n"
+SHIFT("\x1A") "som beskyddar emot\n"
+SHIFT("\x39") "regnet av knivblad." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0327, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0A") "Only one who has " COLOR(RED) "sacred feet" COLOR(DEFAULT) "\n"
-SHIFT("\x04") "can cross the valley of the dead." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x0A") "Bara den som besitter " COLOR(RED) "heliga fötter" COLOR(DEFAULT) "\n"
+SHIFT("\x04") "kan ta sig över de dödas håla." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0328, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "The record time of those\n"
-"who raced against me was:\n"
+QUICKTEXT_ENABLE "Rekordtiden för de som\n"
+"tävlade emot mig var:\n"
 COLOR(LIGHTBLUE)  HIGHSCORE(HS_DAMPE_RACE)  COLOR(DEFAULT) "\n"
-"--Dampé the Gravekeeper" QUICKTEXT_DISABLE
+"--Gravskötaren Dampé" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0329, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Shooting Gallery  \n"
-"20 Rupees for one play\n"
-COLOR(DEFAULT) "There are " COLOR(RED) "10 targets" COLOR(DEFAULT) ". You have " COLOR(RED) "15\n"
-"chances" COLOR(DEFAULT) ". Hit all 10 targets!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Hit 10 targets -- Perfect Prize\n"
-"Hit 8 or more -- Free Retry\n"
-"Hit less than 8 -- Game Over" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Rules at this Shooting Gallery\n"
-COLOR(DEFAULT) "Don't lean on the counter.\n"
-"Don't disturb other customers." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Skytte Galleria\n"
+"20 Rupeer per omgång\n"
+COLOR(DEFAULT) "Det finns " COLOR(RED) "10 måltavlor" COLOR(DEFAULT) ". Du har " COLOR(RED) "15\n"
+"chanser" COLOR(DEFAULT) ". Träffa alla 10 måltavlorna!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Träffa 10 måltavlor -- Perfekta Priset\n"
+"Träffa 8 eller fler -- Försök Igen Gratis\n"
+"Träffa färre än 8 -- Slutspelat" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Regler vid denna Skytte Galleria\n"
+COLOR(DEFAULT) "Luta inte mot disken.\n"
+"Stör inte de andra kunderna." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x032A, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(LIGHTBLUE) "Treasure Chest Shop" COLOR(DEFAULT) "\n"
-SHIFT("\x06") "We don't necessarily sell them..." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x28")  COLOR(LIGHTBLUE) "Skattkistebutik" COLOR(DEFAULT) "\n"
+SHIFT("\x06") "Vi säljer dem inte nödvändigtvis..." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x032B, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1F")  COLOR(LIGHTBLUE) "High Dive Practice Spot\n"
-COLOR(DEFAULT)  SHIFT("\x2F") "Are you confident\n"
-SHIFT("\x2A") "in your diving skill?" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x1F")  COLOR(LIGHTBLUE) "Övningplats för Högdykning\n"
+COLOR(DEFAULT)  SHIFT("\x2F") "Känner du dig självsäker\n"
+SHIFT("\x2A") "i din dykarförmåga?" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x032C, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
@@ -3175,372 +3164,371 @@ DEFINE_MESSAGE(0x032C, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x032D, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x33")  COLOR(RED) "Mountain Summit" COLOR(DEFAULT) "\n"
-SHIFT("\x19") "Danger Ahead - Keep Out" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x33")  COLOR(RED) "Bergstopp" COLOR(DEFAULT) "\n"
+SHIFT("\x19") "Allvarlig Fara - Håll Dig Borta!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x032E, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x2E")  COLOR(LIGHTBLUE) "Happy Mask Shop!" COLOR(DEFAULT) "\n"
-SHIFT("\x28") "Now hiring happiness\n"
-SHIFT("\x3C") "delivery men!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x2E")  COLOR(LIGHTBLUE) "Glada Maskbutiken!" COLOR(DEFAULT) "\n"
+SHIFT("\x28") "Anställer varubud för\n"
+SHIFT("\x3C") "att leverera glädje!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x032F, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x23")  COLOR(LIGHTBLUE) "Bombchu Bowling Alley" COLOR(DEFAULT) "\n"
-SHIFT("\x20") "You can experience the\n"
-SHIFT("\x17") "latest in Bomb technology!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x23")  COLOR(LIGHTBLUE) "Bombchu Bowlinghall" COLOR(DEFAULT) "\n"
+SHIFT("\x20") "Du får uppleva det senaste\n"
+SHIFT("\x17") "inom Bombteknologin!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0330, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x50")  COLOR(LIGHTBLUE) "Bazaar" COLOR(DEFAULT) "\n"
-SHIFT("\x0A") "We have a little of everything!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x50")  COLOR(LIGHTBLUE) "Basar" COLOR(DEFAULT) "\n"
+SHIFT("\x0A") "Vi har lite av allt!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0331, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(LIGHTBLUE) "Potion Shop\n"
-COLOR(DEFAULT)  SHIFT("\x1B") "We have the best quality\n"
-SHIFT("\x4A") "potions!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(LIGHTBLUE) "Häxbryggdsbutik\n"
+COLOR(DEFAULT)  SHIFT("\x1B") "Vi har häxbrygder av\n"
+SHIFT("\x4A") "bästa kvalité!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0332, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(RED) "Goron Shop\n"
-COLOR(DEFAULT)  SHIFT("\x1E") "Mountaineering Supplies!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x41")  COLOR(RED) "Goron Butik\n"
+COLOR(DEFAULT)  SHIFT("\x1E") "Förnödenheter för Bergsklättrare!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0333, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x45")  COLOR(BLUE) "Zora Shop" COLOR(DEFAULT) "\n"
-SHIFT("\x28") "We have fresh fish!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x45")  COLOR(BLUE) "Zora Butik" COLOR(DEFAULT) "\n"
+SHIFT("\x28") "Här finns färsk fisk!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0334, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x03")  COLOR(LIGHTBLUE) "Heart-Pounding Gravedigging Tour!\n"
-COLOR(DEFAULT)  SHIFT("\x08") "From 18:00 to 21:00 Hyrule Time\n"
+QUICKTEXT_ENABLE  SHIFT("\x03")  COLOR(LIGHTBLUE) "Hjärtbultande Gravgrävarturné!\n"
+COLOR(DEFAULT)  SHIFT("\x08") "Från 18:00 till 21:00 Hyrule Tid\n"
 SHIFT("\x1C") "--Dampé the Gravekeeper" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0335, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x03")  COLOR(LIGHTBLUE) "Heart-Pounding Gravedigging Tour!\n"
-COLOR(DEFAULT)  SHIFT("\x0A") "Tours are " COLOR(RED) "cancelled" COLOR(DEFAULT) " until a new\n"
-SHIFT("\x1B") "gravekeeper is found. We\n"
-SHIFT("\x09") "apologize for any inconvenience." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x03")  COLOR(LIGHTBLUE) "Hjärtbultande Gravgrävarturné!\n"
+COLOR(DEFAULT)  SHIFT("\x0A") "Turnén är " COLOR(RED) "inställd" COLOR(DEFAULT) " tills en ny\n"
+SHIFT("\x1B") "gravskötare är funnen. Vi\n"
+SHIFT("\x09") "beklagar för besväret." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0336, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(PURPLE) "Thrust Attack Signs!\n"
-COLOR(DEFAULT) "To thrust with your sword, press\n"
-COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) " toward your target while \n"
-COLOR(LIGHTBLUE) "[Z] Targeting" COLOR(DEFAULT) ", then press " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(PURPLE) "Skylt för Framstötning!\n"
+COLOR(DEFAULT) "För att göra en framstöt med svärdet, för\n"
+COLOR(LIGHTBLUE) "[Styr-Spaken]" COLOR(DEFAULT) " mot ditt mål \n"
+"Lås Kameran med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) ", tryck sedan " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0337, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(PURPLE) "Hole of \"Z\"\n"
-COLOR(DEFAULT) "Let's go through this small\n"
-"hole!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Stand in front of the hole and\n"
-"push " COLOR(LIGHTBLUE) "[Control-Pad] " COLOR(DEFAULT) "towards it. When the \n"
-COLOR(BLUE) "Action Icon " COLOR(DEFAULT) "shows \"Enter,\" press\n"
-COLOR(BLUE) "[A] " COLOR(DEFAULT) "to crawl into the hole." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Pay attention to what the " COLOR(BLUE) "Action\n"
-"Icon " COLOR(DEFAULT) "says!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(PURPLE) "\"Z\" Hålet\n"
+COLOR(DEFAULT) "Vi kryper genom det här lilla\n"
+"hålet!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Stå framför hålet och\n"
+"för " COLOR(LIGHTBLUE) "[Styr-Spaken] " COLOR(DEFAULT) "emot det. När  \n"
+COLOR(BLUE) "Händelse Ikonen " COLOR(DEFAULT) "visar \"Gå in,\" tryck\n"
+COLOR(BLUE) "[A] " COLOR(DEFAULT) "för att krypa in i hålet." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Uppmärksamma vad " COLOR(BLUE) "Händelse Ikonen\n"
+COLOR(DEFAULT) "visar!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0338, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(PURPLE) "Cut Grass With Your Sword\n"
-COLOR(DEFAULT) "If you just swing with " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ", you'll \n"
-"cut horizontally. If you hold " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " as" COLOR(LIGHTBLUE) " \n"
-COLOR(DEFAULT) "you swing, you'll cut vertically." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(PURPLE) "Hugg Ned Gräsmed Svärdet\n"
+COLOR(DEFAULT) "Om du står stilla och bara trycker " COLOR(ADJUSTABLE) "[B]\n"
+COLOR(DEFAULT) ", svingar du svärdet vågrätt. Om du håller\n"
+COLOR(DEFAULT) "in " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " när" COLOR(DEFAULT) "du slår,\n"
+COLOR(DEFAULT) "så hugger du lodrätt." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0339, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(LIGHTBLUE) "Hyrule Castle" COLOR(DEFAULT) "\n"
+QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(LIGHTBLUE) "Hyrule Slott" COLOR(DEFAULT) "\n"
 SHIFT("\x37")  COLOR(YELLOW) "Lon Lon Ranch" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x033A, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x13") "You are here: " COLOR(LIGHTBLUE) "Hyrule Castle" COLOR(DEFAULT) "\n"
-SHIFT("\x16") "This way to " COLOR(YELLOW) "Lon Lon Ranch" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x13") "Du är här: " COLOR(LIGHTBLUE) "Hyrule Slott" COLOR(DEFAULT) "\n"
+SHIFT("\x16") "Den här vägen till " COLOR(YELLOW) "Lon Lon Ranch" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x033B, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x42") "Just Ahead\n"
-SHIFT("\x29")  COLOR(BLUE) "King Zora's Chamber\n"
-COLOR(DEFAULT)  SHIFT("\x19") "Show the proper respect!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x42") "En Bit Fram\n"
+SHIFT("\x29")  COLOR(BLUE) "Kung Zoras kammare\n"
+COLOR(DEFAULT)  SHIFT("\x19") "Visa ordentlig respekt!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x033C, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x19") "House of the Great " COLOR(RED) "Mido" COLOR(DEFAULT) "\n"
-SHIFT("\x2D") "Boss of the Kokiri" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x19") "Den Store " COLOR(RED) "Mido" COLOR(DEFAULT) "s Hus\n"
+SHIFT("\x2D") "Chef över alla Kokiri" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x033D, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x04") "House of the Know-it-All Brothers" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x04") "De Allkunniga Brödernas Hus" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x033E, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x37") "House of Twins" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x37") "Tvillingarnas Hus" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x033F, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3D")  COLOR(RED) "Saria" COLOR(DEFAULT) "'s House" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x3D")  COLOR(RED) "Saria" COLOR(DEFAULT) "s Hus" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0340, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(PURPLE) "View Point with [Z] Targeting\n"
-COLOR(DEFAULT) "When you have no object to look\n"
-"at, you can just look forward\n"
-"with " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Stop moving and then change the\n"
-"direction you are facing, or " COLOR(LIGHTBLUE) "hold\n"
-"down [Z] " COLOR(DEFAULT) "for a little while." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "This can help you get oriented in\n"
-"the direction you want to face.\n"
-"It's quite convenient!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "If " COLOR(LIGHTBLUE) "you hold down [Z]" COLOR(DEFAULT) ", you can\n"
-COLOR(RED) "walk sideways" COLOR(DEFAULT) " while facing \n"
-"straight ahead." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  COLOR(RED) "Walking sideways" COLOR(DEFAULT) " can be a very\n"
-"important technique in dungeon\n"
-"corridors. Turn around and try\n"
-"doing this right now." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(PURPLE) "Utsiktspunkt med [Z] riktning\n"
+COLOR(DEFAULT) "När du inte tittar mot något\n"
+"särskilt, kan du rikta kameran frammåt\n"
+"med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Stå still och vänd mot\n"
+"ett annat håll, eller " COLOR(LIGHTBLUE) "håll\n"
+"ned [Z] " COLOR(DEFAULT) "en stund." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Detta hjälper att orientera dig\n"
+"åt det håll du vill rikta dig mot.\n"
+"Det är väldigt behändingt!" QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE COLOR(LIGHTBLUE) "Håll ned [Z]" COLOR(DEFAULT) ", så kan du\n"
+COLOR(RED) "gå sidledes" COLOR(DEFAULT) " medan du hålls vänd \n"
+"rakt lol." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  COLOR(RED) "Att gå sidledes" COLOR(DEFAULT) " kan vara väldigt\n"
+"viktigt att kunna i labyrint\n"
+"korridorer. Vänd runt och testa\n"
+"detta nu på en gång." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0341, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Stepping Stones in the Pond\n"
-COLOR(DEFAULT) "If you boldly go in the direction\n"
-"you want to jump, you will leap\n"
-"automatically." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "If you hop around on the stones,\n"
-"you'll become happier!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(RED) "Hoppstenar i dammen\n"
+COLOR(DEFAULT) "När du vågat springer i den riktning\n"
+"du vill, hoppar du automatiskt \n"
+"av kanten." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Om du hoppar runt på stenarna\n"
+"kommer det göra dig lycklig!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0342, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x2F")  COLOR(RED) "No Diving Allowed\n"
-COLOR(DEFAULT)  SHIFT("\x15") "--It won't do you any good!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x2F")  COLOR(RED) "All Dykning Förbjuden!\n"
+COLOR(DEFAULT)  SHIFT("\x15") "--Det gör dig intet gott!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0343, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(PURPLE) "Switch Targeting\n"
-COLOR(DEFAULT) "If you see a " COLOR(ADJUSTABLE) "▼" COLOR(DEFAULT) " icon above an \n"
-"object, you can target it with " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "In other words, if you press " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " \n"
-"when you see " COLOR(ADJUSTABLE) "▼" COLOR(YELLOW) " " COLOR(DEFAULT) "above an object,\n"
-"you can lock on to it." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "If you press " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " again, the lock\n"
-"will either " COLOR(RED) "release" COLOR(DEFAULT) " or it will\n"
-"transfer to the next object with\n"
-"the " COLOR(ADJUSTABLE) "▼" COLOR(DEFAULT) " above it." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "When you have many enemies in\n"
-"your field of view and you want\n"
-"to escape, press " COLOR(LIGHTBLUE) "[Z] " COLOR(DEFAULT) "while holding\n"
-"back on " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) " to cancel targeting." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "You can target the " COLOR(RED) "stones" COLOR(DEFAULT) " next to\n"
-"this sign for practice!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(PURPLE) "Byt Kamera Inriktning\n"
+COLOR(DEFAULT) "När du ser en " COLOR(ADJUSTABLE) "▼" COLOR(DEFAULT) " ikon ovanför ett \n"
+"föremål, kan du rikta in dig med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Med andra ord, tryck " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " när du\n"
+"ser en " COLOR(ADJUSTABLE) "▼" COLOR(YELLOW) " ikon " COLOR(DEFAULT) "ovanför ett föremål,\n"
+"så låser du in kameran på det." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Tryck " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " igen,\n"
+"för att antingen " COLOR(RED) "lösgöra" COLOR(DEFAULT) " kameran eller\n"
+"rikta in dig på nästa föremål med\n"
+COLOR(ADJUSTABLE) "▼" COLOR(DEFAULT) " ikonen ovanför sig." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "När du står inför många fiender\n"
+"samtidigt och vill fly därifrån,\n"
+"tryck " COLOR(LIGHTBLUE) "[Z] " COLOR(DEFAULT) " medan du styr\n"
+"bakåt med " COLOR(LIGHTBLUE) "[Styr-Spaken]" COLOR(DEFAULT) " för att avbryta inriktningen." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Du kan rikta in dig på dessa " COLOR(RED) "stenar" COLOR(DEFAULT) " bredvid\n"
+"skylten för att öva!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0344, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3D")  COLOR(ADJUSTABLE) "Forest Stage" COLOR(DEFAULT)  QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x14") "We are waiting to see your\n"
-SHIFT("\x38") "beautiful face!\n"
-SHIFT("\x28") "Win fabulous prizes!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x3D")  COLOR(ADJUSTABLE) "Skogens Vise" COLOR(DEFAULT)  QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x14") "Vi väntar på att få se ditt\n"
+SHIFT("\x38") "vackra ansikte!\n"
+SHIFT("\x28") "Vinn utomordentliga priser!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0345, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x48") "Visit the\n"
-SHIFT("\x04")  COLOR(RED) "House of the Know-it-All Brothers\n"
-COLOR(DEFAULT)  SHIFT("\x17") "to get answers to all your\n"
-SHIFT("\x22") "item-related questions!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x48") "Gör ett besök till\n"
+SHIFT("\x04")  COLOR(RED) "De Allvetande Brödernas Hus\n"
+COLOR(DEFAULT)  SHIFT("\x17") "för att få svar på alla dina\n"
+SHIFT("\x22") "frågor angående olika föremål!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0400, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"This is a " COLOR(RED) "Gossip Stone" COLOR(DEFAULT) "!"
+"Detta är en " COLOR(RED) "Skvallersten" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x0401, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that you can swim faster\n"
-"by continuously pressing " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "."
+"Det sägs att du kan simma snabbare\n"
+"genom att snabbt trycka " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0402, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that there is a secret \n"
-"near the lone tree which is not\n"
-"far from the river in the \n"
-"northwest part of Hyrule Field."
+"Det sägs att det finns något hemligt\n"
+"i närheten av det ensamma trädet,\n"
+"inte långt ifrån floden i den\n"
+"nordvästra delen av Hyrules Slättmarker."
 )
 
 DEFINE_MESSAGE(0x0403, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that there is a secret\n"
-"on the road that leads to Lake\n"
-"Hylia."
+"Det sägs att det finns något hemligt\n"
+"intill vägen som leder till Hyliasjön."
 )
 
 DEFINE_MESSAGE(0x0404, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Biggoron's Sword is \n"
-"super sharp and will never break."
+"Det sägs att Storgorons Svärd är \n"
+"super vasst och att det aldrig går sönder."
 )
 
 DEFINE_MESSAGE(0x0405, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Medigoron didn't \n"
-"really think about his own size, \n"
-"so his store is really cramped."
+"Det sägs att Medigoron inte\n"
+"riktigt är medveten om sin storlek, \n"
+"så hans butik är väldigt trång."
 )
 
 DEFINE_MESSAGE(0x0406, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Malon set the\n"
-"original record in the obstacle\n"
-"course of Lon Lon Ranch."
+"Det sägs att Malon satte\n"
+"ursprungliga rekordet i Lon Lon\n"
+"Ranchens hinderbana."
 )
 
 DEFINE_MESSAGE(0x0407, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Malon of Lon Lon \n"
-"Ranch hopes a knight in shining \n"
-"armor will come and sweep her off \n"
-"her feet someday."
+"Det sägs att Malon från Lon Lon \n"
+"Ranchen hoppas på att en riddare i \n"
+"skinande rustning kommer och sveper \n"
+"henne av fötterna någon dag."
 )
 
 DEFINE_MESSAGE(0x0408, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Ruto, the Zora \n"
-"Princess who is known for her \n"
-"selfish nature, likes a certain \n"
-"boy..."
+"Det sägs att Ruto, Zora Prinsessan \n"
+"som är känd för sin själviska natur \n"
+"har fattat intresse för en viss ung pojke \n"
 )
 
 DEFINE_MESSAGE(0x0409, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that players who select\n"
-"the \"HOLD\" option for \"Z \n"
-"TARGETING\" are the real \"Zelda\n"
-"players!\""
+"Det sägs att endast spelare som\n"
+"väljer \"HÅLL\" alternativet för \"Z \n"
+"INRIKTNING\" är riktiga \"Zelda\n"
+"spelare!\""
 )
 
 DEFINE_MESSAGE(0x040A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that there is a secret\n"
-"near a tree in Kakariko Village."
+"Det sägs att det finns något gömt\n"
+"nära trädet i Kakariko Byn ."
 )
 
 DEFINE_MESSAGE(0x040B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that, contrary to her \n"
-"elegant image, Princess Zelda of \n"
-"Hyrule Castle is, in fact, a \n"
-"tomboy!"
+"Det sägs att, till skillnad från\n"
+"hennes eleganta utseende, är Prinsessan \n"
+"Zelda från Hyrule Slottet, \n"
+"egentligen riktigt busig!"
 )
 
 DEFINE_MESSAGE(0x040C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Princess Zelda's \n"
-"nanny is actually one of the \n"
-"Sheikah, who many thought had \n"
-"died out."
+"Det sägs att Prinsessan Zeldas \n"
+"barnsköterska egentligen är en av \n"
+"Sheikah folket, som så många trodde \n"
+"att hade dött ut för länge sedan."
 )
 
 DEFINE_MESSAGE(0x040D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that there is a man who\n"
-"can always be found running\n"
-"around in Hyrule Field."
+"Det sägs att det finns en man som\n"
+"alltid kan bli funnen springande\n"
+"runt på Hyrules Slättmarker."
 )
 
 DEFINE_MESSAGE(0x040E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that it is against the\n"
-"rules to use glasses at the \n"
-"Treasure Chest Shop in Hyrule\n"
-"Castle Town Market."
+"Det sägs att det bryter mot\n"
+"reglerna att använda glasögon vid \n"
+"Skattkistebutiken i Hyrule\n"
+"Slottstads Marknad."
 )
 
 DEFINE_MESSAGE(0x040F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the Chicken Lady \n"
-"goes to the Lakeside Laboratory \n"
-"to study how to breed pocket-\n"
-"sized Cuccos."
+"Det sägs att Kyckling Damen \n"
+"åker till Laboratoriet vid sjön\n"
+"för att studera hur man\n"
+"föder upp Fick-Cuccos."
 )
 
 DEFINE_MESSAGE(0x0410, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Gerudos sometimes\n"
-"come to Hyrule Castle Town to\n"
-"look for boyfriends."
+"Det sägs att vissa Gerudo ibland\n"
+"kommer till Hyrule Slottsstad\n"
+"för att söka efter pojkvänner."
 )
 
 DEFINE_MESSAGE(0x0411, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the thief named \n"
-"Nabooru, who haunts this area, is\n"
-"a Gerudo."
+"Det sägs att en tjuv vid namn\n"
+"Nabooru, som hemsöker denna\n"
+"plats, är en Gerudo."
 )
 
 DEFINE_MESSAGE(0x0412, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that if you get close to a\n"
-"butterfly while holding a Deku\n"
-"Stick in your hands, something\n"
-"good will happen."
+"Det sägs att om du tar dig nära\n"
+"en fjäril medan du håller i en\n"
+"Deku Pinne, kommer något\n"
+"trevligt att hända."
 )
 
 DEFINE_MESSAGE(0x0413, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that you may find\n"
-"something new in dungeons that\n"
-"you have already finished."
+"Det sägs att du kan finna\n"
+"någonting nytt i labyrinter som\n"
+"du redan har besökt och avklarat."
 )
 
 DEFINE_MESSAGE(0x0414, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Gerudos worship \n"
-"Ganondorf almost like a god."
+"Det sägs att Gerudo folket avgudar \n"
+"Ganondorf nästan som om han var en gud."
 )
 
 DEFINE_MESSAGE(0x0415, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that there is a secret \n"
-"around the entrance to Gerudo \n"
-"Valley."
+"Det sägs att det finns\n"
+"något dolt runtom vid\n"
+"ingången till Gerudo Dalen."
 )
 
 DEFINE_MESSAGE(0x0416, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the owl named\n"
-"Kaepora Gaebora is the\n"
-"reincarnation of an ancient Sage."
+"Det sägs att ugglan vid namn\n"
+"Kaepora Gaebora är en av de\n"
+"forntida Vise pånyttfödd."
 )
 
 DEFINE_MESSAGE(0x0417, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that strange owl,\n"
-"Kaepora Gaebora, may look big and\n"
-"heavy, but its character is rather \n"
-"lighthearted."
+"Det sägs att fastän den konstiga\n"
+" ugglan, Kaepora Gaebora, ser stor\n"
+"och tung ut, så är han\n"
+"väldigt lätt om hjärtat."
 )
 
 DEFINE_MESSAGE(0x0418, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the horse\n"
-"Ganondorf rides is a solid black\n"
-"Gerudo stallion."
+"Det sägs att hästen som\n"
+"Ganondorf rider på är en\n"
+"bäcksvart Gerudo hingst."
 )
 
 DEFINE_MESSAGE(0x0419, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that Ganondorf is not \n"
-"satisfied with ruling only the\n"
-"Gerudo and aims to conquer all\n"
-"of Hyrule!"
+"Det sägs att Ganondorf inte är \n"
+"nöjd bara med att härska över\n"
+"Gerudo folket och att han ämnar\n"
+"erövra hela Hyrule!"
 )
 
 DEFINE_MESSAGE(0x041A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the treasure you\n"
-"can earn in the Gerudo's Training\n"
-"Ground is not as great as you\n"
-"would expect, given its difficulty!"
+"Det sägs att skatten du kan förtjäna\n"
+"vid Gerudos Träningsområde inte är så\n"
+"häftig som du skulle förvänta dig,\n"
+"med tanke på hur utmanande det är!"
 )
 
 DEFINE_MESSAGE(0x041B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that there is a switch \n"
-"that you can activate only by\n"
-"using the Spin Attack."
+"Det sägs att det finns en knapp \n"
+"som man endast kan aktivera genom\n"
+"att använda en Snurrattack."
 )
 
 DEFINE_MESSAGE(0x041C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that it's possible to find\n"
-"a total of 100 Gold Skulltulas\n"
-"throughout Hyrule."
+"Det sägs att det är möjligt att\n"
+"hitta totalt 100 Guld Skulltulas \n"
+"över hela Hyrule."
 )
 
 DEFINE_MESSAGE(0x041D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that when non-fairy\n"
-"folk enter the Lost Woods, they\n"
-"become monsters!"
+"Det sägs att när folk utan älvor\n"
+"ger sig in i Den Förlorade Skogen,\n"
+"förvandlas de till monster!"
 )
 
 DEFINE_MESSAGE(0x041E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the small holes in\n"
-"the ground that you can find all\n"
-"over Hyrule make perfect breeding\n"
-"ground for bugs."
+"Det sägs att de småa hålen\n"
+"i marken som du finner utöver\n"
+"Hyrule är perfekta häckningsplatser\n"
+"för småkryp."
 )
 
 DEFINE_MESSAGE(0x041F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that the Kokiri are \n"
-"always followed by small fairies."
+"Det sägs att alla Kokiri blir \n"
+"följda av små älvor."
 )
 
 DEFINE_MESSAGE(0x0420, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"They say that one Kokiri has left\n"
-"the forest, but he is still\n"
-"alive!"
+"Det sägs att endast en Kokiri\n"
+"någonsin har lämnat skogen,\n"
+"dessutom är han fortfarande vid liv!"
 )
 
 DEFINE_MESSAGE(0x0421, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -3548,68 +3536,68 @@ DEFINE_MESSAGE(0x0421, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x0600, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(RED) "What's that?" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  COLOR(RED) "Vad är det?" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0601, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Gohma\n"
-COLOR(LIGHTBLUE) "It's one of the parasitic monsters\n"
-"inside the Deku Tree! Its " COLOR(DEFAULT) "eye" COLOR(LIGHTBLUE) " is\n"
-"vulnerable when it's red!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Det är ett av de parasitiska monstren\n"
+"idet Stora Deku Trädet! Dess " COLOR(DEFAULT) "öga" COLOR(LIGHTBLUE) " blir\n"
+"sårbart när det är rött!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0602, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Gohma Egg\n"
-COLOR(LIGHTBLUE) "When this egg hatches, a Gohma\n"
-"Larva will be born." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Gohma Ägg\n"
+COLOR(LIGHTBLUE) "När detta ägg kläcks, föds en\n"
+"Gohma Larv." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0603, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Gohma Larva\n"
-COLOR(LIGHTBLUE) "Look out when it gets ready to\n"
-"pounce!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Gohma Larv\n"
+COLOR(LIGHTBLUE) "Se upp när den förbereder sig\n"
+"för att kasta sig!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0604, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Skulltula\n"
-COLOR(LIGHTBLUE) "Its soft " COLOR(DEFAULT) "belly" COLOR(LIGHTBLUE) " is its weak point!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Den mjuka " COLOR(DEFAULT) "undersidan" COLOR(LIGHTBLUE) " är dess svaga punkt!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0605, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Big Skulltula\n"
-COLOR(LIGHTBLUE) "Its soft " COLOR(DEFAULT) "belly" COLOR(LIGHTBLUE) " is its weak point!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Stor Skulltula\n"
+COLOR(LIGHTBLUE) "Den mjuka " COLOR(DEFAULT) "undersidan" COLOR(LIGHTBLUE) " är dess svaga punkt!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0606, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Tailpasaran\n"
-COLOR(LIGHTBLUE) "Its " COLOR(DEFAULT) "tail " COLOR(LIGHTBLUE) "is its weak point!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Svanspasaran\n"
+COLOR(DEFAULT) "Svansen" COLOR(LIGHTBLUE) " är dess svaga punkt!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0607, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Deku Baba\n"
-COLOR(LIGHTBLUE) "Hit it when it lunges at you, and \n"
-"it will stand upright. Cut it\n"
-"quickly to get a " COLOR(DEFAULT) "Deku Stick" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Hugg när den gör utfall så ställer\n"
+"den sig upprätt. Skär snabbt av\n"
+"stammen för att få en " COLOR(DEFAULT) "Deku Pinne" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0608, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Big Deku Baba\n"
-COLOR(LIGHTBLUE) "Hit it when it lunges at you, and \n"
-"it will stand upright. Cut it\n"
-"quickly to get a " COLOR(DEFAULT) "Deku Stick" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Stor Deku Baba\n"
+COLOR(LIGHTBLUE) "Hugg när den gör utfall så ställer\n"
+"den sig upprätt. Skär snabbt av\n"
+"stammen för att få en " COLOR(DEFAULT) "Deku Pinne" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0609, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Deku Baba\n"
-COLOR(LIGHTBLUE) "Though it looks withered, it will\n"
-"hurt you if you touch it!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Den kanske ser vissen ut, men den\n"
+"anfaller dig om du försöker röra den!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x060A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Deku Scrub\n"
-COLOR(LIGHTBLUE) "It will hide in the grass if you get\n"
-"close to it. Bounce the nuts it \n"
-"spits back at it!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Deku Buske\n"
+COLOR(LIGHTBLUE) "Den gömmer sig i gräset om  du\n"
+"kommer för nära. Studsa tillbaka nötterna\n"
+"som den skjuter!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x060B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
@@ -3617,206 +3605,205 @@ DEFINE_MESSAGE(0x060B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x060C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "King Dodongo\n"
-COLOR(LIGHTBLUE) "This is a huge Dodongo that eats\n"
-"anything! Give it a shock, and \n"
-"finish it off with your " COLOR(DEFAULT) "sword" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Kung Dodongo\n"
+COLOR(LIGHTBLUE) "Det där är en jättelik Dodongo som\n"
+"äter vad som helst! Ge den en smäll, och\n"
+"avsluta den med ditt " COLOR(DEFAULT) "svärd" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x060D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Dodongo\n"
-COLOR(LIGHTBLUE) "Watch out for its fiery breath!\n"
-"Use " COLOR(DEFAULT) "[Z] Targeting " COLOR(LIGHTBLUE) "techniques!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Se upp för dess brännheta andedräkt!\n"
+"Använd " COLOR(DEFAULT) "[Z] Inriktning " COLOR(LIGHTBLUE) "tekniker!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x060E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Baby Dodongo\n"
-COLOR(LIGHTBLUE) "Watch out for its leaping attack!\n"
-"It will explode after it's defeated!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Se upp för dess anfallssprång!\n"
+"Den exploderar efter att ha blivit besegrad!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x060F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Lizalfos \n"
-COLOR(LIGHTBLUE) "Use your shield well and fight \n"
-"with " COLOR(DEFAULT) "[Z] Targeting " COLOR(LIGHTBLUE) "techniques!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Använd din sköld väl och strid\n"
+"med " COLOR(DEFAULT) "[Z] Inriktning" COLOR(LIGHTBLUE) " tekniker!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0610, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Dinolfos \n"
-COLOR(LIGHTBLUE) "Use your shield well and fight \n"
-"with " COLOR(DEFAULT) "[Z] Targeting " COLOR(LIGHTBLUE) "techniques!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Använd din sköld väl och strid\n"
+"med " COLOR(DEFAULT) "[Z] Inriktning " COLOR(LIGHTBLUE) "tekniker!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0611, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Fire Keese\n"
-COLOR(LIGHTBLUE) "Destroy it before it flies into\n"
-"you! If you don't, its flames will\n"
-"burn up your " COLOR(DEFAULT) "Deku Shield" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Eld Keese\n"
+COLOR(LIGHTBLUE) "Förstör den före den kan flyga in i\n"
+"dig! Annars kommer dess flammor att\n"
+"bränna upp din " COLOR(DEFAULT) "Deku Sköld" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0612, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Keese\n"
-COLOR(LIGHTBLUE) "When you get close to it, use \n"
-COLOR(DEFAULT) "[Z] Targeting" COLOR(LIGHTBLUE) ". Even if it flies\n"
-"away, you can still target it." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "När du kommer tillräckligt nära,\n"
+"använd "COLOR(DEFAULT) "[Z] Inriktning" COLOR(LIGHTBLUE) ". Du kan hålla kvar siktet på den\n"
+"även om den flyger iväg." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0613, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Armos\n"
-COLOR(LIGHTBLUE) "Stop its movement and then\n"
-"destroy it!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Stoppa den från att röra sig\n"
+"och förinta den!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0614, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Barinade\n"
-COLOR(LIGHTBLUE) "Many parasitic jellyfish swarm\n"
-"around this monster. Aim for its\n"
-"body, protected by jellyfish!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Många parasitiska maneter svärmar\n"
+"runt detta monster. Lägg siktet på dess\n"
+"kropp, som ligger i skydd bakom maneterna!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0615, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Parasitic Tentacle?\n"
-COLOR(LIGHTBLUE) "It seems that the narrow part is \n"
-"its weak point... You need a \n"
-"particular item to destroy it!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Parasitisk Tentakel\n"
+COLOR(LIGHTBLUE) "Verkar som den smala delen \n"
+"är dess svaga punkt... Du behöver ett särskilt\n"
+"föremål för att förstöra den!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0616, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Shabom\n"
-COLOR(LIGHTBLUE) "If you try to cut it, it will bounce\n"
-"off your blade!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Den ser sprickfärdig ut, kan inte\n"
+"krävas mycket för att göra hål på den!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0617, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Biri\n"
-COLOR(LIGHTBLUE) "If you touch it, you will be\n"
-"electrocuted!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Om du låter den röra dig så\n"
+"blir du elektrifierad!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0618, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Bari\n"
-COLOR(LIGHTBLUE) "If you touch it, you will be \n"
-"electrocuted!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Om du låter den röra dig så\n"
+"blir du elektrifierad!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0619, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Stinger\n"
-COLOR(LIGHTBLUE) "Destroy it before it flies into you!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Förgör den innan den hinner anfalla dig!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x061A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Phantom Ganon\n"
-COLOR(LIGHTBLUE) "It's an evil ghost of the Forest\n"
-"Temple! He comes out of one of\n"
-"the pictures." BOX_BREAK COLOR(LIGHTBLUE) "Answer his magic attack with an\n"
-"attack of your own!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Ganons Vålnad\n"
+COLOR(LIGHTBLUE) "En ond skepnad från Skogstemplet!\n"
+"Ha färdas genom tavlorna på\n"
+"väggarna." BOX_BREAK COLOR(LIGHTBLUE) "Bemöt hans magiska attack med\n"
+"av dina egna attacker!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x061B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Stalfos\n"
-COLOR(LIGHTBLUE) "Lure it close to you and watch its\n"
-"movement carefully! Attack it when \n"
-"it drops its guard!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Lura den mot dig och uppmärksamma dess\n"
+"rörelser noggrannt! Anfall så fort den\n"
+"ger dig en öppning!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x061C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Blue Bubble\n"
-COLOR(LIGHTBLUE) "Guard against its blue flame with \n"
-"your " COLOR(DEFAULT) "shield" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Blå Bubbla\n"
+COLOR(LIGHTBLUE) "Ta skydd mot dess blåa flamma bakom\n"
+"din " COLOR(DEFAULT) "sköld" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x061D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "White Bubble\n"
-COLOR(LIGHTBLUE) "Aim for it when it stops!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Vit Bubbla\n"
+COLOR(LIGHTBLUE) "Ta sikte så fort den stannar!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x061E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Green Bubble\n"
-COLOR(LIGHTBLUE) "Use your sword when its green\n"
-"fire vanishes!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Grön Bubbla\n"
+COLOR(LIGHTBLUE) "Använd ditt svärd när dess\n"
+"gröna flamma slocknar!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x061F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Skullwalltula\n"
-COLOR(LIGHTBLUE) "Be careful not to touch it!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Skullväggtula\n"
+COLOR(LIGHTBLUE) "Försök att inte låta den röra dig!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0620, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Gold Skulltula\n"
-COLOR(LIGHTBLUE) "This is also known as a Spider of\n"
-"the Curse. If you defeat it, you'll\n"
-"get a " COLOR(DEFAULT) "token" COLOR(LIGHTBLUE) " as proof!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Guld Skulltula\n"
+COLOR(LIGHTBLUE) "De här är även kända som Förbannelsens\n"
+"Spindlar. När du besegrar den får du\n"
+"en " COLOR(DEFAULT) "pollett" COLOR(LIGHTBLUE) " som bevis!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0621, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Volvagia\n"
-COLOR(LIGHTBLUE) "It's the Boss of the Fire Temple,\n"
-"revived by the Evil King. I don't\n"
-"know its weak point..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Eldtemplets Boss, återupplivad\n"
+"av Kungen av Ondska. Jag vet inte\n"
+"vad dess svaga punkt kan va'..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0622, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Flare Dancer\n"
-COLOR(LIGHTBLUE) "Extinguish its " COLOR(DEFAULT) "flaming clothes \n"
-COLOR(LIGHTBLUE) "first..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Dansande Flamma\n"
+COLOR(LIGHTBLUE) "Släck deras " COLOR(DEFAULT) "flammande kläder\n"
+COLOR(LIGHTBLUE) "först..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0623, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Torch Slug\n"
-COLOR(LIGHTBLUE) "When the fire on its back is\n"
-"extinguished, it will run away.\n"
-"Destroy it before it relights!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Fackelsnigel\n"
+COLOR(LIGHTBLUE) "Om elden på dess rygg släcks\n"
+"försöker den fly. Förgör den\n"
+"innan den återantänds!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0624, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Red Bubble\n"
-COLOR(LIGHTBLUE) "Guard against its attack with \n"
-"your " COLOR(DEFAULT) "shield" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Röd Bubbla\n"
+COLOR(LIGHTBLUE) "Ta skydd bakom din" COLOR(DEFAULT) "sköld \n" COLOR(LIGHTBLUE)
+"när den anfaller" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0625, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Morpha\n"
-COLOR(LIGHTBLUE) "Master of the Water Temple. It \n"
-"has absolute control of water. Pull\n"
-"out its " COLOR(DEFAULT) "nucleus " COLOR(LIGHTBLUE) "and attack it!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Vattentemplets Härskare. Den har \n"
+"fullständig kontrollöver vattnet. Dra\n"
+"ut " COLOR(DEFAULT) "kärnan" COLOR(LIGHTBLUE) " och förgör den!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0626, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Dark " NAME "\n"
-COLOR(LIGHTBLUE) "Conquer yourself!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Mörk " NAME "\n"
+COLOR(LIGHTBLUE) "Besegra dig själv!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0627, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Shell Blade\n"
-COLOR(LIGHTBLUE) "Its " COLOR(DEFAULT) "internal muscle " COLOR(LIGHTBLUE) "is its" COLOR(DEFAULT) " \n"
-COLOR(LIGHTBLUE) "weak point!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Klingmussla\n"
+COLOR(LIGHTBLUE) "Den " COLOR(DEFAULT) "interna muskeln " COLOR(LIGHTBLUE) "är dess" COLOR(DEFAULT) " \n"
+COLOR(LIGHTBLUE) "svaga punkt!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0628, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Spike\n"
-COLOR(LIGHTBLUE) "Aim for it when it retracts its\n"
-"spikes!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Vänta på att den drar in spikarna!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0629, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Bongo Bongo\n"
-COLOR(LIGHTBLUE) "Boss of the Shadow Temple, \n"
-"revived from the well. Look at it\n"
-"with the " COLOR(DEFAULT) "eye of truth" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Skuggtemplets Boss, återuppstådd\n"
+"från botten av brunnen. Ta en titt\n"
+"med " COLOR(DEFAULT) "ögat av sanning" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x062A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "ReDead\n"
-COLOR(LIGHTBLUE) "Its gaze will paralyze you. If it\n"
-"bites you, " COLOR(DEFAULT) "tap any button" COLOR(LIGHTBLUE) " to \n"
-"escape!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Deras blick paralyserar dig. Om den\n"
+"biter sig fast, " COLOR(DEFAULT) "tryck valfri knapp" COLOR(LIGHTBLUE) " för \n"
+"att bryta dig  loss!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x062B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "Phantom Ganon\n"
-COLOR(LIGHTBLUE) "Attack him" COLOR(RED) " " COLOR(DEFAULT) "when he comes out of\n"
-"one of the pictures" COLOR(LIGHTBLUE) "!\n"
-"Watch out for the fake one!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+UNSKIPPABLE  QUICKTEXT_ENABLE "Ganons Vålnad\n"
+COLOR(LIGHTBLUE) "Gör anfall" COLOR(RED) " " COLOR(DEFAULT) "när han kommer ut\n"
+"ur en av tavlorna" COLOR(LIGHTBLUE) "!\n"
+"Se upp för den falska!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x062C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
@@ -3825,75 +3812,75 @@ DEFINE_MESSAGE(0x062C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 
 DEFINE_MESSAGE(0x062D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Gibdo\n"
-COLOR(LIGHTBLUE) "Its gaze will paralyze you. If it\n"
-"bites you, " COLOR(DEFAULT) "tap any button" COLOR(LIGHTBLUE) " to\n"
-"escape!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Dess blick paralyserar dig. Om den\n"
+"biter sig fast, " COLOR(DEFAULT) "tryck valfri knapp" COLOR(LIGHTBLUE) " för \n"
+"att bryta dig  loss!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x062E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Dead Hand's Hands\n"
-COLOR(LIGHTBLUE) "If it grabs you, " COLOR(DEFAULT) "tap any button \n"
-COLOR(LIGHTBLUE) "to escape!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Döda Handens Händer\n"
+COLOR(LIGHTBLUE) "Om den tar fast dig, " COLOR(DEFAULT) "tryck valfri knapp\n"
+COLOR(LIGHTBLUE) "för att bryta dig loss!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x062F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Dead Hand\n"
-COLOR(LIGHTBLUE) "Watch out for its infinite hands!\n"
+QUICKTEXT_ENABLE "Död Hand\n"
+COLOR(LIGHTBLUE) "Se upp för dess ändlösa händer!\n"
 "Aim for its head!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0630, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Wallmaster\n"
-COLOR(LIGHTBLUE) "Watch out for its " COLOR(DEFAULT) "shadow" COLOR(LIGHTBLUE) " on the\n"
-"floor. Destroy it before it goes\n"
-"back up to the ceiling!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Väggmästare\n"
+COLOR(LIGHTBLUE) "Se upp för " COLOR(DEFAULT) "skuggan" COLOR(LIGHTBLUE) "den ger\n"
+"av på golvet. Förgör den innan den\n"
+"hoppar tillbaka upp i taket!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0631, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Floormaster\n"
-COLOR(LIGHTBLUE) "When it splits up, destroy all the\n"
-"pieces before they reunite!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Golvmästare\n"
+COLOR(LIGHTBLUE) "När den splittrar sig måste du förgöra\n"
+"all delar innan de återförenas!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0632, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Twinrova Koume\n"
-COLOR(LIGHTBLUE) "Ganondorf's surrogate mother.\n"
-"Sorceress of Flame. She seems\n"
-"vulnerable to " COLOR(DEFAULT) "low temperature" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Ganondorfs surrogat moder.\n"
+"Flammornas Häxa. Hon verkar\n"
+"känslig mot " COLOR(DEFAULT) "låga temperaturer" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0633, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Twinrova Kotake\n"
-COLOR(LIGHTBLUE) "Ganondorf's surrogate mother.\n"
-"Sorceress of Ice. She seems\n"
-"vulnerable to " COLOR(DEFAULT) "high temperature" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Ganondorfs surrogat moder.\n"
+"Isens Häxa. Hon verkar\n"
+"känslig mot " COLOR(DEFAULT) "höga temperaturer" COLOR(LIGHTBLUE) "." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0634, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Iron Knuckle\n"
-COLOR(LIGHTBLUE) "Something's strange...\n"
-"This is not an ordinary enemy!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Järn Knoge\n"
+COLOR(LIGHTBLUE) "Någonting är väldigt fel...\n"
+"Det där är ingen vanlig fiende!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0635, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Iron Knuckle\n"
-COLOR(LIGHTBLUE) "Watch out for its ax attack! \n"
-"It hurts a lot! Strike when it\n"
-"drops its guard!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Järn Knoge\n"
+COLOR(LIGHTBLUE) "Se upp när den anfaller med yxan! \n"
+"Den gör stor skada! Ge igen när du\n"
+"ser en öppning!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0636, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Skull Kid\n"
-COLOR(LIGHTBLUE) "Is this what happens to kids who\n"
-"wander into the forest? It looks\n"
-"like he doesn't like grownups." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Dödskallsunge\n"
+COLOR(LIGHTBLUE) "Är detta vad som händer med barn som\n"
+"hamnar vilse i skogen...? Han verkar inte\n"
+"vara speciellt förtjusen i vuxna." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0637, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Like Like\n"
-COLOR(LIGHTBLUE) "An enemy that eats " COLOR(DEFAULT) "shields " COLOR(LIGHTBLUE) "and\n"
-"certain " COLOR(DEFAULT) "clothes" COLOR(LIGHTBLUE) ". Beat it quickly\n"
-"to get your gear back!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "En fiende som äter " COLOR(DEFAULT) "sköldar " COLOR(LIGHTBLUE) "och\n"
+"vissa " COLOR(DEFAULT) "kläder" COLOR(LIGHTBLUE) ". Besegra den snabbt\n"
+"för att ta tillbaka dina saker!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0638, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
@@ -3902,21 +3889,21 @@ DEFINE_MESSAGE(0x0638, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 
 DEFINE_MESSAGE(0x0639, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Beamos\n"
-COLOR(LIGHTBLUE) "Watch out for its searching beam!\n"
-"I bet it doesn't like " COLOR(DEFAULT) "smoke" COLOR(LIGHTBLUE) " to\n"
-"get in its eye!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Se upp för den sökande strålen!\n"
+"Jag slår vad om att den inte gillar när\n"
+"den får " COLOR(DEFAULT) "rök" COLOR(LIGHTBLUE) " i ögonen!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x063A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Anubis\n"
-COLOR(LIGHTBLUE) "It's vulnerable to " COLOR(RED) "fire" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Den är känslig mot " COLOR(RED) "Eld" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x063B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Freezzard\n"
-COLOR(LIGHTBLUE) "Watch out for its freezing\n"
-"breath! Destroy it completely\n"
-"before it revives." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Se upp för dess isande\n"
+"andedräkt! Förgör den fullständigt\n"
+"innan den kan återskapa sig." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x063C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
@@ -3924,82 +3911,90 @@ DEFINE_MESSAGE(0x063C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x063D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Ganondorf the Evil King\n"
-COLOR(LIGHTBLUE) "I have no idea what his weak\n"
-"point is!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Ganondorf, den Onda Kungen\n"
+COLOR(LIGHTBLUE) "Jag har ingen aning om vad hans\n"
+"svaghet är!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x063E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Ganon\n"
-COLOR(LIGHTBLUE) "I really have no idea what his\n"
-"weak point is!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Nu har jag verkligen ingen aning om\n"
+"vad hans svaghet är!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x063F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Skull Kid\n"
-COLOR(LIGHTBLUE) "Is this what happens to kids who\n"
-"get lost in the forest? He might\n"
-"be our friend if we do something..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Dödskallsunge\n"
+COLOR(LIGHTBLUE) "Är detta vad som händer med barn som\n"
+"hamnar vilse i skogen...? Han kanske\n"
+"kan bli vår vän om vi gör någonting..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0640, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Skull Kid\n"
-COLOR(LIGHTBLUE) "Is this what happens to kids who\n"
-"get lost in this forest? He seems\n"
-"unhappy to have no face..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Dödskallsunge\n"
+COLOR(LIGHTBLUE) "Är detta vad som händer med barn som\n"
+"hamnar vilse i skogen...? Han verkar\n"
+"olycklig över att inte ha något ansikte..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0641, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Skull Kid\n"
-COLOR(LIGHTBLUE) "Is this what happens to kids who\n"
-"get lost in this forest? He looks\n"
-"satisfied with his skull face." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Dödskallsunge\n"
+COLOR(LIGHTBLUE) "Är detta vad som händer med barn som\n"
+"hamnar vilse i skogen...? Han ser nöjd\n"
+"ut över sitt nya skelettansikte." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0642, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Octorok\n"
-COLOR(LIGHTBLUE) "Bounce back the rocks they spit\n"
-"at you!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Studsa tillbaks stenarna som den\n"
+"spottar på dig!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0643, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Poe of the graveyard?\n"
-COLOR(LIGHTBLUE) "If you stare at it with " COLOR(DEFAULT) "[Z] \n"
-"Targeting" COLOR(LIGHTBLUE) ", it will disappear..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Poe från gravgården?\n"
+COLOR(LIGHTBLUE) "Om du stirrar på den med " COLOR(DEFAULT) "[Z] \n"
+"Inriktning" COLOR(LIGHTBLUE) ", så försvinner den..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0644, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Poe\n"
-COLOR(LIGHTBLUE) "If you stare at it with " COLOR(DEFAULT) "[Z] \n"
-"Targeting" COLOR(LIGHTBLUE) ", it will disappear..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Om du stirrar på den med " COLOR(DEFAULT) "[Z] \n"
+"Inriktning" COLOR(LIGHTBLUE) ", så försvinner den..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0645, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Red Tektite\n"
-COLOR(LIGHTBLUE) "Lock on to it as it jumps with " COLOR(DEFAULT) "[Z]\n"
-"Targeting" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Röd Tektite\n"
+COLOR(LIGHTBLUE) "Rikta in dig med " COLOR(DEFAULT) "[Z]\n"
+"Inriktning" COLOR(LIGHTBLUE) " när den hoppar!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0646, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Blue Tektite\n"
-COLOR(LIGHTBLUE) "It's hard to beat on the water.\n"
-"Lure it onto the land!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Blå Tektite\n"
+COLOR(LIGHTBLUE) "Den är svår att besegra på vattnet.\n"
+"Lura upp den på land!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0647, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Leever\n"
-COLOR(LIGHTBLUE) "Watch its movements closely and\n"
-"let it go by!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Håll reda på dess rörelser\n"
+"och låt den åka förbi!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0648, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Peahat\n"
-COLOR(LIGHTBLUE) "Its weak point is its " COLOR(DEFAULT) "roots" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Dess svaghet är " COLOR(DEFAULT) "rötterna" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0649, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Peahat Larva\n"
-COLOR(LIGHTBLUE) "Defend with your " COLOR(DEFAULT) "shield" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Peahat Larv\n"
+COLOR(LIGHTBLUE) "Försvara dig med din " COLOR(DEFAULT) "sköld" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+)
+
+DEFINE_MESSAGE(0x064A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
+"064a"
+)
+
+DEFINE_MESSAGE(0x064B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
+"064b"
 )
 
 DEFINE_MESSAGE(0x064A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
@@ -4011,120 +4006,120 @@ DEFINE_MESSAGE(0x064B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x064C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Wolfos\n"
-COLOR(LIGHTBLUE) "Draw it close to you and watch \n"
-"its movement carefully! Attack it \n"
-"when it drops its guard!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Vargos\n"
+COLOR(LIGHTBLUE) "Lura den att komma nära inpå dig och \n"
+"håll ett öga på dess rörelsemönster! Attackera \n"
+"då den lättar på garden!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x064D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Mad Scrub\n"
-COLOR(LIGHTBLUE) "If you get close to it, it will hide \n"
-"in the grass..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Arg Buske\n"
+COLOR(LIGHTBLUE) "Om du kommer nära inpå den, så gömmer \n"
+"den sig i gräset..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x064E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Business Scrub\n"
-COLOR(LIGHTBLUE) "If you get close to it, it will hide \n"
-"in the grass..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Affärs-buske\n"
+COLOR(LIGHTBLUE) "Om du kommer nära inpå den, så gömmer \n"
+"den sig i gräset..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x064F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Dampé's Ghost\n"
-COLOR(LIGHTBLUE) "That's the ghost of the dead\n"
-"gravekeeper! If you chase him,\n"
-"he might give you his " COLOR(DEFAULT) "keepsake" COLOR(LIGHTBLUE) "..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Dampé's Spöke\n"
+COLOR(LIGHTBLUE) "Det är den döde gravvårdaren's\n"
+"spöke! Ifall du jagar honom,\n"
+"så kanske han ger dig sin " COLOR(DEFAULT) "minnessak" COLOR(LIGHTBLUE) "..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0650, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Meg - one of the Poe sisters\n"
-COLOR(LIGHTBLUE) "If she splits into multiple images,\n"
-"you need to figure out which one \n"
-"is the " COLOR(DEFAULT) "real one" COLOR(LIGHTBLUE) ". Is it this one?" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Meg - en utav Poe-systrarna\n"
+COLOR(LIGHTBLUE) "Då hon delar upp sig i flera spegelbilder,\n"
+"så behöver du ta reda på vilken \n"
+"som är " COLOR(DEFAULT) "den riktiga" COLOR(LIGHTBLUE) ". Är det den här?" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0651, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Joelle - one of the Poe sisters\n"
-COLOR(LIGHTBLUE) "Aim for her when she appears!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Joelle - en utav Poe-systrarna\n"
+COLOR(LIGHTBLUE) "Sikta på henne då hon kommer fram!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0652, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Beth - one of the Poe sisters\n"
-COLOR(LIGHTBLUE) "Aim for her when she appears!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Beth - en utav Poe-systrarna\n"
+COLOR(LIGHTBLUE) "Sikta på henne då hon kommer fram!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0653, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Amy - one of the Poe sisters\n"
-COLOR(LIGHTBLUE) "Aim for her when she appears!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Amy - en utav Poe-systrarna\n"
+COLOR(LIGHTBLUE) "Sikta på henne då hon kommer fram!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0654, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Gerudo Thief\n"
-COLOR(LIGHTBLUE) "When she drops her guard,\n"
-"attack! If you don't defeat her,\n"
-"you'll be captured!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Gerudo-Tjuv\n"
+COLOR(LIGHTBLUE) "Då hon sänker garden,\n"
+"attackera! Ifall du inte besegrar henne,\n"
+"så blir du tillfångatagen!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0655, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Stalchild\n"
-COLOR(LIGHTBLUE) "Don't be afraid of the Stalchild!\n"
-"Just attack it repeatedly!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Stalbarn\n"
+COLOR(LIGHTBLUE) "Räds inte Stalbarnen!\n"
+"Bara attackera dem upprepade gånger!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0656, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Ice Keese\n"
-COLOR(LIGHTBLUE) "Destroy it before it flies into\n"
-"you!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Is-Kis\n"
+COLOR(LIGHTBLUE) "Besegra den innan den flyger\n"
+"in i dig!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0657, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "White Wolfos\n"
-COLOR(LIGHTBLUE) "Lure it close to you and watch \n"
-"its movement carefully! Attack it \n"
-"when it drops its guard!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Vit Vargos\n"
+COLOR(LIGHTBLUE) "Lura den att komma nära inpå dig och \n"
+"håll ett öga på dess rörelsemönster! Attackera \n"
+"då den lättar på garden!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0658, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Guay\n"
-COLOR(LIGHTBLUE) "Destroy it before it flies into\n"
-"you!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Besegra den innan den flyger\n"
+"in i dig!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0659, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Bigocto\n"
-COLOR(LIGHTBLUE) "Attack it from behind!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Storbläckis\n"
+COLOR(LIGHTBLUE) "Attackera den bakifrån!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x065A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Big Poe\n"
-COLOR(LIGHTBLUE) "This Poe won't disappear even\n"
-"if you stare at it. It moves\n"
-"fast despite its size!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Stor-Poe\n"
+COLOR(LIGHTBLUE) "Denna Poe försvinner inte\n"
+"om du stirrar på den. Den rör sig snabbt\n"
+"trots sin storlek!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x065B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Twinrova\n"
-COLOR(LIGHTBLUE) "This is the combined form of\n"
-"Kotake and Koume. Turn their\n"
-COLOR(DEFAULT) "magic attack " COLOR(LIGHTBLUE) "back at them!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Tvillinghäxa\n"
+COLOR(LIGHTBLUE) "Detta är Kotake och Koume's\n"
+"kombinerade form. Vänd deras egna\n"
+COLOR(DEFAULT) "magiska attacker " COLOR(LIGHTBLUE) "emot dem!" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x065C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE "Poe\n"
-COLOR(LIGHTBLUE) "This Poe doesn't disappear even if\n"
-"you stare at it. It doesn't spook\n"
-"easily, does it..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
+COLOR(LIGHTBLUE) "Denna Poe försvinner inte\n"
+"om du stirrar på den. Den är inte så\n"
+"värst lättskrämd..." COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x086D, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C") "Play using " COLOR(BLUE) "[A]" COLOR(DEFAULT) " and " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "." COLOR(YELLOW) "\n"
+QUICKTEXT_ENABLE  SHIFT("\x3C") "Spela med hjälp utav " COLOR(BLUE) "[A]" COLOR(DEFAULT) " och " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "." COLOR(YELLOW) "\n"
 COLOR(DEFAULT) "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x086E, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Play using " COLOR(BLUE) "[A]" COLOR(DEFAULT) " and " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "; " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " to Stop.\n"
+QUICKTEXT_ENABLE "Spela med hjälp utav " COLOR(BLUE) "[A]" COLOR(DEFAULT) " och " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "; " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " för att Avsluta.\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
@@ -4137,91 +4132,91 @@ OCARINA
 )
 
 DEFINE_MESSAGE(0x0870, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x16") "Play the " COLOR(ADJUSTABLE) "Minuet of Forest" COLOR(DEFAULT) "!" COLOR(ADJUSTABLE) "\n"
+QUICKTEXT_ENABLE  SHIFT("\x16") "Spela " COLOR(ADJUSTABLE) "Skogs-Menuetten" COLOR(DEFAULT) "!" COLOR(ADJUSTABLE) "\n"
 "\n"
 "\n"
 COLOR(DEFAULT)  QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0871, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1F") "Play the " COLOR(RED) "Bolero of Fire" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x1F") "Spela " COLOR(RED) "Eld's-Bolero" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0872, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x11") "Play the " COLOR(BLUE) "Serenade of Water" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x11") "Spela " COLOR(BLUE) "Vatten-Serenaden" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0873, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x15") "Play the " COLOR(YELLOW) "Requiem of Spirit" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x15") "Spela " COLOR(YELLOW) "Själen's Klagosång" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0874, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0D") "Play the " COLOR(PURPLE) "Nocturne of Shadow" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x0D") "Spela " COLOR(PURPLE) "Skuggor's Nocturne" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0875, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x19") "Play the " COLOR(LIGHTBLUE) "Prelude of Light" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x19") "Spela " COLOR(LIGHTBLUE) "Ljuset's Preludium" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0876, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0B") "Follow along with " COLOR(ADJUSTABLE) "Saria's Song" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x0B") "Följ efter i " COLOR(ADJUSTABLE) "Saria's Visa" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0877, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x20") "OK? This is " COLOR(RED) "the Song" COLOR(DEFAULT) "...\n"
+QUICKTEXT_ENABLE  SHIFT("\x20") "Okej? Det här är " COLOR(RED) "Visan" COLOR(DEFAULT) "...\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0878, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x27") "Memorize " COLOR(BLUE) "this song" COLOR(DEFAULT) "...\n"
+QUICKTEXT_ENABLE  SHIFT("\x27") "Kom ihåg " COLOR(BLUE) "den här visan" COLOR(DEFAULT) "...\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x0879, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Keep the " COLOR(YELLOW) "Sun's Song " COLOR(DEFAULT) "in your heart.\n"
+QUICKTEXT_ENABLE "Behåll " COLOR(YELLOW) "Solen's Visa " COLOR(DEFAULT) "i ditt hjärta.\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x087A, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "This song" COLOR(DEFAULT) " opens the Door of Time...\n"
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Denna visa" COLOR(DEFAULT) " öppnar Tidsdörren...\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x087B, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x17") "I'll never forget " COLOR(PURPLE) "this song" COLOR(DEFAULT) "!\n"
+QUICKTEXT_ENABLE  SHIFT("\x17") "Jag kommer aldrig att glömma " COLOR(PURPLE) "den här visan" COLOR(DEFAULT) "!\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
 )
 
 DEFINE_MESSAGE(0x087C, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Play using " COLOR(BLUE) "[A]" COLOR(DEFAULT) " and " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "; " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " to Stop.\n"
+QUICKTEXT_ENABLE "Spela med hjälp utav " COLOR(BLUE) "[A]" COLOR(DEFAULT) " och " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "; " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) " för att Avsluta.\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE  OCARINA
@@ -4232,1052 +4227,1053 @@ BACKGROUND("\x00", "\x20", "\x00")  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x088C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  SHIFT("\x23")  COLOR(RED) "You can't warp here!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x28")
+QUICKTEXT_ENABLE  SHIFT("\x23")  COLOR(RED) "Du kan inte warpa här!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x28")
 )
 
 DEFINE_MESSAGE(0x088D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(ADJUSTABLE) "Warp to the Lost Woods?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE  COLOR(ADJUSTABLE) "Warpa till den Förlorade Skogen?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x088E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Warp to the Death Mountain \n"
-"Crater?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No" COLOR(DEFAULT)
+QUICKTEXT_ENABLE  COLOR(RED) "Warpa till Döda Berget's \n"
+"Krater?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x088F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(BLUE) "Warp to Lake Hylia?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE  COLOR(BLUE) "Warpa till Hyliasjön?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0890, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(YELLOW) "Warp to the Desert Colossus?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE  COLOR(YELLOW) "Warpa till Ökenkolossen?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0891, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(PURPLE) "Warp to the graveyard?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE  COLOR(PURPLE) "Warpa till kyrkogården?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0892, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Warp to the Temple of Time?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Warpa till Tiden's Tempel?" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0893, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x05") "You played the " COLOR(ADJUSTABLE) "Minuet of Forest" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x05") "Du spelade " COLOR(ADJUSTABLE) "Skogs-Menuetten" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0894, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0E") "You played the " COLOR(RED) "Bolero of Fire" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x0E") "Du spelade " COLOR(RED) "Eld's-Bolero" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0895, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "You played the " COLOR(BLUE) "Serenade of Water" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE "Du spelade " COLOR(BLUE) "Vatten-Serenaden" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0896, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x04") "You played the " COLOR(YELLOW) "Requiem of Spirit" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x04") "Du spelade " COLOR(YELLOW) "Själen's Klagosång" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0897, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x09") "Played the " COLOR(PURPLE) "Nocturne of Shadow" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x09") "Du spelade " COLOR(PURPLE) "Skuggor's Nocturne" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0898, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x08") "You played the " COLOR(LIGHTBLUE) "Prelude of Light" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x08") "Du spelade " COLOR(LIGHTBLUE) "Ljuset's Preludium" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0899, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1E") "You played " COLOR(ADJUSTABLE) "Saria's Song" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x1E") "Du spelade " COLOR(ADJUSTABLE) "Saria's Visa" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x089A, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x1C") "You played " COLOR(RED) "Epona's Song" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x1C") "Du spelade " COLOR(RED) "Epona's Visa" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x089B, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x18") "You played " COLOR(BLUE) "Zelda's Lullaby" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x18") "Du spelade " COLOR(BLUE) "Zelda's Vaggvisa" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x089C, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x16") "You played the " COLOR(YELLOW) "Sun's Song" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x16") "Du spelade " COLOR(YELLOW) "Solen's Visa" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x089D, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x10") "You played the " COLOR(LIGHTBLUE) "Song of Time" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x10") "Du spelade " COLOR(LIGHTBLUE) "Tidsvisan" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x089E, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x09") "You played the " COLOR(PURPLE) "Song of Storms" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x09") "Du spelade " COLOR(PURPLE) "Stormvisan" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x089F, TEXTBOX_TYPE_OCARINA, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x04") "You played the " COLOR(YELLOW) "Scarecrow's Song" COLOR(DEFAULT) ".\n"
+QUICKTEXT_ENABLE  SHIFT("\x04") "Du spelade " COLOR(YELLOW) "Fågelskrämman's Visa" COLOR(DEFAULT) ".\n"
 "\n"
 "\n"
 QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x1000, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "You finally woke up!\n"
-"I'm " COLOR(RED) "Navi " COLOR(LIGHTBLUE) "the fairy!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "The Great Deku Tree asked\n"
-"me to be your " COLOR(RED) "partner " COLOR(LIGHTBLUE) "from\n"
-"now on! Nice to meet you!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Äntligen vaknar du!\n"
+"Jag heter " COLOR(RED) "Navi" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Det Stora Dekuträdet har\n"
+"bett mig att bli din " COLOR(RED) "partner " COLOR(LIGHTBLUE) "från\n"
+"och med nu! Trevligt att råkas!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1001, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x12") "Yahoo! Hi, " NAME "!"
+UNSKIPPABLE  SHIFT("\x12") "Tjohoo! Hej, " NAME "!"
 )
 
 DEFINE_MESSAGE(0x1002, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Wow! A fairy!!" BOX_BREAK UNSKIPPABLE "Finally, a fairy came to you,\n"
+UNSKIPPABLE "Wow! En älva!!" BOX_BREAK UNSKIPPABLE "Äntligen så har en älva kommit till dig,\n"
 NAME "!" TEXTID("\x10\x0F")
 )
 
 DEFINE_MESSAGE(0x1003, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I'll wait for you here.\n"
-"Get going! Go see the Great \n"
-"Deku Tree!"
+"Jag väntar på dig här.\n"
+"Kila iväg nu! Gå och träffa det \n"
+"Stora Dekuträdet!"
 )
 
 DEFINE_MESSAGE(0x1004, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-COLOR(BLUE) "[A] " COLOR(DEFAULT) "by the stone, pick it up!\n"
-COLOR(BLUE) "[A] " COLOR(DEFAULT) "by the stone, pick it up!" BOX_BREAK "Mean old" COLOR(RED) " Mido" COLOR(DEFAULT) "...he made me pick \n"
-"up the rocks in front of his house."
+COLOR(BLUE) "[A] " COLOR(DEFAULT) "vid stenen, för att plocka upp den!\n"
+COLOR(BLUE) "[A] " COLOR(DEFAULT) "vid stenen, för att plocka upp den!" BOX_BREAK "Dumma gamla" COLOR(RED) " Mido" COLOR(DEFAULT) "...han tvingade mig att \n"
+"plocka upp stenarna utanför hans hus."
 )
 
 DEFINE_MESSAGE(0x1005, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Oh, you have a " COLOR(LIGHTBLUE) "fairy" COLOR(DEFAULT) " now?!\n"
-"That's great, " NAME "!" BOX_BREAK UNSKIPPABLE "What?" BOX_BREAK UNSKIPPABLE "You've been called by the\n"
-COLOR(RED) "Great Deku Tree" COLOR(DEFAULT) "? What an honor!" BOX_BREAK UNSKIPPABLE "He may give you a special gift!\n"
-"Tee hee!" BOX_BREAK UNSKIPPABLE "That's because the Great Deku \n"
-"Tree is our father, the forest\n"
-"guardian, and he gave life to all \n"
-"of us Kokiri!"
+UNSKIPPABLE "Åh, du har en " COLOR(LIGHTBLUE) "älva" COLOR(DEFAULT) " nu?!\n"
+"Det var ju jättebra, " NAME "!" BOX_BREAK UNSKIPPABLE "Va?" BOX_BREAK UNSKIPPABLE "Det\n"
+COLOR(RED) "Gamla Dekuträdet" COLOR(DEFAULT) " har kallat dig? Vilken ära!" BOX_BREAK UNSKIPPABLE "Han kanske ger dig en speciell gåva!\n"
+"Tihi!" BOX_BREAK UNSKIPPABLE "Det är för att det Stora Dekuträdet \n"
+"är vår fader, skogen's\n"
+"väktare, han gav liv till \n"
+"alla oss Kokiri!"
 )
 
 DEFINE_MESSAGE(0x1006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I wonder if the " COLOR(RED) "Great Deku Tree " COLOR(DEFAULT) "\n"
-"gave life to everything in the\n"
-"forest, I mean in addition to us \n"
+"Jag undrar om det " COLOR(RED) "Stora Dekuträdet " COLOR(DEFAULT) "\n"
+"skänkte liv till allting som finns\n"
+"i skogen, jag menar... utöver oss \n"
 "Kokiri?"
 )
 
 DEFINE_MESSAGE(0x1007, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hey, let's work on some moves!" BOX_BREAK "To " COLOR(RED) "jump sideways " COLOR(DEFAULT) "while " COLOR(LIGHTBLUE) "[Z] \n"
-"Targeting" COLOR(DEFAULT) ", press " COLOR(BLUE) "[A] " COLOR(DEFAULT) "as you move\n"
-"right or left." BOX_BREAK "To do a " COLOR(RED) "backflip" COLOR(DEFAULT) " while " COLOR(LIGHTBLUE) "[Z] \n"
-"Targeting" COLOR(DEFAULT) ", press " COLOR(BLUE) "[A] " COLOR(DEFAULT) "as you move\n"
-"backwards." BOX_BREAK "To do a " COLOR(RED) "roll attack" COLOR(DEFAULT) " while " COLOR(LIGHTBLUE) "[Z] \n"
-"Targeting" COLOR(DEFAULT) ", press " COLOR(BLUE) "[A] " COLOR(DEFAULT) "as you move\n"
-"forward. While you roll, you can\n"
-"avoid damage." BOX_BREAK "If you have your sword ready while\n"
-COLOR(LIGHTBLUE) "[Z] Targeting" COLOR(DEFAULT) ", you can do a " COLOR(RED) "jump \n"
-"attack" COLOR(DEFAULT) " by pressing " COLOR(BLUE) "[A]" COLOR(DEFAULT) "! A jump \n"
-"attack does double damage!" BOX_BREAK "You can use " COLOR(LIGHTBLUE) "[Z] Targeting " COLOR(DEFAULT) "on the\n"
-COLOR(RED) "stone" COLOR(DEFAULT) " next to me, so let's \n"
-"practice!"
+"Vi tar och jobbar på några tekniker!" BOX_BREAK "För att " COLOR(RED) "hoppa åt sidan " COLOR(DEFAULT) "vid " COLOR(LIGHTBLUE) "[Z] \n"
+"Markering" COLOR(DEFAULT) ", tryck " COLOR(BLUE) "[A] " COLOR(DEFAULT) "medan du rör dig åt\n"
+"höger eller vänster." BOX_BREAK "För att göra en " COLOR(RED) "bakåtvolt" COLOR(DEFAULT) " vid " COLOR(LIGHTBLUE) "[Z] \n"
+"Markering" COLOR(DEFAULT) ", tryck " COLOR(BLUE) "[A] " COLOR(DEFAULT) "medan du rör dig\n"
+"bakåt." BOX_BREAK "Fär att göra en " COLOR(RED) "rull-attack" COLOR(DEFAULT) " vid " COLOR(LIGHTBLUE) "[Z] \n"
+"Markering" COLOR(DEFAULT) ", tryck " COLOR(BLUE) "[A] " COLOR(DEFAULT) "medan du rör dig\n"
+"frammåt. Du kan undvika skada\n"
+"medan du rullar." BOX_BREAK "Om du har ditt svärd draget vid\n"
+COLOR(LIGHTBLUE) "[Z] markering" COLOR(DEFAULT) ", så kan du göra en" COLOR(RED) " \n"
+"hopp-attack" COLOR(DEFAULT) " genom att trycka " COLOR(BLUE) "[A]" COLOR(DEFAULT) "! En hopp-attack \n"
+"gär dubbelt så mycket skada!" BOX_BREAK "Du kan använda " COLOR(LIGHTBLUE) "[Z] Markering " COLOR(DEFAULT) "på\n"
+COLOR(RED) "stenen" COLOR(DEFAULT) " här jämte mig, so kom igen och \n"
+"öva nu!"
 )
 
 DEFINE_MESSAGE(0x1008, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "You're not allowed to leave the \n"
-"forest!" TEXTID("\x10\x09")
+UNSKIPPABLE "Du har inte tillåtelse att lämna \n"
+"skogen!" TEXTID("\x10\x09")
 )
 
 DEFINE_MESSAGE(0x1009, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"The Great Deku Tree said that if\n"
-"a Kokiri leaves the woods, he or \n"
-"she will die!"
+"Det Stora Kokiriträdet har sagt det att\n"
+"ifall en Kokiri lämnar skogen, så kommer \n"
+"hen att dö!"
 )
 
 DEFINE_MESSAGE(0x100A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "That meanie," COLOR(RED) " Mido" COLOR(DEFAULT) ", made me cut \n"
-"the grass at Saria's house." BOX_BREAK UNSKIPPABLE "Mido told Saria he would do it so\n"
-"she would like him, but I'm the one\n"
-"doing all the work!" TEXTID("\x10\x0B")
+UNSKIPPABLE "Dumbomen" COLOR(RED) " Mido" COLOR(DEFAULT) " tvingade mig till att klippa \n"
+"gräset utanför Saria's hus." BOX_BREAK UNSKIPPABLE "Mido sa att han skulle göra jobbet\n"
+"för att hon skulle tycka om honom, men det\n"
+"är jag som får utföra allt jobb!" TEXTID("\x10\x0B")
 )
 
 DEFINE_MESSAGE(0x100B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You and " COLOR(RED) "Saria" COLOR(DEFAULT) " are close friends,\n"
-"so will you help me cut the \n"
-"grass?" BOX_BREAK "I'll let you keep anything that \n"
-"you find while cutting it."
+"Du och " COLOR(RED) "Saria" COLOR(DEFAULT) " är ju väldigt nära vänner,\n"
+"så kan du hjälpa mig att klippa \n"
+"gräset?" BOX_BREAK "Du får behålla allt du hittar \n"
+"medan du klipper det."
 )
 
 DEFINE_MESSAGE(0x100C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Yes, yes! That's how you use a\n"
-COLOR(LIGHTBLUE) "fairy" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "It's so great that you finally have\n"
-"a fairy" COLOR(RED) " " COLOR(DEFAULT) "partner!" BOX_BREAK UNSKIPPABLE "I'll teach you how to talk to \n"
-"people using your fairy!" TEXTID("\x10\x0D")
+UNSKIPPABLE "Ja, precis! Det är så man använder en\n"
+COLOR(LIGHTBLUE) "älva" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Det är ju jättebra att du äntligen har fått\n"
+"en älv-" COLOR(RED) "" COLOR(DEFAULT) "partner!" BOX_BREAK UNSKIPPABLE "Jag ska lära dig hur du pratar med \n"
+"folk med hjälp utav din älva!" TEXTID("\x10\x0D")
 )
 
 DEFINE_MESSAGE(0x100D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"When a fairy flies near a person \n"
-"or thing, press " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " to " COLOR(RED) "look " COLOR(DEFAULT) "in that\n"
-"direction." BOX_BREAK "If you use " COLOR(LIGHTBLUE) "[Z] Targeting" COLOR(DEFAULT) ", you can \n"
-"talk to people from a distance, \n"
-"like we're doing now." BOX_BREAK "When you have nothing that you\n"
-"can target, you can press " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " just\n"
-"to " COLOR(RED) "look forward" COLOR(DEFAULT) ".\n"
-"Try it!"
+"Då en älva flyger nära en person \n"
+"eller sak, så tryck " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " för att " COLOR(RED) "titta " COLOR(DEFAULT) "i den\n"
+"riktningen." BOX_BREAK "Om du använder " COLOR(LIGHTBLUE) "[Z] Markering" COLOR(DEFAULT) ", så kan du \n"
+"tala med avlägsna personer, \n"
+"precis som vi gör nu." BOX_BREAK "Då du inte har någonting som du\n"
+"kan markera, så kan du trycka " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " bara för\n"
+"att " COLOR(RED) "se frammåt" COLOR(DEFAULT) ".\n"
+"Prova!"
 )
 
 DEFINE_MESSAGE(0x100E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Oh, a " COLOR(LIGHTBLUE) "fairy " COLOR(DEFAULT) "finally came to you!" BOX_BREAK UNSKIPPABLE "Now you have a lot to learn!" TEXTID("\x10\x19")
+UNSKIPPABLE "Åh, en " COLOR(LIGHTBLUE) "älva " COLOR(DEFAULT) "har äntligen kommit till dig!" BOX_BREAK UNSKIPPABLE "Nu så har du mycket att lära!" TEXTID("\x10\x19")
 )
 
 DEFINE_MESSAGE(0x100F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SFX("\x68\x63") "Wow! " QUICKTEXT_ENABLE "That's great news!" QUICKTEXT_DISABLE "\n"
-"I'm so happy for you!" BOX_BREAK UNSKIPPABLE "Now you're a true Kokiri,\n"
+UNSKIPPABLE  SFX("\x68\x63") "Wow! " QUICKTEXT_ENABLE "Vilka fantastiska nyheter!" QUICKTEXT_DISABLE "\n"
+"Jag är så glad för din skull!" BOX_BREAK UNSKIPPABLE "Nu är du en äkta Kikiri,\n"
 NAME "!" TEXTID("\x10\x10")
 )
 
 DEFINE_MESSAGE(0x1010, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Is that right? \n"
-"The Great Deku Tree has \n"
-"summoned you?" BOX_BREAK UNSKIPPABLE "It's quite an honor to talk to the\n"
-"Great Deku Tree!" TEXTID("\x10\x03")
+UNSKIPPABLE "Så det säger du? \n"
+"Det Stora Dekuträdet har\n"
+"kallat på dig?" BOX_BREAK UNSKIPPABLE "Det är en riktigt stor ära att få tala med\n"
+"Det Stora Dekuträdet!" TEXTID("\x10\x03")
 )
 
 DEFINE_MESSAGE(0x1011, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Oh, you're leaving..."
+UNSKIPPABLE "Åh, så du ska redan gå..."
 )
 
 DEFINE_MESSAGE(0x1012, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "But that's OK, because we'll be\n"
-"friends forever...\n"
-"won't we?"
+UNSKIPPABLE "Men det är okej, för vi kommer att vara\n"
+"vänner för evigt...\n"
+"Eller hur?"
 )
 
 DEFINE_MESSAGE(0x1013, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I want you to have this Ocarina...\n"
-"Please take good care of it."
+UNSKIPPABLE "Jag vill att du ska ha den här Okarinan...\n"
+"Var snäll och ta väl hand om den."
 )
 
 DEFINE_MESSAGE(0x1014, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"When you play my Ocarina, I hope\n"
-"you will think of me and come\n"
-"back to the forest to visit."
+"Då du spelar på min Okarina, så vill\n"
+"jag att du tänker på mig och kommer\n"
+"tillbaka till skogen på besök."
 )
 
 DEFINE_MESSAGE(0x1015, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Oh... Navi...\n"
-"Thou hast returned..." BOX_BREAK UNSKIPPABLE  NAME "...\n"
-"Welcome..." BOX_BREAK UNSKIPPABLE "Listen carefully to what I, the\n"
-COLOR(RED) "Deku Tree" COLOR(DEFAULT) ", am about to tell thee..." BOX_BREAK UNSKIPPABLE "Thy slumber these past moons \n"
-"must have been restless, and\n"
-"full of nightmares..." BOX_BREAK UNSKIPPABLE "As the servants of evil gain\n"
-"strength, a vile climate pervades\n"
-"the land and causes nightmares\n"
-"to those sensitive to it..." BOX_BREAK UNSKIPPABLE "Verily, thou hast felt it..." BOX_BREAK UNSKIPPABLE  NAME "... \n"
-"The time has come to test thy\n"
-"courage..." TEXTID("\x10\x16")
+UNSKIPPABLE "Åh... Navi...\n"
+"Du har återvänt..." BOX_BREAK UNSKIPPABLE  NAME "...\n"
+"Välkommen..." BOX_BREAK UNSKIPPABLE "Lyssna noga på vad jag, det Stora\n"
+COLOR(RED) "Dekuträdet" COLOR(DEFAULT) ", har att berätta för dig..." BOX_BREAK UNSKIPPABLE "Den gångna tiden's slummer \n"
+"borde ha varit rastlös, och\n"
+"fylld utav mardrömmar..." BOX_BREAK UNSKIPPABLE "Medan kraften hos ondskan's tjänare\n"
+"har ökat, så har ett underliggande\n"
+"klimat genomsyrat riket som orsakar mardrömmar\n"
+"hos de som är känsliga för det..." BOX_BREAK UNSKIPPABLE "Du har onekligen kännt av det..." BOX_BREAK UNSKIPPABLE  NAME "... \n"
+"Tiden har kommit för att testa ditt\n"
+"mod..." TEXTID("\x10\x16")
 )
 
 DEFINE_MESSAGE(0x1016, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I have been " COLOR(RED) "cursed" COLOR(DEFAULT) "...\n"
-"I need you to break the curse\n"
-"with your wisdom and courage." BOX_BREAK "Dost thou have courage enough\n"
-"to undertake this task?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Jag har fått en " COLOR(RED) "förbannelse" COLOR(DEFAULT) "över mig...\n"
+"Jag behöver dig för att lyfta den\n"
+"med hjälp utav din listighet och ditt mod." BOX_BREAK "Är du tillräckligt modig\n"
+"för att ta dig an denna uppgift?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1017, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Then enter, brave \n"
-NAME ", and thou too, \n"
-"Navi..." BOX_BREAK UNSKIPPABLE "Navi the fairy...  \n"
-"Thou must aid " NAME "..." BOX_BREAK UNSKIPPABLE "And " NAME "...When " COLOR(LIGHTBLUE) "Navi \n"
-COLOR(DEFAULT) "speaks, use " COLOR(YELLOW) "[C-Up] " COLOR(DEFAULT) "to listen well \n"
-"to her words of wisdom..."
+UNSKIPPABLE "I så fall inträd, du modige \n"
+NAME ", och du med, \n"
+"Navi..." BOX_BREAK UNSKIPPABLE "älvan Navi...  \n"
+"Du måste ge " NAME "ditt stöd..." BOX_BREAK UNSKIPPABLE "och " NAME "...Då " COLOR(LIGHTBLUE) "Navi \n"
+COLOR(DEFAULT) "talar, så använd " COLOR(YELLOW) "[C-Up] " COLOR(DEFAULT) "för att lyssna noga \n"
+"på hennes visa ord..."
 )
 
 DEFINE_MESSAGE(0x1018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Perhaps you do not yet have \n"
-"confidence in your abilities...\n"
-"Return to the Kokiri Forest to\n"
-"learn the skills of combat..." BOX_BREAK "When thou art ready, return here \n"
-"and speak with me by using " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "..."
+"Du kanske ännu inte litar \n"
+"på dina förmågor...\n"
+"Återvänd till Kokiriskogen för\n"
+"att utveckla dina färdigheter i strid..." BOX_BREAK "Då du är redo, så återvänd hit \n"
+"och tala med mig genom att använda " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "..."
 )
 
 DEFINE_MESSAGE(0x1019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"The best place to go to learn\n"
-"some new skills is in the " COLOR(ADJUSTABLE) "Forest \n"
-"Training Center" COLOR(DEFAULT) "." COLOR(ADJUSTABLE) " " COLOR(DEFAULT) "It's on the hill\n"
-"just above here."
+"Den bästa platsen att lära sig\n"
+"nya färdigheter på är i " COLOR(ADJUSTABLE) "Skogen's \n"
+"Tränings-center" COLOR(DEFAULT) "." COLOR(ADJUSTABLE) " " COLOR(DEFAULT) "Det är på kullen\n"
+"precis ovanför här."
 )
 
 DEFINE_MESSAGE(0x101A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SFX("\x38\x82")  QUICKTEXT_ENABLE "Ow-ow-ow!" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "Forgive me, master!" QUICKTEXT_DISABLE "\n"
-"If I give you a clue, will you let \n"
-"me go?" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "When you jump off a high cliff,\n"
-"if you hold " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) " forward, you will\n"
-"roll on the ground when you land \n"
-"and won't get hurt from the fall." BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "I can't guarantee it will\n"
-"work, though, if the cliff is really,\n"
-"really high, heh heh!" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Well, try it if you are feeling\n"
-"bold!\n"
-QUICKTEXT_ENABLE "Wah ha hah!" QUICKTEXT_DISABLE  EVENT
+UNSKIPPABLE  SFX("\x38\x82")  QUICKTEXT_ENABLE "Aj-aj-aj!" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "Förlåt mig, herrn!" QUICKTEXT_DISABLE "\n"
+"Om jag ger dig en ledtråd, låter du mig \n"
+"gå i så fall?" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Då du hoppar från en hög avsats,\n"
+"om du håller inne " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) " frammåt, så kommer du\n"
+"att rulla på marken då du landar \n"
+"och skadar dig inte från fallet." BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Jag kan inte garantera att det\n"
+"funkar däremot, om avsatsen är,\n"
+"väldigt högt upp, heh heh!" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Fast ptja, gör ett försök om du är\n"
+"modig nog!\n"
+QUICKTEXT_ENABLE "Bah ha hah!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x101B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hee hee!\n"
-"Under that mask...aren't you that\n"
-"Kokiri kid?"
+"Heh heh!\n"
+"Är det inte den där Kokirigrabben som gömmer\n"
+"sig bakom masken?"
 )
 
 DEFINE_MESSAGE(0x101C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Quite an unusual mask you have\n"
-"there. Hee hee! I like it! It may\n"
-"make me look a little bit tougher." BOX_BREAK "Hey, why don't you give it to me?\n"
+"Ganska ovanlig mask det där\n"
+"ändå. Heh heh! Jag gillar den! Den skulle kanske\n"
+"kunna få mig att se lite tuffare ut." BOX_BREAK "Hmmm... Du skulle inte kunna ge den till mig?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No way" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Absolut inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x101D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Doh! That's too bad for me..."
+"Nedrans! Det var ju trist för mig det..."
 )
 
 DEFINE_MESSAGE(0x101E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Yowza! I'm gonna wear this \n"
-"all the time!"
+"Tjoho! Jag ska ha på mig den\n"
+"jämt och ständigt!"
 )
 
 DEFINE_MESSAGE(0x101F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SFX("\x48\x07") "He just gave you " COLOR(RED) "10 Rupees" COLOR(DEFAULT) " for \n"
-"this 20-Rupee mask! You lost \n"
-"money on that deal!" BOX_BREAK UNSKIPPABLE "Go back to the Mask Shop \n"
-"and pay " COLOR(RED) "20 Rupees" COLOR(DEFAULT) " for the \n"
-"mask. The difference will have to \n"
-"come out of your own pocket."
+UNSKIPPABLE  SFX("\x48\x07") "Han gav dig precis " COLOR(RED) "10 Rupees" COLOR(DEFAULT) " för \n"
+"den här 20-Rupees masken! Du förlorade \n"
+"pengar på den affären!" BOX_BREAK UNSKIPPABLE "Gå tillbaka till Maskbutiken \n"
+"och betala " COLOR(RED) "20 Rupees" COLOR(DEFAULT) " för \n"
+"masken. Du får själv stå för \n"
+"mellanskillnaden."
 )
 
 DEFINE_MESSAGE(0x1020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"My buddies really want this mask!\n"
-"Hee hee hee!"
+"Mina polare vill verkligen ha den här masken!\n"
+"He he he!"
 )
 
 DEFINE_MESSAGE(0x1021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, you're OK? You didn't leave \n"
-"the forest after all, did you?"
+"Åh, så du är välbehållen? Du lämnade inte skogen\n"
+"trots allt då med andra ord, eller gjorde du?"
 )
 
 DEFINE_MESSAGE(0x1022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Did you know that if you hold " COLOR(LIGHTBLUE) "▼\n"
-COLOR(DEFAULT) "forward when you jump off a cliff,\n"
-"you'll roll when you land. This will\n"
-"absorb the shock of your landing." BOX_BREAK "If you fall too far, though, you'll\n"
-"still get hurt..."
+"Visste du att om du håller inne " COLOR(LIGHTBLUE) "▼\n"
+COLOR(DEFAULT) "frammåt då du hoppar från en avsats,\n"
+"så kommer du att rulla då du landar. Det\n"
+"absorberar stöten då du landar." BOX_BREAK "Om du faller från för hög höjd däremot,\n"
+"så tar du fortfarande skada..."
 )
 
 DEFINE_MESSAGE(0x1023, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Saria said she's waiting at the\n"
-"usual spot."
+"Saria sa att hon väntar på\n"
+"det vanliga stället."
 )
 
 DEFINE_MESSAGE(0x1024, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Well done, " NAME "..."
+UNSKIPPABLE "Bra jobbat, " NAME "..."
 )
 
 DEFINE_MESSAGE(0x1025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You have a cool Slingshot, huh?" BOX_BREAK "You know what's cool about it?\n"
-"You can aim while holding down\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and shoot by releasing the\n"
-"button! How cool!" BOX_BREAK "If you have the Slingshot ready,\n"
-"you can use " COLOR(LIGHTBLUE) "[Z] Targeting" COLOR(DEFAULT) " to \n"
-COLOR(RED) "shoot while moving" COLOR(DEFAULT) ".... Did you \n"
-"know that?"
+"Du har en häftig Slangbella va?" BOX_BREAK "Vet du vad som är så häftigt med den?\n"
+"Du kan sikta genom att hålla inne\n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " och skjuta genom at släppa\n"
+"knappen! Hur häftigt är inte det?!" BOX_BREAK "om du har Slangbellan redo,\n"
+"så kan du använda " COLOR(LIGHTBLUE) "[Z] Markering" COLOR(DEFAULT) " för att \n"
+COLOR(RED) "skjuta medan du rör på dig" COLOR(DEFAULT) ".... visste \n"
+"du det?"
 )
 
 DEFINE_MESSAGE(0x1026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"No, " NAME "...\n"
-"Thou must know my time is short..."
+"Nej, " NAME "...\n"
+"Jag har inte mycket tid kvar..."
 )
 
 DEFINE_MESSAGE(0x1027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Now...listen carefully...\n"
-"A " COLOR(RED) "wicked man of the desert" COLOR(DEFAULT) " \n"
-"cast this dreadful curse upon me..."
+UNSKIPPABLE "Så...lyssna noga...\n"
+"En " COLOR(RED) "ondskefull man från öknen" COLOR(DEFAULT) " \n"
+"har kastat en ödesdiger förbannelse över mig..."
 )
 
 DEFINE_MESSAGE(0x1028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you're looking for Saria, she's\n"
-"in the " COLOR(ADJUSTABLE) "Lost Woods" COLOR(DEFAULT) ", as usual." BOX_BREAK "Don't tell me you don't know \n"
-"where that is! The entrance is up\n"
-"on the cliff overlooking the \n"
-"village!" BOX_BREAK "I know you'll get lost! Don't \n"
-"worry, you'll just end up back at\n"
-"the entrance!" BOX_BREAK SHIFT("\x51")  QUICKTEXT_ENABLE "Harumph!" QUICKTEXT_DISABLE
+"Om du letar efter Saria, så är\n"
+"i den " COLOR(ADJUSTABLE) "Förlorade Skogen" COLOR(DEFAULT) ", som vanligt." BOX_BREAK "Kom inte här och säg att du inte \n"
+"känner till vart det är! Ingången är där uppe\n"
+"på avsatsen med utsikt över \n"
+"byn!" BOX_BREAK "Jag vet att du kommer att gå vilse! Men \n"
+"oroa dig inte, du kommer bara att komma\n"
+"tillbaka till ingången!" BOX_BREAK SHIFT("\x51")  QUICKTEXT_ENABLE "Fnys!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x1029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Thou must never allow the desert \n"
-"man in black armor to lay his \n"
-"hands on the sacred Triforce..." BOX_BREAK UNSKIPPABLE "Thou must never suffer that man,\n"
-"with his evil heart, to enter the \n"
-"Sacred Realm" COLOR(RED) " " COLOR(DEFAULT) "of legend..." BOX_BREAK UNSKIPPABLE "That evil man who cast the death \n"
-"curse upon me and sapped my \n"
-"power..." BOX_BREAK UNSKIPPABLE "Because of that curse, my end is\n"
-"nigh..." BOX_BREAK UNSKIPPABLE "Though your valiant efforts to \n"
-"break the curse were successful, \n"
-"I was doomed before you started..." BOX_BREAK UNSKIPPABLE "Yes, I will pass away soon...\n"
-UNSKIPPABLE "But do not grieve for me..." BOX_BREAK UNSKIPPABLE "I have been able to tell you of \n"
-"these important matters..." BOX_BREAK UNSKIPPABLE "This is Hyrule's final hope..."
+UNSKIPPABLE "Du får aldrig låta ökenmannen \n"
+"i sin svarta rustning lägga \n"
+"vantarna på den heliga Trekraften..." BOX_BREAK UNSKIPPABLE "Du får aldrig låta den mannen,\n"
+"med sitt onda hjärta, träda in i det \n"
+"Heliga Kungariket" COLOR(RED) " " COLOR(DEFAULT) "som legenderna talar om..." BOX_BREAK UNSKIPPABLE "Den onda mannen som kastade dödens \n"
+"över mig och tömde mig \n"
+"på kraft..." BOX_BREAK UNSKIPPABLE "På grund utav den förbannelsen, så är mitt slut\n"
+"nära..." BOX_BREAK UNSKIPPABLE "Trots att dina hjältemodiga insateser \n"
+"att lyfta förbannelsen var lyckade, \n"
+"så var jag dömd före du ens började..." BOX_BREAK UNSKIPPABLE "Ja, jag kommer att somna in snart...\n"
+UNSKIPPABLE "Men sörj mig inte..." BOX_BREAK UNSKIPPABLE "Jag har haft möjlighet att berätta för dig \n"
+"om dessa betydelsefulla omständigheter..." BOX_BREAK UNSKIPPABLE "Detta är Hyrule's sista hopp..."
 )
 
 DEFINE_MESSAGE(0x102A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "The future depends upon thee,\n"
+UNSKIPPABLE "Vår framtid hänger på dig,\n"
 NAME "...\n"
-"Thou art courageous..." BOX_BREAK UNSKIPPABLE "Navi the fairy...\n"
-"Help " NAME " to carry out \n"
-"my will..." BOX_BREAK UNSKIPPABLE  TEXT_SPEED("\x02") "I entreat ye... Navi..." TEXT_SPEED("\x00") "\n"
-TEXT_SPEED("\x03") "Good...bye..." TEXT_SPEED("\x00")
+"Du är modig..." BOX_BREAK UNSKIPPABLE "Navi...\n"
+"Hjälp " NAME " att fullborda \n"
+"min vilja..." BOX_BREAK UNSKIPPABLE  TEXT_SPEED("\x02") "Jag bönfaller dig... Navi..." TEXT_SPEED("\x00") "\n"
+TEXT_SPEED("\x03") "Far...väl..." TEXT_SPEED("\x00")
 )
 
 DEFINE_MESSAGE(0x102B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "Let's go to Hyrule Castle,\n"
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Vi tar oss till Slottet Hyrule,\n"
 NAME "!!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x102C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  TEXT_SPEED("\x01")  COLOR(LIGHTBLUE) "Good-bye..." COLOR(DEFAULT)  TEXT_SPEED("\x00")  COLOR(LIGHTBLUE) "Great Deku Tree..." COLOR(DEFAULT)
+UNSKIPPABLE  TEXT_SPEED("\x01")  COLOR(LIGHTBLUE) "Far-väl..." COLOR(DEFAULT)  TEXT_SPEED("\x00")  COLOR(LIGHTBLUE) "Stora Dekuträd..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x102D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Too bad...Heh heh!"
+"Vilken otur...Heh heh!"
 )
 
 DEFINE_MESSAGE(0x102E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to play some more?\n"
+"Vill du spela en gång till?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x102F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Hey you! \"" COLOR(LIGHTBLUE) "Mr. No Fairy" COLOR(DEFAULT) "!\"\n"
-"What's your business with the\n"
-"Great Deku Tree?" BOX_BREAK UNSKIPPABLE "Without a fairy, you're not\n"
-"even a real man!" TEXTID("\x10\xD0")
+UNSKIPPABLE "Hallå där! \"" COLOR(LIGHTBLUE) "Herr utan Älva" COLOR(DEFAULT) "!\"\n"
+"Vad har du för ärende hos\n"
+"Det Stora Dekuträdet?" BOX_BREAK UNSKIPPABLE "Utan en älva, så är du inte\n"
+"ens en riktig man!" TEXTID("\x10\xD0")
 )
 
 DEFINE_MESSAGE(0x1030, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you want to pass through here,\n"
-"you should at least " COLOR(BLUE) "equip" COLOR(DEFAULT) " a " COLOR(ADJUSTABLE) "sword" COLOR(RED) "\n"
-COLOR(DEFAULT) "and " COLOR(LIGHTBLUE) "shield" COLOR(DEFAULT) "!" BOX_BREAK SHIFT("\x51")  QUICKTEXT_ENABLE "Sheesh!" QUICKTEXT_DISABLE
+"Om du vill passera härigenom,\n"
+"så bör du i alla fall " COLOR(BLUE) "utrusta dig" COLOR(DEFAULT) " med ett " COLOR(ADJUSTABLE) "svärd" COLOR(RED) "\n"
+COLOR(DEFAULT) "och en" COLOR(LIGHTBLUE) "sköld" COLOR(DEFAULT) "!" BOX_BREAK SHIFT("\x51")  QUICKTEXT_ENABLE "Suck!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x1031, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SHIFT("\x57")  QUICKTEXT_ENABLE "What?!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  COLOR(RED) "Mido " COLOR(DEFAULT) "won't let you go to see \n"
-"the Great Deku Tree?" TEXTID("\x10\xC8")
+SHIFT("\x57")  QUICKTEXT_ENABLE "Va?!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  COLOR(RED) "Mido " COLOR(DEFAULT) "vill inte låta dig besöka \n"
+"det Stora Dekuträdet?" TEXTID("\x10\xC8")
 )
 
 DEFINE_MESSAGE(0x1032, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You can buy a " COLOR(LIGHTBLUE) "shield" COLOR(DEFAULT) " at the shop,\n"
-"but there is only one " COLOR(ADJUSTABLE) "sword" COLOR(DEFAULT) "\n"
-"hidden somewhere in the forest."
+"Du kan köpa en " COLOR(LIGHTBLUE) "sköld" COLOR(DEFAULT) " i affären,\n"
+"men det finns bara ett " COLOR(ADJUSTABLE) "svärd" COLOR(DEFAULT) "\n"
+"gömt någonstans i skogen."
 )
 
 DEFINE_MESSAGE(0x1033, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "If you want to see the \n"
-"Great Deku Tree, you should at \n"
-"least equip a " COLOR(ADJUSTABLE) "sword" COLOR(DEFAULT) " and " COLOR(LIGHTBLUE) "shield" COLOR(DEFAULT) "!" TEXTID("\x10\xD2")
+UNSKIPPABLE "Om du vill träffa \n"
+"det Stora Dekuträdet, så bör du i alla fall \n"
+"utrusta dig med ett " COLOR(ADJUSTABLE) "svärd" COLOR(DEFAULT) " och en " COLOR(LIGHTBLUE) "sköld" COLOR(DEFAULT) "!" TEXTID("\x10\xD2")
 )
 
 DEFINE_MESSAGE(0x1034, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I, the great Mido," COLOR(RED) " " COLOR(DEFAULT) "will never \n"
-"accept you as one of us!" BOX_BREAK "Shoot! How did you get to be the\n"
-"favorite of Saria and the Great\n"
-"Deku Tree? Huh?!\n"
-"Grumble...grumble..."
+"Jag, den fantastiske Mido," COLOR(RED) " " COLOR(DEFAULT) "kommer aldrig att \n"
+"acceptera dig som en utav oss!" BOX_BREAK "Nedrans! Hur blev en sådan som du\n"
+"Saria och det Stora Dekuträdet's\n"
+"favorit? va?!\n"
+"grubbel...grubbel..."
 )
 
 DEFINE_MESSAGE(0x1035, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I can teach you about the " COLOR(RED) "icons\n"
-COLOR(DEFAULT) "at the top of the screen.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "About the yellow icons\n"
-"About the blue icon" COLOR(DEFAULT)
+"Jag kan lära dig om " COLOR(RED) "ikonerna\n"
+COLOR(DEFAULT) "högst upp på skärmen.\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Om de gula ikonerna\n"
+"Om de blå ikonerna" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1036, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"The three yellow icons in the \n"
-"upper right are called " COLOR(YELLOW) "[C] icons" COLOR(DEFAULT) "." BOX_BREAK "They display the things you can\n"
-"use with the " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) "," COLOR(YELLOW) " [C-Down] " COLOR(DEFAULT) "and" COLOR(YELLOW) " \n"
-"[C-Right] " COLOR(DEFAULT) "buttons." BOX_BREAK "Once you get a " COLOR(YELLOW) "[C] Button item" COLOR(DEFAULT) ", \n"
-"go into the " COLOR(YELLOW) "Select Item Subscreen" COLOR(DEFAULT) " \n"
-"and set it to one of the three\n"
-COLOR(YELLOW) "[C] Buttons" COLOR(DEFAULT) "."
+"De tre gula ikonerna uppe \n"
+"i högra hörnet kallas för " COLOR(YELLOW) "[C] ikoner" COLOR(DEFAULT) "." BOX_BREAK "De visar vad du kan\n"
+"använda med " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) "," COLOR(YELLOW) " [C-Down] " COLOR(DEFAULT) "och" COLOR(YELLOW) " \n"
+"[C-Right] " COLOR(DEFAULT) "knapparna." BOX_BREAK "Så får ett " COLOR(YELLOW) "[C] Knappföremål" COLOR(DEFAULT) ", \n"
+"så gå in i " COLOR(YELLOW) "Föremåls-skärmen" COLOR(DEFAULT) " \n"
+"och välj det på en utav de tre\n"
+COLOR(YELLOW) "[C] Knapparna" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x1037, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"The blue icon at the top of the\n"
-"screen is called the " COLOR(BLUE) "Action Icon" COLOR(DEFAULT) "." BOX_BREAK "This Action Icon shows you \n"
-"what action you will perform\n"
-"when you press " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK "Stop in many spots to see the\n"
-"different things you can do."
+"Den blå ikonen högst upp på\n"
+"skärmen kallas för " COLOR(BLUE) "Actionikonen" COLOR(DEFAULT) "." BOX_BREAK "Actionikonen visar dig \n"
+"vilken handling du kan utföra\n"
+"då du trycker på " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK "Se till att stanna upp på många platser\n"
+"för att se olika handlingar du kan utföra."
 )
 
 DEFINE_MESSAGE(0x1038, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If you want to learn about the\n"
-COLOR(RED) "map " COLOR(DEFAULT) "and " COLOR(RED) "items" COLOR(DEFAULT) ", just ask me.\n"
-"But don't ask unless you want\n"
-"to hear a long explanation." BOX_BREAK "What do you want to know about?\n"
-THREE_CHOICE  COLOR(ADJUSTABLE) "About the map \n"
-"About items\n"
-"Don't ask" COLOR(DEFAULT)
+"Om du vill lära dig om\n"
+COLOR(RED) "kartan " COLOR(DEFAULT) "och " COLOR(RED) "föremål" COLOR(DEFAULT) ", så fråga mig bara.\n"
+"Men fråga bara om du orkar\n"
+"lyssna på en lång förklaring." BOX_BREAK "Vad skulle du vilja veta mer om?\n"
+THREE_CHOICE  COLOR(ADJUSTABLE) "Om kartan \n"
+"Om föremål\n"
+"Fråga inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1039, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"There is a " COLOR(RED) "map" COLOR(DEFAULT) " displayed at the\n"
-"bottom right of the screen." BOX_BREAK "The " COLOR(YELLOW) "yellow arrow " COLOR(DEFAULT) "shows your \n"
-"current position and direction you\n"
-"are facing. The " COLOR(RED) "red mark " COLOR(DEFAULT) "shows\n"
-"where you entered the area from." BOX_BREAK "You can turn the map display on\n"
-"and off with the " COLOR(LIGHTBLUE) "[L]" COLOR(DEFAULT) "." BOX_BREAK "If you want to see the name of a\n"
-"place, press " COLOR(RED) "START" COLOR(DEFAULT) "." BOX_BREAK "You'll get into the Subscreens.\n"
-"Select the " COLOR(RED) "Map Subscreen" COLOR(DEFAULT) "." BOX_BREAK "On the Map Subscreen, you can \n"
-"see a map of Hyrule.\n"
-"Did you get all that?"
+"Du har en " COLOR(RED) "karta" COLOR(DEFAULT) " längst ned\n"
+"till höger på skärmen." BOX_BREAK "Den " COLOR(YELLOW) "gula pilen " COLOR(DEFAULT) "visar din \n"
+"nuvarande position and riktningen du\n"
+"står inför. Den " COLOR(RED) "röda markeringen " COLOR(DEFAULT) "visar\n"
+"vart du gick in då du kom till detta området." BOX_BREAK "Du kan stänga av och sätta på kartan\n"
+"med hjälp utav " COLOR(LIGHTBLUE) "[L]" COLOR(DEFAULT) "." BOX_BREAK "Om du vill se namnet på en\n"
+"plats, tryck " COLOR(RED) "START" COLOR(DEFAULT) "." BOX_BREAK "På den här skärmen så.\n"
+"väljer du " COLOR(RED) "Kart-Skärmen" COLOR(DEFAULT) "." BOX_BREAK "På Kart-Skärmen, så kan du \n"
+"se en karta över Hyrule.\n"
+"Hänger du med?"
 )
 
 DEFINE_MESSAGE(0x103A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"There are three kinds of items:\n"
-COLOR(BLUE) "Equipment items" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C] Button items" COLOR(DEFAULT) "\n"
-"and " COLOR(LIGHTBLUE) "Quest items" COLOR(DEFAULT) "." BOX_BREAK COLOR(BLUE) "Equipment items" COLOR(DEFAULT) " are things like \n"
-"the sword, shield and clothes \n"
-"that are effective when you equip\n"
-"them." BOX_BREAK COLOR(YELLOW) "[C] Button items" COLOR(DEFAULT) " can be set to \n"
-COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) ", and " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", and\n"
-"used by pressing those buttons." BOX_BREAK COLOR(LIGHTBLUE) "Quest items " COLOR(DEFAULT) "are things you \n"
-"collect during your adventure. You\n"
-"just carry them around." BOX_BREAK "If you want to change equipment\n"
-"or just check on your inventory,\n"
-"press " COLOR(RED) "START" COLOR(DEFAULT) ". \n"
-"You will get into the Subscreens." BOX_BREAK "Switch to one of the four \n"
-"different Subscreens with " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " or\n"
-COLOR(LIGHTBLUE) "[R] " COLOR(DEFAULT) "and change or check items as\n"
-"you please. Take a look around!" BOX_BREAK "When you decide to equip an \n"
-COLOR(BLUE) "Equipment item" COLOR(DEFAULT) ", press " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". For\n"
-COLOR(YELLOW) "[C] Button items" COLOR(DEFAULT) ", press " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ",\n"
-COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "or " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) "." BOX_BREAK "That was a pretty long explanation.\n"
-"Did you understand everything?"
+"Det finns tre typer utav föremål:\n"
+COLOR(BLUE) "Utrustnings-Föremål" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C] Knapp-Föremål" COLOR(DEFAULT) "\n"
+"och " COLOR(LIGHTBLUE) "Uppdrags-Föremål" COLOR(DEFAULT) "." BOX_BREAK COLOR(BLUE) "Utrustnings-Föremål" COLOR(DEFAULT) " är saker som exempelvis \n"
+"svärd, sköld och kläder \n"
+"som är i effekt då du har utrustat dig med\n"
+"dem." BOX_BREAK COLOR(YELLOW) "[C] Knapp-Föremål" COLOR(DEFAULT) " kan bli placerade på \n"
+COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) ", och " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) ", och\n"
+"används genom att man trycker på dessa knappar." BOX_BREAK COLOR(LIGHTBLUE) "Uppdrags-Föremål " COLOR(DEFAULT) "är saker som du \n"
+"samlar på dig under ditt äventyr. Du\n"
+"bara bär runt på dem." BOX_BREAK "Om du vill byta utrustning\n"
+"eller bara se över dina tillgångar,\n"
+"tryck " COLOR(RED) "START" COLOR(DEFAULT) ". \n"
+"Du får då upp en ny skärm." BOX_BREAK "Byt mellan de fyra \n"
+"olika skärmarna med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " eller\n"
+COLOR(LIGHTBLUE) "[R] " COLOR(DEFAULT) "byt eller titta på föremål\n"
+"så som du känner. Ta dig en titt!" BOX_BREAK "Då du bestämmer dig för ta på dig ett \n"
+COLOR(BLUE) "Utrustnings-Föremål" COLOR(DEFAULT) ", tryck " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". För\n"
+COLOR(YELLOW) "[C] Knapp-föremål" COLOR(DEFAULT) ", tryck " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ",\n"
+COLOR(YELLOW) "[C-Down] " COLOR(DEFAULT) "eller " COLOR(YELLOW) "[C-Right]" COLOR(DEFAULT) "." BOX_BREAK "Det där var en ganska så lång förklaring.\n"
+"Förstod du allt det där?"
 )
 
 DEFINE_MESSAGE(0x103B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, just remember this. If you\n"
-"want to " COLOR(ADJUSTABLE) "save" COLOR(DEFAULT) ", press " COLOR(RED) "START " COLOR(DEFAULT) "to get\n"
-"into the Subscreens, then press\n"
+"Ptja, kom ihåg det här bara. Om du\n"
+"vill " COLOR(ADJUSTABLE) "spara" COLOR(DEFAULT) ", tryck " COLOR(RED) "START " COLOR(DEFAULT) "för att\n"
+"få upp skärmarna, tryck sedan\n"
 COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x103C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"My sister took some Rupees and \n"
-"went shopping at the store\n"
-"that has a red roof.\n"
-"Tee hee!" BOX_BREAK "Speaking of " COLOR(RED) "Rupees" COLOR(DEFAULT) ", a " COLOR(ADJUSTABLE) "green " COLOR(DEFAULT) "one\n"
-"is worth one, a " COLOR(BLUE) "blue" COLOR(DEFAULT) " one is worth\n"
-"five and a " COLOR(RED) "red" COLOR(DEFAULT) " one is worth \n"
-"twenty. Hee hee!"
+"Min syster tog några Rupees och \n"
+"fick iväg för att handla i affären\n"
+"som har ett rött tak.\n"
+"Tihi!" BOX_BREAK "När vi ändå talar om " COLOR(RED) "Rupees" COLOR(DEFAULT) ", en " COLOR(ADJUSTABLE) "grön " COLOR(DEFAULT) "Rupee\n"
+"är värd en Rupee, en " COLOR(BLUE) "blå" COLOR(DEFAULT) " är värd\n"
+"fem och en " COLOR(RED) "röd" COLOR(DEFAULT) " är värd \n"
+"tjugo. Hehehe!"
 )
 
 DEFINE_MESSAGE(0x103D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"This shop...It sells things you\n"
-"can get in the forest for free!\n"
-"Tee hee!" BOX_BREAK "Do you know how to use the \n"
-COLOR(RED) "Deku Shield" COLOR(DEFAULT) "? Tee hee!" BOX_BREAK "When you get the shield, press\n"
-COLOR(RED) "START " COLOR(DEFAULT) "to get into the Subscreens.\n"
-"Select the " COLOR(BLUE) "Equipment Subscreen\n"
-COLOR(DEFAULT) "with " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " or " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) "." BOX_BREAK "On the " COLOR(BLUE) "Equipment Subscreen" COLOR(DEFAULT) ", \n"
-"choose the item you want to equip\n"
-"and press " COLOR(BLUE) "[A]" COLOR(DEFAULT) " to equip that item." BOX_BREAK "Once you equip it, hold it up\n"
-"with " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) " and change its angle\n"
-"with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Tee hee!"
+"Den här affären...säljer saker som du\n"
+"kan få gratis i skogen!\n"
+"Tihi!" BOX_BREAK "Vet du hur du använder en \n"
+COLOR(RED) "Dekusköld" COLOR(DEFAULT) "? Tihi!" BOX_BREAK "Då du får skölden, tryck\n"
+COLOR(RED) "START " COLOR(DEFAULT) "för att öppna upp skärmarna.\n"
+"Välj " COLOR(BLUE) "Utrustnings-skärmen\n"
+COLOR(DEFAULT) "med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " eller " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) "." BOX_BREAK "På " COLOR(BLUE) "Utrustnings-skärmen" COLOR(DEFAULT) ", \n"
+"så väljer du föremålet som du vill utrusta dig med\n"
+"och trycerk " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK "Så fort du använder skölden, håll upp den\n"
+"med " COLOR(LIGHTBLUE) "[R]" COLOR(DEFAULT) " och byt vinkel med hjälp\n"
+"utav " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Tihi!"
 )
 
 DEFINE_MESSAGE(0x103E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to know how to use\n"
-"the " COLOR(YELLOW) "[C-Up] Button" COLOR(DEFAULT) "?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Vill du veta hur du använder\n"
+" " COLOR(YELLOW) "[C-Up] Knappen" COLOR(DEFAULT) "?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x103F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If you press " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) ", you can\n"
-"change your view." BOX_BREAK "In a place like this, it will switch\n"
-"to a top-down view. Outdoors, in\n"
-"a field for example, it will switch\n"
-"to a first-person perspective." BOX_BREAK "Also, when \"" COLOR(YELLOW) "Navi" COLOR(DEFAULT) "\" is displayed in\n"
-"the upper right of your screen, \n"
-"Navi the fairy wants to talk to\n"
-"you. Use " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) " to listen to her!"
+"Om du trycker " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) ", så kan du\n"
+"ändra din vy." BOX_BREAK "På en sådan här plats, så byter du\n"
+"kameravinkel till ovanför. Utomhus, på\n"
+"exempelvis ett fält, så kommer det istället\n"
+"att byta till förstapersons-perspektiv." BOX_BREAK "Då \"" COLOR(YELLOW) "Navi" COLOR(DEFAULT) "\" visas uppe i\n"
+"det högra hörnet på din skärm \n"
+"så vill hon tala med dig.\n"
+"Använd " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) " för att lyssna på henne!"
 )
 
 DEFINE_MESSAGE(0x1040, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, if you play around with it, \n"
-"you'll figure it out."
+"Ptja, om du provar dig fram, \n"
+"så kommer du att räkna ut det."
 )
 
 DEFINE_MESSAGE(0x1041, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"That's not quite Saria's Song..."
+"Det där var inte riktigt Saria's Visa..."
 )
 
 DEFINE_MESSAGE(0x1042, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Mido" COLOR(RED) " " COLOR(DEFAULT) "is very upset!\n"
-"Did something happen to him?"
+"Mido" COLOR(RED) " " COLOR(DEFAULT) "är väldigt upprörd!\n"
+"Har någonting hänt honom?"
 )
 
 DEFINE_MESSAGE(0x1043, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"What? Where are you going?!" BOX_BREAK "To the castle?\n"
-"Where is the castle?"
+"Va? Vart är du på väg?!" BOX_BREAK "Till slottet?\n"
+"Vart är slottet någonstans?"
 )
 
 DEFINE_MESSAGE(0x1044, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We Kokiri will die if we leave the\n"
-"forest!" BOX_BREAK "You're not going to try to leave\n"
-"the forest, are you?!"
+"Vi Kokiri dör om vi lämnar\n"
+"skogen!" BOX_BREAK "Du tänker inte att försöka lämna\n"
+"skogen, eller?!"
 )
 
 DEFINE_MESSAGE(0x1045, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Hey, " NAME "!\n"
-"What did you do?!" BOX_BREAK UNSKIPPABLE "The Great Deku Tree...did he...\n"
-"die?" BOX_BREAK UNSKIPPABLE "How could you do a thing like \n"
-"that?! It's all your fault!!" EVENT
+UNSKIPPABLE "Hallå där, " NAME "!\n"
+"Vad har du gjort?!" BOX_BREAK UNSKIPPABLE "Det Stora Dekuträdet...har han...\n"
+"dött?" BOX_BREAK UNSKIPPABLE "Vad fick dig att göra något \n"
+"sådant?! Allt är ditt fel!!" EVENT
 )
 
 DEFINE_MESSAGE(0x1046, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Hey!!" QUICKTEXT_DISABLE "\n"
-"What are you doing in my house?!"
+QUICKTEXT_ENABLE "Hallå där!!" QUICKTEXT_DISABLE "\n"
+"Vad gör du i mitt hus?!"
 )
 
 DEFINE_MESSAGE(0x1047, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  NAME ", you're safe!" TEXTID("\x10\x48")
+UNSKIPPABLE  NAME ", du är i säkerhet!" TEXTID("\x10\x48")
 )
 
 DEFINE_MESSAGE(0x1048, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Saria and " NAME " will be\n"
-"friends forever."
+"Saria och " NAME " kommer att vara\n"
+"vänner för evigt."
 )
 
 DEFINE_MESSAGE(0x1049, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Did something happen to the \n"
-"Great Deku Tree?"
+"Har någonting hänt \n"
+"Det Stora Dekuträdet?"
 )
 
 DEFINE_MESSAGE(0x104A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Somehow, it seems that the air in\n"
-"the forest has changed."
+"Det känns som att luften i skogen\n"
+"har förändrats på något vis."
 )
 
 DEFINE_MESSAGE(0x104B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-NAME ", are you going\n"
-"to go away?"
+NAME ", tänker du att\n"
+"gå din väg?"
 )
 
 DEFINE_MESSAGE(0x104C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you lose your shield, will\n"
-"you come back?"
+"Kommer du tillbaka om du\n"
+"förlorar din sköld?"
 )
 
 DEFINE_MESSAGE(0x104D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SFX("\x38\x80") "All of the young Deku Scrub\n"
-"brothers agree...you look exactly \n"
-"like our sacred forest totem!" BOX_BREAK SFX("\x38\x80") "As an offering from us, please\n"
-"accept these " COLOR(RED) "Deku Sticks" COLOR(DEFAULT) ".\n"
-"We will also enhance your\n"
-"carrying skills!" BOX_BREAK "Abracadabra!" BOX_BREAK SFX("\x38\x80") "Alakazaaaam!" EVENT
+SFX("\x38\x80") "Alla vi små Dekubusk-bröder\n"
+"håller med...du ser precis \n"
+"ut som vår heliga skogstotem!" BOX_BREAK SFX("\x38\x80") "Som en gåva från oss, var\n"
+"och acceptera dessa " COLOR(RED) "Dekukäppar" COLOR(DEFAULT) ".\n"
+"Vi ska också förbättra din\n"
+"bärförmåga!" BOX_BREAK "Abrahadabra!" BOX_BREAK SFX("\x38\x80") "Simsalabim!" EVENT
 )
 
 DEFINE_MESSAGE(0x104E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Since the Great Deku Tree\n"
-"withered...more meanies have \n"
-"been appearing in the forest...\n"
-"I'm scared!"
+"Sedan det Stora Dekuträdet började\n"
+"vissna...så har fler elakingar \n"
+"börjat dyka upp i skogen...\n"
+"Jag är rädd!"
 )
 
 DEFINE_MESSAGE(0x104F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "An evil wind is blowing from the \n"
-"direction of the Forest Temple." BOX_BREAK UNSKIPPABLE  COLOR(RED) "Saria" COLOR(DEFAULT) " left, saying,\n"
-"\"I have to do something\n"
-"about it!\"" TEXTID("\x10\x50")
+UNSKIPPABLE "En ondskefull vind blåser \n"
+"från Skogstemplets riktning." BOX_BREAK UNSKIPPABLE  COLOR(RED) "Saria" COLOR(DEFAULT) " vänster, säger,\n"
+"\"Jag måste göra någonting\n"
+"åt det!\"" TEXTID("\x10\x50")
 )
 
 DEFINE_MESSAGE(0x1050, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"The " COLOR(ADJUSTABLE) "Forest Temple " COLOR(DEFAULT) "is located \n"
-"in the Sacred Forest Meadow in\n"
-"the far side of the Lost Woods."
+"" COLOR(ADJUSTABLE) "Skogstemplet " COLOR(DEFAULT) "är beläget \n"
+"i den Heliga Skogen's glänta på\n"
+"andra sidan av den Förlorade Skogen."
 )
 
 DEFINE_MESSAGE(0x1051, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Saria went to the temple and \n"
-"hasn't come back..."
+"Saria gick iväg till templet \n"
+"och har inte kommit tillbaka..."
 )
 
 DEFINE_MESSAGE(0x1052, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hi, mister! You can't use a\n"
-"Deku Shield! It's only for\n"
-"kids!"
+"Hallå där herrn! Du bör inte\n"
+"använda en Dekusköld! De är\n"
+"endast till för barn!"
 )
 
 DEFINE_MESSAGE(0x1053, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Where's Saria? \n"
-"Do you know Saria, mister?\n"
-"That's weird..." TEXTID("\x10\x54")
+"Vart är Saria? \n"
+"Känner du Saria, herrn?\n"
+"Det var märkligt..." TEXTID("\x10\x54")
 )
 
 DEFINE_MESSAGE(0x1054, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Where has " COLOR(RED) "Mido" COLOR(DEFAULT) " gone during such\n"
-"an emergency?"
+"Vart har " COLOR(RED) "Mido" COLOR(DEFAULT) " tagit vägen\n"
+"under en sådan här kris?"
 )
 
 DEFINE_MESSAGE(0x1055, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I see. You didn't have any \n"
-"problems entering the forest, \n"
-"mister..." BOX_BREAK "Did the meanies out there bother\n"
-"you much? Before the Great Deku \n"
-"Tree died, you wouldn't see things\n"
-"like that around here...." TEXTID("\x10\x56")
+"Jag förstår. du hade inga som helst \n"
+"problem att ta dig in i skogen, \n"
+"herrn..." BOX_BREAK "Störde elakingarna där ute dig\n"
+"så mycket? Före det Stora Dekuträdet \n"
+"dog, så stötte man aldrig på\n"
+"sådana där saker här...." TEXTID("\x10\x56")
 )
 
 DEFINE_MESSAGE(0x1056, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Since it's dangerous outside, I \n"
-"always stay inside my house. \n"
-"But I'm bored to death in here!"
+"På grund av att det är farligt utomhus\n"
+"så stannar jag alltid hemma. Men \n"
+"jag är fruktansvärt uttråkad här inne!"
 )
 
 DEFINE_MESSAGE(0x1057, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You can buy " COLOR(RED) "arrows " COLOR(DEFAULT) "at a shop \n"
-"only if you have a " COLOR(RED) "bow" COLOR(DEFAULT) ". Have you \n"
-"got one, mister?"
+"Du kan köpa " COLOR(RED) "pilar " COLOR(DEFAULT) "i affären \n"
+"enbart om du har en " COLOR(RED) "pilbåge" COLOR(DEFAULT) ". Har du \n"
+"en sådan, herrn?"
 )
 
 DEFINE_MESSAGE(0x1058, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Have you been travelling around\n"
-"much, mister?\n"
-"Have you ever met a boy named \n"
-NAME "?" BOX_BREAK UNSKIPPABLE "Mido said that the Great Deku \n"
-"Tree withered because that boy\n"
-"did something wrong to it..." BOX_BREAK UNSKIPPABLE "Only Saria defended \n"
-NAME "--until she left." TEXTID("\x10\x59")
+UNSKIPPABLE "Har du varit ute och rest\n"
+"mycket, herrn?\n"
+"Har du någonsin mött en pojke vid namn \n"
+NAME "?" BOX_BREAK UNSKIPPABLE "Mido har sagt att det Stora \n"
+"Dekuträdet vissnade på grund av att\n"
+"den pojken gjorde någonting..." BOX_BREAK UNSKIPPABLE "Endast Saria försvarade \n"
+NAME "honom...tills hon lämnade." TEXTID("\x10\x59")
 )
 
 DEFINE_MESSAGE(0x1059, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Maybe we misunderstood...."
+"Vi kanske missförstod...."
 )
 
 DEFINE_MESSAGE(0x105A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Haven't I seen you somewhere\n"
-"before, mister?"
+"Har inte jag sett dig\n"
+"förr, herrn?"
 )
 
 DEFINE_MESSAGE(0x105B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Mister, do you know a boy \n"
-"named " NAME "?" BOX_BREAK UNSKIPPABLE "He left the forest and never\n"
-"came back..." TEXTID("\x10\x5C")
+UNSKIPPABLE "Herrn, känner du en pojke \n"
+"vid namn " NAME "?" BOX_BREAK UNSKIPPABLE "Han lämnade skogen och kom\n"
+"aldrig tillbaka..." TEXTID("\x10\x5C")
 )
 
 DEFINE_MESSAGE(0x105C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I wonder if " NAME " will \n"
-"ever return?"
+"Jag undrar om " NAME " någonsin \n"
+"kommer att återvända?"
 )
 
 DEFINE_MESSAGE(0x105D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "It would be awesome to be big \n"
-"like you, mister! I really want to\n"
-"be big like you!" BOX_BREAK UNSKIPPABLE "I want to be big and strong and \n"
-"beat up the Deku Scrubs, but..." TEXTID("\x10\x5E")
+UNSKIPPABLE "Det hade varit jättehäftigt att \n"
+"vara så stor som du, herrn! Jag vill verkligen\n"
+"vara stor som du!" BOX_BREAK UNSKIPPABLE "Jag vill vara stor och stark \n"
+"så att jag kan ge Dekubuskarna en omgång, men..." TEXTID("\x10\x5E")
 )
 
 DEFINE_MESSAGE(0x105E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We Kokiri won't ever get bigger \n"
-"for the rest of our lives...\n"
-"What a bummer!"
+"Vi Kokiri blir aldrig så stora \n"
+"under hela vår livstid...\n"
+"Vilken osis!"
 )
 
 DEFINE_MESSAGE(0x105F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Why is that fairy following you \n"
-"around? You're not one of us!"
+"Varför följer den där älvan \n"
+"efter dig? Du är inte en av oss!"
 )
 
 DEFINE_MESSAGE(0x1060, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "What are you? Though you wear \n"
-"Kokirish clothing, you can't\n"
-"fool me!" TEXTID("\x10\x61")
+UNSKIPPABLE "Vem är du? Trots att du klär dig \n"
+"i Kokirikläder, så kan du inte\n"
+"lura mig!" TEXTID("\x10\x61")
 )
 
 DEFINE_MESSAGE(0x1061, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I promised Saria I would never\n"
-"let anybody go through here."
+"Jag lovade Saria att jag aldrig\n"
+"skulle låta någon passera."
 )
 
 DEFINE_MESSAGE(0x1062, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hi there! I'm the " COLOR(RED) "Deku Tree \n"
-"sprout" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Because you and Saria" COLOR(RED) " " COLOR(DEFAULT) "broke the\n"
-"curse on the Forest Temple, I \n"
-"can grow and flourish!" BOX_BREAK UNSKIPPABLE "Thanks a lot!"
+UNSKIPPABLE "Hallå där! Jag är ett skott från " COLOR(RED) "det Stora \n"
+"Dekuträdet" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Tack vare att du och Saria" COLOR(RED) " " COLOR(DEFAULT) "lyfte\n"
+"förbannelsen i Skogstemplet, så \n"
+"kan jag gro och växa!" BOX_BREAK UNSKIPPABLE "Tack så mycket!"
 )
 
 DEFINE_MESSAGE(0x1063, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hey, have you seen your old\n"
-"friends? None of them recognized\n"
-"you with your grown-up body, did\n"
-"they?" BOX_BREAK UNSKIPPABLE "That's because the " COLOR(ADJUSTABLE) "Kokiri" COLOR(DEFAULT) " never\n"
-"grow up! Even after seven years,\n"
-"they're still kids!"
+UNSKIPPABLE "Hej, har du träffat dina gamla\n"
+"vänner? ingen utav dem kunde känna\n"
+"igen dig i din vuxna kropp,\n"
+"eller hur?" BOX_BREAK UNSKIPPABLE "Det är för att " COLOR(ADJUSTABLE) "Kokiri" COLOR(DEFAULT) " aldrig\n"
+"blir vuxna! Även efter sju år\n"
+"så förblir de barn!"
 )
 
 DEFINE_MESSAGE(0x1064, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "You must be wondering why only\n"
-"you have grown up!" BOX_BREAK UNSKIPPABLE "Well, as you might have already \n"
-"guessed, you are not a Kokiri!\n"
-"You are actually a " COLOR(LIGHTBLUE) "Hylian" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "I am happy to finally reveal this\n"
-"secret to you!"
+UNSKIPPABLE "Du måste undra varför just\n"
+"du har vuxit upp!" BOX_BREAK UNSKIPPABLE "Ptja, som du kanske redan har \n"
+"gissat, så är du inte en Kokiri!\n"
+"Du är faktiskt en " COLOR(LIGHTBLUE) "Hylian" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Jag är glad att jag äntligen\n"
+"kunde berätta sanningen för dig!"
 )
 
 DEFINE_MESSAGE(0x1065, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_TOP,
-"Some time ago, before the King of\n"
-"Hyrule unified this country, there\n"
-"was a fierce war in our world." BOX_BREAK_DELAYED("\x5A") "One day, to escape from the fires\n"
-"of the war, a " COLOR(RED) "Hylian mother " COLOR(DEFAULT) "and \n"
-"her " COLOR(RED) "baby boy" COLOR(DEFAULT) " entered this \n"
-"forbidden forest." BOX_BREAK_DELAYED("\x5A") "The mother was gravely injured...\n"
-"Her only choice was to entrust\n"
-"the child to the " COLOR(RED) "Deku Tree" COLOR(DEFAULT) ", the \n"
-"guardian spirit of the forest." BOX_BREAK_DELAYED("\x5A") "The Deku Tree could sense that\n"
-"this was a child of destiny, whose\n"
-"fate would affect the entire world,\n"
-"so he took him into the forest." BOX_BREAK_DELAYED("\x5A") "After the mother passed away, \n"
-"the baby was raised as a " COLOR(ADJUSTABLE) "Kokiri" COLOR(DEFAULT) ".\n"
-"And now, finally, the day of \n"
-"destiny has come!" FADE("\x5A")
+"För många år sedan, före Hyrules\n"
+"Konung förenade landet, så pågick\n"
+"det ett våldsamt krig i vår värld." BOX_BREAK_DELAYED("\x5A") "En dag, så försökte en\n"
+COLOR(RED) "Hyliansk mor " COLOR(DEFAULT) "och hennes " COLOR(RED) "bebis" COLOR(DEFAULT) "fly\n"
+"genom att ta sig till den \n"
+"förbjudna skogen." BOX_BREAK_DELAYED("\x5A") "Modern var väldigt illa skadad...\n"
+"Hennes enda val var att anförtro\n"
+"barnet till " COLOR(RED) "Dekuträdet" COLOR(DEFAULT) ", skogens \n"
+"väktare." BOX_BREAK_DELAYED("\x5A") "Dekuträdet kunde känna det på sig att\n"
+"detta var ett barn med ett särskilt syfte, vars\n"
+"öde skulle komma att forma hela världen,\n"
+"så vi tog honom hit till skogen." BOX_BREAK_DELAYED("\x5A") "Efter att modern somnade in, \n"
+"så uppfostrade vi barnet som en " COLOR(ADJUSTABLE) "Kokiri" COLOR(DEFAULT) ".\n"
+"Och nu, äntligen, så har \n"
+"ödets dag kommit!" FADE("\x5A")
 )
 
 DEFINE_MESSAGE(0x1066, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "You are a " COLOR(LIGHTBLUE) "Hylian" COLOR(DEFAULT) ", and were\n"
-"always bound to leave this forest." BOX_BREAK UNSKIPPABLE "And now...\n"
-"You have learned your own \n"
-"destiny...\n"
-"So you know what you must do..." BOX_BREAK UNSKIPPABLE "That's right...\n"
-"You must save the land of \n"
-"Hyrule!" BOX_BREAK UNSKIPPABLE "Now, " NAME ", break the \n"
-"curses on all of the Temples,\n"
-"and return peace to Hyrule!!"
+UNSKIPPABLE "Du är en " COLOR(LIGHTBLUE) "Hylian" COLOR(DEFAULT) ", och har alltid\n"
+"varit menad att lämna den här skogen." BOX_BREAK UNSKIPPABLE "Och nu...\n"
+"Så har du lärt dig om \n"
+"ditt öde...\n"
+"Så nu vet du vad du måste göra..." BOX_BREAK UNSKIPPABLE "Det är helt riktigt...\n"
+"Du måste rädda landet \n"
+"Hyrule!" BOX_BREAK UNSKIPPABLE NAME ", lyft förbannelsen \n"
+"som vilar över alla tempel\n"
+"och återställ freden i Hyrule!!"
 )
 
 DEFINE_MESSAGE(0x1067, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SHIFT("\x37") "That melody?!" BOX_BREAK UNSKIPPABLE "Saria plays that song all the \n"
-"time!\n"
-"You...Do you know Saria?" BOX_BREAK UNSKIPPABLE "That song..." BOX_BREAK UNSKIPPABLE "Saria taught that song only \n"
-"to her friends..." TEXTID("\x10\x6F")
+UNSKIPPABLE  SHIFT("\x37") "Den melodin?!" BOX_BREAK UNSKIPPABLE "Saria brukar alltid spela\n"
+"den visan!\n"
+"Du...Känner du Saria?" BOX_BREAK UNSKIPPABLE "Den visan..." BOX_BREAK UNSKIPPABLE "Saria lärde endast sina vänner \n"
+"den visan..." TEXTID("\x10\x6F")
 )
 
 DEFINE_MESSAGE(0x1068, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"When I see you... \n"
-"I don't know why, but I remember...\n"
-"him..."
+"Då jag ser dig... \n"
+"Jag vet inte varför, men jag kommer ihåg...\n"
+"honom..."
 )
 
 DEFINE_MESSAGE(0x1069, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "I have you now!\n"
-"In this gap between dreams and \n"
-"reality, soon all that will remain\n"
-"of you will be your dead body!"
+UNSKIPPABLE "Nu har jag dig!\n"
+"I denna avgrund mellan dröm \n"
+"och verklighet, snart är allt som\n"
+"är kvar utav dig bara en död kropp!"
 )
 
 DEFINE_MESSAGE(0x106A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Thank you...\n"
-"Because of you, I could awaken as\n"
-"a Sage..." BOX_BREAK UNSKIPPABLE "I am " COLOR(ADJUSTABLE) "Saria" COLOR(DEFAULT) ".\n"
-"The Sage of the Forest Temple..."
+UNSKIPPABLE "Tack så mycket...\n"
+"Tack vare dig, så kunde jag vakna upp\n"
+"som en Vise..." BOX_BREAK UNSKIPPABLE "Jag är " COLOR(ADJUSTABLE) "Saria" COLOR(DEFAULT) ".\n"
+"Skogstemplets Vise..."
 )
 
 DEFINE_MESSAGE(0x106B, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
-UNSKIPPABLE  SHIFT("\x28") "Saria will always be...\n"
-SHIFT("\x3C") "your friend..." FADE("\x50")
+UNSKIPPABLE  SHIFT("\x28") "Saria kommer alltid att förbli...\n"
+SHIFT("\x3C") "din vän..." FADE("\x50")
 )
 
 DEFINE_MESSAGE(0x106C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "The flow of time is always cruel...\n"
-"Its speed seems different for\n"
-"each person, but no one can \n"
-"change it..." BOX_BREAK UNSKIPPABLE "A thing that doesn't change with\n"
-"time is a memory of younger days..." BOX_BREAK UNSKIPPABLE "In order to come back here again,\n"
-"play the " COLOR(ADJUSTABLE) "Minuet of Forest" COLOR(DEFAULT) "."
+UNSKIPPABLE "Tidens flöde är alltid grym...\n"
+"Dess hastighet färdas olika\n"
+"från person till person, men ingen \n"
+"kan förändra det..." BOX_BREAK UNSKIPPABLE "Något som aldrig förändras däremot\n"
+"är minnet från ungdomens dagar..." BOX_BREAK UNSKIPPABLE "För att återkomma hit så,\n"
+"spela " COLOR(ADJUSTABLE) "Skogs-Menuetten" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x106D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  NAME "...\n"
-"I'll see you again..."
+"På återseende..."
 )
 
 DEFINE_MESSAGE(0x106E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Saria hasn't come back yet...\n"
-"But I know she'll return someday..."
+"Saria har inte kommit tillbaka ännu...\n"
+"Men jag vet att hon en dag ska återkomma..."
 )
 
 DEFINE_MESSAGE(0x106F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "OK...\n"
-"I trust you." TEXTID("\x10\x68")
+UNSKIPPABLE "Okej...\n"
+"Jag litar på dig." TEXTID("\x10\x68")
 )
 
 DEFINE_MESSAGE(0x1070, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Oh...I see..." BOX_BREAK UNSKIPPABLE "Saria won't ever come back..." BOX_BREAK UNSKIPPABLE "But...I...I made a promise to \n"
-"Saria..." BOX_BREAK UNSKIPPABLE "If " NAME " came back, I \n"
-"would be sure to tell him that \n"
-"Saria had been waiting for him..." BOX_BREAK UNSKIPPABLE "Because " TEXT_SPEED("\x03") "Saria...really...\n"
-"liked..." TEXT_SPEED("\x00")  TEXTID("\x10\x71")
+UNSKIPPABLE "Åh...Jag förstår..." BOX_BREAK UNSKIPPABLE "Saria kommer aldrig mer tillbaka..." BOX_BREAK UNSKIPPABLE "Men...Jag...Jag lovade \n"
+"Saria..." BOX_BREAK UNSKIPPABLE "Att om " NAME " kommer tillbaka, så \n"
+"skulle jag berätta för honom att \n"
+"Saria väntade på honom..." BOX_BREAK UNSKIPPABLE "Därför att " TEXT_SPEED("\x03") "Saria...Gillade...\n"
+"Verkligen..." TEXT_SPEED("\x00")  TEXTID("\x10\x71")
 )
 
 DEFINE_MESSAGE(0x1071, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SHIFT("\x4B") "Hey, you." BOX_BREAK "If you see him somewhere, please\n"
-"let him know..." TEXTID("\x10\xD6")
+SHIFT("\x4B") "Du." BOX_BREAK "Om du träffar på honom någonstans, snälla\n"
+"berätta det för honom..." TEXTID("\x10\xD6")
 )
 
 DEFINE_MESSAGE(0x1072, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Teach me some fancy fencing!\n"
-"All I've ever done is tap " COLOR(ADJUSTABLE) "[B] " COLOR(DEFAULT) "all\n"
-"my life!"
+"Lär mig om hur man fäktas!\n"
+"Det enda jag har gjort i hela mitt liv\n"
+"är att spamma" COLOR(ADJUSTABLE) "[B] " COLOR(DEFAULT) "!\n"
 )
 
 DEFINE_MESSAGE(0x1073, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I still think you really look like\n"
-"somebody I've seen before, mister."
+"Jag får fortfarande känslan utav\n"
+"att jag har träffat dig förr, herrn."
 )
 
 DEFINE_MESSAGE(0x1074, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You're such a big, strong guy!\n"
-"I really want to be like you \n"
-"someday even though I'll always be\n"
-"small."
+"Du är så stor och stark!\n"
+"Jag vill verkligen bli som du \n"
+"en dag trots att jag alltid\n"
+"kommer att vara liten."
 )
 
 DEFINE_MESSAGE(0x1075, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-NAME "... I wonder if he \n"
-"will come back..."
+NAME "... Jag undrar om han\n"
+"någonsin kommer tillbaka..."
 )
 
 DEFINE_MESSAGE(0x1076, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I feel like I've known you for a\n"
-"long time, mister!"
+"Det känns som att vi har\n"
+"känt varandra länge, herrn!"
 )
 
 DEFINE_MESSAGE(0x1077, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Now that the " COLOR(RED) "Deku Tree's sprout" COLOR(DEFAULT) "\n"
-"is growing in the Great Deku \n"
-"Tree's meadow, the forest has\n"
-"returned to normal!"
+"Nu då " COLOR(RED) "Dekuträdets grodd" COLOR(DEFAULT) "\n"
+"växer i det Stora Dekuträdets \n"
+"glänta, så har skogen\n"
+"återvänt till det normala!"
 )
 
 DEFINE_MESSAGE(0x1078, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We'll all work together to protect\n"
-"the forest!"
+"Vi ska alla hjälpas åt att\n"
+"beskydda skogen!"
 )
 
 DEFINE_MESSAGE(0x1079, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Somehow, a fair wind has begun\n"
-"to blow recently."
+"Nyligen så har en lättsam vind\n"
+"börjat blåsa in över oss."
 )
 
 DEFINE_MESSAGE(0x107A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Since a fair wind started to \n"
-"blow, I'm sure " NAME " \n"
-"will come back!"
+"Sedan den lättsamma vinden \n"
+"började blåsa, så har jag blivit\n"
+"övertygad att " NAME " \n"
+"kommer att komma tillbaka!"
 )
 
 DEFINE_MESSAGE(0x107B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I wonder if Saria will come back..."
+"Jag undrar om Saria kommer tillbaka..."
 )
 
 DEFINE_MESSAGE(0x107C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I'm sure " NAME " will \n"
-"return someday!"
+"Jag är säker på att " NAME " kommer \n"
+"kommer att återvända!"
 )
 
 DEFINE_MESSAGE(0x107D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SHIFT("\x2E")  COLOR(LIGHTBLUE) "Great Deku Tree...\n"
-COLOR(DEFAULT)  SHIFT("\x48")  COLOR(LIGHTBLUE) "I'm back!" COLOR(DEFAULT)
+UNSKIPPABLE  SHIFT("\x2E")  COLOR(LIGHTBLUE) "Det Stora Dekuträdet...\n"
+COLOR(DEFAULT)  SHIFT("\x48")  COLOR(LIGHTBLUE) "Jag är tillbaka!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x107E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "This evil man ceaselessly uses\n"
-"his vile, sorcerous powers in his\n"
-"search for the Sacred Realm that\n"
-"is connected to Hyrule..." BOX_BREAK UNSKIPPABLE "For it is in that Sacred Realm \n"
-"that one will find the divine\n"
-"relic, the " COLOR(LIGHTBLUE) "Triforce" COLOR(DEFAULT) ", which contains \n"
-"the essence of the gods..."
+UNSKIPPABLE "Den där onda mannen använder\n"
+"oavbrutet sina otäcka magiska krafter\n"
+"för att söka det Heliga Kungariket\n"
+"som är kopplat till Hyrule..." BOX_BREAK UNSKIPPABLE "För det är i det Heliga \n"
+"Kungariket som man kan finna den gudomliga\n"
+"reliken, " COLOR(LIGHTBLUE) "Trekraften" COLOR(DEFAULT) ", som innehåller \n"
+"gudarnas heliga essens..."
 )
 
 DEFINE_MESSAGE(0x107F, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x06") "Before time began, before spirits\n"
-SHIFT("\x31") "and life existed..." QUICKTEXT_DISABLE  FADE("\x50")
+QUICKTEXT_ENABLE  SHIFT("\x06") "Före tiden tog sin början, före\n"
+SHIFT("\x31") "andar och liv existerade..." QUICKTEXT_DISABLE  FADE("\x50")
 )
 
 DEFINE_MESSAGE(0x1080, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x02") "Three golden goddesses descended\n"
-SHIFT("\x04") "upon the chaos that was Hyrule..." QUICKTEXT_DISABLE  FADE("\x63")
+QUICKTEXT_ENABLE  SHIFT("\x02") "Så steg tre gyllene gudinnor\n"
+SHIFT("\x04") "ned till den kaos som var Hyrule..." QUICKTEXT_DISABLE  FADE("\x63")
 )
 
 DEFINE_MESSAGE(0x1081, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x13") "Din, the goddess of power..." QUICKTEXT_DISABLE  FADE("\x3C")
+QUICKTEXT_ENABLE  SHIFT("\x13") "Din, kraftens gudinna..." QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x1082, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x09") "Nayru, the goddess of wisdom..." QUICKTEXT_DISABLE  FADE("\x3C")
+QUICKTEXT_ENABLE  SHIFT("\x09") "Nayru, vishetens gudinna..." QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x1083, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x06") "Farore, the goddess of courage..." QUICKTEXT_DISABLE  FADE("\x3C")
+QUICKTEXT_ENABLE  SHIFT("\x06") "Farore, modets gudinna..." QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x1084, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
@@ -5285,9 +5281,9 @@ QUICKTEXT_ENABLE  SHIFT("\x53") "Din..." QUICKTEXT_DISABLE  FADE("\x1E")
 )
 
 DEFINE_MESSAGE(0x1085, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x02") "With her strong flaming arms, she\n"
-SHIFT("\x0A") "cultivated the land and created\n"
-SHIFT("\x3A") "the red earth." QUICKTEXT_DISABLE  FADE("\x63")
+QUICKTEXT_ENABLE  SHIFT("\x02") "med sina starka flammande armar, hon\n"
+SHIFT("\x0A") "brukade landet och skapade\n"
+SHIFT("\x3A") "den röda jorden." QUICKTEXT_DISABLE  FADE("\x63")
 )
 
 DEFINE_MESSAGE(0x1086, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
@@ -5295,9 +5291,9 @@ QUICKTEXT_ENABLE  SHIFT("\x4C") "Nayru..." QUICKTEXT_DISABLE  FADE("\x1E")
 )
 
 DEFINE_MESSAGE(0x1087, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x03") "Poured her wisdom onto the earth\n"
-SHIFT("\x0F") "and gave the spirit of law to\n"
-SHIFT("\x45") "the world." QUICKTEXT_DISABLE  FADE("\x63")
+QUICKTEXT_ENABLE  SHIFT("\x03") "Hällde sin vishet över jorden\n"
+SHIFT("\x0F") "och skänkte världen\n"
+SHIFT("\x45") "lagens prägel." QUICKTEXT_DISABLE  FADE("\x63")
 )
 
 DEFINE_MESSAGE(0x1088, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
@@ -5305,471 +5301,471 @@ QUICKTEXT_ENABLE  SHIFT("\x4B") "Farore..." QUICKTEXT_DISABLE  FADE("\x1E")
 )
 
 DEFINE_MESSAGE(0x1089, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x09") "With her rich soul, produced all\n"
-SHIFT("\x14") "life forms who would uphold\n"
-SHIFT("\x4B") "the law." QUICKTEXT_DISABLE  FADE("\x63")
+QUICKTEXT_ENABLE  SHIFT("\x09") "Med sin rika själ, skapade alla\n"
+SHIFT("\x14") "livsformer som skulle komma att\n"
+SHIFT("\x4B") "upphålla lagen." QUICKTEXT_DISABLE  FADE("\x63")
 )
 
 DEFINE_MESSAGE(0x108A, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x16") "The three great goddesses,\n"
-SHIFT("\x22") "their labors completed,\n"
-SHIFT("\x19") "departed for the heavens." QUICKTEXT_DISABLE  FADE("\x5A")
+QUICKTEXT_ENABLE  SHIFT("\x16") "De tre gudinnorna\n"
+SHIFT("\x22") "hade fullbordat sitt arbete,\n"
+SHIFT("\x19") "och återgick till himmelriket." QUICKTEXT_DISABLE  FADE("\x5A")
 )
 
 DEFINE_MESSAGE(0x108B, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x14") "And golden sacred triangles\n"
-SHIFT("\x07") "remained at the point where the\n"
-SHIFT("\x1B") "goddesses left the world." QUICKTEXT_DISABLE  FADE("\x5A")
+QUICKTEXT_ENABLE  SHIFT("\x14") "Det enda som återstod, vid den\n"
+SHIFT("\x07") "plats som gudinnorna hade lämnat världen,\n"
+SHIFT("\x1B") "var tre heliga gyllene trianglar." QUICKTEXT_DISABLE  FADE("\x5A")
 )
 
 DEFINE_MESSAGE(0x108C, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x08") "Since then, the sacred triangles\n"
-SHIFT("\x0E") "have become the basis of our\n"
-SHIFT("\x2E") "world's providence." QUICKTEXT_DISABLE  FADE("\x5A")
+QUICKTEXT_ENABLE  SHIFT("\x08") "Sedan dess så har de heliga\n"
+SHIFT("\x0E") "trianglarna blivit en grundpelare\n"
+SHIFT("\x2E") "för vår världs beskydd." QUICKTEXT_DISABLE  FADE("\x5A")
 )
 
 DEFINE_MESSAGE(0x108D, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x0F") "And, the resting place of the\n"
-SHIFT("\x1C") "triangles has become the\n"
-SHIFT("\x3B") "Sacred Realm." QUICKTEXT_DISABLE  FADE("\x63")
+QUICKTEXT_ENABLE  SHIFT("\x0F") "Och platsen där\n"
+SHIFT("\x1C") "trianglarna nu mer vilar\n"
+SHIFT("\x3B") "är det Heliga Kungariket." QUICKTEXT_DISABLE  FADE("\x63")
 )
 
 DEFINE_MESSAGE(0x108E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hey kid, you did quite well...\n"
-"It looks like you may be gaining\n"
-"some slight skill..." BOX_BREAK_DELAYED("\x3C") "But you have defeated only my\n"
-"phantom...\n"
-"When you fight the real me, it \n"
-"won't be so easy!" BOX_BREAK_DELAYED("\x3C") "What a worthless creation that \n"
-"ghost was! I will banish it to\n"
-"the gap between dimensions!!" FADE("\x3C")
+"Hej grabben, du gjorde rätt bra ifrån dig...\n"
+"Det verkar som att du börjar\n"
+"kunna det här..." BOX_BREAK_DELAYED("\x3C") "Men du har endast besegrat\n"
+"min skugga...\n"
+"Då du slåss mot den riktiga jag så \n"
+"kommer det inte att bli lika lätt!" BOX_BREAK_DELAYED("\x3C") "Vilken värdelös skapelse det \n"
+"där spöket var! Jag ska fördriva det till\n"
+"tomhetens fasansfulla avgrunder!!" FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x108F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I always believed that you would \n"
-"come. Because I know you..." BOX_BREAK UNSKIPPABLE "No..." BOX_BREAK_DELAYED("\x1E")  UNSKIPPABLE "You don't have to explain\n"
-"it to me..." BOX_BREAK UNSKIPPABLE "Because it is destiny that you \n"
-"and I can't live in the same world."
+UNSKIPPABLE "Jag visste hela tiden att du skulle \n"
+"komma. För jag känner dig..." BOX_BREAK UNSKIPPABLE "Nej..." BOX_BREAK_DELAYED("\x1E")  UNSKIPPABLE "Du behöver inte förklara\n"
+"det för mig..." BOX_BREAK UNSKIPPABLE "För ödet säger det att \n"
+"du och jag inte kan leva i samma värld."
 )
 
 DEFINE_MESSAGE(0x1090, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I will stay here as the Forest\n"
-"Sage and help you..." BOX_BREAK UNSKIPPABLE "Now, please take this \n"
-COLOR(ADJUSTABLE) "Medallion" COLOR(DEFAULT) "..."
+UNSKIPPABLE "Jag kommer att stanna här som Skogens\n"
+"Vise ochj hjälpa dig..." BOX_BREAK UNSKIPPABLE "Så, ta den här \n"
+COLOR(ADJUSTABLE) "Medaljen" COLOR(DEFAULT) "..."
 )
 
 DEFINE_MESSAGE(0x1091, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Thou hast verily demonstrated \n"
-"thy courage..." BOX_BREAK UNSKIPPABLE "I knew that thou wouldst be able\n"
-"to carry out my wishes..."
+UNSKIPPABLE "Du har sannerligen bevisat \n"
+"ditt mod..." BOX_BREAK UNSKIPPABLE "Jag visste att du skulle kunna\n"
+"utföra min önskan..."
 )
 
 DEFINE_MESSAGE(0x1092, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
-"Now, I have yet more to tell ye,\n"
-"wouldst thou listen...\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Så, jag har nu mer att berätta för dig,\n"
+"är du beredd att lyssna...\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1093, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
 UNSKIPPABLE  NAME "...\n"
-"Go now to Hyrule Castle..." BOX_BREAK UNSKIPPABLE "There, thou will surely meet\n"
-"the " COLOR(RED) "Princess of Destiny" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Take " COLOR(RED) "this stone " COLOR(DEFAULT) "with you.\n"
-"The stone that man wanted so\n"
-"much, that he cast the curse on\n"
-"me..."
+"Gå nu till Hyrules Slott..." BOX_BREAK UNSKIPPABLE "Där så kommer du säkerligen att\n"
+"möta " COLOR(RED) "Ödets Prinsessa" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Ta den här" COLOR(RED) "stenen " COLOR(DEFAULT) "med dig.\n"
+"Stenen som han så innerligt ville\n"
+"ha, att han kastade den här\n"
+"förbannelsen över mig..."
 )
 
 DEFINE_MESSAGE(0x1094, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I" COLOR(RED) " " COLOR(DEFAULT) "knew...\n"
-"that you would leave the forest...\n"
-"someday, " NAME "..." BOX_BREAK UNSKIPPABLE "Because you are different from\n"
-"me" COLOR(RED) " " COLOR(DEFAULT) "and my friends...."
+UNSKIPPABLE "Jag" COLOR(RED) " " COLOR(DEFAULT) "visste...\n"
+"att du skulle lämna skogen...\n"
+"en vacker dag, " NAME "..." BOX_BREAK UNSKIPPABLE "För du är varken lik mig\n"
+"eller" COLOR(RED) " " COLOR(DEFAULT) "mina vänner...."
 )
 
 DEFINE_MESSAGE(0x1095, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
-UNSKIPPABLE  SFX("\x68\x44")  COLOR(LIGHTBLUE) "Hello, " QUICKTEXT_ENABLE  NAME  QUICKTEXT_DISABLE "!\n"
-"Wake up!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "The" COLOR(RED) " Great Deku Tree " COLOR(LIGHTBLUE) "wants\n"
-"to talk to you!\n"
-QUICKTEXT_ENABLE  NAME ", get up!" QUICKTEXT_DISABLE  COLOR(DEFAULT)
+UNSKIPPABLE  SFX("\x68\x44")  COLOR(LIGHTBLUE) "Hej, " QUICKTEXT_ENABLE  NAME  QUICKTEXT_DISABLE "!\n"
+"Vakna!" COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Det" COLOR(RED) " Stora Dekuträdet " COLOR(LIGHTBLUE) "vill\n"
+"tala med dig!\n"
+QUICKTEXT_ENABLE  NAME ", stå upp!" QUICKTEXT_DISABLE  COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1096, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
-UNSKIPPABLE  SFX("\x68\x5F")  COLOR(LIGHTBLUE) "Hey! " QUICKTEXT_ENABLE "C'mon!" QUICKTEXT_DISABLE  COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Can Hyrule's destiny really depend\n"
-"on such a lazy boy?" COLOR(DEFAULT)
+UNSKIPPABLE  SFX("\x68\x5F")  COLOR(LIGHTBLUE) "Hallå! " QUICKTEXT_ENABLE "Kom igen!" QUICKTEXT_DISABLE  COLOR(DEFAULT)  BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Kan Hyrules öde verkligen vila\n"
+"på en sådan lat pojke?" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1097, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Jumping is going out of style now.\n"
-"I'm crazy about doing " COLOR(RED) "backflips" COLOR(DEFAULT) "!\n"
-SHIFT("\x32") "Can you do one?"
+"Att hoppa är inte trendigt just nu.\n"
+"Själv så är jag besatt av att göra " COLOR(RED) "bakåtvolter" COLOR(DEFAULT) "!\n"
+SHIFT("\x32") "Kan du också göra en?"
 )
 
 DEFINE_MESSAGE(0x1098, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  COLOR(LIGHTBLUE) "The " COLOR(RED) "Great Deku Tree \n"
-COLOR(LIGHTBLUE) "has summoned you!\n"
-"So let's get going, right now!" COLOR(DEFAULT)
+UNSKIPPABLE  COLOR(LIGHTBLUE) "Det " COLOR(RED) "Stora Dekuträdet \n"
+COLOR(LIGHTBLUE) "har kallat dig!\n"
+"Så sätt igång och börja gå, på en gång!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x1099, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
 UNSKIPPABLE  SHIFT("\x4B") "Navi...\n"
-SHIFT("\x23") "Navi, where art thou?\n"
-SHIFT("\x39") "Come hither...."
+SHIFT("\x23") "Navi, vart är du?\n"
+SHIFT("\x39") "Träd fram...."
 )
 
 DEFINE_MESSAGE(0x109A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Oh, " COLOR(LIGHTBLUE) "Navi the fairy" COLOR(DEFAULT) "...\n"
-"Listen to my words, the words of \n"
-"the " COLOR(RED) "Deku Tree" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Dost thou sense it?\n"
-"The climate of evil descending \n"
-"upon this realm..." BOX_BREAK UNSKIPPABLE "Malevolent forces even now are\n"
-"mustering to attack our land\n"
-"of Hyrule..." BOX_BREAK UNSKIPPABLE "For so long, the " COLOR(RED) "Kokiri Forest" COLOR(DEFAULT) ", the\n"
-"source of life, has stood as a \n"
-"barrier, deterring outsiders and \n"
-"maintaining the order of the world..." BOX_BREAK UNSKIPPABLE "But...before this tremendous evil\n"
-"power, even my power is as \n"
-"nothing..." BOX_BREAK UNSKIPPABLE "It seems the time has come for \n"
-"the " COLOR(RED) "boy without a fairy " COLOR(DEFAULT) "to begin \n"
-"his journey..." BOX_BREAK UNSKIPPABLE "The youth whose destiny it is to\n"
-"lead Hyrule to the path of \n"
-"justice and truth..." BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Navi" COLOR(DEFAULT) "...go now! Find our young\n"
-"friend and guide him to me..." BOX_BREAK UNSKIPPABLE "I do not have much time left." BOX_BREAK UNSKIPPABLE "Fly, Navi, fly! The fate of the\n"
-"forest, nay, the world, depends\n"
-"upon thee!"
+UNSKIPPABLE "Åh, " COLOR(LIGHTBLUE) "älvan Navi" COLOR(DEFAULT) "...\n"
+"Lyssna till mina ord, orden \n"
+"från det " COLOR(RED) "Stora Dekuträdet" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Känner du av det?\n"
+"Fientliga mörka vindar som\n"
+"sveper in över detta rike..." BOX_BREAK UNSKIPPABLE "Ondskefulla krafter bäddar i detta nu\n"
+"för att anfalla vårat\n"
+"rike Hyrule..." BOX_BREAK UNSKIPPABLE "Under lång tid, har " COLOR(RED) "Kokiriskogen,\n" COLOR(DEFAULT)
+"livets källa, tjänat som en \n"
+"barriär för att avskräcka utomstående \n"
+"samt upprätthålla ordningen i vår värld..." BOX_BREAK UNSKIPPABLE "Men...inför denna onda enorma\n"
+"kraft, så är min egen kraft \n"
+"ingenting..." BOX_BREAK UNSKIPPABLE "Det verkar som att tiden har kommit \n"
+"för " COLOR(RED) "pojken utan älva " COLOR(DEFAULT) "att börja \n"
+"sin resa..." BOX_BREAK UNSKIPPABLE "Ynglingen vars öde är att\n"
+"leda Hyrule på en väg mot\n"
+"sanning och rättvisa..." BOX_BREAK UNSKIPPABLE  COLOR(LIGHTBLUE) "Navi" COLOR(DEFAULT) "...gå nu! Finn vår unge\n"
+"vän och vägled honom till mig..." BOX_BREAK UNSKIPPABLE "Jag har inte mycket tid kvar." BOX_BREAK UNSKIPPABLE "Flyg, Navi, flyg! Skogens öde\n"
+"nej, hela världen, vilar\n"
+"på dig!"
 )
 
 DEFINE_MESSAGE(0x109B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SFX("\x38\x82") "Please forgive me, master! I'll \n"
-"never do it again! If you spare \n"
-"me, I'll teach you something cool." BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "You will never beat my brothers \n"
-"up ahead unless you punish them \n"
-"in the proper order." BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "The order is..." TEXT_SPEED("\x05")  COLOR(LIGHTBLUE) "2  3  1" COLOR(DEFAULT)  TEXT_SPEED("\x00") "\n"
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Twenty-three is number one!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Do you think I'm a traitor?" EVENT
+UNSKIPPABLE  SFX("\x38\x82") "Snälla förlåt mig, herrn! Jag \n"
+"ska aldrig göra om det! om du låter mig \n"
+"gå, så lär jag dig någonting häftigt." BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Du besegrar aldrig mina bröder\n"
+"om du inte straffar dem \n"
+"i rätt ordning." BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Ordningen är..." TEXT_SPEED("\x05")  COLOR(LIGHTBLUE) "2  3  1" COLOR(DEFAULT)  TEXT_SPEED("\x00") "\n"
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Tjugotre är nummer ett!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Tycker du att jag är en förrädare?" EVENT
 )
 
 DEFINE_MESSAGE(0x109C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SFX("\x38\x82") "How did you know our secret?!\n"
-"How " QUICKTEXT_ENABLE "irritating!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "It's so annoying that I'm going to\n"
-"reveal the secret of Queen Gohma\n"
-"to you!" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "In order to administer the coup de\n"
-"grace to Queen Gohma, strike\n"
-"with your sword " COLOR(RED) "while she's \n"
-"stunned" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Oh, Queenie..." BOX_BREAK SFX("\x38\x80")  QUICKTEXT_ENABLE "Sorry about that!" QUICKTEXT_DISABLE  EVENT
+UNSKIPPABLE  SFX("\x38\x82") "Hur kände du till vår hemlighet?!\n"
+"Så " QUICKTEXT_ENABLE "irriterande!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Det stör mig så mycket att\n"
+"jag ska avslöja Drottning Gohmas\n"
+"hemlighet för dig!" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "För att genomföra denna kupp emot\n"
+"hennes höghet Drottning Gohma, slå\n"
+"med ditt svärd " COLOR(RED) "medan hon är \n"
+"bedövad" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE "Åh, Drottis..." BOX_BREAK SFX("\x38\x80")  QUICKTEXT_ENABLE "Jag beklagar!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x109D, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-"In the vast, deep forest of Hyrule..." BOX_BREAK_DELAYED("\x28")  SHIFT("\x16") "Long have I served as the\n"
-SHIFT("\x33") "guardian spirit...\n"
-SHIFT("\x0C") "I am known as the Deku Tree..." FADE("\x46")
+"I de vidsträckta skogarna i Hyrule..." BOX_BREAK_DELAYED("\x28")  SHIFT("\x16") "Har jag länge tjänat som\n"
+SHIFT("\x33") "skogens väktare...\n"
+SHIFT("\x0C") "Jag är känd som Dekuträdet..." FADE("\x46")
 )
 
 DEFINE_MESSAGE(0x109E, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-SHIFT("\x0B") "The children of the forest, the\n"
-SHIFT("\x19") "Kokiri, live here with me." BOX_BREAK_DELAYED("\x3C")  SHIFT("\x0B") "Each Kokiri has his or her own\n"
-SHIFT("\x38") "guardian fairy." FADE("\x3C")
+SHIFT("\x0B") "Den här skogens barn, de som\n"
+SHIFT("\x19") "kallas för Kokiri, bor här med mig." BOX_BREAK_DELAYED("\x3C")  SHIFT("\x0B") "Varje Kokiri har sin egen\n"
+SHIFT("\x38") "skyddsälva." FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x109F, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-SHIFT("\x0B") "However, there is one boy" COLOR(RED) " " COLOR(DEFAULT) "who\n"
-SHIFT("\x20") "does not have a fairy..." FADE("\x3C")
+SHIFT("\x0B") "Fast, där finns en pojke" COLOR(RED) " " COLOR(DEFAULT) "who\n"
+SHIFT("\x20") "som inte har en älva..." FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x10A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I surrender! In return, I will sell \n"
-"you Deku Nuts!\n"
-COLOR(RED) "5 pieces   20 Rupees" COLOR(DEFAULT) " they are!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Jag ger mig! I gengäld, så kan jag sälja \n"
+"din Dekunötter!\n"
+COLOR(RED) "5 stycken   20 Rupees" COLOR(DEFAULT) " kostar de!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10A1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "All right! You win! In return,\n"
-"I will sell you Deku Sticks!\n"
-COLOR(RED) "1 piece   15 Rupees " COLOR(DEFAULT) "they are!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Utmärkt! Du vinner! I gengäld,\n"
+"så kan jag sälja dig Dekukäppar!\n"
+COLOR(RED) "1 styck   15 Rupees " COLOR(DEFAULT) "kostar de!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10A2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "All right! You win! In return for\n"
-"sparing me, I will sell you a \n"
-"Piece of Heart!\n"
-COLOR(RED) "1 piece   10 Rupees " COLOR(DEFAULT) "it is!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Utmärkt! Du vinner! I gengäld för\n"
+"låter mig leva, så kan jag sälja dig en \n"
+"Hjärtbit!\n"
+COLOR(RED) "1 styck   10 Rupees " COLOR(DEFAULT) "kostar den!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10A3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x80")  QUICKTEXT_ENABLE "Let's make a deal!\n"
+SFX("\x38\x80")  QUICKTEXT_ENABLE "Låt mig komma med ett förslag!\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No way" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Nej tack" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x10A4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82")  QUICKTEXT_ENABLE "YIKES!!" QUICKTEXT_DISABLE "\n"
-"I'm going home then!"
+SFX("\x38\x82")  QUICKTEXT_ENABLE "USCH!!" QUICKTEXT_DISABLE "\n"
+"Då går jag väl hem då!"
 )
 
 DEFINE_MESSAGE(0x10A5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "Not enough Rupees! \n"
-"Come back again!"
+SFX("\x38\x82") "Inte tillräckligt med Rupees! \n"
+"Kom tillbaka senare!"
 )
 
 DEFINE_MESSAGE(0x10A6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "You can't have this now!\n"
-"Come back again!"
+SFX("\x38\x82") "Du kan inte få den nu!\n"
+"Kom tillbaka senare!"
 )
 
 DEFINE_MESSAGE(0x10A7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x80")  QUICKTEXT_ENABLE  SHIFT("\x2D") "Thank you very much!" QUICKTEXT_DISABLE  EVENT
+SFX("\x38\x80")  QUICKTEXT_ENABLE  SHIFT("\x2D") "Tack så väldigt mycket!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x10A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I've been waiting for you,\n"
-NAME "!" BOX_BREAK UNSKIPPABLE "This is the " COLOR(RED) "Sacred Forest Meadow" COLOR(DEFAULT) ".\n"
-"It's" COLOR(RED) " " COLOR(DEFAULT) "my secret place!\n"
-"I feel..." BOX_BREAK UNSKIPPABLE "This place will be very \n"
-"important for both of us someday.\n"
-"That's what I feel." BOX_BREAK UNSKIPPABLE "If you play the Ocarina here, you \n"
-"can talk with the spirits in the \n"
-"forest." TEXTID("\x10\xA9")
+UNSKIPPABLE "Jag har väntat på dig,\n"
+NAME "!" BOX_BREAK UNSKIPPABLE "Detta är den " COLOR(RED) "Heliga Skogsgläntan" COLOR(DEFAULT) ".\n"
+"Det är" COLOR(RED) " " COLOR(DEFAULT) "min hemliga plats!\n"
+"Jag känner som..." BOX_BREAK UNSKIPPABLE "Den här platsen kommer att \n"
+"betyda väldigt mycket för oss båda en dag.\n"
+"Det är så jag känner." BOX_BREAK UNSKIPPABLE "Om du spelar din Okarina här, så \n"
+"kan du tala med andarna som bor här \n"
+"i skogen." TEXTID("\x10\xA9")
 )
 
 DEFINE_MESSAGE(0x10A9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Would you like to play the \n"
-"Ocarina with me?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"Don't do it" COLOR(DEFAULT)
+"Kan du tänka dig att spela \n"
+"på din Okarina med mig?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Gör det inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x10AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "OK, try to follow along with the\n"
-"melody I will play.\n"
-"Are you ready?"
+UNSKIPPABLE "Okej, försök att hänga med i\n"
+"melodin jag spelar.\n"
+"Är du redo?"
 )
 
 DEFINE_MESSAGE(0x10AB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Huh?!\n"
-"How boring!\n"
-"C'mon! Play along!"
+UNSKIPPABLE "Va?!\n"
+"Så tråkigt!\n"
+"Kom igen! Spela med!"
 )
 
 DEFINE_MESSAGE(0x10AC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SFX("\x68\x63")  SHIFT("\x36") "Great! Great!" BOX_BREAK UNSKIPPABLE "Please don't forget this song!\n"
-"Do you promise?" TEXTID("\x10\xAD")
+UNSKIPPABLE  SFX("\x68\x63")  SHIFT("\x36") "Bra! Bra!" BOX_BREAK UNSKIPPABLE "Glöm inte denna visan är du snäll!\n"
+"Lovar du?" TEXTID("\x10\xAD")
 )
 
 DEFINE_MESSAGE(0x10AD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"When you want to hear my voice,\n"
-"play " COLOR(ADJUSTABLE) "Saria's Song" COLOR(DEFAULT) ". You can talk \n"
-"with me anytime..."
+"Då du vill höra min röst,\n"
+"spela " COLOR(ADJUSTABLE) "Sarias Visa" COLOR(DEFAULT) ". Du kan prata \n"
+"med mig när du vill..."
 )
 
 DEFINE_MESSAGE(0x10AE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Are you taking good care of \n"
-"my Ocarina?"
+"Tar du väl hand om \n"
+"min Okarina?"
 )
 
 DEFINE_MESSAGE(0x10AF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SFX("\x38\x80") "Cool!\n"
-"You're great!  You scored\n"
-"three perfect bull's-eyes!" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "I have to give a neat present\n"
-"to such a wonderful person!\n"
-"Please take it!" EVENT
+UNSKIPPABLE  SFX("\x38\x80") "Häftigt!\n"
+"Du är grym!  Du satte\n"
+"tre stycken mitt i prick!" BOX_BREAK UNSKIPPABLE  SFX("\x38\x80") "Jag måste ge en riktigt\n"
+"fin present till en sådan fantastisk person!\n"
+"Ta emot den här, är du snäll!" EVENT
 )
 
 DEFINE_MESSAGE(0x10B0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Mido might know something about\n"
-"Saria's whereabouts." BOX_BREAK "I think Mido is sulking in one of \n"
-"the houses around here."
+"Mido borde veta något om\n"
+"vart Sarias håller hus." BOX_BREAK "Jag tror att Mido sitter och tjurar \n"
+"i något utav husen häromkring."
 )
 
 DEFINE_MESSAGE(0x10B1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 SHIFT("\x5A")  COLOR(LIGHTBLUE) "??\n"
-COLOR(DEFAULT)  SHIFT("\x15")  COLOR(LIGHTBLUE) "No response. He's sleeping." COLOR(DEFAULT)
+COLOR(DEFAULT)  SHIFT("\x15")  COLOR(LIGHTBLUE) "Inget svar. Han sover." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x10B2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Cojiro?  Why?\n"
-"Normally only a nice guy like me \n"
-"can tame you..." BOX_BREAK UNSKIPPABLE "Which means..." BOX_BREAK UNSKIPPABLE  TEXT_SPEED("\x01") "You... " TEXT_SPEED("\x00") "You must be a nice guy!\n"
-QUICKTEXT_ENABLE "Must be!" QUICKTEXT_DISABLE "\n"
-QUICKTEXT_ENABLE "You must be!!" QUICKTEXT_DISABLE "\n"
-"Please Mr. Nice Guy! Please!" BOX_BREAK UNSKIPPABLE "Deliver this stuff to the " COLOR(RED) "old\n"
-"hag in the potion shop " COLOR(DEFAULT) "in Kakariko\n"
-"Village!" EVENT
+UNSKIPPABLE "Cojiro?  Hur så?\n"
+"I vanliga fall så kan bara en trevlig \n"
+"grabb som jag tämja dig..." BOX_BREAK UNSKIPPABLE "Vilket betyder att..." BOX_BREAK UNSKIPPABLE  TEXT_SPEED("\x01") "Du... " TEXT_SPEED("\x00") "Du måste vara en trevlig grabb!\n"
+QUICKTEXT_ENABLE "Så måste det vara!" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Du måste vara det!!" QUICKTEXT_DISABLE "\n"
+"Snälla Herr trevliga grabb! Snälla!" BOX_BREAK UNSKIPPABLE "Leverera de här sakerna till den " COLOR(RED) "gamla\n"
+"haggan i brygdbutiken " COLOR(DEFAULT) "i Kakariko.\n"
+"I byn där!" EVENT
 )
 
 DEFINE_MESSAGE(0x10B3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"This will disappear if you take\n"
-"too long, so you gotta hurry!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"I can't" COLOR(DEFAULT)
+"Den kommer att försvinna om du tar\n"
+"för lång tid på dig, så se till att skynda!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Oej\n"
+"Jag kan inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x10B4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, yeah. " QUICKTEXT_ENABLE "That's it!" QUICKTEXT_DISABLE "\n"
-"You aren't a nice guy after all!!\n"
-QUICKTEXT_ENABLE "Get away from me!" QUICKTEXT_DISABLE
+"Jaha, på så vis. " QUICKTEXT_ENABLE "Så det är så det ligger till!" QUICKTEXT_DISABLE "\n"
+"Du är inte en trevlig grabb trots allt!!\n"
+QUICKTEXT_ENABLE "Försvinn ur min åsyn!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x10B5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Saria wanted to see you...\n"
-"Did she find you already?"
+"Saria ville träffa dig...\n"
+"Har hon redan hittat dig?"
 )
 
 DEFINE_MESSAGE(0x10B6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hurry up, nice guy!\n"
-"Before it disappears, deliver it\n"
-"to that old wench...."
+"Skynda dig, trevliga grabb!\n"
+"Före den försvinner, leverera den\n"
+"till den där gamla ragatan...."
 )
 
 DEFINE_MESSAGE(0x10B7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "That guy isn't here anymore." BOX_BREAK UNSKIPPABLE "Anybody who comes into the \n"
-"forest will be lost." BOX_BREAK UNSKIPPABLE "Everybody will become a Stalfos.\n"
-"Everybody, Stalfos.\n"
-"So, he's not here anymore.\n"
-"Only his saw is left. Hee hee." TEXTID("\x10\xB8")
+UNSKIPPABLE "Den killen finns inte kvar här längre." BOX_BREAK UNSKIPPABLE "De som vandrar in i skogen \n"
+"kommer att bli förlorade." BOX_BREAK UNSKIPPABLE "Alla blir till en Stalfos.\n"
+"Precis alla, Stalfos.\n"
+"Så, han är inte längre kvar här.\n"
+"Endast hans såg är kvar. Hehehe." TEXTID("\x10\xB8")
 )
 
 DEFINE_MESSAGE(0x10B8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"That medicine is made of \n"
-"forest mushrooms. Give it back!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Den där medicinen är gjord på \n"
+"svampar från skogen. Ge tillbaka den!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x10B9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "Heh heh heh.\n"
-"Are you going to be... too?\n"
+"Ska även du bli till... en?\n"
 "Heh heh!"
 )
 
 DEFINE_MESSAGE(0x10BA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"We sell shields, but not swords!" EVENT
+"Vi säljer sköldar, men inte svärd!" EVENT
 )
 
 DEFINE_MESSAGE(0x10BB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "You know " COLOR(ADJUSTABLE) "Saria's Song" COLOR(DEFAULT) "! We should\n"
-"be friends! Here, take this!"
+UNSKIPPABLE "Så du kan " COLOR(ADJUSTABLE) "Saria's Visa" COLOR(DEFAULT) "! Vi borde\n"
+"bli vänner! Här, ta den!"
 )
 
 DEFINE_MESSAGE(0x10BC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hi! Do you think my face is kind\n"
-"of plain?\n"
-"It's just not very unusual..."
+"Hej! Tycker du att mitt ansikte\n"
+"ser medelmåttigt ut?\n"
+"det ser inte tillräckligt ovanligt ut..."
 )
 
 DEFINE_MESSAGE(0x10BD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Let's play again sometime!"
+"Vi spelar tillsammans igen någon gång!"
 )
 
 DEFINE_MESSAGE(0x10BE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Follow along with our song on \n"
-"your Ocarina. We'll lead you \n"
-"into it."
+UNSKIPPABLE "Följ efter i vår visa med \n"
+"din Okarina. Vi leder dig."
 )
 
+
 DEFINE_MESSAGE(0x10BF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "That was quite a nice session.\n"
-"As a token of our friendship, \n"
-"please take this."
+UNSKIPPABLE "Det var en riktigt bra session.\n"
+"Som ett tecken på vår vänskap, \n"
+"så var snäll och ta emot denna."
 )
 
 DEFINE_MESSAGE(0x10C0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hey, over here!\n"
-"Hoo hoo!" BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE  NAME "...Good to see you\n"
-"again! Listen to this!\n"
-"Hoot hoot...." TEXTID("\x10\xC1")
+UNSKIPPABLE "Hej, du där borta!\n"
+"Hohoo!" BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE  NAME "...Trevligt att råkas\n"
+"igen! Lyssna på det här!\n"
+"Hohooo...." TEXTID("\x10\xC1")
 )
 
 DEFINE_MESSAGE(0x10C1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"After going through the Lost \n"
-"Woods, you will come upon the \n"
-COLOR(ADJUSTABLE) "Sacred Forest Meadow" COLOR(DEFAULT) "." BOX_BREAK "That is a sacred place where few\n"
-"people have ever walked." BOX_BREAK "Shhhh...What's that?\n"
-"I can hear a mysterious tune..." BOX_BREAK "You should listen for that tune\n"
-"too...\n"
-"Hoo hoo ho!" EVENT
+"Efter att du har tagit dig genom den\n"
+"Förlorade Skogen, så kommer du till den\n"
+COLOR(ADJUSTABLE) "Heliga Skogsgläntan" COLOR(DEFAULT) "." BOX_BREAK "Det är en helig plats där\n"
+"få någonsin har satt sin fot." BOX_BREAK "Shhhh...Vad är det?\n"
+"Jag kan höra mystiska toner..." BOX_BREAK "Du borde lyssna till de tonerna\n"
+"du med...\n"
+"Hohoohoooooo!" EVENT
 )
 
 DEFINE_MESSAGE(0x10C2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to hear what I said\n"
-"again?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Vill du lyssna på vad jag hade att säga\n"
+"igen?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x10C3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "If you are courageous, you\n"
-"will make it through the forest\n"
-"just fine..." BOX_BREAK UNSKIPPABLE "Just follow your ears and listen\n"
-"to the sounds coming from the\n"
-"forest! \n"
-"Hoot hoot!"
+UNSKIPPABLE "Om du är modig, så kommer\n"
+"du att klara dig genom skogen\n"
+"utan problem..." BOX_BREAK UNSKIPPABLE "följ bara dina öron och\n"
+"lyssna till ljuden som kommer från\n"
+"skogen! \n"
+"Hoohoo!"
 )
 
 DEFINE_MESSAGE(0x10C4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hoo hoo!" BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE "Did you learn an Ocarina song\n"
-"from Saria?" BOX_BREAK UNSKIPPABLE "That melody seems to have some\n"
-"mysterious power." BOX_BREAK UNSKIPPABLE "There may be some other \n"
-"mysterious songs like this that\n"
-"you can learn in Hyrule." TEXTID("\x10\xC5")
+UNSKIPPABLE "Hoo hoo!" BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE "Lärde du dig en visa på din Okarina\n"
+"från Saria?" BOX_BREAK UNSKIPPABLE "Den visan verkar besitta någon\n"
+"mystisk kraft." BOX_BREAK UNSKIPPABLE "Det kan finnas andra \n"
+"mystiska visor likt den här\n"
+"som du kan lära dig i Hyrule." TEXTID("\x10\xC5")
 )
 
 DEFINE_MESSAGE(0x10C5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If you hold the Ocarina with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n"
-"where a melody is necessary, a \n"
-COLOR(RED) "musical staff " COLOR(DEFAULT) "will appear." BOX_BREAK "I recommend that you play a song\n"
-"you know." BOX_BREAK "I also suggest that you play even\n"
-"when a score is not displayed. \n"
-"Just like this:\n"
-"Hoo hoo hoo hoot hoot hoot!" EVENT
+"Om du håller upp din Okarina med " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "\n"
+"där en melodi är nödvändig, så kommer ett \n"
+COLOR(RED) "musikstycke " COLOR(DEFAULT) "att framträda." BOX_BREAK "Jag föreslår att du spelar en\n"
+"visa du kan." BOX_BREAK "Jag föreslår även att du spelar\n"
+"ifall där inte visas något stycke. \n"
+"Precis såhär:\n"
+"Hoo hoo hoo hoo hoo hoo!" EVENT
 )
 
 DEFINE_MESSAGE(0x10C6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to hear what I\n"
-"said again?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Vill du lyssna på vad jag hade att\n"
+"säga igen?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x10C7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Melodies you have learned \n"
-"will be recorded on the " COLOR(LIGHTBLUE) "Quest \n"
-"Status Subscreen" COLOR(DEFAULT) ". You should \n"
-"memorize those melodies."
+UNSKIPPABLE "Melodier som du har lärt dig \n"
+"kommer att sparas på " COLOR(LIGHTBLUE) "Uppdrags-skärmen. \n"
+COLOR(DEFAULT) "Du borde lägga\n"
+"alla melodier på minnet."
 )
 
 DEFINE_MESSAGE(0x10C8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Ohh...That bum! I don't know why \n"
-"he's always so mean to everyone!" BOX_BREAK UNSKIPPABLE "What he said is true, though." TEXTID("\x10\xC9")
+UNSKIPPABLE "Jasså...den tiggaren! Jag förstår inte varför \n"
+"han är så elak mot alla!" BOX_BREAK UNSKIPPABLE "Det han sa var ju sant dock." TEXTID("\x10\xC9")
 )
 
 DEFINE_MESSAGE(0x10C9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "The forest...strange things have\n"
-"been happening here lately..." BOX_BREAK UNSKIPPABLE "You need to be ready for anything.\n"
-"You'd better find a weapon!" TEXTID("\x10\x32")
+UNSKIPPABLE "Skogen..märkliga saker har\n"
+"hänt här den senaste tiden..." BOX_BREAK UNSKIPPABLE "Du måste vara redo för vad som helst.\n"
+"Du bör hitta ett vapen!" TEXTID("\x10\x32")
 )
 
 DEFINE_MESSAGE(0x10CA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "All right! You win! In return,\n"
-"I will sell you " COLOR(RED) "Deku Seeds" COLOR(DEFAULT) "!\n"
-COLOR(RED) "30 pieces   40 Rupees" COLOR(DEFAULT) " they are!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Okej! Du vinner! I gengäld,\n"
+"så kan du få köpa " COLOR(RED) "Dekufrön" COLOR(DEFAULT) " utav mig!\n"
+COLOR(RED) "30 stycken   40 Rupees" COLOR(DEFAULT) " kostar de!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10CB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I give up! If you let me go,\n"
-"I will sell you a " COLOR(RED) "Deku Shield" COLOR(DEFAULT) "! It's\n"
+SFX("\x38\x82") "Jag ger upp! Om du låter mig gå,\n"
+"Så kan jag sälja dig en " COLOR(RED) "Dekusköld" COLOR(DEFAULT) "! Den kostar\n"
 COLOR(RED) "50 Rupees" COLOR(DEFAULT) "!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10CC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I quit! If you let me go, I'll sell \n"
-"you some " COLOR(RED) "Bombs" COLOR(DEFAULT) "!\n"
-COLOR(RED) "5 pieces   40 Rupees" COLOR(DEFAULT) " they are!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Jag ger mig! Om du låter mig gå, så säljer jag \n"
+"några " COLOR(RED) "Bomber" COLOR(DEFAULT) " till dig!\n"
+COLOR(RED) "5 stycken   40 Rupees" COLOR(DEFAULT) " kostar de!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10CD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "Knock it off! Leave me alone, and \n"
-"I will sell you " COLOR(RED) "Arrows" COLOR(DEFAULT) "!\n"
-COLOR(RED) "30 pieces   70 Rupees" COLOR(DEFAULT) " they are!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Sluta! Om du lämnar mig ifred, så \n"
+"kan jag sälja " COLOR(RED) "Pilar" COLOR(DEFAULT) " till dig!\n"
+COLOR(RED) "30 stycken   70 Rupees" COLOR(DEFAULT) " kostar de!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10CE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -5779,232 +5775,232 @@ SFX("\x38\x82") "All right! You win! If you spare \n"
 )
 
 DEFINE_MESSAGE(0x10CF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "All right! You win! Spare me, and\n"
-"I will sell you a " COLOR(ADJUSTABLE) "Green Potion" COLOR(DEFAULT) " for \n"
+SFX("\x38\x82") "Okej! Du vinner! Låt mig leva, så\n"
+"kan du få köpa en " COLOR(ADJUSTABLE) "Grön Brygd" COLOR(DEFAULT) " utav mig för \n"
 COLOR(RED) "40 Rupees" COLOR(DEFAULT) "!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10D0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "What?! You've got a fairy?!\n"
-"Say what? The Great Deku Tree\n"
-"actually summoned you?" TEXTID("\x10\xD1")
+UNSKIPPABLE "Va?! Du har fått en älva?!\n"
+"Vad säger du? Det Stora Dekuträdet\n"
+"har på riktigt kallat på dig?" TEXTID("\x10\xD1")
 )
 
 DEFINE_MESSAGE(0x10D1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Whaaaaaaat?!" BOX_BREAK UNSKIPPABLE "Why would he summon you and not \n"
-"the great " COLOR(RED) "Mido" COLOR(DEFAULT) "?" BOX_BREAK UNSKIPPABLE "This isn't funny..." BOX_BREAK UNSKIPPABLE "I don't believe it!\n"
-"You aren't even fully equipped\n"
-"yet!" BOX_BREAK UNSKIPPABLE "How do you think you're going to \n"
-"help the Great Deku Tree without\n"
-"both a " COLOR(ADJUSTABLE) "sword" COLOR(RED) " " COLOR(DEFAULT) "and " COLOR(LIGHTBLUE) "shield" COLOR(RED) " " COLOR(DEFAULT) "ready?" BOX_BREAK "What? You're right, I don't have\n"
-"my equipment ready, but..." TEXTID("\x10\x30")
+UNSKIPPABLE "Vaaaaaaa?!" BOX_BREAK UNSKIPPABLE "Varför har han kallat på dig och inte \n"
+"den store " COLOR(RED) "Mido" COLOR(DEFAULT) "?" BOX_BREAK UNSKIPPABLE "Det här var inte alls kul..." BOX_BREAK UNSKIPPABLE "Jag kan inte tro det!\n"
+"Du är ju inte ens fullt utrustad\n"
+"ännu!" BOX_BREAK UNSKIPPABLE "Hur tror du att du kan \n"
+"hjälpa det Stora Dekuträdet utan\n"
+"varken ett " COLOR(ADJUSTABLE) "svärd" COLOR(RED) " " COLOR(DEFAULT) "eller en " COLOR(LIGHTBLUE) "sköld" COLOR(RED) " " COLOR(DEFAULT) "redo?" BOX_BREAK "Vad? Du har rätt, jag har inte\n"
+"min egen utrsustning redo, men..." TEXTID("\x10\x30")
 )
 
 DEFINE_MESSAGE(0x10D2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SHIFT("\x2D") "Eh, what's that?!" BOX_BREAK UNSKIPPABLE "Oh, you have a " COLOR(LIGHTBLUE) "Deku Shield" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "And what's THAT?!" BOX_BREAK UNSKIPPABLE "Is that the " COLOR(ADJUSTABLE) "Kokiri Sword" COLOR(DEFAULT) "?!" BOX_BREAK UNSKIPPABLE "GOOD GRIEF!!" TEXTID("\x10\xD3")
+UNSKIPPABLE  SHIFT("\x2D") "Eh, vad är det?!" BOX_BREAK UNSKIPPABLE "Åh, du har en " COLOR(LIGHTBLUE) "Deksköld" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Och vad är DET?!" BOX_BREAK UNSKIPPABLE "Är det där " COLOR(ADJUSTABLE) "Kokirisvärdet" COLOR(DEFAULT) "?!" BOX_BREAK UNSKIPPABLE "VAD SJUTTON!!" TEXTID("\x10\xD3")
 )
 
 DEFINE_MESSAGE(0x10D3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Well, even with all that stuff, \n"
-"a wimp is still a wimp, huh?" TEXTID("\x10\x34")
+UNSKIPPABLE "Ptja, även om du har allt det där \n"
+"så är en mes en mes, eller hur?" TEXTID("\x10\x34")
 )
 
 DEFINE_MESSAGE(0x10D4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I lost! Now I'll sell you a " COLOR(RED) "Deku \n"
-"Stick " COLOR(DEFAULT) "for " COLOR(RED) "15 Rupees" COLOR(DEFAULT) "." TEXTID("\x10\xA3")
+SFX("\x38\x82") "Jag förlorade! Du kan nu få köpa en\n" COLOR(RED)
+"Dekukäpp " COLOR(DEFAULT) "för " COLOR(RED) "15 Rupees" COLOR(DEFAULT) " utav mig." TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10D5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I lost! Now I'll sell you " COLOR(RED) "Deku \n"
-"Nuts " COLOR(DEFAULT) "if you leave me alone.\n"
-COLOR(RED) "5 pieces   20 Rupees " COLOR(DEFAULT) "they are." TEXTID("\x10\xA3")
+SFX("\x38\x82") "Jag förlorade! Du kan få köpa\n" COLOR(RED)
+"Dekunötter " COLOR(DEFAULT) "om du lämnar mig ifred.\n"
+COLOR(RED) "5 stycken   20 Rupees " COLOR(DEFAULT) "kostar de." TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10D6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"And also..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x0D") "I'm sorry for being mean to him." QUICKTEXT_DISABLE  BOX_BREAK SHIFT("\x45") "Tell him that, too."
+"Och dessutom..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x0D") "Jag ber om ursäkt att jag var elak emot honom." QUICKTEXT_DISABLE  BOX_BREAK SHIFT("\x45") "Berätta det för honom."
 )
 
 DEFINE_MESSAGE(0x10D7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "Hee hee hee!\n"
-"You came all the way up here?\n"
-"You're a real man!" TEXTID("\x10\xD8")
+"Du tog dig hela vägen upp hit?\n"
+"Du är en riktig man!" TEXTID("\x10\xD8")
 )
 
 DEFINE_MESSAGE(0x10D8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Look! Isn't this view pretty?\n"
-"Change your viewpoint with " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) ",\n"
-"so you can look around the forest\n"
-"with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "."
+"Titta! Är inte den här utsikten vacker?\n"
+"Ändra din vy med hjälp utav " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) ",\n"
+"så kan du se dig omkring i skogen\n"
+"med " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x10D9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"What did you do to the Great\n"
-"Deku Tree?"
+"Vad har du gjort med det Stora\n"
+"Dekuträdet?"
 )
 
 DEFINE_MESSAGE(0x10DA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you want to go to the Lost \n"
-"Woods, you'd better equip the\n"
-"right gear!\n"
+"Om du vill ta dig till den Förlorade \n"
+"Skogen, så bör du utrusta\n"
+"dig ordentligt!\n"
 "Hee hee!"
 )
 
 DEFINE_MESSAGE(0x10DB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SFX("\x38\x82") "All my young Deku Scrub brothers\n"
-"say...\n"
-"You have a horrible face!" BOX_BREAK SFX("\x38\x82") "But don't worry! We will reward\n"
-"you with many " COLOR(RED) "Deku Nuts" COLOR(DEFAULT) "." BOX_BREAK SFX("\x38\x82") "Of course, we will also enable \n"
-"you to carry more of them!" BOX_BREAK "Abracadabra..." BOX_BREAK SFX("\x38\x80") "Alakazaaaam!!" EVENT
+SFX("\x38\x82") "Alla mina Dekubuskbröder säger\n"
+"att...\n"
+"Du har ett fasansfullt ansikte!" BOX_BREAK SFX("\x38\x82") "Men var inte orolig! Vi kommer att belöna\n"
+"dig med många " COLOR(RED) "Dekunötter" COLOR(DEFAULT) "." BOX_BREAK SFX("\x38\x82") "Vi ska även göra det möjligt\n"
+"för dig att bära fler utav dem!" BOX_BREAK "Abrahadabra..." BOX_BREAK SFX("\x38\x80") "Simsalabim!!" EVENT
 )
 
 DEFINE_MESSAGE(0x10DC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I surrender!" BOX_BREAK SFX("\x38\x80") "To make your quest easier,\n"
-"I can enable you to pick up more\n"
-COLOR(RED) "Deku Sticks" COLOR(DEFAULT) "!\n"
-"But, it'll cost you " COLOR(RED) "40 Rupees" COLOR(DEFAULT) "!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Jag ger upp!" BOX_BREAK SFX("\x38\x80") "För att göra ditt äventyr lite lättare,\n"
+"så kan jag göra det möjligt för dig att\n"
+"bära fler " COLOR(RED) "Dekukäppar" COLOR(DEFAULT) "!\n"
+"Men, det kommer att kosta dig " COLOR(RED) "40 Rupees" COLOR(DEFAULT) "!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10DD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "I surrender!" BOX_BREAK SFX("\x38\x80") "To make your quest easier, I can\n"
-"enable you to pick up more " COLOR(RED) "Deku\n"
-"Nuts" COLOR(DEFAULT) "!\n"
-"But, it'll cost you " COLOR(RED) "40 Rupees" COLOR(DEFAULT) "!" TEXTID("\x10\xA3")
+SFX("\x38\x82") "Jag ger upp!" BOX_BREAK SFX("\x38\x80") "För att göra ditt äventyr lite lättare,\n"
+"så kan jag göra det möjligt för dig att\n"
+"plocka upp fler " COLOR(RED) "Dekunötter" COLOR(DEFAULT) "!\n"
+"Men, det kommer att kosta dig " COLOR(RED) "40 Rupees" COLOR(DEFAULT) "!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10DE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x82") "So sorry!\n"
-"You can't buy that right now!"
+SFX("\x38\x82") "Jag ber om ursäkt!\n"
+"Du kan inte köpa det just nu!"
 )
 
 DEFINE_MESSAGE(0x10DF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"That guy isn't here anymore." BOX_BREAK "Anybody who comes into the \n"
-"forest will be lost." BOX_BREAK "Everybody will become a Stalfos.\n"
-"Everybody, Stalfos.\n"
-"So, he's not here anymore."
+"Den killen är inte här längre." BOX_BREAK "De som vandrar in i skogen \n"
+"kommer att bli förlorade." BOX_BREAK "Alla blir till en Stalfos.\n"
+"Precis alla, Stalfos.\n"
+"Så, han är inte här längre."
 )
 
 DEFINE_MESSAGE(0x2000, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Thank you very much for the \n"
-"other day... I haven't even asked\n"
-"you your name yet..." BOX_BREAK UNSKIPPABLE  TEXT_SPEED("\x02") "........" TEXT_SPEED("\x00")  BOX_BREAK UNSKIPPABLE "Really?\n"
-NAME "!" BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE "That's what I thought!" QUICKTEXT_DISABLE "\n"
-"You're the fairy boy from the\n"
-"forest! That was years ago!\n"
-"Do you remember me?" BOX_BREAK UNSKIPPABLE "You do? I was sure it was you\n"
-"because Epona remembered you!" BOX_BREAK UNSKIPPABLE "Oh, I have to tell you about\n"
-COLOR(RED) "Mr. Ingo" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "He was afraid that the Evil King\n"
-"might find out that Epona had\n"
-"been taken away...It really upset\n"
-"him!" BOX_BREAK UNSKIPPABLE "But one day, all of a sudden, he\n"
-"went back to being a normal, " COLOR(RED) "nice\n"
-"person" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Now my dad is coming back...I\n"
-"can't believe it, but peace is\n"
-"returning to this ranch!" BOX_BREAK UNSKIPPABLE "It's all because of you! I\n"
-"owe you so much!" BOX_BREAK UNSKIPPABLE "Thank you! Thank you,\n"
+UNSKIPPABLE "Tack så mycket för \n"
+"häromdan... Jag har inte ens bett\n"
+"om ditt namn än..." BOX_BREAK UNSKIPPABLE  TEXT_SPEED("\x02") "........" TEXT_SPEED("\x00")  BOX_BREAK UNSKIPPABLE "Jasså?\n"
+NAME "!" BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE "Då var det som jag trodde!" QUICKTEXT_DISABLE "\n"
+"Du är den där älvpojken från\n"
+"skogen! Det var ju många år sedan sist!\n"
+"Kommer du ihåg mig?" BOX_BREAK UNSKIPPABLE "Gör du? Jag visste att det var du\n"
+"därför att Epona kände igen dig!" BOX_BREAK UNSKIPPABLE "Åh, jag måste berätta för dig om\n"
+COLOR(RED) "Herr. Ingo" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Han var orolig för att den Onda Kungen\n"
+"skulle få reda på att Epona\n"
+"hade blivit förflyttad...Det gjorde honom verkligen\n"
+"upprörd!" BOX_BREAK UNSKIPPABLE "Men rätt som det var en dag, så\n"
+"blev han sitt vanliga " COLOR(RED) "snälla\n"
+"jag igen" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Nu kommer min pappa tillbaka...Jag\n"
+"kan knappt tro det, med frid är\n"
+"på väg tillbaka till ranchen!" BOX_BREAK UNSKIPPABLE "Allt är tack vare dig! Jag\n"
+"är skyldig dig så mycket!" BOX_BREAK UNSKIPPABLE "Tack! Tack,\n"
 NAME "!"
 )
 
 DEFINE_MESSAGE(0x2001, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"How is " COLOR(RED) "Epona " COLOR(DEFAULT) "doing?" BOX_BREAK "If you play " COLOR(RED) "Epona's Song " COLOR(DEFAULT) "with\n"
-"your Ocarina, she will surely\n"
-"come to you." BOX_BREAK "Please come back to the ranch\n"
-"whenever you want to " COLOR(RED) "train \n"
+"Hur är det med " COLOR(RED) "Epona " COLOR(DEFAULT) "?" BOX_BREAK "Om du spelar " COLOR(RED) "Eponas Visa " COLOR(DEFAULT) "med\n"
+"din Okarina, kommer hon säkerligen\n"
+"att komma till dig." BOX_BREAK "Var snäll och besök ranchen\n"
+"närhelst du så än önskar " COLOR(RED) "träna med \n"
 COLOR(DEFAULT) "Epona!"
 )
 
 DEFINE_MESSAGE(0x2002, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Epona" COLOR(RED) " " COLOR(DEFAULT) "looks great!\n"
-"It looks like you were able\n"
-"to tame her, too!" TEXTID("\x20\x03")
+UNSKIPPABLE "Epona" COLOR(RED) " " COLOR(DEFAULT) "ser glad ut!\n"
+"Det verkar som att du klarade av\n"
+"att tämja henne du med!" TEXTID("\x20\x03")
 )
 
 DEFINE_MESSAGE(0x2003, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"How about trying your skill with\n"
-"Epona on an " COLOR(RED) "obstacle course" COLOR(DEFAULT) "?" BOX_BREAK "I'll time you for " COLOR(RED) "two laps" COLOR(DEFAULT) ".\n"
-"It's pretty challenging. If you\n"
-"miss jumping a fence in the \n"
-"proper order, you'll fail." BOX_BREAK "How about it?\n"
-"Do you want to try? \n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Let's go\n"
-"Don't do it" COLOR(DEFAULT)
+"Vad sägs om att testa dina färdigheter med\n"
+"Epona på en " COLOR(RED) "hinderbana" COLOR(DEFAULT) "?" BOX_BREAK "Jag tar tiden åt dig för " COLOR(RED) "två varv" COLOR(DEFAULT) ".\n"
+"Det är en utmaning. Om du missar\n"
+"att hoppa över ett staket i rätt \n"
+"ordning, så misslyckas du." BOX_BREAK "Vad säger du?\n"
+"Vill du göra ett försök? \n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Gör ett försök\n"
+"Undviker det" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x2004, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Well, your time was " COLOR(RED)  RACE_TIME  COLOR(DEFAULT) ".\n"
-"You have to train harder!" BOX_BREAK "Remember, you don't need to \n"
-"accelerate to jump over low \n"
-"fences, but you do need to go\n"
-"fast to jump the high fences!"
+"Ptja, din tid blev " COLOR(RED)  RACE_TIME  COLOR(DEFAULT) ".\n"
+"Du måste träna hårdare!" BOX_BREAK "Kom ihåg, du behöver inte \n"
+"accelerera för att hoppa över \n"
+"små staket, men du måste springa\n"
+"fort för att hoppa över höga staket!"
 )
 
 DEFINE_MESSAGE(0x2005, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
-NAME "...can you hear me?\n"
-"It's me, Zelda..." FADE("\x3C")
+NAME "...kan du höra mig?\n"
+"Det är jag, Zelda..." FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x2006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x28\xDF") "Moooooooooo!" BOX_BREAK "What a nice song...\n"
-"It reminds me of the pasture..." BOX_BREAK "That song makes me feel so good,\n"
-"I can produce a lot of milk!" EVENT
+SFX("\x28\xDF") "Muuuuuuuu!" BOX_BREAK "Vilken vacker visa...\n"
+"den påminner mig om betesmarker..." BOX_BREAK "Den visan får mig att må så bra,\n"
+"så att jag kan producera mycket mjölk!" EVENT
 )
 
 DEFINE_MESSAGE(0x2007, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Have some of my refreshing and \n"
-"nutritious milk!" EVENT
+"Ta lite utav min uppfriskande \n"
+"näringsfyllda mjölk!" EVENT
 )
 
 DEFINE_MESSAGE(0x2008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-NAME ", when you hold\n"
-"this Ocarina in your hand..." BOX_BREAK_DELAYED("\x3C") "I won't be around anymore..." BOX_BREAK_DELAYED("\x3C") "I wanted to wait for you, but I\n"
-"couldn't delay any longer..." BOX_BREAK_DELAYED("\x3C") "At least I could leave you the \n"
-"Ocarina and " COLOR(LIGHTBLUE) "this melody" COLOR(DEFAULT) "..." FADE("\x3C")
+NAME ", då du håller\n"
+"denna Okarina i din hand..." BOX_BREAK_DELAYED("\x3C") "Så kommer jag inte att finnas här mer..." BOX_BREAK_DELAYED("\x3C") "Jag ville vänta på dig, men jag\n"
+"kunde inte ödsla mer tid..." BOX_BREAK_DELAYED("\x3C") "Jag kunde i alla fall lämna dig \n"
+"Okarinan och " COLOR(LIGHTBLUE) "denna melodi" COLOR(DEFAULT) "..." FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x2009, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
-UNSKIPPABLE "Now, " NAME ".\n"
-"Play this melody in front of the\n"
-"altar in the Temple of Time.\n"
-"You must protect the Triforce!"
+UNSKIPPABLE "Så, " NAME ".\n"
+"Spela denna melodi framför\n"
+"altaret i Tidens Tempel.\n"
+"Du måste beskydda Trekraften!"
 )
 
 DEFINE_MESSAGE(0x200A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Wha-ha-ha-hah! Do you think \n"
-"you're in disguise, Mr. Hero?" BOX_BREAK UNSKIPPABLE  SHIFT("\x57") "Oh?" BOX_BREAK UNSKIPPABLE "Is that a \"Kee...something...\"\n"
-"character mask? I heard he's \n"
-"very popular recently?" BOX_BREAK UNSKIPPABLE "He's my boy's favorite. That\n"
-"\"Kee...something...\" mask...\n"
-"If you don't mind..." TEXTID("\x20\x0B")
+UNSKIPPABLE "Bah-ha-ha-hah! Tror du att \n"
+"du är förklädd, Herr Hjälte?" BOX_BREAK UNSKIPPABLE  SHIFT("\x57") "Åhå?" BOX_BREAK UNSKIPPABLE "Är det en \"Kee...något...\"\n"
+"figurmask? Jag har hört att han\n"
+"är populär nu för tiden?" BOX_BREAK UNSKIPPABLE "Han är min pojks favorit. Den där\n"
+"\"Kee...något...\" masken...\n"
+"Om du inte har något emot det..." TEXTID("\x20\x0B")
 )
 
 DEFINE_MESSAGE(0x200B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Will you sell it to me?\n"
+"Skulle du möjligtvis kunna sälja den?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No way" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Absolut inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x200C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I won't give up! I have plenty of\n"
-"patience. I have to for this \n"
-"job!  Hah hah hah!" EVENT
+"Jag ger inte upp! Jag har massvis med\n"
+"tålamod. Det måste man ha i detta \n"
+"yrket!  Hah hah hah!" EVENT
 )
 
 DEFINE_MESSAGE(0x200D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Mmmm...mumble...mumble...\n"
-"Huh? Yeah, I'm awake!" BOX_BREAK UNSKIPPABLE "What?" BOX_BREAK UNSKIPPABLE "Hey, it's you! Welcome!" BOX_BREAK UNSKIPPABLE "Awww... That was rough!\n"
-"Malon yelled at me for a long\n"
-"time!" BOX_BREAK UNSKIPPABLE "You took care of us, so I'm proud \n"
-"to give you this " COLOR(RED) "milk" COLOR(DEFAULT) "! You can \n"
-"keep the bottle for yourself."
+UNSKIPPABLE "Mmmm...mummel...mummel...\n"
+"Va? Ja, Jag är vaken!" BOX_BREAK UNSKIPPABLE "Va?" BOX_BREAK UNSKIPPABLE "Hej, det är ju du! Välkommen!" BOX_BREAK UNSKIPPABLE "Awww... Det var lite väl hårt!\n"
+"Malon gapade på mig väldigt\n"
+"länge!" BOX_BREAK UNSKIPPABLE "Du tog hand om oss, så jag kan med \n"
+"stolthet ge dig denna " COLOR(RED) "mjölk" COLOR(DEFAULT) "! Du kan \n"
+"behålla flaskan för dig själv."
 )
 
 DEFINE_MESSAGE(0x200E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"The " COLOR(RED) "road is closed " COLOR(DEFAULT) "beyond this\n"
-"point!\n"
-"Can't you read the sign over \n"
-"there?" BOX_BREAK "Eh? Oh, I see. You're just a kid,\n"
-"and you can't read yet. \n"
-"Ha ha hah!"
+COLOR(RED) "Vägen är stängd " COLOR(DEFAULT) "bortom denna\n"
+"punkt!\n"
+"Kan du inte läsa skylten där \n"
+"borta?" BOX_BREAK "Eh? Åh, jag förstår. du är bara ett barn\n"
+"och kan inte läsa än. \n"
+"Ha ha ha!"
 )
 
 DEFINE_MESSAGE(0x200F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -8003,206 +7999,206 @@ DEFINE_MESSAGE(0x4007, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x4008, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Zora's Fountain is the \n"
-"source of the river.\n"
-COLOR(RED) "Lord Jabu-Jabu " COLOR(DEFAULT) "lives in the \n"
-"fountain." TEXTID("\x40\x09")
+UNSKIPPABLE "Zoras fontän är \n"
+"älvens källa.\n"
+COLOR(RED) "Vår Herre Jabu-Jabu " COLOR(DEFAULT) "bor i den \n"
+"fontänen." TEXTID("\x40\x09")
 )
 
 DEFINE_MESSAGE(0x4009, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Lord Jabu-Jabu is the patron deity\n"
-"of the Zoras. " COLOR(RED) "Princess Ruto" COLOR(DEFAULT) " is in \n"
-"charge of preparing his meals, \n"
-"morning and night."
+"Vår Herre Jabu-Jabu är Zoras\n"
+"Gud. " COLOR(RED) "Prinsessan Ruto" COLOR(DEFAULT) " ser till \n"
+"att förbereda hans måltider \n"
+"både morgon och kväll."
 )
 
 DEFINE_MESSAGE(0x400A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We Zoras all serve the great \n"
-COLOR(RED) "King Zora" COLOR(DEFAULT) "."
+"Vi Zora tjänar alla den store \n"
+COLOR(RED) "Kung Zora" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x400B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"The great King Zora should be in\n"
-"the " COLOR(RED) "Royal Chamber" COLOR(DEFAULT) "."
+"Den store Kung Zora borde hålla\n"
+"till i den " COLOR(RED) "Kungliga Kammaren" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x400C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Have you seen Lord Jabu-Jabu?\n"
+"Har du mött vår Herre Jabu-Jabu?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x400D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"According to the \"Legend of Zora,\"\n"
-"the act of offering a " COLOR(RED) "fish" COLOR(DEFAULT) " to Lord \n"
-"Jabu-Jabu will make you happy."
+"Enligt \"Legenden om Zora,\"\n"
+"så blir du glad utav att skänka " COLOR(RED) "fisk" COLOR(DEFAULT) "\n"
+"till vår Herre Jabu-Jabu."
 )
 
 DEFINE_MESSAGE(0x400E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, that's not good." BOX_BREAK "Everybody who comes around here \n"
-"should see " COLOR(RED) "Lord Jabu-Jabu" COLOR(DEFAULT) " at \n"
-"least once!" BOX_BREAK "Zora's Fountain is just beyond \n"
-"King Zora's throne. That is where\n"
-"Lord Jabu-Jabu swims. But..." BOX_BREAK "unless you have King Zora's\n"
-"permission, you can't go to \n"
-"Zora's Fountain."
+"Åh, Det var ju inget vidare." BOX_BREAK "Alla som kommer hit \n"
+"borde träffa vår " COLOR(RED) "Herre Jabu-Jabu" COLOR(DEFAULT) " åtminstone \n"
+"en gång!" BOX_BREAK "Zoras Fontän är precis \n"
+"bortom Kung Zoras tron. Det är där som\n"
+"vår Herre Jabu-Jabu simmar. Men..." BOX_BREAK "så vida du inte har vår\n"
+"Herre Jabu-Jabus tillåtelse, så kan du inte \n"
+"ta dig till Zoras Fontän."
 )
 
 DEFINE_MESSAGE(0x400F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "We haven't found " COLOR(RED) "Princess Ruto\n"
-COLOR(DEFAULT) "even though some of us have \n"
-"searched as far as " COLOR(BLUE) "Lake Hylia" COLOR(DEFAULT) "...."
+UNSKIPPABLE "Vi har inte hittat " COLOR(RED) "Prinsessan Ruto\n"
+COLOR(DEFAULT) "trots att vissa utav oss har \n"
+"sökt ända vid " COLOR(BLUE) "Hyliasjön" COLOR(DEFAULT) "...."
 )
 
 DEFINE_MESSAGE(0x4010, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you find any clues to\n"
-COLOR(RED) "Princess Ruto's " COLOR(DEFAULT) "whereabouts,\n"
-"will you show them to King Zora?"
+"Om du hittar någon ledtråd till vart\n"
+COLOR(RED) "Prinsessan Ruto " COLOR(DEFAULT) "befinner sig,\n"
+"kan du i så fall visa det för kung Zora?"
 )
 
 DEFINE_MESSAGE(0x4011, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"All of the water in Hyrule flows\n"
-"from " COLOR(BLUE) "Zora's Fountain" COLOR(DEFAULT) "." BOX_BREAK "That water flows through Zora's\n"
-"River, which eventually reaches\n"
-COLOR(BLUE) "Lake Hylia " COLOR(DEFAULT) "to the south."
+"Allt vatten i Hyrule flödar\n"
+"genom " COLOR(BLUE) "Zoras Fontän" COLOR(DEFAULT) "." BOX_BREAK "Det vattnet flödar genom\n"
+"Zoras älv, som sedan sträcker sig till\n"
+COLOR(BLUE) "Hyliasjön " COLOR(DEFAULT) "åt söder."
 )
 
 DEFINE_MESSAGE(0x4012, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Oh--I've come back to life!" BOX_BREAK UNSKIPPABLE "Was it you who saved me?\n"
-"Don't be nervous!" BOX_BREAK UNSKIPPABLE "It looks like you have a hard time\n"
-"breathing underwater." BOX_BREAK UNSKIPPABLE "As an expression of my gratitude,\n"
-"I grant you this " COLOR(RED) "tunic" COLOR(DEFAULT) ". With this,\n"
-"you won't choke underwater."
+UNSKIPPABLE "Åh--Jag har kommit tillbaka till liv!" BOX_BREAK UNSKIPPABLE "Var det du som räddade mig?\n"
+"Var inte nervös!" BOX_BREAK UNSKIPPABLE "Det verkar som att du tycker det är svårt\n"
+"att andas under vattnet." BOX_BREAK UNSKIPPABLE "För att visa min tacksamhet,\n"
+"så ger jag dig denna " COLOR(RED) "tunika" COLOR(DEFAULT) ". Med den så\n"
+"kommer du inte att kvävas under vatten."
 )
 
 DEFINE_MESSAGE(0x4013, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Princess Ruto has gone to Lake \n"
-"Hylia and has not come back...\n"
-"I'm so worried...again!"
+"Prinsessan Ruto har gått till \n"
+"Hyliasjön och har inte återvänt...\n"
+"Jag är så orolig...igen!"
 )
 
 DEFINE_MESSAGE(0x4014, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE "Ooh...\n"
-"This is... well... hmmm...\n"
-"Hmmm... " COLOR(RED) "Eye drops" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "You might say we have them,\n"
-"you might say we don't...\n"
-"We do have the ingredients." BOX_BREAK UNSKIPPABLE "If you take the " COLOR(RED) "ingredients " COLOR(DEFAULT) "to the\n"
-"doctor at the lake laboratory, he\n"
-"can make the drops for you." BOX_BREAK UNSKIPPABLE "But you need to deliver them\n"
-"fresh..." TEXTID("\x40\x15")
+"Detta är... Ptja... hmmm...\n"
+"Hmmm... " COLOR(RED) "Ögondroppar" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "Man kan säga att vi har det,\n"
+"men även att vi inte har det...\n"
+"Vi har däremot ingredienserna." BOX_BREAK UNSKIPPABLE "Om du tar " COLOR(RED) "ingredienserna " COLOR(DEFAULT) "till\n"
+"läkaren vid sjöns laboratorie, så\n"
+"kan han göra dropparna åt dig." BOX_BREAK UNSKIPPABLE "Men du måste leverera dem\n"
+"färska..." TEXTID("\x40\x15")
 )
 
 DEFINE_MESSAGE(0x4015, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Can you make it " COLOR(RED) "before they\n"
-"spoil" COLOR(DEFAULT) "?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Klarar du det " COLOR(RED) "före de blir\n"
+"dåliga" COLOR(DEFAULT) "?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4016, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Then you think they'll spoil \n"
-"before you can get there?\n"
-"It's not that far if you make the \n"
-"connection on horseback..."
+"Så du tror alltså att de blir \n"
+"dåliga innan du kommer fram?\n"
+"Det är inte så långt dit om du \n"
+"färdas på hästrygg..."
 )
 
 DEFINE_MESSAGE(0x4017, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hoot hoot!" BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE  NAME ", you look like \n"
-"you're getting more comfortable\n"
-"in your role as adventurer." BOX_BREAK UNSKIPPABLE "I think Princess Zelda is \n"
-"waiting for you to visit her again." BOX_BREAK UNSKIPPABLE "You already have the " COLOR(RED) "Goron's Ruby" COLOR(DEFAULT) "," COLOR(RED) "\n"
-COLOR(DEFAULT) "don't you?"
+UNSKIPPABLE "Hohoo!" BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE  NAME ", det verkar som \n"
+"att du blir mer och mer bekväm\n"
+"i din roll som äventyrare." BOX_BREAK UNSKIPPABLE "Jag tror att Prinsessan Zelda \n"
+"väntar på att du ska besöka henne igen." BOX_BREAK UNSKIPPABLE "Du har redan " COLOR(RED) "Gorons Rubin" COLOR(DEFAULT) "," COLOR(RED) "\n"
+COLOR(DEFAULT) "eller hur?"
 )
 
 DEFINE_MESSAGE(0x4018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hello there, son. I'm researching \n"
-"the process of making medicine by \n"
-"mixing Lake Hylia's water with \n"
-"various unusual compounds." BOX_BREAK "Perhaps you've met that old lady \n"
-"from the potion shop...she is like \n"
-"a student of mine...\n"
+"Hallå där, pojke. Jag forskar \n"
+"i en process där jag tillverkar \n"
+"medicin genom att blanda vatten \n"
+"från Hyliasjön med ovanliga ämnen." BOX_BREAK "Du kanske har träffat den gamla \n"
+"damen från Brygdbutiken...Hon är som \n"
+"en elev till mig...\n"
 "Ho ho ho!"
 )
 
 DEFINE_MESSAGE(0x4019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
-QUICKTEXT_ENABLE "Oh, wow!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "I haven't seen an " COLOR(RED) "Eyeball Frog" COLOR(DEFAULT) " \n"
-"like this since Zora's Domain froze\n"
-"over!" EVENT
+QUICKTEXT_ENABLE "Åh, wow!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Jag har inte sett en " COLOR(RED) "Ögonglobsgroda" COLOR(DEFAULT) " \n"
+"likt denna sedan Zoras Domän frös\n"
+"över!" EVENT
 )
 
 DEFINE_MESSAGE(0x401A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Oh, my dear, sweet " COLOR(RED) "Princess Ruto" COLOR(DEFAULT) "...\n"
-"Where has she gone?\n"
-"I'm so worried..."
+"Åh, kära, rara " COLOR(RED) "Prinsessan Ruto" COLOR(DEFAULT) "...\n"
+"Vart har hon tagit vägen?\n"
+"Jag är så orolig..."
 )
 
 DEFINE_MESSAGE(0x401B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Ho, this letter! \n"
-"It's from " COLOR(RED) "Princess Ruto" COLOR(DEFAULT) "!!" BOX_BREAK UNSKIPPABLE "Hmmm...Let's see...\n"
-"She's inside Lord Jabu-Jabu?\n"
-"That's not possible!" BOX_BREAK UNSKIPPABLE "Our guardian god, " COLOR(RED) "Lord Jabu-Jabu" COLOR(DEFAULT) ",\n"
-"would never eat my dear Princess\n"
-"Ruto!" BOX_BREAK UNSKIPPABLE "But since that stranger, " COLOR(RED) "Ganondorf" COLOR(DEFAULT) ",\n"
-"came here, Lord Jabu-Jabu has \n"
-"been a little green around the\n"
-"gills..." BOX_BREAK UNSKIPPABLE "The evidence seems clear.\n"
-"Of course, you'll go find Ruto.\n"
-"You can pass through here to the \n"
-"altar of Lord Jabu-Jabu." BOX_BREAK UNSKIPPABLE "I'll keep this letter. You keep the \n"
-COLOR(RED) "bottle " COLOR(DEFAULT) "it was in. Take it \n"
-"respectfully!" TEXTID("\x40\x1C")
+UNSKIPPABLE "Ho, det här brevet! \n"
+"Det är från " COLOR(RED) "Prinsessan Ruto" COLOR(DEFAULT) "!!" BOX_BREAK UNSKIPPABLE "Hmmm...Låt mig se...\n"
+"Hon är inuti Jabu-Jabu?\n"
+"Det kan inte vara möjligt!" BOX_BREAK UNSKIPPABLE "Vår gud, " COLOR(RED) "Jabu-Jabu" COLOR(DEFAULT) ",\n"
+"skulle aldrig äta upp min älskade Prinsessan\n"
+"Ruto!" BOX_BREAK UNSKIPPABLE "Men sedan den där främlingen, " COLOR(RED) "Ganondorf" COLOR(DEFAULT) ",\n"
+"kom hit, så har vår Herre Jabu-Jabu\n"
+"blivit lite grön runt\n"
+"gälarna..." BOX_BREAK UNSKIPPABLE "Beviset talar för sig självt.\n"
+"Självklart så ska du leta efter Ruto.\n"
+"Du kan passera härigenom till \n"
+"vår Herre Jabu-Jabus altare." BOX_BREAK UNSKIPPABLE "Jag behåller det här brevet. Behåll du \n"
+COLOR(RED) "flaskan " COLOR(DEFAULT) "det kom i. Behåll den \n"
+"med vördnad!" TEXTID("\x40\x1C")
 )
 
 DEFINE_MESSAGE(0x401C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Please find my dear " COLOR(RED) "Princess Ruto" COLOR(DEFAULT) "\n"
-"immediately... Zora!"
+"Snälla hitta min älskade " COLOR(RED) "Ruto" COLOR(DEFAULT) "\n"
+"med en gång... Zora!"
 )
 
 DEFINE_MESSAGE(0x401D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "You can't breathe underwater!\n"
-"If you start choking, take off\n"
-"those " COLOR(DEFAULT) "boots" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x3C")
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Du kan inte andas under vattnet!\n"
+"Om du kvävs, så ta av dig\n"
+"de där " COLOR(DEFAULT) "skorna" COLOR(LIGHTBLUE) "!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x401E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  SHIFT("\x36") "Ooooh Noooooo!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x36") "Åååååh neeej!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x401F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Ohhh, I'm revived...\n"
-"Was it you who saved me?\n"
-"Don't be so nervous!" BOX_BREAK UNSKIPPABLE "I will give you a " COLOR(BLUE) "Zora Tunic " COLOR(DEFAULT) "as\n"
-"a token of my thanks. If you have\n"
-"this, you can... What?!" BOX_BREAK UNSKIPPABLE "You already have one? You're \n"
-"ready for anything, aren't you!" BOX_BREAK UNSKIPPABLE "With my heartfelt thanks...how \n"
-"about a KISS?! What? You don't \n"
-"want it?! Oh well..." BOX_BREAK UNSKIPPABLE "If you don't want my rewards, you\n"
-"can listen to my troubles..." TEXTID("\x40\x13")
+UNSKIPPABLE "Åhhh, nu så kvicknade jag till...\n"
+"Var det du som räddade mig?\n"
+"Var inte så nervös!" BOX_BREAK UNSKIPPABLE "Jag ska ge dig en " COLOR(BLUE) "Zoratunika " COLOR(DEFAULT) "som\n"
+"bevis för min tacksamhet. Om du tar\n"
+"på dig... Va?!" BOX_BREAK UNSKIPPABLE "Har du redan en? Du är \n"
+"då redo för precis allt du!" BOX_BREAK UNSKIPPABLE "Så från djupet av mitt hjärta...vad \n"
+"sägs om en KYSS?! Va? Du vill inte \n"
+"ha det?! Jaha..." BOX_BREAK UNSKIPPABLE "Om du inte kan ta emot mina belöningar, så kan\n"
+"du väl istället lyssna på mina problem..." TEXTID("\x40\x13")
 )
 
 DEFINE_MESSAGE(0x4020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I am a " COLOR(BLUE) "Zora" COLOR(DEFAULT) ". Have you seen a \n"
-"pretty Zora girl around here?"
+"Jag är en " COLOR(BLUE) "Zora" COLOR(DEFAULT) ". Har du sett någon \n"
+"söt Zoraflicka häromkring?"
 )
 
 DEFINE_MESSAGE(0x4021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I am a " COLOR(BLUE) "Zora" COLOR(DEFAULT) ". Have you seen\n"
-"anything strange in the lake?\n"
-"The river carries many things \n"
-"into this lake!"
+"Jag är en " COLOR(BLUE) "Zora" COLOR(DEFAULT) ". Har du sett\n"
+"någpnting märkligt i sjön?\n"
+"Älven bär med sig många ting \n"
+"till den här sjön!"
 )
 
 DEFINE_MESSAGE(0x4022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "You..." QUICKTEXT_ENABLE "You're late!" QUICKTEXT_DISABLE "\n"
-QUICKTEXT_ENABLE "What took you so long?" QUICKTEXT_DISABLE "\n"
-"You're " QUICKTEXT_ENABLE "useless!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "I was just lonely, that's all...\n"
-"Just a little!!"
+UNSKIPPABLE "Du..." QUICKTEXT_ENABLE "Du är sen!" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Varför tog du sådan tid på dig?" QUICKTEXT_DISABLE "\n"
+"Du är " QUICKTEXT_ENABLE "värdelös!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Jag var helt enkelt ensam, det är allt...\n"
+"Men bara lite!!"
 )
 
 DEFINE_MESSAGE(0x4023, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "I was scared..." QUICKTEXT_DISABLE "\n"
-QUICKTEXT_ENABLE "A little!" QUICKTEXT_DISABLE " Just a little!!"
+UNSKIPPABLE  QUICKTEXT_ENABLE "Jag var rädd..." QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Lite!" QUICKTEXT_DISABLE " Bara lite!!"
 )
 
 DEFINE_MESSAGE(0x4024, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
@@ -8211,173 +8207,173 @@ NAME "!"
 )
 
 DEFINE_MESSAGE(0x4025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "You!" QUICKTEXT_DISABLE "\n"
-"You looked cool...cooler than I \n"
-"thought you would, anyway... \n"
-QUICKTEXT_ENABLE "Just a little!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Well, anyway, you saved me, so I \n"
-"guess I'll reward you." BOX_BREAK UNSKIPPABLE "What do you wish? Just tell me...\n"
+UNSKIPPABLE  QUICKTEXT_ENABLE "Du!" QUICKTEXT_DISABLE "\n"
+"Du såg häftig ut...Häftigare än vad \n"
+"jag trodde att du skulle göra... \n"
+QUICKTEXT_ENABLE "Men bara lite!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Ptja, du räddade mig trots allt, så jag \n"
+"antar att jag får belöna dig." BOX_BREAK UNSKIPPABLE "Vad önskar du? berätta för mig...\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "I want that Spiritual Stone.\n"
-"Nothing really..." COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Jag vill ha den där Själastenen.\n"
+"Ingenting egentligen..." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "You mean the Spiritual Stone of\n"
-"Water, " COLOR(BLUE) "Zora's Sapphire" COLOR(DEFAULT) ", don't you?" TEXTID("\x40\x27")
+UNSKIPPABLE "Du menar Vattnets Själasten,\n"
+COLOR(BLUE) "Zoras Safir" COLOR(DEFAULT) ", eller hur?" TEXTID("\x40\x27")
 )
 
 DEFINE_MESSAGE(0x4027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "My mother gave it to me and said \n"
-"I should give it only to the man \n"
-"who will be my husband. You might\n"
-"call it the Zora's Engagement Ring!" BOX_BREAK UNSKIPPABLE  SHIFT("\x45")  QUICKTEXT_ENABLE "All right!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "I'll give you my most precious\n"
-"possession: \n"
-"Zora's Sapphire!"
+UNSKIPPABLE "Min mor gav den till mig och sa \n"
+"att jag endast skulle ge den till \n"
+"mannen som jag kommer att gifta mig med. Du kan\n"
+"kalla den för Zoras förlovningsring!" BOX_BREAK UNSKIPPABLE  SHIFT("\x45")  QUICKTEXT_ENABLE "Okej!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Jag ger dig min mest värdefulla\n"
+"ägodel: \n"
+"Zoras Safir!"
 )
 
 DEFINE_MESSAGE(0x4028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-"Don't tell my father..."
+"Säg ingenting till min far..."
 )
 
 DEFINE_MESSAGE(0x4029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Heeheehee... Don't be shy." BOX_BREAK UNSKIPPABLE "I can tell what you're thinking..." TEXTID("\x40\x27")
+UNSKIPPABLE "Hihihi... Var inte blyg." BOX_BREAK UNSKIPPABLE "Jag vet vad du tänker på..." TEXTID("\x40\x27")
 )
 
 DEFINE_MESSAGE(0x402A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I want to buy a fish, but they are\n"
-"a little too expensive..." BOX_BREAK "I have no choice but to catch one\n"
-"of the fishes that's swimming\n"
-"around out there."
+"Jag vill köpa en fisk, men de är\n"
+"lite för dyra..." BOX_BREAK "Jag har inget annat val än att\n"
+"fånga en utav fiskarna\n"
+"som simmar omkring där ute."
 )
 
 DEFINE_MESSAGE(0x402B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Oh, " NAME "!\n"
-"So, you saved the Princess, eh?\n"
-"I really appreciate it!"
+"Åh, " NAME "!\n"
+"Så, du räddade prinsessan va?\n"
+"Jag uppskattar det verkligen!"
 )
 
 DEFINE_MESSAGE(0x402C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Did my most precious possession\n"
-"help you in your quest? Heehee!"
+"Har min käraste ägodel hjälpt\n"
+"hjälpt dig på ditt äventyr? Hihi!"
 )
 
 DEFINE_MESSAGE(0x402D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, hi " NAME "!\n"
-"You're all Princess Ruto will talk\n"
-"about lately!"
+"Åh, hej " NAME "!\n"
+"Du är det enda som Prinsessan Ruto\n"
+"pratar om nuförtiden!"
 )
 
 DEFINE_MESSAGE(0x402E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, it's you, " NAME "!\n"
-"Thanks to you, Lord Jabu-Jabu is\n"
-"back to normal!"
+"Åh, det är du, " NAME "!\n"
+"Tack vare dig, så är vår Herre Jabu-Jabu\n"
+"frisk igen!"
 )
 
 DEFINE_MESSAGE(0x402F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "We Zoras all respect the great\n"
-"King Zora! He has the dignity of\n"
-"a king. Oh yeah, he does." BOX_BREAK UNSKIPPABLE "The grand King Zora has a \n"
-"Princess named " COLOR(RED) "Ruto" COLOR(DEFAULT) ". She's an\n"
-"only child." BOX_BREAK UNSKIPPABLE "She's also a wild tomboy, and it\n"
-"seems like she's always causing\n"
-"the King a lot of trouble!" TEXTID("\x40\x0B")
+UNSKIPPABLE "Alla vi Zora respekterar den store\n"
+"Kung Zora! Han besitter en Kungs \n"
+"värdighet. Åh ja, det gör han." BOX_BREAK UNSKIPPABLE "Den store Kung Zora har en \n"
+"dotter vid namn " COLOR(RED) "Ruto" COLOR(DEFAULT) ". Hon är\n"
+"hans enda barn." BOX_BREAK UNSKIPPABLE "Hon är en vild pojkflicka,\n"
+"och hon hittar ofta på rackartyg\n"
+"som ställer till det för kungen!" TEXTID("\x40\x0B")
 )
 
 DEFINE_MESSAGE(0x4030, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
-UNSKIPPABLE "Here it is." BOX_BREAK UNSKIPPABLE "This medicine doesn't have any\n"
-"preservatives in it. So it " COLOR(RED) "won't \n"
-"last long " COLOR(DEFAULT) "at this temperature." BOX_BREAK UNSKIPPABLE "Run as fast as you can to \n"
-"Death Mountain. You're young--\n"
-"you can do it!"
+UNSKIPPABLE "Här är det." BOX_BREAK UNSKIPPABLE "Den här medicinen innehåller\n"
+"inga konserveringsmedel. Så den " COLOR(RED) "varar \n"
+"inte så länge i " COLOR(DEFAULT) "den här temperaturen." BOX_BREAK UNSKIPPABLE "Spring så fort du kan till \n"
+"Dödens Berg. Du har friska ben--\n"
+"så du klarar det!"
 )
 
 DEFINE_MESSAGE(0x4031, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hoo hoo! Looks like you've gotten\n"
-"bigger and stronger already,\n"
-NAME "!" BOX_BREAK UNSKIPPABLE "Just ahead lies " COLOR(BLUE) "Zora's Domain" COLOR(DEFAULT) ". \n"
-"The Zoras serve Hyrule's Royal \n"
-"Family by protecting this water \n"
-"source." BOX_BREAK UNSKIPPABLE "Their door will not open for \n"
-"anyone except those who have\n"
-"some connection with the Royal \n"
-"Family." BOX_BREAK UNSKIPPABLE "Let them hear the " COLOR(RED) "melody of the \n"
-"Royal Family" COLOR(DEFAULT) "!\n"
-"Hooo hoo hoooot!"
+UNSKIPPABLE "Hoo hoo! Jag ser att du har blivit större\n"
+"större och starkare redan,\n"
+NAME "!" BOX_BREAK UNSKIPPABLE "Precis här borta så ligger " COLOR(BLUE) "Zoras Domän" COLOR(DEFAULT) ". \n"
+"Zorerna tjänar Hyrules Kungliga \n"
+"Familj genom att beskydda \n"
+"källan till allt vatten." BOX_BREAK UNSKIPPABLE "De öppnar inte dörren för \n"
+"någon utomstående, så länge de inte\n"
+"har någon anknytning till den Kungliga \n"
+"Familjen." BOX_BREAK UNSKIPPABLE "Låt dem höra den " COLOR(RED) "Kungliga familjens \n"
+"melodi" COLOR(DEFAULT) "!\n"
+"Hooo hoo hoooo!"
 )
 
 DEFINE_MESSAGE(0x4032, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"When you come back next time, \n"
-"don't forget to bring me a \n"
-"souvenir!"
+"Nästa gång du kommer tillbaka, \n"
+"så kom ihåg att ta med dig en \n"
+"souvenir till mig!"
 )
 
 DEFINE_MESSAGE(0x4033, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "You found Princess Ruto!\n"
-"Now King Zora will give you the \n"
-COLOR(BLUE) "Spiritual Stone of Water" COLOR(DEFAULT) "...\n"
-"Well, maybe." BOX_BREAK UNSKIPPABLE "Huh?"
+UNSKIPPABLE "Du hittade Prinsessan Ruto!\n"
+"Nu så kommer Kung Zora att ge dig \n"
+COLOR(BLUE) "Vattnets Själasten" COLOR(DEFAULT) "...\n"
+"Eller, Ptja." BOX_BREAK UNSKIPPABLE "Kanske?"
 )
 
 DEFINE_MESSAGE(0x4034, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Her most precious possession?\n"
-"You don't know what she's talking\n"
-"about, but you've collected two \n"
-"Spiritual Stones! Only one to go!"
+UNSKIPPABLE "Hennes mest värdefulla ägodel?\n"
+"Du förstår inte vad hon babblar\n"
+"om, men du har härmed samlat in två \n"
+"Själastenar! Bara en till nu!"
 )
 
 DEFINE_MESSAGE(0x4035, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Her most precious possession?\n"
-"You don't know what she's talking\n"
-"about, but you've finally collected\n"
-"all three Spiritual Stones!!" BOX_BREAK UNSKIPPABLE "Go back to see Princess Zelda!"
+UNSKIPPABLE "Hennes mest värdefulla ägodel?\n"
+"Du förstår inte vad hon babblar\n"
+"om, men du har äntligen samlat in\n"
+"alla tre Själastenar!!" BOX_BREAK UNSKIPPABLE "Återvänd till Prinsessan Zelda!"
 )
 
 DEFINE_MESSAGE(0x4036, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "We meet again, " NAME "..."
+UNSKIPPABLE "Vi möts igen, " NAME "..."
 )
 
 DEFINE_MESSAGE(0x4037, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "This ice is created by an evil\n"
-"curse... The monster in the " COLOR(BLUE) "Water\n"
-"Temple " COLOR(DEFAULT) "is the source of the curse." BOX_BREAK UNSKIPPABLE "Unless you shut off the source, \n"
-"this ice will never melt...." BOX_BREAK UNSKIPPABLE "If you have courage enough to \n"
-"confront the danger and save \n"
-"the Zoras, I will teach you the \n"
-"melody that leads to the temple."
+UNSKIPPABLE "Denna is skapades utav en ondskefull\n"
+"förbannelse... Monstret i " COLOR(BLUE) "\n"
+"Vattentemplet " COLOR(DEFAULT) "är källan till förbannelsen." BOX_BREAK UNSKIPPABLE "Så länge du inte stänger av \n"
+"källan så kommer isen aldrig att smälta...." BOX_BREAK UNSKIPPABLE "Om du är modig nog att \n"
+"stå upp inför faran och rädda \n"
+"Zorerna, så ska jag lära dig en melodi \n"
+"som kommer att leda dig in i templet."
 )
 
 DEFINE_MESSAGE(0x4038, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Time passes, people move....\n"
-"Like a river's flow, it never ends..." BOX_BREAK UNSKIPPABLE "A childish mind will turn to\n"
-"noble ambition... Young love will\n"
-"become deep affection... The clear \n"
-"water's surface reflects growth..." BOX_BREAK UNSKIPPABLE "Now listen to the " COLOR(BLUE) "Serenade of \n"
-"Water" COLOR(DEFAULT) " to reflect upon yourself...."
+UNSKIPPABLE "Tiden går, folk går vidare....\n"
+"Som flödet i en älv, så slutar det aldrig..." BOX_BREAK UNSKIPPABLE "Ett barnsligt sinne\n"
+"och ett ädelt ändamål... Ung kärlek förändras\n"
+"till djup åtråhet... Det klara \n"
+"vattnets yta återspeglar tillväxt..." BOX_BREAK UNSKIPPABLE "Så lyssna nu till " COLOR(BLUE) "Vattenserenaden\n"
+COLOR(DEFAULT) " och unna dig själv en tanke...."
 )
 
 DEFINE_MESSAGE(0x4039, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "If you came here to meet the \n"
-"Zoras, you wasted your time...\n"
-"This is all there is..." BOX_BREAK UNSKIPPABLE "With one exception, the Zoras \n"
-"are now sealed under this thick \n"
-"ice sheet..." BOX_BREAK UNSKIPPABLE "I managed to rescue the Zora\n"
-"princess from under the ice, but... \n"
-"she left to head for the " COLOR(BLUE) "Water \n"
-"Temple" COLOR(DEFAULT) "..."
+UNSKIPPABLE "Om du har kommit hit för att träffa \n"
+"Zorerna, så ödslar du din tid...\n"
+"Det här är allt som finns kvar..." BOX_BREAK UNSKIPPABLE "Med ett undantag, Zorerna \n"
+"är nu förseglade bakom detta tjocka \n"
+"lager av is..." BOX_BREAK UNSKIPPABLE "Jag lyckades rädda Zora-\n"
+"Prinsessan från under isen, men... \n"
+"hon gav sig iväg till " COLOR(BLUE) "\n"
+"Vattentemplet" COLOR(DEFAULT) "..."
 )
 
 DEFINE_MESSAGE(0x403A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If you want to buy fish, you need\n"
-"a container to put them in." EVENT
+"Om du vill köpa fisk, så behöver du\n"
+"en behållare att stoppa dem i." EVENT
 )
 
 DEFINE_MESSAGE(0x403B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"You say you want to buy a " COLOR(BLUE) "Zora\n"
-"Tunic" COLOR(DEFAULT) "? That tunic is made of the\n"
-"finest material, and is therefore\n"
-"exceedingly expensive!" BOX_BREAK "In fact, I'm afraid only that " COLOR(RED) "very\n"
-"rich family in Kakariko Village " COLOR(DEFAULT) "can\n"
-"afford this fine garment..." EVENT
+"Så du säger att du vill köpa en " COLOR(BLUE) "Zora-\n"
+"Tunika" COLOR(DEFAULT) "? Den Tunikan är tillverkad\n"
+"utav väldigt bra material, och är således\n"
+"ofantligt dyr!" BOX_BREAK "Jag är rädd att endast den " COLOR(RED) "den\n"
+"rikaste familjen i Kakarikobyn " COLOR(DEFAULT) "\n"
+"har råd med detta fina plagg..." EVENT
 )
 
 DEFINE_MESSAGE(0x403C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -8389,27 +8385,27 @@ DEFINE_MESSAGE(0x403D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x403E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Oh...you... If I'm right...\n"
-NAME "?!" BOX_BREAK UNSKIPPABLE "You're " NAME ", aren't\n"
-"you?" BOX_BREAK UNSKIPPABLE "It's me, your fiancée, " COLOR(BLUE) "Ruto" COLOR(DEFAULT) "!\n"
-"Princess of the Zoras!" BOX_BREAK UNSKIPPABLE "I never forgot the vows we\n"
-"made to each other seven years \n"
-"ago!" BOX_BREAK UNSKIPPABLE "You're a terrible man to have \n"
-"kept me waiting for these seven\n"
-"long years..." BOX_BREAK UNSKIPPABLE "But now is not the time to talk \n"
-"about love..." BOX_BREAK UNSKIPPABLE "I'm sure you've already seen it!\n"
-"Zora's Domain--totally frozen!" BOX_BREAK UNSKIPPABLE "A young man named " COLOR(RED) "Sheik" COLOR(DEFAULT) " saved \n"
-"me from under the ice..." BOX_BREAK UNSKIPPABLE "But my father and the other \n"
-"Zoras have not" TEXT_SPEED("\x02") "...yet..." TEXT_SPEED("\x00")  BOX_BREAK UNSKIPPABLE "I want to save them all!\n"
-"I want to save Zora's Domain!" BOX_BREAK UNSKIPPABLE "You! You have to help me!\n"
-"This is a request from me, the\n"
-"woman who is going to be your\n"
-"wife!" BOX_BREAK UNSKIPPABLE  NAME ", you have to \n"
-"help me destroy the evil monster\n"
-"in the Temple, OK?!" BOX_BREAK UNSKIPPABLE "Inside the Water Temple, there are \n"
-COLOR(RED) "three places" COLOR(DEFAULT) " where you can \n"
-"change the water level." BOX_BREAK UNSKIPPABLE "I'll lead the way.\n"
-"Follow me, quickly!!"
+UNSKIPPABLE "Åh...du... Stämmer det att...\n"
+NAME "?!" BOX_BREAK UNSKIPPABLE "Det är du som är " NAME ", eller\n"
+"hur?" BOX_BREAK UNSKIPPABLE "Det är jag, din fästmö, " COLOR(BLUE) "Ruto" COLOR(DEFAULT) "!\n"
+"Prinsessa utav Zorerna!" BOX_BREAK UNSKIPPABLE "Jag glömde aldrig löftena\n"
+"vi gav varandra för sju år \n"
+"sedan!" BOX_BREAK UNSKIPPABLE "Du är en hemsk man som har \n"
+"låtit mig vänta alla dessa sju\n"
+"långa år..." BOX_BREAK UNSKIPPABLE "Men just nu så har vi inte tid att \n"
+"tala om kärlek..." BOX_BREAK UNSKIPPABLE "Har du märkt av det ännu?!\n"
+"att Zoras Domän helt frusit över!" BOX_BREAK UNSKIPPABLE "En ung man vid namn " COLOR(RED) "Sheik" COLOR(DEFAULT) " räddade \n"
+"från under isen..." BOX_BREAK UNSKIPPABLE "Men min far och de andra \n"
+"Zorerna är kvar där" TEXT_SPEED("\x02") "...fortfarande..." TEXT_SPEED("\x00")  BOX_BREAK UNSKIPPABLE "Jag vill rädda dem allihop!\n"
+"Jag vill rädda Zoras Domän!" BOX_BREAK UNSKIPPABLE "Du! Du måste hjälpa mig!\n"
+"Detta är en begäran från mig,\n"
+"kvinnan som ska bli din\n"
+"hustru!" BOX_BREAK UNSKIPPABLE  NAME ", du måste \n"
+"hjälpa mig att besegra monstret\n"
+"i Templet, Okej?!" BOX_BREAK UNSKIPPABLE "I Vattentemplet, så finns där \n"
+COLOR(RED) "tre platser" COLOR(DEFAULT) " där du kan \n"
+"förändra vatten-nivån." BOX_BREAK UNSKIPPABLE "Jag tar täten.\n"
+"Följ efter mig, fort!!"
 )
 
 DEFINE_MESSAGE(0x403F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
@@ -8424,21 +8420,21 @@ DEFINE_MESSAGE(0x4040, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 
 DEFINE_MESSAGE(0x4041, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  NAME "..." BOX_BREAK UNSKIPPABLE "I would have expected no less\n"
-"from the man I chose to be my\n"
-"husband." BOX_BREAK UNSKIPPABLE "Zora's Domain and its people\n"
-"will eventually return to their\n"
-"original state."
+"från den man som ska bli till min\n"
+"make." BOX_BREAK UNSKIPPABLE "Zoras Domän och dess folk\n"
+"kommer i sinom tid återvända\n"
+"till det gamla vanliga igen."
 )
 
 DEFINE_MESSAGE(0x4042, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
-UNSKIPPABLE "If you see Sheik, \n"
-"please give him my thanks, OK?" FADE("\x5A")
+UNSKIPPABLE "Om du träffar på Sheik, \n"
+"så var snäll och tacka honom, okej?" FADE("\x5A")
 )
 
 DEFINE_MESSAGE(0x4043, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Did Ruto want to thank me?" BOX_BREAK UNSKIPPABLE "I see...." BOX_BREAK UNSKIPPABLE "We have to return peace to \n"
-"Hyrule for her sake, too. \n"
-"Don't we?"
+UNSKIPPABLE "Så Ruto tackade mig?" BOX_BREAK UNSKIPPABLE "Jag förstår...." BOX_BREAK UNSKIPPABLE "Vi måste återställa freden \n"
+"i även för hennes skull \n"
+"Eller hur?"
 )
 
 DEFINE_MESSAGE(0x4044, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -8452,1554 +8448,1556 @@ DEFINE_MESSAGE(0x4045, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x4046, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "As a reward...\n"
-"I grant my eternal love to you." BOX_BREAK UNSKIPPABLE "Well, that's what I want to say, \n"
-"but I don't think I can offer that\n"
-"now."
+UNSKIPPABLE "Som belöning...\n"
+"Så skänker jag dig min eviga kärlek." BOX_BREAK UNSKIPPABLE "Ptja, det är vad jag önskar säga, \n"
+"men jag tror inte att jag kan ge dig\n"
+"det just nu."
 )
 
 DEFINE_MESSAGE(0x4047, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Princess Zelda... She's alive. I can\n"
-"sense it...so don't be discouraged."
+UNSKIPPABLE "Prinsessan Zelda... Hon lever. Jag kan\n"
+"känna det...så tappa inte modet."
 )
 
 DEFINE_MESSAGE(0x4048, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE  SHIFT("\x3F") "Keeeyaaaah!\n"
-SHIFT("\x0F") "What is this?! An octopus?!" QUICKTEXT_DISABLE  FADE("\x3C")
+QUICKTEXT_ENABLE  SHIFT("\x3F") "Hjääälp!\n"
+SHIFT("\x0F") "Vad är det där?! En bläckfisk?!" QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x4049, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I have to guard the Water \n"
-"Temple as the " COLOR(BLUE) "Sage of Water" COLOR(DEFAULT) "..." BOX_BREAK UNSKIPPABLE "And you... You're searching for the\n"
-"princess, " COLOR(RED) "Zelda" COLOR(DEFAULT) "?" BOX_BREAK UNSKIPPABLE "Hah!\n"
-"You can't hide anything from me!"
+UNSKIPPABLE "Som" COLOR(BLUE) "Vattnets Vise" COLOR(DEFAULT) "så måste jag\n"
+"vaka över Vattentemplet..." BOX_BREAK UNSKIPPABLE "Och du... Du söker efter\n"
+"prinsessan, " COLOR(RED) "Zelda" COLOR(DEFAULT) "?" BOX_BREAK UNSKIPPABLE "Hah!\n"
+"Du kan inte dölja någonting för mig!"
 )
 
 DEFINE_MESSAGE(0x404A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I can tell that nothing will stop\n"
-"you in your quest for justice and \n"
-"peace... You must take this \n"
-COLOR(BLUE) "Medallion" COLOR(DEFAULT) "... Take it respectfully!"
+UNSKIPPABLE "Jag märker att ingenting kan stoppa\n"
+"dig på din jakt efter fred och  \n"
+"rättvisa... Ta emot den här \n"
+COLOR(BLUE) "Medaljen" COLOR(DEFAULT) "... Bär den med respekt!"
 )
 
 DEFINE_MESSAGE(0x404B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "You! Who are you?!" BOX_BREAK UNSKIPPABLE "I am " COLOR(RED) "Ruto" COLOR(DEFAULT) ", Princess of the Zoras." BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE "What?!" QUICKTEXT_DISABLE "\n"
-"Are you saying my father asked \n"
-"you to come here to save me?" BOX_BREAK UNSKIPPABLE "I'd " QUICKTEXT_ENABLE "never" QUICKTEXT_DISABLE " ask anyone to do such a\n"
-"thing!" BOX_BREAK UNSKIPPABLE "\"Letter in a Bottle?\"  I have\n"
-QUICKTEXT_ENABLE "no idea" QUICKTEXT_DISABLE " what you're talking about!" BOX_BREAK UNSKIPPABLE "My father is worried about me?" BOX_BREAK UNSKIPPABLE "I don't " QUICKTEXT_ENABLE "care!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Anyway, I can't go home right now.\n"
-"And you... " QUICKTEXT_ENABLE "Get out of here!" QUICKTEXT_DISABLE "\n"
-QUICKTEXT_ENABLE "Understand?!" QUICKTEXT_DISABLE
+UNSKIPPABLE "Du! Vem är du?!" BOX_BREAK UNSKIPPABLE "Jag heter " COLOR(RED) "Ruto" COLOR(DEFAULT) ", Prinsessa över Zorerna." BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE "Va?!" QUICKTEXT_DISABLE "\n"
+"Säger du att min pappa har bett \n"
+"dig att komma hit och rädda mig?" BOX_BREAK UNSKIPPABLE "Jag skulle " QUICKTEXT_ENABLE "aldrig" QUICKTEXT_DISABLE " be någon att göra en sådan\n"
+"sak!" BOX_BREAK UNSKIPPABLE "\"Ett brev i en flaska?\"  Jag har\n"
+QUICKTEXT_ENABLE "ingen aning" QUICKTEXT_DISABLE " vad du pratar för strunt!" BOX_BREAK UNSKIPPABLE "Är min far orolig för mig?" BOX_BREAK UNSKIPPABLE "Jag " QUICKTEXT_ENABLE "bryr mig inte!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Oavsett så kan jag inte gå hem nu.\n"
+"Och du... " QUICKTEXT_ENABLE "Gå ut härifrån!" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Är det förstått?!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x404C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Are you still hanging around here?\n"
-"I told you to go away!" BOX_BREAK UNSKIPPABLE "I'm OK. I've been going inside\n"
-"Lord Jabu-Jabu's belly since I was\n"
-"little, but..." BOX_BREAK UNSKIPPABLE "Lord Jabu-Jabu is very strange \n"
-"today..." BOX_BREAK UNSKIPPABLE "There are electrified jellyfish and\n"
-"strange holes around..." BOX_BREAK UNSKIPPABLE "On top of that, my precious stone \n"
-"was...but...\n"
-QUICKTEXT_ENABLE "That's none of your business!" QUICKTEXT_DISABLE "\n"
-"Anyway..." BOX_BREAK UNSKIPPABLE "You! " QUICKTEXT_ENABLE "Go home now!" QUICKTEXT_DISABLE "\n"
-QUICKTEXT_ENABLE "Understand?!" QUICKTEXT_DISABLE  EVENT
+UNSKIPPABLE "Hänger du fortfarande kvar här?\n"
+"Jag sa ju åt dig att sticka!" BOX_BREAK UNSKIPPABLE "Jag är okej. Jag har gått in i\n"
+"vår Herre Jabu-Jabus mage sedan jag var\n"
+"liten, men..." BOX_BREAK UNSKIPPABLE "Vår Herre Jabu-Jabu är lite konstig \n"
+"idag..." BOX_BREAK UNSKIPPABLE "Där finns elektriska maneter och\n"
+"märkliga hål häromkring..." BOX_BREAK UNSKIPPABLE "Som grädde på moset så \n"
+"har min älskade sten...den...\n"
+QUICKTEXT_ENABLE "Det angår inte dig!" QUICKTEXT_DISABLE "\n"
+"Oavsett..." BOX_BREAK UNSKIPPABLE "Du! " QUICKTEXT_ENABLE "Gå hem med dig!" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Förstått?!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x404D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "You're that worried about me?" BOX_BREAK UNSKIPPABLE "Then I will give you the honor\n"
-"of carrying me!" BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE "However" QUICKTEXT_DISABLE "...I won't leave until I \n"
-"find the thing I'm looking for.\n"
-"You'd better believe me!" EVENT
+UNSKIPPABLE "Är du så orolig för mig?" BOX_BREAK UNSKIPPABLE "I så fall så ska du få äran att\n"
+"bära mig!" BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE "Fast" QUICKTEXT_DISABLE "...Jag kommer att stanna \n"
+"kvar här tills vi hittar vad vi letar efter.\n"
+"Kom inte och säg något annat!" EVENT
 )
 
 DEFINE_MESSAGE(0x404E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "How inconsiderate!" QUICKTEXT_DISABLE "\n"
-"How could you leave me behind?! \n"
-"If you're a man, act like one! \n"
-"Take responsibility!" EVENT
+QUICKTEXT_ENABLE "Så ofärskämt!" QUICKTEXT_DISABLE "\n"
+"Hur kunde du lämna kvar mig här?! \n"
+"Om du är en man, så bete dig som en! \n"
+"Ta lite ansvar!" EVENT
 )
 
 DEFINE_MESSAGE(0x404F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "That's it!" QUICKTEXT_DISABLE "\n"
-"That's what I've been looking for!\n"
-"Throw me up there! \n"
-"Onto the platform!"
+UNSKIPPABLE  QUICKTEXT_ENABLE "Där är den!" QUICKTEXT_DISABLE "\n"
+"Det är den som jag har letat efter!\n"
+"Kasta upp mig dit! \n"
+"Upp på den där plattformen!"
 )
 
 DEFINE_MESSAGE(0x4050, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "Princess Ruto got the \n"
-COLOR(BLUE) "Spiritual Stone" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-TEXT_SPEED("\x02") "But" TEXT_SPEED("\x00") " why Princess Ruto?"
+UNSKIPPABLE  QUICKTEXT_ENABLE "Prinsessan Ruto fick \n"
+COLOR(BLUE) "Själastenen" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+TEXT_SPEED("\x02") "Men" TEXT_SPEED("\x00") " varför just Prinsessan Ruto?"
 )
 
 DEFINE_MESSAGE(0x4051, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Oh my goodness!\n"
-"I finally found... \n"
-"My mother's stone..." BOX_BREAK UNSKIPPABLE "I got very upset when Lord Jabu-\n"
-"Jabu swallowed it..." BOX_BREAK UNSKIPPABLE "While I was feeding him, he\n"
-"suddenly swallowed me! I was \n"
-"so surprised I dropped it inside..." BOX_BREAK UNSKIPPABLE "But, now that I've found it, \n"
-"I don't need to be in here \n"
-"anymore!"
+UNSKIPPABLE "Åh herre min skapare!\n"
+"Jag hittade den till slut... \n"
+"Min mors sten..." BOX_BREAK UNSKIPPABLE "Jag jätteupprörd då vår Herre Jabu-\n"
+"Jabu svalde den..." BOX_BREAK UNSKIPPABLE "Medan jag matade honom, så\n"
+"svalde han plötsligt mig med! Jag blev \n"
+"Så överraskad att jag tappade stenen..." BOX_BREAK UNSKIPPABLE "Men, nu när jag har hittat den, \n"
+"så behöver jag inte vara här \n"
+"inne mer!"
 )
 
 DEFINE_MESSAGE(0x4052, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"So, take me home, right now!"
+"Så, ta med mig hem, på en gång!"
 )
 
 DEFINE_MESSAGE(0x4053, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Diving Game   20 Rupees\n"
-"Want to play?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Dykarspel   20 Rupees\n"
+"Vill du spela?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4054, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3F") "OKAY!" QUICKTEXT_DISABLE  BOX_BREAK "Pick up all the Rupees I throw \n"
-"from here. You have only a limited\n"
-"amount of time!" BOX_BREAK "When you pick them all up, \n"
-"come back here! I'll give you\n"
-"something very nice!" EVENT
+QUICKTEXT_ENABLE  SHIFT("\x3F") "OKEJ!" QUICKTEXT_DISABLE  BOX_BREAK "Plocka upp alla Rupees jag kastar \n"
+"härifrån. Du har bara en begränsak\n"
+"tid på dig!" BOX_BREAK "Då du plockat upp alla, \n"
+"så återvänd hit! Så ska jag ge dig\n"
+"någonting väldigt fint!" EVENT
 )
 
 DEFINE_MESSAGE(0x4055, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-UNSKIPPABLE  QUICKTEXT_ENABLE "Hey!  Congratulations!" QUICKTEXT_DISABLE "\n"
-"I've got something \n"
-"very nice for you!\n"
-"Come and get it!" EVENT
+UNSKIPPABLE  QUICKTEXT_ENABLE "Hej!  Grattis!" QUICKTEXT_DISABLE "\n"
+"Jag har någonting \n"
+"väldigt fint till dig!\n"
+"Ta emot den!" EVENT
 )
 
 DEFINE_MESSAGE(0x4056, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "What a graceful dive!\n"
-"Now, please take this!" BOX_BREAK UNSKIPPABLE "This is a \"" COLOR(RED) "scale" COLOR(DEFAULT) "\" of our kind.\n"
-"With this, you can dive much\n"
-"deeper under the water." EVENT
+UNSKIPPABLE "Vilket graciöst dyk!\n"
+"Snälla ta emot den här!" BOX_BREAK UNSKIPPABLE "Det är ett \"" COLOR(RED) "fjäll" COLOR(DEFAULT) "\" utav oss.\n"
+"Med denna, så kan du dyka\n"
+"mycket djupare under vattnet." EVENT
 )
 
 DEFINE_MESSAGE(0x4057, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "As the water rises, the evil \n"
-"is vanishing from the lake...\n"
-NAME ", you did it!"
+UNSKIPPABLE "Medan vattenytan stiger, så \n"
+"försvinner ondskan från sjön...\n"
+NAME ", du gjorde det!"
 )
 
 DEFINE_MESSAGE(0x4058, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I...believe that you are going to \n"
+UNSKIPPABLE "Jag...tror att du kommer att rädda \n"
 "save this world..."
 )
 
 DEFINE_MESSAGE(0x4059, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Look at that, " NAME "..." BOX_BREAK UNSKIPPABLE "Together, you and Princess Ruto \n"
-"destroyed the evil monster!" BOX_BREAK UNSKIPPABLE "Once again, the lake is filled with\n"
-"pure water. All is as it was here."
+UNSKIPPABLE "Se där, " NAME "..." BOX_BREAK UNSKIPPABLE "Tillsammans med Prinsessan Ruto \n"
+"besegrade du det onda monstret!" BOX_BREAK UNSKIPPABLE "Ännu en gång, så fylls sjön med\n"
+"rent vatten. Allt är som vanligt igen."
 )
 
 DEFINE_MESSAGE(0x405A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x51")  COLOR(RED) "START!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x51")  COLOR(RED) "SÄTT IGÅNG!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x405B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Go over the falls for a shortcut." EVENT
+"Gå genom fallet för en genväg." EVENT
 )
 
 DEFINE_MESSAGE(0x405C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Take as much as you want for \n"
-"20 Rupees.  Want to play?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Ta så mycket du kan bära för \n"
+"20 Rupees.  Vill du spela?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x405D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Hey!  Congratulations!!" QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE "Hej!  Grattis!!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x405E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"How about some " COLOR(RED) "Magic Beans" COLOR(DEFAULT) "?\n"
-"They aren't selling very well..." BOX_BREAK "How about...\n"
-COLOR(RED) "10 Rupees" COLOR(DEFAULT) " for one piece?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vad sägs om några" COLOR(RED) "Magiska Bönor" COLOR(DEFAULT) "?\n"
+"De säljer inte så värst bra..." BOX_BREAK "Hur låter...\n"
+COLOR(RED) "10 Rupees" COLOR(DEFAULT) " för en styck?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x405F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"How about some " COLOR(RED) "Magic Beans" COLOR(DEFAULT) "?\n"
-"Well, they're not that popular yet." BOX_BREAK "How about...\n"
-COLOR(RED) "20 Rupees" COLOR(DEFAULT) " for one piece?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vad sägs om några" COLOR(RED) "Magiska Bönor" COLOR(DEFAULT) "?\n"
+"Ptja, de är inte så värst populära än." BOX_BREAK "Vad sägs om...\n"
+COLOR(RED) "20 Rupees" COLOR(DEFAULT) " för en styck?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4060, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"How about some " COLOR(RED) "Magic Beans" COLOR(DEFAULT) "?\n"
-"They are getting to be quite \n"
-"popular..." BOX_BREAK COLOR(RED) "30 Rupees" COLOR(DEFAULT) " for one piece.\n"
-"How about it?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vad sägs om några" COLOR(RED) "Magiska Bönor" COLOR(DEFAULT) "?\n"
+"De börjar bli rätt så\n"
+"populära..." BOX_BREAK COLOR(RED) "30 Rupees" COLOR(DEFAULT) " för en styck.\n"
+"Vad sägs?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4061, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"How about some " COLOR(RED) "Magic Beans" COLOR(DEFAULT) "?\n"
-"They're all the rage!" BOX_BREAK COLOR(RED) "40 Rupees" COLOR(DEFAULT) " for one piece.\n"
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vad sägs om några" COLOR(RED) "Magiska Bönor" COLOR(DEFAULT) "?\n"
+"Alla vill köpa dem!" BOX_BREAK COLOR(RED) "40 Rupees" COLOR(DEFAULT) " för en styck.\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4062, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"We have the popular " COLOR(RED) "Magic Beans" COLOR(DEFAULT) "!\n"
-"You'll regret it if you don't buy \n"
-"them now!" BOX_BREAK COLOR(RED) "50 Rupees" COLOR(DEFAULT) " for one piece.\n"
-"(Just for now.)\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Det är vi som säljer de populära " COLOR(RED) "Magiska Bönorna" COLOR(DEFAULT) "!\n"
+"Du kommer att ångra dig ifall du inte \n"
+"köper dem nu!" BOX_BREAK COLOR(RED) "50 Rupees" COLOR(DEFAULT) " för en styck.\n"
+"(tillfälligt pris.)\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4063, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"These are the super-popular \n"
-COLOR(RED) "Magic Beans" COLOR(DEFAULT) "! In case you're \n"
-"wondering, they'll soon be sold out!" BOX_BREAK "Super price!\n"
-COLOR(RED) "60 Rupees" COLOR(DEFAULT) " for one piece!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Detta är de superpopulära \n"
+COLOR(RED) "Magiska Bönorna" COLOR(DEFAULT) "! Ifall du undrar \n"
+"så kommer de snart att sälja slut!" BOX_BREAK "Superpris!\n"
+COLOR(RED) "60 Rupees" COLOR(DEFAULT) " för en styck!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4064, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"We have the super-rare \n"
-COLOR(RED) "Magic Beans" COLOR(DEFAULT) "! This could be your\n"
-"last chance!" BOX_BREAK "Special price!\n"
-COLOR(RED) "70 Rupees" COLOR(DEFAULT) " for one piece!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vi säljer de superovanliga \n"
+COLOR(RED) "Magiska Bönorna" COLOR(DEFAULT) "! Detta kan bli din\n"
+"sista chans!" BOX_BREAK "Specialpris!\n"
+COLOR(RED) "70 Rupees" COLOR(DEFAULT) " för en styck!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4065, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"We have the legendary \n"
-COLOR(RED) "Magic Beans" COLOR(DEFAULT) "! I'll sell them only \n"
-"to you!" BOX_BREAK "Super price!\n"
-COLOR(RED) "80 Rupees" COLOR(DEFAULT) " for one piece!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vi har de legendariska \n"
+COLOR(RED) "Magiska Bönorna" COLOR(DEFAULT) "! Nu har just DU chansen \n"
+"att köpa dem!" BOX_BREAK "Superpris!\n"
+COLOR(RED) "80 Rupees" COLOR(DEFAULT) " för en styck!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4066, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"Do you want..." COLOR(RED) "Magic Beans" COLOR(DEFAULT) "?! \n"
-"They aren't cheap, but...do you\n"
-"still want them?" BOX_BREAK "I can't let them go for less than\n"
-COLOR(RED) "90 Rupees" COLOR(DEFAULT) " apiece!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vill du köpa..." COLOR(RED) "Magiska Bönor" COLOR(DEFAULT) "?! \n"
+"De är inte billiga, men...vill du\n"
+"vill du fortfarande köpa?" BOX_BREAK "Jag kan inte släppa dem för mindre än\n"
+COLOR(RED) "90 Rupees" COLOR(DEFAULT) " styck!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4067, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Chomp chomp chomp...\n"
-"We have..." COLOR(RED) "Magic Beans" COLOR(DEFAULT) "! \n"
-"Do you want them...huh? Huh?" BOX_BREAK COLOR(RED) "100 Rupees" COLOR(DEFAULT) " for one piece!\n"
-"Keyahahah!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Tugg tugg tugg...\n"
+"Vi har..." COLOR(RED) "Magiska Bönor" COLOR(DEFAULT) "! \n"
+"Du vill ha dem...va? va?" BOX_BREAK COLOR(RED) "100 Rupees" COLOR(DEFAULT) " för en styck!\n"
+"Hahaha!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4068, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh well...\n"
-"Chomp chomp..."
+"Jaha...\n"
+"Tugg tugg..."
 )
 
 DEFINE_MESSAGE(0x4069, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You don't have enough money.\n"
-"I can't sell them to you.\n"
-"Chomp chomp..."
+"Du har inte tillräckligt med pengar.\n"
+"Jag kan inte sälja dem till dig.\n"
+"Tugg tugg..."
 )
 
 DEFINE_MESSAGE(0x406A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Set a bean to " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "and use it on\n"
-"the dirt right here."
+"Placera en böna på " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "och använd den på\n"
+"jorden här."
 )
 
 DEFINE_MESSAGE(0x406B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, too bad! We're sold out!\n"
-"Chomp chomp...What?\n"
-"Oh, these beans are not for sale!"
+"Åh, ledsen! Vi är slutsålda!\n"
+"Tugg tugg...Va?\n"
+"Åh, de där bönorna är inte till salu!"
 )
 
 DEFINE_MESSAGE(0x406C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you want to plant beans, go\n"
-"around and look for soft soil.\n"
-"Chomp chomp chomp."
+"Om du vill plantera bönor, gå\n"
+"runt och leta efter mjuk jord.\n"
+"Tugg tugg tugg."
 )
 
 DEFINE_MESSAGE(0x406D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "1 meter" COLOR(DEFAULT) " just now. But I wouldn't \n"
-"call that a real dive."
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "1 meter" COLOR(DEFAULT) " precis nu. Men jag skulle \n"
+"inte kalla det för ett riktigt dyk."
 )
 
 DEFINE_MESSAGE(0x406E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "2 meters" COLOR(DEFAULT) " just now. But I wouldn't \n"
-"call that a real dive."
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "2 meter" COLOR(DEFAULT) " precis nu. Men jag skulle \n"
+"inte kalla det för ett riktigt dyk."
 )
 
 DEFINE_MESSAGE(0x406F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "3 meters" COLOR(DEFAULT) " just now. But I wouldn't \n"
-"call that a real dive."
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "3 meter" COLOR(DEFAULT) " precis nu. Men jag skulle \n"
+"inte kalla det för ett riktigt dyk."
 )
 
 DEFINE_MESSAGE(0x4070, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "4 meters " COLOR(DEFAULT) "just now. Still not \n"
-"deep enough!"
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "4 meter " COLOR(DEFAULT) "precis nu. Fortfarande \n"
+"inte tillräckligt djupt!"
 )
 
 DEFINE_MESSAGE(0x4071, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "5 meters " COLOR(DEFAULT) "just now. Still not \n"
-"deep enough!"
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "5 meter " COLOR(DEFAULT) "precis nu. Fortfarande \n"
+"inte tillräckligt djupt!"
 )
 
 DEFINE_MESSAGE(0x4072, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "6 meters" COLOR(DEFAULT) " just now. You should be\n"
-"able to dive deeper!"
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "6 meter" COLOR(DEFAULT) " precis nu. Du borde kunna\n"
+"dyka djupare!"
 )
 
 DEFINE_MESSAGE(0x4073, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You may not have noticed, but I've\n"
-"been watching you. You dove \n"
-COLOR(RED) "7 meters" COLOR(DEFAULT) " just now. You should be\n"
-"able to dive deeper!"
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du dök \n"
+COLOR(RED) "7 meter" COLOR(DEFAULT) " precis nu. Du borde kunna\n"
+"dyka djupare!"
 )
 
 DEFINE_MESSAGE(0x4074, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "You may not have noticed, but I've\n"
-"been watching you. You " COLOR(RED) "touched \n"
-"the bottom " COLOR(DEFAULT) "just now.  Fantastic!\n"
-"I'll give this to you!"
+"Du kanske inte har märkt det, men jag\n"
+"har hållit ett öga på dig. Du \n" COLOR(RED) "vidrörde \n"
+"botten " COLOR(DEFAULT) "precis nu.  Fantastiskt!\n"
+"Du får den här utav mig!"
 )
 
 DEFINE_MESSAGE(0x4075, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Your diving is the best in the \n"
-"world. Why don't you dive to the \n"
-"bottom of Lake Hylia?"
+"Du är bäst på att dyka i hela \n"
+"världen. Vad sägs om att dyka till \n"
+"botten av Hyliasjön?"
 )
 
 DEFINE_MESSAGE(0x4076, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"My name is " COLOR(RED) "Pierre" COLOR(DEFAULT) ", the wandering\n"
-"scarecrow. Actually, I wish I could\n"
-"wander to look for soul-moving\n"
-"sounds, but I'm kind of stuck here."
+"Mitt namn är " COLOR(RED) "Pierre" COLOR(DEFAULT) ", den vandrande\n"
+"fågelskrämman. Egentligen så önskar jag\n"
+"vandra runt och leta efter vackra låtar,\n"
+"men jag är rädd att jag sitter fast här."
 )
 
 DEFINE_MESSAGE(0x4077, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Fantastic tune! It touches my \n"
-"heart!" EVENT
+"Fantastisk låt! Den vidrörde mitt \n"
+"hjärta!" EVENT
 )
 
 DEFINE_MESSAGE(0x4078, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If you come up with a nice song,\n"
-"come back and let me hear it!" EVENT
+"Om du kommer på en vacker låt,\n"
+"kom då tillbaka och låt mig höra den!" EVENT
 )
 
 DEFINE_MESSAGE(0x4079, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"That song you played for me still\n"
-"stays in my heart. Let's hear it\n"
-"again!" EVENT
+"Den låten du först spelade för mig\n"
+"finns kvar i mitt hjärta. Får jag\n"
+"höra den igen?!" EVENT
 )
 
 DEFINE_MESSAGE(0x407A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"That song you played for me \n"
-"stays in my heart!" EVENT
+"Den låtem du spelade för mig \n"
+"stannar i mitt hjärta!" EVENT
 )
 
 DEFINE_MESSAGE(0x407B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, do you want to go fishing \n"
-"for " COLOR(RED) "20 Rupees" COLOR(DEFAULT) "?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Så, vill du gå och fiska \n"
+"för " COLOR(RED) "20 Rupees" COLOR(DEFAULT) "?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x407C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Oh, no! You don't have a " COLOR(RED) "Rumble \n"
-"Pak" COLOR(DEFAULT) "! With a Rumble Pak, you can\n"
-"feel the vibrations of a fish on\n"
-"your hook." BOX_BREAK "This time, no rumble for you!" EVENT
+"Åh, nej! Du har inte en " COLOR(RED) "Rumble \n"
+"Pak" COLOR(DEFAULT) "! Med en Rumble Pak, så kan\n"
+"du känna vibrationerna från en fisk som\n"
+"fastnar på kroken." BOX_BREAK "Det blir inga vibrationer för din del!" EVENT
 )
 
 DEFINE_MESSAGE(0x407D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Wow! You have a " COLOR(RED) "Rumble Pak" COLOR(DEFAULT) "!\n"
-"Today, you can feel the vibration,\n"
-"young man!" EVENT
+"Wow! du har en " COLOR(RED) "Rumble Pak" COLOR(DEFAULT) "!\n"
+"Idag så kan du känna vibrationerna,\n"
+"unge man!" EVENT
 )
 
 DEFINE_MESSAGE(0x407E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Shucks! You don't have enough \n"
-"money."
+"Hrmf! Du har inte tillräcklgt \n"
+"med pengar."
 )
 
 DEFINE_MESSAGE(0x407F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"OK, listen up!" BOX_BREAK "Walk up to the water's edge and\n"
-"press " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " to look at a fish." BOX_BREAK "While looking at a fish, you can \n"
-"cast your line with " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". Press " COLOR(BLUE) "[A]\n"
-COLOR(DEFAULT) "to brake the line." BOX_BREAK "When the lure drops into the \n"
-"water, you can wiggle it with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ".\n"
-"If you're a novice, you can also\n"
-"use " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "." BOX_BREAK "Reel in your lure with " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". Hold \n"
-"down " COLOR(BLUE) "[A]" COLOR(DEFAULT) " and " COLOR(LIGHTBLUE) "[R] " COLOR(DEFAULT) "to reel it in \n"
-"faster." BOX_BREAK "If you feel a hit, press " COLOR(BLUE) "[A]" COLOR(ADJUSTABLE) " " COLOR(DEFAULT) "and\n"
-COLOR(LIGHTBLUE) "[Control-Pad] down " COLOR(DEFAULT) "to set the hook.\n"
-"After that, reel it in with " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK "Do you understand?\n"
+"Okej, lyssna här!" BOX_BREAK "Gå till kanten av vattnet och\n"
+"tryck " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) " för att titta på en fisk." BOX_BREAK "Medan du ser på en fisk, så kan du \n"
+"kasta en lina med " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". Tryck " COLOR(BLUE) "[A]\n"
+COLOR(DEFAULT) "för att bromsa linan." BOX_BREAK "Då draget faller ned i vattnet \n"
+"så kan du lirka det med " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ".\n"
+"Om du är nybörjare, så kan du även\n"
+"använda " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "." BOX_BREAK "Veva in draget med " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". Håll \n"
+"ned " COLOR(BLUE) "[A]" COLOR(DEFAULT) " och " COLOR(LIGHTBLUE) "[R] " COLOR(DEFAULT) "för att veva in det \n"
+"snabbare." BOX_BREAK "Om du känner av en träff, tryck " COLOR(BLUE) "[A]" COLOR(ADJUSTABLE) " " COLOR(DEFAULT) "och\n"
+COLOR(LIGHTBLUE) "[Control-Pad] ned " COLOR(DEFAULT) "för att sätta kroken.\n"
+"Efter det, veva in den med " COLOR(BLUE) "[A]" COLOR(DEFAULT) "." BOX_BREAK "förstår du?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4080, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I'm so generous, I'll let you fish\n"
-"for as long as you want. However,\n"
-"you can keep only one fish." BOX_BREAK "The biggest fish ever caught here\n"
-"weighed " COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "." BOX_BREAK "After you cast, you can change\n"
-"your view with " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "." BOX_BREAK SHIFT("\x41") "Let's fish!" EVENT
+"Jag är så generös, så att jag låter\n"
+"dig fiska hur länge du vill. Fast,\n"
+"du kan endast behålla en fisk." BOX_BREAK "Den största fisken du har fångat här\n"
+"vägde " COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "." BOX_BREAK "Efter du kastar, så kan du ändra\n"
+"din vy med " COLOR(LIGHTBLUE) "[Z]" COLOR(DEFAULT) "." BOX_BREAK SHIFT("\x41") "Då fiskar vi!" EVENT
 )
 
 DEFINE_MESSAGE(0x4081, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Wah ha haah!\n"
-"Did you set the hook by pressing\n"
-COLOR(BLUE) "[A]" COLOR(DEFAULT) " and " COLOR(LIGHTBLUE) "[Control-Pad] down" COLOR(DEFAULT) "?"
+"Hah ha haah!\n"
+"Satte du kroken genom att trycka\n"
+COLOR(BLUE) "[A]" COLOR(DEFAULT) " och " COLOR(LIGHTBLUE) "[Control-Pad] ned" COLOR(DEFAULT) "?"
 )
 
 DEFINE_MESSAGE(0x4082, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, what happened?\n"
-"You lost it!" FADE("\x3C")
+"Va, vad hände?\n"
+"Du tappade den!" FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x4083, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, well...it's about " COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) ". \n"
-"Do you want to keep it?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Ja, ja...den väger typ " COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) ". \n"
+"Vill du behålla den?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4084, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What do you want?\n"
-THREE_CHOICE  COLOR(ADJUSTABLE) "Weigh my fish.\n"
-"Let's talk about something.\n"
-"I want to quit." COLOR(DEFAULT)
+"Vad vill du?\n"
+THREE_CHOICE  COLOR(ADJUSTABLE) "Väg min fisk.\n"
+"Vi pratar om någonting.\n"
+"Jag vill avsluta." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4085, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Passion alone won't catch you \n"
-"many fish. I'm serious!"
+"Jag är seriös! Enbart passion\n"
+"fångar inte många fiskar!!"
 )
 
 DEFINE_MESSAGE(0x4086, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x4B") "WHOA!" BOX_BREAK "This fish is huge! It looks like a \n"
-"new record! It weighs at least \n"
-COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "! Seriously! \n"
-"OK, here is your prize!" EVENT
+SHIFT("\x4B") "OJ!" BOX_BREAK "Den här fisken är enorm! Det ser ut som \n"
+"ett nytt rekord! Den väger minst \n"
+COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "! Seriöst! \n"
+"Okej, här får du ditt pris!" EVENT
 )
 
 DEFINE_MESSAGE(0x4087, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What? \n"
-"What are you doing to me?!" FADE("\x3C")
+"Va? \n"
+"Vad gör du med mig?!" FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x4088, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, young man! Don't you have \n"
-"anything important you should be\n"
-"doing?" BOX_BREAK "What? Are you saying it's more \n"
-"fun to play here?" BOX_BREAK "I've seen many people ruin their\n"
-"lives with that kind of attitude.\n"
-"I'm serious!\n"
-"Oh well..."
+"Hallå där, unge man! Har du inte \n"
+"någonting viktigt som du måste\n"
+"göra?" BOX_BREAK "Va? Säger du att det är mycket \n"
+"roligare att leka här?" BOX_BREAK "Jag har sett många fördärva\n"
+"sina liv med den attityden.\n"
+"Jag är helt seriös!\n"
+"Ja ja..."
 )
 
 DEFINE_MESSAGE(0x4089, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "The biggest fish ever caught in\n"
-"this pond weighed " FISH_INFO " pounds.\n"
-"The angler: " NAME  QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Den största fisken som fångats\n"
+"i den här dammen vägde " FISH_INFO " pund.\n"
+"Fiskaren namn var: " NAME  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x408A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to continue fishing?\n"
+"Vill du fortsätta att fiska?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x408B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, it weighs " COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "...\n"
-"Not bad, but there are bigger\n"
-"fish in there!" EVENT
+"¨Ptja, den väger " COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "...\n"
+"Inte illa, men det finns större\n"
+"fiskar där i!" EVENT
 )
 
 DEFINE_MESSAGE(0x408C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, c'mon! You don't have a fish!\n"
-"Shucks!" EVENT
+"Hallå, kom igen! Du har ju ingen fisk!\n"
+"Äsch!" EVENT
 )
 
 DEFINE_MESSAGE(0x408D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"You want to try another lure?\n"
-"What are you talking about? Are\n"
-"you so selfish?" BOX_BREAK "Don't you know the old saying,\n"
-"\"A great fisherman never chooses\n"
-"his own lure?\""
+"Vill du prova ett annat drag?\n"
+"Vad snackar du om? Är du verkligen\n"
+"så självisk?" BOX_BREAK "Har du inte hört uttrycket,\n"
+"\"En bra fiskare väljer aldrig\n"
+"sitt eget drag?\""
 )
 
 DEFINE_MESSAGE(0x408E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What? Do you want to know some \n"
-"fishing secrets? I can't tell you\n"
-"any. They are company secrets.\n"
-"Seriously!"
+"Vad? Vill du höra några \n"
+"fiskehemligheter? Jag kan inte berätta\n"
+"det för dig. De är företagshemligheter.\n"
+"Helt seriöst!"
 )
 
 DEFINE_MESSAGE(0x408F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What? You want to know if I'm a \n"
-"good fisherman?" BOX_BREAK "Of course I am! I'm an old pro!\n"
-"Do you know what a pro is?\n"
-"I'm telling you the truth!"
+"Vad? Vill du veta om jag är en \n"
+"bra fiskare?" BOX_BREAK "Självklart så är jag det!\n"
+"Jag är ett riktigt proffs?\n"
+"Det är så sant som det är sagt!"
 )
 
 DEFINE_MESSAGE(0x4090, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Rules and Regulations" QUICKTEXT_DISABLE "\n"
-QUICKTEXT_ENABLE "1. Don't use sinking lures.\n"
-"2. Don't litter.\n"
-"3. Walk quietly." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "4. Don't cast at anyone." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Regler och Reglementen\n" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "1. Använd inte sjunkdrag.\n"
+"2. Skräpa inte ned.\n"
+"3. Gå tyst." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "4. Kasta inte på någon annan." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x4091, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Wow! This is a real lunker!\n"
-"Let's see...it weighs\n"
-COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "!" BOX_BREAK "Do you want to keep it?\n"
+"Wow! Detta var en riktig gammelgädda!\n"
+"Låt se...den väger\n"
+COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "!" BOX_BREAK "Vill du behålla den?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4092, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Come back when you get older!\n"
-"The fish will be bigger, too...\n"
-"Well, maybe."
+"Kom tillbaka då du är äldre!\n"
+"Fiskarna kommer att vara större\n"
+"då med...Eller...Kanske."
 )
 
 DEFINE_MESSAGE(0x4093, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hey, mister! I remember you!\n"
-"It's been a long time!" BOX_BREAK UNSKIPPABLE "How many years has it been?\n"
-"Seven years?! What have you\n"
-"been doing all this time?!" BOX_BREAK UNSKIPPABLE "You're my only customer. I'm \n"
-"almost out of business! Seriously!\n"
-"On top of that, my hair..." BOX_BREAK UNSKIPPABLE "Uh, I mean, never mind..." BOX_BREAK UNSKIPPABLE "Well, do you want to go fishing?\n"
-"It costs only " COLOR(RED) "20 Rupees" COLOR(DEFAULT) "!\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+UNSKIPPABLE "Hallå där, herrn! Jag kommer ihåg dig!\n"
+"Det var länge sedan sist!" BOX_BREAK UNSKIPPABLE "Hur många år sedan är det?\n"
+"Sju år?! Vad har du haft för dig\n"
+"under den här tiden?!" BOX_BREAK UNSKIPPABLE "Du är min enda kund. Jag har \n"
+"nästan varit tvungen att stänga ned!\n"
+"På allt detta så har mitt hår..." BOX_BREAK UNSKIPPABLE "Öh, jag menar, glöm det..." BOX_BREAK UNSKIPPABLE "Så, vill du fiska?\n"
+"Det kostar endast " COLOR(RED) "20 Rupees" COLOR(DEFAULT) "!\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4094, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What?" BOX_BREAK "You want to go fishing in a \n"
-"different fishing pond?!\n"
-"What are you talking about?" BOX_BREAK "I'll go out of business if you go\n"
-"somewhere else!\n"
-"I'm serious!"
+"Va?" BOX_BREAK "Du vill gå och fiska i \n"
+"en annan fiskedamm?!\n"
+"Vad snackar du om?" BOX_BREAK "Jag kommer ju att bli ruinerad\n"
+"om inte du fiskar här!\n"
+"Jag är helt seriös!"
 )
 
 DEFINE_MESSAGE(0x4095, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What?" BOX_BREAK "You want to know why I'm \n"
-"scratching all the time?\n"
-"What are you talking about?" BOX_BREAK "Actually, I have no idea.\n"
-"I'm serious!"
+"Va?" BOX_BREAK "Vill du veta varför jag \n"
+"kliar mig hela tiden?\n"
+"Vad snackar du om?" BOX_BREAK "Jag har faktiskt ingen aning.\n"
+"Jag är helt seriös!"
 )
 
 DEFINE_MESSAGE(0x4096, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What?" BOX_BREAK "Are you trying to tell me you\n"
-"can't see the fish because the\n"
-"water is cloudy?" BOX_BREAK "What are you talking about?\n"
-"This time of day makes for \n"
-"fishing at its finest!" BOX_BREAK "You can hook a fish out of the\n"
-"blue, when you least expect it.\n"
-"Now that's exciting!" BOX_BREAK "I'm serious.  Really, I am!"
+"Va?" BOX_BREAK "Säger du att du inte kan\n"
+"se fiskarna för att vattnet\n"
+"är dammigt?" BOX_BREAK "Vad snackar du om?\n"
+"Det här är ju den bästa tiden \n"
+"på dygnet för att fiska!" BOX_BREAK "Du kan kroka fast en fisk\n"
+"rätt som det är då du minst anar det.\n"
+"Nu blev jag riktigt peppad!" BOX_BREAK "Seriöst.  det blev jag!"
 )
 
 DEFINE_MESSAGE(0x4097, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, what are you doing?\n"
-"I told you not to do that!\n"
-"You're terrible!\n"
-"Seriously!" BOX_BREAK "Give me back my hat!\n"
+"Hallå där, vad håller du på med?\n"
+"Jag sade ju åt dig att inte göra så!\n"
+"Fy vad odräglig du är!\n"
+"Seriöst!" BOX_BREAK "Ge tillbaka min hatt!\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "OK\n"
-"No way" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Okej\n"
+"Aldrig i livet!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4098, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"What? Huh? Oh?\n"
-"I think the fish you already\n"
-"kept was bigger than this one..." BOX_BREAK "Do you still want to keep it?\n"
+"Va? Jaha? Åhå?\n"
+"Jag tror att fisken du redan\n"
+"hade var större än den här..." BOX_BREAK "Vill du fortfarande behålla den?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "No, I don't want it\n"
-"Yes, I want to keep it anyway" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Nä, jag vill inte ha den\n"
+"Ja, jag vill behålla den ändå" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x4099, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Gosh! That's a strange fish you\n"
-"caught there! On top of that, it\n"
-"weighs " COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "!" BOX_BREAK "What do you want to do with it?\n"
+"Oj då! Det var då en konstig fisk\n"
+"du fångade där! Som grädde på moset\n"
+"så väger den " COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "!" BOX_BREAK "Vad vill du göra med den?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Keep it anyway\n"
-"I don't want it" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Behåll den ändå\n"
+"Jag vill inte ha den" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x409A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Wow!" BOX_BREAK "Is this what I think it is?\n"
-"Astonishing!\n"
-"You snagged a " COLOR(RED) "sinking lure" COLOR(DEFAULT) "!" BOX_BREAK "What do you want to do with it?\n"
+"Wow!" BOX_BREAK "Är det här vad jag tror det är?\n"
+"Häpnadsväckande!\n"
+"Du drog upp ett " COLOR(RED) "sjunkdrag" COLOR(DEFAULT) "!" BOX_BREAK "Vad vill du göra med det?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Use it now.\n"
-"Get rid of it." COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Använd det nu.\n"
+"Gör dig av med det." COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x409B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, well..." BOX_BREAK "WOW! What a rare fish!\n"
-"This is a " COLOR(RED) "Hyrule Loach" COLOR(DEFAULT) "!" BOX_BREAK "For this fish, size doesn't \n"
-"matter. I'll give you this \n"
-"prize!" EVENT
+"Men ser man på..." BOX_BREAK "WOW! Vilken ovanlig fisk!\n"
+"Det här är en " COLOR(RED) "Hyrulelax" COLOR(DEFAULT) "!" BOX_BREAK "Vad gäller denna fisk, så spelar \n"
+"storleken ingen roll. Du har förtjänat \n"
+"det här priset!" EVENT
 )
 
 DEFINE_MESSAGE(0x409C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Recently, the number of these\n"
-"fish has decreased tremendously,\n"
-"so I'm going to release this one." EVENT
+"Senaste tiden, så har antalet\n"
+"fiskar minskat oerhört mycket,\n"
+"så jag släpper lös den här." EVENT
 )
 
 DEFINE_MESSAGE(0x409D, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "Rules and Regulations\n"
-"1. Don't use sinking lures.\n"
-"2. Don't litter.\n"
-"3. Walk quietly." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Regler och Reglementen\n"
+"1. Använd inte sjunkdrag.\n"
+"2. Skräpa inte ned.\n"
+"3. Gå tyst." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x409E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hey! Hey!\n"
-"You can't take the rod out of\n"
-"here!" BOX_BREAK "When you quit fishing, return \n"
-"the rod to the counter.\n"
-"I'm serious!"
+"Hallå där!\n"
+"Du kan inte ta med dig ett spö\n"
+"härifrån!" BOX_BREAK "Återlämna spöet vid disken \n"
+"då du slutar fiska.\n"
+"Jag är helt seriös!"
 )
 
 DEFINE_MESSAGE(0x409F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh my gosh!\n"
-"This fish is gigantic!!" BOX_BREAK "A fish this big can't even fit\n"
-"on the screen, and I can't weigh it\n"
-"accurately, but it looks like it's\n"
-"about " COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "!!" BOX_BREAK "You'll want to keep this one,\n"
-"right?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Keep it\n"
-"Don't keep it" COLOR(DEFAULT)
+"Åh min store!\n"
+"Den här fisken är gigantisk!!" BOX_BREAK "En sådan här fisk får inte ens\n"
+"plats på skärmen, och jag kan inte väga\n"
+"den ordentligt, men den ser ut att\n"
+"väga " COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "!!" BOX_BREAK "Du vill definitivt behålla den,\n"
+"eller?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Behåll den\n"
+"Behåll den inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x40A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, baby!\n"
-"I'm " COLOR(RED) "Bonooru" COLOR(DEFAULT) ", the scarecrow!\n"
-"You've probably heard about my\n"
-"fantastic memory!" BOX_BREAK "If you have a new tune to play,\n"
-"blow it!" BOX_BREAK "This is the song you tooted last \n"
-"time, baby!" BOX_BREAK "Hit it!" EVENT
+"Tja snäckan!\n"
+"Jag heter " COLOR(RED) "Bonooru" COLOR(DEFAULT) ", fågelskrämman!\n"
+"Du har förmodligen hört om mitt\n"
+"fantastiska minne!" BOX_BREAK "Om du har en ny låt,\n"
+"så kör igång!" BOX_BREAK "Denna låten spelade du för mig \n"
+"sist, snäckan!" BOX_BREAK "Kör igång!" EVENT
 )
 
 DEFINE_MESSAGE(0x40A1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I am " COLOR(RED) "Bonooru" COLOR(DEFAULT) ", the scarecrow\n"
-"musical genius!\n"
-"I hear a song once, and I never\n"
-"forget it, baby!"
+"Jag heter " COLOR(RED) "Bonooru" COLOR(DEFAULT) ", fågelskrämman!\n"
+"Ett musikaliskt geni!\n"
+"Hör jag en låt, Så glömmer\n"
+"jag aldrig bort den, snäckan!"
 )
 
 DEFINE_MESSAGE(0x40A2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Play the usual tune to call\n"
-"Pierre!\n"
-"If he's nearby, he'll come out to\n"
-"help you, baby!"
+"Spela den vanliga låten\n"
+"för att kalla på Pierre!\n"
+"Om han är i närheten, så kommer\n"
+"han för att hjälpa dig, snäckan!"
 )
 
 DEFINE_MESSAGE(0x40A3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey! Aren't you the fairy buddy I\n"
-"met a long time ago?\n"
-"Wow, you grew, dude!" BOX_BREAK "Well, here's your song..." BOX_BREAK "What?" BOX_BREAK "No, I never forget!\n"
-"You, you're the one who forgot...\n"
-"aren't you? If you have an \n"
-"Ocarina, play that song, baby!"
+"Hej! Är inte du den där älvpojken\n"
+"som jag mötte för länge sedan?\n"
+"Wow, du har vuxit, snubben!" BOX_BREAK "Ptja, här är din låt..." BOX_BREAK "Va?" BOX_BREAK "Nej, jag glömmer aldrig!\n"
+"Du, det var du som glömde...\n"
+"eller hur? Om du har en \n"
+"Okarina, så spela den låten, snäckan!"
 )
 
 DEFINE_MESSAGE(0x40A4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Whoa! You have an ocarina!\n"
-"Hey, why don't you lay a tune\n"
-"on me with it, baby?!" EVENT
+"Tjoho! You have an okarina!\n"
+"Men du, vad sägs om att du drar\n"
+"en låt på den för mig, snäckan?!" EVENT
 )
 
 DEFINE_MESSAGE(0x40A5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well...not bad!\n"
-"I will remember it for you \n"
-"anyway!" BOX_BREAK "I don't mean I can remember only\n"
-"eight notes, but let's just cut it\n"
-"right there for now, baby!" EVENT
+"Ptja...inte illa!\n"
+"Jag ska komma ihåg den åt dig \n"
+"i alla fall!" BOX_BREAK "Jag menar, jag kan inte enbart komma\n"
+"ihåg åtta noter, men vi håller oss till\n"
+"det för tillfället, snäckan!" EVENT
 )
 
 DEFINE_MESSAGE(0x40A6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Play it like that and you'll\n"
-"never move this scarecrow's heart,\n"
-"baby!" EVENT
+"Spelar du sådär illa så kommer\n"
+"du aldrig att röra den här\n"
+"fågelskrämmans hjärta, snäckan!" EVENT
 )
 
 DEFINE_MESSAGE(0x40A7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 "OH YEAHHH!!\n"
-"That's it, that's the tune!!\n"
-"You rock!! I'm blown away!" BOX_BREAK "Oh, no, no! I didn't forget the\n"
-"song...I never forget anything!\n"
-"But I just feel like rewarding\n"
-"you, baby!" BOX_BREAK "........\n"
-"I have a good idea!" BOX_BREAK "My buddy Pierre is wandering\n"
-"around, so play that tune when\n"
-"you want to call him!" BOX_BREAK "I'll tell him to help you if he's\n"
-"nearby and hears that song, baby!" EVENT
+"Precis så, där har vi låten!!\n"
+"Du rockar!! Jag är helt såld!" BOX_BREAK "Åh, nej, nej! Jag glömde aldrig\n"
+"låten...Jag glömmer aldrig något!\n"
+"Men just nu känner jag för att\n"
+"belöna dig, snäckan!" BOX_BREAK "........\n"
+"Jag har en bra idé!" BOX_BREAK "Min polare Pierre vandrar\n"
+"omkring, så spela den låten då\n"
+"du vill kalla på honom!" BOX_BREAK "Jag ska säga åt honom att\n"
+"hjälpa dig om han är i närheten, snäckan!" EVENT
 )
 
 DEFINE_MESSAGE(0x40A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, it's the Ocarina!\n"
-"Play that song with it,\n"
-"baby!" EVENT
+"Se där, Det är ju Okarinan!\n"
+"Spela en låt med den,\n"
+"snäckan!" EVENT
 )
 
 DEFINE_MESSAGE(0x40A9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x28\xE4") "Young lad, you play the Ocarina\n"
-"well... Mmmmm...! That melody is \n"
-"so fine...ribbit! We all should\n"
-"practice it, ribbit!" BOX_BREAK "Take Rupees as a souvenir!\n"
-"If you come up with another nice \n"
-"melody, please drop by and play\n"
-"it...Ribbit ribbit!" EVENT
+SFX("\x28\xE4") "Unge man, du spelar väldigt\n"
+"bra på din okarina...! Den melofin är \n"
+"så fin...kväk! Vi alla borde öva\n"
+"på den tillsammans, kväk!" BOX_BREAK "Ta emot Rupees som en souvenir!\n"
+"Om du kommer på en annan fin \n"
+"melodi, så kom tillbaka och spela\n"
+"den för oss...kväk kväk!" EVENT
 )
 
 DEFINE_MESSAGE(0x40AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x28\xE3") "Wow, that melody is so cool! \n"
-"Ribbit!" BOX_BREAK "Siiiiingin' in the raaaaaain,\n"
-"Oh what a feeling! \n"
-"Rrrrrribbbit!!" BOX_BREAK "Please take this as a token of\n"
-"our froggish gratitude, ribbit!\n"
-"All right. See you, ribbit!" EVENT
+SFX("\x28\xE3") "Wow, den melodin är så grym! \n"
+"Kväk!" BOX_BREAK "Ned faller regnet, ned faller regnet,\n"
+"spolar spindeln bort! \n"
+"Kvvääääk!!" BOX_BREAK "Var snäll och ta emot detta som\n"
+"ett tecken på vår grodiska tacksamhet, kväk!\n"
+"Då så. Vi ses, kväk!" EVENT
 )
 
 DEFINE_MESSAGE(0x40AB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x28\xE4") "Look at us, we're all huge frogs!!\n"
-"We are the world famous Fabulous\n"
-"Five Froggish Tenors!!\n"
-"Rrrribbit!!" BOX_BREAK "Make us jump so we can eat the \n"
-"bugs flying above us, ribbit!" BOX_BREAK "OK? \n"
-"Then, ready, set, go!" EVENT
+SFX("\x28\xE4") "Se på oss, vi är stora grodor allihop!!\n"
+"Vi är de världskända fabulösa\n"
+"Fem Grodiska Tenorerna!!\n"
+"Kvväääk!!" BOX_BREAK "Få oss att hoppa så vi kan äta \n"
+"krypen som flyger över oss, kväääk!" BOX_BREAK "Okej? \n"
+"Ett, två, tre, kör!" EVENT
 )
 
 DEFINE_MESSAGE(0x40AC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x28\xE3") "Young boy, you did grrreat!\n"
-"Perrrrrfect!\n"
-"We are stuffed, ribbit!" BOX_BREAK "Would you take this token of our\n"
-"gratitude?" EVENT
+SFX("\x28\xE3") "Unga pojke, Du gjorde brrraa ifrån dig!\n"
+"Perrrrrfekt!\n"
+"Nu är vi mätta, kväk!" BOX_BREAK "Vill du ha detta som ett tecken\n"
+"på vår tacksamhet?" EVENT
 )
 
 DEFINE_MESSAGE(0x40AD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Oh well, I don't remember that \n"
-"song, baby.\n"
-"Why? That's what I can't tell ya!\n"
-"Good golly!"
+"Jaha, jag kommer inte ihåg \n"
+"den låten, snäckan.\n"
+"Varför? Jag har ingen aning!\n"
+"Herre min skapare!"
 )
 
 DEFINE_MESSAGE(0x40AE, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "The biggest fish ever caught in\n"
-"this pond weighed " FISH_INFO " pounds.\n"
-"The angler: the pond owner" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Den största fisken som fångats\n"
+"i den här dammen vägde " FISH_INFO " pund.\n"
+"Fiskaren var: dammens ägare" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x40AF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"What?\n"
-"Do you want to fish with a \n"
-"different lure?\n"
-"...Hey, what's that?" BOX_BREAK "What? You just picked it up?\n"
-"Usually, the rules says you can't\n"
-"use one of those. I mean, usually. \n"
-"But, what the heck..."
+"Va?\n"
+"Vill du fiska med ett \n"
+"annat drag?\n"
+"...Hallå, vad är det där?" BOX_BREAK "Va? Du plockade ju precis upp det?\n"
+"I vanliga fall, så säger reglerna att man\n"
+"inte får använda en sådan där. I vanliga fall.\n"
+"Men, vad sjutton..."
 )
 
 DEFINE_MESSAGE(0x40B0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"YAHOOOOOO!\n"
-"This is HUGE!! A new record!!\n"
-"This...this weighs as much as...\n"
-COLOR(RED)  FISH_INFO " pounds" COLOR(DEFAULT) "!!" BOX_BREAK "Buuuuuuuut! That sinking lure is\n"
-"in violation of the rules!\n"
-"So, no prize for you.\n"
-"Wah ha ha ha ha ha!" EVENT
+"TJOHOOO!\n"
+"Den är ENORM!! Ett nytt rekord!!\n"
+"Den...Den väger så mycket som...\n"
+COLOR(RED)  FISH_INFO " pund" COLOR(DEFAULT) "!!" BOX_BREAK "Meeeen! Det där sjunkdraget\n"
+"är emot reglerna!\n"
+"Så, inget pris för din del.\n"
+"Haaaa ha ha ha ha!" EVENT
 )
 
 DEFINE_MESSAGE(0x40B1, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "The biggest fish ever caught in\n"
-"this pond weighed " FISH_INFO " pounds.\n"
-"The angler: " NAME "\n"
-"(NOTE: With illegal sinking lure.)" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Den största fisken som fångats\n"
+"i den här dammen vägde " FISH_INFO " pund.\n"
+"Fiskaren var: " NAME "\n"
+"(NOTERING: Med ett illegalt sjunkdrag.)" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x40B2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You're a kind-hearted kid!\n"
-"But don't tell anyone about this.\n"
-"Seriously!" EVENT
+"Du är ett godhjärtat barn!\n"
+"Men berätta inte det för någon.\n"
+"Seriöst!" EVENT
 )
 
 DEFINE_MESSAGE(0x40B3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"WHAAAAAT?!?" BOX_BREAK "Why are you doing this to me?\n"
-"What are you thinking?" BOX_BREAK "I'm not going to let you get off\n"
-"that easy! You have to pay me a \n"
-COLOR(RED) "50-Rupee " COLOR(DEFAULT) "fine!\n"
-"Seriously!" EVENT
+"VAAAAA?!?" BOX_BREAK "Varför gör du såhär mot mig?\n"
+"Vad tänker du med egentligen?" BOX_BREAK "Du kommer inte att slippa undan\n"
+"så enkelt! Du måste betala mig \n"
+COLOR(RED) "50 Rupees " COLOR(DEFAULT) "i böter!\n"
+"Seriöst!" EVENT
 )
 
 DEFINE_MESSAGE(0x5000, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE "GYAAAH!" QUICKTEXT_DISABLE "\n"
-TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "You" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "killed" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "me!!" QUICKTEXT_DISABLE  TEXT_SPEED("\x00") "\n"
-"Huh? Oh, it's you." BOX_BREAK "Did you try to play the \n"
-COLOR(YELLOW) "Sun's Song" COLOR(DEFAULT) "?" BOX_BREAK "Like I told you before, with that \n"
-"song, you can turn day to night \n"
-"or night to day whenever you \n"
-"want." BOX_BREAK "When you're in darkness, that \n"
-"song should bring the sun's light\n"
-"to you. You should try it."
+QUICKTEXT_ENABLE "GYAAAAH!" QUICKTEXT_DISABLE "\n"
+TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "Du" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "dödade" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "mig!!" QUICKTEXT_DISABLE  TEXT_SPEED("\x00") "\n"
+"Va? Åh, det är ju du." BOX_BREAK "Försökte du att spela \n"
+COLOR(YELLOW) "Solens Visa" COLOR(DEFAULT) "?" BOX_BREAK "Som jag sa till dig innan, med den \n"
+"visan, så kan du göra dag till natt \n"
+"eller natt till dag när du så än \n"
+"önskar." BOX_BREAK "Då du befinner dig i mörker, så \n"
+"kan den visan bringa dig solljus.\n"
+"Gör ett försök."
 )
 
 DEFINE_MESSAGE(0x5001, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_TOP,
-QUICKTEXT_ENABLE "When I dug a hole, I found a \n"
-"treasure that stretches--BOING!\n"
-"and shrinks--BOING! It's so fun, \n"
-"I'll never give it to anybody!" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Då jag grävde ett hål, så hittade \n"
+"en skatt man kan töja--BOING!\n"
+"och som krymper--BOING! Det är jättekul, \n"
+"Jag kommer aldrig att ge den till någon!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x5002, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_TOP,
-"The " COLOR(RED) "gravekeeper's diary " COLOR(DEFAULT) "is here.\n"
-"Do you want to read it?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+COLOR(RED) "Gravvårdarens dagbok " COLOR(DEFAULT) "finns här.\n"
+"Vill du läsa den?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x5003, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_TOP,
-QUICKTEXT_ENABLE "Whoever reads this, please enter\n"
-"my grave. I will let you have my\n"
-"stretching, shrinking " COLOR(RED) "keepsake" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "I'm waiting for you.\n"
+QUICKTEXT_ENABLE "Du som läser detta, kom in i\n"
+"min grav. Jag låter dig ta min\n"
+"töjbara, krympande " COLOR(RED) "minnessak" COLOR(DEFAULT) "." QUICKTEXT_DISABLE  BOX_BREAK QUICKTEXT_ENABLE "Jag väntar på dig.\n"
 "--Dampé" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x5004, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE "You decide not to read it..." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE "Du bestämde dig för att inte läsa..." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x5005, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"You defeated Poe the ghost!" BOX_BREAK "Do you want to catch it in \n"
-"a bottle?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Du besegrade spöket Poe!" BOX_BREAK "Vill du fånga det i \n"
+"en flaska?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x5006, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"You want to catch it but you \n"
-"don't have an empty bottle."
+"Du vill fånga det men\n"
+"du saknar en tom flaska."
 )
 
 DEFINE_MESSAGE(0x5007, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"You let it go for now."
+"Du släpper lös den tills vidare."
 )
 
 DEFINE_MESSAGE(0x5008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-"You caught a Poe!"
+"Du fångade en Poe!"
 )
 
 DEFINE_MESSAGE(0x5009, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x04") "The rising sun will eventually set,\n"
-SHIFT("\x19") "A newborn's life will fade." QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x05") "From sun to moon, moon to sun..." QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x25") "Give peaceful rest to\n"
-SHIFT("\x37") "the living dead." QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "This is an interesting poem...\n"
-"huh?"
+UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x04") "Den annalkande solnedgången är snart kommen  ,\n"
+SHIFT("\x19") "Ett nyfött liv bleknar bort." QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x05") "Från sol till måne, måne till sol..." QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x25") "Skänk inre ro till\n"
+SHIFT("\x37") "till de levande döde." QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Detta är en intressant dikt...\n"
+"eller hur?"
 )
 
 DEFINE_MESSAGE(0x500A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x24") "Restless souls wander\n"
-SHIFT("\x1E") "where they don't belong,\n"
-SHIFT("\x27") "bring them calm with\n"
-SHIFT("\x36") "the " COLOR(YELLOW) "Sun's Song" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x24") "Rastlösa själar vandrar\n"
+SHIFT("\x1E") "där de ej hemma hör,\n"
+SHIFT("\x27") "skänk dem tröst\n"
+SHIFT("\x36") "med " COLOR(YELLOW) "Solens Visa" COLOR(DEFAULT) "." QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x500B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Something is inscribed on the \n"
-"tombstone..." BOX_BREAK UNSKIPPABLE "It's the " COLOR(YELLOW) "secret melody" COLOR(DEFAULT) " of the \n"
-"Composer Brothers!"
+UNSKIPPABLE "Någonting är inristat i \n"
+"gravstenen..." BOX_BREAK UNSKIPPABLE "Det är Kompositörbrödernas " COLOR(YELLOW) "hemliga melodi." COLOR(DEFAULT)
 )
 
+
 DEFINE_MESSAGE(0x500C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Ultimate potion! How about\n"
+"Den Ultimata brygden! Vad sägs om\n"
 COLOR(RED) "100 Rupees" COLOR(DEFAULT) "?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Köp\n"
+"Köp inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x500D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If you change your mind, come \n"
-"back and visit me...\n"
-"Hee hee hee!"
+"Om du ångrar dig så kom \n"
+"tillbaka och hälsa på mig...\n"
+"Hihihi!"
 )
 
 DEFINE_MESSAGE(0x500E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You don't have enough Rupees!\n"
-"Hee hee hee!"
+"Du har inte tillräckligt med Rupees!\n"
+"Hihihi!"
 )
 
 DEFINE_MESSAGE(0x500F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 UNSKIPPABLE "GYAAAAH!\n"
-TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "YOU" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "KILLED" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "ME..." QUICKTEXT_DISABLE  TEXT_SPEED("\x00")  QUICKTEXT_ENABLE "Unbelievable!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Oh, what?\n"
-"You're not one of Ganondorf's \n"
-"men, are you?" BOX_BREAK UNSKIPPABLE "Because of my role as a ghost, I\n"
-"had to act like that. I apologize." BOX_BREAK UNSKIPPABLE "Now then, let me introduce myself.\n"
+TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "DU" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "DÖDADE" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "MIG..." QUICKTEXT_DISABLE  TEXT_SPEED("\x00")  QUICKTEXT_ENABLE "Otroligt!" QUICKTEXT_DISABLE  BOX_BREAK UNSKIPPABLE "Åh, va?\n"
+"Du är inte en utav Ganondorfs \n"
+"män, eller?" BOX_BREAK UNSKIPPABLE "På grund utav min roll som spöke, så\n"
+"var jag tvungen att bete mig som ett. Ursäkta." BOX_BREAK UNSKIPPABLE "Då så, låt mig presentera mig själv.\n"
 "Ahem..." TEXTID("\x50\x10")
 )
 
 DEFINE_MESSAGE(0x5010, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I am one of the ghostly composer \n"
-"brothers of Kakariko Village." BOX_BREAK "All the people in this village are\n"
-"born to serve the Royal Family of\n"
-"Hyrule." BOX_BREAK "We brothers also served the Royal \n"
-"Family, and were assigned to \n"
-"study the hereditary mystic \n"
-"powers of the family." BOX_BREAK "Though we never could figure out \n"
-"the power of the Triforce," BOX_BREAK "we had almost completed our \n"
-COLOR(RED) "study of controlling time" COLOR(DEFAULT) " with the \n"
-"tones of ocarinas." BOX_BREAK "Uh, I mean..." BOX_BREAK "Actually, we did complete that \n"
-"study!" BOX_BREAK "We would have been famous, if \n"
-"that hateful Ganondorf had not\n"
-"tried to steal our results." BOX_BREAK "We could never let him reap the \n"
-"fruits of our research!" BOX_BREAK "That's why we gave our lives to \n"
-"protect the secret." TEXTID("\x50\x11")
+"Jag är en utav de spökliga Kompositör- \n"
+"bröderna från Kakarikobyn." BOX_BREAK "Alla i den byn är\n"
+"födda att tjäna den Kungliga Familjen av\n"
+"Hyrule." BOX_BREAK "Vi bröder tjänade också den Kungliga \n"
+"Familjen, vi tilldelades arbetet att \n"
+"studera de nedärvda mystiska krafter \n"
+"som familjen besitter." BOX_BREAK "Även om vi inte kunde lista ut\n"
+"den kraft som Trekraften besitter," BOX_BREAK "så hade vi nästan färdigställt vår\n"
+COLOR(RED) "forskning i att kontrollera tid" COLOR(DEFAULT) " med hjälp utav\n"
+"tonerna från en Okarina." BOX_BREAK "Öh, Jag menar..." BOX_BREAK "Egentligen så blev vi\n"
+"klara!" BOX_BREAK "Vi skulle ha blivit berömda, om \n"
+"det inte hade varit för att den där hätska Ganondorf\n"
+"försökte stjäla våra resultat." BOX_BREAK "Vi skulle aldrig kunna låta \n"
+"honom skörda frukterna utav vår forskning!" BOX_BREAK "Det var därför som vi gav vårt \n"
+"liv för att skydda hemligheten." TEXTID("\x50\x11")
 )
 
 DEFINE_MESSAGE(0x5011, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want to hear what I \n"
-"said again?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Vill du höra vad jag hade \n"
+"att säga igen?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x5012, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 UNSKIPPABLE  QUICKTEXT_ENABLE "GYAAAAH!" QUICKTEXT_DISABLE "\n"
-TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "I'M" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "DEAD" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "A" QUICKTEXT_DISABLE  QUICKTEXT_ENABLE "GAIN!" QUICKTEXT_DISABLE  TEXT_SPEED("\x00") "\n"
-"What? You again?" BOX_BREAK UNSKIPPABLE "Somehow, you remind me of...\n"
-"Princess Zelda..." BOX_BREAK UNSKIPPABLE "Hmm... Since you may have some\n"
-"connection with the Royal Family, I\n"
-"will tell you a little more of our\n"
-"tale." BOX_BREAK UNSKIPPABLE "Back then, people called us great\n"
-"composers because of the many \n"
-"musical masterpieces we wrote." BOX_BREAK UNSKIPPABLE "But we brothers were not just \n"
-"composers." BOX_BREAK UNSKIPPABLE "We had a mission to analyze the\n"
-"mysterious powers of Hyrule's\n"
-"Royal Family." BOX_BREAK UNSKIPPABLE "Our names would be a part of \n"
-"Hyrule's history if we could \n"
-"complete our research!" BOX_BREAK UNSKIPPABLE "We kept our study extremely \n"
-"secret until we completed it." TEXTID("\x50\x14")
+TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "JAG ÄR" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "DÖD" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "I" QUICKTEXT_DISABLE  QUICKTEXT_ENABLE "GEN!" QUICKTEXT_DISABLE  TEXT_SPEED("\x00") "\n"
+"Va? Du igen?" BOX_BREAK UNSKIPPABLE "Du påminner mig om...\n"
+"Prinsessan Zelda, på något vis..." BOX_BREAK UNSKIPPABLE "Hmm... Då du verkar ha något form utav band\n"
+"till den Kungliga Familjen, så\n"
+"ska jag berätta lite mer om oss\n"
+"för dig." BOX_BREAK UNSKIPPABLE "På den tiden, så kallades vi för\n"
+"stora kompositörer på grund av de många \n"
+"musikaliska mästerverk vi skrev." BOX_BREAK UNSKIPPABLE "Fast vi bröder var inte bara \n"
+"kompositörer." BOX_BREAK UNSKIPPABLE "Vi hade en uppgift att undersöka\n"
+"de mystiska krafter som den\n"
+"Kungliga Familjen besitter." BOX_BREAK UNSKIPPABLE "Våra namn hade blivit en del \n"
+"utav Hyrules historia om vi hade \n"
+"färdigställt vårt arbete!" BOX_BREAK UNSKIPPABLE "Vi var extremt hemliga med \n"
+"vårt arbete fram tills att vi var färdiga." TEXTID("\x50\x14")
 )
 
 DEFINE_MESSAGE(0x5013, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 UNSKIPPABLE  QUICKTEXT_ENABLE "GYAAAAH!" QUICKTEXT_DISABLE "\n"
-TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "I'M" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "DEAD" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "A" QUICKTEXT_DISABLE  QUICKTEXT_ENABLE "GAIN!" QUICKTEXT_DISABLE  TEXT_SPEED("\x00") "\n"
-"What? You again?" BOX_BREAK UNSKIPPABLE "Somehow, you remind me of\n"
-"Princess Zelda." BOX_BREAK UNSKIPPABLE "Since you seem to have some\n"
-"connection with the Royal Family, I\n"
-"will tell you a little more of our\n"
-"story." TEXTID("\x50\x14")
+TEXT_SPEED("\x02")  QUICKTEXT_ENABLE "JAG ÄR" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "DÖD" QUICKTEXT_DISABLE " " QUICKTEXT_ENABLE "I" QUICKTEXT_DISABLE  QUICKTEXT_ENABLE "GEN!" QUICKTEXT_DISABLE  TEXT_SPEED("\x00") "\n"
+"Va? Du igen?" BOX_BREAK UNSKIPPABLE "Du påminner mig om...\n"
+"Prinsessan Zelda, på något vis..." BOX_BREAK UNSKIPPABLE "Hmm... Då du verkar ha något form utav band\n"
+"till den Kungliga Familjen, så\n"
+"ska jag berätta lite mer om oss\n"
+"för dig." TEXTID("\x50\x14")
 )
 
 DEFINE_MESSAGE(0x5014, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"To tell the truth, each of us\n"
-"was studying a different song, one\n"
-"to " COLOR(RED) "summon the sun" COLOR(DEFAULT) " and another to\n"
-COLOR(RED) "summon the moon" COLOR(DEFAULT) "." BOX_BREAK "If you were really sent by a \n"
-"member of the Royal Family, I will\n"
-"tell you about the results of our\n"
-"study." BOX_BREAK "We inscribed it on the " COLOR(RED) "royal\n"
-"tombstone" COLOR(DEFAULT) "." BOX_BREAK "As a messenger of the Royal \n"
-"Family, you should show your\n"
-"Royal credentials on top of the \n"
-"Triforce mark..." TEXTID("\x50\x11")
+"Om jag ska vara ärlig, så studerade\n"
+"vi var sin visa, en\n"
+"för att " COLOR(RED) "åkalla solen" COLOR(DEFAULT) " och en annan för att\n"
+COLOR(RED) "åkalla månen" COLOR(DEFAULT) "." BOX_BREAK "Om en medlem utav den Kungliga\n"
+"Familjen verkligen har skickat dig, så ska\n"
+"jag berätta för dig om forskningens\n"
+"resultat." BOX_BREAK "Vi ristade in den i på den " COLOR(RED) "kungliga\n"
+"gravstenen" COLOR(DEFAULT) "." BOX_BREAK "Som budbärare för den Kungliga \n"
+"Familjen, så bör du visa upp ditt\n"
+"Kungliga intyg då du står på \n"
+"Trekraftens märke..." TEXTID("\x50\x11")
 )
 
 DEFINE_MESSAGE(0x5015, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Z Z Z..." BOX_BREAK "Malon...doing all right...\n"
-"Mumble...mumble...\n"
-"Sorry to make you worry..."
+"Z Z Z..." BOX_BREAK "Malon...hur går det...\n"
+"Mummel...mummel...\n"
+"Ledsen att jag oroar dig..."
 )
 
 DEFINE_MESSAGE(0x5016, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Ingo took over Lon Lon Ranch and\n"
-"they call it " COLOR(RED) "Ingo Ranch " COLOR(DEFAULT) "nowadays." BOX_BREAK "I was kicked out of there, and\n"
-"look at me now! My girl, Malon, \n"
-"still works at the ranch..." BOX_BREAK "I'm worried about her..."
+"Ingo tog över Lon Lon-Ranchen och\n"
+"bytte namn på den till " COLOR(RED) "Ingos Ranch " COLOR(DEFAULT) "." BOX_BREAK "Jag blev utsparkad, och\n"
+"se på mig nu! Min flicka, Malon, \n"
+"jobbar fortfarande på ranchen..." BOX_BREAK "Jag oroar mig över henne..."
 )
 
 DEFINE_MESSAGE(0x5017, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Did you save Malon? Thanks!\n"
-"I'm goin' back to the ranch, then!\n"
+"Räddade du Malon? Tack!\n"
+"I så fall så går jag tillbaka dit, nu!\n"
 "Yeehah!"
 )
 
 DEFINE_MESSAGE(0x5018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE "Hey kid!" QUICKTEXT_DISABLE "\n"
-"Don't mess around with the \n"
-"graves!" BOX_BREAK UNSKIPPABLE "I'm " COLOR(RED) "Dampé the Gravekeeper" COLOR(DEFAULT) "!\n"
-"My face may be scary, but I'm not\n"
-"a bad guy..." BOX_BREAK UNSKIPPABLE "Let me give you an advertisement\n"
-"for my side business..." BOX_BREAK UNSKIPPABLE  COLOR(RED) "Dampé the Gravekeeper's" COLOR(DEFAULT) "\n"
-"Heart-Pounding" COLOR(LIGHTBLUE) " Gravedigging Tour" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "What's gonna come out?!\n"
-"What's gonna come out?!\n"
-"When I start digging,\n"
-"we'll find out!" TEXTID("\x50\x19")
+UNSKIPPABLE  QUICKTEXT_ENABLE "Hallå där grabben!" QUICKTEXT_DISABLE "\n"
+"Stöka inte runt bland \n"
+"gravarna!" BOX_BREAK UNSKIPPABLE "Mitt namn är " COLOR(RED) "Gravvårdaren Dampé" COLOR(DEFAULT) "!\n"
+"Mitt ansikte kan vara läskigt, men jag är\n"
+"ingen dålig person..." BOX_BREAK UNSKIPPABLE "Låt mig ge dig lite reklam\n"
+"för mitt yrke vid sidan om..." BOX_BREAK UNSKIPPABLE  COLOR(RED) "Gravvårdaren Dampés" COLOR(DEFAULT) "\n"
+"Hjärtpumpande" COLOR(LIGHTBLUE) " Gravgrävar-rundtur " COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Vad kommer fram?!\n"
+"Vad kommer fram?!\n"
+"Då jag börjar gräva,\n"
+"Låt oss se!" TEXTID("\x50\x19")
 )
 
 DEFINE_MESSAGE(0x5019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want me to dig here?\n"
-COLOR(RED) "10 Rupees" COLOR(DEFAULT) " for one hole.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"Don't do it" COLOR(DEFAULT)
+"Vill du att jag gräver ett hål här?\n"
+COLOR(RED) "10 Rupees" COLOR(DEFAULT) " för ett hål.\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Gör det inte" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x501A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-COLOR(RED) "Nope, nothing here!" COLOR(DEFAULT)
+COLOR(RED) "Nepp, ingenting här!" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x501B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Get back, " NAME "!"
+UNSKIPPABLE "Håll dig undan, " NAME "!"
 )
 
 DEFINE_MESSAGE(0x501C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  NAME "....\n"
-"A terrible thing has happened!\n"
-"The " COLOR(RED) "evil shadow spirit" COLOR(DEFAULT) " has\n"
-"been released!" BOX_BREAK UNSKIPPABLE  COLOR(RED) "Impa" COLOR(DEFAULT) ", the leader of Kakariko\n"
-"Village, had sealed the evil shadow\n"
-"spirit in the bottom of the well...." BOX_BREAK UNSKIPPABLE "But the force of the evil spirit\n"
-"got so strong, the seal of the\n"
-"well broke, and it escaped into the\n"
-"world!!"
+"En fruktansvärd sak har inträffat!\n"
+"Den " COLOR(RED) "onda skugganden" COLOR(DEFAULT) " har\n"
+"släppts lös!" BOX_BREAK UNSKIPPABLE  COLOR(RED) "Impa" COLOR(DEFAULT) ", Kakarikobyns ledare,\n"
+"hade förseglat den onda skugganden\n"
+"i botten av brunnen...." BOX_BREAK UNSKIPPABLE "Men kraften hos den onda anden\n"
+"blev så stark att inseglet i brunnen\n"
+"gick sönder, och den rymde ut\n"
+"i världen!!"
 )
 
 DEFINE_MESSAGE(0x501D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Let me take care of the village!\n"
-"I'm counting on you,\n"
+UNSKIPPABLE "Låt mig ta hand om byn!\n"
+"Jag litar på dig,\n"
 NAME "!"
 )
 
 DEFINE_MESSAGE(0x501E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x23") "Royal Composer Bros.\n"
-SHIFT("\x37") "Sharp the Elder\n"
+QUICKTEXT_ENABLE  SHIFT("\x23") "De Kungliga Kompositörbröderna.\n"
+SHIFT("\x37") "Sharp den Äldre\n"
 SHIFT("\x50") "R.I.P." QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x501F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x23") "Royal Composer Bros.\n"
-SHIFT("\x33") "Flat the Younger\n"
+QUICKTEXT_ENABLE  SHIFT("\x23") "De Kungliga Kompositörbröderna.\n"
+SHIFT("\x33") "Flat den Yngre\n"
 SHIFT("\x50") "R.I.P." QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x5020, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x28") "Royal Family's Tomb" QUICKTEXT_DISABLE
+QUICKTEXT_ENABLE  SHIFT("\x28") "Kungliga Familjens Grav" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x5021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x1A") "This poem is dedicated to\n"
-"the memory of the dearly departed\n"
-SHIFT("\x10") "members of the Royal Family." QUICKTEXT_DISABLE  EVENT
+UNSKIPPABLE  QUICKTEXT_ENABLE  SHIFT("\x1A") "Den här dikten är tillägnad\n"
+"minnet av de medlemmar utav den Kungliga\n"
+SHIFT("\x10") "Familjen som ej längre är med oss." QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x5022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "The boy with the noble Zelda's \n"
-"Ocarina...As I expected, \n"
-"you have come." BOX_BREAK UNSKIPPABLE "I am " COLOR(RED) "Impa" COLOR(DEFAULT) ", one of the Sheikah.\n"
-"I am Princess Zelda's caretaker,\n"
-"and I am also the Sage who\n"
-"guards the Shadow Temple."
+UNSKIPPABLE "Pojken med den ädla Prinsessan \n"
+"Zeldas Okarina...som jag förväntade mig, \n"
+"du har kommit." BOX_BREAK UNSKIPPABLE "Jag är " COLOR(RED) "Impa" COLOR(DEFAULT) ", en utav Sheikah.\n"
+"Jag är Prinsessan Zeldas tjänare,\n"
+"jag är även den Vise som\n"
+"vakar över Skuggtemplet."
 )
 
 DEFINE_MESSAGE(0x5023, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
-UNSKIPPABLE "Please look out for the Princess!" FADE("\x32")
+UNSKIPPABLE "Var snäll och se efter rinsessan Zelda!" FADE("\x32")
 )
 
 DEFINE_MESSAGE(0x5024, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  NAME ", the hero!" BOX_BREAK UNSKIPPABLE "Finally, all of us, the " COLOR(RED) "six Sages" COLOR(DEFAULT) ", \n"
-"have been awakened!\n"
-"The time for the final showdown\n"
-"with the King of Evil has come!" BOX_BREAK UNSKIPPABLE "Before that, though, you should\n"
-"meet the one who is waiting for\n"
-"you..." BOX_BREAK UNSKIPPABLE "The one who is waiting for you at\n"
-"the " COLOR(LIGHTBLUE) "Temple of Time" COLOR(DEFAULT) "...."
+UNSKIPPABLE  NAME ", hjälten!" BOX_BREAK UNSKIPPABLE "Äntligen, så har alla vi " COLOR(RED) "sex Vise" COLOR(DEFAULT) ", \n"
+"vaknat upp!\n"
+"Striden mot Ondskans Konung\n"
+"har äntligen kommit!" BOX_BREAK UNSKIPPABLE "Men först, så bör du träffa\n"
+"den som väntar på dig...\n"
+BOX_BREAK UNSKIPPABLE "Den som väntar på dig i\n"
+COLOR(LIGHTBLUE) "Tidens Tempel" COLOR(DEFAULT) "...."
 )
 
 DEFINE_MESSAGE(0x5025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "We Sheikah have served the \n"
-"royalty of Hyrule from generation\n"
-"to generation as attendants.\n"
-"However..." BOX_BREAK UNSKIPPABLE "On that day seven years ago,\n"
-"Ganondorf suddenly attacked...\n"
-"and Hyrule Castle surrendered\n"
-"after a short time." BOX_BREAK UNSKIPPABLE "Ganondorf's target was one of\n"
-"the keys to the Sacred Realm...the\n"
-"hidden treasure of the Royal\n"
-"Family...The Ocarina of Time!" BOX_BREAK UNSKIPPABLE "My duty bound me to take Zelda \n"
-"out of Ganondorf's reach." BOX_BREAK UNSKIPPABLE "When last I saw you, as we made\n"
-"our escape from the castle, you\n"
-"were just a lad..." BOX_BREAK UNSKIPPABLE "Now I see that you have become \n"
-"a fine hero..."
+UNSKIPPABLE "Vi Sheikah har tjänat Hyrules \n"
+"kungligheter genom många generationer.\n"
+"Fast..." BOX_BREAK UNSKIPPABLE "På den dagen för sju år sedan,\n"
+"så attackerade Ganondorf plötsligt...\n"
+"och slottet Hyrule gav upp\n"
+"kort därefter." BOX_BREAK UNSKIPPABLE "Ganondorfs mål var att få en utav\n"
+"nycklarna till det Heliga Kungariket...\n"
+"den Kungliga Familjens gömda skatt...\n"
+"...Tidsokarinan!" BOX_BREAK UNSKIPPABLE "Min plikt blev att föra Zelda \n"
+"dit Ganondorf inte kunde nå henne." BOX_BREAK UNSKIPPABLE "När jag senaste såg dig, då\n"
+"vi flydde ut ur slottet, så var du\n"
+"bara en liten pojke..." BOX_BREAK UNSKIPPABLE "Jag kan nu se att du har blivit \n"
+"en fin hjälte..."
 )
 
+
 DEFINE_MESSAGE(0x5026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I have to stay here... You go to \n"
-"Princess Zelda's side and protect \n"
-"her on my behalf." BOX_BREAK UNSKIPPABLE "Now I put my power, which should \n"
-"be helpful to you, into this\n"
-COLOR(BLUE) "Medallion" COLOR(DEFAULT) "!"
+UNSKIPPABLE "Jag måste stanna här... Gå till \n"
+"Prinsessan Zeldas sida och beskydda \n"
+"henne även för min del." BOX_BREAK UNSKIPPABLE "Jag fyller denna " COLOR(BLUE) "Medalj" COLOR(DEFAULT) ",\n"
+"med mina krafter, mitt hopp är att de\n"
+"ska hjälpa dig!"
 )
 
 DEFINE_MESSAGE(0x5027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"How is your Cucco? Is he happy?\n"
-"Shall I check him out for you?"
+"Hur mår din Cucco? Är han glad?\n"
+"Ska jag se över honom åt dig?"
 )
 
 DEFINE_MESSAGE(0x5028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE  SFX("\x68\x55") "I am the " COLOR(RED) "boss of the carpenters\n"
-COLOR(DEFAULT) "that Impa hired to improve this\n"
-"village and make it into a true\n"
-"city!" BOX_BREAK UNSKIPPABLE "But young men these days don't\n"
-"have any ambition...\n"
-"Do you know what I mean, kid?" BOX_BREAK UNSKIPPABLE "My workers are just running\n"
-"aimlessly around the village, and\n"
-"they're not making any progress\n"
-"at all..." BOX_BREAK UNSKIPPABLE "Even my own son doesn't have a \n"
-"job, and he just wanders around\n"
-"all day!" TEXTID("\x50\x29")
+UNSKIPPABLE  SFX("\x68\x55") "Jag är " COLOR(RED) "chef över dessa hantverkare\n"
+COLOR(DEFAULT) "den där Impa har hyrt in oss för att\n"
+"förbättra den här byn och göra den till en riktig\n"
+"stad!" BOX_BREAK UNSKIPPABLE "Men dagens ungdom har ingen\n"
+"riktig ambition...\n"
+"Förstår du vad jag menar grabben?" BOX_BREAK UNSKIPPABLE "Mina arbetare springer bara\n"
+"runt i byn hela dagarna, och\n"
+"de gör inga riktiga framsteg över\n"
+"huvudtaget..." BOX_BREAK UNSKIPPABLE "Till och med min son är \n"
+"arbetslös, han gör inget vettigt\n"
+"om dagarna!" TEXTID("\x50\x29")
 )
 
 DEFINE_MESSAGE(0x5029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "They're all worthless, I tell you!!"
+UNSKIPPABLE "De är helt värdelösa allihop\n"
+"ska du veta!!"
 )
 
 DEFINE_MESSAGE(0x502A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Look at that poor girl over there.\n"
-"She works so hard taking care of \n"
-"her chickens, even though touching\n"
-"them gives her goose bumps..." BOX_BREAK "What a trooper! I would really \n"
-"like to help her! I've just been\n"
-"feeling so charitable these days!\n"
-"Don't you feel that way, too?"
+"Se på den där stackars flickan där borta.\n"
+"Hon jobbar så hårt med att ta hand om sina \n"
+"höns trots att hon får gåshud av att bara\n"
+"röra vid dem..." BOX_BREAK "Vilken kämpe! Jag vill \n"
+"verkligen hjälpa henne! Den senaste tiden \n"
+"så har jag känt mig så välvillig!\n"
+"Känner du precis likadant?"
 )
 
 DEFINE_MESSAGE(0x502B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "There's nothing to worry about...\n"
-"The Princess is safe now."
+UNSKIPPABLE "Det finns inget att oroa sig över...\n"
+"Prinsessan är i säkerhet nu."
 )
 
 DEFINE_MESSAGE(0x502C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Soon, you'll meet Princess Zelda\n"
-"face-to-face, and she will explain\n"
-"everything..." BOX_BREAK UNSKIPPABLE "That is when we, the six Wise \n"
-"Ones, will seal up the Evil King\n"
-"and return peace to Hyrule."
+UNSKIPPABLE "Snart så träffar du Prinsessan Zelda\n"
+"öga mot öga, och då kommer hon att\n"
+"förklara allt..." BOX_BREAK UNSKIPPABLE "Det är då som vi, de sex Vise, \n"
+"kommer att försegla den Onde Konungen\n"
+"och återställa freden i Hyrule."
 )
 
 DEFINE_MESSAGE(0x502D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Hehehe, young man...\n"
-"You were very quick to be able\n"
-"to keep up with me! Hehehe!" BOX_BREAK UNSKIPPABLE "As a reward, I'm going to give\n"
-"you my treasure. It's called the\n"
-COLOR(RED) "Hookshot" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Its spring-loaded chain will pull\n"
-"you to any spot where its hook\n"
-"sticks. Doesn't that sound cool?\n"
-"I'm sure it will help you!" BOX_BREAK UNSKIPPABLE "I live here now, so come back\n"
-"again sometime. I'll give you\n"
-"something cool!" BOX_BREAK UNSKIPPABLE "One more thing! Be careful on\n"
-"your way back!\n"
+UNSKIPPABLE "Hehehe, unge man...\n"
+"Du var väldigt kvick som hängde\n"
+"med i mina takter! Hehehe!" BOX_BREAK UNSKIPPABLE "Som belöning, så ska jag ge dig\n"
+"min skatt. Den kallas för\n"
+COLOR(RED) "Krokskottet" COLOR(DEFAULT) "!" BOX_BREAK UNSKIPPABLE "Det är en fjäderladdad kedja som\n"
+"kan dra dig mot en punkt där kroken\n"
+"fastnar. Låter inte det häftigt?\n"
+"Jag är säker på att den kommer att hjälpa dig!" BOX_BREAK UNSKIPPABLE "Jag bor här nu, så kom tillbaka\n"
+"igen någon dag. Jag ger dig\n"
+"Någonting häftigt!" BOX_BREAK UNSKIPPABLE "En sak till! Var försiktig\n"
+"på din väg tillbaka!\n"
 "Heheheh...."
 )
 
 DEFINE_MESSAGE(0x502E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You're back, young man...\n"
-"Was the present I gave to you\n"
-"fun and useful?"
+"Du är tillbaka, unge man...\n"
+"Var presenten du fick rolig\n"
+"och användbar?"
 )
 
 DEFINE_MESSAGE(0x502F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SHIFT("\x19") "The time of this race was\n"
+SHIFT("\x19") "Din tid för detta loppet var\n"
 SHIFT("\x4B")  RACE_TIME "!!" EVENT
 )
 
 DEFINE_MESSAGE(0x5030, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Looks like you're coming around..."
+UNSKIPPABLE "Verkar som att du fixar detta..."
 )
 
 DEFINE_MESSAGE(0x5031, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "I believe Impa has gone to the \n"
-COLOR(PURPLE) "Shadow Temple " COLOR(DEFAULT) "to seal it again,\n"
-"but...she will be in danger without \n"
-"any help!" BOX_BREAK UNSKIPPABLE  NAME "!\n"
-"Impa is one of the six Sages.\n"
-"Destroy the evil shadow spirit and\n"
-"save Impa!" BOX_BREAK UNSKIPPABLE "There is an entrance to the \n"
-"Shadow Temple beneath the \n"
-"graveyard behind this village." BOX_BREAK UNSKIPPABLE "The only thing I can do for you is\n"
-"teach you the melody that will\n"
-"lead you to the Shadow Temple..." BOX_BREAK UNSKIPPABLE "This is the melody that will draw\n"
-"you into the infinite darkness \n"
-"that absorbs even time... Listen to \n"
-"this, the " COLOR(PURPLE) "Nocturne of Shadow" COLOR(DEFAULT) "!!"
+UNSKIPPABLE "Jag tror att Impa har gått till \n"
+COLOR(PURPLE) "Skuggtemplet " COLOR(DEFAULT) "för att försegla det igen,\n"
+"men...hon är i fara om hon inte får \n"
+"någon hjälp!" BOX_BREAK UNSKIPPABLE  NAME "!\n"
+"Impa är en utav de sex Vise.\n"
+"Besegra den onda skugganden och\n"
+"rädda Impa!" BOX_BREAK UNSKIPPABLE "Där finns en ingång till \n"
+"Skuggtemplet under kyrkogården \n"
+"här bakom byn." BOX_BREAK UNSKIPPABLE "Det enda jag kan göra för dig är\n"
+"att lära dig den visa som ska\n"
+"leda dig till Skuggtemplet..." BOX_BREAK UNSKIPPABLE "Denna visa är gjord för att\n"
+"dra dig ned i ett oändligt mörker \n"
+"som även uppslukar tid... Lyssna noga nu \n"
+"till " COLOR(PURPLE) "Skuggors Nokturne" COLOR(DEFAULT) "!!"
 )
 
 DEFINE_MESSAGE(0x5032, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Go around! Go around and around\n"
-"and around! What fun! I'm so \n"
-"happy!" BOX_BREAK "I'm a music man who loves\n"
-"to go around and around!\n"
-"Go around and around!!!" BOX_BREAK "I'm trying to come up with a\n"
-"musical theme inspired by this \n"
-"windmill...going around and\n"
-"around and around!!!"
+"Snurra runt! Snurra runt runt runt\n"
+"och runt igen! Åh så kul! Jag är så \n"
+"glad!" BOX_BREAK "Jag är en musikens man\n"
+"som tycker om att snurra runt runt!\n"
+"Snurra runt runt!!!" BOX_BREAK "Jag försöker att komma på ett\n"
+"musikaliskt tema baserat på den här \n"
+"vädekvarnen...som snurrar runt runt\n"
+"runt och runt igen!!!"
 )
 
 DEFINE_MESSAGE(0x5033, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Go around, go around, go around...\n"
-"What? It's going way too fast!"
+"Snurra runt, snurra runt, snurrar runt...\n"
+"Va? Nu går det alldeles för fort!"
 )
 
 DEFINE_MESSAGE(0x5034, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Grrrrrrrrr!" BOX_BREAK "I'll never forget what happened on\n"
-"that day, seven years ago!\n"
-"Grrrrrrrrr!" BOX_BREAK "It's all that Ocarina kid's fault!\n"
-"Next time he comes around here,\n"
-"I'm gonna mess him up!"
+"Grrrrrrrrr!" BOX_BREAK "Jag kommer aldrig att glömma vad som\n"
+"hände den dagen, för sju år sedan!\n"
+"Grrrrrrrrr!" BOX_BREAK "Allt är den där Okarinakillens fel!\n"
+"Nästa gång som han kommer hit,\n"
+"så ska jag spöa upp honom ordentligt!"
 )
 
 DEFINE_MESSAGE(0x5035, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "What?! You've got an ocarina!!" BOX_BREAK UNSKIPPABLE "What the heck!" BOX_BREAK UNSKIPPABLE "That reminds me of that time,\n"
-"seven years ago!" BOX_BREAK UNSKIPPABLE "Back then a mean kid came here \n"
-"and played a " COLOR(PURPLE) "strange song" COLOR(DEFAULT) ". It \n"
-"messed up this windmill!"
+UNSKIPPABLE "Va?! Du har en okarina!!" BOX_BREAK UNSKIPPABLE "Vad sjutton!" BOX_BREAK UNSKIPPABLE "Det påminner mig om den där gången\n"
+"för sju år sedan!" BOX_BREAK UNSKIPPABLE "Det var en elak liten kille som kom hit \n"
+"och spelade en " COLOR(PURPLE) "konstig visa" COLOR(DEFAULT) ".\n"
+"Väderkvarnen blev helt tokig efter det!"
 )
 
 DEFINE_MESSAGE(0x5036, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"What should I do!?\n"
-"My " COLOR(RED) "Cuccos" COLOR(DEFAULT) " have all flown away!" BOX_BREAK "You, little boy, please!\n"
-"Please help me bring them back to \n"
-"this pen!"
+"Vad ska jag göra!?\n"
+"Mina " COLOR(RED) "Cuccos" COLOR(DEFAULT) " har flugit iväg allihop!" BOX_BREAK "Du, lilla pojke, snälla!\n"
+"Snälla hjällp mig att samla in dem \n"
+"till hönsgården igen!"
 )
 
 DEFINE_MESSAGE(0x5037, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"My Cuccos have run away!\n"
-"Please help me bring the other \n"
-"four back to this pen! Please!"
+"Mina Cuccos har rymt!\n"
+"Snälla hjälp mig att samla in de \n"
+"fyra andra till hönsgården igen!"
 )
 
 DEFINE_MESSAGE(0x5038, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"My Cuccos have run away!\n"
-"Please help me bring the other \n"
-"three back to this pen! Please!"
+"Mina Cuccos har rymt!\n"
+"Snälla hjälp mig att samla in de \n"
+"tre andra till hönsgården igen!"
 )
 
 DEFINE_MESSAGE(0x5039, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"My Cuccos have run away!\n"
-"Please help me bring the other \n"
-"two back to this pen! Please!"
+"Mina Cuccos har rymt!\n"
+"Snälla hjälp mig att samla in de \n"
+"två sista till hönsgården igen!"
 )
 
 DEFINE_MESSAGE(0x503A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"My Cuccos have run away!\n"
-"Please help me bring the last one\n"
-"back to this pen! Please!"
+"Mina Cuccos har rymt!\n"
+"Snälla hjälp mig att samla in den \n"
+"sista utav dem till hönsgården igen!"
 )
 
 DEFINE_MESSAGE(0x503B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Thank you for finding my Cuccos.\n"
-"I have allergies, so I get \n"
-"goose bumps when I touch them." BOX_BREAK UNSKIPPABLE "For helping me, I will give this\n"
-"to you. It's fine glass, and should\n"
-"be useful. Please take good\n"
-"care of it!" EVENT
+UNSKIPPABLE "Tack för att du hittade mina Cuccos.\n"
+"Jag är allergisk, så jag får \n"
+"gåshud bara jag rör vid dem." BOX_BREAK UNSKIPPABLE "Som tack, så ger jag den här\n"
+"till dig. Det är jättefint glas, och borde\n"
+"komma till användning. Ta väl\n"
+"hand om den!" EVENT
 )
 
 DEFINE_MESSAGE(0x503C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hey, what are you doing?!\n"
-"Now go round them up or pay for \n"
-"them!" EVENT
+"Hallå, vad håller du på med?!\n"
+"Se till att samla in dem eller \n"
+"betala för dem!" EVENT
 )
 
 DEFINE_MESSAGE(0x503D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Please don't tease my Cuccos!"
+"Reta inte mina Cucco är du snäll!"
 )
 
 DEFINE_MESSAGE(0x503E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "I bred a new type of miniature \n"
-"Cucco! I call it the " COLOR(RED) "Pocket \n"
-"Cucco" COLOR(DEFAULT) "! I don't get goose bumps\n"
-"from this baby." BOX_BREAK UNSKIPPABLE  COLOR(RED) "Cuccos " COLOR(DEFAULT) "are very good at \n"
-"getting lazy, late-risers out of bed.\n"
-"Haven't you heard of them \n"
-"before?" BOX_BREAK UNSKIPPABLE "It makes them very happy to crow:\n"
-QUICKTEXT_ENABLE  SHIFT("\x38")  COLOR(RED) "CUCCKOOOO" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"especially when it wakes up a \n"
-"very heavy sleeper!" BOX_BREAK UNSKIPPABLE "However, my Cucco is not entirely\n"
-"happy right now..." BOX_BREAK UNSKIPPABLE "You..., \n"
-"You look like you're good at \n"
-"handling Cuccos." BOX_BREAK UNSKIPPABLE "Here, take this egg.\n"
-"After the Cucco hatches, bring it \n"
-"back to me after a while, and I'll \n"
-"check out its mood." TEXTID("\x50\x3F")
+UNSKIPPABLE "Jag har avlat fram en ny typ utav \n"
+"Miniatyr-Cucco! Jag kallar den för en " COLOR(RED) "Fick-\n"
+"Cucco" COLOR(DEFAULT) "! Jag får inte gåshud utav\n"
+"den här skönheten." BOX_BREAK UNSKIPPABLE  COLOR(RED) "En Cucco " COLOR(DEFAULT) "blir väldigt lätt \n"
+"lat, så de vaknar ofta mycket sent.\n"
+"Har du inte hört talas om dem \n"
+"tidigare?" BOX_BREAK UNSKIPPABLE "De blir väldigt glada av att gala:\n"
+QUICKTEXT_ENABLE  SHIFT("\x38")  COLOR(RED) "CUCKOOO" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"speciellt då de väcker folk som sover \n"
+"väldigt tungt!" BOX_BREAK UNSKIPPABLE "Fast, min Cucco är inte riktigt glad\n"
+"för tillfället..." BOX_BREAK UNSKIPPABLE "Du..., \n"
+"Du ser ut som att du är bra på att \n"
+"handskas med Cucco." BOX_BREAK UNSKIPPABLE "Här, ta det här ägget.\n"
+"Efter att Cuccon kläcks, så ta den \n"
+"hit till mig så kan jag kolla \n"
+"hur den mår." TEXTID("\x50\x3F")
 )
 
 DEFINE_MESSAGE(0x503F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"What do you think? \n"
-"Will you try?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"Vad tror du? \n"
+"Vill du försöka?\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x5040, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, too bad...were you pecked by\n"
-"a Cucco when you were little?" EVENT
+"Åh, rackarns...blev du pickad\n"
+"utav en Cucco då du var liten?" EVENT
 )
 
 DEFINE_MESSAGE(0x5041, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Heh heh heh, young man!\n"
-"Are you fast on your feet?" BOX_BREAK "I may not look like it, but I'm \n"
-"confident in my speed!\n"
-"Let's have a race! \n"
-"Follow me if you dare!"
+"Heh heh heh, unge man!\n"
+"Är du snabb på foten?" BOX_BREAK "Det kanske inte verkar så, men jag \n"
+"är väldigt snabb!\n"
+"Vad sägs om att vi tävlar! \n"
+"Följ mig om du vågar!"
 )
 
 DEFINE_MESSAGE(0x5042, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Please make my Cucco happy!\n"
-"OK?"
+"Snälla gör min Cucco glad!\n"
+"Okej?"
 )
 
 DEFINE_MESSAGE(0x5043, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Oh, your Cucco looks pretty \n"
-"happy! He must have awakened an\n"
-"extremely lazy guy!" BOX_BREAK UNSKIPPABLE "You're a good Cucco Keeper!\n"
-"I'll give you a rare, valuable\n"
-"Cucco, if you're interested..." BOX_BREAK UNSKIPPABLE "Its name is " COLOR(RED) "Cojiro" COLOR(DEFAULT) "," COLOR(RED) " " COLOR(DEFAULT) "and it used to\n"
-"be my brother's Cucco. Its\n"
-"blue body is quite charming.\n"
-"It's so cute!" BOX_BREAK UNSKIPPABLE "Since my brother has gone, \n"
-"it's strange, but Cojiro has \n"
-"stopped crowing." TEXTID("\x50\x44")
+UNSKIPPABLE "Åh, din Cucco verkar hyffsat \n"
+"glad! Han måste ha väckt en riktigt\n"
+"lat person!" BOX_BREAK UNSKIPPABLE "Du är en väldigt bra Cuccoägare!\n"
+"Jag ska ge dig en ovanlig, värdefull\n"
+"Cucco, om du är intresserad..." BOX_BREAK UNSKIPPABLE "Dess namn är " COLOR(RED) "Cojiro" COLOR(DEFAULT) "," COLOR(RED) " " COLOR(DEFAULT) "och den brukade\n"
+"vara min brors Cucco. Dess\n"
+"blå kropp är ganska charmerande.\n"
+"Den är så söt!" BOX_BREAK UNSKIPPABLE "Sedan min bror lämnade, \n"
+"det är märkligt, men Cojiro har \n"
+"helt slutat gala." TEXTID("\x50\x44")
 )
 
 DEFINE_MESSAGE(0x5044, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want to keep " COLOR(RED) "Cojiro" COLOR(DEFAULT) "?\n"
+"Vill du ha " COLOR(RED) "Cojiro" COLOR(DEFAULT) "?\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x5045, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"It looks as if you really like that\n"
-"other Cucco. OK, you can keep it\n"
-"for a while." EVENT
+"Det verkar som att du verkligen tycker om\n"
+"din andra Cucco. Okej, du kan behålla den\n"
+"ett tag." EVENT
 )
 
 DEFINE_MESSAGE(0x5046, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"An old witch runs the Potion Shop\n"
-"behind this one. You can get to \n"
-"that shop through the door to the\n"
-"left of the counter." EVENT
+"Det är en gammal häxa som har Brygdbutiken\n"
+"här bakom. Du kan ta dig till dit \n"
+"genom dörren till vänster\n"
+"om disken." EVENT
 )
 
 DEFINE_MESSAGE(0x5047, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"My brother must have been very \n"
-"lonely..."
+"Min bror måste ha varit väldigt \n"
+"ensam..."
 )
 
 DEFINE_MESSAGE(0x5048, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I heard that the " COLOR(ADJUSTABLE) "Lost Woods" COLOR(DEFAULT) ", \n"
-"where fairies live, is a strange\n"
-"place with many mysterious smells." BOX_BREAK "I wish I could just once make \n"
-"medicine with some of the strange\n"
-"things I might find there..." BOX_BREAK "I may not be able to see very \n"
-"well anymore, but my nose still \n"
-"works fine!  Hehehe!"
+"Jag hörde att den " COLOR(ADJUSTABLE) "Förlorade Skogen" COLOR(DEFAULT) ", \n"
+"där älvorna lever, är en märklig\n"
+"plats med många mysteriska dofter." BOX_BREAK "Jag önskar att jag i alla fall \n"
+"en gång kunde göra medicin utav de\n"
+"märkliga saker jag kan hitta där..." BOX_BREAK "Jag kanske inte ser så bra \n"
+"längre, men min näsa fungerar \n"
+"fortfarande fint!  Hehehe!"
 )
 
 DEFINE_MESSAGE(0x5049, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Sniff sniff sniff..." BOX_BREAK "What a mysterious smell..." BOX_BREAK "You must have something!"
+"Sniff sniff sniff..." BOX_BREAK "Vad är det som luktar så konstigt..." BOX_BREAK "Vad har du i fickan?!"
 )
 
 DEFINE_MESSAGE(0x504A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"That bum! He had to go into the \n"
-"forest...\n"
-TEXT_SPEED("\x01") "....." TEXT_SPEED("\x00") "I see." TEXTID("\x50\x4B")
+"That uslingen! Han var bara tvungen \n"
+"att gå in i skogen...\n"
+TEXT_SPEED("\x01") "....." TEXT_SPEED("\x00") "Jag förstår." TEXTID("\x50\x4B")
 )
 
 DEFINE_MESSAGE(0x504B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hey, give it to me now!\n"
+"Hall dår, ge mig den på en gång!\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "Ja\n"
+"Nej" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x504C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"How sad... I just need a little..."
+"Så sorgligt... Jag behöver bara lite..."
 )
 
 DEFINE_MESSAGE(0x504D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "If you see that fool, give this to \n"
-"him. It is the strongest medicine\n"
-"I have ever produced." BOX_BREAK UNSKIPPABLE "However, this potion will not\n"
-"work on a monster..." EVENT
+UNSKIPPABLE "Om du ser den dåren, så ge detta till \n"
+"honom. Det är den starkaste medicin\n"
+"jag någonsin har skapat." BOX_BREAK UNSKIPPABLE "Fast, den här brygden funkar\n"
+"inte på ett monster..." EVENT
 )
 
 DEFINE_MESSAGE(0x504E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Hey, kid! If you want to carry \n"
-"medicine, you need a container to\n"
-"put it in!" EVENT
+"Hallå, grabben! Om du vill bära runt på \n"
+"medicin, så behöver du en behållare\n"
+"att ha den i!" EVENT
 )
 
 DEFINE_MESSAGE(0x504F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"They say that there is no \n"
-"medicine that can cure a fool...\n"
-"I guess that's true..."
+"Det sägs att ingen medicin \n"
+"kan bota en dåre...\n"
+"Jag antar att det stämmer..."
 )
 
 DEFINE_MESSAGE(0x5050, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I can't get down, so all I can do\n"
-"is look at " COLOR(RED) "Death Mountain" COLOR(DEFAULT) "."
+"Jag kan inte komma ned, så det enda jag kan\n"
+"göra är att titta på " COLOR(RED) "Dödens Berg" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x5051, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I can't get down, so all I can do \n"
-"is look at the stars."
+"Jag kan inte komma ned, så det enda jag kan\n"
+"göra är att titta på stjärnorna."
 )
 
 DEFINE_MESSAGE(0x5052, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Can you see it from there? \n"
-"Something is happening on " COLOR(RED) "Death \n"
-"Mountain" COLOR(DEFAULT) "!"
+"Kan du se det där nedifrån? \n"
+"Någonting håller på att hända på " COLOR(RED) "Dödens \n"
+"Berg" COLOR(DEFAULT) "!"
 )
 
 DEFINE_MESSAGE(0x5053, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Can you see it from there?\n"
-COLOR(RED) "Death Mountain " COLOR(DEFAULT) "is back to normal!"
+"Kan du se det därifrån?\n"
+COLOR(RED) "Döda Berget " COLOR(DEFAULT) "är tillbaka som vanligt!"
 )
 
 DEFINE_MESSAGE(0x5054, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I don't feel like getting down,\n"
-"ever! Whatever happens, I'll keep\n"
-"watching Death Mountain from \n"
-"up here."
+"Jag har ingen lust att komma ned,\n"
+"någonsin! Vad som än händer, så kommer\n"
+"jag fortsätta att titta på Dödens Berg \n"
+"här uppifrån."
 )
 
 DEFINE_MESSAGE(0x5055, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Hey! Good to see you again! I'll\n"
-"give you this as a memento."
+UNSKIPPABLE "Hej! Kul att se dig igen! Du får\n"
+"den här utav mig som ett minne."
 )
 
 DEFINE_MESSAGE(0x5056, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"To get a good view, use " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) " and \n"
-"look around with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "."
+"För att få en bra överblick, använd " COLOR(YELLOW) "[C-Up]" COLOR(DEFAULT) " och \n"
+"se dig omkring med " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x5057, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hey! Kid, do you always enter\n"
-"other people's houses without \n"
-"permission? Didn't your parents \n"
-"teach you any manners?" BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Oh well." BOX_BREAK UNSKIPPABLE "Did you see a lady behind this \n"
-"house? She's going through hard \n"
-"times." BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Oh well." TEXTID("\x50\x58")
+UNSKIPPABLE "Du! Grabben, brukar du alltid gå in\n"
+"i folks hus utan tillåtelse? \n"
+"Har inte dina föräldrar \n"
+"uppfostrat dig ordentligt?" BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Strunt samma." BOX_BREAK UNSKIPPABLE "Har du sett en kvinna bakom detta \n"
+"huset? Hon har det väldigt tufft \n"
+"just nu." BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Jaja..." TEXTID("\x50\x58")
 )
 
 DEFINE_MESSAGE(0x5058, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"If that lady asks you about \n"
-"chickens, you should listen to her."
+"Om den kvinnan frågar dig om höns, \n"
+"så bör du se till att lyssna på henne."
 )
 
 DEFINE_MESSAGE(0x5059, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Is visiting other people's houses \n"
-"at this late hour your idea of \n"
-"fun? You must not have had a \n"
-"good upbringing." BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Oh well." TEXTID("\x50\x5A")
+UNSKIPPABLE "Tycker du att det är roligt att\n"
+"stövla in i folks hus mitt i natten? \n"
+"Du måste ha haft en riktigt \n"
+"bedrövlig uppväxt." BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Jaja..." TEXTID("\x50\x5A")
 )
 
 DEFINE_MESSAGE(0x505A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"That lady takes care of chickens,\n"
-"but she is, in fact, allergic to \n"
-"them." BOX_BREAK SHIFT("\x42") "Oh well."
+"Den där kvinnan tar hand om höns,\n"
+"men faktum är, att hon är allergisk \n"
+"mot dem." BOX_BREAK SHIFT("\x42") "Jaja..."
 )
 
 DEFINE_MESSAGE(0x505B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hey! Young man! A grown boy\n"
-"like you entering a person's house\n"
-"without permission?! I want to\n"
-"talk to your parents!" BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Oh well." BOX_BREAK UNSKIPPABLE "This isn't my house anyway.\n"
-"This is the " COLOR(RED) "great Impa's" COLOR(DEFAULT) " house!" BOX_BREAK UNSKIPPABLE "The great Impa has gone to the\n"
-COLOR(RED) "graveyard " COLOR(DEFAULT) "to seal up the \n"
-"humongous creature there." BOX_BREAK UNSKIPPABLE "Since Ganondorf appeared, many \n"
-"monsters have been sighted \n"
-"around here." BOX_BREAK UNSKIPPABLE "Only the great Impa has kept \n"
-"peace in our village. You have to\n"
-"remember that, young man!" BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Oh well." BOX_BREAK UNSKIPPABLE "Speaking of the great Impa, she\n"
-"hasn't come back yet. I wonder \n"
-"what happened to her?" TEXTID("\x50\x5C")
+UNSKIPPABLE "Hallå! Unge man! en stor pojke\n"
+"som du borde veta bättre än att gå in i\n"
+"folks hus utan tillåtelse?! Jag vill tala\n"
+"med dina föräldrar!" BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Jaja." BOX_BREAK UNSKIPPABLE "Det är inte mitt hus ändå.\n"
+"Detta är den " COLOR(RED) "stora Impas" COLOR(DEFAULT) " hus!" BOX_BREAK UNSKIPPABLE "Den stora Impa har gått till\n"
+COLOR(RED) "kyrkogården " COLOR(DEFAULT) "för att försegla \n"
+"en enorm varelse där." BOX_BREAK UNSKIPPABLE "Sedan Ganondorf dök upp, så har \n"
+"mycket monster siktats \n"
+"här omkring." BOX_BREAK UNSKIPPABLE "Vi har den stora Impa att \n"
+"tacka för den frid som råder här.\n"
+"Tänk på det, unge man!" BOX_BREAK UNSKIPPABLE  SHIFT("\x42") "Jaja." BOX_BREAK UNSKIPPABLE "Då vi talar om den Stora Impa, hon\n"
+"har ännu inte kommit tillbaka. Jag undrar \n"
+"vad som hänt henne?" TEXTID("\x50\x5C")
 )
 
 DEFINE_MESSAGE(0x505C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"I heard that the " COLOR(RED) "ghost of the\n"
-"gravekeeper " COLOR(DEFAULT) "often appears in the \n"
-"graveyard behind this village..." BOX_BREAK SHIFT("\x34") "But, no big deal."
+"Jag hörde att " COLOR(RED) "gravvårdarens\n"
+"spöke " COLOR(DEFAULT) "ofta kommer fram på \n"
+"kyrkogården bakom byn..." BOX_BREAK SHIFT("\x34") "Men, vem bryr sig?"
 )
 
 DEFINE_MESSAGE(0x505D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "Hi, boy! Is this the first time\n"
-"you've visited this village?" BOX_BREAK UNSKIPPABLE "A great woman, " COLOR(RED) "Impa" COLOR(DEFAULT) ", opened up\n"
-"this village to us poor folk." TEXTID("\x50\x5E")
+UNSKIPPABLE "Hej pojke! Är det första gången\n"
+"du besöker den här byn?" BOX_BREAK UNSKIPPABLE "En stor kvinna, " COLOR(RED) "Impa" COLOR(DEFAULT) ", öppnade upp\n"
+"den här byn för oss\n"
+"stackars fattiga." TEXTID("\x50\x5E")
 )
 
 DEFINE_MESSAGE(0x505E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Well, make yourself at home.\n"
-"The food isn't ready yet, though."
+"Så, känn dig som hemma.\n"
+"Maten är inte klar än dock."
 )
 
 DEFINE_MESSAGE(0x505F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"The great Impa is not here. Did\n"
-"something happen to her?"
+"Den stora Impa är inte här. Har\n"
+"någonting hänt henne?"
 )
 
 DEFINE_MESSAGE(0x5060, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE "All people have hardships in \n"
-"their past that they would\n"
-"rather no one found out about." TEXTID("\x50\x61")
+UNSKIPPABLE "Alla har någon gång varit med \n"
+"om tuffa saker i sitt liv som de\n"
+"inte vill att andra ska känna till." TEXTID("\x50\x61")
 )
 
 DEFINE_MESSAGE(0x5061, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Look at the bearded man sleeping\n"
-"over there. I bet even someone\n"
-"like him has had his share of\n"
-"troubles in the past..."
+"Se bara på den skäggiga gubben\n"
+"som sover där borta. Jag slår vad\n"
+"om att även han har varit med om\n"
+"något tufft i sitt liv..."
 )
 
 DEFINE_MESSAGE(0x5062, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"That bearded guy went back to \n"
-"the ranch. He looked so happy!"
+"Den där skäggiga gubben återvände \n"
+"till ranchen. Han såg väldigt glad ut!"
 )
 
 DEFINE_MESSAGE(0x5063, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -13611,363 +13609,361 @@ SFX("\x68\x69") "It must be exciting to sneak\n"
 )
 
 DEFINE_MESSAGE(0x7174, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Olá, menino fada!\n"
-"Quê?\n"
-"Tu pensas que disfarças?\n"
-"É tão óbvio ver quem tu és!"
+"Hi, fairy boy!\n"
+"What?\n"
+"You think you're in disguise?\n"
+"But it's so obvious who you are!"
 )
 
 DEFINE_MESSAGE(0x7175, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Uau!\n"
-"Que grandes olhos que tu tens!\n"
-"Os Gorons são tão fofos, não são!"
+"Wow!\n"
+"What big eyes you have!\n"
+"Gorons are so cute, aren't they!"
 )
 
 DEFINE_MESSAGE(0x7176, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, eu conheço a personagem!\n"
-"É o Keaton!\n"
-"Está na moda na Vila do Castelo\n"
-"de Hyrule!"
+"Oh, I know that character!\n"
+"It's Keaton!\n"
+"He's very hot in Hyrule Castle\n"
+"Town right now!"
 )
 
 DEFINE_MESSAGE(0x7177, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, irmãos!\n"
-"Rapazes serão rapazes!"
+"Oh, brother!\n"
+"Boys will be boys!"
 )
 
 DEFINE_MESSAGE(0x7178, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Calma...calma...\n"
-"Eu sei que'nhés...\n"
-"És o... Kin-ton!\n"
-"Não é verdade?!"
+"Wait...wait...\n"
+"I know who ya are...\n"
+"Yer... Kin-ton!\n"
+"Ain't that right?!"
 )
 
 DEFINE_MESSAGE(0x7179, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Mete medo, não mete?\n"
-"Quase tanto como o...Ingo!"
+"That's a scary one, ain't it?\n"
+"Almost as scary as...Ingo!"
 )
 
 DEFINE_MESSAGE(0x717A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Ei, isso lembra a minha mulher...\n"
-"Pensando melhor, nem faz...\n"
-"Não se parece nada com ela!"
+"Hey, that reminds me of my wife...\n"
+"On second thought, it doesn't...\n"
+"It doesn't look like her at all!"
 )
 
 DEFINE_MESSAGE(0x717B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"UAAAAAAAAHH...\n"
-"Estou um pouco cansado agora...\n"
-"Mostra-me isso depois..."
+"YAAAWWN...\n"
+"I'm kinda tired right now...\n"
+"Show it to me later..."
 )
 
 DEFINE_MESSAGE(0x717C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Baza, miúdo!\n"
-"Não vês que eu estou ocupado?!"
+"Scram, kid!\n"
+"Can't you see I'm busy?!"
 )
 
 DEFINE_MESSAGE(0x717D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hmpf!\n"
-"É normal brincares quando és \n"
-"um miúdo, mas espera só até\n"
-"cresceres! Trabalho, só trabalho!"
+"Humph!\n"
+"It's fine to play like that when \n"
+"you're a kid, but just wait until\n"
+"you grow up! Work, work, work!"
 )
 
 DEFINE_MESSAGE(0x717E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"YAU!\n"
-"Hmpf. É só uma máscara...\n"
-"Baza, miúdo! Pira-te daqui!"
+"YEOW!\n"
+"Humph. It's just a mask...\n"
+"Scram, kid! Get out of here!"
 )
 
 DEFINE_MESSAGE(0x717F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "Heh heh heh...\n"
-"Bem, isso animou-me um bocado,\n"
-"rapaz.\n"
-"Obrigado!"
+"Well, that cheered me up a little,\n"
+"kid.\n"
+"Thanks!"
 )
 
 DEFINE_MESSAGE(0x7180, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hmmm... Vamos ver...\n"
-"Sim, tenho toda a certeza...\n"
-"Isso foi fabricado a partir de \n"
-"uma tábua de um caixão.\n"
-"Ah pois foi!"
+"Hmmm... Let's see...\n"
+"Yes, I'm quite sure of it...\n"
+"That was manufactured from a \n"
+"plank from a coffin. Yes, it was!"
 )
 
 DEFINE_MESSAGE(0x7181, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Ahhh...sim. Vamos lá ver...\n"
-"Belo artesanato. Mas não penso\n"
-"que possa ser um bom ingrediente\n"
-"para o meu remédio."
+"Ahhh...yes. Let's see...\n"
+"Very fine craftsmanship.\n"
+"But I don't think it would make\n"
+"a good ingredient for my medicine."
 )
 
 DEFINE_MESSAGE(0x7182, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Que interessante! Um Goron!\n"
-"Por falar em Gorons, como é que\n"
-"o meu velho amigo, Biggoron da\n"
-"Montanha da Morte, tem estado?"
+"Very interesting! A Goron!\n"
+"Speaking of Gorons, I wonder\n"
+"how my old friend, Biggoron of\n"
+"Death Mountain, is doing?"
 )
 
 DEFINE_MESSAGE(0x7183, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Construção pouco comum...\n"
-"Não acho que seja solúvel, então\n"
-"não seria um bom ingrediente \n"
-"para os meus remédios..."
+"Very unusual construction...\n"
+"I don't think it's water soluble,\n"
+"so it wouldn't make a good \n"
+"ingredient for my medicines..."
 )
 
 DEFINE_MESSAGE(0x7184, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Nom nom nom...\n"
-"OK, OK, uma máscara.\n"
-"Queres comprar alguns feijões?"
+"Chomp chomp chomp...\n"
+"OK, OK, a mask.\n"
+"Do you want to buy some beans?"
 )
 
 DEFINE_MESSAGE(0x7185, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Nom nom nom...\n"
-"Não, não quero comprar isso."
+"Chomp chomp chomp...\n"
+"Nope, I don't want to buy it."
 )
 
 DEFINE_MESSAGE(0x7186, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Nom nom nom...\n"
-"Nah, não faz o meu estilo."
+"Chomp chomp chomp...\n"
+"Nope, it's not my style."
 )
 
 DEFINE_MESSAGE(0x7187, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Nom nom nom...\n"
-"Bem...nah, acho que não \n"
-"quero."
+"Chomp chomp chomp...\n"
+"Well...no, I don't think I \n"
+"want it."
 )
 
 DEFINE_MESSAGE(0x7188, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"O que é que tu queres?"
+"What do you want?"
 )
 
 DEFINE_MESSAGE(0x7189, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Não me parece que tu saibas\n"
-"nadar muito bem..."
+"You don't look like you can\n"
+"swim very well..."
 )
 
 DEFINE_MESSAGE(0x718A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Cabelo vermelho...pele morena...\n"
-"Já vi pessoas assim antes..."
+"Red hair...tan skin...\n"
+"I've seen people like that before..."
 )
 
 DEFINE_MESSAGE(0x718B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Sim, claro.\n"
-"Tu pareces-me um pouco pequeno\n"
-"para um Zora..."
+"Yeah, right.\n"
+"You look a little small for a\n"
+"Zora..."
 )
 
 DEFINE_MESSAGE(0x718C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh oh oh!\n"
-"Vocês Hylianos...são criaturas\n"
-"mesmo tolas!"
+"Ho ho ho!\n"
+"You Hylians...you are such silly\n"
+"creatures!"
 )
 
 DEFINE_MESSAGE(0x718D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Essa cara...dá-me arrepios..."
+"That face...it gives me the chills..."
 )
 
 DEFINE_MESSAGE(0x718E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"A respeito da nostalgia!\n"
-"Isso lembra-me do meu amigo\n"
-"de infância, Biggoron!"
+"Talk about a nostalgia trip!\n"
+"That reminds me of my childhood\n"
+"friend, Biggoron!"
 )
 
 DEFINE_MESSAGE(0x718F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Eu não acho piada nenhuma a isso.\n"
-"Estás a gozar com a minha cara?"
+"I don't think that's funny at all.\n"
+"Are you mocking me?"
 )
 
 DEFINE_MESSAGE(0x7190, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"És um rapaz engraçado!"
+"You're a funny guy!"
 )
 
 DEFINE_MESSAGE(0x7191, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"A tua cabeça--é gigante!"
+"Your head--it's gigantic!"
 )
 
 DEFINE_MESSAGE(0x7192, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Não faças isso...\n"
-"Estás a envergonhar-me!"
+"Don't do that...\n"
+"It's embarrassing me!"
 )
 
 DEFINE_MESSAGE(0x7193, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Muito bem! Tu decidiste mesmo\n"
-"tornar-te num Zora!\n"
-"Estás pronto para\n"
-"casar comigo agora?"
+"All right! You actually decided\n"
+"to become a Zora!\n"
+"Are you actually ready to marry\n"
+"me now?"
 )
 
 DEFINE_MESSAGE(0x7194, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"UOOU!\n"
-"O meu coração...começou a bater \n"
-"tão rápido!"
+"WHOA!\n"
+"My heart...started to beat \n"
+"so fast!"
 )
 
 DEFINE_MESSAGE(0x7195, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Essa máscara é horrorosa...\n"
-"Adeus."
+"That's an unpleasant mask...\n"
+"Good-bye."
 )
 
 DEFINE_MESSAGE(0x7196, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "Hrrrrm...\n"
-"Eu não sei o que dizer."
+"I don't know what to say."
 )
 
 DEFINE_MESSAGE(0x7197, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Não podes ser tão esquisito com\n"
-"o que comes! Tu comes todas as\n"
-"tuas rochas verdes? Se não, não \n"
-"vais crescer forte!"
+"You shouldn't be so picky about\n"
+"what you eat! Do you eat all your\n"
+"green rocks? If you don't, you \n"
+"won't grow up big and strong!"
 )
 
 DEFINE_MESSAGE(0x7198, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Deixa-me em paz!"
+"Leave me alone!"
 )
 
 DEFINE_MESSAGE(0x7199, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Estás a tentar fazer-me rir?\n"
-"Epá, isso nem tem tanta piada..."
+"Are you trying to make me laugh?\n"
+"Well, that's not that funny..."
 )
 
 DEFINE_MESSAGE(0x719A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Tu estás-me a enlouquecer!"
+"You're making me mad!"
 )
 
 DEFINE_MESSAGE(0x719B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Eu odeio Gerudos!!"
+"I hate Gerudos!!"
 )
 
 DEFINE_MESSAGE(0x719C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Para de me chatear!\n"
-"Vai-te embora!"
+"Quit pestering me!\n"
+"Go away!"
 )
 
 DEFINE_MESSAGE(0x719D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Uaah ah ah!\n"
-"Mas tu pensas que disfarças?\n"
-"Que piada!"
+"Wah hah hah!\n"
+"Do you think you're in disguise?\n"
+"How funny!"
 )
 
 DEFINE_MESSAGE(0x719E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Sai-me da frente!\n"
-"Sai daqui!\n"
-"Tu estás a pedi-las, não estás?"
+"Out of my way!\n"
+"Get out of here!\n"
+"You're asking for it, aren't you?"
 )
 
 DEFINE_MESSAGE(0x719F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Ei, rapaz, tu tens mesmo ganas\n"
-"para vir para aqui\n"
-"com isso vestido!\n"
-"Mesmo assim, tu não nos enganas\n"
-"facilmente!"
+"Hey, kid, you've got guts coming\n"
+"around here wearing that!\n"
+"Still, you can't fool us that\n"
+"easily!"
 )
 
 DEFINE_MESSAGE(0x71A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"O que é isso?\n"
-"O que é que isso\n"
-"tem a ver connosco?"
+"What is that?\n"
+"What does it have to do with\n"
+"us?"
 )
 
 DEFINE_MESSAGE(0x71A1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Ah ah ahh!\n"
-"Tu tens ganas, não\n"
-"tens pá? \n"
-"Eu gosto de ti!"
+"Ha ha hah!\n"
+"You've got guts to spare, don't\n"
+"you kid? \n"
+"I like you!"
 )
 
 DEFINE_MESSAGE(0x71A2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Vamos! É hora de ficar sério!"
+"C'mon! It's time to get serious!"
 )
 
 DEFINE_MESSAGE(0x71A3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Que estranho...meio que se parece\n"
-"comigo...\n"
-"Não...nem por isso.  Nada a ver,\n"
-"se olhares de perto."
+"That's odd...it kind of looks like\n"
+"me...\n"
+"No...not really.  Not at all,\n"
+"if you look at it closely."
 )
 
 DEFINE_MESSAGE(0x71A4, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Hmm. Não, não, não!\n"
-"As orelhas não ficam nada bem!\n"
-"Elas têm de ser, hm, mais longas!"
+"Hmm. No, no, no!\n"
+"The ears aren't right at all!\n"
+"They should be, you know, longer!"
 )
 
 DEFINE_MESSAGE(0x71A5, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Não ficas com um pouco de medo, \n"
-"andando por aí assim\n"
-"pela noite fora?"
+"Aren't you kind of scared, \n"
+"walking around in the middle of\n"
+"the night looking like that?"
 )
 
 DEFINE_MESSAGE(0x71A6, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Ah ah ahh!\n"
-"Tu gostas mesmo dessas coisas,\n"
-"não gostas?!"
+"Ha ha hah!\n"
+"You really like those things,\n"
+"don't you?!"
 )
 
 DEFINE_MESSAGE(0x71A7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Eu acho que já vi uma pedra\n"
-"que se parece com essa\n"
-"em algum lado... Agora onde?\n"
+"I think I've seen a stone that\n"
+"looks like that somewhere...\n"
+"Now where was that?\n"
 "Hmmmm...."
 )
 
 DEFINE_MESSAGE(0x71A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Rápido, " NAME "!\n"
-"A torre vai colapsar \n"
-"a qualquer momento!!"
+"Hurry up, " NAME "!\n"
+"Any second now, the tower is \n"
+"going to collapse!!"
 )
 
 DEFINE_MESSAGE(0x71A9, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Cuidado com os destroços!"
+"Watch out for falling rubble!"
 )
 
 DEFINE_MESSAGE(0x71AA, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 NAME "!\n"
-"Ajuda-me!"
+"Help me!"
 )
 
 DEFINE_MESSAGE(0x71AB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 NAME "!\n"
-"A saída é já ali!"
+"The exit is just over there!"
 )
 
 DEFINE_MESSAGE(0x71AC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Obrigado, " NAME ".\n"
-"Agora despacha-te!"
+"Thank you, " NAME ".\n"
+"Now, let's hurry!"
 )
 
 DEFINE_MESSAGE(0x71AD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Que pena!" BOX_BREAK "Pratica e volta mais tarde!" EVENT
+"Too bad!" BOX_BREAK "Practice hard and come back!" EVENT
 )
 
 DEFINE_MESSAGE(0x71AE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Quase!!" BOX_BREAK "Bem...tudo bem!\n"
-"Vou-te deixar tentar mais uma vez\n"
-"de graça...\n"
-"Desta vez tens de conseguir!" EVENT
+"Almost!!" BOX_BREAK "Well...all right!\n"
+"I'll let you try one more time for\n"
+"free...\n"
+"This time, you gotta do it!" EVENT
 )
 
 DEFINE_MESSAGE(0x71AF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Espetáculo!!!\n"
+"Wonderful!!!\n"
 "Bravo!!!\n"
-"Perfeito!!!" BOX_BREAK "Aqui tens um presente fantástico!" EVENT
+"Perfect!!!" BOX_BREAK "Here's a fantastic present!" EVENT
 )
 
 DEFINE_MESSAGE(0x71B0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Oh, não! " COLOR(RED) "Acabou o tempo!\n"
-COLOR(LIGHTBLUE) "Aquilo que tu ias\n"
-"entregar estragou-se!\n"
-"Vamos tentar outra vez!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "Oh, no! " COLOR(RED) "Time's up!\n"
+COLOR(LIGHTBLUE) "The thing you were going to \n"
+"deliver has spoiled!\n"
+"Let's try again!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x71B1, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
 QUICKTEXT_ENABLE "BOINNG! BOINNG!\n"
-"São " TIME " horas!" QUICKTEXT_DISABLE  FADE("\x28")
+"The current time is: " TIME "!" QUICKTEXT_DISABLE  FADE("\x28")
 )
 
 DEFINE_MESSAGE(0x71B2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Tu ouviste falar de nós pelo\n"
-"guarda no portão\n"
-"da Montanha da Morte? Bem, tenho\n"
-"de te fazer um bom negócio então!"
+"You heard about us from the\n"
+"guard at Death Mountain gate?\n"
+"Well, I have to give\n"
+"you a good deal then!"
 )
 

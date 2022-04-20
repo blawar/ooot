@@ -51,8 +51,22 @@ struct VecRot
 	operator Vec3f() const;
 	Rotation x, y, z;
 };
+/*
+struct VecPosF
+{
+	VecPosF();
+	VecPosF(const Rotation& x, const Rotation& y, const Rotation& z);
+	VecPosF(const VecPosF& vec);
+	VecPosF(const Vec3s& vec);
+	VecPosF(const Vec3f& vec);
+	operator Vec3s() const;
+	operator Vec3f() const;
+	CounterF x, y, z;
+};
+*/
 
 typedef VecRot VecPos;
+typedef Vec3f VecRotF;
 typedef Vec3f VecPosF;
 
 struct Sphere16

@@ -351,8 +351,8 @@ void BgGndIceblock_Slide(BgGndIceblock* pthis, GlobalContext* globalCtx)
 	Actor* thisx = &pthis->dyna.actor;
 
 	Math_StepToF(&thisx->speedXZ, 10.0f, 0.5f);
-	atTarget = Math_StepToF(&thisx->world.pos.x, pthis->targetPos.x, thisx->speedXZ);
-	atTarget &= Math_StepToF(&thisx->world.pos.z, pthis->targetPos.z, thisx->speedXZ);
+	atTarget = Math_StepToF(&thisx->world.pos.x, pthis->targetPos.x, (float)thisx->speedXZ);
+	atTarget &= Math_StepToF(&thisx->world.pos.z, pthis->targetPos.z, (float)thisx->speedXZ);
 	if(atTarget)
 	{
 		thisx->speedXZ = 0.0f;

@@ -149,7 +149,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx)
 				}
 				break;
 			}
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 8);
 			pthis->cutsceneCamera = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -404,7 +404,7 @@ void EnfHG_Intro(EnfHG* pthis, GlobalContext* globalCtx)
 				camera->at = pthis->cameraAt;
 				func_800C08AC(globalCtx, pthis->cutsceneCamera, 0);
 				pthis->cutsceneCamera = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				pthis->actionFunc = EnfHG_Retreat;
 			}

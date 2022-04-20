@@ -54,7 +54,7 @@ namespace oot::hid
 
 		for(int i = 0; i < ARRAY_COUNT(f_framerates); i++)
 		{
-			if(f_framerates[i] > framerate && f_framerates[i - 1] <= maxFramerate)
+			if(f_framerates[i] > framerate && f_framerates[i] <= maxFramerate)
 			{
 				return f_framerates[i];
 			}

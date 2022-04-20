@@ -646,7 +646,7 @@ void BossGanon_IntroCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 			pthis->actor.shape.yOffset = -7000.0f;
 			pthis->actor.shape.rot.y = 0;
 
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 8);
 			pthis->csCamIndex = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -1284,7 +1284,7 @@ void BossGanon_IntroCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 				mainCam->at = pthis->csCamAt;
 				func_800C08AC(globalCtx, pthis->csCamIndex, 0);
 				pthis->csState = pthis->csCamIndex = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				BossGanon_SetupWait(pthis, globalCtx);
 			}
@@ -1396,7 +1396,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 	switch(pthis->csState)
 	{
 		case 0:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 8);
 			pthis->csCamIndex = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -1691,7 +1691,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 			break;
 
 		case 100:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 8);
 			pthis->csCamIndex = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -2005,7 +2005,7 @@ void BossGanon_DeathAndTowerCutscene(BossGanon* pthis, GlobalContext* globalCtx)
 				func_800C08AC(globalCtx, pthis->csCamIndex, 0);
 				pthis->csState = 109;
 				pthis->csCamIndex = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				Flags_SetSwitch(globalCtx, 0x37);
 			}
@@ -2649,7 +2649,8 @@ void BossGanon_SetupBlock(BossGanon* pthis, GlobalContext* globalCtx)
 	}
 
 	pthis->unk_1C2 = 0;
-	sCape->attachLeftArmTimer = pthis->timers[0] = 10;
+	sCape->attachLeftArmTimer = 10;
+	pthis->timers[0] = 10;
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EV_GANON_MANTLE);
 	pthis->handLightBallScale = 0.0f;
 }

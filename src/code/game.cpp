@@ -515,7 +515,7 @@ s32 GameState_GetArenaSize(GameState* gameState)
 
 namespace oot::gamestate
 {
-	Base::Base(GraphicsContext* gfxCtx) : gfxCtx(gfxCtx)
+	Base::Base(GraphicsContext* gfxCtx) : gfxCtx(gfxCtx), tha(), alloc()
 	{
 	}
 

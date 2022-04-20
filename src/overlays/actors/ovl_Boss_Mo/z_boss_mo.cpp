@@ -1349,7 +1349,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx)
 					pthis->mashCounter = 0;
 					pthis->sfxTimer = 30;
 					Audio_ResetIncreasingTranspose();
-					func_80064520(globalCtx, &globalCtx->csCtx);
+					Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 					pthis->csCamera = Gameplay_CreateSubCamera(globalCtx);
 					Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 					Gameplay_ChangeCameraStatus(globalCtx, pthis->csCamera, CAM_STAT_ACTIVE);
@@ -1491,7 +1491,7 @@ void BossMo_Tentacle(BossMo* pthis, GlobalContext* globalCtx)
 					camera2->at = pthis->cameraAt;
 					func_800C08AC(globalCtx, pthis->csCamera, 0);
 					pthis->csCamera = 0;
-					func_80064534(globalCtx, &globalCtx->csCtx);
+					Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				}
 			}
 			for(indS1 = 0; indS1 < 41; indS1++)
@@ -1839,7 +1839,7 @@ void BossMo_IntroCs(BossMo* pthis, GlobalContext* globalCtx)
 			   ((fabsf(player->actor.world.pos.z - 180.0f) < 40.0f) && (fabsf(player->actor.world.pos.x - -180.0f) < 40.0f)) || ((fabsf(player->actor.world.pos.z - -180.0f) < 40.0f) && (fabsf(player->actor.world.pos.x - -180.0f) < 40.0f)))
 			{
 				// checks if Link is on one of the four platforms
-				func_80064520(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 8);
 				pthis->csCamera = Gameplay_CreateSubCamera(globalCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -2095,7 +2095,7 @@ void BossMo_IntroCs(BossMo* pthis, GlobalContext* globalCtx)
 				camera2->at = pthis->cameraAt;
 				func_800C08AC(globalCtx, pthis->csCamera, 0);
 				pthis->csState = pthis->csCamera = MO_BATTLE;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 			}
 			break;
@@ -2163,7 +2163,7 @@ void BossMo_DeathCs(BossMo* pthis, GlobalContext* globalCtx)
 	switch(pthis->csState)
 	{
 		case MO_DEATH_START:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 8);
 			pthis->csCamera = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -2355,7 +2355,7 @@ void BossMo_DeathCs(BossMo* pthis, GlobalContext* globalCtx)
 					camera->at = pthis->cameraAt;
 					func_800C08AC(globalCtx, pthis->csCamera, 0);
 					pthis->csCamera = 0;
-					func_80064534(globalCtx, &globalCtx->csCtx);
+					Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 					func_8002DF54(globalCtx, &pthis->actor, 7);
 					sMorphaTent1->actor.world.pos.y = -1000.0f;
 				}
@@ -2747,9 +2747,9 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 		{
 			pthis->targetPos.y -= 20.0f;
 		}
-		Math_ApproachF(&pthis->actor.world.pos.x, pthis->targetPos.x, 0.5f, pthis->actor.speedXZ);
-		Math_ApproachF(&pthis->actor.world.pos.y, pthis->targetPos.y, 0.5f, pthis->actor.speedXZ);
-		Math_ApproachF(&pthis->actor.world.pos.z, pthis->targetPos.z, 0.5f, pthis->actor.speedXZ);
+		Math_ApproachF(&pthis->actor.world.pos.x, pthis->targetPos.x, 0.5f, (float)pthis->actor.speedXZ);
+		Math_ApproachF(&pthis->actor.world.pos.y, pthis->targetPos.y, 0.5f, (float)pthis->actor.speedXZ);
+		Math_ApproachF(&pthis->actor.world.pos.z, pthis->targetPos.z, 0.5f, (float)pthis->actor.speedXZ);
 		Math_ApproachF(&pthis->actor.speedXZ, 30.0f, 1.0f, 1.0f);
 	}
 	else
@@ -2759,8 +2759,8 @@ void BossMo_Core(BossMo* pthis, GlobalContext* globalCtx)
 			case MO_CORE_MOVE:
 				sp80 = Math_SinS(pthis->work[MO_TENT_VAR_TIMER] * 0x800) * 100.0f;
 				sp7C = Math_CosS(pthis->work[MO_TENT_VAR_TIMER] * 0x800) * 100.0f;
-				Math_ApproachF(&pthis->actor.world.pos.x, sMorphaTent1->targetPos.x + sp80, 0.05f, pthis->actor.speedXZ);
-				Math_ApproachF(&pthis->actor.world.pos.z, sMorphaTent1->targetPos.z + sp7C, 0.05f, pthis->actor.speedXZ);
+				Math_ApproachF(&pthis->actor.world.pos.x, sMorphaTent1->targetPos.x + sp80, 0.05f, (float)pthis->actor.speedXZ);
+				Math_ApproachF(&pthis->actor.world.pos.z, sMorphaTent1->targetPos.z + sp7C, 0.05f, (float)pthis->actor.speedXZ);
 				Math_ApproachF(&pthis->actor.speedXZ, 10.0f, 1.0f, 0.5f);
 				break;
 			case MO_CORE_STUNNED:

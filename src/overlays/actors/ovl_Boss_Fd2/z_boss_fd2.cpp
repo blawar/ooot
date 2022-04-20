@@ -225,7 +225,7 @@ void BossFd2_SetupEmerge(BossFd2* pthis, GlobalContext* globalCtx)
 	temp_rand = Rand_ZeroFloat(8.9f);
 	pthis->actor.world.pos.x = sHoleLocations[temp_rand].x;
 	pthis->actor.world.pos.z = sHoleLocations[temp_rand].z;
-	pthis->work[FD2_ACTION_STATE] = 0;
+	pthis->FD2_ACTION_STATE = 0;
 	osSyncPrintf("UP INIT 2\n");
 	pthis->timers[0] = 10;
 	if(bossFd != NULL)
@@ -233,19 +233,19 @@ void BossFd2_SetupEmerge(BossFd2* pthis, GlobalContext* globalCtx)
 		health = bossFd->actor.colChkInfo.health;
 		if(health >= 18)
 		{
-			pthis->work[FD2_FAKEOUT_COUNT] = 0;
+			pthis->FD2_FAKEOUT_COUNT = 0;
 		}
 		else if(health >= 12)
 		{
-			pthis->work[FD2_FAKEOUT_COUNT] = 1;
+			pthis->FD2_FAKEOUT_COUNT = 1;
 		}
 		else if(health >= 6)
 		{
-			pthis->work[FD2_FAKEOUT_COUNT] = 2;
+			pthis->FD2_FAKEOUT_COUNT = 2;
 		}
 		else
 		{
-			pthis->work[FD2_FAKEOUT_COUNT] = 3;
+			pthis->FD2_FAKEOUT_COUNT = 3;
 		}
 	}
 }
@@ -258,10 +258,10 @@ void BossFd2_Emerge(BossFd2* pthis, GlobalContext* globalCtx)
 	s16 i;
 	s16 holeTime;
 
-	osSyncPrintf("UP 1    mode %d\n", pthis->work[FD2_ACTION_STATE]);
+	osSyncPrintf("UP 1    mode %d\n", pthis->FD2_ACTION_STATE);
 	SkelAnime_Update(&pthis->skelAnime);
 	osSyncPrintf("UP 1.5 \n");
-	switch(pthis->work[FD2_ACTION_STATE])
+	switch(pthis->FD2_ACTION_STATE)
 	{
 		case 0:
 			osSyncPrintf("UP time %d \n", pthis->timers[0]);
@@ -274,8 +274,8 @@ void BossFd2_Emerge(BossFd2* pthis, GlobalContext* globalCtx)
 				bossFd->holePosition.x = pthis->actor.world.pos.x;
 				bossFd->holePosition.z = pthis->actor.world.pos.z;
 				func_80033E1C(globalCtx, 1, 0x32, 0x5000);
-				pthis->work[FD2_ACTION_STATE] = 1;
-				pthis->work[FD2_HOLE_COUNTER]++;
+				pthis->FD2_ACTION_STATE = 1;
+				pthis->FD2_HOLE_COUNTER++;
 				pthis->actor.world.pos.y = -200.0f;
 				health = bossFd->actor.colChkInfo.health;
 				if(health == 24)
@@ -299,27 +299,27 @@ void BossFd2_Emerge(BossFd2* pthis, GlobalContext* globalCtx)
 					holeTime = 5;
 				}
 				pthis->timers[0] = holeTime;
-				bossFd->timers[4] = pthis->timers[0] + 10;
+				bossFd->timer4 = pthis->timers[0] + 10;
 				osSyncPrintf("UP 1.7 \n");
 			}
 			break;
 		case 1:
 			if(pthis->timers[0] == 0)
 			{
-				if(pthis->work[FD2_FAKEOUT_COUNT] != 0)
+				if(pthis->FD2_FAKEOUT_COUNT != 0)
 				{
-					pthis->work[FD2_FAKEOUT_COUNT]--;
+					pthis->FD2_FAKEOUT_COUNT--;
 					i = Rand_ZeroFloat(8.9f);
 					pthis->actor.world.pos.x = sHoleLocations[i].x;
 					pthis->actor.world.pos.z = sHoleLocations[i].z;
-					pthis->work[FD2_ACTION_STATE] = 0;
+					pthis->FD2_ACTION_STATE = 0;
 					pthis->timers[0] = 10;
 				}
 				else
 				{
 					pthis->skelAnime.playSpeed = 1.0f;
-					pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaEmergeAnim);
-					pthis->work[FD2_ACTION_STATE] = 2;
+					pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaEmergeAnim);
+					pthis->FD2_ACTION_STATE = 2;
 					Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_ROAR);
 					pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
 					pthis->timers[0] = 15;
@@ -331,7 +331,7 @@ void BossFd2_Emerge(BossFd2* pthis, GlobalContext* globalCtx)
 						pthis->leftMane.pos[i].x += Rand_CenteredFloat(100.0f);
 						pthis->leftMane.pos[i].z += Rand_CenteredFloat(100.0f);
 					}
-					bossFd->work[BFD_SPLASH_TIMER] = 5;
+					bossFd->BFD_SPLASH_TIMER = 5;
 				}
 			}
 			break;
@@ -342,7 +342,7 @@ void BossFd2_Emerge(BossFd2* pthis, GlobalContext* globalCtx)
 				func_8002F6D4(globalCtx, &pthis->actor, 3.0f, pthis->actor.yawTowardsPlayer, 2.0f, 0x20);
 				Audio_PlayActorSound2(&player->actor, NA_SE_PL_BODY_HIT);
 			}
-			if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+			if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 			{
 				BossFd2_SetupIdle(pthis, globalCtx);
 			}
@@ -389,15 +389,15 @@ void BossFd2_Idle(BossFd2* pthis, GlobalContext* globalCtx)
 	s16 prevToLink;
 
 	SkelAnime_Update(&pthis->skelAnime);
-	prevToLink = pthis->work[FD2_TURN_TO_LINK];
-	pthis->work[FD2_TURN_TO_LINK] = Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 3, 0x7D0, 0);
+	prevToLink = pthis->FD2_TURN_TO_LINK;
+	pthis->FD2_TURN_TO_LINK = Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.yawTowardsPlayer, 3, 0x7D0, 0);
 	osSyncPrintf("SW1 = %d\n", prevToLink);
-	osSyncPrintf("SW2 = %d\n", pthis->work[FD2_TURN_TO_LINK]);
-	if((fabsf(prevToLink) <= 1000.0f) && (1000.0f < fabsf(pthis->work[FD2_TURN_TO_LINK])))
+	osSyncPrintf("SW2 = %d\n", pthis->FD2_TURN_TO_LINK);
+	if((fabsf(prevToLink) <= 1000.0f) && (1000.0f < fabsf(pthis->FD2_TURN_TO_LINK)))
 	{
 		Animation_MorphToLoop(&pthis->skelAnime, &gHoleVolvagiaTurnAnim, -5.0f);
 	}
-	if((1000.0f < fabsf(prevToLink)) && (fabsf(pthis->work[FD2_TURN_TO_LINK]) <= 1000.0f))
+	if((1000.0f < fabsf(prevToLink)) && (fabsf(pthis->FD2_TURN_TO_LINK) <= 1000.0f))
 	{
 		Animation_MorphToLoop(&pthis->skelAnime, &gHoleVolvagiaIdleAnim, -5.0f);
 	}
@@ -420,21 +420,21 @@ void BossFd2_SetupBurrow(BossFd2* pthis, GlobalContext* globalCtx)
 
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gHoleVolvagiaBurrowAnim, -5.0f);
 	pthis->actionFunc = BossFd2_Burrow;
-	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaBurrowAnim);
-	bossFd->timers[4] = 30;
-	pthis->work[FD2_ACTION_STATE] = 0;
+	pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaBurrowAnim);
+	bossFd->timer4 = 30;
+	pthis->FD2_ACTION_STATE = 0;
 }
 
 void BossFd2_Burrow(BossFd2* pthis, GlobalContext* globalCtx)
 {
 	BossFd* bossFd = (BossFd*)pthis->actor.parent;
 
-	if(pthis->work[FD2_ACTION_STATE] == 0)
+	if(pthis->FD2_ACTION_STATE == 0)
 	{
 		SkelAnime_Update(&pthis->skelAnime);
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 		{
-			pthis->work[FD2_ACTION_STATE] = 1;
+			pthis->FD2_ACTION_STATE = 1;
 			pthis->timers[0] = 25;
 		}
 	}
@@ -443,9 +443,9 @@ void BossFd2_Burrow(BossFd2* pthis, GlobalContext* globalCtx)
 		Math_ApproachF(&pthis->actor.world.pos.y, -100.0f, 1.0f, 10.0f);
 		if(pthis->timers[0] == 0)
 		{
-			if((pthis->work[FD2_HOLE_COUNTER] >= 3) && ((s8)bossFd->actor.colChkInfo.health < 24))
+			if((pthis->FD2_HOLE_COUNTER >= 3) && ((s8)bossFd->actor.colChkInfo.health < 24))
 			{
-				pthis->work[FD2_HOLE_COUNTER] = 0;
+				pthis->FD2_HOLE_COUNTER = 0;
 				pthis->actionFunc = BossFd2_Wait;
 				bossFd->handoffSignal = FD2_SIGNAL_FLY;
 			}
@@ -461,8 +461,8 @@ void BossFd2_SetupBreatheFire(BossFd2* pthis, GlobalContext* globalCtx)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gHoleVolvagiaBreatheFireAnim, -5.0f);
 	pthis->actionFunc = BossFd2_BreatheFire;
-	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaBreatheFireAnim);
-	pthis->work[FD2_ACTION_STATE] = 0;
+	pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaBreatheFireAnim);
+	pthis->FD2_ACTION_STATE = 0;
 }
 
 static Vec3f sUnkVec = {0.0f, 0.0f, 50.0f}; // Unused? BossFd uses a similar array for its fire breath sfx.
@@ -480,7 +480,7 @@ void BossFd2_BreatheFire(BossFd2* pthis, GlobalContext* globalCtx)
 	f32 tempY;
 
 	SkelAnime_Update(&pthis->skelAnime);
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 	{
 		BossFd2_SetupBurrow(pthis, globalCtx);
 	}
@@ -548,14 +548,14 @@ void BossFd2_BreatheFire(BossFd2* pthis, GlobalContext* globalCtx)
 		Matrix_RotateX(tempX, MTXMODE_APPLY);
 		Matrix_MultVec3f(&spawnSpeed, &spawnVel);
 
-		breathScale = 300.0f + 50.0f * Math_SinS(pthis->work[FD2_VAR_TIMER] * 0x2000);
+		breathScale = 300.0f + 50.0f * Math_SinS(pthis->FD2_VAR_TIMER * 0x2000);
 		BossFd2_SpawnFireBreath(globalCtx, bossFd->effects, &spawnPos, &spawnVel, &spawnAccel, breathScale, breathOpacity, pthis->actor.shape.rot.y + pthis->headRot.y);
 
 		spawnPos.x += spawnVel.x * 0.5f;
 		spawnPos.y += spawnVel.y * 0.5f;
 		spawnPos.z += spawnVel.z * 0.5f;
 
-		breathScale = 300.0f + 50.0f * Math_SinS(pthis->work[FD2_VAR_TIMER] * 0x2000);
+		breathScale = 300.0f + 50.0f * Math_SinS(pthis->FD2_VAR_TIMER * 0x2000);
 		BossFd2_SpawnFireBreath(globalCtx, bossFd->effects, &spawnPos, &spawnVel, &spawnAccel, breathScale, breathOpacity, pthis->actor.shape.rot.y + pthis->headRot.y);
 
 		spawnSpeed.x = 0.0f;
@@ -583,7 +583,7 @@ void BossFd2_SetupClawSwipe(BossFd2* pthis, GlobalContext* globalCtx)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &gHoleVolvagiaClawSwipeAnim, -5.0f);
 	pthis->actionFunc = BossFd2_ClawSwipe;
-	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaClawSwipeAnim);
+	pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaClawSwipeAnim);
 }
 
 void BossFd2_ClawSwipe(BossFd2* pthis, GlobalContext* globalCtx)
@@ -594,7 +594,7 @@ void BossFd2_ClawSwipe(BossFd2* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_ROAR);
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_SW_NAIL);
 	}
-	if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+	if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 	{
 		BossFd2_SetupBurrow(pthis, globalCtx);
 	}
@@ -603,9 +603,9 @@ void BossFd2_ClawSwipe(BossFd2* pthis, GlobalContext* globalCtx)
 void BossFd2_SetupVulnerable(BossFd2* pthis, GlobalContext* globalCtx)
 {
 	Animation_PlayOnce(&pthis->skelAnime, &gHoleVolvagiaKnockoutAnim);
-	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaKnockoutAnim);
+	pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaKnockoutAnim);
 	pthis->actionFunc = BossFd2_Vulnerable;
-	pthis->work[FD2_ACTION_STATE] = 0;
+	pthis->FD2_ACTION_STATE = 0;
 }
 
 void BossFd2_Vulnerable(BossFd2* pthis, GlobalContext* globalCtx)
@@ -616,14 +616,14 @@ void BossFd2_Vulnerable(BossFd2* pthis, GlobalContext* globalCtx)
 	pthis->disableAT = true;
 	pthis->actor.flags |= ACTOR_FLAG_10;
 	SkelAnime_Update(&pthis->skelAnime);
-	switch(pthis->work[FD2_ACTION_STATE])
+	switch(pthis->FD2_ACTION_STATE)
 	{
 		case 0:
 			if(Animation_OnFrame(&pthis->skelAnime, 13.0f))
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_MAHI2);
 			}
-			if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME] - 3.0f))
+			if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME - 3.0f))
 			{
 				for(i = 0; i < 25; i++)
 				{
@@ -645,15 +645,15 @@ void BossFd2_Vulnerable(BossFd2* pthis, GlobalContext* globalCtx)
 				}
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_LAND);
 			}
-			if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+			if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 			{
 				Animation_MorphToLoop(&pthis->skelAnime, &gHoleVolvagiaVulnerableAnim, -5.0f);
-				pthis->work[FD2_ACTION_STATE] = 1;
+				pthis->FD2_ACTION_STATE = 1;
 				pthis->timers[0] = 60;
 			}
 			break;
 		case 1:
-			if((pthis->work[FD2_VAR_TIMER] & 0xF) == 0xF)
+			if((pthis->FD2_VAR_TIMER & 0xF) == 0xF)
 			{
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_KNOCKOUT);
 			}
@@ -668,9 +668,9 @@ void BossFd2_Vulnerable(BossFd2* pthis, GlobalContext* globalCtx)
 void BossFd2_SetupDamaged(BossFd2* pthis, GlobalContext* globalCtx)
 {
 	Animation_PlayOnce(&pthis->skelAnime, &gHoleVolvagiaHitAnim);
-	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaHitAnim);
+	pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaHitAnim);
 	pthis->actionFunc = BossFd2_Damaged;
-	pthis->work[FD2_ACTION_STATE] = 0;
+	pthis->FD2_ACTION_STATE = 0;
 }
 
 void BossFd2_Damaged(BossFd2* pthis, GlobalContext* globalCtx)
@@ -679,16 +679,16 @@ void BossFd2_Damaged(BossFd2* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_Update(&pthis->skelAnime);
 	pthis->disableAT = true;
-	if(pthis->work[FD2_ACTION_STATE] == 0)
+	if(pthis->FD2_ACTION_STATE == 0)
 	{
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 		{
 			Animation_PlayOnce(&pthis->skelAnime, &gHoleVolvagiaDamagedAnim);
-			pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaDamagedAnim);
-			pthis->work[FD2_ACTION_STATE] = 1;
+			pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaDamagedAnim);
+			pthis->FD2_ACTION_STATE = 1;
 		}
 	}
-	else if(pthis->work[FD2_ACTION_STATE] == 1)
+	else if(pthis->FD2_ACTION_STATE == 1)
 	{
 		if(Animation_OnFrame(&pthis->skelAnime, 6.0f))
 		{
@@ -696,11 +696,11 @@ void BossFd2_Damaged(BossFd2* pthis, GlobalContext* globalCtx)
 		}
 		if(Animation_OnFrame(&pthis->skelAnime, 20.0f))
 		{
-			bossFd->timers[4] = 30;
+			bossFd->timer4 = 30;
 		}
-		if(Animation_OnFrame(&pthis->skelAnime, pthis->fwork[FD2_END_FRAME]))
+		if(Animation_OnFrame(&pthis->skelAnime, pthis->FD2_END_FRAME))
 		{
-			pthis->work[FD2_ACTION_STATE] = 2;
+			pthis->FD2_ACTION_STATE = 2;
 			pthis->timers[0] = 25;
 		}
 	}
@@ -717,8 +717,8 @@ void BossFd2_Damaged(BossFd2* pthis, GlobalContext* globalCtx)
 
 void BossFd2_SetupDeath(BossFd2* pthis, GlobalContext* globalCtx)
 {
-	pthis->fwork[FD2_END_FRAME] = Animation_GetLastFrame(&gHoleVolvagiaDamagedAnim);
-	Animation_Change(&pthis->skelAnime, &gHoleVolvagiaDamagedAnim, 1.0f, 0.0f, pthis->fwork[FD2_END_FRAME], ANIMMODE_ONCE_INTERP, -3.0f);
+	pthis->FD2_END_FRAME = Animation_GetLastFrame(&gHoleVolvagiaDamagedAnim);
+	Animation_Change(&pthis->skelAnime, &gHoleVolvagiaDamagedAnim, 1.0f, 0.0f, pthis->FD2_END_FRAME, ANIMMODE_ONCE_INTERP, -3.0f);
 	pthis->actionFunc = BossFd2_Death;
 	pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	pthis->deathState = DEATH_START;
@@ -759,7 +759,7 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 	{
 		case DEATH_START:
 			pthis->deathState = DEATH_RETREAT;
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			func_8002DF54(globalCtx, &pthis->actor, 1);
 			pthis->deathCamera = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
@@ -774,7 +774,7 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 			pthis->camData.atVel.z = 100.0f;
 			pthis->camData.accel = 0.02f;
 			pthis->timers[0] = 0;
-			pthis->work[FD2_HOLE_COUNTER] = 0;
+			pthis->FD2_HOLE_COUNTER = 0;
 			pthis->camData.eyeMaxVel.x = 0.1f;
 			pthis->camData.eyeMaxVel.y = 0.1f;
 			pthis->camData.eyeMaxVel.z = 0.1f;
@@ -782,12 +782,12 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 			pthis->camData.atMaxVel.y = 0.1f;
 			pthis->camData.atMaxVel.z = 0.1f;
 		case DEATH_RETREAT:
-			pthis->work[FD2_HOLE_COUNTER]++;
-			if(pthis->work[FD2_HOLE_COUNTER] < 15)
+			pthis->FD2_HOLE_COUNTER++;
+			if(pthis->FD2_HOLE_COUNTER < 15)
 			{
 				retreatSpeed = 1.0f;
 			}
-			else if(pthis->work[FD2_HOLE_COUNTER] < 20)
+			else if(pthis->FD2_HOLE_COUNTER < 20)
 			{
 				retreatSpeed = 0.5f;
 			}
@@ -795,10 +795,10 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 			{
 				retreatSpeed = 0.25f;
 			}
-			if((pthis->work[FD2_HOLE_COUNTER] == 1) || (pthis->work[FD2_HOLE_COUNTER] == 40))
+			if((pthis->FD2_HOLE_COUNTER == 1) || (pthis->FD2_HOLE_COUNTER == 40))
 			{
-				pthis->work[FD2_SCREAM_TIMER] = 20;
-				if(pthis->work[FD2_HOLE_COUNTER] == 40)
+				pthis->FD2_SCREAM_TIMER = 20;
+				if(pthis->FD2_HOLE_COUNTER == 40)
 				{
 					Audio_StopSfxById(NA_SE_EN_VALVAISA_DEAD);
 				}
@@ -824,9 +824,9 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 			{
 				if(Animation_OnFrame(skelAnime, 20.0f))
 				{
-					bossFd->timers[4] = 60;
+					bossFd->timer4 = 60;
 				}
-				if(pthis->work[FD2_HOLE_COUNTER] >= 100)
+				if(pthis->FD2_HOLE_COUNTER >= 100)
 				{
 					pthis->deathState = DEATH_HANDOFF;
 					pthis->timers[0] = 50;
@@ -843,7 +843,7 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 				pthis->actor.draw = NULL;
 				pthis->deathState = DEATH_FD_BODY;
 				bossFd->handoffSignal = FD2_SIGNAL_DEATH;
-				pthis->work[FD2_ACTION_STATE] = 0;
+				pthis->FD2_ACTION_STATE = 0;
 				pthis->camData.speedMod = 0.0f;
 			}
 			else
@@ -869,15 +869,15 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 				pthis->camData.nextEye.x = pthis->actor.world.pos.x;
 				Math_ApproachF(&pthis->camData.nextEye.y, 200.0f, 1.0f, 2.0f);
 				Math_ApproachF(&pthis->camData.nextEye.z, bossFd->actor.world.pos.z + 200.0f, 1.0f, 3.0f);
-				if(pthis->work[FD2_ACTION_STATE] == 0)
+				if(pthis->FD2_ACTION_STATE == 0)
 				{
-					pthis->work[FD2_ACTION_STATE]++;
+					pthis->FD2_ACTION_STATE++;
 					pthis->camData.speedMod = 0.0f;
 					pthis->camData.accel = 0.02f;
 					func_8002DF54(globalCtx, &bossFd->actor, 1);
 				}
 			}
-			if((bossFd->work[BFD_ACTION_STATE] == BOSSFD_BONES_FALL) && (bossFd->timers[0] == 5))
+			if((bossFd->BFD_ACTION_STATE == BOSSFD_BONES_FALL) && (bossFd->timer0 == 5))
 			{
 				pthis->deathState = DEATH_FD_SKULL;
 				pthis->camData.speedMod = 0.0f;
@@ -893,17 +893,17 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 			pthis->camData.nextEye.x = 0.0f;
 			pthis->camData.nextEye.y = 140.0f;
 			Math_ApproachF(&pthis->camData.nextEye.z, 220.0f, 0.5f, 1.15f);
-			if(bossFd->work[BFD_CAM_SHAKE_TIMER] != 0)
+			if(bossFd->BFD_CAM_SHAKE_TIMER != 0)
 			{
-				bossFd->work[BFD_CAM_SHAKE_TIMER]--;
-				cameraShake = bossFd->work[BFD_CAM_SHAKE_TIMER] / 0.5f;
+				bossFd->BFD_CAM_SHAKE_TIMER--;
+				cameraShake = bossFd->BFD_CAM_SHAKE_TIMER / 0.5f;
 				if(cameraShake >= 20.0f)
 				{
 					cameraShake = 20.0f;
 				}
-				pthis->camData.yMod = (bossFd->work[BFD_CAM_SHAKE_TIMER] & 1) ? cameraShake : -cameraShake;
+				pthis->camData.yMod = (bossFd->BFD_CAM_SHAKE_TIMER & 1) ? cameraShake : -cameraShake;
 			}
-			if(bossFd->work[BFD_ACTION_STATE] == BOSSFD_SKULL_BURN)
+			if(bossFd->BFD_ACTION_STATE == BOSSFD_SKULL_BURN)
 			{
 				pthis->deathState = DEATH_FINISH;
 				mainCam->eye = pthis->camData.eye;
@@ -911,7 +911,7 @@ void BossFd2_Death(BossFd2* pthis, GlobalContext* globalCtx)
 				mainCam->at = pthis->camData.at;
 				func_800C08AC(globalCtx, pthis->deathCamera, 0);
 				pthis->deathCamera = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_DOOR_WARP1, 0.0f, 100.0f, 0.0f, 0, 0, 0, WARP_DUNGEON_ADULT);
 				Flags_SetClear(globalCtx, globalCtx->roomCtx.curRoom.num);
@@ -932,7 +932,7 @@ void BossFd2_Wait(BossFd2* pthis, GlobalContext* globalCtx)
 		bossFd->handoffSignal = FD2_SIGNAL_NONE;
 		BossFd2_SetupEmerge(pthis, globalCtx);
 		pthis->timers[0] = 20;
-		pthis->work[FD2_HOLE_COUNTER] = 0;
+		pthis->FD2_HOLE_COUNTER = 0;
 	}
 }
 
@@ -982,8 +982,8 @@ void BossFd2_CollisionCheck(BossFd2* pthis, GlobalContext* globalCtx)
 				}
 				bossFd->faceExposed = true;
 				BossFd2_SetupVulnerable(pthis, globalCtx);
-				pthis->work[FD2_INVINC_TIMER] = 30;
-				pthis->work[FD2_DAMAGE_FLASH_TIMER] = 5;
+				pthis->FD2_INVINC_TIMER = 30;
+				pthis->FD2_DAMAGE_FLASH_TIMER = 5;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_MAHI1);
 				for(i = 0; i < 30; i++)
 				{
@@ -1033,8 +1033,8 @@ void BossFd2_CollisionCheck(BossFd2* pthis, GlobalContext* globalCtx)
 			{
 				bossFd->actor.colChkInfo.health = 0;
 				BossFd2_SetupDeath(pthis, globalCtx);
-				pthis->work[FD2_DAMAGE_FLASH_TIMER] = 10;
-				pthis->work[FD2_INVINC_TIMER] = 30000;
+				pthis->FD2_DAMAGE_FLASH_TIMER = 10;
+				pthis->FD2_INVINC_TIMER = 30000;
 				Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0x100FF);
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_DEAD);
 				Enemy_StartFinishingBlow(globalCtx, &pthis->actor);
@@ -1042,8 +1042,8 @@ void BossFd2_CollisionCheck(BossFd2* pthis, GlobalContext* globalCtx)
 			else if(damage)
 			{
 				BossFd2_SetupDamaged(pthis, globalCtx);
-				pthis->work[FD2_DAMAGE_FLASH_TIMER] = 10;
-				pthis->work[FD2_INVINC_TIMER] = 100;
+				pthis->FD2_DAMAGE_FLASH_TIMER = 10;
+				pthis->FD2_INVINC_TIMER = 100;
 				Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_VALVAISA_DAMAGE1);
 			}
 			if(damage)
@@ -1075,13 +1075,13 @@ void BossFd2_UpdateFace(BossFd2* pthis, GlobalContext* globalCtx)
 	f32 openRate;
 	s16 eyeStates[5] = {EYE_OPEN, EYE_HALF, EYE_CLOSED, EYE_CLOSED, EYE_HALF};
 
-	if(((pthis->work[FD2_VAR_TIMER] % 8) == 0) && (Rand_ZeroOne() < 0.3f))
+	if(((pthis->FD2_VAR_TIMER % 8) == 0) && (Rand_ZeroOne() < 0.3f))
 	{
-		pthis->work[FD2_BLINK_TIMER] = 4;
+		pthis->FD2_BLINK_TIMER = 4;
 	}
 	if((pthis->actionFunc == BossFd2_Vulnerable) || (pthis->actionFunc == BossFd2_Damaged))
 	{
-		if(pthis->work[FD2_VAR_TIMER] & 0x10)
+		if(pthis->FD2_VAR_TIMER & 0x10)
 		{
 			pthis->eyeState = EYE_HALF;
 		}
@@ -1092,29 +1092,29 @@ void BossFd2_UpdateFace(BossFd2* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->eyeState = eyeStates[pthis->work[FD2_BLINK_TIMER]];
+		pthis->eyeState = eyeStates[pthis->FD2_BLINK_TIMER];
 	}
 
-	if(pthis->work[FD2_BLINK_TIMER] != 0)
+	if(pthis->FD2_BLINK_TIMER != 0)
 	{
-		pthis->work[FD2_BLINK_TIMER]--;
+		pthis->FD2_BLINK_TIMER--;
 	}
 
-	if(pthis->work[FD2_SCREAM_TIMER] != 0)
+	if(pthis->FD2_SCREAM_TIMER != 0)
 	{
 		maxOpen = 6000.0f;
 		openRate = 1300.0f;
 	}
 	else
 	{
-		maxOpen = (pthis->work[FD2_VAR_TIMER] & 0x10) ? 1000.0f : 0.0f;
+		maxOpen = (pthis->FD2_VAR_TIMER & 0x10) ? 1000.0f : 0.0f;
 		openRate = 700.0f;
 	}
 	Math_ApproachF(&pthis->jawOpening, maxOpen, 0.3f, openRate);
 
-	if(pthis->work[FD2_SCREAM_TIMER] != 0)
+	if(pthis->FD2_SCREAM_TIMER != 0)
 	{
-		pthis->work[FD2_SCREAM_TIMER]--;
+		pthis->FD2_SCREAM_TIMER--;
 	}
 }
 
@@ -1127,8 +1127,8 @@ void BossFd2_Update(Actor* thisx, GlobalContext* globalCtx2)
 	osSyncPrintf("FD2 move start \n");
 	pthis->disableAT = false;
 	pthis->actor.flags &= ~ACTOR_FLAG_10;
-	pthis->work[FD2_VAR_TIMER]++;
-	pthis->work[FD2_UNK_TIMER]++;
+	pthis->FD2_VAR_TIMER++;
+	pthis->FD2_UNK_TIMER++;
 
 	pthis->actionFunc(pthis, globalCtx);
 
@@ -1139,18 +1139,18 @@ void BossFd2_Update(Actor* thisx, GlobalContext* globalCtx2)
 			pthis->timers[i]--;
 		}
 	}
-	if(pthis->work[FD2_DAMAGE_FLASH_TIMER] != 0)
+	if(pthis->FD2_DAMAGE_FLASH_TIMER != 0)
 	{
-		pthis->work[FD2_DAMAGE_FLASH_TIMER]--;
+		pthis->FD2_DAMAGE_FLASH_TIMER--;
 	}
-	if(pthis->work[FD2_INVINC_TIMER] != 0)
+	if(pthis->FD2_INVINC_TIMER != 0)
 	{
-		pthis->work[FD2_INVINC_TIMER]--;
+		pthis->FD2_INVINC_TIMER--;
 	}
 
 	if(pthis->deathState == DEATH_START)
 	{
-		if(pthis->work[FD2_INVINC_TIMER] == 0)
+		if(pthis->FD2_INVINC_TIMER == 0)
 		{
 			BossFd2_CollisionCheck(pthis, globalCtx);
 		}
@@ -1163,10 +1163,10 @@ void BossFd2_Update(Actor* thisx, GlobalContext* globalCtx2)
 	}
 
 	BossFd2_UpdateFace(pthis, globalCtx);
-	pthis->fwork[FD2_TEX1_SCROLL_X] += 4.0f;
-	pthis->fwork[FD2_TEX1_SCROLL_Y] = 120.0f;
-	pthis->fwork[FD2_TEX2_SCROLL_X] += 3.0f;
-	pthis->fwork[FD2_TEX2_SCROLL_Y] -= 2.0f;
+	pthis->FD2_TEX1_SCROLL_X += 4.0f;
+	pthis->FD2_TEX1_SCROLL_Y = 120.0f;
+	pthis->FD2_TEX2_SCROLL_X += 3.0f;
+	pthis->FD2_TEX2_SCROLL_Y -= 2.0f;
 	if(pthis->actor.focus.pos.y < 90.0f)
 	{
 		pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
@@ -1206,14 +1206,14 @@ s32 BossFd2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 	{
 		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2165);
 		gDPPipeSync(POLY_OPA_DISP++);
-		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, (s8)bossFd->fwork[BFD_HEAD_TEX2_ALPHA]);
+		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, (s8)bossFd->BFD_HEAD_TEX2_ALPHA);
 		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2172);
 	}
 	else
 	{
 		OPEN_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2174);
 		gDPPipeSync(POLY_OPA_DISP++);
-		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, (s8)bossFd->fwork[BFD_BODY_TEX2_ALPHA]);
+		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, (s8)bossFd->BFD_BODY_TEX2_ALPHA);
 		CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2181);
 	}
 	if((0 < limbIndex) && (limbIndex < 16))
@@ -1362,22 +1362,22 @@ void BossFd2_DrawMane(BossFd2* pthis, GlobalContext* globalCtx)
 	}
 	for(i = 0; i < 10; i++)
 	{
-		pthis->centerMane.scale[i] = 1.5f + 0.3f * Math_SinS(5596.0f * pthis->work[FD2_VAR_TIMER] + i * 0x3200);
-		pthis->rightMane.scale[i] = 1.5f + 0.3f * Math_SinS(5496.0f * pthis->work[FD2_VAR_TIMER] + i * 0x3200);
-		pthis->leftMane.scale[i] = 1.5f + 0.3f * Math_CosS(5696.0f * pthis->work[FD2_VAR_TIMER] + i * 0x3200);
+		pthis->centerMane.scale[i] = 1.5f + 0.3f * Math_SinS(5596.0f * pthis->FD2_VAR_TIMER + i * 0x3200);
+		pthis->rightMane.scale[i] = 1.5f + 0.3f * Math_SinS(5496.0f * pthis->FD2_VAR_TIMER + i * 0x3200);
+		pthis->leftMane.scale[i] = 1.5f + 0.3f * Math_CosS(5696.0f * pthis->FD2_VAR_TIMER + i * 0x3200);
 	}
 
 	func_80093D84(globalCtx->gfxCtx);
 
 	gSPDisplayList(POLY_XLU_DISP++, gHoleVolvagiaManeMaterialDL);
 
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->fwork[BFD_MANE_COLOR_CENTER], 0, 255);
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->BFD_MANE_COLOR_CENTER, 0, 255);
 	BossFd2_UpdateMane(pthis, globalCtx, &pthis->centerMane.head, pthis->centerMane.pos, pthis->centerMane.rot, pthis->centerMane.pull, pthis->centerMane.scale);
 
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->fwork[BFD_MANE_COLOR_RIGHT], 0, 255);
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->BFD_MANE_COLOR_RIGHT, 0, 255);
 	BossFd2_UpdateMane(pthis, globalCtx, &pthis->rightMane.head, pthis->rightMane.pos, pthis->rightMane.rot, pthis->rightMane.pull, pthis->rightMane.scale);
 
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->fwork[BFD_MANE_COLOR_LEFT], 0, 255);
+	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, bossFd->BFD_MANE_COLOR_LEFT, 0, 255);
 	BossFd2_UpdateMane(pthis, globalCtx, &pthis->leftMane.head, pthis->leftMane.pos, pthis->leftMane.rot, pthis->leftMane.pull, pthis->leftMane.scale);
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_boss_fd2.c", 2601);
@@ -1393,7 +1393,7 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx)
 	if(pthis->actionFunc != BossFd2_Wait)
 	{
 		func_80093D18(globalCtx->gfxCtx);
-		if(pthis->work[FD2_DAMAGE_FLASH_TIMER] & 2)
+		if(pthis->FD2_DAMAGE_FLASH_TIMER & 2)
 		{
 			POLY_OPA_DISP = Gfx_SetFog(POLY_OPA_DISP, 255, 255, 255, 0, 900, 1099);
 		}
@@ -1401,7 +1401,7 @@ void BossFd2_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 		gSPSegment(
 		    POLY_OPA_DISP++, 0x08,
-		    Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s16)pthis->fwork[FD2_TEX1_SCROLL_X], (s16)pthis->fwork[FD2_TEX1_SCROLL_Y], 0x20, 0x20, 1, (s16)pthis->fwork[FD2_TEX2_SCROLL_X], (s16)pthis->fwork[FD2_TEX2_SCROLL_Y], 0x20, 0x20));
+		    Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, (s16)pthis->FD2_TEX1_SCROLL_X, (s16)pthis->FD2_TEX1_SCROLL_Y, 0x20, 0x20, 1, (s16)pthis->FD2_TEX2_SCROLL_X, (s16)pthis->FD2_TEX2_SCROLL_Y, 0x20, 0x20));
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 		gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, 128);
 

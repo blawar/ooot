@@ -14,6 +14,19 @@
 #include "def/audioMgr.h"
 #include "def/audio_rsp.h"
 
+#ifndef MULTI_THREADED_GFX
+#ifndef SINGLE_THREADED_GFX
+//#define MULTI_THREADED_GFX
+#endif
+#endif
+
+#ifdef MULTI_THREADED_GFX
+#include <thread>
+#include <mutex>
+
+static std::mutex g_gfxMutex;
+#endif
+
 namespace oot
 {
 	State state;
@@ -24,6 +37,7 @@ namespace oot
 #endif
 
 static std::unique_ptr<platform::window::Base> gWindow;
+static OSTask_t* g_currentTask = nullptr;
 
 //#define _WINGDI_
 
@@ -188,7 +202,31 @@ void main_func(void)
 
 	inited = 1;
 
+#ifdef MULTI_THREADED_GFX
+	std::thread gameLoopThread([]() { Graph_ThreadEntry(0); });
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	
+	while(gameLoopThread.joinable())
+	{
+		gWindow->handle_events();
+
+		if(g_currentTask != nullptr)
+		{
+			gfx_run(g_currentTask, sizeof(*g_currentTask));
+			{
+				const std::lock_guard<std::mutex> lock(g_gfxMutex);
+				g_currentTask = nullptr;
+			}
+		}
+		else
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+	}
+#else
 	Graph_ThreadEntry(0);
+#endif
 
 	AudioMgr_Shutdown();
 
@@ -252,6 +290,42 @@ static bool g_isRunning = true;
 
 extern "C"
 {
+	bool gfx_busy()
+	{
+#ifdef MULTI_THREADED_GFX
+		const std::lock_guard<std::mutex> lock(g_gfxMutex);
+		return g_currentTask != nullptr;
+#else
+		return false;
+#endif
+	}
+
+	void gfx_wait_ready()
+	{
+#ifdef MULTI_THREADED_GFX
+		while(gfx_busy())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+#endif
+	}
+
+	bool gfx_schedule(OSTask_t* task, u32 sz)
+	{
+#ifdef MULTI_THREADED_GFX
+		if(!gfx_busy())
+		{
+			const std::lock_guard<std::mutex> lock(g_gfxMutex);
+			g_currentTask = task;
+			return true;
+		}
+		return false;
+#else
+		gfx_run(task, sz);
+		return true;
+#endif
+	}
+
 	bool gfx_start_frame()
 	{
 		if(gWindow)

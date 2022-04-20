@@ -2430,7 +2430,7 @@ s32 EnGo2_DrawRolling(EnGo2* pthis, GlobalContext* globalCtx)
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_go2.c", 2914);
 	func_80093D18(globalCtx->gfxCtx);
-	speedXZ = pthis->actionFunc == EnGo2_ReverseRolling ? 0.0f : pthis->actor.speedXZ;
+	speedXZ = pthis->actionFunc == EnGo2_ReverseRolling ? 0.0f : (float)pthis->actor.speedXZ;
 	Matrix_RotateZYX((globalCtx->frames * (speedXZ * 1400)), 0, pthis->actor.shape.rot.z, MTXMODE_APPLY);
 	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_go2.c", 2926), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_OPA_DISP++, gGoronDL_00C140);

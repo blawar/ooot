@@ -485,7 +485,7 @@ void EnEiyer_Glide(EnEiyer* pthis, GlobalContext* globalCtx)
 	}
 
 	curFrame = pthis->skelanime.curFrame;
-	Math_ApproachF(&pthis->basePos.y, pthis->actor.floorHeight + 80.0f + 5.0f, 0.3f, pthis->actor.speedXZ);
+	Math_ApproachF(&pthis->basePos.y, pthis->actor.floorHeight + 80.0f + 5.0f, 0.3f, (float)pthis->actor.speedXZ);
 	pthis->actor.world.pos.y = pthis->basePos.y - cosf((curFrame - 5.0f) * (M_PI / 40)) * 5.0f;
 
 	if(curFrame <= 45.0f)
@@ -614,7 +614,7 @@ void EnEiyer_Hurt(EnEiyer* pthis, GlobalContext* globalCtx)
 		pthis->timer--;
 	}
 
-	Math_ApproachF(&pthis->basePos.y, pthis->actor.floorHeight + 80.0f + 5.0f, 0.5f, pthis->actor.speedXZ);
+	Math_ApproachF(&pthis->basePos.y, pthis->actor.floorHeight + 80.0f + 5.0f, 0.5f, (float)pthis->actor.speedXZ);
 	pthis->actor.world.pos.y = pthis->basePos.y - 5.0f;
 
 	if(pthis->actor.bgCheckFlags & BG_STATE_3)
