@@ -231,7 +231,7 @@ namespace oot::save
 		this->eventChkInf[8] |= 1;
 		this->eventChkInf[12] |= 0x10;
 
-		if(this->linkAge == 0) // if link is child
+		if(this->linkAge == LINK_AGE_CHILD)
 		{
 			this->equips.buttonItems[0] = ITEM_SWORD_KOKIRI;
 			Inventory_ChangeEquipment(EQUIP_SWORD, 1);

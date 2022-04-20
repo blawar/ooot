@@ -81,7 +81,7 @@ namespace oot::gamestate
 #else
 		gSaveContext.gameMode = 1;
 		this->running = false;
-		gSaveContext.linkAge = 0;
+		gSaveContext.linkAge = LINK_AGE_ADULT;
 		gSaveContext.createDebug();
 		gSaveContext.cutsceneIndex = 0xFFF3;
 		gSaveContext.sceneSetupIndex = 7;
