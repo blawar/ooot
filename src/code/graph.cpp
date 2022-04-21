@@ -415,6 +415,10 @@ void Graph_ThreadEntry(void* arg0)
 						frameCount++;
 					}
 				}
+				else
+				{
+					frameCount++;
+				}
 			}
 		}
 

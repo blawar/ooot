@@ -455,7 +455,7 @@ class TimerU16 : public Timer
 	}
 };
 
-#define FLOAT_STEP m_counterScaler
+#define FLOAT_STEP (1.0f / m_counterScaler)
 
 class CounterF
 {
@@ -561,13 +561,13 @@ class CounterF
 
 	CounterF& operator+=(float f)
 	{
-		m_counter += f * m_counterScaler;
+		m_counter += f / m_counterScaler;
 		return *this;
 	}
 
 	CounterF& operator-=(float f)
 	{
-		m_counter -= f * m_counterScaler;
+		m_counter -= f / m_counterScaler;
 		return *this;
 	}
 
