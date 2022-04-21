@@ -83,13 +83,13 @@ UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "Você entregou o comprovante\n
 
 DEFINE_MESSAGE(0x000D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "Você usou a Prescrição e\n"
-"recebeu um " COLOR(RED) "Olho de Sapo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"recebeu um " COLOR(RED) "Sapo Olhudo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
 "Seja rápido e entregue-o ao Lago \n"
 "Hylia enquanto estiver frio!"
 )
 
 DEFINE_MESSAGE(0x000E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "Você trocou o Olho de Sapo \n"
+UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "Você trocou o Sapo Olhudo \n"
 "pelos " COLOR(RED) "Melhores Colírios do Mundo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
 "Rápido! Leve-os ao Biggoron\n"
 "antes que eles estraguem!"
@@ -216,7 +216,7 @@ DEFINE_MESSAGE(0x0020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x0021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "A maldiçaõ foi quebrada!\n"
+UNSKIPPABLE "A maldição foi quebrada!\n"
 "Obrigado!!\n"
 "Aqui está uma recompensa para você!" EVENT
 )
@@ -327,7 +327,7 @@ DEFINE_MESSAGE(0x002F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 DEFINE_MESSAGE(0x0030, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  ITEM_ICON("\x06")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Estilingue de Fada" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
 "Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
-"você pode configurá-lo para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Pressione " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para tirar e segurá-lo.\n"
+"você pode configurá-lo para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Aperte " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para tirar e segurá-lo.\n"
 "Enquanto você segura o " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "você pode mirar \n"
 "com o " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Solte o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para disparar \n"
 "uma " COLOR(RED) "Semente Deku" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Se você quiser atirar \n"
@@ -336,101 +336,101 @@ UNSKIPPABLE  ITEM_ICON("\x06")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Es
 "para preparar uma semente."
 )
 
-/*Parei aqui na tradução*/
-
 DEFINE_MESSAGE(0x0031, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x03")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Fairy Bow" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subtela" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x03") "Press " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "to take it out\n"
-"and hold it. As you hold down\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " you can aim with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "." COLOR(YELLOW) " " COLOR(DEFAULT) "Release\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to let fly with an " COLOR(RED) "arrow" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x03")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Arco de Fada" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
+"você pode configurá-lo para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x03") "Aperte " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "para tirar e segurá-lo.\n"
+"Enquanto você segura o "
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " você pode mirar com o " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "." COLOR(YELLOW) " " COLOR(DEFAULT) "Solte o\n"
+COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para disparar uma " COLOR(RED) "flecha" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0032, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x02")  QUICKTEXT_ENABLE "You got " COLOR(RED) "Bombs" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subtela" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x02") "Use " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to lift and place\n"
-"it. Press " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " while running to\n"
-"throw it. If you see something\n"
-"suspicious, bomb it!"
+ITEM_ICON("\x02")  QUICKTEXT_ENABLE "Você achou as " COLOR(RED) "Bombas" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
+"você pode configurá-las para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x02") "Aperte " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para carregá-las.\n"
+"Aperte " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " enquanto corre para\n"
+"jogá-las. Se você ver algo\n"
+"suspeito, exploda tudo!"
 )
 
 DEFINE_MESSAGE(0x0033, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x09")  QUICKTEXT_ENABLE "You got " COLOR(RED) "Bombchu" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subtela" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x09") " Carry and place with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ".\n"
-"This is a new type bomb that\n"
-"can even crawl up walls.\n"
-"Aim well and release it!"
+ITEM_ICON("\x09")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Bombchu" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
+"você pode configurá-lo para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x09") " Carregue-o com o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ".\n"
+"Este é um novo tipo de bomba que\n"
+"pode inclusive subir nas paredes.\n"
+"Mire bem e solte-o!"
 )
 
 DEFINE_MESSAGE(0x0034, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x01")  QUICKTEXT_ENABLE "You got a " COLOR(RED) "Deku Nut" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subtela" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x01") "Set it to " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "and try \n"
-"throwing it! It will flash and \n"
-"stun the enemy!"
+ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Você achou a " COLOR(RED) "Noz Deku" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
+"você pode configurá-la para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x01") "Carregue-o no " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "e tente \n"
+"jogá-la! O seu flash vai \n"
+"atordoar o inimigo!"
 )
 
 DEFINE_MESSAGE(0x0035, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0E")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Boomerang" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subtela" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0E") "Press " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to use it to \n"
-"attack distant enemies!"
+UNSKIPPABLE  ITEM_ICON("\x0E")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Bumerangue" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
+"você pode configurá-lo para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0E") "Aperte " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para usá-lo para \n"
+"atacar inimigos distantes!"
 )
 
 DEFINE_MESSAGE(0x0036, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0A")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Hookshot" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"It's a spring-loaded chain that\n"
-"you can cast out to hook things." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "You can use it to drag\n"
-"distant items toward you, or\n"
-"you can use it to pull yourself\n"
-"toward something." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "While holding " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", you can\n"
-"aim with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Shoot it by\n"
-"releasing " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x0A")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Gancho" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"É uma corrente de mola que\n"
+"você pode lançá-lo para fisgar coisas." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "Você pode usá-lo para trazer\n"
+"itens distantes até você, ou\n"
+"você pode usá-lo para puxar a si mesmo\n"
+"até alguma coisa." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0A") "Enquanto segura o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", você pode\n"
+"mirar com o " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Atire-o\n"
+"soltando o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "."
 )
 
 DEFINE_MESSAGE(0x0037, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x00")  QUICKTEXT_ENABLE "You got a " COLOR(RED) "Deku Stick" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subtela" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x00") "Set it to " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and swing it\n"
-"with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x00") "When you want to put it away, \n"
-"stand still and press " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". \n"
-"You can carry up to 10 sticks,\n"
-"but don't waste them."
+ITEM_ICON("\x00")  QUICKTEXT_ENABLE "Você achou a " COLOR(RED) "Vara Deku" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Na " COLOR(YELLOW) "Subtela de Seleção de Item" COLOR(DEFAULT) ",\n"
+"você pode configurá-la para o " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " ou" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK ITEM_ICON("\x00") "Configure-o no " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e balance-o\n"
+"com o " COLOR(YELLOW) "[C]" COLOR(DEFAULT) "!" BOX_BREAK ITEM_ICON("\x00") "Quando quiser recolher, \n"
+"fique parado e aperte " COLOR(BLUE) "[A]" COLOR(DEFAULT) ". \n"
+"Você pode carregar até 10 varas,\n"
+"mas não desperdiçe-a."
 )
 
 DEFINE_MESSAGE(0x0038, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x11")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Megaton Hammer" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Press " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to smash and break \n"
-"junk! It's so heavy, you need to \n"
-"use two hands to swing it!"
+UNSKIPPABLE  ITEM_ICON("\x11")  QUICKTEXT_ENABLE "Você achou o " COLOR(RED) "Martelo Megaton" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Aperte " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para esmagar e quebrar \n"
+"tudo! É tão pesado, que você precisa \n"
+"usar duas mãos para usá-lo!"
 )
 
 DEFINE_MESSAGE(0x0039, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x0F")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Lens of Truth" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Set it to " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to \n"
-"look through it! Mysterious \n"
-"things are hidden everywhere!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0F") "Be sure to try to use it outside\n"
-"of the well. Seeing the truth will\n"
-"cost magic power, so press " COLOR(YELLOW) "[C]\n"
-COLOR(DEFAULT) "again to stop using it."
+UNSKIPPABLE  ITEM_ICON("\x0F")  QUICKTEXT_ENABLE "You achou a " COLOR(RED) "Lente da Verdade" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Configure-a no " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " e aperte " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " para \n"
+"ver por meio dela! Coisas \n"
+"misteriosas estão escondidas em todo o lugar!" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x0F") "Tente usá-la fora\n"
+"do poço. Ver a verdade vai\n"
+"custar poder mágico, então aperte " COLOR(YELLOW) "[C]\n"
+COLOR(DEFAULT) "novamnete para parar de usá-la."
 )
 
 DEFINE_MESSAGE(0x003A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x08")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Ocarina of Time" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This is the Royal Family's hidden \n"
-"treasure which Zelda left behind.\n"
-"It glows with a mystical light..."
+UNSKIPPABLE  ITEM_ICON("\x08")  QUICKTEXT_ENABLE "Você achou a " COLOR(RED) "Ocarina do Tempo" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"Este é o tesouro escondido da\n"
+"Família Real que a Zelda deixou para trás.\n"
+"Está brilhando com uma luz mística..."
 )
 
 DEFINE_MESSAGE(0x003B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-"You cast Farore's Wind!\n"
-THREE_CHOICE  COLOR(ADJUSTABLE) "Return to the Warp Point\n"
-"Dispel the Warp Point\n"
-"Exit" COLOR(DEFAULT)
+"Você usou o Vento de Farore\n"
+THREE_CHOICE  COLOR(ADJUSTABLE) "Voltar para o Portal\n"
+"Cancelar o Portal\n"
+"Sair" COLOR(DEFAULT)
 )
+
+/*We stopped here in the translation. Paramos aqui na tradução.*/
 
 DEFINE_MESSAGE(0x003C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  ITEM_ICON("\x67")  QUICKTEXT_ENABLE "You received the " COLOR(RED) "Fire\n"
@@ -916,7 +916,7 @@ TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
 )
 
 DEFINE_MESSAGE(0x007F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Deku Nuts   5 Pieces   15 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Noz Dekus   5 Pieces   15 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
 TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
 "Não comprar" COLOR(DEFAULT)
@@ -962,7 +962,7 @@ QUICKTEXT_ENABLE "You can't get this now." QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x0087, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Deku Nuts   10 pieces  30 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "Noz Dekus   10 pieces  30 Rupees" QUICKTEXT_DISABLE "\n"
 "\n"
 TWO_CHOICE  COLOR(ADJUSTABLE) "Comprar\n"
 "Não comprar" COLOR(DEFAULT)
@@ -1148,7 +1148,7 @@ COLOR(DEFAULT) "A long branch gathered from the\n"
 )
 
 DEFINE_MESSAGE(0x00A2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Deku Nuts  (10 pieces) 30 Rupees\n"
+QUICKTEXT_ENABLE  COLOR(RED) "Noz Dekus  (10 pieces) 30 Rupees\n"
 COLOR(DEFAULT) "Throw them to stun your enemies.\n"
 "You can buy only the amount you\n"
 "can actually carry." QUICKTEXT_DISABLE  PERSISTENT
@@ -1185,13 +1185,13 @@ COLOR(DEFAULT) "Drink to recover your magic power.\n"
 
 DEFINE_MESSAGE(0x00A7, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  ITEM_ICON("\x01")  QUICKTEXT_ENABLE "Now you can carry\n"
-"many " COLOR(RED) "Deku Nuts" COLOR(DEFAULT) "!\n"
+"many " COLOR(RED) "Noz Dekus" COLOR(DEFAULT) "!\n"
 "You can hold up to " COLOR(YELLOW) "30" COLOR(DEFAULT) " nuts!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x00A8, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  ITEM_ICON("\x01")  QUICKTEXT_ENABLE "You can now carry even\n"
-"more " COLOR(RED) "Deku Nuts" COLOR(DEFAULT) "! You can carry\n"
+"more " COLOR(RED) "Noz Dekus" COLOR(DEFAULT) "! You can carry\n"
 "up to " COLOR(YELLOW) "40" COLOR(RED) " " COLOR(DEFAULT) "nuts!" QUICKTEXT_DISABLE " "
 )
 
@@ -1263,7 +1263,7 @@ COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
 )
 
 DEFINE_MESSAGE(0x00B2, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Deku Nuts  (5 pieces)  15 Rupees\n"
+QUICKTEXT_ENABLE  COLOR(RED) "Noz Dekus  (5 pieces)  15 Rupees\n"
 COLOR(DEFAULT) "Throw them to stun your enemies.\n"
 "You can carry only a limited \n"
 "amount of them." QUICKTEXT_DISABLE  PERSISTENT
@@ -5474,7 +5474,7 @@ SHIFT("\x20") "does not have a fairy..." FADE("\x3C")
 
 DEFINE_MESSAGE(0x10A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 SFX("\x38\x82") "I surrender! In return, I will sell \n"
-"you Deku Nuts!\n"
+"you Noz Dekus!\n"
 COLOR(RED) "5 pieces   20 Rupees" COLOR(DEFAULT) " they are!" TEXTID("\x10\xA3")
 )
 
@@ -5850,7 +5850,7 @@ DEFINE_MESSAGE(0x10DB, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 SFX("\x38\x82") "All my young Deku Scrub brothers\n"
 "say...\n"
 "You have a horrible face!" BOX_BREAK SFX("\x38\x82") "But don't worry! We will reward\n"
-"you with many " COLOR(RED) "Deku Nuts" COLOR(DEFAULT) "." BOX_BREAK SFX("\x38\x82") "Of course, we will also enable \n"
+"you with many " COLOR(RED) "Noz Dekus" COLOR(DEFAULT) "." BOX_BREAK SFX("\x38\x82") "Of course, we will also enable \n"
 "you to carry more of them!" BOX_BREAK "Abracadabra..." BOX_BREAK SFX("\x38\x80") "Alakazaaaam!!" EVENT
 )
 
