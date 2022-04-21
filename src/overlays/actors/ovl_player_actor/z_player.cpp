@@ -218,7 +218,7 @@ void func_8084F104(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084F390(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084F608(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084F698(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084F710(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_FallingFromLight(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084F88C(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084F9A0(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084F9C0(Player* pthis, GlobalContext* globalCtx);
@@ -447,7 +447,7 @@ static u32 D_808535F0 = 0;
 static u32 D_808535F4 = 0;
 static s16 D_808535F8 = 0;
 static s16 D_808535FC = 0;
-static f32 D_80853600 = 0.0f;
+static f32 gDistanceToFloor = 0.0f;
 static s32 D_80853604 = 0;
 static s32 D_80853608 = 0;
 static s32 D_8085360C = 0;
@@ -4669,7 +4669,7 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
 		{
 			sp34 = pthis->unk_A84 - (s32)pthis->actor.world.pos.y;
 
-			if(!(pthis->stateFlags1 & (PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING | PLAYER_STATE1_29)) && !(pthis->actor.bgCheckFlags & BG_STATE_0) && (sp34 < 100) && (D_80853600 > 100.0f))
+			if(!(pthis->stateFlags1 & (PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING | PLAYER_STATE1_29)) && !(pthis->actor.bgCheckFlags & BG_STATE_0) && (sp34 < 100) && (gDistanceToFloor > 100.0f))
 			{
 				return 0;
 			}
@@ -4767,7 +4767,7 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
 			if(globalCtx->sceneLoadFlag == 0)
 			{
 				if((pthis->actor.world.pos.y < -4000.0f) ||
-				   (((pthis->unk_A7A == 5) || (pthis->unk_A7A == 12)) && ((D_80853600 < 100.0f) || (pthis->fallDistance > 400.0f) || ((globalCtx->sceneNum != SCENE_HAKADAN) && (pthis->fallDistance > 200.0f)))) ||
+				   (((pthis->unk_A7A == 5) || (pthis->unk_A7A == 12)) && ((gDistanceToFloor < 100.0f) || (pthis->fallDistance > 400.0f) || ((globalCtx->sceneNum != SCENE_HAKADAN) && (pthis->fallDistance > 200.0f)))) ||
 				   ((globalCtx->sceneNum == SCENE_GANON_FINAL) && (pthis->fallDistance > 320.0f)))
 				{
 					if(pthis->actor.bgCheckFlags & BG_STATE_0)
@@ -5421,7 +5421,7 @@ void func_8083AA10(Player* pthis, GlobalContext* globalCtx)
 
 				pthis->unk_89E = pthis->unk_A82;
 
-				if((pthis->actor.bgCheckFlags & BG_STATE_2) && !(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) && (D_80853604 != 6) && (D_80853604 != 9) && (D_80853600 > 20.0f) && (pthis->swordState == 0) && (ABS(sp5C) < 0x2000) &&
+				if((pthis->actor.bgCheckFlags & BG_STATE_2) && !(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) && (D_80853604 != 6) && (D_80853604 != 9) && (gDistanceToFloor > 20.0f) && (pthis->swordState == 0) && (ABS(sp5C) < 0x2000) &&
 				   (pthis->linearVelocity > 3.0f))
 				{
 					if((D_80853604 == 11) && !(pthis->stateFlags1 & PLAYER_STATE1_11))
@@ -5441,7 +5441,7 @@ void func_8083AA10(Player* pthis, GlobalContext* globalCtx)
 					return;
 				}
 
-				if((D_80853604 == 9) || (D_80853600 <= pthis->ageProperties->unk_34) || !func_8083A6AC(pthis, globalCtx))
+				if((D_80853604 == 9) || (gDistanceToFloor <= pthis->ageProperties->unk_34) || !func_8083A6AC(pthis, globalCtx))
 				{
 					func_80832284(globalCtx, pthis, &gPlayerAnim_003040);
 					return;
@@ -9554,7 +9554,7 @@ void Player_UpdateFunc_ZView_Backflip(Player* pthis, GlobalContext* globalCtx)
 				{
 					if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->unk_850 == 0) || (pthis->fallDistance > 0))
 					{
-						if((D_80853600 > 800.0f) || (pthis->stateFlags1 & PLAYER_STATE1_2))
+						if((gDistanceToFloor > 800.0f) || (pthis->stateFlags1 & PLAYER_STATE1_2))
 						{
 							func_80843E14(pthis, NA_SE_VO_LI_FALL_S);
 							pthis->stateFlags1 &= ~PLAYER_STATE1_2;
@@ -9566,7 +9566,7 @@ void Player_UpdateFunc_ZView_Backflip(Player* pthis, GlobalContext* globalCtx)
 				}
 				else
 				{
-					if((pthis->unk_850 == -1) && (pthis->fallDistance > 120.0f) && (D_80853600 > 280.0f))
+					if((pthis->unk_850 == -1) && (pthis->fallDistance > 120.0f) && (gDistanceToFloor > 280.0f))
 					{
 						pthis->unk_850 = -2;
 						func_80843E14(pthis, NA_SE_VO_LI_FALL_L);
@@ -10649,7 +10649,7 @@ void func_80846648(GlobalContext* globalCtx, Player* pthis)
 
 void func_80846660(GlobalContext* globalCtx, Player* pthis)
 {
-	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084F710, 0);
+	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_FallingFromLight, 0);
 	if((globalCtx->sceneNum == SCENE_SPOT06) && (gSaveContext.sceneSetupIndex >= 4))
 	{
 		pthis->unk_84F = 1;
@@ -11285,7 +11285,7 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 		pthis->actor.velocity.y = 0.0f;
 	}
 
-	D_80853600 = pthis->actor.world.pos.y - pthis->actor.floorHeight;
+	gDistanceToFloor = pthis->actor.world.pos.y - pthis->actor.floorHeight;
 	D_808535F4 = 0;
 
 	spC0 = pthis->actor.floorPoly;
@@ -14964,7 +14964,7 @@ void Player_UpdateFunc_8084F698(Player* pthis, GlobalContext* globalCtx)
 	Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_DEMO_KANKYO, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0x10);
 }
 
-void Player_UpdateFunc_8084F710(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_FallingFromLight(Player* pthis, GlobalContext* globalCtx)
 {
 	s32 pad;
 
@@ -14973,7 +14973,7 @@ void Player_UpdateFunc_8084F710(Player* pthis, GlobalContext* globalCtx)
 		pthis->actor.gravity = 0.0f;
 		pthis->actor.velocity.y = 0.0f;
 	}
-	else if(D_80853600 < 150.0f)
+	else if(gDistanceToFloor < 150.0f)
 	{
 		if(LinkAnimation_Update(globalCtx, &pthis->skelAnime))
 		{
@@ -17098,7 +17098,7 @@ void Player_Reset()
 	D_808535F4 = 0;
 	D_808535F8 = 0;
 	D_808535FC = 0;
-	D_80853600 = 0.0f;
+	gDistanceToFloor = 0.0f;
 	D_80853604 = 0;
 	D_80853608 = 0;
 	D_8085360C = 0;
