@@ -59,6 +59,7 @@ extern double FRAMERATE_SCALER;
 extern double FRAMERATE_SCALER_INV;
 extern float DEKU_NUT_SPAWN_SCALER;
 extern bool INTERPOLATE_ANIM;
+extern u8 SKIP_GFX_FRAME_MASK;
 
 #endif
 
@@ -454,7 +455,7 @@ class TimerU16 : public Timer
 	}
 };
 
-#define FLOAT_STEP m_counterScaler
+#define FLOAT_STEP (1.0f / m_counterScaler)
 
 class CounterF
 {
@@ -560,13 +561,13 @@ class CounterF
 
 	CounterF& operator+=(float f)
 	{
-		m_counter += f * m_counterScaler;
+		m_counter += f / m_counterScaler;
 		return *this;
 	}
 
 	CounterF& operator-=(float f)
 	{
-		m_counter -= f * m_counterScaler;
+		m_counter -= f / m_counterScaler;
 		return *this;
 	}
 
@@ -730,3 +731,5 @@ namespace oot
 	void setMaxFramerate(float framerate);
 	float getMaxFramerate();
 } // namespace oot
+
+float Round(float value);

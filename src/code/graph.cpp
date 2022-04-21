@@ -45,6 +45,7 @@ FaultClient sGraphFaultClient;
 CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
 
+static u64 frameCount = 0;
 static std::unique_ptr<oot::gamestate::Base> gCurrentGameState = nullptr;
 static std::unique_ptr<oot::gamestate::Base> gNextGameState = nullptr;
 
@@ -345,6 +346,11 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 		osSyncPrintf(VT_COL(RED, WHITE) "Debug 4 is dead(graph_alloc is empty)\n" VT_RST);
 	}
 
+	if(framerate_get_profile() == FramerateProfile::PROFILE_GAMEPLAY && SKIP_GFX_FRAME_MASK != 0 && (frameCount & SKIP_GFX_FRAME_MASK))
+	{
+		problem = true;
+	}
+
 	if(!problem)
 	{
 		Graph_TaskSet00(gfxCtx);
@@ -372,8 +378,6 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 		sGraphUpdateTime = time;
 	}
 }
-
-static u64 frameCount = 0;
 
 void Graph_ThreadEntry(void* arg0)
 {
@@ -408,9 +412,13 @@ void Graph_ThreadEntry(void* arg0)
 					{
 						Graph_Update(&gfxCtx, gCurrentGameState.get());
 						gfx_end_frame();
+						frameCount++;
 					}
 				}
-				frameCount++;
+				else
+				{
+					frameCount++;
+				}
 			}
 		}
 

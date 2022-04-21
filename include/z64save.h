@@ -445,6 +445,9 @@ enum SunsSongState
 #define LINK_IS_ADULT (gSaveContext.linkAge == 0)
 #define LINK_IS_CHILD (gSaveContext.linkAge == 1)
 
+#define LINK_AGE_ADULT 0
+#define LINK_AGE_CHILD 1
+
 #define YEARS_CHILD 5
 #define YEARS_ADULT 17
 #define LINK_AGE_IN_YEARS (!LINK_IS_ADULT ? YEARS_CHILD : YEARS_ADULT)

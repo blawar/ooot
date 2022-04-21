@@ -782,7 +782,7 @@ Gfx* sBootDListGroups[][2] = {
     {gLinkAdultLeftHoverBootDL, gLinkAdultRightHoverBootDL},
 };
 
-void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots, s32 face, OverrideLimbDrawOpa overrideLimbDraw, PostLimbDrawOpa postLimbDraw, void* data)
+void Player_DrawSkelWithEquipment(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots, s32 face, OverrideLimbDrawOpa overrideLimbDraw, PostLimbDrawOpa postLimbDraw, void* data)
 {
 	Color_RGB8* color;
 	s32 eyeIndex = (jointTable[22].x & 0xF) - 1;
@@ -807,9 +807,13 @@ void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable,
 	color = &sTunicColors[tunic];
 	gDPSetEnvColor(POLY_OPA_DISP++, color->r, color->g, color->b, 0);
 
+#ifdef ENABLE_LOD
 	sDListsLodOffset = lod * 2;
-
 	SkelAnime_DrawFlexLod(globalCtx, skeleton, jointTable, dListCount, overrideLimbDraw, postLimbDraw, data, lod);
+#else
+	sDListsLodOffset = 0;
+	SkelAnime_DrawFlexLod(globalCtx, skeleton, jointTable, dListCount, overrideLimbDraw, postLimbDraw, data, 0);
+#endif
 
 	if((overrideLimbDraw != func_800902F0) && (overrideLimbDraw != func_80090440) && (gSaveContext.gameMode != 3))
 	{
@@ -986,10 +990,10 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 
 		pos->y -= pthis->unk_6C4;
 
-		if(pthis->unk_6C2 != 0)
+		if(pthis->rotationX != 0)
 		{
-			Matrix_Translate(pos->x, ((Math_CosS(pthis->unk_6C2) - 1.0f) * 200.0f) + pos->y, pos->z, MTXMODE_APPLY);
-			Matrix_RotateX(pthis->unk_6C2 * (M_PI / 0x8000), MTXMODE_APPLY);
+			Matrix_Translate(pos->x, ((Math_CosS(pthis->rotationX) - 1.0f) * 200.0f) + pos->y, pos->z, MTXMODE_APPLY);
+			Matrix_RotateX(pthis->rotationX * (M_PI / 0x8000), MTXMODE_APPLY);
 			Matrix_RotateZYX(rot->x, rot->y, rot->z, MTXMODE_APPLY);
 			pos->x = pos->y = pos->z = 0.0f;
 			rot->x = rot->y = rot->z = 0;
@@ -1792,7 +1796,7 @@ void func_80091A24(
 
 	gSPSegment(POLY_OPA_DISP++, 0x0C, gCullBackDList);
 
-	func_8008F470(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, 0, tunic, boots, 0, func_80091880, NULL, &sp12C);
+	Player_DrawSkelWithEquipment(globalCtx, skelAnime->skeleton, skelAnime->jointTable, skelAnime->dListCount, 0, tunic, boots, 0, func_80091880, NULL, &sp12C);
 
 	gSPEndDisplayList(POLY_OPA_DISP++);
 	gSPEndDisplayList(POLY_XLU_DISP++);

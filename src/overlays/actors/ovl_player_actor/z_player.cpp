@@ -198,12 +198,12 @@ void Player_ActionCrawlTunnelEnter(Player* pthis, GlobalContext* globalCtx);
 void Player_ActionCrawlTunnelExit(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084CC98(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084D3E4(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084D610(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_SwimTreadingWater(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084D7C4(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084D84C(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_SwimForward(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084DAB4(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_8084E1EC(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_SwimDiving(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_SwimSurfacing(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8084E30C(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_DeathDrown(Player* pthis, GlobalContext* globalCtx);
 void func_8084E3C4(Player* pthis, GlobalContext* globalCtx);
@@ -1141,7 +1141,7 @@ void func_80832340(GlobalContext* globalCtx, Player* pthis)
 		}
 	}
 
-	pthis->stateFlags2 &= ~(PLAYER_STATE2_10 | PLAYER_STATE2_11);
+	pthis->stateFlags2 &= ~(PLAYER_STATE2_SURFACING | PLAYER_STATE2_11);
 }
 
 void func_808323B4(GlobalContext* globalCtx, Player* pthis)
@@ -4606,7 +4606,7 @@ void func_80838E70(GlobalContext* globalCtx, Player* pthis, f32 arg2, s16 arg3)
 
 void func_80838F18(GlobalContext* globalCtx, Player* pthis)
 {
-	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084D610, 0);
+	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_SwimTreadingWater, 0);
 	func_80832C6C(globalCtx, pthis, &gPlayerAnim_003328);
 }
 
@@ -5756,7 +5756,7 @@ s32 func_8083B644(Player* pthis, GlobalContext* globalCtx)
 		{
 			if(!(pthis->stateFlags1 & PLAYER_STATE1_11) || ((pthis->heldActor != NULL) && (sp28 || (sp34 == pthis->heldActor) || (sp2C == pthis->heldActor) || ((sp34 != NULL) && (sp34->flags & ACTOR_FLAG_16)))))
 			{
-				if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (Player_IsSwimmingWithoutIronBoots(pthis) && !(pthis->stateFlags2 & PLAYER_STATE2_10)))
+				if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) || (Player_IsSwimmingWithoutIronBoots(pthis) && !(pthis->stateFlags2 & PLAYER_STATE2_SURFACING)))
 				{
 					if(sp34 != NULL)
 					{
@@ -5821,7 +5821,7 @@ s32 func_8083B8F4(Player* pthis, GlobalContext* globalCtx)
 {
 	if(!(pthis->stateFlags1 & (PLAYER_STATE1_11 | PLAYER_STATE_HORSE_MOUNTED)) && Camera_CheckValidMode(Gameplay_GetCamera(globalCtx, 0), 6))
 	{
-		if((pthis->actor.bgCheckFlags & BG_STATE_0) || (Player_IsSwimmingWithoutIronBoots(pthis) && (pthis->actor.yDistToWater < pthis->ageProperties->unk_2C)))
+		if((pthis->actor.bgCheckFlags & BG_STATE_0) || (Player_IsSwimmingWithoutIronBoots(pthis) && (pthis->actor.yDistToWater < pthis->ageProperties->maxDiveDepth)))
 		{
 			pthis->unk_6AD = 1;
 			return 1;
@@ -6459,15 +6459,15 @@ void func_8083D0A8(GlobalContext* globalCtx, Player* pthis, f32 arg2)
 
 s32 func_8083D12C(GlobalContext* globalCtx, Player* pthis, Input* arg2)
 {
-	if(!(pthis->stateFlags1 & PLAYER_STATE1_10) && !(pthis->stateFlags2 & PLAYER_STATE2_10))
+	if(!(pthis->stateFlags1 & PLAYER_STATE1_10) && !(pthis->stateFlags2 & PLAYER_STATE2_SURFACING))
 	{
-		if((arg2 == NULL) || (CHECK_BTN_ALL(arg2->press.button, BTN_A) && (ABS(pthis->unk_6C2) < 12000) && (pthis->currentBoots != PLAYER_BOOTS_IRON)))
+		if((arg2 == NULL) || (CHECK_BTN_ALL(arg2->press.button, BTN_A) && (ABS(pthis->rotationX) < 12000) && (pthis->currentBoots != PLAYER_BOOTS_IRON)))
 		{
-			Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084DC48, 0);
+			Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_SwimDiving, 0);
 			func_80832264(globalCtx, pthis, &gPlayerAnim_003308);
 
-			pthis->unk_6C2 = 0;
-			pthis->stateFlags2 |= PLAYER_STATE2_10;
+			pthis->rotationX = 0;
+			pthis->stateFlags2 |= PLAYER_STATE2_SURFACING;
 			pthis->actor.velocity.y = 0.0f;
 
 			if(arg2 != NULL)
@@ -6480,17 +6480,17 @@ s32 func_8083D12C(GlobalContext* globalCtx, Player* pthis, Input* arg2)
 		}
 	}
 
-	if((pthis->stateFlags1 & PLAYER_STATE1_10) || (pthis->stateFlags2 & PLAYER_STATE2_10))
+	if((pthis->stateFlags1 & PLAYER_STATE1_10) || (pthis->stateFlags2 & PLAYER_STATE2_SURFACING))
 	{
 		if(pthis->actor.velocity.y > 0.0f)
 		{
 			if(pthis->actor.yDistToWater < pthis->ageProperties->unk_30)
 			{
-				pthis->stateFlags2 &= ~PLAYER_STATE2_10;
+				pthis->stateFlags2 &= ~PLAYER_STATE2_SURFACING;
 
 				if(arg2 != NULL)
 				{
-					Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084E1EC, 1);
+					Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_SwimSurfacing, 1);
 
 					if(pthis->stateFlags1 & PLAYER_STATE1_10)
 					{
@@ -6519,7 +6519,7 @@ s32 func_8083D12C(GlobalContext* globalCtx, Player* pthis, Input* arg2)
 void func_8083D330(GlobalContext* globalCtx, Player* pthis)
 {
 	func_80832284(globalCtx, pthis, &gPlayerAnim_0032F0);
-	pthis->unk_6C2 = 16000;
+	pthis->rotationX = DEGF_TO_BINANG(87.89200); // 16000;
 	pthis->unk_850 = 1;
 }
 
@@ -6529,25 +6529,25 @@ void func_8083D36C(GlobalContext* globalCtx, Player* pthis)
 	{
 		func_80832564(globalCtx, pthis);
 
-		if((pthis->currentBoots != PLAYER_BOOTS_IRON) && (pthis->stateFlags2 & PLAYER_STATE2_10))
+		if((pthis->currentBoots != PLAYER_BOOTS_IRON) && (pthis->stateFlags2 & PLAYER_STATE2_SURFACING))
 		{
-			pthis->stateFlags2 &= ~PLAYER_STATE2_10;
+			pthis->stateFlags2 &= ~PLAYER_STATE2_SURFACING;
 			func_8083D12C(globalCtx, pthis, 0);
 			pthis->unk_84F = 1;
 		}
 		else if(Player_UpdateFunc_80844A44 == pthis->playerUpdateFunct)
 		{
-			Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084DC48, 0);
+			Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_SwimDiving, 0);
 			func_8083D330(globalCtx, pthis);
 		}
 		else
 		{
-			Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084D610, 1);
+			Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_SwimTreadingWater, 1);
 			func_80832B0C(globalCtx, pthis, (pthis->actor.bgCheckFlags & BG_STATE_0) ? &gPlayerAnim_003330 : &gPlayerAnim_0032E0);
 		}
 	}
 
-	if(!(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) || (pthis->actor.yDistToWater < pthis->ageProperties->unk_2C))
+	if(!(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) || (pthis->actor.yDistToWater < pthis->ageProperties->maxDiveDepth))
 	{
 		if(func_8083CFA8(globalCtx, pthis, pthis->actor.velocity.y, 500))
 		{
@@ -6561,7 +6561,7 @@ void func_8083D36C(GlobalContext* globalCtx, Player* pthis)
 	}
 
 	pthis->stateFlags1 |= PLAYER_STATE_SWIMMING; // Swimming
-	pthis->stateFlags2 |= PLAYER_STATE2_10;
+	pthis->stateFlags2 |= PLAYER_STATE2_SURFACING;
 	pthis->stateFlags1 &= ~(PLAYER_STATE1_18 | PLAYER_STATE1_19);
 	pthis->unk_854 = 0.0f;
 
@@ -6570,7 +6570,7 @@ void func_8083D36C(GlobalContext* globalCtx, Player* pthis)
 
 void func_8083D53C(GlobalContext* globalCtx, Player* pthis)
 {
-	if(pthis->actor.yDistToWater < pthis->ageProperties->unk_2C)
+	if(pthis->actor.yDistToWater < pthis->ageProperties->maxDiveDepth)
 	{
 		Audio_SetBaseFilter(0);
 		pthis->unk_840 = 0;
@@ -6586,11 +6586,11 @@ void func_8083D53C(GlobalContext* globalCtx, Player* pthis)
 
 	if((Player_UpdateFunc_80845668 != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084BDFC != pthis->playerUpdateFunct))
 	{
-		if(pthis->ageProperties->unk_2C < pthis->actor.yDistToWater)
+		if(pthis->ageProperties->maxDiveDepth < pthis->actor.yDistToWater)
 		{
 			if(!(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) || (!((pthis->currentBoots == PLAYER_BOOTS_IRON) && (pthis->actor.bgCheckFlags & BG_STATE_0)) && (Player_UpdateFunc_8084E30C != pthis->playerUpdateFunct) && (Player_UpdateFunc_DeathDrown != pthis->playerUpdateFunct) &&
-									     (Player_UpdateFunc_8084D610 != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084D84C != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084DAB4 != pthis->playerUpdateFunct) &&
-									     (Player_UpdateFunc_8084DC48 != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084E1EC != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084D7C4 != pthis->playerUpdateFunct)))
+									     (Player_UpdateFunc_SwimTreadingWater != pthis->playerUpdateFunct) && (Player_UpdateFunc_SwimForward != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084DAB4 != pthis->playerUpdateFunct) &&
+									     (Player_UpdateFunc_SwimDiving != pthis->playerUpdateFunct) && (Player_UpdateFunc_SwimSurfacing != pthis->playerUpdateFunct) && (Player_UpdateFunc_8084D7C4 != pthis->playerUpdateFunct)))
 			{
 				func_8083D36C(globalCtx, pthis);
 				return;
@@ -7006,7 +7006,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx)
 					func_808323B4(globalCtx, pthis);
 					func_8083AE40(pthis, giEntry->objectId);
 
-					if(!(pthis->stateFlags2 & PLAYER_STATE2_10) || (pthis->currentBoots == PLAYER_BOOTS_IRON))
+					if(!(pthis->stateFlags2 & PLAYER_STATE2_SURFACING) || (pthis->currentBoots == PLAYER_BOOTS_IRON))
 					{
 						Player_BeginEnterTunnel(globalCtx, pthis, func_8083A434);
 						func_808322D0(globalCtx, pthis, &gPlayerAnim_002788);
@@ -7022,7 +7022,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx)
 				pthis->getItemId = GI_NONE;
 			}
 		}
-		else if(CHECK_BTN_ALL(sControlInput->press.button, BTN_A) && !(pthis->stateFlags1 & PLAYER_STATE1_11) && !(pthis->stateFlags2 & PLAYER_STATE2_10))
+		else if(CHECK_BTN_ALL(sControlInput->press.button, BTN_A) && !(pthis->stateFlags1 & PLAYER_STATE1_11) && !(pthis->stateFlags2 & PLAYER_STATE2_SURFACING))
 		{
 			if(pthis->getItemId != GI_NONE)
 			{
@@ -7147,7 +7147,7 @@ s32 func_8083EC18(Player* pthis, GlobalContext* globalCtx, u32 arg2)
 {
 	if(pthis->wallHeight >= 79.0f)
 	{
-		if(!(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) || (pthis->currentBoots == PLAYER_BOOTS_IRON) || (pthis->actor.yDistToWater < pthis->ageProperties->unk_2C))
+		if(!(pthis->stateFlags1 & PLAYER_STATE_SWIMMING) || (pthis->currentBoots == PLAYER_BOOTS_IRON) || (pthis->actor.yDistToWater < pthis->ageProperties->maxDiveDepth))
 		{
 			s32 sp8C = (arg2 & 8) ? 2 : 0;
 
@@ -11116,7 +11116,7 @@ void func_808473D4(GlobalContext* globalCtx, Player* pthis)
 					sp24 = CLAMP(sp24, 0, 7);
 					doAction = sDiveDoActions[sp24];
 				}
-				else if(sp1C && !(pthis->stateFlags2 & PLAYER_STATE2_10))
+				else if(sp1C && !(pthis->stateFlags2 & PLAYER_STATE2_SURFACING))
 				{
 					doAction = DO_ACTION_DIVE;
 				}
@@ -11961,9 +11961,9 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 				if(pthis->stateFlags1 & PLAYER_STATE_SWIMMING)
 				{
 					func_80832340(globalCtx, pthis);
-					if(pthis->ageProperties->unk_2C < pthis->actor.yDistToWater)
+					if(pthis->ageProperties->maxDiveDepth < pthis->actor.yDistToWater)
 					{
-						pthis->stateFlags2 |= PLAYER_STATE2_10;
+						pthis->stateFlags2 |= PLAYER_STATE2_SURFACING;
 					}
 				}
 			}
@@ -11974,7 +11974,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 					if((pthis->prevBoots == PLAYER_BOOTS_IRON) || (pthis->actor.bgCheckFlags & BG_STATE_0))
 					{
 						func_8083D36C(globalCtx, pthis);
-						pthis->stateFlags2 &= ~PLAYER_STATE2_10;
+						pthis->stateFlags2 &= ~PLAYER_STATE2_SURFACING;
 					}
 				}
 			}
@@ -12005,7 +12005,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 			pthis->unk_844--;
 		}
 
-		Math_ScaledStepToS(&pthis->unk_6C2, 0, 400);
+		Math_ScaledStepToS(&pthis->rotationX, 0, 400);
 		func_80032CB4(pthis->unk_3A8, 20, 80, 6);
 
 		pthis->actor.shape.face = pthis->unk_3A8[0] + ((globalCtx->gameplayFrames & 32) ? 0 : 3);
@@ -12180,7 +12180,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 				func_8002DF54(globalCtx, NULL, 6);
 				func_80832210(pthis);
 			}
-			else if((pthis->csMode == 0) && !(pthis->stateFlags2 & PLAYER_STATE2_10) && (globalCtx->csCtx.state != CS_STATE_UNSKIPPABLE_INIT))
+			else if((pthis->csMode == 0) && !(pthis->stateFlags2 & PLAYER_STATE2_SURFACING) && (globalCtx->csCtx.state != CS_STATE_UNSKIPPABLE_INIT))
 			{
 				func_8002DF54(globalCtx, NULL, 0x31);
 				func_80832210(pthis);
@@ -12429,7 +12429,7 @@ static Gfx* sMaskDlists[PLAYER_MASK_MAX - 1] = {
 
 static Vec3s D_80854864 = {0, 0, 0};
 
-void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDList, OverrideLimbDrawOpa overrideLimbDraw)
+static void Player_DrawLOD(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDList, OverrideLimbDrawOpa overrideLimbDraw)
 {
 	static s32 D_8085486C = 255;
 
@@ -12438,7 +12438,7 @@ void func_8084A0E8(GlobalContext* globalCtx, Player* pthis, s32 lod, Gfx* cullDL
 	gSPSegment(POLY_OPA_DISP++, 0x0C, cullDList);
 	gSPSegment(POLY_XLU_DISP++, 0x0C, cullDList);
 
-	func_8008F470(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, lod, pthis->currentTunic, pthis->currentBoots, pthis->actor.shape.face, overrideLimbDraw, func_80090D20, pthis);
+	Player_DrawSkelWithEquipment(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, lod, pthis->currentTunic, pthis->currentBoots, pthis->actor.shape.face, overrideLimbDraw, func_80090D20, pthis);
 
 	if((overrideLimbDraw == func_80090014) && (pthis->currentMask != PLAYER_MASK_NONE))
 	{
@@ -12516,8 +12516,8 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 	if(!(pthis->stateFlags2 & PLAYER_STATE2_29))
 	{
 		OverrideLimbDrawOpa overrideLimbDraw = func_80090014;
+#ifdef ENABLE_LOD
 		s32 lod;
-		s32 pad;
 
 		if((pthis->csMode != 0) || (Player_IsTargetingAnActor(pthis) && 0) || (pthis->actor.projectedPos.z < 160.0f))
 		{
@@ -12527,6 +12527,7 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		{
 			lod = 1;
 		}
+#endif
 
 		func_80093C80(globalCtx);
 		func_80093D84(globalCtx->gfxCtx);
@@ -12572,7 +12573,11 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 			Matrix_Scale(1.1f, 0.95f, 1.05f, MTXMODE_APPLY);
 			Matrix_RotateY(-sp74, MTXMODE_APPLY);
 			Matrix_RotateX(-sp78, MTXMODE_APPLY);
-			func_8084A0E8(globalCtx, pthis, lod, gCullFrontDList, overrideLimbDraw);
+#ifdef ENABLE_LOD
+			Player_DrawLOD(globalCtx, pthis, lod, gCullFrontDList, overrideLimbDraw);
+#else
+			Player_DrawLOD(globalCtx, pthis, 0, gCullFrontDList, overrideLimbDraw);
+#endif
 			pthis->actor.scale.y = -pthis->actor.scale.y;
 			Matrix_Pop();
 		}
@@ -12580,7 +12585,11 @@ void Player_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		gSPClearGeometryMode(POLY_OPA_DISP++, G_CULL_BOTH);
 		gSPClearGeometryMode(POLY_XLU_DISP++, G_CULL_BOTH);
 
-		func_8084A0E8(globalCtx, pthis, lod, gCullBackDList, overrideLimbDraw);
+#ifdef ENABLE_LOD
+		Player_DrawLOD(globalCtx, pthis, lod, gCullBackDList, overrideLimbDraw);
+#else
+		Player_DrawLOD(globalCtx, pthis, 0, gCullBackDList, overrideLimbDraw);
+#endif
 
 		if(pthis->invincibilityTimer > 0)
 		{
@@ -12734,7 +12743,7 @@ void func_8084B000(Player* pthis)
 		yDistToWater = pthis->actor.yDistToWater;
 		if(yDistToWater > 100.0f)
 		{
-			pthis->stateFlags2 |= PLAYER_STATE2_10;
+			pthis->stateFlags2 |= PLAYER_STATE2_SURFACING;
 		}
 	}
 
@@ -12899,7 +12908,7 @@ void Player_UpdateFunc_8084B530(Player* pthis, GlobalContext* globalCtx)
 	}
 	else if(Player_IsSwimmingWithoutIronBoots(pthis))
 	{
-		Player_UpdateFunc_8084D610(pthis, globalCtx);
+		Player_UpdateFunc_SwimTreadingWater(pthis, globalCtx);
 	}
 	else if(!Player_IsTargetingAnActor(pthis) && LinkAnimation_Update(globalCtx, &pthis->skelAnime))
 	{
@@ -13892,7 +13901,7 @@ void func_8084D530(Player* pthis, f32* arg1, f32 arg2, s16 arg3)
 
 void func_8084D574(GlobalContext* globalCtx, Player* pthis, s16 arg2)
 {
-	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084D84C, 0);
+	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_SwimForward, 0);
 	pthis->actor.shape.rot.y = pthis->currentYaw = arg2;
 	func_80832C6C(globalCtx, pthis, &gPlayerAnim_0032F0);
 }
@@ -13903,7 +13912,7 @@ void func_8084D5CC(GlobalContext* globalCtx, Player* pthis)
 	func_80832C6C(globalCtx, pthis, &gPlayerAnim_0032F0);
 }
 
-void Player_UpdateFunc_8084D610(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_SwimTreadingWater(Player* pthis, GlobalContext* globalCtx)
 {
 	f32 joystickMagnitude;
 	s16 targetYaw;
@@ -13973,7 +13982,7 @@ void Player_UpdateFunc_8084D7C4(Player* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void Player_UpdateFunc_8084D84C(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_SwimForward(Player* pthis, GlobalContext* globalCtx)
 {
 	f32 joystickMagnitude;
 	s16 targetYaw;
@@ -14094,7 +14103,7 @@ void func_8084DBC4(GlobalContext* globalCtx, Player* pthis, f32 arg2)
 	func_8084AEEC(pthis, &pthis->actor.velocity.y, arg2, pthis->currentYaw);
 }
 
-void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_SwimDiving(Player* pthis, GlobalContext* globalCtx)
 {
 	f32 sp2C;
 
@@ -14128,7 +14137,7 @@ void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx)
 			}
 
 			func_8084B158(globalCtx, pthis, sControlInput, pthis->actor.velocity.y);
-			pthis->unk_6C2 = 16000;
+			pthis->rotationX = DEGF_TO_BINANG(87.89200); // 16000;
 
 			if(CHECK_BTN_ALL(sControlInput->cur.button, BTN_A) && !func_8083E5A8(pthis, globalCtx) && !(pthis->actor.bgCheckFlags & BG_STATE_0) && (pthis->actor.yDistToWater < D_80854784[CUR_UPG_VALUE(UPG_SCALE)]))
 			{
@@ -14145,7 +14154,7 @@ void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx)
 			LinkAnimation_Update(globalCtx, &pthis->skelAnime);
 			func_8084B000(pthis);
 
-			if(pthis->unk_6C2 < 10000)
+			if(pthis->rotationX < 10000) // DEGF_TO_BINANG(54.932502)
 			{
 				pthis->unk_84F++;
 				pthis->unk_850 = pthis->actor.yDistToWater;
@@ -14162,7 +14171,7 @@ void Player_UpdateFunc_8084DC48(Player* pthis, GlobalContext* globalCtx)
 			}
 
 			func_8084B158(globalCtx, pthis, sControlInput, fabsf(pthis->actor.velocity.y));
-			Math_ScaledStepToS(&pthis->unk_6C2, -10000, 800);
+			Math_ScaledStepToS(&pthis->rotationX, -10000, 800);
 
 			if(sp2C > 8.0f)
 			{
@@ -14247,7 +14256,7 @@ s32 func_8084DFF4(GlobalContext* globalCtx, Player* pthis)
 	return 0;
 }
 
-void Player_UpdateFunc_8084E1EC(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_SwimSurfacing(Player* pthis, GlobalContext* globalCtx)
 {
 	pthis->stateFlags2 |= PLAYER_STATE2_5;
 
@@ -15624,7 +15633,7 @@ void Player_UpdateFunc_Hookshot(Player* pthis, GlobalContext* globalCtx)
 		pthis->linearVelocity = 1.0f;
 		pthis->actor.velocity.y = 0.0f;
 		func_80837B9C(pthis, globalCtx);
-		pthis->stateFlags2 &= ~PLAYER_STATE2_10;
+		pthis->stateFlags2 &= ~PLAYER_STATE2_SURFACING;
 		pthis->actor.bgCheckFlags |= BG_STATE_0;
 		pthis->stateFlags1 |= PLAYER_STATE1_2;
 		return;
@@ -16058,7 +16067,7 @@ void func_80851314(Player* pthis)
 void func_80851368(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2)
 {
 	pthis->stateFlags1 |= PLAYER_STATE_SWIMMING; // Swimming
-	pthis->stateFlags2 |= PLAYER_STATE2_10;
+	pthis->stateFlags2 |= PLAYER_STATE2_SURFACING;
 	pthis->stateFlags1 &= ~(PLAYER_STATE1_18 | PLAYER_STATE1_19);
 
 	func_80832284(globalCtx, pthis, &gPlayerAnim_0032F0);
@@ -16077,7 +16086,7 @@ void func_808513BC(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 		else
 		{
 			func_8084B158(globalCtx, pthis, NULL, fabsf(pthis->actor.velocity.y));
-			Math_ScaledStepToS(&pthis->unk_6C2, -10000, 800);
+			Math_ScaledStepToS(&pthis->rotationX, -10000, 800);
 			func_8084AEEC(pthis, &pthis->actor.velocity.y, 4.0f, pthis->currentYaw);
 		}
 		return;

@@ -433,12 +433,12 @@ void EnFr_JumpingOutOfWater(EnFr* pthis, GlobalContext* globalCtx)
 	Vec3f vec1;
 	Vec3f vec2;
 
-	if(pthis->skelAnime.curFrame == 6.0f)
+	if(Round(pthis->skelAnime.curFrame) == 6.0f)
 	{
 		sEnFrPointers.flags++;
 		pthis->skelAnime.playSpeed = 0.0f;
 	}
-	else if(pthis->skelAnime.curFrame == 3.0f)
+	else if(Round(pthis->skelAnime.curFrame) == 3.0f)
 	{
 		pthis->actor.gravity = -10.0f;
 		pthis->actor.speedXZ = 0.0f;
@@ -451,7 +451,7 @@ void EnFr_JumpingOutOfWater(EnFr* pthis, GlobalContext* globalCtx)
 	Matrix_MultVec3f(&vec1, &vec2);
 	pthis->actor.world.pos.x = pthis->posLogSpot.x + vec2.x;
 	pthis->actor.world.pos.z = pthis->posLogSpot.z + vec2.z;
-	if(pthis->skelAnime.curFrame >= 3.0f)
+	if(Round(pthis->skelAnime.curFrame) >= 3.0f)
 	{
 		Math_ApproachF(&pthis->xzDistToLogSpot, 0.0f, 1.0f, 10.0f);
 	}
@@ -502,11 +502,11 @@ void EnFr_JumpingUp(EnFr* pthis, GlobalContext* globalCtx)
 {
 	f32 yDistToLogSpot;
 
-	if(pthis->skelAnime.curFrame == 6.0f)
+	if(Round(pthis->skelAnime.curFrame) == 6.0f)
 	{
 		pthis->skelAnime.playSpeed = 0.0f;
 	}
-	else if(pthis->skelAnime.curFrame == 3.0f)
+	else if(Round(pthis->skelAnime.curFrame) == 3.0f)
 	{
 		pthis->actor.gravity = -10.0f;
 		pthis->actor.velocity.y = 25.0f;
@@ -535,11 +535,11 @@ void EnFr_JumpingBackIntoWater(EnFr* pthis, GlobalContext* globalCtx)
 	f32 yUnderwater = sLogSpotToFromWater[pthis->actor.params].yDist + pthis->posLogSpot.y;
 
 	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->actor.world.rot.y, 2, 10000, 100);
-	if(pthis->skelAnime.curFrame == 6.0f)
+	if(Round(pthis->skelAnime.curFrame) == 6.0f)
 	{
 		pthis->skelAnime.playSpeed = 0.0f;
 	}
-	else if(pthis->skelAnime.curFrame == 3.0f)
+	else if(Round(pthis->skelAnime.curFrame) == 3.0f)
 	{
 		pthis->actor.speedXZ = 6.0f;
 		pthis->actor.gravity = -10.0f;

@@ -216,6 +216,16 @@ namespace oot
 				return m_useXInput;
 			}
 
+			const bool& useDInput() const
+			{
+				return m_useDInput;
+			}
+
+			bool& useDInput()
+			{
+				return m_useDInput;
+			}
+
 			const bool& invertLeftStickY() const
 			{
 				return m_invertLeftStickY;
@@ -270,6 +280,7 @@ namespace oot
 			bool m_cButtonsOnRightStick = false;
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
+			bool m_useDInput = false;
 
 			bool m_invertLeftStickY = false;
 			bool m_invertRightStickY = false;

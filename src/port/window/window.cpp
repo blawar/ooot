@@ -4,7 +4,16 @@
 #include "state.h"
 #include "z64.h"
 
-#define DROP_FRAME_LIMIT m_refreshInterval
+#if defined(_MSC_VER) && defined(_DEBUG)
+//#define DEBUG_FRAME_PACING
+#endif
+
+#ifdef DEBUG_FRAME_PACING
+#include <windows.h>
+#include "debugapi.h"
+#endif
+
+#define DROP_FRAME_LIMIT (m_refreshInterval)
 
 namespace platform::window
 {
@@ -24,7 +33,7 @@ namespace platform::window
 	{
 		// const auto frameAlignment = (m_refreshRate - (m_lastFrameDuration % m_refreshRate)) / 2;
 		// const std::chrono::time_point<std::chrono::steady_clock> targetFrameStart = m_nextFrameTime - MIN(m_lastFrameDuration + frameAlignment, m_lastSwapDuration);
-		const std::chrono::time_point<std::chrono::high_resolution_clock> targetFrameStart = m_nextFrameTime - m_lastFrameDuration;
+		const std::chrono::time_point<std::chrono::high_resolution_clock> targetFrameStart = m_nextFrameTime;// - m_lastFrameDuration;
 
 		auto timeDelta = std::chrono::duration_cast<std::chrono::microseconds>(targetFrameStart - std::chrono::high_resolution_clock::now());
 
@@ -32,7 +41,7 @@ namespace platform::window
 		{
 			dropped_frame = std::chrono::high_resolution_clock::now() > targetFrameStart + DROP_FRAME_LIMIT + std::chrono::milliseconds(2);
 
-#if defined(_MSC_VER) && defined(DEBUG)
+#ifdef DEBUG_FRAME_PACING
 			static int dropped_frames = 0;
 			static u64 frame_counter = 0;
 
@@ -41,15 +50,15 @@ namespace platform::window
 				char buffer[128];
 				float ms = m_lastSwapDuration.count() / 1000.0f;
 				sprintf(buffer, "swap duration %2.2f ms\r\n", ms);
-				OutputDebugString(buffer);
+				OutputDebugStringA(buffer);
 			}
 
 			if(dropped_frame)
 			{
 				char buffer[128];
-				int diff = (std::chrono::high_resolution_clock::now() - (targetFrameStart + m_refreshRate)).count() / 1000000;
-				sprintf(buffer, "dropped frame %d, missed by %d ms\r\n", ++dropped_frames, diff);
-				OutputDebugString(buffer);
+				//int diff = (std::chrono::high_resolution_clock::now() - (targetFrameStart + m_targetFrameRate)).count() / 1000000;
+				sprintf(buffer, "dropped frame %d, missed by %d ms\r\n", ++dropped_frames, timeDelta.count() / 1000);
+				OutputDebugStringA(buffer);
 			}
 #endif
 
