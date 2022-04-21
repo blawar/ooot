@@ -95,7 +95,7 @@ void func_80A90E28(EnKakasi3* pthis)
 	pthis->skelAnime.playSpeed = 0.0f;
 	pthis->unk_1AA = pthis->unk_1AE = 0x0;
 
-	Math_ApproachZeroF(&pthis->skelAnime.curFrame, 0.5f, 1.0f);
+	pthis->skelAnime.curFrame = Math_ApproachZeroF(pthis->skelAnime.curFrame, 0.5f, 1.0f);
 	Math_SmoothStepToS(&pthis->actor.shape.rot.x, pthis->rot.x, 5, 0x2710, 0);
 	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->rot.y, 5, 0x2710, 0);
 	Math_SmoothStepToS(&pthis->actor.shape.rot.z, pthis->rot.z, 5, 0x2710, 0);

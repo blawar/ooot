@@ -157,7 +157,7 @@ void EnShopnuts_Wait(EnShopnuts* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_NUTS_UP);
 	}
 
-	pthis->collider.dim.height = ((CLAMP(pthis->skelAnime.curFrame, 9.0f, 13.0f) - 9.0f) * 9.0f) + 5.0f;
+	pthis->collider.dim.height = ((CLAMP((float)pthis->skelAnime.curFrame, 9.0f, 13.0f) - 9.0f) * 9.0f) + 5.0f;
 	if(!hasSlowPlaybackSpeed && (pthis->actor.xzDistToPlayer < 120.0f))
 	{
 		EnShopnuts_SetupBurrow(pthis);
@@ -250,7 +250,7 @@ void EnShopnuts_Burrow(EnShopnuts* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		pthis->collider.dim.height = ((4.0f - CLAMP_MAX(pthis->skelAnime.curFrame, 4.0f)) * 10.0f) + 5.0f;
+		pthis->collider.dim.height = ((4.0f - CLAMP_MAX((float)pthis->skelAnime.curFrame, 4.0f)) * 10.0f) + 5.0f;
 	}
 	if(Animation_OnFrame(&pthis->skelAnime, 4.0f))
 	{

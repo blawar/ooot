@@ -15,6 +15,7 @@ void Math_ApproachF(CounterF* pValue, f32 target, f32 fraction, const Step& step
 void Math_ApproachS(s16* pValue, s16 target, s16 scale, const Step& step);
 void Math_ApproachS(Rotation* pValue, s16 target, s16 scale, const FStep& step);
 void Math_ApproachZeroF(f32* pValue, f32 fraction, const Step& step);
+f32 Math_ApproachZeroF(f32 pValue, f32 fraction, const Step& step);
 void Math_ApproachZeroF(CounterF* pValue, f32 fraction, const Step& step);
 s32 Math_AsymStepToF(f32* pValue, f32 target, const Step& incrStep, const Step& decrStep);
 s32 Math_AsymStepToF(CounterF* pValue, f32 target, const Step& incrStep, const Step& decrStep);

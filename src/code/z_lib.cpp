@@ -733,6 +733,12 @@ void Math_ApproachZeroF(f32* pValue, f32 fraction, const Step& _step)
 	*pValue -= stepSize;
 }
 
+f32 Math_ApproachZeroF(f32 pValue, f32 fraction, const Step& step)
+{
+	Math_ApproachZeroF(&pValue, fraction, step);
+	return pValue;
+}
+
 void Math_ApproachZeroF(CounterF* pValue, f32 fraction, const Step& _step)
 {
 	float step = _step.value();

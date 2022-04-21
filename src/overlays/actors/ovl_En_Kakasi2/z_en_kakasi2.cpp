@@ -209,7 +209,7 @@ void func_80A906C4(EnKakasi2* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->skelAnime.curFrame != 0)
 	{
-		Math_ApproachZeroF(&pthis->skelAnime.curFrame, 0.5f, 1.0f);
+		pthis->skelAnime.curFrame = Math_ApproachZeroF(pthis->skelAnime.curFrame, 0.5f, 1.0f);
 	}
 	Math_SmoothStepToS(&pthis->actor.shape.rot.y, pthis->unk_198, 5, 0xBB8, 0);
 	SkelAnime_Update(&pthis->skelAnime);

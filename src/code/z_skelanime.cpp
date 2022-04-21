@@ -1270,7 +1270,7 @@ s32 LinkAnimation_Morph(GlobalContext* globalCtx, SkelAnime* skelAnime)
  */
 void LinkAnimation_AnimateFrame(GlobalContext* globalCtx, SkelAnime* skelAnime)
 {
-	AnimationContext_SetLoadFrame(globalCtx, (LinkAnimationHeader*)skelAnime->animation, skelAnime->curFrame, skelAnime->limbCount, skelAnime->jointTable);
+	AnimationContext_SetLoadFrame(globalCtx, (LinkAnimationHeader*)skelAnime->animation, (float)skelAnime->curFrame, skelAnime->limbCount, skelAnime->jointTable);
 
 	if(skelAnime->morphWeight != 0)
 	{

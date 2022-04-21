@@ -284,7 +284,7 @@ struct SkelAnime
 	/* 0x0C */ f32 startFrame;			      // In mode 4, start of partial loop.
 	/* 0x10 */ f32 endFrame;			      // In mode 2, Update returns true when curFrame is equal to this. In mode 4, end of partial loop.
 	/* 0x14 */ f32 animLength;			      // Total number of frames in the current animation's file.
-	/* 0x18 */ f32 curFrame;			      // Current frame in the animation
+	/* 0x18 */ rf32 curFrame;			      // Current frame in the animation
 	/* 0x1C */ f32 playSpeed;			      // Multiplied by R_UPDATE_RATE / 3 to get the animation's frame rate.
 	/* 0x20 */ Vec3s* jointTable;			      // Current translation of model and rotations of all limbs
 	/* 0x24 */ Vec3s* morphTable;			      // Table of values used to morph between animations
