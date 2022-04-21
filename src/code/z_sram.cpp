@@ -243,6 +243,8 @@ namespace oot::save
 			}
 		}
 
+		Inventory_ChangeUpgrade(UPG_STRENGTH, 3);
+
 		this->entranceIndex = 0xCD;
 		this->magicLevel = 0;
 		this->sceneFlags[5].swch = 0x40000000;

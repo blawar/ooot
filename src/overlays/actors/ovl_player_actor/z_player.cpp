@@ -166,11 +166,11 @@ void Player_UpdateFunc_80844E68(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80845000(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80845308(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80845668(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_808458D0(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_GrabItemStart(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80845CA4(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80845EF8(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80846050(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_80846120(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_GrabHeavyBlock(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80846260(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80846358(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80846408(Player* pthis, GlobalContext* globalCtx);
@@ -233,7 +233,7 @@ void Player_UpdateFunc_808502D0(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_808505DC(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8085063C(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_8085076C(Player* pthis, GlobalContext* globalCtx);
-void Player_UpdateFunc_808507F4(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_SomeCutsceneUpdate_808507F4(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_Hookshot(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80850C68(Player* pthis, GlobalContext* globalCtx);
 void Player_UpdateFunc_80850E84(Player* pthis, GlobalContext* globalCtx);
@@ -311,7 +311,7 @@ void func_808528C8(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 void func_80852944(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2);
 void func_808529D0(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2);
 void func_80852C50(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2);
-void Player_UpdateFunc_80852E14(Player* pthis, GlobalContext* globalCtx);
+void Player_UpdateFunc_ChangeCutsceneMaybe_80852E14(Player* pthis, GlobalContext* globalCtx);
 s32 Player_IsDroppingFish(GlobalContext* globalCtx);
 s32 Player_StartFishing(GlobalContext* globalCtx);
 s32 func_80852F38(GlobalContext* globalCtx, Player* pthis);
@@ -2957,7 +2957,7 @@ s32 Player_SetUpdateFunct(GlobalContext* globalCtx, Player* pthis, PlayerFunc674
 		Audio_OcaSetInstrument(0);
 		pthis->stateFlags2 &= ~(PLAYER_STATE2_24 | PLAYER_STATE2_25);
 	}
-	else if(Player_UpdateFunc_808507F4 == pthis->playerUpdateFunct)
+	else if(Player_UpdateFunc_SomeCutsceneUpdate_808507F4 == pthis->playerUpdateFunct)
 	{
 		func_80832340(globalCtx, pthis);
 	}
@@ -3298,7 +3298,7 @@ void Player_TriggerDeath(GlobalContext* globalCtx, Player* pthis, LinkAnimationH
 
 s32 func_808365C8(Player* pthis)
 {
-	return (!(Player_UpdateFunc_808458D0 == pthis->playerUpdateFunct) || ((pthis->stateFlags1 & PLAYER_STATE1_8) && ((pthis->heldItemId == ITEM_LAST_USED) || (pthis->heldItemId == ITEM_NONE)))) &&
+	return (!(Player_UpdateFunc_GrabItemStart == pthis->playerUpdateFunct) || ((pthis->stateFlags1 & PLAYER_STATE1_8) && ((pthis->heldItemId == ITEM_LAST_USED) || (pthis->heldItemId == ITEM_NONE)))) &&
 	       (!(func_80834A2C == pthis->func_82C) || (Player_ItemToActionParam(pthis->heldItemId) == pthis->heldItemActionParam));
 }
 
@@ -3354,10 +3354,10 @@ s32 func_80836670(Player* pthis, GlobalContext* globalCtx)
 	return 1;
 }
 
-s32 Player_BeginEnterTunnel(GlobalContext* globalCtx, Player* pthis, PlayerFuncA74 func)
+s32 Player_BeginRedirectControl(GlobalContext* globalCtx, Player* pthis, PlayerFuncA74 func)
 {
 	pthis->func_A74 = func;
-	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_808458D0, 0);
+	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_GrabItemStart, 0);
 	pthis->stateFlags2 |= PLAYER_STATE2_REDIRECT_CONTROL;
 	return func_80832528(globalCtx, pthis);
 }
@@ -5152,7 +5152,7 @@ void func_8083A0F4(GlobalContext* globalCtx, Player* pthis)
 
 			if(interactActorId == ACTOR_BG_HEAVY_BLOCK)
 			{
-				Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_80846120, 0);
+				Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_GrabHeavyBlock, 0);
 				pthis->stateFlags1 |= PLAYER_STATE1_29;
 				anim = &gPlayerAnim_002F98;
 			}
@@ -5341,7 +5341,7 @@ s32 func_8083A6AC(Player* pthis, GlobalContext* globalCtx)
 
 			if(sp50)
 			{
-				Player_BeginEnterTunnel(globalCtx, pthis, func_8083A3B0);
+				Player_BeginRedirectControl(globalCtx, pthis, func_8083A3B0);
 
 				pthis->currentYaw += 0x8000;
 				pthis->actor.shape.rot.y = pthis->currentYaw;
@@ -5489,7 +5489,7 @@ s32 func_8083ADD4(GlobalContext* globalCtx, Player* pthis)
 {
 	if(pthis->unk_6AD == 3)
 	{
-		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_80852E14, 0);
+		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_ChangeCutsceneMaybe_80852E14, 0);
 		if(pthis->unk_46A != 0)
 		{
 			pthis->stateFlags1 |= PLAYER_STATE1_29;
@@ -5515,7 +5515,7 @@ void func_8083AE40(Player* pthis, s16 objectId)
 
 void func_8083AF44(GlobalContext* globalCtx, Player* pthis, s32 magicSpell)
 {
-	func_80835DE4(globalCtx, pthis, Player_UpdateFunc_808507F4, 0);
+	func_80835DE4(globalCtx, pthis, Player_UpdateFunc_SomeCutsceneUpdate_808507F4, 0);
 
 	pthis->unk_84F = magicSpell - 3;
 	func_80087708(globalCtx, sMagicSpellCosts[magicSpell], 4);
@@ -6859,7 +6859,7 @@ s32 func_8083E0FC(Player* pthis, GlobalContext* globalCtx)
 		sp38 = Math_CosS(rideActor->actor.shape.rot.y);
 		sp34 = Math_SinS(rideActor->actor.shape.rot.y);
 
-		Player_BeginEnterTunnel(globalCtx, pthis, func_8083A360);
+		Player_BeginRedirectControl(globalCtx, pthis, func_8083A360);
 
 		pthis->stateFlags1 |= PLAYER_STATE_HORSE_MOUNTED; // Mounted on a horse
 		pthis->actor.bgCheckFlags &= ~BG_STATE_5;
@@ -7008,7 +7008,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx)
 
 					if(!(pthis->stateFlags2 & PLAYER_STATE2_SURFACING) || (pthis->currentBoots == PLAYER_BOOTS_IRON))
 					{
-						Player_BeginEnterTunnel(globalCtx, pthis, func_8083A434);
+						Player_BeginRedirectControl(globalCtx, pthis, func_8083A434);
 						func_808322D0(globalCtx, pthis, &gPlayerAnim_002788);
 						func_80835EA4(globalCtx, 9);
 					}
@@ -7038,7 +7038,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx)
 					}
 				}
 
-				Player_BeginEnterTunnel(globalCtx, pthis, func_8083A434);
+				Player_BeginRedirectControl(globalCtx, pthis, func_8083A434);
 				pthis->stateFlags1 |= (PLAYER_STATE1_10 | PLAYER_STATE1_11 | PLAYER_STATE1_29);
 				func_8083AE40(pthis, giEntry->objectId);
 				pthis->actor.world.pos.x = chest->dyna.actor.world.pos.x - (Math_SinS(chest->dyna.actor.shape.rot.y) * 29.4343f);
@@ -7071,7 +7071,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx)
 					pthis->itemActionParam = PLAYER_AP_NONE;
 					pthis->modelAnimType = 0;
 					pthis->heldItemActionParam = pthis->itemActionParam;
-					Player_BeginEnterTunnel(globalCtx, pthis, func_8083A0F4);
+					Player_BeginRedirectControl(globalCtx, pthis, func_8083A0F4);
 
 					if(sp24 == PLAYER_AP_SWORD_MASTER)
 					{
@@ -7092,7 +7092,7 @@ s32 func_8083E5A8(Player* pthis, GlobalContext* globalCtx)
 						return 0;
 					}
 
-					Player_BeginEnterTunnel(globalCtx, pthis, func_8083A0F4);
+					Player_BeginRedirectControl(globalCtx, pthis, func_8083A0F4);
 				}
 
 				func_80832224(pthis);
@@ -7224,7 +7224,7 @@ s32 func_8083EC18(Player* pthis, GlobalContext* globalCtx, u32 arg2)
 					f32 sp34 = pthis->wallDistance;
 					LinkAnimationHeader* sp30;
 
-					Player_BeginEnterTunnel(globalCtx, pthis, func_8083A3B0);
+					Player_BeginRedirectControl(globalCtx, pthis, func_8083A3B0);
 					pthis->stateFlags1 |= PLAYER_STATE1_21;
 					pthis->stateFlags1 &= ~PLAYER_STATE_SWIMMING;
 
@@ -7333,7 +7333,7 @@ s32 func_8083F0C8(Player* pthis, GlobalContext* globalCtx, u32 arg2)
 				f32 sp34 = COLPOLY_GET_NORMAL(wallPoly->normal.z);
 				f32 sp30 = pthis->wallDistance;
 
-				Player_BeginEnterTunnel(globalCtx, pthis, func_8083A40C);
+				Player_BeginRedirectControl(globalCtx, pthis, func_8083A40C);
 				pthis->stateFlags2 |= PLAYER_STATE2_CRAWL;
 				pthis->actor.shape.rot.y = pthis->currentYaw = pthis->actor.wallYaw + 0x8000;
 				pthis->actor.world.pos.x = sp4C + (sp30 * sp38);
@@ -7447,7 +7447,7 @@ s32 func_8083F570(Player* pthis, GlobalContext* globalCtx)
 
 void func_8083F72C(Player* pthis, LinkAnimationHeader* anim, GlobalContext* globalCtx)
 {
-	if(!Player_BeginEnterTunnel(globalCtx, pthis, func_8083A388))
+	if(!Player_BeginRedirectControl(globalCtx, pthis, func_8083A388))
 	{
 		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084B78C, 0);
 	}
@@ -7484,7 +7484,7 @@ s32 func_8083F7BC(Player* pthis, GlobalContext* globalCtx)
 							return 0;
 						}
 
-						Player_BeginEnterTunnel(globalCtx, pthis, func_8083A0F4);
+						Player_BeginRedirectControl(globalCtx, pthis, func_8083A0F4);
 						pthis->stateFlags1 |= PLAYER_STATE1_11;
 						pthis->interactRangeActor = &wallPolyActor->actor;
 						pthis->getItemId = GI_NONE;
@@ -10174,7 +10174,7 @@ void Player_UpdateFunc_80845668(Player* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void Player_UpdateFunc_808458D0(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_GrabItemStart(Player* pthis, GlobalContext* globalCtx)
 {
 	pthis->stateFlags2 |= (PLAYER_STATE2_5 | PLAYER_STATE2_REDIRECT_CONTROL);
 	LinkAnimation_Update(globalCtx, &pthis->skelAnime);
@@ -10416,9 +10416,9 @@ static struct_80832924 D_8085461C[] = {
     {NA_SE_VO_LI_SWORD_N, -0x20E6},
 };
 
-void Player_UpdateFunc_80846120(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_GrabHeavyBlock(Player* pthis, GlobalContext* globalCtx)
 {
-	if(LinkAnimation_Update(globalCtx, &pthis->skelAnime) && (pthis->unk_850++ > 20))
+	if(LinkAnimation_Update(globalCtx, &pthis->skelAnime) && (pthis->unk_850++ > 20)) // block lands
 	{
 		if(!func_8083B040(pthis, globalCtx))
 		{
@@ -10427,7 +10427,7 @@ void Player_UpdateFunc_80846120(Player* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(LinkAnimation_OnFrame(&pthis->skelAnime, 41.0f))
+	if(LinkAnimation_OnFrame(&pthis->skelAnime, 41.0f)) // very bottom of the crouch animation to pick up block
 	{
 		BgHeavyBlock* heavyBlock = (BgHeavyBlock*)pthis->interactRangeActor;
 
@@ -10438,7 +10438,7 @@ void Player_UpdateFunc_80846120(Player* pthis, GlobalContext* globalCtx)
 		return;
 	}
 
-	if(LinkAnimation_OnFrame(&pthis->skelAnime, 229.0f))
+	if(LinkAnimation_OnFrame(&pthis->skelAnime, 229.0f)) // start of animation to actually throw the block
 	{
 		Actor* heldActor = pthis->heldActor;
 
@@ -12064,7 +12064,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 			Actor_UpdateVelocityWithGravity(&pthis->actor);
 
 			if((pthis->windSpeed != 0.0f) && !Player_InCsMode(globalCtx) && !(pthis->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_21)) && (Player_UpdateFunc_80845668 != pthis->playerUpdateFunct) &&
-			   (Player_UpdateFunc_808507F4 != pthis->playerUpdateFunct))
+			   (Player_UpdateFunc_SomeCutsceneUpdate_808507F4 != pthis->playerUpdateFunct))
 			{
 				pthis->actor.velocity.x += pthis->windSpeed * Math_SinS(pthis->windDirection);
 				pthis->actor.velocity.z += pthis->windSpeed * Math_CosS(pthis->windDirection);
@@ -12193,7 +12193,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 			{
 				pthis->unk_6AD = 3;
 			}
-			else if(Player_UpdateFunc_80852E14 != pthis->playerUpdateFunct)
+			else if(Player_UpdateFunc_ChangeCutsceneMaybe_80852E14 != pthis->playerUpdateFunct)
 			{
 				func_80852944(globalCtx, pthis, NULL);
 			}
@@ -12820,7 +12820,7 @@ void Player_UpdateFunc_8084B1D8(Player* pthis, GlobalContext* globalCtx)
 	pthis->currentYaw = pthis->actor.shape.rot.y;
 }
 
-s32 func_8084B3CC(GlobalContext* globalCtx, Player* pthis)
+s32 Player_ShootingGalleryCheckAndUpdate(GlobalContext* globalCtx, Player* pthis)
 {
 	if(globalCtx->shootingGalleryStatus != 0)
 	{
@@ -12877,7 +12877,7 @@ void Player_UpdateFunc_8084B530(Player* pthis, GlobalContext* globalCtx)
 
 		func_8005B1A4(Gameplay_GetCamera(globalCtx, 0));
 
-		if(!func_8084B4D4(globalCtx, pthis) && !func_8084B3CC(globalCtx, pthis) && !func_8083ADD4(globalCtx, pthis))
+		if(!func_8084B4D4(globalCtx, pthis) && !Player_ShootingGalleryCheckAndUpdate(globalCtx, pthis) && !func_8083ADD4(globalCtx, pthis))
 		{
 			if((pthis->targetActor != pthis->interactRangeActor) || !func_8083E5A8(pthis, globalCtx))
 			{
@@ -14952,8 +14952,8 @@ void Player_UpdateFunc_8084F608(Player* pthis, GlobalContext* globalCtx)
 	if((DECR(pthis->unk_850) == 0) && func_8083ADD4(globalCtx, pthis))
 	{
 		func_80852280(globalCtx, pthis, NULL);
-		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_80852E14, 0);
-		Player_UpdateFunc_80852E14(pthis, globalCtx);
+		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_ChangeCutsceneMaybe_80852E14, 0);
+		Player_UpdateFunc_ChangeCutsceneMaybe_80852E14(pthis, globalCtx);
 	}
 }
 
@@ -15511,7 +15511,7 @@ static struct_80832924 D_80854A8C[][2] = {
     },
 };
 
-void Player_UpdateFunc_808507F4(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_SomeCutsceneUpdate_808507F4(Player* pthis, GlobalContext* globalCtx)
 {
 	if(LinkAnimation_Update(globalCtx, &pthis->skelAnime))
 	{
@@ -16164,7 +16164,7 @@ void func_808515A4(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 
 void func_80851688(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* arg2)
 {
-	if(func_8084B3CC(globalCtx, pthis) == 0)
+	if(Player_ShootingGalleryCheckAndUpdate(globalCtx, pthis) == 0)
 	{
 		if((pthis->csMode == 0x31) && (globalCtx->csCtx.state == CS_STATE_IDLE))
 		{
@@ -16905,7 +16905,7 @@ void func_80852C50(GlobalContext* globalCtx, Player* pthis, CsCmdActorAction* ar
 	func_80852B4C(globalCtx, pthis, linkCsAction, &D_80854E50[ABS(sp24)]);
 }
 
-void Player_UpdateFunc_80852E14(Player* pthis, GlobalContext* globalCtx)
+void Player_UpdateFunc_ChangeCutsceneMaybe_80852E14(Player* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->csMode != pthis->prevCsMode)
 	{
@@ -16961,7 +16961,7 @@ s32 func_80852FFC(GlobalContext* globalCtx, Actor* actor, s32 csMode)
 	if(!Player_InBlockingCsMode(globalCtx, pthis))
 	{
 		func_80832564(globalCtx, pthis);
-		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_80852E14, 0);
+		Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_ChangeCutsceneMaybe_80852E14, 0);
 		pthis->csMode = csMode;
 		pthis->unk_448 = actor;
 		func_80832224(pthis);
@@ -17036,7 +17036,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor)
 		{
 			if(Player_IsSwimmingWithoutIronBoots(pthis))
 			{
-				Player_BeginEnterTunnel(globalCtx, pthis, func_8083A2F8);
+				Player_BeginRedirectControl(globalCtx, pthis, func_8083A2F8);
 				func_80832C6C(globalCtx, pthis, &gPlayerAnim_003328);
 			}
 			else if((actor->category != ACTORCAT_NPC) || (pthis->heldItemActionParam == PLAYER_AP_FISHING_POLE))
@@ -17057,7 +17057,7 @@ void func_80853148(GlobalContext* globalCtx, Actor* actor)
 			}
 			else
 			{
-				Player_BeginEnterTunnel(globalCtx, pthis, func_8083A2F8);
+				Player_BeginRedirectControl(globalCtx, pthis, func_8083A2F8);
 				func_808322D0(globalCtx, pthis, (actor->xzDistToPlayer < 40.0f) ? &gPlayerAnim_002DF0 : &gPlayerAnim_0031A0);
 			}
 

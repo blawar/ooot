@@ -5890,7 +5890,7 @@ s32 Camera_Unique8(Camera* camera)
 	return Camera_Noop(camera);
 }
 
-s32 Camera_Unique9(Camera* camera)
+s32 Camera_OnePoint_Unique9(Camera* camera)
 {
 	Vec3f atTarget;
 	Vec3f eyeTarget;
@@ -5937,7 +5937,8 @@ s32 Camera_Unique9(Camera* camera)
 	{
 		camera->animState++;
 		anim->curKeyFrameIdx = -1;
-		anim->keyFrameTimer = 1;
+		anim->keyFrameTimer = 0;
+		anim->keyFrameTimer++;
 		anim->unk_38 = 0;
 		anim->playerPos.x = playerPosRot.pos.x;
 		anim->playerPos.y = playerPosRot.pos.y;
@@ -6328,9 +6329,9 @@ s32 Camera_Unique9(Camera* camera)
 			eyeTarget.z = F32_LERPIMP(camera->eyeNext.z, anim->eyeTarget.z, invKeyFrameTimer);
 
 		setEyeNext:
-			camera->eyeNext.x = Camera_LERPFloorF(eyeTarget.x, camera->eyeNext.x, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->eyeNext.y = Camera_LERPFloorF(eyeTarget.y, camera->eyeNext.y, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->eyeNext.z = Camera_LERPFloorF(eyeTarget.z, camera->eyeNext.z, anim->curKeyFrame->lerpStepScale, 1.0f);
+			camera->eyeNext.x = Camera_LERPFloorF(eyeTarget.x, camera->eyeNext.x, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->eyeNext.y = Camera_LERPFloorF(eyeTarget.y, camera->eyeNext.y, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->eyeNext.z = Camera_LERPFloorF(eyeTarget.z, camera->eyeNext.z, anim->curKeyFrame->lerpStepScaler(), 1.0f);
 		case 9:
 		case 10:
 			// linear interpolation of at/fov/roll
@@ -6338,41 +6339,41 @@ s32 Camera_Unique9(Camera* camera)
 			atTarget.x = F32_LERPIMP(camera->at.x, anim->atTarget.x, invKeyFrameTimer);
 			atTarget.y = F32_LERPIMP(camera->at.y, anim->atTarget.y, invKeyFrameTimer);
 			atTarget.z = F32_LERPIMP(camera->at.z, anim->atTarget.z, invKeyFrameTimer);
-			camera->at.x = Camera_LERPFloorF(atTarget.x, camera->at.x, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->at.y = Camera_LERPFloorF(atTarget.y, camera->at.y, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->at.z = Camera_LERPFloorF(atTarget.z, camera->at.z, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->fov = Camera_LERPFloorF(F32_LERPIMP(camera->fov, anim->fovTarget, invKeyFrameTimer), camera->fov, anim->curKeyFrame->lerpStepScale, 0.01f);
-			camera->roll = Camera_LERPFloorS(BINANG_LERPIMPINV(camera->roll, anim->rollTarget, anim->keyFrameTimer), camera->roll, anim->curKeyFrame->lerpStepScale, 0xA);
+			camera->at.x = Camera_LERPFloorF(atTarget.x, camera->at.x, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->at.y = Camera_LERPFloorF(atTarget.y, camera->at.y, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->at.z = Camera_LERPFloorF(atTarget.z, camera->at.z, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->fov = Camera_LERPFloorF(F32_LERPIMP(camera->fov, anim->fovTarget, invKeyFrameTimer), camera->fov, anim->curKeyFrame->lerpStepScaler(), 0.01f);
+			camera->roll = Camera_LERPFloorS(BINANG_LERPIMPINV(camera->roll, anim->rollTarget, anim->keyFrameTimer), camera->roll, anim->curKeyFrame->lerpStepScaler(), 0xA);
 			break;
 		case 4:
 			// linear interpolation of eye/at/fov/roll using the step scale, and spherical coordinates
 			OLib_Vec3fDiffToVecSphGeo(&eyeNextAtOffset, at, eyeNext);
 			OLib_Vec3fDiffToVecSphGeo(&anim->atEyeOffsetTarget, &anim->atTarget, &anim->eyeTarget);
-			scratchSph.r = Camera_LERPCeilF(anim->atEyeOffsetTarget.r, eyeNextAtOffset.r, anim->curKeyFrame->lerpStepScale, 0.1f);
-			scratchSph.pitch = Camera_LERPCeilS(anim->atEyeOffsetTarget.pitch, eyeNextAtOffset.pitch, anim->curKeyFrame->lerpStepScale, 1);
-			scratchSph.yaw = Camera_LERPCeilS(anim->atEyeOffsetTarget.yaw, eyeNextAtOffset.yaw, anim->curKeyFrame->lerpStepScale, 1);
+			scratchSph.r = Camera_LERPCeilF(anim->atEyeOffsetTarget.r, eyeNextAtOffset.r, anim->curKeyFrame->lerpStepScaler(), 0.1f);
+			scratchSph.pitch = Camera_LERPCeilS(anim->atEyeOffsetTarget.pitch, eyeNextAtOffset.pitch, anim->curKeyFrame->lerpStepScaler(), 1);
+			scratchSph.yaw = Camera_LERPCeilS(anim->atEyeOffsetTarget.yaw, eyeNextAtOffset.yaw, anim->curKeyFrame->lerpStepScaler(), 1);
 			Camera_Vec3fVecSphGeoAdd(eyeNext, at, &scratchSph);
 			goto setAtFOVRoll;
 		case 3:
 			// linear interplation of eye/at/fov/roll using the step scale using eyeTarget
-			camera->eyeNext.x = Camera_LERPCeilF(anim->eyeTarget.x, camera->eyeNext.x, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->eyeNext.y = Camera_LERPCeilF(anim->eyeTarget.y, camera->eyeNext.y, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->eyeNext.z = Camera_LERPCeilF(anim->eyeTarget.z, camera->eyeNext.z, anim->curKeyFrame->lerpStepScale, 1.0f);
+			camera->eyeNext.x = Camera_LERPCeilF(anim->eyeTarget.x, camera->eyeNext.x, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->eyeNext.y = Camera_LERPCeilF(anim->eyeTarget.y, camera->eyeNext.y, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->eyeNext.z = Camera_LERPCeilF(anim->eyeTarget.z, camera->eyeNext.z, anim->curKeyFrame->lerpStepScaler(), 1.0f);
 		case 11:
 		case 12:
 		setAtFOVRoll:
 			// linear interpolation of at/fov/roll using the step scale.
-			camera->at.x = Camera_LERPCeilF(anim->atTarget.x, camera->at.x, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->at.y = Camera_LERPCeilF(anim->atTarget.y, camera->at.y, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->at.z = Camera_LERPCeilF(anim->atTarget.z, camera->at.z, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->fov = Camera_LERPCeilF(anim->fovTarget, camera->fov, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->roll = Camera_LERPCeilS(anim->rollTarget, camera->roll, anim->curKeyFrame->lerpStepScale, 1);
+			camera->at.x = Camera_LERPCeilF(anim->atTarget.x, camera->at.x, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->at.y = Camera_LERPCeilF(anim->atTarget.y, camera->at.y, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->at.z = Camera_LERPCeilF(anim->atTarget.z, camera->at.z, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->fov = Camera_LERPCeilF(anim->fovTarget, camera->fov, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->roll = Camera_LERPCeilS(anim->rollTarget, camera->roll, anim->curKeyFrame->lerpStepScaler(), 1);
 			break;
 		case 13:
 			// linear interpolation of at, with rotation around eyeTargetInit.y
-			camera->at.x = Camera_LERPCeilF(anim->atTarget.x, camera->at.x, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->at.y += camera->playerPosDelta.y * anim->curKeyFrame->lerpStepScale;
-			camera->at.z = Camera_LERPCeilF(anim->atTarget.z, camera->at.z, anim->curKeyFrame->lerpStepScale, 1.0f);
+			camera->at.x = Camera_LERPCeilF(anim->atTarget.x, camera->at.x, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->at.y += camera->playerPosDelta.y * anim->curKeyFrame->lerpStepScaler();
+			camera->at.z = Camera_LERPCeilF(anim->atTarget.z, camera->at.z, anim->curKeyFrame->lerpStepScaler(), 1.0f);
 			OLib_Vec3fDiffToVecSphGeo(&scratchSph, at, eyeNext);
 			scratchSph.yaw += DEGF_TO_BINANG(anim->curKeyFrame->eyeTargetInit.y);
 
@@ -6388,11 +6389,11 @@ s32 Camera_Unique9(Camera* camera)
 			}
 
 			spB4 = scratchSph.r;
-			scratchSph.r = !(spB4 < anim->curKeyFrame->eyeTargetInit.z) ? Camera_LERPCeilF(anim->curKeyFrame->eyeTargetInit.z, spB4, anim->curKeyFrame->lerpStepScale, 1.0f) : scratchSph.r;
+			scratchSph.r = !(spB4 < anim->curKeyFrame->eyeTargetInit.z) ? Camera_LERPCeilF(anim->curKeyFrame->eyeTargetInit.z, spB4, anim->curKeyFrame->lerpStepScaler(), 1.0f) : scratchSph.r;
 
 			Camera_Vec3fVecSphGeoAdd(eyeNext, at, &scratchSph);
-			camera->fov = Camera_LERPCeilF(F32_LERPIMPINV(camera->fov, anim->curKeyFrame->fovTargetInit, anim->keyFrameTimer), camera->fov, anim->curKeyFrame->lerpStepScale, 1.0f);
-			camera->roll = Camera_LERPCeilS(anim->rollTarget, camera->roll, anim->curKeyFrame->lerpStepScale, 1);
+			camera->fov = Camera_LERPCeilF(F32_LERPIMPINV(camera->fov, anim->curKeyFrame->fovTargetInit, anim->keyFrameTimer), camera->fov, anim->curKeyFrame->lerpStepScaler(), 1.0f);
+			camera->roll = Camera_LERPCeilS(anim->rollTarget, camera->roll, anim->curKeyFrame->lerpStepScaler(), 1);
 			break;
 		case 24:
 			// Set current keyframe to the roll target?
@@ -6894,7 +6895,7 @@ s32 Camera_Demo5(Camera* camera)
 			}
 			else
 			{
-				camera->timer += D_8011D6AC[2].timerInit;
+				camera->timer = camera->timer + D_8011D6AC[2].timerInit;
 			}
 		}
 		else
@@ -6909,7 +6910,7 @@ s32 Camera_Demo5(Camera* camera)
 			}
 			else
 			{
-				camera->timer += D_8011D724[2].timerInit;
+				camera->timer = camera->timer + D_8011D724[2].timerInit;
 			}
 		}
 	}
@@ -6937,7 +6938,7 @@ s32 Camera_Demo5(Camera* camera)
 		}
 		else
 		{
-			camera->timer += D_8011D79C[2].timerInit + D_8011D79C[3].timerInit;
+			camera->timer = camera->timer + D_8011D79C[2].timerInit + D_8011D79C[3].timerInit;
 		}
 	}
 	else if(eyeTargetDist < 300.0f && eyePlayerGeo.r < 30.0f)
@@ -6953,7 +6954,7 @@ s32 Camera_Demo5(Camera* camera)
 		}
 		else
 		{
-			camera->timer += D_8011D83C[1].timerInit;
+			camera->timer = camera->timer + D_8011D83C[1].timerInit;
 		}
 	}
 	else if(eyeTargetDist < 700.0f && ABS(sp4A) < 0x36B0)
@@ -6972,7 +6973,7 @@ s32 Camera_Demo5(Camera* camera)
 			}
 			else
 			{
-				camera->timer += D_8011D88C[1].timerInit;
+				camera->timer = camera->timer + D_8011D88C[1].timerInit;
 			}
 		}
 		else
@@ -6996,7 +6997,7 @@ s32 Camera_Demo5(Camera* camera)
 			}
 			else
 			{
-				camera->timer += D_8011D8DC[1].timerInit + D_8011D8DC[2].timerInit;
+				camera->timer = camera->timer + D_8011D8DC[1].timerInit + D_8011D8DC[2].timerInit;
 			}
 		}
 	}
@@ -7044,7 +7045,7 @@ s32 Camera_Demo5(Camera* camera)
 		}
 		else
 		{
-			camera->timer += D_8011D954[2].timerInit + D_8011D954[3].timerInit;
+			camera->timer = camera->timer + D_8011D954[2].timerInit + D_8011D954[3].timerInit;
 		}
 	}
 	else
@@ -7084,7 +7085,7 @@ s32 Camera_Demo5(Camera* camera)
 		}
 		else
 		{
-			camera->timer += D_8011D9F4[1].timerInit + D_8011D9F4[2].timerInit;
+			camera->timer = camera->timer + D_8011D9F4[1].timerInit + D_8011D9F4[2].timerInit;
 			D_8011D9F4[0].rollTargetInit = D_8011D9F4[1].rollTargetInit = 0;
 		}
 	}
@@ -7132,7 +7133,7 @@ s32 Camera_Demo5(Camera* camera)
 
 	sDemo5PrevAction12Frame = camera->globalCtx->frames.whole();
 	Camera_ChangeSettingFlags(camera, CAM_SET_CS_C, (4 | 1));
-	Camera_Unique9(camera);
+	Camera_OnePoint_Unique9(camera);
 	return true;
 }
 
