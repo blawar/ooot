@@ -1,16 +1,15 @@
 #define INTERNAL_SRC_CODE_Z_KALEIDO_SETUP_C
 #include "global.h"
-#include "z64save.h"
-#include "padmgr.h"
+#include "z64global.h"
+#include "framerate.h"
 #include "kaleido.h"
 #include "kaleido_macros.h"
-#include "z64global.h"
+#include "padmgr.h"
 #include "z64item.h"
-#include "framerate.h"
+#include "z64save.h"
 #include "def/audio.h"
 #include "def/shrink_window.h"
 #include "def/z_actor.h"
-#include "def/z_common_data.h"
 #include "def/z_kaleido_setup.h"
 #include "def/z_play.h"
 #include "def/z_view.h"
@@ -21,7 +20,7 @@ s16 sKaleidoSetupKscpPos1[] = {PAUSE_MAP, PAUSE_QUEST, PAUSE_EQUIP, PAUSE_ITEM};
 void KaleidoSetup_Update(GlobalContext* globalCtx)
 {
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->state.input[0];
+	Input* input = &globalCtx->input[0];
 
 	if(pauseCtx->state == 0 && pauseCtx->debugState == 0 && globalCtx->gameOverCtx.state == GAMEOVER_INACTIVE && globalCtx->sceneLoadFlag == 0 && globalCtx->transitionMode == 0 && gSaveContext.cutsceneIndex < 0xFFF0 &&
 	   gSaveContext.nextCutsceneIndex < 0xFFF0 && !Gameplay_InCsMode(globalCtx) && globalCtx->shootingGalleryStatus <= 1 && gSaveContext.unk_13F0 != 8 && gSaveContext.unk_13F0 != 9 &&
@@ -93,7 +92,7 @@ void KaleidoSetup_Init(GlobalContext* globalCtx)
 	pauseCtx->ocarinaSongIdx = -1;
 	pauseCtx->cursorSpecialPos = 0;
 
-	View_Init(&pauseCtx->view, globalCtx->state.gfxCtx);
+	View_Init(&pauseCtx->view, globalCtx->gfxCtx);
 }
 
 void KaleidoSetup_Destroy(GlobalContext* globalCtx)

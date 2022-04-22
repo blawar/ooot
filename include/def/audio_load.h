@@ -1,4 +1,6 @@
 #pragma once
+#include "z64audio.h"
+
 struct OSMesgQueue;
 
 extern s32 gAudioContextInitalized;

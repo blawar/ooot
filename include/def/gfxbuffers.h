@@ -1,4 +1,6 @@
 #pragma once
+#include "ultra64/sptask.h"
+
 struct GfxPool;
 
 extern GfxPool gGfxPools[2];

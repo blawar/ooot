@@ -1,28 +1,19 @@
-#include "ultra64/types.h"
-#include "controller.h"
+#include "global.h"
 #include <ctime>
-#include <fstream>
 #include <filesystem>
-#include "../options.h"
-#include "def/z_player_lib.h"
-#include "state.h"
+#include <fstream>
 #include <math.h>
+#include "../options.h"
+#include "controller.h"
+#include "state.h"
+#include "ultra64/types.h"
+#include "def/z_player_lib.h"
 
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/oot/tas"
 #else
 #define TAS_DIR "tas"
 #endif
-
-static inline int8_t invert(const int8_t value)
-{
-	if(value <= -128)
-	{
-		return 127;
-	}
-
-	return -value;
-}
 
 #ifndef _MSC_VER
 #define fopen_s(pFile, filename, mode) ((*(pFile)) = fopen((filename), (mode))) == NULL
@@ -67,10 +58,8 @@ namespace oot::hid
 		mouse_y = 0;
 		has_mouse = false;
 
-#ifdef ENABLE_GYRO
 		memset(&gyro, 0, sizeof(gyro));
 		memset(&accel, 0, sizeof(accel));
-#endif
 
 		reset();
 	}
@@ -330,7 +319,6 @@ namespace oot::hid
 				this->stickMag = sqrtf(this->stickX * this->stickX + this->stickY * this->stickY);
 			}
 
-
 			this->r_stickX *= scaler;
 			this->m_state.r_stick_x *= scaler;
 			this->r_stickMag *= scaler;
@@ -347,12 +335,12 @@ namespace oot::hid
 		return value * (oot::config().controls().mouseyInvert() ? -1 : 1) * oot::config().controls().mouseyScaler();
 	}
 
-	bool Controller::updateRebind(int input)
+	bool Controller::updateRebind(hid::Button input)
 	{
 		return false;
 	}
 
-	void Controller::processKey(int input)
+	void Controller::processKey(hid::Button input)
 	{
 		if(input > 0xFFFF)
 		{
@@ -386,7 +374,7 @@ namespace oot::hid
 		}
 	}
 
-	void Controller::processKeyDown(int input)
+	void Controller::processKeyDown(hid::Button input)
 	{
 		switch(input)
 		{
@@ -412,15 +400,18 @@ namespace oot::hid
 				Player_ToggleTunic();
 				break;
 			case Button::FAST_FORWARD:
-				oot::state.fastForward = 5;
+				oot::state.fastForward = config().game().fastForwardSpeed();
 				break;
 			case Button::CENTER_CAMERA:
 				oot::state.center_camera = true;
 				break;
+			case LANGUAGE_TOGGLE:
+				config().game().setNextLanguage();
+				break;
 		}
 	}
 
-	void Controller::processKeyUp(int input)
+	void Controller::processKeyUp(hid::Button input)
 	{
 		switch(input)
 		{
@@ -479,7 +470,7 @@ namespace oot::hid
 
 	namespace controller
 	{
-		const char* getInputName(Button input)
+		const char* getInputName(hid::Button input)
 		{
 			switch(input)
 			{
@@ -517,6 +508,8 @@ namespace oot::hid
 					return "DEBUG_MENU";
 				case Button::FAST_FORWARD:
 					return "FAST_FORWARD";
+				case Button::LANGUAGE_TOGGLE:
+					return "LANGUAGE_TOGGLE";
 				case Button::CENTER_CAMERA:
 					return "CENTER_CAMERA";
 				case Button::CURRENT_ACTION:
@@ -583,6 +576,8 @@ namespace oot::hid
 				return Button::DEBUG_MENU;
 			if(input == "FAST_FORWARD")
 				return Button::FAST_FORWARD;
+			if(input == "LANGUAGE_TOGGLE")
+				return Button::LANGUAGE_TOGGLE;
 			if(input == "OCARINA")
 				return Button::OCARINA;
 			if(input == "HOOKSHOT")
@@ -602,5 +597,5 @@ namespace oot::hid
 
 			return (Button)0;
 		}
-	}
+	} // namespace controller
 } // namespace oot::hid

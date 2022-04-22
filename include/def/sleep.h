@@ -1,4 +1,5 @@
 #pragma once
+#include "ultra64/time.h"
 
 void Sleep_Cycles(OSTime cycles);
 void Sleep_Msec(u32 ms);

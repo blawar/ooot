@@ -1,18 +1,16 @@
 #include "xcontroller.h"
 
 #ifdef _WIN32
+#include <fstream>
+#include <unordered_map>
 #include <windows.h>
 #include <xinput.h>
-#include "controllers.h"
 #include "../player/players.h"
-#include <unordered_map>
+#include "controllers.h"
 #include "json.h"
-#include <fstream>
 #include "port/options.h"
 
 #define MAX_BUTTONS 16
-
-
 
 enum XInputButtons
 {
@@ -116,23 +114,6 @@ static const char* getButtonName(XInputButtons button)
 //#pragma comment(lib, "Xinput.lib")
 #pragma comment(lib, "Xinput9_1_0.lib")
 #endif
-
-static inline int8_t convertToByte(int value, int max)
-{
-	int8_t result = value * 0x7F / max;
-
-	return result;
-}
-
-static inline int8_t invert(const int8_t value)
-{
-	if(value <= -128)
-	{
-		return 127;
-	}
-
-	return -value;
-}
 
 static u8* expandButtonBits(WORD bits, u8* out)
 {
@@ -318,7 +299,7 @@ namespace oot::hid
 				resetBindingsImpl();
 			}
 
-			bool canRebind(XInputButtons button, int input)
+			bool canRebind(XInputButtons button, hid::Button input)
 			{
 				if(m_keyBindings.count(button) == 0)
 				{
@@ -353,7 +334,7 @@ namespace oot::hid
 				return count != 1;
 			}
 
-			bool updateRebind(int input) override
+			bool updateRebind(hid::Button input) override
 			{
 				u8 state[MAX_BUTTONS];
 				XINPUT_STATE xstate;
@@ -456,6 +437,26 @@ namespace oot::hid
 				if(m_LastPacketNum == xstate.dwPacketNumber)
 				{
 					return;
+				}
+
+				if(config().controls().invertLeftStickY())
+				{
+					xstate.Gamepad.sThumbLY *= -1;
+				}
+
+				if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
+				{
+					xstate.Gamepad.sThumbLY *= -1;
+				}
+
+				if(config().controls().invertRightStickY())
+				{
+					xstate.Gamepad.sThumbRY *= -1;
+				}
+
+				if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
+				{
+					xstate.Gamepad.sThumbRY *= -1;
 				}
 
 				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0x7FFF);
