@@ -21,7 +21,7 @@ struct EnInsect
 	/* 0x0314 */ u16 unk_314;
 	/* 0x0316 */ s16 unk_316;
 	/* 0x0318 */ s16 unk_318;
-	/* 0x031A */ s16 unk_31A;
+	/* 0x031A */ TimerS16 unk_31A;
 	/* 0x031C */ s16 unk_31C;
 	/* 0x031E */ s16 unk_31E;
 	/* 0x0320 */ ObjMakekinsuta* soilActor;
