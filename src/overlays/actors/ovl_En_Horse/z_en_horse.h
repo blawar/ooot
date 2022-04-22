@@ -162,7 +162,7 @@ struct EnHorse
 	/* 0x0228 */ Vec3f unk_228;
 	/* 0x0234 */ s32 unk_234;
 	/* 0x0238 */ u8 numBoosts;
-	/* 0x023C */ s32 boostRegenTime;
+	/* 0x023C */ TimerS32 boostRegenTime;
 	/* 0x0240 */ TimerS32 boostTimer;
 	/* 0x0244 */ EnHorsePostdrawFunc postDrawFunc;
 	/* 0x0248 */ f32 yFront; // The y coordinate of the floor under the front feet
