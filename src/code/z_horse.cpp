@@ -306,15 +306,15 @@ void func_8006DD9C(Actor* actor, Vec3f* arg1, s16 arg2)
 
 	if(x > arg2)
 	{
-		actor->world.rot.y += arg2;
+		actor->world.rot.y = actor->world.rot.y + arg2;
 	}
 	else if(x < -arg2)
 	{
-		actor->world.rot.y -= arg2;
+		actor->world.rot.y = actor->world.rot.y - arg2;
 	}
 	else
 	{
-		actor->world.rot.y += x;
+		actor->world.rot.y = actor->world.rot.y + x;
 	}
 
 	actor->shape.rot.y = actor->world.rot.y;
