@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 void MapMark_ClearPointers(GlobalContext* globalCtx);
 void MapMark_Draw(GlobalContext* globalCtx);

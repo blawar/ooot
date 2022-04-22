@@ -45,32 +45,9 @@ SpacesInCStyleCastParentheses: 'false'
 SpacesInParentheses: 'false'
 SpacesInSquareBrackets: 'false'
 Standard: Cpp11
-SortIncludes: 'true'
 TabWidth: '8'
 IndentWidth: '8'
 UseTab: Always
-IncludeCategories:
-  # global header
-  - Regex:           '"global.h"'
-    Priority:        -100
-  # global header
-  - Regex:           '"(gfx.h|z64global.h)"'
-    Priority:        -98
-  # Headers in <>
-  - Regex:           '<(.)+>'
-    Priority:        -96
-  # Headers in def
-  - Regex:           '"def/(.)+"'
-    Priority:        -70
-  # Headers in relative paths
-  - Regex:           '"\.\.(.)+"'
-    Priority:        -92
-  # Headers in def
-  - Regex:           '"objects/(.)+"'
-    Priority:        -60
-  # Headers in ""
-  - Regex:           '"(.)+"'
-    Priority:        -80
-
+SortIncludes: 'false'
 
 ...

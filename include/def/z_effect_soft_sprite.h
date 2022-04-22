@@ -1,6 +1,5 @@
 #pragma once
-#include "globalctx.h"
-
+struct GlobalContext;
 struct EffectSs;
 
 void EffectSs_ClearAll(GlobalContext* globalCtx);

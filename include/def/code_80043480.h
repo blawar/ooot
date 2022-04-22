@@ -1,7 +1,7 @@
 #pragma once
 struct DynaPolyActor;
 struct CollisionContext;
-#include "globalctx.h"
+struct GlobalContext;
 
 void DynaPolyActor_Init(DynaPolyActor* dynaActor, s32 flags);
 void func_800434A0(DynaPolyActor* dynaActor);

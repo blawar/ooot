@@ -1,19 +1,19 @@
 #if !defined(DISABLE_SDL_CONTROLLER)
 
-#include <SDL2/SDL.h>
-#include <fstream>
-#include <math.h>
-#include <stdbool.h>
-#include <stdint.h>
+#include "ultra64/types.h"
+#include "state.h"
+#include "macros.h"
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <math.h>
+#include <SDL2/SDL.h>
+#include "sdl.h"
 #include <unordered_map>
+#include "json.h"
+#include <fstream>
 #include "../options.h"
 #include "../player/players.h"
-#include "json.h"
-#include "macros.h"
-#include "sdl.h"
-#include "state.h"
-#include "ultra64/types.h"
 
 static bool init_ok;
 
@@ -221,6 +221,16 @@ namespace oot::hid
 				return result;
 			}
 
+			static inline int8_t invert(const int8_t value)
+			{
+				if(value <= -128)
+				{
+					return 127;
+				}
+
+				return -value;
+			}
+
 			inline int16_t readAxis(SDL_GameControllerAxis axis)
 			{
 				return SDL_GameControllerGetAxis(m_context, axis);
@@ -247,16 +257,6 @@ namespace oot::hid
 					g_lstickY_peak = abs(value);
 				}
 
-				if(config().controls().invertLeftStickY())
-				{
-					value *= -1;
-				}
-
-				if(isFirstPerson() && config().controls().invertLeftStickFirstPersonY())
-				{
-					value *= -1;
-				}
-
 				return convertToByte(value, g_lstickY_peak);
 			}
 
@@ -281,20 +281,10 @@ namespace oot::hid
 					g_rstickY_peak = abs(value);
 				}
 
-				if(config().controls().invertRightStickY())
-				{
-					value *= -1;
-				}
-
-				if(isFirstPerson() && config().controls().invertRightStickFirstPersonY())
-				{
-					value *= -1;
-				}
-
 				return convertToByte(value, g_rstickY_peak);
 			}
 
-			bool canRebind(SDL_GameControllerButton button, hid::Button input)
+			bool canRebind(SDL_GameControllerButton button, int input)
 			{
 				if(m_keyBindings.count(button) == 0)
 				{
@@ -329,7 +319,7 @@ namespace oot::hid
 				return count != 1;
 			}
 
-			bool updateRebind(hid::Button input) override
+			bool updateRebind(int input) override
 			{
 				u8 state[SDL_CONTROLLER_BUTTON_MAX];
 
@@ -379,42 +369,39 @@ namespace oot::hid
 				m_state.r_stick_x = stickRightX();
 				m_state.r_stick_y = stickRightY();
 
-				if(config().controls().enableGyro())
+				if(m_hasGyro && isFirstPerson())
 				{
-					if(m_hasGyro && isFirstPerson())
-					{
-						float values[3] = {0, 0, 0};
+					float values[3] = {0, 0, 0};
 
-						if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
+					if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_GYRO, values, sizeof(values) / sizeof(float)))
+					{
+						s32 x = m_state.stick_x - (values[2] + values[1]) * oot::config().controls().gyroxScaler();
+						s32 y = m_state.stick_y + values[0] * oot::config().controls().gyroyScaler();
+						m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
+						m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+
+						memcpy(m_state.gyro, values, sizeof(values));
+					}
+				}
+
+				if(m_hasAccel && isFirstPerson())
+				{
+					float values[3] = {0, 0, 0};
+
+					if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_ACCEL, values, sizeof(values) / sizeof(float)))
+					{
+						float accel_x = values[0] - m_state.accel[0];
+						float accel_y = values[2] - m_state.accel[2];
+
+						/*if(accel_x != 0.0f || accel_y != 0.0f)
 						{
-							s32 x = m_state.stick_x - (values[2] + values[1]) * oot::config().controls().gyroxScaler();
-							s32 y = m_state.stick_y + values[0] * oot::config().controls().gyroyScaler();
+							s32 x		= m_state.stick_x - accel_x * ACCEL_SENSITIVITY;
+							s32 y		= m_state.stick_y - accel_y * ACCEL_SENSITIVITY;
 							m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
 							m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
+						}*/
 
-							memcpy(m_state.gyro, values, sizeof(values));
-						}
-					}
-
-					if(m_hasAccel && isFirstPerson())
-					{
-						float values[3] = {0, 0, 0};
-
-						if(!SDL_GameControllerGetSensorData(m_context, SDL_SENSOR_ACCEL, values, sizeof(values) / sizeof(float)))
-						{
-							float accel_x = values[0] - m_state.accel[0];
-							float accel_y = values[2] - m_state.accel[2];
-
-							/*if(accel_x != 0.0f || accel_y != 0.0f)
-							{
-								s32 x		= m_state.stick_x - accel_x * ACCEL_SENSITIVITY;
-								s32 y		= m_state.stick_y - accel_y * ACCEL_SENSITIVITY;
-								m_state.stick_x = MAX(-0x7F, MIN(0x80, x));
-								m_state.stick_y = MAX(-0x7F, MIN(0x80, y));
-							}*/
-
-							memcpy(m_state.accel, values, sizeof(values));
-						}
+						memcpy(m_state.accel, values, sizeof(values));
 					}
 				}
 
@@ -490,7 +477,7 @@ namespace oot::hid
 
 		g_haptics = SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0;
 
-		// SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
+		//SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_XBOX, "1");
 	}
 
 	SDL::~SDL()

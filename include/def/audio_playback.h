@@ -1,6 +1,4 @@
 #pragma once
-#include "ultra64/types.h"
-
 struct SequenceLayer;
 struct Note;
 struct NotePool;
@@ -9,7 +7,6 @@ struct Drum;
 struct Instrument;
 struct SoundFontSound;
 struct NoteSubAttributes;
-struct NoteSubEu;
 
 Note* Audio_AllocNote(SequenceLayer* layer);
 Note* Audio_AllocNoteFromActive(NotePool* pool, SequenceLayer* layer);

@@ -1,8 +1,8 @@
 #pragma once
 #define Z_BG_GANON_OTYUKA_H
 
-#include "global.h"
 #include "ultra64.h"
+#include "global.h"
 
 #define OTYUKA_SIDE_EAST (1 << 0)
 #define OTYUKA_SIDE_WEST (1 << 1)
@@ -14,27 +14,29 @@ struct BgGanonOtyuka;
 
 typedef void (*BgGanonOtyukaActionFunc)(struct BgGanonOtyuka*, GlobalContext*);
 
-enum FlashState
-{
-	/* 0x00 */ FLASH_NONE,
-	/* 0x01 */ FLASH_GROW,
-	/* 0x02 */ FLASH_SHRINK
+
+enum FlashState {
+    /* 0x00 */ FLASH_NONE,
+    /* 0x01 */ FLASH_GROW,
+    /* 0x02 */ FLASH_SHRINK
 };
-struct BgGanonOtyuka
-{
-	/* 0x0000 */ DynaPolyActor dyna;
-	/* 0x0164 */ BgGanonOtyukaActionFunc actionFunc;
-	/* 0x0168 */ Timer dropTimer;
-	/* 0x016A */ u8 isFalling;
-	/* 0x016B */ u8 unwalledSides;
-	/* 0x016C */ u8 visibleSides;
-	/* 0x016D */ u8 flashTimer;
-	/* 0x016E */ u8 flashState;
-	/* 0x0170 */ f32 flashYScale;
-	/* 0x0174 */ f32 flashPrimColorR;
-	/* 0x0178 */ f32 flashPrimColorG;
-	/* 0x017C */ f32 flashPrimColorB;
-	/* 0x0180 */ f32 flashEnvColorR;
-	/* 0x0184 */ f32 flashEnvColorG;
-	/* 0x0188 */ f32 flashEnvColorB;
-};
+struct BgGanonOtyuka {
+
+    /* 0x0000 */ DynaPolyActor dyna;
+    /* 0x0164 */ BgGanonOtyukaActionFunc actionFunc;
+    /* 0x0168 */ s16 dropTimer;
+    /* 0x016A */ u8 isFalling;
+    /* 0x016B */ u8 unwalledSides;
+    /* 0x016C */ u8 visibleSides;
+    /* 0x016D */ u8 flashTimer;
+    /* 0x016E */ u8 flashState;
+    /* 0x0170 */ f32 flashYScale;
+    /* 0x0174 */ f32 flashPrimColorR;
+    /* 0x0178 */ f32 flashPrimColorG;
+    /* 0x017C */ f32 flashPrimColorB;
+    /* 0x0180 */ f32 flashEnvColorR;
+    /* 0x0184 */ f32 flashEnvColorG;
+    /* 0x0188 */ f32 flashEnvColorB;
+}; 
+
+

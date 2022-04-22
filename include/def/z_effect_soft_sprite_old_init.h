@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 struct Vec3f;
 struct Color_RGBA8;
 struct Actor;

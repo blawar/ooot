@@ -4,6 +4,7 @@ struct Arena;
 extern Arena gSystemArena;
 extern s32 gSystemArenaLogSeverity;
 
+void* SystemArena_Calloc(u32 num, u32 size);
 void SystemArena_Check(void);
 void SystemArena_CheckPointer(void* ptr, u32 size, const char* name, const char* action);
 void SystemArena_Cleanup(void);

@@ -1,7 +1,7 @@
 #pragma once
 struct Path;
 struct Vec3f;
-#include "globalctx.h"
+struct GlobalContext;
 struct Actor;
 
 void Path_CopyLastPoint(Path* path, Vec3f* dest);

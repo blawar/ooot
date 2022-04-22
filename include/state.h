@@ -8,4 +8,4 @@ namespace oot
 		bool center_camera = false;
 	};
 	extern State state;
-} // namespace oot
+}

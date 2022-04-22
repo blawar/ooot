@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 void Gfx_DrawDListOpa(GlobalContext* globalCtx, Gfx* dlist);
 void Gfx_DrawDListXlu(GlobalContext* globalCtx, Gfx* dlist);

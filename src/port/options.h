@@ -1,7 +1,6 @@
 #pragma once
-#include <map>
 #include <string>
-#include "include/z64message.h"
+#include <map>
 #include "json.h"
 #include "port/controller/controller.h"
 
@@ -182,47 +181,6 @@ namespace oot
 				return m_useXInput;
 			}
 
-			const bool& invertLeftStickY() const
-			{
-				return m_invertLeftStickY;
-			}
-
-			bool& invertLeftStickY()
-			{
-				return m_invertLeftStickY;
-			}
-
-			const bool& invertRightStickY() const
-			{
-				return m_invertRightStickY;
-			}
-
-			bool& invertRightStickY()
-			{
-				return m_invertRightStickY;
-			}
-
-
-			const bool& invertLeftStickFirstPersonY() const
-			{
-				return m_invertLeftStickY;
-			}
-
-			bool& invertLeftStickFirstPersonY()
-			{
-				return m_invertLeftStickY;
-			}
-
-			const bool& invertRightStickFirstPersonY() const
-			{
-				return m_invertRightStickY;
-			}
-
-			bool& invertRightStickFirstPersonY()
-			{
-				return m_invertRightStickY;
-			}
-
 			protected:
 			bool m_mousexInvert = false;
 			bool m_mouseyInvert = true;
@@ -236,12 +194,6 @@ namespace oot
 			float m_gyroyScaler = 20.0f;
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
-
-			bool m_invertLeftStickY = false;
-			bool m_invertRightStickY = false;
-
-			bool m_invertLeftStickFirstPersonY = false;
-			bool m_invertRightStickFirstPersonY = false;
 		};
 
 		class Cheats : public Section
@@ -271,39 +223,6 @@ namespace oot
 			bool m_invincible = false;
 			float m_speed = 1.0f;
 			bool m_blindGerudoGuards = false;
-		};
-
-		class Video : public Section
-		{
-			public:
-			Video();
-
-			void save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator) override;
-			void load(rapidjson::Document& doc) override;
-
-			const s64& vsync() const
-			{
-				return m_vsync;
-			}
-
-			s64& vsync()
-			{
-				return m_vsync;
-			}
-
-			const bool& doubleBuffer() const
-			{
-				return m_doubleBuffer;
-			}
-
-			bool& doubleBuffer()
-			{
-				return m_doubleBuffer;
-			}
-
-			protected:
-			s64 m_vsync = 0;
-			bool m_doubleBuffer = 0;
 		};
 
 		class Game : public Section
@@ -417,25 +336,6 @@ namespace oot
 				return m_textScrollSpeed;
 			}
 
-			const Language& language() const
-			{
-				return m_language;
-			}
-
-			void setLanguage(Language id);
-			void setNextLanguage();
-			void setPrevLanguage();
-
-			const u64& fastForwardSpeed() const
-			{
-				return m_fastForwardSpeed;
-			}
-
-			u64& fastForwardSpeed()
-			{
-				return m_fastForwardSpeed;
-			}
-
 			protected:
 			bool m_graphicsEnabled = true;
 			bool m_audioEnabled = true;
@@ -448,8 +348,6 @@ namespace oot
 			bool m_enablDebugLevelSelect = false;
 			u64 m_pauseExitInputClearFrames = 2;
 			u64 m_textScrollSpeed = 1;
-			Language m_language = LANGUAGE_ENG;
-			u64 m_fastForwardSpeed = 5;
 		};
 
 		class Base
@@ -499,21 +397,10 @@ namespace oot
 				return m_game;
 			}
 
-			const Video& video() const
-			{
-				return m_video;
-			}
-
-			Video& video()
-			{
-				return m_video;
-			}			
-
 			protected:
 			Camera m_camera;
 			Cheats m_cheats;
 			Controls m_controls;
-			Video m_video;
 			Game m_game;
 		};
 	} // namespace options

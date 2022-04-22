@@ -1,11 +1,8 @@
 #pragma once
-
-#include "globalctx.h"
-
+struct GameState;
 struct GraphicsContext;
 struct Vec3s;
 struct Vec3f;
-struct VecRot;
 
 extern Mtx gMtxClear;
 extern MtxF gMtxFClear;
@@ -17,9 +14,7 @@ void Matrix_MtxFCopy(MtxF* dest, MtxF* src);
 Mtx* Matrix_MtxFToMtx(MtxF* src, Mtx* dest);
 Mtx* Matrix_MtxFToNewMtx(MtxF* src, GraphicsContext* gfxCtx);
 void Matrix_MtxFToYXZRotS(MtxF* mf, Vec3s* rotDest, s32 flag);
-void Matrix_MtxFToYXZRotS(MtxF* mf, VecRot* rotDest, s32 flag);
 void Matrix_MtxFToZYXRotS(MtxF* mf, Vec3s* rotDest, s32 flag);
-void Matrix_MtxFToZYXRotS(MtxF* mf, VecRot* rotDest, s32 flag);
 void Matrix_MtxToMtxF(Mtx* src, MtxF* dest);
 void Matrix_Mult(MtxF* mf, u8 mode);
 void Matrix_MultVec3f(Vec3f* src, Vec3f* dest);
@@ -40,5 +35,4 @@ void Matrix_Translate(f32 x, f32 y, f32 z, u8 mode);
 void Matrix_TranslateRotateZYX(Vec3f* translation, Vec3s* rotation);
 void Matrix_Transpose(MtxF* mf);
 void func_800D1694(f32 x, f32 y, f32 z, Vec3s* vec);
-void func_800D1694(f32 x, f32 y, f32 z, VecRot* vec);
 void func_800D1FD4(MtxF* mf);

@@ -1,7 +1,7 @@
 #pragma once
 struct Actor;
 struct Lights;
-#include "globalctx.h"
+struct GlobalContext;
 struct ActorShape;
 struct ActorContext;
 struct Collider;
@@ -119,8 +119,8 @@ void TitleCard_InitPlaceName(GlobalContext* globalCtx, TitleCardContext* titleCt
 void func_8002BE04(GlobalContext* globalCtx, Vec3f* arg1, Vec3f* arg2, f32* arg3);
 void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx);
 s32 func_8002D53C(GlobalContext* globalCtx, TitleCardContext* titleCtx);
-void Actor_UpdatePosition(Actor* actor);
-void Actor_UpdateVelocityWithGravity(Actor* actor);
+void func_8002D7EC(Actor* actor);
+void func_8002D868(Actor* actor);
 void func_8002D908(Actor* actor);
 void func_8002D97C(Actor* actor);
 void func_8002D9A4(Actor* actor, f32 arg1);
@@ -173,7 +173,7 @@ void func_80031A28(GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031B14(GlobalContext* globalCtx, ActorContext* actorCtx);
 void func_80031C3C(ActorContext* actorCtx, GlobalContext* globalCtx);
 Actor* func_80032AF0(GlobalContext* globalCtx, ActorContext* actorCtx, Actor** actorPtr, Player* player);
-s16 func_80032CB4(Timer* arg0, s16 arg1, s16 arg2, s16 arg3);
+s16 func_80032CB4(s16* arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_80033480(GlobalContext* globalCtx, Vec3f* posBase, f32 randRangeDiameter, s32 amountMinusOne, s16 scaleBase, s16 scaleStep, u8 arg6);
 Actor* func_80033684(GlobalContext* globalCtx, Actor* explosiveActor);
 f32 func_80033AEC(Vec3f* arg0, Vec3f* arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5);
@@ -197,9 +197,15 @@ void func_8003555C(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f*
 void func_800355B8(GlobalContext* globalCtx, Vec3f* pos);
 u8 func_800355E4(GlobalContext* globalCtx, Collider* collider);
 void func_80035844(Vec3f* arg0, Vec3f* arg1, Vec3s* arg2, s32 arg3);
-void func_80035844(Vec3f* arg0, Vec3f* arg1, VecRot* arg2, s32 arg3);
-Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, VecRot* spawnRot, f32* arg3, s32 timer, s16* unused, GlobalContext* globalCtx, s16 params, s32 arg8);
-void func_800359B8(Actor* actor, s16 arg1, VecRot* arg2);
+Actor* func_800358DC(Actor* actor, Vec3f* spawnPos, Vec3s* spawnRot, f32* arg3, s32 timer, s16* unused, GlobalContext* globalCtx, s16 params, s32 arg8);
+void func_800359B8(Actor* actor, s16 arg1, Vec3s* arg2);
 u16 func_80037C30(GlobalContext* globalCtx, s16 arg1);
 s32 func_80037D98(GlobalContext* globalCtx, Actor* actor, s16 arg2, s32* arg3);
-s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* rot, Vec3s* pos, Vec3f arg4);
+s32 func_80038290(GlobalContext* globalCtx, Actor* actor, Vec3s* arg2, Vec3s* arg3, Vec3f arg4);
+
+enum PlayerState1
+{
+	PLAYER_STATE_HORSE_MOUNTED = 0x800000,
+	PLAYER_STATE_SWIMMING = 0x8000000
+};
+

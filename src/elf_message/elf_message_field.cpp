@@ -1,6 +1,6 @@
 #include "global.h"
-#include "z64elf_message.h"
 #include "z64item.h"
+#include "z64elf_message.h"
 
 ElfMessage gOverworldNaviMsgs[] = {
     ELF_MSG_FLAG(CHECK, 0x40, false, 0x05), /* eventChkInf[0] & 0x20 */

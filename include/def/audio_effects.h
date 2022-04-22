@@ -5,7 +5,6 @@ struct VibratoState;
 struct Note;
 struct SequenceChannel;
 struct SequencePlayer;
-struct AdsrState;
 
 void Audio_AdsrInit(AdsrState* adsr, AdsrEnvelope* envelope, s16* volOut);
 f32 Audio_AdsrUpdate(AdsrState* adsr);

@@ -1,6 +1,5 @@
 #pragma once
 struct TransitionUnk;
-union Gfx;
 
 void TransitionUnk_Destroy(TransitionUnk* pthis);
 void TransitionUnk_Draw(TransitionUnk* pthis, Gfx**);

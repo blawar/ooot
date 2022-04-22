@@ -6,13 +6,14 @@
  * Description: Death Mountain cloud circle
  */
 
-#include "vt.h"
 #include "z_bg_spot16_doughnut.h"
+#include "objects/object_efc_doughnut/object_efc_doughnut.h"
+#include "vt.h"
 #include "def/sys_matrix.h"
 #include "def/z_actor.h"
+#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_rcp.h"
-#include "objects/object_efc_doughnut/object_efc_doughnut.h"
 
 #define FLAGS 0
 
@@ -26,7 +27,15 @@ void BgSpot16Doughnut_UpdateExpanding(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Bg_Spot16_Doughnut_InitVars = {
-    ACTOR_BG_SPOT16_DOUGHNUT,	       ACTORCAT_PROP, FLAGS, OBJECT_EFC_DOUGHNUT, sizeof(BgSpot16Doughnut), (ActorFunc)BgSpot16Doughnut_Init, (ActorFunc)BgSpot16Doughnut_Destroy, (ActorFunc)BgSpot16Doughnut_Update, (ActorFunc)BgSpot16Doughnut_Draw,
+    ACTOR_BG_SPOT16_DOUGHNUT,
+    ACTORCAT_PROP,
+    FLAGS,
+    OBJECT_EFC_DOUGHNUT,
+    sizeof(BgSpot16Doughnut),
+    (ActorFunc)BgSpot16Doughnut_Init,
+    (ActorFunc)BgSpot16Doughnut_Destroy,
+    (ActorFunc)BgSpot16Doughnut_Update,
+    (ActorFunc)BgSpot16Doughnut_Draw,
     (ActorFunc)BgSpot16Doughnut_Reset,
 };
 
@@ -40,156 +49,139 @@ static s16 sScales[] = {
     0, 0, 70, 210, 300,
 };
 
-void BgSpot16Doughnut_Init(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
-	s32 params;
+void BgSpot16Doughnut_Init(Actor* thisx, GlobalContext* globalCtx) {
+    BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
+    s32 params;
 
-	Actor_ProcessInitChain(&pthis->actor, sInitChain);
-	Actor_SetScale(&pthis->actor, 0.1f);
-	pthis->fireFlag = 0;
-	pthis->envColorAlpha = 255;
-	params = pthis->actor.params;
-	if(params == 1 || params == 2 || params == 3 || params == 4)
-	{
-		Actor_SetScale(&pthis->actor, sScales[pthis->actor.params] * 1.0e-4f);
-		pthis->actor.draw = BgSpot16Doughnut_DrawExpanding;
-		pthis->actor.update = BgSpot16Doughnut_UpdateExpanding;
-	}
-	else
-	{
-		// Scales pthis actor for scenes where it is featured in the background,
-		// Death Mountain itself falls into the default case.
-		switch(globalCtx->sceneNum)
-		{
-			case SCENE_SPOT01:
-				Actor_SetScale(&pthis->actor, 0.04f);
-				break;
-			case SCENE_SHRINE:
-			case SCENE_SHRINE_N:
-			case SCENE_SHRINE_R:
-				Actor_SetScale(&pthis->actor, 0.018f);
-				break;
-			default:
-				Actor_SetScale(&pthis->actor, 0.1f);
-				break;
-		}
-		osSyncPrintf(VT_FGCOL(CYAN) "%f" VT_RST "\n", pthis->actor.scale.x);
-		if(!LINK_IS_ADULT || gSaveContext.eventChkInf[2] & 0x8000)
-		{
-			pthis->fireFlag &= ~1;
-		}
-		else
-		{
-			pthis->fireFlag |= 1;
-		}
-		osSyncPrintf("(ｓｐｏｔ１６ ドーナツ雲)(arg_data 0x%04x)\n", pthis->actor.params);
-	}
+    Actor_ProcessInitChain(&pthis->actor, sInitChain);
+    Actor_SetScale(&pthis->actor, 0.1f);
+    pthis->fireFlag = 0;
+    pthis->envColorAlpha = 255;
+    params = pthis->actor.params;
+    if (params == 1 || params == 2 || params == 3 || params == 4) {
+        Actor_SetScale(&pthis->actor, sScales[pthis->actor.params] * 1.0e-4f);
+        pthis->actor.draw = BgSpot16Doughnut_DrawExpanding;
+        pthis->actor.update = BgSpot16Doughnut_UpdateExpanding;
+    } else {
+        // Scales pthis actor for scenes where it is featured in the background,
+        // Death Mountain itself falls into the default case.
+        switch (globalCtx->sceneNum) {
+            case SCENE_SPOT01:
+                Actor_SetScale(&pthis->actor, 0.04f);
+                break;
+            case SCENE_SHRINE:
+            case SCENE_SHRINE_N:
+            case SCENE_SHRINE_R:
+                Actor_SetScale(&pthis->actor, 0.018f);
+                break;
+            default:
+                Actor_SetScale(&pthis->actor, 0.1f);
+                break;
+        }
+        osSyncPrintf(VT_FGCOL(CYAN) "%f" VT_RST "\n", pthis->actor.scale.x);
+        if (!LINK_IS_ADULT || gSaveContext.eventChkInf[2] & 0x8000) {
+            pthis->fireFlag &= ~1;
+        } else {
+            pthis->fireFlag |= 1;
+        }
+        osSyncPrintf("(ｓｐｏｔ１６ ドーナツ雲)(arg_data 0x%04x)\n", pthis->actor.params);
+    }
 }
 
-void BgSpot16Doughnut_Destroy(Actor* thisx, GlobalContext* globalCtx)
-{
+void BgSpot16Doughnut_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
-void BgSpot16Doughnut_Update(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
+void BgSpot16Doughnut_Update(Actor* thisx, GlobalContext* globalCtx) {
+    BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
 
-	if(!(pthis->fireFlag & 1))
-	{
-		pthis->actor.shape.rot.y -= 0x20;
-		if(pthis->envColorAlpha < 255)
-		{
-			pthis->envColorAlpha += 5;
-		}
-		else
-		{
-			pthis->envColorAlpha = 255;
-		}
-	}
-	else if(globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[2] != NULL && globalCtx->csCtx.npcActions[2]->action == 2)
-	{
-		if(pthis->envColorAlpha >= 6)
-		{
-			pthis->envColorAlpha -= 5;
-		}
-		else
-		{
-			pthis->envColorAlpha = 0;
-			pthis->fireFlag &= ~1;
-		}
-	}
+    if (!(pthis->fireFlag & 1)) {
+        pthis->actor.shape.rot.y -= 0x20;
+        if (pthis->envColorAlpha < 255) {
+            pthis->envColorAlpha += 5;
+        } else {
+            pthis->envColorAlpha = 255;
+        }
+    } else if (globalCtx->csCtx.state != CS_STATE_IDLE && globalCtx->csCtx.npcActions[2] != NULL &&
+               globalCtx->csCtx.npcActions[2]->action == 2) {
+        if (pthis->envColorAlpha >= 6) {
+            pthis->envColorAlpha -= 5;
+        } else {
+            pthis->envColorAlpha = 0;
+            pthis->fireFlag &= ~1;
+        }
+    }
 }
 
 // Update function for outwardly expanding and dissipating
-void BgSpot16Doughnut_UpdateExpanding(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
+void BgSpot16Doughnut_UpdateExpanding(Actor* thisx, GlobalContext* globalCtx) {
+    BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
 
-	if(pthis->envColorAlpha >= 6)
-	{
-		pthis->envColorAlpha -= 5;
-	}
-	else
-	{
-		Actor_Kill(&pthis->actor);
-	}
-	pthis->actor.shape.rot.y -= 0x20;
-	Actor_SetScale(&pthis->actor, pthis->actor.scale.x + 0.0019999998f);
+    if (pthis->envColorAlpha >= 6) {
+        pthis->envColorAlpha -= 5;
+    } else {
+        Actor_Kill(&pthis->actor);
+    }
+    pthis->actor.shape.rot.y -= 0x20;
+    Actor_SetScale(&pthis->actor, pthis->actor.scale.x + 0.0019999998f);
 }
 
-void BgSpot16Doughnut_Draw(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
-	u32 scroll = globalCtx->gameplayFrames & 0xFFFF;
-	s32 pad;
+void BgSpot16Doughnut_Draw(Actor* thisx, GlobalContext* globalCtx) {
+    BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
+    u32 scroll = globalCtx->gameplayFrames & 0xFFFF;
+    s32 pad;
 
-	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 210);
+    OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 210);
 
-	func_80093D84(globalCtx->gfxCtx);
+    func_80093D84(globalCtx->state.gfxCtx);
 
-	if(1)
-	{
-	}
+    if (1) {}
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 213), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	if(pthis->fireFlag & 1)
-	{
-		gSPSegment(POLY_XLU_DISP++, 0x08, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, scroll * (-1), 0, 16, 32, 1, scroll, scroll * (-2), 16, 32));
-		gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, pthis->envColorAlpha);
-		gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleFieryDL);
-	}
-	else
-	{
-		gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
-		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
-		gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
-	}
+    gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 213),
+              G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    if (pthis->fireFlag & 1) {
+        gSPSegment(
+            POLY_XLU_DISP++, 0x08,
+            Gfx_TwoTexScroll(globalCtx->state.gfxCtx, 0, scroll * (-1), 0, 16, 32, 1, scroll, scroll * (-2), 16, 32));
+        gDPSetEnvColor(POLY_XLU_DISP++, 255, 0, 0, pthis->envColorAlpha);
+        gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleFieryDL);
+    } else {
+        gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
+        gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
+        gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
+    }
 
-	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 238);
+    CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 238);
 }
 
 // Draw function for outwardly expanding and dissipating
-void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
+void BgSpot16Doughnut_DrawExpanding(Actor* thisx, GlobalContext* globalCtx) {
+    BgSpot16Doughnut* pthis = (BgSpot16Doughnut*)thisx;
 
-	OPEN_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 245);
+    OPEN_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 245);
 
-	func_80093D84(globalCtx->gfxCtx);
+    func_80093D84(globalCtx->state.gfxCtx);
 
-	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 248), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
-	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
-	gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
+    gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 248),
+              G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gDPSetEnvColor(POLY_XLU_DISP++, 255, 255, 255, pthis->envColorAlpha);
+    gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, 255);
+    gSPDisplayList(POLY_XLU_DISP++, gDeathMountainCloudCircleNormalDL);
 
-	CLOSE_DISPS(globalCtx->gfxCtx, "../z_bg_spot16_doughnut.c", 256);
+    CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_bg_spot16_doughnut.c", 256);
 }
 
-void BgSpot16Doughnut_Reset(Actor* pthisx, GlobalContext* globalCtx)
-{
-	Bg_Spot16_Doughnut_InitVars = {
-	    ACTOR_BG_SPOT16_DOUGHNUT,	       ACTORCAT_PROP, FLAGS, OBJECT_EFC_DOUGHNUT, sizeof(BgSpot16Doughnut), (ActorFunc)BgSpot16Doughnut_Init, (ActorFunc)BgSpot16Doughnut_Destroy, (ActorFunc)BgSpot16Doughnut_Update, (ActorFunc)BgSpot16Doughnut_Draw,
-	    (ActorFunc)BgSpot16Doughnut_Reset,
-	};
+void BgSpot16Doughnut_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Spot16_Doughnut_InitVars = {
+        ACTOR_BG_SPOT16_DOUGHNUT,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_EFC_DOUGHNUT,
+        sizeof(BgSpot16Doughnut),
+        (ActorFunc)BgSpot16Doughnut_Init,
+        (ActorFunc)BgSpot16Doughnut_Destroy,
+        (ActorFunc)BgSpot16Doughnut_Update,
+        (ActorFunc)BgSpot16Doughnut_Draw,
+        (ActorFunc)BgSpot16Doughnut_Reset,
+    };
+
 }

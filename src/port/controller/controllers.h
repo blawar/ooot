@@ -1,21 +1,21 @@
 #pragma once
 
-#include <memory>
-#include <vector>
-#include "controller.h"
 #include "ultra64/types.h"
+#include "controller.h"
+#include <vector>
+#include <memory>
 
 namespace oot::hid
 {
 	class Driver
 	{
-		public:
+	public:
 		Driver();
 		virtual ~Driver();
 		virtual const u64 size() const;
 		virtual Controller& controller(const u64 index);
 		virtual void update();
-		virtual bool updateRebind(hid::Button input);
+		virtual bool updateRebind(int input);
 		virtual void scan(class Controllers* controllers);
 		virtual void resetBindings();
 		virtual bool defaultOnly()
@@ -28,29 +28,29 @@ namespace oot::hid
 			return m_controllers;
 		}
 
-		protected:
+	protected:
 		std::vector<std::shared_ptr<Controller>> m_controllers;
 	};
 
 	class Controllers
 	{
-		public:
+	public:
 		Controllers();
 		virtual ~Controllers();
 		const u64 size() const;
 		void update();
 		void scan();
 		bool isRebindMode() const;
-		void rebind(hid::Button input);
+		void rebind(int input);
 		void resetBindings();
 		std::vector<class Driver*>& drivers()
 		{
 			return m_drivers;
 		}
 
-		protected:
+	protected:
 		std::vector<class Driver*> m_drivers;
-		Button m_rebindInput;
+		int m_rebindInput;
 	};
 
 	Controllers& controllers();

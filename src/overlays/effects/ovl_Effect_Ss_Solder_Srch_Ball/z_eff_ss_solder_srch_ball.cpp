@@ -19,47 +19,40 @@ EffectSsInit Effect_Ss_Solder_Srch_Ball_InitVars = {
     EffectSsSolderSrchBall_Init,
 };
 
-u32 EffectSsSolderSrchBall_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx)
-{
-	EffectSsSolderSrchBallInitParams* initParams = (EffectSsSolderSrchBallInitParams*)initParamsx;
+u32 EffectSsSolderSrchBall_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx) {
+    EffectSsSolderSrchBallInitParams* initParams = (EffectSsSolderSrchBallInitParams*)initParamsx;
 
-	pthis->pos = initParams->pos;
-	pthis->velocity = initParams->velocity;
-	pthis->accel = initParams->accel;
-	pthis->update = EffectSsSolderSrchBall_Update;
-	pthis->life = 100;
-	pthis->rUnused = initParams->unused;
-	pthis->actor = (Actor*)initParams->linkDetected; // actor field was incorrectly used as a pointer to something else
-	return 1;
+    pthis->pos = initParams->pos;
+    pthis->velocity = initParams->velocity;
+    pthis->accel = initParams->accel;
+    pthis->update = EffectSsSolderSrchBall_Update;
+    pthis->life = 100;
+    pthis->rUnused = initParams->unused;
+    pthis->actor = (Actor*)initParams->linkDetected; // actor field was incorrectly used as a pointer to something else
+    return 1;
 }
 
-void EffectSsSolderSrchBall_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
-{
-	s32 pad;
-	f32 playerPosDiffX;
-	f32 playerPosDiffY;
-	f32 playerPosDiffZ;
-	s16* linkDetected;
-	Player* player = GET_PLAYER(globalCtx);
+void EffectSsSolderSrchBall_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
+    s32 pad;
+    f32 playerPosDiffX;
+    f32 playerPosDiffY;
+    f32 playerPosDiffZ;
+    s16* linkDetected;
+    Player* player = GET_PLAYER(globalCtx);
 
-	linkDetected = (s16*)pthis->actor;
+    linkDetected = (s16*)pthis->actor;
 
-	playerPosDiffX = player->actor.world.pos.x - pthis->pos.x;
-	playerPosDiffY = player->actor.world.pos.y - pthis->pos.y;
-	playerPosDiffZ = player->actor.world.pos.z - pthis->pos.z;
+    playerPosDiffX = player->actor.world.pos.x - pthis->pos.x;
+    playerPosDiffY = player->actor.world.pos.y - pthis->pos.y;
+    playerPosDiffZ = player->actor.world.pos.z - pthis->pos.z;
 
-	if(!BgCheck_SphVsFirstPoly(&globalCtx->colCtx, &pthis->pos, 30.0f))
-	{
-		if(sqrtf(SQ(playerPosDiffX) + SQ(playerPosDiffY) + SQ(playerPosDiffZ)) < 70.0f)
-		{
-			*linkDetected = true;
-		}
-	}
-	else
-	{
-		if(pthis->life > 1)
-		{
-			pthis->life = 1;
-		}
-	}
+    if (!BgCheck_SphVsFirstPoly(&globalCtx->colCtx, &pthis->pos, 30.0f)) {
+        if (sqrtf(SQ(playerPosDiffX) + SQ(playerPosDiffY) + SQ(playerPosDiffZ)) < 70.0f) {
+            *linkDetected = true;
+        }
+    } else {
+        if (pthis->life > 1) {
+            pthis->life = 1;
+        }
+    }
 }

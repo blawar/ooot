@@ -28,3 +28,4 @@ s32 func_800AB560(View* view);
 s32 func_800AB944(View* view);
 s32 func_800AB9EC(View* view, s32 arg1, Gfx** p);
 s32 func_800ABE74(f32 eyeX, f32 eyeY, f32 eyeZ);
+

@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 void KaleidoSetup_Destroy(GlobalContext* globalCtx);
 void KaleidoSetup_Init(GlobalContext* globalCtx);

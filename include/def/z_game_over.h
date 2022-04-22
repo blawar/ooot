@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 void GameOver_FadeInLights(GlobalContext* globalCtx);
 void GameOver_Init(GlobalContext* globalCtx);

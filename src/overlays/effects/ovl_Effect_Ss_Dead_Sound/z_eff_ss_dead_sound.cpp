@@ -20,36 +20,33 @@ EffectSsInit Effect_Ss_Dead_Sound_InitVars = {
     EffectSsDeadSound_Init,
 };
 
-u32 EffectSsDeadSound_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx)
-{
-	EffectSsDeadSoundInitParams* initParams = (EffectSsDeadSoundInitParams*)initParamsx;
+u32 EffectSsDeadSound_Init(GlobalContext* globalCtx, u32 index, EffectSs* pthis, void* initParamsx) {
+    EffectSsDeadSoundInitParams* initParams = (EffectSsDeadSoundInitParams*)initParamsx;
 
-	pthis->pos = initParams->pos;
-	pthis->velocity = initParams->velocity;
-	pthis->accel = initParams->accel;
-	pthis->flags = 2;
-	pthis->life = initParams->life;
-	pthis->draw = NULL;
-	pthis->update = EffectSsDeadSound_Update;
-	pthis->rRepeatMode = initParams->repeatMode;
-	pthis->rSfxId = initParams->sfxId;
-	osSyncPrintf("コンストラクター3\n"); // "constructor 3"
+    pthis->pos = initParams->pos;
+    pthis->velocity = initParams->velocity;
+    pthis->accel = initParams->accel;
+    pthis->flags = 2;
+    pthis->life = initParams->life;
+    pthis->draw = NULL;
+    pthis->update = EffectSsDeadSound_Update;
+    pthis->rRepeatMode = initParams->repeatMode;
+    pthis->rSfxId = initParams->sfxId;
+    osSyncPrintf("コンストラクター3\n"); // "constructor 3"
 
-	return 1;
+    return 1;
 }
 
-void EffectSsDeadSound_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
-{
-	switch(pthis->rRepeatMode)
-	{
-		case DEADSOUND_REPEAT_MODE_OFF:
-			pthis->rRepeatMode--; // decrement to 0 so sound only plays once
-			break;
-		case DEADSOUND_REPEAT_MODE_ON:
-			break;
-		default:
-			return;
-	}
+void EffectSsDeadSound_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis) {
+    switch (pthis->rRepeatMode) {
+        case DEADSOUND_REPEAT_MODE_OFF:
+            pthis->rRepeatMode--; // decrement to 0 so sound only plays once
+            break;
+        case DEADSOUND_REPEAT_MODE_ON:
+            break;
+        default:
+            return;
+    }
 
-	Audio_PlaySoundGeneral(pthis->rSfxId, &pthis->pos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
+    Audio_PlaySoundGeneral(pthis->rSfxId, &pthis->pos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 }

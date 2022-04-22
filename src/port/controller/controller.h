@@ -1,59 +1,58 @@
 #pragma once
-#include <string>
 #include "ultra64/types.h"
+#include <string>
 
 namespace oot::hid
 {
-	enum Button : s64
+	enum Button
 	{
 		EMPTY_BUTTON = 0,
-		CONT_A = 0x8000,
-		CONT_B = 0x4000,
-		CONT_G = 0x2000,
+		CONT_A	   = 0x8000,
+		CONT_B	   = 0x4000,
+		CONT_G	   = 0x2000,
 		CONT_START = 0x1000,
-		CONT_UP = 0x0800,
-		CONT_DOWN = 0x0400,
-		CONT_LEFT = 0x0200,
+		CONT_UP	   = 0x0800,
+		CONT_DOWN  = 0x0400,
+		CONT_LEFT  = 0x0200,
 		CONT_RIGHT = 0x0100,
-		CONT_L = 0x0020,
-		CONT_R = 0x0010,
-		CONT_E = 0x0008,
-		CONT_D = 0x0004,
-		CONT_C = 0x0002,
-		CONT_F = 0x0001,
+		CONT_L	   = 0x0020,
+		CONT_R	   = 0x0010,
+		CONT_E	   = 0x0008,
+		CONT_D	   = 0x0004,
+		CONT_C	   = 0x0002,
+		CONT_F	   = 0x0001,
 
-		A_BUTTON = CONT_A,
-		B_BUTTON = CONT_B,
-		L_TRIG = CONT_L,
-		R_TRIG = CONT_R,
-		Z_TRIG = CONT_G,
+		A_BUTTON     = CONT_A,
+		B_BUTTON     = CONT_B,
+		L_TRIG	     = CONT_L,
+		R_TRIG	     = CONT_R,
+		Z_TRIG	     = CONT_G,
 		START_BUTTON = CONT_START,
-		U_JPAD = CONT_UP,
-		L_JPAD = CONT_LEFT,
-		R_JPAD = CONT_RIGHT,
-		D_JPAD = CONT_DOWN,
-		U_CBUTTONS = CONT_E,
-		L_CBUTTONS = CONT_C,
-		R_CBUTTONS = CONT_F,
-		D_CBUTTONS = CONT_D,
-		STICK_X_LEFT = 1ULL << 16,
-		STICK_X_RIGHT = 1ULL << 17,
-		STICK_X_DOWN = 1ULL << 19,
-		STICK_X_UP = 1ULL << 18,
-		WALK_BUTTON = 1ULL << 20,
-		DEBUG_MENU = 1ULL << 21,
-		OCARINA = 1ULL << 22,
-		HOOKSHOT = 1ULL << 23,
-		BOW_ARROW = 1ULL << 24,
-		LENS_OF_TRUTH = 1ULL << 25,
-		BOOTS_TOGGLE = 1ULL << 26,
-		SWORD_TOGGLE = 1ULL << 27,
-		SHIELD_TOGGLE = 1ULL << 28,
-		TUNIC_TOGGLE = 1ULL << 29,
-		FAST_FORWARD = 1ULL << 30,
-		CENTER_CAMERA = 1ULL << 31,
-		CURRENT_ACTION = 1ULL << 32,
-		LANGUAGE_TOGGLE = 1ULL << 33
+		U_JPAD	     = CONT_UP,
+		L_JPAD	     = CONT_LEFT,
+		R_JPAD	     = CONT_RIGHT,
+		D_JPAD	     = CONT_DOWN,
+		U_CBUTTONS   = CONT_E,
+		L_CBUTTONS   = CONT_C,
+		R_CBUTTONS   = CONT_F,
+		D_CBUTTONS   = CONT_D,
+		STICK_X_LEFT = 1 << 16,
+		STICK_X_RIGHT = 1 << 17,
+		STICK_X_DOWN = 1 << 19,
+		STICK_X_UP = 1 << 18,
+		WALK_BUTTON = 1 << 20,
+		DEBUG_MENU = 1 << 21,
+		OCARINA = 1 << 22,
+		HOOKSHOT = 1 << 23,
+		BOW_ARROW = 1 << 24,
+		LENS_OF_TRUTH = 1 << 25,
+		BOOTS_TOGGLE = 1 << 26,
+		SWORD_TOGGLE = 1 << 27,
+		SHIELD_TOGGLE = 1 << 28,
+		TUNIC_TOGGLE = 1 << 29,
+		FAST_FORWARD = 1 << 30,
+		CENTER_CAMERA = 1 << 31,
+		CURRENT_ACTION = 1 << 32
 	};
 
 	class State
@@ -128,10 +127,10 @@ namespace oot::hid
 		virtual void ResetMotorPack();
 		virtual void SendMotorVib(int level);
 
-		virtual bool updateRebind(hid::Button input);
-		virtual void processKey(hid::Button input);
-		virtual void processKeyUp(hid::Button input);
-		virtual void processKeyDown(hid::Button input);
+		virtual bool updateRebind(int input);
+		virtual void processKey(int input);
+		virtual void processKeyUp(int input);
+		virtual void processKeyDown(int input);
 
 		protected:
 		virtual void vibrate();
@@ -153,33 +152,7 @@ namespace oot::hid
 
 	namespace controller
 	{
-		const char* getInputName(hid::Button input);
+		const char* getInputName(Button input);
 		Button getInputValue(const std::string& input);
-	} // namespace controller
-
-	static constexpr inline int8_t convertToByte(int value, int max)
-	{
-		if(value > 0)
-		{
-			return value * 0x7F / max;
-		}
-		else
-		{
-			return value * 0x80 / (max+1);
-		}
-	}
-
-	static inline int8_t invert(const int8_t value)
-	{
-		if(value == -128)
-		{
-			return 0x7F;
-		}
-		if(value == 127)
-		{
-			return -0x80;
-		}
-
-		return -value;
 	}
 } // namespace oot::hid

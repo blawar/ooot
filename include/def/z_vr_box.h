@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GameState;
 struct SkyboxContext;
 
 void Skybox_Init(GameState* state, SkyboxContext* skyboxCtx, s16 skyboxId);

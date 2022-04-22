@@ -13,32 +13,35 @@
 #define ALIGN64(val) (((val) + 0x3F) & ~0x3F)
 #define ALIGN256(val) (((val) + 0xFF) & ~0xFF)
 
-#define OFFSETOF(structure, member) ((size_t) & (((structure*)0)->member))
+#define OFFSETOF(structure, member) ((size_t)&(((structure*)0)->member))
 
-#define SQ(x) ((x) * (x))
+#define SQ(x) ((x)*(x))
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
-#define DECR(x) ((x).dec())
-#define DECRI(x) ((x) == 0 ? 0 : --(x))
-#define DECRT(x) ((x).dec())
+#define DECR(x) ((x) == 0 ? 0 : --(x))
+#define DECRT(x) (x.dec())
 #define CLAMP(x, min, max) ((x) < (min) ? (min) : (x) > (max) ? (max) : (x))
 #define CLAMP_MAX(x, max) ((x) > (max) ? (max) : (x))
 #define CLAMP_MIN(x, min) ((x) < (min) ? (min) : (x))
-#define MEDIAN3(a1, a2, a3) (((a2) >= (a1)) ? (((a3) >= (a2)) ? (a2) : (((a1) >= (a3)) ? (a1) : (a3))) : (((a2) >= (a3)) ? (a2) : (((a3) >= (a1)) ? (a1) : (a3))))
+#define MEDIAN3(a1, a2, a3)                                                    \
+    (((a2) >= (a1)) ? (((a3) >= (a2)) ? (a2) : (((a1) >= (a3)) ? (a1) : (a3))) \
+                    : (((a2) >= (a3)) ? (a2) : (((a3) >= (a1)) ? (a1) : (a3))))
 
 #ifdef LITTLE_ENDIAN
-#define RGBA8(r, g, b, a) ((((a)&0xFF) << 24) | (((b)&0xFF) << 16) | (((g)&0xFF) << 8) | (((r)&0xFF) << 0))
+#define RGBA8(r, g, b, a) ((((a) & 0xFF) << 24) | (((b) & 0xFF) << 16) | (((g) & 0xFF) << 8) | (((r) & 0xFF) << 0))
 #else
-#define RGBA8(r, g, b, a) ((((r)&0xFF) << 24) | (((g)&0xFF) << 16) | (((b)&0xFF) << 8) | (((a)&0xFF) << 0))
+#define RGBA8(r, g, b, a) ((((r) & 0xFF) << 24) | (((g) & 0xFF) << 16) | (((b) & 0xFF) << 8) | (((a) & 0xFF) << 0))
 #endif
 
 #define GET_PLAYER(globalCtx) ((Player*)(globalCtx)->actorCtx.actorLists[ACTORCAT_PLAYER].head)
 
 #define GET_ACTIVE_CAM(globalCtx) ((globalCtx)->cameraPtrs[(globalCtx)->activeCamera])
 
+
 #define CHECK_BTN_ALL(state, combo) (~((state) | ~(combo)) == 0)
 #define CHECK_BTN_ANY(state, combo) (((state) & (combo)) != 0)
 
 #define CHECK_FLAG_ALL(flags, mask) (((flags) & (mask)) == (mask))
+
 
 #define LOG(exp, value, format, file, line) 0
 
@@ -49,43 +52,42 @@
 #define LOG_HEX(exp, value, file, line) LOG(exp, value, "%x", file, line)
 #define LOG_FLOAT(exp, value, file, line) LOG(exp, value, "%f", file, line)
 
-#define SET_NEXT_GAMESTATE(curState, newInit, newStruct)                                                                                                                                                                                                       \
-	do                                                                                                                                                                                                                                                     \
-	{                                                                                                                                                                                                                                                      \
-		(curState)->init = newInit;                                                                                                                                                                                                                    \
-		(curState)->size = sizeof(newStruct);                                                                                                                                                                                                          \
-	} while(0)
+#define SET_NEXT_GAMESTATE(curState, newInit, newStruct) \
+    do {                                                 \
+        (curState)->init = newInit;                      \
+        (curState)->size = sizeof(newStruct);            \
+    } while (0)
 
-#define SET_FULLSCREEN_VIEWPORT(view)                                                                                                                                                                                                                          \
-	{                                                                                                                                                                                                                                                      \
-		Viewport viewport;                                                                                                                                                                                                                             \
-		viewport.bottomY = SCREEN_HEIGHT;                                                                                                                                                                                                              \
-		viewport.rightX = SCREEN_WIDTH;                                                                                                                                                                                                                \
-		viewport.topY = 0;                                                                                                                                                                                                                             \
-		viewport.leftX = 0;                                                                                                                                                                                                                            \
-		View_SetViewport(view, &viewport);                                                                                                                                                                                                             \
-	}                                                                                                                                                                                                                                                      \
-	(void)0
+#define SET_FULLSCREEN_VIEWPORT(view)      \
+    {                                      \
+        Viewport viewport;                 \
+        viewport.bottomY = SCREEN_HEIGHT;  \
+        viewport.rightX = SCREEN_WIDTH;    \
+        viewport.topY = 0;                 \
+        viewport.leftX = 0;                \
+        View_SetViewport(view, &viewport); \
+    }                                      \
+    (void)0
 
-#define WORK_DISP __gfxCtx->work.p
-#define POLY_OPA_DISP __gfxCtx->polyOpa.p
-#define POLY_XLU_DISP __gfxCtx->polyXlu.p
-#define OVERLAY_DISP __gfxCtx->overlay.p
+#define WORK_DISP       __gfxCtx->work.p
+#define POLY_OPA_DISP   __gfxCtx->polyOpa.p
+#define POLY_XLU_DISP   __gfxCtx->polyXlu.p
+#define OVERLAY_DISP    __gfxCtx->overlay.p
 
 // __gfxCtx shouldn't be used directly.
 // Use the DISP macros defined above when writing to display buffers.
-#define OPEN_DISPS(gfxCtx, file, line)                                                                                                                                                                                                                         \
-	{                                                                                                                                                                                                                                                      \
-		GraphicsContext* __gfxCtx;                                                                                                                                                                                                                     \
-		Gfx* dispRefs[4];                                                                                                                                                                                                                              \
-		__gfxCtx = gfxCtx;                                                                                                                                                                                                                             \
-		(void)__gfxCtx;                                                                                                                                                                                                                                \
-		Graph_OpenDisps(dispRefs, gfxCtx, __FILE__, __LINE__)
+#define OPEN_DISPS(gfxCtx, file, line) \
+    {                                  \
+        GraphicsContext* __gfxCtx;     \
+        Gfx* dispRefs[4];              \
+        __gfxCtx = gfxCtx;             \
+        (void)__gfxCtx;                \
+        Graph_OpenDisps(dispRefs, gfxCtx, __FILE__, __LINE__)
 
-#define CLOSE_DISPS(gfxCtx, file, line)                                                                                                                                                                                                                        \
-	Graph_CloseDisps(dispRefs, gfxCtx, __FILE__, __LINE__);                                                                                                                                                                                                \
-	}                                                                                                                                                                                                                                                      \
-	(void)0
+#define CLOSE_DISPS(gfxCtx, file, line)                 \
+        Graph_CloseDisps(dispRefs, gfxCtx, __FILE__, __LINE__); \
+    }                                                   \
+    (void)0
 
 /**
  * `x` vertex x
@@ -98,30 +100,17 @@
  * `cbnz` blue component of color vertex, or z component of normal vertex
  * `a` alpha
  */
-#define VTX(x, y, z, s, t, crnx, cgny, cbnz, a)                                                                                                                                                                                                                \
-	{                                                                                                                                                                                                                                                      \
-		{                                                                                                                                                                                                                                              \
-			{(short)(x), (short)(y), (short)(z)}, 0, {(short)(s), (short)(t)},                                                                                                                                                                     \
-			{                                                                                                                                                                                                                                      \
-				crnx, cgny, cbnz, a                                                                                                                                                                                                            \
-			}                                                                                                                                                                                                                                      \
-		}                                                                                                                                                                                                                                              \
-	}
+#define VTX(x,y,z,s,t,crnx,cgny,cbnz,a) { { { (short)(x), (short)(y), (short)(z) }, 0, { (short)(s), (short)(t) }, { crnx, cgny, cbnz, a } } }
 
-#define VTX_T(x, y, z, s, t, cr, cg, cb, a)                                                                                                                                                                                                                    \
-	{                                                                                                                                                                                                                                                      \
-		{x, y, z}, 0, {s, t},                                                                                                                                                                                                                          \
-		{                                                                                                                                                                                                                                              \
-			cr, cg, cb, a                                                                                                                                                                                                                          \
-		}                                                                                                                                                                                                                                              \
-	}
+#define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
 
-#define MES(n) (((n & 0xFFFF)) << 16) | ((n >> 16) & 0xFFFF)
+#define MES(n) (((n & 0xFFFF)) << 16) | ((n >> 16) & 0xFFFF) 
 
-#define MTX(n00, n01, n02, n03, n10, n11, n12, n13, n20, n21, n22, n23, n30, n31, n32, n33)                                                                                                                                                                    \
-	{                                                                                                                                                                                                                                                      \
-		MES(n00), MES(n01), MES(n02), MES(n03), MES(n10), MES(n11), MES(n12), MES(n13), MES(n20), MES(n21), MES(n22), MES(n23), MES(n30), MES(n31), MES(n32), MES(n33)                                                                                 \
-	}
+#define MTX(n00, n01, n02, n03, n10, n11, n12, n13, n20, n21, n22, n23, n30, n31, n32, n33) \
+{MES(n00), MES(n01), MES(n02), MES(n03),    \
+MES(n10), MES(n11), MES(n12), MES(n13),    \
+MES(n20), MES(n21), MES(n22), MES(n23),    \
+MES(n30), MES(n31), MES(n32), MES(n33)}
 
 #ifdef NDEBUG
 #define ASSERT(cond, msg, file, line) ((void)0)
@@ -131,19 +120,21 @@
 #define ASSERT(cond, msg, file, line) ((cond) ? ((void)0) : oot_assert(msg, file, line))
 #endif
 
-#define gDPSetTileCustom(pkt, fmt, siz, width, height, pal, cms, cmt, masks, maskt, shifts, shiftt)                                                                                                                                                            \
-	do                                                                                                                                                                                                                                                     \
-	{                                                                                                                                                                                                                                                      \
-		gDPPipeSync(pkt);                                                                                                                                                                                                                              \
-		gDPTileSync(pkt);                                                                                                                                                                                                                              \
-		gDPSetTile(pkt, fmt, siz, (((width)*siz##_TILE_BYTES) + 7) >> 3, 0, G_TX_LOADTILE, 0, cmt, maskt, shiftt, cms, masks, shifts);                                                                                                                 \
-		gDPTileSync(pkt);                                                                                                                                                                                                                              \
-		gDPSetTile(pkt, fmt, siz, (((width)*siz##_TILE_BYTES) + 7) >> 3, 0, G_TX_RENDERTILE, pal, cmt, maskt, shiftt, cms, masks, shifts);                                                                                                             \
-		gDPSetTileSize(pkt, G_TX_RENDERTILE, 0, 0, ((width)-1) << G_TEXTURE_IMAGE_FRAC, ((height)-1) << G_TEXTURE_IMAGE_FRAC);                                                                                                                         \
-	} while(0)
+#define gDPSetTileCustom(pkt, fmt, siz, width, height, pal, cms, cmt, masks, maskt, shifts, shiftt)                    \
+    do {                                                                                                               \
+        gDPPipeSync(pkt);                                                                                              \
+        gDPTileSync(pkt);                                                                                              \
+        gDPSetTile(pkt, fmt, siz, (((width)*siz##_TILE_BYTES) + 7) >> 3, 0, G_TX_LOADTILE, 0, cmt, maskt, shiftt, cms, \
+                   masks, shifts);                                                                                     \
+        gDPTileSync(pkt);                                                                                              \
+        gDPSetTile(pkt, fmt, siz, (((width)*siz##_TILE_BYTES) + 7) >> 3, 0, G_TX_RENDERTILE, pal, cmt, maskt, shiftt,  \
+                   cms, masks, shifts);                                                                                \
+        gDPSetTileSize(pkt, G_TX_RENDERTILE, 0, 0, ((width)-1) << G_TEXTURE_IMAGE_FRAC,                                \
+                       ((height)-1) << G_TEXTURE_IMAGE_FRAC);                                                          \
+    } while (0)
 
 #ifdef __GNUC__
-#define ALIGNED8 __attribute__((aligned(8)))
+#define ALIGNED8 __attribute__ ((aligned (8)))
 #else
 #define ALIGNED8
 #endif
@@ -163,9 +154,11 @@
 #define RADTODEG(x) (x * 180.0 / M_PI)
 
 #ifndef MAX
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b)               ((a) > (b) ? (a) : (b))
 #endif
 
 #ifndef MIN
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define MIN(a, b)               ((a) < (b) ? (a) : (b))
 #endif
+
+

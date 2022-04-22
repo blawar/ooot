@@ -144,9 +144,11 @@
     <ClCompile Include="..\src\code\z_camera.cpp" />
     <ClCompile Include="..\src\code\z_collision_btltbls.cpp" />
     <ClCompile Include="..\src\code\z_collision_check.cpp" />
+    <ClCompile Include="..\src\code\z_common_data.cpp" />
     <ClCompile Include="..\src\code\z_construct.cpp" />
     <ClCompile Include="..\src\code\z_debug.cpp" />
     <ClCompile Include="..\src\code\z_demo.cpp" />
+    <ClCompile Include="..\src\code\z_DLF.cpp" />
     <ClCompile Include="..\src\code\z_draw.cpp" />
     <ClCompile Include="..\src\code\z_effect.cpp" />
     <ClCompile Include="..\src\code\z_effect_soft_sprite.cpp" />
@@ -194,9 +196,12 @@
     <ClCompile Include="..\src\code\z_play.cpp" />
     <ClCompile Include="..\src\code\z_player_call.cpp" />
     <ClCompile Include="..\src\code\z_player_lib.cpp" />
+    <ClCompile Include="..\src\code\z_prenmi.cpp" />
+    <ClCompile Include="..\src\code\z_prenmi_buff.cpp" />
     <ClCompile Include="..\src\code\z_quake.cpp" />
     <ClCompile Include="..\src\code\z_rcp.cpp" />
     <ClCompile Include="..\src\code\z_room.cpp" />
+    <ClCompile Include="..\src\code\z_sample.cpp" />
     <ClCompile Include="..\src\code\z_scene.cpp" />
     <ClCompile Include="..\src\code\z_scene_table.cpp" />
     <ClCompile Include="..\src\code\z_skelanime.cpp" />
@@ -204,6 +209,7 @@
     <ClCompile Include="..\src\code\z_skin_awb.cpp" />
     <ClCompile Include="..\src\code\z_skin_matrix.cpp" />
     <ClCompile Include="..\src\code\z_sram.cpp" />
+    <ClCompile Include="..\src\code\z_ss_sram.cpp" />
     <ClCompile Include="..\src\code\z_view.cpp" />
     <ClCompile Include="..\src\code\z_vimode.cpp" />
     <ClCompile Include="..\src\code\z_vismono.cpp" />

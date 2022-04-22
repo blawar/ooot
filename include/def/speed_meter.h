@@ -1,8 +1,7 @@
 #pragma once
-#include "globalctx.h"
-
 struct SpeedMeter;
 struct GraphicsContext;
+struct GameState;
 struct SpeedMeterAllocEntry;
 
 extern volatile OSTime D_8016A520;

@@ -2,6 +2,7 @@
 
 extern s32 gZeldaArenaLogSeverity;
 
+void* ZeldaArena_Calloc(u32 num, u32 size);
 void ZeldaArena_Check();
 void ZeldaArena_CheckPointer(void* ptr, u32 size, const char* name, const char* action);
 void ZeldaArena_Cleanup();

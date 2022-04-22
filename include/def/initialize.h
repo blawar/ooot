@@ -1,5 +1,4 @@
 #pragma once
-#include "ultra64/exception.h"
 
 extern OSHWIntr __OSGlobalIntMask;
 extern u32 __osShutdown;

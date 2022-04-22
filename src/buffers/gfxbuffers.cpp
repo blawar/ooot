@@ -1,6 +1,6 @@
 #define INTERNAL_SRC_BUFFERS_GFXBUFFERS_C
-#include "gfx.h"
 #include "z64.h"
+#include "gfx.h"
 #include "def/gfxbuffers.h"
 
 // 0x18000 bytes

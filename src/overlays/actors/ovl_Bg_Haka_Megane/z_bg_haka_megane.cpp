@@ -7,14 +7,14 @@
  */
 
 #include "z_bg_haka_megane.h"
+#include "objects/object_hakach_objects/object_hakach_objects.h"
+#include "objects/object_haka_objects/object_haka_objects.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_cheap_proc.h"
 #include "def/z_lib.h"
 #include "def/z_scene.h"
-#include "objects/object_haka_objects/object_haka_objects.h"
-#include "objects/object_hakach_objects/object_hakach_objects.h"
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5 | ACTOR_FLAG_7)
 
@@ -29,7 +29,16 @@ void func_8087DBF0(BgHakaMegane* pthis, GlobalContext* globalCtx);
 void BgHakaMegane_DoNothing(BgHakaMegane* pthis, GlobalContext* globalCtx);
 
 ActorInit Bg_Haka_Megane_InitVars = {
-    ACTOR_BG_HAKA_MEGANE, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaMegane), (ActorFunc)BgHakaMegane_Init, (ActorFunc)BgHakaMegane_Destroy, (ActorFunc)BgHakaMegane_Update, NULL, (ActorFunc)BgHakaMegane_Reset,
+    ACTOR_BG_HAKA_MEGANE,
+    ACTORCAT_PROP,
+    FLAGS,
+    OBJECT_GAMEPLAY_KEEP,
+    sizeof(BgHakaMegane),
+    (ActorFunc)BgHakaMegane_Init,
+    (ActorFunc)BgHakaMegane_Destroy,
+    (ActorFunc)BgHakaMegane_Update,
+    NULL,
+    (ActorFunc)BgHakaMegane_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -37,126 +46,122 @@ static InitChainEntry sInitChain[] = {
 };
 
 static CollisionHeader* sCollisionHeaders[] = {
-    &gBotw1Col, &gBotw2Col, NULL, &object_haka_objects_Col_004330, &object_haka_objects_Col_0044D0, NULL, &object_haka_objects_Col_004780, &object_haka_objects_Col_004940, NULL, &object_haka_objects_Col_004B00, NULL, &object_haka_objects_Col_004CC0, NULL,
+    &gBotw1Col,
+    &gBotw2Col,
+    NULL,
+    &object_haka_objects_Col_004330,
+    &object_haka_objects_Col_0044D0,
+    NULL,
+    &object_haka_objects_Col_004780,
+    &object_haka_objects_Col_004940,
+    NULL,
+    &object_haka_objects_Col_004B00,
+    NULL,
+    &object_haka_objects_Col_004CC0,
+    NULL,
 };
 
 static Gfx* sDLists[] = {
-    gBotwFakeWallsAndFloorsDL,	   gBotwThreeFakeFloorsDL,	  gBotwHoleTrap2DL,
+    gBotwFakeWallsAndFloorsDL,     gBotwThreeFakeFloorsDL,        gBotwHoleTrap2DL,
     object_haka_objects_DL_0040F0, object_haka_objects_DL_0043B0, object_haka_objects_DL_001120,
     object_haka_objects_DL_0045A0, object_haka_objects_DL_0047F0, object_haka_objects_DL_0018F0,
     object_haka_objects_DL_0049B0, object_haka_objects_DL_003CF0, object_haka_objects_DL_004B70,
     object_haka_objects_DL_002ED0,
 };
 
-void BgHakaMegane_Init(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgHakaMegane* pthis = (BgHakaMegane*)thisx;
+void BgHakaMegane_Init(Actor* thisx, GlobalContext* globalCtx) {
+    BgHakaMegane* pthis = (BgHakaMegane*)thisx;
 
-	Actor_ProcessInitChain(thisx, sInitChain);
-	DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
+    Actor_ProcessInitChain(thisx, sInitChain);
+    DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
 
-	if(thisx->params < 3)
-	{
-		pthis->objBankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_HAKACH_OBJECTS);
-	}
-	else
-	{
-		pthis->objBankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_HAKA_OBJECTS);
-	}
+    if (thisx->params < 3) {
+        pthis->objBankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_HAKACH_OBJECTS);
+    } else {
+        pthis->objBankIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_HAKA_OBJECTS);
+    }
 
-	if(pthis->objBankIndex < 0)
-	{
-		Actor_Kill(thisx);
-	}
-	else
-	{
-		pthis->actionFunc = func_8087DB24;
-	}
+    if (pthis->objBankIndex < 0) {
+        Actor_Kill(thisx);
+    } else {
+        pthis->actionFunc = func_8087DB24;
+    }
 }
 
-void BgHakaMegane_Destroy(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgHakaMegane* pthis = (BgHakaMegane*)thisx;
+void BgHakaMegane_Destroy(Actor* thisx, GlobalContext* globalCtx) {
+    BgHakaMegane* pthis = (BgHakaMegane*)thisx;
 
-	DynaPoly_DeleteBgActor(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
+    DynaPoly_DeleteBgActor(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
 }
 
-void func_8087DB24(BgHakaMegane* pthis, GlobalContext* globalCtx)
-{
-	CollisionHeader* colHeader;
-	CollisionHeader* collision;
+void func_8087DB24(BgHakaMegane* pthis, GlobalContext* globalCtx) {
+    CollisionHeader* colHeader;
+    CollisionHeader* collision;
 
-	if(Object_IsLoaded(&globalCtx->objectCtx, pthis->objBankIndex))
-	{
-		pthis->dyna.actor.objBankIndex = pthis->objBankIndex;
-		pthis->dyna.actor.draw = BgHakaMegane_Draw;
-		Actor_SetObjectDependency(globalCtx, &pthis->dyna.actor);
-		if(globalCtx->roomCtx.curRoom.showInvisActors)
-		{
-			pthis->actionFunc = func_8087DBF0;
-			collision = sCollisionHeaders[pthis->dyna.actor.params];
-			if(collision != NULL)
-			{
-				CollisionHeader_GetVirtual(collision, &colHeader);
-				pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
-			}
-		}
-		else
-		{
-			pthis->actionFunc = BgHakaMegane_DoNothing;
-		}
-	}
+    if (Object_IsLoaded(&globalCtx->objectCtx, pthis->objBankIndex)) {
+        pthis->dyna.actor.objBankIndex = pthis->objBankIndex;
+        pthis->dyna.actor.draw = BgHakaMegane_Draw;
+        Actor_SetObjectDependency(globalCtx, &pthis->dyna.actor);
+        if (globalCtx->roomCtx.curRoom.showInvisActors) {
+            pthis->actionFunc = func_8087DBF0;
+            collision = sCollisionHeaders[pthis->dyna.actor.params];
+            if (collision != NULL) {
+                CollisionHeader_GetVirtual(collision, &colHeader);
+                pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
+            }
+        } else {
+            pthis->actionFunc = BgHakaMegane_DoNothing;
+        }
+    }
 }
 
-void func_8087DBF0(BgHakaMegane* pthis, GlobalContext* globalCtx)
-{
-	Actor* thisx = &pthis->dyna.actor;
+void func_8087DBF0(BgHakaMegane* pthis, GlobalContext* globalCtx) {
+    Actor* thisx = &pthis->dyna.actor;
 
-	if(globalCtx->actorCtx.unk_03 != 0)
-	{
-		thisx->flags |= ACTOR_FLAG_7;
-		func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
-	}
-	else
-	{
-		thisx->flags &= ~ACTOR_FLAG_7;
-		func_8003EC50(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
-	}
+    if (globalCtx->actorCtx.unk_03 != 0) {
+        thisx->flags |= ACTOR_FLAG_7;
+        func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
+    } else {
+        thisx->flags &= ~ACTOR_FLAG_7;
+        func_8003EC50(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
+    }
 }
 
-void BgHakaMegane_DoNothing(BgHakaMegane* pthis, GlobalContext* globalCtx)
-{
+void BgHakaMegane_DoNothing(BgHakaMegane* pthis, GlobalContext* globalCtx) {
 }
 
-void BgHakaMegane_Update(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgHakaMegane* pthis = (BgHakaMegane*)thisx;
+void BgHakaMegane_Update(Actor* thisx, GlobalContext* globalCtx) {
+    BgHakaMegane* pthis = (BgHakaMegane*)thisx;
 
-	pthis->actionFunc(pthis, globalCtx);
+    pthis->actionFunc(pthis, globalCtx);
 }
 
-void BgHakaMegane_Draw(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgHakaMegane* pthis = (BgHakaMegane*)thisx;
+void BgHakaMegane_Draw(Actor* thisx, GlobalContext* globalCtx) {
+    BgHakaMegane* pthis = (BgHakaMegane*)thisx;
 
-	if(CHECK_FLAG_ALL(thisx->flags, ACTOR_FLAG_7))
-	{
-		Gfx_DrawDListXlu(globalCtx, sDLists[thisx->params]);
-	}
-	else
-	{
-		Gfx_DrawDListOpa(globalCtx, sDLists[thisx->params]);
-	}
+    if (CHECK_FLAG_ALL(thisx->flags, ACTOR_FLAG_7)) {
+        Gfx_DrawDListXlu(globalCtx, sDLists[thisx->params]);
+    } else {
+        Gfx_DrawDListOpa(globalCtx, sDLists[thisx->params]);
+    }
 
-	if(thisx->params == 0)
-	{
-		Gfx_DrawDListXlu(globalCtx, gBotwBloodSplatterDL);
-	}
+    if (thisx->params == 0) {
+        Gfx_DrawDListXlu(globalCtx, gBotwBloodSplatterDL);
+    }
 }
 
-void BgHakaMegane_Reset(Actor* pthisx, GlobalContext* globalCtx)
-{
-	Bg_Haka_Megane_InitVars = {
-	    ACTOR_BG_HAKA_MEGANE, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(BgHakaMegane), (ActorFunc)BgHakaMegane_Init, (ActorFunc)BgHakaMegane_Destroy, (ActorFunc)BgHakaMegane_Update, NULL, (ActorFunc)BgHakaMegane_Reset,
-	};
+void BgHakaMegane_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Haka_Megane_InitVars = {
+        ACTOR_BG_HAKA_MEGANE,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(BgHakaMegane),
+        (ActorFunc)BgHakaMegane_Init,
+        (ActorFunc)BgHakaMegane_Destroy,
+        (ActorFunc)BgHakaMegane_Update,
+        NULL,
+        (ActorFunc)BgHakaMegane_Reset,
+    };
+
 }

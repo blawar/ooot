@@ -1872,6 +1872,9 @@
     <ClCompile Include="..\src\code\z_collision_check.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\code\z_common_data.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\code\z_construct.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
@@ -1879,6 +1882,9 @@
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_demo.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\code\z_DLF.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_draw.cpp">
@@ -2022,6 +2028,12 @@
     <ClCompile Include="..\src\code\z_player_lib.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\code\z_prenmi.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\code\z_prenmi_buff.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\code\z_quake.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
@@ -2029,6 +2041,9 @@
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_room.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\code\z_sample.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_scene.cpp">
@@ -2050,6 +2065,9 @@
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_sram.cpp">
+      <Filter>Source Files\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\code\z_ss_sram.cpp">
       <Filter>Source Files\code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\code\z_view.cpp">

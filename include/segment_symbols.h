@@ -3,21 +3,21 @@
 
 #include "z64.h"
 
-#define DECLARE_SEGMENT(name)                                                                                                                                                                                                                                  \
-	static u8 _##name##SegmentStart[1];                                                                                                                                                                                                                    \
-	static u8 _##name##SegmentEnd[1];
+#define DECLARE_SEGMENT(name)          \
+    static u8 _##name##SegmentStart[1]; \
+    static u8 _##name##SegmentEnd[1];
 
-#define DECLARE_ROM_SEGMENT(name)                                                                                                                                                                                                                              \
-	static u8 _##name##SegmentRomStart[1];                                                                                                                                                                                                                 \
-	static u8 _##name##SegmentRomEnd[1];
+#define DECLARE_ROM_SEGMENT(name)         \
+    static u8 _##name##SegmentRomStart[1]; \
+    static u8 _##name##SegmentRomEnd[1];
 
-#define DECLARE_BSS_SEGMENT(name)                                                                                                                                                                                                                              \
-	static u8 _##name##SegmentBssStart[1];                                                                                                                                                                                                                 \
-	static u8 _##name##SegmentBssEnd[1];
+#define DECLARE_BSS_SEGMENT(name)         \
+    static u8 _##name##SegmentBssStart[1]; \
+    static u8 _##name##SegmentBssEnd[1];
 
-#define DECLARE_OVERLAY_SEGMENT(name)                                                                                                                                                                                                                          \
-	DECLARE_SEGMENT(ovl_##name)                                                                                                                                                                                                                            \
-	DECLARE_ROM_SEGMENT(ovl_##name)
+#define DECLARE_OVERLAY_SEGMENT(name) \
+    DECLARE_SEGMENT(ovl_##name)       \
+    DECLARE_ROM_SEGMENT(ovl_##name)
 
 DECLARE_SEGMENT(boot)
 DECLARE_ROM_SEGMENT(boot)

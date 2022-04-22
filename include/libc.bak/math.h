@@ -10,21 +10,18 @@
 #define SHT_MINV (1.0f / SHT_MAX)
 #define DEGTORAD(x) (x * M_PI / 180.0f)
 
-typedef union
-{
-	struct
-	{
-		u32 hi;
-		u32 lo;
-	} word;
+typedef union {
+    struct {
+        u32 hi;
+        u32 lo;
+    } word;
 
-	f64 d;
+    f64 d;
 } du;
 
-union fu
-{
-	u32 i;
-	f32 f;
+union fu {
+    u32 i;
+    f32 f;
 };
 
 extern f32 __libm_qnan_f;

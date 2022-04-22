@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 void HealthMeter_Draw(GlobalContext* globalCtx);
 void HealthMeter_Init(GlobalContext* globalCtx);

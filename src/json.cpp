@@ -1,6 +1,6 @@
-#include <fstream>
-#include "json.h"
 #include "ultra64/types.h"
+#include "json.h"
+#include <fstream>
 
 namespace oot::json
 {
@@ -29,15 +29,6 @@ namespace oot::json
 	{
 		rapidjson::Value v;
 		v.SetUint64(value);
-
-		rapidjson::Value _key(key, alloc);
-		document.AddMember(_key, v, alloc);
-	}
-
-	void setS64(rapidjson::Value& document, const char* key, s64 value, rapidjson::Document::AllocatorType& alloc)
-	{
-		rapidjson::Value v;
-		v.SetInt64(value);
 
 		rapidjson::Value _key(key, alloc);
 		document.AddMember(_key, v, alloc);
@@ -104,29 +95,6 @@ namespace oot::json
 		}
 
 		value = v.GetUint64();
-		return true;
-	}
-
-	bool getS64(rapidjson::Value& document, const char* key, s64& value)
-	{
-		if(!document.IsObject())
-		{
-			return false;
-		}
-
-		if(!document.HasMember(key))
-		{
-			return false;
-		}
-
-		auto& v = document[key];
-
-		if(!v.IsInt64())
-		{
-			return false;
-		}
-
-		value = v.GetInt64();
 		return true;
 	}
 

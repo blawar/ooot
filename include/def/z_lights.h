@@ -1,6 +1,5 @@
 #pragma once
-#include "globalctx.h"
-
+struct GlobalContext;
 struct LightContext;
 struct LightInfo;
 struct LightNode;

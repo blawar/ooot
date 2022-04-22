@@ -1,13 +1,14 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_COLLECT_C
 #include "actor_common.h"
-#include "hack.h"
-#include "textures/icon_item_static/icon_item_static.h"
-#include "textures/parameter_static/parameter_static.h"
-#include "z64audio.h"
 #include "z_kaleido_scope.h"
+#include "z64audio.h"
+#include "textures/parameter_static/parameter_static.h"
+#include "textures/icon_item_static/icon_item_static.h"
+#include "hack.h"
+#include "def/inventory.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
-#include "def/inventory.h"
+#include "def/z_common_data.h"
 #include "def/z_message_PAL.h"
 
 void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfxCtx, oot::pause::Page* page)
@@ -62,7 +63,7 @@ void KaleidoScope_DrawQuestStatus(GlobalContext* globalCtx, GraphicsContext* gfx
 	    {0x02, 0xFF, 0x0B, 0x13}, {0x02, 0xFF, 0x12, 0x14}, {0x02, 0xFF, 0x13, 0xFE}, {0xFF, 0x17, 0xFD, 0x16}, {0xFF, 0x17, 0x15, 0x18}, {0x15, 0x0C, 0xFD, 0x18}, {0xFF, 0x10, 0x16, 0x04}, {0x00, 0x00, 0x00, 0x00},
 	};
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->input[0];
+	Input* input = &globalCtx->state.input[0];
 	s16 sp226;
 	s16 sp224;
 	s16 sp222;

@@ -1,27 +1,28 @@
 #pragma once
 #define Z_BG_SPOT08_ICEBLOCK_H
 
-#include "global.h"
 #include "ultra64.h"
+#include "global.h"
 
 struct BgSpot08Iceblock;
 
 typedef void (*BgSpot08IceblockActionFunc)(struct BgSpot08Iceblock*, GlobalContext*);
 
-struct BgSpot08Iceblock
-{
-	/* 0x0000 */ DynaPolyActor dyna;
-	/* 0x0164 */ BgSpot08IceblockActionFunc actionFunc;
-	/* 0x0168 */ Vec3f surfaceNormal;
-	/* 0x0170 */ Vec3f normalDelta; // y always 0
-	/* 0x0180 */ Vec3f rotationAxis;
-	/* 0x018C */ s16 bobPhaseSlow;
-	/* 0x018E */ s16 bobPhaseFast;
-	/* 0x0190 */ s16 bobIncrSlow;
-	/* 0x0192 */ s16 bobIncrFast;
-	/* 0x0194 */ f32 sinkOffset;
-	/* 0x0198 */ f32 bobOffset;
-};
+
+struct BgSpot08Iceblock {
+
+    /* 0x0000 */ DynaPolyActor dyna;
+    /* 0x0164 */ BgSpot08IceblockActionFunc actionFunc;
+    /* 0x0168 */ Vec3f surfaceNormal;
+    /* 0x0170 */ Vec3f normalDelta; // y always 0
+    /* 0x0180 */ Vec3f rotationAxis;
+    /* 0x018C */ s16 bobPhaseSlow;
+    /* 0x018E */ s16 bobPhaseFast;
+    /* 0x0190 */ s16 bobIncrSlow;
+    /* 0x0192 */ s16 bobIncrFast;
+    /* 0x0194 */ f32 sinkOffset;
+    /* 0x0198 */ f32 bobOffset;
+}; 
 
 // Params
 /**
@@ -49,3 +50,5 @@ struct BgSpot08Iceblock
  * 3 Floating orbiting twins
  * 4 Completely static, does nothing
  */
+
+

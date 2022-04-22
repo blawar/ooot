@@ -43,7 +43,6 @@ tools/overlayhelpers/batchdisasm/mipsdisasm/*
 tools/disasm/output/*
 tools/asmsplitter/asm/*
 tools/asmsplitter/c/*
-tools/*.json
 ctx.c
 tools/*dSYM/
 graphs/

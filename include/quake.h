@@ -3,47 +3,43 @@
 #include "z64camera.h"
 #include "z64math.h"
 
-struct SubQuakeRequest14
-{
-	/* 0x00 */ s16 unk_00;
-	/* 0x02 */ s16 unk_02;
-	/* 0x04 */ s16 unk_04;
+struct SubQuakeRequest14 {
+    /* 0x00 */ s16 unk_00;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ s16 unk_04;
 };
 
-struct QuakeRequest
-{
-	/* 0x00 */ s16 randIdx;
-	/* 0x02 */ s16 countdownMax;
-	/* 0x04 */ Camera* cam;
-	/* 0x08 */ u32 callbackIdx;
-	/* 0x0C */ s16 y;
-	/* 0x0E */ s16 x;
-	/* 0x10 */ s16 zoom;
-	/* 0x12 */ s16 rotZ;
-	/* 0x14 */ SubQuakeRequest14 unk_14;
-	/* 0x1A */ s16 speed;
-	/* 0x1C */ s16 unk_1C;
-	/* 0x1E */ s16 countdown;
-	/* 0x20 */ s16 camPtrIdx;
+struct QuakeRequest {
+    /* 0x00 */ s16 randIdx;
+    /* 0x02 */ s16 countdownMax;
+    /* 0x04 */ Camera* cam;
+    /* 0x08 */ u32 callbackIdx;
+    /* 0x0C */ s16 y;
+    /* 0x0E */ s16 x;
+    /* 0x10 */ s16 zoom;
+    /* 0x12 */ s16 rotZ;
+    /* 0x14 */ SubQuakeRequest14 unk_14;
+    /* 0x1A */ s16 speed;
+    /* 0x1C */ s16 unk_1C;
+    /* 0x1E */ s16 countdown;
+    /* 0x20 */ s16 camPtrIdx;
 }; // size = 0x24
 
-struct ShakeInfo
-{
-	/* 0x00 */ Vec3f vec1;
-	/* 0x0C */ Vec3f vec2;
-	/* 0x18 */ s16 rotZ;
-	/* 0x1A */ s16 unk_1A;
-	/* 0x1C */ s16 zoom;
+struct ShakeInfo {
+    /* 0x00 */ Vec3f vec1;
+    /* 0x0C */ Vec3f vec2;
+    /* 0x18 */ s16 rotZ;
+    /* 0x1A */ s16 unk_1A;
+    /* 0x1C */ s16 zoom;
 }; // size = 0x1E
 
-struct QuakeCamCalc
-{
-	/* 0x00 */ Vec3f atOffset;
-	/* 0x0C */ Vec3f eyeOffset;
-	/* 0x18 */ s16 rotZ;
-	/* 0x1A */ s16 unk_1A;
-	/* 0x1C */ s16 zoom;
-	/* 0x20 */ f32 unk_20;
+struct QuakeCamCalc {
+    /* 0x00 */ Vec3f atOffset;
+    /* 0x0C */ Vec3f eyeOffset;
+    /* 0x18 */ s16 rotZ;
+    /* 0x1A */ s16 unk_1A;
+    /* 0x1C */ s16 zoom;
+    /* 0x20 */ f32 unk_20;
 }; // size = 0x24
 
 /*

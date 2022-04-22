@@ -1,9 +1,9 @@
 #define INTERNAL_SRC_CODE_IRQMGR_C
 #include "global.h"
-#include <stdbool.h>
-#include "ultra64/exception.h"
-#include "ultra64/sched.h"
 #include "vt.h"
+#include "ultra64/sched.h"
+#include "ultra64/exception.h"
+#include <stdbool.h>
 #include "def/irqmgr.h"
 
 vu32 gIrqMgrResetStatus = 0;
@@ -21,50 +21,38 @@ u32 sIrqMgrRetraceCount = 0;
 #define STATUS_PRENMI 1
 #define STATUS_NMI 2
 
-void IrqMgr_AddClient(IrqMgr* pthis, IrqMgrClient* c, OSMesgQueue* msgQ)
-{
+void IrqMgr_AddClient(IrqMgr* pthis, IrqMgrClient* c, OSMesgQueue* msgQ) {
 }
 
-void IrqMgr_RemoveClient(IrqMgr* pthis, IrqMgrClient* c)
-{
+void IrqMgr_RemoveClient(IrqMgr* pthis, IrqMgrClient* c) {
 }
 
-void IrqMgr_SendMesgForClient(IrqMgr* pthis, OSMesg msg)
-{
+void IrqMgr_SendMesgForClient(IrqMgr* pthis, OSMesg msg) {
 }
 
-void IrqMgr_JamMesgForClient(IrqMgr* pthis, OSMesg msg)
-{
+void IrqMgr_JamMesgForClient(IrqMgr* pthis, OSMesg msg) {
 }
 
-void IrqMgr_HandlePreNMI(IrqMgr* pthis)
-{
+void IrqMgr_HandlePreNMI(IrqMgr* pthis) {
 }
 
-void IrqMgr_CheckStack()
-{
+void IrqMgr_CheckStack() {
 }
 
-void IrqMgr_HandlePRENMI450(IrqMgr* pthis)
-{
+void IrqMgr_HandlePRENMI450(IrqMgr* pthis) {
 }
 
-void IrqMgr_HandlePRENMI480(IrqMgr* pthis)
-{
+void IrqMgr_HandlePRENMI480(IrqMgr* pthis) {
 }
 
-void IrqMgr_HandlePRENMI500(IrqMgr* pthis)
-{
+void IrqMgr_HandlePRENMI500(IrqMgr* pthis) {
 }
 
-void IrqMgr_HandleRetrace(IrqMgr* pthis)
-{
+void IrqMgr_HandleRetrace(IrqMgr* pthis) {
 }
 
-void IrqMgr_ThreadEntry(void* arg0)
-{
+void IrqMgr_ThreadEntry(void* arg0) {
 }
 
-void IrqMgr_Init(IrqMgr* pthis, void* stack, OSPri pri, u8 retraceCount)
-{
+void IrqMgr_Init(IrqMgr* pthis, void* stack, OSPri pri, u8 retraceCount) {
 }

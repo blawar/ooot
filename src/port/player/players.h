@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
-#include "player.h"
 #include "ultra64/types.h"
+#include "player.h"
+#include <vector>
 
 namespace oot
 {

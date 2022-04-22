@@ -1,20 +1,23 @@
 #pragma once
 #define Z_BG_JYA_BOMBCHUIWA_H
 
-#include "global.h"
 #include "ultra64.h"
+#include "global.h"
 
 struct BgJyaBombchuiwa;
 
 typedef void (*BgJyaBombchuiwaActionFunc)(struct BgJyaBombchuiwa*, GlobalContext*);
 
-struct BgJyaBombchuiwa
-{
-	/* 0x0000 */ Actor actor;
-	/* 0x014C */ BgJyaBombchuiwaActionFunc actionFunc;
-	/* 0x0150 */ ColliderJntSph collider;
-	/* 0x0170 */ ColliderJntSphElement colliderItems;
-	/* 0x01B0 */ f32 lightRayIntensity;
-	/* 0x01B4 */ Timer timer;
-	/* 0x01B6 */ u8 drawFlags; // Used to determine how the actor is drawn.
-};
+
+struct BgJyaBombchuiwa {
+
+    /* 0x0000 */ Actor actor;
+    /* 0x014C */ BgJyaBombchuiwaActionFunc actionFunc;
+    /* 0x0150 */ ColliderJntSph collider;
+    /* 0x0170 */ ColliderJntSphElement colliderItems;
+    /* 0x01B0 */ f32 lightRayIntensity;
+    /* 0x01B4 */ s16 timer;
+    /* 0x01B6 */ u8 drawFlags; // Used to determine how the actor is drawn.
+}; 
+
+

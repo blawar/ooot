@@ -1,8 +1,8 @@
 #pragma once
 #include "z64animation.h"
-#include "globalctx.h"
 
 struct Player;
+struct GlobalContext;
 struct Vec3f;
 struct Actor;
 struct Vec3s;
@@ -40,7 +40,7 @@ s32 Player_GetSwordHeld(Player* player);
 s32 Player_HasMirrorShieldEquipped(GlobalContext* globalCtx);
 s32 Player_HasMirrorShieldSetToDraw(GlobalContext* globalCtx);
 s32 Player_HoldsBrokenKnife(Player* player);
-s32 Player_CurrentActionItemIsHookshot(Player* player);
+s32 Player_HoldsHookshot(Player* player);
 s32 Player_HoldsTwoHandedWeapon(Player* player);
 s32 Player_InBlockingCsMode(GlobalContext* globalCtx, Player* player);
 s32 Player_InCsMode(GlobalContext* globalCtx);
@@ -53,13 +53,13 @@ void Player_SetModels(Player* player, s32 modelGroup);
 void Player_SetModelsForHoldingShield(Player* player);
 Player* Player_UnsetMask(GlobalContext* globalCtx);
 void Player_UpdateBottleHeld(GlobalContext* globalCtx, Player* player, s32 item, s32 actionParam);
-s32 Player_IsTargetingAnActor(Player* player);
+s32 func_8008E9C4(Player* player);
 void func_8008EC70(Player* player);
-void Player_ClearZTarget(Player* player);
+void func_8008EDF0(Player* player);
 void func_8008EE08(Player* player);
 void func_8008EEAC(GlobalContext* globalCtx, Actor* actor);
 s32 func_8008EF44(GlobalContext* globalCtx, s32 ammo);
-s32 Player_HoldingHookshot(Player* player);
+s32 func_8008F128(Player* player);
 s32 func_8008F2BC(Player* player, s32 actionParam);
 s32 Player_GetRoomTimer(GlobalContext* globalCtx);
 void func_8008F470(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable, s32 dListCount, s32 lod, s32 tunic, s32 boots, s32 face, OverrideLimbDrawOpa overrideLimbDraw, PostLimbDrawOpa postLimbDraw, void* pthis);

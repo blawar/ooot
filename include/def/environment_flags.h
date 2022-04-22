@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 s32 Flags_GetEnv(GlobalContext* globalCtx, s16 flag);
 void Flags_SetEnv(GlobalContext* globalCtx, s16 flag);

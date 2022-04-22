@@ -1,6 +1,6 @@
 #include "actor_common.h"
-#include "z64cutscene_commands.h"
 #include "z_demo_im.h"
+#include "z64cutscene_commands.h"
 
 // clang-format off
 static CutsceneData D_8098786C[] = {

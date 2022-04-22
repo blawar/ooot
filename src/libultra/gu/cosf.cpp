@@ -1,6 +1,6 @@
 #define INTERNAL_SRC_LIBULTRA_GU_COSF_C
-#include "global.h"
 #include "ultra64.h"
+#include "global.h"
 
 /*
 static const du P[] = {
@@ -30,32 +30,33 @@ f32 cosf(f32 x) {
     xpt &= 0x1FF;
 
     if (xpt < 0x136) {
-	absx = (x > 0) ? x : -x;
-	dx = absx;
+        absx = (x > 0) ? x : -x;
+        dx = absx;
 
-	dn = dx * rpi.d + 0.5;
-	n = ROUND(dn);
-	dn = n;
+        dn = dx * rpi.d + 0.5;
+        n = ROUND(dn);
+        dn = n;
 
-	dn -= 0.5;
+        dn -= 0.5;
 
-	dx -= dn * pihi.d;
-	dx -= dn * pilo.d;
+        dx -= dn * pihi.d;
+        dx -= dn * pilo.d;
 
-	xSq = SQ(dx);
+        xSq = SQ(dx);
 
-	polyApprox = ((P[4].d * xSq + P[3].d) * xSq + P[2].d) * xSq + P[1].d;
+        polyApprox = ((P[4].d * xSq + P[3].d) * xSq + P[2].d) * xSq + P[1].d;
 
-	result = dx + (dx * xSq) * polyApprox;
+        result = dx + (dx * xSq) * polyApprox;
 
-	if (!(n & 1)) {
-	    return (f32)result;
-	}
-	return -(f32)result;
+        if (!(n & 1)) {
+            return (f32)result;
+        }
+        return -(f32)result;
     }
     if (x != x) {
-	return __libm_qnan_f;
+        return __libm_qnan_f;
     }
 
     return zero.f;
 }*/
+

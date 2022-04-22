@@ -1,7 +1,7 @@
 #pragma once
+#include "z64animation.h"
 #include "ultra64/types.h"
 #include "view.h"
-#include "z64animation.h"
 
 struct KaleidoMgrOverlay
 {

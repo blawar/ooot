@@ -7,6 +7,7 @@
  */
 
 #include "z_bg_jya_kanaami.h"
+#include "objects/object_jya_obj/object_jya_obj.h"
 #include "def/code_80043480.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
@@ -14,7 +15,6 @@
 #include "def/z_lib.h"
 #include "def/z_onepointdemo.h"
 #include "def/z_quake.h"
-#include "objects/object_jya_obj/object_jya_obj.h"
 
 #define FLAGS 0
 
@@ -31,7 +31,16 @@ void func_80899950(BgJyaKanaami* pthis, GlobalContext* globalCtx);
 void func_80899A08(BgJyaKanaami* pthis);
 
 ActorInit Bg_Jya_Kanaami_InitVars = {
-    ACTOR_BG_JYA_KANAAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaKanaami), (ActorFunc)BgJyaKanaami_Init, (ActorFunc)BgJyaKanaami_Destroy, (ActorFunc)BgJyaKanaami_Update, (ActorFunc)BgJyaKanaami_Draw, (ActorFunc)BgJyaKanaami_Reset,
+    ACTOR_BG_JYA_KANAAMI,
+    ACTORCAT_BG,
+    FLAGS,
+    OBJECT_JYA_OBJ,
+    sizeof(BgJyaKanaami),
+    (ActorFunc)BgJyaKanaami_Init,
+    (ActorFunc)BgJyaKanaami_Destroy,
+    (ActorFunc)BgJyaKanaami_Update,
+    (ActorFunc)BgJyaKanaami_Draw,
+    (ActorFunc)BgJyaKanaami_Reset,
 };
 
 static InitChainEntry sInitChain[] = {
@@ -41,115 +50,106 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneDownward, 1000, ICHAIN_STOP),
 };
 
-void BgJyaKanaami_InitDynaPoly(BgJyaKanaami* pthis, GlobalContext* globalCtx, CollisionHeader* collision, s32 flag)
-{
-	s32 pad;
-	CollisionHeader* colHeader = NULL;
-	s32 pad2;
+void BgJyaKanaami_InitDynaPoly(BgJyaKanaami* pthis, GlobalContext* globalCtx, CollisionHeader* collision, s32 flag) {
+    s32 pad;
+    CollisionHeader* colHeader = NULL;
+    s32 pad2;
 
-	DynaPolyActor_Init(&pthis->dyna, flag);
-	CollisionHeader_GetVirtual(collision, &colHeader);
-	pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
-	if(pthis->dyna.bgId == BG_ACTOR_MAX)
-	{
-		osSyncPrintf("Warning : move BG 登録失敗(%s %d)(name %d)(arg_data 0x%04x)\n", "../z_bg_jya_kanaami.c", 145, pthis->dyna.actor.id, pthis->dyna.actor.params);
-	}
+    DynaPolyActor_Init(&pthis->dyna, flag);
+    CollisionHeader_GetVirtual(collision, &colHeader);
+    pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, &pthis->dyna.actor, colHeader);
+    if (pthis->dyna.bgId == BG_ACTOR_MAX) {
+        osSyncPrintf("Warning : move BG 登録失敗(%s %d)(name %d)(arg_data 0x%04x)\n", "../z_bg_jya_kanaami.c", 145,
+                     pthis->dyna.actor.id, pthis->dyna.actor.params);
+    }
 }
 
-void BgJyaKanaami_Init(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
+void BgJyaKanaami_Init(Actor* thisx, GlobalContext* globalCtx) {
+    BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
 
-	BgJyaKanaami_InitDynaPoly(pthis, globalCtx, &gKanaamiCol, DPM_UNK);
-	Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
-	if(Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F))
-	{
-		func_80899A08(pthis);
-	}
-	else
-	{
-		func_80899880(pthis);
-	}
-	osSyncPrintf("(jya 金網)(arg_data 0x%04x)\n", pthis->dyna.actor.params);
+    BgJyaKanaami_InitDynaPoly(pthis, globalCtx, &gKanaamiCol, DPM_UNK);
+    Actor_ProcessInitChain(&pthis->dyna.actor, sInitChain);
+    if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F)) {
+        func_80899A08(pthis);
+    } else {
+        func_80899880(pthis);
+    }
+    osSyncPrintf("(jya 金網)(arg_data 0x%04x)\n", pthis->dyna.actor.params);
 }
 
-void BgJyaKanaami_Destroy(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
+void BgJyaKanaami_Destroy(Actor* thisx, GlobalContext* globalCtx) {
+    BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
 
-	DynaPoly_DeleteBgActor(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
+    DynaPoly_DeleteBgActor(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
 }
 
-void func_80899880(BgJyaKanaami* pthis)
-{
-	pthis->actionFunc = func_80899894;
-	pthis->unk_16A = 0;
+void func_80899880(BgJyaKanaami* pthis) {
+    pthis->actionFunc = func_80899894;
+    pthis->unk_16A = 0;
 }
 
-void func_80899894(BgJyaKanaami* pthis, GlobalContext* globalCtx)
-{
-	if(Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F) || pthis->unk_16A > 0)
-	{
-		if(pthis->dyna.actor.world.pos.x > -1000.0f && pthis->unk_16A == 0)
-		{
-			OnePointCutscene_Init(globalCtx, 3450, -99, &pthis->dyna.actor, MAIN_CAM);
-		}
-		pthis->unk_16A += 1;
-		if(pthis->unk_16A >= 0xA)
-		{
-			func_8089993C(pthis);
-		}
-	}
+void func_80899894(BgJyaKanaami* pthis, GlobalContext* globalCtx) {
+    if (Flags_GetSwitch(globalCtx, pthis->dyna.actor.params & 0x3F) || pthis->unk_16A > 0) {
+        if (pthis->dyna.actor.world.pos.x > -1000.0f && pthis->unk_16A == 0) {
+            OnePointCutscene_Init(globalCtx, 3450, -99, &pthis->dyna.actor, MAIN_CAM);
+        }
+        pthis->unk_16A += 1;
+        if (pthis->unk_16A >= 0xA) {
+            func_8089993C(pthis);
+        }
+    }
 }
 
-void func_8089993C(BgJyaKanaami* pthis)
-{
-	pthis->actionFunc = func_80899950;
-	pthis->unk_168 = 0;
+void func_8089993C(BgJyaKanaami* pthis) {
+    pthis->actionFunc = func_80899950;
+    pthis->unk_168 = 0;
 }
 
-void func_80899950(BgJyaKanaami* pthis, GlobalContext* globalCtx)
-{
-	s32 pad[2];
-	s32 quakeId;
+void func_80899950(BgJyaKanaami* pthis, GlobalContext* globalCtx) {
+    s32 pad[2];
+    s32 quakeId;
 
-	pthis->unk_168 += 0x20;
-	if(Math_ScaledStepToS(&pthis->dyna.actor.world.rot.x, 0x4000, pthis->unk_168))
-	{
-		func_80899A08(pthis);
-		Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_TRAP_BOUND);
-		quakeId = Quake_Add(GET_ACTIVE_CAM(globalCtx), 3);
-		Quake_SetSpeed(quakeId, 25000);
-		Quake_SetQuakeValues(quakeId, 2, 0, 0, 0);
-		Quake_SetCountdown(quakeId, 16);
-	}
+    pthis->unk_168 += 0x20;
+    if (Math_ScaledStepToS(&pthis->dyna.actor.world.rot.x, 0x4000, pthis->unk_168)) {
+        func_80899A08(pthis);
+        Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_TRAP_BOUND);
+        quakeId = Quake_Add(GET_ACTIVE_CAM(globalCtx), 3);
+        Quake_SetSpeed(quakeId, 25000);
+        Quake_SetQuakeValues(quakeId, 2, 0, 0, 0);
+        Quake_SetCountdown(quakeId, 16);
+    }
 }
 
-void func_80899A08(BgJyaKanaami* pthis)
-{
-	pthis->actionFunc = 0;
-	pthis->dyna.actor.world.rot.x = 0x4000;
+void func_80899A08(BgJyaKanaami* pthis) {
+    pthis->actionFunc = 0;
+    pthis->dyna.actor.world.rot.x = 0x4000;
 }
 
-void BgJyaKanaami_Update(Actor* thisx, GlobalContext* globalCtx)
-{
-	BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
+void BgJyaKanaami_Update(Actor* thisx, GlobalContext* globalCtx) {
+    BgJyaKanaami* pthis = (BgJyaKanaami*)thisx;
 
-	if(pthis->actionFunc != NULL)
-	{
-		pthis->actionFunc(pthis, globalCtx);
-	}
-	pthis->dyna.actor.shape.rot.x = pthis->dyna.actor.world.rot.x;
+    if (pthis->actionFunc != NULL) {
+        pthis->actionFunc(pthis, globalCtx);
+    }
+    pthis->dyna.actor.shape.rot.x = pthis->dyna.actor.world.rot.x;
 }
 
-void BgJyaKanaami_Draw(Actor* thisx, GlobalContext* globalCtx)
-{
-	Gfx_DrawDListOpa(globalCtx, gKanaamiDL);
+void BgJyaKanaami_Draw(Actor* thisx, GlobalContext* globalCtx) {
+    Gfx_DrawDListOpa(globalCtx, gKanaamiDL);
 }
 
-void BgJyaKanaami_Reset(Actor* pthisx, GlobalContext* globalCtx)
-{
-	Bg_Jya_Kanaami_InitVars = {
-	    ACTOR_BG_JYA_KANAAMI, ACTORCAT_BG, FLAGS, OBJECT_JYA_OBJ, sizeof(BgJyaKanaami), (ActorFunc)BgJyaKanaami_Init, (ActorFunc)BgJyaKanaami_Destroy, (ActorFunc)BgJyaKanaami_Update, (ActorFunc)BgJyaKanaami_Draw, (ActorFunc)BgJyaKanaami_Reset,
-	};
+void BgJyaKanaami_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Bg_Jya_Kanaami_InitVars = {
+        ACTOR_BG_JYA_KANAAMI,
+        ACTORCAT_BG,
+        FLAGS,
+        OBJECT_JYA_OBJ,
+        sizeof(BgJyaKanaami),
+        (ActorFunc)BgJyaKanaami_Init,
+        (ActorFunc)BgJyaKanaami_Destroy,
+        (ActorFunc)BgJyaKanaami_Update,
+        (ActorFunc)BgJyaKanaami_Draw,
+        (ActorFunc)BgJyaKanaami_Reset,
+    };
+
 }

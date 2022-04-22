@@ -3,7 +3,6 @@
 #include "def/coss.h"
 #include "def/sins.h"
 
-s16 coss(u16 angle)
-{
-	return sins(angle + 0x4000);
+s16 coss(u16 angle) {
+    return sins(angle + 0x4000);
 }

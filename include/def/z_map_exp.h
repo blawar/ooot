@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 struct MapData;
 
 extern MapData* gMapData;

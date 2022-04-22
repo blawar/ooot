@@ -12,3 +12,5 @@ static_assert(offsetof(SCmdWindSettings, x) == 4, "Bad SCmdWindSettings.x alignm
 static_assert(offsetof(SCmdWindSettings, y) == 5, "Bad SCmdWindSettings.y alignment");
 static_assert(offsetof(SCmdWindSettings, z) == 6, "Bad SCmdWindSettings.z alignment");
 static_assert(offsetof(SCmdWindSettings, unk_07) == 7, "Bad SCmdWindSettings.unk_07 alignment");
+
+

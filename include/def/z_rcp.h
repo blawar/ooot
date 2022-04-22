@@ -1,8 +1,6 @@
 #pragma once
-#include "globalctx.h"
-
 struct GraphicsContext;
-
+struct GlobalContext;
 
 extern Gfx gEmptyDL[];
 

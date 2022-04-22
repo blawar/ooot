@@ -1,6 +1,6 @@
 #pragma once
 struct SkelAnimeCurve;
-#include "globalctx.h"
+struct GlobalContext;
 struct Actor;
 struct SkelCurveLimbList;
 struct TransformUpdateIndex;

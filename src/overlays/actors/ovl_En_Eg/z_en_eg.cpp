@@ -6,10 +6,11 @@
  * Description: Triggers a void out (used in the tower collapse sequence?)
  */
 
-#include "vt.h"
 #include "z_en_eg.h"
+#include "vt.h"
 #include "def/audio_command.h"
 #include "def/z_actor.h"
+#include "def/z_common_data.h"
 #include "def/z_lib.h"
 #include "def/z_play.h"
 
@@ -30,64 +31,72 @@ static EnEgActionFunc sActionFuncs[] = {
 };
 
 ActorInit En_Eg_InitVars = {
-    ACTOR_EN_EG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ZL2, sizeof(EnEg), (ActorFunc)EnEg_Init, (ActorFunc)EnEg_Destroy, (ActorFunc)EnEg_Update, (ActorFunc)EnEg_Draw, (ActorFunc)EnEg_Reset,
+    ACTOR_EN_EG,
+    ACTORCAT_ITEMACTION,
+    FLAGS,
+    OBJECT_ZL2,
+    sizeof(EnEg),
+    (ActorFunc)EnEg_Init,
+    (ActorFunc)EnEg_Destroy,
+    (ActorFunc)EnEg_Update,
+    (ActorFunc)EnEg_Draw,
+    (ActorFunc)EnEg_Reset,
 };
 
-void EnEg_PlayVoidOutSFX()
-{
-	Common_PlaySfx2(NA_SE_OC_ABYSS);
+void EnEg_PlayVoidOutSFX() {
+    Common_PlaySfx2(NA_SE_OC_ABYSS);
 }
 
-void EnEg_Destroy(Actor* thisx, GlobalContext* globalCtx)
-{
+void EnEg_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
-void EnEg_Init(Actor* thisx, GlobalContext* globalCtx)
-{
-	EnEg* pthis = (EnEg*)thisx;
+void EnEg_Init(Actor* thisx, GlobalContext* globalCtx) {
+    EnEg* pthis = (EnEg*)thisx;
 
-	pthis->action = 0;
+    pthis->action = 0;
 }
 
-void func_809FFDC8(EnEg* pthis, GlobalContext* globalCtx)
-{
-	if(!voided && (gSaveContext.timer2Value < 1) && Flags_GetSwitch(globalCtx, 0x36) && (kREG(0) == 0))
-	{
-		// Void the player out
-		Gameplay_TriggerRespawn(globalCtx);
-		gSaveContext.respawnFlag = -2;
-		Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_STOP);
-		globalCtx->fadeTransition = 2;
-		EnEg_PlayVoidOutSFX();
-		voided = true;
-	}
+void func_809FFDC8(EnEg* pthis, GlobalContext* globalCtx) {
+    if (!voided && (gSaveContext.timer2Value < 1) && Flags_GetSwitch(globalCtx, 0x36) && (kREG(0) == 0)) {
+        // Void the player out
+        Gameplay_TriggerRespawn(globalCtx);
+        gSaveContext.respawnFlag = -2;
+        Audio_QueueSeqCmd(SEQ_PLAYER_BGM_MAIN << 24 | NA_BGM_STOP);
+        globalCtx->fadeTransition = 2;
+        EnEg_PlayVoidOutSFX();
+        voided = true;
+    }
 }
 
-void EnEg_Update(Actor* thisx, GlobalContext* globalCtx)
-{
-	EnEg* pthis = (EnEg*)thisx;
-	s32 action = pthis->action;
+void EnEg_Update(Actor* thisx, GlobalContext* globalCtx) {
+    EnEg* pthis = (EnEg*)thisx;
+    s32 action = pthis->action;
 
-	if(((action < 0) || (0 < action)) || (sActionFuncs[action] == NULL))
-	{
-		// "Main Mode is wrong!!!!!!!!!!!!!!!!!!!!!!!!!"
-		osSyncPrintf(VT_FGCOL(RED) "メインモードがおかしい!!!!!!!!!!!!!!!!!!!!!!!!!\n" VT_RST);
-	}
-	else
-	{
-		sActionFuncs[action](pthis, globalCtx);
-	}
+    if (((action < 0) || (0 < action)) || (sActionFuncs[action] == NULL)) {
+        // "Main Mode is wrong!!!!!!!!!!!!!!!!!!!!!!!!!"
+        osSyncPrintf(VT_FGCOL(RED) "メインモードがおかしい!!!!!!!!!!!!!!!!!!!!!!!!!\n" VT_RST);
+    } else {
+        sActionFuncs[action](pthis, globalCtx);
+    }
 }
 
-void EnEg_Draw(Actor* thisx, GlobalContext* globalCtx)
-{
+void EnEg_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
-void EnEg_Reset(Actor* pthisx, GlobalContext* globalCtx)
-{
-	voided = false;
+void EnEg_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    voided = false;
 
-	En_Eg_InitVars = {
-	    ACTOR_EN_EG, ACTORCAT_ITEMACTION, FLAGS, OBJECT_ZL2, sizeof(EnEg), (ActorFunc)EnEg_Init, (ActorFunc)EnEg_Destroy, (ActorFunc)EnEg_Update, (ActorFunc)EnEg_Draw, (ActorFunc)EnEg_Reset,
-	};
+    En_Eg_InitVars = {
+        ACTOR_EN_EG,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_ZL2,
+        sizeof(EnEg),
+        (ActorFunc)EnEg_Init,
+        (ActorFunc)EnEg_Destroy,
+        (ActorFunc)EnEg_Update,
+        (ActorFunc)EnEg_Draw,
+        (ActorFunc)EnEg_Reset,
+    };
+
 }

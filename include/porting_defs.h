@@ -6,9 +6,12 @@
 #define LITTLE_ENDIAN
 #endif
 
-#define SWAP16(data) ((((data) >> 8) & 0x00FF) | (((data) << 8) & 0xFF00))
+#define SWAP16(data) \
+( (((data) >> 8) & 0x00FF) | (((data) << 8) & 0xFF00) ) 
 
-#define SWAP32(data) ((((data) >> 24) & 0x000000FF) | (((data) >> 8) & 0x0000FF00) | (((data) << 8) & 0x00FF0000) | (((data) << 24) & 0xFF000000))
+#define SWAP32(data)   \
+( (((data) >> 24) & 0x000000FF) | (((data) >>  8) & 0x0000FF00) | \
+  (((data) <<  8) & 0x00FF0000) | (((data) << 24) & 0xFF000000) ) 
 
 #if UINTPTR_MAX == 0xffffffff
 #define WORD_BITS 32

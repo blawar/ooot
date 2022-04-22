@@ -1,15 +1,16 @@
 ﻿#define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_CONTROLLER_C
-#include <functional>
 #include "actor_common.h"
-#include "port/options.h"
+#include <functional>
 #include "port/player/players.h"
-#include "textures/icon_item_nes_static/icon_item_nes_static.h"
+#include "port/options.h"
+#include "z_kaleido_scope.h"
+#include "def/z_lib.h"
 #include "textures/icon_item_static/icon_item_static.h"
 #include "textures/parameter_static/parameter_static.h"
-#include "z_kaleido_scope.h"
-#include "def/audio_bank.h"
+#include "textures/icon_item_nes_static/icon_item_nes_static.h"
 #include "def/inventory.h"
-#include "def/z_lib.h"
+#include "def/audio_bank.h"
+#include "def/z_common_data.h"
 #include "def/z_parameter.h"
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"
@@ -576,9 +577,9 @@ static ControllerHotspots hotspots;
 void KaleidoScope_DrawController(GlobalContext* globalCtx, oot::pause::Page* page)
 {
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
-	Input* input = &globalCtx->input[0];
+	Input* input = &globalCtx->state.input[0];
 
-	OPEN_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
+	OPEN_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
 	gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATERGBA, G_CC_MODULATERGBA);
 
 	drawTextureRGBA32(__gfxCtx, TEX_X, TEX_Y, TEX_WIDTH, TEX_HEIGHT, gN64ControllerTex, true);
@@ -676,7 +677,7 @@ void KaleidoScope_DrawController(GlobalContext* globalCtx, oot::pause::Page* pag
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
+	CLOSE_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
 	return;
 }
 

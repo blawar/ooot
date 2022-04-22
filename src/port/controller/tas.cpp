@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include "../options.h"
-#include "../player/players.h"
 #include "tas.h"
+#include <stdio.h>
+#include "../player/players.h"
+#include "../options.h"
 
 static u64 g_counter = 0;
-static bool g_tasPlaying = false;
+static  bool g_tasPlaying = false;
 
 namespace oot::hid
 {
@@ -42,7 +42,7 @@ namespace oot::hid
 				if(fp != NULL)
 				{
 					auto r = fread(&m_state, 1, sizeof(m_state), fp);
-					if(m_state.button)
+					if (m_state.button)
 					{
 						int x = 0;
 					}
@@ -50,7 +50,7 @@ namespace oot::hid
 			}
 
 			protected:
-			FILE* fp;
+				FILE* fp;
 		};
 	} // namespace controller
 

@@ -1,13 +1,13 @@
 #define INTERNAL_SRC_CODE_Z_VISMONO_C
 
 #include "global.h"
-#include "gfx.h"
 #include <string.h>
+#include "gfx.h"
 #include "z_vismono.h"
 #include "def/graph.h"
-#include "def/sys_cfb.h"
 #include "def/system_malloc.h"
 #include "def/z_vismono.h"
+#include "def/sys_cfb.h"
 
 void enableFbEffects();
 

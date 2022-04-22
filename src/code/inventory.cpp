@@ -1,47 +1,51 @@
 #define INTERNAL_SRC_CODE_CODE_80097A00_C
 #include "global.h"
-#include "gfx.h"
-#include "z64global.h"
-#include "textures/icon_item_24_static/icon_item_24_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
-#include "textures/parameter_static/parameter_static.h"
-#include "z64item.h"
-#include "z64player.h"
 #include "z64save.h"
-#include "def/inventory.h"
+#include "z64item.h"
+#include "z64global.h"
+#include "z64player.h"
+#include "gfx.h"
 #include "def/z_parameter.h"
+#include "textures/icon_item_static/icon_item_static.h"
+#include "textures/icon_item_24_static/icon_item_24_static.h"
+#include "textures/parameter_static/parameter_static.h"
+#include "def/inventory.h"
+#include "def/z_common_data.h"
 #include "def/z_player_lib.h"
+
 
 // Bit Flag array in which gBitFlags[n] is literally (1 << n)
 u32 gBitFlags[] = {
-    (1 << 0),  (1 << 1),  (1 << 2),  (1 << 3),	(1 << 4),  (1 << 5),  (1 << 6),	 (1 << 7),  (1 << 8),  (1 << 9),  (1 << 10), (1 << 11), (1 << 12), (1 << 13), (1 << 14), (1 << 15),
-    (1 << 16), (1 << 17), (1 << 18), (1 << 19), (1 << 20), (1 << 21), (1 << 22), (1 << 23), (1 << 24), (1 << 25), (1 << 26), (1 << 27), (1 << 28), (1 << 29), (1 << 30), (1 << 31),
+    (1 << 0),  (1 << 1),  (1 << 2),  (1 << 3),  (1 << 4),  (1 << 5),  (1 << 6),  (1 << 7),
+    (1 << 8),  (1 << 9),  (1 << 10), (1 << 11), (1 << 12), (1 << 13), (1 << 14), (1 << 15),
+    (1 << 16), (1 << 17), (1 << 18), (1 << 19), (1 << 20), (1 << 21), (1 << 22), (1 << 23),
+    (1 << 24), (1 << 25), (1 << 26), (1 << 27), (1 << 28), (1 << 29), (1 << 30), (1 << 31),
 };
 
-u16 gEquipMasks[] = {0x000F, 0x00F0, 0x0F00, 0xF000};
-u16 gEquipNegMasks[] = {0xFFF0, 0xFF0F, 0xF0FF, 0x0FFF};
+u16 gEquipMasks[] = { 0x000F, 0x00F0, 0x0F00, 0xF000 };
+u16 gEquipNegMasks[] = { 0xFFF0, 0xFF0F, 0xF0FF, 0x0FFF };
 u32 gUpgradeMasks[] = {
     0x00000007, 0x00000038, 0x000001C0, 0x00000E00, 0x00003000, 0x0001C000, 0x000E0000, 0x00700000,
 };
 u32 gUpgradeNegMasks[] = {
     0xFFFFFFF8, 0xFFFFFFC7, 0xFFFFFE3F, 0xFFFFF1FF, 0xFFFFCFFF, 0xFFFE3FFF, 0xFFF1FFFF, 0xFF8FFFFF,
 };
-u8 gEquipShifts[] = {0, 4, 8, 12};
-u8 gUpgradeShifts[] = {0, 3, 6, 9, 12, 14, 17, 20};
+u8 gEquipShifts[] = { 0, 4, 8, 12 };
+u8 gUpgradeShifts[] = { 0, 3, 6, 9, 12, 14, 17, 20 };
 
 u16 gUpgradeCapacities[][4] = {
-    {0, 30, 40, 50},	 // Quivers
-    {0, 20, 30, 40},	 // Bomb Bags
-    {0, 0, 0, 0},	 // Unused (Scale)
-    {0, 0, 0, 0},	 // Unused (Strength)
-    {99, 200, 500, 500}, // Wallets
-    {0, 30, 40, 50},	 // Deku Seed Bullet Bags
-    {0, 10, 20, 30},	 // Deku Stick Upgrades
-    {0, 20, 30, 40},	 // Deku Nut Upgrades
+    { 0, 30, 40, 50 },     // Quivers
+    { 0, 20, 30, 40 },     // Bomb Bags
+    { 0, 0, 0, 0 },        // Unused (Scale)
+    { 0, 0, 0, 0 },        // Unused (Strength)
+    { 99, 200, 500, 500 }, // Wallets
+    { 0, 30, 40, 50 },     // Deku Seed Bullet Bags
+    { 0, 10, 20, 30 },     // Deku Stick Upgrades
+    { 0, 20, 30, 40 },     // Deku Nut Upgrades
 };
 
-u32 gGsFlagsMasks[] = {0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000};
-u32 gGsFlagsShifts[] = {0, 8, 16, 24};
+u32 gGsFlagsMasks[] = { 0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000 };
+u32 gGsFlagsShifts[] = { 0, 8, 16, 24 };
 
 void* gItemIcons[] = {
     gDekuStickIconTex,
@@ -176,25 +180,30 @@ void* gItemIcons[] = {
     gOcarinaATex,
 };
 
-// Copy of all the icons in grayscale version.
-// The textures here will be generated on runtime via KaleidoScope_GrayOutTextureRGBA32() in KaleidoScope_SetupGrayIcons()
+//Copy of all the icons in grayscale version.
+//The textures here will be generated on runtime via KaleidoScope_GrayOutTextureRGBA32() in KaleidoScope_SetupGrayIcons()
 #ifndef N64_VERSION
-void* gItemIconsGray[86][32 * 32];
+void* gItemIconsGray[86][32*32];
 void* gItemIconsCurrent[86];
 #endif
 
 // Used to map item IDs to inventory slots
 u8 gItemSlots[] = {
-    SLOT_STICK,	      SLOT_NUT,		SLOT_BOMB,	  SLOT_BOW,	    SLOT_ARROW_FIRE,  SLOT_DINS_FIRE,	SLOT_SLINGSHOT,	  SLOT_OCARINA,	    SLOT_OCARINA,     SLOT_BOMBCHU,	SLOT_HOOKSHOT,	  SLOT_HOOKSHOT,    SLOT_ARROW_ICE,   SLOT_FARORES_WIND,
-    SLOT_BOOMERANG,   SLOT_LENS,	SLOT_BEAN,	  SLOT_HAMMER,	    SLOT_ARROW_LIGHT, SLOT_NAYRUS_LOVE, SLOT_BOTTLE_1,	  SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,	SLOT_BOTTLE_1,	  SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,
-    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,	SLOT_BOTTLE_1,	  SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD,
-    SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT,
+    SLOT_STICK,       SLOT_NUT,          SLOT_BOMB,        SLOT_BOW,         SLOT_ARROW_FIRE,  SLOT_DINS_FIRE,
+    SLOT_SLINGSHOT,   SLOT_OCARINA,      SLOT_OCARINA,     SLOT_BOMBCHU,     SLOT_HOOKSHOT,    SLOT_HOOKSHOT,
+    SLOT_ARROW_ICE,   SLOT_FARORES_WIND, SLOT_BOOMERANG,   SLOT_LENS,        SLOT_BEAN,        SLOT_HAMMER,
+    SLOT_ARROW_LIGHT, SLOT_NAYRUS_LOVE,  SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,
+    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,     SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,
+    SLOT_BOTTLE_1,    SLOT_BOTTLE_1,     SLOT_BOTTLE_1,    SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD,
+    SLOT_TRADE_CHILD, SLOT_TRADE_CHILD,  SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD, SLOT_TRADE_CHILD,
+    SLOT_TRADE_CHILD, SLOT_TRADE_CHILD,  SLOT_TRADE_CHILD, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT,
+    SLOT_TRADE_ADULT, SLOT_TRADE_ADULT,  SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT, SLOT_TRADE_ADULT,
+    SLOT_TRADE_ADULT, SLOT_TRADE_ADULT,
 };
 
-void Inventory_ChangeEquipment(s16 equipment, u16 value)
-{
-	gSaveContext.equips.equipment &= gEquipNegMasks[equipment];
-	gSaveContext.equips.equipment |= value << gEquipShifts[equipment];
+void Inventory_ChangeEquipment(s16 equipment, u16 value) {
+    gSaveContext.equips.equipment &= gEquipNegMasks[equipment];
+    gSaveContext.equips.equipment |= value << gEquipShifts[equipment];
 }
 
 void Inventory_ChangeEquipment(EquipmentPosition equip)
@@ -209,9 +218,9 @@ bool Inventory_ToggleEquipment(s16 equipment)
 	{
 		EquipmentPosition equip(PAUSE_EQUIP, (currentX + i) % 3, equipment);
 
-		if(Equip_MeetsAgeRequirement(equip) && Inventory_IsEquipmentOwned(equip))
+        if(Equip_MeetsAgeRequirement(equip) && Inventory_IsEquipmentOwned(equip))
 		{
-			Inventory_ChangeEquipment(equip);
+		    Inventory_ChangeEquipment(equip);
 			return true;
 		}
 	}
@@ -227,45 +236,40 @@ bool Inventory_IsEquipmentOwned(EquipmentPosition equip)
 u16 Inventory_GetEquipment(s16 equipment)
 {
 	return CUR_EQUIP_VALUE(equipment) & 0x0F;
-	// return (gSaveContext.equips.equipment >> gEquipShifts[equipment]) & 0x0F;
+	//return (gSaveContext.equips.equipment >> gEquipShifts[equipment]) & 0x0F;
 }
 
-u8 Inventory_DeleteEquipment(GlobalContext* globalCtx, s16 equipment)
-{
-	Player* player = GET_PLAYER(globalCtx);
-	s32 pad;
-	u16 sp26 = gSaveContext.equips.equipment & gEquipMasks[equipment];
+u8 Inventory_DeleteEquipment(GlobalContext* globalCtx, s16 equipment) {
+    Player* player = GET_PLAYER(globalCtx);
+    s32 pad;
+    u16 sp26 = gSaveContext.equips.equipment & gEquipMasks[equipment];
 
-	// "Erasing equipment item = %d  zzz=%d"
-	osSyncPrintf("Erasing equipment item = %d  zzz=%d\n", equipment, sp26);
+    // "Erasing equipment item = %d  zzz=%d"
+    osSyncPrintf("Erasing equipment item = %d  zzz=%d\n", equipment, sp26);
 
-	if(sp26)
-	{
-		sp26 >>= gEquipShifts[equipment];
+    if (sp26) {
+        sp26 >>= gEquipShifts[equipment];
 
-		gSaveContext.equips.equipment &= gEquipNegMasks[equipment];
-		gSaveContext.inventory.equipment ^= gBitFlags[sp26 - 1] << gEquipShifts[equipment];
+        gSaveContext.equips.equipment &= gEquipNegMasks[equipment];
+        gSaveContext.inventory.equipment ^= gBitFlags[sp26 - 1] << gEquipShifts[equipment];
 
-		if(equipment == EQUIP_TUNIC)
-		{
-			gSaveContext.equips.equipment |= 0x0100;
-		}
+        if (equipment == EQUIP_TUNIC) {
+            gSaveContext.equips.equipment |= 0x0100;
+        }
 
-		if(equipment == EQUIP_SWORD)
-		{
-			gSaveContext.equips.buttonItems[0] = ITEM_NONE;
-			gSaveContext.infTable[29] = 1;
-		}
+        if (equipment == EQUIP_SWORD) {
+            gSaveContext.equips.buttonItems[0] = ITEM_NONE;
+            gSaveContext.infTable[29] = 1;
+        }
 
-		Player_SetEquipmentData(globalCtx, player);
-		globalCtx->pauseCtx.cursorSpecialPos = PAUSE_CURSOR_PAGE_LEFT;
-	}
+        Player_SetEquipmentData(globalCtx, player);
+        globalCtx->pauseCtx.cursorSpecialPos = PAUSE_CURSOR_PAGE_LEFT;
+    }
 
-	return sp26;
+    return sp26;
 }
 
-void Inventory_ChangeUpgrade(s16 upgrade, s16 value)
-{
-	gSaveContext.inventory.upgrades &= gUpgradeNegMasks[upgrade];
-	gSaveContext.inventory.upgrades |= value << gUpgradeShifts[upgrade];
+void Inventory_ChangeUpgrade(s16 upgrade, s16 value) {
+    gSaveContext.inventory.upgrades &= gUpgradeNegMasks[upgrade];
+    gSaveContext.inventory.upgrades |= value << gUpgradeShifts[upgrade];
 }

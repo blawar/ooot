@@ -1,6 +1,5 @@
 #pragma once
-#include "globalctx.h"
-
+struct GlobalContext;
 struct AnimationContext;
 struct Vec3s;
 struct LinkAnimationHeader;
@@ -18,7 +17,7 @@ void AnimationContext_SetCopyAll(GlobalContext* globalCtx, s32 vecCount, Vec3s* 
 void AnimationContext_SetCopyFalse(GlobalContext* globalCtx, s32 vecCount, Vec3s* dst, Vec3s* src, const u8* copyFlag);
 void AnimationContext_SetCopyTrue(GlobalContext* globalCtx, s32 vecCount, Vec3s* dst, Vec3s* src, const u8* copyFlag);
 void AnimationContext_SetInterp(GlobalContext* globalCtx, s32 vecCount, Vec3s* base, Vec3s* mod, f32 weight);
-void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader* animation, Counter frame, s32 limbCount, Vec3s* frameTable);
+void AnimationContext_SetLoadFrame(GlobalContext* globalCtx, LinkAnimationHeader* animation, s32 frame, s32 limbCount, Vec3s* frameTable);
 void AnimationContext_SetMoveActor(GlobalContext* globalCtx, Actor* actor, SkelAnime* skelAnime, f32 arg3);
 void AnimationContext_SetNextQueue(GlobalContext* globalCtx);
 void AnimationContext_Update(GlobalContext* globalCtx, AnimationContext* animationCtx);

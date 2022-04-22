@@ -1,6 +1,4 @@
 #pragma once
-#include "z64audio.h"
-
 struct AdsrEnvelope;
 
 extern s16 D_8012FBA8[];
@@ -17,5 +15,5 @@ extern f32 gNoteFrequencies[];
 extern f32 gStereoPanVolume[128];
 extern s16* gWaveSamples[9];
 extern NoteSubEu gZeroNoteSub;
-extern s16 sHighPassFilterData[15 * 8];
-extern s16 sLowPassFilterData[16 * 8];
+extern s16 sHighPassFilterData[15*8];
+extern s16 sLowPassFilterData[16*8];

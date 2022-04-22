@@ -1,10 +1,10 @@
-#include <stdexcept>
-#include "../options.h"
 #include "controllers.h"
+#include "tas.h"
 #include "keyboard.h"
 #include "sdl.h"
-#include "tas.h"
 #include "xcontroller.h"
+#include <stdexcept>
+#include "../options.h"
 
 namespace oot::hid
 {
@@ -41,10 +41,10 @@ namespace oot::hid
 		return *m_controllers[index];
 	}
 
-	bool Driver::updateRebind(hid::Button input)
+	bool Driver::updateRebind(int input)
 	{
 		bool result = 0;
-		for(auto& controller : m_controllers)
+		for (auto& controller : m_controllers)
 		{
 			controller->state().reset();
 			result |= controller->updateRebind(input);
@@ -75,7 +75,7 @@ namespace oot::hid
 		}
 	}
 
-	Controllers::Controllers() : m_rebindInput(Button::EMPTY_BUTTON)
+	Controllers::Controllers() : m_rebindInput(0)
 	{
 #if defined(_MSC_VER)
 		if(oot::config().controls().useXInput() && !oot::config().controls().enableGyro())
@@ -93,7 +93,7 @@ namespace oot::hid
 #ifdef ENABLE_MOUSE
 		m_drivers.push_back(new Keyboard());
 #endif
-		// m_drivers.push_back(new Tas());
+		//m_drivers.push_back(new Tas());
 	}
 
 	Controllers::~Controllers()
@@ -114,23 +114,23 @@ namespace oot::hid
 
 	void Controllers::update()
 	{
-		if(isRebindMode())
+		if (isRebindMode())
 		{
 			bool result = 0;
 
-			for(auto& driver : m_drivers)
+			for (auto& driver : m_drivers)
 			{
 				result |= driver->updateRebind(m_rebindInput);
 			}
 
-			if(result)
+			if (result)
 			{
-				m_rebindInput = Button::EMPTY_BUTTON;
+				m_rebindInput = 0;
 			}
 		}
 		else
 		{
-			for(auto& driver : m_drivers)
+			for (auto& driver : m_drivers)
 			{
 				driver->update();
 			}
@@ -142,7 +142,7 @@ namespace oot::hid
 		u64 found = 0;
 		for(auto& driver : m_drivers)
 		{
-			// if(!driver->defaultOnly() || !found)
+			//if(!driver->defaultOnly() || !found)
 			{
 				driver->scan(this);
 				found += driver->size();
@@ -158,7 +158,7 @@ namespace oot::hid
 		}
 	}
 
-	void Controllers::rebind(hid::Button input)
+	void Controllers::rebind(int input)
 	{
 		m_rebindInput = input;
 	}

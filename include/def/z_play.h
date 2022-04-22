@@ -1,7 +1,7 @@
 #pragma once
-#include "globalctx.h"
-
+struct GlobalContext;
 struct Vec3f;
+struct GameState;
 struct Camera;
 struct RomFile;
 struct Player;
@@ -21,10 +21,13 @@ void Gameplay_ClearAllSubCameras(GlobalContext* globalCtx);
 void Gameplay_ClearCamera(GlobalContext* globalCtx, s16 camId);
 void Gameplay_CopyCamera(GlobalContext* globalCtx, s16 camId1, s16 camId2);
 s16 Gameplay_CreateSubCamera(GlobalContext* globalCtx);
+void Gameplay_Destroy(GameState* pthisx);
 s16 Gameplay_GetActiveCamId(GlobalContext* globalCtx);
 Camera* Gameplay_GetCamera(GlobalContext* globalCtx, s16 camId);
 s32 Gameplay_InCsMode(GlobalContext* globalCtx);
+void Gameplay_Init(GameState* pthisx);
 void* Gameplay_LoadFile(GlobalContext* globalCtx, RomFile* file);
+void Gameplay_Main(GameState* pthisx);
 void Gameplay_SaveSceneFlags(GlobalContext* globalCtx);
 s32 Gameplay_SetCameraRoll(GlobalContext* globalCtx, s16 camId, s16 roll);
 Gfx* Gameplay_SetFog(GlobalContext* globalCtx, Gfx* gfx);

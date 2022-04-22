@@ -1,6 +1,5 @@
 #pragma once
-extern "C"
-{
+extern "C" {
 	u64 gfx_width();
 	u64 gfx_height();
 	float gfx_ar();

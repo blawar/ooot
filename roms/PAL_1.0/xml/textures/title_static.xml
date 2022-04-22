@@ -182,14 +182,6 @@
         <Texture Name="gFileSelCheckBrightnessGERTex" OutName="check_brightness_ger" Format="ia8" Width="128" Height="16" Offset="0x5380"/>
         <Texture Name="gFileSelCheckBrightnessFRATex" OutName="check_brightness_fra" Format="ia8" Width="128" Height="16" Offset="0x5B80"/>
 
-        <Texture Name="gFileSelEnglishTex" OutName="english" Format="ia8" Width="48" Height="16" Offset="0x6380"/>
-        <Texture Name="gFileSelDeutschTex" OutName="deutsch" Format="ia8" Width="48" Height="16" Offset="0x6680"/>
-        <Texture Name="gFileSelFrancaisTex" OutName="francais" Format="ia8" Width="48" Height="16" Offset="0x6980"/>
-
-        <Texture Name="gFileSelLanguageENGTex" OutName="language_eng" Format="ia8" Width="64" Height="16" Offset="0x6C80"/>
-        <Texture Name="gFileSelLanguageGERTex" OutName="language_ger" Format="ia8" Width="64" Height="16" Offset="0x7080"/>
-        <Texture Name="gFileSelLanguageFRATex" OutName="language_fra" Format="ia8" Width="64" Height="16" Offset="0x7480"/>
-
         <Texture Name="gFileSelOptionsButtonENGTex" OutName="options_button_eng" Format="ia16" Width="64" Height="16" Offset="0x2FA00"/>
         <Texture Name="gFileSelOptionsButtonGERTex" OutName="options_button_ger" Format="ia16" Width="64" Height="16" Offset="0x30200"/>
 
@@ -200,12 +192,5 @@
         <DList Name="gFileSelWindow1DL" Offset="0x4CD80"/>
         <DList Name="gFileSelWindow2DL" Offset="0x4CF98"/>
         <DList Name="gFileSelWindow3DL" Offset="0x4D1A8"/>
-
-        <!-- Extra PAL only screen -->
-        <Texture Name="gFileSelSelectYourLanguageTex" OutName="select_your_language" Format="ia8" Width="160" Height="64" Offset="0x4A100"/>
-        <Texture Name="gFileSelLanguageSelectCursorTex" OutName="language_select_cursor" Format="i4" Width="48" Height="48" Offset="0x4C900"/>
-        <Texture Name="gFileSelEnglishAllCapsTex" OutName="english_all_caps" Format="ia8" Width="80" Height="32" Offset="0x48300"/>
-        <Texture Name="gFileSelDeutschAllCapsTex" OutName="deutsch_all_caps" Format="ia8" Width="80" Height="32" Offset="0x48D00"/>
-        <Texture Name="gFileSelFrancaisAllCapsTex" OutName="francais_all_caps" Format="ia8" Width="80" Height="32" Offset="0x49700"/>
     </File>
 </Root>

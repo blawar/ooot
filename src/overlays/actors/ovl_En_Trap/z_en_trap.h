@@ -1,8 +1,8 @@
 #pragma once
 #define Z_EN_TRAP_H
 
-#include "global.h"
 #include "ultra64.h"
+#include "global.h"
 
 // Different movement modes (set in params):
 #define SPIKETRAP_MODE_LINEAR 0x10
@@ -17,18 +17,21 @@
 
 struct EnTrap;
 
-struct EnTrap
-{
-	/* 0x0000 */ Actor actor;
-	/* 0x014C */ Timer playerDmgTimer;
-	/* 0x0150 */ s16 upperParams;
-	/* 0x0152 */ s16 genericVar1;
-	/* 0x0154 */ f32 genericVar2;
-	/* 0x0158 */ Vec3f targetPosLeft;
-	/* 0x0164 */ Vec3f targetPosRight;
-	/* 0x0170 */ Vec3f targetPosFwd;
-	/* 0x017C */ Vec3f targetPosBack;
-	/* 0x0188 */ Vec3f moveSpeedLeftRight;
-	/* 0x0194 */ Vec3f moveSpeedForwardBack;
-	/* 0x01A0 */ ColliderCylinder collider;
-};
+
+struct EnTrap {
+
+    /* 0x0000 */ Actor actor;
+    /* 0x014C */ s32 playerDmgTimer;
+    /* 0x0150 */ s16 upperParams;
+    /* 0x0152 */ s16 genericVar1;
+    /* 0x0154 */ f32 genericVar2;
+    /* 0x0158 */ Vec3f targetPosLeft;
+    /* 0x0164 */ Vec3f targetPosRight;
+    /* 0x0170 */ Vec3f targetPosFwd;
+    /* 0x017C */ Vec3f targetPosBack;
+    /* 0x0188 */ Vec3f moveSpeedLeftRight;
+    /* 0x0194 */ Vec3f moveSpeedForwardBack;
+    /* 0x01A0 */ ColliderCylinder collider;
+}; 
+
+

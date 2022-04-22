@@ -1,10 +1,10 @@
 #include "global.h"
-#include <fstream>
-#include <stdio.h>
-#include <string.h>
-#include "json.h"
 #include "port/options.h"
+#include <stdio.h>
 #include "xxhash64.h"
+#include <fstream>
+#include "json.h"
+#include <string.h>
 
 #ifdef __SWITCH__
 #include "pc/nx.h"
@@ -15,39 +15,6 @@
 #else
 #define CONFIG_JSON_FILE "config.json"
 #endif
-
-void Set_Language(u8 language_id);
-
-std::string languageGetString(Language id)
-{
-	switch(id)
-	{
-		case LANGUAGE_ENG:
-			return "en";
-		case LANGUAGE_FRA:
-			return "fr";
-		case LANGUAGE_GER:
-			return "de";
-	}
-	return "en";
-}
-
-Language languageGetId(const std::string& s)
-{
-	if(s == "en")
-	{
-		return LANGUAGE_ENG;
-	}
-	else if(s == "fr")
-	{
-		return LANGUAGE_FRA;
-	}
-	else if(s == "de")
-	{
-		return LANGUAGE_GER;
-	}
-	return LANGUAGE_ENG;
-}
 
 namespace oot
 {
@@ -97,7 +64,6 @@ namespace oot
 					cheats().load(d);
 					controls().load(d);
 					game().load(d);
-					//video().load(d);
 					result = true;
 				}
 			}
@@ -134,7 +100,6 @@ namespace oot
 			cheats().save(d, allocator);
 			controls().save(d, allocator);
 			game().save(d, allocator);
-			//video().save(d, allocator);
 
 			if(!json::save(d, CONFIG_JSON_FILE))
 			{
@@ -149,31 +114,6 @@ namespace oot
 			unmountSaveData();
 #endif
 			return true;
-		}
-
-		Video::Video()
-		{
-		}
-
-		void Video::save(rapidjson::Document& doc, rapidjson::Document::AllocatorType& allocator)
-		{
-			rapidjson::Value container(rapidjson::Type::kObjectType);
-
-			json::setS64(container, "vsync", vsync(), allocator);
-			json::setBool(container, "doubleBuffer", doubleBuffer(), allocator);
-
-			doc.AddMember(rapidjson::Value("Video", allocator), container, allocator);
-		}
-
-		void Video::load(rapidjson::Document& doc)
-		{
-			if(doc.HasMember("Video"))
-			{
-				auto& container = doc["Video"];
-
-				json::getS64(container, "vsync", vsync());
-				json::getBool(container, "doubleBuffer", doubleBuffer());
-			}
 		}
 
 		Game::Game()
@@ -192,12 +132,10 @@ namespace oot
 			json::setBool(container, "recordTas", recordTas(), allocator);
 			json::setBool(container, "forceMouse", forceMouse(), allocator);
 			json::setBool(container, "enableExtendedOptionsMenu", enableExtendedOptionsMenu(), allocator);
-			json::setBool(container, "enableDebugLevelSelect", enablDebugLevelSelect(), allocator);
+			json::setBool(container, "enablDebugLevelSelect", enablDebugLevelSelect(), allocator);
+			u64 m_pauseExitInputClearFrames;
+			u64 m_textScrollSpeed;
 
-			json::setU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames(), allocator);
-			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
-			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
-			json::set(container, "language", languageGetString(language()), allocator);
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
 		}
@@ -216,60 +154,8 @@ namespace oot
 				json::getBool(container, "recordTas", recordTas());
 				json::getBool(container, "forceMouse", forceMouse());
 				json::getBool(container, "enableExtendedOptionsMenu", enableExtendedOptionsMenu());
-				json::getBool(container, "enableDebugLevelSelect", enablDebugLevelSelect());
-
-				json::getU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames());
-				json::getU64(container, "fastForwardSpeed", fastForwardSpeed());
-				json::getU64(container, "textScrollSpeed", textScrollSpeed());
-
-				std::string lang;
-				json::get(container, "language", lang);
-				setLanguage(languageGetId(lang));
+				json::getBool(container, "enablDebugLevelSelect", enablDebugLevelSelect());
 			}
-		}
-
-		void Game::setLanguage(Language id)
-		{
-			m_language = (Language)(id % LANGUAGE_MAX);
-			Set_Language(m_language);
-		}
-
-		void Game::setNextLanguage()
-		{
-			switch(m_language)
-			{
-				case LANGUAGE_ENG:
-					setLanguage(LANGUAGE_GER);
-					break;
-				case LANGUAGE_FRA:
-					setLanguage(LANGUAGE_ENG);
-					break;
-				case LANGUAGE_GER:
-					setLanguage(LANGUAGE_FRA);
-					break;
-				default:
-					setLanguage(LANGUAGE_ENG);
-			}
-			config().save();
-		}
-
-		void Game::setPrevLanguage()
-		{
-			switch(m_language)
-			{
-				case LANGUAGE_ENG:
-					setLanguage(LANGUAGE_FRA);
-					break;
-				case LANGUAGE_FRA:
-					setLanguage(LANGUAGE_GER);
-					break;
-				case LANGUAGE_GER:
-					setLanguage(LANGUAGE_ENG);
-					break;
-				default:
-					setLanguage(LANGUAGE_ENG);
-			}
-			config().save();
 		}
 
 		const bool Game::mirror() const
@@ -373,12 +259,6 @@ namespace oot
 			json::setBool(container, "enableGyro", enableGyro(), allocator);
 			json::setBool(container, "useXInput", useXInput(), allocator);
 
-			json::setBool(container, "invertLeftStickY", invertLeftStickY(), allocator);
-			json::setBool(container, "invertRightStickY", invertRightStickY(), allocator);
-
-			json::setBool(container, "invertLeftStickFirstPersonY", invertLeftStickFirstPersonY(), allocator);
-			json::setBool(container, "invertRightStickFirstPersonY", invertRightStickFirstPersonY(), allocator);
-
 			doc.AddMember(rapidjson::Value("controls", allocator), container, allocator);
 		}
 
@@ -408,12 +288,6 @@ namespace oot
 				json::getBool(container, "enableGyro", enableGyro());
 
 				json::getBool(container, "useXInput", useXInput());
-
-				json::getBool(container, "invertLeftStickY", invertLeftStickY());
-				json::getBool(container, "invertRightStickY", invertRightStickY());
-
-				json::getBool(container, "invertLeftStickFirstPersonY", invertLeftStickFirstPersonY());
-				json::getBool(container, "invertRightStickFirstPersonY", invertRightStickFirstPersonY());
 			}
 		}
 	} // namespace options

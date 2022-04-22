@@ -6,8 +6,8 @@
  * Description: Stops blocks and sets relevant flags when the block is in position.
  */
 
-#include "overlays/actors/ovl_Obj_Oshihiki/z_obj_oshihiki.h"
 #include "z_obj_blockstop.h"
+#include "overlays/actors/ovl_Obj_Oshihiki/z_obj_oshihiki.h"
 #include "def/z_actor.h"
 #include "def/z_bgcheck.h"
 #include "def/z_lib.h"
@@ -20,59 +20,68 @@ void ObjBlockstop_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx);
 
 ActorInit Obj_Blockstop_InitVars = {
-    ACTOR_OBJ_BLOCKSTOP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjBlockstop), (ActorFunc)ObjBlockstop_Init, (ActorFunc)ObjBlockstop_Destroy, (ActorFunc)ObjBlockstop_Update, NULL, (ActorFunc)ObjBlockstop_Reset,
+    ACTOR_OBJ_BLOCKSTOP,
+    ACTORCAT_PROP,
+    FLAGS,
+    OBJECT_GAMEPLAY_KEEP,
+    sizeof(ObjBlockstop),
+    (ActorFunc)ObjBlockstop_Init,
+    (ActorFunc)ObjBlockstop_Destroy,
+    (ActorFunc)ObjBlockstop_Update,
+    NULL,
+    (ActorFunc)ObjBlockstop_Reset,
 };
 
-void ObjBlockstop_Init(Actor* thisx, GlobalContext* globalCtx)
-{
-	ObjBlockstop* pthis = (ObjBlockstop*)thisx;
+void ObjBlockstop_Init(Actor* thisx, GlobalContext* globalCtx) {
+    ObjBlockstop* pthis = (ObjBlockstop*)thisx;
 
-	if(Flags_GetSwitch(globalCtx, pthis->actor.params))
-	{
-		Actor_Kill(&pthis->actor);
-	}
-	else
-	{
-		pthis->actor.world.pos.y++;
-	}
+    if (Flags_GetSwitch(globalCtx, pthis->actor.params)) {
+        Actor_Kill(&pthis->actor);
+    } else {
+        pthis->actor.world.pos.y++;
+    }
 }
 
-void ObjBlockstop_Destroy(Actor* thisx, GlobalContext* globalCtx)
-{
+void ObjBlockstop_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
-void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx)
-{
-	ObjBlockstop* pthis = (ObjBlockstop*)thisx;
-	DynaPolyActor* dynaPolyActor;
-	Vec3f sp4C;
-	s32 bgId;
-	s32 pad;
+void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx) {
+    ObjBlockstop* pthis = (ObjBlockstop*)thisx;
+    DynaPolyActor* dynaPolyActor;
+    Vec3f sp4C;
+    s32 bgId;
+    s32 pad;
 
-	if(BgCheck_EntityLineTest2(&globalCtx->colCtx, &pthis->actor.home.pos, &pthis->actor.world.pos, &sp4C, &pthis->actor.floorPoly, false, false, true, true, &bgId, &pthis->actor))
-	{
-		dynaPolyActor = DynaPoly_GetActor(&globalCtx->colCtx, bgId);
+    if (BgCheck_EntityLineTest2(&globalCtx->colCtx, &pthis->actor.home.pos, &pthis->actor.world.pos, &sp4C,
+                                &pthis->actor.floorPoly, false, false, true, true, &bgId, &pthis->actor)) {
+        dynaPolyActor = DynaPoly_GetActor(&globalCtx->colCtx, bgId);
 
-		if(dynaPolyActor != NULL && dynaPolyActor->actor.id == ACTOR_OBJ_OSHIHIKI)
-		{
-			if((dynaPolyActor->actor.params & 0x000F) == PUSHBLOCK_HUGE_START_ON || (dynaPolyActor->actor.params & 0x000F) == PUSHBLOCK_HUGE_START_OFF)
-			{
-				Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
-			}
-			else
-			{
-				Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
-			}
+        if (dynaPolyActor != NULL && dynaPolyActor->actor.id == ACTOR_OBJ_OSHIHIKI) {
+            if ((dynaPolyActor->actor.params & 0x000F) == PUSHBLOCK_HUGE_START_ON ||
+                (dynaPolyActor->actor.params & 0x000F) == PUSHBLOCK_HUGE_START_OFF) {
+                Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
+            } else {
+                Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
+            }
 
-			Flags_SetSwitch(globalCtx, pthis->actor.params);
-			Actor_Kill(&pthis->actor);
-		}
-	}
+            Flags_SetSwitch(globalCtx, pthis->actor.params);
+            Actor_Kill(&pthis->actor);
+        }
+    }
 }
 
-void ObjBlockstop_Reset(Actor* pthisx, GlobalContext* globalCtx)
-{
-	Obj_Blockstop_InitVars = {
-	    ACTOR_OBJ_BLOCKSTOP, ACTORCAT_PROP, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(ObjBlockstop), (ActorFunc)ObjBlockstop_Init, (ActorFunc)ObjBlockstop_Destroy, (ActorFunc)ObjBlockstop_Update, NULL, (ActorFunc)ObjBlockstop_Reset,
-	};
+void ObjBlockstop_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    Obj_Blockstop_InitVars = {
+        ACTOR_OBJ_BLOCKSTOP,
+        ACTORCAT_PROP,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(ObjBlockstop),
+        (ActorFunc)ObjBlockstop_Init,
+        (ActorFunc)ObjBlockstop_Destroy,
+        (ActorFunc)ObjBlockstop_Update,
+        NULL,
+        (ActorFunc)ObjBlockstop_Reset,
+    };
+
 }

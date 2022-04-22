@@ -1,7 +1,7 @@
 #pragma once
-#include "globalctx.h"
-
 struct ObjectContext;
+struct GlobalContext;
+struct GameState;
 struct TransitionActorContext;
 struct RomFile;
 

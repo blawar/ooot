@@ -2,5 +2,6 @@
 #ifndef _MSC_VER
 #include <alloca.h>
 #else
-#define alloca _alloca
+#define alloca  _alloca
 #endif
+

@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 
 void Message_Init(GlobalContext* globalCtx);
 void func_80110990(GlobalContext* globalCtx);

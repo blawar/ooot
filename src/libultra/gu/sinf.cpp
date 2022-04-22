@@ -30,38 +30,38 @@ f32 sinf(f32 x) {
     xpt &= 0x1FF;
 
     if (xpt < 0xFF) {
-	dx = x;
+        dx = x;
 
-	if (xpt >= 0xE6) {
-	    xSq = SQ(dx);
-	    polyApprox = ((P[4].d * xSq + P[3].d) * xSq + P[2].d) * xSq + P[1].d;
-	    result = dx + (dx * xSq) * polyApprox;
-	    return (f32)result;
-	}
-	return x;
+        if (xpt >= 0xE6) {
+            xSq = SQ(dx);
+            polyApprox = ((P[4].d * xSq + P[3].d) * xSq + P[2].d) * xSq + P[1].d;
+            result = dx + (dx * xSq) * polyApprox;
+            return (f32)result;
+        }
+        return x;
     }
 
     if (xpt < 0x136) {
-	dx = x;
-	dn = dx * rpi.d;
-	n = ROUND(dn);
-	dn = n;
+        dx = x;
+        dn = dx * rpi.d;
+        n = ROUND(dn);
+        dn = n;
 
-	dx -= dn * pihi.d;
-	dx -= dn * pilo.d;
-	xSq = SQ(dx);
+        dx -= dn * pihi.d;
+        dx -= dn * pilo.d;
+        xSq = SQ(dx);
 
-	polyApprox = ((P[4].d * xSq + P[3].d) * xSq + P[2].d) * xSq + P[1].d;
-	result = dx + (dx * xSq) * polyApprox;
+        polyApprox = ((P[4].d * xSq + P[3].d) * xSq + P[2].d) * xSq + P[1].d;
+        result = dx + (dx * xSq) * polyApprox;
 
-	if (!(n & 1)) {
-	    return (f32)result;
-	}
-	return -(f32)result;
+        if (!(n & 1)) {
+            return (f32)result;
+        }
+        return -(f32)result;
     }
 
     if (x != x) {
-	return __libm_qnan_f;
+        return __libm_qnan_f;
     }
     return zero.f;
 }

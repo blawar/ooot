@@ -1,9 +1,9 @@
 #ifndef Z_KALEIDO_SCOPE_H
 #define Z_KALEIDO_SCOPE_H
 
+#include "ultra64.h"
 #include "global.h"
 #include "kaleido_macros.h"
-#include "ultra64.h"
 
 extern u8 gAmmoItems[];
 extern s16 D_8082AAEC[];

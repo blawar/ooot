@@ -1,35 +1,22 @@
 #define INTERNAL_SRC_CODE_TITLE_SETUP_C
 #include "global.h"
-#include <z64save.h>
 #include "z64game.h"
-#include "def/graph.h"
+#include "z_title.h"
+#include <z64save.h>
 #include "def/title_setup.h"
-#include "def/z_title.h"
+#include "def/z_common_data.h"
 
-namespace oot::gamestate
-{
-	TitleSetup::TitleSetup(GraphicsContext* gfxCtx) : Base(gfxCtx)
-	{
-	}
+void TitleSetup_InitImpl(GameState* gameState) {
+    osSyncPrintf("Zelda common data initalization\n"); // "Zelda common data initalization"
+    SaveContext_Init();
+    gameState->running = false;
+    SET_NEXT_GAMESTATE(gameState, Title_Init, TitleContext);
+}
 
-	TitleSetup::~TitleSetup()
-	{
-	}
+void TitleSetup_Destroy(GameState* gameState) {
+}
 
-	Base* TitleSetup::next()
-	{
-		return new TitleSetup(gfxCtx);
-	}
-
-	void TitleSetup::init()
-	{
-		osSyncPrintf("Zelda common data initalization\n"); // "Zelda common data initalization"
-		gSaveContext.init();
-		running = false;
-		Graph_SetNextGameState(new Title(gfxCtx));
-	}
-
-	void TitleSetup::main()
-	{
-	}
-} // namespace oot::gamestate
+void TitleSetup_Init(GameState* gameState) {
+    gameState->destroy = TitleSetup_Destroy;
+    TitleSetup_InitImpl(gameState);
+}

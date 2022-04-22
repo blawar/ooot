@@ -3,10 +3,10 @@
 #include "z64global.h"
 #include "def/z_frame_advance.h"
 
-void FrameAdvance_Init(FrameAdvanceContext* frameAdvCtx)
-{
-	frameAdvCtx->timer = 0;
-	frameAdvCtx->enabled = false;
+
+void FrameAdvance_Init(FrameAdvanceContext* frameAdvCtx) {
+    frameAdvCtx->timer = 0;
+    frameAdvCtx->enabled = false;
 }
 
 /**
@@ -17,18 +17,17 @@ void FrameAdvance_Init(FrameAdvanceContext* frameAdvCtx)
  *
  * This function returns true when frame advance is not active (game will run normally)
  */
-s32 FrameAdvance_Update(FrameAdvanceContext* frameAdvCtx, Input* input)
-{
-	if(CHECK_BTN_ALL(input->cur.button, BTN_R) && CHECK_BTN_ALL(input->press.button, BTN_DDOWN))
-	{
-		frameAdvCtx->enabled = !frameAdvCtx->enabled;
-	}
+s32 FrameAdvance_Update(FrameAdvanceContext* frameAdvCtx, Input* input) {
+    if (CHECK_BTN_ALL(input->cur.button, BTN_R) && CHECK_BTN_ALL(input->press.button, BTN_DDOWN)) {
+        frameAdvCtx->enabled = !frameAdvCtx->enabled;
+    }
 
-	if(!frameAdvCtx->enabled || (CHECK_BTN_ALL(input->cur.button, BTN_Z) && (CHECK_BTN_ALL(input->press.button, BTN_R) || (CHECK_BTN_ALL(input->cur.button, BTN_R) && (++frameAdvCtx->timer >= 9)))))
-	{
-		frameAdvCtx->timer = 0;
-		return true;
-	}
+    if (!frameAdvCtx->enabled || (CHECK_BTN_ALL(input->cur.button, BTN_Z) &&
+                                  (CHECK_BTN_ALL(input->press.button, BTN_R) ||
+                                   (CHECK_BTN_ALL(input->cur.button, BTN_R) && (++frameAdvCtx->timer >= 9))))) {
+        frameAdvCtx->timer = 0;
+        return true;
+    }
 
-	return false;
+    return false;
 }

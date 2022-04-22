@@ -1,34 +1,34 @@
 #pragma once
 #define Z_DEMO_DU_H
 
-#include "global.h"
 #include "ultra64.h"
+#include "global.h"
 
 struct DemoDu;
 
-struct DemoDu
-{
-	/* 0x0000 */ Actor actor;
-	/* 0x014C */ SkelAnime skelAnime;
-	/* 0x0190 */ s16 eyeTexIndex;
-	/* 0x0192 */ Timer blinkTimer;
-	/* 0x0194 */ s16 mouthTexIndex;
-	/* 0x0198 */ s32 updateIndex;
-	/* 0x019C */ s32 drawIndex;
-	/* 0x01A0 */ s32 unused;
-	/* 0x01A4 */ f32 unk_1A4;
-	/* 0x01A8 */ s32 shadowAlpha;
-	/* 0x01AC */ s32 demo6KSpawned;
-	/* 0x01B0 */ s32 lastAction;
-};
+
+struct DemoDu {
+
+    /* 0x0000 */ Actor actor;
+    /* 0x014C */ SkelAnime skelAnime;
+    /* 0x0190 */ s16 eyeTexIndex;
+    /* 0x0192 */ s16 blinkTimer;
+    /* 0x0194 */ s16 mouthTexIndex;
+    /* 0x0198 */ s32 updateIndex;
+    /* 0x019C */ s32 drawIndex;
+    /* 0x01A0 */ s32 unused;
+    /* 0x01A4 */ f32 unk_1A4;
+    /* 0x01A8 */ s32 shadowAlpha;
+    /* 0x01AC */ s32 demo6KSpawned;
+    /* 0x01B0 */ s32 lastAction;
+}; 
 
 // This is the parameter of this actor,
-typedef enum DemoDu_Cutscene
-{
-	/* 0x00 */ DEMO_DU_CS_FIREMEDALLION, // default
-	/* 0x01 */ DEMO_DU_CS_GORONS_RUBY,
-	/* 0x02 */ DEMO_DU_CS_CHAMBER_AFTER_GANON,
-	/* 0x03 */ DEMO_DU_CS_CREDITS
+typedef enum DemoDu_Cutscene {
+    /* 0x00 */ DEMO_DU_CS_FIREMEDALLION, // default
+    /* 0x01 */ DEMO_DU_CS_GORONS_RUBY,
+    /* 0x02 */ DEMO_DU_CS_CHAMBER_AFTER_GANON,
+    /* 0x03 */ DEMO_DU_CS_CREDITS
 } DemoDu_Cutscene;
 
 /**
@@ -37,5 +37,7 @@ typedef enum DemoDu_Cutscene
  * DEMO_DU_CS_GORONS_RUBY: Map selector -> Map 16 (SPOT16) -> Stage 01
  * DEMO_DU_CS_CHAMBER_AFTER_GANON: Map selector -> Map 21 -> Stage 02
  * DEMO_DU_CS_CREDITS: Map selector -> Map 16 (SPOT16) -> Stage 04
- *
+ * 
  */
+
+

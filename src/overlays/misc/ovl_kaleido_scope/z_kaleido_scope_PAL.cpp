@@ -1,47 +1,50 @@
 #define INTERNAL_SRC_OVERLAYS_MISC_OVL_KALEIDO_SCOPE_Z_KALEIDO_SCOPE_PAL_C
 #include "actor_common.h"
+#include "z_kaleido_scope.h"
 #include "framerate.h"
+#include "z64audio.h"
+#include "def/z_lib.h"
 #include "gfxprint.h"
-#include "hack.h"
-#include "kaleido.h"
-#include "kaleido_macros.h"
-#include "port/controller/controller.h"
-#include "port/options.h"
 #include "segment_symbols.h"
+#include "port/options.h"
+#include "textures/icon_item_static/icon_item_static.h"
 #include "textures/icon_item_24_static/icon_item_24_static.h"
-#include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
-#include "textures/icon_item_field_static/icon_item_field_static.h"
+#include "textures/icon_item_nes_static/icon_item_nes_static.h"
+#include "textures/icon_item_ger_static/icon_item_ger_static.h"
 #include "textures/icon_item_fra_static/icon_item_fra_static.h"
 #include "textures/icon_item_gameover_static/icon_item_gameover_static.h"
-#include "textures/icon_item_ger_static/icon_item_ger_static.h"
-#include "textures/icon_item_nes_static/icon_item_nes_static.h"
-#include "textures/icon_item_static/icon_item_static.h"
+#include "textures/map_name_static/map_name_static.h"
 #include "textures/item_name_static/item_name_static.h"
 #include "textures/map_48x85_static/map_48x85_static.h"
-#include "textures/map_name_static/map_name_static.h"
+#include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
+#include "textures/icon_item_field_static/icon_item_field_static.h"
+#include "textures/icon_item_dungeon_static/icon_item_dungeon_static.h"
 #include "vt.h"
-#include "z64audio.h"
-#include "z_kaleido_scope.h"
+#include "kaleido.h"
+#include "kaleido_macros.h"
+#include "hack.h"
+#include "z_opening.h"
+#include "port/controller/controller.h"
+#include "def/gfxprint.h"
 #include "def/PreRender.h"
+#include "def/inventory.h"
 #include "def/audio.h"
 #include "def/audio_bank.h"
 #include "def/audio_command.h"
 #include "def/createmesgqueue.h"
-#include "def/gfxprint.h"
 #include "def/graph.h"
-#include "def/inventory.h"
 #include "def/sleep.h"
 #include "def/sys_matrix.h"
 #include "def/z_bgcheck.h"
-#include "def/z_lib.h"
+#include "def/z_common_data.h"
 #include "def/z_map_exp.h"
 #include "def/z_map_mark.h"
-#include "def/z_opening.h"
 #include "def/z_parameter.h"
 #include "def/z_play.h"
 #include "def/z_player_lib.h"
 #include "def/z_rcp.h"
 #include "def/z_scene.h"
+#include "def/z_sram.h"
 #include "def/z_std_dma.h"
 #include "def/z_view.h"
 
@@ -810,7 +813,7 @@ namespace oot::pause
 				s16 phi_t5;
 
 				PauseContext* pauseCtx = &globalCtx->pauseCtx;
-				auto gfxCtx = globalCtx->gfxCtx;
+				auto gfxCtx = globalCtx->state.gfxCtx;
 
 				m_pageVtx = std::make_unique<Vtx[]>(60);
 				KaleidoScope_SetPageVertices(globalCtx, m_pageVtx.get(), 3, 0);
@@ -1218,7 +1221,7 @@ namespace oot::pause
 			const float targetRotation = (m_pageIndexTarget * m_pageAngle);
 			const float originalRotation = (m_pageIndex * m_pageAngle);
 
-			if(Math_StepRotationToF(&m_rotation, targetRotation, 4.0f * 30.0f * FRAMERATE_SCALER_INV / framerate_get()))
+			if(Math_StepRotationToF(&m_rotation, targetRotation, 4.0f * 30.0f / framerate_get()))
 			{
 				m_pageIndex = m_pageIndexTarget;
 				globalCtx->pauseCtx.pageIndex = m_pageIndexTarget;
@@ -1365,9 +1368,9 @@ void KaleidoScope_SetupPlayerPreRender(GlobalContext* globalCtx)
 	Gfx* gfxRef;
 	void* fbuf;
 
-	fbuf = globalCtx->gfxCtx->curFrameBuffer;
+	fbuf = globalCtx->state.gfxCtx->curFrameBuffer;
 
-	OPEN_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
+	OPEN_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
 
 	gfxRef = POLY_OPA_DISP;
 	gfx = Graph_GfxPlusOne(gfxRef);
@@ -1383,7 +1386,7 @@ void KaleidoScope_SetupPlayerPreRender(GlobalContext* globalCtx)
 
 	SREG(33) |= 1;
 
-	CLOSE_DISPS(globalCtx->gfxCtx, __FILE__, __LINE__);
+	CLOSE_DISPS(globalCtx->state.gfxCtx, __FILE__, __LINE__);
 }
 
 void KaleidoScope_ProcessPlayerPreRender(void)
@@ -1594,7 +1597,7 @@ void KaleidoScope_DrawCursor(GlobalContext* globalCtx, oot::pause::Page* page)
 
 	KaleidoScope_UpdateCursorSize(globalCtx);
 
-	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 955);
+	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 955);
 
 	temp = pauseCtx->unk_1E4;
 
@@ -1622,7 +1625,7 @@ void KaleidoScope_DrawCursor(GlobalContext* globalCtx, oot::pause::Page* page)
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
 	}
 
-	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 985);
+	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 985);
 }
 
 Gfx* KaleidoScope_DrawPageSections(Gfx* gfx, Vtx* vertices, void** textures)
@@ -1951,7 +1954,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 
 	auto current = gPages.current();
 
-	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 1676);
+	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 1676);
 
 	stepR = ABS(D_808321A0 - D_8082ADF0[D_8082AE04][0]) / D_8082AE00;
 	stepG = ABS(D_808321A2 - D_8082ADF0[D_8082AE04][1]) / D_8082AE00;
@@ -2084,7 +2087,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 	Matrix_Translate(0.0f, 0.0f, -144.0f, MTXMODE_NEW);
 	Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
 
-	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 1755), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 1755), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 90, 100, 130, 255);
 	gSPVertex(POLY_OPA_DISP++, &pauseCtx->infoPanelVtx[0], 16, 0);
@@ -2188,7 +2191,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 				gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
 				gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
-				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->gfxCtx, gGoldSkulltulaIconTex, 24, 24, 0);
+				KaleidoScope_DrawQuadTextureRGBA32(globalCtx->state.gfxCtx, gGoldSkulltulaIconTex, 24, 24, 0);
 			}
 		}
 	}
@@ -2334,7 +2337,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 		}
 	}
 
-	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 2032);
+	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 2032);
 }
 
 void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx)
@@ -2830,7 +2833,7 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
 
 void KaleidoScope_DrawGameOver(GlobalContext* globalCtx)
 {
-	GraphicsContext* gfxCtx = globalCtx->gfxCtx;
+	GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
 
 	OPEN_DISPS(gfxCtx, "../z_kaleido_scope_PAL.c", 3122);
 
@@ -2865,11 +2868,11 @@ void KaleidoScope_DrawGameOver(GlobalContext* globalCtx)
 
 void KaleidoScope_Draw(GlobalContext* globalCtx)
 {
-	Input* input = &globalCtx->input[0];
+	Input* input = &globalCtx->state.input[0];
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
-	OPEN_DISPS(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 3188);
+	OPEN_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 3188);
 
 	pauseCtx->stickRelX = input->rel.stick_x;
 	pauseCtx->stickRelY = input->rel.stick_y;
@@ -2886,11 +2889,11 @@ void KaleidoScope_Draw(GlobalContext* globalCtx)
 	{
 		KaleidoScope_SetView(pauseCtx, pauseCtx->eye.pos.x, pauseCtx->eye.pos.y, pauseCtx->eye.pos.z, pauseCtx->eye.inverted);
 
-		func_800949A8(globalCtx->gfxCtx);
-		KaleidoScope_InitVertices(globalCtx, globalCtx->gfxCtx);
-		KaleidoScope_DrawPages(globalCtx, globalCtx->gfxCtx);
+		func_800949A8(globalCtx->state.gfxCtx);
+		KaleidoScope_InitVertices(globalCtx, globalCtx->state.gfxCtx);
+		KaleidoScope_DrawPages(globalCtx, globalCtx->state.gfxCtx);
 
-		func_800949A8(globalCtx->gfxCtx);
+		func_800949A8(globalCtx->state.gfxCtx);
 		gDPSetCombineLERP(POLY_OPA_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
 
 		KaleidoScope_SetView(pauseCtx, 0.0f, 0.0f, 64.0f);
@@ -2911,7 +2914,7 @@ void KaleidoScope_Draw(GlobalContext* globalCtx)
 		KaleidoScope_DrawDebugEditor(globalCtx);
 	}
 
-	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kaleido_scope_PAL.c", 3254);
+	CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 3254);
 }
 
 #ifndef N64_VERSION
@@ -3146,7 +3149,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 		InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 		GameOverContext* gameOverCtx = &globalCtx->gameOverCtx;
 		Player* player = GET_PLAYER(globalCtx);
-		Input* input = &globalCtx->input[0];
+		Input* input = &globalCtx->state.input[0];
 		u32 size;
 		u32 size0;
 		u32 size1;
@@ -3649,7 +3652,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						break;
 
 					case 1: // rotating
-						KaleidoScope_Action_Rotating(globalCtx, globalCtx->input);
+						KaleidoScope_Action_Rotating(globalCtx, globalCtx->state.input);
 						break;
 
 					case 2:
@@ -3794,7 +3797,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 								Audio_PlaySoundGeneral(NA_SE_SY_PIECE_OF_HEART, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 								Gameplay_SaveSceneFlags(globalCtx);
 								gSaveContext.savedSceneNum = globalCtx->sceneNum;
-								gSaveContext.save();
+								Sram_WriteSave(&globalCtx->sramCtx);
 								pauseCtx->unk_1EC = 4;
 								D_8082B25C = 3;
 							}
@@ -4044,7 +4047,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						pauseCtx->promptChoice = 0;
 						Gameplay_SaveSceneFlags(globalCtx);
 						gSaveContext.savedSceneNum = globalCtx->sceneNum;
-						gSaveContext.save();
+						Sram_WriteSave(&globalCtx->sramCtx);
 						pauseCtx->state = 0xF;
 						D_8082B25C = 3;
 					}
@@ -4154,18 +4157,18 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 							gSaveContext.unk_13F2 = 0;
 							osSyncPrintf(VT_FGCOL(YELLOW));
 							osSyncPrintf("MAGIC_NOW=%d ", gSaveContext.magic);
-							osSyncPrintf("Z_MAGIC_NOW_NOW=%d   →  ", gSaveContext.magicMax);
+							osSyncPrintf("Z_MAGIC_NOW_NOW=%d   →  ", gSaveContext.unk_13F6);
 							gSaveContext.unk_13F4 = 0;
-							gSaveContext.magicMax = gSaveContext.magic;
+							gSaveContext.unk_13F6 = gSaveContext.magic;
 							gSaveContext.magicLevel = gSaveContext.magic = 0;
 							osSyncPrintf("MAGIC_NOW=%d ", gSaveContext.magic);
-							osSyncPrintf("Z_MAGIC_NOW_NOW=%d\n", gSaveContext.magicMax);
+							osSyncPrintf("Z_MAGIC_NOW_NOW=%d\n", gSaveContext.unk_13F6);
 							osSyncPrintf(VT_RST);
 						}
 						else
 						{
-							globalCtx->running = 0;
-							Graph_SetNextGameState(new oot::gamestate::Opening(globalCtx->gfxCtx));
+							globalCtx->state.running = 0;
+							SET_NEXT_GAMESTATE(&globalCtx->state, Opening_Init, OpeningContext);
 						}
 					}
 				}

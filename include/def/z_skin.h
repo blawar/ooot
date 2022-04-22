@@ -5,7 +5,7 @@ struct Vec3f;
 struct GraphicsContext;
 struct PSkinAwb;
 struct Actor;
-#include "globalctx.h"
+struct GlobalContext;
 
 void func_800A57C0(MtxF* mtx, Struct_800A57C0* arg1, Struct_800A598C* arg2, Vtx* arg3, Vec3f* arg4);
 void func_800A598C(GraphicsContext* gfxCtx, PSkinAwb* skin, s32 limbIndex, s32 arg3);

@@ -3,16 +3,14 @@
 
 #include "ultra64.h"
 
-struct lldiv_t
-{
-	s64 quot;
-	s64 rem;
+struct lldiv_t {
+    s64 quot;
+    s64 rem;
 };
 
-struct ldiv_t
-{
-	s32 quot;
-	s32 rem;
+struct ldiv_t {
+    s32 quot;
+    s32 rem;
 };
 
 #endif

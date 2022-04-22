@@ -1,5 +1,5 @@
 #pragma once
-// XInput controller class written by DaMarkov and blawar
+//XInput controller class written by DaMarkov and blawar
 #include <stdint.h>
 #include "controllers.h"
 
@@ -16,5 +16,5 @@ namespace oot::hid
 
 			protected:
 		};
-	} // namespace driver
-} // namespace oot::hid
+	} // namespace drivers
+}

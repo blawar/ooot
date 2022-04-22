@@ -8,6 +8,7 @@
 
 #include "z_en_torch.h"
 #include "def/z_actor.h"
+#include "def/z_common_data.h"
 
 #define FLAGS 0
 
@@ -15,29 +16,47 @@ void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx);
 
 ActorInit En_Torch_InitVars = {
-    ACTOR_EN_TORCH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnTorch), (ActorFunc)EnTorch_Init, NULL, NULL, NULL, (ActorFunc)EnTorch_Reset,
+    ACTOR_EN_TORCH,
+    ACTORCAT_ITEMACTION,
+    FLAGS,
+    OBJECT_GAMEPLAY_KEEP,
+    sizeof(EnTorch),
+    (ActorFunc)EnTorch_Init,
+    NULL,
+    NULL,
+    NULL,
+    (ActorFunc)EnTorch_Reset,
 };
 
 static u8 sChestContents[] = {
     GI_RUPEE_BLUE, GI_RUPEE_RED, GI_RUPEE_GOLD, GI_BOMBS_20, GI_BOMBS_1, GI_BOMBS_1, GI_BOMBS_1, GI_BOMBS_1,
 };
 
-void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx)
-{
-	EnTorch* pthis = (EnTorch*)thisx;
-	s8 returnData = gSaveContext.respawn[RESPAWN_MODE_RETURN].data;
+void EnTorch_Init(Actor* thisx, GlobalContext* globalCtx) {
+    EnTorch* pthis = (EnTorch*)thisx;
+    s8 returnData = gSaveContext.respawn[RESPAWN_MODE_RETURN].data;
 
-	/* Spawn chest with desired contents.
-	   Contents are passed to en_torch from grotto params via Save Context. */
-	Actor_Spawn(
-	    &globalCtx->actorCtx, globalCtx, ACTOR_EN_BOX, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, pthis->actor.shape.rot.y, 0, (sChestContents[(returnData >> 0x5) & 0x7] << 0x5) | 0x5000 | (returnData & 0x1F));
+    /* Spawn chest with desired contents.
+       Contents are passed to en_torch from grotto params via Save Context. */
+    Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_EN_BOX, pthis->actor.world.pos.x, pthis->actor.world.pos.y,
+                pthis->actor.world.pos.z, 0, pthis->actor.shape.rot.y, 0,
+                (sChestContents[(returnData >> 0x5) & 0x7] << 0x5) | 0x5000 | (returnData & 0x1F));
 
-	Actor_Kill(&pthis->actor);
+    Actor_Kill(&pthis->actor);
 }
 
-void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx)
-{
-	En_Torch_InitVars = {
-	    ACTOR_EN_TORCH, ACTORCAT_ITEMACTION, FLAGS, OBJECT_GAMEPLAY_KEEP, sizeof(EnTorch), (ActorFunc)EnTorch_Init, NULL, NULL, NULL, (ActorFunc)EnTorch_Reset,
-	};
+void EnTorch_Reset(Actor* pthisx, GlobalContext* globalCtx) {
+    En_Torch_InitVars = {
+        ACTOR_EN_TORCH,
+        ACTORCAT_ITEMACTION,
+        FLAGS,
+        OBJECT_GAMEPLAY_KEEP,
+        sizeof(EnTorch),
+        (ActorFunc)EnTorch_Init,
+        NULL,
+        NULL,
+        NULL,
+        (ActorFunc)EnTorch_Reset,
+    };
+
 }

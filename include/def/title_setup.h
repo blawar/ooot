@@ -1,17 +1,6 @@
 #pragma once
-#include "gamestate.h"
+struct GameState;
 
-namespace oot::gamestate
-{
-	class TitleSetup : public Base
-	{
-		public:
-		TitleSetup(GraphicsContext* gfxCtx);
-		~TitleSetup();
-
-		void main() override;
-		void init() override;
-		Base* next() override;
-	};
-} // namespace oot::gamestate
-
+void TitleSetup_Destroy(GameState* gameState);
+void TitleSetup_Init(GameState* gameState);
+void TitleSetup_InitImpl(GameState* gameState);

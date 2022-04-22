@@ -1,6 +1,5 @@
 #pragma once
 struct struct_80166500;
-union Gfx;
 
 void func_800AD920(struct_80166500* pthis);
 void func_800AD950(struct_80166500* pthis);

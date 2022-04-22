@@ -19,7 +19,8 @@
 
 #if IS_BIG_ENDIAN
 #if IS_64_BIT
-#define CMD_BBBB(a, b, c, d) ((uintptr_t)(_SHIFTL(a, 24, 8) | _SHIFTL(b, 16, 8) | _SHIFTL(c, 8, 8) | _SHIFTL(d, 0, 8)) << 32)
+#define CMD_BBBB(a, b, c, d) \
+    ((uintptr_t)(_SHIFTL(a, 24, 8) | _SHIFTL(b, 16, 8) | _SHIFTL(c, 8, 8) | _SHIFTL(d, 0, 8)) << 32)
 #define CMD_BBH(a, b, c) ((uintptr_t)(_SHIFTL(a, 24, 8) | _SHIFTL(b, 16, 8) | _SHIFTL(c, 0, 16)) << 32)
 #define CMD_HH(a, b) ((uintptr_t)(_SHIFTL(a, 16, 16) | _SHIFTL(b, 0, 16)) << 32)
 #define CMD_W(a) ((uintptr_t)(a) << 32)
@@ -47,21 +48,12 @@
 #endif
 
 #ifdef __GNUC__
-#define CMD_F(a)                                                                                                                                                                                                                                               \
-	{                                                                                                                                                                                                                                                      \
-		.f = (a)                                                                                                                                                                                                                                       \
-	}
+#define CMD_F(a) {.f = (a)}
 #else
 #ifdef _MSC_VER
-#define CMD_F(a)                                                                                                                                                                                                                                               \
-	{                                                                                                                                                                                                                                                      \
-		.f = (a)                                                                                                                                                                                                                                       \
-	}
+#define CMD_F(a) {.f = (a)}
 #else
-#define CMD_F(a)                                                                                                                                                                                                                                               \
-	{                                                                                                                                                                                                                                                      \
-		(a)                                                                                                                                                                                                                                            \
-	}
+#define CMD_F(a) {(a)}
 #endif
 #endif
 

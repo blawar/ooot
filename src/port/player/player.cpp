@@ -1,9 +1,9 @@
-#include "../options.h"
 #include "player.h"
+#include "../options.h"
 
 namespace oot
 {
-	Player::Player() : m_rebindInput(hid::Button::EMPTY_BUTTON)
+	Player::Player() : m_rebindInput(0)
 	{
 	}
 
@@ -33,34 +33,34 @@ namespace oot
 	{
 		m_controller.state().reset();
 
-		if(isRebindMode())
+		if (isRebindMode())
 		{
 			bool result = 0;
 
-			for(auto& controller : m_controllers)
+			for (auto& controller : m_controllers)
 			{
 				result |= controller->updateRebind(m_rebindInput);
 			}
 
-			if(result)
+			if (result)
 			{
-				m_rebindInput = (hid::Button)-10;
+				m_rebindInput = -10;
 			}
 		}
-		else if((s64)m_rebindInput < 0)
+		else if (m_rebindInput < 0)
 		{
-			m_rebindInput = (hid::Button)((s64)m_rebindInput + 1);
+			m_rebindInput++;
 		}
 		else
 		{
-			for(auto& controller : m_controllers)
+			for (auto& controller : m_controllers)
 			{
 				controller->state().reset();
 				controller->update();
 
 				m_controller.merge(*controller);
 			}
-			if(m_controllers.size() > 2 && !config().game().forceMouse())
+			if (m_controllers.size() > 2 && !config().game().forceMouse())
 			{
 				m_controller.state().has_mouse = false;
 			}
@@ -68,7 +68,7 @@ namespace oot
 		m_controller.resolveInputs();
 	}
 
-	void Player::rebind(hid::Button input)
+	void Player::rebind(int input)
 	{
 		m_rebindInput = input;
 	}

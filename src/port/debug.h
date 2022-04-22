@@ -1,6 +1,9 @@
 #ifndef _DEBUG_H
 #define _DEBUG_H
 
+/*#include "engine/hook_macro.h"
+#include "engine/hook_geo.h"
+#include "engine/hook_dl.h"*/
 #include <stdarg.h>
 
 #ifndef DISABLE_HOOKS
@@ -12,7 +15,7 @@
 	{                                                                                                                                                                                                                                                      \
 		if(!g_##v)                                                                                                                                                                                                                                     \
 		{                                                                                                                                                                                                                                              \
-			g_##v = oot::hook::geo::apply(::v, hook::geo::Id::v);                                                                                                                                                                                  \
+			g_##v = oot::hook::geo::apply(::v, hook::geo::Id::v);                                                                                                                                                                                 \
 		}                                                                                                                                                                                                                                              \
 		return g_##v;                                                                                                                                                                                                                                  \
 	}
@@ -23,7 +26,7 @@
 	{                                                                                                                                                                                                                                                      \
 		if(!g_##v)                                                                                                                                                                                                                                     \
 		{                                                                                                                                                                                                                                              \
-			g_##v = oot::hook::bhv::apply(::v, hook::bhv::Id::v);                                                                                                                                                                                  \
+			g_##v = oot::hook::bhv::apply(::v, hook::bhv::Id::v);                                                                                                                                                                                 \
 		}                                                                                                                                                                                                                                              \
 		return g_##v;                                                                                                                                                                                                                                  \
 	}
@@ -34,7 +37,7 @@
 	{                                                                                                                                                                                                                                                      \
 		if(!g_##v)                                                                                                                                                                                                                                     \
 		{                                                                                                                                                                                                                                              \
-			g_##v = oot::hook::macro::apply(::v, hook::macro::Id::v);                                                                                                                                                                              \
+			g_##v = oot::hook::macro::apply(::v, hook::macro::Id::v);                                                                                                                                                                             \
 		}                                                                                                                                                                                                                                              \
 		return g_##v;                                                                                                                                                                                                                                  \
 	}
@@ -71,7 +74,7 @@
 #define EXTERN_GeoLayout(X) extern const GeoLayout X[];
 #define EXTERN_LevelScript(X) extern const LevelScript X[];
 #define EXTERN_MacroObject(X)                                                                                                                                                                                                                                  \
-	namespace oot::macro                                                                                                                                                                                                                                   \
+	namespace oot::macro                                                                                                                                                                                                                                  \
 	{                                                                                                                                                                                                                                                      \
 		const MacroObject* X();                                                                                                                                                                                                                        \
 	}

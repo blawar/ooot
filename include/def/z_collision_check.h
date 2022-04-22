@@ -1,5 +1,5 @@
 #pragma once
-#include "globalctx.h"
+struct GlobalContext;
 struct ColliderCylinder;
 struct ColliderJntSph;
 struct OcLine;

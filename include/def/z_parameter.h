@@ -1,6 +1,7 @@
 #pragma once
 #include "z64item.h"
-#include "globalctx.h"
+
+struct GlobalContext;
 
 extern s16 gSpoilingItemReverts[3];
 extern s16 gSpoilingItems[3];
