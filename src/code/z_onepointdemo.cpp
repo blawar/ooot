@@ -109,7 +109,7 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 			D_801208EC[1].fovTargetInit = mainCam->fov;
 			D_801208EC[1].timerInit = timer - 1;
 			csCam->timer = timer + 1;
-			D_801208EC[1].lerpStepScale = 1.0f / (0.5f * timer);
+			D_801208EC[1].m_lerpStepScale = 1.0f / (0.5f * timer);
 
 			csInfo->keyFrames = D_801208EC;
 			csInfo->keyFrameCnt = 3;
@@ -1092,10 +1092,10 @@ s32 OnePointCutscene_SetInfo(GlobalContext* globalCtx, s16 camIdx, s16 csId, Act
 			func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
 			break;
 		case 4022:
-			csCam->timer = D_801237CC[0].timerInit + D_801237CC[3].timerInit + D_801237CC[1].timerInit + D_801237CC[2].timerInit + D_801237CC[4].timerInit;
+			csCam->timer = gGanonCastleThrowPillarKeyFrames[0].timerInit + gGanonCastleThrowPillarKeyFrames[3].timerInit + gGanonCastleThrowPillarKeyFrames[1].timerInit + gGanonCastleThrowPillarKeyFrames[2].timerInit + gGanonCastleThrowPillarKeyFrames[4].timerInit;
 
-			csInfo->keyFrames = D_801237CC;
-			csInfo->keyFrameCnt = 5;
+			csInfo->keyFrames = gGanonCastleThrowPillarKeyFrames;
+			csInfo->keyFrameCnt = ARRAY_COUNT(gGanonCastleThrowPillarKeyFrames);
 
 			func_800C0808(globalCtx, camIdx, player, CAM_SET_CS_C);
 			break;

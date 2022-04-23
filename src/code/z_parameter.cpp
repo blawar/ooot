@@ -3810,10 +3810,10 @@ void Interface_Draw(GlobalContext* globalCtx)
 	static s16 spoilingItemEntrances[] = {0x01AD, 0x0153, 0x0153};
 	static f32 D_80125B54[] = {-40.0f, -35.0f}; // unused
 	static s16 D_80125B5C[] = {91, 91};	    // unused
-	static s16 D_8015FFE0;
-	static s16 D_8015FFE2;
-	static s16 D_8015FFE4;
-	static s16 D_8015FFE6;
+	static TimerS16 gTimerBeepTimer;
+	static TimerS16 gTimer_8015FFE2;
+	static TimerS16 gTimer_8015FFE4;
+	static TimerS16 gTimer_8015FFE6;
 	static s16 timerDigits[5];
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 	PauseContext* pauseCtx = &globalCtx->pauseCtx;
@@ -4172,7 +4172,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 		if((gSaveContext.timer2State == 5) && (Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT))
 		{
 			// Trade quest timer reached 0
-			D_8015FFE6 = 40;
+			gTimer_8015FFE6 = 40;
 			gSaveContext.cutsceneIndex = 0;
 			globalCtx->sceneLoadFlag = 0x14;
 			globalCtx->fadeTransition = 3;
@@ -4221,23 +4221,23 @@ void Interface_Draw(GlobalContext* globalCtx)
 			switch(gSaveContext.timer1State)
 			{
 				case 1:
-					D_8015FFE2 = 20;
-					D_8015FFE0 = 20;
+					gTimer_8015FFE2 = 20;
+					gTimerBeepTimer = 20;
 					gSaveContext.timer1Value = gSaveContext.health >> 1;
 					gSaveContext.timer1State = 2;
 					break;
 				case 2:
-					D_8015FFE2--;
-					if(D_8015FFE2 == 0)
+					gTimer_8015FFE2--;
+					if(gTimer_8015FFE2 == 0)
 					{
-						D_8015FFE2 = 20;
+						gTimer_8015FFE2 = 20;
 						gSaveContext.timer1State = 3;
 					}
 					break;
 				case 5:
 				case 11:
-					D_8015FFE2 = 20;
-					D_8015FFE0 = 20;
+					gTimer_8015FFE2 = 20;
+					gTimerBeepTimer = 20;
 					if(gSaveContext.timer1State == 5)
 					{
 						gSaveContext.timer1State = 6;
@@ -4249,10 +4249,10 @@ void Interface_Draw(GlobalContext* globalCtx)
 					break;
 				case 6:
 				case 12:
-					D_8015FFE2--;
-					if(D_8015FFE2 == 0)
+					gTimer_8015FFE2--;
+					if(gTimer_8015FFE2 == 0)
 					{
-						D_8015FFE2 = 20;
+						gTimer_8015FFE2 = 20;
 						if(gSaveContext.timer1State == 6)
 						{
 							gSaveContext.timer1State = 7;
@@ -4265,23 +4265,23 @@ void Interface_Draw(GlobalContext* globalCtx)
 					break;
 				case 3:
 				case 7:
-					svar1 = (gSaveContext.timerX[0] - 26) / D_8015FFE2;
+					svar1 = (gSaveContext.timerX[0] - 26) / gTimer_8015FFE2;
 					gSaveContext.timerX[0] -= svar1;
 
 					if(gSaveContext.healthCapacity > 0xA0)
 					{
-						svar1 = (gSaveContext.timerY[0] - 54) / D_8015FFE2;
+						svar1 = (gSaveContext.timerY[0] - 54) / gTimer_8015FFE2;
 					}
 					else
 					{
-						svar1 = (gSaveContext.timerY[0] - 46) / D_8015FFE2;
+						svar1 = (gSaveContext.timerY[0] - 46) / gTimer_8015FFE2;
 					}
 					gSaveContext.timerY[0] -= svar1;
 
-					D_8015FFE2--;
-					if(D_8015FFE2 == 0)
+					gTimer_8015FFE2--;
+					if(gTimer_8015FFE2 == 0)
 					{
-						D_8015FFE2 = 20;
+						gTimer_8015FFE2 = 20;
 						gSaveContext.timerX[0] = 26;
 
 						if(gSaveContext.healthCapacity > 0xA0)
@@ -4318,68 +4318,65 @@ void Interface_Draw(GlobalContext* globalCtx)
 
 					if((gSaveContext.timer1State >= 3) && (msgCtx->msgLength == 0))
 					{
-						D_8015FFE0--;
-						if(D_8015FFE0 == 0)
+						gTimerBeepTimer--;
+						if(gTimerBeepTimer == 0)
 						{
 							if(gSaveContext.timer1Value != 0)
 							{
-								gSaveContext.timer1Value--;
+								gSaveContext.timer1Value = gSaveContext.timer1Value - 1;
 							}
 
-							D_8015FFE0 = 20;
+							gTimerBeepTimer = 20;
 
-							if(gSaveContext.timer1Value.isWhole())
+							if(gSaveContext.timer1Value == 0)
 							{
-								if(gSaveContext.timer1Value == 0)
+								gSaveContext.timer1State = 10;
+								if(D_80125A5C != 0)
 								{
-									gSaveContext.timer1State = 10;
-									if(D_80125A5C != 0)
-									{
-										gSaveContext.health = 0;
-										globalCtx->damagePlayer(globalCtx, -(gSaveContext.health + 2));
-									}
-									D_80125A5C = 0;
+									gSaveContext.health = 0;
+									globalCtx->damagePlayer(globalCtx, -(gSaveContext.health + 2));
 								}
-								else if(gSaveContext.timer1Value > 60)
+								D_80125A5C = 0;
+							}
+							else if(gSaveContext.timer1Value > 60)
+							{
+								if(timerDigits[4] == 1)
 								{
-									if(timerDigits[4] == 1)
-									{
-										Audio_PlaySoundGeneral(NA_SE_SY_MESSAGE_WOMAN, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-									}
+									Audio_PlaySoundGeneral(NA_SE_SY_MESSAGE_WOMAN, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 								}
-								else if(gSaveContext.timer1Value >= 11)
+							}
+							else if(gSaveContext.timer1Value >= 11)
+							{
+								if(timerDigits[4] & 1)
 								{
-									if(timerDigits[4] & 1)
-									{
-										Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-									}
+									Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_N, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 								}
-								else
-								{
-									Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
-								}
+							}
+							else
+							{
+								Audio_PlaySoundGeneral(NA_SE_SY_WARNING_COUNT_E, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 							}
 						}
 					}
 					break;
 				case 13:
-					svar1 = (gSaveContext.timerX[0] - 26) / D_8015FFE2;
+					svar1 = (gSaveContext.timerX[0] - 26) / gTimer_8015FFE2;
 					gSaveContext.timerX[0] -= svar1;
 
 					if(gSaveContext.healthCapacity > 0xA0)
 					{
-						svar1 = (gSaveContext.timerY[0] - 54) / D_8015FFE2;
+						svar1 = (gSaveContext.timerY[0] - 54) / gTimer_8015FFE2;
 					}
 					else
 					{
-						svar1 = (gSaveContext.timerY[0] - 46) / D_8015FFE2;
+						svar1 = (gSaveContext.timerY[0] - 46) / gTimer_8015FFE2;
 					}
 					gSaveContext.timerY[0] -= svar1;
 
-					D_8015FFE2--;
-					if(D_8015FFE2 == 0)
+					gTimer_8015FFE2--;
+					if(gTimer_8015FFE2 == 0)
 					{
-						D_8015FFE2 = 20;
+						gTimer_8015FFE2 = 20;
 						gSaveContext.timerX[0] = 26;
 						if(gSaveContext.healthCapacity > 0xA0)
 						{
@@ -4407,15 +4404,15 @@ void Interface_Draw(GlobalContext* globalCtx)
 
 					if(gSaveContext.timer1State >= 3)
 					{
-						D_8015FFE0--;
-						if(D_8015FFE0 == 0)
+						gTimerBeepTimer--;
+						if(gTimerBeepTimer == 0)
 						{
-							gSaveContext.timer1Value++;
-							D_8015FFE0 = 20;
+							gSaveContext.timer1Value = gSaveContext.timer1Value + 1;
+							gTimerBeepTimer = 20;
 
 							if(gSaveContext.timer1Value == 3599)
 							{
-								D_8015FFE2 = 40;
+								gTimer_8015FFE2 = 40;
 								gSaveContext.timer1State = 15;
 							}
 							else
@@ -4428,8 +4425,8 @@ void Interface_Draw(GlobalContext* globalCtx)
 				case 10:
 					if(gSaveContext.timer2State != 0)
 					{
-						D_8015FFE6 = 20;
-						D_8015FFE4 = 20;
+						gTimer_8015FFE6 = 20;
+						gTimer_8015FFE4 = 20;
 						gSaveContext.timerX[1] = 140;
 						gSaveContext.timerY[1] = 80;
 
@@ -4456,8 +4453,8 @@ void Interface_Draw(GlobalContext* globalCtx)
 					{
 						case 1:
 						case 7:
-							D_8015FFE6 = 20;
-							D_8015FFE4 = 20;
+							gTimer_8015FFE6 = 20;
+							gTimer_8015FFE4 = 20;
 							gSaveContext.timerX[1] = 140;
 							gSaveContext.timerY[1] = 80;
 							if(gSaveContext.timer2State == 1)
@@ -4471,10 +4468,10 @@ void Interface_Draw(GlobalContext* globalCtx)
 							break;
 						case 2:
 						case 8:
-							D_8015FFE6--;
-							if(D_8015FFE6 == 0)
+							gTimer_8015FFE6--;
+							if(gTimer_8015FFE6 == 0)
 							{
-								D_8015FFE6 = 20;
+								gTimer_8015FFE6 = 20;
 								if(gSaveContext.timer2State == 2)
 								{
 									gSaveContext.timer2State = 3;
@@ -4488,22 +4485,22 @@ void Interface_Draw(GlobalContext* globalCtx)
 						case 3:
 						case 9:
 							osSyncPrintf("event_xp[1]=%d,  event_yp[1]=%d  TOTAL_EVENT_TM=%d\n", svar5 = gSaveContext.timerX[1], svar2 = gSaveContext.timerY[1], gSaveContext.timer2Value);
-							svar1 = (gSaveContext.timerX[1] - 26) / D_8015FFE6;
+							svar1 = (gSaveContext.timerX[1] - 26) / gTimer_8015FFE6;
 							gSaveContext.timerX[1] -= svar1;
 							if(gSaveContext.healthCapacity > 0xA0)
 							{
-								svar1 = (gSaveContext.timerY[1] - 54) / D_8015FFE6;
+								svar1 = (gSaveContext.timerY[1] - 54) / gTimer_8015FFE6;
 							}
 							else
 							{
-								svar1 = (gSaveContext.timerY[1] - 46) / D_8015FFE6;
+								svar1 = (gSaveContext.timerY[1] - 46) / gTimer_8015FFE6;
 							}
 							gSaveContext.timerY[1] -= svar1;
 
-							D_8015FFE6--;
-							if(D_8015FFE6 == 0)
+							gTimer_8015FFE6--;
+							if(gTimer_8015FFE6 == 0)
 							{
-								D_8015FFE6 = 20;
+								gTimer_8015FFE6 = 20;
 								gSaveContext.timerX[1] = 26;
 
 								if(gSaveContext.healthCapacity > 0xA0)
@@ -4540,10 +4537,10 @@ void Interface_Draw(GlobalContext* globalCtx)
 
 							if(gSaveContext.timer2State >= 3)
 							{
-								D_8015FFE4--;
-								if(D_8015FFE4 == 0)
+								gTimer_8015FFE4--;
+								if(gTimer_8015FFE4 == 0)
 								{
-									D_8015FFE4 = 20;
+									gTimer_8015FFE4 = 20;
 									if(gSaveContext.timer2State == 4)
 									{
 										gSaveContext.timer2Value--;
@@ -4554,7 +4551,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 											if(!Flags_GetSwitch(globalCtx, 0x37) || ((globalCtx->sceneNum != SCENE_GANON_DEMO) && (globalCtx->sceneNum != SCENE_GANON_FINAL) &&
 																 (globalCtx->sceneNum != SCENE_GANON_SONOGO) && (globalCtx->sceneNum != SCENE_GANONTIKA_SONOGO)))
 											{
-												D_8015FFE6 = 40;
+												gTimer_8015FFE6 = 40;
 												gSaveContext.timer2State = 5;
 												gSaveContext.cutsceneIndex = 0;
 												Message_StartTextbox(globalCtx, 0x71B0, NULL);
@@ -4562,7 +4559,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 											}
 											else
 											{
-												D_8015FFE6 = 40;
+												gTimer_8015FFE6 = 40;
 												gSaveContext.timer2State = 6;
 											}
 										}
@@ -4607,8 +4604,8 @@ void Interface_Draw(GlobalContext* globalCtx)
 							}
 							break;
 						case 6:
-							D_8015FFE6--;
-							if(D_8015FFE6 == 0)
+							gTimer_8015FFE6--;
+							if(gTimer_8015FFE6 == 0)
 							{
 								gSaveContext.timer2State = 0;
 							}

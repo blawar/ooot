@@ -77,6 +77,40 @@ void EnHorse_CutsceneUpdate(EnHorse* pthis, GlobalContext* globalCtx);
 void EnHorse_UpdateHorsebackArchery(EnHorse* pthis, GlobalContext* globalCtx);
 void EnHorse_FleePlayer(EnHorse* pthis, GlobalContext* globalCtx);
 
+int operator|(Hoof lhs, Hoof rhs)
+{
+	return static_cast<std::underlying_type<Hoof>::type>(lhs) | static_cast<std::underlying_type<Hoof>::type>(rhs);
+}
+
+int operator&(Hoof lhs, Hoof rhs)
+{
+	return static_cast<std::underlying_type<Hoof>::type>(lhs) & static_cast<std::underlying_type<Hoof>::type>(rhs);
+}
+
+Hoof& operator|=(Hoof& lhs, const Hoof rhs)
+{
+	lhs = static_cast<Hoof>(static_cast<std::underlying_type<Hoof>::type>(lhs) | static_cast<std::underlying_type<Hoof>::type>(rhs));
+	return lhs;
+}
+
+Hoof& operator|=(Hoof& lhs, const int rhs)
+{
+	lhs = static_cast<Hoof>(static_cast<std::underlying_type<Hoof>::type>(lhs) | static_cast<std::underlying_type<Hoof>::type>(rhs));
+	return lhs;
+}
+
+Hoof& operator&=(Hoof& lhs, const Hoof rhs)
+{
+	lhs = static_cast<Hoof>(static_cast<std::underlying_type<Hoof>::type>(lhs) & static_cast<std::underlying_type<Hoof>::type>(rhs));
+	return lhs;
+}
+
+Hoof& operator&=(Hoof& lhs, const int rhs)
+{
+	lhs = static_cast<Hoof>(static_cast<std::underlying_type<Hoof>::type>(lhs) & static_cast<std::underlying_type<Hoof>::type>(rhs));
+	return lhs;
+}
+
 static AnimationHeader* sEponaAnimHeaders[] = {
     &gEponaIdleAnim, &gEponaWhinnyAnim, &gEponaRefuseAnim, &gEponaRearingAnim, &gEponaWalkingAnim, &gEponaTrottingAnim, &gEponaGallopingAnim, &gEponaJumpingAnim, &gEponaJumpingHighAnim,
 };
@@ -545,11 +579,11 @@ void EnHorse_UpdateIngoRaceInfo(EnHorse* pthis, GlobalContext* globalCtx, RaceIn
 		{
 			if(Math_SinS(pthis->actor.yawTowardsPlayer - pthis->actor.world.rot.y) > 0.0f)
 			{
-				pthis->actor.world.rot.y = pthis->actor.world.rot.y - 280;
+				pthis->actor.world.rot.y -= 280;
 			}
 			else
 			{
-				pthis->actor.world.rot.y = pthis->actor.world.rot.y + 280;
+				pthis->actor.world.rot.y += 280;
 			}
 		}
 		else if(playerDist < 300.0f)
@@ -742,9 +776,9 @@ void EnHorse_ResetHorsebackArchery(EnHorse* pthis, GlobalContext* globalCtx)
 	pthis->hbaFlags = 0;
 }
 
-void EnHorse_ClearDustFlags(u16* dustFlags)
+void EnHorse_ClearDustFlags(Hoof* dustFlags)
 {
-	*dustFlags = 0;
+	*dustFlags = Hoof::HOOF_NONE;
 }
 
 void EnHorse_Init(Actor* thisx, GlobalContext* globalCtx2)
@@ -4235,24 +4269,24 @@ void EnHorse_Update(Actor* thisx, GlobalContext* globalCtx2)
 
 		if(gSaveContext.entranceIndex != 343 || gSaveContext.sceneSetupIndex != 9)
 		{
-			if(pthis->dustFlags & 1)
+			if(pthis->dustFlags & Hoof::FRONT_RIGHT)
 			{
-				pthis->dustFlags &= ~1;
+				pthis->dustFlags &= ~Hoof::FRONT_RIGHT;
 				func_800287AC(globalCtx, &pthis->frontRightHoof, &dustVel, &dustAcc, EnHorse_RandInt(100) + 200, EnHorse_RandInt(10) + 30, EnHorse_RandInt(20) + 30);
 			}
-			else if(pthis->dustFlags & 2)
+			else if(pthis->dustFlags & Hoof::FRONT_LEFT)
 			{
-				pthis->dustFlags &= ~2;
+				pthis->dustFlags &= ~Hoof::FRONT_LEFT;
 				func_800287AC(globalCtx, &pthis->frontLeftHoof, &dustVel, &dustAcc, EnHorse_RandInt(100) + 200, EnHorse_RandInt(10) + 30, EnHorse_RandInt(20) + 30);
 			}
-			else if(pthis->dustFlags & 4)
+			else if(pthis->dustFlags & Hoof::REAR_RIGHT)
 			{
-				pthis->dustFlags &= ~4;
+				pthis->dustFlags &= ~Hoof::REAR_RIGHT;
 				func_800287AC(globalCtx, &pthis->backRightHoof, &dustVel, &dustAcc, EnHorse_RandInt(100) + 200, EnHorse_RandInt(10) + 30, EnHorse_RandInt(20) + 30);
 			}
-			else if(pthis->dustFlags & 8)
+			else if(pthis->dustFlags & Hoof::REAR_LEFT)
 			{
-				pthis->dustFlags &= ~8;
+				pthis->dustFlags &= ~Hoof::REAR_LEFT;
 				func_800287AC(globalCtx, &pthis->backLeftHoof, &dustVel, &dustAcc, EnHorse_RandInt(100) + 200, EnHorse_RandInt(10) + 30, EnHorse_RandInt(20) + 30);
 			}
 		}
@@ -4360,7 +4394,7 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 	{
 		if(Rand_ZeroOne() < 0.6f)
 		{
-			pthis->dustFlags |= 1;
+			pthis->dustFlags |= Hoof::FRONT_RIGHT;
 			func_800A6408(skin, 28, &hoofOffset, &pthis->frontRightHoof);
 			pthis->frontRightHoof.y = pthis->frontRightHoof.y - 5.0f;
 		}
@@ -4373,13 +4407,13 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 			{
 				if(Rand_ZeroOne() < 0.7f)
 				{
-					pthis->dustFlags |= 2;
+					pthis->dustFlags |= Hoof::FRONT_LEFT;
 					func_800A6408(skin, 20, &hoofOffset, &sp70);
 					EnHorse_RandomOffset(&sp70, 10.0f, &pthis->frontLeftHoof);
 				}
 				if(Rand_ZeroOne() < 0.7f)
 				{
-					pthis->dustFlags |= 1;
+					pthis->dustFlags |= Hoof::FRONT_RIGHT;
 					func_800A6408(skin, 28, &hoofOffset, &sp70);
 					EnHorse_RandomOffset(&sp70, 10.0f, &pthis->frontRightHoof);
 				}
@@ -4389,7 +4423,7 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 			{
 				if(Rand_ZeroOne() < 0.7f)
 				{
-					pthis->dustFlags |= 8;
+					pthis->dustFlags |= Hoof::REAR_LEFT;
 					func_800A6408(skin, 37, &hoofOffset, &sp70);
 					EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backLeftHoof);
 				}
@@ -4399,7 +4433,7 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 			{
 				if(Rand_ZeroOne() < 0.7f)
 				{
-					pthis->dustFlags |= 4;
+					pthis->dustFlags |= Hoof::REAR_RIGHT;
 					func_800A6408(skin, 45, &hoofOffset, &sp70);
 					EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backRightHoof);
 				}
@@ -4409,25 +4443,25 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 		{
 			if((frame > 14.0f) && (frame < 16.0f))
 			{
-				pthis->dustFlags |= 1;
+				pthis->dustFlags |= Hoof::FRONT_RIGHT;
 				func_800A6408(skin, 28, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 5.0f, &pthis->frontRightHoof);
 			}
 			else if(frame > 8.0f && frame < 10.0f)
 			{
-				pthis->dustFlags |= 2;
+				pthis->dustFlags |= Hoof::FRONT_LEFT;
 				func_800A6408(skin, 20, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->frontLeftHoof);
 			}
 			else if(frame > 1.0f && frame < 3.0f)
 			{
-				pthis->dustFlags |= 4;
+				pthis->dustFlags |= Hoof::REAR_RIGHT;
 				func_800A6408(skin, 45, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backRightHoof);
 			}
 			else if((frame > 26.0f) && (frame < 28.0f))
 			{
-				pthis->dustFlags |= 8;
+				pthis->dustFlags |= Hoof::REAR_LEFT;
 				func_800A6408(skin, 37, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backLeftHoof);
 			}
@@ -4436,13 +4470,13 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 		{
 			if(Rand_ZeroOne() < 0.5f)
 			{
-				pthis->dustFlags |= 8;
+				pthis->dustFlags |= Hoof::REAR_LEFT;
 				func_800A6408(skin, 37, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backLeftHoof);
 			}
 			if(Rand_ZeroOne() < 0.5f)
 			{
-				pthis->dustFlags |= 4;
+				pthis->dustFlags |= Hoof::REAR_RIGHT;
 				func_800A6408(skin, 45, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backRightHoof);
 			}
@@ -4451,13 +4485,13 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 		{
 			if(Rand_ZeroOne() < 0.5f)
 			{
-				pthis->dustFlags |= 8;
+				pthis->dustFlags |= Hoof::REAR_LEFT;
 				func_800A6408(skin, 37, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backLeftHoof);
 			}
 			if(Rand_ZeroOne() < 0.5f)
 			{
-				pthis->dustFlags |= 4;
+				pthis->dustFlags |= Hoof::REAR_RIGHT;
 				func_800A6408(skin, 45, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backRightHoof);
 			}
@@ -4466,13 +4500,13 @@ void EnHorse_SkinCallback1(Actor* thisx, GlobalContext* globalCtx, PSkinAwb* ski
 		{
 			if(Rand_ZeroOne() < 0.5f)
 			{
-				pthis->dustFlags |= 8;
+				pthis->dustFlags |= Hoof::REAR_LEFT;
 				func_800A6408(skin, 37, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backLeftHoof);
 			}
 			else
 			{
-				pthis->dustFlags |= 4;
+				pthis->dustFlags |= Hoof::REAR_RIGHT;
 				func_800A6408(skin, 45, &hoofOffset, &sp70);
 				EnHorse_RandomOffset(&sp70, 10.0f, &pthis->backRightHoof);
 			}

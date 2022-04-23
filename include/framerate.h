@@ -733,3 +733,78 @@ namespace oot
 } // namespace oot
 
 float Round(float value);
+
+class rf32
+{
+	public:
+	rf32() : m_value(0), m_rounded(0), m_dirty(false)
+	{
+	}
+
+	rf32(float n) : m_value(n), m_rounded(Round(n))
+	{
+	}
+
+	rf32& operator++() // pre
+	{
+		preUpdate();
+		m_value++;
+		update();
+		return *this;
+	}
+
+	rf32 operator++(int) // post
+	{
+		auto r = *this;
+		preUpdate();
+		m_value++;
+		update();
+		return r;
+	}
+
+	rf32& operator+=(float n)
+	{
+		preUpdate();
+		m_value += n;
+		update();
+		return *this;
+	}
+
+	rf32& operator-=(float n)
+	{
+		preUpdate();
+		m_value -= n;
+		update();
+		return *this;
+	}
+
+	void preUpdate()
+	{
+	}
+
+	void update()
+	{
+		m_rounded = Round(m_value);
+	}
+
+	operator float()
+	{
+		if(m_dirty)
+		{
+			update();
+			m_dirty = false;
+		}
+		return m_rounded;
+	}
+
+	float* ptr()
+	{
+		m_dirty = true;
+		return &m_value;
+	}
+
+	protected:
+	float m_value;
+	float m_rounded;
+	bool m_dirty;
+};

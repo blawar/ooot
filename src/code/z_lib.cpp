@@ -621,7 +621,7 @@ static inline f32 _Math_SmoothStepToF(T* pValue, f32 target, f32 fraction, const
 	float minStep = _minStep.value();
 	if(*pValue != target)
 	{
-		f32 stepSize = (target - *pValue) * fraction;
+		f32 stepSize = (target - *pValue) * (fraction * FRAMERATE_SCALER);
 
 		if((stepSize >= minStep) || (stepSize <= -minStep))
 		{
@@ -731,6 +731,12 @@ void Math_ApproachZeroF(f32* pValue, f32 fraction, const Step& _step)
 	}
 
 	*pValue -= stepSize;
+}
+
+f32 Math_ApproachZeroF(f32 pValue, f32 fraction, const Step& step)
+{
+	Math_ApproachZeroF(&pValue, fraction, step);
+	return pValue;
 }
 
 void Math_ApproachZeroF(CounterF* pValue, f32 fraction, const Step& _step)

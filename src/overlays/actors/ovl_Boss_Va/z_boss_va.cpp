@@ -2196,7 +2196,7 @@ void BossVa_ZapperAttack(BossVa* pthis, GlobalContext* globalCtx)
 			sp88 += ABS(tmp17);
 
 			pthis->skelAnime.playSpeed = 0.0f;
-			if(Math_SmoothStepToF(&pthis->skelAnime.curFrame, 0.0f, 1.0f, 2.0f, 0.0f) == 0.0f)
+			if(Math_SmoothStepToF(pthis->skelAnime.curFrame.ptr(), 0.0f, 1.0f, 2.0f, 0.0f) == 0.0f)
 			{
 				if(sp88 < sp90)
 				{
@@ -2502,7 +2502,7 @@ void BossVa_ZapperEnraged(BossVa* pthis, GlobalContext* globalCtx)
 			sp60 += ABS(tmp16);
 
 			pthis->skelAnime.playSpeed = 0.0f;
-			if((Math_SmoothStepToF(&pthis->skelAnime.curFrame, 0.0f, 1.0f, 3.0f, 0.0f) == 0.0f) && (sp60 < 0x258))
+			if((Math_SmoothStepToF(pthis->skelAnime.curFrame.ptr(), 0.0f, 1.0f, 3.0f, 0.0f) == 0.0f) && (sp60 < 0x258))
 			{
 				pthis->timer2 = 0;
 				pthis->burst++;
