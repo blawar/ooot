@@ -42,33 +42,6 @@ struct BossFd2Cam
 	/* 0x84 */ f32 shake;
 };
 
-enum BossFd2S16Var
-{
-	/* 0 */ FD2_TURN_TO_LINK,
-	/* 1 */ FD2_ACTION_STATE,
-	/* 2 */ FD2_UNK_TIMER,
-	/* 3 */ FD2_VAR_TIMER,
-	/* 4 */ FD2_UNUSED_4,
-	/* 5 */ FD2_UNUSED_5,
-	/* 6 */ FD2_BLINK_TIMER,
-	/* 7 */ FD2_SCREAM_TIMER,
-	/* 8 */ FD2_DAMAGE_FLASH_TIMER,
-	/* 9 */ FD2_HOLE_COUNTER,
-	/* 10 */ FD2_INVINC_TIMER,
-	/* 11 */ FD2_FAKEOUT_COUNT,
-	/* 19 */ FD2_SHORT_COUNT = 19
-};
-
-enum BossFd2F32Var
-{
-	/*  0 */ FD2_TEX1_SCROLL_X,
-	/*  1 */ FD2_TEX1_SCROLL_Y,
-	/*  2 */ FD2_TEX2_SCROLL_X,
-	/*  3 */ FD2_TEX2_SCROLL_Y,
-	/* 10 */ FD2_END_FRAME = 10,
-	/* 18 */ FD2_FLOAT_COUNT = 18
-};
-
 enum BossFd2CutsceneState
 {
 	/* 0 */ DEATH_START,
@@ -84,9 +57,24 @@ struct BossFd2
 	/* 0x014C */ SkelAnime skelAnime;
 	/* 0x0190 */ BossFd2ActionFunc actionFunc;
 	/* 0x0194 */ u8 disableAT;
-	/* 0x0196 */ s16 work[FD2_SHORT_COUNT];
+	s16 FD2_TURN_TO_LINK;
+	s16 FD2_ACTION_STATE;
+	s16 FD2_UNK_TIMER;
+	s16 FD2_VAR_TIMER;
+	s16 FD2_UNUSED_4;
+	s16 FD2_UNUSED_5;
+	s16 FD2_BLINK_TIMER;
+	s16 FD2_SCREAM_TIMER;
+	s16 FD2_DAMAGE_FLASH_TIMER;
+	s16 FD2_HOLE_COUNTER;
+	s16 FD2_INVINC_TIMER;
+	s16 FD2_FAKEOUT_COUNT;
 	/* 0x01BC */ Timer timers[5];
-	/* 0x01C8 */ f32 fwork[FD2_FLOAT_COUNT];
+	f32 FD2_TEX1_SCROLL_X;
+	f32 FD2_TEX1_SCROLL_Y;
+	f32 FD2_TEX2_SCROLL_X;
+	f32 FD2_TEX2_SCROLL_Y;
+	f32 FD2_END_FRAME;
 	/* 0x0210 */ Vec3f headPos;
 	/* 0x021C */ Vec3s headRot;
 	/* 0x0222 */ char unk_222;

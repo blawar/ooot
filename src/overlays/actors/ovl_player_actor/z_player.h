@@ -212,7 +212,7 @@ struct Player
 	/* 0x06BC */ s16 unk_rot_x_6BC;
 	/* 0x06BE */ s16 unk_6BE;
 	/* 0x06C0 */ s16 unk_rot_z_6C0;
-	/* 0x06C2 */ s16 unk_6C2;
+	/* 0x06C2 */ s16 rotationX;
 	/* 0x06C4 */ f32 unk_6C4;
 	/* 0x06C8 */ SkelAnime skelAnime2;
 	/* 0x070C */ Vec3s jointTable2[PLAYER_LIMB_BUF_COUNT];

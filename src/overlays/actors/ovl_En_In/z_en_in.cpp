@@ -29,7 +29,7 @@ void EnIn_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnIn_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80A79FB0(EnIn* pthis, GlobalContext* globalCtx);
-void func_80A7A304(EnIn* pthis, GlobalContext* globalCtx);
+void EnIn_Action_HorseRace(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7A4C8(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7A568(EnIn* pthis, GlobalContext* globalCtx);
 void func_80A7A848(EnIn* pthis, GlobalContext* globalCtx);
@@ -430,7 +430,7 @@ s32 func_80A7975C(EnIn* pthis, GlobalContext* globalCtx)
 	pthis->animationIdx = 1;
 	pthis->collider.base.ocFlags1 &= ~OC1_ON;
 	Animation_Change(&pthis->skelAnime, D_80A7B918[pthis->animationIdx], 1.0f, 0.0f, Animation_GetLastFrame(D_80A7B918[pthis->animationIdx]), 2, 0.0f);
-	pthis->actionFunc = func_80A7A304;
+	pthis->actionFunc = EnIn_Action_HorseRace;
 	return 1;
 }
 
@@ -717,7 +717,7 @@ void func_80A79FB0(EnIn* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void func_80A7A304(EnIn* pthis, GlobalContext* globalCtx)
+void EnIn_Action_HorseRace(EnIn* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->skelAnime.animation == &object_in_Anim_015814 || pthis->skelAnime.animation == &object_in_Anim_01646C)
 	{
@@ -1084,7 +1084,7 @@ void EnIn_Update(Actor* thisx, GlobalContext* globalCtx)
 	collider = &pthis->collider;
 	Collider_UpdateCylinder(&pthis->actor, collider);
 	CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &collider->base);
-	if(pthis->actionFunc != func_80A7A304)
+	if(pthis->actionFunc != EnIn_Action_HorseRace)
 	{
 		SkelAnime_Update(&pthis->skelAnime);
 		if(pthis->skelAnime.animation == &object_in_Anim_001BE0 && ((gSaveContext.eventInf[0] & 0xF) != 6))
@@ -1095,7 +1095,7 @@ void EnIn_Update(Actor* thisx, GlobalContext* globalCtx)
 	}
 	EnIn_UpdateEyes(pthis);
 	pthis->actionFunc(pthis, globalCtx);
-	if(pthis->actionFunc != func_80A7A304)
+	if(pthis->actionFunc != EnIn_Action_HorseRace)
 	{
 		func_80A79AB4(pthis, globalCtx);
 		if(gSaveContext.timer2Value < 6 && gSaveContext.timer2State != 0 && pthis->unk_308.unk_00 == 0)

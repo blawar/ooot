@@ -574,7 +574,7 @@ void EnOkuta_ProjectileFly(EnOkuta* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.gravity = -1.0f;
 		pthis->actor.speedXZ -= 0.1f;
-		pthis->actor.speedXZ = CLAMP_MIN(pthis->actor.speedXZ, 1.0f);
+		pthis->actor.speedXZ = CLAMP_MIN((float)pthis->actor.speedXZ, 1.0f);
 	}
 	if((pthis->actor.bgCheckFlags & BG_STATE_3) || (pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->collider.base.atFlags & AT_HIT) || pthis->collider.base.acFlags & AC_HIT || pthis->collider.base.ocFlags1 & OC1_HIT || pthis->actor.floorHeight == BGCHECK_Y_MIN)
 	{

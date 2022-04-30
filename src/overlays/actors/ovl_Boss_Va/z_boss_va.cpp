@@ -601,7 +601,7 @@ void BossVa_Init(Actor* thisx, GlobalContext* globalCtx2)
 					globalCtx->envCtx.screenFillColor[1] = 0xDC;
 					globalCtx->envCtx.screenFillColor[2] = 0xBE;
 					globalCtx->envCtx.screenFillColor[3] = 0xD2;
-					func_80064520(globalCtx, &globalCtx->csCtx);
+					Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 					sCsCamera = Gameplay_CreateSubCamera(globalCtx);
 					Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 					Gameplay_ChangeCameraStatus(globalCtx, sCsCamera, CAM_STAT_ACTIVE);
@@ -759,7 +759,7 @@ void BossVa_BodyIntro(BossVa* pthis, GlobalContext* globalCtx)
 			sCsState++;
 			break;
 		case INTRO_LOOK_DOOR:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			if(sCsCamera == SUBCAM_FREE)
 			{
 				sCsCamera = Gameplay_CreateSubCamera(globalCtx);
@@ -805,7 +805,7 @@ void BossVa_BodyIntro(BossVa* pthis, GlobalContext* globalCtx)
 			sCsState++;
 			break;
 		case INTRO_SPAWN_BARI:
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			if(sCsCamera == SUBCAM_FREE)
 			{
 				sCsCamera = Gameplay_CreateSubCamera(globalCtx);
@@ -1008,7 +1008,7 @@ void BossVa_BodyIntro(BossVa* pthis, GlobalContext* globalCtx)
 			{
 				Gameplay_ClearCamera(globalCtx, sCsCamera);
 				sCsCamera = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_ACTIVE);
 				func_8002DF54(globalCtx, &pthis->actor, 7);
 				sCsState++;
@@ -1639,7 +1639,7 @@ void BossVa_BodyDeath(BossVa* pthis, GlobalContext* globalCtx)
 	{
 		case DEATH_START:
 			func_8002DF54(globalCtx, &pthis->actor, 1);
-			func_80064520(globalCtx, &globalCtx->csCtx);
+			Cutscene_SetUnskipableInitNoLinkAction(globalCtx, &globalCtx->csCtx);
 			sCsCamera = Gameplay_CreateSubCamera(globalCtx);
 			Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_WAIT);
 			Gameplay_ChangeCameraStatus(globalCtx, sCsCamera, CAM_STAT_ACTIVE);
@@ -1740,7 +1740,7 @@ void BossVa_BodyDeath(BossVa* pthis, GlobalContext* globalCtx)
 			{
 				Gameplay_ClearCamera(globalCtx, sCsCamera);
 				sCsCamera = 0;
-				func_80064534(globalCtx, &globalCtx->csCtx);
+				Cutscene_SetUnskipableInitIfNotExec(globalCtx, &globalCtx->csCtx);
 				Gameplay_ChangeCameraStatus(globalCtx, MAIN_CAM, CAM_STAT_ACTIVE);
 
 				camera->eyeNext = camera->eye = sCameraEye;
@@ -2196,7 +2196,7 @@ void BossVa_ZapperAttack(BossVa* pthis, GlobalContext* globalCtx)
 			sp88 += ABS(tmp17);
 
 			pthis->skelAnime.playSpeed = 0.0f;
-			if(Math_SmoothStepToF(&pthis->skelAnime.curFrame, 0.0f, 1.0f, 2.0f, 0.0f) == 0.0f)
+			if(Math_SmoothStepToF(pthis->skelAnime.curFrame.ptr(), 0.0f, 1.0f, 2.0f, 0.0f) == 0.0f)
 			{
 				if(sp88 < sp90)
 				{
@@ -2502,7 +2502,7 @@ void BossVa_ZapperEnraged(BossVa* pthis, GlobalContext* globalCtx)
 			sp60 += ABS(tmp16);
 
 			pthis->skelAnime.playSpeed = 0.0f;
-			if((Math_SmoothStepToF(&pthis->skelAnime.curFrame, 0.0f, 1.0f, 3.0f, 0.0f) == 0.0f) && (sp60 < 0x258))
+			if((Math_SmoothStepToF(pthis->skelAnime.curFrame.ptr(), 0.0f, 1.0f, 3.0f, 0.0f) == 0.0f) && (sp60 < 0x258))
 			{
 				pthis->timer2 = 0;
 				pthis->burst++;

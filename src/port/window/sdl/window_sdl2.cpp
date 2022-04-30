@@ -286,8 +286,18 @@ namespace platform::window
 
 			if(on)
 			{
-				m_window_width = mode.w;
-				m_window_height = mode.h;
+				m_window_width = oot::config().video().fullscreenWidth();
+				m_window_height = oot::config().video().fullscreenHeight();
+
+				if(!m_window_width)
+				{
+					m_window_width = mode.w;
+				}
+				
+				if(!m_window_height)
+				{
+					m_window_height = mode.h;
+				}
 			}
 			else
 			{

@@ -204,7 +204,7 @@ void BgGanonOtyuka_Fall(BgGanonOtyuka* pthis, GlobalContext* globalCtx)
 	if(pthis->dropTimer == 0)
 	{
 		pthis->flashYScale = 0.0f;
-		Math_ApproachF(&pthis->dyna.actor.world.pos.y, -1000.0f, 1.0f, pthis->dyna.actor.speedXZ);
+		Math_ApproachF(&pthis->dyna.actor.world.pos.y, -1000.0f, 1.0f, (float)pthis->dyna.actor.speedXZ);
 		Math_ApproachF(&pthis->dyna.actor.speedXZ, 100.0f, 1.0f, 2.0f);
 		if(!(pthis->unwalledSides & OTYUKA_SIDE_EAST))
 		{
@@ -254,7 +254,7 @@ void BgGanonOtyuka_Fall(BgGanonOtyuka* pthis, GlobalContext* globalCtx)
 		{
 			Audio_PlaySoundGeneral(NA_SE_EV_BLOCKSINK - SFX_FLAG, &pthis->dyna.actor.projectedPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 		}
-		Math_ApproachF(&pthis->dyna.actor.world.pos.y, -1000.0f, 1.0f, pthis->dyna.actor.speedXZ);
+		Math_ApproachF(&pthis->dyna.actor.world.pos.y, -1000.0f, 1.0f, (float)pthis->dyna.actor.speedXZ);
 		Math_ApproachF(&pthis->dyna.actor.speedXZ, 100.0f, 1.0f, 0.1f);
 	}
 	osSyncPrintf("MODE DOWN END\n");

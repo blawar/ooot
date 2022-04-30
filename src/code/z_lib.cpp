@@ -37,7 +37,7 @@ f32 Math_SinS(s16 angle)
  * Changes pValue by step (scaled by the update rate) towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-template <class T> static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, const Step& _step)
+template <class T> static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, const FStep& _step)
 {
 	float step = _step.value();
 	if(step != 0)
@@ -65,7 +65,7 @@ template <class T> static inline s32 _Math_ScaledStepToS(T* pValue, s16 target, 
 	return false;
 }
 
-s32 Math_ScaledStepToS(s16* pValue, s16 target, const Step& _step)
+s32 Math_ScaledStepToS(s16* pValue, s16 target, const FStep& _step)
 {
 	return _Math_ScaledStepToS(pValue, target, _step);
 }
@@ -119,7 +119,8 @@ s32 Math_StepToS(Rotation* pValue, s16 target, const FStep& _step)
  * Changes pValue by step towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
  */
-s32 Math_StepToF(f32* pValue, f32 target, const Step& _step)
+template<class T>
+static inline s32 _Math_StepToF(T* pValue, f32 target, const Step& _step)
 {
 	float step = _step.value();
 	if(step != 0.0f)
@@ -143,6 +144,16 @@ s32 Math_StepToF(f32* pValue, f32 target, const Step& _step)
 	}
 
 	return false;
+}
+
+s32 Math_StepToF(f32* pValue, f32 target, const Step& _step)
+{
+	return _Math_StepToF(pValue, target, _step);
+}
+
+s32 Math_StepToF(CounterF* pValue, f32 target, const Step& _step)
+{
+	return _Math_StepToF(pValue, target, _step);
 }
 
 f32 Math_NormalizeAngleF(f32 angle)
@@ -610,7 +621,7 @@ static inline f32 _Math_SmoothStepToF(T* pValue, f32 target, f32 fraction, const
 	float minStep = _minStep.value();
 	if(*pValue != target)
 	{
-		f32 stepSize = (target - *pValue) * fraction;
+		f32 stepSize = (target - *pValue) * (fraction * FRAMERATE_SCALER);
 
 		if((stepSize >= minStep) || (stepSize <= -minStep))
 		{
@@ -663,10 +674,16 @@ f32 Math_SmoothStepToF(Rotation* pValue, f32 target, f32 fraction, const FStep& 
 	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
 }
 
+f32 Math_SmoothStepToF(CounterF* pValue, f32 target, f32 fraction, const FStep& _step, const FStep& _minStep)
+{
+	return _Math_SmoothStepToF(pValue, target, fraction, _step, _minStep);
+}
+
 /**
  * Changes pValue by step towards target. If step is more than fraction of the remaining distance, step by that instead.
  */
-void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step)
+template<class T>
+static inline void _Math_ApproachF(T* pValue, f32 target, f32 fraction, const Step& _step)
 {
 	float step = _step.value();
 	if(*pValue != target)
@@ -686,10 +703,43 @@ void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step)
 	}
 }
 
+void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step)
+{
+	_Math_ApproachF(pValue, target, fraction, _step);
+}
+
+void Math_ApproachF(CounterF* pValue, f32 target, f32 fraction, const Step& _step)
+{
+	_Math_ApproachF(pValue, target, fraction, _step);
+}
+
 /**
  * Changes pValue by step towards zero. If step is more than fraction of the remaining distance, step by that instead.
  */
 void Math_ApproachZeroF(f32* pValue, f32 fraction, const Step& _step)
+{
+	float step = _step.value();
+	f32 stepSize = *pValue * fraction;
+
+	if(stepSize > step)
+	{
+		stepSize = step;
+	}
+	else if(stepSize < -step)
+	{
+		stepSize = -step;
+	}
+
+	*pValue -= stepSize;
+}
+
+f32 Math_ApproachZeroF(f32 pValue, f32 fraction, const Step& step)
+{
+	Math_ApproachZeroF(&pValue, fraction, step);
+	return pValue;
+}
+
+void Math_ApproachZeroF(CounterF* pValue, f32 fraction, const Step& _step)
 {
 	float step = _step.value();
 	f32 stepSize = *pValue * fraction;

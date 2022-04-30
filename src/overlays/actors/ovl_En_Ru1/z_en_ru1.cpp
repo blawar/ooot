@@ -938,8 +938,8 @@ void func_80AEC4CC(EnRu1* pthis)
 
 void func_80AEC4F4(EnRu1* pthis)
 {
-	f32* speedXZ = &pthis->actor.speedXZ;
-	f32* unk_26C = &pthis->unk_26C;
+	auto speedXZ = &pthis->actor.speedXZ;
+	auto unk_26C = &pthis->unk_26C;
 
 	if(pthis->unk_26C < 8.0f)
 	{
@@ -1556,8 +1556,8 @@ void func_80AEDB30(EnRu1* pthis, GlobalContext* globalCtx)
 {
 	DynaPolyActor* dynaPolyActor;
 	f32* velocityY;
-	f32* speedXZ;
-	f32* gravity;
+	CounterF* speedXZ;
+	CounterF* gravity;
 	s16 wallYaw;
 	s16 rotY;
 	s32 temp_a1_2;
@@ -1671,7 +1671,7 @@ void func_80AEDB30(EnRu1* pthis, GlobalContext* globalCtx)
 
 void func_80AEDEF4(EnRu1* pthis, GlobalContext* globalCtx)
 {
-	f32* speedXZ = &pthis->actor.speedXZ;
+	auto speedXZ = &pthis->actor.speedXZ;
 	DynaPolyActor* dynaPolyActor = DynaPoly_GetActor(&globalCtx->colCtx, pthis->actor.floorBgId);
 
 	if(dynaPolyActor != NULL && dynaPolyActor->actor.id == ACTOR_EN_BOX)

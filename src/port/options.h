@@ -216,6 +216,16 @@ namespace oot
 				return m_useXInput;
 			}
 
+			const bool& useDInput() const
+			{
+				return m_useDInput;
+			}
+
+			bool& useDInput()
+			{
+				return m_useDInput;
+			}
+
 			const bool& invertLeftStickY() const
 			{
 				return m_invertLeftStickY;
@@ -270,6 +280,7 @@ namespace oot
 			bool m_cButtonsOnRightStick = false;
 			bool m_enableGyro = true;
 			bool m_useXInput = true;
+			bool m_useDInput = false;
 
 			bool m_invertLeftStickY = false;
 			bool m_invertRightStickY = false;
@@ -335,9 +346,31 @@ namespace oot
 				return m_doubleBuffer;
 			}
 
+			const u64& fullscreenWidth() const
+			{
+				return m_fullscreenWidth;
+			}
+
+			u64& fullscreenWidth()
+			{
+				return m_fullscreenWidth;
+			}
+
+			const u64& fullscreenHeight() const
+			{
+				return m_fullscreenHeight;
+			}
+
+			u64& fullscreenHeight()
+			{
+				return m_fullscreenHeight;
+			}
+
 			protected:
 			s64 m_vsync = 0;
 			bool m_doubleBuffer = 0;
+			u64 m_fullscreenWidth = 0;
+			u64 m_fullscreenHeight = 0;
 		};
 
 		class Game : public Section

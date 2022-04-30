@@ -725,7 +725,7 @@ AnimationHeader* EnXc_GetCurrentHarpAnim(GlobalContext* globalCtx, s32 index)
 void EnXc_CalcXZAccel(EnXc* pthis)
 {
 	f32 timer = pthis->timer;
-	f32* speedXZ = &pthis->actor.speedXZ;
+	auto speedXZ = &pthis->actor.speedXZ;
 
 	if(timer < 9.0f)
 	{
@@ -751,7 +751,7 @@ void func_80B3D644(EnXc* pthis)
 void EnXc_CalcXZSpeed(EnXc* pthis)
 {
 	f32 timer = pthis->timer;
-	f32* speedXZ = &pthis->actor.speedXZ;
+	auto speedXZ = &pthis->actor.speedXZ;
 
 	if(timer < 3.0f)
 	{

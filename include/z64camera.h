@@ -765,9 +765,14 @@ struct OnePointCsFull
 	/* 0x04 */ s16 timerInit;
 	/* 0x06 */ s16 rollTargetInit;
 	/* 0x08 */ f32 fovTargetInit;
-	/* 0x0C */ f32 lerpStepScale;
+	/* 0x0C */ f32 m_lerpStepScale;
 	/* 0x10 */ Vec3f atTargetInit;
 	/* 0x1C */ Vec3f eyeTargetInit;
+
+	f32 lerpStepScaler()
+	{
+		return m_lerpStepScale * FRAMERATE_SCALER;
+	}
 }; /* size = 0x28 */
 
 struct Unique9Anim
@@ -782,7 +787,7 @@ struct Unique9Anim
 	/* 0x36 */ s16 curKeyFrameIdx;
 	/* 0x38 */ s16 unk_38;
 	/* 0x3A */ s16 isNewKeyFrame;
-	/* 0x3C */ s16 keyFrameTimer;
+	/* 0x3C */ TimerS16 keyFrameTimer;
 }; // size = 0x3E
 
 struct Unique9
@@ -946,7 +951,7 @@ struct CamColChk
 
 struct Camera
 {
-	/* 0x000 */ char paramData[0x50];
+	/* 0x000 */ char paramData[0x100];
 	/* 0x050 */ Vec3f at;
 	/* 0x05C */ Vec3f eye;
 	/* 0x068 */ Vec3f up;
@@ -1000,7 +1005,7 @@ struct Camera
 	/* 0x15A */ s16 roll;
 	/* 0x15C */ s16 paramFlags;
 	/* 0x15E */ s16 animState;
-	/* 0x160 */ s16 timer;
+	/* 0x160 */ TimerS16 timer;
 	/* 0x162 */ s16 parentCamIdx;
 	/* 0x164 */ s16 thisIdx;
 	/* 0x166 */ s16 prevCamDataIdx;

@@ -6,6 +6,15 @@
 #include "z64actor.h"
 #include "z64math.h"
 
+enum Hoof : u16
+{
+	HOOF_NONE = 0,
+	FRONT_RIGHT = 1,
+	FRONT_LEFT = 2,
+	REAR_RIGHT = 4,
+	REAR_LEFT = 8
+};
+
 enum EnHorseAction
 {
 	/* 0  */ ENHORSE_ACT_FROZEN,
@@ -162,7 +171,7 @@ struct EnHorse
 	/* 0x0228 */ Vec3f unk_228;
 	/* 0x0234 */ s32 unk_234;
 	/* 0x0238 */ u8 numBoosts;
-	/* 0x023C */ s32 boostRegenTime;
+	/* 0x023C */ TimerS32 boostRegenTime;
 	/* 0x0240 */ TimerS32 boostTimer;
 	/* 0x0244 */ EnHorsePostdrawFunc postDrawFunc;
 	/* 0x0248 */ f32 yFront; // The y coordinate of the floor under the front feet
@@ -205,7 +214,7 @@ struct EnHorse
 	/* 0x03C4 */ s16 bridgeJumpRelAngle;
 	/* 0x03C6 */ s16 unk_3C6; // pad
 				  // sub struct?
-	/* 0x03C8 */ u16 dustFlags;
+	/* 0x03C8 */ Hoof dustFlags;
 	/* 0x03CC */ Vec3f frontRightHoof;
 	/* 0x03D8 */ Vec3f frontLeftHoof;
 	/* 0x03E4 */ Vec3f backRightHoof;

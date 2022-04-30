@@ -45,6 +45,7 @@ FaultClient sGraphFaultClient;
 CfbInfo sGraphCfbInfos[3];
 FaultClient sGraphUcodeFaultClient;
 
+static u64 frameCount = 0;
 static std::unique_ptr<oot::gamestate::Base> gCurrentGameState = nullptr;
 static std::unique_ptr<oot::gamestate::Base> gNextGameState = nullptr;
 
@@ -220,7 +221,7 @@ void Graph_TaskSet00(GraphicsContext* gfxCtx)
 	Sched_SendEntryMsg(&gSchedContext);
 
 	if(oot::config().game().graphicsEnabled())
-		gfx_run(task, sizeof(OSTask_t));
+		gfx_schedule(task, sizeof(OSTask_t));
 }
 
 void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
@@ -345,6 +346,11 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 		osSyncPrintf(VT_COL(RED, WHITE) "Debug 4 is dead(graph_alloc is empty)\n" VT_RST);
 	}
 
+	if(framerate_get_profile() == FramerateProfile::PROFILE_GAMEPLAY && SKIP_GFX_FRAME_MASK != 0 && (frameCount & SKIP_GFX_FRAME_MASK))
+	{
+		problem = true;
+	}
+
 	if(!problem)
 	{
 		Graph_TaskSet00(gfxCtx);
@@ -373,11 +379,9 @@ void Graph_Update(GraphicsContext* gfxCtx, GameState* gameState)
 	}
 }
 
-static u64 frameCount = 0;
-
 void Graph_ThreadEntry(void* arg0)
 {
-	GraphicsContext gfxCtx;	
+	GraphicsContext gfxCtx;
 
 	osSyncPrintf("Start graphic thread execution\n"); // "Start graphic thread execution"
 	Graph_Init(&gfxCtx);
@@ -408,11 +412,17 @@ void Graph_ThreadEntry(void* arg0)
 					{
 						Graph_Update(&gfxCtx, gCurrentGameState.get());
 						gfx_end_frame();
+						frameCount++;
 					}
 				}
-				frameCount++;
+				else
+				{
+					frameCount++;
+				}
 			}
 		}
+
+		gfx_wait_ready();
 
 		if(gNextGameState)
 		{
@@ -424,6 +434,9 @@ void Graph_ThreadEntry(void* arg0)
 			gCurrentGameState = std::unique_ptr<oot::gamestate::Base>(gCurrentGameState->next());
 		}
 	}
+
+	gfx_wait_ready();
+	gCurrentGameState.reset();
 
 	Graph_Destroy(&gfxCtx);
 	osSyncPrintf("End of graphic thread execution\n"); // "End of graphic thread execution"

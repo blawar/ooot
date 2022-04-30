@@ -685,7 +685,7 @@ void func_809BE058(EnBigokuta* pthis, GlobalContext* globalCtx)
 
 	if((pthis->collider.base.ocFlags1 & OC1_HIT) || (pthis->cylinder[0].base.ocFlags1 & OC1_HIT) || (pthis->cylinder[1].base.ocFlags1 & OC1_HIT))
 	{
-		speedXZ = CLAMP_MIN(player->actor.speedXZ, 1.0f);
+		speedXZ = CLAMP_MIN((float)player->actor.speedXZ, 1.0f);
 		if(!(pthis->collider.base.ocFlags1 & OC1_HIT))
 		{
 			pthis->cylinder[0].base.ocFlags1 &= ~OC1_HIT;

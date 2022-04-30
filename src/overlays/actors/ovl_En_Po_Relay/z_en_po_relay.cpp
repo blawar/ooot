@@ -249,11 +249,11 @@ void EnPoRelay_Race(EnPoRelay* pthis, GlobalContext* globalCtx)
 		}
 		else if(pthis->actor.xzDistToPlayer < 150.0f)
 		{
-			speed = (pthis->hookshotSlotFull) ? player->actor.speedXZ * 1.2f : player->actor.speedXZ;
+			speed = (pthis->hookshotSlotFull) ? player->actor.speedXZ * 1.2f : (float)player->actor.speedXZ;
 		}
 		else if(pthis->actor.xzDistToPlayer < 300.0f)
 		{
-			speed = (pthis->hookshotSlotFull) ? player->actor.speedXZ : player->actor.speedXZ * 0.8f;
+			speed = (pthis->hookshotSlotFull) ? (float)player->actor.speedXZ : player->actor.speedXZ * 0.8f;
 		}
 		else if(pthis->hookshotSlotFull)
 		{

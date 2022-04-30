@@ -371,7 +371,7 @@ void EnMk_Update(Actor* thisx, GlobalContext* globalCtx)
 
 	if(pthis->flags & 8)
 	{
-		if(!(player->stateFlags2 & PLAYER_STATE2_10))
+		if(!(player->stateFlags2 & PLAYER_STATE2_SURFACING))
 		{
 			pthis->flags &= ~8;
 		}
@@ -382,7 +382,7 @@ void EnMk_Update(Actor* thisx, GlobalContext* globalCtx)
 		{
 			pthis->flags |= 8;
 		}
-		else if(player->stateFlags2 & PLAYER_STATE2_10)
+		else if(player->stateFlags2 & PLAYER_STATE2_SURFACING)
 		{
 			swimFlag = player->actor.yDistToWater;
 

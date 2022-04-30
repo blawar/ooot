@@ -845,7 +845,7 @@ void EnGeldB_Circle(EnGeldB* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.pos.x += Math_SinS(pthis->actor.shape.rot.y) * pthis->approachRate;
 			pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->approachRate;
 		}
-		if(ABS(pthis->approachRate) < ABS(pthis->actor.speedXZ))
+		if(ABS(pthis->approachRate) < pthis->actor.speedXZ.abs())
 		{
 			pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
 		}
@@ -971,7 +971,7 @@ void EnGeldB_SpinDodge(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.x += Math_SinS(pthis->actor.yawTowardsPlayer) * pthis->approachRate;
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.yawTowardsPlayer) * pthis->approachRate;
 	}
-	if(ABS(pthis->approachRate) < ABS(pthis->actor.speedXZ))
+	if(ABS(pthis->approachRate) < pthis->actor.speedXZ.abs())
 	{
 		pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
 	}
@@ -1594,7 +1594,7 @@ void EnGeldB_Sidestep(EnGeldB* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.x += Math_SinS(pthis->actor.shape.rot.y) * pthis->approachRate;
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->approachRate;
 	}
-	if(ABS(pthis->approachRate) < ABS(pthis->actor.speedXZ))
+	if(ABS(pthis->approachRate) < pthis->actor.speedXZ.abs())
 	{
 		pthis->skelAnime.playSpeed = -pthis->actor.speedXZ * 0.5f;
 	}

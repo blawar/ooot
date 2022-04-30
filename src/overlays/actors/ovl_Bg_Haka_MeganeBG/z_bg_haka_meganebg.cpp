@@ -23,8 +23,8 @@ void BgHakaMeganeBG_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaMeganeBG_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaMeganeBG_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-void func_8087DFF8(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
-void func_8087E040(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
+void BgHakaMeganeBG_Action_Horizontal_Wait(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
+void BgHakaMeganeBG_Action_Horizontal_Move(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
 void func_8087E10C(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
 void func_8087E1E0(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
 void func_8087E258(BgHakaMeganeBG* pthis, GlobalContext* globalCtx);
@@ -81,7 +81,7 @@ void BgHakaMeganeBG_Init(Actor* thisx, GlobalContext* globalCtx)
 			CollisionHeader_GetVirtual(&object_haka_objects_Col_009168, &colHeader);
 			thisx->flags |= ACTOR_FLAG_7;
 			pthis->unk_16A = 20;
-			pthis->actionFunc = func_8087DFF8;
+			pthis->actionFunc = BgHakaMeganeBG_Action_Horizontal_Wait;
 		}
 		else if(thisx->params == 3)
 		{
@@ -119,7 +119,7 @@ void BgHakaMeganeBG_Destroy(Actor* thisx, GlobalContext* globalCtx)
 	DynaPoly_DeleteBgActor(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
 }
 
-void func_8087DFF8(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
+void BgHakaMeganeBG_Action_Horizontal_Wait(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->unk_16A != 0)
 	{
@@ -129,12 +129,12 @@ void func_8087DFF8(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 	if(pthis->unk_16A == 0)
 	{
 		pthis->unk_16A = 40;
-		pthis->dyna.actor.world.rot.y += 0x8000;
-		pthis->actionFunc = func_8087E040;
+		pthis->dyna.actor.world.rot.y = pthis->dyna.actor.world.rot.y + 0x8000;
+		pthis->actionFunc = BgHakaMeganeBG_Action_Horizontal_Move;
 	}
 }
 
-void func_8087E040(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
+void BgHakaMeganeBG_Action_Horizontal_Move(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 {
 	f32 xSub;
 
@@ -145,7 +145,7 @@ void func_8087E040(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 
 	xSub = (sinf(((pthis->unk_16A * 0.025f) + 0.5f) * M_PI) + 1.0f) * 160.0f;
 
-	if(pthis->dyna.actor.world.rot.y != pthis->dyna.actor.shape.rot.y)
+	if(Math_AngleDiffF(BINANG_TO_DEGF(pthis->dyna.actor.world.rot.y), BINANG_TO_DEGF(pthis->dyna.actor.shape.rot.y)) < 10.0f)
 	{
 		xSub = 320.0f - xSub;
 	}
@@ -155,13 +155,13 @@ void func_8087E040(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 	if(pthis->unk_16A == 0)
 	{
 		pthis->unk_16A = 20;
-		pthis->actionFunc = func_8087DFF8;
+		pthis->actionFunc = BgHakaMeganeBG_Action_Horizontal_Wait;
 	}
 }
 
 void func_8087E10C(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 {
-	pthis->dyna.actor.velocity.y += 1.0f;
+	pthis->dyna.actor.velocity.y += 1.0f * FRAMERATE_SCALER;
 
 	if(pthis->dyna.actor.velocity.y > 20.0f)
 	{
@@ -226,7 +226,7 @@ void func_8087E2D8(BgHakaMeganeBG* pthis, GlobalContext* globalCtx)
 {
 	Math_StepToF(&pthis->dyna.actor.speedXZ, 30.0f, 2.0f);
 
-	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, pthis->dyna.actor.speedXZ))
+	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y, (float)pthis->dyna.actor.speedXZ))
 	{
 		Actor_SetFocus(&pthis->dyna.actor, 50.0f);
 		pthis->actionFunc = func_8087E34C;

@@ -368,9 +368,9 @@ void DemoGj_DrawRotated(DemoGj* pthis, GlobalContext* globalCtx, Gfx* displayLis
 void DemoGj_SetupRotation(DemoGj* pthis, GlobalContext* globalCtx)
 {
 	f32 yPosition = pthis->dyna.actor.world.pos.y;
-	f32* yVelocity = &pthis->dyna.actor.velocity.y;
-	f32* speedXZ = &pthis->dyna.actor.speedXZ;
-	Vec3s* unk_172 = &pthis->unk_172;
+	auto yVelocity = &pthis->dyna.actor.velocity.y;
+	auto speedXZ = &pthis->dyna.actor.speedXZ;
+	auto unk_172 = &pthis->unk_172;
 	f32 verticalTranslation;
 	Vec3f vec;
 	f32 verticalFactor;

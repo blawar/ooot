@@ -413,7 +413,7 @@ void EnPoField_CorrectYPos(EnPoField* pthis, GlobalContext* globalCtx)
 f32 EnPoField_SetFleeSpeed(EnPoField* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
-	f32 speed = ((player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && player->rideActor != NULL) ? player->rideActor->speedXZ : 12.0f;
+	f32 speed = ((player->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) && player->rideActor != NULL) ? (float)player->rideActor->speedXZ : 12.0f;
 
 	if(pthis->actor.xzDistToPlayer < 300.0f)
 	{
@@ -431,7 +431,7 @@ f32 EnPoField_SetFleeSpeed(EnPoField* pthis, GlobalContext* globalCtx)
 	{
 		pthis->actor.speedXZ = 12.0f;
 	}
-	pthis->actor.speedXZ = CLAMP_MIN(pthis->actor.speedXZ, 12.0f);
+	pthis->actor.speedXZ = CLAMP_MIN((float)pthis->actor.speedXZ, 12.0f);
 	return pthis->actor.speedXZ;
 }
 

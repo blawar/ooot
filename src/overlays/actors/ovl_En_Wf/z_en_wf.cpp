@@ -778,7 +778,7 @@ void EnWf_RunAroundPlayer(EnWf* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->runSpeed;
 		}
 
-		if(ABS(pthis->runSpeed) < ABS(pthis->actor.speedXZ))
+		if(ABS(pthis->runSpeed) < pthis->actor.speedXZ.abs())
 		{
 			pthis->skelAnime.playSpeed = pthis->actor.speedXZ * 0.175f;
 		}
@@ -1365,7 +1365,7 @@ void EnWf_Sidestep(EnWf* pthis, GlobalContext* globalCtx)
 		pthis->actor.world.pos.z += Math_CosS(pthis->actor.shape.rot.y) * pthis->runSpeed;
 	}
 
-	if(ABS(pthis->runSpeed) < ABS(pthis->actor.speedXZ))
+	if(ABS(pthis->runSpeed) < pthis->actor.speedXZ.abs())
 	{
 		pthis->skelAnime.playSpeed = pthis->actor.speedXZ * 0.175f;
 	}

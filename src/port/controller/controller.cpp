@@ -9,6 +9,8 @@
 #include "ultra64/types.h"
 #include "def/z_player_lib.h"
 
+#define ENABLE_30FPS
+
 #ifdef __SWITCH__
 #define TAS_DIR "sdmc:/switch/oot/tas"
 #else
@@ -54,7 +56,7 @@ namespace oot::hid
 
 		for(int i = 0; i < ARRAY_COUNT(f_framerates); i++)
 		{
-			if(f_framerates[i] > framerate && f_framerates[i - 1] <= maxFramerate)
+			if(f_framerates[i] > framerate && f_framerates[i] <= maxFramerate)
 			{
 				return f_framerates[i];
 			}

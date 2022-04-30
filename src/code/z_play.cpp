@@ -335,7 +335,7 @@ namespace oot::gamestate
 		EffectSs_InitInfo(globalCtx, 0x55);
 		CollisionCheck_InitContext(globalCtx, &globalCtx->colChkCtx);
 		AnimationContext_Reset(&globalCtx->animationCtx);
-		func_8006450C(globalCtx, &globalCtx->csCtx);
+		Cutscene_Stop(globalCtx, &globalCtx->csCtx);
 
 		if(gSaveContext.nextCutsceneIndex != 0xFFEF)
 		{
@@ -1032,7 +1032,7 @@ void Gameplay_Update(GlobalContext* globalCtx)
 						Actor_UpdateAll(globalCtx, &globalCtx->actorCtx);
 					}
 
-					func_80064558(globalCtx, &globalCtx->csCtx);
+					Cutscene_CallStateHandler(globalCtx, &globalCtx->csCtx);
 					Cinema_Update(globalCtx, &globalCtx->csCtx);
 					Effect_UpdateAll(globalCtx);
 					EffectSs_UpdateAll(globalCtx);
