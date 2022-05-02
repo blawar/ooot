@@ -113,7 +113,6 @@ static const char* getButtonName(XInputButtons button)
 
 //#pragma comment(lib, "Xinput.lib")
 #pragma comment(lib, "Xinput9_1_0.lib")
-#endif
 
 static u8* expandButtonBits(WORD bits, u8* out)
 {
@@ -552,3 +551,5 @@ namespace oot::hid
 		}
 	} // namespace driver
 } // namespace oot::hid
+
+#endif
