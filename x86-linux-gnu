@@ -3,7 +3,7 @@ c = '/usr/bin/gcc'
 cpp = '/usr/bin/g++'
 ar = '/usr/bin/gcc-ar'
 strip = '/usr/bin/strip'
-pkgconfig = '/usr/bin/i686-redhat-linux-gnu-pkg-config'
+pkgconfig = '/usr/bin/i686-linux-gnu-pkg-config'
 llvm-config = '/usr/bin/llvm-config32'
 
 [built-in options]

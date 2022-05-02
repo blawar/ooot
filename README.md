@@ -169,9 +169,14 @@ Linux does not currently work.  The below steps are for development purposes.
 ```
 Debian/Ubuntu
 
+sudo dpkg --add-architecture i386
+sudo apt update
 sudo apt install gcc-multilib g++-multilib
 sudo apt install libsdl2-dev
+sudo apt install libsdl2-dev:i386
 sudo apt install libpng-dev
+sudo apt install libfreetype6-dev
+sudo apt install libfreetype6-dev:i386
 sudo apt install python3
 sudo apt install python3-pip
 sudo apt install meson
@@ -195,7 +200,7 @@ sudo dnf in python3-pip
 sudo dnf in libpng
 
 setup.py -b EUR_MQD
-meson setup linux
+meson setup linux --cross-file x86-linux-gnu
 cd linux
 ninja
 ```

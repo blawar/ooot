@@ -1041,7 +1041,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx)
 				}
 			}
 			gSPSegment(POLY_XLU_DISP++, 0x08, SEGMENTED_TO_VIRTUAL(shadowTex));
-			gSPDisplayList(POLY_XLU_DISP++, sShadowDL);
+			gSPDisplayList(POLY_XLU_DISP++, sEnKanbanShadowDL);
 		}
 	}
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_kanban.c", 1857);

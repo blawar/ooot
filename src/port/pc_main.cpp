@@ -266,7 +266,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 	run();
 	return 0;
 }
-#else
+#endif
+
 #ifdef __SWITCH__
 void initialize();
 #endif
@@ -276,15 +277,18 @@ extern "C"
 	int main(int argc, char* argv[]);
 }
 
+int main2(int argc, char** argv);
+
 int main(int argc, char* argv[])
 {
 #ifdef __SWITCH__
 	initialize();
 #endif
-	main_func();
+
+	main2(argc, argv);
 	return 0;
 }
-#endif
+
 
 static bool g_isRunning = true;
 

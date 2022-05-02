@@ -1,5 +1,5 @@
 #include "actor_common.h"
-#include "overlays\misc\ovl_kaleido_scope\z_kaleido_scope.h"
+#include "overlays/misc/ovl_kaleido_scope/z_kaleido_scope.h"
 
 static const Vtx sMarkBossVtx[] = {
     VTX(-4, 4, 0, 0, 0, 255, 255, 255, 255),

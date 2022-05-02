@@ -224,11 +224,11 @@ void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	if(thisx->params & 0x4000)
 	{
-		gSPDisplayList(POLY_XLU_DISP++, sCubeDL);
+		gSPDisplayList(POLY_XLU_DISP++, sElfMsgCubeDL);
 	}
 	else
 	{
-		gSPDisplayList(POLY_XLU_DISP++, sCylinderDL);
+		gSPDisplayList(POLY_XLU_DISP++, sElfMsgCylinderDL);
 	}
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_elf_msg.c", 457);
