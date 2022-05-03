@@ -194,10 +194,11 @@ sudo pacman -S libpng
 Fedora Linux
 
 sudo dnf in gcc
-sudo dnf in sdl2-devel
+sudo dnf in SDL2-devel
 sudo dnf in meson
 sudo dnf in python3-pip
 sudo dnf in libpng
+sudo dnf in g++
 
 setup.py -b EUR_MQD
 meson setup linux --cross-file x86-linux-gnu
