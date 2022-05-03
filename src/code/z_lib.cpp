@@ -487,6 +487,15 @@ f32 Math_Vec3f_DistXYZAndStoreDiff(Vec3f* a, Vec3f* b, Vec3f* dest)
 	return sqrtf(SQ(dest->x) + SQ(dest->y) + SQ(dest->z));
 }
 
+f32 Math_Vec3f_DistXYZAndStoreDiff(const Vec3f& a, const Vec3f& b, Vec3f* dest)
+{
+	dest->x = b.x - a.x;
+	dest->y = b.y - a.y;
+	dest->z = b.z - a.z;
+
+	return sqrtf(SQ(dest->x) + SQ(dest->y) + SQ(dest->z));
+}
+
 f32 Math_Vec3f_DistXZ(Vec3f* a, Vec3f* b)
 {
 	f32 dx = b->x - a->x;

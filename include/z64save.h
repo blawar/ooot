@@ -10,15 +10,48 @@ struct FileChooseContext;
 
 #define SLOT_SIZE 0x1450
 
+struct ItemEquips;
+struct Inventory;
+struct FaroresWindData;
+struct HorseData;
+
+struct ItemEquipsBE
+{
+	ItemEquipsBE& operator=(const ItemEquips& a);
+	/* 0x00 */ u8 buttonItems[4];
+	/* 0x04 */ u8 cButtonSlots[3];
+	/* 0x08 */ u16be equipment;
+}; // size = 0x0A
+
 struct ItemEquips
 {
+	ItemEquips& operator=(const ItemEquipsBE& a);
 	/* 0x00 */ u8 buttonItems[4];
 	/* 0x04 */ u8 cButtonSlots[3];
 	/* 0x08 */ u16 equipment;
 }; // size = 0x0A
 
+struct InventoryBE
+{
+	InventoryBE& operator=(const Inventory& a);
+	/* 0x00 */ u8 items[24];
+	/* 0x18 */ s8 ammo[16];
+	/* 0x28 */ u16be equipment;
+	// u16 equipmentPadding;
+	/* 0x2C */ u32be upgrades;
+	/* 0x30 */ u32be questItems;
+	/* 0x34 */ u8 dungeonItems[20];
+	/* 0x48 */ s8 dungeonKeys[19];
+	/* 0x5B */ s8 defenseHearts;
+	/* 0x5C */ s16be gsTokens;
+	// s16 gsTokensPadding;
+}; // size = 0x60
+
+static_assert(sizeof(InventoryBE) == 0x60, "Save Inventory incorrect size");
+
 struct Inventory
 {
+	Inventory& operator=(const InventoryBE& a);
 	/* 0x00 */ u8 items[24];
 	/* 0x18 */ s8 ammo[16];
 	/* 0x28 */ u16 equipment;
@@ -34,6 +67,17 @@ struct Inventory
 
 static_assert(sizeof(Inventory) == 0x60, "Save Inventory incorrect size");
 
+struct SavedSceneFlagsBE
+{
+	/* 0x00 */ u32be chest;
+	/* 0x04 */ u32be swch;
+	/* 0x08 */ u32be clear;
+	/* 0x0C */ u32be collect;
+	/* 0x10 */ u32be unk;
+	/* 0x14 */ u32be rooms;
+	/* 0x18 */ u32be floors;
+}; // size = 0x1C
+
 struct SavedSceneFlags
 {
 	/* 0x00 */ u32 chest;
@@ -45,15 +89,27 @@ struct SavedSceneFlags
 	/* 0x18 */ u32 floors;
 }; // size = 0x1C
 
+struct HorseDataBE
+{
+	HorseDataBE& operator=(const HorseData& a);
+	/* 0x00 */ s16be scene;
+	/* 0x02 */ Vec3sbe pos;
+	/* 0x08 */ s16be angle;
+}; // size = 0x0A
+
 struct HorseData
 {
+	HorseData& operator=(const HorseDataBE& a);
 	/* 0x00 */ s16 scene;
 	/* 0x02 */ Vec3s pos;
 	/* 0x08 */ s16 angle;
 }; // size = 0x0A
 
+struct RespawnDataBE;
+
 struct RespawnData
 {
+	operator RespawnDataBE() const;
 	/* 0x00 */ Vec3f pos;
 	/* 0x0C */ s16 yaw;
 	/* 0x0E */ s16 playerParams;
@@ -64,8 +120,35 @@ struct RespawnData
 	/* 0x18 */ u32 tempCollectFlags;
 }; // size = 0x1C
 
+struct RespawnDataBE
+{
+	operator RespawnData() const;
+	/* 0x00 */ Vec3fbe pos;
+	/* 0x0C */ s16be yaw;
+	/* 0x0E */ s16be playerParams;
+	/* 0x10 */ s16be entranceIndex;
+	/* 0x12 */ u8 roomIndex;
+	/* 0x13 */ s8 data;
+	/* 0x14 */ u32be tempSwchFlags;
+	/* 0x18 */ u32be tempCollectFlags;
+}; // size = 0x1C
+
+struct FaroresWindDataBE
+{
+	FaroresWindDataBE& operator=(const FaroresWindData& a);
+	/* 0x00 */ Vec3ibe pos;
+	/* 0x0C */ s32be yaw;
+	/* 0x10 */ s32be playerParams;
+	/* 0x14 */ s32be entranceIndex;
+	/* 0x18 */ s32be roomIndex;
+	/* 0x1C */ s32be set;
+	/* 0x20 */ s32be tempSwchFlags;
+	/* 0x24 */ s32be tempCollectFlags;
+}; // size = 0x28
+
 struct FaroresWindData
 {
+	FaroresWindData& operator=(const FaroresWindDataBE& a);
 	/* 0x00 */ Vec3i pos;
 	/* 0x0C */ s32 yaw;
 	/* 0x10 */ s32 playerParams;
@@ -80,6 +163,35 @@ namespace oot::save
 {
 	static const u8 MAX_SLOTS = 3;
 
+	struct PlayerDataBE
+	{
+		/* 0x00 */ char newf[6]; // string "ZELDAZ"
+		/* 0x06 */ s16be deaths;
+		/* 0x08 */ char playerName[8];
+		/* 0x10 */ s16be n64ddFlag;
+		/* 0x12 */ s16be healthCapacity; // "max_life"
+		/* 0x14 */ s16be health;	       // "now_life"
+		/* 0x16 */ s8 magicLevel;
+		/* 0x17 */ s8 magic;
+		/* 0x18 */ s16be rupees;
+		/* 0x1A */ u16be swordHealth;
+		/* 0x1C */ u16be naviTimer;
+		/* 0x1E */ u8 magicAcquired;
+		/* 0x1F */ u8 unk_3B;
+		/* 0x20 */ u8 doubleMagic;
+		/* 0x21 */ u8 doubleDefense;
+		/* 0x22 */ u8 bgsFlag;
+		/* 0x23 */ u8 ocarinaGameRoundNum;
+		/* 0x24 */ ItemEquipsBE childEquips;
+		/* 0x2E */ ItemEquipsBE adultEquips;
+		/* 0x38 */ u32be unk_54; // this may be incorrect, currently used for alignement
+		/* 0x3C */ char unk_58[0x0E];
+		/* 0x4A */ s16be savedSceneNum;
+
+		void setMagic();
+		bool isMagicValid() const;
+	}; // size = 0x4C
+
 	struct PlayerData
 	{
 		/* 0x00 */ char newf[6]; // string "ZELDAZ"
@@ -87,7 +199,7 @@ namespace oot::save
 		/* 0x08 */ char playerName[8];
 		/* 0x10 */ s16 n64ddFlag;
 		/* 0x12 */ s16 healthCapacity; // "max_life"
-		/* 0x14 */ s16 health;	       // "now_life"
+		/* 0x14 */ s16 health;	 // "now_life"
 		/* 0x16 */ s8 magicLevel;
 		/* 0x17 */ s8 magic;
 		/* 0x18 */ s16 rupees;
@@ -104,29 +216,26 @@ namespace oot::save
 		/* 0x38 */ u32 unk_54; // this may be incorrect, currently used for alignement
 		/* 0x3C */ char unk_58[0x0E];
 		/* 0x4A */ s16 savedSceneNum;
-
-		void setMagic();
-		bool isMagicValid() const;
 	}; // size = 0x4C
 
-	static_assert(sizeof(PlayerData) == 0x4C, "Save PlayerData incorrect size");
+	static_assert(sizeof(PlayerDataBE) == 0x4C, "Save PlayerData incorrect size");
 
-	struct Info
+	struct InfoBE
 	{
-		/* 0x0000 */ PlayerData playerData; // "S_Private" substruct name
-		/* 0x004C */ ItemEquips equips;
-		/* 0x0058 */ Inventory inventory;
-		/* 0x00B8 */ SavedSceneFlags sceneFlags[124];
-		/* 0x0E48 */ FaroresWindData fw;
+		/* 0x0000 */ PlayerDataBE playerData; // "S_Private" substruct name
+		/* 0x004C */ ItemEquipsBE equips;
+		/* 0x0058 */ InventoryBE inventory;
+		/* 0x00B8 */ SavedSceneFlagsBE sceneFlags[124];
+		/* 0x0E48 */ FaroresWindDataBE fw;
 		/* 0x0E70 */ char unk_E8C[0x10];
-		/* 0x0E80 */ s32 gsFlags[6];
+		/* 0x0E80 */ s32be gsFlags[6];
 		/* 0x0E98 */ char unk_EB4[0x4];
-		/* 0x0EA8 */ s32 highScores[7];
-		/* 0x0EB8 */ u16 eventChkInf[14]; // "event_chk_inf"
-		/* 0x0ED4 */ u16 itemGetInf[4];	  // "item_get_inf"
-		/* 0x0EDC */ u16 infTable[30];	  // "inf_table"
+		/* 0x0EA8 */ s32be highScores[7];
+		/* 0x0EB8 */ u16be eventChkInf[14]; // "event_chk_inf"
+		/* 0x0ED4 */ u16be itemGetInf[4];	  // "item_get_inf"
+		/* 0x0EDC */ u16be infTable[30];	  // "inf_table"
 		/* 0x0F18 */ char unk_F34[0x04];
-		/* 0x0F1C */ u32 worldMapAreaData; // "area_arrival"
+		/* 0x0F1C */ u32be worldMapAreaData; // "area_arrival"
 		/* 0x0F20 */ char unk_F3C[0x4];
 		/* 0x0F24 */ u8 scarecrowCustomSongSet;
 		/* 0x0F25 */ u8 scarecrowCustomSong[0x360];
@@ -134,97 +243,97 @@ namespace oot::save
 		/* 0x12A9 */ u8 scarecrowSpawnSongSet;
 		/* 0x12AA */ u8 scarecrowSpawnSong[0x80];
 		/* 0x132A */ char unk_1346[0x02];
-		/* 0x132C */ HorseData horseData;
-		/* 0x1336 */ u16 checksum; // "check_sum"
+		/* 0x132C */ HorseDataBE horseData;
+		/* 0x1336 */ u16be checksum; // "check_sum"
 	};
 
-	static_assert(offsetof(Info, inventory) == 0x58, "Inventory out of alignment");
-	static_assert(sizeof(Info) == 0x1338, "Save Info incorrect size");
+	static_assert(offsetof(InfoBE, inventory) == 0x58, "Inventory out of alignment");
+	static_assert(sizeof(InfoBE) == 0x1338, "Save Info incorrect size");
 
-	struct Save
+	struct SaveBE
 	{
-		/* 0x00 */ s32 entranceIndex;
-		/* 0x04 */ s32 linkAge; // 0: Adult; 1: Child
-		/* 0x08 */ s32 cutsceneIndex;
-		/* 0x0C */ u16 dayTime; // "zelda_time"
+		/* 0x00 */ s32be entranceIndex;
+		/* 0x04 */ s32be linkAge; // 0: Adult; 1: Child
+		/* 0x08 */ s32be cutsceneIndex;
+		/* 0x0C */ u16be dayTime; // "zelda_time"
 		// u16 dayTimePadding;
-		/* 0x10 */ s32 nightFlag;
-		/* 0x14 */ s32 totalDays;
-		/* 0x18 */ s32 bgsDayCount; // increments with totalDays, gets reset by goron for bgs and one other use
-		/* 0x1C */ Info info;	    // "information"
+		/* 0x10 */ s32be nightFlag;
+		/* 0x14 */ s32be totalDays;
+		/* 0x18 */ s32be bgsDayCount; // increments with totalDays, gets reset by goron for bgs and one other use
+		/* 0x1C */ InfoBE info;	    // "information"
 
 		u16 checksum();
 	};
 
-	static_assert(offsetof(Save, dayTime) == 0x0C, "dayTime out of alignment");
-	static_assert(offsetof(Save, nightFlag) == 0x10, "nightFlag out of alignment");
-	static_assert(sizeof(Save) == 0x1C + sizeof(Info), "Save incorrect size");
+	static_assert(offsetof(SaveBE, dayTime) == 0x0C, "dayTime out of alignment");
+	static_assert(offsetof(SaveBE, nightFlag) == 0x10, "nightFlag out of alignment");
+	static_assert(sizeof(SaveBE) == 0x1C + sizeof(InfoBE), "Save incorrect size");
 
 	struct Slot
 	{
-		Save save;
+		SaveBE save;
 
-		/* 0x1354 */ s32 fileNum; // "file_no"
+		/* 0x1354 */ s32be fileNum; // "file_no"
 		/* 0x1358 */ char unk_1358[0x0004];
-		/* 0x135C */ s32 gameMode;
-		/* 0x1360 */ s32 sceneSetupIndex;
-		/* 0x1364 */ s32 respawnFlag;	     // "restart_flag"
-		/* 0x1368 */ RespawnData respawn[3]; // "restart_data"
-		/* 0x13BC */ f32 entranceSpeed;
-		/* 0x13C0 */ u16 entranceSound;
+		/* 0x135C */ s32be gameMode;
+		/* 0x1360 */ s32be sceneSetupIndex;
+		/* 0x1364 */ s32be respawnFlag;	     // "restart_flag"
+		/* 0x1368 */ RespawnDataBE respawn[3]; // "restart_data"
+		/* 0x13BC */ f32be entranceSpeed;
+		/* 0x13C0 */ u16be entranceSound;
 		/* 0x13C2 */ char unk_13C2[0x0001];
 		/* 0x13C3 */ u8 unk_13C3;
-		/* 0x13C4 */ s16 dogParams;
+		/* 0x13C4 */ s16be dogParams;
 		/* 0x13C6 */ u8 textTriggerFlags;
 		/* 0x13C7 */ u8 showTitleCard;
-		/* 0x13C8 */ s16 nayrusLoveTimer;
+		/* 0x13C8 */ s16be nayrusLoveTimer;
 		/* 0x13CA */ char unk_13CA[0x0002];
-		/* 0x13CC */ s16 rupeeAccumulator;
-		/* 0x13CE */ s16 timer1State;
-		/* 0x13D0 */ s16 timer1Value;
-		/* 0x13D2 */ s16 timer2State;
-		/* 0x13D4 */ s16 timer2Value;
-		/* 0x13D6 */ s16 timerX[2];
-		/* 0x13DA */ s16 timerY[2];
+		/* 0x13CC */ s16be rupeeAccumulator;
+		/* 0x13CE */ s16be timer1State;
+		/* 0x13D0 */ s16be timer1Value;
+		/* 0x13D2 */ s16be timer2State;
+		/* 0x13D4 */ s16be timer2Value;
+		/* 0x13D6 */ s16be timerX[2];
+		/* 0x13DA */ s16be timerY[2];
 		/* 0x13DE */ char unk_13DE[0x0002];
 		/* 0x13E0 */ u8 seqId;
 		/* 0x13E1 */ u8 natureAmbienceId;
 		/* 0x13E2 */ u8 buttonStatus[5];
 		/* 0x13E7 */ u8 startDemo;    // alpha related
-		/* 0x13E8 */ u16 unk_13E8;    // alpha type?
-		/* 0x13EA */ u16 unk_13EA;    // also alpha type?
-		/* 0x13EC */ u16 unk_13EC;    // alpha type counter?
-		/* 0x13EE */ u16 unk_13EE;    // previous alpha type?
-		/* 0x13F0 */ s16 unk_13F0;    // magic related
-		/* 0x13F2 */ s16 unk_13F2;    // magic related
-		/* 0x13F4 */ s16 unk_13F4;    // magic related
-		/* 0x13F6 */ s16 unk_13F6;    // magic related
-		/* 0x13F8 */ s16 unk_13F8;    // magic related
-		/* 0x13FA */ u16 eventInf[4]; // "event_inf"
-		/* 0x1402 */ u16 mapIndex;    // intended for maps/minimaps but commonly used as the dungeon index
-		/* 0x1404 */ u16 minigameState;
-		/* 0x1406 */ u16 minigameScore; // "yabusame_total"
+		/* 0x13E8 */ u16be unk_13E8;    // alpha type?
+		/* 0x13EA */ u16be unk_13EA;    // also alpha type?
+		/* 0x13EC */ u16be unk_13EC;    // alpha type counter?
+		/* 0x13EE */ u16be unk_13EE;    // previous alpha type?
+		/* 0x13F0 */ s16be unk_13F0;    // magic related
+		/* 0x13F2 */ s16be unk_13F2;    // magic related
+		/* 0x13F4 */ s16be unk_13F4;    // magic related
+		/* 0x13F6 */ s16be unk_13F6;    // magic related
+		/* 0x13F8 */ s16be unk_13F8;    // magic related
+		/* 0x13FA */ u16be eventInf[4]; // "event_inf"
+		/* 0x1402 */ u16be mapIndex;    // intended for maps/minimaps but commonly used as the dungeon index
+		/* 0x1404 */ u16be minigameState;
+		/* 0x1406 */ u16be minigameScore; // "yabusame_total"
 		/* 0x1408 */ char unk_1408[0x0001];
 		/* 0x1409 */ u8 language; // NTSC 0: Japanese; 1: English | PAL 0: English; 1: German; 2: French
 		/* 0x140A */ u8 audioSetting;
 		/* 0x140B */ char unk_140B[0x0001];
 		/* 0x140C */ u8 zTargetSetting; // 0: Switch; 1: Hold
-		/* 0x140E */ u16 forcedSeqId;	// immediately start playing the sequence if set
+		/* 0x140E */ u16be forcedSeqId;	// immediately start playing the sequence if set
 		/* 0x1410 */ u8 unk_1410;	// transition related
 		/* 0x1411 */ char unk_1411[0x0001];
-		/* 0x1412 */ u16 nextCutsceneIndex;
+		/* 0x1412 */ u16be nextCutsceneIndex;
 		/* 0x1414 */ u8 cutsceneTrigger;
 		/* 0x1415 */ u8 chamberCutsceneNum;
-		/* 0x1416 */ u16 nextDayTime; // "next_zelda_time"
+		/* 0x1416 */ u16be nextDayTime; // "next_zelda_time"
 		/* 0x1418 */ u8 fadeDuration;
 		/* 0x1419 */ u8 unk_1419; // transition related
-		/* 0x141A */ u16 skyboxTime;
+		/* 0x141A */ u16be skyboxTime;
 		/* 0x141C */ u8 dogIsLost;
 		/* 0x141D */ u8 nextTransition;
 		/* 0x141E */ char unk_141E[0x0002];
-		/* 0x1420 */ s16 worldMapArea;
-		/* 0x1422 */ s16 sunsSongState; // controls the effects of suns song
-		/* 0x1424 */ s16 healthAccumulator;
+		/* 0x1420 */ s16be worldMapArea;
+		/* 0x1422 */ s16be sunsSongState; // controls the effects of suns song
+		/* 0x1424 */ s16be healthAccumulator;
 		u8 padding[0x28];
 	}; // size = 0x1428
 

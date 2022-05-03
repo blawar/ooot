@@ -109,7 +109,7 @@ namespace oot::save
 	 */
 	void Context::create()
 	{
-		memset(this->newf, 0, sizeof(Info));
+		memset(this->newf, 0, sizeof(InfoBE));
 		this->totalDays = 0;
 		this->bgsDayCount = 0;
 
@@ -129,7 +129,7 @@ namespace oot::save
 		this->sceneFlags[5].swch = 0x40000000;
 	}
 
-	static PlayerData sDebugSavePlayerData = {
+	static PlayerDataBE sDebugSavePlayerData = {
 	    {'Z', 'E', 'L', 'D', 'A', 'Z'},		      // newf
 	    0,						      // deaths
 	    {0x15, 0x12, 0x17, 0x14, 0x3E, 0x3E, 0x3E, 0x3E}, // playerName ( "LINK" )
@@ -162,7 +162,7 @@ namespace oot::save
 	    0x51,					      // savedSceneNum
 	};
 
-	void PlayerData::setMagic()
+	void PlayerDataBE::setMagic()
 	{
 		newf[0] = 'Z';
 		newf[1] = 'E';
@@ -172,7 +172,7 @@ namespace oot::save
 		newf[5] = 'Z';
 	}
 
-	bool PlayerData::isMagicValid() const
+	bool PlayerDataBE::isMagicValid() const
 	{
 		return newf[0] == 'Z' && newf[1] == 'E' && newf[2] == 'L' && newf[3] == 'D' && newf[4] == 'A' && newf[5] == 'Z';
 	}
@@ -211,11 +211,11 @@ namespace oot::save
 	 */
 	void Context::createDebug()
 	{
-		memset(this->newf, 0, sizeof(Info));
+		memset(this->newf, 0, sizeof(InfoBE));
 		this->totalDays = 0;
 		this->bgsDayCount = 0;
 
-		auto playerData = (PlayerData*)this->newf;
+		auto playerData = (PlayerDataBE*)this->newf;
 		*playerData = sDebugSavePlayerData;
 		this->equips = sDebugSaveEquips;
 		this->inventory = sDebugSaveInventory;
@@ -389,20 +389,20 @@ namespace oot::save
 		magicLevel = 0;
 	}
 
-	u16 Save::checksum()
+	u16 SaveBE::checksum()
 	{
-		auto ptr = (u16*)this;
-		u16 currentChecksum = info.checksum;
+		auto ptr = (u16be*)this;
+		//u16 currentChecksum = info.checksum;
 		u16 val = 0;
 
-		info.checksum = 0;
+		//info.checksum = 0;
 
-		for(u16 offset = 0; offset < sizeof(*this) / sizeof(u16); offset++)
+		for(u16 offset = 0; offset < (sizeof(*this) - sizeof(info.checksum)) / sizeof(u16); offset++)
 		{
 			val += *ptr++;
 		}
 
-		info.checksum = currentChecksum;
+		//info.checksum = currentChecksum;
 		return val;
 	}
 
@@ -426,6 +426,7 @@ namespace oot::save
 	{
 		for(u8 slotNum = 0; slotNum < MAX_SLOTS; slotNum++)
 		{
+			auto slotChecksum = file.slots[slotNum].save.checksum();
 			load(file.slots[slotNum]);
 
 			if(checksum != slot().save.checksum())
@@ -676,7 +677,7 @@ namespace oot::save
 		s.save.entranceIndex = this->entranceIndex;
 		s.save.linkAge = this->linkAge;
 		s.save.cutsceneIndex = this->cutsceneIndex;
-		s.save.dayTime = this->dayTime;
+		s.save.dayTime = this->dayTime.toS16();
 		// s.save.dayTimePadding = this->dayTimePadding;
 		s.save.nightFlag = this->nightFlag;
 		s.save.totalDays = this->totalDays;
@@ -707,15 +708,48 @@ namespace oot::save
 
 		s.save.info.equips = this->equips;
 		s.save.info.inventory = this->inventory;
-		memcpy(s.save.info.sceneFlags, this->sceneFlags, sizeof(sceneFlags));
+
+		for(int i = 0; i < ARRAY_COUNT(sceneFlags); i++)
+		{
+			s.save.info.sceneFlags[i].chest = this[i].sceneFlags[i].chest;
+			s.save.info.sceneFlags[i].clear = this[i].sceneFlags[i].clear;
+			s.save.info.sceneFlags[i].collect = this[i].sceneFlags[i].collect;
+			s.save.info.sceneFlags[i].floors = this[i].sceneFlags[i].floors;
+			s.save.info.sceneFlags[i].rooms = this[i].sceneFlags[i].rooms;
+			s.save.info.sceneFlags[i].swch = this[i].sceneFlags[i].swch;
+			s.save.info.sceneFlags[i].unk = this[i].sceneFlags[i].unk;
+		}
+
 		s.save.info.fw = this->fw;
 		memcpy(s.save.info.unk_E8C, this->unk_E8C, sizeof(unk_E8C));
-		memcpy(s.save.info.gsFlags, this->gsFlags, sizeof(gsFlags));
+
+		for(int i = 0; i < ARRAY_COUNT(s.save.info.gsFlags); i++)
+		{
+			s.save.info.gsFlags[i] = this->gsFlags[i];
+		}
+
 		memcpy(s.save.info.unk_EB4, this->unk_EB4, sizeof(unk_EB4));
-		memcpy(s.save.info.highScores, this->highScores, sizeof(highScores));
-		memcpy(s.save.info.eventChkInf, this->eventChkInf, sizeof(eventChkInf));
-		memcpy(s.save.info.itemGetInf, this->itemGetInf, sizeof(itemGetInf));
-		memcpy(s.save.info.infTable, this->infTable, sizeof(infTable));
+
+		for(int i = 0; i < ARRAY_COUNT(highScores); i++)
+		{
+			s.save.info.highScores[i] = this->highScores[i];
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(eventChkInf); i++)
+		{
+			s.save.info.eventChkInf[i] = this->eventChkInf[i];
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(itemGetInf); i++)
+		{
+			s.save.info.itemGetInf[i] = this->itemGetInf[i];
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(infTable); i++)
+		{
+			s.save.info.infTable[i] = this->infTable[i];
+		}
+
 		memcpy(s.save.info.unk_F34, this->unk_F34, sizeof(unk_F34));
 		s.save.info.worldMapAreaData = this->worldMapAreaData;
 		memcpy(s.save.info.unk_F3C, this->unk_F3C, sizeof(unk_F3C));
@@ -733,7 +767,12 @@ namespace oot::save
 		s.gameMode = this->gameMode;
 		s.sceneSetupIndex = this->sceneSetupIndex;
 		s.respawnFlag = this->respawnFlag;
-		memcpy(s.respawn, this->respawn, sizeof(respawn));
+
+		for(int i = 0; i < ARRAY_COUNT(respawn); i++)
+		{
+			s.respawn[i] = this->respawn[i];
+		}
+
 		s.entranceSpeed = this->entranceSpeed;
 		s.entranceSound = this->entranceSound;
 		memcpy(s.unk_13C2, this->unk_13C2, sizeof(unk_13C2));
@@ -745,11 +784,14 @@ namespace oot::save
 		memcpy(s.unk_13CA, this->unk_13CA, sizeof(unk_13CA));
 		s.rupeeAccumulator = this->rupeeAccumulator;
 		s.timer1State = this->timer1State;
-		s.timer1Value = this->timer1Value;
+		s.timer1Value = this->timer1Value.toS16();
 		s.timer2State = this->timer2State;
-		s.timer2Value = this->timer2Value;
-		memcpy(s.timerX, this->timerX, sizeof(timerX));
-		memcpy(s.timerY, this->timerY, sizeof(timerY));
+		s.timer2Value = this->timer2Value.toS16();
+		s.timerX[0] = this->timerX[0].toS16();
+		s.timerX[1] = this->timerX[1].toS16();
+		s.timerY[0] = this->timerY[0].toS16();
+		s.timerY[1] = this->timerY[1].toS16();
+
 		memcpy(s.unk_13DE, this->unk_13DE, sizeof(unk_13DE));
 		s.seqId = this->seqId;
 		s.natureAmbienceId = this->natureAmbienceId;
@@ -764,7 +806,12 @@ namespace oot::save
 		s.unk_13F4 = this->unk_13F4;
 		s.unk_13F6 = this->magicMax;
 		s.unk_13F8 = this->unk_13F8;
-		memcpy(eventInf, this->eventInf, sizeof(eventInf));
+
+		for(int i = 0; i < ARRAY_COUNT(eventInf); i++)
+		{
+			s.eventInf[i] = this->eventInf[i];
+		}
+
 		s.mapIndex = this->mapIndex;
 		s.minigameState = this->minigameState;
 		s.minigameScore = this->minigameScore;
@@ -782,7 +829,7 @@ namespace oot::save
 		s.nextDayTime = this->nextDayTime;
 		s.fadeDuration = this->fadeDuration;
 		s.unk_1419 = this->unk_1419;
-		s.skyboxTime = this->skyboxTime;
+		s.skyboxTime = this->skyboxTime.toS16();
 		s.dogIsLost = this->dogIsLost;
 		s.nextTransition = this->nextTransition;
 		memcpy(s.unk_141E, this->unk_141E, sizeof(unk_141E));
@@ -815,12 +862,12 @@ namespace oot::save
 		this->entranceIndex = s.save.entranceIndex;
 		this->linkAge = s.save.linkAge;
 		this->cutsceneIndex = s.save.cutsceneIndex;
-		this->dayTime = s.save.dayTime;
+		this->dayTime = (u16)s.save.dayTime;
 		this->nightFlag = s.save.nightFlag;
 		this->totalDays = s.save.totalDays;
 		this->bgsDayCount = s.save.bgsDayCount;
 		memcpy(this->newf, s.save.info.playerData.newf, sizeof(newf));
-		this->deaths = s.save.info.playerData.deaths;
+		this->deaths = s.save.info.playerData.deaths.value();
 		memcpy(this->playerName, s.save.info.playerData.playerName, sizeof(playerName));
 		this->n64ddFlag = s.save.info.playerData.n64ddFlag;
 		this->healthCapacity = s.save.info.playerData.healthCapacity;
@@ -843,15 +890,48 @@ namespace oot::save
 		this->savedSceneNum = s.save.info.playerData.savedSceneNum;
 		this->equips = s.save.info.equips;
 		this->inventory = s.save.info.inventory;
-		memcpy(this->sceneFlags, s.save.info.sceneFlags, sizeof(sceneFlags));
+
+		for(int i = 0; i < ARRAY_COUNT(sceneFlags); i++)
+		{
+			this[i].sceneFlags[i].chest = s.save.info.sceneFlags[i].chest;
+			this[i].sceneFlags[i].clear = s.save.info.sceneFlags[i].clear;
+			this[i].sceneFlags[i].collect = s.save.info.sceneFlags[i].collect;
+			this[i].sceneFlags[i].floors = s.save.info.sceneFlags[i].floors;
+			this[i].sceneFlags[i].rooms = s.save.info.sceneFlags[i].rooms;
+			this[i].sceneFlags[i].swch = s.save.info.sceneFlags[i].swch;
+			this[i].sceneFlags[i].unk = s.save.info.sceneFlags[i].unk;
+		}
+
 		this->fw = s.save.info.fw;
 		memcpy(this->unk_E8C, s.save.info.unk_E8C, sizeof(unk_E8C));
-		memcpy(this->gsFlags, s.save.info.gsFlags, sizeof(gsFlags));
+
+		for(int i = 0; i < ARRAY_COUNT(s.save.info.gsFlags); i++)
+		{
+			this->gsFlags[i]  = s.save.info.gsFlags[i];
+		}
+
 		memcpy(this->unk_EB4, s.save.info.unk_EB4, sizeof(unk_EB4));
-		memcpy(this->highScores, s.save.info.highScores, sizeof(highScores));
-		memcpy(this->eventChkInf, s.save.info.eventChkInf, sizeof(eventChkInf));
-		memcpy(this->itemGetInf, s.save.info.itemGetInf, sizeof(itemGetInf));
-		memcpy(this->infTable, s.save.info.infTable, sizeof(infTable));
+
+		for(int i = 0; i < ARRAY_COUNT(highScores); i++)
+		{
+			this->highScores[i] = s.save.info.highScores[i];
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(eventChkInf); i++)
+		{
+			this->eventChkInf[i] = s.save.info.eventChkInf[i];
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(itemGetInf); i++)
+		{
+			this->itemGetInf[i] = s.save.info.itemGetInf[i];
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(infTable); i++)
+		{
+			this->infTable[i] = s.save.info.infTable[i];
+		}
+
 		memcpy(this->unk_F34, s.save.info.unk_F34, sizeof(unk_F34));
 		this->worldMapAreaData = s.save.info.worldMapAreaData;
 		memcpy(this->unk_F3C, s.save.info.unk_F3C, sizeof(unk_F3C));
@@ -869,7 +949,12 @@ namespace oot::save
 		this->gameMode = s.gameMode;
 		this->sceneSetupIndex = s.sceneSetupIndex;
 		this->respawnFlag = s.respawnFlag;
-		memcpy(this->respawn, s.respawn, sizeof(respawn));
+
+		for(int i = 0; i < ARRAY_COUNT(respawn); i++)
+		{
+			this->respawn[i] = s.respawn[i];
+		}
+
 		this->entranceSpeed = s.entranceSpeed;
 		this->entranceSound = s.entranceSound;
 		memcpy(this->unk_13C2, s.unk_13C2, sizeof(unk_13C2));
@@ -881,11 +966,20 @@ namespace oot::save
 		memcpy(this->unk_13CA, s.unk_13CA, sizeof(unk_13CA));
 		this->rupeeAccumulator = s.rupeeAccumulator;
 		this->timer1State = s.timer1State;
-		this->timer1Value = s.timer1Value;
+		this->timer1Value = (s16)s.timer1Value;
 		this->timer2State = s.timer2State;
-		this->timer2Value = s.timer2Value;
-		memcpy(this->timerX, s.timerX, sizeof(timerX));
-		memcpy(this->timerY, s.timerY, sizeof(timerY));
+		this->timer2Value = (s16)s.timer2Value;
+
+		for(int i = 0; i < ARRAY_COUNT(timerX); i++)
+		{
+			this->timerX[i] = s.timerX[i].value();
+		}
+
+		for(int i = 0; i < ARRAY_COUNT(timerY); i++)
+		{
+			this->timerY[i] = s.timerY[i].value();
+		}
+
 		memcpy(this->unk_13DE, s.unk_13DE, sizeof(unk_13DE));
 		this->seqId = s.seqId;
 		this->natureAmbienceId = s.natureAmbienceId;
@@ -900,7 +994,12 @@ namespace oot::save
 		this->unk_13F4 = s.unk_13F4;
 		this->magicMax = s.unk_13F6;
 		this->unk_13F8 = s.unk_13F8;
-		memcpy(this->eventInf, eventInf, sizeof(eventInf));
+
+		for(int i = 0; i < ARRAY_COUNT(eventInf); i++)
+		{
+			this->eventInf[i] = s.eventInf[i];
+		}
+
 		this->mapIndex = s.mapIndex;
 		this->minigameState = s.minigameState;
 		this->minigameScore = s.minigameScore;
@@ -918,7 +1017,7 @@ namespace oot::save
 		this->nextDayTime = s.nextDayTime;
 		this->fadeDuration = s.fadeDuration;
 		this->unk_1419 = s.unk_1419;
-		this->skyboxTime = s.skyboxTime;
+		this->skyboxTime = (u16)s.skyboxTime;
 		this->dogIsLost = s.dogIsLost;
 		this->nextTransition = s.nextTransition;
 		memcpy(this->unk_141E, s.unk_141E, sizeof(unk_141E));
@@ -956,3 +1055,135 @@ namespace oot::save
 		language = oot::config().game().language();
 	}
 } // namespace oot::save
+
+ItemEquipsBE& ItemEquipsBE::operator=(const ItemEquips& a)
+{
+	memcpy(this->buttonItems, a.buttonItems, sizeof(a.buttonItems));
+	memcpy(this->cButtonSlots, a.cButtonSlots, sizeof(a.cButtonSlots));
+	this->equipment = a.equipment;
+	return *this;
+}
+
+ItemEquips& ItemEquips::operator=(const ItemEquipsBE& a)
+{
+	memcpy(this->buttonItems, a.buttonItems, sizeof(a.buttonItems));
+	memcpy(this->cButtonSlots, a.cButtonSlots, sizeof(a.cButtonSlots));
+	this->equipment = a.equipment;
+	return *this;
+}
+
+InventoryBE& InventoryBE::operator=(const Inventory& a)
+{
+	memcpy(this->items, a.items, sizeof(a.items));
+	memcpy(this->ammo, a.ammo, sizeof(a.ammo));
+	equipment = a.equipment;
+	upgrades = a.upgrades;
+	questItems = a.questItems;
+	memcpy(this->dungeonItems, a.dungeonItems, sizeof(a.dungeonItems));
+	memcpy(this->dungeonKeys, a.dungeonKeys, sizeof(a.dungeonKeys));
+	defenseHearts = a.defenseHearts;
+	gsTokens = a.gsTokens;
+	return *this;
+}
+
+Inventory& Inventory::operator=(const InventoryBE& a)
+{
+	memcpy(this->items, a.items, sizeof(a.items));
+	memcpy(this->ammo, a.ammo, sizeof(a.ammo));
+	equipment = a.equipment;
+	upgrades = a.upgrades;
+	questItems = a.questItems;
+	memcpy(this->dungeonItems, a.dungeonItems, sizeof(a.dungeonItems));
+	memcpy(this->dungeonKeys, a.dungeonKeys, sizeof(a.dungeonKeys));
+	defenseHearts = a.defenseHearts;
+	gsTokens = a.gsTokens;
+	return *this;
+}
+
+HorseDataBE& HorseDataBE::operator=(const HorseData& a)
+{
+	this->angle = a.angle;
+	this->scene = a.scene;
+	this->pos.x = a.pos.x;
+	this->pos.y = a.pos.y;
+	this->pos.z = a.pos.z;
+	return *this;
+}
+
+HorseData& HorseData::operator=(const HorseDataBE& a)
+{
+	this->angle = a.angle;
+	this->scene = a.scene;
+	this->pos.x = a.pos.x;
+	this->pos.y = a.pos.y;
+	this->pos.z = a.pos.z;
+	return *this;
+}
+
+FaroresWindDataBE& FaroresWindDataBE::operator=(const FaroresWindData& a)
+{
+	this->pos.x = a.pos.x;
+	this->pos.y = a.pos.y;
+	this->pos.z = a.pos.z;
+	yaw = a.yaw;
+	playerParams = a.playerParams;
+	entranceIndex = a.entranceIndex;
+	roomIndex = a.roomIndex;
+	set = a.set;
+	tempSwchFlags = a.tempSwchFlags;
+	tempCollectFlags = a.tempCollectFlags;
+	return *this;
+}
+
+FaroresWindData& FaroresWindData::operator=(const FaroresWindDataBE& a)
+{
+	this->pos.x = a.pos.x;
+	this->pos.y = a.pos.y;
+	this->pos.z = a.pos.z;
+	yaw = a.yaw;
+	playerParams = a.playerParams;
+	entranceIndex = a.entranceIndex;
+	roomIndex = a.roomIndex;
+	set = a.set;
+	tempSwchFlags = a.tempSwchFlags;
+	tempCollectFlags = a.tempCollectFlags;
+	return *this;
+}
+
+RespawnDataBE::operator RespawnData() const
+{
+	RespawnData r;
+	r.data = data;
+	r.entranceIndex = entranceIndex;
+	r.playerParams = playerParams;
+	r.pos = pos;
+	r.roomIndex = roomIndex;
+	r.tempCollectFlags = tempCollectFlags;
+	r.tempSwchFlags = tempSwchFlags;
+	r.yaw = yaw;
+	return r;
+}
+
+RespawnData::operator RespawnDataBE() const
+{
+	RespawnDataBE r;
+	r.data = data;
+	r.entranceIndex = entranceIndex;
+	r.playerParams = playerParams;
+	r.pos.x = pos.x;
+	r.pos.y = pos.y;
+	r.pos.z = pos.z;
+	r.roomIndex = roomIndex;
+	r.tempCollectFlags = tempCollectFlags;
+	r.tempSwchFlags = tempSwchFlags;
+	r.yaw = yaw;
+	return r;
+}
+
+static_assert(byteswap<u16>(0xf8d0) == 0xd0f8, "bad swap");
+static_assert(byteswap<s16>(-1840) == -12040, "bad swap");
+
+static_assert(byteswap<u32>(0xf8d05708) == 0x0857d0f8, "bad swap");
+static_assert(byteswap<s32>(-120563960) == 139972856, "bad swap");
+static_assert(byteswap<u32>(0xf8d057D8) == 0xD857d0f8, "bad swap");
+static_assert(byteswap<s32>(-120563752) == -665333512, "bad swap");

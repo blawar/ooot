@@ -138,3 +138,28 @@ VecPosF::operator Vec3f() const
 	return vec;
 }
 */
+
+Vec3f& Vec3f::operator=(const Vec3f& a)
+{
+	x = a.x;
+	y = a.y;
+	z = a.z;
+	return *this;
+}
+
+Vec3fbe& Vec3fbe::operator=(const Vec3fbe& a)
+{
+	x = a.x;
+	y = a.y;
+	z = a.z;
+	return *this;
+}
+
+Vec3fbe::operator Vec3f() const
+{
+	Vec3f r;
+	r.x = x;
+	r.y = y;
+	r.z = z;
+	return r;
+}

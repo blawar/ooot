@@ -49,6 +49,7 @@ void Math_Vec3f_Copy(Vec3f* dest, Vec3f* src);
 void Math_Vec3f_Diff(Vec3f* a, Vec3f* b, Vec3f* dest);
 f32 Math_Vec3f_DistXYZ(Vec3f* a, Vec3f* b);
 f32 Math_Vec3f_DistXYZAndStoreDiff(Vec3f* a, Vec3f* b, Vec3f* dest);
+f32 Math_Vec3f_DistXYZAndStoreDiff(const Vec3f& a, const Vec3f& b, Vec3f* dest);
 f32 Math_Vec3f_DistXZ(Vec3f* a, Vec3f* b);
 s16 Math_Vec3f_Pitch(Vec3f* a, Vec3f* b);
 void Math_Vec3f_Scale(Vec3f* vec, f32 scaleF);

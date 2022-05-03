@@ -42,74 +42,121 @@
 #define POINTER_SUB(a, b) (MAX((uintptr_t)a, (uintptr_t)b) - MIN((uintptr_t)a, (uintptr_t)b))
 #define POINTER_SUB2(a, b) (MAX((uintptr_t)a.get(), (uintptr_t)b.get()) - MIN((uintptr_t)a.get(), (uintptr_t)b.get()))
 
-struct s16be
+template <typename T> static constexpr const T byteswap(T value);
+
+template <>
+static constexpr const s16 byteswap<s16>(s16 value)
 {
-	s16be() : value(0)
+	return (s16)((u16)value >> 8) | ((u16)value << 8);
+}
+
+template <>
+static constexpr const u16 byteswap<u16>(u16 value)
+{
+	return (value >> 8) | (value << 8);
+}
+
+template <>
+static constexpr const u32 byteswap<u32>(u32 value)
+{
+	return u32(byteswap<u16>(value) << 16) | byteswap<u16>(value >> 16);
+}
+
+template <>
+constexpr const s32 byteswap<s32>(s32 value)
+{
+	return s32(byteswap<u16>(value) << 16) | byteswap<u16>(value >> 16);
+}
+
+template <>
+constexpr const f32 byteswap<f32>(f32 value)
+{
+	u8* ptr = (u8*)&value;
+	const u8 r[4] = {ptr[3], ptr[2], ptr[1], ptr[0]};
+	return *(f32*)r;
+}
+
+template<class T>
+struct BE
+{
+	BE() : m_value(0)
 	{
 	}
 
-	s16be(s16 v) : value((s16)BE16((u16)v))
+	BE(T v) : m_value(byteswap<T>(v))
 	{
 	}
 
-	operator s16() const
+	BE& operator-=(T v)
 	{
-		return (s16)BE16((u16)value);
+		*this = value() - v;
+		return *this;
 	}
 
-	s16 value;
+	BE& operator+=(T v)
+	{
+		*this = value() + v;
+		return *this;
+	}
+
+	BE& operator^=(T v)
+	{
+		*this = value() ^ v;
+		return *this;
+	}
+
+	BE& operator|=(T v)
+	{
+		*this = value() | v;
+		return *this;
+	}
+
+	BE& operator&=(T v)
+	{
+		*this = value() & v;
+		return *this;
+	}
+
+	BE& operator++()
+	{
+		return operator+=(1);
+	}
+
+	BE operator++(int)
+	{
+		T s = value();
+		operator+=(1);
+		return s;
+	}
+
+	BE& operator--()
+	{
+		return operator-=(1);
+	}
+
+	BE operator--(int)
+	{
+		T s = value();
+		operator-=(1);
+		return s;
+	}
+
+	operator T() const
+	{
+		return (T)byteswap<T>(m_value);
+	}
+
+	T value() const
+	{
+		return m_value;
+	}
+
+	T m_value;
 };
 
-struct u16be
-{
-	u16be() : value(0)
-	{
-	}
+typedef BE<u16> u16be;
+typedef BE<s16> s16be;
+typedef BE<u32> u32be;
+typedef BE<s32> s32be;
+typedef BE<f32> f32be;
 
-	u16be(u16 v) : value((u16)BE16((u16)v))
-	{
-	}
-
-	operator u16() const
-	{
-		return (u16)BE16((u16)value);
-	}
-
-	u16 value;
-};
-
-struct s32be
-{
-	s32be() : value(0)
-	{
-	}
-
-	s32be(s32 v) : value((s32)BE32((u32)v))
-	{
-	}
-
-	operator s32() const
-	{
-		return (s32)BE32((u32)value);
-	}
-
-	s32 value;
-};
-
-struct u32be
-{
-	u32be() : value(0)
-	{
-	}
-
-	u32be(u32 v) : value((u32)BE32((u32)v))
-	{
-	}
-
-	operator u32() const
-	{
-		return (u32)BE32((u32)value);
-	}
-
-	u32 value;
-};

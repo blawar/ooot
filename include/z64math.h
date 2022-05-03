@@ -2,6 +2,7 @@
 #include <math.h>
 #include "framerate.h"
 #include "ultra64/types.h"
+#include "porting_defs.h"
 #include "globalctx.h"
 
 #define VEC_SET(V, X, Y, Z)                                                                                                                                                                                                                                    \
@@ -20,9 +21,20 @@ struct Vec2f
 	f32 x, y;
 }; // size = 0x08
 
+struct Vec3fbe;
 struct Vec3f
 {
+	Vec3f& operator=(const Vec3f& a);
+
 	f32 x, y, z;
+}; // size = 0x0C
+
+struct Vec3fbe
+{
+	Vec3fbe& operator=(const Vec3fbe& a);
+	operator Vec3f() const;
+
+	f32be x, y, z;
 }; // size = 0x0C
 
 struct Vec3us
@@ -35,9 +47,19 @@ struct Vec3s
 	s16 x, y, z;
 }; // size = 0x06
 
+struct Vec3sbe
+{
+	s16be x, y, z;
+}; // size = 0x06
+
 struct Vec3i
 {
 	s32 x, y, z;
+}; // size = 0x0C
+
+struct Vec3ibe
+{
+	s32be x, y, z;
 }; // size = 0x0C
 
 struct VecRot
