@@ -1,0 +1,31 @@
+[
+  {
+    "pause_botw_title": "Puits",
+    "pause_current_position": "POSITION ACTUELLE",
+    "pause_deku_title": "Arbre Mojo",
+    "pause_dodongo_title": "Caverne Dodongo",
+    "pause_equipment": "EQUIPEMENT",
+    "pause_fire_title": "Temple du Feu",
+    "pause_forest_title": "Temple de la Forêt",
+    "pause_ice_cavern_title": "Caverne Polaire",
+    "pause_inside_jabu_title": "Ventre de Jabu-Jabu",
+    "pause_map": "CARTE",
+    "pause_no": "Non",
+    "pause_quest_status": "STATUT",
+    "pause_save": "SAUVEGARDER",
+    "pause_save_confirmation": "Jeu sauvegardé",
+    "pause_save_prompt": "Voulez-vous sauvegarder ?",
+    "pause_select_item": "INVENTAIRE",
+    "pause_shadow_title": "Temple de l'Ombre",
+    "pause_spirit_title": "Temple de l'Esprit",
+    "pause_to_decide": "pour valider",
+    "pause_to_equip": "pour équiper",
+    "pause_to_equipment": "Equipement",
+    "pause_to_map": "Carte",
+    "pause_to_play_melody": "pour entendre le chant",
+    "pause_to_quest_status": "Statut",
+    "pause_to_select_item": "Inventaire",
+    "pause_water_title": "Temple de l'Eau",
+    "pause_yes": "Oui"
+  }
+]
