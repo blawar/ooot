@@ -230,7 +230,7 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size)
 #ifdef _MSC_VER
 	return _aligned_malloc(ALIGN16(size), 0x10);
 #else
-	return aligned_alloc(ALIGN16(size), 0x10);
+	return aligned_alloc(0x10, ALIGN16(size));
 #endif
 	// return malloc(size);
 	u32 aligned = ALIGN16(size);
