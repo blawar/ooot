@@ -182,7 +182,7 @@ void run()
 	main_func();
 }
 
-int main(int argc, char** argv)
+int main2(int argc, char** argv)
 {
 	std::vector<std::string> commands;
 	for(int i = 1; i < argc; i++)
@@ -190,6 +190,7 @@ int main(int argc, char** argv)
 
 	ParseCommandLineArguments(commands);
 	run();
+	return 0;
 }
 
 #if defined(_MSC_VER)

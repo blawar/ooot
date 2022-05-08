@@ -44,6 +44,7 @@ namespace oot::hid
 
 				resetBindingsImpl();
 
+#if SDL_VERSION_ATLEAST(2, 0, 14) != 0
 				if(SDL_GameControllerHasSensor(m_context, SDL_SENSOR_GYRO) == SDL_TRUE)
 				{
 					if(!SDL_GameControllerSetSensorEnabled(m_context, SDL_SENSOR_GYRO, SDL_TRUE))
@@ -59,6 +60,7 @@ namespace oot::hid
 						m_hasAccel = true;
 					}
 				}
+#endif
 
 #ifndef __SWITCH__
 				loadKeyBindings();
@@ -369,6 +371,7 @@ namespace oot::hid
 				m_state.r_stick_x = stickRightX();
 				m_state.r_stick_y = stickRightY();
 
+#if SDL_VERSION_ATLEAST(2, 0, 14) != 0
 				if(config().controls().enableGyro())
 				{
 					if(m_hasGyro && isFirstPerson())
@@ -407,6 +410,7 @@ namespace oot::hid
 						}
 					}
 				}
+#endif
 
 				for(const auto& [scancode, input] : m_keyBindings)
 				{

@@ -550,6 +550,7 @@ void EnBb_Damage(EnBb* pthis, GlobalContext* globalCtx)
 {
 	Math_SmoothStepToF(&pthis->actor.speedXZ, 0.0f, 1.0f, 0.5f, 0.0f);
 	if(Round(pthis->actor.speedXZ) == 0.0f)
+
 	{
 		pthis->actor.shape.yOffset = 200.0f;
 		EnBb_SetupDown(pthis);

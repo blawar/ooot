@@ -8,8 +8,12 @@
 
 **Discord:** <https://discord.com/invite/8tktBEhbZm>
 
-MattsCreative has a great video tutorial on how to compile this project here: <https://youtu.be/swv1Tv-kjsU>
+[MattsCreative](http://www.youtube.com/channel/UCzoVL1aVjec7YKPeG59xKFg) has a great video tutorial on how to compile this project here: <https://youtu.be/swv1Tv-kjsU> and Compiling the dev branch to enable 30-120fps here https://www.youtube.com/watch?v=khiLvG3psPM
 
+## FAQ
+
+[FAQ](https://github.com/blawar/ooot/wiki/FAQ)
+Click here for more infomation on the Project!
 
 ## Features
 
@@ -33,52 +37,127 @@ MattsCreative has a great video tutorial on how to compile this project here: <h
 ## Contributers
 The current main contributers of this project are [blawar](https://github.com/blawar) and [DaMarkov](https://github.com/damarkov)
 
-## Required Programs For Compiling Windows
+## How to Acquire the ROM needed
+
+You must get that on your own and please do not ask for that in the discord due to discord's TOS.
+
+### Windows and Required Programs
+
+Step one install all required Programs below
 
 [Python 3.10](https://www.python.org/downloads/) **Add to path during the install**
+
+![68747470733a2f2f692e696d6775722e636f6d2f4544326c5139512e706e67](https://user-images.githubusercontent.com/84041391/163289314-75bf3467-9506-4df6-bdf8-ece6a7114792.png)
+
 
 [Git](https://git-scm.com/) **Choose x64 Build and Use the git bash to clone the repo and to run setup.py**
 
 [Visual Studio Community 2022](https://visualstudio.microsoft.com/vs/community/) **During setup click C++ development**
+![vcc](https://user-images.githubusercontent.com/84041391/163289227-6fdfd616-edeb-4314-b29c-9a5ed50aa1c5.png)
 
-## Installation
-
-### Windows
 
 **Visual Studio 2019+ is the only currently supported build environment, and only the 32-bit X86/WIN32 build**
 
 You must use the ZAPD that is included with this repository, and not the main branch as it is modified.
 
+Step 2 Follow what is below!
+
 ### PAL 1.0 RETAIL ROM
 If you are using the EUR PAL 1.0 retail rom,
 
-**make Sure baserom_original.z64 or baserom_original.n64 is inside 
-\ooot\roms\PAL_1.0\ If it's not the correct "hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] it won't extract the assets and continue.**
+make sure baserom_original.z64 or baserom_original.n64 is inside the correct folder as shown below:
+`\ooot\roms\PAL_1.0\` 
 
-Open Git Bash Type ``git clone --recursive https://github.com/blawar/ooot.git`` let it run.
-After it's done type cd ooot and if you have the rom placed in the location above 
-Run this command next to extract the assets from the rom (baserom_original.z64 must exist in the directory)
+![rom pal](https://user-images.githubusercontent.com/84041391/163308550-bc9afea2-ce38-4021-bafc-2a83c63d9b85.png)
+
+
+iF the roms hash is not correct it won't extract the assets and continue. `"hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] `
+
+Open git Bash or command prompt and type:
+``git clone --recursive https://github.com/blawar/ooot.git``
+
+![git clone](https://user-images.githubusercontent.com/84041391/163308082-4af59ab6-4956-405e-96a3-63b6407b32be.png)
+
+
+after it's done type `cd ooot` 
+
+![cd ooot](https://user-images.githubusercontent.com/84041391/163308108-2c0bb792-9535-41b3-acd1-942730183f3e.png)
+
+run this command next to extract the assets from the rom. (baserom_original.z64 must exist in the directory `\ooot\roms\PAL_1.0\`)
+
+![pal](https://user-images.githubusercontent.com/84041391/163309103-8936c210-5532-45ab-b3f1-f3f21b04f1f7.png)
 
 ```
-setup.py -b PAL_1.0
+python setup.py -b PAL_1.0
 ```
 
 ### EUR Masterquest Debug ROM
-If you are using the EUR Master Quest Debug rom.
+if you are using the EUR Master Quest Debug rom.
 
-**make Sure baserom_original.z64 or baserom_original.n64 is inside 
-\ooot\roms\EUR_MQD\ If it's not the correct "hash_md5": ["f0b7f35375f9cc8ca1b2d59d78e35405", "8ca71e87de4ce5e9f6ec916202a623e9", "f751d1a097764e2337b1ac9ba1e27699"], it won't extract the assets and continue.**
+make sure baserom_original.z64 or baserom_original.n64 is inside the correct folder as shown below:
+`\ooot\roms\EUR_MQD\`
 
-Open Git Bash Type ``git clone --recursive https://github.com/blawar/ooot.git`` let it run.
-After it's done type cd ooot and if you have the rom placed in the location above 
-Run this command next to extract the assets from the rom (baserom_original.z64 must exist in the directory)
+![rom mq](https://user-images.githubusercontent.com/84041391/163308745-19d57f25-8ec7-45fb-9874-c0ddd865c50f.png)
+
+
+if the roms hash is not correct it won't extract the assets and continue. `"hash_md5": ["f0b7f35375f9cc8ca1b2d59d78e35405", "8ca71e87de4ce5e9f6ec916202a623e9"`
+
+Open git Bash or command prompt and type:
+
+``git clone --recursive https://github.com/blawar/ooot.git``
+
+![git clone](https://user-images.githubusercontent.com/84041391/163308776-13aa98c0-7e5a-4e00-9b2c-4c44e67ecc89.png)
+
+after it's done type `cd ooot` 
+
+![cd ooot](https://user-images.githubusercontent.com/84041391/163308819-37bec5b7-1b30-4964-bacf-6213d45a4c01.png)
+
+run this command next to extract the assets from the rom. (baserom_original.z64 must exist in the directory `\ooot\roms\EUR_MQD\`)
+
+![mq](https://user-images.githubusercontent.com/84041391/163309044-3956df29-5e0c-4325-8d53-c9009199ebd5.png)
+
 ```
-setup.py -b EUR_MQD
+python setup.py -b EUR_MQD
 ```
 
-Open OOT.sln, you will find this in \ooot\vs make sure **Debug - Win32** or **Release - Win32** is selected, then hit build.
+Open `OOT.sln`, you will find this in `\ooot\vs` 
+![sln](https://user-images.githubusercontent.com/84041391/163309469-165d0695-bbac-4838-ab1e-c09b29ccfb8f.png)
 
-Once the build completes, press F5 to start it if you are testing code but if you are compiling to play right click oot on the side and click build.
+
+
+make sure `Debug - Win32** or **Release - Win32` is selected, then hit build.
+
+Once the build completes, press F5 to start it if you are testing code but if you are compiling to play right click `oot` on the side and click build.
+
+## How to Enable 60FPS
+
+`git checkout dev`
+
+`git pull origin dev`
+
+`git submodule update --init --recursive`
+
+`python setup.py -b PAL_1.0`
+
+And compile as normal! when in game press F7 to go back to 20FPS and F8 to go up to 30FPs 60FPs and 120FPS!
+
+## How to update local repo
+
+open git bash type:
+
+`cd ooot`
+
+`git pull`
+
+`python setup.py -b PAL_1.0`
+
+`python setup.py -b EUR_MQD`
+
+and Open `OOT.sln`, you will find this in `\ooot\vs` make sure `Debug - Win32** or **Release - Win32` is selected, then hit build.
+
+![release](https://user-images.githubusercontent.com/84041391/163309769-b4573b11-4650-4563-90a3-56cfef390206.png)
+![debug](https://user-images.githubusercontent.com/84041391/163309770-859ea356-345a-4e6e-871c-3ffceba7c36a.png)
+
 
 ### macOS
 
@@ -90,9 +169,14 @@ Linux does not currently work.  The below steps are for development purposes.
 ```
 Debian/Ubuntu
 
+sudo dpkg --add-architecture i386
+sudo apt update
 sudo apt install gcc-multilib g++-multilib
 sudo apt install libsdl2-dev
+sudo apt install libsdl2-dev:i386
 sudo apt install libpng-dev
+sudo apt install libfreetype6-dev
+sudo apt install libfreetype6-dev:i386
 sudo apt install python3
 sudo apt install python3-pip
 sudo apt install meson
@@ -110,16 +194,18 @@ sudo pacman -S libpng
 Fedora Linux
 
 sudo dnf in gcc
-sudo dnf in sdl2-devel
+sudo dnf in SDL2-devel
 sudo dnf in meson
 sudo dnf in python3-pip
 sudo dnf in libpng
+sudo dnf in g++
 
 setup.py -b EUR_MQD
-meson setup linux
+meson setup linux --cross-file x86-linux-gnu
 cd linux
 ninja
 ```
+
 
 
 ## Contributing

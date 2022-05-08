@@ -270,9 +270,9 @@ void MagicDark_DiamondDraw(Actor* thisx, GlobalContext* globalCtx)
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_magic_dark.c", 553), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 		gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 170, 255, 255, (s32)(pthis->primAlpha * 0.6f) & 0xFF);
 		gDPSetEnvColor(POLY_XLU_DISP++, 0, 100, 255, 128);
-		gSPDisplayList(POLY_XLU_DISP++, sDiamondMaterialDL);
+		gSPDisplayList(POLY_XLU_DISP++, sMagicDarkDiamondMaterialDL);
 		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, gameplayFrames * 2, gameplayFrames * -4, 32, 32, 1, 0, gameplayFrames * -16, 64, 32));
-		gSPDisplayList(POLY_XLU_DISP++, sDiamondModelDL);
+		gSPDisplayList(POLY_XLU_DISP++, sMagicDarkDiamondModelDL);
 	}
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_magic_dark.c", 570);

@@ -89,7 +89,7 @@ void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx)
 		z = 1330;
 	}
 
-	vtxPtr = sFrustumVtx;
+	vtxPtr = sOceffWipe2FrustumVtx;
 	if(pthis->timer >= 80)
 	{
 		alpha = 12 * (100 - pthis->timer);
@@ -115,9 +115,9 @@ void OceffWipe2_Draw(Actor* thisx, GlobalContext* globalCtx)
 
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 170, 255);
 	gDPSetEnvColor(POLY_XLU_DISP++, 255, 100, 0, 128);
-	gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+	gSPDisplayList(POLY_XLU_DISP++, sOceffWipe2MaterialDL);
 	gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, scroll * 6, scroll * (-6), 64, 64, 1, scroll * (-6), 0, 64, 64));
-	gSPDisplayList(POLY_XLU_DISP++, sFrustumDL);
+	gSPDisplayList(POLY_XLU_DISP++, sOceffWipe2FrustumDL);
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_oceff_wipe2.c", 417);
 }
