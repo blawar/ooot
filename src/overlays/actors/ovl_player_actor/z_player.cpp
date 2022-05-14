@@ -14995,7 +14995,7 @@ void Player_UpdateFunc_FallingFromLight(Player* pthis, GlobalContext* globalCtx)
 				func_80853080(pthis, globalCtx);
 			}
 		}
-		Math_SmoothStepToF(&pthis->actor.velocity.y, 2.0f, 0.3f, 8.0f, 0.5f);
+		Math_SmoothStepToF(&pthis->actor.velocity.y, 2.0f, 0.3f * FRAMERATE_SCALER, 8.0f, 0.5f);
 	}
 
 	if((globalCtx->sceneNum == SCENE_KENJYANOMA) && func_8083ADD4(globalCtx, pthis))
