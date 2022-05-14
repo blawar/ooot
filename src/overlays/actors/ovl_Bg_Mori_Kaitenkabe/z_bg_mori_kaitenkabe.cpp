@@ -153,11 +153,11 @@ void BgMoriKaitenkabe_Rotate(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx)
 		func_8002DF54(globalCtx, thisx, 7);
 		if(pthis->rotDirection > 0.0f)
 		{
-			thisx->home.rot.y += 0x2000;
+			thisx->home.rot.y = thisx->home.rot.y + 0x2000;
 		}
 		else
 		{
-			thisx->home.rot.y -= 0x2000;
+			thisx->home.rot.y = thisx->home.rot.y - 0x2000;
 		}
 		thisx->world.rot.y = thisx->shape.rot.y = thisx->home.rot.y;
 		Common_PlaySfx2(NA_SE_EV_STONEDOOR_STOP);
