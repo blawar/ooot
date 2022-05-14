@@ -198,7 +198,7 @@ void BgHakaGate_StatueInactive(BgHakaGate* pthis, GlobalContext* globalCtx)
 
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->dyna.unk_150 = 0.0f;
 	}
 }
@@ -222,7 +222,7 @@ void BgHakaGate_StatueIdle(BgHakaGate* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			player->stateFlags2 &= ~PLAYER_STATE2_4;
+			player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 			pthis->dyna.unk_150 = 0.0f;
 			if(pthis->vTimer != 0)
 			{
@@ -254,7 +254,7 @@ void BgHakaGate_StatueTurn(BgHakaGate* pthis, GlobalContext* globalCtx)
 	turnFinished = Math_StepToS(&pthis->vTurnAngleDeg10, 600, pthis->vTurnRateDeg10);
 	turnAngle = pthis->vTurnAngleDeg10 * pthis->vTurnDirection;
 	pthis->dyna.actor.shape.rot.y = (pthis->vRotYDeg10 + turnAngle) * 0.1f * (0x10000 / 360.0f);
-	if((player->stateFlags2 & PLAYER_STATE2_4) && (sStatueDistToPlayer > 0.0f))
+	if((player->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING) && (sStatueDistToPlayer > 0.0f))
 	{
 		player->actor.world.pos.x = pthis->dyna.actor.home.pos.x + (Math_SinS(pthis->dyna.actor.shape.rot.y - pthis->vInitTurnAngle) * sStatueDistToPlayer);
 		player->actor.world.pos.z = pthis->dyna.actor.home.pos.z + (Math_CosS(pthis->dyna.actor.shape.rot.y - pthis->vInitTurnAngle) * sStatueDistToPlayer);
@@ -266,7 +266,7 @@ void BgHakaGate_StatueTurn(BgHakaGate* pthis, GlobalContext* globalCtx)
 	sStatueRotY = pthis->dyna.actor.shape.rot.y;
 	if(turnFinished)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->vRotYDeg10 = (pthis->vRotYDeg10 + turnAngle) % 3600;
 		pthis->vTurnRateDeg10 = 0;
 		pthis->vTurnAngleDeg10 = 0;

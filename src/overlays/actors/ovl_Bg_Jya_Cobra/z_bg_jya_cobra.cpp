@@ -15,9 +15,9 @@ void BgJyaCobra_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgJyaCobra_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80896918(BgJyaCobra* pthis, GlobalContext* globalCtx);
-void func_80896950(BgJyaCobra* pthis, GlobalContext* globalCtx);
+void BgJyaCobra_ActionIdle(BgJyaCobra* pthis, GlobalContext* globalCtx);
 void func_808969F8(BgJyaCobra* pthis, GlobalContext* globalCtx);
-void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx);
+void BgJyaCobra_ActionRotate(BgJyaCobra* pthis, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Bg_Jya_Cobra/ovl_Bg_Jya_Cobra.cpp"
 #include "def/code_80043480.h"
@@ -462,12 +462,12 @@ void BgJyaCobra_Destroy(Actor* thisx, GlobalContext* globalCtx)
 
 void func_80896918(BgJyaCobra* pthis, GlobalContext* globalCtx)
 {
-	pthis->actionFunc = func_80896950;
+	pthis->actionFunc = BgJyaCobra_ActionIdle;
 	pthis->unk_168 = 0;
 	pthis->dyna.actor.shape.rot.y = pthis->dyna.actor.world.rot.y = (pthis->unk_16C * 0x2000) + pthis->dyna.actor.home.rot.y;
 }
 
-void func_80896950(BgJyaCobra* pthis, GlobalContext* globalCtx)
+void BgJyaCobra_ActionIdle(BgJyaCobra* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
@@ -487,7 +487,7 @@ void func_80896950(BgJyaCobra* pthis, GlobalContext* globalCtx)
 	if(fabsf(pthis->dyna.unk_150) > 0.001f)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 }
 
@@ -497,7 +497,7 @@ void func_808969F8(BgJyaCobra* pthis, GlobalContext* globalCtx)
 	s32 phi_a3;
 	s16 temp2;
 
-	pthis->actionFunc = func_80896ABC;
+	pthis->actionFunc = BgJyaCobra_ActionRotate;
 
 	temp2 = pthis->dyna.actor.yawTowardsPlayer - pthis->dyna.actor.shape.rot.y;
 	phi_a3 = (s16)(pthis->dyna.actor.shape.rot.y - pthis->dyna.unk_158);
@@ -519,7 +519,7 @@ void func_808969F8(BgJyaCobra* pthis, GlobalContext* globalCtx)
 	pthis->unk_172 = true;
 }
 
-void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx)
+void BgJyaCobra_ActionRotate(BgJyaCobra* pthis, GlobalContext* globalCtx)
 {
 	s16 temp_v0;
 	Player* player = GET_PLAYER(globalCtx);
@@ -537,7 +537,7 @@ void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx)
 	if(Math_ScaledStepToS(&pthis->unk_170, pthis->unk_16A * 0x2000, pthis->unk_16E))
 	{
 		pthis->unk_16C = (pthis->unk_16C + pthis->unk_16A) & 7;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->dyna.unk_150 = 0.0f;
 		func_80896918(pthis, globalCtx);
 	}
@@ -546,7 +546,7 @@ void func_80896ABC(BgJyaCobra* pthis, GlobalContext* globalCtx)
 		pthis->dyna.actor.shape.rot.y = pthis->dyna.actor.world.rot.y = (pthis->unk_16C * 0x2000) + pthis->dyna.actor.home.rot.y + pthis->unk_170;
 	}
 
-	if(player->stateFlags2 & PLAYER_STATE2_4)
+	if(player->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 	{
 		if(pthis->unk_172)
 		{

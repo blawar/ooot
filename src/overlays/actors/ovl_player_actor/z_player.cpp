@@ -1189,7 +1189,7 @@ void func_80832440(GlobalContext* globalCtx, Player* pthis)
 	func_8005B1A4(Gameplay_GetCamera(globalCtx, 0));
 
 	pthis->stateFlags1 &= ~(PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_20 | PLAYER_STATE1_21);
-	pthis->stateFlags2 &= ~(PLAYER_STATE2_4 | PLAYER_STATE2_7 | PLAYER_STATE2_CRAWL);
+	pthis->stateFlags2 &= ~(PLAYER_STATE2_4_JYA_COBRA_TURNING | PLAYER_STATE2_7 | PLAYER_STATE2_CRAWL);
 
 	pthis->actor.shape.rot.x = 0;
 	pthis->actor.shape.yOffset = 0.0f;
@@ -7513,7 +7513,7 @@ s32 func_8083F7BC(Player* pthis, GlobalContext* globalCtx)
 
 s32 func_8083F9D0(GlobalContext* globalCtx, Player* pthis)
 {
-	if((pthis->actor.bgCheckFlags & BG_STATE_9) && ((pthis->stateFlags2 & PLAYER_STATE2_4) || CHECK_BTN_ALL(sControlInput->cur.button, BTN_A)))
+	if((pthis->actor.bgCheckFlags & BG_STATE_9) && ((pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING) || CHECK_BTN_ALL(sControlInput->cur.button, BTN_A)))
 	{
 		DynaPolyActor* wallPolyActor = NULL;
 
@@ -7524,7 +7524,7 @@ s32 func_8083F9D0(GlobalContext* globalCtx, Player* pthis)
 
 		if(&wallPolyActor->actor == pthis->unk_3C4)
 		{
-			if(pthis->stateFlags2 & PLAYER_STATE2_4)
+			if(pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 			{
 				return 1;
 			}
@@ -7537,21 +7537,21 @@ s32 func_8083F9D0(GlobalContext* globalCtx, Player* pthis)
 
 	Player_ResetActionFunction(pthis, globalCtx);
 	func_80832264(globalCtx, pthis, &gPlayerAnim_003100);
-	pthis->stateFlags2 &= ~PLAYER_STATE2_4;
+	pthis->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	return 1;
 }
 
 void func_8083FAB8(Player* pthis, GlobalContext* globalCtx)
 {
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084B898, 0);
-	pthis->stateFlags2 |= PLAYER_STATE2_4;
+	pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	func_80832264(globalCtx, pthis, &gPlayerAnim_0030F0);
 }
 
 void func_8083FB14(Player* pthis, GlobalContext* globalCtx)
 {
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084B9E4, 0);
-	pthis->stateFlags2 |= PLAYER_STATE2_4;
+	pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	func_80832264(globalCtx, pthis, D_80853C5C[pthis->modelAnimType]);
 }
 
@@ -13018,11 +13018,11 @@ void Player_UpdateFunc_8084B898(Player* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->stateFlags2 |= PLAYER_STATE2_4;
+			pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		}
 	}
 
-	if(pthis->stateFlags2 & PLAYER_STATE2_4)
+	if(pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 	{
 		func_8084B840(globalCtx, pthis, 2.0f);
 		pthis->linearVelocity = 2.0f;
@@ -13087,11 +13087,11 @@ void Player_UpdateFunc_8084B9E4(Player* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->stateFlags2 |= PLAYER_STATE2_4;
+			pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		}
 	}
 
-	if(pthis->stateFlags2 & PLAYER_STATE2_4)
+	if(pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 	{
 		temp2 = func_8083973C(globalCtx, pthis, &D_80854880, &sp5C) - pthis->actor.world.pos.y;
 		if(fabsf(temp2) < 20.0f)
@@ -13105,7 +13105,7 @@ void Player_UpdateFunc_8084B9E4(Player* pthis, GlobalContext* globalCtx)
 				return;
 			}
 		}
-		pthis->stateFlags2 &= ~PLAYER_STATE2_4;
+		pthis->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 }
 

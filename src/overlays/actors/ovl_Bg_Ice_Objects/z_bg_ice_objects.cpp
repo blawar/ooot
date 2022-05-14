@@ -152,7 +152,7 @@ void BgIceObjects_Idle(BgIceObjects* pthis, GlobalContext* globalCtx)
 
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		if((pthis->dyna.unk_150 > 0.0f) && !Player_InCsMode(globalCtx))
 		{
 			BgIceObjects_SetNextTarget(pthis, globalCtx);
@@ -230,7 +230,7 @@ void BgIceObjects_Reset(BgIceObjects* pthis, GlobalContext* globalCtx)
 
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->dyna.unk_150 = 0.0f;
 	}
 	if(Math_StepToF(&thisx->world.pos.y, thisx->home.pos.y, 1.0f))
@@ -248,7 +248,7 @@ void BgIceObjects_Stuck(BgIceObjects* pthis, GlobalContext* globalCtx)
 
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->dyna.unk_150 = 0.0f;
 	}
 }

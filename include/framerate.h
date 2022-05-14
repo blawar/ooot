@@ -379,7 +379,7 @@ class Timer
 	{
 		if(m_counterInt > m_max * m_counterScaler)
 		{
-			m_counterInt = (m_min * m_counterScaler) + (m_counterInt - (m_max * m_counterScaler + 1));
+			m_counterInt = (m_min * m_counterScaler) + (m_counterInt - ((m_max + 1) * m_counterScaler + 0));
 
 			if(m_counterInt > m_max * m_counterScaler)
 			{
@@ -389,7 +389,7 @@ class Timer
 
 		if(m_counterInt < m_min * m_counterScaler)
 		{
-			m_counterInt = (m_max * m_counterScaler) + (m_counterInt - (m_min * m_counterScaler - 1));
+			m_counterInt = (m_max * m_counterScaler) + (m_counterInt - ((m_min - 1) * m_counterScaler - 0));
 
 			if(m_counterInt < m_min * m_counterScaler)
 			{
