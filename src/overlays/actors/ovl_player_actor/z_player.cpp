@@ -5222,6 +5222,7 @@ void func_8083A3B0(GlobalContext* globalCtx, Player* pthis)
 
 void func_8083A40C(GlobalContext* globalCtx, Player* pthis)
 {
+	force20FPS(true);
 	Player_SetUpdateFunctWithMove0(globalCtx, pthis, Player_ActionCrawlTunnelEnter, 0);
 }
 
@@ -6014,6 +6015,7 @@ void func_8083BF50(Player* pthis, GlobalContext* globalCtx)
 
 void func_8083C0E8(Player* pthis, GlobalContext* globalCtx)
 {
+	force20FPS(false);
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_Standing, 1);
 	func_80832264(globalCtx, pthis, func_80833338(pthis));
 	pthis->currentYaw = pthis->actor.shape.rot.y;

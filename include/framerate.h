@@ -107,6 +107,7 @@ u32 framerate_get();
 void framerate_set_profile(FramerateProfile profile);
 FramerateProfile framerate_get_profile();
 float frameRateDivisor();
+void force20FPS(bool force);
 
 class Timer
 {
