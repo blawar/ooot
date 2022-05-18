@@ -41,6 +41,34 @@ The current main contributers of this project are [blawar](https://github.com/bl
 
 You must get that on your own and please do not ask for that in the discord due to discord's TOS.
 
+PAL 1.0 MD5 
+
+`9526b263b60577d8ed22fb7a33c2facd`
+
+EUR MQD MD5 
+
+`f0b7f35375f9cc8ca1b2d59d78e35405`
+
+[MattsCreative](https://youtu.be/k1fjHLU9gGU) has a great videos and tutorial on how to compile this project Below: 
+
+[How to use OOT Builder](https://youtu.be/pZi0r6g3YJ8)
+
+### The Easy Way OOT Builder
+
+Go here `https://github.com/nitrostemp/OOOT-HELPER-GUI/releases/`
+
+Grab the newest release and unzip it.
+
+Place Your rom next to the `OOOT GUI.exe`
+
+next run `OOOT GUI.exe` as Admin
+
+click `Install tools , clone and compile`
+
+![image](https://user-images.githubusercontent.com/84041391/169138316-9abebef8-df20-4621-b36d-c68e8383cee7.png)
+
+And enjoy the ride.
+
 ### Windows and Required Programs
 
 Step one install all required Programs below
@@ -71,7 +99,7 @@ make sure baserom_original.z64 or baserom_original.n64 is inside the correct fol
 ![rom pal](https://user-images.githubusercontent.com/84041391/163308550-bc9afea2-ce38-4021-bafc-2a83c63d9b85.png)
 
 
-iF the roms hash is not correct it won't extract the assets and continue. `"hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] `
+iF the roms hash is not correct it won't extract the assets and continue. MD5 `9526b263b60577d8ed22fb7a33c2facd`
 
 Open git Bash or command prompt and type:
 ``git clone --recursive https://github.com/blawar/ooot.git``
@@ -100,7 +128,7 @@ make sure baserom_original.z64 or baserom_original.n64 is inside the correct fol
 ![rom mq](https://user-images.githubusercontent.com/84041391/163308745-19d57f25-8ec7-45fb-9874-c0ddd865c50f.png)
 
 
-if the roms hash is not correct it won't extract the assets and continue. `"hash_md5": ["f0b7f35375f9cc8ca1b2d59d78e35405", "8ca71e87de4ce5e9f6ec916202a623e9"`
+if the roms hash is not correct it won't extract the assets and continue. MD5 `f0b7f35375f9cc8ca1b2d59d78e35405`
 
 Open git Bash or command prompt and type:
 
