@@ -63,90 +63,83 @@ UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "大格雷之剑…" QUICKTEXT_
 )
 
 DEFINE_MESSAGE(0x000B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "You traded the Giant's Knife \n"
-"for the " COLOR(RED) "Biggoron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This blade was forged by a \n"
-"master smith and won't break!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "你卖掉了巨人之刀， \n"
+"换得了一把 " COLOR(RED) "大格雷之剑" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"这把剑是铁匠大师所铸造， \n"
+"坚不可摧！"
 )
 
 DEFINE_MESSAGE(0x000C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "You handed in the Claim Check\n"
-"and got the " COLOR(RED) "Biggoron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This blade was forged by a \n"
-"master smith and won't break!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "你用兑换卷换得了\n"
+COLOR(RED) "大格雷之剑" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"这把剑是铁匠大师所铸造， \n"
+"坚不可摧！"
 )
 
 DEFINE_MESSAGE(0x000D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "You used the Prescription and\n"
-"received an " COLOR(RED) "Eyeball Frog" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Be quick and deliver it to Lake \n"
-"Hylia while it's cold!"
+UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "你用处方换得了\n"
+"一只 " COLOR(RED) "大眼青蛙" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"它还是凉的，快点把它 \n"
+"带到海拉鲁湖去！"
 )
 
 DEFINE_MESSAGE(0x000E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "You traded the Eyeball Frog \n"
-"for the " COLOR(RED) "World's Finest Eye Drops" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Hurry! Take them to Biggoron\n"
-"before they go bad!"
+UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "你用大眼青蛙换到了 \n"
+COLOR(RED) "世上最好的眼药水" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"快！在它变质之前，\n"
+"送到大格雷城去！"
 )
 
 DEFINE_MESSAGE(0x000F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x41")  COLOR(RED) "WINNER!!" COLOR(DEFAULT)  EVENT
+SHIFT("\x41")  COLOR(RED) "你赢啦！！" COLOR(DEFAULT)  EVENT
 )
 
 DEFINE_MESSAGE(0x0010, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x25")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Skull Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it off!\n"
-"You feel like a monster while you\n"
-"wear this mask !"
+ITEM_ICON("\x25")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "骷髅面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"你戴着它，真像个怪物！"
 )
 
 DEFINE_MESSAGE(0x0011, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x26")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Spooky Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! You can scare many people\n"
-"with this mask!"
+ITEM_ICON("\x26")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "恐怖面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"你可以好好吓吓别人了！"
 )
 
 DEFINE_MESSAGE(0x0012, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x24")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Keaton Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! You'll be a popular guy with\n"
-"this mask on!"
+ITEM_ICON("\x24")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "基顿面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"戴着它，你会很受欢迎哦！"
 )
 
 DEFINE_MESSAGE(0x0013, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x27")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Bunny Hood" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! The hood's long ears are so\n"
-"cute!"
+ITEM_ICON("\x27")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "兔子兜帽" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"那长耳朵真是太可爱了！"
 )
 
 DEFINE_MESSAGE(0x0014, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x28")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Goron Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! It will make your head look\n"
-"big, though."
+ITEM_ICON("\x28")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "格雷面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"它可以让你的头看起来很大！"
 )
 
 DEFINE_MESSAGE(0x0015, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x29")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Zora Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! With this mask, you can\n"
-"become one of the Zoras!"
+ITEM_ICON("\x29")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "卓拉面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"戴上它，你就是卓拉人啦！"
 )
 
 DEFINE_MESSAGE(0x0016, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Gerudo Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it off!\n"
-"This mask will make you look\n"
-"like...a girl?"
+ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "格鲁德面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！这个面\n"
+"具让你看起来有点像…女孩？"
 )
 
 DEFINE_MESSAGE(0x0017, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Mask of Truth" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! Show it to many people!"
+ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "Mask of Truth" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按 " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"让更多的人看看这个面具吧！"
 )
 
 DEFINE_MESSAGE(0x0018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
