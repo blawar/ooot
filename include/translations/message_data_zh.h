@@ -1,29 +1,27 @@
 DEFINE_MESSAGE(0x0001, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Pocket Egg" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A Pocket Cucco will hatch from\n"
-"it overnight. Be sure to give it\n"
-"back when you are done with it."
+UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "你借到了一颗 " COLOR(RED) "口袋鸡蛋" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"过夜后就会孵出一只口袋鸡，\n"
+"你用完后别忘记把它还回去。"
 )
 
 DEFINE_MESSAGE(0x0002, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "You returned the Pocket Cucco\n"
-"and got " COLOR(RED) "Cojiro" COLOR(DEFAULT) " in return!" QUICKTEXT_DISABLE "\n"
-"Unlike other Cuccos, Cojiro\n"
-"rarely crows."
+UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "你归还口袋鸡，得到 " COLOR(RED) "克洛鸡" COLOR(DEFAULT) " ！" QUICKTEXT_DISABLE "\n"
+"与口袋鸡不同，\n"
+"克洛鸡很少啼叫。"
 )
 
 DEFINE_MESSAGE(0x0003, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "You got an " COLOR(RED) "Odd Mushroom" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A fresh mushroom like this is\n"
-"sure to spoil quickly! Take it to\n"
-"the Kakariko Potion Shop, quickly!"
+UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "你得到了一个 " COLOR(RED) "奇异蘑菇" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"新鲜的蘑菇都很容易变质！\n"
+"快拿到卡卡利科药店去吧！"
 )
 
 DEFINE_MESSAGE(0x0004, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "You received an " COLOR(RED) "Odd Potion" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"You don't know what's going on\n"
-"between this lady and that guy,\n"
-"but take it to the Lost Woods!"
+UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "你得到了一个 " COLOR(RED) "奇异之药" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"你不知道这两人之间\n"
+"发生了什么事，\n"
+"但快把奇异之药带到\n"
+"迷失的森林去吧！"
 )
 
 DEFINE_MESSAGE(0x0005, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
