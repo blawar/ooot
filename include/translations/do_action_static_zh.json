@@ -1,0 +1,33 @@
+[
+  {
+    "attack": "攻击",
+    "check": "检查",
+    "climb": "爬",
+    "decide": "决定",
+    "dive": "潜水",
+    "down": "跳下",
+    "drop": "放下",
+    "enter": "进入",
+    "faster": "加速",
+    "grab": "抓",
+    "jump": "跳",
+    "navi_unused": "娜薇",
+    "next": "继续",
+    "num_1": "1",
+    "num_2": "2",
+    "num_3": "3",
+    "num_4": "4",
+    "num_5": "5",
+    "num_6": "6",
+    "num_7": "7",
+    "num_8": "8",
+    "open": "打开",
+    "put_away": "收起",
+    "reel": "收线",
+    "return": "返回",
+    "save": "保存",
+    "speak": "说",
+    "stop": "停",
+    "throw": "扔"
+  }
+]
