@@ -25,44 +25,41 @@ UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "你得到了一个 " COLOR(RED
 )
 
 DEFINE_MESSAGE(0x0005, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "You returned the Odd Potion \n"
-"and got the " COLOR(RED) "Poacher's Saw" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"The young punk guy must have\n"
-"left this behind."
+UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "奇异之药物归原主了， \n"
+"你得到了 " COLOR(RED) "偷猎者之锯" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"一定是那个年轻人留下的。"
 )
 
 DEFINE_MESSAGE(0x0006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombs   20 Pieces   80 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "炸弹   20枚   80卢比" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "买\n"
+"不买" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0007, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "You got a \n"
-COLOR(RED) "Deku Seeds Bullet Bag" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"This bag can hold up to " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
-"slingshot bullets."
+UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "你得到了一个 "COLOR(RED) "德库子弹口袋" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"这个子弹口袋可以装下 " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
+"发弹弓子弹。"
 )
 
 DEFINE_MESSAGE(0x0008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "You traded the Poacher's Saw \n"
-"for a " COLOR(RED) "Broken Goron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Visit Biggoron to get it repaired!"
+UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "你用偷猎者之锯换到了一把 \n"
+COLOR(RED) "破损的格雷之剑" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"到大格雷城可以修好它。"
 )
 
 DEFINE_MESSAGE(0x0009, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "You checked in the Broken \n"
-"Goron's Sword and received a \n"
-COLOR(RED) "Prescription" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Go see King Zora!"
+UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "你交出了破损的格雷之剑， \n"
+"得到了 " COLOR(RED) "处方" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"去见卓拉王吧！"
 )
 
 DEFINE_MESSAGE(0x000A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "The Biggoron's Sword..." QUICKTEXT_DISABLE "\n"
-"You got a " COLOR(RED) "Claim Check " COLOR(DEFAULT) "for it!\n"
-"You can't wait for the sword\n"
-"to be completed!"
+UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "大格雷之剑…" QUICKTEXT_DISABLE "\n"
+"你得到了大格雷之剑的 " COLOR(RED) "兑换券 " COLOR(DEFAULT) "！\n"
+"你急切地希望快点\n"
+"铸好这把剑！"
 )
 
 DEFINE_MESSAGE(0x000B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
