@@ -143,32 +143,33 @@ ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "你借到一个 " COLOR(RED) "Mask of Truth
 )
 
 DEFINE_MESSAGE(0x0018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Welcome to our cutting-edge \n"
-"amusement center:" BOX_BREAK SHIFT("\x15")  COLOR(RED) "The Bombchu Bowling Alley!" COLOR(DEFAULT)  BOX_BREAK "Do you want to know what you \n"
-"can win? Well, it's a " TEXT_SPEED("\x03") "secret." TEXT_SPEED("\x00") "\n"
-"I can't tell you until you've\n"
-"paid to play." BOX_BREAK "It's " COLOR(RED) "30 Rupees" COLOR(DEFAULT) " per game.\n"
-"Do you want to play?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"欢迎来到我们的娱乐中心： \n"
+"         " BOX_BREAK SHIFT("\x15")  COLOR(RED) "炸弹保龄球场！" COLOR(DEFAULT)  BOX_BREAK " \n"
+"你想知道你可以赢到什么奖品吗？\n"
+"好，这是 " TEXT_SPEED("\x03") "秘密！" TEXT_SPEED("\x00") "\n"
+"你付钱，我才告诉你。\n"
+BOX_BREAK COLOR(RED) "30卢比" COLOR(DEFAULT) " 玩一次，要玩吗？\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "要\n"
+"不要" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C") "OKAY!!" QUICKTEXT_DISABLE  BOX_BREAK "Aim for the hole in the center \n"
-"and let " COLOR(RED) "Bombchu " COLOR(DEFAULT) "go!\n"
-"You get " COLOR(RED) "ten tries" COLOR(DEFAULT) ". Ready..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "LET'S BOWL!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x3C") "            好！！\n" 
+QUICKTEXT_DISABLE  BOX_BREAK "瞄准中间的那个洞， \n"
+"放下 " COLOR(RED) "炸弹鼠 " COLOR(DEFAULT) "！\n"
+"你有 " COLOR(RED) "十次机会" COLOR(DEFAULT) "！ 预备…" BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "开始吧！" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x001A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want to play again?\n"
+"想再玩一次吗？\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "想\n"
+"不想" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, I almost forgot!\n"
-"Here is what you can win!" EVENT
+"哦！差点忘了，\n"
+"这是你的奖品！" EVENT
 )
 
 DEFINE_MESSAGE(0x001C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
