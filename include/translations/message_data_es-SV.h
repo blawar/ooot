@@ -1668,7 +1668,7 @@ COLOR(DEFAULT)  TWO_CHOICE  COLOR(ADJUSTABLE) "Sí \n"
 )
 
 DEFINE_MESSAGE(0x00E2, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-SHIFT("\x94") "¿" NAME "...?\n"
+SHIFT("\x3C") "¿" NAME "...?\n"
 SHIFT("\x0D") "Soy " COLOR(ADJUSTABLE) "Saria" COLOR(DEFAULT) ". ¿Puedes escucharme?" EVENT
 )
 
@@ -3171,7 +3171,7 @@ QUICKTEXT_ENABLE  SHIFT("\x49")  COLOR(RED) "Cerrado " COLOR(DEFAULT)  QUICKTEXT
 )
 
 DEFINE_MESSAGE(0x0305, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x94")  COLOR(PURPLE) "Villa Kakariko\n"
+QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(PURPLE) "Villa Kakariko\n"
 COLOR(DEFAULT)  SHIFT("\x1C") "Tramo a Montaña Muerte\n"
 SHIFT("\x48") "Comienzo" COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
@@ -3256,7 +3256,7 @@ QUICKTEXT_ENABLE  SHIFT("\x35")  COLOR(ADJUSTABLE) "Bosques Perdidos" QUICKTEXT_
 
 DEFINE_MESSAGE(0x0315, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE  SHIFT("\x2E") "Rancho Lon Lon de\n"
-SHIFT("\x94")  COLOR(YELLOW) "Talón y Malon" COLOR(DEFAULT)  QUICKTEXT_DISABLE
+SHIFT("\x3C")  COLOR(YELLOW) "Talón y Malon" COLOR(DEFAULT)  QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x0316, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
@@ -3402,7 +3402,7 @@ SHIFT("\x36") "Peligro Adelante" COLOR(DEFAULT)  COLOR(DEFAULT)  QUICKTEXT_DISAB
 DEFINE_MESSAGE(0x032E, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE  SHIFT("\x2E")  COLOR(LIGHTBLUE) "Tienda de Máscaras\n"
 SHIFT("\x28") "Alquilamos felicidad\n"
-SHIFT("\x94") "Damos reparto" QUICKTEXT_DISABLE
+SHIFT("\x3C") "Damos reparto" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x032F, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
@@ -3473,7 +3473,7 @@ COLOR(DEFAULT) "Si lo cortas con el " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ", 
 )
 
 DEFINE_MESSAGE(0x0339, TEXTBOX_TYPE_WOODEN, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x94")  COLOR(LIGHTBLUE) "Castillo Hyrule" COLOR(DEFAULT) "\n"
+QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(LIGHTBLUE) "Castillo Hyrule" COLOR(DEFAULT) "\n"
 SHIFT("\x39")  COLOR(YELLOW) "Rancho Lon Lon " QUICKTEXT_DISABLE
 )
 
@@ -4856,16 +4856,16 @@ UNSKIPPABLE  SFX("\x38\x82")  QUICKTEXT_ENABLE "¡Ow-ow-ow!" QUICKTEXT_DISABLE "
 "Si te doy una pista, ¿me dejarías\n"
 "ir? " COLOR(DEFAULT) 
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "Cuando saltes desde muy alto,\n"
+UNSKIPPABLE  SFX("\x38\x80") "Cuando saltes desde muy alto,\n"
 "si mantienes el " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) " adelante, rodarás\n"
 "en el suelo al aterrizar... y no \n"
 "serás herido por la caída. " COLOR(DEFAULT)  COLOR(DEFAULT) 
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "Aunque no puedo garantizarte que\n"
+UNSKIPPABLE  SFX("\x38\x80") "Aunque no puedo garantizarte que\n"
 "funcione, si el risco es demasiado\n"
 "alto! ¡jeh, jeh! "
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "¡Bueno, inténtalo si te sientes audaz!\n"
+UNSKIPPABLE  SFX("\x38\x80") "¡Bueno, inténtalo si te sientes audaz!\n"
 QUICKTEXT_ENABLE "¡Wa ja ja!" QUICKTEXT_DISABLE  EVENT
 )
 
@@ -5322,18 +5322,18 @@ DEFINE_MESSAGE(0x104C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x104D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SFX("\x38\x94") "¡Todos los jóvenes hermanos\n"
+SFX("\x38\x80") "¡Todos los jóvenes hermanos\n"
 "Deku acordaron que eres igual a\n"
 "nuestro tótem sagrado del bosque!"
 BOX_BREAK
-SFX("\x38\x94") "Como una ofrenda nuestra,\n"
+SFX("\x38\x80") "Como una ofrenda nuestra,\n"
 "acepta estas " COLOR(RED) "Varas Deku" COLOR(DEFAULT) ".\n"
 "¡También aumentaremos tu\n"
 "habilidad de llevarlas!"
 BOX_BREAK
 "¡Abracadabra!"
 BOX_BREAK
-SFX("\x38\x94") "¡Alakazam!" EVENT
+SFX("\x38\x80") "¡Alakazam!" EVENT
 )
 
 DEFINE_MESSAGE(0x104E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -5713,15 +5713,15 @@ SHIFT("\x00") "sobre el caos que había en Hyrule" QUICKTEXT_DISABLE  FADE("\x63
 )
 
 DEFINE_MESSAGE(0x1081, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x13") "Din, la diosa del poder...  " QUICKTEXT_DISABLE  FADE("\x94")
+QUICKTEXT_ENABLE  SHIFT("\x13") "Din, la diosa del poder...  " QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x1082, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x09") "Nayru, diosa de la sabiduría..." QUICKTEXT_DISABLE  FADE("\x94")
+QUICKTEXT_ENABLE  SHIFT("\x09") "Nayru, diosa de la sabiduría..." QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x1083, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x06") "Farore, la diosa del coraje...   " QUICKTEXT_DISABLE  FADE("\x94")
+QUICKTEXT_ENABLE  SHIFT("\x06") "Farore, la diosa del coraje...   " QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x1084, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
@@ -5780,11 +5780,11 @@ SHIFT("\x34") "Reino Sagrado." COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x63")
 
 DEFINE_MESSAGE(0x108E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "Hey chico, bien hecho...\n"
-"Has mejorado tus habilidades..." BOX_BREAK_DELAYED("\x94") "Pero sólo has derrotado a mi\n"
+"Has mejorado tus habilidades..." BOX_BREAK_DELAYED("\x3C") "Pero sólo has derrotado a mi\n"
 "fantasma... ¡Cuando pelees con el\n"
-"verdadero yo, no será tan fácil!" BOX_BREAK_DELAYED("\x94") "¡Pero qué creación tan mala\n"
-"era ese fantasma! " COLOR(DEFAULT)  COLOR(DEFAULT)  BOX_BREAK_DELAYED("\x94") "¡¡Lo desterraré al espacio entre\n"
-"las dimensiones!!" COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x94")
+"verdadero yo, no será tan fácil!" BOX_BREAK_DELAYED("\x3C") "¡Pero qué creación tan mala\n"
+"era ese fantasma! " COLOR(DEFAULT)  COLOR(DEFAULT)  BOX_BREAK_DELAYED("\x3C") "¡¡Lo desterraré al espacio entre\n"
+"las dimensiones!!" COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x108F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -5919,47 +5919,47 @@ UNSKIPPABLE  SFX("\x38\x82") "¡Por favor perdóname maestro!\n"
 "¡Nunca volveré a hacerlo! Si me\n"
 "perdonas, te enseñaré algo grandioso. "
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "Nunca vencerás a mis otros  \n"
+UNSKIPPABLE  SFX("\x38\x80") "Nunca vencerás a mis otros  \n"
 "hermanos, si no los golpeas en\n"
 "el orden correcto." COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT) 
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "El orden es... " TEXT_SPEED("\x05")  COLOR(LIGHTBLUE) "2 3  1" COLOR(DEFAULT)  TEXT_SPEED("\x00") "\n"
+UNSKIPPABLE  SFX("\x38\x80") "El orden es... " TEXT_SPEED("\x05")  COLOR(LIGHTBLUE) "2 3  1" COLOR(DEFAULT)  TEXT_SPEED("\x00") "\n"
 QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡Veintitrés es el número uno!" COLOR(DEFAULT)  QUICKTEXT_DISABLE "\n"
-UNSKIPPABLE  SFX("\x38\x94") "¿Crees que soy un traidor?" EVENT
+UNSKIPPABLE  SFX("\x38\x80") "¿Crees que soy un traidor?" EVENT
 )
 
 DEFINE_MESSAGE(0x109C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 UNSKIPPABLE  SFX("\x38\x82") "¡¿Cómo supiste nuestro secreto?!\n"
 "¡Qué " QUICKTEXT_ENABLE "irritante!" QUICKTEXT_DISABLE 
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "¡Es tan molesto que voy a revelarte\n"
+UNSKIPPABLE  SFX("\x38\x80") "¡Es tan molesto que voy a revelarte\n"
 "el secreto de la Reina Gohma a tí!"
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "Si deseas darle el golpe de gracia\n"
+UNSKIPPABLE  SFX("\x38\x80") "Si deseas darle el golpe de gracia\n"
 "a la Reina Gohma, golpéala con\n"
 "tu espada " COLOR(RED) "mientras esté aturdida" COLOR(DEFAULT) "."
 BOX_BREAK
 UNSKIPPABLE "Oh, Reinita..."
 BOX_BREAK
-SFX("\x38\x94")  QUICKTEXT_ENABLE "¡Lo siento mucho!" COLOR(DEFAULT)  COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+SFX("\x38\x80")  QUICKTEXT_ENABLE "¡Lo siento mucho!" COLOR(DEFAULT)  COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x109D, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
 "En el vasto y profundo bosque de\n"
 SHIFT("\x48") "Hyrule..." BOX_BREAK_DELAYED("\x28") "He servido como espíritu guardián...\n"
 SHIFT("\x1F") "Soy conocido como el\n"
-SHIFT("\x94") "Árbol Deku. " FADE("\x46")
+SHIFT("\x3C") "Árbol Deku. " FADE("\x46")
 )
 
 DEFINE_MESSAGE(0x109E, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
 SHIFT("\x0C") "Los niños del bosque, los\n"
-SHIFT("\x0B") "Kokiri, viven aquí conmigo." BOX_BREAK_DELAYED("\x94")  SHIFT("\x0B") "Cada Kokiri tiene su propia\n"
-SHIFT("\x34") "hada guardiana." COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x94")
+SHIFT("\x0B") "Kokiri, viven aquí conmigo." BOX_BREAK_DELAYED("\x3C")  SHIFT("\x0B") "Cada Kokiri tiene su propia\n"
+SHIFT("\x34") "hada guardiana." COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x109F, TEXTBOX_TYPE_NONE_BOTTOM, TEXTBOX_POS_VARIABLE,
 SHIFT("\x17") " Sin embargo, hay un chico\n"
-SHIFT("\x27") "que " COLOR(RED) "no tiene un hada" COLOR(DEFAULT) "..." COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x94")
+SHIFT("\x27") "que " COLOR(RED) "no tiene un hada" COLOR(DEFAULT) "..." COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x10A0, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -5982,7 +5982,7 @@ COLOR(RED) "1 pieza  10 Rupias" COLOR(DEFAULT) " ¡Eso es!" TEXTID("\x10\xA3")
 )
 
 DEFINE_MESSAGE(0x10A3, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x94")  QUICKTEXT_ENABLE "¡Hagamos el trato!\n"
+SFX("\x38\x80")  QUICKTEXT_ENABLE "¡Hagamos el trato!\n"
 "\n"
 TWO_CHOICE  COLOR(ADJUSTABLE) "Sí\n"
 "No" COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  QUICKTEXT_DISABLE
@@ -6004,7 +6004,7 @@ SFX("\x38\x82") "¡No puedes tenerla ahora!\n"
 )
 
 DEFINE_MESSAGE(0x10A7, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-SFX("\x38\x94")  QUICKTEXT_ENABLE  SHIFT("\x2A") "¡Muchísimas gracias!" QUICKTEXT_DISABLE  EVENT
+SFX("\x38\x80")  QUICKTEXT_ENABLE  SHIFT("\x2A") "¡Muchísimas gracias!" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x10A8, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -6062,10 +6062,10 @@ DEFINE_MESSAGE(0x10AE, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x10AF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  SFX("\x38\x94") "¡Genial, eres estupendo!\n"
+UNSKIPPABLE  SFX("\x38\x80") "¡Genial, eres estupendo!\n"
 "¡Has hecho tres tiros perfectos!"
 BOX_BREAK
-UNSKIPPABLE  SFX("\x38\x94") "Tengo que darte un buen regalo\n"
+UNSKIPPABLE  SFX("\x38\x80") "Tengo que darte un buen regalo\n"
 "por ser una maravillosa persona.\n"
 "Toma esto." EVENT
 )
@@ -6412,13 +6412,13 @@ SFX("\x38\x82") "¡Por supuesto, te permitiremos\n"
 BOX_BREAK
 "Abracadabra..."
 BOX_BREAK
-SFX("\x38\x94") "¡Alakazaam!" EVENT
+SFX("\x38\x80") "¡Alakazaam!" EVENT
 )
 
 DEFINE_MESSAGE(0x10DC, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 SFX("\x38\x82") "¡Me rindo!"
 BOX_BREAK
-SFX("\x38\x94") "¡Para hacer más fácil tu aventura,\n"
+SFX("\x38\x80") "¡Para hacer más fácil tu aventura,\n"
 "te permitiré llevar más\n"
 COLOR(RED) "Varas Deku" COLOR(DEFAULT) "!\n"
 "¡Pero esto te costará " COLOR(RED) "40 Rupias" COLOR(DEFAULT) "!" COLOR(DEFAULT)  TEXTID("\x10\xA3")
@@ -6427,7 +6427,7 @@ COLOR(RED) "Varas Deku" COLOR(DEFAULT) "!\n"
 DEFINE_MESSAGE(0x10DD, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 SFX("\x38\x82") "¡Me rindo! "
 BOX_BREAK
-SFX("\x38\x94") "¡Para hacer más fácil tu aventura,\n"
+SFX("\x38\x80") "¡Para hacer más fácil tu aventura,\n"
 "te permitiré llevar más " COLOR(RED) "Nueces\n"
 "Deku" COLOR(DEFAULT) "! ¡Pero, te costará " COLOR(RED) "40 Rupias" COLOR(DEFAULT) "!" COLOR(DEFAULT)  TEXTID("\x10\xA3")
 )
@@ -6534,7 +6534,7 @@ BOX_BREAK
 
 DEFINE_MESSAGE(0x2005, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
 NAME "... ¿puedes oirme?\n"
-"Soy yo, Zelda..." COLOR(DEFAULT)  FADE("\x94")
+"Soy yo, Zelda..." COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x2006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -6555,9 +6555,9 @@ DEFINE_MESSAGE(0x2007, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 
 DEFINE_MESSAGE(0x2008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 NAME ", cuando sujetes esta\n"
-"Ocarina en tus manos..." BOX_BREAK_DELAYED("\x94") "No estaré más por aquí..." BOX_BREAK_DELAYED("\x94") "Quería esperarte, pero no puedo\n"
-"demorar más tiempo..." BOX_BREAK_DELAYED("\x94") "Al menos puedo dejarte la Ocarina\n"
-"y esta " COLOR(LIGHTBLUE) "melodía" COLOR(DEFAULT) "..." COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x94")
+"Ocarina en tus manos..." BOX_BREAK_DELAYED("\x3C") "No estaré más por aquí..." BOX_BREAK_DELAYED("\x3C") "Quería esperarte, pero no puedo\n"
+"demorar más tiempo..." BOX_BREAK_DELAYED("\x3C") "Al menos puedo dejarte la Ocarina\n"
+"y esta " COLOR(LIGHTBLUE) "melodía" COLOR(DEFAULT) "..." COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x2009, TEXTBOX_TYPE_NONE_NO_SHADOW, TEXTBOX_POS_BOTTOM,
@@ -7792,7 +7792,7 @@ THREE_CHOICE  COLOR(ADJUSTABLE) "Leche Lon Lon - 30 Rupias\n"
 DEFINE_MESSAGE(0x208C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
 QUICKTEXT_ENABLE  COLOR(RED) "¡Fallaste!" COLOR(DEFAULT) "\n"
 "¡Tienes que saltar todas las\n"
-"cercas!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x94")
+"cercas!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x208D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
@@ -7946,7 +7946,7 @@ DEFINE_MESSAGE(0x3006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x3007, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x50") "Oh!" BOX_BREAK_DELAYED("\x1E")  SHIFT("\x4B") "¡Oh-oh!" BOX_BREAK_DELAYED("\x28")  SHIFT("\x4B")  QUICKTEXT_ENABLE "¡Vamos!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x1E")  SHIFT("\x14") "¡Vamos! ¡Vamos! " QUICKTEXT_ENABLE "¡Vamos!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x28")  SHIFT("\x50")  QUICKTEXT_ENABLE "¡UFF!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x1E")  SHIFT("\x28") "¡Vaya, qué ritmo!" BOX_BREAK_DELAYED("\x28")  SHIFT("\x32") "¡GUOOOAH!" BOX_BREAK_DELAYED("\x28")  SHIFT("\x94")  QUICKTEXT_ENABLE "¡YEEEAH!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x28")  SHIFT("\x94")  QUICKTEXT_ENABLE "¡YAJUUU!" QUICKTEXT_DISABLE
+SHIFT("\x50") "Oh!" BOX_BREAK_DELAYED("\x1E")  SHIFT("\x4B") "¡Oh-oh!" BOX_BREAK_DELAYED("\x28")  SHIFT("\x4B")  QUICKTEXT_ENABLE "¡Vamos!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x1E")  SHIFT("\x14") "¡Vamos! ¡Vamos! " QUICKTEXT_ENABLE "¡Vamos!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x28")  SHIFT("\x50")  QUICKTEXT_ENABLE "¡UFF!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x1E")  SHIFT("\x28") "¡Vaya, qué ritmo!" BOX_BREAK_DELAYED("\x28")  SHIFT("\x32") "¡GUOOOAH!" BOX_BREAK_DELAYED("\x28")  SHIFT("\x3C")  QUICKTEXT_ENABLE "¡YEEEAH!" QUICKTEXT_DISABLE  BOX_BREAK_DELAYED("\x28")  SHIFT("\x3C")  QUICKTEXT_ENABLE "¡YAJUUU!" QUICKTEXT_DISABLE
 )
 
 DEFINE_MESSAGE(0x3008, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -7975,7 +7975,7 @@ DEFINE_MESSAGE(0x3009, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 "abajo como una piedra con una\n"
 COLOR(RED) "Flor Bomba" COLOR(DEFAULT) " y..."
 BOX_BREAK
-QUICKTEXT_ENABLE  SHIFT("\x94")  COLOR(RED) "¡BOOOOOM!" COLOR(DEFAULT)  QUICKTEXT_DISABLE 
+QUICKTEXT_ENABLE  SHIFT("\x3C")  COLOR(RED) "¡BOOOOOM!" COLOR(DEFAULT)  QUICKTEXT_DISABLE 
 BOX_BREAK
 "Si pudiera hacer eso con una\n"
 "Flor Bomba sería un\n"
@@ -8240,7 +8240,7 @@ UNSKIPPABLE "¡Sólo con eso, mi depresión ha\n"
 "repente y sólo quería bailar como\n"
 "un loco!"
 BOX_BREAK
-UNSKIPPABLE  SHIFT("\x94") "¡Soy " COLOR(RED) "Darunia" COLOR(DEFAULT) "!"
+UNSKIPPABLE  SHIFT("\x3C") "¡Soy " COLOR(RED) "Darunia" COLOR(DEFAULT) "!"
 BOX_BREAK
 UNSKIPPABLE "¡Soy el gran jefe de los Gorons!\n"
 "¿Había algo sobre lo que querías\n"
@@ -8660,7 +8660,7 @@ UNSKIPPABLE  NAME ", hasta la vista..."
 
 DEFINE_MESSAGE(0x3040, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡" NAME ", hace mucho calor aquí!\n"
-"¡No podemos quedarnos mucho!" QUICKTEXT_DISABLE  FADE("\x94")
+"¡No podemos quedarnos mucho!" QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x3041, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -8887,18 +8887,18 @@ DEFINE_MESSAGE(0x305E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 )
 
 DEFINE_MESSAGE(0x305F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡Tu " COLOR(DEFAULT) "escudo" COLOR(LIGHTBLUE) " ya no está!" QUICKTEXT_DISABLE  FADE("\x94")
+QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡Tu " COLOR(DEFAULT) "escudo" COLOR(LIGHTBLUE) " ya no está!" QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x3060, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡La " COLOR(DEFAULT) "túnica" COLOR(LIGHTBLUE) " que llevabas, ya no\n"
-"está!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x94")
+"está!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x3061, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡Tu " COLOR(DEFAULT) "escudo" COLOR(LIGHTBLUE) " ya no está!\n"
 "¡La " COLOR(DEFAULT) "túnica " COLOR(LIGHTBLUE) "que llevabas, \n"
-"también fue tomada!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x94")
+"también fue tomada!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x3062, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -9371,7 +9371,7 @@ DEFINE_MESSAGE(0x401C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 DEFINE_MESSAGE(0x401D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡No puedes respirar bajo el agua,\n"
 "si empiezas a ahogarte quítate\n"
-"las " COLOR(DEFAULT) "botas" COLOR(LIGHTBLUE) "!" QUICKTEXT_DISABLE  FADE("\x94")
+"las " COLOR(DEFAULT) "botas" COLOR(LIGHTBLUE) "!" QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x401E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -9760,7 +9760,7 @@ UNSKIPPABLE "La Princesa Zelda...está viva.\n"
 
 DEFINE_MESSAGE(0x4048, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
 QUICKTEXT_ENABLE  SHIFT("\x3F") "¡Keeeyaaaah!\n"
-SHIFT("\x0F") "¡¿Qué es esto?! ¡Un pulpo!" QUICKTEXT_DISABLE  FADE("\x94")
+SHIFT("\x0F") "¡¿Qué es esto?! ¡Un pulpo!" QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x4049, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -10265,7 +10265,7 @@ COLOR(BLUE) "[A]" COLOR(DEFAULT) " y " COLOR(LIGHTBLUE) "[Control-Pad] abajo" CO
 
 DEFINE_MESSAGE(0x4082, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 "Hey, ¿qué pasó? \n"
-"¡Lo perdiste!" COLOR(DEFAULT)  FADE("\x94")
+"¡Lo perdiste!" COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x4083, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -10298,7 +10298,7 @@ BOX_BREAK
 
 DEFINE_MESSAGE(0x4087, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 "¿Qué? \n"
-"¡¿Qué estás haciéndome?!" COLOR(DEFAULT)  FADE("\x94")
+"¡¿Qué estás haciéndome?!" COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x4088, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -11054,7 +11054,7 @@ SHIFT("\x53") "D.E.P." QUICKTEXT_DISABLE  EVENT
 
 DEFINE_MESSAGE(0x501F, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE  SHIFT("\x2B") "Hnos. Compositores" COLOR(DEFAULT) "\n"
-SHIFT("\x94") "Flat el Menor" COLOR(DEFAULT) " \n"
+SHIFT("\x3C") "Flat el Menor" COLOR(DEFAULT) " \n"
 SHIFT("\x53") "D.E.P." QUICKTEXT_DISABLE  EVENT
 )
 
@@ -11778,7 +11778,7 @@ DEFINE_MESSAGE(0x5071, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 QUICKTEXT_ENABLE  COLOR(LIGHTBLUE) "¡" NAME "!\n"
 "¡Este barco se hunde!\n"
 "¡Abandónalo!\n"
-"¡Sálvate en una plataforma!" QUICKTEXT_DISABLE  FADE("\x94")
+"¡Sálvate en una plataforma!" QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x5072, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
@@ -11788,7 +11788,7 @@ DEFINE_MESSAGE(0x5072, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 
 DEFINE_MESSAGE(0x5073, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_BOTTOM,
 QUICKTEXT_ENABLE "No causes problemas.\n"
-"Le diré a Dampé." QUICKTEXT_DISABLE  FADE("\x94")
+"Le diré a Dampé." QUICKTEXT_DISABLE  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x5074, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -12630,12 +12630,12 @@ DEFINE_MESSAGE(0x6048, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 
 DEFINE_MESSAGE(0x6049, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 SHIFT("\x15") "¡Con mi flama, le quemaré\n"
-SHIFT("\x31") "hasta los huesos!" FADE("\x94")
+SHIFT("\x31") "hasta los huesos!" FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x604A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 SHIFT("\x15") "¡Con mi hielo, le congelaré\n"
-SHIFT("\x33") "hasta su alma! " FADE("\x94")
+SHIFT("\x33") "hasta su alma! " FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x604B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -12646,12 +12646,12 @@ SHIFT("\x3B") "¿bien Kotake?" FADE("\x5A")
 
 DEFINE_MESSAGE(0x604C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 SHIFT("\x4B") "¿Qué?" BOX_BREAK_DELAYED("\x14")  SHIFT("\x0A") "Oye, Koume, ¿qué es eso sobre\n"
-SHIFT("\x43") "tu cabeza? " FADE("\x94")
+SHIFT("\x43") "tu cabeza? " FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x604D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
 SHIFT("\x1A") "No lo sé, ¡pero tienes algo\n"
-SHIFT("\x11") "sobre la tuya también, Kotake!" FADE("\x94")
+SHIFT("\x11") "sobre la tuya también, Kotake!" FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x604E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
@@ -13086,7 +13086,7 @@ TEXT_SPEED("\x02") "Adelante." TEXT_SPEED("\x00")
 DEFINE_MESSAGE(0x6083, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
 "Oh, has abandonado la carrera.\n"
 "Je je je. ¡Seguro que casi habías\n"
-"redescubierto tu instinto asesino!" COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x94")
+"redescubierto tu instinto asesino!" COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x6084, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_TOP,
@@ -13270,7 +13270,7 @@ UNSKIPPABLE "Las nubes oscuras que cubrían\n"
 )
 
 DEFINE_MESSAGE(0x700A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x0E") "¡Je je je! Excelente trabajo." BOX_BREAK_DELAYED("\x94")  SHIFT("\x08") "¡Como pensé, tú tenías las llaves\n"
+SHIFT("\x0E") "¡Je je je! Excelente trabajo." BOX_BREAK_DELAYED("\x3C")  SHIFT("\x08") "¡Como pensé, tú tenías las llaves\n"
 SHIFT("\x25") "de la Puerta del Tiempo!" BOX_BREAK_DELAYED("\x5A")  SHIFT("\x05") "Me guiaste a las puertas del\n"
 SHIFT("\x2C") "Reino Sagrado..." BOX_BREAK_DELAYED("\x50")  SHIFT("\x10") "¡Todo te lo debo a ti, chico!" FADE("\x32")
 )
@@ -13622,7 +13622,7 @@ SHIFT("\x10") "de los dioses en algún lugar. " BOX_BREAK_DELAYED("\x50")  UNSKI
 SHIFT("\x02") "de conceder los deseos a aquel que\n"
 SHIFT("\x0A") "tenga la Trifuerza en sus manos." BOX_BREAK_DELAYED("\x50")  UNSKIPPABLE  SHIFT("\x09") "Si alguien con un corazón justo\n"
 SHIFT("\x06") "pide un deseo, llevará a Hyrule a\n"
-SHIFT("\x03") "una época dorada de prosperidad..." BOX_BREAK_DELAYED("\x94")  UNSKIPPABLE  SHIFT("\x01") "Si a alguien con una mente maligna\n"
+SHIFT("\x03") "una época dorada de prosperidad..." BOX_BREAK_DELAYED("\x3C")  UNSKIPPABLE  SHIFT("\x01") "Si a alguien con una mente maligna\n"
 SHIFT("\x07") "se le concede su deseo, el mundo\n"
 SHIFT("\x01") "será consumido de maldad... Así es\n"
 SHIFT("\x2A") "como está escrito." BOX_BREAK_DELAYED("\x50")  UNSKIPPABLE  SHIFT("\x16") "Por eso los Sabios crearon\n"
@@ -13985,7 +13985,7 @@ UNSKIPPABLE "Y ahora viene el desafío final,\n"
 
 DEFINE_MESSAGE(0x705C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
 UNSKIPPABLE  SHIFT("\x23") "Si buscas el triángulo\n"
-SHIFT("\x20") "sagrado, escucha bien..." BOX_BREAK_DELAYED("\x94")  UNSKIPPABLE  SHIFT("\x07") "El lugar de descanso del triángulo\n"
+SHIFT("\x20") "sagrado, escucha bien..." BOX_BREAK_DELAYED("\x3C")  UNSKIPPABLE  SHIFT("\x07") "El lugar de descanso del triángulo\n"
 SHIFT("\x09") "sagrado, el Reino Sagrado, es un\n"
 SHIFT("\x08") "espejo que refleja lo que está en\n"
 SHIFT("\x43") "el corazón..." BOX_BREAK_DELAYED("\x46")  UNSKIPPABLE  SHIFT("\x0B") "el corazón de aquel que entre..." BOX_BREAK_DELAYED("\x40")  UNSKIPPABLE  SHIFT("\x0F") "Si fuese un corazón malvado,\n"
@@ -14111,7 +14111,7 @@ DEFINE_MESSAGE(0x706B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x706C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"¡Antiguos Creadores de Hyrule!" BOX_BREAK_DELAYED("\x94") "¡¡Ahora, abramos la puerta sellada\n"
+"¡Antiguos Creadores de Hyrule!" BOX_BREAK_DELAYED("\x3C") "¡¡Ahora, abramos la puerta sellada\n"
 "y enviemos a la Oscura Encarnación\n"
 "del Mal al vacío del Reino!!" FADE("\x5A")
 )
@@ -14139,8 +14139,8 @@ UNSKIPPABLE "La paz volverá a reinar en este\n"
 )
 
 DEFINE_MESSAGE(0x7070, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_BOTTOM,
-UNSKIPPABLE  SHIFT("\x94") "Gracias..." COLOR(DEFAULT) "\n"
-SHIFT("\x94")  NAME "..." BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE  SHIFT("\x3D") "Adiós..." COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x94")
+UNSKIPPABLE  SHIFT("\x3C") "Gracias..." COLOR(DEFAULT) "\n"
+SHIFT("\x3C")  NAME "..." BOX_BREAK_DELAYED("\x28")  UNSKIPPABLE  SHIFT("\x3D") "Adiós..." COLOR(DEFAULT)  COLOR(DEFAULT)  FADE("\x3C")
 )
 
 DEFINE_MESSAGE(0x7071, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
