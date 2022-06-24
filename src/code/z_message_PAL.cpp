@@ -69,24 +69,24 @@ u16 sOcarinaSongBitFlags = 0; // ocarina bit flags
 #include "message_data_fmt.h"
 
 MessageTableEntry sNesMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_nes, sizeof(nesMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, nesMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_nes, sizeof(nesMessage)},
 #define DEFINE_MESSAGE_FFFC
-#include "text/message_data.h"
+#include "translations/message_data_en.h"
 #undef DEFINE_MESSAGE_FFFC
 #undef DEFINE_MESSAGE
     {0xFFFF, 0, NULL, 0},
 };
 
 MessageTableEntry sGerMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_ger, sizeof(gerMessage)},
-#include "text/message_data.h"
+#define DEFINE_MESSAGE(textId, type, yPos, gerMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_ger, sizeof(gerMessage)},
+#include "translations/message_data_de.h"
 #undef DEFINE_MESSAGE
     {0xFFFF, 0, NULL, 0},
 };
 
 MessageTableEntry sFraMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_fra, sizeof(fraMessage)},
-#include "text/message_data.h"
+#define DEFINE_MESSAGE(textId, type, yPos, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_fra, sizeof(fraMessage)},
+#include "translations/message_data_fr.h"
 #undef DEFINE_MESSAGE
     {0xFFFF, 0, NULL, 0},
 };

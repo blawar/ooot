@@ -59,6 +59,7 @@ vs/build
 *.obj
 *.mtl
 *.fbx
+*.enc.h
 !*_custom*
 .extracted-assets.json
 assets/

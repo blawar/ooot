@@ -3,7 +3,7 @@
 #include "message_data_fmt.h"
 #include "message_data_static.h"
 
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage) \
+#define DEFINE_MESSAGE(textId, type, yPos, gerMessage) \
     const char _message_##textId##_ger[sizeof(gerMessage END)] = { gerMessage END };
 
-#include "text/message_data.enc.h"
+#include "translations/message_data_de.enc.h"
