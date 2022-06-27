@@ -254,56 +254,53 @@ DEFINE_MESSAGE(0x0027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
 )
 
 DEFINE_MESSAGE(0x0028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Since you've destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) " Spiders\n"
-"of the Curse, the curse on me \n"
-"has been broken." BOX_BREAK UNSKIPPABLE "Thank you! Here is a token of my\n"
-"appreciation! Please take it." EVENT
+UNSKIPPABLE "你已经消灭了" COLOR(RED)  TOKENS  "只" COLOR(DEFAULT) " 诅咒蜘蛛，\n"
+"我身上的诅咒解除了。\n"
+BOX_BREAK UNSKIPPABLE "谢谢你！作为感谢，\n"
+"拿着它吧！" EVENT
 )
 
 DEFINE_MESSAGE(0x0029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Thank you for saving my kids." BOX_BREAK "What? Me? Oh, that's OK..." BOX_BREAK "You have already destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Spiders of the Curse so far, so...\n"
-"that's fine...don't worry about me..."
+"谢谢你救了我的孩子" BOX_BREAK "什么？我？哦，我还好…" BOX_BREAK "到现在为止，你已经消灭了\n" 
+COLOR(RED)  TOKENS  "只" COLOR(DEFAULT) "诅咒蜘蛛，所以…\n"
+"很不错…不用担心我…"
 )
 
 DEFINE_MESSAGE(0x002A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombchu   20 Pieces   180 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "炸弹鼠  20枚  180卢比" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "买\n"
+"不买" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to play a game?\n"
-"It's " COLOR(RED) "20 Rupees " COLOR(DEFAULT) "per play.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"Nope" COLOR(DEFAULT)
+"要玩吗？玩一次只要" COLOR(RED) "20卢比！" COLOR(DEFAULT) "\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "要\n"
+"不要" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"You can't! You need a bow!" EVENT
+"这样不行！你需要有一把弓箭！" EVENT
 )
 
 DEFINE_MESSAGE(0x002D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"All right. You don't have to play\n"
-"if you don't want to." EVENT
+"没关系。如果你不想玩，\n"
+"没有人强迫你。" EVENT
 )
 
 DEFINE_MESSAGE(0x002E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "OKAY!!" QUICKTEXT_DISABLE "\n"
-"This is a game for grownups!\n"
-"Hyrule's famous " COLOR(RED) "Shooting Gallery" COLOR(DEFAULT) "!" BOX_BREAK "Take aim at the targets from that \n"
-"platform over there! Can you hit\n"
-COLOR(RED) "ten targets" COLOR(DEFAULT) "? You get " COLOR(RED) "fifteen \n"
-COLOR(DEFAULT) "shots!" BOX_BREAK "Draw your weapon with " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". \n"
-"Are you ready?\n"
-"Go for a perfect score!\n"
-"Good Luck!" EVENT
+QUICKTEXT_ENABLE "好哦！！" QUICKTEXT_DISABLE "\n"
+"这是大人玩的游戏！\n"
+"海拉鲁著名的" COLOR(RED) "射击场" COLOR(DEFAULT) "！\n" BOX_BREAK 
+"从那边的发射台瞄准目标！\n"
+"你能够用" COLOR(RED) "十五" COLOR(DEFAULT) "支箭\n"
+"射中" COLOR(RED) "十个目标" COLOR(DEFAULT) "吗？" BOX_BREAK "按" COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "准备好武器。 \n"
+"准备好了吗？争取一个好成绩吧！\n"
+"祝你好运！" EVENT
 )
 
 DEFINE_MESSAGE(0x002F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You see a small mound of soft\n"
-"soil here."
+"你看到一堆松软的泥土。"
 )
 
 DEFINE_MESSAGE(0x0030, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
