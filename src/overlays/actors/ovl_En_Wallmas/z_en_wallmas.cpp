@@ -360,7 +360,7 @@ void EnWallmas_Drop(EnWallmas* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 
-	if(!Player_InCsMode(globalCtx) && !(player->stateFlags2 & PLAYER_STATE2_4) && (player->invincibilityTimer >= 0) && (pthis->actor.xzDistToPlayer < 30.0f) && (pthis->actor.yDistToPlayer < -5.0f) &&
+	if(!Player_InCsMode(globalCtx) && !(player->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING) && (player->invincibilityTimer >= 0) && (pthis->actor.xzDistToPlayer < 30.0f) && (pthis->actor.yDistToPlayer < -5.0f) &&
 	   (-(f32)(player->cylinder.dim.height + 10) < pthis->actor.yDistToPlayer))
 	{
 		EnWallmas_SetupTakePlayer(pthis, globalCtx);

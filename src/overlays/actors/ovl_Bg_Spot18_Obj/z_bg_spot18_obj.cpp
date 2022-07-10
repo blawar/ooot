@@ -240,7 +240,7 @@ void func_808B8E20(BgSpot18Obj* pthis, GlobalContext* globalCtx)
 	if(fabsf(pthis->dyna.unk_150) > 0.001f)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 }
 
@@ -291,7 +291,7 @@ void func_808B8F08(BgSpot18Obj* pthis, GlobalContext* globalCtx)
 		pthis->dyna.actor.world.pos.x = (Math_SinS(pthis->dyna.actor.world.rot.y) * 80.0f) + pthis->dyna.actor.home.pos.x;
 		pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.actor.world.rot.y) * 80.0f) + pthis->dyna.actor.home.pos.z;
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		Flags_SetSwitch(globalCtx, (pthis->dyna.actor.params >> 8) & 0x3F);
 		Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
 		Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);

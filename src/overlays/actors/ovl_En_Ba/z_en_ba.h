@@ -29,8 +29,8 @@ struct EnBa
 	/* 0x02FC */ Vec3f unk2FC;
 	/* 0x0308 */ Vec3f unk308;
 	/* 0x0314 */ f32 unk314;
-	/* 0x0318 */ s16 unk318;
-	/* 0x031A */ s16 unk31A;
+	/* 0x0318 */ TimerS16 unk318;
+	/* 0x031A */ TimerS16 unk31A;
 	/* 0x031C */ s16 unk31C;
 	/* 0x0320 */ ColliderJntSph collider;
 	/* 0x0340 */ ColliderJntSphElement colliderItems[2];

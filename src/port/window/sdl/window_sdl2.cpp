@@ -19,6 +19,9 @@
 
 void quit();
 void Set_Language(u8 language_id);
+#ifndef _WIN32
+void WindowsWGL_GrabWindow(void* wnd);
+#endif
 
 /*
 #ifdef _WIN32
@@ -237,6 +240,12 @@ namespace platform::window
 			{
 				set_fullscreen(true, false);
 			}
+#endif
+
+#ifndef _WIN32
+			SDL_GLContext* context = (SDL_GLContext* )SDL_GL_CreateContext(wnd);
+			SDL_GL_MakeCurrent(wnd, context);
+			WindowsWGL_GrabWindow(wnd);
 #endif
 			/*if(oot::config().video().vsync())
 			{

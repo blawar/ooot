@@ -80,7 +80,7 @@ void func_8087B7E8(BgHaka* pthis, GlobalContext* globalCtx)
 		if(globalCtx->sceneNum == SCENE_SPOT02 && !LINK_IS_ADULT && !gSaveContext.nightFlag)
 		{
 			pthis->dyna.unk_150 = 0.0f;
-			player->stateFlags2 &= ~PLAYER_STATE2_4;
+			player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 			if(!Gameplay_InCsMode(globalCtx))
 			{
 				Message_StartTextbox(globalCtx, 0x5073, NULL);
@@ -91,7 +91,7 @@ void func_8087B7E8(BgHaka* pthis, GlobalContext* globalCtx)
 		else if(0.0f < pthis->dyna.unk_150 || (globalCtx->sceneNum == SCENE_SPOT06 && !LINK_IS_ADULT && !Flags_GetSwitch(globalCtx, 0x23)))
 		{
 			pthis->dyna.unk_150 = 0.0f;
-			player->stateFlags2 &= ~PLAYER_STATE2_4;
+			player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		}
 		else
 		{
@@ -115,7 +115,7 @@ void func_8087B938(BgHaka* pthis, GlobalContext* globalCtx)
 	if(sp38 != 0)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		if(pthis->dyna.actor.params == 1)
 		{
 			Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
@@ -136,7 +136,7 @@ void func_8087BAAC(BgHaka* pthis, GlobalContext* globalCtx)
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 }
 
@@ -152,7 +152,7 @@ void func_8087BAE4(BgHaka* pthis, GlobalContext* globalCtx)
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 	if(pthis->dyna.actor.params == 0)
 	{

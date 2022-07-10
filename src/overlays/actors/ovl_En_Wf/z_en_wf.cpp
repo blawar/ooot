@@ -424,8 +424,8 @@ void EnWf_WaitToAppear(EnWf* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->actionTimer != 0)
 	{
-		pthis->actor.scale.y += pthis->actor.scale.x * 0.2f;
-		pthis->actor.world.pos.y += 0.5f;
+		pthis->actor.scale.y += pthis->actor.scale.x * 0.2f * FRAMERATE_SCALER;
+		pthis->actor.world.pos.y += 0.5f * FRAMERATE_SCALER;
 		Math_SmoothStepToF(&pthis->actor.shape.shadowScale, 70.0f, 1.0f, 14.0f, 0.0f);
 		pthis->actionTimer--;
 

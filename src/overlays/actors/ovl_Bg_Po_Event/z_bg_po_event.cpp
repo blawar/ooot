@@ -441,7 +441,7 @@ void BgPoEvent_BlockIdle(BgPoEvent* pthis, GlobalContext* globalCtx)
 	{
 		if((gSaveContext.timer1Value == 0) && (sBlocksAtRest == 5))
 		{
-			player->stateFlags2 &= ~PLAYER_STATE2_4;
+			player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 			sPuzzleState = 0x10;
 			sBlocksAtRest = 0;
 		}
@@ -468,13 +468,13 @@ void BgPoEvent_BlockIdle(BgPoEvent* pthis, GlobalContext* globalCtx)
 				}
 				else
 				{
-					player->stateFlags2 &= ~PLAYER_STATE2_4;
+					player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 					pthis->dyna.unk_150 = 0.0f;
 				}
 			}
 			else
 			{
-				player->stateFlags2 &= ~PLAYER_STATE2_4;
+				player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 				pthis->dyna.unk_150 = 0.0f;
 				DECR(pthis->direction);
 			}
@@ -500,7 +500,7 @@ void BgPoEvent_BlockPush(BgPoEvent* pthis, GlobalContext* globalCtx)
 	pthis->dyna.actor.world.pos.z = (Math_CosS(pthis->dyna.unk_158) * displacement) + pthis->dyna.actor.home.pos.z;
 	if(blockStop)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		if((pthis->dyna.unk_150 > 0.0f) && (func_800435D8(globalCtx, &pthis->dyna, 0x1E, 0x32, -0x14) == 0))
 		{
 			Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EV_BLOCK_BOUND);
@@ -529,7 +529,7 @@ void BgPoEvent_BlockReset(BgPoEvent* pthis, GlobalContext* globalCtx)
 
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->dyna.unk_150 = 0.0f;
 	}
 	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, 493.0f, 1.0f) && Math_ScaledStepToS(&pthis->dyna.actor.shape.rot.z, pthis->dyna.actor.world.rot.z - 0x4000, 0x400))
@@ -551,7 +551,7 @@ void BgPoEvent_BlockSolved(BgPoEvent* pthis, GlobalContext* globalCtx)
 
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 	if(Math_StepToF(&pthis->dyna.actor.world.pos.y, 369.0f, 2.0f))
 	{

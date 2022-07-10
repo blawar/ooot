@@ -129,7 +129,7 @@ void BgMoriKaitenkabe_Wait(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx)
 	if(fabsf(pthis->dyna.unk_150) > 0.001f)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 }
 
@@ -153,11 +153,11 @@ void BgMoriKaitenkabe_Rotate(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx)
 		func_8002DF54(globalCtx, thisx, 7);
 		if(pthis->rotDirection > 0.0f)
 		{
-			thisx->home.rot.y += 0x2000;
+			thisx->home.rot.y = thisx->home.rot.y + 0x2000;
 		}
 		else
 		{
-			thisx->home.rot.y -= 0x2000;
+			thisx->home.rot.y = thisx->home.rot.y - 0x2000;
 		}
 		thisx->world.rot.y = thisx->shape.rot.y = thisx->home.rot.y;
 		Common_PlaySfx2(NA_SE_EV_STONEDOOR_STOP);
@@ -171,7 +171,7 @@ void BgMoriKaitenkabe_Rotate(BgMoriKaitenkabe* pthis, GlobalContext* globalCtx)
 	if(fabsf(pthis->dyna.unk_150) > 0.001f)
 	{
 		pthis->dyna.unk_150 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 	Math_Vec3f_Copy(&player->actor.world.pos, &pthis->lockedPlayerPos);
 }
