@@ -8,7 +8,21 @@
 
 **Discord:** <https://discord.com/invite/8tktBEhbZm>
 
-[MattsCreative](http://www.youtube.com/channel/UCzoVL1aVjec7YKPeG59xKFg) has a great video tutorial on how to compile this project here: <https://youtu.be/swv1Tv-kjsU> and Compiling the dev branch to enable 30-120fps here https://www.youtube.com/watch?v=khiLvG3psPM
+## How to Acquire the ROM needed
+
+You must get that on your own and please do not ask for that in the discord due to discord's TOS.
+
+PAL 1.0 MD5 
+
+`9526b263b60577d8ed22fb7a33c2facd`
+
+EUR MQD MD5 
+
+`f0b7f35375f9cc8ca1b2d59d78e35405`
+
+[MattsCreative](https://youtu.be/k1fjHLU9gGU) has a great videos and tutorial on how to compile this project Below: 
+
+[How to use OOT Builder](https://youtu.be/pZi0r6g3YJ8)
 
 ## FAQ
 
