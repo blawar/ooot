@@ -107,6 +107,7 @@ u32 framerate_get();
 void framerate_set_profile(FramerateProfile profile);
 FramerateProfile framerate_get_profile();
 float frameRateDivisor();
+void force20FPS(bool force);
 
 class Timer
 {
@@ -379,7 +380,7 @@ class Timer
 	{
 		if(m_counterInt > m_max * m_counterScaler)
 		{
-			m_counterInt = (m_min * m_counterScaler) + (m_counterInt - (m_max * m_counterScaler + 1));
+			m_counterInt = (m_min * m_counterScaler) + (m_counterInt - ((m_max + 1) * m_counterScaler + 0));
 
 			if(m_counterInt > m_max * m_counterScaler)
 			{
@@ -389,7 +390,7 @@ class Timer
 
 		if(m_counterInt < m_min * m_counterScaler)
 		{
-			m_counterInt = (m_max * m_counterScaler) + (m_counterInt - (m_min * m_counterScaler - 1));
+			m_counterInt = (m_max * m_counterScaler) + (m_counterInt - ((m_min - 1) * m_counterScaler - 0));
 
 			if(m_counterInt < m_min * m_counterScaler)
 			{

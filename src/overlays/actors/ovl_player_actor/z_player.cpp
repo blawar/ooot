@@ -1189,7 +1189,7 @@ void func_80832440(GlobalContext* globalCtx, Player* pthis)
 	func_8005B1A4(Gameplay_GetCamera(globalCtx, 0));
 
 	pthis->stateFlags1 &= ~(PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_20 | PLAYER_STATE1_21);
-	pthis->stateFlags2 &= ~(PLAYER_STATE2_4 | PLAYER_STATE2_7 | PLAYER_STATE2_CRAWL);
+	pthis->stateFlags2 &= ~(PLAYER_STATE2_4_JYA_COBRA_TURNING | PLAYER_STATE2_7 | PLAYER_STATE2_CRAWL);
 
 	pthis->actor.shape.rot.x = 0;
 	pthis->actor.shape.yOffset = 0.0f;
@@ -2758,7 +2758,7 @@ void func_808355DC(Player* pthis)
 {
 	pthis->stateFlags1 |= PLAYER_STATE1_17;
 
-	if(!(pthis->skelAnime.moveFlags & 0x80) && (pthis->actor.bgCheckFlags & BG_STATE_9) && (D_80853608 < 0x2000))
+	if(!(pthis->skelAnime.moveFlags & 0x80) && (pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && (D_80853608 < 0x2000))
 	{
 		pthis->currentYaw = pthis->actor.shape.rot.y = pthis->actor.wallYaw + 0x8000;
 	}
@@ -4806,14 +4806,14 @@ s32 func_80839034(GlobalContext* globalCtx, Player* pthis, CollisionPoly* poly, 
 	return 0;
 }
 
-void func_808395DC(Player* pthis, Vec3f* arg1, Vec3f* arg2, Vec3f* arg3)
+void func_808395DC(Player* pthis, Vec3f* pos, Vec3f* len, Vec3f* result)
 {
 	f32 cos = Math_CosS(pthis->actor.shape.rot.y);
 	f32 sin = Math_SinS(pthis->actor.shape.rot.y);
 
-	arg3->x = arg1->x + ((arg2->x * cos) + (arg2->z * sin));
-	arg3->y = arg1->y + arg2->y;
-	arg3->z = arg1->z + ((arg2->z * cos) - (arg2->x * sin));
+	result->x = pos->x + ((len->x * cos) + (len->z * sin));
+	result->y = pos->y + len->y;
+	result->z = pos->z + ((len->z * cos) - (len->x * sin));
 }
 
 Actor* Player_SpawnFairy(GlobalContext* globalCtx, Player* pthis, Vec3f* arg2, Vec3f* arg3, s32 type)
@@ -4840,18 +4840,18 @@ f32 func_8083973C(GlobalContext* globalCtx, Player* pthis, Vec3f* arg2, Vec3f* a
 	return func_808396F4(globalCtx, pthis, arg2, arg3, &sp24, &sp20);
 }
 
-s32 func_80839768(GlobalContext* globalCtx, Player* pthis, Vec3f* arg2, CollisionPoly** arg3, s32* arg4, Vec3f* arg5)
+s32 func_80839768(GlobalContext* globalCtx, Player* pthis, Vec3f* len, CollisionPoly** arg3, s32* arg4, Vec3f* arg5)
 {
-	Vec3f sp44;
-	Vec3f sp38;
+	Vec3f posA;
+	Vec3f posB;
 
-	sp44.x = pthis->actor.world.pos.x;
-	sp44.y = pthis->actor.world.pos.y + arg2->y;
-	sp44.z = pthis->actor.world.pos.z;
+	posA.x = pthis->actor.world.pos.x;
+	posA.y = pthis->actor.world.pos.y + len->y;
+	posA.z = pthis->actor.world.pos.z;
 
-	func_808395DC(pthis, &pthis->actor.world.pos, arg2, &sp38);
+	func_808395DC(pthis, &pthis->actor.world.pos, len, &posB);
 
-	return BgCheck_EntityLineTest1(&globalCtx->colCtx, &sp44, &sp38, arg5, arg3, true, false, false, true, arg4);
+	return BgCheck_EntityLineTest1(&globalCtx->colCtx, &posA, &posB, arg5, arg3, true, false, false, true, arg4);
 }
 
 s32 func_80839800(Player* pthis, GlobalContext* globalCtx)
@@ -5222,6 +5222,7 @@ void func_8083A3B0(GlobalContext* globalCtx, Player* pthis)
 
 void func_8083A40C(GlobalContext* globalCtx, Player* pthis)
 {
+	force20FPS(true);
 	Player_SetUpdateFunctWithMove0(globalCtx, pthis, Player_ActionCrawlTunnelEnter, 0);
 }
 
@@ -6014,6 +6015,7 @@ void func_8083BF50(Player* pthis, GlobalContext* globalCtx)
 
 void func_8083C0E8(Player* pthis, GlobalContext* globalCtx)
 {
+	force20FPS(false);
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_Standing, 1);
 	func_80832264(globalCtx, pthis, func_80833338(pthis));
 	pthis->currentYaw = pthis->actor.shape.rot.y;
@@ -7377,7 +7379,7 @@ s32 func_8083F360(GlobalContext* globalCtx, Player* pthis, f32 arg1, f32 arg2, f
 	{
 		wallPoly = pthis->actor.wallPoly;
 
-		pthis->actor.bgCheckFlags |= BG_STATE_9;
+		pthis->actor.bgCheckFlags |= BG_STATE_COLLIDED_OBJECT;
 		pthis->actor.wallBgId = sp78;
 
 		D_808535F0 = func_80041DB8(&globalCtx->colCtx, wallPoly, sp78);
@@ -7394,7 +7396,7 @@ s32 func_8083F360(GlobalContext* globalCtx, Player* pthis, f32 arg1, f32 arg2, f
 		return 1;
 	}
 
-	pthis->actor.bgCheckFlags &= ~BG_STATE_9;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_COLLIDED_OBJECT;
 
 	return 0;
 }
@@ -7462,7 +7464,7 @@ s32 func_8083F7BC(Player* pthis, GlobalContext* globalCtx)
 {
 	DynaPolyActor* wallPolyActor;
 
-	if(!(pthis->stateFlags1 & PLAYER_STATE1_11) && (pthis->actor.bgCheckFlags & BG_STATE_9) && (D_80853608 < 0x3000))
+	if(!(pthis->stateFlags1 & PLAYER_STATE1_11) && (pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && (D_80853608 < 0x3000))
 	{
 		if(((pthis->linearVelocity > 0.0f) && func_8083EC18(pthis, globalCtx, D_808535F0)) || func_8083F0C8(pthis, globalCtx, D_808535F0))
 		{
@@ -7513,7 +7515,7 @@ s32 func_8083F7BC(Player* pthis, GlobalContext* globalCtx)
 
 s32 func_8083F9D0(GlobalContext* globalCtx, Player* pthis)
 {
-	if((pthis->actor.bgCheckFlags & BG_STATE_9) && ((pthis->stateFlags2 & PLAYER_STATE2_4) || CHECK_BTN_ALL(sControlInput->cur.button, BTN_A)))
+	if((pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && ((pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING) || CHECK_BTN_ALL(sControlInput->cur.button, BTN_A)))
 	{
 		DynaPolyActor* wallPolyActor = NULL;
 
@@ -7524,7 +7526,7 @@ s32 func_8083F9D0(GlobalContext* globalCtx, Player* pthis)
 
 		if(&wallPolyActor->actor == pthis->unk_3C4)
 		{
-			if(pthis->stateFlags2 & PLAYER_STATE2_4)
+			if(pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 			{
 				return 1;
 			}
@@ -7537,21 +7539,21 @@ s32 func_8083F9D0(GlobalContext* globalCtx, Player* pthis)
 
 	Player_ResetActionFunction(pthis, globalCtx);
 	func_80832264(globalCtx, pthis, &gPlayerAnim_003100);
-	pthis->stateFlags2 &= ~PLAYER_STATE2_4;
+	pthis->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	return 1;
 }
 
 void func_8083FAB8(Player* pthis, GlobalContext* globalCtx)
 {
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084B898, 0);
-	pthis->stateFlags2 |= PLAYER_STATE2_4;
+	pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	func_80832264(globalCtx, pthis, &gPlayerAnim_0030F0);
 }
 
 void func_8083FB14(Player* pthis, GlobalContext* globalCtx)
 {
 	Player_SetUpdateFunct(globalCtx, pthis, Player_UpdateFunc_8084B9E4, 0);
-	pthis->stateFlags2 |= PLAYER_STATE2_4;
+	pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	func_80832264(globalCtx, pthis, D_80853C5C[pthis->modelAnimType]);
 }
 
@@ -7564,7 +7566,7 @@ void func_8083FB7C(Player* pthis, GlobalContext* globalCtx)
 
 s32 func_8083FBC0(Player* pthis, GlobalContext* globalCtx)
 {
-	if(!CHECK_BTN_ALL(sControlInput->press.button, BTN_A) && (pthis->actor.bgCheckFlags & BG_STATE_9) && ((D_808535F0 & 8) || (D_808535F0 & 2) || func_80041E4C(&globalCtx->colCtx, pthis->actor.wallPoly, pthis->actor.wallBgId)))
+	if(!CHECK_BTN_ALL(sControlInput->press.button, BTN_A) && (pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && ((D_808535F0 & 8) || (D_808535F0 & 2) || func_80041E4C(&globalCtx->colCtx, pthis->actor.wallPoly, pthis->actor.wallBgId)))
 	{
 		return 0;
 	}
@@ -9572,7 +9574,7 @@ void Player_UpdateFunc_ZView_Backflip(Player* pthis, GlobalContext* globalCtx)
 						func_80843E14(pthis, NA_SE_VO_LI_FALL_L);
 					}
 
-					if((pthis->actor.bgCheckFlags & BG_STATE_9) && !(pthis->stateFlags2 & PLAYER_STATE2_19) && !(pthis->stateFlags1 & (PLAYER_STATE1_11 | PLAYER_STATE_SWIMMING)) && (pthis->linearVelocity > 0.0f))
+					if((pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && !(pthis->stateFlags2 & PLAYER_STATE2_19) && !(pthis->stateFlags1 & (PLAYER_STATE1_11 | PLAYER_STATE_SWIMMING)) && (pthis->linearVelocity > 0.0f))
 					{
 						if((pthis->wallHeight >= 150.0f) && (pthis->unk_84B[pthis->unk_846] == 0))
 						{
@@ -9699,7 +9701,7 @@ void Player_UpdateWhenRolling(Player* pthis, GlobalContext* globalCtx)
 		{
 			if(pthis->linearVelocity >= 7.0f)
 			{
-				if(((pthis->actor.bgCheckFlags & BG_STATE_9) && (D_8085360C < 0x2000)) ||
+				if(((pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && (D_8085360C < 0x2000)) ||
 				   ((pthis->cylinder.base.ocFlags1 & OC1_HIT) && (cylinderOc = pthis->cylinder.base.oc, ((cylinderOc->id == ACTOR_EN_WOOD02) && (ABS((s16)(pthis->actor.world.rot.y - cylinderOc->yawTowardsPlayer)) > 0x6000)))))
 				{
 					if(cylinderOc != NULL)
@@ -10402,7 +10404,7 @@ void Player_UpdateFunc_80846050(Player* pthis, GlobalContext* globalCtx)
 			pthis->heldActor = interactRangeActor;
 			pthis->actor.child = interactRangeActor;
 			interactRangeActor->parent = &pthis->actor;
-			interactRangeActor->bgCheckFlags &= (BG_STATE_8 | BG_STATE_9 | BG_STATE_10 | BG_STATE_11 | BG_STATE_12 | BG_STATE_13 | BG_STATE_14 | BG_STATE_15);
+			interactRangeActor->bgCheckFlags &= (BG_STATE_8 | BG_STATE_COLLIDED_OBJECT | BG_STATE_10 | BG_STATE_11 | BG_STATE_12 | BG_STATE_13 | BG_STATE_14 | BG_STATE_15);
 			pthis->unk_3BC.y = interactRangeActor->shape.rot.y - pthis->actor.shape.rot.y;
 		}
 		return;
@@ -11219,25 +11221,18 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 
 	D_80853604 = pthis->unk_A7A;
 
+	const float heightAdjust = (pthis->actor.velocity.y * 1.5) - (pthis->actor.velocity.y * FRAMERATE_ANIM_SCALER);
+
 	if(pthis->stateFlags2 & PLAYER_STATE2_CRAWL)
 	{
-		if(TICK_RATE > 20)
-		{
-			wallCheckRadius = 10.0f * 0.5f; // TODO FIX HACK
-			wallCheckHeight = 15.0f * 0.5f;
-			ceilingCheckHeight = 30.0f * 0.5f;
-		}
-		else
-		{
-			wallCheckRadius = 10.0f;
-			wallCheckHeight = 15.0f;
-			ceilingCheckHeight = 30.0f;
-		}
+		wallCheckRadius = 10.0f + heightAdjust;
+		wallCheckHeight = 15.0f + heightAdjust;
+		ceilingCheckHeight = 30.0f + heightAdjust;
 	}
 	else
 	{
 		wallCheckRadius = pthis->ageProperties->unk_38;
-		wallCheckHeight = 26.0f;
+		wallCheckHeight = 26.0f + heightAdjust;
 		ceilingCheckHeight = pthis->ageProperties->unk_00;
 	}
 
@@ -11254,7 +11249,7 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 		}
 		else if(!(pthis->stateFlags1 & PLAYER_STATE1_0) && ((Player_UpdateFunc_80845EF8 == pthis->playerUpdateFunct) || (Player_UpdateFunc_80845CA4 == pthis->playerUpdateFunct)))
 		{
-			pthis->actor.bgCheckFlags &= ~(BG_STATE_3 | BG_STATE_9);
+			pthis->actor.bgCheckFlags &= ~(BG_STATE_3 | BG_STATE_COLLIDED_OBJECT);
 			flags = 0x3C;
 		}
 		else
@@ -11349,7 +11344,7 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 
 	func_80839034(globalCtx, pthis, spC0, pthis->actor.floorBgId);
 
-	pthis->actor.bgCheckFlags &= ~BG_STATE_9;
+	pthis->actor.bgCheckFlags &= ~BG_STATE_COLLIDED_OBJECT;
 
 	if(pthis->actor.bgCheckFlags & BG_STATE_3)
 	{
@@ -11363,7 +11358,7 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 
 		if(!(pthis->stateFlags2 & PLAYER_STATE2_CRAWL) && func_80839768(globalCtx, pthis, &D_80854798, &spA0, &sp9C, &D_80858AA8))
 		{
-			pthis->actor.bgCheckFlags |= BG_STATE_9;
+			pthis->actor.bgCheckFlags |= BG_STATE_COLLIDED_OBJECT;
 			if(pthis->actor.wallPoly != spA0)
 			{
 				pthis->actor.wallPoly = spA0;
@@ -11397,7 +11392,7 @@ void func_80847BA0(GlobalContext* globalCtx, Player* pthis)
 			}
 		}
 
-		if((pthis->actor.bgCheckFlags & BG_STATE_9) && (D_80853608 < 0x3000))
+		if((pthis->actor.bgCheckFlags & BG_STATE_COLLIDED_OBJECT) && (D_80853608 < 0x3000))
 		{
 			CollisionPoly* wallPoly = pthis->actor.wallPoly;
 
@@ -13018,11 +13013,11 @@ void Player_UpdateFunc_8084B898(Player* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->stateFlags2 |= PLAYER_STATE2_4;
+			pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		}
 	}
 
-	if(pthis->stateFlags2 & PLAYER_STATE2_4)
+	if(pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 	{
 		func_8084B840(globalCtx, pthis, 2.0f);
 		pthis->linearVelocity = 2.0f;
@@ -13087,11 +13082,11 @@ void Player_UpdateFunc_8084B9E4(Player* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->stateFlags2 |= PLAYER_STATE2_4;
+			pthis->stateFlags2 |= PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		}
 	}
 
-	if(pthis->stateFlags2 & PLAYER_STATE2_4)
+	if(pthis->stateFlags2 & PLAYER_STATE2_4_JYA_COBRA_TURNING)
 	{
 		temp2 = func_8083973C(globalCtx, pthis, &D_80854880, &sp5C) - pthis->actor.world.pos.y;
 		if(fabsf(temp2) < 20.0f)
@@ -13105,7 +13100,7 @@ void Player_UpdateFunc_8084B9E4(Player* pthis, GlobalContext* globalCtx)
 				return;
 			}
 		}
-		pthis->stateFlags2 &= ~PLAYER_STATE2_4;
+		pthis->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 }
 
@@ -14995,7 +14990,7 @@ void Player_UpdateFunc_FallingFromLight(Player* pthis, GlobalContext* globalCtx)
 				func_80853080(pthis, globalCtx);
 			}
 		}
-		Math_SmoothStepToF(&pthis->actor.velocity.y, 2.0f, 0.3f, 8.0f, 0.5f);
+		Math_SmoothStepToF(&pthis->actor.velocity.y, 2.0f, 0.3f * FRAMERATE_SCALER, 8.0f, 0.5f);
 	}
 
 	if((globalCtx->sceneNum == SCENE_KENJYANOMA) && func_8083ADD4(globalCtx, pthis))

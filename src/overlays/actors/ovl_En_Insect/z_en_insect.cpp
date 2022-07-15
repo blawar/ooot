@@ -93,7 +93,7 @@ static InitChainEntry sInitChain[] = {
 
 void func_80A7BE20(EnInsect* pthis)
 {
-	pthis->unk_314 = D_80A7DF10[pthis->actor.params & 3];
+	pthis->flags = D_80A7DF10[pthis->actor.params & 3];
 }
 
 f32 EnInsect_XZDistanceSquared(Vec3f* v1, Vec3f* v2)
@@ -201,13 +201,13 @@ void EnInsect_Init(Actor* thisx, GlobalContext* globalCtx2)
 
 	pthis->actor.colChkInfo.mass = 30;
 
-	if(pthis->unk_314 & 1)
+	if(pthis->flags & 1)
 	{
-		pthis->actor.gravity = -0.2f;
+		pthis->actor.gravity = -0.2f * FRAMERATE_SCALER_INV;
 		pthis->actor.minVelocityY = -2.0f;
 	}
 
-	if(pthis->unk_314 & 4)
+	if(pthis->flags & 4)
 	{
 		pthis->unk_31C = Rand_S16Offset(200, 40);
 		pthis->actor.flags |= ACTOR_FLAG_4;
@@ -217,7 +217,7 @@ void EnInsect_Init(Actor* thisx, GlobalContext* globalCtx2)
 	{
 		if(EnInsect_FoundNearbySoil(pthis, globalCtx))
 		{
-			pthis->unk_314 |= 0x10;
+			pthis->flags |= 0x10;
 			D_80A7DEB0 = 0.0f;
 		}
 
@@ -273,7 +273,7 @@ void func_80A7C3A0(EnInsect* pthis)
 	pthis->unk_31A = Rand_S16Offset(5, 35);
 	func_80A7BF58(pthis);
 	pthis->actionFunc = func_80A7C3F4;
-	pthis->unk_314 |= 0x100;
+	pthis->flags |= 0x100;
 }
 
 void func_80A7C3F4(EnInsect* pthis, GlobalContext* globalCtx)
@@ -296,11 +296,11 @@ void func_80A7C3F4(EnInsect* pthis, GlobalContext* globalCtx)
 		func_80A7C598(pthis);
 	}
 
-	if(((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp2E == 2 || sp2E == 3) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4))
+	if(((pthis->flags & 4) && pthis->unk_31C <= 0) || ((sp2E == 2 || sp2E == 3) && (pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4))
 	{
 		func_80A7CBC8(pthis);
 	}
-	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
+	else if((pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -315,7 +315,7 @@ void func_80A7C598(EnInsect* pthis)
 	pthis->unk_31A = Rand_S16Offset(10, 45);
 	func_80A7BF58(pthis);
 	pthis->actionFunc = func_80A7C5EC;
-	pthis->unk_314 |= 0x100;
+	pthis->flags |= 0x100;
 }
 
 void func_80A7C5EC(EnInsect* pthis, GlobalContext* globalCtx)
@@ -348,11 +348,11 @@ void func_80A7C5EC(EnInsect* pthis, GlobalContext* globalCtx)
 		func_80A7C3A0(pthis);
 	}
 
-	if(((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp34 == 2 || sp34 == 3) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4))
+	if(((pthis->flags & 4) && pthis->unk_31C <= 0) || ((sp34 == 2 || sp34 == 3) && (pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4))
 	{
 		func_80A7CBC8(pthis);
 	}
-	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
+	else if((pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -367,7 +367,7 @@ void func_80A7C818(EnInsect* pthis)
 	pthis->unk_31A = Rand_S16Offset(10, 40);
 	func_80A7BF58(pthis);
 	pthis->actionFunc = func_80A7C86C;
-	pthis->unk_314 |= 0x100;
+	pthis->flags |= 0x100;
 }
 
 void func_80A7C86C(EnInsect* pthis, GlobalContext* globalCtx)
@@ -417,7 +417,7 @@ void func_80A7C86C(EnInsect* pthis, GlobalContext* globalCtx)
 	{
 		func_80A7C3A0(pthis);
 	}
-	else if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
+	else if((pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
@@ -436,18 +436,18 @@ void func_80A7CA64(EnInsect* pthis)
 
 	pthis->skelAnime.playSpeed = 0.3f;
 	pthis->actionFunc = func_80A7CAD0;
-	pthis->unk_314 &= ~0x100;
+	pthis->flags &= ~0x100;
 }
 
 void func_80A7CAD0(EnInsect* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->unk_31A == 20 && !(pthis->unk_314 & 4))
+	if(pthis->unk_31A == 20 && !(pthis->flags & 4))
 	{
 		pthis->actor.draw = EnInsect_Draw;
 	}
 	else if(pthis->unk_31A == 0)
 	{
-		if(pthis->unk_314 & 4)
+		if(pthis->flags & 4)
 		{
 			Actor_Kill(&pthis->actor);
 		}
@@ -472,8 +472,8 @@ void func_80A7CBC8(EnInsect* pthis)
 	Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MUSI_SINK);
 	Math_Vec3f_Copy(&pthis->actor.home.pos, &pthis->actor.world.pos);
 	pthis->actionFunc = func_80A7CC3C;
-	pthis->unk_314 &= ~0x100;
-	pthis->unk_314 |= 0x8;
+	pthis->flags &= ~0x100;
+	pthis->flags |= 0x8;
 }
 
 void func_80A7CC3C(EnInsect* pthis, GlobalContext* globalCtx)
@@ -502,7 +502,7 @@ void func_80A7CC3C(EnInsect* pthis, GlobalContext* globalCtx)
 
 	if(pthis->unk_31A <= 0)
 	{
-		if((pthis->unk_314 & 0x10) && pthis->soilActor != NULL && Math3D_Vec3fDistSq(&pthis->soilActor->actor.world.pos, &pthis->actor.world.pos) < 64.0f)
+		if((pthis->flags & 0x10) && pthis->soilActor != NULL && Math3D_Vec3fDistSq(&pthis->soilActor->actor.world.pos, &pthis->actor.world.pos) < 64.0f)
 		{
 			pthis->soilActor->unk_152 = 1;
 		}
@@ -516,7 +516,7 @@ void func_80A7CE60(EnInsect* pthis)
 	func_80A7BF58(pthis);
 	pthis->unk_316 = pthis->unk_318 = 0;
 	pthis->actionFunc = func_80A7CEC0;
-	pthis->unk_314 &= ~0x100;
+	pthis->flags &= ~0x100;
 }
 
 void func_80A7CEC0(EnInsect* pthis, GlobalContext* globalCtx)
@@ -602,13 +602,13 @@ void func_80A7CEC0(EnInsect* pthis, GlobalContext* globalCtx)
 		EffectSsGRipple_Spawn(globalCtx, &sp40, 40, 200, 8);
 	}
 
-	if(pthis->unk_31A <= 0 || ((pthis->unk_314 & 4) && pthis->unk_31C <= 0) || ((sp4E == 2 || sp4E == 3) && (pthis->unk_314 & 1) && D_80A7DEB8 >= 4))
+	if(pthis->unk_31A <= 0 || ((pthis->flags & 4) && pthis->unk_31C <= 0) || ((sp4E == 2 || sp4E == 3) && (pthis->flags & 1) && D_80A7DEB8 >= 4))
 	{
 		func_80A7D1F4(pthis);
 	}
 	else if(!(pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
-		if(pthis->unk_314 & 0x10)
+		if(pthis->flags & 0x10)
 		{
 			func_80A7D39C(pthis);
 		}
@@ -627,10 +627,10 @@ void func_80A7D1F4(EnInsect* pthis)
 	pthis->actor.speedXZ = 0.0f;
 	pthis->actor.minVelocityY = -0.8f;
 	pthis->actor.gravity = -0.04f;
-	pthis->unk_314 &= ~0x3;
+	pthis->flags &= ~0x3;
 	pthis->actionFunc = func_80A7D26C;
-	pthis->unk_314 &= ~0x100;
-	pthis->unk_314 |= 8;
+	pthis->flags &= ~0x100;
+	pthis->flags |= 8;
 }
 
 void func_80A7D26C(EnInsect* pthis, GlobalContext* globalCtx)
@@ -660,7 +660,7 @@ void func_80A7D39C(EnInsect* pthis)
 	pthis->actor.world.rot.y = Rand_ZeroOne() * (0xFFFF + 0.5f);
 	Actor_SetScale(&pthis->actor, 0.003f);
 	pthis->actionFunc = func_80A7D460;
-	pthis->unk_314 |= 0x100;
+	pthis->flags |= 0x100;
 }
 
 void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
@@ -685,7 +685,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(pthis->unk_314 & 0x10)
+		if(pthis->flags & 0x10)
 		{
 			osSyncPrintf(VT_COL(YELLOW, BLACK));
 			// "warning: target Actor is NULL"
@@ -801,13 +801,13 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 	}
 
 	SkelAnime_Update(&pthis->skelAnime);
-	if(!(pthis->unk_314 & 0x40) && (pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0))
+	if(!(pthis->flags & 0x40) && (pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_MUSI_LAND);
-		pthis->unk_314 |= 0x40;
+		pthis->flags |= 0x40;
 	}
 
-	if(sp3A == 2 && (pthis->unk_314 & 0x10) && !(pthis->unk_314 & 0x80))
+	if(sp3A == 2 && (pthis->flags & 0x10) && !(pthis->flags & 0x80))
 	{
 		if(pthis->unk_32A >= 15)
 		{
@@ -818,7 +818,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 					Common_PlaySfx(NA_SE_SY_TRE_BOX_APPEAR);
 				}
 			}
-			pthis->unk_314 |= 0x80;
+			pthis->flags |= 0x80;
 		}
 		else
 		{
@@ -826,17 +826,17 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 		}
 	}
 
-	if((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
+	if((pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_6))
 	{
 		func_80A7CE60(pthis);
 	}
-	else if(pthis->unk_314 & 0x10)
+	else if(pthis->flags & 0x10)
 	{
 		if(sp40 < 9.0f)
 		{
 			func_80A7CBC8(pthis);
 		}
-		else if(pthis->unk_31A <= 0 || pthis->unk_31C <= 0 || ((pthis->unk_314 & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4 && (sp3A == 2 || sp3A == 3)))
+		else if(pthis->unk_31A <= 0 || pthis->unk_31C <= 0 || ((pthis->flags & 1) && (pthis->actor.bgCheckFlags & BG_STATE_0) && D_80A7DEB8 >= 4 && (sp3A == 2 || sp3A == 3)))
 		{
 			func_80A7CBC8(pthis);
 		}
@@ -845,7 +845,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 			if(sp40 < 900.0f)
 			{
 				pthis->unk_31C++;
-				pthis->unk_314 |= 0x20;
+				pthis->flags |= 0x20;
 			}
 			else
 			{
@@ -857,7 +857,7 @@ void func_80A7D460(EnInsect* pthis, GlobalContext* globalCtx)
 	{
 		func_80A7C3A0(pthis);
 	}
-	else if((sp3A == 2 || sp3A == 3) && (pthis->unk_314 & 1) && pthis->unk_31C <= 0 && pthis->unk_31A <= 0 && pthis->actor.floorHeight < BGCHECK_Y_MIN + 10.0f)
+	else if((sp3A == 2 || sp3A == 3) && (pthis->flags & 1) && pthis->unk_31C <= 0 && pthis->unk_31A <= 0 && pthis->actor.floorHeight < BGCHECK_Y_MIN + 10.0f)
 	{
 		osSyncPrintf(VT_COL(YELLOW, BLACK));
 		// "BG missing? To do Actor_delete"
@@ -898,9 +898,9 @@ void EnInsect_Update(Actor* thisx, GlobalContext* globalCtx)
 	if(pthis->actor.update != NULL)
 	{
 		Actor_MoveForward(&pthis->actor);
-		if(pthis->unk_314 & 0x100)
+		if(pthis->flags & 0x100)
 		{
-			if(pthis->unk_314 & 1)
+			if(pthis->flags & 1)
 			{
 				if(pthis->actor.bgCheckFlags & BG_STATE_0)
 				{
@@ -915,12 +915,12 @@ void EnInsect_Update(Actor* thisx, GlobalContext* globalCtx)
 
 		phi_v0 = 0;
 
-		if(pthis->unk_314 & 1)
+		if(pthis->flags & 1)
 		{
 			phi_v0 = 4;
 		}
 
-		if(pthis->unk_314 & 2)
+		if(pthis->flags & 2)
 		{
 			phi_v0 |= 1;
 		}
@@ -947,12 +947,12 @@ void EnInsect_Update(Actor* thisx, GlobalContext* globalCtx)
 		}
 		else if(pthis->actor.xzDistToPlayer < 50.0f && pthis->actionFunc != func_80A7CAD0)
 		{
-			if(!(pthis->unk_314 & 0x20) && pthis->unk_31C < 180)
+			if(!(pthis->flags & 0x20) && pthis->unk_31C < 180)
 			{
 				CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 			}
 
-			if(!(pthis->unk_314 & 8) && D_80A7DEB4 < 4 && EnInsect_InBottleRange(pthis, globalCtx) &&
+			if(!(pthis->flags & 8) && D_80A7DEB4 < 4 && EnInsect_InBottleRange(pthis, globalCtx) &&
 			   // GI_MAX in pthis case allows the player to catch the actor in a bottle
 			   func_8002F434(&pthis->actor, globalCtx, GI_MAX, 60.0f, 30.0f))
 			{

@@ -176,9 +176,9 @@ void OceffSpot_Draw(Actor* thisx, GlobalContext* globalCtx)
 	func_80093D84(globalCtx->gfxCtx);
 
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_oceff_spot.c", 469), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-	gSPDisplayList(POLY_XLU_DISP++, sCylinderMaterialDL);
+	gSPDisplayList(POLY_XLU_DISP++, sOceffSpotCylinderMaterialDL);
 	gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, scroll * 2, scroll * (-2), 32, 32, 1, 0, scroll * (-8), 32, 32));
-	gSPDisplayList(POLY_XLU_DISP++, sCylinderModelDL);
+	gSPDisplayList(POLY_XLU_DISP++, sOceffSpotCylinderModelDL);
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_oceff_spot.c", 485);
 }

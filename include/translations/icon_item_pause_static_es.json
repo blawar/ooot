@@ -1,0 +1,31 @@
+[
+  {
+    "pause_botw_title": "Fondo del pozo",
+    "pause_current_position": "UBICACIÓN ACTUAL",
+    "pause_deku_title": "Gran Árbol Deku",
+    "pause_dodongo_title": "Caverna Dodongo",
+    "pause_equipment": "EQUIPO",
+    "pause_fire_title": "Templo del Fuego",
+    "pause_forest_title": "Templo del Bosque",
+    "pause_ice_cavern_title": "Caverna de hielo",
+    "pause_inside_jabu_title": "En la barriga de Jabu-Jabu",
+    "pause_map": "MAPA",
+    "pause_no": "No",
+    "pause_quest_status": "ESTADO DE LA AVENTURA",
+    "pause_save": "GUARDAR",
+    "pause_save_confirmation": "Partida guardada.",
+    "pause_save_prompt": "¿Desea guardar la partida?",
+    "pause_select_item": "OBJETOS",
+    "pause_shadow_title": "Templo de las Sombras",
+    "pause_spirit_title": "Templo del Espíritu",
+    "pause_to_decide": "para elegir",
+    "pause_to_equip": "para equipar",
+    "pause_to_equipment": "Al equipo",
+    "pause_to_map": "Al mapa",
+    "pause_to_play_melody": "para escuchar la canción",
+    "pause_to_quest_status": "Al estado de la aventura",
+    "pause_to_select_item": "A objetos",
+    "pause_water_title": "Templo del Agua",
+    "pause_yes": "Sí"
+  }
+]

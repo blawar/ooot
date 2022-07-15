@@ -29,7 +29,7 @@ ActorInit En_Jsjutan_InitVars = {
 };
 
 // Shadow texture. 32x64 I8.
-static u8 sShadowTex[0x800];
+static u8 sEnJsjutanShadowTex[0x800];
 
 static Vec3s D_80A8EE10[0x90];
 
@@ -45,7 +45,7 @@ void EnJsjutan_Init(Actor* thisx, GlobalContext* globalCtx)
 
 	pthis->dyna.actor.flags &= ~ACTOR_FLAG_VISIBLE;
 	DynaPolyActor_Init(&pthis->dyna, DPM_UNK);
-	CollisionHeader_GetVirtual(&sCol, &header);
+	CollisionHeader_GetVirtual(&sEnJsjutanCol, &header);
 	pthis->dyna.bgId = DynaPoly_SetBgActor(globalCtx, &globalCtx->colCtx.dyna, thisx, header);
 	Actor_SetScale(thisx, 0.02f);
 	pthis->unk_164 = true;
@@ -66,8 +66,8 @@ void func_80A89860(EnJsjutan* pthis, GlobalContext* globalCtx)
 	Vtx* evenVtx;
 	Vec3f actorPos = pthis->dyna.actor.world.pos;
 
-	oddVtx = SEGMENTED_TO_VIRTUAL(gShadowOddVtx);
-	evenVtx = SEGMENTED_TO_VIRTUAL(sShadowEvenVtx);
+	oddVtx = SEGMENTED_TO_VIRTUAL(gEnJsjutanShadowOddVtx);
+	evenVtx = SEGMENTED_TO_VIRTUAL(sEnJsjutanShadowEvenVtx);
 
 	for(i = 0; i < ARRAY_COUNT(D_80A8EE10); i++, oddVtx++, evenVtx++)
 	{
@@ -128,13 +128,13 @@ void func_80A89A6C(EnJsjutan* pthis, GlobalContext* globalCtx)
 
 	if(globalCtx->gameplayFrames % 2 != 0)
 	{
-		carpetVtx = SEGMENTED_TO_VIRTUAL(sCarpetOddVtx);
-		shadowVtx = SEGMENTED_TO_VIRTUAL(gShadowOddVtx);
+		carpetVtx = SEGMENTED_TO_VIRTUAL(sEnJsjutanCarpetOddVtx);
+		shadowVtx = SEGMENTED_TO_VIRTUAL(gEnJsjutanShadowOddVtx);
 	}
 	else
 	{
-		carpetVtx = SEGMENTED_TO_VIRTUAL(sCarpetEvenVtx);
-		shadowVtx = SEGMENTED_TO_VIRTUAL(sShadowEvenVtx);
+		carpetVtx = SEGMENTED_TO_VIRTUAL(sEnJsjutanCarpetEvenVtx);
+		shadowVtx = SEGMENTED_TO_VIRTUAL(sEnJsjutanShadowEvenVtx);
 	}
 
 	// Distance of player to carpet.
@@ -366,7 +366,7 @@ void func_80A89A6C(EnJsjutan* pthis, GlobalContext* globalCtx)
 	sp108.z = 120.0f;
 
 	// Fancy math to smooth each part of the wave considering its neighborhood.
-	for(i = 0; i < ARRAY_COUNT(sCarpetOddVtx); i++, carpetVtx++)
+	for(i = 0; i < ARRAY_COUNT(sEnJsjutanCarpetOddVtx); i++, carpetVtx++)
 	{
 		f32 rotX;
 		f32 rotZ;
@@ -454,15 +454,15 @@ void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	if(pthis->unk_164)
 	{
 		pthis->unk_164 = false;
-		for(i = 0; i < ARRAY_COUNT(sShadowTex); i++)
+		for(i = 0; i < ARRAY_COUNT(sEnJsjutanShadowTex); i++)
 		{
-			if(((u16*)sCarpetTex)[i] != 0)
+			if(((u16*)sEnJsjutanCarpetTex)[i] != 0)
 			{ // Hack to bypass ZAPD exporting textures as u64.
-				sShadowTex[i] = 0xFF;
+				sEnJsjutanShadowTex[i] = 0xFF;
 			}
 			else
 			{
-				sShadowTex[i] = 0;
+				sEnJsjutanShadowTex[i] = 0;
 			}
 		}
 	}
@@ -476,19 +476,19 @@ void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx2)
 	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_jsjutan.c", 782), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	// Draws the carpet's shadow texture.
-	gSPDisplayList(POLY_OPA_DISP++, sShadowMaterialDL);
+	gSPDisplayList(POLY_OPA_DISP++, sEnJsjutanShadowMaterialDL);
 	gDPPipeSync(POLY_OPA_DISP++);
 
 	// Draws the carpet's shadow vertices. Swaps them between frames to get a smoother result.
 	if(globalCtx->gameplayFrames % 2 != 0)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, gShadowOddVtx);
+		gSPSegment(POLY_OPA_DISP++, 0x0C, gEnJsjutanShadowOddVtx);
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, sShadowEvenVtx);
+		gSPSegment(POLY_OPA_DISP++, 0x0C, sEnJsjutanShadowEvenVtx);
 	}
-	gSPDisplayList(POLY_OPA_DISP++, sModelDL);
+	gSPDisplayList(POLY_OPA_DISP++, sEnJsjutanModelDL);
 
 	func_80093D18(globalCtx->gfxCtx);
 	Matrix_Translate(thisx->world.pos.x, pthis->unk_168 + 3.0f, thisx->world.pos.z, MTXMODE_NEW);
@@ -496,20 +496,20 @@ void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx2)
 
 	gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_en_jsjutan.c", 805), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	// Draws the carpet's texture.
-	gSPDisplayList(POLY_OPA_DISP++, sCarpetMaterialDL);
+	gSPDisplayList(POLY_OPA_DISP++, sEnJsjutanCarpetMaterialDL);
 
 	gDPPipeSync(POLY_OPA_DISP++);
 
 	// Draws the carpet vertices.
 	if(globalCtx->gameplayFrames % 2 != 0)
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, sCarpetOddVtx);
+		gSPSegment(POLY_OPA_DISP++, 0x0C, sEnJsjutanCarpetOddVtx);
 	}
 	else
 	{
-		gSPSegment(POLY_OPA_DISP++, 0x0C, sCarpetEvenVtx);
+		gSPSegment(POLY_OPA_DISP++, 0x0C, sEnJsjutanCarpetEvenVtx);
 	}
-	gSPDisplayList(POLY_OPA_DISP++, sModelDL);
+	gSPDisplayList(POLY_OPA_DISP++, sEnJsjutanModelDL);
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_en_jsjutan.c", 823);
 }

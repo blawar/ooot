@@ -193,7 +193,7 @@ void ElfMsg2_Draw(Actor* thisx, GlobalContext* globalCtx)
 	gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 100, 100, 255, R_NAVI_MSG_REGION_ALPHA);
 	gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_elf_msg2.c", 362), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPDisplayList(POLY_XLU_DISP++, D_809ADC38);
-	gSPDisplayList(POLY_XLU_DISP++, sCubeDL);
+	gSPDisplayList(POLY_XLU_DISP++, sElfMsg2CubeDL);
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_elf_msg2.c", 367);
 #endif

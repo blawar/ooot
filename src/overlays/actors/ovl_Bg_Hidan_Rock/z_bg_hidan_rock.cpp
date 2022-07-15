@@ -177,7 +177,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx)
 
 			if(temp_v1)
 			{
-				player->stateFlags2 &= ~PLAYER_STATE2_4;
+				player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 				pthis->dyna.unk_150 = 0.0f;
 				pthis->dyna.actor.home.pos.x = pthis->dyna.actor.world.pos.x;
 				pthis->dyna.actor.home.pos.z = pthis->dyna.actor.world.pos.z;
@@ -190,7 +190,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			player->stateFlags2 &= ~PLAYER_STATE2_4;
+			player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 			pthis->dyna.unk_150 = 0.0f;
 			if(pthis->timer != 0)
 			{
@@ -212,7 +212,7 @@ void func_8088B268(BgHidanRock* pthis, GlobalContext* globalCtx)
 		pthis->dyna.actor.world.pos.z = D_8088BF60.z;
 		pthis->dyna.actor.speedXZ = 0.0f;
 		D_8088BFC0_42 = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 		pthis->actionFunc = func_8088B79C;
 	}
 
@@ -365,7 +365,7 @@ void func_8088B990(BgHidanRock* pthis, GlobalContext* globalCtx)
 	if(pthis->dyna.unk_150 != 0.0f)
 	{
 		pthis->dyna.actor.speedXZ = 0.0f;
-		player->stateFlags2 &= ~PLAYER_STATE2_4;
+		player->stateFlags2 &= ~PLAYER_STATE2_4_JYA_COBRA_TURNING;
 	}
 
 	if((pthis->type == 0 && (Math_SmoothStepToF(&pthis->dyna.actor.world.pos.y, pthis->dyna.actor.home.pos.y + 1820.0f, 0.25f, 20.0f, 0.5f) < 0.1f)) ||

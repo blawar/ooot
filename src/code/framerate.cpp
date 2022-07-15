@@ -21,6 +21,9 @@ bool INTERPOLATE_ANIM = false;
 u8 SKIP_GFX_FRAME_MASK = 0;
 #endif
 
+static bool g_force20FPS = false;
+static float g_force20FPSLast = 20.0f;
+
 static FramerateProfile g_profile = PROFILE_BOOT;
 
 static Framerate g_profileRates[] = {
@@ -97,8 +100,10 @@ namespace oot
 		return SET_FRAMERATE;
 	}
 
-	void setMaxFramerate(float framerate)
+	void setMaxFramerate(float targetFramerate)
 	{
+		const float framerate = g_force20FPS ? 20.0f : targetFramerate;
+
 		if(framerate == SET_FRAMERATE)
 		{
 			return;
@@ -257,4 +262,14 @@ float frameRateDivisor()
 float Round(float value)
 {
 	return roundf(value * 100) / 100.0f;
+}
+
+void force20FPS(bool force)
+{
+	if(force)
+	{
+		g_force20FPSLast = oot::getMaxFramerate();
+	}
+	g_force20FPS = force;
+	oot::setMaxFramerate(g_force20FPSLast);
 }

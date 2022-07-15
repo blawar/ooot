@@ -1,0 +1,31 @@
+[
+  {
+    "pause_botw_title": "Bottom of the Well",
+    "pause_current_position": "CURRENT POSITION",
+    "pause_deku_title": "Inside the Deku Tree",
+    "pause_dodongo_title": "Dodongo's Cavern",
+    "pause_equipment": "EQUIPMENT",
+    "pause_fire_title": "Fire Temple",
+    "pause_forest_title": "Forest Temple",
+    "pause_ice_cavern_title": "Ice Cavern",
+    "pause_inside_jabu_title": "Inside Jabu-Jabu's Belly",
+    "pause_map": "MAP",
+    "pause_no": "No",
+    "pause_quest_status": "QUEST STATUS",
+    "pause_save": "SAVE",
+    "pause_save_confirmation": "Game saved.",
+    "pause_save_prompt": "Would you like to save?",
+    "pause_select_item": "SELECT ITEM",
+    "pause_shadow_title": "Shadow Temple",
+    "pause_spirit_title": "Spirit Temple",
+    "pause_to_decide": "to Decide",
+    "pause_to_equip": "to Equip",
+    "pause_to_equipment": "To Equipment",
+    "pause_to_map": "To Map",
+    "pause_to_play_melody": "to Play Melody",
+    "pause_to_quest_status": "To Quest Status",
+    "pause_to_select_item": "To Select Item",
+    "pause_water_title": "Water Temple",
+    "pause_yes": "Yes"
+  }
+]

@@ -195,7 +195,7 @@ void EnBx_Update(Actor* thisx, GlobalContext* globalCtx)
 		pthis->unk_14C--;
 		for(i = 0; i < 4; i++)
 		{
-			if(!((pthis->unk_14C + (i << 1)) % 4))
+			if(!((pthis->unk_14C.whole() + (i << 1)) % 4))
 			{
 				Vec3f pos;
 				s16 yaw;

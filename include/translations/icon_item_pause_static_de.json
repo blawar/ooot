@@ -1,0 +1,31 @@
+[
+  {
+    "pause_botw_title": "Grund des Brunnens",
+    "pause_current_position": "ORT",
+    "pause_deku_title": "Im Deku-Baum",
+    "pause_dodongo_title": "Dodongos Höhle",
+    "pause_equipment": "AUSRÜSTUNG",
+    "pause_fire_title": "Feuertempel",
+    "pause_forest_title": "Waldtempel",
+    "pause_ice_cavern_title": "Eishöhle",
+    "pause_inside_jabu_title": "Jabu-Jabus Bauch",
+    "pause_map": "KARTE",
+    "pause_no": "Nein",
+    "pause_quest_status": "STATUS",
+    "pause_save": "SICHERN",
+    "pause_save_confirmation": "Spielstand gesichert.",
+    "pause_save_prompt": "Spielstand sichern ?",
+    "pause_select_item": "GEGENSTÄNDE",
+    "pause_shadow_title": "Schattentempel",
+    "pause_spirit_title": "Geistertempel",
+    "pause_to_decide": "Bestätigen mit",
+    "pause_to_equip": "Ausrüsten mit",
+    "pause_to_equipment": "Ausrüstung",
+    "pause_to_map": "Karte",
+    "pause_to_play_melody": "Melodie anhören mit",
+    "pause_to_quest_status": "Status",
+    "pause_to_select_item": "Gegenstände",
+    "pause_water_title": "Wassertempel",
+    "pause_yes": "Ja"
+  }
+]

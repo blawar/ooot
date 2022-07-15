@@ -277,9 +277,9 @@ void ArrowLight_Draw(Actor* pthisx, GlobalContext* globalCtx)
 		Matrix_Scale(pthis->radius * 0.2f, pthis->unk_160 * 4.0f, pthis->radius * 0.2f, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, -700.0f, 0.0f, MTXMODE_APPLY);
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_arrow_light.c", 648), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+		gSPDisplayList(POLY_XLU_DISP++, sArrowLightMaterialDL);
 		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 511 - (uintptr_t)(stateFrames * 5) % 512, 0, 4, 32, 1, 511 - (uintptr_t)(stateFrames * 10) % 512, 511 - (uintptr_t)(stateFrames * 30) % 512, 8, 16));
-		gSPDisplayList(POLY_XLU_DISP++, sModelDL);
+		gSPDisplayList(POLY_XLU_DISP++, sArrowLightModelDL);
 
 		CLOSE_DISPS(globalCtx->gfxCtx, "../z_arrow_light.c", 664);
 	}

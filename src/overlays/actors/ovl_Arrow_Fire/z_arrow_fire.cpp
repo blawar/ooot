@@ -278,9 +278,9 @@ void ArrowFire_Draw(Actor* pthisx, GlobalContext* globalCtx2)
 		Matrix_Scale(pthis->radius * 0.2f, pthis->unk_158 * 4.0f, pthis->radius * 0.2f, MTXMODE_APPLY);
 		Matrix_Translate(0.0f, -700.0f, 0.0f, MTXMODE_APPLY);
 		gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_arrow_fire.c", 666), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-		gSPDisplayList(POLY_XLU_DISP++, sMaterialDL);
+		gSPDisplayList(POLY_XLU_DISP++, sArrowFireMaterialDL);
 		gSPDisplayList(POLY_XLU_DISP++, Gfx_TwoTexScroll(globalCtx->gfxCtx, 0, 255 - (uintptr_t)(stateFrames * 2) % 256, 0, 64, 32, 1, 255 - (uintptr_t)stateFrames % 256, 511 - (uintptr_t)(stateFrames * 10) % 512, 64, 64));
-		gSPDisplayList(POLY_XLU_DISP++, sModelDL);
+		gSPDisplayList(POLY_XLU_DISP++, sArrowFireModelDL);
 
 		CLOSE_DISPS(globalCtx->gfxCtx, "../z_arrow_fire.c", 682);
 	}
