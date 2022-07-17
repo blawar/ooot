@@ -57,7 +57,7 @@ void EnBdfire_Init(Actor* thisx, GlobalContext* globalCtx)
 	{
 		EnBdfire_SetupAction(pthis, func_809BC2A4);
 		pthis->actor.scale.x = 2.8f;
-		pthis->unk_154 = 90;
+		pthis->timer = 90;
 		Lights_PointNoGlowSetInfo(&pthis->lightInfoNoGlow, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 255, 255, 255, 300);
 		pthis->lightNode = LightContext_InsertLight(globalCtx, &globalCtx->lightCtx, &pthis->lightInfoNoGlow);
 	}
@@ -66,10 +66,10 @@ void EnBdfire_Init(Actor* thisx, GlobalContext* globalCtx)
 		EnBdfire_SetupAction(pthis, func_809BC598);
 		ActorShape_Init(&pthis->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
 		pthis->actor.speedXZ = 30.0f;
-		pthis->unk_154 = (25 - (s32)(pthis->actor.params * 0.8f));
-		if(pthis->unk_154 < 0)
+		pthis->timer = (25 - (s32)(pthis->actor.params * 0.8f));
+		if(pthis->timer < 0)
 		{
-			pthis->unk_154 = 0;
+			pthis->timer = 0;
 		}
 		pthis->unk_188 = 4.2000003f - (pthis->actor.params * 0.25f * 0.6f);
 
@@ -82,7 +82,7 @@ void EnBdfire_Init(Actor* thisx, GlobalContext* globalCtx)
 		{
 			pthis->unk_18C = 20.0f;
 		}
-		pthis->unk_156 = (Rand_ZeroOne() * 8.0f);
+		pthis->animTimer = (Rand_ZeroOne() * 8.0f);
 	}
 }
 
@@ -115,20 +115,20 @@ void func_809BC2A4(EnBdfire* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		if(pthis->unk_154 < 70)
+		if(pthis->timer < 70)
 		{
 			Math_SmoothStepToF(&pthis->unk_18C, 128.0f, 0.1f, 1.5f, 0.0f);
 			Math_SmoothStepToF(&pthis->unk_190, 255.0f, 1.0f, 3.8249998f, 0.0f);
 			Math_SmoothStepToF(&pthis->unk_194, 100.0f, 1.0f, 1.5f, 0.0f);
 		}
-		if(pthis->unk_154 == 0)
+		if(pthis->timer == 0)
 		{
 			temp = 0;
 		}
 		else
 		{
-			pthis->unk_154--;
-			temp = pthis->unk_154;
+			pthis->timer--;
+			temp = pthis->timer;
 		}
 		if(temp == 0)
 		{
@@ -198,14 +198,14 @@ void func_809BC598(EnBdfire* pthis, GlobalContext* globalCtx)
 			pthis->actor.world.rot.y -= 0x4000;
 		}
 	}
-	if(pthis->unk_154 == 0)
+	if(pthis->timer == 0)
 	{
 		temp = 0;
 	}
 	else
 	{
-		pthis->unk_154--;
-		temp = pthis->unk_154;
+		pthis->timer--;
+		temp = pthis->timer;
 	}
 	if(temp == 0)
 	{
@@ -236,7 +236,7 @@ void EnBdfire_Update(Actor* thisx, GlobalContext* globalCtx)
 {
 	EnBdfire* pthis = (EnBdfire*)thisx;
 
-	pthis->unk_156++;
+	pthis->animTimer++;
 	pthis->actionFunc(pthis, globalCtx);
 	Actor_MoveForward(&pthis->actor);
 }
@@ -247,7 +247,7 @@ void EnBdfire_DrawFire(EnBdfire* pthis, GlobalContext* globalCtx)
 	s32 pad;
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_en_bdfire.c", 612);
-	temp = pthis->unk_156 & 7;
+	temp = pthis->animTimer & 7;
 	func_800D1FD4(&globalCtx->billboardMtxF);
 	func_80094BC4(globalCtx->gfxCtx);
 	POLY_XLU_DISP = func_80094968(POLY_XLU_DISP);
