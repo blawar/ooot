@@ -621,7 +621,9 @@ static inline f32 _Math_SmoothStepToF(T* pValue, f32 target, f32 fraction, const
 	float minStep = _minStep.value();
 	if(*pValue != target)
 	{
-		f32 stepSize = (target - *pValue) * (fraction);
+		if(fraction != 1.0f)
+			fraction = fraction * FRAMERATE_SCALER;
+		f32 stepSize = (target - *pValue) * fraction;
 
 		if((stepSize >= minStep) || (stepSize <= -minStep))
 		{

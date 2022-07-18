@@ -171,6 +171,26 @@ namespace oot
 				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
 				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
 				break;
+			case 40:
+				SET_FRAMERATE = 40.0f;
+				TICK_RATE = 60.0f;
+				UPDATE_SCALER = 40.0f / 60.0f;
+				GAME_SPEED_RATIO = 60.0f / 40.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.2f;
+				INTERPOLATE_ANIM = true;
+				SKIP_GFX_FRAME_MASK = 0;
+
+				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_60FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_60FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_60FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_60FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_60FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_60FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
+				break;
 			case 30:
 				SET_FRAMERATE = 30.0f;
 				TICK_RATE = 60.0f;

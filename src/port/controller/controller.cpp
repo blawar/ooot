@@ -30,7 +30,7 @@ namespace oot::hid
 {
 	static bool g_firstPersonEnabled = false;
 #ifdef ENABLE_30FPS
-	static float f_framerates[] = {20, 30, 60, 120, 240};
+	static float f_framerates[] = {20, 30, 40, 60, 120, 240};
 #else
 	static float f_framerates[] = {20, 60, 120, 240};
 #endif
