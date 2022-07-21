@@ -526,6 +526,18 @@ namespace oot::hid
 			}
 		}
 	}
+
+	void SDL::rescan(class Controllers* controllers)
+	{
+		for(auto it = m_controllers.begin(); it!= m_controllers.end(); it++)
+		{
+			players().detach(*it, 0);
+		}
+
+		m_controllers.resize(0);
+
+		scan(controllers);
+	}
 } // namespace oot::hid
 
 #endif
