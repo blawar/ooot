@@ -10,7 +10,6 @@ namespace oot::hid
 		SDL();
 		virtual ~SDL();
 		void scan(class Controllers* controllers) override;
-		void rescan(class Controllers* controllers);
 
 		protected:
 	};

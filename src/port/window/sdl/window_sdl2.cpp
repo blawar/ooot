@@ -396,14 +396,7 @@ namespace platform::window
 					// Whenever a device is added or removed, call this function to ensure that they are detected
 					case SDL_JOYDEVICEADDED:
 					case SDL_JOYDEVICEREMOVED:
-						for(auto driver : oot::hid::controllers().drivers())
-						{
-							auto sdl = dynamic_cast<oot::hid::SDL*>(driver);
-							if(sdl)
-							{
-								sdl->rescan(&oot::hid::controllers());
-							}
-						}
+						oot::hid::controllers().scan();
 						break;
 					case SDL_QUIT:
 						quit();
