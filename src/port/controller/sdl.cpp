@@ -523,6 +523,16 @@ namespace oot::hid
 
 		init_ok = true;
 
+		if(m_controllers.size() > 0)
+		{
+			for(auto it = m_controllers.begin(); it != m_controllers.end(); it++)
+			{
+				players().detach(*it, 0);
+			}
+
+			m_controllers.resize(0);
+		}
+
 		for(int i = 0; i < SDL_NumJoysticks(); i++)
 		{
 			if(SDL_IsGameController(i))
@@ -537,18 +547,6 @@ namespace oot::hid
 				}
 			}
 		}
-	}
-
-	void SDL::rescan(class Controllers* controllers)
-	{
-		for(auto it = m_controllers.begin(); it!= m_controllers.end(); it++)
-		{
-			players().detach(*it, 0);
-		}
-
-		m_controllers.resize(0);
-
-		scan(controllers);
 	}
 } // namespace oot::hid
 
