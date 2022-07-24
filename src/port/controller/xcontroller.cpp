@@ -451,11 +451,42 @@ namespace oot::hid
 				if(xstate.Gamepad.bRightTrigger > 0x7F)
 					m_state.button |= R_TRIG;
 
-				m_state.stick_x = convertToByte(xstate.Gamepad.sThumbLX, 0x7FFF);
-				m_state.stick_y = convertToByte(xstate.Gamepad.sThumbLY, 0x7FFF);
+				int deadzone = oot::config().controls().stickLeftDeadzone() * 0x7F;
+				int value = xstate.Gamepad.sThumbLX;
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
+				m_state.stick_x = convertToByte(value, 0x7FFF - deadzone);
 
-				m_state.r_stick_x = convertToByte(xstate.Gamepad.sThumbRX, 0x7FFF);
-				m_state.r_stick_y = convertToByte(xstate.Gamepad.sThumbRY, 0x7FFF);
+				value = xstate.Gamepad.sThumbLY;
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
+				m_state.stick_y = convertToByte(value, 0x7FFF - deadzone);
+
+				value = xstate.Gamepad.sThumbRX;
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
+				m_state.r_stick_x = convertToByte(value, 0x7FFF - deadzone);
+
+				value = xstate.Gamepad.sThumbRY;
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
+				m_state.r_stick_y = convertToByte(value, 0x7FFF - deadzone);
 
 				u8 state[MAX_BUTTONS];
 				expandButtonBits(xstate.Gamepad.wButtons, state);
@@ -480,7 +511,7 @@ namespace oot::hid
 					}
 				}
 
-				uint32_t magnitude_sq = (uint32_t)(m_state.stick_x * m_state.stick_x) + (uint32_t)(m_state.stick_y * m_state.stick_y);
+				/*uint32_t magnitude_sq = (uint32_t)(m_state.stick_x * m_state.stick_x) + (uint32_t)(m_state.stick_y * m_state.stick_y);
 
 				if(magnitude_sq < (uint32_t)(oot::config().controls().stickLeftDeadzone() * oot::config().controls().stickLeftDeadzone()))
 				{
@@ -494,7 +525,7 @@ namespace oot::hid
 				{
 					m_state.r_stick_x = 0;
 					m_state.r_stick_y = 0;
-				}
+				}*/
 
 				memcpy(m_lastKeyState, state, MAX_BUTTONS);
 				rumble();

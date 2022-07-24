@@ -376,7 +376,7 @@ namespace oot::hid
 
 		if(isFirstPerson() && !config().camera().useClassicCamera())
 		{
-			if(this->r_stickMag > oot::config().controls().stickRightDeadzone())
+			if(this->r_stickMag > 0)
 			{
 				this->stickMag = this->r_stickMag;
 				this->stickX = this->r_stickX;
