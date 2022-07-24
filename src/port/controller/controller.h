@@ -163,11 +163,13 @@ namespace oot::hid
 	{
 		if(value > 0)
 		{
-			return value * 0x7F / max;
+			//printf("value: %d, byte: %d\n", value, value * 0x7F / (max * 1.5));
+			return value * 0x7F / (max * 1.5);
 		}
 		else
 		{
-			return value * 0x80 / (max+1);
+			//printf("value: %d, byte: %d\n", value, value * 0x80 / (max + 1));
+			return value * 0x80 / (1.5 * (max+1));
 		}
 	}
 
