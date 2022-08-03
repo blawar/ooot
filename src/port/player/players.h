@@ -19,6 +19,7 @@ namespace oot
 			return m_players[i];
 		}
 		void attach(const std::shared_ptr<hid::Controller>& controller, const u8 playerId = MAX_PLAYERS);
+		void detach(const std::shared_ptr<hid::Controller>& controller, const u8 playerId = MAX_PLAYERS);
 
 		protected:
 		Player m_players[MAX_PLAYERS];

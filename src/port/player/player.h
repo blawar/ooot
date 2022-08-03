@@ -18,6 +18,7 @@ namespace oot
 		}
 		void resetBindings();
 		void attach(const std::shared_ptr<hid::Controller>& controller);
+		void detach(const std::shared_ptr<hid::Controller>& controller);
 		void detachControllers();
 		void update();
 		hid::Controller& controller()

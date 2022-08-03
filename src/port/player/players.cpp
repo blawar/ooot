@@ -62,4 +62,9 @@ namespace oot
 			m_size = std::max((u64)playerId + 1, m_size);
 		}
 	}
+
+	void Players::detach(const std::shared_ptr<hid::Controller>& controller, const u8 playerId)
+	{
+		m_players[playerId].detach(controller);
+	}
 } // namespace oot
