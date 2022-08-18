@@ -1,348 +1,323 @@
 DEFINE_MESSAGE(0x0001, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Pocket Egg" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A Pocket Cucco will hatch from\n"
-"it overnight. Be sure to give it\n"
-"back when you are done with it."
+UNSKIPPABLE  ITEM_ICON("\x2D")  QUICKTEXT_ENABLE "你借到了一颗" COLOR(RED) "口袋鸡蛋" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
+"过夜后就会孵出一只口袋鸡，\n"
+"你用完后别忘记把它还回去。"
 )
 
 DEFINE_MESSAGE(0x0002, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "You returned the Pocket Cucco\n"
-"and got " COLOR(RED) "Cojiro" COLOR(DEFAULT) " in return!" QUICKTEXT_DISABLE "\n"
-"Unlike other Cuccos, Cojiro\n"
-"rarely crows."
+UNSKIPPABLE  ITEM_ICON("\x2F")  QUICKTEXT_ENABLE "你归还口袋鸡，得到" COLOR(RED) "克洛鸡" COLOR(DEFAULT) " ！" QUICKTEXT_DISABLE "\n"
+"与口袋鸡不同，\n"
+"克洛鸡很少啼叫。"
 )
 
 DEFINE_MESSAGE(0x0003, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "You got an " COLOR(RED) "Odd Mushroom" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"A fresh mushroom like this is\n"
-"sure to spoil quickly! Take it to\n"
-"the Kakariko Potion Shop, quickly!"
+UNSKIPPABLE  ITEM_ICON("\x30")  QUICKTEXT_ENABLE "你得到了一个" COLOR(RED) "奇异蘑菇" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"新鲜的蘑菇都很容易变质！\n"
+"快拿到卡卡利科药店去吧！"
 )
 
 DEFINE_MESSAGE(0x0004, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "You received an " COLOR(RED) "Odd Potion" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"You don't know what's going on\n"
-"between this lady and that guy,\n"
-"but take it to the Lost Woods!"
+UNSKIPPABLE  ITEM_ICON("\x31")  QUICKTEXT_ENABLE "你得到了一个" COLOR(RED) "奇异之药" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"你不知道这两人之间\n"
+"发生了什么事，\n"
+"但快把奇异之药带到\n"
+"迷失的森林去吧！"
 )
 
 DEFINE_MESSAGE(0x0005, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "You returned the Odd Potion \n"
-"and got the " COLOR(RED) "Poacher's Saw" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"The young punk guy must have\n"
-"left this behind."
+UNSKIPPABLE  ITEM_ICON("\x32")  QUICKTEXT_ENABLE "奇异之药物归原主了，\n"
+"你得到了" COLOR(RED) "偷猎者之锯" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"一定是那个年轻人留下的。"
 )
 
 DEFINE_MESSAGE(0x0006, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombs   20 Pieces   80 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "炸弹   20枚   80卢比" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "买\n"
+"不买" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0007, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "You got a \n"
-COLOR(RED) "Deku Seeds Bullet Bag" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"This bag can hold up to " COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
-"slingshot bullets."
+UNSKIPPABLE  ITEM_ICON("\x48")  QUICKTEXT_ENABLE "你得到了一个"COLOR(RED) "德库子弹口袋" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"这个子弹口袋可以装下" COLOR(YELLOW) "40" COLOR(DEFAULT) "\n"
+"发弹弓子弹。"
 )
 
 DEFINE_MESSAGE(0x0008, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "You traded the Poacher's Saw \n"
-"for a " COLOR(RED) "Broken Goron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Visit Biggoron to get it repaired!"
+UNSKIPPABLE  ITEM_ICON("\x33")  QUICKTEXT_ENABLE "你用偷猎者之锯换到了一把\n"
+COLOR(RED) "破损的格雷之剑" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"到大格雷城可以修好它。"
 )
 
 DEFINE_MESSAGE(0x0009, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "You checked in the Broken \n"
-"Goron's Sword and received a \n"
-COLOR(RED) "Prescription" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Go see King Zora!"
+UNSKIPPABLE  ITEM_ICON("\x34")  QUICKTEXT_ENABLE "你交出了破损的格雷之剑，\n"
+"得到了" COLOR(RED) "处方" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"去见卓拉王吧！"
 )
 
 DEFINE_MESSAGE(0x000A, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "The Biggoron's Sword..." QUICKTEXT_DISABLE "\n"
-"You got a " COLOR(RED) "Claim Check " COLOR(DEFAULT) "for it!\n"
-"You can't wait for the sword\n"
-"to be completed!"
+UNSKIPPABLE  ITEM_ICON("\x37")  QUICKTEXT_ENABLE "大格雷之剑…" QUICKTEXT_DISABLE "\n"
+"你得到了大格雷之剑的" COLOR(RED) "兑换券" COLOR(DEFAULT) "！\n"
+"你急切地希望快点\n"
+"铸好这把剑！"
 )
 
 DEFINE_MESSAGE(0x000B, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "You traded the Giant's Knife \n"
-"for the " COLOR(RED) "Biggoron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This blade was forged by a \n"
-"master smith and won't break!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "你卖掉了巨人之刀，\n"
+"换得了一把" COLOR(RED) "大格雷之剑" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"这把剑是铁匠大师所铸造，\n"
+"坚不可摧！"
 )
 
 DEFINE_MESSAGE(0x000C, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "You handed in the Claim Check\n"
-"and got the " COLOR(RED) "Biggoron's Sword" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"This blade was forged by a \n"
-"master smith and won't break!"
+UNSKIPPABLE  ITEM_ICON("\x3D")  QUICKTEXT_ENABLE "你用兑换卷换得了\n"
+COLOR(RED) "大格雷之剑" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"这把剑是铁匠大师所铸造，\n"
+"坚不可摧！"
 )
 
 DEFINE_MESSAGE(0x000D, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "You used the Prescription and\n"
-"received an " COLOR(RED) "Eyeball Frog" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Be quick and deliver it to Lake \n"
-"Hylia while it's cold!"
+UNSKIPPABLE  ITEM_ICON("\x35")  QUICKTEXT_ENABLE "你用处方换得了\n"
+"一只 " COLOR(RED) "大眼青蛙" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"它还是凉的，快点把它\n"
+"带到海拉鲁湖去！"
 )
 
 DEFINE_MESSAGE(0x000E, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "You traded the Eyeball Frog \n"
-"for the " COLOR(RED) "World's Finest Eye Drops" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"Hurry! Take them to Biggoron\n"
-"before they go bad!"
+UNSKIPPABLE  ITEM_ICON("\x36")  QUICKTEXT_ENABLE "你用大眼青蛙换到了\n"
+COLOR(RED) "世上最好的眼药水" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"快！在它变质之前，\n"
+"送到大格雷城去！"
 )
 
 DEFINE_MESSAGE(0x000F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-SHIFT("\x41")  COLOR(RED) "WINNER!!" COLOR(DEFAULT)  EVENT
+SHIFT("\x41")  COLOR(RED) "你赢啦！！" COLOR(DEFAULT)  EVENT
 )
 
 DEFINE_MESSAGE(0x0010, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x25")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Skull Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it off!\n"
-"You feel like a monster while you\n"
-"wear this mask !"
+ITEM_ICON("\x25")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "骷髅面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"你戴着它，真像个怪物！"
 )
 
 DEFINE_MESSAGE(0x0011, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x26")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Spooky Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! You can scare many people\n"
-"with this mask!"
+ITEM_ICON("\x26")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "恐怖面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"你可以好好吓吓别人了！"
 )
 
 DEFINE_MESSAGE(0x0012, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x24")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Keaton Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! You'll be a popular guy with\n"
-"this mask on!"
+ITEM_ICON("\x24")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "基顿面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"戴着它，你会很受欢迎哦！"
 )
 
 DEFINE_MESSAGE(0x0013, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x27")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Bunny Hood" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! The hood's long ears are so\n"
-"cute!"
+ITEM_ICON("\x27")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "兔子兜帽" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"那长耳朵真是太可爱了！"
 )
 
 DEFINE_MESSAGE(0x0014, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x28")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Goron Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! It will make your head look\n"
-"big, though."
+ITEM_ICON("\x28")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "格雷面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"它可以让你的头看起来很大！"
 )
 
 DEFINE_MESSAGE(0x0015, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x29")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Zora Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! With this mask, you can\n"
-"become one of the Zoras!"
+ITEM_ICON("\x29")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "卓拉面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"戴上它，你就是卓拉人啦！"
 )
 
 DEFINE_MESSAGE(0x0016, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Gerudo Mask" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it off!\n"
-"This mask will make you look\n"
-"like...a girl?"
+ITEM_ICON("\x2A")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "格鲁德面具" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！这个面\n"
+"具让你看起来有点像…女孩？"
 )
 
 DEFINE_MESSAGE(0x0017, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "You borrowed a " COLOR(RED) "Mask of Truth" COLOR(DEFAULT) "." QUICKTEXT_DISABLE "\n"
-"Wear it with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to show it\n"
-"off! Show it to many people!"
+ITEM_ICON("\x2B")  QUICKTEXT_ENABLE "你借到一个" COLOR(RED) "Mask of Truth" COLOR(DEFAULT) "。" QUICKTEXT_DISABLE "\n"
+"按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 戴上它试试看吧！\n"
+"让更多的人看看这个面具吧！"
 )
 
 DEFINE_MESSAGE(0x0018, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Welcome to our cutting-edge \n"
-"amusement center:" BOX_BREAK SHIFT("\x15")  COLOR(RED) "The Bombchu Bowling Alley!" COLOR(DEFAULT)  BOX_BREAK "Do you want to know what you \n"
-"can win? Well, it's a " TEXT_SPEED("\x03") "secret." TEXT_SPEED("\x00") "\n"
-"I can't tell you until you've\n"
-"paid to play." BOX_BREAK "It's " COLOR(RED) "30 Rupees" COLOR(DEFAULT) " per game.\n"
-"Do you want to play?\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+"欢迎来到我们的娱乐中心：\n"
+BOX_BREAK SHIFT("\x15")  COLOR(RED) "炸弹保龄球场！" COLOR(DEFAULT)  BOX_BREAK " \n"
+"你想知道你可以赢到什么奖品吗？\n"
+"好，这是" TEXT_SPEED("\x03") "秘密！" TEXT_SPEED("\x00") "\n"
+"你付钱，我才告诉你。\n"
+BOX_BREAK COLOR(RED) "30卢比" COLOR(DEFAULT) " 玩一次，要玩吗？\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "要\n"
+"不要" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x0019, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-QUICKTEXT_ENABLE  SHIFT("\x3C") "OKAY!!" QUICKTEXT_DISABLE  BOX_BREAK "Aim for the hole in the center \n"
-"and let " COLOR(RED) "Bombchu " COLOR(DEFAULT) "go!\n"
-"You get " COLOR(RED) "ten tries" COLOR(DEFAULT) ". Ready..." BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "LET'S BOWL!" COLOR(DEFAULT)  QUICKTEXT_DISABLE  EVENT
+QUICKTEXT_ENABLE  SHIFT("\x3C") "好！！\n" 
+QUICKTEXT_DISABLE  BOX_BREAK "瞄准中间的那个洞，\n"
+"放下" COLOR(RED) "炸弹鼠" COLOR(DEFAULT) "！\n"
+"你有" COLOR(RED) "十次机会" COLOR(DEFAULT) "！ 预备…" BOX_BREAK QUICKTEXT_ENABLE  SHIFT("\x42")  COLOR(RED) "开始吧" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE  EVENT
 )
 
 DEFINE_MESSAGE(0x001A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Do you want to play again?\n"
+"想再玩一次吗？\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"No" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "想\n"
+"不想" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Oh, I almost forgot!\n"
-"Here is what you can win!" EVENT
+"哦！差点忘了，\n"
+"这是你的奖品！" EVENT
 )
 
 DEFINE_MESSAGE(0x001C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombs   (20 pieces)   80 Rupees\n"
-COLOR(DEFAULT) "Take it out with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
-"buy them without a bomb bag." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "炸弹   （20枚）   80卢比\n"
+COLOR(DEFAULT) "按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 把炸弹捡起来，再按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 扔出去。\n"
+"没有炸弹口袋，你就不能买炸弹。" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE  COLOR(RED) "Bombs   (30 pieces)   120 Rupees\n"
-COLOR(DEFAULT) "Take it out with " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " and press \n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " again to throw it. You can't\n"
-"buy them without a bomb bag." QUICKTEXT_DISABLE  PERSISTENT
+QUICKTEXT_ENABLE  COLOR(RED) "炸弹   （30枚）   120卢比\n"
+COLOR(DEFAULT) "按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) "把炸弹捡起来，再按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) " 扔出去。\n"
+"没有炸弹口袋，你就不能买炸弹。" QUICKTEXT_DISABLE  PERSISTENT
 )
 
 DEFINE_MESSAGE(0x001E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombs   30 Pieces   120 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "炸弹  30枚  120卢比" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "买\n"
+"不买" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x001F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"I'm so happy everyone is \n"
-"back to normal!"
+"太好了，所有的人都恢复正常了！"
 )
 
 DEFINE_MESSAGE(0x0020, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Please save my other brothers\n"
-"too! I'm sure they will give you\n"
-"something a lot better!" BOX_BREAK "Will you do it?!"
+"请再救救我的其他兄弟吧！\n"
+"他们一定会给你更多更好的奖励。\n"
+BOX_BREAK "你可以去救他们吗？！"
 )
 
 DEFINE_MESSAGE(0x0021, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "The curse has been broken!\n"
-"Thank you!\n"
-"Here's a reward for you!" EVENT
+UNSKIPPABLE "诅咒解除了。\n"
+"谢谢你！\n"
+"这是给你的回报！" EVENT
 )
 
 DEFINE_MESSAGE(0x0022, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Yeaaarrgh! I'm cursed!!"
+"呀啊！我被诅咒了！！"
 )
 
 DEFINE_MESSAGE(0x0023, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We'll be careful not to get\n"
-"cursed again!"
+"我们要小心点，不要再被诅咒了！"
 )
 
 DEFINE_MESSAGE(0x0024, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Since you've destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Spiders of the Curse, the curse\n"
-"is starting to weaken!" BOX_BREAK "Did the kids who returned to\n"
-"normal give you any rewards?" BOX_BREAK "You should know that the only\n"
-"way to become " COLOR(RED) "very rich " COLOR(DEFAULT) "is to\n"
-"destroy as many Spiders of the\n"
-"Curse as possible!" BOX_BREAK "There are some tricks to finding\n"
-"them all! First of all, you'll have\n"
-"to hunt at night. Secondly, keep in\n"
-"mind that they love soft soil..." BOX_BREAK "Pay close attention to your\n"
-"surroundings!\n"
-"Please, we're counting on you!"
+"你消灭了诅咒蜘蛛" COLOR(RED)  TOKENS "只" COLOR(DEFAULT) "\n"
+"诅咒已经开始减弱了！\n"
+BOX_BREAK "那个恢复正常的孩子给了\n"
+"你什么奖励吗？" BOX_BREAK "\n"
+"你要知道，变得" COLOR(RED) "很富有" COLOR(DEFAULT) "\n"
+"只有一个办法，\n"
+"那就是消灭更多的诅咒蜘蛛，\n"
+"越多越好！" BOX_BREAK "我有一些经验可以帮助你\n"
+"首先，你要在晚上行动。\n"
+"第二，你要记住，\n"
+"它们喜欢松柔的土壤…" BOX_BREAK "\n"
+"一定要仔细观察你的周围！\n"
+"好了，我们全靠你了！"
 )
 
 DEFINE_MESSAGE(0x0025, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "We look like this because of \n"
-"the spider's curse. But..." TEXTID("\x00\x24")
+UNSKIPPABLE "我变成这样全都是 \n"
+"因为蜘蛛的诅咒。但是…" TEXTID("\x00\x24")
 )
 
 DEFINE_MESSAGE(0x0026, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"We all look like this because of\n"
-"the spider's curse." BOX_BREAK "If every " COLOR(RED) "Spider of the Curse " COLOR(DEFAULT) "in\n"
-"the entire world were destroyed,\n"
-"the curse would be broken." BOX_BREAK "When you destroy a Spider of the \n"
-"Curse, a token will appear. Collect\n"
-"it as proof of your achievement." BOX_BREAK ITEM_ICON("\x71") "The number next to this " COLOR(YELLOW) "icon" COLOR(DEFAULT) " on\n"
-"the " COLOR(LIGHTBLUE) "Quest Status Subscreen" COLOR(BLUE) " \n"
-COLOR(DEFAULT) "indicates how many Spiders of the \n"
-"Curse you have destroyed so far." BOX_BREAK ITEM_ICON("\x71") "When this " COLOR(YELLOW) "icon" COLOR(DEFAULT) " is displayed \n"
-"next to the name of the area on\n"
-"the " COLOR(RED) "Map Subscreen" COLOR(DEFAULT) ", there are no\n"
-"more Spiders in that area." TEXTID("\x00\xFE")
+"我们变成这种样子\n"
+"全是因为蜘蛛的诅咒。" BOX_BREAK "只有世界上所有的" COLOR(RED) "诅咒蜘蛛" COLOR(DEFAULT) "都\n"
+"被消灭了，诅咒才会解除。" BOX_BREAK "每消灭一个诅咒蜘蛛，就会出现\n"
+"一个徽章。收集这些徽章作为你\n"
+"战绩的证明。" BOX_BREAK ITEM_ICON("\x71") COLOR(LIGHTBLUE) "征途状态窗口" COLOR(DEFAULT) "中，此" COLOR(YELLOW) "图标" COLOR(DEFAULT) "\n"
+"的旁边有个数字，显示了你" COLOR(BLUE) " \n"
+COLOR(DEFAULT) "目前消灭的诅咒蜘蛛的数量。" BOX_BREAK ITEM_ICON("\x71") COLOR(RED) "地图窗口" COLOR(DEFAULT) "中，如果此" COLOR(YELLOW) "图标" COLOR(DEFAULT) " 显\n"
+"示在地区名边上，说明那里\n"
+"所有的诅咒蜘蛛都被消灭了" TEXTID("\x00\xFE")
 )
 
 DEFINE_MESSAGE(0x0027, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"If you break the curse on my\n"
-"family, we will make you " COLOR(RED) "very\n"
-"rich" COLOR(DEFAULT) "..."
+"如果你帮我们家族解除诅咒，\n"
+"我们会让你变得" COLOR(RED) "很富有" COLOR(DEFAULT) "…"
 )
 
 DEFINE_MESSAGE(0x0028, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-UNSKIPPABLE "Since you've destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) " Spiders\n"
-"of the Curse, the curse on me \n"
-"has been broken." BOX_BREAK UNSKIPPABLE "Thank you! Here is a token of my\n"
-"appreciation! Please take it." EVENT
+UNSKIPPABLE "你已经消灭了" COLOR(RED)  TOKENS  "只" COLOR(DEFAULT) " 诅咒蜘蛛，\n"
+"我身上的诅咒解除了。\n"
+BOX_BREAK UNSKIPPABLE "谢谢你！作为感谢，\n"
+"拿着它吧！" EVENT
 )
 
 DEFINE_MESSAGE(0x0029, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"Thank you for saving my kids." BOX_BREAK "What? Me? Oh, that's OK..." BOX_BREAK "You have already destroyed " COLOR(RED)  TOKENS  COLOR(DEFAULT) "\n"
-"Spiders of the Curse so far, so...\n"
-"that's fine...don't worry about me..."
+"谢谢你救了我的孩子" BOX_BREAK "什么？我？哦，我还好…" BOX_BREAK "到现在为止，你已经消灭了\n" 
+COLOR(RED)  TOKENS  "只" COLOR(DEFAULT) "诅咒蜘蛛，所以…\n"
+"很不错…不用担心我…"
 )
 
 DEFINE_MESSAGE(0x002A, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "Bombchu   20 Pieces   180 Rupees" QUICKTEXT_DISABLE "\n"
+QUICKTEXT_ENABLE "炸弹鼠  20枚  180卢比" QUICKTEXT_DISABLE "\n"
 "\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Buy\n"
-"Don't buy" COLOR(DEFAULT)
+TWO_CHOICE  COLOR(ADJUSTABLE) "买\n"
+"不买" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002B, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"Do you want to play a game?\n"
-"It's " COLOR(RED) "20 Rupees " COLOR(DEFAULT) "per play.\n"
-TWO_CHOICE  COLOR(ADJUSTABLE) "Yes\n"
-"Nope" COLOR(DEFAULT)
+"要玩吗？玩一次只要" COLOR(RED) "20卢比！" COLOR(DEFAULT) "\n"
+TWO_CHOICE  COLOR(ADJUSTABLE) "要\n"
+"不要" COLOR(DEFAULT)
 )
 
 DEFINE_MESSAGE(0x002C, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"You can't! You need a bow!" EVENT
+"这样不行！你需要有一把弓箭！" EVENT
 )
 
 DEFINE_MESSAGE(0x002D, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-"All right. You don't have to play\n"
-"if you don't want to." EVENT
+"没关系。如果你不想玩，\n"
+"没有人强迫你。" EVENT
 )
 
 DEFINE_MESSAGE(0x002E, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_MIDDLE,
-QUICKTEXT_ENABLE "OKAY!!" QUICKTEXT_DISABLE "\n"
-"This is a game for grownups!\n"
-"Hyrule's famous " COLOR(RED) "Shooting Gallery" COLOR(DEFAULT) "!" BOX_BREAK "Take aim at the targets from that \n"
-"platform over there! Can you hit\n"
-COLOR(RED) "ten targets" COLOR(DEFAULT) "? You get " COLOR(RED) "fifteen \n"
-COLOR(DEFAULT) "shots!" BOX_BREAK "Draw your weapon with " COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) ". \n"
-"Are you ready?\n"
-"Go for a perfect score!\n"
-"Good Luck!" EVENT
+QUICKTEXT_ENABLE "好哦！！" QUICKTEXT_DISABLE "\n"
+"这是大人玩的游戏！\n"
+"海拉鲁著名的" COLOR(RED) "射击场" COLOR(DEFAULT) "！\n" BOX_BREAK 
+"从那边的发射台瞄准目标！\n"
+"你能够用" COLOR(RED) "十五" COLOR(DEFAULT) "支箭\n"
+"射中" COLOR(RED) "十个目标" COLOR(DEFAULT) "吗？" BOX_BREAK "按" COLOR(ADJUSTABLE) "[B]" COLOR(DEFAULT) "准备好武器。 \n"
+"准备好了吗？争取一个好成绩吧！\n"
+"祝你好运！" EVENT
 )
 
 DEFINE_MESSAGE(0x002F, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE,
-"You see a small mound of soft\n"
-"soil here."
+"你看到一堆松软的泥土。"
 )
 
 DEFINE_MESSAGE(0x0030, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x06")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Fairy Slingshot" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subscreen" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "Press " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "to take it out and hold\n"
-"it. As you hold " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "you can aim \n"
-"with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) ". Release " COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to unleash \n"
-"a " COLOR(RED) "Deku Seed" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "If you want to shoot right \n"
-"away, when you first press " COLOR(YELLOW) "[C]" COLOR(DEFAULT) ", \n"
-"hold down " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "a little longer to \n"
-"get a seed ready."
+UNSKIPPABLE  ITEM_ICON("\x06")  QUICKTEXT_ENABLE "你找到了" COLOR(RED) "精灵弹弓" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"在" COLOR(YELLOW) "物品选择窗口" COLOR(DEFAULT) "，你可以把\n"
+"它装备到" COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) "，" COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "或" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "键上。" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "按" COLOR(YELLOW) "[C] " COLOR(DEFAULT) "拿出武器，\n"
+"再次按住" COLOR(YELLOW) "[C] " COLOR(DEFAULT) "并用" COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "瞄准。\n"
+"松开" COLOR(YELLOW) "[C]" COLOR(DEFAULT) "发射" COLOR(RED) "德库种子" COLOR(DEFAULT) "。" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x06") "如果你要立即发射，\n"
+"第一次按" COLOR(YELLOW) "[C]" COLOR(DEFAULT) "的时间长一些。"
 )
 
 DEFINE_MESSAGE(0x0031, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
-UNSKIPPABLE  ITEM_ICON("\x03")  QUICKTEXT_ENABLE "You found the " COLOR(RED) "Fairy Bow" COLOR(DEFAULT) "!" QUICKTEXT_DISABLE "\n"
-"On the " COLOR(YELLOW) "Select Item Subscreen" COLOR(DEFAULT) ",\n"
-"you can set it to " COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) ", " COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) " or" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "." BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x03") "Press " COLOR(YELLOW) "[C] " COLOR(DEFAULT) "to take it out\n"
-"and hold it. As you hold down\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " you can aim with " COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "." COLOR(YELLOW) " " COLOR(DEFAULT) "Release\n"
-COLOR(YELLOW) "[C]" COLOR(DEFAULT) " to let fly with an " COLOR(RED) "arrow" COLOR(DEFAULT) "."
+UNSKIPPABLE  ITEM_ICON("\x03")  QUICKTEXT_ENABLE "你找到了" COLOR(RED) "精灵之弓" COLOR(DEFAULT) "！" QUICKTEXT_DISABLE "\n"
+"在" COLOR(YELLOW) "物品选择窗口" COLOR(DEFAULT) "，你可以把\n"
+"它装备到" COLOR(YELLOW) "[C-Left]" COLOR(DEFAULT) "，" COLOR(YELLOW) "[C-Down]" COLOR(DEFAULT) "或" COLOR(YELLOW) " [C-Right]" COLOR(DEFAULT) "键上。" BOX_BREAK UNSKIPPABLE  ITEM_ICON("\x03") "按" COLOR(YELLOW) "[C] " COLOR(DEFAULT) "拿出武器，\n"
+"再次按住" COLOR(YELLOW) "[C]" COLOR(DEFAULT) "并用" COLOR(LIGHTBLUE) "[Control-Pad]" COLOR(DEFAULT) "瞄准。" COLOR(YELLOW) "\n"
+COLOR(DEFAULT) "放开" COLOR(YELLOW) "[C]" COLOR(DEFAULT) "发射" COLOR(RED) "弓箭" COLOR(DEFAULT) "。"
 )
 
 DEFINE_MESSAGE(0x0032, TEXTBOX_TYPE_BLUE, TEXTBOX_POS_MIDDLE,
