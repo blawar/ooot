@@ -16,6 +16,8 @@
 #include "z64message.h"
 #include "port/options.h"
 #include "port/debug.h"
+#include "port/controller/controllers.h"
+#include "port/controller/sdl.h"
 
 void quit();
 void Set_Language(u8 language_id);
@@ -390,6 +392,11 @@ namespace platform::window
 						{
 							resize(event.window.data1, event.window.data2);
 						}
+						break;
+					// Whenever a device is added or removed, call this function to ensure that they are detected
+					case SDL_JOYDEVICEADDED:
+					case SDL_JOYDEVICEREMOVED:
+						oot::hid::controllers().scan();
 						break;
 					case SDL_QUIT:
 						quit();

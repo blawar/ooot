@@ -228,7 +228,7 @@ namespace oot::hid
 
 			static inline int8_t convertToByte(int value, int max)
 			{
-				int8_t result = value * 0x7F / max;
+				int8_t result = value * 0x7F / (max * 1.5);
 
 				return result;
 			}
@@ -240,7 +240,14 @@ namespace oot::hid
 
 			inline int8_t stickLeftX()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_LEFTX);
+				int deadzone = oot::config().controls().stickLeftDeadzone() * 0x7f;
+				int value = readAxis(SDL_CONTROLLER_AXIS_LEFTX);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_lstickX_peak)
 				{
@@ -252,7 +259,14 @@ namespace oot::hid
 
 			inline int8_t stickLeftY()
 			{
+				int deadzone = oot::config().controls().stickLeftDeadzone() * 0x7f;
 				auto value = -readAxis(SDL_CONTROLLER_AXIS_LEFTY);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_lstickY_peak)
 				{
@@ -264,7 +278,14 @@ namespace oot::hid
 
 			inline int8_t stickRightX()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_RIGHTX);
+				int deadzone = oot::config().controls().stickRightDeadzone() * 0x7f;
+				int value = readAxis(SDL_CONTROLLER_AXIS_RIGHTX);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_rstickX_peak)
 				{
@@ -276,7 +297,14 @@ namespace oot::hid
 
 			inline int8_t stickRightY()
 			{
-				auto value = -readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
+				int deadzone = oot::config().controls().stickRightDeadzone() * 0x7f;
+				int value = -readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_rstickY_peak)
 				{
@@ -446,22 +474,6 @@ namespace oot::hid
 					m_state.stick_y *= 0.25f;
 				}
 
-				uint32_t magnitude_sq = (uint32_t)(m_state.stick_x * m_state.stick_x) + (uint32_t)(m_state.stick_y * m_state.stick_y);
-
-				if(magnitude_sq < (uint32_t)(oot::config().controls().stickLeftDeadzone() * oot::config().controls().stickLeftDeadzone()))
-				{
-					m_state.stick_x = 0;
-					m_state.stick_y = 0;
-				}
-
-				magnitude_sq = (uint32_t)(m_state.r_stick_x * m_state.r_stick_x) + (uint32_t)(m_state.r_stick_y * m_state.r_stick_y);
-
-				if(magnitude_sq < (uint32_t)(oot::config().controls().stickRightDeadzone() * oot::config().controls().stickRightDeadzone()))
-				{
-					m_state.r_stick_x = 0;
-					m_state.r_stick_y = 0;
-				}
-
 				memcpy(m_lastButtonState, m_buttonState, sizeof(m_lastButtonState));
 				rumble();
 			}
@@ -510,6 +522,16 @@ namespace oot::hid
 #endif
 
 		init_ok = true;
+
+		if(m_controllers.size() > 0)
+		{
+			for(auto it = m_controllers.begin(); it != m_controllers.end(); it++)
+			{
+				players().detach(*it, 0);
+			}
+
+			m_controllers.resize(0);
+		}
 
 		for(int i = 0; i < SDL_NumJoysticks(); i++)
 		{
