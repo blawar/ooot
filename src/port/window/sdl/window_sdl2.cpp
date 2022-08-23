@@ -18,6 +18,7 @@
 #include "port/debug.h"
 #include "port/controller/controllers.h"
 #include "port/controller/sdl.h"
+#include "def/audioMgr.h"
 
 void quit();
 void Set_Language(u8 language_id);
@@ -391,6 +392,16 @@ namespace platform::window
 						if(event.window.event == SDL_WINDOWEVENT_RESIZED)
 						{
 							resize(event.window.data1, event.window.data2);
+						}
+						if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+						{
+							AudioMgr_Pause(true);
+							do
+							{
+								SDL_PollEvent(&event);
+								_sleep(100);
+							}while(event.window.event != SDL_WINDOWEVENT_FOCUS_GAINED);
+							AudioMgr_Pause(false);
 						}
 						break;
 					// Whenever a device is added or removed, call this function to ensure that they are detected
