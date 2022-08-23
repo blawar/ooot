@@ -450,11 +450,14 @@ namespace oot::hid
 
 				m_state.mouse_x += mouse_delta_x;
 				m_state.mouse_y += mouse_delta_y;
-				if(!config().camera().useClassicCamera()){
-					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 0x7F), -0x7F);
-					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 0x7F), -0x7F);
+				if(!config().camera().useClassicCamera() && (m_lastMouse_delta_x != mouse_delta_x || m_lastMouse_delta_y != mouse_delta_y))
+				{
+					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 64), -64);
+					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 64), -64);
 				}
 				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
+				m_lastMouse_delta_x = mouse_delta_x;
+				m_lastMouse_delta_y = mouse_delta_y;
 #endif
 
 				if(m_state.m_walk)
@@ -471,6 +474,8 @@ namespace oot::hid
 			std::unordered_map<u8, Button> m_mouseBindings;
 			u8 m_lastKeyState[MAX_KEY_STATE];
 			u8 m_lastMouseState[MAX_BUTTONS];
+			int m_lastMouse_delta_x;
+			int m_lastMouse_delta_y;
 		};
 	} // namespace controller
 
