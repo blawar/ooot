@@ -505,6 +505,16 @@ namespace oot
 
 			float framerate() const;
 
+			const bool& pauseOnLostFocus() const
+			{
+				return m_pauseOnLostFocus;
+			}
+
+			bool& pauseOnLostFocus()
+			{
+				return m_pauseOnLostFocus;
+			}
+
 			protected:
 			bool m_graphicsEnabled = true;
 			bool m_audioEnabled = true;
@@ -523,6 +533,7 @@ namespace oot
 			u64 m_textScrollSpeed = 1;
 			Language m_language = LANGUAGE_ENG;
 			u64 m_fastForwardSpeed = 5;
+			bool m_pauseOnLostFocus = true;
 		};
 
 		class Base
