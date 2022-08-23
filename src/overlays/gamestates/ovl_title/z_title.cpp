@@ -215,7 +215,7 @@ namespace oot::gamestate
 		calc();
 		draw();
 
-		if(gIsCtrlr2Valid || 1)
+		if(gIsCtrlr2Valid)
 		{
 			Gfx* gfx = POLY_OPA_DISP;
 			s32 pad;
