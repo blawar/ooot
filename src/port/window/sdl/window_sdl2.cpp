@@ -393,8 +393,9 @@ namespace platform::window
 						{
 							resize(event.window.data1, event.window.data2);
 						}
-						if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+						if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST || event.window.event == SDL_WINDOWEVENT_MINIMIZED)
 						{
+							SDL_SetRelativeMouseMode(SDL_FALSE);
 							AudioMgr_Pause(true);
 							do
 							{
@@ -402,6 +403,19 @@ namespace platform::window
 								_sleep(100);
 							}while(event.window.event != SDL_WINDOWEVENT_FOCUS_GAINED);
 							AudioMgr_Pause(false);
+						}
+						
+#ifdef ENABLE_MOUSE
+						if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED || event.window.event == SDL_WINDOWEVENT_ENTER)
+						{
+							SDL_SetRelativeMouseMode(SDL_TRUE);
+						}
+#endif
+						break;
+					case SDL_KEYDOWN:
+						if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+						{
+							SDL_SetRelativeMouseMode(SDL_FALSE);
 						}
 						break;
 					// Whenever a device is added or removed, call this function to ensure that they are detected
