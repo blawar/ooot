@@ -208,6 +208,7 @@ namespace oot
 			json::setBool(container, "forceMouse", forceMouse(), allocator);
 			json::setBool(container, "enableExtendedOptionsMenu", enableExtendedOptionsMenu(), allocator);
 			json::setBool(container, "enableDebugLevelSelect", enablDebugLevelSelect(), allocator);
+			json::setBool(container, "restoreSaveConfirmation", restoreSaveConfirmation(), allocator);
 			json::setBool(container, "pauseOnLostFocus", pauseOnLostFocus(), allocator);
 
 			json::setU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames(), allocator);
@@ -234,6 +235,7 @@ namespace oot
 				json::getBool(container, "forceMouse", forceMouse());
 				json::getBool(container, "enableExtendedOptionsMenu", enableExtendedOptionsMenu());
 				json::getBool(container, "enableDebugLevelSelect", enablDebugLevelSelect());
+				json::getBool(container, "restoreSaveConfirmation", restoreSaveConfirmation());
 				json::getBool(container, "pauseOnLostFocus", pauseOnLostFocus());
 
 				json::getU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames());

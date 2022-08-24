@@ -515,6 +515,16 @@ namespace oot
 				return m_pauseOnLostFocus;
 			}
 
+			const bool& restoreSaveConfirmation() const
+			{
+				return m_restoreSaveConfirmation;
+			}
+
+			bool& restoreSaveConfirmation()
+			{
+				return m_restoreSaveConfirmation;
+			}
+
 			protected:
 			bool m_graphicsEnabled = true;
 			bool m_audioEnabled = true;
@@ -534,6 +544,7 @@ namespace oot
 			Language m_language = LANGUAGE_ENG;
 			u64 m_fastForwardSpeed = 5;
 			bool m_pauseOnLostFocus = true;
+			bool m_restoreSaveConfirmation = true;
 		};
 
 		class Base
