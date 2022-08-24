@@ -406,7 +406,7 @@ namespace platform::window
 						}
 						
 #ifdef ENABLE_MOUSE
-						if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED || event.window.event == SDL_WINDOWEVENT_ENTER)
+						if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
 						{
 							SDL_SetRelativeMouseMode(SDL_TRUE);
 						}
@@ -418,6 +418,11 @@ namespace platform::window
 							SDL_SetRelativeMouseMode(SDL_FALSE);
 						}
 						break;
+#ifdef ENABLE_MOUSE
+					case SDL_MOUSEBUTTONDOWN:
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+						break;
+#endif
 					// Whenever a device is added or removed, call this function to ensure that they are detected
 					case SDL_JOYDEVICEADDED:
 					case SDL_JOYDEVICEREMOVED:
