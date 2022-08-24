@@ -808,7 +808,7 @@
     <ClInclude Include="..\include\z_fbdemo_circle.h" />
     <ClInclude Include="..\include\z_file_choose.h" />
     <ClInclude Include="..\include\z_opening.h" />
-    <ClInclude Include="..\include\z_player.h" />
+    <ClInclude Include="..\src\overlays\actors\ovl_player_actor\z_player.h" />
     <ClInclude Include="..\include\z_vismono.h" />
     <ClInclude Include="..\src\code\z_prenmi_buff.h" />
     <ClInclude Include="..\src\overlays\gamestates\ovl_opening\z_opening.h" />

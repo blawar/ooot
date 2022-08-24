@@ -2321,9 +2321,6 @@
     <ClInclude Include="..\include\z64camera.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\z_player.h">
-      <Filter>Header Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\asset_common.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
@@ -2332,6 +2329,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\overlays\actors\ovl_player_actor\z_player.h">
+      <Filter>Source Files\overlays\actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
