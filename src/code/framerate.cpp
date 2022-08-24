@@ -22,7 +22,7 @@ u8 SKIP_GFX_FRAME_MASK = 0;
 #endif
 
 static bool g_force20FPS = false;
-static float g_force20FPSLast = 20.0f;
+static float g_force20FPSLastMaxFps = 20.0f;
 
 static FramerateProfile g_profile = PROFILE_BOOT;
 
@@ -102,14 +102,12 @@ namespace oot
 
 	void setMaxFramerate(float targetFramerate)
 	{
-		const float framerate = g_force20FPS ? 20.0f : targetFramerate;
-
-		if(framerate == SET_FRAMERATE)
+		if(targetFramerate == SET_FRAMERATE)
 		{
 			return;
 		}
 #ifndef STATIC_FRAMERATE
-		switch((s32)framerate)
+		switch((s32)targetFramerate)
 		{
 			case 240:
 				SET_FRAMERATE = 240.0f;
@@ -284,12 +282,25 @@ float Round(float value)
 	return roundf(value * 100) / 100.0f;
 }
 
+/// <summary>
+/// This is a lazy function, for anywhere you dont want the high fps to effect game mechanics. This should only be used as a temporary measure
+/// </summary>
+/// <param name="force"></param>
 void force20FPS(bool force)
 {
 	if(force)
 	{
-		g_force20FPSLast = oot::getMaxFramerate();
+		g_force20FPS = true;
+		//enable force 20fps remember last fps
+		g_force20FPSLastMaxFps = oot::getMaxFramerate();
+		oot::setMaxFramerate(20.0f);
 	}
-	g_force20FPS = force;
-	oot::setMaxFramerate(g_force20FPSLast);
+	else
+	{
+		if(!g_force20FPS)
+			g_force20FPSLastMaxFps = oot::getMaxFramerate(); 
+		g_force20FPS = false;
+		//disable force 20fps and set last fps
+		oot::setMaxFramerate(g_force20FPSLastMaxFps);
+	}
 }
