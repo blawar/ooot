@@ -61,7 +61,7 @@
         <DList Name="object_ganon_DL_00C518" Offset="0xC518"/>
         <DList Name="gDorfOpenHandDL" Offset="0xC9E8"/>
 
-        <Texture Name="gDorfTitleCardTex" OutName="ganondorf_title_card" Format="i8" Width="128" Height="40" Offset="0xCF00"/>
+        <Texture Name="gDorfTitleCardTex" OutName="ganondorf_title_card" Format="i8" Width="128" Height="120" Offset="0xCF00"/>
 
         <Animation Name="object_ganon_Anim_011348" Offset="0x11348"/>
 
