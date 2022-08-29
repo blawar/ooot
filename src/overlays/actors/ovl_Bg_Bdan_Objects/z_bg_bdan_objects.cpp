@@ -93,7 +93,7 @@ s32 BgBdanObjects_GetContactRu1(BgBdanObjects* pthis, s32 arg1)
 		case 3:
 			return pthis->cameraSetting == CAM_SET_DUNGEON1;
 		default:
-			osSyncPrintf("Bg_Bdan_Objects_Get_Contact_Ru1\nそんな受信モードは無い%d!!!!!!!!\n");
+			osSyncPrintf("Bg_Bdan_Objects_Get_Contact_Ru1\nThere is no such reception mode %d!!!!!!!!\n");
 			return -1;
 	}
 }
@@ -112,7 +112,7 @@ void BgBdanObjects_SetContactRu1(BgBdanObjects* pthis, s32 arg1)
 			gSaveContext.infTable[20] |= 0x40;
 			break;
 		default:
-			osSyncPrintf("Bg_Bdan_Objects_Set_Contact_Ru1\nそんな送信モードは無い%d!!!!!!!!\n");
+			osSyncPrintf("Bg_Bdan_Objects_Set_Contact_Ru1\nThere is no such transmission mode %d!!!!!!!!\n");
 	}
 }
 

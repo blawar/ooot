@@ -17,7 +17,7 @@ struct EnCow
 	/* 0x024C */ Vec3s morphTable[6];
 	/* 0x0270 */ Vec3s someRot;
 	/* 0x0276 */ u16 unk_276;
-	/* 0x0278 */ u16 unk_278;
-	/* 0x027A */ u16 unk_27A;
+	/* 0x0278 */ TimerU16 mooTimer;
+	/* 0x027A */ TimerU16 breathingTimer;
 	/* 0x027C */ EnCowActionFunc actionFunc;
 };
