@@ -80,9 +80,9 @@ static Color_RGBA8 dustPrimColor_95 = {255, 255, 100, 255};
 
 static Color_RGBA8 dustEnvColor_95 = {255, 100, 0, 255};
 
-static u8 originalLavaFloorTex[8192] = {
-#include "assets/EUR_MQD/overlays/ovl_Boss_Dodongo/lava_floor_lava.rgba16.inc.c"
-};
+static u16 originalLavaFloorTex[4096];
+
+static bool ddFirstInit = true;
 
 ActorInit Boss_Dodongo_InitVars = {
     ACTOR_EN_DODONGO, ACTORCAT_BOSS, FLAGS, OBJECT_KINGDODONGO, ACTOR_FACTORY(BossDodongo), (ActorFunc)BossDodongo_Init, (ActorFunc)BossDodongo_Destroy, (ActorFunc)BossDodongo_Update, (ActorFunc)BossDodongo_Draw, (ActorFunc)BossDodongo_Reset,
@@ -246,8 +246,8 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx)
 {
 	BossDodongo* pthis = (BossDodongo*)thisx;
 	s16 i;
-	u16* temp_s1_3;
-	u16* temp_s2;
+	u16* destTexPtr;
+	u16* sourceTexPtr;
 	u32 temp_v0;
 
 	globalCtx->specialEffects = &pthis->effects;
@@ -258,7 +258,7 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx)
 	Animation_PlayLoop(&pthis->skelAnime, &object_kingdodongo_Anim_00F0D8);
 	pthis->unk_1F8 = 1.0f;
 	BossDodongo_SetupIntroCutscene(pthis, globalCtx);
-	pthis->health = 1;///temp;12;
+	pthis->health = 1; /// temp;12;
 	pthis->colorFilterMin = 995.0f;
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
 	pthis->colorFilterMax = 1000.0f;
@@ -267,10 +267,21 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx)
 	Collider_InitJntSph(globalCtx, &pthis->collider);
 	Collider_SetJntSph(globalCtx, &pthis->collider, &pthis->actor, &sJntSphInit, pthis->items);
 	
+	if(ddFirstInit)
+	{
+		destTexPtr = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorLavaTex);
+		ddFirstInit = false;
+		for(i = 0; i < 4096; i++)
+		{
+			temp_v0 = i;
+			originalLavaFloorTex[temp_v0] = destTexPtr[temp_v0];
+		}
+	}
+	
 	if(Flags_GetClear(globalCtx, globalCtx->roomCtx.curRoom.num))
 	{ // KD is dead
-		temp_s1_3 = (u16*)SEGMENTED_TO_VIRTUAL(gDodongosCavernBossLavaFloorTex);
-		temp_s2 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorRockTex);
+		destTexPtr = (u16*)SEGMENTED_TO_VIRTUAL(gDodongosCavernBossLavaFloorTex);
+		sourceTexPtr = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorRockTex);
 
 		Actor_Kill(&pthis->actor);
 		Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_DOOR_WARP1, -890.0f, -1523.76f, -3304.0f, 0, 0, 0, WARP_DUNGEON_CHILD);
@@ -280,18 +291,18 @@ void BossDodongo_Init(Actor* thisx, GlobalContext* globalCtx)
 		for(i = 0; i < 2048; i++)
 		{
 			temp_v0 = i;
-			temp_s1_3[temp_v0] = temp_s2[temp_v0];
+			destTexPtr[temp_v0] = sourceTexPtr[temp_v0];
 		}
 	}
 	else
 	{
-		temp_s1_3 = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorLavaTex);
-		temp_s2 = (u16*)SEGMENTED_TO_VIRTUAL(originalLavaFloorTex);
+		destTexPtr = (u16*)SEGMENTED_TO_VIRTUAL(sLavaFloorLavaTex);
+		sourceTexPtr = (u16*)SEGMENTED_TO_VIRTUAL(originalLavaFloorTex);
 		
 		for(i = 0; i < 2048; i++)
 		{
 			temp_v0 = i;
-			temp_s1_3[temp_v0] = temp_s2[temp_v0];
+			destTexPtr[temp_v0] = sourceTexPtr[temp_v0];
 		}
 	}
 
