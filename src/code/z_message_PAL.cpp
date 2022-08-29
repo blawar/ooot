@@ -3325,6 +3325,8 @@ void Message_DrawMain(GlobalContext* globalCtx, Gfx** p)
 	*p = gfx;
 }
 
+
+#ifdef _DEBUG
 /**
  * If the s16 variable pointed to by `var` changes in value, a black bar and white box
  * are briefly drawn onto the screen. It can only watch one variable per build due to
@@ -3380,6 +3382,7 @@ void Message_DrawDebugText(GlobalContext* globalCtx, Gfx** p)
 	*p = GfxPrint_Close(&printer);
 	GfxPrint_Destroy(&printer);
 }
+#endif
 
 void Message_Draw(GlobalContext* globalCtx)
 {
@@ -3389,6 +3392,7 @@ void Message_Draw(GlobalContext* globalCtx)
 
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_message_PAL.c", 3554);
 
+#ifdef _DEBUG
 	watchVar = gSaveContext.scarecrowCustomSongSet;
 	Message_DrawDebugVariableChanged(&watchVar, globalCtx->gfxCtx);
 	if(BREG(0) != 0 && globalCtx->msgCtx.textId != 0)
@@ -3400,6 +3404,8 @@ void Message_Draw(GlobalContext* globalCtx)
 		Graph_BranchDlist(polyOpaP, plusOne);
 		POLY_OPA_DISP = plusOne;
 	}
+#endif
+
 	plusOne = Graph_GfxPlusOne(polyOpaP = POLY_OPA_DISP);
 	gSPDisplayList(OVERLAY_DISP++, plusOne);
 	Message_DrawMain(globalCtx, &plusOne);
@@ -3442,6 +3448,7 @@ void Message_Update(GlobalContext* globalCtx)
 	s16 playerFocusScreenPosY;
 	s16 actorFocusScreenPosY;
 
+#ifdef _DEBUG
 	if(BREG(0) != 0)
 	{
 		if(CHECK_BTN_ALL(input->press.button, BTN_DDOWN) && CHECK_BTN_ALL(input->cur.button, BTN_L))
@@ -3473,6 +3480,7 @@ void Message_Update(GlobalContext* globalCtx)
 			}
 		}
 	}
+#endif
 
 	if(msgCtx->msgLength == 0)
 	{
