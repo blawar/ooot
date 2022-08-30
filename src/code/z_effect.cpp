@@ -179,9 +179,8 @@ void Effect_Add(GlobalContext* globalCtx, s32* pIndex, s32 type, u8 arg3, u8 arg
 
 		if(!slotFound)
 		{
-			// "EffectAdd(): I cannot secure it. Be careful. Type %d"
-			osSyncPrintf("EffectAdd():確保できません。注意してください。Type%d\n", type);
-			osSyncPrintf("エフェクト追加せずに終了します。\n"); // "Exit without adding the effect."
+			osSyncPrintf("EffectAdd():Cannot be secured. Be careful. Type%d\n", type);
+			osSyncPrintf("Exit without adding effects.\n");
 		}
 		else
 		{
@@ -295,7 +294,7 @@ void Effect_DeleteAll(GlobalContext* globalCtx)
 {
 	s32 i;
 
-	osSyncPrintf("エフェクト総て解放\n"); // "All effect release"
+	osSyncPrintf("Release all effects Begin\n");
 
 	for(i = 0; i < SPARK_COUNT; i++)
 	{
@@ -315,5 +314,5 @@ void Effect_DeleteAll(GlobalContext* globalCtx)
 		sEffectInfoTable[EFFECT_SHIELD_PARTICLE].destroy(&sEffectContext.shieldParticles[i].effect);
 	}
 
-	osSyncPrintf("エフェクト総て解放 終了\n"); // "All effects release End"
+	osSyncPrintf("Release all effects End\n");
 }

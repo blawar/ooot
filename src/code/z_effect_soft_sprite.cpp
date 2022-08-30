@@ -211,21 +211,20 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
 
 	overlayEntry = &gEffectSsOverlayTable[type];
 
-	ASSERT(type < EFFECT_SS_TYPE_MAX, "type < EFFECT_SS2_TYPE_LAST_LABEL", "../z_effect_soft_sprite.c", 556);
-
 	if(EffectSs_FindSlot(priority, &index) != 0)
 	{
 		// Abort because we couldn't find a suitable slot to add this effect in
 		return;
 	}
 
+	ASSERT(type < EFFECT_SS_TYPE_MAX, "type < EFFECT_SS2_TYPE_LAST_LABEL", "../z_effect_soft_sprite.c", 556);
+
 	sEffectSsInfo.searchStartIndex = index + 1;
 	overlaySize = POINTER_SUB(overlayEntry->vramEnd, overlayEntry->vramStart);
 
 	if(overlayEntry->vramStart == NULL)
 	{
-		// "Not an overlay"
-		osSyncPrintf("EffectSoftSprite2_makeEffect():オーバーレイではありません。\n");
+		osSyncPrintf("EffectSoftSprite2_makeEffect(): Not an overlay\n");
 		initInfo = overlayEntry->initInfo;
 	}
 	else
@@ -237,13 +236,10 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
 			if(overlayEntry->loadedRamAddr == NULL)
 			{
 				osSyncPrintf(VT_FGCOL(RED));
-				// "The memory of %d byte cannot be secured. Therefore, the program cannot be loaded.
-				// What a dangerous situation! Naturally, effects will not produced either."
 				osSyncPrintf(
-				    "EffectSoftSprite2_makeEffect():zelda_malloc_r()により,%"
-				    "dbyteのメモリ確保ができま\nせん。そのため、プログラムのロードも\n出来ません。ただいま危険"
-				    "な状態です！\nもちろん,エフェクトも出ません。\n",
-				    overlaySize);
+					"EffectSoftSprite2_makeEffect():zelda_malloc_r() The memory of %d byte cannot be secured. Therefore, the program cannot be loaded.\
+					What a dangerous situation! Naturally, effects will not produced either.\n",
+					overlaySize);
 				osSyncPrintf(VT_RST);
 				return;
 			}
@@ -258,12 +254,10 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
 
 	if(initInfo->init == NULL)
 	{
-		// "Effects have already been loaded, but the constructor is NULL so the addition will not occur.
-		// Please fix this. (Waste of memory) %08x %d"
 		osSyncPrintf(
-		    "EffectSoftSprite2_makeEffect():すでにエフェクトはロード済みで\nすが,"
-		    "コンストラクターがNULLなので追加をやめます。\n直してください。（メモリーの無駄) %08x %d\n",
-		    initInfo, type);
+			"EffectSoftSprite2_makeEffect():Effects have already been loaded, but the constructor is NULL so the addition will not occur.\n"
+			"Please fix this. (Waste of memory) %08x %d",
+			initInfo, type);
 		return;
 	}
 
@@ -276,11 +270,9 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
 	if(initInfo->init(globalCtx, index, &sEffectSsInfo.table[index], initParams) == 0)
 	{
 		osSyncPrintf(VT_FGCOL(GREEN));
-		// "Construction failed for some reason. The constructor returned an error.
-		// Ceasing effect addition."
-		osSyncPrintf("EffectSoftSprite2_makeEffect():"
-			     "何らかの理由でコンストラクト失敗。コンストラクターがエラーを返しました。エフェクトの追加を中"
-			     "止します。\n");
+		osSyncPrintf("EffectSoftSprite2_makeEffect():\
+		Construction failed for some reason. The constructor returned an error.\
+		Ceasing effect addition.\n");
 		osSyncPrintf(VT_RST);
 		EffectSs_Reset(&sEffectSsInfo.table[index]);
 	}
@@ -289,16 +281,16 @@ void EffectSs_Spawn(GlobalContext* globalCtx, s32 type, s32 priority, void* init
 void EffectSs_Update(GlobalContext* globalCtx, s32 index)
 {
 	EffectSs* effectSs = &sEffectSsInfo.table[index];
-
+	
 	if(effectSs->update != NULL)
 	{
 		effectSs->velocity.x += effectSs->accel.x;
 		effectSs->velocity.y += effectSs->accel.y;
 		effectSs->velocity.z += effectSs->accel.z;
 
-		effectSs->pos.x += effectSs->velocity.x;
-		effectSs->pos.y += effectSs->velocity.y;
-		effectSs->pos.z += effectSs->velocity.z;
+		effectSs->accel.x += effectSs->velocity.x;
+		effectSs->accel.y += effectSs->velocity.y;
+		effectSs->accel.z += effectSs->velocity.z;
 
 		effectSs->update(globalCtx, index, effectSs);
 	}
@@ -322,7 +314,7 @@ void EffectSs_UpdateAll(GlobalContext* globalCtx)
 
 		if(sEffectSsInfo.table[i].life > -1)
 		{
-			EffectSs_Update(globalCtx, i);
+			EffectSs_Update(globalCtx, i);			
 		}
 	}
 }
@@ -342,7 +334,7 @@ void EffectSs_Draw(GlobalContext* globalCtx, s32 index)
 void EffectSs_DrawAll(GlobalContext* globalCtx)
 {
 	Lights* lights = LightContext_NewLights(&globalCtx->lightCtx, globalCtx->gfxCtx);
-	s32 i;
+	s32 i;	
 
 	Lights_BindAll(lights, globalCtx->lightCtx.listHead, NULL);
 	Lights_Draw(lights, globalCtx->gfxCtx);
@@ -355,17 +347,13 @@ void EffectSs_DrawAll(GlobalContext* globalCtx)
 			   (sEffectSsInfo.table[i].pos.z < -32000.0f))
 			{
 				osSyncPrintf(VT_FGCOL(RED));
-				// "Since the position is outside the area, delete it.
-				// Effect label No. %d: Please respond by the program.
-				// Here is ==> pos (%f, %f, %f) and the label is in z_effect_soft_sprite_dlftbls.decl."
 				osSyncPrintf(
-				    "EffectSoftSprite2_disp():位置が領域外のため "
-				    "削除します。エフェクトラベルNo.%d:プログラムの方で対応をお願いします。ここです ==> "
-				    "pos(%f, %f, %f)で、ラベルはz_effect_soft_sprite_dlftbls.declにあります。\n",
+				    "EffectSoftSprite2_disp():Since the position is outside the area, delete it.\
+				Effect label No. %d: Please respond by the program.\
+				Here is ==> pos (%f, %f, %f) and the label is in z_effect_soft_sprite_dlftbls.decl.\n",
 				    sEffectSsInfo.table[i].type, sEffectSsInfo.table[i].pos.x, sEffectSsInfo.table[i].pos.y, sEffectSsInfo.table[i].pos.z);
 				osSyncPrintf(VT_FGCOL(GREEN));
-				// "If you are using pos for something else, consult me."
-				osSyncPrintf("もし、posを別のことに使っている場合相談に応じます。\n");
+				osSyncPrintf("If you are using pos for something else, consult me.\n");
 				osSyncPrintf(VT_RST);
 
 				EffectSs_Delete(&sEffectSsInfo.table[i]);
