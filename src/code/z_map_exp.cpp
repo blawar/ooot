@@ -55,7 +55,7 @@ void Map_SetPaletteData(GlobalContext* globalCtx, s16 room)
 
 	osSyncPrintf(VT_FGCOL(YELLOW));
 	// "PALETE Set"
-	osSyncPrintf("ＰＡＬＥＴＥセット 【 i=%x : room=%x 】Room_Inf[%d][4]=%x  ( map_palete_no = %d )\n", paletteIndex, room, mapIndex, gSaveContext.sceneFlags[mapIndex].rooms, interfaceCtx->mapPaletteIndex);
+	osSyncPrintf("Palette【 i=%x : room=%x 】Room_Inf[%d][4]=%x  ( map_palete_no = %d )\n", paletteIndex, room, mapIndex, gSaveContext.sceneFlags[mapIndex].rooms, interfaceCtx->mapPaletteIndex);
 	osSyncPrintf(VT_RST);
 
 	interfaceCtx->mapPalette[paletteIndex * 2] = 2;
@@ -199,14 +199,13 @@ void Map_InitData(GlobalContext* globalCtx, s16 room)
 		case SCENE_JYASINBOSS:
 		case SCENE_HAKADAN_BS:
 			osSyncPrintf(VT_FGCOL(YELLOW));
-			// "Deku Tree Dungeon MAP Texture DMA"
-			osSyncPrintf("デクの樹ダンジョンＭＡＰ テクスチャＤＭＡ(%x) scene_id_offset=%d  VREG(30)=%d\n", room, mapIndex, VREG(30));
+			osSyncPrintf("Deku Tree Dungeon MAP Texture DMA(%x) scene_id_offset=%d  VREG(30)=%d\n", room, mapIndex, VREG(30));
 			osSyncPrintf(VT_RST);
 			globalCtx->interfaceCtx.mapSegment1 = (u8*)map_i_static_lut[gMapData->dgnMinimapTexIndexOffset[mapIndex] + room];
 			R_COMPASS_OFFSET_X = gMapData->roomCompassOffsetX[mapIndex][room];
 			R_COMPASS_OFFSET_Y = gMapData->roomCompassOffsetY[mapIndex][room];
 			Map_SetFloorPalettesData(globalCtx, VREG(30));
-			osSyncPrintf("ＭＡＰ 各階ＯＮチェック\n"); // "MAP Individual Floor ON Check"
+			osSyncPrintf("MAP Individual Floor ON Check\n");
 			break;
 	}
 }
@@ -241,12 +240,12 @@ void Map_InitRoomData(GlobalContext* globalCtx, s16 room)
 			case SCENE_JYASINBOSS:
 			case SCENE_HAKADAN_BS:
 				gSaveContext.sceneFlags[mapIndex].rooms |= gBitFlags[room];
-				osSyncPrintf("ＲＯＯＭ＿ＩＮＦ＝%d\n", gSaveContext.sceneFlags[mapIndex].rooms);
+				osSyncPrintf("Room_inf＝%d\n", gSaveContext.sceneFlags[mapIndex].rooms);
 				interfaceCtx->mapRoomNum = room;
 				interfaceCtx->unk_25A = mapIndex;
 				Map_SetPaletteData(globalCtx, room);
 				osSyncPrintf(VT_FGCOL(YELLOW));
-				osSyncPrintf("部屋部屋＝%d\n", room); // "Room Room = %d"
+				osSyncPrintf("Room room＝%d\n", room);
 				osSyncPrintf(VT_RST);
 				Map_InitData(globalCtx, room);
 				break;
@@ -592,8 +591,7 @@ void Map_Update(GlobalContext* globalCtx)
 
 				if(interfaceCtx->mapRoomNum != sLastRoomNum)
 				{
-					// "Current floor = %d Current room = %x Number of rooms = %d"
-					osSyncPrintf("現在階＝%d  現在部屋＝%x  部屋数＝%d\n", floor, interfaceCtx->mapRoomNum, gMapData->switchEntryCount[mapIndex]);
+					osSyncPrintf("Current floor＝%d  Current room＝%x  number of rooms＝%d\n", floor, interfaceCtx->mapRoomNum, gMapData->switchEntryCount[mapIndex]);
 					sLastRoomNum = interfaceCtx->mapRoomNum;
 				}
 
@@ -603,8 +601,7 @@ void Map_Update(GlobalContext* globalCtx)
 					{
 						interfaceCtx->mapRoomNum = gMapData->switchToRoom[mapIndex][i];
 						osSyncPrintf(VT_FGCOL(YELLOW));
-						// "Layer switching = %x"
-						osSyncPrintf("階層切替＝%x\n", interfaceCtx->mapRoomNum);
+						osSyncPrintf("Layer switching＝%x\n", interfaceCtx->mapRoomNum);
 						osSyncPrintf(VT_RST);
 						Map_InitData(globalCtx, interfaceCtx->mapRoomNum);
 						gSaveContext.sunsSongState = SUNSSONG_INACTIVE;
