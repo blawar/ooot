@@ -434,6 +434,13 @@ void Math_Vec3f_Copy(Vec3f* dest, Vec3f* src)
 	dest->z = src->z;
 }
 
+void Math_VecPos_Copy(VecPos* dest, Vec3f* src)
+{
+	dest->x = src->x;
+	dest->y = src->y;
+	dest->z = src->z;
+}
+
 void Math_Vec3s_ToVec3f(Vec3f* dest, Vec3s* src)
 {
 	dest->x = src->x;
@@ -711,6 +718,11 @@ void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step)
 }
 
 void Math_ApproachF(CounterF* pValue, f32 target, f32 fraction, const Step& _step)
+{
+	_Math_ApproachF(pValue, target, fraction, _step);
+}
+
+void Math_ApproachF(Rotation* pValue, f32 target, f32 fraction, const Step& _step)
 {
 	_Math_ApproachF(pValue, target, fraction, _step);
 }
