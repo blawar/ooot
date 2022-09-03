@@ -33,7 +33,19 @@ static u8 noControllerFontIndexes_28[] = {
     0x17, 0x18, 0x0C, 0x18, 0x17, 0x1D, 0x1B, 0x18, 0x15, 0x15, 0x0E, 0x1B,
 };
 
-static u8 pressStartFontIndexes_28[] = {
+static u8 pressStartFontIndexes_ENG[] = {
+    0x19, 0x1B, 0x0E, 0x1C, 0x1C, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
+};
+
+static u8 pressStartFontIndexes_GER[] = {
+    0x0D, 0x1B, 0x1E, 0x0C, 0x14, 0x0E, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
+};
+
+static u8 pressStartFontIndexes_FRA[] = {
+    0x0A, 0x19, 0x19, 0x1E, 0x22, 0x0E, 0x23, 0x1C, 0x1E, 0x1B, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
+};
+
+static u8 pressStartFontIndexes_SPA[] = {
     0x19, 0x1E, 0x15, 0x1C, 0x0A, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
 };
 
@@ -601,6 +613,25 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 	}
 	else if(pthis->copyrightAlpha >= 200.0f)
 	{
+		// int lang = LANGUAGE_ENG;
+		int lang = gSaveContext.language;
+
+		// FontIndexesLanguage
+		static u8* pressStartFontIndexes[4] = {
+		    {pressStartFontIndexes_ENG},
+		    {pressStartFontIndexes_GER},
+		    {pressStartFontIndexes_FRA},
+		    {pressStartFontIndexes_SPA}
+		};
+
+		// Count, Left, SpaceIndex, StartIndex
+		static int pressStartInfo[4][4] = {
+			{10, 0, 4, 4},
+			{11, -3, 5, 5},
+			{15, -15, 6, 9},
+			{10, 0, 4, 4}
+		};
+
 		// Draw "PRESS START" Text
 		textAlpha_28 = textFadeTimer_28 * 10;
 		if(textAlpha_28 >= 255)
@@ -613,12 +644,12 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 		gDPSetCombineLERP(gfx++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 		gDPSetPrimColor(gfx++, 0, 0, 0, 0, 0, textAlpha_28);
 
-		rectLeft = YREG(7) + 1;
-		for(i = 0; i < ARRAY_COUNT(pressStartFontIndexes_28); i++)
+		rectLeft = YREG(7) + 1 + pressStartInfo[lang][1];
+		for(i = 0; i < pressStartInfo[lang][0]; i++)
 		{
-			EnMag_DrawCharTexture(&gfx, font->fontBuf + pressStartFontIndexes_28[i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 172);
+			EnMag_DrawCharTexture(&gfx, font->fontBuf + pressStartFontIndexes[lang][i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 172);
 			rectLeft += YREG(8);
-			if(i == 4)
+			if((i == pressStartInfo[lang][2]) || (i == pressStartInfo[lang][3]))
 			{
 				rectLeft += YREG(9);
 			}
@@ -628,12 +659,12 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 		gDPPipeSync(gfx++);
 		gDPSetPrimColor(gfx++, 0, 0, YREG(4), YREG(5), YREG(6), textAlpha_28);
 
-		rectLeft = YREG(7);
-		for(i = 0; i < ARRAY_COUNT(pressStartFontIndexes_28); i++)
+		rectLeft = YREG(7) + pressStartInfo[lang][1];
+		for(i = 0; i < pressStartInfo[lang][0]; i++)
 		{
-			EnMag_DrawCharTexture(&gfx, font->fontBuf + pressStartFontIndexes_28[i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 171);
+			EnMag_DrawCharTexture(&gfx, font->fontBuf + pressStartFontIndexes[lang][i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 171);
 			rectLeft += YREG(8);
-			if(i == 4)
+			if((i == pressStartInfo[lang][2]) || (i == pressStartInfo[lang][3]))
 			{
 				rectLeft += YREG(9);
 			}
