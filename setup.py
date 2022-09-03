@@ -51,6 +51,7 @@ def build():
 	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/create_luts.py'), buildRom()])

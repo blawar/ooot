@@ -267,6 +267,11 @@ namespace platform::window
 					Set_Language(LANGUAGE_ENG);
 					break;
 				}
+				else if(strcmp(locale->language, "es") == 0)
+				{
+					Set_Language(LANGUAGE_SPA);
+					break;
+				}
 				else if(strcmp(locale->language, "ge") == 0)
 				{
 					Set_Language(LANGUAGE_GER);

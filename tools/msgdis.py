@@ -39,6 +39,18 @@ def segmented_to_physical(address):
 Special characters conversion
 """
 extraction_charmap = {
+    0xAC: 'Í',
+    0xAD: 'Ó',
+    0xAE: 'Ú',
+    0xAF: 'í',
+    0xB0: 'ó',
+    0xB1: 'ú',
+    0xB2: '¿',
+    0xB3: '¡',
+    0xB4: 'Á',
+    0xB5: 'Ñ',
+    0xB6: 'ñ',
+
     0x7F: '‾',
     0x80: 'À',
     0x81: 'î',
