@@ -255,6 +255,7 @@ namespace oot
 		FRAMERATE_SCALER = (20.0f * GAME_SPEED_RATIO / TICK_RATE);
 		FRAMERATE_SCALER_INV = TICK_RATE / (20.0f * GAME_SPEED_RATIO);
 		R_UPDATE_RATE = framerate_divider();
+		osSyncPrintf("Framerate: %d\n", (s32)targetFramerate);
 
 		config().save();
 #endif

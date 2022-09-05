@@ -850,7 +850,7 @@ struct Demo9Anim
 	/* 0x4 */ s16 keyframe;
 	/* 0x6 */ s16 doLERPAt;
 	/* 0x8 */ s16 finishAction;
-	/* 0xA */ s16 animTimer;
+	/* 0xA */ TimerS16 animTimer;
 }; // size = 0xC
 
 struct Demo9
