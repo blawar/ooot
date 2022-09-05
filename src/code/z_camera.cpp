@@ -7801,6 +7801,7 @@ s32 Camera_Special8(Camera* camera)
 	return Camera_Noop(camera);
 }
 
+//walking through a door camera
 s32 Camera_Special9(Camera* camera)
 {
 	s32 pad;
@@ -7915,9 +7916,9 @@ s32 Camera_Special9(Camera* camera)
 			spAC = playerPosRot->pos;
 			spAC.y += (playerYOffset + params->yOffset);
 			Camera_LERPCeilVec3f(&spAC, at, 0.5f, 0.5f, 0.1f);
-			eyeAdjustment.pitch = Camera_LERPCeilS(0xAAA, atEyeOffsetGeo.pitch, 0.3f, 0xA);
-			eyeAdjustment.yaw = Camera_LERPCeilS(anim->targetYaw, atEyeOffsetGeo.yaw, 0.3f, 0xA);
-			eyeAdjustment.r = Camera_LERPCeilF(60.0f, atEyeOffsetGeo.r, 0.3f, 1.0f);
+			eyeAdjustment.pitch = Camera_LERPCeilS(0xAAA, atEyeOffsetGeo.pitch, 0.3f / FRAMERATE_SCALER_INV, 0xA);
+			eyeAdjustment.yaw = Camera_LERPCeilS(anim->targetYaw, atEyeOffsetGeo.yaw, 0.3f / FRAMERATE_SCALER_INV, 0xA);
+			eyeAdjustment.r = Camera_LERPCeilF(60.0f, atEyeOffsetGeo.r, 0.3f / FRAMERATE_SCALER_INV, 1.0f);
 			Camera_Vec3fVecSphGeoAdd(eyeNext, at, &eyeAdjustment);
 			*eye = *eyeNext;
 			spec9->doorParams.timer3--;

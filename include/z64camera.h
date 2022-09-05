@@ -695,9 +695,9 @@ struct DoorParams
 {
 	/* 0x0 */ struct Actor* doorActor;
 	/* 0x4 */ s16 camDataIdx;
-	/* 0x6 */ s16 timer1;
-	/* 0x8 */ s16 timer2;
-	/* 0xA */ s16 timer3;
+	/* 0x6 */ TimerS16 timer1;
+	/* 0x8 */ TimerS16 timer2;
+	/* 0xA */ TimerS16 timer3;
 }; // size = 0xC
 
 struct Unique3
