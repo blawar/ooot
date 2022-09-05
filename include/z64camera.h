@@ -818,8 +818,8 @@ struct Demo1
 struct Demo3Anim
 {
 	/* 0x00 */ Vec3f initialAt;
-	/* 0x0C */ f32 unk_0C;
-	/* 0x10 */ s16 animFrame;
+	/* 0x0C */ TimerF32 stepScale;
+	/* 0x10 */ TimerS16 animFrame;
 	/* 0x12 */ s16 yawDir;
 }; // size = 0x14
 

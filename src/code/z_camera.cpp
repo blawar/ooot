@@ -6680,7 +6680,9 @@ s32 Camera_Demo3(Camera* camera)
 			eyeOffset.r = D_8011D658[0].r;
 			eyeOffset.pitch = D_8011D658[0].pitch;
 			eyeOffset.yaw = (D_8011D658[0].yaw * anim->yawDir) + camPlayerPosRot->rot.y;
-			anim->unk_0C = 1.0f;
+			anim->stepScale = 1.0f;
+
+			camera->animState = 0xA;
 			break;
 		case 1:
 			temp_f0 = (anim->animFrame - 2) * (1.0f / 146.0f);
@@ -6701,7 +6703,7 @@ s32 Camera_Demo3(Camera* camera)
 			eyeOffset.pitch = atOffset.pitch;
 			eyeOffset.yaw = (atOffset.yaw * anim->yawDir) + camPlayerPosRot->rot.y;
 
-			anim->unk_0C -= (1.0f / 365.0f);
+			anim->stepScale -= (1.0f / 365.0f);
 			break;
 		case 2:
 			temp_f0 = (anim->animFrame - 0x94) * 0.1f;
@@ -6722,7 +6724,7 @@ s32 Camera_Demo3(Camera* camera)
 			eyeOffset.r = atOffset.r;
 			eyeOffset.pitch = atOffset.pitch;
 			eyeOffset.yaw = (atOffset.yaw * anim->yawDir) + camPlayerPosRot->rot.y;
-			anim->unk_0C -= 0.04f;
+			anim->stepScale -= 0.04f;
 			break;
 		case 3:
 			temp_f0 = (anim->animFrame - 0x9F) * (1.0f / 9.0f);
@@ -6743,7 +6745,7 @@ s32 Camera_Demo3(Camera* camera)
 			eyeOffset.r = atOffset.r;
 			eyeOffset.pitch = atOffset.pitch;
 			eyeOffset.yaw = (atOffset.yaw * anim->yawDir) + camPlayerPosRot->rot.y;
-			anim->unk_0C += (4.0f / 45.0f);
+			anim->stepScale += (4.0f / 45.0f);
 			break;
 		case 30:
 			camera->unk_14C |= 0x400;
@@ -6759,7 +6761,7 @@ s32 Camera_Demo3(Camera* camera)
 			eyeOffset.r = 80.0f;
 			eyeOffset.pitch = 0;
 			eyeOffset.yaw = eyeAtOffset.yaw;
-			anim->unk_0C = 0.1f;
+			anim->stepScale = 0.1f;
 			sCameraInterfaceFlags = 0x3400;
 
 			if(!((anim->animFrame < 0 || camera->xzSpeed > 0.001f || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_A) || CHECK_BTN_ALL(globalCtxAlt->input[0].press.button, BTN_B) ||
@@ -6790,11 +6792,7 @@ s32 Camera_Demo3(Camera* camera)
 
 	anim->animFrame++;
 
-	if(anim->animFrame == 1)
-	{
-		camera->animState = 0xA;
-	}
-	else if(anim->animFrame == 2)
+	if(anim->animFrame == 2)
 	{
 		camera->animState = 0x1;
 	}
@@ -6821,9 +6819,9 @@ s32 Camera_Demo3(Camera* camera)
 
 	if(!skipUpdateEye)
 	{
-		eyeOffset.r = Camera_LERPCeilF(eyeOffset.r, eyeAtOffset.r, anim->unk_0C, 2.0f);
-		eyeOffset.pitch = Camera_LERPCeilS(eyeOffset.pitch, eyeAtOffset.pitch, anim->unk_0C, 0xA);
-		eyeOffset.yaw = Camera_LERPCeilS(eyeOffset.yaw, eyeAtOffset.yaw, anim->unk_0C, 0xA);
+		eyeOffset.r = Camera_LERPCeilF(eyeOffset.r, eyeAtOffset.r, anim->stepScale, 2.0f);
+		eyeOffset.pitch = Camera_LERPCeilS(eyeOffset.pitch, eyeAtOffset.pitch, anim->stepScale, 0xA);
+		eyeOffset.yaw = Camera_LERPCeilS(eyeOffset.yaw, eyeAtOffset.yaw, anim->stepScale, 0xA);
 		Camera_Vec3fVecSphGeoAdd(eyeNext, at, &eyeOffset);
 		*eye = *eyeNext;
 	}
