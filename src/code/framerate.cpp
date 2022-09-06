@@ -192,11 +192,11 @@ namespace oot
 			case 30:
 				SET_FRAMERATE = 30.0f;
 				TICK_RATE = 60.0f;
-				UPDATE_SCALER = 1.0f;
-				GAME_SPEED_RATIO = 1.0f;
+				UPDATE_SCALER = 30.0f / 60.0f;
+				GAME_SPEED_RATIO = 60.0f / 30.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.2f;
 				INTERPOLATE_ANIM = true;
-				SKIP_GFX_FRAME_MASK = 1;
+				SKIP_GFX_FRAME_MASK = 0;
 
 				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
 				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
