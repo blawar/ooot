@@ -217,7 +217,7 @@ struct Normal1Anim
 	/* 0x24 */ s16 slopePitchAdj;
 	/* 0x26 */ s16 swingYawTarget;
 	/* 0x28 */ s16 distTimer;
-	/* 0x2A */ s16 startSwingTimer;
+	/* 0x2A */ TimerS16 startSwingTimer;
 }; // size = 0x2C
 
 struct Normal1
@@ -1011,7 +1011,7 @@ struct Camera
 	/* 0x166 */ s16 prevCamDataIdx;
 	/* 0x168 */ s16 csId;
 	/* 0x16A */ s16 unk_16A;
-	/* 0x16C */ s16 startControlTimer;
+	/* 0x16C */ TimerS16 startControlTimer;
 }; // size = 0x16C
 
 /**

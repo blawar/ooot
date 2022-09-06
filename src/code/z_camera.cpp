@@ -1489,7 +1489,7 @@ s16 Camera_CalcDefaultPitch(Camera* camera, s16 arg1, s16 arg2, s16 arg3)
 		pad = Camera_InterpolateCurve(0.8f, 1.0f - t);
 		phi_a2 = (1.0f / camera->pitchUpdateRateInv) * pad;
 	}
-	return Camera_LERPCeilS(sp1C, arg1, phi_a2, 0xA);
+	return Camera_LERPCeilS(sp1C, arg1, phi_a2 / FRAMERATE_SCALER_INV, 0xA);
 }
 
 s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel)
@@ -1500,6 +1500,7 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 	f32 speedT;
 	f32 velFactor;
 	f32 yawUpdRate;
+	f32 result;
 
 	if(camera->xzSpeed > 0.001f)
 	{
@@ -1508,7 +1509,7 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 	}
 	else
 	{
-		angDelta = target - BINANG_ROT180(cur);
+		angDelta = target - (BINANG_ROT180(cur));
 		speedT = PCT(OREG(48));
 	}
 
@@ -1522,9 +1523,13 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 	}
 
 	velFactor = Camera_InterpolateCurve(0.5f, camera->speedRatio);
-	yawUpdRate = 1.0f / camera->yawUpdateRateInv;
+	if(UPDATE_SCALER <= 1.0f)
+		yawUpdRate = FRAMERATE_SCALER / camera->yawUpdateRateInv;
+	else
+		yawUpdRate = 1.0f / camera->yawUpdateRateInv;
+	velocity = velFactor * yawUpdRate;
 
-	return cur + (s16)(angDelta * velocity * velFactor * yawUpdRate);
+	return (s16)(cur + (angDelta * velocity));
 }
 
 #include "../port/controller/controller.h"
@@ -1539,7 +1544,7 @@ s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3)
 
 	if(rStickY != 0)
 	{
-		camera->startControlTimer = 250; // 10s
+		camera->startControlTimer = 250; //250 = 10s
 	}
 
 	pitchUpdRate = 1.0f / camera->pitchUpdateRateInv;
@@ -1558,7 +1563,7 @@ s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 
 	s16 rStickX = (s16)controller.state().r_stick_x * (s16)-375;
 	if(rStickX != 0)
 	{
-		camera->startControlTimer = 250; // 10s
+		camera->startControlTimer = 250; //250 = 10s
 	}
 	yawUpdRate = 1.0f / camera->yawUpdateRateInv;
 	return cur + (s16)(rStickX * yawUpdRate * oot::config().camera().scalerX() * FRAMERATE_SCALER);
@@ -1569,7 +1574,7 @@ void StepControlTimer(Camera* camera)
 	const oot::hid::Controller& controller = oot::player(0).controller();
 	if(camera->xzSpeed > 0.001f && (controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0))
 	{
-		camera->startControlTimer = 250; // 10s
+		camera->startControlTimer = 250; //250 = 10s
 	}
 	if(camera->startControlTimer > 0)
 	{
@@ -1757,13 +1762,16 @@ s32 Camera_Normal1(Camera* camera)
 			anim->swing.swingUpdateRateTimer = 0;
 			anim->swingYawTarget = atEyeGeo.yaw;
 			sUpdateCameraDirection = 0;
-			anim->startSwingTimer = OREG(50) + OREG(51);
 
-			if(!oot::config().camera().useClassicCamera())
+			if(camera->animState != 0)
 			{
-				camera->startControlTimer = OREG(50) + OREG(51);
-			}
+				anim->startSwingTimer = OREG(50) + OREG(51);
 
+				if(!oot::config().camera().useClassicCamera())
+				{
+					camera->startControlTimer = OREG(50) + OREG(51);
+				}
+			}
 			break;
 		default:
 			break;
@@ -1794,7 +1802,11 @@ s32 Camera_Normal1(Camera* camera)
 	}
 	else
 	{
-		if(anim->startSwingTimer > 0)
+		if(camera->xzSpeed > 0.001f)
+		{
+			anim->startSwingTimer = OREG(50) + OREG(51);
+		}
+		else if(anim->startSwingTimer > 0)
 		{
 			if(anim->startSwingTimer > OREG(50))
 			{
