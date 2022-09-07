@@ -35,6 +35,16 @@ def clean():
 		else:
 			os.remove(path)
 
+def generateEncMsgs():
+	print("Starting message encoding")
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
+	mkdir(assetPath('text'))
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+	print("Finished message encoding")
+
 def build():
 	print("Starting asset extraction and parsing")
 	# sys.executable points to python executable
@@ -46,13 +56,7 @@ def build():
 	subprocess.check_call([sys.executable, str('tools/extract_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/convert_assets.py'), buildRom()])
-	mkdir(assetPath('text'))
-	//subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data.h')), str(assetPath('text/message_data.enc.h')), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+	generateEncMsgs()
 	subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/create_luts.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/fix_mtx.py'), buildRom()])
@@ -71,7 +75,8 @@ def main():
 	parser.add_argument("--refresh-configs", help="Refreshes rom config files (do not use)", action="store_true", default=False)
 	parser.add_argument("-o", "--organize-roms", help="Renames and moves roms to their proper location", action="store_true", default=False)
 	parser.add_argument("-s", "--skip-organize-roms", help="Skip organizing roms", action="store_true", default=False)
-
+	parser.add_argument("--run-msgenc", help="Run msgenc", action="store_true", default=False)
+	
 	args = parser.parse_args()
 	
 	if args.refresh_configs:
@@ -95,6 +100,10 @@ def main():
 	buffer = buffer.replace('#BUILD_ROM#', buildRom())
 	defines = []
 	defines.append('ENABLE_%sFPS' % args.framerate)
+
+	if args.run_msgenc:
+		generateEncMsgs()
+		exit(0)
 
 	if args.enable_mouse:
 		defines.append('ENABLE_MOUSE')
