@@ -5,6 +5,7 @@
 #include "json.h"
 #include "port/options.h"
 #include "xxhash64.h"
+#include <SDL2/SDL.h>
 
 #ifdef __SWITCH__
 #include "pc/nx.h"
@@ -18,10 +19,25 @@
 
 void Set_Language(u8 language_id);
 
+std::string userLanguage()
+{
+	std::string lang = "en";
+	SDL_Locale* locale = SDL_GetPreferredLocales();
+	if(locale)
+	{
+		lang = locale->language;
+		SDL_free(locale);
+	}
+
+	return lang;
+}
+
 std::string languageGetString(Language id)
 {
 	switch(id)
 	{
+		case LANGUAGE_AUTO:
+			return "auto";
 		case LANGUAGE_ENG:
 			return "en";
 		case LANGUAGE_SPA:
@@ -36,6 +52,10 @@ std::string languageGetString(Language id)
 
 Language languageGetId(const std::string& s)
 {
+	if(s == "auto")
+	{
+		return LANGUAGE_AUTO;
+	}
 	if(s == "en")
 	{
 		return LANGUAGE_ENG;
@@ -197,6 +217,8 @@ namespace oot
 			}
 		}
 
+		bool manualChangeLang;
+
 		Game::Game()
 		{
 		}
@@ -220,7 +242,18 @@ namespace oot
 			json::setU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames(), allocator);
 			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
 			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
-			json::set(container, "language", languageGetString(language()), allocator);
+
+			std::string lang;
+			if(!manualChangeLang)
+			{
+				lang = languageGetString(LANGUAGE_AUTO);
+			}
+			else
+			{
+				lang = languageGetString(language());
+			}
+
+			json::set(container, "language", lang, allocator);
 			json::setU64(container, "framerate", getMaxFramerate(), allocator);
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
@@ -263,9 +296,27 @@ namespace oot
 			return getMaxFramerate();
 		}
 
+		Language Game::language() const
+		{
+			if(!manualChangeLang)
+			{
+				return languageGetId(userLanguage());
+			}
+			return m_language;
+		}
+
 		void Game::setLanguage(Language id)
 		{
-			m_language = (Language)(id % LANGUAGE_MAX);
+			if(id == LANGUAGE_AUTO)
+			{
+				m_language = languageGetId(userLanguage());
+				manualChangeLang = false;
+			}
+			else
+			{
+				m_language = (Language)(id % LANGUAGE_MAX);
+				manualChangeLang = true;
+			}
 			Set_Language(m_language);
 		}
 

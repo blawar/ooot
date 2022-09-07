@@ -18,7 +18,8 @@ enum Language
 	LANGUAGE_GER,
 	LANGUAGE_FRA,
 	LANGUAGE_SPA,
-	LANGUAGE_MAX
+	LANGUAGE_MAX,
+	LANGUAGE_AUTO
 };
 
 // TODO get these properties from the textures themselves
