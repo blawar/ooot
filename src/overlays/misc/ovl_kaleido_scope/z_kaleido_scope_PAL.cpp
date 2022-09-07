@@ -383,6 +383,7 @@ namespace oot::pause
 				switch(langId)
 				{
 					case LANGUAGE_ENG:
+					default:
 						return gPauseToSelectItemENGTex;
 					case LANGUAGE_GER:
 						return gPauseToSelectItemGERTex;
@@ -600,6 +601,7 @@ namespace oot::pause
 				switch(langId)
 				{
 					case LANGUAGE_ENG:
+					default:
 						return gPauseToMapENGTex;
 					case LANGUAGE_GER:
 						return gPauseToMapGERTex;
@@ -689,6 +691,7 @@ namespace oot::pause
 					switch(langId)
 					{
 						case LANGUAGE_ENG:
+						default:
 							return gPauseToMapENGTex;
 						case LANGUAGE_GER:
 							return gPauseToMapGERTex;
@@ -791,6 +794,7 @@ namespace oot::pause
 				switch(langId)
 				{
 					case LANGUAGE_ENG:
+					default:
 						return gPauseToQuestStatusENGTex;
 					case LANGUAGE_GER:
 						return gPauseToQuestStatusGERTex;
@@ -925,6 +929,7 @@ namespace oot::pause
 				switch(langId)
 				{
 					case LANGUAGE_ENG:
+					default:
 						return gPauseToEquipmentENGTex;
 					case LANGUAGE_GER:
 						return gPauseToEquipmentGERTex;
