@@ -26,6 +26,22 @@ namespace oot::gamestate
 	    0x0002, 0x0003, 0x0002, 0x0002, 0x0000, 0x0002, 0x0002, 0x0002, 0x0003, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0001, 0x0003,
 	};
 
+	static u16 GetLocalized(u16 array[])
+	{
+		if(gSaveContext.language > 2) // up to fr
+			return (u16)array[0];
+		else
+			return (u16)array[gSaveContext.language];
+	}
+
+	static void* GetLocalized(void* array[])
+	{
+		if(gSaveContext.language > 2) // up to fr
+			return (void*)array[0];
+		else
+			return (void*)array[gSaveContext.language];
+	}
+
 	void FileChoose_DrawCharacter(GraphicsContext* gfxCtx, void* texture, s16 vtx)
 	{
 		OPEN_DISPS(gfxCtx, "../z_file_nameset_PAL.c", 110);
@@ -90,11 +106,21 @@ namespace oot::gamestate
 
 	static void* sNameLabelTextures[] = {gFileSelNameENGTex, gFileSelNameENGTex, gFileSelNameFRATex};
 
-	static void* sBackspaceEndTextures[][2] = {
-	    {gFileSelBackspaceButtonTex, gFileSelENDButtonENGTex},
-	    {gFileSelBackspaceButtonTex, gFileSelENDButtonGERTex},
-	    {gFileSelBackspaceButtonTex, gFileSelENDButtonFRATex},
+	//sBackspaceEndTextures
+
+	static void* sBackspaceTextures[] = {
+	    gFileSelBackspaceButtonTex,
+	    gFileSelBackspaceButtonTex,
+	    gFileSelBackspaceButtonTex,
 	};
+
+	static void* sEndTextures[] = {
+	    gFileSelENDButtonENGTex,
+	    gFileSelENDButtonGERTex,
+	    gFileSelENDButtonFRATex,
+	};
+
+	//
 
 	static u16 sBackspaceEndWidths[] = {28, 44};
 
@@ -133,7 +159,7 @@ namespace oot::gamestate
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[0]);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 		gSPVertex(POLY_OPA_DISP++, D_80811BB0, 24, 0);
-		gDPLoadTextureBlock(POLY_OPA_DISP++, sNameLabelTextures[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, 56, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+		gDPLoadTextureBlock(POLY_OPA_DISP++, GetLocalized(sNameLabelTextures), G_IM_FMT_IA, G_IM_SIZ_8b, 56, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 		gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 		gDPPipeSync(POLY_OPA_DISP++);
 
@@ -142,8 +168,11 @@ namespace oot::gamestate
 		{
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->windowColor[0], pthis->windowColor[1], pthis->windowColor[2], 255);
 			gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
+			void** sBackspaceEndTextures = new void*[2];
+			sBackspaceEndTextures[0] = GetLocalized(sBackspaceTextures);
+			sBackspaceEndTextures[1] = GetLocalized(sEndTextures);
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, sBackspaceEndTextures[gSaveContext.language][phi_t1], G_IM_FMT_IA, G_IM_SIZ_16b, sBackspaceEndWidths[phi_t1], 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+			    POLY_OPA_DISP++, sBackspaceEndTextures[phi_t1], G_IM_FMT_IA, G_IM_SIZ_16b, sBackspaceEndWidths[phi_t1], 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
 			    G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, phi_s0, phi_s0 + 2, phi_s0 + 3, phi_s0 + 1, 0);
 		}
@@ -1053,7 +1082,7 @@ namespace oot::gamestate
 		for(i = 0, vtx = 0; i < ARRAY_COUNT(gOptionsMenuHeaders); i++, vtx += 4)
 		{
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuHeaders[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuHeaders[i].width[gSaveContext.language], gOptionsMenuHeaders[i].height, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuHeaders[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuHeaders[i].width), gOptionsMenuHeaders[i].height, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}
@@ -1101,7 +1130,7 @@ namespace oot::gamestate
 			}
 
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language], gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuSettings[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuSettings[i].width), gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}
@@ -1130,7 +1159,7 @@ namespace oot::gamestate
 			}
 
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language], gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuSettings[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuSettings[i].width), gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}
@@ -1165,7 +1194,7 @@ namespace oot::gamestate
 			}
 
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language], gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuSettings[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuSettings[i].width), gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}

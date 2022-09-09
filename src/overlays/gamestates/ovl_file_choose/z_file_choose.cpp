@@ -40,6 +40,22 @@ namespace oot::gamestate
 
 	static s16 sScreenFillAlpha = 255;
 
+	static u16 GetLocalized(u16 array[])
+	{
+		if(gSaveContext.language > 2) // up to fr
+			return (u16)array[0];
+		else
+			return (u16)array[gSaveContext.language];
+	}
+
+	static void* GetLocalized(void* array[])
+	{
+		if(gSaveContext.language > 2) // up to fr
+			return (void*)array[0];
+		else
+			return (void*)array[gSaveContext.language];
+	}
+
 	static Gfx sScreenFillSetupDL[] = {
 	    gsDPPipeSync(),
 	    gsSPClearGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH),
@@ -898,31 +914,141 @@ namespace oot::gamestate
 	    gFileSelFileInfoBox1Tex, gFileSelFileInfoBox2Tex, gFileSelFileInfoBox3Tex, gFileSelFileInfoBox4Tex, gFileSelFileInfoBox5Tex,
 	};
 
-	static void* sTitleLabels[3][9] = {
-	    {gFileSelPleaseSelectAFileENGTex, gFileSelOpenThisFileENGTex, gFileSelCopyWhichFileENGTex, gFileSelCopyToWhichFileENGTex, gFileSelAreYouSureENGTex, gFileSelFileCopiedENGTex, gFileSelEraseWhichFileENGTex, gFileSelAreYouSure2ENGTex,
-	     gFileSelFileErasedENGTex},
-	    {gFileSelPleaseSelectAFileGERTex, gFileSelOpenThisFileGERTex, gFileSelWhichFile1GERTex, gFileSelCopyToWhichFileGERTex, gFileSelAreYouSureGERTex, gFileSelFileCopiedGERTex, gFileSelWhichFile2GERTex, gFileSelAreYouSure2GERTex,
-	     gFileSelFileErasedGERTex},
-	    {gFileSelPleaseSelectAFileFRATex, gFileSelOpenThisFileFRATex, gFileSelCopyWhichFileFRATex, gFileSelCopyToWhichFileFRATex, gFileSelAreYouSureFRATex, gFileSelFileCopiedFRATex, gFileSelEraseWhichFileFRATex, gFileSelAreYouSure2FRATex,
-	     gFileSelFileErasedFRATex}};
+	//sTitleLabels
 
-	static void* sWarningLabels[3][5] = {
-	    {gFileSelNoFileToCopyENGTex, gFileSelNoFileToEraseENGTex, gFileSelNoEmptyFileENGTex, gFileSelFileEmptyENGTex, gFileSelFileInUseENGTex},
-	    {gFileSelNoFileToCopyGERTex, gFileSelNoFileToEraseGERTex, gFileSelNoEmptyFileGERTex, gFileSelFileEmptyGERTex, gFileSelFileInUseGERTex},
-	    {gFileSelNoFileToCopyFRATex, gFileSelNoFileToEraseFRATex, gFileSelNoEmptyFileFRATex, gFileSelFileEmptyFRATex, gFileSelFileInUseFRATex},
+	static void* sSelPleaseSelectAFile[] = {
+	    gFileSelPleaseSelectAFileENGTex,
+	    gFileSelPleaseSelectAFileGERTex,
+	    gFileSelPleaseSelectAFileFRATex,
 	};
 
-	static void* sFileButtonTextures[3][3] = {
-	    {gFileSelFile1ButtonENGTex, gFileSelFile2ButtonENGTex, gFileSelFile3ButtonENGTex},
-	    {gFileSelFile1ButtonGERTex, gFileSelFile2ButtonGERTex, gFileSelFile3ButtonGERTex},
-	    {gFileSelFile1ButtonFRATex, gFileSelFile2ButtonFRATex, gFileSelFile3ButtonFRATex},
+	static void* sSelOpenThisFile[] = {
+	    gFileSelOpenThisFileENGTex,
+	    gFileSelOpenThisFileGERTex,
+	    gFileSelOpenThisFileFRATex,
 	};
 
-	static void* sActionButtonTextures[3][4] = {
-	    {gFileSelCopyButtonENGTex, gFileSelEraseButtonENGTex, gFileSelYesButtonENGTex, gFileSelQuitButtonENGTex},
-	    {gFileSelCopyButtonGERTex, gFileSelEraseButtonGERTex, gFileSelYesButtonGERTex, gFileSelQuitButtonGERTex},
-	    {gFileSelCopyButtonFRATex, gFileSelEraseButtonFRATex, gFileSelYesButtonFRATex, gFileSelQuitButtonFRATex},
+	static void* sSelCopyWhichFile[] = {
+	    gFileSelCopyWhichFileENGTex,
+	    gFileSelWhichFile1GERTex,
+	    gFileSelCopyWhichFileFRATex,
 	};
+
+	static void* sSelCopyToWhichFile[] = {
+	    gFileSelCopyToWhichFileENGTex,
+	    gFileSelCopyToWhichFileGERTex,
+	    gFileSelCopyToWhichFileFRATex,
+	};
+
+	static void* sSelAreYouSure[] = {
+	    gFileSelAreYouSureENGTex,
+	    gFileSelAreYouSureGERTex,
+	    gFileSelAreYouSureFRATex,
+	};
+
+	static void* sSelFileCopied[] = {
+	    gFileSelFileCopiedENGTex,
+	    gFileSelFileCopiedGERTex,
+	    gFileSelFileCopiedFRATex,
+	};
+
+	static void* sSelEraseWhichFile[] = {
+	    gFileSelEraseWhichFileENGTex,
+	    gFileSelWhichFile2GERTex,
+	    gFileSelEraseWhichFileFRATex,
+	};
+
+	static void* sSelAreYouSure2[] = {
+	    gFileSelAreYouSure2ENGTex,
+	    gFileSelAreYouSure2GERTex,
+	    gFileSelAreYouSure2FRATex,
+	};
+
+	static void* sSelFileErased[] = {
+	    gFileSelFileErasedENGTex,
+	    gFileSelFileErasedGERTex,
+	    gFileSelFileErasedFRATex,
+	};
+
+	//sWarningLabels
+
+	static void* sSelNoFileToCopyTextures[] = {
+	    gFileSelNoFileToCopyENGTex,
+	    gFileSelNoFileToCopyGERTex,
+	    gFileSelNoFileToCopyFRATex,
+	};
+
+	static void* sSelNoFileToEraseTextures[] = {
+	    gFileSelNoFileToEraseENGTex,
+	    gFileSelNoFileToEraseGERTex,
+	    gFileSelNoFileToEraseFRATex,
+	};
+
+	static void* sSelNoEmptyFileTextures[] = {
+	    gFileSelNoEmptyFileENGTex,
+	    gFileSelNoEmptyFileGERTex,
+	    gFileSelNoEmptyFileFRATex,
+	};
+
+	static void* sSelFileEmptyTextures[] = {
+	    gFileSelFileEmptyENGTex,
+	    gFileSelFileEmptyGERTex,
+	    gFileSelFileEmptyFRATex,
+	};
+
+	static void* sSelFileInUseTextures[] = {
+	    gFileSelFileInUseENGTex,
+	    gFileSelFileInUseGERTex,
+	    gFileSelFileInUseFRATex,
+	};
+
+	//sFileButtonTextures
+
+	static void* sFile1ButtonTextures[] = {
+	    gFileSelFile1ButtonENGTex,
+	    gFileSelFile1ButtonGERTex,
+	    gFileSelFile1ButtonFRATex,
+	};
+
+	static void* sFile2ButtonTextures[] = {
+	    gFileSelFile2ButtonENGTex,
+	    gFileSelFile2ButtonGERTex,
+	    gFileSelFile2ButtonFRATex,
+	};
+
+	static void* sFile3ButtonTextures[] = {
+	    gFileSelFile3ButtonENGTex,
+	    gFileSelFile3ButtonGERTex,
+	    gFileSelFile3ButtonFRATex,
+	};
+
+	//sActionButtonTextures
+
+	static void* sCopyButtonTextures[] = {
+	    gFileSelCopyButtonENGTex,
+	    gFileSelCopyButtonGERTex,
+	    gFileSelCopyButtonFRATex,
+	};
+
+	static void* sEraseButtonTextures[] = {
+	    gFileSelEraseButtonENGTex,
+	    gFileSelEraseButtonGERTex,
+	    gFileSelEraseButtonFRATex,
+	};
+
+	static void* sYesButtonTextures[] = {
+	    gFileSelYesButtonENGTex,
+	    gFileSelYesButtonGERTex,
+	    gFileSelYesButtonFRATex,
+	};
+
+	static void* sQuitButtonTextures[] = {
+	    gFileSelQuitButtonENGTex,
+	    gFileSelQuitButtonGERTex,
+	    gFileSelQuitButtonFRATex,
+	};
+
+	//
 
 	static void* sOptionsButtonTextures[] = {
 	    gFileSelOptionsButtonENGTex,
@@ -946,19 +1072,30 @@ namespace oot::gamestate
 
 		OPEN_DISPS(pthis->gfxCtx, "../z_file_choose.c", 1940);
 
+		void** sTitleLabels = new void*[9];
+		sTitleLabels[0] = GetLocalized(sSelPleaseSelectAFile);
+		sTitleLabels[1] = GetLocalized(sSelOpenThisFile);
+		sTitleLabels[2] = GetLocalized(sSelCopyWhichFile);
+		sTitleLabels[3] = GetLocalized(sSelCopyToWhichFile);
+		sTitleLabels[4] = GetLocalized(sSelAreYouSure);
+		sTitleLabels[5] = GetLocalized(sSelFileCopied);
+		sTitleLabels[6] = GetLocalized(sSelEraseWhichFile);
+		sTitleLabels[7] = GetLocalized(sSelAreYouSure2);
+		sTitleLabels[8] = GetLocalized(sSelFileErased);
+
 		// draw title label
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetCombineLERP(POLY_OPA_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[0]);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 		gSPVertex(POLY_OPA_DISP++, pthis->windowContentVtx, 4, 0);
-		gDPLoadTextureBlock(POLY_OPA_DISP++, sTitleLabels[gSaveContext.language][pthis->titleLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+		gDPLoadTextureBlock(POLY_OPA_DISP++, sTitleLabels[pthis->titleLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 		gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
 		// draw next title label
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[1]);
-		gDPLoadTextureBlock(POLY_OPA_DISP++, sTitleLabels[gSaveContext.language][pthis->nextTitleLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+		gDPLoadTextureBlock(POLY_OPA_DISP++, sTitleLabels[pthis->nextTitleLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 		gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
 		temp = 4;
@@ -987,8 +1124,13 @@ namespace oot::gamestate
 
 			isActive = ((pthis->n64ddFlag == pthis->n64ddFlags[i]) || (pthis->nameBoxAlpha[i] == 0)) ? 0 : 1;
 
+			void** sFileButtonTextures = new void*[3];
+			sFileButtonTextures[0] = GetLocalized(sFile1ButtonTextures);
+			sFileButtonTextures[1] = GetLocalized(sFile2ButtonTextures);
+			sFileButtonTextures[2] = GetLocalized(sFile3ButtonTextures);
+
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sWindowContentColors[isActive][0], sWindowContentColors[isActive][1], sWindowContentColors[isActive][2], pthis->fileButtonAlpha[i]);
-			gDPLoadTextureBlock(POLY_OPA_DISP++, sFileButtonTextures[gSaveContext.language][i], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+			gDPLoadTextureBlock(POLY_OPA_DISP++, sFileButtonTextures[i], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
 			// draw file name box
@@ -1027,12 +1169,18 @@ namespace oot::gamestate
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 		gSPVertex(POLY_OPA_DISP++, &pthis->windowContentVtx[0x274], 20, 0);
 
+		void** sActionButtonTextures = new void*[4];
+		sActionButtonTextures[0] = GetLocalized(sCopyButtonTextures);
+		sActionButtonTextures[1] = GetLocalized(sEraseButtonTextures);
+		sActionButtonTextures[2] = GetLocalized(sYesButtonTextures);
+		sActionButtonTextures[3] = GetLocalized(sQuitButtonTextures);
+
 		// draw primary action buttons (copy/erase)
 		for(quadVtxIndex = 0, i = 0; i < 2; i++, quadVtxIndex += 4)
 		{
 			gDPPipeSync(POLY_OPA_DISP++);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->windowColor[0], pthis->windowColor[1], pthis->windowColor[2], pthis->actionButtonAlpha[i]);
-			gDPLoadTextureBlock(POLY_OPA_DISP++, sActionButtonTextures[gSaveContext.language][i], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+			gDPLoadTextureBlock(POLY_OPA_DISP++, sActionButtonTextures[i], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, quadVtxIndex, quadVtxIndex + 2, quadVtxIndex + 3, quadVtxIndex + 1, 0);
 		}
 
@@ -1044,14 +1192,14 @@ namespace oot::gamestate
 			temp = pthis->confirmButtonTexIndices[i];
 
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->windowColor[0], pthis->windowColor[1], pthis->windowColor[2], pthis->confirmButtonAlpha[i]);
-			gDPLoadTextureBlock(POLY_OPA_DISP++, sActionButtonTextures[gSaveContext.language][temp], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+			gDPLoadTextureBlock(POLY_OPA_DISP++, sActionButtonTextures[temp], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, quadVtxIndex, quadVtxIndex + 2, quadVtxIndex + 3, quadVtxIndex + 1, 0);
 		}
 
 		// draw options button
 		gDPPipeSync(POLY_OPA_DISP++);
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->windowColor[0], pthis->windowColor[1], pthis->windowColor[2], pthis->optionButtonAlpha);
-		gDPLoadTextureBlock(POLY_OPA_DISP++, sOptionsButtonTextures[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+		gDPLoadTextureBlock(POLY_OPA_DISP++, GetLocalized(sOptionsButtonTextures), G_IM_FMT_IA, G_IM_SIZ_16b, 64, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 		gSP1Quadrangle(POLY_OPA_DISP++, 8, 10, 11, 9, 0);
 
 		// draw highlight over currently selected button
@@ -1066,6 +1214,13 @@ namespace oot::gamestate
 			gSP1Quadrangle(POLY_OPA_DISP++, 12, 14, 15, 13, 0);
 		}
 
+		void** sWarningLabels = new void*[5];
+		sWarningLabels[0] = GetLocalized(sSelNoFileToCopyTextures);
+		sWarningLabels[1] = GetLocalized(sSelNoFileToEraseTextures);
+		sWarningLabels[2] = GetLocalized(sSelNoEmptyFileTextures);
+		sWarningLabels[3] = GetLocalized(sSelFileEmptyTextures);
+		sWarningLabels[4] = GetLocalized(sSelFileInUseTextures);
+
 		// draw warning labels
 		if(pthis->warningLabel > FS_WARNING_NONE)
 		{
@@ -1074,7 +1229,7 @@ namespace oot::gamestate
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->emptyFileTextAlpha);
 			gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, sWarningLabels[gSaveContext.language][pthis->warningLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+			    POLY_OPA_DISP++, sWarningLabels[pthis->warningLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, 16, 18, 19, 17, 0);
 		}
 
@@ -1889,7 +2044,7 @@ namespace oot::gamestate
 			gDPSetCombineLERP(POLY_OPA_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 100, 255, 255, this->controlsAlpha);
 			gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
-			gDPLoadTextureBlock(POLY_OPA_DISP++, controlsTextures[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, 144, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+			gDPLoadTextureBlock(POLY_OPA_DISP++, GetLocalized(controlsTextures), G_IM_FMT_IA, G_IM_SIZ_8b, 144, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSPTextureRectangle(POLY_OPA_DISP++, 0x0168, 0x0330, 0x03A8, 0x0370, G_TX_RENDERTILE, 0, 0, 0x0400, 0x0400);
 		}
 
