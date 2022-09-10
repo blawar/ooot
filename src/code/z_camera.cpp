@@ -1553,11 +1553,6 @@ s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3)
 
 s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel)
 {
-	if(oot::state.center_camera)
-	{
-		return BINANG_ROT180(target);
-	}
-
 	f32 yawUpdRate;
 	const oot::hid::Controller& controller = oot::player(0).controller();
 	s16 rStickX = (s16)controller.state().r_stick_x * (s16)-375;
@@ -1906,7 +1901,12 @@ s32 Camera_Normal1(Camera* camera)
 	{
 		const oot::hid::Controller& controller = oot::player(0).controller();
 		StepControlTimer(camera);
-		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
+
+		if(oot::state.center_camera)
+		{
+			eyeAdjustment.yaw = Camera_LERPCeilS(BINANG_ROT180(camera->playerPosRot.rot.y), atEyeNextGeo.yaw, 3.0f / camera->yawUpdateRateInv, 0xA);
+		}
+		else if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
 		{
 			eyeAdjustment.yaw = Camera_CalcControllerYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
 			eyeAdjustment.pitch = Camera_CalcControllerPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
@@ -2389,7 +2389,7 @@ s32 Camera_Normal0(Camera* camera)
 	return Camera_Noop(camera);
 }
 
-// z toggle camera
+// z target camera
 s32 Camera_Parallel1(Camera* camera)
 {
 	Vec3f* eye = &camera->eye;
@@ -2410,6 +2410,8 @@ s32 Camera_Parallel1(Camera* camera)
 	f32 pad2;
 	f32 playerHeight;
 	s32 pad3;
+
+	camera->startControlTimer = 0;
 
 	playerHeight = Player_GetHeight(camera->player);
 	if(RELOAD_PARAMS)
