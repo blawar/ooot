@@ -202,6 +202,15 @@ void Interface_ChangeAlpha(u16 alphaType)
 	}
 }
 
+// test
+static int GetLanguageIndex(int maxLang = LANGUAGE_FRA)
+{
+	if(gSaveContext.language > maxLang)
+		return 0;
+	else
+		return gSaveContext.language;
+}
+
 void func_80082644(GlobalContext* globalCtx, s16 alpha)
 {
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
@@ -2700,12 +2709,12 @@ void Interface_LoadActionLabel(InterfaceContext* interfaceCtx, u16 action, s16 l
 		action = DO_ACTION_NONE;
 	}
 
-	if(gSaveContext.language != LANGUAGE_ENG)
+	if(GetLanguageIndex() != LANGUAGE_ENG)
 	{
 		action += DO_ACTION_MAX;
 	}
 
-	if(gSaveContext.language == LANGUAGE_FRA)
+	if(GetLanguageIndex() == LANGUAGE_FRA)
 	{
 		action += DO_ACTION_MAX;
 	}
@@ -2787,12 +2796,12 @@ void Interface_LoadActionLabelB(GlobalContext* globalCtx, u16 action)
 {
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
-	if(gSaveContext.language != LANGUAGE_ENG)
+	if(GetLanguageIndex() != LANGUAGE_ENG)
 	{
 		action += DO_ACTION_MAX;
 	}
 
-	if(gSaveContext.language == LANGUAGE_FRA)
+	if(GetLanguageIndex() == LANGUAGE_FRA)
 	{
 		action += DO_ACTION_MAX;
 	}
@@ -3495,7 +3504,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 			// Start Button Texture, Color & Label
 			gDPPipeSync(OVERLAY_DISP++);
 			gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 200, 0, 0, interfaceCtx->startAlpha);
-			gSPTextureRectangle(OVERLAY_DISP++, GFX_ALIGN_RIGHT(startButtonLeftPos[gSaveContext.language]) << 2, 68, (GFX_ALIGN_RIGHT(startButtonLeftPos[gSaveContext.language]) + 22) << 2, 156, G_TX_RENDERTILE, 0, 0, 1462, 1462);
+			gSPTextureRectangle(OVERLAY_DISP++, GFX_ALIGN_RIGHT(startButtonLeftPos[GetLanguageIndex()]) << 2, 68, (GFX_ALIGN_RIGHT(startButtonLeftPos[GetLanguageIndex()]) + 22) << 2, 156, G_TX_RENDERTILE, 0, 0, 1462, 1462);
 			gDPPipeSync(OVERLAY_DISP++);
 			gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 255, 255, 255, interfaceCtx->startAlpha);
 			gDPSetEnvColor(OVERLAY_DISP++, 0, 0, 0, 0);
@@ -3504,12 +3513,12 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 			gDPLoadTextureBlock_4b(
 			    OVERLAY_DISP++, interfaceCtx->doActionSegment3, G_IM_FMT_IA, DO_ACTION_TEX_WIDTH, DO_ACTION_TEX_HEIGHT, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-			dxdy = (1 << 10) / (R_START_LABEL_DD(gSaveContext.language) / 100.0f);
-			width = DO_ACTION_TEX_WIDTH / (R_START_LABEL_DD(gSaveContext.language) / 100.0f);
-			height = DO_ACTION_TEX_HEIGHT / (R_START_LABEL_DD(gSaveContext.language) / 100.0f);
+			dxdy = (1 << 10) / (R_START_LABEL_DD(GetLanguageIndex()) / 100.0f);
+			width = DO_ACTION_TEX_WIDTH / (R_START_LABEL_DD(GetLanguageIndex()) / 100.0f);
+			height = DO_ACTION_TEX_HEIGHT / (R_START_LABEL_DD(GetLanguageIndex()) / 100.0f);
 			gSPTextureRectangle(
-			    OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_START_LABEL_X(gSaveContext.language)) << 2, R_START_LABEL_Y(gSaveContext.language) << 2, (GFX_ALIGN_RIGHT(R_START_LABEL_X(gSaveContext.language)) + width) << 2,
-			    (R_START_LABEL_Y(gSaveContext.language) + height) << 2, G_TX_RENDERTILE, 0, 0, dxdy, dxdy);
+			    OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_START_LABEL_X(GetLanguageIndex())) << 2, R_START_LABEL_Y(GetLanguageIndex()) << 2, (GFX_ALIGN_RIGHT(R_START_LABEL_X(GetLanguageIndex())) + width) << 2,
+			    (R_START_LABEL_Y(GetLanguageIndex()) + height) << 2, G_TX_RENDERTILE, 0, 0, dxdy, dxdy);
 		}
 	}
 
@@ -3541,7 +3550,7 @@ void Interface_DrawItemButtons(GlobalContext* globalCtx)
 			gDPSetEnvColor(OVERLAY_DISP++, 0, 0, 0, 0);
 			gDPSetCombineLERP(OVERLAY_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
 
-			gDPLoadTextureBlock_4b(OVERLAY_DISP++, cUpLabelTextures[gSaveContext.language], G_IM_FMT_IA, 32, 8, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+			gDPLoadTextureBlock_4b(OVERLAY_DISP++, cUpLabelTextures[GetLanguageIndex()], G_IM_FMT_IA, 32, 8, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
 			gSPTextureRectangle(OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_C_UP_ICON_X) << 2, R_C_UP_ICON_Y << 2, (GFX_ALIGN_RIGHT(R_C_UP_ICON_X) + 32) << 2, (R_C_UP_ICON_Y + 8) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 		}
@@ -3986,10 +3995,10 @@ void Interface_Draw(GlobalContext* globalCtx)
 			gDPLoadTextureBlock_4b(
 			    OVERLAY_DISP++, interfaceCtx->doActionSegment2, G_IM_FMT_IA, DO_ACTION_TEX_WIDTH, DO_ACTION_TEX_HEIGHT, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
-			R_B_LABEL_DD = (1 << 10) / (WREG(37 + gSaveContext.language) / 100.0f);
+			R_B_LABEL_DD = (1 << 10) / (WREG(37 + GetLanguageIndex()) / 100.0f);
 			gSPTextureRectangle(
-			    OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_B_LABEL_X(gSaveContext.language)) << 2, R_B_LABEL_Y(gSaveContext.language) << 2, (GFX_ALIGN_RIGHT(R_B_LABEL_X(gSaveContext.language)) + DO_ACTION_TEX_WIDTH) << 2,
-			    (R_B_LABEL_Y(gSaveContext.language) + DO_ACTION_TEX_HEIGHT) << 2, G_TX_RENDERTILE, 0, 0, R_B_LABEL_DD, R_B_LABEL_DD);
+			    OVERLAY_DISP++, GFX_ALIGN_RIGHT(R_B_LABEL_X(GetLanguageIndex())) << 2, R_B_LABEL_Y(GetLanguageIndex()) << 2, (GFX_ALIGN_RIGHT(R_B_LABEL_X(GetLanguageIndex())) + DO_ACTION_TEX_WIDTH) << 2,
+			    (R_B_LABEL_Y(GetLanguageIndex()) + DO_ACTION_TEX_HEIGHT) << 2, G_TX_RENDERTILE, 0, 0, R_B_LABEL_DD, R_B_LABEL_DD);
 		}
 
 		gDPPipeSync(OVERLAY_DISP++);
@@ -4044,7 +4053,7 @@ void Interface_Draw(GlobalContext* globalCtx)
 		gDPSetCombineLERP(OVERLAY_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
 		gDPSetPrimColor(OVERLAY_DISP++, 0, 0, 255, 255, 255, interfaceCtx->aAlpha);
 		gDPSetEnvColor(OVERLAY_DISP++, 0, 0, 0, 0);
-		Matrix_Translate(0.0f, 0.0f, WREG(46 + gSaveContext.language) / 10.0f, MTXMODE_NEW);
+		Matrix_Translate(0.0f, 0.0f, WREG(46 + GetLanguageIndex()) / 10.0f, MTXMODE_NEW);
 		Matrix_Scale(1.0f, 1.0f, 1.0f, MTXMODE_APPLY);
 		Matrix_RotateX(interfaceCtx->unk_1F4 / 10000.0f * FRAMERATE_SCALER, MTXMODE_APPLY);
 		gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(globalCtx->gfxCtx, "../z_parameter.c", 3701), G_MTX_MODELVIEW | G_MTX_LOAD);

@@ -53,6 +53,15 @@ static_assert((int)(DEGTORAD(180) * 100) == 314, "DEGTORAD assert failed");
 Gfx* KaleidoScope_DrawPageSections(Gfx* gfx, Vtx* vertices, void** textures);
 s16 KaleidoScope_SetPageVertices(GlobalContext* globalCtx, Vtx* vtx, s16 pageId, s16 arg3);
 
+// test
+static int GetLanguageIndex(int maxLang = LANGUAGE_FRA)
+{
+	if(gSaveContext.language > maxLang)
+		return 0;
+	else
+		return gSaveContext.language;
+}
+
 static s16 gUknItemVtxIndexLUT[] = {0, 4, 8, 12, 24, 32, 56};
 
 static s16 D_8082B12C[] = {-114, 12, 44, 76};
@@ -524,7 +533,7 @@ namespace oot::pause
 
 			void postDraw(GlobalContext* globalCtx, GraphicsContext* __gfxCtx, float inRadius, bool active) override
 			{
-				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sSelectItemTexs[gSaveContext.language]);
+				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sSelectItemTexs[GetLanguageIndex()]);
 				KaleidoScope_DrawItemSelect(globalCtx, this);
 			}
 
@@ -664,7 +673,7 @@ namespace oot::pause
 
 			void postDraw(GlobalContext* globalCtx, GraphicsContext* __gfxCtx, float inRadius, bool active) override
 			{
-				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sMapTexs[gSaveContext.language]);
+				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sMapTexs[GetLanguageIndex()]);
 				KaleidoScope_DrawWorldMap(globalCtx, __gfxCtx, this);
 			}
 		};
@@ -720,7 +729,7 @@ namespace oot::pause
 				void postDraw(GlobalContext* globalCtx, GraphicsContext* __gfxCtx, float inRadius, bool active) override
 				{
 					PauseContext* pauseCtx = &globalCtx->pauseCtx;
-					POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sMapTexs[gSaveContext.language]);
+					POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sMapTexs[GetLanguageIndex()]);
 					KaleidoScope_DrawDungeonMap(globalCtx, __gfxCtx, this);
 					func_800949A8(__gfxCtx);
 
@@ -895,7 +904,7 @@ namespace oot::pause
 			void postDraw(GlobalContext* globalCtx, GraphicsContext* __gfxCtx, float inRadius, bool active) override
 			{
 				PauseContext* pauseCtx = &globalCtx->pauseCtx;
-				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sQuestStatusTexs[gSaveContext.language]);
+				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sQuestStatusTexs[GetLanguageIndex()]);
 				KaleidoScope_DrawQuestStatus(globalCtx, __gfxCtx, this);
 
 				if(active && pauseCtx->cursorSpecialPos == 0)
@@ -1064,7 +1073,7 @@ namespace oot::pause
 			void postDraw(GlobalContext* globalCtx, GraphicsContext* __gfxCtx, float inRadius, bool active) override
 			{
 				PauseContext* pauseCtx = &globalCtx->pauseCtx;
-				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sEquipmentTexs[gSaveContext.language]);
+				POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, m_pageVtx.get(), (void**)sEquipmentTexs[GetLanguageIndex()]);
 				KaleidoScope_DrawEquipment(globalCtx, this);
 
 				if(active && pauseCtx->cursorSpecialPos == 0)
@@ -1891,14 +1900,14 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx)
 		}
 		else
 		{
-			POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, pauseCtx->saveVtx, (void**)sSaveTexs[gSaveContext.language]);
+			POLY_OPA_DISP = KaleidoScope_DrawPageSections(POLY_OPA_DISP, pauseCtx->saveVtx, (void**)sSaveTexs[GetLanguageIndex()]);
 		}
 
 		gSPVertex(POLY_OPA_DISP++, &pauseCtx->saveVtx[60], 32, 0);
 
 		if(((pauseCtx->state == 7) && (pauseCtx->unk_1EC < 4)) || (pauseCtx->state == 0xE))
 		{
-			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sSavePromptTexs[gSaveContext.language], 152, 16, 0);
+			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sSavePromptTexs[GetLanguageIndex()], 152, 16, 0);
 
 			gDPSetCombineLERP(POLY_OPA_DISP++, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 100, 100, 255, VREG(61));
@@ -1916,9 +1925,9 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx)
 			gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
 
-			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[gSaveContext.language][0], 48, 16, 12);
+			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[GetLanguageIndex()][0], 48, 16, 12);
 
-			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[gSaveContext.language][1], 48, 16, 16);
+			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[GetLanguageIndex()][1], 48, 16, 16);
 		}
 		else if(((pauseCtx->state == 7 && pauseCtx->unk_1EC >= 4) || pauseCtx->state == 0xF) && oot::config().game().restoreSaveConfirmation())
 		{
@@ -1928,7 +1937,7 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx)
 		{
 			if((pauseCtx->state != 0xF) && ((pauseCtx->state == 0x10) || (pauseCtx->state == 0x11)))
 			{
-				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sContinuePromptTexs[gSaveContext.language], 152, 16, 0);
+				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sContinuePromptTexs[GetLanguageIndex()], 152, 16, 0);
 
 				gDPSetCombineLERP(POLY_OPA_DISP++, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0);
 				gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 100, 100, 255, VREG(61));
@@ -1946,9 +1955,9 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx)
 				gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 				gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pauseCtx->alpha);
 
-				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[gSaveContext.language][0], 48, 16, 12);
+				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[GetLanguageIndex()][0], 48, 16, 12);
 
-				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[gSaveContext.language][1], 48, 16, 16);
+				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[GetLanguageIndex()][1], 48, 16, 16);
 			}
 		}
 
@@ -2266,24 +2275,24 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 
 		if(pauseCtx->state == 7)
 		{
-			pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(61 + gSaveContext.language);
+			pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(61 + GetLanguageIndex());
 
 			pauseCtx->infoPanelVtx[17].v.ob[0] = pauseCtx->infoPanelVtx[19].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + 24;
 
-			pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + gSaveContext.language);
+			pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + GetLanguageIndex());
 
-			pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADE0[gSaveContext.language];
+			pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADE0[GetLanguageIndex()];
 
 			pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 0x300;
 
-			pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADE0[gSaveContext.language] << 5;
+			pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADE0[GetLanguageIndex()] << 5;
 
 			gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
 
 			gDPPipeSync(POLY_OPA_DISP++);
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD60[gSaveContext.language], D_8082ADE0[gSaveContext.language], 16, 4);
+			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD60[GetLanguageIndex()], D_8082ADE0[GetLanguageIndex()], 16, 4);
 		}
 		else if(pauseCtx->cursorSpecialPos != 0)
 		{
@@ -2302,11 +2311,11 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 
 				if(pauseCtx->cursorSpecialPos == PAUSE_CURSOR_PAGE_LEFT)
 				{
-					tex = gPages.prev(pauseCtx->pageIndex)->infoPanelTexture(gSaveContext.language);
+					tex = gPages.prev(pauseCtx->pageIndex)->infoPanelTexture(GetLanguageIndex());
 				}
 				else
 				{
-					tex = gPages.next(pauseCtx->pageIndex)->infoPanelTexture(gSaveContext.language);
+					tex = gPages.next(pauseCtx->pageIndex)->infoPanelTexture(GetLanguageIndex());
 				}
 
 				if(tex)
@@ -2321,24 +2330,24 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 
 			if(current->id() == PAUSE_ITEM)
 			{
-				pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(49 + gSaveContext.language);
+				pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(49 + GetLanguageIndex());
 
 				pauseCtx->infoPanelVtx[17].v.ob[0] = pauseCtx->infoPanelVtx[19].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + 48;
 
-				pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(58 + gSaveContext.language);
+				pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(58 + GetLanguageIndex());
 
-				pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADD8[gSaveContext.language];
+				pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADD8[GetLanguageIndex()];
 
 				pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 0x600;
 
-				pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADD8[gSaveContext.language] << 5;
+				pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADD8[GetLanguageIndex()] << 5;
 
 				gSPDisplayList(POLY_OPA_DISP++, gCButtonIconsDL);
 
 				gDPPipeSync(POLY_OPA_DISP++);
 				gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD54[gSaveContext.language], D_8082ADD8[gSaveContext.language], 16, 4);
+				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD54[GetLanguageIndex()], D_8082ADD8[GetLanguageIndex()], 16, 4);
 			}
 			else if((current->id() == PAUSE_MAP) && sInDungeonScene)
 			{
@@ -2347,51 +2356,51 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 			{
 				if(pauseCtx->namedItem != PAUSE_ITEM_NONE)
 				{
-					pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(55 + gSaveContext.language);
+					pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(55 + GetLanguageIndex());
 
 					pauseCtx->infoPanelVtx[17].v.ob[0] = pauseCtx->infoPanelVtx[19].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + 24;
 
-					pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + gSaveContext.language);
+					pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + GetLanguageIndex());
 
-					if(gSaveContext.language == LANGUAGE_GER)
+					if(GetLanguageIndex() == LANGUAGE_GER)
 					{
 						pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] - 99;
 					}
 
-					pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADE8[gSaveContext.language];
+					pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADE8[GetLanguageIndex()];
 
 					pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 0x300;
 
-					pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADE8[gSaveContext.language] << 5;
+					pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADE8[GetLanguageIndex()] << 5;
 
 					gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
 
 					gDPPipeSync(POLY_OPA_DISP++);
 					gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-					POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD6C[gSaveContext.language], D_8082ADE8[gSaveContext.language], 16, 4);
+					POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD6C[GetLanguageIndex()], D_8082ADE8[GetLanguageIndex()], 16, 4);
 				}
 			}
 			else if(current->id() == PAUSE_EQUIP)
 			{
-				pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(64 + gSaveContext.language);
+				pauseCtx->infoPanelVtx[16].v.ob[0] = pauseCtx->infoPanelVtx[18].v.ob[0] = WREG(64 + GetLanguageIndex());
 
 				pauseCtx->infoPanelVtx[17].v.ob[0] = pauseCtx->infoPanelVtx[19].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + 24;
 
-				pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + gSaveContext.language);
+				pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + GetLanguageIndex());
 
-				pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADD8[gSaveContext.language];
+				pauseCtx->infoPanelVtx[21].v.ob[0] = pauseCtx->infoPanelVtx[23].v.ob[0] = pauseCtx->infoPanelVtx[20].v.ob[0] + D_8082ADD8[GetLanguageIndex()];
 
 				pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 0x300;
 
-				pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADD8[gSaveContext.language] << 5;
+				pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = D_8082ADD8[GetLanguageIndex()] << 5;
 
 				gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
 
 				gDPPipeSync(POLY_OPA_DISP++);
 				gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD54[gSaveContext.language], D_8082ADD8[gSaveContext.language], 16, 4);
+				POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, D_8082AD54[GetLanguageIndex()], D_8082ADD8[GetLanguageIndex()], 16, 4);
 			}
 		}
 	}
@@ -2418,11 +2427,11 @@ void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx)
 		{
 			if((current->id() == PAUSE_MAP) && !sInDungeonScene)
 			{
-				if(gSaveContext.language)
+				if(GetLanguageIndex())
 				{
 					sp2A += 12;
 				}
-				if(gSaveContext.language == LANGUAGE_FRA)
+				if(GetLanguageIndex() == LANGUAGE_FRA)
 				{
 					sp2A += 12;
 				}
@@ -2436,16 +2445,16 @@ void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx)
 			{
 				osSyncPrintf("zoom_name=%d\n", pauseCtx->namedItem);
 
-				if(gSaveContext.language)
+				if(GetLanguageIndex())
 				{
 					sp2A += 123;
 				}
-				if(gSaveContext.language == LANGUAGE_FRA)
+				if(GetLanguageIndex() == LANGUAGE_FRA)
 				{
 					sp2A += 123;
 				}
 
-				osSyncPrintf("J_N=%d  point=%d\n", gSaveContext.language, sp2A);
+				osSyncPrintf("J_N=%d  point=%d\n", GetLanguageIndex(), sp2A);
 
 				pauseCtx->nameSegment = (u8*)item_name_static_lut[sp2A];
 			}
@@ -3292,34 +3301,36 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						break;
 				}
 
-				if(gSaveContext.language == LANGUAGE_ENG)
+				switch(gSaveContext.language)
 				{
-					pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
-				}
-				else if(gSaveContext.language == LANGUAGE_GER)
-				{
-					pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
-				}
-				else
-				{
-					pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
+					case LANGUAGE_ENG:
+					default:
+						pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
+						break;
+					case LANGUAGE_GER:
+						pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
+						break;
+					case LANGUAGE_FRA:
+						pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
+						break;
 				}
 
 				Interface_SetDoAction(globalCtx, DO_ACTION_DECIDE);
 
 				if(((void)0, gSaveContext.worldMapArea) < 22)
 				{
-					if(gSaveContext.language == LANGUAGE_ENG)
+					switch(gSaveContext.language)
 					{
-						pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36];
-					}
-					else if(gSaveContext.language == LANGUAGE_GER)
-					{
-						pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36 + 22];
-					}
-					else
-					{
-						pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36 + 22 + 22];
+						case LANGUAGE_ENG:
+						default:
+							pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36];
+							break;
+						case LANGUAGE_GER:
+							pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36 + 22];
+							break;
+						case LANGUAGE_FRA:
+							pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36 + 22 + 22];
+							break;
 					}
 				}
 
@@ -3915,17 +3926,18 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 				pauseCtx->iconItem24Segment = _icon_item_24_staticSegmentRomStart;
 				pauseCtx->iconItemAltSegment = _icon_item_gameover_staticSegmentRomStart;
 
-				if(gSaveContext.language == LANGUAGE_ENG)
+				switch(gSaveContext.language)
 				{
-					pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
-				}
-				else if(gSaveContext.language == LANGUAGE_GER)
-				{
-					pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
-				}
-				else
-				{
-					pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
+					case LANGUAGE_ENG:
+					default:
+						pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
+						break;
+					case LANGUAGE_GER:
+						pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
+						break;
+					case LANGUAGE_FRA:
+						pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
+						break;
 				}
 
 				D_8082AB8C = 255;

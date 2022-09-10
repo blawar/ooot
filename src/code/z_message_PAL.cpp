@@ -1271,10 +1271,18 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP)
 	}
 }
 
+static s16 GetLocalized(s16 array[])
+{
+	if(gSaveContext.language > LANGUAGE_SPA)
+		return (s16)array[0];
+	else
+		return (s16)array[gSaveContext.language];
+}
+
 void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y)
 {
-	static s16 sIconItem32XOffsets[] = {74, 74, 74};
-	static s16 sIconItem24XOffsets[] = {72, 72, 72};
+	static s16 sIconItem32XOffsets[] = {74, 74, 74, 74};
+	static s16 sIconItem24XOffsets[] = {72, 72, 72, 72};
 	MessageContext* msgCtx = &globalCtx->msgCtx;
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
@@ -1285,7 +1293,7 @@ void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y)
 	}
 	if(itemId < ITEM_MEDALLION_FOREST)
 	{
-		R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - sIconItem32XOffsets[gSaveContext.language];
+		R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - GetLocalized(sIconItem32XOffsets);
 		R_TEXTBOX_ICON_YPOS = y + 6;
 		R_TEXTBOX_ICON_SIZE = 32;
 		DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), icon_item_static_lut[itemId], 0x1000, "../z_message_PAL.c", 1473);
@@ -1294,7 +1302,7 @@ void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y)
 	}
 	else
 	{
-		R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - sIconItem24XOffsets[gSaveContext.language];
+		R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - GetLocalized(sIconItem24XOffsets);
 		R_TEXTBOX_ICON_YPOS = y + 10;
 		R_TEXTBOX_ICON_SIZE = 24;
 		DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), icon_item_24_static_lut[itemId - ITEM_MEDALLION_FOREST], 0x900, "../z_message_PAL.c", 1482);

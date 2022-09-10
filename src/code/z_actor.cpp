@@ -867,6 +867,15 @@ void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx)
 	}
 }
 
+// test
+static int GetLanguageIndex(int maxLang = LANGUAGE_FRA)
+{
+	if(gSaveContext.language > maxLang)
+		return 0;
+	else
+		return gSaveContext.language;
+}
+
 void TitleCard_Draw(GlobalContext* globalCtx, TitleCardContext* titleCtx)
 {
 	s32 spCC;
@@ -888,7 +897,7 @@ void TitleCard_Draw(GlobalContext* globalCtx, TitleCardContext* titleCtx)
 
 		OPEN_DISPS(globalCtx->gfxCtx, "../z_actor.c", 2824);
 
-		spB0 = spCC * spC8 * gSaveContext.language;
+		spB0 = spCC * spC8 * GetLanguageIndex();
 		spC8 = (spCC * spC8 > 0x1000) ? 0x1000 / spCC : spC8;
 		spB4 = spB8 + (spC8 * 4);
 
