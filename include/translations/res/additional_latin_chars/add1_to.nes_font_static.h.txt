@@ -1,0 +1,13 @@
+extern u8 gMsgCharACLatinCapitalLetterIWithAcuteTex[];
+extern u8 gMsgCharADLatinCapitalLetterOWithAcuteTex[];
+extern u8 gMsgCharAELatinCapitalLetterUWithAcuteTex[];
+extern u8 gMsgCharAFLatinSmallLetterIWithAcuteTex[];
+extern u8 gMsgCharB0LatinSmallLetterOWithAcuteTex[];
+extern u8 gMsgCharB1LatinSmallLetterUWithAcuteTex[];
+extern u8 gMsgCharB2InvertedQuestionMarkTex[];
+extern u8 gMsgCharB3InvertedExclamationMarkTex[];
+extern u8 gMsgCharB4LatinCapitalLetterAWithAcuteTex[];
+extern u8 gMsgCharB5LatinCapitalLetterNWithTildeTex[];
+extern u8 gMsgCharB6LatinSmallLetterNWithTildeTex[];
+
+static void* nes_font_static_lut[] = {

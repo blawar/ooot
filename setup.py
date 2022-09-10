@@ -45,6 +45,26 @@ def generateEncMsgs():
 	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
 	print("Finished message encoding")
 
+def addAdditionalLatinChars():
+	fontcppfile = str(assetPath('textures/nes_font_static/nes_font_static.cpp'))
+	fontheaderfile = str(assetPath('textures/nes_font_static/nes_font_static.h'))
+	tocppfile = str('include/translations/res/additional_latin_chars/add_to.nes_font_static.cpp.txt')
+	toheaderfile1 = str('include/translations/res/additional_latin_chars/add1_to.nes_font_static.h.txt')
+	toheaderfile2 = str('include/translations/res/additional_latin_chars/add2_to.nes_font_static.h.txt')
+	foundtex = 'gMsgCharACLatinCapitalLetterIWithAcuteTex'
+	
+	with open(fontcppfile, 'r+') as fontcpp:
+		if not foundtex in fontcpp.read():
+				fontcpp.write(open(tocppfile, 'r').read())
+	
+	with open(fontheaderfile, 'r') as fontheader:
+		headertext = fontheader.read()
+		if not foundtex in headertext:
+				headertext = headertext.replace('static void* nes_font_static_lut[] = {', open(toheaderfile1, 'r').read())
+				headertext = headertext.replace('};', open(toheaderfile2, 'r').read())
+				with open(fontheaderfile, 'w') as fontheader:
+					fontheader.write(headertext)
+
 def build():
 	print("Starting asset extraction and parsing")
 	# sys.executable points to python executable
@@ -60,6 +80,7 @@ def build():
 	subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/create_luts.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/fix_mtx.py'), buildRom()])
+	addAdditionalLatinChars()
 
 	print("Finished asset extraction and parsing")
 
@@ -76,6 +97,7 @@ def main():
 	parser.add_argument("-o", "--organize-roms", help="Renames and moves roms to their proper location", action="store_true", default=False)
 	parser.add_argument("-s", "--skip-organize-roms", help="Skip organizing roms", action="store_true", default=False)
 	parser.add_argument("--run-msgenc", help="Run msgenc", action="store_true", default=False)
+	parser.add_argument("--add-extra-chars", help="Adds new Latin characters", action="store_true", default=False)
 	
 	args = parser.parse_args()
 	
@@ -103,6 +125,10 @@ def main():
 
 	if args.run_msgenc:
 		generateEncMsgs()
+		exit(0)
+
+	if args.add_extra_chars:
+		addAdditionalLatinChars()
 		exit(0)
 
 	if args.enable_mouse:

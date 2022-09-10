@@ -1,0 +1,13 @@
+,
+gMsgCharACLatinCapitalLetterIWithAcuteTex,
+gMsgCharADLatinCapitalLetterOWithAcuteTex,
+gMsgCharAELatinCapitalLetterUWithAcuteTex,
+gMsgCharAFLatinSmallLetterIWithAcuteTex,
+gMsgCharB0LatinSmallLetterOWithAcuteTex,
+gMsgCharB1LatinSmallLetterUWithAcuteTex,
+gMsgCharB2InvertedQuestionMarkTex,
+gMsgCharB3InvertedExclamationMarkTex,
+gMsgCharB4LatinCapitalLetterAWithAcuteTex,
+gMsgCharB5LatinCapitalLetterNWithTildeTex,
+gMsgCharB6LatinSmallLetterNWithTildeTex
+};

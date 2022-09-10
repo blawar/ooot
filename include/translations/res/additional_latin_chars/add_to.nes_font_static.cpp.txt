@@ -1,0 +1,43 @@
+u8 gMsgCharACLatinCapitalLetterIWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_ac_latin_capital_letter_i_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharADLatinCapitalLetterOWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_ad_latin_capital_letter_o_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharAELatinCapitalLetterUWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_ae_latin_capital_letter_u_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharAFLatinSmallLetterIWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_af_latin_small_letter_i_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharB0LatinSmallLetterOWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b0_latin_small_letter_o_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharB1LatinSmallLetterUWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b1_latin_small_letter_u_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharB2InvertedQuestionMarkTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b2_inverted_question_mark.i4.inc.c"
+};
+
+u8 gMsgCharB3InvertedExclamationMarkTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b3_inverted_exclamation_mark.i4.inc.c"
+};
+
+u8 gMsgCharB4LatinCapitalLetterAWithAcuteTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b4_latin_capital_letter_a_with_acute.i4.inc.c"
+};
+
+u8 gMsgCharB5LatinCapitalLetterNWithTildeTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b5_latin_capital_letter_n_with_tilde.i4.inc.c"
+};
+
+u8 gMsgCharB6LatinSmallLetterNWithTildeTex[] = {
+#include "translations/res/additional_latin_chars/msg_char_b6_latin_small_letter_n_with_tilde.i4.inc.c"
+};
